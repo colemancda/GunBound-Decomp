@@ -117,15 +117,33 @@ The decoded TOC isn't one flat array — it's **chunked**:
 | `0x70` | 4 | **Storage-mode flag**: `1` = entry stored **raw/uncompressed** in the archive file; anything else (`0`) = entry is **LZHUF-compressed** (the `XFSEntryBlock` format documented above) | `ReadXFSEntryByte`: `if (*(int*)(record+0x70) == 1)` branches into a direct `SetFilePointer`+`ReadFile` path instead of the ring-buffer/`DecodeXFSEntryBlock` path |
 | `0x74` | 4 | **Base file offset** of the entry's data — interpreted as a raw byte offset into the archive file if the mode flag is `1`, or as the offset of the `XFSEntryBlock` header (`compressedSize`+`checksum`+`compressedData`) if the mode flag is `0` | `ReadXFSEntry` copies this into the reader-state's file-offset field, later used by both `DecodeXFSEntryBlock`'s `SetFilePointer` and the raw-mode `SetFilePointer` in `ReadXFSEntryByte` |
 | `0x78` | 4 | **Decompressed (uncompressed) size** of the entry, in bytes — this is the size a consumer should expect after decompression, used as the EOF check in `ReadXFSEntryByte` (`storedSize <= readCursor` → return 0, i.e. end of entry) | `ReadXFSEntryByte`: `uVar6 = *(uint*)(record+0x78)` compared against the running read-cursor field |
-| `0x7c` | 4 | Unaccounted-for / not observed in any of the three functions traced — likely padding, a reserved field, or a value only read by code not covered in this pass (e.g. a per-entry timestamp or CRC used elsewhere) | Not confirmed |
+| `0x7c` | 4 | **Compressed size on disk** (i.e. the on-disk footprint of the `XFSEntryBlock`'s `compressedData`, only meaningful when the entry is LZHUF-compressed) — distinct from `0x78`'s *decompressed* size | Confirmed via `FUN_004f1220` (the entry-record **insert** function, effectively the archive-writer/pack side — see below): it zero-initializes both `record+0x78` and `record+0x7c` together when creating a fresh record, and a size-accounting function (`FUN_004f18c0`) reads `record+0x78` when the mode flag is `1` (raw) but `record+0x7c` when the mode flag is `0` (compressed) to add to a running byte-loaded counter — i.e. "0x78 = logical/decompressed size" and "0x7c = physical/compressed size," which collapse to the same value only for raw entries |
 
-So: **name string, then three trailing `uint32_t` fields (mode flag, file
-offset, decompressed size) in the last 12 bytes of the 128-byte record**,
-with 4 bytes still unidentified. The exact name-field maximum length
-(`0x70` = 112 bytes budget before the trailing fields, assuming no gap)
-wasn't independently stress-tested against a real long filename in this
-pass, but 112 bytes comfortably covers every filename observed in
-[STRINGS.md](STRINGS.md).
+So: **name string, then four trailing `uint32_t` fields — mode flag, file
+offset, decompressed size, compressed size — occupying the last 16 bytes of
+the 128-byte record.** All four are now fully identified. The exact
+name-field maximum length (`0x70` = 112 bytes budget before the trailing
+fields, assuming no gap) wasn't independently stress-tested against a real
+long filename in this pass, but 112 bytes comfortably covers every filename
+observed in [STRINGS.md](STRINGS.md).
+
+### The archive also has a writer/insert path (not just a reader)
+
+`FUN_004f1220` builds a **brand-new** 128-byte TOC record and inserts it
+into the sorted array at the correct sort position (using the same
+`FUN_004f0990` comparator `FindXFSEntry` uses for lookup), allocating a
+fresh 128 KB chunk when the 1024-entries-per-chunk boundary is crossed and
+shifting existing records to make room — i.e. the exact same TOC structure
+documented above, but built from scratch rather than just read. This
+confirms the field layout further (it explicitly zero-initializes `+0x78`
+and `+0x7c` and sets `+0x70`/`+0x74` at creation time) and reveals the
+client itself contains **archive-writing logic**, not just a reader — this
+is likely used for a runtime avatar/decal cache or similar dynamic content
+that gets appended to an in-memory (or on-disk) `.xfs`-shaped structure,
+rather than being purely a read-only asset format. This pass didn't trace
+who calls `FUN_004f1220` or what triggers writing, so the exact purpose of
+the writer path remains open — but it's worth knowing the format isn't
+strictly append-only/build-time-only.
 
 ### Important caveat for a from-scratch extractor: shared decode state
 
@@ -518,13 +536,15 @@ the exact instruction that first sets it non-null.
 
 ## Known gaps / good next targets
 
-0. **Resolved**: the `.xfs` table-of-contents entry record layout is now
-   fully mapped (128-byte records, sorted for binary search, name +
-   mode-flag + file-offset + decompressed-size fields — see the dedicated
-   section above). This was the missing piece for writing an actual
-   extractor (previously only single-entry lookup by name was documented,
-   not full-archive enumeration). One 4-byte field in the record (`0x7c`)
-   remains unidentified.
+0. **Fully resolved**: the `.xfs` table-of-contents entry record layout is
+   now completely mapped (128-byte records, sorted for binary search, name +
+   mode-flag + file-offset + decompressed-size + compressed-size fields —
+   see the dedicated section above, including the field that was still
+   unidentified last pass). This was the missing piece for writing an
+   actual extractor (previously only single-entry lookup by name was
+   documented, not full-archive enumeration). Also discovered the archive
+   format has a writer/insert code path in the client itself, not just a
+   reader — see the dedicated note above; its caller/trigger wasn't traced.
 1. **Static-analysis-exhausted**: the `.sv` filename format and per-event
    binary record are fully confirmed (see above). The literal `fopen()`-
    equivalent call site was searched exhaustively this pass — every caller
