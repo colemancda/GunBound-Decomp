@@ -257,10 +257,53 @@ function for sprite rotation/orientation (turret angle, etc.) — confirmed
 caller is the render pipeline, not a physics function, but the same table is
 almost certainly reused by whatever function does compute trajectories.
 
-**Where physics likely lives, unconfirmed**: probably inside the handlers for
-`PostTurnEvent`'s `0xc306`/`0xc40b` sub-events, or inside one of the two
-not-yet-decompiled parallel-array update actions (`0x8404`) — these are the
-concrete next leads, rather than searching blindly by FPU density again.
+## The turn state machine (inside `ProcessBattleAction`)
+
+Fully read through this function's remaining branches this round. `param_1[0x42e]`
+is a **turn-phase field** (values 0/3/4 seen). `PostTurnEvent` (`0x4e7d30`,
+delegating to `0x4e86f0`) inserts into a **sorted STL-style tree keyed by
+trigger time** — a scheduled/delayed event queue, not a direct dispatch. This
+confirms turn progression is driven by a chain of timed sub-events, not a
+single function call:
+
+| Action | Behavior |
+|---|---|
+| `0xc300` | **Turn/round start.** Posts a long chain of scheduled sub-events: `0x8005`, `0x8006`, `0xc306`, `0xc400`, `0xc401`, `0x8403` (Fire), `0x8405` (weapon sound), `0xc409`. |
+| `0xc303` (sub-switch on a byte) | `0`/`1`/`2` set the turn-phase field to `3`/`4`/`0`. `0xe`/`0xf` (near-identical bodies) do full turn-setup (viewport data, sound) then post the *same* `0xc300` event chain — i.e. these are two slightly different "advance to next turn" triggers (normal end vs. timeout/surrender, unconfirmed which). |
+| `0xc304` | **Movement.** Sub-cases on a 4-bit direction value (1/2/3, and a `&0x10` "running" flag) each: look up a per-player name/label buffer (confirmed **0x1120-byte stride**, a second parallel per-player array distinct from the 0x224-byte one), play a directional movement sound, call `FUN_004368f0` with a magnitude (`1`/`-4`/`0xffffffff`) — **this turned out to be a sound/cursor-effect trigger, not velocity application** (its object's vtable calls the same cursor-set function used elsewhere for `normal`/`wnormal` cursors). The actual position delta write wasn't isolated in this branch. |
+| `0xc305` | Turn timeout/expiry: resets the turn-phase-related byte, sets a duration constant (`0x11`/`0x10`/`0xb5` depending on a difficulty flag) into a countdown global, shows a "turn's up" style message. |
+| `0xc306` | Aim/direction confirm — reads a final ushort field into the turn-timer slot (`+0x429`), clears a per-slot cooldown field. |
+
+**Net result on physics**: extensively searched (FPU-instruction-density scan
+across all 2,300+ functions, traced every per-frame vtable call `GameTick`
+makes for the battle state, fully read `ProcessBattleAction`'s ~1,000 lines,
+checked the object created by the movement sound-effect call). **The exact
+gravity/velocity-integration code was not isolated.** What's confirmed instead
+is the complete *scaffolding* around it: the 50 ms/20 Hz tick rate, the turn
+state machine and its event-chain, the Fire action's payload layout (2 fields
++ 2 flags + 2 fields + 8 shorts, likely trajectory waypoints), the sine table,
+and that it's not in the per-frame render pipeline. Best remaining leads for a
+future session: decompile `0xc400`/`0xc401`/`0xc409`/`0x8005`/`0x8006` (posted
+by `0xc300` but not yet read), and `0x8404` (a second parallel-array update
+distinct from `0x8408`'s spawn — possibly per-shot/per-projectile state).
+
+## Packet-checksum utility family (broadly recurring)
+
+A cluster of tiny functions, called from nearly every packet handler decompiled
+so far, all wrapping the same critical-section-protected state (accessed via
+an implicit register "this", not a normal parameter — same custom-calling-
+convention pattern as `ChangeGameState`):
+- `PeekPacketChecksumState` (`0x40a2e0`) — read current value.
+- `AddToPacketChecksum` / `SubFromPacketChecksum` (`0x40aab0`/`0x40aaf0`) —
+  read, add/subtract, re-encode.
+- `PacketChecksumEquals` / `PacketChecksumNotEquals` (`0x40b270`/`0x40b2a0`) —
+  equality checks against the same state (previously mis-characterized in
+  earlier notes as generic "flag checks").
+- `EncodeChecksumState` / `EncodeChecksumStateXored` (`0x40a4a0`/`0x40a440`) —
+  push the current or XOR-mixed value through `EncodeOutgoingPacketField`.
+
+Also named this round: `GetPlayerRecordBySlot` (`0x4206f0`) — a per-slot
+player-record accessor called throughout the battle/room code.
 
 ## The replay-recording system
 
