@@ -169,6 +169,60 @@ Opcodes shared with the ready room (`0x2001`, `0x3020`, `0x3233`, `0x3400`,
 | `0x3400` | separate branch, not fully traced |
 | `0x3fff` | Same "leave/cancel" outgoing `0x2000`/`0xffff` packet as the ready room. |
 
+## Battle action protocol — `State11_InBattle_ProcessBattleAction` (`0x4b5460`)
+
+**Answers the open question from the previous round**: the actual move/aim/
+fire/damage traffic is *not* handled by `State11_InBattle_ProcessPacket`
+(`0x4b4100`) — it's a **separate `CGameState` virtual method, vtable slot 2**
+(`+0x08`, right after `ProcessPacket` at slot 1). Confirmed via decompile +
+`bsfire`/`bfire1`/`bfire2`/`bifire`/`ifire`/`sfire` (weapon-firing cursor
+images) and `sudden.mp3` (sudden-death music) string references — this is
+unambiguously the core battle simulation, and the largest function in the
+binary (11,718 bytes).
+
+**This is a real, second protocol channel, not an isolated one-off.** Slot 2
+is the shared `CGameState_NoOpVirtual_B` no-op for every state *except*
+Loading (`0x43e440`), Ready Room (`0x4d4ea0`), and In-Battle (`0x4b5460`) —
+exactly the three states where P2P connection setup and real-time sync would
+matter. All three share the *identical* packet header format and an
+overlapping action-code namespace (confirmed: action `3` = `ShowMessage` in
+both Loading and In-Battle; action `0x8100` in Ready Room matches a replay
+event code also used elsewhere). Working theory: **slot 1 (`ProcessPacket`)
+is the reliable server-relayed protocol; slot 2 is the real-time P2P channel**
+(`recvfrom`/`sendto`, the `CCommP2P<>` notify window from Phase 1) — not
+proven at the socket-receive level, but the state-coverage pattern alone is
+strong evidence.
+
+A striking confirmation of the cross-state design: Loading's slot 2 handles
+action `0xc301` by writing directly into the **In-Battle object's fields**
+(`g_gameStateVTableArray[0xb]`, i.e. state 11, `+0x10a4` and `+0x2302`)
+*before* state 11 is even the active state — pre-populating battle setup data
+(a turn-timer value, checked against `60000`/`0xffff` — 60000 ms matches
+GunBound's classic 60-second turn limit — and an 8-element array, likely
+wind/spawn data) while still on the loading screen.
+
+**Packet header** (`packetBuf`, `packetLen`):
+- `+0x02` (ushort): action type — families seen: `0x3`, `0x40xx`, `0x84xx`,
+  `0x85xx`, `0xc4xx`, `0xc801`.
+- `+0x05` (byte): source player slot, **validated `<= 7`** (confirms the
+  8-player cap independently again).
+- `+0x21` (33): payload start.
+
+Action `0x8500` matches a replay-log event code exactly — strong evidence this
+function processes **both live network packets and recorded replay events**
+through the same code path (i.e. replay playback re-feeds logged `0x8xxx`
+events into this same dispatcher rather than having a separate player).
+
+| Action | Behavior |
+|---|---|
+| `3` | Calls the `ShowMessage`-style virtual at `this vtable +0x28` with a formatted string — a generic in-battle notification/toast. |
+| `0x4001` | Single-byte flag toggle (only when the acting slot isn't this client) — cheap status flag, not yet identified precisely. |
+| `0x4002` | **Chat message with spatial proximity filtering**: computes the distance between the sender and each of the 8 player slots, delivering the message only within ~150 units — positional/proximity chat during battle. |
+| `0x4003`, `0x4004` | Similar per-player text-record lookups/inserts (`FUN_004259d0`/`FUN_0041b8c0`, the same helpers seen in the room-list handler) — likely other chat/notification variants (team chat? system message?). |
+| `0x8406` | Relays two ushort fields + a boolean flag from the packet through the outgoing-packet-encoding helpers (`FUN_0040a470`/`FUN_0040a4a0`) — likely an **aim/angle+power update** being re-broadcast or applied locally. |
+| `0x8407` | Selects one of three lookup tables by a mode byte (1/2/3) — purpose unclear, possibly per-weapon or per-stage table selection. |
+| `0x8408` | **Player spawn into battle**: appends a new entry across four parallel per-slot arrays at `+0x228`/`+0x2a8`/`+0x328`/`+0x3a8` (position/id/slot fields), calls `FUN_004ccc60` (spawn visual?), increments the player count. These are the *same* parallel arrays that `0x3020`'s disconnect handler shifts down — confirms a structure-of-arrays layout for the 8 battle slots. |
+
 ## The replay-recording system
 
 **High confidence.** GunBound records matches to a local replay file:
@@ -234,24 +288,29 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
    + look for distinguishing calls/strings) applies; lower priority than the
    protocol work since screens are already identified via OnEnter.
 4. **DONE** — states 9 and 11's `ProcessPacket` overrides found, named, and
-   mapped (see above). Discovered the client-side **replay-recording system**
-   as a byproduct (`.sv` files, typed event log, `Replay_AppendEvent`/
-   `Replay_FlushEvent`). Still open: the actual in-battle move/aim/fire/damage
-   opcodes weren't found in `0x4b4100` — they're likely dispatched elsewhere
-   (a physics/turn-engine module, not the screen's `ProcessPacket`, since
-   `0x4b4100` was mostly disconnect/leave/end-of-match handling). Worth a
-   dedicated pass: search for `recvfrom`/opcode-dispatch patterns *outside*
-   the `CGameState` vtable structure, in the ~11 KB battle object itself.
-   Reconstructing the `.sv` replay format (event-code table below) is also a
-   good, self-contained next target.
-5. Map the remaining un-traced opcodes: state 3's `0x2111`; state 7's
+   mapped. Discovered the client-side **replay-recording system** as a
+   byproduct (`.sv` files, typed event log, `Replay_AppendEvent`/
+   `Replay_FlushEvent`).
+5. **DONE** — found and mapped the second virtual channel: `CGameState`
+   vtable slot 2 (`ProcessBattleAction`), overridden only by Loading, Ready
+   Room, and In-Battle (every other state uses the shared no-op) — strong
+   confirmation this is a real-time/P2P-adjacent protocol distinct from
+   `ProcessPacket`. Found a concrete cross-state data handoff (Loading writes
+   turn-timer + setup data directly into the In-Battle object before it's
+   even active). Socket-level proof (which recv path feeds slot 1 vs slot 2)
+   is still unconfirmed — would need to trace `recv`/`recvfrom` callers
+   forward rather than working backward from the vtables. Also still open:
+   most of the `0x84xx`/`0xc4xx` action codes beyond `0x8406`/`0x8407`/
+   `0x8408`, and the meaning of `+0x10a4`/`+0x2302` on the In-Battle object
+   beyond "turn timer" / "8-element setup array."
+6. Map the remaining un-traced opcodes: state 3's `0x2111`; state 7's
    `0x6027` and the tail of `0x6037`'s purchase-commit path
    (`FUN_0044c370`); state 11's `0x3400`.
-6. Five `ChangeGameState` call sites (`0x443350`, `0x443561`, `0x4b9ebe`,
+7. Five `ChangeGameState` call sites (`0x443350`, `0x443561`, `0x4b9ebe`,
    `0x4e0c68`, `0x4e5421`) are switch/jump fragments *inside* larger functions
    whose auto-analysis was truncated — no standalone prologue nearby. They need
    manual function-boundary repair in the Ghidra GUI. Low priority.
-7. Reconstruct concrete structs from confirmed strides: `struct InventoryItem`
+8. Reconstruct concrete structs from confirmed strides: `struct InventoryItem`
    (0x9c/156 bytes: id fields + expiry date + variable blob), `struct
    RoomPlayerSlot` (0x80/128 bytes: name + stats), `struct PlayerGameSlot`
    (0x224/548 bytes, purpose/fields still unknown beyond size and that it's
