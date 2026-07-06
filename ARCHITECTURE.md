@@ -141,14 +141,53 @@ layout (confirmed across states 1–11) is:
 | 0 | +0x00 | scalar-deleting destructor | `CGameState_ScalarDeletingDestructor` (`0x4e5320`) on every state; calls `CGameState_BaseDestructor` (`0x426ac0`), which resets the vtable ptr to the shared null-object vtable (`0x553fb0`) — a "poisoned after destroy" idiom. |
 | 1 | +0x04 | **`ProcessPacket(int payloadLen, ushort opcode, ushort *payload)`** | Virtual, overridden per state. No-op in states that don't need network handling (`CGameState_NoOpVirtual_A`, `0x448430`). Real overrides confirmed for state 2 (`State02_ServerSelect_ProcessPacket`, `0x4e02b0`), state 3 (`State03_GameRoomList_ProcessPacket`, `0x426ad0`), state 7 (`State07_AvatarStore_ProcessPacket`, `0x4440c0`) — all three share the identical `(this,int,ushort,ushort*)` signature, confirmed via decompiler param commit. |
 | 2–4 | +0x08..+0x10 | other per-state virtuals, usually no-op (`CGameState_NoOpVirtual_B`, `0x4fdef0`) except where overridden (e.g. state 3 slots 5–6 at `0x4285c0`/`0x428b90`) | input handlers? (untested) |
+| 5 | +0x14 | **Keyboard/chat-input dispatcher** (confirmed for state 11 — see dedicated section below) | dispatches on a message-code-like first parameter (3-arg signature), handles chat-buffer state |
+| 6 | +0x18 | **Mouse-input dispatcher** (confirmed for state 11) | dispatches directly on **Win32 mouse message codes** (`0x202`=`WM_LBUTTONUP`, `0x204`=`WM_RBUTTONDOWN`, etc.) — this is the input-routing virtual the original "input handlers? (untested)" note was hypothesizing |
 | 7 | +0x1c | **OnEnter** | confirmed for all named states — loads that screen's `.img`/`.mp3` resources |
 | 8 | +0x20 | **OnExit** | confirmed for all named states |
-| 9 | +0x24 | another per-state virtual, present past OnExit | untested |
+| 9 | +0x24 | another per-state virtual, present past OnExit — **for state 11 specifically, a large (17KB decompiled) cursor/update function** using `HCURSOR`, consistent with earlier notes elsewhere in this document about "camera-scroll cursor logic" living in this slot for some states | confirmed present, not fully mapped |
 
 Each screen effectively has its **own protocol dispatcher** — decompiling
 state N's slot-1 override is the way to find that screen's opcode handling
 (server list ops live in state 2's handler, avatar-store purchases in state
 7's, etc.), not just the room-list one.
+
+### State 11 (In-Battle) full vtable map — confirmed
+
+Dumped `vtable_State11_InBattle` (`0x5566d8`) directly — an 18-entry
+vtable (confirmed by the array running into non-code data immediately
+after slot 17) — and decompiled every previously-unnamed slot to identify
+its role:
+
+| Slot | Address | Role |
+|---|---|---|
+| 0 | `0x4b4060` | destructor (`FUN_004b4060`, not yet separately confirmed as the standard scalar-deleting pattern) |
+| 1 | `0x4b4100` | `State11_InBattle_ProcessPacket` |
+| 2 | `0x4b5460` | `State11_InBattle_ProcessBattleAction` |
+| 3, 4 | `0x4fdef0` | shared no-op (`CGameState_NoOpVirtual_B`) |
+| 5 | `0x4b82b0` | **Keyboard/chat-input dispatcher** — 3-parameter signature, dispatches on the first parameter as a message/command code (confirmed cases `0x1d`, `0x39`, `0x32`-prefixed sub-switch); touches per-connection chat-state byte arrays |
+| 6 | `0x4b97d0` | **Mouse-input dispatcher** — dispatches directly on literal Win32 mouse message values (`> 0x202`, `== 0x204`, `!= 0x205` branches are visible — i.e. `WM_LBUTTONUP`/`WM_RBUTTONDOWN`/`WM_RBUTTONUP` territory) |
+| 7 | `0x4bb730` | `State11_InBattle_OnEnter` |
+| 8 | `0x4bcd00` | `State11_InBattle_OnExit` |
+| 9 | `0x4bd8b0` | Large (17KB decompiled) function using `HCURSOR` — cursor/per-frame update logic, not fully mapped |
+| 10 | `0x4c1b90` | **Chat character-input helper**: appends a typed character into a per-message buffer at `+0x58b64` (9-byte stride) and a secondary buffer at `+0x58c4a` (14-byte stride), with a literal control-character remap table (`'@'→0x0a`, `'#'→0x0b`, `'$'→0x0c`, `'%'→0x0d`, `'^'→0x0e`, `'&'→0x0f`, `'*'→0x10`) — almost certainly the mechanism behind GunBound's in-chat emoticon/special-character shortcuts (typing `^` or `&` inserting a small icon rather than the literal character) |
+| 11 | `0x4c1c90` | Small per-tick-looking helper (increments a counter at `this+8`, conditionally calls a couple of update functions) |
+| 12 | `0x4c1d10` | One-line delegate — calls `FUN_004508a0` on a fixed per-connection offset (`+0x6a7f88`), nothing else |
+| 13 | `0x4c1d30` | Large (4.7KB decompiled) function referencing `SpecialTexture1`/`SpecialTexture2` — a special-weapon-effect render function |
+| 14 | `0x4c3020` | `State11_InBattle_Render` |
+| 15 | `0x4c8890` | Large (9.4KB decompiled) function touching the **same chat-buffer offsets as slot 10** (`+0x58b64`, `+0x58bbe`, `+0x58c4a`, `+0x5917c`) — almost certainly the **chat-message finalize/send** counterpart to slot 10's character-append |
+| 16 | `0x4caed0` | `State11_InBattle_RenderModeIcons` |
+| 17 | `0x429800` | Confirmed genuine no-op (function body is a single `return;`, distinct from the shared `CGameState_NoOpVirtual_B`) — a state-specific empty override rather than reuse of the common stub |
+
+This substantially resolves the original "input handlers? (untested)"
+open question for at least one state: slots 5/6 are confirmed input
+dispatchers (chat/keyboard and mouse respectively), slots 10/15 are a
+confirmed chat-input-append/finalize pair, and slot 13 is a
+special-effect renderer. The same technique (dump the vtable via its
+named `vtable_StateNN_Name` symbol, decompile each unnamed slot) would
+work for the other 15 states, but wasn't repeated for all of them this
+pass — In-Battle was chosen as the highest-value target given its
+gameplay centrality.
 
 ## Network protocol — `State03_GameRoomList_ProcessPacket` (`0x426ad0`)
 
@@ -607,10 +646,20 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
    `ProcessPacket`, OnEnter, OnExit); three per-state `ProcessPacket` overrides
    found and their opcode spaces mapped (room list, server select, avatar
    store).
-3. Slots 2–6 and 9+ in each vtable are still mostly un-named `FUN_*` —
-   probably per-state input/update/render virtuals. Same technique (decompile
-   + look for distinguishing calls/strings) applies; lower priority than the
-   protocol work since screens are already identified via OnEnter.
+3. **Substantially advanced for one state.** Confirmed the "input/update/
+   render virtuals" hypothesis directly for state 11 (In-Battle) — dumped
+   its full 18-entry vtable and decompiled every previously-unnamed slot:
+   slot 5 is a keyboard/chat-input dispatcher, slot 6 dispatches on literal
+   Win32 mouse message codes, slots 10/15 are a matched chat-character-
+   append/message-finalize pair (with a confirmed control-character
+   emoticon-shortcut remap table), slot 13 is a special-weapon-effect
+   renderer, slot 9 is a large cursor/update function, and slot 17 is a
+   genuine state-specific no-op. See the dedicated "State 11 full vtable
+   map" section above. The same technique (find the state's
+   `vtable_StateNN_Name` symbol, dump slots, decompile the unnamed ones)
+   would work for the other 15 states but wasn't repeated for all of them
+   this pass — still a good next target if more per-state input/render
+   detail is wanted, now with a proven, fast methodology.
 4. **DONE** — states 9 and 11's `ProcessPacket` overrides found, named, and
    mapped. Discovered the client-side **replay-recording system** as a
    byproduct (`.sv` files, typed event log, `Replay_AppendEvent`/
