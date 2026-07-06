@@ -1061,7 +1061,34 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
    string followed by several more fields and two dynamically-sized arrays
    — a genuine, distinct **widget-definition micro-format** living inside
    the XFS archive, parsed byte-by-byte like `ChooseEvent.txt` but binary
-   rather than text. Not decoded field-by-field in this pass.
+   rather than text.
+
+   **Now decoded field-by-field**, from a full decompile of
+   `LoadButtonDefinitionFromXFS` itself: the entry opens with a 4-byte
+   `count`, then exactly `count` records of:
+   ```
+   uint32   nameLen
+   char     name[nameLen]     // raw bytes, NOT null-terminated on disk —
+                               // the loader allocates nameLen+1 and writes
+                               // its own NUL terminator at name[nameLen]
+   uint8    typeByte           // a per-record flag/type byte
+   uint32   subCount
+   uint32   arrayA[subCount]
+   uint32   arrayB[subCount]
+   ```
+   confirmed by matching every `operator_new` call's size against which
+   field it was sized from (`nameLen+1` for the name buffer, `subCount<<2`
+   for both trailing arrays) and the read order/count in the loop body —
+   the same "byte-by-byte via `ReadXFSEntryByte`" style already established
+   for `.img` frame headers. `arrayA`/`arrayB`'s semantics (most likely
+   per-state hit-region or offset data, given the button widget's own
+   separate position/size/texture fields are supplied elsewhere by
+   `CreateButtonWidget`) weren't pinned down further — the exact XFS entry
+   name this reads from is also passed in via a register set by this
+   function's own caller (not visible to the decompiler) rather than
+   hardcoded here, so it wasn't traced to a specific archive filename in
+   this pass. The byte-level record shape itself is fully confirmed
+   regardless.
 3. **`CreateButtonWidget`** (`0x406020`, was `FUN_00406020`) is the actual
    per-button object constructor — allocates an 80-byte heap object with a
    **shared vtable** (`vtable_ButtonWidget`, `0x551e44`), storing position/
@@ -1114,10 +1141,30 @@ concept in this engine, not separate systems.
 3. The developer-name chat easter egg (see above) — what it actually does
    when triggered isn't traced.
 4. The function that **iterates** the active-object registry once per frame
-   (calling each registered widget/effect's draw method) wasn't isolated —
-   the registration side (`RegisterActiveObject`, the sorted-tree insert)
-   is fully confirmed, but its consuming iteration loop is the one piece
-   left to find to fully close this thread.
-5. `LoadButtonDefinitionFromXFS`'s binary widget-definition format (the
-   count-prefixed sub-record structure read from `graphics.xfs`) isn't
-   decoded field-by-field.
+   — **reframed, not simply "not yet found."** Traced `CreateButtonWidget`'s
+   call site raw disassembly to see exactly what it passes as
+   `RegisterActiveObject`'s registry argument: `MOV EDX,[ESP+8]` — one of
+   `CreateButtonWidget`'s own stack parameters, not a hardcoded constant —
+   and that value resolves to the same `&DAT_00ea0e18`-family global
+   already documented elsewhere in this codebase as the root of a
+   generic keyed-object tree used for texture/resource cache lookups (the
+   tree-root formula, `*(int*)(*(int*)(root+4)+0x1c)`, is textually
+   identical in both `RegisterActiveObject` and the texture-lookup helper
+   `FUN_004f30c0`). That means "active render objects" and "cached
+   resources looked up by ID" most likely live in **one shared generic
+   container**, not two separate systems with their own insert/iterate
+   pair — reinforcing the "one reusable sorted-container primitive" finding
+   already made for the turn-event queue. Given that, a single dedicated
+   "walk every active object and draw it" function may not exist as a
+   distinct routine at all — every draw call site seen so far (including
+   the many small per-icon `BlitSprite16bpp`/`BlitSpriteClipped` dispatches
+   found throughout the UI code) does its own **targeted lookup by a known
+   key**, not a full in-order sweep. This thread is left open, but the
+   original framing ("find the iteration loop") may have been the wrong
+   question — the more likely follow-up is confirming whether *any* full
+   tree traversal exists anywhere, rather than continuing to search for
+   one assumed to exist.
+5. ~~`LoadButtonDefinitionFromXFS`'s binary widget-definition format~~ —
+   **resolved**, see the writeup above: `count`, then per-record
+   `nameLen`/`name`/`typeByte`/`subCount`/two `subCount`-length dword
+   arrays. Semantics of the two trailing arrays remain unconfirmed.
