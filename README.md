@@ -22,13 +22,20 @@ before relying on any progress here.
 | `GunBound.gme` | `4af6283dfd151f5256b9bc0da8d07fff16384950c00da3b2baae825f5fc0fcde` | 1,815,040 |
 | `Launcher.cs` | `6b6f479b24632391ade9b4a959029464832a3c08a598912360d1ecf5add0b258` | 16,876 |
 | `avatar.xfs` | `117399ff9d2aed6b2777f992617c47cb073881845473d013f9a3e782c1a31d96` | 122,361 |
+| `graphics.xfs` | `d8d74e09ea223af34842161a9b0ca256b6b2e30e92d165dd0cd31b7ccabf111c` | 206,333,514 |
+| `sound.xfs` | `4804a933d155c0159ff86df4321a79caaff2ccf2b7da69de5b442df4d1e4af6a` | 18,604,789 |
 | `characterdata.dat` | `b7278385d6ea60af3cdcbccbf6df15a74e857f196adbb87e5e99bea6a0feecaf` | 1,130 |
 | `itemdata.dat` | `752299574279973d055ed7a0220832e5cd94f7e255a65fe767cdd75de7164c26` | 1,729 |
 | `specialdata.dat` | `9cc0d99f87e4fff6fd56160c3737fb966546ab9bb77a6a33374cb4642233e086` | 88 |
 | `stage.dat` | `103c2b488977e1721becf8cb90496f95477302ec24141f94116d5214a3e6cfca` | 1,238 |
 
-Not yet hashed/copied into `orig/`: `graphics.xfs`, `sound.xfs`,
-`characterdata_imortal.dat`, `characterdata_original.dat`, `GunBound.exe`
-(the .NET launcher stub, not the decomp target).
+`graphics.xfs`/`sound.xfs`/`avatar.xfs` are **not committed** (too large,
+and `orig/` is gitignored regardless) — hashes above just pin the exact
+copies used to validate the file-format findings in
+[FILEFORMATS.md](FILEFORMATS.md).
+
+Not yet hashed/copied into `orig/`: `characterdata_imortal.dat`,
+`characterdata_original.dat`, `GunBound.exe` (the .NET launcher stub, not
+the decomp target).
 
 Verify with: `shasum -a 256 orig/GunBound.gme`
