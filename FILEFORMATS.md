@@ -496,32 +496,30 @@ call shape as every confirmed `graphics.xfs` open. This **confirms**
 `Avatar.xfs` uses the identical `XFS2` container format, closing that
 part of the previous pass's open question.
 
-## `sound.xfs` container format — inconclusive, revised finding
+## `sound.xfs` container format — now fully confirmed
 
-Widened the search: dumped every `PUSH`/`CALL`/`LEA` instruction across the
-*entire* body of both `InitDirectSound` (`0x4ee5b0`–`0x4ee600`) and
-`InitDirectDraw` (`0x4efaa0`–`0x4eff50`), not just the few instructions
-immediately preceding their `OpenXFSArchive` calls. **Neither function
-contains a string-literal push for any `.xfs` filename anywhere in its
-body** — every `PUSH` of a `.rdata` address in that range resolves to
-something else (the `"dsound.dll"`/`"DirectSoundCreate8"` strings, GUID
-constants, D3D enum values, etc.), unlike the `graphics.xfs`/`Avatar.xfs`
-call sites which all show a clear `BuildAssetPath(..., "graphics.xfs", ...)`
-pattern right before the `OpenXFSArchive` call.
+Follow-up from the previous pass: `InitDirectSound`/`InitDirectDraw` don't
+build their own filenames internally (confirmed by scanning every
+`PUSH`/`CALL`/`LEA` in both functions — no `.xfs` string literal anywhere in
+either body), so the filename must be threaded in from the caller. Traced
+that caller, `InitGame` (`0x40eaa0`), directly:
 
-This means both `InitDirectSound`'s and `InitDirectDraw`'s `OpenXFSArchive`
-calls almost certainly receive their filename as **an argument passed in
-from their caller** (`OpenXFSArchive(param_1, 1, 0)` in `InitDirectDraw`'s
-decompiled output confirms `param_1` — the function's own first
-parameter — is what's forwarded, not a hardcoded literal), rather than a
-literal local to either function. The filename buffer is built somewhere
-upstream — presumably in `InitGame`, which calls both — and threaded
-through as a parameter. This is a **weaker** finding than the previous
-pass's tentative "corroborated" note suggested: it neither confirms nor
-rules out `sound.xfs` sharing the container format. Resolving it would
-mean tracing `InitGame`'s call sites into `InitDirectSound`/`InitDirectDraw`
-to see what buffer it constructs and passes in as that parameter — not
-attempted in this pass.
+```c
+BuildAssetPath(local_40c, &DAT_005b1ed0, "graphics.xfs", 0);
+InitDirectDraw(local_40c);
+...
+BuildAssetPath(local_40c, &DAT_005b1ed0, "sound.xfs", 0);
+InitDirectSound(param_1, 0x10, local_40c);
+```
+
+This **confirms `sound.xfs` uses the identical `BuildAssetPath` +
+`OpenXFSArchive` path as `graphics.xfs`/`Avatar.xfs`** — `InitGame` builds
+the `"sound.xfs"` path exactly the same way it builds `"graphics.xfs"`'s,
+and passes it straight into `InitDirectSound` as its third parameter. All
+three `.xfs` files (`graphics.xfs`, `sound.xfs`, `Avatar.xfs`) are now
+independently confirmed to share the exact same `XFS2` container format —
+this closes what was the last open item in the file-format identification
+gap list (previously gap #5).
 
 ## `.sv` replay file's `fopen()` call site — investigation exhausted (static analysis)
 
@@ -562,6 +560,62 @@ slots hard to enumerate). Resolving this further would need dynamic
 analysis: breakpoint on `fopen`/`CreateFileA` while recording a replay in a
 live session, or a memory-write watchpoint on `g_replayFileHandle` to catch
 the exact instruction that first sets it non-null.
+
+## Validation against real game files — corrections and a prototype decoder
+
+Real copies of `graphics.xfs` (206 MB), `sound.xfs` (18.6 MB), and
+`avatar.xfs` (122 KB) are now hashed and available locally (see
+[README.md](README.md)) — earlier passes had incorrectly assumed these
+weren't available. This let several static-analysis findings be checked
+against actual bytes for the first time, rather than only against
+decompiled code:
+
+- **Terminology correction**: the parameter previously called a "key" in
+  every `DecodeLZHUFBlock`/`DecodeXFSEntryBlock` call (`0x40`, `0x1000`,
+  `0x20000`, `0x14c0`) is **not a cryptographic key at all** — re-reading
+  the decompiled `DecodeLZHUFBlock` more carefully shows this value is
+  written into the decode-state struct's first field and used directly as
+  the **target decompressed output size**, checked against a running
+  byte-decoded counter as the loop's termination condition. All references
+  to "key" throughout this document have been corrected to "target output
+  size" / "target decoded size."
+- **Footer/header format confirmed against real bytes**: read the actual
+  footer of `graphics.xfs` — `toc_offset = 206201330`, and the 4 bytes at
+  that offset give `toc_compressed_size = 25`, matching the documented
+  footer format exactly.
+- **A prototype LZHUF decoder was implemented in Python**, checked into
+  [tools/lzhuf/](tools/lzhuf/) (adapting the classic Okumura/Yoshizaki
+  reference algorithm, using the constants confirmed earlier:
+  `N_CHAR=314`, `T=627`, 4096-byte window) and used to
+  decode the 25-byte compressed TOC header block from `graphics.xfs`. **It
+  decoded correctly on the first real test**: output began with `"XFS2"`
+  exactly as predicted, followed by a `uint32_t` at offset 4 (value `999`,
+  meaning still unidentified) and a `uint32_t` at offset 8 (value `9313`) —
+  this second field is the **total entry count**, confirmed by cross-
+  checking against `OpenXFSArchive`'s decompiled chunk-count arithmetic
+  (`9313 >> 10 = 9` full 1024-entry chunks + a 97-entry remainder, matching
+  `9313 & 0x3ff = 97`). Two real transcription bugs were caught and fixed
+  during this process (a match-length off-by-one, and wrong 64-entry
+  position-decode tables where the correct reference tables have 256
+  entries) — both fixes are reflected in the algorithm description earlier
+  in this document.
+- **Not yet working**: decoding a full 128 KB TOC chunk (as opposed to the
+  64-byte header) still produces corrupted output starting around the
+  12th–17th decoded symbol — well past what the tiny header block
+  exercises. The first ~11 bytes of the first real filename decode
+  correctly (`"A_smoke.xtf"`), then a handful of spurious bytes appear
+  before the stream desyncs. Extensive line-by-line comparison of the
+  Python port against the decompiled `Update`/`DecodeChar`/`DecodePosition`/
+  `GetBit`/`GetByte` pseudocode didn't turn up the remaining discrepancy —
+  the bug is real but not yet isolated. This means **full-archive
+  extraction is not yet possible with the current prototype decoder**,
+  though the container/TOC/record-layout understanding this document
+  describes is now validated against real data independent of that
+  remaining bug. Next step would be either further symbol-by-symbol
+  tracing against the real compressed bytes, or writing a small reference
+  C implementation of the confirmed public-domain algorithm to compare
+  intermediate state (tree/frequency arrays) side-by-side with the Python
+  port at each decoded symbol.
 
 ## Known gaps / good next targets
 
@@ -604,18 +658,13 @@ the exact instruction that first sets it non-null.
    likely the line's first field) rather than a flat record array — see the
    dedicated note above. The individual tab-separated integer fields'
    semantics still aren't decoded; that would need raw-disassembly register
-   tracing plus an actual sample of the file's contents (not present in
-   `orig/`, since it's compressed inside `graphics.xfs`, which isn't
-   checked into this repo).
-5. **Mostly resolved, one genuine unknown remains**: `graphics.xfs`
-   (confirmed via `Language.txt`/`Sound.txt` lookups) and **`Avatar.xfs`**
-   (confirmed via raw-disassembly tracing of `LoadGameDataFiles`'s
-   `BuildAssetPath(..., "Avatar.xfs", ...)` call) both independently
-   confirmed to use the identical `OpenXFSArchive` container path. `sound.xfs`
-   remains **genuinely unconfirmed** — traced further this pass and found
-   that `InitDirectSound`'s (and also `InitDirectDraw`'s) `OpenXFSArchive`
-   call receives its filename as a parameter forwarded from its caller
-   (presumably `InitGame`), not a literal local to the function, so no
-   filename string could be recovered by looking at `InitDirectSound` alone.
-   Would need to trace `InitGame`'s call sites into these two functions to
-   see what buffer it builds and passes in.
+   tracing. A real copy of `graphics.xfs` is now available locally (see
+   "Validation against real game files" above), so the actual text content
+   of `ChooseEvent.txt` could be extracted once the LZHUF decoder bug
+   documented there is fixed — that would make this gap much easier to
+   close (inspecting real field values beats guessing from code alone).
+5. **Fully resolved**: `graphics.xfs`, `Avatar.xfs`, and now `sound.xfs`
+   (confirmed by tracing `InitGame`'s direct `BuildAssetPath(..., "sound.xfs",
+   ...)` → `InitDirectSound(..., path)` call, see the dedicated section
+   above) are all independently confirmed to use the identical `XFS2`
+   container format via `OpenXFSArchive`. No remaining unknowns in this item.
