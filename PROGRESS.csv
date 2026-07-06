@@ -369,8 +369,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004268b0,172,FUN_004268b0,false,1,3,TODO
 00426960,230,FUN_00426960,false,3,5,TODO
 00426a60,86,FUN_00426a60,false,1,1,TODO
-00426ac0,7,FUN_00426ac0,false,1,0,TODO
-00426ad0,6736,ProcessPacket,false,1,32,TODO
+00426ac0,7,CGameState_BaseDestructor,false,1,0,TODO
+00426ad0,6736,State03_GameRoomList_ProcessPacket,false,1,32,TODO
 00428550,102,FUN_00428550,false,6,2,TODO
 004285c0,1370,FUN_004285c0,false,1,20,TODO
 00428b90,360,FUN_00428b90,false,1,6,TODO
@@ -508,12 +508,12 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00443da0,30,FUN_00443da0,false,1,2,TODO
 00443dc0,257,FUN_00443dc0,false,3,2,TODO
 00443ed0,483,FUN_00443ed0,false,1,5,TODO
-004440c0,4551,FUN_004440c0,false,1,40,TODO
+004440c0,4551,State07_AvatarStore_ProcessPacket,false,1,40,TODO
 00445450,8366,FUN_00445450,false,1,54,TODO
 00447760,2284,State07_AvatarStore_OnEnter,false,1,22,TODO
 00448050,785,State07_AvatarStore_OnExit,false,1,2,TODO
 00448370,184,FUN_00448370,false,1,5,TODO
-00448430,3,FUN_00448430,false,16,0,TODO
+00448430,3,CGameState_NoOpVirtual_A,false,16,0,TODO
 00449250,742,FUN_00449250,false,17,6,TODO
 00449540,1539,FUN_00449540,false,5,11,TODO
 00449b60,573,FUN_00449b60,false,1,8,TODO
@@ -1003,6 +1003,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e0090,277,FUN_004e0090,false,1,0,TODO
 004e01b0,96,FUN_004e01b0,false,2,0,TODO
 004e0210,147,FUN_004e0210,false,1,0,TODO
+004e02b0,3708,State02_ServerSelect_ProcessPacket,false,1,24,TODO
 004e14b0,825,State02_ServerSelect_OnEnter,false,1,9,TODO
 004e17f0,366,State02_ServerSelect_OnExit,false,1,2,TODO
 004e1bf0,342,FUN_004e1bf0,false,4,4,TODO
@@ -1032,7 +1033,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e4f50,130,FUN_004e4f50,false,1,4,TODO
 004e4fe0,520,FUN_004e4fe0,false,25,1,TODO
 004e51f0,303,FUN_004e51f0,false,3,1,TODO
-004e5320,30,FUN_004e5320,false,6,2,TODO
+004e5320,30,CGameState_ScalarDeletingDestructor,false,6,2,TODO
 004e5370,49,State01_Title_OnEnter,false,1,2,TODO
 004e53b0,72,State01_Title_OnExit,false,1,0,TODO
 004e5430,41,FUN_004e5430,false,1,2,TODO
@@ -1352,7 +1353,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fdd30,97,FUN_004fdd30,false,1,4,TODO
 004fdda0,40,FUN_004fdda0,false,2,2,TODO
 004fddd0,288,FUN_004fddd0,false,1,8,TODO
-004fdef0,3,FUN_004fdef0,false,33,0,TODO
+004fdef0,3,CGameState_NoOpVirtual_B,false,33,0,TODO
 004fdf00,204,InitCommP2PNotifyWindow,false,1,5,TODO
 004fdfd0,136,FUN_004fdfd0,false,1,6,TODO
 004fe060,161,FUN_004fe060,false,1,5,TODO

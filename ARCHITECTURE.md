@@ -69,34 +69,48 @@ GameRoomList(3) → ReadyRoom(9) → InBattle(11), with Loading(10) interstitial
 States 0 and 15 use a shared trivial "null object" vtable — the null-object
 pattern for states needing no enter/exit behavior.
 
-## Network protocol (via `ProcessPacket`)
+## The `CGameState` base class and virtual dispatch
 
-`ProcessPacket` (`0x426ad0`, was `FUN_00426ad0`) — **high confidence**: virtual
-method on the **state-3 Game Room List** object (which doubles as the
-network-session owner while in the channel lobby), signature
-`void ProcessPacket(int payloadLen, unsigned short opcode, unsigned short *payload)`
-(this-pointer auto-parameter + 3 named params, confirmed via decompiler commit).
-Dispatches purely on `opcode`; this is the client's incoming-packet handler.
+**High confidence.** Every state object shares a common base class whose vtable
+layout (confirmed across states 1–11) is:
 
-Confirmed/observed opcodes (all tentative on *meaning*, confirmed on *existence
-and branch target*):
+| Slot | Offset | Role | Evidence |
+|---|---|---|---|
+| 0 | +0x00 | scalar-deleting destructor | `CGameState_ScalarDeletingDestructor` (`0x4e5320`) on every state; calls `CGameState_BaseDestructor` (`0x426ac0`), which resets the vtable ptr to the shared null-object vtable (`0x553fb0`) — a "poisoned after destroy" idiom. |
+| 1 | +0x04 | **`ProcessPacket(int payloadLen, ushort opcode, ushort *payload)`** | Virtual, overridden per state. No-op in states that don't need network handling (`CGameState_NoOpVirtual_A`, `0x448430`). Real overrides confirmed for state 2 (`State02_ServerSelect_ProcessPacket`, `0x4e02b0`), state 3 (`State03_GameRoomList_ProcessPacket`, `0x426ad0`), state 7 (`State07_AvatarStore_ProcessPacket`, `0x4440c0`) — all three share the identical `(this,int,ushort,ushort*)` signature, confirmed via decompiler param commit. |
+| 2–4 | +0x08..+0x10 | other per-state virtuals, usually no-op (`CGameState_NoOpVirtual_B`, `0x4fdef0`) except where overridden (e.g. state 3 slots 5–6 at `0x4285c0`/`0x428b90`) | input handlers? (untested) |
+| 7 | +0x1c | **OnEnter** | confirmed for all named states — loads that screen's `.img`/`.mp3` resources |
+| 8 | +0x20 | **OnExit** | confirmed for all named states |
+| 9 | +0x24 | another per-state virtual, present past OnExit | untested |
+
+Each screen effectively has its **own protocol dispatcher** — decompiling
+state N's slot-1 override is the way to find that screen's opcode handling
+(server list ops live in state 2's handler, avatar-store purchases in state
+7's, etc.), not just the room-list one.
+
+## Network protocol — `State03_GameRoomList_ProcessPacket` (`0x426ad0`)
+
+This is the channel-lobby/room-list screen's packet handler — the most fully
+mapped of the three known `ProcessPacket` overrides. Confirmed opcodes:
 
 | Opcode | Behavior |
 |---|---|
 | `0x2001` | Branches on `*payload==0`; calls one of two cleanup/notify helpers, then `FUN_00507cc0(1, ...)`. |
 | `0x201f` | Looks up a slot via `FUN_004259d0`; on miss, calls `FUN_0041b8c0` with derived offsets — looks like a per-slot record insert (chat line? item?). |
 | `0x2103` | Populates a per-player-slot array (name/flags/stats) up to `playerCount` slots — **room player list update**. |
-| `0x2105` | separate branch, not yet decompiled in detail |
-| `0x2111`, `0x2121` | Same `0x21xx` cluster as `0x2103`/`0x21f0`/`0x21f1` — likely room/lobby-related. |
-| `0x21f0` | Writes into a per-slot buffer at `object + slot*0x80`, gated on `FUN_0041c290() != -1`. |
-| `0x21f1` | separate branch, not yet decompiled in detail |
-| `0x6001` | Unpacks 4 uint fields, builds an array of per-"player" 3-byte tuples using `rand()` (seed/roll generation?), then `ChangeGameState(7)` = **enter Avatar Store**. (Earlier notes guessed "room→game"; the target state is the store, per confirmed state IDs.) |
+| `0x2105` | Copies a string + several small fields into a per-slot 0x80-byte display buffer at `+0x4467c` (slot stride 0x80), then mirrors it into `this+300`/`this+0x1ac`/`this+0x1b0` — **player info/profile broadcast for a target slot** (`this+0x124` holds the target slot index, set by a prior packet). |
+| `0x2111` | separate branch, not yet decompiled |
+| `0x2121` | `*payload==0` path: increments a counter at `+0x4739c`, sets `this+0x115=2` (a status/mode byte), copies this client's name into a persistent buffer — looks like **"you joined/were assigned to a game" confirmation**. |
+| `0x21f0` | Writes into the same per-slot 0x80-byte display buffer as `0x2105`, gated on `FUN_0041c290() != -1` (find-my-slot helper) — companion write path to `0x2105`. |
+| `0x21f1` | Searches the room's player-ID array (`+0x44664`) for `*payload`; on match, clears that slot (`+0x4464c + idx*4 = 0`), and if it's this client's own slot, resets `this+4` to -1 — **player left the room**. |
+| `0x6001` | Unpacks 4 uint fields, builds an array of per-"player" 3-byte tuples using `rand()` (seed/roll generation?), then `ChangeGameState(7)` = **enter Avatar Store**. |
 | (unlabeled, reaches `ChangeGameState(9)`) | Large per-slot stat-accumulation loop (20 elements × 0x224 bytes) summing what look like equipped-item stat bonuses per player/team slot, resets viewport to `(0,0,799,599)`, then `ChangeGameState(9)` = **enter Ready Room**. |
 
 The `0x20xx` cluster looks like lobby/session-level opcodes, `0x21xx` looks like
-room-level opcodes, `0x60xx` looks like in-game/battle opcodes — consistent
-with a classic tens-of-opcodes-per-category protocol design, but this
-categorization is a pattern observation, not confirmed from source.
+room-membership/player-slot opcodes (join/leave/update), `0x60xx` looks like
+game-start opcodes — a pattern observation, not confirmed from source. The
+per-slot 0x80-byte display buffer at `+0x4467c` (name + a handful of stat
+bytes/dwords) is a good anchor for reconstructing a `struct RoomPlayerSlot`.
 
 ## Recurring structure sizes (useful anchors for further work)
 
