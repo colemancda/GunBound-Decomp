@@ -1724,25 +1724,55 @@ as part of the `0xc300` turn-start chain, posted last (eighth position).
 **Direction**: incoming.
 
 **Behavior**: writes two raw `int` values per-slot directly from the packet
-payload, with no further processing.
+payload, with no further processing. Confirmed exact destination this
+pass: `this[teamByte*2 + 0x8e1] = *cursor` and `this[teamByte*2 + 0x8e2] =
+*(int*)(payload+0x25)` — a 2-`int`-per-slot parallel array (yet another
+small structure-of-arrays pair, indexed by the same team/slot byte used
+throughout `ProcessBattleAction`, distinct from the `+0x228`/`+0x2a8`/
+`+0x328`/`+0x3a8` spawn arrays confirmed for action `0x8408`).
 
 **Significance**: tentatively a **final resting position sync** for a
 projectile or player after motion has concluded — inferred purely from the
 bare "write two ints, no computation" shape, which is consistent with
 receiving an already-computed final position rather than deriving one
 locally (again consistent with the broader server-authoritative-physics
-conclusion).
+conclusion). The `payload+0x25` fixed offset matches the same absolute
+offset used by actions `0x8500`/`0x8408` for their own position-ish
+fields, suggesting a shared "position field" convention across several
+of these Channel 2 actions even though each stores it in its own separate
+array.
 
 #### Action `0xc40b` — Turn-timeout bookkeeping across all slots
 
 **Direction**: incoming.
 
-**Behavior**: iterates all 8 player slots performing turn-timeout and
-notification bookkeeping — administrative housekeeping rather than any
-gameplay-visible effect.
+**Behavior**: re-decompiled with more depth this pass. Guarded on a packet-
+checksum-state check (`PacketChecksumNotEquals(..., 3)`), then iterates
+all 8 player-slot records (`in_ECX + 0x477` onward), filtering each
+through a helper (`FUN_0040b300(slot, 2)`) — only slots that pass this
+filter get processed further. For each matching slot: queues/encodes
+several checksum-protected fields, then plays a **sound/cursor-effect**
+via the same `FUN_004368f0` trigger confirmed elsewhere for movement
+cues (see action `0xc304`'s writeup in [ARCHITECTURE.md](ARCHITECTURE.md)),
+and builds/shows a **formatted notification message** — a localized string
+(resource ID `0x274`, looked up via `FUN_0043dc70`, the same localized-
+string-table helper used by the `0xc401` weapon-select-sound trigger)
+populated via `sprintf` with two values derived from that player's stats
+(read from struct offsets `+0xb30`/`+0x90c`), then shown via the same
+"show message" virtual call pattern used throughout this codebase
+(`(**(vtable+0x28))(message, 4, 3)`).
 
-**Significance**: a maintenance action ensuring all 8 slots' timeout-related
-state stays consistent, likely called at a natural turn-boundary point.
+**Significance**: this is more specific than "generic housekeeping" — it's
+a **per-player conditional sound-plus-notification broadcast**, filtered by
+some slot-state predicate (plausibly "is this slot still active/hasn't
+already been notified this turn"), most likely surfacing a per-player
+end-of-turn or timeout-related status message (e.g. "Player X's turn timed
+out") rather than pure internal bookkeeping. The exact localized string
+content (resource `0x274`) wasn't resolved — this project hasn't
+independently traced GunBound's localized-string-table system — but the
+sound trigger + formatted-message-with-player-stats pattern strongly
+suggests a visible, player-facing notification rather than silent state
+maintenance.
 
 #### Action `0xc801` — Periodic status relay
 
