@@ -422,32 +422,55 @@ directly gives the real values:
   through `EncodeOutgoingPacketField`) wasn't mapped field-by-field this
   pass — worth a dedicated follow-up now that the stride/size are solid.
 
-## `characterdata.dat` — record layout not resolved from `LoadGameDataFiles`
+## `characterdata.dat` — record count/stride confirmed, field semantics partial
 
-Attempted the same approach that worked for `stage.dat` (decompile the
-loader's consumption of the decoded buffer directly, rather than
-pattern-matching decoded bytes) and it didn't pan out here — worth
-recording why, so a future pass doesn't repeat the same dead end.
-`LoadGameDataFiles`'s post-decode step for `characterdata.dat` is a
-**checksum-validation loop**, not a field-by-name parser: it walks through
-a run of raw `uint32`s from the decoded buffer and feeds each one
-individually into `EncodeOutgoingPacketField`/the checksum accumulator,
-with no meaningful per-field naming or storage — this is validation
-plumbing, not the code that actually *uses* per-mobile stats (that
-presumably lives in a separate function this pass didn't locate, e.g.
-wherever the character-select screen reads HP/speed/weapon stats for
-display). Additionally, Ghidra's stack-frame analysis for this function is
-visibly imprecise — several declared local buffers (e.g. a `4`-byte
-`auStack_10568` immediately used as the destination for a `5,312`-byte
-`DecodeLZHUFBlock` write) are far too small for what's actually written
-through them, meaning the true buffer boundaries/offsets can't be trusted
-directly from the decompiled variable declarations here. **Net result:
-`characterdata.dat`'s per-mobile field layout remains unmapped** — the
-file decodes cleanly (confirmed working, see above), but figuring out
-which byte offset means "HP" vs "speed" vs "weapon ID" needs either
-finding the real stats-consumer function elsewhere, or raw-disassembly
-tracing with explicit stack-offset arithmetic rather than trusting this
-function's decompiled variable names.
+Initial attempt at this (decompiling `LoadGameDataFiles`'s post-decode step
+directly, the same approach that worked for `stage.dat`) looked like a dead
+end at first — that step is a **checksum-validation loop**, not a
+field-by-name parser: it walks through a run of raw `uint32`s from the
+decoded buffer and feeds each one individually into
+`EncodeOutgoingPacketField`/the checksum accumulator, with no meaningful
+per-field naming, and Ghidra's stack-frame analysis for this function is
+visibly imprecise (several declared local buffers are far too small for
+what's actually written through them, so exact buffer boundaries can't be
+trusted from the decompiled variable declarations alone).
+
+**However, the loop's own increment amount is trustworthy** (it's a
+constant added to a pointer each iteration, not a fuzzy stack-size
+inference), and it revealed real structure: `puStack_181d8 = puStack_181d8
++ 0x53` (53 hex = 83 `uint32`s = `0x14C`/332 bytes) advancing once per
+iteration, with the outer loop counter initialized to `0x10` (16) and
+counting down to zero. **`16 × 332 = 5,312 = 0x14c0`** — an exact match to
+the file's confirmed total decoded size, strongly confirming:
+**`characterdata.dat` holds exactly 16 fixed-size mobile records of 332
+bytes each** — matching GunBound's classic 16-mobile roster count.
+
+Decoded the real file and inspected the first several fields of each
+record directly to sanity-check this (not from further code tracing — the
+checksum loop doesn't reveal field *names*, just the stride/count):
+
+- **`0x00`-`0x03`, `0x04`-`0x07`** (two `uint32`s): near-constant across
+  all 16 records (`28, 24` for 15 of them) — very plausibly a **bounding-
+  box/hitbox width and height**. One record (index 13) differs slightly
+  (`26, 26`), suggesting that mobile has a non-standard hitbox.
+- **`0x08`-`0x0b`**: mostly `0`, with a handful of records showing small
+  values (`2`-`4`) — possibly a team/type/category enum.
+- **`0x0c`-`0x0f`, `0x10`-`0x13`, `0x14`-`0x17`**: three more `uint32`s
+  with plausible small-integer game-balance values (ranging roughly
+  10-170) — likely stats such as HP/speed/weight. Notably, **records 2 and
+  15 share unusually large values across all three fields** (`170, 130,
+  165` and `170, 130, 170` respectively) while every other record clusters
+  in the 10-90 range — strongly suggestive of a matched pair of
+  heavy/tank-type mobiles (e.g. a land/sea variant of the same unit, or
+  two mobiles from the same weight class).
+
+This is real, confirmed structural progress (record count and stride are
+solid; several early fields show internally-consistent, plausible
+game-data patterns), but the exact field *names* (which offset is truly
+"HP" vs "weight" vs something else) aren't confirmed from code — that
+would need finding the actual stats-consumer function (e.g. wherever the
+character-select screen reads and displays these values) rather than
+inferring from cross-record numeric patterns alone.
 
 ## `.img` sprite format — confirmed via the render pipeline
 
@@ -780,12 +803,15 @@ decompiled code:
    pass assumed — see `LoadGameDataFiles`), extracting real content
    (`ChooseEvent.txt`'s full text, `itemdata.dat`'s item names/Portuguese
    descriptions, `stage.dat`'s stage names). Nothing left to resolve at the
-   algorithm level. Remaining work: mapping *field-level* semantics within
-   `characterdata.dat`/`itemdata.dat`'s decoded byte layout (not about
-   decoding them, which now works), and finding `specialdata.dat`'s loader
-   to get its correct target size (not located this pass — do not reuse
-   `characterdata.dat`'s `0x14c0` for it without verifying against code
-   first, the same mistake made earlier for `itemdata.dat`/`stage.dat`).
+   algorithm level. Remaining work: mapping the last few unconfirmed
+   *field-level* semantics within `characterdata.dat` (record count/stride
+   now confirmed — 16 records × 332 bytes — and several early fields have
+   plausible stat values, but exact field names aren't nailed down) and
+   `itemdata.dat`'s decoded byte layout (not about decoding them, which now
+   works), and finding `specialdata.dat`'s loader to get its correct
+   target size (not located this pass — do not reuse `characterdata.dat`'s
+   `0x14c0` for it without verifying against code first, the same mistake
+   made earlier for `itemdata.dat`/`stage.dat`).
 4. **Fully resolved.** `ChooseEvent.txt`'s actual content was extracted
    (see the dedicated section above): it's a tiny event-name-to-ID registry
    (`0=off, 1=christmas, 2=event2, 3=event3`), not the character-select
