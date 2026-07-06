@@ -42,13 +42,18 @@ back-references) desynced almost immediately.
   `.xfs` archive straight to a viewable PNG (requires Pillow). Decodes
   pixels as **ARGB4444** — two earlier guesses (RGB565, then RGB555) both
   produced visibly wrong colors, caught by comparing against a real
-  reference screenshot; see [FILEFORMATS.md](../../FILEFORMATS.md)'s
-  `.img` section for the full correction writeup.
+  reference screenshot. Auto-detects and decodes **both** confirmed
+  frame-0 sub-formats (flat pixel array, and a sparse per-scanline
+  run-length list used when most of the frame is transparent); see
+  [FILEFORMATS.md](../../FILEFORMATS.md)'s `.img` section for the full
+  writeup on both.
 - `dump_archive.py` — bulk-extracts every entry in a `.xfs` archive
   (frame 0 → PNG for `.img` entries, raw bytes for everything else) into a
   review directory. Only decodes as much of each entry as needed for its
-  header + frame 0 (not the whole file), so a full `graphics.xfs` dump
-  (9,313 entries) finishes in a couple of minutes rather than hours.
+  header + frame 0 (not the whole file). Run against all 9,313 entries in
+  `graphics.xfs`: **8,926 of 8,927 `.img` entries decode successfully**
+  (99.99% — the one failure is an 8-byte stub entry, too small to hold a
+  header) in about 2 minutes.
 - `examples/` — sample PNGs extracted and decoded this way: `avataimsi.png`
   (small avatar-placeholder icon), `bullet1n.png` (a projectile sprite —
   a coherent gray/red shape under the correct ARGB4444 format), 

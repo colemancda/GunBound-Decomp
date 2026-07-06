@@ -1,10 +1,10 @@
 """
 Bulk-extract every entry in a .xfs archive to a review directory.
 
-For .img entries: decodes frame 0 to a PNG (ARGB4444, see decode_img.py).
-Only decodes as many LZHUF output bytes as needed for the header + frame 0
-pixel data (not the whole file), so this stays fast even for huge
-multi-frame sheets like thor.img.
+For .img entries: decodes frame 0 to a PNG using decode_img.py's unified
+flat/sparse decoder. Only decodes as many LZHUF output bytes as needed for
+the header + frame 0 (not the whole file), so this stays fast even for
+huge multi-frame sheets.
 
 For everything else (.txt, .dat, .xes, etc.): writes the raw decoded bytes
 to disk as-is.
@@ -13,58 +13,34 @@ Usage:
     python3 dump_archive.py /path/to/graphics.xfs /path/to/output_dir [limit]
 """
 import os
-import struct
 import sys
 import time
 
-from lzhuf import decode_lzhuf
+from decode_img import (HEADER_PEEK, decode_entry_partial, decode_img_frame0,
+                         decode_frame0_rows, rows_to_image)
 from extract_toc import read_toc
-
-HEADER_AND_FRAME0_CAP = 1 << 20  # 1 MB ceiling; frame 0 of any sprite should be far under this
-
-
-def decode_entry_partial(xfs_path, mode_flag, file_offset, decompressed_size, compressed_size, want_bytes):
-    """Decode only the first `want_bytes` of an entry's decompressed content."""
-    want_bytes = min(want_bytes, decompressed_size)
-    with open(xfs_path, 'rb') as f:
-        if mode_flag == 1:
-            f.seek(file_offset)
-            return f.read(want_bytes)
-        f.seek(file_offset)
-        real_compressed_size, checksum = struct.unpack('<II', f.read(8))
-        cdata = f.read(real_compressed_size)
-        return decode_lzhuf(cdata, want_bytes)
 
 
 def safe_filename(name):
     return name.replace('/', '_').replace('\\', '_')
 
 
-def dump_img_frame0(decoded_partial, out_path):
-    from PIL import Image
-    if len(decoded_partial) < 48:
-        return False
-    width = struct.unpack('<I', decoded_partial[12:16])[0]
-    height = struct.unpack('<I', decoded_partial[16:20])[0]
-    if width == 0 or height == 0 or width > 2048 or height > 2048:
-        return False
-    needed = 48 + width * height * 2
-    if len(decoded_partial) < needed:
-        return False
-    pixel_bytes = decoded_partial[48:needed]
-    img = Image.new('RGBA', (width, height))
-    px = img.load()
-    for y in range(height):
-        for x in range(width):
-            idx = (y * width + x) * 2
-            val = struct.unpack('<H', pixel_bytes[idx:idx + 2])[0]
-            a = (val >> 12) & 0xf
-            r = (val >> 8) & 0xf
-            g = (val >> 4) & 0xf
-            b = val & 0xf
-            px[x, y] = (r * 17, g * 17, b * 17, a * 17)
+def dump_img_frame0(xfs_path, mode_flag, file_offset, decompressed_size, compressed_size, out_path):
+    header = decode_entry_partial(xfs_path, mode_flag, file_offset, decompressed_size,
+                                   compressed_size, HEADER_PEEK)
+    if len(header) < 48:
+        return 'too_short_header'
+    frame = decode_img_frame0(header)
+    width, height = frame['width'], frame['height']
+    if width == 0 or height == 0 or width > 4096 or height > 4096:
+        return 'bad_dims'
+    needed = 48 + frame['pixel_byte_count']
+    decoded = decode_entry_partial(xfs_path, mode_flag, file_offset, decompressed_size,
+                                    compressed_size, needed)
+    rows = decode_frame0_rows(decoded, width, height, frame['pixel_byte_count'])
+    img = rows_to_image(rows, width, height)
     img.save(out_path)
-    return True
+    return 'ok'
 
 
 def main():
@@ -83,19 +59,19 @@ def main():
     t0 = time.time()
     ok_img = 0
     ok_raw = 0
-    failed = 0
+    status_counts = {}
+    exceptions = 0
     for i, (name, mode_flag, file_offset, decompressed_size, compressed_size) in enumerate(entries):
         fname = safe_filename(name)
         try:
             if name.lower().endswith('.img'):
-                partial = decode_entry_partial(xfs_path, mode_flag, file_offset,
-                                                decompressed_size, compressed_size,
-                                                HEADER_AND_FRAME0_CAP)
                 out_path = os.path.join(out_dir, fname + '.png')
-                if dump_img_frame0(partial, out_path):
+                status = dump_img_frame0(xfs_path, mode_flag, file_offset,
+                                          decompressed_size, compressed_size, out_path)
+                if status == 'ok':
                     ok_img += 1
                 else:
-                    failed += 1
+                    status_counts[status] = status_counts.get(status, 0) + 1
             else:
                 data = decode_entry_partial(xfs_path, mode_flag, file_offset,
                                              decompressed_size, compressed_size,
@@ -105,15 +81,18 @@ def main():
                     f.write(data)
                 ok_raw += 1
         except Exception as e:
-            failed += 1
+            exceptions += 1
         if (i + 1) % 500 == 0:
             elapsed = time.time() - t0
+            failed_total = sum(status_counts.values()) + exceptions
             print(f'{i+1}/{len(entries)} processed ({elapsed:.1f}s elapsed, '
-                  f'{ok_img} imgs, {ok_raw} raw, {failed} failed)')
+                  f'{ok_img} imgs, {ok_raw} raw, {failed_total} failed)')
 
     elapsed = time.time() - t0
+    failed_total = sum(status_counts.values()) + exceptions
     print(f'DONE: {len(entries)} entries in {elapsed:.1f}s — '
-          f'{ok_img} images, {ok_raw} raw files, {failed} failed')
+          f'{ok_img} images, {ok_raw} raw files, {failed_total} failed')
+    print('Failure breakdown:', dict(status_counts), 'exceptions:', exceptions)
 
 
 if __name__ == '__main__':

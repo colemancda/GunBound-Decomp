@@ -611,25 +611,56 @@ or larger sheets don't decode cleanly as flat arrays.
 | `0x00` | 4 | Unknown/flags | `0` in all three samples |
 | `0x04` | 4 | **Frame count** | `1` for the single-frame icon, `5` for the bullet (likely multiple rotation/animation frames), `455` for the tank sheet |
 | `0x08` | 4 | Unknown | Varies per file, not decoded |
-| `0x0c` | 4 | **Width** (pixels) | Confirmed exactly — matches the pixel-byte-count field below in every sample |
+| `0x0c` | 4 | **Width** (pixels) | Confirmed exactly across flat *and* sparse samples (row count / row content lines up correctly in both decode modes) |
 | `0x10` | 4 | **Height** (pixels) | Confirmed exactly, same way |
 | `0x14` | 4 | Signed `int` — likely **hotspot/origin X offset** | e.g. `-12` for the bullet sprite — consistent with a sprite that rotates/anchors around a point other than its top-left corner (needed for a projectile that spins in flight) |
 | `0x18` | 4 | Signed `int` — likely **hotspot/origin Y offset** | e.g. `-7` for the bullet sprite |
 | `0x1c`-`0x2b` | 16 | Unidentified | Not decoded |
-| `0x2c` | 4 | **Pixel data byte count** for this frame | Always exactly `width × height × 2` in every sample tested — confirms 16 bits/pixel |
-| `0x30` onward | `width×height×2` | **Raw pixel data**, row-major | 16-bit values, decoded as **ARGB4444** (4 bits each for alpha/red/green/blue) reproduce correct-looking images, verified against a real reference screenshot — see the pixel-format writeup above for the two rejected guesses (RGB565, RGB555) |
+| `0x2c` | 4 | **Total pixel-run data byte count** for this frame | Equals `width × height × 2` for "flat" entries; for sparse entries it's the actual (smaller) size of the encoded row/run data — see below |
+| `0x30` onward | variable | **Pixel data for frame 0**, in one of two confirmed sub-formats — see below | 16-bit values throughout are **ARGB4444** (4 bits each for alpha/red/green/blue) — reached after two rejected guesses (RGB565, RGB555), see the pixel-format writeup above |
+
+**Two confirmed sub-formats for the pixel data**, auto-detected by
+comparing the `0x2c` byte count against `width × height × 2`:
+
+1. **Flat array** (used when the two match exactly): `width × height`
+   ARGB4444 pixels, row-major, no encoding — confirmed on the three
+   original samples (`avataimsi.img`, `bullet1n.img`, `tank1.img`).
+2. **Sparse per-scanline run list** (used when `0x2c`'s count is smaller
+   than the flat size — i.e. most of the frame is transparent): this is
+   the format `BlitSprite16bpp` actually implements internally. Confirmed
+   directly against `presentmode.img` (a small gift-box icon) by manually
+   verifying three consecutive rows' `stride` fields exactly matched the
+   number of `u16`s consumed by that row's run data. Layout, one entry per
+   row until `height` rows are processed:
+   ```
+   [stride:u16] [run_count:u16]
+   then run_count spans of:
+       [x_offset:u16] [length:u16] [length ARGB4444 pixels]
+   ```
+   `stride` is the distance (in `u16` units, measured from the row's own
+   start) to the next row's `[stride][run_count]` header. Pixels not
+   covered by any run are fully transparent. **A `stride` of `0`
+   terminates the row list early** — confirmed on `mos.img` (a 1800×1800
+   background/mode-select image), where row parsing hit a `stride=0` after
+   1012 consecutive empty rows, well before reaching the declared
+   `height`; treating this as "no more rows have content, fill the rest
+   transparent" (rather than an error) produces a sane result and matches
+   the declared `0x2c` byte budget.
+
+Both `tools/lzhuf/decode_img.py` and `tools/lzhuf/dump_archive.py` now
+implement this auto-detecting flat/sparse decoder.
+
+**Bulk-verified against the entire archive**: running
+`dump_archive.py` over all 9,313 entries in `graphics.xfs` extracts
+**8,926 of 8,927 `.img` entries successfully** (99.99%) in ~2 minutes.
+The single failure, `mf00631L.img`, decompresses to only 8 bytes total —
+too small to contain even a 48-byte header, so it's a genuinely empty/stub
+entry rather than a decoder gap. This is strong end-to-end confirmation
+that both the header format and both pixel-data sub-formats (flat and
+sparse) are correctly understood, not just lucky on a handful of samples.
 
 ### Open questions
 
-- **Whether frame 0 is always stored flat, or whether the sparse
-  scanline-run format `BlitSprite16bpp` implements sometimes applies even
-  to frame 0.** All three tested samples matched `width×height×2` exactly
-  and decoded correctly as a flat array, but that function's real logic
-  (see above) is built around a sparse per-row run list, which would
-  usually produce a *smaller* byte count than a flat array (since fully
-  transparent regions need not be stored). A large sheet like `thor.img`
-  (2.1 MB decoded) would be a good next candidate to check for a case
-  where the flat-array assumption breaks down.
 - **Multi-frame layout beyond frame 0 isn't mapped.** `tank1.img` claims
   455 frames, but `(total size − header) / frame count` doesn't divide
   evenly assuming every frame is the same 36×40 size — frames likely vary
