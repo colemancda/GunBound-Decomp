@@ -2,17 +2,19 @@
 
 Findings from decompiling the asset-loading code path (`LoadGameDataFiles`,
 `OpenXFSArchive`, and the LZHUF decode routines). Complements
-[ARCHITECTURE.md](ARCHITECTURE.md) and [PROTOCOL.md](PROTOCOL.md).
+[ARCHITECTURE.md](ARCHITECTURE.md) and [PROTOCOL.md](PROTOCOL.md). A
+working, verified LZHUF decoder and `.xfs` extractor now live in
+[tools/lzhuf/](tools/lzhuf/) — see that directory's README for usage.
 
 ## Summary table
 
 | Extension | Container | Compression | Confirmed? |
 |---|---|---|---|
-| `.xfs` (`graphics.xfs`, `sound.xfs`, `Avatar.xfs`) | Custom named-entry archive, magic `XFS2` | LZHUF for both the table of contents (target decoded size `0x40` for the header, `0x20000` per 1024-entry chunk) **and each individual entry** (target decoded size = the entry's own confirmed size field, own checksum convention) | Confirmed at both the container and per-entry level |
-| `.dat` (`characterdata.dat`, `itemdata.dat`, `stage.dat`, `specialdata.dat`) | Flat file, no container | **LZHUF-compressed** (target decoded size `0x14c0` = 5,312 bytes), same decoder as XFS | Confirmed for `characterdata.dat`/`itemdata.dat`/`stage.dat` |
+| `.xfs` (`graphics.xfs`, `sound.xfs`, `Avatar.xfs`) | Custom named-entry archive, magic `XFS2` | LZHUF for both the table of contents (target decoded size `0x40` for the header, `0x20000` per 1024-entry chunk) **and each individual entry** (target decoded size = the entry's own confirmed size field, own checksum convention) | **Fully confirmed and working** — all three real `.xfs` files decode end-to-end via `tools/lzhuf/extract_toc.py` |
+| `.dat` (`characterdata.dat`, `itemdata.dat`, `stage.dat`, `specialdata.dat`) | Flat file, no container | **LZHUF-compressed** (target decoded size `0x14c0` = 5,312 bytes), same decoder as XFS | **Fully confirmed and working** for all four files — real content extracted (item names, stage names, Portuguese item descriptions) |
 | `.img` (sprite/texture files, e.g. `tank1.img`, `bullet1n.img`) | Individual asset stored inside the `.xfs` archives, itself LZHUF-compressed as a container entry | RLE (run-length encoding) on top, 16bpp pixel data, applied after LZHUF decompression | Confirmed via `BlitRLESprite`/`BlitSprite16bpp` for the RLE/pixel layer; confirmed via `DecodeXFSEntryBlock` for the container-level LZHUF layer |
 | `.sv` (replay files) | Custom event-stream format | Not compressed (not confirmed either way) | Filename format and per-event record fully confirmed; file open call / possible header not located |
-| `ChooseEvent.txt` | Plain text, lives *inside* `graphics.xfs` | None (plain text) | Confirmed, parser fully read |
+| `ChooseEvent.txt` | Plain text, lives *inside* `graphics.xfs` | None (plain text) | **Fully confirmed** — actual content extracted, a 4-line event-name-to-ID registry |
 
 ## The `.xfs` archive format — confirmed structure
 
@@ -319,41 +321,35 @@ Fully read, byte-by-byte parser confirmed:
 - **Escape sequence**: a literal two-character `\n` (backslash followed by
   the letter `n`) inside a field is converted to a real newline byte before
   storage — i.e. fields can contain embedded newlines via escaping.
-- Given the name "ChooseEvent" and its use inside `graphics.xfs`, this is
-  almost certainly the character-select screen's per-character
-  animation/event timing table (which frame index triggers which sound/
-  effect during the character-selection animation) — not confirmed at the
-  field-semantic level, only the container/parsing format.
+**Content and semantics now fully confirmed** — the LZHUF decoder bug that
+previously blocked reading this file (see the "LZHUF decoder" section
+below) has been fixed, and the file was extracted directly from a real
+`graphics.xfs`. Its **entire contents** (38 bytes):
 
-**Traced further this pass, with a partial (not fully satisfying) result.**
-Each parsed line is handed to `ParseChooseEventLine` (`0x409cb0`), which
-calls `FUN_00426780` (a **string-hash lookup**: hashes a string with a
-classic `hash = hash*0x21 + char` djb2-style rolling hash, then walks a
-hash-bucket chain comparing via `__mbscmp`) followed by `FUN_00409d10` (a
-**pooled hash-table insert**: allocates chained nodes from a fixed-size
-memory pool, threads them into the target bucket, and triggers a rehash via
-`FUN_00409e20` once a load-factor threshold is crossed). Both are generic,
-reusable container primitives — likely the *same* underlying hash-table
-implementation used elsewhere in the engine (a sibling of the sorted-tree
-container documented in [ARCHITECTURE.md](ARCHITECTURE.md) for
-`RegisterActiveObject`/turn scheduling), not something specific to
-`ChooseEvent.txt`.
+```
+0	off
+1	christmas
+2	event2
+3	event3
+```
 
-This means **each `ChooseEvent.txt` line is stored as a hash-table entry
-keyed by a string** — almost certainly the line's first tab-separated
-field, used as a lookup key (e.g. a character/costume name) — **rather
-than a flat array of records**. This narrows down the shape of the data
-(a name→record map, not a list) but doesn't resolve the actual meaning of
-the *other* tab-separated integer fields on each line: the value payload
-threaded into the hash-table node (`unaff_EDI` in the decompiled
-`ParseChooseEventLine`) comes from a register the decompiler couldn't
-recover an origin for — the same recurring custom-calling-convention gap
-noted throughout this project. Pinning down the individual field meanings
-would need raw-disassembly tracing of exactly which registers hold which
-`atol`-parsed value at the point `ParseChooseEventLine` is called, and
-ideally a live sample of `ChooseEvent.txt`'s actual line contents (not
-available in this repo — it lives compressed inside `graphics.xfs`, which
-isn't currently checked into `orig/`).
+This is a small **event-name-to-ID registry**, not a character-select
+animation/timing table as earlier passes had guessed — each line is
+`<numeric ID>\t<event name>`, e.g. `1` → `"christmas"`. This retroactively
+clarifies the earlier `ParseChooseEventLine` trace: it's parsed into a
+generic pooled hash-table (`FUN_00426780`/`FUN_00409d10`, a string-hash
+lookup + pooled insert — likely a reused generic container, not
+`ChooseEvent`-specific) keyed by the **event name string** (the second
+field, e.g. `"christmas"`), with the **numeric ID** (first field) as the
+stored value — i.e. code elsewhere can look up "what numeric event ID does
+the string `christmas` map to." Given the tiny size and content (an
+off/christmas/two-generic-"eventN" list), this is almost certainly what
+lets the client select a **seasonal reskin or special-event mode** by
+name — e.g. a server-sent event name gets resolved to this ID to swap in
+holiday-themed assets or `ChooseEvent`-driven map/UI variants. The two
+generic entries (`event2`/`event3`) suggest the mechanism supports more
+event types than were ever actually named/shipped, or that other events
+are added by editing this file rather than the client binary.
 
 ## `.img` sprite format — confirmed via the render pipeline
 
@@ -599,26 +595,53 @@ decompiled code:
   position-decode tables where the correct reference tables have 256
   entries) — both fixes are reflected in the algorithm description earlier
   in this document.
-- **Not yet working, confirmed as a real bug**: decoding a full 128 KB TOC
-  chunk (as opposed to the 64-byte header) decodes the first record
-  correctly (`"A_smoke.xtf"` + sane trailing offset/size fields), then
-  **progressively degrades** — record 1 is mostly garbage with a few
-  recognizable fragments, and by record ~10-30 the output is essentially
-  pure noise. An independent C port of the same algorithm
-  (`tools/lzhuf/lzhuf_ref.c`) produces byte-identical output to the Python
-  port, ruling out a language-specific translation slip — the remaining
-  bug is a shared misunderstanding of the algorithm, most likely in
-  `Update()`'s tree-reorder logic or `reconst()`. One hypothesis
-  considered and ruled out: that the sparse/padded appearance might
-  reflect genuine archive data (heavily space-padded fields) rather than
-  corruption — the *rate* of degradation (clean, then rapidly noisier) is
-  inconsistent with that and matches an accumulating decoder desync
-  instead. This means **full-archive extraction is not yet possible** with
-  the current prototype decoder, though the container/TOC/record-layout
-  understanding this document describes is validated independent of this
-  bug (confirmed via the correctly-decoded header and first record). See
-  [tools/lzhuf/README.md](tools/lzhuf/README.md) for the fullest current
-  writeup and suggested next steps.
+- **Bug found and fixed — decoder now fully working.** The progressive
+  desync described in earlier passes (first record clean, then rapid
+  degradation into noise) turned out to be the `DecodePosition()` lookup
+  table: what earlier passes transcribed as `p_code`/`p_len` was **not**
+  the real decode-side `d_code`/`d_len` table from the reference
+  `LZHUF.C` — it was some other, incorrect monotonic table that happened
+  to be the right *size* (256 entries) but had entirely wrong *contents*
+  (the real table is heavily many-to-one, collapsing many byte values onto
+  the same 6-bit position — the whole point of a prefix-decode table —
+  whereas the wrong table increased roughly one-to-one, more like an
+  encode-side table). This explains the exact symptom: a wrong position
+  table only breaks back-reference decoding (`DecodePosition`), not literal
+  bytes (`DecodeChar`) — so the tiny 64-byte header (mostly-unique bytes,
+  few back-references) decoded perfectly, while real archive entries
+  (which compress well *because* of repeated back-references) hit the bug
+  almost immediately. It also explains why cross-checking against an
+  independent C port didn't catch it: both ports made the same table
+  transcription mistake, so they agreed with each other while both being
+  wrong.
+
+  **Verified end-to-end against all three real `.xfs` files in `orig/`**:
+  `graphics.xfs` (all 9,313 entries, every chunk, no degradation — and
+  `ChooseEvent.txt` successfully extracted, see below), `sound.xfs` (all 96
+  entries), `avatar.xfs` (all 8 entries — confirming the `f`/`m`-prefixed
+  per-gender `.dat` files guessed at in [STRINGS.md](STRINGS.md)). Full
+  writeup and the corrected tables: [tools/lzhuf/BUG_FOUND_wrong_decode_tables.md](tools/lzhuf/BUG_FOUND_wrong_decode_tables.md).
+  `tools/lzhuf/lzhuf.py` now contains the fix; `tools/lzhuf/extract_toc.py`
+  works correctly end-to-end. The original buggy tables are preserved at
+  `tools/lzhuf/lzhuf_buggy_original.py.bak` for reference, and
+  `tools/lzhuf/lzhuf_ref.c` (the C cross-check) still has the original bug
+  and hasn't been fixed (not needed now that the real bug is found and
+  fixed in the Python version actually used by `extract_toc.py`).
+
+  **The `.dat` files also decode cleanly now** (same decoder, target size
+  `0x14c0` = 5312 bytes, no container/TOC — just the raw file bytes): 
+  `itemdata.dat` starts with the plaintext item name `"Dual"` followed by
+  what reads as Portuguese item-description text later in the buffer
+  (`"Usando este item voce pode dis..."` — "using this item you can
+  dis[able/tribute]..."), `stage.dat` starts with the plaintext stage name
+  `"Cave(Random)"`, and `characterdata.dat`/`specialdata.dat` decode to
+  sequences of small `uint32` values consistent with stat fields, though
+  their field-level structure (which offset means what) hasn't been mapped
+  yet. The Portuguese text is a good clue about this particular game
+  copy's origin/localization (the source folder name — see
+  [README.md](README.md) — is a Brazilian Portuguese client build), useful
+  context if the exact string content ever seems unexpected compared to an
+  English-language GunBound client.
 
 ## Known gaps / good next targets
 
@@ -644,28 +667,25 @@ decompiled code:
 2. **Resolved**: individual XFS archive entries are confirmed LZHUF-
    compressed (see above), with their own target-size convention and checksum
    convention, separate from both the TOC and the `.dat` files' schemes.
-3. **Resolved at the algorithm level**: the entire LZHUF codec — bitstream
-   reader (`GetBit`/`GetByte`), symbol/position Huffman decoders
-   (`DecodeChar`/`DecodePosition`), the adaptive frequency-update/tree-
-   reorder step (`Update`), and the periodic full-tree rebuild (`reconst`)
-   — is now confirmed structurally identical to the classic public-domain
-   `LZHUF.C` reference implementation, including exact constants
-   (`N_CHAR=314`, `T=627`, 4096-byte window, 32768 frequency-overflow
-   threshold). See the dedicated section above for the full function-by-
-   function mapping. What remains to actually decode `orig/characterdata.dat`
-   and friends is purely mechanical: transcribing the confirmed routines and
-   state-struct offsets into a standalone compilable decoder — no more
-   reverse-engineering unknowns, only implementation work.
-4. **Partially advanced**: traced `ParseChooseEventLine` further and found
-   each line is stored into a generic pooled hash-table (keyed by a string,
-   likely the line's first field) rather than a flat record array — see the
-   dedicated note above. The individual tab-separated integer fields'
-   semantics still aren't decoded; that would need raw-disassembly register
-   tracing. A real copy of `graphics.xfs` is now available locally (see
-   "Validation against real game files" above), so the actual text content
-   of `ChooseEvent.txt` could be extracted once the LZHUF decoder bug
-   documented there is fixed — that would make this gap much easier to
-   close (inspecting real field values beats guessing from code alone).
+3. **Fully resolved — working decoder exists and is verified.** The entire
+   LZHUF codec is confirmed structurally identical to the classic
+   public-domain `LZHUF.C` reference (`N_CHAR=314`, `T=627`, 4096-byte
+   window), a real bug in the decode-position table was found and fixed
+   (see "Validation against real game files" above), and the decoder
+   (`tools/lzhuf/lzhuf.py`) now cleanly decodes all three `.xfs` files in
+   `orig/` end-to-end plus all four `.dat` files, extracting real content
+   (`ChooseEvent.txt`'s full text, `itemdata.dat`'s item names/Portuguese
+   descriptions, `stage.dat`'s stage names). Nothing left to resolve at the
+   algorithm level; remaining work is purely about mapping *field-level*
+   semantics within `characterdata.dat`/`itemdata.dat`/`specialdata.dat`'s
+   decoded byte layout, not about decoding them.
+4. **Fully resolved.** `ChooseEvent.txt`'s actual content was extracted
+   (see the dedicated section above): it's a tiny event-name-to-ID registry
+   (`0=off, 1=christmas, 2=event2, 3=event3`), not the character-select
+   animation/timing table earlier passes had guessed. The hash-table
+   storage mechanism traced earlier (`ParseChooseEventLine` →
+   `FUN_00426780`/`FUN_00409d10`) makes sense in this light: the event-name
+   string is the hash key, the numeric ID is the stored value.
 5. **Fully resolved**: `graphics.xfs`, `Avatar.xfs`, and now `sound.xfs`
    (confirmed by tracing `InitGame`'s direct `BuildAssetPath(..., "sound.xfs",
    ...)` → `InitDirectSound(..., path)` call, see the dedicated section
