@@ -697,14 +697,75 @@ tick rate) auto-transitions `ChangeGameState(2)` (Server Select). No drawing
 at all. `State01_Title_OnEnter` likewise contains no blit calls — just audio
 setup (starts title music via `FUN_004f1790(&DAT_00ea0e18, 10000)`).
 
-**Conclusion, not yet fully closed**: Title/Logo/ServerSelect's actual visual
-content must be drawn through some **generic, state-independent mechanism**
-— most plausibly a registered-widget/button system (consistent with the
-`b_gamelist_buddyup`-style button-name strings seen throughout, which read
-like a UI framework's named clickable regions) that auto-draws whatever's
-currently registered each frame, rather than each state needing custom
-render code. This widget system itself hasn't been located/traced — it's the
-concrete next target if this thread continues.
+### The generic UI-widget system — found and confirmed
+
+Traced the `b_gamelist_buddyup`-style button-name strings back to their
+actual reference: not a data table, but a genuine (if decompiler-obscured)
+instruction — `MOV EAX, <string address>` immediately followed by a `CALL`,
+inside `ChangeGameState` itself. Ghidra's decompiler failed to surface this
+particular call's string argument (the value is passed via `EAX`, a register
+the decompiler didn't associate with the callee's parameter list — the same
+class of issue seen elsewhere in this codebase with custom/register-based
+calling conventions), which is why a full prior decompile of `ChangeGameState`
+never showed it. Reading the raw x86 disassembly directly resolved it.
+
+**Confirmed architecture, three layers**:
+
+1. **`AppendPersistentButtonName`** (`0x401740`, was `FUN_00401740`) appends
+   a button name string into a growable, count-prefixed array (128-byte/
+   `0x20`-dword records) at `&DAT_0067ec70 + <session offset>`. `ChangeGameState`
+   calls this **9 times in a row on every single state transition**,
+   registering a fixed set of persistent button names — the buddy-list
+   scroll controls (`b_gamelist_buddyup/down`, `b_buddy_up/down/exit`) and a
+   generic error-confirm button (`b_error_confirm`) — confirming these are
+   **global, persistent UI elements available across virtually every
+   screen**, not per-screen widgets. This same array (`DAT_0067ec70`) is also
+   populated by nearly every individual state's own `OnEnter`/`OnExit`
+   (547 total cross-references found), plus every per-character weapon-effect
+   constructor function found during the earlier rendering pass — it's a
+   single, shared, session-wide registry, not one array per screen.
+2. **`LoadButtonDefinitionFromXFS`** (`0x401440`, was `FUN_00401440`) is
+   called for each registered name and loads that button's actual definition
+   from **a named entry inside `graphics.xfs`** (via `FindXFSEntry`/
+   `ReadXFSEntryByte` — the exact same archive-reading primitives documented
+   in [FILEFORMATS.md](FILEFORMATS.md)), parsing a small binary structure:
+   a count, then that many sub-records each with a length-prefixed name
+   string followed by several more fields and two dynamically-sized arrays
+   — a genuine, distinct **widget-definition micro-format** living inside
+   the XFS archive, parsed byte-by-byte like `ChooseEvent.txt` but binary
+   rather than text. Not decoded field-by-field in this pass.
+3. **`CreateButtonWidget`** (`0x406020`, was `FUN_00406020`) is the actual
+   per-button object constructor — allocates an 80-byte heap object with a
+   **shared vtable** (`vtable_ButtonWidget`, `0x551e44`), storing position/
+   size, resolving its texture via `FindPreloadedTextureByName`, and setting
+   an initial visual state (`"disable"`/`"active"`/`"ready"` — the same
+   state-name strings recurring throughout the whole codebase). Confirmed
+   called from nearly every state's `OnEnter` (Server Select, Room List,
+   Avatar Store, Ready Room, Loading — Title is a notable exception, matching
+   its earlier-confirmed lack of any UI beyond the splash timer).
+4. Every constructed button is registered via **`RegisterActiveObject`**
+   (`0x4f2fb0`, was `FUN_004f2fb0`) into a **sorted tree/list structure**
+   keyed by two levels (a layer/z-order value, then a secondary key) — and
+   this insertion logic structurally matches the *exact same* sorted-
+   container pattern already confirmed for `PostTurnEvent`'s underlying
+   insert function (the turn-event scheduler). This is a genuinely elegant,
+   unifying architectural finding: **the engine has one reusable generic
+   sorted-container primitive, reused for both the time-keyed turn-event
+   queue and this layer-keyed active-object/render registry** — not two
+   independently-implemented data structures.
+
+**This answers the original open question**: Title/Logo/ServerSelect (and
+every other screen) don't need bespoke per-state render code because their
+buttons/dialogs are just objects registered into one shared active-object
+list during `OnEnter`, and — while the exact function that *iterates* this
+list once per frame to call each object's draw method wasn't isolated in
+this pass — the architecture is now clear enough that this is a "find one
+more function" task rather than an open architectural question. The
+movement-related cursor/sound-effect object found earlier in the physics
+investigation (`FUN_004368f0`) registers into this same list via the same
+`RegisterActiveObject` call, confirming buttons, dialogs, and transient
+sound/cursor effects are all instances of one common "active game object"
+concept in this engine, not separate systems.
 
 ### Remaining open threads
 
@@ -714,10 +775,11 @@ concrete next target if this thread continues.
    because the HAL device requires one) is unconfirmed.
 3. The developer-name chat easter egg (see above) — what it actually does
    when triggered isn't traced.
-4. **The hypothesized generic UI-widget draw system** — simple screens'
-   actual per-frame draw call hasn't been located. Confirmed NOT via
-   `WM_PAINT`, NOT via the per-state slot-9 tick hook (that's just timers),
-   and NOT via `OnEnter` (one-time setup only, no drawing). Best next lead:
-   trace the button-string references (`b_gamelist_buddyup` etc.) back to
-   whatever registers them, and see if that registration feeds a shared,
-   state-agnostic draw loop.
+4. The function that **iterates** the active-object registry once per frame
+   (calling each registered widget/effect's draw method) wasn't isolated —
+   the registration side (`RegisterActiveObject`, the sorted-tree insert)
+   is fully confirmed, but its consuming iteration loop is the one piece
+   left to find to fully close this thread.
+5. `LoadButtonDefinitionFromXFS`'s binary widget-definition format (the
+   count-prefixed sub-record structure read from `graphics.xfs`) isn't
+   decoded field-by-field.
