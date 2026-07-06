@@ -615,18 +615,24 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
    mapped. Discovered the client-side **replay-recording system** as a
    byproduct (`.sv` files, typed event log, `Replay_AppendEvent`/
    `Replay_FlushEvent`).
-5. **DONE** — found and mapped the second virtual channel: `CGameState`
-   vtable slot 2 (`ProcessBattleAction`), overridden only by Loading, Ready
-   Room, and In-Battle (every other state uses the shared no-op) — strong
-   confirmation this is a real-time/P2P-adjacent protocol distinct from
-   `ProcessPacket`. Found a concrete cross-state data handoff (Loading writes
-   turn-timer + setup data directly into the In-Battle object before it's
-   even active). Socket-level proof (which recv path feeds slot 1 vs slot 2)
-   is still unconfirmed — would need to trace `recv`/`recvfrom` callers
-   forward rather than working backward from the vtables. Also still open:
-   most of the `0x84xx`/`0xc4xx` action codes beyond `0x8406`/`0x8407`/
-   `0x8408`, and the meaning of `+0x10a4`/`+0x2302` on the In-Battle object
-   beyond "turn timer" / "8-element setup array."
+5. **DONE, and further advanced this pass** — found and mapped the second
+   virtual channel: `CGameState` vtable slot 2 (`ProcessBattleAction`),
+   overridden only by Loading, Ready Room, and In-Battle (every other state
+   uses the shared no-op) — strong confirmation this is a real-time/
+   P2P-adjacent protocol distinct from `ProcessPacket`. Found a concrete
+   cross-state data handoff (Loading writes turn-timer + setup data
+   directly into the In-Battle object before it's even active). Socket-level
+   proof (which recv path feeds slot 1 vs slot 2) is still unconfirmed —
+   would need to trace `recv`/`recvfrom` callers forward rather than working
+   backward from the vtables. Two more action codes decompiled and
+   documented this pass: `0x8104` (shows the end-of-match "confirm result"
+   button) and `0x8500` (a player-position/status relay, also independently
+   confirmed as a replay-event code logged elsewhere — see
+   [PROTOCOL.md](PROTOCOL.md)). Almost all `0x84xx`/`0xc3xx`/`0xc4xx` action
+   codes are now documented; a handful of smaller gaps remain (`0xc302`,
+   `0xc307`, `0xc309`, and most of `0xc402`-`0xc408`), plus the meaning of
+   `+0x10a4`/`+0x2302` on the In-Battle object beyond "turn timer" /
+   "8-element setup array."
 6. **DONE** — all opcodes across every `ProcessPacket`/`ProcessBattleAction`
    handler mapped; see [PROTOCOL.md](PROTOCOL.md) for the full packet
    reference (this superseded the original opcode-mapping goal here).
