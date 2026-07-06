@@ -1149,7 +1149,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004eafa0,126,FUN_004eafa0,false,1,0,TODO
 004eb020,622,FUN_004eb020,false,1,0,TODO
 004eb290,439,FUN_004eb290,false,1,0,TODO
-004eb450,186,FUN_004eb450,false,127,2,TODO
+004eb450,186,BlitRLESprite,false,127,2,TODO
 004eb510,187,FUN_004eb510,false,30,2,TODO
 004eb5d0,99,FUN_004eb5d0,false,6,1,TODO
 004eb640,99,FUN_004eb640,false,1,1,TODO
@@ -1160,7 +1160,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004eb890,65,FUN_004eb890,false,16,3,TODO
 004eb8e0,92,FUN_004eb8e0,false,13,2,TODO
 004eb940,128,FUN_004eb940,false,1,0,TODO
-004eb9c0,186,FUN_004eb9c0,false,217,2,TODO
+004eb9c0,186,BlitSpriteClipped,false,217,2,TODO
 004eba80,99,FUN_004eba80,false,1,1,TODO
 004ebaf0,201,FUN_004ebaf0,false,17,1,TODO
 004ebbc0,521,FUN_004ebbc0,false,2,0,TODO
@@ -1176,7 +1176,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ed0c0,571,FUN_004ed0c0,false,2,0,TODO
 004ed300,658,FUN_004ed300,false,4,0,TODO
 004ed5a0,253,FUN_004ed5a0,false,4,0,TODO
-004ed6a0,463,FUN_004ed6a0,false,252,1,TODO
+004ed6a0,463,BlitSprite16bpp,false,252,1,TODO
 004ed870,376,FUN_004ed870,false,21,2,TODO
 004ed9f0,163,FUN_004ed9f0,false,36,2,TODO
 004edaa0,175,FUN_004edaa0,false,2,0,TODO
@@ -1214,16 +1214,16 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ef820,79,FUN_004ef820,false,1,3,TODO
 004ef870,12,FUN_004ef870,false,2,1,TODO
 004ef880,94,FUN_004ef880,false,1,2,TODO
-004ef8e0,143,FUN_004ef8e0,false,1,0,TODO
+004ef8e0,143,EnumTextureFormatsCallback,false,1,0,TODO
 004ef970,44,FUN_004ef970,false,2,0,TODO
 004ef9a0,255,FUN_004ef9a0,false,1,0,TODO
 004efaa0,1262,InitDirectDraw,false,1,9,TODO
-004eff90,217,FUN_004eff90,false,1,6,TODO
-004f0070,134,FUN_004f0070,false,1,0,TODO
+004eff90,217,ShutdownDirectDraw,false,1,6,TODO
+004f0070,134,PresentFrame,false,1,0,TODO
 004f0100,208,FUN_004f0100,false,1,0,TODO
 004f01d0,91,FUN_004f01d0,false,2,0,TODO
 004f0230,141,FUN_004f0230,false,1,0,TODO
-004f02c0,92,FUN_004f02c0,false,4,0,TODO
+004f02c0,92,LockBackBuffer,false,4,0,TODO
 004f0320,91,FUN_004f0320,false,1,0,TODO
 004f0380,112,FUN_004f0380,false,9,1,TODO
 004f03f0,316,FUN_004f03f0,false,5,4,TODO

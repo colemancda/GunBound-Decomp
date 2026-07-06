@@ -463,94 +463,124 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
    per-player). Cross-reference against `itemdata.dat`/`characterdata.dat`
    samples in `orig/` for field-level layout hints.
 
-## Rendering / DirectDraw (first pass)
+## Rendering — Direct3D 7 + software hybrid
 
-Started per the user's explicit priority order (networking → state machine →
-physics → rendering last). This is a first pass, not exhaustive — rendering
-is a large subsystem.
+**Key finding: GunBound is not a plain DirectDraw blitter — it's a hybrid
+Direct3D 7 hardware renderer with a software (Lock/write) rasterizer layer.**
+This corrects the earlier "DirectDraw Blt" assumption.
 
-### DirectDraw setup (`InitDirectDraw`, `0x4efaa0`)
+### The COM object chain (confirmed via GUID, not just call shape)
 
-Confirmed via call-argument shape (no dedicated DirectX type archive ships
-with Ghidra 12.1.2, so exact vtable method names are inferred from argument
-patterns, not memorized offsets):
+`InitDirectDraw` (`0x4efaa0`) builds this chain — vtable method identities
+below are now **confirmed**, not inferred, because the `QueryInterface` GUID
+argument at `0x5573e8` decodes to
+`{F5049E77-4861-11D2-A407-00A0C90629A8}` = **`IID_IDirect3D7`**, which
+anchors the whole interface identification:
 
-- `LoadLibraryA("ddraw.dll")` + `GetProcAddress("DirectDrawCreateEx")`,
-  called directly (not through a typed function pointer) — matches
-  `InitDirectDraw`'s already-confirmed dynamic-load pattern from Phase 1.
-- A COM call at vtable `+0x50` (likely `SetCooperativeLevel`) then `+0x54`
-  (likely `SetDisplayMode`) — branches on a global flag (`DAT_00588f4c`)
-  between **fullscreen-exclusive** (hardcoded **800×600**, matching every
-  other confirmed viewport reference in this codebase) and **windowed**
-  mode (uses `GetClientRect`/`ClientToScreen` to size the surface to the
-  actual window instead).
-- `CreateSurface`-shaped calls (`+0x18`, taking a `DDSURFACEDESC2`-like
-  struct) create a **primary surface** and, in fullscreen mode, a **complex/
-  flip back-buffer chain** (`dwBackBufferCount=1`); windowed mode instead
-  attaches a clipper (`+0x10` on the surface, `+0x20` on the clipper object,
-  `+0x70` — `SetHWnd`-shaped).
-- A separate global `DAT_00793604` is acquired late in this function
-  (`+0x10` with a callback function pointer, `EnumObjects`-shaped) and reused
-  extensively elsewhere (see below) — **identity not conclusively resolved**;
-  call shape (callback enumeration, zero-check gating resembling `Poll()`,
-  `(code,value)` pairs resembling `SetProperty`) is most consistent with a
-  **DirectInput8 device**, but it also appears inside the confirmed render
-  function (`State11_InBattle_Render`) interleaved with sprite-drawing code —
-  plausibly just input polling calls sprinkled through the render loop to
-  keep input responsive, rather than evidence it's a rendering object itself.
-  Flagged as open rather than force-fit to a specific interface.
+| Global (renamed) | Interface | Created by |
+|---|---|---|
+| `g_hDDrawDll` (`0x79363c`) | `HMODULE` for `ddraw.dll` | `LoadLibraryA` |
+| `g_pDirectDraw7` (`0x7935f0`) | `IDirectDraw7` | `GetProcAddress("DirectDrawCreateEx")` |
+| `g_pDirect3D7` (`0x793600`) | `IDirect3D7` | `g_pDirectDraw7->QueryInterface(IID_IDirect3D7)` |
+| `g_pPrimarySurface` (`0x7935f4`) | `IDirectDrawSurface7` (primary, + flip chain in fullscreen) | `CreateSurface` |
+| `g_pBackBufferSurface` (`0x7935f8`) | `IDirectDrawSurface7` (back buffer / D3D render target) | `GetAttachedSurface` off the primary |
+| `g_pD3DDevice7` (`0x793604`) | `IDirect3DDevice7` | `g_pDirect3D7->CreateDevice(guid, backBuffer, &device)` |
+| `g_pClipper` (`0x6790b8`) | `IDirectDrawClipper` | `CreateClipper` (windowed present) |
+
+`ShutdownDirectDraw` (`0x4eff90`, was `FUN_004eff90`) `Release`s all six COM
+objects (vtable `+8`) then `FreeLibrary(g_hDDrawDll)` — this teardown function
+is what let the whole chain be identified together.
+
+The device's `IDirect3DDevice7` vtable is used throughout with textbook
+offsets (all now confirmed against the standard vtable): `+0x10`
+EnumTextureFormats (the callback `EnumTextureFormatsCallback`/`0x4ef8e0` that
+was *wrongly* guessed as DirectInput last pass), `+0x14` BeginScene, `+0x18`
+EndScene, `+0x20` SetRenderTarget, `+0x28` Clear (called as
+`Clear(0,0,TARGET|ZBUFFER, color, z=1.0f, 0)`), `+0x34` SetViewport, `+0x50`
+SetRenderState, `+0x64` DrawPrimitive, `+0x8c` SetTexture, `+0x94`
+SetTextureStageState. `InitDirectDraw`'s tail sets up **alpha blending**:
+`SetRenderState(SRCBLEND=SRCALPHA)`, `SetRenderState(DESTBLEND=INVSRCALPHA)`,
+`SetRenderState(ALPHABLENDENABLE=1)` — i.e. sprites are drawn as alpha-blended
+textured quads on the GPU.
+
+Fullscreen vs. windowed still branches on `DAT_00588f4c` (fullscreen =
+hardcoded 800×600 exclusive; windowed = `GetClientRect`/`ClientToScreen`).
+
+### Frame presentation (`PresentFrame`, `0x4f0070`)
+
+Called once at the end of every `GameTick`. Confirmed:
+`g_pPrimarySurface->SetClipper(g_pClipper)` then
+`g_pPrimarySurface->Blt(&destRect, g_pBackBufferSurface, NULL, DDBLT_WAIT, NULL)`
+— a **clipped Blt of the back buffer onto the primary** (windowed-mode
+present). On `DDERR_SURFACELOST` (`0x887601C2`, matched exactly in the code)
+it `Restore`s all three surfaces and re-`SetRenderTarget`s the device.
+
+### The software rasterizer layer (hybrid rendering)
+
+Alongside the D3D device, the game **locks the back buffer and writes pixels
+directly** for a large class of content:
+
+- **`LockBackBuffer`** (`0x4f02c0`, was `FUN_004f02c0`):
+  `g_pBackBufferSurface->Lock(NULL, &ddsd, 0, 0)`, returns the surface
+  **pitch** and **pixel pointer**. Paired with an `Unlock` (surface `+0x80`)
+  at the end of each render layer in `GameTick`.
+- **`BlitRLESprite`** (`0x4eb450`, was `FUN_004eb450`): decodes a **run-length
+  encoded** sprite byte-stream (high bit of each control byte = run vs.
+  literal) into the locked buffer. This confirms the on-disk `.img` sprite
+  format is **RLE-compressed**.
+- **`BlitSprite16bpp`** (`0x4ed6a0`, was `FUN_004ed6a0`): operates on
+  `unsigned short*` pixels → the surfaces are **16-bit color** (555/565).
+- **`BlitSpriteClipped`** (`0x4eb9c0`, was `FUN_004eb9c0`): clips against the
+  active clip rect (`DAT_00793534`/`DAT_0056df34`) before blitting.
+
+So the pipeline per frame is roughly: `Clear` (D3D) → Lock back buffer →
+software-blit map/terrain/UI sprites (RLE, 16bpp) → Unlock → `BeginScene` /
+draw hardware sprite quads / `EndScene` (D3D) → `PresentFrame` (Blt to
+primary). The `GameTick` present loop runs at a fixed ~50 ms cadence with a
+`Sleep`-based frame cap.
 
 ### Texture/asset system
 
-Two distinct, confirmed lookup mechanisms — not one cache, two:
+Two distinct, confirmed lookup mechanisms:
 
-- **`FindPreloadedTextureByName`** (`0x4017d0`, was `FUN_004017d0`): linear
-  scan through a **fixed-size, pre-populated table** (case-insensitive
-  `stricmp`, 24-byte records), returns null on miss with **no disk-load
-  fallback**. This is why the Loading screen exists as a distinct game
-  state: **`State10_Loading_PreloadAssets`** (`0x43f0e0`, was `FUN_0043f0e0`,
-  12,346 bytes) loads every character/weapon/effect texture (`tank1.img`,
-  `bullet1n.img`, `flame11.img`, etc. — hundreds of filenames) into this
-  table up front, so **no texture load ever happens mid-battle**.
-- **`FindTextureCacheEntryByName`** (`0x4f4650`, was `FUN_004f4650`): a
-  string-keyed chain/tree lookup (root at `+0x1b4`, `next` pointer at
-  `+0x98`), used by `State11_InBattle_Render` to resolve a sprite-effect name
-  to a cache entry, then write computed **sprite-sheet UV coordinates**
-  directly into that entry's fields (`+0x80`/`+0x84`/`+0x88`) before drawing.
-  Likely a *second*, more general-purpose named-object registry (effects,
-  not just textures) distinct from the fixed preload table above.
+- **`FindPreloadedTextureByName`** (`0x4017d0`): linear scan through a
+  **fixed-size, pre-populated table** (case-insensitive `stricmp`, 24-byte
+  records), returns null on miss with **no disk-load fallback**. This is why
+  the Loading screen is its own game state: **`State10_Loading_PreloadAssets`**
+  (`0x43f0e0`, 12,346 bytes) loads every character/weapon/effect texture
+  (`tank1.img`, `bullet1n.img`, `flame11.img`, … hundreds of filenames) into
+  this table up front, so **no texture load happens mid-battle**.
+- **`FindTextureCacheEntryByName`** (`0x4f4650`): a string-keyed chain lookup
+  (root at `+0x1b4`, `next` at `+0x98`), used by `State11_InBattle_Render` to
+  resolve a sprite-effect name to a cache entry, then write computed sprite-
+  sheet UV coordinates into it (`+0x80`/`+0x84`/`+0x88`) before drawing.
 
 ### Sprite-sheet frame selection
 
-Confirmed pattern, seen dozens of times throughout `State11_InBattle_Render`:
+Seen dozens of times in `State11_InBattle_Render`:
 ```
 entry->u = (frameIndex & mask) * cellSize;
 entry->v = (frameIndex >> shift) * cellSize;
 ```
-i.e. treating a loaded texture as a fixed-size grid and computing a sub-rect
-by frame index — standard sprite-sheet/tile-atlas animation. Grid sizes seen:
-2×N (mask `&1`), 3×3 (`%3`/`/3`), 4×N (`&3`/`>>2`), 8×N (`&7`).
+Standard sprite-sheet/atlas animation — sub-rect from a frame index. Grid
+sizes seen: 2×N (`&1`), 3×3 (`%3`/`/3`), 4×N (`&3`/`>>2`), 8×N (`&7`).
 
 ### Turret/sprite rotation
 
-`g_sineTable360` (`0x54c240`, confirmed in the physics investigation) — a
-360-entry precomputed sine table indexed by `angle % 360` (cosine via
-`(angle+90) % 360`) — is used by rendering to orient sprites (e.g. turret
-angle) via the classic 2D rotation formula
-`x' = x + sin(a)*A + cos(a)*B`. Its only confirmed caller so far
-(`0x4ebbc0`) is called from `State11_InBattle_Render`.
+`g_sineTable360` (`0x54c240`) — 360-entry precomputed sine table indexed by
+`angle % 360` (cosine via `(angle+90) % 360`) — orients sprites via
+`x' = x + sin(a)*A + cos(a)*B`. Confirmed caller `0x4ebbc0` runs inside
+`State11_InBattle_Render`.
 
 ### Open threads for a deeper rendering pass
 
-1. `DAT_00793604`'s true identity (input device vs. something else) —
-   resolving this would clarify a lot of interleaved calls across
-   `InitDirectDraw`, `GameTick`, and the render function.
-2. The actual `Blt`/`Flip` call(s) that present a completed frame haven't
-   been isolated yet — this pass found surface *setup* and the sprite/UV
-   computation, not the final blit-to-screen call.
-3. Only `State11_InBattle_Render` has been read in detail. The other states'
-   equivalent render paths (if they have dedicated ones, vs. relying on
-   Windows `WM_PAINT`/GDI for simpler static screens like Title/Logo) are
-   unexplored.
-4. The `+0x98`-chained cache structure behind `FindTextureCacheEntryByName`
-   (hash bucket chain vs. simple linked list vs. tree) isn't confirmed.
+1. Only `State11_InBattle_Render` has been read in detail. The other states'
+   render paths (dedicated vs. simpler software-only for Title/Logo) are
+   unexplored — though the shared present/lock/blit primitives above almost
+   certainly serve all of them.
+2. The exact `IDirect3DDevice7::DrawPrimitive` vertex format (FVF) for the
+   hardware sprite quads hasn't been extracted — would confirm the
+   texture-coordinate + alpha layout.
+3. `DAT_007935fc` (a third surface `Release`d/`Restore`d alongside the primary
+   and back buffer) isn't identified — possibly an offscreen work surface for
+   the software blitter.
