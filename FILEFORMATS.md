@@ -73,6 +73,103 @@ at the pixel level** (see `BlitRLESprite` in ARCHITECTURE.md) — two
 independent compression layers, one for the container, one for the pixel
 data itself.
 
+## The `.xfs` table-of-contents entry record — fully confirmed layout
+
+This is the piece needed to actually **enumerate** an archive's contents
+(list every filename it holds), not just look up one name at a time. Traced
+by decompiling `OpenXFSArchive`'s TOC-loading loop, `FindXFSEntry` (`0x4f1110`),
+its string comparator `FUN_004f0990`, and the two entry-data readers
+`ReadXFSEntry`/`ReadXFSEntryByte` (`0x4f0380`/`0x4f06c0`).
+
+### TOC layout in memory (after LZHUF decoding)
+
+The decoded TOC isn't one flat array — it's **chunked**:
+
+- Decoded TOC header (first LZHUF block, key `0x40`) contains, after the
+  4-byte `"XFS2"` magic, a **total entry count** (a `uint32_t`, confirmed
+  read right after the magic check in `OpenXFSArchive`).
+- Entries are grouped into **chunks of 1024 entries** (`entryIndex >> 10`
+  selects the chunk, `entryIndex & 0x3ff` selects the entry within it).
+  Each chunk is its own separate LZHUF-compressed block, decoded with key
+  `0x20000` (128 KB — exactly `1024 entries × 128 bytes/entry`), read via
+  the same 4-byte-length-prefixed-block loop as the initial TOC header.
+  A pointer to each chunk's decoded 128 KB buffer is stored in an array
+  (one `uint32_t` pointer per chunk).
+- **Each entry record is exactly 128 (`0x80`) bytes.**
+- **Entries are sorted case-insensitively by filename**, enabling
+  `FindXFSEntry` to do a genuine **binary search** rather than a linear
+  scan — confirmed by reading `FindXFSEntry`'s bisection loop directly
+  (midpoint calculation, comparator call, narrowing `[low, high)`) and its
+  comparator `FUN_004f0990`, which is a textbook `stricmp`: it upper-cases
+  both sides (`'a'-'z'` range mapped by adding `0x20`... actually the reverse:
+  it detects `'A'-'Z'` — `0x40 < c < 0x5b` — and folds it to lowercase by
+  adding `0x20`) and compares byte-by-byte until a NUL or mismatch. **This
+  means enumerating a full archive's filenames means walking every chunk's
+  128-byte-stride array, not calling `FindXFSEntry` in a loop** (that
+  function is a point lookup, not an iterator) — a real extractor should
+  read the chunks directly.
+
+### The 128-byte entry record
+
+| Offset | Size | Field | Confirmed via |
+|---|---|---|---|
+| `0x00` | up to ~0x70 (variable) | **Filename**, NUL-terminated ASCII, case-insensitive | `FUN_004f0990`'s comparator operates directly on the record's base address |
+| `0x70` | 4 | **Storage-mode flag**: `1` = entry stored **raw/uncompressed** in the archive file; anything else (`0`) = entry is **LZHUF-compressed** (the `XFSEntryBlock` format documented above) | `ReadXFSEntryByte`: `if (*(int*)(record+0x70) == 1)` branches into a direct `SetFilePointer`+`ReadFile` path instead of the ring-buffer/`DecodeXFSEntryBlock` path |
+| `0x74` | 4 | **Base file offset** of the entry's data — interpreted as a raw byte offset into the archive file if the mode flag is `1`, or as the offset of the `XFSEntryBlock` header (`compressedSize`+`checksum`+`compressedData`) if the mode flag is `0` | `ReadXFSEntry` copies this into the reader-state's file-offset field, later used by both `DecodeXFSEntryBlock`'s `SetFilePointer` and the raw-mode `SetFilePointer` in `ReadXFSEntryByte` |
+| `0x78` | 4 | **Decompressed (uncompressed) size** of the entry, in bytes — this is the size a consumer should expect after decompression, used as the EOF check in `ReadXFSEntryByte` (`storedSize <= readCursor` → return 0, i.e. end of entry) | `ReadXFSEntryByte`: `uVar6 = *(uint*)(record+0x78)` compared against the running read-cursor field |
+| `0x7c` | 4 | Unaccounted-for / not observed in any of the three functions traced — likely padding, a reserved field, or a value only read by code not covered in this pass (e.g. a per-entry timestamp or CRC used elsewhere) | Not confirmed |
+
+So: **name string, then three trailing `uint32_t` fields (mode flag, file
+offset, decompressed size) in the last 12 bytes of the 128-byte record**,
+with 4 bytes still unidentified. The exact name-field maximum length
+(`0x70` = 112 bytes budget before the trailing fields, assuming no gap)
+wasn't independently stress-tested against a real long filename in this
+pass, but 112 bytes comfortably covers every filename observed in
+[STRINGS.md](STRINGS.md).
+
+### Important caveat for a from-scratch extractor: shared decode state
+
+`DecodeLZHUFBlock`'s ring buffer, Huffman tree, and bit-buffer are **fields
+of the archive handle object itself** (passed as `unaff_ESI`/`in_ECX`
+throughout — the same base pointer used for the TOC, the file handle, and
+every entry read), not something allocated fresh per entry. This means the
+original code reads **one entry fully before starting another** — there's
+no reentrant/interleaved multi-entry streaming. A clean-room extractor
+doesn't need to replicate this constraint (you can simply decode entries
+into independent output buffers one at a time, which is the natural way to
+write an extractor anyway), but it's worth knowing if you're trying to
+match the original's exact behavior rather than just extract assets.
+
+### Putting it together: the full path from `.xfs` file to an extracted asset
+
+For a tool that opens a `.xfs` file and dumps every entry to disk:
+
+1. Open the file, seek to `EOF - 4`, read a `uint32_t` = TOC offset.
+2. Seek to that TOC offset, read a `uint32_t` = TOC header's compressed size,
+   read that many bytes, decode with LZHUF (key `0x40`). Verify the decoded
+   output starts with `"XFS2"`. Read the `uint32_t` entry count right after
+   the magic.
+3. For `ceil(entryCount / 1024)` more chunks: read a 4-byte length prefix,
+   read that many bytes, decode with LZHUF (key `0x20000`, i.e. expect a
+   128 KB decoded output = 1024 × 128-byte records — the last chunk may
+   have fewer valid entries, per `entryCount & 0x3ff`).
+4. Concatenate/index the chunks to get every entry's 128-byte record: read
+   the NUL-terminated name at offset `0x00`, mode flag at `0x70`, file
+   offset at `0x74`, decompressed size at `0x78`.
+5. For each entry: if mode flag `== 1`, seek to the file offset and read
+   `decompressedSize` bytes directly — done, no decompression needed. If
+   mode flag `!= 1`, seek to the file offset, read a `uint32_t`
+   compressed-size and `uint32_t` checksum (the `XFSEntryBlock` header),
+   read `compressedSize` bytes, and LZHUF-decode (key `0x1000`) — this may
+   need to be done in a loop for entries larger than the 4 KB ring buffer
+   (the original reads/decodes in a streaming fashion; a from-scratch tool
+   can simplify this by decoding the whole entry in one pass into an output
+   buffer sized to the confirmed `0x78` decompressed-size field, since you
+   don't need to replicate the original's fixed internal buffer limits).
+6. If the entry's name ends in `.img`, apply the RLE + 16bpp pixel decode
+   documented in the `.img` section below to get raw pixel data; otherwise
+   (`.txt` files, etc.) the LZHUF-decoded bytes are the final output as-is.
+
 ## The LZHUF compression scheme — confirmed as the classic Okumura/Yoshizaki algorithm
 
 `DecodeLZHUFBlock` (`0x4eaba0`), its tree-initialization helper
@@ -421,6 +518,13 @@ the exact instruction that first sets it non-null.
 
 ## Known gaps / good next targets
 
+0. **Resolved**: the `.xfs` table-of-contents entry record layout is now
+   fully mapped (128-byte records, sorted for binary search, name +
+   mode-flag + file-offset + decompressed-size fields — see the dedicated
+   section above). This was the missing piece for writing an actual
+   extractor (previously only single-entry lookup by name was documented,
+   not full-archive enumeration). One 4-byte field in the record (`0x7c`)
+   remains unidentified.
 1. **Static-analysis-exhausted**: the `.sv` filename format and per-event
    binary record are fully confirmed (see above). The literal `fopen()`-
    equivalent call site was searched exhaustively this pass — every caller
