@@ -229,10 +229,39 @@ how the server tracks each client's current context.
 | Opcode | Behavior |
 |---|---|
 | `0x600f` | Builds and sends an outgoing `0x6000` request (empty payload) — likely "give me my inventory," triggered on entering the store. |
-| `0x6002` | Parses a list of **owned-item entries**: each has a timestamp (parsed via `_localtime` → day/month/year, i.e. an **expiration date**), item-id fields, and a variable-length blob, stored into a per-item array at `+0x44be8` with a **confirmed 0x9c (156)-byte stride**. This is the **inventory/purchased-items list**. |
+| `0x6002` | Parses a list of **owned-item entries**: each has a timestamp (parsed via `_localtime` → day/month/year, i.e. an **expiration date**), item-id fields, and a variable-length blob, stored into a per-item array at `+0x44be8` with a **confirmed 0x9c (156)-byte stride**. This is the **inventory/purchased-items list**. Full struct layout confirmed by mapping the decompiled stack-local offsets — see below. |
 | `0x6017` (`*payload==0`) | Builds a **purchase confirmation dialog**: loads localized strings by resource ID (`FUN_0043dc70(&DAT_00796eec, 0xea6a..0xea6d)`), formats item name/price via `sprintf`, shows the `b_storewindow_confirm` popup image. |
 | `0x6017` (`*payload==0x6003`) | Sends a `0x6000` reply packet — likely the purchase confirmation's "yes" response. |
 | `0x6037` (`*payload==0`) | Guards on a slot-count check (`FUN_004010c0(0x80070057)` fatal-errors if out of range) then calls `FUN_0044c370()` — a purchase-commit path, not fully traced. |
+
+### `InventoryItem` — confirmed structure (opcode `0x6002`, resolves the size-only note in ARCHITECTURE.md's earlier struct list)
+
+The wire format (per item, read sequentially from the packet payload) and
+the in-memory destination struct (0x9c/156 bytes, array at
+`DAT_005b3484+0x44be8`) were both traced from the decompiled `0x6002`
+handler. The destination offsets were recovered by mapping each
+decompiler-assigned stack-local's address back to its position relative to
+the local array's base (e.g. `local_4f0` sits `0x508-0x4f0 = 0x18 = 24`
+bytes into the destination struct, since the struct's base local is
+`local_508`):
+
+| Dest offset | Size | Field | Wire source |
+|---|---|---|---|
+| `0x00` | 4 | id field 0 | `payload[0..3]` — also fed to `EncodeOutgoingPacketField` (part of the outgoing-packet checksum) and tracked as a running min/max (`this+0x32f98`/`this+0x32f94`) — likely an item ID or price |
+| `0x04` | 4 | id field 1 | `payload[4..7]` |
+| `0x08` | 4 | id field 2 | `payload[8..11]` |
+| `0x0C` | 4 | id field 3 | `payload[12..15]` |
+| `0x10`-`0x11` | 2 | unaccounted (likely padding — the raw `time_t` used to derive the date fields below isn't itself stored, only its parsed components) | `payload[16..19]` is the wire `time_t` (4 bytes), consumed by `_localtime()` but not copied into the struct directly |
+| `0x12`-`0x13` | 2 | expiration year (`tm_year + 1900`) | derived from the same wire `time_t` above |
+| `0x14` | 1 | expiration month (`tm_mon + 1`) | derived |
+| `0x15` | 1 | expiration day (`tm_mday`) | derived |
+| `0x16`-`0x17` | 2 | unaccounted (padding) | — |
+| `0x18` | 4 | id field 4 | `payload[20..23]` — also fed to `EncodeOutgoingPacketField` alongside id field 0, suggesting these two together form some kind of transaction/verification pair |
+| `0x1C` onward | up to ~124 bytes | variable-length blob | length-prefixed: a single byte at wire offset 24 gives the blob length, blob bytes follow at wire offset 25 onward, copied into the struct starting at `0x1C` |
+
+The variable blob's internal field-level meaning (item name string? serialized
+equip-slot/color data?) wasn't decoded further in this pass — only its
+existence, length-prefix mechanism, and destination offset are confirmed.
 
 ## Network protocol — `State09_ReadyRoom_ProcessPacket` (`0x4d38c0`)
 
@@ -262,7 +291,7 @@ Opcodes shared with the ready room (`0x2001`, `0x3020`, `0x3233`, `0x3400`,
 | Opcode | Behavior |
 |---|---|
 | `0x2001` | **Leave battle** → `g_pendingGameState = 3` (Game Room List). |
-| `0x3020` | **Player disconnected mid-match**: removes the player from the 8-slot array (shifts remaining slots down, matching the confirmed `0x224`-byte stride: `slot * 0x224`), records replay event `0x307`/`0x8500` with the departed player's stats, and — if the departed player held the active turn — reassigns it (`FUN_00413bf0`, likely `AdvanceTurn`). |
+| `0x3020` | **Player disconnected mid-match**: shift-compacts three of the four small per-slot spawn arrays (see action `0x8408`'s row below — **not** a `0x224`-byte stride, corrected from an earlier pass), separately reads that player's **packet-checksum state** from a per-player array at `playerId*0x224 + 0xebef4` (confirmed via `PeekPacketChecksumState`, see the packet-checksum utility section below), records replay event `0x307` with the departed player's stats, and — if the departed player held the active turn — reassigns it (`FUN_00413bf0`, likely `AdvanceTurn`). Full writeup in [PROTOCOL.md](PROTOCOL.md). |
 | `0x3233` | **Match ends** → `g_pendingGameState = 9` (back to Ready Room). Writes a terminator byte (`2`) to the replay file and closes it — matches state 9's `0x3432` as the recording bookend. |
 | `0x3400` | separate branch, not fully traced |
 | `0x3fff` | Same "leave/cancel" outgoing `0x2000`/`0xffff` packet as the ready room. |
@@ -322,7 +351,7 @@ events into this same dispatcher rather than having a separate player).
 | `0x8404` | Appends a new entry across four parallel per-slot arrays at `+0x27`/`+0xa7`/`+0x127`/`+0x1a7` (a *different*, smaller set of parallel arrays than `0x8408`'s) — some other per-shot or per-projectile record, calls `FUN_004ccbb0`. |
 | `0x8405` | Plays one of three weapon-select sounds (`b_play_weapon1/2/3`) based on which weapon slot was chosen — **weapon selection**. |
 | `0x8407` | Selects one of three lookup tables by a mode byte (1/2/3) — purpose unclear, possibly per-weapon or per-stage table selection. |
-| `0x8408` | **Player spawn into battle**: appends a new entry across four parallel per-slot arrays at `+0x228`/`+0x2a8`/`+0x328`/`+0x3a8` (position/id/slot fields), calls `FUN_004ccc60` (spawn visual?), increments the player count. These are the *same* parallel arrays that `0x3020`'s disconnect handler shifts down — confirms a structure-of-arrays layout for the 8 battle slots. |
+| `0x8408` | **Player spawn into battle**: appends a new entry across four parallel per-slot `uint` arrays at `+0x228`/`+0x2a8`/`+0x328`/`+0x3a8`, indexed by a shared active-slot counter (`+0x227`). Confirmed sources: `+0x228` = current packet parse cursor value (position-dependent, no fixed payload offset), `+0x2a8` = fixed payload offset `0x23` (ushort), `+0x3a8` = fixed payload offset `0x25` (full 32-bit value), `+0x328` = the team/slot byte read once at the start of `ProcessBattleAction` (`payload+5`). Calls `FUN_004ccc60` (spawn visual?), increments the player count. Opcode `0x3020`'s disconnect handler shifts down three of these four arrays (`+0x228`/`+0x2a8`/`+0x328` — notably *not* `+0x3a8`) — confirms a structure-of-arrays layout for the active battle slots, distinct from the unrelated, genuinely `0x224`-byte, player-ID-indexed array also touched by `0x3020` (see that row above). |
 | `0xc300` | **Turn start** (best guess): posts three chained sub-events via `PostTurnEvent(&DAT_00e55ce0, code)` — `0xc300` (self), `0xc306`, `0xc40b` — a genuine turn/round event-dispatch mechanism. The `0xc306`/`0xc40b` handlers are the natural next lead for finding the actual physics tick. |
 | `0xc301` | **Turn timer/setup** — shared verbatim with `State10_Loading_ProcessBattleAction`: writes the turn-timer field (`+0x10a4`, checked against `60000`ms) and copies an 8-element setup array (`+0x2302`, likely wind/spawn data). |
 
@@ -464,6 +493,26 @@ convention pattern as `ChangeGameState`):
 - `EncodeChecksumState` / `EncodeChecksumStateXored` (`0x40a4a0`/`0x40a440`) —
   push the current or XOR-mixed value through `EncodeOutgoingPacketField`.
 
+**Per-player instances confirmed.** Most call sites use the implicit/default
+state, but `PeekPacketChecksumState` is also called with an **explicit
+pointer argument** at several sites — a whole-binary scan for every
+instruction referencing the constant `0xebef4` (34 hits across ~15
+functions, including `0x3020`'s disconnect handler and
+`State11_InBattle_ProcessBattleAction`) found a consistent pattern:
+`playerId * 0x224 + 0xebef4` computes a pointer into an **array of
+per-player packet-checksum-state objects** (0x224/548 bytes each),
+passed directly into `PeekPacketChecksumState` (sometimes via the thin
+wrapper `FUN_0040a4d0`, which is just `EnterCriticalSection` +
+`PeekPacketChecksumState` + `LeaveCriticalSection`). This resolves what
+several earlier passes had flagged as an unidentified `0x224`-byte
+"`PlayerGameSlot`" struct spawned by action `0x8408` — that was a
+conflation; `0x8408` never touches this array at all (it populates four
+separate small `uint` arrays instead, see [PROTOCOL.md](PROTOCOL.md)'s
+action `0x8408` writeup). Whether the *other* `0x224`-byte sightings
+elsewhere (the room-list's 20-element loop, the Avatar Store's 8-element
+array) are this same checksum-state struct, or an unrelated struct that
+happens to share the size, is still unresolved.
+
 Also named this round: `GetPlayerRecordBySlot` (`0x4206f0`) — a per-slot
 player-record accessor called throughout the battle/room code.
 
@@ -498,13 +547,44 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
 
 ## Recurring structure sizes (useful anchors for further work)
 
-- **0x9c (156) bytes** — confirmed per-item inventory entry struct (id fields +
-  expiration timestamp + variable blob), array at `DAT_005b3484+0x44be8`.
-- **0x224 (548) bytes** — recurring per-player-slot structure size (seen in the
-  state-7 object's 8-element array, and in a 20-element accumulation loop in
-  `ProcessPacket`). Likely the core per-player game-data struct.
-- **0x80 (128) bytes** — per-room-slot player display buffer (name + stats),
-  confirmed via opcodes `0x2105`/`0x21f0` in the room-list handler.
+- **0x9c (156) bytes** — **fully confirmed** `InventoryItem` struct (4 id
+  fields, expiration date parsed from a wire timestamp, a variable-length
+  trailing blob), array at `DAT_005b3484+0x44be8` — full field-offset
+  layout now documented in the Avatar Store section above.
+- **0x224 (548) bytes** — **confirmed to be (at least) two unrelated things
+  that happen to share a size.** (1) An array of per-player
+  **packet-checksum-state** objects at `+0xebef4` (see the packet-checksum
+  utility section above) — not a gameplay struct. (2) The state-7 Avatar
+  Store's 8-element array uses a *different*, much more minimal
+  constructor/destructor pair (`FUN_0040a280`/`FUN_0040a2a0`, size 24/53
+  bytes) — decompiled this pass: the constructor just zeroes a byte at
+  `+0x220` and a dword at `+0x14`, then calls `EncodeOutgoingPacketField(0)`;
+  the destructor conditionally frees whatever the `+0x14` field points to.
+  This is a **generic lightweight container** (an optional owned pointer +
+  an active/flag byte + checksum-encoding participation), not obviously
+  gameplay-specific — likely a reusable engine primitive for "a slot that
+  may or may not own a heap sub-object," used here for per-avatar-slot data
+  but probably reused elsewhere too (this exact ctor/dtor pair, with the
+  same `0x224` stride, also appears in `FUN_00415d40`'s huge object-init
+  function from earlier session work). (3) The room-list's 20-element
+  loop **doesn't cleanly match either identity** — checked this pass: its
+  loop counter increments by `0x224` up to `0x2ad0` (confirming 20
+  iterations, `20*0x224 = 0x2ad0`), but the actual per-element field
+  reads/writes inside the loop use a completely different stride
+  (`index*0x14`, i.e. a 20-multiplier, not `0x224`), and repeatedly call
+  `PeekPacketChecksumState` on a **fixed, non-array-indexed** address
+  rather than walking anything at `counter`'s stride. This reads like
+  `iVar24`'s `0x224` increment is tracking consumption of a conceptual
+  20-record-of-0x224-bytes-each *wire/source* buffer (similar to the
+  wire-vs-destination split already confirmed for `InventoryItem` and
+  `RoomPlayerSlot`'s equipped-item list) rather than indexing a real
+  in-memory `0x224`-byte struct array here. Inconclusive — not resolved
+  either way this pass.
+- **0x80 (128) bytes** — per-room-slot player **name buffer only** (not a
+  combined name+stats struct as originally thought — the other per-slot
+  fields live in separate same-indexed parallel arrays), confirmed via
+  opcode `0x2105` in the room-list handler — see the dedicated
+  `RoomPlayerSlot` section above.
 - **0x17e4 (6,116) bytes** — two large arrays (9 and 21 elements) inside the
   state-7 object, constructor `FUN_00425350` / destructor `FUN_004254a0`.
   Purpose unknown; possibly per-round history, per-map-tile, or animation data.
@@ -555,19 +635,44 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
    whose auto-analysis was truncated — no standalone prologue nearby. They need
    manual function-boundary repair in the Ghidra GUI. Low priority.
 8. Reconstruct concrete structs from confirmed strides. **`RoomPlayerSlot`
-   resolved this pass** — see the dedicated section above (it turned out to
-   be a "struct of arrays" rather than one packed struct: a 0x80-byte name
-   buffer plus several separate same-indexed parallel arrays for stats, plus
-   a count-prefixed variable-length equipped-item list). Still open:
-   `struct InventoryItem` (0x9c/156 bytes: id fields + expiry date +
-   variable blob) and `struct PlayerGameSlot` (0x224/548 bytes, purpose/
-   fields still unknown beyond size and that it's per-player). Cross-
-   referencing against `itemdata.dat`/`characterdata.dat` samples in
-   `orig/` for field-level layout hints is blocked on the LZHUF decoder bug
-   (see [FILEFORMATS.md](FILEFORMATS.md)) since those files are compressed;
-   an alternative that doesn't need decompression is to keep decompiling
-   more packet handlers that touch these structs by field offset, the same
-   way `RoomPlayerSlot` was resolved.
+   and `InventoryItem` both resolved this pass** — see the dedicated
+   sections above. `RoomPlayerSlot` turned out to be a "struct of arrays"
+   rather than one packed struct (a 0x80-byte name buffer plus several
+   separate same-indexed parallel arrays for stats, plus a count-prefixed
+   variable-length equipped-item list); `InventoryItem` is a genuine packed
+   0x9c/156-byte struct with a fully-mapped field layout (4 id fields,
+   expiration date, variable blob), though the blob's internal contents and
+   two of the "unaccounted" 2-byte gaps remain unresolved. **`PlayerGameSlot`
+   turned out not to exist as originally framed**: traced actions
+   `0x8408`/`0x3020` in full and found the active-battle-slot data is a
+   struct-of-arrays (four small 4-byte-per-slot `uint` arrays, not one
+   `0x224`-byte struct), and the `0x224`-byte, player-ID-indexed array at
+   `+0xebef4` that a previous pass suspected was `PlayerGameSlot` is
+   actually an array of **per-player packet-checksum-state** objects
+   (confirmed via `PeekPacketChecksumState`, see the packet-checksum
+   utility section above) — not gameplay data at all. What remains
+   genuinely open: whether a *real* per-player gameplay struct (position,
+   HP, weapon, etc.) exists as a single packed struct anywhere, or whether
+   GunBound's engine simply always uses this struct-of-arrays style
+   (consistent with what was found for both `RoomPlayerSlot` and the
+   battle-spawn arrays). Followed up further this pass: the state-7
+   8-element array turned out to be a **third, distinct** `0x224`-sized
+   thing — a generic minimal container (owned-pointer-plus-flag, ctor/dtor
+   `FUN_0040a280`/`FUN_0040a2a0`), not obviously gameplay data either, and
+   reused elsewhere in the engine (same ctor/dtor pair, same stride, seen in
+   `FUN_00415d40`'s object-init too) — see the recurring-structures list
+   above. The room-list's 20-element loop is **inconclusive**: its `0x224`
+   loop-counter increment doesn't match either the checksum-state or the
+   generic-container identity, and looks more like it's tracking a wire/
+   source buffer's conceptual size than indexing a real struct array (see
+   the dedicated note above). Net result after three rounds of digging:
+   **no confirmed single packed "PlayerGameSlot" struct exists** — every
+   `0x224`-sized thing found so far turned out to be something else
+   (checksum state, a generic container, or an unresolved wire-format
+   accumulator). This thread is likely exhausted for static analysis
+   without a fresh, more targeted lead. Cross-referencing against
+   `itemdata.dat`/`characterdata.dat` samples in `orig/` remains blocked on
+   the LZHUF decoder bug (see [FILEFORMATS.md](FILEFORMATS.md)).
 
 ## Rendering — Direct3D 7 + software hybrid
 
