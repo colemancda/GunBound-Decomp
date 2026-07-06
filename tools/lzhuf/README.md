@@ -54,6 +54,12 @@ back-references) desynced almost immediately.
   `graphics.xfs`: **8,926 of 8,927 `.img` entries decode successfully**
   (99.99% — the one failure is an 8-byte stub entry, too small to hold a
   header) in about 2 minutes.
+- `decode_audio.py` — extracts `sound.xfs` to standard playable audio:
+  the 85 `.xes` sound effects become `.wav` files (they're headerless
+  WAVs — PCM/2ch/22050Hz/16-bit — just needing a RIFF header wrapped
+  around them), and the 11 `.mp3` music tracks are copied out as-is (they
+  were already standard MPEG audio). All 96 confirmed playable by the OS
+  (`afinfo`).
 - `examples/` — sample PNGs extracted and decoded this way: `avataimsi.png`
   (small avatar-placeholder icon), `bullet1n.png` (a projectile sprite —
   a coherent gray/red shape under the correct ARGB4444 format), 

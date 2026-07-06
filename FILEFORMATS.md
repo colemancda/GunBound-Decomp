@@ -13,8 +13,11 @@ working, verified LZHUF decoder and `.xfs` extractor now live in
 | `.xfs` (`graphics.xfs`, `sound.xfs`, `Avatar.xfs`) | Custom named-entry archive, magic `XFS2` | LZHUF for both the table of contents (target decoded size `0x40` for the header, `0x20000` per 1024-entry chunk) **and each individual entry** (target decoded size = the entry's own confirmed size field, own checksum convention) | **Fully confirmed and working** — all three real `.xfs` files decode end-to-end via `tools/lzhuf/extract_toc.py` |
 | `.dat` (`characterdata.dat`, `itemdata.dat`, `stage.dat`, `specialdata.dat`) | Flat file, no container | **LZHUF-compressed**, same decoder as XFS — **target size differs per file** (confirmed via `LoadGameDataFiles` for three of the four): `characterdata.dat` = `0x14c0` (5,312 bytes), `stage.dat` = `0x3c80` (15,488 bytes), `itemdata.dat` = `0x7850` (30,800 bytes). **`specialdata.dat` is not loaded by this executable at all** — confirmed by listing every `.dat` filename string literal in the whole binary; it isn't among them | Confirmed and working for `characterdata.dat`/`stage.dat`/`itemdata.dat` — real content extracted (item names, stage names, Portuguese item descriptions). `specialdata.dat` is present in `orig/` (see [README.md](README.md)) but `GunBound.gme` never references it by name — likely used by a separate tool/server component, not the game client |
 | `.img` (sprite/texture files, e.g. `tank1.img`, `bullet1n.img`) | Individual asset stored inside the `.xfs` archives, itself LZHUF-compressed as a container entry | Confirmed 48-byte header (width/height/frame-count/hotspot) + raw ARGB4444 pixel data for frame 0 (two earlier guesses, RGB565 and RGB555, both ruled out against a real reference screenshot) | **Fully extracted and visually verified** — three real sprites decoded to PNG via `tools/lzhuf/decode_img.py`, checked into `tools/lzhuf/examples/` |
+| `.xes` (sound effects, inside `sound.xfs`) | Raw archive entry (mode flag `1`, no LZHUF) | None — a "headerless WAV": 16-byte WAV `fmt`-style block (PCM/2ch/22050Hz/16-bit) + raw 16-bit PCM | **Fully extracted and OS-validated** — all 85 convert to playable `.wav` via `tools/lzhuf/decode_audio.py` |
+| `.mp3` (music, inside `sound.xfs`) | Raw archive entry (mode flag `1`, no LZHUF) | Standard MPEG audio, stored as-is | **Fully extracted** — all 11 are directly playable, copied byte-for-byte |
 | `.sv` (replay files) | Custom event-stream format | Not compressed (not confirmed either way) | Filename format and per-event record fully confirmed; file open call / possible header not located |
 | `ChooseEvent.txt` | Plain text, lives *inside* `graphics.xfs` | None (plain text) | **Fully confirmed** — actual content extracted, a 4-line event-name-to-ID registry |
+| 3D meshes/models | — | — | **None exist** — GunBound is 2D sprites only; D3D7 renders 2D quads, no geometry/mesh format |
 
 ## The `.xfs` archive format — confirmed structure
 
@@ -823,6 +826,45 @@ three `.xfs` files (`graphics.xfs`, `sound.xfs`, `Avatar.xfs`) are now
 independently confirmed to share the exact same `XFS2` container format —
 this closes what was the last open item in the file-format identification
 gap list (previously gap #5).
+
+### `sound.xfs` contents — both audio types fully extractable
+
+`sound.xfs` holds 96 entries, all stored **raw** (mode flag `1`, no LZHUF):
+85 `.xes` sound effects and 11 `.mp3` music tracks. Both are now confirmed
+extractable to standard, OS-playable audio files (`tools/lzhuf/decode_audio.py`):
+
+- **`.xes` = a "headerless WAV".** Each file is a 16-byte block whose
+  fields exactly match a standard WAV `fmt ` chunk — `audioFormat=1` (PCM),
+  `numChannels`, `sampleRate`, `byteRate`, `blockAlign`, `bitsPerSample` —
+  followed immediately by raw little-endian signed 16-bit PCM samples, with
+  no RIFF/`WAVE`/`fmt `/`data` chunk wrappers. **All 85 `.xes` files in the
+  shipped archive use the identical format: PCM, 2 channels, 22050 Hz,
+  16-bit.** Converting to a real `.wav` is just wrapping the existing fmt
+  fields + PCM in a RIFF header. Confirmed by round-tripping (the derived
+  `byteRate`/`blockAlign` match `sampleRate×channels×bits/8` and
+  `channels×bits/8` exactly), by amplitude stats (genuine audio — peak near
+  full-scale, healthy RMS, smooth waveform), and by the OS itself
+  (`afinfo` reports the converted file as a valid `WAVE`, 2 ch / 22050 Hz /
+  Int16, ~2 sec for a "blast" effect).
+- **`.mp3` = standard MPEG audio.** All 11 start with a valid MPEG frame
+  sync; they're written out byte-for-byte and are directly playable
+  (`afinfo` confirms, e.g. `title.mp3` = 44100 Hz MPEG-3, ~6.7 sec).
+
+Full extraction to a review directory: `python3 decode_audio.py
+sound.xfs <out_dir>` produces 85 `.wav` + 11 `.mp3`, all confirmed
+playable.
+
+## No 3D geometry / mesh format exists
+
+Worth stating explicitly since it comes up: **GunBound is a 2D sprite
+game — there is no 3D mesh/model format anywhere in the client.** The only
+"3D" is that In-Battle rendering uses Direct3D 7 to hardware-accelerate
+*2D sprite quads* (rotated, alpha-blended textured rectangles — see the
+rendering section in [ARCHITECTURE.md](ARCHITECTURE.md)); every menu/lobby
+screen uses the pure-software 2D blitter instead. All visual assets are
+the `.img` sprites documented above (ARGB4444 pixels, flat or sparse
+per-scanline storage). There are no vertices, meshes, bones, or model
+files to reverse-engineer.
 
 ## `.sv` replay file's `fopen()` call site — investigation exhausted (static analysis)
 
