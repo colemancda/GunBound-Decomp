@@ -308,22 +308,48 @@ floating-point instructions**, and rather than computing a trajectory, it
 **selects between pre-existing outcome codes** (`0x8403`/`0xc400`/`0xc409`)
 based on turn-state conditions.
 
-**Working conclusion** (moderate confidence, based on two independent full
-reads finding no integration math on either the send or receive side): this
-client's role in ballistics may be architecturally thin. Plausible
-explanations, not yet distinguished: (a) trajectory resolution is
-server-authoritative and the client only sends angle/power then receives
-resolved outcomes; (b) the "8 shorts" in the Fire payload really are
-precomputed waypoint samples (computed by a function not yet found, possibly
-integer-only fixed-point rather than float, which is why the FPU-density scan
-missed it); or (c) trajectory math lives in a part of the codebase not
-connected to the `CGameState`/battle-object network entirely (e.g. a
-standalone projectile/shot class instantiated per-fire that never appeared in
-any of the vtable or call-graph traces run so far, since it would only be
-reachable via `operator_new` + immediate first-use rather than a named global).
-Distinguishing between these needs either dynamic analysis (breakpoint on the
-Fire path while playing) or a systematic sweep of every `operator_new` call
-site in the binary — a bounded, mechanical task for a future session.
+**Ran the systematic `operator_new` sweep** (hypothesis (c) above) to check
+for a standalone per-shot projectile object: found and resolved a duplicate
+symbol issue (the compiler emitted a thunk at `0x520228` pointing to the real
+`operator_new` at `0x52022d`; naive xref search on just one missed most call
+sites) and collected all 270 allocation call sites across the binary with
+their sizes and calling functions. **Neither `HandleFireInput` nor
+`ProcessBattleAction` appears anywhere in that list** — no object is
+allocated anywhere in the fire pathway. This rules out hypothesis (c): there
+is no standalone projectile/shot class instantiated per-fire.
+
+(Side finding from the sweep: a run of ~40 near-identical ~16 KB allocations
+across addresses `0x42bbb0`–`0x4b1810`, confirmed via strings as per-character
+weapon effect/bullet sprite-name tables — e.g. `bullet1n`/`bullet1s`,
+`bullet1p`..`bullet15p`, `flame%d%d`. This is the character/weapon visual
+asset table system, useful context for the render side later, not physics.)
+
+**Also fully decompiled `GameTick`'s unconditional per-tick hook**
+(`FUN_004bd8b0`, called every 50 ms regardless of network activity for
+Ready Room/Store/In-Battle — the most plausible place for local, tick-driven
+physics if it existed). 2,071 lines, zero floating-point instructions. Its
+actual logic (not just its strings) is confirmed to be an **8-directional
+screen-edge cursor/camera-scroll system**: a bitmask (`bVar13`) built from
+comparing the cursor position against edge thresholds selects one of 9 cursor
+handles and accumulates a camera-scroll offset. The slot-machine minigame
+strings found earlier are a different branch of this same function. No
+trajectory code here either.
+
+**Conclusion, now reasonably well-supported rather than speculative**: across
+every angle checked — the packet receive handler, the local fire-input
+handler, the unconditional per-tick hook, an FPU-density scan of all 2,300+
+functions, and a complete `operator_new` audit — **no client-side
+gravity/trajectory integration was found, and no standalone shot object is
+ever allocated.** The remaining live hypothesis is that **trajectory
+resolution is server-authoritative**: the client sends angle/power (and
+possibly receives back either resolved final positions or a precomputed
+waypoint sequence to animate through, matching the Fire payload's 8 shorts).
+Confirming this with certainty would require either the server binary (not
+available) or dynamic analysis (attach a debugger to the running client while
+firing a shot and watch what actually executes) — both out of reach for
+further static analysis of this client binary alone. I'm treating this
+physics thread as closed for static analysis purposes unless new evidence
+surfaces elsewhere.
 
 ## Packet-checksum utility family (broadly recurring)
 
