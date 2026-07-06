@@ -323,8 +323,37 @@ Fully read, byte-by-byte parser confirmed:
   almost certainly the character-select screen's per-character
   animation/event timing table (which frame index triggers which sound/
   effect during the character-selection animation) — not confirmed at the
-  field-semantic level (the integer fields' individual meanings weren't
-  decoded), only the container/parsing format.
+  field-semantic level, only the container/parsing format.
+
+**Traced further this pass, with a partial (not fully satisfying) result.**
+Each parsed line is handed to `ParseChooseEventLine` (`0x409cb0`), which
+calls `FUN_00426780` (a **string-hash lookup**: hashes a string with a
+classic `hash = hash*0x21 + char` djb2-style rolling hash, then walks a
+hash-bucket chain comparing via `__mbscmp`) followed by `FUN_00409d10` (a
+**pooled hash-table insert**: allocates chained nodes from a fixed-size
+memory pool, threads them into the target bucket, and triggers a rehash via
+`FUN_00409e20` once a load-factor threshold is crossed). Both are generic,
+reusable container primitives — likely the *same* underlying hash-table
+implementation used elsewhere in the engine (a sibling of the sorted-tree
+container documented in [ARCHITECTURE.md](ARCHITECTURE.md) for
+`RegisterActiveObject`/turn scheduling), not something specific to
+`ChooseEvent.txt`.
+
+This means **each `ChooseEvent.txt` line is stored as a hash-table entry
+keyed by a string** — almost certainly the line's first tab-separated
+field, used as a lookup key (e.g. a character/costume name) — **rather
+than a flat array of records**. This narrows down the shape of the data
+(a name→record map, not a list) but doesn't resolve the actual meaning of
+the *other* tab-separated integer fields on each line: the value payload
+threaded into the hash-table node (`unaff_EDI` in the decompiled
+`ParseChooseEventLine`) comes from a register the decompiler couldn't
+recover an origin for — the same recurring custom-calling-convention gap
+noted throughout this project. Pinning down the individual field meanings
+would need raw-disassembly tracing of exactly which registers hold which
+`atol`-parsed value at the point `ParseChooseEventLine` is called, and
+ideally a live sample of `ChooseEvent.txt`'s actual line contents (not
+available in this repo — it lives compressed inside `graphics.xfs`, which
+isn't currently checked into `orig/`).
 
 ## `.img` sprite format — confirmed via the render pipeline
 
@@ -570,8 +599,14 @@ the exact instruction that first sets it non-null.
    and friends is purely mechanical: transcribing the confirmed routines and
    state-struct offsets into a standalone compilable decoder — no more
    reverse-engineering unknowns, only implementation work.
-4. `ChooseEvent.txt`'s individual integer fields' semantics (what each
-   tab-separated value in a line actually means) aren't decoded.
+4. **Partially advanced**: traced `ParseChooseEventLine` further and found
+   each line is stored into a generic pooled hash-table (keyed by a string,
+   likely the line's first field) rather than a flat record array — see the
+   dedicated note above. The individual tab-separated integer fields'
+   semantics still aren't decoded; that would need raw-disassembly register
+   tracing plus an actual sample of the file's contents (not present in
+   `orig/`, since it's compressed inside `graphics.xfs`, which isn't
+   checked into this repo).
 5. **Mostly resolved, one genuine unknown remains**: `graphics.xfs`
    (confirmed via `Language.txt`/`Sound.txt` lookups) and **`Avatar.xfs`**
    (confirmed via raw-disassembly tracing of `LoadGameDataFiles`'s
