@@ -106,17 +106,45 @@ mapped of the three known `ProcessPacket` overrides. Confirmed opcodes:
 | `0x6001` | Unpacks 4 uint fields, builds an array of per-"player" 3-byte tuples using `rand()` (seed/roll generation?), then `ChangeGameState(7)` = **enter Avatar Store**. |
 | (unlabeled, reaches `ChangeGameState(9)`) | Large per-slot stat-accumulation loop (20 elements × 0x224 bytes) summing what look like equipped-item stat bonuses per player/team slot, resets viewport to `(0,0,799,599)`, then `ChangeGameState(9)` = **enter Ready Room**. |
 
-The `0x20xx` cluster looks like lobby/session-level opcodes, `0x21xx` looks like
-room-membership/player-slot opcodes (join/leave/update), `0x60xx` looks like
-game-start opcodes — a pattern observation, not confirmed from source. The
-per-slot 0x80-byte display buffer at `+0x4467c` (name + a handful of stat
+The per-slot 0x80-byte display buffer at `+0x4467c` (name + a handful of stat
 bytes/dwords) is a good anchor for reconstructing a `struct RoomPlayerSlot`.
+
+**Confirmed opcode-range-per-screen pattern**: state 3 (room list) uses
+`0x20xx`/`0x21xx`, state 2 (server select) uses `0x10xx`/`0x11xx`, state 7
+(avatar store) uses `0x60xx`. Opcode value `0x2001` is reused verbatim between
+state 3 and state 7's dispatchers with the same generic-cleanup meaning, and
+`0x6001` is reused between the room-list and store dispatchers with different
+meanings — the opcode namespace is scoped by which screen is active, matching
+how the server tracks each client's current context.
+
+## Network protocol — `State02_ServerSelect_ProcessPacket` (`0x4e02b0`)
+
+| Opcode | Behavior |
+|---|---|
+| `0x1001` | **Outgoing packet builder** (not a received-opcode branch in the usual sense — triggered by the server's request). Writes opcode `0x1010` into the send buffer at `DAT_007934ec+0x4d4`, appends this client's own info via `FUN_004d2570`, then calls `getsockname()` **twice** to grab the local socket's bound address, appending both into the outgoing packet, then finalizes/sends via `FUN_004d25e0`/`FUN_004d2680`. **This is the P2P NAT-traversal handshake** — the client reports its own local `IP:port` back to the server (ties to the `CCommP2P<>` notify window found in Phase 1; GunBound uses server-mediated P2P for actual battle traffic). |
+| `0x101f` | Sets `DAT_00e55e3c=1`, `DAT_007934f8=1` (login/session flags), stores `*payload` and `payload[2]` into globals `DAT_005b2b54`/`DAT_005b343c` — likely session ID / server address handoff after channel selection. |
+| `0x1012` | Error-code translator: maps server error codes `0x5001/0x5011/0x5012/0x5013` to sequential internal reason codes `0x1d..0x20` stored per-slot, then calls `FUN_004065a0()` (room-membership check) — likely drives a "can't join: <reason>" error dialog. |
+| `0x1102` | Zeros a 4 KB buffer then parses a list of variable-length entries (2-byte + 1-byte + length-prefixed string) into a table at `+0x3f84a` — **server/channel list population** for the "choiceserver" screen. |
+
+## Network protocol — `State07_AvatarStore_ProcessPacket` (`0x4440c0`)
+
+| Opcode | Behavior |
+|---|---|
+| `0x600f` | Builds and sends an outgoing `0x6000` request (empty payload) — likely "give me my inventory," triggered on entering the store. |
+| `0x6002` | Parses a list of **owned-item entries**: each has a timestamp (parsed via `_localtime` → day/month/year, i.e. an **expiration date**), item-id fields, and a variable-length blob, stored into a per-item array at `+0x44be8` with a **confirmed 0x9c (156)-byte stride**. This is the **inventory/purchased-items list**. |
+| `0x6017` (`*payload==0`) | Builds a **purchase confirmation dialog**: loads localized strings by resource ID (`FUN_0043dc70(&DAT_00796eec, 0xea6a..0xea6d)`), formats item name/price via `sprintf`, shows the `b_storewindow_confirm` popup image. |
+| `0x6017` (`*payload==0x6003`) | Sends a `0x6000` reply packet — likely the purchase confirmation's "yes" response. |
+| `0x6037` (`*payload==0`) | Guards on a slot-count check (`FUN_004010c0(0x80070057)` fatal-errors if out of range) then calls `FUN_0044c370()` — a purchase-commit path, not fully traced. |
 
 ## Recurring structure sizes (useful anchors for further work)
 
+- **0x9c (156) bytes** — confirmed per-item inventory entry struct (id fields +
+  expiration timestamp + variable blob), array at `DAT_005b3484+0x44be8`.
 - **0x224 (548) bytes** — recurring per-player-slot structure size (seen in the
   state-7 object's 8-element array, and in a 20-element accumulation loop in
   `ProcessPacket`). Likely the core per-player game-data struct.
+- **0x80 (128) bytes** — per-room-slot player display buffer (name + stats),
+  confirmed via opcodes `0x2105`/`0x21f0` in the room-list handler.
 - **0x17e4 (6,116) bytes** — two large arrays (9 and 21 elements) inside the
   state-7 object, constructor `FUN_00425350` / destructor `FUN_004254a0`.
   Purpose unknown; possibly per-round history, per-map-tile, or animation data.
@@ -134,23 +162,29 @@ bytes/dwords) is a good anchor for reconstructing a `struct RoomPlayerSlot`.
 
 ## Open threads / good next targets
 
-1. **DONE** — all 16 game states identified and named (see table above).
-2. Each state object's vtable is ~18 slots with a common layout (slot 0 shared
-   base method `0x4e5320`; slot 2 = no-op stub `0x4fdef0`; slot 7 = OnEnter;
-   slot 8 = OnExit). Slots 3–6, 9+ are per-state input/update/render handlers,
-   mostly still `FUN_*`. Naming these per state (using the OnEnter resource
-   context) is the next systematic pass.
-3. Five `ChangeGameState` call sites (`0x443350`, `0x443561`, `0x4b9ebe`,
+1. **DONE** — all 16 game states identified and named.
+2. **DONE** — `CGameState` base class vtable layout confirmed (dtor, virtual
+   `ProcessPacket`, OnEnter, OnExit); three per-state `ProcessPacket` overrides
+   found and their opcode spaces mapped (room list, server select, avatar
+   store).
+3. Slots 2–6 and 9+ in each vtable are still mostly un-named `FUN_*` —
+   probably per-state input/update/render virtuals. Same technique (decompile
+   + look for distinguishing calls/strings) applies; lower priority than the
+   protocol work since screens are already identified via OnEnter.
+4. Map the remaining un-traced opcodes: state 3's `0x2111`; state 7's
+   `0x6027`, and the tail of `0x6037`'s purchase-commit path
+   (`FUN_0044c370`). Also unmapped: states 9 (Ready Room) and 11 (In-Battle)
+   almost certainly have their own `ProcessPacket` overrides (same vtable
+   slot 1) — not yet located/decompiled; battle-opcode mapping (move/turn/
+   damage packets) would live there and is probably the single most
+   interesting remaining thread.
+5. Five `ChangeGameState` call sites (`0x443350`, `0x443561`, `0x4b9ebe`,
    `0x4e0c68`, `0x4e5421`) are switch/jump fragments *inside* larger functions
    whose auto-analysis was truncated — no standalone prologue nearby. They need
-   manual function-boundary repair in the Ghidra GUI (force-disassemble the
-   containing region); forcing a Function object at the fragment start would
-   yield wrong decompilation. Low priority — they don't block anything.
-4. Map the rest of `0x2xxx`/`0x21xx`/`0x60xx` opcode space by finishing the
-   `ProcessPacket` decompile (only partially read here).
-5. Confirm the 0x224-byte per-player struct layout — cross-reference against
-   the same stride appearing in other subsystems (rendering, item/character
-   data files) to build a canonical `struct Player`.
-6. Identify the shared base-class methods (`0x4e5320` = every state's vtable
-   slot 0; `0x448430` = slot-1 in several) — likely `CGameState` base
-   ctor/dtor/type-id; naming them documents the state base class.
+   manual function-boundary repair in the Ghidra GUI. Low priority.
+6. Reconstruct concrete structs from confirmed strides: `struct InventoryItem`
+   (0x9c/156 bytes: id fields + expiry date + variable blob), `struct
+   RoomPlayerSlot` (0x80/128 bytes: name + stats), `struct PlayerGameSlot`
+   (0x224/548 bytes, purpose/fields still unknown beyond size and that it's
+   per-player). Cross-reference against `itemdata.dat`/`characterdata.dat`
+   samples in `orig/` for field-level layout hints.
