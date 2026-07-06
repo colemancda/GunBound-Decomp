@@ -73,33 +73,65 @@ at the pixel level** (see `BlitRLESprite` in ARCHITECTURE.md) — two
 independent compression layers, one for the container, one for the pixel
 data itself.
 
-## The LZHUF compression scheme
+## The LZHUF compression scheme — confirmed as the classic Okumura/Yoshizaki algorithm
 
-`DecodeLZHUFBlock` (`0x4eaba0`) and its tree-initialization helper
-`InitLZHUFTree` (`0x4ea300`) implement what is, with reasonably high
-confidence based on the structural signature, a classic **LZHUF** codec
-(LZ77 sliding-window matching combined with adaptive/dynamic Huffman coding
-of the literal/length alphabet) — a very common "roll your own compression"
-choice for Korean-origin games and tools of this era (the algorithm
-originates from a widely-shared public-domain reference implementation).
-Evidence:
+`DecodeLZHUFBlock` (`0x4eaba0`), its tree-initialization helper
+`InitLZHUFTree` (`0x4ea300`), and its two Huffman-tree-walk primitives
+`FUN_004ea670` (character/length decode) and `FUN_004ea6e0` (match-position
+decode) were fully decompiled this pass. Together they confirm this is not
+merely "an LZHUF-family codec" but a near-verbatim implementation of the
+**classic public-domain `LZHUF.C`** (Okumura/Yoshizaki, widely ported since
+the late 1980s — the same lineage used by LHA `.lzh` archives) — right down
+to matching constant values:
 
-- `InitLZHUFTree` builds a binary tree structure using paired
-  father/child-index arrays, initialized with constants matching classic
-  LZHUF parameters (a `0x13a` = 314 entry count, matching the typical
-  `N_CHAR` alphabet size used in reference LZHUF implementations: 256
-  literal byte values plus length-code symbols).
+- `InitLZHUFTree` initializes `N_CHAR` = **314** (`0x13a`) leaf symbols and
+  a tree table of **627** (`0x273`) total nodes — exactly `T = 2*N_CHAR - 1`,
+  the textbook LZHUF binary-tree size formula. This is a strong signature
+  match, not just a family resemblance: an independently-designed codec
+  would have no reason to land on exactly these constants.
+- `FUN_004ea670` (`DecodeChar` in the reference source) walks the Huffman
+  tree from the root down through a `son[]`-style child-index array
+  (`unaff_ESI + 0xece4 + index*4`), refilling a 16-bit bit-buffer
+  (`unaff_ESI + 0xf6b0`, with a bits-remaining counter at `+0xf6b2`) one
+  byte at a time via `FUN_004ea120` (the reference's `GetBit`/`FillBuf`)
+  whenever it runs dry — this is a structurally exact match to the
+  reference implementation's `DecodeChar()`.
+- `FUN_004ea6e0` (`DecodePosition` in the reference source) reads an 8-bit
+  code through a small secondary Huffman table (`DAT_0056dd30`/`DAT_0056de30`,
+  matching the reference's static `p_len`/`p_code` tables) for the high
+  bits of the back-reference distance, then reads 6 more raw bits for the
+  low bits (`uVar2 & 0x3f`) — again an exact structural match to the
+  reference's position-decoding scheme.
+- The main decode loop in `DecodeLZHUFBlock` is the textbook LZSS
+  unpacking loop: a **4096-byte (`0xfff` mask) sliding-window ring buffer**
+  (initialized to ASCII spaces, `0x20`, per the reference source's
+  convention), where each iteration either emits a literal byte (decoded
+  symbol `< 0x100`) or copies a back-reference run (`decoded symbol - 0xfd`
+  = run length, `DecodePosition()` = distance back into the ring buffer),
+  writing to both the ring buffer and the growing output buffer
+  simultaneously — identical in structure to the reference `Decode()` loop.
 - Both the XFS table-of-contents and the `.dat` data files are decoded
   through this **exact same function**, just called with different
   size/key parameters (`0x40` for the XFS TOC vs. `0x14c0` for
-  `characterdata.dat`) — confirming one shared compression scheme reused
-  across both container types, not two different schemes.
+  `characterdata.dat`, `0x1000` for XFS archive entries) — confirming one
+  shared compression scheme reused across all container types.
 
-This has not been fully reverse-engineered into a standalone decoder/encoder
-(that would be a substantial follow-up project — implementing the exact
-Huffman table update rule and LZ window parameters precisely enough to
-decode real files) — this pass confirms *which* algorithm family it is and
-exactly where it's invoked, not a byte-exact reimplementation.
+**Practical implication**: because this is now confirmed to be the
+well-known public-domain `LZHUF.C` algorithm rather than an unknown
+proprietary scheme, a byte-exact decoder is a much smaller lift than
+previously estimated — it no longer requires reverse-engineering the
+Huffman update rule and window parameters from scratch. It can instead be
+built by adapting the public-domain reference source directly, fixing up
+this binary's specific buffer-layout offsets (state-struct fields at
+`+0x3dae`..`+0x3db2` for size/pointer/cursor bookkeeping, ring buffer at
+`+8`, bit-buffer at `+0xf6b0`) and the confirmed constants above (`N_CHAR
+= 314`, `T = 627`, 4096-byte window). This pass stopped short of writing
+that decoder (the adaptive Huffman **tree-update/rebalance** routine,
+called whenever a symbol's frequency triggers a re-sort, was not
+separately decompiled — needed to keep the tree's evolving state in sync
+across the whole stream, not just to walk it for a single symbol), but the
+remaining work is now a much narrower, well-scoped task rather than an open
+unknown.
 
 ## `.dat` files — confirmed structure, corrects an earlier assumption
 
@@ -261,30 +293,116 @@ out a header being written elsewhere (e.g. right after the still-unlocated
 `fopen` call, which is exactly the kind of place a header write would
 naturally sit).
 
+## `Language.txt` and `Sound.txt` — confirmed to live inside `graphics.xfs`
+
+Resolves a question flagged as open in [STRINGS.md](STRINGS.md) (the `Language.txt`/
+`Sound.txt`/`FourWord.txt` filenames hadn't been cross-referenced against
+loader code). Traced two more call sites of `OpenXFSArchive`/`FindXFSEntry`:
+
+- `FUN_0043da00`: `BuildAssetPath(buf, &DAT_005b1ed0, "graphics.xfs", 0)` →
+  `OpenXFSArchive(buf, 1, 0)` → `FindXFSEntry(handle, "Language.txt")` —
+  confirms **`Language.txt` is not a standalone file**, it's an entry inside
+  `graphics.xfs`, read the same way `ChooseEvent.txt` is.
+- `FUN_004e3500`: identical pattern, opens `graphics.xfs`, then
+  `FindXFSEntry(handle, "Sound.txt")` — confirms **`Sound.txt`** likewise
+  lives inside `graphics.xfs`, not on disk as its own file.
+
+Both functions open `graphics.xfs` fresh (rather than reusing an
+already-open handle), consistent with each config file being loaded through
+its own short-lived `OpenXFSArchive`/`FindXFSEntry`/read/close cycle rather
+than one archive being kept open for the whole session.
+
+`FourWord.txt` was not traced to a call site in this pass — its consumer
+function wasn't identified — so its origin (inside an `.xfs` vs. a
+standalone file) remains unconfirmed.
+
+## `sound.xfs` container format — partially corroborated
+
+`InitDirectSound` (`0x4ee5b0`) calls `OpenXFSArchive()` early in its DirectSound8
+init sequence, using the same function as every other archive open observed
+in this pass (`graphics.xfs` via `FUN_0043da00`/`FUN_004e3500`/`InitDirectDraw`).
+This is consistent with `sound.xfs` sharing the identical `XFS2` container
+format. However, the exact filename argument passed to this particular call
+could not be extracted — Ghidra's decompiler dropped the call's arguments
+entirely (`OpenXFSArchive();` with empty parens), the same recurring
+register-argument-recovery limitation noted elsewhere in this project, and
+raw-disassembly tracing of the argument-loading instructions wasn't done in
+this pass. So this is corroborating evidence (same function, same era of
+code, called at the point in `InitDirectSound` where a filename would be
+expected), not a fully confirmed trace like the `Language.txt`/`Sound.txt`
+findings above.
+
+## `.sv` replay file's `fopen()` call site — investigation exhausted (static analysis)
+
+Extended the search from the previous pass. Confirmed the actual CRT
+`fopen()` implementation is `FUN_00525fac` (verified by finding a sibling
+call site, the screenshot writer at `0x412e50`, which calls
+`FUN_00525fac(path, "wb")` immediately before an `fwrite`/`fclose` BMP-write
+sequence — this nails down `FUN_00525fac`'s signature as `fopen(path, mode)`
+beyond doubt). `FUN_00525fac` has exactly **5 callers system-wide**:
+`FUN_00412e00`/`FUN_00412e50` (both part of the screenshot-capture feature,
+unrelated to replays) and three call sites inside `LoadGameDataFiles`
+(loading `.dat`/`.xfs` game-data files at startup, also unrelated). **None
+of these is the replay file.**
+
+Also re-examined the three functions that directly touch
+`g_replayFileHandle` (`State09_ReadyRoom_OnEnter`, `State09_ReadyRoom_ProcessPacket`
+opcode `0x3432`, `State03_GameRoomList_OnEnter`) instruction-by-instruction:
+all three only ever `fclose()` and zero the handle — none of them calls
+`fopen`/`CreateFileA` afterward. In `State09_ReadyRoom_ProcessPacket`'s
+`0x3432` handler specifically, the replay filename **is built via `sprintf`
+into a local stack buffer that is never subsequently read** — confirmed by
+dumping every `CALL` instruction in the function (only three, all to
+`sprintf`, for three different formatted strings) and the raw disassembly
+immediately following the `sprintf`/handle-zero pair (next instructions are
+unrelated state resets, no `fopen`/`CreateFileA` in the vicinity).
+
+This means the file is opened by a function this pass could not locate
+through xref-based static tracing — the four candidate `CreateFileA` callers
+found (`OpenXFSArchive`, plus three registry/hardware-fingerprint functions
+at `0x5207d0`/`0x523530`/`0x524bb0` that read like anti-cheat/VM-detection
+code, entirely unrelated to replays) rule out the direct-`CreateFileA` path
+too. Remaining possibilities, in rough order of likelihood: (a) the path is
+stored to a global this pass didn't spot before the function returns, and a
+*different*, not-yet-identified function opens it lazily on first write;
+(b) the open happens through an indirect/vtable call this pass's plain xref
+search doesn't resolve (the same class of gap that made the render vtable
+slots hard to enumerate). Resolving this further would need dynamic
+analysis: breakpoint on `fopen`/`CreateFileA` while recording a replay in a
+live session, or a memory-write watchpoint on `g_replayFileHandle` to catch
+the exact instruction that first sets it non-null.
+
 ## Known gaps / good next targets
 
-1. **Partially resolved**: the `.sv` filename format and per-event binary
-   record are now fully confirmed (see above). Still open: the literal
-   `fopen()`-equivalent call site (to check for a file header preceding the
-   first event record) wasn't located. Investigated further this pass: the
-   CRT's actual file-opening chain (`__openfile` → `__fsopen` →
-   `FUN_00525fac` wrapper) has only 5 callers system-wide, none of them
-   replay-related, meaning the replay file must be opened through a
-   different mechanism entirely (most likely raw `CreateFileA` +
-   `_open_osfhandle`/`_fdopen`, mirroring the pattern already confirmed for
-   XFS archives) that wasn't isolated in this pass — this would need either
-   more exhaustive tracing of every `CreateFileA` call site in the binary,
-   or dynamic analysis (breakpoint on `fclose` of the handle while playing,
-   then find what set it).
+1. **Static-analysis-exhausted**: the `.sv` filename format and per-event
+   binary record are fully confirmed (see above). The literal `fopen()`-
+   equivalent call site was searched exhaustively this pass — every caller
+   of the confirmed `fopen()` implementation (`FUN_00525fac`, 5 callers,
+   none replay-related), every `CreateFileA` caller (6, all
+   XFS-archive-loading or anti-cheat/registry code, none replay-related),
+   and every direct read/write reference to `g_replayFileHandle` (all
+   `fclose`/zero, never an open) were checked — see the dedicated section
+   above. Concluded this needs dynamic analysis (breakpoint/watchpoint) to
+   resolve further; not a productive target for more static tracing.
 2. **Resolved**: individual XFS archive entries are confirmed LZHUF-
    compressed (see above), with their own distinct key and checksum
    convention, separate from both the TOC and the `.dat` files' schemes.
-3. A byte-exact reimplementation of the LZHUF decoder (`DecodeLZHUFBlock`)
-   would be needed to actually decode `orig/characterdata.dat` and friends
-   into readable records — this pass identified the algorithm family and
-   call sites but did not reverse it byte-for-byte.
+3. **Substantially narrowed**: the decode side of the LZHUF codec is now
+   confirmed to be the classic public-domain `LZHUF.C` algorithm, with
+   matching constants (`N_CHAR=314`, `T=627`, 4096-byte window) and
+   structurally-identical `DecodeChar`/`DecodePosition`/main-loop routines
+   (see the dedicated section above). Still open: the adaptive
+   Huffman **tree-update/rebalance** routine (triggered on each symbol's
+   frequency change, needed to keep decoder state in sync across a whole
+   stream) wasn't separately decompiled — that plus wiring up the confirmed
+   pieces into an actual standalone decoder is the remaining work to decode
+   `orig/characterdata.dat` and friends into readable records.
 4. `ChooseEvent.txt`'s individual integer fields' semantics (what each
    tab-separated value in a line actually means) aren't decoded.
-5. Whether `sound.xfs`/`Avatar.xfs` use the identical container format as
-   `graphics.xfs` is inferred (same `OpenXFSArchive` function used for all
-   three) but not independently spot-checked per file.
+5. **Partially resolved**: `graphics.xfs` is confirmed (via `Language.txt`/
+   `Sound.txt` lookups, see above) to use the same `OpenXFSArchive` path as
+   everywhere else. `sound.xfs` is corroborated (same function called from
+   `InitDirectSound`) but the filename argument wasn't extracted due to a
+   decompiler argument-recovery gap. `Avatar.xfs` still rests on the
+   original inference (same function used for `LoadGameDataFiles`'s avatar
+   mount) without an independent spot-check of its filename argument either.
