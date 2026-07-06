@@ -999,14 +999,42 @@ previously-unexamined ones. Findings:
   isn't a recognized command, **logs it to the replay stream**
   (`Replay_AppendEvent(1)` + `Replay_AppendString`) — confirms replays
   capture chat messages, not just game actions.
-  - **Notable side-find**: both functions embed a list of hardcoded
-    developer names/handles (`comsik` — "Game Programmer - comsik",
-    `CozY` — "Oh~! It's CozY here ^-^*", plus `yesoori`, `oorusa`, `jaeyong`,
-    `yaong2`, `jchlee75`, `reddragon`) alongside real chat commands (`guide`,
-    `message`, `mutelist`, `loudall`, `enddream`). Reads like a **developer
-    easter egg** (typing a dev's name/handle as a chat command likely
-    triggers a special response) — not traced in detail, flagged as a fun
-    curiosity rather than pursued further.
+  - **The developer-name easter egg — fully traced, and it's more than a
+    credits screen.** Both chat handlers call a shared `/`-command parser
+    (`FUN_004218c0`, 5,693 bytes) that splits the typed text on `/`,
+    extracts the first word, and `stricmp`s it (case-insensitive, and
+    gated on `iVar3 == 1` — exactly one token, no extra arguments) against
+    a long hardcoded list. Two genuinely distinct categories:
+    - **A real staff-credits system**: typing e.g. `/comsik` prints
+      "Game Programmer - comsik" via the same generic `ShowMessage`-style
+      vtable call (`+0x28`) already established elsewhere in this project,
+      each with its own short quote/role line. Confirmed staff list:
+      `comsik`, `CozY`, `enddream`, `yesoori`, `oorusa`, `jaeyong`,
+      `yaong2`, `jchlee75`, `reddragon`, `designer`, `johnny5`, `loserii`,
+      `scjang`, `chuko`, `pirania`, `blash45`, `knights`, plus a couple
+      more with mood-message-only responses ("Feel ethereal...",
+      "Acks will not be sent..." for `noack`).
+    - **Genuine hidden debug/GM commands, not just credits**: `noack` sets
+      a global flag (`DAT_00e9b1d8 = 1`) — a real "stop sending
+      acknowledgements" network-debug toggle; `clear`/`logging` push
+      special replay-stream events (`0x9000`/`0xf00e`); and — the most
+      interesting find — **three command names that are plain-ASCII
+      strings but decode to real Korean words when typed as if on a
+      2-beolsik (두벌식) Korean keyboard layout** (`shrduatlwkr`,
+      `shrduarhkswjs`, `shrduaakstpakstpaksakstp`) — a well-known trick
+      from Korean-developed software of this era for hiding GM/test
+      commands from English-reading players (the Latin letters typed
+      don't spell anything recognizable, but under the Korean IME they
+      map to real jamo). These three are gated on `g_currentGameState==9`
+      (Ready Room) and each build and send a distinct outgoing packet:
+      one includes a `GetTickCount()` timestamp plus, conditionally, 6
+      bytes of `rand()`-seeded data (reads like a client-side RNG-reseed
+      or time-sync debug command); another sets a byte flag to `0xff` in
+      the Ready Room state object; the third reads a numeric value via
+      `atol` from the parsed chat text and threads it into a small
+      per-slot byte array. None of the three were traced further into
+      what the *server* does with these packets (would need server code),
+      but their client-side triggering mechanism is now fully understood.
 - Ready Room's remaining slots: a small (20-byte) ready-status check
   (`0x4d54c0`), a larger (3,167-byte) button enable/disable UI updater
   (`0x4d54e0`), and a texture-preload list identical to Loading's
@@ -1138,8 +1166,12 @@ concept in this engine, not separate systems.
    character-preview rendering, etc. — could still vary `Z`), but no
    evidence of intentional depth-sorting was found in the one function
    confirmed to be the main per-frame sprite path.
-3. The developer-name chat easter egg (see above) — what it actually does
-   when triggered isn't traced.
+3. ~~The developer-name chat easter egg~~ — **resolved**, see the writeup
+   above: a full `/`-command parser with a real staff-credits list plus
+   several genuine hidden debug/GM commands, three obfuscated via
+   Korean-keyboard-layout romanization. What the *server* does with the
+   three debug commands' outgoing packets remains untraced (needs server
+   code).
 4. The function that **iterates** the active-object registry once per frame
    — **reframed, not simply "not yet found."** Traced `CreateButtonWidget`'s
    call site raw disassembly to see exactly what it passes as
