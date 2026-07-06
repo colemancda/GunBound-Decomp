@@ -599,23 +599,26 @@ decompiled code:
   position-decode tables where the correct reference tables have 256
   entries) — both fixes are reflected in the algorithm description earlier
   in this document.
-- **Not yet working**: decoding a full 128 KB TOC chunk (as opposed to the
-  64-byte header) still produces corrupted output starting around the
-  12th–17th decoded symbol — well past what the tiny header block
-  exercises. The first ~11 bytes of the first real filename decode
-  correctly (`"A_smoke.xtf"`), then a handful of spurious bytes appear
-  before the stream desyncs. Extensive line-by-line comparison of the
-  Python port against the decompiled `Update`/`DecodeChar`/`DecodePosition`/
-  `GetBit`/`GetByte` pseudocode didn't turn up the remaining discrepancy —
-  the bug is real but not yet isolated. This means **full-archive
-  extraction is not yet possible with the current prototype decoder**,
-  though the container/TOC/record-layout understanding this document
-  describes is now validated against real data independent of that
-  remaining bug. Next step would be either further symbol-by-symbol
-  tracing against the real compressed bytes, or writing a small reference
-  C implementation of the confirmed public-domain algorithm to compare
-  intermediate state (tree/frequency arrays) side-by-side with the Python
-  port at each decoded symbol.
+- **Not yet working, confirmed as a real bug**: decoding a full 128 KB TOC
+  chunk (as opposed to the 64-byte header) decodes the first record
+  correctly (`"A_smoke.xtf"` + sane trailing offset/size fields), then
+  **progressively degrades** — record 1 is mostly garbage with a few
+  recognizable fragments, and by record ~10-30 the output is essentially
+  pure noise. An independent C port of the same algorithm
+  (`tools/lzhuf/lzhuf_ref.c`) produces byte-identical output to the Python
+  port, ruling out a language-specific translation slip — the remaining
+  bug is a shared misunderstanding of the algorithm, most likely in
+  `Update()`'s tree-reorder logic or `reconst()`. One hypothesis
+  considered and ruled out: that the sparse/padded appearance might
+  reflect genuine archive data (heavily space-padded fields) rather than
+  corruption — the *rate* of degradation (clean, then rapidly noisier) is
+  inconsistent with that and matches an accumulating decoder desync
+  instead. This means **full-archive extraction is not yet possible** with
+  the current prototype decoder, though the container/TOC/record-layout
+  understanding this document describes is validated independent of this
+  bug (confirmed via the correctly-decoded header and first record). See
+  [tools/lzhuf/README.md](tools/lzhuf/README.md) for the fullest current
+  writeup and suggested next steps.
 
 ## Known gaps / good next targets
 
