@@ -11,7 +11,7 @@ working, verified LZHUF decoder and `.xfs` extractor now live in
 | Extension | Container | Compression | Confirmed? |
 |---|---|---|---|
 | `.xfs` (`graphics.xfs`, `sound.xfs`, `Avatar.xfs`) | Custom named-entry archive, magic `XFS2` | LZHUF for both the table of contents (target decoded size `0x40` for the header, `0x20000` per 1024-entry chunk) **and each individual entry** (target decoded size = the entry's own confirmed size field, own checksum convention) | **Fully confirmed and working** — all three real `.xfs` files decode end-to-end via `tools/lzhuf/extract_toc.py` |
-| `.dat` (`characterdata.dat`, `itemdata.dat`, `stage.dat`, `specialdata.dat`) | Flat file, no container | **LZHUF-compressed**, same decoder as XFS — **target size differs per file** (confirmed via `LoadGameDataFiles` for three of the four): `characterdata.dat` = `0x14c0` (5,312 bytes), `stage.dat` = `0x3c80` (15,488 bytes), `itemdata.dat` = `0x7850` (30,800 bytes). `specialdata.dat`'s loader wasn't located in `LoadGameDataFiles` or anywhere else this pass — its target size is **unconfirmed** (an earlier pass's `0x14c0` guess for it was never verified against code and shouldn't be trusted) | Confirmed and working for `characterdata.dat`/`stage.dat`/`itemdata.dat` — real content extracted (item names, stage names, Portuguese item descriptions). `specialdata.dat` not yet properly decoded (right target size unknown) |
+| `.dat` (`characterdata.dat`, `itemdata.dat`, `stage.dat`, `specialdata.dat`) | Flat file, no container | **LZHUF-compressed**, same decoder as XFS — **target size differs per file** (confirmed via `LoadGameDataFiles` for three of the four): `characterdata.dat` = `0x14c0` (5,312 bytes), `stage.dat` = `0x3c80` (15,488 bytes), `itemdata.dat` = `0x7850` (30,800 bytes). **`specialdata.dat` is not loaded by this executable at all** — confirmed by listing every `.dat` filename string literal in the whole binary; it isn't among them | Confirmed and working for `characterdata.dat`/`stage.dat`/`itemdata.dat` — real content extracted (item names, stage names, Portuguese item descriptions). `specialdata.dat` is present in `orig/` (see [README.md](README.md)) but `GunBound.gme` never references it by name — likely used by a separate tool/server component, not the game client |
 | `.img` (sprite/texture files, e.g. `tank1.img`, `bullet1n.img`) | Individual asset stored inside the `.xfs` archives, itself LZHUF-compressed as a container entry | RLE (run-length encoding) on top, 16bpp pixel data, applied after LZHUF decompression | Confirmed via `BlitRLESprite`/`BlitSprite16bpp` for the RLE/pixel layer; confirmed via `DecodeXFSEntryBlock` for the container-level LZHUF layer |
 | `.sv` (replay files) | Custom event-stream format | Not compressed (not confirmed either way) | Filename format and per-event record fully confirmed; file open call / possible header not located |
 | `ChooseEvent.txt` | Plain text, lives *inside* `graphics.xfs` | None (plain text) | **Fully confirmed** — actual content extracted, a 4-line event-name-to-ID registry |
@@ -499,8 +499,31 @@ persistent destination. No copy-out step to persistent storage was found
 immediately after the checksum loop (contrast with `itemdata.dat`, which
 *does* copy into a confirmed persistent struct — see above). This means
 `characterdata.dat`'s checksum-validated content is genuinely ephemeral
-in this function: the real per-mobile stats consumer (if it re-reads or
-re-derives this data) must live in a separate, not-yet-located function.
+in this function.
+
+**Searched the whole binary for other references to `"characterdata.dat"`
+— there's exactly one, `LoadGameDataFiles` itself.** There is no separate
+consumer function to find; this isn't a case of "the real parser is
+elsewhere and wasn't located yet." Combined with the ephemeral
+stack-only destination, this strongly suggests `characterdata.dat` is
+loaded purely as an **anti-tamper integrity check** — the client verifies
+its local copy of mobile stat data matches the expected checksum (and
+presumably refuses to proceed, or flags something server-side, if it
+doesn't) but never actually *uses* the decoded values for its own
+gameplay logic. This is consistent with the server-authoritative model
+already established elsewhere in this project (see the physics/turn-state
+findings in [ARCHITECTURE.md](ARCHITECTURE.md)) — real mobile stats most
+likely live server-side, and this file's role client-side is to detect
+tampering (e.g. a player editing a local copy of the file to inflate
+stats) rather than to supply the values the client itself computes with.
+This reframes the "field semantics" gap: the byte-level record layout
+(16 records × 332 bytes, several plausible stat-shaped fields) is
+real and confirmed, but there's no in-client "consumer" whose behavior
+could confirm field *names* — that would require either the game server's
+code (not available) or independently reverse-engineering what each field
+represents purely from its numeric patterns and cross-referencing against
+known GunBound mobile stats from community knowledge, not from tracing
+client-side execution further.
 
 ## `.img` sprite format — confirmed via the render pipeline
 
@@ -833,15 +856,23 @@ decompiled code:
    pass assumed — see `LoadGameDataFiles`), extracting real content
    (`ChooseEvent.txt`'s full text, `itemdata.dat`'s item names/Portuguese
    descriptions, `stage.dat`'s stage names). Nothing left to resolve at the
-   algorithm level. Remaining work: mapping the last few unconfirmed
-   *field-level* semantics within `characterdata.dat` (record count/stride
-   now confirmed — 16 records × 332 bytes — and several early fields have
-   plausible stat values, but exact field names aren't nailed down) and
-   `itemdata.dat`'s decoded byte layout (not about decoding them, which now
-   works), and finding `specialdata.dat`'s loader to get its correct
-   target size (not located this pass — do not reuse `characterdata.dat`'s
-   `0x14c0` for it without verifying against code first, the same mistake
-   made earlier for `itemdata.dat`/`stage.dat`).
+   algorithm level. `itemdata.dat`'s per-field layout is now confirmed
+   directly from `LoadGameDataFiles`'s consumer code (name, three `uint32`s,
+   three individually-obfuscated boolean flags, a `ushort`, and a
+   description — see the dedicated section above), including confirmed
+   persistent storage (`param_1+0x58b8d6`, `0x9bc`-byte stride).
+   `characterdata.dat`'s record count/stride is confirmed (16 records ×
+   332 bytes) and several fields show plausible stat patterns, but — after
+   confirming there's no separate consumer function anywhere in the binary
+   — this is now understood to likely be a pure anti-tamper integrity
+   check with no client-side gameplay consumer to trace further; exact
+   field names would need server-side code or community knowledge of
+   GunBound's mobile stats, not more client-side tracing. **`specialdata.dat`
+   fully resolved (as "not applicable")**: confirmed by listing every
+   `.dat` filename string literal in the whole binary that `GunBound.gme`
+   never references this file by name at all — it isn't a client asset,
+   most likely belongs to a separate server/tool component. No further
+   work needed on it from this binary's perspective.
 4. **Fully resolved.** `ChooseEvent.txt`'s actual content was extracted
    (see the dedicated section above): it's a tiny event-name-to-ID registry
    (`0=off, 1=christmas, 2=event2, 3=event3`), not the character-select
