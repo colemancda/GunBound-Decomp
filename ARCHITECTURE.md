@@ -219,9 +219,48 @@ events into this same dispatcher rather than having a separate player).
 | `0x4001` | Single-byte flag toggle (only when the acting slot isn't this client) — cheap status flag, not yet identified precisely. |
 | `0x4002` | **Chat message with spatial proximity filtering**: computes the distance between the sender and each of the 8 player slots, delivering the message only within ~150 units — positional/proximity chat during battle. |
 | `0x4003`, `0x4004` | Similar per-player text-record lookups/inserts (`FUN_004259d0`/`FUN_0041b8c0`, the same helpers seen in the room-list handler) — likely other chat/notification variants (team chat? system message?). |
-| `0x8406` | Relays two ushort fields + a boolean flag from the packet through the outgoing-packet-encoding helpers (`FUN_0040a470`/`FUN_0040a4a0`) — likely an **aim/angle+power update** being re-broadcast or applied locally. |
+| `0x8402`, `0x8406` | Relay two ushort fields + a boolean flag from the packet, re-encoding them into an outgoing packet via `QueueOutgoingPacketField`/`EncodeOutgoingPacketField` — likely an **aim/angle+power update being forwarded to other clients**. |
+| `0x8403` | **Fire.** The richest payload: 2 fields, 2 bool flags, 2 more fields, then **8 sequential shorts** (`+0x2c`..`+0x3a`, 16 bytes — likely trajectory waypoints or arc sample points), forwarded via the same outgoing-encode helpers, then plays the `ifire` sound effect. This is the confirmed weapon-fire action; exact waypoint semantics not yet decoded. |
+| `0x8404` | Appends a new entry across four parallel per-slot arrays at `+0x27`/`+0xa7`/`+0x127`/`+0x1a7` (a *different*, smaller set of parallel arrays than `0x8408`'s) — some other per-shot or per-projectile record, calls `FUN_004ccbb0`. |
+| `0x8405` | Plays one of three weapon-select sounds (`b_play_weapon1/2/3`) based on which weapon slot was chosen — **weapon selection**. |
 | `0x8407` | Selects one of three lookup tables by a mode byte (1/2/3) — purpose unclear, possibly per-weapon or per-stage table selection. |
 | `0x8408` | **Player spawn into battle**: appends a new entry across four parallel per-slot arrays at `+0x228`/`+0x2a8`/`+0x328`/`+0x3a8` (position/id/slot fields), calls `FUN_004ccc60` (spawn visual?), increments the player count. These are the *same* parallel arrays that `0x3020`'s disconnect handler shifts down — confirms a structure-of-arrays layout for the 8 battle slots. |
+| `0xc300` | **Turn start** (best guess): posts three chained sub-events via `PostTurnEvent(&DAT_00e55ce0, code)` — `0xc300` (self), `0xc306`, `0xc40b` — a genuine turn/round event-dispatch mechanism. The `0xc306`/`0xc40b` handlers are the natural next lead for finding the actual physics tick. |
+| `0xc301` | **Turn timer/setup** — shared verbatim with `State10_Loading_ProcessBattleAction`: writes the turn-timer field (`+0x10a4`, checked against `60000`ms) and copies an 8-element setup array (`+0x2302`, likely wind/spawn data). |
+
+**On `QueueOutgoingPacketField`/`EncodeOutgoingPacketField`** (`0x40a470`/
+`0x40a380`, renamed from `FUN_0040a470`/`FUN_0040a380`): initially mistaken for
+a physics event queue. Decompiling in full showed it's a **critical-section-
+protected packet encoder that XORs each field against a rolling 16-byte table**
+indexed by a counter — i.e. GunBound lightly **obfuscates/checksums its
+outgoing packets**. So actions like `0x8403`/`0x8406` that call this are
+re-encoding received data into a *new outgoing packet* (relay/forward/ack),
+not feeding a local simulation queue.
+
+**Rendering vs. physics, disambiguated.** `GameTick` calls a sequence of
+In-Battle-specific vtable slots every simulation tick (fixed **50 ms / 20 Hz**,
+confirmed via `(now - lastTick) / 50`). Traced all of them: slots 9, 11–17
+(`+0x24` through `+0x44`) resolve to texture loading, the main render function
+(confirmed via `ThorTexture`/`BulletTexture`/`LaserEffect` strings — this is
+literally the sprite renderer, not physics), a post-match slot-machine
+minigame, and a results-scoreboard formatter. **None of them contain the
+gravity/trajectory integration** — that logic is not in this per-frame vtable
+pipeline. Also ruled out: the game's `sin`/`cos` CRT calls (only 4 tiny
+generic-math callers, not game code) and a very FPU-dense function cluster at
+`0x51xxxx` (almost certainly compiler-generated C++ `<complex>` arithmetic,
+sitting among confirmed CRT/exception-handling functions).
+
+**Confirmed real finding along the way**: `g_sineTable360` (`0x54c240`) is a
+360-entry precomputed sine lookup table, indexed via `angle % 360` (cosine via
+`(angle+90) % 360`) — the classic technique for this era. Used by the render
+function for sprite rotation/orientation (turret angle, etc.) — confirmed
+caller is the render pipeline, not a physics function, but the same table is
+almost certainly reused by whatever function does compute trajectories.
+
+**Where physics likely lives, unconfirmed**: probably inside the handlers for
+`PostTurnEvent`'s `0xc306`/`0xc40b` sub-events, or inside one of the two
+not-yet-decompiled parallel-array update actions (`0x8404`) — these are the
+concrete next leads, rather than searching blindly by FPU density again.
 
 ## The replay-recording system
 
