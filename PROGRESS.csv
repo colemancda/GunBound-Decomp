@@ -940,7 +940,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004caed0,944,FUN_004caed0,false,1,8,TODO
 004cb280,2834,FUN_004cb280,false,4,22,TODO
 004cbda0,1080,FUN_004cbda0,false,3,16,TODO
-004cc1e0,977,FUN_004cc1e0,false,1,11,TODO
+004cc1e0,977,HandleTurnTimeoutSlot,false,1,11,TODO
 004cc5c0,1428,FUN_004cc5c0,false,2,18,TODO
 004ccbb0,171,FUN_004ccbb0,false,1,0,TODO
 004ccc60,171,FUN_004ccc60,false,1,0,TODO
