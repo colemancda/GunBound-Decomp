@@ -375,20 +375,38 @@ correct) — it just reveals the *full* file instead of a truncated prefix:
   and the remaining 87 slots are zero-filled/unused — consistent with this
   being a smaller private-server build with far fewer items defined than
   the 100-slot capacity allows.
-- **Per-record layout** (offsets relative to the record's own start,
-  unchanged from the earlier pass):
+- **Per-record layout — now confirmed directly from `LoadGameDataFiles`'s
+  consumer code**, not just inferred from decoded bytes (this section
+  supersedes the byte-pattern-only version from the previous pass; the
+  earlier guesses turned out close but slightly imprecise in a few spots):
 
   | Offset | Size | Field | Notes |
   |---|---|---|---|
-  | `0x00` | up to 0x24 (36) | Item name, NUL-terminated ASCII/text | e.g. `"Dual"`, `"Teleport"`, `"Energy up 1"` — two entries contain non-ASCII bytes consistent with **Korean text in a single-byte-per-char encoding rendering as mojibake when read as Latin-1** — i.e. this particular (Brazilian Portuguese-localized) build has a couple of items that were never translated from the original Korean strings |
-  | `0x24` | 4 | Price/value (`uint32`) | e.g. `600` for "Dual", `100` for "Teleport", `0` for "Blood" — a zero value for some entries suggests not every item is purchasable (some may be quest/event-only) |
-  | `0x28` | 4 | Item type/index ID (`uint32`) | duplicated at `0x30` as a single byte — e.g. "Energy up 1" and "Energy up 2" share the same value (`7`), consistent with a shared item-family/category ID rather than a unique per-item ID |
-  | `0x2c` | 4 | Unidentified flags/bytes | varies per record (e.g. `00 00 01 00` vs `01 00 01 00` vs `00 00 00 00`) — a `0x2e` byte of `1` seems to correlate with "has a description," but this wasn't confirmed rigorously |
-  | `0x30` | 1 | Item type/index ID (byte, duplicate of `0x28`) | see above |
-  | `0x31` | 1 | Marker byte, `0xff` when a description follows | records without a following description (e.g. "Blood", "Energy up 1") have `0x00` here instead — **description position isn't perfectly fixed across all records**, so this offset is approximate, not exact, for every entry |
-  | `~0x32` | variable | Localized item description, NUL-terminated | real examples (Portuguese, this build's localization): `"Usando este item voce pode disparar seu tiro duas vezes..."` (Dual), `"Pode teleportar para o ponto onde o objeto de teleporte caiu..."` (Teleport) |
+  | `0x00` | up to 0x20 (32) | Item name, NUL-terminated ASCII/text | e.g. `"Dual"`, `"Teleport"`, `"Energy up 1"` — two entries contain non-ASCII bytes consistent with **Korean text in a single-byte-per-char encoding rendering as mojibake when read as Latin-1** — i.e. this particular (Brazilian Portuguese-localized) build has a couple of items that were never translated from the original Korean strings. Confirmed copied into a persistent per-item structure at a fixed destination offset. |
+  | `0x20` | 4 | `uint32` field | Read and fed through the packet checksum accumulator (`EncodeOutgoingPacketField`) — validated but not confirmed copied to a named persistent field in this code path. Often `0` in this file's real data. |
+  | `0x24` | 4 | Price/value (`uint32`) | e.g. `600` for "Dual", `100` for "Teleport", `0` for "Blood" — a zero value for some entries suggests not every item is purchasable (some may be quest/event-only). Same checksum treatment as `0x20`. |
+  | `0x28` | 4 | Item type/index ID (`uint32`) | e.g. "Energy up 1" and "Energy up 2" share the same value (`7`), consistent with a shared item-family/category ID rather than a unique per-item ID. Same checksum treatment as `0x20`/`0x24` — **correction from the previous pass**: this is not literally duplicated at `0x30` as a single byte; that earlier read was of a different, misidentified field (see `0x30` below). |
+  | `0x2c` | 1 | Boolean flag 1 | **Individually obfuscated on copy to persistent storage**: XORed/masked together with two `rand()` calls into a 3-byte encoded form (`encoded_byte, encoded_flag, checksum_byte = encoded_byte + encoded_flag - 0x34`) rather than copied plainly — an explicit anti-memory-editing/anti-cheat measure specifically for this flag (no other item field gets this treatment) |
+  | `0x2d` | 1 | Boolean flag 2 | Same individually-obfuscated encoding as `0x2c`, independently |
+  | `0x2e` | 1 | Boolean flag 3 | Same individually-obfuscated encoding as `0x2c`/`0x2d`, independently — the fact that exactly *three* boolean-ish flags get this specific protection (out of everything else in the record) suggests these three are considered especially sensitive to tamper with client-side — plausible candidates: "tradable," "usable in battle," "giftable," or similar toggles that a cheater might want to flip locally |
+  | `0x2f` | 1 | Unaccounted (padding/gap) | Not read by this code path |
+  | `0x30` | 2 | `ushort` field | Read as a genuine 16-bit value and checksummed — **correction from the previous pass**, which had read this as two separate bytes (a duplicate type-ID byte at `0x30` plus a `0xff` "marker" byte at `0x31`); the real code treats it as one `ushort`. Purpose beyond "checksummed" not confirmed. |
+  | `0x32` | variable | Localized item description, NUL-terminated | Confirmed copied into persistent storage at its own destination offset, independent of the other fields above. Real examples (Portuguese, this build's localization): `"Usando este item voce pode disparar seu tiro duas vezes..."` (Dual), `"Pode teleportar para o ponto onde o objeto de teleporte caiu..."` (Teleport) |
 
-Still open: the `0x2c` flags field and the exact description-offset rule.
+**Persistent storage confirmed too**: unlike `characterdata.dat` (whose
+decoded buffer turned out to be purely a local stack copy, discarded after
+checksum validation — see below), `itemdata.dat`'s fields — name,
+description, and the three obfuscated flags — are genuinely copied into a
+**persistent per-item structure** at `param_1 + 0x58b8d6` (`param_1` being
+the same top-level game-object pointer threaded through
+`LoadGameDataFiles`), with a **destination stride of `0x9bc` (2,492)
+bytes** — much larger than the 308-byte source record, consistent with
+the destination struct holding additional derived/runtime fields beyond
+what's stored on disk.
+
+Still open: the exact meaning of the `0x20`/`0x28`/`0x30` fields beyond
+"checksummed," and which specific gameplay toggles the three obfuscated
+boolean flags represent.
 
 ## `stage.dat` — confirmed record layout and target size
 
@@ -471,6 +489,18 @@ game-data patterns), but the exact field *names* (which offset is truly
 would need finding the actual stats-consumer function (e.g. wherever the
 character-select screen reads and displays these values) rather than
 inferring from cross-record numeric patterns alone.
+
+**Also confirmed via raw disassembly**: the destination buffer
+`DecodeLZHUFBlock` writes into for `characterdata.dat` is a genuine
+`ESP`-relative stack address (`LEA EAX,[ESP + 0x7c8c]`), not a
+mislabeled pointer into the persistent game object — ruling out the
+hypothesis that Ghidra's imprecise stack-frame analysis was hiding a
+persistent destination. No copy-out step to persistent storage was found
+immediately after the checksum loop (contrast with `itemdata.dat`, which
+*does* copy into a confirmed persistent struct — see above). This means
+`characterdata.dat`'s checksum-validated content is genuinely ephemeral
+in this function: the real per-mobile stats consumer (if it re-reads or
+re-derives this data) must live in a separate, not-yet-located function.
 
 ## `.img` sprite format — confirmed via the render pipeline
 
