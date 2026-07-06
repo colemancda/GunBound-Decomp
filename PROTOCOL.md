@@ -236,18 +236,33 @@ of what this implies about where trajectory resolution actually happens
 
 ## Known gaps
 
-- **DONE this pass**: `0x2111`, `0x4005`/`0x4006`, state 11's `0x3400`
-  (Channel 1), `0xc401`'s target `HandleTurnTimeoutSlot`, `0xf00b`'s target
-  `LoadTerrainDeformationFrame`, and `0x8407`'s three lookup tables are all
-  now documented above.
-- **DONE**: State 9's `ProcessBattleAction` (Channel 2) is now fully mapped
-  (see above) — character/mobile sync, ready flags, map selection, kicks,
-  countdown initiation.
-- `0x8407`'s three table semantics (what `DAT_00e9ba40`/`DAT_00e9b818`/
-  `DAT_00796aa0` actually represent) are still unresolved beyond "some
-  per-mode game constant."
-- `0x8404`'s exact purpose (parallel-array append, distinct from `0x8408`'s
-  spawn) is still a guess ("hit/damage log entry").
+All branches (every `if`/`switch case` in all 5 `ProcessPacket` handlers and
+all 3 `ProcessBattleAction` handlers) have been located and read at least
+once — there are no more un-found opcode branches as of this pass, confirmed
+by cross-checking each handler's total `if (opcode ...)`/`case` count against
+what's documented above. What remains open is depth on a few specific points:
+
+- **`0x8407`'s three tables**: `DAT_00e9ba40` (referenced by ~45 functions,
+  mostly battle/per-character code), `DAT_00e9b818` (only 3 references:
+  `WinMain`, `ProcessBattleAction`, and the per-tick hook), and `DAT_00796aa0`
+  (referenced by ~80 functions — every per-character constructor plus
+  general battle code). Investigated the accessor function (`0x40a4d0`) in
+  disassembly to see whether these are genuinely distinct game-constant
+  tables or one shared scratch counter reused pervasively; inconclusive —
+  `0x40a4d0` is a critical-section-locked variant of the same read pattern as
+  `PeekPacketChecksumState` (`0x40a2e0`) but is a separate function, and its
+  "argument" in decompiled output is really the implicit register `this`
+  loaded right before the call, meaning each of the three globals is treated
+  as an object instance rather than a flat lookup table. Given `DAT_00796aa0`
+  and `DAT_00e9ba40`'s vast, cross-cutting reference sets, they read as
+  general-purpose shared counters rather than domain-specific data — pinning
+  the *exact* value at the `0x8407` call site specifically would need
+  per-callsite dataflow tracing beyond what static reading can efficiently
+  resolve.
+- `0x8404`'s exact purpose (parallel-array append at `+0x27`/`+0xa7`/`+0x127`/
+  `+0x1a7`, stride `0x80`, distinct from `0x8408`'s spawn arrays) is still a
+  guess ("hit/damage log entry") — no other confirmed code touches these
+  exact offsets to cross-check against.
 - The exact byte-level field boundaries within each payload are inferred from
   decompiled access patterns (`*(ushort*)(payload+N)` etc.), not from a
   formal struct definition — treat offsets as "confirmed observed," not "the
