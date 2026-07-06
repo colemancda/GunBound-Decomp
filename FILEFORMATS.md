@@ -464,7 +464,7 @@ directly gives the real values:
   through `EncodeOutgoingPacketField`) wasn't mapped field-by-field this
   pass — worth a dedicated follow-up now that the stride/size are solid.
 
-## `characterdata.dat` — record count/stride confirmed, field semantics partial
+## `characterdata.dat` — record count/stride confirmed, field semantics recovered
 
 Initial attempt at this (decompiling `LoadGameDataFiles`'s post-decode step
 directly, the same approach that worked for `stage.dat`) looked like a dead
@@ -540,14 +540,84 @@ findings in [ARCHITECTURE.md](ARCHITECTURE.md)) — real mobile stats most
 likely live server-side, and this file's role client-side is to detect
 tampering (e.g. a player editing a local copy of the file to inflate
 stats) rather than to supply the values the client itself computes with.
-This reframes the "field semantics" gap: the byte-level record layout
-(16 records × 332 bytes, several plausible stat-shaped fields) is
-real and confirmed, but there's no in-client "consumer" whose behavior
-could confirm field *names* — that would require either the game server's
-code (not available) or independently reverse-engineering what each field
-represents purely from its numeric patterns and cross-referencing against
-known GunBound mobile stats from community knowledge, not from tracing
-client-side execution further.
+This reframed the gap as needing either server code or community knowledge
+— **resolved by neither, but by a third option: a companion editor tool.**
+
+### Field semantics recovered from `Asuka.exe`/`mishato_English.exe`
+
+Found a set of standalone `.dat` editor tools alongside `GunBound.gme`
+(`Asuka.exe` → `characterdata.dat`, `mishato_English.exe` → `itemdata.dat`,
+`Shinji.exe` → `stage.dat`), all small 2001/2002-era MFC apps built for the
+same private-server toolset that produced `InsideGB.exe`. Their save/load
+code (`Asuka.exe`'s `FUN_004bcf70`/`FUN_004bd2a0`, decompiled via Ghidra)
+uses the **exact same LZHUF variant** as `GunBound.gme` and `InsideGB.exe`
+— a third independent confirmation of that algorithm — and the exact same
+additive checksum (`'M' + sum of all bytes mod 256`) already found
+client-side for `characterdata.dat`, confirming that file really is
+checksum-only from an entirely independent angle too.
+
+MFC42.DLL's imports are all by ordinal with no name resolution available,
+so tracing the actual `DDX_Text`-style control/field bindings through
+Ghidra wasn't practical. Instead, **the dialog resource templates were
+parsed directly out of the PE `.rsrc` section** (a `RT_DIALOG` binary
+format, parsed with a small standalone Python script — no execution of
+the untrusted binaries involved, consistent with this project's standing
+rule against running them) to pull out every control's caption text. The
+captions are in Korean and fully legible, giving real field labels for
+the first time:
+
+**`characterdata.dat` per-mobile fields, per `Asuka.exe`'s editor dialog**
+(labels translated, grouped by the dialog's own section headers):
+- `최대체력`/`최대쉴드`/`실드복원량` — **Max HP / Max Shield / Shield
+  regen amount**
+- `에너지` — **Energy**
+- `검색넓이`/`검색높이`/`기체높이` — **search width / search height /
+  body height** (hitbox-related — consistent with the two near-constant
+  `28,24`-ish leading fields already inferred from raw byte patterns)
+- `각도 검색` / `발사 각도` / `최대/최소 발사각` — **angle search /
+  firing angle / max-min firing angle**
+- `최고발사력` — **max firing power**
+- `이동 거리` / `최대등판각` — **move distance / max incline (climbing)
+  angle**
+- `기본딜레이` — **base delay**
+- Per-weapon-slot groups (`일반 무기 설정`/`특수 무기 설정` — "normal
+  weapon settings"/"special weapon settings"), each with **`파워`
+  (power)**, **`모양` (shape)**, **`밀도` (density)**, **`속성`/`속성값`
+  (attribute/attribute value)** — each broken into **`內`/`中`/`外`**
+  (inner/mid/outer) sub-values, i.e. a 3-tier blast/effect-radius model
+  per weapon
+- `방어력` — **defense power**
+- A `PSS` block (`PSS각도`/`PSS거리` — angle/distance) — likely each
+  mobile's special/finishing-move parameters (name kept as-is; not
+  confidently translated)
+- Per-mobile weapon effect type selectable from `폭발`/`레이져`/`타격`/
+  `전기` — **explosion / laser / impact / electric** — matching the
+  4 elemental/effect categories referenced elsewhere in the client
+- Inline developer comment strings left in the dialog resource itself
+  (untranslated Korean notes about specific mobiles, e.g. clarifying that
+  one tank's "attribute value 1" means lift force, and another's density
+  field means piercing/shock range) — read as real developer documentation
+  of otherwise-opaque fields, not something inferable from client code at
+  all.
+
+This doesn't give exact byte offsets (the dialog's tab order isn't
+provably identical to on-disk field order, and confirming that would need
+resolving the MFC42 ordinal calls, not attempted here), but it fully
+closes the "no way to know what these fields mean" gap — these are real
+developer-authored labels, not a guess.
+
+**`itemdata.dat`'s three obfuscated boolean flags (`0x2c`/`0x2d`/`0x2e`,
+previously "purpose beyond checksummed not confirmed") are now identified**
+via `mishato_English.exe`'s editor dialog, which has exactly three
+checkboxes: **`Shot?`, `Skip`, `2 Slots`** — matching the count and the
+"individually obfuscated, no other field gets this treatment" observation
+exactly. Most likely: `Shot?` = can this item be fired as a shot (vs. a
+passive/utility item — consistent with the earlier-found item description
+"you can fire your shot twice"), `Skip` = item usage skips/ends the turn,
+`2 Slots` = occupies two inventory slots. The dialog also confirms the
+item record's other fields at a glance: `Item` (name), a numeric field,
+`Delay`, `Effect`, `Description` — matching the already-confirmed name /
+price / type / description layout.
 
 ## `.img` sprite format — header confirmed, real pixels extracted
 
