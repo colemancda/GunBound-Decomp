@@ -877,9 +877,45 @@ confirmed via raw disassembly of the call site (the decompiler couldn't
 recover these arguments — Ghidra showed empty parens — so this required
 reading x86 `PUSH`/`CALL` sequences directly). This closes the loop: rotation
 math → vertex buffer → GPU draw call, all inside `State11_InBattle_Render`.
-The `g_spriteVertexBuffer` entry's internal field layout (which floats map to
-which FVF component) isn't broken down byte-by-byte, but the pipeline shape
-is now solid.
+
+**Per-vertex field layout — now fully decoded.** `FVF = 0x244` breaks down as
+`D3DFVF_XYZRHW (0x004) | D3DFVF_DIFFUSE (0x040) | D3DFVF_TEX2 (0x200)` — i.e.
+each vertex is **pre-transformed screen-space** (no full 3D transform,
+consistent with 2D sprite quads) with one diffuse color and two UV pairs:
+`[X, Y, Z, RHW, Diffuse, U0, V0, U1, V1]`, 9 dwords = 36 bytes. That means
+the "108-byte work record" is actually **3 of these 36-byte vertices**, i.e.
+one full triangle — and `BuildRotatedSpriteQuad` writes *two* 108-byte
+records per call (confirmed: `g_spriteVertexCount += 2` at the end), which
+is exactly a quad expressed as 2 triangles sharing a diagonal:
+**triangle 1 = corners (A, B, C), triangle 2 = (C, D, A)**. Traced by mapping
+every write in the function to its byte offset within the scratch staging
+area (`0x00ea0e28`) before the two block-copies into `g_spriteVertexBuffer`
+and `g_spriteVertexBuffer + 0x6c` (the two triangle slots), then confirming
+the copy source/destination ranges overlap exactly where the shared C/A
+vertices are reused.
+
+Per call, only **X, Y, Diffuse, U0, V0** are written fresh for each of the 4
+corners — `Z`, `RHW`, and the second UV pair (`U1`, `V1`) are never touched
+by this function, i.e. they're persistent/pre-set elsewhere (not traced
+further; almost certainly fixed constants like `Z=0`, `RHW=1`, since no
+per-sprite Z variation was found — see the Z-buffer note below). `Diffuse`
+is set to `0xffffffff` (opaque white) for all 4 corners on every call — no
+per-sprite tint, so alpha blending is driven entirely by the texture's own
+alpha channel. `U0`/`V0` come from a small per-call texture-rect struct at
+`param_1+0x80`/`+0x84`/`+0x88`, and the function's 4th parameter acts as a
+**horizontal-flip selector** — it swaps which struct field maps to which
+screen corner, which is how a sprite gets mirrored for the opposite facing
+direction without a second texture.
+
+**The flush/present call site, fully confirmed** (`FUN_004f4110`, was
+`FUN_004f4110`, 64 bytes): called once `g_spriteVertexCount != 0`, it issues
+exactly `DrawPrimitive(g_pD3DDevice7, 4 /*D3DPT_TRIANGLELIST*/, 0x244,
+&g_spriteVertexBuffer, g_spriteVertexCount*3, 1)` — the `*3` converts the
+triangle-slot counter into a real vertex count, batching every sprite quad
+queued that frame into a single draw call — then resets
+`g_spriteVertexCount` to 0. It also accumulates a running counter
+(`DAT_0079365c += g_spriteVertexCount`), likely an internal perf/stats
+counter for triangles drawn.
 
 ### `DAT_007935fc` — resolved: the Z-buffer
 
@@ -1061,10 +1097,20 @@ concept in this engine, not separate systems.
 
 ### Remaining open threads
 
-1. `g_spriteVertexBuffer`'s exact per-vertex field layout (byte offsets for
-   position/color/UV within each 108-byte record) isn't broken down.
+1. ~~`g_spriteVertexBuffer`'s exact per-vertex field layout~~ — **resolved**,
+   see the "Per-vertex field layout" writeup above: `FVF 0x244` = XYZRHW +
+   Diffuse + TEX2, 9 dwords/vertex, quad = 2 triangles sharing a diagonal.
 2. Whether the Z-buffer is actually used for depth-sorting (vs. just present
-   because the HAL device requires one) is unconfirmed.
+   because the HAL device requires one) — **still unconfirmed, but leaning
+   "no real per-sprite depth-sort"**: `BuildRotatedSpriteQuad` (the primary
+   quad-builder, handling every rotated in-battle sprite) never writes a
+   per-call `Z` value — all 4 corners' `Z` dwords are left untouched,
+   meaning they hold whatever constant was set once elsewhere. That's not
+   proof (one of the ~25 sibling vertex-builder functions sharing
+   `g_spriteVertexBuffer` — variants for non-rotated quads, mode icons,
+   character-preview rendering, etc. — could still vary `Z`), but no
+   evidence of intentional depth-sorting was found in the one function
+   confirmed to be the main per-frame sprite path.
 3. The developer-name chat easter egg (see above) — what it actually does
    when triggered isn't traced.
 4. The function that **iterates** the active-object registry once per frame
