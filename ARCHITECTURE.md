@@ -136,6 +136,68 @@ how the server tracks each client's current context.
 | `0x6017` (`*payload==0x6003`) | Sends a `0x6000` reply packet — likely the purchase confirmation's "yes" response. |
 | `0x6037` (`*payload==0`) | Guards on a slot-count check (`FUN_004010c0(0x80070057)` fatal-errors if out of range) then calls `FUN_0044c370()` — a purchase-commit path, not fully traced. |
 
+## Network protocol — `State09_ReadyRoom_ProcessPacket` (`0x4d38c0`)
+
+Opcodes `0x30xx`/`0x31xx`/`0x32xx`/`0x34xx`/`0x44xx`. This handler is also where
+the **replay-recording system** (see below) is driven from — most branches
+call `Replay_AppendEvent` with a distinct event-type code.
+
+| Opcode | Behavior |
+|---|---|
+| `0x2001` | **Leave ready room.** If a flag (`DAT_00793522`) is set, force-exits state 11 (In-Battle) via its own vtable exit-hook (`g_gameStateObjects[0xb]+0x20`) — i.e. this can tear down an in-progress battle. Then `g_pendingGameState = 3` (back to Game Room List). |
+| `0x3010` | Calls `FUN_004db720()` (start/ready toggle?) then `FUN_004dc200(*payload)` with a byte value (character or team selection) and `FUN_004dc5c0()` (finalize). |
+| `0x3020` | Calls `FUN_004db720()` only — simpler ready/unready toggle. |
+| `0x3105` | Records replay event `0x8102` (self) or `0x8000`+player-id+position fields (others), and sends `WM_USER+...` (`0xc5`) UI notification — **player joined ready room**. |
+| `0x3151` | Records replay event `0x8200` with `payload[2]` — likely **team change**. |
+| `0x3201` | Records replay event `0x8100` with two fields from `this` — likely **weapon/character selection change**. |
+| `0x3211` | Records replay event `0x8101` — likely **map vote/selection**. |
+| `0x3231` | Records replay event `0x8102` — **ready-status toggle**. |
+| `0x3fff` | Sends outgoing packet opcode `0x2000` with payload `0xffff` — **leave/cancel notification to server**. |
+| `0x3432` | Closes the open replay file (`fclose`) if one is open — **match/session end, stop recording**. |
+| `0x4410` (only if not already leaving) | Replies with outgoing opcode `0x3232` — looks like a **server keepalive/ping ack**. |
+
+## Network protocol — `State11_InBattle_ProcessPacket` (`0x4b4100`)
+
+Opcodes shared with the ready room (`0x2001`, `0x3020`, `0x3233`, `0x3400`,
+`0x3fff`, `0x4410`) plus battle-specific ones (`0x4102`, `0x4413`).
+
+| Opcode | Behavior |
+|---|---|
+| `0x2001` | **Leave battle** → `g_pendingGameState = 3` (Game Room List). |
+| `0x3020` | **Player disconnected mid-match**: removes the player from the 8-slot array (shifts remaining slots down, matching the confirmed `0x224`-byte stride: `slot * 0x224`), records replay event `0x307`/`0x8500` with the departed player's stats, and — if the departed player held the active turn — reassigns it (`FUN_00413bf0`, likely `AdvanceTurn`). |
+| `0x3233` | **Match ends** → `g_pendingGameState = 9` (back to Ready Room). Writes a terminator byte (`2`) to the replay file and closes it — matches state 9's `0x3432` as the recording bookend. |
+| `0x3400` | separate branch, not fully traced |
+| `0x3fff` | Same "leave/cancel" outgoing `0x2000`/`0xffff` packet as the ready room. |
+
+## The replay-recording system
+
+**High confidence.** GunBound records matches to a local replay file:
+
+- File handle: a global `FILE*` at `DAT_006a9b68` (not yet given a clean name —
+  it's accessed via `&DAT_006a9b68 + DAT_005b3484`, an odd indexing pattern
+  worth double-checking), opened somewhere in the Ready Room's entry flow
+  (filename format confirmed as `%s%s - %s.sv`, `%Y%m%d %H%M` timestamp style,
+  found in state 9's string references).
+- Event buffer: `g_replayEventBuffer` (`0xe9aacc`) is a flat byte buffer;
+  `g_replayEventCursor` (`0xe9accc`) is the write cursor.
+- `Replay_AppendEvent(code)` (`0x4e6c90`, was `FUN_004e6c90`) appends a
+  known event-type code (a ushort, values seen: `0x307`, `0x8000`, `0x8100`,
+  `0x8101`, `0x8102`, `0x8103`, `0x8200`, `0x8500`) — callers then manually
+  append the event's payload bytes to the same buffer before calling...
+- `Replay_FlushEvent()` (`0x4e6fc0`, was `FUN_004e6fc0`) — writes the buffered
+  event out (presumably to `DAT_006a9b68`) and resets the cursor.
+- `Replay_AppendString(str)` (`0x4e6db0`, was `FUN_004e6db0`) — a string
+  variant of the same append pattern (used for name fields).
+- The file is closed with a small terminator byte (`2`) written first — seen
+  at both `State09`'s `0x3432` (session end) and `State11`'s `0x3233` (match
+  end back to ready room), i.e. **recording spans from ready-room entry
+  through match end**, not just the battle itself.
+
+This is a strong, self-contained subsystem — reconstructing the `.sv` file
+format (event-code table + per-event payload layouts) would be a good
+standalone follow-up, and is probably the most "shippable" single feature to
+fully decompile (a replay parser/viewer) independent of the rest of the game.
+
 ## Recurring structure sizes (useful anchors for further work)
 
 - **0x9c (156) bytes** — confirmed per-item inventory entry struct (id fields +
@@ -171,18 +233,25 @@ how the server tracks each client's current context.
    probably per-state input/update/render virtuals. Same technique (decompile
    + look for distinguishing calls/strings) applies; lower priority than the
    protocol work since screens are already identified via OnEnter.
-4. Map the remaining un-traced opcodes: state 3's `0x2111`; state 7's
-   `0x6027`, and the tail of `0x6037`'s purchase-commit path
-   (`FUN_0044c370`). Also unmapped: states 9 (Ready Room) and 11 (In-Battle)
-   almost certainly have their own `ProcessPacket` overrides (same vtable
-   slot 1) — not yet located/decompiled; battle-opcode mapping (move/turn/
-   damage packets) would live there and is probably the single most
-   interesting remaining thread.
-5. Five `ChangeGameState` call sites (`0x443350`, `0x443561`, `0x4b9ebe`,
+4. **DONE** — states 9 and 11's `ProcessPacket` overrides found, named, and
+   mapped (see above). Discovered the client-side **replay-recording system**
+   as a byproduct (`.sv` files, typed event log, `Replay_AppendEvent`/
+   `Replay_FlushEvent`). Still open: the actual in-battle move/aim/fire/damage
+   opcodes weren't found in `0x4b4100` — they're likely dispatched elsewhere
+   (a physics/turn-engine module, not the screen's `ProcessPacket`, since
+   `0x4b4100` was mostly disconnect/leave/end-of-match handling). Worth a
+   dedicated pass: search for `recvfrom`/opcode-dispatch patterns *outside*
+   the `CGameState` vtable structure, in the ~11 KB battle object itself.
+   Reconstructing the `.sv` replay format (event-code table below) is also a
+   good, self-contained next target.
+5. Map the remaining un-traced opcodes: state 3's `0x2111`; state 7's
+   `0x6027` and the tail of `0x6037`'s purchase-commit path
+   (`FUN_0044c370`); state 11's `0x3400`.
+6. Five `ChangeGameState` call sites (`0x443350`, `0x443561`, `0x4b9ebe`,
    `0x4e0c68`, `0x4e5421`) are switch/jump fragments *inside* larger functions
    whose auto-analysis was truncated — no standalone prologue nearby. They need
    manual function-boundary repair in the Ghidra GUI. Low priority.
-6. Reconstruct concrete structs from confirmed strides: `struct InventoryItem`
+7. Reconstruct concrete structs from confirmed strides: `struct InventoryItem`
    (0x9c/156 bytes: id fields + expiry date + variable blob), `struct
    RoomPlayerSlot` (0x80/128 bytes: name + stats), `struct PlayerGameSlot`
    (0x224/548 bytes, purpose/fields still unknown beyond size and that it's

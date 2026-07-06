@@ -922,7 +922,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004b3f90,203,FUN_004b3f90,false,1,2,TODO
 004b4060,30,FUN_004b4060,false,1,2,TODO
 004b4080,115,FUN_004b4080,false,1,1,TODO
-004b4100,4903,FUN_004b4100,false,1,48,TODO
+004b4100,4903,State11_InBattle_ProcessPacket,false,1,48,TODO
 004b5460,11718,FUN_004b5460,false,1,70,TODO
 004b9cd2,13,FUN_004b9cd2,false,25,0,TODO
 004bb730,5572,State11_InBattle_OnEnter,false,1,23,TODO
@@ -972,6 +972,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d3770,121,FUN_004d3770,false,1,1,TODO
 004d37f0,30,FUN_004d37f0,false,1,2,TODO
 004d3810,163,FUN_004d3810,false,1,2,TODO
+004d38c0,5576,State09_ReadyRoom_ProcessPacket,false,1,44,TODO
 004d4ea0,1556,FUN_004d4ea0,false,1,18,TODO
 004d6810,3601,State09_ReadyRoom_OnEnter,false,1,30,TODO
 004d7630,1253,State09_ReadyRoom_OnExit,false,1,3,TODO
@@ -1060,12 +1061,12 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e6770,986,FUN_004e6770,false,1,21,TODO
 004e6b50,52,FUN_004e6b50,false,1,2,TODO
 004e6b90,245,FUN_004e6b90,false,1,4,TODO
-004e6c90,122,FUN_004e6c90,false,110,1,TODO
+004e6c90,122,Replay_AppendEvent,false,110,1,TODO
 004e6d10,151,FUN_004e6d10,false,2,0,TODO
-004e6db0,64,FUN_004e6db0,false,6,0,TODO
+004e6db0,64,Replay_AppendString,false,6,0,TODO
 004e6df0,292,FUN_004e6df0,false,2,2,TODO
 004e6f20,153,FUN_004e6f20,false,2,2,TODO
-004e6fc0,375,FUN_004e6fc0,false,84,9,TODO
+004e6fc0,375,Replay_FlushEvent,false,84,9,TODO
 004e7140,389,FUN_004e7140,false,9,8,TODO
 004e72d0,106,FUN_004e72d0,false,16,3,TODO
 004e7340,150,FUN_004e7340,false,4,1,TODO
