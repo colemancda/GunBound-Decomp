@@ -1156,16 +1156,31 @@ concept in this engine, not separate systems.
    see the "Per-vertex field layout" writeup above: `FVF 0x244` = XYZRHW +
    Diffuse + TEX2, 9 dwords/vertex, quad = 2 triangles sharing a diagonal.
 2. Whether the Z-buffer is actually used for depth-sorting (vs. just present
-   because the HAL device requires one) — **still unconfirmed, but leaning
-   "no real per-sprite depth-sort"**: `BuildRotatedSpriteQuad` (the primary
-   quad-builder, handling every rotated in-battle sprite) never writes a
-   per-call `Z` value — all 4 corners' `Z` dwords are left untouched,
-   meaning they hold whatever constant was set once elsewhere. That's not
-   proof (one of the ~25 sibling vertex-builder functions sharing
-   `g_spriteVertexBuffer` — variants for non-rotated quads, mode icons,
-   character-preview rendering, etc. — could still vary `Z`), but no
-   evidence of intentional depth-sorting was found in the one function
-   confirmed to be the main per-frame sprite path.
+   because the HAL device requires one) — **now checked exhaustively
+   across every function that references `g_spriteVertexBuffer`, not just
+   a sample.** The original xref list had 24 functions; decompiling all of
+   them showed only 21 actually **construct** vertices (write into the
+   buffer via the `&DAT_00ea0e28`-based scratch-copy pattern) — the
+   remaining 3 (`FUN_00450c20`, `State11_InBattle_RenderModeIcons`,
+   `State09_ReadyRoom_RenderCharacterPreview`) turned out to be
+   flush/dispatch sites that only call `DrawPrimitive`, not vertex writers
+   (consistent with `FUN_004f4110`, the confirmed flush function). Checked
+   every one of the 21 constructors' copy-source scratch region for a
+   write to whatever address maps to the `Z` slot in its own layout,
+   confirmed per-function rather than assumed. **Zero writes to any of the
+   three per-vertex `Z` addresses across all 21** — every one of them
+   writes position/diffuse/UV fields but leaves `Z` untouched every time
+   (one function, at first glance, looked like a counter-example —
+   `DAT_00ea0ea8 = 0x3b23d70a` — but mapping that address through its own
+   copy layout showed it lands on a texture-U coordinate, not `Z`, once
+   decoded: `0x3b23d70a` ≈ `0.0025`, a small UV offset, not a depth value).
+   No explicit `SetRenderState(D3DRS_ZENABLE/ZWRITEENABLE, ...)` call was
+   found either, for what it's worth. This is now a complete sweep of every
+   function that touches `g_spriteVertexBuffer`, not a sample — as close
+   to a settled "no" as static analysis alone can give. The one remaining
+   gap is genuinely un-closeable without dynamic analysis: confirming
+   whether the device's default `ZENABLE` state (never explicitly set
+   either way in this code) resolves to on or off at runtime.
 3. ~~The developer-name chat easter egg~~ — **resolved**, see the writeup
    above: a full `/`-command parser with a real staff-credits list plus
    several genuine hidden debug/GM commands, three obfuscated via
