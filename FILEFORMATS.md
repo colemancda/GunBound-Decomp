@@ -351,6 +351,76 @@ generic entries (`event2`/`event3`) suggest the mechanism supports more
 event types than were ever actually named/shipped, or that other events
 are added by editing this file rather than the client binary.
 
+## `itemdata.dat` — confirmed record layout (fixed-size, name + description)
+
+Decoded the real file (5,312 bytes decompressed) and mapped its structure
+directly from the recovered bytes (this file's own consumer code wasn't
+separately decompiled this pass — the layout below comes from pattern-
+matching the decoded content itself, cross-checked across many records for
+consistency, not from tracing `LoadGameDataFiles`'s parsing loop field by
+field).
+
+- **Fixed-size records, `0x134` (308) bytes each.** An initial guess of
+  `0x130` (304) bytes, based on only two data points, turned out to be
+  wrong — confirmed correct via a full scan for printable-string offsets
+  across the whole file, which land on a consistent `308`-byte stride for
+  every populated record (one apparent gap turned out to be a single
+  skipped/unused item slot, not a stride error).
+- **~18 total slots** (`5312 / 308 ≈ 17.3`, so 17 full slots plus a
+  trailing partial one — exact slot count not pinned down further), of
+  which **13 are populated** in this file's real data and the rest are
+  zero-filled/unused.
+- **Per-record layout** (offsets relative to the record's own start):
+
+  | Offset | Size | Field | Notes |
+  |---|---|---|---|
+  | `0x00` | up to 0x24 (36) | Item name, NUL-terminated ASCII/text | e.g. `"Dual"`, `"Teleport"`, `"Energy up 1"` — a few entries (e.g. slot 3, slot 12) contain non-ASCII bytes consistent with **Korean text in a single-byte-per-char encoding rendering as mojibake when read as Latin-1** — i.e. this particular (Brazilian Portuguese-localized) build has a handful of items that were never translated from the original Korean strings |
+  | `0x24` | 4 | Price/value (`uint32`) | e.g. `600` for "Dual", `100` for "Teleport", `0` for "Blood" — a zero value for some entries suggests not every item is purchasable (some may be quest/event-only) |
+  | `0x28` | 4 | Item type/index ID (`uint32`) | duplicated at `0x30` as a single byte — e.g. "Energy up 1" and "Energy up 2" share the same value (`7`), consistent with a shared item-family/category ID rather than a unique per-item ID |
+  | `0x2c` | 4 | Unidentified flags/bytes | varies per record (e.g. `00 00 01 00` vs `01 00 01 00` vs `00 00 00 00`) — a `0x2e` byte of `1` seems to correlate with "has a description," but this wasn't confirmed rigorously |
+  | `0x30` | 1 | Item type/index ID (byte, duplicate of `0x28`) | see above |
+  | `0x31` | 1 | Marker byte, `0xff` when a description follows | records without a following description (e.g. "Blood", "Energy up 1") have `0x00` here instead — **description position isn't perfectly fixed across all records**, so this offset is approximate, not exact, for every entry |
+  | `~0x32` | variable | Localized item description, NUL-terminated | real examples (Portuguese, this build's localization): `"Usando este item voce pode disparar seu tiro duas vezes..."` (Dual), `"Pode teleportar para o ponto onde o objeto de teleporte caiu..."` (Teleport) |
+
+This is a partial but genuinely useful mapping — good enough to write a
+simple item-list extractor — but the `0x2c` flags field and the exact
+description-offset rule weren't nailed down with full confidence. Next
+step to firm this up: decompile `LoadGameDataFiles`'s consumer code for
+this specific array (the array itself, and its confirmed `0x9c`-byte
+sibling `InventoryItem`, are both read via the same loader — see
+[ARCHITECTURE.md](ARCHITECTURE.md)) rather than inferring purely from the
+decoded bytes.
+
+## `stage.dat` — record layout partially confirmed
+
+Decoded the real file (5,312 bytes decompressed, same target size as
+`itemdata.dat`/`characterdata.dat`). The very first bytes are **not** a
+clean NUL-terminated name — the file starts with a few binary bytes
+(`ef db ff 74`) immediately followed by the plaintext stage name
+`"Cave(Random)"`, suggesting either a small fixed header before the first
+record (unlike `itemdata.dat`, which has no such header) or that this
+first field is a 4-byte ID immediately followed by the name with no
+padding in between. **Not cleanly mapped this pass** — a printable-string
+scan of the whole decoded file finds fragments of `"Cave(Random)"`
+(specifically `"ve(R"`/`"ndom)"`, i.e. the string cut mid-word) recurring
+at irregular byte intervals (roughly every 250-291 bytes, not a clean
+fixed stride like `itemdata.dat`'s confirmed 308 bytes), interspersed with
+long runs of non-printable bytes. Plausible explanations, none confirmed:
+(a) `stage.dat` uses a *narrower* fixed-width name field than
+`itemdata.dat` that truncates `"Cave(Random)"` — but the truncation
+point isn't consistent across the repeats, which argues against a simple
+fixed-width explanation; (b) each stage has several sub-records (per
+weather variant, spawn-point set, etc.) that each store a copy or partial
+copy of the stage name; (c) genuine decode noise from something not yet
+understood about this specific file, despite the decoder now being
+verified correct against three real `.xfs` archives and `itemdata.dat`.
+Confirmed only that real, readable stage names are present in the decoded
+output (`stage.dat` almost certainly lists GunBound's playable maps, e.g.
+`"Cave(Random)"`) — the record-level structure needs another pass,
+ideally cross-checked against `LoadGameDataFiles`'s consumer code rather
+than pattern-matching the decoded bytes alone (which worked well for
+`itemdata.dat` but clearly isn't sufficient here).
+
 ## `.img` sprite format — confirmed via the render pipeline
 
 Not loaded through a dedicated ".img parser" function found directly —
