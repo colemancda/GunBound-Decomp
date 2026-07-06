@@ -12,6 +12,13 @@ public class ApplyLabels extends GhidraScript {
         {"004ee5b0","InitDirectSound"},
         {"004efaa0","InitDirectDraw"},
         {"0040f400","Shutdown"},
+        {"00410040","WndProc"},
+        {"0040eaa0","InitGame"},
+        {"00413130","GameTick"},
+        {"004122f0","ChangeGameState"},
+        {"0040c470","ReadRegistryDword"},
+        {"0040c550","WriteRegistryDword"},
+        {"0040c620","GetDisplayConfigFromRegistry"},
     };
     public void run() throws Exception {
         FunctionManager fm = currentProgram.getFunctionManager();
