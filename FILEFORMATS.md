@@ -116,22 +116,48 @@ to matching constant values:
   `characterdata.dat`, `0x1000` for XFS archive entries) — confirming one
   shared compression scheme reused across all container types.
 
-**Practical implication**: because this is now confirmed to be the
-well-known public-domain `LZHUF.C` algorithm rather than an unknown
-proprietary scheme, a byte-exact decoder is a much smaller lift than
-previously estimated — it no longer requires reverse-engineering the
-Huffman update rule and window parameters from scratch. It can instead be
-built by adapting the public-domain reference source directly, fixing up
-this binary's specific buffer-layout offsets (state-struct fields at
-`+0x3dae`..`+0x3db2` for size/pointer/cursor bookkeeping, ring buffer at
-`+8`, bit-buffer at `+0xf6b0`) and the confirmed constants above (`N_CHAR
-= 314`, `T = 627`, 4096-byte window). This pass stopped short of writing
-that decoder (the adaptive Huffman **tree-update/rebalance** routine,
-called whenever a symbol's frequency triggers a re-sort, was not
-separately decompiled — needed to keep the tree's evolving state in sync
-across the whole stream, not just to walk it for a single symbol), but the
-remaining work is now a much narrower, well-scoped task rather than an open
-unknown.
+### The adaptive Huffman update — also confirmed (closes the last piece)
+
+The remaining piece — how the Huffman tree evolves across the stream,
+rather than just how it's walked for one symbol — is now confirmed too.
+Three more functions decompiled this pass complete the picture:
+
+- **`FUN_004ea120`/`FUN_004ea1b0`** (`GetBit`/`GetByte` in the reference
+  source) — the low-level bitstream reader both `DecodeChar` and
+  `DecodePosition` call into. Both refill an internal 16-bit bit-buffer
+  (state-struct field `+0xf6b0`, with a bits-available counter at
+  `+0xf6b2`) one input byte at a time from the compressed-data cursor
+  (`+0xf6b8`/`+0xf6c0`/`+0xf6c4`), returning either a single bit or a full
+  byte — structurally identical to the reference `GetBit()`/`GetByte()`.
+- **`FUN_004ea580`** (`Update` in the reference source) — called at the end
+  of every `DecodeChar()` with the just-decoded symbol. Increments that
+  symbol's frequency count (`+0xd460` array) and, if it now exceeds a
+  neighboring node's frequency, **swaps the node's position in the tree**
+  (reordering both the frequency array and the parent/child index arrays
+  at `+0xece4`/`+0xde30`/`+0xde34`) to keep the tree weight-ordered — the
+  textbook adaptive-Huffman "promote on frequency increase" step. Also
+  confirmed the reference's overflow guard: when the root frequency
+  (`+0xde28`) reaches **32768** (`0x8000`), it calls `FUN_004ea3b0` to
+  fully rebuild the tree before continuing.
+- **`FUN_004ea3b0`** (`reconst` in the reference source) — the periodic
+  full tree rebuild. Halves every leaf's frequency (`(freq+1)>>1`, the
+  reference's overflow-avoidance halving), then reconstructs the entire
+  tree bottom-up by repeatedly merging the two lowest-frequency nodes
+  (`_memmove`-based insertion into a frequency-sorted array) and
+  reassigning every parent/child pointer — again a structural match to the
+  reference `reconst()`.
+
+**This closes gap #3 (previously "known gaps" item 3) at the algorithm
+level.** Every function involved in decoding an LZHUF stream — bitstream
+reader, symbol/position decoders, frequency update, and periodic tree
+rebuild — has now been decompiled and confirmed to match the public-domain
+`LZHUF.C` reference implementation structurally, not just by family
+resemblance. What remains is purely mechanical: transcribing these
+confirmed routines (plus the already-documented state-struct offsets:
+ring buffer at `+8`, frequency table at `+0xd460`, parent/child arrays at
+`+0xece4`/`+0xde30`/`+0xde34`, bit-buffer at `+0xf6b0`) into a standalone,
+compilable decoder — no further reverse-engineering unknowns remain, only
+implementation work.
 
 ## `.dat` files — confirmed structure, corrects an earlier assumption
 
@@ -316,21 +342,42 @@ than one archive being kept open for the whole session.
 function wasn't identified — so its origin (inside an `.xfs` vs. a
 standalone file) remains unconfirmed.
 
-## `sound.xfs` container format — partially corroborated
+## `Avatar.xfs` — confirmed filename, same container format
 
-`InitDirectSound` (`0x4ee5b0`) calls `OpenXFSArchive()` early in its DirectSound8
-init sequence, using the same function as every other archive open observed
-in this pass (`graphics.xfs` via `FUN_0043da00`/`FUN_004e3500`/`InitDirectDraw`).
-This is consistent with `sound.xfs` sharing the identical `XFS2` container
-format. However, the exact filename argument passed to this particular call
-could not be extracted — Ghidra's decompiler dropped the call's arguments
-entirely (`OpenXFSArchive();` with empty parens), the same recurring
-register-argument-recovery limitation noted elsewhere in this project, and
-raw-disassembly tracing of the argument-loading instructions wasn't done in
-this pass. So this is corroborating evidence (same function, same era of
-code, called at the point in `InitDirectSound` where a filename would be
-expected), not a fully confirmed trace like the `Language.txt`/`Sound.txt`
-findings above.
+Followed up the `LoadGameDataFiles` avatar-archive mount call
+(`0x419dce`) with raw disassembly: it calls `BuildAssetPath(buf,
+&DAT_005b1ed0, "Avatar.xfs", 0)` (string confirmed at `0x553660` =
+`"Avatar.xfs"`) then `OpenXFSArchive(buf, 1, 0)` — the exact same
+call shape as every confirmed `graphics.xfs` open. This **confirms**
+`Avatar.xfs` uses the identical `XFS2` container format, closing that
+part of the previous pass's open question.
+
+## `sound.xfs` container format — inconclusive, revised finding
+
+Widened the search: dumped every `PUSH`/`CALL`/`LEA` instruction across the
+*entire* body of both `InitDirectSound` (`0x4ee5b0`–`0x4ee600`) and
+`InitDirectDraw` (`0x4efaa0`–`0x4eff50`), not just the few instructions
+immediately preceding their `OpenXFSArchive` calls. **Neither function
+contains a string-literal push for any `.xfs` filename anywhere in its
+body** — every `PUSH` of a `.rdata` address in that range resolves to
+something else (the `"dsound.dll"`/`"DirectSoundCreate8"` strings, GUID
+constants, D3D enum values, etc.), unlike the `graphics.xfs`/`Avatar.xfs`
+call sites which all show a clear `BuildAssetPath(..., "graphics.xfs", ...)`
+pattern right before the `OpenXFSArchive` call.
+
+This means both `InitDirectSound`'s and `InitDirectDraw`'s `OpenXFSArchive`
+calls almost certainly receive their filename as **an argument passed in
+from their caller** (`OpenXFSArchive(param_1, 1, 0)` in `InitDirectDraw`'s
+decompiled output confirms `param_1` — the function's own first
+parameter — is what's forwarded, not a hardcoded literal), rather than a
+literal local to either function. The filename buffer is built somewhere
+upstream — presumably in `InitGame`, which calls both — and threaded
+through as a parameter. This is a **weaker** finding than the previous
+pass's tentative "corroborated" note suggested: it neither confirms nor
+rules out `sound.xfs` sharing the container format. Resolving it would
+mean tracing `InitGame`'s call sites into `InitDirectSound`/`InitDirectDraw`
+to see what buffer it constructs and passes in as that parameter — not
+attempted in this pass.
 
 ## `.sv` replay file's `fopen()` call site — investigation exhausted (static analysis)
 
@@ -387,22 +434,29 @@ the exact instruction that first sets it non-null.
 2. **Resolved**: individual XFS archive entries are confirmed LZHUF-
    compressed (see above), with their own distinct key and checksum
    convention, separate from both the TOC and the `.dat` files' schemes.
-3. **Substantially narrowed**: the decode side of the LZHUF codec is now
-   confirmed to be the classic public-domain `LZHUF.C` algorithm, with
-   matching constants (`N_CHAR=314`, `T=627`, 4096-byte window) and
-   structurally-identical `DecodeChar`/`DecodePosition`/main-loop routines
-   (see the dedicated section above). Still open: the adaptive
-   Huffman **tree-update/rebalance** routine (triggered on each symbol's
-   frequency change, needed to keep decoder state in sync across a whole
-   stream) wasn't separately decompiled — that plus wiring up the confirmed
-   pieces into an actual standalone decoder is the remaining work to decode
-   `orig/characterdata.dat` and friends into readable records.
+3. **Resolved at the algorithm level**: the entire LZHUF codec — bitstream
+   reader (`GetBit`/`GetByte`), symbol/position Huffman decoders
+   (`DecodeChar`/`DecodePosition`), the adaptive frequency-update/tree-
+   reorder step (`Update`), and the periodic full-tree rebuild (`reconst`)
+   — is now confirmed structurally identical to the classic public-domain
+   `LZHUF.C` reference implementation, including exact constants
+   (`N_CHAR=314`, `T=627`, 4096-byte window, 32768 frequency-overflow
+   threshold). See the dedicated section above for the full function-by-
+   function mapping. What remains to actually decode `orig/characterdata.dat`
+   and friends is purely mechanical: transcribing the confirmed routines and
+   state-struct offsets into a standalone compilable decoder — no more
+   reverse-engineering unknowns, only implementation work.
 4. `ChooseEvent.txt`'s individual integer fields' semantics (what each
    tab-separated value in a line actually means) aren't decoded.
-5. **Partially resolved**: `graphics.xfs` is confirmed (via `Language.txt`/
-   `Sound.txt` lookups, see above) to use the same `OpenXFSArchive` path as
-   everywhere else. `sound.xfs` is corroborated (same function called from
-   `InitDirectSound`) but the filename argument wasn't extracted due to a
-   decompiler argument-recovery gap. `Avatar.xfs` still rests on the
-   original inference (same function used for `LoadGameDataFiles`'s avatar
-   mount) without an independent spot-check of its filename argument either.
+5. **Mostly resolved, one genuine unknown remains**: `graphics.xfs`
+   (confirmed via `Language.txt`/`Sound.txt` lookups) and **`Avatar.xfs`**
+   (confirmed via raw-disassembly tracing of `LoadGameDataFiles`'s
+   `BuildAssetPath(..., "Avatar.xfs", ...)` call) both independently
+   confirmed to use the identical `OpenXFSArchive` container path. `sound.xfs`
+   remains **genuinely unconfirmed** — traced further this pass and found
+   that `InitDirectSound`'s (and also `InitDirectDraw`'s) `OpenXFSArchive`
+   call receives its filename as a parameter forwarded from its caller
+   (presumably `InitGame`), not a literal local to the function, so no
+   filename string could be recovered by looking at `InitDirectSound` alone.
+   Would need to trace `InitGame`'s call sites into these two functions to
+   see what buffer it builds and passes in.
