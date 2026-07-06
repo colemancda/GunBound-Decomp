@@ -685,6 +685,27 @@ previously-unexamined ones. Findings:
   (`0x4d7b20`) — consistent with Ready Room needing the same battle assets
   available for its character preview.
 
+### Slot 9 ("generic tick hook") is often just timer logic, not render
+
+Ruled out one hypothesis and confirmed another. `WndProc` (`0x410040`) has
+**no `WM_PAINT` handling at all** — the DirectDraw/D3D pipeline owns 100% of
+presentation, so simple screens are *not* drawn via Windows' native paint
+mechanism. But decompiling `State01_Title`'s slot-9 function (`0x4e5400`)
+in full shows it's genuinely just a **frame counter**: increments a field
+each tick, and at count `0x3c` (60 ticks ≈ 3 seconds at the confirmed 50 ms
+tick rate) auto-transitions `ChangeGameState(2)` (Server Select). No drawing
+at all. `State01_Title_OnEnter` likewise contains no blit calls — just audio
+setup (starts title music via `FUN_004f1790(&DAT_00ea0e18, 10000)`).
+
+**Conclusion, not yet fully closed**: Title/Logo/ServerSelect's actual visual
+content must be drawn through some **generic, state-independent mechanism**
+— most plausibly a registered-widget/button system (consistent with the
+`b_gamelist_buddyup`-style button-name strings seen throughout, which read
+like a UI framework's named clickable regions) that auto-draws whatever's
+currently registered each frame, rather than each state needing custom
+render code. This widget system itself hasn't been located/traced — it's the
+concrete next target if this thread continues.
+
 ### Remaining open threads
 
 1. `g_spriteVertexBuffer`'s exact per-vertex field layout (byte offsets for
@@ -693,8 +714,10 @@ previously-unexamined ones. Findings:
    because the HAL device requires one) is unconfirmed.
 3. The developer-name chat easter egg (see above) — what it actually does
    when triggered isn't traced.
-4. Title/Logo/ServerSelect's *actual* render entry points still aren't
-   pinned down (their vtables mostly hold shared no-ops/utilities) — likely
-   simpler static-image screens rendered through a not-yet-identified
-   generic path, possibly outside the `CGameState` vtable entirely (e.g.
-   driven directly by `WndProc`/`WM_PAINT` for these simple cases).
+4. **The hypothesized generic UI-widget draw system** — simple screens'
+   actual per-frame draw call hasn't been located. Confirmed NOT via
+   `WM_PAINT`, NOT via the per-state slot-9 tick hook (that's just timers),
+   and NOT via `OnEnter` (one-time setup only, no drawing). Best next lead:
+   trace the button-string references (`b_gamelist_buddyup` etc.) back to
+   whatever registers them, and see if that registration feeds a shared,
+   state-agnostic draw loop.
