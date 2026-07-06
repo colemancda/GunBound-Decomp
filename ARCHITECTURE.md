@@ -648,13 +648,53 @@ universal rendering slot. Mapping each state's actual render entry point
 would mean checking each vtable slot individually per state rather than
 assuming a shared slot index — noted as future work, not completed here.
 
+### Per-state vtable slot survey — Ready Room and Loading
+
+Dumped every vtable slot for the remaining states and created/checked the
+previously-unexamined ones. Findings:
+
+- **Title, Logo1, ServerSelect share the identical slot-15 function**
+  (`0x443570`) — confirms it's a lightweight shared utility, not a
+  state-specific render override (Logo2 differs slightly, `0x443360`).
+  Reinforces the earlier finding that vtable slots have no fixed meaning
+  across states.
+- **`State09_ReadyRoom_RenderCharacterPreview`** (`0x4d90c0`, was
+  `FUN_004d90c0`, 2,575 bytes) — loads `AvataTexture1/2`,
+  `CharacterTexture1/2`, `AvataEffectTexture1/2`, `CharEffectTexture1/2` —
+  the exact same texture families used by In-Battle rendering, confirming
+  the Ready Room draws a live character/avatar preview before battle starts.
+- **`State09_ReadyRoom_HandleChatInput`** (`0x4d6210`, was `FUN_004d6210`)
+  and its Loading-screen counterpart **`State10_Loading_HandleChatInput`**
+  (`0x43e720`, was `FUN_0043e720`) — confirmed as **Win32 message handlers**
+  (dispatch on `param_2==0x100`=`WM_KEYDOWN`, checking `param_3==0xd`=Enter),
+  not render functions. On Enter, reads the chat textbox, and if the text
+  isn't a recognized command, **logs it to the replay stream**
+  (`Replay_AppendEvent(1)` + `Replay_AppendString`) — confirms replays
+  capture chat messages, not just game actions.
+  - **Notable side-find**: both functions embed a list of hardcoded
+    developer names/handles (`comsik` — "Game Programmer - comsik",
+    `CozY` — "Oh~! It's CozY here ^-^*", plus `yesoori`, `oorusa`, `jaeyong`,
+    `yaong2`, `jchlee75`, `reddragon`) alongside real chat commands (`guide`,
+    `message`, `mutelist`, `loudall`, `enddream`). Reads like a **developer
+    easter egg** (typing a dev's name/handle as a chat command likely
+    triggers a special response) — not traced in detail, flagged as a fun
+    curiosity rather than pursued further.
+- Ready Room's remaining slots: a small (20-byte) ready-status check
+  (`0x4d54c0`), a larger (3,167-byte) button enable/disable UI updater
+  (`0x4d54e0`), and a texture-preload list identical to Loading's
+  (`0x4d7b20`) — consistent with Ready Room needing the same battle assets
+  available for its character preview.
+
 ### Remaining open threads
 
 1. `g_spriteVertexBuffer`'s exact per-vertex field layout (byte offsets for
    position/color/UV within each 108-byte record) isn't broken down.
 2. Whether the Z-buffer is actually used for depth-sorting (vs. just present
    because the HAL device requires one) is unconfirmed.
-3. Each state's actual "draw my screen" entry point(s) — confirmed to exist
-   and to use the shared software-blit primitives, but not enumerated one by
-   one across all 9 named states (only State 3's label renderer and State
-   11's two D3D render functions are pinned down so far).
+3. The developer-name chat easter egg (see above) — what it actually does
+   when triggered isn't traced.
+4. Title/Logo/ServerSelect's *actual* render entry points still aren't
+   pinned down (their vtables mostly hold shared no-ops/utilities) — likely
+   simpler static-image screens rendered through a not-yet-identified
+   generic path, possibly outside the `CGameState` vtable entirely (e.g.
+   driven directly by `WndProc`/`WM_PAINT` for these simple cases).
