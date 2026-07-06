@@ -274,18 +274,56 @@ single function call:
 | `0xc305` | Turn timeout/expiry: resets the turn-phase-related byte, sets a duration constant (`0x11`/`0x10`/`0xb5` depending on a difficulty flag) into a countdown global, shows a "turn's up" style message. |
 | `0xc306` | Aim/direction confirm — reads a final ushort field into the turn-timer slot (`+0x429`), clears a per-slot cooldown field. |
 
-**Net result on physics**: extensively searched (FPU-instruction-density scan
-across all 2,300+ functions, traced every per-frame vtable call `GameTick`
-makes for the battle state, fully read `ProcessBattleAction`'s ~1,000 lines,
-checked the object created by the movement sound-effect call). **The exact
-gravity/velocity-integration code was not isolated.** What's confirmed instead
-is the complete *scaffolding* around it: the 50 ms/20 Hz tick rate, the turn
-state machine and its event-chain, the Fire action's payload layout (2 fields
-+ 2 flags + 2 fields + 8 shorts, likely trajectory waypoints), the sine table,
-and that it's not in the per-frame render pipeline. Best remaining leads for a
-future session: decompile `0xc400`/`0xc401`/`0xc409`/`0x8005`/`0x8006` (posted
-by `0xc300` but not yet read), and `0x8404` (a second parallel-array update
-distinct from `0x8408`'s spawn — possibly per-shot/per-projectile state).
+**`ProcessBattleAction` now fully read, end to end** (all ~1,290 lines). The
+remaining branches:
+- `0xc400`: **no handler at all** in this switch — a pure scheduling
+  checkpoint with zero payload logic (its only role is being a named point in
+  the `0xc300` event chain, presumably for timing/ordering).
+- `0xc401`: one-line delegation to `FUN_004cc1e0(this, param)` — not yet
+  decompiled, small.
+- `0xc409`: **same payload shape as `0x8403` Fire** (2 fields, 2 flags, 2
+  fields, 8 shorts) but plays a *different* sound (`sfire` vs `ifire`) and
+  resets two flags (`DAT_005f3768=1`, `DAT_005f376c=0`) plus a per-player flag
+  — reads as "fire confirmed/committed" following the initial `0x8403`, not a
+  new computation.
+- `0x8404`: appends an entry to a **third** parallel-array set (`+0x27`/
+  `+0xa7`/`+0x127`/`+0x1a7`, stride `0x80`) distinct from `0x8408`'s spawn
+  arrays — plausibly a hit/damage event log (4 fields: value, id, byte, byte),
+  feeding a UI update (`FUN_004ccbb0`) — a kill-feed/combat-log candidate, not
+  physics.
+- `0xc40a`: writes two raw ints per-slot from the packet directly — plausibly
+  a final-position sync, not a live simulation step.
+- `0xc40b`: iterates all 8 player slots doing turn-timeout/notification
+  bookkeeping — administrative, not physics.
+
+**No gravity/velocity integration exists anywhere in this function.**
+
+**Followed the thread to the send side instead.** Found and decompiled
+`State11_InBattle_HandleFireInput` (`0x45f910`, was `FUN_0045f910`) — the
+*local* handler that decides a fire attempt's outcome and sends the resulting
+action code. Confirmed: `this+0x243` and `this+0x2cc` are the first two
+payload fields sent (matching `ProcessBattleAction`'s Fire field order) —
+almost certainly **angle and power**. Critically: **this function also has no
+floating-point instructions**, and rather than computing a trajectory, it
+**selects between pre-existing outcome codes** (`0x8403`/`0xc400`/`0xc409`)
+based on turn-state conditions.
+
+**Working conclusion** (moderate confidence, based on two independent full
+reads finding no integration math on either the send or receive side): this
+client's role in ballistics may be architecturally thin. Plausible
+explanations, not yet distinguished: (a) trajectory resolution is
+server-authoritative and the client only sends angle/power then receives
+resolved outcomes; (b) the "8 shorts" in the Fire payload really are
+precomputed waypoint samples (computed by a function not yet found, possibly
+integer-only fixed-point rather than float, which is why the FPU-density scan
+missed it); or (c) trajectory math lives in a part of the codebase not
+connected to the `CGameState`/battle-object network entirely (e.g. a
+standalone projectile/shot class instantiated per-fire that never appeared in
+any of the vtable or call-graph traces run so far, since it would only be
+reachable via `operator_new` + immediate first-use rather than a named global).
+Distinguishing between these needs either dynamic analysis (breakpoint on the
+Fire path while playing) or a systematic sweep of every `operator_new` call
+site in the binary — a bounded, mechanical task for a future session.
 
 ## Packet-checksum utility family (broadly recurring)
 
