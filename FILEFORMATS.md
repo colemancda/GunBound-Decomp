@@ -8,8 +8,8 @@ Findings from decompiling the asset-loading code path (`LoadGameDataFiles`,
 
 | Extension | Container | Compression | Confirmed? |
 |---|---|---|---|
-| `.xfs` (`graphics.xfs`, `sound.xfs`, `Avatar.xfs`) | Custom named-entry archive, magic `XFS2` | LZHUF for both the table of contents (key `0x40`) **and each individual entry** (key `0x1000`, own checksum convention) | Confirmed at both the container and per-entry level |
-| `.dat` (`characterdata.dat`, `itemdata.dat`, `stage.dat`, `specialdata.dat`) | Flat file, no container | **LZHUF-compressed** (key `0x14c0`), same decoder as XFS | Confirmed for `characterdata.dat`/`itemdata.dat`/`stage.dat` |
+| `.xfs` (`graphics.xfs`, `sound.xfs`, `Avatar.xfs`) | Custom named-entry archive, magic `XFS2` | LZHUF for both the table of contents (target decoded size `0x40` for the header, `0x20000` per 1024-entry chunk) **and each individual entry** (target decoded size = the entry's own confirmed size field, own checksum convention) | Confirmed at both the container and per-entry level |
+| `.dat` (`characterdata.dat`, `itemdata.dat`, `stage.dat`, `specialdata.dat`) | Flat file, no container | **LZHUF-compressed** (target decoded size `0x14c0` = 5,312 bytes), same decoder as XFS | Confirmed for `characterdata.dat`/`itemdata.dat`/`stage.dat` |
 | `.img` (sprite/texture files, e.g. `tank1.img`, `bullet1n.img`) | Individual asset stored inside the `.xfs` archives, itself LZHUF-compressed as a container entry | RLE (run-length encoding) on top, 16bpp pixel data, applied after LZHUF decompression | Confirmed via `BlitRLESprite`/`BlitSprite16bpp` for the RLE/pixel layer; confirmed via `DecodeXFSEntryBlock` for the container-level LZHUF layer |
 | `.sv` (replay files) | Custom event-stream format | Not compressed (not confirmed either way) | Filename format and per-event record fully confirmed; file open call / possible header not located |
 | `ChooseEvent.txt` | Plain text, lives *inside* `graphics.xfs` | None (plain text) | Confirmed, parser fully read |
@@ -43,7 +43,7 @@ Discovered via `OpenXFSArchive` (`0x4f0a50`, was `FUN_004f0a50`):
    below), the bulk variant for binary assets like sprites.
 
 **Confirmed**: individual archive *entries* are **also LZHUF-compressed**,
-using a distinct key (`0x1000`) from the TOC (`0x40`) and the `.dat` files
+using the entry's own decoded-size field (see the confirmed TOC record layout below) rather than a fixed constant like the TOC header (`0x40`) or the `.dat` files
 (`0x14c0`). Traced via `DecodeXFSEntryBlock` (`0x4f03f0`, was
 `FUN_004f03f0`), called during entry setup whenever a "not yet decoded"
 condition is met. Confirmed on-disk per-entry block layout:
@@ -85,13 +85,13 @@ its string comparator `FUN_004f0990`, and the two entry-data readers
 
 The decoded TOC isn't one flat array — it's **chunked**:
 
-- Decoded TOC header (first LZHUF block, key `0x40`) contains, after the
+- Decoded TOC header (first LZHUF block, target output size `0x40` = 64 bytes) contains, after the
   4-byte `"XFS2"` magic, a **total entry count** (a `uint32_t`, confirmed
   read right after the magic check in `OpenXFSArchive`).
 - Entries are grouped into **chunks of 1024 entries** (`entryIndex >> 10`
   selects the chunk, `entryIndex & 0x3ff` selects the entry within it).
-  Each chunk is its own separate LZHUF-compressed block, decoded with key
-  `0x20000` (128 KB — exactly `1024 entries × 128 bytes/entry`), read via
+  Each chunk is its own separate LZHUF-compressed block, decoded with
+  target output size `0x20000` (128 KB — exactly `1024 entries × 128 bytes/entry`), read via
   the same 4-byte-length-prefixed-block loop as the initial TOC header.
   A pointer to each chunk's decoded 128 KB buffer is stored in an array
   (one `uint32_t` pointer per chunk).
@@ -164,11 +164,11 @@ For a tool that opens a `.xfs` file and dumps every entry to disk:
 
 1. Open the file, seek to `EOF - 4`, read a `uint32_t` = TOC offset.
 2. Seek to that TOC offset, read a `uint32_t` = TOC header's compressed size,
-   read that many bytes, decode with LZHUF (key `0x40`). Verify the decoded
+   read that many bytes, decode with LZHUF (target output size `0x40` = 64 bytes). Verify the decoded
    output starts with `"XFS2"`. Read the `uint32_t` entry count right after
    the magic.
 3. For `ceil(entryCount / 1024)` more chunks: read a 4-byte length prefix,
-   read that many bytes, decode with LZHUF (key `0x20000`, i.e. expect a
+   read that many bytes, decode with LZHUF (target output size `0x20000`, i.e. expect a
    128 KB decoded output = 1024 × 128-byte records — the last chunk may
    have fewer valid entries, per `entryCount & 0x3ff`).
 4. Concatenate/index the chunks to get every entry's 128-byte record: read
@@ -178,7 +178,7 @@ For a tool that opens a `.xfs` file and dumps every entry to disk:
    `decompressedSize` bytes directly — done, no decompression needed. If
    mode flag `!= 1`, seek to the file offset, read a `uint32_t`
    compressed-size and `uint32_t` checksum (the `XFSEntryBlock` header),
-   read `compressedSize` bytes, and LZHUF-decode (key `0x1000`) — this may
+   read `compressedSize` bytes, and LZHUF-decode (target output size = the entry's own `0x78` decompressed-size field) — this may
    need to be done in a loop for entries larger than the 4 KB ring buffer
    (the original reads/decodes in a streaming fashion; a from-scratch tool
    can simplify this by decoding the whole entry in one pass into an output
@@ -227,7 +227,7 @@ to matching constant values:
   simultaneously — identical in structure to the reference `Decode()` loop.
 - Both the XFS table-of-contents and the `.dat` data files are decoded
   through this **exact same function**, just called with different
-  size/key parameters (`0x40` for the XFS TOC vs. `0x14c0` for
+  target-output-size parameters (`0x40` for the XFS TOC header vs. `0x14c0` for
   `characterdata.dat`, `0x1000` for XFS archive entries) — confirming one
   shared compression scheme reused across all container types.
 
@@ -585,7 +585,7 @@ the exact instruction that first sets it non-null.
    above. Concluded this needs dynamic analysis (breakpoint/watchpoint) to
    resolve further; not a productive target for more static tracing.
 2. **Resolved**: individual XFS archive entries are confirmed LZHUF-
-   compressed (see above), with their own distinct key and checksum
+   compressed (see above), with their own target-size convention and checksum
    convention, separate from both the TOC and the `.dat` files' schemes.
 3. **Resolved at the algorithm level**: the entire LZHUF codec — bitstream
    reader (`GetBit`/`GetByte`), symbol/position Huffman decoders
