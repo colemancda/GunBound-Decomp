@@ -168,8 +168,44 @@ mapped of the three known `ProcessPacket` overrides. Confirmed opcodes:
 | `0x6001` | Unpacks 4 uint fields, builds an array of per-"player" 3-byte tuples using `rand()` (seed/roll generation?), then `ChangeGameState(7)` = **enter Avatar Store**. |
 | (unlabeled, reaches `ChangeGameState(9)`) | Large per-slot stat-accumulation loop (20 elements × 0x224 bytes) summing what look like equipped-item stat bonuses per player/team slot, resets viewport to `(0,0,799,599)`, then `ChangeGameState(9)` = **enter Ready Room**. |
 
-The per-slot 0x80-byte display buffer at `+0x4467c` (name + a handful of stat
-bytes/dwords) is a good anchor for reconstructing a `struct RoomPlayerSlot`.
+### `RoomPlayerSlot` — confirmed structure (opcode `0x2105`)
+
+Decompiled the `0x2105` handler in full to nail this down. The per-slot
+data is **not one contiguous struct** — it's split across a name buffer
+plus several separate parallel arrays, all indexed by the same slot index
+(`this+0x124`, set by a prior packet):
+
+| Storage | Stride | Base offset | Contents |
+|---|---|---|---|
+| Name buffer | 0x80 bytes/slot | `DAT_005b3484 + 0x4467c` | Variable-length name copied from the packet (length given by a length-prefix byte), NUL-terminated. Also mirrored into `this+300` for the "currently viewed" slot. |
+| Ready/ID byte | 1 byte/slot | `+0x4497c` | Single byte (also mirrored to `this+0x1ac`) |
+| A 4-byte value | 4 bytes/slot | `+0x44984` | Mirrored to `this+0x1b0` |
+| Byte flag | 1 byte/slot | `+0x4499c` | Mirrored to `this+0x1b4` — **also doubles as the equipped-item count** (see below) |
+| Byte flag | 1 byte/slot | `+0x449a2` | Mirrored to `this+0x1b5` |
+| Byte flag | 1 byte/slot | `+0x449a8` | Mirrored to `this+0x1b6` |
+| Byte flag | 1 byte/slot | `+0x449ae` | Mirrored to `this+0x1b7` |
+
+Immediately following these 9 bytes in the packet is a **variable-length
+equipped-item list**, present only when the `+0x1b4`/`+0x4499c` byte
+(reused as a count) is non-zero. Each item entry is **32 bytes** in the
+wire format, decomposed on receipt into two separate destination arrays
+(13-byte stride and 9-byte stride respectively — i.e. this is a "struct of
+arrays" layout matching the top-level slot fields, not a flat per-item
+struct). Per entry, the code reads: two NUL-terminated string-like fields
+(up to ~4 raw bytes each, likely short item/mobile codes), a masked
+24-or-32-bit bitfield (`& 0xffffff` applied conditionally based on its top
+bits — possibly a signed/special-value sentinel check), and two more raw
+4-byte values. The exact field-level meaning of each of these 8 dwords
+wasn't decoded further in this pass (would need cross-referencing against
+`itemdata.dat`'s record layout, once that's independently reconstructed),
+but the container shape (32 bytes/entry, count-prefixed, split into two
+parallel destination arrays) is confirmed directly from the decompiled
+loop.
+
+This resolves the earlier vaguer note ("0x80-byte display buffer, name +
+a handful of stat bytes") — the `0x80`-byte buffer is actually **just the
+name**, with all other per-slot state living in separate same-indexed
+arrays rather than one packed struct.
 
 **Confirmed opcode-range-per-screen pattern**: state 3 (room list) uses
 `0x20xx`/`0x21xx`, state 2 (server select) uses `0x10xx`/`0x11xx`, state 7
@@ -518,12 +554,20 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
    `0x4e0c68`, `0x4e5421`) are switch/jump fragments *inside* larger functions
    whose auto-analysis was truncated — no standalone prologue nearby. They need
    manual function-boundary repair in the Ghidra GUI. Low priority.
-8. Reconstruct concrete structs from confirmed strides: `struct InventoryItem`
-   (0x9c/156 bytes: id fields + expiry date + variable blob), `struct
-   RoomPlayerSlot` (0x80/128 bytes: name + stats), `struct PlayerGameSlot`
-   (0x224/548 bytes, purpose/fields still unknown beyond size and that it's
-   per-player). Cross-reference against `itemdata.dat`/`characterdata.dat`
-   samples in `orig/` for field-level layout hints.
+8. Reconstruct concrete structs from confirmed strides. **`RoomPlayerSlot`
+   resolved this pass** — see the dedicated section above (it turned out to
+   be a "struct of arrays" rather than one packed struct: a 0x80-byte name
+   buffer plus several separate same-indexed parallel arrays for stats, plus
+   a count-prefixed variable-length equipped-item list). Still open:
+   `struct InventoryItem` (0x9c/156 bytes: id fields + expiry date +
+   variable blob) and `struct PlayerGameSlot` (0x224/548 bytes, purpose/
+   fields still unknown beyond size and that it's per-player). Cross-
+   referencing against `itemdata.dat`/`characterdata.dat` samples in
+   `orig/` for field-level layout hints is blocked on the LZHUF decoder bug
+   (see [FILEFORMATS.md](FILEFORMATS.md)) since those files are compressed;
+   an alternative that doesn't need decompression is to keep decompiling
+   more packet handlers that touch these structs by field offset, the same
+   way `RoomPlayerSlot` was resolved.
 
 ## Rendering — Direct3D 7 + software hybrid
 
