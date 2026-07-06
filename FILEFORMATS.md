@@ -422,6 +422,33 @@ directly gives the real values:
   through `EncodeOutgoingPacketField`) wasn't mapped field-by-field this
   pass — worth a dedicated follow-up now that the stride/size are solid.
 
+## `characterdata.dat` — record layout not resolved from `LoadGameDataFiles`
+
+Attempted the same approach that worked for `stage.dat` (decompile the
+loader's consumption of the decoded buffer directly, rather than
+pattern-matching decoded bytes) and it didn't pan out here — worth
+recording why, so a future pass doesn't repeat the same dead end.
+`LoadGameDataFiles`'s post-decode step for `characterdata.dat` is a
+**checksum-validation loop**, not a field-by-name parser: it walks through
+a run of raw `uint32`s from the decoded buffer and feeds each one
+individually into `EncodeOutgoingPacketField`/the checksum accumulator,
+with no meaningful per-field naming or storage — this is validation
+plumbing, not the code that actually *uses* per-mobile stats (that
+presumably lives in a separate function this pass didn't locate, e.g.
+wherever the character-select screen reads HP/speed/weapon stats for
+display). Additionally, Ghidra's stack-frame analysis for this function is
+visibly imprecise — several declared local buffers (e.g. a `4`-byte
+`auStack_10568` immediately used as the destination for a `5,312`-byte
+`DecodeLZHUFBlock` write) are far too small for what's actually written
+through them, meaning the true buffer boundaries/offsets can't be trusted
+directly from the decompiled variable declarations here. **Net result:
+`characterdata.dat`'s per-mobile field layout remains unmapped** — the
+file decodes cleanly (confirmed working, see above), but figuring out
+which byte offset means "HP" vs "speed" vs "weapon ID" needs either
+finding the real stats-consumer function elsewhere, or raw-disassembly
+tracing with explicit stack-offset arithmetic rather than trusting this
+function's decompiled variable names.
+
 ## `.img` sprite format — confirmed via the render pipeline
 
 Not loaded through a dedicated ".img parser" function found directly —
