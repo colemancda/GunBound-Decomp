@@ -849,19 +849,45 @@ List).
 
 **Direction**: incoming.
 
-**Behavior**: removes the disconnecting player from the 8-slot battle player
-array — shifts all subsequent slots down by one position (using the
-confirmed `0x224`-byte per-slot stride: `slot * 0x224`), records a replay
-event capturing the departed player's final stats, and — if the departed
-player held the currently-active turn — reassigns the active turn to the
-next player via `FUN_00413bf0` (a function tentatively named
-"AdvanceTurn" during earlier analysis, though not formally renamed).
+**Behavior**: decompiled in full this pass. Two separate data structures are
+touched, in sequence:
+
+1. **Shift-compacts the active-slot arrays**: finds the disconnecting
+   player's slot by scanning `this+0xca0` (the same array action `0x8408`
+   populates at index `+0x328`) for the player's ID, then — if it's not
+   already the last active slot — shifts **three** of the four parallel
+   arrays down by one slot in a single combined loop: `+0x8a0` (index
+   `+0x228`), `+0xaa0` (index `+0x2a8`), and `+0xca0` (index `+0x328`)
+   itself. Notably, the fourth spawn array (`+0xea0`/index `+0x3a8`) is
+   **not** touched by this shift loop — either it doesn't need
+   compacting for this operation or it's handled elsewhere (not traced).
+   The active-slot counter at `this+0x89c` (same counter as `0x8408`'s
+   `this+0x227`) is decremented afterward.
+2. **Reads that player's packet-checksum state**: `playerId * 0x224 +
+   0xebef4`, passed to `FUN_0040a4d0` — traced further this pass:
+   `FUN_0040a4d0` is a trivial critical-section wrapper around
+   `PeekPacketChecksumState`, and a whole-binary scan for every instruction
+   referencing the `0xebef4` constant (34 hits across ~15 functions)
+   confirms this array is consistently used the same way everywhere it
+   appears — this is an **array of per-player packet-checksum-state
+   instances**, not gameplay data. `0x3020` reads the disconnecting
+   player's checksum state here, presumably as part of validating/flushing
+   its final packets before removal.
+
+Also records a replay event (`0x307`) capturing the departed player's final
+stats, and — if the departed player held the currently-active turn —
+reassigns the active turn to the next player via `FUN_00413bf0` (tentatively
+"AdvanceTurn").
 
 **Significance**: this is the mechanism that keeps the game playable when a
 player disconnects mid-match rather than the game hanging waiting for a
-turn that will never come. Confirms the 8-slot array is genuinely a dense,
-shift-compacted list (not a sparse array with "empty" markers) — departed
-players are physically removed and everyone after them shifts down.
+turn that will never come. Confirms the active-slot arrays are genuinely a
+dense, shift-compacted list (not a sparse array with "empty" markers) —
+departed players are physically removed and everyone after them shifts
+down. Also clarifies (correcting an earlier pass's speculation) that
+GunBound tracks **per-player packet-checksum state as a genuine array**,
+one instance per player, alongside the unrelated slot-position arrays used
+for battle/spawn data.
 
 #### Opcode `0x3233` — Match ends → return to Ready Room
 
@@ -1117,6 +1143,20 @@ ready — the specific comparison against the literal value `3` (rather than
 a simple non-zero check) suggests the incoming payload byte is itself a
 small status enum where `3` specifically means "all ready," not a plain
 boolean.
+
+#### Action `0x8104` — Show match-result confirmation button
+
+**Direction**: incoming.
+
+**Behavior**: calls `CreateButtonWidget` to display the
+`b_result_confirm.img` button (via the generic UI widget system documented
+in [ARCHITECTURE.md](ARCHITECTURE.md)) — no other state is touched.
+
+**Significance**: this is the trigger for the **end-of-match "confirm
+result" button**, confirmed directly from the widget's image filename —
+the client shows this button on command from the server rather than
+deciding locally when the match has concluded, consistent with the
+server-authoritative model already established for turn/battle state.
 
 #### Action `0x8200` — Kick from room
 
@@ -1443,18 +1483,57 @@ in this analysis pass.
 
 **Direction**: incoming.
 
-**Behavior**: appends a new entry across **four parallel per-slot arrays**
-at header-relative offsets `+0x228`/`+0x2a8`/`+0x328`/`+0x3a8` (position, id,
-and slot-related fields inferred from the write pattern), calls a
-spawn-visual-update function (`FUN_004ccc60`), and increments the active
-player count.
+**Behavior**: appends a new entry across **four parallel per-slot `uint`
+arrays** at header-relative (index, not byte) offsets `+0x228`/`+0x2a8`/
+`+0x328`/`+0x3a8`, all indexed by a shared running counter (`this+0x227`,
+the active-player count, incremented after the write), calls a
+spawn-visual-update function (`FUN_004ccc60`). Confirmed field sources for
+each array's new entry, decompiled directly from the action handler:
+
+| Array (index offset) | Value written | Source |
+|---|---|---|
+| `+0x228` | `(uint)*cursor` | the packet's current parse cursor at this point in the batched-action dispatch loop — value depends on how many prior actions in the same packet were already consumed, so no fixed payload offset can be given |
+| `+0x2a8` | `(uint)*(ushort*)(payload+0x23)` | fixed absolute payload offset `0x23` (a 16-bit value) |
+| `+0x3a8` | `*(int*)(payload+0x25)` | fixed absolute payload offset `0x25` (a full 32-bit value) |
+| `+0x328` | `(uint)teamByte` | the same byte read once at the very start of `ProcessBattleAction` (`*(byte*)(payload+5)`) — likely a team/player-slot identifier shared across every action in this dispatch call, not specific to `0x8408` |
 
 **Significance**: this is the confirmed **player spawn/entry into battle**
 action — these are the exact same four parallel arrays that action `0x3020`
 (Channel 1, above) shifts down when a player disconnects, confirming a
-structure-of-arrays layout for the 8 active battle slots (position data,
-player id, and two other per-slot fields tracked in four separate parallel
-arrays rather than one combined struct array).
+structure-of-arrays layout for the 8 active battle slots. **Correction to
+an earlier assumption**: these are plain 4-byte-per-slot `uint` arrays, not
+slices of one combined `0x224`-byte struct — the `0x224` figure documented
+elsewhere in this reference belongs to unrelated structures (confirmed to
+be an array of per-player packet-checksum-state objects in one case, and a
+separate generic engine container in another — see
+[ARCHITECTURE.md](ARCHITECTURE.md)'s recurring-structures list for the
+full breakdown), not to these four spawn arrays. This mirrors the
+`RoomPlayerSlot` finding in ARCHITECTURE.md: GunBound's engine consistently
+favors "struct of arrays" layouts for these per-slot broadcasts rather
+than one packed struct per slot.
+
+#### Action `0x8500` — Player-position/status relay
+
+**Direction**: incoming.
+
+**Behavior**: guarded on a successful `GetPlayerRecordBySlot` lookup and a
+turn/state check (`FUN_004065a0() == 0`); when both pass, relays two
+16-bit fields from the payload (`payload+0x22`, `payload+0x24`) as
+outgoing packet fields, encoding the checksum state after each, then
+queues a boolean derived from `payload+0x26 == 1`.
+
+**Significance**: the relay pattern (read two 16-bit fields + one flag,
+re-queue them outgoing with checksum encoding after each) matches the
+same shape as actions `0x8402`/`0x8406` (aim/angle+power relay) — likely
+another **position or aim-state synchronization** action, though which
+specific values these two 16-bit fields represent wasn't decoded further.
+Notably, `0x8500` is *also* used elsewhere as a **replay-event code**
+(logged by Channel 1 opcode `0x4102`'s disconnect-notification path,
+capturing a position field and a cooldown flag) — this confirms `0x8500`
+genuinely represents "player position/status" data in both contexts, just
+reached via two different code paths (a live relay action here, vs. a
+replay-log snapshot there), not a numeric coincidence between two
+unrelated meanings.
 
 #### Action `0xc300` — Turn/round start
 
@@ -1750,7 +1829,8 @@ this document:
 
 | Struct | Size | Evidence |
 |---|---|---|
-| Player game slot | `0x224` (548 bytes) | The 8-element array in the In-Battle object (spawned by action `0x8408`, shifted down on disconnect by Channel 1 opcode `0x3020`); a 20-element accumulation loop in the room-list's stat-summing (unlabeled) opcode; action `0x8404`'s parallel-array stride is a different, `0x80`-byte structure — not to be confused with this one. |
+| Per-player packet-checksum-state | `0x224` (548 bytes) | **Resolved and reclassified this pass** — the array at `playerId * 0x224 + 0xebef4` (touched by `0x3020`'s disconnect handler) is **not** a gameplay struct at all: traced every call site touching this array across the binary (34 total, via a whole-binary immediate-operand scan for `0xebef4`) and found the computed pointer is passed directly into `PeekPacketChecksumState`/`FUN_0040a4d0` (a thin critical-section wrapper around the same function). This is an array of **per-player instances of the packet-checksum-state object** (see the "Packet-checksum utility family" section in [ARCHITECTURE.md](ARCHITECTURE.md)), not a `PlayerGameSlot`. |
+| Player game slot (unresolved) | `0x224` (548 bytes) | Separately seen in a 20-element accumulation loop in the room-list's stat-summing (unlabeled) opcode, and the Avatar Store's 8-element per-avatar array (`FUN_00443c20`'s constructor) — these may or may not be the same struct as the checksum-state one above (same size could be coincidence, or the checksum state could be embedded as a sub-object within a larger per-player struct in these other contexts). Not resolved this pass. Action `0x8408` does **not** populate this — that action writes into four separate 4-byte-per-slot `uint` arrays (`+0x228`/`+0x2a8`/`+0x328`/`+0x3a8`, indexed by active-slot position), a completely different structure (see that action's writeup above). |
 | Room player display slot | `0x80` (128 bytes) | Room-list opcodes `0x2105`/`0x21f0`/`0x21f2` all write into this exact buffer, indexed as `base + slot*0x80`. |
 | Room player stat fields (per-slot, individually syncable) | Six fields: 1 byte / 1 byte / 4 bytes / 1 byte / 1 byte / 1 byte, at fixed offsets `+0x4497c` / `+0x4499c` / `+0x44984` / `+0x449a2` / `+0x449a8` / `+0x449ae` from a per-room base | Opcode `0x2103` (bulk update, all six fields at once) and opcodes `0x21f3`-`0x21f7` (individual per-field updates, one opcode per field — a sixth opcode for the `+0x449ae` field wasn't found, suggesting it may only be bulk-updatable) populate this exact same field set. |
 | In-Battle turn-setup array | 8 shorts (16 bytes) at offset `+0x2302` | Channel 2 actions `0xc301` (initial write, paired with the turn-timer field) and `0xc308` (mid-turn update, standalone) both target this array. |
