@@ -7,7 +7,8 @@ See [tools/README.md](tools/README.md) for toolchain setup,
 (game-state machine, network protocol, subsystem init),
 [PROTOCOL.md](PROTOCOL.md) for the full packet/opcode reference, and
 [FILEFORMATS.md](FILEFORMATS.md) for the custom `.xfs`/`.dat`/`.img`/`.sv`
-file formats.
+file formats, and [STRINGS.md](STRINGS.md) for a categorized reference of
+every string embedded in the binary.
 
 ## Reference file hashes
 
