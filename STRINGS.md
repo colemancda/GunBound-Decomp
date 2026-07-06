@@ -133,9 +133,11 @@ Notes:
   leftover debug-logging file path from development, not something that
   executes in a shipped/normal environment (this exact string was also seen
   referenced early in `WinMain`, alongside `test.txt`).
-- `Language.txt`, `Sound.txt`, `FourWord.txt` are not yet cross-referenced
-  against any decompiled loader — likely more `graphics.xfs`/`sound.xfs`
-  config entries in the same style as the confirmed `ChooseEvent.txt`.
+- `Language.txt` and `Sound.txt` are now **confirmed** (see
+  [FILEFORMATS.md](FILEFORMATS.md)) to live inside `graphics.xfs`, loaded
+  the same way as `ChooseEvent.txt` via `OpenXFSArchive`/`FindXFSEntry`.
+  `FourWord.txt`'s consumer function wasn't located, so it remains
+  unconfirmed.
 
 ## Audio files — music (`.mp3`/`.wav`)
 
