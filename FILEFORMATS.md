@@ -11,7 +11,7 @@ working, verified LZHUF decoder and `.xfs` extractor now live in
 | Extension | Container | Compression | Confirmed? |
 |---|---|---|---|
 | `.xfs` (`graphics.xfs`, `sound.xfs`, `Avatar.xfs`) | Custom named-entry archive, magic `XFS2` | LZHUF for both the table of contents (target decoded size `0x40` for the header, `0x20000` per 1024-entry chunk) **and each individual entry** (target decoded size = the entry's own confirmed size field, own checksum convention) | **Fully confirmed and working** — all three real `.xfs` files decode end-to-end via `tools/lzhuf/extract_toc.py` |
-| `.dat` (`characterdata.dat`, `itemdata.dat`, `stage.dat`, `specialdata.dat`) | Flat file, no container | **LZHUF-compressed** (target decoded size `0x14c0` = 5,312 bytes), same decoder as XFS | **Fully confirmed and working** for all four files — real content extracted (item names, stage names, Portuguese item descriptions) |
+| `.dat` (`characterdata.dat`, `itemdata.dat`, `stage.dat`, `specialdata.dat`) | Flat file, no container | **LZHUF-compressed**, same decoder as XFS — **target size differs per file** (confirmed via `LoadGameDataFiles` for three of the four): `characterdata.dat` = `0x14c0` (5,312 bytes), `stage.dat` = `0x3c80` (15,488 bytes), `itemdata.dat` = `0x7850` (30,800 bytes). `specialdata.dat`'s loader wasn't located in `LoadGameDataFiles` or anywhere else this pass — its target size is **unconfirmed** (an earlier pass's `0x14c0` guess for it was never verified against code and shouldn't be trusted) | Confirmed and working for `characterdata.dat`/`stage.dat`/`itemdata.dat` — real content extracted (item names, stage names, Portuguese item descriptions). `specialdata.dat` not yet properly decoded (right target size unknown) |
 | `.img` (sprite/texture files, e.g. `tank1.img`, `bullet1n.img`) | Individual asset stored inside the `.xfs` archives, itself LZHUF-compressed as a container entry | RLE (run-length encoding) on top, 16bpp pixel data, applied after LZHUF decompression | Confirmed via `BlitRLESprite`/`BlitSprite16bpp` for the RLE/pixel layer; confirmed via `DecodeXFSEntryBlock` for the container-level LZHUF layer |
 | `.sv` (replay files) | Custom event-stream format | Not compressed (not confirmed either way) | Filename format and per-event record fully confirmed; file open call / possible header not located |
 | `ChooseEvent.txt` | Plain text, lives *inside* `graphics.xfs` | None (plain text) | **Fully confirmed** — actual content extracted, a 4-line event-name-to-ID registry |
@@ -351,30 +351,36 @@ generic entries (`event2`/`event3`) suggest the mechanism supports more
 event types than were ever actually named/shipped, or that other events
 are added by editing this file rather than the client binary.
 
-## `itemdata.dat` — confirmed record layout (fixed-size, name + description)
+## `itemdata.dat` — confirmed record layout and target size
 
-Decoded the real file (5,312 bytes decompressed) and mapped its structure
-directly from the recovered bytes (this file's own consumer code wasn't
-separately decompiled this pass — the layout below comes from pattern-
-matching the decoded content itself, cross-checked across many records for
-consistency, not from tracing `LoadGameDataFiles`'s parsing loop field by
-field).
+**Correction from the previous pass**: `itemdata.dat`'s real
+`DecodeLZHUFBlock` target size, confirmed by decompiling
+`LoadGameDataFiles` directly, is **`0x7850` (30,800 bytes)** — not `0x14c0`
+(5,312 bytes), which is `characterdata.dat`'s size and had been wrongly
+assumed to apply to all three `.dat` files. Redecoding with the correct
+size doesn't change the earlier per-record field findings (they were all
+within the first 5,312 bytes anyway, so the earlier bytes were already
+correct) — it just reveals the *full* file instead of a truncated prefix:
 
-- **Fixed-size records, `0x134` (308) bytes each.** An initial guess of
-  `0x130` (304) bytes, based on only two data points, turned out to be
-  wrong — confirmed correct via a full scan for printable-string offsets
-  across the whole file, which land on a consistent `308`-byte stride for
-  every populated record (one apparent gap turned out to be a single
-  skipped/unused item slot, not a stride error).
-- **~18 total slots** (`5312 / 308 ≈ 17.3`, so 17 full slots plus a
-  trailing partial one — exact slot count not pinned down further), of
-  which **13 are populated** in this file's real data and the rest are
-  zero-filled/unused.
-- **Per-record layout** (offsets relative to the record's own start):
+- **Fixed-size records, `0x134` (308) bytes each** (unchanged from the
+  earlier finding — confirmed independently via a printable-string scan
+  landing on a consistent 308-byte stride).
+- **Exactly 100 total slots** (`30800 / 308 = 100` exactly — this divides
+  perfectly, strong confirmation the record size and total buffer size are
+  both right), of which **13 are populated** in this file's real data
+  (the same 13 found in the earlier, truncated pass — `"Dual"`,
+  `"Teleport"`, `"Dual+"`, an untranslated-Korean-name item, `"Blood"`,
+  `"Energy up 1"`/`"Energy up 2"`, `"Team Teleport"`, `"Change Wind"`,
+  `"Power up"`, `"Thunder"`, `"Bunge shot"`, another untranslated item),
+  and the remaining 87 slots are zero-filled/unused — consistent with this
+  being a smaller private-server build with far fewer items defined than
+  the 100-slot capacity allows.
+- **Per-record layout** (offsets relative to the record's own start,
+  unchanged from the earlier pass):
 
   | Offset | Size | Field | Notes |
   |---|---|---|---|
-  | `0x00` | up to 0x24 (36) | Item name, NUL-terminated ASCII/text | e.g. `"Dual"`, `"Teleport"`, `"Energy up 1"` — a few entries (e.g. slot 3, slot 12) contain non-ASCII bytes consistent with **Korean text in a single-byte-per-char encoding rendering as mojibake when read as Latin-1** — i.e. this particular (Brazilian Portuguese-localized) build has a handful of items that were never translated from the original Korean strings |
+  | `0x00` | up to 0x24 (36) | Item name, NUL-terminated ASCII/text | e.g. `"Dual"`, `"Teleport"`, `"Energy up 1"` — two entries contain non-ASCII bytes consistent with **Korean text in a single-byte-per-char encoding rendering as mojibake when read as Latin-1** — i.e. this particular (Brazilian Portuguese-localized) build has a couple of items that were never translated from the original Korean strings |
   | `0x24` | 4 | Price/value (`uint32`) | e.g. `600` for "Dual", `100` for "Teleport", `0` for "Blood" — a zero value for some entries suggests not every item is purchasable (some may be quest/event-only) |
   | `0x28` | 4 | Item type/index ID (`uint32`) | duplicated at `0x30` as a single byte — e.g. "Energy up 1" and "Energy up 2" share the same value (`7`), consistent with a shared item-family/category ID rather than a unique per-item ID |
   | `0x2c` | 4 | Unidentified flags/bytes | varies per record (e.g. `00 00 01 00` vs `01 00 01 00` vs `00 00 00 00`) — a `0x2e` byte of `1` seems to correlate with "has a description," but this wasn't confirmed rigorously |
@@ -382,44 +388,39 @@ field).
   | `0x31` | 1 | Marker byte, `0xff` when a description follows | records without a following description (e.g. "Blood", "Energy up 1") have `0x00` here instead — **description position isn't perfectly fixed across all records**, so this offset is approximate, not exact, for every entry |
   | `~0x32` | variable | Localized item description, NUL-terminated | real examples (Portuguese, this build's localization): `"Usando este item voce pode disparar seu tiro duas vezes..."` (Dual), `"Pode teleportar para o ponto onde o objeto de teleporte caiu..."` (Teleport) |
 
-This is a partial but genuinely useful mapping — good enough to write a
-simple item-list extractor — but the `0x2c` flags field and the exact
-description-offset rule weren't nailed down with full confidence. Next
-step to firm this up: decompile `LoadGameDataFiles`'s consumer code for
-this specific array (the array itself, and its confirmed `0x9c`-byte
-sibling `InventoryItem`, are both read via the same loader — see
-[ARCHITECTURE.md](ARCHITECTURE.md)) rather than inferring purely from the
-decoded bytes.
+Still open: the `0x2c` flags field and the exact description-offset rule.
 
-## `stage.dat` — record layout partially confirmed
+## `stage.dat` — confirmed record layout and target size
 
-Decoded the real file (5,312 bytes decompressed, same target size as
-`itemdata.dat`/`characterdata.dat`). The very first bytes are **not** a
-clean NUL-terminated name — the file starts with a few binary bytes
-(`ef db ff 74`) immediately followed by the plaintext stage name
-`"Cave(Random)"`, suggesting either a small fixed header before the first
-record (unlike `itemdata.dat`, which has no such header) or that this
-first field is a 4-byte ID immediately followed by the name with no
-padding in between. **Not cleanly mapped this pass** — a printable-string
-scan of the whole decoded file finds fragments of `"Cave(Random)"`
-(specifically `"ve(R"`/`"ndom)"`, i.e. the string cut mid-word) recurring
-at irregular byte intervals (roughly every 250-291 bytes, not a clean
-fixed stride like `itemdata.dat`'s confirmed 308 bytes), interspersed with
-long runs of non-printable bytes. Plausible explanations, none confirmed:
-(a) `stage.dat` uses a *narrower* fixed-width name field than
-`itemdata.dat` that truncates `"Cave(Random)"` — but the truncation
-point isn't consistent across the repeats, which argues against a simple
-fixed-width explanation; (b) each stage has several sub-records (per
-weather variant, spawn-point set, etc.) that each store a copy or partial
-copy of the stage name; (c) genuine decode noise from something not yet
-understood about this specific file, despite the decoder now being
-verified correct against three real `.xfs` archives and `itemdata.dat`.
-Confirmed only that real, readable stage names are present in the decoded
-output (`stage.dat` almost certainly lists GunBound's playable maps, e.g.
-`"Cave(Random)"`) — the record-level structure needs another pass,
-ideally cross-checked against `LoadGameDataFiles`'s consumer code rather
-than pattern-matching the decoded bytes alone (which worked well for
-`itemdata.dat` but clearly isn't sufficient here).
+**Correction from the previous pass**: the earlier attempt used the wrong
+target size (`0x14c0`, copied from `characterdata.dat`) and produced a
+truncated, confusingly-fragmented decode. Decompiling `LoadGameDataFiles`
+directly gives the real values:
+
+- **Target decompressed size: `0x3c80` (15,488 bytes).**
+- **Fixed-size records, `0x1e4` (484) bytes each** — confirmed directly
+  from the loader's loop (`pcVar10 = pcVar10 + 0x1e4`), not just inferred
+  from string positions.
+- **Exactly 32 total slots** (initialized loop counter `uStack_181c4 = 0x20`
+  = 32, decremented to 0) — `32 × 484 = 15,488`, an exact match confirming
+  both numbers.
+- **Only slot 0 is populated** in this file's real data — the stage name
+  `"Cave(Random)"` appears cleanly at the very start (preceded by 4 bytes,
+  `ef db ff 74`, of unclear purpose — possibly a stage ID or checksum
+  fragment). Slots 1-31 are **not zero-filled** like `itemdata.dat`'s empty
+  slots — they contain non-zero but clearly non-meaningful repeating byte
+  patterns (e.g. `0x13` repeated, `0x66` repeated, `0x8c` repeated), which
+  reads like uninitialized/leftover builder memory rather than real map
+  data. This is consistent with the working theory (see `itemdata.dat`
+  above and the Portuguese localization already noted in
+  [STRINGS.md](STRINGS.md)) that this is a **smaller private-server build
+  with only one stage actually defined**, not the retail game's full map
+  roster.
+- The per-record field layout beyond the name (the loader reads several
+  4-byte fields at offsets `+0x80`/`+0x82`/`+0x84`/`+0x88`.../`+0xa0`, then
+  an 8-element sub-array at 4-byte stride starting `+0xc4`, all pushed
+  through `EncodeOutgoingPacketField`) wasn't mapped field-by-field this
+  pass — worth a dedicated follow-up now that the stride/size are solid.
 
 ## `.img` sprite format — confirmed via the render pipeline
 
@@ -698,17 +699,21 @@ decompiled code:
   and hasn't been fixed (not needed now that the real bug is found and
   fixed in the Python version actually used by `extract_toc.py`).
 
-  **The `.dat` files also decode cleanly now** (same decoder, target size
-  `0x14c0` = 5312 bytes, no container/TOC — just the raw file bytes): 
-  `itemdata.dat` starts with the plaintext item name `"Dual"` followed by
-  what reads as Portuguese item-description text later in the buffer
-  (`"Usando este item voce pode dis..."` — "using this item you can
-  dis[able/tribute]..."), `stage.dat` starts with the plaintext stage name
-  `"Cave(Random)"`, and `characterdata.dat`/`specialdata.dat` decode to
-  sequences of small `uint32` values consistent with stat fields, though
-  their field-level structure (which offset means what) hasn't been mapped
-  yet. The Portuguese text is a good clue about this particular game
-  copy's origin/localization (the source folder name — see
+  **The `.dat` files also decode cleanly now** (same decoder, no
+  container/TOC — just the raw file bytes, target size confirmed
+  per-file via `LoadGameDataFiles`, see the summary table above):
+  `itemdata.dat` (target `0x7850`) starts with the plaintext item name
+  `"Dual"` followed by what reads as Portuguese item-description text
+  later in the buffer (`"Usando este item voce pode dis..."` — "using this
+  item you can dis[able/tribute]..."), `stage.dat` (target `0x3c80`)
+  starts with the plaintext stage name `"Cave(Random)"`, and
+  `characterdata.dat` (target `0x14c0`) decodes to sequences of small
+  `uint32` values consistent with stat fields, though its field-level
+  structure (which offset means what) hasn't been mapped yet.
+  `specialdata.dat`'s correct target size wasn't confirmed this pass (its
+  loader wasn't located) so it hasn't been properly re-decoded. The
+  Portuguese text is a good clue about this particular game copy's
+  origin/localization (the source folder name — see
   [README.md](README.md) — is a Brazilian Portuguese client build), useful
   context if the exact string content ever seems unexpected compared to an
   English-language GunBound client.
@@ -743,12 +748,17 @@ decompiled code:
    window), a real bug in the decode-position table was found and fixed
    (see "Validation against real game files" above), and the decoder
    (`tools/lzhuf/lzhuf.py`) now cleanly decodes all three `.xfs` files in
-   `orig/` end-to-end plus all four `.dat` files, extracting real content
+   `orig/` end-to-end plus three of the four `.dat` files (each with its
+   own confirmed target size, not a single shared constant as an earlier
+   pass assumed — see `LoadGameDataFiles`), extracting real content
    (`ChooseEvent.txt`'s full text, `itemdata.dat`'s item names/Portuguese
    descriptions, `stage.dat`'s stage names). Nothing left to resolve at the
-   algorithm level; remaining work is purely about mapping *field-level*
-   semantics within `characterdata.dat`/`itemdata.dat`/`specialdata.dat`'s
-   decoded byte layout, not about decoding them.
+   algorithm level. Remaining work: mapping *field-level* semantics within
+   `characterdata.dat`/`itemdata.dat`'s decoded byte layout (not about
+   decoding them, which now works), and finding `specialdata.dat`'s loader
+   to get its correct target size (not located this pass — do not reuse
+   `characterdata.dat`'s `0x14c0` for it without verifying against code
+   first, the same mistake made earlier for `itemdata.dat`/`stage.dat`).
 4. **Fully resolved.** `ChooseEvent.txt`'s actual content was extracted
    (see the dedicated section above): it's a tiny event-name-to-ID registry
    (`0=off, 1=christmas, 2=event2, 3=event3`), not the character-select
