@@ -122,12 +122,14 @@ likely all part of one chat-command dispatch table:
 | `00552c30` | `test.txt` |
 
 Notes:
-- `mf.dat`/`mg.dat`/`mh.dat`/`mb.dat` and `fg.dat`/`fh.dat`/`fb.dat` are new
-  finds not previously documented in [FILEFORMATS.md](FILEFORMATS.md) —
-  likely small per-gender (m/f) color-channel or palette remap tables,
-  given the naming parallels the confirmed `%cb`/`%cg`/`%ch` terrain color-
-  channel `.img` variants (blue/green/hue) found in the `0xf00b` terrain-
-  deformation opcode.
+- `mf.dat`/`mg.dat`/`mh.dat`/`mb.dat` and `fg.dat`/`fh.dat`/`fb.dat` —
+  **confirmed** (by extracting and inspecting the real files from
+  `avatar.xfs`): these are **per-gender avatar costume catalogs**, not
+  color-channel tables as an earlier pass had guessed. `mb.dat` ("male,
+  body"?) contains readable costume name strings like `"STANDARD"`,
+  `"Standard clothing"`, `"Space Marine"` — a text-and-metadata catalog of
+  wearable avatar items, parallel in spirit to `itemdata.dat`'s battle-item
+  catalog. See [FILEFORMATS.md](FILEFORMATS.md)'s `avatar.xfs` section.
 - `c:\comsik.txt` is a hardcoded **absolute debug path** referencing the
   `comsik` developer from the credits list above — almost certainly a
   leftover debug-logging file path from development, not something that

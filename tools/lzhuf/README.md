@@ -38,9 +38,32 @@ back-references) desynced almost immediately.
   reference/history).
 - `extract_toc.py` — parses a `.xfs` file's footer/TOC/entry records using
   `lzhuf.py`. Works correctly end-to-end now.
+- `decode_img.py` — extracts and decodes a real `.img` sprite entry from a
+  `.xfs` archive straight to a viewable PNG (requires Pillow). Decodes
+  pixels as **ARGB4444** — two earlier guesses (RGB565, then RGB555) both
+  produced visibly wrong colors, caught by comparing against a real
+  reference screenshot; see [FILEFORMATS.md](../../FILEFORMATS.md)'s
+  `.img` section for the full correction writeup.
+- `dump_archive.py` — bulk-extracts every entry in a `.xfs` archive
+  (frame 0 → PNG for `.img` entries, raw bytes for everything else) into a
+  review directory. Only decodes as much of each entry as needed for its
+  header + frame 0 (not the whole file), so a full `graphics.xfs` dump
+  (9,313 entries) finishes in a couple of minutes rather than hours.
+- `examples/` — sample PNGs extracted and decoded this way: `avataimsi.png`
+  (small avatar-placeholder icon), `bullet1n.png` (a projectile sprite —
+  a coherent gray/red shape under the correct ARGB4444 format), 
+  `tank1_frame0.png` (frame 0 of a large multi-frame tank sprite sheet —
+  confirmed to be the "Armour" mobile, colors verified against a real
+  reference screenshot).
 - `lzhuf_ref.c` — the independent C port used during debugging. **Still
   has the same wrong tables as the original bug** (not yet fixed) — kept
   as-is for historical reference; don't trust its output. Use `lzhuf.py`.
+
+## Extracting a sprite image
+
+```
+python3 decode_img.py /path/to/graphics.xfs bullet1n.img output.png
+```
 
 ## Usage
 

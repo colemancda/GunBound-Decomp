@@ -12,7 +12,7 @@ working, verified LZHUF decoder and `.xfs` extractor now live in
 |---|---|---|---|
 | `.xfs` (`graphics.xfs`, `sound.xfs`, `Avatar.xfs`) | Custom named-entry archive, magic `XFS2` | LZHUF for both the table of contents (target decoded size `0x40` for the header, `0x20000` per 1024-entry chunk) **and each individual entry** (target decoded size = the entry's own confirmed size field, own checksum convention) | **Fully confirmed and working** — all three real `.xfs` files decode end-to-end via `tools/lzhuf/extract_toc.py` |
 | `.dat` (`characterdata.dat`, `itemdata.dat`, `stage.dat`, `specialdata.dat`) | Flat file, no container | **LZHUF-compressed**, same decoder as XFS — **target size differs per file** (confirmed via `LoadGameDataFiles` for three of the four): `characterdata.dat` = `0x14c0` (5,312 bytes), `stage.dat` = `0x3c80` (15,488 bytes), `itemdata.dat` = `0x7850` (30,800 bytes). **`specialdata.dat` is not loaded by this executable at all** — confirmed by listing every `.dat` filename string literal in the whole binary; it isn't among them | Confirmed and working for `characterdata.dat`/`stage.dat`/`itemdata.dat` — real content extracted (item names, stage names, Portuguese item descriptions). `specialdata.dat` is present in `orig/` (see [README.md](README.md)) but `GunBound.gme` never references it by name — likely used by a separate tool/server component, not the game client |
-| `.img` (sprite/texture files, e.g. `tank1.img`, `bullet1n.img`) | Individual asset stored inside the `.xfs` archives, itself LZHUF-compressed as a container entry | RLE (run-length encoding) on top, 16bpp pixel data, applied after LZHUF decompression | Confirmed via `BlitRLESprite`/`BlitSprite16bpp` for the RLE/pixel layer; confirmed via `DecodeXFSEntryBlock` for the container-level LZHUF layer |
+| `.img` (sprite/texture files, e.g. `tank1.img`, `bullet1n.img`) | Individual asset stored inside the `.xfs` archives, itself LZHUF-compressed as a container entry | Confirmed 48-byte header (width/height/frame-count/hotspot) + raw ARGB4444 pixel data for frame 0 (two earlier guesses, RGB565 and RGB555, both ruled out against a real reference screenshot) | **Fully extracted and visually verified** — three real sprites decoded to PNG via `tools/lzhuf/decode_img.py`, checked into `tools/lzhuf/examples/` |
 | `.sv` (replay files) | Custom event-stream format | Not compressed (not confirmed either way) | Filename format and per-event record fully confirmed; file open call / possible header not located |
 | `ChooseEvent.txt` | Plain text, lives *inside* `graphics.xfs` | None (plain text) | **Fully confirmed** — actual content extracted, a 4-line event-name-to-ID registry |
 
@@ -408,6 +408,27 @@ Still open: the exact meaning of the `0x20`/`0x28`/`0x30` fields beyond
 "checksummed," and which specific gameplay toggles the three obfuscated
 boolean flags represent.
 
+## `avatar.xfs`'s `.dat` entries — confirmed as avatar costume catalogs
+
+`avatar.xfs` contains exactly 8 entries, all stored raw (mode flag `1`, no
+LZHUF needed): `fb.dat`, `ff.dat`, `fg.dat`, `fh.dat`, `mb.dat`, `mf.dat`,
+`mg.dat`, `mh.dat`. An earlier pass guessed these were per-gender
+color-channel/palette tables (by analogy with the confirmed `%cb`/`%cg`/
+`%ch` terrain color-channel `.img` naming). **Corrected this pass** by
+extracting and inspecting the real files: they're **avatar costume
+catalogs**, not color data. `mb.dat` contains readable text like
+`"STANDARD"`, `"Standard clothing"`, `"Space Marine"` — clearly item/
+costume names and descriptions, structurally parallel to
+`itemdata.dat`'s battle-item catalog (name + descriptive text per entry)
+but for wearable avatar items instead. The `f`/`m` prefix is almost
+certainly gender (female/male), and the second letter likely a body-slot
+category (the four seen — `b`, `f`, `g`, `h` — probably map to something
+like body/face/gloves/head or similar equipment slots, though the exact
+per-letter mapping wasn't confirmed). Record-level field layout (name
+field boundaries, any numeric ID/price fields analogous to
+`itemdata.dat`'s) wasn't mapped this pass — only the file's general
+nature (a text-bearing catalog, not a binary palette table) is confirmed.
+
 ## `stage.dat` — confirmed record layout and target size
 
 **Correction from the previous pass**: the earlier attempt used the wrong
@@ -525,29 +546,110 @@ represents purely from its numeric patterns and cross-referencing against
 known GunBound mobile stats from community knowledge, not from tracing
 client-side execution further.
 
-## `.img` sprite format — confirmed via the render pipeline
+## `.img` sprite format — header confirmed, real pixels extracted
 
-Not loaded through a dedicated ".img parser" function found directly —
-instead confirmed *indirectly* through the rendering code that consumes
-decoded sprite data (see [ARCHITECTURE.md](ARCHITECTURE.md)'s rendering
-section):
+Originally confirmed only *indirectly* through the rendering code
+(`BlitRLESprite`/`BlitSprite16bpp`, see [ARCHITECTURE.md](ARCHITECTURE.md)),
+with no header format and no actual decoded image. **This pass extracted
+and rendered real `.img` entries end-to-end** — pulled straight from
+`graphics.xfs` via the working extractor, decoded to visible PNGs, and the
+results are checked into [tools/lzhuf/examples/](tools/lzhuf/examples/):
+a small avatar-placeholder icon (`avataimsi.img`, 28×25), a projectile
+sprite (`bullet1n.img`, 24×14), and frame 0 of a large multi-frame vehicle
+sheet (`tank1.img`, 36×40 — confirmed to be the "Armour" mobile: orange
+body with red/gray accents and wheels, matching a real reference
+screenshot of the in-game mobile-select screen).
 
-- **`BlitRLESprite`** (`0x4eb450`) decodes a **run-length-encoded** byte
-  stream (high bit of each control byte distinguishes a literal run from a
-  repeated-byte run) directly into the locked back-buffer.
-- **`BlitSprite16bpp`** (`0x4ed6a0`) operates on `unsigned short*` pixel
-  data — confirms the decoded pixel format is **16 bits per pixel**
-  (RGB565 or RGB555, not disambiguated further).
-- Hundreds of `.img` filenames were observed as string literals throughout
-  the character/weapon/effect code (`tank1.img`, `bullet1n.img`,
-  `flame11.img`, `mf%05d.img` for terrain deformation frames, etc.) — these
-  are resolved to loaded texture handles via `FindPreloadedTextureByName`/
-  `FindTextureCacheEntryByName` (see ARCHITECTURE.md), which look up
-  *already-loaded* data; the actual disk-read + RLE-decode call site for a
-  raw `.img` file (as opposed to consuming pre-decoded pixels) has not been
-  isolated — it's presumably invoked once during `State10_Loading_PreloadAssets`
-  for every filename in its huge preload list, but that specific call
-  wasn't traced line-by-line in this pass.
+**Pixel format — two wrong guesses before landing on the right one**,
+each ruled out by comparing decoded output against a real reference
+screenshot of the mobile-select screen:
+
+1. **RGB565** (5/6/5 bits): recognizable shape, visibly wrong hue —
+   yellow/pink instead of the correct orange/red.
+2. **RGB555** (5/5/5 bits, top bit assumed unused): better hue, but
+   treads/wheels that should be gray rendered as pink/tan, with stray
+   magenta-ish noise at edges.
+3. **ARGB4444** (4/4/4/4 — alpha/red/green/blue, confirmed correct): the
+   giveaway was checking the actual value distribution in a real decoded
+   sample — every common pixel value's **top hex digit was `0xf`**, which
+   is not a coincidental "red channel near-maxed" pattern (as it would
+   read under RGB565/555) but the alpha nibble reading as fully opaque.
+   Decoding the low 3 nibbles as 4-bit R/G/B fixed everything at once:
+   `tank1.img`'s treads render as correct metallic gray, `bullet1n.img`
+   resolves into a coherent gray/red projectile shape instead of a
+   pink/orange blob, and sprite edges now have clean partial transparency
+   (proper alpha blending) instead of a harsh solid-color or magenta
+   fringe. This is a good reminder that a plausible decoded *shape* isn't
+   sufficient proof of a correct pixel format, and that "every sample's
+   top nibble is constant" is a strong tell for an alpha/flag field hiding
+   in what looks like a color channel.
+
+**`BlitRLESprite` re-identified**: decompiling it in full (rather than
+just recognizing "RLE" in its name and assuming it's the `.img` decoder)
+shows it's actually a **byte-oriented, table-lookup-driven renderer**
+(high bit of a control byte selects between a 12-byte and 6-byte draw
+command, indexing a lookup table at `&DAT_005b3628`) — structurally
+nothing like a flat pixel/scanline sprite decoder. This is much more
+consistent with a **terrain/map tile renderer** than a general sprite
+decoder, correcting an assumption carried since early in this project.
+`BlitSprite16bpp` (operating on `unsigned short*` pixel data, matching the
+confirmed 16-bit format here) is the function actually relevant to `.img`
+sprites — though its real internal logic turned out to be a **sparse
+per-scanline run-length format** (each row: `[stride][run_count]`
+followed by `run_count` spans of `[x_offset][length][length pixels]`), not
+a flat array. That format wasn't ultimately needed for the frame-0
+extraction documented here (the three real samples' byte counts matched
+`width×height×2` exactly, consistent with flat storage for at least these
+files/frames), but it's worth flagging as the more general on-disk
+representation `BlitSprite16bpp` is built to handle, in case future frames
+or larger sheets don't decode cleanly as flat arrays.
+
+### Confirmed header format (frame 0)
+
+| Offset | Size | Field | Notes |
+|---|---|---|---|
+| `0x00` | 4 | Unknown/flags | `0` in all three samples |
+| `0x04` | 4 | **Frame count** | `1` for the single-frame icon, `5` for the bullet (likely multiple rotation/animation frames), `455` for the tank sheet |
+| `0x08` | 4 | Unknown | Varies per file, not decoded |
+| `0x0c` | 4 | **Width** (pixels) | Confirmed exactly — matches the pixel-byte-count field below in every sample |
+| `0x10` | 4 | **Height** (pixels) | Confirmed exactly, same way |
+| `0x14` | 4 | Signed `int` — likely **hotspot/origin X offset** | e.g. `-12` for the bullet sprite — consistent with a sprite that rotates/anchors around a point other than its top-left corner (needed for a projectile that spins in flight) |
+| `0x18` | 4 | Signed `int` — likely **hotspot/origin Y offset** | e.g. `-7` for the bullet sprite |
+| `0x1c`-`0x2b` | 16 | Unidentified | Not decoded |
+| `0x2c` | 4 | **Pixel data byte count** for this frame | Always exactly `width × height × 2` in every sample tested — confirms 16 bits/pixel |
+| `0x30` onward | `width×height×2` | **Raw pixel data**, row-major | 16-bit values, decoded as **ARGB4444** (4 bits each for alpha/red/green/blue) reproduce correct-looking images, verified against a real reference screenshot — see the pixel-format writeup above for the two rejected guesses (RGB565, RGB555) |
+
+### Open questions
+
+- **Whether frame 0 is always stored flat, or whether the sparse
+  scanline-run format `BlitSprite16bpp` implements sometimes applies even
+  to frame 0.** All three tested samples matched `width×height×2` exactly
+  and decoded correctly as a flat array, but that function's real logic
+  (see above) is built around a sparse per-row run list, which would
+  usually produce a *smaller* byte count than a flat array (since fully
+  transparent regions need not be stored). A large sheet like `thor.img`
+  (2.1 MB decoded) would be a good next candidate to check for a case
+  where the flat-array assumption breaks down.
+- **Multi-frame layout beyond frame 0 isn't mapped.** `tank1.img` claims
+  455 frames, but `(total size − header) / frame count` doesn't divide
+  evenly assuming every frame is the same 36×40 size — frames likely vary
+  in dimensions (different rotation angles have different bounding boxes)
+  and/or each frame has its own small header repeating the frame-0
+  layout. Not decoded this pass; only frame 0 is confirmed.
+- Hundreds of `.img` filenames were also observed as string literals
+  throughout the character/weapon/effect code (`tank1.img`, `bullet1n.img`,
+  `flame11.img`, `mf%05d.img` for terrain deformation frames, etc.),
+  resolved at runtime to loaded texture handles via
+  `FindPreloadedTextureByName`/`FindTextureCacheEntryByName` (see
+  ARCHITECTURE.md) — the client's own in-memory disk-read + decode call
+  site for a raw `.img` file wasn't isolated in the client binary, but this
+  is now moot for extraction purposes since `tools/lzhuf/decode_img.py`
+  decodes directly from the archive independent of the client's own code
+  path.
+
+See [tools/lzhuf/decode_img.py](tools/lzhuf/decode_img.py) for the
+reusable extractor (usage: `python3 decode_img.py graphics.xfs
+<entry_name> output.png`).
 
 ## `.sv` replay format — filename and per-event record confirmed
 
@@ -792,8 +894,9 @@ decompiled code:
   **Verified end-to-end against all three real `.xfs` files in `orig/`**:
   `graphics.xfs` (all 9,313 entries, every chunk, no degradation — and
   `ChooseEvent.txt` successfully extracted, see below), `sound.xfs` (all 96
-  entries), `avatar.xfs` (all 8 entries — confirming the `f`/`m`-prefixed
-  per-gender `.dat` files guessed at in [STRINGS.md](STRINGS.md)). Full
+  entries), `avatar.xfs` (all 8 entries — confirmed as avatar costume
+  catalogs, not color-channel tables as an earlier pass guessed; see the
+  dedicated section below). Full
   writeup and the corrected tables: [tools/lzhuf/BUG_FOUND_wrong_decode_tables.md](tools/lzhuf/BUG_FOUND_wrong_decode_tables.md).
   `tools/lzhuf/lzhuf.py` now contains the fix; `tools/lzhuf/extract_toc.py`
   works correctly end-to-end. The original buggy tables are preserved at

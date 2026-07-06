@@ -800,12 +800,28 @@ directly** for a large class of content:
   `g_pBackBufferSurface->Lock(NULL, &ddsd, 0, 0)`, returns the surface
   **pitch** and **pixel pointer**. Paired with an `Unlock` (surface `+0x80`)
   at the end of each render layer in `GameTick`.
-- **`BlitRLESprite`** (`0x4eb450`, was `FUN_004eb450`): decodes a **run-length
-  encoded** sprite byte-stream (high bit of each control byte = run vs.
-  literal) into the locked buffer. This confirms the on-disk `.img` sprite
-  format is **RLE-compressed**.
-- **`BlitSprite16bpp`** (`0x4ed6a0`, was `FUN_004ed6a0`): operates on
-  `unsigned short*` pixels → the surfaces are **16-bit color** (555/565).
+- **`BlitRLESprite`** (`0x4eb450`, was `FUN_004eb450`): **re-identified —
+  not the `.img` sprite decoder.** Decompiled in full: it's a
+  byte-oriented, table-lookup-driven renderer (a control byte's high bit
+  selects between two fixed-size draw commands, indexing a lookup table
+  at `&DAT_005b3628`), structurally nothing like a flat pixel/scanline
+  format. Much more consistent with a **terrain/map tile renderer** —
+  correcting an assumption ("this decodes `.img` sprites") carried since
+  early in this project purely from its name resembling "RLE."
+- **`BlitSprite16bpp`** (`0x4ed6a0`, was `FUN_004ed6a0`): the function
+  actually relevant to `.img` sprites. Operates on `unsigned short*`
+  pixels → the surfaces are **16-bit color**, confirmed as **ARGB4444**
+  (4 bits each alpha/red/green/blue) — reached after two rejected guesses
+  (RGB565, then RGB555) by extracting real `.img` sprites and comparing
+  decoded colors against a reference screenshot of the mobile-select
+  screen; the correct format was confirmed by noticing every common
+  decoded pixel value's top hex digit was `0xf` (the alpha nibble reading
+  fully opaque, not a coincidental red-channel pattern). Internally, this
+  function implements a **sparse per-scanline run-length format** (each
+  row: `[stride][run_count]` then `run_count` spans of
+  `[x_offset][length][pixels]`), not a flat pixel array — see
+  [FILEFORMATS.md](FILEFORMATS.md)'s `.img` section and
+  `tools/lzhuf/decode_img.py` for the full writeup and extraction tooling.
 - **`BlitSpriteClipped`** (`0x4eb9c0`, was `FUN_004eb9c0`): clips against the
   active clip rect (`DAT_00793534`/`DAT_0056df34`) before blitting.
 
