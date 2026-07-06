@@ -78,6 +78,24 @@ at the pixel level** (see `BlitRLESprite` in ARCHITECTURE.md) — two
 independent compression layers, one for the container, one for the pixel
 data itself.
 
+**`.xfs` is a genuinely bidirectional format, confirmed via `XFS2.exe`**
+(a standalone MFC archive manager from the same private-server toolset as
+the `.dat` editors above — see the "field semantics recovered from
+`Asuka.exe`/`mishato_English.exe`" section for that discovery, and
+[tools/dialog_extract/](tools/dialog_extract/) for the technique). Its
+dialog exposes a full read/write operation set: `설정`(settings),
+`삽입`(insert), `추출`(extract), `삭제`(delete), `최적화`(optimize),
+`병합`(merge), `모두 추출`(extract all), `압축`(compress) — confirming
+this isn't just a read-only asset container but a real editable archive
+format with defragmentation (`최적화`) and multi-archive merging (`병합`)
+support, consistent with `ArchivedFile`'s `Fragmented` flag already found
+in `InsideGB.exe`. The actual file-write code traced in `XFS2.exe`
+(`FUN_00403a20`) is generic chunked-buffer-to-`WriteFile` plumbing with no
+XFS-specific logic visible at that layer — the real TOC/compression
+construction lives in a class wrapper one level up that wasn't traced
+further, since the read-side format (this document's main subject) is
+already fully solved independent of it.
+
 ## The `.xfs` table-of-contents entry record — fully confirmed layout
 
 This is the piece needed to actually **enumerate** an archive's contents
@@ -463,6 +481,37 @@ directly gives the real values:
   an 8-element sub-array at 4-byte stride starting `+0xc4`, all pushed
   through `EncodeOutgoingPacketField`) wasn't mapped field-by-field this
   pass — worth a dedicated follow-up now that the stride/size are solid.
+
+**Follow-up done: field semantics recovered from `Shinji.exe`'s editor
+dialog** (same technique as `characterdata.dat`/`itemdata.dat` above —
+`RT_DIALOG` resources parsed directly from the PE, no execution). Each
+stage record has:
+- Basic info (`스테이지 일반 정보`): a stage number (`번호`), `제목`
+  (title) and `파일명` (filename) — matching the confirmed name field and
+  presumably a separate on-disk stage-geometry filename this `.dat` entry
+  points at (not itself embedded).
+- **Three terrain-hazard-event blocks, each with the same shape**: a
+  max/min value pair (`최대값`/`최소값`) plus **8 numbered sub-slots**
+  (`1`-`8`) — this is exactly the "8-element sub-array at 4-byte stride"
+  already found in the loader, now identified as **per-event spawn-point
+  coordinates/weights**, one set of 8 for each of:
+  - `회오리 발생위치` — **tornado/whirlwind spawn location**
+  - `증폭 발생위치` — **amplification (damage-boost zone?) spawn
+    location**
+  - `전기 발생위치` — **electricity (shock zone) spawn location**
+- A `스테이지 정보` (stage info) toggle block with labels `포스`/`돌풍`/
+  `전기`/`바람`/`귀환`/`치료`/`무지`/`버젼` — **Force / Gust / Electric /
+  Wind / Return / Heal / Fog / Version** — almost certainly **per-stage
+  boolean feature flags** enabling or disabling each hazard/gimmick type
+  (matching the classic GunBound stage gimmicks: force fields, gust winds,
+  electric hazards, wind effects, "return" teleport pads, healing zones,
+  and a fog-of-war-style visibility effect), plus a version field.
+
+This resolves what was previously just "several 4-byte fields, not mapped
+field-by-field" into real gameplay semantics — GunBound stages are built
+from a small fixed vocabulary of environmental hazards/gimmicks, each with
+its own configurable spawn points and an on/off toggle, rather than
+free-form per-stage scripting.
 
 ## `characterdata.dat` — record count/stride confirmed, field semantics recovered
 
