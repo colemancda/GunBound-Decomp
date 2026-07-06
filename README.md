@@ -4,8 +4,10 @@ GunBound Thor's hammer decompilation project
 See [tools/README.md](tools/README.md) for toolchain setup,
 [PROGRESS.csv](PROGRESS.csv) for the function-level decompilation worklist,
 [ARCHITECTURE.md](ARCHITECTURE.md) for reverse-engineered structural notes
-(game-state machine, network protocol, subsystem init), and
-[PROTOCOL.md](PROTOCOL.md) for the full packet/opcode reference.
+(game-state machine, network protocol, subsystem init),
+[PROTOCOL.md](PROTOCOL.md) for the full packet/opcode reference, and
+[FILEFORMATS.md](FILEFORMATS.md) for the custom `.xfs`/`.dat`/`.img`/`.sv`
+file formats.
 
 ## Reference file hashes
 
