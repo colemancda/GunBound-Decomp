@@ -449,9 +449,9 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
    most of the `0x84xx`/`0xc4xx` action codes beyond `0x8406`/`0x8407`/
    `0x8408`, and the meaning of `+0x10a4`/`+0x2302` on the In-Battle object
    beyond "turn timer" / "8-element setup array."
-6. Map the remaining un-traced opcodes: state 3's `0x2111`; state 7's
-   `0x6027` and the tail of `0x6037`'s purchase-commit path
-   (`FUN_0044c370`); state 11's `0x3400`.
+6. **DONE** — all opcodes across every `ProcessPacket`/`ProcessBattleAction`
+   handler mapped; see [PROTOCOL.md](PROTOCOL.md) for the full packet
+   reference (this superseded the original opcode-mapping goal here).
 7. Five `ChangeGameState` call sites (`0x443350`, `0x443561`, `0x4b9ebe`,
    `0x4e0c68`, `0x4e5421`) are switch/jump fragments *inside* larger functions
    whose auto-analysis was truncated — no standalone prologue nearby. They need
@@ -462,3 +462,95 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
    (0x224/548 bytes, purpose/fields still unknown beyond size and that it's
    per-player). Cross-reference against `itemdata.dat`/`characterdata.dat`
    samples in `orig/` for field-level layout hints.
+
+## Rendering / DirectDraw (first pass)
+
+Started per the user's explicit priority order (networking → state machine →
+physics → rendering last). This is a first pass, not exhaustive — rendering
+is a large subsystem.
+
+### DirectDraw setup (`InitDirectDraw`, `0x4efaa0`)
+
+Confirmed via call-argument shape (no dedicated DirectX type archive ships
+with Ghidra 12.1.2, so exact vtable method names are inferred from argument
+patterns, not memorized offsets):
+
+- `LoadLibraryA("ddraw.dll")` + `GetProcAddress("DirectDrawCreateEx")`,
+  called directly (not through a typed function pointer) — matches
+  `InitDirectDraw`'s already-confirmed dynamic-load pattern from Phase 1.
+- A COM call at vtable `+0x50` (likely `SetCooperativeLevel`) then `+0x54`
+  (likely `SetDisplayMode`) — branches on a global flag (`DAT_00588f4c`)
+  between **fullscreen-exclusive** (hardcoded **800×600**, matching every
+  other confirmed viewport reference in this codebase) and **windowed**
+  mode (uses `GetClientRect`/`ClientToScreen` to size the surface to the
+  actual window instead).
+- `CreateSurface`-shaped calls (`+0x18`, taking a `DDSURFACEDESC2`-like
+  struct) create a **primary surface** and, in fullscreen mode, a **complex/
+  flip back-buffer chain** (`dwBackBufferCount=1`); windowed mode instead
+  attaches a clipper (`+0x10` on the surface, `+0x20` on the clipper object,
+  `+0x70` — `SetHWnd`-shaped).
+- A separate global `DAT_00793604` is acquired late in this function
+  (`+0x10` with a callback function pointer, `EnumObjects`-shaped) and reused
+  extensively elsewhere (see below) — **identity not conclusively resolved**;
+  call shape (callback enumeration, zero-check gating resembling `Poll()`,
+  `(code,value)` pairs resembling `SetProperty`) is most consistent with a
+  **DirectInput8 device**, but it also appears inside the confirmed render
+  function (`State11_InBattle_Render`) interleaved with sprite-drawing code —
+  plausibly just input polling calls sprinkled through the render loop to
+  keep input responsive, rather than evidence it's a rendering object itself.
+  Flagged as open rather than force-fit to a specific interface.
+
+### Texture/asset system
+
+Two distinct, confirmed lookup mechanisms — not one cache, two:
+
+- **`FindPreloadedTextureByName`** (`0x4017d0`, was `FUN_004017d0`): linear
+  scan through a **fixed-size, pre-populated table** (case-insensitive
+  `stricmp`, 24-byte records), returns null on miss with **no disk-load
+  fallback**. This is why the Loading screen exists as a distinct game
+  state: **`State10_Loading_PreloadAssets`** (`0x43f0e0`, was `FUN_0043f0e0`,
+  12,346 bytes) loads every character/weapon/effect texture (`tank1.img`,
+  `bullet1n.img`, `flame11.img`, etc. — hundreds of filenames) into this
+  table up front, so **no texture load ever happens mid-battle**.
+- **`FindTextureCacheEntryByName`** (`0x4f4650`, was `FUN_004f4650`): a
+  string-keyed chain/tree lookup (root at `+0x1b4`, `next` pointer at
+  `+0x98`), used by `State11_InBattle_Render` to resolve a sprite-effect name
+  to a cache entry, then write computed **sprite-sheet UV coordinates**
+  directly into that entry's fields (`+0x80`/`+0x84`/`+0x88`) before drawing.
+  Likely a *second*, more general-purpose named-object registry (effects,
+  not just textures) distinct from the fixed preload table above.
+
+### Sprite-sheet frame selection
+
+Confirmed pattern, seen dozens of times throughout `State11_InBattle_Render`:
+```
+entry->u = (frameIndex & mask) * cellSize;
+entry->v = (frameIndex >> shift) * cellSize;
+```
+i.e. treating a loaded texture as a fixed-size grid and computing a sub-rect
+by frame index — standard sprite-sheet/tile-atlas animation. Grid sizes seen:
+2×N (mask `&1`), 3×3 (`%3`/`/3`), 4×N (`&3`/`>>2`), 8×N (`&7`).
+
+### Turret/sprite rotation
+
+`g_sineTable360` (`0x54c240`, confirmed in the physics investigation) — a
+360-entry precomputed sine table indexed by `angle % 360` (cosine via
+`(angle+90) % 360`) — is used by rendering to orient sprites (e.g. turret
+angle) via the classic 2D rotation formula
+`x' = x + sin(a)*A + cos(a)*B`. Its only confirmed caller so far
+(`0x4ebbc0`) is called from `State11_InBattle_Render`.
+
+### Open threads for a deeper rendering pass
+
+1. `DAT_00793604`'s true identity (input device vs. something else) —
+   resolving this would clarify a lot of interleaved calls across
+   `InitDirectDraw`, `GameTick`, and the render function.
+2. The actual `Blt`/`Flip` call(s) that present a completed frame haven't
+   been isolated yet — this pass found surface *setup* and the sprite/UV
+   computation, not the final blit-to-screen call.
+3. Only `State11_InBattle_Render` has been read in detail. The other states'
+   equivalent render paths (if they have dedicated ones, vs. relying on
+   Windows `WM_PAINT`/GDI for simpler static screens like Title/Logo) are
+   unexplored.
+4. The `+0x98`-chained cache structure behind `FindTextureCacheEntryByName`
+   (hash bucket chain vs. simple linked list vs. tree) isn't confirmed.
