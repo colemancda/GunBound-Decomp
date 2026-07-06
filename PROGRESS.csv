@@ -231,7 +231,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040eaa0,2390,InitGame,false,2,32,TODO
 0040f400,3111,Shutdown,false,1,12,TODO
 00410040,917,WndProc,false,1,22,TODO
-004104f0,5587,FUN_004104f0,false,1,49,TODO
+004104f0,5587,WriteReplayEventRecord,false,1,49,TODO
 00411b40,1502,FUN_00411b40,false,2,13,TODO
 00412130,426,FUN_00412130,false,1,5,TODO
 004122f0,430,ChangeGameState,false,15,8,TODO
@@ -1238,7 +1238,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f02c0,92,LockBackBuffer,false,4,0,TODO
 004f0320,91,FUN_004f0320,false,1,0,TODO
 004f0380,112,ReadXFSEntry,false,9,1,TODO
-004f03f0,316,FUN_004f03f0,false,5,4,TODO
+004f03f0,316,DecodeXFSEntryBlock,false,5,4,TODO
 004f0530,281,FUN_004f0530,false,4,4,TODO
 004f0650,108,FUN_004f0650,false,1,2,TODO
 004f06c0,471,ReadXFSEntryByte,false,66,3,TODO
