@@ -5,6 +5,68 @@ pseudocode, cross-referenced call sites, and data-layout inspection — not gues
 Confidence is noted per finding. This complements [PROGRESS.csv](PROGRESS.csv)
 (the flat function worklist) with structural/behavioral understanding.
 
+## Dependencies
+
+Everything the client links against or vendors internally, gathered from
+the import table, the string table ([STRINGS.md](STRINGS.md)'s "Windows
+DLLs referenced" section), and decompiled subsystem-init code.
+
+### Windows system DLLs (dynamically linked)
+
+| DLL | Used for | Confirmed via |
+|---|---|---|
+| `ddraw.dll` | DirectDraw7 **and** Direct3D7 — DirectX 7 packages D3D inside `ddraw.dll`, obtained by `QueryInterface`-ing the DirectDraw7 object for `IID_IDirect3D7` rather than loading a separate D3D DLL | `InitDirectDraw` (`0x4efaa0`): `LoadLibraryA("ddraw.dll")` + `DirectDrawCreateEx`; GUID-decoded `QueryInterface` chain confirmed in the rendering section below |
+| `dsound.dll` | DirectSound8 audio | `InitDirectSound` (`0x4ee5b0`): `LoadLibraryA("dsound.dll")` + `DirectSoundCreate8` |
+| `dinput8.dll` | DirectInput8 (keyboard/controller input) | `InitDirectInput` (`0x4edc50`): `LoadLibraryA("dinput8.dll")` + `DirectInput8Create` |
+| `ws2_32.dll` | Winsock — UDP networking (`recvfrom`/`sendto`), the entire game protocol described in [PROTOCOL.md](PROTOCOL.md) | `WSAStartup` call in `WinMain`, `CCommP2P<>` notify window (`InitCommP2PNotifyWindow`, `0x4fdf00`) |
+| `winmm.dll` | Windows multimedia — timing-related, specific API not isolated | Import table only |
+| `gdi32.dll` | GDI — window/menu chrome outside the D3D-owned client area | Import table only |
+| `user32.dll` | Window management, message loop (`WndProc` at `0x410040`) | `WinMain` |
+| `advapi32.dll` | Registry access — display-mode persistence (`Software\Softnyx\GunBound`) and the hardware-fingerprint/anti-cheat registry reads found while investigating the replay `fopen` call site | `ReadRegistryDword`/`WriteRegistryDword`/`GetDisplayConfigFromRegistry` (`0x40c470`/`0x40c550`/`0x40c620`); registry-scanning functions at `0x5207d0`/`0x523530`/`0x524bb0` |
+| `imm32.dll` | IME (Input Method Editor) — Korean text input in chat | Import table only |
+| `shell32.dll` | Shell utility calls | Import table only, specific calls not isolated |
+| `ole32.dll` / `oleaut32.dll` | COM infrastructure underlying the DirectX7 COM interfaces (`IDirectDraw7`, `IDirect3D7`, `IDirect3DDevice7`, etc.) | Import table, consistent with the confirmed COM vtable chain in the rendering section |
+| `kernel32.dll` / `ntdll.dll` | Core Win32/NT — process/thread management, critical sections, file I/O (`CreateFileA`, `fopen` chain) | Throughout; e.g. `__tsopen_lk`/`__openfile`/`__fsopen` CRT chain traced during the replay-file investigation |
+| `mscoree.dll` | .NET CLR | **Not used by `GunBound.gme`** — this dependency belongs to the separate **`GunBound.exe` launcher stub** (a small .NET assembly, source `GunBound.cs`) that decrypts/injects and starts the real native game; it is not linked into the decompilation target itself |
+
+No other DLLs (no `d3d8.dll`/`d3d9.dll`, no `xinput`, no third-party
+middleware DLLs) were found in the import table or string table.
+
+### Vendored/embedded open-source code
+
+Unlike the DLLs above (dynamically linked at runtime), this is code **compiled
+directly into `GunBound.gme`** — no separate library file, just functions
+living in `.text` alongside the game's own code.
+
+- **LZHUF (`LZHUF.C`)** — a public-domain LZSS+adaptive-Huffman compression
+  codec written by Haruhiko Okumura and Haruyasu Yoshizaki (released ~1988,
+  the same lineage used by LHA `.lzh` archives), copied wholesale into the
+  engine to compress `.xfs` archives (both the table of contents and
+  individual entries) and `.dat` game-data files — see
+  [FILEFORMATS.md](FILEFORMATS.md) for the full algorithm confirmation.
+  Identified via an exact constants/structure match rather than just a
+  family resemblance: `InitLZHUFTree` (`0x4ea300`) initializes `N_CHAR=314`
+  symbols and a `T=627`-node tree (`2*N_CHAR-1`, the reference formula), and
+  `DecodeLZHUFBlock`/`FUN_004ea670`/`FUN_004ea6e0` (`0x4eaba0`/`0x4ea670`/
+  `0x4ea6e0`) are structurally identical to the reference source's
+  `Decode`/`DecodeChar`/`DecodePosition` functions, right down to the
+  4096-byte sliding window and space-initialized ring buffer. Being
+  public-domain, its inclusion here carries no licensing complication for
+  this decompilation project — only the surrounding game-specific code
+  calling it is proprietary.
+- No other vendored open-source code (no zlib, no libpng, no Boost, no
+  scripting-language runtime) has been found anywhere in the binary.
+
+### Compiler/runtime
+
+Statically-linked **Visual C++ 2003 (linker version 7.10)** CRT — confirmed
+by the full set of `R6002`-`R6029` runtime-error strings, `TLOSS`/`SING`/
+`DOMAIN` math-error messages, and the CRT internals traced during the
+replay-file investigation (`__fsopen`→`__openfile`→`__sopen`→`__tsopen_lk`,
+the fopen implementation at `FUN_00525fac`). See
+[STRINGS.md](STRINGS.md#systemcrt-boilerplate-summarized-not-itemized) for
+the full boilerplate-string inventory.
+
 ## Entry point and top-level flow
 
 `WinMain` (`0x40d8e0`) — registry checks, single-instance mutex, window
