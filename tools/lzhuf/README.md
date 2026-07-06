@@ -69,6 +69,14 @@ back-references) desynced almost immediately.
 - `lzhuf_ref.c` — the independent C port used during debugging. **Still
   has the same wrong tables as the original bug** (not yet fixed) — kept
   as-is for historical reference; don't trust its output. Use `lzhuf.py`.
+- `verify_checksum.py` — validates a decoded entry against the archive's
+  own embedded integrity checksum (see `FILEFORMATS.md`'s `.xfs` section
+  for the algorithm, reverse-engineered from `DecodeXFSEntryBlock`). Useful
+  any time there's doubt about whether a decode is bit-for-bit correct,
+  independent of file type:
+  ```
+  python3 verify_checksum.py /path/to/graphics.xfs tank1.img
+  ```
 
 ## Extracting a sprite image
 
