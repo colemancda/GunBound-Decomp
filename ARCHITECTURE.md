@@ -628,11 +628,21 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
    documented this pass: `0x8104` (shows the end-of-match "confirm result"
    button) and `0x8500` (a player-position/status relay, also independently
    confirmed as a replay-event code logged elsewhere — see
-   [PROTOCOL.md](PROTOCOL.md)). Almost all `0x84xx`/`0xc3xx`/`0xc4xx` action
-   codes are now documented; a handful of smaller gaps remain (`0xc302`,
-   `0xc307`, `0xc309`, and most of `0xc402`-`0xc408`), plus the meaning of
-   `+0x10a4`/`+0x2302` on the In-Battle object beyond "turn timer" /
-   "8-element setup array."
+   [PROTOCOL.md](PROTOCOL.md)). **All `0x84xx`/`0xc3xx`/`0xc4xx` action
+   codes are now fully accounted for**: re-decompiled `ProcessBattleAction`'s
+   actual `switch` statements directly (rather than a plain-text scan, which
+   had missed jump-table-based cases) and confirmed `0xc302`/`0xc307`/
+   `0xc309`/`0xc402`-`0xc408` **never appear as distinct `case` labels at
+   all** — every one of them falls through to the shared default label,
+   which is a plain no-op (`return`, no side effects). These codes are
+   simply not specially handled by this client build; not an
+   investigation gap, a confirmed negative. Also found and documented two
+   more real codes this pass that a plain-text scan had missed: `0xc40a`
+   (a small per-slot 2-`int` position-ish array write) and upgraded
+   `0xc40b`'s writeup from "generic housekeeping" to its actual confirmed
+   behavior (a filtered per-player sound-plus-notification broadcast).
+   Remaining open item in this channel: the meaning of `+0x10a4`/`+0x2302`
+   on the In-Battle object beyond "turn timer" / "8-element setup array."
 6. **DONE** — all opcodes across every `ProcessPacket`/`ProcessBattleAction`
    handler mapped; see [PROTOCOL.md](PROTOCOL.md) for the full packet
    reference (this superseded the original opcode-mapping goal here).
