@@ -53,3 +53,17 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# --- Decomp toolchain (added by setup) ---
+# Proprietary original game + assets (do NOT commit)
+orig/
+# Proprietary MSVC 7.10 tree the user supplies
+tools/msvc-env/msvc7/
+# Ghidra project database (28MB, regenerable) and python venv
+ghidra_proj/
+tools/.venv/
+tools/asm-differ/
+*.gme
+*.xfs
+*.dat
+.DS_Store
