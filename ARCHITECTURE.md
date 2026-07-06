@@ -565,22 +565,96 @@ entry->v = (frameIndex >> shift) * cellSize;
 Standard sprite-sheet/atlas animation — sub-rect from a frame index. Grid
 sizes seen: 2×N (`&1`), 3×3 (`%3`/`/3`), 4×N (`&3`/`>>2`), 8×N (`&7`).
 
-### Turret/sprite rotation
+### Turret/sprite rotation → hardware vertex pipeline (now connected end to end)
 
 `g_sineTable360` (`0x54c240`) — 360-entry precomputed sine table indexed by
-`angle % 360` (cosine via `(angle+90) % 360`) — orients sprites via
-`x' = x + sin(a)*A + cos(a)*B`. Confirmed caller `0x4ebbc0` runs inside
-`State11_InBattle_Render`.
+`angle % 360` (cosine via `(angle+90) % 360`) — feeds **`BuildRotatedSpriteQuad`**
+(`0x4ebbc0`, was `FUN_004ebbc0`), which computes a rotated sprite's 4 corner
+positions via `x' = x + sin(a)*A + cos(a)*B` and writes a **27-dword (108-byte)
+"vertex work record"** — 4 rotated corners plus color/alpha fields — into
+**`g_spriteVertexBuffer`** (`0x6ba190`) at index **`g_spriteVertexCount`**
+(`0x793658`, an incrementing per-frame sprite counter, stride `0x1b` dwords).
 
-### Open threads for a deeper rendering pass
+This buffer is exactly what `IDirect3DDevice7::DrawPrimitive` consumes later
+in the same frame:
+```
+DrawPrimitive(device, D3DPT_TRIANGLELIST /*4*/, FVF=0x244,
+              &g_spriteVertexBuffer[...], vertexCount, flags)
+```
+confirmed via raw disassembly of the call site (the decompiler couldn't
+recover these arguments — Ghidra showed empty parens — so this required
+reading x86 `PUSH`/`CALL` sequences directly). This closes the loop: rotation
+math → vertex buffer → GPU draw call, all inside `State11_InBattle_Render`.
+The `g_spriteVertexBuffer` entry's internal field layout (which floats map to
+which FVF component) isn't broken down byte-by-byte, but the pipeline shape
+is now solid.
 
-1. Only `State11_InBattle_Render` has been read in detail. The other states'
-   render paths (dedicated vs. simpler software-only for Title/Logo) are
-   unexplored — though the shared present/lock/blit primitives above almost
-   certainly serve all of them.
-2. The exact `IDirect3DDevice7::DrawPrimitive` vertex format (FVF) for the
-   hardware sprite quads hasn't been extracted — would confirm the
-   texture-coordinate + alpha layout.
-3. `DAT_007935fc` (a third surface `Release`d/`Restore`d alongside the primary
-   and back buffer) isn't identified — possibly an offscreen work surface for
-   the software blitter.
+### `DAT_007935fc` — resolved: the Z-buffer
+
+Traced its creation in `SetupZBuffer` (`0x4ef9a0`, was `FUN_004ef9a0`):
+`IDirect3D7::EnumZBufferFormats` finds a supported depth format, then
+`IDirectDraw7::CreateSurface` builds `g_pZBufferSurface`, which gets
+`AddAttachedSurface`'d onto the back buffer and the device's render target is
+re-set. A Z-buffer for what's fundamentally 2D sprite rendering — plausibly
+just a HAL-device requirement of this D3D7 code path, or used for
+depth-sorted overlapping sprites (not confirmed which).
+
+### Hardware rendering is In-Battle-only — resolved
+
+Checked every function in the binary that touches `g_pD3DDevice7` (17 total).
+Fifteen are core D3D infrastructure (init/shutdown/present/z-buffer — all
+already documented above). Of the remaining two, **both are In-Battle
+content**: `State11_InBattle_Render` (the main render function) and
+**`State11_InBattle_RenderModeIcons`** (`0x4caed0`, was `FUN_004caed0`,
+944 bytes — draws special-mode indicator icons, confirmed via `TagTexture`/
+`YesooriTexture` strings, i.e. Tag-mode and Yesoori-mode battle indicators).
+
+**Conclusion: the Direct3D 7 hardware pipeline (rotated textured quads,
+alpha blending, the vertex buffer) is used exclusively during In-Battle
+rendering.** Every other screen — Title, Server Select, Room List, Avatar
+Store, Ready Room, Loading, both Logo screens — renders entirely through the
+**software blitter** (`LockBackBuffer`/`BlitRLESprite`/`BlitSprite16bpp`/
+`BlitSpriteClipped`/`Unlock`), never touching the D3D device. This makes
+sense architecturally: menus/lobbies are static-positioned 2D UI with no
+rotation needs, while battle requires rotated, alpha-blended, numerous
+dynamic sprites (tanks, projectiles, explosion effects) where GPU
+acceleration earns its keep. This closes the "other states' render paths"
+open thread — there isn't a separate hardware path to find for them.
+
+### Software-blitter callers: non-battle states do have real render content
+
+Checked who calls the four software blit primitives (`BlitRLESprite`,
+`BlitSprite16bpp`, `BlitSpriteClipped`, ~29-30 callers each). Two confirmed,
+concrete results:
+
+- **`LockBackBuffer` is called only from `GameTick`** — the buffer lock is
+  centralized; individual draw functions receive/operate on the already-
+  locked pixel buffer rather than locking it themselves.
+- **`State03_GameRoomList_RenderRoomLabel`** (`0x429810`, was `FUN_00429810`)
+  — confirmed via vtable-offset arithmetic (`0x5536ac` − `0x553670` = `0x3c`
+  = slot 15 on State 3's vtable) — draws room name/player-count labels using
+  the **same `%s[%3d/%3d]` bitmap-font text format** as the In-Battle
+  scoreboard (`State11...`'s slot-15 function, `0x408180`'s caller). This
+  confirms non-battle screens **do** render real per-state content through
+  the software path, using shared text-rendering infrastructure — they
+  aren't merely static.
+
+However, checking the same vtable slot across other states (State 2's slot
+15 is a distinct 62-byte function with no identifying strings; State 7's is
+the shared no-op) confirms — consistent with the earlier finding for slot 9
+— that **these vtable slots are generic per-state hooks with no fixed
+semantic**; "slot 15 = UI label" is true for State 3 specifically, not a
+universal rendering slot. Mapping each state's actual render entry point
+would mean checking each vtable slot individually per state rather than
+assuming a shared slot index — noted as future work, not completed here.
+
+### Remaining open threads
+
+1. `g_spriteVertexBuffer`'s exact per-vertex field layout (byte offsets for
+   position/color/UV within each 108-byte record) isn't broken down.
+2. Whether the Z-buffer is actually used for depth-sorting (vs. just present
+   because the HAL device requires one) is unconfirmed.
+3. Each state's actual "draw my screen" entry point(s) — confirmed to exist
+   and to use the shared software-blit primitives, but not enumerated one by
+   one across all 9 named states (only State 3's label renderer and State
+   11's two D3D render functions are pinned down so far).
