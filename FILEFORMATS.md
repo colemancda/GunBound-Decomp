@@ -664,12 +664,48 @@ sparse) are correctly understood, not just lucky on a handful of samples.
 
 ### Open questions
 
-- **Multi-frame layout beyond frame 0 isn't mapped.** `tank1.img` claims
-  455 frames, but `(total size − header) / frame count` doesn't divide
-  evenly assuming every frame is the same 36×40 size — frames likely vary
-  in dimensions (different rotation angles have different bounding boxes)
-  and/or each frame has its own small header repeating the frame-0
-  layout. Not decoded this pass; only frame 0 is confirmed.
+- **Multi-frame layout beyond frame 0 — partially mapped, not solved.**
+  Found the actual runtime loader/renderer pair via Ghidra rather than
+  guessing offsets: `FUN_004f1790` (allocates one `0x50`-byte frame object
+  per `frame_count` and calls `FUN_004f1520` on each), `FUN_004f1520` (the
+  per-frame field parser, reads via the generic stream cursor
+  `ReadXFSEntryByte(handle, dest, size)`), and `BlitSprite16bpp`
+  (`0x4ed6a0`, the renderer, confirmed via decompile to walk a row list via
+  `[stride:u16][run_count:u16]` exactly matching the sparse format already
+  documented above for frame 0). Disassembling `FUN_004f1520` byte-by-byte
+  (sizes are passed in a register the decompiler doesn't show, so raw
+  disassembly was required) gives an exact per-frame record shape:
+  4 individual 1-byte fields, then 8 more 4-byte fields (width, height,
+  hotspot_x, hotspot_y, a "has second blob" flag, and 3 more unidentified
+  4-byte fields), then a 4-byte pixel-byte-count field, then that many
+  raw bytes (rounded up to even) as the primary pixel blob, then —
+  *only if the flag's low byte is nonzero* — a second 4-byte size field
+  and a second raw blob. This is exactly the frame-0 layout (offset by
+  the one-time 8-byte `unknown`+`frame_count` prefix) continuing
+  per-frame, which is what the original heuristic guessed structurally.
+
+  **Validated exactly on a minority of files, not the general case.**
+  Walking this record shape across every multi-frame entry in
+  `graphics.xfs` (5,147 entries with `frame_count > 1`): only **75 decode
+  end-to-end with the frame walk landing exactly on the file's declared
+  decompressed size** (small UI elements like `avataimsi.img` and several
+  `b_*.img` button icons with 3–4 near-identical frames). The other
+  ~5,070 fail — most immediately at frame 1 or frame 2, a handful with a
+  small trailing mismatch. The failure pattern is suspicious and
+  consistent across unrelated files (checked on both `tank1.img`, 455
+  rotation frames, and `b_buddy_del.img`, 4 button-state frames): frame 1
+  parses cleanly and its fields exactly mirror frame 0's (same width,
+  height, hotspot, even the same pixel-byte-count), but frame 2's "header"
+  is garbage — meaning either the frame 0→1 boundary math is
+  coincidentally right only when frame 1 duplicates frame 0, or there's
+  another per-frame conditional (beyond the one confirmed special-case:
+  a byte-doubling hack gated on `group_id == 60000 && frame_index == 0`,
+  which almost certainly doesn't apply to any of these assets) that
+  wasn't captured from the disassembly. Resolving this further would need
+  either dynamic analysis (breakpoint in `FUN_004f1520`, step through a
+  real multi-frame load) or checking whether frame *index 1* specifically
+  is special-cased somewhere not yet found. Frame 0 decoding remains
+  fully solved regardless of this open question.
 - Hundreds of `.img` filenames were also observed as string literals
   throughout the character/weapon/effect code (`tank1.img`, `bullet1n.img`,
   `flame11.img`, `mf%05d.img` for terrain deformation frames, etc.),
