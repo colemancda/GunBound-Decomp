@@ -41,30 +41,39 @@ registration/creation (`WndProc` at `0x410040`), `WSAStartup`, then:
   (`0x5b33ec`), `g_stateChangeRequested` (`0x7934d4`),
   `g_stateChangeInProgress` (`0x793508`).
 
-### Confirmed state-array slots (index: size, ctor, evidence)
+### The 16 game states — CONFIRMED by resource strings
 
-| Idx | Object size | Vtable / ctor | Notes |
+Each state's `OnEnter` hook (vtable slot 7, offset `+0x1c`) loads a named
+`.img`/`.mp3` resource set that identifies the screen unambiguously. Names in
+the Ghidra project follow `StateNN_Name_OnEnter/OnExit`; vtables are
+`vtable_StateNN_Name`.
+
+| Id | Screen | Identifying resources | Object size / ctor |
 |---|---|---|---|
-| 0 | 4 | `PTR_LAB_00553fb0` (shared/null) | Pre-init placeholder state |
-| 1 | 8 | `0x557278` | unexplored |
-| 2 | 0x6c (108) | `0x5570f0` | unexplored |
-| 3 | 0x294 (660) | `vtable_State3_NetworkSession` (`0x553670`) | **Owns `ProcessPacket`** — see Network Protocol below. Reached as a ChangeGameState target from network-module-adjacent code (`0x4e0c68`) and `0x444346`. Tentatively: connecting/session state. |
-| 5 | 8 | `0x555590` | unexplored |
-| 6 | 8 | `0x555528` | unexplored |
-| 7 | 0x34818 (215,064) | `FUN_00443c20` (custom ctor) | Constructs arrays incl. **8 elements × 0x224 (548) bytes** = per-player game slots, matching GunBound's known 8-player room cap. Tentatively the in-game/gameplay state. Reached via `ChangeGameState(7)` from `ProcessPacket` on opcode `0x6001`. |
-| 9 | 0x78c (1,932) | `FUN_004d3770` | unexplored. Reached via `ChangeGameState(9)` from `ProcessPacket` after a per-player stat-summation loop and viewport reset to `(0,0,799,599)` (the 800×600 play area). |
-| 10 | 0x150 (336) | `0x554018` | unexplored |
-| 11 | 0x2408 (9,224) | `FUN_004b3f90` | unexplored |
-| 12–14 | — | (none constructed) | unused/reserved state IDs |
-| 15 | 4 | `PTR_LAB_00553fb0` (shared/null) | **Quit.** `ChangeGameState(0xf)` calls `PostQuitMessage(0)` directly, skipping the normal enter-hook dance. |
+| 0 | Null/pre-init | (shared trivial vtable `0x553fb0`) | 4 |
+| 1 | **Title** | `titlemode.img`, `title.mp3` | 8 |
+| 2 | **Server / Channel select** | `server_list.img`, `b_server_choiceserver.img`, `channel.mp3` | 0x6c |
+| 3 | **Game Room List** (channel lobby) | `gamelist_back.img`, `gamelist_create.img`, `b_gamelist_join/ranking/avatar/buddy.img` | 0x294 — **owns `ProcessPacket`** (see below) |
+| 5 | **Logo screen 1** | `logomode.img`, `logo.mp3` | 8 |
+| 6 | **Logo screen 2** | `logomode2.img`, `logo2.mp3` | 8 |
+| 7 | **Avatar Store / Shop** | `store_*.img`, `b_store_buy/cap/cloth/glasse/flag.img` | 0x34818 (215 KB); ctor `FUN_00443c20` builds an 8×0x224-byte array (per-avatar slots) |
+| 9 | **Ready Room** (pre-battle) | `ready_selectmap.img`, `ready_selectcharacter.img`, `b_ready_startgame.img` | 0x78c; ctor `FUN_004d3770` |
+| 10 | **Loading** | `loadmode.img`, `loadstage.img` | 0x150 |
+| 11 | **In-Battle / Playing** | `stage%d.mp3`, `b_play_weapon2/weapon3/skip/tag/all` | 0x2408 (9 KB); ctor `FUN_004b3f90` |
+| 12–14 | (unused/reserved) | none constructed | — |
+| 15 | **Quit** | shares null vtable `0x553fb0`; `ChangeGameState(0xf)` calls `PostQuitMessage(0)` directly | 4 |
 
-States 2, 5, 6 also appear as `ChangeGameState` targets from small, currently
-un-named call sites; not yet decompiled.
+**Screen flow** (from `ChangeGameState` targets): Logo1(5) → Logo2(6) →
+Title(1) → ServerSelect(2) → GameRoomList(3) ⇄ AvatarStore(7), and
+GameRoomList(3) → ReadyRoom(9) → InBattle(11), with Loading(10) interstitial.
+States 0 and 15 use a shared trivial "null object" vtable — the null-object
+pattern for states needing no enter/exit behavior.
 
 ## Network protocol (via `ProcessPacket`)
 
 `ProcessPacket` (`0x426ad0`, was `FUN_00426ad0`) — **high confidence**: virtual
-method on the state-3 session object, signature
+method on the **state-3 Game Room List** object (which doubles as the
+network-session owner while in the channel lobby), signature
 `void ProcessPacket(int payloadLen, unsigned short opcode, unsigned short *payload)`
 (this-pointer auto-parameter + 3 named params, confirmed via decompiler commit).
 Dispatches purely on `opcode`; this is the client's incoming-packet handler.
@@ -81,8 +90,8 @@ and branch target*):
 | `0x2111`, `0x2121` | Same `0x21xx` cluster as `0x2103`/`0x21f0`/`0x21f1` — likely room/lobby-related. |
 | `0x21f0` | Writes into a per-slot buffer at `object + slot*0x80`, gated on `FUN_0041c290() != -1`. |
 | `0x21f1` | separate branch, not yet decompiled in detail |
-| `0x6001` | **Confirmed**: room→game transition. Unpacks 4 map/room uint fields, builds an array of per-"player" 3-byte tuples using `rand()` (seed/roll generation?), then `ChangeGameState(7)`. |
-| (unlabeled, reaches `ChangeGameState(9)`) | Large per-slot stat-accumulation loop (20 elements × 0x224 bytes) summing what look like equipped-item stat bonuses per player/team slot, then resets viewport to `(0,0,799,599)` and transitions to state 9. |
+| `0x6001` | Unpacks 4 uint fields, builds an array of per-"player" 3-byte tuples using `rand()` (seed/roll generation?), then `ChangeGameState(7)` = **enter Avatar Store**. (Earlier notes guessed "room→game"; the target state is the store, per confirmed state IDs.) |
+| (unlabeled, reaches `ChangeGameState(9)`) | Large per-slot stat-accumulation loop (20 elements × 0x224 bytes) summing what look like equipped-item stat bonuses per player/team slot, resets viewport to `(0,0,799,599)`, then `ChangeGameState(9)` = **enter Ready Room**. |
 
 The `0x20xx` cluster looks like lobby/session-level opcodes, `0x21xx` looks like
 room-level opcodes, `0x60xx` looks like in-game/battle opcodes — consistent
@@ -111,15 +120,23 @@ categorization is a pattern observation, not confirmed from source.
 
 ## Open threads / good next targets
 
-1. Decompile the currently-unexplored state slots (1, 2, 5, 6, 9, 10, 11) to
-   name them and understand their role (lobby? character select? results?).
-2. Five `ChangeGameState` call sites are in code that Ghidra hasn't bound to a
-   Function object (`0x443350`, `0x443561`, `0x4b9ebe`, `0x4e0c68`,
-   `0x4e5421`, `0x42866c`) — these are reachable only via the packet-handler
-   dispatch table at `0x553670` and similar tables; worth manually creating
-   Function objects there.
-3. Map the rest of `0x2xxx`/`0x21xx`/`0x60xx` opcode space by finishing the
+1. **DONE** — all 16 game states identified and named (see table above).
+2. Each state object's vtable is ~18 slots with a common layout (slot 0 shared
+   base method `0x4e5320`; slot 2 = no-op stub `0x4fdef0`; slot 7 = OnEnter;
+   slot 8 = OnExit). Slots 3–6, 9+ are per-state input/update/render handlers,
+   mostly still `FUN_*`. Naming these per state (using the OnEnter resource
+   context) is the next systematic pass.
+3. Five `ChangeGameState` call sites (`0x443350`, `0x443561`, `0x4b9ebe`,
+   `0x4e0c68`, `0x4e5421`) are switch/jump fragments *inside* larger functions
+   whose auto-analysis was truncated — no standalone prologue nearby. They need
+   manual function-boundary repair in the Ghidra GUI (force-disassemble the
+   containing region); forcing a Function object at the fragment start would
+   yield wrong decompilation. Low priority — they don't block anything.
+4. Map the rest of `0x2xxx`/`0x21xx`/`0x60xx` opcode space by finishing the
    `ProcessPacket` decompile (only partially read here).
-4. Confirm the 0x224-byte per-player struct layout — cross-reference against
+5. Confirm the 0x224-byte per-player struct layout — cross-reference against
    the same stride appearing in other subsystems (rendering, item/character
    data files) to build a canonical `struct Player`.
+6. Identify the shared base-class methods (`0x4e5320` = every state's vtable
+   slot 0; `0x448430` = slot-1 in several) — likely `CGameState` base
+   ctor/dtor/type-id; naming them documents the state base class.
