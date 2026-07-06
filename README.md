@@ -1,8 +1,10 @@
 # GunBound-Decomp
 GunBound Thor's hammer decompilation project
 
-See [tools/README.md](tools/README.md) for toolchain setup and
-[PROGRESS.csv](PROGRESS.csv) for the function-level decompilation worklist.
+See [tools/README.md](tools/README.md) for toolchain setup,
+[PROGRESS.csv](PROGRESS.csv) for the function-level decompilation worklist, and
+[ARCHITECTURE.md](ARCHITECTURE.md) for reverse-engineered structural notes
+(game-state machine, network protocol, subsystem init).
 
 ## Reference file hashes
 
