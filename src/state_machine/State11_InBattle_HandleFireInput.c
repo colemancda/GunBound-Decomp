@@ -53,7 +53,6 @@ void __fastcall State11_InBattle_HandleFireInput(int *param_1)
   DWORD DVar24;
   int iVar25;
   byte bVar26;
-  undefined4 *unaff_FS_OFFSET;
   undefined1 local_b40 [548];
   CHAR CStack_91c;
   char acStack_91b [127];
@@ -61,14 +60,14 @@ void __fastcall State11_InBattle_HandleFireInput(int *param_1)
   undefined1 local_678 [548];
   undefined1 local_454 [548];
   undefined1 auStack_230 [548];
-  undefined4 local_c;
-  undefined1 *puStack_8;
   undefined4 local_4;
-  
+
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053d745;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup (local_c/puStack_8/
+   * unaff_FS_OFFSET, FS-register manipulation) stripped: the handler
+   * body (LAB_0053d745) was never included in this function's own
+   * decompilation, so there's no exact recovery behavior to preserve.
+   * Same rationale as entry/InitGame.c's fix - see src/README.md. */
   bVar4 = false;
   bVar7 = false;
   bVar6 = false;
@@ -311,7 +310,7 @@ LAB_0046000e:
   if ((iVar18 != 0xd) &&
      (((((iVar18 == 1 || (iVar18 == 3)) || (iVar18 == 4)) || ((iVar18 == 0 || (iVar18 == 2)))) &&
       (bVar8)))) {
-    uVar17 = (**(code **)(*param_1 + 0x14))();
+    uVar17 = (**(int (**)())(*param_1 + 0x14))();
     uVar17 = FUN_0040a6e0(param_1 + 0x2cc,local_b40,uVar17);
     local_4 = 0xe;
     iVar18 = FUN_0040a4d0(&DAT_00794bf0);
@@ -913,7 +912,6 @@ LAB_004613b2:
     *(undefined1 *)(param_1 + 0x2b85) = 1;
   }
 LAB_004619ff:
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 
