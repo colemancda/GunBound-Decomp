@@ -58,9 +58,13 @@ typedef unsigned long long ulonglong;
 typedef long long longlong;
 
 /* Ghidra's placeholder type for "this is a code/function pointer" in
- * expressions like `(**(code **)(vtable + N))(...)`. void works because
- * only its address/call syntax is ever used, never its size. */
-typedef void code;
+ * expressions like `(**(code **)(vtable + N))(...)`. Must be a real
+ * (if unspecified-signature) function type, not `void` - `code **`
+ * dereferenced twice needs to yield something callable. A plain `void`
+ * typedef looks equivalent at a glance (both untyped/sizeless) but
+ * silently breaks every call site: `**(void **)x` is a `void` value,
+ * and calling a `void` value is a hard error, not just a warning. */
+typedef void code(void);
 
 /* MSVC calling-convention keywords Ghidra emits that GCC/Clang don't
  * recognize the same way on x86-64 (where the distinction is moot -

@@ -64,18 +64,18 @@ rather than through one clean entry point.
   eventual game build; exists purely to validate `lzhuf_decode()` against
   real data without needing the rest of the game to compile.
 
-### Raw/verbatim ports — 575 functions so far
+### Raw/verbatim ports — 662 functions so far
 
 Started from every function in the whole binary with a **confirmed real
 name** (not a bare `FUN_<address>`) outside of `lzhuf/` — 92 of them —
-then cascaded outward two tiers by porting every unnamed `FUN_<address>`
+then cascaded outward three tiers by porting every unnamed `FUN_<address>`
 helper directly referenced from an already-ported file, then every
-helper referenced from *that* tier: 323 in the first pass, 160 in the
-second, 575 total so far (of ~2,327 functions in the whole binary per
-`PROGRESS.csv`). Named functions are organized into subdirectories by
-subsystem; the cascaded unnamed ones all live flat in `unnamed/`,
-addressed by their `FUN_<address>` name since nothing else is known
-about most of them yet:
+helper referenced from *that* tier, and so on: 323 in the first pass,
+160 in the second, 87 in the third, 662 total so far (of ~2,327
+functions in the whole binary per `PROGRESS.csv`). Named functions are
+organized into subdirectories by subsystem; the cascaded unnamed ones
+all live flat in `unnamed/`, addressed by their `FUN_<address>` name
+since nothing else is known about most of them yet:
 
 - **`entry/`** — `WinMain`, `InitGame`, `Shutdown`, `WndProc`, `GameTick`,
   `ChangeGameState`. Supersedes the old hand-written `main.c` skeleton —
@@ -121,22 +121,25 @@ Concretely, that means:
   `_RTL_CRITICAL_SECTION`) that lets this raw output parse as plain C
   without hand-editing every file for that class of issue. Include it
   before `<windows.h>` in any raw port.
-- **13 files (of 575 total raw ports, ~2.3%) have deeper, genuine syntax
+- **14 files (of 662 total raw ports, ~2.1%) have deeper, genuine syntax
   problems** beyond missing symbols — Ghidra's decompiler falling back to
   invalid-C pseudo-syntax for things it couldn't cleanly express
   (`variable._0_1_`-style partial-register/sub-byte-field access,
   `switch` on a pointer, array-type casts, `float10`/x87-extended-
   precision locals with no portable equivalent, an internal CRT
-  thread-data struct), usually in the largest/most complex functions or
-  ones close to raw CRT internals:
+  thread-data struct, or - in one case - a genuine MSVC ATL C++
+  template-library call Ghidra recognized and qualified with `::`,
+  which isn't valid C and isn't practical to reimplement without the
+  ATL template machinery behind it), usually in the largest/most
+  complex functions or ones close to raw CRT/ATL internals:
   - `state_machine/State02_ServerSelect_ProcessPacket.c`
   - `state_machine/State09_ReadyRoom_ProcessPacket.c`
   - `state_machine/State11_InBattle_OnEnter.c`
   - `network/HandleTurnTimeoutSlot.c`
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`
-  - `unnamed/FUN_0041b8c0.c`, `FUN_00449540.c`, `FUN_004cb280.c`,
-    `FUN_004ccd10.c`, `FUN_00504c10.c`, `FUN_00525c42.c`,
+  - `unnamed/FUN_0041b8c0.c`, `FUN_00401880.c` (the ATL call), `FUN_00449540.c`,
+    `FUN_004cb280.c`, `FUN_004ccd10.c`, `FUN_00504c10.c`, `FUN_00525c42.c`,
     `FUN_0053753c.c` (the last two are CRT-internal thread/FPU-state
     helpers, not game logic - likely not worth porting at all rather
     than fixing)
@@ -225,6 +228,42 @@ includes), so no raw-ported file needed editing to pick these up.
   a separate, ongoing effort, not a globals problem). The remaining
   errors are overwhelmingly unported `FUN_<address>` calls and the
   already-documented genuinely-broken files above, not missing globals.
+
+### A real bug in `ghidra_types.h` itself, found and fixed
+
+While cascading to a third tier of `unnamed/` functions, a new class of
+error showed up: `called object is not a function or function pointer`,
+on the standard vtable-dispatch idiom `(**(code **)(*ptr + offset))(...)`
+that's used *everywhere* in this codebase. The `code` typedef was
+`typedef void code;` - which looks reasonable (Ghidra's `code` is meant
+to be an untyped/sizeless placeholder, same spirit as `void`) but is
+actually wrong: dereferencing `code **` twice with `void` as the base
+type produces a `void` *value*, and calling a `void` value is a hard
+compile error, not just imprecise typing. The fix is
+`typedef void code(void);` - a real (if generically-signatured) function
+type, so `code **` dereferenced twice yields something actually
+callable, confirmed with a standalone test case before applying it.
+
+**This bug was present from the moment `ghidra_types.h` was created,
+not newly introduced** - every earlier "N of M files compile clean"
+figure quoted in this document (329/575, etc.) was measured *before*
+this fix, meaning any of those "clean" files that happen to use the
+vtable-dispatch idiom were actually passing for the wrong reason, or
+this specific error class simply hadn't been hit by whatever subset of
+files was checked in that pass.
+
+**Re-verifying the true clean-compile count across the whole tree
+(now 662 files) was attempted but not completed** - a full sweep takes
+long enough (each of 662 files spins up a separate `winegcc-stable`/Wine
+process) that it kept exceeding this environment's background-task time
+budget across several attempts, including a parallelized (8-way) retry.
+Treat every specific percentage elsewhere in this document as stale/
+provisional until someone runs `make winelib-syntax-check` (or
+equivalent) to completion and updates this section with a real number -
+that command is correct and known to work, it just needs to be run
+somewhere with enough uninterrupted wall-clock time. This is flagged
+explicitly rather than quietly left stale, since the underlying fix
+affects the whole tree at once, not a specific subset of files.
 
 ## Building and testing
 
