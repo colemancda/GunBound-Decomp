@@ -85,12 +85,12 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uVar7 = FUN_0040ada0(param_1 + 0x795,auStack_ac4,param_1 + 0xcf2);
       puStack_8 = (undefined1 *)0x0;
       FUN_0040a8c0(uVar7,auStack_8a0,100);
-      puStack_8._0_1_ = 1;
+      puStack_8 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar7);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      puStack_8 = (undefined1 *)((uint)puStack_8._1_3_ << 8);
+      puStack_8 = (undefined1 *)0;
       if (iStack_88c != 0) {
         FUN_0040a240();
         FUN_0040b540(&local_ad8);
@@ -105,12 +105,12 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uVar7 = FUN_0040ada0(param_1 + 0x81e,auStack_8a0,param_1 + 0xcf2);
       puStack_8 = (undefined1 *)0x2;
       FUN_0040a8c0(uVar7,auStack_ac4,100);
-      puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,3);
+      puStack_8 = (undefined1 *)3;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar7);
       (*pcVar16)(&DAT_005a9068);
-      uStack_c = CONCAT31(uStack_c._1_3_,2);
+      uStack_c = 2;
       if (iStack_ab4 != 0) {
         FUN_0040a240();
         FUN_0040b540(&uStack_adc);
@@ -125,12 +125,12 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uVar7 = FUN_0040ada0(param_1 + 0x8a7,auStack_8a4,param_1 + 0xcf2);
       uStack_c = 4;
       unaff_EBP = FUN_0040a8c0(uVar7,auStack_ac8,100);
-      uStack_c = CONCAT31(uStack_c._1_3_,5);
+      uStack_c = 5;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar7);
       (*pcVar16)(&DAT_005a9068);
-      uStack_10 = CONCAT31(uStack_10._1_3_,4);
+      uStack_10 = 4;
       if (iStack_ab8 != 0) {
         FUN_0040a240();
         FUN_0040b540(&iStack_ae0);
@@ -145,12 +145,12 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uVar7 = FUN_0040ada0(param_1 + 0x930,auStack_8a8,param_1 + 0xd7b);
       uStack_10 = 6;
       FUN_0040a8c0(uVar7,auStack_acc,100);
-      uStack_10 = CONCAT31(uStack_10._1_3_,7);
+      uStack_10 = 7;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar7);
       (*pcVar16)(&DAT_005a9068);
-      uStack_14 = CONCAT31(uStack_14._1_3_,6);
+      uStack_14 = 6;
       if (iStack_abc != 0) {
         FUN_0040a240();
         FUN_0040b540(&stack0xfffff51c);
@@ -165,12 +165,12 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uVar7 = FUN_0040ada0(param_1 + 0x9b9,auStack_8ac,param_1 + 0xd7b);
       uStack_14 = 8;
       FUN_0040a8c0(uVar7,&uStack_ad0,100);
-      uStack_14 = CONCAT31(uStack_14._1_3_,9);
+      uStack_14 = 9;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar7);
       (*pcVar16)(&DAT_005a9068);
-      uStack_18 = CONCAT31(uStack_18._1_3_,8);
+      uStack_18 = 8;
       if (iStack_ac0 != 0) {
         FUN_0040a240();
         FUN_0040b540(&stack0xfffff518);
@@ -185,12 +185,12 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uVar7 = FUN_0040ada0(param_1 + 0xa42,auStack_8b0,param_1 + 0xd7b);
       uStack_18 = 10;
       FUN_0040a8c0(uVar7,auStack_ad4,100);
-      uStack_18 = CONCAT31(uStack_18._1_3_,0xb);
+      uStack_18 = 0xb;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar7);
       (*pcVar16)(&DAT_005a9068);
-      uStack_4 = CONCAT31(uStack_4._1_3_,10);
+      uStack_4 = 10;
       if (iStack_aac != 0) {
         FUN_0040a240();
         iStack_ae0 = iStack_aac;

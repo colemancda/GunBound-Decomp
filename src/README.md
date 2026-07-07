@@ -165,10 +165,9 @@ Concretely, that means:
     `stack0xffffff80` raw-stack-offset issue as
     `State10_Loading_PreloadAssets.c`, plus sub-byte-field access and a
     vtable-return-value-used call each)
-  - `unnamed/FUN_00406990.c`, `unnamed/FUN_00408180.c`,
-    `unnamed/FUN_004141b0.c` (sub-byte-field access, plus
-    `FUN_00408180.c` also has a missing `DAT_0067e818` global from the
-    same ~1159-address gap noted above)
+  - `unnamed/FUN_00408180.c`, `unnamed/FUN_004141b0.c` (sub-byte-field
+    access, plus `FUN_00408180.c` also has a missing `DAT_0067e818`
+    global from the same ~1159-address gap noted above)
   - `unnamed/FUN_0041da80.c` (SEH frame plumbing plus multiple
     `stack0xfffffbNN` raw-stack-offset references, same unrecoverable
     class as `State10_Loading_PreloadAssets.c`)
@@ -186,6 +185,25 @@ Concretely, that means:
     plumbing to strip, not done yet since the sub-byte access needs
     fixing regardless and the SEH-local variable names differ per
     file, not a safe blind bulk edit)
+
+  **A recurring, mechanically-fixable sub-case found later**: an
+  exception-cleanup-index local (`local_c`/`local_4`/`uStack_c`/
+  `puStack_8`/etc. - the same slot the SEH frame plumbing uses, or one
+  right next to it) gets counted through a function's many
+  `FUN_0040a240`/`FUN_0040b540` cleanup-pair calls via single-byte
+  writes that Ghidra renders as `var._0_1_ = N;`, plus one or more
+  resets rendered as `var = (uint)var._1_3_ << 8;` or
+  `var = CONCAT31(var._1_3_,N);`. In every case checked, the variable
+  only ever holds small (<0x100) constants with the upper 3 bytes
+  never set to anything but zero, so these are safe, purely mechanical
+  rewrites: `var._0_1_ = N;` → `var = N;`, `var = (uint)var._1_3_ << 8;`
+  → `var = 0;`, `var = CONCAT31(var._1_3_,N);` → `var = N;`.
+  `unnamed/FUN_004174c0.c` and `unnamed/FUN_00406990.c` were fully
+  fixed this way (plus their SEH plumbing). `unnamed/FUN_00432850.c`,
+  `unnamed/FUN_0044d9b0.c`, and `unnamed/FUN_00452cc0.c` had this same
+  sub-case applied but remain broken for other, unrelated reasons
+  (more sub-byte-field access elsewhere, raw `stack0x...` offset
+  references) - the partial fix is still correct and worth keeping.
   - `unnamed/FUN_0043a670.c` (sub-byte-field-adjacent: an lvalue-
     assignment issue at line 51 plus a `stack0xfffffdb4` raw-stack
     reference, same unrecoverable class as
@@ -195,7 +213,10 @@ Concretely, that means:
     access; `FUN_0044a000.c` additionally has its own
     `stack0xfffffee8` raw-stack reference)
   - `unnamed/FUN_0044d9b0.c`, `unnamed/FUN_00452cc0.c` (sub-byte-field
-    access, plus their own SEH frame plumbing not stripped yet)
+    access - `stack0xfffff51c`/`stack0xfffff518`/etc. raw-stack
+    references and more - plus their own SEH frame plumbing not
+    stripped yet; the mechanical exception-index sub-case described
+    above was already fixed in both)
   - `unnamed/FUN_0044f050.c` (sub-byte-field access plus a
     `stack0xfffff524` raw-stack reference, plus its own SEH frame
     plumbing not stripped yet)

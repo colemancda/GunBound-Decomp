@@ -10,421 +10,426 @@
 void __fastcall FUN_004174c0(int param_1)
 
 {
-  undefined4 *unaff_FS_OFFSET;
   undefined1 local_20 [12];
-  undefined4 local_14;
-  undefined1 *puStack_10;
   int local_c;
-  
-  puStack_10 = &LAB_005389b6;
-  local_14 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_14;
+
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_005389b6) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. local_c
+   * is a real, separate local (an exception-cleanup index counted
+   * down through this function's many FUN_0040a240/FUN_0040b540
+   * cleanup pairs), kept as-is; its `._0_1_` partial-byte writes are
+   * rewritten as plain int assignments since the upper 3 bytes are
+   * provably always zero at each of those points (every value written
+   * is a small byte-sized constant and the one non-constant write,
+   * `local_c._1_3_ << 8`, reads back only zero bytes that were never
+   * set to anything else - equivalent to a plain `local_c = 0`). */
   local_c = 0x51;
   if (*(int *)(param_1 + 0xaf9c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x50;
+  local_c = 0x50;
   if (*(int *)(param_1 + 0xad78) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x4f;
+  local_c = 0x4f;
   if (*(int *)(param_1 + 0xab54) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x4e;
+  local_c = 0x4e;
   if (*(int *)(param_1 + 0xa930) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x4d;
+  local_c = 0x4d;
   if (*(int *)(param_1 + 0xa70c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x4c;
+  local_c = 0x4c;
   if (*(int *)(param_1 + 0xa4e8) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x4b;
+  local_c = 0x4b;
   if (*(int *)(param_1 + 0xa2c4) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x4a;
+  local_c = 0x4a;
   if (*(int *)(param_1 + 0xa0a0) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x49;
+  local_c = 0x49;
   if (*(int *)(param_1 + 0x9e7c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x48;
+  local_c = 0x48;
   if (*(int *)(param_1 + 0x9c58) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x47;
+  local_c = 0x47;
   if (*(int *)(param_1 + 0x9a34) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x46;
+  local_c = 0x46;
   if (*(int *)(param_1 + 0x9810) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x45;
+  local_c = 0x45;
   if (*(int *)(param_1 + 0x95ec) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x44;
+  local_c = 0x44;
   if (*(int *)(param_1 + 0x93c8) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x43;
+  local_c = 0x43;
   if (*(int *)(param_1 + 0x91a4) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x42;
+  local_c = 0x42;
   if (*(int *)(param_1 + 0x8f80) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x41;
+  local_c = 0x41;
   if (*(int *)(param_1 + 0x8d5c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x40;
+  local_c = 0x40;
   if (*(int *)(param_1 + 0x8b38) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x3f;
+  local_c = 0x3f;
   if (*(int *)(param_1 + 0x8914) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x3e;
+  local_c = 0x3e;
   if (*(int *)(param_1 + 0x86f0) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x3d;
+  local_c = 0x3d;
   if (*(int *)(param_1 + 0x84cc) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x3c;
+  local_c = 0x3c;
   if (*(int *)(param_1 + 0x82a8) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x3b;
+  local_c = 0x3b;
   if (*(int *)(param_1 + 0x8084) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x3a;
+  local_c = 0x3a;
   if (*(int *)(param_1 + 0x7e60) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x39;
+  local_c = 0x39;
   if (*(int *)(param_1 + 0x7c3c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x38;
+  local_c = 0x38;
   if (*(int *)(param_1 + 0x7a18) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x37;
+  local_c = 0x37;
   if (*(int *)(param_1 + 0x77f4) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x36;
+  local_c = 0x36;
   if (*(int *)(param_1 + 0x75d0) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x35;
+  local_c = 0x35;
   if (*(int *)(param_1 + 0x73ac) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x34;
+  local_c = 0x34;
   if (*(int *)(param_1 + 0x7188) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x33;
+  local_c = 0x33;
   if (*(int *)(param_1 + 0x6f64) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x32;
+  local_c = 0x32;
   if (*(int *)(param_1 + 0x6d40) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x31;
+  local_c = 0x31;
   if (*(int *)(param_1 + 0x6b1c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x30;
+  local_c = 0x30;
   if (*(int *)(param_1 + 0x68f8) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x2f;
+  local_c = 0x2f;
   if (*(int *)(param_1 + 0x66d4) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x2e;
+  local_c = 0x2e;
   if (*(int *)(param_1 + 0x64b0) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x2d;
+  local_c = 0x2d;
   if (*(int *)(param_1 + 0x628c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x2c;
+  local_c = 0x2c;
   if (*(int *)(param_1 + 0x6068) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x2b;
+  local_c = 0x2b;
   if (*(int *)(param_1 + 0x5e44) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x2a;
+  local_c = 0x2a;
   if (*(int *)(param_1 + 0x5c20) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x29;
+  local_c = 0x29;
   if (*(int *)(param_1 + 0x59fc) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x28;
+  local_c = 0x28;
   if (*(int *)(param_1 + 0x57d8) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x27;
+  local_c = 0x27;
   if (*(int *)(param_1 + 0x55b4) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x26;
+  local_c = 0x26;
   if (*(int *)(param_1 + 0x5390) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x25;
+  local_c = 0x25;
   if (*(int *)(param_1 + 0x516c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x24;
+  local_c = 0x24;
   if (*(int *)(param_1 + 0x4f48) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x23;
+  local_c = 0x23;
   if (*(int *)(param_1 + 0x4d24) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x22;
+  local_c = 0x22;
   if (*(int *)(param_1 + 0x4b00) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x21;
+  local_c = 0x21;
   if (*(int *)(param_1 + 0x48dc) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x20;
+  local_c = 0x20;
   if (*(int *)(param_1 + 0x46b8) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x1f;
+  local_c = 0x1f;
   if (*(int *)(param_1 + 0x4494) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x1e;
+  local_c = 0x1e;
   if (*(int *)(param_1 + 0x4270) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x1d;
+  local_c = 0x1d;
   if (*(int *)(param_1 + 0x404c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x1c;
+  local_c = 0x1c;
   if (*(int *)(param_1 + 0x3e28) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x1b;
+  local_c = 0x1b;
   if (*(int *)(param_1 + 0x3c04) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x1a;
+  local_c = 0x1a;
   if (*(int *)(param_1 + 0x39e0) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x19;
+  local_c = 0x19;
   if (*(int *)(param_1 + 0x37bc) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x18;
+  local_c = 0x18;
   if (*(int *)(param_1 + 0x3598) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x17;
+  local_c = 0x17;
   if (*(int *)(param_1 + 0x3374) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x16;
+  local_c = 0x16;
   if (*(int *)(param_1 + 0x3150) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x15;
+  local_c = 0x15;
   if (*(int *)(param_1 + 0x2f2c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x14;
+  local_c = 0x14;
   if (*(int *)(param_1 + 0x2d08) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x13;
+  local_c = 0x13;
   if (*(int *)(param_1 + 0x2ae4) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x12;
+  local_c = 0x12;
   if (*(int *)(param_1 + 0x28c0) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x11;
+  local_c = 0x11;
   if (*(int *)(param_1 + 0x269c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0x10;
+  local_c = 0x10;
   if (*(int *)(param_1 + 0x2478) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0xf;
+  local_c = 0xf;
   if (*(int *)(param_1 + 0x2254) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0xe;
+  local_c = 0xe;
   if (*(int *)(param_1 + 0x2030) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0xd;
+  local_c = 0xd;
   if (*(int *)(param_1 + 0x1e0c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0xc;
+  local_c = 0xc;
   if (*(int *)(param_1 + 0x1be8) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 0xb;
+  local_c = 0xb;
   if (*(int *)(param_1 + 0x19c4) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 10;
+  local_c = 10;
   if (*(int *)(param_1 + 0x17a0) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 9;
+  local_c = 9;
   if (*(int *)(param_1 + 0x157c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 8;
+  local_c = 8;
   if (*(int *)(param_1 + 0x1358) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 7;
+  local_c = 7;
   if (*(int *)(param_1 + 0x1134) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 6;
+  local_c = 6;
   if (*(int *)(param_1 + 0xf10) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 5;
+  local_c = 5;
   if (*(int *)(param_1 + 0xcec) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 4;
+  local_c = 4;
   if (*(int *)(param_1 + 0xac8) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 3;
+  local_c = 3;
   if (*(int *)(param_1 + 0x8a4) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 2;
+  local_c = 2;
   if (*(int *)(param_1 + 0x680) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c._0_1_ = 1;
+  local_c = 1;
   if (*(int *)(param_1 + 0x45c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  local_c = (uint)local_c._1_3_ << 8;
+  local_c = 0;
   if (*(int *)(param_1 + 0x238) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_20);
@@ -434,7 +439,6 @@ void __fastcall FUN_004174c0(int param_1)
     FUN_0040a240();
     FUN_0040b540(local_20);
   }
-  *unaff_FS_OFFSET = local_14;
   return;
 }
 

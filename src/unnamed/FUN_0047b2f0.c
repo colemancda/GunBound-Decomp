@@ -366,7 +366,7 @@ joined_r0x0047b3d1:
     local_ad0 = (int *)FUN_0040b180(param_1 + 0x99,local_ac0,8);
     local_4 = 0;
     FUN_0040b180(param_1 + 0x10,local_89c,8);
-    local_4._0_1_ = 1;
+    local_4 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_ad0 = (int *)PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -377,7 +377,7 @@ joined_r0x0047b3d1:
       *(undefined4 *)(iVar8 + 0x3fa8) = uVar10;
       *(int **)(iVar8 + 0x3fac) = local_ad0;
     }
-    local_4 = (uint)local_4._1_3_ << 8;
+    local_4 = 0;
     if (local_888 != 0) {
       FUN_0040a240();
       FUN_0040b540(&local_ad0);

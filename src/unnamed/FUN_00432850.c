@@ -75,18 +75,18 @@ void FUN_00432850(int param_1,int param_2)
   FUN_0040ada0();
   local_4 = 0;
   FUN_0040ada0();
-  local_4._0_1_ = 1;
+  local_4 = 1;
   FUN_0040aba0();
-  local_4._0_1_ = 2;
+  local_4 = 2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_4._0_1_ = 1;
+  local_4 = 1;
   if (local_19a8 != 0) {
     FUN_0040a240();
     FUN_0040b540();
   }
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = 0;
   if (local_1bcc != 0) {
     FUN_0040a240();
     FUN_0040b540();
@@ -263,12 +263,12 @@ void FUN_00432850(int param_1,int param_2)
       uVar8 = FUN_0040ada0(piVar3 + 0x795,auStack_17b4,piVar3 + 0xcf2);
       uStack_20 = 7;
       FUN_0040a8c0(uVar8,auStack_19d8,100);
-      uStack_20 = CONCAT31(uStack_20._1_3_,8);
+      uStack_20 = 8;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar8 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar8);
       (*pcVar11)(&DAT_005a9068);
-      uStack_24 = CONCAT31(uStack_24._1_3_,7);
+      uStack_24 = 7;
       if (iStack_19c8 != 0) {
         iVar4 = iStack_19c8 << 4;
         iVar5 = 0x10;
@@ -297,12 +297,12 @@ void FUN_00432850(int param_1,int param_2)
       uVar8 = FUN_0040ada0(piVar3 + 0x81e,auStack_114c,piVar3 + 0xcf2);
       uStack_24 = 9;
       FUN_0040a8c0(uVar8,auStack_474,100);
-      uStack_24 = CONCAT31(uStack_24._1_3_,10);
+      uStack_24 = 10;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar8 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar8);
       (*pcVar11)(&DAT_005a9068);
-      uStack_28 = CONCAT31(uStack_28._1_3_,9);
+      uStack_28 = 9;
       if (iStack_464 != 0) {
         iVar4 = iStack_464 << 4;
         iVar5 = 0x10;
@@ -331,12 +331,12 @@ void FUN_00432850(int param_1,int param_2)
       uVar8 = FUN_0040ada0(piVar3 + 0x8a7,auStack_d08,piVar3 + 0xcf2);
       uStack_28 = 0xb;
       FUN_0040a8c0(uVar8,auStack_8c0,100);
-      uStack_28 = CONCAT31(uStack_28._1_3_,0xc);
+      uStack_28 = 0xc;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar8 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar8);
       (*pcVar11)(&DAT_005a9068);
-      uStack_2c = CONCAT31(uStack_2c._1_3_,0xb);
+      uStack_2c = 0xb;
       if (iStack_8b0 != 0) {
         iVar4 = iStack_8b0 << 4;
         iVar5 = 0x10;
@@ -365,12 +365,12 @@ void FUN_00432850(int param_1,int param_2)
       uVar8 = FUN_0040ada0(piVar3 + 0x930,auStack_1378,piVar3 + 0xd7b);
       uStack_2c = 0xd;
       FUN_0040a8c0(uVar8,auStack_159c,100);
-      uStack_2c = CONCAT31(uStack_2c._1_3_,0xe);
+      uStack_2c = 0xe;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar8 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar8);
       (*pcVar11)(&DAT_005a9068);
-      uStack_30 = CONCAT31(uStack_30._1_3_,0xd);
+      uStack_30 = 0xd;
       if (iStack_158c != 0) {
         iVar4 = iStack_158c << 4;
         iVar5 = 0x10;
@@ -399,12 +399,12 @@ void FUN_00432850(int param_1,int param_2)
       uVar8 = FUN_0040ada0(piVar3 + 0x9b9,auStack_aec,piVar3 + 0xd7b);
       uStack_30 = 0xf;
       FUN_0040a8c0(uVar8,auStack_f34,100);
-      uStack_30 = CONCAT31(uStack_30._1_3_,0x10);
+      uStack_30 = 0x10;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar8 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar8);
       (*pcVar11)(&DAT_005a9068);
-      uStack_34 = CONCAT31(uStack_34._1_3_,0xf);
+      uStack_34 = 0xf;
       if (iStack_f24 != 0) {
         iVar4 = iStack_f24 << 4;
         iVar5 = 0x10;
@@ -433,12 +433,12 @@ void FUN_00432850(int param_1,int param_2)
       uVar8 = FUN_0040ada0(piVar3 + 0xa42,auStack_260,piVar3 + 0xd7b);
       uStack_34 = 0x11;
       FUN_0040a8c0(uVar8,auStack_6a8,100);
-      uStack_34 = CONCAT31(uStack_34._1_3_,0x12);
+      uStack_34 = 0x12;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar8 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar8);
       (*pcVar11)(&DAT_005a9068);
-      local_4 = CONCAT31(local_4._1_3_,0x11);
+      local_4 = 0x11;
       if (iStack_664 != 0) {
         iVar4 = iStack_664 << 4;
         local_1e24 = 0x10;

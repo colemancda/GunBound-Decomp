@@ -22,7 +22,6 @@ void FUN_00406990(int *param_1)
   int iVar10;
   uint uVar11;
   code *pcVar12;
-  undefined4 *unaff_FS_OFFSET;
   bool bVar13;
   int local_fa0;
   int local_f9c [2];
@@ -42,15 +41,17 @@ void FUN_00406990(int *param_1)
   undefined1 local_454 [548];
   undefined1 local_230 [20];
   int local_21c;
-  undefined4 local_c;
-  undefined1 *puStack_8;
   int local_4;
   
   iVar2 = DAT_00ea0e1c;
-  local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_00538f51;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00538f51) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. local_4
+   * is a real, separate local (an exception-cleanup index) reused
+   * throughout this function; its `._0_1_`/`._1_3_` partial-field
+   * accesses are rewritten as plain int operations, same reasoning as
+   * FUN_004174c0.c's fix. */
   DAT_00f2465c = 3;
   iVar2 = *(int *)(iVar2 + 0x1c);
   uVar11 = *(uint *)(iVar2 + 4);
@@ -96,7 +97,6 @@ LAB_00406a12:
 LAB_00406a78:
   if (*(char *)(DAT_005b3484 + 0x3b6c0) == -1) {
 LAB_00408159:
-    *unaff_FS_OFFSET = local_c;
     return;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -125,19 +125,19 @@ LAB_00408159:
   uVar3 = FUN_0040a7d0(*(int *)(DAT_005b3484 + 0x621e0) + 0x7864,local_89c,0x28);
   local_4 = 0;
   uVar9 = FUN_0040a8c0(uVar3,local_678,uVar9);
-  local_4._0_1_ = 1;
+  local_4 = 1;
   FUN_0040a5f0(uVar9,local_ce4,0xf4);
-  local_4._0_1_ = 2;
+  local_4 = 2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_004eadb0();
-  local_4._0_1_ = 1;
+  local_4 = 1;
   if (local_cd0 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_f9c);
   }
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = 0;
   if (local_664 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_f9c);
@@ -175,9 +175,9 @@ LAB_00406d42:
   uVar3 = FUN_0040a7d0(*(int *)(DAT_005b3484 + 0x621e0) + 0x7a88,local_ce4,0x28);
   local_4 = 3;
   uVar9 = FUN_0040a8c0(uVar3,local_678,uVar9);
-  local_4._0_1_ = 4;
+  local_4 = 4;
   FUN_0040a5f0(uVar9,local_89c,0xf5);
-  local_4 = CONCAT31(local_4._1_3_,5);
+  local_4 = 5;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar9 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -194,12 +194,12 @@ LAB_00406d42:
     uVar11 = *(uint *)(iVar2 + 4);
   }
 LAB_00406e95:
-  local_4._0_1_ = 4;
+  local_4 = 4;
   if (local_888 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_f9c);
   }
-  local_4 = CONCAT31(local_4._1_3_,3);
+  local_4 = 3;
   if (local_664 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_f9c);
@@ -229,16 +229,16 @@ LAB_00406e95:
           uVar9 = FUN_0040a6e0(iVar10 + 0x3a154 + DAT_005b3484,local_ce4,1);
           local_4 = 6;
           uVar9 = FUN_0040a7d0(uVar9,local_678,2);
-          local_4._0_1_ = 7;
+          local_4 = 7;
           FUN_0040a5f0(uVar9,local_89c,iVar2 == *(int *)(DAT_005b3484 + 0xf0374));
-          local_4._0_1_ = 8;
+          local_4 = 8;
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           FUN_004eb8e0(0x1b5a);
-          local_4._0_1_ = 7;
+          local_4 = 7;
           FUN_0040a2a0();
-          local_4 = CONCAT31(local_4._1_3_,6);
+          local_4 = 6;
           FUN_0040a2a0();
           local_4 = 0xffffffff;
           FUN_0040a2a0();
@@ -250,16 +250,16 @@ LAB_00406e95:
           uVar9 = FUN_0040a6e0(iVar10 + 0x39f30 + DAT_005b3484,local_f08,1);
           local_4 = 9;
           uVar9 = FUN_0040a7d0(uVar9,local_ac0,2);
-          local_4._0_1_ = 10;
+          local_4 = 10;
           FUN_0040a5f0(uVar9,local_454,iVar2 == *(int *)(DAT_005b3484 + 0xf0374));
-          local_4._0_1_ = 0xb;
+          local_4 = 0xb;
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           FUN_004eb8e0(0x1b59);
-          local_4._0_1_ = 10;
+          local_4 = 10;
           FUN_0040a2a0();
-          local_4 = CONCAT31(local_4._1_3_,9);
+          local_4 = 9;
           FUN_0040a2a0();
           local_4 = 0xffffffff;
           FUN_0040a2a0();
@@ -290,12 +290,12 @@ LAB_00406f80:
     uVar9 = FUN_0040a8c0(*(int *)(DAT_005b3484 + 0x621e0) + 0x8bc4,local_ac0,0x14);
     local_4 = 0xd;
     FUN_0040a9c0(uVar9,local_f08,10);
-    local_4._0_1_ = 0xe;
+    local_4 = 0xe;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_004eb8e0(500);
-    local_4 = CONCAT31(local_4._1_3_,0xd);
+    local_4 = 0xd;
     if (local_ef4 != 0) {
       FUN_0040a240();
       FUN_0040b540(local_f9c);
@@ -321,12 +321,12 @@ LAB_00407429:
     uVar9 = FUN_0040a8c0(*(int *)(DAT_005b3484 + 0x621e0) + 0x8bc4,local_ac0,2);
     local_4 = 0xf;
     FUN_0040a9c0(uVar9,local_f08,10);
-    local_4._0_1_ = 0x10;
+    local_4 = 0x10;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_004eb8e0(500);
-    local_4 = CONCAT31(local_4._1_3_,0xf);
+    local_4 = 0xf;
     if (local_ef4 != 0) {
       FUN_0040a240();
       FUN_0040b540(local_f9c);
