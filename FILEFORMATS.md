@@ -455,11 +455,20 @@ mapping, not a resolved one.
 
 ## `avatar.xfs`'s `.dat` entries — confirmed as avatar costume catalogs
 
-`avatar.xfs` contains exactly 8 entries, all stored raw (mode flag `1`, no
-LZHUF needed): `fb.dat`, `ff.dat`, `fg.dat`, `fh.dat`, `mb.dat`, `mf.dat`,
-`mg.dat`, `mh.dat`. An earlier pass guessed these were per-gender
-color-channel/palette tables (by analogy with the confirmed `%cb`/`%cg`/
-`%ch` terrain color-channel `.img` naming). **Corrected this pass** by
+`avatar.xfs` contains exactly 8 entries: `fb.dat`, `ff.dat`, `fg.dat`,
+`fh.dat`, `mb.dat`, `mf.dat`, `mg.dat`, `mh.dat`. **Correction: these are
+LZHUF-compressed, not stored raw** — an earlier pass's "mode flag 1, no
+LZHUF needed" claim was wrong; the real TOC entries all carry `mode_flag
+0` (confirmed by re-reading `avatar.xfs`'s TOC directly with
+`extract_toc.py`), and decoding them with the standard chunked-LZHUF
+reader (the same `[compressed_size, checksum]` 8-byte-header-per-block
+scheme already used for `graphics.xfs`/`sound.xfs` entries — `mb.dat`
+decodes cleanly across exactly 2 chunks) produces the real readable
+catalog text. Raw-byte inspection would have looked like garbage; this
+was only caught by actually trying the LZHUF path. An earlier pass
+guessed these were per-gender color-channel/palette tables (by analogy
+with the confirmed `%cb`/`%cg`/`%ch` terrain color-channel `.img`
+naming). **Corrected this pass** by
 extracting and inspecting the real files: they're **avatar costume
 catalogs**, not color data. `mb.dat` contains readable text like
 `"STANDARD"`, `"Standard clothing"`, `"Space Marine"` — clearly item/
@@ -471,8 +480,34 @@ category (the four seen — `b`, `f`, `g`, `h` — probably map to something
 like body/face/gloves/head or similar equipment slots, though the exact
 per-letter mapping wasn't confirmed).
 
-**Record-level field layout — resolved as moot, not just "not mapped
-yet."** Found the client's only consumer of these files (`FUN_00423bf0`,
+**Record-level field layout — client has no consumer for it, but the
+on-disk structure itself is now confirmed anyway by direct byte-pattern
+analysis of the decoded file (not from code, since no code parses it —
+see below).** Decoding `mb.dat` in full and locating every occurrence of
+a small monotonically-increasing 4-byte integer immediately followed by
+ASCII text shows a clean, regular structure: **each costume record is
+exactly two consecutive 64-byte slots (128 bytes/record)** —
+`[4-byte sequential costume ID][60-byte NUL-padded ASCII name]` followed
+immediately by `[4-byte small integer, likely a category/rarity/unlock
+value][60-byte NUL-padded ASCII description]`. Confirmed by matching a
+run of 20 consecutive costume IDs (`0`=`"STANDARD"`, `1`=`"Space
+Marine"`, `2`=`"School Uniform"`, `3`=`"Shoulder..."`, `4`=`"Pirate
+C..."`, `5`=`"Roman Ge..."`, up through `19`=`"FriendSh..."`) each
+landing exactly 64 bytes apart, name-slot and description-slot
+alternating with no gaps or padding between records. Record 0's
+description-slot integer and record 1's are both small values distinct
+from the costume ID sequence (`0`, `0`, `2`, `6`, `3`, `3`, `4`, `3`, `5`,
+`0`, `6`, `3`...) — not itself sequential, so it's a separate per-record
+attribute rather than a duplicate ID or checksum. This is inferred purely
+from the decoded bytes' regularity (no code path validates this
+interpretation, since — as established below — the client only ever
+reads a single leading byte of these files), so treat the exact
+field *meaning* (especially the description-slot's leading integer) as a
+plausible, evidence-based guess, not a code-confirmed fact — but the
+128-byte/record stride and 4+60 byte sub-layout are solid, directly
+observed structure.
+
+Found the client's only consumer of these files (`FUN_00423bf0`,
 the sole function in the entire binary referencing any of `fb.dat`/
 `fg.dat`/`fh.dat`/`mb.dat`/`mf.dat`/`mg.dat`/`mh.dat` — confirmed by
 checking every string xref for all 7 names; only `ff.dat` is never
