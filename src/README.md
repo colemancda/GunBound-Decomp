@@ -109,16 +109,36 @@ diff /tmp/ref.bin /tmp/out.bin && echo MATCH
 
 ## Wine setup
 
-`make winelib` needs `winegcc` on `PATH`. On macOS via Homebrew:
+**Real macOS-native Winelib** needs `winegcc`, which isn't available
+prebuilt anywhere for macOS (Homebrew's `wine-stable`/`wine@devel` casks
+are runtime-only — they ship `wine` but no dev toolchain/headers).
+Getting a native `winegcc` means building Wine from source, which hasn't
+been attempted (multi-hour build, large dependency chain).
+
+**Working now: `tools/winelib-env/`, a Docker image with a real
+`winegcc`** (Debian's `wine64-tools`/`wine64` packages), used as a
+stand-in until a native macOS toolchain exists. Caveat: `winegcc` always
+targets whatever platform it runs on, so a binary built this way is a
+**Linux ELF Winelib binary** — it validates that the code actually
+compiles/links against real Win32/DirectX/Winsock declarations (real
+progress), but it isn't the eventual native-macOS-binary goal, and it
+can only be *run* inside a full Wine environment (not attempted beyond a
+basic linkage smoke-test — a headless container has no display, which
+`main.c`'s window creation and any eventual DirectDraw code will need
+anyway, so there's little to gain from chasing full execution here).
 
 ```
-brew install --cask wine@devel   # Apple Silicon; wine-stable is Intel-only
+docker build --platform linux/amd64 -t gb-winelib tools/winelib-env
+docker run --rm --platform linux/amd64 -v "$PWD":/work -w /work gb-winelib \
+    make winelib WINEGCC=winegcc-stable
 ```
 
-Both `wine-stable` and `wine@devel` casks are currently flagged deprecated
-(fail macOS Gatekeeper) and pull in a GStreamer.framework dependency that
-needs an interactive `sudo` password — run the install yourself in a
-real terminal rather than through an automated/sandboxed one.
+produces `build/gunbound.exe` / `build/gunbound.exe.so`. `winegcc` in
+this image is only on `PATH` as `winegcc-stable`, hence the explicit
+`WINEGCC=` override — pass the same to any other winegcc-family tool
+(`wineg++-stable`, `widl-stable`, etc.) if needed later. Also note
+`-std=gnu11`, not `c11`: Wine's `winsock.h` expects glibc's BSD typedefs
+(`u_short`/`u_int`), which strict C11 mode hides.
 
 ## Picking the next function to port
 
