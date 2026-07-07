@@ -175,20 +175,71 @@ its role:
 | 12 | `0x4c1d10` | One-line delegate — calls `FUN_004508a0` on a fixed per-connection offset (`+0x6a7f88`), nothing else |
 | 13 | `0x4c1d30` | **Corrected — not a "special-weapon-effect render function."** Fully decompiled (was previously only skimmed for its string references): this is a **per-frame dynamic-texture clear pass**. It resolves ~24 named dynamic textures via `FindTextureCacheEntryByName` — not just `SpecialTexture1/2`, but the *entire* effect-texture roster (`AvataTexture1/2`, `AvataEffectTexture1/2`, `CharacterTexture1/2`, `TagTexture`, `CharEffectTexture1/2`, `BulletTexture1/2`, `FlameTexture1-4`, `RayonTexture1/2`, `SpecialTexture1/2`, `RiderTexture`, `YesooriTexture`, `JewelTexture`, `ThorTexture1/2`) — and for each one present, does a confirmed **`IDirectDrawSurface7::Lock` (vtable `+0x64`, `DDSURFACEDESC2` size `0x7c`=124 bytes) → zero-fill the entire locked surface → `Unlock` (vtable `+0x80`)** cycle. This clears every dynamic effect render-target to transparent/black once per frame, presumably right before that frame's actual sprite effects get composited into them elsewhere in the render pipeline. |
 | 14 | `0x4c3020` | `State11_InBattle_Render` |
-| 15 | `0x4c8890` | Large (9.4KB decompiled) function touching the **same chat-buffer offsets as slot 10** (`+0x58b64`, `+0x58bbe`, `+0x58c4a`, `+0x5917c`) — almost certainly the **chat-message finalize/send** counterpart to slot 10's character-append |
+| 15 | `0x4c8890` | **Corrected — not a "finalize/send" function.** Fully decompiled: this is the **in-battle chat log display renderer**, not a network-send path (searched the whole 1,360-line decompile for any outgoing-packet-encode call — none exist; every effect is a draw call). Confirms this is `State11`'s software-blit render slot (matches `GameTick`'s dispatch of vtable slot 15 to the software path — see the rendering section below), drawing the in-battle HUD chat overlay each frame alongside the D3D battle scene from slot 14. Loops up to **10 visible chat history lines**, each with: a sender-name field (`+0x58b64`, 9-byte stride), a message-text field (`+0x58bbe`, 14-byte stride), a length (`+0x5917c`, `ushort` array), and a **per-line message-type byte** (`+0x58c4a`) that selects one of several distinct `RGB565` text colors via a `switch` (confirmed values include pure green `0x7e0`, pure blue `0x1f`, white `0xffff`, and others) — i.e. **different chat channels/message types (team chat, system messages, etc.) are color-coded**, not just plain text. Message types `0`/`1`/`7` get an extra double-draw outline pass for legibility; other types use a single `FUN_004eb510`-prepped draw (the same text-prep helper already seen in the lobby's room-number rendering). All text drawn via the confirmed bitmap-font renderer, `BlitRLESprite`. |
 | 16 | `0x4caed0` | `State11_InBattle_RenderModeIcons` |
 | 17 | `0x429800` | Confirmed genuine no-op (function body is a single `return;`, distinct from the shared `CGameState_NoOpVirtual_B`) — a state-specific empty override rather than reuse of the common stub |
 
 This substantially resolves the original "input handlers? (untested)"
 open question for at least one state: slots 5/6 are confirmed input
 dispatchers (chat/keyboard and mouse respectively), slots 10/15 are a
-confirmed chat-input-append/finalize pair, and slot 13 is a per-frame
+confirmed chat-input-append/display pair (**correction**: slot 15 is a
+display renderer, not a "finalize" step — see the dedicated chat pipeline
+writeup immediately below), and slot 13 is a per-frame
 dynamic-effect-texture clear pass (Lock/zero-fill/Unlock across the full
 effect-texture roster). The same technique (dump the vtable via its
 named `vtable_StateNN_Name` symbol, decompile each unnamed slot) would
 work for the other 15 states, but wasn't repeated for all of them this
 pass — In-Battle was chosen as the highest-value target given its
 gameplay centrality.
+
+### In-battle chat pipeline — traced from keystroke to history buffer
+
+Investigating chat functionality end to end (going beyond slot 10's
+already-documented character-append/emoticon-remap and slot 15's now-
+corrected display-renderer role) found the actual **chat message
+queue/history functions**, located by searching the whole binary for
+every direct reference to the chat buffer offsets — only 5 functions
+touch them at all, so this is a complete picture, not a sample:
+
+- **`FUN_0041ef90`** — the real **"add chat line" function**. Takes a
+  message-type byte (the same value slot 15 later reads to pick a text
+  color), a player-slot index (0-7), an implicit message-text source, and
+  a sound-cue parameter. Copies the sender's name from a **persistent
+  per-slot name table** (`param_1 + slot*8 + 0x457a9`), with a special
+  case: if that name matches a specific fixed string (compared byte-for-
+  byte against `&DAT_00551e24`), the message type is **forced to `5`**
+  regardless of what was passed in — i.e. messages attributed to one
+  particular reserved name (almost certainly a `"SYSTEM"`-style sender)
+  always render in that type's color, overriding the caller. Word-wraps
+  the message text into a large scratch stack buffer before storing it,
+  and returns `2` (vs. the normal `1`) when the message had to be split
+  across two history lines — the caller uses this to know whether a
+  second `AddChatLine`-style call is needed for the wrapped remainder
+  (confirmed: `FUN_0041ef90` recursively re-invokes its own tail logic
+  when this happens, at line ~165-174 of its decompile).
+- **`FUN_0041ee10`** — the **ring-buffer scroll/dequeue function**,
+  called automatically once the history exceeds **8 lines**
+  (`*(int*)(param_1+0x58b60) > 8`, checked at the top of
+  `FUN_0041ef90` before appending) — shifts every parallel array (name,
+  text, type byte, length, and a per-line `0x80`-dword/512-byte scratch
+  buffer at `+0x58c54`, likely a pre-word-wrapped/pre-rendered cache of
+  that line) down by one slot, discarding the oldest line. This is a
+  classic **fixed 8-line rotating chat history buffer**, separate from
+  (and feeding) the up-to-10-line draw loop in slot 15's renderer — the
+  render loop's higher iteration count likely just walks a few extra
+  always-empty slots harmlessly rather than indicating a 10-line buffer.
+- **Neither function sends anything over the network** — both are purely
+  local history/state management. This means `AddChatLine` is used both
+  for **displaying messages received from the network** (the `0x4001`-
+  `0x4006` battle-action cluster in PROTOCOL.md) and, presumably, for
+  **local echo of what the player themselves just typed and sent** — but
+  the actual "player pressed Enter, send the composed text as an outgoing
+  packet" trigger for the *in-battle* chat box wasn't located in this
+  pass (State 9/10's non-battle chat-Enter handlers are already
+  documented above; the in-battle equivalent — likely inside slot 5's
+  keyboard dispatcher, which does handle raw scancodes for movement/aim
+  controls but wasn't found touching the chat buffer offsets directly —
+  remains a genuine open item for a future pass).
 
 ## Network protocol — `State03_GameRoomList_ProcessPacket` (`0x426ad0`)
 
