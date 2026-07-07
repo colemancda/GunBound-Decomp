@@ -921,9 +921,19 @@ vertices are reused.
 
 Per call, only **X, Y, Diffuse, U0, V0** are written fresh for each of the 4
 corners — `Z`, `RHW`, and the second UV pair (`U1`, `V1`) are never touched
-by this function, i.e. they're persistent/pre-set elsewhere (not traced
-further; almost certainly fixed constants like `Z=0`, `RHW=1`, since no
-per-sprite Z variation was found — see the Z-buffer note below). `Diffuse`
+by this function or any of the other 20 vertex-constructor functions
+checked for the Z-buffer sweep (see below). **Confirmed, not just
+guessed**: `g_spriteVertexBuffer` is a statically-allocated global (not
+heap-allocated — checking its symbol found no `operator_new` call sized
+for it anywhere), living in an *initialized* PE section whose actual
+bytes are all zero. Combined with no per-call writes anywhere, this means
+`Z`, `RHW`, `U1`, and `V1` are **literally always `0.0`** for every
+sprite — correcting an earlier guess that `RHW` was "almost certainly 1",
+the conventional value for a pre-transformed D3D vertex. Whether the D3D7
+HAL/driver actually needs `RHW` to be `1.0` and silently tolerates `0`
+here, or whether `0` is genuinely fine for this rendering path, isn't
+something static analysis can settle — but the *value* itself is now
+confirmed rather than assumed. `Diffuse`
 is set to `0xffffffff` (opaque white) for all 4 corners on every call — no
 per-sprite tint, so alpha blending is driven entirely by the texture's own
 alpha channel. `U0`/`V0` come from a small per-call texture-rect struct at
