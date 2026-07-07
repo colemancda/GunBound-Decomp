@@ -658,19 +658,43 @@ triggered indirectly (calling another state's exit-hook directly rather than
 going through the normal `ChangeGameState` dispatcher) as a cleanup
 mechanism.
 
-#### Opcode `0x3010` — Character/team selection (tentative)
+#### Opcode `0x3010` — Match-start replay snapshot + team-based spawn setup (corrected)
 
 **Direction**: incoming.
 
-**Payload**: `payload[0]`, a `byte`.
+**Payload**: `payload[0]`, a `byte` (a player slot ID, or `-1` for "this is
+the local client").
 
-**Behavior**: calls `FUN_004dc200(byteValue)` then finalizes via
-`FUN_004dc5c0()`.
+**Behavior, re-decompiled and corrected — this is not character/team
+selection.** `FUN_004dc200(byteValue)` almost entirely ignores its
+argument (only checked once, at the very end, to decide `-1` = flush the
+replay log immediately vs. a real slot = call `FUN_004e7140()` instead) —
+the bulk of the function logs a **replay event `0x8400`**: it peeks the
+current packet-checksum state repeatedly and copies a snapshot of fields
+at `+0x23320`-`+0x23338` (position/camera-shaped data) plus **the same
+20-element, `0x224`-stride double loop already found elsewhere in this
+codebase** (the room-list stat-summing loop from the Room→Ready-Room
+transition) into the replay buffer. This is a **state-snapshot/logging
+step**, not a selection packet.
 
-**Significance**: the byte value's exact meaning (character choice vs. team
-choice vs. something else) wasn't independently confirmed — tentatively a
-character or team pick given the ready-room context, but not proven via
-string or struct-offset cross-reference.
+`FUN_004dc5c0(slot)`, the finalizer, reads a per-slot ushort at
+`+0x458bc+slot*8` and tests its high bit (`&0x8000`) to pick between two
+sets of coordinate-override fields (a second per-side array, with `-1`
+sentinels falling back to the per-slot defaults at `+0x458be`/`+0x458c0`/
+`+0x458c2`), then calls `FUN_004141b0(x, y, ..., 0, slot+200000,
+slot+300000)` — reads as **team-side-based spawn position/camera setup**
+(the high bit is very likely the team-side flag, selecting which of two
+coordinate sets a player's camera/position uses), not a UI selection
+confirmation.
+
+**Significance**: corrects the earlier "character/team selection"
+hypothesis, which came from context (Ready Room screen) rather than
+tracing what the handler actually does. The real behavior is a
+match-start bookkeeping step: log a full state snapshot to the replay,
+then position each player's camera/spawn based on their already-assigned
+team side. Actual character/weapon selection is confirmed elsewhere as
+action `0x8100`/`0x8400` on Channel 2 (see the `ProcessBattleAction`
+section), not this opcode.
 
 #### Opcode `0x3020` — Simple ready/unready toggle
 

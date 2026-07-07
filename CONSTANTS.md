@@ -160,7 +160,7 @@ Error-code mapping (`0x1012`): server `0x5001`→internal `0x1d`; `0x5011`→`0x
 | Opcode | Meaning |
 |---|---|
 | `0x2001` | Leave ready room |
-| `0x3010` | Character/team selection (tentative) |
+| `0x3010` | Match-start replay snapshot + team-based spawn setup (**corrected** from an earlier "character/team selection" guess) |
 | `0x3020` | Ready/unready toggle |
 | `0x3105` | Player joined ready room |
 | `0x3151` | Team change (tentative) |
