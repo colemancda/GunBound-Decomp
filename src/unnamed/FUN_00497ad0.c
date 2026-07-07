@@ -1,0 +1,174 @@
+/* FUN_00497ad0 - 0x00497ad0 in the original binary.
+ *
+ * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * decompiler output, not hand-verified. See src/README.md's "Raw/
+ * verbatim ports" section for status.
+ */
+#include "ghidra_types.h"
+
+
+void __fastcall FUN_00497ad0(int param_1)
+
+{
+  int iVar1;
+  char cVar2;
+  undefined4 uVar3;
+  undefined4 uVar4;
+  int iVar5;
+  undefined4 *unaff_FS_OFFSET;
+  undefined4 local_474 [2];
+  undefined4 local_46c;
+  undefined4 local_468;
+  undefined4 local_464;
+  undefined4 local_460;
+  undefined4 local_45c;
+  undefined4 local_458;
+  undefined1 local_454 [20];
+  int local_440;
+  undefined1 local_230 [20];
+  int local_21c;
+  undefined4 local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_0053ef67;
+  local_c = *unaff_FS_OFFSET;
+  *unaff_FS_OFFSET = &local_c;
+  if (*(char *)(param_1 + 0x14) != '\x01') {
+    *(undefined1 *)(param_1 + 0x14) = 1;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar3 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    FUN_0040a6e0(param_1 + 0x264,local_454,uVar3);
+    local_4 = 0;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    local_458 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    local_468 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    local_460 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    local_464 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    local_46c = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    local_45c = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    local_474[0] = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar3 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    FUN_004e4970(uVar3,local_474[0],local_45c,local_46c,local_464,local_460,local_468,local_458);
+    local_4 = 0xffffffff;
+    if (local_440 != 0) {
+      FUN_0040a240();
+      FUN_0040b540(local_474);
+    }
+    FUN_004e4d00(&DAT_006a7708 + DAT_005b3484);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar3 = PeekPacketChecksumState();
+    EncodeOutgoingPacketField(uVar3);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar3 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    FUN_0040a6e0(param_1 + 0x264,local_454,uVar3);
+    local_4 = 1;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar3 = PeekPacketChecksumState();
+    EncodeOutgoingPacketField(uVar3);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    local_4 = 0xffffffff;
+    if (local_440 != 0) {
+      FUN_0040a240();
+      FUN_0040b540(local_474);
+    }
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar3 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    FUN_0040a6e0(param_1 + 0x264,local_454,uVar3);
+    local_4 = 2;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar3 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar4 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    FUN_00450eb0(uVar4,uVar3,param_1,0,0,0);
+    local_4 = 0xffffffff;
+    if (local_440 != 0) {
+      FUN_0040a240();
+      FUN_0040b540(local_474);
+    }
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar3 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    FUN_0040a6e0(param_1 + 0x264,local_454,uVar3);
+    local_4 = 3;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar3 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar4 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    FUN_00436ac0(uVar4,uVar3);
+    local_4 = 0xffffffff;
+    if (local_440 != 0) {
+      FUN_0040a240();
+      FUN_0040b540(local_474);
+    }
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar3 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    FUN_0040a6e0(param_1 + 0x264,local_230,uVar3);
+    local_4 = 4;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar3 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar4 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    FUN_004372f0(*(uint *)(param_1 + 8) & 0xf,uVar4,uVar3,*(undefined4 *)(param_1 + 0x3894),
+                 param_1 + 0x3898);
+    local_4 = 0xffffffff;
+    if (local_21c != 0) {
+      FUN_0040a240();
+      FUN_0040b540(local_474);
+    }
+    iVar1 = DAT_005b3484;
+    cVar2 = FUN_004065a0();
+    if (cVar2 != '\x01') {
+      iVar5 = *(int *)(&DAT_006a7750 + iVar1);
+      if (iVar5 < 0x10) {
+        iVar5 = 0xf;
+      }
+      *(int *)(&DAT_006a7750 + iVar1) = iVar5;
+      iVar5 = *(int *)(&DAT_006a7754 + iVar1);
+      if (iVar5 < 0xb) {
+        iVar5 = 10;
+      }
+      *(int *)(&DAT_006a7754 + iVar1) = iVar5;
+    }
+    cVar2 = FUN_004065a0();
+    if (cVar2 == '\0') {
+      FUN_004ee9b0(0);
+    }
+  }
+  *unaff_FS_OFFSET = local_c;
+  return;
+}
+
