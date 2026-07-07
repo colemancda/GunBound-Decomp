@@ -1,0 +1,275 @@
+/* InitGame - 0x0040eaa0 in the original binary.
+ *
+ * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
+ * verified against documented behavior beyond what's already in
+ * ARCHITECTURE.md/PROTOCOL.md/FILEFORMATS.md. Calls to unnamed
+ * FUN_<address> helpers and DAT_<address>/_DAT_<address> globals are
+ * left as-is (undeclared) - this file won't link standalone yet. See
+ * src/README.md's "Raw/verbatim ports" section for status and how
+ * these get promoted to verified.
+ */
+#include "ghidra_types.h"
+#include <windows.h>
+
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+int InitGame(undefined4 param_1,undefined4 param_2)
+
+{
+  int iVar1;
+  void *pvVar2;
+  uint uVar3;
+  undefined4 *unaff_FS_OFFSET;
+  undefined1 local_40c [1024];
+  undefined4 local_c;
+  undefined1 *puStack_8;
+  undefined4 uStack_4;
+  
+  local_c = *unaff_FS_OFFSET;
+  uStack_4 = 0xffffffff;
+  puStack_8 = &LAB_0053ce9a;
+  *unaff_FS_OFFSET = &local_c;
+  FUN_00415900();
+  FUN_0043da00(&DAT_00796eec);
+  FUN_004e3500(&DAT_00794e14);
+  LoadChooseEventConfig(&DAT_00e9bea8);
+  CoInitialize((LPVOID)0x0);
+  DAT_00588f4c = 0;
+  BuildAssetPath(local_40c,&DAT_005b1ed0,s_graphics_xfs_00551fdc,0);
+  iVar1 = InitDirectDraw(local_40c);
+  if (iVar1 == 0) {
+    iVar1 = LoadGameDataFiles(DAT_005b3484);
+    if (iVar1 != 0) {
+      *unaff_FS_OFFSET = local_c;
+      return iVar1 + 0xe0;
+    }
+    DAT_007934c8 = DAT_00f11dd4;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    iVar1 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    if (DAT_007934c8 == iVar1) {
+      FUN_004f1eb0();
+      BuildAssetPath(local_40c,&DAT_005b1ed0,s_sound_xfs_005526fc,0);
+      InitDirectSound(param_1,0x10,local_40c);
+      DAT_007934c8 = DAT_00ea0f54;
+      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      iVar1 = PeekPacketChecksumState();
+      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      if (DAT_007934c8 == iVar1) {
+        InitDirectInput(param_2);
+        FUN_004eae60();
+        if ((*(int *)(&DAT_005f2f4c + DAT_005b3484) == 0) &&
+           (DAT_0079354a = 0, DAT_00793549 != '\0')) {
+          (**(code **)(*(int *)*DAT_00793554 + 0xc))();
+          DAT_00793568 = 0;
+        }
+        if (*(int *)(&DAT_005f2f50 + DAT_005b3484) == 0) {
+          uVar3 = 1;
+          DAT_0079354b = 0;
+          if (1 < DAT_00793560) {
+            do {
+              if (DAT_00793549 != '\0') {
+                if (uVar3 != 0xffffffff) {
+                  (**(code **)(*(int *)DAT_00793554[uVar3] + 0xc))();
+                }
+                if (uVar3 == 0) {
+                  DAT_00793568 = 0;
+                }
+              }
+              uVar3 = uVar3 + 1;
+            } while (uVar3 < DAT_00793560);
+          }
+        }
+        FUN_004eeb10();
+        FUN_004eeb30();
+        FUN_004edd70(param_1);
+        FUN_004ee270(param_1);
+        _DAT_00e53c24 = 0;
+        _DAT_00e53c28 = 799;
+        _DAT_00e53c2c = 0;
+        _DAT_00e53c30 = 599;
+        DAT_00e52858 = 200;
+        DAT_00e52859 = 0xd0;
+        DAT_00e5285a = 0xcb;
+        DAT_00e5285b = 0xcd;
+        DAT_00e52e68 = 0x39;
+        FUN_004f0100();
+        _DAT_00e9bea0 = &DAT_00795070;
+        _DAT_00e9c108 = &DAT_00795070;
+        _DAT_00e536e4 = &DAT_00795070;
+        _DAT_00e5285c = &DAT_00795070;
+        g_gameStateVTableArray[0] = operator_new(4);
+        if ((undefined4 *)g_gameStateVTableArray[0] == (undefined4 *)0x0) {
+          g_gameStateVTableArray[0] = (undefined *)0x0;
+        }
+        else {
+          *(undefined ***)g_gameStateVTableArray[0] = &PTR_LAB_00553fb0;
+        }
+        g_gameStateVTableArray[1] = operator_new(8);
+        if ((undefined4 *)g_gameStateVTableArray[1] == (undefined4 *)0x0) {
+          g_gameStateVTableArray[1] = (undefined *)0x0;
+        }
+        else {
+          *(undefined ***)g_gameStateVTableArray[1] = &vtable_State01_Title;
+        }
+        g_gameStateVTableArray[2] = operator_new(0x6c);
+        if ((undefined4 *)g_gameStateVTableArray[2] == (undefined4 *)0x0) {
+          g_gameStateVTableArray[2] = (undefined *)0x0;
+        }
+        else {
+          *(undefined ***)g_gameStateVTableArray[2] = &vtable_State02_ServerSelect;
+          *(undefined4 *)((int)g_gameStateVTableArray[2] + 0x68) = 0xffffffff;
+        }
+        g_gameStateVTableArray[3] = operator_new(0x294);
+        if ((undefined4 *)g_gameStateVTableArray[3] == (undefined4 *)0x0) {
+          g_gameStateVTableArray[3] = (undefined *)0x0;
+        }
+        else {
+          *(undefined ***)g_gameStateVTableArray[3] = &vtable_State3_NetworkSession;
+          *(undefined4 *)((int)g_gameStateVTableArray[3] + 0x11c) = 0;
+          *(undefined1 *)((int)g_gameStateVTableArray[3] + 0x288) = 1;
+        }
+        g_gameStateVTableArray[5] = operator_new(8);
+        if ((undefined4 *)g_gameStateVTableArray[5] == (undefined4 *)0x0) {
+          g_gameStateVTableArray[5] = (undefined *)0x0;
+        }
+        else {
+          *(undefined ***)g_gameStateVTableArray[5] = &vtable_State05_Logo1;
+        }
+        g_gameStateVTableArray[6] = operator_new(8);
+        if ((undefined4 *)g_gameStateVTableArray[6] == (undefined4 *)0x0) {
+          g_gameStateVTableArray[6] = (undefined *)0x0;
+        }
+        else {
+          *(undefined ***)g_gameStateVTableArray[6] = &vtable_State06_Logo2;
+        }
+        pvVar2 = operator_new(0x34818);
+        uStack_4 = 0;
+        if (pvVar2 == (void *)0x0) {
+          g_gameStateVTableArray[7] = (undefined *)0x0;
+        }
+        else {
+          g_gameStateVTableArray[7] = (undefined *)FUN_00443c20(pvVar2);
+        }
+        uStack_4 = 0xffffffff;
+        pvVar2 = operator_new(0x78c);
+        uStack_4 = 1;
+        if (pvVar2 == (void *)0x0) {
+          g_gameStateVTableArray[9] = (undefined *)0x0;
+        }
+        else {
+          g_gameStateVTableArray[9] = (undefined *)FUN_004d3770(pvVar2);
+        }
+        uStack_4 = 0xffffffff;
+        g_gameStateVTableArray[10] = operator_new(0x150);
+        if ((undefined4 *)g_gameStateVTableArray[10] == (undefined4 *)0x0) {
+          g_gameStateVTableArray[10] = (undefined *)0x0;
+        }
+        else {
+          *(undefined ***)g_gameStateVTableArray[10] = &vtable_State10_Loading;
+        }
+        pvVar2 = operator_new(0x2408);
+        uStack_4 = 2;
+        if (pvVar2 == (void *)0x0) {
+          g_gameStateVTableArray[0xb] = (undefined *)0x0;
+        }
+        else {
+          g_gameStateVTableArray[0xb] = (undefined *)FUN_004b3f90(pvVar2);
+        }
+        uStack_4 = 0xffffffff;
+        g_gameStateVTableArray[0xf] = operator_new(4);
+        if ((undefined4 *)g_gameStateVTableArray[0xf] == (undefined4 *)0x0) {
+          g_gameStateVTableArray[0xf] = (undefined *)0x0;
+        }
+        else {
+          *(undefined ***)g_gameStateVTableArray[0xf] = &PTR_LAB_00553fb0;
+        }
+        FUN_004f1790(&DAT_00ea0e18,500);
+        FUN_004f1790(&DAT_00ea0e18,600);
+        FUN_004f1790(&DAT_00ea0e18,0x259);
+        FUN_004f1790(&DAT_00ea0e18,0x25a);
+        FUN_004f1790(&DAT_00ea0e18,0x262);
+        FUN_004f1790(&DAT_00ea0e18,0x263);
+        FUN_004f1790(&DAT_00ea0e18,0x264);
+        FUN_004f1790(&DAT_00ea0e18,700);
+        FUN_004f1790(&DAT_00ea0e18,0x2bd);
+        FUN_004f1790(&DAT_00ea0e18,0x2be);
+        FUN_004f1790(&DAT_00ea0e18,0x2bf);
+        FUN_004f1790(&DAT_00ea0e18,0x2c6);
+        FUN_004f1790(&DAT_00ea0e18,0x2c7);
+        FUN_004f1790(&DAT_00ea0e18,0x2c8);
+        FUN_004f1790(&DAT_00ea0e18,0x2c9);
+        FUN_004f1790(&DAT_00ea0e18,0x2ca);
+        FUN_004f1790(&DAT_00ea0e18,0x2cb);
+        FUN_004f1790(&DAT_00ea0e18,800);
+        FUN_004f1790(&DAT_00ea0e18,0x321);
+        FUN_004f1790(&DAT_00ea0e18,0x322);
+        FUN_004f1790(&DAT_00ea0e18,0x323);
+        FUN_004f1790(&DAT_00ea0e18,900);
+        FUN_004f1790(&DAT_00ea0e18,0x385);
+        FUN_004f1790(&DAT_00ea0e18,0x38e);
+        FUN_004f1790(&DAT_00ea0e18,0x398);
+        FUN_004f1790(&DAT_00ea0e18,0);
+        AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
+        FUN_004f1790(&DAT_00ea0e18,1);
+        FUN_004f1790(&DAT_00ea0e18,2);
+        FUN_004f1790(&DAT_00ea0e18,3);
+        FUN_004f1790(&DAT_00ea0e18,0x32);
+        FUN_004f1790(&DAT_00ea0e18,0x33);
+        FUN_004f1790(&DAT_00ea0e18,0x34);
+        FUN_004f1790(&DAT_00ea0e18,100);
+        FUN_004f1790(&DAT_00ea0e18,0x65);
+        FUN_004f1790(&DAT_00ea0e18,0x6e);
+        FUN_004f1790(&DAT_00ea0e18,200);
+        FUN_004f1790(&DAT_00ea0e18,0xc9);
+        FUN_004f1790(&DAT_00ea0e18,0xca);
+        FUN_004f1790(&DAT_00ea0e18,0xcb);
+        FUN_004f1790(&DAT_00ea0e18,0xcc);
+        FUN_004f1790(&DAT_00ea0e18,0xcd);
+        FUN_004f1790(&DAT_00ea0e18,0xce);
+        FUN_004f1790(&DAT_00ea0e18,300);
+        FUN_004f1790(&DAT_00ea0e18,400);
+        FUN_004f1790(&DAT_00ea0e18,1000000);
+        FUN_004f1790(&DAT_00ea0e18,2000000);
+        FUN_004f1790(&DAT_00ea0e18,0x1e8483);
+        FUN_004f1790(&DAT_00ea0e18,0x1e8484);
+        FUN_004f1790(&DAT_00ea0e18,0x1e8485);
+        FUN_004f1790(&DAT_00ea0e18,0x1e8486);
+        FUN_004f1790(&DAT_00ea0e18,0x1e8487);
+        FUN_004f1790(&DAT_00ea0e18,0x1e8488);
+        FUN_004f1790(&DAT_00ea0e18,0x1e8489);
+        FUN_004f1790(&DAT_00ea0e18,0x1e848a);
+        FUN_004f1790(&DAT_00ea0e18,0x1e848b);
+        FUN_004f1790(&DAT_00ea0e18,1100000);
+        FUN_004f1790(&DAT_00ea0e18,2100000);
+        FUN_004f1790(&DAT_00ea0e18,0x200b21);
+        FUN_004f1790(&DAT_00ea0e18,0x200b22);
+        FUN_004f1790(&DAT_00ea0e18,0x200b23);
+        pvVar2 = operator_new(0x10);
+        if (pvVar2 == (void *)0x0) {
+          DAT_007934e4 = 0;
+        }
+        else {
+          DAT_007934e4 = FUN_0040c670();
+        }
+        FUN_00415500();
+        FUN_00415530();
+        InterlockedExchange((LONG *)&DAT_00e9c348,1);
+        FUN_004e6b50();
+        _DAT_00e9acd0 = &DAT_00793798;
+        FUN_00520380(param_1);
+        iVar1 = 0;
+      }
+      else {
+        iVar1 = 0xce;
+      }
+    }
+    else {
+      iVar1 = 0xcd;
+    }
+  }
+  *unaff_FS_OFFSET = local_c;
+  return iVar1;
+}
+
