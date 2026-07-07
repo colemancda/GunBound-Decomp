@@ -526,9 +526,29 @@ stage record has:
   misdocumented in [STRINGS.md](STRINGS.md) as a possible chat command,
   purely from its position next to real command strings in the data
   segment) played at both endpoints when two players' positions get
-  swapped in a movement-handling function — exactly the "step on a return
-  pad, swap places with whoever's on the matching pad" mechanic this
-  gimmick name implies.
+  swapped in a movement-handling function (`FUN_004cc5c0`) — exactly the
+  "step on a return pad, swap places with whoever's on the matching pad"
+  mechanic this gimmick name implies.
+
+  **Tried and failed to extend this into a full case-number-to-gimmick
+  map for the other 7 flags — worth recording precisely why, rather than
+  leaving it looking untried.** `FUN_004cc5c0` dispatches on a third
+  parameter across two parallel switches (case values `1,2,3,6,7,0xb,0xf`
+  and `1,2,6,7,10,0xb`) and the Return/teleport logic lives in one of
+  those cases, which invited the hope that the other cases might map
+  cleanly onto Force/Gust/Electric/Wind/Heal/Fog. Tracing the function's
+  own caller (`FUN_004cbda0`) shows that third parameter is **not a fixed
+  per-call constant** — it's read at the call site from a per-player byte
+  field (`+0xbfbc`) that gets progressively OR'd with new bits at multiple
+  other sites (a status-flag accumulator), not written as a single clean
+  tile/hazard-type value anywhere found. That makes it much more likely
+  the case numbers represent **combinable status-effect bits** (whatever
+  is currently affecting a player) than **which single stage hazard was
+  just triggered** — so a clean 1:1 mapping to the 8 named gimmick flags
+  probably doesn't exist here even in principle. The Return/teleport
+  finding above stays solid regardless (it has its own independent
+  confirmation via the sound-effect name), but extending the same
+  reasoning to the other cases isn't safe.
 
 This resolves what was previously just "several 4-byte fields, not mapped
 field-by-field" into real gameplay semantics — GunBound stages are built
