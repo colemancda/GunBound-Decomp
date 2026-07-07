@@ -39,7 +39,6 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
   code *pcVar19;
   int iVar20;
   undefined4 *puVar21;
-  undefined4 *unaff_FS_OFFSET;
   int local_520;
   uint local_514;
   undefined4 local_50c;
@@ -53,15 +52,15 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
   byte local_467;
   char local_466;
   int local_464;
-  undefined4 uStack_18;
-  undefined4 local_14;
-  undefined1 *puStack_10;
   undefined4 local_c;
   
   local_c = 0xffffffff;
-  puStack_10 = &LAB_00540797;
-  local_14 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_14;
+  /* Windows SEH __try/__except frame setup stripped (local_14/
+   * puStack_10/uStack_18/unaff_FS_OFFSET) - handler body
+   * (LAB_00540797) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. local_c
+   * is a real, separate local reused elsewhere in this function,
+   * kept as-is. */
   iVar4 = DAT_007934e8;
   if (opcode < 0x6010) {
     if (opcode == 0x600f) {
@@ -70,7 +69,6 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
       *(undefined1 *)(iVar4 + 0x4d6) = 0;
       *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 1;
       FUN_004d2680();
-      *unaff_FS_OFFSET = local_14;
       return;
     }
     if (opcode < 0x6003) {
@@ -78,7 +76,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
         uVar1 = *payload;
         puVar13 = payload + 1;
         local_520 = 0;
-        pcVar19 = EnterCriticalSection_exref;
+        pcVar19 = (code *)EnterCriticalSection;
         if (uVar1 != 0) {
           do {
             piVar14 = local_508;
@@ -111,7 +109,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
               puVar21 = (undefined4 *)((int)puVar21 + 1);
             }
             FUN_00428550(&local_468);
-            pcVar19 = EnterCriticalSection_exref;
+            pcVar19 = (code *)EnterCriticalSection;
             local_c = 2;
             local_464 = -1;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -170,7 +168,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
             FUN_004141b0(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
             FUN_00505520(*(undefined4 *)(DAT_005b3484 + 0x44e24),0xe);
-            pcVar19 = EnterCriticalSection_exref;
+            pcVar19 = (code *)EnterCriticalSection;
 LAB_0044469b:
             local_c = 0xffffffff;
             FUN_00426810(&local_468);
@@ -194,7 +192,6 @@ LAB_0044469b:
         *(byte *)(iVar4 + 0x23312) = bVar12 + *pbVar15 + -0x34;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         FUN_0044b0b0(this);
-        *unaff_FS_OFFSET = uStack_18;
         return;
       }
       if (opcode != 0x2001) {
@@ -234,7 +231,6 @@ LAB_0044469b:
             FUN_00505520(*(undefined4 *)(DAT_005b3484 + 0x44e24),0xe);
           }
           *(undefined1 *)(DAT_005b3484 + 0x44bf8) = 1;
-          *unaff_FS_OFFSET = local_14;
           return;
         }
         goto LAB_00445282;
@@ -245,11 +241,9 @@ LAB_0044469b:
         ChangeGameState(3);
         if (DAT_007934f4 != 0) {
           FUN_00405ba0();
-          *unaff_FS_OFFSET = local_14;
           return;
         }
         FUN_00404410(&DAT_00e53e88);
-        *unaff_FS_OFFSET = local_14;
         return;
       }
     }
@@ -287,7 +281,6 @@ LAB_0044469b:
         FUN_0044c5f0();
         FUN_0044c5f0();
         FUN_0044c630();
-        *unaff_FS_OFFSET = local_14;
         return;
       }
     }
@@ -351,7 +344,6 @@ LAB_0044469b:
         DAT_0056d118 = 0xffffffff;
         local_c = 0xffffffff;
         FUN_00426810(&local_468);
-        *unaff_FS_OFFSET = local_14;
         return;
       }
       if (*payload == 0x6003) {
@@ -463,7 +455,6 @@ switchD_004449fc_default:
           FUN_0040cdf0();
           FUN_0040cdf0();
           FUN_0044b720(this);
-          *unaff_FS_OFFSET = local_14;
           return;
         }
         goto LAB_00445282;
@@ -550,7 +541,6 @@ switchD_00444e7c_default:
   }
   FUN_00449250(this,1,0);
 LAB_00445282:
-  *unaff_FS_OFFSET = local_14;
   return;
 }
 
