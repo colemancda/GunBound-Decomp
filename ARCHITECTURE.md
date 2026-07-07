@@ -852,6 +852,27 @@ directly** for a large class of content:
   format. Much more consistent with a **terrain/map tile renderer** —
   correcting an assumption ("this decodes `.img` sprites") carried since
   early in this project purely from its name resembling "RLE."
+  **Fully decompiled its two draw commands this pass, which resolves what
+  it actually renders**: each command (`FUN_004eafa0` for the plain
+  6-byte-stride case, `FUN_004eaeb0` for the indexed 12-byte-stride case)
+  is a **12-row, 12-bit-wide monochrome stencil blitter** — it walks a
+  packed 1-bpp bitmap mask (12 rows × 12 bits, `FUN_004eaeb0`'s rows split
+  across two bytes: high 7 bits of the first byte, low 4 bits used from
+  the second) and, for every set bit, writes a single flat 16-bit color
+  value (passed in as `param_2`/`param_3`) directly into the locked back
+  buffer at `DAT_0079352c + (y * DAT_005b3620 + x) * 2` (pixel buffer base
+  + `y*pitch+x`, both filled in from `LockBackBuffer`'s out-params by the
+  caller). `&DAT_005b3628`'s 24-byte-stride records are therefore a
+  **library of 12×12 stencil patterns**, each addressable by a 15-bit
+  index (`(controlByte & 0x7f) << 8 | nextByte`) — i.e. a lookup table of
+  shapes stamped in a solid color, not a table of sub-images. This is
+  consistent with GunBound's destructible-terrain mechanic: an explosion
+  crater (or any irregular soft-edged terrain shape) is drawn as a solid
+  color through a pre-authored stencil mask rather than as a real sprite
+  with its own pixel data — cheap to rasterize and easy to erase/redraw
+  per-hit. The plain (non-indexed, `FUN_004eafa0`) command uses the same
+  12×8 stencil approach but reads the mask directly from the tile stream
+  instead of a table, likely for simpler/no-lookup fill shapes.
 - **`BlitSprite16bpp`** (`0x4ed6a0`, was `FUN_004ed6a0`): the function
   actually relevant to `.img` sprites. Operates on `unsigned short*`
   pixels → the surfaces are **16-bit color**, confirmed as **ARGB4444**
