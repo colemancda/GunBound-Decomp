@@ -51,7 +51,12 @@ LAB_00443475:
   FUN_0040d260(&uStack_2c);
   puVar4 = DAT_007934f4;
   if (DAT_007934f4 != (undefined2 *)0x0) {
-    DAT_007934f4[1] = 0xa000;
+    /* DAT_007934f4[1] in the original: rewritten through puVar4 (same
+     * value, cast to undefined2* two lines up) since the global itself
+     * is declared uint32_t - it's used as a plain integer/address in
+     * ~30 other files, so retyping it as a pointer isn't worth the
+     * cross-file risk for this one subscript. */
+    puVar4[1] = 0xa000;
     *(undefined4 *)(puVar4 + 0x1000) = 4;
     *(undefined4 *)(puVar4 + 2) = 1;
     iVar6 = *(int *)(puVar4 + 0x1000);
