@@ -440,9 +440,18 @@ bytes** — much larger than the 308-byte source record, consistent with
 the destination struct holding additional derived/runtime fields beyond
 what's stored on disk.
 
+**Update: the three obfuscated boolean flags are resolved** (see the
+`mishato_English.exe` dialog findings below — `Shot?`/`Skip`/`2 Slots`).
 Still open: the exact meaning of the `0x20`/`0x28`/`0x30` fields beyond
-"checksummed," and which specific gameplay toggles the three obfuscated
-boolean flags represent.
+"checksummed." The same dialog lists exactly two more labeled fields
+besides `Item`/numeric-price/`Description` — **`Delay`** and **`Effect`**
+— which are very likely `0x20`/`0x28`/`0x30`'s real names in some order
+(three on-disk fields, two dialog labels — one of the three, probably
+`0x30`'s bare `ushort`, may just not have its own dedicated control, or
+maps to something not captured by this technique). Not confirmed to a
+specific offset since the MFC42 ordinal-import problem still blocks tying
+a control ID to a byte position — noted as a plausible but unconfirmed
+mapping, not a resolved one.
 
 ## `avatar.xfs`'s `.dat` entries — confirmed as avatar costume catalogs
 
