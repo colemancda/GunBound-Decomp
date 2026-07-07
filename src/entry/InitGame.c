@@ -20,16 +20,24 @@ int InitGame(undefined4 param_1,undefined4 param_2)
   int iVar1;
   void *pvVar2;
   uint uVar3;
-  undefined4 *unaff_FS_OFFSET;
   undefined1 local_40c [1024];
-  undefined4 local_c;
-  undefined1 *puStack_8;
-  undefined4 uStack_4;
-  
-  local_c = *unaff_FS_OFFSET;
-  uStack_4 = 0xffffffff;
-  puStack_8 = &LAB_0053ce9a;
-  *unaff_FS_OFFSET = &local_c;
+  undefined4 uStack_4; /* real local var, unrelated to the removed SEH
+                         * plumbing below despite the name/position -
+                         * reused for other purposes later in this
+                         * function. */
+
+  /* Ghidra decompiled a Windows SEH (__except) frame push/pop around
+   * this function's body (FS-register frame-chain manipulation,
+   * pushing a handler at LAB_0053ce9a on entry, popping it at every
+   * return). The actual handler code wasn't included in this
+   * function's decompilation - Ghidra only showed the frame plumbing,
+   * not what LAB_0053ce9a actually does - so there's no way to
+   * preserve its exact recovery behavior in portable C. Stripped
+   * entirely (all three sites: this one, the early-return below, and
+   * the function's tail) rather than guessing at a replacement -
+   * flagged here so it's not lost history. If __except's specific
+   * fault-recovery behavior for a failed init step ever turns out to
+   * matter, this is the place to revisit. */
   FUN_00415900();
   FUN_0043da00(&DAT_00796eec);
   FUN_004e3500(&DAT_00794e14);
@@ -41,7 +49,6 @@ int InitGame(undefined4 param_1,undefined4 param_2)
   if (iVar1 == 0) {
     iVar1 = LoadGameDataFiles(DAT_005b3484);
     if (iVar1 != 0) {
-      *unaff_FS_OFFSET = local_c;
       return iVar1 + 0xe0;
     }
     DAT_007934c8 = DAT_00f11dd4;
@@ -274,7 +281,6 @@ int InitGame(undefined4 param_1,undefined4 param_2)
       iVar1 = 0xcd;
     }
   }
-  *unaff_FS_OFFSET = local_c;
   return iVar1;
 }
 

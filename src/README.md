@@ -158,13 +158,22 @@ Concretely, that means:
     helpers, not game logic - likely not worth porting at all rather
     than fixing), `FUN_0046dde0.c`, `FUN_00471320.c`, `FUN_004ac5a0.c`
     (sub-byte-field access), `FUN_00405760.c`, `FUN_0043a670.c`
-    (vtable-call return value used as non-void), `entry/InitGame.c`
-    (genuine Windows SEH `__try`/`__except` frame setup - direct `FS`
-    segment-register manipulation and an internal exception-handler
-    label used as a data value, `LAB_0053ce9a` - not portable C, not a
-    quick fix; more of these will likely surface elsewhere since
-    structured exception handling is presumably used throughout the
-    game's own error-handling code too, not just once)
+    (vtable-call return value used as non-void)
+
+  **`entry/InitGame.c` was in this list (Windows SEH `__try`/`__except`
+  frame setup - direct `FS` segment-register manipulation, an internal
+  exception-handler label used as a data value) but is now fixed**: the
+  actual handler code (`LAB_0053ce9a`) was never included in this
+  function's own decompilation, so there was no exact behavior to
+  preserve - the frame push/pop plumbing was simply stripped (all three
+  sites: entry, one early-return, and the function's tail), leaving the
+  function's real init logic intact. This pattern (FS-register frame
+  chains) will likely recur elsewhere, since structured exception
+  handling is presumably used throughout the game's own error-handling
+  code, not just once - the same strip-the-plumbing approach should
+  apply each time, but each occurrence still needs manual review to
+  confirm the handler body really is absent from the decompile before
+  assuming it's safe to remove.
 
   These need real per-occurrence hand-translation (each `._0_1_` access
   means something different depending on context) — not attempted this
