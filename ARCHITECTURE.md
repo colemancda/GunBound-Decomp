@@ -1325,6 +1325,45 @@ previously-unexamined ones. Findings:
   `CharacterTexture1/2`, `AvataEffectTexture1/2`, `CharEffectTexture1/2` —
   the exact same texture families used by In-Battle rendering, confirming
   the Ready Room draws a live character/avatar preview before battle starts.
+
+  **The rest of the Ready Room's UI panels — traced this pass.** Two more
+  large vtable-13/15 functions (previously unexamined, but already flagged
+  as `BlitRLESprite` callers back in the very first caller-scan of this
+  project) turn out to render distinct panels:
+  - **Slot 13** (`FUN_004d7db0`, 4,854 bytes) is a **combined
+    player-roster + item-selection renderer**, drawn top-to-bottom in one
+    function:
+    - An **8-player ready-roster row** (2 rows × 4 columns), using the
+      exact same `PeekPacketChecksumState()`-bit-per-slot idiom already
+      confirmed for the Loading screen's per-player ready icons — i.e.
+      the same "which players have sent their ready/checksum state" check
+      drives both screens' player-status displays.
+    - A **paginated item-selection grid**: 9 slots per page (3×3,
+      `(index%3)*0x46+0x210` / `(index/3)*0x2d+0x193` spacing), reading
+      item IDs from a per-client array (`param_1+0x518`) and looking up
+      each item's display sprite through a **global item-ID → sprite-index
+      table** (`&DAT_0056dc40`) — with a label (via `FUN_004ed9f0`, the
+      confirmed text-render/prep helper) drawn under each icon. The
+      current page is tracked at `param_1+0x620`, total item count at
+      `+0x61c` — this is the player's **inventory/item-loadout picker**,
+      confirmed as a real paginated grid rather than a fixed short list.
+    - This function also loads the full `AvataTexture`/`CharacterTexture`/
+      effect-texture family again (same as `RenderCharacterPreview`),
+      consistent with it sharing the screen with the live character
+      preview rather than being a separate overlay.
+  - **Slot 15** (`FUN_004d9ae0`, 2,406 bytes) draws content at several
+    **fixed, non-computed screen positions** (not a formula-driven grid
+    like the item picker) — most plausibly **map-selection thumbnails**
+    given the small, fixed count of distinct positions (six), though this
+    wasn't cross-checked against `ready_selectmap.img`'s actual content to
+    fully confirm; flagged as a strong inference, not a certainty.
+  - **Mobile/character selection itself (the picker that chooses *which*
+    of the 16 characters `RenderCharacterPreview` then shows) wasn't
+    located in this pass** — `RenderCharacterPreview` clearly renders
+    *whichever* character is currently selected, but the actual selection
+    UI (a click-driven picker analogous to the room-list's hit-test
+    function) wasn't found in either of the two functions above or
+    tracked down elsewhere. A genuine open item, not resolved here.
 - **`State09_ReadyRoom_HandleChatInput`** (`0x4d6210`, was `FUN_004d6210`)
   and its Loading-screen counterpart **`State10_Loading_HandleChatInput`**
   (`0x43e720`, was `FUN_0043e720`) — confirmed as **Win32 message handlers**
