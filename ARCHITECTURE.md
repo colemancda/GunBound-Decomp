@@ -873,6 +873,32 @@ directly** for a large class of content:
   per-hit. The plain (non-indexed, `FUN_004eafa0`) command uses the same
   12×8 stencil approach but reads the mask directly from the tile stream
   instead of a table, likely for simpler/no-lookup fill shapes.
+
+  **Re-characterization: `BlitRLESprite` is actually the bitmap-font text
+  renderer, not primarily a terrain renderer.** Checking every caller
+  (`getReferencesTo` on `0x4eb450`) turns up dozens of sites across nearly
+  every UI/state-machine function in the binary, not just `GameTick`'s
+  terrain layer — including `State03_GameRoomList_RenderRoomLabel`
+  (`0x429810`), which `sprintf`s a formatted string (e.g. player name +
+  checksum-state values) into a stack buffer and then calls
+  `BlitRLESprite(x, color)` immediately after. The call-site disassembly
+  confirms the implicit stream-pointer register is loaded via
+  `LEA EAX,[ESP+0x30]` — the address of that same `sprintf` buffer. So
+  `BlitRLESprite`'s "control byte" stream, for text calls, **is the ASCII
+  (or DBCS/EUC-KR, given the high-bit-set path consumes two stream bytes —
+  consistent with Korean text) string itself**, and `&DAT_005b3628`'s
+  12×12 stencil table is functioning as a **bitmap font glyph table**
+  indexed by character code, not (or not only) a terrain-crater shape
+  library. The most accurate characterization: `BlitRLESprite` is a
+  generic "stamp a solid color through a table of 12×12 monochrome
+  stencils, selected byte-by-byte from an input stream" primitive, reused
+  by the UI layer for text rendering and by the terrain layer (its
+  original `GameTick` callers, still uncontradicted) for crater/damage
+  decals — both are just different streams sharing the same glyph/stencil
+  table. Exactly how single-byte (Latin, `FUN_004eafa0`) vs. two-byte
+  (`FUN_004eaeb0`) codepoints map to specific stencil-table indices, and
+  whether the terrain and font use the *same* or a separately-addressed
+  region of `&DAT_005b3628`, is not yet traced further.
 - **`BlitSprite16bpp`** (`0x4ed6a0`, was `FUN_004ed6a0`): the function
   actually relevant to `.img` sprites. Operates on `unsigned short*`
   pixels → the surfaces are **16-bit color**, confirmed as **ARGB4444**
