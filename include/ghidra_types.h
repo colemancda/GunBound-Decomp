@@ -10,7 +10,28 @@
 #ifndef GB_GHIDRA_TYPES_H
 #define GB_GHIDRA_TYPES_H
 
+#include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <time.h>
+
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <winsock2.h>
+#include <windows.h>
+
+/* Ghidra emits Windows/CRT struct *tag* names bare (no `struct` keyword,
+ * as C++ allows implicitly) even where only the tag - not a typedef of
+ * the same name - exists. These re-expose the tag names as typedefs so
+ * that verbatim-ported code compiles as plain C without editing every
+ * call site. `_RTL_CRITICAL_SECTION`'s real Win32 typedef is
+ * CRITICAL_SECTION; the rest are genuinely-bare tag names. */
+typedef MSG tagMSG;
+typedef WIN32_FIND_DATAA _WIN32_FIND_DATAA;
+typedef struct tm tm;
+typedef struct sockaddr sockaddr;
+typedef CRITICAL_SECTION _RTL_CRITICAL_SECTION;
 
 typedef uint8_t undefined;
 typedef uint8_t undefined1;

@@ -63,15 +63,80 @@ rather than through one clean entry point.
 - **`test_lzhuf.c`** — standalone CLI test driver, not part of the
   eventual game build; exists purely to validate `lzhuf_decode()` against
   real data without needing the rest of the game to compile.
-- **`main.c`** — `WinMain` (`0x40d8e0`) skeleton. Wires up the real
-  top-level control flow documented in ARCHITECTURE.md's "Entry point
-  and top-level flow" section (window creation, `WSAStartup`, the
-  `PeekMessage`-idle-calls-`GameTick` message loop) with stub bodies for
-  `WndProc`/`InitGame`/`GameTick`/`Shutdown` — none of those four are
-  ported yet, each is a substantial function that belongs in its own
-  file (matching the one-file-per-function convention) once tackled.
-  **Requires Winelib to build** — real Win32 API surface, not a
-  dependency-free algorithm like `lzhuf/`.
+
+### Raw/verbatim ports — 92 functions, one file each
+
+Every function in the whole binary with a **confirmed real name** (not a
+bare `FUN_<address>`) outside of `lzhuf/` — 92 of them — has been dumped
+from Ghidra's decompiler and dropped into `src/` as one file per
+function, organized into subdirectories by subsystem:
+
+- **`entry/`** — `WinMain`, `InitGame`, `Shutdown`, `WndProc`, `GameTick`,
+  `ChangeGameState`. Supersedes the old hand-written `main.c` skeleton —
+  these are the *real* decompiled bodies now, not stubs.
+- **`state_machine/`** — every `StateNN_*` function (`ProcessPacket`,
+  `ProcessBattleAction`, `OnEnter`/`OnExit`, render functions) plus the
+  shared `CGameState_*` base-class functions.
+- **`network/`** — the packet-checksum family (`EncodeOutgoingPacketField`,
+  `PeekPacketChecksumState`, etc.), `PostTurnEvent`, `HandleTurnTimeoutSlot`.
+- **`replay/`** — `Replay_AppendEvent`/`AppendString`/`FlushEvent`,
+  `WriteReplayEventRecord`.
+- **`rendering/`** — the `Blit*` family, `BuildRotatedSpriteQuad`,
+  `PresentFrame`, texture-cache lookups.
+- **`directx_init/`** — `InitDirectDraw`/`InitDirectSound`/`InitDirectInput`,
+  `ShutdownDirectDraw`.
+- **`fileformat/`** — the `.xfs` archive reader/decoder family,
+  `LoadGameDataFiles`, `ChooseEvent.txt` parsing.
+- **`ui_widget/`** — `CreateButtonWidget`, `RegisterActiveObject`, and
+  friends.
+- **`registry/`** — `ReadRegistryDword`/`WriteRegistryDword`/
+  `GetDisplayConfigFromRegistry`.
+
+**Be clear about what "ported" means here**: these are close to verbatim
+Ghidra decompiler output, not hand-verified against documented behavior
+beyond what's already written up in ARCHITECTURE.md/PROTOCOL.md/
+FILEFORMATS.md. `PROGRESS.csv` marks them `RAW-src` — a third status
+alongside `TODO` and the hand-verified `PARITY-<file>` used for `lzhuf/`,
+specifically meaning "file exists, not yet promoted to verified."
+Concretely, that means:
+
+- **They reference hundreds of not-yet-ported globals and helper
+  functions** (`DAT_<address>`/`_DAT_<address>` globals, unnamed
+  `FUN_<address>` helpers, string-literal symbols) that don't exist
+  anywhere in this tree yet. None of these files link — most don't even
+  compile standalone (undeclared identifiers) — until their dependencies
+  are ported too. This is expected at this stage, not a bug to chase
+  file-by-file; `include/ghidra_types.h` (see below) only fixes the
+  *universal* issues, not per-file missing symbols.
+- **`include/ghidra_types.h`** is a shared compatibility header (typedefs
+  for Ghidra's `undefined4`/`code`/`byte`/etc. pseudo-types, plus a few
+  Windows/CRT struct-tag typedefs Ghidra emits bare) that lets this raw
+  output parse as plain C without hand-editing every file for that class
+  of issue. Include it before `<windows.h>` in any raw port.
+- **5 files have deeper, genuine syntax problems** beyond missing
+  symbols — Ghidra's decompiler falling back to invalid-C pseudo-syntax
+  for things it couldn't cleanly express (`variable._0_1_`-style partial-
+  register/sub-byte-field access, `switch` on a pointer, array-type
+  casts), usually in the largest/most complex functions where the
+  original code's calling convention or register reuse defeated clean
+  decompilation:
+  - `state_machine/State02_ServerSelect_ProcessPacket.c`
+  - `state_machine/State09_ReadyRoom_RenderCharacterPreview.c`
+  - `state_machine/State11_InBattle_OnEnter.c`
+  - `state_machine/State11_InBattle_ProcessBattleAction.c` /
+    `State11_InBattle_Render.c` (the `_N_M_` sub-field pattern only,
+    otherwise fine)
+  - `network/HandleTurnTimeoutSlot.c`
+  - `replay/WriteReplayEventRecord.c`
+
+  These need real per-occurrence hand-translation (each `._0_1_` access
+  means something different depending on context) — not attempted this
+  pass, flagged here so it's a known list rather than a surprise later.
+- Verified via a syntax-only compile pass (`winegcc-stable -c`, catching
+  parse errors without needing every symbol resolved) inside
+  `tools/winelib-env/`'s Docker image — confirms the files are
+  *structurally* real C (modulo the 5 above), not that they build or
+  link yet.
 
 ## Building and testing
 
