@@ -255,6 +255,67 @@ populates the UI list of who's currently in the game room, with their
 names/stats/ready-status. See "Confirmed recurring structures" below for the
 exact field offsets, which are shared with the `0x21fX` family.
 
+#### Opcode `0x2104` — Join room request (outgoing) — client-side room selection, fully traced
+
+**Direction**: outgoing (client → server) — the first confirmed
+client-to-server opcode in this `0x21xx` family; every other opcode in it
+is a server broadcast.
+
+**Payload**: a single `ushort` — the target room's ID field (read from the
+client's local room-card array at `+0x44664`, not the room's grid index).
+
+**Behavior/trigger**: found by tracing the lobby's mouse-click dispatcher
+(`FUN_00428b90`, the vtable-driven Win32 message handler for
+`State03_GameRoomList`) rather than from the packet handler itself. Every
+click on the room grid first goes through a shared **hit-test function**,
+`FUN_0042ada0(y, requireJoinable)`, which walks the same 3-row×2-column,
+6-slot grid geometry already confirmed for the room-card renderer
+(`FUN_0042a220`) and returns the clicked slot's index (or `-1` if the
+click missed every card). Three distinct click behaviors, dispatched by
+raw Win32 message code:
+- **`WM_LBUTTONDOWN` (`0x201`, single left-click)**: hit-tests *without*
+  requiring the room to be joinable — just needs a valid occupied slot.
+  Sets the client's "selected room" field and enables a UI element (via
+  `FUN_00406300(1)`) — this is the **select/highlight** interaction (the
+  3-state background — normal/hovered/joined — found in the room-card
+  renderer literally reflects this selection).
+- **`WM_LBUTTONDBLCLK` (`0x203`, double-click)**: also hit-tests without
+  the joinable requirement, then conditionally shows a message/dialog
+  (`FUN_004f2da0`) — likely a validation error (full room, in-progress
+  game, etc.) rather than a join action.
+- **`WM_RBUTTONDOWN` (`0x204`, right-click)**: hit-tests **with** the
+  joinable requirement (room must exist, not be marked full/closed, and
+  have `currentPlayers != maxPlayers`) — and if it passes, sends **this
+  opcode, `0x2104`**, and clears two large local per-room-session buffers
+  (96 and 104 bytes) in preparation for the server's join-confirmation
+  response (`0x2121`, already documented above). **Right-click, not
+  double-click or a dedicated button, is what actually requests joining a
+  room** in this client — an unusual but confirmed UI convention for this
+  screen (left-click only selects/highlights).
+
+**Significance**: this closes the loop on how the classic GunBound lobby
+"click a room to join it" interaction actually works end to end — select
+with left-click, join with right-click, `0x2104` → server, and the
+already-documented `0x2121` response initializes the joined room's player
+slots. No dedicated "Join" button exists for this — the room cards
+themselves are the only entry point (consistent with the earlier finding
+that individual room rows aren't separate `ButtonWidget` objects but are
+drawn by the state's own bespoke render loop; the click handling
+similarly lives in the state's own vtable slot rather than a generic
+widget callback).
+
+**Channel changing — not a separate in-lobby mechanic.** Checked
+`State03_GameRoomList_ProcessPacket` for any channel-list/channel-switch
+opcode and found none — channel selection (`0x1102`, already documented
+under State 2 above) happens once, in the Server/Channel Select screen,
+*before* the client ever transitions into this room-list state. There's
+no evidence of a "change channel while browsing rooms" feature in this
+client's code; switching channels would mean leaving the room list and
+returning to Server Select. (Consistent with the earlier finding that
+this specific build's Server Select screen never actually renders a
+dynamic channel list either — likely vestigial/unused code paths in a
+single-server private build, not a missed feature.)
+
 #### Opcode `0x2105` — Player info/profile broadcast
 
 **Direction**: incoming.

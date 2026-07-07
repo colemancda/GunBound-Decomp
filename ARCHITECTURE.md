@@ -1263,6 +1263,17 @@ concrete results:
   (create room, refresh, etc.) draws itself separately via the generic
   active-object sweep (also below).
 
+  **Room selection/joining, traced from the click side.** The room cards
+  aren't `ButtonWidget` objects — clicks are handled directly by the
+  state's own mouse-message vtable slot (`FUN_00428b90`), which hit-tests
+  against the same 6-slot grid geometry via `FUN_0042ada0`. Left-click
+  selects/highlights a room (driving the 3-state background above);
+  right-click (not double-click) sends the actual join request — outgoing
+  opcode `0x2104`, a new addition to PROTOCOL.md's Channel 1 opcode list.
+  Full write-up, including why double-click isn't the join trigger and
+  why there's no separate "change channel" mechanic inside this screen,
+  is in PROTOCOL.md's opcode `0x2104` section.
+
 However, checking the same vtable slot across other states (State 2's slot
 15 is a distinct 62-byte function with no identifying strings; State 7's is
 the shared no-op) confirms — consistent with the earlier finding for slot 9
