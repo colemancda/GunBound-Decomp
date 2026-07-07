@@ -230,7 +230,7 @@ source slot (0-7), `+0x21` payload start.
 | `0x4006` | Simple status/value relay (tentative) |
 | `0x8005` | Field relay (turn-gated) |
 | `0x8006` | Weapon-fire feedback sound |
-| `0x8402`, `0x8406` | Aim/angle+power relay (tentative) |
+| `0x8402`, `0x8406` | Aim/angle+power relay (**confirmed** — both read the same `+0x243`/`+0x2cc` struct offsets already confirmed as angle/power in Fire's own payload) |
 | `0x8403` | **Fire** — 8 sequential shorts (hypothesized trajectory waypoints, unconfirmed) |
 | `0x8404` | Hit/damage log entry (tentative — likely feeds a live damage/score ranking sort, see PROTOCOL.md) |
 | `0x8405` | Weapon selection sound |

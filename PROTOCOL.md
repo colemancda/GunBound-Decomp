@@ -1386,7 +1386,7 @@ tree comparing the fire-mode byte against `0`/`1`/`2`.
 selection/firing state — confirmed to be part of the same turn-start event
 chain as `0x8005` (posted immediately after it by `0xc300`).
 
-#### Action `0x8402` — Aim/angle+power relay (tentative)
+#### Action `0x8402` — Aim/angle+power relay (**confirmed**)
 
 **Direction**: incoming, gated on turn-ownership (skip if the acting slot
 is this client) and a "player record exists" check via `GetPlayerRecordBySlot`.
@@ -1394,13 +1394,19 @@ is this client) and a "player record exists" check via `GetPlayerRecordBySlot`.
 **Behavior**: relays two fields plus a boolean flag through the outgoing-
 encode helpers — identical payload shape to action `0x8406` below.
 
-**Significance**: tentatively an aim-angle-and-power update being forwarded
-to other clients as another player adjusts their aim, given the two-numeric-
-fields-plus-flag shape closely matching what a "current aim state" snapshot
-would look like. Not proven via an explicit angle/power label — inferred
-from payload shape and context (turn-based artillery gameplay needs *some*
-mechanism for showing an opponent's aim in progress, and this is the best
-structural match found).
+**Significance**: **upgraded from tentative to confirmed** by tracing the
+send side. Searched the whole binary for every site that pushes the literal
+`0x8402` and found the real sender: inside `FUN_00461ca0` (a large,
+3,153-byte input/state-update function), right after
+`Replay_AppendEvent(0x8402)`, the two relayed fields are read via
+`FUN_0040a4d0(param_1 + 0x243)` and `FUN_0040a4d0(param_1 + 0x2cc)` —
+**the exact same two struct offsets already independently confirmed as
+angle and power** in `State11_InBattle_HandleFireInput`'s Fire (`0x8403`)
+payload construction (see ARCHITECTURE.md's physics-investigation
+writeup). Same struct, same fields, two different call sites — this is
+about as solid a cross-confirmation as static analysis gets without
+dynamic tracing. `0x8402`/`0x8406` really are a live aim-angle-and-power
+broadcast as another player adjusts their aim mid-turn.
 
 #### Action `0x8403` — Fire (the weapon-firing action)
 
@@ -1487,7 +1493,7 @@ distinct from `0x8006`'s fire-cursor feedback and `0x8403`'s actual fire
 action) — confirmed as part of the turn-start event chain, posted by
 `0xc300` immediately after the Fire action `0x8403`.
 
-#### Action `0x8406` — Aim/angle+power relay
+#### Action `0x8406` — Aim/angle+power relay (**confirmed**)
 
 **Direction**: incoming.
 
@@ -1495,11 +1501,18 @@ action) — confirmed as part of the turn-start event chain, posted by
 above — two fields plus a boolean flag, forwarded via the outgoing-encode
 helpers.
 
-**Significance**: functionally indistinguishable from `0x8402` in this
-analysis — the two may represent the same logical event reached via
-different trigger conditions/gating (their surrounding guard conditions
-differ slightly), or may be genuinely distinct events that happen to share
-an identical payload shape. Grouped together as the "aim relay" pair.
+**Significance**: **confirmed via the same send-side trace as `0x8402`** —
+both `Replay_AppendEvent(0x8402)` and `Replay_AppendEvent(0x8406)` live in
+the same function (`FUN_00461ca0`), each immediately preceded by reads of
+the identical `param_1+0x243`/`param_1+0x2cc` angle/power fields. The two
+opcodes genuinely are the same logical "broadcast my current aim" event,
+reached via two different trigger paths inside that one function (their
+surrounding guard conditions differ — one is gated by a checksum-state
+check, the other by comparing the current angle/power against
+last-sent-value fields at `param_1[0x30a9]`/`param_1[0x30aa]`, i.e. one
+path is likely an unconditional periodic broadcast and the other an
+only-send-on-change optimization) rather than two unrelated events that
+happen to share a shape.
 
 #### Action `0x8407` — packet-checksum keepalive (corrected from an earlier pass)
 
