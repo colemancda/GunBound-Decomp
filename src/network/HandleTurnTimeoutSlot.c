@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-void HandleTurnTimeoutSlot(byte param_1)
+void HandleTurnTimeoutSlot(int param_1)
 
 {
   byte *pbVar1;

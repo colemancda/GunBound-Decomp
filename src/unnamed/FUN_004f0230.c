@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-bool __fastcall FUN_004f0230(undefined4 param_1,undefined4 param_2,char param_3)
+bool __fastcall FUN_004f0230(undefined4 param_1,undefined4 param_2,int param_3)
 
 {
   int iVar1;

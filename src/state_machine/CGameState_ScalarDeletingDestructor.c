@@ -12,7 +12,12 @@
 #include <windows.h>
 
 
-void * __thiscall CGameState_ScalarDeletingDestructor(void *param_1,byte param_2)
+/* param_2 is `int`, not `byte`: a K&R-declared (unspecified-args)
+ * prior declaration in functions.h can't be defined with a
+ * default-promoted parameter type (byte/short/float) - byte args are
+ * promoted to int when passed anyway under cdecl/thiscall, so this
+ * changes nothing about the actual calling convention. */
+void * __thiscall CGameState_ScalarDeletingDestructor(void *param_1,int param_2)
 
 {
   CGameState_BaseDestructor();

@@ -10,7 +10,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004124a0(char param_1)
+void FUN_004124a0(int param_1)
 
 {
   int iVar1;

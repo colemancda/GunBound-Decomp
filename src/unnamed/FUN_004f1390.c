@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_004f1390(char param_1,undefined4 param_2)
+undefined4 __thiscall FUN_004f1390(int param_1,undefined4 param_2)
 
 {
   undefined4 in_EAX;

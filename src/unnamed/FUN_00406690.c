@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00406690(char param_1)
+undefined4 FUN_00406690(int param_1)
 
 {
   byte *in_EAX;

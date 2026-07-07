@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00500c00(undefined4 *param_1,int param_2,char param_3)
+undefined4 FUN_00500c00(undefined4 *param_1,int param_2,int param_3)
 
 {
   void *pvVar1;

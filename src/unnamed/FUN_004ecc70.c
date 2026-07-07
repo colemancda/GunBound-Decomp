@@ -10,7 +10,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004ecc70(int param_1,int param_2,char param_3,int param_4,int param_5,undefined4 param_6)
+void FUN_004ecc70(int param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6)
 
 {
   float fVar1;

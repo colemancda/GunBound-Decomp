@@ -9,7 +9,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined * __thiscall FUN_004f3c70(float *param_1,float param_2)
+undefined * __thiscall FUN_004f3c70(float *param_1,double param_2)
 
 {
   float *unaff_ESI;

@@ -10,7 +10,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void FUN_00424ac0(undefined4 param_1,undefined4 param_2,undefined4 param_3,char param_4)
+void FUN_00424ac0(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
 
 {
   undefined4 uVar1;

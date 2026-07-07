@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 * __thiscall FUN_004f2ea0(undefined4 *param_1,byte param_2)
+undefined4 * __thiscall FUN_004f2ea0(undefined4 *param_1,int param_2)
 
 {
   *param_1 = &PTR_FUN_00557534;

@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void * __thiscall FUN_0050ede0(void *param_1,byte param_2)
+void * __thiscall FUN_0050ede0(void *param_1,int param_2)
 
 {
   FUN_0050ee00();

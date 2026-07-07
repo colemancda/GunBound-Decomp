@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e7de0(int param_1,byte param_2,undefined4 *param_3)
+void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3)
 
 {
   LPCRITICAL_SECTION lpCriticalSection;

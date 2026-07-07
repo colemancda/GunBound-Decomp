@@ -9,7 +9,7 @@
 
 /* WARNING: Removing unreachable block (ram,0x0042f6d4) */
 
-void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,byte param_3)
+void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
 
 {
   undefined4 *puVar1;

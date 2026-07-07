@@ -153,6 +153,14 @@ Concretely, that means:
     sub-byte-field access, `._1_3_`/`._0_4_`/etc. - this is a large,
     heavily-packed packet-decoding function with many fields read at
     non-standard offsets/widths)
+  - `state_machine/State11_InBattle_Render.c` (same extensive sub-byte-
+    field access pattern, ~2000-line rendering function, plus a
+    pointer-arithmetic-on-non-pointer issue around line 1197)
+  - `state_machine/State10_Loading_PreloadAssets.c` (`&stack0xffffff7f`
+    - a raw stack-frame offset Ghidra couldn't map to any declared
+    local; it's one byte before `acStack_80` starts, likely a stack-
+    layout/padding mismatch in Ghidra's own analysis rather than
+    something guessable from this function alone)
   - `network/HandleTurnTimeoutSlot.c`
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`

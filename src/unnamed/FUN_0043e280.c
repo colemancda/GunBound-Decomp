@@ -9,7 +9,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0043e280(undefined4 param_1,ushort param_2,short *param_3)
+void FUN_0043e280(undefined4 param_1,int param_2,short *param_3)
 
 {
   int iVar1;

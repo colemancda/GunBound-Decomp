@@ -9,7 +9,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 FUN_004e9490(float param_1)
+undefined4 FUN_004e9490(double param_1)
 
 {
   if (ABS(param_1) < _DAT_0054c870) {

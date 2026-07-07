@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-int __thiscall FUN_00402160(int param_1,short param_2)
+int __thiscall FUN_00402160(int param_1,int param_2)
 
 {
   char cVar1;

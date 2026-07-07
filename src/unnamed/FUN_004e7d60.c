@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004e7d60(int param_1,short param_2)
+void __thiscall FUN_004e7d60(int param_1,int param_2)
 
 {
   int in_EAX;

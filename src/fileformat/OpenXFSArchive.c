@@ -14,7 +14,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-undefined4 OpenXFSArchive(LPCSTR param_1,char param_2,undefined1 param_3)
+undefined4 OpenXFSArchive(LPCSTR param_1,int param_2,int param_3)
 
 {
   HANDLE hFile;

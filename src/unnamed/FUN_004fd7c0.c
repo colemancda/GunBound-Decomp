@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-undefined1 __thiscall FUN_004fd7c0(int param_1,undefined4 param_2,char param_3)
+undefined1 __thiscall FUN_004fd7c0(int param_1,undefined4 param_2,int param_3)
 
 {
   char cVar1;

@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004eb720(int param_1,int param_2,undefined2 param_3)
+void __fastcall FUN_004eb720(int param_1,int param_2,int param_3)
 
 {
   int in_EAX;

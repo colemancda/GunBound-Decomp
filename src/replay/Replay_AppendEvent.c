@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-void Replay_AppendEvent(undefined2 param_1)
+void Replay_AppendEvent(int param_1)
 
 {
   int iVar1;

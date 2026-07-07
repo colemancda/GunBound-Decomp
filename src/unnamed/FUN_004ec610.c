@@ -9,7 +9,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __thiscall FUN_004ec610(int param_1,int param_2,int param_3,int param_4,byte param_5)
+void __thiscall FUN_004ec610(int param_1,int param_2,int param_3,int param_4,int param_5)
 
 {
   float fVar1;

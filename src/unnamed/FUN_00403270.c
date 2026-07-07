@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-bool __fastcall FUN_00403270(char param_1)
+bool __fastcall FUN_00403270(int param_1)
 
 {
   char cVar1;

@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004d0260(int param_1,char param_2,char param_3,int param_4,int param_5)
+void FUN_004d0260(int param_1,int param_2,int param_3,int param_4,int param_5)
 
 {
   char cVar1;

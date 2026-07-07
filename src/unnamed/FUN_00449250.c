@@ -13,7 +13,7 @@
 /* WARNING: Removing unreachable block (ram,0x0044936e) */
 /* WARNING: Removing unreachable block (ram,0x00449378) */
 
-void FUN_00449250(int param_1,char param_2,char param_3)
+void FUN_00449250(int param_1,int param_2,int param_3)
 
 {
   int *piVar1;

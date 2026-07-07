@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004e74c0(short param_1,int param_2,int param_3,short param_4,char *param_5)
+void __fastcall FUN_004e74c0(int param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   uint *puVar1;
