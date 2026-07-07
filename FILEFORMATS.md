@@ -150,7 +150,7 @@ fields, assuming no gap) wasn't independently stress-tested against a real
 long filename in this pass, but 112 bytes comfortably covers every filename
 observed in [STRINGS.md](STRINGS.md).
 
-### The archive also has a writer/insert path (not just a reader)
+### The archive also has a writer/insert path — traced, and it's mundane
 
 `FUN_004f1220` builds a **brand-new** 128-byte TOC record and inserts it
 into the sorted array at the correct sort position (using the same
@@ -159,14 +159,29 @@ fresh 128 KB chunk when the 1024-entries-per-chunk boundary is crossed and
 shifting existing records to make room — i.e. the exact same TOC structure
 documented above, but built from scratch rather than just read. This
 confirms the field layout further (it explicitly zero-initializes `+0x78`
-and `+0x7c` and sets `+0x70`/`+0x74` at creation time) and reveals the
-client itself contains **archive-writing logic**, not just a reader — this
-is likely used for a runtime avatar/decal cache or similar dynamic content
-that gets appended to an in-memory (or on-disk) `.xfs`-shaped structure,
-rather than being purely a read-only asset format. This pass didn't trace
-who calls `FUN_004f1220` or what triggers writing, so the exact purpose of
-the writer path remains open — but it's worth knowing the format isn't
-strictly append-only/build-time-only.
+and `+0x7c` and sets `+0x70`/`+0x74` at creation time).
+
+**Traced the caller chain to find what actually triggers it, correcting an
+earlier speculative guess.** `FUN_004f1220` has exactly one caller,
+`FUN_004f1390` — the generic "load a resource by name, exactly once"
+helper used throughout the texture/asset system (also used by
+`LoadButtonDefinitionFromXFS`, see [ARCHITECTURE.md](ARCHITECTURE.md)).
+Inside `FUN_004f1390`, the create path only runs if a lookup-by-name
+(`FUN_004f11a0`) **fails to find the entry at all** — i.e. it's a fallback
+for "this expected built-in asset is missing," not a general-purpose
+insert. Checked every one of `FUN_004f1390`'s own 7 call sites across 6
+functions: **all of them pass the same fixed mode value and request
+compile-time-constructed names** — fixed lookup-table names (e.g. one
+caller loads the exact same `&DAT_005b3628` terrain lookup table already
+documented as `BlitRLESprite`'s own data in
+[ARCHITECTURE.md](ARCHITECTURE.md)), and `sprintf`-built names from small
+integer selectors (weapon/effect texture variants), never a
+network-received or user-generated name. **This settles the "runtime
+avatar/decal cache" hypothesis from the previous pass — it was wrong.**
+The writer path is defensive/fallback code for a corrupted or incomplete
+archive missing an expected built-in asset, not a live content-download or
+patch mechanism. Worth documenting as resolved rather than leaving the
+speculative framing in place.
 
 ### Important caveat for a from-scratch extractor: shared decode state
 
@@ -1178,8 +1193,11 @@ decompiled code:
    unidentified last pass). This was the missing piece for writing an
    actual extractor (previously only single-entry lookup by name was
    documented, not full-archive enumeration). Also discovered the archive
-   format has a writer/insert code path in the client itself, not just a
-   reader — see the dedicated note above; its caller/trigger wasn't traced.
+   format has a writer/insert code path in the client itself — **now
+   traced fully** (see the dedicated note above): it's a defensive
+   fallback for a missing expected built-in asset, triggered generically
+   by the same resource-loading helper used everywhere else, not a live
+   avatar/content-download mechanism as an earlier pass speculated.
 1. **Static-analysis-exhausted**: the `.sv` filename format and per-event
    binary record are fully confirmed (see above). The literal `fopen()`-
    equivalent call site was searched exhaustively this pass — every caller
