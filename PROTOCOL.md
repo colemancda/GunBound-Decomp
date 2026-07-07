@@ -1432,9 +1432,23 @@ afterward.
 **Significance**: tentatively a **hit/damage event log entry** feeding a
 kill-feed or combat-log style UI element, based on the shape of the four
 fields (value + target-id + two flag/type bytes reads plausibly as "this
-much damage/this event type happened to this target"). Not confirmed — no
-other code in the binary was found touching these exact same offsets to
-cross-check the interpretation against.
+much damage/this event type happened to this target"). No other code in
+the binary touches these exact `+0x27`/`+0xa7`/`+0x127`/`+0x1a7` offsets
+directly, but **decompiling the follow-up call, `FUN_004ccbb0`, advances
+this rather than leaving it a dead end**: it's a generic sort routine —
+a selection-sort-style comparison/swap pass over **a different set of
+four parallel arrays**, at header-relative `+0x9c`/`+0x29c`/`+0x49c`/
+`+0x69c` (`0x200`-byte spacing between arrays, distinct from the `0x80`
+spacing of the append arrays above), bounded by a running count at
+`+0x98`. Sorting a small (this game caps at 8 players), count-bounded set
+of 4 parallel value arrays immediately after logging a hit/damage event
+reads strongly as **maintaining a live in-battle damage/score ranking**
+(a leaderboard re-sorted after every hit), not a passive log — "UI-update
+function" undersold what it does. The exact relationship between the
+appended hit-log entry's fields and which of the four sorted arrays they
+feed wasn't reconciled (the two array sets have different strides and
+don't share an obvious shared base), so this is a genuine advance on the
+open question, not a full resolution.
 
 #### Action `0x8405` — Weapon selection sound
 
@@ -1889,10 +1903,13 @@ listed here so future work has a concrete starting list rather than a vague
    aren't real per-mode tables at all. A full decompile of the shared
    accessor (`FUN_0040a4d0`) showed it ignores its argument entirely and
    just peeks the packet-checksum state; see the corrected writeup above.
-2. **Action `0x8404`'s exact purpose** (the third parallel-array set,
-   tentatively a hit/damage log entry) — no other confirmed code in the
-   binary was found touching these same offsets to independently
-   cross-check the interpretation.
+2. **Action `0x8404`'s exact purpose — advanced, not fully resolved.**
+   Decompiling its follow-up call (`FUN_004ccbb0`) showed it's a generic
+   sort over a *different* set of four parallel arrays than the ones
+   `0x8404` appends to — pointing toward "this maintains a live in-battle
+   damage/score ranking" rather than a passive log, but the exact link
+   between the appended entry and the sorted arrays wasn't reconciled; see
+   the corrected writeup above.
 3. **The eight-`short` payload in the Fire action (`0x8403`/`0xc409`)** —
    hypothesized to be trajectory waypoint samples, but this was never
    confirmed; see ARCHITECTURE.md's extensive (ultimately inconclusive)
