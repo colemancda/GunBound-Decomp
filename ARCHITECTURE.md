@@ -1212,8 +1212,8 @@ concept in this engine, not separate systems.
    Korean-keyboard-layout romanization. What the *server* does with the
    three debug commands' outgoing packets remains untraced (needs server
    code).
-4. The function that **iterates** the active-object registry once per frame
-   — **reframed, not simply "not yet found."** Traced `CreateButtonWidget`'s
+4. ~~The function that **iterates** the active-object registry once per
+   frame~~ — **resolved (reframed then answered).** Traced `CreateButtonWidget`'s
    call site raw disassembly to see exactly what it passes as
    `RegisterActiveObject`'s registry argument: `MOV EDX,[ESP+8]` — one of
    `CreateButtonWidget`'s own stack parameters, not a hardcoded constant —
