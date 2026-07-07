@@ -16,7 +16,6 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
   int iVar4;
   int iVar5;
   int iVar6;
-  undefined4 *unaff_FS_OFFSET;
   int local_690 [2];
   int local_688 [2];
   undefined1 local_680 [8];
@@ -26,14 +25,14 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
   int local_440;
   undefined1 local_230 [20];
   int local_21c;
-  undefined4 local_c;
-  undefined1 *puStack_8;
   int local_4;
   
-  local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053d23c;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053d23c) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. local_4's
+   * `._0_1_`/`._1_3_` partial-field accesses are rewritten as plain
+   * int operations, same reasoning as FUN_004174c0.c's fix. */
   cVar1 = FUN_004065a0();
   if ((cVar1 == '\0') && (*(char *)(param_1 + 0x14) == '\0')) {
     uVar2 = FUN_0040a8c0(param_4 + 0x2908,local_678,2);
@@ -42,11 +41,11 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
     uVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_0040a5f0(uVar2,local_454,uVar3);
-    local_4._0_1_ = 1;
+    local_4 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_4 = (uint)local_4._1_3_ << 8;
+    local_4 = 0;
     if (local_440 != 0) {
       FUN_0040a240();
       FUN_0040b540(local_688);
@@ -89,7 +88,6 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
       FUN_00477140();
     }
   }
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 
