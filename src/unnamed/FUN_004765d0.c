@@ -27,7 +27,6 @@ void __fastcall FUN_004765d0(int *param_1)
   int iVar15;
   int iVar16;
   code *pcVar17;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 uVar18;
   char *pcVar19;
   uint uStack_ad8;
@@ -38,15 +37,15 @@ void __fastcall FUN_004765d0(int *param_1)
   undefined1 auStack_67c [548];
   undefined1 auStack_458 [548];
   undefined1 auStack_234 [548];
-  undefined4 uStack_10;
-  undefined4 uStack_c;
   undefined1 *puStack_8;
   undefined4 uStack_4;
-  
+
   uStack_4 = 0xffffffff;
-  puStack_8 = &LAB_0053c398;
-  uStack_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &uStack_c;
+  /* Windows SEH __try/__except frame setup stripped (handler body
+   * LAB_0053c398 wasn't included in this function's own decompile;
+   * same rationale as entry/InitGame.c - see src/README.md). puStack_8
+   * is a real, separate local reused elsewhere in this function
+   * despite the SEH-typical name - kept as-is. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = PeekPacketChecksumState();
   iVar8 = PeekPacketChecksumState();
@@ -87,7 +86,12 @@ void __fastcall FUN_004765d0(int *param_1)
       puStack_8 = (undefined1 *)0xffffffff;
       FUN_0040a2a0();
       if (iVar7 == iVar8) {
-        uVar10 = EncodeChecksumState(param_1 + 0x3d5);
+        /* EncodeChecksumState is void-returning (see its own
+         * definition) - this call site's return-value use is a
+         * Ghidra per-call-site decompilation inconsistency, same
+         * class as entry/WinMain.c's FUN_004058c0 fix. uVar10 is left
+         * uninitialized here as a result. */
+        EncodeChecksumState(param_1 + 0x3d5);
         EncodeChecksumState(uVar10);
         EncodeChecksumState(piVar2);
       }
@@ -320,7 +324,6 @@ LAB_00476d03:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_00436980(uVar11,uVar10,(short)param_1[0xfe9]);
 LAB_00476f35:
-  *unaff_FS_OFFSET = uStack_10;
   return;
 }
 

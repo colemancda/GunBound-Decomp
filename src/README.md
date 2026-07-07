@@ -201,6 +201,17 @@ Concretely, that means:
     plumbing not stripped yet)
   - `unnamed/FUN_004513b0.c` (sub-byte-field access, plus its own SEH
     frame plumbing not stripped yet)
+  - `unnamed/FUN_00477140.c` (SEH plumbing not stripped yet, plus two
+    `stack0xfffffbNN` raw-stack references, same unrecoverable class
+    as `State10_Loading_PreloadAssets.c`)
+  - `unnamed/FUN_0047b2f0.c` (sub-byte-field access plus a
+    `stack0xfffff524` raw-stack reference, plus its own SEH frame
+    plumbing not stripped yet)
+  - `unnamed/FUN_0047c040.c`, `unnamed/FUN_0047ca40.c` (sub-byte-field
+    access, plus their own SEH frame plumbing not stripped yet)
+  - `unnamed/FUN_0047c3f0.c` (`float10` - x87 extended-precision local
+    with no portable equivalent - plus sub-byte-field access and its
+    own SEH frame plumbing not stripped yet)
   - `network/HandleTurnTimeoutSlot.c`
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`
