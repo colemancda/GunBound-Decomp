@@ -1295,6 +1295,39 @@ previously-unexamined ones. Findings:
   isn't a recognized command, **logs it to the replay stream**
   (`Replay_AppendEvent(1)` + `Replay_AppendString`) — confirms replays
   capture chat messages, not just game actions.
+
+  **Investigated how a typed chat message is actually sent over the
+  network — genuinely didn't find it, worth recording precisely.** The
+  normal-message success path in `State09_ReadyRoom_HandleChatInput` is
+  exactly: `Replay_AppendEvent(1)` → copy the text → `Replay_AppendString`
+  → `Replay_FlushEvent()` → clear the textbox (`SetWindowTextA`) → return.
+  **No `QueueOutgoingPacketField`/`EncodeOutgoingPacketField` call (the
+  confirmed outgoing-packet-field API used everywhere else in this
+  project) appears anywhere in this function**, nor in its gatekeeper
+  `FUN_00415230` (which turned out to be an unrelated check — some kind
+  of formatted-local-time comparison via `FUN_0040d260`/`FUN_00525ea0`,
+  not a network call; purpose not pinned down, doesn't look like a
+  profanity filter or send routine from its shape). The only other calls
+  on this path are `FUN_004218c0` (the already-documented `/`-command
+  parser, confirmed not a network function) and, for two special-case
+  outcomes (link-detected/`0x202`, or `FUN_00415230`'s check failing/
+  `0x205`), a `vtable+0x28` call that resolves and displays a localized
+  status string — a "show a system message" UI call, not a send. This
+  means either **the actual chat packet transmission happens through a
+  mechanism not identified in this pass** (a raw Winsock `send()`/
+  `sendto()` call bypassing the queued-packet-field API entirely is the
+  most likely candidate, given this project has already confirmed the
+  battle-action channel uses direct `recvfrom` handling outside the
+  queued-field system too — see the two-channel network architecture
+  above), or there's a call site this search missed. The equivalent
+  in-battle chat-send trigger (a `State11`-specific chat handler) also
+  wasn't located at all in this pass — no function named or shaped like
+  `State11_InBattle_HandleChatInput` was found; `State11`'s slot 5
+  keyboard dispatcher (`0x4b82b0`) and `State11_InBattle_HandleFireInput`
+  (`0x45f910`) were both checked directly for the chat buffer offsets and
+  neither touches them. **Both of these — the exact chat-send network
+  call, and where in-battle chat input is handled at all — are open items
+  for a future pass**, not resolved here.
   - **The developer-name easter egg — fully traced, and it's more than a
     credits screen.** Both chat handlers call a shared `/`-command parser
     (`FUN_004218c0`, 5,693 bytes) that splits the typed text on `/`,
