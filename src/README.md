@@ -64,19 +64,30 @@ rather than through one clean entry point.
   eventual game build; exists purely to validate `lzhuf_decode()` against
   real data without needing the rest of the game to compile.
 
-### Raw/verbatim ports — 711 functions so far
+### Raw/verbatim ports — every function in the game binary, 1,780 of them
 
-Started from every function in the whole binary with a **confirmed real
-name** (not a bare `FUN_<address>`) outside of `lzhuf/` — 92 of them —
-then cascaded outward four tiers by porting every unnamed `FUN_<address>`
-helper directly referenced from an already-ported file, then every
-helper referenced from *that* tier, and so on: 323 in the first pass,
-160 in the second, 87 in the third, 49 in the fourth, 711 total so far
-(of ~2,327 functions in the whole binary per `PROGRESS.csv`). Named
-functions are organized into subdirectories by subsystem; the cascaded
-unnamed ones
-all live flat in `unnamed/`, addressed by their `FUN_<address>` name
-since nothing else is known about most of them yet:
+Started from every function with a **confirmed real name** (92 of them,
+outside `lzhuf/`) and cascaded outward four tiers, porting whatever
+`FUN_<address>` helper each newly-added file referenced that wasn't
+already ported (323, then 160, then 87, then 49 — each tier smaller as
+the reachable set saturated). Once the cascade hit diminishing returns
+(remaining "new" references turned out to be unresolvable vtable-slot
+addresses, not real functions), switched to **porting every remaining
+function in the binary regardless of whether anything already-ported
+references it yet** — the direct route to the actual goal, a fully
+buildable project, rather than only what's reachable by simple static
+call-graph following (which can't see through vtable dispatch anyway).
+That was ~1,600 more functions across five bulk batches.
+
+**Net result: every function in `GunBound.gme`'s own code has raw C
+source under `src/`**, except the statically-linked MSVC CRT/ATL
+runtime (see the `msvc_crt_atl/` section below, deliberately excluded) —
+1,780 raw ports plus 2 hand-verified `lzhuf/` functions, 1,782 total,
+covering the entire ~1,782-function game-logic portion of the binary (1,782 = 2,326 total minus the 544 excluded CRT/ATL functions).
+`PROGRESS.csv` tracks this: 0 remaining `TODO`. Named functions are
+organized into subdirectories by subsystem; everything else lives flat
+in `unnamed/`, addressed by `FUN_<address>` since nothing else is known
+about most of them:
 
 - **`entry/`** — `WinMain`, `InitGame`, `Shutdown`, `WndProc`, `GameTick`,
   `ChangeGameState`. Supersedes the old hand-written `main.c` skeleton —
@@ -158,23 +169,29 @@ Concretely, that means:
   *structurally* real C (modulo the 12 above), not that they build or
   link yet. `make winelib-syntax-check` runs this locally.
 
-### `unnamed/` — 483 more functions, cascaded two tiers deep
+### `unnamed/msvc_crt_atl/` — 544 functions, deliberately excluded
 
-Starting from the 92 confirmed-name files above, every `FUN_<address>`
-helper they directly reference (a whole-tree grep for `FUN_[0-9a-f]{8}`
-patterns, deduplicated) was dumped and ported the same raw/verbatim way
-into `src/unnamed/FUN_<address>.c` — one file per function, matching
-Ghidra's own naming since no real name is confirmed. That was 323
-functions. Repeating the same grep against the newly-added files (every
-`FUN_<address>` *they* in turn reference that wasn't already ported)
-added a second tier of 160 more, for 483 unnamed functions total (575
-including the 92 named ones). Picked this way — cascading outward from
-what's already ported, rather than a random slice of the ~1,750
-functions still untouched — because it's what actually moves existing
-files closer to linking: every one of these was already an
-undeclared-symbol error somewhere else in the tree before being added.
-Repeating the same process against the current `src/unnamed/` contents
-is the natural way to keep expanding outward.
+Everything at address `0x51fe1c` and above turned out to be the
+statically-linked MSVC 7.10 C runtime and ATL (Active Template Library)
+— malloc/free/heap-management internals, C++ exception handling,
+`CComCritSecLock`/`CAtlBaseModule`/`CSimpleArray<T>` template classes —
+compiler/runtime plumbing, not game logic (the exact address boundary
+matches what ARCHITECTURE.md's "Compiler/runtime" section already
+independently confirmed via runtime-error strings and the traced
+`fopen()` implementation). These were still bulk-ported like everything
+else initially, but then moved to their own subdirectory and excluded
+from the build's source list — see that directory's own `README.md` for
+the full reasoning. Concretely: reimplementing a heap allocator or
+exception unwinder from decompiled output is unnecessary (Winelib/glibc
+already provide correct ones), riskier than most game-logic code (silent
+memory corruption instead of a clean crash when subtly wrong), and off
+the actual goal. One of the already-documented genuinely-broken files
+(`FUN_00401880.c`'s ATL template call) is exactly the kind of problem
+this exclusion sidesteps entirely for the other 543.
+
+`PROGRESS.csv` marks these `EXCLUDED-msvc-crt-atl` — a fourth status,
+distinct from `RAW-src`/`PARITY-<file>`/`TODO`, meaning "intentionally
+not part of the porting effort," not "not done yet."
 
 ## Global variables
 

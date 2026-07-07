@@ -23,7 +23,9 @@ LZHUF_SRCS := $(wildcard src/lzhuf/*.c)
 TEST_SRCS := src/test_lzhuf.c
 
 WINEGCC ?= winegcc
-RAW_SRCS := $(filter-out src/test_lzhuf.c, $(shell find src -name '*.c' ! -path 'src/lzhuf/*'))
+# src/unnamed/msvc_crt_atl/ is the statically-linked MSVC CRT/ATL runtime,
+# deliberately excluded from the build - see that directory's README.md.
+RAW_SRCS := $(filter-out src/test_lzhuf.c, $(shell find src -name '*.c' ! -path 'src/lzhuf/*' ! -path 'src/unnamed/msvc_crt_atl/*'))
 MAIN_SRCS := $(LZHUF_SRCS) $(RAW_SRCS)
 
 .PHONY: all winelib winelib-syntax-check test clean
