@@ -186,6 +186,14 @@ Concretely, that means:
     plumbing to strip, not done yet since the sub-byte access needs
     fixing regardless and the SEH-local variable names differ per
     file, not a safe blind bulk edit)
+  - `unnamed/FUN_0043a670.c` (sub-byte-field-adjacent: an lvalue-
+    assignment issue at line 51 plus a `stack0xfffffdb4` raw-stack
+    reference, same unrecoverable class as
+    `State10_Loading_PreloadAssets.c`)
+  - `unnamed/FUN_0043af40.c`, `unnamed/FUN_0044a000.c`,
+    `unnamed/FUN_0044b900.c`, `unnamed/FUN_0044c950.c` (sub-byte-field
+    access; `FUN_0044a000.c` additionally has its own
+    `stack0xfffffee8` raw-stack reference)
   - `network/HandleTurnTimeoutSlot.c`
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`

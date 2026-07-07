@@ -27,7 +27,6 @@ void FUN_0043bda0(void)
   byte bVar14;
   code *pcVar15;
   int *piVar16;
-  undefined4 *unaff_FS_OFFSET;
   bool bVar17;
   int local_698;
   undefined1 local_68c [8];
@@ -35,14 +34,14 @@ void FUN_0043bda0(void)
   int local_670;
   undefined1 local_460 [548];
   undefined1 local_23c [552];
-  undefined4 local_14;
-  undefined1 *puStack_10;
   undefined4 local_c;
-  
+
   local_c = 0xffffffff;
-  puStack_10 = &LAB_0053c9c1;
-  local_14 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_14;
+  /* Windows SEH __try/__except frame setup stripped (local_14/
+   * puStack_10/unaff_FS_OFFSET) - handler body (LAB_0053c9c1) wasn't
+   * included in this function's own decompile. Same rationale as
+   * entry/InitGame.c - see src/README.md. local_c is a real, separate
+   * local reused elsewhere in this function, kept as-is. */
   do {
     piVar4 = *(int **)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
     uVar11 = piVar4[1];
@@ -216,7 +215,6 @@ LAB_0043c38a:
     } while (piVar4 != piVar16);
   } while (bVar6);
 LAB_0043c3a3:
-  *unaff_FS_OFFSET = local_14;
   return;
 code_r0x0043c0e7:
   piVar13 = (int *)piVar13[7];
