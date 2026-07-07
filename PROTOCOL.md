@@ -456,7 +456,7 @@ initially (incorrectly) guessed this was a "room → game" transition before
 the state-identity work (via resource-string matching) confirmed state 7 is
 specifically the Avatar Store.
 
-#### (Unlabeled opcode, reached via a distinct branch) — Room → Ready Room transition
+#### (Shared fallthrough, not a single opcode) — Room → Ready Room transition
 
 **Direction**: incoming.
 
@@ -470,12 +470,20 @@ then calls `ChangeGameState(9)`.
 
 **Significance**: `ChangeGameState(9)` transitions to **State 9, the Ready
 Room** — this is the actual "room → pre-battle" transition (as opposed to
-`0x6001` above, which goes to the store). The specific numeric opcode value
-that triggers this branch wasn't captured/labeled distinctly during
-analysis (it was found via control-flow tracing to the `ChangeGameState(9)`
-call rather than via reading its `if (opcode == ...)` guard directly) —
-flagged as a minor documentation gap; the *behavior* is fully confirmed,
-just not paired with a confirmed opcode literal in the written notes.
+`0x6001` above, which goes to the store). **Confirmed via a full
+re-decompile and exhaustive opcode-comparison trace: there is no single
+dedicated opcode value here.** `State03_GameRoomList_ProcessPacket` is a
+long if-else-if cascade (plus one `switch(opcode)` block for
+`0x21f2`-`0x21f7` that always returns early); every opcode it individually
+recognizes (`0x6001`, `0x21f0`-`0x21f7`, `0x2001`, `0x201f`, `0x2103`,
+`0x2105`, `0x2111`, `0x2121`) returns from its own branch, and this
+Room→Ready-Room code is the **shared fallthrough** reached when none of
+those match — labeled `switchD_00428058_default` in the decompiler output.
+This isn't a documentation gap where a number was lost; there genuinely
+isn't one opcode to cite. Whatever gates this in practice (presumably the
+server only sends a not-otherwise-handled opcode at the intended moment)
+isn't visible from this function alone — see the "remaining depth" list
+below.
 
 ---
 
@@ -1902,8 +1910,22 @@ listed here so future work has a concrete starting list rather than a vague
    see ARCHITECTURE.md's physics conclusion (server-authoritative
    resolution is the most likely explanation, based on an exhaustive but
    necessarily circumstantial static-analysis search).
-6. The single unlabeled Channel 1 opcode in State 3 that triggers
-   `ChangeGameState(9)` (room → Ready Room transition) was confirmed
-   behaviorally via control-flow tracing but its literal numeric opcode
-   value wasn't captured in the original analysis notes — a minor
-   documentation gap, not a behavioral unknown.
+6. ~~The single unlabeled Channel 1 opcode in State 3 that triggers
+   `ChangeGameState(9)`~~ — **resolved, and there isn't one.** Fully
+   re-decompiled `State03_GameRoomList_ProcessPacket` and traced every
+   opcode comparison in the function (it's a long if-else-if cascade, not
+   a clean `switch`, apart from one small `switch(opcode)` block for
+   `0x21f2`-`0x21f7` that always returns before reaching this code).
+   Confirmed by exhaustively listing every `opcode ==`/`opcode !=`/
+   `opcode <` comparison in the function: `0x6001` (→ `ChangeGameState(7)`),
+   `0x21f1`-`0x21f7`, `0x2001`, `0x201f`, `0x2103`, `0x2105`, `0x2111`,
+   `0x2121` are each individually handled and return early. **The
+   `ChangeGameState(9)` code is the shared fallthrough (`switchD_00428058_default`)
+   reached whenever the opcode matches *none* of those specific values** —
+   there is no single dedicated "join room" opcode to name; it's a
+   catch-all in this function's control flow, not a documentation gap
+   where one number was simply forgotten. (The client-side gate that
+   presumably ensures only a genuine "enter room" message reaches this
+   fallthrough in practice — e.g. the server only ever sending an
+   unhandled-here opcode at the right moment — isn't visible from this
+   function alone.)
