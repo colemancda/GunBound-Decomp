@@ -1054,6 +1054,29 @@ queued that frame into a single draw call — then resets
 (`DAT_0079365c += g_spriteVertexCount`), likely an internal perf/stats
 counter for triangles drawn.
 
+**Additive blending for effect textures is a general convention, not a
+State11-specific one — cross-validated in `State09_ReadyRoom_RenderCharacterPreview`
+(`0x4d90c0`).** This function (the character/avatar preview shown before a
+battle starts) turned out to have its `SetRenderState`/`SetTexture`
+arguments fully resolved by the decompiler (no raw disassembly needed,
+unlike the State11 case) — and shows the exact same pattern found there:
+normal sprite layers use the default `SRCALPHA`/`INVSRCALPHA` blend, but
+right before compositing `AvataEffectTexture1`/`AvataEffectTexture2`, it
+explicitly sets `SetRenderState(DESTBLEND, D3DBLEND_ONE /*2*/)` (guarded by
+the same `DAT_00793614 != 2` cached-state check seen in the battle
+renderer). This independently confirms the additive-glow convention for
+avatar/character effect textures applies across render functions, not just
+the one investigated originally.
+
+It also uses a **second, sibling vertex-quad builder, `FUN_004eca50`**,
+distinct from `BuildRotatedSpriteQuad` (`FUN_004ec430`): same rotated-quad
+math and the same `g_sineTable360` lookup and scratch-vertex staging area
+(`0x00ea0e28`), but with **independent X/Y scale constants**
+(`_DAT_00557ff0`/`_DAT_0055800c`/`_DAT_00558008`/`_DAT_00558004`, 4 distinct
+globals) where `BuildRotatedSpriteQuad` uses only 2 (uniform scale). Likely
+exists to support the Ready Room preview's zoomed/non-1:1 avatar display,
+whereas in-battle sprites are always drawn at native scale.
+
 ### `DAT_007935fc` — resolved: the Z-buffer
 
 Traced its creation in `SetupZBuffer` (`0x4ef9a0`, was `FUN_004ef9a0`):
