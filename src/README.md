@@ -7,42 +7,83 @@ that recompiles under period-correct MSVC 7.10 (Visual Studio .NET 2003)
 to byte-identical machine code, verified function-by-function against
 `orig/GunBound.gme`. That toolchain isn't available in this environment —
 it's proprietary, not legally redistributable, and no install media was
-on hand. Bringing it up (e.g. via `tools/msvc-env/`'s Wine/Docker
-scaffold) needs a supplied Visual Studio .NET 2003 tree; see that
-directory's Dockerfile for what's expected.
+on hand.
 
-Given that blocker, this directory instead targets **behavioral parity**:
-C that does the same thing as the original function, compiled with a
-modern toolchain (currently just system `clang`/`cc`, no Windows
-dependency yet), verified by running it against real game data and
-diffing the output — not by comparing compiled bytes against the
-original binary. `PROGRESS.csv` marks functions done this way as
-`PARITY-<file>` rather than the matching-decomp convention's `DONE`, to
-keep the two kinds of "verified" distinguishable.
+Instead, the plan is **Winelib**: build the reconstructed C as a native
+macOS binary using Wine's Win32-API-compatible headers/libraries
+(`winegcc`), so real DirectDraw/Direct3D7/DirectSound/DirectInput/Winsock
+calls can actually run, without needing an actual Windows machine or
+MSVC. This still isn't byte-matching (Winelib compiles with a modern
+GCC/Clang, not MSVC 7.10), so it's **behavioral parity**: C that does the
+same thing as the original function, verified by running it against real
+game data/behavior and diffing the output — not by comparing compiled
+bytes against the original binary. `PROGRESS.csv` marks functions done
+this way as `PARITY-<file>` rather than the matching-decomp convention's
+`DONE`, to keep the two kinds of "verified" distinguishable. (The
+`tools/msvc-env/` Wine+Docker scaffold for a *true* byte-matching pipeline
+is still there and still works if a real VS .NET 2003 tree ever turns up
+— see that directory's Dockerfile.)
+
+## Layout: one file per decompiled function
+
+Each original function gets its own file, named after its confirmed name
+(or `FUN_<address>` if unnamed), with a header comment giving its
+original address and a short description of what it does — mirroring
+the convention used by community matching-decomp projects. Shared
+per-module state (structs, internal-only declarations) lives in a
+`<module>_internal.h` header; a `<module>_api.c` wraps the decompiled
+functions in a normal malloc/free-based public API when the original
+callers managed state/output buffers inline themselves (as LZHUF's do)
+rather than through one clean entry point.
 
 ## What's here
 
-- **`lzhuf.c`** / **`include/lzhuf.h`** — the LZHUF decompressor used
-  throughout `.xfs`/`.dat` decoding (`DecodeLZHUFBlock`, `0x4eaba0`).
-  Ported from the already-validated Python reference
-  (`tools/lzhuf/lzhuf.py`), which was itself derived from decompiling the
-  real function and fixing a transcription bug found along the way (see
+- **`lzhuf/`** — the LZHUF decompressor used throughout `.xfs`/`.dat`
+  decoding, split into one file per original function:
+  - `GetBit.c` / `GetByte.c` — `0x4ea120` / `0x4ea1b0`, the bitstream reader.
+  - `InitLZHUFTree.c` — `0x4ea300`, tree/ring-buffer setup.
+  - `Reconst.c` — `0x4ea3b0`, periodic full tree rebuild.
+  - `Update.c` — `0x4ea580`, adaptive frequency promotion.
+  - `DecodeChar.c` — `0x4ea670`, Huffman tree walk for literals/lengths.
+  - `DecodePosition.c` — `0x4ea6e0`, back-reference distance decode.
+  - `DecodeLZHUFBlock.c` — `0x4eaba0`, the main LZSS unpacking loop.
+  - `lzhuf_tables.c` — the static `d_code`/`d_len` decode tables
+    (`DAT_0056dd30`/`DAT_0056de30`), not a function but data the above
+    depend on.
+  - `lzhuf_internal.h` — shared state struct + internal declarations.
+  - `lzhuf_api.c` — public malloc/free-based wrapper (see `include/lzhuf.h`).
+
+  All of the above ported from the already-validated Python reference
+  (`tools/lzhuf/lzhuf.py`), itself derived from decompiling the real
+  functions and fixing a transcription bug found along the way (see
   `tools/lzhuf/BUG_FOUND_wrong_decode_tables.md`). Verified byte-for-byte
   against the Python decoder on three real archive entries pulled
   straight from `orig/graphics.xfs` (`ChooseEvent.txt`, `bullet1n.img`,
-  `avataimsi.img`) — see `test_lzhuf.c`.
+  `avataimsi.img`).
 - **`test_lzhuf.c`** — standalone CLI test driver, not part of the
   eventual game build; exists purely to validate `lzhuf_decode()` against
   real data without needing the rest of the game to compile.
+- **`main.c`** — `WinMain` (`0x40d8e0`) skeleton. Wires up the real
+  top-level control flow documented in ARCHITECTURE.md's "Entry point
+  and top-level flow" section (window creation, `WSAStartup`, the
+  `PeekMessage`-idle-calls-`GameTick` message loop) with stub bodies for
+  `WndProc`/`InitGame`/`GameTick`/`Shutdown` — none of those four are
+  ported yet, each is a substantial function that belongs in its own
+  file (matching the one-file-per-function convention) once tackled.
+  **Requires Winelib to build** — real Win32 API surface, not a
+  dependency-free algorithm like `lzhuf/`.
 
 ## Building and testing
 
 ```
-make                    # builds build/test_lzhuf
+make            # native build of src/lzhuf/ only -> build/test_lzhuf
+make winelib    # full Winelib build including main.c -> build/gunbound.exe
+                # (needs `winegcc` on PATH - see "Wine setup" below)
 ```
 
-To verify against real archive data, first extract a compressed blob and
-its known-good decoded reference with the Python tooling, then diff:
+To verify `lzhuf_decode()` against real archive data, first extract a
+compressed blob and its known-good decoded reference with the Python
+tooling, then diff:
 
 ```python
 # from tools/lzhuf/
@@ -66,11 +107,25 @@ build/test_lzhuf /tmp/in.bin /tmp/out.bin 3472   # decompressed_size from above
 diff /tmp/ref.bin /tmp/out.bin && echo MATCH
 ```
 
+## Wine setup
+
+`make winelib` needs `winegcc` on `PATH`. On macOS via Homebrew:
+
+```
+brew install --cask wine@devel   # Apple Silicon; wine-stable is Intel-only
+```
+
+Both `wine-stable` and `wine@devel` casks are currently flagged deprecated
+(fail macOS Gatekeeper) and pull in a GStreamer.framework dependency that
+needs an interactive `sudo` password — run the install yourself in a
+real terminal rather than through an automated/sandboxed one.
+
 ## Picking the next function to port
 
 Good next candidates are self-contained algorithms already fully
 understood and documented, with no Windows/DirectX/Winsock dependency —
-same reasoning that made LZHUF a good first target:
+same reasoning that made LZHUF a good first target, buildable/testable
+with the native `make` target before Winelib is even needed:
 
 - The `.xfs`/`.dat` checksum routine (`tools/lzhuf/verify_checksum.py`
   has the reference; simple additive checksum, no external deps).
@@ -78,7 +133,6 @@ same reasoning that made LZHUF a good first target:
   `FILEFORMATS.md`'s `.img` section, already has a Python reference in
   `tools/lzhuf/decode_img.py`).
 
-Anything touching `IDirectDraw7`/`IDirect3DDevice7`/Winsock will need a
-real Windows target (cross-compiled via mingw-w64, or run under Wine) or
-a compatibility shim before it can be built and tested the same way —
-not attempted yet.
+Once Winelib is confirmed working, `WndProc`/`InitGame`/`GameTick` (all
+stubbed in `main.c`) are the natural next layer — real Win32/DirectX
+surface, one file each per the established convention.
