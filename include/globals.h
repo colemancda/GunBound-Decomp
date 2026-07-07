@@ -571,7 +571,7 @@ extern uint32_t DAT_00793660;
 extern uint8_t DAT_00793664;
 extern uint32_t DAT_0079376c;
 extern uint8_t DAT_00793770;
-extern uint32_t DAT_00793774;
+extern int *DAT_00793774; /* used dereferenced as a pointer at call sites */
 extern uint32_t DAT_00793778;
 extern uint32_t DAT_00793798;
 extern uint32_t DAT_0079379c;

@@ -24,7 +24,12 @@ uint PeekPacketChecksumState(void)
   
   uVar1 = in_EAX[5];
   if (uVar1 != 0) {
-    piVar2 = (int *)FUN_0040b8c0();
+    /* FUN_0040b8c0 is void-returning (see its own definition) - this
+     * call site's return-value use is a Ghidra per-call-site
+     * decompilation inconsistency, same class as entry/WinMain.c's
+     * FUN_004058c0 fix. piVar2 is left uninitialized here as a
+     * result. */
+    FUN_0040b8c0();
     if (*piVar2 != DAT_00793774) {
       DAT_00793514 = 1;
     }

@@ -40,7 +40,12 @@ void EncodeOutgoingPacketField(uint param_1)
   *(int *)(unaff_EDI + 0x14) = iVar4;
   if (iVar4 != 0) {
     param_1 = iVar4;
-    puVar3 = (undefined4 *)FUN_0040b8c0();
+    /* FUN_0040b8c0 is void-returning (see its own definition) - this
+     * call site's return-value use is a Ghidra per-call-site
+     * decompilation inconsistency, same class as entry/WinMain.c's
+     * FUN_004058c0 fix. puVar3 is left uninitialized here as a
+     * result. */
+    FUN_0040b8c0();
     if ((int *)*puVar3 != DAT_00793774) {
       DAT_00793514 = 1;
     }
