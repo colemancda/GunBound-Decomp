@@ -1201,6 +1201,44 @@ previously-unexamined ones. Findings:
   (`0x4d7b20`) — consistent with Ready Room needing the same battle assets
   available for its character preview.
 
+### `State10_Loading`'s render slot — confirmed, and it's a real per-player ready screen
+
+Dumped `vtable_State10_Loading` (`0x554018`) directly. Slot 15
+(`FUN_00442280`, 2,750 bytes) is the render function; slots 11–14/16/17 all
+point at the same 1-byte stub (`0x429800`, a bare `RET`) — confirming
+(again) that vtable slot number alone carries no fixed meaning across
+states, consistent with the earlier finding for slot 9/15 in other states.
+
+Decompiling `FUN_00442280` in full shows the Loading screen is a genuine,
+live status display, not a static "please wait" splash:
+
+- Draws a background sprite, then (gated on `DAT_00e55a34 == -1`) a
+  "waiting" overlay sprite, then a couple of fixed decorative icons —
+  standard layered background compositing via `BlitSprite16bpp`/
+  `BlitSpriteClipped` (branching on the same `DAT_0079352c`/frame-format
+  check seen throughout the software-blit layer).
+- **A row of up to 16 per-player "ready" icons**, one per potential game
+  slot (loop stride `0x2c`=44px horizontally, `0x224` bytes per slot —
+  the already-confirmed per-player record size): for each slot, it checks
+  that player's bit in `PeekPacketChecksumState()` (the packet-checksum
+  utility documented elsewhere in this file) and picks a different sprite
+  frame depending on whether the bit is set — i.e. **each icon visually
+  flips from "waiting" to "ready" the moment that player's checksum/ready
+  packet arrives**, giving the classic "waiting for all players to load"
+  screen with live per-player feedback, not a generic progress bar.
+- A second loop (stride `0x224`, same per-player array) draws each
+  connected player's mobile/avatar icon, picking between sprite frames
+  `0x18`/`0x19`/`0x1a` — `0x19` (a distinct "blinking" frame) is selected
+  specifically for whichever player currently matches the checksum-state
+  slot, toggled on/off via a `(tickCounter/10) & 1`-style parity check —
+  i.e. **the still-loading player's icon blinks** while everyone else's
+  is static, confirmed by the same one-bit-parity blink idiom used
+  elsewhere for turn-highlight-style UI.
+- Slot 10 (`FUN_00442240`, 58 bytes) is not itself a render call — it's a
+  small string-forwarding helper (computes a string's length then calls
+  `FUN_0041b8c0`, a generic widget/label-text setter), consistent with
+  the generic UI-widget system documented below.
+
 ### Slot 9 ("generic tick hook") is often just timer logic, not render
 
 Ruled out one hypothesis and confirmed another. `WndProc` (`0x410040`) has
