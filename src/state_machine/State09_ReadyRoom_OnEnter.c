@@ -31,20 +31,17 @@ void __fastcall State09_ReadyRoom_OnEnter(int param_1)
   undefined4 *puVar10;
   int *piVar11;
   int *piVar12;
-  undefined4 *unaff_FS_OFFSET;
   char *pcStack_9c;
   undefined1 uStack_95;
   int iStack_94;
   void *pvStack_90;
   char acStack_8c [128];
-  undefined4 uStack_c;
-  undefined1 *puStack_8;
   undefined4 uStack_4;
-  
+
   uStack_4 = 0xffffffff;
-  uStack_c = *unaff_FS_OFFSET;
-  puStack_8 = &LAB_0053cf6e;
-  *unaff_FS_OFFSET = &uStack_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053cf6e) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   DAT_0079352a = 0;
   FUN_004f1790(&DAT_00ea0e18,10000);
   FUN_004f1790(&DAT_00ea0e18,0x2711);
@@ -370,7 +367,6 @@ LAB_004d759e:
       iVar4 = FUN_005094f0(&DAT_00e53c40);
       *(int *)(param_1 + 0x788) = iVar4;
       *(undefined1 *)(iVar4 + 0x1e) = 1;
-      *unaff_FS_OFFSET = uStack_c;
       return;
     }
   } while( true );

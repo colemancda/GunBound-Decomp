@@ -212,7 +212,6 @@ Concretely, that means:
   - `unnamed/FUN_0047c3f0.c` (`float10` - x87 extended-precision local
     with no portable equivalent - plus sub-byte-field access and its
     own SEH frame plumbing not stripped yet)
-  - `network/HandleTurnTimeoutSlot.c`
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`
   - `unnamed/FUN_0041b8c0.c`, `FUN_00401880.c` (the ATL call), `FUN_00449540.c`,
@@ -220,7 +219,7 @@ Concretely, that means:
     `FUN_0053753c.c` (the last two are CRT-internal thread/FPU-state
     helpers, not game logic - likely not worth porting at all rather
     than fixing), `FUN_0046dde0.c`, `FUN_00471320.c`, `FUN_004ac5a0.c`
-    (sub-byte-field access), `FUN_00405760.c`, `FUN_0043a670.c`
+    (sub-byte-field access), `FUN_00405760.c`
     (vtable-call return value used as non-void)
 
   **`entry/InitGame.c` was in this list (Windows SEH `__try`/`__except`
