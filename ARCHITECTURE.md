@@ -173,7 +173,7 @@ its role:
 | 10 | `0x4c1b90` | **Chat character-input helper**: appends a typed character into a per-message buffer at `+0x58b64` (9-byte stride) and a secondary buffer at `+0x58c4a` (14-byte stride), with a literal control-character remap table (`'@'→0x0a`, `'#'→0x0b`, `'$'→0x0c`, `'%'→0x0d`, `'^'→0x0e`, `'&'→0x0f`, `'*'→0x10`) — almost certainly the mechanism behind GunBound's in-chat emoticon/special-character shortcuts (typing `^` or `&` inserting a small icon rather than the literal character) |
 | 11 | `0x4c1c90` | Small per-tick-looking helper (increments a counter at `this+8`, conditionally calls a couple of update functions) |
 | 12 | `0x4c1d10` | One-line delegate — calls `FUN_004508a0` on a fixed per-connection offset (`+0x6a7f88`), nothing else |
-| 13 | `0x4c1d30` | Large (4.7KB decompiled) function referencing `SpecialTexture1`/`SpecialTexture2` — a special-weapon-effect render function |
+| 13 | `0x4c1d30` | **Corrected — not a "special-weapon-effect render function."** Fully decompiled (was previously only skimmed for its string references): this is a **per-frame dynamic-texture clear pass**. It resolves ~24 named dynamic textures via `FindTextureCacheEntryByName` — not just `SpecialTexture1/2`, but the *entire* effect-texture roster (`AvataTexture1/2`, `AvataEffectTexture1/2`, `CharacterTexture1/2`, `TagTexture`, `CharEffectTexture1/2`, `BulletTexture1/2`, `FlameTexture1-4`, `RayonTexture1/2`, `SpecialTexture1/2`, `RiderTexture`, `YesooriTexture`, `JewelTexture`, `ThorTexture1/2`) — and for each one present, does a confirmed **`IDirectDrawSurface7::Lock` (vtable `+0x64`, `DDSURFACEDESC2` size `0x7c`=124 bytes) → zero-fill the entire locked surface → `Unlock` (vtable `+0x80`)** cycle. This clears every dynamic effect render-target to transparent/black once per frame, presumably right before that frame's actual sprite effects get composited into them elsewhere in the render pipeline. |
 | 14 | `0x4c3020` | `State11_InBattle_Render` |
 | 15 | `0x4c8890` | Large (9.4KB decompiled) function touching the **same chat-buffer offsets as slot 10** (`+0x58b64`, `+0x58bbe`, `+0x58c4a`, `+0x5917c`) — almost certainly the **chat-message finalize/send** counterpart to slot 10's character-append |
 | 16 | `0x4caed0` | `State11_InBattle_RenderModeIcons` |
@@ -182,8 +182,9 @@ its role:
 This substantially resolves the original "input handlers? (untested)"
 open question for at least one state: slots 5/6 are confirmed input
 dispatchers (chat/keyboard and mouse respectively), slots 10/15 are a
-confirmed chat-input-append/finalize pair, and slot 13 is a
-special-effect renderer. The same technique (dump the vtable via its
+confirmed chat-input-append/finalize pair, and slot 13 is a per-frame
+dynamic-effect-texture clear pass (Lock/zero-fill/Unlock across the full
+effect-texture roster). The same technique (dump the vtable via its
 named `vtable_StateNN_Name` symbol, decompile each unnamed slot) would
 work for the other 15 states, but wasn't repeated for all of them this
 pass — In-Battle was chosen as the highest-value target given its
