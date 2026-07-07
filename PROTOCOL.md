@@ -1615,6 +1615,36 @@ component as part of normal turn progression (though a player-initiated fire
 presumably also triggers `0x8403` directly outside this chain — the two
 paths aren't mutually exclusive based on what was traced).
 
+**Found a second, local trigger for this exact same event chain — and
+traced its gating flag to a full explanation.** While mapping State11's
+vtable slot 9 (`FUN_004bd8b0`, the per-tick hook already documented in
+ARCHITECTURE.md's cursor/camera and Z-buffer sections), the *identical*
+`0x8005 → 0x8006 → 0xc306 → 0xc400 → 0xc401 → 0x8403 → 0x8405 → 0xc409`
+sequence appears again, posted via the same `PostTurnEvent` delegate
+(`FUN_004e86f0`) — but from client-side per-tick code, gated on
+`DAT_0056dbe8 == -1` (posts the chain and resets it to `-1` when not).
+
+Traced every write to `DAT_0056dbe8` (only 2 exist, both in
+`State11_InBattle_ProcessBattleAction`) and they land precisely on action
+`0xc303`'s two already-documented "advance to next turn" sub-cases (`0xe`
+= normal end, `0xf` = timeout/surrender — see that action's writeup
+above). Both sub-cases, right after posting `0x8403`/`0x8405`/`0xc409`
+(the chain's own tail) via `PostTurnEvent` themselves, set
+`DAT_0056dbe8` to `0xe` or `0xf` respectively — i.e. **it's simply a
+marker recording which of the two sub-cases most recently fired**, not
+an independent trigger condition. The per-tick function then picks this
+up one tick later, does its own additional processing (including
+re-posting the chain), and resets the marker to `-1`. **Net effect,
+fairly confidently reconstructed**: `0xc303`'s timeout/end-of-turn
+sub-cases and this per-tick hook work together as a two-step,
+tick-deferred pair — the network handler flags "a turn just ended, and
+here's which way," and the very next tick is what actually drives the
+chain forward — rather than the per-tick posting being a fully separate,
+independent local-prediction mechanism. The exact reason this is
+split across two steps (tick-deferred) rather than done synchronously
+in the packet handler wasn't determined — could be as simple as "let the
+current tick's other per-object updates finish first."
+
 #### Action `0xc301` — Turn-timer + battle setup data write
 
 **Direction**: incoming.
