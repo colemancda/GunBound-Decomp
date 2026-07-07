@@ -251,7 +251,12 @@ int InitGame(undefined4 param_1,undefined4 param_2)
           DAT_007934e4 = 0;
         }
         else {
-          DAT_007934e4 = FUN_0040c670();
+          /* Same class of call-site/definition mismatch as
+           * FUN_004058c0 in WinMain.c: FUN_0040c670's own definition
+           * (src/unnamed/FUN_0040c670.c) is void and takes a param this
+           * call site doesn't pass. Left as a bare call rather than
+           * guessing what DAT_007934e4 should become. */
+          FUN_0040c670();
         }
         FUN_00415500();
         FUN_00415530();
