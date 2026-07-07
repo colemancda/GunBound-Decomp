@@ -1334,7 +1334,32 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
    documented (confirming buttons draw via targeted lookup, consistent
    with there being no per-frame "draw everything" sweep — see the
    traversal-functions note below); slot 4 is a bare `RET`, a shared
-   no-op like several other vtables in this codebase. **None of the
+   no-op like several other vtables in this codebase.
+
+   **Slots 2 and 3, fully decompiled this pass:** slot 3 (`0x405ea0`) is
+   the actual draw call — reads the button's stored frame index (`+0x30`,
+   skipped entirely if negative, the standard hidden-widget sentinel) and
+   position (`+0x38`/`+0x3c`), then dispatches through the same
+   `FindTextureCacheEntryByName`-adjacent lookup (`FUN_004f30c0`) and
+   `BlitSprite16bpp`/`BlitSpriteClipped` branch used everywhere else in
+   the software-blit layer — nothing button-specific about the actual
+   pixel path. Slot 2 (`0x405e90`) just forwards to `FUN_00450730`, which
+   turns out to be a **generic, reusable sprite-animation ticker**, not
+   render code at all: given a per-object animation-state block (enabled
+   flag, current-frame index, frame timer, "finished" flag) and a pointer
+   to a shared animation-definition table (per-animation arrays of
+   per-frame duration, frame count, and a loop-or-clamp flag), it advances
+   the frame timer each tick, rolls over to the next frame once the
+   current frame's duration elapses, and either wraps to frame 0 (looping
+   animations) or clamps at the last frame and sets the "finished" flag
+   (one-shot animations) — writing the resolved sprite/texture value into
+   the object's own frame-index field (`+0x30`, the same field slot 3
+   reads to draw) each time. This is the mechanism behind every blinking/
+   animated UI icon in the game (button hover states, the Loading
+   screen's blinking still-loading icon, etc. likely all drive the same
+   per-frame value through this one function), confirming the animation
+   and draw responsibilities are cleanly split: slot 2 advances state,
+   slot 3 just draws whatever frame index is currently stored. **None of the
    object's own 5 vtable slots set the removal flag** the sweep function
    checks — whatever marks a button "done" (a close-button click handler,
    a screen-transition teardown, or similar) lives outside the object
