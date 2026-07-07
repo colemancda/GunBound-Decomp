@@ -20,22 +20,19 @@ void FUN_0043b7a0(undefined4 param_1,int param_2,int param_3,int param_4,int par
   uint uVar7;
   byte bVar8;
   int *piVar9;
-  undefined4 *unaff_FS_OFFSET;
   undefined1 local_680 [8];
   undefined1 local_678 [20];
   int local_664;
   undefined1 local_454 [548];
   undefined1 local_230 [20];
   int local_21c;
-  undefined4 local_c;
-  undefined1 *puStack_8;
   undefined4 local_4;
-  
+
   iVar5 = DAT_005b3484;
-  local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053ae5c;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053ae5c) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   if (param_2 <= *(int *)(&DAT_006a7724 + iVar5)) {
     if (param_3 != 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -173,7 +170,6 @@ LAB_0043ba8e:
       uVar7 = piVar9[1];
     }
   }
-  *unaff_FS_OFFSET = local_c;
   return;
 code_r0x0043b838:
   piVar9 = (int *)piVar9[7];
