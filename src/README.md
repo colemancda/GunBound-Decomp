@@ -64,16 +64,17 @@ rather than through one clean entry point.
   eventual game build; exists purely to validate `lzhuf_decode()` against
   real data without needing the rest of the game to compile.
 
-### Raw/verbatim ports — 662 functions so far
+### Raw/verbatim ports — 711 functions so far
 
 Started from every function in the whole binary with a **confirmed real
 name** (not a bare `FUN_<address>`) outside of `lzhuf/` — 92 of them —
-then cascaded outward three tiers by porting every unnamed `FUN_<address>`
+then cascaded outward four tiers by porting every unnamed `FUN_<address>`
 helper directly referenced from an already-ported file, then every
 helper referenced from *that* tier, and so on: 323 in the first pass,
-160 in the second, 87 in the third, 662 total so far (of ~2,327
-functions in the whole binary per `PROGRESS.csv`). Named functions are
-organized into subdirectories by subsystem; the cascaded unnamed ones
+160 in the second, 87 in the third, 49 in the fourth, 711 total so far
+(of ~2,327 functions in the whole binary per `PROGRESS.csv`). Named
+functions are organized into subdirectories by subsystem; the cascaded
+unnamed ones
 all live flat in `unnamed/`, addressed by their `FUN_<address>` name
 since nothing else is known about most of them yet:
 
@@ -121,17 +122,19 @@ Concretely, that means:
   `_RTL_CRITICAL_SECTION`) that lets this raw output parse as plain C
   without hand-editing every file for that class of issue. Include it
   before `<windows.h>` in any raw port.
-- **14 files (of 662 total raw ports, ~2.1%) have deeper, genuine syntax
+- **19 files (of 711 total raw ports, ~2.7%) have deeper, genuine syntax
   problems** beyond missing symbols — Ghidra's decompiler falling back to
   invalid-C pseudo-syntax for things it couldn't cleanly express
   (`variable._0_1_`-style partial-register/sub-byte-field access,
   `switch` on a pointer, array-type casts, `float10`/x87-extended-
   precision locals with no portable equivalent, an internal CRT
-  thread-data struct, or - in one case - a genuine MSVC ATL C++
-  template-library call Ghidra recognized and qualified with `::`,
-  which isn't valid C and isn't practical to reimplement without the
-  ATL template machinery behind it), usually in the largest/most
-  complex functions or ones close to raw CRT/ATL internals:
+  thread-data struct, a genuine MSVC ATL C++ template-library call
+  Ghidra qualified with `::`, or a vtable call whose return value is
+  used but which the generic `code` typedef can't give a real return
+  type — see the `code()` vs. `code(void)` note below for why the
+  argument-count side of that same tension was resolved differently),
+  usually in the largest/most complex functions or ones close to raw
+  CRT/ATL internals:
   - `state_machine/State02_ServerSelect_ProcessPacket.c`
   - `state_machine/State09_ReadyRoom_ProcessPacket.c`
   - `state_machine/State11_InBattle_OnEnter.c`
@@ -142,7 +145,9 @@ Concretely, that means:
     `FUN_004cb280.c`, `FUN_004ccd10.c`, `FUN_00504c10.c`, `FUN_00525c42.c`,
     `FUN_0053753c.c` (the last two are CRT-internal thread/FPU-state
     helpers, not game logic - likely not worth porting at all rather
-    than fixing)
+    than fixing), `FUN_0046dde0.c`, `FUN_00471320.c`, `FUN_004ac5a0.c`
+    (sub-byte-field access), `FUN_00405760.c`, `FUN_0043a670.c`
+    (vtable-call return value used as non-void)
 
   These need real per-occurrence hand-translation (each `._0_1_` access
   means something different depending on context) — not attempted this
@@ -253,13 +258,33 @@ this specific error class simply hadn't been hit by whatever subset of
 files was checked in that pass.
 
 **Re-verified with the fix applied, via a parallelized (8-way) sweep of
-all 662 raw ports: 383 OK / 279 FAIL (58% fully clean, zero errors).**
-Several sequential attempts at this same check timed out against this
-environment's background-task time budget (662 files × one
-`winegcc-stable`/Wine process launch each adds up) before the
-parallelized retry finally completed. Every other specific percentage
-elsewhere in this document predates this fix and should be treated as
-superseded by this number, not as separately-still-valid data points.
+all 662 raw ports (as of the third tier): 383 OK / 279 FAIL (58% fully
+clean, zero errors).** Several sequential attempts at this same check
+timed out against this environment's background-task time budget (662
+files × one `winegcc-stable`/Wine process launch each adds up) before
+the parallelized retry finally completed. Every other specific
+percentage elsewhere in this document predates this fix and should be
+treated as superseded by this number, not as separately-still-valid
+data points.
+
+**A second, related bug found immediately after, while checking the
+fourth tier**: `typedef void code(void);` (the fix above) turned out to
+be *too* strict — a real C `(void)` prototype takes exactly zero
+arguments, and several vtable calls pass real arguments, failing with
+"too many arguments to function". The actual fix is the classic K&R
+"unspecified argument list" form: `typedef void code();` (empty
+parens, not `(void)`) — permissive about argument count the same way
+the whole point of `code` is to be permissive about everything else.
+Confirmed via another standalone test case. One remaining, structurally
+different gap: a couple of call sites *use* a vtable call's return
+value, which `code`'s `void` return type still can't express — those
+are cross-referenced into the genuinely-broken-files list below rather
+than papered over. This second fix landed after the 383/662 count
+above, so that number is now itself slightly stale in the same
+"superseded, not wrong" sense as everything before it — not
+re-measured a third time this pass given how long each full sweep
+takes; whoever runs the next one should expect a modest further
+improvement from this fix.
 
 ## Building and testing
 

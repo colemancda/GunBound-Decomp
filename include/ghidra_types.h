@@ -59,12 +59,20 @@ typedef long long longlong;
 
 /* Ghidra's placeholder type for "this is a code/function pointer" in
  * expressions like `(**(code **)(vtable + N))(...)`. Must be a real
- * (if unspecified-signature) function type, not `void` - `code **`
- * dereferenced twice needs to yield something callable. A plain `void`
- * typedef looks equivalent at a glance (both untyped/sizeless) but
- * silently breaks every call site: `**(void **)x` is a `void` value,
- * and calling a `void` value is a hard error, not just a warning. */
-typedef void code(void);
+ * function type, not `void` - `code **` dereferenced twice needs to
+ * yield something callable. A plain `void` typedef looks equivalent at
+ * a glance (both untyped/sizeless) but silently breaks every call
+ * site: `**(void **)x` is a `void` value, and calling a `void` value is
+ * a hard error, not just a warning.
+ *
+ * Deliberately `code()`, the classic K&R "unspecified argument count/
+ * types" form, not `code(void)`. The latter looked more "correct" (an
+ * explicit empty parameter list) but is actually a real C prototype
+ * that strictly takes zero arguments - call sites with real arguments
+ * then fail with "too many arguments to function", since these vtable
+ * calls have every different signature depending on which slot's being
+ * invoked. `code()` imposes no such constraint. */
+typedef void code();
 
 /* MSVC calling-convention keywords Ghidra emits that GCC/Clang don't
  * recognize the same way on x86-64 (where the distinction is moot -
