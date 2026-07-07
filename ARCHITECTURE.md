@@ -1087,6 +1087,51 @@ re-set. A Z-buffer for what's fundamentally 2D sprite rendering — plausibly
 just a HAL-device requirement of this D3D7 code path, or used for
 depth-sorted overlapping sprites (not confirmed which).
 
+### `GameTick`'s exact per-frame render dispatch — now traced end to end
+
+Investigating the game lobby's rendering (who actually drives
+`State03_GameRoomList_RenderRoomLabel`, since nothing in the whole binary
+calls it directly by address — it's pure virtual dispatch) led to
+decompiling `GameTick` (`0x413130`)'s render section directly, which
+resolves the full per-tick pipeline in one place:
+
+1. If `IDirect3DDevice7::BeginScene` succeeds, call
+   `g_gameStateVTableArray[g_currentGameState]->vtable[0x38]` — **vtable
+   slot 14**, the hardware D3D render slot. Real content only exists here
+   for In-Battle (see below); every other state's override is the shared
+   no-op.
+2. `LockBackBuffer`, then call
+   `g_gameStateVTableArray[g_currentGameState]->vtable[0x3c]` — **vtable
+   slot 15**, the software-blit render slot. This is what actually invokes
+   `State03_GameRoomList_RenderRoomLabel` for the lobby (and
+   `State10_Loading`'s render function, etc.) — confirming slot 15 is a
+   real, generic "draw this state's bespoke content via the software
+   blitter" hook, called unconditionally once per tick regardless of
+   which state is active (most states' override is just the shared
+   no-op, as already established).
+3. **Immediately after slot 15**, `GameTick` walks a linked list rooted at
+   `DAT_00e53c48` and calls **`node->object->vtable[0x24]`** on every
+   entry — this is the generic **active-object registry**
+   (`RegisterActiveObject`'s own list, already documented in the
+   ButtonWidget section) being swept once per tick to draw every
+   currently-registered UI object (buttons, dialogs, etc.), independent
+   of which state is active. (`vtable[0x24]` doesn't match
+   `vtable_ButtonWidget`'s own 5-slot/20-byte vtable, so this list holds
+   a different, larger base-class type than the `ButtonWidget` objects
+   themselves — most likely a shared active-object base/wrapper class
+   with more virtual methods, of which one is "render"; not pinned down
+   further this pass.)
+
+**This explains the lobby's (and every simple UI screen's) rendering
+completely**: the room list background/labels come from the state's own
+slot-15 override (bespoke per state, often nothing), while every button,
+popup, and other interactive widget on screen is drawn independently by
+the generic active-object sweep that runs right after — two separate,
+composable render paths converging every frame, which is also why states
+like Server Select have "no bespoke render function" (per the earlier
+finding) and still show real buttons: those buttons draw themselves via
+the sweep, with no help needed from the state's own vtable at all.
+
 ### Hardware rendering is In-Battle-only — resolved
 
 Checked every function in the binary that touches `g_pD3DDevice7` (17 total).
