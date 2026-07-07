@@ -29,8 +29,10 @@ $(BUILD)/test_lzhuf: $(LZHUF_SRCS) $(TEST_SRCS) | $(BUILD)
 	$(CC) $(CFLAGS) -o $@ $(LZHUF_SRCS) $(TEST_SRCS)
 
 # Requires winegcc on PATH (part of a Wine install - see src/README.md).
+# gnu11, not c11: Wine's winsock.h expects glibc's BSD typedefs
+# (u_short/u_int), which strict c11 mode hides.
 winelib: | $(BUILD)
-	$(WINEGCC) -std=c11 -Wall -Wextra -Iinclude -o $(BUILD)/gunbound.exe $(MAIN_SRCS)
+	$(WINEGCC) -std=gnu11 -Wall -Wextra -Iinclude -o $(BUILD)/gunbound.exe $(MAIN_SRCS) -lws2_32
 
 test: $(BUILD)/test_lzhuf
 	@echo "See src/README.md for how to run this against real archive data."
