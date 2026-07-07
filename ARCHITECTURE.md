@@ -805,6 +805,24 @@ SetTextureStageState. `InitDirectDraw`'s tail sets up **alpha blending**:
 `SetRenderState(ALPHABLENDENABLE=1)` — i.e. sprites are drawn as alpha-blended
 textured quads on the GPU.
 
+**`State11_InBattle_Render` (`0x4c3020`, was `FUN_004c3020`) switches to
+additive blending for effect textures.** This 22.5 KB function is the main
+In-Battle render pass; scanning every `SetRenderState` call site in it
+(vtable `+0x50`) shows two distinct blend-state pairs, both using
+`SRCBLEND=SRCALPHA(5)` but differing in `DESTBLEND`:
+- `DESTBLEND=INVSRCALPHA(6)` — the standard pair, used for ordinary sprites.
+- `DESTBLEND=D3DBLEND_ONE(2)` — used at call sites that immediately follow a
+  `Lock` (vtable `+0x64`) on a named effect texture: confirmed against the
+  strings `CharEffectTexture1`, `LaserEffect`, and `AvataEffectTexture1`.
+  `SRCALPHA`/`ONE` is the standard **additive-glow** formula
+  (`final = srcAlpha*src + dest`, no darkening from the destination term),
+  used for character glow, laser beams, and avatar special effects. Each
+  site guards the `SetRenderState` calls behind a cached-state check
+  (`CMP [0x793614/0x792194], <5 or 2>` then `JZ` skip) so the device isn't
+  redundantly reprogrammed every frame the same blend mode stays active —
+  those two globals are simply the last-set SRCBLEND/DESTBLEND cache, not
+  meaningfully different per-effect values beyond the 5/6 vs 5/2 split.
+
 Fullscreen vs. windowed still branches on `DAT_00588f4c` (fullscreen =
 hardcoded 800×600 exclusive; windowed = `GetClientRect`/`ClientToScreen`).
 
