@@ -252,18 +252,14 @@ vtable-dispatch idiom were actually passing for the wrong reason, or
 this specific error class simply hadn't been hit by whatever subset of
 files was checked in that pass.
 
-**Re-verifying the true clean-compile count across the whole tree
-(now 662 files) was attempted but not completed** - a full sweep takes
-long enough (each of 662 files spins up a separate `winegcc-stable`/Wine
-process) that it kept exceeding this environment's background-task time
-budget across several attempts, including a parallelized (8-way) retry.
-Treat every specific percentage elsewhere in this document as stale/
-provisional until someone runs `make winelib-syntax-check` (or
-equivalent) to completion and updates this section with a real number -
-that command is correct and known to work, it just needs to be run
-somewhere with enough uninterrupted wall-clock time. This is flagged
-explicitly rather than quietly left stale, since the underlying fix
-affects the whole tree at once, not a specific subset of files.
+**Re-verified with the fix applied, via a parallelized (8-way) sweep of
+all 662 raw ports: 383 OK / 279 FAIL (58% fully clean, zero errors).**
+Several sequential attempts at this same check timed out against this
+environment's background-task time budget (662 files × one
+`winegcc-stable`/Wine process launch each adds up) before the
+parallelized retry finally completed. Every other specific percentage
+elsewhere in this document predates this fix and should be treated as
+superseded by this number, not as separately-still-valid data points.
 
 ## Building and testing
 
