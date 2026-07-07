@@ -1562,6 +1562,49 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
    documented above). This is a second confirmed instance of a state
    with no "draw everything" override, reinforcing the pattern already
    suspected from the traversal-functions note below.
+
+   **Full render breakdown, since "how does Server Select actually get
+   rendered" was investigated directly.** Three pieces, all generic:
+   - **Background**: `State02_ServerSelect`'s slot 15 (`0x443570`) is the
+     exact same trivial one-line function shared by Title and Logo1 (see
+     the per-state vtable survey above) — decompiled in full this pass:
+     it just calls the standard texture-cache lookup (`FUN_004f30c0`) and
+     blits sprite index 0 at the origin via `BlitSprite16bpp`/
+     `BlitSpriteClipped`. Not state-specific at all — "draw whatever
+     background sprite is currently loaded," reused verbatim by three
+     different screens.
+   - **Buttons**: `OnEnter` (`0x4e14b0`) creates exactly **3** buttons via
+     `CreateButtonWidget` — `b_server_exitgame`, `b_server_buddygame`, and
+     `b_server_choiceserver` (the last one created **initially disabled**,
+     `enabled=0` vs. `1` for the other two — it presumably enables once a
+     server connection succeeds). These draw themselves through the
+     already-documented generic active-object sweep, same as everywhere
+     else.
+   - **No dynamic server list was found anywhere.** Checked `OnEnter`,
+     `ProcessPacket`, and every function in the `0x4e0000`-`0x4e2000`
+     address range for additional `CreateButtonWidget` calls (which would
+     be expected for a classic multi-server "channel select" browser, one
+     button/row per discovered server) and for any native Win32
+     listbox/combobox usage (`CreateWindow`/`SendMessage` variants,
+     searched via import table and instruction text) — neither turned up
+     anything. Combined with `OnEnter` zero-initializing large per-server
+     data buffers (matching the already-documented `0x400`-dword/4KB
+     buffer at `+0x4004a` from PROTOCOL.md) but never populating or
+     drawing them from any traceable code path, this strongly suggests
+     **this specific client build only ever connects to a single, fixed
+     server** rather than offering a real server browser — consistent
+     with the "smaller private-server build" pattern already established
+     repeatedly elsewhere in this project (`stage.dat`'s single populated
+     slot, `itemdata.dat`'s 13-of-100 populated items, etc.), rather than
+     an unfound rendering gap.
+   - **Also touches the whisper-messaging TCP connection.** `OnEnter`
+     checks `DAT_007934f4` (the same "direct connection" global from
+     the newly-documented Channel 3/whisper investigation in
+     PROTOCOL.md) and branches to different init calls (`FUN_00405ba0`
+     vs. `FUN_00404410`) depending on whether it's already set — the
+     first confirmed evidence of where that connection's lifecycle is
+     managed, though the actual `connect()`/`socket()` call establishing
+     it still wasn't located.
 4. Every constructed button is registered via **`RegisterActiveObject`**
    (`0x4f2fb0`, was `FUN_004f2fb0`) into a **sorted tree/list structure**
    keyed by two levels (a layer/z-order value, then a secondary key) — and

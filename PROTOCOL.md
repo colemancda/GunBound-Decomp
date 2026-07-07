@@ -1994,6 +1994,16 @@ address is computed/threaded through a register rather than referenced by
 a literal instruction operand; would need a wider search (e.g. from
 `InitGame`'s startup sequence) to pin down.
 
+**Update — found the lifecycle management, still not the actual connect
+call.** Investigating Server Select's rendering (see ARCHITECTURE.md)
+turned up `State02_ServerSelect_OnEnter` checking `DAT_007934f4 != 0` and
+branching to one of two different init functions (`FUN_00405ba0` if
+already set, `FUN_00404410` if not) — the first confirmed code that reads
+this global rather than just writing/using it. Neither of those two
+functions was decompiled this pass, so the actual `socket()`/`connect()`
+call is presumably one level deeper inside `FUN_00404410`; a good next
+target for whoever picks this up next.
+
 ---
 
 ## Confirmed recurring structures
