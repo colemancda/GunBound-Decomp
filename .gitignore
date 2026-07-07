@@ -68,3 +68,5 @@ tools/asm-differ/
 *.dat
 .DS_Store
 build/
+__pycache__/
+*.pyc
