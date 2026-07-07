@@ -36,6 +36,11 @@ typedef struct sockaddr sockaddr;
 typedef CRITICAL_SECTION _RTL_CRITICAL_SECTION;
 typedef FILETIME _FILETIME;
 typedef struct hostent hostent;
+/* MSVC CRT's C++ `exception` class, referenced by a couple of raw-
+ * ported functions' signatures. Opaque placeholder - real layout not
+ * needed since these functions aren't hand-verified/called anywhere
+ * yet, just declared so functions.h's forward declarations parse. */
+typedef struct exception exception;
 
 typedef uint8_t undefined;
 typedef uint8_t undefined1;
@@ -93,5 +98,9 @@ typedef void code();
  * DAT_<address>/g_* global declarations here too rather than adding a
  * second #include to every one of those files. */
 #include "globals.h"
+
+/* Same reasoning as globals.h, but for cross-file function calls -
+ * see include/functions.h's own header comment. */
+#include "functions.h"
 
 #endif

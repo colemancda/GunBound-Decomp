@@ -14,7 +14,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-int WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd)
+int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd)
 
 {
   char cVar1;
@@ -160,7 +160,16 @@ int WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nSho
     DAT_007934f4 = (HDC)0x0;
   }
   else {
-    DAT_007934f4 = (HDC)FUN_004058c0(3,&DAT_00795070);
+    /* FUN_004058c0's own definition (src/unnamed/FUN_004058c0.c) returns
+     * void, but this call site treats it as if it returns a value - one
+     * of many call-site/definition signature mismatches from Ghidra's
+     * per-call-site calling-convention inference (see include/
+     * functions.h's header comment). Left as a bare call rather than
+     * guessing what DAT_007934f4 should become; a real fix needs
+     * comparing this against the confirmed behavior already documented
+     * in ARCHITECTURE.md/PROTOCOL.md for whatever this connection-setup
+     * code turns out to be. */
+    FUN_004058c0(3,&DAT_00795070);
   }
   DVar3 = timeGetTime();
   FUN_00525c42(DVar3);
@@ -530,9 +539,9 @@ LAB_0040e75c:
     pcVar15 = pcVar11;
     pcVar11 = pcVar15 + 1;
   } while (pcVar15[1] != '\0');
-  *(undefined4 *)(pcVar15 + 1) = s_gunbound_ex__00552718._0_4_;
-  *(undefined4 *)(pcVar15 + 5) = s_gunbound_ex__00552718._4_4_;
-  *(undefined4 *)(pcVar15 + 9) = s_gunbound_ex__00552718._8_4_;
+  *(undefined4 *)(pcVar15 + 1) = *(uint32_t *)(s_gunbound_ex__00552718 + 0);
+  *(undefined4 *)(pcVar15 + 5) = *(uint32_t *)(s_gunbound_ex__00552718 + 4);
+  *(undefined4 *)(pcVar15 + 9) = *(uint32_t *)(s_gunbound_ex__00552718 + 8);
   pcVar15[0xd] = s_gunbound_ex__00552718[0xc];
   pvVar2 = FindFirstFileA(aCStack_948,&_Stack_548);
   if (pvVar2 != (HANDLE)0xffffffff) {
@@ -547,9 +556,9 @@ LAB_0040e75c:
       pcVar15 = pcVar11;
       pcVar11 = pcVar15 + 1;
     } while (pcVar15[1] != '\0');
-    *(undefined4 *)(pcVar15 + 1) = s_gunbound_exe_00552708._0_4_;
-    *(undefined4 *)(pcVar15 + 5) = s_gunbound_exe_00552708._4_4_;
-    *(undefined4 *)(pcVar15 + 9) = s_gunbound_exe_00552708._8_4_;
+    *(undefined4 *)(pcVar15 + 1) = *(uint32_t *)(s_gunbound_exe_00552708 + 0);
+    *(undefined4 *)(pcVar15 + 5) = *(uint32_t *)(s_gunbound_exe_00552708 + 4);
+    *(undefined4 *)(pcVar15 + 9) = *(uint32_t *)(s_gunbound_exe_00552708 + 8);
     pcVar15[0xd] = s_gunbound_exe_00552708[0xc];
     FUN_00525f26(acStack_d48);
     MoveFileA(aCStack_948,acStack_d48);
