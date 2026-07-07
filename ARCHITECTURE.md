@@ -1366,6 +1366,20 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
    itself and wasn't tracked down this pass; that would need a broader
    search across UI click-dispatch code rather than this object's own
    vtable.
+   **Confirmed by checking `State02_ServerSelect`'s own vtable**
+   (`vtable_State02_ServerSelect`, `0x5570f0`): every slot besides the
+   destructor/`ProcessPacket`/`OnEnter`/`OnExit` turned out to be a
+   connection-state machine tick (`FUN_004e1960`: advances a socket
+   connect attempt, updates a button's label between `"active"`/`"ready"`
+   strings, builds outgoing packets `0x1000`/`0x1100`) or an input
+   handler (`FUN_004e1430`/`FUN_004e1170`: `WM_KEYDOWN`/click dispatch for
+   picking a server slot) — **none of them draw anything**. Server Select
+   has no bespoke render/tick-draw function at all; its entire visual
+   content is whatever the generic `ButtonWidget`/label-widget objects
+   created in `OnEnter` render through their own vtable slots (slot 3,
+   documented above). This is a second confirmed instance of a state
+   with no "draw everything" override, reinforcing the pattern already
+   suspected from the traversal-functions note below.
 4. Every constructed button is registered via **`RegisterActiveObject`**
    (`0x4f2fb0`, was `FUN_004f2fb0`) into a **sorted tree/list structure**
    keyed by two levels (a layer/z-order value, then a secondary key) — and
