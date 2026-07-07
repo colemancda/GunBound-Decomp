@@ -18,7 +18,7 @@ void FUN_0040d760(void)
   HKEY local_4;
   
   local_4 = (HKEY)0x0;
-  LVar2 = RegOpenKeyExA((HKEY)&DAT_80000002,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,&local_4)
+  LVar2 = RegOpenKeyExA(HKEY_CURRENT_USER,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,&local_4)
   ;
   if (LVar2 == 0) {
     RegSetValueExA(local_4,s_LastServer_00552884,0,4,(BYTE *)(DAT_005b3484 + 0x3f804),4);

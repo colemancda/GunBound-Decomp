@@ -25,7 +25,7 @@ void FUN_0040d370(void)
   
   local_10 = (HKEY)0x0;
   local_8 = (HKEY)0x0;
-  LVar2 = RegOpenKeyExA((HKEY)&DAT_80000002,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,&local_10
+  LVar2 = RegOpenKeyExA(HKEY_CURRENT_USER,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,&local_10
                        );
   if (LVar2 == 0) {
     local_14 = 0x80;
@@ -104,7 +104,7 @@ void FUN_0040d370(void)
     }
     RegCloseKey(local_10);
   }
-  LVar2 = RegOpenKeyExA((HKEY)&DAT_80000002,s_Software_Softnyx_GameBuddy_0056d3bc,0,0xf003f,&local_8
+  LVar2 = RegOpenKeyExA(HKEY_CURRENT_USER,s_Software_Softnyx_GameBuddy_0056d3bc,0,0xf003f,&local_8
                        );
   if (LVar2 == 0) {
     local_14 = 0x400;

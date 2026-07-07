@@ -20,6 +20,8 @@
 #endif
 #include <winsock2.h>
 #include <windows.h>
+#include <ddraw.h>
+#include <d3d.h>
 
 /* Ghidra emits Windows/CRT struct *tag* names bare (no `struct` keyword,
  * as C++ allows implicitly) even where only the tag - not a typedef of
@@ -47,6 +49,7 @@ typedef uint64_t undefined8;
 typedef uint32_t uint3;  /* same "not really 3 bytes" caveat as undefined3 */
 typedef int32_t int3;
 typedef uint8_t byte;
+typedef int8_t sbyte;
 typedef unsigned int uint;
 typedef unsigned short ushort;
 typedef unsigned char uchar;
@@ -73,5 +76,10 @@ typedef void code;
 #ifndef __cdecl
 #define __cdecl
 #endif
+
+/* Every raw-ported .c file includes this header first, so pull in the
+ * DAT_<address>/g_* global declarations here too rather than adding a
+ * second #include to every one of those files. */
+#include "globals.h"
 
 #endif

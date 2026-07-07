@@ -150,27 +150,81 @@ Concretely, that means:
   *structurally* real C (modulo the 12 above), not that they build or
   link yet. `make winelib-syntax-check` runs this locally.
 
-### `unnamed/` — 323 more functions, no confirmed name/purpose
+### `unnamed/` — 483 more functions, cascaded two tiers deep
 
-Every `FUN_<address>` helper directly referenced by at least one of the
-92 confirmed-name files above (a whole-tree grep for `FUN_[0-9a-f]{8}`
-patterns, deduplicated) has also been dumped and ported the same
-raw/verbatim way, into `src/unnamed/FUN_<address>.c` — one file per
-function, matching Ghidra's own naming since no real name is confirmed.
-Picked this set first (rather than a random slice of the ~2,230 total
-unnamed functions in the binary) because porting them is what actually
-moves the 92 named files closer to linking — every one of these was
-already an undeclared-symbol error somewhere in `state_machine/`,
-`network/`, etc.
+Starting from the 92 confirmed-name files above, every `FUN_<address>`
+helper they directly reference (a whole-tree grep for `FUN_[0-9a-f]{8}`
+patterns, deduplicated) was dumped and ported the same raw/verbatim way
+into `src/unnamed/FUN_<address>.c` — one file per function, matching
+Ghidra's own naming since no real name is confirmed. That was 323
+functions. Repeating the same grep against the newly-added files (every
+`FUN_<address>` *they* in turn reference that wasn't already ported)
+added a second tier of 160 more, for 483 unnamed functions total (575
+including the 92 named ones). Picked this way — cascading outward from
+what's already ported, rather than a random slice of the ~1,750
+functions still untouched — because it's what actually moves existing
+files closer to linking: every one of these was already an
+undeclared-symbol error somewhere else in the tree before being added.
+Repeating the same process against the current `src/unnamed/` contents
+is the natural way to keep expanding outward.
 
-This is one layer of the dependency graph, not the whole thing: many of
-these 323 in turn reference further unnamed functions and globals not
-yet ported. Repeating this same grep-and-dump process against the
-current `src/unnamed/` contents is the natural way to keep expanding
-outward — each pass pulls in whatever the previous pass's new files
-reference, until eventually everything actually reachable resolves (or
-the remaining gap is entirely `DAT_<address>` globals rather than more
-functions, which is a different, complementary porting effort).
+## Global variables
+
+Every `DAT_<address>`/`_DAT_<address>` global and `s_<name>_<address>`
+string-literal symbol referenced anywhere in the 575 raw-ported
+functions — 610 numeric globals plus 212 strings — is declared in
+`include/globals.h`, with storage in `src/globals.c`. Included
+automatically by `ghidra_types.h` (which every raw port already
+includes), so no raw-ported file needed editing to pick these up.
+
+- **Numeric globals are typed from Ghidra's own inferred type/size at
+  each address** — `uint8_t`/`uint16_t`/`uint32_t`/`void *`, matching
+  whatever Ghidra's data browser has defined there. This is a real type
+  in the narrow sense (right size, roughly right shape) but almost
+  certainly wrong at the semantic level in most cases — a `uint32_t`
+  might really be a signed `int`, a float's bit pattern, or a struct
+  pointer. Good enough to compile; not verified.
+- **String literals have their real, actual content** — extracted
+  directly from the binary's data section (not placeholders), since the
+  address is conveniently embedded in Ghidra's own symbol name
+  (`s_AvataEffectTexture1_00556900` → read the C string at `0x556900`).
+  Cross-checking a sample against STRINGS.md's already-catalogued
+  strings confirms these match.
+- **20 already-documented, named globals** (`g_currentGameState`,
+  `g_pD3DDevice7`, `g_sineTable360`, etc. — see ARCHITECTURE.md) get
+  better types than the generic Ghidra-inferred ones: `g_sineTable360`
+  is a real `float[360]`, the DirectDraw7/Direct3D7 COM interface
+  pointers (`g_pD3DDevice7` and friends) are `void *` rather than their
+  real `IDirect3DDevice7 *`/etc. types (this tree doesn't have hand-
+  written vtable structs or real COM interface definitions wired in
+  yet — every raw-ported call site already dispatches through them via
+  `(**(code **)(*ptr + offset))(...)`-style manual vtable calls, which
+  doesn't need the real type to compile). `g_spriteVertexBuffer`'s exact
+  size isn't confirmed, so it's generously overallocated (`0x10000`
+  bytes) rather than tightly sized.
+- **A handful of addresses are referenced under both `DAT_<addr>` and
+  `_DAT_<addr>`** — Ghidra's convention for "the same memory accessed at
+  two different sizes/interpretations." Aliased via `#define` to the
+  same storage under one canonical name; this loses the size/type
+  distinction Ghidra was drawing, a known simplification.
+- **`<ddraw.h>`/`<d3d.h>`** (Wine's DirectDraw7/Direct3D7 headers) are
+  now included via `ghidra_types.h` too, resolving `IID_IDirect3D7`
+  and friends — these headers were already available in the Winelib
+  environment and needed no extra setup, just adding the `#include`.
+- **A few `&DAT_<address>`-shaped references were fake pointers, not
+  real globals at all** — Ghidra's decompiler represents certain Win32
+  idioms (`MAKEINTRESOURCE(IDC_ARROW)`, the predefined registry handle
+  `HKEY_CURRENT_USER`) as if they were `&DAT_<small-constant>`. Found
+  and fixed at the four call sites that used them (in `WinMain.c` and
+  three `unnamed/` files) rather than declaring fake globals for them.
+- **Net effect**: before these globals existed, essentially none of the
+  575 raw ports could compile without hitting an undeclared-identifier
+  error. After, **329 of 575 (57%) compile with zero errors** doing a
+  syntax-and-symbol check (not yet a full link — most still call
+  `FUN_<address>` helpers that aren't ported yet, which is expected and
+  a separate, ongoing effort, not a globals problem). The remaining
+  errors are overwhelmingly unported `FUN_<address>` calls and the
+  already-documented genuinely-broken files above, not missing globals.
 
 ## Building and testing
 

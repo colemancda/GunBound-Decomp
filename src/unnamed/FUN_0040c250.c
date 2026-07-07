@@ -30,7 +30,7 @@ int FUN_0040c250(char *param_1,PHKEY param_2,int param_3,HKEY param_4)
   dwIndex = 0;
   if (param_4 == (HKEY)0x0) {
     bVar1 = true;
-    LVar2 = RegOpenKeyExA((HKEY)&DAT_80000002,&DAT_0055207c,0,0x20019,&param_4);
+    LVar2 = RegOpenKeyExA(HKEY_CURRENT_USER,&DAT_0055207c,0,0x20019,&param_4);
     if (LVar2 != 0) goto LAB_0040c440;
   }
   else {
@@ -45,7 +45,7 @@ int FUN_0040c250(char *param_1,PHKEY param_2,int param_3,HKEY param_4)
     ;
     if ((LVar2 == 0) && (local_2d4 == 1)) {
       _sprintf(local_100,s_System_CurrentControlSet_Service_00552040,local_280);
-      LVar2 = RegOpenKeyExA((HKEY)&DAT_80000002,local_100,0,0xf003f,param_2);
+      LVar2 = RegOpenKeyExA(HKEY_CURRENT_USER,local_100,0,0xf003f,param_2);
       if (LVar2 == 0) {
         iVar4 = 1;
       }

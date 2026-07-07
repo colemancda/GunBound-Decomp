@@ -186,7 +186,9 @@ int WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nSho
     local_da4.cbWndExtra = 0;
     local_da4.hInstance = hInstance;
     local_da4.hIcon = (HICON)0x0;
-    local_da4.hCursor = LoadCursorA((HINSTANCE)0x0,&DAT_00007f00);
+    /* 0x7f00 = IDC_ARROW; Ghidra decompiled the MAKEINTRESOURCE(IDC_ARROW)
+     * idiom as a fake "&DAT_00007f00" pointer - not a real global. */
+    local_da4.hCursor = LoadCursorA((HINSTANCE)0x0,MAKEINTRESOURCEA(0x7f00));
     local_da4.hbrBackground = (HBRUSH)0x0;
     local_da4.lpszMenuName = (LPCSTR)0x0;
     local_da4.lpszClassName = s_Softnyx_00552754;
@@ -209,7 +211,7 @@ int WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nSho
       local_db0 = (LPBYTE)FUN_0040d200();
       if (local_db0 < lpData) {
         local_dac = 4;
-        LVar5 = RegOpenKeyExA((HKEY)&DAT_80000002,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,
+        LVar5 = RegOpenKeyExA(HKEY_CURRENT_USER,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,
                               &local_db8);
         if ((LVar5 == 0) &&
            (LVar5 = RegQueryValueExA(local_db8,s_Template_0055273c,(LPDWORD)0x0,&local_da8,lpData,
@@ -246,7 +248,7 @@ int WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nSho
     }
   }
   else if (local_dac == 0x17) {
-    LVar5 = RegOpenKeyExA((HKEY)&DAT_80000002,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,
+    LVar5 = RegOpenKeyExA(HKEY_CURRENT_USER,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,
                           &local_db8);
     if (LVar5 == 0) {
       local_db4 = (HDC)0x4;
@@ -268,7 +270,7 @@ int WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nSho
     }
   }
   if ((DAT_00588f48 == 0) &&
-     (LVar5 = RegOpenKeyExA((HKEY)&DAT_80000002,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,
+     (LVar5 = RegOpenKeyExA(HKEY_CURRENT_USER,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,
                             &local_db8), LVar5 == 0)) {
     local_db4 = (HDC)0x4;
     LVar5 = RegQueryValueExA(local_db8,s_Template_0055273c,(LPDWORD)0x0,&local_da8,
