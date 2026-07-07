@@ -109,25 +109,30 @@ Concretely, that means:
   file-by-file; `include/ghidra_types.h` (see below) only fixes the
   *universal* issues, not per-file missing symbols.
 - **`include/ghidra_types.h`** is a shared compatibility header (typedefs
-  for Ghidra's `undefined4`/`code`/`byte`/etc. pseudo-types, plus a few
-  Windows/CRT struct-tag typedefs Ghidra emits bare) that lets this raw
-  output parse as plain C without hand-editing every file for that class
-  of issue. Include it before `<windows.h>` in any raw port.
-- **5 files have deeper, genuine syntax problems** beyond missing
-  symbols — Ghidra's decompiler falling back to invalid-C pseudo-syntax
-  for things it couldn't cleanly express (`variable._0_1_`-style partial-
-  register/sub-byte-field access, `switch` on a pointer, array-type
-  casts), usually in the largest/most complex functions where the
-  original code's calling convention or register reuse defeated clean
-  decompilation:
+  for Ghidra's `undefined4`/`code`/`byte`/`uint3`/etc. pseudo-types, plus
+  a handful of Windows/CRT struct-tag typedefs Ghidra emits bare - `tm`,
+  `sockaddr`, `hostent`, `_FILETIME`, `tagMSG`, `_WIN32_FIND_DATAA`,
+  `_RTL_CRITICAL_SECTION`) that lets this raw output parse as plain C
+  without hand-editing every file for that class of issue. Include it
+  before `<windows.h>` in any raw port.
+- **12 files (of 415 total raw ports) have deeper, genuine syntax
+  problems** beyond missing symbols — Ghidra's decompiler falling back to
+  invalid-C pseudo-syntax for things it couldn't cleanly express
+  (`variable._0_1_`-style partial-register/sub-byte-field access,
+  `switch` on a pointer, array-type casts, `float10`/x87-extended-
+  precision locals with no portable equivalent, an internal CRT
+  thread-data struct), usually in the largest/most complex functions or
+  ones close to raw CRT internals:
   - `state_machine/State02_ServerSelect_ProcessPacket.c`
-  - `state_machine/State09_ReadyRoom_RenderCharacterPreview.c`
+  - `state_machine/State09_ReadyRoom_ProcessPacket.c`
   - `state_machine/State11_InBattle_OnEnter.c`
-  - `state_machine/State11_InBattle_ProcessBattleAction.c` /
-    `State11_InBattle_Render.c` (the `_N_M_` sub-field pattern only,
-    otherwise fine)
   - `network/HandleTurnTimeoutSlot.c`
+  - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`
+  - `unnamed/FUN_0041b8c0.c`, `FUN_00449540.c`, `FUN_004cb280.c`,
+    `FUN_00504c10.c`, `FUN_00525c42.c`, `FUN_0053753c.c` (the last two
+    are CRT-internal thread/FPU-state helpers, not game logic - likely
+    not worth porting at all rather than fixing)
 
   These need real per-occurrence hand-translation (each `._0_1_` access
   means something different depending on context) — not attempted this
@@ -135,8 +140,30 @@ Concretely, that means:
 - Verified via a syntax-only compile pass (`winegcc-stable -c`, catching
   parse errors without needing every symbol resolved) inside
   `tools/winelib-env/`'s Docker image — confirms the files are
-  *structurally* real C (modulo the 5 above), not that they build or
-  link yet.
+  *structurally* real C (modulo the 12 above), not that they build or
+  link yet. `make winelib-syntax-check` runs this locally.
+
+### `unnamed/` — 323 more functions, no confirmed name/purpose
+
+Every `FUN_<address>` helper directly referenced by at least one of the
+92 confirmed-name files above (a whole-tree grep for `FUN_[0-9a-f]{8}`
+patterns, deduplicated) has also been dumped and ported the same
+raw/verbatim way, into `src/unnamed/FUN_<address>.c` — one file per
+function, matching Ghidra's own naming since no real name is confirmed.
+Picked this set first (rather than a random slice of the ~2,230 total
+unnamed functions in the binary) because porting them is what actually
+moves the 92 named files closer to linking — every one of these was
+already an undeclared-symbol error somewhere in `state_machine/`,
+`network/`, etc.
+
+This is one layer of the dependency graph, not the whole thing: many of
+these 323 in turn reference further unnamed functions and globals not
+yet ported. Repeating this same grep-and-dump process against the
+current `src/unnamed/` contents is the natural way to keep expanding
+outward — each pass pulls in whatever the previous pass's new files
+reference, until eventually everything actually reachable resolves (or
+the remaining gap is entirely `DAT_<address>` globals rather than more
+functions, which is a different, complementary porting effort).
 
 ## Building and testing
 

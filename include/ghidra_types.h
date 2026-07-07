@@ -32,6 +32,8 @@ typedef WIN32_FIND_DATAA _WIN32_FIND_DATAA;
 typedef struct tm tm;
 typedef struct sockaddr sockaddr;
 typedef CRITICAL_SECTION _RTL_CRITICAL_SECTION;
+typedef FILETIME _FILETIME;
+typedef struct hostent hostent;
 
 typedef uint8_t undefined;
 typedef uint8_t undefined1;
@@ -42,11 +44,15 @@ typedef uint32_t undefined3; /* not a real 3-byte type; Ghidra uses this
                                * per call site later. */
 typedef uint32_t undefined4;
 typedef uint64_t undefined8;
+typedef uint32_t uint3;  /* same "not really 3 bytes" caveat as undefined3 */
+typedef int32_t int3;
 typedef uint8_t byte;
 typedef unsigned int uint;
 typedef unsigned short ushort;
 typedef unsigned char uchar;
 typedef unsigned long ulong;
+typedef unsigned long long ulonglong;
+typedef long long longlong;
 
 /* Ghidra's placeholder type for "this is a code/function pointer" in
  * expressions like `(**(code **)(vtable + N))(...)`. void works because
