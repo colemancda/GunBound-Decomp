@@ -1282,6 +1282,33 @@ previously-unexamined ones. Findings:
   state-specific render override (Logo2 differs slightly, `0x443360`).
   Reinforces the earlier finding that vtable slots have no fixed meaning
   across states.
+
+  **`State05_Logo1` (the Softnyx publisher splash screen — first screen
+  in the confirmed boot flow, `Logo1(5) → Logo2(6) → Title(1) → ...`)
+  fully mapped — it's about as simple as a screen gets.** Its object is
+  only **8 bytes** (a vtable pointer plus one `int` field), and every
+  vtable slot beyond destructor/enter/exit is a shared no-op except two:
+  - `OnEnter` (`0x4433f0`): three lines — starts a 10-second watchdog
+    timer (`FUN_004f1790`, seen throughout this project as a generic
+    per-object timeout), zeroes the object's one `int` field (a frame
+    counter), and plays `logo.mp3` (`FUN_004eea30(0)`, the confirmed
+    music-start helper).
+  - **Slot 9** (`0x443540`, the per-tick hook): increments that same
+    frame counter and, once it reaches **`0x28` (40 ticks ≈ 2 seconds** at
+    the confirmed 50ms tick rate**)**, calls `ChangeGameState(6)` to
+    advance to Logo2 — the same auto-transition idiom already confirmed
+    for the Title screen (60 ticks ≈ 3 seconds there), just a shorter
+    timer here.
+  - **Rendering is entirely the shared slot-15 background blit**
+    (`0x443570`, decompiled in full during the Server Select
+    investigation): draws whatever background sprite is currently loaded
+    (sprite index 0 — the Softnyx logo image, `logomode.img`) via
+    `BlitSprite16bpp`/`BlitSpriteClipped`, nothing more.
+  - **No buttons, no other UI at all** — no `CreateButtonWidget` calls
+    exist anywhere for this state (consistent with its 8-byte object
+    having no room for a widget-list field), matching what you'd expect
+    for a pure, non-interactive publisher splash screen: load a
+    full-screen logo image, play a jingle, wait ~2 seconds, move on.
 - **`State09_ReadyRoom_RenderCharacterPreview`** (`0x4d90c0`, was
   `FUN_004d90c0`, 2,575 bytes) — loads `AvataTexture1/2`,
   `CharacterTexture1/2`, `AvataEffectTexture1/2`, `CharEffectTexture1/2` —
