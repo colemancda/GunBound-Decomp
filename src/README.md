@@ -194,6 +194,13 @@ Concretely, that means:
     `unnamed/FUN_0044b900.c`, `unnamed/FUN_0044c950.c` (sub-byte-field
     access; `FUN_0044a000.c` additionally has its own
     `stack0xfffffee8` raw-stack reference)
+  - `unnamed/FUN_0044d9b0.c`, `unnamed/FUN_00452cc0.c` (sub-byte-field
+    access, plus their own SEH frame plumbing not stripped yet)
+  - `unnamed/FUN_0044f050.c` (sub-byte-field access plus a
+    `stack0xfffff524` raw-stack reference, plus its own SEH frame
+    plumbing not stripped yet)
+  - `unnamed/FUN_004513b0.c` (sub-byte-field access, plus its own SEH
+    frame plumbing not stripped yet)
   - `network/HandleTurnTimeoutSlot.c`
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`

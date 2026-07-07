@@ -29,7 +29,6 @@ void __fastcall FUN_00467a70(int *param_1)
   uint unaff_EBX;
   code *pcVar17;
   byte *pbVar18;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 uVar19;
   undefined4 uVar20;
   undefined4 uVar21;
@@ -46,15 +45,17 @@ void __fastcall FUN_00467a70(int *param_1)
   undefined1 auStack_680 [548];
   undefined1 auStack_45c [548];
   undefined1 auStack_238 [552];
-  undefined4 uStack_10;
   undefined4 uStack_c;
   undefined1 *puStack_8;
   undefined4 uStack_4;
-  
+
   uStack_4 = 0xffffffff;
-  puStack_8 = &LAB_0053d3b9;
-  uStack_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &uStack_c;
+  /* Windows SEH __try/__except frame setup stripped (handler body
+   * LAB_0053d3b9 wasn't included in this function's own decompile;
+   * same rationale as entry/InitGame.c - see src/README.md). uStack_c
+   * and puStack_8 are real, separate locals reused elsewhere in this
+   * function (an exception-cleanup index and a tri-state flag,
+   * respectively) despite the SEH-typical names - kept as-is. */
   local_ad8 = (int *)0x0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = PeekPacketChecksumState();
@@ -392,7 +393,6 @@ LAB_00467e48:
   *(byte *)(iVar7 + 0x62145) = bVar15 + bVar2 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
 LAB_00468593:
-  *unaff_FS_OFFSET = uStack_10;
   return;
 }
 
