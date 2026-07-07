@@ -165,6 +165,27 @@ Concretely, that means:
     `stack0xffffff80` raw-stack-offset issue as
     `State10_Loading_PreloadAssets.c`, plus sub-byte-field access and a
     vtable-return-value-used call each)
+  - `unnamed/FUN_00406990.c`, `unnamed/FUN_00408180.c`,
+    `unnamed/FUN_004141b0.c` (sub-byte-field access, plus
+    `FUN_00408180.c` also has a missing `DAT_0067e818` global from the
+    same ~1159-address gap noted above)
+  - `unnamed/FUN_0041da80.c` (SEH frame plumbing plus multiple
+    `stack0xfffffbNN` raw-stack-offset references, same unrecoverable
+    class as `State10_Loading_PreloadAssets.c`)
+  - `unnamed/FUN_0042bbb0.c`, `unnamed/FUN_0042de70.c` ("invalid use of
+    void expression" - a vtable-return-value-used pattern that needs
+    per-call-site review, plus `FUN_0042bbb0.c` also references
+    `uRam00001e50` - a Ghidra "unknown RAM region" pseudo-symbol, not a
+    normal global, that needs real investigation before it can be
+    declared)
+  - `unnamed/FUN_0042f4b0.c`, `unnamed/FUN_004305c0.c`,
+    `unnamed/FUN_00432850.c`, `unnamed/FUN_00437870.c`,
+    `unnamed/FUN_004388e0.c`, `unnamed/FUN_00408180.c` (sub-byte-field
+    access, `._0_4_`/`._1_3_`/etc. - same weapon-effect-function
+    family as the ones above; each also still has its own SEH frame
+    plumbing to strip, not done yet since the sub-byte access needs
+    fixing regardless and the SEH-local variable names differ per
+    file, not a safe blind bulk edit)
   - `network/HandleTurnTimeoutSlot.c`
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`

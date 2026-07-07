@@ -1214,3 +1214,924 @@ extern void *vtable_State11_InBattle[32];
 extern void *vtable_State3_NetworkSession[32];
 
 #endif
+
+/* Second pass: ~800 addresses missing from the original scan (see
+ * this file's earlier note in the numeric-globals section) - found
+ * while working through make winelib-syntax-check's FAIL list and
+ * hitting a cluster of weapon-effect functions that all needed
+ * dozens of these. Same caveats as the first pass: DAT_/_DAT_ are
+ * generic uint32_t (real type/size not re-verified via Ghidra this
+ * pass), string literals have real content extracted directly from
+ * the binary via pefile's RVA-to-file-offset mapping. */
+extern uint32_t DAT_00000006;
+extern uint32_t DAT_00007f00;
+extern uint32_t DAT_00544380;
+extern uint32_t DAT_005443a0;
+extern uint32_t DAT_005443a4;
+extern uint32_t DAT_005443f4;
+extern uint32_t DAT_005443fc;
+extern uint32_t DAT_00544400;
+extern uint32_t DAT_0054442c;
+extern uint32_t DAT_005445b4;
+extern uint32_t DAT_005445ec;
+extern uint32_t DAT_005448e8;
+extern uint32_t DAT_005448ec;
+extern uint32_t DAT_00544968;
+extern uint32_t DAT_0054496c;
+extern uint32_t DAT_00544970;
+extern uint32_t DAT_00544974;
+extern uint32_t DAT_00544a88;
+extern uint32_t DAT_0054b460;
+extern uint32_t DAT_00551b78;
+extern uint32_t DAT_00551b79;
+extern uint32_t DAT_00551b7c;
+extern uint32_t DAT_00551e2c;
+extern uint32_t DAT_00551e30;
+extern uint32_t DAT_00551ec4;
+extern uint32_t DAT_00551ed4;
+extern uint32_t DAT_00552c68;
+extern uint32_t DAT_00553b90;
+extern uint32_t DAT_00553bb4;
+extern uint32_t DAT_00553bb8;
+extern uint32_t DAT_00553bbc;
+extern uint32_t DAT_00553bf4;
+extern uint32_t DAT_00553bf8;
+extern uint32_t DAT_00553c18;
+extern uint32_t DAT_00553c1c;
+extern uint32_t DAT_00553c90;
+extern uint32_t DAT_00553c94;
+extern uint32_t DAT_00553c98;
+extern uint32_t DAT_00553ca0;
+extern uint32_t DAT_00553ca4;
+extern uint32_t DAT_00555654;
+extern uint32_t DAT_00555b4c;
+extern uint32_t DAT_00556980;
+extern uint32_t DAT_00557318;
+extern uint32_t DAT_0055731c;
+extern uint32_t DAT_00557320;
+extern uint32_t DAT_00557324;
+extern uint32_t DAT_00557328;
+extern uint32_t DAT_0055732c;
+extern uint32_t DAT_00557330;
+extern uint32_t DAT_00557334;
+extern uint32_t DAT_00557660;
+extern uint32_t DAT_00557664;
+extern uint32_t DAT_00557948;
+extern uint32_t DAT_0055794c;
+extern uint32_t DAT_00557a40;
+extern uint32_t DAT_00557a44;
+extern uint32_t DAT_00557fd8;
+extern uint32_t DAT_00563730;
+extern uint32_t DAT_00563770;
+extern uint32_t DAT_00563774;
+extern uint32_t DAT_005637bc;
+extern uint32_t DAT_005637c0;
+extern uint32_t DAT_005637c4;
+extern uint32_t DAT_005637c8;
+extern uint32_t DAT_005637d4;
+extern uint32_t DAT_005637e8;
+extern uint32_t DAT_0056382c;
+extern uint32_t DAT_005638ec;
+extern uint32_t DAT_0056390c;
+extern uint32_t DAT_00563a4c;
+extern uint32_t DAT_00563ad8;
+extern uint32_t DAT_00563afc;
+extern uint32_t DAT_00563b44;
+extern uint32_t DAT_00563b48;
+extern uint32_t DAT_00563b4c;
+extern uint32_t DAT_00563bcc;
+extern uint32_t DAT_00563bec;
+extern uint32_t DAT_00563c6c;
+extern uint32_t DAT_00563cec;
+extern uint32_t DAT_00563d0c;
+extern uint32_t DAT_00563d8c;
+extern uint32_t DAT_00563d90;
+extern uint32_t DAT_00563d94;
+extern uint32_t DAT_00563d98;
+extern uint32_t DAT_00563df0;
+extern uint32_t DAT_00563df4;
+extern uint32_t DAT_00568100;
+extern uint32_t DAT_00568101;
+extern uint32_t DAT_00568184;
+extern uint32_t DAT_00568188;
+extern uint32_t DAT_00568318;
+extern uint32_t DAT_00568654;
+extern uint32_t DAT_005686d4;
+extern uint32_t DAT_00568714;
+extern uint32_t DAT_00568738;
+extern uint32_t DAT_0056873c;
+extern uint32_t DAT_00568740;
+extern uint32_t DAT_00568744;
+extern uint32_t DAT_00568748;
+extern uint32_t DAT_0056874c;
+extern uint32_t DAT_00568750;
+extern uint32_t DAT_00568754;
+extern uint32_t DAT_00568758;
+extern uint32_t DAT_0056875c;
+extern uint32_t DAT_00568760;
+extern uint32_t DAT_00568764;
+extern uint32_t DAT_00568768;
+extern uint32_t DAT_0056876c;
+extern uint32_t DAT_00568770;
+extern uint32_t DAT_00568774;
+extern uint32_t DAT_00568778;
+extern uint32_t DAT_0056877c;
+extern uint32_t DAT_00568798;
+extern uint32_t DAT_0056879c;
+extern uint32_t DAT_005687a0;
+extern uint32_t DAT_005687a4;
+extern uint32_t DAT_005687a8;
+extern uint32_t DAT_005687ac;
+extern uint32_t DAT_005687b0;
+extern uint32_t DAT_005687b4;
+extern uint32_t DAT_005687b8;
+extern uint32_t DAT_005687fc;
+extern uint32_t DAT_0056881c;
+extern uint32_t DAT_00568840;
+extern uint32_t DAT_00568844;
+extern uint32_t DAT_00568848;
+extern uint32_t DAT_0056884c;
+extern uint32_t DAT_00568850;
+extern uint32_t DAT_00568854;
+extern uint32_t DAT_00568858;
+extern uint32_t DAT_0056885c;
+extern uint32_t DAT_00568860;
+extern uint32_t DAT_00568864;
+extern uint32_t DAT_00568868;
+extern uint32_t DAT_0056886c;
+extern uint32_t DAT_00568870;
+extern uint32_t DAT_00568874;
+extern uint32_t DAT_00568878;
+extern uint32_t DAT_0056887c;
+extern uint32_t DAT_00568880;
+extern uint32_t DAT_00568884;
+extern uint32_t DAT_00568888;
+extern uint32_t DAT_0056888c;
+extern uint32_t DAT_00568890;
+extern uint32_t DAT_00568894;
+extern uint32_t DAT_00568898;
+extern uint32_t DAT_0056889c;
+extern uint32_t DAT_005688a0;
+extern uint32_t DAT_005688b8;
+extern uint32_t DAT_005688bc;
+extern uint32_t DAT_005688c0;
+extern uint32_t DAT_005688c4;
+extern uint32_t DAT_005688c8;
+extern uint32_t DAT_005688cc;
+extern uint32_t DAT_005688d0;
+extern uint32_t DAT_005688d4;
+extern uint32_t DAT_005688d8;
+extern uint32_t DAT_005688dc;
+extern uint32_t DAT_005688e0;
+extern uint32_t DAT_005688e4;
+extern uint32_t DAT_005688e8;
+extern uint32_t DAT_005688ec;
+extern uint32_t DAT_005688f0;
+extern uint32_t DAT_005688f4;
+extern uint32_t DAT_005688f8;
+extern uint32_t DAT_005688fc;
+extern uint32_t DAT_00568900;
+extern uint32_t DAT_00568904;
+extern uint32_t DAT_00568908;
+extern uint32_t DAT_0056890c;
+extern uint32_t DAT_00568910;
+extern uint32_t DAT_00568914;
+extern uint32_t DAT_00568918;
+extern uint32_t DAT_0056891c;
+extern uint32_t DAT_00568920;
+extern uint32_t DAT_00568924;
+extern uint32_t DAT_00568928;
+extern uint32_t DAT_0056892c;
+extern uint32_t DAT_00568930;
+extern uint32_t DAT_00568934;
+extern uint32_t DAT_00568938;
+extern uint32_t DAT_0056893c;
+extern uint32_t DAT_00568940;
+extern uint32_t DAT_00568944;
+extern uint32_t DAT_00569144;
+extern uint32_t DAT_00569344;
+extern uint32_t DAT_00569348;
+extern uint32_t DAT_00569b48;
+extern uint32_t DAT_0056d468;
+extern uint32_t DAT_00598e7e;
+extern uint32_t DAT_005a9050;
+extern uint32_t DAT_005a9290;
+extern uint32_t DAT_005a9350;
+extern uint32_t DAT_005a94b0;
+extern uint32_t DAT_005a9550;
+extern uint32_t DAT_005a960c;
+extern uint32_t DAT_005a9624;
+extern uint32_t DAT_005a9640;
+extern uint32_t DAT_005a965c;
+extern uint32_t DAT_005a9680;
+extern uint32_t DAT_005a9684;
+extern uint32_t DAT_005a9688;
+extern uint32_t DAT_005a9784;
+extern uint32_t DAT_005a9884;
+extern uint32_t DAT_005a9888;
+extern uint32_t DAT_005a9988;
+extern uint32_t DAT_005a9989;
+extern uint32_t DAT_005a998a;
+extern uint32_t DAT_005a99e8;
+extern uint32_t DAT_005a99ec;
+extern uint32_t DAT_005a99f0;
+extern uint32_t DAT_005a99f4;
+extern uint32_t DAT_005a99f8;
+extern uint32_t DAT_005a9cf4;
+extern uint32_t DAT_005a9cf6;
+extern uint32_t DAT_005a9cf8;
+extern uint32_t DAT_005ab4f4;
+extern uint32_t DAT_005ab4fc;
+extern uint32_t DAT_005ab500;
+extern uint32_t DAT_005ab604;
+extern uint32_t DAT_005ab608;
+extern uint32_t DAT_005ab704;
+extern uint32_t DAT_005ab708;
+extern uint32_t DAT_005ab709;
+extern uint32_t DAT_005ab70a;
+extern uint32_t DAT_005ab88c;
+extern uint32_t DAT_005ab890;
+extern uint32_t DAT_005ab8d4;
+extern uint32_t DAT_005ab8e0;
+extern uint32_t DAT_005ab91c;
+extern uint32_t DAT_005ab920;
+extern uint32_t DAT_005aba28;
+extern uint32_t DAT_005aba2c;
+extern uint32_t DAT_005aba30;
+extern uint32_t DAT_005aba34;
+extern uint32_t DAT_005aba38;
+extern uint32_t DAT_005ada38;
+extern uint32_t DAT_005ada3c;
+extern uint32_t DAT_005ae33c;
+extern uint32_t DAT_005ae344;
+extern uint32_t DAT_005ae348;
+extern uint32_t DAT_005ae34c;
+extern uint32_t DAT_005ae350;
+extern uint32_t DAT_005ae358;
+extern uint32_t DAT_005ae450;
+extern uint32_t DAT_005ae740;
+extern uint32_t DAT_005ae74c;
+extern uint32_t DAT_005ae75c;
+extern uint32_t DAT_005ae760;
+extern uint32_t DAT_005ae7b0;
+extern uint32_t DAT_005ae7cc;
+extern uint32_t DAT_005ae7d0;
+extern uint32_t DAT_005ae7dc;
+extern uint32_t DAT_005ae7e0;
+extern uint32_t DAT_005ae7e8;
+extern uint32_t DAT_005ae7ec;
+extern uint32_t DAT_005ae7f0;
+extern uint32_t DAT_005ae7f8;
+extern uint32_t DAT_005ae800;
+extern uint32_t DAT_005ae804;
+extern uint32_t DAT_005ae808;
+extern uint32_t DAT_005ae80c;
+extern uint32_t DAT_005ae810;
+extern uint32_t DAT_005ae814;
+extern uint32_t DAT_005ae818;
+extern uint32_t DAT_005ae81c;
+extern uint32_t DAT_005ae820;
+extern uint32_t DAT_005ae824;
+extern uint32_t DAT_005ae828;
+extern uint32_t DAT_005ae82c;
+extern uint32_t DAT_005ae830;
+extern uint32_t DAT_005ae834;
+extern uint32_t DAT_005ae838;
+extern uint32_t DAT_005ae83c;
+extern uint32_t DAT_005ae840;
+extern uint32_t DAT_005ae844;
+extern uint32_t DAT_005ae920;
+extern uint32_t DAT_005ae924;
+extern uint32_t DAT_005ae928;
+extern uint32_t DAT_005ae92c;
+extern uint32_t DAT_005ae930;
+extern uint32_t DAT_005ae934;
+extern uint32_t DAT_005ae93c;
+extern uint32_t DAT_005ae940;
+extern uint32_t DAT_005af140;
+extern uint32_t DAT_005af144;
+extern uint32_t DAT_005af944;
+extern uint32_t DAT_005b0144;
+extern uint32_t DAT_005b0148;
+extern uint32_t DAT_005b01c4;
+extern uint32_t DAT_005b01e4;
+extern uint32_t DAT_005b01fc;
+extern uint32_t DAT_005b05fc;
+extern uint32_t DAT_005b0efc;
+extern uint32_t DAT_005b12fc;
+extern uint32_t DAT_005b137c;
+extern uint32_t DAT_005b13fc;
+extern uint32_t DAT_005b1c50;
+extern uint32_t DAT_005b1c54;
+extern uint32_t DAT_005b1c58;
+extern uint32_t DAT_005b1c5c;
+extern uint32_t DAT_005b1c60;
+extern uint32_t DAT_005b1c64;
+extern uint32_t DAT_005b1c68;
+extern uint32_t DAT_005b1c6c;
+extern uint32_t DAT_005c7fb8;
+extern uint32_t DAT_005f2f44;
+extern uint32_t DAT_005f2f48;
+extern uint32_t DAT_005f2f54;
+extern uint32_t DAT_005f2f55;
+extern uint32_t DAT_005f3774;
+extern uint32_t DAT_005f48a8;
+extern uint32_t DAT_005f4ab4;
+extern uint32_t DAT_005f4ab8;
+extern uint32_t DAT_005f4cdc;
+extern uint32_t DAT_005f4f00;
+extern uint32_t DAT_005f5124;
+extern uint32_t DAT_005f5348;
+extern uint32_t DAT_00656369;
+extern uint32_t DAT_0067e3e4;
+extern uint32_t DAT_0067e5f0;
+extern uint32_t DAT_0067e608;
+extern uint32_t DAT_0067e814;
+extern uint32_t DAT_0067e818;
+extern uint32_t DAT_0067e82c;
+extern uint32_t DAT_0067ea38;
+extern uint32_t DAT_0067ea3c;
+extern uint32_t DAT_0067ea50;
+extern uint32_t DAT_0067ec5c;
+extern uint32_t DAT_0067ec6c;
+extern uint32_t DAT_006a4c74;
+extern uint32_t DAT_006a4c78;
+extern uint32_t DAT_006a6480;
+extern uint32_t DAT_006a6484;
+extern uint32_t DAT_006a6488;
+extern uint32_t DAT_006a648c;
+extern uint32_t DAT_006a648d;
+extern uint32_t DAT_006a6490;
+extern uint32_t DAT_006a6494;
+extern uint32_t DAT_006a6498;
+extern uint32_t DAT_006a6499;
+extern uint32_t DAT_006a649c;
+extern uint32_t DAT_006a64a0;
+extern uint32_t DAT_006a64c4;
+extern uint32_t DAT_006a76e0;
+extern uint32_t DAT_006a76e4;
+extern uint32_t DAT_006a76e8;
+extern uint32_t DAT_006a76ec;
+extern uint32_t DAT_006a7700;
+extern uint32_t DAT_006a770c;
+extern uint32_t DAT_006a772c;
+extern uint32_t DAT_006a7730;
+extern uint32_t DAT_006a7734;
+extern uint32_t DAT_006a7736;
+extern uint32_t DAT_006a7750;
+extern uint32_t DAT_006a7754;
+extern uint32_t DAT_006a7f6c;
+extern uint32_t DAT_006a7f74;
+extern uint32_t DAT_006a7f75;
+extern uint32_t DAT_006a7f76;
+extern uint32_t DAT_006a7f78;
+extern uint32_t DAT_006a7f7c;
+extern uint32_t DAT_006a7fa8;
+extern uint32_t DAT_006a81b4;
+extern uint32_t DAT_006a9b8c;
+extern uint32_t DAT_006a9d98;
+extern uint32_t DAT_006a9db0;
+extern uint32_t DAT_006a9fbc;
+extern uint32_t DAT_006a9fd4;
+extern uint32_t DAT_006aa1e0;
+extern uint32_t DAT_006aa1f8;
+extern uint32_t DAT_006aa404;
+extern uint32_t DAT_006aa40c;
+extern uint32_t DAT_006aa410;
+extern uint32_t DAT_006aa630;
+extern uint32_t DAT_006aa678;
+extern uint32_t DAT_006aa679;
+extern uint32_t DAT_006aa67a;
+extern uint32_t DAT_006aa690;
+extern uint32_t DAT_006aa89c;
+extern uint32_t DAT_006aa8b4;
+extern uint32_t DAT_006aaac0;
+extern uint32_t DAT_006aaac4;
+extern uint32_t DAT_006aaafc;
+extern uint32_t DAT_006aab00;
+extern uint32_t DAT_007934c5;
+extern uint32_t DAT_00793668;
+extern uint32_t DAT_0079366c;
+extern uint32_t DAT_00793670;
+extern uint32_t DAT_0079371c;
+extern uint32_t DAT_00793720;
+extern uint32_t DAT_00793724;
+extern uint32_t DAT_007949c8;
+extern uint32_t DAT_00794e48;
+extern uint32_t DAT_007a7668;
+extern uint32_t DAT_00989680;
+extern uint32_t DAT_00e54a9c;
+extern uint32_t DAT_00e54aa0;
+extern uint32_t DAT_00e54ca4;
+extern uint32_t DAT_00e54ca8;
+extern uint32_t DAT_00e54cac;
+extern uint32_t DAT_00e54cb0;
+extern uint32_t DAT_00e54da8;
+extern uint32_t DAT_00e55a34;
+extern uint32_t DAT_00e55a54;
+extern uint32_t DAT_00e55a58;
+extern uint32_t DAT_00e9af60;
+extern uint32_t DAT_00e9c578;
+extern uint32_t DAT_00e9cd30;
+extern uint32_t DAT_00f25840;
+extern uint32_t DAT_00f25844;
+extern uint32_t DAT_00f25848;
+extern uint32_t DAT_00f2584c;
+extern uint32_t DAT_00f25850;
+extern uint32_t DAT_00f25854;
+extern uint32_t DAT_00f25858;
+extern uint32_t DAT_00f2585c;
+extern uint32_t DAT_00f25860;
+extern uint32_t DAT_00f25864;
+extern uint32_t DAT_00f25868;
+extern uint32_t DAT_00f2586c;
+extern uint32_t DAT_00f25870;
+extern uint32_t DAT_00f25874;
+extern uint32_t DAT_00f25878;
+extern uint32_t DAT_00f2587c;
+extern uint32_t DAT_00f25880;
+extern uint32_t DAT_00f258a4;
+extern uint32_t DAT_00f258a8;
+extern uint32_t DAT_00f258c0;
+extern uint32_t DAT_00f258c4;
+extern uint32_t DAT_00f258c8;
+extern uint32_t DAT_00f258cc;
+extern uint32_t DAT_00f258d0;
+extern uint32_t DAT_00f258d4;
+extern uint32_t DAT_00f258e0;
+extern uint32_t DAT_00f258e4;
+extern uint32_t DAT_00f258e8;
+extern uint32_t DAT_00f25900;
+extern uint32_t DAT_00f25904;
+extern uint32_t DAT_00f25908;
+extern uint32_t DAT_00f2590c;
+extern uint32_t DAT_00f25910;
+extern uint32_t DAT_00f25914;
+extern uint32_t DAT_00f25918;
+extern uint32_t DAT_00f2591c;
+extern uint32_t DAT_00f25920;
+extern uint32_t DAT_00f25924;
+extern uint32_t DAT_00f25928;
+extern uint32_t DAT_00f2592c;
+extern uint32_t DAT_00f25930;
+extern uint32_t DAT_00f25934;
+extern uint32_t DAT_00f25938;
+extern uint32_t DAT_00f2593c;
+extern uint32_t DAT_00f25940;
+extern uint32_t DAT_00f25944;
+extern uint32_t DAT_00f25960;
+extern uint32_t DAT_00f25964;
+extern uint32_t DAT_00f25968;
+extern uint32_t DAT_00f2596c;
+extern uint32_t DAT_00f25970;
+extern uint32_t DAT_00f25974;
+extern uint32_t DAT_00f25978;
+extern uint32_t DAT_00f2597c;
+extern uint32_t DAT_00f25980;
+extern uint32_t DAT_00f259b0;
+extern uint32_t DAT_00f259b4;
+extern uint32_t DAT_00f259b8;
+extern uint32_t DAT_00f259bc;
+extern uint32_t DAT_00f259c0;
+extern uint32_t DAT_00f259c4;
+extern uint32_t DAT_00f259c8;
+extern uint32_t DAT_00f259cc;
+extern uint32_t DAT_00f259d0;
+extern uint32_t DAT_00f259e0;
+extern uint32_t DAT_00f259e4;
+extern uint32_t DAT_00f259e8;
+extern uint32_t DAT_00f259ec;
+extern uint32_t DAT_00f259f0;
+extern uint32_t DAT_00f259f4;
+extern uint32_t DAT_00f259f8;
+extern uint32_t DAT_00f259fc;
+extern uint32_t DAT_00f25a10;
+extern uint32_t DAT_00f25a14;
+extern uint32_t DAT_00f25a18;
+extern uint32_t DAT_00f25a1c;
+extern uint32_t DAT_00f25a20;
+extern uint32_t DAT_00f25a24;
+extern uint32_t DAT_00f25a28;
+extern uint32_t DAT_00f25a2c;
+extern uint32_t DAT_00f25a40;
+extern uint32_t DAT_00f25a7c;
+extern uint32_t DAT_00f25a80;
+extern uint32_t DAT_00f25a84;
+extern uint32_t DAT_00f25a88;
+extern uint32_t DAT_00f25a9c;
+extern uint32_t DAT_00f25aa0;
+extern uint32_t DAT_00f25aa4;
+extern uint32_t DAT_00f25aa8;
+extern uint32_t DAT_00f25ab0;
+extern uint32_t DAT_00f25ab4;
+extern uint32_t DAT_00f25ac0;
+extern uint32_t DAT_00f25b00;
+extern uint32_t DAT_00f25b04;
+extern uint32_t DAT_00f25b08;
+extern uint32_t DAT_00f25b0c;
+extern uint32_t DAT_00f25b10;
+extern uint32_t DAT_00f25b14;
+extern uint32_t DAT_00f25b18;
+extern uint32_t DAT_00f25b1c;
+extern uint32_t DAT_00f25b20;
+extern uint32_t DAT_00f25b24;
+extern uint32_t DAT_00f25b28;
+extern uint32_t DAT_00f25b2c;
+extern uint32_t DAT_00f25b30;
+extern uint32_t DAT_00f25b34;
+extern uint32_t DAT_00f25b38;
+extern uint32_t DAT_00f25b3c;
+extern uint32_t DAT_00f25b40;
+extern uint32_t DAT_00f25b44;
+extern uint32_t DAT_00f25b48;
+extern uint32_t DAT_00f25b4c;
+extern uint32_t DAT_00f25b50;
+extern uint32_t DAT_00f25b54;
+extern uint32_t DAT_00f25b58;
+extern uint32_t DAT_00f25b5c;
+extern uint32_t DAT_00f25b60;
+extern uint32_t DAT_00f25b64;
+extern uint32_t DAT_00f25b68;
+extern uint32_t DAT_00f25b6c;
+extern uint32_t DAT_00f25b70;
+extern uint32_t DAT_00f25b74;
+extern uint32_t DAT_00f25b78;
+extern uint32_t DAT_00f25b7c;
+extern uint32_t DAT_00f25b80;
+extern uint32_t DAT_00f25b84;
+extern uint32_t DAT_00f25b88;
+extern uint32_t DAT_00f25b8c;
+extern uint32_t DAT_00f25c20;
+extern uint32_t DAT_00f25c24;
+extern uint32_t DAT_00f25c28;
+extern uint32_t DAT_00f25c2c;
+extern uint32_t DAT_00f25c30;
+extern uint32_t DAT_00f25c34;
+extern uint32_t DAT_00f25c38;
+extern uint32_t DAT_00f25c3c;
+extern uint32_t DAT_00f25c40;
+extern uint32_t DAT_00f25c44;
+extern uint32_t DAT_00f25c48;
+extern uint32_t DAT_00f25c4c;
+extern uint32_t DAT_00f25d3c;
+extern uint32_t DAT_00f25d40;
+extern uint32_t DAT_00f25d44;
+extern uint32_t DAT_00f25d98;
+extern uint32_t DAT_00f25e00;
+extern uint32_t DAT_00f25e04;
+extern uint32_t DAT_00f25e08;
+extern uint32_t DAT_00f25e0c;
+extern uint32_t DAT_00f25e10;
+extern uint32_t DAT_00f25e20;
+extern uint32_t DAT_00f25e78;
+extern uint32_t DAT_00f25ed0;
+extern uint32_t DAT_00f25ee0;
+extern uint32_t DAT_00f25ee4;
+extern uint32_t DAT_00f25f00;
+extern uint32_t DAT_00544360;
+#define _DAT_00544360 DAT_00544360
+extern uint32_t DAT_00544368;
+#define _DAT_00544368 DAT_00544368
+extern uint32_t DAT_00544370;
+#define _DAT_00544370 DAT_00544370
+extern uint32_t DAT_00544378;
+#define _DAT_00544378 DAT_00544378
+extern uint32_t DAT_005448d8;
+#define _DAT_005448d8 DAT_005448d8
+extern uint32_t DAT_005448e0;
+#define _DAT_005448e0 DAT_005448e0
+extern uint32_t DAT_00544aa8;
+#define _DAT_00544aa8 DAT_00544aa8
+extern uint32_t DAT_00544ab0;
+#define _DAT_00544ab0 DAT_00544ab0
+extern uint32_t DAT_00544ab8;
+#define _DAT_00544ab8 DAT_00544ab8
+extern uint32_t DAT_00544ac0;
+#define _DAT_00544ac0 DAT_00544ac0
+extern uint32_t DAT_00544ac8;
+#define _DAT_00544ac8 DAT_00544ac8
+extern uint32_t DAT_00544ad0;
+#define _DAT_00544ad0 DAT_00544ad0
+extern uint32_t DAT_00544ad8;
+#define _DAT_00544ad8 DAT_00544ad8
+extern uint32_t DAT_00544ae0;
+#define _DAT_00544ae0 DAT_00544ae0
+extern uint32_t DAT_00544ae8;
+#define _DAT_00544ae8 DAT_00544ae8
+extern uint32_t DAT_00544af0;
+#define _DAT_00544af0 DAT_00544af0
+extern uint32_t DAT_00544af8;
+#define _DAT_00544af8 DAT_00544af8
+extern uint32_t DAT_00544b00;
+#define _DAT_00544b00 DAT_00544b00
+extern uint32_t DAT_0054bb4c;
+#define _DAT_0054bb4c DAT_0054bb4c
+extern uint32_t DAT_0054c870;
+#define _DAT_0054c870 DAT_0054c870
+extern uint32_t DAT_00557fe4;
+#define _DAT_00557fe4 DAT_00557fe4
+extern uint32_t DAT_00558014;
+#define _DAT_00558014 DAT_00558014
+extern uint32_t DAT_00558018;
+#define _DAT_00558018 DAT_00558018
+extern uint32_t DAT_00558048;
+#define _DAT_00558048 DAT_00558048
+extern uint32_t DAT_00558068;
+#define _DAT_00558068 DAT_00558068
+extern uint32_t DAT_00558070;
+#define _DAT_00558070 DAT_00558070
+extern uint32_t DAT_00558078;
+#define _DAT_00558078 DAT_00558078
+extern uint32_t DAT_00563d9c;
+#define _DAT_00563d9c DAT_00563d9c
+extern uint32_t DAT_005687f8;
+#define _DAT_005687f8 DAT_005687f8
+extern uint32_t DAT_005688a4;
+#define _DAT_005688a4 DAT_005688a4
+extern uint32_t DAT_005688a8;
+#define _DAT_005688a8 DAT_005688a8
+extern uint32_t DAT_005688ac;
+#define _DAT_005688ac DAT_005688ac
+extern uint32_t DAT_005688b0;
+#define _DAT_005688b0 DAT_005688b0
+extern uint32_t DAT_005688b4;
+#define _DAT_005688b4 DAT_005688b4
+extern uint32_t DAT_00588f68;
+#define _DAT_00588f68 DAT_00588f68
+extern uint32_t DAT_00588f6c;
+#define _DAT_00588f6c DAT_00588f6c
+extern uint32_t DAT_00588f70;
+#define _DAT_00588f70 DAT_00588f70
+extern uint32_t DAT_00588f74;
+#define _DAT_00588f74 DAT_00588f74
+extern uint32_t DAT_005a90e0;
+#define _DAT_005a90e0 DAT_005a90e0
+extern uint32_t DAT_005a90e4;
+#define _DAT_005a90e4 DAT_005a90e4
+extern uint32_t DAT_005a90e8;
+#define _DAT_005a90e8 DAT_005a90e8
+extern uint32_t DAT_005a90ec;
+#define _DAT_005a90ec DAT_005a90ec
+extern uint32_t DAT_005a92a4;
+#define _DAT_005a92a4 DAT_005a92a4
+extern uint32_t DAT_005a92b8;
+#define _DAT_005a92b8 DAT_005a92b8
+extern uint32_t DAT_005a92bc;
+#define _DAT_005a92bc DAT_005a92bc
+extern uint32_t DAT_005a92c8;
+#define _DAT_005a92c8 DAT_005a92c8
+extern uint32_t DAT_005a93e0;
+#define _DAT_005a93e0 DAT_005a93e0
+extern uint32_t DAT_005a93e4;
+#define _DAT_005a93e4 DAT_005a93e4
+extern uint32_t DAT_005a93e8;
+#define _DAT_005a93e8 DAT_005a93e8
+extern uint32_t DAT_005a93ec;
+#define _DAT_005a93ec DAT_005a93ec
+#define _DAT_005a94b0 DAT_005a94b0
+extern uint32_t DAT_005a94b4;
+#define _DAT_005a94b4 DAT_005a94b4
+extern uint32_t DAT_005a94b8;
+#define _DAT_005a94b8 DAT_005a94b8
+extern uint32_t DAT_005a94bc;
+#define _DAT_005a94bc DAT_005a94bc
+#define _DAT_005a9550 DAT_005a9550
+extern uint32_t DAT_005a9554;
+#define _DAT_005a9554 DAT_005a9554
+extern uint32_t DAT_005a9558;
+#define _DAT_005a9558 DAT_005a9558
+extern uint32_t DAT_005a955c;
+#define _DAT_005a955c DAT_005a955c
+extern uint32_t DAT_005ab4f8;
+#define _DAT_005ab4f8 DAT_005ab4f8
+extern uint32_t DAT_005ab888;
+#define _DAT_005ab888 DAT_005ab888
+extern uint32_t DAT_005ab8d8;
+#define _DAT_005ab8d8 DAT_005ab8d8
+extern uint32_t DAT_005ae340;
+#define _DAT_005ae340 DAT_005ae340
+extern uint32_t DAT_005ae738;
+#define _DAT_005ae738 DAT_005ae738
+extern uint32_t DAT_005ae7f4;
+#define _DAT_005ae7f4 DAT_005ae7f4
+extern uint32_t DAT_005ae7fc;
+#define _DAT_005ae7fc DAT_005ae7fc
+#define _DAT_005ae92c DAT_005ae92c
+extern uint32_t DAT_0079361c;
+#define _DAT_0079361c DAT_0079361c
+extern uint32_t DAT_00f25884;
+#define _DAT_00f25884 DAT_00f25884
+extern uint32_t DAT_00f25888;
+#define _DAT_00f25888 DAT_00f25888
+extern uint32_t DAT_00f2588c;
+#define _DAT_00f2588c DAT_00f2588c
+extern uint32_t DAT_00f25890;
+#define _DAT_00f25890 DAT_00f25890
+extern uint32_t DAT_00f25894;
+#define _DAT_00f25894 DAT_00f25894
+extern uint32_t DAT_00f25898;
+#define _DAT_00f25898 DAT_00f25898
+extern uint32_t DAT_00f2589c;
+#define _DAT_00f2589c DAT_00f2589c
+extern uint32_t DAT_00f258a0;
+#define _DAT_00f258a0 DAT_00f258a0
+extern uint32_t DAT_00f25a30;
+#define _DAT_00f25a30 DAT_00f25a30
+extern uint32_t DAT_00f25a44;
+#define _DAT_00f25a44 DAT_00f25a44
+extern uint32_t DAT_00f25a48;
+#define _DAT_00f25a48 DAT_00f25a48
+extern uint32_t DAT_00f25a4c;
+#define _DAT_00f25a4c DAT_00f25a4c
+extern uint32_t DAT_00f25a50;
+#define _DAT_00f25a50 DAT_00f25a50
+extern uint32_t DAT_00f25a54;
+#define _DAT_00f25a54 DAT_00f25a54
+extern uint32_t DAT_00f25a58;
+#define _DAT_00f25a58 DAT_00f25a58
+extern uint32_t DAT_00f25a5c;
+#define _DAT_00f25a5c DAT_00f25a5c
+extern uint32_t DAT_00f25a60;
+#define _DAT_00f25a60 DAT_00f25a60
+extern uint32_t DAT_00f25a64;
+#define _DAT_00f25a64 DAT_00f25a64
+extern uint32_t DAT_00f25a68;
+#define _DAT_00f25a68 DAT_00f25a68
+extern uint32_t DAT_00f25a6c;
+#define _DAT_00f25a6c DAT_00f25a6c
+extern uint32_t DAT_00f25a70;
+#define _DAT_00f25a70 DAT_00f25a70
+extern uint32_t DAT_00f25a74;
+#define _DAT_00f25a74 DAT_00f25a74
+extern uint32_t DAT_00f25a78;
+#define _DAT_00f25a78 DAT_00f25a78
+#define _DAT_00f25a7c DAT_00f25a7c
+extern uint32_t DAT_00f25a8c;
+#define _DAT_00f25a8c DAT_00f25a8c
+extern uint32_t DAT_00f25a90;
+#define _DAT_00f25a90 DAT_00f25a90
+extern uint32_t DAT_00f25a94;
+#define _DAT_00f25a94 DAT_00f25a94
+extern uint32_t DAT_00f25a98;
+#define _DAT_00f25a98 DAT_00f25a98
+#define _DAT_00f25a9c DAT_00f25a9c
+extern uint32_t DAT_00f25aac;
+#define _DAT_00f25aac DAT_00f25aac
+extern uint32_t DAT_00f25ab8;
+#define _DAT_00f25ab8 DAT_00f25ab8
+#define _DAT_00f25ac0 DAT_00f25ac0
+extern uint32_t DAT_00f25ac4;
+#define _DAT_00f25ac4 DAT_00f25ac4
+extern uint32_t DAT_00f25ac8;
+#define _DAT_00f25ac8 DAT_00f25ac8
+extern uint32_t DAT_00f25acc;
+#define _DAT_00f25acc DAT_00f25acc
+extern uint32_t DAT_00f25ad0;
+#define _DAT_00f25ad0 DAT_00f25ad0
+extern uint32_t DAT_00f25ad4;
+#define _DAT_00f25ad4 DAT_00f25ad4
+extern uint32_t DAT_00f25ad8;
+#define _DAT_00f25ad8 DAT_00f25ad8
+extern uint32_t DAT_00f25adc;
+#define _DAT_00f25adc DAT_00f25adc
+extern uint32_t DAT_00f25ae0;
+#define _DAT_00f25ae0 DAT_00f25ae0
+extern uint32_t DAT_00f25ae4;
+#define _DAT_00f25ae4 DAT_00f25ae4
+extern uint32_t DAT_00f25ae8;
+#define _DAT_00f25ae8 DAT_00f25ae8
+extern uint32_t DAT_00f25aec;
+#define _DAT_00f25aec DAT_00f25aec
+extern uint32_t DAT_00f25af0;
+#define _DAT_00f25af0 DAT_00f25af0
+extern uint32_t DAT_00f25af4;
+#define _DAT_00f25af4 DAT_00f25af4
+extern uint32_t DAT_00f25af8;
+#define _DAT_00f25af8 DAT_00f25af8
+extern uint32_t DAT_00f25afc;
+#define _DAT_00f25afc DAT_00f25afc
+extern uint32_t DAT_00f25ee8;
+#define _DAT_00f25ee8 DAT_00f25ee8
+extern uint32_t DAT_00f25eec;
+#define _DAT_00f25eec DAT_00f25eec
+extern uint32_t DAT_00f25ef0;
+#define _DAT_00f25ef0 DAT_00f25ef0
+extern uint32_t DAT_00f25ef4;
+#define _DAT_00f25ef4 DAT_00f25ef4
+extern const char s_CBuddy2_Timer_Receiving_Window_00557b74[];
+extern const char s_CCommEngine_Notify_Window_00557b58[];
+extern const char s___8s___12s__3dP__6dG_00556720[];
+extern const char s___d__d__00555c88[];
+extern const char s__d__s_00556ae8[];
+extern const char s_ani__02d_00553b98[];
+extern const char s_b_option_cancel_005569b0[];
+extern const char s_b_option_confirm_00556988[];
+extern const char s_b_option_exitgame_0055699c[];
+extern const char s_b_play_team_00554114[];
+extern const char s_b_slot_cancel_005540d0[];
+extern const char s_b_slot_retry_005540ec[];
+extern const char s_b_slot_use_005540e0[];
+extern const char s_b_storewindow_cancel_00555a30[];
+extern const char s_b_storewindow_cash_00555a48[];
+extern const char s_b_storewindow_cashcharge_00555a70[];
+extern const char s_b_storewindow_gold_00555a5c[];
+extern const char s_b_storewindow_yes_00555a1c[];
+extern const char s_bombblast_xes_00553cb8[];
+extern const char s_bombflame_00553cc8[];
+extern const char s_bullet10n_00553ec0[];
+extern const char s_bullet10p_00553db4[];
+extern const char s_bullet10s_00553eb4[];
+extern const char s_bullet11n_00553ea8[];
+extern const char s_bullet11p_00553da8[];
+extern const char s_bullet11s_00553e9c[];
+extern const char s_bullet12p_00553d9c[];
+extern const char s_bullet13n_00553e90[];
+extern const char s_bullet13p_00553d90[];
+extern const char s_bullet13s_00553e84[];
+extern const char s_bullet14p_00553d84[];
+extern const char s_bullet15n_00553e78[];
+extern const char s_bullet15p_00553d78[];
+extern const char s_bullet15s_00553e6c[];
+extern const char s_bullet16n_00553e60[];
+extern const char s_bullet16p_00553d6c[];
+extern const char s_bullet16s_00553e54[];
+extern const char s_bullet1n_00553f80[];
+extern const char s_bullet1p_00553e20[];
+extern const char s_bullet1s_00553f74[];
+extern const char s_bullet2p_00553e14[];
+extern const char s_bullet3n_00553f68[];
+extern const char s_bullet3p_00553e08[];
+extern const char s_bullet3s_00553f5c[];
+extern const char s_bullet4n_00553f50[];
+extern const char s_bullet4p_00553dfc[];
+extern const char s_bullet4s_00553f44[];
+extern const char s_bullet5n_00553f38[];
+extern const char s_bullet5p_00553df0[];
+extern const char s_bullet5s_00553f2c[];
+extern const char s_bullet6n_00553f20[];
+extern const char s_bullet6p_00553de4[];
+extern const char s_bullet6s_00553f14[];
+extern const char s_bullet7n_00553f08[];
+extern const char s_bullet7p_00553dd8[];
+extern const char s_bullet7s_00553efc[];
+extern const char s_bullet8n_00553ef0[];
+extern const char s_bullet8p_00553dcc[];
+extern const char s_bullet8s_00553ee4[];
+extern const char s_bullet9n_00553ed8[];
+extern const char s_bullet9p_00553dc0[];
+extern const char s_bullet9s_00553ecc[];
+extern const char s_bulletevent1_00553e38[];
+extern const char s_bulletevent1p_00553d50[];
+extern const char s_bulletitem_00553d14[];
+extern const char s_caseblast_xes_00553c68[];
+extern const char s_caseflame_00553c78[];
+extern const char s_change_00555af0[];
+extern const char s_cnormal_00555ae8[];
+extern const char s_crystal_00553bfc[];
+extern const char s_damage_00555cc0[];
+extern const char s_dropbomb_00553cd4[];
+extern const char s_dropcase_00553c84[];
+extern const char s_drophammer_00553cac[];
+extern const char s_emotion1_00555cb4[];
+extern const char s_emotion_d_00555ca8[];
+extern const char s_flame10_d_00553d44[];
+extern const char s_flame123_00553cec[];
+extern const char s_flame73_00553c04[];
+extern const char s_flame_d3_00553d60[];
+extern const char s_flame_d_d_00553e48[];
+extern const char s_flameevent1_00553e2c[];
+extern const char s_itemblast_xes_00553cf8[];
+extern const char s_itemcase_00553c38[];
+extern const char s_itemflame_00553d08[];
+extern const char s_jflame_d_00555ff0[];
+extern const char s_knightflame_00553d20[];
+extern const char s_lightningblast_xes_00553c44[];
+extern const char s_lightningflame_00553c58[];
+extern const char s_rayonevent1_00553c20[];
+extern const char s_rayonmine_00553c2c[];
+extern const char s_shield_005562ec[];
+extern const char s_shock_00553b80[];
+extern const char s_special_005563c8[];
+extern const char s_srayonmine_00553c0c[];
+extern const char s_ssflame11_00554ae4[];
+extern const char s_ssflame12_005549c8[];
+extern const char s_ssflame13_005548d8[];
+extern const char s_ssflame1_00555410[];
+extern const char s_ssflame2_00555320[];
+extern const char s_ssflame3_00555248[];
+extern const char s_ssflame4_00555170[];
+extern const char s_ssflame6_00554fc0[];
+extern const char s_ssflame7_00554e94[];
+extern const char s_ssflame8_00554dd0[];
+extern const char s_ssflame9_00554ce4[];
+extern const char s_teleport2_005543cc[];
+extern void *PTR_s_101blast_xes_0056d2b4;
+extern void *PTR_s_11blast_xes_0056d290;
+extern void *PTR_s_121blast_xes_0056d33c;
+extern void *PTR_s_12blast_xes_0056d310;
+extern void *PTR_s_142blast_xes_0056d344;
+extern void *PTR_s_151blast_xes_0056d2c8;
+extern void *PTR_s_72blast_xes_0056d2e8;
+extern void *PTR_s_72blast_xes_0056d328;
+extern void *PTR_s_92blast_xes_0056d2f0;
+extern void *PTR_s_92blast_xes_0056d330;

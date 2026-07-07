@@ -19,16 +19,14 @@ void FUN_00437870(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   code *pcVar6;
   int *piVar7;
   code *pcVar8;
-  undefined4 *unaff_FS_OFFSET;
   char *pcVar9;
   undefined4 local_c;
-  undefined1 *puStack_8;
   undefined4 local_4;
   
-  local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053ca9b;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler
+   * body wasn't included in this function's own decompile. Same
+   * rationale as entry/InitGame.c - see src/README.md. */
   cVar1 = FUN_004065a0();
   if (cVar1 != '\0') goto LAB_00437acb;
   iVar2 = FUN_00437490();
@@ -107,7 +105,6 @@ LAB_004379f7:
   piVar7[0xfeb] = iVar2;
   RegisterActiveObject();
 LAB_00437acb:
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 
