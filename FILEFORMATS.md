@@ -460,10 +460,25 @@ but for wearable avatar items instead. The `f`/`m` prefix is almost
 certainly gender (female/male), and the second letter likely a body-slot
 category (the four seen — `b`, `f`, `g`, `h` — probably map to something
 like body/face/gloves/head or similar equipment slots, though the exact
-per-letter mapping wasn't confirmed). Record-level field layout (name
-field boundaries, any numeric ID/price fields analogous to
-`itemdata.dat`'s) wasn't mapped this pass — only the file's general
-nature (a text-bearing catalog, not a binary palette table) is confirmed.
+per-letter mapping wasn't confirmed).
+
+**Record-level field layout — resolved as moot, not just "not mapped
+yet."** Found the client's only consumer of these files (`FUN_00423bf0`,
+the sole function in the entire binary referencing any of `fb.dat`/
+`fg.dat`/`fh.dat`/`mb.dat`/`mf.dat`/`mg.dat`/`mh.dat` — confirmed by
+checking every string xref for all 7 names; only `ff.dat` is never
+referenced at all). It's the **exact same anti-tamper pattern already
+established for `characterdata.dat`**: for each of the 7 files, it reads
+**a single leading byte** and immediately relays it to the server via
+`EncodeOutgoingPacketField`/`QueueOutgoingPacketField` — no parsing of
+the costume names/descriptions happens client-side at all. This means
+there's no "record layout" to map from this binary's perspective: the
+readable catalog text exists in the file for some other consumer (most
+likely the actual Avatar Store item list is fetched from the server at
+runtime via State 7's confirmed `0x6002`/`0x6005` opcodes — see
+PROTOCOL.md — rather than parsed from these local files), and these
+`.dat` catalogs serve the client only as an integrity/version check,
+exactly like `characterdata.dat`.
 
 ## `stage.dat` — confirmed record layout and target size
 
