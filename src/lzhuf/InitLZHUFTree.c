@@ -11,10 +11,11 @@
 #include <string.h>
 
 void lzhuf_init_tree(lzhuf_state *s) {
+    int i, j;
+
     memset(s->text_buf, 0x20, sizeof(s->text_buf));
     s->r = LZHUF_N - LZHUF_F;
 
-    int i, j;
     for (i = 0; i < LZHUF_N_CHAR; i++) {
         s->freq[i] = 1;
         s->son[i] = i + LZHUF_T;

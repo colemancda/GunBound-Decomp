@@ -13,11 +13,14 @@
 
 uint8_t *lzhuf_decode(const uint8_t *compressed, size_t compressed_size,
                        size_t outsize) {
-    lzhuf_state *s = calloc(1, sizeof(lzhuf_state));
+    lzhuf_state *s;
+    uint8_t *out;
+
+    s = calloc(1, sizeof(lzhuf_state));
     if (!s) {
         return NULL;
     }
-    uint8_t *out = malloc(outsize > 0 ? outsize : 1);
+    out = malloc(outsize > 0 ? outsize : 1);
     if (!out) {
         free(s);
         return NULL;

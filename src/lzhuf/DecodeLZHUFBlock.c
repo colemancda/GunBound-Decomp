@@ -33,11 +33,13 @@ void lzhuf_decode_block(lzhuf_state *s, uint8_t *out, size_t outsize) {
         } else {
             int i = (r - lzhuf_decode_position(s) - 1 + LZHUF_N) % LZHUF_N;
             int j = c - 255 + LZHUF_THRESHOLD;
-            for (int n = 0; n < j; n++) {
+            int n;
+            for (n = 0; n < j; n++) {
+                uint8_t cc;
                 if (count >= outsize) {
                     break;
                 }
-                uint8_t cc = s->text_buf[i % LZHUF_N];
+                cc = s->text_buf[i % LZHUF_N];
                 out[count++] = cc;
                 s->text_buf[r] = cc;
                 r = (r + 1) % LZHUF_N;

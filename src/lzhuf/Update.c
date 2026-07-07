@@ -16,22 +16,24 @@ void lzhuf_update(lzhuf_state *s, int c) {
     }
     c = s->prnt[c + LZHUF_T];
     for (;;) {
+        int k, l;
         s->freq[c]++;
-        int k = s->freq[c];
-        int l = c + 1;
+        k = s->freq[c];
+        l = c + 1;
         if (l < LZHUF_T && s->freq[l] < (uint16_t)k) {
+            int i, jj;
             while (l + 1 < LZHUF_T && s->freq[l + 1] < (uint16_t)k) {
                 l++;
             }
             s->freq[c] = s->freq[l];
             s->freq[l] = (uint16_t)k;
 
-            int i = s->son[c];
+            i = s->son[c];
             s->prnt[i] = l;
             if (i < LZHUF_T) {
                 s->prnt[i + 1] = l;
             }
-            int jj = s->son[l];
+            jj = s->son[l];
             s->son[l] = i;
             s->prnt[jj] = c;
             if (jj < LZHUF_T) {

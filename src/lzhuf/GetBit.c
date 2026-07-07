@@ -18,8 +18,9 @@ static void fillbuf(lzhuf_state *s) {
 }
 
 int lzhuf_get_bit(lzhuf_state *s) {
+    int b;
     fillbuf(s);
-    int b = (s->getbuf >> 15) & 1;
+    b = (s->getbuf >> 15) & 1;
     s->getbuf = (s->getbuf << 1) & 0xffff;
     s->getlen -= 1;
     return b;
