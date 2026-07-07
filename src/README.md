@@ -149,6 +149,10 @@ Concretely, that means:
   - `state_machine/State02_ServerSelect_ProcessPacket.c`
   - `state_machine/State09_ReadyRoom_ProcessPacket.c`
   - `state_machine/State11_InBattle_OnEnter.c`
+  - `state_machine/State11_InBattle_ProcessBattleAction.c` (extensive
+    sub-byte-field access, `._1_3_`/`._0_4_`/etc. - this is a large,
+    heavily-packed packet-decoding function with many fields read at
+    non-standard offsets/widths)
   - `network/HandleTurnTimeoutSlot.c`
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`

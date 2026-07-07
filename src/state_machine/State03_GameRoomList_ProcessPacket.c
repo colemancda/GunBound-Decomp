@@ -55,7 +55,6 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
   ushort *puVar27;
   undefined4 *puVar28;
   char *pcVar29;
-  undefined4 *unaff_FS_OFFSET;
   bool bVar30;
   int local_69c;
   undefined1 *local_690;
@@ -73,14 +72,14 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
   byte local_467;
   char local_466;
   int local_464;
-  undefined4 local_14;
-  undefined1 *puStack_10;
   undefined4 local_c;
   
   local_c = 0xffffffff;
-  puStack_10 = &LAB_005407bd;
-  local_14 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_14;
+  /* Windows SEH __try/__except frame setup stripped (local_14/
+   * puStack_10/unaff_FS_OFFSET) - handler body (LAB_005407bd) wasn't
+   * included in this function's own decompile. Same rationale as
+   * entry/InitGame.c - see src/README.md. local_c is a real, separate
+   * local reused elsewhere in this function, kept as-is. */
   iVar10 = DAT_005b3484;
   if (0x21f1 < opcode) {
     if (opcode < 0x6002) {
@@ -139,7 +138,6 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
           *(undefined4 *)(DAT_005b3484 + 0x41340) = 0xfffffffe;
           if (bVar30) {
             FUN_00405ba0();
-            *unaff_FS_OFFSET = local_14;
             return;
           }
           FUN_00404410(&DAT_00e53e88);
@@ -168,7 +166,6 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
               puVar12 = (undefined4 *)((int)puVar12 + 1);
             }
             *(undefined1 *)(iVar10 + 0x4467a + payloadLen) = 0;
-            *unaff_FS_OFFSET = local_14;
             return;
           }
           break;
@@ -179,7 +176,6 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
               *(undefined4 *)((int)this + 4) = 0xffffffff;
             }
             *(char *)(iVar10 + 0x4497c + DAT_005b3484) = (char)payload[1];
-            *unaff_FS_OFFSET = local_14;
             return;
           }
           break;
@@ -190,7 +186,6 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
               *(undefined4 *)((int)this + 4) = 0xffffffff;
             }
             *(undefined4 *)(DAT_005b3484 + 0x44984 + iVar10 * 4) = *(undefined4 *)(payload + 1);
-            *unaff_FS_OFFSET = local_14;
             return;
           }
           break;
@@ -201,7 +196,6 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
               *(undefined4 *)((int)this + 4) = 0xffffffff;
             }
             *(char *)(iVar10 + 0x4499c + DAT_005b3484) = (char)payload[1];
-            *unaff_FS_OFFSET = local_14;
             return;
           }
           break;
@@ -212,7 +206,6 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
               *(undefined4 *)((int)this + 4) = 0xffffffff;
             }
             *(char *)(iVar10 + 0x449a2 + DAT_005b3484) = (char)payload[1];
-            *unaff_FS_OFFSET = local_14;
             return;
           }
           break;
@@ -223,14 +216,12 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
               *(undefined4 *)((int)this + 4) = 0xffffffff;
             }
             *(char *)(iVar10 + 0x449a8 + DAT_005b3484) = (char)payload[1];
-            *unaff_FS_OFFSET = local_14;
             return;
           }
         }
       }
     }
 switchD_00428058_default:
-    *unaff_FS_OFFSET = local_14;
     return;
   }
   if (opcode == 0x21f1) {
@@ -241,7 +232,6 @@ switchD_00428058_default:
         iVar24 = iVar24 + 1;
         puVar22 = puVar22 + 1;
         if ((int)(uint)*(byte *)(DAT_005b3484 + 0x44648) <= iVar24) {
-          *unaff_FS_OFFSET = local_14;
           return;
         }
       }
@@ -250,7 +240,6 @@ switchD_00428058_default:
           *(undefined4 *)((int)this + 4) = 0xffffffff;
         }
         *(undefined4 *)(iVar10 + 0x4464c + iVar24 * 4) = 0;
-        *unaff_FS_OFFSET = local_14;
         return;
       }
     }
@@ -261,7 +250,6 @@ switchD_00428058_default:
       if (*payload != 0) {
         FUN_0042aba0();
         *(undefined4 *)((int)this + 0x124) = 0xffffffff;
-        *unaff_FS_OFFSET = local_14;
         return;
       }
       uVar23 = (uint)(byte)payload[1];
@@ -342,7 +330,6 @@ switchD_00428058_default:
           iVar24 = iVar24 + 0xd;
           iVar10 = iVar10 + 9;
         } while (local_69c < (int)(uint)*(byte *)((int)this + 0x1b4));
-        *unaff_FS_OFFSET = local_14;
         return;
       }
       goto switchD_00428058_default;
@@ -357,7 +344,6 @@ switchD_00428058_default:
         }
       }
       FUN_00507cc0(1,*(undefined4 *)(DAT_005b3484 + 0x41340));
-      *unaff_FS_OFFSET = local_14;
       return;
     }
     if (opcode == 0x201f) {
@@ -365,7 +351,6 @@ switchD_00428058_default:
       if (iVar10 == -1) {
         FUN_0041b8c0(DAT_005b3484,0,(uint)(byte)*payload * 9 + 0x43548 + DAT_005b3484,
                      (uint)(byte)*payload * 0xd + 0x41445 + DAT_005b3484,payload + 7,0,0);
-        *unaff_FS_OFFSET = local_14;
         return;
       }
       goto switchD_00428058_default;
@@ -445,12 +430,10 @@ switchD_00428058_default:
             FUN_00406500(0);
           }
           FUN_00429b50();
-          *unaff_FS_OFFSET = local_14;
           return;
         }
         FUN_00406500(0);
         FUN_0042a090();
-        *unaff_FS_OFFSET = local_14;
         return;
       }
       goto LAB_00426d84;
@@ -466,7 +449,6 @@ switchD_00428058_default:
             uVar23 = (uint)(byte)uVar6;
             if (uVar23 == 0) {
               *(undefined4 *)(iVar10 + 0x4464c + iVar24 * 4) = 0;
-              *unaff_FS_OFFSET = local_14;
               return;
             }
             *(undefined4 *)(iVar10 + 0x4464c + iVar24 * 4) = 1;
@@ -491,7 +473,6 @@ switchD_00428058_default:
             *(undefined1 *)(iVar14 + 0x449a2 + iVar24) = puVar11[6];
             *(undefined1 *)(iVar14 + 0x449a8 + iVar24) = puVar11[7];
             *(undefined1 *)(iVar14 + 0x449ae + iVar24) = puVar11[8];
-            *unaff_FS_OFFSET = local_14;
             return;
           }
         }
@@ -502,7 +483,14 @@ switchD_00428058_default:
         FUN_004e7430();
         FUN_0041b7e0();
         *(undefined1 *)(extraout_EDX + 0x3b6c0) = 0;
-        uVar13 = QueueOutgoingPacketField((char)payload[1]);
+        /* QueueOutgoingPacketField is void-returning (see its own
+         * definition) - this call site's return-value use is a Ghidra
+         * per-call-site decompilation inconsistency, same class as
+         * entry/WinMain.c's FUN_004058c0 fix. uVar13 is left
+         * uninitialized here as a result; EncodeChecksumState's real
+         * argument at this site isn't recoverable without more
+         * context. */
+        QueueOutgoingPacketField((char)payload[1]);
         EncodeChecksumState(uVar13);
         FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
         FUN_004e7340();
@@ -757,7 +745,6 @@ switchD_00428058_default:
           pbVar18 = pbVar18 + 1;
         } while (bVar3 != 0);
         FUN_0041b8c0(DAT_005b3484,2,0,0,&local_668,0,1);
-        *unaff_FS_OFFSET = local_14;
         return;
       }
       FUN_00429dc0();
@@ -942,7 +929,6 @@ switchD_00428058_default:
         pbVar18 = pbVar18 + 1;
       } while (bVar3 != 0);
       FUN_0041b8c0(iVar10,2,0,0,&local_668,0,1);
-      *unaff_FS_OFFSET = local_14;
       return;
     }
     if (*payload == 0x1d) {
@@ -956,7 +942,6 @@ switchD_00428058_default:
   }
 LAB_00426d84:
   FUN_0042a090();
-  *unaff_FS_OFFSET = local_14;
   return;
 }
 
