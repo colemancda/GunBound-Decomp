@@ -60,13 +60,13 @@ void __fastcall FUN_00481320(int *param_1)
   puStack_8 = &LAB_00539bef;
   uStack_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_c;
-  pcVar18 = EnterCriticalSection_exref;
+  pcVar18 = (code *)EnterCriticalSection;
   local_ad0 = (int *)0x0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar8 = PeekPacketChecksumState();
   iVar9 = PeekPacketChecksumState();
   EncodeOutgoingPacketField(iVar9 + iVar8);
-  pcVar17 = LeaveCriticalSection_exref;
+  pcVar17 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_ac8 = PeekPacketChecksumState();
@@ -100,7 +100,7 @@ LAB_00481528:
     if (iStack_ab4 != 0) {
       FUN_0040a240();
       FUN_0040b540(&local_ad0);
-      pcVar17 = LeaveCriticalSection_exref;
+      pcVar17 = (code *)LeaveCriticalSection;
     }
     FUN_0040b180(param_1 + 0x99,&local_ac8,8);
     local_ad0 = param_1 + 0x45e;
@@ -114,7 +114,7 @@ LAB_00481528:
     if (iStack_ab8 != 0) {
       FUN_0040a240();
       FUN_0040b540(&stack0xfffff524);
-      pcVar17 = LeaveCriticalSection_exref;
+      pcVar17 = (code *)LeaveCriticalSection;
     }
     cVar7 = FUN_00406610(param_1[0x3d2] != 0);
     if (cVar7 == '\0') {
@@ -287,13 +287,13 @@ LAB_00481c0c:
   if (iVar8 != 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar10 = PeekPacketChecksumState();
-    pcVar17 = LeaveCriticalSection_exref;
+    pcVar17 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar11 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_0047fad0(uVar11,uVar10,(char)param_1[0xfe7],param_1[2]);
-    pcVar18 = EnterCriticalSection_exref;
+    pcVar18 = (code *)EnterCriticalSection;
   }
   (*pcVar18)(&DAT_005a9068);
   PeekPacketChecksumState();
@@ -386,14 +386,14 @@ joined_r0x00481401:
     if (local_888 != 0) {
       FUN_0040a240();
       FUN_0040b540(&local_ad0);
-      pcVar17 = LeaveCriticalSection_exref;
+      pcVar17 = (code *)LeaveCriticalSection;
     }
     local_4 = 0xffffffff;
     iVar8 = local_ac8;
     if (local_aac != 0) {
       FUN_0040a240();
       FUN_0040b540(&local_ad0);
-      pcVar17 = LeaveCriticalSection_exref;
+      pcVar17 = (code *)LeaveCriticalSection;
       iVar8 = local_ac8;
     }
     goto LAB_00481528;

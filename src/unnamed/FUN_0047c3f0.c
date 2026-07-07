@@ -53,7 +53,7 @@ void FUN_0047c3f0(void)
   if (iVar2 == 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState();
-    pcVar8 = LeaveCriticalSection_exref;
+    pcVar8 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar3 != 1) {
       *(undefined1 *)(unaff_ESI + 5) = 1;
@@ -107,11 +107,11 @@ void FUN_0047c3f0(void)
       FUN_0040b540(aiStack_acc);
     }
     puStack_8 = (undefined1 *)0xffffffff;
-    pcVar8 = LeaveCriticalSection_exref;
+    pcVar8 = (code *)LeaveCriticalSection;
     if (iStack_444 != 0) {
       FUN_0040a240();
       FUN_0040b540(aiStack_acc);
-      pcVar8 = LeaveCriticalSection_exref;
+      pcVar8 = (code *)LeaveCriticalSection;
     }
   }
   iVar3 = iVar2 + 0xb30;

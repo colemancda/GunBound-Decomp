@@ -400,7 +400,7 @@ LAB_00414ab9:
   }
   _sprintf(local_8088,s_mf_05dl_img_005521dc,param_4 & 0x7fff);
   local_8090 = FUN_004f1790(&DAT_00ea0e18,100000);
-  pcVar13 = EnterCriticalSection_exref;
+  pcVar13 = (code *)EnterCriticalSection;
   if (param_2 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
@@ -414,7 +414,7 @@ LAB_00414ab9:
   else {
     _sprintf(local_8088,s__cb_05dl_img_005521cc,
              (int)(char)((-((param_2 & 0x8000) != 0) & 7U) + 0x66),param_2 & 0x7fff);
-    pcVar13 = EnterCriticalSection_exref;
+    pcVar13 = (code *)EnterCriticalSection;
   }
   local_808c = FUN_004f1790(&DAT_00ea0e18,0x186a1);
   uVar2 = param_3;

@@ -57,7 +57,7 @@ void FUN_0043bda0(void)
     piVar16 = (int *)piVar4[4];
     if (piVar4 == piVar16) break;
     do {
-      pcVar15 = EnterCriticalSection_exref;
+      pcVar15 = (code *)EnterCriticalSection;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       bVar14 = *(byte *)(piVar16 + 0x2c2e);
       bVar3 = *(byte *)((int)piVar16 + 0xb0b9);
@@ -154,9 +154,9 @@ LAB_0043c0e0:
                       (*pcVar15)(&DAT_005a9068);
                       iVar10 = PeekPacketChecksumState();
                       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-                      pcVar15 = EnterCriticalSection_exref;
+                      pcVar15 = (code *)EnterCriticalSection;
                       if ((iVar10 < iVar8) &&
-                         ((cVar7 = FUN_004065a0(), pcVar15 = EnterCriticalSection_exref,
+                         ((cVar7 = FUN_004065a0(), pcVar15 = (code *)EnterCriticalSection,
                           cVar7 == '\0' && (piVar5[9] != 0xe)))) {
                         uVar12 = FUN_0040aca0(piVar5 + 0x243,local_460,piVar16 + 0x243);
                         local_c = 1;
@@ -168,7 +168,7 @@ LAB_0043c0e0:
                         iVar10 = FUN_0040a4d0(uVar12);
                         local_c = 0xffffffff;
                         FUN_0040a2a0();
-                        pcVar15 = EnterCriticalSection_exref;
+                        pcVar15 = (code *)EnterCriticalSection;
                         if (iVar10 * iVar10 + iVar8 * iVar8 < iVar9) {
                           FUN_00406500(1);
                           QueueOutgoingPacketField(0);
@@ -182,7 +182,7 @@ LAB_0043c0e0:
                              ((iVar8 != 8 && (iVar8 != 10)))) {
                             (**(code **)(*piVar5 + 4))(s_shock_00553b80);
                           }
-                          pcVar15 = EnterCriticalSection_exref;
+                          pcVar15 = (code *)EnterCriticalSection;
                           if (*(byte *)(piVar16 + 0x2c2b) < 8) {
                             if (*(char *)((piVar5[2] & 7U) + 0x4590c + DAT_005b3484) ==
                                 *(char *)(*(byte *)(piVar16 + 0x2c2b) + 0x4590c + DAT_005b3484)) {
@@ -191,14 +191,14 @@ LAB_0043c0e0:
                               iVar8 = FUN_0040a4d0(piVar1);
                               *piVar2 = *piVar2 + iVar8;
                               *(undefined1 *)(piVar5 + 0x2c2d) = 1;
-                              pcVar15 = EnterCriticalSection_exref;
+                              pcVar15 = (code *)EnterCriticalSection;
                             }
                             else {
                               piVar2 = (int *)(DAT_005b3484 + 0x5b81c +
                                               (uint)*(byte *)(piVar16 + 0x2c2b) * 4);
                               iVar8 = FUN_0040a4d0(piVar1);
                               *piVar2 = *piVar2 + iVar8;
-                              pcVar15 = EnterCriticalSection_exref;
+                              pcVar15 = (code *)EnterCriticalSection;
                             }
                           }
                         }

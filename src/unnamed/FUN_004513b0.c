@@ -95,20 +95,20 @@ void __fastcall FUN_004513b0(int *param_1)
   uStack_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_c;
   cVar2 = FUN_004065a0();
-  pcVar17 = EnterCriticalSection_exref;
+  pcVar17 = (code *)EnterCriticalSection;
   if (cVar2 == '\0') {
     puStack_b08 = (undefined *)0x4514d5;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_b08 = (undefined *)0x4514dc;
     EncodeOutgoingPacketField();
-    pcVar16 = LeaveCriticalSection_exref;
+    pcVar16 = (code *)LeaveCriticalSection;
     puStack_b08 = (undefined *)0x4514e9;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   else {
     cVar2 = FUN_004065a0();
-    pcVar17 = EnterCriticalSection_exref;
-    pcVar16 = LeaveCriticalSection_exref;
+    pcVar17 = (code *)EnterCriticalSection;
+    pcVar16 = (code *)LeaveCriticalSection;
     if (cVar2 == '\0') {
       FUN_004585e0();
       puStack_b08 = (undefined *)0x451419;
@@ -295,7 +295,7 @@ void __fastcall FUN_004513b0(int *param_1)
       piStack_b48 = (int *)puVar26;
       ppuStack_b64 = (undefined **)0x4525d0;
       FUN_0040b540();
-      pcVar16 = LeaveCriticalSection_exref;
+      pcVar16 = (code *)LeaveCriticalSection;
     }
     uStack_b60 = (undefined **)0x8;
     ppuStack_b64 = &puStack_b1c;
@@ -325,7 +325,7 @@ void __fastcall FUN_004513b0(int *param_1)
       uStack_b6c = (undefined *)0x452655;
       FUN_0040b540();
       uVar8 = extraout_EDX_00;
-      pcVar16 = LeaveCriticalSection_exref;
+      pcVar16 = (code *)LeaveCriticalSection;
     }
     uStack_b68 = (int **)CONCAT31((int3)((uint)uVar8 >> 8),param_1[0x3d2] != 0);
     uStack_b6c = (undefined *)0x452672;
@@ -834,7 +834,7 @@ LAB_00451f7a:
   }
   cVar2 = FUN_004065a0();
   if ((cVar2 == '\x01') ||
-     (cVar2 = FUN_004065a0(), pcVar16 = LeaveCriticalSection_exref, cVar2 == '\x01')) {
+     (cVar2 = FUN_004065a0(), pcVar16 = (code *)LeaveCriticalSection, cVar2 == '\x01')) {
     FUN_0040a8c0(param_1 + 0x795,&puStack_b44,10);
     uStack_88 = 5;
     (*pcVar17)(&DAT_005a9068);
@@ -846,7 +846,7 @@ LAB_00451f7a:
     if (ppuStack_b38 != (undefined **)0x0) {
       FUN_0040a240();
       FUN_0040b540(&ppuStack_b64);
-      pcVar16 = LeaveCriticalSection_exref;
+      pcVar16 = (code *)LeaveCriticalSection;
     }
     FUN_0040a8c0(param_1 + 0x81e,&puStack_b4c,10);
     uStack_90 = 6;
@@ -859,7 +859,7 @@ LAB_00451f7a:
     if (puStack_b40 != (undefined *)0x0) {
       FUN_0040a240();
       FUN_0040b540(&uStack_b6c);
-      pcVar16 = LeaveCriticalSection_exref;
+      pcVar16 = (code *)LeaveCriticalSection;
     }
     FUN_0040a8c0(param_1 + 0x8a7,&puStack_b54,10);
     uStack_98 = 7;

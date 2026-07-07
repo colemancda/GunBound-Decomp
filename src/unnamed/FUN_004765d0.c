@@ -143,7 +143,7 @@ void __fastcall FUN_004765d0(int *param_1)
     FUN_0040b540(apiStack_acc);
   }
   FUN_0040b180(param_1 + 0x99,auStack_ac4,8);
-  pcVar17 = EnterCriticalSection_exref;
+  pcVar17 = (code *)EnterCriticalSection;
   puStack_8 = (undefined1 *)0x4;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar10 = PeekPacketChecksumState();
@@ -305,7 +305,7 @@ LAB_00476d03:
         }
         *(int *)(&DAT_006a7718 + iVar7) = iVar16;
       }
-      pcVar17 = EnterCriticalSection_exref;
+      pcVar17 = (code *)EnterCriticalSection;
       if ((&DAT_006a7734)[iVar7] == '\x01') {
         *(int *)(&DAT_006a7718 + iVar7) = iVar14;
         *(int *)(&DAT_006a771c + iVar7) = iVar15;

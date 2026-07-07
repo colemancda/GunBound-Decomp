@@ -99,18 +99,18 @@ void FUN_004305c0(void)
     *(byte *)((int)piVar3 + 0x3812) = bVar7 + *(byte *)(piVar3 + 0xe04) + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (**(code **)(*piVar3 + 4))();
-    pcVar9 = EnterCriticalSection_exref;
-    pcVar10 = LeaveCriticalSection_exref;
+    pcVar9 = (code *)EnterCriticalSection;
+    pcVar10 = (code *)LeaveCriticalSection;
   }
   else {
-    pcVar9 = EnterCriticalSection_exref;
-    pcVar10 = LeaveCriticalSection_exref;
+    pcVar9 = (code *)EnterCriticalSection;
+    pcVar10 = (code *)LeaveCriticalSection;
     if (*(char *)(DAT_005b3484 + 0x45578) == '\x01') {
       piVar3[6] = 6000;
       piVar3[0xe] = 0x17d4;
       piVar3[0xe25] = 8000;
       iVar4 = FindPreloadedTextureByName();
-      pcVar9 = EnterCriticalSection_exref;
+      pcVar9 = (code *)EnterCriticalSection;
       piVar3[7] = iVar4;
       piVar3[0xe26] = s_flameevent1_00553e2c._0_4_;
       piVar3[0xe27] = s_flameevent1_00553e2c._4_4_;
@@ -120,7 +120,7 @@ void FUN_004305c0(void)
       *(char *)(piVar3 + 0xe04) = (char)iVar4;
       iVar4 = _rand();
       *(byte *)((int)piVar3 + 0x3811) = (byte)iVar4;
-      pcVar10 = LeaveCriticalSection_exref;
+      pcVar10 = (code *)LeaveCriticalSection;
       bVar7 = ~('\x01' << (*(byte *)(piVar3 + 0xe04) & 7)) & (byte)iVar4 |
               '\0' << (*(byte *)(piVar3 + 0xe04) & 7);
       *(byte *)((int)piVar3 + 0x3811) = bVar7;
@@ -333,15 +333,15 @@ void FUN_004305c0(void)
     }
   }
   cVar2 = FUN_004065a0();
-  pcVar10 = LeaveCriticalSection_exref;
-  pcVar9 = EnterCriticalSection_exref;
+  pcVar10 = (code *)LeaveCriticalSection;
+  pcVar9 = (code *)EnterCriticalSection;
   if (cVar2 == '\x01') {
     FUN_0040a7d0();
-    pcVar9 = EnterCriticalSection_exref;
+    pcVar9 = (code *)EnterCriticalSection;
     uStack_88 = 4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
-    pcVar10 = LeaveCriticalSection_exref;
+    pcVar10 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_0040a8c0();
     uStack_88._0_1_ = 5;
@@ -354,13 +354,13 @@ void FUN_004305c0(void)
     if (uStack_90c != 0) {
       FUN_0040a240();
       FUN_0040b540();
-      pcVar10 = LeaveCriticalSection_exref;
+      pcVar10 = (code *)LeaveCriticalSection;
     }
     uStack_88 = 0xffffffff;
     if (iStack_6e8 != 0) {
       FUN_0040a240();
       FUN_0040b540();
-      pcVar10 = LeaveCriticalSection_exref;
+      pcVar10 = (code *)LeaveCriticalSection;
     }
     FUN_0040a7d0();
     uStack_88 = 6;
@@ -378,13 +378,13 @@ void FUN_004305c0(void)
     if (iStack_6f0 != 0) {
       FUN_0040a240();
       FUN_0040b540();
-      pcVar10 = LeaveCriticalSection_exref;
+      pcVar10 = (code *)LeaveCriticalSection;
     }
     uStack_90 = 0xffffffff;
     if (uStack_914 != 0) {
       FUN_0040a240();
       FUN_0040b540();
-      pcVar10 = LeaveCriticalSection_exref;
+      pcVar10 = (code *)LeaveCriticalSection;
     }
     FUN_0040a7d0();
     uStack_90 = 8;
@@ -402,13 +402,13 @@ void FUN_004305c0(void)
     if (iStack_6e8 != 0) {
       FUN_0040a240();
       FUN_0040b540();
-      pcVar10 = LeaveCriticalSection_exref;
+      pcVar10 = (code *)LeaveCriticalSection;
     }
     uStack_88 = 0xffffffff;
     if (uStack_90c != 0) {
       FUN_0040a240();
       FUN_0040b540();
-      pcVar10 = LeaveCriticalSection_exref;
+      pcVar10 = (code *)LeaveCriticalSection;
     }
   }
   cVar2 = FUN_00406610();
@@ -437,7 +437,7 @@ void FUN_004305c0(void)
     uStack_a0 = 0xffffffff;
     FUN_0040a240();
     FUN_0040b540(&stack0xfffff6b8);
-    pcVar10 = LeaveCriticalSection_exref;
+    pcVar10 = (code *)LeaveCriticalSection;
     (*pcVar9)(&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -458,13 +458,13 @@ void FUN_004305c0(void)
     if (iStack_718 != 0) {
       FUN_0040a240();
       FUN_0040b540(&stack0xfffff6a0);
-      pcVar10 = LeaveCriticalSection_exref;
+      pcVar10 = (code *)LeaveCriticalSection;
     }
     uStack_b8 = 0xffffffff;
     if (iVar4 != 0) {
       FUN_0040a240();
       FUN_0040b540(&stack0xfffff6a0);
-      pcVar10 = LeaveCriticalSection_exref;
+      pcVar10 = (code *)LeaveCriticalSection;
     }
     (*pcVar9)(&DAT_005a9068);
     PeekPacketChecksumState();

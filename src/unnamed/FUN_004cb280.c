@@ -60,7 +60,7 @@ void FUN_004cb280(int param_1)
   *unaff_FS_OFFSET = &local_c;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
-  pcVar14 = LeaveCriticalSection_exref;
+  pcVar14 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar3 == 3) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -222,11 +222,11 @@ void FUN_004cb280(int param_1)
           FUN_004d2680();
         }
         local_4 = 0xffffffff;
-        pcVar14 = LeaveCriticalSection_exref;
+        pcVar14 = (code *)LeaveCriticalSection;
         if (local_664 != 0) {
           FUN_0040a240();
           FUN_0040b540(local_700);
-          pcVar14 = LeaveCriticalSection_exref;
+          pcVar14 = (code *)LeaveCriticalSection;
         }
       }
       local_714 = local_714 + 1;
@@ -285,7 +285,7 @@ LAB_004cbb03:
           (&g_replayEventBuffer)[g_replayEventCursor] = (undefined1)local_714;
           g_replayEventCursor = g_replayEventCursor + 1;
           Replay_FlushEvent();
-          pcVar14 = LeaveCriticalSection_exref;
+          pcVar14 = (code *)LeaveCriticalSection;
         }
       }
 LAB_004cbad9:
@@ -332,7 +332,7 @@ LAB_004cbad9:
         puVar16 = puVar16 + 1;
       }
       Replay_FlushEvent();
-      pcVar14 = LeaveCriticalSection_exref;
+      pcVar14 = (code *)LeaveCriticalSection;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState();

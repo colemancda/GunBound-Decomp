@@ -89,12 +89,12 @@ LAB_0044a1b2:
         BlitSpriteClipped();
       }
     }
-    pcVar6 = EnterCriticalSection_exref;
+    pcVar6 = (code *)EnterCriticalSection;
     uVar7 = 0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_10c = local_104 + 0xadc;
     iVar1 = PeekPacketChecksumState();
-    pcVar5 = LeaveCriticalSection_exref;
+    pcVar5 = (code *)LeaveCriticalSection;
     uStack_110._3_1_ = iVar1 != 0;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (uStack_110._3_1_ != '\0') {
@@ -127,8 +127,8 @@ LAB_0044a1b2:
       _sprintf(local_100,&DAT_00555654);
       FUN_004ed9f0();
       uVar7 = 1;
-      pcVar5 = LeaveCriticalSection_exref;
-      pcVar6 = EnterCriticalSection_exref;
+      pcVar5 = (code *)LeaveCriticalSection;
+      pcVar6 = (code *)EnterCriticalSection;
     }
     puVar12 = &DAT_005a9068;
     (*pcVar6)();
@@ -166,8 +166,8 @@ LAB_0044a1b2:
       _sprintf((char *)&local_108,&DAT_00555654);
       FUN_004ed9f0(0x28,&local_108);
       uVar7 = uVar7 + 1;
-      pcVar5 = LeaveCriticalSection_exref;
-      pcVar6 = EnterCriticalSection_exref;
+      pcVar5 = (code *)LeaveCriticalSection;
+      pcVar6 = (code *)EnterCriticalSection;
     }
     puVar10 = &DAT_005a9068;
     (*pcVar6)();
@@ -209,8 +209,8 @@ LAB_0044a1b2:
       _sprintf((char *)&uStack_110,&DAT_00555654,iVar2);
       FUN_004ed9f0(0x28,&uStack_110,2,6);
       uVar7 = uVar7 + 1;
-      pcVar5 = LeaveCriticalSection_exref;
-      pcVar6 = EnterCriticalSection_exref;
+      pcVar5 = (code *)LeaveCriticalSection;
+      pcVar6 = (code *)EnterCriticalSection;
     }
     puVar9 = &DAT_005a9068;
     (*pcVar6)(&DAT_005a9068);
@@ -250,8 +250,8 @@ LAB_0044a1b2:
       _sprintf(&stack0xfffffee8,&DAT_00555654,iVar2);
       FUN_004ed9f0(0x28,&stack0xfffffee8,2,6);
       uVar7 = uVar7 + 1;
-      pcVar5 = LeaveCriticalSection_exref;
-      pcVar6 = EnterCriticalSection_exref;
+      pcVar5 = (code *)LeaveCriticalSection;
+      pcVar6 = (code *)EnterCriticalSection;
     }
     puVar12 = &DAT_005a9068;
     (*pcVar6)(&DAT_005a9068);
@@ -293,8 +293,8 @@ LAB_0044a1b2:
       _sprintf(&stack0xfffffee0,&DAT_00555654,iVar2);
       FUN_004ed9f0(0x28,&stack0xfffffee0,2,6);
       uVar7 = uVar7 + 1;
-      pcVar5 = LeaveCriticalSection_exref;
-      pcVar6 = EnterCriticalSection_exref;
+      pcVar5 = (code *)LeaveCriticalSection;
+      pcVar6 = (code *)EnterCriticalSection;
     }
     (*pcVar6)(&DAT_005a9068);
     iVar1 = iVar1 + 0x1590;
@@ -334,8 +334,8 @@ LAB_0044a1b2:
       _sprintf(&stack0xfffffed8,&DAT_00555654,iVar2);
       FUN_004ed9f0(0x28,&stack0xfffffed8,2,6);
       uVar7 = uVar7 + 1;
-      pcVar5 = LeaveCriticalSection_exref;
-      pcVar6 = EnterCriticalSection_exref;
+      pcVar5 = (code *)LeaveCriticalSection;
+      pcVar6 = (code *)EnterCriticalSection;
     }
     (*pcVar6)(&DAT_005a9068);
     iVar1 = iVar1 + 0xd00;
@@ -372,8 +372,8 @@ LAB_0044a1b2:
       _sprintf(&stack0xfffffed0,&DAT_00555654,iVar1);
       FUN_004ed9f0(0x28,&stack0xfffffed0,2,6);
       uVar7 = uVar7 + 1;
-      pcVar5 = LeaveCriticalSection_exref;
-      pcVar6 = EnterCriticalSection_exref;
+      pcVar5 = (code *)LeaveCriticalSection;
+      pcVar6 = (code *)EnterCriticalSection;
     }
     (*pcVar6)(&DAT_005a9068);
     PeekPacketChecksumState();
@@ -406,8 +406,8 @@ LAB_0044a1b2:
       }
       _sprintf(local_100,&DAT_00555654);
       FUN_004ed9f0();
-      pcVar5 = LeaveCriticalSection_exref;
-      pcVar6 = EnterCriticalSection_exref;
+      pcVar5 = (code *)LeaveCriticalSection;
+      pcVar6 = (code *)EnterCriticalSection;
     }
   }
   else {
@@ -423,8 +423,8 @@ LAB_0044a1b2:
     do {
       BlitRLESprite();
       iVar1 = iVar1 + -1;
-      pcVar5 = LeaveCriticalSection_exref;
-      pcVar6 = EnterCriticalSection_exref;
+      pcVar5 = (code *)LeaveCriticalSection;
+      pcVar6 = (code *)EnterCriticalSection;
     } while (iVar1 != 0);
   }
   (*pcVar6)();

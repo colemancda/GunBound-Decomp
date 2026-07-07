@@ -40,7 +40,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
   if (iVar2 == 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState();
-    pcVar4 = LeaveCriticalSection_exref;
+    pcVar4 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar3 != 1) {
       *(undefined1 *)(unaff_ESI + 5) = 1;
@@ -49,7 +49,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState();
-    pcVar4 = LeaveCriticalSection_exref;
+    pcVar4 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     unaff_ESI[0xfed] = iVar3;
     aiStack_464[0] =

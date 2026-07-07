@@ -52,7 +52,7 @@ void FUN_0044b900(int param_1)
   FUN_00425350();
   local_4 = 0;
   cVar3 = FUN_004065a0();
-  pcVar11 = LeaveCriticalSection_exref;
+  pcVar11 = (code *)LeaveCriticalSection;
   if (cVar3 != '\0') {
     cVar3 = FUN_004065a0();
     if (cVar3 == '\x01') goto LAB_0044bdfe;
@@ -65,7 +65,7 @@ void FUN_0044b900(int param_1)
     bVar8 = bVar9 & 7;
     bVar8 = ~('\x01' << bVar8) & (byte)iVar5 | '\0' << bVar8;
     *(byte *)(param_1 + 0x32c55) = bVar8;
-    pcVar11 = LeaveCriticalSection_exref;
+    pcVar11 = (code *)LeaveCriticalSection;
     *(byte *)(param_1 + 0x32c56) = bVar8 + bVar9 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_00405fb0();
@@ -73,7 +73,7 @@ void FUN_0044b900(int param_1)
     FUN_0040cdf0();
     FUN_0040cdf0();
   }
-  pcVar13 = EnterCriticalSection_exref;
+  pcVar13 = (code *)EnterCriticalSection;
   if ((g_stateChangeInProgress == 0) || (DAT_0079350c != '\x01')) {
     g_stateChangeInProgress = 0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -88,7 +88,7 @@ void FUN_0044b900(int param_1)
       FUN_00405fb0();
       FUN_00405fb0();
       FUN_00405fb0();
-      pcVar13 = EnterCriticalSection_exref;
+      pcVar13 = (code *)EnterCriticalSection;
     }
     iVar5 = *(int *)(DAT_005b3484 + 0x44bec);
     FUN_004f1c00();

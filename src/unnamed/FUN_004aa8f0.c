@@ -58,7 +58,7 @@ void __fastcall FUN_004aa8f0(int param_1)
   FUN_004e4d00(&DAT_006a7708 + DAT_005b3484);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState();
-  pcVar12 = LeaveCriticalSection_exref;
+  pcVar12 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar4 = PeekPacketChecksumState();
@@ -98,7 +98,7 @@ void __fastcall FUN_004aa8f0(int param_1)
   cVar2 = FUN_004065a0();
   if (cVar2 == '\0') {
     FUN_004ee9b0(0);
-    pcVar12 = LeaveCriticalSection_exref;
+    pcVar12 = (code *)LeaveCriticalSection;
   }
   cVar2 = FUN_004065a0();
   if (cVar2 != '\0') {

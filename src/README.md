@@ -161,6 +161,10 @@ Concretely, that means:
     local; it's one byte before `acStack_80` starts, likely a stack-
     layout/padding mismatch in Ghidra's own analysis rather than
     something guessable from this function alone)
+  - `unnamed/FUN_00423e20.c`, `unnamed/FUN_004240c0.c` (same
+    `stack0xffffff80` raw-stack-offset issue as
+    `State10_Loading_PreloadAssets.c`, plus sub-byte-field access and a
+    vtable-return-value-used call each)
   - `network/HandleTurnTimeoutSlot.c`
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`

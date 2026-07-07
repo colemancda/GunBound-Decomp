@@ -46,7 +46,7 @@ void FUN_004375f0(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   if (pvVar3 != (void *)0x0) {
     piVar7 = (int *)FUN_004977c0(pvVar3);
   }
-  pcVar6 = EnterCriticalSection_exref;
+  pcVar6 = (code *)EnterCriticalSection;
   local_4 = 0xffffffff;
   piVar7[6] = 0x17d2;
   piVar7[0xe] = 0x17d3;
@@ -69,15 +69,15 @@ void FUN_004375f0(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   *(char *)(piVar7 + 0xf) = (char)param_4;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_004064a0(param_5);
-  pcVar8 = LeaveCriticalSection_exref;
+  pcVar8 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   piVar7[0xfea] = (uint)(param_6 != '\0');
   if (*(char *)(DAT_005b3484 + 0x45578) == '\0') {
     pcVar9 = s_rayonmine_00553c2c;
 LAB_00437779:
     iVar2 = FindPreloadedTextureByName(pcVar9);
-    pcVar6 = EnterCriticalSection_exref;
-    pcVar8 = LeaveCriticalSection_exref;
+    pcVar6 = (code *)EnterCriticalSection;
+    pcVar8 = (code *)LeaveCriticalSection;
     piVar7[7] = iVar2;
   }
   else if (*(char *)(DAT_005b3484 + 0x45578) == '\x01') {

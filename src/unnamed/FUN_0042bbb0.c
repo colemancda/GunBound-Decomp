@@ -813,7 +813,7 @@ LAB_0042d20d:
     *pcVar14 = cVar5;
     pcVar14 = pcVar14 + 1;
   } while (cVar5 != '\0');
-  pcVar15 = LeaveCriticalSection_exref;
+  pcVar15 = (code *)LeaveCriticalSection;
   if (DAT_0079352a != '\0') {
     Replay_AppendEvent(0xf000);
     (&g_replayEventBuffer)[g_replayEventCursor] = 1;
@@ -850,7 +850,7 @@ LAB_0042d20d:
     g_replayEventCursor = g_replayEventCursor + 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
-    pcVar15 = LeaveCriticalSection_exref;
+    pcVar15 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar8;
     g_replayEventCursor = g_replayEventCursor + 4;
@@ -964,13 +964,13 @@ LAB_0042d667:
     }
   }
   cVar5 = FUN_004065a0();
-  pcVar15 = LeaveCriticalSection_exref;
+  pcVar15 = (code *)LeaveCriticalSection;
   if (cVar5 == '\x01') {
     uVar8 = FUN_0040a7d0(local_8bc + 0x930,auStack_67c,3);
     puStack_8 = (undefined1 *)0x28;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar11 = PeekPacketChecksumState();
-    pcVar15 = LeaveCriticalSection_exref;
+    pcVar15 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_0040a8c0(uVar8,auStack_8a0,uVar11);
     puStack_8._0_1_ = 0x29;

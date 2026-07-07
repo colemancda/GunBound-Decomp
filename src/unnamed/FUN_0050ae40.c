@@ -193,7 +193,7 @@ LAB_0050b11f:
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState();
-    pcVar7 = LeaveCriticalSection_exref;
+    pcVar7 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((iVar2 != 0) && (local_90 < 3)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -231,7 +231,7 @@ LAB_0050b11f:
       _sprintf(local_80,&DAT_00555654,iVar2);
       FUN_004ed9f0(0x28,local_80,2,6);
       local_90 = local_90 + -1;
-      pcVar7 = LeaveCriticalSection_exref;
+      pcVar7 = (code *)LeaveCriticalSection;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_8c = local_84 + 0xe628;
@@ -275,7 +275,7 @@ LAB_0050b11f:
       _sprintf((char *)&local_84,&DAT_00555654,iVar2);
       FUN_004ed9f0(0x28,&local_84,2,6);
       local_94 = local_94 + -1;
-      pcVar7 = LeaveCriticalSection_exref;
+      pcVar7 = (code *)LeaveCriticalSection;
     }
     puVar3 = local_94;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -318,7 +318,7 @@ LAB_0050b11f:
       _sprintf((char *)&local_88,&DAT_00555654,iVar2);
       FUN_004ed9f0(0x28,&local_88,2,6);
       puVar3 = (undefined *)(unaff_EBX + -1);
-      pcVar7 = LeaveCriticalSection_exref;
+      pcVar7 = (code *)LeaveCriticalSection;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_94 = local_8c + 0xea70;
@@ -361,7 +361,7 @@ LAB_0050b11f:
       _sprintf((char *)&local_8c,&DAT_00555654,iVar2);
       FUN_004ed9f0(0x28,&local_8c,2,6);
       puVar3 = (undefined *)(unaff_EBP + -1);
-      pcVar7 = LeaveCriticalSection_exref;
+      pcVar7 = (code *)LeaveCriticalSection;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = local_90 + 0xec94;
@@ -401,7 +401,7 @@ LAB_0050b11f:
       _sprintf((char *)&local_90,&DAT_00555654,iVar2);
       FUN_004ed9f0(0x28,&local_90,2,6);
       puVar3 = (undefined *)(unaff_ESI + -1);
-      pcVar7 = LeaveCriticalSection_exref;
+      pcVar7 = (code *)LeaveCriticalSection;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puVar1 = local_94;
@@ -441,7 +441,7 @@ LAB_0050b11f:
       _sprintf((char *)&local_94,&DAT_00555654,iVar2);
       FUN_004ed9f0(0x28,&local_94,2,6);
       puVar3 = unaff_EDI + -1;
-      pcVar7 = LeaveCriticalSection_exref;
+      pcVar7 = (code *)LeaveCriticalSection;
       unaff_EDI = puVar3;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

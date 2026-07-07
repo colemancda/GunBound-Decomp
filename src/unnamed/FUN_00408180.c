@@ -584,7 +584,7 @@ LAB_00408b80:
 LAB_00409310:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar13 = PeekPacketChecksumState();
-  pcVar12 = LeaveCriticalSection_exref;
+  pcVar12 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_101c = iVar13 * 0x224;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -594,7 +594,7 @@ LAB_00409310:
     if (*(char *)(DAT_005b3484 + 0x45122) == '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar2 = PeekPacketChecksumState();
-      pcVar12 = LeaveCriticalSection_exref;
+      pcVar12 = (code *)LeaveCriticalSection;
       bVar15 = iVar2 == iVar13;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }

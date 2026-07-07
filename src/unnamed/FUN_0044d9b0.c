@@ -78,7 +78,7 @@ void __fastcall FUN_0044d9b0(int *param_1)
     param_1[0xfe7] = -1;
     (**(code **)(*param_1 + 4))(s_change_00555af0);
   }
-  pcVar16 = LeaveCriticalSection_exref;
+  pcVar16 = (code *)LeaveCriticalSection;
   if ((char)param_1[0xd] == '\x01') {
     if (param_1[9] == 1) {
       (**(code **)(*param_1 + 4))(s_cnormal_00555ae8);
@@ -94,13 +94,13 @@ void __fastcall FUN_0044d9b0(int *param_1)
       if (iStack_88c != 0) {
         FUN_0040a240();
         FUN_0040b540(&local_ad8);
-        pcVar16 = LeaveCriticalSection_exref;
+        pcVar16 = (code *)LeaveCriticalSection;
       }
       puStack_8 = (undefined1 *)0xffffffff;
       if (iStack_ab0 != 0) {
         FUN_0040a240();
         FUN_0040b540(&local_ad8);
-        pcVar16 = LeaveCriticalSection_exref;
+        pcVar16 = (code *)LeaveCriticalSection;
       }
       uVar7 = FUN_0040ada0(param_1 + 0x81e,auStack_8a0,param_1 + 0xcf2);
       puStack_8 = (undefined1 *)0x2;
@@ -114,13 +114,13 @@ void __fastcall FUN_0044d9b0(int *param_1)
       if (iStack_ab4 != 0) {
         FUN_0040a240();
         FUN_0040b540(&uStack_adc);
-        pcVar16 = LeaveCriticalSection_exref;
+        pcVar16 = (code *)LeaveCriticalSection;
       }
       uStack_c = 0xffffffff;
       if (iStack_890 != 0) {
         FUN_0040a240();
         FUN_0040b540(&uStack_adc);
-        pcVar16 = LeaveCriticalSection_exref;
+        pcVar16 = (code *)LeaveCriticalSection;
       }
       uVar7 = FUN_0040ada0(param_1 + 0x8a7,auStack_8a4,param_1 + 0xcf2);
       uStack_c = 4;
@@ -134,13 +134,13 @@ void __fastcall FUN_0044d9b0(int *param_1)
       if (iStack_ab8 != 0) {
         FUN_0040a240();
         FUN_0040b540(&iStack_ae0);
-        pcVar16 = LeaveCriticalSection_exref;
+        pcVar16 = (code *)LeaveCriticalSection;
       }
       uStack_10 = 0xffffffff;
       if (iStack_894 != 0) {
         FUN_0040a240();
         FUN_0040b540(&iStack_ae0);
-        pcVar16 = LeaveCriticalSection_exref;
+        pcVar16 = (code *)LeaveCriticalSection;
       }
       uVar7 = FUN_0040ada0(param_1 + 0x930,auStack_8a8,param_1 + 0xd7b);
       uStack_10 = 6;
@@ -154,13 +154,13 @@ void __fastcall FUN_0044d9b0(int *param_1)
       if (iStack_abc != 0) {
         FUN_0040a240();
         FUN_0040b540(&stack0xfffff51c);
-        pcVar16 = LeaveCriticalSection_exref;
+        pcVar16 = (code *)LeaveCriticalSection;
       }
       uStack_14 = 0xffffffff;
       if (iStack_898 != 0) {
         FUN_0040a240();
         FUN_0040b540(&stack0xfffff51c);
-        pcVar16 = LeaveCriticalSection_exref;
+        pcVar16 = (code *)LeaveCriticalSection;
       }
       uVar7 = FUN_0040ada0(param_1 + 0x9b9,auStack_8ac,param_1 + 0xd7b);
       uStack_14 = 8;
@@ -174,13 +174,13 @@ void __fastcall FUN_0044d9b0(int *param_1)
       if (iStack_ac0 != 0) {
         FUN_0040a240();
         FUN_0040b540(&stack0xfffff518);
-        pcVar16 = LeaveCriticalSection_exref;
+        pcVar16 = (code *)LeaveCriticalSection;
       }
       uStack_18 = 0xffffffff;
       if (iStack_89c != 0) {
         FUN_0040a240();
         FUN_0040b540(&stack0xfffff518);
-        pcVar16 = LeaveCriticalSection_exref;
+        pcVar16 = (code *)LeaveCriticalSection;
       }
       uVar7 = FUN_0040ada0(param_1 + 0xa42,auStack_8b0,param_1 + 0xd7b);
       uStack_18 = 10;
@@ -195,14 +195,14 @@ void __fastcall FUN_0044d9b0(int *param_1)
         FUN_0040a240();
         iStack_ae0 = iStack_aac;
         FUN_0040b540(auStack_ad4);
-        pcVar16 = LeaveCriticalSection_exref;
+        pcVar16 = (code *)LeaveCriticalSection;
       }
       uStack_4 = 0xffffffff;
       if (iStack_888 != 0) {
         FUN_0040a240();
         iStack_ae0 = iStack_888;
         FUN_0040b540(auStack_ad4);
-        pcVar16 = LeaveCriticalSection_exref;
+        pcVar16 = (code *)LeaveCriticalSection;
       }
       goto LAB_0044df28;
     }
@@ -234,7 +234,7 @@ LAB_0044df28:
     if (iStack_abc != 0) {
       FUN_0040a240();
       FUN_0040b540(&uStack_adc);
-      pcVar16 = LeaveCriticalSection_exref;
+      pcVar16 = (code *)LeaveCriticalSection;
     }
     FUN_0040b180(param_1 + 0x99,&uStack_ad0,8);
     uStack_14 = 0xd;
@@ -246,7 +246,7 @@ LAB_0044df28:
     if (iStack_ac0 != 0) {
       FUN_0040a240();
       FUN_0040b540(&iStack_ae0);
-      pcVar16 = LeaveCriticalSection_exref;
+      pcVar16 = (code *)LeaveCriticalSection;
     }
     cVar5 = FUN_00406610(param_1[0x3d2] != 0);
     if (cVar5 == '\0') {

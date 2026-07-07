@@ -18,18 +18,16 @@ void FUN_00424ac0(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
   int iVar3;
   int iVar4;
   uint uVar5;
-  undefined4 *unaff_FS_OFFSET;
   int local_181c;
   int local_1810 [1536];
   undefined4 uStack_10;
-  undefined4 local_c;
-  undefined1 *puStack_8;
   undefined4 local_4;
   
   local_4 = 0xffffffff;
-  local_c = *unaff_FS_OFFSET;
-  puStack_8 = &LAB_0053d8bb;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped (local_c/
+   * puStack_8/unaff_FS_OFFSET) - handler body (LAB_0053d8bb) wasn't
+   * included in this function's own decompile. Same rationale as
+   * entry/InitGame.c - see src/README.md. */
   uStack_10 = 0x424adf;
   FUN_00425350();
   local_4 = 0;
@@ -240,7 +238,6 @@ void FUN_00424ac0(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
   }
   local_4 = 0xffffffff;
   FUN_004254a0();
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 

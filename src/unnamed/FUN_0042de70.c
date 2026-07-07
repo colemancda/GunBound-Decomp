@@ -499,7 +499,7 @@ LAB_0042ec76:
     *pcVar12 = cVar4;
     pcVar12 = pcVar12 + 1;
   } while (cVar4 != '\0');
-  pcVar13 = LeaveCriticalSection_exref;
+  pcVar13 = (code *)LeaveCriticalSection;
   if (DAT_0079352a != '\0') {
     Replay_AppendEvent(0xf000);
     (&g_replayEventBuffer)[g_replayEventCursor] = 2;
@@ -536,7 +536,7 @@ LAB_0042ec76:
     g_replayEventCursor = g_replayEventCursor + 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
-    pcVar13 = LeaveCriticalSection_exref;
+    pcVar13 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar7;
     g_replayEventCursor = g_replayEventCursor + 4;
@@ -626,7 +626,7 @@ LAB_0042f0e2:
     puStack_8 = (undefined1 *)0x14;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
-    pcVar13 = LeaveCriticalSection_exref;
+    pcVar13 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_0040a8c0(local_8ac,auStack_67c,uVar7);
     puStack_8._0_1_ = 0x15;
@@ -646,7 +646,7 @@ LAB_0042f0e2:
       FUN_0040a240();
       FUN_0040b540(&local_8ac);
       piVar5 = piStack_8b0;
-      pcVar13 = LeaveCriticalSection_exref;
+      pcVar13 = (code *)LeaveCriticalSection;
     }
     local_8ac = (int *)FUN_0040a7d0(piVar5 + 0x9b9,auStack_8a0,3);
     puStack_8 = (undefined1 *)0x16;
@@ -665,14 +665,14 @@ LAB_0042f0e2:
       FUN_0040a240();
       FUN_0040b540(&local_8b4);
       piVar5 = piVar10;
-      pcVar13 = LeaveCriticalSection_exref;
+      pcVar13 = (code *)LeaveCriticalSection;
     }
     uStack_10 = 0xffffffff;
     if (iStack_894 != 0) {
       FUN_0040a240();
       FUN_0040b540(&local_8b4);
       piVar5 = piVar10;
-      pcVar13 = LeaveCriticalSection_exref;
+      pcVar13 = (code *)LeaveCriticalSection;
     }
     local_8b4 = (void *)FUN_0040a7d0(piVar5 + 0xa42,auStack_23c,3);
     uStack_10 = 0x18;

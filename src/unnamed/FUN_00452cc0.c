@@ -77,7 +77,7 @@ void __fastcall FUN_00452cc0(int *param_1)
     param_1[0xfe7] = -1;
     (**(code **)(*param_1 + 4))();
   }
-  pcVar15 = LeaveCriticalSection_exref;
+  pcVar15 = (code *)LeaveCriticalSection;
   if ((char)param_1[0xd] == '\x01') {
     if (param_1[9] == 1) {
       (**(code **)(*param_1 + 4))();
@@ -93,13 +93,13 @@ void __fastcall FUN_00452cc0(int *param_1)
       if (iStack_88c != 0) {
         FUN_0040a240();
         FUN_0040b540();
-        pcVar15 = LeaveCriticalSection_exref;
+        pcVar15 = (code *)LeaveCriticalSection;
       }
       puStack_8 = (undefined1 *)0xffffffff;
       if (iStack_ab0 != 0) {
         FUN_0040a240();
         FUN_0040b540();
-        pcVar15 = LeaveCriticalSection_exref;
+        pcVar15 = (code *)LeaveCriticalSection;
       }
       FUN_0040ada0();
       puStack_8 = (undefined1 *)0x2;
@@ -113,13 +113,13 @@ void __fastcall FUN_00452cc0(int *param_1)
       if (iStack_ab4 != 0) {
         FUN_0040a240();
         FUN_0040b540();
-        pcVar15 = LeaveCriticalSection_exref;
+        pcVar15 = (code *)LeaveCriticalSection;
       }
       uStack_c = 0xffffffff;
       if (iStack_890 != 0) {
         FUN_0040a240();
         FUN_0040b540();
-        pcVar15 = LeaveCriticalSection_exref;
+        pcVar15 = (code *)LeaveCriticalSection;
       }
       uVar6 = FUN_0040ada0(param_1 + 0x8a7);
       uStack_c = 4;
@@ -133,13 +133,13 @@ void __fastcall FUN_00452cc0(int *param_1)
       if (iStack_ab8 != 0) {
         FUN_0040a240();
         FUN_0040b540();
-        pcVar15 = LeaveCriticalSection_exref;
+        pcVar15 = (code *)LeaveCriticalSection;
       }
       uStack_10 = 0xffffffff;
       if (iStack_894 != 0) {
         FUN_0040a240();
         FUN_0040b540();
-        pcVar15 = LeaveCriticalSection_exref;
+        pcVar15 = (code *)LeaveCriticalSection;
       }
       uVar6 = FUN_0040ada0(param_1 + 0x930,auStack_8a8);
       uStack_10 = 6;
@@ -153,13 +153,13 @@ void __fastcall FUN_00452cc0(int *param_1)
       if (iStack_abc != 0) {
         FUN_0040a240();
         FUN_0040b540(&stack0xfffff51c);
-        pcVar15 = LeaveCriticalSection_exref;
+        pcVar15 = (code *)LeaveCriticalSection;
       }
       uStack_14 = 0xffffffff;
       if (iStack_898 != 0) {
         FUN_0040a240();
         FUN_0040b540(&stack0xfffff51c);
-        pcVar15 = LeaveCriticalSection_exref;
+        pcVar15 = (code *)LeaveCriticalSection;
       }
       uVar6 = FUN_0040ada0(param_1 + 0x9b9,auStack_8ac,param_1 + 0xd7b);
       uStack_14 = 8;
@@ -173,13 +173,13 @@ void __fastcall FUN_00452cc0(int *param_1)
       if (iStack_ac0 != 0) {
         FUN_0040a240();
         FUN_0040b540(&stack0xfffff518);
-        pcVar15 = LeaveCriticalSection_exref;
+        pcVar15 = (code *)LeaveCriticalSection;
       }
       uStack_18 = 0xffffffff;
       if (iStack_89c != 0) {
         FUN_0040a240();
         FUN_0040b540(&stack0xfffff518);
-        pcVar15 = LeaveCriticalSection_exref;
+        pcVar15 = (code *)LeaveCriticalSection;
       }
       uVar6 = FUN_0040ada0(param_1 + 0xa42,auStack_8b0,param_1 + 0xd7b);
       uStack_18 = 10;
@@ -194,14 +194,14 @@ void __fastcall FUN_00452cc0(int *param_1)
         FUN_0040a240();
         uStack_ae0 = uStack_aac;
         FUN_0040b540();
-        pcVar15 = LeaveCriticalSection_exref;
+        pcVar15 = (code *)LeaveCriticalSection;
       }
       uStack_4 = 0xffffffff;
       if (uStack_888 != 0) {
         FUN_0040a240();
         uStack_ae0 = uStack_888;
         FUN_0040b540();
-        pcVar15 = LeaveCriticalSection_exref;
+        pcVar15 = (code *)LeaveCriticalSection;
       }
       goto LAB_00453238;
     }
@@ -316,7 +316,7 @@ LAB_00453238:
     if (iVar8 != 0) {
       FUN_0040a240();
       FUN_0040b540(&stack0xfffff504);
-      pcVar15 = LeaveCriticalSection_exref;
+      pcVar15 = (code *)LeaveCriticalSection;
     }
     FUN_0040b180(param_1 + 0x99,&stack0xfffff510,8);
     uStack_34 = 0xd;
@@ -328,7 +328,7 @@ LAB_00453238:
     if (uStack_ae0 != 0) {
       FUN_0040a240();
       FUN_0040b540(&stack0xfffff500);
-      pcVar15 = LeaveCriticalSection_exref;
+      pcVar15 = (code *)LeaveCriticalSection;
     }
     cVar3 = FUN_00406610(param_1[0x3d2] != 0);
     if (cVar3 == '\0') {

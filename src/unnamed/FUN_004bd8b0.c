@@ -436,7 +436,7 @@ LAB_004bdf96:
   if (*(uint *)(iVar5 + 0x59154) < (uint)param_1[3]) {
     FUN_0041ee10();
   }
-  pcVar16 = EnterCriticalSection_exref;
+  pcVar16 = (code *)EnterCriticalSection;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -655,7 +655,7 @@ code_r0x004be720:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar6 != 3) {
     local_3d54 = 0;
-    pcVar16 = EnterCriticalSection_exref;
+    pcVar16 = (code *)EnterCriticalSection;
     do {
       local_3b28 = 0;
       local_3d34 = (int *)0x0;
@@ -1492,7 +1492,7 @@ LAB_004c08c8:
             _sprintf(acStack_3b3c,pcVar9,iVar6,uVar7);
             (**(code **)(*unaff_EBX + 0x28))(acStack_3b3c,4,3);
             FUN_00438360();
-            pcVar16 = EnterCriticalSection_exref;
+            pcVar16 = (code *)EnterCriticalSection;
           }
         }
         (*pcVar16)();
@@ -1603,7 +1603,7 @@ LAB_004c08c8:
     *(byte *)((int)piVar15 + 0x2402) = bVar13;
     *(byte *)((int)piVar15 + 0x2403) = bVar13 + *(byte *)((int)piVar15 + 0x2401) + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    pcVar16 = EnterCriticalSection_exref;
+    pcVar16 = (code *)EnterCriticalSection;
   }
   else {
     FUN_0043a5f0();
@@ -1641,7 +1641,7 @@ LAB_004c08c8:
     FUN_004e86f0();
     DAT_0056dbe8 = -1;
     FUN_004cb280();
-    pcVar16 = EnterCriticalSection_exref;
+    pcVar16 = (code *)EnterCriticalSection;
   }
 LAB_004c0ea4:
   (*pcVar16)();
@@ -1779,7 +1779,7 @@ LAB_004c0f5c:
         FUN_004e7d60(0xc302);
         FUN_00423a20();
       }
-      pcVar16 = EnterCriticalSection_exref;
+      pcVar16 = (code *)EnterCriticalSection;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       FUN_004064a0(1);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

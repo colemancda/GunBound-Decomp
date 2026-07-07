@@ -56,7 +56,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
       local_460 = (undefined *)(param_1 * 0xb1ac + param_2);
       PeekPacketChecksumState();
       EncodeOutgoingPacketField();
-      pcVar5 = LeaveCriticalSection_exref;
+      pcVar5 = (code *)LeaveCriticalSection;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();
@@ -130,7 +130,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
       local_460 = (undefined *)(param_1 * 0xb1ac + param_2);
       PeekPacketChecksumState();
       EncodeOutgoingPacketField();
-      pcVar5 = LeaveCriticalSection_exref;
+      pcVar5 = (code *)LeaveCriticalSection;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();
@@ -202,14 +202,14 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
     PeekPacketChecksumState();
     EncodeOutgoingPacketField();
     (*pcVar5)();
-    pcVar5 = LeaveCriticalSection_exref;
+    pcVar5 = (code *)LeaveCriticalSection;
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_460 = (undefined *)(param_1 * 0xb1ac + param_2);
     PeekPacketChecksumState();
     EncodeOutgoingPacketField();
-    pcVar5 = LeaveCriticalSection_exref;
+    pcVar5 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
@@ -299,7 +299,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   if (iStack_448 != 0) {
     FUN_0040a240();
     FUN_0040b540();
-    pcVar5 = LeaveCriticalSection_exref;
+    pcVar5 = (code *)LeaveCriticalSection;
     param_3 = (undefined1 *)unaff_retaddr;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -316,7 +316,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   if (iStack_450 != 0) {
     FUN_0040a240();
     FUN_0040b540();
-    pcVar5 = LeaveCriticalSection_exref;
+    pcVar5 = (code *)LeaveCriticalSection;
     param_3 = puStack_8;
     unaff_EDI = iStack_450;
   }
@@ -333,7 +333,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   if (puStack_458 != (undefined *)0x0) {
     FUN_0040a240();
     FUN_0040b540(&stack0xfffffb80);
-    pcVar5 = LeaveCriticalSection_exref;
+    pcVar5 = (code *)LeaveCriticalSection;
     param_3 = (undefined1 *)iStack_10;
     puVar7 = puStack_458;
   }
@@ -351,7 +351,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   if (local_460 != (undefined *)0x0) {
     FUN_0040a240();
     FUN_0040b540(&stack0xfffffb78);
-    pcVar5 = LeaveCriticalSection_exref;
+    pcVar5 = (code *)LeaveCriticalSection;
     param_3 = (undefined1 *)iStack_18;
     puVar6 = puVar7;
   }
@@ -372,7 +372,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   if (local_468[0] != 0) {
     FUN_0040a240();
     FUN_0040b540(&stack0xfffffb70);
-    pcVar5 = LeaveCriticalSection_exref;
+    pcVar5 = (code *)LeaveCriticalSection;
   }
   iVar3 = iStack_18;
   if (iStack_18 < 1) {

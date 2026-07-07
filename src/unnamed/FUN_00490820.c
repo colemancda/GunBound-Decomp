@@ -67,7 +67,7 @@ void __fastcall FUN_00490820(int *param_1)
   iVar5 = PeekPacketChecksumState();
   iVar6 = PeekPacketChecksumState();
   EncodeOutgoingPacketField(iVar6 + iVar5);
-  pcVar15 = LeaveCriticalSection_exref;
+  pcVar15 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = PeekPacketChecksumState();
@@ -87,7 +87,7 @@ void __fastcall FUN_00490820(int *param_1)
     if (iStack_ab0 != 0) {
       FUN_0040a240();
       FUN_0040b540(apuStack_adc);
-      pcVar15 = LeaveCriticalSection_exref;
+      pcVar15 = (code *)LeaveCriticalSection;
     }
     FUN_0040b180(param_1 + 0x99,auStack_ac4,8);
     puStack_8 = (undefined1 *)0x6;
@@ -99,7 +99,7 @@ void __fastcall FUN_00490820(int *param_1)
     if (iStack_ab4 != 0) {
       FUN_0040a240();
       FUN_0040b540(&piStack_ae0);
-      pcVar15 = LeaveCriticalSection_exref;
+      pcVar15 = (code *)LeaveCriticalSection;
     }
     cVar4 = FUN_00406610(param_1[0x3d2] != 0);
     if (cVar4 == '\0') {
@@ -460,7 +460,7 @@ LAB_00490f39:
   *(undefined1 *)(param_1 + 5) = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar8 = PeekPacketChecksumState();
-  pcVar15 = LeaveCriticalSection_exref;
+  pcVar15 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   apuStack_adc[0] = (undefined4 *)PeekPacketChecksumState();
@@ -507,7 +507,7 @@ LAB_00490f39:
   cVar4 = FUN_004065a0();
   if (cVar4 == '\0') {
     FUN_004ee9b0(0);
-    pcVar15 = LeaveCriticalSection_exref;
+    pcVar15 = (code *)LeaveCriticalSection;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
@@ -528,7 +528,7 @@ LAB_00490f39:
     EncodeOutgoingPacketField(0x1e);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = DAT_005b3484;
-    pcVar15 = LeaveCriticalSection_exref;
+    pcVar15 = (code *)LeaveCriticalSection;
     *(undefined4 *)(&DAT_005f3768 + DAT_005b3484) = 5;
     *(undefined4 *)(&DAT_005f376c + iVar5) = 0;
   }
@@ -542,7 +542,7 @@ LAB_00490f39:
     uVar8 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    pcVar15 = LeaveCriticalSection_exref;
+    pcVar15 = (code *)LeaveCriticalSection;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();

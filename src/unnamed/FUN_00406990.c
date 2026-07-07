@@ -337,7 +337,7 @@ LAB_00407429:
       FUN_0040b540(local_f9c);
     }
   }
-  pcVar12 = EnterCriticalSection_exref;
+  pcVar12 = (code *)EnterCriticalSection;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar9 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -456,7 +456,7 @@ LAB_00407859:
     FUN_004eadb0();
     FUN_004eb8e0(7000);
     FUN_004eadb0();
-    pcVar12 = EnterCriticalSection_exref;
+    pcVar12 = (code *)EnterCriticalSection;
   }
   (*pcVar12)(&DAT_005a9068);
   uVar9 = PeekPacketChecksumState();

@@ -32,7 +32,7 @@ void __fastcall FUN_004ad230(int param_1)
   *unaff_FS_OFFSET = &local_c;
   *(undefined4 *)(param_1 + 0x3fa0) = 0;
   FUN_0040aba0(param_1 + 0xf54,local_230,param_1 + 0x1178);
-  pcVar7 = EnterCriticalSection_exref;
+  pcVar7 = (code *)EnterCriticalSection;
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = PeekPacketChecksumState();
@@ -42,7 +42,7 @@ void __fastcall FUN_004ad230(int param_1)
   if (local_21c != 0) {
     FUN_0040a240();
     FUN_0040b540(local_238);
-    pcVar7 = EnterCriticalSection_exref;
+    pcVar7 = (code *)EnterCriticalSection;
   }
   (*pcVar7)(&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();

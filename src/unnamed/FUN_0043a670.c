@@ -43,12 +43,12 @@ void FUN_0043a670(void)
   *unaff_FS_OFFSET = &local_c;
   piVar11 = *(int **)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
   uVar5 = piVar11[1];
-  pcVar13 = EnterCriticalSection_exref;
+  pcVar13 = (code *)EnterCriticalSection;
   if (uVar5 < 0x186a2) {
 LAB_0043a6e0:
     if (uVar5 != 0x186a1) goto code_r0x0043a6e7;
-    for (piVar2 = (int *)piVar11[4]; pcVar4 = EnterCriticalSection_exref,
-        EnterCriticalSection_exref = pcVar4, piVar11 != piVar2; piVar2 = (int *)piVar2[4]) {
+    for (piVar2 = (int *)piVar11[4]; pcVar4 = (code *)EnterCriticalSection,
+        (code *)EnterCriticalSection = pcVar4, piVar11 != piVar2; piVar2 = (int *)piVar2[4]) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       bVar12 = *(byte *)((int)piVar2 + 0x8bbd);
       bVar1 = *(byte *)((int)piVar2 + 0x8bbe);
@@ -264,7 +264,7 @@ LAB_0043ae95:
         iVar14 = iVar14 + -1;
       } while (iVar14 != 0);
       FUN_0040b540(local_238);
-      pcVar13 = EnterCriticalSection_exref;
+      pcVar13 = (code *)EnterCriticalSection;
     }
   }
 LAB_0043af1e:

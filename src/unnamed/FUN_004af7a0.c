@@ -92,7 +92,7 @@ void __fastcall FUN_004af7a0(int *param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_cfc = param_1 + 0x102e;
   iVar4 = PeekPacketChecksumState();
-  pcVar20 = LeaveCriticalSection_exref;
+  pcVar20 = (code *)LeaveCriticalSection;
   local_d15 = iVar4 == -1000000;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (local_d15 == '\0') {
@@ -164,14 +164,14 @@ LAB_004af8b0:
     FUN_0040a240();
     local_d14 = local_cd0;
     FUN_0040b540();
-    pcVar20 = LeaveCriticalSection_exref;
+    pcVar20 = (code *)LeaveCriticalSection;
   }
   local_4 = 0xffffffff;
   if (local_aac != 0) {
     FUN_0040a240();
     local_d14 = local_aac;
     FUN_0040b540();
-    pcVar20 = LeaveCriticalSection_exref;
+    pcVar20 = (code *)LeaveCriticalSection;
   }
   local_cf8 = (float)param_1[0x102a];
   local_d14 = FUN_0053753c();
@@ -211,7 +211,7 @@ LAB_004af8b0:
   if (iStack_cec != 0) {
     FUN_0040a240();
     FUN_0040b540(&stack0xfffff2dc);
-    pcVar20 = LeaveCriticalSection_exref;
+    pcVar20 = (code *)LeaveCriticalSection;
   }
   FUN_0040aca0(param_1 + 0x99,&local_d00,param_1 + 0x11c9);
   uStack_20 = 3;
@@ -224,7 +224,7 @@ LAB_004af8b0:
   if (puStack_cf0 != (undefined *)0x0) {
     FUN_0040a240();
     FUN_0040b540(&stack0xfffff2d8);
-    pcVar20 = LeaveCriticalSection_exref;
+    pcVar20 = (code *)LeaveCriticalSection;
     puVar34 = puStack_cf0;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -258,7 +258,7 @@ LAB_004af8b0:
     if (local_d08 != (undefined *)0x0) {
       FUN_0040a240();
       FUN_0040b540(&stack0xfffff2d8);
-      pcVar20 = LeaveCriticalSection_exref;
+      pcVar20 = (code *)LeaveCriticalSection;
       puVar31 = local_d08;
     }
     FUN_0040b180(param_1 + 0x99,&stack0xfffff2e4,8);
@@ -272,7 +272,7 @@ LAB_004af8b0:
     if (local_d0c != 0) {
       FUN_0040a240();
       FUN_0040b540(&stack0xfffff2d4);
-      pcVar20 = LeaveCriticalSection_exref;
+      pcVar20 = (code *)LeaveCriticalSection;
     }
     cVar24 = FUN_00406610(param_1[0x3d2] != 0);
     if (cVar24 == '\0') {
@@ -714,12 +714,12 @@ LAB_004b0432:
     FUN_004ee9b0(0);
   }
   cVar3 = FUN_004065a0();
-  pcVar20 = LeaveCriticalSection_exref;
+  pcVar20 = (code *)LeaveCriticalSection;
   if ((cVar3 != '\0') &&
-     (cVar3 = FUN_0043a530(), pcVar20 = LeaveCriticalSection_exref, cVar3 == '\0')) {
+     (cVar3 = FUN_0043a530(), pcVar20 = (code *)LeaveCriticalSection, cVar3 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();
-    pcVar20 = LeaveCriticalSection_exref;
+    pcVar20 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     QueueOutgoingPacketField(uVar5);
   }

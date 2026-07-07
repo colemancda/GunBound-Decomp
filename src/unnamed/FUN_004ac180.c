@@ -17,7 +17,7 @@ void FUN_004ac180(void)
   code *pcVar4;
   int local_c;
   
-  pcVar4 = EnterCriticalSection_exref;
+  pcVar4 = (code *)EnterCriticalSection;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_c = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -32,7 +32,7 @@ void FUN_004ac180(void)
         (*pcVar4)(&DAT_005a9068);
         EncodeOutgoingPacketField(local_c);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        pcVar4 = EnterCriticalSection_exref;
+        pcVar4 = (code *)EnterCriticalSection;
       }
       puVar1 = puVar1 + 0x224;
       local_c = local_c + 1;

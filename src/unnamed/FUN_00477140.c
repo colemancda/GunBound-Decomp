@@ -87,7 +87,7 @@ void FUN_00477140(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState();
   EncodeOutgoingPacketField(uVar3);
-  pcVar6 = LeaveCriticalSection_exref;
+  pcVar6 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_0040a6e0(unaff_ESI + 0x264,local_454,10);
   local_4 = 1;
@@ -99,7 +99,7 @@ void FUN_00477140(void)
   if (local_440 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_478);
-    pcVar6 = LeaveCriticalSection_exref;
+    pcVar6 = (code *)LeaveCriticalSection;
   }
   FUN_0040a6e0(unaff_ESI + 0x264,local_454,10);
   local_4 = 2;
@@ -115,7 +115,7 @@ void FUN_00477140(void)
   if (iStack_448 != 0) {
     FUN_0040a240();
     FUN_0040b540(&stack0xfffffb80);
-    pcVar6 = LeaveCriticalSection_exref;
+    pcVar6 = (code *)LeaveCriticalSection;
   }
   FUN_0040a6e0(unaff_ESI + 0x264,&local_45c,10);
   local_c = 3;

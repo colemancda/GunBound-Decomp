@@ -49,7 +49,7 @@ void __fastcall FUN_0046af10(int *param_1)
   iVar4 = PeekPacketChecksumState();
   iVar5 = PeekPacketChecksumState();
   EncodeOutgoingPacketField(iVar5 + iVar4);
-  pcVar13 = LeaveCriticalSection_exref;
+  pcVar13 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_acc = PeekPacketChecksumState();
@@ -84,7 +84,7 @@ void __fastcall FUN_0046af10(int *param_1)
     FUN_0040a240();
     local_ad0 = piStack_ab0;
     FUN_0040b540(&local_acc);
-    pcVar13 = LeaveCriticalSection_exref;
+    pcVar13 = (code *)LeaveCriticalSection;
   }
   FUN_0040b180(param_1 + 0x99,auStack_ac4,8);
   local_ad0 = param_1 + 0x45e;
@@ -97,7 +97,7 @@ void __fastcall FUN_0046af10(int *param_1)
   if (uStack_ab4 != 0) {
     FUN_0040a240();
     FUN_0040b540(&local_ad0);
-    pcVar13 = LeaveCriticalSection_exref;
+    pcVar13 = (code *)LeaveCriticalSection;
     unaff_EBX = uStack_ab4;
   }
   cVar3 = FUN_00406610(param_1[0x3d2] != 0);

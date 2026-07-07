@@ -48,11 +48,11 @@ void __fastcall FUN_004cf310(int param_1)
   local_460 = param_1;
   if (*(int *)(param_1 + 0x10b0) != 0) {
     piVar2 = (int *)GetPlayerRecordBySlot(DAT_005b3484);
-    pcVar9 = LeaveCriticalSection_exref;
+    pcVar9 = (code *)LeaveCriticalSection;
     if (piVar2 != (int *)0x0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar3 = PeekPacketChecksumState();
-      pcVar9 = LeaveCriticalSection_exref;
+      pcVar9 = (code *)LeaveCriticalSection;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_464 = PeekPacketChecksumState();
@@ -137,14 +137,14 @@ void __fastcall FUN_004cf310(int param_1)
     if (iStack_448 != 0) {
       FUN_0040a240();
       FUN_0040b540(&local_464);
-      pcVar9 = LeaveCriticalSection_exref;
+      pcVar9 = (code *)LeaveCriticalSection;
       unaff_EBX = iStack_448;
     }
     local_c = 0xffffffff;
     if (iStack_224 != 0) {
       FUN_0040a240();
       FUN_0040b540(&local_464);
-      pcVar9 = LeaveCriticalSection_exref;
+      pcVar9 = (code *)LeaveCriticalSection;
       unaff_EBX = iStack_224;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -164,7 +164,7 @@ void __fastcall FUN_004cf310(int param_1)
           FUN_004e1f70();
           FUN_00405fb0();
           FUN_00405fb0();
-          pcVar9 = LeaveCriticalSection_exref;
+          pcVar9 = (code *)LeaveCriticalSection;
           *(undefined4 *)(&DAT_006a73c8 + DAT_005b3484) = 1;
           param_1 = unaff_EBX;
         }

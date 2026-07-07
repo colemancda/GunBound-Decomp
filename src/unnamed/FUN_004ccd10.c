@@ -65,7 +65,7 @@ void FUN_004ccd10(int *param_1)
   *unaff_FS_OFFSET = &local_c;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(0xffffffff);
-  pcVar18 = LeaveCriticalSection_exref;
+  pcVar18 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(0xffffffff);
@@ -215,7 +215,7 @@ void FUN_004ccd10(int *param_1)
       FUN_004d25e0();
       FUN_004d2680();
       *(undefined1 *)((int)param_1 + 0x2382) = 1;
-      pcVar18 = LeaveCriticalSection_exref;
+      pcVar18 = (code *)LeaveCriticalSection;
     }
   }
   else {
@@ -355,7 +355,7 @@ void FUN_004ccd10(int *param_1)
       local_708 = local_708 + 1;
       local_70c = local_70c + 0x224;
       local_710 = local_710 + 0x89;
-      pcVar18 = LeaveCriticalSection_exref;
+      pcVar18 = (code *)LeaveCriticalSection;
     } while (local_704 < 0x8900);
   }
 LAB_004cd6de:
@@ -506,7 +506,7 @@ LAB_004cd6de:
           uVar9 = 2;
         }
         CreateButtonWidget(&DAT_00e9be90,0,uVar9,uVar21,pcVar10,uVar22,0x232,0x25,0x26,1,0);
-        pcVar18 = LeaveCriticalSection_exref;
+        pcVar18 = (code *)LeaveCriticalSection;
       }
     }
     else {
@@ -515,7 +515,7 @@ LAB_004cd6de:
         CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26
                            ,1,0);
         FUN_00406300(1);
-        pcVar18 = LeaveCriticalSection_exref;
+        pcVar18 = (code *)LeaveCriticalSection;
       }
     }
   }
@@ -528,7 +528,7 @@ LAB_004cd6de:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       FUN_004064a0(local_71c);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      pcVar18 = LeaveCriticalSection_exref;
+      pcVar18 = (code *)LeaveCriticalSection;
     }
   }
   iVar7 = DAT_005b3484;
