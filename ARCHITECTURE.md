@@ -1328,6 +1328,19 @@ previously-unexamined ones. Findings:
   neither touches them. **Both of these — the exact chat-send network
   call, and where in-battle chat input is handled at all — are open items
   for a future pass**, not resolved here.
+
+  **Update: found a real, fully-traced send call — but for a different
+  category of message than plain room chat.** The `/message <player>
+  <text>` whisper command's handler (`FUN_00402720`) sends over a genuine
+  **third network channel**, a separate TCP connection distinct from the
+  UDP socket used for the rest of the protocol — see PROTOCOL.md's new
+  "Channel 3" section for the full trace (opcodes `0x1020`/`0xa110`, and
+  the confirmed raw Winsock `send()` call). This doesn't resolve the
+  normal-chat gap above (that's still open), but it does mean **not all
+  GunBound chat traffic uses the same transport** — direct/whisper
+  messages have their own dedicated connection, most likely to a
+  companion "buddy"/messenger service (see the `GameBuddy` registry key
+  in STRINGS.md).
   - **The developer-name easter egg — fully traced, and it's more than a
     credits screen.** Both chat handlers call a shared `/`-command parser
     (`FUN_004218c0`, 5,693 bytes) that splits the typed text on `/`,

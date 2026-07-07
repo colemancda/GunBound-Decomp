@@ -80,9 +80,9 @@ likely all part of one chat-command dispatch table:
 | Address | String | Likely meaning |
 |---|---|---|
 | `00553580` | `loudall` | Broadcast/shout chat command (as opposed to the confirmed proximity-filtered normal chat — see Channel 2 action `0x4002` in PROTOCOL.md). |
-| `00553598` | `mutelist` | Opens/references a mute list command. |
-| `005535d0` | `message` | Generic message command. |
-| `005535e0` | `guide` | Help/guide command. |
+| `00553598` | `mutelist` | Opens/references a mute list command — checked in the same `/`-command parser as `message` below but not traced further this pass. |
+| `005535d0` | `message` | **Confirmed — the `/message <player> <text>` whisper/direct-message command.** Fully traced in PROTOCOL.md's new "Channel 3" section: parses a target name and body, then either relays through the main game connection (opcode `0x1020`) or, if the target is resolved locally, sends directly over a separate TCP connection (opcode `0xa110`, via a genuine Winsock `send()` call) distinct from the UDP game-server socket used everywhere else in this project — most likely a "buddy"/messenger service, given the neighboring `Software\Softnyx\GameBuddy` registry key below. Has several `stricmp`-checked aliases at nearby addresses (`0x5535cc`-`0x5535e8`, exact text not individually catalogued here). |
+| `005535e0` | `guide` | Help/guide command — has aliases at `0x5535e8`/`0x5535f0`, same `stricmp` chain, not traced further this pass. |
 | `005535f8` | `teleport1` | **Corrected — not a chat command.** Its placement next to real chat-command strings in the data segment was coincidental. Decompiling its actual xrefs (`FUN_004cc5c0`) shows it's a **sound-effect name**, played via `FUN_004372f0(playerSlot, x, y, 0x14b5, "teleport1")` at both endpoints when two players' positions get swapped — this is the client-side implementation of `stage.dat`'s confirmed `귀환` ("Return") stage gimmick found via `Shinji.exe`'s editor dialog (see FILEFORMATS.md). Genuinely reachable in normal play whenever a stage has that gimmick enabled, not a hidden GM command. |
 | `00553604` | `tnormal` | Sound-profile name (t-prefix variant of the confirmed `normal`/`wnormal` character audio profiles). |
 | `0055360c` | `twnormal` | Sound-profile name (t-prefix variant of `wnormal`). |

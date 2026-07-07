@@ -1940,6 +1940,62 @@ not runtime procedural mesh/heightmap deformation.
 
 ---
 
+## Channel 3 — direct/whisper messaging, a separate TCP connection outside the main game protocol
+
+Investigating "how does chat actually get sent" (the client-side compose
+paths were traced and, surprisingly, never called the confirmed
+queued-packet-field API — see ARCHITECTURE.md's chat pipeline writeup)
+led to the `/message` slash command (`STRINGS.md`'s `message` chat-command
+string, with several aliases compared via `stricmp` in the shared
+`/`-command parser, `FUN_004218c0`) and its handler, `FUN_00402720`. This
+reveals a **third, entirely separate transport** from the two already
+documented (Channel 1's queued/polled `ProcessPacket` traffic and Channel
+2's synchronous UDP `ProcessBattleAction` traffic):
+
+- **`/message <player> <text>`** parses the target player name and body
+  text, then branches on whether the target is resolvable locally
+  (`FUN_00426030`):
+  - **Target not found locally** — falls back to the normal Channel 1
+    queued-packet path, sending opcode **`0x1020`** (a 12-byte player-name
+    field plus the message) through the confirmed `+0x4d4`/`+0x44d0`
+    encode/flush pattern — i.e. asks the main game server to relay/locate
+    the recipient.
+  - **Target resolved locally, and a direct connection object exists**
+    (`DAT_007934f4`, distinct from `DAT_007934e8`/`iVar2`, the socket
+    object threaded through every other opcode in this document) — builds
+    a small packet by hand (opcode **`0xa110`**, a 16-byte header
+    containing 4 fields plus the message text) and sends it via
+    `FUN_004e5ac0`, which is a **direct Winsock `send()` call** (not
+    `sendto()` — this is a **connection-oriented TCP socket**, distinct
+    from the UDP `recvfrom`/`sendto` pair used for the main game protocol
+    documented everywhere else in this project), complete with its own
+    non-blocking retry/backpressure handling (`WSAEWOULDBLOCK`/`0x2733`
+    triggers buffering the unsent remainder via `FUN_004e5c70` rather than
+    blocking).
+
+**Significance**: GunBound's client maintains a genuinely separate TCP
+connection for direct/whisper messaging, independent of the primary UDP
+game-server connection — most likely to a distinct "buddy"/messenger
+service, strongly suggested by the already-documented
+`Software\Softnyx\GameBuddy` registry key (see STRINGS.md) sitting right
+next to the main `Software\Softnyx\GunBound` key. This third channel
+wasn't previously in scope for this document (which had only mapped
+Channels 1 and 2) and resolves what looked like a real gap: normal
+in-room/in-battle chat still doesn't have a confirmed send call (see
+ARCHITECTURE.md), but at least one category of chat — direct/whisper
+messages — now has its full send path traced end to end, opcode and all.
+
+**Not yet done**: where/when `DAT_007934f4`'s connection is actually
+established (the `connect()`/`socket()` call site itself, and whether it
+uses the `GameBuddy` registry key or a hardcoded host) wasn't located in
+this pass — no direct references to either the global or the registry
+string were found via a straightforward xref search, suggesting the
+address is computed/threaded through a register rather than referenced by
+a literal instruction operand; would need a wider search (e.g. from
+`InitGame`'s startup sequence) to pin down.
+
+---
+
 ## Confirmed recurring structures
 
 A quick-reference table of the byte-level structures independently
