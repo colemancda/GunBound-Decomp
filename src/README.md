@@ -64,12 +64,18 @@ rather than through one clean entry point.
   eventual game build; exists purely to validate `lzhuf_decode()` against
   real data without needing the rest of the game to compile.
 
-### Raw/verbatim ports — 92 functions, one file each
+### Raw/verbatim ports — 575 functions so far
 
-Every function in the whole binary with a **confirmed real name** (not a
-bare `FUN_<address>`) outside of `lzhuf/` — 92 of them — has been dumped
-from Ghidra's decompiler and dropped into `src/` as one file per
-function, organized into subdirectories by subsystem:
+Started from every function in the whole binary with a **confirmed real
+name** (not a bare `FUN_<address>`) outside of `lzhuf/` — 92 of them —
+then cascaded outward two tiers by porting every unnamed `FUN_<address>`
+helper directly referenced from an already-ported file, then every
+helper referenced from *that* tier: 323 in the first pass, 160 in the
+second, 575 total so far (of ~2,327 functions in the whole binary per
+`PROGRESS.csv`). Named functions are organized into subdirectories by
+subsystem; the cascaded unnamed ones all live flat in `unnamed/`,
+addressed by their `FUN_<address>` name since nothing else is known
+about most of them yet:
 
 - **`entry/`** — `WinMain`, `InitGame`, `Shutdown`, `WndProc`, `GameTick`,
   `ChangeGameState`. Supersedes the old hand-written `main.c` skeleton —
@@ -115,7 +121,7 @@ Concretely, that means:
   `_RTL_CRITICAL_SECTION`) that lets this raw output parse as plain C
   without hand-editing every file for that class of issue. Include it
   before `<windows.h>` in any raw port.
-- **12 files (of 415 total raw ports) have deeper, genuine syntax
+- **13 files (of 575 total raw ports, ~2.3%) have deeper, genuine syntax
   problems** beyond missing symbols — Ghidra's decompiler falling back to
   invalid-C pseudo-syntax for things it couldn't cleanly express
   (`variable._0_1_`-style partial-register/sub-byte-field access,
@@ -130,9 +136,10 @@ Concretely, that means:
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`
   - `unnamed/FUN_0041b8c0.c`, `FUN_00449540.c`, `FUN_004cb280.c`,
-    `FUN_00504c10.c`, `FUN_00525c42.c`, `FUN_0053753c.c` (the last two
-    are CRT-internal thread/FPU-state helpers, not game logic - likely
-    not worth porting at all rather than fixing)
+    `FUN_004ccd10.c`, `FUN_00504c10.c`, `FUN_00525c42.c`,
+    `FUN_0053753c.c` (the last two are CRT-internal thread/FPU-state
+    helpers, not game logic - likely not worth porting at all rather
+    than fixing)
 
   These need real per-occurrence hand-translation (each `._0_1_` access
   means something different depending on context) — not attempted this
