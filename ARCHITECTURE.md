@@ -1172,6 +1172,46 @@ concrete results:
   the software path, using shared text-rendering infrastructure — they
   aren't merely static.
 
+  **Fully decompiled — the lobby's actual room-card grid renderer, found
+  by following its internal loop.** `RenderRoomLabel` doesn't just draw
+  fixed labels; its tail is a loop over up to **6 room slots**
+  (`0x4464c` to `0x44664`, 4-byte stride — skipping the current client's
+  own room index) calling **`FUN_0042a220(roomIndex)`** once per occupied
+  slot. That function is the real per-room "card" draw, and it's rich:
+  - **Grid layout**: `roomIndex / 3` selects a column (X base `0x18` or
+    `0x144` — a 2-column layout), `roomIndex % 3` selects a row (`* 0x3c`
+    = 60px vertical spacing) — i.e. the classic **3-row × 2-column room
+    browser grid**.
+  - **3-state background**: base sprite index, `+1` if this room is the
+    currently-hovered/selected one (`param_1+8`), `+2` if it's the room
+    the client has actually joined (`param_1+4`) — a highlighted vs.
+    normal vs. joined visual state per card.
+  - A room-type/flag icon, two more small per-room byte-flag icons
+    (offset `+10` into the sprite range — likely min/max level or
+    team-count indicators), and a combined mode/map icon computed from
+    `(flagByte & 3) * 11 + otherByte` (a small state-space icon lookup,
+    map/weather-style).
+  - A **status icon** (`waiting`/`in-progress`/`full`-style, 3 possible
+    sprite indices 7/8/9) derived from a byte flag plus a same-value
+    comparison between two other per-room fields.
+  - A **conditional lock icon**, drawn only if a per-room byte flag is
+    set — almost certainly the "private/password-protected room" padlock
+    seen in the classic GunBound lobby UI.
+  - The **room number** (`sprintf("%d", roomIndex+1)`, rendered via a
+    different helper, `FUN_004ed9f0`, not `BlitRLESprite` directly — a
+    distinct, not-yet-explored text-rendering path) and the **player
+    count** (via `BlitRLESprite`, the bitmap-font renderer).
+  - A final **"fullness" icon** (4 possible states, extracted from bits
+    18-19 of a per-room info `dword`) — likely an empty/partial/nearly
+    full/full indicator distinct from the status icon above.
+
+  This fully explains the lobby's visual content end to end: `GameTick`
+  calls State 3's slot 15 once per tick (see the dispatch trace below),
+  which draws the static chrome then loops the room list calling this
+  per-card renderer for every occupied slot — while every actual button
+  (create room, refresh, etc.) draws itself separately via the generic
+  active-object sweep (also below).
+
 However, checking the same vtable slot across other states (State 2's slot
 15 is a distinct 62-byte function with no identifying strings; State 7's is
 the shared no-op) confirms — consistent with the earlier finding for slot 9
