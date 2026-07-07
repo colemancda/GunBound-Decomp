@@ -169,7 +169,7 @@ its role:
 | 6 | `0x4b97d0` | **Mouse-input dispatcher** — dispatches directly on literal Win32 mouse message values (`> 0x202`, `== 0x204`, `!= 0x205` branches are visible — i.e. `WM_LBUTTONUP`/`WM_RBUTTONDOWN`/`WM_RBUTTONUP` territory) |
 | 7 | `0x4bb730` | `State11_InBattle_OnEnter` |
 | 8 | `0x4bcd00` | `State11_InBattle_OnExit` |
-| 9 | `0x4bd8b0` | Large (17KB decompiled) function using `HCURSOR` — cursor/per-frame update logic, not fully mapped |
+| 9 | `0x4bd8b0` | Large (17KB decompiled, ~2,070 lines) function — this is the **same function** already documented elsewhere as `GameTick`'s unconditional per-tick hook (8-directional screen-edge cursor/camera-scroll bitmask, confirmed during the physics investigation). Only the first ~370 lines are the cursor/camera logic; the remaining ~1,700 lines (not previously read) include outgoing-packet field encoding, replay event logging, an unconditional per-tick call to the active-object container's flagged-entry garbage collector (`FUN_004f3100`, see the generic-container note below), and what looks like turn-phase-adjacent bookkeeping (`0xc303` referenced as a literal). Still not fully mapped end to end — genuinely large and multi-purpose. |
 | 10 | `0x4c1b90` | **Chat character-input helper**: appends a typed character into a per-message buffer at `+0x58b64` (9-byte stride) and a secondary buffer at `+0x58c4a` (14-byte stride), with a literal control-character remap table (`'@'→0x0a`, `'#'→0x0b`, `'$'→0x0c`, `'%'→0x0d`, `'^'→0x0e`, `'&'→0x0f`, `'*'→0x10`) — almost certainly the mechanism behind GunBound's in-chat emoticon/special-character shortcuts (typing `^` or `&` inserting a small icon rather than the literal character) |
 | 11 | `0x4c1c90` | Small per-tick-looking helper (increments a counter at `this+8`, conditionally calls a couple of update functions) |
 | 12 | `0x4c1d10` | One-line delegate — calls `FUN_004508a0` on a fixed per-connection offset (`+0x6a7f88`), nothing else |
@@ -1289,9 +1289,18 @@ concept in this engine, not separate systems.
    cleanup of flagged or all entries, not per-frame drawing — consistent
    with every draw call site being a targeted lookup, as found above.
    Which specific event sets an entry's removal flag (a button being
-   closed, a transient effect finishing, etc.) and where each of these
-   three sweep functions gets called from wasn't traced further this
-   pass.
+   closed, a transient effect finishing, etc.) still wasn't traced, but
+   **found where the flagged-entry sweep gets called from**: while fully
+   decompiling State11's vtable slot 9 (see below — it turned out to be
+   much more than just cursor logic), `FUN_004f3100()` shows up as a
+   plain, unconditional call in the middle of that function's straight-line
+   per-tick body. Since slot 9 is confirmed to run every `GameTick`
+   (~50ms), this means **the flagged-object garbage collector runs once
+   per tick, unconditionally** — not on some rarer lifecycle event as
+   might have been assumed. The other two sweep functions'
+   (`FUN_004f3020`/`FUN_004f3060`, the destroy-all and full-teardown
+   variants) call sites weren't found in this same function and remain
+   untraced.
 5. ~~`LoadButtonDefinitionFromXFS`'s binary widget-definition format~~ —
    **resolved**, see the writeup above: `count`, then per-record
    `nameLen`/`name`/`typeByte`/`subCount`/two `subCount`-length dword
