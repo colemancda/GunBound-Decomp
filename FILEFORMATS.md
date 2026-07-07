@@ -481,31 +481,46 @@ like body/face/gloves/head or similar equipment slots, though the exact
 per-letter mapping wasn't confirmed).
 
 **Record-level field layout — client has no consumer for it, but the
-on-disk structure itself is now confirmed anyway by direct byte-pattern
-analysis of the decoded file (not from code, since no code parses it —
-see below).** Decoding `mb.dat` in full and locating every occurrence of
-a small monotonically-increasing 4-byte integer immediately followed by
-ASCII text shows a clean, regular structure: **each costume record is
-exactly two consecutive 64-byte slots (128 bytes/record)** —
-`[4-byte sequential costume ID][60-byte NUL-padded ASCII name]` followed
-immediately by `[4-byte small integer, likely a category/rarity/unlock
-value][60-byte NUL-padded ASCII description]`. Confirmed by matching a
-run of 20 consecutive costume IDs (`0`=`"STANDARD"`, `1`=`"Space
-Marine"`, `2`=`"School Uniform"`, `3`=`"Shoulder..."`, `4`=`"Pirate
-C..."`, `5`=`"Roman Ge..."`, up through `19`=`"FriendSh..."`) each
-landing exactly 64 bytes apart, name-slot and description-slot
-alternating with no gaps or padding between records. Record 0's
-description-slot integer and record 1's are both small values distinct
-from the costume ID sequence (`0`, `0`, `2`, `6`, `3`, `3`, `4`, `3`, `5`,
-`0`, `6`, `3`...) — not itself sequential, so it's a separate per-record
-attribute rather than a duplicate ID or checksum. This is inferred purely
-from the decoded bytes' regularity (no code path validates this
-interpretation, since — as established below — the client only ever
-reads a single leading byte of these files), so treat the exact
-field *meaning* (especially the description-slot's leading integer) as a
-plausible, evidence-based guess, not a code-confirmed fact — but the
-128-byte/record stride and 4+60 byte sub-layout are solid, directly
-observed structure.
+on-disk structure is confirmed by direct byte-pattern analysis (not from
+code, since no code parses it — see below). Corrected after cross-
+checking against an independent companion project's Swift reimplementation
+(`~/Developer/Gunbound`), which flagged this doc's first pass as wrong.**
+The original 128-byte/record hypothesis (two 64-byte slots: `[4-byte
+ID][60-byte name]` + `[4-byte value][60-byte description]`) only actually
+matched record 0 — its own byte-counting drifted by 4 bytes every record
+after that, silently producing empty names and a repeating `id=0` for
+every subsequent record, which went unnoticed because record 0 alone
+looked plausible. The companion project's own extraction (which produces
+clean, sensible data for all 6 real records: ascending price values, and
+readable names like `"Pirate Captain"`/`"Roman General"` for every slot,
+not just the first) uses a **132-byte record**, confirmed correct by
+re-deriving it independently here too:
+- **`[0:64)`** — name slot: NUL-terminated ASCII name (`"STANDARD"`,
+  `"Space Marine"`, `"School Uniform"`, `"Shoulder Strap"`, `"Pirate
+  Captain"`, `"Roman General"`, ...), followed by NUL padding that also
+  packs a handful of small numeric fields (varies per record — e.g. two
+  `uint32`s reading `7500`/`1500` for "Space Marine", `4000`/`800` for
+  "School Uniform" — very plausibly price/cost values, ascending with
+  fancier costumes, plus a couple of smaller category-like values) before
+  the slot's 64-byte boundary.
+- **`[64:128)`** — description slot: NUL-terminated ASCII description
+  (`"Standard clothing"`, `"Space marine uniform"`, `"Cute and pretty
+  school uniform"`, ...), NUL-padded to the boundary — a clean 64-byte
+  slot with no embedded numbers.
+- **`[128:132)`** — a 4-byte sequential costume ID (`0`, `1`, `2`, `3`,
+  `4`, `5`, ... — confirmed against all 6 real records in `mb.dat`), which
+  this doc's original pass had misread as a *leading* field of the next
+  record rather than a *trailing* field of the current one — the actual
+  source of the 4-byte drift.
+
+Exact byte offsets of the individual numeric fields packed into the
+name slot's padding aren't pinned down (no code path validates any of
+this — the client only ever reads a single leading byte of these files,
+per the confirmed anti-tamper finding below), so treat those specific
+sub-values as plausible, evidence-based reading rather than
+code-confirmed fact — but the 132-byte stride and the three-part
+name/description/ID layout are now solid, cross-validated by two
+independent implementations converging on the same structure.
 
 Found the client's only consumer of these files (`FUN_00423bf0`,
 the sole function in the entire binary referencing any of `fb.dat`/
