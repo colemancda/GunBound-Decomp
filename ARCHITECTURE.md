@@ -1151,6 +1151,23 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
    called from nearly every state's `OnEnter` (Server Select, Room List,
    Avatar Store, Ready Room, Loading — Title is a notable exception, matching
    its earlier-confirmed lack of any UI beyond the splash timer).
+
+   **`vtable_ButtonWidget`'s 5 slots, dumped and checked** while chasing the
+   removal-flag question above: slot 0 is the confirmed MSVC "scalar
+   deleting destructor" (real destructor + conditional `free`, exactly
+   matching how the container's sweep functions call it); slot 1 manages
+   animation/timing fields, not the removal flag; slots 2 and 3 both
+   render via the same generic `FUN_004f30c0` texture-cache lookup already
+   documented (confirming buttons draw via targeted lookup, consistent
+   with there being no per-frame "draw everything" sweep — see the
+   traversal-functions note below); slot 4 is a bare `RET`, a shared
+   no-op like several other vtables in this codebase. **None of the
+   object's own 5 vtable slots set the removal flag** the sweep function
+   checks — whatever marks a button "done" (a close-button click handler,
+   a screen-transition teardown, or similar) lives outside the object
+   itself and wasn't tracked down this pass; that would need a broader
+   search across UI click-dispatch code rather than this object's own
+   vtable.
 4. Every constructed button is registered via **`RegisterActiveObject`**
    (`0x4f2fb0`, was `FUN_004f2fb0`) into a **sorted tree/list structure**
    keyed by two levels (a layer/z-order value, then a secondary key) — and
