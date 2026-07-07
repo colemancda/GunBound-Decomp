@@ -1,0 +1,73 @@
+/* FUN_005087b0 - 0x005087b0 in the original binary.
+ *
+ * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * decompiler output, not hand-verified. See src/README.md's "Raw/
+ * verbatim ports" section for status.
+ */
+#include "ghidra_types.h"
+
+
+void __fastcall FUN_005087b0(undefined4 param_1)
+
+{
+  int *piVar1;
+  undefined4 *puVar2;
+  undefined4 *puVar3;
+  undefined4 uVar4;
+  undefined4 *puVar5;
+  int unaff_EDI;
+  undefined4 *unaff_FS_OFFSET;
+  undefined4 local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_0053795b;
+  local_c = *unaff_FS_OFFSET;
+  *unaff_FS_OFFSET = &local_c;
+  puVar2 = *(undefined4 **)(unaff_EDI + 4);
+  do {
+    if (puVar2 == (undefined4 *)0x0) {
+      puVar2 = operator_new(0x90);
+      local_4 = 0;
+      if (puVar2 == (undefined4 *)0x0) {
+        puVar5 = (undefined4 *)0x0;
+      }
+      else {
+        puVar3 = puVar2;
+        FUN_00505760(puVar2);
+        *puVar2 = &PTR_LAB_00557df0;
+        puVar5 = puVar2;
+        puVar2 = puVar3;
+      }
+      local_4 = 0xffffffff;
+      puVar5[9] = 1;
+      puVar5[0x13] = 0;
+      puVar5[0x11] = 0x2715;
+      puVar5[0x12] = 0;
+      puVar5[10] = 0xf3;
+      puVar5[0xb] = 0xca;
+      puVar5[0xc] = 0x13a;
+      puVar5[0xd] = 0xa0;
+      puVar3 = (undefined4 *)FUN_00507f60(0,99,0x32,0xb4,0xc,4);
+      FUN_0050e670(puVar3);
+      FUN_0050efa0(unaff_EDI);
+      (**(code **)*puVar3)(1);
+      uVar4 = FUN_00507f60(1,99,0x54,0xb4,0xc,4);
+      FUN_0050e670(uVar4);
+      uVar4 = FUN_00507ee0(0,0x579,0xd5,0x76,0x52,0x22);
+      FUN_0050e670(uVar4);
+      uVar4 = FUN_00507ee0(1,0x578,0x80,0x76,0x52,0x22);
+      FUN_0050e670(uVar4);
+      FUN_0050eea0(puVar5);
+      *unaff_FS_OFFSET = puVar2;
+      return;
+    }
+    piVar1 = puVar2 + 2;
+    puVar2 = (undefined4 *)*puVar2;
+  } while ((*(int *)(*piVar1 + 0x20) != 0) || (*(int *)(*piVar1 + 0x24) != 1));
+  FUN_00509960(param_1);
+  *unaff_FS_OFFSET = local_c;
+  return;
+}
+

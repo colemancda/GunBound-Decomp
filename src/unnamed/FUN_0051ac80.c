@@ -1,0 +1,69 @@
+/* FUN_0051ac80 - 0x0051ac80 in the original binary.
+ *
+ * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * decompiler output, not hand-verified. See src/README.md's "Raw/
+ * verbatim ports" section for status.
+ */
+#include "ghidra_types.h"
+
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void FUN_0051ac80(float *param_1,undefined4 param_2)
+
+{
+  int iVar1;
+  int iVar2;
+  float *pfVar3;
+  float *pfVar4;
+  float *pfVar5;
+  int iVar6;
+  float local_40 [16];
+  
+  local_40[0] = *param_1 + param_1[0xe];
+  local_40[4] = (*param_1 - param_1[0xe]) * DAT_00f25aa0;
+  iVar6 = 0;
+  pfVar3 = param_1 + 0xc;
+  do {
+    param_1 = param_1 + 2;
+    iVar1 = iVar6 + 4;
+    *(float *)((int)local_40 + iVar6 + 4) = *pfVar3 + *param_1;
+    *(float *)((int)local_40 + iVar6 + 0x14) =
+         (*param_1 - *pfVar3) * *(float *)((int)&DAT_00f25aa4 + iVar6);
+    iVar6 = iVar1;
+    pfVar3 = pfVar3 + -2;
+  } while (iVar1 < 0xc);
+  iVar6 = 0;
+  iVar1 = 2;
+  do {
+    iVar2 = iVar6;
+    pfVar3 = (float *)((int)local_40 + iVar6 + 0xc);
+    pfVar4 = (float *)&DAT_00f25ab0;
+    do {
+      pfVar5 = pfVar4 + 1;
+      *(float *)((int)local_40 + iVar2 + 0x20) = *pfVar3 + *(float *)((int)local_40 + iVar2);
+      *(float *)((int)local_40 + iVar2 + 0x28) =
+           (*(float *)((int)local_40 + iVar2) - *pfVar3) * *pfVar4;
+      iVar2 = iVar2 + 4;
+      pfVar3 = pfVar3 + -1;
+      pfVar4 = pfVar5;
+    } while ((int)pfVar5 < 0xf25ab8);
+    iVar6 = iVar6 + 0x10;
+    iVar1 = iVar1 + -1;
+  } while (iVar1 != 0);
+  iVar1 = 4;
+  iVar6 = 0;
+  do {
+    iVar1 = iVar1 + -1;
+    *(float *)((int)local_40 + iVar6) =
+         *(float *)((int)local_40 + iVar6 + 0x24) + *(float *)((int)local_40 + iVar6 + 0x20);
+    *(float *)((int)local_40 + iVar6 + 4) =
+         (*(float *)((int)local_40 + iVar6 + 0x20) - *(float *)((int)local_40 + iVar6 + 0x24)) *
+         _DAT_00f25ab8;
+    iVar6 = iVar6 + 8;
+  } while (iVar1 != 0);
+  FUN_0051a650(2,4,local_40,local_40 + 8);
+  FUN_0051a650(1,8,local_40 + 8,param_2);
+  return;
+}
+
