@@ -571,6 +571,27 @@ from a small fixed vocabulary of environmental hazards/gimmicks, each with
 its own configurable spawn points and an on/off toggle, rather than
 free-form per-stage scripting.
 
+**Follow-up: re-decompiled `LoadGameDataFiles`'s stage.dat field loop
+directly (rather than relying on the earlier "wasn't mapped field-by-field"
+note) to look for the 8-flag toggle block's exact byte offset — didn't
+find it, but found something more useful instead.** Every field the loop
+reads (`+0x80`/`+0x82` as `ushort`s, `+0x84` through `+0xa0` as `uint32`s,
+then the 6 parallel 8-element arrays spanning roughly `+0xa4`–`+0x164`,
+32 bytes apart — refining "one 8-element sub-array" into **six**, most
+likely X/Y coordinate pairs for each of the three hazard types' 8 spawn
+points) is passed straight into `EncodeOutgoingPacketField` — the exact
+same checksum-only accumulator already confirmed for every field this
+project has traced in `characterdata.dat`. No separate gameplay-consumer
+read of any of these fields was found in this pass either. This means the
+`Force`/`Gust`/`Electric`/`Wind`/`Return`/`Heal`/`Fog`/`Version` toggle
+block almost certainly follows the same anti-tamper-checksum-only pattern
+as the rest of the record (consistent with why no case-number-to-gimmick
+mapping was findable client-side either, per the note above) — **the
+exact byte offset of the toggle block isn't pinned down, but the reason
+it's hard to find (there's no client-side consumer, only a checksum) is
+now the same well-established explanation already given for
+`characterdata.dat`**, rather than an unexplained gap.
+
 ## `characterdata.dat` — record count/stride confirmed, field semantics recovered
 
 Initial attempt at this (decompiling `LoadGameDataFiles`'s post-decode step
