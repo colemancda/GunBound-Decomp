@@ -45,13 +45,17 @@ extern int32_t g_pendingGameState;
 extern void *g_gameStateVTableArray[16];
 #define g_gameStateObjects g_gameStateVTableArray
 extern void *g_hDDrawDll;
-extern void *g_pBackBufferSurface;
-extern void *g_pClipper;
-extern void *g_pD3DDevice7;
-extern void *g_pDirect3D7;
-extern void *g_pDirectDraw7;
-extern void *g_pPrimarySurface;
-extern void *g_pZBufferSurface;
+/* void ** rather than void *: raw-ported call sites dereference these
+ * once to reach the COM vtable pointer (`*g_pD3DDevice7 + offset`), so
+ * they need to be a pointer-to-pointer to compile - a plain void*
+ * can't be dereferenced at all. */
+extern void **g_pBackBufferSurface;
+extern void **g_pClipper;
+extern void **g_pD3DDevice7;
+extern void **g_pDirect3D7;
+extern void **g_pDirectDraw7;
+extern void **g_pPrimarySurface;
+extern void **g_pZBufferSurface;
 extern uint8_t g_replayEventBuffer;
 extern uint32_t g_replayEventCursor;
 extern uint8_t g_replayFileHandle;
@@ -389,7 +393,7 @@ extern uint8_t DAT_005f3772;
 extern uint8_t DAT_005f4894;
 extern uint8_t DAT_00666d73;
 extern uint8_t DAT_00673628;
-extern uint32_t DAT_00674f68;
+extern int *DAT_00674f68; /* used dereferenced as a vtable-bearing ptr at call sites */
 extern uint8_t DAT_006773b4;
 #define _DAT_006773b4 DAT_006773b4
 extern uint8_t DAT_006773b8;
@@ -591,7 +595,7 @@ extern uint8_t DAT_00d9aa30;
 extern uint8_t DAT_00d9aa34;
 extern uint8_t DAT_00d9aa35;
 extern uint8_t DAT_00e525e8;
-extern uint32_t DAT_00e52814;
+extern int *DAT_00e52814; /* used dereferenced as a vtable-bearing ptr at call sites */
 extern uint32_t DAT_00e52838;
 extern uint32_t DAT_00e5283c;
 extern uint8_t DAT_00e52858;
@@ -603,7 +607,7 @@ extern uint8_t DAT_00e5285c;
 extern uint8_t DAT_00e52864;
 extern uint8_t DAT_00e52868;
 extern uint8_t DAT_00e52e68;
-extern uint32_t DAT_00e5369c;
+extern int *DAT_00e5369c; /* used dereferenced as a vtable-bearing ptr at call sites */
 extern uint32_t DAT_00e536c0;
 extern uint32_t DAT_00e536c4;
 extern uint8_t DAT_00e536e4;

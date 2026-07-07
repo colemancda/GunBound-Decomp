@@ -178,6 +178,22 @@ Concretely, that means:
   These need real per-occurrence hand-translation (each `._0_1_` access
   means something different depending on context) — not attempted this
   pass, flagged here so it's a known list rather than a surprise later.
+
+  Separately, working down `make winelib-syntax-check`'s FAIL list
+  file-by-file (not all genuinely-broken, just needed small type/cast
+  fixes) has so far fixed `entry/GameTick.c`, `entry/Shutdown.c`,
+  `directx_init/InitDirectInput.c`, `unnamed/FUN_004edd70.c`, and
+  `unnamed/FUN_004ee270.c` — mostly the same "vtable call's return
+  value is used, `code`'s void return can't express that" pattern
+  (fixed per call site with a local `int (**)()` cast instead of
+  `code **`, rather than changing the shared `code` typedef, since
+  most vtable calls really are void-returning), plus `Shutdown`'s
+  `char` parameter needing to become `int` (a K&R unprototyped forward
+  declaration can't be defined with a default-promoted parameter
+  type), and three `DAT_<addr>` globals (`DAT_00674f68`,
+  `DAT_00e52814`, `DAT_00e5369c`) needing `int *` instead of the
+  generic `uint32_t` Ghidra inferred, since call sites dereference
+  them as vtable-bearing pointers.
 - Verified via a syntax-only compile pass (`winegcc-stable -c`, catching
   parse errors without needing every symbol resolved) inside
   `tools/winelib-env/`'s Docker image — confirms the files are
@@ -234,14 +250,17 @@ includes), so no raw-ported file needed editing to pick these up.
   `g_pD3DDevice7`, `g_sineTable360`, etc. — see ARCHITECTURE.md) get
   better types than the generic Ghidra-inferred ones: `g_sineTable360`
   is a real `float[360]`, the DirectDraw7/Direct3D7 COM interface
-  pointers (`g_pD3DDevice7` and friends) are `void *` rather than their
+  pointers (`g_pD3DDevice7` and friends) are `void **` rather than their
   real `IDirect3DDevice7 *`/etc. types (this tree doesn't have hand-
   written vtable structs or real COM interface definitions wired in
   yet — every raw-ported call site already dispatches through them via
-  `(**(code **)(*ptr + offset))(...)`-style manual vtable calls, which
-  doesn't need the real type to compile). `g_spriteVertexBuffer`'s exact
-  size isn't confirmed, so it's generously overallocated (`0x10000`
-  bytes) rather than tightly sized.
+  `(**(code **)(*ptr + offset))(...)`-style manual vtable calls). The
+  double-pointer is required, not cosmetic: call sites dereference the
+  global itself to reach the vtable pointer (`*g_pD3DDevice7 + offset`),
+  so a plain `void *` can't compile there — found while fixing
+  `GameTick.c`, see below. `g_spriteVertexBuffer`'s exact size isn't
+  confirmed, so it's generously overallocated (`0x10000` bytes) rather
+  than tightly sized.
 - **A handful of addresses are referenced under both `DAT_<addr>` and
   `_DAT_<addr>`** — Ghidra's convention for "the same memory accessed at
   two different sizes/interpretations." Aliased via `#define` to the

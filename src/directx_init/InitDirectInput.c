@@ -23,7 +23,11 @@ bool InitDirectInput(undefined4 param_1)
     pFVar1 = GetProcAddress(DAT_00793544,s_DirectInput8Create_00557414);
     iVar2 = (*pFVar1)(param_1,0x800,&DAT_005573c8,&DAT_00674f68,0);
     if (-1 < iVar2) {
-      iVar2 = (**(code **)(*DAT_00674f68 + 0x10))(DAT_00674f68,4,&LAB_004edc10,0,1);
+      /* LAB_004edc10 in Ghidra's output is the entry point of the
+       * enumeration callback it split out separately as FUN_004edd10 -
+       * same address range, just labeled differently at this call
+       * site vs. its own decompilation. */
+      iVar2 = (**(int (**)())(*DAT_00674f68 + 0x10))(DAT_00674f68,4,FUN_004edd10,0,1);
       return -1 < iVar2;
     }
   }

@@ -138,7 +138,7 @@ void GameTick(void)
       DAT_0079352c = 0;
       (**(code **)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
     }
-    iVar5 = (**(code **)(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
+    iVar5 = (**(int (**)())(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
     if (iVar5 == 0) {
       FUN_004f3ea0();
       (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x30))();
@@ -160,7 +160,7 @@ LAB_00413510:
       DAT_0079352c = 0;
       (**(code **)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
     }
-    iVar5 = (**(code **)(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
+    iVar5 = (**(int (**)())(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
     if (iVar5 == 0) {
       FUN_004f3ea0();
       (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x38))();
@@ -195,7 +195,7 @@ LAB_00413510:
     DAT_0079352c = 0;
     (**(code **)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
   }
-  iVar5 = (**(code **)(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
+  iVar5 = (**(int (**)())(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
   if (iVar5 == 0) {
     *(undefined4 *)(DAT_00792190 + 0x7c) = 0;
     DAT_00793660 = 1;

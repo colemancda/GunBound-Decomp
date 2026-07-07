@@ -28,26 +28,26 @@ undefined4 __fastcall FUN_004edd70(int param_1)
   piStack_2c = DAT_00674f68;
   puStack_30 = (undefined *)0x4edd8c;
   piStack_24 = piVar1;
-  iVar2 = (**(code **)(*DAT_00674f68 + 0xc))();
+  iVar2 = (**(int (**)())(*DAT_00674f68 + 0xc))();
   if (-1 < iVar2) {
     piStack_34 = (int *)*piVar1;
     puStack_30 = &DAT_0054b420;
     uStack_38 = 0x4edd9d;
-    iVar2 = (**(code **)(*piStack_34 + 0x2c))();
+    iVar2 = (**(int (**)())(*piStack_34 + 0x2c))();
     if (-1 < iVar2) {
       uStack_38 = 6;
-      iVar2 = (**(code **)(*(int *)*piVar1 + 0x34))((int *)*piVar1,uStack_14);
+      iVar2 = (**(int (**)())(*(int *)*piVar1 + 0x34))((int *)*piVar1,uStack_14);
       if (-1 < iVar2) {
         uStack_38 = 0x14;
         piStack_34 = (int *)0x10;
         puStack_30 = (undefined *)0x0;
         piStack_2c = (int *)0x0;
         iStack_28 = 0x40;
-        iVar2 = (**(code **)(*(int *)*piVar1 + 0x18))((int *)*piVar1,1,&uStack_38);
+        iVar2 = (**(int (**)())(*(int *)*piVar1 + 0x18))((int *)*piVar1,1,&uStack_38);
         if (-1 < iVar2) {
           piVar1 = (int *)*piVar1;
           if (piVar1 != (int *)0x0) {
-            (**(code **)(*piVar1 + 0x1c))(piVar1);
+            (**(int (**)())(*piVar1 + 0x1c))(piVar1);
           }
           *(undefined1 *)(param_1 + 0x54) = 1;
           return 1;

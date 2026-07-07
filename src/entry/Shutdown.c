@@ -12,7 +12,12 @@
 #include <windows.h>
 
 
-void Shutdown(char param_1)
+/* param_1 is `int`, not `char`: a K&R-declared (unspecified-args)
+ * prior declaration in functions.h can't be defined with a
+ * default-promoted parameter type (char/short/float) - char args are
+ * promoted to int when passed anyway under cdecl, so this changes
+ * nothing about the actual calling convention. */
+void Shutdown(int param_1)
 
 {
   uint uVar1;
