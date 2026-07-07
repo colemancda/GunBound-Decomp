@@ -1152,7 +1152,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ea670,102,FUN_004ea670,false,1,2,TODO
 004ea6e0,110,FUN_004ea6e0,false,1,2,TODO
 004ea760,1063,FUN_004ea760,false,4,7,TODO
-004eaba0,440,DecodeLZHUFBlock,false,7,5,TODO
+004eaba0,440,DecodeLZHUFBlock,false,7,5,PARITY-src-lzhuf.c
 004ead70,22,FUN_004ead70,false,7,0,TODO
 004ead90,25,FUN_004ead90,false,8,0,TODO
 004eadb0,165,FUN_004eadb0,false,25,0,TODO

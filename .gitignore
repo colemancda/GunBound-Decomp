@@ -67,3 +67,4 @@ tools/asm-differ/
 *.xfs
 *.dat
 .DS_Store
+build/
