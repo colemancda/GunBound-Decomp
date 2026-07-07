@@ -1,0 +1,137 @@
+/* FUN_0046cbb0 - 0x0046cbb0 in the original binary.
+ *
+ * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * decompiler output, not hand-verified. See src/README.md's "Raw/
+ * verbatim ports" section for status.
+ */
+#include "ghidra_types.h"
+
+
+int __fastcall FUN_0046cbb0(int param_1)
+
+{
+  undefined4 uVar1;
+  int iVar2;
+  int iVar3;
+  undefined4 *unaff_FS_OFFSET;
+  bool bVar4;
+  int local_68c;
+  int local_688 [2];
+  undefined1 local_680 [8];
+  undefined1 local_678 [20];
+  int local_664;
+  undefined1 local_454 [20];
+  int local_440;
+  undefined1 local_230 [20];
+  int local_21c;
+  undefined4 local_c;
+  undefined1 *puStack_8;
+  int local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_00539f08;
+  local_c = *unaff_FS_OFFSET;
+  *unaff_FS_OFFSET = &local_c;
+  uVar1 = FUN_0040a8c0(param_1 + 0xf78,local_678,2);
+  local_4 = 0;
+  FUN_0040aca0(param_1 + 0xb30,local_454,uVar1);
+  local_4._0_1_ = 1;
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  PeekPacketChecksumState();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  PeekPacketChecksumState();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  local_68c = FUN_004e4340();
+  local_4 = (uint)local_4._1_3_ << 8;
+  if (local_440 != 0) {
+    FUN_0040a240();
+    FUN_0040b540(local_688);
+  }
+  local_4 = 0xffffffff;
+  if (local_664 != 0) {
+    FUN_0040a240();
+    FUN_0040b540(local_688);
+  }
+  uVar1 = FUN_0040a8c0(param_1 + 0xf78,local_454,2);
+  local_4 = 2;
+  FUN_0040aca0(param_1 + 0xb30,local_678,uVar1);
+  local_4._0_1_ = 3;
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  iVar2 = PeekPacketChecksumState();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  local_4 = CONCAT31(local_4._1_3_,2);
+  if (local_664 != 0) {
+    FUN_0040a240();
+    FUN_0040b540(local_688);
+  }
+  local_4 = 0xffffffff;
+  if (local_440 != 0) {
+    FUN_0040a240();
+    FUN_0040b540(local_688);
+  }
+  if (local_68c == iVar2) {
+    FUN_0040aca0(param_1 + 0xb30,local_678,param_1 + 0xf78);
+    local_4 = 4;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    local_688[0] = FUN_004e4340();
+    local_4 = 0xffffffff;
+    if (local_664 != 0) {
+      FUN_0040a240();
+      FUN_0040b540(local_680);
+    }
+    FUN_0040aca0(param_1 + 0xb30,local_678,param_1 + 0xf78);
+    local_4 = 5;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    iVar3 = PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    iVar2 = local_664;
+    bVar4 = local_688[0] == iVar3;
+    local_4 = 0xffffffff;
+    if (local_664 != 0) {
+      FUN_0040a240();
+      local_688[0] = iVar2;
+      FUN_0040b540(local_680);
+    }
+    if (bVar4) {
+      FUN_0040a5f0(param_1 + 0xb30,local_678,1);
+      local_4 = 6;
+      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      PeekPacketChecksumState();
+      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      local_688[0] = PeekPacketChecksumState();
+      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      local_68c = FUN_004e4340();
+      local_4 = 0xffffffff;
+      if (local_664 != 0) {
+        FUN_0040a240();
+        local_688[0] = local_664;
+        FUN_0040b540(local_680);
+      }
+      FUN_0040a5f0(param_1 + 0xb30,local_230,1);
+      local_4 = 7;
+      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      iVar2 = PeekPacketChecksumState();
+      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      local_4 = 0xffffffff;
+      if (local_21c != 0) {
+        FUN_0040a240();
+        local_688[0] = local_21c;
+        FUN_0040b540(local_680);
+      }
+      if (local_68c == iVar2) {
+        local_68c = FUN_0040a4d0(param_1 + 0xb30);
+      }
+    }
+  }
+  iVar2 = *(int *)(param_1 + 0x24);
+  *unaff_FS_OFFSET = local_c;
+  return local_68c - ((iVar2 == 0xe) - 1 & 0x14);
+}
+

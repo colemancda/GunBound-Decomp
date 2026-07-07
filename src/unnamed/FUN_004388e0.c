@@ -1,0 +1,392 @@
+/* FUN_004388e0 - 0x004388e0 in the original binary.
+ *
+ * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * decompiler output, not hand-verified. See src/README.md's "Raw/
+ * verbatim ports" section for status.
+ */
+#include "ghidra_types.h"
+
+
+void FUN_004388e0(void)
+
+{
+  char cVar1;
+  int *piVar2;
+  int iVar3;
+  char *pcVar4;
+  undefined4 uVar5;
+  undefined1 *puVar6;
+  char *pcVar7;
+  byte bVar8;
+  code *pcVar9;
+  code *pcVar10;
+  undefined4 *unaff_FS_OFFSET;
+  int in_stack_00000014;
+  int in_stack_00000018;
+  undefined *puVar11;
+  undefined1 *puStack_8d8;
+  undefined1 *puStack_8d4;
+  int *piStack_8d0;
+  undefined *puVar12;
+  char *pcVar13;
+  int iStack_8a4;
+  int iStack_894;
+  int iStack_88c;
+  undefined1 auStack_6a4 [12];
+  int iStack_698;
+  undefined1 auStack_68c [4];
+  undefined1 auStack_688 [8];
+  int iStack_680;
+  int iStack_670;
+  int iStack_668;
+  undefined1 auStack_498 [84];
+  int iStack_444;
+  undefined1 auStack_26c [76];
+  int iStack_220;
+  undefined1 uStack_48;
+  undefined4 uStack_40;
+  undefined4 uStack_38;
+  undefined1 uStack_30;
+  undefined4 uStack_28;
+  undefined4 uStack_20;
+  undefined1 uStack_18;
+  undefined1 uStack_14;
+  undefined4 uStack_10;
+  undefined4 uStack_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_0053ca83;
+  uStack_c = *unaff_FS_OFFSET;
+  *unaff_FS_OFFSET = &uStack_c;
+  piVar2 = operator_new(0x3fa4);
+  local_4 = 0;
+  if (piVar2 == (int *)0x0) {
+    piVar2 = (int *)0x0;
+  }
+  else {
+    FUN_00454dc0();
+    *piVar2 = (int)&PTR_FUN_00555e0c;
+    piVar2[0xfe8] = 0;
+  }
+  local_4 = 0xffffffff;
+  if (*(char *)(DAT_005b3484 + 0x45578) == '\0') {
+    piVar2[6] = 0x1a8c;
+    piVar2[0xe] = 0x1a8d;
+    piVar2[0xe25] = 0x2015;
+    iVar3 = FindPreloadedTextureByName();
+    piVar2[7] = iVar3;
+    piVar2[0xe26] = DAT_00553bb4;
+    piVar2[0xe27] = DAT_00553bb8;
+    *(undefined1 *)(piVar2 + 0xe28) = DAT_00553bbc;
+  }
+  else if (*(char *)(DAT_005b3484 + 0x45578) == '\x01') {
+    piVar2[6] = 6000;
+    piVar2[0xe] = 0x17d4;
+    piVar2[0xe25] = 8000;
+    iVar3 = FindPreloadedTextureByName();
+    piVar2[7] = iVar3;
+    piVar2[0xe26] = s_flameevent1_00553e2c._0_4_;
+    piVar2[0xe27] = s_flameevent1_00553e2c._4_4_;
+    piVar2[0xe28] = s_flameevent1_00553e2c._8_4_;
+  }
+  pcVar13 = s_normal_00552230;
+  (**(code **)(*piVar2 + 4))();
+  FUN_0053753c();
+  FUN_0053753c();
+  piVar2[0xfe4] = 0xff;
+  *(undefined1 *)(piVar2 + 0xf) = *(undefined1 *)(in_stack_00000018 + 0x3c);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  PeekPacketChecksumState();
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  FUN_0053753c();
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  FUN_0053753c();
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  FUN_0053753c();
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  FUN_004064a0();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  iVar3 = _rand();
+  *(char *)((int)piVar2 + 0xf45) = (char)iVar3;
+  iVar3 = _rand();
+  *(byte *)((int)piVar2 + 0xf46) = (byte)iVar3;
+  bVar8 = *(byte *)((int)piVar2 + 0xf45) & 7;
+  bVar8 = ~('\x01' << bVar8) & (byte)iVar3 | '\0' << bVar8;
+  *(byte *)((int)piVar2 + 0xf46) = bVar8;
+  *(byte *)((int)piVar2 + 0xf47) = bVar8 + *(char *)((int)piVar2 + 0xf45) + -0x34;
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  FUN_00406530();
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  PeekPacketChecksumState();
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  FUN_00406530();
+  piVar2[0xfe5] = in_stack_00000014;
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  PeekPacketChecksumState();
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  FUN_00406530();
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  PeekPacketChecksumState();
+  EncodeOutgoingPacketField();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  pcVar7 = (char *)((int)piVar2 + 0x3813);
+  pcVar4 = PTR_s_142blast_xes_0056d344;
+  do {
+    cVar1 = *pcVar4;
+    pcVar4 = pcVar4 + 1;
+    *pcVar7 = cVar1;
+    pcVar7 = pcVar7 + 1;
+  } while (cVar1 != '\0');
+  piStack_8d0 = (int *)DAT_005b3484;
+  puStack_8d4 = (undefined1 *)0x438df7;
+  FUN_0041da80();
+  iVar3 = GetPlayerRecordBySlot();
+  if ((iVar3 != 0) && (cVar1 = FUN_004065a0(), cVar1 != '\0')) {
+    FUN_0040a8c0();
+    puStack_8 = (undefined1 *)0x1;
+    FUN_0040afb0();
+    puStack_8 = (undefined1 *)0xffffffff;
+    if (iStack_88c != 0) {
+      FUN_0040a240();
+      FUN_0040b540();
+    }
+    FUN_0040a8c0();
+    puStack_8 = (undefined1 *)0x2;
+    FUN_0040afb0();
+    puStack_8 = (undefined1 *)0xffffffff;
+    if (iStack_88c != 0) {
+      FUN_0040a240();
+      FUN_0040b540();
+    }
+    FUN_0040a8c0();
+    puStack_8 = (undefined1 *)0x3;
+    FUN_0040afb0();
+    puStack_8 = (undefined1 *)0xffffffff;
+    if (iStack_88c != 0) {
+      FUN_0040a240();
+      FUN_0040b540();
+    }
+  }
+  cVar1 = FUN_004065a0();
+  pcVar9 = LeaveCriticalSection_exref;
+  pcVar10 = EnterCriticalSection_exref;
+  if (cVar1 == '\x01') {
+    FUN_0040a7d0();
+    pcVar10 = EnterCriticalSection_exref;
+    puStack_8 = (undefined1 *)0x4;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    pcVar9 = LeaveCriticalSection_exref;
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    FUN_0040a8c0();
+    puStack_8._0_1_ = 5;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    PeekPacketChecksumState();
+    EncodeOutgoingPacketField();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,4);
+    if (iStack_88c != 0) {
+      FUN_0040a240();
+      FUN_0040b540();
+      pcVar9 = LeaveCriticalSection_exref;
+    }
+    puStack_8 = (undefined1 *)0xffffffff;
+    if (iStack_668 != 0) {
+      FUN_0040a240();
+      FUN_0040b540();
+      pcVar9 = LeaveCriticalSection_exref;
+    }
+    FUN_0040a7d0();
+    puStack_8 = (undefined1 *)0x6;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    (*pcVar9)();
+    piStack_8d0 = (int *)0x4390ad;
+    FUN_0040a8c0();
+    uStack_c = CONCAT31(uStack_c._1_3_,7);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    PeekPacketChecksumState();
+    EncodeOutgoingPacketField();
+    (*pcVar9)();
+    uStack_10 = CONCAT31(uStack_10._1_3_,6);
+    if (iStack_670 != 0) {
+      FUN_0040a240();
+      FUN_0040b540();
+      pcVar9 = LeaveCriticalSection_exref;
+    }
+    uStack_10 = 0xffffffff;
+    if (iStack_894 != 0) {
+      FUN_0040a240();
+      FUN_0040b540();
+      pcVar9 = LeaveCriticalSection_exref;
+    }
+    piStack_8d0 = piVar2 + 0xa42;
+    puStack_8d4 = (undefined1 *)0x439172;
+    FUN_0040a7d0();
+    uStack_10 = 8;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    uVar5 = PeekPacketChecksumState();
+    (*pcVar9)();
+    piStack_8d0 = (int *)auStack_688;
+    puStack_8d8 = (undefined *)0x4391b4;
+    puStack_8d4 = (undefined1 *)uVar5;
+    FUN_0040a8c0();
+    uStack_14 = 9;
+    piStack_8d0 = (int *)0x4391c7;
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    PeekPacketChecksumState();
+    piStack_8d0 = (int *)0x4391e7;
+    EncodeOutgoingPacketField();
+    piStack_8d0 = (int *)0x4391ee;
+    (*pcVar9)();
+    puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,8);
+    if (iStack_668 != 0) {
+      FUN_0040a240();
+      FUN_0040b540();
+      pcVar9 = LeaveCriticalSection_exref;
+    }
+    puStack_8 = (undefined1 *)0xffffffff;
+    if (iStack_88c != 0) {
+      FUN_0040a240();
+      FUN_0040b540();
+      pcVar9 = LeaveCriticalSection_exref;
+    }
+  }
+  cVar1 = FUN_00406610();
+  if (cVar1 != '\0') {
+    (*pcVar10)();
+    PeekPacketChecksumState();
+    (*pcVar9)();
+    piStack_8d0 = piVar2 + 0x930;
+    puStack_8d4 = (undefined1 *)0x4392c2;
+    FUN_0040a7d0();
+    uStack_10 = 10;
+    (*pcVar10)();
+    puVar6 = (undefined1 *)PeekPacketChecksumState();
+    puVar12 = &DAT_005a9068;
+    piStack_8d0 = (int *)0x4392ed;
+    (*pcVar9)();
+    piStack_8d0 = (int *)pcVar13;
+    puStack_8d4 = auStack_68c;
+    puStack_8d8 = puVar6;
+    iVar3 = FUN_0040a8c0();
+    piStack_8d0 = (int *)&DAT_005a9068;
+    uStack_18 = 0xb;
+    puStack_8d4 = (undefined1 *)0x439317;
+    (*pcVar10)();
+    puStack_8d4 = (undefined1 *)0x439320;
+    puStack_8d4 = (undefined1 *)PeekPacketChecksumState();
+    puStack_8d8 = (undefined1 *)0x439326;
+    EncodeOutgoingPacketField();
+    puStack_8d4 = &DAT_005a9068;
+    puStack_8d8 = (undefined1 *)0x43932d;
+    (*pcVar9)();
+    uStack_20 = CONCAT31(uStack_20._1_3_,10);
+    if (iStack_680 != 0) {
+      puStack_8d8 = (undefined1 *)0x43934c;
+      FUN_0040a240();
+      puStack_8d8 = &stack0xfffff740;
+      FUN_0040b540();
+      pcVar9 = LeaveCriticalSection_exref;
+    }
+    uStack_20 = 0xffffffff;
+    if (iStack_8a4 != 0) {
+      puStack_8d8 = (undefined1 *)0x439388;
+      FUN_0040a240();
+      puStack_8d8 = &stack0xfffff740;
+      FUN_0040b540();
+      pcVar9 = LeaveCriticalSection_exref;
+    }
+    puStack_8d8 = &DAT_005a9068;
+    (*pcVar10)();
+    PeekPacketChecksumState();
+    (*pcVar9)(&DAT_005a9068);
+    FUN_0040a7d0(piVar2 + 0x9b9,&stack0xfffff740,puVar12);
+    uStack_28 = 0xc;
+    (*pcVar10)(&DAT_005a9068);
+    piStack_8d0 = (int *)PeekPacketChecksumState();
+    puVar11 = &DAT_005a9068;
+    (*pcVar9)(&DAT_005a9068);
+    puStack_8d4 = (undefined1 *)FUN_0040a8c0(piStack_8d0,auStack_6a4,puStack_8d4);
+    uStack_30 = 0xd;
+    (*pcVar10)(&DAT_005a9068);
+    uVar5 = PeekPacketChecksumState();
+    EncodeOutgoingPacketField(uVar5);
+    puVar12 = &DAT_005a9068;
+    (*pcVar9)(&DAT_005a9068);
+    uStack_38 = CONCAT31(uStack_38._1_3_,0xc);
+    if (iStack_698 != 0) {
+      FUN_0040a240();
+      FUN_0040b540(&puStack_8d8);
+      pcVar9 = LeaveCriticalSection_exref;
+    }
+    uStack_38 = 0xffffffff;
+    if (iVar3 != 0) {
+      FUN_0040a240();
+      FUN_0040b540(&puStack_8d8);
+      pcVar9 = LeaveCriticalSection_exref;
+    }
+    (*pcVar10)(&DAT_005a9068);
+    PeekPacketChecksumState();
+    (*pcVar9)(&DAT_005a9068);
+    FUN_0040a7d0(piVar2 + 0xa42,auStack_26c,puVar11);
+    uStack_40 = 0xe;
+    (*pcVar10)(&DAT_005a9068);
+    uVar5 = PeekPacketChecksumState();
+    (*pcVar9)(&DAT_005a9068);
+    FUN_0040a8c0(uVar5,auStack_498,puVar12);
+    uStack_48 = 0xf;
+    (*pcVar10)(&DAT_005a9068);
+    uVar5 = PeekPacketChecksumState();
+    EncodeOutgoingPacketField(uVar5);
+    (*pcVar9)(&DAT_005a9068);
+    puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,0xe);
+    if (iStack_444 != 0) {
+      FUN_0040a240();
+      FUN_0040b540();
+    }
+    puStack_8 = (undefined1 *)0xffffffff;
+    if (iStack_220 != 0) {
+      FUN_0040a240();
+      FUN_0040b540();
+    }
+  }
+  RegisterActiveObject();
+  *unaff_FS_OFFSET = uStack_10;
+  return;
+}
+
