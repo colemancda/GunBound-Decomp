@@ -895,10 +895,46 @@ directly** for a large class of content:
   by the UI layer for text rendering and by the terrain layer (its
   original `GameTick` callers, still uncontradicted) for crater/damage
   decals — both are just different streams sharing the same glyph/stencil
-  table. Exactly how single-byte (Latin, `FUN_004eafa0`) vs. two-byte
-  (`FUN_004eaeb0`) codepoints map to specific stencil-table indices, and
-  whether the terrain and font use the *same* or a separately-addressed
-  region of `&DAT_005b3628`, is not yet traced further.
+  table.
+
+  **Follow-up: the single-byte vs. two-byte codepoint indexing is now
+  fully resolved from raw disassembly of `BlitRLESprite` itself** (not
+  relying on the decompiler's register-attribution, which was unreliable
+  for this hand-tuned calling convention). There are **two separate glyph
+  tables**, not one shared table:
+  - High-bit-set (two-byte/DBCS, likely EUC-KR Korean) control bytes index
+    `&DAT_005b3628`, stride **24 bytes** (`(controlByte & 0x7f) << 8 |
+    nextByte`, then `* 24`) — each entry is **12 rows × 12 bits**, packed
+    2 bytes/row, drawn by `FUN_004eaeb0`.
+  - Plain (high-bit-clear, single-byte ASCII/Latin, excluding `0x20`
+    space) control bytes index a **different table at `0x673628`**,
+    stride **12 bytes** (`asciiCode * 12`, direct linear index — no bit
+    manipulation, since the whole 7-bit ASCII code fits) — each entry is
+    **12 rows × 8 bits**, 1 byte/row, drawn by `FUN_004eafa0`. The color
+    to stamp is threaded through as a fixed value from `BlitRLESprite`'s
+    own color argument (confirmed: the same 16-bit color forwarded
+    unchanged into every row-write in both helpers) — i.e. **flat,
+    single-color bitmap-font glyphs**, no anti-aliasing.
+
+  Both tables read as **all-zero** in the static binary — same
+  "initialized=true but zero-filled" pattern already found for
+  `g_spriteVertexBuffer` — confirming they are **runtime-populated glyph
+  caches** (loaded from a font/bitmap resource at startup, not compiled-in
+  literal data), rather than something bakeable/dumpable directly from
+  the `.gme` file.
+
+  This also revises the earlier "terrain crater" hypothesis: since
+  `BlitRLESprite` is a single shared code path used identically regardless
+  of caller — every caller's byte stream is interpreted the same way,
+  through the same two glyph tables — the `GameTick`-side callers found
+  earlier are much more likely drawing **text/number overlays onto the
+  battlefield** (e.g. damage numbers, player name labels rendered over
+  the terrain layer during the software-blit pass) rather than terrain
+  deformation/crater graphics specifically. There's no separate
+  "terrain-shape" table distinct from the font tables — it's the same
+  bitmap-font renderer used everywhere text needs to be drawn, in menus
+  and in the battle HUD alike. The original "terrain tile renderer" guess
+  for this function should be considered superseded, not just extended.
 - **`BlitSprite16bpp`** (`0x4ed6a0`, was `FUN_004ed6a0`): the function
   actually relevant to `.img` sprites. Operates on `unsigned short*`
   pixels → the surfaces are **16-bit color**, confirmed as **ARGB4444**

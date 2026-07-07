@@ -771,12 +771,16 @@ would have suggested, not a rare edge case.
 
 **`BlitRLESprite` re-identified**: decompiling it in full (rather than
 just recognizing "RLE" in its name and assuming it's the `.img` decoder)
-shows it's actually a **byte-oriented, table-lookup-driven renderer**
-(high bit of a control byte selects between a 12-byte and 6-byte draw
-command, indexing a lookup table at `&DAT_005b3628`) — structurally
-nothing like a flat pixel/scanline sprite decoder. This is much more
-consistent with a **terrain/map tile renderer** than a general sprite
-decoder, correcting an assumption carried since early in this project.
+shows it's actually the game's **bitmap-font text renderer** — a
+byte-oriented control-byte stream where a single-byte (ASCII) code looks
+up a 12×8 monochrome glyph in a table at `0x673628` (stride 12 bytes) and
+a two-byte (high-bit-set, likely EUC-KR/DBCS) code looks up a 12×12 glyph
+in a separate table at `&DAT_005b3628` (stride 24 bytes), stamping the
+caller's fixed color through whichever glyph is selected — structurally
+nothing like a flat pixel/scanline sprite decoder, and not a terrain-tile
+renderer either (an earlier guess in this same pass, since superseded
+once its callers were traced to UI/HUD text sites via `sprintf`'d string
+buffers). See ARCHITECTURE.md's rendering section for the full trace.
 `BlitSprite16bpp` (operating on `unsigned short*` pixel data, matching the
 confirmed 16-bit format here) is the function actually relevant to `.img`
 sprites — though its real internal logic turned out to be a **sparse
