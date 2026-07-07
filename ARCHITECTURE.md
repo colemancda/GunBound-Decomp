@@ -389,7 +389,7 @@ events into this same dispatcher rather than having a separate player).
 | `0x8403` | **Fire.** The richest payload: 2 fields, 2 bool flags, 2 more fields, then **8 sequential shorts** (`+0x2c`..`+0x3a`, 16 bytes — likely trajectory waypoints or arc sample points), forwarded via the same outgoing-encode helpers, then plays the `ifire` sound effect. This is the confirmed weapon-fire action; exact waypoint semantics not yet decoded. |
 | `0x8404` | Appends a new entry across four parallel per-slot arrays at `+0x27`/`+0xa7`/`+0x127`/`+0x1a7` (a *different*, smaller set of parallel arrays than `0x8408`'s) — some other per-shot or per-projectile record, calls `FUN_004ccbb0`. |
 | `0x8405` | Plays one of three weapon-select sounds (`b_play_weapon1/2/3`) based on which weapon slot was chosen — **weapon selection**. |
-| `0x8407` | Selects one of three lookup tables by a mode byte (1/2/3) — purpose unclear, possibly per-weapon or per-stage table selection. |
+| `0x8407` | **Corrected from the previous pass — not a table selector.** All three mode-byte cases (1/2/3) call `FUN_0040a4d0(<address>)` then `AddToPacketChecksum(result)`. Decompiling `FUN_0040a4d0` shows it takes **no parameters at all** — it just enters the critical section, calls `PeekPacketChecksumState()`, and returns; the `DAT_00e9ba40`/`DAT_00e9b818`/`DAT_00796aa0` addresses pushed right before each call are never read by the callee. Raw disassembly confirms the `PUSH <address>; CALL FUN_0040a4d0` pair really is emitted with no stack cleanup consuming that value inside the callee — most likely a compiler/SEH-frame artifact or genuinely dead code (this codebase's exception-handling prologues push similar-looking constants elsewhere), not a meaningful per-mode table lookup. The net real effect of all three cases is identical: peek the current packet-checksum state and fold it back into itself via `AddToPacketChecksum` — likely a no-op-shaped integrity/keepalive step rather than gameplay data. |
 | `0x8408` | **Player spawn into battle**: appends a new entry across four parallel per-slot `uint` arrays at `+0x228`/`+0x2a8`/`+0x328`/`+0x3a8`, indexed by a shared active-slot counter (`+0x227`). Confirmed sources: `+0x228` = current packet parse cursor value (position-dependent, no fixed payload offset), `+0x2a8` = fixed payload offset `0x23` (ushort), `+0x3a8` = fixed payload offset `0x25` (full 32-bit value), `+0x328` = the team/slot byte read once at the start of `ProcessBattleAction` (`payload+5`). Calls `FUN_004ccc60` (spawn visual?), increments the player count. Opcode `0x3020`'s disconnect handler shifts down three of these four arrays (`+0x228`/`+0x2a8`/`+0x328` — notably *not* `+0x3a8`) — confirms a structure-of-arrays layout for the active battle slots, distinct from the unrelated, genuinely `0x224`-byte, player-ID-indexed array also touched by `0x3020` (see that row above). |
 | `0xc300` | **Turn start** (best guess): posts three chained sub-events via `PostTurnEvent(&DAT_00e55ce0, code)` — `0xc300` (self), `0xc306`, `0xc40b` — a genuine turn/round event-dispatch mechanism. The `0xc306`/`0xc40b` handlers are the natural next lead for finding the actual physics tick. |
 | `0xc301` | **Turn timer/setup** — shared verbatim with `State10_Loading_ProcessBattleAction`: writes the turn-timer field (`+0x10a4`, checked against `60000`ms) and copies an 8-element setup array (`+0x2302`, likely wind/spawn data). |
@@ -670,10 +670,35 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
    uses the shared no-op) — strong confirmation this is a real-time/
    P2P-adjacent protocol distinct from `ProcessPacket`. Found a concrete
    cross-state data handoff (Loading writes turn-timer + setup data
-   directly into the In-Battle object before it's even active). Socket-level
-   proof (which recv path feeds slot 1 vs slot 2) is still unconfirmed —
-   would need to trace `recv`/`recvfrom` callers forward rather than working
-   backward from the vtables. Two more action codes decompiled and
+   directly into the In-Battle object before it's even active).
+
+   **Socket-level proof, found by tracing `recvfrom` callers forward.**
+   There are two, and they're architecturally distinct, not just two
+   code paths to the same dispatcher:
+   - `FUN_004ff770` — a simple, direct UDP handler: `recvfrom` a datagram,
+     validate its embedded length field, decrypt/checksum it (a short
+     block-based routine — packet size must be a multiple of 16 past a
+     fixed prefix, checked via `(len & 0x8000000f) == 0`), then call
+     **`(**(vtable+8))(...)` directly from the network callback** — vtable
+     slot 2, i.e. **`ProcessBattleAction`**. Real-time battle actions are
+     dispatched synchronously the instant they arrive, no queueing.
+   - `FUN_004e6160` — a much larger (1,541-byte), full reliable-UDP peer
+     layer: per-slot (0-7) sequence tracking, duplicate-datagram detection
+     (comparing the new payload byte-for-byte against the last-received
+     buffer for that slot), a summed checksum validation matching the
+     style already documented for `.dat`/`.xfs` integrity checks, ack
+     sending, and RTT measurement via `timeGetTime()`. On a valid new
+     packet it does **not** call any vtable slot itself — it copies the
+     payload into a per-slot buffer and calls `FUN_004e8f70`, which turns
+     out to be a **queue insert** (append into a ring buffer, stride
+     `0x206`), not a dispatch. This confirms Channel 1 (`ProcessPacket`)
+     packets are queued on arrival and drained later (almost certainly
+     once per `GameTick`, matching the polling architecture already
+     documented elsewhere), while Channel 2 (`ProcessBattleAction`)
+     bypasses the queue entirely for lower latency — exactly the
+     asymmetry you'd want for a turn-based-but-real-time artillery game:
+     guaranteed, ordered delivery for room/lobby state, fire-and-forget
+     immediacy for in-battle actions. Two more action codes decompiled and
    documented this pass: `0x8104` (shows the end-of-match "confirm result"
    button) and `0x8500` (a player-position/status relay, also independently
    confirmed as a replay-event code logged elsewhere — see

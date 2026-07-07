@@ -54,10 +54,17 @@ vtable table):
   (vtable slot 2). A second protocol, present only on Loading/ReadyRoom/
   InBattle (every other state uses the shared no-op for this vtable slot),
   with a different **fixed 33-byte header** (see below) instead of the
-  simple `(len, opcode, payload)` triple. Working theory, not proven at the
-  socket level: this is the real-time/P2P channel, separate from the
-  server-relayed Channel 1 — see ARCHITECTURE.md's rendering/physics
-  sections for the reasoning.
+  simple `(len, opcode, payload)` triple. **Now proven at the socket
+  level** (previously a working theory only) — see ARCHITECTURE.md's
+  "Socket-level proof" writeup: tracing both `recvfrom` callers forward
+  shows Channel 2 is dispatched **synchronously, straight from the network
+  receive callback**, with only a lightweight length/checksum check, no
+  sequence tracking or dedup. Channel 1 goes through a much larger
+  reliable-UDP peer layer (per-slot sequencing, duplicate detection, acks,
+  RTT tracking) that **queues** validated packets rather than dispatching
+  them immediately — they're drained later, not inline with `recvfrom`.
+  This confirms the real-time/low-latency-vs-reliable-ordered distinction
+  architecturally, not just by inference from which states implement it.
 
 All outgoing packet fields are pushed through a lightweight
 **XOR-based encode/checksum** function family (`EncodeOutgoingPacketField`,
@@ -1448,36 +1455,29 @@ different trigger conditions/gating (their surrounding guard conditions
 differ slightly), or may be genuinely distinct events that happen to share
 an identical payload shape. Grouped together as the "aim relay" pair.
 
-#### Action `0x8407` — Game-constant table lookup and relay
+#### Action `0x8407` — packet-checksum keepalive (corrected from an earlier pass)
 
 **Direction**: incoming.
 
 **Payload**: `payload[0]`, a value of `1`, `2`, or `3`.
 
-**Behavior**: selects one of **three global tables** based on the payload
-value — `DAT_00e9ba40` (value `1`), `DAT_00e9b818` (value `2`), or
-`DAT_00796aa0` (value `3`) — reads a value from the selected table, and
-relays it onward via `AddToPacketChecksum`.
-
-**Significance**: extensively investigated but **not conclusively
-resolved**. `DAT_00796aa0` is referenced by roughly 80 different functions
-across the binary — including every single per-character weapon-effect
-constructor function found during the rendering investigation — making it
-read more like a general-purpose shared counter/accessor than a
-domain-specific "game constant" table; `DAT_00e9ba40` is similarly broadly
-referenced (~45 functions, mostly battle and per-character code);
-`DAT_00e9b818` by contrast has only 3 references total (`WinMain`, this
-function, and the unconditional per-tick hook), making it the most likely
-candidate for something genuinely specific to this context, though its
-exact value/meaning wasn't independently pinned down. Disassembly-level
-investigation of the shared accessor function these all route through
-(`0x40a4d0`) showed it to be a critical-section-locked variant of the same
-generic "read a value from an object" pattern used by
-`PeekPacketChecksumState`, meaning each of the three globals is functioning
-as an object instance being queried, not as a flat lookup table with fixed
-semantics — pinning the *exact* value/meaning used at this specific call
-site would require per-callsite dataflow tracing beyond what was performed
-in this analysis pass.
+**Behavior, re-decompiled and corrected**: an earlier pass read this as
+"select one of three global tables (`DAT_00e9ba40`/`DAT_00e9b818`/
+`DAT_00796aa0`) and read a value from it" and left the exact semantics
+unresolved. Fully decompiling the shared accessor function all three
+cases call (`FUN_0040a4d0`, `0x40a4d0`) shows **it takes no parameter at
+all** — its entire body is `EnterCriticalSection`, `PeekPacketChecksumState()`,
+`LeaveCriticalSection`, return. Raw disassembly at each `0x8407` call site
+confirms `PUSH <address>; CALL FUN_0040a4d0` really is emitted, but that
+pushed value is never read inside the callee — it's dead from the
+callee's perspective (most likely a compiler/exception-handling-frame
+artifact rather than a real argument; this codebase's SEH prologues push
+similar-looking constants elsewhere). **All three mode-byte cases reduce
+to the identical real effect**: peek the current packet-checksum state
+and fold it back into itself via `AddToPacketChecksum`. This reads as a
+lightweight keepalive/integrity step, not a real per-mode table lookup or
+meaningful gameplay data — the "game-constant table" framing from the
+earlier pass doesn't hold up under a full decompile of the accessor.
 
 #### Action `0x8408` — Player spawn into battle
 
@@ -1877,14 +1877,10 @@ What remains genuinely open is **depth** on a specific handful of points,
 listed here so future work has a concrete starting list rather than a vague
 "more research needed":
 
-1. **Action `0x8407`'s three underlying tables** (`DAT_00e9ba40`,
-   `DAT_00e9b818`, `DAT_00796aa0`) — investigated at the disassembly level
-   (see that action's writeup above for the full reasoning), but the exact
-   value/meaning selected at this specific call site wasn't pinned down;
-   `DAT_00796aa0` and `DAT_00e9ba40` in particular are referenced far too
-   broadly across the codebase (dozens to ~80 functions each) to be
-   confidently characterized as fixed "game constant" tables rather than
-   shared general-purpose counters.
+1. ~~Action `0x8407`'s three underlying tables~~ — **resolved**: they
+   aren't real per-mode tables at all. A full decompile of the shared
+   accessor (`FUN_0040a4d0`) showed it ignores its argument entirely and
+   just peeks the packet-checksum state; see the corrected writeup above.
 2. **Action `0x8404`'s exact purpose** (the third parallel-array set,
    tentatively a hit/damage log entry) — no other confirmed code in the
    binary was found touching these same offsets to independently
