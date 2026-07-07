@@ -22,7 +22,6 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
   undefined4 uVar8;
   undefined4 uVar9;
   undefined4 uVar10;
-  undefined4 *unaff_FS_OFFSET;
   undefined *puVar11;
   undefined4 uVar12;
   undefined1 local_112c [548];
@@ -34,14 +33,14 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
   undefined1 local_454 [548];
   undefined1 local_230 [544];
   undefined4 uStack_10;
-  undefined4 local_c;
-  undefined1 *puStack_8;
   int local_4;
   
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_005400f8;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_005400f8) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. local_4's
+   * `._0_1_`/`._1_3_` partial-field accesses are rewritten as plain
+   * int operations, same reasoning as FUN_004174c0.c's fix. */
   uStack_10 = 0x4668af;
   uVar3 = FUN_0045f840();
   switch(param_2) {
@@ -89,7 +88,7 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     uVar7 = FUN_0040aca0(param_1 + 0xb30,local_ce4,param_1 + 0x5620);
     local_4 = 0;
     uVar8 = FUN_0040aba0(param_1 + 0x90c,local_454,param_1 + 0x53fc);
-    local_4._0_1_ = 1;
+    local_4 = 1;
     uVar5 = FUN_004065a0(uVar5,1);
     uVar9 = FUN_0040a4d0(param_1 + 0x7864);
     uVar10 = FUN_0040a4d0(param_1 + 0x4d90);
@@ -97,7 +96,7 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     uVar8 = FUN_0040a4d0(uVar8);
     FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar6,8,0,*(int *)(param_1 + 0xae2c) != 0,uVar8,uVar7,
                  uVar10,uVar9,uVar3,uVar5);
-    local_4 = (uint)local_4._1_3_ << 8;
+    local_4 = 0;
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
@@ -128,7 +127,7 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     uVar7 = FUN_0040aca0(param_1 + 0xb30,local_89c,param_1 + 0x5a68);
     local_4 = 2;
     uVar8 = FUN_0040aba0(param_1 + 0x90c,local_112c,param_1 + 0x5844);
-    local_4._0_1_ = 3;
+    local_4 = 3;
     uVar5 = FUN_004065a0(uVar5,1);
     uVar9 = FUN_0040a4d0(param_1 + 0x7864);
     uVar10 = FUN_0040a4d0(param_1 + 0x4d90);
@@ -136,7 +135,7 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     uVar8 = FUN_0040a4d0(uVar8);
     FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar6,8,1,*(int *)(param_1 + 0xae2c) != 0,uVar8,uVar7,
                  uVar10,uVar9,uVar3,uVar5);
-    local_4 = CONCAT31(local_4._1_3_,2);
+    local_4 = 2;
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
@@ -165,14 +164,14 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     uVar5 = FUN_0040aca0(param_1 + 0xb30,local_ac0,param_1 + 0x5620);
     local_4 = 4;
     uVar6 = FUN_0040aba0(param_1 + 0x90c,local_f08,param_1 + 0x53fc);
-    local_4._0_1_ = 5;
+    local_4 = 5;
     uVar4 = (uint)*(ushort *)(param_1 + 0xbfbc);
     uVar7 = FUN_0040a4d0(param_1 + 0x7864);
     uVar8 = FUN_0040a4d0(param_1 + 0x4d90);
     uVar5 = FUN_0040a4d0(uVar5);
     uVar6 = FUN_0040a4d0(uVar6);
     FUN_004317b0(*(undefined1 *)(param_1 + 8),uVar3,uVar6,uVar5,uVar8,uVar7,uVar4);
-    local_4 = CONCAT31(local_4._1_3_,4);
+    local_4 = 4;
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
@@ -204,7 +203,7 @@ LAB_00466d7f:
       local_4 = 6;
       uVar7 = FUN_0040aba0(param_1 + 0x90c,local_678,param_1 + 0x5c8c);
       uVar12 = 1;
-      local_4._0_1_ = 7;
+      local_4 = 7;
       uVar8 = FUN_004065a0(uVar5,1);
       uVar9 = FUN_0040a4d0(param_1 + 0x7864);
       uVar10 = FUN_0040a4d0(param_1 + 0x4d90);
@@ -212,7 +211,7 @@ LAB_00466d7f:
       uVar7 = FUN_0040a4d0(uVar7);
       FUN_0042de70(*(undefined1 *)(param_1 + 8),8,8,*(int *)(param_1 + 0xae2c) != 0,uVar7,uVar6,
                    uVar10,uVar9,uVar3,uVar8,uVar5,uVar12);
-      local_4 = CONCAT31(local_4._1_3_,6);
+      local_4 = 6;
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();
@@ -234,7 +233,6 @@ LAB_00466d7f:
       }
     }
   }
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 
