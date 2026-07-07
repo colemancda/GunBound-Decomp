@@ -61,7 +61,7 @@ void HandleTurnTimeoutSlot(int param_1)
     cVar4 = *(char *)(in_EAX + 7);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(cVar4 == '\x01');
-    pcVar10 = LeaveCriticalSection_exref;
+    pcVar10 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState();
@@ -116,7 +116,7 @@ void HandleTurnTimeoutSlot(int param_1)
           uVar7 = 2;
         }
         CreateButtonWidget(&DAT_00e9be90,0,uVar7,uVar11,pcVar12,uVar13,0x232,0x25,0x26,1,0);
-        pcVar10 = LeaveCriticalSection_exref;
+        pcVar10 = (code *)LeaveCriticalSection;
       }
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -252,6 +252,19 @@ includes), so no raw-ported file needed editing to pick these up.
   certainly wrong at the semantic level in most cases — a `uint32_t`
   might really be a signed `int`, a float's bit pattern, or a struct
   pointer. Good enough to compile; not verified.
+- **The original scan that generated this file missed roughly 1159
+  addresses** that are actually referenced somewhere in `src/` (found
+  by re-diffing every `_?DAT_<address>` occurrence in source against
+  what's declared here, while working down `make winelib-
+  syntax-check`'s FAIL list). Many of these are likely false positives
+  — small values like `DAT_00000006`/`DAT_00007f00` are almost
+  certainly `MAKEINTRESOURCE`-style fake-pointer immediates (the same
+  pattern already fixed by hand in `entry/WinMain.c`), not real memory
+  addresses, and shouldn't be declared as globals at all. The rest are
+  probably real and simply need adding. Not re-generated in bulk this
+  pass — one (`DAT_0058bb04`) was added by hand since it was blocking
+  `unnamed/FUN_0041eb80.c`; expect more of these to surface as
+  individual compile failures while working through the FAIL list.
 - **String literals have their real, actual content** — extracted
   directly from the binary's data section (not placeholders), since the
   address is conveniently embedded in Ghidra's own symbol name

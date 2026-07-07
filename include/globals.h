@@ -338,6 +338,10 @@ extern uint8_t DAT_00588f64;
 extern void * DAT_0058b248;
 #define _DAT_0058b248 DAT_0058b248
 extern uint8_t DAT_0058b8d6;
+/* Missing from the original scan (see src/README.md's "Global
+ * variables" section for the known ~1159-address gap this was pulled
+ * from) - added by hand since it was blocking FUN_0041eb80.c. */
+extern uint8_t DAT_0058bb04;
 extern uint8_t DAT_005a9068;
 extern uint8_t DAT_005a9084;
 extern uint32_t DAT_005b1444;
@@ -627,7 +631,7 @@ extern uint32_t DAT_00e53c44;
 extern uint32_t DAT_00e53c48;
 extern uint8_t DAT_00e53e88;
 extern uint8_t DAT_00e55a45;
-extern uint32_t DAT_00e55a64;
+extern int *DAT_00e55a64; /* used dereferenced as a vtable-bearing ptr at call sites */
 extern uint8_t DAT_00e55ab8;
 extern uint8_t DAT_00e55ce0;
 extern uint32_t DAT_00e55ce8;
