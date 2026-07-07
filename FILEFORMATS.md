@@ -521,6 +521,14 @@ stage record has:
   (matching the classic GunBound stage gimmicks: force fields, gust winds,
   electric hazards, wind effects, "return" teleport pads, healing zones,
   and a fog-of-war-style visibility effect), plus a version field.
+  **The "Return" (`귀환`) gimmick is independently confirmed client-side**:
+  `GunBound.gme` itself has a `teleport1` sound effect (previously
+  misdocumented in [STRINGS.md](STRINGS.md) as a possible chat command,
+  purely from its position next to real command strings in the data
+  segment) played at both endpoints when two players' positions get
+  swapped in a movement-handling function — exactly the "step on a return
+  pad, swap places with whoever's on the matching pad" mechanic this
+  gimmick name implies.
 
 This resolves what was previously just "several 4-byte fields, not mapped
 field-by-field" into real gameplay semantics — GunBound stages are built

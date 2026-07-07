@@ -83,7 +83,7 @@ likely all part of one chat-command dispatch table:
 | `00553598` | `mutelist` | Opens/references a mute list command. |
 | `005535d0` | `message` | Generic message command. |
 | `005535e0` | `guide` | Help/guide command. |
-| `005535f8` | `teleport1` | Plausibly a GM/debug teleport command — not confirmed as reachable in normal play. |
+| `005535f8` | `teleport1` | **Corrected — not a chat command.** Its placement next to real chat-command strings in the data segment was coincidental. Decompiling its actual xrefs (`FUN_004cc5c0`) shows it's a **sound-effect name**, played via `FUN_004372f0(playerSlot, x, y, 0x14b5, "teleport1")` at both endpoints when two players' positions get swapped — this is the client-side implementation of `stage.dat`'s confirmed `귀환` ("Return") stage gimmick found via `Shinji.exe`'s editor dialog (see FILEFORMATS.md). Genuinely reachable in normal play whenever a stage has that gimmick enabled, not a hidden GM command. |
 | `00553604` | `tnormal` | Sound-profile name (t-prefix variant of the confirmed `normal`/`wnormal` character audio profiles). |
 | `0055360c` | `twnormal` | Sound-profile name (t-prefix variant of `wnormal`). |
 | `00553618` | `wnormal` | Confirmed character audio profile — "weighted"/heavy character sound variant, referenced throughout the battle code. |
