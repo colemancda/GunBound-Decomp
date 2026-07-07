@@ -12,7 +12,7 @@ working, verified LZHUF decoder and `.xfs` extractor now live in
 |---|---|---|---|
 | `.xfs` (`graphics.xfs`, `sound.xfs`, `Avatar.xfs`) | Custom named-entry archive, magic `XFS2` | LZHUF for both the table of contents (target decoded size `0x40` for the header, `0x20000` per 1024-entry chunk) **and each individual entry** (target decoded size = the entry's own confirmed size field, own checksum convention) | **Fully confirmed and working** — all three real `.xfs` files decode end-to-end via `tools/lzhuf/extract_toc.py` |
 | `.dat` (`characterdata.dat`, `itemdata.dat`, `stage.dat`, `specialdata.dat`) | Flat file, no container | **LZHUF-compressed**, same decoder as XFS — **target size differs per file** (confirmed via `LoadGameDataFiles` for three of the four): `characterdata.dat` = `0x14c0` (5,312 bytes), `stage.dat` = `0x3c80` (15,488 bytes), `itemdata.dat` = `0x7850` (30,800 bytes). **`specialdata.dat` is not loaded by this executable at all** — confirmed by listing every `.dat` filename string literal in the whole binary; it isn't among them | Confirmed and working for `characterdata.dat`/`stage.dat`/`itemdata.dat` — real content extracted (item names, stage names, Portuguese item descriptions). `specialdata.dat` is present in `orig/` (see [README.md](README.md)) but `GunBound.gme` never references it by name — likely used by a separate tool/server component, not the game client |
-| `.img` (sprite/texture files, e.g. `tank1.img`, `bullet1n.img`) | Individual asset stored inside the `.xfs` archives, itself LZHUF-compressed as a container entry | Confirmed 48-byte header (width/height/frame-count/hotspot) + raw ARGB4444 pixel data for frame 0 (two earlier guesses, RGB565 and RGB555, both ruled out against a real reference screenshot) | **Fully extracted and visually verified** — three real sprites decoded to PNG via `tools/lzhuf/decode_img.py`, checked into `tools/lzhuf/examples/` |
+| `.img` (sprite/texture files, e.g. `tank1.img`, `bullet1n.img`) | Individual asset stored inside the `.xfs` archives, itself LZHUF-compressed as a container entry | Confirmed 48-byte header (width/height/frame-count/hotspot) + pixel data for frame 0, format selected **per frame** by a real `transparencyType` field: flat RGB565, sparse RGB565, or flat ARGB4444 (54.4%/40.6%/5.1% of the archive respectively) | **Fully extracted and visually verified** — four real sprites decoded to PNG via `tools/lzhuf/decode_img.py`, checked into `tools/lzhuf/examples/`, covering all three pixel sub-formats |
 | `.xes` (sound effects, inside `sound.xfs`) | Raw archive entry (mode flag `1`, no LZHUF) | None — a "headerless WAV": 16-byte WAV `fmt`-style block (PCM/2ch/22050Hz/16-bit) + raw 16-bit PCM | **Fully extracted and OS-validated** — all 85 convert to playable `.wav` via `tools/lzhuf/decode_audio.py` |
 | `.mp3` (music, inside `sound.xfs`) | Raw archive entry (mode flag `1`, no LZHUF) | Standard MPEG audio, stored as-is | **Fully extracted** — all 11 are directly playable, copied byte-for-byte |
 | `.sv` (replay files) | Custom event-stream format | Not compressed (not confirmed either way) | Filename format and per-event record fully confirmed; file open call / possible header not located |
@@ -740,29 +740,34 @@ sheet (`tank1.img`, 36×40 — confirmed to be the "Armour" mobile: orange
 body with red/gray accents and wheels, matching a real reference
 screenshot of the in-game mobile-select screen).
 
-**Pixel format — two wrong guesses before landing on the right one**,
-each ruled out by comparing decoded output against a real reference
-screenshot of the mobile-select screen:
+**Pixel format — corrected twice now.** First pass: two wrong guesses
+(RGB565, then RGB555), ruled out by comparing decoded output against a
+real reference screenshot of the mobile-select screen, before landing on
+ARGB4444 — the giveaway was every common pixel value's **top hex digit
+reading `0xf`** (an alpha nibble at full opacity, not a coincidental
+maxed color channel). That was real progress, but it was then
+**over-generalized into "every `.img` frame is ARGB4444," which is
+wrong**: the pixel format is actually chosen **per frame** by a genuine
+on-disk field (see `transparencyType` below), not fixed for the whole
+format. This second error survived for a while because it happened to be
+right for the specific samples spot-checked at the time (`tank1.img`,
+`bullet1n.img` — both really are ARGB4444) — **but two of this project's
+own "verified" example files were actually wrong**: `avataimsi.img` and
+`presentmode.img` are both genuinely **RGB565**, not ARGB4444. Decoding
+them as ARGB4444 produced a plausible-looking image (a grayish icon, a
+gift box) with a visible magenta/pink tint at the edges — the same
+symptom already known from the earlier RGB555 misstep — but nobody
+re-checked the top-nibble distribution for these two files specifically,
+so the wrong format went unnoticed and unfixed in the checked-in
+examples until now. Both were re-decoded correctly once the real
+`transparencyType` field was used instead of a blanket assumption; see
+`tools/lzhuf/examples/` for the corrected PNGs.
 
-1. **RGB565** (5/6/5 bits): recognizable shape, visibly wrong hue —
-   yellow/pink instead of the correct orange/red.
-2. **RGB555** (5/5/5 bits, top bit assumed unused): better hue, but
-   treads/wheels that should be gray rendered as pink/tan, with stray
-   magenta-ish noise at edges.
-3. **ARGB4444** (4/4/4/4 — alpha/red/green/blue, confirmed correct): the
-   giveaway was checking the actual value distribution in a real decoded
-   sample — every common pixel value's **top hex digit was `0xf`**, which
-   is not a coincidental "red channel near-maxed" pattern (as it would
-   read under RGB565/555) but the alpha nibble reading as fully opaque.
-   Decoding the low 3 nibbles as 4-bit R/G/B fixed everything at once:
-   `tank1.img`'s treads render as correct metallic gray, `bullet1n.img`
-   resolves into a coherent gray/red projectile shape instead of a
-   pink/orange blob, and sprite edges now have clean partial transparency
-   (proper alpha blending) instead of a harsh solid-color or magenta
-   fringe. This is a good reminder that a plausible decoded *shape* isn't
-   sufficient proof of a correct pixel format, and that "every sample's
-   top nibble is constant" is a strong tell for an alpha/flag field hiding
-   in what looks like a color channel.
+Archive-wide distribution of the real per-frame format selector, scanned
+across all 8,926 valid `.img` entries in `graphics.xfs`: **54.4% ARGB4444,
+40.6% sparse RGB565, 5.1% flat RGB565** — i.e. sparse RGB565 alone is a
+much bigger fraction of the archive than either wrong-assumption pass
+would have suggested, not a rare edge case.
 
 **`BlitRLESprite` re-identified**: decompiling it in full (rather than
 just recognizing "RLE" in its name and assuming it's the `.img` decoder)
@@ -788,34 +793,38 @@ or larger sheets don't decode cleanly as flat arrays.
 
 | Offset | Size | Field | Notes |
 |---|---|---|---|
-| `0x00` | 4 | Unknown/flags | `0` in all three samples |
+| `0x00` | 4 | Unknown/flags | `0` in all samples tested |
 | `0x04` | 4 | **Frame count** | `1` for the single-frame icon, `5` for the bullet (likely multiple rotation/animation frames), `455` for the tank sheet |
-| `0x08` | 4 | Unknown | Varies per file, not decoded |
+| `0x08` | 4 | **`transparencyType`** — the real per-frame pixel-format selector (low byte only) | `0` = flat RGB565 (always opaque), `1` = sparse RGB565 run list, `2` = flat ARGB4444. **This was previously documented as "unknown, varies per file, not decoded"** — it's actually the single most important field for decoding pixels correctly, and its omission is what caused two of this project's own checked-in examples to be decoded with the wrong colors (see the pixel-format note above). Confirmed both by cross-referencing `InsideGB.exe`'s independent reimplementation (which switches on this same field) and by direct empirical testing (rendering real files both ways and comparing) |
 | `0x0c` | 4 | **Width** (pixels) | Confirmed exactly across flat *and* sparse samples (row count / row content lines up correctly in both decode modes) |
 | `0x10` | 4 | **Height** (pixels) | Confirmed exactly, same way |
 | `0x14` | 4 | Signed `int` — likely **hotspot/origin X offset** | e.g. `-12` for the bullet sprite — consistent with a sprite that rotates/anchors around a point other than its top-left corner (needed for a projectile that spins in flight) |
 | `0x18` | 4 | Signed `int` — likely **hotspot/origin Y offset** | e.g. `-7` for the bullet sprite |
 | `0x1c`-`0x2b` | 16 | Unidentified | Not decoded |
-| `0x2c` | 4 | **Total pixel-run data byte count** for this frame | Equals `width × height × 2` for "flat" entries; for sparse entries it's the actual (smaller) size of the encoded row/run data — see below |
-| `0x30` onward | variable | **Pixel data for frame 0**, in one of two confirmed sub-formats — see below | 16-bit values throughout are **ARGB4444** (4 bits each for alpha/red/green/blue) — reached after two rejected guesses (RGB565, RGB555), see the pixel-format writeup above |
+| `0x2c` | 4 | **Total pixel-run data byte count** for this frame | Equals `width × height × 2` for flat entries (both RGB565 and ARGB4444); for sparse entries it's the actual (smaller) size of the encoded row/run data — see below |
+| `0x30` onward | variable | **Pixel data for frame 0**, format selected by `transparencyType` (`0x08`) — see below | Confirmed **not** a fixed format; a byte-count heuristic ("does `0x2c` equal `width×height×2`") was tried first and produces the right *sub-format* (flat vs. sparse) but says nothing about RGB565 vs. ARGB4444, since both are 2 bytes/pixel — use `transparencyType` directly instead |
 
-**Two confirmed sub-formats for the pixel data**, auto-detected by
-comparing the `0x2c` byte count against `width × height × 2`:
+**Sub-formats for the pixel data, selected by `transparencyType`:**
 
-1. **Flat array** (used when the two match exactly): `width × height`
-   ARGB4444 pixels, row-major, no encoding — confirmed on the three
-   original samples (`avataimsi.img`, `bullet1n.img`, `tank1.img`).
-2. **Sparse per-scanline run list** (used when `0x2c`'s count is smaller
-   than the flat size — i.e. most of the frame is transparent): this is
-   the format `BlitSprite16bpp` actually implements internally. Confirmed
-   directly against `presentmode.img` (a small gift-box icon) by manually
-   verifying three consecutive rows' `stride` fields exactly matched the
-   number of `u16`s consumed by that row's run data. Layout, one entry per
-   row until `height` rows are processed:
+1. **Flat array** (`transparencyType` 0 or 2): `width × height` pixels,
+   row-major, no encoding — RGB565 for type 0, ARGB4444 for type 2.
+2. **Sparse per-scanline run list** (`transparencyType` 1, RGB565 pixels
+   only — no ARGB4444 sparse variant has been observed): this is the
+   format `BlitSprite16bpp` actually implements internally — **re-confirmed
+   via a fresh, independent decompile** of that function (not just reusing
+   earlier notes) to make sure the row-structure documentation was still
+   accurate after the pixel-format correction above. Confirmed both
+   structurally (row `stride` fields exactly match the number of `u16`s
+   consumed by that row's run data, checked on `presentmode.img`) and by
+   pixel *color* (rendering `presentmode.img` end-to-end with this
+   structure plus RGB565 produces a clean, correctly-colored gift-box
+   icon — matching the filename — while the same bytes decoded as
+   ARGB4444 show a magenta tint). Layout, one entry per row until `height`
+   rows are processed:
    ```
    [stride:u16] [run_count:u16]
    then run_count spans of:
-       [x_offset:u16] [length:u16] [length ARGB4444 pixels]
+       [x_offset:u16] [length:u16] [length RGB565 pixels]
    ```
    `stride` is the distance (in `u16` units, measured from the row's own
    start) to the next row's `[stride][run_count]` header. Pixels not
@@ -827,17 +836,36 @@ comparing the `0x2c` byte count against `width × height × 2`:
    transparent" (rather than an error) produces a sane result and matches
    the declared `0x2c` byte budget.
 
+   **Note on a competing algorithm**: an independent Swift reimplementation
+   of this format (a companion project, not part of this repo) uses a
+   structurally different row-walking algorithm for the sparse case —
+   alternating "alpha-run/color-run" pair counts rather than the
+   `stride`/`run_count`/`x_offset`+`length` shape above. Re-decompiling
+   `BlitSprite16bpp` fresh (specifically to check this) found no code path
+   matching that alternate algorithm — the stride/run_count shape
+   documented here is what `GunBound.gme` actually executes. That other
+   project's genuinely correct contribution was recognizing that pixel
+   format is chosen per frame by a real field rather than inferred from
+   byte counts (which is what prompted re-checking this project's own
+   examples and finding the two wrong ones) — but its specific sparse
+   row-decoding algorithm doesn't match this client.
+
 Both `tools/lzhuf/decode_img.py` and `tools/lzhuf/dump_archive.py` now
-implement this auto-detecting flat/sparse decoder.
+read `transparencyType` directly instead of the old byte-count heuristic.
 
 **Bulk-verified against the entire archive**: running
 `dump_archive.py` over all 9,313 entries in `graphics.xfs` extracts
 **8,926 of 8,927 `.img` entries successfully** (99.99%) in ~2 minutes.
 The single failure, `mf00631L.img`, decompresses to only 8 bytes total —
 too small to contain even a 48-byte header, so it's a genuinely empty/stub
-entry rather than a decoder gap. This is strong end-to-end confirmation
-that both the header format and both pixel-data sub-formats (flat and
-sparse) are correctly understood, not just lucky on a handful of samples.
+entry rather than a decoder gap. **Caveat on what "successfully" means
+here**: this stat only measures *decode-without-crashing*, not *correct
+colors* — it was true both before and after the `transparencyType` fix,
+since the byte-count heuristic never crashes, it just silently picks the
+wrong pixel format for RGB565 frames. The real color-correctness
+confirmation is the `transparencyType` field itself plus the two
+before/after visual comparisons in `tools/lzhuf/examples/`
+(`avataimsi.png`, `presentmode.png`), not the bulk crash-free rate.
 
 ### Open questions
 
@@ -900,6 +928,16 @@ sparse) are correctly understood, not just lucky on a handful of samples.
   (blocked by this session's own sandboxing — executing untrusted third-party
   code is out of scope here) or attaching a debugger to `GunBound.gme` live.
   Frame 0 decoding remains fully solved and unaffected by this open question.
+
+  **Independently cross-validated**: a companion Swift reimplementation of
+  this format hits the identical wall — its own multi-frame parser
+  successfully decodes small multi-frame sheets but desyncs on large
+  multi-rotation-frame sheets after the first couple of frames, same as
+  here. Two independent implementations, built from different starting
+  points, converging on the same failure mode is further evidence this is
+  a genuine, non-trivial gap in the reverse-engineered format (or a subtlety
+  shared by both derivations from the same underlying disassembly/IL),
+  not a simple transcription bug specific to one project.
 - Hundreds of `.img` filenames were also observed as string literals
   throughout the character/weapon/effect code (`tank1.img`, `bullet1n.img`,
   `flame11.img`, `mf%05d.img` for terrain deformation frames, etc.),

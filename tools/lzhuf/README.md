@@ -39,14 +39,14 @@ back-references) desynced almost immediately.
 - `extract_toc.py` — parses a `.xfs` file's footer/TOC/entry records using
   `lzhuf.py`. Works correctly end-to-end now.
 - `decode_img.py` — extracts and decodes a real `.img` sprite entry from a
-  `.xfs` archive straight to a viewable PNG (requires Pillow). Decodes
-  pixels as **ARGB4444** — two earlier guesses (RGB565, then RGB555) both
-  produced visibly wrong colors, caught by comparing against a real
-  reference screenshot. Auto-detects and decodes **both** confirmed
-  frame-0 sub-formats (flat pixel array, and a sparse per-scanline
-  run-length list used when most of the frame is transparent); see
-  [FILEFORMATS.md](../../FILEFORMATS.md)'s `.img` section for the full
-  writeup on both.
+  `.xfs` archive straight to a viewable PNG (requires Pillow). Reads the
+  real per-frame `transparencyType` field to pick the pixel format —
+  **flat RGB565, sparse RGB565, or flat ARGB4444** (54.4%/40.6%/5.1% of
+  `graphics.xfs`'s entries respectively) — rather than assuming ARGB4444
+  everywhere, a wrong over-generalization from an earlier pass that went
+  unnoticed in two of this repo's own checked-in examples until corrected;
+  see [FILEFORMATS.md](../../FILEFORMATS.md)'s `.img` section for the full
+  writeup.
 - `dump_archive.py` — bulk-extracts every entry in a `.xfs` archive
   (frame 0 → PNG for `.img` entries, raw bytes for everything else) into a
   review directory. Only decodes as much of each entry as needed for its
@@ -60,12 +60,14 @@ back-references) desynced almost immediately.
   around them), and the 11 `.mp3` music tracks are copied out as-is (they
   were already standard MPEG audio). All 96 confirmed playable by the OS
   (`afinfo`).
-- `examples/` — sample PNGs extracted and decoded this way: `avataimsi.png`
-  (small avatar-placeholder icon), `bullet1n.png` (a projectile sprite —
-  a coherent gray/red shape under the correct ARGB4444 format), 
-  `tank1_frame0.png` (frame 0 of a large multi-frame tank sprite sheet —
-  confirmed to be the "Armour" mobile, colors verified against a real
-  reference screenshot).
+- `examples/` — sample PNGs extracted and decoded this way, covering all
+  three pixel sub-formats: `avataimsi.png` (small avatar-placeholder icon,
+  **RGB565** — re-decoded after being wrongly rendered as ARGB4444 in an
+  earlier pass), `bullet1n.png` (a projectile sprite, ARGB4444), 
+  `tank1_frame0.png` (frame 0 of a large multi-frame tank sprite sheet,
+  ARGB4444 — confirmed to be the "Armour" mobile, colors verified against
+  a real reference screenshot), `presentmode.png` (a gift-box icon,
+  **sparse RGB565** — also re-decoded after the same wrong assumption).
 - `lzhuf_ref.c` — the independent C port used during debugging. **Still
   has the same wrong tables as the original bug** (not yet fixed) — kept
   as-is for historical reference; don't trust its output. Use `lzhuf.py`.
