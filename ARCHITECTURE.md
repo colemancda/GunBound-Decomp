@@ -1231,11 +1231,39 @@ concept in this engine, not separate systems.
    distinct routine at all — every draw call site seen so far (including
    the many small per-icon `BlitSprite16bpp`/`BlitSpriteClipped` dispatches
    found throughout the UI code) does its own **targeted lookup by a known
-   key**, not a full in-order sweep. This thread is left open, but the
-   original framing ("find the iteration loop") may have been the wrong
-   question — the more likely follow-up is confirming whether *any* full
-   tree traversal exists anywhere, rather than continuing to search for
-   one assumed to exist.
+   key**, not a full in-order sweep.
+
+   **Follow-up done: yes, a full traversal exists — for lifecycle
+   management, not rendering.** Decompiled the small cluster of functions
+   sitting right next to `RegisterActiveObject`/`FUN_004f30c0`
+   (`0x4f3020`-`0x4f3150`) and found the rest of this generic container's
+   function suite. The structure turns out to be bucket-chained (each
+   bucket reached via a `[7]`-indexed "next bucket" pointer, each bucket
+   holding a linked chain of entries via `[4]`/`[3]` next/prev pointers) —
+   closer to a hash table with chaining than a plain binary tree. Three
+   full-sweep functions exist:
+   - **`FUN_004f3100`** — walks every bucket and every chained entry; for
+     any entry whose flag byte (`+5`) is set, **unlinks it from the chain
+     and calls its vtable slot 0** (the classic MSVC "scalar deleting
+     destructor" pattern, called with argument `1`). This is a **garbage
+     collector for objects flagged for removal** — the real per-sweep
+     consumer of whatever marks a button/widget as "done."
+   - **`FUN_004f3020`** — walks every bucket, calls vtable slot 0 on
+     *every* contained entry unconditionally, then empties each bucket's
+     chain (resets its sentinel links) without freeing the buckets
+     themselves — a **destroy-all-entries, keep-the-container** operation.
+   - **`FUN_004f3060`** — near-identical to `FUN_004f3020` but also
+     destroys each bucket header itself and resets the container's own
+     head/tail pointers — the **full container teardown**, almost
+     certainly called once at shutdown or state teardown.
+   This resolves the reframed question: a real "walk everything" pass
+   does exist for this shared container, but its job is destruction/
+   cleanup of flagged or all entries, not per-frame drawing — consistent
+   with every draw call site being a targeted lookup, as found above.
+   Which specific event sets an entry's removal flag (a button being
+   closed, a transient effect finishing, etc.) and where each of these
+   three sweep functions gets called from wasn't traced further this
+   pass.
 5. ~~`LoadButtonDefinitionFromXFS`'s binary widget-definition format~~ —
    **resolved**, see the writeup above: `count`, then per-record
    `nameLen`/`name`/`typeByte`/`subCount`/two `subCount`-length dword
