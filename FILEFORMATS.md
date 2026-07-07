@@ -942,6 +942,14 @@ before/after visual comparisons in `tools/lzhuf/examples/`
   a genuine, non-trivial gap in the reverse-engineered format (or a subtlety
   shared by both derivations from the same underlying disassembly/IL),
   not a simple transcription bug specific to one project.
+- **Item shop icon naming confirmed**: decompiling `State07_AvatarStore`'s
+  purchase-confirmation dialog builder (`0x445450`) shows it formats an
+  item icon filename via `sprintf(buf, "%05d.img", itemId & 0x7fff)` —
+  i.e. every purchasable item's icon is simply its **numeric item ID,
+  zero-padded to 5 digits**, e.g. item `123` → `00123.img`. Built right
+  before two `CreateButtonWidget` calls named `b_storewindow_cancel`/
+  `b_storewindow_confirm`, confirming this is the "confirm purchase?"
+  popup, not the main store grid.
 - Hundreds of `.img` filenames were also observed as string literals
   throughout the character/weapon/effect code (`tank1.img`, `bullet1n.img`,
   `flame11.img`, `mf%05d.img` for terrain deformation frames, etc.),
