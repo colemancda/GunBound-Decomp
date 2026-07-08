@@ -1,13 +1,22 @@
-/* FUN_00429de0 - 0x00429de0 in the original binary.
+/* SendJoinRoomByNumber - 0x00429de0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Sends a "join room" request (opcode 0x2110) for a room number the user
+ * typed into a text field. The number string is parsed with _atol and
+ * clamped to 1..1000 (local_84), then divided by 6 for the slot index. This
+ * is preceded by a 0x2100 packet (the same fixed 8-byte 0x2110 layout as
+ * SendJoinRoomSelected follows):
+ *   [u16 opcode=0x2110][u16 roomNumber][u32 payload]
+ * The u32 payload (+0x4d2) is copied from the node field +0x54 via +0x8f.
+ *
+ * Raw/near-verbatim port of Ghidra's decompiler output. Calls to unnamed
+ * FUN_<address> helpers and DAT_<address> globals are left as-is - this
+ * file won't link standalone yet. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00429de0(int param_1)
+void SendJoinRoomByNumber(int param_1)
 
 {
   char cVar1;

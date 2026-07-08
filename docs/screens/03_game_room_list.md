@@ -59,13 +59,15 @@ Every lobby button/menu/list event funnels through this one function,
 | 1 | (Re)build lobby list/dialog panel | `FUN_00509110` (also in OnEnter) |
 | 3 | Enter Avatar Store | send `0x6000` (if inventory loaded) |
 | 4 | Open text-input dialog | `FUN_00429c30` (msg `0x62b2`) |
-| 5 | Enter room by number | send `0x2110` (room# + player name) |
+| 5 | Join selected room (checked) | `SendJoinRoomChecked` → `0x2110`; skips if already in that room |
 | 0xa | Channel/tab mode 1 | request room list `0x2100` (mode=1) |
 | 0xb | Channel/tab mode 2 | request room list `0x2100` (mode=2) |
 | 0xc | Page prev | `0x2100`/`0x2101` (page `-0x118`) |
 | 0xd | Page next | `0x2100`/`0x2101` (page `+0x118`) |
 | 0xe | Open channel selector (mode 6) | build sorted channel list, send `0x2101` |
-| 0xf, 0x1e–0x21, 0x28, 0x29 | list scroll/refresh/leave | minor UI plumbing; `0x29` sends `0x2120` |
+| 0x1f | Join selected room | `SendJoinRoomSelected` → `0x2110` (room# from list table) |
+| 0x21 | Join room by typed number | `SendJoinRoomByNumber` → `0x2100` then `0x2110` (room# via `_atol`, 1..1000) |
+| 0xf, 0x1e, 0x20, 0x28, 0x29 | list scroll/refresh/leave | minor UI plumbing; `0x29` sends `0x2120` |
 
 ## OnEnter (`0x428d00`) notes
 - Registers ~40 button definitions + 12 persistent buttons.
@@ -81,10 +83,37 @@ info/profile broadcast; defines `RoomPlayerSlot`), `0x2121` (join
 confirmation), `0x21f0`–`0x21f7` (per-field player updates), `0x6001`/`0x6002`
 (→ Avatar Store transition & inventory).
 **Outgoing** (from the command dispatcher / mouse handler): `0x2100`
-(request/refresh room list, channel+page), `0x2101` (channel selector/nav),
-`0x2104` (right-click join), `0x2110` (enter room by number), `0x2120`
-(leave/refresh, tentative), `0x6000` (enter Avatar Store).
-Full list under "State 3" in PROTOCOL.md.
+(request/refresh room list, channel+page), `0x2101` (channel selector/nav —
+sends one 12-byte record from the selector table, see below), `0x2104`
+(right-click quick-join from the room grid, via `FUN_00428b90`), `0x2110`
+(enter/join a room — three emitters, see below), `0x2120` (leave/refresh,
+tentative), `0x6000` (enter Avatar Store). Full list under "State 3" in
+PROTOCOL.md.
+
+### `0x2110` — join room (three emitters, one wire layout)
+All three write the same fixed 8-byte packet; only the source of the two
+fields differs:
+
+```
+[u16 opcode=0x2110][u16 roomNumber][u32 payload]
+```
+
+| Emitter | `roomNumber` source | `payload` (u32) | Trigger |
+|---|---|---|---|
+| `SendJoinRoomSelected` (`0x429fd0`) | room-id table `g_clientContext+0x44664+sel*4` | node field `+0x50` | action `0x1f` |
+| `SendJoinRoomChecked` (`0x429b50`) | same room-id table | `_DAT_00551cb1` | action `5`; dedups against rooms already joined |
+| `SendJoinRoomByNumber` (`0x429de0`) | `_atol` of a typed field, clamped 1..1000 | node field `+0x54` | action `0x21`; preceded by a `0x2100` |
+
+> The `payload` is a **fixed 4-byte field**, not a player-name string — an
+> earlier note misread it as a variable-length name.
+
+### `0x2101` — channel/server selector record
+Emitted only in selector mode (`this+0x115 == 6`). Copies one **12-byte
+record** verbatim from the standalone selector table
+(`g_serverSelectRecords`, indexed by `idx*0xc`; count/valid flag in
+`g_serverSelectRecordCount`). The record is three u32 words; their meaning is
+not yet confirmed (the populator, on the server-list receive path, is
+unported). Wire: `[u16 0x2101][12-byte record]`.
 
 > **Correction**: channel switching *does* exist in the lobby — it's an
 > outgoing mechanic (`0x2100` mode byte / `0x2101` selector), which an earlier

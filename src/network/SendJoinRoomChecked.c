@@ -1,16 +1,24 @@
-/* FUN_00429b50 - 0x00429b50 in the original binary.
+/* SendJoinRoomChecked - 0x00429b50 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Sends a "join room" request (opcode 0x2110) for the selected room, but
+ * first scans the client's room list for an entry matching (myUserId,
+ * roomId) and returns early if the client is already in that room. If a
+ * per-room flag (+0x449ae) is clear it emits the fixed 8-byte 0x2110 packet
+ * (room number from the room-id table, u32 payload from _DAT_00551cb1);
+ * otherwise it routes to FUN_00508910 (an "already joined"/error path):
+ *   [u16 opcode=0x2110][u16 roomNumber][u32 payload]
+ *
+ * Raw/near-verbatim port of Ghidra's decompiler output. Calls to unnamed
+ * FUN_<address> helpers and DAT_<address> globals are left as-is - this
+ * file won't link standalone yet. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_00429b50(void)
+void SendJoinRoomChecked(void)
 
 {
   int iVar1;

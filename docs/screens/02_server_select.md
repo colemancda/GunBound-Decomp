@@ -125,6 +125,14 @@ entries (the `desc` table is exactly 16×256 = 0x1000).
 | `0x2001` (`payload[0]==0`) | in | connect confirmed → transition to state 3 |
 | `0x1000`/`0x1100`/`0x1001`/`0x101f` | in/out | keepalive / handshake / address reporting |
 
+> **Selector-record table** (`g_serverSelectRecords`, `0xe54ca8`): a
+> standalone global (12-byte records, count in `g_serverSelectRecordCount`),
+> separate from the SoA above. The Game Room List's channel-selector emits one
+> record verbatim as opcode `0x2101` — see
+> [03_game_room_list.md](03_game_room_list.md). The populator lives on the
+> (still-unported) server-list receive path, so the three u32 fields per
+> record are not yet named.
+
 ## Transitions
 - **In**: from Title (state 1).
 - **Out**: to Game Room List (state 3) on confirmed connect; to Quit via the

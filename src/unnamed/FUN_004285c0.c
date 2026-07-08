@@ -24,12 +24,12 @@ void __thiscall FUN_004285c0(int param_1,int param_2,undefined4 param_3,undefine
         FUN_00429c60(param_1);
       }
       if (*(char *)(param_1 + 0xd) != '\0') {
-        FUN_00429fd0();
+        SendJoinRoomSelected();
       }
       if (*(char *)(param_1 + 0xe) == '\0') {
         return;
       }
-      FUN_00429de0(param_1);
+      SendJoinRoomByNumber(param_1);
       return;
     }
     if (param_2 != 0xb) {
@@ -100,7 +100,7 @@ void __thiscall FUN_004285c0(int param_1,int param_2,undefined4 param_3,undefine
     FUN_00429c30();
     return;
   case 5:
-    FUN_00429b50();
+    SendJoinRoomChecked();
     return;
   case 10:
     *(undefined1 *)(param_1 + 0x115) = 1;
@@ -145,9 +145,9 @@ void __thiscall FUN_004285c0(int param_1,int param_2,undefined4 param_3,undefine
       *(int *)(param_1 + 0x11c) = iVar4;
       iVar4 = iVar4 * 0xc;
       puVar1 = (undefined4 *)(*(int *)(iVar2 + 0x44d0) + 0x4d0 + iVar2);
-      *puVar1 = *(undefined4 *)(&DAT_00e54ca8 + iVar4);
-      puVar1[1] = *(undefined4 *)(&DAT_00e54cac + iVar4);
-      puVar1[2] = *(undefined4 *)(&DAT_00e54cb0 + iVar4);
+      *puVar1 = *(undefined4 *)(g_serverSelectRecords + iVar4);
+      puVar1[1] = *(undefined4 *)(g_serverSelectRecords + iVar4 + 4);
+      puVar1[2] = *(undefined4 *)(g_serverSelectRecords + iVar4 + 8);
       iVar4 = *(int *)(iVar2 + 0x44d0) + 0xc;
     }
     else {
@@ -173,7 +173,7 @@ void __thiscall FUN_004285c0(int param_1,int param_2,undefined4 param_3,undefine
       *(undefined4 *)(iVar2 + 0x44d0) = 6;
       iVar4 = *(int *)(param_1 + 0x118) + 1;
       *(int *)(param_1 + 0x11c) = iVar4;
-      FUN_004d2530(&DAT_00e54ca8 + iVar4 * 0xc);
+      FUN_004d2530(g_serverSelectRecords + iVar4 * 0xc);
       goto LAB_004287a5;
     }
     *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
@@ -198,12 +198,12 @@ LAB_004287a5:
     *(undefined4 *)(param_1 + 0x118) = 0;
     FUN_004021b0(*(undefined4 *)(iVar4 + 0x3f804));
     iVar2 = DAT_007934e8;
-    if (DAT_00e54ca4 != 0) {
+    if (g_serverSelectRecordCount != 0) {
       *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x2101;
       *(undefined4 *)(iVar2 + 0x44d0) = 6;
       *(undefined4 *)(param_1 + 0x118) = 0;
       *(undefined4 *)(param_1 + 0x11c) = 0;
-      FUN_004d2530(&DAT_00e54ca8);
+      FUN_004d2530(g_serverSelectRecords);
       FUN_004d2680();
       FUN_0042a090();
       *(undefined4 *)(param_1 + 4) = 0xffffffff;
@@ -222,7 +222,7 @@ LAB_004287a5:
     FUN_00429fb0();
     return;
   case 0x1f:
-    FUN_00429fd0();
+    SendJoinRoomSelected();
     return;
   case 0x20:
     FUN_00429f90();
@@ -230,7 +230,7 @@ LAB_004287a5:
     break;
   case 0x21:
     FUN_0042a090();
-    FUN_00429de0(param_1);
+    SendJoinRoomByNumber(param_1);
     uVar5 = 1;
     break;
   case 0x28:

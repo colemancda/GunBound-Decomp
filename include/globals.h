@@ -1648,10 +1648,9 @@ extern uint32_t DAT_007a7668;
 extern uint32_t DAT_00989680;
 extern uint32_t DAT_00e54a9c;
 extern uint32_t DAT_00e54aa0;
-extern uint32_t DAT_00e54ca4;
-extern uint32_t DAT_00e54ca8;
-extern uint32_t DAT_00e54cac;
-extern uint32_t DAT_00e54cb0;
+/* 0x2101 server-select selector-record table (see globals.c). */
+extern uint32_t g_serverSelectRecordCount;   /* 0xe54ca4 */
+extern uint8_t  g_serverSelectRecords[21 * 12]; /* 0xe54ca8, 12 bytes/record */
 extern uint32_t DAT_00e54da8;
 extern uint32_t DAT_00e55a34;
 extern uint32_t DAT_00e55a54;

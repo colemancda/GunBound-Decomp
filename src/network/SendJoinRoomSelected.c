@@ -1,13 +1,21 @@
-/* FUN_00429fd0 - 0x00429fd0 in the original binary.
+/* SendJoinRoomSelected - 0x00429fd0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Sends a "join room" request (opcode 0x2110) for the room currently
+ * selected in the room list. The room-number field (+0x4d6) is looked up
+ * from the client's room-id table (g_clientContext + 0x44664 + sel*4) using
+ * the selected list entry (in_EAX+4); the u32 payload (+0x4d2) is copied
+ * from the selected list node's field +0x50. Wire layout is fixed 8 bytes:
+ *   [u16 opcode=0x2110][u16 roomNumber][u32 payload]
+ *
+ * Raw/near-verbatim port of Ghidra's decompiler output. Calls to unnamed
+ * FUN_<address> helpers and DAT_<address> globals are left as-is - this
+ * file won't link standalone yet. See src/README.md's "Raw/verbatim ports"
+ * section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00429fd0(void)
+void SendJoinRoomSelected(void)
 
 {
   char cVar1;

@@ -1451,10 +1451,18 @@ uint32_t DAT_007a7668;
 uint32_t DAT_00989680;
 uint32_t DAT_00e54a9c;
 uint32_t DAT_00e54aa0;
-uint32_t DAT_00e54ca4;
-uint32_t DAT_00e54ca8;
-uint32_t DAT_00e54cac;
-uint32_t DAT_00e54cb0;
+/* --- 0x2101 server-select selector-record table ---
+ * Standalone global (not the server-list SoA, which lives in g_clientContext
+ * at +0x3f808). Records are 12 bytes each; the emit path in
+ * State-3 dispatch (FUN_004285c0, opcode 0x2101) copies one record verbatim
+ * into the send buffer, indexing g_serverSelectRecords + idx*0xc.
+ * Ghidra mistyped the base as uint32_t, but the idx*0xc math is byte
+ * arithmetic, so this is a byte array. The three u32 fields per record are
+ * not yet named - the populator (server-list receive path) is unported.
+ * Sized to the 0x100 bytes between 0xe54ca8 and the next symbol
+ * (0xe54da8) = 21 whole 12-byte records max. */
+uint32_t g_serverSelectRecordCount;         /* 0xe54ca4 - count/valid flag */
+uint8_t  g_serverSelectRecords[21 * 12];    /* 0xe54ca8 - record[0] == old DAT_00e54ca8/cac/cb0 */
 uint32_t DAT_00e54da8;
 uint32_t DAT_00e55a34;
 uint32_t DAT_00e55a54;

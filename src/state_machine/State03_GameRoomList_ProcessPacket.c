@@ -429,7 +429,7 @@ switchD_00428058_default:
           if (*(char *)(iVar24 + 0x449ae + iVar10) != '\0') {
             FUN_00406500(0);
           }
-          FUN_00429b50();
+          SendJoinRoomChecked();
           return;
         }
         FUN_00406500(0);
