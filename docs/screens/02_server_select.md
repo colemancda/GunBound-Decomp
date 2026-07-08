@@ -38,7 +38,31 @@ slots 5 and 6).
 | Buddy-game button | `b_server_buddygame` | (0xa3, 0x227) 0x6b×0x2d |
 | Connect button | `b_server_choiceserver` | (0x199, 0x227) 0x6b×0x2d, **created disabled** |
 | Error dialog OK | `b_error_confirm` (shared) | (0x1c6, 0x14b) 0x4a×0x1a |
-- **Audio**: `channel.mp3`
+- **Audio**: `channel.mp3` (started by `FUN_004eea30(1)`)
+
+### Images loaded by resource ID
+Only the three bottom buttons appear as string literals in `OnEnter`; every
+other resource is preloaded **by numeric ID** via `FUN_004f1790(&DAT_00ea0e18,
+id)` (an XFS-defined resource loader), then bound to a widget. The seven IDs
+`OnEnter` preloads:
+
+| Resource ID | Image / resource | Bound to |
+|---|---|---|
+| `10000` (`0x2710`) | screen background — **`server_list.img`** | drawn by the shared slot-15 blit; same "main background" ID slot Logo1 uses for `logomode.img` |
+| `0x2711` | companion screen-frame/overlay resource | not pinned to a specific `.img` |
+| `1000` (`0x3e8`) | **`b_server_exitgame.img`** | Exit button (id 0, action `1000`) |
+| `0x3e9` | **`b_server_buddygame.img`** | Buddy button (id 1, action `0x3e9`) |
+| `0x3ea` | **`b_server_choiceserver.img`** | Connect button (id 2, action `0x3ea`) |
+| `0x44c` | **`b_server_all.img`** | "View All" panel button (`BuildWorldListPanel`) |
+| `0x44d` | **`b_server_friend.img`** | "Friends" panel button (`BuildWorldListPanel`) |
+
+The `.img` filenames come from the archive TOC (STRINGS.md, cluster
+`0x557144`–`0x5571f8`), not from this state's code. The per-row sprites (row
+background, F/E population dial, scroll arrows) are drawn via texture-cache
+lookups at render time and are most likely frames within `server_list.img`
+rather than separate files (inferred, not confirmed by name). `10000`/`0x2711`
+are the least certain — `10000` maps to the background by analogy with other
+screens; `0x2711`'s exact target isn't confirmed.
 
 ## State object fields (offsets into the 0x6c object)
 | Offset | Field |
