@@ -36,27 +36,41 @@ above is needed even for functions that don't touch Windows APIs directly.
 
 ## Diffing a function against the original
 
-No full relinked/address-matched image exists yet (that's what would let the
-real `asm-differ` `-o <ADDR>` flow work end-to-end - see `diff_settings.py`,
-still a template). Until then, `tools/diff_func.sh` gives an instruction-level
-side-by-side using `llvm-objdump` directly against the original PE's real
-virtual addresses (no manual byte extraction needed - llvm-objdump reads
-`orig/GunBound.gme`'s PE headers itself):
+No full relinked/address-matched image exists (building one is a bigger lift -
+a linker script/fake-object setup so every function address matches the
+original), so the real `asm-differ` `-o <ADDR>` flow (which needs a mapfile)
+isn't wired up. Instead, `diff_settings.py` (repo root) configures asm-differ's
+**`-e`/ELF-symbol mode**, which needs no relinked image at all: `myimg` can be
+any compiled `.obj`, and asm-differ disassembles just the one named symbol out
+of it, lined up against the original binary's real bytes at a given VA range.
+This is the real tool - colorized, aligned, scored - not an approximation.
 
 ```
-tools/diff_func.sh 4ea120 144 build/GetBit_cmp.obj
+GB_MYIMG=build/GetBit_cmp.obj tools/.venv-win/Scripts/python.exe \
+    tools/asm-differ/diff.py -e _lzhuf_get_bit 0x4ea120 0x4ea1a4
 ```
 
-This prints both disassembly listings for eyeballing; it does not
-auto-align/color diffs like real asm-differ. Expect *structural* mismatches
-even for correct ports - e.g. a `static` helper the original compiler
-inlined (no loop-inlining heuristic differences aside, old MSVC won't inline
-functions containing loops via `/Ob2` either) will show up as ours calling
-out to a separate function instead of one merged block. That's a source-level
-fix (fold the helper's body into the caller to match), not a toolchain issue.
+`tools/score.sh <symbol> <start-VA-hex> <end-VA-hex> <obj-file>` wraps that up
+and prints just the match score (`--format json` under the hood) - lower is
+better, `0` is a perfect match, and the score can exceed the shown max when
+there are extra/missing instructions rather than just substitutions:
 
-Two low-level helper scripts if you need raw bytes/symbols instead of
-disassembly:
+```
+tools/score.sh _lzhuf_get_bit 4ea120 4ea1a4 build/GetBit_cmp.obj
+# score: 4260 / max: 3900
+```
+
+Expect *structural* mismatches even for correct ports - e.g. a `static`
+helper the original compiler inlined (old MSVC won't inline functions
+containing loops via `/Ob2` either) will show up as ours calling out to a
+separate function instead of one merged block. That's a source-level fix
+(fold the helper's body into the caller to match), not a toolchain issue.
+
+Three low-level helper scripts, useful when you want raw bytes/disassembly
+without going through asm-differ's scoring:
+- `tools/diff_func.sh <VA-hex> <length> <obj-file>` - unscored side-by-side
+  disassembly of both sides via `llvm-objdump` directly (no `diff_settings.py`
+  dependency, good for a quick look).
 - `tools/pe_bytes.ps1 <pe-file> <VA-hex> <length>` - dumps raw hex bytes from
   a PE at a given virtual address (walks the section table itself).
 - `tools/coff_func_bytes.ps1 <obj-file> [-FuncName <name>]` - lists a
