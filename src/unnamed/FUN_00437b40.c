@@ -18,15 +18,14 @@ void FUN_00437b40(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   char *pcVar5;
   char *pcVar6;
   int *piVar7;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 uStack_c;
   undefined1 *puStack_8;
   undefined4 local_4;
   
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053795b;
-  uStack_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &uStack_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053795b) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   FUN_00437ae0();
   piVar2 = operator_new(0x3fd4);
   local_4 = 0;
@@ -92,7 +91,6 @@ void FUN_00437b40(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   piVar7[0xfeb] = iVar3;
   RegisterActiveObject();
-  *unaff_FS_OFFSET = piVar2;
   return;
 }
 

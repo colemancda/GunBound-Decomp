@@ -30,7 +30,6 @@ void __fastcall FUN_004aafd0(int *param_1)
   uint unaff_EBX;
   code *pcVar18;
   byte *pbVar19;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 uVar20;
   undefined4 uVar21;
   undefined4 uVar22;
@@ -50,9 +49,9 @@ void __fastcall FUN_004aafd0(int *param_1)
   undefined4 uStack_4;
   
   uStack_4 = 0xffffffff;
-  puStack_8 = &LAB_0053e5d9;
-  uStack_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &uStack_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053e5d9) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   local_ad4 = (int *)0x0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = PeekPacketChecksumState();
@@ -401,7 +400,6 @@ LAB_004ab3f6:
   *(byte *)(iVar7 + 0x62145) = bVar16 + bVar2 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
 LAB_004abb49:
-  *unaff_FS_OFFSET = uStack_10;
   return;
 }
 

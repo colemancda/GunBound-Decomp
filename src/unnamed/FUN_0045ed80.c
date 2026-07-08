@@ -17,7 +17,6 @@ void __fastcall FUN_0045ed80(int *param_1)
   int iVar5;
   int iVar6;
   int iVar7;
-  undefined4 *unaff_FS_OFFSET;
   bool bVar8;
   char *pcVar9;
   undefined1 auStack_924 [8];
@@ -33,9 +32,9 @@ void __fastcall FUN_0045ed80(int *param_1)
   undefined4 uStack_4;
   
   uStack_4 = 0xffffffff;
-  uStack_c = *unaff_FS_OFFSET;
-  puStack_8 = &LAB_0053a1cc;
-  *unaff_FS_OFFSET = &uStack_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053a1cc) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   iVar6 = param_1[0x2c29];
   if (iVar6 != -1) {
     if ((DAT_00793549 != '\0') &&
@@ -196,7 +195,6 @@ LAB_0045f039:
   }
   *(undefined4 *)(*(int *)(DAT_005b3484 + 0x621e0) + 0xb0b0) = 3;
 LAB_0045f2bb:
-  *unaff_FS_OFFSET = uStack_10;
   return;
 }
 
