@@ -82,16 +82,40 @@ typedef void code();
 /* MSVC calling-convention keywords Ghidra emits that GCC/Clang don't
  * recognize the same way on x86-64 (where the distinction is moot -
  * there's one calling convention). Defined away rather than requiring
- * per-file edits; revisit if a 32-bit x86 build ever needs the real
- * attributes back. */
+ * per-file edits - but ONLY for non-MSVC compilers, and only
+ * __fastcall/__cdecl even then. Real MSVC (used for true byte-matching
+ * builds against a real 32-bit x86 target - see tools/msvc-env/)
+ * understands these as first-class keywords that genuinely affect
+ * codegen (register- vs. stack-passed arguments); erasing them there
+ * was a real, previously-undetected bug - confirmed via a real
+ * compile-and-disassemble comparison of State01_Title_OnEnter
+ * (declared __fastcall) that silently produced cdecl-convention object
+ * code (stack-passed args at [ebp+8]) instead of fastcall's ECX-passed
+ * first argument, because this block erased the keyword
+ * unconditionally.
+ *
+ * __thiscall stays erased even under real MSVC, for a different
+ * reason: it's a C++-only keyword there ("nonstandard extension...
+ * reserved for future use" - a hard error, not a warning - in MSVC's C
+ * mode), and this whole tree compiles as plain C. functions.h declares
+ * many __thiscall functions (Ghidra's guess that they're C++ member
+ * functions in the original binary, `this` passed as the first
+ * parameter), so erasing __thiscall is required just to make any
+ * single file's #include chain compile under real MSVC at all - a
+ * known, real accuracy gap for those specific functions (their true
+ * calling convention won't byte-match until this is solved some other
+ * way, e.g. compiling as C++ instead) rather than something fixed
+ * here. */
 #ifndef __thiscall
 #define __thiscall
 #endif
+#ifndef _MSC_VER
 #ifndef __fastcall
 #define __fastcall
 #endif
 #ifndef __cdecl
 #define __cdecl
+#endif
 #endif
 
 /* Every raw-ported .c file includes this header first, so pull in the
