@@ -111,6 +111,31 @@ top-level button): `0x1e`/`0x20`/`0x28` = Cancel (`FUN_0050ef10`); `0x1f` =
 `0x29` (and the `eventType==0xa && flag@+0xc` path) = **`FUN_00429c60`, the
 Create Room dialog's submit handler** → sends `0x2120` (room name + password).
 
+## List navigation, scrolling, and the (vestigial) channel buttons
+There is **no scrollbar** on the room list — the grid is a fixed **2×3 (6 card)**
+page. You move through the list/channels with the bottom-bar buttons:
+- **Prev / Next** (`b_gamelist_prev`/`next`, ids `0xc`/`0xd`) — page the list;
+  they adjust the page index (`+0x118`) and re-request via `0x2100`/`0x2101`.
+- **View All / Waiting** (`b_gamelist_viewall`/`wait`, ids `0xa`/`0xb`) — filter
+  the list (all rooms vs. waiting-only), re-requesting with a mode byte.
+- **Find Friend** (`b_gamelist_friend`, id `0xe`) — jump to a buddy's room.
+
+**The dedicated channel up/down buttons are vestigial in this build.**
+`ChangeGameState` name-registers nine persistent cross-screen button images via
+`AppendPersistentButtonName` — `b_gamelist_buddyup`/`buddydown`,
+`b_gamelist_channelup`/`channeldown`, `b_buddy_up`/`down`/`exit`, and
+`b_error_confirm` — which preloads their `.img` definitions. But of these, only
+**`b_error_confirm` is ever actually instantiated** (`CreateButtonWidget` in the
+error/message dialogs `FUN_004124a0`/`FUN_00412650`/`FUN_00412820`). The four
+scroll names and the three buddy names are **never passed to `CreateButtonWidget`
+anywhere** — they're registered/preloaded but no widget is created and no click
+handler exists for them. So `b_gamelist_channelup`/`channeldown` explain why the
+images ship, but there is **no functional channel-scroll control** on this
+screen (the concrete mechanism behind the earlier "no direct channel picker"
+finding). The buddy list's own scrolling (right-hand panel, built by
+`FUN_00509110`) uses the generic scroll-list widget with its own arrow children,
+not these named buttons.
+
 ## OnEnter (`0x428d00`) notes
 - Registers ~40 button definitions + 12 persistent buttons.
 - Sends the initial `0x2100` room-list request (mode from `+0x115`).
