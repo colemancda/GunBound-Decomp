@@ -1388,6 +1388,29 @@ param_3, buttonId)`:
   string table's content, only IDs) — positions and structural roles are
   confirmed from the layout; exact captions are not.
 
+  **Field offsets independently confirmed** by decompiling the "large"
+  widget class's own vtable (`PTR_LAB_00557c84`, used by `FUN_00507f60`).
+  Its hit-test method (`FUN_0050e9c0`, one of 3 non-trivial slots — the
+  other two, `0x50e870`/`0x50e950`, are near-identical child-broadcast
+  helpers dispatching through a container's child list) reads position
+  unconditionally from `+0x28`(x)/`+0x2c`(y)/`+0x30`(w)/`+0x34`(h) —
+  exactly the byte offsets the constructor's `x,y,w,h` arguments land at
+  (dword indices `0xa`/`0xb`/`0xc`/`0xd`). This validates the Create Room
+  table above wasn't just positional guesswork.
+
+  **Same widget class used for the "enter room by number" dialog**
+  (`FUN_005087b0`, opened by button `0xf`) shows a genuine anomaly worth
+  flagging rather than silently resolving: its two large-class widgets
+  (msgs `0x2bf`/`0x2bd`) get `x≈700`/`w=7` and `x≈700`/`w=39` — a 7–39px
+  hit-box is implausible for real text entry (likely **static labels**,
+  which don't need a generous click area, rather than the room-name/
+  password-style entry fields Create Room uses). What's **not** ambiguous:
+  this dialog's two small-class widgets (`FUN_00507ee0`, msgs `0x578` left
+  at x=0x80/`0x579` right at x=0xd5, both `0x52×0x22`) are **identical in
+  size and left/right ordering** to Create Room's own `0x51c`/`0x51d`
+  button pair — confirming an **OK/Cancel button pair** here too, reused
+  at the same visual size across both dialogs.
+
 - **`FUN_004f1790` is not a "watchdog timer" (correcting the Logo1/Logo2
   docs).** `OnEnter` calls it ~40 times with values like `0x514`–`0x51d`,
   `0x578`/`0x579`, `0x2711`, etc. — and those exact values reappear as the

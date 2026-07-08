@@ -117,7 +117,13 @@ creation order:
 **Submit** (`FUN_00429c60`) only visibly copies the **name and password**
 fields into the `0x2120` payload — whether the player-limit/mode selections
 are sent at all (bundled some other way, or via a separate opcode) is not
-confirmed. Full derivation in ARCHITECTURE.md's "Create Room dialog" writeup.
+confirmed.
+
+Field offsets (x/y/w/h at `+0x28`/`+0x2c`/`+0x30`/`+0x34`) are confirmed via
+the widget class's own hit-test method, not just positional inference — see
+ARCHITECTURE.md's "Create Room dialog" writeup for the full derivation and
+the same class's use (with an OK/Cancel pair sized identically to this
+dialog's) in the "enter room by number" dialog (`FUN_005087b0`).
 
 ### `0x2110` — join room (three emitters, one wire layout)
 All three write the same fixed 8-byte packet; only the source of the two
