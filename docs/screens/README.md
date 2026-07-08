@@ -90,6 +90,12 @@ this base set — slots 9+ are per-state and must be checked individually.
 
 ### The generic UI-widget system
 
+> **See [../widgets.md](../widgets.md)** for the full reusable-widget writeup:
+> the container/panel class hierarchy, the shared 12-slot base vtable, the
+> `+0x1c` parent-callback event model, the four reusable widget classes
+> (panel, label/button, Win32-backed text entry, scrollbar), and the panel-
+> builder catalog. The summary below covers the flat `ButtonWidget` layer.
+
 Three layers (all confirmed — see ARCHITECTURE.md "The generic UI-widget system"):
 
 1. **`AppendPersistentButtonName`** (`0x401740`) registers a button-name string
