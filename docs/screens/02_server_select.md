@@ -139,7 +139,7 @@ calling **`RenderWorldListRow`** (`0x50dc80`) once per server. Each row:
   y+0x1e, 14px line pitch (text sourced from the SoA name/`desc` arrays,
   register-passed so not visible in the decompile).
 - **Population gauge** — `currentPlayers·100 / maxCapacity` bucketed against
-  thresholds at `DAT_005a9050` (5 levels) to choose a gauge sprite; drawn via
+  thresholds at `g_fullnessGaugeThresholds` (5 levels) to choose a gauge sprite; drawn via
   `BlitSprite16bpp`/`BlitSpriteClipped`. This is the F/E dial in the UI.
 
 ## Selection → connect
