@@ -9,7 +9,7 @@
  * 2 when i == +0xc); the server number (sprintf serverId+1, via BlitRLESprite
  * white); the name + two description lines (BlitRLESprite, colour 0xb77f); and
  * a population gauge (currentPlayers*100/maxCapacity bucketed via thresholds at
- * DAT_005a9050 -> gauge sprite, the F/E dial). Reads the server-list SoA
+ * g_fullnessGaugeThresholds -> gauge sprite, the F/E dial). Reads the SoA
  * (serverId +0x3f81a, onlineFlag +0x3f809, players +0x410ca, capacity +0x410ea).
  *
  * Raw/near-verbatim port of Ghidra's
@@ -94,7 +94,7 @@ void __fastcall RenderWorldListRow(int param_1)
       iVar10 = iVar9;
       if ((int)((ulonglong)((uint)*(ushort *)(g_clientContext + 0x410ca + in_EAX * 2) * 100) /
                (ulonglong)(longlong)(int)(uint)*(ushort *)(g_clientContext + 0x410ea + in_EAX * 2)) <
-          (int)(&DAT_005a9050)[iVar9]) break;
+          (int)g_fullnessGaugeThresholds[iVar9]) break;
       iVar9 = iVar9 + 1;
       iVar10 = iVar6;
     } while (iVar9 < 5);
