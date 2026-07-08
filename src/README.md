@@ -69,6 +69,56 @@ parity testing alone (matching output on the samples you happen to
 test) can miss and real byte-comparison catches even without full
 matching-decomp coverage.
 
+**A real-MSVC compile sweep of `src/state_machine/` (38 files) found
+another project-wide bug, plus several file-local ones.** Compiling
+every file there with real MSVC 7.1 (`/O2`, via `tools/msvc-env/`)
+surfaced errors gcc/winelib had been silently accepting as GNU
+extensions:
+
+- **`void *` pointer arithmetic** (`*g_pD3DDevice7 + offset`,
+  `g_gameStateVTableArray[N] + offset`) - valid under gcc/clang's
+  nonstandard "`sizeof(void)==1`" extension, a hard error under
+  standard-conforming MSVC ("`'void *': unknown size`"). Fixed by
+  retyping the affected globals (`g_pD3DDevice7`, `g_pDirect3D7`,
+  `g_pDirectDraw7`, `g_pBackBufferSurface`, `g_pPrimarySurface`,
+  `g_pZBufferSurface`, `g_pClipper`, `g_gameStateVTableArray`) from
+  `void **`/`void *[]` to `char **`/`char *[]` - `char*` arithmetic is
+  standard C with the identical one-byte-per-step semantics gcc's
+  extension gave us, so this is a strictly more portable equivalent,
+  not a behavior change. This fix wasn't state_machine-specific -
+  these globals are used tree-wide, so it likely unblocks real-MSVC
+  compiles of files outside this directory too, not verified this pass.
+- **`__time32_t`** - Ghidra infers this type (the 32-bit `time_t` from
+  post-split MSVC CRTs) for `time()` call sites, but MSVC 7.1 predates
+  the 32/64-bit `time_t` split and has no such type in its own
+  `<time.h>`. `include/ghidra_types.h` now typedefs it to `long` and
+  redirects Ghidra's renamed `FID_conflict___time32` (the CRT's
+  internal `_time32`/`time()`, whose real body lives in the excluded
+  `msvc_crt_atl/` tree and was never actually linkable) to the real
+  libc `time()`. Affects 12 files across the tree, not just
+  state_machine.
+- **A genuine array-vs-scalar mixup** in
+  `state_machine/State09_ReadyRoom_ProcessPacket.c`: `DAT_00e9be94` is
+  used as `*(int *)(DAT_00e9be94 + 0x1c)` (byte-offset-into-a-raw-
+  address-value) in ~15 places across the tree, but this one file also
+  used `DAT_00e9be94[7]` (array-subscript syntax) for the exact same
+  offset (7 * sizeof(int) == 0x1c) - fine under gcc's looser
+  scalar/array handling, a hard error under MSVC. Fixed locally at the
+  three call sites in this file (explicit pointer casts) rather than
+  changing the global's declared type, which would have broken its
+  other byte-offset call sites elsewhere.
+
+Net result: 32/38 files now compile clean under real MSVC (up from 28
+before these fixes), matching gcc/winelib's own pass count exactly
+(32/38 there too, confirming no regression from any of the above) -
+the same 6 remaining failures in both compilers are the already-
+documented sub-byte-field-access/raw-stack-offset files below, not new
+problems. `State09_ReadyRoom_ProcessPacket.c` and
+`State11_InBattle_OnEnter.c` are removed from the known-broken list
+below as a result (the latter was already fixed in an earlier session
+but never removed - caught while re-verifying this list against a
+fresh compile pass, not by this specific fix).
+
 ## Layout: one file per decompiled function
 
 Each original function gets its own file, named after its confirmed name
@@ -192,8 +242,6 @@ Concretely, that means:
   usually in the largest/most complex functions or ones close to raw
   CRT/ATL internals:
   - `state_machine/State02_ServerSelect_ProcessPacket.c`
-  - `state_machine/State09_ReadyRoom_ProcessPacket.c`
-  - `state_machine/State11_InBattle_OnEnter.c`
   - `state_machine/State11_InBattle_ProcessBattleAction.c` (extensive
     sub-byte-field access, `._1_3_`/`._0_4_`/etc. - this is a large,
     heavily-packed packet-decoding function with many fields read at

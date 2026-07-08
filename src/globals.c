@@ -4,15 +4,15 @@
 
 int32_t g_currentGameState;
 int32_t g_pendingGameState;
-void *g_gameStateVTableArray[16];
+char *g_gameStateVTableArray[16];
 void *g_hDDrawDll;
-void **g_pBackBufferSurface;
-void **g_pClipper;
-void **g_pD3DDevice7;
-void **g_pDirect3D7;
-void **g_pDirectDraw7;
-void **g_pPrimarySurface;
-void **g_pZBufferSurface;
+char **g_pBackBufferSurface;
+char **g_pClipper;
+char **g_pD3DDevice7;
+char **g_pDirect3D7;
+char **g_pDirectDraw7;
+char **g_pPrimarySurface;
+char **g_pZBufferSurface;
 uint8_t g_replayEventBuffer;
 uint32_t g_replayEventCursor;
 uint8_t g_replayFileHandle;

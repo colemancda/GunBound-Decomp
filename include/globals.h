@@ -42,20 +42,34 @@
  * type-checked, which isn't happening yet either way. */
 extern int32_t g_currentGameState;
 extern int32_t g_pendingGameState;
-extern void *g_gameStateVTableArray[16];
+/* char *, not void *: same reasoning as g_pD3DDevice7 and friends
+ * below - call sites add byte offsets to a looked-up element
+ * (`g_gameStateVTableArray[N] + offset`), which needs a complete,
+ * byte-sized pointer type to be valid standard C (not just a gcc/
+ * clang void* arithmetic extension) - found via a real-MSVC compile
+ * sweep of src/state_machine/. */
+extern char *g_gameStateVTableArray[16];
 #define g_gameStateObjects g_gameStateVTableArray
 extern void *g_hDDrawDll;
-/* void ** rather than void *: raw-ported call sites dereference these
- * once to reach the COM vtable pointer (`*g_pD3DDevice7 + offset`), so
- * they need to be a pointer-to-pointer to compile - a plain void*
- * can't be dereferenced at all. */
-extern void **g_pBackBufferSurface;
-extern void **g_pClipper;
-extern void **g_pD3DDevice7;
-extern void **g_pDirect3D7;
-extern void **g_pDirectDraw7;
-extern void **g_pPrimarySurface;
-extern void **g_pZBufferSurface;
+/* char ** rather than void **: raw-ported call sites dereference these
+ * once and then add a byte offset to reach a vtable slot
+ * (`*g_pD3DDevice7 + offset`), so they need to be a pointer-to-pointer
+ * to compile at all (a plain void* can't be dereferenced), and the
+ * dereferenced value needs to be a complete, byte-sized pointer type
+ * for the `+ offset` to be valid, portable pointer arithmetic. `void*`
+ * satisfied gcc/clang (which treat void* arithmetic as a nonstandard
+ * "sizeof(void)==1" extension) but is a hard error under real MSVC
+ * ("'void *': unknown size") - found via a real-MSVC compile sweep of
+ * src/state_machine/. `char*` has the same one-byte-per-step
+ * arithmetic gcc's extension gave us, but is valid standard C under
+ * both compilers. */
+extern char **g_pBackBufferSurface;
+extern char **g_pClipper;
+extern char **g_pD3DDevice7;
+extern char **g_pDirect3D7;
+extern char **g_pDirectDraw7;
+extern char **g_pPrimarySurface;
+extern char **g_pZBufferSurface;
 extern uint8_t g_replayEventBuffer;
 extern uint32_t g_replayEventCursor;
 extern uint8_t g_replayFileHandle;

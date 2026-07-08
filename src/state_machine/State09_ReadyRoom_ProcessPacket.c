@@ -467,8 +467,16 @@ LAB_004d438d:
       _DAT_00e55e18 = 0;
       _DAT_00e55e1c = 0xff;
       _DAT_00e560ac = 0;
-      puVar22 = (undefined4 *)DAT_00e9be94[7];
-      if (puVar22 != DAT_00e9be94) {
+      /* DAT_00e9be94[7]/comparisons against DAT_00e9be94 itself: same
+       * "value at DAT_00e9be94 + 0x1c" idiom used everywhere else this
+       * global appears (`*(int *)(DAT_00e9be94 + 0x1c)`), just written
+       * via array-index syntax at this call site - DAT_00e9be94 is a
+       * uint32_t (a raw address value, not an array), so it can't be
+       * subscripted directly under strict C; cast to a pointer at each
+       * use here instead of changing the global's declared type, which
+       * would break its ~15 other byte-offset call sites elsewhere. */
+      puVar22 = *(undefined4 **)(DAT_00e9be94 + 0x1c);
+      if (puVar22 != (undefined4 *)DAT_00e9be94) {
         do {
           puVar6 = (undefined4 *)puVar22[4];
           while (puVar6 != puVar22) {
@@ -479,7 +487,7 @@ LAB_004d438d:
           puVar22[3] = puVar22;
           puVar22[4] = puVar22;
           puVar22 = (undefined4 *)puVar22[7];
-        } while (puVar22 != DAT_00e9be94);
+        } while (puVar22 != (undefined4 *)DAT_00e9be94);
       }
       _DAT_00e9be98 = 0;
       _DAT_00e9be9c = 0;

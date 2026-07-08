@@ -42,6 +42,19 @@ typedef struct hostent hostent;
  * yet, just declared so functions.h's forward declarations parse. */
 typedef struct exception exception;
 
+/* Ghidra infers `__time32_t` (the 32-bit time_t used by later MSVC
+ * CRTs, once the 32/64-bit time_t split existed) for `time()` call
+ * sites, even though this project's actual target - MSVC 7.1 (Visual
+ * C++ Toolkit 2003), confirmed via tools/msvc-env/ - predates that
+ * split and has no such type in its own <time.h>. `FID_conflict___time32`
+ * is Ghidra's renamed CRT `_time32`/`time()` implementation (real body
+ * in the excluded src/unnamed/msvc_crt_atl/ tree, never actually
+ * linkable) - redirected to the real libc `time()` here instead, which
+ * is what it always was under the hood. Found via a real-MSVC compile
+ * sweep of src/state_machine/ (12 files use one or both of these). */
+typedef long __time32_t;
+#define FID_conflict___time32(p) time((time_t *)(p))
+
 typedef uint8_t undefined;
 typedef uint8_t undefined1;
 typedef uint16_t undefined2;
