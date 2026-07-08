@@ -10,18 +10,31 @@
  * address range: the real function only zeroes six small state fields
  * (offsets +0/+4/+0xf6b0/+0xf6b2/+0xf6b4/+0xf6b6), never touches a
  * 4KB+ region, and never writes the constant 0xfc4 (LZHUF_N-LZHUF_F)
- * anywhere. Yet removing them breaks real decoding: tested against 30
- * random archive entries from graphics.xfs, the version without this
- * ring-buffer fill/cursor-init produced 10/30 mismatches against the
- * validated Python reference decoder, while the version with it (as
- * below) produced 0/30. So this logic is real and necessary, but must
- * actually live in a different, not-yet-identified function - most
- * likely a one-time setup/constructor that runs once before
- * InitLZHUFTree is ever called (rather than something InitLZHUFTree
- * itself repeats on every call), left in place here as the pragmatic
- * behavioral-parity fix until that real function is found. See
- * src/README.md for how this was discovered (a real-MSVC-vs-Ghidra
- * byte-comparison exercise).
+ * anywhere. Confirmed empirically that this logic is nonetheless real
+ * and necessary (30 random graphics.xfs entries: 10/30 mismatches
+ * without it, 0/30 with it, against the validated Python reference
+ * decoder) - and now confirmed exactly where it really lives: inline
+ * in the real DecodeLZHUFBlock (0x4eaba0), immediately after its own
+ * call to InitLZHUFTree() -
+ *
+ *   InitLZHUFTree();
+ *   *param_1 = param_5;
+ *   puVar11 = param_1 + 2;
+ *   for (iVar5 = 0x3f1; iVar5 != 0; iVar5 = iVar5 + -1) {
+ *       *puVar11 = 0x20202020;    // 1009 * 4 bytes = 0xfc4, all spaces
+ *       puVar11 = puVar11 + 1;
+ *   }
+ *   uVar12 = 0xfc4;               // ring-buffer cursor = LZHUF_N - LZHUF_F
+ *
+ * i.e. this project's `lzhuf_decode_block()` (src/lzhuf/
+ * DecodeLZHUFBlock.c) is the function that should own this logic, not
+ * `lzhuf_init_tree()` here - left in place in this function rather than
+ * moved, since this project's API deliberately splits state-struct
+ * setup (InitLZHUFTree + this fill) from the decode loop itself in a
+ * way the original binary doesn't, and moving it would only matter for
+ * exact per-function matching, not behavior (see src/README.md's
+ * scope note). Found via a real-MSVC-vs-Ghidra byte-comparison
+ * exercise - see src/README.md.
  */
 #include "lzhuf_internal.h"
 

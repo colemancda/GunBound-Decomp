@@ -14,10 +14,17 @@
  * entry/`.dat` file - only the requested output size differs per call.
  *
  * lzhuf_decode() (see include/lzhuf.h) is this function's public
- * wrapper: it owns state-struct allocation/init (InitLZHUFTree) and
- * output-buffer allocation, which in the original binary are the
- * caller's responsibility rather than DecodeLZHUFBlock's own - kept
- * separate here for the same reason.
+ * wrapper: it owns state-struct allocation and output-buffer
+ * allocation, which in the original binary are the caller's
+ * responsibility. Tree/ring-buffer initialization is NOT the caller's
+ * responsibility in the original, though - confirmed via a real
+ * byte-comparison exercise (see src/README.md and InitLZHUFTree.c's
+ * header comment) that the real DecodeLZHUFBlock (0x4eaba0) calls
+ * InitLZHUFTree() itself as its first step, then inline-fills the
+ * ring buffer with spaces and sets the initial cursor - logic this
+ * project's lzhuf_init_tree() owns instead (see that file), a
+ * deliberate function-boundary difference from the original that
+ * doesn't affect behavior, only which function "owns" the lines.
  */
 #include "lzhuf_internal.h"
 

@@ -53,16 +53,21 @@ non-interactively from this environment is ever found.)
 `InitLZHUFTree`'s real 162-byte machine code (both raw disassembly and a
 fresh Ghidra re-decompile of just that address) against our hand-verified
 C source found the source's `memset(text_buf, 0x20, ...)`/`s->r = N-F`
-lines don't correspond to anything in that exact function - see
-`src/lzhuf/InitLZHUFTree.c`'s own header comment for the full writeup,
-including the empirical test (30 real archive entries, 0/30 mismatches
-with this logic in place vs. 10/30 without it) that confirmed the logic
-is real and necessary despite not being in this specific function - it
-must live in a different, not-yet-identified one-time setup function.
-This is exactly the kind of subtle bug that behavioral-parity testing
-alone (matching output on the samples you happen to test) can miss and
-real byte-comparison can catch even without full matching-decomp
-coverage.
+lines don't correspond to anything in that exact function - confirmed
+empirically that the logic is nonetheless real and necessary (30 real
+archive entries: 0/30 mismatches with it, 10/30 without), then traced
+via a caller search (Ghidra's reference manager, not just guessing) to
+where it actually lives: inline in the real `DecodeLZHUFBlock`
+(`0x4eaba0`), immediately after its own call to `InitLZHUFTree()` - this
+project's `lzhuf_decode_block()` (`src/lzhuf/DecodeLZHUFBlock.c`) is the
+function that should "own" this logic by the original's boundaries, not
+`lzhuf_init_tree()`. Left in place in `InitLZHUFTree.c` rather than
+moved, since exact per-function ownership only matters for true
+matching-decomp, not behavior - see both files' header comments for the
+full writeup. This is exactly the kind of subtle bug that behavioral-
+parity testing alone (matching output on the samples you happen to
+test) can miss and real byte-comparison catches even without full
+matching-decomp coverage.
 
 ## Layout: one file per decompiled function
 
