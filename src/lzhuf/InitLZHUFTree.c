@@ -33,7 +33,12 @@
  * setup (InitLZHUFTree + this fill) from the decode loop itself in a
  * way the original binary doesn't, and moving it would only matter for
  * exact per-function matching, not behavior (see src/README.md's
- * scope note). Found via a real-MSVC-vs-Ghidra byte-comparison
+ * scope note). InitLZHUFTree's *other* caller, FUN_004ea760 (the LZHUF
+ * encoder/compressor - out of scope for this project, which only ever
+ * needs to decompress), independently repeats this exact same fill
+ * inline after its own call to InitLZHUFTree() - so this pattern isn't
+ * centralized in one shared constructor as first guessed; every caller
+ * duplicates it. Found via a real-MSVC-vs-Ghidra byte-comparison
  * exercise - see src/README.md.
  */
 #include "lzhuf_internal.h"
