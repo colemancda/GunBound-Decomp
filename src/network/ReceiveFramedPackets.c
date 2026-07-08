@@ -1,13 +1,22 @@
-/* FUN_004e5610 - 0x004e5610 in the original binary.
+/* ReceiveFramedPackets - 0x004e5610 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * recv()s into the connection's receive buffer and splits the TCP stream
+ * into length-prefixed frames (a 2-byte length header at buffer+0x230),
+ * copying each complete frame into a ring of slot descriptors for the
+ * packet dispatcher and compacting the residual bytes back to the front.
+ * Returns true to keep reading (partial frame or would-block, WSAEWOULDBLOCK
+ * 0x2733), false on a fatal framing/overflow/ring-full condition (which also
+ * enqueues failure code 0x65 and resets the connection state). Called from
+ * HandleSocketEvent's FD_READ branch.
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-bool FUN_004e5610(void)
+bool ReceiveFramedPackets(void)
 
 {
   int iVar1;

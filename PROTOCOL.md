@@ -213,7 +213,7 @@ indexed by entry position `i` (0-based):
 | `onlineFlag` | `+0x3f809` | 1 byte | |
 | `name` | `+0x3f84a` | 128 bytes | NUL-terminated; this is the string later copied into the **global current-server-name buffer** (`DAT_005b3484+0x3b8e8`) when a connection is confirmed (opcode `0x2001`, see below) |
 | `desc` | `+0x4004a` | 256 bytes | word-wrapped through `FUN_0041b4b0` (width `0x40`, presumably a message/MOTD field, distinct from `name`) |
-| `serverIp` (u32) | `+0x4104a` | 4 bytes | packed IPv4; `FUN_004e1bf0` `sprintf`s it as `"%d.%d.%d.%d"` (fmt `s__d__d__d__d_00557138`) and passes it with `port` to the socket-connect helper `FUN_004d2480` |
+| `serverIp` (u32) | `+0x4104a` | 4 bytes | packed IPv4; `FUN_004e1bf0` `sprintf`s it as `"%d.%d.%d.%d"` (fmt `s__d__d__d__d_00557138`) and passes it with `port` to the socket-connect helper `BeginServerConnect` |
 | `port` | `+0x4108a` | 2 bytes | |
 | `unknownField2` | `+0x410aa` | 2 bytes | |
 | `currentPlayers` | `+0x410ca` | 2 bytes | |
@@ -255,7 +255,7 @@ slot is online and not full (`currentPlayers <= maxCapacity`), call
 1. reads the packed **IPv4 address** from `serverIp` (`+0x4104a + i*4`) and
    `sprintf`s it as `"%d.%d.%d.%d"`;
 2. reads `port` (`+0x4108a + i*2`) and calls the socket-connect helper
-   `FUN_004d2480(ipStr, port)`;
+   `BeginServerConnect(ipStr, port)`;
 3. sets `this+4 = 1` (connecting flag), disables the button, and records
    **`this+0x68 = i`** — the write that was previously missed.
 

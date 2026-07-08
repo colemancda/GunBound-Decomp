@@ -246,6 +246,65 @@ touch them at all, so this is a complete picture, not a sample:
   controls but wasn't found touching the chat buffer offsets directly —
   remains a genuine open item for a future pass).
 
+## Connection subsystem — broker/server connect (async, thread-backed)
+
+Traced how the client actually opens its TCP connection (to the server-list
+"broker" first, then to a chosen game server). All the functions below were
+named this pass; the connection object is the large per-connection struct at
+`DAT_007934e8`/`DAT_007934ec` (fields cited are offsets into it).
+
+- **The broker address is not hardcoded — it comes from the registry.**
+  `LoadClientSettingsFromRegistry` (`0x40d370`), called from `WinMain`,
+  reads `HKCU\Software\Softnyx\GunBound` and pulls the `"IP"` value into
+  `DAT_005b2ad0` (128-byte hostname string) and `"Port"` into `DAT_005b33e8`,
+  alongside ~20 other prefs (LastServer, Version, volumes, Language,
+  BuddyIP/BuddyPort default `0x20a0`, ShopURL default
+  `http://shop.gunbound.com/avatar/`, and a GameBuddy Executable path). The
+  native binary provisions no address itself — presumably the installer or
+  the `.NET` launcher stub writes these keys.
+
+- **`BeginServerConnect` (`0x4d2480`)** is the public "connect to host:port"
+  entry. It resets outgoing packet-field state, then calls
+  **`SignalConnectRequest` (`0x4e5a50`)**, which stores the target port
+  (conn+0x228) and hostname (register arg, into conn+0x28), sets the
+  connection state to `3` ("dial requested"), and `SetEvent`s the worker
+  thread's event (conn+0x10). The hostname is passed in a register the
+  decompiler doesn't model, so it's invisible in the C signature.
+
+- **The actual socket work runs on a background worker thread**, not inline.
+  The worker's dispatch is **`HandleSocketEvent` (`0x4e57c0`)**, keyed on an
+  op selector: op 2 = **`ConnectSocketToTarget` (`0x4e59b0`)** (`socket()` +
+  `connect()`, sets connected flag conn+0x22a on success); op 1 = drain WSA
+  events (`WSAEnumNetworkEvents`) — FD_READ → **`ReceiveFramedPackets`
+  (`0x4e5610`)**, FD_WRITE → flush the send queue, FD_CLOSE →
+  **`CloseConnectionSocket` (`0x4e5a20`)**; op 0 = detach. Teardown is
+  **`ShutdownConnectionThread` (`0x4e5c00`)** (signal stop, join worker, close
+  4 handles). Connection state values: `0`=failed, `1`=idle/reset,
+  `2`=connected, `3`=dial-requested.
+
+- **`ReceiveFramedPackets`** splits the TCP stream into 2-byte-length-prefixed
+  frames (length at conn+0x230) and copies each complete frame into a ring of
+  slot descriptors for the packet dispatcher; returns true to keep reading,
+  false (+ enqueues error `0x65`) on a fatal framing/overflow condition.
+
+- **Nothing is shown on screen while a connect is pending.** Because the work
+  is on the worker thread, the render loop keeps running unchanged — Server
+  Select displays only its static background + 3 buttons (choice-server
+  disabled). Success/failure are pushed as status codes (`100`/`0x65`) into a
+  generic bounded event-queue (`FUN_004f2da0`, a 0x200-entry ring — left
+  unnamed, it's used by input/mouse/network alike, not connection-specific)
+  targeting the connection's owning UI object (conn+0x1c); where that queue is
+  drained/displayed on failure wasn't traced this pass (open item).
+
+- **Broker and game-server connections reuse one connection object.** Picking
+  a server (`FUN_004e1bf0`) calls the same `BeginServerConnect` with the list
+  entry's IP:port; since `SignalConnectRequest` closes any existing socket
+  first, this **retargets** the same object from the broker to the game server
+  — there is no separate broker-vs-game connection.
+
+See [docs/screens/02_server_select.md](docs/screens/02_server_select.md) for
+the screen-level view.
+
 ## Network protocol — `State03_GameRoomList_ProcessPacket` (`0x426ad0`)
 
 This is the channel-lobby/room-list screen's packet handler — the most fully
@@ -1838,7 +1897,7 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
      Both the click handler (`FUN_004e1170`) and the Enter handler
      (`FUN_004e1430`), after checking the highlighted server is online and
      not full, call `FUN_004e1bf0(this)`. That helper `sprintf`s the packed
-     IP as `"%d.%d.%d.%d"`, opens a socket to `ip:port` via `FUN_004d2480`,
+     IP as `"%d.%d.%d.%d"`, opens a socket to `ip:port` via `BeginServerConnect`,
      and writes **`this+0x68 = <highlighted index>`**. When the server acks
      (opcode `0x2001`, `*payload==0`), the client reads the entry at
      `this+0x68`, copies its `serverId`/`name` into globals, and

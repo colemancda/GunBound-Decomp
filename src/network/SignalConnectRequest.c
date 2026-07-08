@@ -1,14 +1,21 @@
-/* FUN_004e5a50 - 0x004e5a50 in the original binary.
+/* SignalConnectRequest - 0x004e5a50 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Hands a new connect target to the connection object and wakes its
+ * background worker thread. Marks state=connecting (conn+0x22c=1), closes
+ * any existing socket, stores the target port (conn+0x228), copies the
+ * hostname string (passed via register, not visible in the signature) into
+ * conn+0x28, sets state=3 ("dial requested"), and SetEvent()s the worker's
+ * event handle (conn+0x10). The actual socket()/connect() runs later on
+ * the worker thread (ConnectSocketToTarget, via HandleSocketEvent op 2).
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004e5a50(int param_1)
+void SignalConnectRequest(int param_1)
 
 {
   char cVar1;

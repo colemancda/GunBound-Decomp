@@ -30,7 +30,7 @@ void FUN_004e5590(void)
   if ((void *)unaff_ESI[0x9290] != (void *)0x0) {
     _free((void *)unaff_ESI[0x9290]);
   }
-  FUN_004e5c00();
+  ShutdownConnectionThread();
   return;
 }
 

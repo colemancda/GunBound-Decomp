@@ -123,7 +123,7 @@ void __fastcall State02_ServerSelect_OnEnter(int param_1)
   *(uint *)(param_1 + 0x18) = uVar2;
   *(undefined1 *)(param_1 + 0x1c) = 0;
   FUN_005099d0(&DAT_00e53c40);
-  FUN_004d2480(&DAT_005b2ad0,DAT_005b33e8);
+  BeginServerConnect(&DAT_005b2ad0,DAT_005b33e8);
   iVar1 = DAT_007934e4;
   *(undefined1 *)(param_1 + 7) = 1;
   *(undefined1 *)(iVar1 + 8) = 1;

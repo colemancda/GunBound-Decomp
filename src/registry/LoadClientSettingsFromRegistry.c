@@ -1,14 +1,26 @@
-/* FUN_0040d370 - 0x0040d370 in the original binary.
+/* LoadClientSettingsFromRegistry - 0x0040d370 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Loads persisted client settings from the registry at
+ * HKEY_CURRENT_USER\Software\Softnyx\GunBound (and ...\GameBuddy). This is
+ * where the externally-configured server-broker address enters the client:
+ * the "IP" value -> DAT_005b2ad0 (128-byte hostname string) and "Port" ->
+ * DAT_005b33e8, which State02 ServerSelect's OnEnter then connects to. Also
+ * reads LastServer, Location, Screen, Version, ShootingMode, MouseSpeed,
+ * MidiMode, Music/EffectVolume, AutoRefresh, Effect3D, Background, GameName,
+ * ChannelName, Language, BuddyIP/BuddyPort (default port 0x20a0), and ShopURL
+ * (default "http://shop.gunbound.com/avatar/"); and from the GameBuddy key,
+ * an Executable path and a port. The game binary hardcodes no broker address
+ * of its own - it is entirely provisioned here (presumably by the installer
+ * or the .NET launcher stub).
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0040d370(void)
+void LoadClientSettingsFromRegistry(void)
 
 {
   undefined4 uVar1;

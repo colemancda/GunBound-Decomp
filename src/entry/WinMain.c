@@ -154,7 +154,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   }
   DAT_007934f0 = DAT_005b2b60;
   FUN_004d23f0();
-  FUN_0040d370();
+  LoadClientSettingsFromRegistry();
   pvVar4 = operator_new(0x200c);
   if (pvVar4 == (void *)0x0) {
     DAT_007934f4 = (HDC)0x0;
@@ -242,7 +242,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     FUN_0040d260(g_clientContext + 0x2331c);
     SetFocus(hWnd);
     local_db4 = DAT_007934f4;
-    FUN_004e5a50(0x20a3);
+    SignalConnectRequest(0x20a3);
     *(undefined1 *)&local_db4[0x802].unused = 1;
     DAT_007934e0 = timeGetTime();
     ChangeGameState(6);

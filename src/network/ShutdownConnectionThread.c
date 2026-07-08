@@ -1,14 +1,18 @@
-/* FUN_004e5c00 - 0x004e5c00 in the original binary.
+/* ShutdownConnectionThread - 0x004e5c00 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Connection-object teardown. Re-points the object's vtable, signals the
+ * worker's stop event (obj+0x8), waits up to 1s for the worker thread
+ * (obj+0x4) to exit (WaitForSingleObject), then CloseHandle()s its four
+ * handles. The counterpart to the connection object's startup/worker-spawn.
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004e5c00(void)
+void ShutdownConnectionThread(void)
 
 {
   undefined4 *in_EAX;

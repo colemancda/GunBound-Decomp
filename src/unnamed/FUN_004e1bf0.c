@@ -56,7 +56,7 @@ void FUN_004e1bf0(int param_1)
     iVar3 = g_clientContext;
     *(undefined1 *)(param_1 + 0x24) = 0;
     *(undefined1 *)(iVar4 + 0x84e6) = 0;
-    FUN_004d2480(local_80,*(undefined2 *)(iVar3 + 0x4108a + unaff_EDI * 2));
+    BeginServerConnect(local_80,*(undefined2 *)(iVar3 + 0x4108a + unaff_EDI * 2));
     *(undefined1 *)(param_1 + 4) = 1;
     *(int *)(param_1 + 0x68) = unaff_EDI;
   }

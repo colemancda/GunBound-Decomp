@@ -78,8 +78,13 @@ entries (the `desc` table is exactly 16×256 = 0x1000).
 2. Create the three buttons above (`b_server_choiceserver` disabled).
 3. Reset `this+8 = -1`; **zero the entire server-list SoA** (`+0x3f808`…`+0x4111a`).
 4. Compute an initial scroll/paging value into `+0x14`/`+0x18`.
-5. Open the channel/whisper connection (`FUN_004d2480(&DAT_005b2ad0, DAT_005b33e8)`)
-   and tear down any stale socket on the swap context (`DAT_007934e8`).
+5. **Connect to the broker** (`BeginServerConnect(&DAT_005b2ad0, DAT_005b33e8)`)
+   — the registry-configured server-list host: `DAT_005b2ad0`/`DAT_005b33e8`
+   are the `"IP"`/`"Port"` values read at startup by
+   `LoadClientSettingsFromRegistry` from `HKCU\Software\Softnyx\GunBound`.
+   Also tears down any stale socket on the swap context (`DAT_007934e8`).
+   The connect is **asynchronous** (handed to a background worker) — nothing
+   is shown while it's pending; see "Connection subsystem" in ARCHITECTURE.md.
 6. Start channel music, clear the "current server" global (`g_clientContext+0x3f804 = -1`).
 
 ## Rendering
@@ -99,7 +104,7 @@ entries (the `desc` table is exactly 16×256 = 0x1000).
    - if `this+0x28[slot] != 0` (a prior error) → show error dialog
      `FUN_004124a0` instead of connecting;
    - else `sprintf` the packed IP as `"%d.%d.%d.%d"` from `serverIp[slot]`,
-     open a socket to `ip:port` via `FUN_004d2480`, set `this+4 = 1`
+     open a socket to `ip:port` via `BeginServerConnect`, set `this+4 = 1`
      (connecting), disable the button, and record **`this+0x68 = slot`**.
 
 ## Errors
