@@ -18,17 +18,15 @@ void FUN_00508d00(int param_1)
   uchar *puVar5;
   char *_Format;
   uchar *unaff_EDI;
-  undefined4 *unaff_FS_OFFSET;
   bool bVar6;
   char local_8c [128];
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
-  
-  local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053cf6e;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053cf6e) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   puVar3 = *(undefined4 **)(param_1 + 4);
 joined_r0x00508d28:
   if (puVar3 == (undefined4 *)0x0) {
@@ -78,7 +76,6 @@ joined_r0x00508d28:
        (iVar2 = __mbsicmp(*(uchar **)(iVar2 + 0x50),unaff_EDI), iVar2 != 0))
     goto joined_r0x00508d28;
   }
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 

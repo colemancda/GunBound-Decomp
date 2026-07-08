@@ -13,7 +13,6 @@ int FUN_0040a500(undefined4 param_1,int param_2)
 {
   int iVar1;
   undefined4 uVar2;
-  undefined4 *unaff_FS_OFFSET;
   undefined1 local_238 [28];
   int local_21c;
   undefined1 local_10;
@@ -22,9 +21,9 @@ int FUN_0040a500(undefined4 param_1,int param_2)
   uint local_4;
   
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_00538e6a;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00538e6a) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_10 = 0;
   local_21c = 0;
@@ -42,7 +41,6 @@ int FUN_0040a500(undefined4 param_1,int param_2)
     FUN_0040a240();
     FUN_0040b540(local_238);
   }
-  *unaff_FS_OFFSET = local_c;
   return param_2;
 }
 

@@ -15,15 +15,14 @@ void FUN_00509110(void)
   undefined4 *puVar2;
   undefined4 uVar3;
   int unaff_ESI;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
   
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053795b;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053795b) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   puVar2 = *(undefined4 **)(unaff_ESI + 4);
   do {
     if (puVar2 == (undefined4 *)0x0) {
@@ -55,14 +54,12 @@ void FUN_00509110(void)
       uVar3 = FUN_005080a0(unaff_ESI,0xb7,0x49,0x12,0x98,7);
       FUN_0050e670(uVar3);
       FUN_0050eea0(puVar2);
-      *unaff_FS_OFFSET = local_c;
       return;
     }
     iVar1 = puVar2[2];
     puVar2 = (undefined4 *)*puVar2;
   } while ((*(int *)(iVar1 + 0x20) != 0) || (*(int *)(iVar1 + 0x24) != 20000));
   *(undefined1 *)(iVar1 + 0x1d) = 1;
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 

@@ -15,15 +15,13 @@ undefined4 * FUN_00405360(undefined4 param_1,undefined4 *param_2)
   int iVar2;
   undefined4 *unaff_EBX;
   undefined4 *puVar3;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
-  
-  local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_00537a95;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00537a95) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   if (unaff_EBX[2] == 0) {
     if (unaff_EBX[5] == 0) {
       puVar1 = _malloc(0x114);
@@ -76,7 +74,6 @@ LAB_004053a0:
   puVar1[0x43] = unaff_EBX[5];
   puVar1[0x44] = unaff_EBX[5];
   unaff_EBX[1] = unaff_EBX[1] + 1;
-  *unaff_FS_OFFSET = local_c;
   return puVar1;
 }
 

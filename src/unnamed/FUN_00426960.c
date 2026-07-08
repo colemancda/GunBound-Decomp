@@ -14,15 +14,14 @@ int __thiscall FUN_00426960(int param_1,int *param_2,undefined4 param_3,undefine
   int *piVar1;
   undefined4 uVar2;
   int iVar3;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 local_10;
   undefined1 *puStack_c;
   undefined4 local_8;
   
   local_8 = 0xffffffff;
-  puStack_c = &LAB_00537a75;
-  local_10 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_10;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00537a75) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   if (param_2[0xb] == 0) {
     piVar1 = _malloc(param_2[9] * 0x10 + 4);
     if (piVar1 == (int *)0x0) {
@@ -54,7 +53,6 @@ int __thiscall FUN_00426960(int param_1,int *param_2,undefined4 param_3,undefine
     uVar2 = FUN_00500e30();
     FUN_00409e20(param_2,uVar2);
   }
-  *unaff_FS_OFFSET = local_10;
   return iVar3;
 }
 

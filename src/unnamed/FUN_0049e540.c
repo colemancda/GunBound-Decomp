@@ -10,15 +10,13 @@
 undefined4 * FUN_0049e540(undefined4 *param_1)
 
 {
-  undefined4 *unaff_FS_OFFSET;
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
-  
-  local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053c03a;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053c03a) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   FUN_00454dc0(param_1,0x186a2);
   local_4 = 0;
   *param_1 = &PTR_FUN_0055649c;
@@ -27,7 +25,6 @@ undefined4 * FUN_0049e540(undefined4 *param_1)
   EncodeOutgoingPacketField(0);
   *(undefined1 *)(param_1 + 0xfe8) = 0;
   param_1[0xfe7] = 0xffffffff;
-  *unaff_FS_OFFSET = local_c;
   return param_1;
 }
 

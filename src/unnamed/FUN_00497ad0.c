@@ -15,7 +15,6 @@ void __fastcall FUN_00497ad0(int param_1)
   undefined4 uVar3;
   undefined4 uVar4;
   int iVar5;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 local_474 [2];
   undefined4 local_46c;
   undefined4 local_468;
@@ -32,9 +31,9 @@ void __fastcall FUN_00497ad0(int param_1)
   undefined4 local_4;
   
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053ef67;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053ef67) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   if (*(char *)(param_1 + 0x14) != '\x01') {
     *(undefined1 *)(param_1 + 0x14) = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -168,7 +167,6 @@ void __fastcall FUN_00497ad0(int param_1)
       FUN_004ee9b0(0);
     }
   }
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 

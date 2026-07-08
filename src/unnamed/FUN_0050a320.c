@@ -18,7 +18,6 @@ undefined4 __thiscall FUN_0050a320(int param_1,int param_2,int param_3)
   int iVar6;
   uint uVar7;
   undefined4 uVar8;
-  undefined4 *unaff_FS_OFFSET;
   uint local_468;
   undefined1 local_45c [1104];
   undefined4 local_c;
@@ -26,9 +25,9 @@ undefined4 __thiscall FUN_0050a320(int param_1,int param_2,int param_3)
   undefined4 local_4;
   
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053cf4d;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053cf4d) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   puVar2 = g_gameStateVTableArray[7];
   uVar7 = *(uint *)(param_1 + 0x94);
   if (uVar7 != 0xffffffff) {
@@ -108,7 +107,6 @@ LAB_0050a582:
   else {
     uVar8 = 1;
   }
-  *unaff_FS_OFFSET = local_c;
   return uVar8;
 }
 
