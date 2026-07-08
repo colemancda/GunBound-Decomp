@@ -1243,7 +1243,8 @@ uint32_t DAT_00569348;
 uint32_t DAT_00569b48;
 uint32_t DAT_0056d468;
 uint32_t DAT_00598e7e;
-uint32_t DAT_005a9050;
+/* Real values read from the binary at 0x5a9050 (see globals.h). */
+const uint32_t g_fullnessGaugeThresholds[5] = { 1, 10, 30, 60, 100 };
 uint32_t DAT_005a9290;
 uint32_t DAT_005a9350;
 uint32_t DAT_005a94b0;
