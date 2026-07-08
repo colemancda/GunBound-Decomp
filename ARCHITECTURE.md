@@ -1657,23 +1657,41 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
      server connection succeeds). These draw themselves through the
      already-documented generic active-object sweep, same as everywhere
      else.
-   - **No dynamic server list was found anywhere.** Checked `OnEnter`,
-     `ProcessPacket`, and every function in the `0x4e0000`-`0x4e2000`
-     address range for additional `CreateButtonWidget` calls (which would
-     be expected for a classic multi-server "channel select" browser, one
-     button/row per discovered server) and for any native Win32
-     listbox/combobox usage (`CreateWindow`/`SendMessage` variants,
-     searched via import table and instruction text) — neither turned up
-     anything. Combined with `OnEnter` zero-initializing large per-server
-     data buffers (matching the already-documented `0x400`-dword/4KB
-     buffer at `+0x4004a` from PROTOCOL.md) but never populating or
-     drawing them from any traceable code path, this strongly suggests
-     **this specific client build only ever connects to a single, fixed
-     server** rather than offering a real server browser — consistent
-     with the "smaller private-server build" pattern already established
-     repeatedly elsewhere in this project (`stage.dat`'s single populated
-     slot, `itemdata.dat`'s 13-of-100 populated items, etc.), rather than
-     an unfound rendering gap.
+   - **No dynamic server list rendering was found anywhere — now confirmed
+     exhaustively, not just by address-range scan.** The earlier pass
+     checked `OnEnter`/`ProcessPacket` for additional `CreateButtonWidget`
+     calls and native Win32 listbox/combobox usage and found none. A later
+     pass went further: **every one of the 15 functions in State 2's own
+     address range was individually decompiled fresh** (not just the ones
+     already named) — the two button-click dispatchers, the Enter-key
+     handler, a packet-checksum/RNG-encoding helper, a per-player-object
+     constructor/destructor pair, and `ProcessPacket` itself — and none of
+     them draw per-entry rows, scroll a viewport, or ever write to the
+     "currently targeted server slot" field (`this+0x68`) from any
+     traceable input path.
+
+     This isn't just an absence of rendering, though — **opcode `0x1102`
+     turns out to populate a real, richly-structured, up-to-16-entry
+     server list** (server ID, name, description, port, current/max
+     player counts, online flag — full wire format and field offsets now
+     in PROTOCOL.md), and a real confirm-connect path (opcode `0x2001`)
+     reads an entry back out by index and transitions into that server's
+     Game Room List. So the client-side *data* and *selection protocol*
+     for a real multi-server browser are completely implemented — it's
+     specifically the **picker UI** (the part that would let a player
+     change which of the 16 slots `this+0x68` points at) that doesn't
+     exist in this build. Combined with `OnEnter` zero-initializing all
+     of this same storage but nothing ever changing `this+0x68` away from
+     its zero-initialized value, **this build presumably always
+     auto-selects list entry 0** — i.e. still effectively a single fixed
+     server from the player's perspective, but because the UI never lets
+     you pick differently, not because the underlying list-of-servers
+     capability doesn't exist. Consistent with the "smaller private-server
+     build" pattern already established repeatedly elsewhere in this
+     project (`stage.dat`'s single populated slot, `itemdata.dat`'s
+     13-of-100 populated items, etc.) — this looks like the same pattern
+     one layer higher up, at the server-list level rather than only the
+     content-database level.
    - **Also touches the whisper-messaging TCP connection.** `OnEnter`
      checks `DAT_007934f4` (the same "direct connection" global from
      the newly-documented Channel 3/whisper investigation in

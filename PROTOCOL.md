@@ -178,17 +178,78 @@ indirection layer.
 
 **Direction**: incoming.
 
-**Behavior**: zeroes a 4 KB buffer (`0x400` dwords at `iVar20 + 0x4004a`),
-then parses a list of variable-length entries out of the payload. Each
-entry's layout: a 2-byte field, then a 1-byte field, then a length-prefixed
-string (the length byte precedes the string bytes), repeated for however
-many entries fit. Entries are copied into a table at `+0x3f84a`, indexed by
-an incrementing counter (`uStack_f0`).
+**Full per-entry wire format, now decoded field-by-field** (previously only
+roughly sketched - this pass fully decompiled the parse loop and cross-
+checked every stored field's later use elsewhere in the same handler and in
+the two button-click handlers, `FUN_004e1170`/`FUN_004e1430`, to confirm
+semantics rather than guess):
 
-**Significance**: this is the **server/channel list** shown on the
-"choose your server" screen — each entry is presumably one selectable
-server/channel with a numeric identifier, a status/flag byte, and a
-display name string.
+```
+u16    serverId
+u8     regionOrType         // overwritten to 3 if onlineFlag below is false
+u8     nameLen (L1)
+char   name[L1]             // NOT null-terminated on wire, NUL added by client
+u8     descLen (L2)
+char   desc[L2]              // NOT null-terminated on wire, NUL added by client
+u32    unknownField          // raw copy, not yet identified (packed IP address?)
+u16    port                  // byte-swapped via htons() before storing
+u16    unknownField2         // raw copy, no byte-swap
+u16    currentPlayers        // confirmed: compared against maxCapacity below
+u16    maxCapacity           // in both click handlers' "is server full" check
+u8     onlineFlag            // 0 = server offline/unavailable
+```
+(13 fixed bytes + `nameLen` + `descLen` per entry, repeated for `count`
+entries - `count` itself is a 1-byte field read earlier in the handler and
+stored at `DAT_005b3484+0x3f808`.)
+
+Stored into a set of parallel arrays, all based at `DAT_005b3484` and
+indexed by entry position `i` (0-based):
+
+| Field | Offset | Stride | Notes |
+|---|---|---|---|
+| `serverId` | `+0x3f81a` | 2 bytes | |
+| `regionOrType` | `+0x3f83a` | 1 byte | |
+| `onlineFlag` | `+0x3f809` | 1 byte | |
+| `name` | `+0x3f84a` | 128 bytes | NUL-terminated; this is the string later copied into the **global current-server-name buffer** (`DAT_005b3484+0x3b8e8`) when a connection is confirmed (opcode `0x2001`, see below) |
+| `desc` | `+0x4004a` | 256 bytes | word-wrapped through `FUN_0041b4b0` (width `0x40`, presumably a message/MOTD field, distinct from `name`) |
+| `unknownField` (u32) | `+0x4104a` | 4 bytes | |
+| `port` | `+0x4108a` | 2 bytes | |
+| `unknownField2` | `+0x410aa` | 2 bytes | |
+| `currentPlayers` | `+0x410ca` | 2 bytes | |
+| `maxCapacity` | `+0x410ea` | 2 bytes | |
+
+**Max entries: 16** — the 256-byte `desc` table is exactly `0x1000`
+(4096) bytes = 16 × 256, the `unknownField` table is `0x40` (16 × 4)
+bytes, and a separate list-selection loop (`FUN_004e1430`, the Enter-key
+handler) explicitly bounds its scan at `iVar2 < 0x10`.
+
+**Selection/connect confirmed via opcode `0x2001`** (see the state-2
+section of this handler, `if (*payload == 0)`): looks up the server at
+index `*(int*)(this+0x68)` (a "currently targeted slot" field also used by
+opcode `0x1012`'s error-code table, `this+(*(int*)(this+0x68))*4+0x28` -
+same field, two independent confirmations), copies that entry's `serverId`
+and `name` into globals (`DAT_005b3484+0x3f804` and
+`DAT_005b3484+0x3b8e8` respectively), then transitions to
+`ChangeGameState(3)` (Game Room List) - i.e. picking a server takes you
+straight into that server's room list.
+
+**No rendering/selection-UI code was found for this list anywhere in the
+binary.** Checked all 15 functions in State 2's own address range
+(`0x4e0000`-`0x4e2000`) individually via fresh decompiles - the three
+`CreateButtonWidget` calls in `OnEnter` (exit/buddy-game/choice-server,
+see ARCHITECTURE.md), two button-click dispatchers, a keydown handler, the
+packet-checksum/RNG-encoding helper, a per-player-object constructor/
+destructor pair, and this `ProcessPacket` handler itself - and none of
+them draw per-entry rows, scroll a viewport, or write to `this+0x68` from
+any traceable input path. The data is real, richly structured, and fully
+parsed/stored by the client, but the only code path that ever *reads* an
+entry back out (opcode `0x2001`'s confirm-connect handler) always reads
+whatever index `this+0x68` already holds - which, since nothing observed
+sets it, is presumably always `0` in practice. This is consistent with
+(and now much more strongly evidenced than) the earlier "single fixed
+server" conclusion: the client retains full multi-server-list capability
+at the protocol/storage layer, but this build's UI only ever auto-selects
+entry 0 rather than presenting a real picker.
 
 ---
 
