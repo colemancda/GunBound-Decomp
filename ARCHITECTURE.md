@@ -157,6 +157,48 @@ state N's slot-1 override is the way to find that screen's opcode handling
 (server list ops live in state 2's handler, avatar-store purchases in state
 7's, etc.), not just the room-list one.
 
+### Speculative C++ reconstruction
+
+**This block is an educated guess.** That screens are polymorphic C++ classes
+is confirmed (the `operator_new` + vtable-install in `InitGame`, the shared
+slot layout above, the `CGameState_ScalarDeletingDestructor`/`_BaseDestructor`/
+`_NoOpVirtual_A/B` helpers, the null-object vtable). The class/method *names*
+below are invented, and slot semantics past slot 9 are per-subclass.
+
+```cpp
+// Abstract base; each screen is a subclass. Objects heap-allocated in InitGame
+// (or a per-state ctor) and installed into g_gameStateVTableArray[16].
+class CGameState {
+public:
+    virtual ~CGameState();                                     // slot 0  CGameState_ScalarDeletingDestructor (0x4e5320)
+                                                               //         -> BaseDestructor resets vtable to the null-object vtable (0x553fb0)
+    virtual void ProcessPacket(int len, u16 op, u16* payload); // slot 1  per-screen protocol handler (NoOp_A default)
+    virtual void v2();                                         // slot 2  (NoOp_B default)
+    virtual void v3();                                         // slot 3
+    virtual void v4();                                         // slot 4
+    virtual void OnKeyInput(int msg, int a, int b);            // slot 5  keyboard/chat/command dispatcher
+    virtual void OnMouseInput(int msg, int x, int y);          // slot 6  mouse (Win32 message codes)
+    virtual void OnEnter();                                    // slot 7  load .img/.mp3, build widget tree
+    virtual void OnExit();                                     // slot 8
+    virtual void OnTick();                                     // slot 9  per-state (render/timer); free virtuals beyond here
+    // vtable at +0x00; remaining members are per-subclass.
+};
+```
+
+Subclass object sizes vary widely because each adds its own state:
+`State01_Title` 8 B (a frame counter), `State02_ServerSelect` 0x6c,
+`State03_GameRoomList` 0x294, `State09_ReadyRoom` 0x78c, `State11_InBattle`
+0x2408, `State07_AvatarStore` 0x34818. Slots 0–9 are the shared interface;
+subclasses extend the vtable freely past slot 9 (In-Battle has 18 slots, Ready
+Room 20). This mirrors the parallel `CWidget` hierarchy (see
+[docs/widgets.md](docs/widgets.md)) — a screen's `OnEnter` builds a tree of
+`CWidget`s whose `OnCommand` callbacks feed back into the screen's own
+dispatcher.
+
+**Guessed**: every name; that it's single-inheritance; the exact slot-2/3/4
+roles (only confirmed as usually-no-op). **Solid**: the construction pattern,
+slots 0/1/5/6/7/8/9, the destructor/null-object behavior, and object sizes.
+
 ### State 11 (In-Battle) full vtable map — confirmed
 
 Dumped `vtable_State11_InBattle` (`0x5566d8`) directly — an 18-entry
