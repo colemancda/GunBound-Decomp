@@ -59,9 +59,10 @@ dkms.conf
 orig/
 # Proprietary MSVC 7.10 tree the user supplies
 tools/msvc-env/msvc7/
-# Ghidra project database (28MB, regenerable) and python venv
+# Ghidra project database (28MB, regenerable) and python venvs
 ghidra_proj/
 tools/.venv/
+tools/.venv-win/
 tools/asm-differ/
 *.gme
 *.xfs
