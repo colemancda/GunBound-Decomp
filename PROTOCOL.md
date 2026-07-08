@@ -191,7 +191,8 @@ u8     nameLen (L1)
 char   name[L1]             // NOT null-terminated on wire, NUL added by client
 u8     descLen (L2)
 char   desc[L2]              // NOT null-terminated on wire, NUL added by client
-u32    unknownField          // raw copy, not yet identified (packed IP address?)
+u32    serverIp             // packed IPv4 address (4 bytes a.b.c.d); confirmed
+                            //   below - formatted "%d.%d.%d.%d" at connect time
 u16    port                  // byte-swapped via htons() before storing
 u16    unknownField2         // raw copy, no byte-swap
 u16    currentPlayers        // confirmed: compared against maxCapacity below
@@ -212,7 +213,7 @@ indexed by entry position `i` (0-based):
 | `onlineFlag` | `+0x3f809` | 1 byte | |
 | `name` | `+0x3f84a` | 128 bytes | NUL-terminated; this is the string later copied into the **global current-server-name buffer** (`DAT_005b3484+0x3b8e8`) when a connection is confirmed (opcode `0x2001`, see below) |
 | `desc` | `+0x4004a` | 256 bytes | word-wrapped through `FUN_0041b4b0` (width `0x40`, presumably a message/MOTD field, distinct from `name`) |
-| `unknownField` (u32) | `+0x4104a` | 4 bytes | |
+| `serverIp` (u32) | `+0x4104a` | 4 bytes | packed IPv4; `FUN_004e1bf0` `sprintf`s it as `"%d.%d.%d.%d"` (fmt `s__d__d__d__d_00557138`) and passes it with `port` to the socket-connect helper `FUN_004d2480` |
 | `port` | `+0x4108a` | 2 bytes | |
 | `unknownField2` | `+0x410aa` | 2 bytes | |
 | `currentPlayers` | `+0x410ca` | 2 bytes | |
@@ -233,44 +234,50 @@ and `name` into globals (`DAT_005b3484+0x3f804` and
 `ChangeGameState(3)` (Game Room List) - i.e. picking a server takes you
 straight into that server's room list.
 
-**No rendering/selection-UI code was found for this list anywhere in the
-binary — now confirmed exhaustively, not just for State 2's own code but
-project-wide.** Two independent passes:
+**The selection → connect code path DOES exist** (this corrects an earlier
+draft of this section that claimed `this+0x68` was never written — a helper,
+`FUN_004e1bf0`, was missed on the first pass because it is not a vtable slot,
+just a callee of the two input handlers). Two selection-related fields, not
+one:
 
-1. Checked all 15 functions in State 2's own address range
-   (`0x4e0000`-`0x4e2000`) individually via fresh decompiles - the three
-   `CreateButtonWidget` calls in `OnEnter` (exit/buddy-game/choice-server,
-   see ARCHITECTURE.md), two button-click dispatchers, a keydown handler, the
-   packet-checksum/RNG-encoding helper, a per-player-object constructor/
-   destructor pair, and this `ProcessPacket` handler itself.
-2. Dumped `vtable_State02_ServerSelect` (`0x5570f0`) directly: it has only
-   **18 slots**, and 7 of them (`FUN_00429800` ×6, `FUN_00443570`) are
-   generic no-op stubs shared verbatim across many other game states, plus
-   `CGameState_NoOpVirtual_A`/`_B` (2 more shared stubs) and the scalar
-   deleting destructor - none of these touch state-specific fields at all.
-   That leaves exactly the same 7 State-2-unique functions already checked
-   in pass 1, plus one previously-unexamined tick handler,
-   `FUN_004e1960` (vtable slot 9, called every frame): it resends
-   keepalive/status packets (opcodes `0x1000`/`0x1100`) and refreshes a
-   per-server byte array at `DAT_005b3484+0x4110a` (sized by the entry
-   count at `+0x3f808`) via `FUN_00402020()` - most likely a per-slot
-   blink/animation value, not a selection mechanism. It does not touch
-   `this+0x68` either.
+- **`this+8` = highlighted/current slot** (the UI cursor). Initialized to
+  `-1`. The Enter-key handler (`FUN_004e1430`, vtable slot 6) auto-populates
+  it: on Enter with `this+8 == -1`, it scans `onlineFlag[i]` (`+0x3f809`,
+  `i < 0x10`) and sets `this+8` to the **first online server**.
+- **`this+0x68` = slot a connection is currently being opened to.**
+  Initialized to `-1` in `InitGame` (`g_gameStateVTableArray[2]+0x68 =
+  0xffffffff`), **not** `0`.
 
-Across all 7 unique functions, `this+0x68` is only ever **read** (in
-`ProcessPacket`, both places quoted above) - it is never written anywhere.
-Since the object's layout is specific to this one vtable/class, no other
-state's code could write to the same field either. The data is real,
-richly structured, and fully parsed/stored by the client, but the only
-code path that ever *reads* an entry back out (opcode `0x2001`'s
-confirm-connect handler) always reads whatever index `this+0x68` already
-holds - which, since it is never written anywhere in the binary and the
-object is zero-initialized on construction, is unconditionally `0` for
-the lifetime of the process. This is consistent with (and now completely
-confirmed, not just evidenced, versus) the earlier "single fixed server"
-conclusion: the client retains full multi-server-list capability at the
-protocol/storage layer, but this build's UI has no code path of any kind
-that can select an entry other than 0.
+Both the click handler (`FUN_004e1170`, slot 5, action `param_4==2`) and the
+Enter handler (`FUN_004e1430`, slot 6), after validating that the highlighted
+slot is online and not full (`currentPlayers <= maxCapacity`), call
+`FUN_004e1bf0(this)` with the highlighted index left in `EDI`. That helper:
+1. reads the packed **IPv4 address** from `serverIp` (`+0x4104a + i*4`) and
+   `sprintf`s it as `"%d.%d.%d.%d"`;
+2. reads `port` (`+0x4108a + i*2`) and calls the socket-connect helper
+   `FUN_004d2480(ipStr, port)`;
+3. sets `this+4 = 1` (connecting flag), disables the button, and records
+   **`this+0x68 = i`** — the write that was previously missed.
+
+Once the server acks, opcode `0x2001` (`if (*payload == 0)`) reads the entry
+at `this+0x68`, copies its `serverId`→`DAT_005b3484+0x3f804` and `name`→the
+global current-server-name buffer (`DAT_005b3484+0x3b8e8`), and transitions
+to `ChangeGameState(3)` (that server's Game Room List). Opcode `0x1012`'s
+error-code table indexes the same `this+0x68` (`this+(*(int*)(this+0x68))*4+
+0x28`), storing a per-slot error code shown on failure.
+
+**What genuinely IS absent: a visual list picker for arbitrary rows.** No
+per-entry row widgets or list-viewport rendering were found — the three
+`CreateButtonWidget` calls in `OnEnter` are just exit / buddy-game /
+choice-server buttons, and no code sets `this+8` to anything other than
+"first online server." So in practice this build connects to the **first
+online server in the list**, not a user-chosen arbitrary one. The full
+multi-entry list data (up to 16 servers, each with IP/port/population) is
+parsed and stored, and the select→connect→confirm state machine is fully
+real; it's specifically the UI affordance to highlight a non-first entry
+that is missing. (This supersedes the earlier "always index 0, never
+written" phrasing, which was doubly wrong: `this+0x68` is written on every
+connect attempt, and the default is `-1`, not `0`.)
 
 ---
 

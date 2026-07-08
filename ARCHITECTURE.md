@@ -1657,53 +1657,45 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
      server connection succeeds). These draw themselves through the
      already-documented generic active-object sweep, same as everywhere
      else.
-   - **No dynamic server list rendering was found anywhere — now confirmed
-     exhaustively, not just by address-range scan.** The earlier pass
-     checked `OnEnter`/`ProcessPacket` for additional `CreateButtonWidget`
-     calls and native Win32 listbox/combobox usage and found none. A later
-     pass went further: **every one of the 15 functions in State 2's own
-     address range was individually decompiled fresh** (not just the ones
-     already named) — the two button-click dispatchers, the Enter-key
-     handler, a packet-checksum/RNG-encoding helper, a per-player-object
-     constructor/destructor pair, and `ProcessPacket` itself — and none of
-     them draw per-entry rows, scroll a viewport, or ever write to the
-     "currently targeted server slot" field (`this+0x68`) from any
-     traceable input path.
+   - **A real select→connect state machine exists; only the arbitrary-row
+     picker UI is missing.** (Corrects an earlier draft here that claimed
+     `this+0x68` is never written — the write lives in `FUN_004e1bf0`, a
+     *non-vtable* helper called by the input handlers, which was missed on
+     the first address-range pass.) **Opcode `0x1102` populates a real,
+     richly-structured, up-to-16-entry server list** (server ID, name,
+     description, **packed IPv4 address**, port, current/max player counts,
+     online flag — full wire format and field offsets in PROTOCOL.md).
+     There are two selection fields on the state object:
+     - `this+8` = **highlighted slot** (UI cursor), initialized to `-1`;
+       the Enter-key handler (`FUN_004e1430`) auto-sets it to the **first
+       online server** when nothing is highlighted.
+     - `this+0x68` = **slot currently being connected to**, initialized to
+       `-1` in `InitGame` (`g_gameStateVTableArray[2]+0x68 = 0xffffffff`),
+       **not** `0`.
 
-     This isn't just an absence of rendering, though — **opcode `0x1102`
-     turns out to populate a real, richly-structured, up-to-16-entry
-     server list** (server ID, name, description, port, current/max
-     player counts, online flag — full wire format and field offsets now
-     in PROTOCOL.md), and a real confirm-connect path (opcode `0x2001`)
-     reads an entry back out by index and transitions into that server's
-     Game Room List. So the client-side *data* and *selection protocol*
-     for a real multi-server browser are completely implemented — it's
-     specifically the **picker UI** (the part that would let a player
-     change which of the 16 slots `this+0x68` points at) that doesn't
-     exist in this build.
+     Both the click handler (`FUN_004e1170`) and the Enter handler
+     (`FUN_004e1430`), after checking the highlighted server is online and
+     not full, call `FUN_004e1bf0(this)`. That helper `sprintf`s the packed
+     IP as `"%d.%d.%d.%d"`, opens a socket to `ip:port` via `FUN_004d2480`,
+     and writes **`this+0x68 = <highlighted index>`**. When the server acks
+     (opcode `0x2001`, `*payload==0`), the client reads the entry at
+     `this+0x68`, copies its `serverId`/`name` into globals, and
+     `ChangeGameState(3)` into that server's Game Room List. Opcode `0x1012`
+     stores a per-slot error code at `this+(*(this+0x68))*4+0x28` on failure.
 
-     **Confirmed project-wide, not just presumed**: dumping
-     `vtable_State02_ServerSelect` directly showed it has only 18 slots,
-     11 of which are stub functions shared verbatim with other game
-     states (so they can't touch a State-2-specific field at all) — the
-     remaining 7 are exactly the same functions already checked above
-     plus one previously-unexamined tick handler (`FUN_004e1960`, resends
-     keepalive packets and animates a per-server byte array, but never
-     touches `this+0x68`). Across every one of those 7 functions,
-     `this+0x68` is only ever *read*, never written — and since the
-     object's layout is unique to this one vtable/class, no other state's
-     code could write to the same field either. Combined with `OnEnter`
-     zero-initializing all of this same storage, **this build
-     unconditionally auto-selects list entry 0** for the lifetime of the
-     process — i.e. still effectively a single fixed server from the
-     player's perspective, but because no code path anywhere can pick
-     differently, not because the underlying list-of-servers capability
-     doesn't exist. Consistent with the "smaller private-server
-     build" pattern already established repeatedly elsewhere in this
-     project (`stage.dat`'s single populated slot, `itemdata.dat`'s
-     13-of-100 populated items, etc.) — this looks like the same pattern
-     one layer higher up, at the server-list level rather than only the
-     content-database level.
+     So the client-side *data* and the *select→connect→confirm* protocol
+     for a real multi-server browser are completely implemented and
+     exercised. What's genuinely absent is only the **visual list picker**:
+     no per-entry row widgets or list-viewport rendering exist (the three
+     `CreateButtonWidget` calls in `OnEnter` are exit / buddy-game /
+     choice-server buttons), and no code sets `this+8` to anything other
+     than "first online server." **In practice this build connects to the
+     first online server in the list** — not literally index 0 and not via
+     a fixed hardcode, but through a real (if minimal) selection path.
+     Consistent with the "smaller private-server build" pattern seen
+     elsewhere (`stage.dat`'s single populated slot, `itemdata.dat`'s
+     13-of-100 items) — the machinery is fully general, this build just
+     drives it with a trivial default.
    - **Also touches the whisper-messaging TCP connection.** `OnEnter`
      checks `DAT_007934f4` (the same "direct connection" global from
      the newly-documented Channel 3/whisper investigation in
