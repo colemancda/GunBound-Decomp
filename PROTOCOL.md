@@ -912,8 +912,8 @@ down a couple of previously-tentative ones:
 | `0x3210` | Change Team (id 2) | request; server broadcast not definitively matched (do **not** assume `0x3211` — that one's replay event points to *map* selection, so the pairing is unclear; team-change broadcast may be `0x3151`) |
 | `0x3200` | select character (ids 100–113; `0xff`=random) | its broadcast is **`0x3201`** — *confirms* the tentative "weapon/character selection change" (whose replay event already aligned with a Channel 2 character-model sync) |
 | `0x3104` | **chat message** (chat-commit path, non-command text) | normal queued packet — resolves the "chat-send not found" note |
-| `0x3103` | room-option change (ids `0x14`–`0x17`) | host room config |
-| `0x3101` | room-option change (ids `0x3c`–`0x3e`) | host room config; a room-settings dword is bit-packed via `QueueOutgoingPacketField` (cases `0xb`–`0x3e`) |
+| `0x3103` | room **player capacity** 4/6/8 (ids `0x14`–`0x17`, byte at `this+0x230`) | host room config |
+| `0x3101` | room-**options bitfield** dword (ids `0xb`–`0x3e`) | host room config; 5 radio-groups packed at dword bits 0–3 / 8–11 / 12–13 / 14–15 / ~18–23 via `QueueOutgoingPacketField`; per-option labels undecoded (see [09_ready_room.md](docs/screens/09_ready_room.md)) |
 | `0x3100` | map/list scroll (ids 4/5) | |
 | `0x2000` | Exit room (id 3) | see opcode `0x2001` below |
 

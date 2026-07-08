@@ -113,8 +113,35 @@ host), `0x3210` (change team), `0x3200` (select character), `0x3104` (chat),
   path — not the raw-Winsock guess in the earlier draft. (Whisper/`/message`
   still uses the separate TCP "Channel 3", `FUN_00402720`.)
 
+## Room-option controls (host) — `0x3101` / `0x3103`
+The host-only room-config controls dispatch to two different sends:
+
+- **`0x3103` — room player capacity** (cases `0x14`–`0x17`): sets a byte at
+  `this+0x230` to `4` / `6` / `8` (case `0x17` computes `((count+1)/2)*2`) and
+  sends it — the 4/6/8-player room-size selector.
+- **`0x3101` — room-options bitfield dword** (cases `0xb`–`0x3e`): each control
+  is a radio group that clears its own bit range and sets the chosen value in a
+  single settings dword (read via `FUN_0040a4d0(this+0x26c)`), pushed with
+  `QueueOutgoingPacketField`. Confirmed **bit-group layout** (values written by
+  consecutive case IDs; exact per-option *labels* need the config-panel strings
+  and aren't decoded):
+  | Dword bits | Mask | Control (cases) |
+  |---|---|---|
+  | 0–3 | `0x0000000f` | option group A (`0x28`–`0x2a`) |
+  | 8–11 | `0x00000f00` | option group B (`0x1e`–`0x21`) |
+  | 12–13 | `0x00003000` | option group C (`0x32`–`0x35`) |
+  | 14–15 | `0x0000c000` | option group D (`0x3c`–`0x3e`); `0x3c` also commits |
+  | ~18–23 | `0x00fc0000` | option group E (`0xb`–`0xd`) |
+
+  These are the classic GunBound room settings (game type, item/tank
+  restrictions, etc.); which group is which isn't determinable from the
+  bit-packing alone.
+
 ## Still open
-- The exact room-settings-dword bit layout (cases `0xb`–`0x3e` pack a dword of
-  room options — team mode, item/tank restrictions, etc. — sent via `0x3101`/
-  `0x3103`); individual bit meanings not fully decoded.
-- Vtable slots 18 (`0x40ca00`) / 19 (`0x461c60`) not yet examined.
+- Per-option semantics of the `0x3101` bitfield groups above (need the
+  room-config panel's button labels/strings).
+- Vtable slots 18 (`0x40ca00`) / 19 (`0x461c60`) are **inherited base-class
+  infra**, not Ready-Room UI: slot 18 is a secondary scalar-deleting destructor
+  thunk (→ `FUN_004711e0`), slot 19 (`0x461c60`) a small resource/connection
+  poll (reads `+0x1c`, calls `FUN_00401610`, sets `+0x20`/`+0x24`/`+0x34` — the
+  same field shape as the connection object). Neither is screen-specific.
