@@ -42,11 +42,11 @@ void FUN_00499650(int *param_1,undefined4 param_2,undefined4 param_3,int param_4
     uVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_0040a5f0(uVar2,local_454,uVar3);
-    local_4._0_1_ = 1;
+    local_4 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_4 = (uint)local_4._1_3_ << 8;
+    local_4 = 0;
     if (local_440 != 0) {
       FUN_0040a240();
       FUN_0040b540(local_688);

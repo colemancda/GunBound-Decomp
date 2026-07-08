@@ -26,11 +26,11 @@ int __fastcall FUN_00418850(int param_1)
   *(undefined1 *)(param_1 + 0x464) = 0;
   *(undefined4 *)(param_1 + 600) = 0;
   EncodeOutgoingPacketField(0);
-  local_4._0_1_ = 1;
+  local_4 = 1;
   *(undefined1 *)(param_1 + 0x688) = 0;
   *(undefined4 *)(param_1 + 0x47c) = 0;
   EncodeOutgoingPacketField(0);
-  local_4 = CONCAT31(local_4._1_3_,2);
+  local_4 = 2;
   FUN_00406440();
   FUN_00406440();
   FUN_00406440();

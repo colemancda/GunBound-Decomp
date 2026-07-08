@@ -25,47 +25,47 @@ void __fastcall FUN_004254a0(int param_1)
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 8;
+  local_4 = 8;
   if (*(int *)(param_1 + 0x1370) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 7;
+  local_4 = 7;
   if (*(int *)(param_1 + 0x114c) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 6;
+  local_4 = 6;
   if (*(int *)(param_1 + 0xf28) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 5;
+  local_4 = 5;
   if (*(int *)(param_1 + 0xd04) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 4;
+  local_4 = 4;
   if (*(int *)(param_1 + 0xae0) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 3;
+  local_4 = 3;
   if (*(int *)(param_1 + 0x8bc) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 2;
+  local_4 = 2;
   if (*(int *)(param_1 + 0x698) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 1;
+  local_4 = 1;
   if (*(int *)(param_1 + 0x474) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = 0;
   if (*(int *)(param_1 + 0x250) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);

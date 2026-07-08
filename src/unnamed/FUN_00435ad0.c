@@ -54,12 +54,12 @@ void FUN_00435ad0(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
         uVar5 = FUN_0040a5f0(iVar3 + 0x3c,local_230,param_2);
         local_4 = 0;
         FUN_0040a8c0(uVar5,local_454,2);
-        local_4._0_1_ = 1;
+        local_4 = 1;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar5 = PeekPacketChecksumState();
         EncodeOutgoingPacketField(uVar5);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        local_4 = (uint)local_4._1_3_ << 8;
+        local_4 = 0;
         if (local_440 != 0) {
           FUN_0040a240();
           FUN_0040b540(local_45c);

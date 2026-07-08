@@ -246,7 +246,7 @@ LAB_00479e75:
       uStack_664 = 0;
       EncodeOutgoingPacketField(0);
       piVar1 = param_1 + 0xe;
-      local_4 = CONCAT31(local_4._1_3_,4);
+      local_4 = 4;
       uVar4 = FUN_0040a4d0(piVar1);
       switch(uVar4) {
       case 0:
@@ -271,14 +271,14 @@ LAB_00479e75:
         iVar8 = FUN_0040a4d0(iVar5 * 0x1120 + 0x5113c + DAT_005b3484);
         iVar10 = FUN_0040a4d0(&DAT_00796aa0);
         uVar4 = FUN_0040a7d0(local_89c,auStack_230,iVar8 + iVar10);
-        local_4._0_1_ = 5;
+        local_4 = 5;
         uVar12 = FUN_0040a4d0(&DAT_00796aa0);
         uVar4 = FUN_0040a8c0(uVar4,auStack_454,uVar12);
-        local_4._0_1_ = 6;
+        local_4 = 6;
         uVar4 = FUN_0040a4d0(uVar4);
-        local_4._0_1_ = 5;
+        local_4 = 5;
         FUN_0040a2a0();
-        local_4 = CONCAT31(local_4._1_3_,4);
+        local_4 = 4;
         FUN_0040a2a0();
         AddToPacketChecksum(uVar4);
         uVar12 = FUN_0040a4d0(auStack_678);
@@ -355,7 +355,7 @@ LAB_0047a634:
           FUN_004d25e0();
           FUN_004d2680();
           g_gameStateVTableArray[0xb][0x2382] = 1;
-          local_4 = CONCAT31(local_4._1_3_,3);
+          local_4 = 3;
           FUN_0040a2a0();
           local_4 = 0xffffffff;
           iVar5 = FUN_0040a2a0();
@@ -364,7 +364,7 @@ LAB_0047a634:
       }
       FUN_004ee9b0(0);
       FUN_0040b060();
-      local_4 = CONCAT31(local_4._1_3_,3);
+      local_4 = 3;
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();

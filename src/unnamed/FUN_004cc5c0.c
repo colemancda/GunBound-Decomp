@@ -58,9 +58,9 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         local_4 = 3;
         uVar4 = FUN_0040a4d0(&DAT_00796aa0);
         uVar6 = FUN_0040a8c0(uVar6,local_1350,uVar4);
-        local_4._0_1_ = 4;
+        local_4 = 4;
         FUN_0040aff0(uVar6);
-        local_4 = CONCAT31(local_4._1_3_,3);
+        local_4 = 3;
         FUN_0040a2a0();
         local_4 = 0xffffffff;
         FUN_0040a2a0();
@@ -79,9 +79,9 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
           local_4 = 7;
           uVar4 = FUN_0040a4d0(&DAT_00796aa0);
           uVar6 = FUN_0040a8c0(uVar6,local_678,uVar4);
-          local_4._0_1_ = 8;
+          local_4 = 8;
           FUN_0040afb0(uVar6);
-          local_4 = CONCAT31(local_4._1_3_,7);
+          local_4 = 7;
           FUN_0040a2a0();
         }
         else {
@@ -90,9 +90,9 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
           local_4 = 5;
           uVar4 = FUN_0040a4d0(&DAT_00796aa0);
           uVar6 = FUN_0040a8c0(uVar6,local_f08,uVar4);
-          local_4._0_1_ = 6;
+          local_4 = 6;
           FUN_0040afb0(uVar6);
-          local_4 = CONCAT31(local_4._1_3_,5);
+          local_4 = 5;
           FUN_0040a2a0();
         }
         local_4 = 0xffffffff;
@@ -138,9 +138,9 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
           local_4 = 0;
           uVar4 = FUN_0040a4d0(&DAT_00e9ba40);
           uVar6 = FUN_0040a8c0(uVar6,local_454,uVar4);
-          local_4._0_1_ = 1;
+          local_4 = 1;
           FUN_0040afb0(uVar6);
-          local_4 = (uint)local_4._1_3_ << 8;
+          local_4 = 0;
           FUN_0040a2a0();
         }
         local_4 = 0xffffffff;

@@ -37,13 +37,13 @@ void __fastcall FUN_00477930(int param_1)
   uVar2 = FUN_0040a6e0(param_1 + 0x1178,local_230,*(undefined4 *)(&DAT_006a7714 + DAT_005b3484));
   local_4 = 0;
   uVar2 = FUN_0040a5f0(uVar2,local_678,0x104);
-  local_4._0_1_ = 1;
+  local_4 = 1;
   FUN_0040a5f0(uVar2,local_89c,0x26);
-  local_4._0_1_ = 2;
+  local_4 = 2;
   uVar2 = FUN_0040a6e0(param_1 + 0xf54,local_ac0,*(undefined4 *)(&DAT_006a7710 + DAT_005b3484));
-  local_4._0_1_ = 3;
+  local_4 = 3;
   FUN_0040a5f0(uVar2,local_454,400);
-  local_4 = CONCAT31(local_4._1_3_,4);
+  local_4 = 4;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -62,22 +62,22 @@ void __fastcall FUN_00477930(int param_1)
       }
     }
   }
-  local_4._0_1_ = 3;
+  local_4 = 3;
   if (local_440 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_ac8);
   }
-  local_4._0_1_ = 2;
+  local_4 = 2;
   if (local_aac != 0) {
     FUN_0040a240();
     FUN_0040b540(local_ac8);
   }
-  local_4._0_1_ = 1;
+  local_4 = 1;
   if (local_888 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_ac8);
   }
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = 0;
   if (local_664 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_ac8);

@@ -36,7 +36,7 @@ int FUN_0043d780(byte *param_1)
       pbVar1 = pbVar7 + 1;
       uVar5 = *(uint *)(in_EAX + 0xc);
       uVar4 = *(undefined2 *)(pbVar7 + 3);
-      local_8 = CONCAT31(local_8._1_3_,*pbVar7);
+      local_8 = *pbVar7;
       pbVar7 = pbVar7 + 5;
       local_8 = CONCAT22(*(undefined2 *)pbVar1,(undefined2)local_8);
       if ((*(uint *)(in_EAX + 0x10) <= uVar5) && (cVar6 = FUN_0043d840(), cVar6 == '\0')) {

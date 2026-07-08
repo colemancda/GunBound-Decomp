@@ -161,7 +161,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
           local_4978 = iVar7 + 0x10;
           iVar7 = (**(code **)(DAT_005b1444 + 0xc))();
           iVar7 = iVar7 + 0x10;
-          local_c._0_1_ = 2;
+          local_c = 2;
           uVar6 = *puVar1;
           pbVar13 = (byte *)(param_2 + 6);
           iStack_4974 = iVar7;
@@ -212,7 +212,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
             iVar7 = iStack_4974;
             (**(code **)(**(int **)(param_1 + 0x17bc) + 0x10))(local_4958);
           }
-          local_c = CONCAT31(local_c._1_3_,1);
+          local_c = 1;
           piVar2 = (int *)(iVar7 + -4);
           LOCK();
           iVar3 = *piVar2;

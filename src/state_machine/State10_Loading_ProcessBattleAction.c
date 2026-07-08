@@ -58,9 +58,9 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
           uVar4 = FUN_0040aba0(piVar3 + 0x19d1,auStack_230,piVar3 + 0x1b6c);
           iStack_4 = 0;
           uVar4 = FUN_0040a8c0(uVar4,auStack_454,3);
-          iStack_4._0_1_ = 1;
+          iStack_4 = 1;
           cVar2 = FUN_0040b490(piVar3 + 0x1a5a,uVar4);
-          iStack_4 = (uint)iStack_4._1_3_ << 8;
+          iStack_4 = 0;
           FUN_0040a2a0();
           iStack_4 = 0xffffffff;
           FUN_0040a2a0();

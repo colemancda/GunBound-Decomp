@@ -31,12 +31,12 @@ void FUN_004780e0(undefined4 *param_1)
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 0xf;
+  local_4 = 0xf;
   if (param_1[0x799] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 0xe;
+  local_4 = 0xe;
   iVar2 = param_1[0x790];
   if (iVar2 != 0) {
     uVar3 = param_1[0x791];
@@ -58,72 +58,72 @@ void FUN_004780e0(undefined4 *param_1)
     }
     _free((void *)param_1[0x790]);
   }
-  local_4._0_1_ = 0xd;
+  local_4 = 0xd;
   if (param_1[0x70c] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 0xc;
+  local_4 = 0xc;
   if (param_1[0x682] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 0xb;
+  local_4 = 0xb;
   if (param_1[0x5f9] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 10;
+  local_4 = 10;
   if (param_1[0x570] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 9;
+  local_4 = 9;
   if (param_1[0x4e7] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 8;
+  local_4 = 8;
   if (param_1[0x45e] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 7;
+  local_4 = 7;
   if (param_1[0x3d5] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 6;
+  local_4 = 6;
   if (param_1[0x34a] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 5;
+  local_4 = 5;
   if (param_1[0x2c1] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 4;
+  local_4 = 4;
   if (param_1[0x237] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 3;
+  local_4 = 3;
   if (param_1[0x1ae] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 2;
+  local_4 = 2;
   if (param_1[0x125] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 1;
+  local_4 = 1;
   if (param_1[0x9c] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = 0;
   if (param_1[0x13] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);

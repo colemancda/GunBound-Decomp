@@ -59,7 +59,7 @@ void __fastcall FUN_004acd10(int param_1)
                    (local_45c[0] * 0x343fd + 0x5809315U) % uVar6 - (int)uVar6 / 2);
       local_4 = 0;
       FUN_0040a5f0(param_1 + 0xf54,local_454,(iVar7 + 0x5809315U) % uVar6 - (int)uVar6 / 2);
-      local_4._0_1_ = 1;
+      local_4 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_45c[0] = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -76,7 +76,7 @@ void __fastcall FUN_004acd10(int param_1)
       iVar7 = local_45c[0];
       FUN_004065a0(0,local_45c[0],0xff,2,1);
       FUN_00431d90(*(undefined1 *)(param_1 + 0x3c),3,0,uVar4,iVar7,uVar10,uVar11,uVar12);
-      local_4 = (uint)local_4._1_3_ << 8;
+      local_4 = 0;
       if (local_440 != 0) {
         FUN_0040a240();
         FUN_0040b540(local_45c);

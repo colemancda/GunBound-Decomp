@@ -39,7 +39,7 @@ int __fastcall FUN_0045c6e0(int param_1)
   iVar1 = param_1 + 0xb30;
   local_4 = 0;
   FUN_0040aca0(iVar1,local_454,uVar2);
-  local_4._0_1_ = 1;
+  local_4 = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -48,7 +48,7 @@ int __fastcall FUN_0045c6e0(int param_1)
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_680 = FUN_004e4340();
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = 0;
   if (local_440 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_688);
@@ -61,12 +61,12 @@ int __fastcall FUN_0045c6e0(int param_1)
   uVar2 = FUN_0040a8c0(iVar5,local_454,2);
   local_4 = 2;
   FUN_0040aca0(iVar1,local_678,uVar2);
-  local_4._0_1_ = 3;
+  local_4 = 3;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   bVar6 = local_680 == iVar3;
-  local_4 = CONCAT31(local_4._1_3_,2);
+  local_4 = 2;
   if (local_664 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_688);

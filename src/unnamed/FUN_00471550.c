@@ -43,11 +43,11 @@ void __fastcall FUN_00471550(int param_1)
   uVar2 = FUN_0040a6e0(param_1 + 0x3c,local_678,*(undefined4 *)(&DAT_006a7710 + DAT_005b3484));
   local_4 = 0;
   FUN_0040a5f0(uVar2,local_454,400);
-  local_4._0_1_ = 1;
+  local_4 = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = 0;
   if (local_440 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_688);

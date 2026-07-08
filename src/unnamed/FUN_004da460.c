@@ -67,7 +67,7 @@ LAB_004da4f7:
     param_3 = param_3 & 0xffffff00;
   }
   else {
-    param_3 = CONCAT31(param_3._1_3_,1);
+    param_3 = 1;
     if (*(char *)(param_1 + 0x4cc) != '\0') goto LAB_004da4f7;
   }
   FUN_00406300(param_2);
@@ -109,7 +109,7 @@ LAB_004da4f7:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   iVar5 = PeekPacketChecksumState();
-  param_3 = CONCAT31(param_3._1_3_,iVar4 == iVar5);
+  param_3 = iVar4 == iVar5;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_00406300(param_3);
   FUN_00406300(cVar2);

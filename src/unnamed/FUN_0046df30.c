@@ -25,12 +25,12 @@ void FUN_0046df30(undefined4 *param_1)
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 1;
+  local_4 = 1;
   if (param_1[0x9d] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = 0;
   if (param_1[0x14] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);

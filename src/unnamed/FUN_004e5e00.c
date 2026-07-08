@@ -34,7 +34,7 @@ undefined4 * FUN_004e5e00(undefined4 *param_1)
   InitializeCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x5f));
   param_1[0x65] = &PTR_FUN_005572dc;
   InitializeCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x66));
-  local_4 = CONCAT31(local_4._1_3_,2);
+  local_4 = 2;
   *(undefined1 *)(param_1 + 0x11480) = 0;
   iVar1 = FUN_004e8e70();
   param_1[0x1148d] = iVar1;

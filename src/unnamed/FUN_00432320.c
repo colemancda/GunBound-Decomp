@@ -116,9 +116,9 @@ FUN_00432320(int param_1,byte param_2,int param_3,byte param_4,int param_5,undef
       local_4 = 1;
       uVar5 = FUN_0040a4d0(&DAT_00796aa0);
       uVar3 = FUN_0040a8c0(uVar3,local_678,uVar5);
-      local_4._0_1_ = 2;
+      local_4 = 2;
       EncodeChecksumState(uVar3);
-      local_4 = CONCAT31(local_4._1_3_,1);
+      local_4 = 1;
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();
@@ -127,9 +127,9 @@ FUN_00432320(int param_1,byte param_2,int param_3,byte param_4,int param_5,undef
       local_4 = 3;
       uVar5 = FUN_0040a4d0(&DAT_00796aa0);
       uVar3 = FUN_0040a8c0(uVar3,local_89c,uVar5);
-      local_4._0_1_ = 4;
+      local_4 = 4;
       EncodeChecksumState(uVar3);
-      local_4 = CONCAT31(local_4._1_3_,3);
+      local_4 = 3;
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();
@@ -138,9 +138,9 @@ FUN_00432320(int param_1,byte param_2,int param_3,byte param_4,int param_5,undef
       local_4 = 5;
       uVar5 = FUN_0040a4d0(&DAT_00796aa0);
       uVar3 = FUN_0040a8c0(uVar3,local_454,uVar5);
-      local_4._0_1_ = 6;
+      local_4 = 6;
       EncodeChecksumState(uVar3);
-      local_4 = CONCAT31(local_4._1_3_,5);
+      local_4 = 5;
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();

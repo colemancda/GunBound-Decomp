@@ -17,7 +17,7 @@ void __thiscall FUN_0043d5d0(int param_1,int param_2,int param_3)
   undefined4 local_8;
   
   if (in_AL != 'd') {
-    local_8 = CONCAT31(local_8._1_3_,in_AL);
+    local_8 = in_AL;
     uVar2 = *(uint *)(param_1 + 0xc);
     local_8 = CONCAT22(param_2,(undefined2)local_8);
     if (*(uint *)(param_1 + 0x10) <= uVar2) {

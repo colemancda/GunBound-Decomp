@@ -70,7 +70,7 @@ void FUN_00402ad0(int param_1,char *param_2)
     }
   }
   else {
-    local_b8 = CONCAT31(local_b8._1_3_,0x6e);
+    local_b8 = 0x6e;
     pcVar4 = in_EAX;
     do {
       cVar2 = *pcVar4;

@@ -690,7 +690,7 @@ LAB_00451a3a:
         uStack_70 = 3;
         puStack_b18 = (undefined *)0x0;
         EncodeOutgoingPacketField(0);
-        uStack_70._0_1_ = 4;
+        uStack_70 = 4;
         FUN_004262d0(puStack_b30 + 4,&puStack_b2c);
         (*pcVar17)(&DAT_005a9068);
         PeekPacketChecksumState();
@@ -706,7 +706,7 @@ LAB_00451a3a:
         iVar5 = (int)uStack_b58;
         FUN_004065a0(uStack_b58,0,100,0xff,iVar4,0);
         FUN_00432320((char)param_1[0xf],1,1,iVar5,uVar8,uVar9,uVar10,iVar4,uVar27);
-        uStack_70 = CONCAT31(uStack_70._1_3_,3);
+        uStack_70 = 3;
         FUN_0040a2a0();
 LAB_00451d02:
         uStack_70 = 0xffffffff;
@@ -721,7 +721,7 @@ LAB_00451d02:
           uStack_6e8 = 0;
           uStack_8f4 = 0;
           EncodeOutgoingPacketField(0);
-          uStack_70._0_1_ = 2;
+          uStack_70 = 2;
           QueueOutgoingPacketField(puStack_b34);
           QueueOutgoingPacketField(ppuStack_b38);
           FUN_004262d0(puStack_b30 + 4,auStack_908);
@@ -734,7 +734,7 @@ LAB_00451d02:
           uVar8 = FUN_0040a4d0(&puStack_b2c);
           FUN_004065a0(uVar8,uVar9,uVar10,uVar27,iVar4,uVar29);
           FUN_00432320((char)param_1[0xf],1,1,uVar8,uVar9,uVar10,uVar27,iVar4,uVar29);
-          uStack_70 = CONCAT31(uStack_70._1_3_,1);
+          uStack_70 = 1;
           FUN_0040a2a0();
           goto LAB_00451d02;
         }

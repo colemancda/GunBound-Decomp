@@ -252,18 +252,18 @@ void FUN_004ccd10(int *param_1)
         local_71c = (undefined *)PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar9 = FUN_0040a7d0(local_678,local_230,local_71c + iVar7);
-        local_4._0_1_ = 1;
+        local_4 = 1;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_71c = (undefined *)PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         FUN_0040a8c0(uVar9,local_454,local_71c);
-        local_4._0_1_ = 2;
+        local_4 = 2;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar9 = PeekPacketChecksumState();
         EncodeOutgoingPacketField(uVar9);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         puVar3 = local_440;
-        local_4._0_1_ = 1;
+        local_4 = 1;
         if (local_440 != (undefined *)0x0) {
           FUN_0040a240();
           local_71c = puVar3;
@@ -271,7 +271,7 @@ void FUN_004ccd10(int *param_1)
           uVar8 = local_714;
         }
         puVar3 = local_21c;
-        local_4 = (uint)local_4._1_3_ << 8;
+        local_4 = 0;
         if (local_21c != (undefined *)0x0) {
           FUN_0040a240();
           local_71c = puVar3;

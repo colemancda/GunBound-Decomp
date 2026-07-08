@@ -22,40 +22,40 @@ void __fastcall FUN_00443ed0(undefined4 *param_1)
   *param_1 = &vtable_State07_AvatarStore;
   local_4 = 10;
   FUN_004254a0();
-  local_4._0_1_ = 9;
+  local_4 = 9;
   if (param_1[0xc971] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 8;
+  local_4 = 8;
   _eh_vector_destructor_iterator_(param_1 + 0xc522,0x224,8,FUN_0040a2a0);
-  local_4._0_1_ = 7;
+  local_4 = 7;
   FUN_00443dc0(param_1 + 0xc2ef);
-  local_4._0_1_ = 6;
+  local_4 = 6;
   if (param_1[0xc26a] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 5;
+  local_4 = 5;
   if (param_1[0xc1e1] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 4;
+  local_4 = 4;
   if (param_1[0xc158] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 3;
+  local_4 = 3;
   _eh_vector_destructor_iterator_(param_1 + 0x36d7,0x17e4,0x15,FUN_004254a0);
-  local_4._0_1_ = 2;
+  local_4 = 2;
   _eh_vector_destructor_iterator_(param_1 + 0x116,0x17e4,9,FUN_004254a0);
-  local_4._0_1_ = 1;
+  local_4 = 1;
   if (param_1[0x8f] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = 0;
   if (param_1[6] != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);

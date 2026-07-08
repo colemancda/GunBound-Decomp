@@ -198,9 +198,9 @@ LAB_00420896:
     uVar6 = FUN_0040aba0(local_8b8 + 0x19d1,auStack_678,local_8b8 + 0x1b6c);
     uStack_4 = 2;
     uVar6 = FUN_0040a8c0(uVar6,auStack_89c,3);
-    uStack_4._0_1_ = 3;
+    uStack_4 = 3;
     cVar3 = FUN_0040b490(local_8b8 + 0x1a5a,uVar6);
-    uStack_4 = CONCAT31(uStack_4._1_3_,2);
+    uStack_4 = 2;
     if (iStack_888 != 0) {
       FUN_0040a240();
       FUN_0040b540(auStack_8a4);
@@ -374,9 +374,9 @@ LAB_00420896:
     uVar6 = FUN_0040aba0(local_8ac + 0x19d1,auStack_234,local_8ac + 0x1b6c);
     puStack_8 = (undefined1 *)0x4;
     uVar6 = FUN_0040a8c0(uVar6,auStack_458,3);
-    puStack_8._0_1_ = 5;
+    puStack_8 = 5;
     cVar3 = FUN_0040b490(local_8ac + 0x1a5a,uVar6);
-    puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,4);
+    puStack_8 = (undefined1 *)4;
     if (piStack_444 != (int *)0x0) {
       FUN_0040a240();
       local_8b8 = piStack_444;

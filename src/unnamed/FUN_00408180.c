@@ -424,7 +424,7 @@ LAB_00408b80:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (0 < iVar2) {
       FUN_0040aba0(iVar13,local_ce4,iVar3);
-      local_4 = CONCAT31(local_4._1_3_,1);
+      local_4 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -435,11 +435,11 @@ LAB_00408b80:
     uVar8 = FUN_0040a7d0(uVar7 + 0x6968,local_454,0x40);
     local_4 = 2;
     FUN_0040a8c0(uVar8,local_ac0,uVar5);
-    local_4._0_1_ = 3;
+    local_4 = 3;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_1010[0] = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_4._0_1_ = 2;
+    local_4 = 2;
     if (local_aac != 0) {
       local_1024[0] = local_aac << 4;
       local_1018[0] = 0x10;
@@ -452,7 +452,7 @@ LAB_00408b80:
       local_1024[0] = local_aac;
       FUN_0040b540(local_1018);
     }
-    local_4 = CONCAT31(local_4._1_3_,1);
+    local_4 = 1;
     local_1018[0] = local_440;
     if (local_440 != 0) {
       iVar6 = local_440 << 4;
@@ -487,12 +487,12 @@ LAB_00408b80:
     uVar5 = FUN_0040aba0(iVar13,local_ce4,iVar3);
     local_4 = 4;
     FUN_0040a8c0(uVar5,local_f08,3);
-    local_4._0_1_ = 5;
+    local_4 = 5;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState();
     iVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_4 = CONCAT31(local_4._1_3_,4);
+    local_4 = 4;
     if (local_ef4 != 0) {
       local_1028 = local_ef4 << 4;
       local_1024[0] = 0x10;
@@ -521,14 +521,14 @@ LAB_00408b80:
     uVar5 = FUN_0040aba0(iVar13,local_230,iVar3);
     local_4 = 6;
     uVar8 = FUN_0040a7d0(local_101c + 0x6fd4,local_678,0x40);
-    local_4._0_1_ = 7;
+    local_4 = 7;
     FUN_0040aea0(uVar8,local_89c,uVar5);
-    local_4._0_1_ = 8;
+    local_4 = 8;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_004eb800(uVar5,0x21d8);
-    local_4._0_1_ = 7;
+    local_4 = 7;
     if (local_888 != 0) {
       iVar3 = local_888 << 4;
       iVar13 = 0x10;
@@ -541,7 +541,7 @@ LAB_00408b80:
       local_101c = local_888;
       FUN_0040b540(local_1010);
     }
-    local_4 = CONCAT31(local_4._1_3_,6);
+    local_4 = 6;
     if (local_664 != 0) {
       iVar3 = local_664 << 4;
       iVar13 = 0x10;
