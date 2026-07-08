@@ -33,7 +33,8 @@ def apply(config, args):
     # under the hood, e.g. via /usr/bin/objdump's symlink) - asm-differ
     # string-matches on the executable path to pick the right
     # --disassemble-symbols= flag spelling for this objdump version.
-    config["objdump_executable"] = (
-        "/Applications/Xcode.app/Contents/Developer/Toolchains/"
-        "XcodeDefault.xctoolchain/usr/bin/llvm-objdump"
-    )
+    # Resolved from PATH by default (works both in the .devcontainer, where
+    # llvm-objdump is at /usr/bin, and on a host where it's on PATH). Override
+    # with GB_OBJDUMP for a non-PATH location. Must literally contain "llvm-"
+    # (asm-differ string-matches the path to pick its flag spelling).
+    config["objdump_executable"] = os.environ.get("GB_OBJDUMP", "llvm-objdump")

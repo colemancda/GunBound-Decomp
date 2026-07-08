@@ -1,0 +1,21 @@
+{
+  "name": "GunBound-Decomp",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "workspaceFolder": "/workspaces/GunBound-Decomp",
+  "postCreateCommand": ".devcontainer/post-create.sh",
+  // The MSVC 7.10 byte-matching route (tools/msvc-env/) builds its own Docker
+  // image. Uncomment to run Docker inside this container for that workflow:
+  // "features": {
+  //   "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  // },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-python.python"
+      ]
+    }
+  }
+}
