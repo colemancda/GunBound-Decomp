@@ -1,13 +1,25 @@
-/* FUN_0050dc80 - 0x0050dc80 in the original binary.
+/* RenderWorldListRow - 0x0050dc80 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Draws one server ("world") row of the WORLD LIST, given the row index in a
+ * register. Called once per server by the panel's render slot (0x50dc40),
+ * which loops the server count at g_clientContext+0x3f808. Layout is a
+ * 2-column grid: x = (i%2)*0xf7 + 0x16 + panelX, y = (i/2)*0x49 + 0x2d +
+ * panelY. Draws: a row-background sprite whose state reflects selection
+ * (state 3 when i == g_gameStateVTableArray[2]+8, the highlighted slot; state
+ * 2 when i == +0xc); the server number (sprintf serverId+1, via BlitRLESprite
+ * white); the name + two description lines (BlitRLESprite, colour 0xb77f); and
+ * a population gauge (currentPlayers*100/maxCapacity bucketed via thresholds at
+ * DAT_005a9050 -> gauge sprite, the F/E dial). Reads the server-list SoA
+ * (serverId +0x3f81a, onlineFlag +0x3f809, players +0x410ca, capacity +0x410ea).
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0050dc80(int param_1)
+void __fastcall RenderWorldListRow(int param_1)
 
 {
   int iVar1;

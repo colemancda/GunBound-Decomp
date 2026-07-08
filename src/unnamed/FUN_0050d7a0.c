@@ -13,7 +13,7 @@ undefined4 __thiscall FUN_0050d7a0(int param_1,int param_2,int param_3)
   char cVar1;
   undefined4 uVar2;
   
-  uVar2 = FUN_0050df40(param_3);
+  uVar2 = WorldListRowHitTest(param_3);
   *(undefined4 *)(g_gameStateVTableArray[2] + 0xc) = uVar2;
   cVar1 = FUN_0050e3a0(param_2,param_3);
   if ((cVar1 == '\0') &&

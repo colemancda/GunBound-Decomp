@@ -123,16 +123,39 @@ offset (state `+0x18`); the server replies with that 16-entry page via
 `0x1102`. Scrolling past the current page re-requests from the server
 (`0x1100`/`0x1101`) rather than being a purely local view.
 
-*(Not fully traced: the exact per-row pixel draw of server names, and whether a
-row-click sets the highlighted slot `this+8` directly — the scroll/paging
-mechanism itself is confirmed.)*
+### Per-row rendering (now traced)
+The panel's render slot (`0x50dc40`) loops `count` (`g_clientContext+0x3f808`)
+calling **`RenderWorldListRow`** (`0x50dc80`) once per server. Each row:
+- **2-column grid layout** — x = `(i%2)·0xf7 + 0x16 + panelX`, y =
+  `(i/2)·0x49 + 0x2d + panelY` (247px column pitch, 73px row pitch), matching
+  the screenshot.
+- **Row background sprite by selection state**: base state from the online
+  flag; **state `3` if `i == g_gameStateVTableArray[2]+8`** (the highlighted
+  row), state `2` if `i == +0xc`. So the highlighted slot `+8` is read here at
+  draw time to shade the selected row.
+- **Server number** — `sprintf("%d", serverId+1)` → `FUN_004ed9f0` +
+  `BlitRLESprite` (white `0xffff`).
+- **Name + two description lines** — `BlitRLESprite` (colour `0xb77f`) at
+  y+0x1e, 14px line pitch (text sourced from the SoA name/`desc` arrays,
+  register-passed so not visible in the decompile).
+- **Population gauge** — `currentPlayers·100 / maxCapacity` bucketed against
+  thresholds at `DAT_005a9050` (5 levels) to choose a gauge sprite; drawn via
+  `BlitSprite16bpp`/`BlitSpriteClipped`. This is the F/E dial in the UI.
 
 ## Selection → connect
-1. `this+8` = highlighted slot. The **Enter handler** (`0x4e1430`) auto-sets it
-   to the **first online server** (scans `onlineFlag`, `i < 16`) when `-1`.
-2. On confirm (choice-server click → `0x4e1170`, or Enter → `0x4e1430`), after
-   checking the slot is online and not full (`currentPlayers ≤ maxCapacity`),
-   call **`FUN_004e1bf0(this)`** with the index in `EDI`. That helper:
+1. `this+8` = highlighted slot. **Two ways it's set:**
+   - **Row click** — the panel's mouse-down (`WorldListPanel_OnMouseDown`,
+     `0x50d5a0`) calls **`WorldListRowHitTest`** (`0x50df40`), which maps the
+     click to a row using the *same* grid geometry as the renderer and returns
+     the index only if that server is **online**. It then writes
+     `g_gameStateVTableArray[2]+8 = <clicked row>` and enables the connect
+     button (`+0x24 = (row != -1)`). This is the real picker.
+   - **Enter key** (`0x4e1430`) auto-sets `+8` to the **first online server**
+     when nothing is highlighted.
+2. On confirm (SERVER/choice-server button → `0x4e1170`, or Enter →
+   `0x4e1430`), after checking the slot is online and not full
+   (`currentPlayers ≤ maxCapacity`), call **`FUN_004e1bf0(this)`** with the
+   index in `EDI`. That helper:
    - if `this+0x28[slot] != 0` (a prior error) → show error dialog
      `FUN_004124a0` instead of connecting;
    - else `sprintf` the packed IP as `"%d.%d.%d.%d"` from `serverIp[slot]`,
@@ -204,8 +227,11 @@ See README "Error / message dialog" for the dialog's layout.
    store each `0x1102` page into the 16-entry SoA.
 3. Render the scroll list: visible rows + a draggable scrollbar thumb + up/down
    arrows; scrolling updates `+0x14`/`+0x18` and re-requests via `0x1100`/`0x1101`.
-4. Selection: the Enter key auto-highlights the first online server; a real
-   scroll-list picker also exists (row selection wiring not fully traced).
+4. Selection: clicking a row hit-tests the grid (`WorldListRowHitTest`, online
+   rows only) and sets the highlighted slot `+8`; the Enter key auto-highlights
+   the first online server when none is selected. Draw each row via
+   `RenderWorldListRow` (number, name, 2 desc lines, population gauge; highlight
+   the row whose index == `+8`).
 5. On connect: validate online & not-full, connect to `serverIp:port`, mark
    the pending slot (`+0x68`).
 6. Handle `0x1012` (per-slot error → dialog on retry) and `0x2001` (confirm →

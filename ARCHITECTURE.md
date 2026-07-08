@@ -1932,12 +1932,22 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
        the server returns 16 entries via `0x1102`. `OnEnter` seeds the
        initial scroll offset from the registry `LastServer` value ÷ 16.
 
-     What remains only *partially* traced: the exact per-row pixel draw and
-     whether a row-click sets `this+8` directly (the Enter-key auto-select
-     of the first online server is confirmed; explicit row-click selection
-     wiring is not). The broader "smaller private-server build" framing no
-     longer applies to this screen — the multi-server browser UI is real
-     and present, not vestigial.
+     **Per-row draw and row-click selection are now both traced.** The
+     panel's render slot (`0x50dc40`) loops the server count calling
+     `RenderWorldListRow` (`0x50dc80`) per row: a 2-column grid (247px column
+     / 73px row pitch), a background sprite shaded by selection state
+     (state 3 when the row index == the highlighted slot `state+8`), the
+     server number (`sprintf`+`BlitRLESprite`), the name and two description
+     lines (`BlitRLESprite`, colour `0xb77f`), and a population gauge
+     (`currentPlayers·100/maxCapacity` bucketed via thresholds at
+     `DAT_005a9050`). Row selection: the panel's mouse-down
+     (`WorldListPanel_OnMouseDown`, `0x50d5a0`) calls `WorldListRowHitTest`
+     (`0x50df40`) — same grid geometry, online rows only — and writes
+     `g_gameStateVTableArray[2]+8 = <clicked row>`, enabling the connect
+     button. So clicking a row selects it and clicking SERVER connects; the
+     Enter key still auto-selects the first online server. The broader
+     "smaller private-server build" framing does not apply to this screen —
+     the multi-server browser UI is real and complete, not vestigial.
    - **Also touches the whisper-messaging TCP connection.** `OnEnter`
      checks `DAT_007934f4` (the same "direct connection" global from
      the newly-documented Channel 3/whisper investigation in

@@ -1,6 +1,15 @@
-/* FUN_0050d5a0 - 0x0050d5a0 in the original binary.
+/* WorldListPanel_OnMouseDown - 0x0050d5a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Mouse-down handler for the WORLD LIST panel. If the click is inside the
+ * panel rect and input is enabled (state+6==1), it maps the click to a server
+ * row via WorldListRowHitTest and writes the result into the ServerSelect
+ * state as the highlighted slot: g_gameStateVTableArray[2]+8 = <row> (or -1
+ * for a miss), sets the "valid selection" flag (+0x24 = row!=-1), refreshes the
+ * connect-button label/enabled state (FUN_00406300(+8 != -1)). This is the
+ * row-click -> selection wiring; connecting then happens when the SERVER button
+ * is pressed (FUN_004e1170 -> FUN_004e1bf0 on the selected slot).
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
@@ -14,7 +23,7 @@
 /* WARNING: Removing unreachable block (ram,0x0050d64c) */
 /* WARNING: Removing unreachable block (ram,0x0050d656) */
 
-undefined1 __thiscall FUN_0050d5a0(int param_1,int param_2,int param_3)
+undefined1 __thiscall WorldListPanel_OnMouseDown(int param_1,int param_2,int param_3)
 
 {
   int *piVar1;
@@ -30,7 +39,7 @@ undefined1 __thiscall FUN_0050d5a0(int param_1,int param_2,int param_3)
       (*(int *)(param_1 + 0x34) + *(int *)(param_1 + 0x2c) <= param_3)))) {
     return uVar4;
   }
-  iVar5 = FUN_0050df40(param_3);
+  iVar5 = WorldListRowHitTest(param_3);
   puVar3 = g_gameStateVTableArray[2];
   if (g_gameStateVTableArray[2][6] == '\x01') {
     *(int *)(g_gameStateVTableArray[2] + 8) = iVar5;

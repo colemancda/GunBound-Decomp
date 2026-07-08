@@ -1,13 +1,20 @@
-/* FUN_0050df40 - 0x0050df40 in the original binary.
+/* WorldListRowHitTest - 0x0050df40 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Maps a click position to a WORLD LIST server row index, or 0xffffffff if
+ * the click misses every row. Loops the server count (g_clientContext+0x3f808)
+ * and tests each row's rect using the SAME 2-column grid geometry as
+ * RenderWorldListRow (x = (i%2)*0xf7 + 0x16 + panelX, width 0xdf; y =
+ * (i/2)*0x49 + 0x2d + panelY, height 0x49). Only returns a row whose server is
+ * online (onlineFlag +0x3f809 == 1), so offline rows can't be selected.
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-uint FUN_0050df40(int param_1)
+uint WorldListRowHitTest(int param_1)
 
 {
   int iVar1;
