@@ -2,17 +2,13 @@
 # GitHub-hosted runners. Informational: uploads the results CSV and writes a
 # clean/total summary, but never fails the build on compile errors.
 #
-# The MSVC 7.10 toolchain is proprietary and NOT in the repo, so this job pulls
-# it from a private URL held in the MSVC7_TARBALL_URL secret. Create the tarball
-# with (from repo root, msvc7 tree in place):
-#     tar -czf msvc7.tar.gz -C tools/msvc-env/msvc7 .
-# and host it privately (e.g. a presigned S3 / private release URL). Extracting
-# it into tools/msvc-env/msvc7/ must yield bin/ include/ lib/ PlatformSDK/.
+# The MSVC 7.10 toolchain is proprietary and NOT in the repo. It is pulled from
+# the msvc7.zip asset on the 0.1.0 release (the zip contains msvc7/bin/cl.exe
+# etc. at its root, so it unpacks straight into tools/msvc-env/). The tree is
+# cached between runs so the ~91 MB download only happens on a cache miss.
 #
-# Without the secret the job runs but no-ops with a note. It is NOT run on every
-# PR — the full 1781-file sweep runs cl.exe under Wine (slow) and re-pulls the
-# proprietary tree — so it's gated to main pushes, manual dispatch, and a weekly
-# schedule.
+# Not run per-PR: the full 1781-file sweep runs cl.exe under Wine (slow), so
+# it's gated to main pushes, manual dispatch, and a weekly schedule.
 name: msvc-syntax-check
 
 on:
@@ -22,57 +18,41 @@ on:
   schedule:
     - cron: '0 6 * * 1'  # Mondays 06:00 UTC
 
+env:
+  MSVC7_URL: https://github.com/colemancda/GunBound-Decomp/releases/download/0.1.0/msvc7.zip
+
 jobs:
   msvc-syntax-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Is the msvc7 secret configured?
-        id: secret
-        run: echo "enabled=${{ secrets.MSVC7_TARBALL_URL != '' }}" >> "$GITHUB_OUTPUT"
-
-      - name: Note when disabled
-        if: steps.secret.outputs.enabled != 'true'
-        run: |
-          {
-            echo '## msvc-syntax-check — skipped'
-            echo ''
-            echo 'The `MSVC7_TARBALL_URL` secret is not set, so the proprietary'
-            echo 'MSVC 7.10 tree cannot be provisioned. See'
-            echo '`.github/workflows/msvc-syntax-check.yml` for how to configure it.'
-          } >> "$GITHUB_STEP_SUMMARY"
-
       - name: Cache msvc7 tree
-        if: steps.secret.outputs.enabled == 'true'
         id: cache
         uses: actions/cache@v4
         with:
           path: tools/msvc-env/msvc7
-          key: msvc7-tree-v1
+          key: msvc7-tree-0.1.0
 
       - name: Download + extract msvc7 tree
-        if: steps.secret.outputs.enabled == 'true' && steps.cache.outputs.cache-hit != 'true'
-        env:
-          URL: ${{ secrets.MSVC7_TARBALL_URL }}
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          mkdir -p tools/msvc-env/msvc7
-          curl -fsSL "$URL" -o /tmp/msvc7.tar.gz
-          tar -xzf /tmp/msvc7.tar.gz -C tools/msvc-env/msvc7
+          curl -fsSL "$MSVC7_URL" -o /tmp/msvc7.zip
+          # Zip holds msvc7/... at its root (+ macOS __MACOSX cruft we skip);
+          # extracting into tools/msvc-env/ yields tools/msvc-env/msvc7/.
+          unzip -q /tmp/msvc7.zip 'msvc7/*' -d tools/msvc-env
           test -f tools/msvc-env/msvc7/bin/cl.exe \
-            || { echo "cl.exe missing after extract — check tarball layout"; exit 1; }
+            || { echo "cl.exe missing after extract — check zip layout"; exit 1; }
 
       - name: Build gb-msvc image
-        if: steps.secret.outputs.enabled == 'true'
         run: docker build --platform linux/amd64 -t gb-msvc tools/msvc-env
 
       - name: Run MSVC syntax check
-        if: steps.secret.outputs.enabled == 'true'
         continue-on-error: true  # informational — compile errors don't fail CI
         run: tools/msvc-env/msvc_syntax_check.sh
 
       - name: Summarize
-        if: always() && steps.secret.outputs.enabled == 'true'
+        if: always()
         run: |
           csv=tools/msvc_syntax_check_results.csv
           if [ -f "$csv" ]; then
@@ -91,7 +71,7 @@ jobs:
           fi
 
       - name: Upload results CSV
-        if: always() && steps.secret.outputs.enabled == 'true'
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: msvc-syntax-check-results
