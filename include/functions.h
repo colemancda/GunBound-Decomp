@@ -1014,7 +1014,7 @@ undefined4 * FUN_004d3770();
 void * __thiscall FUN_004d37f0();
 void __fastcall FUN_004d3810();
 void __thiscall FUN_004d54c0();
-uint __thiscall FUN_004d54e0();
+uint __thiscall State09_ReadyRoom_OnCommand();
 void __fastcall FUN_004d7b20();
 void FUN_004d7d70();
 void __fastcall FUN_004d7db0();

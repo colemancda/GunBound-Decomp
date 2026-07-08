@@ -1,13 +1,37 @@
-/* FUN_004d54e0 - 0x004d54e0 in the original binary.
+/* State09_ReadyRoom_OnCommand - 0x004d54e0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * The Ready Room's central command/action dispatcher (vtable slot 5) - every
+ * button, room-option control, character pick, and chat commit funnels here.
+ * Signature (this, eventType, param_3, buttonId):
+ *   eventType==0  -> a button/control was activated; dispatch on buttonId.
+ *   eventType==10 -> chat/textbox commit: copy the typed text, and if it isn't
+ *                    a slash-command (FUN_00415b00) send it as chat, opcode
+ *                    0x3104 (via FUN_004d2530/FUN_004d2680).
+ *   eventType==0xb-> cancel/dismiss.
+ * buttonId cases (outgoing opcodes; see docs/screens/09_ready_room.md):
+ *   0   Ready toggle        -> 0x3230
+ *   1   Start Game (host)    -> 0x3430
+ *   2   Change Team          -> 0x3210
+ *   3   Exit room            -> 0x2000
+ *   4/5 map/list scroll      -> 0x3100
+ *   0x14-0x17               -> 0x3103 (room setting)
+ *   0x3c-0x3e               -> 0x3101 (room setting; QueueOutgoingPacketField
+ *                              bit-packs the room-settings dword)
+ *   0xb-0x3e (various)       room-option toggles packed into the settings dword
+ *   0x46/0x47                map change (QueueOutgoingPacketField map index)
+ *   100..113 (0x64..0x71)    select character (buttonId-100) -> 0x3200
+ *   0x72                     select "random"/none            -> 0x3200 (0xff)
+ *   300                      buddy panel (FUN_00509110)
+ * FUN_004da460(this,0,0) is called before most sends (prepare/clear packet).
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-uint __thiscall FUN_004d54e0(int param_1,int param_2,undefined4 param_3,uint param_4)
+uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 param_3,uint param_4)
 
 {
   byte bVar1;

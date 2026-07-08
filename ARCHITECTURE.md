@@ -1627,6 +1627,16 @@ previously-unexamined ones. Findings:
   call, and where in-battle chat input is handled at all — are open items
   for a future pass**, not resolved here.
 
+  **Resolved for the Ready Room (correcting the "raw Winsock" guess above).**
+  Ready-room chat is a **normal queued packet, opcode `0x3104`**, not a raw
+  `send()`. The send lives in the Ready Room's command dispatcher
+  `State09_ReadyRoom_OnCommand` (`0x4d54e0`), on its `eventType==10`
+  chat-commit path: it copies the typed text and, if it isn't a slash-command
+  (`FUN_00415b00`), sends it via the standard `FUN_004d2530`/`FUN_004d2680`
+  queued-packet path. So `HandleChatInput` (`0x4d6210`) handles the keystrokes
+  and replay logging, and the committed text is transmitted here. The
+  in-battle equivalent remains open.
+
   **Update: found a real, fully-traced send call — but for a different
   category of message than plain room chat.** The `/message <player>
   <text>` whisper command's handler (`FUN_00402720`) sends over a genuine

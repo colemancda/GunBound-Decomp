@@ -32,23 +32,62 @@ preview, map selection, and the item/loadout picker before the match starts.
 - **Map thumbnails** — slot 15 (`FUN_004d9ae0`, 2,406 bytes): draws content at
   six fixed screen positions — most plausibly the map-selection thumbnails
   (strong inference; not cross-checked against `ready_selectmap.img`).
-- Remaining slots: `0x4d54c0` (20-byte ready-status check), `0x4d54e0`
-  (3,167-byte button enable/disable updater), `0x4d7b20` (texture preload).
+- Remaining slots: `0x4d54c0` (20-byte ready-status check), **`0x4d54e0` =
+  `State09_ReadyRoom_OnCommand`** (the command dispatcher — *not* a "UI updater"
+  as an earlier draft guessed; see below), `0x4d7b20` (texture preload).
 
-## Input
-- **Keyboard/chat** (`0x4d6210`): Win32 handler (`WM_KEYDOWN`, Enter). On Enter,
-  reads the chat textbox; non-command text is logged to the replay stream
-  (`Replay_AppendEvent(1)` + `Replay_AppendString` + `Replay_FlushEvent`) and
-  the textbox cleared. **Note**: the actual chat-packet *send* call is not on
-  this path — see the open item below.
+## Buttons (`OnEnter`, `0x4d6810`)
+`CreateButtonWidget` calls, by button ID:
+| ID | Image | Purpose |
+|---|---|---|
+| 0 | `b_ready_ready` | Ready toggle (guest) |
+| 1 | `b_ready_startgame` | Start Game (host) — same slot as Ready |
+| 2 | `b_ready_changeteam` | Change Team |
+| 3 | `b_ready_exit` | Exit room |
+| 4–7 | `b_ready_scroll` | map/list scroll arrows |
+| 8, 500 | `b_ready_button` | small toggles |
+| 300 | `b_ready_buddy` | buddy panel (disabled) |
+| **100+i** | `b_ready_character` | **character/mobile picker** — a 5-column grid (`(i%5)·0x42+0x21`, `(i/5)·0x32+0x184`), 66×50 cells; `i==0xd` disabled |
+
+## Input & the command dispatcher — `State09_ReadyRoom_OnCommand` (`0x4d54e0`)
+Every button/control/chat-commit funnels through this (slot 5),
+`(this, eventType, _, buttonId)`:
+- `eventType==0` → button `buttonId` (table below).
+- `eventType==10` → **chat commit**: copies the typed text and, if not a
+  slash-command (`FUN_00415b00`), **sends it as chat — opcode `0x3104`** (via
+  `FUN_004d2530`/`FUN_004d2680`). *(This resolves the earlier "chat-send call
+  not found" item — it's a normal queued packet, not raw Winsock.)*
+- `eventType==0xb` → cancel/dismiss.
+
+**buttonId → action / outgoing opcode:**
+| ID | Action | Opcode |
+|---|---|---|
+| 0 | Ready toggle | `0x3230` |
+| 1 | Start Game (host) | `0x3430` |
+| 2 | Change Team | `0x3210` |
+| 3 | Exit room | `0x2000` |
+| 4/5 | map/list scroll | `0x3100` |
+| 0x14–0x17 | room setting | `0x3103` |
+| 0x3c–0x3e | room setting (settings-dword bits) | `0x3101` |
+| 0xb–0x3e (various) | room-option toggles → bit-pack a room-settings dword via `QueueOutgoingPacketField` | — |
+| 0x46/0x47 | change map (map index) | (`QueueOutgoingPacketField`) |
+| **100–113** | **select character** (`id−100`) | **`0x3200`** |
+| 0x72 | select random/none | `0x3200` (0xff) |
+| 300 | buddy panel (`FUN_00509110`) | — |
+
 - **`/`-commands**: shared parser `FUN_004218c0` — staff-credits easter eggs
   (`/comsik`, etc.), GM/debug commands (`noack`, `clear`, `logging`), and three
   Korean-2beolsik-encoded GM commands gated on `g_currentGameState==9`.
+- **`State09_ReadyRoom_HandleChatInput`** (`0x4d6210`, slot 6): the raw
+  `WM_KEYDOWN`/Enter textbox handler that also logs chat to the replay stream;
+  the committed text reaches the dispatcher's `eventType==10` path above.
 
 ## Network (see PROTOCOL.md — "State 9")
-`0x3010` (match-start replay snapshot + team-based spawn setup), `0x3020`
-(ready/unready toggle), `0x3105` (player joined ready room), plus the
-per-field player updates. Full list in PROTOCOL.md.
+**Outgoing (from the command dispatcher):** `0x3230` (ready), `0x3430` (start,
+host), `0x3210` (change team), `0x3200` (select character), `0x3104` (chat),
+`0x3101`/`0x3103` (room-option changes), `0x3100` (map/list scroll), `0x2000`
+(exit). Incoming player/room updates arrive via `State09_ReadyRoom_ProcessPacket`
+(`0x4d38c0`). All new to PROTOCOL.md's "State 9" section.
 
 ## Transitions
 - **In**: from Game Room List (room join).
@@ -60,13 +99,22 @@ per-field player updates. Full list in PROTOCOL.md.
 2. Render: character preview + 8-slot roster (ready bits) + paginated item grid
    (3×3, page at `+0x620`) + map thumbnails.
 3. Item lookup: item ID → sprite via `&DAT_0056dc40`.
-4. Chat: Enter → command parse (`/`) else log-to-replay + send; ready toggle
-   sends `0x3020`; handle `0x3010` match-start.
+4. Character picker: grid of `b_ready_character` buttons (id `100+i`) → select
+   sends `0x3200`. Ready → `0x3230`, Start → `0x3430`, Team → `0x3210`.
+5. Chat: Enter → command parse (`/`) else send via the dispatcher's chat-commit
+   path → opcode `0x3104` (and log to replay).
 
-## Open items
-- **Character/mobile selection picker** (chooses *which* character
-  `RenderCharacterPreview` shows) was not located — the preview renders the
-  current selection but the click-driven picker UI wasn't found.
-- **Normal chat-message send call** not found on the chat path (likely a raw
-  Winsock `send()` outside the queued-packet API). Whisper/`/message` uses a
-  separate TCP "Channel 3" (`FUN_00402720`) — see PROTOCOL.md.
+## Resolved (were open items)
+- **Character/mobile picker — found.** It's the `b_ready_character` button grid
+  (ids `100+i`); clicking one sends **`0x3200`** with the character index.
+  `RenderCharacterPreview` then shows the selected mobile.
+- **Chat-send call — found.** Ready-room chat is a normal queued packet,
+  **opcode `0x3104`**, sent from `State09_ReadyRoom_OnCommand`'s chat-commit
+  path — not the raw-Winsock guess in the earlier draft. (Whisper/`/message`
+  still uses the separate TCP "Channel 3", `FUN_00402720`.)
+
+## Still open
+- The exact room-settings-dword bit layout (cases `0xb`–`0x3e` pack a dword of
+  room options — team mode, item/tank restrictions, etc. — sent via `0x3101`/
+  `0x3103`); individual bit meanings not fully decoded.
+- Vtable slots 18 (`0x40ca00`) / 19 (`0x461c60`) not yet examined.

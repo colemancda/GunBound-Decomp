@@ -895,7 +895,30 @@ Opcodes in this handler cluster into `0x30xx`/`0x31xx`/`0x32xx`/`0x34xx`/
 `Replay_AppendEvent` alongside their normal effect (see
 [ARCHITECTURE.md](ARCHITECTURE.md)'s replay-recording-system section for the
 full event-code table and how the replay/live-network paths converge on the
-same event codes).
+same event codes). The opcodes documented below are **incoming** (server →
+client) unless noted; the outgoing side is listed just below.
+
+#### Outgoing (client → server) — from `State09_ReadyRoom_OnCommand` (`0x4d54e0`)
+
+The Ready Room's command dispatcher (vtable slot 5) sends these in response to
+button clicks and chat. Several are the **request** whose broadcast/confirm
+counterpart is one of the incoming `0x32xx` opcodes below, which lets us pin
+down a couple of previously-tentative ones:
+
+| Out opcode | Trigger (button) | Notes / likely confirm |
+|---|---|---|
+| `0x3230` | Ready toggle (id 0) | confirmed by incoming **`0x3231`** ("ready-status toggle confirmation") — request/confirm pair |
+| `0x3430` | Start Game, host (id 1) | drives the incoming `0x3400`/match-start flow |
+| `0x3210` | Change Team (id 2) | request; server broadcast not definitively matched (do **not** assume `0x3211` — that one's replay event points to *map* selection, so the pairing is unclear; team-change broadcast may be `0x3151`) |
+| `0x3200` | select character (ids 100–113; `0xff`=random) | its broadcast is **`0x3201`** — *confirms* the tentative "weapon/character selection change" (whose replay event already aligned with a Channel 2 character-model sync) |
+| `0x3104` | **chat message** (chat-commit path, non-command text) | normal queued packet — resolves the "chat-send not found" note |
+| `0x3103` | room-option change (ids `0x14`–`0x17`) | host room config |
+| `0x3101` | room-option change (ids `0x3c`–`0x3e`) | host room config; a room-settings dword is bit-packed via `QueueOutgoingPacketField` (cases `0xb`–`0x3e`) |
+| `0x3100` | map/list scroll (ids 4/5) | |
+| `0x2000` | Exit room (id 3) | see opcode `0x2001` below |
+
+(Exact room-settings-dword bit layout not fully decoded. Full button/action
+table in [docs/screens/09_ready_room.md](docs/screens/09_ready_room.md).)
 
 #### Opcode `0x2001` — Leave ready room
 
@@ -991,19 +1014,20 @@ the joining player is the local client or a remote peer.
 the surrounding opcode cluster's apparent theme (character/team/map/ready
 selection) rather than proven via an explicit string reference.
 
-#### Opcode `0x3201` — Weapon/character selection change (tentative)
+#### Opcode `0x3201` — Character/mobile selection change (confirmed)
 
-**Direction**: incoming.
+**Direction**: incoming (broadcast of another player's pick).
 
 **Behavior**: reads two byte fields from the handler's own instance data,
 records replay event `0x8100`.
 
-**Significance**: tentatively a weapon-loadout or character-selection
-change notification, by the same cluster-context reasoning as `0x3151`.
-Note that replay event `0x8100` is also the action code confirmed (with
-much higher confidence) on Channel 2 as **"character/mobile model sync"** —
-the alignment between this opcode's replay event and that confirmed
-Channel 2 action supports the character-selection interpretation.
+**Significance**: **upgraded from tentative to confirmed.** This is the
+server broadcast of a character/mobile selection — its outgoing request is
+`0x3200`, sent by `State09_ReadyRoom_OnCommand` when a `b_ready_character`
+grid button (ids 100–113) is clicked (see the outgoing table at the top of
+this State 9 section). That request/broadcast pairing, plus replay event
+`0x8100` matching Channel 2's confirmed "character/mobile model sync" action,
+settles it: `0x3200` out → `0x3201` broadcast = character selection.
 
 #### Opcode `0x3211` — Map vote/selection (tentative)
 
