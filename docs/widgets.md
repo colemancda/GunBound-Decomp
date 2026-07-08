@@ -144,3 +144,91 @@ a screen's `OnEnter`/dispatcher; the exact list *content* of `FUN_00509d80` and
 `FUN_005094f0` (which of several lists each holds) is inferred from position/
 page-size and not fully pinned. Register-passed constructor arguments (e.g. the
 scrollbar item count, some panel keys) aren't always visible in the decompile.
+
+---
+
+## Speculative C++ reconstruction
+
+**This section is an educated guess, not confirmed decompilation.** The offsets,
+vtable slots, the composite child-list, the callback chain, `CEditBox` being a
+Win32 `EDIT`, and the concrete vtable addresses are all real; every method/
+member *name* below is invented, and the exact class relationship is inferred.
+Target compiler: MSVC 7.1 (VC++ 2003), `__thiscall`, one 12-entry vtable/class.
+The design reads as a textbook **Composite pattern** — every widget can hold
+children, and containers are just widgets that do.
+
+```cpp
+// Base of the container/panel hierarchy (NOT the flat ButtonWidget).
+// ~0x38-0x40 bytes; the CLabel subclass is exactly 0x40.
+class CWidget {
+public:
+    virtual ~CWidget();                                // slot 0  (+0x00)  scalar-deleting dtor (0x50e860)
+    virtual bool OnMouseMove(int x, int y);            // slot 1  (+0x04)
+    virtual bool OnMouseDown(int x, int y);            // slot 2  (+0x08)
+    virtual bool OnMouseUp  (int x, int y);            // slot 3  (+0x0c)
+    virtual bool HitTest    (int x, int y);            // slot 4  (+0x10)  FUN_0050e9c0
+    virtual bool DispatchKey (int key);                // slot 5  (+0x14)  FUN_0050ea50 (broadcasts to children)
+    virtual bool DispatchMouse(int msg);               // slot 6  (+0x18)  FUN_0050eab0 (broadcasts to children)
+    virtual void OnCommand(int evt, int id, int arg);  // slot 7  (+0x1c)  the child->parent callback
+    virtual void Draw();                               // slot 8  (+0x20)  self + broadcast to children (FUN_0050e520)
+    virtual void Update();                             // slot 9  (+0x24)
+    virtual void OnDestroy(bool freeMem);              // slot 10 (+0x28)  (0x50e860)
+    virtual bool OnDragMove(int x, int y);             // slot 11 (+0x2c)  FUN_0050e3a0
+protected:
+    // vtable                                          // +0x00
+    CWidget*  m_parent;          // +0x08  callback target for OnCommand
+    CWidget** m_children;        // +0x0c  \
+    int       m_childCount;      // +0x10   > growable array (ptr / size / capacity; grow = FUN_0050ed30)
+    int       m_childCap;        // +0x14  /
+    bool      m_hidden;          // +0x1e  short-circuits HitTest/Draw
+    int       m_id;              // +0x24  reported to OnCommand
+    int       m_x, m_y;          // +0x28, +0x2c
+    int       m_width, m_height; // +0x30, +0x34
+};
+
+// Clickable sprite/text cell, 0x40 bytes.
+class CLabel : public CWidget {          // vtable 0x557da0, ctor FUN_00507ee0(id, sprite, x,y,w,h)
+    int m_spriteId;   // +0x3c
+    // OnMouseDown (FUN_005052e0): if hit, m_parent->OnCommand(0, m_id, 0)
+    // Draw (FUN_0050e350): blit sprite via FUN_004f30c0
+};
+
+// Win32 EDIT-backed text field, 0x140 bytes.
+class CEditBox : public CWidget {        // vtable 0x557c84, ctor FUN_00507f60(id, msg, x,y,w,maxLen)
+    char m_text[0x100];  // +0x38  synced from the OS control
+    // Update (FUN_00507030): GetWindowTextA(hEdit, m_text, 0x80) - a real Win32
+    // EDIT control is overlaid on the DirectDraw surface
+};
+
+// Vertical scrollbar, 0x58 bytes.
+class CScrollBar : public CWidget {      // vtable 0x557e90, ctor FUN_005080a0(parent, x,y, 0x12, h, pageSize)
+    int  m_total;      // +0x38  (arrives in a register)
+    int  m_pageSize;   // +0x3c
+    int  m_scrollPos;  // +0x40
+    bool m_pressed;    // +0x44
+    bool m_dragging;   // +0x45
+    int  m_grabOffset; // +0x48
+    // owns two CLabel up/down arrow children
+    // on change: m_parent->OnCommand(0x2000, m_id, m_scrollPos)
+};
+
+// Container/dialog - each panel builder subclasses this (own vtable, own fields).
+class CPanel : public CWidget {          // e.g. 0x557f08 (world list), 0x557be4 (buddy), 0x557c34 (create room)
+    // OnCommand override handles/forwards child events (e.g. WorldListPanel_OnCommand 0x50d810);
+    // dialog sizes 0x90-0x9c; the chat-log panel is ~0x1050 (embeds a ~4 KB history buffer)
+};
+```
+
+### What's solid vs. guessed
+- **Solid** (decompiled): all offsets, the 12-slot vtable, the composite
+  child-list, the `OnCommand(evt,id,arg)` callback chain, `CEditBox` being a
+  Win32 `EDIT`, `CScrollBar`'s fields, the concrete vtable addresses.
+- **Guessed**: every method/member *name*; that it is literally
+  single-inheritance `CWidget` — slot 0 **and** slot 10 both resolve to
+  `0x50e860`, which could indicate a small multiple-inheritance base or just a
+  shared trivial destructor (can't tell); whether `m_children` is a raw array or
+  an STL/custom `vector` (the grow helper `FUN_0050ed30` looks hand-rolled
+  `ptr/size/cap`, so probably a custom `CArray`-style template).
+- The flat **`ButtonWidget`** (vtable `0x551e44`, 5 slots) is a *separate,
+  simpler* class, not part of this hierarchy — the client had (at least) two UI
+  widget systems.
