@@ -1,0 +1,64 @@
+# Per-file winegcc syntax check (Makefile `winelib-syntax-check` target) on
+# GitHub-hosted runners. Informational: it uploads a log and writes a summary
+# of how many raw ports fail to compile, but never fails the build — many files
+# have known, in-progress decompilation errors.
+#
+# Runs inside a Debian container (not the Ubuntu runner directly) because the
+# winegcc package names / behaviour were validated on Debian 13; see
+# .devcontainer/Dockerfile.
+name: winelib-syntax-check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  winelib-syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: winegcc syntax check (Debian container)
+        run: |
+          docker run --rm -v "$PWD":/w -w /w debian:trixie-slim bash -c '
+            set -e
+            dpkg --add-architecture i386
+            apt-get update -qq
+            DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+              make findutils ca-certificates \
+              wine wine32:i386 wine32-tools:i386
+            # The target exits 0 even on failures (each winegcc is `|| true`);
+            # it prints one "FAIL: <file>" line per file that errors.
+            make winelib-syntax-check 2>&1 | tee /w/winelib-syntax-check.log
+          '
+
+      - name: Summarize
+        if: always()
+        run: |
+          log=winelib-syntax-check.log
+          fails=$(grep -c '^FAIL:' "$log" 2>/dev/null || true)
+          fails=${fails:-0}
+          {
+            echo '## winelib-syntax-check (winegcc)'
+            echo ''
+            echo "Raw-port files failing to compile: **$fails**"
+            if [ "$fails" -gt 0 ]; then
+              echo ''
+              echo '<details><summary>Failing files</summary>'
+              echo ''
+              echo '```'
+              grep '^FAIL:' "$log" || true
+              echo '```'
+              echo '</details>'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: winelib-syntax-check-log
+          path: winelib-syntax-check.log
+          if-no-files-found: warn
