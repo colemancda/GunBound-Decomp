@@ -15,22 +15,22 @@ void __fastcall FUN_0047a960(int param_1)
   uint uVar3;
   int iVar4;
   
-  iVar4 = *(int *)(DAT_005b3484 + 0x23270);
+  iVar4 = *(int *)(g_clientContext + 0x23270);
   uVar3 = *(uint *)(param_1 + 8);
-  iVar1 = *(int *)(DAT_005b3484 + 0x23274);
-  *(undefined1 *)(uVar3 + 0x23278 + DAT_005b3484) = 1;
+  iVar1 = *(int *)(g_clientContext + 0x23274);
+  *(undefined1 *)(uVar3 + 0x23278 + g_clientContext) = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  *(undefined4 *)((*(int *)(param_1 + 8) + 9000) * 0x10 + DAT_005b3484) = uVar2;
+  *(undefined4 *)((*(int *)(param_1 + 8) + 9000) * 0x10 + g_clientContext) = uVar2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  *(undefined4 *)(*(int *)(param_1 + 8) * 0x10 + 0x23284 + DAT_005b3484) = uVar2;
+  *(undefined4 *)(*(int *)(param_1 + 8) * 0x10 + 0x23284 + g_clientContext) = uVar2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  *(undefined4 *)(*(int *)(param_1 + 8) * 0x10 + 0x23288 + DAT_005b3484) = uVar2;
+  *(undefined4 *)(*(int *)(param_1 + 8) * 0x10 + 0x23288 + g_clientContext) = uVar2;
   uVar3 = uVar3 & 0x80000003;
   if ((int)uVar3 < 0) {
     uVar3 = (uVar3 - 1 | 0xfffffffc) + 1;

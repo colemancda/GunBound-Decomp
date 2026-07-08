@@ -245,8 +245,8 @@ LAB_004735e2:
           *(byte *)(iVar13 + 0xf4d) = bVar9;
           *(byte *)(iVar13 + 0xf4e) = bVar10 + bVar9 + -0x34;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar12 = DAT_005b3484;
-          pbVar18 = (byte *)(DAT_005b3484 + 0x62140);
+          iVar12 = g_clientContext;
+          pbVar18 = (byte *)(g_clientContext + 0x62140);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar17 = _rand();
           *pbVar18 = (byte)iVar17;
@@ -297,10 +297,10 @@ LAB_004735e2:
         FUN_00436ec0(local_15a8,local_15b8);
       }
       iVar17 = local_15a8;
-      if ((((iVar12 < 0) || (*(int *)(&DAT_006a7720 + DAT_005b3484) <= iVar12)) || (local_15b8 < 0))
-         || ((*(int *)(&DAT_006a7724 + DAT_005b3484) <= local_15b8 ||
-             (*(char *)(*(int *)(&DAT_006a7720 + DAT_005b3484) * local_15b8 +
-                        *(int *)(&DAT_006a773c + DAT_005b3484) + iVar12) == '\0')))) {
+      if ((((iVar12 < 0) || (*(int *)(&DAT_006a7720 + g_clientContext) <= iVar12)) || (local_15b8 < 0))
+         || ((*(int *)(&DAT_006a7724 + g_clientContext) <= local_15b8 ||
+             (*(char *)(*(int *)(&DAT_006a7720 + g_clientContext) * local_15b8 +
+                        *(int *)(&DAT_006a773c + g_clientContext) + iVar12) == '\0')))) {
         cVar8 = FUN_00450e10(local_15b8);
         if (cVar8 != '\0') {
           FUN_00458920(&local_15bc,&local_15b8,local_1588,local_1598,local_1594,local_158c,
@@ -498,8 +498,8 @@ LAB_00473e6c:
             *(byte *)(iVar13 + 0xf4d) = bVar9;
             *(byte *)(iVar13 + 0xf4e) = bVar10 + bVar9 + -0x34;
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar17 = DAT_005b3484;
-            pbVar18 = (byte *)(DAT_005b3484 + 0x62140);
+            iVar17 = g_clientContext;
+            pbVar18 = (byte *)(g_clientContext + 0x62140);
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar14 = _rand();
             *pbVar18 = (byte)iVar14;
@@ -558,11 +558,11 @@ LAB_00473e6c:
           FUN_00436ec0(local_15bc,local_15a8);
         }
         iVar14 = local_15a8;
-        if ((((-1 < iVar17) && (iVar17 < *(int *)(&DAT_006a7720 + DAT_005b3484))) &&
+        if ((((-1 < iVar17) && (iVar17 < *(int *)(&DAT_006a7720 + g_clientContext))) &&
             (-1 < local_15a8)) &&
-           ((local_15a8 < *(int *)(&DAT_006a7724 + DAT_005b3484) &&
-            (*(char *)(*(int *)(&DAT_006a7720 + DAT_005b3484) * local_15a8 +
-                       *(int *)(&DAT_006a773c + DAT_005b3484) + iVar17) != '\0')))) {
+           ((local_15a8 < *(int *)(&DAT_006a7724 + g_clientContext) &&
+            (*(char *)(*(int *)(&DAT_006a7720 + g_clientContext) * local_15a8 +
+                       *(int *)(&DAT_006a773c + g_clientContext) + iVar17) != '\0')))) {
           FUN_00458a00(&local_15bc,&local_15b8,iVar12,local_1598,local_1594,local_158c,local_159c,1,
                        0);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

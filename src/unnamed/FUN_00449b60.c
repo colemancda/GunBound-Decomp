@@ -91,7 +91,7 @@ LAB_00449be9:
           uStack_80 = &DAT_00666d73;
         }
         uVar8 = *(undefined2 *)(param_1 + 0x2e54c + iVar2 * 2);
-        FUN_004240c0(DAT_005b3484,
+        FUN_004240c0(g_clientContext,
                      CONCAT11((char)((ushort)uVar8 >> 8),
                               *(char *)(iVar2 + 0x2d54c + param_1) == '\x01'),
                      *(undefined1 *)(param_1 + 0x44c),uVar8);

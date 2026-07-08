@@ -419,7 +419,7 @@ LAB_004d2b17:
         goto LAB_004d33cb;
       }
       if (uVar3 == 1) {
-        iVar6 = DAT_005b3484 + 0x23330;
+        iVar6 = g_clientContext + 0x23330;
         pcVar9 = (char *)FUN_0043dc70(&DAT_00796eec,0x19a);
         _sprintf(local_24d4,pcVar9,iVar6);
         UVar18 = 0;
@@ -427,7 +427,7 @@ LAB_004d2b17:
         MessageBoxA(param_2,local_24d4,pCVar11,UVar18);
       }
       else if (uVar3 == 2) {
-        iVar6 = DAT_005b3484 + 0x23313;
+        iVar6 = g_clientContext + 0x23313;
         pcVar9 = (char *)FUN_0043dc70(&DAT_00796eec,0x19b);
         _sprintf(local_24d4,pcVar9,iVar6);
         UVar18 = 0;
@@ -448,10 +448,10 @@ switchD_004d2b8e_caseD_3:
     case 0:
       goto LAB_004d3379;
     case 1:
-      FUN_00412650(1,DAT_005b3484 + 0x2331c);
+      FUN_00412650(1,g_clientContext + 0x2331c);
       break;
     case 2:
-      FUN_00412650(1,DAT_005b3484 + 0x23313);
+      FUN_00412650(1,g_clientContext + 0x23313);
       break;
     default:
       goto switchD_004d2b8e_caseD_3;

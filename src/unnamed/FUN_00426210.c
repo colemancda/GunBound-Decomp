@@ -13,8 +13,8 @@ void FUN_00426210(void)
 {
   int iVar1;
   
-  iVar1 = DAT_005b3484;
-  *(undefined4 *)(&DAT_006aa662 + DAT_005b3484) = 0xffffffff;
+  iVar1 = g_clientContext;
+  *(undefined4 *)(&DAT_006aa662 + g_clientContext) = 0xffffffff;
   *(undefined4 *)(&DAT_006aa666 + iVar1) = 0xffffffff;
   *(undefined4 *)(&DAT_006aa66a + iVar1) = 0xffffffff;
   *(undefined4 *)(&DAT_006aa66e + iVar1) = 0xffffffff;

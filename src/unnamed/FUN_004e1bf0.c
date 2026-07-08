@@ -30,10 +30,10 @@ void FUN_004e1bf0(int param_1)
       FUN_004124a0(0);
       return;
     }
-    _sprintf(local_80,s__d__d__d__d_00557138,(uint)*(byte *)(DAT_005b3484 + 0x4104a + unaff_EDI * 4)
-             ,(uint)*(byte *)(DAT_005b3484 + 0x4104b + unaff_EDI * 4),
-             (uint)*(byte *)(DAT_005b3484 + 0x4104c + unaff_EDI * 4),
-             (uint)*(byte *)(DAT_005b3484 + 0x4104d + unaff_EDI * 4));
+    _sprintf(local_80,s__d__d__d__d_00557138,(uint)*(byte *)(g_clientContext + 0x4104a + unaff_EDI * 4)
+             ,(uint)*(byte *)(g_clientContext + 0x4104b + unaff_EDI * 4),
+             (uint)*(byte *)(g_clientContext + 0x4104c + unaff_EDI * 4),
+             (uint)*(byte *)(g_clientContext + 0x4104d + unaff_EDI * 4));
     DAT_0056d118 = 0;
     if ((*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) &&
        (piVar1 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar1[2] == 0)) {
@@ -53,7 +53,7 @@ void FUN_004e1bf0(int param_1)
     }
     FUN_00406300(0);
     iVar4 = DAT_007934ec;
-    iVar3 = DAT_005b3484;
+    iVar3 = g_clientContext;
     *(undefined1 *)(param_1 + 0x24) = 0;
     *(undefined1 *)(iVar4 + 0x84e6) = 0;
     FUN_004d2480(local_80,*(undefined2 *)(iVar3 + 0x4108a + unaff_EDI * 2));

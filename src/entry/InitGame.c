@@ -47,7 +47,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
   BuildAssetPath(local_40c,&DAT_005b1ed0,s_graphics_xfs_00551fdc,0);
   iVar1 = InitDirectDraw(local_40c);
   if (iVar1 == 0) {
-    iVar1 = LoadGameDataFiles(DAT_005b3484);
+    iVar1 = LoadGameDataFiles(g_clientContext);
     if (iVar1 != 0) {
       return iVar1 + 0xe0;
     }
@@ -66,12 +66,12 @@ int InitGame(undefined4 param_1,undefined4 param_2)
       if (DAT_007934c8 == iVar1) {
         InitDirectInput(param_2);
         FUN_004eae60();
-        if ((*(int *)(&DAT_005f2f4c + DAT_005b3484) == 0) &&
+        if ((*(int *)(&DAT_005f2f4c + g_clientContext) == 0) &&
            (DAT_0079354a = 0, DAT_00793549 != '\0')) {
           (**(code **)(*(int *)*DAT_00793554 + 0xc))();
           DAT_00793568 = 0;
         }
-        if (*(int *)(&DAT_005f2f50 + DAT_005b3484) == 0) {
+        if (*(int *)(&DAT_005f2f50 + g_clientContext) == 0) {
           uVar3 = 1;
           DAT_0079354b = 0;
           if (1 < DAT_00793560) {
@@ -218,7 +218,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
         FUN_004f1790(&DAT_00ea0e18,0x38e);
         FUN_004f1790(&DAT_00ea0e18,0x398);
         FUN_004f1790(&DAT_00ea0e18,0);
-        AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
+        AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         FUN_004f1790(&DAT_00ea0e18,1);
         FUN_004f1790(&DAT_00ea0e18,2);
         FUN_004f1790(&DAT_00ea0e18,3);

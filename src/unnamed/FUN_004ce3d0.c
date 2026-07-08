@@ -29,7 +29,7 @@ void FUN_004ce3d0(int param_1)
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         return;
       }
-      piVar3 = (int *)GetPlayerRecordBySlot(DAT_005b3484);
+      piVar3 = (int *)GetPlayerRecordBySlot(g_clientContext);
       if (piVar3 != (int *)0x0) {
         cVar1 = FUN_004065a0();
         if (cVar1 == '\x01') {
@@ -48,7 +48,7 @@ void FUN_004ce3d0(int param_1)
             *(undefined1 *)(iVar2 + 0x14) = 1;
           }
           FUN_0040a4d0(piVar3 + 0x68b);
-          FUN_0041c360(DAT_005b3484,piVar3);
+          FUN_0041c360(g_clientContext,piVar3);
           FUN_00406500(0);
           *(undefined1 *)(piVar3 + 0x2b85) = 0;
           FUN_00406500(0);

@@ -37,8 +37,8 @@ void FUN_004d0260(int param_1,int param_2,int param_3,int param_4,int param_5)
       BlitSpriteClipped(iVar4);
     }
   }
-  iVar4 = DAT_005b3484;
-  uVar2 = *(undefined2 *)(DAT_005b3484 + 0x50116 + param_5 * 2);
+  iVar4 = g_clientContext;
+  uVar2 = *(undefined2 *)(g_clientContext + 0x50116 + param_5 * 2);
   if ((DAT_0079352c != 0) && (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(uVar10 + 0x1d8,param_4 + 0x11);
@@ -279,17 +279,17 @@ LAB_004d0801:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    _sprintf(local_100,s___8s___12s__3dP__6dG_00556720,iVar5 + 0x5012e + DAT_005b3484,
-             param_5 * 0xd + 0x50196 + DAT_005b3484,uVar8,uVar7);
+    _sprintf(local_100,s___8s___12s__3dP__6dG_00556720,iVar5 + 0x5012e + g_clientContext,
+             param_5 * 0xd + 0x50196 + g_clientContext,uVar8,uVar7);
     pcVar9 = local_100;
     do {
       cVar1 = *pcVar9;
       pcVar9 = pcVar9 + 1;
     } while (cVar1 != '\0');
-    FUN_0041b8c0(DAT_005b3484,2,0,0,local_100,0,1);
+    FUN_0041b8c0(g_clientContext,2,0,0,local_100,0,1);
   }
-  if ((*(ushort *)(&DAT_006aa660 + DAT_005b3484) != 0xffff) && (param_2 != '\0')) {
-    uVar6 = *(ushort *)(&DAT_006aa660 + DAT_005b3484) + 4;
+  if ((*(ushort *)(&DAT_006aa660 + g_clientContext) != 0xffff) && (param_2 != '\0')) {
+    uVar6 = *(ushort *)(&DAT_006aa660 + g_clientContext) + 4;
     if (DAT_0079352c != 0) {
       iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar3 = *(uint *)(iVar4 + 4);

@@ -46,7 +46,7 @@ void FUN_00498070(int *param_1)
   local_8b0 = 0xffffffff;
   local_8c8 = 0;
   do {
-    iVar3 = GetPlayerRecordBySlot(DAT_005b3484);
+    iVar3 = GetPlayerRecordBySlot(g_clientContext);
     if ((iVar3 != 0) && (cVar2 = FUN_004065a0(), cVar2 != '\x01')) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar4 = PeekPacketChecksumState();
@@ -106,7 +106,7 @@ void FUN_00498070(int *param_1)
   } while ((int)local_8c8 < 8);
   local_8c8 = 0;
   do {
-    iVar3 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+    iVar3 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
     uVar1 = *(uint *)(iVar3 + 4);
     while (uVar1 < 0x186a7) {
       if (uVar1 == 0x186a6) {

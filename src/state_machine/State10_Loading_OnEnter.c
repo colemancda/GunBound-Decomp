@@ -37,8 +37,8 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   
   FUN_004f1790(&DAT_00ea0e18,10000);
   *(undefined4 *)(param_1 + 4) = 0;
-  iVar12 = DAT_005b3484;
-  pbVar13 = &DAT_006a9b6c + DAT_005b3484;
+  iVar12 = g_clientContext;
+  pbVar13 = &DAT_006a9b6c + g_clientContext;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = _rand();
   *pbVar13 = (byte)iVar5;
@@ -50,8 +50,8 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   (&DAT_006a9b6d)[iVar12] = bVar11;
   (&DAT_006a9b6e)[iVar12] = bVar2 + bVar11 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar12 = DAT_005b3484;
-  pbVar13 = (byte *)(DAT_005b3484 + 0x6214f);
+  iVar12 = g_clientContext;
+  pbVar13 = (byte *)(g_clientContext + 0x6214f);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = _rand();
   *pbVar13 = (byte)iVar5;
@@ -63,8 +63,8 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   *(byte *)(iVar12 + 0x62150) = bVar11;
   *(byte *)(iVar12 + 0x62151) = bVar2 + bVar11 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar12 = DAT_005b3484;
-  pbVar13 = (byte *)(DAT_005b3484 + 0x62152);
+  iVar12 = g_clientContext;
+  pbVar13 = (byte *)(g_clientContext + 0x62152);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = _rand();
   *pbVar13 = (byte)iVar5;
@@ -76,9 +76,9 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   *(byte *)(iVar12 + 0x62153) = bVar11;
   *(byte *)(iVar12 + 0x62154) = bVar2 + bVar11 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_00420280(DAT_005b3484);
-  iVar12 = DAT_005b3484;
-  puVar14 = (undefined4 *)(&DAT_006a7670 + DAT_005b3484);
+  FUN_00420280(g_clientContext);
+  iVar12 = g_clientContext;
+  puVar14 = (undefined4 *)(&DAT_006a7670 + g_clientContext);
   for (iVar5 = 0x20; iVar5 != 0; iVar5 = iVar5 + -1) {
     *puVar14 = 0;
     puVar14 = puVar14 + 1;
@@ -95,8 +95,8 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   *(byte *)(iVar12 + 0x6214a) = bVar11;
   *(byte *)(iVar12 + 0x6214b) = bVar2 + bVar11 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar12 = DAT_005b3484;
-  pbVar13 = (byte *)(DAT_005b3484 + 0x6214c);
+  iVar12 = g_clientContext;
+  pbVar13 = (byte *)(g_clientContext + 0x6214c);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = _rand();
   *pbVar13 = (byte)iVar5;
@@ -108,7 +108,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   *(byte *)(iVar12 + 0x6214d) = bVar11;
   *(byte *)(iVar12 + 0x6214e) = bVar2 + bVar11 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  pcVar6 = (char *)(DAT_005b3484 + 0x45914);
+  pcVar6 = (char *)(g_clientContext + 0x45914);
   iVar12 = 8;
   do {
     if (*pcVar6 != '\0') {
@@ -161,7 +161,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
       pcVar10 = pcVar10 + 1;
     } while (cVar3 != '\0');
   }
-  uVar8 = (uint)(*(byte *)(DAT_005b3484 + 0x45124) >> 1);
+  uVar8 = (uint)(*(byte *)(g_clientContext + 0x45124) >> 1);
   uVar9 = uVar8;
   pcVar6 = (char *)FUN_0043dc70(&DAT_00796eec,0x324);
   _sprintf(acStack_100,pcVar6,uVar8,uVar9);
@@ -177,7 +177,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
     pcVar6 = pcVar6 + 1;
   } while (*pcVar10 != '\0');
   pcVar10 = acStack_100;
-  for (uVar8 = uVar9 >> 2; iVar12 = DAT_005b3484, uVar8 != 0; uVar8 = uVar8 - 1) {
+  for (uVar8 = uVar9 >> 2; iVar12 = g_clientContext, uVar8 != 0; uVar8 = uVar8 - 1) {
     *(undefined4 *)pcVar6 = *(undefined4 *)pcVar10;
     pcVar10 = pcVar10 + 4;
     pcVar6 = pcVar6 + 4;
@@ -245,7 +245,7 @@ LAB_0043eca8:
       goto LAB_0043eca8;
     }
   }
-  cVar3 = *(char *)(DAT_005b3484 + 0x45126);
+  cVar3 = *(char *)(g_clientContext + 0x45126);
   if (cVar3 == '\0') {
     pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0x328);
     pcVar6 = pcVar10;
@@ -303,7 +303,7 @@ LAB_0043ed58:
       goto LAB_0043ed58;
     }
   }
-  if (*(char *)(DAT_005b3484 + 0x45127) == '\0') {
+  if (*(char *)(g_clientContext + 0x45127) == '\0') {
     pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0x32b);
     pcVar6 = pcVar10;
     do {
@@ -335,7 +335,7 @@ LAB_0043ed58:
       pcVar6 = pcVar6 + 1;
     } while (*pcVar10 != '\0');
     pcVar10 = acStack_80;
-    for (uVar8 = uVar9 >> 2; iVar12 = DAT_005b3484, uVar8 != 0; uVar8 = uVar8 - 1) {
+    for (uVar8 = uVar9 >> 2; iVar12 = g_clientContext, uVar8 != 0; uVar8 = uVar8 - 1) {
       *(undefined4 *)pcVar6 = *(undefined4 *)pcVar10;
       pcVar10 = pcVar10 + 4;
       pcVar6 = pcVar6 + 4;
@@ -401,19 +401,19 @@ LAB_0043ed58:
     pcVar6 = pcVar6 + 1;
   }
 LAB_0043eec8:
-  iVar12 = DAT_005b3484;
+  iVar12 = g_clientContext;
   *(undefined4 *)(param_1 + 0x108) = 0xffffffff;
   FUN_004f18c0(&DAT_00ea0e18,0x2711,(uint)*(byte *)(iVar12 + 0x475c4) << 1);
-  FUN_004f18c0(&DAT_00ea0e18,0x2711,(uint)*(byte *)(DAT_005b3484 + 0x475c4) * 2 + 1);
+  FUN_004f18c0(&DAT_00ea0e18,0x2711,(uint)*(byte *)(g_clientContext + 0x475c4) * 2 + 1);
   *(undefined1 *)(param_1 + 0x14c) = 0;
-  iVar12 = DAT_005b3484;
-  puVar14 = (undefined4 *)(&DAT_006a76f4 + DAT_005b3484);
-  if (*(void **)(&DAT_006a76f4 + DAT_005b3484) != (void *)0x0) {
-    _free(*(void **)(&DAT_006a76f4 + DAT_005b3484));
+  iVar12 = g_clientContext;
+  puVar14 = (undefined4 *)(&DAT_006a76f4 + g_clientContext);
+  if (*(void **)(&DAT_006a76f4 + g_clientContext) != (void *)0x0) {
+    _free(*(void **)(&DAT_006a76f4 + g_clientContext));
     *puVar14 = 0;
   }
   iVar4 = DAT_007934e4;
-  iVar5 = DAT_005b3484;
+  iVar5 = g_clientContext;
   *(undefined4 *)(&DAT_006a76f8 + iVar12) = 0;
   *(undefined4 *)(&DAT_006a76fc + iVar12) = 0;
   *(undefined4 *)(&DAT_006a7704 + iVar5) = 0xffffffff;

@@ -52,9 +52,9 @@ void FUN_00404410(int param_1)
   undefined4 local_e8;
   undefined4 local_e4;
   
-  uVar2 = *(undefined2 *)(DAT_005b3484 + 0x3f804);
-  uVar3 = *(undefined2 *)(DAT_005b3484 + 0x41340);
-  uVar4 = *(undefined2 *)(DAT_005b3484 + 0x44e60);
+  uVar2 = *(undefined2 *)(g_clientContext + 0x3f804);
+  uVar3 = *(undefined2 *)(g_clientContext + 0x41340);
+  uVar4 = *(undefined2 *)(g_clientContext + 0x44e60);
   local_17c = CONCAT22(uVar3,uVar2);
   uVar6 = local_17c;
   local_184 = CONCAT22(local_184._2_2_,0x12);
@@ -72,8 +72,8 @@ void FUN_00404410(int param_1)
     do {
       iVar5 = *(int *)(local_18c + 0x10);
       cVar7 = *(char *)(iVar5 + 0x15);
-      iVar9 = DAT_005b3484;
-      while (DAT_005b3484 = iVar9, cVar7 == '\0') {
+      iVar9 = g_clientContext;
+      while (g_clientContext = iVar9, cVar7 == '\0') {
         if (*(char *)(iVar5 + 0x30) != '\0') {
           pcVar12 = (char *)(iVar5 + 0x21);
           piVar11 = (int *)(&DAT_006aa41c + iVar9);
@@ -146,7 +146,7 @@ void FUN_00404410(int param_1)
           }
         }
         iVar5 = *(int *)(iVar5 + 0x10);
-        iVar9 = DAT_005b3484;
+        iVar9 = g_clientContext;
         cVar7 = *(char *)(iVar5 + 0x15);
       }
       local_18c = *(int *)(local_18c + 0x1c);

@@ -17,15 +17,15 @@ int FUN_0042ada0(int param_1,int param_2)
   int unaff_ESI;
   
   iVar2 = 0;
-  piVar4 = (int *)(DAT_005b3484 + 0x4464c);
+  piVar4 = (int *)(g_clientContext + 0x4464c);
   while( true ) {
     iVar1 = (iVar2 / 3) * 300;
     iVar3 = (iVar2 % 3) * 0x3c;
     if (((((iVar1 + 0x18 < unaff_ESI) && (unaff_ESI < iVar1 + 0x119)) && (iVar3 + 0x3a < param_1))
         && (param_1 < iVar3 + 0x74)) &&
        ((param_2 != '\0' ||
-        (((*piVar4 == 1 && (*(char *)(DAT_005b3484 + 0x449a8 + iVar2) == '\0')) &&
-         (*(char *)(DAT_005b3484 + 0x4499c + iVar2) != *(char *)(DAT_005b3484 + 0x449a2 + iVar2)))))
+        (((*piVar4 == 1 && (*(char *)(g_clientContext + 0x449a8 + iVar2) == '\0')) &&
+         (*(char *)(g_clientContext + 0x4499c + iVar2) != *(char *)(g_clientContext + 0x449a2 + iVar2)))))
        )) break;
     iVar2 = iVar2 + 1;
     piVar4 = piVar4 + 1;

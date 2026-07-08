@@ -41,7 +41,7 @@ void __fastcall FUN_004759b0(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    piVar5 = (int *)FUN_00425ac0(DAT_005b3484,uVar4,uVar3,uVar2);
+    piVar5 = (int *)FUN_00425ac0(g_clientContext,uVar4,uVar3,uVar2);
     if (piVar5 != (int *)0x0) {
       cVar1 = FUN_004065a0();
       if (cVar1 != '\0') {

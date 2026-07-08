@@ -44,7 +44,7 @@ void __fastcall FUN_0044fd70(int param_1)
   if (0x50 < *(int *)(param_1 + 0x2d8)) {
     *(undefined1 *)(param_1 + 0x14) = 1;
   }
-  iVar6 = DAT_005b3484;
+  iVar6 = g_clientContext;
   puVar1 = g_gameStateVTableArray[9];
   if (g_currentGameState != 0xb) {
     *(undefined4 *)(param_1 + 0x38) =
@@ -68,13 +68,13 @@ void __fastcall FUN_0044fd70(int param_1)
     *(undefined4 *)(param_1 + 0x38) = uVar3;
     uVar3 = FUN_0040a6e0(iVar6 + 0xb30,local_230,0x3c);
     local_4 = 1;
-    cVar2 = FUN_0040b330(uVar3,*(undefined4 *)(&DAT_006a7724 + DAT_005b3484));
+    cVar2 = FUN_0040b330(uVar3,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
     bVar7 = cVar2 == '\0';
     if (bVar7) {
       puVar5 = local_678;
       local_458 = 0;
       local_664 = 0;
-      EncodeOutgoingPacketField(*(undefined4 *)(&DAT_006a7724 + DAT_005b3484));
+      EncodeOutgoingPacketField(*(undefined4 *)(&DAT_006a7724 + g_clientContext));
       local_4 = 3;
     }
     else {

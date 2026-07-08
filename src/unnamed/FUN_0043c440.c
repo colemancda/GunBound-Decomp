@@ -24,7 +24,7 @@ joined_r0x0043c44c:
   if (iVar1 <= (int)uVar5) {
     return;
   }
-  iVar2 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+  iVar2 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar3 = *(uint *)(iVar2 + 4);
   while (uVar3 < 0x186a4) {
     if (uVar3 == 0x186a3) {

@@ -17,7 +17,7 @@ void __thiscall FUN_004285c0(int param_1,int param_2,undefined4 param_3,undefine
   undefined4 uVar5;
   
   iVar2 = DAT_007934e8;
-  iVar4 = DAT_005b3484;
+  iVar4 = g_clientContext;
   if (param_2 != 0) {
     if (param_2 == 10) {
       if (*(char *)(param_1 + 0xc) != '\0') {
@@ -82,11 +82,11 @@ void __thiscall FUN_004285c0(int param_1,int param_2,undefined4 param_3,undefine
   case 0x27:
     return;
   case 3:
-    cVar3 = PacketChecksumEquals(DAT_005b3484 + 0x449c4,2);
+    cVar3 = PacketChecksumEquals(g_clientContext + 0x449c4,2);
     if (cVar3 == '\0') {
       FUN_0042a090();
       iVar2 = DAT_007934e8;
-      iVar4 = DAT_005b3484;
+      iVar4 = g_clientContext;
       *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
       *(undefined2 *)(iVar2 + 0x4d4) = 0x6000;
       *(bool *)(iVar2 + 0x4d6) = *(char *)(iVar4 + 0x44bf8) == '\0';

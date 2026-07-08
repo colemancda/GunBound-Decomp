@@ -24,7 +24,7 @@ FUN_00425c90(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param
   undefined1 *puStack_8;
   undefined4 local_4;
   
-  iVar3 = DAT_005b3484;
+  iVar3 = g_clientContext;
   local_4 = 0xffffffff;
   /* Windows SEH __try/__except frame setup stripped - handler body
    * (LAB_0053aef6) wasn't included in this function's own decompile.

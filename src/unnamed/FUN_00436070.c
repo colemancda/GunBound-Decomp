@@ -33,8 +33,8 @@ void FUN_00436070(undefined4 param_1,undefined4 param_2,int param_3)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(param_2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if (*(int *)(&DAT_006a7724 + DAT_005b3484) <= param_3) {
-      param_3 = *(int *)(&DAT_006a7724 + DAT_005b3484);
+    if (*(int *)(&DAT_006a7724 + g_clientContext) <= param_3) {
+      param_3 = *(int *)(&DAT_006a7724 + g_clientContext);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(param_3);

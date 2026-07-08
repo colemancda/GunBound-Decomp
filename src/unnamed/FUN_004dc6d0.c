@@ -24,7 +24,7 @@ void FUN_004dc6d0(int param_1)
   undefined4 uStack_81;
   
   _sprintf(local_180,s_tank_d_00553fa0,param_1 + 1);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   iVar5 = FindPreloadedTextureByName(local_180);
   if (iVar5 != 0) {
     iVar6 = 0;

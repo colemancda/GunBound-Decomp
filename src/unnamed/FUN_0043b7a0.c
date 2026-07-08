@@ -28,7 +28,7 @@ void FUN_0043b7a0(undefined4 param_1,int param_2,int param_3,int param_4,int par
   int local_21c;
   undefined4 local_4;
 
-  iVar5 = DAT_005b3484;
+  iVar5 = g_clientContext;
   local_4 = 0xffffffff;
   /* Windows SEH __try/__except frame setup stripped - handler body
    * (LAB_0053ae5c) wasn't included in this function's own decompile.
@@ -38,7 +38,7 @@ void FUN_0043b7a0(undefined4 param_1,int param_2,int param_3,int param_4,int par
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar5 = DAT_005b3484;
+      iVar5 = g_clientContext;
     }
     piVar9 = *(int **)(*(int *)(&DAT_006a7f8c + iVar5) + 0x1c);
     uVar7 = piVar9[1];
@@ -47,8 +47,8 @@ LAB_0043b830:
       if (uVar7 != 0x186a1) goto code_r0x0043b838;
       for (piVar1 = (int *)piVar9[4]; piVar9 != piVar1; piVar1 = (int *)piVar1[4]) {
         cVar2 = FUN_004065a0();
-        iVar5 = DAT_005b3484;
-        if (((cVar2 != '\0') && (cVar2 = FUN_004065a0(), iVar5 = DAT_005b3484, cVar2 != '\x01')) &&
+        iVar5 = g_clientContext;
+        if (((cVar2 != '\0') && (cVar2 = FUN_004065a0(), iVar5 = g_clientContext, cVar2 != '\x01')) &&
            (piVar1[9] != 0xe)) {
           cVar2 = FUN_004065a0();
           iVar6 = param_4;
@@ -56,7 +56,7 @@ LAB_0043b830:
             iVar6 = param_4 / 5 + param_4;
           }
           cVar2 = FUN_00406860();
-          iVar5 = DAT_005b3484;
+          iVar5 = g_clientContext;
           if (cVar2 != '\0') {
             FUN_0040a6e0(piVar1 + 0x243,local_454,param_1);
             local_4 = 0;
@@ -72,7 +72,7 @@ LAB_0043b830:
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             local_4 = 0xffffffff;
             FUN_0040a2a0();
-            iVar5 = DAT_005b3484;
+            iVar5 = g_clientContext;
             if (iVar4 * iVar4 + iVar3 * iVar3 < iVar6 * iVar6) {
               FUN_00406500(1);
               QueueOutgoingPacketField(param_5);
@@ -84,18 +84,18 @@ LAB_0043b830:
                  ((iVar5 != 6 && ((iVar5 != 8 && (iVar5 != 10)))))) {
                 (**(code **)(*piVar1 + 4))(s_shock_00553b80);
               }
-              iVar5 = DAT_005b3484;
+              iVar5 = g_clientContext;
               if (param_7 < 8) {
                 uVar7 = (uint)param_7;
-                if (*(char *)((piVar1[2] & 7U) + 0x4590c + DAT_005b3484) ==
-                    *(char *)(uVar7 + 0x4590c + DAT_005b3484)) {
-                  *(int *)(DAT_005b3484 + 0x5b83c + uVar7 * 4) =
-                       *(int *)(DAT_005b3484 + 0x5b83c + uVar7 * 4) + param_5 + param_6;
+                if (*(char *)((piVar1[2] & 7U) + 0x4590c + g_clientContext) ==
+                    *(char *)(uVar7 + 0x4590c + g_clientContext)) {
+                  *(int *)(g_clientContext + 0x5b83c + uVar7 * 4) =
+                       *(int *)(g_clientContext + 0x5b83c + uVar7 * 4) + param_5 + param_6;
                   *(undefined1 *)(piVar1 + 0x2c2d) = 1;
                 }
                 else {
-                  *(int *)(DAT_005b3484 + 0x5b81c + uVar7 * 4) =
-                       *(int *)(DAT_005b3484 + 0x5b81c + uVar7 * 4) + param_5 + param_6;
+                  *(int *)(g_clientContext + 0x5b81c + uVar7 * 4) =
+                       *(int *)(g_clientContext + 0x5b81c + uVar7 * 4) + param_5 + param_6;
                 }
               }
             }

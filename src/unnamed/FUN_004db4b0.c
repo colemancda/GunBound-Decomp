@@ -22,20 +22,20 @@ uint __fastcall FUN_004db4b0(int param_1)
     return *(uint *)(param_1 + 0x628) & 0xffffff00;
   }
   FUN_004db570();
-  if ((((*(char *)(DAT_005b3484 + 0x45122) == '\0') ||
+  if ((((*(char *)(g_clientContext + 0x45122) == '\0') ||
        (*(int *)(extraout_ECX + 0x490) == *(int *)(extraout_ECX + 0x494))) ||
       (uVar3 = (uint3)((uint)*(int *)(extraout_ECX + 0x490) >> 8),
-      *(char *)(DAT_005b3484 + 0x45120) == '\0')) &&
+      *(char *)(g_clientContext + 0x45120) == '\0')) &&
      ((uVar3 = 0, *(int *)(extraout_ECX + 0x490) < 5 && (*(int *)(extraout_ECX + 0x494) < 5)))) {
     iVar5 = 0;
-    iVar4 = DAT_005b3484;
+    iVar4 = g_clientContext;
     do {
       cVar1 = *(char *)(iVar4 + 0x45914 + iVar5);
       if ((cVar1 != '\0') && (cVar1 != '\x03')) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar2 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar4 = DAT_005b3484;
+        iVar4 = g_clientContext;
         uVar3 = extraout_var;
         if (iVar5 != iVar2) {
           return (uint)extraout_var << 8;

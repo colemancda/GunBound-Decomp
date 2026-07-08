@@ -35,21 +35,21 @@ void __thiscall FUN_00434fc0(undefined4 param_1,undefined4 param_2,int param_3)
   *unaff_FS_OFFSET = &local_c;
   cVar2 = FUN_004065a0(param_1);
   if (cVar2 == '\0') {
-    if ((-1 < param_3) && (param_3 < *(int *)(&DAT_006a7720 + DAT_005b3484))) {
-      pcVar3 = (char *)(*(int *)(&DAT_006a773c + DAT_005b3484) + param_3);
+    if ((-1 < param_3) && (param_3 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+      pcVar3 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + param_3);
       iVar11 = 0;
-      if (0 < *(int *)(&DAT_006a7724 + DAT_005b3484)) {
+      if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
         do {
           if (*pcVar3 != '\0') goto LAB_00435034;
-          pcVar3 = pcVar3 + *(int *)(&DAT_006a7720 + DAT_005b3484);
+          pcVar3 = pcVar3 + *(int *)(&DAT_006a7720 + g_clientContext);
           iVar11 = iVar11 + 1;
-        } while (iVar11 < *(int *)(&DAT_006a7724 + DAT_005b3484));
+        } while (iVar11 < *(int *)(&DAT_006a7724 + g_clientContext));
       }
     }
     iVar11 = 10000;
 LAB_00435034:
     iVar9 = iVar11;
-    FUN_00436070(&DAT_006a7f70 + DAT_005b3484,param_3,iVar11);
+    FUN_00436070(&DAT_006a7f70 + g_clientContext,param_3,iVar11);
     FUN_0043af40(param_3,iVar11,0,0x1e,0x1e,0x1e,0xff);
     pvVar4 = operator_new(0x3fa0);
     local_4 = 0;
@@ -210,8 +210,8 @@ LAB_00435034:
     EncodeOutgoingPacketField(0x1e);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     RegisterActiveObject();
-    iVar11 = DAT_005b3484;
-    piVar1 = (int *)(&DAT_006a7708 + DAT_005b3484);
+    iVar11 = g_clientContext;
+    piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
     cVar2 = FUN_004065a0();
     if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar11] != '\0')) {
       if (((&DAT_006a7736)[iVar11] == '\x01') &&

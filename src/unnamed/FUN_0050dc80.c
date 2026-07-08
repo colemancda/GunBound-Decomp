@@ -30,7 +30,7 @@ void __fastcall FUN_0050dc80(int param_1)
   }
   iVar1 = uVar5 * 0xf7 + 0x16 + *(int *)(param_1 + 0x28);
   iVar2 = ((int)in_EAX / 2) * 0x49 + 0x2d + *(int *)(param_1 + 0x2c);
-  cVar8 = (-(*(char *)(DAT_005b3484 + 0x3f809 + in_EAX) != '\x01') & 3U) + 1;
+  cVar8 = (-(*(char *)(g_clientContext + 0x3f809 + in_EAX) != '\x01') & 3U) + 1;
   if (*(uint *)(g_gameStateVTableArray[2] + 0xc) == in_EAX) {
     cVar8 = '\x02';
   }
@@ -45,7 +45,7 @@ void __fastcall FUN_0050dc80(int param_1)
       BlitSpriteClipped(cVar8);
     }
   }
-  _sprintf(local_80,&DAT_00551ed4,*(ushort *)(DAT_005b3484 + 0x3f81a + in_EAX * 2) + 1);
+  _sprintf(local_80,&DAT_00551ed4,*(ushort *)(g_clientContext + 0x3f81a + in_EAX * 2) + 1);
   pcVar7 = local_80;
   do {
     cVar3 = *pcVar7;
@@ -76,12 +76,12 @@ void __fastcall FUN_0050dc80(int param_1)
     iVar6 = 6;
   }
   iVar10 = iVar6;
-  if (*(char *)(DAT_005b3484 + 0x3f809 + in_EAX) == '\x01') {
+  if (*(char *)(g_clientContext + 0x3f809 + in_EAX) == '\x01') {
     iVar9 = 0;
     do {
       iVar10 = iVar9;
-      if ((int)((ulonglong)((uint)*(ushort *)(DAT_005b3484 + 0x410ca + in_EAX * 2) * 100) /
-               (ulonglong)(longlong)(int)(uint)*(ushort *)(DAT_005b3484 + 0x410ea + in_EAX * 2)) <
+      if ((int)((ulonglong)((uint)*(ushort *)(g_clientContext + 0x410ca + in_EAX * 2) * 100) /
+               (ulonglong)(longlong)(int)(uint)*(ushort *)(g_clientContext + 0x410ea + in_EAX * 2)) <
           (int)(&DAT_005a9050)[iVar9]) break;
       iVar9 = iVar9 + 1;
       iVar10 = iVar6;

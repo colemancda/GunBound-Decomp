@@ -30,7 +30,7 @@ undefined4 __thiscall FUN_0050a640(int param_1,int param_2,int param_3)
       if ((iVar3 < param_3) && (param_3 < iVar8)) {
         if ((iVar9 != -1) &&
            ((uint)(*(int *)(g_gameStateVTableArray[7] + 0x454) + iVar9) <
-            *(uint *)(DAT_005b3484 + 0x44e24))) {
+            *(uint *)(g_clientContext + 0x44e24))) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar3 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -63,7 +63,7 @@ LAB_0050a700:
     FUN_0044b330(puVar1);
     goto LAB_0050a8b0;
   }
-  if (*(uint *)(DAT_005b3484 + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar9)) {
+  if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar9)) {
                     /* WARNING: Subroutine does not return */
     FUN_004010c0(0x80070057);
   }
@@ -72,7 +72,7 @@ LAB_0050a700:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar2 = FUN_004065a0();
   if (cVar2 == '\0') {
-    if (*(uint *)(DAT_005b3484 + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar9)) {
+    if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar9)) {
                     /* WARNING: Subroutine does not return */
       FUN_004010c0(0x80070057);
     }
@@ -82,7 +82,7 @@ LAB_0050a700:
     if ((uVar6 & 0x8000) != 0) goto LAB_0050a89a;
   }
   else {
-    if (*(uint *)(DAT_005b3484 + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar9)) {
+    if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar9)) {
                     /* WARNING: Subroutine does not return */
       FUN_004010c0(0x80070057);
     }

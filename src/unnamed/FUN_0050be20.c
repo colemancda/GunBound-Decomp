@@ -83,7 +83,7 @@ LAB_0050bf63:
   if (0x88f < local_88) goto code_r0x0050bf7b;
   goto LAB_0050be92;
 code_r0x0050bf7b:
-  if (*(uint *)(DAT_005b3484 + 0x44e24) <= *(uint *)(param_1 + 0x94)) {
+  if (*(uint *)(g_clientContext + 0x44e24) <= *(uint *)(param_1 + 0x94)) {
                     /* WARNING: Subroutine does not return */
     FUN_004010c0(0x80070057);
   }
@@ -93,7 +93,7 @@ code_r0x0050bf7b:
   uVar3 = iVar1 >> 0x10 & 0xf;
   uVar4 = uVar3 * 2;
   if (uVar3 != 3) {
-    if (*(uint *)(DAT_005b3484 + 0x44e24) <= *(uint *)(param_1 + 0x94)) {
+    if (*(uint *)(g_clientContext + 0x44e24) <= *(uint *)(param_1 + 0x94)) {
                     /* WARNING: Subroutine does not return */
       FUN_004010c0(0x80070057);
     }
@@ -135,7 +135,7 @@ LAB_0050c076:
     }
   }
 LAB_0050c0b2:
-  if (*(uint *)(param_1 + 0x94) < *(uint *)(DAT_005b3484 + 0x44e24)) {
+  if (*(uint *)(param_1 + 0x94) < *(uint *)(g_clientContext + 0x44e24)) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

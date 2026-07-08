@@ -23,14 +23,14 @@ void FUN_0044b170(int param_1)
     iVar2 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = *(int *)(param_1 + 0x454) + iVar2;
-    if (*(uint *)(DAT_005b3484 + 0x44e24) <= uVar4) {
+    if (*(uint *)(g_clientContext + 0x44e24) <= uVar4) {
                     /* WARNING: Subroutine does not return */
       FUN_004010c0(0x80070057);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if (*(uint *)(DAT_005b3484 + 0x44e24) <= uVar4) {
+    if (*(uint *)(g_clientContext + 0x44e24) <= uVar4) {
                     /* WARNING: Subroutine does not return */
       FUN_004010c0(0x80070057);
     }

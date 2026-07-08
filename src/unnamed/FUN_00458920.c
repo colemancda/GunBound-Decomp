@@ -22,7 +22,7 @@ void FUN_00458920(int *param_1,int *param_2,int param_3,int param_4,int param_5,
     iVar4 = param_4 - in_EAX;
     if (iVar4 < param_4) {
       param_3 = iVar4 * param_5 + param_3;
-      iVar2 = DAT_005b3484;
+      iVar2 = g_clientContext;
       while( true ) {
         param_7 = param_7 + param_6;
         iVar3 = param_7 >> 0x10;
@@ -34,7 +34,7 @@ void FUN_00458920(int *param_1,int *param_2,int param_3,int param_4,int param_5,
           *param_2 = iVar3;
           return;
         }
-        if ((param_9 != '\0') && (cVar1 = FUN_00450e10(iVar3), iVar2 = DAT_005b3484, cVar1 != '\0'))
+        if ((param_9 != '\0') && (cVar1 = FUN_00450e10(iVar3), iVar2 = g_clientContext, cVar1 != '\0'))
         break;
         iVar4 = iVar4 + 1;
         param_3 = param_3 + param_5;

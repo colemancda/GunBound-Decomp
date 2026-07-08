@@ -25,7 +25,7 @@ void FUN_0043c6a0(void)
   undefined1 *puStack_8;
   int local_4;
   
-  uVar4 = DAT_005b3484;
+  uVar4 = g_clientContext;
   local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053ae1c;

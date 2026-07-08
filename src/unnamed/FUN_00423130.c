@@ -133,7 +133,7 @@ void FUN_00423130(int param_1,int param_2,int param_3)
       QueueOutgoingPacketField(*(undefined4 *)(param_2 + 0x22));
       *(undefined1 *)(param_1 + 0x45124) = *(undefined1 *)(param_2 + 0x26);
       *(undefined4 *)(param_1 + 0x457a1) = *(undefined4 *)(param_2 + 0x27);
-      iVar8 = DAT_005b3484;
+      iVar8 = g_clientContext;
       *(undefined4 *)(param_1 + 0x457a5) = *(undefined4 *)(param_2 + 0x2b);
       uVar15 = param_3 - 0x2f;
       uVar9 = ((int)uVar15 < 0) - 1 & uVar15;
@@ -166,12 +166,12 @@ void FUN_00423130(int param_1,int param_2,int param_3)
       }
     }
     if (((*(int *)(g_gameStateVTableArray[0xb] + 0x10b4) == -1) &&
-        (cVar5 = PacketChecksumEquals(DAT_005b3484 + 0x6240c,0xffffffff), cVar5 != '\0')) &&
+        (cVar5 = PacketChecksumEquals(g_clientContext + 0x6240c,0xffffffff), cVar5 != '\0')) &&
        (puVar4[0x10bd] == '\0')) {
 LAB_0042326c:
       FUN_004e7d60(0xffff);
       Replay_AppendEvent(0xc302);
-      iVar8 = DAT_005b3484;
+      iVar8 = g_clientContext;
       (&g_replayEventBuffer)[g_replayEventCursor] = *(byte *)puVar12;
       g_replayEventCursor = g_replayEventCursor + 1;
       uVar6 = FUN_0040a4d0(iVar8 + 0xeba98);
@@ -205,9 +205,9 @@ LAB_0042326c:
       local_410 = 0;
       FUN_00426620(&DAT_006aa41c + param_1,&local_430);
       FUN_00426620(&DAT_006aa44c + param_1,&local_41c);
-      iVar8 = DAT_005b3484;
+      iVar8 = g_clientContext;
       uVar10 = (uint)bVar1;
-      *(uint *)(DAT_005b3484 + 0x4599c + uVar10 * 4) = (uint)*(ushort *)(param_2 + 0x3f);
+      *(uint *)(g_clientContext + 0x4599c + uVar10 * 4) = (uint)*(ushort *)(param_2 + 0x3f);
       *(undefined4 *)(iVar8 + 0x4593c + uVar10 * 4) = *(undefined4 *)(param_2 + 0x41);
       *(undefined4 *)(iVar8 + 0x4595c + uVar10 * 4) = *(undefined4 *)(param_2 + 0x45);
       *(undefined4 *)(iVar8 + 0x4597c + uVar10 * 4) = *(undefined4 *)(param_2 + 0x49);
@@ -326,7 +326,7 @@ LAB_0042326c:
   else if (uVar3 != 0x8600) {
     if (uVar3 == 0xc302) {
       if ((bVar1 < 8) &&
-         (iVar8 = *(int *)(param_2 + 0x22), iVar7 = FUN_0040a4d0(DAT_005b3484 + 0xeba98),
+         (iVar8 = *(int *)(param_2 + 0x22), iVar7 = FUN_0040a4d0(g_clientContext + 0xeba98),
          iVar8 == iVar7)) {
         (&DAT_006a7670)[param_1 + (uint)*(byte *)puVar12 * 8 + (uint)bVar1] = 1;
         if ((*(byte *)puVar12 == 0xe) &&

@@ -112,7 +112,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
     piVar3[0x1029] = 0xfffff00;
   }
   local_4 = 0xffffffff;
-  if (*(char *)(DAT_005b3484 + 0x45578) == '\0') {
+  if (*(char *)(g_clientContext + 0x45578) == '\0') {
     piVar3[0xe25] = param_3 + 0x1f52;
     puStack_8d0 = (undefined *)0x42f6a8;
     _sprintf((char *)(piVar3 + 0xe26),s_flame10_d_00553d44);
@@ -122,7 +122,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
   else {
     pcVar10 = (code *)EnterCriticalSection;
     pcVar11 = (code *)LeaveCriticalSection;
-    if (*(char *)(DAT_005b3484 + 0x45578) == '\x01') {
+    if (*(char *)(g_clientContext + 0x45578) == '\x01') {
       piVar3[6] = 6000;
       piVar3[0xe] = 0x17d4;
       piVar3[0xe25] = 8000;
@@ -390,7 +390,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
     g_replayEventCursor = g_replayEventCursor + 4;
     Replay_FlushEvent();
   }
-  FUN_0041da80(DAT_005b3484,piVar3,uStack_6c,uStack_4c);
+  FUN_0041da80(g_clientContext,piVar3,uStack_6c,uStack_4c);
   iVar4 = GetPlayerRecordBySlot();
   if ((iVar4 != 0) && (cVar2 = FUN_004065a0(), cVar2 != '\0')) {
     FUN_0040a8c0(piVar3 + 0x930,&puStack_914);

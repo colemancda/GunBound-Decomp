@@ -69,25 +69,25 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   FUN_004f1790(&DAT_00ea0e18,0x5dd);
   FUN_004f1790(&DAT_00ea0e18,0x640);
   FUN_004f1790(&DAT_00ea0e18,0x641);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   FUN_0042aba0();
-  iVar4 = FUN_00509af0(&DAT_00e53c40,*(undefined4 *)(DAT_005b3484 + 0x41340));
+  iVar4 = FUN_00509af0(&DAT_00e53c40,*(undefined4 *)(g_clientContext + 0x41340));
   param_1[0xa3] = iVar4;
   iVar4 = FUN_00509d80(&DAT_00e53c40);
   param_1[0xa4] = iVar4;
   cVar3 = FUN_004065a0();
-  if ((cVar3 == '\x01') && (*(short *)(DAT_005b3484 + 0x3b96f) != -1)) {
+  if ((cVar3 == '\x01') && (*(short *)(g_clientContext + 0x3b96f) != -1)) {
     *(undefined1 *)((int)param_1 + 0x115) = 1;
   }
   else {
@@ -106,9 +106,9 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
   cVar3 = FUN_004065a0();
   iVar4 = DAT_007934e8;
-  if ((cVar3 == '\x01') && (*(ushort *)(DAT_005b3484 + 0x3b96f) != 0xffff)) {
+  if ((cVar3 == '\x01') && (*(ushort *)(g_clientContext + 0x3b96f) != 0xffff)) {
     *(short *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) =
-         (short)((ulonglong)((longlong)(int)(uint)*(ushort *)(DAT_005b3484 + 0x3b96f) * 0x2aaaaaab)
+         (short)((ulonglong)((longlong)(int)(uint)*(ushort *)(g_clientContext + 0x3b96f) * 0x2aaaaaab)
                 >> 0x20);
   }
   else {
@@ -124,13 +124,13 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   *(undefined1 *)((int)param_1 + 0xd) = 0;
   *(undefined1 *)((int)param_1 + 0xe) = 0;
   FUN_004eea30(1);
-  iVar4 = DAT_005b3484;
-  *(undefined4 *)(&DAT_0067e3c8 + DAT_005b3484) = 0;
+  iVar4 = g_clientContext;
+  *(undefined4 *)(&DAT_0067e3c8 + g_clientContext) = 0;
   if (*(FILE **)(&g_replayFileHandle + iVar4) != (FILE *)0x0) {
     uStack_4 = (int *)CONCAT13(3,(undefined3)uStack_4);
     _fwrite((void *)((int)&uStack_4 + 3),1,1,*(FILE **)(&g_replayFileHandle + iVar4));
-    _fclose(*(FILE **)(&g_replayFileHandle + DAT_005b3484));
-    *(undefined4 *)(&g_replayFileHandle + DAT_005b3484) = 0;
+    _fclose(*(FILE **)(&g_replayFileHandle + g_clientContext));
+    *(undefined4 *)(&g_replayFileHandle + g_clientContext) = 0;
   }
   param_1[0x49] = -1;
   FUN_005093e0();

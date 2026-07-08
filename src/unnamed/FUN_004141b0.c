@@ -152,7 +152,7 @@ LAB_00414245:
   local_80a8 = CONCAT22((short)uVar2,(undefined2)local_80a8);
   local_8094 = FUN_004f1790(&DAT_00ea0e18,0x186a3);
   if (param_5 != 0) {
-    FUN_00424ac0(DAT_005b3484,&local_80a8,param_5,0);
+    FUN_00424ac0(g_clientContext,&local_80a8,param_5,0);
   }
   local_80b0 = 0;
 LAB_00414610:

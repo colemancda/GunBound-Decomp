@@ -16,7 +16,7 @@ void __fastcall FUN_004db570(int param_1)
   int iVar3;
   short *psVar4;
   
-  iVar2 = DAT_005b3484;
+  iVar2 = g_clientContext;
   *(undefined4 *)(param_1 + 0x490) = 0;
   *(undefined4 *)(param_1 + 0x494) = 0;
   *(undefined2 *)(param_1 + 0x4ce) = 0;

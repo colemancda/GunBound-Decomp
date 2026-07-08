@@ -90,7 +90,7 @@ void FUN_0044b900(int param_1)
       FUN_00405fb0();
       pcVar13 = (code *)EnterCriticalSection;
     }
-    iVar5 = *(int *)(DAT_005b3484 + 0x44bec);
+    iVar5 = *(int *)(g_clientContext + 0x44bec);
     FUN_004f1c00();
     if (iVar5 == 0) {
       (*pcVar13)(&DAT_005a9068);
@@ -107,11 +107,11 @@ void FUN_0044b900(int param_1)
       FUN_0044b720(param_1);
     }
     else {
-      if (*(int *)(DAT_005b3484 + 0x44bec) == 0) {
+      if (*(int *)(g_clientContext + 0x44bec) == 0) {
                     /* WARNING: Subroutine does not return */
         FUN_004010c0(0x80070057);
       }
-      puVar14 = *(undefined4 **)(DAT_005b3484 + 0x44be8);
+      puVar14 = *(undefined4 **)(g_clientContext + 0x44be8);
       puVar15 = &local_188c;
       for (iVar5 = 0x27; iVar5 != 0; iVar5 = iVar5 + -1) {
         *puVar15 = *puVar14;
@@ -121,7 +121,7 @@ void FUN_0044b900(int param_1)
       FUN_0044c5a0();
       uVar2 = local_1874;
       uVar12 = local_1874 >> 0x10;
-      FUN_00423e20(DAT_005b3484,uVar12 & 0xf);
+      FUN_00423e20(g_clientContext,uVar12 & 0xf);
       pcVar6 = local_1888;
       iVar5 = (param_1 + 0x32ef0) - (int)pcVar6;
       do {

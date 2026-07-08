@@ -43,7 +43,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
   uStack_10 = 0x4cc5df;
-  iVar2 = GetPlayerRecordBySlot(DAT_005b3484);
+  iVar2 = GetPlayerRecordBySlot(g_clientContext);
   if (iVar2 != 0) {
     if (param_2 == '\0') {
       switch(param_3) {
@@ -105,7 +105,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
       case 0xf:
         AddToPacketChecksum(0xb4);
         uVar6 = FUN_0040a4d0(&DAT_00e9bed8);
-        cVar1 = FUN_0040b2d0(DAT_005b3484 + 0x5b1ac,uVar6);
+        cVar1 = FUN_0040b2d0(g_clientContext + 0x5b1ac,uVar6);
         if (cVar1 != '\0') {
           uVar6 = FUN_0040a4d0(&DAT_00e9bed8);
           SubFromPacketChecksum(uVar6);
@@ -158,10 +158,10 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         local_1358 = -1;
         iVar7 = 0;
         do {
-          iVar3 = GetPlayerRecordBySlot(DAT_005b3484);
+          iVar3 = GetPlayerRecordBySlot(g_clientContext);
           if ((((iVar3 != 0) && (*(int *)(iVar3 + 0x24) != 0xe)) &&
               (cVar1 = FUN_004065a0(), cVar1 != '\x01')) &&
-             ((*(char *)(DAT_005b3484 + 0x45122) == '\0' ||
+             ((*(char *)(g_clientContext + 0x45122) == '\0' ||
               (*(int *)(iVar3 + 0xae2c) == *(int *)(iVar2 + 0xae2c))))) {
             cVar1 = FUN_0040b330(iVar3 + 0x6968,uVar6);
             if (cVar1 != '\0') {
@@ -171,7 +171,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
           }
           iVar7 = iVar7 + 1;
         } while (iVar7 < 8);
-        if ((local_1358 != -1) && (iVar7 = GetPlayerRecordBySlot(DAT_005b3484), iVar2 != iVar7)) {
+        if ((local_1358 != -1) && (iVar7 = GetPlayerRecordBySlot(g_clientContext), iVar2 != iVar7)) {
           iVar3 = iVar2 + 0x90c;
           uVar6 = FUN_0040a4d0(iVar3);
           iVar5 = iVar7 + 0x90c;

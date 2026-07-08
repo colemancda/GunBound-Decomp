@@ -28,15 +28,15 @@ void __fastcall State02_ServerSelect_OnEnter(int param_1)
   FUN_004f1790(&DAT_00ea0e18,0x3ea);
   FUN_004f1790(&DAT_00ea0e18,0x44c);
   FUN_004f1790(&DAT_00ea0e18,0x44d);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   CreateButtonWidget(&DAT_00e9be90,0,0,1000,s_b_server_exitgame_00557144,0x28,0x227,0x6b,0x2d,1,0);
   CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_server_buddygame_00557170,0xa3,0x227,0x6b,0x2d,1,0)
   ;
   CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_server_choiceserver_00557158,0x199,0x227,0x6b,0x2d,
                      0,0);
-  iVar1 = DAT_005b3484;
+  iVar1 = g_clientContext;
   *(undefined4 *)(param_1 + 8) = 0xffffffff;
   *(undefined1 *)(iVar1 + 0x3f808) = 0;
   *(undefined4 *)(iVar1 + 0x3f809) = 0;
@@ -142,7 +142,7 @@ void __fastcall State02_ServerSelect_OnEnter(int param_1)
   }
   *(undefined4 *)(param_1 + 0x20) = 0;
   FUN_004eea30(1);
-  iVar1 = DAT_005b3484;
+  iVar1 = g_clientContext;
   bVar5 = DAT_007934f4 != 0;
   *(undefined1 *)(param_1 + 0x24) = 0;
   *(undefined4 *)(iVar1 + 0x3f804) = 0xffffffff;

@@ -30,7 +30,7 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
   undefined1 *puStack_8;
   int local_4;
   
-  iVar1 = DAT_005b3484;
+  iVar1 = g_clientContext;
   local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053dfcc;
@@ -48,14 +48,14 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
     FUN_0042b0b0((uint)param_1,param_2,uVar3,uVar2,*(undefined4 *)(iVar1 + 0xae2c),
                  *(undefined4 *)(iVar1 + 0xae38),*(undefined4 *)(iVar1 + 0xae3c),iVar1 + 0xae15,
                  iVar1 + 0xae22,*(undefined4 *)(iVar1 + 0xae30),*(undefined4 *)(iVar1 + 0xae34),1);
-    iVar4 = GetPlayerRecordBySlot(DAT_005b3484);
+    iVar4 = GetPlayerRecordBySlot(g_clientContext);
     if (iVar4 != 0) {
-      *(int *)(DAT_005b3484 + 0x621e4) = iVar4;
+      *(int *)(g_clientContext + 0x621e4) = iVar4;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (param_1 == uVar5) {
-        *(int *)(DAT_005b3484 + 0x621e0) = iVar4;
+        *(int *)(g_clientContext + 0x621e0) = iVar4;
       }
       FUN_00406530();
       FUN_00406530();

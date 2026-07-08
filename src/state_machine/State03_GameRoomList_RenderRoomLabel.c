@@ -32,8 +32,8 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
       BlitSpriteClipped(0);
     }
   }
-  iVar3 = DAT_005b3484;
-  uVar2 = *(undefined2 *)(DAT_005b3484 + 0x23344);
+  iVar3 = g_clientContext;
+  uVar2 = *(undefined2 *)(g_clientContext + 0x23344);
   if ((DAT_0079352c != 0) && (iVar4 = FUN_004f30c0(), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(0xac,9);
@@ -49,7 +49,7 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    _sprintf(acStack_80,s__s__3d__3d__005536b8,DAT_005b3484 + 0x23313,uVar6,uVar5);
+    _sprintf(acStack_80,s__s__3d__3d__005536b8,g_clientContext + 0x23313,uVar6,uVar5);
     BlitRLESprite(9,0xfd0f);
   }
   BlitRLESprite(0x17,0xffff);
@@ -95,7 +95,7 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
   iVar4 = 0;
   iVar3 = 0x4464c;
   do {
-    if ((*(int *)(iVar3 + DAT_005b3484) != 0) && (iVar4 != *(int *)(param_1 + 0x124))) {
+    if ((*(int *)(iVar3 + g_clientContext) != 0) && (iVar4 != *(int *)(param_1 + 0x124))) {
       FUN_0042a220(iVar4);
     }
     iVar3 = iVar3 + 4;

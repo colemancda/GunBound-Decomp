@@ -22,7 +22,7 @@ void FUN_004024f0(undefined4 param_1,char *param_2)
   char *pcVar8;
   char local_80 [128];
   
-  pcVar4 = (char *)(DAT_005b3484 + 0x23330);
+  pcVar4 = (char *)(g_clientContext + 0x23330);
   iVar3 = -(int)pcVar4;
   do {
     cVar1 = *pcVar4;

@@ -80,16 +80,16 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
   uStack_14 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_14;
   pbVar22 = param_3;
-  if (*(FILE **)(&g_replayFileHandle + DAT_005b3484) != (FILE *)0x0) {
+  if (*(FILE **)(&g_replayFileHandle + g_clientContext) != (FILE *)0x0) {
     local_d71 = 0;
-    _fwrite(&local_d71,1,1,*(FILE **)(&g_replayFileHandle + DAT_005b3484));
-    _fwrite(g_gameStateVTableArray[0xb] + 4,1,4,*(FILE **)(&g_replayFileHandle + DAT_005b3484));
-    _fwrite(&param_1,1,4,*(FILE **)(&g_replayFileHandle + DAT_005b3484));
-    _fwrite(&param_2,1,2,*(FILE **)(&g_replayFileHandle + DAT_005b3484));
+    _fwrite(&local_d71,1,1,*(FILE **)(&g_replayFileHandle + g_clientContext));
+    _fwrite(g_gameStateVTableArray[0xb] + 4,1,4,*(FILE **)(&g_replayFileHandle + g_clientContext));
+    _fwrite(&param_1,1,4,*(FILE **)(&g_replayFileHandle + g_clientContext));
+    _fwrite(&param_2,1,2,*(FILE **)(&g_replayFileHandle + g_clientContext));
     pbVar22 = param_3;
-    _fwrite(param_3,1,param_1,*(FILE **)(&g_replayFileHandle + DAT_005b3484));
+    _fwrite(param_3,1,param_1,*(FILE **)(&g_replayFileHandle + g_clientContext));
   }
-  iVar19 = DAT_005b3484;
+  iVar19 = g_clientContext;
   uVar6 = param_2 & 0xffff;
   if (0x200f < uVar6) {
     if (0x4501 < uVar6) {
@@ -154,10 +154,10 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
     if (uVar6 < 0x3401) {
       if (uVar6 == 0x3400) {
         QueueOutgoingPacketField(*pbVar22);
-        iVar19 = FUN_0040a4d0(DAT_005b3484 + 0x3b6c4);
-        if (*(char *)(iVar19 + 0x45914 + DAT_005b3484) == '\x03') {
-          iVar19 = FUN_0040a4d0(DAT_005b3484 + 0x3b6c4);
-          *(undefined1 *)(iVar19 + 0x45914 + DAT_005b3484) = 1;
+        iVar19 = FUN_0040a4d0(g_clientContext + 0x3b6c4);
+        if (*(char *)(iVar19 + 0x45914 + g_clientContext) == '\x03') {
+          iVar19 = FUN_0040a4d0(g_clientContext + 0x3b6c4);
+          *(undefined1 *)(iVar19 + 0x45914 + g_clientContext) = 1;
         }
       }
       else if (uVar6 == 0x3010) {
@@ -167,7 +167,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
         else if ((g_currentGameState != 0xb) || (g_pendingGameState != 0xb))
         goto switchD_004105f7_caseD_1022;
         local_d70 = (undefined4 *)(uint)*pbVar22;
-        *(int *)(DAT_005b3484 + 0x4739c) = *(int *)(DAT_005b3484 + 0x4739c) + 1;
+        *(int *)(g_clientContext + 0x4739c) = *(int *)(g_clientContext + 0x4739c) + 1;
         FUN_00415ce0(local_d70);
         iVar12 = (int)local_d70 * 0xd + iVar19;
         local_d60 = (undefined4 *)(iVar12 + 0x457f1);
@@ -226,14 +226,14 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
           FUN_004e7560();
           FUN_004e77e0(&DAT_00e55ce0);
           pbVar22 = param_3;
-          if ((*(int *)(&DAT_006a76f8 + DAT_005b3484) != 0) &&
-             (local_d78 = 0, *(int *)(&DAT_006a76f8 + DAT_005b3484) != 0)) {
+          if ((*(int *)(&DAT_006a76f8 + g_clientContext) != 0) &&
+             (local_d78 = 0, *(int *)(&DAT_006a76f8 + g_clientContext) != 0)) {
             do {
               piVar14 = (int *)FUN_00415450();
               iVar19 = *piVar14;
               cVar4 = FUN_0041c190();
               if (cVar4 != '\0') {
-                iVar12 = iVar19 * 8 + DAT_005b3484;
+                iVar12 = iVar19 * 8 + g_clientContext;
                 *(undefined4 *)(&DAT_006a7670 + iVar12) = 0;
                 *(undefined4 *)((int)(&DAT_006a7670 + iVar12) + 4) = 0;
                 Replay_AppendEvent(0xc303);
@@ -252,13 +252,13 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                 Replay_FlushEvent();
                 FUN_00415470();
                 local_d78 = local_d78 - 1;
-                if (*(int *)(&DAT_006a76f8 + DAT_005b3484) == 0) {
+                if (*(int *)(&DAT_006a76f8 + g_clientContext) == 0) {
                   PostTurnEvent(&DAT_00e55ce0,0xc302);
                 }
               }
               local_d78 = local_d78 + 1;
               pbVar22 = param_3;
-            } while (local_d78 < *(uint *)(&DAT_006a76f8 + DAT_005b3484));
+            } while (local_d78 < *(uint *)(&DAT_006a76f8 + g_clientContext));
           }
         }
       }
@@ -268,17 +268,17 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
     cVar4 = FUN_004065a0();
     if (cVar4 == '\0') {
       FUN_00406500(1);
-      *(byte *)(DAT_005b3484 + 0x62155) = *pbVar22;
+      *(byte *)(g_clientContext + 0x62155) = *pbVar22;
       FUN_0040a280();
       local_c = 0;
       FUN_0040a280();
       local_c = CONCAT31(local_c._1_3_,1);
       EncodeChecksumStateXored();
       EncodeChecksumStateXored();
-      cVar4 = PacketChecksumEquals(DAT_005b3484 + 0x45354,3);
+      cVar4 = PacketChecksumEquals(g_clientContext + 0x45354,3);
       if (cVar4 == '\0') {
 LAB_00411727:
-        uVar15 = FUN_0040a4d0(DAT_005b3484 + 0x473a0);
+        uVar15 = FUN_0040a4d0(g_clientContext + 0x473a0);
         switch(uVar15) {
         case 1:
         case 2:
@@ -302,20 +302,20 @@ LAB_00411727:
         EncodeChecksumStateXored();
       }
       else {
-        if (*(char *)(DAT_005b3484 + 0x62155) == '\0') {
+        if (*(char *)(g_clientContext + 0x62155) == '\0') {
           uVar15 = FUN_0040a4d0(&DAT_00796aa0);
-          puVar16 = &DAT_0067e3d0 + DAT_005b3484;
+          puVar16 = &DAT_0067e3d0 + g_clientContext;
         }
         else {
           uVar15 = FUN_0040a4d0(&DAT_00796aa0);
-          puVar16 = &DAT_0067e5f4 + DAT_005b3484;
+          puVar16 = &DAT_0067e5f4 + g_clientContext;
         }
         cVar4 = FUN_0040b300(puVar16,uVar15);
         if (cVar4 != '\0') goto LAB_00411727;
       }
       local_d78 = 0;
       iVar12 = 0;
-      iVar19 = DAT_005b3484;
+      iVar19 = g_clientContext;
       do {
         if ((*(char *)(local_d78 + 0x5010d + iVar19) != '\0') &&
            (*(char *)(local_d78 + 0x50126 + iVar19) == *(char *)(iVar19 + 0x62155))) {
@@ -335,7 +335,7 @@ LAB_00411727:
           local_c = CONCAT31(local_c._1_3_,1);
           FUN_0040a2a0();
           FUN_0040afb0(local_d30);
-          iVar19 = DAT_005b3484;
+          iVar19 = g_clientContext;
         }
         local_d78 = local_d78 + 1;
         iVar12 = iVar12 + 0x1120;
@@ -344,10 +344,10 @@ LAB_00411727:
       FUN_0040a2a0();
       local_c = 0xffffffff;
       FUN_0040a2a0();
-      cVar4 = FUN_0040b390(DAT_005b3484 + 0x3b49c,DAT_005b3484 + 0x3b6c4);
+      cVar4 = FUN_0040b390(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
       pbVar22 = param_3;
       if ((cVar4 != '\0') &&
-         ((((cVar4 = PacketChecksumEquals(DAT_005b3484 + 0x45354,3), cVar4 != '\0' ||
+         ((((cVar4 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar4 != '\0' ||
             (cVar4 = FUN_004065a0(), pbVar22 = param_3, cVar4 == '\x01')) &&
            (cVar4 = FUN_004065a0(), pbVar22 = param_3, cVar4 == '\0')) &&
           ((g_currentGameState != 0xb ||
@@ -365,7 +365,7 @@ LAB_00411727:
     }
     else if ((g_currentGameState != 4) || (g_pendingGameState != 4))
     goto switchD_004105f7_caseD_1022;
-    *(undefined1 *)(*pbVar22 + 0x41345 + DAT_005b3484) = 0;
+    *(undefined1 *)(*pbVar22 + 0x41345 + g_clientContext) = 0;
     cVar4 = *(char *)(iVar19 + 0x41344) + -1;
 LAB_004111c0:
     *(char *)(iVar19 + 0x41344) = cVar4;
@@ -381,12 +381,12 @@ LAB_004111c0:
     if (uVar6 < 0x2002) {
       if (uVar6 == 0x2001) {
         if (*(short *)pbVar22 == 0) {
-          *(undefined4 *)(DAT_005b3484 + 0x44e60) = 0xffffffff;
+          *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
           FUN_0041c230();
           FUN_0041b7e0();
           FUN_004e7430();
-          iVar19 = DAT_005b3484;
-          *(uint *)(DAT_005b3484 + 0x41340) = (uint)*(ushort *)(param_3 + 2);
+          iVar19 = g_clientContext;
+          *(uint *)(g_clientContext + 0x41340) = (uint)*(ushort *)(param_3 + 2);
           local_d71 = param_3[4];
           bVar2 = param_3[5];
           pbVar22 = param_3 + 6;
@@ -427,13 +427,13 @@ LAB_004111c0:
               }
               if (local_d61 == local_d71) {
                 FUN_004e73e0(0);
-                iVar19 = DAT_005b3484;
+                iVar19 = g_clientContext;
               }
               local_d78 = local_d78 + 1;
             } while ((int)local_d78 < (int)(uint)*(byte *)(iVar19 + 0x41344));
           }
           FUN_004e7340();
-          param_1 = param_1 + (uint)*(byte *)(DAT_005b3484 + 0x41344) * -0x21 + -6;
+          param_1 = param_1 + (uint)*(byte *)(g_clientContext + 0x41344) * -0x21 + -6;
           _local_d30 = _local_d30 & 0xffffff00;
           puVar26 = (undefined4 *)((int)local_d30 + 1);
           for (iVar19 = 0x3f; iVar19 != 0; iVar19 = iVar19 + -1) {
@@ -444,7 +444,7 @@ LAB_004111c0:
           *(undefined1 *)((int)puVar26 + 2) = 0;
           iVar12 = 0;
           local_d78 = 0;
-          iVar19 = DAT_005b3484;
+          iVar19 = g_clientContext;
           if (0 < (int)param_1) {
             do {
               if (pbVar22[local_d78] == 10) {
@@ -456,7 +456,7 @@ LAB_004111c0:
                 FUN_0041b8c0(iVar19,2,0,0,local_d30,0,0);
                 iVar12 = 0;
                 puVar26 = (undefined4 *)local_d30;
-                for (iVar20 = 0x40; iVar19 = DAT_005b3484, iVar20 != 0; iVar20 = iVar20 + -1) {
+                for (iVar20 = 0x40; iVar19 = g_clientContext, iVar20 != 0; iVar20 = iVar20 + -1) {
                   *puVar26 = 0;
                   puVar26 = puVar26 + 1;
                 }
@@ -494,7 +494,7 @@ LAB_004111c0:
     else if ((g_currentGameState != 7) || (g_pendingGameState != 4))
     goto switchD_004105f7_caseD_1022;
     uVar6 = (uint)*pbVar22;
-    *(undefined1 *)(uVar6 + 0x41345 + DAT_005b3484) = 1;
+    *(undefined1 *)(uVar6 + 0x41345 + g_clientContext) = 1;
     puVar26 = (undefined4 *)(uVar6 * 0xd + 0x41445 + iVar19);
     *puVar26 = *(undefined4 *)(pbVar22 + 1);
     puVar26[1] = *(undefined4 *)(pbVar22 + 5);
@@ -527,7 +527,7 @@ LAB_004111c0:
   }
   if (uVar6 == 0x1060) {
     QueueOutgoingPacketField(*(undefined4 *)pbVar22);
-    cVar4 = PacketChecksumEquals(DAT_005b3484 + 0x449c4,1);
+    cVar4 = PacketChecksumEquals(g_clientContext + 0x449c4,1);
     if (cVar4 != '\0') {
       FUN_004124a0(0);
     }
@@ -552,18 +552,18 @@ LAB_004111c0:
     local_d38 = *(uint *)(pbVar22 + 0x1a);
     local_d34 = 0;
     FUN_004260f0();
-    iVar19 = __stricmp(&DAT_006aa408 + DAT_005b3484,(char *)&local_d58);
+    iVar19 = __stricmp(&DAT_006aa408 + g_clientContext,(char *)&local_d58);
     if (iVar19 == 0) {
       uVar15 = FUN_004d34f0(&local_d44);
       FUN_004d3530(uVar15);
-      (&DAT_006aa408)[DAT_005b3484] = 0;
+      (&DAT_006aa408)[g_clientContext] = 0;
     }
-    iVar19 = __stricmp(&DAT_006aa600 + DAT_005b3484,(char *)&local_d58);
+    iVar19 = __stricmp(&DAT_006aa600 + g_clientContext,(char *)&local_d58);
     pbVar22 = param_3;
     if (iVar19 == 0) {
       uVar15 = FUN_004d34f0(&local_d44);
       FUN_004d3530(uVar15);
-      (&DAT_006aa600)[DAT_005b3484] = 0;
+      (&DAT_006aa600)[g_clientContext] = 0;
       pbVar22 = param_3;
     }
     goto LAB_00410792;

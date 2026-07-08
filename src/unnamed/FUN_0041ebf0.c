@@ -60,9 +60,9 @@ void FUN_0041ebf0(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = DAT_005b3484;
+  iVar5 = g_clientContext;
   if ((iVar6 == 3) && (*pcVar8 != -1)) {
-    pbVar10 = &DAT_006a7f90 + DAT_005b3484;
+    pbVar10 = &DAT_006a7f90 + g_clientContext;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = _rand();
     *pbVar10 = (byte)iVar6;

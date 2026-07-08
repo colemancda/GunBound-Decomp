@@ -39,19 +39,19 @@ undefined4 __thiscall FUN_0050a320(int param_1,int param_2,int param_3)
         (*(int *)(param_1 + 0x2c) + 0x156 < param_3)))) {
       local_468 = uVar1 + 0xe;
     }
-    if (*(int *)(DAT_005b3484 + 0x44e24) - 1U <= local_468) {
-      local_468 = *(int *)(DAT_005b3484 + 0x44e24) - 1;
+    if (*(int *)(g_clientContext + 0x44e24) - 1U <= local_468) {
+      local_468 = *(int *)(g_clientContext + 0x44e24) - 1;
     }
     if (local_468 != uVar7) {
       FUN_00428550(local_45c);
       local_4 = 0;
-      if (*(uint *)(DAT_005b3484 + 0x44e24) <= *(uint *)(param_1 + 0x94)) {
+      if (*(uint *)(g_clientContext + 0x44e24) <= *(uint *)(param_1 + 0x94)) {
                     /* WARNING: Subroutine does not return */
         FUN_004010c0(0x80070057);
       }
       FUN_0044c740();
-      FUN_0044c6a0(DAT_005b3484 + 0x44e20);
-      FUN_0050cff0(DAT_005b3484 + 0x44e20,local_468,local_45c,1);
+      FUN_0044c6a0(g_clientContext + 0x44e20);
+      FUN_0050cff0(g_clientContext + 0x44e20,local_468,local_45c,1);
       FUN_0044b0b0(puVar2);
       iVar4 = 0;
       do {

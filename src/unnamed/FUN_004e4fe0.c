@@ -32,7 +32,7 @@ FUN_004e4fe0(int param_1,int param_2,int *param_3,int *param_4,int param_5,char 
     bVar1 = param_1 <= iVar7;
     iVar7 = in_EAX * 0x10000;
     if (param_1 <= *(int *)(param_2 + 0x18)) {
-      iVar5 = DAT_005b3484;
+      iVar5 = g_clientContext;
       do {
         iVar7 = iVar7 + ((iVar6 * 0x10000) / iVar8) * param_5;
         in_EAX = iVar7 >> 0x10;
@@ -49,7 +49,7 @@ FUN_004e4fe0(int param_1,int param_2,int *param_3,int *param_4,int param_5,char 
             && ((in_EAX < *(int *)(&DAT_006a7724 + iVar5) &&
                 (*(char *)(*(int *)(&DAT_006a7720 + iVar5) * in_EAX +
                            *(int *)(&DAT_006a773c + iVar5) + param_1) != '\0')))) ||
-           ((param_7 != '\0' && (cVar2 = FUN_00450e10(in_EAX), iVar5 = DAT_005b3484, cVar2 != '\0'))
+           ((param_7 != '\0' && (cVar2 = FUN_00450e10(in_EAX), iVar5 = g_clientContext, cVar2 != '\0'))
            )) {
 LAB_004e51d2:
           *param_3 = param_1;
@@ -66,14 +66,14 @@ LAB_004e51d2:
     iVar7 = param_1 * 0x10000 + iVar6;
     param_1 = iVar7 >> 0x10;
     if (param_1 <= *(int *)(param_2 + 0x18)) {
-      iVar8 = DAT_005b3484;
+      iVar8 = g_clientContext;
       while (((-1 < param_1 && (-0x1f5 < in_EAX)) && (in_EAX <= *(int *)(param_2 + 0x1c)))) {
         if ((((param_6 != '\0') && (param_1 < *(int *)(&DAT_006a7720 + iVar8))) &&
             ((-1 < in_EAX &&
              ((in_EAX < *(int *)(&DAT_006a7724 + iVar8) &&
               (*(char *)(*(int *)(&DAT_006a7720 + iVar8) * in_EAX + *(int *)(&DAT_006a773c + iVar8)
                         + param_1) != '\0')))))) ||
-           ((param_7 != '\0' && (cVar2 = FUN_00450e10(in_EAX), iVar8 = DAT_005b3484, cVar2 != '\0'))
+           ((param_7 != '\0' && (cVar2 = FUN_00450e10(in_EAX), iVar8 = g_clientContext, cVar2 != '\0'))
            )) goto LAB_004e51d2;
         iVar7 = iVar7 + iVar6;
         in_EAX = in_EAX + ((uint)bVar1 * 2 + -1) * param_5;

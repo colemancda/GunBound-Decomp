@@ -42,7 +42,7 @@ void __fastcall FUN_004a6b10(int param_1)
   puStack_8 = &LAB_00539a17;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
-  uVar3 = FUN_0040a6e0(param_1 + 0x38,local_454,*(undefined4 *)(&DAT_006a7710 + DAT_005b3484));
+  uVar3 = FUN_0040a6e0(param_1 + 0x38,local_454,*(undefined4 *)(&DAT_006a7710 + g_clientContext));
   local_4 = 0;
   FUN_0040a5f0(uVar3,local_ac0,400);
   local_4._0_1_ = 1;
@@ -60,7 +60,7 @@ void __fastcall FUN_004a6b10(int param_1)
     FUN_0040b540(local_ac8);
   }
   if ((DAT_00793530 <= iVar4 + 0x20) && (iVar4 + -0x20 <= DAT_0056df30)) {
-    uVar3 = FUN_0040a6e0(param_1 + 0x25c,local_230,*(undefined4 *)(&DAT_006a7714 + DAT_005b3484));
+    uVar3 = FUN_0040a6e0(param_1 + 0x25c,local_230,*(undefined4 *)(&DAT_006a7714 + g_clientContext));
     local_4 = 2;
     uVar3 = FUN_0040a5f0(uVar3,local_678,0x104);
     local_4._0_1_ = 3;

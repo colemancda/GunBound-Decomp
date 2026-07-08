@@ -26,7 +26,7 @@ void FUN_00418dc0(int param_1)
   uStack_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_c;
   local_4 = 0x5f;
-  DAT_005b3484 = 0;
+  g_clientContext = 0;
   FUN_004f0d70();
   if (*(int *)(&DAT_006aa8b4 + param_1) != 0) {
     FUN_0040a240();

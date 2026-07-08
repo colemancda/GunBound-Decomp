@@ -85,7 +85,7 @@ void FUN_00437b40(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
     *pcVar6 = cVar1;
     pcVar6 = pcVar6 + 1;
   } while (cVar1 != '\0');
-  FUN_0041da80(DAT_005b3484,piVar7,1,1,0);
+  FUN_0041da80(g_clientContext,piVar7,1,1,0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

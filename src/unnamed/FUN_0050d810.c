@@ -104,7 +104,7 @@ void __thiscall FUN_0050d810(int param_1,int param_2,int param_3,undefined4 para
   *(undefined4 *)(puVar1 + 8) = 0xffffffff;
   iVar2 = DAT_007934f0;
   if (DAT_00e54a9c == 0) {
-    *(undefined1 *)(DAT_005b3484 + 0x3f808) = 0;
+    *(undefined1 *)(g_clientContext + 0x3f808) = 0;
     puVar1[0x1c] = 0;
     DAT_0056d118 = 0xffffffff;
     if (((*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) &&

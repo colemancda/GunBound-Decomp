@@ -43,7 +43,7 @@ void FUN_0043bda0(void)
    * entry/InitGame.c - see src/README.md. local_c is a real, separate
    * local reused elsewhere in this function, kept as-is. */
   do {
-    piVar4 = *(int **)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+    piVar4 = *(int **)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
     uVar11 = piVar4[1];
     bVar6 = false;
     while( true ) {
@@ -87,7 +87,7 @@ void FUN_0043bda0(void)
           }
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (bVar17 && (bVar3 >> (bVar14 & 7) & 1) == 1) {
-            iVar9 = *(int *)(&DAT_006a7724 + DAT_005b3484);
+            iVar9 = *(int *)(&DAT_006a7724 + g_clientContext);
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar8 = PeekPacketChecksumState();
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -130,7 +130,7 @@ void FUN_0043bda0(void)
                   } while (local_698 != 0);
                   FUN_0040b540(local_68c);
                 }
-                piVar13 = *(int **)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+                piVar13 = *(int **)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
                 uVar11 = piVar13[1];
                 if (uVar11 < 0x186a2) {
 LAB_0043c0e0:
@@ -149,7 +149,7 @@ LAB_0043c0e0:
                          (cVar7 = FUN_00406860(), cVar7 != '\0')) &&
                         (cVar7 = FUN_00406860(), cVar7 != '\0')) &&
                        ((piVar5 != piVar16 && (cVar7 = FUN_004065a0(), cVar7 == '\x01')))) {
-                      iVar8 = *(int *)(&DAT_006a7724 + DAT_005b3484);
+                      iVar8 = *(int *)(&DAT_006a7724 + g_clientContext);
                       (*pcVar15)(&DAT_005a9068);
                       iVar10 = PeekPacketChecksumState();
                       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -183,9 +183,9 @@ LAB_0043c0e0:
                           }
                           pcVar15 = (code *)EnterCriticalSection;
                           if (*(byte *)(piVar16 + 0x2c2b) < 8) {
-                            if (*(char *)((piVar5[2] & 7U) + 0x4590c + DAT_005b3484) ==
-                                *(char *)(*(byte *)(piVar16 + 0x2c2b) + 0x4590c + DAT_005b3484)) {
-                              piVar2 = (int *)(DAT_005b3484 + 0x5b83c +
+                            if (*(char *)((piVar5[2] & 7U) + 0x4590c + g_clientContext) ==
+                                *(char *)(*(byte *)(piVar16 + 0x2c2b) + 0x4590c + g_clientContext)) {
+                              piVar2 = (int *)(g_clientContext + 0x5b83c +
                                               (uint)*(byte *)(piVar16 + 0x2c2b) * 4);
                               iVar8 = FUN_0040a4d0(piVar1);
                               *piVar2 = *piVar2 + iVar8;
@@ -193,7 +193,7 @@ LAB_0043c0e0:
                               pcVar15 = (code *)EnterCriticalSection;
                             }
                             else {
-                              piVar2 = (int *)(DAT_005b3484 + 0x5b81c +
+                              piVar2 = (int *)(g_clientContext + 0x5b81c +
                                               (uint)*(byte *)(piVar16 + 0x2c2b) * 4);
                               iVar8 = FUN_0040a4d0(piVar1);
                               *piVar2 = *piVar2 + iVar8;

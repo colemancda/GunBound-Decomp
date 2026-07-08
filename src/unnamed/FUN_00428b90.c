@@ -41,8 +41,8 @@ void __thiscall FUN_00428b90(int param_1,uint param_2,undefined4 param_3,uint pa
   else if (param_2 == 0x204) {
     iVar4 = FUN_0042ada0(param_4 >> 0x10,1);
     iVar1 = DAT_007934e8;
-    iVar3 = DAT_005b3484;
-    if ((iVar4 != -1) && (*(int *)(DAT_005b3484 + 0x4464c + iVar4 * 4) == 1)) {
+    iVar3 = g_clientContext;
+    if ((iVar4 != -1) && (*(int *)(g_clientContext + 0x4464c + iVar4 * 4) == 1)) {
       *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
       *(undefined2 *)(iVar1 + 0x4d4) = 0x2104;
       *(undefined2 *)(iVar1 + 0x4d6) = *(undefined2 *)(iVar3 + 0x44664 + iVar4 * 4);

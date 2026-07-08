@@ -222,8 +222,8 @@ LAB_0044edbd:
       if (cVar2 == '\0') {
         uVar3 = FUN_0040a4d0(&DAT_007949c8);
         QueueOutgoingPacketField(uVar3);
-        iVar1 = DAT_005b3484;
-        *(undefined4 *)(&DAT_005f3768 + DAT_005b3484) = 5;
+        iVar1 = g_clientContext;
+        *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;
         *(undefined4 *)(&DAT_005f376c + iVar1) = 0;
         FUN_00406500(1);
       }

@@ -33,14 +33,14 @@ void FUN_004129c0(int param_1)
   FUN_004e84c0(&DAT_00e55ce0);
   cVar2 = FUN_004e7b60(&DAT_00e55ce0,local_400,&local_40c);
   while (cVar2 != '\0') {
-    if (*(FILE **)(&g_replayFileHandle + DAT_005b3484) != (FILE *)0x0) {
+    if (*(FILE **)(&g_replayFileHandle + g_clientContext) != (FILE *)0x0) {
       local_405 = 1;
-      _fwrite(&local_405,1,1,*(FILE **)(&g_replayFileHandle + DAT_005b3484));
-      _fwrite(g_gameStateVTableArray[0xb] + 4,1,4,*(FILE **)(&g_replayFileHandle + DAT_005b3484));
-      _fwrite(&local_40c,1,4,*(FILE **)(&g_replayFileHandle + DAT_005b3484));
-      _fwrite(local_400,1,local_40c,*(FILE **)(&g_replayFileHandle + DAT_005b3484));
+      _fwrite(&local_405,1,1,*(FILE **)(&g_replayFileHandle + g_clientContext));
+      _fwrite(g_gameStateVTableArray[0xb] + 4,1,4,*(FILE **)(&g_replayFileHandle + g_clientContext));
+      _fwrite(&local_40c,1,4,*(FILE **)(&g_replayFileHandle + g_clientContext));
+      _fwrite(local_400,1,local_40c,*(FILE **)(&g_replayFileHandle + g_clientContext));
     }
-    FUN_00423130(DAT_005b3484,local_400,local_40c);
+    FUN_00423130(g_clientContext,local_400,local_40c);
     if ((int *)g_gameStateVTableArray[g_currentGameState] != (int *)0x0) {
       (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 8))(local_400,local_40c);
     }
@@ -72,7 +72,7 @@ LAB_00412baa:
   }
   cVar2 = FUN_004e80d0(&DAT_00e55ce0,local_400,&local_40c);
   while (cVar2 != '\0') {
-    FUN_00423130(DAT_005b3484,local_400,local_40c);
+    FUN_00423130(g_clientContext,local_400,local_40c);
     if ((int *)g_gameStateVTableArray[g_currentGameState] != (int *)0x0) {
       (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 8))(local_400,local_40c);
     }

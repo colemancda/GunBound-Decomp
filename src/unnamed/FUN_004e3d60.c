@@ -71,10 +71,10 @@ LAB_004e3de1:
   }
 LAB_004e3e15:
   FUN_004f18c0(&DAT_00ea0e18,60000,0);
-  if (*(char *)(DAT_005b3484 + 0x45578) == '\0') {
+  if (*(char *)(g_clientContext + 0x45578) == '\0') {
     FUN_004f18c0(&DAT_00ea0e18,60000,1);
   }
-  iVar8 = DAT_005b3484;
+  iVar8 = g_clientContext;
   iVar11 = *(int *)(DAT_00ea0e1c + 0x1c);
   uVar2 = *(uint *)(iVar11 + 4);
   while (uVar2 < 0xea61) {
@@ -118,7 +118,7 @@ LAB_004e3e95:
     FUN_004f18c0(&DAT_00ea0e18,60000,1);
   }
   pvVar7 = operator_new(*(int *)(iVar11 + 0x3c) << 1);
-  iVar11 = DAT_005b3484;
+  iVar11 = g_clientContext;
   *(void **)(param_1 + 0x3c) = pvVar7;
   puVar9 = (undefined4 *)(param_1 + 0x51);
   for (iVar8 = 0x200; iVar8 != 0; iVar8 = iVar8 + -1) {
@@ -142,9 +142,9 @@ LAB_004e3f75:
       return;
     }
     _sprintf(local_100,&DAT_00557234,param_2,iVar11);
-    AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     FUN_004e4f50(param_1,iVar11,local_100);
-    cVar1 = *(char *)(DAT_005b3484 + 0x45578);
+    cVar1 = *(char *)(g_clientContext + 0x45578);
     iVar11 = iVar11 + 1;
   }
 LAB_004e3f4a:

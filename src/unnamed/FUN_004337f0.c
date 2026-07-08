@@ -38,7 +38,7 @@ void FUN_004337f0(undefined4 param_1,int param_2)
       *piVar3 = (int)&PTR_FUN_00555dcc;
     }
     local_4 = 0xffffffff;
-    if (*(char *)(DAT_005b3484 + 0x45578) == '\0') {
+    if (*(char *)(g_clientContext + 0x45578) == '\0') {
       iVar4 = FindPreloadedTextureByName(s_dropbomb_00553cd4);
       piVar3[7] = iVar4;
       (**(code **)(*piVar3 + 4))(s_normal_00552230);
@@ -49,7 +49,7 @@ void FUN_004337f0(undefined4 param_1,int param_2)
       piVar3[0xe27] = s_bombflame_00553cc8._4_4_;
       *(undefined2 *)(piVar3 + 0xe28) = s_bombflame_00553cc8._8_2_;
     }
-    else if (*(char *)(DAT_005b3484 + 0x45578) == '\x01') {
+    else if (*(char *)(g_clientContext + 0x45578) == '\x01') {
       iVar4 = FindPreloadedTextureByName(s_bulletevent1_00553e38);
       piVar3[7] = iVar4;
       (**(code **)(*piVar3 + 4))(s_normal_00552230);

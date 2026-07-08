@@ -18,7 +18,7 @@ bool FUN_004cedc0(void)
   
   uVar5 = 0;
   do {
-    iVar1 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+    iVar1 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
     uVar2 = *(uint *)(iVar1 + 4);
     while (uVar2 < 0x186a4) {
       if (uVar2 == 0x186a3) {

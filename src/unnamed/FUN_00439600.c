@@ -24,7 +24,7 @@ uint FUN_00439600(int *param_1,int param_2,int param_3,int param_4,int param_5,i
   
   uVar3 = FUN_004065a0();
   if ((char)uVar3 == '\0') {
-    bVar1 = (&DAT_005f2f54)[DAT_005b3484];
+    bVar1 = (&DAT_005f2f54)[g_clientContext];
     uVar3 = (uint)bVar1;
     if (bVar1 != 1) {
       if (bVar1 == 3) {

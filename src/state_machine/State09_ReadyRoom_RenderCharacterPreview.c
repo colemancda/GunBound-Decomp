@@ -45,9 +45,9 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
   else {
     uVar6 = 0;
     puVar5 = (undefined4 *)(param_1 + 0x6c0);
-    iVar8 = DAT_005b3484;
+    iVar8 = g_clientContext;
     do {
-      iVar7 = DAT_005b3484;
+      iVar7 = g_clientContext;
       if (*(char *)(iVar8 + 0x45914 + uVar6) != '\0') {
         uVar1 = *puVar5;
         uVar2 = puVar5[-1];
@@ -80,9 +80,9 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
   else {
     uVar6 = 0;
     puVar5 = (undefined4 *)(unaff_EBP + 0x6e0);
-    iVar7 = DAT_005b3484;
+    iVar7 = g_clientContext;
     do {
-      iVar3 = DAT_005b3484;
+      iVar3 = g_clientContext;
       if (*(char *)(iVar7 + 0x45918 + uVar6) != '\0') {
         uVar1 = *puVar5;
         uVar2 = puVar5[-1];
@@ -115,9 +115,9 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
   else {
     uVar6 = 0;
     puVar5 = (undefined4 *)(iVar8 + 0x6c0);
-    iVar8 = DAT_005b3484;
+    iVar8 = g_clientContext;
     do {
-      iVar3 = DAT_005b3484;
+      iVar3 = g_clientContext;
       if (*(char *)(iVar8 + 0x45914 + uVar6) != '\0') {
         uVar1 = *puVar5;
         uVar2 = puVar5[-1];
@@ -150,9 +150,9 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
   else {
     uVar6 = 0;
     puVar5 = (undefined4 *)(iVar7 + 0x6e0);
-    iVar7 = DAT_005b3484;
+    iVar7 = g_clientContext;
     do {
-      iVar3 = DAT_005b3484;
+      iVar3 = g_clientContext;
       if (*(char *)(iVar7 + 0x45918 + uVar6) != '\0') {
         uVar1 = *puVar5;
         uVar2 = puVar5[-1];
@@ -191,9 +191,9 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
   else {
     uVar6 = 0;
     puVar5 = (undefined4 *)(iVar8 + 0x6c0);
-    iVar8 = DAT_005b3484;
+    iVar8 = g_clientContext;
     do {
-      iVar3 = DAT_005b3484;
+      iVar3 = g_clientContext;
       if (*(char *)(iVar8 + 0x45914 + uVar6) != '\0') {
         uVar1 = *puVar5;
         uVar2 = puVar5[-1];
@@ -224,9 +224,9 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
   else {
     uVar6 = 0;
     puVar5 = (undefined4 *)(iVar7 + 0x6e0);
-    iVar7 = DAT_005b3484;
+    iVar7 = g_clientContext;
     do {
-      iVar3 = DAT_005b3484;
+      iVar3 = g_clientContext;
       if (*(char *)(iVar7 + 0x45918 + uVar6) != '\0') {
         uVar1 = *puVar5;
         uVar2 = puVar5[-1];
@@ -258,9 +258,9 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
   else {
     uVar6 = 0;
     puVar5 = (undefined4 *)(iVar8 + 0x6c0);
-    iVar8 = DAT_005b3484;
+    iVar8 = g_clientContext;
     do {
-      iVar3 = DAT_005b3484;
+      iVar3 = g_clientContext;
       if (*(char *)(uVar6 + 0x45914 + iVar8) != '\0') {
         uVar1 = *puVar5;
         uVar2 = puVar5[-1];
@@ -291,9 +291,9 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
   else {
     uVar6 = 0;
     puVar5 = (undefined4 *)(iVar7 + 0x6e0);
-    iVar8 = DAT_005b3484;
+    iVar8 = g_clientContext;
     do {
-      iVar7 = DAT_005b3484;
+      iVar7 = g_clientContext;
       if (*(char *)(iVar8 + 0x45918 + uVar6) != '\0') {
         uVar1 = *puVar5;
         uVar2 = puVar5[-1];

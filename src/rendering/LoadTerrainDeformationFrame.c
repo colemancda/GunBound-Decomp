@@ -49,15 +49,15 @@ void LoadTerrainDeformationFrame
   _sprintf(local_8088,s_mf_05d_img_0055220c,param_5);
   FUN_004f1790(&DAT_00ea0e18,100000);
   _sprintf(local_8088,s__cb_05d_img_00552200,
-           (int)(char)((-((*(ushort *)(DAT_005b3484 + 0x501fe + param_1 * 8) & 0x8000) != 0) & 7U) +
+           (int)(char)((-((*(ushort *)(g_clientContext + 0x501fe + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_2);
   FUN_004f1790(&DAT_00ea0e18,0x186a1);
   _sprintf(local_8088,s__cg_05d_img_005521f4,
-           (int)(char)((-((*(ushort *)(DAT_005b3484 + 0x50202 + param_1 * 8) & 0x8000) != 0) & 7U) +
+           (int)(char)((-((*(ushort *)(g_clientContext + 0x50202 + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_4);
   FUN_004f1790(&DAT_00ea0e18,0x186a2);
   _sprintf(local_8088,s__ch_05d_img_005521e8,
-           (int)(char)((-((*(ushort *)(DAT_005b3484 + 0x50200 + param_1 * 8) & 0x8000) != 0) & 7U) +
+           (int)(char)((-((*(ushort *)(g_clientContext + 0x50200 + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_3);
   FUN_004f1790(&DAT_00ea0e18,0x186a3);
   uVar10 = param_1 + 200000;
@@ -313,15 +313,15 @@ LAB_004d1b19:
   _sprintf(local_8088,s_mf_05dl_img_005521dc,param_5);
   FUN_004f1790(&DAT_00ea0e18,100000);
   _sprintf(local_8088,s__cb_05dl_img_005521cc,
-           (int)(char)((-((*(ushort *)(DAT_005b3484 + 0x501fe + param_1 * 8) & 0x8000) != 0) & 7U) +
+           (int)(char)((-((*(ushort *)(g_clientContext + 0x501fe + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_2);
   FUN_004f1790(&DAT_00ea0e18,0x186a1);
   _sprintf(local_8088,s__cg_05dl_img_005521bc,
-           (int)(char)((-((*(ushort *)(DAT_005b3484 + 0x50202 + param_1 * 8) & 0x8000) != 0) & 7U) +
+           (int)(char)((-((*(ushort *)(g_clientContext + 0x50202 + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_4);
   FUN_004f1790(&DAT_00ea0e18,0x186a2);
   _sprintf(local_8088,s__ch_05dl_img_005521ac,
-           (int)(char)((-((*(ushort *)(DAT_005b3484 + 0x50200 + param_1 * 8) & 0x8000) != 0) & 7U) +
+           (int)(char)((-((*(ushort *)(g_clientContext + 0x50200 + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_3);
   FUN_004f1790(&DAT_00ea0e18,0x186a3);
   uVar10 = param_1 + 300000;

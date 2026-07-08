@@ -15,7 +15,7 @@ undefined4 FUN_0043a530(void)
   int iVar3;
   byte bVar4;
   
-  iVar3 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+  iVar3 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar1 = *(uint *)(iVar3 + 4);
   while( true ) {
     if (0x186a2 < uVar1) {

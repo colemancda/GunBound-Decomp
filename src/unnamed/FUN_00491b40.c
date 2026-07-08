@@ -87,7 +87,7 @@ void __fastcall FUN_00491b40(int param_1)
       FUN_0040a240();
       FUN_0040b540(local_480);
     }
-    FUN_004e4d00(&DAT_006a7708 + DAT_005b3484);
+    FUN_004e4d00(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(uVar2);
@@ -158,7 +158,7 @@ void __fastcall FUN_00491b40(int param_1)
       FUN_0040a240();
       FUN_0040b540(local_480);
     }
-    iVar5 = DAT_005b3484;
+    iVar5 = g_clientContext;
     cVar1 = FUN_004065a0();
     if (cVar1 != '\x01') {
       iVar4 = *(int *)(&DAT_006a7750 + iVar5);
@@ -201,8 +201,8 @@ void __fastcall FUN_00491b40(int param_1)
       (**(code **)(*piVar7 + 4))(s_flame_00553d2c);
       RegisterActiveObject();
     }
-    iVar5 = DAT_005b3484;
-    *(undefined4 *)(&DAT_005f3768 + DAT_005b3484) = 5;
+    iVar5 = g_clientContext;
+    *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;
     *(undefined4 *)(&DAT_005f376c + iVar5) = 0;
   }
   *unaff_FS_OFFSET = local_c;

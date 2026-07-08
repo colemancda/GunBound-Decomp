@@ -19,8 +19,8 @@ LAB_00442d55:
   iVar1 = 0;
   iVar3 = 0;
   do {
-    if ((*(char *)(DAT_005b3484 + 0x4590c + iVar3) == '\0') &&
-       (*(char *)(DAT_005b3484 + 0x45914 + iVar3) != '\0')) {
+    if ((*(char *)(g_clientContext + 0x4590c + iVar3) == '\0') &&
+       (*(char *)(g_clientContext + 0x45914 + iVar3) != '\0')) {
       if (iVar2 == iVar1) break;
       iVar1 = iVar1 + 1;
     }
@@ -41,8 +41,8 @@ LAB_00442db0:
   iVar1 = 0;
   iVar3 = 0;
   do {
-    if ((*(char *)(DAT_005b3484 + 0x4590c + iVar3) == '\x01') &&
-       (*(char *)(DAT_005b3484 + 0x45914 + iVar3) != '\0')) {
+    if ((*(char *)(g_clientContext + 0x4590c + iVar3) == '\x01') &&
+       (*(char *)(g_clientContext + 0x45914 + iVar3) != '\0')) {
       if (iVar2 == iVar1) break;
       iVar1 = iVar1 + 1;
     }

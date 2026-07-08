@@ -70,7 +70,7 @@ void GameTick(void)
   cVar2 = FUN_004065a0();
   if (cVar2 == '\x01') {
     SubFromPacketChecksum(uVar10);
-    cVar2 = FUN_0040b360(&DAT_006aa67c + DAT_005b3484,0);
+    cVar2 = FUN_0040b360(&DAT_006aa67c + g_clientContext,0);
     if (cVar2 != '\0') {
       FUN_00406500(0);
     }
@@ -102,7 +102,7 @@ void GameTick(void)
     FUN_004ee0d0();
     FUN_00450730();
   }
-  if (5 < *(int *)(&DAT_0067e3c8 + DAT_005b3484)) {
+  if (5 < *(int *)(&DAT_0067e3c8 + g_clientContext)) {
     if (DAT_00793515 == '\0') {
       iVar5 = *(int *)g_gameStateVTableArray[g_currentGameState];
       uVar13 = 6;
@@ -110,15 +110,15 @@ void GameTick(void)
       DAT_00793515 = '\x01';
       uVar4 = FUN_0043dc70(&DAT_00796eec,0x141);
       (**(code **)(iVar5 + 0x28))(uVar4,uVar11,uVar13);
-      *(undefined4 *)(&DAT_0067e3c8 + DAT_005b3484) = 0;
+      *(undefined4 *)(&DAT_0067e3c8 + g_clientContext) = 0;
     }
     else {
       FUN_004124a0(1);
-      *(undefined4 *)(&DAT_0067e3c8 + DAT_005b3484) = 0;
+      *(undefined4 *)(&DAT_0067e3c8 + g_clientContext) = 0;
     }
   }
   FUN_00425770();
-  FUN_00422f70(DAT_005b3484);
+  FUN_00422f70(g_clientContext);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9084);
   if (DAT_007934cc == '\0') goto LAB_00413a44;
   DAT_0079365c = 0;

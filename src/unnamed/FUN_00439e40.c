@@ -26,7 +26,7 @@ undefined4 FUN_00439e40(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(0xffffffff);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = *(int *)(DAT_005b3484 + 0x621e4);
+  iVar4 = *(int *)(g_clientContext + 0x621e4);
   if (iVar4 != 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = _rand();
@@ -38,7 +38,7 @@ undefined4 FUN_00439e40(int param_1)
     *(byte *)(iVar4 + 0x8ba9) = bVar10;
     *(byte *)(iVar4 + 0x8baa) = *(byte *)(iVar4 + 0x8ba8) + bVar10 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = *(int *)(DAT_005b3484 + 0x621e4);
+    iVar4 = *(int *)(g_clientContext + 0x621e4);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = _rand();
     *(byte *)(iVar4 + 0x8bae) = (byte)iVar3;
@@ -50,7 +50,7 @@ undefined4 FUN_00439e40(int param_1)
     *(byte *)(iVar4 + 0x8baf) = bVar11;
     *(byte *)(iVar4 + 0x8bb0) = bVar10 + bVar11 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = *(int *)(DAT_005b3484 + 0x621e4);
+    iVar4 = *(int *)(g_clientContext + 0x621e4);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = _rand();
     *(byte *)(iVar4 + 0x8bb1) = (byte)iVar3;
@@ -62,7 +62,7 @@ undefined4 FUN_00439e40(int param_1)
     *(byte *)(iVar4 + 0x8bb2) = bVar11;
     *(byte *)(iVar4 + 0x8bb3) = bVar10 + bVar11 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = *(int *)(DAT_005b3484 + 0x621e4);
+    iVar4 = *(int *)(g_clientContext + 0x621e4);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = _rand();
     *(byte *)(iVar4 + 0x8bb4) = (byte)iVar3;
@@ -89,26 +89,26 @@ undefined4 FUN_00439e40(int param_1)
     }
   }
   FUN_0043a670();
-  iVar4 = GetPlayerRecordBySlot(DAT_005b3484);
-  *(int *)(DAT_005b3484 + 0x621e4) = iVar4;
+  iVar4 = GetPlayerRecordBySlot(g_clientContext);
+  *(int *)(g_clientContext + 0x621e4) = iVar4;
   if ((((iVar4 != 0) && (cVar2 = FUN_004065a0(), cVar2 != '\0')) &&
       (cVar2 = FUN_004065a0(), cVar2 != '\x01')) &&
-     ((uVar6 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c), param_1 != uVar6 ||
-      ((cVar2 = FUN_0040b360(*(int *)(DAT_005b3484 + 0x621e0) + 0x6968,0), cVar2 == '\0' &&
-       (iVar4 = (**(code **)(**(int **)(DAT_005b3484 + 0x621e0) + 0x14))(), iVar4 < 9000)))))) {
+     ((uVar6 = FUN_0040a4d0(g_clientContext + 0x3b49c), param_1 != uVar6 ||
+      ((cVar2 = FUN_0040b360(*(int *)(g_clientContext + 0x621e0) + 0x6968,0), cVar2 == '\0' &&
+       (iVar4 = (**(code **)(**(int **)(g_clientContext + 0x621e0) + 0x14))(), iVar4 < 9000)))))) {
     FUN_00406500(1);
     FUN_00406500(0);
     FUN_00406500(1);
     FUN_00406500(1);
     FUN_00406500(0);
-    *(undefined4 *)(*(int *)(DAT_005b3484 + 0x621e4) + 0xae10) = 0;
+    *(undefined4 *)(*(int *)(g_clientContext + 0x621e4) + 0xae10) = 0;
     QueueOutgoingPacketField(0);
     QueueOutgoingPacketField(400);
-    iVar4 = FUN_0040a4d0(*(int *)(DAT_005b3484 + 0x621e4) + 0x1a2c);
-    uVar5 = EncodeChecksumState(iVar4 * 0xb1ac + 0xf3b2c + DAT_005b3484);
+    iVar4 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e4) + 0x1a2c);
+    uVar5 = EncodeChecksumState(iVar4 * 0xb1ac + 0xf3b2c + g_clientContext);
     EncodeChecksumState(uVar5);
-    iVar4 = DAT_005b3484;
-    *(undefined1 *)(*(int *)(DAT_005b3484 + 0x621e4) + 0xae68) = 0;
+    iVar4 = g_clientContext;
+    *(undefined1 *)(*(int *)(g_clientContext + 0x621e4) + 0xae68) = 0;
     *(undefined4 *)(*(int *)(iVar4 + 0x621e4) + 0xb094) = 0;
     *(undefined4 *)(*(int *)(iVar4 + 0x621e4) + 0xb098) = 0xff;
     *(undefined4 *)(*(int *)(iVar4 + 0x621e4) + 0xb09c) = 0xfffffff0;
@@ -116,12 +116,12 @@ undefined4 FUN_00439e40(int param_1)
     *(undefined4 *)(*(int *)(iVar4 + 0x621e4) + 0xbfe0) = 200;
     if (*(int *)(*(int *)(iVar4 + 0x621e4) + 0xc2ac) == 0) {
       iVar4 = FUN_0040a4d0(*(int *)(iVar4 + 0x621e4) + 0x741c);
-      iVar3 = FUN_0040a4d0((uint)param_1 * 0x1120 + 0x50f18 + DAT_005b3484);
+      iVar3 = FUN_0040a4d0((uint)param_1 * 0x1120 + 0x50f18 + g_clientContext);
       AddToPacketChecksum(iVar4 + iVar3);
-      cVar2 = FUN_0040b410(*(int *)(DAT_005b3484 + 0x621e4) + 0x6fd4,
-                           *(int *)(DAT_005b3484 + 0x621e4) + 0x6db0);
+      cVar2 = FUN_0040b410(*(int *)(g_clientContext + 0x621e4) + 0x6fd4,
+                           *(int *)(g_clientContext + 0x621e4) + 0x6db0);
       if (cVar2 != '\0') {
-        EncodeChecksumState(*(int *)(DAT_005b3484 + 0x621e4) + 0x6db0);
+        EncodeChecksumState(*(int *)(g_clientContext + 0x621e4) + 0x6db0);
       }
     }
     else {
@@ -131,14 +131,14 @@ undefined4 FUN_00439e40(int param_1)
     QueueOutgoingPacketField(0xffffffff);
     QueueOutgoingPacketField(0xffffffff);
     QueueOutgoingPacketField(2);
-    cVar2 = FUN_00406610(*(char *)(DAT_005b3484 + 0x45127) == '\x01');
+    cVar2 = FUN_00406610(*(char *)(g_clientContext + 0x45127) == '\x01');
     if (cVar2 != '\0') {
       FUN_00406500(1);
     }
     cVar2 = FUN_004065a0();
     if ((cVar2 != '\0') && (iVar4 = FUN_004f2f90(), iVar4 != 0)) {
       for (iVar3 = *(int *)(iVar4 + 0x10); iVar3 != iVar4; iVar3 = *(int *)(iVar3 + 0x10)) {
-        if (*(char *)(DAT_005b3484 + 0x45127) == '\x03') {
+        if (*(char *)(g_clientContext + 0x45127) == '\x03') {
           uVar5 = 5;
         }
         else {
@@ -147,9 +147,9 @@ undefined4 FUN_00439e40(int param_1)
         QueueOutgoingPacketField(uVar5);
       }
     }
-    iVar3 = FUN_0040a4d0(*(int *)(DAT_005b3484 + 0x621e4) + 0xb30);
-    iVar7 = FUN_0040a4d0(*(int *)(DAT_005b3484 + 0x621e4) + 0x90c);
-    iVar4 = DAT_005b3484;
+    iVar3 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e4) + 0xb30);
+    iVar7 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e4) + 0x90c);
+    iVar4 = g_clientContext;
     cVar2 = FUN_004065a0();
     if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar4] != '\0')) {
       iVar9 = 400;

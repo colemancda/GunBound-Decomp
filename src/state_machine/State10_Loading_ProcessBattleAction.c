@@ -39,12 +39,12 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
   iStack_4 = 0xffffffff;
   puStack_8 = &LAB_00540806;
   *unaff_FS_OFFSET = &uStack_c;
-  iVar5 = DAT_005b3484;
+  iVar5 = g_clientContext;
   bVar1 = *(byte *)(packetBuf + 5);
   if (bVar1 < 8) {
     if (*(short *)(packetBuf + 2) == 3) {
-      iVar5 = (uint)*(byte *)(packetBuf + 0x21) * 0xd + 0x457f1 + DAT_005b3484;
-      iVar10 = (uint)bVar1 * 0xd + 0x457f1 + DAT_005b3484;
+      iVar5 = (uint)*(byte *)(packetBuf + 0x21) * 0xd + 0x457f1 + g_clientContext;
+      iVar10 = (uint)bVar1 * 0xd + 0x457f1 + g_clientContext;
       iVar11 = iVar5;
       _Format = (char *)FUN_0043dc70(&DAT_00796eec,0x260);
       _sprintf(acStack_4d4,_Format,iVar10,iVar5,iVar11);
@@ -78,19 +78,19 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
         FUN_00406500(0);
         FUN_00406500(0);
       }
-      iVar5 = FUN_0040a4d0((uint)bVar1 * 0x224 + 0xebef4 + DAT_005b3484);
+      iVar5 = FUN_0040a4d0((uint)bVar1 * 0x224 + 0xebef4 + g_clientContext);
       if (((iVar5 != -1) && (iVar5 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a4), iVar5 != 60000)
           ) && (iVar5 != 0xffff)) {
         AddToPacketChecksum(iVar5);
       }
       puVar7 = (undefined4 *)(packetBuf + 0x24);
       puVar9 = (undefined4 *)(g_gameStateVTableArray[0xb] + 0x2302);
-      for (iVar5 = 8; iVar10 = DAT_005b3484, iVar5 != 0; iVar5 = iVar5 + -1) {
+      for (iVar5 = 8; iVar10 = g_clientContext, iVar5 != 0; iVar5 = iVar5 + -1) {
         *puVar9 = *puVar7;
         puVar7 = puVar7 + 1;
         puVar9 = puVar9 + 1;
       }
-      pbVar8 = &DAT_006a9b6c + DAT_005b3484;
+      pbVar8 = &DAT_006a9b6c + g_clientContext;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = _rand();
       *pbVar8 = (byte)iVar5;
@@ -102,7 +102,7 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
       (&DAT_006a9b6d)[iVar10] = bVar6;
       (&DAT_006a9b6e)[iVar10] = bVar6 + bVar1 + -0x34;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      *(undefined1 *)(*(int *)(DAT_005b3484 + 0x621e0) + 0xae68) = 1;
+      *(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 0xae68) = 1;
     }
   }
   *unaff_FS_OFFSET = uStack_c;

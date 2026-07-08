@@ -119,7 +119,7 @@ LAB_0042c334:
       else {
         local_8b8 = (int *)FUN_0047eb60();
       }
-      iVar6 = DAT_005b3484;
+      iVar6 = g_clientContext;
       local_4 = 0xffffffff;
       local_8b8[0x1029] = 0xf80ffff;
       if (*(char *)(iVar6 + 0x45578) != '\0') {
@@ -136,7 +136,7 @@ LAB_0042c334:
       else {
         local_8b8 = (int *)FUN_004a46f0(local_8bc);
       }
-      iVar6 = DAT_005b3484;
+      iVar6 = g_clientContext;
       uVar7 = param_2 & 0x80000001;
       local_4 = 0xffffffff;
       if ((int)uVar7 < 0) {
@@ -469,7 +469,7 @@ LAB_0042c334:
       else {
         local_8b8 = (int *)FUN_004b17b0();
       }
-      iVar6 = DAT_005b3484;
+      iVar6 = g_clientContext;
       local_4 = 0xffffffff;
       local_8b8[0x1029] = 0xfffffff;
       if (*(char *)(iVar6 + 0x45578) != '\0') {
@@ -486,7 +486,7 @@ LAB_0042c334:
       else {
         local_8b8 = (int *)FUN_004af530(local_8bc);
       }
-      iVar6 = DAT_005b3484;
+      iVar6 = g_clientContext;
       uVar7 = param_2 & 0x80000001;
       local_4 = 0xffffffff;
       if ((int)uVar7 < 0) {
@@ -607,13 +607,13 @@ LAB_0042c334:
     }
   }
   piVar3 = local_8bc;
-  if (*(char *)(DAT_005b3484 + 0x45578) == '\0') {
+  if (*(char *)(g_clientContext + 0x45578) == '\0') {
     local_8b8[0xe25] = (param_4 & 0xff) + 8000 + param_3 * 2;
     local_8b8[6] = (param_4 & 0xff) + 6000 + param_3 * 2;
     _sprintf((char *)(local_8b8 + 0xe26),s_flame_d_d_00553e48,param_3 + 1,
              ((char)param_4 != '\0') + 1);
   }
-  else if (*(char *)(DAT_005b3484 + 0x45578) == '\x01') {
+  else if (*(char *)(g_clientContext + 0x45578) == '\x01') {
     local_8b8[6] = 6000;
     local_8b8[0xe25] = 8000;
     iVar6 = FindPreloadedTextureByName(s_bulletevent1_00553e38);
@@ -929,8 +929,8 @@ LAB_0042d5ba:
     (*pcVar15)(&DAT_005a9068);
   }
 LAB_0042d667:
-  FUN_0041da80(DAT_005b3484,local_8bc,param_3,param_12,0);
-  iVar6 = GetPlayerRecordBySlot(DAT_005b3484);
+  FUN_0041da80(g_clientContext,local_8bc,param_3,param_12,0);
+  iVar6 = GetPlayerRecordBySlot(g_clientContext);
   if ((iVar6 != 0) && (cVar5 = FUN_004065a0(), cVar5 != '\0')) {
     uVar8 = FUN_0040a8c0(local_8bc + 0x930,auStack_8a0,4);
     puStack_8 = (undefined1 *)0x25;
@@ -1036,7 +1036,7 @@ LAB_0042d667:
       uVar7 = uStack_668;
     }
   }
-  cVar5 = FUN_00406610(*(char *)(DAT_005b3484 + 0x45127) == '\x02');
+  cVar5 = FUN_00406610(*(char *)(g_clientContext + 0x45127) == '\x02');
   if (cVar5 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();

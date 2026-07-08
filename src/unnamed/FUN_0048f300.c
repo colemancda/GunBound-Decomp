@@ -71,7 +71,7 @@ undefined1 FUN_0048f300(int param_1)
   local_2492 = 0;
   local_2490 = 0;
   do {
-    piVar5 = (int *)GetPlayerRecordBySlot(DAT_005b3484);
+    piVar5 = (int *)GetPlayerRecordBySlot(g_clientContext);
     if ((piVar5 != (int *)0x0) && (cVar4 = FUN_004065a0(), cVar4 != '\x01')) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar6 = PeekPacketChecksumState();
@@ -169,7 +169,7 @@ LAB_0048f583:
             iVar6 = iVar6 + -4;
           }
         }
-        uVar8 = FUN_0040a7d0(DAT_005b3484 + 0x15406c,local_f08,iVar6);
+        uVar8 = FUN_0040a7d0(g_clientContext + 0x15406c,local_f08,iVar6);
         local_4 = 2;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar9 = PeekPacketChecksumState();
@@ -223,14 +223,14 @@ LAB_0048f583:
           FUN_0040a2a0();
           *(undefined1 *)(piVar5 + 0x2c2b) = *(undefined1 *)(param_1 + 0x3c);
           if (*(byte *)(param_1 + 0x3c) < 8) {
-            if (*(char *)(*(byte *)(param_1 + 0x3c) + 0x4590c + DAT_005b3484) ==
-                *(char *)((piVar5[2] & 7U) + 0x4590c + DAT_005b3484)) {
-              *(int *)(DAT_005b3484 + 0x5b83c + (uint)*(byte *)(param_1 + 0x3c) * 4) =
-                   *(int *)(DAT_005b3484 + 0x5b83c + (uint)*(byte *)(param_1 + 0x3c) * 4) + iVar6;
+            if (*(char *)(*(byte *)(param_1 + 0x3c) + 0x4590c + g_clientContext) ==
+                *(char *)((piVar5[2] & 7U) + 0x4590c + g_clientContext)) {
+              *(int *)(g_clientContext + 0x5b83c + (uint)*(byte *)(param_1 + 0x3c) * 4) =
+                   *(int *)(g_clientContext + 0x5b83c + (uint)*(byte *)(param_1 + 0x3c) * 4) + iVar6;
               *(undefined1 *)(piVar5 + 0x2c2d) = 1;
             }
             else {
-              piVar1 = (int *)(DAT_005b3484 + 0x5b81c + (uint)*(byte *)(param_1 + 0x3c) * 4);
+              piVar1 = (int *)(g_clientContext + 0x5b81c + (uint)*(byte *)(param_1 + 0x3c) * 4);
               *piVar1 = *piVar1 + iVar6;
             }
           }
@@ -350,7 +350,7 @@ LAB_0048f583:
       }
       local_2490 = 0;
       do {
-        iVar10 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+        iVar10 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
         uVar3 = *(uint *)(iVar10 + 4);
         while (uVar3 < 0x186a4) {
           if (uVar3 == 0x186a3) {
@@ -384,7 +384,7 @@ LAB_0049008d:
       }
       local_2490 = 0;
       do {
-        iVar7 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+        iVar7 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
         uVar3 = *(uint *)(iVar7 + 4);
         while (uVar3 < 0x186a7) {
           if (uVar3 == 0x186a6) {

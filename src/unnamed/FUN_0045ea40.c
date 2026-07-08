@@ -39,7 +39,7 @@ void FUN_0045ea40(void)
           (**(code **)(*unaff_ESI + 4))(s_shock_00553b80);
         }
         FUN_00406500(0);
-        cVar1 = PacketChecksumEquals(DAT_005b3484 + 0x45354,3);
+        cVar1 = PacketChecksumEquals(g_clientContext + 0x45354,3);
         if (cVar1 == '\0') {
           uVar2 = FUN_0040aba0(unaff_ESI + 0x2cb8,auStack_454,unaff_ESI + 0x2c2f);
           uStack_4 = 0;

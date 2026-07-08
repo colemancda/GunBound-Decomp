@@ -32,13 +32,13 @@ void FUN_00405ba0(void)
   undefined4 local_88;
   undefined4 local_84;
   
-  iVar14 = DAT_005b3484;
+  iVar14 = g_clientContext;
   if (*(char *)((int)unaff_EBX + 0x2009) == '\0') {
     return;
   }
-  uVar2 = *(undefined2 *)(DAT_005b3484 + 0x44e60);
-  uVar3 = *(undefined2 *)(DAT_005b3484 + 0x3f804);
-  uVar4 = *(undefined2 *)(DAT_005b3484 + 0x41340);
+  uVar2 = *(undefined2 *)(g_clientContext + 0x44e60);
+  uVar3 = *(undefined2 *)(g_clientContext + 0x3f804);
+  uVar4 = *(undefined2 *)(g_clientContext + 0x41340);
   local_88 = CONCAT22(uVar4,uVar3);
   uVar5 = local_88;
   local_84 = CONCAT22(local_84._2_2_,uVar2);

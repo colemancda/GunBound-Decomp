@@ -24,7 +24,7 @@ void __fastcall FUN_005074a0(int param_1)
     return;
   }
   FUN_005054b0();
-  iVar4 = DAT_005b3484;
+  iVar4 = g_clientContext;
   FUN_0041b6b0();
   iVar1 = *(int *)(param_1 + 0x28);
   local_4 = 0;
@@ -54,7 +54,7 @@ LAB_00507577:
       BlitSpriteClipped(uVar8);
     }
   }
-  uVar5 = (uint)*(ushort *)(DAT_005b3484 + 0x43e48 + iVar2 * 2);
+  uVar5 = (uint)*(ushort *)(g_clientContext + 0x43e48 + iVar2 * 2);
   if (DAT_0079352c != 0) {
     iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar3 = *(uint *)(iVar4 + 4);
@@ -90,7 +90,7 @@ LAB_00507600:
   BlitRLESprite(iVar7 + 0xe,0xffff);
   local_4 = local_4 + 1;
   iVar7 = iVar7 + 0x1e;
-  iVar4 = DAT_005b3484;
+  iVar4 = g_clientContext;
   if (6 < local_4) {
     return;
   }

@@ -31,15 +31,15 @@ void ChangeGameState(int newStateId)
       PostQuitMessage(0);
       return;
     }
-    AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-    AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-    AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-    AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-    AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-    AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-    AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-    AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-    AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     _DAT_007a7660 = FindPreloadedTextureByName(s_cursor_005524e8);
     FUN_00461c60(s_normal_00552230);
     FUN_005099b0();

@@ -20,7 +20,7 @@ void FUN_004d0e90(int param_1)
   local_c = (int *)(param_1 + 0x2388);
   local_8 = 0;
   do {
-    iVar1 = GetPlayerRecordBySlot(DAT_005b3484);
+    iVar1 = GetPlayerRecordBySlot(g_clientContext);
     if (iVar1 != 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar1 = PeekPacketChecksumState();

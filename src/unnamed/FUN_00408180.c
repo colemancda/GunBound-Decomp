@@ -62,11 +62,11 @@ void FUN_00408180(int param_1)
   puStack_8 = &LAB_0053cf2a;
   *unaff_FS_OFFSET = &local_c;
   uStack_10 = 0x40819f;
-  if (*(char *)(DAT_005b3484 + 0x3b6c0) == -1) goto LAB_00409972;
-  if ((((*(int *)(DAT_005b3484 + 0x227bc) == 0xc0) ||
-       (*(int *)(DAT_005b3484 + 0x621e4) != *(int *)(DAT_005b3484 + 0x621e0))) &&
+  if (*(char *)(g_clientContext + 0x3b6c0) == -1) goto LAB_00409972;
+  if ((((*(int *)(g_clientContext + 0x227bc) == 0xc0) ||
+       (*(int *)(g_clientContext + 0x621e4) != *(int *)(g_clientContext + 0x621e0))) &&
       (cVar1 = FUN_004065a0(), cVar1 == '\x01')) && (cVar1 = FUN_004065a0(), cVar1 == '\0')) {
-    cVar1 = FUN_0040b330(*(int *)(DAT_005b3484 + 0x621e0) + 0x60d4,0);
+    cVar1 = FUN_0040b330(*(int *)(g_clientContext + 0x621e0) + 0x60d4,0);
     if (cVar1 != '\0') {
       iVar3 = *(int *)(param_1 + 0x44);
       iVar13 = *(int *)(param_1 + 0x40);
@@ -79,7 +79,7 @@ void FUN_00408180(int param_1)
         }
       }
     }
-    FUN_0040a4d0(*(int *)(DAT_005b3484 + 0x621e0) + 0x60d4);
+    FUN_0040a4d0(*(int *)(g_clientContext + 0x621e0) + 0x60d4);
     FUN_004eb890();
     FUN_004eb890();
   }
@@ -118,28 +118,28 @@ void FUN_00408180(int param_1)
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar3 == 1) {
-    if (*(char *)(DAT_005b3484 + 0x3b6c0) == '\x01') {
+    if (*(char *)(g_clientContext + 0x3b6c0) == '\x01') {
       if ((*(int *)(param_1 + 0x3c) % 0x14 < 10) ||
-         (cVar1 = PacketChecksumNotEquals(&DAT_0067e3d0 + DAT_005b3484,1), cVar1 != '\0')) {
-        FUN_0040a4d0(&DAT_0067e3d0 + DAT_005b3484);
+         (cVar1 = PacketChecksumNotEquals(&DAT_0067e3d0 + g_clientContext,1), cVar1 != '\0')) {
+        FUN_0040a4d0(&DAT_0067e3d0 + g_clientContext);
         FUN_004eb890();
       }
       if ((*(int *)(param_1 + 0x3c) % 0x14 < 10) ||
-         (cVar1 = PacketChecksumNotEquals(&DAT_0067e5f4 + DAT_005b3484,1), cVar1 != '\0')) {
-        FUN_0040a4d0(&DAT_0067e5f4 + DAT_005b3484);
+         (cVar1 = PacketChecksumNotEquals(&DAT_0067e5f4 + g_clientContext,1), cVar1 != '\0')) {
+        FUN_0040a4d0(&DAT_0067e5f4 + g_clientContext);
 LAB_0040855d:
         FUN_004eb890();
       }
     }
     else {
       if ((*(int *)(param_1 + 0x3c) % 0x14 < 10) ||
-         (cVar1 = PacketChecksumNotEquals(&DAT_0067e3d0 + DAT_005b3484,1), cVar1 != '\0')) {
-        FUN_0040a4d0(&DAT_0067e3d0 + DAT_005b3484);
+         (cVar1 = PacketChecksumNotEquals(&DAT_0067e3d0 + g_clientContext,1), cVar1 != '\0')) {
+        FUN_0040a4d0(&DAT_0067e3d0 + g_clientContext);
         FUN_004eb890();
       }
       if ((*(int *)(param_1 + 0x3c) % 0x14 < 10) ||
-         (cVar1 = PacketChecksumNotEquals(&DAT_0067e5f4 + DAT_005b3484,1), cVar1 != '\0')) {
-        FUN_0040a4d0(&DAT_0067e5f4 + DAT_005b3484);
+         (cVar1 = PacketChecksumNotEquals(&DAT_0067e5f4 + g_clientContext,1), cVar1 != '\0')) {
+        FUN_0040a4d0(&DAT_0067e5f4 + g_clientContext);
         goto LAB_0040855d;
       }
     }
@@ -148,8 +148,8 @@ LAB_0040855d:
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar3 == 3) {
-    if (*(char *)(DAT_005b3484 + 0x3b6c0) == '\0') {
-      uVar5 = FUN_0040a4d0(&DAT_0067e818 + DAT_005b3484);
+    if (*(char *)(g_clientContext + 0x3b6c0) == '\0') {
+      uVar5 = FUN_0040a4d0(&DAT_0067e818 + g_clientContext);
       _sprintf(&local_1008,(char *)&PTR_DAT_00551ecc,uVar5);
       iVar3 = 1;
       iVar13 = 0x2b4;
@@ -205,7 +205,7 @@ LAB_00408a10:
       }
       goto LAB_00408a9b;
     }
-    uVar5 = FUN_0040a4d0(&DAT_0067e818 + DAT_005b3484);
+    uVar5 = FUN_0040a4d0(&DAT_0067e818 + g_clientContext);
     _sprintf(&local_1008,(char *)&PTR_DAT_00551ecc,uVar5);
     iVar3 = 1;
     iVar13 = 0x2ed;
@@ -382,7 +382,7 @@ LAB_00408b80:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar7 = GetPlayerRecordBySlot(DAT_005b3484);
+    uVar7 = GetPlayerRecordBySlot(g_clientContext);
     iVar3 = 0x42;
     local_101c = uVar7;
     if (((DAT_0079352c != 0) && (0x248 < DAT_0056df34)) && (DAT_00793534 < 0x24a)) {
@@ -591,7 +591,7 @@ LAB_00409310:
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar2 != -1) {
-    if (*(char *)(DAT_005b3484 + 0x45122) == '\0') {
+    if (*(char *)(g_clientContext + 0x45122) == '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar2 = PeekPacketChecksumState();
       pcVar12 = (code *)LeaveCriticalSection;
@@ -599,7 +599,7 @@ LAB_00409310:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     else {
-      bVar15 = *(char *)(iVar13 + 0x4590c + DAT_005b3484) == *(char *)(DAT_005b3484 + 0x3b6c0);
+      bVar15 = *(char *)(iVar13 + 0x4590c + g_clientContext) == *(char *)(g_clientContext + 0x3b6c0);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState();
@@ -644,7 +644,7 @@ LAB_00409499:
     }
   }
 LAB_004094da:
-  uVar7 = (uint)*(ushort *)(DAT_005b3484 + 0x50116 + iVar13 * 2);
+  uVar7 = (uint)*(ushort *)(g_clientContext + 0x50116 + iVar13 * 2);
   if (DAT_0079352c != 0) {
     iVar2 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar11 = *(uint *)(iVar2 + 4);
@@ -681,7 +681,7 @@ LAB_00409561:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar13 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      if (*(char *)(*(int *)(DAT_005b3484 + 0x621e0) + 0xae68) == '\0') {
+      if (*(char *)(*(int *)(g_clientContext + 0x621e0) + 0xae68) == '\0') {
         iVar13 = FUN_0045d150();
         iVar13 = iVar13 / 10;
       }
@@ -690,7 +690,7 @@ LAB_00409561:
     else {
       uVar11 = (uint)((ulonglong)uVar7 * 0xcccccccd >> 0x20);
       uVar14 = local_101c / 10;
-      if (*(char *)(*(int *)(DAT_005b3484 + 0x621e0) + 0xae68) == '\0') {
+      if (*(char *)(*(int *)(g_clientContext + 0x621e0) + 0xae68) == '\0') {
         iVar13 = FUN_0045d150();
         uVar11 = (uint)((ulonglong)(iVar13 + uVar7) * 0xcccccccd >> 0x20);
       }
@@ -837,7 +837,7 @@ code_r0x004098ed:
 LAB_00409934:
     if (uVar7 == 3) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        BlitSprite16bpp(*(undefined4 *)(DAT_005b3484 + 0xebee8),0x239);
+        BlitSprite16bpp(*(undefined4 *)(g_clientContext + 0xebee8),0x239);
       }
       else {
         BlitSpriteClipped(3);

@@ -14,8 +14,8 @@ void __thiscall FUN_004c1b90(int param_1,char *param_2,int param_3,int param_4)
   int iVar2;
   char *pcVar3;
   
-  iVar2 = DAT_005b3484;
-  if (8 < *(int *)(DAT_005b3484 + 0x58b60)) {
+  iVar2 = g_clientContext;
+  if (8 < *(int *)(g_clientContext + 0x58b60)) {
     FUN_0041ee10();
   }
   *(undefined1 *)(*(int *)(iVar2 + 0x58b60) * 9 + 0x58b64 + iVar2) = 0;

@@ -65,10 +65,10 @@ void __fastcall FUN_004d7db0(int param_1)
       BlitSpriteClipped(0);
     }
   }
-  _sprintf(local_928,(char *)&PTR_DAT_00551ecc,*(int *)(DAT_005b3484 + 0x44e60) + 1);
+  _sprintf(local_928,(char *)&PTR_DAT_00551ecc,*(int *)(g_clientContext + 0x44e60) + 1);
   FUN_004ed9f0(0x46,local_928,3,0xb);
   FUN_004eadb0();
-  iVar3 = DAT_005b3484;
+  iVar3 = g_clientContext;
   BlitRLESprite(0xf,0xffff);
   FUN_004eadb0();
   if (*(char *)(iVar3 + 0x44ee4) != '\0') {
@@ -86,7 +86,7 @@ LAB_004d81a0:
     iVar13 = uVar12 * 0x25;
     iVar5 = iVar13 + 0x155;
     iVar3 = ((int)(local_a4c + ((int)local_a4c >> 0x1f & 3U)) >> 2) * 0x27 + 0xa4;
-    if (*(char *)(DAT_005b3484 + 0x44ef8) == '\0') {
+    if (*(char *)(g_clientContext + 0x44ef8) == '\0') {
       if (DAT_0079352c != 0) {
         iVar6 = *(int *)(DAT_00ea0e1c + 0x1c);
         uVar12 = *(uint *)(iVar6 + 4);
@@ -262,7 +262,7 @@ LAB_004d8460:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar12 = (int)*(char *)(DAT_005b3484 + 0x44ef8) + iVar3 * 0xb;
+  uVar12 = (int)*(char *)(g_clientContext + 0x44ef8) + iVar3 * 0xb;
   if ((DAT_0079352c != 0) && (-1 < (int)uVar12)) {
     iVar3 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar4 = *(uint *)(iVar3 + 4);
@@ -344,7 +344,7 @@ LAB_004d85fe:
     }
   }
 LAB_004d862d:
-  uVar7 = FUN_0041e9a0(DAT_005b3484,(uint)uVar1);
+  uVar7 = FUN_0041e9a0(g_clientContext,(uint)uVar1);
   _sprintf(local_a28,(char *)&PTR_DAT_00551ecc,uVar7);
   FUN_004ed9f0(0x7d,local_a28,3,5);
   local_a4c = local_a4c + 1;
@@ -362,7 +362,7 @@ LAB_004d8685:
     iVar13 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar13 != 0xff) {
-      uVar7 = FUN_0040a6e0(DAT_005b3484 + 0x39f30 + iVar3,local_23c,1);
+      uVar7 = FUN_0040a6e0(g_clientContext + 0x39f30 + iVar3,local_23c,1);
       local_c = 2;
       FUN_0040a7d0(uVar7,local_684,2);
       local_c = CONCAT31(local_c._1_3_,3);
@@ -385,7 +385,7 @@ LAB_004d8685:
       }
       goto LAB_004d896a;
     }
-    uVar7 = FUN_0040a6e0(DAT_005b3484 + 0x3a154 + iVar3,local_460,1);
+    uVar7 = FUN_0040a6e0(g_clientContext + 0x3a154 + iVar3,local_460,1);
     local_c = 0;
     FUN_0040a7d0(uVar7,local_8a8,2);
     local_c = CONCAT31(local_c._1_3_,1);
@@ -501,7 +501,7 @@ code_r0x004d8a39:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = (int)*(char *)(DAT_005b3484 + 0x458fc + iVar3 * 2);
+  iVar3 = (int)*(char *)(g_clientContext + 0x458fc + iVar3 * 2);
   if (iVar3 < 0x11) {
     if (0xc < iVar3) {
       iVar3 = iVar3 + 2;
@@ -567,8 +567,8 @@ LAB_004d8b02:
     local_a28[3] = '\0';
     piVar2 = *(int **)(iVar3 + 0x110);
     (**(code **)(*piVar2 + 100))(piVar2,0,local_a28,0,0);
-    iVar3 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe44) = uStack_a04;
+    iVar3 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe44) = uStack_a04;
     *(undefined4 *)(iVar3 + 0x1fe4c) = uStack_a18;
     iVar9 = 0;
     do {
@@ -601,8 +601,8 @@ LAB_004d8b02:
     local_a28[3] = '\0';
     piVar2 = *(int **)(iVar3 + 0x110);
     (**(code **)(*piVar2 + 100))(piVar2,0,local_a28,0,0);
-    iVar3 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe48) = uStack_a04;
+    iVar3 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe48) = uStack_a04;
     *(undefined4 *)(iVar3 + 0x1fe50) = uStack_a18;
     iVar9 = 0;
     do {
@@ -635,8 +635,8 @@ LAB_004d8b02:
     local_a28[3] = '\0';
     piVar2 = *(int **)(iVar3 + 0x110);
     (**(code **)(*piVar2 + 100))(piVar2,0,local_a28,0,0);
-    iVar3 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe54) = uStack_a04;
+    iVar3 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe54) = uStack_a04;
     *(undefined4 *)(iVar3 + 0x1fe5c) = uStack_a18;
     iVar9 = 0;
     do {
@@ -669,8 +669,8 @@ LAB_004d8b02:
     local_a28[3] = '\0';
     piVar2 = *(int **)(iVar3 + 0x110);
     (**(code **)(*piVar2 + 100))(piVar2,0,local_a28,0,0);
-    iVar3 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe58) = uStack_a04;
+    iVar3 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe58) = uStack_a04;
     *(undefined4 *)(iVar3 + 0x1fe60) = uStack_a18;
     iVar9 = 0;
     do {
@@ -703,8 +703,8 @@ LAB_004d8b02:
     local_a28[3] = '\0';
     piVar2 = *(int **)(iVar3 + 0x110);
     (**(code **)(*piVar2 + 100))(piVar2,0,local_a28,0,0);
-    iVar3 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe1c) = uStack_a04;
+    iVar3 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe1c) = uStack_a04;
     *(undefined4 *)(iVar3 + 0x1fe24) = uStack_a18;
     iVar9 = 0;
     do {
@@ -737,8 +737,8 @@ LAB_004d8b02:
     local_a28[3] = '\0';
     piVar2 = *(int **)(iVar3 + 0x110);
     (**(code **)(*piVar2 + 100))(piVar2,0,local_a28,0,0);
-    iVar3 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe20) = uStack_a04;
+    iVar3 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe20) = uStack_a04;
     *(undefined4 *)(iVar3 + 0x1fe28) = uStack_a18;
     iVar9 = 0;
     do {
@@ -771,8 +771,8 @@ LAB_004d8b02:
     local_a28[3] = '\0';
     piVar2 = *(int **)(iVar3 + 0x110);
     (**(code **)(*piVar2 + 100))(piVar2,0,local_a28,0,0);
-    iVar3 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe34) = uStack_a04;
+    iVar3 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe34) = uStack_a04;
     *(undefined4 *)(iVar3 + 0x1fe3c) = uStack_a18;
     iVar9 = 0;
     do {
@@ -800,8 +800,8 @@ LAB_004d8b02:
     auStack_9a8[0] = 0x7c;
     piVar2 = *(int **)(iVar9 + 0x110);
     (**(code **)(*piVar2 + 100))(piVar2,0,auStack_9a8,0,0);
-    iVar9 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe38) = uStack_984;
+    iVar9 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe38) = uStack_984;
     *(undefined4 *)(iVar9 + 0x1fe40) = uStack_998;
     iVar10 = 0;
     do {

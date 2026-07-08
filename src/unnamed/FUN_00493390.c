@@ -237,8 +237,8 @@ LAB_004937c8:
             *(byte *)((int)param_1 + 0xf4d) = bVar17;
             *(byte *)((int)param_1 + 0xf4e) = bVar15 + bVar17 + -0x34;
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar11 = DAT_005b3484;
-            pbVar18 = (byte *)(DAT_005b3484 + 0x62140);
+            iVar11 = g_clientContext;
+            pbVar18 = (byte *)(g_clientContext + 0x62140);
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar13 = _rand();
             *pbVar18 = (byte)iVar13;
@@ -287,11 +287,11 @@ LAB_004937c8:
           FUN_00436ec0(local_15ac,local_159c);
         }
         if (((char)param_1[0xfe7] == '\x01') &&
-           (((((local_15ac < 0 || (*(int *)(&DAT_006a7720 + DAT_005b3484) <= local_15ac)) ||
+           (((((local_15ac < 0 || (*(int *)(&DAT_006a7720 + g_clientContext) <= local_15ac)) ||
               (local_159c < 0)) ||
-             ((*(int *)(&DAT_006a7724 + DAT_005b3484) <= local_159c ||
-              (*(char *)(*(int *)(&DAT_006a7720 + DAT_005b3484) * local_159c +
-                         *(int *)(&DAT_006a773c + DAT_005b3484) + local_15ac) == '\0')))) ||
+             ((*(int *)(&DAT_006a7724 + g_clientContext) <= local_159c ||
+              (*(char *)(*(int *)(&DAT_006a7720 + g_clientContext) * local_159c +
+                         *(int *)(&DAT_006a773c + g_clientContext) + local_15ac) == '\0')))) ||
             (cVar8 = FUN_00450e10(local_159c), cVar8 != '\0')))) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           EncodeOutgoingPacketField(local_15ac << 8);
@@ -322,10 +322,10 @@ LAB_004937c8:
           break;
         }
         if ((((char)param_1[0xfe7] == '\0') && (-1 < local_15ac)) &&
-           ((local_15ac < *(int *)(&DAT_006a7720 + DAT_005b3484) &&
-            (((-1 < local_159c && (local_159c < *(int *)(&DAT_006a7724 + DAT_005b3484))) &&
-             (*(char *)(*(int *)(&DAT_006a7720 + DAT_005b3484) * local_159c +
-                        *(int *)(&DAT_006a773c + DAT_005b3484) + local_15ac) != '\0')))))) {
+           ((local_15ac < *(int *)(&DAT_006a7720 + g_clientContext) &&
+            (((-1 < local_159c && (local_159c < *(int *)(&DAT_006a7724 + g_clientContext))) &&
+             (*(char *)(*(int *)(&DAT_006a7720 + g_clientContext) * local_159c +
+                        *(int *)(&DAT_006a773c + g_clientContext) + local_15ac) != '\0')))))) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           EncodeOutgoingPacketField(local_15ac << 8);
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -489,8 +489,8 @@ LAB_0049410b:
             *(byte *)((int)param_1 + 0xf4d) = bVar17;
             *(byte *)((int)param_1 + 0xf4e) = bVar15 + bVar17 + -0x34;
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar14 = DAT_005b3484;
-            pbVar18 = (byte *)(DAT_005b3484 + 0x62140);
+            iVar14 = g_clientContext;
+            pbVar18 = (byte *)(g_clientContext + 0x62140);
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar12 = _rand();
             *pbVar18 = (byte)iVar12;
@@ -543,11 +543,11 @@ LAB_0049410b:
         if (cVar8 != '\0') {
           FUN_00436ec0(local_15ac,local_159c);
         }
-        if (((((local_15ac < 0) || (*(int *)(&DAT_006a7720 + DAT_005b3484) <= local_15ac)) ||
+        if (((((local_15ac < 0) || (*(int *)(&DAT_006a7720 + g_clientContext) <= local_15ac)) ||
              (local_159c < 0)) ||
-            ((*(int *)(&DAT_006a7724 + DAT_005b3484) <= local_159c ||
-             (*(char *)(local_159c * *(int *)(&DAT_006a7720 + DAT_005b3484) +
-                        *(int *)(&DAT_006a773c + DAT_005b3484) + local_15ac) == '\0')))) &&
+            ((*(int *)(&DAT_006a7724 + g_clientContext) <= local_159c ||
+             (*(char *)(local_159c * *(int *)(&DAT_006a7720 + g_clientContext) +
+                        *(int *)(&DAT_006a773c + g_clientContext) + local_15ac) == '\0')))) &&
            ((char)param_1[0xfe7] == '\x01')) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           EncodeOutgoingPacketField(local_15ac << 8);
@@ -573,11 +573,11 @@ LAB_0049410b:
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           break;
         }
-        if (((-1 < local_15ac) && (local_15ac < *(int *)(&DAT_006a7720 + DAT_005b3484))) &&
+        if (((-1 < local_15ac) && (local_15ac < *(int *)(&DAT_006a7720 + g_clientContext))) &&
            ((-1 < local_159c &&
-            (((local_159c < *(int *)(&DAT_006a7724 + DAT_005b3484) &&
-              (*(char *)(local_159c * *(int *)(&DAT_006a7720 + DAT_005b3484) +
-                         *(int *)(&DAT_006a773c + DAT_005b3484) + local_15ac) != '\0')) &&
+            (((local_159c < *(int *)(&DAT_006a7724 + g_clientContext) &&
+              (*(char *)(local_159c * *(int *)(&DAT_006a7720 + g_clientContext) +
+                         *(int *)(&DAT_006a773c + g_clientContext) + local_15ac) != '\0')) &&
              ((char)param_1[0xfe7] == '\0')))))) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           EncodeOutgoingPacketField(local_15ac << 8);

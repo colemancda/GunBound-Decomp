@@ -27,16 +27,16 @@ void __fastcall FUN_004dc820(int param_1)
   local_14 = (int *)(param_1 + 0x6fc);
   local_10 = 0;
   local_8 = 0x458fc;
-  iVar5 = DAT_005b3484;
+  iVar5 = g_clientContext;
   do {
     if ((*(char *)(local_10 + 0x45914 + iVar5) != '\0') && (*(int *)(*local_14 + 0x1c) != 0)) {
       uVar1 = local_10 / 4;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar2 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar5 = DAT_005b3484;
+      iVar5 = g_clientContext;
       if (DAT_00793522 == '\0') {
-        iVar2 = (int)*(char *)(local_8 + DAT_005b3484);
+        iVar2 = (int)*(char *)(local_8 + g_clientContext);
         if (iVar2 < 0x11) {
           if (0xc < iVar2) {
             iVar2 = iVar2 + 2;
@@ -46,10 +46,10 @@ void __fastcall FUN_004dc820(int param_1)
           iVar2 = -1;
         }
       }
-      iVar8 = *(int *)(DAT_005b3484 + 0x1fe24 + uVar1 * 4);
+      iVar8 = *(int *)(g_clientContext + 0x1fe24 + uVar1 * 4);
       uVar6 = (local_10 % 4) / 2;
       iVar3 = (local_10 % 4 & 0x80000001) * 2;
-      iVar4 = (uVar6 * iVar8 + iVar3) * 0x80 + *(int *)(DAT_005b3484 + 0x1fe1c + uVar1 * 4);
+      iVar4 = (uVar6 * iVar8 + iVar3) * 0x80 + *(int *)(g_clientContext + 0x1fe1c + uVar1 * 4);
       if (iVar2 != -1) {
         FUN_004dca80(iVar4,iVar8);
         iVar8 = *(int *)(iVar5 + 0x1fe3c + uVar1 * 4);

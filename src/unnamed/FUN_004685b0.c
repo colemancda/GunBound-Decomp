@@ -19,7 +19,7 @@ void __fastcall FUN_004685b0(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004398e0(&DAT_006a7f70 + DAT_005b3484,*(int *)(param_1 + 8) + 3,uVar2,uVar1,param_1,1);
+  FUN_004398e0(&DAT_006a7f70 + g_clientContext,*(int *)(param_1 + 8) + 3,uVar2,uVar1,param_1,1);
   return;
 }
 

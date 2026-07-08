@@ -20,7 +20,7 @@ void FUN_004dba80(int param_1)
   int local_c0 [16];
   char local_80 [128];
   
-  iVar4 = DAT_005b3484;
+  iVar4 = g_clientContext;
   iVar5 = (int)*(char *)(in_EAX + 0x4a0 + param_1);
   local_c0[0] = 0x26;
   local_c0[1] = 0xb1;
@@ -71,14 +71,14 @@ LAB_004dbb40:
       }
     }
     FUN_004eb890();
-    pcVar1 = (char *)(DAT_005b3484 + param_1 * 9 + 0x457a9);
+    pcVar1 = (char *)(g_clientContext + param_1 * 9 + 0x457a9);
     if (*pcVar1 != '\0') {
       _sprintf(local_80,s__s__3d__3d__005536b8,pcVar1,
-               *(undefined4 *)(DAT_005b3484 + 0x4597c + param_1 * 4),
-               *(undefined4 *)(DAT_005b3484 + 0x4599c + param_1 * 4));
+               *(undefined4 *)(g_clientContext + 0x4597c + param_1 * 4),
+               *(undefined4 *)(g_clientContext + 0x4599c + param_1 * 4));
       BlitRLESprite(iVar5 + 0x13,0xf800);
     }
-    iVar4 = DAT_005b3484;
+    iVar4 = g_clientContext;
     BlitRLESprite(iVar5 + 0x21,0);
     if ((DAT_00793522 == '\0') && (*(char *)(iVar4 + 0x45914 + param_1) == '\x04')) {
       if ((DAT_0079352c != 0) && (iVar4 = FUN_004f30c0(), iVar4 != 0)) {

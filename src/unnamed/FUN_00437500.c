@@ -19,7 +19,7 @@ void __fastcall FUN_00437500(undefined4 param_1,int param_2)
   int *piVar7;
   int iVar8;
   
-  iVar2 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+  iVar2 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   iVar5 = -1;
   iVar8 = 100000;
   iVar6 = 0;

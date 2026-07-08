@@ -37,7 +37,7 @@ void FUN_0042a680(int param_1)
       BlitSpriteClipped(uVar8);
     }
   }
-  if (((*(char *)(DAT_005b3484 + 0x449b4 + *(int *)(param_1 + 0x124)) != '\0') &&
+  if (((*(char *)(g_clientContext + 0x449b4 + *(int *)(param_1 + 0x124)) != '\0') &&
       (DAT_0079352c != 0)) && (iVar4 = FUN_004f30c0(), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar7 + 0xb1,iVar6 + 0x42);
@@ -46,7 +46,7 @@ void FUN_0042a680(int param_1)
       BlitSpriteClipped(0xe);
     }
   }
-  bVar1 = *(byte *)(DAT_005b3484 + 0x4499c + *(int *)(param_1 + 0x124));
+  bVar1 = *(byte *)(g_clientContext + 0x4499c + *(int *)(param_1 + 0x124));
   if ((DAT_0079352c != 0) && (iVar4 = FUN_004f30c0(), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar7 + 0xc3,iVar6 + 0x46);
@@ -55,7 +55,7 @@ void FUN_0042a680(int param_1)
       BlitSpriteClipped(bVar1 + 10);
     }
   }
-  bVar1 = *(byte *)(DAT_005b3484 + 0x449a2 + *(int *)(param_1 + 0x124));
+  bVar1 = *(byte *)(g_clientContext + 0x449a2 + *(int *)(param_1 + 0x124));
   if ((DAT_0079352c != 0) && (iVar4 = FUN_004f30c0(), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar7 + 0xd2,iVar6 + 0x46);
@@ -64,7 +64,7 @@ void FUN_0042a680(int param_1)
       BlitSpriteClipped(bVar1 + 10);
     }
   }
-  uVar2 = *(undefined1 *)(DAT_005b3484 + 0x4497c + *(int *)(param_1 + 0x124));
+  uVar2 = *(undefined1 *)(g_clientContext + 0x4497c + *(int *)(param_1 + 0x124));
   if ((DAT_0079352c != 0) && (iVar4 = FUN_004f30c0(), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar7 + 0x6a,iVar6 + 0x5b);
@@ -74,9 +74,9 @@ void FUN_0042a680(int param_1)
     }
   }
   uVar8 = 9;
-  if (*(char *)(DAT_005b3484 + 0x449a8 + *(int *)(param_1 + 0x124)) == '\0') {
-    if (*(char *)(DAT_005b3484 + 0x4499c + *(int *)(param_1 + 0x124)) ==
-        *(char *)(DAT_005b3484 + *(int *)(param_1 + 0x124) + 0x449a2)) {
+  if (*(char *)(g_clientContext + 0x449a8 + *(int *)(param_1 + 0x124)) == '\0') {
+    if (*(char *)(g_clientContext + 0x4499c + *(int *)(param_1 + 0x124)) ==
+        *(char *)(g_clientContext + *(int *)(param_1 + 0x124) + 0x449a2)) {
       uVar8 = 8;
     }
   }
@@ -92,7 +92,7 @@ void FUN_0042a680(int param_1)
     }
   }
   iVar4 = *(int *)(param_1 + 0x124);
-  if (*(char *)(iVar4 + 0x449ae + DAT_005b3484) != '\0') {
+  if (*(char *)(iVar4 + 0x449ae + g_clientContext) != '\0') {
     if ((DAT_0079352c != 0) && (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
       if (*(char *)(iVar5 + 0x18) == '\x01') {
         BlitSprite16bpp((-(uint)(iVar4 / 3 + (iVar4 >> 0x1f) != iVar4 >> 0x1f) & 0xffffff06) + 0xea
@@ -104,12 +104,12 @@ void FUN_0042a680(int param_1)
     }
   }
   _sprintf(local_80,(char *)&PTR_DAT_00551ecc,
-           *(int *)(DAT_005b3484 + 0x44664 + *(int *)(param_1 + 0x124) * 4) + 1);
+           *(int *)(g_clientContext + 0x44664 + *(int *)(param_1 + 0x124) * 4) + 1);
   FUN_004ed9f0(0x14,local_80,3,0xb);
   FUN_004eadb0();
   BlitRLESprite(iVar6 + 0x44,0xffff);
   FUN_004eadb0();
-  uVar3 = *(uint *)(DAT_005b3484 + 0x44984 + *(int *)(param_1 + 0x124) * 4);
+  uVar3 = *(uint *)(g_clientContext + 0x44984 + *(int *)(param_1 + 0x124) * 4);
   if ((DAT_0079352c != 0) && (iVar4 = FUN_004f30c0(), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar7 + 0xb1,iVar6 + 0x5b);

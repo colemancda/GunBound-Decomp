@@ -278,7 +278,7 @@ uint32_t DAT_005b3438;
 uint16_t DAT_005b343c;
 uint8_t DAT_005b3440;
 uint32_t DAT_005b3480;
-uint32_t DAT_005b3484;
+uint32_t g_clientContext;
 uint32_t DAT_005b3488;
 uint32_t DAT_005b3620;
 uint8_t DAT_005b3628;

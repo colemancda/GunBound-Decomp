@@ -198,8 +198,8 @@ LAB_0049c9ad:
       if (cVar2 == '\0') {
         FUN_0040a4d0();
         QueueOutgoingPacketField();
-        iVar1 = DAT_005b3484;
-        *(undefined4 *)(&DAT_005f3768 + DAT_005b3484) = 5;
+        iVar1 = g_clientContext;
+        *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;
         *(undefined4 *)(&DAT_005f376c + iVar1) = 0;
         FUN_00406500();
       }

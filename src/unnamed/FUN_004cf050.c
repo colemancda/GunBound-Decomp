@@ -42,7 +42,7 @@ void __thiscall FUN_004cf050(int param_1,int param_2)
           } while (iVar3 < *(int *)(param_2 + 0x10b0));
         }
         if (iVar3 == *(int *)(param_2 + 0x10b0)) {
-          cVar2 = *(char *)(DAT_005b3484 + 0x4590c + local_10);
+          cVar2 = *(char *)(g_clientContext + 0x4590c + local_10);
           if (cVar2 == '\0') {
             local_8 = local_8 + 1;
           }
@@ -73,8 +73,8 @@ void __thiscall FUN_004cf050(int param_1,int param_2)
         }
       }
     }
-    iVar3 = DAT_005b3484;
-    pbVar6 = (byte *)(DAT_005b3484 + 0x6214c);
+    iVar3 = g_clientContext;
+    pbVar6 = (byte *)(g_clientContext + 0x6214c);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = _rand();
     *pbVar6 = (byte)iVar4;

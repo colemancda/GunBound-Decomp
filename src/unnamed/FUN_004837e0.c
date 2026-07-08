@@ -41,27 +41,27 @@ void __fastcall FUN_004837e0(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = FUN_00425ac0(DAT_005b3484,uVar4,uVar3,uVar2);
+    iVar5 = FUN_00425ac0(g_clientContext,uVar4,uVar3,uVar2);
     if ((((iVar5 != 0) && (cVar1 = FUN_004065a0(), cVar1 != '\0')) &&
         (cVar1 = FUN_004065a0(), cVar1 != '\x01')) &&
        (cVar1 = FUN_004065a0(), (*(int *)(iVar5 + 0xae2c) == 1) != (bool)cVar1)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      if ((-1 < iVar5) && (iVar5 < *(int *)(&DAT_006a7720 + DAT_005b3484))) {
-        pcVar6 = (char *)(*(int *)(&DAT_006a773c + DAT_005b3484) + iVar5);
+      if ((-1 < iVar5) && (iVar5 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+        pcVar6 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + iVar5);
         local_10 = 0;
-        if (0 < *(int *)(&DAT_006a7724 + DAT_005b3484)) {
+        if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
           do {
             if (*pcVar6 != '\0') goto LAB_0048398a;
-            pcVar6 = pcVar6 + *(int *)(&DAT_006a7720 + DAT_005b3484);
+            pcVar6 = pcVar6 + *(int *)(&DAT_006a7720 + g_clientContext);
             local_10 = local_10 + 1;
-          } while (local_10 < *(int *)(&DAT_006a7724 + DAT_005b3484));
+          } while (local_10 < *(int *)(&DAT_006a7724 + g_clientContext));
         }
       }
       local_10 = 10000;
 LAB_0048398a:
-      FUN_00436070(&DAT_006a7f70 + DAT_005b3484,iVar5,local_10);
+      FUN_00436070(&DAT_006a7f70 + g_clientContext,iVar5,local_10);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -104,20 +104,20 @@ LAB_0048398a:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      if ((-1 < iVar5) && (iVar5 < *(int *)(&DAT_006a7720 + DAT_005b3484))) {
-        pcVar6 = (char *)(*(int *)(&DAT_006a773c + DAT_005b3484) + iVar5);
+      if ((-1 < iVar5) && (iVar5 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+        pcVar6 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + iVar5);
         local_10 = 0;
-        if (0 < *(int *)(&DAT_006a7724 + DAT_005b3484)) {
+        if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
           do {
             if (*pcVar6 != '\0') goto LAB_00483b89;
-            pcVar6 = pcVar6 + *(int *)(&DAT_006a7720 + DAT_005b3484);
+            pcVar6 = pcVar6 + *(int *)(&DAT_006a7720 + g_clientContext);
             local_10 = local_10 + 1;
-          } while (local_10 < *(int *)(&DAT_006a7724 + DAT_005b3484));
+          } while (local_10 < *(int *)(&DAT_006a7724 + g_clientContext));
         }
       }
       local_10 = 10000;
 LAB_00483b89:
-      FUN_00436070(&DAT_006a7f70 + DAT_005b3484,iVar5,local_10);
+      FUN_00436070(&DAT_006a7f70 + g_clientContext,iVar5,local_10);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -139,8 +139,8 @@ LAB_00483b89:
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       FUN_00431d90(*(undefined1 *)(param_1 + 0x3c),7,0,0,uVar2,0xff,1,1);
-      iVar5 = DAT_005b3484;
-      pbVar7 = &DAT_006a7f74 + DAT_005b3484;
+      iVar5 = g_clientContext;
+      pbVar7 = &DAT_006a7f74 + g_clientContext;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if ((byte)(*pbVar7 + (&DAT_006a7f75)[iVar5] + -0x34) == (&DAT_006a7f76)[iVar5]) {
         local_19 = '\x01' - (((byte)(&DAT_006a7f75)[iVar5] >> (*pbVar7 & 7) & 1) != 1);
@@ -173,20 +173,20 @@ LAB_00483b89:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      if ((-1 < iVar5) && (iVar5 < *(int *)(&DAT_006a7720 + DAT_005b3484))) {
-        pcVar6 = (char *)(*(int *)(&DAT_006a773c + DAT_005b3484) + iVar5);
+      if ((-1 < iVar5) && (iVar5 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+        pcVar6 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + iVar5);
         local_10 = 0;
-        if (0 < *(int *)(&DAT_006a7724 + DAT_005b3484)) {
+        if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
           do {
             if (*pcVar6 != '\0') goto LAB_00483e2e;
-            pcVar6 = pcVar6 + *(int *)(&DAT_006a7720 + DAT_005b3484);
+            pcVar6 = pcVar6 + *(int *)(&DAT_006a7720 + g_clientContext);
             local_10 = local_10 + 1;
-          } while (local_10 < *(int *)(&DAT_006a7724 + DAT_005b3484));
+          } while (local_10 < *(int *)(&DAT_006a7724 + g_clientContext));
         }
       }
       local_10 = 10000;
 LAB_00483e2e:
-      FUN_00436070(&DAT_006a7f70 + DAT_005b3484,iVar5,local_10);
+      FUN_00436070(&DAT_006a7f70 + g_clientContext,iVar5,local_10);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -208,8 +208,8 @@ LAB_00483e2e:
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       FUN_00431d90(*(undefined1 *)(param_1 + 0x3c),7,0,0,uVar2,0xff,1,1);
-      iVar5 = DAT_005b3484;
-      pbVar7 = &DAT_006a7f74 + DAT_005b3484;
+      iVar5 = g_clientContext;
+      pbVar7 = &DAT_006a7f74 + g_clientContext;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if ((byte)(*pbVar7 + (&DAT_006a7f75)[iVar5] + -0x34) == (&DAT_006a7f76)[iVar5]) {
         local_19 = '\x01' - (((byte)(&DAT_006a7f75)[iVar5] >> (*pbVar7 & 7) & 1) != 1);

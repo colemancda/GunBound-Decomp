@@ -176,9 +176,9 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   }
   iVar5 = param_2 * param_2 + local_2d20[0] * local_2d20[0];
   if (iVar5 < iVar2) {
-    iVar2 = FUN_0040a4d0(DAT_005b3484 + 0x475c8);
-    iVar2 = FUN_0040a4d0((iVar2 * 0xb + (uint)*(byte *)(DAT_005b3484 + 0x475c4)) * 0x7d28 + 0x1a1f48
-                         + DAT_005b3484);
+    iVar2 = FUN_0040a4d0(g_clientContext + 0x475c8);
+    iVar2 = FUN_0040a4d0((iVar2 * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + 0x1a1f48
+                         + g_clientContext);
     if (iVar2 == 0) {
       local_2d20[0] = FUN_0040a8c0(unaff_EDI + 0x24c0,local_f08,2);
       local_4 = 9;

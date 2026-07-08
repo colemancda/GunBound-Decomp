@@ -30,7 +30,7 @@ void FUN_0044bf00(int param_1)
   byte local_64 [100];
   
   iVar6 = DAT_007934e8;
-  if (100 < *(uint *)(DAT_005b3484 + 0x44e24)) {
+  if (100 < *(uint *)(g_clientContext + 0x44e24)) {
     FUN_004124a0(0);
     return;
   }
@@ -71,7 +71,7 @@ void FUN_0044bf00(int param_1)
     iVar6 = *(int *)(iVar4 + 0x44d0) + 4;
   }
   *(int *)(iVar4 + 0x44d0) = iVar6;
-  _qsort(*(void **)(DAT_005b3484 + 0x44e40),*(size_t *)(DAT_005b3484 + 0x44e44),0x450,FUN_0044be40);
+  _qsort(*(void **)(g_clientContext + 0x44e40),*(size_t *)(g_clientContext + 0x44e44),0x450,FUN_0044be40);
   FUN_0044c5f0();
   FUN_0044c630();
   FUN_0044c630();
@@ -84,8 +84,8 @@ void FUN_0044bf00(int param_1)
     pcVar11 = pcVar11 + 4;
   }
   local_dc = 0;
-  iVar6 = DAT_005b3484;
-  if (*(int *)(DAT_005b3484 + 0x44e54) != 0) {
+  iVar6 = g_clientContext;
+  if (*(int *)(g_clientContext + 0x44e54) != 0) {
     do {
       local_d0 = 0;
       if (*(int *)(iVar6 + 0x44e24) != 0) {
@@ -99,14 +99,14 @@ void FUN_0044bf00(int param_1)
           iVar4 = PeekPacketChecksumState();
           iVar5 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar6 = DAT_005b3484;
+          iVar6 = g_clientContext;
           if ((iVar4 == iVar5) && (local_c8[local_d0] == '\0')) {
             local_64[local_dc] = (byte)local_d0;
             local_c8[local_d0] = '\x01';
             break;
           }
           local_d0 = local_d0 + 1;
-        } while (local_d0 < *(uint *)(DAT_005b3484 + 0x44e24));
+        } while (local_d0 < *(uint *)(g_clientContext + 0x44e24));
       }
       local_dc = local_dc + 1;
     } while (local_dc < *(uint *)(iVar6 + 0x44e54));

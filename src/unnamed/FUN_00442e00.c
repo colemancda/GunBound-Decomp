@@ -28,7 +28,7 @@ void FUN_00442e00(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if (((unaff_EDI == iVar5) && (bVar1 = *(byte *)(DAT_005b3484 + 0x3b6c0), DAT_0079352c != 0)) &&
+  if (((unaff_EDI == iVar5) && (bVar1 = *(byte *)(g_clientContext + 0x3b6c0), DAT_0079352c != 0)) &&
      (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(0x267,iVar7 + -2);
@@ -59,7 +59,7 @@ void FUN_00442e00(void)
       BlitSpriteClipped(iVar5 + 7);
     }
   }
-  uVar3 = *(undefined2 *)(DAT_005b3484 + 0x50116 + unaff_EDI * 2);
+  uVar3 = *(undefined2 *)(g_clientContext + 0x50116 + unaff_EDI * 2);
   if ((DAT_0079352c != 0) && (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(0x290,iVar7);
@@ -70,7 +70,7 @@ void FUN_00442e00(void)
   }
   FUN_004eb510(iVar7 + 1,0x1f);
   BlitRLESprite(iVar7 + 1,0xffff);
-  iVar5 = DAT_005b3484;
+  iVar5 = g_clientContext;
   BlitRLESprite(iVar7 + 0xe,0xffff);
   cVar2 = *(char *)(iVar5 + 0x449ba + unaff_EDI);
   if ((DAT_0079352c != 0) && (iVar5 = FUN_004f30c0(), iVar5 != 0)) {

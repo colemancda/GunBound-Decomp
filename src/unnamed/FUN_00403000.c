@@ -42,8 +42,8 @@ void __thiscall FUN_00403000(ushort *param_1,undefined4 param_2)
       local_13 = 0;
       uStack_30 = 0;
       FUN_00403170(param_2,&local_20,&local_40);
-      iVar1 = DAT_005b3484;
-      FUN_00426620(&DAT_006aa41c + DAT_005b3484,&local_40);
+      iVar1 = g_clientContext;
+      FUN_00426620(&DAT_006aa41c + g_clientContext,&local_40);
       FUN_00426620(&DAT_006aa44c + iVar1,(int)&local_20 + 1);
       return;
     }
@@ -66,8 +66,8 @@ void __thiscall FUN_00403000(ushort *param_1,undefined4 param_2)
       local_14 = 0;
       puVar3 = puVar3 + 0xe;
       FUN_00403170(param_2,&local_40,&local_20);
-      iVar1 = DAT_005b3484;
-      FUN_00426620(&DAT_006aa41c + DAT_005b3484,(int)&local_40 + 1);
+      iVar1 = g_clientContext;
+      FUN_00426620(&DAT_006aa41c + g_clientContext,(int)&local_40 + 1);
       FUN_00426620(&DAT_006aa44c + iVar1,&local_20);
     }
   }

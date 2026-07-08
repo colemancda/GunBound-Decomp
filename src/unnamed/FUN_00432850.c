@@ -119,7 +119,7 @@ void FUN_00432850(int param_1,int param_2)
       else {
         piVar3 = (int *)FUN_00454dc0();
       }
-      iVar4 = DAT_005b3484;
+      iVar4 = g_clientContext;
       local_4 = 0xffffffff;
       piVar3[0xfe4] = 0xff;
       if (*(char *)(iVar4 + 0x45578) == '\0') {
@@ -259,7 +259,7 @@ void FUN_00432850(int param_1,int param_2)
         *pcVar7 = cVar1;
         pcVar7 = pcVar7 + 1;
       } while (cVar1 != '\0');
-      FUN_0041da80(DAT_005b3484,piVar3,1,1,1);
+      FUN_0041da80(g_clientContext,piVar3,1,1,1);
       uVar8 = FUN_0040ada0(piVar3 + 0x795,auStack_17b4,piVar3 + 0xcf2);
       uStack_20 = 7;
       FUN_0040a8c0(uVar8,auStack_19d8,100);

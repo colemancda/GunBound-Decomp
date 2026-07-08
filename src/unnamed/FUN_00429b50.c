@@ -19,21 +19,21 @@ void FUN_00429b50(void)
   int iVar3;
   
   iVar3 = 0;
-  if (0 < *(int *)(&DAT_005f3258 + DAT_005b3484)) {
-    piVar2 = (int *)(&DAT_005f3058 + DAT_005b3484);
+  if (0 < *(int *)(&DAT_005f3258 + g_clientContext)) {
+    piVar2 = (int *)(&DAT_005f3058 + g_clientContext);
     do {
-      if ((piVar2[-0x40] == *(int *)(DAT_005b3484 + 0x3f804)) &&
-         (*piVar2 == *(int *)(DAT_005b3484 + 0x44664 + *(int *)(in_EAX + 4) * 4))) {
+      if ((piVar2[-0x40] == *(int *)(g_clientContext + 0x3f804)) &&
+         (*piVar2 == *(int *)(g_clientContext + 0x44664 + *(int *)(in_EAX + 4) * 4))) {
         return;
       }
       iVar3 = iVar3 + 1;
       piVar2 = piVar2 + 1;
-    } while (iVar3 < *(int *)(&DAT_005f3258 + DAT_005b3484));
+    } while (iVar3 < *(int *)(&DAT_005f3258 + g_clientContext));
   }
-  if (*(char *)(*(int *)(in_EAX + 4) + 0x449ae + DAT_005b3484) == '\0') {
+  if (*(char *)(*(int *)(in_EAX + 4) + 0x449ae + g_clientContext) == '\0') {
     FUN_0042a090();
     iVar1 = DAT_007934e8;
-    iVar3 = DAT_005b3484;
+    iVar3 = g_clientContext;
     *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
     *(undefined2 *)(iVar1 + 0x4d4) = 0x2110;
     *(undefined2 *)(iVar1 + 0x4d6) = *(undefined2 *)(iVar3 + 0x44664 + *(int *)(in_EAX + 4) * 4);

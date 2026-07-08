@@ -21,7 +21,7 @@ void FUN_0040d760(void)
   LVar2 = RegOpenKeyExA(HKEY_CURRENT_USER,s_Software_Softnyx_GunBound_0056d3a0,0,0xf003f,&local_4)
   ;
   if (LVar2 == 0) {
-    RegSetValueExA(local_4,s_LastServer_00552884,0,4,(BYTE *)(DAT_005b3484 + 0x3f804),4);
+    RegSetValueExA(local_4,s_LastServer_00552884,0,4,(BYTE *)(g_clientContext + 0x3f804),4);
     RegSetValueExA(local_4,s_ShootingMode_00552858,0,3,&DAT_00d9aa20,1);
     RegSetValueExA(local_4,s_MouseSpeed_0055284c,0,4,&DAT_00d9aa24,4);
     local_5 = DAT_00d9aa28 == '\0';

@@ -19,19 +19,19 @@ void FUN_004e4970(int param_1,int param_2,int param_3,undefined4 param_4,undefin
   int unaff_EDI;
   bool bVar4;
   
-  if ((((unaff_EBX < 0) || (*(int *)(&DAT_006a7720 + DAT_005b3484) <= unaff_EBX)) || (unaff_EDI < 0)
-      ) || (*(int *)(&DAT_006a7724 + DAT_005b3484) <= unaff_EDI)) {
+  if ((((unaff_EBX < 0) || (*(int *)(&DAT_006a7720 + g_clientContext) <= unaff_EBX)) || (unaff_EDI < 0)
+      ) || (*(int *)(&DAT_006a7724 + g_clientContext) <= unaff_EDI)) {
     *(undefined4 *)(in_EAX + 0x858) = 0xffffffff;
     *(undefined4 *)(in_EAX + 0x854) = 0xffffffff;
   }
   else {
-    iVar3 = FUN_0040a4d0((uint)*(byte *)(DAT_005b3484 + 0x475c4) * 0x7d28 + 0x1a1f48 + DAT_005b3484)
+    iVar3 = FUN_0040a4d0((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1f48 + g_clientContext)
     ;
     if (iVar3 == 0) {
       FUN_004e4450(unaff_EBX,unaff_EDI,param_4);
       *(int *)(in_EAX + 0x858) = param_1 / 2 + unaff_EDI;
       *(int *)(in_EAX + 0x854) = unaff_EDI - param_1 / 2;
-      FUN_00439600(&DAT_006a7f70 + DAT_005b3484,unaff_EBX,unaff_EDI,param_1,param_7,param_8);
+      FUN_00439600(&DAT_006a7f70 + g_clientContext,unaff_EBX,unaff_EDI,param_1,param_7,param_8);
       if (DAT_0079352a != '\0') {
         Replay_AppendEvent(0xf004);
         (&g_replayEventBuffer)[g_replayEventCursor] = 0;
@@ -57,7 +57,7 @@ LAB_004e4ac8:
     }
     else if (iVar3 == 1) {
       FUN_004e4450(unaff_EBX,unaff_EDI,param_5);
-      FUN_00439600(&DAT_006a7f70 + DAT_005b3484,unaff_EBX,unaff_EDI,param_2,param_7,param_8);
+      FUN_00439600(&DAT_006a7f70 + g_clientContext,unaff_EBX,unaff_EDI,param_2,param_7,param_8);
       *(int *)(in_EAX + 0x858) = param_2 / 2 + unaff_EDI;
       bVar4 = DAT_0079352a != '\0';
       *(int *)(in_EAX + 0x854) = unaff_EDI - param_2 / 2;
@@ -71,7 +71,7 @@ LAB_004e4ac8:
     }
     else if (iVar3 == 2) {
       FUN_004e4450(unaff_EBX,unaff_EDI,param_6);
-      FUN_00439600(&DAT_006a7f70 + DAT_005b3484,unaff_EBX,unaff_EDI,param_3,param_7,param_8);
+      FUN_00439600(&DAT_006a7f70 + g_clientContext,unaff_EBX,unaff_EDI,param_3,param_7,param_8);
       *(int *)(in_EAX + 0x858) = param_3 / 2 + unaff_EDI;
       bVar4 = DAT_0079352a != '\0';
       *(int *)(in_EAX + 0x854) = unaff_EDI - param_3 / 2;

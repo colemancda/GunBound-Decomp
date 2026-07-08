@@ -386,7 +386,19 @@ extern uint32_t DAT_005b3438;
 extern uint16_t DAT_005b343c;
 extern uint8_t DAT_005b3440;
 extern uint32_t DAT_005b3480;
-extern uint32_t DAT_005b3484;
+/* g_clientContext (was DAT_005b3484) - base ADDRESS of the main client
+ * context arena: a ~1 MB block (offsets run past 0xeb000) constructed by
+ * FUN_00415d40. Holds, among much else: the outgoing packet buffer
+ * (+0x4d0 / length cursor +0x44d0), Winsock socket handles (+0x84e0),
+ * critical sections, room/player/whisper state, and the server-list
+ * structure-of-arrays populated by opcode 0x1102 (16-entry parallel arrays
+ * starting at +0x3f808: count, onlineFlag, serverId, regionOrType, name,
+ * desc, serverIp, port, currentPlayers, maxCapacity - see PROTOCOL.md).
+ * Held as a uint32_t (raw address); call sites do `base + fixed_offset`.
+ * There appear to be two such arenas double-buffered via DAT_007934ec /
+ * DAT_007934e8 (swapped on server change); this handle tracks the active
+ * one. Name is a defensible role label, not a verified original symbol. */
+extern uint32_t g_clientContext;
 extern uint32_t DAT_005b3488;
 extern uint32_t DAT_005b3620;
 extern uint8_t DAT_005b3628;

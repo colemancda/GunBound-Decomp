@@ -191,12 +191,12 @@ LAB_00498f85:
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (-1 < iVar4) {
-    iVar4 = *(int *)(&DAT_006a7720 + DAT_005b3484);
+    iVar4 = *(int *)(&DAT_006a7720 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar5 < iVar4) {
-      iVar4 = *(int *)(&DAT_006a7724 + DAT_005b3484);
+      iVar4 = *(int *)(&DAT_006a7724 + g_clientContext);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -219,7 +219,7 @@ LAB_00499217:
   }
   local_8c4 = 0;
   do {
-    iVar5 = GetPlayerRecordBySlot(DAT_005b3484);
+    iVar5 = GetPlayerRecordBySlot(g_clientContext);
     if ((iVar5 != 0) && (cVar2 = FUN_004065a0(), cVar2 != '\x01')) {
       FUN_0040aca0(param_1 + 0x10,local_684,iVar5 + 0x90c);
       local_c = 8;
@@ -251,7 +251,7 @@ LAB_00499217:
   } while ((int)local_8c4 < 8);
   local_8c4 = 0;
   do {
-    iVar5 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+    iVar5 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
     uVar1 = *(uint *)(iVar5 + 4);
     while (uVar1 < 0x186a7) {
       if (uVar1 == 0x186a6) {

@@ -31,9 +31,9 @@ void __fastcall FUN_0050d200(int param_1)
     iVar8 = param_1;
     do {
       local_14 = 0x1f;
-      iVar10 = (((int)*(uint *)(DAT_005b3484 + 0x3b97c) < 1) - 1 & *(uint *)(DAT_005b3484 + 0x3b97c)
+      iVar10 = (((int)*(uint *)(g_clientContext + 0x3b97c) < 1) - 1 & *(uint *)(g_clientContext + 0x3b97c)
                ) + local_10;
-      uVar3 = *(ushort *)(DAT_005b3484 + 0x3f73c + iVar10 * 2);
+      uVar3 = *(ushort *)(g_clientContext + 0x3f73c + iVar10 * 2);
       if (uVar3 != 0) {
         iVar4 = *(int *)(param_1 + 0x28);
         iVar9 = uVar3 - 1;
@@ -46,7 +46,7 @@ void __fastcall FUN_0050d200(int param_1)
           }
         }
       }
-      switch(*(undefined1 *)(DAT_005b3484 + 0x3c4d8 + iVar10)) {
+      switch(*(undefined1 *)(g_clientContext + 0x3c4d8 + iVar10)) {
       case 0:
         iVar8 = 0xffff;
         local_1c = 0xffff;
@@ -113,16 +113,16 @@ void __fastcall FUN_0050d200(int param_1)
 LAB_0050d3e9:
         local_1c = 0xffff;
       }
-      pcVar6 = (char *)(iVar10 * 9 + 0x3b984 + DAT_005b3484);
+      pcVar6 = (char *)(iVar10 * 9 + 0x3b984 + g_clientContext);
       FUN_004eb510(iVar7,local_14);
       BlitRLESprite(iVar7,iVar8);
       do {
         cVar1 = *pcVar6;
         pcVar6 = pcVar6 + 1;
       } while (cVar1 != '\0');
-      bVar2 = *(byte *)(DAT_005b3484 + 0x3c4d8 + iVar10);
+      bVar2 = *(byte *)(g_clientContext + 0x3c4d8 + iVar10);
       if ((bVar2 < 2) || (bVar2 == 7)) {
-        pcVar6 = (char *)(DAT_005b3484 + (iVar10 * 5 + 0xef42) * 4);
+        pcVar6 = (char *)(g_clientContext + (iVar10 * 5 + 0xef42) * 4);
         BlitRLESprite(iVar7,0);
         BlitRLESprite(iVar7,iVar8);
         do {
@@ -133,7 +133,7 @@ LAB_0050d3e9:
         iVar10 = iVar8;
       }
       else {
-        pcVar6 = (char *)(DAT_005b3484 + (iVar10 * 5 + 0xef42) * 4);
+        pcVar6 = (char *)(g_clientContext + (iVar10 * 5 + 0xef42) * 4);
         FUN_004eb510(iVar7,iVar8);
         BlitRLESprite(iVar7,local_1c);
         do {

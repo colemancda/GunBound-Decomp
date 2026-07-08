@@ -19,7 +19,7 @@ void FUN_0043c620(void)
   int unaff_ESI;
   bool bVar6;
   
-  iVar3 = DAT_005b3484;
+  iVar3 = g_clientContext;
   uVar5 = 500;
   do {
     if (unaff_ESI == 0) {

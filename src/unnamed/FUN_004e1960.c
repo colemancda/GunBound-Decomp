@@ -103,14 +103,14 @@ void __fastcall FUN_004e1960(int param_1)
     }
     else {
       *(ushort *)(*(int *)(DAT_007934f0 + 0x44d0) + 0x4d0 + DAT_007934f0) =
-           *(ushort *)(DAT_005b3484 + 0x3b96b) >> 4;
+           *(ushort *)(g_clientContext + 0x3b96b) >> 4;
     }
     *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 2;
     FUN_004d2680();
   }
-  iVar6 = DAT_005b3484;
+  iVar6 = g_clientContext;
   iVar5 = 0;
-  if (*(char *)(DAT_005b3484 + 0x3f808) != '\0') {
+  if (*(char *)(g_clientContext + 0x3f808) != '\0') {
     do {
       uVar4 = FUN_00402020();
       *(undefined1 *)(iVar5 + 0x4110a + iVar6) = uVar4;

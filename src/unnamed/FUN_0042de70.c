@@ -300,12 +300,12 @@ void FUN_0042de70(undefined1 param_1,int param_2,int param_3,int param_4,int par
     piVar5[7] = iVar6;
     piVar5[0xfe4] = 0xf1;
   }
-  if (*(char *)(DAT_005b3484 + 0x45578) == '\0') {
+  if (*(char *)(g_clientContext + 0x45578) == '\0') {
     piVar5[6] = param_3 * 2 + 0x1a2c;
     piVar5[0xe25] = param_3 + 0x2008;
     _sprintf((char *)(piVar5 + 0xe26),s_flame_d3_00553d60,param_3 + 1);
   }
-  else if (*(char *)(DAT_005b3484 + 0x45578) == '\x01') {
+  else if (*(char *)(g_clientContext + 0x45578) == '\x01') {
     piVar5[6] = 6000;
     piVar5[0xe25] = 8000;
     iVar6 = FindPreloadedTextureByName(s_bulletevent1p_00553d50);
@@ -619,7 +619,7 @@ LAB_0042f012:
     (*pcVar13)(&DAT_005a9068);
   }
 LAB_0042f0e2:
-  FUN_0041da80(DAT_005b3484,piVar5,1,param_11,1);
+  FUN_0041da80(g_clientContext,piVar5,1,param_11,1);
   cVar4 = FUN_004065a0();
   if (cVar4 == '\x01') {
     local_8ac = (int *)FUN_0040a7d0(piVar5 + 0x930,auStack_8a0,3);

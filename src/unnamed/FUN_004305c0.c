@@ -79,7 +79,7 @@ void FUN_004305c0(void)
     piVar3[0xfe8] = 0;
   }
   local_4 = 0xffffffff;
-  if (*(char *)(DAT_005b3484 + 0x45578) == '\0') {
+  if (*(char *)(g_clientContext + 0x45578) == '\0') {
     piVar3[6] = 0x19c8;
     piVar3[0xe] = 0x19ca;
     piVar3[0xe25] = 0x19c9;
@@ -105,7 +105,7 @@ void FUN_004305c0(void)
   else {
     pcVar9 = (code *)EnterCriticalSection;
     pcVar10 = (code *)LeaveCriticalSection;
-    if (*(char *)(DAT_005b3484 + 0x45578) == '\x01') {
+    if (*(char *)(g_clientContext + 0x45578) == '\x01') {
       piVar3[6] = 6000;
       piVar3[0xe] = 0x17d4;
       piVar3[0xe25] = 8000;

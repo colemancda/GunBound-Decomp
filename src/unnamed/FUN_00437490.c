@@ -20,8 +20,8 @@ uint FUN_00437490(void)
   uVar2 = in_EAX << 3;
   iVar4 = 0;
   do {
-    uVar1 = *(uint *)(*(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c) + 4);
-    iVar3 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+    uVar1 = *(uint *)(*(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c) + 4);
+    iVar3 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
     if (0x186a3 < uVar1) {
       return uVar2;
     }

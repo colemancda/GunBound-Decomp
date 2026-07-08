@@ -68,7 +68,7 @@ int __fastcall FUN_00442280(int param_1)
     }
   }
   FUN_004eadb0();
-  bVar2 = *(byte *)(DAT_005b3484 + 0x475c4);
+  bVar2 = *(byte *)(g_clientContext + 0x475c4);
   if ((DAT_0079352c != 0) && (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(0x1a,0x12);
@@ -174,7 +174,7 @@ code_r0x00442607:
     pcVar8 = pcVar8 + 1;
   } while (cVar3 != '\0');
   BlitRLESprite(0x27,0xffff);
-  iVar9 = DAT_005b3484;
+  iVar9 = g_clientContext;
   if (0xd < *(int *)(iVar5 + 4)) {
     iStack_b0 = 0;
     iStack_ac = 0;
@@ -225,7 +225,7 @@ LAB_00442831:
   iStack_ac = (int)pcVar8 - (int)(acStack_80 + 1);
   if (iStack_ac == 0) {
 LAB_00442907:
-    iVar9 = DAT_005b3484;
+    iVar9 = g_clientContext;
     pcVar8 = acStack_80;
     do {
       cVar3 = *pcVar8;
@@ -353,7 +353,7 @@ LAB_00442907:
       BlitRLESprite(0x21c,0);
       iVar12 = BlitRLESprite(0x21b,0xffe0);
       iVar5 = iStack_a4;
-      iVar9 = DAT_005b3484;
+      iVar9 = g_clientContext;
     }
     else {
       iVar12 = BlitRLESprite(0x208,0xffff);
@@ -426,15 +426,15 @@ LAB_00442760:
     }
   }
 LAB_00442790:
-  iVar9 = DAT_005b3484;
-  pcVar8 = (char *)(iStack_ac + 0x457f1 + DAT_005b3484);
+  iVar9 = g_clientContext;
+  pcVar8 = (char *)(iStack_ac + 0x457f1 + g_clientContext);
   do {
     cVar3 = *pcVar8;
     pcVar8 = pcVar8 + 1;
   } while (cVar3 != '\0');
   FUN_004eb510(*piVar17 + 5,
-               -(uint)(*(char *)(DAT_005b3484 + 0x4590c + iStack_b0) !=
-                      *(char *)(DAT_005b3484 + 0x3b6c0)) & 0xfae8);
+               -(uint)(*(char *)(g_clientContext + 0x4590c + iStack_b0) !=
+                      *(char *)(g_clientContext + 0x3b6c0)) & 0xfae8);
   BlitRLESprite(*piVar17 + 5,0xffff);
 LAB_00442805:
   iStack_ac = iStack_ac + 0xd;

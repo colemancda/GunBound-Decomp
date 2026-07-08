@@ -18,7 +18,7 @@ void __thiscall FUN_00436980(undefined4 param_1,int param_2,int param_3,int para
   int iVar6;
   
   cVar1 = FUN_004065a0(param_1);
-  if ((cVar1 == '\0') && (iVar6 = 0, (&DAT_005f2f54)[DAT_005b3484] != '\0')) {
+  if ((cVar1 == '\0') && (iVar6 = 0, (&DAT_005f2f54)[g_clientContext] != '\0')) {
     do {
       puVar2 = operator_new(0x4c);
       puVar5 = (undefined4 *)0x0;
@@ -54,7 +54,7 @@ void __thiscall FUN_00436980(undefined4 param_1,int param_2,int param_3,int para
       *(undefined2 *)(puVar5 + 0x12) = param_4;
       RegisterActiveObject();
       iVar6 = iVar6 + 1;
-    } while (iVar6 < (int)((uint)(byte)(&DAT_005f2f54)[DAT_005b3484] * 2));
+    } while (iVar6 < (int)((uint)(byte)(&DAT_005f2f54)[g_clientContext] * 2));
   }
   return;
 }

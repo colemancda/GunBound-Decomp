@@ -14,9 +14,9 @@ void FUN_00425700(void)
   DWORD DVar2;
   int unaff_ESI;
   
-  iVar1 = __stricmp((char *)(DAT_005b3484 + 0x23313),&DAT_00551e24);
+  iVar1 = __stricmp((char *)(g_clientContext + 0x23313),&DAT_00551e24);
   if (iVar1 != 0) {
-    iVar1 = __stricmp((char *)(DAT_005b3484 + 0x23313),&DAT_00552c68);
+    iVar1 = __stricmp((char *)(g_clientContext + 0x23313),&DAT_00552c68);
     if ((iVar1 != 0) && (*(int *)(&DAT_0067e3c8 + unaff_ESI) < 0x20)) {
       DVar2 = GetTickCount();
       *(DWORD *)(&DAT_0067e348 + *(int *)(&DAT_0067e3c8 + unaff_ESI) * 4 + unaff_ESI) =

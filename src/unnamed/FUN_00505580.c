@@ -39,7 +39,7 @@ void FUN_00505580(int param_1)
   if (*(int *)(*(int *)(param_1 + 0x50) + -0xc) != 0) {
     iVar3 = FUN_00401bb0(&DAT_00e53e88);
     if (iVar3 == 0) {
-      iVar3 = __mbsicmp(*(uchar **)(param_1 + 0x50),(uchar *)(DAT_005b3484 + 0x23330));
+      iVar3 = __mbsicmp(*(uchar **)(param_1 + 0x50),(uchar *)(g_clientContext + 0x23330));
       if (iVar3 != 0) {
         FUN_00402ad0(&DAT_00e53e88,&DAT_0054b460);
         goto LAB_0050566b;

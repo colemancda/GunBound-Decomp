@@ -25,7 +25,7 @@ void FUN_00425840(void)
       pcVar3 = pcVar3 + 1;
     } while (cVar1 != '\0');
     if (pcVar3 != unaff_ESI + 1) {
-      iVar2 = __stricmp(unaff_ESI,(char *)(DAT_005b3484 + 0x23330));
+      iVar2 = __stricmp(unaff_ESI,(char *)(g_clientContext + 0x23330));
       if (iVar2 != 0) {
         FUN_00415bc0(unaff_ESI);
         pcVar3 = (char *)FUN_0043dc70(&DAT_00796eec,0x1fe);

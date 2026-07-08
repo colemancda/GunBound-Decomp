@@ -30,7 +30,7 @@ uint __thiscall FUN_0050a1b0(int param_1,int param_2,int param_3)
          ) {
         iVar4 = FUN_0050cdb0();
         if ((iVar4 != -1) &&
-           ((uint)(*(int *)(puVar1 + 0x454) + iVar4) < *(uint *)(DAT_005b3484 + 0x44e24))) {
+           ((uint)(*(int *)(puVar1 + 0x454) + iVar4) < *(uint *)(g_clientContext + 0x44e24))) {
           QueueOutgoingPacketField(iVar4);
           *(undefined1 *)(param_1 + 0x90) = 1;
           FUN_0050ce60(param_1);

@@ -240,8 +240,8 @@ LAB_0048bc2e:
             *(byte *)(iVar3 + 0xf4d) = bVar6;
             *(byte *)(iVar3 + 0xf4e) = bVar6 + bVar7 + -0x34;
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar3 = DAT_005b3484;
-            pbVar11 = (byte *)(DAT_005b3484 + 0x62140);
+            iVar3 = g_clientContext;
+            pbVar11 = (byte *)(g_clientContext + 0x62140);
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar5 = _rand();
             *pbVar11 = (byte)iVar5;
@@ -337,7 +337,7 @@ LAB_0048d0e3:
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           local_15a0 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar5 = FUN_00425ac0(DAT_005b3484,local_15a0,local_158c,iVar5 / *(int *)(iVar3 + 0x3fa4));
+          iVar5 = FUN_00425ac0(g_clientContext,local_15a0,local_158c,iVar5 / *(int *)(iVar3 + 0x3fa4));
           if (((iVar5 != 0) && (cVar1 = FUN_004065a0(), cVar1 != '\0')) &&
              (cVar1 = FUN_004065a0(), cVar1 != '\x01')) {
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -528,8 +528,8 @@ LAB_0048c664:
             *(byte *)(iVar5 + 0xf4d) = bVar6;
             *(byte *)(iVar5 + 0xf4e) = bVar7 + bVar6 + -0x34;
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar3 = DAT_005b3484;
-            pbVar11 = (byte *)(DAT_005b3484 + 0x62140);
+            iVar3 = g_clientContext;
+            pbVar11 = (byte *)(g_clientContext + 0x62140);
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar5 = _rand();
             *pbVar11 = (byte)iVar5;
@@ -631,7 +631,7 @@ LAB_0048d0d0:
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           local_15a0 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar5 = FUN_00425ac0(DAT_005b3484,local_15a0,local_1580[0],
+          iVar5 = FUN_00425ac0(g_clientContext,local_15a0,local_1580[0],
                                (int)local_15ac / *(int *)(iVar3 + 0x3fa4));
           if (((iVar5 != 0) && (cVar1 = FUN_004065a0(), cVar1 != '\0')) &&
              (cVar1 = FUN_004065a0(), cVar1 != '\x01')) {

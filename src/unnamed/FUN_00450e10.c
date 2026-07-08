@@ -14,8 +14,8 @@ undefined4 FUN_00450e10(int param_1)
   int iVar2;
   int unaff_EBX;
   
-  if ((((-1 < unaff_EBX) && (unaff_EBX < *(int *)(&DAT_006a7720 + DAT_005b3484))) && (-1 < param_1))
-     && (param_1 < *(int *)(&DAT_006a7724 + DAT_005b3484))) {
+  if ((((-1 < unaff_EBX) && (unaff_EBX < *(int *)(&DAT_006a7720 + g_clientContext))) && (-1 < param_1))
+     && (param_1 < *(int *)(&DAT_006a7724 + g_clientContext))) {
     iVar2 = FUN_004f2f90();
     if (iVar2 != 0) {
       iVar2 = *(int *)(iVar2 + 0x10);

@@ -896,8 +896,8 @@ LAB_00472e11:
         puStack_4d48 = (undefined *)FUN_0040a4d0();
         puStack_4d4c = (undefined1 *)0x4730ab;
         QueueOutgoingPacketField();
-        iVar2 = DAT_005b3484;
-        *(undefined4 *)(&DAT_005f3768 + DAT_005b3484) = 5;
+        iVar2 = g_clientContext;
+        *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;
         *(undefined4 *)(&DAT_005f376c + iVar2) = 0;
         puStack_4d48 = (undefined *)0x1;
         puStack_4d4c = (undefined1 *)0x4730d0;

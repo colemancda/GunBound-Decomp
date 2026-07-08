@@ -49,7 +49,7 @@ void FUN_0047c3f0(void)
   *unaff_FS_OFFSET = (int)&iStack_c;
   unaff_ESI[0xfef] = 3;
   (**(code **)(*unaff_ESI + 4))();
-  iVar2 = GetPlayerRecordBySlot(DAT_005b3484);
+  iVar2 = GetPlayerRecordBySlot(g_clientContext);
   if (iVar2 == 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState();
@@ -79,11 +79,11 @@ void FUN_0047c3f0(void)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     aiStack_acc[0] = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if (*(int *)(&DAT_006a7724 + DAT_005b3484) + iVar3 < aiStack_acc[0]) {
+    if (*(int *)(&DAT_006a7724 + g_clientContext) + iVar3 < aiStack_acc[0]) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar3 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = *(int *)(&DAT_006a7724 + DAT_005b3484) + iVar3;
+      iVar3 = *(int *)(&DAT_006a7724 + g_clientContext) + iVar3;
     }
     else {
       FUN_0040a5f0(iVar2 + 0xb30,auStack_ac4,
@@ -125,11 +125,11 @@ void FUN_0047c3f0(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   (*pcVar8)(&DAT_005a9068);
-  if ((int)(*(int *)(&DAT_006a7724 + DAT_005b3484) + uStack_ad4) < unaff_EDI) {
+  if ((int)(*(int *)(&DAT_006a7724 + g_clientContext) + uStack_ad4) < unaff_EDI) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();
     (*pcVar8)(&DAT_005a9068);
-    puVar6 = &DAT_00553f90 + *(int *)(&DAT_006a7724 + DAT_005b3484);
+    puVar6 = &DAT_00553f90 + *(int *)(&DAT_006a7724 + g_clientContext);
   }
   else {
     FUN_0040a6e0(iVar3,auStack_684,400);

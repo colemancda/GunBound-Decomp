@@ -35,7 +35,7 @@ void __thiscall State10_Loading_HandleChatInput(int *param_1,int param_2,int par
   cVar2 = FUN_004065a0();
   if (cVar2 == '\0') {
     FUN_0040c880();
-    if ((acStack_80[0] != '\0') && (cVar2 = FUN_004218c0(DAT_005b3484,acStack_80), cVar2 == '\0')) {
+    if ((acStack_80[0] != '\0') && (cVar2 = FUN_004218c0(g_clientContext,acStack_80), cVar2 == '\0')) {
       cVar2 = FUN_00415b00(acStack_80);
       if (cVar2 == '\x01') {
         uVar4 = 0x202;

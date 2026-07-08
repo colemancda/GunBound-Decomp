@@ -19,7 +19,7 @@ void FUN_00437150(int param_1,int param_2,int param_3,int param_4)
   
   cVar1 = FUN_004065a0();
   if ((cVar1 == '\0') &&
-     (local_8 = 0, 0 < (int)((uint)(byte)(&DAT_005f2f54)[DAT_005b3484] * param_4))) {
+     (local_8 = 0, 0 < (int)((uint)(byte)(&DAT_005f2f54)[g_clientContext] * param_4))) {
     do {
       puVar2 = operator_new(0x58);
       puVar5 = (undefined4 *)0x0;
@@ -63,7 +63,7 @@ void FUN_00437150(int param_1,int param_2,int param_3,int param_4)
       puVar5[0x15] = iVar4 % 0x15 - iVar3;
       RegisterActiveObject();
       local_8 = local_8 + 1;
-    } while (local_8 < (int)((uint)(byte)(&DAT_005f2f54)[DAT_005b3484] * param_4));
+    } while (local_8 < (int)((uint)(byte)(&DAT_005f2f54)[g_clientContext] * param_4));
   }
   return;
 }

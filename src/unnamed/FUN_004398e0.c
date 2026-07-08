@@ -58,7 +58,7 @@ void FUN_004398e0(undefined4 param_1,int param_2,undefined4 param_3,undefined4 p
       puVar5[0xfe7] = 0xffffffff;
     }
     local_4 = 0xffffffff;
-    iVar4 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+    iVar4 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
     uVar1 = *(uint *)(iVar4 + 4);
     while (uVar1 < 0x186ab) {
       if (uVar1 == 0x186aa) {
@@ -117,7 +117,7 @@ LAB_004399d4:
         iVar12 = param_5;
       }
       else {
-        cVar3 = FUN_004e4fe0(&DAT_006a7708 + DAT_005b3484,&param_3,&param_4,2,1,1);
+        cVar3 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&param_3,&param_4,2,1,1);
         iVar12 = param_5;
         if (cVar3 != '\0') {
           uStack_10 = 0;

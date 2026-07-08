@@ -85,7 +85,7 @@ void __fastcall FUN_004d9ae0(int param_1)
     iStack_8c = 0;
     iStack_88 = 0;
     piVar8 = (int *)(param_1 + 0x768);
-    iVar3 = DAT_005b3484;
+    iVar3 = g_clientContext;
     do {
       if ((*(char *)(iVar3 + 0x45914 + iStack_8c) != '\0') &&
          (cVar6 = *(char *)(iVar3 + 0x4590c + iStack_8c), cVar6 != -1)) {
@@ -113,15 +113,15 @@ void __fastcall FUN_004d9ae0(int param_1)
             BlitSpriteClipped(cVar6);
           }
         }
-        iVar3 = DAT_005b3484;
-        pcVar5 = (char *)(iStack_88 + 0x457f1 + DAT_005b3484);
+        iVar3 = g_clientContext;
+        pcVar5 = (char *)(iStack_88 + 0x457f1 + g_clientContext);
         do {
           cVar6 = *pcVar5;
           pcVar5 = pcVar5 + 1;
         } while (cVar6 != '\0');
         FUN_004eb510(*piVar8 + 5,
-                     -(uint)(*(char *)(DAT_005b3484 + 0x4590c + iStack_8c) !=
-                            *(char *)(DAT_005b3484 + 0x3b6c0)) & 0xfae8);
+                     -(uint)(*(char *)(g_clientContext + 0x4590c + iStack_8c) !=
+                            *(char *)(g_clientContext + 0x3b6c0)) & 0xfae8);
         BlitRLESprite(*piVar8 + 5,0xffff);
       }
       iStack_88 = iStack_88 + 0xd;
@@ -244,8 +244,8 @@ LAB_004d9f58:
     }
   }
 LAB_004d9f98:
-  iVar3 = DAT_005b3484;
-  uVar2 = (*(byte *)(DAT_005b3484 + 0x45124) >> 1) + 0x16;
+  iVar3 = g_clientContext;
+  uVar2 = (*(byte *)(g_clientContext + 0x45124) >> 1) + 0x16;
   if (DAT_0079352c != 0) {
     iVar7 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar1 = *(uint *)(iVar7 + 4);
@@ -331,7 +331,7 @@ LAB_004da1e2:
     }
   }
 LAB_004da286:
-  if ((((*(short *)(&DAT_006aa660 + DAT_005b3484) != -1) && (*(int *)(param_1 + 0x740) % 0x14 < 10))
+  if ((((*(short *)(&DAT_006aa660 + g_clientContext) != -1) && (*(int *)(param_1 + 0x740) % 0x14 < 10))
       && (DAT_0079352c != 0)) && (iVar3 = FUN_004f30c0(), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0,0x164);

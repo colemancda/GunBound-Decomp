@@ -19,8 +19,8 @@ void FUN_00436bd0(int param_1,int param_2,int param_3)
   cVar1 = FUN_004065a0();
   if (cVar1 == '\0') {
     iVar2 = _rand();
-    if ((uint)(byte)(&DAT_005f2f54)[DAT_005b3484] * param_3 - iVar2 % 200 != 0 &&
-        iVar2 % 200 <= (int)((uint)(byte)(&DAT_005f2f54)[DAT_005b3484] * param_3)) {
+    if ((uint)(byte)(&DAT_005f2f54)[g_clientContext] * param_3 - iVar2 % 200 != 0 &&
+        iVar2 % 200 <= (int)((uint)(byte)(&DAT_005f2f54)[g_clientContext] * param_3)) {
       pvVar3 = operator_new(0x50);
       if (pvVar3 == (void *)0x0) {
         iVar2 = 0;

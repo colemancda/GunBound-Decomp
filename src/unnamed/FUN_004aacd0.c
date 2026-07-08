@@ -25,8 +25,8 @@ void __fastcall FUN_004aacd0(int param_1)
   int iVar13;
   int local_1c;
   
-  iVar6 = DAT_005b3484;
-  *(undefined1 *)(*(int *)(param_1 + 8) + 0x22d33 + DAT_005b3484) = 1;
+  iVar6 = g_clientContext;
+  *(undefined1 *)(*(int *)(param_1 + 8) + 0x22d33 + g_clientContext) = 1;
   iVar13 = 0;
   do {
     if (iVar13 == 0) {

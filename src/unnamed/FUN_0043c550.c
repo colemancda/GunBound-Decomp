@@ -15,7 +15,7 @@ uint FUN_0043c550(undefined4 param_1,undefined4 param_2)
   char cVar3;
   int iVar4;
   
-  iVar1 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+  iVar1 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar2 = *(uint *)(iVar1 + 4);
   while( true ) {
     if (0x186a1 < uVar2) {

@@ -80,7 +80,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
    * included in this function's own decompile. Same rationale as
    * entry/InitGame.c - see src/README.md. local_c is a real, separate
    * local reused elsewhere in this function, kept as-is. */
-  iVar10 = DAT_005b3484;
+  iVar10 = g_clientContext;
   if (0x21f1 < opcode) {
     if (opcode < 0x6002) {
       if (opcode == 0x6001) {
@@ -130,12 +130,12 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
               } while ((int)local_690 < iVar10);
             }
           }
-          *(undefined1 *)(DAT_005b3484 + 0x44bf8) = 1;
+          *(undefined1 *)(g_clientContext + 0x44bf8) = 1;
           g_pendingGameState = 7;
           g_stateChangeRequested = 1;
           ChangeGameState(7);
           bVar30 = DAT_007934f4 != 0;
-          *(undefined4 *)(DAT_005b3484 + 0x41340) = 0xfffffffe;
+          *(undefined4 *)(g_clientContext + 0x41340) = 0xfffffffe;
           if (bVar30) {
             FUN_00405ba0();
             return;
@@ -151,7 +151,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             if (*(int *)((int)this + 4) == iVar10) {
               *(undefined4 *)((int)this + 4) = 0xffffffff;
             }
-            iVar10 = iVar10 * 0x80 + DAT_005b3484;
+            iVar10 = iVar10 * 0x80 + g_clientContext;
             uVar21 = payloadLen - 2U & ((int)(payloadLen - 2U) < 0) - 1;
             puVar9 = payload + 1;
             puVar12 = (undefined4 *)(iVar10 + 0x4467c);
@@ -175,7 +175,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             if (*(int *)((int)this + 4) == iVar10) {
               *(undefined4 *)((int)this + 4) = 0xffffffff;
             }
-            *(char *)(iVar10 + 0x4497c + DAT_005b3484) = (char)payload[1];
+            *(char *)(iVar10 + 0x4497c + g_clientContext) = (char)payload[1];
             return;
           }
           break;
@@ -185,7 +185,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             if (*(int *)((int)this + 4) == iVar10) {
               *(undefined4 *)((int)this + 4) = 0xffffffff;
             }
-            *(undefined4 *)(DAT_005b3484 + 0x44984 + iVar10 * 4) = *(undefined4 *)(payload + 1);
+            *(undefined4 *)(g_clientContext + 0x44984 + iVar10 * 4) = *(undefined4 *)(payload + 1);
             return;
           }
           break;
@@ -195,7 +195,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             if (*(int *)((int)this + 4) == iVar10) {
               *(undefined4 *)((int)this + 4) = 0xffffffff;
             }
-            *(char *)(iVar10 + 0x4499c + DAT_005b3484) = (char)payload[1];
+            *(char *)(iVar10 + 0x4499c + g_clientContext) = (char)payload[1];
             return;
           }
           break;
@@ -205,7 +205,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             if (*(int *)((int)this + 4) == iVar10) {
               *(undefined4 *)((int)this + 4) = 0xffffffff;
             }
-            *(char *)(iVar10 + 0x449a2 + DAT_005b3484) = (char)payload[1];
+            *(char *)(iVar10 + 0x449a2 + g_clientContext) = (char)payload[1];
             return;
           }
           break;
@@ -215,7 +215,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             if (*(int *)((int)this + 4) == iVar10) {
               *(undefined4 *)((int)this + 4) = 0xffffffff;
             }
-            *(char *)(iVar10 + 0x449a8 + DAT_005b3484) = (char)payload[1];
+            *(char *)(iVar10 + 0x449a8 + g_clientContext) = (char)payload[1];
             return;
           }
         }
@@ -226,12 +226,12 @@ switchD_00428058_default:
   }
   if (opcode == 0x21f1) {
     iVar24 = 0;
-    if (*(char *)(DAT_005b3484 + 0x44648) != '\0') {
-      puVar22 = (uint *)(DAT_005b3484 + 0x44664);
+    if (*(char *)(g_clientContext + 0x44648) != '\0') {
+      puVar22 = (uint *)(g_clientContext + 0x44664);
       while (*puVar22 != (uint)*payload) {
         iVar24 = iVar24 + 1;
         puVar22 = puVar22 + 1;
-        if ((int)(uint)*(byte *)(DAT_005b3484 + 0x44648) <= iVar24) {
+        if ((int)(uint)*(byte *)(g_clientContext + 0x44648) <= iVar24) {
           return;
         }
       }
@@ -254,19 +254,19 @@ switchD_00428058_default:
       }
       uVar23 = (uint)(byte)payload[1];
       puVar12 = (undefined4 *)((int)payload + 3);
-      puVar28 = (undefined4 *)(*(int *)((int)this + 0x124) * 0x80 + 0x4467c + DAT_005b3484);
+      puVar28 = (undefined4 *)(*(int *)((int)this + 0x124) * 0x80 + 0x4467c + g_clientContext);
       for (uVar21 = (uint)(byte)((byte)payload[1] >> 2); uVar21 != 0; uVar21 = uVar21 - 1) {
         *puVar28 = *puVar12;
         puVar12 = puVar12 + 1;
         puVar28 = puVar28 + 1;
       }
-      for (uVar21 = uVar23 & 3; iVar10 = DAT_005b3484, uVar21 != 0; uVar21 = uVar21 - 1) {
+      for (uVar21 = uVar23 & 3; iVar10 = g_clientContext, uVar21 != 0; uVar21 = uVar21 - 1) {
         *(undefined1 *)puVar28 = *(undefined1 *)puVar12;
         puVar12 = (undefined4 *)((int)puVar12 + 1);
         puVar28 = (undefined4 *)((int)puVar28 + 1);
       }
       puVar11 = (undefined1 *)((int)payload + 3 + uVar23);
-      *(undefined1 *)(*(int *)((int)this + 0x124) * 0x80 + uVar23 + 0x4467c + DAT_005b3484) = 0;
+      *(undefined1 *)(*(int *)((int)this + 0x124) * 0x80 + uVar23 + 0x4467c + g_clientContext) = 0;
       pcVar25 = (char *)(*(int *)((int)this + 0x124) * 0x80 + 0x4467c + iVar10);
       pcVar29 = (char *)((int)this + 300);
       do {
@@ -343,14 +343,14 @@ switchD_00428058_default:
           FUN_00405ba0();
         }
       }
-      FUN_00507cc0(1,*(undefined4 *)(DAT_005b3484 + 0x41340));
+      FUN_00507cc0(1,*(undefined4 *)(g_clientContext + 0x41340));
       return;
     }
     if (opcode == 0x201f) {
-      iVar10 = FUN_004259d0((uint)(byte)*payload * 0xd + 0x41445 + DAT_005b3484);
+      iVar10 = FUN_004259d0((uint)(byte)*payload * 0xd + 0x41445 + g_clientContext);
       if (iVar10 == -1) {
-        FUN_0041b8c0(DAT_005b3484,0,(uint)(byte)*payload * 9 + 0x43548 + DAT_005b3484,
-                     (uint)(byte)*payload * 0xd + 0x41445 + DAT_005b3484,payload + 7,0,0);
+        FUN_0041b8c0(g_clientContext,0,(uint)(byte)*payload * 9 + 0x43548 + g_clientContext,
+                     (uint)(byte)*payload * 0xd + 0x41445 + g_clientContext,payload + 7,0,0);
         return;
       }
       goto switchD_00428058_default;
@@ -359,7 +359,7 @@ switchD_00428058_default:
     if (*payload == 0) {
       uVar6 = payload[1];
       puVar9 = payload + 2;
-      *(char *)(DAT_005b3484 + 0x44648) = (char)uVar6;
+      *(char *)(g_clientContext + 0x44648) = (char)uVar6;
       *(bool *)((int)this + 0x120) = (char)uVar6 == '\x06';
       if (*(char *)(iVar10 + 0x44648) != '\0') {
         *(undefined4 *)((int)this + 0x118) = *(undefined4 *)((int)this + 0x11c);
@@ -391,7 +391,7 @@ switchD_00428058_default:
               puVar27 = puVar27 + 2;
               puVar28 = puVar28 + 1;
             }
-            for (uVar21 = uVar21 & 3; iVar10 = DAT_005b3484, uVar21 != 0; uVar21 = uVar21 - 1) {
+            for (uVar21 = uVar21 & 3; iVar10 = g_clientContext, uVar21 != 0; uVar21 = uVar21 - 1) {
               *(char *)puVar28 = (char)*puVar27;
               puVar27 = (ushort *)((int)puVar27 + 1);
               puVar28 = (undefined4 *)((int)puVar28 + 1);
@@ -419,9 +419,9 @@ switchD_00428058_default:
         } while ((int)local_688 < (int)(uint)*(byte *)(iVar10 + 0x44648));
       }
       cVar7 = FUN_004065a0();
-      iVar10 = DAT_005b3484;
-      if ((cVar7 == '\x01') && (*(short *)(DAT_005b3484 + 0x3b96f) != -1)) {
-        iVar24 = (int)*(short *)(DAT_005b3484 + 0x3b96f) % 6;
+      iVar10 = g_clientContext;
+      if ((cVar7 == '\x01') && (*(short *)(g_clientContext + 0x3b96f) != -1)) {
+        iVar24 = (int)*(short *)(g_clientContext + 0x3b96f) % 6;
         *(int *)((int)this + 4) = iVar24;
         if ((*(int *)(iVar10 + 0x4464c + iVar24 * 4) != 0) &&
            ((*(char *)(iVar24 + 0x449a8 + iVar10) == '\0' &&
@@ -460,7 +460,7 @@ switchD_00428058_default:
               puVar12 = puVar12 + 1;
               puVar28 = puVar28 + 1;
             }
-            for (uVar21 = uVar23 & 3; iVar14 = DAT_005b3484, uVar21 != 0; uVar21 = uVar21 - 1) {
+            for (uVar21 = uVar23 & 3; iVar14 = g_clientContext, uVar21 != 0; uVar21 = uVar21 - 1) {
               *(undefined1 *)puVar28 = *(undefined1 *)puVar12;
               puVar12 = (undefined4 *)((int)puVar12 + 1);
               puVar28 = (undefined4 *)((int)puVar28 + 1);
@@ -492,11 +492,11 @@ switchD_00428058_default:
          * context. */
         QueueOutgoingPacketField((char)payload[1]);
         EncodeChecksumState(uVar13);
-        FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
+        FUN_0040a4d0(g_clientContext + 0x3b49c);
         FUN_004e7340();
-        uVar13 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(int *)(DAT_005b3484 + 0x4739c) = *(int *)(DAT_005b3484 + 0x4739c) + 1;
+        uVar13 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        iVar10 = g_clientContext;
+        *(int *)(g_clientContext + 0x4739c) = *(int *)(g_clientContext + 0x4739c) + 1;
         FUN_00415ce0(uVar13);
         *(uint *)(iVar10 + 0x44e60) = (uint)*(ushort *)((int)payload + 3);
         *(undefined1 *)((int)this + 0x115) = 2;
@@ -520,15 +520,15 @@ switchD_00428058_default:
         } while (cVar7 != '\0');
         *(undefined1 *)(iVar10 + 0x44ef8) = 0;
         QueueOutgoingPacketField(*(undefined4 *)((int)this + 0x110));
-        iVar10 = DAT_005b3484;
-        *(undefined1 *)(DAT_005b3484 + 0x45124) = *(undefined1 *)((int)this + 0x114);
+        iVar10 = g_clientContext;
+        *(undefined1 *)(g_clientContext + 0x45124) = *(undefined1 *)((int)this + 0x114);
         *(undefined1 *)(iVar10 + 0x45125) = 1;
         pcVar29 = (char *)(iVar10 + 0x23330);
         *(undefined4 *)(iVar10 + 0x457a1) = 0xffffffff;
         *(undefined4 *)(iVar10 + 0x457a5) = 0xffffffff;
         iVar24 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        pcVar25 = (char *)(iVar24 * 0xd + 0x457f1 + DAT_005b3484);
+        iVar10 = g_clientContext;
+        pcVar25 = (char *)(iVar24 * 0xd + 0x457f1 + g_clientContext);
         do {
           cVar7 = *pcVar29;
           pcVar29 = pcVar29 + 1;
@@ -536,21 +536,21 @@ switchD_00428058_default:
           pcVar25 = pcVar25 + 1;
         } while (cVar7 != '\0');
         iVar24 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined1 *)(DAT_005b3484 + 0x458fc + iVar24 * 2) = 0xff;
+        iVar10 = g_clientContext;
+        *(undefined1 *)(g_clientContext + 0x458fc + iVar24 * 2) = 0xff;
         iVar24 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined1 *)(DAT_005b3484 + 0x458fd + iVar24 * 2) = 0xff;
+        iVar10 = g_clientContext;
+        *(undefined1 *)(g_clientContext + 0x458fd + iVar24 * 2) = 0xff;
         iVar24 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined1 *)(iVar24 + 0x4590c + DAT_005b3484) = 0;
+        iVar10 = g_clientContext;
+        *(undefined1 *)(iVar24 + 0x4590c + g_clientContext) = 0;
         iVar24 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined1 *)(iVar24 + 0x45914 + DAT_005b3484) = 1;
+        iVar10 = g_clientContext;
+        *(undefined1 *)(iVar24 + 0x45914 + g_clientContext) = 1;
         pcVar29 = (char *)(iVar10 + 0x23313);
         iVar24 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        pcVar25 = (char *)(iVar24 * 9 + 0x457a9 + DAT_005b3484);
+        iVar10 = g_clientContext;
+        pcVar25 = (char *)(iVar24 * 9 + 0x457a9 + g_clientContext);
         do {
           cVar7 = *pcVar29;
           pcVar29 = pcVar29 + 1;
@@ -558,128 +558,128 @@ switchD_00428058_default:
           pcVar25 = pcVar25 + 1;
         } while (cVar7 != '\0');
         uVar13 = FUN_0040a4d0(iVar10 + 0x239b4);
-        iVar24 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined4 *)(DAT_005b3484 + 0x4599c + iVar24 * 4) = uVar13;
+        iVar24 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        iVar10 = g_clientContext;
+        *(undefined4 *)(g_clientContext + 0x4599c + iVar24 * 4) = uVar13;
         iVar14 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar24 = DAT_005b3484;
-        *(undefined2 *)(DAT_005b3484 + 0x4591c + iVar14 * 2) = *(undefined2 *)(iVar10 + 0x23344);
+        iVar24 = g_clientContext;
+        *(undefined2 *)(g_clientContext + 0x4591c + iVar14 * 2) = *(undefined2 *)(iVar10 + 0x23344);
         iVar14 = FUN_0040a4d0(iVar24 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined2 *)(DAT_005b3484 + 0x4592c + iVar14 * 2) = *(undefined2 *)(iVar24 + 0x23346);
+        iVar10 = g_clientContext;
+        *(undefined2 *)(g_clientContext + 0x4592c + iVar14 * 2) = *(undefined2 *)(iVar24 + 0x23346);
         uVar13 = FUN_0040a4d0(iVar10 + 0x23348);
-        iVar24 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined4 *)(DAT_005b3484 + 0x4593c + iVar24 * 4) = uVar13;
+        iVar24 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        iVar10 = g_clientContext;
+        *(undefined4 *)(g_clientContext + 0x4593c + iVar24 * 4) = uVar13;
         uVar13 = FUN_0040a4d0(iVar10 + 0x2356c);
-        iVar24 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined4 *)(DAT_005b3484 + 0x4595c + iVar24 * 4) = uVar13;
+        iVar24 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        iVar10 = g_clientContext;
+        *(undefined4 *)(g_clientContext + 0x4595c + iVar24 * 4) = uVar13;
         uVar13 = FUN_0040a4d0(iVar10 + 0x23790);
-        iVar24 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined4 *)(DAT_005b3484 + 0x4597c + iVar24 * 4) = uVar13;
+        iVar24 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        iVar10 = g_clientContext;
+        *(undefined4 *)(g_clientContext + 0x4597c + iVar24 * 4) = uVar13;
         uVar8 = FUN_0040a4d0(iVar10 + 0x3ac08);
-        iVar24 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined2 *)(DAT_005b3484 + 0x458bc + iVar24 * 8) = uVar8;
+        iVar24 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        iVar10 = g_clientContext;
+        *(undefined2 *)(g_clientContext + 0x458bc + iVar24 * 8) = uVar8;
         uVar8 = FUN_0040a4d0(iVar10 + 0x3ae2c);
-        iVar24 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined2 *)(DAT_005b3484 + 0x458be + iVar24 * 8) = uVar8;
+        iVar24 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        iVar10 = g_clientContext;
+        *(undefined2 *)(g_clientContext + 0x458be + iVar24 * 8) = uVar8;
         uVar8 = FUN_0040a4d0(iVar10 + 0x3b050);
-        iVar24 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined2 *)(DAT_005b3484 + 0x458c0 + iVar24 * 8) = uVar8;
+        iVar24 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        iVar10 = g_clientContext;
+        *(undefined2 *)(g_clientContext + 0x458c0 + iVar24 * 8) = uVar8;
         uVar8 = FUN_0040a4d0(iVar10 + 0x3b274);
-        iVar24 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined2 *)(DAT_005b3484 + 0x458c2 + iVar24 * 8) = uVar8;
+        iVar24 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        iVar10 = g_clientContext;
+        *(undefined2 *)(g_clientContext + 0x458c2 + iVar24 * 8) = uVar8;
         iVar24 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined4 *)(DAT_005b3484 + 0x4663c + iVar24 * 4) = 0;
+        iVar10 = g_clientContext;
+        *(undefined4 *)(g_clientContext + 0x4663c + iVar24 * 4) = 0;
         iVar24 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined4 *)(DAT_005b3484 + 0x4665c + iVar24 * 4) = 0;
+        iVar10 = g_clientContext;
+        *(undefined4 *)(g_clientContext + 0x4665c + iVar24 * 4) = 0;
         iVar24 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined4 *)(DAT_005b3484 + 0x4733c + iVar24 * 4) = 0;
+        iVar10 = g_clientContext;
+        *(undefined4 *)(g_clientContext + 0x4733c + iVar24 * 4) = 0;
         iVar24 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined4 *)(DAT_005b3484 + 0x4735c + iVar24 * 4) = 0;
+        iVar10 = g_clientContext;
+        *(undefined4 *)(g_clientContext + 0x4735c + iVar24 * 4) = 0;
         iVar24 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar10 = DAT_005b3484;
-        *(undefined4 *)(DAT_005b3484 + 0x472fc + iVar24 * 4) = 0;
+        iVar10 = g_clientContext;
+        *(undefined4 *)(g_clientContext + 0x472fc + iVar24 * 4) = 0;
         iVar24 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        iVar10 = DAT_005b3484;
+        iVar10 = g_clientContext;
         iVar14 = 0;
-        *(undefined4 *)(DAT_005b3484 + 0x4731c + iVar24 * 4) = 0;
+        *(undefined4 *)(g_clientContext + 0x4731c + iVar24 * 4) = 0;
         iVar24 = 0;
         do {
           uVar13 = FUN_0040a4d0(iVar24 + 0x23bd8 + iVar10);
-          iVar15 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-          iVar10 = iVar24 + 0x266a8 + DAT_005b3484;
-          *(undefined4 *)(DAT_005b3484 + 0x459bc + (iVar14 + iVar15 * 0x14) * 4) = uVar13;
+          iVar15 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          iVar10 = iVar24 + 0x266a8 + g_clientContext;
+          *(undefined4 *)(g_clientContext + 0x459bc + (iVar14 + iVar15 * 0x14) * 4) = uVar13;
           uVar13 = FUN_0040a4d0(iVar10);
-          iVar15 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-          iVar10 = DAT_005b3484;
-          *(undefined4 *)(DAT_005b3484 + 0x45c3c + (iVar14 + iVar15 * 0x14) * 4) = uVar13;
+          iVar15 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          iVar10 = g_clientContext;
+          *(undefined4 *)(g_clientContext + 0x45c3c + (iVar14 + iVar15 * 0x14) * 4) = uVar13;
           iVar16 = FUN_0040a4d0(iVar10 + 0x3b49c);
-          iVar10 = DAT_005b3484 + 0x45c3c;
-          iVar15 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-          iVar15 = *(int *)(DAT_005b3484 + 0x459bc + (iVar14 + iVar15 * 0x14) * 4);
+          iVar10 = g_clientContext + 0x45c3c;
+          iVar15 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          iVar15 = *(int *)(g_clientContext + 0x459bc + (iVar14 + iVar15 * 0x14) * 4);
           iVar10 = *(int *)(iVar10 + (iVar14 + iVar16 * 0x14) * 4);
-          iVar17 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-          iVar16 = DAT_005b3484;
-          *(int *)(DAT_005b3484 + 0x463bc + (iVar14 + iVar17 * 0x14) * 4) = iVar15 + iVar10;
+          iVar17 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          iVar16 = g_clientContext;
+          *(int *)(g_clientContext + 0x463bc + (iVar14 + iVar17 * 0x14) * 4) = iVar15 + iVar10;
           iVar10 = FUN_0040a4d0(iVar16 + 0x3b49c);
-          piVar1 = (int *)(DAT_005b3484 + 0x4663c + iVar10 * 4);
-          iVar10 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-          iVar15 = DAT_005b3484 + 0x3b49c;
-          *piVar1 = *piVar1 + *(int *)(DAT_005b3484 + 0x459bc + (iVar14 + iVar10 * 0x14) * 4);
+          piVar1 = (int *)(g_clientContext + 0x4663c + iVar10 * 4);
+          iVar10 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          iVar15 = g_clientContext + 0x3b49c;
+          *piVar1 = *piVar1 + *(int *)(g_clientContext + 0x459bc + (iVar14 + iVar10 * 0x14) * 4);
           iVar10 = FUN_0040a4d0(iVar15);
-          piVar1 = (int *)(DAT_005b3484 + 0x4665c + iVar10 * 4);
-          iVar15 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-          iVar10 = iVar24 + 0x2e718 + DAT_005b3484;
-          *piVar1 = *piVar1 + *(int *)(DAT_005b3484 + 0x45c3c + (iVar14 + iVar15 * 0x14) * 4);
+          piVar1 = (int *)(g_clientContext + 0x4665c + iVar10 * 4);
+          iVar15 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          iVar10 = iVar24 + 0x2e718 + g_clientContext;
+          *piVar1 = *piVar1 + *(int *)(g_clientContext + 0x45c3c + (iVar14 + iVar15 * 0x14) * 4);
           uVar13 = FUN_0040a4d0(iVar10);
-          iVar15 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-          iVar10 = iVar24 + 0x311e8 + DAT_005b3484;
-          *(undefined4 *)(DAT_005b3484 + 0x4667c + (iVar14 + iVar15 * 0x14) * 4) = uVar13;
+          iVar15 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          iVar10 = iVar24 + 0x311e8 + g_clientContext;
+          *(undefined4 *)(g_clientContext + 0x4667c + (iVar14 + iVar15 * 0x14) * 4) = uVar13;
           uVar13 = FUN_0040a4d0(iVar10);
-          iVar15 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-          iVar10 = DAT_005b3484;
-          *(undefined4 *)(DAT_005b3484 + 0x468fc + (iVar14 + iVar15 * 0x14) * 4) = uVar13;
+          iVar15 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          iVar10 = g_clientContext;
+          *(undefined4 *)(g_clientContext + 0x468fc + (iVar14 + iVar15 * 0x14) * 4) = uVar13;
           iVar16 = FUN_0040a4d0(iVar10 + 0x3b49c);
-          iVar10 = DAT_005b3484 + 0x468fc;
-          iVar15 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-          iVar15 = *(int *)(DAT_005b3484 + 0x4667c + (iVar14 + iVar15 * 0x14) * 4);
+          iVar10 = g_clientContext + 0x468fc;
+          iVar15 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          iVar15 = *(int *)(g_clientContext + 0x4667c + (iVar14 + iVar15 * 0x14) * 4);
           iVar10 = *(int *)(iVar10 + (iVar14 + iVar16 * 0x14) * 4);
-          iVar17 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-          iVar16 = DAT_005b3484;
-          *(int *)(DAT_005b3484 + 0x4707c + (iVar14 + iVar17 * 0x14) * 4) = iVar15 + iVar10;
+          iVar17 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          iVar16 = g_clientContext;
+          *(int *)(g_clientContext + 0x4707c + (iVar14 + iVar17 * 0x14) * 4) = iVar15 + iVar10;
           iVar10 = FUN_0040a4d0(iVar16 + 0x3b49c);
-          piVar1 = (int *)(DAT_005b3484 + 0x472fc + iVar10 * 4);
-          iVar10 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-          iVar15 = DAT_005b3484 + 0x3b49c;
-          *piVar1 = *piVar1 + *(int *)(DAT_005b3484 + 0x4667c + (iVar14 + iVar10 * 0x14) * 4);
+          piVar1 = (int *)(g_clientContext + 0x472fc + iVar10 * 4);
+          iVar10 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          iVar15 = g_clientContext + 0x3b49c;
+          *piVar1 = *piVar1 + *(int *)(g_clientContext + 0x4667c + (iVar14 + iVar10 * 0x14) * 4);
           iVar10 = FUN_0040a4d0(iVar15);
-          piVar1 = (int *)(DAT_005b3484 + 0x4731c + iVar10 * 4);
-          iVar15 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-          iVar10 = DAT_005b3484;
+          piVar1 = (int *)(g_clientContext + 0x4731c + iVar10 * 4);
+          iVar15 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          iVar10 = g_clientContext;
           iVar15 = iVar14 + iVar15 * 0x14;
           iVar24 = iVar24 + 0x224;
           iVar14 = iVar14 + 1;
-          *piVar1 = *piVar1 + *(int *)(DAT_005b3484 + 0x468fc + iVar15 * 4);
+          *piVar1 = *piVar1 + *(int *)(g_clientContext + 0x468fc + iVar15 * 4);
         } while (iVar24 < 0x2ad0);
         iVar10 = FUN_0040a4d0(iVar10 + 0x3b49c);
-        piVar1 = (int *)(DAT_005b3484 + 0x4733c + iVar10 * 4);
-        iVar10 = FUN_0040a4d0(DAT_005b3484 + 0x3947c);
+        piVar1 = (int *)(g_clientContext + 0x4733c + iVar10 * 4);
+        iVar10 = FUN_0040a4d0(g_clientContext + 0x3947c);
         *piVar1 = *piVar1 + iVar10;
-        iVar10 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
-        piVar1 = (int *)(DAT_005b3484 + 0x4735c + iVar10 * 4);
-        iVar24 = FUN_0040a4d0(DAT_005b3484 + 0x39258);
-        iVar10 = DAT_005b3484;
+        iVar10 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        piVar1 = (int *)(g_clientContext + 0x4735c + iVar10 * 4);
+        iVar24 = FUN_0040a4d0(g_clientContext + 0x39258);
+        iVar10 = g_clientContext;
         *piVar1 = *piVar1 + iVar24;
         _DAT_00e53c24 = 0;
         _DAT_00e53c28 = 799;
@@ -695,7 +695,7 @@ switchD_00428058_default:
         g_pendingGameState = 9;
         g_stateChangeRequested = 1;
         ChangeGameState(9);
-        *(undefined4 *)(DAT_005b3484 + 0x41340) = 0xffffffff;
+        *(undefined4 *)(g_clientContext + 0x41340) = 0xffffffff;
         if (DAT_007934f4 == 0) {
           FUN_00404410(&DAT_00e53e88);
         }
@@ -721,7 +721,7 @@ switchD_00428058_default:
                 bVar3 = *pbVar18;
                 pbVar18 = pbVar18 + 1;
               } while (bVar3 != 0);
-              FUN_0041b8c0(DAT_005b3484,2,0,0,&local_668,0,1);
+              FUN_0041b8c0(g_clientContext,2,0,0,&local_668,0,1);
               iVar10 = 0;
               pbVar18 = &local_668;
               for (iVar14 = 0x80; iVar14 != 0; iVar14 = iVar14 + -1) {
@@ -744,7 +744,7 @@ switchD_00428058_default:
           bVar3 = *pbVar18;
           pbVar18 = pbVar18 + 1;
         } while (bVar3 != 0);
-        FUN_0041b8c0(DAT_005b3484,2,0,0,&local_668,0,1);
+        FUN_0041b8c0(g_clientContext,2,0,0,&local_668,0,1);
         return;
       }
       FUN_00429dc0();
@@ -764,10 +764,10 @@ switchD_00428058_default:
       *(undefined4 *)(extraout_EDX_00 + 0x45918) = 0;
       QueueOutgoingPacketField((char)payload[1]);
       QueueOutgoingPacketField(*(undefined1 *)((int)payload + 3));
-      FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
+      FUN_0040a4d0(g_clientContext + 0x3b49c);
       FUN_004e7340();
-      iVar10 = DAT_005b3484;
-      *(uint *)(DAT_005b3484 + 0x44e60) = (uint)payload[2];
+      iVar10 = g_clientContext;
+      *(uint *)(g_clientContext + 0x44e60) = (uint)payload[2];
       *(undefined1 *)((int)this + 0x115) = 2;
       *(undefined1 *)((int)this + 0x116) = 0;
       *(undefined4 *)((int)this + 0x11c) = 0;
@@ -795,8 +795,8 @@ switchD_00428058_default:
       *(undefined1 *)(uVar23 + 0x44e64 + iVar10) = 0;
       *(undefined1 *)(iVar10 + 0x44ef8) = *(undefined1 *)((int)puVar26 + uVar23);
       QueueOutgoingPacketField(*(undefined4 *)((int)puVar26 + uVar23 + 1));
-      iVar10 = DAT_005b3484;
-      *(undefined4 *)(DAT_005b3484 + 0x457a1) = *(undefined4 *)((int)puVar26 + uVar23 + 5);
+      iVar10 = g_clientContext;
+      *(undefined4 *)(g_clientContext + 0x457a1) = *(undefined4 *)((int)puVar26 + uVar23 + 5);
       *(undefined4 *)(iVar10 + 0x457a5) = *(undefined4 *)((int)puVar26 + uVar23 + 9);
       *(undefined1 *)(iVar10 + 0x45124) = *(undefined1 *)((int)puVar26 + uVar23 + 0xd);
       cVar7 = *(char *)((int)puVar26 + uVar23 + 0xe);
@@ -805,17 +805,17 @@ switchD_00428058_default:
       local_69c = 0;
       if (cVar7 != '\0') {
         do {
-          iVar10 = DAT_005b3484;
+          iVar10 = g_clientContext;
           uVar20 = (uint)*pbVar18;
-          *(int *)(DAT_005b3484 + 0x4739c) = *(int *)(DAT_005b3484 + 0x4739c) + 1;
+          *(int *)(g_clientContext + 0x4739c) = *(int *)(g_clientContext + 0x4739c) + 1;
           FUN_00415ce0(uVar20);
           iVar24 = uVar20 * 0xd;
           puVar12 = (undefined4 *)(iVar24 + 0x457f1 + iVar10);
           *puVar12 = *(undefined4 *)(pbVar18 + 1);
           puVar12[1] = *(undefined4 *)(pbVar18 + 5);
           puVar12[2] = *(undefined4 *)(pbVar18 + 9);
-          iVar10 = DAT_005b3484;
-          *(undefined1 *)(iVar24 + 0x457fd + DAT_005b3484) = 0;
+          iVar10 = g_clientContext;
+          *(undefined1 *)(iVar24 + 0x457fd + g_clientContext) = 0;
           *(undefined4 *)(iVar10 + 0x4585c + uVar20 * 4) = *(undefined4 *)(pbVar18 + 0xd);
           *(undefined2 *)(iVar10 + 0x4589c + uVar20 * 2) = *(undefined2 *)(pbVar18 + 0x11);
           *(undefined4 *)(iVar10 + 0x4587c + uVar20 * 4) = *(undefined4 *)(pbVar18 + 0x13);
@@ -824,16 +824,16 @@ switchD_00428058_default:
           *(byte *)(iVar10 + 0x458fd + uVar20 * 2) = pbVar18[0x1a];
           *(byte *)(uVar20 + 0x4590c + iVar10) = pbVar18[0x1b];
           uVar21 = FUN_0040a4d0(iVar10 + 0x3b49c);
-          iVar10 = DAT_005b3484;
+          iVar10 = g_clientContext;
           if (uVar20 == uVar21) {
-            *(undefined1 *)(DAT_005b3484 + 0x3b6c0) =
-                 *(undefined1 *)(uVar20 + 0x4590c + DAT_005b3484);
+            *(undefined1 *)(g_clientContext + 0x3b6c0) =
+                 *(undefined1 *)(uVar20 + 0x4590c + g_clientContext);
           }
           *(byte *)(uVar20 + 0x45914 + iVar10) = pbVar18[0x1c];
           uVar21 = FUN_0040a4d0(iVar10 + 0x3b6c4);
-          iVar10 = DAT_005b3484;
-          if ((uVar20 == uVar21) && (*(char *)(uVar20 + 0x45914 + DAT_005b3484) == '\x03')) {
-            *(undefined1 *)(uVar20 + 0x45914 + DAT_005b3484) = 1;
+          iVar10 = g_clientContext;
+          if ((uVar20 == uVar21) && (*(char *)(uVar20 + 0x45914 + g_clientContext) == '\x03')) {
+            *(undefined1 *)(uVar20 + 0x45914 + g_clientContext) = 1;
           }
           uVar13 = *(undefined4 *)(pbVar18 + 0x1d);
           uVar5 = *(undefined4 *)(pbVar18 + 0x21);
@@ -862,19 +862,19 @@ switchD_00428058_default:
           FUN_004e74c0(*(undefined4 *)(iVar10 + 0x4587c + uVar20 * 4),
                        *(undefined2 *)(iVar10 + 0x458ac + uVar20 * 2),iVar24 + 0x457f1 + iVar10);
           local_69c = local_69c + 1;
-        } while (local_69c < (int)(uint)*(byte *)(DAT_005b3484 + 0x45125));
+        } while (local_69c < (int)(uint)*(byte *)(g_clientContext + 0x45125));
       }
-      FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
+      FUN_0040a4d0(g_clientContext + 0x3b49c);
       FUN_004e7340();
-      _DAT_0056dc98 = *(undefined2 *)(DAT_005b3484 + 0x44e60);
-      _DAT_0056dc90 = *(undefined2 *)(DAT_005b3484 + 0x3f804);
+      _DAT_0056dc98 = *(undefined2 *)(g_clientContext + 0x44e60);
+      _DAT_0056dc90 = *(undefined2 *)(g_clientContext + 0x3f804);
       _DAT_0056dca0 = _DAT_0056dc90;
       _DAT_0056dca8 = _DAT_0056dc98;
-      *(undefined1 *)(DAT_005b3484 + 0x45578) = 0;
+      *(undefined1 *)(g_clientContext + 0x45578) = 0;
       g_pendingGameState = 9;
       g_stateChangeRequested = 1;
       ChangeGameState(9);
-      *(undefined4 *)(DAT_005b3484 + 0x41340) = 0xffffffff;
+      *(undefined4 *)(g_clientContext + 0x41340) = 0xffffffff;
       if (DAT_007934f4 == 0) {
         FUN_00404410(&DAT_00e53e88);
       }
@@ -885,7 +885,7 @@ switchD_00428058_default:
       if (cVar7 != '\0') {
         FUN_00406500(0);
       }
-      iVar24 = payloadLen + (((uint)*(byte *)(DAT_005b3484 + 0x45125) * -0x31 + -0x16) - uVar23);
+      iVar24 = payloadLen + (((uint)*(byte *)(g_clientContext + 0x45125) * -0x31 + -0x16) - uVar23);
       local_668 = 0;
       puVar12 = &local_667;
       for (iVar10 = 0x3f; iVar10 != 0; iVar10 = iVar10 + -1) {
@@ -896,7 +896,7 @@ switchD_00428058_default:
       *(undefined1 *)((int)puVar12 + 2) = 0;
       iVar14 = 0;
       local_69c = 0;
-      iVar10 = DAT_005b3484;
+      iVar10 = g_clientContext;
       if (0 < iVar24) {
         do {
           if (pbVar18[local_69c] == 10) {
@@ -908,7 +908,7 @@ switchD_00428058_default:
             FUN_0041b8c0(iVar10,2,0,0,&local_668,0,1);
             iVar14 = 0;
             pbVar19 = &local_668;
-            for (iVar15 = 0x40; iVar10 = DAT_005b3484, iVar15 != 0; iVar15 = iVar15 + -1) {
+            for (iVar15 = 0x40; iVar10 = g_clientContext, iVar15 != 0; iVar15 = iVar15 + -1) {
               pbVar19[0] = 0;
               pbVar19[1] = 0;
               pbVar19[2] = 0;
@@ -932,7 +932,7 @@ switchD_00428058_default:
       return;
     }
     if (*payload == 0x1d) {
-      *(undefined4 *)(DAT_005b3484 + 0x4464c + *(int *)((int)this + 4) * 4) = 0;
+      *(undefined4 *)(g_clientContext + 0x4464c + *(int *)((int)this + 4) * 4) = 0;
       *(undefined4 *)((int)this + 4) = 0xffffffff;
     }
   }

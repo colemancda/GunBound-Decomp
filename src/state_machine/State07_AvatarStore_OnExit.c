@@ -161,10 +161,10 @@ LAB_0044824e:
     puVar8[4] = puVar8;
   }
 LAB_0044827b:
-  iVar7 = DAT_005b3484;
-  piVar6 = (int *)(&DAT_0067ec70 + DAT_005b3484);
+  iVar7 = g_clientContext;
+  piVar6 = (int *)(&DAT_0067ec70 + g_clientContext);
   iVar9 = 0;
-  if (0 < *(int *)(&DAT_0067ec70 + DAT_005b3484)) {
+  if (0 < *(int *)(&DAT_0067ec70 + g_clientContext)) {
     do {
       FUN_00401650();
       iVar9 = iVar9 + 1;

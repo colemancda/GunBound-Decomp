@@ -239,7 +239,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   ShowCursor(0);
   local_dac = InitGame(hWnd,hInstance);
   if (local_dac == 0) {
-    FUN_0040d260(DAT_005b3484 + 0x2331c);
+    FUN_0040d260(g_clientContext + 0x2331c);
     SetFocus(hWnd);
     local_db4 = DAT_007934f4;
     FUN_004e5a50(0x20a3);
@@ -271,7 +271,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     }
     iVar13 = InitGame(hWnd,hInstance);
     if (iVar13 == 0) {
-      FUN_0040d260(DAT_005b3484 + 0x2331c);
+      FUN_0040d260(g_clientContext + 0x2331c);
       SetFocus(hWnd);
       DAT_007934e0 = timeGetTime();
       ChangeGameState(5);
@@ -473,7 +473,7 @@ LAB_0040e0f1:
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6,puVar17);
     goto LAB_0040e1a0;
   case 0xe1:
-    uVar6 = FUN_0040a4d0(DAT_005b3484 + 0xf5b48);
+    uVar6 = FUN_0040a4d0(g_clientContext + 0xf5b48);
     uVar10 = FUN_0040a4d0(&DAT_00e525e8);
     pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x12d);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6);
@@ -484,7 +484,7 @@ LAB_0040e0f1:
     _sprintf(acStack_d48,pcVar11,puVar17);
     goto LAB_0040e1ec;
   case 0xe3:
-    uVar6 = *(undefined4 *)(DAT_005b3484 + 0x1a1e44);
+    uVar6 = *(undefined4 *)(g_clientContext + 0x1a1e44);
     uVar10 = FUN_0040a4d0(&DAT_00e525e8);
     pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x12f);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6);
@@ -509,7 +509,7 @@ LAB_0040e0f1:
     MessageBoxA((HWND)0x0,acStack_d48,pCVar8,UVar16);
     break;
   case 0xe6:
-    uVar6 = FUN_0041e9a0(DAT_005b3484,99);
+    uVar6 = FUN_0041e9a0(g_clientContext,99);
     uVar10 = FUN_0040a4d0(&DAT_00e525e8);
     pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x131);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6);

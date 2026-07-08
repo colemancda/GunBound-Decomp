@@ -20,7 +20,7 @@ void FUN_004e51f0(void)
   int unaff_ESI;
   int iVar7;
   
-  uVar1 = *(uint *)(&DAT_006a7f7c + DAT_005b3484);
+  uVar1 = *(uint *)(&DAT_006a7f7c + g_clientContext);
   if (uVar1 == 0) {
     *(undefined1 *)(unaff_ESI + 0x2c) = 1;
     return;
@@ -34,11 +34,11 @@ void FUN_004e51f0(void)
   if (uVar1 != 0) {
     iVar4 = 0;
     do {
-      if (*(uint *)(&DAT_006a7f7c + DAT_005b3484) <= uVar5) {
+      if (*(uint *)(&DAT_006a7f7c + g_clientContext) <= uVar5) {
                     /* WARNING: Subroutine does not return */
         FUN_004010c0(0x80070057);
       }
-      uVar2 = (uint)*(ushort *)(*(int *)(&DAT_006a7f78 + DAT_005b3484) + 2 + iVar4);
+      uVar2 = (uint)*(ushort *)(*(int *)(&DAT_006a7f78 + g_clientContext) + 2 + iVar4);
       if ((int)uVar6 <= (int)uVar2) {
         uVar6 = uVar2;
       }

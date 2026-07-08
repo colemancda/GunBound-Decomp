@@ -134,8 +134,8 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
             }
             *(undefined1 *)((int)this + 0x32f91) = 1;
             local_514 = 0;
-            if (*(int *)(DAT_005b3484 + 0x44e24) != 0) {
-              if (*(int *)(DAT_005b3484 + 0x44e24) == 0) goto LAB_00444d76;
+            if (*(int *)(g_clientContext + 0x44e24) != 0) {
+              if (*(int *)(g_clientContext + 0x44e24) == 0) goto LAB_00444d76;
               do {
                 EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                 iVar4 = PeekPacketChecksumState();
@@ -143,13 +143,13 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
                 LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                 if (iVar4 == iVar20) goto LAB_0044469b;
                 local_514 = local_514 + 1;
-              } while (local_514 < *(uint *)(DAT_005b3484 + 0x44e24));
+              } while (local_514 < *(uint *)(g_clientContext + 0x44e24));
             }
             FUN_0042ae30(&local_468);
-            iVar4 = DAT_005b3484;
-            uVar11 = *(uint *)(DAT_005b3484 + 0x44bec);
-            piVar14 = (int *)(DAT_005b3484 + 0x44be8);
-            if ((*(uint *)(DAT_005b3484 + 0x44bf0) <= uVar11) &&
+            iVar4 = g_clientContext;
+            uVar11 = *(uint *)(g_clientContext + 0x44bec);
+            piVar14 = (int *)(g_clientContext + 0x44be8);
+            if ((*(uint *)(g_clientContext + 0x44bf0) <= uVar11) &&
                (cVar2 = FUN_004268b0(), cVar2 == '\0')) {
                     /* WARNING: Subroutine does not return */
               FUN_004010c0(0x8007000e);
@@ -167,7 +167,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
             FUN_0042ae30(&local_468);
             FUN_004141b0(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
-            FUN_00505520(*(undefined4 *)(DAT_005b3484 + 0x44e24),0xe);
+            FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
             pcVar19 = (code *)EnterCriticalSection;
 LAB_0044469b:
             local_c = 0xffffffff;
@@ -179,7 +179,7 @@ LAB_0044469b:
         if (cVar2 == '\0') {
           FUN_0044b900(this);
         }
-        iVar4 = DAT_005b3484;
+        iVar4 = g_clientContext;
         *(undefined1 *)((int)this + 0x32f92) = 1;
         pbVar15 = (byte *)(iVar4 + 0x23310);
         (*pcVar19)(&DAT_005a9068);
@@ -207,7 +207,7 @@ LAB_0044469b:
             FUN_0044c5f0();
             FUN_0044c5f0();
             iVar20 = 0;
-            iVar4 = FUN_0040a4d0(&DAT_005f4894 + DAT_005b3484);
+            iVar4 = FUN_0040a4d0(&DAT_005f4894 + g_clientContext);
             if (0 < iVar4) {
               do {
                 FUN_00428550(&local_468);
@@ -222,15 +222,15 @@ LAB_0044469b:
                 local_c = 0xffffffff;
                 FUN_00426810(&local_468);
                 iVar20 = iVar20 + 1;
-                iVar4 = FUN_0040a4d0(&DAT_005f4894 + DAT_005b3484);
+                iVar4 = FUN_0040a4d0(&DAT_005f4894 + g_clientContext);
               } while (iVar20 < iVar4);
             }
             FUN_004141b0(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
             FUN_0044b0b0(this);
-            FUN_00505520(*(undefined4 *)(DAT_005b3484 + 0x44e24),0xe);
+            FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
           }
-          *(undefined1 *)(DAT_005b3484 + 0x44bf8) = 1;
+          *(undefined1 *)(g_clientContext + 0x44bf8) = 1;
           return;
         }
         goto LAB_00445282;
@@ -255,7 +255,7 @@ LAB_0044469b:
           if (*(char *)((int)this + 0x30bb9) == '\0') {
             puVar16 = (undefined2 *)((int)this + 0x325a8);
             do {
-              uVar3 = FUN_0040a4d0(iVar20 + 0x3ac08 + DAT_005b3484);
+              uVar3 = FUN_0040a4d0(iVar20 + 0x3ac08 + g_clientContext);
               *puVar16 = uVar3;
               iVar20 = iVar20 + 0x224;
               puVar16 = puVar16 + 1;
@@ -291,7 +291,7 @@ LAB_0044469b:
         FUN_0040afb0((int)this + 0x30770);
         QueueOutgoingPacketField(0);
         QueueOutgoingPacketField(0);
-        cVar2 = FUN_0040b330(DAT_005b3484 + 0x396a0,0);
+        cVar2 = FUN_0040b330(g_clientContext + 0x396a0,0);
         if (cVar2 != '\0') {
           QueueOutgoingPacketField(0);
         }
@@ -307,7 +307,7 @@ LAB_0044469b:
         QueueOutgoingPacketField(0xffffffff);
         FUN_004141b0(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,300000);
         FUN_0044b0b0(this);
-        FUN_00505520(*(undefined4 *)(DAT_005b3484 + 0x44e24),0xe);
+        FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
         QueueOutgoingPacketField(4);
         pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0xea6a);
         pcVar7 = (char *)((int)this + 0x327d4);
@@ -349,7 +349,7 @@ LAB_0044469b:
       if (*payload == 0x6003) {
         FUN_004124a0(0);
         iVar20 = DAT_007934e8;
-        iVar4 = DAT_005b3484;
+        iVar4 = g_clientContext;
         *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
         *(undefined2 *)(iVar20 + 0x4d4) = 0x6000;
         *(bool *)(iVar20 + 0x4d6) = *(char *)(iVar4 + 0x44bf8) == '\0';
@@ -362,13 +362,13 @@ LAB_0044469b:
         if (opcode == 0x6037) {
           if (*payload == 0) {
             uVar11 = FUN_0040a4d0((int)this + 0x3054c);
-            if (*(uint *)(DAT_005b3484 + 0x44e24) <= uVar11) {
+            if (*(uint *)(g_clientContext + 0x44e24) <= uVar11) {
                     /* WARNING: Subroutine does not return */
               FUN_004010c0(0x80070057);
             }
             FUN_0044c370();
             FUN_0040a4d0((int)this + 0x3054c);
-            FUN_0044c6a0(DAT_005b3484 + 0x44e20);
+            FUN_0044c6a0(g_clientContext + 0x44e20);
             iVar4 = 0;
             local_520 = 0;
             do {
@@ -420,11 +420,11 @@ switchD_004449fc_default:
             EncodeOutgoingPacketField(0xffffffff);
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             FUN_004124a0(0);
-            iVar4 = DAT_005b3484 + 0x23330;
+            iVar4 = g_clientContext + 0x23330;
             pcVar7 = (char *)FUN_0043dc70(&DAT_00796eec,0xfa8);
             _sprintf((char *)local_508,pcVar7,iVar4);
             FUN_00402900(&DAT_00e53e88,(int)this + 0x32ce3);
-            FUN_00505520(*(undefined4 *)(DAT_005b3484 + 0x44e24),0xe);
+            FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
           }
           else if (*payload == 0x6002) {
             FUN_004124a0(0);
@@ -462,25 +462,25 @@ switchD_004449fc_default:
       if (*payload == 0) {
         FUN_0040afb0((int)this + 0x30770);
         QueueOutgoingPacketField(0);
-        cVar2 = FUN_0040b330(DAT_005b3484 + 0x396a0,0);
+        cVar2 = FUN_0040b330(g_clientContext + 0x396a0,0);
         if (cVar2 != '\0') {
           QueueOutgoingPacketField(0);
         }
         iVar4 = (int)this + 0x3054c;
         uVar11 = FUN_0040a4d0(iVar4);
-        if (*(uint *)(DAT_005b3484 + 0x44e24) <= uVar11) {
+        if (*(uint *)(g_clientContext + 0x44e24) <= uVar11) {
 LAB_00444d76:
                     /* WARNING: Subroutine does not return */
           FUN_004010c0(0x80070057);
         }
         FUN_0044c370();
         FUN_0040a4d0(iVar4);
-        FUN_0044c6a0(DAT_005b3484 + 0x44e20);
-        uVar11 = *(uint *)(DAT_005b3484 + 0x44e34);
+        FUN_0044c6a0(g_clientContext + 0x44e20);
+        uVar11 = *(uint *)(g_clientContext + 0x44e34);
         uVar8 = FUN_0040a4d0(iVar4);
         if (uVar8 < uVar11) {
           FUN_0040a4d0(iVar4);
-          FUN_0044c6a0(DAT_005b3484 + 0x44e30);
+          FUN_0044c6a0(g_clientContext + 0x44e30);
         }
         local_514 = 0;
         local_520 = 0;
@@ -531,7 +531,7 @@ switchD_00444e7c_default:
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EncodeOutgoingPacketField(0xffffffff);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        FUN_00505520(*(undefined4 *)(DAT_005b3484 + 0x44e24),0xe);
+        FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
       }
       else if (*payload == 0x6002) {
         FUN_004124a0(0);

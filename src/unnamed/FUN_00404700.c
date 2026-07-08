@@ -25,9 +25,9 @@ void FUN_00404700(int param_1)
   char acStack_37 [23];
   char local_20 [32];
   
-  local_48 = *(undefined2 *)(DAT_005b3484 + 0x3f804);
-  local_46 = *(undefined2 *)(DAT_005b3484 + 0x41340);
-  local_44 = *(undefined2 *)(DAT_005b3484 + 0x44e60);
+  local_48 = *(undefined2 *)(g_clientContext + 0x3f804);
+  local_46 = *(undefined2 *)(g_clientContext + 0x41340);
+  local_44 = *(undefined2 *)(g_clientContext + 0x44e60);
   local_50[0] = 0x12;
   local_42 = (ushort)(byte)((byte)((ushort)local_44 >> 8) ^ 0x6b) + (ushort)((byte)local_44 ^ 0x69)
              + (ushort)(byte)((byte)((ushort)local_46 >> 8) ^ 0x73) +

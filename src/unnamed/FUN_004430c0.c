@@ -21,7 +21,7 @@ void FUN_004430c0(int param_1)
   int iVar8;
   
   iVar6 = *(int *)(DAT_00ea0e1c + 0x1c);
-  uVar1 = (uint)*(byte *)(DAT_005b3484 + 0x475c4) * 2 + 1;
+  uVar1 = (uint)*(byte *)(g_clientContext + 0x475c4) * 2 + 1;
   uVar2 = *(uint *)(iVar6 + 4);
   while (uVar2 < 0x2712) {
     if (uVar2 == 0x2711) {
@@ -36,10 +36,10 @@ void FUN_004430c0(int param_1)
 LAB_00443118:
   iVar8 = 0;
   piVar7 = (int *)(param_1 + 300);
-  puVar5 = (ushort *)(DAT_005b3484 + 0x49a2c);
+  puVar5 = (ushort *)(g_clientContext + 0x49a2c);
   do {
-    if (*(char *)(DAT_005b3484 + 0x45914 + iVar8) != '\0') {
-      iVar3 = *(int *)(&DAT_006a7720 + DAT_005b3484);
+    if (*(char *)(g_clientContext + 0x45914 + iVar8) != '\0') {
+      iVar3 = *(int *)(&DAT_006a7720 + g_clientContext);
       if (iVar3 < 1) {
         iVar3 = 1;
       }

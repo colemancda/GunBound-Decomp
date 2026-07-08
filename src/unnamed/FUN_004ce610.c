@@ -26,19 +26,19 @@ LAB_004ce86c:
     FUN_0043bda0();
     iVar5 = 0;
     do {
-      iVar8 = GetPlayerRecordBySlot(DAT_005b3484);
+      iVar8 = GetPlayerRecordBySlot(g_clientContext);
       if (iVar8 != 0) {
         FUN_0045ea40();
       }
       iVar5 = iVar5 + 1;
     } while (iVar5 < 8);
-    if (*(int *)(DAT_005b3484 + 0x621e0) != 0) {
+    if (*(int *)(g_clientContext + 0x621e0) != 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (((iVar5 < 1) && (cVar4 = FUN_004065a0(), cVar4 != '\0')) &&
          (cVar4 = FUN_004065a0(), cVar4 == '\0')) {
-        iVar5 = *(int *)(DAT_005b3484 + 0x621e0);
+        iVar5 = *(int *)(g_clientContext + 0x621e0);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar8 = _rand();
         *(byte *)(iVar5 + 0x8bc0) = (byte)iVar8;
@@ -51,7 +51,7 @@ LAB_004ce86c:
         *(byte *)(iVar5 + 0x8bc2) = bVar9 + bVar2 + -0x34;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar3 = DAT_007934e8;
-        iVar8 = DAT_005b3484;
+        iVar8 = g_clientContext;
         *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
         *(undefined2 *)(iVar3 + 0x4d4) = 0x4100;
         *(undefined4 *)(iVar3 + 0x4d6) = *(undefined4 *)(*(int *)(iVar8 + 0x621e0) + 0xb0b0);
@@ -62,9 +62,9 @@ LAB_004ce86c:
         *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 1;
         FUN_004d2680();
         Replay_AppendEvent(0xc304);
-        iVar5 = DAT_005b3484;
+        iVar5 = g_clientContext;
         *(undefined4 *)(&g_replayEventBuffer + g_replayEventCursor) =
-             *(undefined4 *)(*(int *)(DAT_005b3484 + 0x621e0) + 0xb0b0);
+             *(undefined4 *)(*(int *)(g_clientContext + 0x621e0) + 0xb0b0);
         puVar1 = &DAT_00e9aad0 + g_replayEventCursor;
         g_replayEventCursor = g_replayEventCursor + 4;
         *puVar1 = *(undefined1 *)(*(int *)(iVar5 + 0x621e0) + 0xb0ac);
@@ -91,24 +91,24 @@ LAB_004ce86c:
   switch(*(undefined4 *)(param_1 + 0x49c)) {
   case 2:
     FUN_0042bb10(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
-    FUN_00434ac0(&DAT_006a7f70 + DAT_005b3484,*(undefined4 *)(param_1 + 0x29c));
+    FUN_00434ac0(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
     break;
   case 3:
     FUN_0042bb10(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
-    FUN_004337f0(&DAT_006a7f70 + DAT_005b3484,*(undefined4 *)(param_1 + 0x29c));
+    FUN_004337f0(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
     break;
   case 4:
     FUN_0042bb10(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
-    FUN_00434160(&DAT_006a7f70 + DAT_005b3484,*(undefined4 *)(param_1 + 0x29c));
+    FUN_00434160(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
     break;
   case 5:
     FUN_0042bb10(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
-    FUN_00434fc0(&DAT_006a7f70 + DAT_005b3484,*(undefined4 *)(param_1 + 0x29c),0);
+    FUN_00434fc0(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c),0);
     break;
   case 6:
     AddToPacketChecksum(0xb4);
     uVar6 = FUN_0040a4d0(&DAT_00e9bed8);
-    cVar4 = FUN_0040b2d0(DAT_005b3484 + 0x5b1ac,uVar6);
+    cVar4 = FUN_0040b2d0(g_clientContext + 0x5b1ac,uVar6);
     if (cVar4 != '\0') {
       uVar6 = FUN_0040a4d0(&DAT_00e9bed8);
       SubFromPacketChecksum(uVar6);

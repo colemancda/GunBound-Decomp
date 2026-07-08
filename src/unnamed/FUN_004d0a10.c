@@ -35,7 +35,7 @@ void FUN_004d0a10(int *param_1,undefined2 *param_2)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_00438360();
   }
-  if (*(char *)(DAT_005b3484 + 0x45127) != '\0') {
+  if (*(char *)(g_clientContext + 0x45127) != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -55,7 +55,7 @@ void FUN_004d0a10(int *param_1,undefined2 *param_2)
       (**(code **)(*param_1 + 0x28))(local_80,2,6);
     }
   }
-  FUN_0041ebf0(DAT_005b3484);
+  FUN_0041ebf0(g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -78,7 +78,7 @@ void FUN_004d0a10(int *param_1,undefined2 *param_2)
     EncodeOutgoingPacketField(iVar4 + 3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
-  iVar4 = *(int *)(DAT_005b3484 + 0x621e0);
+  iVar4 = *(int *)(g_clientContext + 0x621e0);
   if ((iVar4 != 0) && (*(int *)(iVar4 + 0x24) != 0xd)) {
     *(undefined4 *)(iVar4 + 0xb0b0) = 4;
   }

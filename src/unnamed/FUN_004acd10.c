@@ -96,8 +96,8 @@ void __fastcall FUN_004acd10(int param_1)
     uVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     QueueOutgoingPacketField(uVar4);
-    iVar7 = DAT_005b3484;
-    *(undefined4 *)(&DAT_005f3768 + DAT_005b3484) = 5;
+    iVar7 = g_clientContext;
+    *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;
     *(undefined4 *)(&DAT_005f376c + iVar7) = 0;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -107,7 +107,7 @@ void __fastcall FUN_004acd10(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar3 = FUN_00406610(local_45c[0]);
   if (cVar3 != '\0') {
-    local_45c[0] = DAT_005b3484 + 0x5b85c;
+    local_45c[0] = g_clientContext + 0x5b85c;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(uVar4);
@@ -154,8 +154,8 @@ LAB_004ace87:
        ((cVar3 = FUN_0040b410(param_1 + 0x3b48,param_1 + 0x3d6c), cVar3 == '\0' ||
         (*(int *)(param_1 + 0x3b44) < 6)))) goto switchD_004ad044_caseD_3;
   }
-  iVar7 = DAT_005b3484;
-  pbVar9 = (byte *)(DAT_005b3484 + 0x62143);
+  iVar7 = g_clientContext;
+  pbVar9 = (byte *)(g_clientContext + 0x62143);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = _rand();
   *pbVar9 = (byte)iVar5;

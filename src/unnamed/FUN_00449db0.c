@@ -90,7 +90,7 @@ LAB_00449e39:
         case 3:
           uStack_80 = &DAT_00666d73;
         }
-        FUN_004240c0(DAT_005b3484,
+        FUN_004240c0(g_clientContext,
                      CONCAT31((int3)((uint)iVar2 >> 8),
                               *(char *)(iVar2 + 0x2d54c + param_1) == '\x01'),
                      *(undefined1 *)(param_1 + 0x44c),*(undefined2 *)(param_1 + 0x2e54c + iVar2 * 2)

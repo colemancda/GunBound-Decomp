@@ -71,7 +71,7 @@ void FUN_004388e0(void)
     piVar2[0xfe8] = 0;
   }
   local_4 = 0xffffffff;
-  if (*(char *)(DAT_005b3484 + 0x45578) == '\0') {
+  if (*(char *)(g_clientContext + 0x45578) == '\0') {
     piVar2[6] = 0x1a8c;
     piVar2[0xe] = 0x1a8d;
     piVar2[0xe25] = 0x2015;
@@ -81,7 +81,7 @@ void FUN_004388e0(void)
     piVar2[0xe27] = DAT_00553bb8;
     *(undefined1 *)(piVar2 + 0xe28) = DAT_00553bbc;
   }
-  else if (*(char *)(DAT_005b3484 + 0x45578) == '\x01') {
+  else if (*(char *)(g_clientContext + 0x45578) == '\x01') {
     piVar2[6] = 6000;
     piVar2[0xe] = 0x17d4;
     piVar2[0xe25] = 8000;
@@ -168,7 +168,7 @@ void FUN_004388e0(void)
     *pcVar7 = cVar1;
     pcVar7 = pcVar7 + 1;
   } while (cVar1 != '\0');
-  piStack_8d0 = (int *)DAT_005b3484;
+  piStack_8d0 = (int *)g_clientContext;
   puStack_8d4 = (undefined1 *)0x438df7;
   FUN_0041da80();
   iVar3 = GetPlayerRecordBySlot();

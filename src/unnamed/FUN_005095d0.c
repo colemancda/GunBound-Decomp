@@ -44,7 +44,7 @@ LAB_0050961f:
     *puVar3 = &PTR_LAB_00557c5c;
     *(undefined1 *)(puVar3 + 0xe) = 1;
   }
-  uVar5 = DAT_005b3484;
+  uVar5 = g_clientContext;
   local_4 = 0xffffffff;
   puVar3[9] = 40000;
   puVar3[0x13] = 0;
@@ -63,7 +63,7 @@ LAB_0050961f:
     pcVar6 = pcVar6 + 1;
   } while (cVar1 != '\0');
   uVar7 = 0xffff;
-  uVar5 = FUN_0041eb80(DAT_005b3484,param_2);
+  uVar5 = FUN_0041eb80(g_clientContext,param_2);
   uVar5 = FUN_00507ff0(0x17,0x22,0x8c,0x4c,uVar5,uVar7);
   FUN_0050e670(uVar5);
   FUN_0050eea0(puVar3);

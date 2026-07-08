@@ -20,7 +20,7 @@ void FUN_004cfb20(void)
   undefined4 uVar7;
   char local_80 [128];
   
-  iVar6 = DAT_005b3484;
+  iVar6 = g_clientContext;
   iVar4 = 0x1d4;
   if (*(int *)(unaff_ESI + 0x10cc) != -1) {
     iVar4 = 0x183;
@@ -35,7 +35,7 @@ void FUN_004cfb20(void)
   uVar5 = 0;
   FUN_0043dc70(&DAT_00796eec,0xc1c);
   BlitRLESprite(iVar4 + 1,uVar5);
-  pcVar2 = (char *)(*(int *)(unaff_ESI + 0x10c4) * 0xd + 0x457f1 + DAT_005b3484);
+  pcVar2 = (char *)(*(int *)(unaff_ESI + 0x10c4) * 0xd + 0x457f1 + g_clientContext);
   do {
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;

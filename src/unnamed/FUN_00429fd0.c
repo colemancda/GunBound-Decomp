@@ -35,7 +35,7 @@ void FUN_00429fd0(void)
 LAB_0042a00d:
   FUN_0042a090();
   iVar4 = DAT_007934e8;
-  iVar2 = DAT_005b3484;
+  iVar2 = g_clientContext;
   *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
   *(undefined2 *)(iVar4 + 0x4d4) = 0x2110;
   *(undefined2 *)(iVar4 + 0x4d6) = *(undefined2 *)(iVar2 + 0x44664 + *(int *)(in_EAX + 4) * 4);

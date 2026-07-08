@@ -29,15 +29,15 @@ void FUN_004db720(void)
   int local_20 [8];
   
   FUN_004db570();
-  iVar11 = DAT_005b3484;
+  iVar11 = g_clientContext;
   uVar7 = *(uint *)(extraout_ECX + 0x490);
-  uVar4 = (uint)(*(byte *)(DAT_005b3484 + 0x45124) >> 1);
+  uVar4 = (uint)(*(byte *)(g_clientContext + 0x45124) >> 1);
   uVar12 = uVar4;
   if ((int)uVar4 <= (int)uVar7) {
     uVar12 = uVar7;
   }
   uVar3 = *(uint *)(extraout_ECX + 0x494);
-  uVar6 = *(byte *)(DAT_005b3484 + 0x45124) - uVar3;
+  uVar6 = *(byte *)(g_clientContext + 0x45124) - uVar3;
   if (((int)uVar12 < (int)uVar6) && (uVar6 = uVar4, (int)uVar4 <= (int)uVar7)) {
     uVar6 = uVar7;
   }

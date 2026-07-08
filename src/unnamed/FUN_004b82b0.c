@@ -22,13 +22,13 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
   undefined4 uVar10;
   char acStack_80 [128];
   
-  iVar7 = DAT_005b3484;
+  iVar7 = g_clientContext;
   if (param_2 != 0) {
     if (param_2 == 0x32) {
       switch(param_3) {
       case 0x1d:
-        if (((&DAT_006a6499)[DAT_005b3484] != '\0') && ((&DAT_006a6499)[DAT_005b3484] != '\0')) {
-          (&DAT_006a6499)[DAT_005b3484] = 0;
+        if (((&DAT_006a6499)[g_clientContext] != '\0') && ((&DAT_006a6499)[g_clientContext] != '\0')) {
+          (&DAT_006a6499)[g_clientContext] = 0;
           (&DAT_006a6498)[iVar7] = 0;
           *(undefined4 *)(&DAT_006a64a0 + iVar7) = 3;
           *(undefined4 *)(&DAT_006a649c + iVar7) = 0xffffffff;
@@ -46,12 +46,12 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
       default:
         return;
       case 0x39:
-        cVar3 = PacketChecksumEquals(DAT_005b3484 + 0x59190,0xffffffff);
-        if ((((cVar3 != '\0') && ((&DAT_006a6481)[DAT_005b3484] == '\0')) && (DAT_007934c4 == '\0'))
+        cVar3 = PacketChecksumEquals(g_clientContext + 0x59190,0xffffffff);
+        if ((((cVar3 != '\0') && ((&DAT_006a6481)[g_clientContext] == '\0')) && (DAT_007934c4 == '\0'))
            && (DAT_007933b8 == '\x01')) {
           QueueOutgoingPacketField(param_4 + 0x32);
         }
-        if ((&DAT_005f2f40)[DAT_005b3484] != '\x02') {
+        if ((&DAT_005f2f40)[g_clientContext] != '\x02') {
           return;
         }
         cVar3 = FUN_004065a0();
@@ -63,7 +63,7 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
           if (cVar3 != '\x01') {
             return;
           }
-          if ((&DAT_006a6481)[DAT_005b3484] == '\0') {
+          if ((&DAT_006a6481)[g_clientContext] == '\0') {
             *(undefined1 *)(param_1 + 0x11c5) = 1;
             return;
           }
@@ -78,7 +78,7 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
       case 0x40:
         goto switchD_004b83e0_caseD_3b;
       case 0x41:
-        cVar3 = PacketChecksumNotEquals(DAT_005b3484 + 0x45354,2);
+        cVar3 = PacketChecksumNotEquals(g_clientContext + 0x45354,2);
         if (cVar3 != '\0') {
           return;
         }
@@ -103,11 +103,11 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
       return;
     }
     if (param_3 == 0x1d) {
-      if ((&DAT_006a648d)[DAT_005b3484] == '\0') {
+      if ((&DAT_006a648d)[g_clientContext] == '\0') {
         return;
       }
-      if ((&DAT_006a648d)[DAT_005b3484] != '\0') {
-        (&DAT_006a648d)[DAT_005b3484] = 0;
+      if ((&DAT_006a648d)[g_clientContext] != '\0') {
+        (&DAT_006a648d)[g_clientContext] = 0;
         (&DAT_006a648c)[iVar7] = 0;
         *(undefined4 *)(&DAT_006a6494 + iVar7) = 1;
         *(undefined4 *)(&DAT_006a6490 + iVar7) = 0xffffffff;
@@ -116,11 +116,11 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
       return;
     }
     if (param_3 == 0x39) {
-      cVar3 = PacketChecksumEquals(DAT_005b3484 + 0x593b4,0xffffffff);
+      cVar3 = PacketChecksumEquals(g_clientContext + 0x593b4,0xffffffff);
       if (cVar3 == '\0') {
         return;
       }
-      if ((&DAT_006a6481)[DAT_005b3484] == '\0') {
+      if ((&DAT_006a6481)[g_clientContext] == '\0') {
         if (DAT_007933b8 == '\x01') {
           QueueOutgoingPacketField(param_4);
           return;
@@ -155,19 +155,19 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
       *(undefined2 *)(iVar7 + 0x4d6) = 0xffff;
       *(int *)(iVar7 + 0x44d0) = *(int *)(iVar7 + 0x44d0) + 2;
       FUN_004d2680();
-      FUN_00422f10(*(undefined4 *)(DAT_005b3484 + 0x44e60));
-      *(undefined4 *)(DAT_005b3484 + 0x44e60) = 0xffffffff;
+      FUN_00422f10(*(undefined4 *)(g_clientContext + 0x44e60));
+      *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
       return;
     }
     FUN_00406500(1);
     Replay_AppendEvent(0x8402);
-    uVar6 = FUN_0040a4d0(*(int *)(DAT_005b3484 + 0x621e0) + 0x90c);
+    uVar6 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e0) + 0x90c);
     *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
     g_replayEventCursor = g_replayEventCursor + 2;
-    uVar6 = FUN_0040a4d0(*(int *)(DAT_005b3484 + 0x621e0) + 0xb30);
+    uVar6 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e0) + 0xb30);
     *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
     g_replayEventCursor = g_replayEventCursor + 2;
-    uVar4 = PacketChecksumEquals(*(int *)(DAT_005b3484 + 0x621e0) + 0x1c54,1);
+    uVar4 = PacketChecksumEquals(*(int *)(g_clientContext + 0x621e0) + 0x1c54,1);
     (&g_replayEventBuffer)[g_replayEventCursor] = uVar4;
     g_replayEventCursor = g_replayEventCursor + 1;
     Replay_FlushEvent();
@@ -212,8 +212,8 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
                          ,uVar8,0);
       CreateButtonWidget(&DAT_00e9be90,0,0xe,0x3f6,s_b_option_confirm_00556988,0xbb,0x198,0x4a,0x1a,
                          1,0);
-      iVar7 = DAT_005b3484;
-      *(undefined *)(param_1 + 0x11ad) = (&DAT_005f2f40)[DAT_005b3484];
+      iVar7 = g_clientContext;
+      *(undefined *)(param_1 + 0x11ad) = (&DAT_005f2f40)[g_clientContext];
       *(undefined4 *)(param_1 + 0x11b0) = *(undefined4 *)(&DAT_005f2f44 + iVar7);
       *(undefined *)(param_1 + 0x11b4) = (&DAT_005f2f48)[iVar7];
       *(undefined4 *)(param_1 + 0x11b8) = *(undefined4 *)(&DAT_005f2f4c + iVar7);
@@ -228,8 +228,8 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     FUN_00405fb0();
     FUN_00405fb0();
     FUN_00405fb0();
-    iVar7 = DAT_005b3484;
-    (&DAT_005f2f40)[DAT_005b3484] = *(undefined1 *)(param_1 + 0x11ad);
+    iVar7 = g_clientContext;
+    (&DAT_005f2f40)[g_clientContext] = *(undefined1 *)(param_1 + 0x11ad);
     *(undefined4 *)(&DAT_005f2f44 + iVar7) = *(undefined4 *)(param_1 + 0x11b0);
     (&DAT_005f2f48)[iVar7] = *(undefined1 *)(param_1 + 0x11b4);
     *(undefined4 *)(&DAT_005f2f4c + iVar7) = *(undefined4 *)(param_1 + 0x11b8);
@@ -266,13 +266,13 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     if (cVar3 == '\0') {
       return;
     }
-    *(undefined4 *)(DAT_005b3484 + 0xebef0) = 0xfffffffd;
+    *(undefined4 *)(g_clientContext + 0xebef0) = 0xfffffffd;
     FUN_00406500(0);
     FUN_00406500(0);
     FUN_00405fb0();
     CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,0);
-    cVar3 = FUN_0040b2d0(*(int *)(DAT_005b3484 + 0x621e0) + 0xc080,4);
-    if ((cVar3 == '\0') || (*(short *)(*(int *)(DAT_005b3484 + 0x621e0) + 0xbfbc) != 0)) {
+    cVar3 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
+    if ((cVar3 == '\0') || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
       uVar10 = 0;
     }
     else {
@@ -280,9 +280,9 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     }
     CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x23,0x22,
                        uVar10,0);
-    uVar8 = FUN_0040b2d0(*(int *)(DAT_005b3484 + 0x621e0) + 0xc080,4);
+    uVar8 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
     if (((char)uVar8 == '\0') ||
-       (uVar8 = *(uint *)(DAT_005b3484 + 0x621e0), *(short *)(uVar8 + 0xbfbc) != 0)) {
+       (uVar8 = *(uint *)(g_clientContext + 0x621e0), *(short *)(uVar8 + 0xbfbc) != 0)) {
       uVar8 = uVar8 & 0xffffff00;
     }
     else {
@@ -290,7 +290,7 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     }
     FUN_00406300(uVar8);
     Replay_AppendEvent(0x4005);
-    iVar7 = DAT_005b3484;
+    iVar7 = g_clientContext;
     (&g_replayEventBuffer)[g_replayEventCursor] = 0;
     iVar7 = *(int *)(iVar7 + 0x621e0);
     goto LAB_004b8ad4;
@@ -299,13 +299,13 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     if (cVar3 == '\0') {
       return;
     }
-    *(undefined4 *)(DAT_005b3484 + 0xebef0) = 0xffffffe8;
+    *(undefined4 *)(g_clientContext + 0xebef0) = 0xffffffe8;
     FUN_00406500(1);
     FUN_00406500(0);
     FUN_00405fb0();
     CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0);
-    cVar3 = FUN_0040b2d0(*(int *)(DAT_005b3484 + 0x621e0) + 0xc080,4);
-    if ((cVar3 == '\0') || (*(short *)(*(int *)(DAT_005b3484 + 0x621e0) + 0xbfbc) != 0)) {
+    cVar3 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
+    if ((cVar3 == '\0') || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
       uVar10 = 0;
     }
     else {
@@ -313,8 +313,8 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     }
     CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x23,0x22,
                        uVar10,0);
-    cVar3 = FUN_0040b2d0(*(int *)(DAT_005b3484 + 0x621e0) + 0xc080,4);
-    if ((cVar3 == '\0') || (*(short *)(*(int *)(DAT_005b3484 + 0x621e0) + 0xbfbc) != 0)) {
+    cVar3 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
+    if ((cVar3 == '\0') || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
       uVar10 = 0;
     }
     else {
@@ -322,7 +322,7 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     }
     FUN_00406300(uVar10);
     Replay_AppendEvent(0x4005);
-    iVar7 = DAT_005b3484;
+    iVar7 = g_clientContext;
     (&g_replayEventBuffer)[g_replayEventCursor] = 1;
     iVar7 = *(int *)(iVar7 + 0x621e0);
 LAB_004b8ad4:
@@ -335,17 +335,17 @@ LAB_004b8aeb:
     Replay_FlushEvent();
     return;
   case 3:
-    if ((((*(int *)(&DAT_005f3768 + DAT_005b3484) != 1) &&
-         (*(int *)(&DAT_005f3768 + DAT_005b3484) != 2)) && (cVar3 = FUN_004065a0(), cVar3 != '\0'))
+    if ((((*(int *)(&DAT_005f3768 + g_clientContext) != 1) &&
+         (*(int *)(&DAT_005f3768 + g_clientContext) != 2)) && (cVar3 = FUN_004065a0(), cVar3 != '\0'))
        && ((cVar3 = FUN_004065a0(), cVar3 != '\0' && (cVar3 = FUN_004065a0(), cVar3 != '\0')))) {
       FUN_00406300(0);
       FUN_00406500(0);
       Replay_AppendEvent(0x8402);
-      uVar6 = FUN_0040a4d0(*(int *)(DAT_005b3484 + 0x621e0) + 0x90c);
+      uVar6 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e0) + 0x90c);
       *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
       g_replayEventCursor = g_replayEventCursor + 2;
-      uVar6 = FUN_0040a4d0(*(int *)(DAT_005b3484 + 0x621e0) + 0xb30);
-      iVar7 = DAT_005b3484;
+      uVar6 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e0) + 0xb30);
+      iVar7 = g_clientContext;
       *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
       g_replayEventCursor = g_replayEventCursor + 2;
       uVar4 = PacketChecksumEquals(*(int *)(iVar7 + 0x621e0) + 0x1c54,1);
@@ -374,25 +374,25 @@ LAB_004b8aeb:
   case 4:
     FUN_00405fb0();
     CreateButtonWidget(&DAT_00e9be90,0,5,0x3ed,s_b_play_team_00554114,0xa8,0x219,0x1d,0x10,1,0);
-    *(undefined1 *)(DAT_005b3484 + 0xebee5) = 1;
+    *(undefined1 *)(g_clientContext + 0xebee5) = 1;
     return;
   case 5:
     FUN_00405fb0();
     CreateButtonWidget(&DAT_00e9be90,0,4,0x3ec,s_b_play_all_0055412c,0xa8,0x219,0x1d,0x10,1,0);
-    *(undefined1 *)(DAT_005b3484 + 0xebee5) = 0;
+    *(undefined1 *)(g_clientContext + 0xebee5) = 0;
     return;
   case 8:
     FUN_00405fb0();
     FUN_00405fb0();
     FUN_004e1f70();
-    *(undefined4 *)(&DAT_006a73c8 + DAT_005b3484) = 1;
+    *(undefined4 *)(&DAT_006a73c8 + g_clientContext) = 1;
     return;
   case 9:
     FUN_00405fb0();
     FUN_00405fb0();
-    cVar3 = PacketChecksumEquals(&DAT_006a64c4 + DAT_005b3484,6);
+    cVar3 = PacketChecksumEquals(&DAT_006a64c4 + g_clientContext,6);
     if ((cVar3 == '\0') &&
-       (cVar3 = PacketChecksumEquals(&DAT_006a64c4 + DAT_005b3484,7), iVar7 = DAT_005b3484,
+       (cVar3 = PacketChecksumEquals(&DAT_006a64c4 + g_clientContext,7), iVar7 = g_clientContext,
        cVar3 == '\0')) {
       *(undefined1 *)(param_1 + 0x92) = 1;
       (&DAT_006a7758)[iVar7] = 0;
@@ -404,11 +404,11 @@ LAB_004b8aeb:
       ;
       return;
     }
-    *(undefined4 *)(&DAT_006a73c8 + DAT_005b3484) = 1;
+    *(undefined4 *)(&DAT_006a73c8 + g_clientContext) = 1;
     FUN_004e1f70();
     Replay_AppendEvent(0x8404);
-    sVar5 = FUN_0040a4d0(DAT_005b3484 + 0xeba98);
-    iVar7 = DAT_005b3484;
+    sVar5 = FUN_0040a4d0(g_clientContext + 0xeba98);
+    iVar7 = g_clientContext;
     *(short *)(&g_replayEventBuffer + g_replayEventCursor) = sVar5 + 4;
     puVar1 = (undefined2 *)(&DAT_00e9aace + g_replayEventCursor);
     g_replayEventCursor = g_replayEventCursor + 2;
@@ -417,14 +417,14 @@ LAB_004b8aeb:
     uVar4 = FUN_0040a4d0(&DAT_006a64c4 + iVar7);
     (&g_replayEventBuffer)[g_replayEventCursor] = uVar4;
     g_replayEventCursor = g_replayEventCursor + 1;
-    uVar4 = FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
+    uVar4 = FUN_0040a4d0(g_clientContext + 0x3b49c);
     goto LAB_004b8ad9;
   case 10:
     FUN_00405fb0();
     *(undefined1 *)(param_1 + 0x92) = 0;
     FUN_004e1f70();
-    iVar7 = DAT_005b3484;
-    (&DAT_006a7758)[DAT_005b3484] = 1;
+    iVar7 = g_clientContext;
+    (&DAT_006a7758)[g_clientContext] = 1;
     *(undefined4 *)(&DAT_006a73c8 + iVar7) = 1;
     return;
   case 0xc:
@@ -432,8 +432,8 @@ LAB_004b8aeb:
     FUN_00405fb0();
     FUN_00405fb0();
     FUN_00405fb0();
-    iVar7 = DAT_005b3484;
-    (&DAT_005f2f40)[DAT_005b3484] = *(undefined1 *)(param_1 + 0x11ad);
+    iVar7 = g_clientContext;
+    (&DAT_005f2f40)[g_clientContext] = *(undefined1 *)(param_1 + 0x11ad);
     *(undefined4 *)(&DAT_005f2f44 + iVar7) = *(undefined4 *)(param_1 + 0x11b0);
     (&DAT_005f2f48)[iVar7] = *(undefined1 *)(param_1 + 0x11b4);
     *(undefined4 *)(&DAT_005f2f4c + iVar7) = *(undefined4 *)(param_1 + 0x11b8);
@@ -469,15 +469,15 @@ LAB_004b8aeb:
     uVar10 = FUN_00406860();
     cVar3 = FUN_00406610(uVar10);
     if ((cVar3 == '\0') &&
-       (cVar3 = PacketChecksumEquals(DAT_005b3484 + 0x45354,1), iVar7 = DAT_007934e8, cVar3 == '\0')
+       (cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,1), iVar7 = DAT_007934e8, cVar3 == '\0')
        ) {
       *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
       *(undefined2 *)(iVar7 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar7 + 0x4d6) = 0xffff;
       *(int *)(iVar7 + 0x44d0) = *(int *)(iVar7 + 0x44d0) + 2;
       FUN_004d2680();
-      FUN_00422f10(*(undefined4 *)(DAT_005b3484 + 0x44e60));
-      *(undefined4 *)(DAT_005b3484 + 0x44e60) = 0xffffffff;
+      FUN_00422f10(*(undefined4 *)(g_clientContext + 0x44e60));
+      *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
       return;
     }
     FUN_004124a0(0);
@@ -496,7 +496,7 @@ LAB_004b8aeb:
     FUN_004d2680();
     return;
   case 0x11:
-    cVar3 = PacketChecksumNotEquals(DAT_005b3484 + 0x45354,2);
+    cVar3 = PacketChecksumNotEquals(g_clientContext + 0x45354,2);
     if (((cVar3 == '\0') && (cVar3 = FUN_004065a0(), cVar3 != '\0')) &&
        (cVar3 = FUN_004065a0(), cVar3 != '\0')) {
       cVar3 = FUN_004065a0();
@@ -533,20 +533,20 @@ switchD_004b83e0_caseD_3b:
   if (*(char *)(param_1 + 0x10bc) != '\x01') {
     return;
   }
-  cVar3 = PacketChecksumNotEquals(DAT_005b3484 + 0xebcbc,6);
+  cVar3 = PacketChecksumNotEquals(g_clientContext + 0xebcbc,6);
   if (cVar3 != '\0') {
     cVar3 = FUN_004065a0();
     if (cVar3 != '\0') {
-      uVar10 = FUN_00420600(DAT_005b3484);
+      uVar10 = FUN_00420600(g_clientContext);
       FUN_004cbda0(param_1,uVar10);
       return;
     }
-    iVar7 = FUN_00420600(DAT_005b3484);
-    if (*(int *)(DAT_005b3484 + 0xf0374) == iVar7) {
-      *(undefined4 *)(DAT_005b3484 + 0xf0374) = 0xffffffff;
+    iVar7 = FUN_00420600(g_clientContext);
+    if (*(int *)(g_clientContext + 0xf0374) == iVar7) {
+      *(undefined4 *)(g_clientContext + 0xf0374) = 0xffffffff;
       return;
     }
-    *(int *)(DAT_005b3484 + 0xf0374) = iVar7;
+    *(int *)(g_clientContext + 0xf0374) = iVar7;
     return;
   }
   return;

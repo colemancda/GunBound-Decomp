@@ -79,14 +79,14 @@ LAB_00506add:
     return 1;
   }
   iVar9 = 0;
-  if (0 < *(int *)(&DAT_005f3258 + DAT_005b3484)) {
-    piVar8 = (int *)(&DAT_005f3058 + DAT_005b3484);
+  if (0 < *(int *)(&DAT_005f3258 + g_clientContext)) {
+    piVar8 = (int *)(&DAT_005f3058 + g_clientContext);
     do {
-      if ((piVar8[-0x40] == *(int *)(DAT_005b3484 + 0x3f804)) && (*piVar8 == iVar6))
+      if ((piVar8[-0x40] == *(int *)(g_clientContext + 0x3f804)) && (*piVar8 == iVar6))
       goto LAB_00506add;
       iVar9 = iVar9 + 1;
       piVar8 = piVar8 + 1;
-    } while (iVar9 < *(int *)(&DAT_005f3258 + DAT_005b3484));
+    } while (iVar9 < *(int *)(&DAT_005f3258 + g_clientContext));
   }
   uVar2 = *param_1;
   uVar3 = DAT_00795070 + 1 & 0x800001ff;

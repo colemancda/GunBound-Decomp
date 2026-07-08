@@ -57,7 +57,7 @@ LAB_0043f075:
   uVar1 = puVar5[1];
   while( true ) {
     if (0x2712 < uVar1) {
-      *(undefined4 *)(DAT_005b3484 + 0x621e4) = 0;
+      *(undefined4 *)(g_clientContext + 0x621e4) = 0;
       return;
     }
     if (uVar1 == 0x2712) break;
@@ -65,12 +65,12 @@ LAB_0043f075:
     uVar1 = puVar5[1];
   }
   puVar2 = (undefined4 *)puVar5[4];
-  iVar4 = DAT_005b3484;
-  while (DAT_005b3484 = iVar4, puVar2 != puVar5) {
+  iVar4 = g_clientContext;
+  while (g_clientContext = iVar4, puVar2 != puVar5) {
     puVar3 = (undefined4 *)*puVar2;
     puVar2 = (undefined4 *)puVar2[4];
     (*(code *)*puVar3)(1);
-    iVar4 = DAT_005b3484;
+    iVar4 = g_clientContext;
   }
   puVar5[3] = puVar5;
   puVar5[4] = puVar5;

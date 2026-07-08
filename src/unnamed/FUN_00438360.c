@@ -23,7 +23,7 @@ void FUN_00438360(void)
   if (cVar2 != '\0') {
     return;
   }
-  iVar4 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+  iVar4 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar1 = *(uint *)(iVar4 + 4);
   while (uVar1 < 0x2e636) {
     if (uVar1 == 0x2e635) {

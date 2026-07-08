@@ -36,8 +36,8 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
   puStack_8 = &LAB_0053cc82;
   *unaff_FS_OFFSET = &local_c;
   piVar8 = (int *)0x0;
-  if ((((-1 < param_2) && (param_2 < *(int *)(&DAT_006a7720 + DAT_005b3484))) && (-0xc9 < param_1))
-     && (param_1 < *(int *)(&DAT_006a7724 + DAT_005b3484))) {
+  if ((((-1 < param_2) && (param_2 < *(int *)(&DAT_006a7720 + g_clientContext))) && (-0xc9 < param_1))
+     && (param_1 < *(int *)(&DAT_006a7724 + g_clientContext))) {
     pvVar2 = operator_new(0x3fa0);
     local_4 = 0;
     if (pvVar2 != (void *)0x0) {
@@ -84,7 +84,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       *pcVar7 = cVar1;
       pcVar7 = pcVar7 + 1;
     } while (cVar1 != '\0');
-    FUN_0041da80(DAT_005b3484,piVar8,param_5,param_10,1);
+    FUN_0041da80(g_clientContext,piVar8,param_5,param_10,1);
     cVar1 = FUN_004065a0();
     if (cVar1 == '\x01') {
       uVar4 = FUN_0040a7d0(piVar8 + 0x930,local_89c,3);
@@ -118,7 +118,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       local_4 = 0xffffffff;
       FUN_0040a2a0();
     }
-    cVar1 = FUN_00406610(*(char *)(DAT_005b3484 + 0x45127) == '\x02');
+    cVar1 = FUN_00406610(*(char *)(g_clientContext + 0x45127) == '\x02');
     if (cVar1 != '\0') {
       uVar4 = FUN_0040a4d0(&DAT_00e9c578);
       uVar4 = FUN_0040a7d0(piVar8 + 0x930,local_678,uVar4);

@@ -14,7 +14,7 @@ void __fastcall FUN_0043c4a0(undefined4 param_1,uint param_2)
   uint uVar1;
   int iVar2;
   
-  iVar2 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+  iVar2 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar1 = *(uint *)(iVar2 + 4);
   if (uVar1 < 0x186a5) {
     while (uVar1 != 0x186a4) {

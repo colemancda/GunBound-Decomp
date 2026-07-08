@@ -40,7 +40,7 @@ void __fastcall FUN_0046e020(int param_1)
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
   local_688[0] = 0;
-  uVar2 = FUN_0040a6e0(param_1 + 0x3c,local_678,*(undefined4 *)(&DAT_006a7710 + DAT_005b3484));
+  uVar2 = FUN_0040a6e0(param_1 + 0x3c,local_678,*(undefined4 *)(&DAT_006a7710 + g_clientContext));
   local_4 = 0;
   FUN_0040a5f0(uVar2,local_454,400);
   local_4 = 1;
@@ -129,7 +129,7 @@ LAB_0046e1bb:
       _DAT_00ea0e80 = 0xffffffff;
       _DAT_00ea0e5c = 0xffffffff;
       _DAT_00ea0e38 = 0xffffffff;
-      if (iVar4 < *(int *)(&DAT_006a7724 + DAT_005b3484)) {
+      if (iVar4 < *(int *)(&DAT_006a7724 + g_clientContext)) {
         puVar7 = (undefined4 *)(&DAT_006ba1fc + g_spriteVertexCount * 0x6c);
         iVar3 = iVar4;
         do {
@@ -181,7 +181,7 @@ LAB_0046e1bb:
             local_688[0] = (local_688[0] - 1 | 0xfffffff8) + 1;
           }
           iVar3 = iVar6;
-        } while (iVar6 < *(int *)(&DAT_006a7724 + DAT_005b3484));
+        } while (iVar6 < *(int *)(&DAT_006a7724 + g_clientContext));
       }
     }
   }

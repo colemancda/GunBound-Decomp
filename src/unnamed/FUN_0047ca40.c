@@ -65,7 +65,7 @@ void __fastcall FUN_0047ca40(int *param_1)
     (**(code **)(*param_1 + 4))(s_normal_00552230);
   }
   param_1[0xfec] = (param_1[0xfec] + 1) % 0x16;
-  iVar5 = GetPlayerRecordBySlot(DAT_005b3484);
+  iVar5 = GetPlayerRecordBySlot(g_clientContext);
   if (param_1[9] == 0) {
     uVar3 = FUN_004065a0();
     *(undefined1 *)(param_1 + 0xfe8) = uVar3;
@@ -92,11 +92,11 @@ void __fastcall FUN_0047ca40(int *param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if (*(int *)(&DAT_006a7724 + DAT_005b3484) + iStack_ad4 < iVar6) {
+    if (*(int *)(&DAT_006a7724 + g_clientContext) + iStack_ad4 < iVar6) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar6 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar6 = *(int *)(&DAT_006a7724 + DAT_005b3484) + iVar6;
+      iVar6 = *(int *)(&DAT_006a7724 + g_clientContext) + iVar6;
     }
     else {
       FUN_0040a5f0(iVar5 + 0xb30,auStack_89c,

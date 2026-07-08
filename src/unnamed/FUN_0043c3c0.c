@@ -16,7 +16,7 @@ void FUN_0043c3c0(void)
   undefined4 uVar3;
   int iVar4;
   
-  iVar4 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+  iVar4 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar1 = *(uint *)(iVar4 + 4);
   if (uVar1 < 0x186a4) {
     while (uVar1 != 0x186a3) {

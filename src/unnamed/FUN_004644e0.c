@@ -50,7 +50,7 @@ undefined1 FUN_004644e0(int param_1)
   local_d11 = 0;
   local_cf0 = 0;
   do {
-    piVar3 = (int *)GetPlayerRecordBySlot(DAT_005b3484);
+    piVar3 = (int *)GetPlayerRecordBySlot(g_clientContext);
     if ((piVar3 != (int *)0x0) && (cVar2 = FUN_004065a0(), cVar2 != '\x01')) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar4 = PeekPacketChecksumState();
@@ -142,7 +142,7 @@ LAB_004647f7:
               iVar5 = FUN_0040a4d0(&DAT_00796aa0);
               piVar3[0x2ff7] = piVar3[0x2ff7] % iVar5;
               EncodeChecksumState(piVar3 + 0x243);
-              iVar5 = DAT_005b3484 + 0x3b49c;
+              iVar5 = g_clientContext + 0x3b49c;
               *(undefined1 *)(piVar3 + 0x2c2b) = *(undefined1 *)(param_1 + 0x3c);
               iVar5 = FUN_0040a4d0(iVar5);
               if ((local_cf0 == iVar5) && (iVar5 = (**(int (**)())(*piVar3 + 0x14))(), 8999 < iVar5)) {
@@ -174,7 +174,7 @@ LAB_004647f7:
       }
       local_cf0 = 0;
       do {
-        iVar5 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+        iVar5 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
         uVar4 = *(uint *)(iVar5 + 4);
         while (uVar4 < 0x186a4) {
           if (uVar4 == 0x186a3) {
@@ -209,7 +209,7 @@ LAB_00464ec3:
       }
       local_cf0 = 0;
       do {
-        iVar6 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+        iVar6 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
         uVar4 = *(uint *)(iVar6 + 4);
         while (uVar4 < 0x186a7) {
           if (uVar4 == 0x186a6) {

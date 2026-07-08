@@ -16,7 +16,7 @@ void FUN_0043a5f0(void)
   undefined4 uVar3;
   int *piVar4;
   
-  piVar4 = *(int **)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+  piVar4 = *(int **)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar1 = piVar4[1];
   if (uVar1 < 0x186a2) {
     while (uVar1 != 0x186a1) {

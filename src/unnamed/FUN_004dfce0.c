@@ -35,15 +35,15 @@ void FUN_004dfce0(int param_1)
 LAB_004dfd29:
   iVar9 = 0;
   piVar8 = (int *)(param_1 + 0x768);
-  puVar6 = (ushort *)(DAT_005b3484 + 0x49a2c);
-  iVar3 = DAT_005b3484;
+  puVar6 = (ushort *)(g_clientContext + 0x49a2c);
+  iVar3 = g_clientContext;
   do {
     iVar5 = iVar3;
     if (*(char *)(iVar3 + 0x45914 + iVar9) != '\0') {
       iVar2 = (int)((longlong)(ulonglong)((uint)*puVar6 * 0x2ec) /
                    (longlong)*(int *)(&DAT_006a7720 + iVar3));
       piVar8[-8] = iVar2;
-      iVar5 = DAT_005b3484;
+      iVar5 = g_clientContext;
       if (iVar7 == 0) {
         *piVar8 = 0x1e7;
         iVar5 = iVar3;

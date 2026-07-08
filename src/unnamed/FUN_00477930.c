@@ -34,13 +34,13 @@ void __fastcall FUN_00477930(int param_1)
   puStack_8 = &LAB_00539e97;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
-  uVar2 = FUN_0040a6e0(param_1 + 0x1178,local_230,*(undefined4 *)(&DAT_006a7714 + DAT_005b3484));
+  uVar2 = FUN_0040a6e0(param_1 + 0x1178,local_230,*(undefined4 *)(&DAT_006a7714 + g_clientContext));
   local_4 = 0;
   uVar2 = FUN_0040a5f0(uVar2,local_678,0x104);
   local_4 = 1;
   FUN_0040a5f0(uVar2,local_89c,0x26);
   local_4 = 2;
-  uVar2 = FUN_0040a6e0(param_1 + 0xf54,local_ac0,*(undefined4 *)(&DAT_006a7710 + DAT_005b3484));
+  uVar2 = FUN_0040a6e0(param_1 + 0xf54,local_ac0,*(undefined4 *)(&DAT_006a7710 + g_clientContext));
   local_4 = 3;
   FUN_0040a5f0(uVar2,local_454,400);
   local_4 = 4;

@@ -27,7 +27,7 @@ void __thiscall FUN_0042bb10(int param_1,undefined4 param_2,int param_3)
     else {
       piVar3 = (int *)FUN_004a2780();
     }
-    iVar5 = DAT_005b3484;
+    iVar5 = g_clientContext;
     piVar3[0xe] = unaff_ESI;
     iVar4 = *(int *)(&DAT_006a7724 + iVar5) + -0x26;
     if (param_1 <= *(int *)(&DAT_006a7724 + iVar5) + -0x26) {

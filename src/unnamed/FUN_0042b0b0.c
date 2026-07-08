@@ -267,7 +267,7 @@ LAB_0042b60a:
   else {
     (**(code **)(*piVar3 + 4))(s_normal_00552230);
   }
-  FUN_0041c360(DAT_005b3484,piVar3);
+  FUN_0041c360(g_clientContext,piVar3);
   if ((char)param_12 == '\0') {
     FUN_0040a8c0(piVar3 + 0x19d1,auStack_454,2);
     local_4 = 0x11;

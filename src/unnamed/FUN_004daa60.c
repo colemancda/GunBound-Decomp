@@ -23,8 +23,8 @@ void FUN_004daa60(int *param_1,int param_2)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(in_EAX);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = DAT_005b3484;
-  *(undefined1 *)(DAT_005b3484 + 0x45124) = param_2;
+  iVar1 = g_clientContext;
+  *(undefined1 *)(g_clientContext + 0x45124) = param_2;
   bVar4 = (byte)in_EAX;
   *(bool *)(iVar1 + 0x45120) = (bVar4 & 0x10) == 0x10;
   *(byte *)(iVar1 + 0x45121) = (byte)(in_EAX >> 5) & 3;
@@ -40,10 +40,10 @@ void FUN_004daa60(int *param_1,int param_2)
   EncodeOutgoingPacketField(in_EAX >> 0x10 & 3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar5 = (char)(in_EAX >> 0x18);
-  if (cVar5 != *(char *)(DAT_005b3484 + 0x45578)) {
+  if (cVar5 != *(char *)(g_clientContext + 0x45578)) {
     uVar7 = 6;
     uVar6 = 4;
-    *(char *)(DAT_005b3484 + 0x45578) = cVar5;
+    *(char *)(g_clientContext + 0x45578) = cVar5;
     iVar1 = *param_1;
     uVar2 = FUN_0043dc70(&DAT_00796eec,(in_EAX >> 0x18) + 10000);
     (**(code **)(iVar1 + 0x28))(uVar2,uVar6,uVar7);
@@ -78,7 +78,7 @@ LAB_004dac8a:
     CreateButtonWidget(&DAT_00e9be90,0,0xd,0x3f5,s_b_ready_option_00556b30,0x13d,0xe1,0x51,0x18,0,0)
     ;
   }
-  switch(*(undefined1 *)(DAT_005b3484 + 0x45124)) {
+  switch(*(undefined1 *)(g_clientContext + 0x45124)) {
   case 2:
     CreateButtonWidget(&DAT_00e9be90,0,0x14,0x3fc,s_b_ready_option_00556b30,0x193,0xe1,0x51,0x18,0,0
                       );
@@ -106,7 +106,7 @@ LAB_004dadd5:
     CreateButtonWidget(&DAT_00e9be90,0,0x17,0x3ff,s_b_ready_option_00556b30,0x193,0xe1,0x51,0x18,0,0
                       );
   }
-  switch(*(undefined1 *)(DAT_005b3484 + 0x45127)) {
+  switch(*(undefined1 *)(g_clientContext + 0x45127)) {
   case 0:
     CreateButtonWidget(&DAT_00e9be90,0,0x1e,0x406,s_b_ready_option_00556b30,0x193,0xff,0x51,0x18,0,0
                       );
@@ -138,7 +138,7 @@ LAB_004daf59:
     CreateButtonWidget(&DAT_00e9be90,0,0x21,0x409,s_b_ready_option_00556b30,0x193,0xff,0x51,0x18,0,0
                       );
   }
-  switch(*(undefined1 *)(DAT_005b3484 + 0x45128)) {
+  switch(*(undefined1 *)(g_clientContext + 0x45128)) {
   case 0:
     CreateButtonWidget(&DAT_00e9be90,0,0x32,0x41a,s_b_ready_option_00556b30,0x193,0x11d,0x51,0x18,0,
                        0);
@@ -181,7 +181,7 @@ LAB_004daf59:
   EncodeOutgoingPacketField(uVar2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
 switchD_004dafd1_default:
-  cVar5 = *(char *)(DAT_005b3484 + 0x45126);
+  cVar5 = *(char *)(g_clientContext + 0x45126);
   if (cVar5 == '\0') {
     CreateButtonWidget(&DAT_00e9be90,0,0x3c,0x424,s_b_ready_option_00556b30,0x13d,0x11d,0x51,0x18,0,
                        0);
@@ -206,7 +206,7 @@ LAB_004db263:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = *(int *)(&DAT_0056d350 + *(char *)(DAT_005b3484 + 0x44ef8) * 4);
+  iVar1 = *(int *)(&DAT_0056d350 + *(char *)(g_clientContext + 0x44ef8) * 4);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(iVar3 % iVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -17,14 +17,14 @@ void FUN_0044b0b0(int param_1)
   iVar2 = 0;
   while( true ) {
     uVar1 = *(int *)(param_1 + 0x454) + iVar2;
-    if (*(uint *)(DAT_005b3484 + 0x44e24) <= uVar1) {
+    if (*(uint *)(g_clientContext + 0x44e24) <= uVar1) {
       return;
     }
-    if (*(uint *)(DAT_005b3484 + 0x44e24) <= uVar1) break;
+    if (*(uint *)(g_clientContext + 0x44e24) <= uVar1) break;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar1 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004240c0(DAT_005b3484,(uVar1 & 0x8000) == 0x8000,uVar1 >> 0x10,uVar1 & 0x7fff);
+    FUN_004240c0(g_clientContext,(uVar1 & 0x8000) == 0x8000,uVar1 >> 0x10,uVar1 & 0x7fff);
     iVar2 = iVar2 + 1;
     if (0x14 < iVar2) {
       return;

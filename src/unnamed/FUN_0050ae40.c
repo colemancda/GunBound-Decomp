@@ -47,7 +47,7 @@ void __fastcall FUN_0050ae40(int param_1)
       BlitSpriteClipped(1);
     }
   }
-  if (*(uint *)(DAT_005b3484 + 0x44e24) <= (uint)(*(int *)(local_84 + 0x454) + param_1)) {
+  if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(local_84 + 0x454) + param_1)) {
     return;
   }
   local_90 = 0;
@@ -92,7 +92,7 @@ LAB_0050afd2:
   if (0x88f < local_90) goto code_r0x0050afea;
   goto LAB_0050af10;
 code_r0x0050afea:
-  if (*(uint *)(DAT_005b3484 + 0x44e24) <= (uint)(*(int *)(local_84 + 0x454) + param_1)) {
+  if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(local_84 + 0x454) + param_1)) {
                     /* WARNING: Subroutine does not return */
     FUN_004010c0(0x80070057);
   }
@@ -102,7 +102,7 @@ code_r0x0050afea:
   uVar5 = iVar2 >> 0x10 & 0xf;
   uVar6 = uVar5 * 2;
   if (uVar5 != 3) {
-    if (*(uint *)(DAT_005b3484 + 0x44e24) <= (uint)(*(int *)(puVar3 + 0x454) + param_1)) {
+    if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar3 + 0x454) + param_1)) {
                     /* WARNING: Subroutine does not return */
       FUN_004010c0(0x80070057);
     }
@@ -144,7 +144,7 @@ LAB_0050b0e6:
     }
   }
 LAB_0050b11f:
-  if ((uint)(*(int *)(local_84 + 0x454) + param_1) < *(uint *)(DAT_005b3484 + 0x44e24)) {
+  if ((uint)(*(int *)(local_84 + 0x454) + param_1) < *(uint *)(g_clientContext + 0x44e24)) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

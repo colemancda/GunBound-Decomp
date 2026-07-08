@@ -83,7 +83,7 @@ void FUN_00477140(void)
     FUN_0040a240();
     FUN_0040b540(local_478);
   }
-  FUN_004e4d00(&DAT_006a7708 + DAT_005b3484);
+  FUN_004e4d00(&DAT_006a7708 + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState();
   EncodeOutgoingPacketField(uVar3);
@@ -146,7 +146,7 @@ void FUN_00477140(void)
     FUN_0040a240();
     FUN_0040b540(&stack0xfffffb78);
   }
-  iVar1 = DAT_005b3484;
+  iVar1 = g_clientContext;
   cVar2 = FUN_004065a0();
   if (cVar2 != '\x01') {
     iVar5 = *(int *)(&DAT_006a7750 + iVar1);

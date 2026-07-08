@@ -48,19 +48,19 @@ void FUN_0043af40(int param_1,int param_2,int param_3,int param_4,int param_5,in
   local_14 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_14;
   pcVar12 = (code *)EnterCriticalSection;
-  if (*(int *)(&DAT_006a7724 + DAT_005b3484) < param_2) {
-    param_2 = *(int *)(&DAT_006a7724 + DAT_005b3484);
+  if (*(int *)(&DAT_006a7724 + g_clientContext) < param_2) {
+    param_2 = *(int *)(&DAT_006a7724 + g_clientContext);
   }
   local_8bc = param_4;
   pcVar9 = (code *)LeaveCriticalSection;
-  iVar5 = DAT_005b3484;
+  iVar5 = g_clientContext;
   if (param_3 != 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState();
     pcVar9 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_8bc = (param_4 * 7) / iVar5;
-    iVar5 = DAT_005b3484;
+    iVar5 = g_clientContext;
   }
   do {
     if (((param_2 < 0) || (param_1 < 0)) || (*(int *)(&DAT_006a7720 + iVar5) <= param_1)) {
@@ -84,8 +84,8 @@ LAB_0043b008:
         (*pcVar9)(&DAT_005a9068);
         uStack_8d0._3_1_ = (char)(uVar8 >> 0x18);
         bVar13 = uStack_8d0._3_1_ != '\0';
-        iVar5 = DAT_005b3484;
-        if (((bVar13) && (cVar2 = FUN_004065a0(), iVar5 = DAT_005b3484, cVar2 != '\x01')) &&
+        iVar5 = g_clientContext;
+        if (((bVar13) && (cVar2 = FUN_004065a0(), iVar5 = g_clientContext, cVar2 != '\x01')) &&
            (piVar11[9] != 0xe)) {
           cVar2 = FUN_004065a0();
           iVar10 = param_4;
@@ -93,7 +93,7 @@ LAB_0043b008:
             iVar10 = param_4 / 5 + param_4;
           }
           cVar2 = FUN_00406860();
-          iVar5 = DAT_005b3484;
+          iVar5 = g_clientContext;
           pcVar12 = (code *)EnterCriticalSection;
           if (cVar2 != '\0') {
             FUN_0040a6e0(piVar11 + 0x243,local_460,param_1);
@@ -119,7 +119,7 @@ LAB_0043b008:
               FUN_0040b540(local_8b0);
               pcVar9 = (code *)LeaveCriticalSection;
             }
-            iVar5 = DAT_005b3484;
+            iVar5 = g_clientContext;
             pcVar12 = (code *)EnterCriticalSection;
             if (local_8b8[0] * local_8b8[0] + iVar6 * iVar6 < iVar10 * iVar10) {
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -159,19 +159,19 @@ LAB_0043b008:
                  ((iVar5 != 6 && ((iVar5 != 8 && (iVar5 != 10)))))) {
                 (**(code **)(*piVar11 + 4))(s_shock_00553b80);
               }
-              iVar5 = DAT_005b3484;
+              iVar5 = g_clientContext;
               pcVar12 = (code *)EnterCriticalSection;
               if (param_7 < 8) {
                 uVar8 = (uint)param_7;
-                if (*(char *)((piVar11[2] & 7U) + 0x4590c + DAT_005b3484) ==
-                    *(char *)(uVar8 + 0x4590c + DAT_005b3484)) {
-                  piVar1 = (int *)(DAT_005b3484 + 0x5b83c + uVar8 * 4);
+                if (*(char *)((piVar11[2] & 7U) + 0x4590c + g_clientContext) ==
+                    *(char *)(uVar8 + 0x4590c + g_clientContext)) {
+                  piVar1 = (int *)(g_clientContext + 0x5b83c + uVar8 * 4);
                   *piVar1 = *piVar1 + param_5 + param_6;
                   pcVar12 = (code *)EnterCriticalSection;
                   *(undefined1 *)(piVar11 + 0x2c2d) = 1;
                 }
                 else {
-                  piVar1 = (int *)(DAT_005b3484 + 0x5b81c + uVar8 * 4);
+                  piVar1 = (int *)(g_clientContext + 0x5b81c + uVar8 * 4);
                   *piVar1 = *piVar1 + param_5 + param_6;
                   pcVar12 = (code *)EnterCriticalSection;
                 }
@@ -229,7 +229,7 @@ LAB_0043b408:
                 pcVar9 = (code *)LeaveCriticalSection;
                 pcVar12 = (code *)EnterCriticalSection;
               }
-              iVar5 = DAT_005b3484;
+              iVar5 = g_clientContext;
               if (local_8b8[0] * local_8b8[0] + local_8c8 * local_8c8 < param_4 * param_4) {
                 (*pcVar12)(&DAT_005a9068);
                 iVar5 = _rand();
@@ -265,7 +265,7 @@ LAB_0043b408:
                 *(byte *)((int)piVar11 + 0xf3d) = *(byte *)((int)piVar11 + 0xf3b) + bVar4 + -0x34;
                 (*pcVar9)(&DAT_005a9068);
                 (**(code **)(*piVar11 + 4))(s_shock_00553b80);
-                iVar5 = DAT_005b3484;
+                iVar5 = g_clientContext;
                 pcVar12 = (code *)EnterCriticalSection;
               }
             }

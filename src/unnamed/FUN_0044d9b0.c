@@ -318,20 +318,20 @@ LAB_0044e580:
     PeekPacketChecksumState();
     (*pcVar16)(&DAT_005a9068);
     if ((((uStack_adc._3_1_ != '\0') ||
-         (cVar5 = FUN_0040b300(param_1 + 0x3d5,*(undefined4 *)(&DAT_006a7720 + DAT_005b3484)),
+         (cVar5 = FUN_0040b300(param_1 + 0x3d5,*(undefined4 *)(&DAT_006a7720 + g_clientContext)),
          iVar6 = iStack_ae0, cVar5 != '\0')) ||
-        (cVar5 = FUN_0040b300(iStack_ae0,*(undefined4 *)(&DAT_006a7724 + DAT_005b3484)),
+        (cVar5 = FUN_0040b300(iStack_ae0,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
         cVar5 != '\0')) || (cVar5 = FUN_0040b330(iVar6,0xfffffc18), cVar5 != '\0')) {
       *(undefined1 *)(param_1 + 5) = 1;
       cVar5 = FUN_004065a0();
       if ((cVar5 != '\0') && (cVar5 = FUN_0043a530(), cVar5 == '\0')) {
-        iVar6 = *(int *)(*(int *)(DAT_005b3484 + 0x621e4) + 0x24);
+        iVar6 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar6 == 5) || (uVar7 = 2, iVar6 == 6)) {
           uVar7 = 0x19;
         }
         QueueOutgoingPacketField(uVar7);
-        iVar6 = DAT_005b3484;
-        *(undefined4 *)(&DAT_005f3768 + DAT_005b3484) = 5;
+        iVar6 = g_clientContext;
+        *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;
         *(undefined4 *)(&DAT_005f376c + iVar6) = 0;
       }
     }
@@ -339,8 +339,8 @@ LAB_0044e580:
     if (cVar5 != '\0') {
       iVar8 = FUN_0040a4d0(iStack_ae0);
       iVar11 = FUN_0040a4d0(param_1 + 0x3d5);
-      iVar6 = DAT_005b3484;
-      piVar1 = (int *)(&DAT_006a7708 + DAT_005b3484);
+      iVar6 = g_clientContext;
+      piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
       cVar5 = FUN_004065a0();
       if ((cVar5 == '\0') && ((&DAT_006a7758)[iVar6] != '\0')) {
         if (((&DAT_006a7736)[iVar6] == '\x01') &&
@@ -401,15 +401,15 @@ LAB_0044e580:
   cVar5 = FUN_004065a0();
   if (cVar5 != '\0') {
     iVar6 = FUN_0040a4d0(param_1 + 0x3d5);
-    if ((-1 < iVar6) && (iVar6 < *(int *)(&DAT_006a7720 + DAT_005b3484))) {
-      pcVar15 = (char *)(*(int *)(&DAT_006a773c + DAT_005b3484) + iVar6);
+    if ((-1 < iVar6) && (iVar6 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+      pcVar15 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + iVar6);
       iVar6 = 0;
-      if (0 < *(int *)(&DAT_006a7724 + DAT_005b3484)) {
+      if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
         do {
           if (*pcVar15 != '\0') goto LAB_0044e02e;
-          pcVar15 = pcVar15 + *(int *)(&DAT_006a7720 + DAT_005b3484);
+          pcVar15 = pcVar15 + *(int *)(&DAT_006a7720 + g_clientContext);
           iVar6 = iVar6 + 1;
-        } while (iVar6 < *(int *)(&DAT_006a7724 + DAT_005b3484));
+        } while (iVar6 < *(int *)(&DAT_006a7724 + g_clientContext));
       }
     }
     iVar6 = 10000;
@@ -417,7 +417,7 @@ LAB_0044e02e:
     piVar1 = param_1 + 0x3d5;
     iVar8 = iVar6;
     uVar7 = FUN_0040a4d0(piVar1);
-    FUN_00436070(&DAT_006a7f70 + DAT_005b3484,uVar7,iVar8);
+    FUN_00436070(&DAT_006a7f70 + g_clientContext,uVar7,iVar8);
     iVar8 = 1;
     if (0 < param_1[0xfe5]) {
       iVar8 = param_1[0xfe5];
@@ -455,7 +455,7 @@ LAB_0044e02e:
   uStack_adc._0_3_ = extraout_EAX;
   uStack_adc._3_1_ = extraout_var;
   (*pcVar16)(&DAT_005a9068);
-  FUN_004398e0(&DAT_006a7f70 + DAT_005b3484,param_1[2],iStack_ae0,unaff_EBP,param_1,0);
+  FUN_004398e0(&DAT_006a7f70 + g_clientContext,param_1[2],iStack_ae0,unaff_EBP,param_1,0);
   *(undefined1 *)(param_1 + 5) = 1;
   (**(code **)(*param_1 + 0x20))();
   if (1 < param_1[9]) {
@@ -466,12 +466,12 @@ LAB_0044e02e:
     FUN_004373c0(uVar9,uVar7,uVar17,pcVar15);
   }
   cVar5 = FUN_004065a0();
-  iVar6 = DAT_005b3484;
-  if ((cVar5 != '\0') && (cVar5 = FUN_0043a530(), iVar6 = DAT_005b3484, cVar5 == '\0')) {
+  iVar6 = g_clientContext;
+  if ((cVar5 != '\0') && (cVar5 = FUN_0043a530(), iVar6 = g_clientContext, cVar5 == '\0')) {
     uVar7 = FUN_0040a4d0(&DAT_007949c8);
     QueueOutgoingPacketField(uVar7);
-    iVar6 = DAT_005b3484;
-    *(undefined4 *)(&DAT_005f3768 + DAT_005b3484) = 5;
+    iVar6 = g_clientContext;
+    *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;
     *(undefined4 *)(&DAT_005f376c + iVar6) = 0;
   }
   uVar7 = FUN_0040b490(iVar6 + 0x5b85c,param_1 + 0xe48);

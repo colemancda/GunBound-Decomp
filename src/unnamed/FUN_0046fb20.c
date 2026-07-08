@@ -252,8 +252,8 @@ LAB_0046ff52:
             *(byte *)(iVar11 + 0xf4d) = bVar9;
             *(byte *)(iVar11 + 0xf4e) = bVar13 + bVar9 + -0x34;
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar15 = DAT_005b3484;
-            pbVar17 = (byte *)(DAT_005b3484 + 0x62140);
+            iVar15 = g_clientContext;
+            pbVar17 = (byte *)(g_clientContext + 0x62140);
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar12 = _rand();
             *pbVar17 = (byte)iVar12;
@@ -317,11 +317,11 @@ LAB_0046ff52:
         if (cVar8 != '\0') {
           FUN_00436ec0(local_15b0,local_15b4);
         }
-        if (*(int *)(iVar11 + 0x3f9c) < (int)(uint)(byte)(&DAT_005f2f54)[DAT_005b3484]) {
+        if (*(int *)(iVar11 + 0x3f9c) < (int)(uint)(byte)(&DAT_005f2f54)[g_clientContext]) {
           FUN_00436fd0(local_15b0,local_15b4,param_2,local_1588,local_1584);
         }
         iVar12 = local_15b0;
-        iVar15 = DAT_005b3484;
+        iVar15 = g_clientContext;
         *(int *)(iVar11 + 0x3f9c) = (*(int *)(iVar11 + 0x3f9c) + 1) % 6;
         if ((((-1 < local_15b0) && (local_15b0 < *(int *)(&DAT_006a7720 + iVar15))) &&
             (-1 < local_15b4)) &&
@@ -518,8 +518,8 @@ LAB_0047090c:
             *(byte *)(iVar11 + 0xf4d) = bVar9;
             *(byte *)(iVar11 + 0xf4e) = bVar9 + bVar13 + -0x34;
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar12 = DAT_005b3484;
-            pbVar17 = (byte *)(DAT_005b3484 + 0x62140);
+            iVar12 = g_clientContext;
+            pbVar17 = (byte *)(g_clientContext + 0x62140);
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar16 = _rand();
             *pbVar17 = (byte)iVar16;
@@ -589,11 +589,11 @@ LAB_0047090c:
         if (cVar8 != '\0') {
           FUN_00436ec0(local_15bc,local_15b0);
         }
-        if (*(int *)(iVar11 + 0x3f9c) < (int)(uint)(byte)(&DAT_005f2f54)[DAT_005b3484]) {
+        if (*(int *)(iVar11 + 0x3f9c) < (int)(uint)(byte)(&DAT_005f2f54)[g_clientContext]) {
           FUN_00436fd0(local_15bc,local_15b0,param_2,local_1588,local_1584);
         }
         iVar16 = local_15b0;
-        iVar12 = DAT_005b3484;
+        iVar12 = g_clientContext;
         *(int *)(iVar11 + 0x3f9c) = (*(int *)(iVar11 + 0x3f9c) + 1) % 6;
         if ((((-1 < local_15bc) && (local_15bc < *(int *)(&DAT_006a7720 + iVar12))) &&
             (-1 < local_15b0)) &&

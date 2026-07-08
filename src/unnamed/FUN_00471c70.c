@@ -17,7 +17,7 @@ int __fastcall FUN_00471c70(int param_1)
   if (*(char *)(param_1 + 0x34) != '\0') {
     *(undefined1 *)(param_1 + 0x14) = 1;
   }
-  if (*(char *)(DAT_005b3484 + 0x45578) != '\0') {
+  if (*(char *)(g_clientContext + 0x45578) != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar1 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

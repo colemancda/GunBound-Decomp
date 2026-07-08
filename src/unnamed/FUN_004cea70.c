@@ -41,7 +41,7 @@ LAB_004ceb04:
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar8 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar6 = DAT_005b3484;
+          iVar6 = g_clientContext;
           cVar5 = FUN_004065a0();
           if ((cVar5 == '\0') && ((&DAT_006a7758)[iVar6] != '\0')) {
             iVar10 = 400;
@@ -70,13 +70,13 @@ LAB_004ceb04:
       }
       *(undefined1 *)(param_1 + 0x10bd) = 0;
       FUN_0043c3c0();
-      if (*(int *)(DAT_005b3484 + 0x621e0) != 0) {
+      if (*(int *)(g_clientContext + 0x621e0) != 0) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar6 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (((iVar6 < 1) && (cVar5 = FUN_004065a0(), cVar5 != '\0')) &&
            (cVar5 = FUN_004065a0(), cVar5 == '\0')) {
-          iVar6 = *(int *)(DAT_005b3484 + 0x621e0);
+          iVar6 = *(int *)(g_clientContext + 0x621e0);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar7 = _rand();
           *(byte *)(iVar6 + 0x8bc0) = (byte)iVar7;
@@ -89,7 +89,7 @@ LAB_004ceb04:
           *(byte *)(iVar6 + 0x8bc2) = bVar11 + bVar2 + -0x34;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar8 = DAT_007934e8;
-          iVar7 = DAT_005b3484;
+          iVar7 = g_clientContext;
           *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
           *(undefined2 *)(iVar8 + 0x4d4) = 0x4100;
           *(undefined4 *)(iVar8 + 0x4d6) = *(undefined4 *)(*(int *)(iVar7 + 0x621e0) + 0xb0b0);
@@ -100,9 +100,9 @@ LAB_004ceb04:
           *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 1;
           FUN_004d2680();
           Replay_AppendEvent(0xc304);
-          iVar6 = DAT_005b3484;
+          iVar6 = g_clientContext;
           *(undefined4 *)(&g_replayEventBuffer + g_replayEventCursor) =
-               *(undefined4 *)(*(int *)(DAT_005b3484 + 0x621e0) + 0xb0b0);
+               *(undefined4 *)(*(int *)(g_clientContext + 0x621e0) + 0xb0b0);
           puVar1 = &DAT_00e9aad0 + g_replayEventCursor;
           g_replayEventCursor = g_replayEventCursor + 4;
           *puVar1 = *(undefined1 *)(*(int *)(iVar6 + 0x621e0) + 0xb0ac);
@@ -113,7 +113,7 @@ LAB_004ceb04:
       FUN_004cee30(param_1);
       return;
     }
-    iVar6 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+    iVar6 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
     uVar3 = *(uint *)(iVar6 + 4);
     while (uVar3 < 0x186a4) {
       if (uVar3 == 0x186a3) {

@@ -41,7 +41,7 @@ void FUN_004cee30(int param_1)
   iVar1 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar1 == 6) {
-    *(undefined4 *)(DAT_005b3484 + 0xf0374) = 0xffffffff;
+    *(undefined4 *)(g_clientContext + 0xf0374) = 0xffffffff;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = PeekPacketChecksumState();

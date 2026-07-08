@@ -22,7 +22,7 @@ void FUN_00436ec0(int param_1,int param_2)
     iVar2 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = _rand();
-    if (iVar3 % iVar2 < (int)(uint)(byte)(&DAT_005f2f54)[DAT_005b3484]) {
+    if (iVar3 % iVar2 < (int)(uint)(byte)(&DAT_005f2f54)[g_clientContext]) {
       pvVar4 = operator_new(0x50);
       if (pvVar4 == (void *)0x0) {
         iVar2 = 0;

@@ -50,7 +50,7 @@ void FUN_00463630(int param_1)
   if (iVar2 != 3) {
     cVar1 = FUN_004065a0();
     if (cVar1 == '\0') {
-      uVar3 = FUN_0040a6e0(param_1 + 0x90c,local_112c,*(undefined4 *)(&DAT_006a7710 + DAT_005b3484))
+      uVar3 = FUN_0040a6e0(param_1 + 0x90c,local_112c,*(undefined4 *)(&DAT_006a7710 + g_clientContext))
       ;
       local_4 = 0;
       uVar3 = FUN_0040a5f0(uVar3,local_f08,400);
@@ -75,7 +75,7 @@ void FUN_00463630(int param_1)
         FUN_0040a240();
         FUN_0040b540(local_113c);
       }
-      uVar3 = FUN_0040a6e0(param_1 + 0xb30,local_ce4,*(undefined4 *)(&DAT_006a7714 + DAT_005b3484));
+      uVar3 = FUN_0040a6e0(param_1 + 0xb30,local_ce4,*(undefined4 *)(&DAT_006a7714 + g_clientContext));
       local_4 = 3;
       uVar3 = FUN_0040a5f0(uVar3,local_f08,0x10e);
       local_4 = 4;
@@ -108,8 +108,8 @@ void FUN_00463630(int param_1)
       iVar4 = local_1134;
       if ((((DAT_00793530 <= local_1134 + 0x53) && (local_1134 <= DAT_0056df30)) &&
           (DAT_00793534 <= iVar2 + 0x1f)) && (iVar2 <= DAT_0056df34)) {
-        if (*(char *)(DAT_005b3484 + 0x45122) == '\0') {
-          FUN_0040a4d0(DAT_005b3484 + 0x3b49c);
+        if (*(char *)(g_clientContext + 0x45122) == '\0') {
+          FUN_0040a4d0(g_clientContext + 0x3b49c);
         }
         if (*(int *)(param_1 + 0x24) != 0xe) {
           FUN_004eb7a0(iVar4 + 1,0x4e,5);

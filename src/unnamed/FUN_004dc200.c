@@ -23,10 +23,10 @@ void FUN_004dc200(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar3;
   iVar2 = g_replayEventCursor;
-  iVar5 = DAT_005b3484;
+  iVar5 = g_clientContext;
   puVar1 = (undefined4 *)(&DAT_00e9aace + g_replayEventCursor);
   g_replayEventCursor = g_replayEventCursor + 2;
-  *puVar1 = *(undefined4 *)(DAT_005b3484 + 0x2331c);
+  *puVar1 = *(undefined4 *)(g_clientContext + 0x2331c);
   *(undefined4 *)(&DAT_00e9aad2 + iVar2) = *(undefined4 *)(iVar5 + 0x23320);
   *(undefined4 *)(&DAT_00e9aad6 + iVar2) = *(undefined4 *)(iVar5 + 0x23324);
   *(undefined4 *)(&DAT_00e9aada + iVar2) = *(undefined4 *)(iVar5 + 0x23328);

@@ -47,8 +47,8 @@ void FUN_004508a0(int param_1)
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           FUN_004f01d0();
           iVar4 = FindTextureCacheEntryByName
-                            ((uint)*(byte *)(DAT_005b3484 + 0x475c4) * 0x7d28 + 0x1a1ec8 +
-                             DAT_005b3484);
+                            ((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1ec8 +
+                             g_clientContext);
           if (iVar4 == 0) {
             (**(code **)(*g_pD3DDevice7 + 0x8c))(g_pD3DDevice7,0,0);
           }

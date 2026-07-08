@@ -146,8 +146,8 @@ void FUN_004c1d30(void)
     local_908[0] = 0x7c;
     piVar1 = *(int **)(*(int *)(iVar2 + 0x94) + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,local_908,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe44) = uStack_8e4;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe44) = uStack_8e4;
     *(undefined4 *)(iVar26 + 0x1fe4c) = uStack_8f8;
     iVar29 = 0;
     do {
@@ -174,8 +174,8 @@ void FUN_004c1d30(void)
     local_b08[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,local_b08,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe48) = uStack_ae4;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe48) = uStack_ae4;
     *(undefined4 *)(iVar26 + 0x1fe50) = uStack_af8;
     iVar29 = 0;
     do {
@@ -202,8 +202,8 @@ void FUN_004c1d30(void)
     auStack_308[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_308,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe54) = uStack_2e4;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe54) = uStack_2e4;
     *(undefined4 *)(iVar26 + 0x1fe5c) = uStack_2f8;
     iVar29 = 0;
     do {
@@ -230,8 +230,8 @@ void FUN_004c1d30(void)
     auStack_a08[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_a08,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe58) = uStack_9e4;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe58) = uStack_9e4;
     *(undefined4 *)(iVar26 + 0x1fe60) = uStack_9f8;
     iVar29 = 0;
     do {
@@ -258,8 +258,8 @@ void FUN_004c1d30(void)
     auStack_508[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_508,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe1c) = uStack_4e4;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe1c) = uStack_4e4;
     *(undefined4 *)(iVar26 + 0x1fe24) = uStack_4f8;
     iVar29 = 0;
     do {
@@ -286,8 +286,8 @@ void FUN_004c1d30(void)
     auStack_c08[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_c08,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe20) = uStack_be4;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe20) = uStack_be4;
     *(undefined4 *)(iVar26 + 0x1fe28) = uStack_bf8;
     iVar29 = 0;
     do {
@@ -314,8 +314,8 @@ void FUN_004c1d30(void)
     auStack_108[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_108,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe2c) = uStack_e4;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe2c) = uStack_e4;
     *(undefined4 *)(iVar26 + 0x1fe30) = uStack_f8;
     iVar29 = 0;
     do {
@@ -342,8 +342,8 @@ void FUN_004c1d30(void)
     auStack_808[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_808,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe34) = uStack_7e4;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe34) = uStack_7e4;
     *(undefined4 *)(iVar26 + 0x1fe3c) = uStack_7f8;
     iVar29 = 0;
     do {
@@ -370,8 +370,8 @@ void FUN_004c1d30(void)
     auStack_408[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_408,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe38) = uStack_3e4;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe38) = uStack_3e4;
     *(undefined4 *)(iVar26 + 0x1fe40) = uStack_3f8;
     iVar29 = 0;
     do {
@@ -398,8 +398,8 @@ void FUN_004c1d30(void)
     auStack_708[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_708,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x20b94) = uStack_6e4;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x20b94) = uStack_6e4;
     *(undefined4 *)(iVar26 + 0x20b98) = uStack_6f8;
     iVar29 = 0;
     do {
@@ -426,8 +426,8 @@ void FUN_004c1d30(void)
     auStack_208[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_208,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x20b9c) = uStack_1e4;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x20b9c) = uStack_1e4;
     *(undefined4 *)(iVar26 + 0x20ba0) = uStack_1f8;
     iVar29 = 0;
     do {
@@ -454,8 +454,8 @@ void FUN_004c1d30(void)
     auStack_608[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_608,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x21624) = uStack_5e4;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x21624) = uStack_5e4;
     *(undefined4 *)(iVar26 + 0x21634) = uStack_5f8;
     iVar29 = 0;
     do {
@@ -482,8 +482,8 @@ void FUN_004c1d30(void)
     auStack_b88[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_b88,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x21628) = uStack_b64;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x21628) = uStack_b64;
     *(undefined4 *)(iVar26 + 0x21638) = uStack_b78;
     iVar29 = 0;
     do {
@@ -510,8 +510,8 @@ void FUN_004c1d30(void)
     auStack_a88[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_a88,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x2162c) = uStack_a64;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x2162c) = uStack_a64;
     *(undefined4 *)(iVar26 + 0x2163c) = uStack_a78;
     iVar29 = 0;
     do {
@@ -538,8 +538,8 @@ void FUN_004c1d30(void)
     auStack_988[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_988,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x21630) = uStack_964;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x21630) = uStack_964;
     *(undefined4 *)(iVar26 + 0x21640) = uStack_978;
     iVar29 = 0;
     do {
@@ -566,8 +566,8 @@ void FUN_004c1d30(void)
     auStack_888[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_888,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x227c4) = uStack_864;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x227c4) = uStack_864;
     *(undefined4 *)(iVar26 + 0x227cc) = uStack_878;
     iVar29 = 0;
     do {
@@ -594,8 +594,8 @@ void FUN_004c1d30(void)
     auStack_788[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_788,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x227c8) = uStack_764;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x227c8) = uStack_764;
     *(undefined4 *)(iVar26 + 0x227d0) = uStack_778;
     iVar29 = 0;
     do {
@@ -622,8 +622,8 @@ void FUN_004c1d30(void)
     auStack_688[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_688,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x22d14) = uStack_664;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x22d14) = uStack_664;
     *(undefined4 *)(iVar26 + 0x22d1c) = uStack_678;
     iVar29 = 0;
     do {
@@ -650,8 +650,8 @@ void FUN_004c1d30(void)
     auStack_588[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_588,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x22d18) = uStack_564;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x22d18) = uStack_564;
     *(undefined4 *)(iVar26 + 0x22d20) = uStack_578;
     iVar29 = 0;
     do {
@@ -678,8 +678,8 @@ void FUN_004c1d30(void)
     auStack_488[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_488,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x1fe64) = uStack_464;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x1fe64) = uStack_464;
     *(undefined4 *)(iVar26 + 0x1fe68) = uStack_478;
     iVar29 = 0;
     do {
@@ -706,8 +706,8 @@ void FUN_004c1d30(void)
     auStack_388[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_388,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x23254) = uStack_364;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x23254) = uStack_364;
     *(undefined4 *)(iVar26 + 0x23258) = uStack_378;
     iVar29 = 0;
     do {
@@ -734,8 +734,8 @@ void FUN_004c1d30(void)
     auStack_288[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_288,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x23270) = uStack_264;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x23270) = uStack_264;
     *(undefined4 *)(iVar26 + 0x23274) = uStack_278;
     iVar29 = 0;
     do {
@@ -762,8 +762,8 @@ void FUN_004c1d30(void)
     auStack_188[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_188,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x23300) = uStack_164;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x23300) = uStack_164;
     *(undefined4 *)(iVar26 + 0x23308) = uStack_178;
     iVar29 = 0;
     do {
@@ -790,8 +790,8 @@ void FUN_004c1d30(void)
     auStack_88[0] = 0x7c;
     piVar1 = *(int **)(iVar26 + 0x110);
     (**(code **)(*piVar1 + 100))(piVar1,0,auStack_88,0,0);
-    iVar26 = DAT_005b3484;
-    *(undefined4 *)(DAT_005b3484 + 0x23304) = uStack_64;
+    iVar26 = g_clientContext;
+    *(undefined4 *)(g_clientContext + 0x23304) = uStack_64;
     *(undefined4 *)(iVar26 + 0x2330c) = uStack_78;
     iVar29 = 0;
     do {

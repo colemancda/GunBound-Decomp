@@ -51,7 +51,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
   uint local_f8;
   undefined1 local_f4;
   
-  iVar7 = DAT_005b3484;
+  iVar7 = g_clientContext;
   if (in_AX < 0xa251) {
     if (in_AX == 0xa250) {
       local_13c = *param_1;
@@ -63,7 +63,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
       local_154 = param_1[5];
       local_12c = 0;
       local_14c = 0;
-      FUN_00426620(&DAT_006aa41c + DAT_005b3484,&local_13c);
+      FUN_00426620(&DAT_006aa41c + g_clientContext,&local_13c);
       FUN_00426620(&DAT_006aa44c + iVar7,&local_158);
       FUN_00508d00(&DAT_00e53c40);
       return;
@@ -82,8 +82,8 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
       else if (in_AX == 0xa001) {
         FUN_00405b20();
         FUN_00406500(*(char *)((int)param_1 + 2) == '\x01');
-        iVar7 = DAT_005b3484;
-        *(undefined4 *)(DAT_005b3484 + 0x3b96b) = *(undefined4 *)((int)param_1 + 3);
+        iVar7 = g_clientContext;
+        *(undefined4 *)(g_clientContext + 0x3b96b) = *(undefined4 *)((int)param_1 + 3);
         *(undefined4 *)(iVar7 + 0x3b96f) = *(undefined4 *)((int)param_1 + 7);
         *(undefined4 *)(iVar7 + 0x3b973) = *(undefined4 *)((int)param_1 + 0xb);
         *(undefined4 *)(iVar7 + 0x3b977) = *(undefined4 *)((int)param_1 + 0xf);
@@ -120,8 +120,8 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
               puVar8 = puVar8 + 1;
             }
             param_1 = (uint *)((int)param_1 + 0x16);
-            iVar7 = DAT_005b3484;
-            for (uVar5 = (uint)(ushort)*puVar4; DAT_005b3484 = iVar7, uVar5 != 0; uVar5 = uVar5 - 1)
+            iVar7 = g_clientContext;
+            for (uVar5 = (uint)(ushort)*puVar4; g_clientContext = iVar7, uVar5 != 0; uVar5 = uVar5 - 1)
             {
               local_13c = *param_1;
               local_138 = param_1[1];
@@ -142,7 +142,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
               puVar4 = param_1 + 9;
               param_1 = (uint *)((int)param_1 + 0x26);
               FUN_00401d50(&DAT_00e53e88,1,local_128,(short)*puVar4,local_108,&local_13c);
-              iVar7 = DAT_005b3484;
+              iVar7 = g_clientContext;
             }
             local_128 = local_128 + 1;
           } while (local_128 < (int)local_124);
@@ -155,7 +155,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
           *(undefined1 *)(iVar7 + 0x4d6) = 0;
           iVar1 = *(int *)(iVar7 + 0x44d0);
           *(int *)(iVar7 + 0x44d0) = iVar1 + 1;
-          iVar2 = DAT_005b3484;
+          iVar2 = g_clientContext;
           *(undefined1 *)(iVar1 + 0x4d1 + iVar7) = 0;
           iVar1 = *(int *)(iVar7 + 0x44d0);
           *(int *)(iVar7 + 0x44d0) = iVar1 + 1;

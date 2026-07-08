@@ -69,7 +69,7 @@ void FUN_00437870(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   pcVar8 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   piVar7[0xfea] = (uint)(param_6 != '\0');
-  if (*(char *)(DAT_005b3484 + 0x45578) == '\0') {
+  if (*(char *)(g_clientContext + 0x45578) == '\0') {
     pcVar9 = s_srayonmine_00553c0c;
 LAB_004379f7:
     iVar2 = FindPreloadedTextureByName(pcVar9);
@@ -77,7 +77,7 @@ LAB_004379f7:
     pcVar8 = (code *)LeaveCriticalSection;
     piVar7[7] = iVar2;
   }
-  else if (*(char *)(DAT_005b3484 + 0x45578) == '\x01') {
+  else if (*(char *)(g_clientContext + 0x45578) == '\x01') {
     pcVar9 = s_rayonevent1_00553c20;
     goto LAB_004379f7;
   }
@@ -98,7 +98,7 @@ LAB_004379f7:
     *pcVar9 = cVar1;
     pcVar9 = pcVar9 + 1;
   } while (cVar1 != '\0');
-  FUN_0041da80(DAT_005b3484,piVar7,1,1,1);
+  FUN_0041da80(g_clientContext,piVar7,1,1,1);
   (*pcVar6)(&DAT_005a9068);
   iVar2 = PeekPacketChecksumState();
   (*pcVar8)(&DAT_005a9068);

@@ -104,9 +104,9 @@ void __fastcall State09_ReadyRoom_OnEnter(int param_1)
   FUN_004f1790(&DAT_00ea0e18,0x4bb);
   FUN_004f1790(&DAT_00ea0e18,0x514);
   FUN_004f1790(&DAT_00ea0e18,0x578);
-  iVar4 = DAT_005b3484;
-  puVar3 = &DAT_006a7f88 + DAT_005b3484;
-  *(undefined4 *)(DAT_005b3484 + 0x449ba) = 0;
+  iVar4 = g_clientContext;
+  puVar3 = &DAT_006a7f88 + g_clientContext;
+  *(undefined4 *)(g_clientContext + 0x449ba) = 0;
   *(undefined4 *)(iVar4 + 0x449be) = 0;
   FUN_004f3060(puVar3);
   FUN_004f43a0(&DAT_00eb1bd8,s_AvataTexture1_0055565c);
@@ -117,15 +117,15 @@ void __fastcall State09_ReadyRoom_OnEnter(int param_1)
   FUN_004f43a0(&DAT_00eb1bd8,s_CharacterTexture2_005568c4);
   FUN_004f43a0(&DAT_00eb1bd8,s_CharEffectTexture1_005568a4);
   FUN_004f43a0(&DAT_00eb1bd8,s_CharEffectTexture2_00556890);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   iVar5 = PeekPacketChecksumState();
@@ -176,10 +176,10 @@ void __fastcall State09_ReadyRoom_OnEnter(int param_1)
     iVar4 = iVar4 + 1;
   } while (iVar4 < 0x10);
   FUN_004f1790(&DAT_00ea0e18,0x14b4);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  AppendPersistentButtonName(&DAT_0067ec70 + DAT_005b3484);
-  iVar4 = DAT_005b3484;
-  *(undefined4 *)(DAT_005b3484 + 0x1fe1c) = 0;
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  iVar4 = g_clientContext;
+  *(undefined4 *)(g_clientContext + 0x1fe1c) = 0;
   *(undefined4 *)(iVar4 + 0x1fe20) = 0;
   *(undefined4 *)(iVar4 + 0x1fe34) = 0;
   *(undefined4 *)(iVar4 + 0x1fe38) = 0;
@@ -215,9 +215,9 @@ void __fastcall State09_ReadyRoom_OnEnter(int param_1)
     else {
       uVar7 = FUN_0044fb40(pvStack_90);
     }
-    iVar5 = DAT_005b3484;
+    iVar5 = g_clientContext;
     uStack_4 = 0xffffffff;
-    piVar11 = (int *)(&DAT_0067ec70 + DAT_005b3484);
+    piVar11 = (int *)(&DAT_0067ec70 + g_clientContext);
     puVar10[1] = uVar7;
     if (0 < *piVar11) {
       pcStack_9c = &DAT_0067ec74 + iVar5;
@@ -234,7 +234,7 @@ void __fastcall State09_ReadyRoom_OnEnter(int param_1)
     puVar3 = (undefined *)0x0;
 LAB_004d722d:
     iVar5 = iStack_94;
-    iVar4 = DAT_005b3484;
+    iVar4 = g_clientContext;
     *(undefined **)(puVar10[1] + 0x1c) = puVar3;
     if (*(char *)(iStack_94 + iVar4) == -1) {
       (**(code **)(*(int *)*puVar10 + 4))(&DAT_00553f90);
@@ -245,11 +245,11 @@ LAB_004d722d:
     iStack_94 = iVar5 + 2;
     puVar10 = puVar10 + 2;
   } while (iStack_94 < 0x4590c);
-  *(undefined1 *)(DAT_005b3484 + 0x45578) = *(undefined1 *)(DAT_005b3484 + 0x457a0);
+  *(undefined1 *)(g_clientContext + 0x45578) = *(undefined1 *)(g_clientContext + 0x457a0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004daa60(param_1,*(undefined1 *)(DAT_005b3484 + 0x45124));
+  FUN_004daa60(param_1,*(undefined1 *)(g_clientContext + 0x45124));
   *(undefined1 *)(param_1 + 0x4cc) = 0;
   FUN_004db920();
   iVar4 = DAT_007934e4;
@@ -277,15 +277,15 @@ LAB_004d722d:
   _DAT_00e9aac8 = 0;
   InterlockedExchange((LONG *)&DAT_00e9aac0,0);
   FUN_004dc200(0xffffffff);
-  iVar4 = DAT_005b3484;
+  iVar4 = g_clientContext;
   *(undefined1 *)(param_1 + 0x62c) = 0;
   *(undefined4 *)(&DAT_0067e3c8 + iVar4) = 0;
   if (*(FILE **)(&g_replayFileHandle + iVar4) != (FILE *)0x0) {
     uStack_95 = 3;
     _fwrite(&uStack_95,1,1,*(FILE **)(&g_replayFileHandle + iVar4));
-    _fclose(*(FILE **)(&g_replayFileHandle + DAT_005b3484));
-    iVar4 = DAT_005b3484;
-    *(undefined4 *)(&g_replayFileHandle + DAT_005b3484) = 0;
+    _fclose(*(FILE **)(&g_replayFileHandle + g_clientContext));
+    iVar4 = g_clientContext;
+    *(undefined4 *)(&g_replayFileHandle + g_clientContext) = 0;
   }
   *(undefined1 *)(param_1 + 9) = *(undefined1 *)(iVar4 + 0x44ef8);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -294,8 +294,8 @@ LAB_004d722d:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(uVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = DAT_005b3484;
-  *(undefined4 *)(param_1 + 0x25d) = *(undefined4 *)(DAT_005b3484 + 0x457a1);
+  iVar4 = g_clientContext;
+  *(undefined4 *)(param_1 + 0x25d) = *(undefined4 *)(g_clientContext + 0x457a1);
   *(undefined4 *)(param_1 + 0x261) = *(undefined4 *)(iVar4 + 0x457a5);
   *(undefined1 *)(param_1 + 0x230) = *(undefined1 *)(iVar4 + 0x45124);
   pcVar9 = (char *)(iVar4 + 0x44e64);
@@ -312,7 +312,7 @@ LAB_004d722d:
   do {
     if (*(char *)(iVar4 + 0x45914 + (int)pvStack_90) != '\0') {
       FUN_004dc5c0();
-      iVar4 = DAT_005b3484;
+      iVar4 = g_clientContext;
     }
     cVar1 = *(char *)(iStack_94 + iVar4);
     if ((cVar1 == -1) || ('\x10' < cVar1)) {
@@ -335,11 +335,11 @@ LAB_004d7599:
     }
     else {
       _sprintf(acStack_8c,s_tank_d_00553fa0,cVar1 + 1);
-      iVar4 = DAT_005b3484;
-      piVar12 = (int *)(&DAT_0067ec70 + DAT_005b3484);
+      iVar4 = g_clientContext;
+      piVar12 = (int *)(&DAT_0067ec70 + g_clientContext);
       iVar5 = 0;
-      if (0 < *(int *)(&DAT_0067ec70 + DAT_005b3484)) {
-        pcStack_9c = &DAT_0067ec74 + DAT_005b3484;
+      if (0 < *(int *)(&DAT_0067ec70 + g_clientContext)) {
+        pcStack_9c = &DAT_0067ec74 + g_clientContext;
         do {
           iVar8 = __stricmp(acStack_8c,pcStack_9c);
           if (iVar8 == 0) {
@@ -361,7 +361,7 @@ LAB_004d759e:
     iStack_94 = iStack_94 + 2;
     pvStack_90 = (void *)((int)pvStack_90 + 1);
     piVar11 = piVar11 + 2;
-    iVar4 = DAT_005b3484;
+    iVar4 = g_clientContext;
     if (0x4590b < iStack_94) {
       *(undefined4 *)(param_1 + 0x73c) = 0;
       iVar4 = FUN_005094f0(&DAT_00e53c40);

@@ -41,7 +41,7 @@ void FUN_0043a670(void)
   puStack_8 = &LAB_0053df6b;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
-  piVar11 = *(int **)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+  piVar11 = *(int **)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar5 = piVar11[1];
   pcVar13 = (code *)EnterCriticalSection;
   if (uVar5 < 0x186a2) {
@@ -184,7 +184,7 @@ LAB_0043a6e0:
     }
   }
 LAB_0043a6b7:
-  iVar6 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+  iVar6 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar5 = *(uint *)(iVar6 + 4);
   while( true ) {
     if (0x186a6 < uVar5) goto LAB_0043af1e;
@@ -238,12 +238,12 @@ LAB_0043a6b7:
     (*pcVar13)(&DAT_005a9068);
     iVar8 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if ((-1 < iVar8) && (iVar14 = *(int *)(&DAT_006a7720 + DAT_005b3484), iVar8 < iVar14)) {
+    if ((-1 < iVar8) && (iVar14 = *(int *)(&DAT_006a7720 + g_clientContext), iVar8 < iVar14)) {
       if ((int)puVar17 < 0) {
         puVar17 = (undefined *)0x0;
       }
-      pcVar9 = (char *)((int)puVar17 * iVar14 + *(int *)(&DAT_006a773c + DAT_005b3484) + iVar8);
-      for (; (int)puVar17 < *(int *)(&DAT_006a7724 + DAT_005b3484); puVar17 = puVar17 + 1) {
+      pcVar9 = (char *)((int)puVar17 * iVar14 + *(int *)(&DAT_006a773c + g_clientContext) + iVar8);
+      for (; (int)puVar17 < *(int *)(&DAT_006a7724 + g_clientContext); puVar17 = puVar17 + 1) {
         if (*pcVar9 != '\0') goto LAB_0043ae95;
         pcVar9 = pcVar9 + iVar14;
       }

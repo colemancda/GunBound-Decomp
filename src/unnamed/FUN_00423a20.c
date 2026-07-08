@@ -33,7 +33,7 @@ void __fastcall FUN_00423a20(int param_1)
     if (in_AL == 0xe) {
       cVar4 = FUN_004065a0();
       if (cVar4 == '\0') {
-        iVar7 = *(int *)(DAT_005b3484 + 0x621e0);
+        iVar7 = *(int *)(g_clientContext + 0x621e0);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar5 = _rand();
         *(byte *)(iVar7 + 0x8bab) = (byte)iVar5;
@@ -52,9 +52,9 @@ void __fastcall FUN_00423a20(int param_1)
       FUN_0041f200(0);
     }
     Replay_FlushEvent();
-    uVar3 = *(uint *)(&DAT_006a76f8 + DAT_005b3484);
+    uVar3 = *(uint *)(&DAT_006a76f8 + g_clientContext);
     uVar6 = 0;
-    iVar7 = DAT_005b3484;
+    iVar7 = g_clientContext;
     if (uVar3 != 0) {
       do {
         if (uVar3 <= uVar6) {
@@ -62,15 +62,15 @@ LAB_00423b89:
                     /* WARNING: Subroutine does not return */
           FUN_004010c0(0x80070057);
         }
-        if (*(uint *)(*(int *)(&DAT_006a76f4 + DAT_005b3484) + uVar6 * 4) == (uint)in_AL) {
-          piVar1 = (int *)(&DAT_006a76f8 + DAT_005b3484);
-          if (*(uint *)(&DAT_006a76f8 + DAT_005b3484) < uVar6 + 1) goto LAB_00423b89;
-          iVar7 = (*(uint *)(&DAT_006a76f8 + DAT_005b3484) - uVar6) + -1;
+        if (*(uint *)(*(int *)(&DAT_006a76f4 + g_clientContext) + uVar6 * 4) == (uint)in_AL) {
+          piVar1 = (int *)(&DAT_006a76f8 + g_clientContext);
+          if (*(uint *)(&DAT_006a76f8 + g_clientContext) < uVar6 + 1) goto LAB_00423b89;
+          iVar7 = (*(uint *)(&DAT_006a76f8 + g_clientContext) - uVar6) + -1;
           if (iVar7 != 0) {
-            _Dst = (void *)(*(int *)(&DAT_006a76f4 + DAT_005b3484) + uVar6 * 4);
+            _Dst = (void *)(*(int *)(&DAT_006a76f4 + g_clientContext) + uVar6 * 4);
             _memmove(_Dst,(void *)((int)_Dst + 4),iVar7 * 4);
           }
-          iVar7 = DAT_005b3484;
+          iVar7 = g_clientContext;
           *piVar1 = *piVar1 + -1;
           break;
         }

@@ -437,7 +437,7 @@ int FUN_00415d40(int param_1)
     *puVar4 = 0;
     puVar4 = puVar4 + 1;
   }
-  DAT_005b3484 = param_1;
+  g_clientContext = param_1;
   *(undefined4 *)(&DAT_0067e3c8 + param_1) = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = _rand();

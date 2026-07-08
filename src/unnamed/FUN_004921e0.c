@@ -232,13 +232,13 @@ LAB_00492677:
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (-1 < iVar4) {
-    local_aec[0] = *(int *)(&DAT_006a7720 + DAT_005b3484);
+    local_aec[0] = *(int *)(&DAT_006a7720 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     bVar9 = iVar4 < local_aec[0];
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (bVar9) {
-      local_aec[0] = *(int *)(&DAT_006a7724 + DAT_005b3484);
+      local_aec[0] = *(int *)(&DAT_006a7724 + g_clientContext);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar4 = PeekPacketChecksumState();
       bVar9 = iVar4 < local_aec[0];
@@ -247,7 +247,7 @@ LAB_00492677:
       goto LAB_00492912;
     }
   }
-  iVar4 = DAT_005b3484;
+  iVar4 = g_clientContext;
   *(undefined1 *)(param_1 + 5) = 1;
   *(undefined4 *)(&DAT_005f3768 + iVar4) = 5;
   *(undefined4 *)(&DAT_005f376c + iVar4) = 0;
@@ -265,7 +265,7 @@ LAB_00492912:
   }
   local_ae4 = 0;
   do {
-    iVar4 = GetPlayerRecordBySlot(DAT_005b3484);
+    iVar4 = GetPlayerRecordBySlot(g_clientContext);
     if ((iVar4 != 0) && (cVar2 = FUN_004065a0(), cVar2 != '\x01')) {
       FUN_0040aca0(local_ae0 + 0x10,local_8a8,iVar4 + 0x90c);
       local_c = 9;
@@ -297,7 +297,7 @@ LAB_00492912:
   } while ((int)local_ae4 < 8);
   local_ae4 = 0;
   do {
-    iVar4 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+    iVar4 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
     uVar1 = *(uint *)(iVar4 + 4);
     while (uVar1 < 0x186a7) {
       if (uVar1 == 0x186a6) {
@@ -315,7 +315,7 @@ LAB_00492cd4:
   local_ae4 = 0;
 LAB_00492cf0:
   piVar7 = local_ae0;
-  iVar4 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+  iVar4 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar1 = *(uint *)(iVar4 + 4);
   while (uVar1 < 0x186a4) {
     if (uVar1 == 0x186a3) {

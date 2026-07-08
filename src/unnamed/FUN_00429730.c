@@ -16,7 +16,7 @@ void __fastcall FUN_00429730(int param_1)
   int iVar4;
   
   uVar3 = FUN_0042ada0(DAT_0056d110,0);
-  iVar1 = DAT_005b3484;
+  iVar1 = g_clientContext;
   *(undefined4 *)(param_1 + 8) = uVar3;
   iVar4 = 0;
   if (*(char *)(iVar1 + 0x44648) != '\0') {

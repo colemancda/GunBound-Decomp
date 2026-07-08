@@ -32,7 +32,7 @@ void HandleTurnTimeoutSlot(int param_1)
   char *pcVar12;
   undefined4 uVar13;
   
-  piVar5 = (int *)GetPlayerRecordBySlot(DAT_005b3484);
+  piVar5 = (int *)GetPlayerRecordBySlot(g_clientContext);
   if (piVar5 != (int *)0x0) {
     (**(code **)(*piVar5 + 4))(&DAT_00556770);
     bVar2 = *(byte *)(in_EAX + 2);

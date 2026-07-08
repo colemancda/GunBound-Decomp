@@ -21,8 +21,8 @@ undefined4 __thiscall FUN_00507310(int param_1,int param_2,int param_3)
     iVar5 = 0;
     do {
       if ((iVar4 < param_3) && (param_3 < iVar4 + 0x19)) {
-        iVar4 = *(int *)(DAT_005b3484 + 0x44248 +
-                        (*(int *)(&DAT_005f2f3c + DAT_005b3484) + iVar5) * 4);
+        iVar4 = *(int *)(g_clientContext + 0x44248 +
+                        (*(int *)(&DAT_005f2f3c + g_clientContext) + iVar5) * 4);
         puVar2 = DAT_00e53c44;
         if (iVar4 != -1) goto joined_r0x00507384;
         break;
@@ -38,22 +38,22 @@ undefined4 __thiscall FUN_00507310(int param_1,int param_2,int param_3)
     if ((*(int *)(*piVar1 + 0x20) == 0) && (*(int *)(*piVar1 + 0x24) == 10000)) break;
 joined_r0x00507384:
     if (puVar2 == (undefined4 *)0x0) {
-      iVar4 = __stricmp((char *)(iVar4 * 0xd + 0x41445 + DAT_005b3484),
-                        (char *)(DAT_005b3484 + 0x23330));
+      iVar4 = __stricmp((char *)(iVar4 * 0xd + 0x41445 + g_clientContext),
+                        (char *)(g_clientContext + 0x23330));
       if (iVar4 != 0) {
         FUN_004025e0(&DAT_00e53e88,
-                     *(int *)(DAT_005b3484 + 0x44248 +
-                             (*(int *)(&DAT_005f2f3c + DAT_005b3484) + iVar5) * 4) * 0xd + 0x41445 +
-                     DAT_005b3484);
+                     *(int *)(g_clientContext + 0x44248 +
+                             (*(int *)(&DAT_005f2f3c + g_clientContext) + iVar5) * 4) * 0xd + 0x41445 +
+                     g_clientContext);
       }
       goto LAB_00507427;
     }
   }
   iVar4 = FUN_0050e620();
   if (iVar4 != -1) {
-    FUN_005056c0(*(int *)(DAT_005b3484 + 0x44248 +
-                         (*(int *)(&DAT_005f2f3c + DAT_005b3484) + iVar5) * 4) * 0xd + 0x41445 +
-                 DAT_005b3484);
+    FUN_005056c0(*(int *)(g_clientContext + 0x44248 +
+                         (*(int *)(&DAT_005f2f3c + g_clientContext) + iVar5) * 4) * 0xd + 0x41445 +
+                 g_clientContext);
   }
 LAB_00507427:
   uVar3 = 0;

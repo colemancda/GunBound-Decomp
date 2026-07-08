@@ -37,7 +37,7 @@ void FUN_00438410(undefined4 param_1,int param_2,int param_3,int param_4)
   *unaff_FS_OFFSET = &local_c;
   cVar3 = FUN_004065a0();
   if (cVar3 != '\0') goto LAB_004388b4;
-  iVar8 = *(int *)(*(int *)(&DAT_006a7f8c + DAT_005b3484) + 0x1c);
+  iVar8 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar12 = 0;
   while (uVar1 = *(uint *)(iVar8 + 4), iVar4 = iVar8, uVar1 < 0x186a7) {
     while (uVar1 != 0x186a6) {
@@ -135,15 +135,15 @@ switchD_0043857e_default:
     *(byte *)((int)piVar6 + 0x1c19) = bVar11;
     *(byte *)((int)piVar6 + 0x1c1a) = bVar11 + *(byte *)(piVar6 + 0x706) + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if ((-1 < param_2) && (param_2 < *(int *)(&DAT_006a7720 + DAT_005b3484))) {
-      pcVar9 = (char *)(*(int *)(&DAT_006a773c + DAT_005b3484) + param_2);
+    if ((-1 < param_2) && (param_2 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+      pcVar9 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + param_2);
       local_94 = 0;
-      if (0 < *(int *)(&DAT_006a7724 + DAT_005b3484)) {
+      if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
         do {
           if (*pcVar9 != '\0') goto LAB_00438814;
-          pcVar9 = pcVar9 + *(int *)(&DAT_006a7720 + DAT_005b3484);
+          pcVar9 = pcVar9 + *(int *)(&DAT_006a7720 + g_clientContext);
           local_94 = local_94 + 1;
-        } while (local_94 < *(int *)(&DAT_006a7724 + DAT_005b3484));
+        } while (local_94 < *(int *)(&DAT_006a7724 + g_clientContext));
       }
     }
     local_94 = 10000;

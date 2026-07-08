@@ -27,7 +27,7 @@ void FUN_0050d160(int param_1,int param_2,undefined4 param_3)
   puVar4 = puVar3 + 4;
   uStack_4 = 0;
   if ((param_1 == 0x2000) && (param_2 == 0)) {
-    *(undefined4 *)(DAT_005b3484 + 0x3b97c) = param_3;
+    *(undefined4 *)(g_clientContext + 0x3b97c) = param_3;
   }
   FUN_0050eb10(param_1,param_2,param_3);
   uStack_4 = 0xffffffff;

@@ -102,7 +102,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
           iVar3 = iVar3 + 1 + (int)*(char *)((int)local_ff + iVar3 + -1);
         } while (iVar4 != 0);
         FUN_00421870();
-        iVar4 = __stricmp(local_1a0,(char *)(DAT_005b3484 + 0x23330));
+        iVar4 = __stricmp(local_1a0,(char *)(g_clientContext + 0x23330));
         if (iVar4 == 0) {
           return 1;
         }
@@ -481,7 +481,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
               DVar8 = GetTickCount();
               iVar3 = DAT_007934e8;
               *(DWORD *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = DVar8;
-              iVar4 = DAT_005b3484 + 0x45354;
+              iVar4 = g_clientContext + 0x45354;
               *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
               cVar1 = PacketChecksumEquals(iVar4,3);
               if (cVar1 != '\0') {
@@ -551,7 +551,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
             FUN_00421870();
             FUN_004da460(g_gameStateVTableArray[9],0,0);
             iVar3 = DAT_007934e8;
-            iVar4 = DAT_005b3484 + 0x45354;
+            iVar4 = g_clientContext + 0x45354;
             *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3200;
             *(undefined4 *)(iVar3 + 0x44d0) = 6;
             cVar1 = PacketChecksumNotEquals(iVar4,2);

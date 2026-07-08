@@ -93,7 +93,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_004e4970(local_adc[0],uStack_ad4,uStack_ac8,uStack_ad0,uStack_acc,uVar10,uVar9,uVar8);
-    FUN_004e4d00(&DAT_006a7708 + DAT_005b3484);
+    FUN_004e4d00(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -125,7 +125,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
     local_adc[0] = (int *)PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_00437150(local_adc[0],uVar9,0x3c,uVar8);
-    iVar5 = DAT_005b3484;
+    iVar5 = g_clientContext;
     cVar4 = FUN_004065a0();
     if (cVar4 != '\x01') {
       iVar6 = *(int *)(&DAT_006a7750 + iVar5);
@@ -258,12 +258,12 @@ LAB_0046ad0a:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   else {
-    iVar5 = *(int *)(&DAT_006a7720 + DAT_005b3484);
+    iVar5 = *(int *)(&DAT_006a7720 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (((iVar5 <= iVar6) ||
-        (cVar4 = FUN_0040b300(param_1 + 0x45e,*(undefined4 *)(&DAT_006a7724 + DAT_005b3484)),
+        (cVar4 = FUN_0040b300(param_1 + 0x45e,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
         cVar4 != '\0')) || (cVar4 = FUN_0040b330(param_1 + 0x45e,0xfffffc18), cVar4 != '\0'))
     goto LAB_0046ad0a;
   }
@@ -275,8 +275,8 @@ LAB_0046ad0a:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar12 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = DAT_005b3484;
-    piVar7 = (int *)(&DAT_006a7708 + DAT_005b3484);
+    iVar5 = g_clientContext;
+    piVar7 = (int *)(&DAT_006a7708 + g_clientContext);
     cVar4 = FUN_004065a0();
     if ((cVar4 == '\0') && ((&DAT_006a7758)[iVar5] != '\0')) {
       if (((&DAT_006a7736)[iVar5] == '\x01') &&

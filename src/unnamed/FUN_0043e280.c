@@ -22,7 +22,7 @@ void FUN_0043e280(undefined4 param_1,int param_2,short *param_3)
       *(undefined2 *)(iVar1 + 0x4d6) = 0xffff;
       *(int *)(iVar1 + 0x44d0) = *(int *)(iVar1 + 0x44d0) + 2;
       FUN_004d2680();
-      *(undefined4 *)(DAT_005b3484 + 0x44e60) = 0xffffffff;
+      *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
       return;
     }
     if (param_2 == 0x2001) {
@@ -47,7 +47,7 @@ void FUN_0043e280(undefined4 param_1,int param_2,short *param_3)
         *(undefined2 *)(iVar1 + 0x4d6) = 0xffff;
         *(int *)(iVar1 + 0x44d0) = *(int *)(iVar1 + 0x44d0) + 2;
         FUN_004d2680();
-        *(undefined4 *)(DAT_005b3484 + 0x44e60) = 0xffffffff;
+        *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
         return;
       }
       (**(code **)(*(int *)g_gameStateVTableArray[0xb] + 0x20))();
@@ -57,9 +57,9 @@ void FUN_0043e280(undefined4 param_1,int param_2,short *param_3)
       _DAT_007934d8 = 1;
       Replay_AppendEvent(0x8103);
       Replay_FlushEvent();
-      if (*(int *)(&DAT_006a64b4 + DAT_005b3484) != -1) {
+      if (*(int *)(&DAT_006a64b4 + g_clientContext) != -1) {
         FUN_004eeae0();
-        *(undefined4 *)(&DAT_006a64b4 + DAT_005b3484) = 0xffffffff;
+        *(undefined4 *)(&DAT_006a64b4 + g_clientContext) = 0xffffffff;
       }
     }
   }

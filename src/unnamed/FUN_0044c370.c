@@ -17,8 +17,8 @@ void FUN_0044c370(void)
   int unaff_EBX;
   int iVar4;
   
-  iVar2 = DAT_005b3484;
-  iVar1 = *(int *)(DAT_005b3484 + 0x44e24);
+  iVar2 = g_clientContext;
+  iVar1 = *(int *)(g_clientContext + 0x44e24);
   uVar3 = 0;
   if (0 < iVar1) {
     iVar4 = 0;
