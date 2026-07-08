@@ -21,7 +21,6 @@ undefined4 FUN_004e3500(undefined4 param_1)
   int iVar6;
   int iVar7;
   undefined4 *puVar8;
-  undefined4 *unaff_FS_OFFSET;
   char cStack_11351;
   char acStack_11350 [1024];
   char acStack_10f50 [1024];
@@ -41,9 +40,9 @@ undefined4 FUN_004e3500(undefined4 param_1)
   undefined4 local_c;
   
   local_c = 0xffffffff;
-  puStack_10 = &LAB_00537bfb;
-  local_14 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_14;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00537bfb) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   uStack_1c = 0x4e3526;
   local_3c = &PTR_FUN_005572dc;
   InitializeCriticalSection(&local_38);
@@ -61,13 +60,13 @@ undefined4 FUN_004e3500(undefined4 param_1)
   OpenXFSArchive(auStack_10b50,1,0);
   iVar6 = FindXFSEntry(auStack_10750,s_Sound_txt_00557218);
   if (((iVar6 == 0) || (pvVar4 = operator_new(0x1024), pvVar4 == (void *)0x0)) ||
-     (iVar6 = ReadXFSEntry(iVar6,local_f708), iVar6 == 0)) {
+  /* ReadXFSEntry is void-returning - see src/fileformat/LoadChooseEventConfig.c's fix. */
+     (ReadXFSEntry(iVar6,local_f708), iVar6 == 0)) {
     if (local_f710 != -1) {
       FUN_004f0d70();
     }
     local_3c = &PTR_FUN_005572dc;
     DeleteCriticalSection(&local_38);
-    *unaff_FS_OFFSET = local_14;
     return 0;
   }
   bVar2 = false;
@@ -82,7 +81,6 @@ undefined4 FUN_004e3500(undefined4 param_1)
       }
       local_3c = &PTR_FUN_005572dc;
       DeleteCriticalSection(&local_38);
-      *unaff_FS_OFFSET = local_14;
       return 1;
     }
     if ((iVar7 == 0) && (cStack_11351 == ';')) {

@@ -18,7 +18,6 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
   undefined4 uVar6;
   UINT_PTR UVar7;
   int *piVar8;
-  undefined4 *unaff_FS_OFFSET;
   int *local_b8;
   uint local_b4;
   char local_ae [17];
@@ -30,9 +29,9 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
   uint uVar4;
   
   local_4 = 0xffffffff;
-  uStack_c = *unaff_FS_OFFSET;
-  puStack_8 = &LAB_00537aeb;
-  *unaff_FS_OFFSET = &uStack_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00537aeb) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   cVar1 = FUN_004fe860(param_1,&local_b8);
   piVar8 = local_b8;
   if (cVar1 == '\0') {
@@ -49,7 +48,7 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
     } while (bVar2 < 0x10);
     local_9d = (undefined1)uVar4;
     local_ae[uVar4] = '\0';
-    iVar5 = FUN_005000e0();
+    FUN_005000e0();
     *(int *)(iVar5 + 0x14) = 0;
     *(undefined2 *)(iVar5 + 0x18) = 0;
     uVar6 = FUN_00504e90();
@@ -105,7 +104,6 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
     UVar7 = SetTimer((HWND)param_1[0xa3],0x14b,50000,(TIMERPROC)0x0);
     param_1[0xb1] = UVar7;
   }
-  *unaff_FS_OFFSET = uStack_c;
   return;
 }
 

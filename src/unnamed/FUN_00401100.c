@@ -10,19 +10,17 @@
 undefined4 __fastcall FUN_00401100(LPCRITICAL_SECTION param_1)
 
 {
-  undefined4 *unaff_FS_OFFSET;
   undefined4 local_14;
   undefined1 *puStack_10;
   undefined *puStack_c;
   undefined4 local_8;
   
   puStack_c = &DAT_00557fd8;
-  puStack_10 = &LAB_00528184;
-  local_14 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_14;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00528184) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   local_8 = 0;
   InitializeCriticalSection(param_1);
-  *unaff_FS_OFFSET = local_14;
   return 0;
 }
 

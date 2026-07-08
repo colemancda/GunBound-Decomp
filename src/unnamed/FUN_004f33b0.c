@@ -13,14 +13,12 @@ void __fastcall FUN_004f33b0(undefined4 *param_1)
   void *_Memory;
   undefined4 *puVar1;
   undefined4 *puVar2;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
-  
-  puStack_8 = &LAB_00537818;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00537818) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   *param_1 = &PTR_FUN_00557538;
   local_4 = 0;
   if ((*(char *)(param_1 + 0x82) != '\0') &&
@@ -36,7 +34,6 @@ void __fastcall FUN_004f33b0(undefined4 *param_1)
     (*(code *)*puVar2)(1);
   }
   *param_1 = &PTR_LAB_0055752c;
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 

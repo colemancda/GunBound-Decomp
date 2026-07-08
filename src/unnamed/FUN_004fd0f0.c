@@ -10,15 +10,13 @@
 undefined4 * FUN_004fd0f0(undefined4 *param_1,undefined4 param_2)
 
 {
-  undefined4 *unaff_FS_OFFSET;
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 uStack_4;
-  
-  local_c = *unaff_FS_OFFSET;
   uStack_4 = 0xffffffff;
-  puStack_8 = &LAB_00537bc6;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00537bc6) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   *param_1 = &PTR_LAB_00557610;
   FUN_004fdc80();
   InitCommP2PNotifyWindow();
@@ -48,7 +46,6 @@ undefined4 * FUN_004fd0f0(undefined4 *param_1,undefined4 param_2)
   FUN_00504c10();
   param_1[0x808] = 0;
   param_1[0x809] = 0;
-  *unaff_FS_OFFSET = local_c;
   return param_1;
 }
 

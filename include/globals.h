@@ -566,7 +566,7 @@ extern uint8_t DAT_0079354b;
 extern uint32_t DAT_0079354c;
 extern uint32_t DAT_00793550;
 extern void *DAT_00793554[16]; /* used as an array of pointers by InitGame - see src/entry/InitGame.c */
-extern uint32_t DAT_00793558;
+extern int *DAT_00793558; /* used dereferenced as a vtable-bearing ptr at call sites */
 extern uint32_t DAT_0079355c;
 extern uint32_t DAT_00793560;
 extern uint8_t DAT_00793568;
@@ -1360,7 +1360,7 @@ extern uint32_t DAT_005687b0;
 extern uint32_t DAT_005687b4;
 extern uint32_t DAT_005687b8;
 extern uint32_t DAT_005687fc;
-extern uint32_t DAT_0056881c;
+extern uint32_t *DAT_0056881c; /* used dereferenced and assigned a uint32_t value at call sites */
 extern uint32_t DAT_00568840;
 extern uint32_t DAT_00568844;
 extern uint32_t DAT_00568848;
@@ -1437,7 +1437,7 @@ extern uint32_t DAT_005a960c;
 extern uint32_t DAT_005a9624;
 extern uint32_t DAT_005a9640;
 extern uint32_t DAT_005a965c;
-extern uint32_t DAT_005a9680;
+extern uint8_t *DAT_005a9680; /* used dereferenced as a byte-stream cursor at call sites */
 extern uint32_t DAT_005a9684;
 extern uint32_t DAT_005a9688;
 extern uint32_t DAT_005a9784;
@@ -1793,7 +1793,7 @@ extern uint32_t DAT_00f25d44;
 extern uint32_t DAT_00f25d98;
 extern uint32_t DAT_00f25e00;
 extern uint32_t DAT_00f25e04;
-extern uint32_t DAT_00f25e08;
+extern uint8_t *DAT_00f25e08; /* used dereferenced as a byte-stream cursor at call sites */
 extern uint32_t DAT_00f25e0c;
 extern uint32_t DAT_00f25e10;
 extern uint32_t DAT_00f25e20;
@@ -2139,6 +2139,16 @@ extern const char s_ssflame7_00554e94[];
 extern const char s_ssflame8_00554dd0[];
 extern const char s_ssflame9_00554ce4[];
 extern const char s_teleport2_005543cc[];
+/* Renamed from Ghidra's literal symbol names (s_map_set<T>_too_long_
+ * 00551fec / s_invalid_map_set<T>_iterator_00552000) - the embedded
+ * `<T>` from these MSVC STL assertion-message strings makes the
+ * literal name invalid as a C identifier (the preprocessor sees `<`/
+ * `>` as operators, not identifier characters). Real content
+ * extracted directly from the binary, same as every other s_* string
+ * - "map/set<T> too long" and "invalid map/set<T> iterator"
+ * respectively. */
+extern const char s_map_set_T_too_long_00551fec[];
+extern const char s_invalid_map_set_T_iterator_00552000[];
 extern void *PTR_s_101blast_xes_0056d2b4;
 extern void *PTR_s_11blast_xes_0056d290;
 extern void *PTR_s_121blast_xes_0056d33c;

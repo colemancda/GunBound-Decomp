@@ -29,25 +29,22 @@ void FUN_0040b600(int param_1,undefined4 *param_2,int *param_3)
   undefined4 uVar4;
   int *piVar5;
   int *piVar6;
-  undefined4 *unaff_FS_OFFSET;
   undefined1 local_50 [4];
   undefined1 local_4c;
   undefined4 local_3c;
   undefined4 local_38;
   undefined **local_34 [10];
-  undefined4 local_c;
-  undefined1 *puStack_8;
   undefined4 local_4;
-  
-  local_c = *unaff_FS_OFFSET;
+
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_00537a38;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00537a38) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   if (*(char *)((int)param_3 + 0x11) != '\0') {
     local_38 = 0xf;
     local_3c = 0;
     local_4c = 0;
-    FUN_0040bee0(s_invalid_map_set<T>_iterator_00552000,0x1b);
+    FUN_0040bee0(s_invalid_map_set_T_iterator_00552000,0x1b);
     local_4 = 0;
     FUN_00409fd0(local_50);
     local_34[0] = &PTR_FUN_00544b74;
@@ -81,14 +78,24 @@ void FUN_0040b600(int param_1,undefined4 *param_2,int *param_3)
   if ((int *)*puVar1 == param_3) {
     piVar3 = piVar5;
     if (*(char *)((int)piVar6 + 0x11) == '\0') {
-      piVar3 = (int *)FUN_0040bd00();
+      /* FUN_0040bd00 is void-returning (see its own definition) - this
+       * call site's return-value use is a Ghidra per-call-site
+       * decompilation inconsistency, same class as entry/WinMain.c's
+       * FUN_004058c0 fix. piVar3 keeps its prior value (piVar5) as a
+       * result. */
+      FUN_0040bd00();
     }
     *puVar1 = piVar3;
   }
   iVar2 = *(int *)(param_1 + 4);
   if (*(int **)(iVar2 + 8) == param_3) {
     if (*(char *)((int)piVar6 + 0x11) == '\0') {
-      uVar4 = FUN_0040bce0();
+      /* FUN_0040bce0 is void-returning (see its own definition) - this
+       * call site's return-value use is a Ghidra per-call-site
+       * decompilation inconsistency, same class as entry/WinMain.c's
+       * FUN_004058c0 fix. uVar4 is left uninitialized here as a
+       * result. */
+      FUN_0040bce0();
       *(undefined4 *)(iVar2 + 8) = uVar4;
     }
     else {
@@ -161,7 +168,6 @@ LAB_0040b832:
     *(int *)(param_1 + 8) = *(int *)(param_1 + 8) + -1;
   }
   *param_2 = param_3;
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 

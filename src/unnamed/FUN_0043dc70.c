@@ -15,16 +15,15 @@ undefined4 * FUN_0043dc70(void)
   undefined *puVar2;
   undefined4 *puVar3;
   int iVar4;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 uStack_c;
   undefined1 *puStack_8;
   undefined4 uStack_4;
   
   uStack_4 = 0xffffffff;
-  puStack_8 = &LAB_00537938;
-  uStack_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &uStack_c;
-  puVar3 = (undefined4 *)(**(code **)(DAT_005b1444 + 0xc))();
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00537938) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
+  (**(code **)(DAT_005b1444 + 0xc))();
   uStack_4 = 0;
   iVar4 = FUN_0043e060();
   puVar2 = PTR_DAT_0056d460;
@@ -39,7 +38,6 @@ undefined4 * FUN_0043dc70(void)
     if (iVar4 == 1 || iVar4 + -1 < 0) {
       (**(code **)(*(int *)*puVar3 + 4))(puVar3);
     }
-    *unaff_FS_OFFSET = uStack_c;
     return puVar3 + 4;
   }
   uStack_4 = 0xffffffff;
@@ -51,7 +49,6 @@ undefined4 * FUN_0043dc70(void)
   if (iVar4 == 1 || iVar4 + -1 < 0) {
     (**(code **)(*(int *)*puVar3 + 4))(puVar3);
   }
-  *unaff_FS_OFFSET = uStack_c;
   return (undefined4 *)puVar2;
 }
 

@@ -19,7 +19,6 @@ FUN_004e8b10(undefined4 *param_1,undefined4 *param_2,char param_3,undefined4 par
   int *piVar5;
   int *piVar6;
   int unaff_EDI;
-  undefined4 *unaff_FS_OFFSET;
   undefined1 local_50 [4];
   undefined1 local_4c;
   undefined4 local_3c;
@@ -28,16 +27,15 @@ FUN_004e8b10(undefined4 *param_1,undefined4 *param_2,char param_3,undefined4 par
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
-  
-  local_c = *unaff_FS_OFFSET;
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_00537a38;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00537a38) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   if (0x7ffffffd < *(uint *)(unaff_EDI + 8)) {
     local_38 = 0xf;
     local_3c = 0;
     local_4c = 0;
-    FUN_0040bee0(s_map_set<T>_too_long_00551fec,0x13);
+    FUN_0040bee0(s_map_set_T_too_long_00551fec,0x13);
     local_4 = 0;
     FUN_00409fd0(local_50);
     local_34[0] = &PTR_FUN_00544b68;
@@ -70,7 +68,6 @@ FUN_004e8b10(undefined4 *param_1,undefined4 *param_2,char param_3,undefined4 par
     if (cVar1 != '\0') {
       *(undefined1 *)(*(int *)(*(int *)(unaff_EDI + 4) + 4) + 0xe) = 1;
       *param_2 = piVar3;
-      *unaff_FS_OFFSET = local_c;
       return;
     }
     piVar4 = piVar6 + 1;

@@ -12,7 +12,6 @@ void FUN_0050cff0(int *param_1,uint param_2,undefined4 param_3,int param_4)
 {
   int iVar1;
   uint uVar2;
-  undefined4 *unaff_FS_OFFSET;
   int local_1c;
   int local_18;
   undefined4 local_10;
@@ -20,9 +19,9 @@ void FUN_0050cff0(int *param_1,uint param_2,undefined4 param_3,int param_4)
   undefined4 local_8;
   
   local_8 = 0xffffffff;
-  puStack_c = &LAB_0053be70;
-  local_10 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_10;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053be70) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   if (param_2 < (uint)param_1[1]) {
     iVar1 = param_1[1];
     FUN_0044c7b0();
@@ -48,7 +47,6 @@ void FUN_0050cff0(int *param_1,uint param_2,undefined4 param_3,int param_4)
   for (; param_2 < uVar2; param_2 = param_2 + 1) {
     FUN_0044c740();
   }
-  *unaff_FS_OFFSET = local_10;
   return;
 }
 

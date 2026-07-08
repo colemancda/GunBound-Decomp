@@ -20,7 +20,6 @@ undefined1 FUN_004644e0(int param_1)
   undefined4 uVar8;
   uint uVar9;
   int iVar10;
-  undefined4 *unaff_FS_OFFSET;
   undefined1 local_d11;
   int local_d10;
   uint local_d08 [2];
@@ -45,9 +44,9 @@ undefined1 FUN_004644e0(int param_1)
   undefined4 local_4;
   
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053d45f;
-  uStack_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &uStack_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_0053d45f) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   local_d11 = 0;
   local_cf0 = 0;
   do {
@@ -146,7 +145,7 @@ LAB_004647f7:
               iVar5 = DAT_005b3484 + 0x3b49c;
               *(undefined1 *)(piVar3 + 0x2c2b) = *(undefined1 *)(param_1 + 0x3c);
               iVar5 = FUN_0040a4d0(iVar5);
-              if ((local_cf0 == iVar5) && (iVar5 = (**(code **)(*piVar3 + 0x14))(), 8999 < iVar5)) {
+              if ((local_cf0 == iVar5) && (iVar5 = (**(int (**)())(*piVar3 + 0x14))(), 8999 < iVar5)) {
                 FUN_00464060();
               }
             }
@@ -225,7 +224,6 @@ LAB_00464ec3:
 LAB_00465442:
         local_cf0 = local_cf0 + 1;
         if (7 < (int)local_cf0) {
-          *unaff_FS_OFFSET = uStack_c;
           return local_d11;
         }
       } while( true );

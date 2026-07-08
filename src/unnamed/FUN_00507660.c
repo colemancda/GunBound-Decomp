@@ -17,7 +17,6 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
   undefined4 *puVar5;
   uint uVar6;
   undefined4 uVar7;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 uVar8;
   undefined4 uVar9;
   undefined4 uStack_c;
@@ -25,10 +24,10 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
   undefined4 uStack_4;
   
   uStack_4 = 0xffffffff;
-  puStack_8 = &LAB_005407d8;
-  uStack_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &uStack_c;
-  puVar4 = (undefined4 *)(**(code **)(DAT_005b1444 + 0xc))();
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_005407d8) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
+  (**(code **)(DAT_005b1444 + 0xc))();
   puVar5 = puVar4 + 4;
   uStack_4 = 0;
   if (param_2 == 0) {
@@ -104,7 +103,6 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
   if (iVar2 == 1 || iVar2 + -1 < 0) {
     (**(code **)(*(int *)*puVar4 + 4))(puVar4);
   }
-  *unaff_FS_OFFSET = uStack_c;
   return;
 }
 

@@ -103,7 +103,10 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
         local_128 = 0;
         if (local_124 != 0) {
           do {
-            _local_108 = *param_1;
+            /* _local_108: Ghidra's overlapping-symbol convention (same
+             * idiom as _DAT_/DAT_ pairs, but for a local this time) - a
+             * 4-byte view of the same stack slot as local_108[3]. */
+            *(uint *)local_108 = *param_1;
             local_104 = param_1[1];
             local_100 = param_1[2];
             local_fc = param_1[3];
@@ -164,7 +167,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
       }
     }
     else if (in_AX == 0xa101) {
-      _local_108 = _local_108 & 0xffffff00;
+      *(uint *)local_108 = *(uint *)local_108 & 0xffffff00;
       puVar8 = (undefined4 *)((int)local_108 + 1);
       for (iVar7 = 0x3f; iVar7 != 0; iVar7 = iVar7 + -1) {
         *puVar8 = 0;

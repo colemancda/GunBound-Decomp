@@ -11,14 +11,12 @@ void FUN_004f1da0(int param_1)
 
 {
   void *pvVar1;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
-  
-  local_c = *unaff_FS_OFFSET;
-  puStack_8 = &LAB_00537838;
-  *unaff_FS_OFFSET = &local_c;
+  /* Windows SEH __try/__except frame setup stripped - handler body
+   * (LAB_00537838) wasn't included in this function's own decompile.
+   * Same rationale as entry/InitGame.c - see src/README.md. */
   local_4 = 0;
   FUN_004f1e20(param_1);
   local_4 = 0xffffffff;
@@ -28,7 +26,6 @@ void FUN_004f1da0(int param_1)
     _free((void *)((int)pvVar1 + -4));
   }
   *(undefined4 *)(param_1 + 0x150) = 0;
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 

@@ -326,6 +326,20 @@ Concretely, that means:
   - `unnamed/FUN_0047c3f0.c` (`float10` - x87 extended-precision local
     with no portable equivalent - plus sub-byte-field access and its
     own SEH frame plumbing not stripped yet)
+  - `unnamed/FUN_00519ef0.c`, `unnamed/FUN_0051a120.c`,
+    `unnamed/FUN_004e9cc0.c`, `unnamed/FUN_0051a230.c`,
+    `unnamed/FUN_004f3af0.c` (`float10` - x87 extended-precision
+    locals with no portable equivalent, same class as
+    `unnamed/FUN_0047c3f0.c` above)
+  - `unnamed/FUN_0040a040.c` (`struct exception` used as a real,
+    complete type - this project's `exception` typedef is a
+    deliberately opaque placeholder, see include/ghidra_types.h's own
+    comment on it - would need the real MSVC CRT exception-class
+    layout to fix properly)
+  - `unnamed/FUN_004e95c0.c` (`cannot convert to a pointer type` /
+    `pointer value used where a floating-point was expected` - a
+    genuine type-confusion in Ghidra's decompile, not investigated
+    further this pass)
   - `network/InitCommP2PNotifyWindow.c`
   - `replay/WriteReplayEventRecord.c`
   - `unnamed/FUN_0041b8c0.c`, `FUN_00401880.c` (the ATL call), `FUN_00449540.c`,
