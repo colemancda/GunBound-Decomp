@@ -1,28 +1,68 @@
 # Reconstructed C source — status
 
-## Scope: behavioral parity, not byte-matching
+## Scope: behavioral parity, not byte-matching (mostly)
 
 The original plan for this repo was **matching decompilation**: write C
 that recompiles under period-correct MSVC 7.10 (Visual Studio .NET 2003)
 to byte-identical machine code, verified function-by-function against
-`orig/GunBound.gme`. That toolchain isn't available in this environment —
-it's proprietary, not legally redistributable, and no install media was
-on hand.
+`orig/GunBound.gme`. For most of this project that toolchain wasn't
+available, so the fallback plan became **Winelib**: build the
+reconstructed C as a native macOS binary using Wine's Win32-API-
+compatible headers/libraries (`winegcc`), so real DirectDraw/Direct3D7/
+DirectSound/DirectInput/Winsock calls can actually run without needing a
+real Windows machine or MSVC. This still isn't byte-matching (Winelib
+compiles with a modern GCC/Clang targeting the host's own architecture -
+confirmed to literally be x86-64 SysV code in this environment's Docker
+container, not even the same instruction set as the original 32-bit x86
+binary), so it's **behavioral parity**: C that does the same thing as the
+original function, verified by running it against real game data/
+behavior and diffing the output — not by comparing compiled bytes
+against the original binary. `PROGRESS.csv` marks functions done this
+way as `PARITY-<file>` rather than the matching-decomp convention's
+`DONE`, to keep the two kinds of "verified" distinguishable.
 
-Instead, the plan is **Winelib**: build the reconstructed C as a native
-macOS binary using Wine's Win32-API-compatible headers/libraries
-(`winegcc`), so real DirectDraw/Direct3D7/DirectSound/DirectInput/Winsock
-calls can actually run, without needing an actual Windows machine or
-MSVC. This still isn't byte-matching (Winelib compiles with a modern
-GCC/Clang, not MSVC 7.10), so it's **behavioral parity**: C that does the
-same thing as the original function, verified by running it against real
-game data/behavior and diffing the output — not by comparing compiled
-bytes against the original binary. `PROGRESS.csv` marks functions done
-this way as `PARITY-<file>` rather than the matching-decomp convention's
-`DONE`, to keep the two kinds of "verified" distinguishable. (The
-`tools/msvc-env/` Wine+Docker scaffold for a *true* byte-matching pipeline
-is still there and still works if a real VS .NET 2003 tree ever turns up
-— see that directory's Dockerfile.)
+**Update: a real MSVC 7.10 toolchain is now available.** The Microsoft
+Visual C++ Toolkit 2003 (a free, official, command-line-only release of
+the same compiler/linker that built the original binary) was installed
+in a Windows 11 VM (Parallels Desktop on the host Mac), confirmed via
+`cl` with no arguments: `Microsoft (R) 32-bit C/C++ Optimizing Compiler
+Version 13.10.3052 for 80x86` and `Microsoft (R) Incremental Linker
+Version 7.10.3052` - both matching this project's own PE-header analysis
+of `GunBound.gme`. The VM can reach this repo directly over a Parallels
+shared folder (`\\Mac\Home\...`, mapped to a drive letter via `pushd`),
+so no copy/sync step is needed - real matching-decomp builds are now
+possible. `include/msvc/stdint.h` is a small shim providing `include/
+ghidra_types.h`'s `stdint.h` dependency for this toolchain (MSVC 7.1
+predates C99's real `<stdint.h>`, added in VS2010) - pass `/Iinclude\msvc
+/Iinclude` (shim directory first) when compiling under this toolchain.
+MSVC 7.1's C mode is strict C89 (no mixed declarations-after-statements,
+no `for (int i = ...)` C99-style loop-variable declarations) - the
+`lzhuf` module's hand-verified source has already been updated to be
+C89-clean (declarations hoisted to the top of each block), confirmed to
+not change behavior (still matches the Python reference decoder and
+real archive data byte-for-byte) and to now compile clean under real
+MSVC 7.1. Driving this VM is done via computer-use tooling (screenshots
++ clicks/pastes into a console window) rather than a scriptable shell -
+slower per-command than the Docker/winelib workflow, but the only way to
+get genuine byte-matching verification. (The `tools/msvc-env/`
+Wine+Docker scaffold for a fully-scripted byte-matching pipeline is
+still there and still relevant if a way to run real `cl.exe`/`link.exe`
+non-interactively from this environment is ever found.)
+
+**A real byte-comparison already paid off once.** Comparing
+`InitLZHUFTree`'s real 162-byte machine code (both raw disassembly and a
+fresh Ghidra re-decompile of just that address) against our hand-verified
+C source found the source's `memset(text_buf, 0x20, ...)`/`s->r = N-F`
+lines don't correspond to anything in that exact function - see
+`src/lzhuf/InitLZHUFTree.c`'s own header comment for the full writeup,
+including the empirical test (30 real archive entries, 0/30 mismatches
+with this logic in place vs. 10/30 without it) that confirmed the logic
+is real and necessary despite not being in this specific function - it
+must live in a different, not-yet-identified one-time setup function.
+This is exactly the kind of subtle bug that behavioral-parity testing
+alone (matching output on the samples you happen to test) can miss and
+real byte-comparison can catch even without full matching-decomp
+coverage.
 
 ## Layout: one file per decompiled function
 
