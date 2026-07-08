@@ -1,9 +1,17 @@
-# GunBound Decomp — Toolchain (Windows-native)
+# GunBound Decomp — Toolchain
 
 The target `orig/GunBound.gme` is a 32-bit x86 Windows PE built with **Visual C++
-2003 (MSVC linker 7.10)**. This machine runs Windows directly, so unlike the
-Apple Silicon setup (Docker + Wine, see git history for that version of this
-file) the compiler runs natively - no emulation layer needed.
+2003 (MSVC linker 7.10)**. Day-to-day work happens on an Apple Silicon Mac;
+compiling with the real MSVC 7.1 (`cl.exe`/`link.exe`) runs via Docker + Wine
+(`tools/msvc-env/` - see that directory's own README.md for the exact `docker
+run` invocations), since there's no native macOS MSVC. A Windows 11 VM
+(Parallels) with the same compiler installed also exists as a slower,
+interactive fallback - see `tools/msvc-env/README.md`'s "Alternative: driving
+a real Windows VM" section.
+
+Diffing/scoring compiled output against the original, on the other hand, runs
+entirely on the Mac side natively - no VM or Docker needed for that part, see
+below.
 
 ## Installed by setup
 
@@ -12,24 +20,27 @@ file) the compiler runs natively - no emulation layer needed.
 | MSVC 7.10 (`cl.exe`/`link.exe`) | `tools/msvc-env/msvc7/{bin,include,lib}` | Exact-version compiler (from the free Visual C++ Toolkit 2003) |
 | Platform SDK headers/libs | `tools/msvc-env/msvc7/PlatformSDK/{include,lib}` | windows.h/winsock2.h/etc. (Windows Server 2003 SP1 Platform SDK) |
 | DirectX 7.0a headers/libs | merged into `PlatformSDK/{include,lib}` | ddraw.h/d3d.h (DX7 predates the Platform SDK bundling DirectX) |
-| Python 3.12 (arm64) | `C:\Users\coleman\AppData\Local\Programs\Python\Python312-arm64\` | Runs asm-differ |
-| asm-differ venv | `tools/.venv-win/` | colorama, cxxfilt, watchdog |
-| LLVM / `llvm-objdump` | `C:\Program Files\LLVM\bin\llvm-objdump.exe` | Disassembles both the original PE and compiled `.obj`s |
+| System `python3` | `/opt/homebrew/bin/python3` (or wherever `python3` resolves) | Runs asm-differ - `pip3 install --break-system-packages colorama cxxfilt watchdog levenshtein` |
+| Xcode's `llvm-objdump` | `/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-objdump` | Disassembles both the original PE and compiled `.obj`s - this is genuinely LLVM's objdump, just needs the literal `llvm-` name for asm-differ's own executable-path sniffing to pick the right flag spelling (see `diff_settings.py`'s comment) |
 
-All of the above under `tools/msvc-env/msvc7/` and `tools/.venv-win/` are
-gitignored (proprietary/regenerable) - see "Rebuilding this setup" below.
+`tools/msvc-env/msvc7/` is gitignored (proprietary/regenerable) - see
+"Rebuilding this setup" below.
 
 ## Compiling a single function
 
+See `tools/msvc-env/README.md` for the real (Docker+Wine) invocation. In
+short:
+
 ```
-root="tools/msvc-env/msvc7"
-export INCLUDE="$root/include;$root/PlatformSDK/include"
-export LIB="$root/lib;$root/PlatformSDK/lib"
-"$root/bin/cl.exe" /c /I include/msvc /I include /O2 /Fobuild/foo.obj src/path/to/foo.c
+docker run --rm --platform linux/amd64 -v "$PWD":/work -w /work \
+    -e INCLUDE="Z:\\work\\include\\msvc;Z:\\work\\include;Z:\\opt\\msvc7\\include;Z:\\opt\\msvc7\\PlatformSDK\\include" \
+    -e LIB="Z:\\opt\\msvc7\\lib;Z:\\opt\\msvc7\\PlatformSDK\\lib" \
+    gb-msvc wine "Z:\\opt\\msvc7\\bin\\cl.exe" /c /O2 \
+    "Z:\\work\\src\\path\\to\\foo.c" "/FoZ:\\work\\build\\foo.obj"
 ```
 
 `include/msvc/` holds `stdint.h`/`stdbool.h` shims (MSVC 7.1 predates both);
-put it on `/I` *before* `include/` so it's found first. Raw/verbatim ports
+put it on `INCLUDE` *before* `include/` so it's found first. Raw/verbatim ports
 under `src/unnamed/` pull in `windows.h`/`ddraw.h`/`d3d.h` via
 `include/ghidra_types.h`, which is why the Platform SDK + DirectX 7 merge
 above is needed even for functions that don't touch Windows APIs directly.
@@ -44,11 +55,25 @@ isn't wired up. Instead, `diff_settings.py` (repo root) configures asm-differ's
 any compiled `.obj`, and asm-differ disassembles just the one named symbol out
 of it, lined up against the original binary's real bytes at a given VA range.
 This is the real tool - colorized, aligned, scored - not an approximation.
+Runs with plain `python3` on the Mac side (no venv needed beyond the pip
+packages above) using Xcode's `llvm-objdump` - originally configured for a
+Windows-side Python 3.12 venv + `llvm-objdump.exe` in the VM, retargeted once
+it became clear that setup was never actually being used (the faster
+Docker+Wine pipeline replaced driving the VM for compiling, but this file
+never got repointed to match).
 
 ```
-GB_MYIMG=build/GetBit_cmp.obj tools/.venv-win/Scripts/python.exe \
-    tools/asm-differ/diff.py -e _lzhuf_get_bit 0x4ea120 0x4ea1a4
+GB_MYIMG=build/GetBit_cmp.obj \
+    python3 tools/asm-differ/diff.py -e _lzhuf_get_bit 0x4ea120 0x4ea1a4
 ```
+
+Symbol names in the compiled `.obj` are decorated per the calling convention
+actually used (confirmed via `objdump -t` on the `.obj`, or just reading the
+compiler's own errors/output) - `__cdecl` exports a plain leading-underscore
+name (`_lzhuf_get_bit`), `__fastcall` exports `@Name@N` (`N` = bytes of stack
+arguments, e.g. `@CGameState_BaseDestructor@4`), `__stdcall` exports
+`_Name@N`. Get this wrong and asm-differ's `-e` mode fails to find the symbol
+at all.
 
 `tools/score.sh <symbol> <start-VA-hex> <end-VA-hex> <obj-file>` wraps that up
 and prints just the match score (`--format json` under the hood) - lower is
@@ -107,8 +132,11 @@ byte-matching succeeds.
    (WinZip self-extracting archive - unzip with 7-Zip, don't run it) and
    merge its `include`/`lib` into the same `PlatformSDK/{include,lib}`
    without overwriting existing files.
-4. **Python + LLVM**: `winget install Python.Python.3.12` and `winget
-   install LLVM.LLVM`, then `python -m venv tools/.venv-win && tools/.venv-win/Scripts/python.exe -m pip install colorama cxxfilt watchdog`.
+4. **Python + LLVM in the VM** (optional - only needed for the interactive
+   Windows-VM fallback path, not the primary Mac-side diffing setup above):
+   `winget install Python.Python.3.12` and `winget install LLVM.LLVM`, then
+   `python -m venv tools/.venv-win && tools/.venv-win/Scripts/python.exe -m
+   pip install colorama cxxfilt watchdog levenshtein`.
 
 Note on old MS installers: anything from this era (IExpress/InstallShield
 self-extractors) tends to refuse to run under WOW64 ("Setup was started in a

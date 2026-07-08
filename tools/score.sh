@@ -13,7 +13,7 @@ END="$3"
 OBJ="$4"
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-PYTHON="$ROOT/tools/.venv-win/Scripts/python.exe"
+PYTHON="python3"
 
 cd "$ROOT"
 GB_MYIMG="$OBJ" "$PYTHON" tools/asm-differ/diff.py \
