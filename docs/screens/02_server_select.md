@@ -1,9 +1,10 @@
 # State 2 — Server / Channel Select
 
-Where the client receives the server list, lets the player connect, and
-transitions into the chosen server's room list. The list **data and the
-select→connect→confirm flow are fully implemented**; what's missing in this
-build is only a UI to highlight an arbitrary row (see "Selection" below).
+Where the client receives the server list, lets the player scroll/pick a
+server, connect, and transition into the chosen server's room list. The list
+is a real **scroll-list widget** (draggable scrollbar + up/down arrows) backed
+by **server-side pagination** — see "Rendering & the server-list scroll view"
+below. (This corrects an earlier writeup that claimed there was no list UI.)
 
 ## Identity
 - **State ID**: 2
@@ -87,13 +88,44 @@ entries (the `desc` table is exactly 16×256 = 0x1000).
    is shown while it's pending; see "Connection subsystem" in ARCHITECTURE.md.
 6. Start channel music, clear the "current server" global (`g_clientContext+0x3f804 = -1`).
 
-## Rendering
-- **No bespoke render function** — background via the shared slot-15 blit
-  (`0x443570`, draws `server_list.img`); the three buttons draw themselves via
-  the generic active-object sweep; the per-frame tick (`0x4e1960`) animates a
-  per-slot byte at `+0x4110a`.
-- **There are no per-server row widgets** — the list rows are not rendered as
-  individual clickable widgets in this build.
+## Rendering & the server-list scroll view
+> **Correction (supersedes an earlier "no list UI / no scroll view / connects
+> to first server" conclusion).** That conclusion was wrong: it only looked at
+> the state's own vtable slots + the three `CreateButtonWidget` calls and
+> missed that `OnEnter` also calls **`FUN_005099d0(&DAT_00e53c40)`**, which
+> builds a full **scroll-list panel** through the generic UI-widget system.
+> `FUN_005099d0` is called *only* from this screen's `OnEnter`.
+
+- The state has **no bespoke render slot** (slot 15 is the shared background
+  blit `0x443570`, drawing `server_list.img`); the three top-level buttons and
+  the whole list panel draw via the generic active-object sweep.
+- **`FUN_005099d0`** creates a ~545×530 panel (at `(0xb,0xd)`) with two panel
+  buttons (msg `0x44c`/`0x44d`) and a **scroll-list widget** built by
+  **`FUN_005080a0`** (class vtable `0x557e90`, 0x58-byte object).
+- The scroll-list widget:
+  - auto-creates its own **up/down scroll-arrow buttons** (two 18×18 child
+    widgets, at the top and bottom of the track);
+  - has a **draggable scrollbar thumb** — mouse-down (`FUN_0050f500`) hit-tests
+    the thumb rect computed from scroll position (`+0x40`), content total
+    (`+0x38`), and track height (`+0x34`) and begins a drag; mouse-move
+    (`FUN_0050f460`) recomputes the position during the drag;
+  - arrow clicks drive `FUN_0050f7c0`, which steps the scroll position ±1
+    (clamped to `total − pageSize`);
+  - on any scroll change (drag or arrows) fires a callback to the parent
+    panel: **cmd `0x2000` + the new scroll position**.
+- The parent panel's handler (`FUN_0050d810`) writes the scroll offset back
+  into the **ServerSelect state object** (`g_gameStateVTableArray[2]+0x14`/
+  `+0x18`) and issues a **server request** for that page — see below.
+
+**Server-side pagination.** The list is fetched a page at a time. The tick
+(`0x4e1960`) and the panel handler send opcode **`0x1100`** carrying the scroll
+offset (state `+0x18`); the server replies with that 16-entry page via
+`0x1102`. Scrolling past the current page re-requests from the server
+(`0x1100`/`0x1101`) rather than being a purely local view.
+
+*(Not fully traced: the exact per-row pixel draw of server names, and whether a
+row-click sets the highlighted slot `this+8` directly — the scroll/paging
+mechanism itself is confirmed.)*
 
 ## Selection → connect
 1. `this+8` = highlighted slot. The **Enter handler** (`0x4e1430`) auto-sets it
@@ -125,10 +157,12 @@ entries (the `desc` table is exactly 16×256 = 0x1000).
 ## Network summary (see PROTOCOL.md)
 | Opcode | Dir | Meaning |
 |---|---|---|
-| `0x1102` | in | server-list population (16-entry SoA) |
+| `0x1100` | out | **request a server-list page** at the current scroll offset (`+0x18`); driven by the scroll widget, the tick, and the panel handler |
+| `0x1101` | out | paged-fetch variant (sends a selector record) used while scrolling |
+| `0x1102` | in | server-list page population (16-entry SoA) |
 | `0x1012` | in | connect error code (→ per-slot error) |
 | `0x2001` (`payload[0]==0`) | in | connect confirmed → transition to state 3 |
-| `0x1000`/`0x1100`/`0x1001`/`0x101f` | in/out | keepalive / handshake / address reporting |
+| `0x1000`/`0x1001`/`0x101f` | in/out | keepalive / handshake / address reporting |
 
 > **Selector-record table** (`g_serverSelectRecords`, `0xe54ca8`): a
 > standalone global (12-byte records, count in `g_serverSelectRecordCount`),
@@ -144,13 +178,15 @@ entries (the `desc` table is exactly 16×256 = 0x1000).
   exit button; buddy-game path via button ID 4.
 
 ## Reimplementation checklist
-1. Load `server_list.img` + `channel.mp3`; create three buttons (connect disabled).
-2. Open the channel connection; wait for opcode `0x1102`; store the SoA list.
-3. Highlight logic: default highlight = first online server.
-4. On connect: validate online & not-full, connect to `serverIp:port`, mark
-   the pending slot.
-5. Handle `0x1012` (per-slot error → dialog on retry) and `0x2001` (confirm →
+1. Load `server_list.img` + `channel.mp3`; create the three top-level buttons
+   (connect disabled) and the scroll-list panel (`FUN_005099d0`).
+2. Connect to the broker; request a page (`0x1100`, scroll offset from `+0x18`);
+   store each `0x1102` page into the 16-entry SoA.
+3. Render the scroll list: visible rows + a draggable scrollbar thumb + up/down
+   arrows; scrolling updates `+0x14`/`+0x18` and re-requests via `0x1100`/`0x1101`.
+4. Selection: the Enter key auto-highlights the first online server; a real
+   scroll-list picker also exists (row selection wiring not fully traced).
+5. On connect: validate online & not-full, connect to `serverIp:port`, mark
+   the pending slot (`+0x68`).
+6. Handle `0x1012` (per-slot error → dialog on retry) and `0x2001` (confirm →
    copy current-server globals, go to room list).
-- **Open item**: no code sets the highlight to a non-first row, so this build
-  effectively connects to the first online server. A faithful reimplementation
-  can add row selection, but the original binary has no such UI.

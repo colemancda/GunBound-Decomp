@@ -266,18 +266,27 @@ to `ChangeGameState(3)` (that server's Game Room List). Opcode `0x1012`'s
 error-code table indexes the same `this+0x68` (`this+(*(int*)(this+0x68))*4+
 0x28`), storing a per-slot error code shown on failure.
 
-**What genuinely IS absent: a visual list picker for arbitrary rows.** No
-per-entry row widgets or list-viewport rendering were found — the three
-`CreateButtonWidget` calls in `OnEnter` are just exit / buddy-game /
-choice-server buttons, and no code sets `this+8` to anything other than
-"first online server." So in practice this build connects to the **first
-online server in the list**, not a user-chosen arbitrary one. The full
-multi-entry list data (up to 16 servers, each with IP/port/population) is
-parsed and stored, and the select→connect→confirm state machine is fully
-real; it's specifically the UI affordance to highlight a non-first entry
-that is missing. (This supersedes the earlier "always index 0, never
-written" phrasing, which was doubly wrong: `this+0x68` is written on every
-connect attempt, and the default is `-1`, not `0`.)
+**There IS a scroll-list picker (correcting a prior claim that there wasn't).**
+An earlier revision of this section said "a visual list picker for arbitrary
+rows is absent; no per-entry row widgets or list-viewport rendering were
+found." That was wrong — it only checked the state's own vtable slots and the
+three `CreateButtonWidget` calls. `OnEnter` also calls
+`FUN_005099d0(&DAT_00e53c40)` (called from nowhere else), which builds a
+**scroll-list panel** through the generic UI-widget system: a scroll-list
+widget (`FUN_005080a0`, class vtable `0x557e90`) with up/down arrow buttons
+and a **draggable scrollbar thumb**. Scrolling (drag via `FUN_0050f460`/
+`FUN_0050f500`, or arrows via `FUN_0050f7c0`) fires a `0x2000`+position
+callback that the panel handler (`FUN_0050d810`) turns into a paged server
+request. **The server list is server-paginated**: the client sends the scroll
+offset (state `+0x18`) in an outgoing `0x1100` (and a `0x1101` variant), and
+the server returns the corresponding 16-entry page via `0x1102`.
+
+So the multi-server browser UI is real and scrollable — not vestigial. What's
+still only partially traced: the exact per-row draw and whether a row-click
+sets `this+8` directly (the Enter-key auto-select of the first online server
+is confirmed). This also supersedes the earlier "always index 0, never
+written" phrasing about `this+0x68`, which was doubly wrong: it is written on
+every connect attempt, and its default is `-1`, not `0`.
 
 ---
 

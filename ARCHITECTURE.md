@@ -1878,8 +1878,8 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
      server connection succeeds). These draw themselves through the
      already-documented generic active-object sweep, same as everywhere
      else.
-   - **A real select→connect state machine exists; only the arbitrary-row
-     picker UI is missing.** (Corrects an earlier draft here that claimed
+   - **A real scroll-list server browser + select→connect state machine.**
+     (Corrects an earlier draft here that claimed
      `this+0x68` is never written — the write lives in `FUN_004e1bf0`, a
      *non-vtable* helper called by the input handlers, which was missed on
      the first address-range pass.) **Opcode `0x1102` populates a real,
@@ -1906,17 +1906,38 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
 
      So the client-side *data* and the *select→connect→confirm* protocol
      for a real multi-server browser are completely implemented and
-     exercised. What's genuinely absent is only the **visual list picker**:
-     no per-entry row widgets or list-viewport rendering exist (the three
-     `CreateButtonWidget` calls in `OnEnter` are exit / buddy-game /
-     choice-server buttons), and no code sets `this+8` to anything other
-     than "first online server." **In practice this build connects to the
-     first online server in the list** — not literally index 0 and not via
-     a fixed hardcode, but through a real (if minimal) selection path.
-     Consistent with the "smaller private-server build" pattern seen
-     elsewhere (`stage.dat`'s single populated slot, `itemdata.dat`'s
-     13-of-100 items) — the machinery is fully general, this build just
-     drives it with a trivial default.
+     exercised.
+
+     **Correction — there IS a scroll-list picker after all.** An earlier
+     revision of this bullet claimed "the visual list picker is absent; no
+     per-entry row widgets or list-viewport rendering exist." That was
+     wrong. It only inspected the state's own vtable slots plus the three
+     `CreateButtonWidget` calls in `OnEnter`, and missed that `OnEnter` also
+     calls **`FUN_005099d0(&DAT_00e53c40)`** (called from nowhere else),
+     which builds a full **scroll-list panel** via the generic UI-widget
+     system:
+     - `FUN_005099d0` creates a ~545×530 panel with two panel buttons (msgs
+       `0x44c`/`0x44d`) and a **scroll-list widget** (`FUN_005080a0`, class
+       vtable `0x557e90`, 0x58-byte object) that auto-creates its own
+       **up/down scroll-arrow** child buttons.
+     - The widget has a **draggable scrollbar thumb** (`FUN_0050f500`
+       mouse-down grabs the thumb, `FUN_0050f460` drags it) and an
+       arrow/step handler (`FUN_0050f7c0`, ±1 clamped to `total − page`);
+       any scroll change fires a `0x2000`+position callback to the parent
+       panel (`FUN_0050d810`), which writes the scroll offset into the
+       ServerSelect state (`g_gameStateVTableArray[2]+0x14`/`+0x18`) and
+       issues a paged server request (`0x1100`/`0x1101`).
+     - So the server list is a genuine **scrollable, server-paginated
+       list** — the client requests a page at the current scroll offset and
+       the server returns 16 entries via `0x1102`. `OnEnter` seeds the
+       initial scroll offset from the registry `LastServer` value ÷ 16.
+
+     What remains only *partially* traced: the exact per-row pixel draw and
+     whether a row-click sets `this+8` directly (the Enter-key auto-select
+     of the first online server is confirmed; explicit row-click selection
+     wiring is not). The broader "smaller private-server build" framing no
+     longer applies to this screen — the multi-server browser UI is real
+     and present, not vestigial.
    - **Also touches the whisper-messaging TCP connection.** `OnEnter`
      checks `DAT_007934f4` (the same "direct connection" global from
      the newly-documented Channel 3/whisper investigation in
