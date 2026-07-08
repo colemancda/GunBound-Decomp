@@ -1288,6 +1288,54 @@ universal rendering slot. Mapping each state's actual render entry point
 would mean checking each vtable slot individually per state rather than
 assuming a shared slot index — noted as future work, not completed here.
 
+### The lobby command dispatcher — `FUN_004285c0` (State 3 vtable slot 5)
+
+Decompiled State 3's slot-5 virtual (`0x4285c0`) in full — it's the lobby's
+central **command/action dispatcher**, the single funnel every lobby button,
+menu item, and list event routes through. Signature `(this, eventType,
+param_3, actionCode)`:
+
+- **`eventType` (`param_2`)** selects the category:
+  - `0` — a button/menu action fired; dispatch on `actionCode` (`param_4`).
+  - `0xa` (10) — a confirm/commit event; branches on the object's pending-op
+    flags at `+0xc`/`+0xd`/`+0xe` and finalizes (leave-room `0x2120`, list
+    refresh, or re-request).
+  - `0xb` (11) — a cancel/dismiss event; closes the active dialog
+    (`FUN_0050ef10`).
+
+- **`actionCode` cases** (when `eventType==0`) — the lobby's full button map:
+
+  | Code | Action | How |
+  |---|---|---|
+  | 0 | **Exit lobby → Server Select** | `ChangeGameState(2)` |
+  | 1 | (re)build the lobby list/dialog panel | `FUN_00509110` (also run from `OnEnter`) |
+  | 3 | **Enter Avatar Store** | sends outgoing `0x6000` (guarded on the inventory-loaded flag) |
+  | 4 | Open a text-input dialog | `FUN_00429c30` — message id `0x62b2`, via `FUN_00508190` |
+  | 5 | **Enter a room by number** | `FUN_00429b50` — sends `0x2110` (room# + player name), after a "already in that room" dedupe check |
+  | 0xa | Select channel/tab **mode 1** | re-request room list, `0x2100` (mode byte = 1) |
+  | 0xb | Select channel/tab **mode 2** | re-request room list, `0x2100` (mode byte = 2) |
+  | 0xc | Room-list page **prev** | decrements page (`+0x118`), sends `0x2100`/`0x2101` |
+  | 0xd | Room-list page **next** | increments page, sends `0x2100`/`0x2101` |
+  | 0xe | **Open channel selector** (mode 6) | `FUN_004021b0` builds a deduped, sorted channel-number list at `+0xe20`, then sends `0x2101` |
+  | 0xf, 0x1e–0x21, 0x28, 0x29 | list scroll / refresh / leave toggles | `FUN_005087b0`/`FUN_00429fb0`/`fd0`/`f90`/`de0`/`dc0`/`c60` — the last sends `0x2120`; only partially traced, minor UI plumbing |
+
+  This is the authoritative answer to "what does each lobby button do" — the
+  `CreateButtonWidget` action codes assigned in the widget system resolve here.
+
+- **`OnEnter` (`0x428d00`)** context that feeds this: registers ~40 button
+  definitions (`FUN_004f1790`) and 12 persistent buttons, sends the initial
+  **`0x2100`** room-list request (mode byte from `+0x115`, chosen `1` or `2`
+  based on a checksum-state check), sets the window title, **closes any active
+  replay file** (writes a final `0x03` byte then `fclose` — the lobby ends
+  battle replay recording), and surfaces up to four carried-over status
+  messages (localized ids `0xc351`–`0xc354`, gated on `PeekPacketChecksumState`
+  bits `0x100000`–`0x800000` — most likely "you were kicked / disconnected /
+  match ended"-style notices shown on returning from a battle).
+
+New outgoing opcodes surfaced here (`0x2100`, `0x2101`, `0x2110`, and
+tentatively `0x2120`) are written up in PROTOCOL.md; `0x2104` (right-click
+join, from the mouse slot) and `0x6000` (avatar store) were already documented.
+
 ### Per-state vtable slot survey — Ready Room and Loading
 
 Dumped every vtable slot for the remaining states and created/checked the

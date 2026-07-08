@@ -393,17 +393,63 @@ drawn by the state's own bespoke render loop; the click handling
 similarly lives in the state's own vtable slot rather than a generic
 widget callback).
 
-**Channel changing — not a separate in-lobby mechanic.** Checked
-`State03_GameRoomList_ProcessPacket` for any channel-list/channel-switch
-opcode and found none — channel selection (`0x1102`, already documented
-under State 2 above) happens once, in the Server/Channel Select screen,
-*before* the client ever transitions into this room-list state. There's
-no evidence of a "change channel while browsing rooms" feature in this
-client's code; switching channels would mean leaving the room list and
-returning to Server Select. (Consistent with the earlier finding that
-this specific build's Server Select screen never actually renders a
-dynamic channel list either — likely vestigial/unused code paths in a
-single-server private build, not a missed feature.)
+**Channel changing — corrected: it DOES exist, as an outgoing mechanic.**
+An earlier pass scanned only `State03_GameRoomList_ProcessPacket` (the
+*incoming* handler) for a channel-switch opcode, found none, and concluded
+there was no in-lobby channel switching. That was looking in the wrong
+direction: the switch is **client → server**, driven by the lobby command
+dispatcher `FUN_004285c0` (vtable slot 5), which the incoming-only scan never
+examined. Action codes `0xa`/`0xb` re-request the room list with a different
+channel/tab **mode byte** (`0x2100`), and `0xe` opens a channel selector that
+sends `0x2101`. So the player *can* change channel/tab and page through rooms
+without leaving the lobby — see the three new outgoing opcodes below and
+ARCHITECTURE.md's "lobby command dispatcher" section. (The unrelated point
+about Server Select's list stands on its own — see the corrected State 2
+writeup.)
+
+#### Opcode `0x2100` — Request/refresh room list (outgoing)
+
+**Direction**: outgoing. **Trigger**: lobby `OnEnter`, and dispatcher cases
+`0xa`/`0xb` (channel/tab mode) and `0xc`/`0xd` (page prev/next).
+
+**Payload**: a **mode byte** (the channel/tab selector, `1` or `2`, stored at
+the state object's `+0x115`), a sub-mode/flag byte (`+0x116`), then a `u16`
+**page/row index**. The server replies with the room-list broadcasts
+(`0x2103`/`0x2105`/etc.) for that channel + page. This is the room browser's
+core "give me this page of this channel" request.
+
+#### Opcode `0x2101` — Room-list navigation / channel selector (outgoing)
+
+**Direction**: outgoing. **Trigger**: dispatcher case `0xe` (open channel
+selector, "mode 6") and the paging cases when in that mode.
+
+**Payload**: a 12-byte coordinate/record copied from a client-side table
+(`&DAT_00e54ca8`, 12-byte stride; `FUN_004d2530` copies one record). Case
+`0xe` first builds a **deduplicated, sorted list of available channel
+numbers** (`FUN_004021b0`, scanning the active room objects for entries of
+type `0x12` matching the current server) into the state object at `+0xe20`,
+then navigates it with `0x2101`. Exact record fields not fully decoded; the
+role (channel-jump/paging within the selector) is confirmed from the call
+sites.
+
+#### Opcode `0x2110` — Enter room by number (outgoing)
+
+**Direction**: outgoing. **Trigger**: dispatcher case `5` (`FUN_00429b50`),
+distinct from the right-click `0x2104` join path.
+
+**Payload**: a `u16` **room number** (from the client's room-card array at
+`+0x44664`) followed by the local **player name** (`_DAT_00551cb1`). Before
+sending, the handler scans the active-room list to skip the request if the
+client is already in that exact room. Whether this is "create room" vs. an
+alternate "join by number" wasn't disambiguated from the client side alone
+(it carries the host/player name, which would fit either); flagged as the one
+open point on this opcode.
+
+#### Opcode `0x2120` — Leave room / list refresh (outgoing, tentative)
+
+**Direction**: outgoing. **Trigger**: dispatcher case `0x29` (`FUN_00429c60`)
+and the `eventType==0xa` commit path. Sends `0x2120`; semantics inferred
+(leave-room / refresh) from context, not fully traced.
 
 #### Opcode `0x2105` — Player info/profile broadcast
 

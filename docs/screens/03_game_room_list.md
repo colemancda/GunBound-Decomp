@@ -44,12 +44,51 @@ Room cards are **not** `ButtonWidget`s. The state's own **mouse slot**
 - **Left-click** → select/highlight a room (drives the 3-state background).
 - **Right-click** (not double-click) → **join**: sends outgoing opcode `0x2104`.
 
+## The command dispatcher — `FUN_004285c0` (vtable slot 5)
+Every lobby button/menu/list event funnels through this one function,
+`(this, eventType, param_3, actionCode)`:
+- `eventType==0` → button/menu action, dispatch on `actionCode` (table below).
+- `eventType==0xa` → confirm/commit (branches on pending-op flags `+0xc/+0xd/+0xe`).
+- `eventType==0xb` → cancel/dismiss the active dialog (`FUN_0050ef10`).
+
+**Action-code map** (`actionCode` when `eventType==0`):
+
+| Code | Action | Effect |
+|---|---|---|
+| 0 | Exit lobby | `ChangeGameState(2)` → Server Select |
+| 1 | (Re)build lobby list/dialog panel | `FUN_00509110` (also in OnEnter) |
+| 3 | Enter Avatar Store | send `0x6000` (if inventory loaded) |
+| 4 | Open text-input dialog | `FUN_00429c30` (msg `0x62b2`) |
+| 5 | Enter room by number | send `0x2110` (room# + player name) |
+| 0xa | Channel/tab mode 1 | request room list `0x2100` (mode=1) |
+| 0xb | Channel/tab mode 2 | request room list `0x2100` (mode=2) |
+| 0xc | Page prev | `0x2100`/`0x2101` (page `-0x118`) |
+| 0xd | Page next | `0x2100`/`0x2101` (page `+0x118`) |
+| 0xe | Open channel selector (mode 6) | build sorted channel list, send `0x2101` |
+| 0xf, 0x1e–0x21, 0x28, 0x29 | list scroll/refresh/leave | minor UI plumbing; `0x29` sends `0x2120` |
+
+## OnEnter (`0x428d00`) notes
+- Registers ~40 button definitions + 12 persistent buttons.
+- Sends the initial `0x2100` room-list request (mode from `+0x115`).
+- **Ends any active replay recording** (writes final `0x03` byte, `fclose`).
+- Shows up to 4 carried-over status messages (localized `0xc351`–`0xc354`,
+  gated on `PeekPacketChecksumState` bits `0x100000`–`0x800000` — e.g. kicked/
+  disconnected notices on return from battle).
+
 ## Network (see PROTOCOL.md — this state's opcodes are extensive)
-Key ones: `0x2103` (bulk room player-list update), `0x2105` (player
-info/profile broadcast; defines `RoomPlayerSlot`), `0x2104` (outgoing join
-request), `0x2121` (join confirmation), `0x21f0`–`0x21f7` (per-field player
-updates), `0x6001`/`0x6002` (→ Avatar Store transition & inventory). Full list
-under "State 3" in PROTOCOL.md.
+**Incoming**: `0x2103` (bulk room player-list update), `0x2105` (player
+info/profile broadcast; defines `RoomPlayerSlot`), `0x2121` (join
+confirmation), `0x21f0`–`0x21f7` (per-field player updates), `0x6001`/`0x6002`
+(→ Avatar Store transition & inventory).
+**Outgoing** (from the command dispatcher / mouse handler): `0x2100`
+(request/refresh room list, channel+page), `0x2101` (channel selector/nav),
+`0x2104` (right-click join), `0x2110` (enter room by number), `0x2120`
+(leave/refresh, tentative), `0x6000` (enter Avatar Store).
+Full list under "State 3" in PROTOCOL.md.
+
+> **Correction**: channel switching *does* exist in the lobby — it's an
+> outgoing mechanic (`0x2100` mode byte / `0x2101` selector), which an earlier
+> incoming-only scan missed. See PROTOCOL.md's `0x2100` section.
 
 ## Transitions
 - **In**: from Server Select (confirmed connect).
