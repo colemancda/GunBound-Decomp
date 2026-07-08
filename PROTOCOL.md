@@ -393,63 +393,104 @@ drawn by the state's own bespoke render loop; the click handling
 similarly lives in the state's own vtable slot rather than a generic
 widget callback).
 
-**Channel changing — corrected: it DOES exist, as an outgoing mechanic.**
-An earlier pass scanned only `State03_GameRoomList_ProcessPacket` (the
-*incoming* handler) for a channel-switch opcode, found none, and concluded
-there was no in-lobby channel switching. That was looking in the wrong
-direction: the switch is **client → server**, driven by the lobby command
-dispatcher `FUN_004285c0` (vtable slot 5), which the incoming-only scan never
-examined. Action codes `0xa`/`0xb` re-request the room list with a different
-channel/tab **mode byte** (`0x2100`), and `0xe` opens a channel selector that
-sends `0x2101`. So the player *can* change channel/tab and page through rooms
-without leaving the lobby — see the three new outgoing opcodes below and
-ARCHITECTURE.md's "lobby command dispatcher" section. (The unrelated point
-about Server Select's list stands on its own — see the corrected State 2
-writeup.)
+**Channel changing — twice-corrected; here's the current, button-verified
+picture.** An earlier pass scanned only `State03_GameRoomList_ProcessPacket`
+(the *incoming* handler), found no channel-switch opcode, and concluded there
+was no in-lobby channel switching. A later pass found the lobby command
+dispatcher `FUN_004285c0` sends `0x2100`/`0x2101` in response to certain
+button clicks and corrected this to "channel switching does exist, outgoing."
+**That was half right and needs refining now that the real button images are
+known** (from `FUN_0042aba0`, the lobby's actual button-creation call):
+- Codes `0xa`/`0xb` are **`b_gamelist_viewall`** and **`b_gamelist_wait`** — a
+  **room-list filter** (view-all vs. waiting-rooms-only), not a channel
+  selector. They set a filter-mode byte and re-request the list via `0x2100`.
+- Code `0xe` is **`b_gamelist_friend`** ("Find Friend"), not a free-standing
+  channel picker — it triggers `0x2101` as part of locating a buddy's current
+  room (see below).
+
+So there's **no direct "pick any channel" UI control** in the lobby after
+all — what exists is a room-list filter (`0x2100`'s mode byte) and a
+buddy-locate feature that happens to reuse `0x2101`. Whether the server-side
+concept of "channel" is exposed to the player anywhere in this lobby screen
+remains, once again, open — for a different and more precise reason than the
+original scan (mislabeled button semantics, not a missed opcode).
 
 #### Opcode `0x2100` — Request/refresh room list (outgoing)
 
-**Direction**: outgoing. **Trigger**: lobby `OnEnter`, and dispatcher cases
-`0xa`/`0xb` (channel/tab mode) and `0xc`/`0xd` (page prev/next).
+**Direction**: outgoing. **Trigger**: lobby `OnEnter`, and dispatcher codes
+`0xa`/`0xb` (`b_gamelist_viewall`/`b_gamelist_wait` — room-list filter mode)
+and `0xc`/`0xd` (page prev/next).
 
-**Payload**: a **mode byte** (the channel/tab selector, `1` or `2`, stored at
-the state object's `+0x115`), a sub-mode/flag byte (`+0x116`), then a `u16`
-**page/row index**. The server replies with the room-list broadcasts
-(`0x2103`/`0x2105`/etc.) for that channel + page. This is the room browser's
-core "give me this page of this channel" request.
+**Payload**: a **filter-mode byte** (`1`="view all", `2`="waiting rooms
+only", stored at the state object's `+0x115`), a sub-mode/flag byte
+(`+0x116`), then a `u16` **page/row index**. The server replies with the
+room-list broadcasts (`0x2103`/`0x2105`/etc.) for that filter + page. This is
+the room browser's core "give me this page of this filtered list" request.
 
-#### Opcode `0x2101` — Room-list navigation / channel selector (outgoing)
+#### Opcode `0x2101` — Buddy-room-locator record (outgoing)
 
-**Direction**: outgoing. **Trigger**: dispatcher case `0xe` (open channel
-selector, "mode 6") and the paging cases when in that mode.
+**Direction**: outgoing. **Trigger**: dispatcher code `0xe`
+(`b_gamelist_friend`, "Find Friend") and the paging codes when the filter
+mode is `6` (the locator's own result-browsing mode).
 
-**Payload**: a 12-byte coordinate/record copied from a client-side table
-(`&DAT_00e54ca8`, 12-byte stride; `FUN_004d2530` copies one record). Case
-`0xe` first builds a **deduplicated, sorted list of available channel
-numbers** (`FUN_004021b0`, scanning the active room objects for entries of
-type `0x12` matching the current server) into the state object at `+0xe20`,
-then navigates it with `0x2101`. Exact record fields not fully decoded; the
-role (channel-jump/paging within the selector) is confirmed from the call
-sites.
+**Payload**: a 12-byte record copied from a client-side table
+(`g_serverSelectRecords`, 12-byte stride; `FUN_004d2530` copies one record).
+Code `0xe` first calls `FUN_004021b0(currentServerId)` — that function scans
+the active room objects for entries of type `0x12`, filtered by a *second*,
+uncaptured parameter (passed via a register the decompiler didn't model;
+most plausibly a buddy/user ID given the button's label, but not confirmed),
+building a deduplicated, sorted result list into the state object at
+`+0xe20`. If results exist (`g_serverSelectRecordCount != 0`), it sends this
+opcode with the first record; if none, it clears a "found" flag at
+`g_clientContext+0x44648` instead. Exact record field meanings are not yet
+decoded (the populator, on the still-unported server-list receive path, is
+unported); the "buddy-room-locator" role is confirmed from the triggering
+button, not from the record contents.
 
-#### Opcode `0x2110` — Enter room by number (outgoing)
+#### Opcode `0x2110` — Join room (outgoing) — resolved, not "create room"
 
-**Direction**: outgoing. **Trigger**: dispatcher case `5` (`FUN_00429b50`),
-distinct from the right-click `0x2104` join path.
+**Direction**: outgoing, distinct from the right-click `0x2104` join path.
+**Fixed 8-byte wire format**, confirmed identical across all three emitters:
+```
+u16 opcode = 0x2110
+u16 roomNumber
+u32 payload   // fixed field, NOT a variable-length player name (see below)
+```
+Three emitters, differing only in how `roomNumber`/`payload` are sourced:
+- **`SendJoinRoomSelected`** (`0x429fd0`) — room# from the currently
+  highlighted list entry.
+- **`SendJoinRoomChecked`** (`0x429b50`, lobby button ID 5, `b_gamelist_join`)
+  — room# from the list entry, first scanning the client's own room-list for
+  an entry matching `(myUserId, roomId)` and returning early (no send) if
+  already in that room; the `u32` payload is `_DAT_00551cb1`.
+- **`SendJoinRoomByNumber`** (`0x429de0`) — room# parsed via `_atol` from the
+  "enter room by number" dialog's typed text (range 1..1000; dialog opened by
+  button ID `0xf`, `b_gamelist_directgo`, and submitted via dispatcher code
+  `0x21`).
 
-**Payload**: a `u16` **room number** (from the client's room-card array at
-`+0x44664`) followed by the local **player name** (`_DAT_00551cb1`). Before
-sending, the handler scans the active-room list to skip the request if the
-client is already in that exact room. Whether this is "create room" vs. an
-alternate "join by number" wasn't disambiguated from the client side alone
-(it carries the host/player name, which would fit either); flagged as the one
-open point on this opcode.
+An earlier pass had this opcode down as possibly "create room" (the `u32`
+field's shape resembled a player-name pointer). Retyping the field as a fixed
+`u32` (not a variable-length string) and naming all three emitters resolved
+this: **`0x2110` is exclusively "join/enter room," never room creation.**
 
-#### Opcode `0x2120` — Leave room / list refresh (outgoing, tentative)
+#### Opcode `0x2120` — Create Room (outgoing) — resolved, was mis-flagged "leave-room"
 
-**Direction**: outgoing. **Trigger**: dispatcher case `0x29` (`FUN_00429c60`)
-and the `eventType==0xa` commit path. Sends `0x2120`; semantics inferred
-(leave-room / refresh) from context, not fully traced.
+**Direction**: outgoing. **Trigger**: the Create Room dialog's submit path —
+lobby button ID `4` (`b_gamelist_create`) opens the dialog (`FUN_00429c30` →
+`FUN_00508190`, title message `0x62b2`, with room-name/password text fields,
+message IDs `0x514`–`0x51d`); its OK button reaches this dispatcher via
+`eventType==0xa` with the pending-create flag (`+0xc`) set, or directly via
+dispatcher code `0x29`, both landing in **`FUN_00429c60`** — the actual
+submit handler.
+
+**Payload**: room name (NUL-terminated string, from the dialog's name field),
+password (NUL-terminated string, from the password field), the dialog's
+message-id field (`0x62b2`, `u32`), and a type byte (`8`).
+
+An earlier pass, without having traced `FUN_00429c60`'s body, guessed this
+opcode was "leave room / list refresh." Decompiling it shows it copies the
+two text-entry widgets' contents and sends them — this is the room-creation
+request, not a leave/refresh action.
 
 #### Opcode `0x2105` — Player info/profile broadcast
 

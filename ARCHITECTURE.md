@@ -1293,34 +1293,96 @@ assuming a shared slot index — noted as future work, not completed here.
 Decompiled State 3's slot-5 virtual (`0x4285c0`) in full — it's the lobby's
 central **command/action dispatcher**, the single funnel every lobby button,
 menu item, and list event routes through. Signature `(this, eventType,
-param_3, actionCode)`:
+param_3, buttonId)`:
 
 - **`eventType` (`param_2`)** selects the category:
-  - `0` — a button/menu action fired; dispatch on `actionCode` (`param_4`).
-  - `0xa` (10) — a confirm/commit event; branches on the object's pending-op
-    flags at `+0xc`/`+0xd`/`+0xe` and finalizes (leave-room `0x2120`, list
-    refresh, or re-request).
+  - `0` — a button was clicked; dispatch on `buttonId` (`param_4`).
+  - `0xa` (10) — a confirm/commit event (e.g. a dialog's OK button); branches
+    on the object's pending-op flags at `+0xc`/`+0xd`/`+0xe` and finalizes
+    (create-room submit `0x2120`, join-selected, or join-by-number).
   - `0xb` (11) — a cancel/dismiss event; closes the active dialog
     (`FUN_0050ef10`).
 
-- **`actionCode` cases** (when `eventType==0`) — the lobby's full button map:
+- **The `param_4` switch dispatches on button ID, not the widget's stored
+  "action code."** Cross-checked against the lobby's real button-creation
+  call, `FUN_0042aba0` (previously not referenced by this doc — it's a
+  separate function from the already-ported `OnEnter`, called once from it):
 
-  | Code | Action | How |
-  |---|---|---|
-  | 0 | **Exit lobby → Server Select** | `ChangeGameState(2)` |
-  | 1 | (re)build the lobby list/dialog panel | `FUN_00509110` (also run from `OnEnter`) |
-  | 3 | **Enter Avatar Store** | sends outgoing `0x6000` (guarded on the inventory-loaded flag) |
-  | 4 | Open a text-input dialog | `FUN_00429c30` — message id `0x62b2`, via `FUN_00508190` |
-  | 5 | **Enter a room by number** | `FUN_00429b50` — sends `0x2110` (room# + player name), after a "already in that room" dedupe check |
-  | 0xa | Select channel/tab **mode 1** | re-request room list, `0x2100` (mode byte = 1) |
-  | 0xb | Select channel/tab **mode 2** | re-request room list, `0x2100` (mode byte = 2) |
-  | 0xc | Room-list page **prev** | decrements page (`+0x118`), sends `0x2100`/`0x2101` |
-  | 0xd | Room-list page **next** | increments page, sends `0x2100`/`0x2101` |
-  | 0xe | **Open channel selector** (mode 6) | `FUN_004021b0` builds a deduped, sorted channel-number list at `+0xe20`, then sends `0x2101` |
-  | 0xf, 0x1e–0x21, 0x28, 0x29 | list scroll / refresh / leave toggles | `FUN_005087b0`/`FUN_00429fb0`/`fd0`/`f90`/`de0`/`dc0`/`c60` — the last sends `0x2120`; only partially traced, minor UI plumbing |
+  ```c
+  CreateButtonWidget(list, group, buttonId, actionCode, image, x, y, w, h, enabled, param11);
+  CreateButtonWidget(&DAT_00e9be90, 0, 0, 1000, "b_gamelist_exit",    0x28,0x227, 0x6b,0x2d, 0,0);
+  CreateButtonWidget(&DAT_00e9be90, 0, 1, 0x3e9,"b_gamelist_buddy",   0xa3,0x227, 0x6b,0x2d, 0,0);
+  CreateButtonWidget(&DAT_00e9be90, 0, 2, 0x3ea,"b_gamelist_ranking", 0x11e,0x227,0x6b,0x2d, 0,0);
+  CreateButtonWidget(&DAT_00e9be90, 0, 3, 0x3eb,"b_gamelist_avatar",  0x199,0x227,0x6b,0x2d, 0,0);
+  CreateButtonWidget(&DAT_00e9be90, 0, 4, 0x3ec,"b_gamelist_create",  0x214,0x227,0x6b,0x2d, 0,0);
+  CreateButtonWidget(&DAT_00e9be90, 0, 5, 0x3ed,"b_gamelist_join",    0x28f,0x227,0x6b,0x2d, 0,0);
+  CreateButtonWidget(&DAT_00e9be90, 0, 0xa,0x44c,"b_gamelist_viewall",0x2a,0xf6,  0x51,0x21, 0,0);
+  CreateButtonWidget(&DAT_00e9be90, 0, 0xb,0x44d,"b_gamelist_wait",   0x83,0xf6,  0x51,0x21, 0,0);
+  CreateButtonWidget(&DAT_00e9be90, 0, 0xc,0x44e,"b_gamelist_prev",   0xf2,0xf6,  0x31,0x21, 0,0);
+  CreateButtonWidget(&DAT_00e9be90, 0, 0xd,0x44f,"b_gamelist_next",   0x124,0xf6, 0x31,0x21, 0,0);
+  CreateButtonWidget(&DAT_00e9be90, 0, 0xe,0x450,"b_gamelist_friend", 0x173,0xf6, 0x51,0x21, 0,0);
+  CreateButtonWidget(&DAT_00e9be90, 0, 0xf,0x451,"b_gamelist_directgo",0x1cc,0xf6,0x51,0x21, 0,0);
+  ```
 
-  This is the authoritative answer to "what does each lobby button do" — the
-  `CreateButtonWidget` action codes assigned in the widget system resolve here.
+  The switch's case values (`0`–`0xf`) line up exactly with `buttonId`
+  (the 3rd argument), **not** the 1000-range `actionCode` (4th argument) —
+  those larger values are consumed elsewhere (by `FUN_004f1790`, see below),
+  not by this dispatcher. This is a naming correction from an earlier pass
+  that assumed the switch dispatched on "action code."
+
+- **Confirmed button map** (`buttonId` when `eventType==0`):
+
+  | ID | Image | Action | How |
+  |---|---|---|---|
+  | 0 | `b_gamelist_exit` | **Exit lobby → Server Select** | `ChangeGameState(2)` |
+  | 1 | `b_gamelist_buddy` | (re)build the buddy-list panel | `FUN_00509110` (also run from `OnEnter`) |
+  | 2 | `b_gamelist_ranking` | (no case — falls to default, no-op in this build) | — |
+  | 3 | `b_gamelist_avatar` | **Enter Avatar Store** | sends outgoing `0x6000` (guarded on the inventory-loaded flag) |
+  | 4 | `b_gamelist_create` | **Open the Create Room dialog** | `FUN_00429c30` → `FUN_00508190`, dialog title msg `0x62b2`, fields for room name + password (msgs `0x514`–`0x51d`) |
+  | 5 | `b_gamelist_join` | **Join the selected room** | `SendJoinRoomChecked` → `0x2110`, after an "already in that room" dedupe check |
+  | 0xa | `b_gamelist_viewall` | Room-list filter **mode 1** ("view all") | re-request room list, `0x2100` (mode byte = 1) |
+  | 0xb | `b_gamelist_wait` | Room-list filter **mode 2** ("waiting only") | re-request room list, `0x2100` (mode byte = 2) |
+  | 0xc | `b_gamelist_prev` | Room-list page **prev** | decrements page (`+0x118`), sends `0x2100`/`0x2101` |
+  | 0xd | `b_gamelist_next` | Room-list page **next** | increments page, sends `0x2100`/`0x2101` |
+  | 0xe | `b_gamelist_friend` | **Find Friend** — locate a buddy's current room | `FUN_004021b0` scans the active room list for a match (filter criterion passed via an uncaptured register, likely a buddy ID — not fully pinned down); if found, requests its record via `0x2101`; if not, clears a "found" flag at `+0x44648` |
+  | 0xf | `b_gamelist_directgo` | **Open the "enter room by number" dialog** | `FUN_005087b0` — separate dialog, msg `0x2715`, fields `0x578`/`0x579` |
+
+  Dialog-internal actions (reached via `eventType==0xa`/`0xb` from a dialog's
+  own OK/Cancel, not a top-level lobby button) use higher codes:
+  `0x1e`/`0x20`/`0x28` are plain **Cancel** buttons (`FUN_0050ef10`, dismiss
+  the active dialog); `0x1f` and `0x21` are **Join-selected**/**Join-by-number**
+  confirms (`SendJoinRoomSelected`/`SendJoinRoomByNumber`); `0x29` and the
+  `eventType==0xa && flag@+0xc` path both reach **`FUN_00429c60`, the Create
+  Room dialog's actual submit handler** (see below).
+
+  This corrects an earlier draft that mislabeled `0xe` as a generic "channel
+  selector" — it's specifically the Friend/buddy-locate button — and left
+  `0x2120` as an unidentified "leave-room" guess.
+
+- **`FUN_00429c60` — Create Room submission (was mis-flagged "leave-room").**
+  Copies the dialog's room-name and password text fields into a local buffer,
+  then sends **outgoing opcode `0x2120`**: room name (NUL-terminated string),
+  password (NUL-terminated string), the dialog's message-id field (`0x62b2`),
+  and a type byte (`8`). This is genuinely the room-creation request, not a
+  leave/refresh action — corrected in PROTOCOL.md.
+
+- **`FUN_004f1790` is not a "watchdog timer" (correcting the Logo1/Logo2
+  docs).** `OnEnter` calls it ~40 times with values like `0x514`–`0x51d`,
+  `0x578`/`0x579`, `0x2711`, etc. — and those exact values reappear as the
+  Create Room and "enter room by number" dialogs' field message-IDs
+  (`FUN_00508190`/`FUN_005087b0` above). Decompiling it shows it does **not**
+  set any duration/timeout field: it loads an XFS-resourced definition
+  (`FindXFSEntry`/`ReadXFSEntry`, resource name passed via an uncaptured
+  register — the same "hidden EAX argument" class of issue already
+  documented for `AppendPersistentButtonName`), allocates one or more 0x50-
+  byte "active objects" per sub-entry, tags each with the passed-in ID, and
+  registers them via `RegisterActiveObject()`. This is a **generic
+  per-ID resource/effect preloader** (most likely dialog-panel chrome or
+  button hover/press visuals, keyed by message/button ID) — not a timer.
+  The Logo1/Logo2 screens' "10-second watchdog" framing (params `10000`/
+  `0x2711`) should be read as "preload resource ID 10000/`0x2711`," not "wait
+  10 seconds"; their actual auto-advance timing is driven by the separate,
+  confirmed frame-counter tick hooks, which is unaffected by this correction.
 
 - **`OnEnter` (`0x428d00`)** context that feeds this: registers ~40 button
   definitions (`FUN_004f1790`) and 12 persistent buttons, sends the initial
@@ -1333,7 +1395,8 @@ param_3, actionCode)`:
   match ended"-style notices shown on returning from a battle).
 
 New outgoing opcodes surfaced here (`0x2100`, `0x2101`, `0x2110`, and
-tentatively `0x2120`) are written up in PROTOCOL.md; `0x2104` (right-click
+`0x2120`, the last two now fully resolved — join-room and Create-Room
+respectively) are written up in PROTOCOL.md; `0x2104` (right-click
 join, from the mouse slot) and `0x6000` (avatar store) were already documented.
 
 ### Per-state vtable slot survey — Ready Room and Loading
@@ -1352,10 +1415,11 @@ previously-unexamined ones. Findings:
   fully mapped — it's about as simple as a screen gets.** Its object is
   only **8 bytes** (a vtable pointer plus one `int` field), and every
   vtable slot beyond destructor/enter/exit is a shared no-op except two:
-  - `OnEnter` (`0x4433f0`): three lines — starts a 10-second watchdog
-    timer (`FUN_004f1790`, seen throughout this project as a generic
-    per-object timeout), zeroes the object's one `int` field (a frame
-    counter), and plays `logo.mp3` (`FUN_004eea30(0)`, the confirmed
+  - `OnEnter` (`0x4433f0`): three lines — preloads resource/effect
+    definitions `10000` and `0x2711` (`FUN_004f1790`; **corrected** — not a
+    "watchdog timer" as earlier described here, see the lobby dispatcher
+    section below for the real trace), zeroes the object's one `int` field
+    (a frame counter), and plays `logo.mp3` (`FUN_004eea30(0)`, the confirmed
     music-start helper).
   - **Slot 9** (`0x443540`, the per-tick hook): increments that same
     frame counter and, once it reaches **`0x28` (40 ticks ≈ 2 seconds** at

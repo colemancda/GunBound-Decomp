@@ -20,7 +20,10 @@ full-screen logo, play a jingle, auto-advance after ~2 seconds.
 | +0x04 | frame counter (`int`), incremented each tick |
 
 ## OnEnter (`0x4433f0`) — 3 things
-1. Start a 10-second watchdog timer (`FUN_004f1790`, generic per-object timeout).
+1. Preload resource/effect definitions `10000` and `0x2711` (`FUN_004f1790`
+   — **not** a timer despite the argument shapes; see the "resource preloader"
+   note in ARCHITECTURE.md's lobby dispatcher section. Purpose of these two
+   specific IDs on this screen not pinned down further).
 2. Zero the frame counter (`+0x04`).
 3. Play `logo.mp3` via `FUN_004eea30(0)` (music-start helper).
 

@@ -15,9 +15,13 @@ avatar/buddy buttons. Owns the largest protocol handler in the game.
 
 ## Resources / images
 - **Frame**: `gamelist_back.img`
-- **Buttons**: `gamelist_create.img`, `b_gamelist_join`, `b_gamelist_ranking`,
-  `b_gamelist_avatar`, `b_gamelist_buddy` (plus the persistent buddy-scroll
-  controls registered by `ChangeGameState`).
+- **Buttons** (all via `FUN_0042aba0`, the real button-creation call — see
+  the button map below for IDs/positions): `b_gamelist_exit`,
+  `b_gamelist_buddy`, `b_gamelist_ranking`, `b_gamelist_avatar`,
+  `b_gamelist_create`, `b_gamelist_join`, `b_gamelist_viewall`,
+  `b_gamelist_wait`, `b_gamelist_prev`, `b_gamelist_next`,
+  `b_gamelist_friend`, `b_gamelist_directgo` (plus the persistent
+  buddy-scroll controls registered by `ChangeGameState`).
 
 ## Rendering — the room-card grid
 `RenderRoomLabel` (slot 15, called by `GameTick`) draws the static chrome, then
@@ -46,28 +50,35 @@ Room cards are **not** `ButtonWidget`s. The state's own **mouse slot**
 
 ## The command dispatcher — `FUN_004285c0` (vtable slot 5)
 Every lobby button/menu/list event funnels through this one function,
-`(this, eventType, param_3, actionCode)`:
-- `eventType==0` → button/menu action, dispatch on `actionCode` (table below).
+`(this, eventType, param_3, buttonId)`:
+- `eventType==0` → a button was clicked, dispatch on `buttonId` (table below;
+  confirmed against the real button-creation call `FUN_0042aba0`, not the
+  widget's own 1000-range "action code" field — see ARCHITECTURE.md).
 - `eventType==0xa` → confirm/commit (branches on pending-op flags `+0xc/+0xd/+0xe`).
 - `eventType==0xb` → cancel/dismiss the active dialog (`FUN_0050ef10`).
 
-**Action-code map** (`actionCode` when `eventType==0`):
+**Button map** (`buttonId` when `eventType==0`):
 
-| Code | Action | Effect |
-|---|---|---|
-| 0 | Exit lobby | `ChangeGameState(2)` → Server Select |
-| 1 | (Re)build lobby list/dialog panel | `FUN_00509110` (also in OnEnter) |
-| 3 | Enter Avatar Store | send `0x6000` (if inventory loaded) |
-| 4 | Open text-input dialog | `FUN_00429c30` (msg `0x62b2`) |
-| 5 | Join selected room (checked) | `SendJoinRoomChecked` → `0x2110`; skips if already in that room |
-| 0xa | Channel/tab mode 1 | request room list `0x2100` (mode=1) |
-| 0xb | Channel/tab mode 2 | request room list `0x2100` (mode=2) |
-| 0xc | Page prev | `0x2100`/`0x2101` (page `-0x118`) |
-| 0xd | Page next | `0x2100`/`0x2101` (page `+0x118`) |
-| 0xe | Open channel selector (mode 6) | build sorted channel list, send `0x2101` |
-| 0x1f | Join selected room | `SendJoinRoomSelected` → `0x2110` (room# from list table) |
-| 0x21 | Join room by typed number | `SendJoinRoomByNumber` → `0x2100` then `0x2110` (room# via `_atol`, 1..1000) |
-| 0xf, 0x1e, 0x20, 0x28, 0x29 | list scroll/refresh/leave | minor UI plumbing; `0x29` sends `0x2120` |
+| ID | Image | Action | Effect |
+|---|---|---|---|
+| 0 | `b_gamelist_exit` | Exit lobby | `ChangeGameState(2)` → Server Select |
+| 1 | `b_gamelist_buddy` | (Re)build buddy-list panel | `FUN_00509110` (also in OnEnter) |
+| 2 | `b_gamelist_ranking` | — | no case; no-op in this build |
+| 3 | `b_gamelist_avatar` | Enter Avatar Store | send `0x6000` (if inventory loaded) |
+| 4 | `b_gamelist_create` | **Open Create Room dialog** | `FUN_00429c30` → `FUN_00508190`, title msg `0x62b2`, room-name/password fields |
+| 5 | `b_gamelist_join` | Join selected room (checked) | `SendJoinRoomChecked` → `0x2110`; skips if already in that room |
+| 0xa | `b_gamelist_viewall` | Filter mode 1 ("view all") | request room list `0x2100` (mode=1) |
+| 0xb | `b_gamelist_wait` | Filter mode 2 ("waiting only") | request room list `0x2100` (mode=2) |
+| 0xc | `b_gamelist_prev` | Page prev | `0x2100`/`0x2101` (page `-0x118`) |
+| 0xd | `b_gamelist_next` | Page next | `0x2100`/`0x2101` (page `+0x118`) |
+| 0xe | `b_gamelist_friend` | **Find Friend** — locate a buddy's room | `FUN_004021b0` scans active rooms (filter param not fully pinned down); found → `0x2101`; not found → clears `+0x44648` |
+| 0xf | `b_gamelist_directgo` | Open "enter room by number" dialog | `FUN_005087b0`, msg `0x2715` |
+
+**Dialog-internal codes** (reached via a dialog's own OK/Cancel, not a
+top-level button): `0x1e`/`0x20`/`0x28` = Cancel (`FUN_0050ef10`); `0x1f` =
+`SendJoinRoomSelected` → `0x2110`; `0x21` = `SendJoinRoomByNumber` → `0x2110`;
+`0x29` (and the `eventType==0xa && flag@+0xc` path) = **`FUN_00429c60`, the
+Create Room dialog's submit handler** → sends `0x2120` (room name + password).
 
 ## OnEnter (`0x428d00`) notes
 - Registers ~40 button definitions + 12 persistent buttons.
@@ -83,12 +94,12 @@ info/profile broadcast; defines `RoomPlayerSlot`), `0x2121` (join
 confirmation), `0x21f0`–`0x21f7` (per-field player updates), `0x6001`/`0x6002`
 (→ Avatar Store transition & inventory).
 **Outgoing** (from the command dispatcher / mouse handler): `0x2100`
-(request/refresh room list, channel+page), `0x2101` (channel selector/nav —
-sends one 12-byte record from the selector table, see below), `0x2104`
-(right-click quick-join from the room grid, via `FUN_00428b90`), `0x2110`
-(enter/join a room — three emitters, see below), `0x2120` (leave/refresh,
-tentative), `0x6000` (enter Avatar Store). Full list under "State 3" in
-PROTOCOL.md.
+(request/refresh room list, filter mode + page), `0x2101` (buddy-room-locator
+record — sends one 12-byte record from the selector table, see below),
+`0x2104` (right-click quick-join from the room grid, via `FUN_00428b90`),
+`0x2110` (join room — three emitters, see below), `0x2120` (**Create Room** —
+room name + password, from `FUN_00429c60`), `0x6000` (enter Avatar Store).
+Full list under "State 3" in PROTOCOL.md.
 
 ### `0x2110` — join room (three emitters, one wire layout)
 All three write the same fixed 8-byte packet; only the source of the two
@@ -107,17 +118,24 @@ fields differs:
 > The `payload` is a **fixed 4-byte field**, not a player-name string — an
 > earlier note misread it as a variable-length name.
 
-### `0x2101` — channel/server selector record
-Emitted only in selector mode (`this+0x115 == 6`). Copies one **12-byte
-record** verbatim from the standalone selector table
+### `0x2101` — buddy-room-locator record
+Triggered by the **Find Friend** button (`b_gamelist_friend`, ID `0xe`), not
+a general channel picker (see the two-stage correction in PROTOCOL.md's
+`0x2100` section — first thought absent, then thought a free channel
+selector, now confirmed as a buddy-locate feature from the real button
+image). `FUN_004021b0(currentServerId)` scans active room objects (type
+`0x12`) filtered by a second, uncaptured parameter (plausibly a buddy ID, not
+confirmed), building a deduplicated result list. If any match, sends one
+**12-byte record** verbatim from the standalone selector table
 (`g_serverSelectRecords`, indexed by `idx*0xc`; count/valid flag in
-`g_serverSelectRecordCount`). The record is three u32 words; their meaning is
-not yet confirmed (the populator, on the server-list receive path, is
-unported). Wire: `[u16 0x2101][12-byte record]`.
+`g_serverSelectRecordCount`) via this opcode; if none, clears a "found" flag
+instead. The record is three u32 words; their meaning is not yet confirmed
+(the populator, on the server-list receive path, is unported). Wire:
+`[u16 0x2101][12-byte record]`.
 
-> **Correction**: channel switching *does* exist in the lobby — it's an
-> outgoing mechanic (`0x2100` mode byte / `0x2101` selector), which an earlier
-> incoming-only scan missed. See PROTOCOL.md's `0x2100` section.
+There is **no direct "pick any channel" control** in this lobby after all —
+`0x2100`'s mode byte is a room-list *filter* (view-all/waiting-only), and
+`0x2101` is specifically the buddy-locator's result-send, not free browsing.
 
 ## Transitions
 - **In**: from Server Select (confirmed connect).
@@ -125,9 +143,11 @@ unported). Wire: `[u16 0x2101][12-byte record]`.
   Ranking / buddy sub-flows.
 
 ## Reimplementation checklist
-1. Load `gamelist_back.img` + the 5 lobby buttons.
+1. Load `gamelist_back.img` + the 12 lobby buttons (button map above).
 2. Maintain a 6-slot room array (`+0x4464c`) with per-room info dwords/flags,
    `this+8` = hovered slot, `this+4` = joined room.
 3. Render: chrome + per-card renderer (grid math above), buttons via the sweep.
 4. Mouse: hit-test grid; left = select, right = send `0x2104` join.
-5. Handle the State-3 opcode set (room list updates, join confirm, player fields).
+5. Dialogs: Create Room (name+password → `0x2120`) and Enter Room By Number
+   (`_atol` → `0x2110`), both closeable via Cancel.
+6. Handle the State-3 opcode set (room list updates, join confirm, player fields).
