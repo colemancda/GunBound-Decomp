@@ -1446,7 +1446,13 @@ extern uint32_t DAT_00569348;
 extern uint32_t DAT_00569b48;
 extern uint32_t DAT_0056d468;
 extern uint32_t DAT_00598e7e;
-extern uint32_t DAT_005a9050;
+/* g_fullnessGaugeThresholds (was DAT_005a9050) - read-only percentage
+ * breakpoints {1,10,30,60,100} that bucket a server/room occupancy percent
+ * (currentPlayers*100/maxCapacity) into 6 fullness-gauge levels (0=empty ..
+ * 5=full), selecting the F/E dial sprite in the WORLD LIST rows and the
+ * lobby's per-room dial. Ghidra typed it as a scalar; it's really a 5-int
+ * array (RenderWorldListRow indexes [0..4]). */
+extern const uint32_t g_fullnessGaugeThresholds[5];
 extern uint32_t DAT_005a9290;
 extern uint32_t DAT_005a9350;
 extern uint32_t DAT_005a94b0;
