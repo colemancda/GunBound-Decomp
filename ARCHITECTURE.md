@@ -1680,13 +1680,25 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
      for a real multi-server browser are completely implemented — it's
      specifically the **picker UI** (the part that would let a player
      change which of the 16 slots `this+0x68` points at) that doesn't
-     exist in this build. Combined with `OnEnter` zero-initializing all
-     of this same storage but nothing ever changing `this+0x68` away from
-     its zero-initialized value, **this build presumably always
-     auto-selects list entry 0** — i.e. still effectively a single fixed
-     server from the player's perspective, but because the UI never lets
-     you pick differently, not because the underlying list-of-servers
-     capability doesn't exist. Consistent with the "smaller private-server
+     exist in this build.
+
+     **Confirmed project-wide, not just presumed**: dumping
+     `vtable_State02_ServerSelect` directly showed it has only 18 slots,
+     11 of which are stub functions shared verbatim with other game
+     states (so they can't touch a State-2-specific field at all) — the
+     remaining 7 are exactly the same functions already checked above
+     plus one previously-unexamined tick handler (`FUN_004e1960`, resends
+     keepalive packets and animates a per-server byte array, but never
+     touches `this+0x68`). Across every one of those 7 functions,
+     `this+0x68` is only ever *read*, never written — and since the
+     object's layout is unique to this one vtable/class, no other state's
+     code could write to the same field either. Combined with `OnEnter`
+     zero-initializing all of this same storage, **this build
+     unconditionally auto-selects list entry 0** for the lifetime of the
+     process — i.e. still effectively a single fixed server from the
+     player's perspective, but because no code path anywhere can pick
+     differently, not because the underlying list-of-servers capability
+     doesn't exist. Consistent with the "smaller private-server
      build" pattern already established repeatedly elsewhere in this
      project (`stage.dat`'s single populated slot, `itemdata.dat`'s
      13-of-100 populated items, etc.) — this looks like the same pattern

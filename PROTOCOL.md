@@ -234,22 +234,43 @@ and `name` into globals (`DAT_005b3484+0x3f804` and
 straight into that server's room list.
 
 **No rendering/selection-UI code was found for this list anywhere in the
-binary.** Checked all 15 functions in State 2's own address range
-(`0x4e0000`-`0x4e2000`) individually via fresh decompiles - the three
-`CreateButtonWidget` calls in `OnEnter` (exit/buddy-game/choice-server,
-see ARCHITECTURE.md), two button-click dispatchers, a keydown handler, the
-packet-checksum/RNG-encoding helper, a per-player-object constructor/
-destructor pair, and this `ProcessPacket` handler itself - and none of
-them draw per-entry rows, scroll a viewport, or write to `this+0x68` from
-any traceable input path. The data is real, richly structured, and fully
-parsed/stored by the client, but the only code path that ever *reads* an
-entry back out (opcode `0x2001`'s confirm-connect handler) always reads
-whatever index `this+0x68` already holds - which, since nothing observed
-sets it, is presumably always `0` in practice. This is consistent with
-(and now much more strongly evidenced than) the earlier "single fixed
-server" conclusion: the client retains full multi-server-list capability
-at the protocol/storage layer, but this build's UI only ever auto-selects
-entry 0 rather than presenting a real picker.
+binary — now confirmed exhaustively, not just for State 2's own code but
+project-wide.** Two independent passes:
+
+1. Checked all 15 functions in State 2's own address range
+   (`0x4e0000`-`0x4e2000`) individually via fresh decompiles - the three
+   `CreateButtonWidget` calls in `OnEnter` (exit/buddy-game/choice-server,
+   see ARCHITECTURE.md), two button-click dispatchers, a keydown handler, the
+   packet-checksum/RNG-encoding helper, a per-player-object constructor/
+   destructor pair, and this `ProcessPacket` handler itself.
+2. Dumped `vtable_State02_ServerSelect` (`0x5570f0`) directly: it has only
+   **18 slots**, and 7 of them (`FUN_00429800` ×6, `FUN_00443570`) are
+   generic no-op stubs shared verbatim across many other game states, plus
+   `CGameState_NoOpVirtual_A`/`_B` (2 more shared stubs) and the scalar
+   deleting destructor - none of these touch state-specific fields at all.
+   That leaves exactly the same 7 State-2-unique functions already checked
+   in pass 1, plus one previously-unexamined tick handler,
+   `FUN_004e1960` (vtable slot 9, called every frame): it resends
+   keepalive/status packets (opcodes `0x1000`/`0x1100`) and refreshes a
+   per-server byte array at `DAT_005b3484+0x4110a` (sized by the entry
+   count at `+0x3f808`) via `FUN_00402020()` - most likely a per-slot
+   blink/animation value, not a selection mechanism. It does not touch
+   `this+0x68` either.
+
+Across all 7 unique functions, `this+0x68` is only ever **read** (in
+`ProcessPacket`, both places quoted above) - it is never written anywhere.
+Since the object's layout is specific to this one vtable/class, no other
+state's code could write to the same field either. The data is real,
+richly structured, and fully parsed/stored by the client, but the only
+code path that ever *reads* an entry back out (opcode `0x2001`'s
+confirm-connect handler) always reads whatever index `this+0x68` already
+holds - which, since it is never written anywhere in the binary and the
+object is zero-initialized on construction, is unconditionally `0` for
+the lifetime of the process. This is consistent with (and now completely
+confirmed, not just evidenced, versus) the earlier "single fixed server"
+conclusion: the client retains full multi-server-list capability at the
+protocol/storage layer, but this build's UI has no code path of any kind
+that can select an entry other than 0.
 
 ---
 
