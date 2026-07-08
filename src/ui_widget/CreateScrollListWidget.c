@@ -1,7 +1,16 @@
-/* FUN_005080a0 - 0x005080a0 in the original binary.
+/* CreateScrollListWidget - 0x005080a0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Constructs a generic scroll-list widget (0x58-byte object, class vtable
+ * PTR_LAB_00557e90) - the reusable scrollable list used by the server-select
+ * WORLD LIST and the lobby buddy panel. Stores position/size and an item
+ * count (passed in a register), and auto-creates its own two scroll-arrow
+ * child buttons (18x18, above and below the track). Scroll state lives at
+ * widget+0x38 (content total), +0x3c (page size), +0x40 (scroll position);
+ * scrollbar drag is handled by ScrollListWidget_OnMouseDown/_OnMouseUp and the
+ * mouse-move slot, arrow steps by the widget's scroll-step slot (FUN_0050f7c0,
+ * not yet ported), all firing a 0x2000+position callback to the parent panel.
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
@@ -9,7 +18,7 @@
 
 
 undefined4 *
-FUN_005080a0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,int param_5
+CreateScrollListWidget(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,int param_5
             ,undefined4 param_6)
 
 {

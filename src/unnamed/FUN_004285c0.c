@@ -36,12 +36,12 @@ void __thiscall FUN_004285c0(int param_1,int param_2,undefined4 param_3,undefine
       return;
     }
     if (*(char *)(param_1 + 0xd) != '\0') {
-      FUN_0050ef10(&DAT_00e53c40);
+      FUN_0050ef10(&g_uiPanelManager);
     }
     if (*(char *)(param_1 + 0xe) == '\0') {
       return;
     }
-    FUN_0050ef10(&DAT_00e53c40);
+    FUN_0050ef10(&g_uiPanelManager);
     return;
   }
   switch(param_4) {

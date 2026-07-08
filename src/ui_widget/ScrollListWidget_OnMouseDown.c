@@ -1,13 +1,19 @@
-/* FUN_0050f500 - 0x0050f500 in the original binary.
+/* ScrollListWidget_OnMouseDown - 0x0050f500 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Scroll-list widget mouse-down handler (class vtable PTR_LAB_00557e90).
+ * Records the click position and, if it lands on the scrollbar thumb rect
+ * (computed from scroll position +0x40, content total +0x38, track height
+ * +0x34), begins a drag: stores the grab offset at +0x48 and sets the
+ * dragging flag +0x45. Otherwise records a plain press at +0x44.
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_0050f500(int param_1,int param_2,int param_3)
+undefined4 __thiscall ScrollListWidget_OnMouseDown(int param_1,int param_2,int param_3)
 
 {
   int iVar1;

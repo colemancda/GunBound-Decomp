@@ -98,7 +98,7 @@ undefined4 * FUN_00509af0(int param_1)
     puVar6[2] = puVar9;
     iVar8 = iVar8 + 1;
   } while (iVar11 < 0x208);
-  iVar11 = FUN_005080a0(unaff_retaddr,0x20e,0x3f,0x12,0x9a,0xd);
+  iVar11 = CreateScrollListWidget(unaff_retaddr,0x20e,0x3f,0x12,0x9a,0xd);
   uVar1 = puVar9[4];
   if ((uVar1 < (uint)puVar9[5]) || (cVar4 = FUN_0050ed30(), cVar4 != '\0')) {
     piVar10 = (int *)(puVar9[3] + uVar1 * 4);

@@ -140,12 +140,32 @@ mechanism itself is confirmed.)*
      (connecting), disable the button, and record **`this+0x68 = slot`**.
 
 ## Errors
-- **Opcode `0x1012`** with sub-code `0x5001`/`0x5011`/`0x5012`/`0x5013` maps to
-  error code `0x1d`/`0x1e`/`0x1f`/`0x20` and stores it in `this+0x28[slot]`.
-  It re-enables the connect button (retry). The **error dialog** appears on the
-  next connect attempt (via `FUN_004e1bf0`'s guard → `FUN_004124a0`), which
-  looks up message string `code + 0xc7` and shows it with the `b_error_confirm`
-  OK button. See README "Error / message dialog".
+Three distinct error paths, all surfacing through the shared in-game dialog
+`FUN_004124a0` (the `b_error_confirm` OK button + a word-wrapped localized
+message from the string table, `FUN_0043dc70(&DAT_00796eec, id)`):
+
+- **Communication / connection failure** — the async connect is resolved by the
+  connection-state poller `FUN_004d27e0`: while a connect is in progress
+  (`conn+0x84e4`) and the connection object's state field (`conn+0x22c`) leaves
+  "dialing" (3), it clears `+0x84e4` and sets `+0x84e5 = (state == 2)`
+  ("connected"). The ServerSelect **tick** (`0x4e1960`) polls this: when the
+  attempt finishes and `+0x84e5 == 0` (didn't connect), it calls
+  **`FUN_004124a0(0)`** → the error dialog. A mid-session socket failure (e.g.
+  a keepalive `sendto` failing in `FUN_00401200`) instead calls
+  **`FUN_004124a0(1)`** — the `1` also tears the game sockets down.
+- **Server-reported errors while communicating** — the packet pump
+  `FUN_004d27e0` dispatches received packets; various server error codes (under
+  opcode `0x2001`, e.g. sub-code `0x20`) call `FUN_004124a0`, while some other
+  status codes are shown via a **native Win32 `MessageBoxA`** with a localized
+  string. (On the worker thread, a socket `FD_CLOSE`/connect-fail also enqueues
+  status code `0x65` to the owning UI object's event queue as a softer signal.)
+- **Retry of a slot that already errored** — `0x1012` with sub-code
+  `0x5001`/`0x5011`/`0x5012`/`0x5013` maps to error code `0x1d`–`0x20` and
+  stores it in `this+0x28[slot]`, then re-enables the connect button; the
+  dialog appears on the *next* connect attempt (via `FUN_004e1bf0`'s guard →
+  `FUN_004124a0`, message string `code + 0xc7`).
+
+See README "Error / message dialog" for the dialog's layout.
 
 ## Confirm & transition
 - **Opcode `0x2001`, `payload[0]==0`**: reads the entry at `this+0x68`, copies

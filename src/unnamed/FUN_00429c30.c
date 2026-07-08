@@ -12,7 +12,7 @@ void __fastcall FUN_00429c30(int param_1)
 {
   *(undefined4 *)(param_1 + 0x110) = 0x62b2;
   *(undefined1 *)(param_1 + 0x114) = 8;
-  FUN_00508190(&DAT_00e53c40,(undefined4 *)(param_1 + 0x110),(undefined1 *)(param_1 + 0x114),
+  FUN_00508190(&g_uiPanelManager,(undefined4 *)(param_1 + 0x110),(undefined1 *)(param_1 + 0x114),
                &DAT_005b3368);
   return;
 }

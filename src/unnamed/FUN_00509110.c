@@ -51,7 +51,7 @@ void FUN_00509110(void)
       FUN_0050e670(uVar3);
       uVar3 = FUN_00507ee0(2,0x2be,0x89,7,0x27,0x14);
       FUN_0050e670(uVar3);
-      uVar3 = FUN_005080a0(unaff_ESI,0xb7,0x49,0x12,0x98,7);
+      uVar3 = CreateScrollListWidget(unaff_ESI,0xb7,0x49,0x12,0x98,7);
       FUN_0050e670(uVar3);
       FUN_0050eea0(puVar2);
       return;

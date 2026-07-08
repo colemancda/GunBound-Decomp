@@ -52,7 +52,7 @@ void FUN_00505580(int param_1)
       _sprintf(local_100,pcVar4,uVar8);
       pcVar4 = local_100;
     }
-    FUN_00509030(&DAT_00e53c40,pcVar4);
+    FUN_00509030(&g_uiPanelManager,pcVar4);
   }
 LAB_0050566b:
   if (uVar2 < *(uint *)(param_1 + 0x10)) {

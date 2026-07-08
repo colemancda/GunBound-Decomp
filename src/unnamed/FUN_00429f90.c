@@ -11,7 +11,7 @@
 void FUN_00429f90(void)
 
 {
-  FUN_0050ef10(&DAT_00e53c40);
+  FUN_0050ef10(&g_uiPanelManager);
   return;
 }
 

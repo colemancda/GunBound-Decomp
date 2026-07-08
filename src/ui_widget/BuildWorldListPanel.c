@@ -1,14 +1,21 @@
-/* FUN_005099d0 - 0x005099d0 in the original binary.
+/* BuildWorldListPanel - 0x005099d0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Builds the Server/Channel Select screen's "WORLD LIST" panel (called only
+ * from State02_ServerSelect_OnEnter). Allocates a ~545x530 panel object
+ * (vtable PTR_LAB_00557f08) at (0xb,0xd) and adds three children: two panel
+ * buttons (msg 0x44c = "View All", msg 0x44d = "Friends") and a scroll-list
+ * widget (CreateScrollListWidget) that spans the panel. Registers the panel
+ * with the global UI panel manager (g_uiPanelManager). This is the scrollable
+ * server browser seen on screen; see docs/screens/02_server_select.md.
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_005099d0(undefined4 param_1)
+undefined4 * BuildWorldListPanel(undefined4 param_1)
 
 {
   undefined4 *puVar1;
@@ -47,7 +54,7 @@ undefined4 * FUN_005099d0(undefined4 param_1)
   FUN_0050e670(iVar2);
   uVar3 = FUN_00507ee0(1,0x44d,0x1a3,0x1eb,0x4a,0x1a);
   FUN_0050e670(uVar3);
-  uVar3 = FUN_005080a0(param_1,0x203,0x4a,0x12,0x179,0);
+  uVar3 = CreateScrollListWidget(param_1,0x203,0x4a,0x12,0x179,0);
   FUN_0050e670(uVar3);
   FUN_0050eea0(puVar1);
   return puVar1;

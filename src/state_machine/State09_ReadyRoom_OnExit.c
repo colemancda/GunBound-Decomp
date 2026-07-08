@@ -25,7 +25,7 @@ void __fastcall State09_ReadyRoom_OnExit(int param_1)
   undefined4 *puVar8;
   int iVar9;
   
-  FUN_0050ef10(&DAT_00e53c40);
+  FUN_0050ef10(&g_uiPanelManager);
   FUN_00509700();
   puVar8 = *(undefined4 **)(DAT_00ea0e1c + 0x1c);
   uVar5 = puVar8[1];

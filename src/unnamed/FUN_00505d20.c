@@ -25,7 +25,7 @@ void __thiscall FUN_00505d20(int param_1,int param_2,int param_3,undefined4 para
       if ((param_3 == 2) && (*(int *)(param_1 + 0x90) != -1)) {
         iVar1 = FUN_00401c10();
         if (iVar1 != 0) {
-          FUN_00508ea0(&DAT_00e53c40);
+          FUN_00508ea0(&g_uiPanelManager);
           FUN_0050eb10(0,2,param_4);
           return;
         }

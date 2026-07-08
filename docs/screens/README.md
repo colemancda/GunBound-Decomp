@@ -165,3 +165,15 @@ Errors surface through a **generic popup**, `FUN_004124a0`, not per-screen code:
   and creates the shared **`b_error_confirm`** OK button at (0x1c6, 0x14b),
   size 0x4a×0x1a. `FUN_004ee200()` activates the panel.
 - If `closeSockets != 0` it tears down the game sockets.
+
+**Two display forms.** `FUN_004124a0` is the in-game styled dialog. Separately,
+the incoming-packet pump (`FUN_004d27e0`) shows some server-reported status/
+error codes via a **native Win32 `MessageBoxA`** (same localized-string source,
+`FUN_0043dc70`). Which one is used depends on the code and whether a target
+`HWND` is available.
+
+**Connection errors** don't have their own widget — the async connect result is
+reduced to a flag (`conn+0x84e5`, "connected") by the connection-state poller
+`FUN_004d27e0`, and the owning screen's tick calls `FUN_004124a0` when that flag
+is clear after the attempt finishes. See
+[02_server_select.md](02_server_select.md) "Errors" for the worked example.

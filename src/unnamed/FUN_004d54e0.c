@@ -290,17 +290,17 @@ LAB_004d588d:
       } while (cVar2 != '\0');
       FUN_004d2530((char *)(param_1 + 0x62d));
       FUN_004d2680();
-      FUN_0050ef10(&DAT_00e53c40);
+      FUN_0050ef10(&g_uiPanelManager);
       uVar3 = FUN_00406300(1);
       return uVar3;
     }
     *(undefined1 *)(param_1 + 0x62c) = 1;
     FUN_00406300(0);
-    uVar3 = FUN_00508a50(&DAT_00e53c40,g_clientContext + 0x44e64);
+    uVar3 = FUN_00508a50(&g_uiPanelManager,g_clientContext + 0x44e64);
     return uVar3;
   case 9:
     FUN_00406300(1);
-    uVar3 = FUN_0050ef10(&DAT_00e53c40);
+    uVar3 = FUN_0050ef10(&g_uiPanelManager);
     return uVar3;
   case 10:
     FUN_004da460(param_1,0,0);

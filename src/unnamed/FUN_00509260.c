@@ -69,7 +69,7 @@ void FUN_00509260(undefined4 param_1,int param_2)
   }
   uVar4 = FUN_00507ff0(0x57,0xb,0x91,0xc,pcVar7,0xffff);
   FUN_0050e670(uVar4);
-  uVar4 = FUN_005080a0(param_1,0xe3,0x44,0x12,0x9d,0xe);
+  uVar4 = CreateScrollListWidget(param_1,0xe3,0x44,0x12,0x9d,0xe);
   FUN_0050e670(uVar4);
   FUN_0050eea0(puVar2);
   *unaff_FS_OFFSET = uStack_c;

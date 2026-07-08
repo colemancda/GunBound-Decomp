@@ -65,7 +65,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
       local_14c = 0;
       FUN_00426620(&DAT_006aa41c + g_clientContext,&local_13c);
       FUN_00426620(&DAT_006aa44c + iVar7,&local_158);
-      FUN_00508d00(&DAT_00e53c40);
+      FUN_00508d00(&g_uiPanelManager);
       return;
     }
     if (in_AX < 0xa101) {

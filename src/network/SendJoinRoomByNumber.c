@@ -91,7 +91,7 @@ LAB_00429e3e:
   *(undefined1 *)(param_1 + 0x115) = 1;
   *(undefined1 *)(param_1 + 0x116) = 0;
   *(int *)(param_1 + 0x11c) = local_84 / 6;
-  FUN_0050ef10(&DAT_00e53c40);
+  FUN_0050ef10(&g_uiPanelManager);
   return;
 }
 

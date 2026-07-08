@@ -1572,7 +1572,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00507ee0,115,FUN_00507ee0,false,30,1,RAW-src
 00507f60,140,FUN_00507f60,false,9,1,RAW-src
 00507ff0,172,FUN_00507ff0,false,9,2,RAW-src
-005080a0,237,FUN_005080a0,false,7,4,RAW-src
+005080a0,237,CreateScrollListWidget,false,7,4,RAW-src
 00508190,1557,FUN_00508190,false,1,12,RAW-src
 005087b0,342,FUN_005087b0,false,1,8,RAW-src
 00508910,314,FUN_00508910,false,1,8,RAW-src
@@ -1593,7 +1593,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005098e0,114,FUN_005098e0,false,1,3,RAW-src
 00509960,76,FUN_00509960,false,5,0,RAW-src
 005099b0,31,FUN_005099b0,false,1,0,RAW-src
-005099d0,274,FUN_005099d0,false,1,6,RAW-src
+005099d0,274,BuildWorldListPanel,false,1,6,RAW-src
 00509af0,654,FUN_00509af0,false,1,10,RAW-src
 00509d80,212,FUN_00509d80,false,1,5,RAW-src
 00509e60,360,FUN_00509e60,false,1,7,RAW-src
@@ -1614,7 +1614,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050d200,838,FUN_0050d200,false,1,6,RAW-src
 0050d5a0,362,FUN_0050d5a0,false,1,3,RAW-src
 0050d7a0,101,FUN_0050d7a0,false,1,2,RAW-src
-0050d810,1065,FUN_0050d810,false,1,7,RAW-src
+0050d810,1065,WorldListPanel_OnCommand,false,1,7,RAW-src
 0050dc80,690,FUN_0050dc80,false,1,7,RAW-src
 0050df40,144,FUN_0050df40,false,3,0,RAW-src
 0050dfd0,118,FUN_0050dfd0,false,1,2,RAW-src
@@ -1660,8 +1660,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050f350,49,FUN_0050f350,false,2,1,RAW-src
 0050f390,80,FUN_0050f390,false,3,2,RAW-src
 0050f3f0,111,FUN_0050f3f0,false,1,0,RAW-src
-0050f500,231,FUN_0050f500,false,1,2,RAW-src
-0050f5f0,100,FUN_0050f5f0,false,1,1,RAW-src
+0050f500,231,ScrollListWidget_OnMouseDown,false,1,2,RAW-src
+0050f5f0,100,ScrollListWidget_OnMouseUp,false,1,1,RAW-src
 0050f660,264,FUN_0050f660,false,1,3,RAW-src
 0050f770,66,FUN_0050f770,false,1,1,RAW-src
 0050f840,67,FUN_0050f840,false,1,0,RAW-src

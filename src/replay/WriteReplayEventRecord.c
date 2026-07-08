@@ -98,7 +98,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
           if (uVar6 == 0x5001) {
             if (*(short *)pbVar22 == 0) {
               uVar15 = FUN_0043dc70(&DAT_00796eec,0x1004);
-              FUN_00509410(&DAT_00e53c40,uVar15);
+              FUN_00509410(&g_uiPanelManager,uVar15);
             }
           }
           else if (uVar6 == 0x5101) {

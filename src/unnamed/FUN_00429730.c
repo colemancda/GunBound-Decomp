@@ -28,13 +28,13 @@ void __fastcall FUN_00429730(int param_1)
   }
   if (g_stateChangeInProgress != 0) {
     if (*(char *)(param_1 + 0xc) != '\0') {
-      FUN_0050ef10(&DAT_00e53c40);
+      FUN_0050ef10(&g_uiPanelManager);
     }
     if (*(char *)(param_1 + 0xe) != '\0') {
-      FUN_0050ef10(&DAT_00e53c40);
+      FUN_0050ef10(&g_uiPanelManager);
     }
     if (*(char *)(param_1 + 0xd) != '\0') {
-      FUN_0050ef10(&DAT_00e53c40);
+      FUN_0050ef10(&g_uiPanelManager);
     }
   }
   return;

@@ -652,7 +652,13 @@ extern uint8_t DAT_00e53c2c;
 extern uint8_t DAT_00e53c30;
 #define _DAT_00e53c30 DAT_00e53c30
 extern uint8_t DAT_00e53c3c;
-extern uint8_t DAT_00e53c40;
+/* g_uiPanelManager (was DAT_00e53c40) - the global UI panel/dialog container
+ * that screens attach dynamic panels to. Passed by address to the panel
+ * builders/closers (BuildWorldListPanel, the lobby buddy panel FUN_00509110,
+ * the Create Room dialog FUN_00508190, FUN_0050ef10 close, etc.). Typed
+ * uint8_t by Ghidra but is really a container object; kept as-is until the
+ * class is modeled. */
+extern uint8_t g_uiPanelManager;
 extern uint32_t DAT_00e53c44;
 extern uint32_t DAT_00e53c48;
 extern uint8_t DAT_00e53e88;

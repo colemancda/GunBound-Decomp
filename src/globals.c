@@ -514,7 +514,7 @@ uint8_t DAT_00e53c28;
 uint8_t DAT_00e53c2c;
 uint8_t DAT_00e53c30;
 uint8_t DAT_00e53c3c;
-uint8_t DAT_00e53c40;
+uint8_t g_uiPanelManager;
 uint32_t DAT_00e53c44;
 uint32_t DAT_00e53c48;
 uint8_t DAT_00e53e88;

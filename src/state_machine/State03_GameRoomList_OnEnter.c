@@ -82,9 +82,9 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   FUN_0042aba0();
-  iVar4 = FUN_00509af0(&DAT_00e53c40,*(undefined4 *)(g_clientContext + 0x41340));
+  iVar4 = FUN_00509af0(&g_uiPanelManager,*(undefined4 *)(g_clientContext + 0x41340));
   param_1[0xa3] = iVar4;
-  iVar4 = FUN_00509d80(&DAT_00e53c40);
+  iVar4 = FUN_00509d80(&g_uiPanelManager);
   param_1[0xa4] = iVar4;
   cVar3 = FUN_004065a0();
   if ((cVar3 == '\x01') && (*(short *)(g_clientContext + 0x3b96f) != -1)) {

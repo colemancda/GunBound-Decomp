@@ -1,13 +1,18 @@
-/* FUN_0050f5f0 - 0x0050f5f0 in the original binary.
+/* ScrollListWidget_OnMouseUp - 0x0050f5f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Scroll-list widget mouse-up / release handler (class vtable
+ * PTR_LAB_00557e90). Records the position and clears the press/drag state
+ * flags (+0x44/+0x45/+4), ending any in-progress scrollbar-thumb drag, then
+ * returns whether the release was inside the widget rect.
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_0050f5f0(int param_1,int param_2,int param_3)
+undefined4 __thiscall ScrollListWidget_OnMouseUp(int param_1,int param_2,int param_3)
 
 {
   char cVar1;

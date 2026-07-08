@@ -1,6 +1,19 @@
-/* FUN_0050d810 - 0x0050d810 in the original binary.
+/* WorldListPanel_OnCommand - 0x0050d810 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Command handler for the WORLD LIST panel (vtable slot at PTR_LAB_00557f08).
+ * Handles child-widget events for the server browser, writing directly into
+ * the ServerSelect state object (g_gameStateVTableArray[2]):
+ *   - param_2==0, param_3==0: reset to the top page - zero scroll offset
+ *     (state +0x14/+0x18) and the per-slot error array, then send an outgoing
+ *     0x1100 request for page 0.
+ *   - param_2==0, param_3==1: the other page/refresh action - sends 0x1101
+ *     (with a selector record) or clears the list, and updates button labels.
+ *   - other param_2 (e.g. the 0x2000 scroll notification from the list widget):
+ *     forwarded to FUN_0050eb10 for in-list focus navigation.
+ * This is the glue that turns list scrolling/paging into paged server
+ * requests; see docs/screens/02_server_select.md.
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
@@ -26,7 +39,7 @@
 /* WARNING: Removing unreachable block (ram,0x0050db76) */
 /* WARNING: Removing unreachable block (ram,0x0050db80) */
 
-void __thiscall FUN_0050d810(int param_1,int param_2,int param_3,undefined4 param_4)
+void __thiscall WorldListPanel_OnCommand(int param_1,int param_2,int param_3,undefined4 param_4)
 
 {
   undefined *puVar1;
