@@ -131,6 +131,11 @@ GameRoomList(3) → ReadyRoom(9) → InBattle(11), with Loading(10) interstitial
 States 0 and 15 use a shared trivial "null object" vtable — the null-object
 pattern for states needing no enter/exit behavior.
 
+> **Per-screen reimplementation docs**: [docs/screens/](docs/screens/README.md)
+> has one build-oriented document per screen (identity, resources, state
+> fields, rendering, input, network, transitions, and a reimplementation
+> checklist), distilled from this file and PROTOCOL.md.
+
 ## The `CGameState` base class and virtual dispatch
 
 **High confidence.** Every state object shares a common base class whose vtable
