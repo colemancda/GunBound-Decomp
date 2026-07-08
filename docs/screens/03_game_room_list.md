@@ -14,33 +14,64 @@ avatar/buddy buttons. Owns the largest protocol handler in the game.
 - **Render slot**: slot 15 = `State03_GameRoomList_RenderRoomLabel` (`0x429810`)
 
 ## Resources / images
-- **Frame**: `gamelist_back.img`
-- **Buttons** (all via `FUN_0042aba0`, the real button-creation call — see
-  the button map below for IDs/positions): `b_gamelist_exit`,
-  `b_gamelist_buddy`, `b_gamelist_ranking`, `b_gamelist_avatar`,
-  `b_gamelist_create`, `b_gamelist_join`, `b_gamelist_viewall`,
-  `b_gamelist_wait`, `b_gamelist_prev`, `b_gamelist_next`,
-  `b_gamelist_friend`, `b_gamelist_directgo` (plus the persistent
-  buddy-scroll controls registered by `ChangeGameState`).
+From STRINGS.md's `b_gamelist_*` / `gamelist_*` clusters (`0x553xxx`–`0x5544xx`):
+- **Background / chrome sheets**: `gamelist_back.img` (main frame), plus
+  `gamelist_channel.img`, `gamelist_chat.img`, `gamelist_create.img`,
+  `gamelist_directgo.img`, `gamelist_password.img`, `gameliststage.img` (the
+  create-room / direct-go / password sub-dialogs).
+- **Bottom-bar buttons** (via `FUN_0042aba0`; IDs/positions in the button map
+  below): `b_gamelist_exit`, `b_gamelist_buddy`, `b_gamelist_ranking`,
+  `b_gamelist_avatar`, `b_gamelist_create`, `b_gamelist_join`,
+  `b_gamelist_viewall`, `b_gamelist_wait`, `b_gamelist_prev`,
+  `b_gamelist_next`, `b_gamelist_friend`, `b_gamelist_directgo`.
+- **Persistent nav** (registered by `ChangeGameState`): `b_gamelist_buddyup`/
+  `b_gamelist_buddydown`, `b_gamelist_channelup`/`b_gamelist_channeldown`.
+- **Dialog buttons**: `b_gamelist_yes.img`, `b_gamelist_no.img`.
+- **Room-card frames** (the per-room card background + icons, sprite indices
+  1–15 below) are drawn via `FUN_004f30c0` frame lookups — they live in a
+  gamelist sprite sheet (most likely `gamelist_back.img`); the renderer keys
+  them by frame index, not filename, so the exact sheet isn't named in code.
 
 ## Rendering — the room-card grid
 `RenderRoomLabel` (slot 15, called by `GameTick`) draws the static chrome, then
 loops up to **6 room slots** (`g_clientContext+0x4464c`..`+0x44664`, 4-byte
-stride, skipping the client's own room) calling **`FUN_0042a220(roomIndex)`**
-per occupied slot. Each room "card":
-- **Grid layout**: `roomIndex/3` → column (X base `0x18` or `0x144`, 2 columns);
-  `roomIndex%3` → row (`*0x3c` = 60 px). Classic **3-row × 2-column** browser.
-- **3-state background**: base sprite; `+1` if hovered/selected (`this+8`);
-  `+2` if it's the room the client joined (`this+4`).
-- Room-type/flag icon; two small byte-flag icons; a combined mode/map icon
-  `(flagByte & 3)*11 + otherByte`.
-- **Status icon** (waiting/in-progress/full, sprites 7/8/9).
-- **Conditional lock icon** (private/password-protected padlock) if a byte flag set.
-- **Room number** (`sprintf("%d", roomIndex+1)` via `FUN_004ed9f0`) and
-  **player count** (`%s[%3d/%3d]` via `BlitRLESprite`, the bitmap-font path).
-- **Fullness icon** (4 states from bits 18–19 of a per-room info dword).
+stride, skipping the client's own room) calling **`FUN_0042a220(slot)`** per
+occupied slot. Full geometry from that function:
+
+**Grid:** `slot/3` selects the **column** (slots 0–2 = left, X base `0x18`;
+slots 3–5 = right, X base `0x144`); `slot%3` selects the **row** (Y = `slot%3 ·
+0x3c`, 60 px pitch). So a **2-column × 3-row** browser. Card background frame:
+base `1` (left) / `4` (right); **`+2`** if this is the joined room (`this+4`),
+**`+1`** if it's the hovered/selected room (`this+8`) → frames 1–6.
+
+**Per-card elements** — each is a `FUN_004f30c0` frame lookup + blit; positions
+are relative to the card's column X (`Xc`) and row Y (`Yr`):
+| Element | Pos (x, y) | Sprite frame | Source field (`g_clientContext + … + slot`) |
+|---|---|---|---|
+| Card background | `(Xc, Yr+0x3a)` | 1–6 (col/state) | `this+4`/`this+8` |
+| Small icon | `(Xc+0xb1, Yr+0x42)` | `0xe` (if flag set) | `+0x449b4` |
+| Flag icon A | `(Xc+0xc3, Yr+0x46)` | `10+val` | `+0x4499c` |
+| Flag icon B | `(Xc+0xd2, Yr+0x46)` | `10+val` | `+0x449a2` |
+| Mode/map icon | `(Xc+0x6a, Yr+0x5b)` | `(b&3)·11 + b2` | `+0x44986` (÷4) & `+0x4497c` |
+| Status icon | `(Xc+0x13, Yr+0x55)` | `7`/`8`/`9` | `+0x449a8` (7 if set; else 8 if A==B; else 9) |
+| Lock (private) | `(Xc+0xea, −6 right; Yr+0x52)` | `0xf` (if flag set) | `+0x449ae` |
+| Room number | `(≈0x14, Yr+0x44)` | text, white `0xffff` | `+0x44664` (÷4) `+1`, fmt `PTR_DAT_00551ecc` |
+| Fullness dial | `(Xc+0xb1, Yr+0x5b)` | `10 + bits[18:19]` | `+0x44984` (÷4) dword |
 
 Buttons draw separately via the generic active-object sweep.
+
+### Per-room field offsets (indexed by room slot 0–5, off `g_clientContext`)
+| Offset | Stride | Meaning |
+|---|---|---|
+| `+0x44664` | 4 | room number / ID (shown as `+1`) |
+| `+0x4497c` | 1 | map/type sub-byte (feeds mode/map icon) |
+| `+0x44984` | 4 | per-room info dword; **bits 18–19 = fullness**, byte 2 (`+0x44986`) = mode flag |
+| `+0x4499c` | 1 | flag → icon A |
+| `+0x449a2` | 1 | flag → icon B |
+| `+0x449a8` | 1 | status flag → status icon 7/8/9 |
+| `+0x449ae` | 1 | private/password flag → padlock icon `0xf` (also gates join) |
+| `+0x449b4` | 1 | flag → icon `0xe` |
+| `+0x4464c`..`+0x44664` | 4 | the 6 room-slot index array walked by `RenderRoomLabel` |
 
 ## Input — room selection & join
 Room cards are **not** `ButtonWidget`s. The state's own **mouse slot**
