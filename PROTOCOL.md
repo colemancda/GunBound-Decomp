@@ -477,11 +477,10 @@ this: **`0x2110` is exclusively "join/enter room," never room creation.**
 
 **Direction**: outgoing. **Trigger**: the Create Room dialog's submit path —
 lobby button ID `4` (`b_gamelist_create`) opens the dialog (`FUN_00429c30` →
-`FUN_00508190`, title message `0x62b2`, with room-name/password text fields,
-message IDs `0x514`–`0x51d`); its OK button reaches this dispatcher via
-`eventType==0xa` with the pending-create flag (`+0xc`) set, or directly via
-dispatcher code `0x29`, both landing in **`FUN_00429c60`** — the actual
-submit handler.
+`FUN_00508190`, title message `0x62b2`); its OK button reaches this
+dispatcher via `eventType==0xa` with the pending-create flag (`+0xc`) set, or
+directly via dispatcher code `0x29`, both landing in **`FUN_00429c60`** — the
+actual submit handler.
 
 **Payload**: room name (NUL-terminated string, from the dialog's name field),
 password (NUL-terminated string, from the password field), the dialog's
@@ -491,6 +490,19 @@ An earlier pass, without having traced `FUN_00429c60`'s body, guessed this
 opcode was "leave room / list refresh." Decompiling it shows it copies the
 two text-entry widgets' contents and sends them — this is the room-creation
 request, not a leave/refresh action.
+
+**Dialog layout — 10 widgets, decompiled `FUN_00508190` in full** (see
+ARCHITECTURE.md's "Create Room dialog" writeup for the complete table): a
+wide **room-name text entry** (id 0) directly above a wide **password entry**
+(id 1); a top row of **8 small boxes** (msgs `0x518`–`0x51f`) most plausibly
+a **player-limit picker** (2–8 players, box index 3 flagged as the default
+selection — a limit of 4); a **2×2 grid** of 4 small toggles (msgs
+`0x514`–`0x517`) of unconfirmed purpose (likely a room-mode selector, no
+click-handler traced); and a bottom **OK/Cancel button pair** (msgs `0x51c`
+left, `0x51d` right). Only room name and password are confirmed to reach the
+wire payload above — whether the player-limit/mode selections are sent too
+(as part of the two string fields, or via a separate opcode not yet found)
+is not confirmed; `FUN_00429c60` only visibly touches the name/password pair.
 
 #### Opcode `0x2105` — Player info/profile broadcast
 

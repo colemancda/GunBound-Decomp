@@ -101,6 +101,24 @@ record — sends one 12-byte record from the selector table, see below),
 room name + password, from `FUN_00429c60`), `0x6000` (enter Avatar Store).
 Full list under "State 3" in PROTOCOL.md.
 
+### Create Room dialog — 10 widgets, fully laid out (`FUN_00508190`)
+Opened by button `4` (`b_gamelist_create`); title msg `0x62b2`. Widgets, in
+creation order:
+
+| Widget | Position (x,y) w×h | Msg ID(s) | Role |
+|---|---|---|---|
+| Text entry (id 0) | (0x60,0x2c) 0xbe×0xc | — | **Room name** |
+| Text entry (id 1) | (0x60,0x46) 0xbe×0xc | — | **Password** |
+| 8 small boxes | y=8 (top row), x stepping 32px from 0xad | `0x518`–`0x51f` | Likely **player-limit picker** (2–8); box index 3 defaults selected → limit 4 |
+| 2×2 grid (4 boxes) | y=0x5f/0x7a, x=0x16/0x45 | `0x514`–`0x517` | Unconfirmed — likely a room-mode toggle |
+| Button (id 8) | (0xd5,0x99) 0x52×0x22 | `0x51d` | OK/Cancel (right) |
+| Button (id 9) | (0x80,0x99) 0x52×0x22 | `0x51c` | OK/Cancel (left) |
+
+**Submit** (`FUN_00429c60`) only visibly copies the **name and password**
+fields into the `0x2120` payload — whether the player-limit/mode selections
+are sent at all (bundled some other way, or via a separate opcode) is not
+confirmed. Full derivation in ARCHITECTURE.md's "Create Room dialog" writeup.
+
 ### `0x2110` — join room (three emitters, one wire layout)
 All three write the same fixed 8-byte packet; only the source of the two
 fields differs:

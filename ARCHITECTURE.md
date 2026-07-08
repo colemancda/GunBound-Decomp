@@ -1364,7 +1364,29 @@ param_3, buttonId)`:
   then sends **outgoing opcode `0x2120`**: room name (NUL-terminated string),
   password (NUL-terminated string), the dialog's message-id field (`0x62b2`),
   and a type byte (`8`). This is genuinely the room-creation request, not a
-  leave/refresh action — corrected in PROTOCOL.md.
+  leave/refresh action — corrected in PROTOCOL.md. It reads the final text
+  from a separate results/snapshot object (`DAT_00e53c44`, walked by a
+  `(+0x20==0 && +0x24==0)` match), not the live dialog widgets directly — the
+  step that copies widget text into that snapshot on OK-press wasn't traced.
+
+  **The dialog's full field layout — decompiled `FUN_00508190` (the builder
+  `FUN_00429c30` calls) in detail.** Ten widgets, created in this order, all
+  using the message IDs `OnEnter` preloads (`0x514`–`0x51d`, confirming this
+  *is* the complete, self-contained resource set for this one dialog):
+
+  | Widget(s) | Type (by allocator) | Position (x,y) w×h | Msg ID(s) | Role |
+  |---|---|---|---|---|
+  | id 0 | large (0x140-byte, `FUN_00507f60` — has an internal text buffer) | (0x60,0x2c) 0xbe×0xc | — | **Room name entry** (widest field, near the top) |
+  | id 1 | large (0x140-byte, same allocator) | (0x60,0x46) 0xbe×0xc | — | **Password entry** (same width, directly below) |
+  | ids 2–9 (8 boxes) | small (0x40-byte, `FUN_00507ee0`) | x = 0xad+32·i, y=**8** (top row) | `0x518`–`0x51f` | Likely a **player-limit picker** (8 boxes, GunBound rooms commonly cap at 2–8); the 4th box (`i==3`) is flagged specially (`+0x3a=1`) — plausibly "default selected," i.e. a default room limit of 4 |
+  | ids 4–7 (2×2 grid) | small (0x40-byte) | (0x16,0x5f)/(0x45,0x5f)/(0x16,0x7a)/(0x45,0x7a), each 0x2d×0x18 | `0x514`–`0x517` | Unclear — a 2×2 grid of 4 small toggles, most plausibly a **room-mode selector** (e.g. solo/team); not confirmed, no click-handler for these was traced |
+  | id 8 | small (0x40-byte) | (0xd5,0x99) 0x52×0x22 | `0x51d` | Bottom-right button — by position/size, one of **OK/Cancel** |
+  | id 9 | small (0x40-byte) | (0x80,0x99) 0x52×0x22 | `0x51c` | Bottom-left button — the other of **OK/Cancel** |
+
+  The room-mode-grid and OK/Cancel-vs-label assignments for msgs `0x514`–
+  `0x51d` are not decoded (this project has no access to the localized
+  string table's content, only IDs) — positions and structural roles are
+  confirmed from the layout; exact captions are not.
 
 - **`FUN_004f1790` is not a "watchdog timer" (correcting the Logo1/Logo2
   docs).** `OnEnter` calls it ~40 times with values like `0x514`–`0x51d`,
