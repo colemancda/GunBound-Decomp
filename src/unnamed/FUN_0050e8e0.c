@@ -26,7 +26,7 @@ undefined1 __thiscall FUN_0050e8e0(int param_1,undefined4 param_2,undefined4 par
       FUN_004010c0(0x80070057);
     }
     do {
-      cVar1 = (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar2 * 4) + 8))(param_2,param_3);
+      (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar2 * 4) + 8))(param_2,param_3);
       if (cVar1 != '\0') {
         local_1 = 1;
       }

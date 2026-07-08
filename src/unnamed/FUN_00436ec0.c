@@ -28,7 +28,7 @@ void FUN_00436ec0(int param_1,int param_2)
         iVar2 = 0;
       }
       else {
-        iVar2 = FUN_00481e30();
+        FUN_00481e30();
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar3 = PeekPacketChecksumState();

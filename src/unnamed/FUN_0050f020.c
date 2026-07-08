@@ -21,7 +21,7 @@ undefined1 __thiscall FUN_0050f020(int param_1,undefined4 param_2,undefined4 par
   while (puVar2 != (undefined4 *)0x0) {
     puVar1 = puVar2 + 2;
     puVar2 = (undefined4 *)*puVar2;
-    cVar3 = (**(code **)(*(int *)*puVar1 + 4))(param_2,param_3);
+    (**(code **)(*(int *)*puVar1 + 4))(param_2,param_3);
     if (cVar3 == '\x01') {
       uVar4 = 1;
     }

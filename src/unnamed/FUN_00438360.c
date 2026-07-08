@@ -58,7 +58,7 @@ LAB_004383df:
     iVar4 = 0;
   }
   else {
-    iVar4 = FUN_004b3b10();
+    FUN_004b3b10();
   }
   *(int *)(iVar4 + 0x44) = unaff_ESI;
   RegisterActiveObject();

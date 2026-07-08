@@ -27,7 +27,7 @@ void FUN_0043a5f0(void)
       }
     }
     for (piVar2 = (int *)piVar4[4]; piVar4 != piVar2; piVar2 = (int *)piVar2[4]) {
-      uVar3 = (**(code **)(*piVar2 + 0x14))();
+      (**(code **)(*piVar2 + 0x14))();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeOutgoingPacketField(uVar3);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

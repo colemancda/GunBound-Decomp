@@ -41,7 +41,7 @@ char __thiscall FUN_0050f060(int param_1,undefined4 param_2,undefined4 param_3)
             } while (uVar6 < (uint)piVar1[4]);
           }
         }
-        cVar4 = (**(code **)(*piVar1 + 8))(param_2,param_3);
+        (**(code **)(*piVar1 + 8))(param_2,param_3);
         if (cVar4 == '\0') break;
         if ((*(char *)((int)piVar1 + 5) != '\0') && (piVar3 != *(int **)(param_1 + 4))) {
           if (*piVar3 == 0) {

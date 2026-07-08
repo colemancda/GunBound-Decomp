@@ -38,7 +38,7 @@ void FUN_00405760(void)
     if (iVar4 == 1 || iVar4 + -1 < 0) {
       (**(code **)(*(int *)*puVar1 + 4))(puVar1);
     }
-    iVar4 = (**(code **)(*piVar3 + 0xc))();
+    (**(code **)(*piVar3 + 0xc))();
     *unaff_ESI = iVar4 + 0x10;
   }
   return;

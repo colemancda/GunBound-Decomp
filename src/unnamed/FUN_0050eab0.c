@@ -23,7 +23,7 @@ undefined4 __thiscall FUN_0050eab0(int param_1,undefined4 param_2)
       FUN_004010c0(0x80070057);
     }
     do {
-      cVar1 = (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar2 * 4) + 0x18))(param_2);
+      (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar2 * 4) + 0x18))(param_2);
       if (cVar1 != '\0') {
         return 1;
       }

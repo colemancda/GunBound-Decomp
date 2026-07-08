@@ -45,7 +45,7 @@ FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 para
     cVar2 = FUN_004fe860(param_2,&local_2ecc);
     uStack_2eaa = (ushort)param_6;
     if (cVar2 == '\0') {
-      cVar2 = (**(code **)(*param_2 + 4))(param_3);
+      (**(code **)(*param_2 + 4))(param_3);
       if (cVar2 == '\0') {
         (**(code **)*param_2)(0,param_3,param_4,param_5,param_6,param_1);
         return 1;

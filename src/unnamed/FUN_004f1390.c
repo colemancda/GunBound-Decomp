@@ -31,7 +31,7 @@ undefined4 __thiscall FUN_004f1390(int param_1,undefined4 param_2)
         else {
           iVar1 = (uVar4 & 0x3ff) * 0x80 + iVar1;
         }
-        uVar3 = ReadXFSEntry(iVar1,unaff_EDI + 0x1048);
+        ReadXFSEntry(iVar1,unaff_EDI + 0x1048);
         return uVar3;
       }
     }
@@ -41,7 +41,7 @@ undefined4 __thiscall FUN_004f1390(int param_1,undefined4 param_2)
     if (iVar1 != 0) {
       pvVar2 = operator_new(0x1024);
       if (pvVar2 != (void *)0x0) {
-        uVar3 = ReadXFSEntry(iVar1,unaff_EDI + 0x1048);
+        ReadXFSEntry(iVar1,unaff_EDI + 0x1048);
         return uVar3;
       }
     }

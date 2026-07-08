@@ -149,7 +149,7 @@ LAB_004ffe2f:
         else {
           if ((*(char *)(puVar3 + 0x5d7) == '\0') &&
              ((*(char *)(iVar6 + 0x30) != '\0' ||
-              (cVar4 = (**(code **)(*param_1 + 4))(iVar6), cVar4 != '\0')))) {
+              (cVar4 = (**(int (**)())(*param_1 + 4))(iVar6), cVar4 != '\0')))) {
             puVar3[0x5d6] = 0;
             *(undefined1 *)(puVar3 + 0x5d7) = 1;
             *(undefined1 *)(iVar6 + 0x30) = 1;

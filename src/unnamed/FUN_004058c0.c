@@ -22,7 +22,7 @@ void FUN_004058c0(undefined4 param_1,undefined4 param_2)
     pvVar1 = (void *)0x0;
   }
   else {
-    pvVar1 = (void *)FUN_004e54e0(param_1,param_2);
+    FUN_004e54e0(param_1,param_2);
   }
   *(void **)(unaff_EDI + 0x2004) = pvVar1;
   *(undefined1 *)((int)pvVar1 + 0x18) = 1;

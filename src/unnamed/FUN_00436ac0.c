@@ -24,7 +24,7 @@ void FUN_00436ac0(undefined4 param_1,undefined4 param_2)
       iVar3 = 0;
     }
     else {
-      iVar3 = FUN_00464200();
+      FUN_00464200();
     }
     *(undefined4 *)(iVar3 + 0x38) = param_1;
     *(undefined4 *)(iVar3 + 0x3c) = param_2;

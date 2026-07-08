@@ -21,10 +21,10 @@ void __thiscall FUN_00405810(int *param_1,undefined4 *param_2)
   
   param_2 = (undefined4 *)*param_2;
   iVar2 = param_2[-3];
-  puVar3 = (undefined4 *)(**(code **)(*(int *)param_2[-4] + 0x10))();
-  iVar4 = (**(code **)*puVar3)();
+  (**(code **)(*(int *)param_2[-4] + 0x10))();
+  (**(code **)*puVar3)();
   if (iVar4 == 0) {
-    iVar4 = FUN_004058b0();
+    FUN_004058b0();
   }
   if (iVar2 < in_EAX) {
     in_EAX = iVar2;

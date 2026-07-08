@@ -22,9 +22,17 @@ int FUN_004f18c0(undefined4 param_1,undefined4 param_2,int param_3)
   void *local_8;
   int local_4;
   
+  /* ReadXFSEntry is void-returning (see its own definition) - the
+   * return-value use in the comma-expression below is a Ghidra
+   * per-call-site decompilation inconsistency, same class as
+   * entry/WinMain.c's FUN_004058c0 fix. pvVar2 keeps the buffer
+   * pointer from operator_new instead of being reassigned - matches
+   * the two-argument ReadXFSEntry(handle, buffer) usage seen
+   * elsewhere, where the second argument is an out-buffer, not
+   * something whose result should replace pvVar2. */
   iVar1 = FindXFSEntry(&DAT_00f11dd0,in_EAX);
   if ((((iVar1 == 0) || (pvVar2 = operator_new(0x1024), pvVar2 == (void *)0x0)) ||
-      (pvVar2 = (void *)ReadXFSEntry(iVar1,&DAT_00f12e18), pvVar2 == (void *)0x0)) ||
+      (ReadXFSEntry(iVar1,&DAT_00f12e18), pvVar2 == (void *)0x0)) ||
      (local_8 = pvVar2, ReadXFSEntryByte(pvVar2,&local_4), local_4 != 0)) {
     return 0;
   }

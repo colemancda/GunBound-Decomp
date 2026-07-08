@@ -30,7 +30,7 @@ void __fastcall FUN_00436860(int param_1,int param_2,undefined4 param_3,undefine
       iVar2 = 0;
     }
     else {
-      iVar2 = FUN_00468620();
+      FUN_00468620();
     }
     *(undefined4 *)(iVar2 + 0x3c) = param_4;
     *(int *)(iVar2 + 0x48) = param_2;

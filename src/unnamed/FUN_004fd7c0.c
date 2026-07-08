@@ -15,7 +15,7 @@ undefined1 __thiscall FUN_004fd7c0(int param_1,undefined4 param_2,int param_3)
   if (*(char *)(param_1 + 0x1a70) == '\0') {
     return 0;
   }
-  cVar1 = FUN_004fcf10(&param_3,1);
+  FUN_004fcf10(&param_3,1);
   if (cVar1 == '\0') {
     return 0;
   }

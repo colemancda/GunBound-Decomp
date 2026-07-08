@@ -132,11 +132,11 @@ void FUN_005194f0(undefined4 *param_1,undefined4 *param_2,int param_3,int *param
         puVar6 = param_1 + 0x24;
         param_2 = (undefined4 *)iVar2;
         do {
-          uVar5 = FUN_00514af0(uVar7);
+          FUN_00514af0(uVar7);
           puVar6[-0xd] = uVar5;
-          uVar5 = FUN_00514af0(uVar7);
+          FUN_00514af0(uVar7);
           *puVar6 = uVar5;
-          uVar5 = FUN_00514af0(uVar7);
+          FUN_00514af0(uVar7);
           puVar6[0xd] = uVar5;
           puVar6 = puVar6 + 1;
           param_2 = (undefined4 *)((int)param_2 + -1);
@@ -156,7 +156,7 @@ void FUN_005194f0(undefined4 *param_1,undefined4 *param_2,int param_3,int *param
       param_3 = 6;
       puVar6 = param_1;
       do {
-        uVar5 = FUN_00514af0(uVar7);
+        FUN_00514af0(uVar7);
         *puVar6 = uVar5;
         puVar6 = puVar6 + 1;
         param_3 = param_3 + -1;
@@ -181,11 +181,11 @@ void FUN_005194f0(undefined4 *param_1,undefined4 *param_2,int param_3,int *param
       iVar14 = iVar14 + iVar4;
       param_3 = iVar4;
       do {
-        uVar5 = FUN_00514af0(uVar9);
+        FUN_00514af0(uVar9);
         puVar6[-0xd] = uVar5;
-        uVar5 = FUN_00514af0(uVar9);
+        FUN_00514af0(uVar9);
         *puVar6 = uVar5;
-        uVar5 = FUN_00514af0(uVar9);
+        FUN_00514af0(uVar9);
         puVar6[0xd] = uVar5;
         puVar6 = puVar6 + 1;
         param_3 = param_3 + -1;
@@ -208,11 +208,11 @@ void FUN_005194f0(undefined4 *param_1,undefined4 *param_2,int param_3,int *param
       puVar6 = param_1 + iVar14 + 0x24;
       iVar14 = iVar14 + iVar12;
       do {
-        uVar5 = FUN_00514af0(uVar13);
+        FUN_00514af0(uVar13);
         puVar6[-0xd] = uVar5;
-        uVar5 = FUN_00514af0(uVar13);
+        FUN_00514af0(uVar13);
         *puVar6 = uVar5;
-        uVar5 = FUN_00514af0(uVar13);
+        FUN_00514af0(uVar13);
         puVar6[0xd] = uVar5;
         puVar6 = puVar6 + 1;
         iVar12 = iVar12 + -1;
@@ -234,11 +234,11 @@ void FUN_005194f0(undefined4 *param_1,undefined4 *param_2,int param_3,int *param
     else if (0 < iVar8) {
       param_1 = param_1 + iVar14 + 0x24;
       do {
-        uVar5 = FUN_00514af0(local_20);
+        FUN_00514af0(local_20);
         param_1[-0xd] = uVar5;
-        uVar5 = FUN_00514af0(local_20);
+        FUN_00514af0(local_20);
         *param_1 = uVar5;
-        uVar5 = FUN_00514af0(local_20);
+        FUN_00514af0(local_20);
         param_1[0xd] = uVar5;
         param_1 = param_1 + 1;
         iVar8 = iVar8 + -1;
@@ -262,7 +262,7 @@ void FUN_005194f0(undefined4 *param_1,undefined4 *param_2,int param_3,int *param
       param_2 = param_1;
       param_4 = (int *)iVar2;
       do {
-        uVar5 = FUN_00514af0(uVar7);
+        FUN_00514af0(uVar7);
         *param_2 = uVar5;
         param_2 = param_2 + 1;
         param_4 = (int *)((int)param_4 + -1);
@@ -284,7 +284,7 @@ void FUN_005194f0(undefined4 *param_1,undefined4 *param_2,int param_3,int *param
       param_3 = param_3 + iVar4;
       param_2 = (undefined4 *)iVar4;
       do {
-        uVar5 = FUN_00514af0(uVar9);
+        FUN_00514af0(uVar9);
         *puVar6 = uVar5;
         puVar6 = puVar6 + 1;
         param_2 = (undefined4 *)((int)param_2 + -1);
@@ -304,7 +304,7 @@ void FUN_005194f0(undefined4 *param_1,undefined4 *param_2,int param_3,int *param
       puVar6 = param_1 + param_3;
       param_3 = param_3 + iVar12;
       do {
-        uVar5 = FUN_00514af0(uVar13);
+        FUN_00514af0(uVar13);
         *puVar6 = uVar5;
         puVar6 = puVar6 + 1;
         iVar12 = iVar12 + -1;
@@ -322,7 +322,7 @@ void FUN_005194f0(undefined4 *param_1,undefined4 *param_2,int param_3,int *param
     else if (0 < iVar8) {
       param_1 = param_1 + param_3;
       do {
-        uVar5 = FUN_00514af0(local_20);
+        FUN_00514af0(local_20);
         *param_1 = uVar5;
         param_1 = param_1 + 1;
         iVar8 = iVar8 + -1;

@@ -43,7 +43,7 @@ bool __fastcall FUN_004f0230(undefined4 param_1,undefined4 param_2,int param_3)
     puVar2 = puVar2 + 1;
     puVar3 = puVar3 + 1;
   }
-  iVar1 = (**(code **)(*g_pDirectDraw7 + 0x18))(g_pDirectDraw7,local_88,param_2,0);
+  (**(code **)(*g_pDirectDraw7 + 0x18))(g_pDirectDraw7,local_88,param_2,0);
   return -1 < iVar1;
 }
 

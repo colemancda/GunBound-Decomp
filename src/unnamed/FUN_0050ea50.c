@@ -25,7 +25,7 @@ undefined1 __thiscall FUN_0050ea50(int param_1,undefined4 param_2)
       FUN_004010c0(0x80070057);
     }
     while( true ) {
-      cVar1 = (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar3 * 4) + 0x14))(param_2);
+      (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar3 * 4) + 0x14))(param_2);
       if (cVar1 != '\0') break;
       uVar3 = uVar3 + 1;
       if (*(uint *)(param_1 + 0x10) <= uVar3) {

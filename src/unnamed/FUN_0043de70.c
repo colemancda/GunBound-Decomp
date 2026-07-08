@@ -17,7 +17,7 @@ int FUN_0043de70(int *param_1)
   int iVar4;
   int iVar5;
   
-  iVar2 = FUN_0043e0f0();
+  FUN_0043e0f0();
   *(undefined4 *)(iVar2 + 8) = 0;
   iVar3 = iVar2;
   if (iVar2 != *param_1) {

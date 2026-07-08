@@ -22,7 +22,7 @@ void FUN_004f0320(void)
   (**(code **)(*g_pPrimarySurface + 0x70))();
   if (DAT_00588f4c != '\0') {
     piVar3 = g_pDirectDraw7;
-    iVar1 = (**(code **)(*g_pDirectDraw7 + 0x10))(g_pDirectDraw7,0,&piStack_c,0);
+    (**(code **)(*g_pDirectDraw7 + 0x10))(g_pDirectDraw7,0,&piStack_c,0);
     if (-1 < iVar1) {
       (**(code **)(*piVar3 + 0x20))(piVar3,0,DAT_007935ec);
       piVar2 = g_pPrimarySurface;

@@ -13,7 +13,7 @@ int * __fastcall FUN_00426410(int *param_1)
 {
   int iVar1;
   
-  iVar1 = (**(code **)(DAT_005b1444 + 0xc))();
+  (**(code **)(DAT_005b1444 + 0xc))();
   *param_1 = iVar1 + 0x10;
   return param_1;
 }

@@ -24,7 +24,7 @@ FUN_004373c0(char param_1,int param_2,int param_3,int param_4,int param_5,undefi
       piVar3 = (int *)0x0;
     }
     else {
-      piVar3 = (int *)FUN_0047e940();
+      FUN_0047e940();
     }
     piVar3[0xe] = param_3;
     piVar3[0xf] = param_4;

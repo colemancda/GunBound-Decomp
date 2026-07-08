@@ -43,7 +43,7 @@ LAB_004cee24:
     if (uVar5 < uVar2) break;
 LAB_004cee05:
     if (uVar2 == uVar5) {
-      cVar3 = (**(code **)(*piVar4 + 0x24))(0xffffffff);
+      (**(code **)(*piVar4 + 0x24))(0xffffffff);
       if (cVar3 != '\0') goto LAB_004cee24;
       break;
     }
