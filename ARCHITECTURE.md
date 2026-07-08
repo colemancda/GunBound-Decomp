@@ -1950,7 +1950,7 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
      server number (`sprintf`+`BlitRLESprite`), the name and two description
      lines (`BlitRLESprite`, colour `0xb77f`), and a population gauge
      (`currentPlayers·100/maxCapacity` bucketed via thresholds at
-     `DAT_005a9050`). Row selection: the panel's mouse-down
+     `g_fullnessGaugeThresholds`). Row selection: the panel's mouse-down
      (`WorldListPanel_OnMouseDown`, `0x50d5a0`) calls `WorldListRowHitTest`
      (`0x50df40`) — same grid geometry, online rows only — and writes
      `g_gameStateVTableArray[2]+8 = <clicked row>`, enabling the connect
