@@ -142,6 +142,35 @@ Three layers (all confirmed — see ARCHITECTURE.md "The generic UI-widget syste
    no per-screen "draw everything" function for widgets); the state's own
    render slot draws the non-widget chrome (background, grids, labels).
 
+### The reusable scrollbar widget (`CreateScrollListWidget`, `0x5080a0`)
+
+A single **vertical-scrollbar** widget class (vtable `0x557e90`, 0x58-byte
+object) is reused by every scrollable list in the game. It is created by
+`CreateScrollListWidget(container, x, y, w, h, pageSize)` — `w` is always
+`0x12` (an 18-px-wide track), and the total item count arrives in a register
+(`+0x38`). It builds its own **up/down arrow** child buttons and manages:
+`+0x40` scroll position, `+0x38` total, `+0x3c` page size, `+0x28`/`+0x2c`/
+`+0x30`/`+0x34` track rect. Input: draggable thumb (`ScrollListWidget_OnMouseDown`
+/`OnMouseMove`), ±1 arrow steps (`0x50f7c0`), auto-scroll while held past the
+ends. On any change it fires a **`0x2000` + new-position callback** to its
+parent panel.
+
+**Confirmed reuse — 7 instances across 5 screens:**
+| Builder | Screen / list |
+|---|---|
+| `BuildWorldListPanel` (`0x5099d0`) | State 2 — server WORLD LIST |
+| `FUN_00509110` | shared **buddy list** (lobby / ready room / WndProc) |
+| `FUN_00509af0`, `FUN_00509d80` | State 3 — lobby panels |
+| `FUN_005094f0` | State 9 — Ready Room list |
+| `FUN_00509e60` | State 7 — Avatar Store list |
+| `FUN_00509260` | a panel via `FUN_004025e0` |
+
+The widget owns only the scrollbar chrome and the scroll *position*; the
+**parent panel owns the list content** and decides what to do on the `0x2000`
+callback (draw a different slice locally, or request the next page over the
+network as State 2's server list does). That clean split is why one class
+serves a network-paginated list, a local buddy list, and item grids unchanged.
+
 ### The client context arena (`g_clientContext`)
 
 Most per-screen game data lives at fixed byte offsets inside one large global
