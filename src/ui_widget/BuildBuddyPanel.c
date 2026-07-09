@@ -1,6 +1,26 @@
 /* BuildBuddyPanel - 0x00509110 in the original binary.
  *
- * Builds the shared buddy-list panel (a scroll list of buddies), registered with g_uiPanelManager. Used from the lobby, the ready room, and WndProc. See docs/widgets.md panel catalog. Raw/near-verbatim port of Ghidra's
+ * Builds (or re-shows) the shared buddy-list panel. Registered with the global
+ * panel manager (g_uiPanelManager) and used from the lobby, ready room, and
+ * WndProc. It's a **singleton**: the function first walks the manager's panel
+ * list for one keyed 20000 and, if found, just re-shows it (sets +0x1d = 1)
+ * instead of rebuilding.
+ *
+ * The panel object is 0x94 bytes (vtable PTR_LAB_00557be4), key 20000, at
+ * (0x238, 0xb) = (568,11), size 0xd3 x 0x10b = 211x267 (top-right of screen).
+ * Resource IDs are the contiguous block 0x2bc-0x2bf. Children (positions are
+ * panel-relative):
+ *   CreateLabelWidget(1, 0x2bd, 0x5e, 7, 0x27, 0x14)  -> "Add" button  (94,7) 39x20
+ *   CreateLabelWidget(2, 0x2be, 0x89, 7, 0x27, 0x14)  -> "Del" button  (137,7) 39x20
+ *   CreateLabelWidget(0, 0x2bf, 0xb4, 7, 0x16, 0x14)  -> close (X)     (180,7) 22x20
+ *   CreateScrollListWidget(mgr, 0xb7, 0x49, 0x12, 0x98, 7) -> buddy-list
+ *                                                        scrollbar (183,73)
+ *                                                        18x152, page size 7
+ * The "n/n" buddy count/title uses resource 0x2bc (panel field +0x44 = 700).
+ * The buddy list rows themselves are drawn by the panel, not child widgets.
+ * See docs/widgets.md panel catalog and docs/screens/02_server_select.md.
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
