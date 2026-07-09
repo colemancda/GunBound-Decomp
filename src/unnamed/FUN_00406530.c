@@ -19,7 +19,7 @@ undefined4 __fastcall FUN_00406530(undefined4 param_1)
     cVar1 = '\x01' - ((in_EAX[1] >> (*in_EAX & 7) & 1) != 1);
   }
   else {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     cVar1 = '\0';
   }

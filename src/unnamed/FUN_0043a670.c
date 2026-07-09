@@ -61,7 +61,7 @@ LAB_0043a6e0:
       bVar1 = *(byte *)((int)piVar2 + 0x8bbe);
       bVar15 = (byte)(bVar12 + bVar1 + -0x34) == *(char *)((int)piVar2 + 0x8bbf);
       if (!bVar15) {
-        DAT_00793514 = 1;
+        g_valueGuardTamperFlag = 1;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

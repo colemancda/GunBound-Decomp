@@ -578,7 +578,7 @@ LAB_004bbe6b:
         cStack_99 = '\x01' - (((byte)(&DAT_006a9b6d)[iVar6] >> (*pbVar12 & 7) & 1) != 1);
       }
       else {
-        DAT_00793514 = 1;
+        g_valueGuardTamperFlag = 1;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         cStack_99 = '\0';
       }

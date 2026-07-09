@@ -32,8 +32,8 @@ void FUN_004508a0(int param_1)
       }
       if (uVar2 < 0x1f6) {
         if (uVar2 == 0x1f5) {
-          if (DAT_00793614 != 1) {
-            DAT_00793614 = 1;
+          if (g_currentBlendMode != 1) {
+            g_currentBlendMode = 1;
             _DAT_00792194 = 1;
             (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
             (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
@@ -58,8 +58,8 @@ void FUN_004508a0(int param_1)
           }
         }
         else if (uVar2 == 500) {
-          if (DAT_00793614 != 1) {
-            DAT_00793614 = 1;
+          if (g_currentBlendMode != 1) {
+            g_currentBlendMode = 1;
             _DAT_00792194 = 1;
             (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
             (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
@@ -70,8 +70,8 @@ void FUN_004508a0(int param_1)
       }
       else {
         if (uVar2 == 0x1f6) {
-          if (DAT_00793614 != 2) {
-            DAT_00793614 = 2;
+          if (g_currentBlendMode != 2) {
+            g_currentBlendMode = 2;
             _DAT_00792194 = 2;
             (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
             (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,2);
@@ -80,8 +80,8 @@ void FUN_004508a0(int param_1)
         }
         else {
           if (uVar2 != 0x1f7) goto LAB_00450b04;
-          if (DAT_00793614 != 2) {
-            DAT_00793614 = 2;
+          if (g_currentBlendMode != 2) {
+            g_currentBlendMode = 2;
             _DAT_00792194 = 2;
             (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
             (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,2);
@@ -108,7 +108,7 @@ LAB_00450b04:
       }
       local_4 = *(int *)(local_4 + 0x1c);
       if (g_spriteVertexCount != 0) {
-        DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+        g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
         (**(code **)(*g_pD3DDevice7 + 100))
                   (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
         g_spriteVertexCount = 0;

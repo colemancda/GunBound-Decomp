@@ -32,8 +32,8 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
   }
   DAT_00793611 = 1;
   iVar4 = FindTextureCacheEntryByName(s_AvataTexture1_0055565c);
-  if (DAT_00793614 != 1) {
-    DAT_00793614 = 1;
+  if (g_currentBlendMode != 1) {
+    g_currentBlendMode = 1;
     _DAT_00792194 = 1;
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
@@ -67,7 +67,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
               (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar4 + 0x94) + 0x110));
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;
@@ -102,7 +102,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
               (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar4 + 0x94) + 0x110));
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;
@@ -137,7 +137,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
               (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar4 + 0x94) + 0x110));
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;
@@ -172,14 +172,14 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
               (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar4 + 0x94) + 0x110));
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;
   }
   iVar4 = FindTextureCacheEntryByName(s_AvataEffectTexture1_00556900);
-  if (DAT_00793614 != 2) {
-    DAT_00793614 = 2;
+  if (g_currentBlendMode != 2) {
+    g_currentBlendMode = 2;
     _DAT_00792194 = 2;
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,2);
@@ -211,7 +211,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
               (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar4 + 0x94) + 0x110));
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;
@@ -246,7 +246,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
               (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar4 + 0x94) + 0x110));
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;
@@ -279,7 +279,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
               (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar4 + 0x94) + 0x110));
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;
@@ -312,7 +312,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
               (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar4 + 0x94) + 0x110));
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;

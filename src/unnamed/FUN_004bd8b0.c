@@ -681,7 +681,7 @@ code_r0x004be720:
                                       & 1) == 1,(undefined3)uStack_3d70);
       }
       else {
-        DAT_00793514 = 1;
+        g_valueGuardTamperFlag = 1;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uStack_3d70 = (int *)((uint)uStack_3d70 & 0xffffff);
       }
@@ -706,7 +706,7 @@ code_r0x004be720:
         bVar12 = (&DAT_0067e3cd)[iVar6];
         bVar18 = (byte)(bVar13 + bVar12 + -0x34) != (&DAT_0067e3ce)[iVar6];
         if (bVar18) {
-          DAT_00793514 = 1;
+          g_valueGuardTamperFlag = 1;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         }
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -729,7 +729,7 @@ code_r0x004be720:
                                1,(int3)unaff_ESI);
         }
         else {
-          DAT_00793514 = 1;
+          g_valueGuardTamperFlag = 1;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           unaff_ESI = unaff_ESI & 0xffffff;
         }

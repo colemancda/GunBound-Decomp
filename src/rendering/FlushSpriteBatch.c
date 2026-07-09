@@ -11,7 +11,7 @@ void FlushSpriteBatch(void)
 
 {
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;

@@ -34,9 +34,31 @@ overlay still uses the software blitter. The most complex state.
 | 17 | `0x429800` | genuine no-op (state-specific empty override) |
 
 ## Rendering
-- **Battle scene** (slot 14) via the D3D7 hardware pipeline — textured vertex
-  path for terrain, mobiles, projectiles, rotation (turret/sprite rotation →
-  hardware vertex pipeline; see ARCHITECTURE.md "Rendering").
+- **Battle scene** (slot 14, `State11_InBattle_Render` `0x4c3020`, ~2250 lines)
+  via the D3D7 hardware pipeline. It is a sequence of **~20 layer phases**, each:
+  set blend mode if changed → `FindTextureCacheEntryByName(name)` → per-instance
+  cull to the 800×600 clip rect + write atlas UV → `SetTexture` → one
+  `DrawPrimitive(TRIANGLELIST, FVF 0x244)` flush. So **each layer is its own draw
+  call** and the phase order is the back-to-front paint order:
+  - background atlas (8-slot grid, per-player culled) → mobile/marker layers →
+    animated **Flame** (`FlameTexture%d`, `FlameTexture2/3/4`) → **Rayon1/2**
+    (rotated beam effects) → **Jewel** (*only when game mode == 3* — this gates
+    the Jewel draw, confirming **mode 3 = Jewel**; drawn alpha + additive glow)
+    → **Special1/2** (single object, alpha + additive) → main mobile block.
+  - **Blend-state cache** (`g_currentBlendMode`): `1` = normal alpha
+    (`SRCALPHA`/`INVSRCALPHA`), `2` = additive glow (`SRCALPHA`/`ONE`); only
+    reprogrammed on change.
+  - **Camera scroll** subtracted from world positions (`camX`=`DAT_006a7710`,
+    `camY`=`DAT_006a7714`), biased by +400 / +0x12a (half of 800×600).
+  - **Anti-cheat value guard**: the main mobile's gameplay values are read via
+    `PeekPacketChecksumState` (×110) under `EnterCriticalSection(&DAT_005a9068)`;
+    each value is a `(a,b,check)` triple validated as `check==(a+b-0x34)&0xff`,
+    decoded as `(b>>(a&7))&1`, tamper → `g_valueGuardTamperFlag=1`, and the backing store
+    (`DAT_0079376c`) is re-`rand()`-scrambled every frame. See ARCHITECTURE.md
+    "The quad-emitter family and the in-battle scene composer".
+  - **Teardown**: advance two particle-trail history ring buffers (trails fade
+    over 15 / 7 frames), clear transient effect flags, optional full-screen 50%
+    dim overlay for fade/pause.
 - **Effect-texture clear** (slot 13) each frame before compositing effects.
 - **HUD / chat log** (slot 15, `0x4c8890`, software blit): up to **10 chat
   history lines**, each with sender (`+0x58b64`, 9-byte stride), text

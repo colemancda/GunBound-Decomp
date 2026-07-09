@@ -25,8 +25,8 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x1b,1);
   }
   DAT_00793611 = 1;
-  if (DAT_00793614 != 1) {
-    DAT_00793614 = 1;
+  if (g_currentBlendMode != 1) {
+    g_currentBlendMode = 1;
     _DAT_00792194 = 1;
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
@@ -64,8 +64,8 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       BuildScaledSpriteQuad(0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar2 * 0x18) == 1,0xff,0xffffff);
       FlushSpriteBatch();
-      if (DAT_00793614 != 2) {
-        DAT_00793614 = 2;
+      if (g_currentBlendMode != 2) {
+        g_currentBlendMode = 2;
         _DAT_00792194 = 2;
         (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
         (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,2);
@@ -78,8 +78,8 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       FlushSpriteBatch();
     }
   }
-  if (DAT_00793614 != 1) {
-    DAT_00793614 = 1;
+  if (g_currentBlendMode != 1) {
+    g_currentBlendMode = 1;
     _DAT_00792194 = 1;
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
@@ -96,7 +96,7 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
               (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar1 + 0x94) + 0x110));
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;

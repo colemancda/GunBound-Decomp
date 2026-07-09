@@ -1278,7 +1278,7 @@ exactly `DrawPrimitive(g_pD3DDevice7, 4 /*D3DPT_TRIANGLELIST*/, 0x244,
 triangle-slot counter into a real vertex count, batching every sprite quad
 queued that frame into a single draw call — then resets
 `g_spriteVertexCount` to 0. It also accumulates a running counter
-(`DAT_0079365c += g_spriteVertexCount`), likely an internal perf/stats
+(`g_frameTriangleCounter += g_spriteVertexCount`), likely an internal perf/stats
 counter for triangles drawn.
 
 **Additive blending for effect textures is a general convention, not a
@@ -1290,7 +1290,7 @@ unlike the State11 case) — and shows the exact same pattern found there:
 normal sprite layers use the default `SRCALPHA`/`INVSRCALPHA` blend, but
 right before compositing `AvataEffectTexture1`/`AvataEffectTexture2`, it
 explicitly sets `SetRenderState(DESTBLEND, D3DBLEND_ONE /*2*/)` (guarded by
-the same `DAT_00793614 != 2` cached-state check seen in the battle
+the same `g_currentBlendMode != 2` cached-state check seen in the battle
 renderer). This independently confirms the additive-glow convention for
 avatar/character effect textures applies across render functions, not just
 the one investigated originally.
@@ -1324,14 +1324,86 @@ All share the confirmed vertex format (`FVF 0x244`, 36-byte XYZRHW/DIFFUSE/TEX2
 vertices, diffuse = opaque white, texture UVs from a `+0x80` rect) and route
 into the one batched `DrawPrimitive`.
 
-**`State11_InBattle_Render`** (slot 14, `0x4c3020`, **22.5 KB**) is the scene
-composer that drives them: it walks every drawable layer/object of the battle
-scene and, per element, does `FindTextureCacheEntryByName(...)` then calls the
-appropriate quad-emitter — terrain, mobiles, projectiles, jewels
-(`JewelTexture`), and special-weapon effects (`SpecialTexture1/2`, etc.). It is
-genuinely large and layer-ordered; only its overall shape (texture-lookup →
-quad-emit, per layer) is mapped, not every individual layer's exact
-order/conditions.
+**`State11_InBattle_Render`** (slot 14, `0x4c3020`, **22.5 KB / ~2250 decompiled
+lines**) is the scene composer that drives them. It is now mapped in full — the
+overall shape, the per-layer order, and the two subsystems that make it big (a
+blend-state cache and the anti-cheat value guard).
+
+**Per-layer render pattern.** The body is ~20 near-identical phases, one per
+drawable layer, each following the same five steps:
+
+1. **Set blend mode if it changed** (see the blend-state cache below).
+2. `FindTextureCacheEntryByName(name)` → a texture-cache entry, or 0.
+3. **Instance loop**: for each object on this layer, cull it against the screen
+   clip rect; if visible, write the atlas UV into the cache entry (`+0x80` = U,
+   `+0x84` = V) and a Z/scale word (`+0x88`), then call the appropriate
+   quad-emitter to append its triangles to `g_spriteVertexBuffer`.
+4. `SetTexture(0, entry->tex)` — `entry+0x94` points at the D3D texture object
+   whose `+0x110` field is the actual `IDirectDrawSurface7` texture handle.
+5. **Flush**: if `g_spriteVertexCount != 0`, one `DrawPrimitive` and reset the
+   count — so **each layer is its own draw call**, which is why the layer order
+   below is also the back-to-front paint order.
+
+The three device methods used are all raw vtable calls on `g_pD3DDevice7`, and
+their offsets are now pinned from the recovered argument lists:
+
+| Offset | `IDirect3DDevice7` method | Call shape in this function |
+|---|---|---|
+| `+0x50` | `SetRenderState` | `(dev, state, value)` — used only for blend setup |
+| `+0x8c` | `SetTexture` | `(dev, 0, texHandle)` |
+| `+0x64` | `DrawPrimitive` | `(dev, 4 /*TRIANGLELIST*/, 0x244 /*FVF*/, &g_spriteVertexBuffer, g_spriteVertexCount*3, 1)` |
+
+**Blend-state cache (`g_currentBlendMode`, mirrored by `_DAT_00792194`).** Rather than
+re-issue `SetRenderState` every layer, the function caches the current blend mode
+and only reprograms it on a change:
+- `1` = **normal alpha**: `SRCBLEND(0x13)=SRCALPHA(5)`, `DESTBLEND(0x14)=INVSRCALPHA(6)`.
+- `2` = **additive glow**: `SRCBLEND=SRCALPHA`, `DESTBLEND=ONE(2)`.
+
+Glow-style effects (the Jewel second pass, `SpecialTexture2`, etc.) flip to mode
+`2`; everything else runs in mode `1`. (`g_currentBlendMode` was `DAT_00793614`.)
+
+**Confirmed layer order** (each is a texture-lookup + cull + emit + flush phase):
+background atlas (8-slot 3-column grid, per-player culled) → several
+mobile/marker layers (the inner loop special-cases indices `0/4/6/7`) →
+**animated flame** (`FlameTexture%d` via `sprintf`, plus `FlameTexture2/3/4`
+as separate layers) → **`RayonTexture1/2`** (beam/ray effects, drawn with
+`BuildRotatedSpriteQuad`) → **`JewelTexture`** — *only when the game mode word
+equals 3*, which independently **confirms game mode 3 = Jewel** — drawn twice
+(an alpha pass then an additive-glow pass with a V-offset) over 8 jewel slots →
+**`SpecialTexture1/2`** (a single special object at `ctx+0x22d28`, alpha then
+additive) → the **main mobile block** (`&DAT_00554060` texture) described next.
+
+**World→screen and culling.** Every object's world position has the camera
+scroll subtracted (`worldX - camX`, `camX` at `DAT_006a7710`; `worldY - camY`
+at `DAT_006a7714`) and is then biased by `+400` / `+0x12a` (half of the 800×600
+back buffer). Culling compares against the clip rect `DAT_00793530` (left) /
+`DAT_0056df30` (right) / `DAT_00793534` (top) / `DAT_0056df34` (bottom).
+
+**The anti-cheat value guard** (the tail block, `ctx+0x621e0` = the active
+mobile) is why ~110 of the calls in this function are `PeekPacketChecksumState`
+wrapped in `EnterCriticalSection(&DAT_005a9068)`. Gameplay-critical values are
+**not stored in the clear**: each is a `(a, b, check)` byte triple where a valid
+value satisfies `check == (a + b - 0x34) & 0xff`, and the decoded bit/value is
+recovered as `(b >> (a & 7)) & 1`. A failed checksum sets the tamper flag
+`g_valueGuardTamperFlag = 1` (was `DAT_00793514`; set across the whole value-guard
+subsystem — `PeekPacketChecksumState`, `EncodeOutgoingPacketField`, the
+`FUN_00406xxx` cluster). Immediately after each read, the
+backing store (`DAT_0079376c`) is **refilled with `rand()` bytes** — the values
+are re-scrambled every frame so a memory scanner (Cheat Engine et al.) can never
+lock onto a stable address. This is GunBound's well-known in-client value
+obfuscation, and the render path is where it is most densely exercised.
+
+**Frame teardown** (after the last flush): reset the eight per-slot effect
+handles at `ctx+0x1fe6c…` to `-1`, **advance two particle-trail history ring
+buffers** (the two shift-loops copy each trail entry from the previous frame's,
+so trails fade over 15 / 7 frames), clear the per-frame transient active flags
+(player `+0x20b0c`, special `+0x22d24`, jewel `+0x23244`, …), and — if a flag is
+set — draw one **full-screen 800×600 dim overlay** (`FUN_004ed5a0(0,0,799,…,599,…,
+0x80000000)`, i.e. 50%-alpha black) used for fade/pause transitions.
+
+`g_frameTriangleCounter` (was `DAT_0079365c`; incremented by `g_spriteVertexCount`
+before every flush, reset to 0 once per frame in `GameTick`) is a per-frame
+**triangle/vertex counter** — a rendering stat, not gameplay state.
 
 ### `DAT_007935fc` — resolved: the Z-buffer
 

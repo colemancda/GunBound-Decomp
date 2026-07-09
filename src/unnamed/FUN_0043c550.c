@@ -36,7 +36,7 @@ uint FUN_0043c550(undefined4 param_1,undefined4 param_2)
       cVar3 = '\x01' - ((*(byte *)(iVar4 + 0x909) >> (*(byte *)(iVar4 + 0x908) & 7) & 1) != 1);
     }
     else {
-      DAT_00793514 = 1;
+      g_valueGuardTamperFlag = 1;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       cVar3 = '\0';
     }

@@ -52,8 +52,8 @@ void FUN_00450c20(void)
         case 0x2e633:
         case 0x2e634:
         case 0x2e644:
-          if (DAT_00793614 != 2) {
-            DAT_00793614 = 2;
+          if (g_currentBlendMode != 2) {
+            g_currentBlendMode = 2;
             _DAT_00792194 = 2;
             (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
             uVar6 = 2;
@@ -65,8 +65,8 @@ LAB_00450d24:
         case 0x2e631:
         case 0x2e632:
         case 0x2e635:
-          if (DAT_00793614 != 1) {
-            DAT_00793614 = 1;
+          if (g_currentBlendMode != 1) {
+            g_currentBlendMode = 1;
             _DAT_00792194 = 1;
             (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
             uVar6 = 6;
@@ -83,7 +83,7 @@ LAB_00450d24:
         }
         iVar4 = *(int *)(iVar4 + 0x1c);
         if (iVar5 != 0) {
-          DAT_0079365c = DAT_0079365c + iVar5;
+          g_frameTriangleCounter = g_frameTriangleCounter + iVar5;
           (**(code **)(*g_pD3DDevice7 + 100))
                     (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,iVar5 * 3,1);
           iVar5 = 0;

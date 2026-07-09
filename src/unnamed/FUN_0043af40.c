@@ -78,7 +78,7 @@ LAB_0043b008:
         (*pcVar12)(&DAT_005a9068);
         if ((char)((char)piVar11[0x242] + *(char *)((int)piVar11 + 0x909) + -0x34) !=
             *(char *)((int)piVar11 + 0x90a)) {
-          DAT_00793514 = 1;
+          g_valueGuardTamperFlag = 1;
           (*pcVar9)(&DAT_005a9068);
         }
         (*pcVar9)(&DAT_005a9068);

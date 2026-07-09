@@ -39,8 +39,8 @@ void GameTick(void)
   if (g_currentGameState == 0xf) {
     return;
   }
-  if (DAT_00793514 == '\x01') {
-    DAT_00793514 = '\0';
+  if (g_valueGuardTamperFlag == '\x01') {
+    g_valueGuardTamperFlag = '\0';
     ShowErrorDialog(1);
   }
   if ((DAT_00793640 != 0) && (DAT_00793516 == '\0')) {
@@ -121,7 +121,7 @@ void GameTick(void)
   FUN_00422f70(g_clientContext);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9084);
   if (DAT_007934cc == '\0') goto LAB_00413a44;
-  DAT_0079365c = 0;
+  g_frameTriangleCounter = 0;
   if (g_pD3DDevice7 != (int *)0x0) {
     (**(code **)(*g_pD3DDevice7 + 0x28))(g_pD3DDevice7,0,0,3,DAT_00793634,0x3f800000,0);
   }
@@ -211,8 +211,8 @@ LAB_00413791:
     }
     else {
       if (g_stateChangeInProgress == 0) {
-        if (DAT_00793614 != 1) {
-          DAT_00793614 = 1;
+        if (g_currentBlendMode != 1) {
+          g_currentBlendMode = 1;
           _DAT_00792194 = 1;
           (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
           (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
@@ -224,8 +224,8 @@ LAB_00413791:
         goto LAB_00413791;
       }
 LAB_004137a9:
-      if (DAT_00793614 != 1) {
-        DAT_00793614 = 1;
+      if (g_currentBlendMode != 1) {
+        g_currentBlendMode = 1;
         _DAT_00792194 = 1;
         (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
         (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);

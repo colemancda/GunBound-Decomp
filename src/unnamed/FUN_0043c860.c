@@ -270,7 +270,7 @@ code_r0x0043cb21:
          '\x01' - ((*(byte *)(param_2 + 0x8bbb) >> (*(byte *)(param_2 + 0x8bba) & 7) & 1) != 1);
   }
   else {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     SUBFIELD(param_2,0,undefined1) = '\0';
   }
@@ -285,7 +285,7 @@ code_r0x0043cb21:
              '\x01' - ((*(byte *)(iVar6 + 0x8bb8) >> (*(byte *)(iVar6 + 0x8bb7) & 7) & 1) != 1);
       }
       else {
-        DAT_00793514 = 1;
+        g_valueGuardTamperFlag = 1;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         SUBFIELD(param_2,0,undefined1) = '\0';
       }
@@ -337,7 +337,7 @@ code_r0x0043cb21:
         cVar10 = '\x01' - (((byte)(&DAT_006aa626)[iVar6] >> (*pbVar12 & 7) & 1) != 1);
       }
       else {
-        DAT_00793514 = 1;
+        g_valueGuardTamperFlag = 1;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         cVar10 = '\0';
       }
@@ -350,7 +350,7 @@ code_r0x0043cb21:
       cVar10 = '\x01' - (((byte)(&DAT_006aa629)[iVar6] >> (*pbVar12 & 7) & 1) != 1);
     }
     else {
-      DAT_00793514 = 1;
+      g_valueGuardTamperFlag = 1;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       cVar10 = '\0';
     }

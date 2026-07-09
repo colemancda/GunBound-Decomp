@@ -567,7 +567,13 @@ extern uint32_t DAT_00793504;
 extern uint8_t DAT_0079350c;
 extern uint8_t DAT_0079350d;
 extern uint32_t g_cursorDirection;
-extern uint8_t DAT_00793514;
+/* g_valueGuardTamperFlag (was DAT_00793514) - sticky "value tampering
+ * detected" flag for the anti-cheat value guard. Gameplay-critical values are
+ * stored as (a,b,check) triples validated as check==(a+b-0x34)&0xff; any peek/
+ * encode whose checksum fails sets this to 1. Set across the guard subsystem
+ * (PeekPacketChecksumState, EncodeOutgoingPacketField, the FUN_00406xxx
+ * cluster) and read by GameTick. */
+extern uint8_t g_valueGuardTamperFlag;
 extern uint8_t DAT_00793515;
 extern uint8_t DAT_00793516;
 extern uint8_t DAT_00793517;
@@ -601,13 +607,20 @@ extern uint32_t DAT_007935e8;
 extern uint32_t DAT_007935ec;
 extern uint8_t DAT_00793610;
 extern uint8_t DAT_00793611;
-extern uint32_t DAT_00793614;
+/* g_currentBlendMode (was DAT_00793614) - cached D3D7 alpha-blend mode, so the
+ * sprite render paths only re-issue SetRenderState(SRCBLEND/DESTBLEND) on a
+ * change. 1 = normal alpha (SRCALPHA/INVSRCALPHA), 2 = additive glow
+ * (SRCALPHA/ONE); mirrored by _DAT_00792194. */
+extern uint32_t g_currentBlendMode;
 extern uint8_t DAT_00793618;
 #define _DAT_00793618 DAT_00793618
 extern uint32_t DAT_00793634;
 extern uint32_t DAT_00793640;
 extern uint32_t DAT_0079364c;
-extern uint32_t DAT_0079365c;
+/* g_frameTriangleCounter (was DAT_0079365c) - per-frame primitive counter, a
+ * rendering stat. Reset to 0 once per frame in GameTick, then incremented by
+ * g_spriteVertexCount just before every batched DrawPrimitive flush. */
+extern uint32_t g_frameTriangleCounter;
 extern uint32_t DAT_00793660;
 extern uint8_t DAT_00793664;
 extern uint32_t DAT_0079376c;

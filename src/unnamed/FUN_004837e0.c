@@ -134,7 +134,7 @@ LAB_00483b89:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if ((char)(*(char *)(param_1 + 0xf3c) + *(char *)(param_1 + 0xf3d) + -0x34) !=
           *(char *)(param_1 + 0xf3e)) {
-        DAT_00793514 = 1;
+        g_valueGuardTamperFlag = 1;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -146,7 +146,7 @@ LAB_00483b89:
         local_19 = '\x01' - (((byte)(&DAT_006a7f75)[iVar5] >> (*pbVar7 & 7) & 1) != 1);
       }
       else {
-        DAT_00793514 = 1;
+        g_valueGuardTamperFlag = 1;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_19 = '\0';
       }
@@ -203,7 +203,7 @@ LAB_00483e2e:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if ((char)(*(char *)(param_1 + 0xf3c) + *(char *)(param_1 + 0xf3d) + -0x34) !=
           *(char *)(param_1 + 0xf3e)) {
-        DAT_00793514 = 1;
+        g_valueGuardTamperFlag = 1;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -215,7 +215,7 @@ LAB_00483e2e:
         local_19 = '\x01' - (((byte)(&DAT_006a7f75)[iVar5] >> (*pbVar7 & 7) & 1) != 1);
       }
       else {
-        DAT_00793514 = 1;
+        g_valueGuardTamperFlag = 1;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_19 = '\0';
       }

@@ -62,7 +62,7 @@ void FUN_0043bda0(void)
       bVar3 = *(byte *)((int)piVar16 + 0xb0b9);
       bVar17 = (byte)(bVar14 + bVar3 + -0x34) != *(char *)((int)piVar16 + 0xb0ba);
       if (bVar17) {
-        DAT_00793514 = 1;
+        g_valueGuardTamperFlag = 1;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -72,7 +72,7 @@ void FUN_0043bda0(void)
         bVar3 = *(byte *)((int)piVar16 + 0x9cee);
         bVar17 = (byte)(bVar14 + bVar3 + -0x34) != *(char *)((int)piVar16 + 0x9cef);
         if (bVar17) {
-          DAT_00793514 = 1;
+          g_valueGuardTamperFlag = 1;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         }
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -82,7 +82,7 @@ void FUN_0043bda0(void)
           bVar3 = *(byte *)((int)piVar16 + 0x909);
           bVar17 = (byte)(bVar14 + bVar3 + -0x34) == *(char *)((int)piVar16 + 0x90a);
           if (!bVar17) {
-            DAT_00793514 = 1;
+            g_valueGuardTamperFlag = 1;
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -97,7 +97,7 @@ void FUN_0043bda0(void)
               bVar3 = *(byte *)(piVar16 + 0x2ffe);
               bVar17 = (byte)(bVar14 + bVar3 + -0x34) != *(char *)((int)piVar16 + 0xbff9);
               if (bVar17) {
-                DAT_00793514 = 1;
+                g_valueGuardTamperFlag = 1;
                 LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
               }
               LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -141,7 +141,7 @@ LAB_0043c0e0:
                     bVar3 = *(byte *)((int)piVar5 + 0xb0b6);
                     bVar17 = (byte)(bVar14 + bVar3 + -0x34) != *(char *)((int)piVar5 + 0xb0b7);
                     if (bVar17) {
-                      DAT_00793514 = 1;
+                      g_valueGuardTamperFlag = 1;
                       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                     }
                     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

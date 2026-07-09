@@ -506,7 +506,7 @@ LAB_004a87b1:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((char)((char)param_1[0x3cf] + *(char *)((int)param_1 + 0xf3d) + -0x34) !=
         *(char *)((int)param_1 + 0xf3e)) {
-      DAT_00793514 = 1;
+      g_valueGuardTamperFlag = 1;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -564,7 +564,7 @@ LAB_004a87b1:
     bVar5 = *(byte *)(param_1 + 0x3d0);
     bVar18 = (byte)(bVar1 + bVar5 + -0x34) == *(char *)((int)param_1 + 0xf41);
     if (!bVar18) {
-      DAT_00793514 = 1;
+      g_valueGuardTamperFlag = 1;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -576,7 +576,7 @@ LAB_004a87b1:
       bVar5 = local_b10[1];
       bVar18 = (byte)((bVar1 + bVar5) - 0x34) != local_b10[2];
       if (bVar18) {
-        DAT_00793514 = 1;
+        g_valueGuardTamperFlag = 1;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -691,7 +691,7 @@ LAB_004a89b5:
   bVar5 = *(byte *)((int)param_1 + 0x3919);
   bVar18 = (byte)(bVar1 + bVar5 + -0x34) == *(char *)((int)param_1 + 0x391a);
   if (!bVar18) {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -744,7 +744,7 @@ LAB_004a9290:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((char)((char)param_1[0x3cf] + *(char *)((int)param_1 + 0xf3d) + -0x34) !=
         *(char *)((int)param_1 + 0xf3e)) {
-      DAT_00793514 = 1;
+      g_valueGuardTamperFlag = 1;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -803,7 +803,7 @@ LAB_004a9af3:
                           != 1);
   }
   else {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     cStack_b15 = '\0';
   }
@@ -846,7 +846,7 @@ LAB_004a9cb9:
                              1) != 1);
     }
     else {
-      DAT_00793514 = 1;
+      g_valueGuardTamperFlag = 1;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       cStack_b15 = '\0';
     }
@@ -951,7 +951,7 @@ LAB_004a9552:
   bVar5 = local_b10[5];
   bVar18 = (byte)((bVar1 + bVar5) - 0x34) != local_b10[6];
   if (bVar18) {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -974,7 +974,7 @@ LAB_004a9552:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((char)((char)param_1[0x3cf] + *(char *)((int)param_1 + 0xf3d) + -0x34) !=
         *(char *)((int)param_1 + 0xf3e)) {
-      DAT_00793514 = 1;
+      g_valueGuardTamperFlag = 1;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -1088,7 +1088,7 @@ LAB_004a9a04:
     cStack_b15 = '\x01' - ((local_b10[5] >> (local_b10[4] & 7) & 1) != 1);
   }
   else {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     cStack_b15 = '\0';
   }

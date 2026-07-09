@@ -21,7 +21,7 @@ undefined4 FUN_00406610(int param_1)
     }
   }
   else {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

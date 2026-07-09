@@ -545,7 +545,7 @@ never read and their meaning is unknown.
 
 | Bits | Field | Values |
 |---|---|---|
-| 16-17 | **game mode** | `0`-`3` (inferred: Solo / Team-Score / Jewel / Tag — one of GunBound's four modes; exact value→name mapping not confirmed from the binary) |
+| 16-17 | **game mode** | `0`-`3`, one of GunBound's four modes (Solo / Score / Tag / Jewel). **Value `3` = Jewel is confirmed**: `State11_InBattle_Render` reads the checksum-guarded mode value via `PeekPacketChecksumState` and draws the `JewelTexture` layer only when it equals `3` (this is the in-battle mode field; the room-list bits almost certainly share the same enum). Values `0`/`1`/`2` (among Solo/Score/Tag) are not yet individually mapped |
 | 18-19 | **fullness level** | `0`-`3`, drives the population-gauge sprite on the card |
 | 0-15, 20-31 | (not read by this client) | unknown |
 

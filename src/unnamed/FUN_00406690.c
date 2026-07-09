@@ -17,7 +17,7 @@ undefined4 FUN_00406690(int param_1)
     if ((in_EAX[1] >> (*in_EAX & 7) & 1) == 1) goto LAB_004066f7;
   }
   else {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   if (param_1 == '\0') {

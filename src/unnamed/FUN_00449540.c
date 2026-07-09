@@ -89,7 +89,7 @@ LAB_004495fa:
   bVar3 = *(byte *)(iVar11 + 0x3b499);
   bVar19 = (byte)(bVar2 + bVar3 + -0x34) == *(char *)(iVar11 + 0x3b49a);
   if (!bVar19) {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -141,7 +141,7 @@ LAB_004495fa:
   bVar3 = *(byte *)(iVar11 + 0x3b499);
   bVar19 = (byte)(bVar2 + bVar3 + -0x34) != *(char *)(iVar11 + 0x3b49a);
   if (bVar19) {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

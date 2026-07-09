@@ -87,7 +87,7 @@ void FUN_00413bf0(void)
     iVar10 = iVar10 + 0x224;
   } while (iVar10 < 0x1120);
   FUN_004d25e0();
-  if (DAT_00793514 == '\0') {
+  if (g_valueGuardTamperFlag == '\0') {
     FUN_004d2680();
   }
   iVar8 = g_clientContext;

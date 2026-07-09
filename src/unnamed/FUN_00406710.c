@@ -20,7 +20,7 @@ undefined4 FUN_00406710(void)
     cVar2 = '\x01' - ((in_EAX[1] >> (*in_EAX & 7) & 1) != 1);
   }
   else {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     cVar2 = '\0';
   }
@@ -28,7 +28,7 @@ undefined4 FUN_00406710(void)
     cVar1 = '\x01' - ((unaff_EDI[1] >> (*unaff_EDI & 7) & 1) != 1);
   }
   else {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     cVar1 = '\0';
   }

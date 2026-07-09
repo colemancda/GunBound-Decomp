@@ -47,7 +47,7 @@ void EncodeOutgoingPacketField(uint param_1)
      * result. */
     FUN_0040b8c0();
     if ((int *)*puVar3 != DAT_00793774) {
-      DAT_00793514 = 1;
+      g_valueGuardTamperFlag = 1;
     }
   }
   puVar5 = (uint *)(iVar4 * 0x10 + DAT_0079376c);

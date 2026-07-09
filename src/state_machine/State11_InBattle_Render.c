@@ -101,8 +101,8 @@ void State11_InBattle_Render(void)
   }
   DAT_00793611 = 1;
   if (*(int *)(&DAT_005f3768 + g_clientContext) != 0) {
-    if (DAT_00793614 != 1) {
-      DAT_00793614 = 1;
+    if (g_currentBlendMode != 1) {
+      g_currentBlendMode = 1;
       _DAT_00792194 = 1;
       (**(code **)(*g_pD3DDevice7 + 0x50))();
       (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -112,8 +112,8 @@ void State11_InBattle_Render(void)
   }
   iVar6 = g_clientContext;
   iVar5 = FindTextureCacheEntryByName();
-  if (DAT_00793614 != 1) {
-    DAT_00793614 = 1;
+  if (g_currentBlendMode != 1) {
+    g_currentBlendMode = 1;
     _DAT_00792194 = 1;
     (**(code **)(*g_pD3DDevice7 + 0x50))();
     (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -144,13 +144,13 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))();
     g_spriteVertexCount = 0;
   }
   iVar6 = FindTextureCacheEntryByName();
-  if (DAT_00793614 != 1) {
-    DAT_00793614 = 1;
+  if (g_currentBlendMode != 1) {
+    g_currentBlendMode = 1;
     _DAT_00792194 = 1;
     (**(code **)(*g_pD3DDevice7 + 0x50))();
     (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -203,7 +203,7 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))();
     g_spriteVertexCount = 0;
   }
@@ -256,13 +256,13 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))();
     g_spriteVertexCount = 0;
   }
   iVar6 = FindTextureCacheEntryByName();
-  if (DAT_00793614 != 1) {
-    DAT_00793614 = 1;
+  if (g_currentBlendMode != 1) {
+    g_currentBlendMode = 1;
     _DAT_00792194 = 1;
     (**(code **)(*g_pD3DDevice7 + 0x50))();
     (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -309,7 +309,7 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))();
     g_spriteVertexCount = 0;
   }
@@ -356,13 +356,13 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))();
     g_spriteVertexCount = 0;
   }
   iVar6 = FindTextureCacheEntryByName();
-  if (DAT_00793614 != 2) {
-    DAT_00793614 = 2;
+  if (g_currentBlendMode != 2) {
+    g_currentBlendMode = 2;
     _DAT_00792194 = 2;
     (**(code **)(*g_pD3DDevice7 + 0x50))();
     (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -420,7 +420,7 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))();
     g_spriteVertexCount = 0;
   }
@@ -478,13 +478,13 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))();
     g_spriteVertexCount = 0;
   }
   iVar6 = FindTextureCacheEntryByName();
-  if (DAT_00793614 != 2) {
-    DAT_00793614 = 2;
+  if (g_currentBlendMode != 2) {
+    g_currentBlendMode = 2;
     _DAT_00792194 = 2;
     (**(code **)(*g_pD3DDevice7 + 0x50))();
     (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -521,7 +521,7 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))();
     g_spriteVertexCount = 0;
   }
@@ -558,13 +558,13 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))();
     g_spriteVertexCount = 0;
   }
   iVar6 = FindTextureCacheEntryByName();
-  if (DAT_00793614 != 2) {
-    DAT_00793614 = 2;
+  if (g_currentBlendMode != 2) {
+    g_currentBlendMode = 2;
     _DAT_00792194 = 2;
     (**(code **)(*g_pD3DDevice7 + 0x50))();
     (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -588,7 +588,7 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))();
     g_spriteVertexCount = 0;
   }
@@ -599,13 +599,13 @@ void State11_InBattle_Render(void)
   bVar2 = *(byte *)(iVar6 + 0x22d31);
   bVar17 = (byte)(bVar1 + bVar2 + -0x34) != *(char *)(iVar6 + 0x22d32);
   if (bVar17) {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((bVar17 || (bVar2 >> (bVar1 & 7) & 1) != 1) &&
-     (iStack_9a8 = FindTextureCacheEntryByName(), DAT_00793614 != 1)) {
-    DAT_00793614 = 1;
+     (iStack_9a8 = FindTextureCacheEntryByName(), g_currentBlendMode != 1)) {
+    g_currentBlendMode = 1;
     _DAT_00792194 = 1;
     (**(code **)(*g_pD3DDevice7 + 0x50))();
     (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -621,7 +621,7 @@ void State11_InBattle_Render(void)
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if ((char)(*(char *)(iVar6 + 0x22d30) + *(char *)(iVar6 + 0x22d31) + -0x34) !=
             *(char *)(iVar6 + 0x22d32)) {
-          DAT_00793514 = 1;
+          g_valueGuardTamperFlag = 1;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         }
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -646,7 +646,7 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))();
     g_spriteVertexCount = 0;
   }
@@ -655,8 +655,8 @@ void State11_InBattle_Render(void)
     iVar6 = *(int *)(g_clientContext + 0x2324c) - *(int *)(&DAT_006a7714 + g_clientContext);
     if ((((DAT_00793530 <= iVar5 + 0x210) && (iVar5 + 0x110 <= DAT_0056df30)) &&
         (DAT_00793534 <= iVar6 + 0x1aa)) && (iVar6 + 0xaa <= DAT_0056df34)) {
-      if (DAT_00793614 != 1) {
-        DAT_00793614 = 1;
+      if (g_currentBlendMode != 1) {
+        g_currentBlendMode = 1;
         _DAT_00792194 = 1;
         (**(code **)(*g_pD3DDevice7 + 0x50))();
         (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -669,13 +669,13 @@ void State11_InBattle_Render(void)
         BuildSizedSpriteQuad();
         (**(code **)(*g_pD3DDevice7 + 0x8c))();
         if (g_spriteVertexCount != 0) {
-          DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+          g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
           (**(code **)(*g_pD3DDevice7 + 100))();
           g_spriteVertexCount = 0;
         }
       }
-      if (DAT_00793614 != 2) {
-        DAT_00793614 = 2;
+      if (g_currentBlendMode != 2) {
+        g_currentBlendMode = 2;
         _DAT_00792194 = 2;
         (**(code **)(*g_pD3DDevice7 + 0x50))();
         (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -688,15 +688,15 @@ void State11_InBattle_Render(void)
         BuildSizedSpriteQuad();
         (**(code **)(*g_pD3DDevice7 + 0x8c))();
         if (g_spriteVertexCount != 0) {
-          DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+          g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
           (**(code **)(*g_pD3DDevice7 + 100))();
           g_spriteVertexCount = 0;
         }
       }
     }
   }
-  if (DAT_00793614 != 1) {
-    DAT_00793614 = 1;
+  if (g_currentBlendMode != 1) {
+    g_currentBlendMode = 1;
     _DAT_00792194 = 1;
     (**(code **)(*g_pD3DDevice7 + 0x50))();
     (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -738,14 +738,14 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     pcStack_a04 = (char *)0x4c4f4b;
     (**(code **)(*g_pD3DDevice7 + 100))();
     g_spriteVertexCount = 0;
   }
   iVar6 = FindTextureCacheEntryByName();
-  if (DAT_00793614 != 2) {
-    DAT_00793614 = 2;
+  if (g_currentBlendMode != 2) {
+    g_currentBlendMode = 2;
     _DAT_00792194 = 2;
     (**(code **)(*g_pD3DDevice7 + 0x50))();
     pcStack_a04 = (char *)0x4c4fa1;
@@ -786,7 +786,7 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))();
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     pcStack_a04 = (char *)0x244;
     uStack_a08 = 4;
     piStack_a0c = g_pD3DDevice7;
@@ -795,8 +795,8 @@ void State11_InBattle_Render(void)
     g_spriteVertexCount = 0;
   }
   FUN_00450c20();
-  if (DAT_00793614 != 0) {
-    DAT_00793614 = 0;
+  if (g_currentBlendMode != 0) {
+    g_currentBlendMode = 0;
     _DAT_00792194 = 0;
     pcStack_a04 = (char *)0x4c51dc;
     (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -834,7 +834,7 @@ void State11_InBattle_Render(void)
           (**(code **)(*g_pD3DDevice7 + 0x8c))();
           iVar6 = g_clientContext;
           if (g_spriteVertexCount != 0) {
-            DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+            g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
             pcStack_a04 = (char *)0x244;
             uStack_a08 = 4;
             piStack_a0c = g_pD3DDevice7;
@@ -883,7 +883,7 @@ void State11_InBattle_Render(void)
   }
   if (g_spriteVertexCount != 0) {
     pcStack_a04 = (char *)0x1;
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     uStack_a08 = g_spriteVertexCount * 3;
     piStack_a0c = &g_spriteVertexBuffer;
     pcStack_a10 = (char *)0x244;
@@ -934,7 +934,7 @@ void State11_InBattle_Render(void)
   }
   if (g_spriteVertexCount != 0) {
     pcStack_a10 = (char *)0x1;
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     uStack_a14 = g_spriteVertexCount * 3;
     piStack_a18 = &g_spriteVertexBuffer;
     pcStack_a1c = (char *)0x244;
@@ -985,7 +985,7 @@ void State11_InBattle_Render(void)
   }
   if (g_spriteVertexCount != 0) {
     pcStack_a1c = (char *)0x1;
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     uStack_a20 = (int *)(g_spriteVertexCount * 3);
     piStack_a24 = &g_spriteVertexBuffer;
     pcStack_a28 = (char *)0x244;
@@ -1037,7 +1037,7 @@ void State11_InBattle_Render(void)
   }
   if (g_spriteVertexCount != 0) {
     pcStack_a28 = (char *)0x1;
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     piStack_a2c = (int *)(g_spriteVertexCount * 3);
     piStack_a30 = &g_spriteVertexBuffer;
     pcStack_a34 = (char *)0x244;
@@ -1045,11 +1045,11 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 100))(g_pD3DDevice7);
     g_spriteVertexCount = 0;
   }
-  if (DAT_00793614 != 1) {
+  if (g_currentBlendMode != 1) {
     pcStack_a28 = (char *)0x5;
     piStack_a2c = (int *)0x13;
     piStack_a30 = g_pD3DDevice7;
-    DAT_00793614 = 1;
+    g_currentBlendMode = 1;
     _DAT_00792194 = 1;
     pcStack_a34 = (char *)0x4c5a0c;
     (**(code **)(*g_pD3DDevice7 + 0x50))();
@@ -1111,15 +1111,15 @@ void State11_InBattle_Render(void)
   }
   if (g_spriteVertexCount != 0) {
     pcStack_a34 = (char *)0x1;
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     uStack_a38 = g_spriteVertexCount * 3;
     (**(code **)(*g_pD3DDevice7 + 100))(g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer);
     g_spriteVertexCount = 0;
   }
-  if (DAT_00793614 != 2) {
+  if (g_currentBlendMode != 2) {
     pcStack_a34 = (char *)0x5;
     uStack_a38 = 0x13;
-    DAT_00793614 = 2;
+    g_currentBlendMode = 2;
     _DAT_00792194 = 2;
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7);
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,2);
@@ -1169,7 +1169,7 @@ void State11_InBattle_Render(void)
     (**(code **)(*g_pD3DDevice7 + 0x8c))(g_pD3DDevice7);
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;
@@ -1178,8 +1178,8 @@ void State11_InBattle_Render(void)
   iVar6 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar6 == 3) {
-    if (DAT_00793614 != 1) {
-      DAT_00793614 = 1;
+    if (g_currentBlendMode != 1) {
+      g_currentBlendMode = 1;
       _DAT_00792194 = 1;
       (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
       (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
@@ -1214,13 +1214,13 @@ void State11_InBattle_Render(void)
                 (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar6 + 0x94) + 0x110));
     }
     if (g_spriteVertexCount != 0) {
-      DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+      g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
       (**(code **)(*g_pD3DDevice7 + 100))
                 (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
       g_spriteVertexCount = 0;
     }
-    if (DAT_00793614 != 2) {
-      DAT_00793614 = 2;
+    if (g_currentBlendMode != 2) {
+      g_currentBlendMode = 2;
       _DAT_00792194 = 2;
       (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
       (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,2);
@@ -1254,14 +1254,14 @@ void State11_InBattle_Render(void)
                 (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar6 + 0x94) + 0x110));
     }
     if (g_spriteVertexCount != 0) {
-      DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+      g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
       (**(code **)(*g_pD3DDevice7 + 100))
                 (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
       g_spriteVertexCount = 0;
     }
   }
-  if (DAT_00793614 != 1) {
-    DAT_00793614 = 1;
+  if (g_currentBlendMode != 1) {
+    g_currentBlendMode = 1;
     _DAT_00792194 = 1;
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
@@ -1286,13 +1286,13 @@ void State11_InBattle_Render(void)
               (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar6 + 0x94) + 0x110));
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;
   }
-  if (DAT_00793614 != 2) {
-    DAT_00793614 = 2;
+  if (g_currentBlendMode != 2) {
+    g_currentBlendMode = 2;
     _DAT_00792194 = 2;
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,2);
@@ -1317,15 +1317,15 @@ void State11_InBattle_Render(void)
               (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar6 + 0x94) + 0x110));
   }
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;
   }
   iVar6 = FindTextureCacheEntryByName(&DAT_00554060);
   piStack_a2c = (int *)iVar6;
-  if (DAT_00793614 != 1) {
-    DAT_00793614 = 1;
+  if (g_currentBlendMode != 1) {
+    g_currentBlendMode = 1;
     _DAT_00792194 = 1;
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
     (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
@@ -1342,7 +1342,7 @@ void State11_InBattle_Render(void)
     bVar2 = *(byte *)(iVar6 + 0x8bbe);
     bVar17 = (byte)(bVar1 + bVar2 + -0x34) == *(char *)(iVar6 + 0x8bbf);
     if (!bVar17) {
-      DAT_00793514 = 1;
+      g_valueGuardTamperFlag = 1;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -1354,7 +1354,7 @@ void State11_InBattle_Render(void)
       bVar2 = *(byte *)(iVar6 + 0xbff8);
       bVar17 = (byte)(bVar1 + bVar2 + -0x34) == *(char *)(iVar6 + 0xbff9);
       if (!bVar17) {
-        DAT_00793514 = 1;
+        g_valueGuardTamperFlag = 1;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       bVar18 = (bVar2 >> (bVar1 & 7) & 1) == 1;
@@ -1445,7 +1445,7 @@ void State11_InBattle_Render(void)
         bVar2 = *(byte *)(iVar6 + 0x8bbb);
         bVar17 = (byte)(bVar1 + bVar2 + -0x34) != *(char *)(iVar6 + 0x8bbc);
         if (bVar17) {
-          DAT_00793514 = 1;
+          g_valueGuardTamperFlag = 1;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         }
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -1456,7 +1456,7 @@ void State11_InBattle_Render(void)
           bVar2 = *(byte *)(iVar6 + 0x8bb8);
           bVar17 = (byte)(bVar1 + bVar2 + -0x34) != *(char *)(iVar6 + 0x8bb9);
           if (bVar17) {
-            DAT_00793514 = 1;
+            g_valueGuardTamperFlag = 1;
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -1625,7 +1625,7 @@ LAB_004c6f6d:
           bVar2 = *(byte *)(iVar5 + 0x8bbb);
           bVar17 = (byte)(bVar1 + bVar2 + -0x34) != *(char *)(iVar5 + 0x8bbc);
           if (bVar17) {
-            DAT_00793514 = 1;
+            g_valueGuardTamperFlag = 1;
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -1636,7 +1636,7 @@ LAB_004c6f6d:
             bVar2 = *(byte *)(iVar5 + 0x8bb8);
             bVar17 = (byte)(bVar1 + bVar2 + -0x34) != *(char *)(iVar5 + 0x8bb9);
             if (bVar17) {
-              DAT_00793514 = 1;
+              g_valueGuardTamperFlag = 1;
               LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             }
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -2164,7 +2164,7 @@ LAB_004c8498:
             (g_pD3DDevice7,0,*(undefined4 *)(*(int *)((int)piStack_a2c + 0x94) + 0x110));
 LAB_004c865b:
   if (g_spriteVertexCount != 0) {
-    DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
+    g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (**(code **)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;

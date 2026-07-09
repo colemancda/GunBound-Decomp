@@ -31,7 +31,7 @@ uint PeekPacketChecksumState(void)
      * result. */
     FUN_0040b8c0();
     if (*piVar2 != DAT_00793774) {
-      DAT_00793514 = 1;
+      g_valueGuardTamperFlag = 1;
     }
   }
   iVar3 = 0;
@@ -46,7 +46,7 @@ uint PeekPacketChecksumState(void)
       return local_10[0];
     }
   }
-  DAT_00793514 = 1;
+  g_valueGuardTamperFlag = 1;
   return 0;
 }
 

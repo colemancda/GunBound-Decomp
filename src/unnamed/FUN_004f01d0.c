@@ -15,9 +15,9 @@ void FUN_004f01d0(void)
 {
   int in_EAX;
   
-  if (DAT_00793614 != in_EAX) {
+  if (g_currentBlendMode != in_EAX) {
     _DAT_00792194 = in_EAX;
-    DAT_00793614 = in_EAX;
+    g_currentBlendMode = in_EAX;
     if ((in_EAX == 0) || (in_EAX == 1)) {
       (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
       (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);

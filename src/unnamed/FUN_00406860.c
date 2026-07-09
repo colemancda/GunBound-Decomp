@@ -19,7 +19,7 @@ bool FUN_00406860(void)
   bVar1 = *in_EAX;
   bVar2 = in_EAX[1];
   if ((byte)((bVar1 + bVar2) - 0x34) != in_EAX[2]) {
-    DAT_00793514 = 1;
+    g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     return true;
