@@ -1,13 +1,13 @@
-/* FUN_005052e0 - 0x005052e0 in the original binary.
+/* Label_OnMouseDown - 0x005052e0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Label/button widget mouse-down (vtable slot 3): on a hit, fires the parent's OnCommand(0, id, 0) - the click event that reaches each screen's command dispatcher. See docs/widgets.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_005052e0(int *param_1,int param_2,int param_3)
+undefined4 __thiscall Label_OnMouseDown(int *param_1,int param_2,int param_3)
 
 {
   char cVar1;

@@ -1523,7 +1523,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00504e90,804,FUN_00504e90,false,2,5,RAW-src
 005051e0,193,FUN_005051e0,false,3,5,RAW-src
 005052b0,46,FUN_005052b0,false,1,0,RAW-src
-005052e0,152,FUN_005052e0,false,1,1,RAW-src
+005052e0,152,Label_OnMouseDown,false,1,1,RAW-src
 00505430,128,FUN_00505430,false,17,2,RAW-src
 005054b0,107,FUN_005054b0,false,19,4,RAW-src
 00505520,87,FUN_00505520,false,10,3,RAW-src

@@ -1492,7 +1492,7 @@ uint __fastcall FUN_00504d80();
 uint FUN_00504e90();
 void __fastcall FUN_005051e0();
 undefined1 __fastcall FUN_005052b0();
-undefined4 __thiscall FUN_005052e0();
+undefined4 __thiscall Label_OnMouseDown();
 char __thiscall FUN_00505430();
 void __fastcall FUN_005054b0();
 void FUN_00505520();
