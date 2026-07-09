@@ -1,13 +1,13 @@
-/* FUN_0050ea50 - 0x0050ea50 in the original binary.
+/* Widget_DispatchKeyToChildren - 0x0050ea50 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Base widget keyboard-input broadcast (vtable slot 5): forwards the event to each child's slot 5. See docs/widgets.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined1 __thiscall FUN_0050ea50(int param_1,undefined4 param_2)
+undefined1 __thiscall Widget_DispatchKeyToChildren(int param_1,undefined4 param_2)
 
 {
   char cVar1;

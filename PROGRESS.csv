@@ -1638,7 +1638,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050e8e0,99,FUN_0050e8e0,false,7,1,RAW-src
 0050e950,99,FUN_0050e950,false,7,1,RAW-src
 0050e9c0,131,Widget_HitTest,false,20,1,RAW-src
-0050ea50,92,FUN_0050ea50,false,24,1,RAW-src
+0050ea50,92,Widget_DispatchKeyToChildren,false,24,1,RAW-src
 0050eab0,85,FUN_0050eab0,false,24,1,RAW-src
 0050eb10,465,FUN_0050eb10,false,46,2,RAW-src
 0050ecf0,56,FUN_0050ecf0,false,8,1,RAW-src
