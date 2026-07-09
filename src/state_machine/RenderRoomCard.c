@@ -1,14 +1,13 @@
-/* FUN_0042a220 - 0x0042a220 in the original binary.
+/* RenderRoomCard - 0x0042a220 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Draws one room card in the lobby's 2x3 grid: background (3-state by selection), flag/mode/status/lock icons, room number, and population gauge. Full offset/sprite tables in docs/screens/03_game_room_list.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_0042a220(int param_1,int param_2)
+void __thiscall RenderRoomCard(int param_1,int param_2)
 
 {
   byte bVar1;

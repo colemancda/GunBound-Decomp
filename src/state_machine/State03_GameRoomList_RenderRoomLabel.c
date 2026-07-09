@@ -96,7 +96,7 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
   iVar3 = 0x4464c;
   do {
     if ((*(int *)(iVar3 + g_clientContext) != 0) && (iVar4 != *(int *)(param_1 + 0x124))) {
-      FUN_0042a220(iVar4);
+      RenderRoomCard(iVar4);
     }
     iVar3 = iVar3 + 4;
     iVar4 = iVar4 + 1;
