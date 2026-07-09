@@ -216,11 +216,19 @@ public:
      * is deferred pending a CString reconstruction; see there). */
     CPanel();
 
-    u8    m_unk38;           /* +0x38: builders override (WorldList sets 1) */
-    u8    m_unk39;           /* +0x39: base drag flag slot; ctor clears */
+    virtual bool OnMouseDown(int x, int y);  /* 0x505430 - promoted, Panel.cpp: the panel default
+                                              * (press core + auto-focus the first edit box) */
+
+    bool HandlePress(int x, int y);          /* 0x50e420 - promoted, Panel.cpp: the press core
+                                              * (pressed-state, child broadcast, drag arming) */
+
+    u8    m_pinned;          /* +0x38: blocks drag-arming in HandlePress - the list
+                              * panels set it, the movable dialogs (buddy,
+                              * enter-room-number) leave it clear */
+    u8    m_dragging;        /* +0x39: armed by HandlePress on a chrome grab */
     u8    m_unk3a[2];        /* +0x3a */
-    int   m_unk3c;           /* +0x3c */
-    int   m_unk40;           /* +0x40 */
+    int   m_lastPressX;      /* +0x3c: last press point (drag reference) */
+    int   m_lastPressY;      /* +0x40 */
     int   m_unk44;           /* +0x44 */
     int   m_unk48;           /* +0x48 */
     int   m_unk4c;           /* +0x4c */
@@ -318,7 +326,7 @@ public:
  * that brings the existing dialog to front. */
 class CCreateRoomDialog : public CPanel {      /* vtable 0x557c34; builder 0x508190 */
 public:
-    CCreateRoomDialog() { m_unk38 = 1; }
+    CCreateRoomDialog() { m_pinned = 1; }
     int m_unk90;                               /* +0x90: never initialized by the builder */
     int m_unk94;                               /* +0x94: builder's 2nd argument */
     int m_unk98;                               /* +0x98: builder's 3rd argument */

@@ -3,6 +3,7 @@
  * 0x505760) and src/ui_widget/BuildWorldListPanel.c (0x5099d0).
  * See src/cxx/README.md. */
 #include "Widget.h"
+#include "GameState.h"
 
 extern "C" {
 /* g_uiPanelManager's list-insert (0x50eea0): allocates a link node and
@@ -54,8 +55,8 @@ CEditBox * __stdcall CreateTextEntryWidget(int id, int x, int y, int w, int h, i
 CPanel::CPanel()
 {
     m_typeId = 0;
-    m_unk39 = 0;
-    m_unk38 = 0;
+    m_dragging = 0;
+    m_pinned = 0;
     m_unk05[0] = 1;
     for (int i = 0; i < 16; ++i) {
         m_strings[i] = 0;
@@ -66,14 +67,14 @@ CPanel::CPanel()
 CWorldListPanel::CWorldListPanel()
 {
     m_unk90 = -1;
-    m_unk38 = 1;
+    m_pinned = 1;
     m_unk05[0] = 0;
 }
 
 /* Construction state from the 0x509d80 builder's guarded section. */
 CChannelUserListPanel::CChannelUserListPanel()
 {
-    m_unk38 = 1;
+    m_pinned = 1;
     m_unk05[0] = 0;
 }
 
@@ -103,7 +104,7 @@ CChannelUserListPanel * BuildChannelUserListPanel(int total)
  * one starts HIDDEN (+0x1e) and front-inserted (+0x05 stays 1). */
 CReadyRoomChatPanel::CReadyRoomChatPanel()
 {
-    m_unk38 = 1;
+    m_pinned = 1;
     m_unk05[0] = 1;
     m_hidden = 1;
 }
@@ -131,7 +132,7 @@ CReadyRoomChatPanel * BuildReadyRoomChatPanel(int total)
 /* Construction state from the 0x509af0 builder's guarded section. */
 CLobbyChatPanel::CLobbyChatPanel()
 {
-    m_unk38 = 1;
+    m_pinned = 1;
     m_unk05[0] = 0;
     m_unk90 = -1;
 }
@@ -179,7 +180,7 @@ CLobbyChatPanel * BuildLobbyChatPanel(int selectedTab)
 /* Construction state from the 0x509e60 builder's guarded section. */
 CAvatarStorePanel::CAvatarStorePanel()
 {
-    m_unk38 = 1;
+    m_pinned = 1;
     m_unk05[0] = 0;
     m_unk94 = -1;
     m_unk90 = 0;
@@ -408,6 +409,61 @@ void __fastcall BuildEnterRoomNumberDialog(int arg)
     PanelManager_Register(p);
 }
 
+/* 0x50e420 - the panel press core (bound as the panel-family slot-2
+ * default). Pressed-state (+0x04) follows the rect test; children get
+ * the mouse-down broadcast; a miss on both drops focus (a real virtual
+ * SetFocus(0) on ourselves); a chrome grab (inside, no child took it,
+ * not pinned) arms dragging and the press point becomes the drag
+ * reference. */
+bool CPanel::HandlePress(int x, int y)
+{
+    u8 inside = 0;
+    if (!m_hidden &&
+        m_x < x && x < m_x + m_width &&
+        m_y < y && y < m_y + m_height) {
+        inside = 1;
+    }
+    m_focused = inside;
+    bool childTook = MouseDownChildren(x, y);
+    if (m_focused == 0 && !childTook) {
+        SetFocus(false);
+    }
+    if (m_focused == 1 && !childTook && m_pinned == 0) {
+        m_dragging = 1;
+    } else {
+        m_dragging = 0;
+    }
+    m_lastPressX = x;
+    m_lastPressY = y;
+    return m_focused != 0 || childTook;
+}
+
+/* 0x505430 - the CPanel OnMouseDown default: run the press core, and
+ * when the press was consumed, auto-focus the panel's FIRST edit box
+ * unless some edit box already holds focus. */
+bool CPanel::OnMouseDown(int x, int y)
+{
+    bool consumed = HandlePress(x, y);
+    if (consumed) {
+        unsigned int first = 0xffffffff;
+        unsigned int count = (unsigned int)m_children.GetCount();
+        for (unsigned int i = 0; i < count; ++i) {
+            if (m_children[i]->m_typeId == 2) {
+                if (first == 0xffffffff) {
+                    first = i;
+                }
+                if (m_children[i]->m_focused != 0) {
+                    return consumed;
+                }
+            }
+        }
+        if (first != 0xffffffff) {
+            m_children[first]->SetFocus(true);
+        }
+    }
+    return consumed;
+}
+
 /* WorldListRowHitTest - which server row the point lands on. The rows
  * are a 2-column grid inside the panel: cells 223x73 apart starting at
  * (+0x16, +0x2d) panel-relative, each 0xdf x 0x49; a row only counts
@@ -426,6 +482,72 @@ int CWorldListPanel::RowHitTest(int x, int y)
         }
     }
     return -1;
+}
+
+extern "C" {
+extern unsigned int DAT_0056d118;
+extern unsigned int DAT_00e9be94;   /* flat-ButtonWidget registry header */
+extern const char s_active_00551e58[];
+extern const char s_ready_00551e80[];
+void FUN_00406300(int enabled);     /* connect-button enable */
+}
+extern CGameState *g_gameStateVTableArray[16];
+
+/* WorldListPanel_OnMouseDown - the row-selection handler. Runs the
+ * CPanel default first (a DIRECT 0x505430 call in the original, not
+ * virtual); outside the panel that result stands. Inside, resolve the
+ * clicked server row and - while the screen is interactable - store
+ * the highlight into the State02 object, refresh the flat ButtonWidget
+ * registry's connect button ("active" while the local player's record
+ * flag is set, else "ready"; entries keyed <2 in the DAT_00e9be94
+ * bucket, state 3/-1 only), and enable it iff a row is selected. The
+ * registry walk is kept literal until the flat-ButtonWidget system is
+ * reconstructed (PLAN.md Phase 1.6). */
+bool CWorldListPanel::OnMouseDown(int x, int y)
+{
+    bool consumed = CPanel::OnMouseDown(x, y);
+    if (m_hidden ||
+        x <= m_x || m_x + m_width <= x ||
+        y <= m_y || m_y + m_height <= y) {
+        return consumed;
+    }
+    int slot = RowHitTest(x, y);
+    CState02ServerSelect *st = (CState02ServerSelect *)g_gameStateVTableArray[2];
+    if (st->m_uiDirty == 1) {
+        st->m_highlightedSlot = slot;
+        st->m_inputEnabled = (u8)(slot != -1);
+        DAT_0056d118 = 0xffffffff;
+        int *rec;
+        if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0 &&
+            (rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), rec[2] == 0) &&
+            (rec[9] == 3 || rec[9] == -1)) {
+            if ((char)rec[0x13] == 1) {
+                ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(s_active_00551e58);
+            } else {
+                ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(s_ready_00551e80);
+            }
+        }
+        if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
+            rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10);
+            unsigned int k = (unsigned int)rec[2];
+            while (k < 2) {
+                if (k == 1) {
+                    if (rec[9] == 3 || rec[9] == -1) {
+                        if ((char)rec[0x13] == 1) {
+                            ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(s_active_00551e58);
+                        } else {
+                            ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(s_ready_00551e80);
+                        }
+                    }
+                    break;
+                }
+                rec = (int *)rec[4];
+                k = (unsigned int)rec[2];
+            }
+        }
+        FUN_00406300(st->m_highlightedSlot != -1);
+    }
+    return consumed;
 }
 
 /* 0x5099d0 - BuildWorldListPanel (docs/screens/02_server_select.md's
