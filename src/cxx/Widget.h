@@ -40,15 +40,23 @@ public:
     virtual void OnDestroy(bool freeMem);               /* slot 10 +0x28: 0x50e860 */
     virtual bool OnDragMove(int x, int y);              /* slot 11 +0x2c: base drag, FUN_0050e3a0 */
 
+    /* Non-virtual base helpers (real member functions in the binary,
+     * called by subclass handlers): */
+    bool MouseDownCommon(int x, int y);   /* 0x50e2f0: shared mouse-down tail (drag arming) */
+
     /* field offsets confirmed in docs/widgets.md; m_unk* are the
      * undocumented gaps, kept explicit so everything else lands exactly */
-    int      m_unk04;        /* +0x04 */
+    u8       m_unk04;        /* +0x04: read as a byte flag by CEditBox::Draw
+                              * (skip the EDIT-control sync when clear) */
+    u8       m_unk05[3];     /* +0x05 */
     CWidget *m_parent;       /* +0x08: callback target for OnCommand */
     CWidget **m_children;    /* +0x0c: \                                    */
     int      m_childCount;   /* +0x10:  > growable array (grow = 0x50ed30)  */
     int      m_childCap;     /* +0x14: /                                    */
     int      m_unk18;        /* +0x18 */
-    s16      m_unk1c;        /* +0x1c */
+    u8       m_unk1c;        /* +0x1c: byte flag; gates click reporting in
+                              * CLabel::OnMouseDown alongside +0x38 */
+    u8       m_unk1d;        /* +0x1d */
     u8       m_hidden;       /* +0x1e: short-circuits HitTest and Draw */
     u8       m_unk1f;        /* +0x1f */
     int      m_unk20;        /* +0x20 */
@@ -61,12 +69,32 @@ public:
      * +0x3c / +0x40 in classes that enable dragging) */
 };
 
+/* Bounds-checked child accessor. Every raw port shows the child loop
+ * guarded by an inlined `if (i >= count) throw E_INVALIDARG`
+ * (FUN_004010c0, AtlThrow-style noreturn) - the signature of an ATL
+ * CSimpleArray-style checked operator[]. Kept as an inline helper until
+ * that container class is reconstructed; MSVC folds the guard into the
+ * loop entry check exactly like the original object code. */
+extern "C" __declspec(noreturn) void FUN_004010c0(long hr);
+
+inline CWidget *ChildAt(CWidget *w, unsigned int i)
+{
+    if (i >= (unsigned int)w->m_childCount) {
+        FUN_004010c0(0x80070057); /* E_INVALIDARG */
+    }
+    return w->m_children[i];
+}
+
 /* Clickable sprite/text cell - tabs, icons, grid cells (Ready Room
  * character grid, Avatar Store category tabs). On hit, mouse-down fires
  * m_parent->OnCommand(0, m_id, 0). */
 class CLabel : public CWidget {      /* vtable 0x557da0, size 0x40; ctor CreateLabelWidget(id, sprite, x, y, w, h) */
 public:
-    int m_unk38;                     /* +0x38 */
+    virtual bool OnMouseDown(int x, int y);  /* 0x5052e0 - promoted, Label.cpp */
+
+    u8  m_unk38;                     /* +0x38: byte flag; gates click reporting with +0x1c */
+    u8  m_unk39;                     /* +0x39: (base drag flag slot per docs/widgets.md) */
+    u8  m_unk3a[2];                  /* +0x3a */
     int m_spriteId;                  /* +0x3c: sprite/message id; Draw (0x50e350) blits via FindSpriteFrame */
 };
 
@@ -76,6 +104,8 @@ public:
  * name/password, enter-room-by-number, chat input. */
 class CEditBox : public CWidget {    /* vtable 0x557c84, size 0x140; ctor CreateTextEntryWidget(id, msg, x, y, w, maxLen) */
 public:
+    virtual void Draw();             /* 0x507030 TextEntry_SyncFromControl - promoted, EditBox.cpp */
+
     char m_text[0x100];              /* +0x38: synced from the EDIT control */
     u8   m_unk138[8];                /* +0x138 */
 };

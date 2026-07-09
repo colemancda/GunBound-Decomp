@@ -3,24 +3,10 @@
  * 0x50ea50, Widget_DispatchMouseToChildren 0x50eab0, Widget_DrawChildren
  * 0x50e520). See src/cxx/README.md.
  *
- * The child list is accessed through a bounds-checked accessor: every
- * raw port shows the loop guarded by an inlined `if (i >= count) throw
- * E_INVALIDARG` (FUN_004010c0, an AtlThrow-style noreturn helper) - the
- * signature of an ATL CSimpleArray-style checked operator[]. ChildAt()
- * below reproduces that shape (and MSVC folds its guard into the loop
- * entry check exactly like the original object code does).
+ * The child list goes through Widget.h's bounds-checked ChildAt()
+ * accessor - see its comment for the evidence.
  */
 #include "Widget.h"
-
-extern "C" __declspec(noreturn) void FUN_004010c0(long hr); /* AtlThrow-style; callers pass E_INVALIDARG */
-
-static inline CWidget *ChildAt(CWidget *w, unsigned int i)
-{
-    if (i >= (unsigned int)w->m_childCount) {
-        FUN_004010c0(0x80070057); /* E_INVALIDARG */
-    }
-    return w->m_children[i];
-}
 
 /* 0x50e9c0, vtable slot 4. Rect test against (+0x28..+0x34), then
  * broadcast to every child's HitTest - a child hit counts even when the
