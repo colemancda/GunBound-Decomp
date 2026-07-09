@@ -1,7 +1,6 @@
-/* FUN_004ecc70 - 0x004ecc70 in the original binary.
+/* BuildSizedSpriteQuad - 0x004ecc70 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Rotated textured-quad emitter drawn to an explicit width x height (params w,h) with a horizontal-flip flag; rotates the corners via g_sineTable360 and appends two triangles to g_spriteVertexBuffer. See ARCHITECTURE.md rendering section. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
@@ -10,7 +9,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004ecc70(int param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6)
+void BuildSizedSpriteQuad(int param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6)
 
 {
   float fVar1;

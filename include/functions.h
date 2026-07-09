@@ -1183,7 +1183,7 @@ void __thiscall FUN_004ec120();
 void __thiscall FUN_004ec430();
 void __thiscall FUN_004ec610();
 void __fastcall FUN_004ec840();
-void FUN_004ecc70();
+void BuildSizedSpriteQuad();
 void __thiscall FUN_004ecee0();
 void __thiscall FUN_004ed870();
 void __thiscall FUN_004ed9f0();

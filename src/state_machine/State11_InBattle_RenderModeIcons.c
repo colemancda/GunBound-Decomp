@@ -44,7 +44,7 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_004ecc70(400,0x47,0,0x40,0x40,0xffffffff);
+      BuildSizedSpriteQuad(400,0x47,0,0x40,0x40,0xffffffff);
       FlushSpriteBatch();
     }
   }

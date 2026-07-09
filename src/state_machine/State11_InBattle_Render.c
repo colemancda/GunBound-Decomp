@@ -134,7 +134,7 @@ void State11_InBattle_Render(void)
           *(undefined4 *)(iVar5 + 0x88) = 0x3ea80000;
           *(float *)(iVar5 + 0x80) = (float)(uStack_93c % 3) * _DAT_00558064;
           *(float *)(iVar5 + 0x84) = (float)(uStack_93c / 3) * _DAT_00558064;
-          FUN_004ecc70();
+          BuildSizedSpriteQuad();
           iVar6 = g_clientContext;
         }
       }
@@ -191,7 +191,7 @@ void State11_InBattle_Render(void)
               }
             }
             else {
-              FUN_004ecc70();
+              BuildSizedSpriteQuad();
             }
           }
           iStack_938 = iStack_938 + 0x10;
@@ -244,7 +244,7 @@ void State11_InBattle_Render(void)
               }
             }
             else {
-              FUN_004ecc70();
+              BuildSizedSpriteQuad();
             }
           }
           iStack_95c = iStack_95c + 0x10;
@@ -406,7 +406,7 @@ void State11_InBattle_Render(void)
               }
             }
             else {
-              FUN_004ecc70();
+              BuildSizedSpriteQuad();
             }
           }
         }
@@ -464,7 +464,7 @@ void State11_InBattle_Render(void)
               }
             }
             else {
-              FUN_004ecc70();
+              BuildSizedSpriteQuad();
             }
           }
         }
@@ -666,7 +666,7 @@ void State11_InBattle_Render(void)
         *(undefined4 *)(iVar6 + 0x80) = 0;
         *(undefined4 *)(iVar6 + 0x84) = 0;
         *(undefined4 *)(iVar6 + 0x88) = 0x3f800000;
-        FUN_004ecc70();
+        BuildSizedSpriteQuad();
         (**(code **)(*g_pD3DDevice7 + 0x8c))();
         if (g_spriteVertexCount != 0) {
           DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
@@ -685,7 +685,7 @@ void State11_InBattle_Render(void)
         *(undefined4 *)(iVar6 + 0x80) = 0;
         *(undefined4 *)(iVar6 + 0x84) = 0;
         *(undefined4 *)(iVar6 + 0x88) = 0x3f800000;
-        FUN_004ecc70();
+        BuildSizedSpriteQuad();
         (**(code **)(*g_pD3DDevice7 + 0x8c))();
         if (g_spriteVertexCount != 0) {
           DAT_0079365c = DAT_0079365c + g_spriteVertexCount;
@@ -829,7 +829,7 @@ void State11_InBattle_Render(void)
           pcStack_a10 = (char *)0x4c52f4;
           piStack_a0c = (int *)(iVar19 + 400);
           uStack_a08 = iVar7 + 0x12a;
-          FUN_004ecc70();
+          BuildSizedSpriteQuad();
           pcStack_a04 = (char *)0x4c5314;
           (**(code **)(*g_pD3DDevice7 + 0x8c))();
           iVar6 = g_clientContext;
@@ -1097,7 +1097,7 @@ void State11_InBattle_Render(void)
           piStack_a2c = (int *)0x20;
           piStack_a30 = (int *)0x20;
           uStack_a38 = iVar7 + 0x12aU;
-          FUN_004ecc70(iVar19 + 400);
+          BuildSizedSpriteQuad(iVar19 + 400);
         }
       }
       piStack_a0c = (int *)((int)piStack_a0c + 1);
@@ -1157,7 +1157,7 @@ void State11_InBattle_Render(void)
                  (DAT_00793534 <= iVar19 + 0x13a)) && (iVar19 + 0x11a <= DAT_0056df34)) {
           pcStack_a34 = (char *)0xffffffff;
           uStack_a38 = 0x20;
-          FUN_004ecc70(iVar5 + 400,iVar19 + 0x12aU,
+          BuildSizedSpriteQuad(iVar5 + 400,iVar19 + 0x12aU,
                        CONCAT31((int3)((uint)piVar8[2] >> 8),piVar8[2] != 0),0x20);
         }
       }
@@ -1571,7 +1571,7 @@ LAB_004c6daa:
           PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar5 = g_clientContext;
-          FUN_004ecc70(iVar6,pcStack_a28,uStack_a38,*(undefined4 *)(g_clientContext + 0x227bc),
+          BuildSizedSpriteQuad(iVar6,pcStack_a28,uStack_a38,*(undefined4 *)(g_clientContext + 0x227bc),
                        *(undefined4 *)(g_clientContext + 0x227bc),
                        *(int *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe4) << 0x18 | 0xffffff);
           uStack_100 = 0xffffffff;
@@ -1597,7 +1597,7 @@ LAB_004c6f6d:
           PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar5 = g_clientContext;
-          FUN_004ecc70(iVar6,pcStack_a28,uStack_a38,0xc0,0xc0,
+          BuildSizedSpriteQuad(iVar6,pcStack_a28,uStack_a38,0xc0,0xc0,
                        *(int *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe4) << 0x18 | 0xffffff);
           uStack_100 = 0xffffffff;
           if (pcStack_a04 != (char *)0x0) {
@@ -1992,7 +1992,7 @@ LAB_004c7ef8:
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = g_clientContext;
-    FUN_004ecc70(iVar19,pcStack_a28,uStack_a38,*(undefined4 *)(g_clientContext + 0x227bc),
+    BuildSizedSpriteQuad(iVar19,pcStack_a28,uStack_a38,*(undefined4 *)(g_clientContext + 0x227bc),
                  *(undefined4 *)(g_clientContext + 0x227bc),0xffffffff);
     uStack_100 = 0xffffffff;
     if (iStack_318 != 0) {
