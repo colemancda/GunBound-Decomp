@@ -56,7 +56,7 @@ bool PacketChecksumEquals();
 bool PacketChecksumNotEquals();
 uint PeekPacketChecksumState();
 void PostTurnEvent();
-void QueueOutgoingPacketField();
+undefined4 QueueOutgoingPacketField();
 void SubFromPacketChecksum();
 undefined4 GetDisplayConfigFromRegistry();
 undefined4 __fastcall ReadRegistryDword(); /* returns the _atol result (EAX) */

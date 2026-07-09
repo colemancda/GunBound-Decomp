@@ -28,6 +28,10 @@
 void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,int param_3)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xffffd806;
+  undefined stack0xffffd807;
   ushort uVar1;
   char cVar2;
   char cVar3;
@@ -95,7 +99,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
   uVar1 = *(ushort *)(param_2 + 2);
   puVar12 = (ushort *)(param_2 + 0x21);
   uVar11 = param_3 - 0x21;
-  local_27e4 = CONCAT31(local_27e4._1_3_,bVar16);
+  local_27e4 = CONCAT31(SUBFIELD(local_27e4,1,undefined3),bVar16);
   if (7 < bVar16) goto switchD_004b64f9_caseD_c302;
   local_27ec = param_1;
   piStack_18 = param_1;
@@ -511,8 +515,8 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
     FUN_0043d780(param_2 + 0x3d);
     cVar2 = FUN_0043c820();
     if (cVar2 == '\x01') {
-      *(undefined4 *)((int)piVar7 + 0xbffa) = s_ifire_00553b60._0_4_;
-      *(undefined2 *)((int)piVar7 + 0xbffe) = s_ifire_00553b60._4_2_;
+      *(undefined4 *)((int)piVar7 + 0xbffa) = SUBFIELD(s_ifire_00553b60,0,undefined4);
+      *(undefined2 *)((int)piVar7 + 0xbffe) = SUBFIELD(s_ifire_00553b60,4,undefined2);
       *unaff_FS_OFFSET = local_14;
       return;
     }
@@ -559,9 +563,9 @@ LAB_004b7c01:
               uVar21 = FUN_0040aba0(piVar7 + 0x19d1,local_2258,piVar7 + 0x1b6c);
               local_c = 2;
               uVar21 = FUN_0040a8c0(uVar21,local_8a8,3);
-              local_c._0_1_ = 3;
+              SUBFIELD(local_c,0,undefined1) = 3;
               local_27e5 = FUN_0040b490(piVar7 + 0x1a5a,uVar21);
-              local_c = CONCAT31(local_c._1_3_,2);
+              local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),2);
               FUN_0040a2a0();
               local_c = 0xffffffff;
               FUN_0040a2a0();
@@ -622,9 +626,9 @@ LAB_004b7c01:
                 uVar21 = FUN_0040aba0(piVar7 + 0x19d1,local_1e10,piVar7 + 0x1b6c);
                 local_c = 0;
                 uVar21 = FUN_0040a8c0(uVar21,local_19c8,3);
-                local_c._0_1_ = 1;
+                SUBFIELD(local_c,0,undefined1) = 1;
                 local_27e5 = FUN_0040b490(piVar7 + 0x1a5a,uVar21);
-                local_c = (uint)local_c._1_3_ << 8;
+                local_c = (uint)SUBFIELD(local_c,1,undefined3) << 8;
                 FUN_0040a2a0();
                 local_c = 0xffffffff;
                 FUN_0040a2a0();
@@ -745,14 +749,14 @@ LAB_004b7c01:
                 iVar10 = FUN_0040a4d0(uVar11 * 0x1120 + 0x5113c + g_clientContext);
                 iVar6 = FUN_0040a4d0(&DAT_00796aa0);
                 uVar21 = FUN_0040a7d0(&local_2658,local_acc,iVar10 + iVar6);
-                local_c._0_1_ = 0xb;
+                SUBFIELD(local_c,0,undefined1) = 0xb;
                 uVar20 = FUN_0040a4d0(&DAT_00796aa0);
                 uVar21 = FUN_0040a8c0(uVar21,local_f14,uVar20);
-                local_c._0_1_ = 0xc;
+                SUBFIELD(local_c,0,undefined1) = 0xc;
                 EncodeChecksumState(uVar21);
-                local_c._0_1_ = 0xb;
+                SUBFIELD(local_c,0,undefined1) = 0xb;
                 FUN_0040a2a0();
-                local_c = CONCAT31(local_c._1_3_,4);
+                local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                 FUN_0040a2a0();
                 FUN_0040afb0(&local_2658);
                 uVar22 = 1;
@@ -773,14 +777,14 @@ LAB_004b7c01:
                 iVar10 = FUN_0040a4d0(uVar11 * 0x1120 + 0x5113c + g_clientContext);
                 iVar6 = FUN_0040a4d0(&DAT_00796aa0);
                 uVar21 = FUN_0040a7d0(&local_2658,local_135c,iVar10 + iVar6);
-                local_c._0_1_ = 0xd;
+                SUBFIELD(local_c,0,undefined1) = 0xd;
                 uVar20 = FUN_0040a4d0(&DAT_00796aa0);
                 uVar21 = FUN_0040a8c0(uVar21,local_17a4,uVar20);
-                local_c._0_1_ = 0xe;
+                SUBFIELD(local_c,0,undefined1) = 0xe;
                 EncodeChecksumState(uVar21);
-                local_c._0_1_ = 0xd;
+                SUBFIELD(local_c,0,undefined1) = 0xd;
                 FUN_0040a2a0();
-                local_c = CONCAT31(local_c._1_3_,4);
+                local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                 FUN_0040a2a0();
                 FUN_0040afb0(&local_2658);
                 uVar22 = 0xfffffffc;
@@ -802,14 +806,14 @@ LAB_004b7c01:
                 iVar10 = FUN_0040a4d0(uVar11 * 0x1120 + 0x5113c + g_clientContext);
                 iVar6 = FUN_0040a4d0(&DAT_00796aa0);
                 uVar21 = FUN_0040a7d0(&local_2658,local_1bec,iVar10 + iVar6);
-                local_c._0_1_ = 5;
+                SUBFIELD(local_c,0,undefined1) = 5;
                 uVar20 = FUN_0040a4d0(&DAT_00796aa0);
                 uVar21 = FUN_0040a8c0(uVar21,local_2034,uVar20);
-                local_c._0_1_ = 6;
+                SUBFIELD(local_c,0,undefined1) = 6;
                 EncodeChecksumState(uVar21);
-                local_c._0_1_ = 5;
+                SUBFIELD(local_c,0,undefined1) = 5;
                 FUN_0040a2a0();
-                local_c = CONCAT31(local_c._1_3_,4);
+                local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                 FUN_0040a2a0();
                 FUN_0040afb0(&local_2658);
                 uVar22 = 1;
@@ -831,14 +835,14 @@ LAB_004b7c01:
                 iVar10 = FUN_0040a4d0(uVar11 * 0x1120 + 0x5113c + g_clientContext);
                 iVar6 = FUN_0040a4d0(&DAT_00796aa0);
                 uVar21 = FUN_0040a7d0(&local_2658,local_1138,iVar10 + iVar6);
-                local_c._0_1_ = 7;
+                SUBFIELD(local_c,0,undefined1) = 7;
                 uVar20 = FUN_0040a4d0(&DAT_00796aa0);
                 uVar21 = FUN_0040a8c0(uVar21,local_460,uVar20);
-                local_c._0_1_ = 8;
+                SUBFIELD(local_c,0,undefined1) = 8;
                 EncodeChecksumState(uVar21);
-                local_c._0_1_ = 7;
+                SUBFIELD(local_c,0,undefined1) = 7;
                 FUN_0040a2a0();
-                local_c = CONCAT31(local_c._1_3_,4);
+                local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                 FUN_0040a2a0();
                 FUN_0040afb0(&local_2658);
                 uVar22 = 0xfffffffc;
@@ -860,14 +864,14 @@ LAB_004b7c01:
                   iVar4 = FUN_0040a4d0((int)piVar7 * 0x1120 + 0x5113c + g_clientContext);
                   iVar10 = FUN_0040a4d0(&DAT_00796aa0);
                   uVar21 = FUN_0040a7d0(&local_2658,local_1580,iVar4 + iVar10);
-                  local_c._0_1_ = 9;
+                  SUBFIELD(local_c,0,undefined1) = 9;
                   uVar20 = FUN_0040a4d0(&DAT_00796aa0);
                   uVar21 = FUN_0040a8c0(uVar21,local_cf0,uVar20);
-                  local_c._0_1_ = 10;
+                  SUBFIELD(local_c,0,undefined1) = 10;
                   EncodeChecksumState(uVar21);
-                  local_c._0_1_ = 9;
+                  SUBFIELD(local_c,0,undefined1) = 9;
                   FUN_0040a2a0();
-                  local_c = CONCAT31(local_c._1_3_,4);
+                  local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                   FUN_0040a2a0();
                   FUN_0040afb0(&local_2658);
                   puVar8 = local_27f0;
@@ -1150,8 +1154,8 @@ LAB_004b7fb2:
       FUN_00406500(0);
       cVar2 = FUN_0043c820();
       if (cVar2 == '\x01') {
-        *(undefined4 *)((int)piVar7 + 0xbffa) = s_sfire_00553b78._0_4_;
-        *(undefined2 *)((int)piVar7 + 0xbffe) = s_sfire_00553b78._4_2_;
+        *(undefined4 *)((int)piVar7 + 0xbffa) = SUBFIELD(s_sfire_00553b78,0,undefined4);
+        *(undefined2 *)((int)piVar7 + 0xbffe) = SUBFIELD(s_sfire_00553b78,4,undefined2);
         *unaff_FS_OFFSET = local_14;
         return;
       }
@@ -1192,14 +1196,14 @@ LAB_004b7fb2:
             iVar10 = FUN_0040a4d0(local_27e4 + 0x5113c + g_clientContext);
             iVar6 = FUN_0040a4d0(&DAT_00796aa0);
             uVar21 = FUN_0040a7d0(&local_2658,local_23c,iVar10 + iVar6);
-            local_c._0_1_ = 0x10;
+            SUBFIELD(local_c,0,undefined1) = 0x10;
             uVar20 = FUN_0040a4d0(&DAT_00796aa0);
             uVar21 = FUN_0040a8c0(uVar21,local_684,uVar20);
-            local_c._0_1_ = 0x11;
+            SUBFIELD(local_c,0,undefined1) = 0x11;
             EncodeChecksumState(uVar21);
-            local_c._0_1_ = 0x10;
+            SUBFIELD(local_c,0,undefined1) = 0x10;
             FUN_0040a2a0();
-            local_c = CONCAT31(local_c._1_3_,0xf);
+            local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),0xf);
             FUN_0040a2a0();
             FUN_0040afb0(&local_2658);
             uVar22 = 4;

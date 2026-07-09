@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-void QueueOutgoingPacketField(undefined4 param_1)
+undefined4 QueueOutgoingPacketField(undefined4 param_1)
 
 {
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
