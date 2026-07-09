@@ -321,7 +321,7 @@ public:
 };
 
 /* Static wrapped-text widget - the 10th widget class, discovered via
- * the chat-log builder (no raw-port name existed; factory FUN_00507ff0).
+ * the chat-log builder (no raw-port name existed; factory CreateStaticTextWidget).
  * Type id 3 fills the 1/2/4 gap. Holds an RGB565 color and a 0x500-byte
  * word-wrapped copy of its text (RenderWrappedText, wrap width w/6
  * chars at the 6px font). */

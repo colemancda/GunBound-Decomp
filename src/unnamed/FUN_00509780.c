@@ -47,11 +47,11 @@ void FUN_00509780(void)
       puVar2[0xc] = 0xf8;
       puVar2[0xd] = 0xf9;
       uVar3 = GetLocalizedString(&DAT_00796eec,0x15e);
-      uVar3 = FUN_00507ff0(0x14,0xf,0xd2,0xf,uVar3,uVar4);
+      uVar3 = CreateStaticTextWidget(0x14,0xf,0xd2,0xf,uVar3,uVar4);
       Widget_AddChild(uVar3);
       uVar4 = 0xffff;
       uVar3 = GetLocalizedString(&DAT_00796eec,0x15f);
-      uVar3 = FUN_00507ff0(0x14,0x32,0xce,0x8a,uVar3,uVar4);
+      uVar3 = CreateStaticTextWidget(0x14,0x32,0xce,0x8a,uVar3,uVar4);
       Widget_AddChild(uVar3);
       uVar3 = CreateLabelWidget(0,0x640,0x48,0xd0,0x51,0x21);
       Widget_AddChild(uVar3);

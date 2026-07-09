@@ -64,7 +64,7 @@ LAB_0050961f:
   } while (cVar1 != '\0');
   uVar7 = 0xffff;
   uVar5 = FUN_0041eb80(g_clientContext,param_2);
-  uVar5 = FUN_00507ff0(0x17,0x22,0x8c,0x4c,uVar5,uVar7);
+  uVar5 = CreateStaticTextWidget(0x17,0x22,0x8c,0x4c,uVar5,uVar7);
   Widget_AddChild(uVar5);
   PanelManager_Register(puVar3);
   *unaff_FS_OFFSET = local_c;

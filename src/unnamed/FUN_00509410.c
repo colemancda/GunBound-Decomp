@@ -41,7 +41,7 @@ void FUN_00509410(undefined4 param_1,undefined4 param_2)
   puVar1[0xd] = 0x72;
   uVar2 = CreateLabelWidget(0,0x323,0x9a,0x55,0x3d,0x17);
   Widget_AddChild(uVar2);
-  uVar2 = FUN_00507ff0(0x16,0x27,0xbb,0x25,param_2,0xffff);
+  uVar2 = CreateStaticTextWidget(0x16,0x27,0xbb,0x25,param_2,0xffff);
   Widget_AddChild(uVar2);
   PanelManager_Register(puVar1);
   return;

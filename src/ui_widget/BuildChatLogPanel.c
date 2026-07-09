@@ -66,7 +66,7 @@ void BuildChatLogPanel(undefined4 param_1,int param_2)
   if (g_currentGameState != 0xb) {
     (**(code **)*puVar5)(1);
   }
-  uVar4 = FUN_00507ff0(0x57,0xb,0x91,0xc,pcVar7,0xffff);
+  uVar4 = CreateStaticTextWidget(0x57,0xb,0x91,0xc,pcVar7,0xffff);
   Widget_AddChild(uVar4);
   uVar4 = CreateScrollListWidget(param_1,0xe3,0x44,0x12,0x9d,0xe);
   Widget_AddChild(uVar4);

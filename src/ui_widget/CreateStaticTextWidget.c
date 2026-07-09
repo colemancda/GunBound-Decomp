@@ -1,4 +1,4 @@
-/* FUN_00507ff0 - 0x00507ff0 in the original binary.
+/* CreateStaticTextWidget - 0x00507ff0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -9,7 +9,7 @@
 
 
 undefined4 *
-FUN_00507ff0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
+CreateStaticTextWidget(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
             undefined4 param_5,undefined2 param_6)
 
 {

@@ -58,7 +58,7 @@ void FUN_00508b90(void)
       Widget_AddChild(uVar4);
       uVar6 = 0xffff;
       uVar4 = GetLocalizedString(&DAT_00796eec,4000);
-      uVar4 = FUN_00507ff0(0x15,0x2d,200,0x1e,uVar4,uVar6);
+      uVar4 = CreateStaticTextWidget(0x15,0x2d,200,0x1e,uVar4,uVar6);
       Widget_AddChild(uVar4);
       PanelManager_Register(puVar5);
       *unaff_FS_OFFSET = puVar2;
