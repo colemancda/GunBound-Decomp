@@ -892,7 +892,7 @@ void __thiscall FUN_0049e650();
 void __fastcall FUN_0049fd40();
 void __fastcall FUN_004a1690();
 undefined4 FUN_004a1740();
-void __fastcall FUN_004a2780();
+undefined4 __fastcall FUN_004a2780();
 void __fastcall FUN_004a27d0();
 undefined4 * FUN_004a2a70();
 void * __thiscall FUN_004a2ba0();
