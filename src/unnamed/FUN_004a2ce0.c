@@ -10,6 +10,15 @@
 void __fastcall FUN_004a2ce0(int *param_1)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xfffff2c0;
+  undefined stack0xfffff2d0;
+  undefined stack0xfffff2d4;
+  undefined stack0xfffff2d8;
+  undefined stack0xfffff2dc;
+  undefined stack0xfffff2e0;
+  undefined stack0xfffff2e4;
   byte bVar1;
   char cVar2;
   char cVar3;
@@ -156,11 +165,11 @@ LAB_004a2df0:
   local_d14 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_0040a9c0();
-  local_4._0_1_ = 1;
+  SUBFIELD(local_4,0,undefined1) = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (local_cd0 != 0) {
     FUN_0040a240();
     local_d14 = local_cd0;
@@ -384,7 +393,7 @@ LAB_004a4381:
       FUN_0040b180(puVar30,auStack_27c,8);
       uStack_50 = 0x10;
       FUN_0040b180(puVar34,auStack_6c4,8);
-      uStack_50._0_1_ = 0x11;
+      SUBFIELD(uStack_50,0,undefined1) = 0x11;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar6 = PeekPacketChecksumState();
       (*pcVar20)(&DAT_005a9068);
@@ -447,7 +456,7 @@ LAB_004a4381:
           *(int *)(&DAT_006a771c + iVar4) = iVar19;
         }
       }
-      uStack_50 = CONCAT31(uStack_50._1_3_,0x10);
+      uStack_50 = CONCAT31(SUBFIELD(uStack_50,1,undefined3),0x10);
       if (iStack_6b0 != 0) {
         FUN_0040a240();
         FUN_0040b540(&stack0xfffff2c0);
@@ -570,7 +579,7 @@ LAB_004a3601:
         uStack_b04 = 0;
         local_d10 = (int *)0x0;
         EncodeOutgoingPacketField(0);
-        uStack_44._0_1_ = 8;
+        SUBFIELD(uStack_44,0,undefined1) = 8;
         FUN_004262d0(puVar30 + 0x10,&stack0xfffff2dc);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState();
@@ -585,7 +594,7 @@ LAB_004a3601:
         uVar24 = 0;
         FUN_004065a0(uVar5,0,100,0xff,iVar16,0);
         FUN_00432320((char)param_1[0xf],1,1,uVar5,uVar24,uVar25,uVar27,iVar16,uVar9);
-        uStack_44 = CONCAT31(uStack_44._1_3_,7);
+        uStack_44 = CONCAT31(SUBFIELD(uStack_44,1,undefined3),7);
         FUN_0040a2a0();
 LAB_004a38be:
         uStack_44 = 0xffffffff;
@@ -601,7 +610,7 @@ LAB_004a38be:
           uStack_8e0 = 0;
           uStack_aec = 0;
           EncodeOutgoingPacketField(0);
-          uStack_44._0_1_ = 6;
+          SUBFIELD(uStack_44,0,undefined1) = 6;
           QueueOutgoingPacketField(puVar31);
           QueueOutgoingPacketField(puVar35);
           FUN_004262d0(puVar30 + 0x10,auStack_b00);
@@ -614,7 +623,7 @@ LAB_004a38be:
           uVar5 = FUN_0040a4d0(&stack0xfffff2dc);
           FUN_004065a0(uVar5,uVar24,uVar25,uVar27,iVar16,uVar9);
           FUN_00432320((char)param_1[0xf],1,1,uVar5,uVar24,uVar25,uVar27,iVar16,uVar9);
-          uStack_44 = CONCAT31(uStack_44._1_3_,5);
+          uStack_44 = CONCAT31(SUBFIELD(uStack_44,1,undefined3),5);
           FUN_0040a2a0();
           goto LAB_004a38be;
         }
