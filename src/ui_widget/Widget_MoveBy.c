@@ -1,4 +1,4 @@
-/* FUN_0050e730 - 0x0050e730 in the original binary.
+/* Widget_MoveBy - 0x0050e730 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_0050e730(int param_1,int param_2,int param_3)
+void __thiscall Widget_MoveBy(int param_1,int param_2,int param_3)
 
 {
   uint uVar1;
@@ -22,7 +22,7 @@ void __thiscall FUN_0050e730(int param_1,int param_2,int param_3)
       FUN_004010c0(0x80070057);
     }
     do {
-      FUN_0050e730(param_2,param_3);
+      Widget_MoveBy(param_2,param_3);
       uVar1 = uVar1 + 1;
     } while (uVar1 < *(uint *)(param_1 + 0x10));
   }

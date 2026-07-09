@@ -29,7 +29,7 @@ void Widget_AddChild(int param_1)
     *piVar1 = param_1;
   }
   *(int *)(unaff_EBX + 0x10) = *(int *)(unaff_EBX + 0x10) + 1;
-  FUN_0050e730(*(undefined4 *)(unaff_EBX + 0x28),*(undefined4 *)(unaff_EBX + 0x2c));
+  Widget_MoveBy(*(undefined4 *)(unaff_EBX + 0x28),*(undefined4 *)(unaff_EBX + 0x2c));
   *(int *)(param_1 + 8) = unaff_EBX;
   return;
 }

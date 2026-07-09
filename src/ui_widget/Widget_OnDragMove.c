@@ -13,7 +13,7 @@ undefined4 __thiscall Widget_OnDragMove(int param_1,int param_2,int param_3)
   char cVar1;
   
   if (*(char *)(param_1 + 0x39) != '\0') {
-    FUN_0050e730(param_2 - *(int *)(param_1 + 0x3c),param_3 - *(int *)(param_1 + 0x40));
+    Widget_MoveBy(param_2 - *(int *)(param_1 + 0x3c),param_3 - *(int *)(param_1 + 0x40));
     *(int *)(param_1 + 0x3c) = param_2;
     *(int *)(param_1 + 0x40) = param_3;
   }

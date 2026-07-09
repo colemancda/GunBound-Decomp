@@ -102,7 +102,7 @@ undefined4 * BuildLobbyChatPanel(int param_1)
       *puVar7 = puVar6;
     }
     puVar9[4] = puVar9[4] + 1;
-    FUN_0050e730(puVar9[10],puVar9[0xb]);
+    Widget_MoveBy(puVar9[10],puVar9[0xb]);
     iVar11 = iVar11 + 0x20;
     puVar6[2] = puVar9;
     iVar8 = iVar8 + 1;
@@ -115,7 +115,7 @@ undefined4 * BuildLobbyChatPanel(int param_1)
       *piVar10 = iVar11;
     }
     puVar9[4] = puVar9[4] + 1;
-    FUN_0050e730(puVar9[10],puVar9[0xb]);
+    Widget_MoveBy(puVar9[10],puVar9[0xb]);
     *(undefined4 **)(iVar11 + 8) = puVar9;
     piVar10 = (int *)(unaff_retaddr + 4);
     if (*(char *)((int)puVar9 + 5) == '\0') {

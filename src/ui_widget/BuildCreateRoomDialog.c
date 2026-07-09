@@ -82,7 +82,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
       *piVar2 = iVar9;
     }
     puVar10[4] = puVar10[4] + 1;
-    FUN_0050e730(puVar10[10],puVar10[0xb]);
+    Widget_MoveBy(puVar10[10],puVar10[0xb]);
     param_1 = param_1 + 0x20;
     iVar11 = iVar11 + 1;
     *(undefined4 **)(iVar9 + 8) = puVar10;
@@ -124,7 +124,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
     *puVar3 = puVar7;
   }
   puVar10[4] = puVar10[4] + 1;
-  FUN_0050e730(puVar10[10],puVar10[0xb]);
+  Widget_MoveBy(puVar10[10],puVar10[0xb]);
   puVar7[2] = puVar10;
   puVar7 = operator_new(0x40);
   if (puVar7 == (undefined4 *)0x0) {
@@ -162,7 +162,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
     *puVar3 = puVar7;
   }
   puVar10[4] = puVar10[4] + 1;
-  FUN_0050e730(puVar10[10],puVar10[0xb]);
+  Widget_MoveBy(puVar10[10],puVar10[0xb]);
   puVar7[2] = puVar10;
   puVar7 = operator_new(0x40);
   if (puVar7 == (undefined4 *)0x0) {
@@ -200,7 +200,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
     *puVar3 = puVar7;
   }
   puVar10[4] = puVar10[4] + 1;
-  FUN_0050e730(puVar10[10],puVar10[0xb]);
+  Widget_MoveBy(puVar10[10],puVar10[0xb]);
   puVar7[2] = puVar10;
   puVar7 = operator_new(0x40);
   if (puVar7 == (undefined4 *)0x0) {
@@ -238,7 +238,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
     *puVar3 = puVar7;
   }
   puVar10[4] = puVar10[4] + 1;
-  FUN_0050e730(puVar10[10],puVar10[0xb]);
+  Widget_MoveBy(puVar10[10],puVar10[0xb]);
   puVar7[2] = puVar10;
   puVar7 = operator_new(0x40);
   if (puVar7 == (undefined4 *)0x0) {
@@ -276,7 +276,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
     *puVar3 = puVar7;
   }
   puVar10[4] = puVar10[4] + 1;
-  FUN_0050e730(puVar10[10],puVar10[0xb]);
+  Widget_MoveBy(puVar10[10],puVar10[0xb]);
   puVar7[2] = puVar10;
   puVar7 = operator_new(0x40);
   if (puVar7 == (undefined4 *)0x0) {
@@ -311,7 +311,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
       *puVar3 = puVar7;
     }
     puVar10[4] = puVar10[4] + 1;
-    FUN_0050e730(puVar10[10],puVar10[0xb]);
+    Widget_MoveBy(puVar10[10],puVar10[0xb]);
     puVar7[2] = puVar10;
     puVar10[0x24] = 1;
     FUN_0050eea0(puVar10);
