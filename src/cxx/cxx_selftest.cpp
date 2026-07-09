@@ -34,7 +34,8 @@ static void gb_widget_offset_checks()
 {
     GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_parent)     == 0x08, off_parent);
     GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_children)   == 0x0c, off_children);
-    GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_childCount) == 0x10, off_childcount);
+    GB_STATIC_ASSERT(sizeof(CAtlArray<CWidget *>) == 0x10, atlarray_size);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_children.m_nSize) == 0x10, off_childcount);
     GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_hidden)     == 0x1e, off_hidden);
     GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_id)         == 0x24, off_id);
     GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_x)          == 0x28, off_x);

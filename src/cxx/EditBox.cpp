@@ -31,11 +31,11 @@ void CEditBox::Draw()
             m_text[0] = '\0';
         }
     }
-    if (m_childCount != 0) {
+    if (m_children.GetCount() != 0) {
         unsigned int i = 0;
         do {
-            ChildAt(this, i)->Draw();
+            m_children[i]->Draw();
             ++i;
-        } while (i < (unsigned int)m_childCount);
+        } while (i < (unsigned int)m_children.GetCount());
     }
 }

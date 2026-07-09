@@ -15,6 +15,7 @@
 #define GB_CXX_WIDGET_H
 
 #include "gb_common.h"
+#include "AtlArray.h"
 
 /* Base of the composite tree. Every widget can hold children; containers
  * are just widgets that do. Declaration order below IS the confirmed
@@ -53,10 +54,10 @@ public:
                               * cleared by CScrollBar::OnMouseUp */
     u8       m_unk05[3];     /* +0x05 */
     CWidget *m_parent;       /* +0x08: callback target for OnCommand */
-    CWidget **m_children;    /* +0x0c: \                                    */
-    int      m_childCount;   /* +0x10:  > growable array (grow = 0x50ed30)  */
-    int      m_childCap;     /* +0x14: /                                    */
-    int      m_unk18;        /* +0x18 */
+    CAtlArray<CWidget *> m_children; /* +0x0c..+0x1b: ATL7 CAtlArray - grow
+                              * helper 0x50ed30 IS its GrowBuffer, and the
+                              * broadcast loops' inlined AtlThrow guard IS
+                              * its checked operator[] (see AtlArray.h) */
     u8       m_unk1c;        /* +0x1c: byte flag; gates click reporting in
                               * CLabel::OnMouseDown alongside +0x38 */
     u8       m_unk1d;        /* +0x1d */
@@ -71,22 +72,6 @@ public:
     /* +0x38 onward is class-specific (the base drag helpers use +0x39 /
      * +0x3c / +0x40 in classes that enable dragging) */
 };
-
-/* Bounds-checked child accessor. Every raw port shows the child loop
- * guarded by an inlined `if (i >= count) throw E_INVALIDARG`
- * (FUN_004010c0, AtlThrow-style noreturn) - the signature of an ATL
- * CSimpleArray-style checked operator[]. Kept as an inline helper until
- * that container class is reconstructed; MSVC folds the guard into the
- * loop entry check exactly like the original object code. */
-extern "C" __declspec(noreturn) void FUN_004010c0(long hr);
-
-inline CWidget *ChildAt(CWidget *w, unsigned int i)
-{
-    if (i >= (unsigned int)w->m_childCount) {
-        FUN_004010c0(0x80070057); /* E_INVALIDARG */
-    }
-    return w->m_children[i];
-}
 
 /* Clickable sprite/text cell - tabs, icons, grid cells (Ready Room
  * character grid, Avatar Store category tabs). On hit, mouse-down fires

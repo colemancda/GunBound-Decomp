@@ -3,8 +3,10 @@
  * 0x50ea50, Widget_DispatchMouseToChildren 0x50eab0, Widget_DrawChildren
  * 0x50e520). See src/cxx/README.md.
  *
- * The child list goes through Widget.h's bounds-checked ChildAt()
- * accessor - see its comment for the evidence.
+ * The child list is an embedded ATL7 CAtlArray<CWidget *> (see
+ * AtlArray.h for the identification evidence); the bounds guard in
+ * every loop below comes from its checked operator[], exactly as the
+ * original object code inlines it.
  */
 #include "Widget.h"
 
@@ -18,14 +20,14 @@ bool CWidget::HitTest(int x, int y)
     }
     bool hit = m_x < x && x < m_x + m_width &&
                m_y < y && y < m_y + m_height;
-    if (m_childCount != 0) {
+    if (m_children.GetCount() != 0) {
         unsigned int i = 0;
         do {
-            if (ChildAt(this, i)->HitTest(x, y)) {
+            if (m_children[i]->HitTest(x, y)) {
                 hit = true;
             }
             ++i;
-        } while (i < (unsigned int)m_childCount);
+        } while (i < (unsigned int)m_children.GetCount());
     }
     return hit;
 }
@@ -39,15 +41,15 @@ bool CWidget::DispatchKey(int key)
         return false;
     }
     bool consumed = false;
-    if (m_childCount != 0) {
+    if (m_children.GetCount() != 0) {
         unsigned int i = 0;
         do {
-            if (ChildAt(this, i)->DispatchKey(key)) {
+            if (m_children[i]->DispatchKey(key)) {
                 consumed = true;
                 break;
             }
             ++i;
-        } while (i < (unsigned int)m_childCount);
+        } while (i < (unsigned int)m_children.GetCount());
     }
     return consumed;
 }
@@ -59,14 +61,14 @@ bool CWidget::DispatchMouse(int msg)
     if (m_hidden) {
         return false;
     }
-    if (m_childCount != 0) {
+    if (m_children.GetCount() != 0) {
         unsigned int i = 0;
         do {
-            if (ChildAt(this, i)->DispatchMouse(msg)) {
+            if (m_children[i]->DispatchMouse(msg)) {
                 return true;
             }
             ++i;
-        } while (i < (unsigned int)m_childCount);
+        } while (i < (unsigned int)m_children.GetCount());
     }
     return false;
 }
@@ -77,11 +79,11 @@ bool CWidget::DispatchMouse(int msg)
  * hit-test/input path, not the draw broadcast. */
 void CWidget::Draw()
 {
-    if (m_childCount != 0) {
+    if (m_children.GetCount() != 0) {
         unsigned int i = 0;
         do {
-            ChildAt(this, i)->Draw();
+            m_children[i]->Draw();
             ++i;
-        } while (i < (unsigned int)m_childCount);
+        } while (i < (unsigned int)m_children.GetCount());
     }
 }
