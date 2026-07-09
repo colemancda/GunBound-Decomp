@@ -57,13 +57,13 @@ void FUN_00404410(int param_1)
   uVar4 = *(undefined2 *)(g_clientContext + 0x44e60);
   local_17c = CONCAT22(uVar3,uVar2);
   uVar6 = local_17c;
-  local_184 = CONCAT22(local_184._2_2_,0x12);
-  local_17c._2_1_ = (byte)uVar3;
-  local_17c._0_1_ = (byte)uVar2;
+  local_184 = CONCAT22(SUBFIELD(local_184,2,undefined2),0x12);
+  SUBFIELD(local_17c,2,undefined1) = (byte)uVar3;
+  SUBFIELD(local_17c,0,undefined1) = (byte)uVar2;
   local_178 = CONCAT22((ushort)(byte)((byte)((ushort)uVar4 >> 8) ^ 0x6b) +
                        (ushort)(byte)((byte)uVar4 ^ 0x69) +
                        (ushort)(byte)((byte)((ushort)uVar3 >> 8) ^ 0x73) +
-                       (ushort)(local_17c._2_1_ ^ 0x6d) +
+                       (ushort)(SUBFIELD(local_17c,2,undefined1) ^ 0x6d) +
                        (ushort)(byte)((byte)((ushort)uVar2 >> 8) ^ 0x6f) +
                        (ushort)((byte)local_17c ^ 99),uVar4);
   local_18c = *(int *)(*(int *)(param_1 + 4) + 0x1c);
