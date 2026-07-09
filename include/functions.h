@@ -1623,7 +1623,7 @@ undefined1 __thiscall FUN_0050f1f0();
 undefined1 __thiscall FUN_0050f230();
 undefined1 __thiscall FUN_0050f260();
 void __fastcall FUN_0050f290();
-void FUN_0050f350();
+undefined4 FUN_0050f350();
 void FUN_0050f390();
 uint FUN_0050f3f0();
 undefined4 __thiscall ScrollListWidget_OnMouseDown();
