@@ -44,6 +44,7 @@ static void gb_widget_offset_checks()
     GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_height)     == 0x34, off_h);
     GB_STATIC_ASSERT(GB_OFFSETOF(CLabel, m_spriteId)    == 0x3c, off_sprite);
     GB_STATIC_ASSERT(GB_OFFSETOF(CEditBox, m_text)      == 0x38, off_text);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CEditBox, m_maxLen)    == 0x138, off_maxlen);
     GB_STATIC_ASSERT(GB_OFFSETOF(CScrollBar, m_total)   == 0x38, off_total);
     GB_STATIC_ASSERT(GB_OFFSETOF(CScrollBar, m_scrollPos)== 0x40, off_scrollpos);
 }

@@ -2,6 +2,23 @@
  * src/ui_widget/Label_OnMouseDown.c (0x5052e0). See src/cxx/README.md. */
 #include "Widget.h"
 
+/* 0x507ee0 - the label factory (docs/widgets.md's CreateLabelWidget),
+ * __stdcall (the original ret-cleans 0x18 bytes). Its exact shape is
+ * `new CLabel()` (default ctor inlined under the null guard) followed
+ * by UNGUARDED argument pokes - the original really does store through
+ * a null pointer if the allocation fails; preserved as-is. */
+CLabel * __stdcall CreateLabelWidget(int id, int spriteId, int x, int y, int w, int h)
+{
+    CLabel *p = new CLabel();
+    p->m_id = id;
+    p->m_spriteId = spriteId;
+    p->m_x = x;
+    p->m_y = y;
+    p->m_width = w;
+    p->m_height = h;
+    return p;
+}
+
 /* 0x50e350, vtable slot 8. The label does NOT blit its own sprite:
  * when both gate flags are set it reports evt 1 ("paint me") up its
  * own OnCommand spine - the owning panel's OnCommand override does

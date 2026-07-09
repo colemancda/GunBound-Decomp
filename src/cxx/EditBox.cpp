@@ -6,6 +6,7 @@
 #endif
 #include <windows.h>
 #include "Widget.h"
+#include <string.h>
 
 extern "C" {
 /* The shared overlay EDIT-control singleton (one Win32 EDIT reused by
@@ -13,6 +14,21 @@ extern "C" {
  * live/visible byte flag. Object layout not reconstructed yet, so the
  * raw-port global keeps its untyped uint form here. */
 extern unsigned int DAT_007934e4;
+}
+
+/* 0x507f60 - the text-entry factory (docs' CreateTextEntryWidget;
+ * real signature (id, x, y, w, h, maxLen) - no msgId is stored). Same
+ * guarded-default-ctor + unguarded-pokes split as CreateLabelWidget. */
+CEditBox * __stdcall CreateTextEntryWidget(int id, int x, int y, int w, int h, int maxLen)
+{
+    CEditBox *p = new CEditBox();
+    p->m_id = id;
+    p->m_x = x;
+    p->m_y = y;
+    p->m_width = w;
+    p->m_height = h;
+    p->m_maxLen = maxLen;
+    return p;
 }
 
 /* 0x507030 (TextEntry_SyncFromControl), vtable slot 8. When this field

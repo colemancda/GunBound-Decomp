@@ -23,6 +23,14 @@
  * vtables). Base impls named where shared verbatim across classes. */
 class CWidget {
 public:
+    /* The base construction state, inlined into every factory
+     * (CreateLabelWidget 0x507ee0, CreateTextEntryWidget, ...): child
+     * array and parent null, +0x04 clear, +0x1c gate DEFAULT ON,
+     * +0x1d/+0x1e clear. The type id, id and rect are deliberately NOT
+     * initialized here - every factory assigns them from its arguments
+     * (matching the binary, which leaves them uninitialized in between). */
+    CWidget() : m_unk04(0), m_parent(0), m_unk1c(1), m_unk1d(0), m_hidden(0) {}
+
     /* SLOT 0/10 CORRECTION (supersedes docs/widgets.md's original table):
      * the base OnCommand (0x50eb10) moves focus by calling child slot 0
      * with an explicit 0 (loser) / 1 (gainer) argument - slot 0 is
@@ -92,8 +100,12 @@ public:
 /* Clickable sprite/text cell - tabs, icons, grid cells (Ready Room
  * character grid, Avatar Store category tabs). On hit, mouse-down fires
  * m_parent->OnCommand(0, m_id, 0). */
-class CLabel : public CWidget {      /* vtable 0x557da0, size 0x40; ctor CreateLabelWidget(id, sprite, x, y, w, h) */
+class CLabel : public CWidget {      /* vtable 0x557da0, size 0x40; factory CreateLabelWidget 0x507ee0 */
 public:
+    /* Default ctor, inlined (null-guarded) into the 0x507ee0 factory;
+     * the factory then pokes id/sprite/rect UNGUARDED - see Label.cpp. */
+    CLabel() : m_unk38(0), m_unk39(0) { m_typeId = 1; m_unk3a[0] = 0; }
+
     virtual bool OnMouseDown(int x, int y);  /* 0x5052e0 - promoted, Label.cpp */
     virtual void Draw();                     /* 0x50e350 - promoted, Label.cpp: reports evt 1 upward
                                               * (the parent panel blits for it), then child broadcast */
@@ -108,12 +120,23 @@ public:
  * DirectDraw surface. Update (TextEntry_SyncFromControl) pulls the OS
  * control's text: GetWindowTextA(hwnd, m_text, 0x80). Used for Create Room
  * name/password, enter-room-by-number, chat input. */
-class CEditBox : public CWidget {    /* vtable 0x557c84, size 0x140; ctor CreateTextEntryWidget(id, msg, x, y, w, maxLen) */
+class CEditBox : public CWidget {    /* vtable 0x557c84, size 0x140; factory CreateTextEntryWidget.
+                                      * Its real signature is (id, x, y, w, h, maxLen) - the msgId in
+                                      * docs/widgets.md's sketch isn't stored anywhere. */
 public:
+    /* Default ctor, inlined into the 0x507f60 factory (same
+     * guarded-ctor + unguarded-arg-pokes split as CLabel's). */
+    CEditBox() : m_maxLen(0), m_unk13c(0)
+    {
+        m_typeId = 2;
+        for (int i = 0; i < 0x100; ++i) m_text[i] = 0;
+    }
+
     virtual void Draw();             /* 0x507030 TextEntry_SyncFromControl - promoted, EditBox.cpp */
 
     char m_text[0x100];              /* +0x38: synced from the EDIT control */
-    u8   m_unk138[8];                /* +0x138 */
+    int  m_maxLen;                   /* +0x138: factory's 6th argument */
+    int  m_unk13c;                   /* +0x13c */
 };
 
 /* Fixed 18-px-wide vertical scrollbar (w is 0x12 in every call). Owns its
