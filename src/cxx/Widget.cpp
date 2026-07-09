@@ -73,6 +73,41 @@ bool CWidget::DispatchMouse(int msg)
     return false;
 }
 
+/* 0x50e2f0 - the shared tail of the leaf press handlers (CLabel's
+ * OnMouseDown calls it): clear the +0x38 gate and +0x04 active flags,
+ * broadcast mouse-UP to the children, and report consumed-or-inside.
+ * +0x38 is in the subclass region (CWidget proper ends at +0x38), so
+ * the store is by explicit offset until the field's true home class
+ * is pinned. */
+bool CWidget::ResetPressState(int x, int y)
+{
+    ((u8 *)this)[0x38] = 0;
+    m_unk04 = 0;
+    return MouseUpChildren(x, y) ||
+           (!m_hidden &&
+            m_x < x && x < m_x + m_width &&
+            m_y < y && y < m_y + m_height);
+}
+
+/* 0x50e3a0, vtable slot 11 (base drag). While the drag flag is armed,
+ * shift by the delta from the last drag point and update it; then the
+ * mouse-move child broadcast and the usual consumed-or-inside report.
+ * The drag fields (+0x39 flag, +0x3c/+0x40 last point) live in the
+ * subclass region - explicit offsets, same caveat as ResetPressState
+ * (labels reuse +0x3c as m_spriteId and simply never arm the flag). */
+bool CWidget::OnDragMove(int x, int y)
+{
+    if (((u8 *)this)[0x39] != 0) {
+        MoveBy(x - *(int *)((u8 *)this + 0x3c), y - *(int *)((u8 *)this + 0x40));
+        *(int *)((u8 *)this + 0x3c) = x;
+        *(int *)((u8 *)this + 0x40) = y;
+    }
+    return MouseMoveChildren(x, y) ||
+           (!m_hidden &&
+            m_x < x && x < m_x + m_width &&
+            m_y < y && y < m_y + m_height);
+}
+
 /* 0x50e620. Index of the child matching (typeId, id); child count when
  * absent. The focus mover calls it with typeId 2 (text-entry) and the
  * id of the child that sent the focus event. */

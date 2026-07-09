@@ -50,7 +50,11 @@ public:
 
     /* Non-virtual base helpers (real member functions in the binary,
      * called by subclass handlers): */
-    bool MouseDownCommon(int x, int y);   /* 0x50e2f0: shared mouse-down tail (drag arming) */
+    bool ResetPressState(int x, int y);   /* 0x50e2f0 - promoted, Widget.cpp: clears the +0x38/+0x04
+                                           * flags, broadcasts mouse-UP to children, returns
+                                           * consumed-or-inside (shared tail of leaf press handlers) */
+    bool MouseMoveChildren(int x, int y); /* 0x50e870: broadcast mouse-move (slot 1) to children */
+    void MoveBy(int dx, int dy);          /* 0x50e730: shift this widget (and children) by a delta */
     int FindChildIndex(int typeId, int id); /* 0x50e620 - promoted, Widget.cpp. NOTE: Ghidra shows
                                              * the args arriving in EDI/ESI (custom-register family);
                                              * returns child count when not found. */
@@ -91,6 +95,8 @@ public:
 class CLabel : public CWidget {      /* vtable 0x557da0, size 0x40; ctor CreateLabelWidget(id, sprite, x, y, w, h) */
 public:
     virtual bool OnMouseDown(int x, int y);  /* 0x5052e0 - promoted, Label.cpp */
+    virtual void Draw();                     /* 0x50e350 - promoted, Label.cpp: reports evt 1 upward
+                                              * (the parent panel blits for it), then child broadcast */
 
     u8  m_unk38;                     /* +0x38: byte flag; gates click reporting with +0x1c */
     u8  m_unk39;                     /* +0x39: (base drag flag slot per docs/widgets.md) */
