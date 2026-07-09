@@ -43,11 +43,14 @@ public:
     /* Non-virtual base helpers (real member functions in the binary,
      * called by subclass handlers): */
     bool MouseDownCommon(int x, int y);   /* 0x50e2f0: shared mouse-down tail (drag arming) */
+    bool MouseDownChildren(int x, int y); /* 0x50e8e0: broadcast mouse-down (slot 2) to children */
+    bool MouseUpChildren(int x, int y);   /* 0x50e950: broadcast mouse-up (slot 3) to children */
 
     /* field offsets confirmed in docs/widgets.md; m_unk* are the
      * undocumented gaps, kept explicit so everything else lands exactly */
     u8       m_unk04;        /* +0x04: read as a byte flag by CEditBox::Draw
-                              * (skip the EDIT-control sync when clear) */
+                              * (skip the EDIT-control sync when clear);
+                              * cleared by CScrollBar::OnMouseUp */
     u8       m_unk05[3];     /* +0x05 */
     CWidget *m_parent;       /* +0x08: callback target for OnCommand */
     CWidget **m_children;    /* +0x0c: \                                    */
@@ -116,14 +119,23 @@ public:
  * m_parent->OnCommand(0x2000, m_id, m_scrollPos) on change. */
 class CScrollBar : public CWidget {  /* vtable 0x557e90, size 0x58; ctor CreateScrollListWidget 0x5080a0 */
 public:
+    virtual bool OnMouseDown(int x, int y);  /* 0x50f500 - promoted, ScrollBar.cpp */
+    virtual bool OnMouseUp(int x, int y);    /* 0x50f5f0 - promoted, ScrollBar.cpp */
+
+    int ThumbHeight();               /* 0x50e050 - promoted, ScrollBar.cpp. NOTE: Ghidra shows the
+                                      * original receiving this in EAX (in_EAX), not ECX - a custom
+                                      * convention to sort out when byte-matching this one. */
+
     int m_total;                     /* +0x38: total items (arrives in a register) */
     int m_pageSize;                  /* +0x3c */
     int m_scrollPos;                 /* +0x40 */
-    u8  m_pressed;                   /* +0x44 */
-    u8  m_dragging;                  /* +0x45 */
+    u8  m_pressed;                   /* +0x44: armed on press outside the thumb (arrow auto-repeat) */
+    u8  m_dragging;                  /* +0x45: thumb grabbed */
     u8  m_pad46[2];                  /* +0x46 */
-    int m_grabOffset;                /* +0x48 */
-    u8  m_unk4c[0x58 - 0x4c];        /* +0x4c */
+    int m_grabOffset;                /* +0x48: thumbTop - mouseY at grab time */
+    int m_lastX;                     /* +0x4c: last mouse x (stored by both handlers) */
+    int m_lastY;                     /* +0x50: last mouse y */
+    u8  m_unk54[4];                  /* +0x54 */
 };
 
 /* Container/dialog base - each concrete panel is its own class (own
