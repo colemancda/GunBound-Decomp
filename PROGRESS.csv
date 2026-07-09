@@ -1316,7 +1316,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f3e70,40,FUN_004f3e70,false,1,1,RAW-src
 004f3ea0,54,FUN_004f3ea0,false,2,0,RAW-src
 004f3ee0,546,FUN_004f3ee0,false,3,1,RAW-src
-004f4110,64,FUN_004f4110,false,3,0,RAW-src
+004f4110,64,FlushSpriteBatch,false,3,0,RAW-src
 004f4170,94,FUN_004f4170,false,1,1,RAW-src
 004f41d0,213,FUN_004f41d0,false,1,0,RAW-src
 004f42b0,52,FUN_004f42b0,false,1,0,RAW-src

@@ -1298,7 +1298,7 @@ void FUN_004f3e40();
 void FUN_004f3e70();
 void FUN_004f3ea0();
 void FUN_004f3ee0();
-void FUN_004f4110();
+void FlushSpriteBatch();
 uint FUN_004f4170();
 void FUN_004f41d0();
 undefined1 * __fastcall FUN_004f42b0();
