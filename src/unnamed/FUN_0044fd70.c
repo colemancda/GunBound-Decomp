@@ -79,7 +79,7 @@ void __fastcall FUN_0044fd70(int param_1)
     }
     else {
       puVar5 = (undefined1 *)FUN_0040a6e0(iVar6 + 0xb30,local_454,0x3c);
-      local_4 = CONCAT31(local_4._1_3_,2);
+      local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
     }
     uVar3 = FUN_0040a4d0(puVar5);
     *(undefined4 *)(param_1 + 0x3c) = uVar3;
