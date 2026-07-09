@@ -53,13 +53,13 @@ public:
     bool ResetPressState(int x, int y);   /* 0x50e2f0 - promoted, Widget.cpp: clears the +0x38/+0x04
                                            * flags, broadcasts mouse-UP to children, returns
                                            * consumed-or-inside (shared tail of leaf press handlers) */
-    bool MouseMoveChildren(int x, int y); /* 0x50e870: broadcast mouse-move (slot 1) to children */
-    void MoveBy(int dx, int dy);          /* 0x50e730: shift this widget (and children) by a delta */
+    bool MouseMoveChildren(int x, int y); /* 0x50e870 - promoted, Widget.cpp */
+    void MoveBy(int dx, int dy);          /* 0x50e730 - promoted, Widget.cpp */
     int FindChildIndex(int typeId, int id); /* 0x50e620 - promoted, Widget.cpp. NOTE: Ghidra shows
                                              * the args arriving in EDI/ESI (custom-register family);
                                              * returns child count when not found. */
-    bool MouseDownChildren(int x, int y); /* 0x50e8e0: broadcast mouse-down (slot 2) to children */
-    bool MouseUpChildren(int x, int y);   /* 0x50e950: broadcast mouse-up (slot 3) to children */
+    bool MouseDownChildren(int x, int y); /* 0x50e8e0 - promoted, Widget.cpp */
+    bool MouseUpChildren(int x, int y);   /* 0x50e950 - promoted, Widget.cpp */
 
     /* field offsets confirmed in docs/widgets.md; m_unk* are the
      * undocumented gaps, kept explicit so everything else lands exactly */

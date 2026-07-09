@@ -108,6 +108,79 @@ bool CWidget::OnDragMove(int x, int y)
             m_y < y && y < m_y + m_height);
 }
 
+/* 0x50e730. Shift this widget and, recursively, its whole subtree by a
+ * delta - the drag-move workhorse. The recursion is a direct (non-
+ * virtual) member call in the original. */
+void CWidget::MoveBy(int dx, int dy)
+{
+    m_x += dx;
+    m_y += dy;
+    if (m_children.GetCount() != 0) {
+        unsigned int i = 0;
+        do {
+            m_children[i]->MoveBy(dx, dy);
+            ++i;
+        } while (i < (unsigned int)m_children.GetCount());
+    }
+}
+
+/* 0x50e870 / 0x50e8e0 / 0x50e950 - the slot-1/2/3 child broadcasts.
+ * All three share the shape: hidden gate, visit EVERY child (no early
+ * exit, unlike DispatchKey/DispatchMouse), accumulate any-consumed. */
+bool CWidget::MouseMoveChildren(int x, int y)
+{
+    if (m_hidden) {
+        return false;
+    }
+    bool any = false;
+    if (m_children.GetCount() != 0) {
+        unsigned int i = 0;
+        do {
+            if (m_children[i]->OnMouseMove(x, y)) {
+                any = true;
+            }
+            ++i;
+        } while (i < (unsigned int)m_children.GetCount());
+    }
+    return any;
+}
+
+bool CWidget::MouseDownChildren(int x, int y)
+{
+    if (m_hidden) {
+        return false;
+    }
+    bool any = false;
+    if (m_children.GetCount() != 0) {
+        unsigned int i = 0;
+        do {
+            if (m_children[i]->OnMouseDown(x, y)) {
+                any = true;
+            }
+            ++i;
+        } while (i < (unsigned int)m_children.GetCount());
+    }
+    return any;
+}
+
+bool CWidget::MouseUpChildren(int x, int y)
+{
+    if (m_hidden) {
+        return false;
+    }
+    bool any = false;
+    if (m_children.GetCount() != 0) {
+        unsigned int i = 0;
+        do {
+            if (m_children[i]->OnMouseUp(x, y)) {
+                any = true;
+            }
+            ++i;
+        } while (i < (unsigned int)m_children.GetCount());
+    }
+    return any;
+}
+
 /* 0x50e620. Index of the child matching (typeId, id); child count when
  * absent. The focus mover calls it with typeId 2 (text-entry) and the
  * id of the child that sent the focus event. */
