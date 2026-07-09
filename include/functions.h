@@ -743,7 +743,7 @@ void __fastcall FUN_004759b0();
 void * __thiscall FUN_00475e10();
 void FUN_00475e30();
 void __thiscall FUN_00475e40();
-void FUN_00476510();
+undefined4 FUN_00476510();
 void * __thiscall FUN_004765a0();
 void FUN_004765c0();
 void __fastcall FUN_004765d0();
