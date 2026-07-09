@@ -27,7 +27,7 @@ undefined1 __thiscall Widget_HitTest(int param_1,int param_2,int param_3)
     uVar3 = 1;
   }
   uVar4 = 0;
-  param_2._0_1_ = uVar3;
+  SUBFIELD(param_2,0,undefined1) = uVar3;
   if (*(int *)(param_1 + 0x10) != 0) {
     if (*(int *)(param_1 + 0x10) == 0) {
                     /* WARNING: Subroutine does not return */
@@ -36,7 +36,7 @@ undefined1 __thiscall Widget_HitTest(int param_1,int param_2,int param_3)
     do {
       cVar2 = (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar4 * 4) + 0x10))(iVar1,param_3);
       if (cVar2 != '\0') {
-        param_2._0_1_ = 1;
+        SUBFIELD(param_2,0,undefined1) = 1;
       }
       uVar4 = uVar4 + 1;
     } while (uVar4 < *(uint *)(param_1 + 0x10));
