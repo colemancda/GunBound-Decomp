@@ -790,7 +790,7 @@ void FUN_0047ebb0();
 void * __thiscall FUN_0047f2a0();
 void FUN_0047f2c0();
 void __thiscall FUN_0047f2d0();
-void FUN_0047f9e0();
+undefined4 FUN_0047f9e0();
 void * __thiscall FUN_0047fa30();
 void FUN_0047fa50();
 void FUN_0047fad0();
