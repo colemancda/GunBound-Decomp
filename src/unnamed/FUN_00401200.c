@@ -43,11 +43,11 @@ void __fastcall FUN_00401200(int param_1)
     while (DAT_00e55cf4 != 0xffffffff) {
       local_40[0].sa_family = 2;
       local_40[0].sa_data[2] = (undefined1)DAT_005b2b54;
-      local_40[0].sa_data[3] = DAT_005b2b54._1_1_;
-      local_40[0].sa_data[4] = DAT_005b2b54._2_1_;
-      local_40[0].sa_data[5] = DAT_005b2b54._3_1_;
+      local_40[0].sa_data[3] = SUBFIELD(DAT_005b2b54,1,undefined1);
+      local_40[0].sa_data[4] = SUBFIELD(DAT_005b2b54,2,undefined1);
+      local_40[0].sa_data[5] = SUBFIELD(DAT_005b2b54,3,undefined1);
       local_40[0].sa_data[0] = (undefined1)DAT_005b343c;
-      local_40[0].sa_data[1] = DAT_005b343c._1_1_;
+      local_40[0].sa_data[1] = SUBFIELD(DAT_005b343c,1,undefined1);
       if (DAT_005b2b54 == -1) {
         return;
       }
