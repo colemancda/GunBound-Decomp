@@ -1,13 +1,13 @@
-/* FUN_00508190 - 0x00508190 in the original binary.
+/* BuildCreateRoomDialog - 0x00508190 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Builds the Create Room dialog (room-name/password text fields, an option grid, OK/Cancel). See docs/widgets.md and docs/screens/03_game_room_list.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00508190(int param_1,undefined4 param_2,undefined4 param_3)
+void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
 
 {
   int *piVar1;
