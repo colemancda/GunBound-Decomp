@@ -582,9 +582,12 @@ extern uint32_t DAT_00793544;
 extern uint8_t DAT_00793549;
 extern uint8_t DAT_0079354a;
 extern uint8_t DAT_0079354b;
-extern uint32_t DAT_0079354c;
-extern uint32_t DAT_00793550;
-extern void *DAT_00793554[16]; /* used as an array of pointers by InitGame - see src/entry/InitGame.c */
+extern int *DAT_0079354c; /* used dereferenced as a vtable-bearing ptr at call sites */
+extern int *DAT_00793550; /* used dereferenced as a vtable-bearing ptr at call sites */
+extern void **DAT_00793554; /* heap array of channel object ptrs: allocated
+                             * (operator_new) and freed in InitDirectSound /
+                             * FUN_004ee850, indexed by InitGame and others -
+                             * a pointer, not a fixed [16] array */
 extern int *DAT_00793558; /* used dereferenced as a vtable-bearing ptr at call sites */
 extern uint32_t DAT_0079355c;
 extern uint32_t DAT_00793560;

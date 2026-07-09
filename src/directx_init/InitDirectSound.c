@@ -32,7 +32,10 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
   int iStack_5c;
   int iStack_58;
   undefined4 uStack_54;
-  
+  /* Ghidra artifact: raw stack reference the decompiler couldn't map
+   * to a named local; declared so the raw port parses. */
+  undefined stack0xffffffc4;
+
   DAT_007935e8 = LoadLibraryA(s_dsound_dll_005574c0);
   if (DAT_007935e8 == (HMODULE)0x0) {
     return 0;
