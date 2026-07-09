@@ -82,8 +82,8 @@ LAB_0043b008:
           (*pcVar9)(&DAT_005a9068);
         }
         (*pcVar9)(&DAT_005a9068);
-        uStack_8d0._3_1_ = (char)(uVar8 >> 0x18);
-        bVar13 = uStack_8d0._3_1_ != '\0';
+        SUBFIELD(uStack_8d0,3,undefined1) = (char)(uVar8 >> 0x18);
+        bVar13 = SUBFIELD(uStack_8d0,3,undefined1) != '\0';
         iVar5 = g_clientContext;
         if (((bVar13) && (cVar2 = FUN_004065a0(), iVar5 = g_clientContext, cVar2 != '\x01')) &&
            (piVar11[9] != 0xe)) {
