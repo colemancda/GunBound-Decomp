@@ -1711,17 +1711,33 @@ broadcast as another player adjusts their aim mid-turn.
 **Direction**: incoming. The single richest, most carefully examined
 payload in the entire Channel 2 protocol.
 
-**Payload layout** (following the shared 33-byte header): two numeric
-fields, two boolean flags, two more numeric fields, then **eight
-sequential `short` values** occupying header-relative offsets `+0x2c`
-through `+0x3a` (16 bytes) — these eight shorts are the single most
-information-dense part of any action payload found in this protocol, and
-are **hypothesized to be trajectory waypoint samples** (a precomputed
-sequence of positions along the fired projectile's arc) though this was
-**not confirmed** — see ARCHITECTURE.md's physics-investigation writeup for
-the extensive (ultimately inconclusive, but thorough) search for where
-these values might be computed or consumed as an actual ballistic
-simulation.
+**Payload layout** (header-relative offsets, following the shared 33-byte
+header — confirmed field-by-field from the handler):
+
+| Offset | Type | Notes |
+|---|---|---|
+| `+0x21` | — | lead field (queued first, relayed verbatim) |
+| `+0x23` | `u16` | numeric (angle-like; fed to `EncodeChecksumState`) |
+| `+0x25` | `u8` | flag |
+| `+0x26` | `u8` | flag (drives `FUN_00406500(... == 1)`) |
+| `+0x27` | `u16` | numeric |
+| `+0x29` | `u16` | numeric |
+| `+0x2b` | `u8` | copied into the firing player's record (not relayed) |
+| `+0x2c`…`+0x3a` | **8 × `u16`** | the shot-resolution block (16 bytes) |
+| `+0x3c` | `u8` | flag |
+| `+0x3d` | … | trailing data (consumed by `FUN_0043d780`) |
+
+The **eight sequential shorts at `+0x2c`…`+0x3a`** are the single most
+information-dense part of any action payload in this protocol. Because the
+client's own fire *builder* (`State11_InBattle_HandleFireInput`) sends only
+angle + power with **no local ballistic simulation** (confirmed — see below
+and ARCHITECTURE.md's physics writeup), these eight shorts can only be
+**server-resolved shot data**: computed by the server and broadcast so every
+client renders the identical trajectory. Whether they are trajectory sample
+points, impact coordinates for up to four sub-projectiles, or another
+server-computed encoding is **not yet pinned down** — but the "trajectory
+waypoint" reading is now well-supported by the server-authoritative model
+rather than a bare guess.
 
 **Behavior**: all of the above fields are relayed onward through the
 outgoing-encode helper functions (meaning this client re-broadcasts/forwards
