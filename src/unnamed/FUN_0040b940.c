@@ -19,7 +19,7 @@ exception * __thiscall FUN_0040b940(exception *param_1,exception *param_2)
   puStack_8 = &LAB_00537868;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
-  exception::exception(param_1,param_2);
+  exception__ctor(param_1,param_2);
   local_4 = 0;
   *(undefined ***)param_1 = &PTR_FUN_00544b5c;
   *(undefined4 *)(param_1 + 0x24) = 0xf;

@@ -17,7 +17,7 @@ void __fastcall FUN_0040a040(exception *param_1)
   *(undefined4 *)(param_1 + 0x24) = 0xf;
   *(undefined4 *)(param_1 + 0x20) = 0;
   param_1[0x10] = (exception)0x0;
-  exception::~exception(param_1);
+  exception__dtor(param_1);
   return;
 }
 

@@ -22,6 +22,7 @@
 #include <windows.h>
 #include <ddraw.h>
 #include <d3d.h>
+#include <imm.h>
 
 /* Ghidra emits Windows/CRT struct *tag* names bare (no `struct` keyword,
  * as C++ allows implicitly) even where only the tag - not a typedef of
@@ -35,12 +36,23 @@ typedef struct tm tm;
 typedef struct sockaddr sockaddr;
 typedef CRITICAL_SECTION _RTL_CRITICAL_SECTION;
 typedef FILETIME _FILETIME;
+typedef OSVERSIONINFOA _OSVERSIONINFOA;
+/* imm.h's COMPOSITIONFORM tag; WIN32_LEAN_AND_MEAN keeps windows.h
+ * from pulling imm.h in, so include it explicitly for the typedef. */
+typedef COMPOSITIONFORM tagCOMPOSITIONFORM;
 typedef struct hostent hostent;
 /* MSVC CRT's C++ `exception` class, referenced by a couple of raw-
- * ported functions' signatures. Opaque placeholder - real layout not
- * needed since these functions aren't hand-verified/called anywhere
- * yet, just declared so functions.h's forward declarations parse. */
-typedef struct exception exception;
+ * ported functions. `char`, not an opaque struct: Ghidra sizes
+ * unknown classes as 1 byte, so raw ports do byte-offset arithmetic
+ * (`param_1 + 0x24`) and 1-byte stores (`param_1[0x10] =
+ * (exception)0x0`) straight through `exception *`, which needs a
+ * complete 1-byte type to parse. Real layout still unknown/unneeded.
+ * Its ctor/dtor call sites (`exception::exception` /
+ * `exception::~exception` in Ghidra) are renamed exception__ctor /
+ * exception__dtor - `::` isn't C. */
+typedef char exception;
+exception * exception__ctor();
+void exception__dtor();
 /* Ghidra types registry-API results as LSTATUS, a typedef newer
  * Windows SDKs added to winreg.h; MSVC 7.1's Platform SDK predates it.
  * Same underlying type (LONG) as the RegXxx return values. */
