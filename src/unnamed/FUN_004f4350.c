@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004f4350(void)
+undefined4 FUN_004f4350(void)
 
 {
   undefined1 *puVar1;
