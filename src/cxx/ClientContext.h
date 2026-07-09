@@ -45,4 +45,34 @@ inline ServerListSoA *ServerList_of(int ctx)
 inline int  &Ctx_selectedServerId(int ctx) { return *reinterpret_cast<int *>(ctx + 0x3f804); }
 inline char *Ctx_currentServerName(int ctx) { return reinterpret_cast<char *>(ctx + 0x3b8e8); }
 
+/* --- Room list (State 3) arena ----------------------------------------
+ * The lobby's 6 room-card slots (3x2 grid). Per PROTOCOL.md
+ * ("Per-room grid fields" + "RoomPlayerSlot"), the per-slot data is
+ * NOT one contiguous struct - it's several parallel arrays each keyed
+ * by room slot, so these are base-offset accessors, not a struct. The
+ * six grid fields (bulk-filled by 0x2103, per-field by 0x21f3-0x21f7)
+ * each live in their own array; the doc pins the bases but not the
+ * per-array stride, so the array bases are exposed and the caller
+ * indexes. */
+inline u8  *Ctx_roomMap(int ctx)    { return reinterpret_cast<u8  *>(ctx + 0x4497c); } /* 1B/room */
+inline u32 *Ctx_roomInfo(int ctx)   { return reinterpret_cast<u32 *>(ctx + 0x44984); } /* 4B/room; bits 18-19 = fullness */
+inline u8  *Ctx_roomFlagA(int ctx)  { return reinterpret_cast<u8  *>(ctx + 0x4499c); } /* 1B/room; also equipped-item count */
+inline u8  *Ctx_roomFlagB(int ctx)  { return reinterpret_cast<u8  *>(ctx + 0x449a2); }
+inline u8  *Ctx_roomStatus(int ctx) { return reinterpret_cast<u8  *>(ctx + 0x449a8); }
+inline u8  *Ctx_roomLock(int ctx)   { return reinterpret_cast<u8  *>(ctx + 0x449ae); }
+
+/* RoomPlayerSlot storage (opcode 0x2105) - the per-player display data,
+ * also parallel arrays. The 0x80-byte name buffer is the only
+ * fixed-stride one confirmed; the rest are mirrored into the state
+ * object on receipt (see ARCHITECTURE.md "RoomPlayerSlot"). */
+inline char *Ctx_roomPlayerName(int ctx, int slot) { return reinterpret_cast<char *>(ctx + 0x4467c + slot * 0x80); }
+
+/* Local room-card array the join path reads the target room's ID from
+ * (0x2104 outgoing; ARCHITECTURE.md). */
+inline u16 *Ctx_roomCardIds(int ctx) { return reinterpret_cast<u16 *>(ctx + 0x44664); }
+
+/* The inventory item array (Avatar Store 0x6002; GbInventoryItem in
+ * Protocol.h), 16 x 0x9c at +0x44be8. */
+inline void *Ctx_inventory(int ctx) { return reinterpret_cast<void *>(ctx + 0x44be8); }
+
 #endif /* GB_CXX_CLIENTCONTEXT_H */
