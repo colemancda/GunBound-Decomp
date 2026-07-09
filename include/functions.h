@@ -1588,7 +1588,7 @@ int ScrollListWidget_ThumbHeight();
 void __fastcall FUN_0050e090();
 undefined4 __thiscall Widget_ResetPressState();
 void __fastcall FUN_0050e350();
-undefined4 __thiscall FUN_0050e3a0();
+undefined4 __thiscall Widget_OnDragMove();
 undefined4 __thiscall FUN_0050e420();
 undefined4 __thiscall FUN_0050e4c0();
 void __fastcall Widget_DrawChildren();

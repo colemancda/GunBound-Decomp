@@ -56,7 +56,7 @@ public:
     virtual void Update();                              /* slot 9  +0x24: per-class hook (e.g. panel row-loop 0x50dc40) */
     virtual void v10(bool b);                           /* slot 10 +0x28: same 0x50e860 body as SetFocus
                                                          * (identical-code folded); distinct role unknown */
-    virtual bool OnDragMove(int x, int y);              /* slot 11 +0x2c: base drag, FUN_0050e3a0 */
+    virtual bool OnDragMove(int x, int y);              /* slot 11 +0x2c: base drag, Widget_OnDragMove */
 
     /* Non-virtual base helpers (real member functions in the binary,
      * called by subclass handlers): */
