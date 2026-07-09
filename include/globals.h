@@ -2419,6 +2419,11 @@ extern const char s_invalid_map_set_T_iterator_00552000[];
  * (same reasoning as the map/set<T> strings above). Real content
  * extracted from the binary: "CCommP2P<> Notify Window". */
 extern const char s_CCommP2P_Notify_Window_00557b34[];
+/* Same <>-stripping rename as above: Ghidra's literal names embed <N>/
+ * <T> from the MSVC STL assertion strings. Real content extracted
+ * from the binary. */
+extern const char s_invalid_bitset_N_position_00552c4c[];
+extern const char s_vector_T_too_long_00557260[];
 extern void *PTR_s_101blast_xes_0056d2b4;
 extern void *PTR_s_11blast_xes_0056d290;
 extern void *PTR_s_121blast_xes_0056d33c;

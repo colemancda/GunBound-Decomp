@@ -28,7 +28,7 @@ void FUN_00426460(void)
   local_38 = 0xf;
   local_3c = 0;
   local_4c = 0;
-  FUN_0040bee0(s_invalid_bitset<N>_position_00552c4c,0x1a);
+  FUN_0040bee0(s_invalid_bitset_N_position_00552c4c,0x1a);
   local_4 = 0;
   FUN_00409fd0(local_50);
   local_34[0] = &PTR_FUN_00544b74;

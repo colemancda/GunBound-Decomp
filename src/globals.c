@@ -1842,6 +1842,8 @@ const char s_teleport2_005543cc[] = "teleport2";
 const char s_map_set_T_too_long_00551fec[] = "map/set<T> too long";
 const char s_invalid_map_set_T_iterator_00552000[] = "invalid map/set<T> iterator";
 const char s_CCommP2P_Notify_Window_00557b34[] = "CCommP2P<> Notify Window";
+const char s_invalid_bitset_N_position_00552c4c[] = "invalid bitset<N> position";
+const char s_vector_T_too_long_00557260[] = "vector<T> too long";
 void *PTR_s_101blast_xes_0056d2b4;
 void *PTR_s_11blast_xes_0056d290;
 void *PTR_s_121blast_xes_0056d33c;
