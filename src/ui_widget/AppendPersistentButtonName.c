@@ -15,6 +15,9 @@
 void AppendPersistentButtonName(int *param_1)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xffffff7f;
   char cVar1;
   int iVar2;
   undefined4 *puVar3;
