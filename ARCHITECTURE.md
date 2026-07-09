@@ -810,14 +810,14 @@ DLLs), so any `.mp3` decode is in-house/statically linked.
   worker thread** (`__beginthread(FUN_004ef870, ...)`) — so there appear to be
   **two streaming sound objects** (most plausibly one for music, one for
   effects; the split isn't individually confirmed).
-- **The streaming worker** (`FUN_004ef870` → `FUN_004ef880`): a classic
+- **The streaming worker** (`FUN_004ef870` → `AudioStreamThreadProc`): a classic
   double-buffered loop — `WaitForMultipleObjects(2, &events, FALSE, 100)` on the
   object's **two DirectSound position-notification events** (at object `+0x8`);
   on a notify it calls the object's refill vtable method (`slot 0`, given the
   event index) to decode+fill the buffer half that just played, plus a periodic
   tick (`slot 1`) on the 100 ms timeout; loops while the running flag
   (object `+0x10`) is set, then `__endthread`.
-- **`FUN_004eea30` — music-track control** (called from most screens' `OnEnter`:
+- **`PlayMusicTrack` — music-track control** (called from most screens' `OnEnter`:
   `title.mp3`, `channel.mp3`, `logo.mp3`, `stage%d.mp3`). Takes a track name (in
   a register, not visible in the C signature), compares it against the
   currently-playing track name (`DAT_00793568`); if unchanged it returns early
@@ -1664,7 +1664,7 @@ previously-unexamined ones. Findings:
     definitions `10000` and `0x2711` (`FUN_004f1790`; **corrected** — not a
     "watchdog timer" as earlier described here, see the lobby dispatcher
     section below for the real trace), zeroes the object's one `int` field
-    (a frame counter), and plays `logo.mp3` (`FUN_004eea30(0)`, the confirmed
+    (a frame counter), and plays `logo.mp3` (`PlayMusicTrack(0)`, the confirmed
     music-start helper).
   - **Slot 9** (`0x443540`, the per-tick hook): increments that same
     frame counter and, once it reaches **`0x28` (40 ticks ≈ 2 seconds** at
