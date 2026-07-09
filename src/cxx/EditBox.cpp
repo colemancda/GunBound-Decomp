@@ -38,7 +38,7 @@ CEditBox * __stdcall CreateTextEntryWidget(int id, int x, int y, int w, int h, i
  * container draw broadcast to the children. */
 void CEditBox::Draw()
 {
-    if (m_unk04 != '\0') {
+    if (m_focused != '\0') {
         int got = 0;
         if (*(char *)(DAT_007934e4 + 8) != '\0') {
             got = GetWindowTextA(*(HWND *)(DAT_007934e4 + 4), m_text, 0x80);

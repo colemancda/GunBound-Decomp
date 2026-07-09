@@ -123,6 +123,44 @@ void CScrollBar::Draw()
     }
 }
 
+/* 0x50f7c0, vtable slot 7 (exported via DecompileAt - no raw port
+ * existed). The arrow stepper: a HELD arrow label re-fires evt 1 every
+ * frame from its Draw (gated on the +0x38 armed flag), so this steps
+ * the scroll position once per frame while held - the docs' "+/-1
+ * arrow steps" auto-repeat. id 0 = up (clamp at 0), id 1 = down
+ * (clamp at total - pageSize, floored at 0), any other id resets the
+ * position to 1 (faithful to the original; role of that branch
+ * unclear). Changes are reported to the parent as 0x2000. */
+void CScrollBar::OnCommand(int evt, int id, int arg)
+{
+    if (evt == 1 && 0 < m_total) {
+        unsigned int newPos;
+        if (id == 0) {
+            newPos = (unsigned int)m_scrollPos - 1;
+            if ((int)newPos < 0) {
+                newPos = 0;
+            }
+        } else if (id == 1) {
+            int maxPos = m_total - m_pageSize;
+            int want = m_scrollPos + 1;
+            int n = want <= maxPos ? want : maxPos;
+            if (n < 0) {
+                newPos = 0;
+            } else {
+                newPos = (unsigned int)(want <= maxPos ? want : maxPos);
+            }
+        } else {
+            newPos = 1;
+        }
+        if (newPos != (unsigned int)m_scrollPos) {
+            m_scrollPos = (int)newPos;
+            if (m_parent != 0) {
+                m_parent->OnCommand(0x2000, m_id, (int)newPos);
+            }
+        }
+    }
+}
+
 /* 0x50f500, vtable slot 2. Record the click, then decide between the
  * two press modes: a hit on the thumb itself arms dragging (+grab
  * offset so the thumb doesn't jump under the cursor); any other press
@@ -171,7 +209,7 @@ bool CScrollBar::OnMouseUp(int x, int y)
     m_lastY = y;
     m_pressed = 0;
     m_dragging = 0;
-    m_unk04 = 0;
+    m_focused = 0;
     return MouseUpChildren(x, y) ||
            (!m_hidden &&
             m_x < x && x < m_x + m_width &&

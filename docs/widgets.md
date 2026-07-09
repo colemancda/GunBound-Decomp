@@ -44,7 +44,7 @@ scrollbar (`0x557e90`), and panel (`0x557f08`) vtables:
 
 | Slot (off) | Role | Shared base impl |
 |---|---|---|
-| 0 (`+0x00`) | **SetFocus(bool)** — **corrected**: the base slot-7 focus mover (`0x50eb10`) calls child slot 0 with an explicit `0` (focus loser) / `1` (focus gainer) argument, so slot 0 is a focus/activate hook, not the destructor. `CEditBox`'s `+0x04` active flag is the state it toggles. | `0x50e860` (trivial in most classes) |
+| 0 (`+0x00`) | **SetFocus(bool)** — **confirmed by decompiling `0x50e860`** (headless Ghidra export; the function is vtable-only-referenced so no raw port existed): its whole body is `this->+0x04 = arg`. The base slot-7 focus mover (`0x50eb10`) calls it with `0`/`1` on the focus loser/gainer; `CEditBox`'s `+0x04` flag is the state it toggles. | `0x50e860` |
 | 1 (`+0x04`) | mouse-move | per-class; base drag = `FUN_0050e3a0` (slot 11 in some) |
 | 2 (`+0x08`) | mouse-down | per-class (e.g. label `Label_OnMouseDown`, scrollbar `FUN_0050f500`) |
 | 3 (`+0x0c`) | mouse-up | per-class |
@@ -54,7 +54,7 @@ scrollbar (`0x557e90`), and panel (`0x557f08`) vtables:
 | 7 (`+0x1c`) | **command/callback + focus-nav** | `FUN_0050eb10` (leaf) — receives child callbacks (`0x2000` scroll, `0x1100`/`0x1101` focus move); panels override (e.g. `WorldListPanel_OnCommand`) |
 | 8 (`+0x20`) | **draw** | per-class; also broadcasts draw to children (container base `Widget_DrawChildren`) |
 | 9 (`+0x24`) | secondary render / per-class hook | per-class (e.g. panel row-loop `0x50dc40`) |
-| 10 (`+0x28`) | **scalar-deleting destructor** — **corrected** from "secondary destructor": with slot 0 being SetFocus, this is the real dtor slot (both resolved to `0x50e860` in classes whose SetFocus is trivial, which is what made slot 0 look like a dtor). | `0x50e860` |
+| 10 (`+0x28`) | unknown trivial one-byte setter — `0x50e860`'s decompile (`this->+0x04 = arg`, 3 instructions) rules out any destructor reading; slot 10 resolving to the same address as slot 0 is identical-code folding of another trivial setter. This vtable has **no virtual destructor slot**. | `0x50e860` (folded) |
 | 11 (`+0x2c`) | base drag mouse-move | `FUN_0050e3a0` |
 
 ### The event model — the `+0x1c` callback

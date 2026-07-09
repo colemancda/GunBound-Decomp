@@ -29,16 +29,17 @@ public:
      * +0x1d/+0x1e clear. The type id, id and rect are deliberately NOT
      * initialized here - every factory assigns them from its arguments
      * (matching the binary, which leaves them uninitialized in between). */
-    CWidget() : m_unk04(0), m_parent(0), m_enabled(1), m_unk1d(0), m_hidden(0) {}
+    CWidget() : m_focused(0), m_parent(0), m_enabled(1), m_unk1d(0), m_hidden(0) {}
 
-    /* SLOT 0/10 CORRECTION (supersedes docs/widgets.md's original table):
-     * the base OnCommand (0x50eb10) moves focus by calling child slot 0
-     * with an explicit 0 (loser) / 1 (gainer) argument - slot 0 is
-     * SetFocus(bool), NOT the destructor. The scalar-deleting dtor is
-     * slot 10 (which is why both slots resolved to 0x50e860 in classes
-     * with a trivial SetFocus). CEditBox's +0x04 active flag is the
-     * state this toggles. */
-    virtual void SetFocus(bool active);                 /* slot 0  +0x00: 0x50e860 trivial impl on most classes */
+    /* SLOT 0/10 CORRECTION (supersedes docs/widgets.md's original
+     * table): 0x50e860, freshly exported from Ghidra, is three
+     * instructions - `this->m_focused = arg` - so slot 0 is
+     * SetFocus(bool), NOT a destructor (the focus mover 0x50eb10 calls
+     * it with 0/1 on the loser/gainer). Slot 10 resolving to the same
+     * address is identical-code folding of another trivial one-byte
+     * setter, not a "secondary destructor"; this vtable has NO virtual
+     * dtor slot at all. */
+    virtual void SetFocus(bool active);                 /* slot 0  +0x00: 0x50e860 - promoted, Widget.cpp */
     virtual bool OnMouseMove(int x, int y);             /* slot 1  +0x04: per-class */
     virtual bool OnMouseDown(int x, int y);             /* slot 2  +0x08: per-class (Label_OnMouseDown, scrollbar 0x50f500) */
     virtual bool OnMouseUp(int x, int y);               /* slot 3  +0x0c: per-class */
@@ -53,7 +54,8 @@ public:
                                                          * command dispatcher. */
     virtual void Draw();                                /* slot 8  +0x20: self + child broadcast (Widget_DrawChildren) */
     virtual void Update();                              /* slot 9  +0x24: per-class hook (e.g. panel row-loop 0x50dc40) */
-    virtual ~CWidget();                                 /* slot 10 +0x28: the real scalar-deleting dtor */
+    virtual void v10(bool b);                           /* slot 10 +0x28: same 0x50e860 body as SetFocus
+                                                         * (identical-code folded); distinct role unknown */
     virtual bool OnDragMove(int x, int y);              /* slot 11 +0x2c: base drag, FUN_0050e3a0 */
 
     /* Non-virtual base helpers (real member functions in the binary,
@@ -77,9 +79,10 @@ public:
 
     /* field offsets confirmed in docs/widgets.md; m_unk* are the
      * undocumented gaps, kept explicit so everything else lands exactly */
-    u8       m_unk04;        /* +0x04: read as a byte flag by CEditBox::Draw
-                              * (skip the EDIT-control sync when clear);
-                              * cleared by CScrollBar::OnMouseUp */
+    u8       m_focused;      /* +0x04: THE focus/active flag - set by
+                              * SetFocus (0x50e860), read by CEditBox::Draw,
+                              * dropped by SetEnabled/ResetPressState and
+                              * CScrollBar::OnMouseUp */
     u8       m_unk05[3];     /* +0x05 */
     CWidget *m_parent;       /* +0x08: callback target for OnCommand */
     CAtlArray<CWidget *> m_children; /* +0x0c..+0x1b: ATL7 CAtlArray - grow
@@ -117,7 +120,9 @@ public:
     virtual void Draw();                     /* 0x50e350 - promoted, Label.cpp: reports evt 1 upward
                                               * (the parent panel blits for it), then child broadcast */
 
-    u8  m_unk38;                     /* +0x38: byte flag; gates click reporting with +0x1c */
+    u8  m_unk38;                     /* +0x38: armed/held flag - gates click AND the per-frame
+                                      * evt-1 reports from Draw (the scrollbar arrows' auto-
+                                      * repeat rides on this); cleared by ResetPressState */
     u8  m_unk39;                     /* +0x39: (base drag flag slot per docs/widgets.md) */
     u8  m_unk3a[2];                  /* +0x3a */
     int m_spriteId;                  /* +0x3c: sprite/message id; Draw (0x50e350) blits via FindSpriteFrame */
@@ -161,6 +166,8 @@ public:
 
     virtual bool OnMouseDown(int x, int y);  /* 0x50f500 - promoted, ScrollBar.cpp */
     virtual bool OnMouseUp(int x, int y);    /* 0x50f5f0 - promoted, ScrollBar.cpp */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x50f7c0 - promoted, ScrollBar.cpp: the +/-1
+                                              * arrow stepper (exported via Ghidra DecompileAt) */
     virtual void Draw();                     /* 0x50f660 - promoted, ScrollBar.cpp. Bound to slot 8
                                               * from its shape (ends in the child +0x20 draw
                                               * broadcast, same as the other Draw overrides);

@@ -82,7 +82,7 @@ bool CWidget::DispatchMouse(int msg)
 bool CWidget::ResetPressState(int x, int y)
 {
     ((u8 *)this)[0x38] = 0;
-    m_unk04 = 0;
+    m_focused = 0;
     return MouseUpChildren(x, y) ||
            (!m_hidden &&
             m_x < x && x < m_x + m_width &&
@@ -106,6 +106,15 @@ bool CWidget::OnDragMove(int x, int y)
            (!m_hidden &&
             m_x < x && x < m_x + m_width &&
             m_y < y && y < m_y + m_height);
+}
+
+/* 0x50e860 (exported via ghidra_scripts/DecompileAt.java - no raw port
+ * existed; the function is only reachable through vtables). The
+ * trivial focus setter shared - via identical-code folding - with
+ * slot 10. */
+void CWidget::SetFocus(bool active)
+{
+    m_focused = (u8)active;
 }
 
 /* 0x50e730. Shift this widget and, recursively, its whole subtree by a
@@ -198,8 +207,8 @@ void CWidget::AddChild(CWidget *child)
 void CWidget::SetEnabled(bool enabled)
 {
     m_enabled = (u8)enabled;
-    if (m_unk04 != 0) {
-        m_unk04 = 0;
+    if (m_focused != 0) {
+        m_focused = 0;
     }
     if (m_children.GetCount() != 0) {
         unsigned int i = 0;
