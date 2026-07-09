@@ -36,15 +36,15 @@ undefined4 * FUN_004abb70(undefined4 *param_1)
   *(undefined1 *)(param_1 + 0x9b) = 0;
   param_1[0x18] = 0;
   EncodeOutgoingPacketField(0);
-  local_4._0_1_ = 1;
+  SUBFIELD(local_4,0,undefined1) = 1;
   *(undefined1 *)(param_1 + 0x124) = 0;
   param_1[0xa1] = 0;
   EncodeOutgoingPacketField(0);
-  local_4._0_1_ = 2;
+  SUBFIELD(local_4,0,undefined1) = 2;
   *(undefined1 *)(param_1 + 0x1ad) = 0;
   param_1[0x12a] = 0;
   EncodeOutgoingPacketField(0);
-  local_4 = CONCAT31(local_4._1_3_,3);
+  local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
   param_1[0x11] = 0x10e;
   param_1[0x12] = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
