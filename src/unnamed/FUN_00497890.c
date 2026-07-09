@@ -31,13 +31,13 @@ void FUN_00497890(undefined4 *param_1)
       DAT_00793568 = 0;
     }
   }
-  local_4._0_1_ = 1;
+  SUBFIELD(local_4,0,undefined1) = 1;
   param_1[0xff3] = 0xffffffff;
   if (param_1[0x1083] != 0) {
     FUN_0040a240();
     FUN_0040b540(auStack_14);
   }
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (param_1[0xffa] != 0) {
     FUN_0040a240();
     FUN_0040b540(auStack_14);
