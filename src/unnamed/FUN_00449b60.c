@@ -101,7 +101,7 @@ LAB_00449be9:
         _sprintf((char *)((int)&uStack_80 + 3),s__05d_img_00555a08,uVar7);
         FUN_004f1790(&DAT_00ea0e18,iVar12 + 20000);
         auVar6 = local_84;
-        FUN_0041b4b0(local_84,iVar9 + 0x17a4,0x18,0x15,0x78,1);
+        RenderWrappedText(local_84,iVar9 + 0x17a4,0x18,0x15,0x78,1);
         iVar12 = iVar12 + 1;
         local_84 = (undefined1  [4])((int)auVar6 + 0x78);
         iVar9 = iVar9 + 0x17e4;

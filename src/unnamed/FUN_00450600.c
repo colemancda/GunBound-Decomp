@@ -33,7 +33,7 @@ void __fastcall FUN_00450600(int param_1)
     cVar1 = *in_EAX;
     in_EAX = in_EAX + 1;
   } while (cVar1 != '\0');
-  FUN_0041b4b0((undefined4 *)(param_1 + 0x44),param_1 + 0x1d4,0x14,0xf,(int)in_EAX - (int)pcVar2,0);
+  RenderWrappedText((undefined4 *)(param_1 + 0x44),param_1 + 0x1d4,0x14,0xf,(int)in_EAX - (int)pcVar2,0);
   return;
 }
 

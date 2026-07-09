@@ -290,7 +290,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00419d30,89,FUN_00419d30,false,2,4,RAW-src
 00419d90,5740,LoadGameDataFiles,false,3,15,RAW-src
 0041b410,151,FUN_0041b410,false,4,0,RAW-src
-0041b4b0,505,FUN_0041b4b0,false,11,0,RAW-src
+0041b4b0,505,RenderWrappedText,false,11,0,RAW-src
 0041b6b0,49,FUN_0041b6b0,false,1,0,RAW-src
 0041b6f0,233,FUN_0041b6f0,false,1,0,RAW-src
 0041b7e0,82,FUN_0041b7e0,false,3,0,RAW-src

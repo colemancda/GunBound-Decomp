@@ -370,7 +370,7 @@ void __fastcall FUN_00418b90();
 void FUN_00418dc0();
 int FUN_00419d30();
 uint __fastcall FUN_0041b410();
-int FUN_0041b4b0();
+int RenderWrappedText();
 void FUN_0041b6b0();
 void FUN_0041b6f0();
 void __fastcall FUN_0041b7e0();

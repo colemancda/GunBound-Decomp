@@ -17,7 +17,7 @@
  *      globals (_DAT_00e53c24..30 = {0xf9,0x229,0xc1,0x171}).
  *   5. Looks up the localized message string, GetLocalizedString(&DAT_00796eec,
  *      msgId + 0xc7), and word-wraps it into DAT_005b1d70 via
- *      FUN_0041b4b0(buf, str, x=0x32, y=0x2b, wrapWidth=0x15e, 1).
+ *      RenderWrappedText(buf, str, x=0x32, y=0x2b, wrapWidth=0x15e, 1).
  *   6. If closeSockets != 0: tears down all three connection objects
  *      (DAT_005b2b58 / DAT_005b2b5c / DAT_005b2b60 -> mark state 1, closesocket
  *      +0x24, clear connected flags +0x22a/+0x84e5), releases the COM object
@@ -75,7 +75,7 @@ void ShowErrorDialog(int param_1)
   _DAT_00e53c30 = 0x171;
   *(undefined2 *)puVar4 = 0;
   uVar2 = GetLocalizedString(&DAT_00796eec,in_EAX + 199);
-  FUN_0041b4b0(&DAT_005b1d70,uVar2,uVar5,uVar6,uVar7,uVar8);
+  RenderWrappedText(&DAT_005b1d70,uVar2,uVar5,uVar6,uVar7,uVar8);
   iVar3 = DAT_005b2b58;
   if (param_1 != '\0') {
     iVar1 = *(int *)(DAT_005b2b58 + 0x84e0);

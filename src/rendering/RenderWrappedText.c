@@ -1,14 +1,13 @@
-/* FUN_0041b4b0 - 0x0041b4b0 in the original binary.
+/* RenderWrappedText - 0x0041b4b0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Word-wraps a text string into a render buffer at (x, y) within a given wrap width. Used for the server-list descriptions and the error/message dialogs. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-int FUN_0041b4b0(int param_1,char *param_2,int param_3,int param_4,int param_5,int param_6)
+int RenderWrappedText(int param_1,char *param_2,int param_3,int param_4,int param_5,int param_6)
 
 {
   char cVar1;

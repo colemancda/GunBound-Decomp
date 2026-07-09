@@ -45,7 +45,7 @@ FUN_00507ff0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4
     *puVar3 = 0;
     puVar3 = puVar3 + 1;
   }
-  FUN_0041b4b0((undefined4 *)((int)puVar1 + 0x3a),param_5,0x80,(int)puVar1[0xc] / 6,0x500,1);
+  RenderWrappedText((undefined4 *)((int)puVar1 + 0x3a),param_5,0x80,(int)puVar1[0xc] / 6,0x500,1);
   return puVar1;
 }
 

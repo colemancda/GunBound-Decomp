@@ -219,7 +219,7 @@ LAB_004495fa:
     FUN_004f1790(&DAT_00ea0e18,iVar11 + 20000);
     auVar8 = auStack_1874;
     FUN_004240c0(g_clientContext,*(char *)(param_1 + 0x2d54c + iVar11) == '\x01',param_2,*puVar13);
-    FUN_0041b4b0(local_1878,auVar8,0x18,0x15,0x78,1);
+    RenderWrappedText(local_1878,auVar8,0x18,0x15,0x78,1);
     iVar11 = iVar11 + 1;
     auStack_1874 = (undefined1  [4])((int)auVar8 + 0x17e4);
     local_1878 = local_1878 + 0x78;

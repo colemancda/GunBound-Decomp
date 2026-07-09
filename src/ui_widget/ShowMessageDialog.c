@@ -31,7 +31,7 @@ void ShowMessageDialog(undefined4 param_1,int param_2)
   _DAT_00e53c2c = 0xc1;
   _DAT_00e53c30 = 0x171;
   *(undefined2 *)puVar3 = 0;
-  FUN_0041b4b0(&DAT_005b1d70,param_1,0x32,0x2b,0x15e,1);
+  RenderWrappedText(&DAT_005b1d70,param_1,0x32,0x2b,0x15e,1);
   iVar2 = DAT_005b2b58;
   if (param_2 != '\0') {
     iVar1 = *(int *)(DAT_005b2b58 + 0x84e0);

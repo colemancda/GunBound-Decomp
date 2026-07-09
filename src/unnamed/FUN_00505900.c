@@ -75,7 +75,7 @@ void __fastcall FUN_00505900(int param_1,char *param_2,char *param_3,uint param_
     param_2 = param_2 + 1;
   } while (cVar1 != '\0');
   param_2[(int)(local_2006 + (param_4 - (int)pcVar3))] = '\0';
-  iVar4 = FUN_0041b4b0(local_2fa8,(int)&uStack_2009 + 1,0x28,0x22,4000,0);
+  iVar4 = RenderWrappedText(local_2fa8,(int)&uStack_2009 + 1,0x28,0x22,4000,0);
   iVar5 = *(int *)(param_1 + 0x104c) + iVar4;
   if (100 < iVar5) {
     iVar5 = iVar5 + -100;

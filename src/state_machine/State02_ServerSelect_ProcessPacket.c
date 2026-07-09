@@ -140,7 +140,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           }
           pbVar19 = pbVar18 + 1 + uVar6;
           abStack_80[uVar6] = 0;
-          FUN_0041b4b0(iStack_dc + 0x4004a + iVar20,abStack_80,0x40,0x24,0x100,1);
+          RenderWrappedText(iStack_dc + 0x4004a + iVar20,abStack_80,0x40,0x24,0x100,1);
           iVar8 = iStack_d4;
           *(undefined4 *)(iVar20 + 0x4104a + iStack_d4 * 4) = *(undefined4 *)pbVar19;
           uVar3 = htons(*(u_short *)(pbVar19 + 4));

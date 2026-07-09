@@ -155,7 +155,7 @@ void FUN_0044b900(int param_1)
         *puVar14 = 0;
         puVar14 = puVar14 + 1;
       }
-      FUN_0041b4b0((undefined4 *)(param_1 + 0x32f30),local_1870,0x20,0x1a,0x40,1);
+      RenderWrappedText((undefined4 *)(param_1 + 0x32f30),local_1870,0x20,0x1a,0x40,1);
       uVar10 = DAT_00555a14;
       uVar4 = DAT_00555a16;
       if (-1 < (char)(local_1874 >> 8)) {
