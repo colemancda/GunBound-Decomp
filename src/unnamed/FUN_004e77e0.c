@@ -73,7 +73,7 @@ void FUN_004e77e0(int param_1)
         *puVar1 = *puVar1 | uVar9;
         puVar1 = (uint *)(iVar6 + 0x144 + param_1);
         *puVar1 = *puVar1 | uVar9;
-        *(short *)(local_210 + 0x4522c) = local_200._2_2_;
+        *(short *)(local_210 + 0x4522c) = SUBFIELD(local_200,2,undefined2);
         local_1f9 = *(char *)(uVar8 + 0x3c8 + param_1);
         *(char *)(uVar8 + 0x3c8 + param_1) = local_1f9 + '\x01';
         *(char *)(uVar8 + 0x45294 + param_1) = local_1f9;
@@ -99,7 +99,7 @@ void FUN_004e77e0(int param_1)
           puVar10 = puVar10 + 1;
           puVar11 = puVar11 + 1;
         }
-        if (local_200._2_2_ == -0x6000) {
+        if (SUBFIELD(local_200,2,undefined2) == -0x6000) {
           DVar7 = timeGetTime();
           local_20c[0x11482] = DVar7;
         }
@@ -134,7 +134,7 @@ LAB_004e79e6:
     *puVar1 = *puVar1 | uVar9;
     puVar1 = (uint *)(iVar6 + 0x144 + param_1);
     *puVar1 = *puVar1 | uVar9;
-    *(short *)(param_1 + 0x45284 + uVar8 * 2) = local_200._2_2_;
+    *(short *)(param_1 + 0x45284 + uVar8 * 2) = SUBFIELD(local_200,2,undefined2);
     local_1f9 = *(char *)(uVar8 + 0x3c8 + param_1);
     pcVar2 = (char *)(uVar8 + 0x3c8 + param_1);
     *pcVar2 = *pcVar2 + '\x01';
@@ -163,7 +163,7 @@ LAB_004e79e6:
       puVar11 = puVar11 + 1;
     }
     InterlockedExchange((LONG *)(param_1 + 0x44de0),1);
-    if (local_200._2_2_ == -0x6000) {
+    if (SUBFIELD(local_200,2,undefined2) == -0x6000) {
       DVar7 = timeGetTime();
       *(DWORD *)(param_1 + 0x45240 + uVar8 * 4) = DVar7;
     }
