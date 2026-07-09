@@ -266,7 +266,7 @@ LAB_004457e7:
         FUN_004254a0();
       }
       else {
-        FUN_004124a0(0);
+        ShowErrorDialog(0);
       }
     }
     break;
@@ -351,15 +351,15 @@ LAB_004457e7:
               FUN_004254a0();
             }
             else {
-              FUN_004124a0(0);
+              ShowErrorDialog(0);
             }
           }
           else {
-            FUN_004124a0(0);
+            ShowErrorDialog(0);
           }
         }
         else {
-          FUN_004124a0(0);
+          ShowErrorDialog(0);
         }
       }
     }
@@ -490,7 +490,7 @@ LAB_004457e7:
           FUN_004254a0();
         }
         else {
-          FUN_004124a0(0);
+          ShowErrorDialog(0);
         }
       }
     }

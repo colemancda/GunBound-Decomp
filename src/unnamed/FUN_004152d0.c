@@ -17,22 +17,22 @@ undefined1 FUN_004152d0(undefined4 param_1)
   switch(param_1) {
   case 0x3e9:
   case 0x3ea:
-    FUN_004124a0(1);
+    ShowErrorDialog(1);
     return 0;
   case 0x3f3:
-    FUN_004124a0(1);
+    ShowErrorDialog(1);
     return 0;
   case 0x3f4:
-    FUN_004124a0(0);
+    ShowErrorDialog(0);
     return 1;
   case 0x3f5:
-    FUN_004124a0(1);
+    ShowErrorDialog(1);
     return 0;
   case 0x3f6:
-    FUN_004124a0(1);
+    ShowErrorDialog(1);
     return 0;
   case 0x3f7:
-    FUN_004124a0(1);
+    ShowErrorDialog(1);
     uVar1 = 0;
   }
   return uVar1;

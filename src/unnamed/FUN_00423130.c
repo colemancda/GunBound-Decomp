@@ -192,7 +192,7 @@ LAB_0042326c:
       iVar8 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar8 < (int)(uint)*puVar12) {
-        FUN_004124a0(1);
+        ShowErrorDialog(1);
       }
       local_430 = *(undefined4 *)(param_2 + 0x23);
       local_42c = *(undefined4 *)(param_2 + 0x27);

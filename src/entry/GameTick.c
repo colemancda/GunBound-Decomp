@@ -41,7 +41,7 @@ void GameTick(void)
   }
   if (DAT_00793514 == '\x01') {
     DAT_00793514 = '\0';
-    FUN_004124a0(1);
+    ShowErrorDialog(1);
   }
   if ((DAT_00793640 != 0) && (DAT_00793516 == '\0')) {
     g_pendingGameState = 0xf;
@@ -113,7 +113,7 @@ void GameTick(void)
       *(undefined4 *)(&DAT_0067e3c8 + g_clientContext) = 0;
     }
     else {
-      FUN_004124a0(1);
+      ShowErrorDialog(1);
       *(undefined4 *)(&DAT_0067e3c8 + g_clientContext) = 0;
     }
   }

@@ -50,12 +50,12 @@ void __fastcall FUN_004e6770(int param_1)
                     (*(undefined4 *)(param_1 + 0x14),*(undefined4 *)(param_1 + 0xc),abStack_2c);
           if ((abStack_2c[0] & 1) != 0) {
             if (iStack_28 != 0) {
-              FUN_004124a0(1);
+              ShowErrorDialog(1);
               goto LAB_004e6b2c;
             }
             cVar2 = FUN_004e6160(param_1);
             if (cVar2 == '\0') {
-              FUN_004124a0(1);
+              ShowErrorDialog(1);
               goto LAB_004e6b2c;
             }
           }

@@ -1,4 +1,4 @@
-/* FUN_004124a0 - 0x004124a0 in the original binary.
+/* ShowErrorDialog - 0x004124a0 in the original binary.
  *
  * The shared in-game error/message dialog (~40 call sites). Shows a modal
  * popup with a word-wrapped localized message and a single OK button.
@@ -25,7 +25,7 @@
  *      active (DAT_007934f4 -> FUN_004059a0), and SetEvent(DAT_00e55ce8).
  *
  * One of a three-overload family that differ only in the message source:
- *   FUN_004124a0(closeSockets)          - localized string by id, verbatim.
+ *   ShowErrorDialog(closeSockets)          - localized string by id, verbatim.
  *   FUN_00412650(closeSockets, value)   - localized string used as a printf
  *                                         format, sprintf'd with one value.
  *   FUN_00412820(text, closeSockets)    - a caller-supplied literal string.
@@ -42,7 +42,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004124a0(int param_1)
+void ShowErrorDialog(int param_1)
 
 {
   int iVar1;

@@ -67,7 +67,7 @@ void __fastcall State11_InBattle_OnEnter(int param_1)
   }
   iVar6 = LoadGameDataFiles(g_clientContext);
   if (iVar6 != 0) {
-    FUN_004124a0(1);
+    ShowErrorDialog(1);
     return;
   }
   CreateButtonWidget(&DAT_00e9be90,0,0,1000,s_b_play_option_00554174,0xb,3,0x28,0x1e,1,0);

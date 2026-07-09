@@ -92,7 +92,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   FUN_00429800();
   cVar3 = FUN_00419d30();
   if (cVar3 == '\0') {
-    FUN_004124a0(1);
+    ShowErrorDialog(1);
   }
   FUN_00423bf0();
   FUN_00449540(param_1,1);

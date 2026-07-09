@@ -347,7 +347,7 @@ LAB_0044469b:
         return;
       }
       if (*payload == 0x6003) {
-        FUN_004124a0(0);
+        ShowErrorDialog(0);
         iVar20 = DAT_007934e8;
         iVar4 = g_clientContext;
         *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
@@ -419,7 +419,7 @@ switchD_004449fc_default:
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             EncodeOutgoingPacketField(0xffffffff);
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            FUN_004124a0(0);
+            ShowErrorDialog(0);
             iVar4 = g_clientContext + 0x23330;
             pcVar7 = (char *)FUN_0043dc70(&DAT_00796eec,0xfa8);
             _sprintf((char *)local_508,pcVar7,iVar4);
@@ -427,7 +427,7 @@ switchD_004449fc_default:
             FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
           }
           else if (*payload == 0x6002) {
-            FUN_004124a0(0);
+            ShowErrorDialog(0);
           }
           *(undefined1 *)((int)this + 0x32f90) = 1;
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -534,7 +534,7 @@ switchD_00444e7c_default:
         FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
       }
       else if (*payload == 0x6002) {
-        FUN_004124a0(0);
+        ShowErrorDialog(0);
       }
     }
     *(undefined1 *)((int)this + 0x32f90) = 1;

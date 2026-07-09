@@ -60,7 +60,7 @@ void __fastcall FUN_004e1960(int param_1)
         }
       }
       FUN_00406300(*(int *)(param_1 + 8) != -1);
-      FUN_004124a0(0);
+      ShowErrorDialog(0);
       *(undefined1 *)(param_1 + 6) = 1;
       cVar3 = FUN_004065a0();
       if (cVar3 != '\0') {

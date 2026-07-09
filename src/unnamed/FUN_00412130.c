@@ -47,7 +47,7 @@ LAB_00412140:
           DAT_00793529 = 1;
         }
         else {
-          FUN_004124a0(1);
+          ShowErrorDialog(1);
           pvVar4 = DAT_007934f4;
           if (DAT_007934f4 != (void *)0x0) {
             iVar1 = *(int *)((int)DAT_007934f4 + 0x2004);

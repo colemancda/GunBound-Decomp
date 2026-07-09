@@ -27,7 +27,7 @@ void __fastcall FUN_004153b0(int param_1)
       uVar3 = *(int *)(param_1 + 0x14) + 1;
       *(uint *)(param_1 + 0x14) = uVar3;
       if (10 < uVar3) {
-        FUN_004124a0(1);
+        ShowErrorDialog(1);
       }
     }
   }

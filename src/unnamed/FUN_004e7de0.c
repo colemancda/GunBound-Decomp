@@ -70,7 +70,7 @@ void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3)
   }
   if (cVar4 != *(char *)(param_1 + 0x452a5)) {
     if (*(uint *)(param_1 + 0x14c) == uVar6) {
-      FUN_004124a0(1);
+      ShowErrorDialog(1);
     }
     LeaveCriticalSection(lpCriticalSection);
     return;

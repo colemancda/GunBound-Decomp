@@ -479,11 +479,11 @@ LAB_004111c0:
       }
       else if (uVar6 == 0x1079) {
         if (*(short *)pbVar22 == 0) {
-          FUN_004124a0(0);
+          ShowErrorDialog(0);
         }
       }
       else if (uVar6 == 0x1ff8) {
-        FUN_004124a0(1);
+        ShowErrorDialog(1);
       }
       goto switchD_004105f7_caseD_1022;
     }
@@ -529,7 +529,7 @@ LAB_004111c0:
     QueueOutgoingPacketField(*(undefined4 *)pbVar22);
     cVar4 = PacketChecksumEquals(g_clientContext + 0x449c4,1);
     if (cVar4 != '\0') {
-      FUN_004124a0(0);
+      ShowErrorDialog(0);
     }
     goto switchD_004105f7_caseD_1022;
   }

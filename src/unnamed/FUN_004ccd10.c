@@ -175,7 +175,7 @@ void FUN_004ccd10(int *param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = LoadGameDataFiles(g_clientContext);
   if (iVar7 != 0) {
-    FUN_004124a0(1);
+    ShowErrorDialog(1);
     goto LAB_004ce3a6;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

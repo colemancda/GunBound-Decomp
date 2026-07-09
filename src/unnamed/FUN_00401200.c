@@ -58,7 +58,7 @@ void __fastcall FUN_00401200(int param_1)
       if (iVar1 != -1) {
         return;
       }
-      FUN_004124a0(1);
+      ShowErrorDialog(1);
       WSAGetLastError();
     }
   }

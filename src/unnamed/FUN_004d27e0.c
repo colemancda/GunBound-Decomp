@@ -390,13 +390,13 @@ LAB_004d2b24:
         if (param_2 == (HWND)0x0) goto LAB_004d3383;
         goto LAB_004d2b2c;
       }
-      FUN_004124a0(1);
+      ShowErrorDialog(1);
       goto LAB_004d33f1;
     }
     if (param_2 != (HWND)0x0) goto LAB_004d2b2c;
     uVar13 = (uint)CONCAT11(uVar4,uVar2 == 0x1031);
 LAB_004d337b:
-    FUN_004124a0(uVar13);
+    ShowErrorDialog(uVar13);
   }
   else {
     if (uVar13 < 0x1103) {

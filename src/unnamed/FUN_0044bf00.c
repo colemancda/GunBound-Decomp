@@ -31,7 +31,7 @@ void FUN_0044bf00(int param_1)
   
   iVar6 = DAT_007934e8;
   if (100 < *(uint *)(g_clientContext + 0x44e24)) {
-    FUN_004124a0(0);
+    ShowErrorDialog(0);
     return;
   }
   *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x6004;

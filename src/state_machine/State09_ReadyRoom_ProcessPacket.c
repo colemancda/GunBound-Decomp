@@ -278,7 +278,7 @@ LAB_004d3fb0:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       cVar10 = FUN_00419d30();
       if (cVar10 == '\0') {
-        FUN_004124a0(1);
+        ShowErrorDialog(1);
       }
       uVar4 = *(undefined2 *)(payload + 1);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

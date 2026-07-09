@@ -480,7 +480,7 @@ LAB_004b8aeb:
       *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
       return;
     }
-    FUN_004124a0(0);
+    ShowErrorDialog(0);
     return;
   case 0xe:
     *(undefined1 *)(param_1 + 0x11ac) = 0;

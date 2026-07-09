@@ -27,7 +27,7 @@ void FUN_004e1bf0(int param_1)
   
   if ((unaff_EDI < 0x10) && (-2 < unaff_EDI)) {
     if (*(int *)(param_1 + 0x28 + unaff_EDI * 4) != 0) {
-      FUN_004124a0(0);
+      ShowErrorDialog(0);
       return;
     }
     _sprintf(local_80,s__d__d__d__d_00557138,(uint)*(byte *)(g_clientContext + 0x4104a + unaff_EDI * 4)
