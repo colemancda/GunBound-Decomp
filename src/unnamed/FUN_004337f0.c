@@ -45,9 +45,9 @@ void FUN_004337f0(undefined4 param_1,int param_2)
       piVar3[6] = 0x1838;
       piVar3[0xe] = 0x189c;
       piVar3[0xe25] = 0x1fa4;
-      piVar3[0xe26] = s_bombflame_00553cc8._0_4_;
-      piVar3[0xe27] = s_bombflame_00553cc8._4_4_;
-      *(undefined2 *)(piVar3 + 0xe28) = s_bombflame_00553cc8._8_2_;
+      piVar3[0xe26] = SUBFIELD(s_bombflame_00553cc8,0,undefined4);
+      piVar3[0xe27] = SUBFIELD(s_bombflame_00553cc8,4,undefined4);
+      *(undefined2 *)(piVar3 + 0xe28) = SUBFIELD(s_bombflame_00553cc8,8,undefined2);
     }
     else if (*(char *)(g_clientContext + 0x45578) == '\x01') {
       iVar4 = FindPreloadedTextureByName(s_bulletevent1_00553e38);
@@ -56,9 +56,9 @@ void FUN_004337f0(undefined4 param_1,int param_2)
       piVar3[6] = 6000;
       piVar3[0xe] = 0x189c;
       piVar3[0xe25] = 8000;
-      piVar3[0xe26] = s_flameevent1_00553e2c._0_4_;
-      piVar3[0xe27] = s_flameevent1_00553e2c._4_4_;
-      piVar3[0xe28] = s_flameevent1_00553e2c._8_4_;
+      piVar3[0xe26] = SUBFIELD(s_flameevent1_00553e2c,0,undefined4);
+      piVar3[0xe27] = SUBFIELD(s_flameevent1_00553e2c,4,undefined4);
+      piVar3[0xe28] = SUBFIELD(s_flameevent1_00553e2c,8,undefined4);
     }
     *(undefined1 *)(piVar3 + 0xf) = 0xff;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -168,10 +168,10 @@ void FUN_004337f0(undefined4 param_1,int param_2)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    *(undefined4 *)((int)piVar3 + 0x3813) = s_bombblast_xes_00553cb8._0_4_;
-    *(undefined4 *)((int)piVar3 + 0x3817) = s_bombblast_xes_00553cb8._4_4_;
-    *(undefined4 *)((int)piVar3 + 0x381b) = s_bombblast_xes_00553cb8._8_4_;
-    *(undefined2 *)((int)piVar3 + 0x381f) = s_bombblast_xes_00553cb8._12_2_;
+    *(undefined4 *)((int)piVar3 + 0x3813) = SUBFIELD(s_bombblast_xes_00553cb8,0,undefined4);
+    *(undefined4 *)((int)piVar3 + 0x3817) = SUBFIELD(s_bombblast_xes_00553cb8,4,undefined4);
+    *(undefined4 *)((int)piVar3 + 0x381b) = SUBFIELD(s_bombblast_xes_00553cb8,8,undefined4);
+    *(undefined2 *)((int)piVar3 + 0x381f) = SUBFIELD(s_bombblast_xes_00553cb8,12,undefined2);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(100);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
