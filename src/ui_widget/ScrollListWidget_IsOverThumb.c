@@ -1,4 +1,4 @@
-/* FUN_0050f770 - 0x0050f770 in the original binary.
+/* ScrollListWidget_IsOverThumb - 0x0050f770 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-uint __fastcall FUN_0050f770(int param_1,int param_2)
+uint __fastcall ScrollListWidget_IsOverThumb(int param_1,int param_2)
 
 {
   uint uVar1;

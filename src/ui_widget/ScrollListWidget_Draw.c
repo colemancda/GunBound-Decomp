@@ -19,7 +19,7 @@ void __fastcall ScrollListWidget_Draw(int param_1)
   
   if ((*(char *)(param_1 + 0x44) != '\0') && (iVar4 = *(int *)(param_1 + 0x38), 0 < iVar4)) {
     iVar5 = *(int *)(param_1 + 0x50);
-    cVar1 = FUN_0050f770();
+    cVar1 = ScrollListWidget_IsOverThumb();
     if (cVar1 == '\0') {
       uVar6 = *(uint *)(param_1 + 0x40);
       if ((iVar5 < *(int *)(param_1 + 0x2c) + (int)(*(int *)(param_1 + 0x34) * uVar6) / iVar4) &&

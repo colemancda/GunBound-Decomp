@@ -1629,7 +1629,7 @@ uint FUN_0050f3f0();
 undefined4 __thiscall ScrollListWidget_OnMouseDown();
 undefined4 __thiscall ScrollListWidget_OnMouseUp();
 void __fastcall ScrollListWidget_Draw();
-uint __fastcall FUN_0050f770();
+uint __fastcall ScrollListWidget_IsOverThumb();
 void __fastcall FUN_0050f840();
 undefined8 FUN_0050f890(); /* 64-bit result used from EDX:EAX at call sites */
 undefined8 FUN_0050f8b0();
