@@ -12,6 +12,7 @@
 #include "Widget.h"
 #include "Protocol.h"
 #include "ClientContext.h"
+#include "ValueGuard.h"
 
 /* --- CGameState hierarchy: confirmed allocation sizes ------------------ */
 GB_STATIC_ASSERT(sizeof(CState01Title)       == 8,       state01_size);
@@ -64,6 +65,8 @@ static void gb_widget_offset_checks()
     GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, animState)   == 0x4110a - 0x3f808, soa_anim);
     GB_STATIC_ASSERT(GB_OFFSETOF(PeerEndpoint, field8) == 0x23338 - 0x23330, peer_f8);
     GB_STATIC_ASSERT(GB_OFFSETOF(PeerEndpoint, flagC)  == 0x2333c - 0x23330, peer_flag);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CValueGuard, enc0)    == 0x04, vg_enc0);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CValueGuard, tableHandle) == 0x14, vg_handle);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbActionHeader, actionType) == 0x02, off_actiontype);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbActionHeader, sourceSlot) == 0x05, off_srcslot);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbFirePayload, shotData) == 0x2c - 0x21, off_shotdata);

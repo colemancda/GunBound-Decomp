@@ -12,6 +12,7 @@
 #define GB_CXX_CLIENTCONTEXT_H
 
 #include "gb_common.h"
+#include "ValueGuard.h"
 
 extern "C" int g_clientContext;
 
@@ -94,7 +95,7 @@ inline PeerEndpoint *Ctx_peerEndpoint(int ctx) { return reinterpret_cast<PeerEnd
  * object (indexed playerId * 0x224), reached by the checksum utility
  * family - NOT a gameplay slot struct. Exposed as an opaque
  * base+stride accessor; the object's own fields belong to the
- * checksum subsystem's own reconstruction. */
-inline u8 *Ctx_checksumState(int ctx, int playerId) { return reinterpret_cast<u8 *>(ctx + 0xebef4 + playerId * 0x224); }
+ * checksum subsystem's own reconstruction (ValueGuard.h). */
+inline CValueGuard *Ctx_checksumState(int ctx, int playerId) { return reinterpret_cast<CValueGuard *>(ctx + 0xebef4 + playerId * GB_CHECKSUM_STRIDE); }
 
 #endif /* GB_CXX_CLIENTCONTEXT_H */
