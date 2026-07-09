@@ -133,8 +133,8 @@ undefined4 FUN_004e6160(int param_1)
     *(undefined1 *)(param_1 + 0x4527c) = 6;
     return 1;
   }
-  *(undefined4 *)(param_1 + 0x18 + (uint)local_243 * 4) = local_258.sa_data._2_4_;
-  *(undefined2 *)(param_1 + 0x58 + (uint)local_243 * 2) = local_258.sa_data._0_2_;
+  *(undefined4 *)(param_1 + 0x18 + (uint)local_243 * 4) = SUBFIELD(local_258.sa_data,2,undefined4);
+  *(undefined2 *)(param_1 + 0x58 + (uint)local_243 * 2) = SUBFIELD(local_258.sa_data,0,undefined2);
   *(undefined4 *)(param_1 + 0x38 + (uint)local_243 * 4) = 0xffffffff;
   local_25c = uVar1 & 0x8000;
   *(undefined2 *)(param_1 + 0x68 + (uint)local_243 * 2) = 0xffff;
