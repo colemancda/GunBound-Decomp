@@ -912,7 +912,7 @@ void * __thiscall FUN_004a7020();
 void FUN_004a7040();
 void __thiscall FUN_004a7050();
 void __fastcall FUN_004a8360();
-void FUN_004aa4d0();
+undefined4 FUN_004aa4d0();
 void __fastcall FUN_004aa520();
 undefined4 FUN_004aa830();
 void * __thiscall FUN_004aa8c0();
