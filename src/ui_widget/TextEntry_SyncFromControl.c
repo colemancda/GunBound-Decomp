@@ -1,13 +1,13 @@
-/* FUN_00507030 - 0x00507030 in the original binary.
+/* TextEntry_SyncFromControl - 0x00507030 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Text-entry widget update: syncs the backing Win32 EDIT control's text into the widget buffer at +0x38 via GetWindowTextA, then broadcasts draw to children. See docs/widgets.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00507030(int param_1)
+void __fastcall TextEntry_SyncFromControl(int param_1)
 
 {
   int iVar1;

@@ -1555,7 +1555,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00506e70,182,FUN_00506e70,false,2,4,RAW-src
 00506f30,48,FUN_00506f30,false,1,1,RAW-src
 00506f60,72,FUN_00506f60,false,3,1,RAW-src
-00507030,94,FUN_00507030,false,1,2,RAW-src
+00507030,94,TextEntry_SyncFromControl,false,1,2,RAW-src
 00507090,224,FUN_00507090,false,1,1,RAW-src
 00507170,34,FUN_00507170,false,1,2,RAW-src
 005071a0,368,FUN_005071a0,false,1,4,RAW-src
