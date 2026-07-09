@@ -524,7 +524,7 @@ LAB_004cd6de:
     iVar7 = PeekPacketChecksumState();
     (*pcVar18)(&DAT_005a9068);
     if (param_1[0x428] == iVar7) {
-      local_71c = (undefined *)CONCAT31(local_71c._1_3_,*(int *)(g_clientContext + 0xebef0) == -0x18);
+      local_71c = (undefined *)CONCAT31(SUBFIELD(local_71c,1,undefined3),*(int *)(g_clientContext + 0xebef0) == -0x18);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       FUN_004064a0(local_71c);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
