@@ -142,6 +142,7 @@ public:
 
 class CState10Loading : public CGameState {     /* size 0x150 */
 public:
+    virtual void OnKeyInput(int msg, int a, int b); /* 0x43e720 State10_Loading_HandleChatInput - promoted */
     virtual void OnExit();                      /* 0x43eff0 - promoted, State10_Loading.cpp */
 
     u8 m_raw[0x150 - 4];                        /* field map not yet reconstructed */
