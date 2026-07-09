@@ -21,6 +21,11 @@ undefined4 EncodeChecksumState(void)
   uVar1 = PeekPacketChecksumState();
   EncodeOutgoingPacketField(uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  return;
+  /* bare `return;` in a value-returning function - MSVC falls through
+   * with whatever's in EAX (here, uVar1, still live from the call
+   * above); gcc 14 errors on this (-Wreturn-mismatch). Matches this
+   * function's own C++ promotion, CValueGuard::Encode() in
+   * src/cxx/ValueGuard.cpp, which returns the peeked value. */
+  return uVar1;
 }
 
