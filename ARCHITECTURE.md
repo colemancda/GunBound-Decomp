@@ -1201,8 +1201,8 @@ alpha channel. `U0`/`V0` come from a small per-call texture-rect struct at
 screen corner, which is how a sprite gets mirrored for the opposite facing
 direction without a second texture.
 
-**The flush/present call site, fully confirmed** (`FUN_004f4110`, was
-`FUN_004f4110`, 64 bytes): called once `g_spriteVertexCount != 0`, it issues
+**The flush/present call site, fully confirmed** (`FlushSpriteBatch`, was
+`FlushSpriteBatch`, 64 bytes): called once `g_spriteVertexCount != 0`, it issues
 exactly `DrawPrimitive(g_pD3DDevice7, 4 /*D3DPT_TRIANGLELIST*/, 0x244,
 &g_spriteVertexBuffer, g_spriteVertexCount*3, 1)` — the `*3` converts the
 triangle-slot counter into a real vertex count, batching every sprite quad
@@ -1225,7 +1225,7 @@ renderer). This independently confirms the additive-glow convention for
 avatar/character effect textures applies across render functions, not just
 the one investigated originally.
 
-It also uses a **second, sibling vertex-quad builder, `FUN_004eca50`**,
+It also uses a **second, sibling vertex-quad builder, `BuildScaledSpriteQuad`**,
 distinct from `BuildRotatedSpriteQuad` (`FUN_004ec430`): same rotated-quad
 math and the same `g_sineTable360` lookup and scratch-vertex staging area
 (`0x00ea0e28`), but with **independent X/Y scale constants**
@@ -1236,19 +1236,19 @@ whereas in-battle sprites are always drawn at native scale.
 
 ### The quad-emitter family and the in-battle scene composer
 
-`BuildRotatedSpriteQuad` and `FUN_004eca50` are two of a **family of ~7
+`BuildRotatedSpriteQuad` and `BuildScaledSpriteQuad` are two of a **family of ~7
 quad-emitters** — small functions that all stage 4 corners into the same
 scratch area (`0x00ea0e28`) and append two triangles to `g_spriteVertexBuffer`
-(`g_spriteVertexCount += 2`), then get batch-flushed by `FUN_004f4110`. They
+(`g_spriteVertexCount += 2`), then get batch-flushed by `FlushSpriteBatch`. They
 differ only in the transform they apply:
 | Emitter | Sig (partial) | Distinction |
 |---|---|---|
 | `BuildRotatedSpriteQuad` (`0x4ec430`) | `(x, y, angle, flip, color)` | rotated, uniform scale — the standard in-battle sprite |
-| `FUN_004eca50` | `(x, y, angle, flip, scale, color)` | rotated, **independent X/Y scale** (Ready Room zoomed preview) |
-| `FUN_004ecc70` | `(x, y, flip, w, h, color)` | rotated to an explicit w×h |
+| `BuildScaledSpriteQuad` | `(x, y, angle, flip, scale, color)` | rotated, **independent X/Y scale** (Ready Room zoomed preview) |
+| `BuildSizedSpriteQuad` | `(x, y, flip, w, h, color)` | rotated to an explicit w×h |
 | `FUN_004ed300` / `FUN_004ed0c0` | larger | rotated variants with extra params (offset/pivot) |
 | `FUN_004ecee0` | `(x, y, color)` | rotated, minimal params |
-| **`FUN_004ebff0`** | `(x, y)` | **axis-aligned — no `g_sineTable360` use at all**, the unrotated fast path |
+| **`BuildSpriteQuad`** | `(x, y)` | **axis-aligned — no `g_sineTable360` use at all**, the unrotated fast path |
 
 All share the confirmed vertex format (`FVF 0x244`, 36-byte XYZRHW/DIFFUSE/TEX2
 vertices, diffuse = opaque white, texture UVs from a `+0x80` rect) and route
@@ -2075,7 +2075,7 @@ concept in this engine, not separate systems.
    remaining 3 (`FUN_00450c20`, `State11_InBattle_RenderModeIcons`,
    `State09_ReadyRoom_RenderCharacterPreview`) turned out to be
    flush/dispatch sites that only call `DrawPrimitive`, not vertex writers
-   (consistent with `FUN_004f4110`, the confirmed flush function). Checked
+   (consistent with `FlushSpriteBatch`, the confirmed flush function). Checked
    every one of the 21 constructors' copy-source scratch region for a
    write to whatever address maps to the `Z` slot in its own layout,
    confirmed per-function rather than assumed. **Zero writes to any of the
