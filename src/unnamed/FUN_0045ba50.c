@@ -41,7 +41,7 @@ void FUN_0045ba50(int param_1)
   uVar2 = FUN_0040a8c0(param_1 + 0x119c,local_678,2);
   local_4 = 0;
   FUN_0040aca0(param_1 + 0xb30,local_454,uVar2);
-  local_4._0_1_ = 1;
+  SUBFIELD(local_4,0,undefined1) = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -49,7 +49,7 @@ void FUN_0045ba50(int param_1)
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_004e4340();
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (local_440 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_ad0);
@@ -62,11 +62,11 @@ void FUN_0045ba50(int param_1)
   uVar2 = FUN_0040a8c0(param_1 + 0x119c,local_ac0,2);
   local_4 = 2;
   FUN_0040aca0(param_1 + 0xb30,local_89c,uVar2);
-  local_4._0_1_ = 3;
+  SUBFIELD(local_4,0,undefined1) = 3;
   uVar2 = FUN_0040a8c0(param_1 + 0xd54,local_454,2);
-  local_4._0_1_ = 4;
+  SUBFIELD(local_4,0,undefined1) = 4;
   FUN_0040aca0(param_1 + 0x90c,local_678,uVar2);
-  local_4._0_1_ = 5;
+  SUBFIELD(local_4,0,undefined1) = 5;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -75,21 +75,21 @@ void FUN_0045ba50(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_004e4340();
   iVar3 = local_664;
-  local_4._0_1_ = 4;
+  SUBFIELD(local_4,0,undefined1) = 4;
   if (local_664 != 0) {
     FUN_0040a240();
     local_ad0[0] = iVar3;
     FUN_0040b540(local_ac8);
   }
   iVar3 = local_440;
-  local_4._0_1_ = 3;
+  SUBFIELD(local_4,0,undefined1) = 3;
   if (local_440 != 0) {
     FUN_0040a240();
     local_ad0[0] = iVar3;
     FUN_0040b540(local_ac8);
   }
   iVar3 = local_888;
-  local_4 = CONCAT31(local_4._1_3_,2);
+  local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
   if (local_888 != 0) {
     FUN_0040a240();
     local_ad0[0] = iVar3;
@@ -105,11 +105,11 @@ void FUN_0045ba50(int param_1)
   uVar2 = FUN_0040a8c0(param_1 + 0x119c,local_454,2);
   local_4 = 6;
   FUN_0040aca0(param_1 + 0xb30,local_678,uVar2);
-  local_4._0_1_ = 7;
+  SUBFIELD(local_4,0,undefined1) = 7;
   uVar2 = FUN_0040a8c0(param_1 + 0xd54,local_89c,2);
-  local_4._0_1_ = 8;
+  SUBFIELD(local_4,0,undefined1) = 8;
   local_ad0[0] = FUN_0040aba0(param_1 + 0x90c,local_ac0,uVar2);
-  local_4._0_1_ = 9;
+  SUBFIELD(local_4,0,undefined1) = 9;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -117,19 +117,19 @@ void FUN_0045ba50(int param_1)
   local_ad0[0] = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_004e4340();
-  local_4._0_1_ = 8;
+  SUBFIELD(local_4,0,undefined1) = 8;
   local_ad0[0] = local_aac;
   if (local_aac != 0) {
     FUN_0040a240();
     FUN_0040b540(local_ac8);
   }
-  local_4._0_1_ = 7;
+  SUBFIELD(local_4,0,undefined1) = 7;
   local_ad0[0] = local_888;
   if (local_888 != 0) {
     FUN_0040a240();
     FUN_0040b540(local_ac8);
   }
-  local_4 = CONCAT31(local_4._1_3_,6);
+  local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),6);
   local_ad0[0] = local_664;
   if (local_664 != 0) {
     FUN_0040a240();
@@ -199,12 +199,12 @@ void FUN_0045ba50(int param_1)
     uVar2 = FUN_0040a500(param_1 + 0x4fb4,local_89c);
     local_4 = 0xc;
     FUN_0040a5f0(uVar2,local_ac0,0xb4);
-    local_4._0_1_ = 0xd;
+    SUBFIELD(local_4,0,undefined1) = 0xd;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(uVar2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_4 = CONCAT31(local_4._1_3_,0xc);
+    local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xc);
     if (local_aac != 0) {
       FUN_0040a240();
       FUN_0040b540(local_ac8);
@@ -248,9 +248,9 @@ void FUN_0045ba50(int param_1)
         uVar2 = FUN_0040a500(param_1 + 0x4d90,local_89c);
         local_4 = 0x10;
         uVar2 = FUN_0040a5f0(uVar2,local_ac0,0xb4);
-        local_4._0_1_ = 0x11;
+        SUBFIELD(local_4,0,undefined1) = 0x11;
         EncodeChecksumState(uVar2);
-        local_4 = CONCAT31(local_4._1_3_,0x10);
+        local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x10);
         FUN_0040a2a0();
         local_4 = 0xffffffff;
         FUN_0040a2a0();
@@ -263,12 +263,12 @@ void FUN_0045ba50(int param_1)
       uVar2 = FUN_0040a500(param_1 + 0x60d4,local_89c);
       local_4 = 0x12;
       FUN_0040a5f0(uVar2,local_ac0,0xb4);
-      local_4._0_1_ = 0x13;
+      SUBFIELD(local_4,0,undefined1) = 0x13;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      local_4 = CONCAT31(local_4._1_3_,0x12);
+      local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x12);
       if (local_aac != 0) {
         FUN_0040a240();
         FUN_0040b540(local_ac8);
