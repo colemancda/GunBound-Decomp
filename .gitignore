@@ -72,3 +72,4 @@ build/
 __pycache__/
 *.pyc
 tools/msvc_syntax_check_results.csv
+tools/msvc_compile_check_results.csv
