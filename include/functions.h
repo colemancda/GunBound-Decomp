@@ -42,7 +42,7 @@ undefined4 LoadChooseEventConfig();
 byte LoadGameDataFiles();
 undefined4 OpenXFSArchive();
 void ParseChooseEventLine();
-void __fastcall ReadXFSEntry();
+undefined4 __fastcall ReadXFSEntry();
 uint ReadXFSEntryByte();
 void AddToPacketChecksum();
 void BuildAssetPath();
