@@ -11,6 +11,9 @@
 void FUN_00405ba0(void)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xffffff77;
   char cVar1;
   undefined2 uVar2;
   undefined2 uVar3;
@@ -41,18 +44,18 @@ void FUN_00405ba0(void)
   uVar4 = *(undefined2 *)(g_clientContext + 0x41340);
   local_88 = CONCAT22(uVar4,uVar3);
   uVar5 = local_88;
-  local_84 = CONCAT22(local_84._2_2_,uVar2);
+  local_84 = CONCAT22(SUBFIELD(local_84,2,undefined2),uVar2);
   *(undefined4 *)(unaff_EBX + 0x1000) = 4;
   unaff_EBX[1] = 0xa510;
-  local_88._2_1_ = (byte)uVar4;
-  local_88._0_1_ = (byte)uVar3;
+  SUBFIELD(local_88,2,undefined1) = (byte)uVar4;
+  SUBFIELD(local_88,0,undefined1) = (byte)uVar3;
   *(undefined4 *)(unaff_EBX + 2) = uVar5;
   unaff_EBX[4] = uVar2;
   iVar8 = *(int *)(unaff_EBX + 0x1000);
   *(int *)(unaff_EBX + 0x1000) = iVar8 + 6;
   *(ushort *)(iVar8 + 6 + (int)unaff_EBX) =
        (ushort)(byte)((byte)((ushort)uVar2 >> 8) ^ 0x6b) + (ushort)(byte)((byte)uVar2 ^ 0x69) +
-       (ushort)(byte)((byte)((ushort)uVar4 >> 8) ^ 0x73) + (ushort)(local_88._2_1_ ^ 0x6d) +
+       (ushort)(byte)((byte)((ushort)uVar4 >> 8) ^ 0x73) + (ushort)(SUBFIELD(local_88,2,undefined1) ^ 0x6d) +
        (ushort)(byte)((byte)((ushort)uVar3 >> 8) ^ 0x6f) + (ushort)((byte)local_88 ^ 99);
   iVar8 = *(int *)(unaff_EBX + 0x1000);
   *(int *)(unaff_EBX + 0x1000) = iVar8 + 2;
