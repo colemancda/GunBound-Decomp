@@ -30,7 +30,7 @@ void __fastcall FUN_004e6770(int param_1)
   *(SOCKET *)(param_1 + 0x14) = SVar3;
   if (SVar3 != 0xffffffff) {
     local_3c.sa_family = 2;
-    local_3c.sa_data._0_2_ = htons(0x20ab);
+    SUBFIELD(local_3c.sa_data,0,undefined2) = htons(0x20ab);
     local_3c.sa_data[2] = '\0';
     local_3c.sa_data[3] = '\0';
     local_3c.sa_data[4] = '\0';
