@@ -162,7 +162,7 @@ void FUN_0044b900(int param_1)
         uVar10 = DAT_00555a18;
         uVar4 = DAT_00555a1a;
       }
-      local_190c = (undefined *)CONCAT22(CONCAT11(local_190c._3_1_,uVar4),uVar10);
+      local_190c = (undefined *)CONCAT22(CONCAT11(SUBFIELD(local_190c,3,undefined1),uVar4),uVar10);
       switch(local_1874 >> 0x10 & 0xf) {
       case 0:
         pcVar6 = &local_190d;
