@@ -21,24 +21,24 @@ void __fastcall FUN_004186b0(int param_1)
   *unaff_FS_OFFSET = &local_c;
   local_4 = 8;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x6c08),0x224,8,FUN_0040a2a0);
-  local_4._0_1_ = 7;
+  SUBFIELD(local_4,0,undefined1) = 7;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x5ae8),0x224,8,FUN_0040a2a0);
-  local_4._0_1_ = 6;
+  SUBFIELD(local_4,0,undefined1) = 6;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x49c8),0x224,8,FUN_0040a2a0);
-  local_4._0_1_ = 5;
+  SUBFIELD(local_4,0,undefined1) = 5;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x38a8),0x224,8,FUN_0040a2a0);
-  local_4._0_1_ = 4;
+  SUBFIELD(local_4,0,undefined1) = 4;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x2788),0x224,8,FUN_0040a2a0);
-  local_4._0_1_ = 3;
+  SUBFIELD(local_4,0,undefined1) = 3;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x1668),0x224,8,FUN_0040a2a0);
-  local_4._0_1_ = 2;
+  SUBFIELD(local_4,0,undefined1) = 2;
   if (*(int *)(param_1 + 0x1458) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
   }
-  local_4._0_1_ = 1;
+  SUBFIELD(local_4,0,undefined1) = 1;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x548),0x224,7,FUN_0040a2a0);
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (*(int *)(param_1 + 0x338) != 0) {
     FUN_0040a240();
     FUN_0040b540(local_14);
