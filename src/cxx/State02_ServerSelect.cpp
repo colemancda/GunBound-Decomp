@@ -40,6 +40,18 @@ extern unsigned int DAT_007934e8;       /* double-buffered connection context */
 extern unsigned int DAT_007934f4;       /* outgoing packet buffer base */
 extern unsigned int DAT_007934f0;       /* per-connection context base */
 void FUN_00405ba0(void);
+extern unsigned int DAT_007934ec;       /* the other half of the double-buffered context */
+extern unsigned int DAT_0056d118;
+extern unsigned int DAT_00e9be94;
+extern const char s_active_00551e58[];
+extern const char s_ready_00551e80[];
+void FUN_00406300(int enabled);
+void ShowErrorDialog(int mode);
+void FUN_004d2680(void);            /* flush/send the pending channel-1 packet */
+char FUN_004065a0(void);                /* mode check gating the page-offset source */
+void FUN_00406500(int a);
+void FUN_004d24f0(void);
+unsigned char FUN_00402020(void);       /* per-slot blink randomizer */
 void FUN_00401650(void);                /* flat-ButtonWidget per-slot destroy (index in regs) */
 extern unsigned char DAT_0067ec74;      /* persistent button-name arena */
 extern unsigned char DAT_0069ec74;
@@ -89,7 +101,7 @@ void CState02ServerSelect::OnEnter()
     memset(ctx + 0x4108a, 0, 0x90);         /* port/unk2/players/maxCap[16] + animState */
 
     m_connecting = 0;
-    m_unk05 = 0;
+    m_sendHandshake = 0;
     m_uiDirty = 1;
     m_unk0c = -1;
     m_viewMode = 0;
@@ -105,7 +117,7 @@ void CState02ServerSelect::OnEnter()
     m_unk1c = 0;
     BuildWorldListPanel(&g_uiPanelManager);
     BeginServerConnect(&DAT_005b2ad0, DAT_005b33e8);
-    m_unk07 = 1;
+    m_wantInitialList = 1;
     *(unsigned char *)(DAT_007934e4 + 8) = 1;   /* show the shared EDIT overlay */
     /* leftover connected socket from a previous session: tear it down */
     if (*(char *)(DAT_007934e8 + 0x84e5) != 0) {
@@ -161,5 +173,100 @@ void CState02ServerSelect::OnExit()
         *(int *)(conn + 0x24) = -1;
         *(unsigned char *)(conn + 0x22a) = 0;
         *(unsigned char *)(DAT_007934f0 + 0x84e5) = 0;
+    }
+}
+
+/* Reflect the local player record onto the flat-registry connect
+ * button: "active" while the record flag is set, else "ready"
+ * (entries keyed 0 and 1, state 3/-1 only) - the same walk the
+ * WorldListPanel handlers repeat; literal pending Phase 1.6. */
+static void ConnectButtonFromPlayerRecord()
+{
+    int *rec;
+    if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0 &&
+        (rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), rec[2] == 0) &&
+        (rec[9] == 3 || rec[9] == -1)) {
+        ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(
+            (char)rec[0x13] == 1 ? s_active_00551e58 : s_ready_00551e80);
+    }
+    if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
+        rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10);
+        unsigned int k = (unsigned int)rec[2];
+        while (k < 2) {
+            if (k == 1) {
+                if (rec[9] == 3 || rec[9] == -1) {
+                    ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(
+                        (char)rec[0x13] == 1 ? s_active_00551e58 : s_ready_00551e80);
+                }
+                break;
+            }
+            rec = (int *)rec[4];
+            k = (unsigned int)rec[2];
+        }
+    }
+}
+
+/* 0x4e1960 (FUN_004e1960) - the per-frame tick, vtable slot 9. Four
+ * jobs: (1) resolve a finished connect attempt - failure resets the
+ * connect button and pops ShowErrorDialog(0), success arms the
+ * handshake; (2) send the 0x1000 handshake the tick after connecting;
+ * (3) once connected, send the initial 0x1100 page request OnEnter
+ * armed (page = the saved scroll offset, or the channel-derived value
+ * when FUN_004065a0 says so) after clearing the per-slot errors;
+ * (4) roll each listed server's blink animState. */
+void CState02ServerSelect::OnTick()
+{
+    unsigned char *cfg = (unsigned char *)DAT_007934ec;
+    ++m_tickCounter;
+    if (m_connecting != 0 && *(char *)(cfg + 0x84e4) == 0) {
+        if (*(char *)(cfg + 0x84e5) == 0) {
+            DAT_0056d118 = 0xffffffff;
+            ConnectButtonFromPlayerRecord();
+            FUN_00406300(m_highlightedSlot != -1);
+            ShowErrorDialog(0);
+            m_uiDirty = 1;
+            if (FUN_004065a0() != 0) {
+                FUN_00406500(0);
+            }
+            FUN_004d24f0();
+            cfg = (unsigned char *)DAT_007934ec;
+        } else {
+            m_sendHandshake = 1;
+        }
+        m_connecting = 0;
+    }
+    if (m_sendHandshake != 0) {
+        *(unsigned short *)(cfg + 0x4d4) = 0x1000;
+        *(int *)(cfg + 0x44d0) = 6;
+        FUN_004d2680();
+        m_sendHandshake = 0;
+    }
+    unsigned char *ctx = (unsigned char *)DAT_007934f0;
+    if (m_wantInitialList != 0 && *(char *)(ctx + 0x84e5) != 0) {
+        m_wantInitialList = 0;
+        for (int i = 0; i < 16; ++i) {
+            m_slotError[i] = 0;
+        }
+        *(int *)(ctx + 0x44d0) = 6;
+        *(unsigned short *)(ctx + 0x4d4) = 0x1100;
+        *(unsigned char *)(ctx + 0x4d6) = 0;
+        int cur = *(int *)(ctx + 0x44d0);
+        *(int *)(ctx + 0x44d0) = cur + 1;
+        *(unsigned char *)(ctx + 0x4d1 + cur) = 0;
+        *(int *)(ctx + 0x44d0) += 1;
+        if (FUN_004065a0() == 0) {
+            *(unsigned short *)(ctx + 0x4d0 + *(int *)(ctx + 0x44d0)) =
+                (unsigned short)m_scrollOffset;
+        } else {
+            *(unsigned short *)(ctx + 0x4d0 + *(int *)(ctx + 0x44d0)) =
+                (unsigned short)(*(unsigned short *)((unsigned char *)g_clientContext + 0x3b96b) >> 4);
+        }
+        *(int *)(ctx + 0x44d0) += 2;
+        FUN_004d2680();
+    }
+    unsigned char *gctx = (unsigned char *)g_clientContext;
+    int count = (int)gctx[0x3f808];
+    for (int i = 0; i < count; ++i) {
+        gctx[0x4110a + i] = FUN_00402020();
     }
 }

@@ -77,13 +77,15 @@ public:
 
     virtual void OnEnter();  /* 0x4e14b0 - promoted, State02_ServerSelect.cpp */
     virtual void OnExit();   /* 0x4e17f0 - promoted, State02_ServerSelect.cpp */
+    virtual void OnTick();   /* 0x4e1960 - promoted, State02_ServerSelect.cpp */
 
     u8  m_connecting;        /* +0x04: set while a connect attempt is in flight */
-    u8  m_unk05;             /* +0x05 */
-    /* (+0x06 m_uiDirty starts 1, +0x07 starts 1 - both set in OnEnter) */
+    u8  m_sendHandshake;     /* +0x05: connect succeeded - send the 0x1000
+                              * handshake on the next tick */
     u8  m_uiDirty;           /* +0x06: UI-dirty/interactable flag - WorldListPanel's
                               * mouse handler gates row selection on it == 1 */
-    u8  m_unk07;             /* +0x07 */
+    u8  m_wantInitialList;   /* +0x07: set by OnEnter - the tick sends the first
+                              * 0x1100 page request once the socket connects */
     int m_highlightedSlot;   /* +0x08: UI cursor, -1 = none (set from RowHitTest) */
     int m_unk0c;             /* +0x0c */
     u8  m_viewMode;          /* +0x10: 0 = all servers, 2 = friends (the world-list tabs) */
