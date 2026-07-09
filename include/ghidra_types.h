@@ -59,6 +59,12 @@ typedef LONG LSTATUS;
 typedef long __time32_t;
 #define FID_conflict___time32(p) time((time_t *)(p))
 
+/* Ghidra's type for the x87 80-bit extended-precision format (FLD
+ * TBYTE etc.). MSVC's long double is really 64-bit, but these raw
+ * ports only need the arithmetic to parse/compile; exact x87
+ * semantics are a hand-verification concern. */
+typedef long double float10;
+
 typedef uint8_t undefined;
 typedef uint8_t undefined1;
 typedef uint16_t undefined2;
