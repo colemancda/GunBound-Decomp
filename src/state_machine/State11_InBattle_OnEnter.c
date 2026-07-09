@@ -59,11 +59,11 @@ void __fastcall State11_InBattle_OnEnter(int param_1)
   *(byte *)(param_1 + 0x23ca) = *(byte *)(param_1 + 0x23c8) + bVar4 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(g_clientContext + 0x475c4));
-  cVar5 = FUN_004eea30(1);
+  cVar5 = PlayMusicTrack(1);
   if (cVar5 == '\0') {
     iVar6 = _rand();
     _sprintf(acStack_80,s_stage_d_mp3_005569c0,iVar6 % 6 + 1);
-    FUN_004eea30(1);
+    PlayMusicTrack(1);
   }
   iVar6 = LoadGameDataFiles(g_clientContext);
   if (iVar6 != 0) {

@@ -41,7 +41,7 @@ void __fastcall State01_Title_OnEnter(int param_1)
 {
   FUN_004f1790(&DAT_00ea0e18,10000);
   *(undefined4 *)(param_1 + 4) = 0;
-  FUN_004eea30(0);
+  PlayMusicTrack(0);
   return;
 }
 

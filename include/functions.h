@@ -1203,7 +1203,7 @@ void __fastcall FUN_004ee320();
 void __fastcall FUN_004ee540();
 void FUN_004ee850();
 uint FUN_004ee9b0();
-uint FUN_004eea30();
+uint PlayMusicTrack();
 void FUN_004eeae0();
 void __fastcall FUN_004eeb10();
 void __fastcall FUN_004eeb30();

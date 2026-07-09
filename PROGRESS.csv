@@ -1209,7 +1209,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ee5b0,657,InitDirectSound,false,1,6,RAW-src
 004ee850,339,FUN_004ee850,false,1,6,RAW-src
 004ee9b0,113,FUN_004ee9b0,false,150,0,RAW-src
-004eea30,164,FUN_004eea30,false,24,0,RAW-src
+004eea30,164,PlayMusicTrack,false,24,0,RAW-src
 004eeae0,39,FUN_004eeae0,false,12,0,RAW-src
 004eeb10,30,FUN_004eeb10,false,9,0,RAW-src
 004eeb30,61,FUN_004eeb30,false,9,0,RAW-src

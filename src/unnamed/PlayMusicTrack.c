@@ -1,14 +1,13 @@
-/* FUN_004eea30 - 0x004eea30 in the original binary.
+/* PlayMusicTrack - 0x004eea30 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Music-track control: given a track name (passed in a register, invisible to the C signature), compares it against the currently-playing track (DAT_00793568) and returns early if unchanged, otherwise switches to it via the sound object's vtable+0xc. Called from most screens' OnEnter (title.mp3, channel.mp3, logo.mp3, stage%d.mp3). See ARCHITECTURE.md audio section. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-uint FUN_004eea30(void)
+uint PlayMusicTrack(void)
 
 {
   byte bVar1;

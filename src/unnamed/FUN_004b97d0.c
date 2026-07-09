@@ -162,12 +162,12 @@ void __thiscall FUN_004b97d0(int *param_1,uint param_2,int param_3,uint param_4)
             if (DAT_0079354a == '\0') {
               DAT_0079354a = DAT_00793549 != '\0';
               _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar13 + 0x475c4));
-              cVar4 = FUN_004eea30(1);
+              cVar4 = PlayMusicTrack(1);
               iVar13 = g_clientContext;
               if (cVar4 == '\0') {
                 iVar13 = _rand();
                 _sprintf(acStack_80,s_stage_d_mp3_005569c0,iVar13 % 6 + 1);
-                FUN_004eea30(1);
+                PlayMusicTrack(1);
                 iVar13 = g_clientContext;
               }
             }
@@ -179,12 +179,12 @@ void __thiscall FUN_004b97d0(int *param_1,uint param_2,int param_3,uint param_4)
             if (DAT_0079354a == '\0') {
               DAT_0079354a = DAT_00793549 != '\0';
               _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar13 + 0x475c4));
-              cVar4 = FUN_004eea30(1);
+              cVar4 = PlayMusicTrack(1);
               iVar13 = g_clientContext;
               if (cVar4 == '\0') {
                 iVar13 = _rand();
                 _sprintf(acStack_80,s_stage_d_mp3_005569c0,iVar13 % 6 + 1);
-                FUN_004eea30(1);
+                PlayMusicTrack(1);
                 iVar13 = g_clientContext;
               }
             }
@@ -196,12 +196,12 @@ void __thiscall FUN_004b97d0(int *param_1,uint param_2,int param_3,uint param_4)
             if (DAT_0079354a == '\0') {
               DAT_0079354a = DAT_00793549 != '\0';
               _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar13 + 0x475c4));
-              cVar4 = FUN_004eea30(1);
+              cVar4 = PlayMusicTrack(1);
               iVar13 = g_clientContext;
               if (cVar4 == '\0') {
                 iVar13 = _rand();
                 _sprintf(acStack_80,s_stage_d_mp3_005569c0,iVar13 % 6 + 1);
-                FUN_004eea30(1);
+                PlayMusicTrack(1);
                 iVar13 = g_clientContext;
               }
             }
@@ -213,12 +213,12 @@ void __thiscall FUN_004b97d0(int *param_1,uint param_2,int param_3,uint param_4)
             if (DAT_0079354a == '\0') {
               DAT_0079354a = DAT_00793549 != '\0';
               _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar13 + 0x475c4));
-              cVar4 = FUN_004eea30(1);
+              cVar4 = PlayMusicTrack(1);
               iVar13 = g_clientContext;
               if (cVar4 == '\0') {
                 iVar13 = _rand();
                 _sprintf(acStack_80,s_stage_d_mp3_005569c0,iVar13 % 6 + 1);
-                FUN_004eea30(1);
+                PlayMusicTrack(1);
                 iVar13 = g_clientContext;
               }
             }
@@ -230,12 +230,12 @@ void __thiscall FUN_004b97d0(int *param_1,uint param_2,int param_3,uint param_4)
             if (DAT_0079354a == '\0') {
               DAT_0079354a = DAT_00793549 != '\0';
               _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar13 + 0x475c4));
-              cVar4 = FUN_004eea30(1);
+              cVar4 = PlayMusicTrack(1);
               iVar13 = g_clientContext;
               if (cVar4 == '\0') {
                 iVar13 = _rand();
                 _sprintf(acStack_80,s_stage_d_mp3_005569c0,iVar13 % 6 + 1);
-                FUN_004eea30(1);
+                PlayMusicTrack(1);
                 iVar13 = g_clientContext;
               }
             }

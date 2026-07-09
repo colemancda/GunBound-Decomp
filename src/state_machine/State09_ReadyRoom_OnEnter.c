@@ -265,7 +265,7 @@ LAB_004d722d:
   FUN_004db570();
   FUN_004db720();
   FUN_004da460(param_1,1,0);
-  FUN_004eea30(1);
+  PlayMusicTrack(1);
   *(undefined4 *)(param_1 + 0x4d4) = 0xffffffff;
   *(undefined1 *)(param_1 + 0x618) = 1;
   *(undefined4 *)(param_1 + 0x620) = 0;

@@ -246,11 +246,11 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
       if (DAT_0079354a == '\0') {
         DAT_0079354a = DAT_00793549 != '\0';
         _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar7 + 0x475c4));
-        cVar3 = FUN_004eea30(1);
+        cVar3 = PlayMusicTrack(1);
         if (cVar3 == '\0') {
           iVar7 = _rand();
           _sprintf(acStack_80,s_stage_d_mp3_005569c0,iVar7 % 6 + 1);
-          FUN_004eea30(1);
+          PlayMusicTrack(1);
         }
       }
       FUN_004eeb10();
@@ -450,11 +450,11 @@ LAB_004b8aeb:
       if (DAT_0079354a == '\0') {
         DAT_0079354a = DAT_00793549 != '\0';
         _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar7 + 0x475c4));
-        cVar3 = FUN_004eea30(1);
+        cVar3 = PlayMusicTrack(1);
         if (cVar3 == '\0') {
           iVar7 = _rand();
           _sprintf(acStack_80,s_stage_d_mp3_005569c0,iVar7 % 6 + 1);
-          FUN_004eea30(1);
+          PlayMusicTrack(1);
         }
       }
       FUN_004eeb10();

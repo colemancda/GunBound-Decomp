@@ -86,7 +86,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   uVar5 = FindPreloadedTextureByName(s_avata_00553fa8);
   *(undefined4 *)(param_1 + 0x30bd8) = uVar5;
   (**(code **)(*(int *)(param_1 + 0x30bbc) + 4))(s_normal_00552230);
-  FUN_004eea30(1);
+  PlayMusicTrack(1);
   *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
   *(undefined1 *)(param_1 + 0x32f91) = 0;
   FUN_00429800();

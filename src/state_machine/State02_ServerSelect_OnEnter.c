@@ -141,7 +141,7 @@ void __fastcall State02_ServerSelect_OnEnter(int param_1)
     }
   }
   *(undefined4 *)(param_1 + 0x20) = 0;
-  FUN_004eea30(1);
+  PlayMusicTrack(1);
   iVar1 = g_clientContext;
   bVar5 = DAT_007934f4 != 0;
   *(undefined1 *)(param_1 + 0x24) = 0;
