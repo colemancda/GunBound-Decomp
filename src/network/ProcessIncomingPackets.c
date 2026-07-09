@@ -1,7 +1,6 @@
-/* FUN_004d27e0 - 0x004d27e0 in the original binary.
+/* ProcessIncomingPackets - 0x004d27e0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * The main received-packet pump: first resolves the async connect result into the conn+0x84e5 (connected) flag, then drains the received-frame ring and dispatches each packet - routing to a window (SendMessageA) or surfacing errors via ShowErrorDialog / a native MessageBoxA (localized strings via FUN_0043dc70). Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
@@ -11,7 +10,7 @@
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 /* WARNING: Type propagation algorithm not settling */
 
-void FUN_004d27e0(int param_1,HWND param_2)
+void ProcessIncomingPackets(int param_1,HWND param_2)
 
 {
   short *psVar1;

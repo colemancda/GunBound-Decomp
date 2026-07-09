@@ -1006,7 +1006,7 @@ void __fastcall FUN_004d2530();
 void __fastcall FUN_004d2570();
 void __fastcall FUN_004d25e0();
 void FUN_004d2680();
-void FUN_004d27e0();
+void ProcessIncomingPackets();
 void FUN_004d34a0();
 void __fastcall FUN_004d34f0();
 void FUN_004d3530();

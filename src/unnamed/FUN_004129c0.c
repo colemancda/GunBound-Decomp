@@ -23,9 +23,9 @@ void FUN_004129c0(int param_1)
   undefined1 local_400 [1024];
   
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9084);
-  FUN_004d27e0(DAT_005b2b58,0);
-  FUN_004d27e0(DAT_005b2b5c,0);
-  FUN_004d27e0(DAT_005b2b60,0);
+  ProcessIncomingPackets(DAT_005b2b58,0);
+  ProcessIncomingPackets(DAT_005b2b5c,0);
+  ProcessIncomingPackets(DAT_005b2b60,0);
   if (DAT_007934f4 != 0) {
     FUN_00405a40();
   }
