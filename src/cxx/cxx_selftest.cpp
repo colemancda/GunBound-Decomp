@@ -11,6 +11,7 @@
 #include "GameState.h"
 #include "Widget.h"
 #include "Protocol.h"
+#include "ClientContext.h"
 
 /* --- CGameState hierarchy: confirmed allocation sizes ------------------ */
 GB_STATIC_ASSERT(sizeof(CState01Title)       == 8,       state01_size);
@@ -50,6 +51,17 @@ GB_STATIC_ASSERT(sizeof(CPanelListNode)         == 0x0c, panelnode_size);
  * they're functions-scope typedefs here */
 static void gb_widget_offset_checks()
 {
+    /* server-list SoA: internal offset must equal documented abs - 0x3f808 */
+    GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, onlineFlag)  == 0x3f809 - 0x3f808, soa_online);
+    GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, serverId)    == 0x3f81a - 0x3f808, soa_srvid);
+    GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, regionOrType)== 0x3f83a - 0x3f808, soa_region);
+    GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, name)        == 0x3f84a - 0x3f808, soa_name);
+    GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, desc)        == 0x4004a - 0x3f808, soa_desc);
+    GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, serverIp)    == 0x4104a - 0x3f808, soa_ip);
+    GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, port)        == 0x4108a - 0x3f808, soa_port);
+    GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, currentPlayers) == 0x410ca - 0x3f808, soa_players);
+    GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, maxCapacity) == 0x410ea - 0x3f808, soa_maxcap);
+    GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, animState)   == 0x4110a - 0x3f808, soa_anim);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbActionHeader, actionType) == 0x02, off_actiontype);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbActionHeader, sourceSlot) == 0x05, off_srcslot);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbFirePayload, shotData) == 0x2c - 0x21, off_shotdata);
