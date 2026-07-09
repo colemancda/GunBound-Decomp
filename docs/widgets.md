@@ -131,19 +131,21 @@ leaf widgets above. All register with the global UI panel manager
 | `BuildWorldListPanel` (`0x5099d0`) | `0x557f08` | State 2 — server WORLD LIST | 2 buttons (View All / Friends) + scrollbar; rows drawn by `RenderWorldListRow` |
 | `BuildBuddyPanel` | `0x557be4` | shared — **buddy list** (lobby / ready room / WndProc); singleton keyed 20000, at (568,11) 211×267 | Add (`0x2bd`) / Del (`0x2be`) / close-X (`0x2bf`) label buttons + a page-7 scrollbar; res IDs `0x2bc`–`0x2bf` |
 | `BuildLobbyChatPanel` | `0x557cd4` | State 3 — lobby **chat** panel (549×259) | a 484×12 chat-input `CEditBox` (maxLen 80) + a small label + a page-13 scrollbar |
-| `FUN_00509d80` | `0x557cac` | State 3 — lobby list panel (209-wide; content inferred = channel user list) | **scrollbar-only** (page 7); no input widgets |
-| `FUN_005094f0` | `0x557ee0` | State 9 — Ready Room panel (480×160, bottom; content inferred = chat log) | **scrollbar-only** (page 9); no input widgets |
+| `BuildChannelUserListPanel` (`0x509d80`) | `0x557cac` | State 3 — lobby **channel user list** (209-wide) | scrollbar (page 7); rows (`RenderChannelUserRow`) = status flag + rank icon + name per user |
+| `BuildReadyRoomChatPanel` (`0x5094f0`) | `0x557ee0` | State 9 — Ready Room **chat log** (480×160, bottom) | scrollbar (page 9); rows (`RenderReadyRoomChatRow`) = color-coded messages by type byte |
 | `BuildAvatarStorePanel` | `0x557eb8` | State 7 — Avatar Store item panel | 3 category labels (msg `0x4b0`–`0x4b2`) + scrollbar (page 0xe) |
 | `BuildChatLogPanel` | `0x557b94` | **chat log** panel (via `FUN_004025e0`), 0x1050-byte object with a ~4 KB history buffer | label + text-entry |
 | `BuildEnterRoomNumberDialog` | `0x557df0` | State 3 — "enter room by number" dialog | labels + OK/Cancel + text field |
 | `BuildCreateRoomDialog` | `0x557c34` | State 3 — Create Room dialog | name/password text fields + option grid + OK/Cancel |
 
 Confidence: the widget classes, slot layout, and event model are confirmed by
-decompilation. Panel *identities* are confirmed for the ones cross-referenced to
-a screen's `OnEnter`/dispatcher; the exact list *content* of `FUN_00509d80` and
-`FUN_005094f0` (which of several lists each holds) is inferred from position/
-page-size and not fully pinned. Register-passed constructor arguments (e.g. the
-scrollbar item count, some panel keys) aren't always visible in the decompile.
+decompilation. All nine panel *identities* are now confirmed — the two formerly
+"inferred" list panels were pinned by tracing their slot-9 row renderers to the
+data they read: `BuildChannelUserListPanel` draws users (status/rank/name from
+`g_clientContext+0x44248/+0x42949/+0x43e48`), and `BuildReadyRoomChatPanel`
+draws color-coded chat (message-type byte at `+0x3c4d8`). Register-passed
+constructor arguments (e.g. the scrollbar item count, some panel keys) aren't
+always visible in the decompile.
 
 ---
 
