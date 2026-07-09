@@ -103,6 +103,15 @@ typedef long long longlong;
  * result are unaffected. */
 typedef int code();
 
+/* Ghidra's `X._<off>_<size>_` storage-subfield notation (a <size>-byte
+ * access at byte offset <off> into X's storage) isn't C. Raw-ported
+ * call sites are rewritten as SUBFIELD(X, <off>, undefined<size>),
+ * which is a real lvalue usable for both reads and writes. The 3-byte
+ * case inherits the undefined3 typedef's documented caveat: it really
+ * touches 4 bytes, which may need a per-site fix once a function gets
+ * hand-verified. */
+#define SUBFIELD(x, off, ty) (*(ty *)((uint8_t *)&(x) + (off)))
+
 /* MSVC calling-convention keywords Ghidra emits that GCC/Clang don't
  * recognize the same way on x86-64 (where the distinction is moot -
  * there's one calling convention). Defined away rather than requiring

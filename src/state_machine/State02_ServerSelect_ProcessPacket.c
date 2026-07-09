@@ -335,13 +335,13 @@ LAB_004e0d7f:
     getsockname(*(SOCKET *)(*(int *)(iVar8 + 0x84e0) + 0x24),&sStack_d0,(int *)&uStack_f0);
     iVar20 = DAT_007934ec;
     *(undefined4 *)(*(int *)(DAT_007934ec + 0x44d0) + 0x4d0 + DAT_007934ec) =
-         sStack_d0.sa_data._2_4_;
+         SUBFIELD(sStack_d0.sa_data,2,undefined4);
     *(int *)(iVar20 + 0x44d0) = *(int *)(iVar20 + 0x44d0) + 4;
     uStack_f0 = 0x10;
     getsockname(DAT_00e55cf4,&sStack_d0,(int *)&uStack_f0);
     iVar20 = DAT_007934ec;
     *(undefined2 *)(*(int *)(DAT_007934ec + 0x44d0) + 0x4d0 + DAT_007934ec) =
-         sStack_d0.sa_data._0_2_;
+         SUBFIELD(sStack_d0.sa_data,0,undefined2);
     *(int *)(iVar20 + 0x44d0) = *(int *)(iVar20 + 0x44d0) + 2;
     FUN_004d25e0();
     FUN_004d2680();
