@@ -25,13 +25,13 @@ int FUN_004e1d50(int param_1)
   EncodeOutgoingPacketField(0);
   local_4 = 0;
   _eh_vector_constructor_iterator_((void *)(param_1 + 0x224),0x224,3,FUN_0040a280,FUN_0040a2a0);
-  local_4._0_1_ = 1;
+  SUBFIELD(local_4,0,undefined1) = 1;
   _eh_vector_constructor_iterator_((void *)(param_1 + 0x890),0x224,3,FUN_0040a280,FUN_0040a2a0);
-  local_4._0_1_ = 2;
+  SUBFIELD(local_4,0,undefined1) = 2;
   *(undefined1 *)(param_1 + 0x1128) = 0;
   *(undefined4 *)(param_1 + 0xf1c) = 0;
   EncodeOutgoingPacketField(0);
-  local_4 = CONCAT31(local_4._1_3_,3);
+  local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
   *(undefined4 *)(param_1 + 0xefc) = 0xffffff9c;
   *(undefined4 *)(param_1 + 0xf04) = 1;
   iVar1 = _rand();
