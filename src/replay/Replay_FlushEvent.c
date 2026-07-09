@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-void Replay_FlushEvent(void)
+undefined4 Replay_FlushEvent(void)
 
 {
   undefined2 *puVar1;

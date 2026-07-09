@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0040a2a0(int param_1)
+undefined4 __fastcall FUN_0040a2a0(int param_1)
 
 {
   undefined1 local_8 [8];
