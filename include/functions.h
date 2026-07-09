@@ -529,7 +529,7 @@ undefined4 FUN_0043da00();
 undefined4 * GetLocalizedString();
 int FUN_0043dd40();
 void FUN_0043ddb0();
-void FUN_0043de10();
+undefined4 FUN_0043de10();
 int FUN_0043de70();
 int * __fastcall FUN_0043e060();
 void __fastcall FUN_0043e0f0();
