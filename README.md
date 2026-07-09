@@ -12,6 +12,33 @@ every string embedded in the binary, and [CONSTANTS.md](CONSTANTS.md) for a
 consolidated index of every enum/constant/opcode/struct-offset confirmed
 across all of the above.
 
+## Source layout — the C and C++ trees
+
+The reconstructed source is **one codebase at two fidelity tiers**, not two
+separate projects:
+
+- **`src/` (raw C ports)** — the bulk of the work. One original function per
+  file, plain C, compiled in MSVC 7.1's **C mode**. Virtual dispatch is
+  hand-indexed (`(**(code **)(*obj + 0x1c))()`), vtables and structs are
+  offset math. See [src/README.md](src/README.md).
+- **`src/cxx/` (C++ reconstruction)** — where a function goes once it's
+  understood well enough to express as a real class member. MSVC 7.1's C mode
+  **cannot express `__thiscall`**, so no member function can byte-match the
+  original until it's compiled as C++; anything class/vtable-shaped therefore
+  lives here as real methods with compiler-laid vtables. See
+  [src/cxx/README.md](src/cxx/README.md).
+
+A function **migrates** from the C tree to the C++ tree as it's promoted from
+"raw port" to "reconstructed" — during that migration both versions can
+coexist (the `.cpp` is the higher-fidelity version of the same original
+address). They are **built and checked separately today**: the `Makefile`
+sweeps `.c` files only, while the C++ tree is validated on its own by
+compiling `src/cxx/cxx_selftest.cpp` (layout enforced with
+`GB_STATIC_ASSERT`, not by linking). The long-term goal is a single
+recompiled binary that links both — normal for mixed C/C++ — but the project
+is still at the per-function match/layout-check stage, so nothing links into
+a full target yet.
+
 ## Reimplementation guides
 
 Reimplementation-focused docs, built from the reverse engineering above:
