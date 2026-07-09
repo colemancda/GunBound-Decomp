@@ -427,7 +427,7 @@ how the server tracks each client's current context.
 |---|---|
 | `0x600f` | Builds and sends an outgoing `0x6000` request (empty payload) — likely "give me my inventory," triggered on entering the store. |
 | `0x6002` | Parses a list of **owned-item entries**: each has a timestamp (parsed via `_localtime` → day/month/year, i.e. an **expiration date**), item-id fields, and a variable-length blob, stored into a per-item array at `+0x44be8` with a **confirmed 0x9c (156)-byte stride**. This is the **inventory/purchased-items list**. Full struct layout confirmed by mapping the decompiled stack-local offsets — see below. |
-| `0x6017` (`*payload==0`) | Builds a **purchase confirmation dialog**: loads localized strings by resource ID (`FUN_0043dc70(&DAT_00796eec, 0xea6a..0xea6d)`), formats item name/price via `sprintf`, shows the `b_storewindow_confirm` popup image. |
+| `0x6017` (`*payload==0`) | Builds a **purchase confirmation dialog**: loads localized strings by resource ID (`GetLocalizedString(&DAT_00796eec, 0xea6a..0xea6d)`), formats item name/price via `sprintf`, shows the `b_storewindow_confirm` popup image. |
 | `0x6017` (`*payload==0x6003`) | Sends a `0x6000` reply packet — likely the purchase confirmation's "yes" response. |
 | `0x6037` (`*payload==0`) | Guards on a slot-count check (`FUN_004010c0(0x80070057)` fatal-errors if out of range) then calls `FUN_0044c370()` — a purchase-commit path, not fully traced. |
 
@@ -1333,7 +1333,7 @@ concrete results:
   by following its internal loop.** `RenderRoomLabel` doesn't just draw
   fixed labels; its tail is a loop over up to **6 room slots**
   (`0x4464c` to `0x44664`, 4-byte stride — skipping the current client's
-  own room index) calling **`FUN_0042a220(roomIndex)`** once per occupied
+  own room index) calling **`RenderRoomCard(roomIndex)`** once per occupied
   slot. That function is the real per-room "card" draw, and it's rich:
   - **Grid layout**: `roomIndex / 3` selects a column (X base `0x18` or
     `0x144` — a 2-column layout), `roomIndex % 3` selects a row (`* 0x3c`
@@ -1389,7 +1389,7 @@ universal rendering slot. Mapping each state's actual render entry point
 would mean checking each vtable slot individually per state rather than
 assuming a shared slot index — noted as future work, not completed here.
 
-### The lobby command dispatcher — `FUN_004285c0` (State 3 vtable slot 5)
+### The lobby command dispatcher — `State03_GameRoomList_OnCommand` (State 3 vtable slot 5)
 
 Decompiled State 3's slot-5 virtual (`0x4285c0`) in full — it's the lobby's
 central **command/action dispatcher**, the single funnel every lobby button,
@@ -1406,7 +1406,7 @@ param_3, buttonId)`:
 
 - **The `param_4` switch dispatches on button ID, not the widget's stored
   "action code."** Cross-checked against the lobby's real button-creation
-  call, `FUN_0042aba0` (previously not referenced by this doc — it's a
+  call, `State03_GameRoomList_CreateButtons` (previously not referenced by this doc — it's a
   separate function from the already-ported `OnEnter`, called once from it):
 
   ```c
@@ -1436,31 +1436,31 @@ param_3, buttonId)`:
   | ID | Image | Action | How |
   |---|---|---|---|
   | 0 | `b_gamelist_exit` | **Exit lobby → Server Select** | `ChangeGameState(2)` |
-  | 1 | `b_gamelist_buddy` | (re)build the buddy-list panel | `FUN_00509110` (also run from `OnEnter`) |
+  | 1 | `b_gamelist_buddy` | (re)build the buddy-list panel | `BuildBuddyPanel` (also run from `OnEnter`) |
   | 2 | `b_gamelist_ranking` | (no case — falls to default, no-op in this build) | — |
   | 3 | `b_gamelist_avatar` | **Enter Avatar Store** | sends outgoing `0x6000` (guarded on the inventory-loaded flag) |
-  | 4 | `b_gamelist_create` | **Open the Create Room dialog** | `FUN_00429c30` → `FUN_00508190`, dialog title msg `0x62b2`, fields for room name + password (msgs `0x514`–`0x51d`) |
+  | 4 | `b_gamelist_create` | **Open the Create Room dialog** | `OpenCreateRoomDialog` → `BuildCreateRoomDialog`, dialog title msg `0x62b2`, fields for room name + password (msgs `0x514`–`0x51d`) |
   | 5 | `b_gamelist_join` | **Join the selected room** | `SendJoinRoomChecked` → `0x2110`, after an "already in that room" dedupe check |
   | 0xa | `b_gamelist_viewall` | Room-list filter **mode 1** ("view all") | re-request room list, `0x2100` (mode byte = 1) |
   | 0xb | `b_gamelist_wait` | Room-list filter **mode 2** ("waiting only") | re-request room list, `0x2100` (mode byte = 2) |
   | 0xc | `b_gamelist_prev` | Room-list page **prev** | decrements page (`+0x118`), sends `0x2100`/`0x2101` |
   | 0xd | `b_gamelist_next` | Room-list page **next** | increments page, sends `0x2100`/`0x2101` |
-  | 0xe | `b_gamelist_friend` | **Find Friend** — locate a buddy's current room | `FUN_004021b0` scans the active room list for a match (filter criterion passed via an uncaptured register, likely a buddy ID — not fully pinned down); if found, requests its record via `0x2101`; if not, clears a "found" flag at `+0x44648` |
-  | 0xf | `b_gamelist_directgo` | **Open the "enter room by number" dialog** | `FUN_005087b0` — separate dialog, msg `0x2715`, fields `0x578`/`0x579` |
+  | 0xe | `b_gamelist_friend` | **Find Friend** — locate a buddy's current room | `FindBuddyRoomsForServer` scans the active room list for a match (filter criterion passed via an uncaptured register, likely a buddy ID — not fully pinned down); if found, requests its record via `0x2101`; if not, clears a "found" flag at `+0x44648` |
+  | 0xf | `b_gamelist_directgo` | **Open the "enter room by number" dialog** | `BuildEnterRoomNumberDialog` — separate dialog, msg `0x2715`, fields `0x578`/`0x579` |
 
   Dialog-internal actions (reached via `eventType==0xa`/`0xb` from a dialog's
   own OK/Cancel, not a top-level lobby button) use higher codes:
   `0x1e`/`0x20`/`0x28` are plain **Cancel** buttons (`FUN_0050ef10`, dismiss
   the active dialog); `0x1f` and `0x21` are **Join-selected**/**Join-by-number**
   confirms (`SendJoinRoomSelected`/`SendJoinRoomByNumber`); `0x29` and the
-  `eventType==0xa && flag@+0xc` path both reach **`FUN_00429c60`, the Create
+  `eventType==0xa && flag@+0xc` path both reach **`SendCreateRoom`, the Create
   Room dialog's actual submit handler** (see below).
 
   This corrects an earlier draft that mislabeled `0xe` as a generic "channel
   selector" — it's specifically the Friend/buddy-locate button — and left
   `0x2120` as an unidentified "leave-room" guess.
 
-- **`FUN_00429c60` — Create Room submission (was mis-flagged "leave-room").**
+- **`SendCreateRoom` — Create Room submission (was mis-flagged "leave-room").**
   Copies the dialog's room-name and password text fields into a local buffer,
   then sends **outgoing opcode `0x2120`**: room name (NUL-terminated string),
   password (NUL-terminated string), the dialog's message-id field (`0x62b2`),
@@ -1470,16 +1470,16 @@ param_3, buttonId)`:
   `(+0x20==0 && +0x24==0)` match), not the live dialog widgets directly — the
   step that copies widget text into that snapshot on OK-press wasn't traced.
 
-  **The dialog's full field layout — decompiled `FUN_00508190` (the builder
-  `FUN_00429c30` calls) in detail.** Ten widgets, created in this order, all
+  **The dialog's full field layout — decompiled `BuildCreateRoomDialog` (the builder
+  `OpenCreateRoomDialog` calls) in detail.** Ten widgets, created in this order, all
   using the message IDs `OnEnter` preloads (`0x514`–`0x51d`, confirming this
   *is* the complete, self-contained resource set for this one dialog):
 
   | Widget(s) | Type (by allocator) | Position (x,y) w×h | Msg ID(s) | Role |
   |---|---|---|---|---|
-  | id 0 | large (0x140-byte, `FUN_00507f60` — has an internal text buffer) | (0x60,0x2c) 0xbe×0xc | — | **Room name entry** (widest field, near the top) |
+  | id 0 | large (0x140-byte, `CreateTextEntryWidget` — has an internal text buffer) | (0x60,0x2c) 0xbe×0xc | — | **Room name entry** (widest field, near the top) |
   | id 1 | large (0x140-byte, same allocator) | (0x60,0x46) 0xbe×0xc | — | **Password entry** (same width, directly below) |
-  | ids 2–9 (8 boxes) | small (0x40-byte, `FUN_00507ee0`) | x = 0xad+32·i, y=**8** (top row) | `0x518`–`0x51f` | Likely a **player-limit picker** (8 boxes, GunBound rooms commonly cap at 2–8); the 4th box (`i==3`) is flagged specially (`+0x3a=1`) — plausibly "default selected," i.e. a default room limit of 4 |
+  | ids 2–9 (8 boxes) | small (0x40-byte, `CreateLabelWidget`) | x = 0xad+32·i, y=**8** (top row) | `0x518`–`0x51f` | Likely a **player-limit picker** (8 boxes, GunBound rooms commonly cap at 2–8); the 4th box (`i==3`) is flagged specially (`+0x3a=1`) — plausibly "default selected," i.e. a default room limit of 4 |
   | ids 4–7 (2×2 grid) | small (0x40-byte) | (0x16,0x5f)/(0x45,0x5f)/(0x16,0x7a)/(0x45,0x7a), each 0x2d×0x18 | `0x514`–`0x517` | Unclear — a 2×2 grid of 4 small toggles, most plausibly a **room-mode selector** (e.g. solo/team); not confirmed, no click-handler for these was traced |
   | id 8 | small (0x40-byte) | (0xd5,0x99) 0x52×0x22 | `0x51d` | Bottom-right button — by position/size, one of **OK/Cancel** |
   | id 9 | small (0x40-byte) | (0x80,0x99) 0x52×0x22 | `0x51c` | Bottom-left button — the other of **OK/Cancel** |
@@ -1490,8 +1490,8 @@ param_3, buttonId)`:
   confirmed from the layout; exact captions are not.
 
   **Field offsets independently confirmed** by decompiling the "large"
-  widget class's own vtable (`PTR_LAB_00557c84`, used by `FUN_00507f60`).
-  Its hit-test method (`FUN_0050e9c0`, one of 3 non-trivial slots — the
+  widget class's own vtable (`PTR_LAB_00557c84`, used by `CreateTextEntryWidget`).
+  Its hit-test method (`Widget_HitTest`, one of 3 non-trivial slots — the
   other two, `0x50e870`/`0x50e950`, are near-identical child-broadcast
   helpers dispatching through a container's child list) reads position
   unconditionally from `+0x28`(x)/`+0x2c`(y)/`+0x30`(w)/`+0x34`(h) —
@@ -1500,13 +1500,13 @@ param_3, buttonId)`:
   table above wasn't just positional guesswork.
 
   **Same widget class used for the "enter room by number" dialog**
-  (`FUN_005087b0`, opened by button `0xf`) shows a genuine anomaly worth
+  (`BuildEnterRoomNumberDialog`, opened by button `0xf`) shows a genuine anomaly worth
   flagging rather than silently resolving: its two large-class widgets
   (msgs `0x2bf`/`0x2bd`) get `x≈700`/`w=7` and `x≈700`/`w=39` — a 7–39px
   hit-box is implausible for real text entry (likely **static labels**,
   which don't need a generous click area, rather than the room-name/
   password-style entry fields Create Room uses). What's **not** ambiguous:
-  this dialog's two small-class widgets (`FUN_00507ee0`, msgs `0x578` left
+  this dialog's two small-class widgets (`CreateLabelWidget`, msgs `0x578` left
   at x=0x80/`0x579` right at x=0xd5, both `0x52×0x22`) are **identical in
   size and left/right ordering** to Create Room's own `0x51c`/`0x51d`
   button pair — confirming an **OK/Cancel button pair** here too, reused
@@ -1516,7 +1516,7 @@ param_3, buttonId)`:
   docs).** `OnEnter` calls it ~40 times with values like `0x514`–`0x51d`,
   `0x578`/`0x579`, `0x2711`, etc. — and those exact values reappear as the
   Create Room and "enter room by number" dialogs' field message-IDs
-  (`FUN_00508190`/`FUN_005087b0` above). Decompiling it shows it does **not**
+  (`BuildCreateRoomDialog`/`BuildEnterRoomNumberDialog` above). Decompiling it shows it does **not**
   set any duration/timeout field: it loads an XFS-resourced definition
   (`FindXFSEntry`/`ReadXFSEntry`, resource name passed via an uncaptured
   register — the same "hidden EAX argument" class of issue already
@@ -1862,7 +1862,7 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
    deleting destructor" (real destructor + conditional `free`, exactly
    matching how the container's sweep functions call it); slot 1 manages
    animation/timing fields, not the removal flag; slots 2 and 3 both
-   render via the same generic `FUN_004f30c0` texture-cache lookup already
+   render via the same generic `FindSpriteFrame` texture-cache lookup already
    documented (confirming buttons draw via targeted lookup, consistent
    with there being no per-frame "draw everything" sweep — see the
    traversal-functions note below); slot 4 is a bare `RET`, a shared
@@ -1872,7 +1872,7 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
    the actual draw call — reads the button's stored frame index (`+0x30`,
    skipped entirely if negative, the standard hidden-widget sentinel) and
    position (`+0x38`/`+0x3c`), then dispatches through the same
-   `FindTextureCacheEntryByName`-adjacent lookup (`FUN_004f30c0`) and
+   `FindTextureCacheEntryByName`-adjacent lookup (`FindSpriteFrame`) and
    `BlitSprite16bpp`/`BlitSpriteClipped` branch used everywhere else in
    the software-blit layer — nothing button-specific about the actual
    pixel path. Slot 2 (`0x405e90`) just forwards to `FUN_00450730`, which
@@ -1918,7 +1918,7 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
    - **Background**: `State02_ServerSelect`'s slot 15 (`0x443570`) is the
      exact same trivial one-line function shared by Title and Logo1 (see
      the per-state vtable survey above) — decompiled in full this pass:
-     it just calls the standard texture-cache lookup (`FUN_004f30c0`) and
+     it just calls the standard texture-cache lookup (`FindSpriteFrame`) and
      blits sprite index 0 at the origin via `BlitSprite16bpp`/
      `BlitSpriteClipped`. Not state-specific at all — "draw whatever
      background sprite is currently loaded," reused verbatim by three
@@ -2079,7 +2079,7 @@ concept in this engine, not separate systems.
    generic keyed-object tree used for texture/resource cache lookups (the
    tree-root formula, `*(int*)(*(int*)(root+4)+0x1c)`, is textually
    identical in both `RegisterActiveObject` and the texture-lookup helper
-   `FUN_004f30c0`). That means "active render objects" and "cached
+   `FindSpriteFrame`). That means "active render objects" and "cached
    resources looked up by ID" most likely live in **one shared generic
    container**, not two separate systems with their own insert/iterate
    pair — reinforcing the "one reusable sorted-container primitive" finding
@@ -2092,7 +2092,7 @@ concept in this engine, not separate systems.
 
    **Follow-up done: yes, a full traversal exists — for lifecycle
    management, not rendering.** Decompiled the small cluster of functions
-   sitting right next to `RegisterActiveObject`/`FUN_004f30c0`
+   sitting right next to `RegisterActiveObject`/`FindSpriteFrame`
    (`0x4f3020`-`0x4f3150`) and found the rest of this generic container's
    function suite. The structure turns out to be bucket-chained (each
    bucket reached via a `[7]`-indexed "next bucket" pointer, each bucket
