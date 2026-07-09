@@ -212,7 +212,7 @@ indexed by entry position `i` (0-based):
 | `regionOrType` | `+0x3f83a` | 1 byte | |
 | `onlineFlag` | `+0x3f809` | 1 byte | |
 | `name` | `+0x3f84a` | 128 bytes | NUL-terminated; this is the string later copied into the **global current-server-name buffer** (`DAT_005b3484+0x3b8e8`) when a connection is confirmed (opcode `0x2001`, see below) |
-| `desc` | `+0x4004a` | 256 bytes | word-wrapped through `FUN_0041b4b0` (width `0x40`, presumably a message/MOTD field, distinct from `name`) |
+| `desc` | `+0x4004a` | 256 bytes | word-wrapped through `RenderWrappedText` (width `0x40`, presumably a message/MOTD field, distinct from `name`) |
 | `serverIp` (u32) | `+0x4104a` | 4 bytes | packed IPv4; `FUN_004e1bf0` `sprintf`s it as `"%d.%d.%d.%d"` (fmt `s__d__d__d__d_00557138`) and passes it with `port` to the socket-connect helper `BeginServerConnect` |
 | `port` | `+0x4108a` | 2 bytes | |
 | `unknownField2` | `+0x410aa` | 2 bytes | |
@@ -368,7 +368,7 @@ client's local room-card array at `+0x44664`, not the room's grid index).
 click on the room grid first goes through a shared **hit-test function**,
 `FUN_0042ada0(y, requireJoinable)`, which walks the same 3-row×2-column,
 6-slot grid geometry already confirmed for the room-card renderer
-(`FUN_0042a220`) and returns the clicked slot's index (or `-1` if the
+(`RenderRoomCard`) and returns the clicked slot's index (or `-1` if the
 click missed every card). Three distinct click behaviors, dispatched by
 raw Win32 message code:
 - **`WM_LBUTTONDOWN` (`0x201`, single left-click)**: hit-tests *without*
@@ -406,10 +406,10 @@ widget callback).
 picture.** An earlier pass scanned only `State03_GameRoomList_ProcessPacket`
 (the *incoming* handler), found no channel-switch opcode, and concluded there
 was no in-lobby channel switching. A later pass found the lobby command
-dispatcher `FUN_004285c0` sends `0x2100`/`0x2101` in response to certain
+dispatcher `State03_GameRoomList_OnCommand` sends `0x2100`/`0x2101` in response to certain
 button clicks and corrected this to "channel switching does exist, outgoing."
 **That was half right and needs refining now that the real button images are
-known** (from `FUN_0042aba0`, the lobby's actual button-creation call):
+known** (from `State03_GameRoomList_CreateButtons`, the lobby's actual button-creation call):
 - Codes `0xa`/`0xb` are **`b_gamelist_viewall`** and **`b_gamelist_wait`** — a
   **room-list filter** (view-all vs. waiting-rooms-only), not a channel
   selector. They set a filter-mode byte and re-request the list via `0x2100`.
@@ -444,7 +444,7 @@ mode is `6` (the locator's own result-browsing mode).
 
 **Payload**: a 12-byte record copied from a client-side table
 (`g_serverSelectRecords`, 12-byte stride; `FUN_004d2530` copies one record).
-Code `0xe` first calls `FUN_004021b0(currentServerId)` — that function scans
+Code `0xe` first calls `FindBuddyRoomsForServer(currentServerId)` — that function scans
 the active room objects for entries of type `0x12`, filtered by a *second*,
 uncaptured parameter (passed via a register the decompiler didn't model;
 most plausibly a buddy/user ID given the button's label, but not confirmed),
@@ -485,22 +485,22 @@ this: **`0x2110` is exclusively "join/enter room," never room creation.**
 #### Opcode `0x2120` — Create Room (outgoing) — resolved, was mis-flagged "leave-room"
 
 **Direction**: outgoing. **Trigger**: the Create Room dialog's submit path —
-lobby button ID `4` (`b_gamelist_create`) opens the dialog (`FUN_00429c30` →
-`FUN_00508190`, title message `0x62b2`); its OK button reaches this
+lobby button ID `4` (`b_gamelist_create`) opens the dialog (`OpenCreateRoomDialog` →
+`BuildCreateRoomDialog`, title message `0x62b2`); its OK button reaches this
 dispatcher via `eventType==0xa` with the pending-create flag (`+0xc`) set, or
-directly via dispatcher code `0x29`, both landing in **`FUN_00429c60`** — the
+directly via dispatcher code `0x29`, both landing in **`SendCreateRoom`** — the
 actual submit handler.
 
 **Payload**: room name (NUL-terminated string, from the dialog's name field),
 password (NUL-terminated string, from the password field), the dialog's
 message-id field (`0x62b2`, `u32`), and a type byte (`8`).
 
-An earlier pass, without having traced `FUN_00429c60`'s body, guessed this
+An earlier pass, without having traced `SendCreateRoom`'s body, guessed this
 opcode was "leave room / list refresh." Decompiling it shows it copies the
 two text-entry widgets' contents and sends them — this is the room-creation
 request, not a leave/refresh action.
 
-**Dialog layout — 10 widgets, decompiled `FUN_00508190` in full** (see
+**Dialog layout — 10 widgets, decompiled `BuildCreateRoomDialog` in full** (see
 ARCHITECTURE.md's "Create Room dialog" writeup for the complete table): a
 wide **room-name text entry** (id 0) directly above a wide **password entry**
 (id 1); a top row of **8 small boxes** (msgs `0x518`–`0x51f`) most plausibly
@@ -511,7 +511,7 @@ click-handler traced); and a bottom **OK/Cancel button pair** (msgs `0x51c`
 left, `0x51d` right). Only room name and password are confirmed to reach the
 wire payload above — whether the player-limit/mode selections are sent too
 (as part of the two string fields, or via a separate opcode not yet found)
-is not confirmed; `FUN_00429c60` only visibly touches the name/password pair.
+is not confirmed; `SendCreateRoom` only visibly touches the name/password pair.
 
 #### Opcode `0x2105` — Player info/profile broadcast
 
@@ -828,7 +828,7 @@ blindly populating a screen the user has already navigated away from.
 
 **Behavior**: loads four localized strings by resource id
 (`0xea6a` through `0xea6d`, via the string-table lookup helper
-`FUN_0043dc70`), formats an item name and price into them via `sprintf`,
+`GetLocalizedString`), formats an item name and price into them via `sprintf`,
 and shows a **`b_storewindow_confirm`** popup image with the formatted text.
 
 **Significance**: the **"are you sure you want to buy this?"** confirmation
@@ -2126,7 +2126,7 @@ several checksum-protected fields, then plays a **sound/cursor-effect**
 via the same `FUN_004368f0` trigger confirmed elsewhere for movement
 cues (see action `0xc304`'s writeup in [ARCHITECTURE.md](ARCHITECTURE.md)),
 and builds/shows a **formatted notification message** — a localized string
-(resource ID `0x274`, looked up via `FUN_0043dc70`, the same localized-
+(resource ID `0x274`, looked up via `GetLocalizedString`, the same localized-
 string-table helper used by the `0xc401` weapon-select-sound trigger)
 populated via `sprintf` with two values derived from that player's stats
 (read from struct offsets `+0xb30`/`+0x90c`), then shown via the same
