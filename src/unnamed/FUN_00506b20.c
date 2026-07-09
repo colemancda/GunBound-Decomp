@@ -23,7 +23,7 @@ void __thiscall FUN_00506b20(undefined4 *param_1,int param_2,int param_3,undefin
     if (param_2 == 0x1000) {
 LAB_00506baf:
       FUN_00506950(param_1);
-      FUN_0050eb10(param_2,param_3,param_4);
+      Widget_OnCommandDefault(param_2,param_3,param_4);
       return;
     }
     if (param_2 == 0x1001) {
@@ -37,12 +37,12 @@ LAB_00506baf:
         *(undefined4 *)(&DAT_00795878 + DAT_00795070 * 4) = uVar1;
         *(undefined4 *)(&DAT_00796078 + DAT_00795070 * 4) = 0x20;
         DAT_00795070 = uVar2;
-        FUN_0050eb10(0x1001,param_3,param_4);
+        Widget_OnCommandDefault(0x1001,param_3,param_4);
         return;
       }
     }
   }
-  FUN_0050eb10(param_2,param_3,param_4);
+  Widget_OnCommandDefault(param_2,param_3,param_4);
   return;
 }
 

@@ -19,14 +19,14 @@ void __thiscall FUN_00505d20(int param_1,int param_2,int param_3,undefined4 para
     else {
       if (param_3 == 1) {
         FUN_00508b90();
-        FUN_0050eb10(0,1,param_4);
+        Widget_OnCommandDefault(0,1,param_4);
         return;
       }
       if ((param_3 == 2) && (*(int *)(param_1 + 0x90) != -1)) {
         iVar1 = FUN_00401c10();
         if (iVar1 != 0) {
           FUN_00508ea0(&g_uiPanelManager);
-          FUN_0050eb10(0,2,param_4);
+          Widget_OnCommandDefault(0,2,param_4);
           return;
         }
       }
@@ -34,10 +34,10 @@ void __thiscall FUN_00505d20(int param_1,int param_2,int param_3,undefined4 para
   }
   else if ((param_2 == 0x2000) && (param_3 == 0)) {
     DAT_00e54da8 = param_4;
-    FUN_0050eb10(0x2000,0,param_4);
+    Widget_OnCommandDefault(0x2000,0,param_4);
     return;
   }
-  FUN_0050eb10(param_2,param_3,param_4);
+  Widget_OnCommandDefault(param_2,param_3,param_4);
   return;
 }
 

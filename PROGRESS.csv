@@ -1640,7 +1640,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050e9c0,131,Widget_HitTest,false,20,1,RAW-src
 0050ea50,92,Widget_DispatchKeyToChildren,false,24,1,RAW-src
 0050eab0,85,Widget_DispatchMouseToChildren,false,24,1,RAW-src
-0050eb10,465,FUN_0050eb10,false,46,2,RAW-src
+0050eb10,465,Widget_OnCommandDefault,false,46,2,RAW-src
 0050ecf0,56,FUN_0050ecf0,false,8,1,RAW-src
 0050ed30,167,FUN_0050ed30,false,13,3,RAW-src
 0050ede0,30,FUN_0050ede0,false,1,2,RAW-src

@@ -35,11 +35,11 @@ void __thiscall FUN_0050a980(undefined4 *param_1,int param_2,int param_3,undefin
     *(undefined4 *)(g_gameStateVTableArray[7] + 0x454) = param_4;
     FUN_0044b0b0(puVar1);
     FUN_0050ce60(param_1);
-    FUN_0050eb10(0x2000,0,param_4);
+    Widget_OnCommandDefault(0x2000,0,param_4);
     return;
   }
 LAB_0050a9f8:
-  FUN_0050eb10(param_2,param_3,param_4);
+  Widget_OnCommandDefault(param_2,param_3,param_4);
   return;
 }
 

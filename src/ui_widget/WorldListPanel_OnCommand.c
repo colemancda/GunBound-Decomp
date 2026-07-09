@@ -9,7 +9,7 @@
  *   - param_2==0, param_3==1: the other page/refresh action - sends 0x1101
  *     (with a selector record) or clears the list, and updates button labels.
  *   - other param_2 (e.g. the 0x2000 scroll notification from the list widget):
- *     forwarded to FUN_0050eb10 for in-list focus navigation.
+ *     forwarded to Widget_OnCommandDefault for in-list focus navigation.
  * This is the glue that turns list scrolling/paging into paged server
  * requests; see docs/screens/02_server_select.md.
  *
@@ -200,7 +200,7 @@ LAB_0050da2d:
     *(undefined1 *)(*(int *)(*(int *)(param_1 + 0xc) + uVar3 * 4) + 0x3a) = 1;
   }
 LAB_0050dc19:
-  FUN_0050eb10(param_2,param_3,param_4);
+  Widget_OnCommandDefault(param_2,param_3,param_4);
   return;
 }
 

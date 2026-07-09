@@ -1606,7 +1606,7 @@ undefined1 __thiscall Widget_MouseUpChildren();
 undefined1 __thiscall Widget_HitTest();
 undefined1 __thiscall Widget_DispatchKeyToChildren();
 undefined4 __thiscall Widget_DispatchMouseToChildren();
-void __thiscall FUN_0050eb10();
+void __thiscall Widget_OnCommandDefault();
 void __fastcall FUN_0050ecf0();
 undefined4 FUN_0050ed30();
 void * __thiscall FUN_0050ede0();

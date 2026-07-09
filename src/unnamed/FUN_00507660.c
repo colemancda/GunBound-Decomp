@@ -93,7 +93,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
   else if ((param_2 == 0x2000) && (param_3 == 0)) {
     *(undefined4 *)(g_clientContext + 0x3b97c) = param_4;
   }
-  FUN_0050eb10(param_2,param_3,param_4);
+  Widget_OnCommandDefault(param_2,param_3,param_4);
   uStack_4 = 0xffffffff;
   piVar1 = puVar4 + 3;
   LOCK();

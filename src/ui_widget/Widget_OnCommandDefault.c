@@ -1,4 +1,4 @@
-/* FUN_0050eb10 - 0x0050eb10 in the original binary.
+/* Widget_OnCommandDefault - 0x0050eb10 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_0050eb10(int *param_1,int param_2,undefined4 param_3,undefined4 param_4)
+void __thiscall Widget_OnCommandDefault(int *param_1,int param_2,undefined4 param_3,undefined4 param_4)
 
 {
   uint uVar1;

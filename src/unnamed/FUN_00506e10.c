@@ -23,7 +23,7 @@ void __thiscall FUN_00506e10(int param_1,int param_2,int param_3,undefined4 para
     *(undefined1 *)(param_1 + 0x1d) = 1;
   }
 LAB_00506e51:
-  FUN_0050eb10(param_2,param_3,param_4);
+  Widget_OnCommandDefault(param_2,param_3,param_4);
   return;
 }
 
