@@ -1586,7 +1586,7 @@ uint WorldListRowHitTest();
 void __fastcall FUN_0050dfd0();
 int ScrollListWidget_ThumbHeight();
 void __fastcall FUN_0050e090();
-undefined4 __thiscall FUN_0050e2f0();
+undefined4 __thiscall Widget_ResetPressState();
 void __fastcall FUN_0050e350();
 undefined4 __thiscall FUN_0050e3a0();
 undefined4 __thiscall FUN_0050e420();

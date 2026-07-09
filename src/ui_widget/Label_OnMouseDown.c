@@ -18,7 +18,7 @@ undefined4 __thiscall Label_OnMouseDown(int *param_1,int param_2,int param_3)
      (((char)param_1[0xe] != '\0' && ((char)param_1[7] != '\0')))) {
     (**(code **)(*param_1 + 0x1c))(0,param_1[9],0);
   }
-  cVar1 = FUN_0050e2f0(param_2,param_3);
+  cVar1 = Widget_ResetPressState(param_2,param_3);
   if ((cVar1 == '\0') &&
      (((*(char *)((int)param_1 + 0x1e) != '\0' || (param_2 <= param_1[10])) ||
       ((param_1[0xc] + param_1[10] <= param_2 ||

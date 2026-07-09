@@ -1,4 +1,4 @@
-/* FUN_0050e2f0 - 0x0050e2f0 in the original binary.
+/* Widget_ResetPressState - 0x0050e2f0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_0050e2f0(int param_1,int param_2,int param_3)
+undefined4 __thiscall Widget_ResetPressState(int param_1,int param_2,int param_3)
 
 {
   char cVar1;
