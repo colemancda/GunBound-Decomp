@@ -797,6 +797,40 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
   (`0x40c470`/`0x40c550`/`0x40c620`) — persist display bit-depth setting under
   `Software\Softnyx\GunBound`.
 
+## Audio subsystem (DirectSound8, streamed)
+
+Music and effects run through DirectSound8 on **dedicated worker threads** with
+**double-buffered streaming** — the game does not use MCI/DirectShow/`PlaySound`
+(none are imported), and imports **no external mp3 decoder** (only the 15 system
+DLLs), so any `.mp3` decode is in-house/statically linked.
+
+- **`InitDirectSound`** (`0x4ee5b0`): `LoadLibraryA("dsound.dll")` →
+  `GetProcAddress("DirectSoundCreate8")` → creates the device, then constructs
+  sound-manager objects via `FUN_004eebe0` and `FUN_004ef3a0`. **Both spawn a
+  worker thread** (`__beginthread(FUN_004ef870, ...)`) — so there appear to be
+  **two streaming sound objects** (most plausibly one for music, one for
+  effects; the split isn't individually confirmed).
+- **The streaming worker** (`FUN_004ef870` → `FUN_004ef880`): a classic
+  double-buffered loop — `WaitForMultipleObjects(2, &events, FALSE, 100)` on the
+  object's **two DirectSound position-notification events** (at object `+0x8`);
+  on a notify it calls the object's refill vtable method (`slot 0`, given the
+  event index) to decode+fill the buffer half that just played, plus a periodic
+  tick (`slot 1`) on the 100 ms timeout; loops while the running flag
+  (object `+0x10`) is set, then `__endthread`.
+- **`FUN_004eea30` — music-track control** (called from most screens' `OnEnter`:
+  `title.mp3`, `channel.mp3`, `logo.mp3`, `stage%d.mp3`). Takes a track name (in
+  a register, not visible in the C signature), compares it against the
+  currently-playing track name (`DAT_00793568`); if unchanged it returns early
+  ("already playing"), otherwise it switches via the sound object's `vtable+0xc`.
+- **Battle music** is `stage%d.mp3` where `%d` is the stage id
+  (`g_clientContext+0x475c4`) or `rand()%6 + 1` — i.e. 6 in-battle tracks.
+- **Volume/mode** come from the registry (`MusicVolume`, `EffectVolume`,
+  `MidiMode`) via `LoadClientSettingsFromRegistry`.
+
+Open: which of the two objects is music vs. effects, where the in-house mp3
+decode lives (the refill path, `slot 0`), and the sound-effect trigger API
+(how a one-shot SFX is queued) — not yet traced.
+
 ## The custom cursor system
 
 The client hides the OS cursor and manages its own. Several cooperating pieces:
