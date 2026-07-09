@@ -18,8 +18,8 @@ undefined4 __fastcall FUN_004e72d0(int param_1,int param_2,char *param_3,int par
   if (*(SOCKET *)(in_EAX + 0x14) != 0xffffffff) {
     local_10.sa_family = 2;
     if ((param_1 != -1) && (param_2 != -1)) {
-      local_10.sa_data._0_2_ = param_2;
-      local_10.sa_data._2_4_ = param_1;
+      SUBFIELD(local_10.sa_data,0,undefined2) = param_2;
+      SUBFIELD(local_10.sa_data,2,undefined4) = param_1;
       iVar1 = sendto(*(SOCKET *)(in_EAX + 0x14),param_3,param_4,0,&local_10,0x10);
       if (iVar1 == -1) {
         ShowErrorDialog(1);
