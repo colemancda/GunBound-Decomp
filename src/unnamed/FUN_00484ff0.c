@@ -94,7 +94,7 @@ LAB_004850e9:
     uVar6 = FUN_0040aca0(param_1 + 0xb30,local_ce4,param_1 + 0x5620);
     local_4 = 0;
     uVar7 = FUN_0040aba0(param_1 + 0x90c,local_454,param_1 + 0x53fc);
-    local_4._0_1_ = 1;
+    SUBFIELD(local_4,0,undefined1) = 1;
     uVar5 = FUN_004065a0(uVar5,1);
     uVar8 = FUN_0040a4d0(param_1 + 0x7864);
     uVar9 = FUN_0040a4d0(param_1 + 0x4d90);
@@ -102,7 +102,7 @@ LAB_004850e9:
     uVar7 = FUN_0040a4d0(uVar7);
     FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_1134,7,0,*(int *)(param_1 + 0xae2c) != 0,uVar7,
                  uVar6,uVar9,uVar8,uVar3,uVar5);
-    local_4 = (uint)local_4._1_3_ << 8;
+    local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
@@ -131,7 +131,7 @@ LAB_0048524a:
     uVar6 = FUN_0040aca0(param_1 + 0xb30,local_89c,param_1 + 0x5a68);
     local_4 = 2;
     uVar7 = FUN_0040aba0(param_1 + 0x90c,local_112c,param_1 + 0x5844);
-    local_4._0_1_ = 3;
+    SUBFIELD(local_4,0,undefined1) = 3;
     uVar5 = FUN_004065a0(uVar5,1);
     uVar8 = FUN_0040a4d0(param_1 + 0x7864);
     uVar9 = FUN_0040a4d0(param_1 + 0x4d90);
@@ -139,7 +139,7 @@ LAB_0048524a:
     uVar7 = FUN_0040a4d0(uVar7);
     FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_1130,7,1,*(int *)(param_1 + 0xae2c) != 0,uVar7,
                  uVar6,uVar9,uVar8,uVar3,uVar5);
-    local_4 = CONCAT31(local_4._1_3_,2);
+    local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
@@ -172,14 +172,14 @@ LAB_0048548d:
     uVar5 = FUN_0040aca0(param_1 + 0xb30,local_ac0,param_1 + 0x5620);
     local_4 = 4;
     uVar6 = FUN_0040aba0(param_1 + 0x90c,local_f08,param_1 + 0x53fc);
-    local_4._0_1_ = 5;
+    SUBFIELD(local_4,0,undefined1) = 5;
     uVar4 = (uint)*(ushort *)(param_1 + 0xbfbc);
     uVar7 = FUN_0040a4d0(param_1 + 0x7864);
     uVar8 = FUN_0040a4d0(param_1 + 0x4d90);
     uVar5 = FUN_0040a4d0(uVar5);
     uVar6 = FUN_0040a4d0(uVar6);
     FUN_004317b0(*(undefined1 *)(param_1 + 8),uVar3,uVar6,uVar5,uVar8,uVar7,uVar4);
-    local_4 = CONCAT31(local_4._1_3_,4);
+    local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),4);
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
@@ -202,7 +202,7 @@ LAB_0048548d:
       local_4 = 6;
       uVar7 = FUN_0040aba0(param_1 + 0x90c,local_678,param_1 + 0x5c8c);
       uVar12 = 1;
-      local_4._0_1_ = 7;
+      SUBFIELD(local_4,0,undefined1) = 7;
       uVar8 = FUN_004065a0(uVar5,1);
       uVar9 = FUN_0040a4d0(param_1 + 0x7864);
       uVar10 = FUN_0040a4d0(param_1 + 0x4d90);
@@ -210,7 +210,7 @@ LAB_0048548d:
       uVar7 = FUN_0040a4d0(uVar7);
       FUN_0042de70(*(undefined1 *)(param_1 + 8),8,7,*(int *)(param_1 + 0xae2c) != 0,uVar7,uVar6,
                    uVar10,uVar9,uVar3,uVar8,uVar5,uVar12);
-      local_4 = CONCAT31(local_4._1_3_,6);
+      local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),6);
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();
