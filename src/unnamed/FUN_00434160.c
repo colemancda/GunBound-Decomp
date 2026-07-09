@@ -59,9 +59,9 @@ LAB_0043428c:
     piVar3[6] = 6000;
     piVar3[0xe] = 0x189c;
     piVar3[0xe25] = 8000;
-    piVar3[0xe26] = s_flameevent1_00553e2c._0_4_;
-    piVar3[0xe27] = s_flameevent1_00553e2c._4_4_;
-    puVar7 = (undefined *)s_flameevent1_00553e2c._8_4_;
+    piVar3[0xe26] = SUBFIELD(s_flameevent1_00553e2c,0,undefined4);
+    piVar3[0xe27] = SUBFIELD(s_flameevent1_00553e2c,4,undefined4);
+    puVar7 = (undefined *)SUBFIELD(s_flameevent1_00553e2c,8,undefined4);
     goto LAB_0043428c;
   }
   *(undefined1 *)(piVar3 + 0xf) = 0xff;
