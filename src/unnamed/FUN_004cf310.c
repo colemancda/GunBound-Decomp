@@ -128,7 +128,7 @@ void __fastcall FUN_004cf310(int param_1)
     puStack_8 = (undefined1 *)0x0;
     FUN_0040aba0((*(byte *)(param_1 + 0x10a8) & 0x80000007) * 0x224 + 0xebef4 + g_clientContext,
                  auStack_458,uVar6);
-    puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,1);
+    puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(uVar6);
