@@ -32,7 +32,7 @@ extern CLabel * __stdcall CreateLabelWidget(int id, int spriteId, int x, int y, 
  * NOTE: the original takes spriteBase in EAX and total in EDI (the
  * docs' "item count arrives in a register") - a custom convention not
  * expressible from C++, so they're normal parameters here; exact
- * byte-match is blocked on that, same family as FUN_004f1790. The
+ * byte-match is blocked on that, same family as LoadSpriteSet. The
  * first stack argument of the original is never read (id is hardcoded
  * 0); dropped here. */
 CScrollBar * __stdcall CreateScrollListWidget(int spriteBase, int total,

@@ -140,7 +140,7 @@ LAB_004e3e95:
     if (uVar3 <= uVar2) break;
 LAB_004e3f75:
     _sprintf((char *)((int)&uStack_81 + 1),s__s_d_img_0055723c,param_2,iVar11);
-    iVar8 = FUN_004f1790(&DAT_00ea0e18,uVar2);
+    iVar8 = LoadSpriteSet(&DAT_00ea0e18,uVar2);
     if (iVar8 == 0) {
       return;
     }

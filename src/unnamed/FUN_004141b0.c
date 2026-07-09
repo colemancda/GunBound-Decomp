@@ -90,7 +90,7 @@ LAB_00414245:
     uVar2 = param_4;
   }
   local_80a2 = (ushort)uVar2 & 0x7fff;
-  local_8090 = FUN_004f1790(&DAT_00ea0e18,100000);
+  local_8090 = LoadSpriteSet(&DAT_00ea0e18,100000);
   if (param_2 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
@@ -110,7 +110,7 @@ LAB_00414245:
     uVar2 = param_2;
   }
   local_80a8 = CONCAT22(SUBFIELD(local_80a8,2,undefined2),(short)uVar2);
-  local_808c = FUN_004f1790(&DAT_00ea0e18,0x186a1);
+  local_808c = LoadSpriteSet(&DAT_00ea0e18,0x186a1);
   if (param_3 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
@@ -130,7 +130,7 @@ LAB_00414245:
     uVar2 = param_3;
   }
   local_80a4 = (undefined2)uVar2;
-  local_809c = FUN_004f1790(&DAT_00ea0e18,0x186a2);
+  local_809c = LoadSpriteSet(&DAT_00ea0e18,0x186a2);
   if (param_1 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
@@ -150,7 +150,7 @@ LAB_00414245:
     uVar2 = param_1;
   }
   local_80a8 = CONCAT22((short)uVar2,(undefined2)local_80a8);
-  local_8094 = FUN_004f1790(&DAT_00ea0e18,0x186a3);
+  local_8094 = LoadSpriteSet(&DAT_00ea0e18,0x186a3);
   if (param_5 != 0) {
     FUN_00424ac0(g_clientContext,&local_80a8,param_5,0);
   }
@@ -399,7 +399,7 @@ LAB_00414ab9:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   _sprintf(local_8088,s_mf_05dl_img_005521dc,param_4 & 0x7fff);
-  local_8090 = FUN_004f1790(&DAT_00ea0e18,100000);
+  local_8090 = LoadSpriteSet(&DAT_00ea0e18,100000);
   pcVar13 = (code *)EnterCriticalSection;
   if (param_2 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -416,7 +416,7 @@ LAB_00414ab9:
              (int)(char)((-((param_2 & 0x8000) != 0) & 7U) + 0x66),param_2 & 0x7fff);
     pcVar13 = (code *)EnterCriticalSection;
   }
-  local_808c = FUN_004f1790(&DAT_00ea0e18,0x186a1);
+  local_808c = LoadSpriteSet(&DAT_00ea0e18,0x186a1);
   uVar2 = param_3;
   if (param_3 == 0xffffffff) {
     (*pcVar13)(&DAT_005a9068);
@@ -428,7 +428,7 @@ LAB_00414ab9:
   }
   _sprintf(local_8088,s__cg_05dl_img_005521bc,(int)(char)((-((param_3 & 0x8000) != 0) & 7U) + 0x66),
            uVar2 & 0x7fff);
-  local_809c = FUN_004f1790(&DAT_00ea0e18,0x186a2);
+  local_809c = LoadSpriteSet(&DAT_00ea0e18,0x186a2);
   uVar2 = param_1;
   if (param_1 == 0xffffffff) {
     (*pcVar13)(&DAT_005a9068);
@@ -440,7 +440,7 @@ LAB_00414ab9:
   }
   _sprintf(local_8088,s__ch_05dl_img_005521ac,(int)(char)((-((param_1 & 0x8000) != 0) & 7U) + 0x66),
            uVar2 & 0x7fff);
-  local_8094 = FUN_004f1790(&DAT_00ea0e18,0x186a3);
+  local_8094 = LoadSpriteSet(&DAT_00ea0e18,0x186a3);
   local_80b0 = 0;
 LAB_00414d80:
   puVar12 = local_8008;

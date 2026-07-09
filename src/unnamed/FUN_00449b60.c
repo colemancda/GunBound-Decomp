@@ -99,7 +99,7 @@ LAB_00449be9:
         uVar7 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         _sprintf((char *)((int)&uStack_80 + 3),s__05d_img_00555a08,uVar7);
-        FUN_004f1790(&DAT_00ea0e18,iVar12 + 20000);
+        LoadSpriteSet(&DAT_00ea0e18,iVar12 + 20000);
         auVar6 = local_84;
         RenderWrappedText(local_84,iVar9 + 0x17a4,0x18,0x15,0x78,1);
         iVar12 = iVar12 + 1;

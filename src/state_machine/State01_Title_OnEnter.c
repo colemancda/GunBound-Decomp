@@ -21,12 +21,12 @@
  * mangling) instead of a stack argument.
  *
  * RESOLVED (2026-07-09, via a fresh headless-Ghidra decompile of
- * FUN_004f1790 plus reading the constants out of the binary): the two
+ * LoadSpriteSet plus reading the constants out of the binary): the two
  * "mystery" loads are real register arguments - EAX = 0x5572cc =
- * "titlemode.img" (the sprite-set name FUN_004f1790 looks up: it
+ * "titlemode.img" (the sprite-set name LoadSpriteSet looks up: it
  * loads that .img and registers one frame object per frame, vtable
  * 0x557524, under the given container key), and EDI = 0x5572c0 =
- * "title.mp3" (passed through to the music path). FUN_004f1790 is
+ * "title.mp3" (passed through to the music path). LoadSpriteSet is
  * indeed callee-cleans on its two stack args (container, key). The
  * remaining byte-diff on this function is exactly those two loads +
  * the edi save/restore, not expressible from C without the custom
@@ -39,7 +39,7 @@
 void __fastcall State01_Title_OnEnter(int param_1)
 
 {
-  FUN_004f1790(&DAT_00ea0e18,10000);
+  LoadSpriteSet(&DAT_00ea0e18,10000);
   *(undefined4 *)(param_1 + 4) = 0;
   PlayMusicTrack(0);
   return;

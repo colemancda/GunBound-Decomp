@@ -35,7 +35,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   char acStack_100 [128];
   char acStack_80 [128];
   
-  FUN_004f1790(&DAT_00ea0e18,10000);
+  LoadSpriteSet(&DAT_00ea0e18,10000);
   *(undefined4 *)(param_1 + 4) = 0;
   iVar12 = g_clientContext;
   pbVar13 = &DAT_006a9b6c + g_clientContext;

@@ -216,7 +216,7 @@ LAB_004495fa:
     uVar9 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     _sprintf((char *)((int)&uStack_1870 + 3),s__05d_img_00555a08,uVar9);
-    FUN_004f1790(&DAT_00ea0e18,iVar11 + 20000);
+    LoadSpriteSet(&DAT_00ea0e18,iVar11 + 20000);
     auVar8 = auStack_1874;
     FUN_004240c0(g_clientContext,*(char *)(param_1 + 0x2d54c + iVar11) == '\x01',param_2,*puVar13);
     RenderWrappedText(local_1878,auVar8,0x18,0x15,0x78,1);

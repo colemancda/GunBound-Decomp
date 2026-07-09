@@ -64,7 +64,7 @@ void FUN_004dcbe0(int param_1)
     } while (*(char *)((int)puVar7 + 1) != '\0');
     *(undefined4 *)((int)puVar7 + 1) = DAT_005554f8;
     *(undefined1 *)((int)puVar7 + 5) = DAT_005554fc;
-    FUN_004f1790(&DAT_00ea0e18,0x1e14);
+    LoadSpriteSet(&DAT_00ea0e18,0x1e14);
     DAT_00793634 = FUN_0040a4d0(((uint)bVar1 + iVar6) * 0x7d28 + 0x1a328c + g_clientContext);
     break;
   case 3:
@@ -74,14 +74,14 @@ void FUN_004dcbe0(int param_1)
     FUN_004e3c50(&DAT_006a7708 + g_clientContext);
     if (*(ushort *)(&DAT_006aa660 + g_clientContext) != 0xffff) {
       _sprintf(local_2b0,s_event14__d_img_005554e8,*(ushort *)(&DAT_006aa660 + g_clientContext) + 1);
-      FUN_004f1790(&DAT_00ea0e18,0x271a);
+      LoadSpriteSet(&DAT_00ea0e18,0x271a);
     }
     break;
   case 5:
     cVar3 = FUN_0041c2c0(g_clientContext,0);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,5000);
-      FUN_004f1790(&DAT_00ea0e18,0x13ec);
+      LoadSpriteSet(&DAT_00ea0e18,5000);
+      LoadSpriteSet(&DAT_00ea0e18,0x13ec);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -89,15 +89,15 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,0);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,6000);
-        FUN_004f1790(&DAT_00ea0e18,0x1771);
-        FUN_004f1790(&DAT_00ea0e18,0x17d4);
-        FUN_004f1790(&DAT_00ea0e18,0x17d5);
+        LoadSpriteSet(&DAT_00ea0e18,6000);
+        LoadSpriteSet(&DAT_00ea0e18,0x1771);
+        LoadSpriteSet(&DAT_00ea0e18,0x17d4);
+        LoadSpriteSet(&DAT_00ea0e18,0x17d5);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a2c);
-      FUN_004f1790(&DAT_00ea0e18,0x1a2d);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a2c);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a2d);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -105,22 +105,22 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,0);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,8000);
-        FUN_004f1790(&DAT_00ea0e18,0x1f41);
+        LoadSpriteSet(&DAT_00ea0e18,8000);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f41);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x2008);
+      LoadSpriteSet(&DAT_00ea0e18,0x2008);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x206c);
+      LoadSpriteSet(&DAT_00ea0e18,0x206c);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 8:
     cVar3 = FUN_0041c2c0(g_clientContext,1);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x1389);
-      FUN_004f1790(&DAT_00ea0e18,0x13ed);
+      LoadSpriteSet(&DAT_00ea0e18,0x1389);
+      LoadSpriteSet(&DAT_00ea0e18,0x13ed);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -128,15 +128,15 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,1);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1772);
-        FUN_004f1790(&DAT_00ea0e18,0x1773);
-        FUN_004f1790(&DAT_00ea0e18,0x17d6);
-        FUN_004f1790(&DAT_00ea0e18,0x17d7);
+        LoadSpriteSet(&DAT_00ea0e18,0x1772);
+        LoadSpriteSet(&DAT_00ea0e18,0x1773);
+        LoadSpriteSet(&DAT_00ea0e18,0x17d6);
+        LoadSpriteSet(&DAT_00ea0e18,0x17d7);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a2e);
-      FUN_004f1790(&DAT_00ea0e18,0x1a2f);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a2e);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a2f);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -144,22 +144,22 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,1);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1f42);
-        FUN_004f1790(&DAT_00ea0e18,0x1f43);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f42);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f43);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x2009);
+      LoadSpriteSet(&DAT_00ea0e18,0x2009);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x206d);
+      LoadSpriteSet(&DAT_00ea0e18,0x206d);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0xb:
     cVar3 = FUN_0041c2c0(g_clientContext,2);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x138a);
-      FUN_004f1790(&DAT_00ea0e18,0x13ee);
+      LoadSpriteSet(&DAT_00ea0e18,0x138a);
+      LoadSpriteSet(&DAT_00ea0e18,0x13ee);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -167,15 +167,15 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,2);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1774);
-        FUN_004f1790(&DAT_00ea0e18,0x1775);
-        FUN_004f1790(&DAT_00ea0e18,0x17d8);
-        FUN_004f1790(&DAT_00ea0e18,0x17d9);
+        LoadSpriteSet(&DAT_00ea0e18,0x1774);
+        LoadSpriteSet(&DAT_00ea0e18,0x1775);
+        LoadSpriteSet(&DAT_00ea0e18,0x17d8);
+        LoadSpriteSet(&DAT_00ea0e18,0x17d9);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a30);
-      FUN_004f1790(&DAT_00ea0e18,0x1a31);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a30);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a31);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -183,22 +183,22 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,2);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1f44);
-        FUN_004f1790(&DAT_00ea0e18,0x1f45);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f44);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f45);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x200a);
+      LoadSpriteSet(&DAT_00ea0e18,0x200a);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x206e);
+      LoadSpriteSet(&DAT_00ea0e18,0x206e);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0xe:
     cVar3 = FUN_0041c2c0(g_clientContext,3);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x138b);
-      FUN_004f1790(&DAT_00ea0e18,0x13ef);
+      LoadSpriteSet(&DAT_00ea0e18,0x138b);
+      LoadSpriteSet(&DAT_00ea0e18,0x13ef);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -206,15 +206,15 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,3);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1776);
-        FUN_004f1790(&DAT_00ea0e18,0x1777);
-        FUN_004f1790(&DAT_00ea0e18,0x17da);
-        FUN_004f1790(&DAT_00ea0e18,0x17db);
+        LoadSpriteSet(&DAT_00ea0e18,0x1776);
+        LoadSpriteSet(&DAT_00ea0e18,0x1777);
+        LoadSpriteSet(&DAT_00ea0e18,0x17da);
+        LoadSpriteSet(&DAT_00ea0e18,0x17db);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a32);
-      FUN_004f1790(&DAT_00ea0e18,0x1a33);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a32);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a33);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -222,22 +222,22 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,3);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1f46);
-        FUN_004f1790(&DAT_00ea0e18,0x1f47);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f46);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f47);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x200b);
+      LoadSpriteSet(&DAT_00ea0e18,0x200b);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x206f);
+      LoadSpriteSet(&DAT_00ea0e18,0x206f);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x11:
     cVar3 = FUN_0041c2c0(g_clientContext,4);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x138c);
-      FUN_004f1790(&DAT_00ea0e18,0x13f0);
+      LoadSpriteSet(&DAT_00ea0e18,0x138c);
+      LoadSpriteSet(&DAT_00ea0e18,0x13f0);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -245,15 +245,15 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,4);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1778);
-        FUN_004f1790(&DAT_00ea0e18,0x1779);
-        FUN_004f1790(&DAT_00ea0e18,0x17dc);
-        FUN_004f1790(&DAT_00ea0e18,0x17dd);
+        LoadSpriteSet(&DAT_00ea0e18,0x1778);
+        LoadSpriteSet(&DAT_00ea0e18,0x1779);
+        LoadSpriteSet(&DAT_00ea0e18,0x17dc);
+        LoadSpriteSet(&DAT_00ea0e18,0x17dd);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a34);
-      FUN_004f1790(&DAT_00ea0e18,0x1a35);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a34);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a35);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -261,22 +261,22 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,4);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1f48);
-        FUN_004f1790(&DAT_00ea0e18,0x1f49);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f48);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f49);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x200c);
+      LoadSpriteSet(&DAT_00ea0e18,0x200c);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x2070);
+      LoadSpriteSet(&DAT_00ea0e18,0x2070);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x14:
     cVar3 = FUN_0041c2c0(g_clientContext,5);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x138d);
-      FUN_004f1790(&DAT_00ea0e18,0x13f1);
+      LoadSpriteSet(&DAT_00ea0e18,0x138d);
+      LoadSpriteSet(&DAT_00ea0e18,0x13f1);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -284,15 +284,15 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,5);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x177a);
-        FUN_004f1790(&DAT_00ea0e18,0x177b);
-        FUN_004f1790(&DAT_00ea0e18,0x17de);
-        FUN_004f1790(&DAT_00ea0e18,0x17df);
+        LoadSpriteSet(&DAT_00ea0e18,0x177a);
+        LoadSpriteSet(&DAT_00ea0e18,0x177b);
+        LoadSpriteSet(&DAT_00ea0e18,0x17de);
+        LoadSpriteSet(&DAT_00ea0e18,0x17df);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a36);
-      FUN_004f1790(&DAT_00ea0e18,0x1a37);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a36);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a37);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -300,22 +300,22 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,5);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1f4a);
-        FUN_004f1790(&DAT_00ea0e18,0x1f4b);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f4a);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f4b);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x200d);
+      LoadSpriteSet(&DAT_00ea0e18,0x200d);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x2071);
+      LoadSpriteSet(&DAT_00ea0e18,0x2071);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x17:
     cVar3 = FUN_0041c2c0(g_clientContext,6);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x138e);
-      FUN_004f1790(&DAT_00ea0e18,0x13f2);
+      LoadSpriteSet(&DAT_00ea0e18,0x138e);
+      LoadSpriteSet(&DAT_00ea0e18,0x13f2);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -323,53 +323,53 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,6);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x177c);
-        FUN_004f1790(&DAT_00ea0e18,0x177d);
-        FUN_004f1790(&DAT_00ea0e18,0x17e0);
-        FUN_004f1790(&DAT_00ea0e18,0x17e1);
+        LoadSpriteSet(&DAT_00ea0e18,0x177c);
+        LoadSpriteSet(&DAT_00ea0e18,0x177d);
+        LoadSpriteSet(&DAT_00ea0e18,0x17e0);
+        LoadSpriteSet(&DAT_00ea0e18,0x17e1);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a38);
-      FUN_004f1790(&DAT_00ea0e18,0x1a39);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a38);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a39);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     if (*(char *)(g_clientContext + 0x45578) == '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x17d2);
-      FUN_004f1790(&DAT_00ea0e18,0x17d3);
+      LoadSpriteSet(&DAT_00ea0e18,0x17d2);
+      LoadSpriteSet(&DAT_00ea0e18,0x17d3);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x17ca);
-      FUN_004f1790(&DAT_00ea0e18,0x17cb);
+      LoadSpriteSet(&DAT_00ea0e18,0x17ca);
+      LoadSpriteSet(&DAT_00ea0e18,0x17cb);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     else if (*(char *)(g_clientContext + 0x45578) == '\x01') {
-      FUN_004f1790(&DAT_00ea0e18,0x17d2);
-      FUN_004f1790(&DAT_00ea0e18,0x17d3);
+      LoadSpriteSet(&DAT_00ea0e18,0x17d2);
+      LoadSpriteSet(&DAT_00ea0e18,0x17d3);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x17ca);
-      FUN_004f1790(&DAT_00ea0e18,0x17cb);
+      LoadSpriteSet(&DAT_00ea0e18,0x17ca);
+      LoadSpriteSet(&DAT_00ea0e18,0x17cb);
     }
     break;
   case 0x19:
     cVar3 = FUN_0041c2c0(g_clientContext,6);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1f4c);
-        FUN_004f1790(&DAT_00ea0e18,0x1f4d);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f4c);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f4d);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x200e);
+      LoadSpriteSet(&DAT_00ea0e18,0x200e);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x2072);
+      LoadSpriteSet(&DAT_00ea0e18,0x2072);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x1a:
     cVar3 = FUN_0041c2c0(g_clientContext,7);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x138f);
-      FUN_004f1790(&DAT_00ea0e18,0x13f3);
+      LoadSpriteSet(&DAT_00ea0e18,0x138f);
+      LoadSpriteSet(&DAT_00ea0e18,0x13f3);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -377,34 +377,34 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,7);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x177e);
-        FUN_004f1790(&DAT_00ea0e18,0x177f);
-        FUN_004f1790(&DAT_00ea0e18,0x17e2);
-        FUN_004f1790(&DAT_00ea0e18,0x17e3);
+        LoadSpriteSet(&DAT_00ea0e18,0x177e);
+        LoadSpriteSet(&DAT_00ea0e18,0x177f);
+        LoadSpriteSet(&DAT_00ea0e18,0x17e2);
+        LoadSpriteSet(&DAT_00ea0e18,0x17e3);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a3a);
-      FUN_004f1790(&DAT_00ea0e18,0x1a3b);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a3a);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a3b);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x1c:
     cVar3 = FUN_0041c2c0(g_clientContext,7);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x1f4f);
+      LoadSpriteSet(&DAT_00ea0e18,0x1f4f);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x200f);
+      LoadSpriteSet(&DAT_00ea0e18,0x200f);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x2073);
+      LoadSpriteSet(&DAT_00ea0e18,0x2073);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x1d:
     cVar3 = FUN_0041c2c0(g_clientContext,8);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x1390);
-      FUN_004f1790(&DAT_00ea0e18,0x13f4);
+      LoadSpriteSet(&DAT_00ea0e18,0x1390);
+      LoadSpriteSet(&DAT_00ea0e18,0x13f4);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -412,15 +412,15 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,8);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1780);
-        FUN_004f1790(&DAT_00ea0e18,0x1781);
-        FUN_004f1790(&DAT_00ea0e18,0x17e4);
-        FUN_004f1790(&DAT_00ea0e18,0x17e5);
+        LoadSpriteSet(&DAT_00ea0e18,0x1780);
+        LoadSpriteSet(&DAT_00ea0e18,0x1781);
+        LoadSpriteSet(&DAT_00ea0e18,0x17e4);
+        LoadSpriteSet(&DAT_00ea0e18,0x17e5);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a3c);
-      FUN_004f1790(&DAT_00ea0e18,0x1a3d);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a3c);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a3d);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -428,25 +428,25 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,8);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1f50);
-        FUN_004f1790(&DAT_00ea0e18,0x1f51);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f50);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f51);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-        FUN_004f1790(&DAT_00ea0e18,0x17d0);
-        FUN_004f1790(&DAT_00ea0e18,0x17d1);
+        LoadSpriteSet(&DAT_00ea0e18,0x17d0);
+        LoadSpriteSet(&DAT_00ea0e18,0x17d1);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x2010);
+      LoadSpriteSet(&DAT_00ea0e18,0x2010);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x2074);
+      LoadSpriteSet(&DAT_00ea0e18,0x2074);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x20:
     cVar3 = FUN_0041c2c0(g_clientContext,9);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x1391);
-      FUN_004f1790(&DAT_00ea0e18,0x13f5);
+      LoadSpriteSet(&DAT_00ea0e18,0x1391);
+      LoadSpriteSet(&DAT_00ea0e18,0x13f5);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -454,15 +454,15 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,9);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1782);
-        FUN_004f1790(&DAT_00ea0e18,0x1783);
-        FUN_004f1790(&DAT_00ea0e18,0x17e6);
-        FUN_004f1790(&DAT_00ea0e18,0x17e7);
+        LoadSpriteSet(&DAT_00ea0e18,0x1782);
+        LoadSpriteSet(&DAT_00ea0e18,0x1783);
+        LoadSpriteSet(&DAT_00ea0e18,0x17e6);
+        LoadSpriteSet(&DAT_00ea0e18,0x17e7);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a3e);
-      FUN_004f1790(&DAT_00ea0e18,0x1a3f);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a3e);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a3f);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -470,25 +470,25 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,9);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1f52);
-        FUN_004f1790(&DAT_00ea0e18,0x1f53);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f52);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f53);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x2011);
+      LoadSpriteSet(&DAT_00ea0e18,0x2011);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x2075);
+      LoadSpriteSet(&DAT_00ea0e18,0x2075);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
-    FUN_004f1790(&DAT_00ea0e18,0x17ce);
-    FUN_004f1790(&DAT_00ea0e18,0x17cf);
+    LoadSpriteSet(&DAT_00ea0e18,0x17ce);
+    LoadSpriteSet(&DAT_00ea0e18,0x17cf);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x23:
     cVar3 = FUN_0041c2c0(g_clientContext,10);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x1392);
-      FUN_004f1790(&DAT_00ea0e18,0x13f6);
+      LoadSpriteSet(&DAT_00ea0e18,0x1392);
+      LoadSpriteSet(&DAT_00ea0e18,0x13f6);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -496,15 +496,15 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,10);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1784);
-        FUN_004f1790(&DAT_00ea0e18,0x1785);
-        FUN_004f1790(&DAT_00ea0e18,0x17e8);
-        FUN_004f1790(&DAT_00ea0e18,0x17e9);
+        LoadSpriteSet(&DAT_00ea0e18,0x1784);
+        LoadSpriteSet(&DAT_00ea0e18,0x1785);
+        LoadSpriteSet(&DAT_00ea0e18,0x17e8);
+        LoadSpriteSet(&DAT_00ea0e18,0x17e9);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a40);
-      FUN_004f1790(&DAT_00ea0e18,0x1a41);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a40);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a41);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -512,22 +512,22 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,10);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1f54);
-        FUN_004f1790(&DAT_00ea0e18,0x1f55);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f54);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f55);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x2012);
+      LoadSpriteSet(&DAT_00ea0e18,0x2012);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x2076);
+      LoadSpriteSet(&DAT_00ea0e18,0x2076);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x26:
     cVar3 = FUN_0041c2c0(g_clientContext,0xb);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x1393);
-      FUN_004f1790(&DAT_00ea0e18,0x13f7);
+      LoadSpriteSet(&DAT_00ea0e18,0x1393);
+      LoadSpriteSet(&DAT_00ea0e18,0x13f7);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -535,17 +535,17 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,0xb);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1786);
-        FUN_004f1790(&DAT_00ea0e18,0x1787);
-        FUN_004f1790(&DAT_00ea0e18,0x17ea);
-        FUN_004f1790(&DAT_00ea0e18,0x17eb);
+        LoadSpriteSet(&DAT_00ea0e18,0x1786);
+        LoadSpriteSet(&DAT_00ea0e18,0x1787);
+        LoadSpriteSet(&DAT_00ea0e18,0x17ea);
+        LoadSpriteSet(&DAT_00ea0e18,0x17eb);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a42);
-      FUN_004f1790(&DAT_00ea0e18,0x1a43);
-      FUN_004f1790(&DAT_00ea0e18,0x1a8e);
-      FUN_004f1790(&DAT_00ea0e18,0x1a8f);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a42);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a43);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a8e);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a8f);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
@@ -554,22 +554,22 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,0xb);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1f56);
-        FUN_004f1790(&DAT_00ea0e18,0x1f57);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f56);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f57);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x2013);
+      LoadSpriteSet(&DAT_00ea0e18,0x2013);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x2077);
+      LoadSpriteSet(&DAT_00ea0e18,0x2077);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x29:
     cVar3 = FUN_0041c2c0(g_clientContext,0xc);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x1394);
-      FUN_004f1790(&DAT_00ea0e18,0x13f8);
+      LoadSpriteSet(&DAT_00ea0e18,0x1394);
+      LoadSpriteSet(&DAT_00ea0e18,0x13f8);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -577,15 +577,15 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,0xc);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1788);
-        FUN_004f1790(&DAT_00ea0e18,0x1789);
-        FUN_004f1790(&DAT_00ea0e18,0x17ec);
-        FUN_004f1790(&DAT_00ea0e18,0x17ed);
+        LoadSpriteSet(&DAT_00ea0e18,0x1788);
+        LoadSpriteSet(&DAT_00ea0e18,0x1789);
+        LoadSpriteSet(&DAT_00ea0e18,0x17ec);
+        LoadSpriteSet(&DAT_00ea0e18,0x17ed);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a44);
-      FUN_004f1790(&DAT_00ea0e18,0x1a45);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a44);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a45);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -593,85 +593,85 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,0xc);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1f58);
-        FUN_004f1790(&DAT_00ea0e18,0x1f59);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f58);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f59);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x2014);
+      LoadSpriteSet(&DAT_00ea0e18,0x2014);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x2078);
+      LoadSpriteSet(&DAT_00ea0e18,0x2078);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x2c:
-    FUN_004f1790(&DAT_00ea0e18,0x1395);
-    FUN_004f1790(&DAT_00ea0e18,0x13f9);
+    LoadSpriteSet(&DAT_00ea0e18,0x1395);
+    LoadSpriteSet(&DAT_00ea0e18,0x13f9);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x2d:
-    FUN_004f1790(&DAT_00ea0e18,0x178a);
-    FUN_004f1790(&DAT_00ea0e18,0x178b);
-    FUN_004f1790(&DAT_00ea0e18,0x17ee);
-    FUN_004f1790(&DAT_00ea0e18,0x17ef);
-    FUN_004f1790(&DAT_00ea0e18,0x1a46);
-    FUN_004f1790(&DAT_00ea0e18,0x1a47);
-    FUN_004f1790(&DAT_00ea0e18,0x1a8c);
-    FUN_004f1790(&DAT_00ea0e18,0x1a8d);
+    LoadSpriteSet(&DAT_00ea0e18,0x178a);
+    LoadSpriteSet(&DAT_00ea0e18,0x178b);
+    LoadSpriteSet(&DAT_00ea0e18,0x17ee);
+    LoadSpriteSet(&DAT_00ea0e18,0x17ef);
+    LoadSpriteSet(&DAT_00ea0e18,0x1a46);
+    LoadSpriteSet(&DAT_00ea0e18,0x1a47);
+    LoadSpriteSet(&DAT_00ea0e18,0x1a8c);
+    LoadSpriteSet(&DAT_00ea0e18,0x1a8d);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x2e:
-    FUN_004f1790(&DAT_00ea0e18,0x1f5a);
-    FUN_004f1790(&DAT_00ea0e18,0x1f5b);
+    LoadSpriteSet(&DAT_00ea0e18,0x1f5a);
+    LoadSpriteSet(&DAT_00ea0e18,0x1f5b);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x2015);
+    LoadSpriteSet(&DAT_00ea0e18,0x2015);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x2079);
+    LoadSpriteSet(&DAT_00ea0e18,0x2079);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x2f:
-    FUN_004f1790(&DAT_00ea0e18,0x1396);
-    FUN_004f1790(&DAT_00ea0e18,0x13fa);
+    LoadSpriteSet(&DAT_00ea0e18,0x1396);
+    LoadSpriteSet(&DAT_00ea0e18,0x13fa);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x30:
-    FUN_004f1790(&DAT_00ea0e18,0x178c);
-    FUN_004f1790(&DAT_00ea0e18,0x178d);
-    FUN_004f1790(&DAT_00ea0e18,0x17f0);
-    FUN_004f1790(&DAT_00ea0e18,0x17f1);
-    FUN_004f1790(&DAT_00ea0e18,0x1a48);
-    FUN_004f1790(&DAT_00ea0e18,0x1a49);
+    LoadSpriteSet(&DAT_00ea0e18,0x178c);
+    LoadSpriteSet(&DAT_00ea0e18,0x178d);
+    LoadSpriteSet(&DAT_00ea0e18,0x17f0);
+    LoadSpriteSet(&DAT_00ea0e18,0x17f1);
+    LoadSpriteSet(&DAT_00ea0e18,0x1a48);
+    LoadSpriteSet(&DAT_00ea0e18,0x1a49);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x19c8);
-    FUN_004f1790(&DAT_00ea0e18,0x19ca);
+    LoadSpriteSet(&DAT_00ea0e18,0x19c8);
+    LoadSpriteSet(&DAT_00ea0e18,0x19ca);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x31:
-    FUN_004f1790(&DAT_00ea0e18,0x1f5c);
-    FUN_004f1790(&DAT_00ea0e18,0x1f5d);
+    LoadSpriteSet(&DAT_00ea0e18,0x1f5c);
+    LoadSpriteSet(&DAT_00ea0e18,0x1f5d);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x19c9);
+    LoadSpriteSet(&DAT_00ea0e18,0x19c9);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x2016);
+    LoadSpriteSet(&DAT_00ea0e18,0x2016);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x207a);
+    LoadSpriteSet(&DAT_00ea0e18,0x207a);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x17cc);
-    FUN_004f1790(&DAT_00ea0e18,0x17cd);
+    LoadSpriteSet(&DAT_00ea0e18,0x17cc);
+    LoadSpriteSet(&DAT_00ea0e18,0x17cd);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x32:
     cVar3 = FUN_0041c2c0(g_clientContext,0xf);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x1397);
-      FUN_004f1790(&DAT_00ea0e18,0x13fb);
+      LoadSpriteSet(&DAT_00ea0e18,0x1397);
+      LoadSpriteSet(&DAT_00ea0e18,0x13fb);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -679,15 +679,15 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,0xf);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x178e);
-        FUN_004f1790(&DAT_00ea0e18,0x178f);
-        FUN_004f1790(&DAT_00ea0e18,0x17f2);
-        FUN_004f1790(&DAT_00ea0e18,0x17f3);
+        LoadSpriteSet(&DAT_00ea0e18,0x178e);
+        LoadSpriteSet(&DAT_00ea0e18,0x178f);
+        LoadSpriteSet(&DAT_00ea0e18,0x17f2);
+        LoadSpriteSet(&DAT_00ea0e18,0x17f3);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x1a4a);
-      FUN_004f1790(&DAT_00ea0e18,0x1a4b);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a4a);
+      LoadSpriteSet(&DAT_00ea0e18,0x1a4b);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
@@ -695,76 +695,76 @@ void FUN_004dcbe0(int param_1)
     cVar3 = FUN_0041c2c0(g_clientContext,0xf);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
-        FUN_004f1790(&DAT_00ea0e18,0x1f5e);
-        FUN_004f1790(&DAT_00ea0e18,0x1f5f);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f5e);
+        LoadSpriteSet(&DAT_00ea0e18,0x1f5f);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
         AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       }
-      FUN_004f1790(&DAT_00ea0e18,0x2017);
+      LoadSpriteSet(&DAT_00ea0e18,0x2017);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x207b);
+      LoadSpriteSet(&DAT_00ea0e18,0x207b);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x35:
-    FUN_004f1790(&DAT_00ea0e18,7000);
-    FUN_004f1790(&DAT_00ea0e18,0x1b59);
-    FUN_004f1790(&DAT_00ea0e18,0x1b5a);
-    FUN_004f1790(&DAT_00ea0e18,0x1bbc);
+    LoadSpriteSet(&DAT_00ea0e18,7000);
+    LoadSpriteSet(&DAT_00ea0e18,0x1b59);
+    LoadSpriteSet(&DAT_00ea0e18,0x1b5a);
+    LoadSpriteSet(&DAT_00ea0e18,0x1bbc);
     if (*(char *)(g_clientContext + 0x45578) == '\x01') {
-      FUN_004f1790(&DAT_00ea0e18,6000);
-      FUN_004f1790(&DAT_00ea0e18,0x17d4);
+      LoadSpriteSet(&DAT_00ea0e18,6000);
+      LoadSpriteSet(&DAT_00ea0e18,0x17d4);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,8000);
+      LoadSpriteSet(&DAT_00ea0e18,8000);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x36:
     if (*(char *)(g_clientContext + 0x45578) == '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x1838);
-      FUN_004f1790(&DAT_00ea0e18,0x189c);
+      LoadSpriteSet(&DAT_00ea0e18,0x1838);
+      LoadSpriteSet(&DAT_00ea0e18,0x189c);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x1fa4);
+      LoadSpriteSet(&DAT_00ea0e18,0x1fa4);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x37:
     if (*(char *)(g_clientContext + 0x45578) == '\0') {
-      FUN_004f1790(&DAT_00ea0e18,0x1839);
-      FUN_004f1790(&DAT_00ea0e18,0x189d);
+      LoadSpriteSet(&DAT_00ea0e18,0x1839);
+      LoadSpriteSet(&DAT_00ea0e18,0x189d);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-      FUN_004f1790(&DAT_00ea0e18,0x1fa5);
+      LoadSpriteSet(&DAT_00ea0e18,0x1fa5);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     }
     break;
   case 0x38:
-    FUN_004f1790(&DAT_00ea0e18,0x183a);
-    FUN_004f1790(&DAT_00ea0e18,0x189e);
+    LoadSpriteSet(&DAT_00ea0e18,0x183a);
+    LoadSpriteSet(&DAT_00ea0e18,0x189e);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x1fa6);
+    LoadSpriteSet(&DAT_00ea0e18,0x1fa6);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x1900);
+    LoadSpriteSet(&DAT_00ea0e18,0x1900);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x39:
-    FUN_004f1790(&DAT_00ea0e18,0x1fa7);
+    LoadSpriteSet(&DAT_00ea0e18,0x1fa7);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,9000);
+    LoadSpriteSet(&DAT_00ea0e18,9000);
     break;
   case 0x3a:
-    FUN_004f1790(&DAT_00ea0e18,0x1964);
-    FUN_004f1790(&DAT_00ea0e18,0x1965);
+    LoadSpriteSet(&DAT_00ea0e18,0x1964);
+    LoadSpriteSet(&DAT_00ea0e18,0x1965);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x1fa8);
+    LoadSpriteSet(&DAT_00ea0e18,0x1fa8);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x3b:
-    FUN_004f1790(&DAT_00ea0e18,4000);
-    FUN_004f1790(&DAT_00ea0e18,0x1194);
+    LoadSpriteSet(&DAT_00ea0e18,4000);
+    LoadSpriteSet(&DAT_00ea0e18,0x1194);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x1f4e);
+    LoadSpriteSet(&DAT_00ea0e18,0x1f4e);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x3c:
@@ -809,32 +809,32 @@ void FUN_004dcbe0(int param_1)
     break;
   case 0x44:
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x14b4);
+    LoadSpriteSet(&DAT_00ea0e18,0x14b4);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x14b5);
-    FUN_004f1790(&DAT_00ea0e18,0x14b6);
+    LoadSpriteSet(&DAT_00ea0e18,0x14b5);
+    LoadSpriteSet(&DAT_00ea0e18,0x14b6);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    FUN_004f1790(&DAT_00ea0e18,0x2260);
-    FUN_004f1790(&DAT_00ea0e18,0x2261);
+    LoadSpriteSet(&DAT_00ea0e18,0x2260);
+    LoadSpriteSet(&DAT_00ea0e18,0x2261);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x45:
-    FUN_004f1790(&DAT_00ea0e18,0x2329);
+    LoadSpriteSet(&DAT_00ea0e18,0x2329);
     cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,3);
     if (cVar3 != '\0') {
-      FUN_004f1790(&DAT_00ea0e18,3000);
-      FUN_004f1790(&DAT_00ea0e18,0xbb9);
-      FUN_004f1790(&DAT_00ea0e18,0xbba);
-      FUN_004f1790(&DAT_00ea0e18,0xbbb);
-      FUN_004f1790(&DAT_00ea0e18,0xc1c);
-      FUN_004f1790(&DAT_00ea0e18,0xc1d);
-      FUN_004f1790(&DAT_00ea0e18,0xc1e);
-      FUN_004f1790(&DAT_00ea0e18,0xc1f);
-      FUN_004f1790(&DAT_00ea0e18,0xc80);
-      FUN_004f1790(&DAT_00ea0e18,0xc81);
-      FUN_004f1790(&DAT_00ea0e18,0xc82);
-      FUN_004f1790(&DAT_00ea0e18,0xc83);
+      LoadSpriteSet(&DAT_00ea0e18,3000);
+      LoadSpriteSet(&DAT_00ea0e18,0xbb9);
+      LoadSpriteSet(&DAT_00ea0e18,0xbba);
+      LoadSpriteSet(&DAT_00ea0e18,0xbbb);
+      LoadSpriteSet(&DAT_00ea0e18,0xc1c);
+      LoadSpriteSet(&DAT_00ea0e18,0xc1d);
+      LoadSpriteSet(&DAT_00ea0e18,0xc1e);
+      LoadSpriteSet(&DAT_00ea0e18,0xc1f);
+      LoadSpriteSet(&DAT_00ea0e18,0xc80);
+      LoadSpriteSet(&DAT_00ea0e18,0xc81);
+      LoadSpriteSet(&DAT_00ea0e18,0xc82);
+      LoadSpriteSet(&DAT_00ea0e18,0xc83);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
@@ -846,25 +846,25 @@ void FUN_004dcbe0(int param_1)
     }
     break;
   case 0x46:
-    FUN_004f1790(&DAT_00ea0e18,1000);
-    FUN_004f1790(&DAT_00ea0e18,0x3e9);
-    FUN_004f1790(&DAT_00ea0e18,0x3ea);
-    FUN_004f1790(&DAT_00ea0e18,0x3eb);
-    FUN_004f1790(&DAT_00ea0e18,0x3ec);
-    FUN_004f1790(&DAT_00ea0e18,0x3ed);
-    FUN_004f1790(&DAT_00ea0e18,0x3ee);
-    FUN_004f1790(&DAT_00ea0e18,0x3ef);
-    FUN_004f1790(&DAT_00ea0e18,0x3f0);
-    FUN_004f1790(&DAT_00ea0e18,0x3f1);
-    FUN_004f1790(&DAT_00ea0e18,0x3f2);
-    FUN_004f1790(&DAT_00ea0e18,0x3f3);
-    FUN_004f1790(&DAT_00ea0e18,0x3f4);
-    FUN_004f1790(&DAT_00ea0e18,0x3f5);
-    FUN_004f1790(&DAT_00ea0e18,0x3f6);
-    FUN_004f1790(&DAT_00ea0e18,0x3f7);
-    FUN_004f1790(&DAT_00ea0e18,0x3f8);
-    FUN_004f1790(&DAT_00ea0e18,0x3f9);
-    FUN_004f1790(&DAT_00ea0e18,0x3fa);
+    LoadSpriteSet(&DAT_00ea0e18,1000);
+    LoadSpriteSet(&DAT_00ea0e18,0x3e9);
+    LoadSpriteSet(&DAT_00ea0e18,0x3ea);
+    LoadSpriteSet(&DAT_00ea0e18,0x3eb);
+    LoadSpriteSet(&DAT_00ea0e18,0x3ec);
+    LoadSpriteSet(&DAT_00ea0e18,0x3ed);
+    LoadSpriteSet(&DAT_00ea0e18,0x3ee);
+    LoadSpriteSet(&DAT_00ea0e18,0x3ef);
+    LoadSpriteSet(&DAT_00ea0e18,0x3f0);
+    LoadSpriteSet(&DAT_00ea0e18,0x3f1);
+    LoadSpriteSet(&DAT_00ea0e18,0x3f2);
+    LoadSpriteSet(&DAT_00ea0e18,0x3f3);
+    LoadSpriteSet(&DAT_00ea0e18,0x3f4);
+    LoadSpriteSet(&DAT_00ea0e18,0x3f5);
+    LoadSpriteSet(&DAT_00ea0e18,0x3f6);
+    LoadSpriteSet(&DAT_00ea0e18,0x3f7);
+    LoadSpriteSet(&DAT_00ea0e18,0x3f8);
+    LoadSpriteSet(&DAT_00ea0e18,0x3f9);
+    LoadSpriteSet(&DAT_00ea0e18,0x3fa);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);

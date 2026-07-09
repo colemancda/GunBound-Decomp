@@ -192,7 +192,7 @@ void FUN_0044b900(int param_1)
         local_190c = &DAT_00666d73;
       }
       _sprintf((char *)((int)&local_190c + 3),s__05d_img_00555a08,local_1874 & 0x7fff);
-      FUN_004f1790(&DAT_00ea0e18,40000);
+      LoadSpriteSet(&DAT_00ea0e18,40000);
       cVar3 = FUN_004065a0();
       if (cVar3 == '\0') {
         CreateButtonWidget(&DAT_00e9be90,0,0x36,0x516,s_b_storewindow_confirm_00555a8c,0x14d,0x154,

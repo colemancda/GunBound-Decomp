@@ -5,7 +5,7 @@
 
 extern "C" {
 int PlayMusicTrack(int trackId);
-int __stdcall FUN_004f1790(void *container, int key); /* sprite-set loader; .img name in EAX,
+int __stdcall LoadSpriteSet(void *container, int key); /* sprite-set loader; .img name in EAX,
                                                        * .mp3 name in EDI (see State01_Title.cpp) */
 extern unsigned char DAT_00ea0e18;
 extern unsigned int  DAT_00ea0e1c;
@@ -20,7 +20,7 @@ extern unsigned int DAT_007934f4;        /* outgoing packet buffer base (declare
  * register args), reset the frame counter, start the music. */
 void CState05Logo1::OnEnter()
 {
-    FUN_004f1790(&DAT_00ea0e18, 10000);
+    LoadSpriteSet(&DAT_00ea0e18, 10000);
     m_frameCounter = 0;
     PlayMusicTrack(0);
 }

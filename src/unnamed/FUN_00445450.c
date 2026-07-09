@@ -462,7 +462,7 @@ LAB_004457e7:
           iVar3 = FUN_00426570();
           uVar4 = FUN_0040a4d0(iVar3 + 0x22c);
           _sprintf((char *)((int)&local_4518 + 3),s__05d_img_00555a08,uVar4 & 0x7fff);
-          FUN_004f1790(&DAT_00ea0e18,30000);
+          LoadSpriteSet(&DAT_00ea0e18,30000);
           CreateButtonWidget(&DAT_00e9be90,0,0x34,0x517,s_b_storewindow_cancel_00555a30,0x14d,0x154,
                              0x4a,0x1a,1,0);
           CreateButtonWidget(&DAT_00e9be90,0,0x35,0x516,s_b_storewindow_confirm_00555a8c,0xf2,0x154,

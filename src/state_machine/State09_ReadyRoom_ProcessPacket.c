@@ -506,7 +506,7 @@ LAB_004d46f3:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       _sprintf(acStack_900,s_load_stage_02d_img_00557098,
                (uint)*(byte *)(g_clientContext + 0x475c4) + iVar17 * 0xb);
-      FUN_004f1790(&DAT_00ea0e18,0x2718);
+      LoadSpriteSet(&DAT_00ea0e18,0x2718);
       uVar18 = 0x3f2;
       iVar17 = 0xd;
       do {

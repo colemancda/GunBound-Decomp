@@ -1,4 +1,4 @@
-/* FUN_004f1790 - 0x004f1790 in the original binary.
+/* LoadSpriteSet - 0x004f1790 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_004f1790(undefined4 param_1,undefined4 param_2)
+int LoadSpriteSet(undefined4 param_1,undefined4 param_2)
 
 {
   undefined4 in_EAX;

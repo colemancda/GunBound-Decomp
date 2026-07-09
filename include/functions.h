@@ -1244,7 +1244,7 @@ undefined4 FUN_004f1520();
 void FUN_004f16c0();
 void FUN_004f1750();
 void FUN_004f1770();
-int FUN_004f1790();
+int LoadSpriteSet();
 int FUN_004f18c0();
 int FUN_004f1a50();
 void __fastcall FUN_004f1c00();

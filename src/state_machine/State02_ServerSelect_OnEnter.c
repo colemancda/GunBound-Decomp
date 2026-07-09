@@ -21,13 +21,13 @@ void __fastcall State02_ServerSelect_OnEnter(int param_1)
   undefined4 *puVar4;
   bool bVar5;
   
-  FUN_004f1790(&DAT_00ea0e18,10000);
-  FUN_004f1790(&DAT_00ea0e18,0x2711);
-  FUN_004f1790(&DAT_00ea0e18,1000);
-  FUN_004f1790(&DAT_00ea0e18,0x3e9);
-  FUN_004f1790(&DAT_00ea0e18,0x3ea);
-  FUN_004f1790(&DAT_00ea0e18,0x44c);
-  FUN_004f1790(&DAT_00ea0e18,0x44d);
+  LoadSpriteSet(&DAT_00ea0e18,10000);
+  LoadSpriteSet(&DAT_00ea0e18,0x2711);
+  LoadSpriteSet(&DAT_00ea0e18,1000);
+  LoadSpriteSet(&DAT_00ea0e18,0x3e9);
+  LoadSpriteSet(&DAT_00ea0e18,0x3ea);
+  LoadSpriteSet(&DAT_00ea0e18,0x44c);
+  LoadSpriteSet(&DAT_00ea0e18,0x44d);
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);

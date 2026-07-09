@@ -5,7 +5,7 @@
 
 extern "C" {
 int PlayMusicTrack(int trackId);
-int __stdcall FUN_004f1790(void *container, int key);
+int __stdcall LoadSpriteSet(void *container, int key);
 extern unsigned char DAT_00ea0e18;
 extern unsigned int  DAT_00ea0e1c;
 void FUN_0040d260(void *outBlob);
@@ -16,7 +16,7 @@ void FUN_0040d260(void *outBlob);
  * start the music. */
 void CState06Logo2::OnEnter()
 {
-    FUN_004f1790(&DAT_00ea0e18, 10000);
+    LoadSpriteSet(&DAT_00ea0e18, 10000);
     m_frameCounter = 0;
     PlayMusicTrack(0);
 }

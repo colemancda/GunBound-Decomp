@@ -10,17 +10,17 @@
  *
  * Dependencies on not-yet-promoted code stay as extern "C" declarations
  * against the raw-port symbols (functions.h's K&R prototypes can't be
- * included from C++ - an empty () means zero-args here). FUN_004f1790's
+ * included from C++ - an empty () means zero-args here). LoadSpriteSet's
  * true convention is suspect (see the OnEnter raw port's byte-comparison
  * notes: the original never cleans the stack after it, so it's likely
  * callee-cleans with more real parameters); declared minimally here, to
- * be revisited when FUN_004f1790 itself is promoted.
+ * be revisited when LoadSpriteSet itself is promoted.
  */
 #include "GameState.h"
 
 extern "C" {
 int PlayMusicTrack(int trackId);              /* 0x4f2e40-family; raw decl: uint PlayMusicTrack() */
-int __stdcall FUN_004f1790(void *container, int key);
+int __stdcall LoadSpriteSet(void *container, int key);
                                               /* RESOLVED: the sprite-set loader. Takes the .img
                                                * name in EAX ("titlemode.img" here - it registers
                                                * one frame object per frame under `key`) and the
@@ -38,7 +38,7 @@ extern unsigned int  DAT_00ea0e1c;            /* active-object container (list h
  * register under that key; OnExit destroys the same bucket). */
 void CState01Title::OnEnter()
 {
-    FUN_004f1790(&DAT_00ea0e18, 10000);
+    LoadSpriteSet(&DAT_00ea0e18, 10000);
     m_frameCounter = 0;
     PlayMusicTrack(0);
 }
