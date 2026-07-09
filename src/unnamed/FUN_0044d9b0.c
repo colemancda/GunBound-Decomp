@@ -10,6 +10,10 @@
 void __fastcall FUN_0044d9b0(int *param_1)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xfffff518;
+  undefined stack0xfffff51c;
   int *piVar1;
   bool bVar2;
   bool bVar3;
@@ -317,7 +321,7 @@ LAB_0044e580:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     (*pcVar16)(&DAT_005a9068);
-    if ((((uStack_adc._3_1_ != '\0') ||
+    if ((((SUBFIELD(uStack_adc,3,undefined1) != '\0') ||
          (cVar5 = FUN_0040b300(param_1 + 0x3d5,*(undefined4 *)(&DAT_006a7720 + g_clientContext)),
          iVar6 = iStack_ae0, cVar5 != '\0')) ||
         (cVar5 = FUN_0040b300(iStack_ae0,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
@@ -452,8 +456,8 @@ LAB_0044e02e:
   (*pcVar16)(&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
-  uStack_adc._0_3_ = extraout_EAX;
-  uStack_adc._3_1_ = extraout_var;
+  SUBFIELD(uStack_adc,0,undefined3) = extraout_EAX;
+  SUBFIELD(uStack_adc,3,undefined1) = extraout_var;
   (*pcVar16)(&DAT_005a9068);
   FUN_004398e0(&DAT_006a7f70 + g_clientContext,param_1[2],iStack_ae0,unaff_EBP,param_1,0);
   *(undefined1 *)(param_1 + 5) = 1;
@@ -482,12 +486,12 @@ LAB_0044e02e:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   (*pcVar16)(&DAT_005a9068);
-  if ((uStack_adc._3_1_ == '\0') || (cVar5 = FUN_0040b2d0(param_1 + 0x122,0), cVar5 == '\0')) {
+  if ((SUBFIELD(uStack_adc,3,undefined1) == '\0') || (cVar5 = FUN_0040b2d0(param_1 + 0x122,0), cVar5 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
-    uStack_adc._3_1_ = 0 < iVar6;
+    SUBFIELD(uStack_adc,3,undefined1) = 0 < iVar6;
     (*pcVar16)(&DAT_005a9068);
-    if ((uStack_adc._3_1_ != '\0') && (cVar5 = FUN_0040b330(param_1 + 0x122,0), cVar5 != '\0'))
+    if ((SUBFIELD(uStack_adc,3,undefined1) != '\0') && (cVar5 = FUN_0040b330(param_1 + 0x122,0), cVar5 != '\0'))
     goto LAB_0044e2cb;
   }
   else {
