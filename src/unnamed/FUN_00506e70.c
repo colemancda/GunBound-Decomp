@@ -23,7 +23,7 @@ void FUN_00506e70(void)
       iVar1 = GetWindowTextA(*(HWND *)(DAT_007934e4 + 4),(LPSTR)&DAT_007933c0,0x80);
       if (iVar1 != 0) goto LAB_00506eb8;
     }
-    DAT_007933c0._0_1_ = 0;
+    SUBFIELD(DAT_007933c0,0,undefined1) = 0;
   }
 LAB_00506eb8:
   DAT_007933b8 = 0;
