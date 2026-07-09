@@ -30,9 +30,9 @@ int FUN_004fe5f0(undefined4 param_1,u_short param_2)
     local_10.sa_data[0xc] = '\0';
     local_10.sa_data[0xd] = '\0';
     local_10.sa_family = 2;
-    local_10.sa_data._2_2_ = SUB42(param_1,0);
-    local_10.sa_data._4_2_ = SUB42((uint)param_1 >> 0x10,0);
-    local_10.sa_data._0_2_ = htons(param_2);
+    SUBFIELD(local_10.sa_data,2,undefined2) = SUB42(param_1,0);
+    SUBFIELD(local_10.sa_data,4,undefined2) = SUB42((uint)param_1 >> 0x10,0);
+    SUBFIELD(local_10.sa_data,0,undefined2) = htons(param_2);
     iVar1 = FUN_004ff350(unaff_EBX,&local_10);
     if (iVar1 == 0) {
       closesocket(s);
