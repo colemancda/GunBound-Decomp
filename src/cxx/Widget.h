@@ -255,19 +255,37 @@ public:
     CReadyRoomChatPanel();                     /* inlined in the builder */
 };
 
+/* State 3's lobby chat panel: the focused chat input (Win32 EDIT,
+ * maxLen 80), eight channel-tab labels (sprites 0x4b0+i, the selected
+ * one marked via m_tabSelected), and a page-13 scrollbar. */
+class CLobbyChatPanel : public CPanel {        /* vtable 0x557cd4; builder 0x509af0 */
+public:
+    CLobbyChatPanel();                         /* inlined in the builder */
+    int m_unk90;                               /* +0x90: builder inits to -1 (same slot as
+                                                * CWorldListPanel's) */
+};
+
+/* State 7's Avatar Store item panel: page-14 scrollbar + three
+ * category tab labels (msgs 0x4b0-0x4b2) that start DISABLED. */
+class CAvatarStorePanel : public CPanel {      /* vtable 0x557eb8; builder 0x509e60 */
+public:
+    CAvatarStorePanel();                       /* inlined in the builder */
+    u8  m_unk90;                               /* +0x90 */
+    u8  m_unk91;                               /* +0x91 */
+    u8  m_pad92[2];                            /* +0x92 */
+    int m_unk94;                               /* +0x94: builder inits to -1 */
+    int m_unk98;                               /* +0x98 */
+};
+
 /* The remaining confirmed concrete panels (identity + vtable confirmed;
  * field maps not yet reconstructed, so no size asserts yet):
  *   CBuddyPanel            vtable 0x557be4  BuildBuddyPanel 0x509110 (shared; SINGLETON key
  *                                           20000 - the builder walks g_uiPanelManager's list
  *                                           first and returns the existing panel; size 0x94)
- *   CLobbyChatPanel        vtable 0x557cd4  BuildLobbyChatPanel (state 3)
- *   CAvatarStorePanel      vtable 0x557eb8  BuildAvatarStorePanel (state 7)
  *   CChatLogPanel          vtable 0x557b94  BuildChatLogPanel (~0x1050 bytes)
  *   CEnterRoomNumberDialog vtable 0x557df0  BuildEnterRoomNumberDialog (state 3)
  *   CCreateRoomDialog      vtable 0x557c34  BuildCreateRoomDialog (state 3) */
 class CBuddyPanel            : public CPanel {};
-class CLobbyChatPanel        : public CPanel {};
-class CAvatarStorePanel      : public CPanel {};
 class CChatLogPanel          : public CPanel {};
 class CEnterRoomNumberDialog : public CPanel {};
 class CCreateRoomDialog      : public CPanel {};
