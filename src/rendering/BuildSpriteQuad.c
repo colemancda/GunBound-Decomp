@@ -1,7 +1,6 @@
-/* FUN_004ebff0 - 0x004ebff0 in the original binary.
+/* BuildSpriteQuad - 0x004ebff0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Axis-aligned textured-quad emitter: stages 4 corners and appends two triangles to g_spriteVertexBuffer, with NO rotation (does not use g_sineTable360) - the unrotated fast path in the quad-emitter family. Companion to BuildRotatedSpriteQuad. See ARCHITECTURE.md rendering section. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
@@ -10,7 +9,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004ebff0(int param_1,int param_2)
+void BuildSpriteQuad(int param_1,int param_2)
 
 {
   int in_EAX;

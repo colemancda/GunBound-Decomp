@@ -1178,7 +1178,7 @@ void __thiscall FUN_004eb8e0();
 void __fastcall FUN_004eb940();
 void __fastcall FUN_004eba80();
 void __fastcall FUN_004ebaf0();
-void FUN_004ebff0();
+void BuildSpriteQuad();
 void __thiscall FUN_004ec120();
 void __thiscall FUN_004ec430();
 void __thiscall FUN_004ec610();

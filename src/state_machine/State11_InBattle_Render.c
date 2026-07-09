@@ -1279,7 +1279,7 @@ void State11_InBattle_Render(void)
         *(undefined4 *)(iVar6 + 0x80) = 0;
         *(undefined4 *)(iVar6 + 0x84) = 0;
         *(undefined4 *)(iVar6 + 0x88) = 0x3f800000;
-        FUN_004ebff0(iVar5 + 400,iVar19 + 0x12a);
+        BuildSpriteQuad(iVar5 + 400,iVar19 + 0x12a);
       }
     }
     (**(code **)(*g_pD3DDevice7 + 0x8c))
@@ -1310,7 +1310,7 @@ void State11_InBattle_Render(void)
         *(undefined4 *)(iVar6 + 0x80) = 0;
         *(undefined4 *)(iVar6 + 0x84) = 0;
         *(undefined4 *)(iVar6 + 0x88) = 0x3f800000;
-        FUN_004ebff0(iVar5 + 400,iVar19 + 0x12a);
+        BuildSpriteQuad(iVar5 + 400,iVar19 + 0x12a);
       }
     }
     (**(code **)(*g_pD3DDevice7 + 0x8c))

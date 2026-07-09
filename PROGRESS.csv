@@ -1177,7 +1177,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ebaf0,201,FUN_004ebaf0,false,17,1,RAW-src
 004ebbc0,521,BuildRotatedSpriteQuad,false,2,0,RAW-src
 004ebdd0,532,FUN_004ebdd0,false,2,0,RAW-src
-004ebff0,302,FUN_004ebff0,false,2,0,RAW-src
+004ebff0,302,BuildSpriteQuad,false,2,0,RAW-src
 004ec120,782,FUN_004ec120,false,1,0,RAW-src
 004ec430,466,FUN_004ec430,false,4,0,RAW-src
 004ec610,556,FUN_004ec610,false,1,0,RAW-src
