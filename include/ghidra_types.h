@@ -51,6 +51,12 @@ typedef struct hostent hostent;
  * `exception::~exception` in Ghidra) are renamed exception__ctor /
  * exception__dtor - `::` isn't C. */
 typedef char exception;
+/* ATL's CAtlBaseModule class - opaque, only ever a cast pointer type.
+ * Ghidra's ATL::CAtlBaseModule::GetHInstanceAt call sites are renamed
+ * ATL_CAtlBaseModule_GetHInstanceAt (:: is not C); the real body lives
+ * in the excluded msvc_crt_atl tree. */
+typedef struct CAtlBaseModule CAtlBaseModule;
+HMODULE ATL_CAtlBaseModule_GetHInstanceAt();
 exception * exception__ctor();
 void exception__dtor();
 /* Ghidra types registry-API results as LSTATUS, a typedef newer
