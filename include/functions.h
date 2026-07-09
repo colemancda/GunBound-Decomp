@@ -1046,7 +1046,7 @@ void FUN_004e0030();
 void __thiscall FUN_004e0090();
 void __fastcall FUN_004e01b0();
 void FUN_004e0210();
-void __fastcall FUN_004e1960();
+void __fastcall State02_ServerSelect_OnTick();
 void FUN_004e1bf0();
 int FUN_004e1d50();
 void FUN_004e1e90();

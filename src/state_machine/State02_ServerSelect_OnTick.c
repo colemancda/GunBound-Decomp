@@ -1,4 +1,4 @@
-/* FUN_004e1960 - 0x004e1960 in the original binary.
+/* State02_ServerSelect_OnTick - 0x004e1960 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -14,7 +14,7 @@
 /* WARNING: Removing unreachable block (ram,0x004e19d1) */
 /* WARNING: Removing unreachable block (ram,0x004e19db) */
 
-void __fastcall FUN_004e1960(int param_1)
+void __fastcall State02_ServerSelect_OnTick(int param_1)
 
 {
   int *piVar1;

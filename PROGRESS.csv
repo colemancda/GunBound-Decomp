@@ -1028,7 +1028,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e02b0,3708,State02_ServerSelect_ProcessPacket,false,1,24,RAW-src
 004e14b0,825,State02_ServerSelect_OnEnter,false,1,9,RAW-src
 004e17f0,366,State02_ServerSelect_OnExit,false,1,2,RAW-src
-004e1960,651,FUN_004e1960,false,1,7,RAW-src
+004e1960,651,State02_ServerSelect_OnTick,false,1,7,RAW-src
 004e1bf0,342,FUN_004e1bf0,false,4,4,RAW-src
 004e1d50,320,FUN_004e1d50,false,1,5,RAW-src
 004e1e90,212,FUN_004e1e90,false,1,3,RAW-src
