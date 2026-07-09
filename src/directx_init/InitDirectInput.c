@@ -21,7 +21,10 @@ bool InitDirectInput(undefined4 param_1)
   DAT_00793544 = LoadLibraryA(s_dinput8_dll_00557428);
   if (DAT_00793544 != (HMODULE)0x0) {
     pFVar1 = GetProcAddress(DAT_00793544,s_DirectInput8Create_00557414);
-    iVar2 = (*pFVar1)(param_1,0x800,&DAT_005573c8,&DAT_00674f68,0);
+    /* FARPROC is a strict zero-arg prototype under gcc; DirectInput8Create
+     * takes 5 args - cast through a matching pointer type to call it. */
+    iVar2 = ((int (WINAPI *)(void *, int, void *, void *, void *))pFVar1)
+                (param_1,0x800,&DAT_005573c8,&DAT_00674f68,0);
     if (-1 < iVar2) {
       /* LAB_004edc10 in Ghidra's output is the entry point of the
        * enumeration callback it split out separately as FUN_004edd10 -

@@ -36,6 +36,12 @@ undefined4 __fastcall ReadXFSEntry(undefined4 param_1,int param_2,int param_3,un
   if ((param_2 != '\0') && (*(int *)(param_3 + 0x70) == 0)) {
     DecodeXFSEntryBlock();
   }
-  return;
+  /* bare `return;` in a value-returning function - a Ghidra/MSVC
+   * tolerance gcc rejects (-Wreturn-mismatch). The original leaves
+   * whatever was in EAX; the last meaningful value assigned to it in
+   * this function is the constructed object (in_EAX, stored at
+   * unaff_ESI[0x400]), matching this file's own constructor-return
+   * shape - returned explicitly here for a real value-returning path. */
+  return unaff_ESI;
 }
 
