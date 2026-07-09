@@ -345,7 +345,7 @@ void __fastcall FUN_004513b0(int *param_1)
       uStack_b6c = &DAT_005a9068;
       uStack_b58 = (int *)CONCAT13(0 < iVar4,(undefined3)uStack_b58);
       (*pcVar16)();
-      if (uStack_b5c._3_1_ != '\0') {
+      if (SUBFIELD(uStack_b5c,3,undefined1) != '\0') {
         param_1[0xfe9] = 0;
       }
     }
@@ -408,7 +408,7 @@ LAB_0045279a:
       if (((uint)puStack_b54 & 1) != 0) {
         FUN_0040a2a0();
       }
-      if (uStack_b5c._3_1_ != '\0') {
+      if (SUBFIELD(uStack_b5c,3,undefined1) != '\0') {
         iVar4 = param_1[0x3d4];
         param_1[0x3d4] = iVar4 + 1;
         if (iVar4 + 1 < 3) {
@@ -635,7 +635,7 @@ LAB_004517be:
   uStack_b6c = &DAT_005a9068;
   uStack_b58 = (int *)CONCAT13(iVar4 != 4,(undefined3)uStack_b58);
   (*pcVar16)();
-  if (uStack_b5c._3_1_ == '\0') {
+  if (SUBFIELD(uStack_b5c,3,undefined1) == '\0') {
     puVar7 = operator_new(0x3fbc);
     uStack_70 = 0;
     puStack_b44 = puVar7;
@@ -763,7 +763,7 @@ LAB_00451da3:
   uStack_b5c = (undefined **)PeekPacketChecksumState();
   iVar4 = PeekPacketChecksumState();
   cVar28 = '\0';
-  uStack_b5c = (undefined **)CONCAT31(uStack_b5c._1_3_,(int)uStack_b5c < iVar4);
+  uStack_b5c = (undefined **)CONCAT31(SUBFIELD(uStack_b5c,1,undefined3),(int)uStack_b5c < iVar4);
   (*pcVar16)();
   cVar2 = FUN_00406610(uStack_b60);
   if (cVar2 != '\0') {
@@ -777,23 +777,23 @@ LAB_00451da3:
   iVar4 = PeekPacketChecksumState();
   uStack_b68 = (int **)CONCAT13(iVar4 < 0,(undefined3)uStack_b68);
   (*pcVar16)(&DAT_005a9068);
-  if (uStack_b6c._3_1_ == '\0') {
+  if (SUBFIELD(uStack_b6c,3,undefined1) == '\0') {
 LAB_00451e73:
     (*pcVar17)(&DAT_005a9068);
     PeekPacketChecksumState();
     (*pcVar16)(&DAT_005a9068);
-    if (uStack_b6c._3_1_ != '\0') {
+    if (SUBFIELD(uStack_b6c,3,undefined1) != '\0') {
       (*pcVar17)(&DAT_005a9068);
       PeekPacketChecksumState();
       (*pcVar16)(&DAT_005a9068);
-      if (uStack_b6c._3_1_ != '\0') goto LAB_00451ebf;
+      if (SUBFIELD(uStack_b6c,3,undefined1) != '\0') goto LAB_00451ebf;
     }
   }
   else {
     (*pcVar17)(&DAT_005a9068);
     PeekPacketChecksumState();
     (*pcVar16)(&DAT_005a9068);
-    if (uStack_b6c._3_1_ == '\0') goto LAB_00451e73;
+    if (SUBFIELD(uStack_b6c,3,undefined1) == '\0') goto LAB_00451e73;
 LAB_00451ebf:
     cVar2 = FUN_004065a0();
     if (cVar2 == '\0') {
