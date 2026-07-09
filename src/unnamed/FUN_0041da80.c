@@ -12,6 +12,14 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
             char param_6)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xfffffb70;
+  undefined stack0xfffffb74;
+  undefined stack0xfffffb78;
+  undefined stack0xfffffb80;
+  undefined stack0xfffffb88;
+  undefined stack0xfffffb90;
   int iVar1;
   undefined4 uVar2;
   int iVar3;
