@@ -102,7 +102,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
             }
           }
           else if (uVar6 == 0x5101) {
-            _local_d30 = _local_d30 & 0xffffff00;
+            (*(undefined4 *)local_d30) = (*(undefined4 *)local_d30) & 0xffffff00;
             puVar26 = (undefined4 *)((int)local_d30 + 1);
             for (iVar19 = 0x7f; iVar19 != 0; iVar19 = iVar19 + -1) {
               *puVar26 = 0;
@@ -272,7 +272,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
       FUN_0040a280();
       local_c = 0;
       FUN_0040a280();
-      local_c = CONCAT31(local_c._1_3_,1);
+      local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),1);
       EncodeChecksumStateXored();
       EncodeChecksumStateXored();
       cVar4 = PacketChecksumEquals(g_clientContext + 0x45354,3);
@@ -321,18 +321,18 @@ LAB_00411727:
            (*(char *)(local_d78 + 0x50126 + iVar19) == *(char *)(iVar19 + 0x62155))) {
           uVar15 = FUN_0040a4d0(iVar12 + 0x5113c + iVar19);
           uVar15 = FUN_0040a5f0(&DAT_00796aa0,local_23c,uVar15);
-          local_c._0_1_ = 2;
+          SUBFIELD(local_c,0,undefined1) = 2;
           uVar15 = FUN_0040ada0(acStack_b09 + 1,local_460,uVar15);
-          local_c._0_1_ = 3;
+          SUBFIELD(local_c,0,undefined1) = 3;
           uVar17 = FUN_0040a4d0(&DAT_00796aa0);
           uVar15 = FUN_0040a8c0(uVar15,local_684,uVar17);
-          local_c._0_1_ = 4;
+          SUBFIELD(local_c,0,undefined1) = 4;
           FUN_0040afb0(uVar15);
-          local_c._0_1_ = 3;
+          SUBFIELD(local_c,0,undefined1) = 3;
           FUN_0040a2a0();
-          local_c._0_1_ = 2;
+          SUBFIELD(local_c,0,undefined1) = 2;
           FUN_0040a2a0();
-          local_c = CONCAT31(local_c._1_3_,1);
+          local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),1);
           FUN_0040a2a0();
           FUN_0040afb0(local_d30);
           iVar19 = g_clientContext;
@@ -434,7 +434,7 @@ LAB_004111c0:
           }
           FUN_004e7340();
           param_1 = param_1 + (uint)*(byte *)(g_clientContext + 0x41344) * -0x21 + -6;
-          _local_d30 = _local_d30 & 0xffffff00;
+          (*(undefined4 *)local_d30) = (*(undefined4 *)local_d30) & 0xffffff00;
           puVar26 = (undefined4 *)((int)local_d30 + 1);
           for (iVar19 = 0x3f; iVar19 != 0; iVar19 = iVar19 + -1) {
             *puVar26 = 0;
@@ -620,8 +620,8 @@ LAB_00410792:
         pcVar23 = pcVar23 + 1;
         pcVar25 = pcVar25 + 1;
       }
-      switch(puVar26) {
-      case (undefined4 *)0x0:
+      switch((int)puVar26) { /* Ghidra switched on the pointer value */
+      case 0x0:
         pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0x1772);
         pcVar13 = pcVar7;
         do {
@@ -635,7 +635,7 @@ LAB_00410792:
           pcVar13 = pcVar13 + 1;
         } while (*pcVar25 != '\0');
         break;
-      case (undefined4 *)0xfffffffc:
+      case 0xfffffffc:
         pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0x1776);
         pcVar13 = pcVar7;
         do {
@@ -649,7 +649,7 @@ LAB_00410792:
           pcVar13 = pcVar13 + 1;
         } while (*pcVar25 != '\0');
         break;
-      case (undefined4 *)0xfffffffd:
+      case 0xfffffffd:
         pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0x1775);
         pcVar13 = pcVar7;
         do {
@@ -663,7 +663,7 @@ LAB_00410792:
           pcVar13 = pcVar13 + 1;
         } while (*pcVar25 != '\0');
         break;
-      case (undefined4 *)0xfffffffe:
+      case 0xfffffffe:
         pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0x1774);
         pcVar13 = pcVar7;
         do {
@@ -677,7 +677,7 @@ LAB_00410792:
           pcVar13 = pcVar13 + 1;
         } while (*pcVar25 != '\0');
         break;
-      case (undefined4 *)0xffffffff:
+      case 0xffffffff:
         pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0x1773);
         pcVar13 = pcVar7;
         do {
@@ -833,7 +833,7 @@ LAB_00410792:
           pcVar23 = pcVar23 + 4;
           pcVar25 = pcVar25 + 4;
         }
-        _local_d30 = *(uint *)(pbVar22 + 6);
+        (*(undefined4 *)local_d30) = *(uint *)(pbVar22 + 6);
         for (uVar6 = (int)pcVar13 - (int)pcVar7 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
           *pcVar25 = *pcVar23;
           pcVar23 = pcVar23 + 1;
@@ -847,14 +847,14 @@ LAB_00410792:
         *(undefined2 *)puVar26 = 0;
         *(undefined1 *)((int)puVar26 + 2) = 0;
         lVar8 = _atol(local_d30);
-        uStack_d2e = (ushort)(_local_d30 >> 0x10) & 0xff00;
-        local_d30 = (undefined1  [2])*(undefined2 *)(pbVar22 + 10);
+        uStack_d2e = (ushort)((*(undefined4 *)local_d30) >> 0x10) & 0xff00;
+        *(undefined2 *)local_d30 = *(undefined2 *)(pbVar22 + 10);
         lVar9 = _atol(local_d30);
-        local_d30 = *(undefined1 (*) [2])(pbVar22 + 0xc);
+        *(undefined2 *)local_d30 = *(undefined2 *)(pbVar22 + 0xc);
         lVar10 = _atol(local_d30);
-        local_d30 = *(undefined1 (*) [2])(pbVar22 + 0xe);
+        *(undefined2 *)local_d30 = *(undefined2 *)(pbVar22 + 0xe);
         local_d60 = (undefined4 *)_atol(local_d30);
-        _local_d30 = CONCAT22(uStack_d2e,*(undefined2 *)(pbVar22 + 0x10));
+        (*(undefined4 *)local_d30) = CONCAT22(uStack_d2e,*(undefined2 *)(pbVar22 + 0x10));
         lVar11 = _atol(local_d30);
         puVar26 = local_d60;
         pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0x177c);

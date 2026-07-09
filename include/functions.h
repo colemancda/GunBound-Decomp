@@ -1008,7 +1008,7 @@ void __fastcall FUN_004d25e0();
 void FUN_004d2680();
 void ProcessIncomingPackets();
 void FUN_004d34a0();
-void __fastcall FUN_004d34f0();
+undefined4 __fastcall FUN_004d34f0();
 void FUN_004d3530();
 undefined4 * FUN_004d3770();
 void * __thiscall FUN_004d37f0();
