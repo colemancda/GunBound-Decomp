@@ -46,13 +46,13 @@ scrollbar (`0x557e90`), and panel (`0x557f08`) vtables:
 |---|---|---|
 | 0 (`+0x00`) | destructor | `0x50e860` (most classes) |
 | 1 (`+0x04`) | mouse-move | per-class; base drag = `FUN_0050e3a0` (slot 11 in some) |
-| 2 (`+0x08`) | mouse-down | per-class (e.g. label `FUN_005052e0`, scrollbar `FUN_0050f500`) |
+| 2 (`+0x08`) | mouse-down | per-class (e.g. label `Label_OnMouseDown`, scrollbar `FUN_0050f500`) |
 | 3 (`+0x0c`) | mouse-up | per-class |
-| 4 (`+0x10`) | **hit-test** | `FUN_0050e9c0` — rect test (`+0x28`/`+0x2c`/`+0x30`/`+0x34`) then broadcast to children |
-| 5 (`+0x14`) | keyboard input | `FUN_0050ea50` — broadcast to children's slot 5 |
-| 6 (`+0x18`) | mouse input | `FUN_0050eab0` — broadcast to children's slot 6 |
+| 4 (`+0x10`) | **hit-test** | `Widget_HitTest` — rect test (`+0x28`/`+0x2c`/`+0x30`/`+0x34`) then broadcast to children |
+| 5 (`+0x14`) | keyboard input | `Widget_DispatchKeyToChildren` — broadcast to children's slot 5 |
+| 6 (`+0x18`) | mouse input | `Widget_DispatchMouseToChildren` — broadcast to children's slot 6 |
 | 7 (`+0x1c`) | **command/callback + focus-nav** | `FUN_0050eb10` (leaf) — receives child callbacks (`0x2000` scroll, `0x1100`/`0x1101` focus move); panels override (e.g. `WorldListPanel_OnCommand`) |
-| 8 (`+0x20`) | **draw** | per-class; also broadcasts draw to children (container base `FUN_0050e520`) |
+| 8 (`+0x20`) | **draw** | per-class; also broadcasts draw to children (container base `Widget_DrawChildren`) |
 | 9 (`+0x24`) | secondary render / per-class hook | per-class (e.g. panel row-loop `0x50dc40`) |
 | 10 (`+0x28`) | secondary destructor | `0x50e860` |
 | 11 (`+0x2c`) | base drag mouse-move | `FUN_0050e3a0` |
@@ -62,7 +62,7 @@ This is the spine of the whole system. When a leaf widget is activated it calls
 its **parent's** slot-7 method (`parent.vtable[+0x1c]`) with
 `(eventType, widgetId, extra)`:
 
-- **Label / button click** → `FUN_005052e0` (mouse-down) fires
+- **Label / button click** → `Label_OnMouseDown` (mouse-down) fires
   `parent[+0x1c](0, id, 0)` — event type **0** = "clicked", `id` = the widget's
   `+0x24`.
 - **Scrollbar change** → fires `parent[+0x1c](0x2000, id, newScrollPos)`.
@@ -72,15 +72,15 @@ A **panel's** slot-7 either handles the event itself or forwards it to the
 **owning game state's command dispatcher** — which is exactly why those
 dispatchers have the shape `(this, eventType, _, id)` and switch on
 `eventType`+`id`:
-- Lobby: `FUN_004285c0` (State 3).
+- Lobby: `State03_GameRoomList_OnCommand` (State 3).
 - Ready Room: `State09_ReadyRoom_OnCommand` (`0x4d54e0`).
 - Server select panel: `WorldListPanel_OnCommand` (`0x50d810`).
 
 ### Render model
 `GameTick` walks the active panels; each panel's **slot 8** draws itself and
-broadcasts draw to its children (container base `FUN_0050e520` calls each
+broadcasts draw to its children (container base `Widget_DrawChildren` calls each
 child's `+0x20`). Leaf widgets blit through the shared sprite-frame resolver
-`FUN_004f30c0` + `BlitSprite16bpp`/`BlitSpriteClipped`. There is no per-screen
+`FindSpriteFrame` + `BlitSprite16bpp`/`BlitSpriteClipped`. There is no per-screen
 "draw everything" function — the tree draws itself.
 
 ---
@@ -93,16 +93,16 @@ children, and forward child callbacks upward via slot 7. Each concrete panel is
 its own class (own vtable) but shares the container base behavior. Built by the
 panel-builder catalog below.
 
-### Label / small button — `FUN_00507ee0` (`0x557da0`, 0x40 bytes)
+### Label / small button — `CreateLabelWidget` (`0x557da0`, 0x40 bytes)
 A sprite/text cell. Constructor `(id, spriteOrMsgId, x, y, w, h)` → stores
 `id`→`+0x24`, `spriteId`→`+0x3c`, rect→`+0x28..+0x34`. Mouse-down
-(`FUN_005052e0`) hit-tests and fires `parent[+0x1c](0, id, 0)` on click — this
+(`Label_OnMouseDown`) hit-tests and fires `parent[+0x1c](0, id, 0)` on click — this
 is how menu/tab/grid cells report clicks. Used for tabs, icons, grid cells
 (e.g. the Ready Room character grid, the Avatar Store category tabs).
 
-### Text entry — `FUN_00507f60` (`0x557c84`, 0x140 bytes)
+### Text entry — `CreateTextEntryWidget` (`0x557c84`, 0x140 bytes)
 An editable text field **backed by a real Win32 `EDIT` control** overlaid on the
-DirectDraw surface. Slot 8 (`FUN_00507030`) syncs the OS control's text into the
+DirectDraw surface. Slot 8 (`TextEntry_SyncFromControl`) syncs the OS control's text into the
 widget's internal buffer at `+0x38` via `GetWindowTextA(hwnd, this+0x38, 0x80)`.
 Constructor `(id, msgId, x, y, w, maxLen)`. Used for the Create Room name/
 password fields, the "enter room by number" field, and chat input.
@@ -129,14 +129,14 @@ leaf widgets above. All register with the global UI panel manager
 | Builder | vtable | Screen — panel | Composition |
 |---|---|---|---|
 | `BuildWorldListPanel` (`0x5099d0`) | `0x557f08` | State 2 — server WORLD LIST | 2 buttons (View All / Friends) + scrollbar; rows drawn by `RenderWorldListRow` |
-| `FUN_00509110` | `0x557be4` | shared — **buddy list** (lobby / ready room / WndProc) | buddy list + scrollbar |
-| `FUN_00509af0` | `0x557cd4` | State 3 — lobby **chat** panel | wide text-entry (`0x1e4` px) + label + scrollbar |
+| `BuildBuddyPanel` | `0x557be4` | shared — **buddy list** (lobby / ready room / WndProc) | buddy list + scrollbar |
+| `BuildLobbyChatPanel` | `0x557cd4` | State 3 — lobby **chat** panel | wide text-entry (`0x1e4` px) + label + scrollbar |
 | `FUN_00509d80` | `0x557cac` | State 3 — lobby list panel (user/room list; content not fully pinned) | scrollbar (page 7) |
 | `FUN_005094f0` | `0x557ee0` | State 9 — Ready Room list panel | scrollbar (page 9) |
-| `FUN_00509e60` | `0x557eb8` | State 7 — Avatar Store item panel | 3 category labels (msg `0x4b0`–`0x4b2`) + scrollbar (page 0xe) |
-| `FUN_00509260` | `0x557b94` | **chat log** panel (via `FUN_004025e0`), 0x1050-byte object with a ~4 KB history buffer | label + text-entry |
-| `FUN_005087b0` | `0x557df0` | State 3 — "enter room by number" dialog | labels + OK/Cancel + text field |
-| `FUN_00508190` | `0x557c34` | State 3 — Create Room dialog | name/password text fields + option grid + OK/Cancel |
+| `BuildAvatarStorePanel` | `0x557eb8` | State 7 — Avatar Store item panel | 3 category labels (msg `0x4b0`–`0x4b2`) + scrollbar (page 0xe) |
+| `BuildChatLogPanel` | `0x557b94` | **chat log** panel (via `FUN_004025e0`), 0x1050-byte object with a ~4 KB history buffer | label + text-entry |
+| `BuildEnterRoomNumberDialog` | `0x557df0` | State 3 — "enter room by number" dialog | labels + OK/Cancel + text field |
+| `BuildCreateRoomDialog` | `0x557c34` | State 3 — Create Room dialog | name/password text fields + option grid + OK/Cancel |
 
 Confidence: the widget classes, slot layout, and event model are confirmed by
 decompilation. Panel *identities* are confirmed for the ones cross-referenced to
@@ -166,11 +166,11 @@ public:
     virtual bool OnMouseMove(int x, int y);            // slot 1  (+0x04)
     virtual bool OnMouseDown(int x, int y);            // slot 2  (+0x08)
     virtual bool OnMouseUp  (int x, int y);            // slot 3  (+0x0c)
-    virtual bool HitTest    (int x, int y);            // slot 4  (+0x10)  FUN_0050e9c0
-    virtual bool DispatchKey (int key);                // slot 5  (+0x14)  FUN_0050ea50 (broadcasts to children)
-    virtual bool DispatchMouse(int msg);               // slot 6  (+0x18)  FUN_0050eab0 (broadcasts to children)
+    virtual bool HitTest    (int x, int y);            // slot 4  (+0x10)  Widget_HitTest
+    virtual bool DispatchKey (int key);                // slot 5  (+0x14)  Widget_DispatchKeyToChildren (broadcasts to children)
+    virtual bool DispatchMouse(int msg);               // slot 6  (+0x18)  Widget_DispatchMouseToChildren (broadcasts to children)
     virtual void OnCommand(int evt, int id, int arg);  // slot 7  (+0x1c)  the child->parent callback
-    virtual void Draw();                               // slot 8  (+0x20)  self + broadcast to children (FUN_0050e520)
+    virtual void Draw();                               // slot 8  (+0x20)  self + broadcast to children (Widget_DrawChildren)
     virtual void Update();                             // slot 9  (+0x24)
     virtual void OnDestroy(bool freeMem);              // slot 10 (+0x28)  (0x50e860)
     virtual bool OnDragMove(int x, int y);             // slot 11 (+0x2c)  FUN_0050e3a0
@@ -187,16 +187,16 @@ protected:
 };
 
 // Clickable sprite/text cell, 0x40 bytes.
-class CLabel : public CWidget {          // vtable 0x557da0, ctor FUN_00507ee0(id, sprite, x,y,w,h)
+class CLabel : public CWidget {          // vtable 0x557da0, ctor CreateLabelWidget(id, sprite, x,y,w,h)
     int m_spriteId;   // +0x3c
-    // OnMouseDown (FUN_005052e0): if hit, m_parent->OnCommand(0, m_id, 0)
-    // Draw (FUN_0050e350): blit sprite via FUN_004f30c0
+    // OnMouseDown (Label_OnMouseDown): if hit, m_parent->OnCommand(0, m_id, 0)
+    // Draw (FUN_0050e350): blit sprite via FindSpriteFrame
 };
 
 // Win32 EDIT-backed text field, 0x140 bytes.
-class CEditBox : public CWidget {        // vtable 0x557c84, ctor FUN_00507f60(id, msg, x,y,w,maxLen)
+class CEditBox : public CWidget {        // vtable 0x557c84, ctor CreateTextEntryWidget(id, msg, x,y,w,maxLen)
     char m_text[0x100];  // +0x38  synced from the OS control
-    // Update (FUN_00507030): GetWindowTextA(hEdit, m_text, 0x80) - a real Win32
+    // Update (TextEntry_SyncFromControl): GetWindowTextA(hEdit, m_text, 0x80) - a real Win32
     // EDIT control is overlaid on the DirectDraw surface
 };
 
