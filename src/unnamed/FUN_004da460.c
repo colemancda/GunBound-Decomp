@@ -11,7 +11,7 @@
 /* WARNING: Removing unreachable block (ram,0x004da471) */
 /* WARNING: Removing unreachable block (ram,0x004da47b) */
 
-void FUN_004da460(int param_1,undefined4 param_2,uint param_3)
+undefined4 FUN_004da460(int param_1,undefined4 param_2,uint param_3)
 
 {
   int *piVar1;
