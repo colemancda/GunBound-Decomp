@@ -10,6 +10,9 @@
 void __fastcall FUN_00480310(int *param_1)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xfffff520;
   int *piVar1;
   bool bVar2;
   undefined1 uVar3;
@@ -89,7 +92,7 @@ void __fastcall FUN_00480310(int *param_1)
     if (bVar2) {
       uVar8 = FUN_0040a5f0(iVar5 + 0xb30,auStack_89c,
                            (-(uint)((char)param_1[0xfe8] != '\0') & 0xfffffea2) - 200);
-      uStack_4 = CONCAT31(uStack_4._1_3_,3);
+      uStack_4 = CONCAT31(SUBFIELD(uStack_4,1,undefined3),3);
       iVar5 = FUN_0040a4d0(uVar8);
     }
     else {
@@ -125,7 +128,7 @@ void __fastcall FUN_00480310(int *param_1)
     bVar2 = aiStack_ac8[0] <= *(int *)(&DAT_006a7724 + g_clientContext) + iVar6;
     if (bVar2) {
       uVar8 = FUN_0040a6e0(iVar5 + 0xb30,auStack_ac0,400);
-      uStack_4 = CONCAT31(uStack_4._1_3_,1);
+      uStack_4 = CONCAT31(SUBFIELD(uStack_4,1,undefined3),1);
       iVar5 = FUN_0040a4d0(uVar8);
     }
     else {
