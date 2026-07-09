@@ -84,7 +84,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   State03_GameRoomList_CreateButtons();
   iVar4 = BuildLobbyChatPanel(&g_uiPanelManager,*(undefined4 *)(g_clientContext + 0x41340));
   param_1[0xa3] = iVar4;
-  iVar4 = FUN_00509d80(&g_uiPanelManager);
+  iVar4 = BuildChannelUserListPanel(&g_uiPanelManager);
   param_1[0xa4] = iVar4;
   cVar3 = FUN_004065a0();
   if ((cVar3 == '\x01') && (*(short *)(g_clientContext + 0x3b96f) != -1)) {

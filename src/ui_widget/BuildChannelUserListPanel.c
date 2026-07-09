@@ -1,14 +1,13 @@
-/* FUN_00509d80 - 0x00509d80 in the original binary.
+/* BuildChannelUserListPanel - 0x00509d80 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Builds the lobby channel user-list panel (a 209-wide scrollbar-only CPanel, vtable 0x557cac). Its row renderer draws up to 7 users, each with a status flag, a rank/level icon, and a name - traced from the data source (g_clientContext arrays +0x44248 index / +0x42949 flags / +0x43e48 rank). See docs/widgets.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_00509d80(undefined4 param_1)
+undefined4 * BuildChannelUserListPanel(undefined4 param_1)
 
 {
   undefined4 *puVar1;
