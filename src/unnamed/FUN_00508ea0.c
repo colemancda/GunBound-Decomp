@@ -36,7 +36,7 @@ joined_r0x00508ec8:
       puVar3 = (undefined4 *)0x0;
     }
     else {
-      FUN_00505760(puVar3);
+      Panel_BaseConstructor(puVar3);
       *puVar3 = &PTR_LAB_00557e40;
     }
     local_4 = 0xffffffff;

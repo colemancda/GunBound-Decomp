@@ -28,7 +28,7 @@ void FUN_00509030(undefined4 param_1,undefined4 param_2)
     puVar1 = (undefined4 *)0x0;
   }
   else {
-    FUN_00505760(puVar1);
+    Panel_BaseConstructor(puVar1);
     *puVar1 = &PTR_LAB_00557e18;
   }
   local_4 = 0xffffffff;

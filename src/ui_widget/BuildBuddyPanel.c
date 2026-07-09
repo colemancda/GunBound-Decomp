@@ -51,7 +51,7 @@ undefined4 BuildBuddyPanel(void)
         puVar2 = (undefined4 *)0x0;
       }
       else {
-        FUN_00505760(puVar2);
+        Panel_BaseConstructor(puVar2);
         *puVar2 = &PTR_LAB_00557be4;
         puVar2[0x24] = 0xffffffff;
       }

@@ -30,7 +30,7 @@ undefined4 FUN_00508a50(int param_1)
         puVar2 = (undefined4 *)0x0;
       }
       else {
-        FUN_00505760(puVar2);
+        Panel_BaseConstructor(puVar2);
         *puVar2 = &PTR_LAB_00557c0c;
         *(undefined1 *)(puVar2 + 0xe) = 1;
       }

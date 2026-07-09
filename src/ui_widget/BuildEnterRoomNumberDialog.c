@@ -34,7 +34,7 @@ void __fastcall BuildEnterRoomNumberDialog(undefined4 param_1)
       }
       else {
         puVar3 = puVar2;
-        FUN_00505760(puVar2);
+        Panel_BaseConstructor(puVar2);
         *puVar2 = &PTR_LAB_00557df0;
         puVar5 = puVar2;
         puVar2 = puVar3;

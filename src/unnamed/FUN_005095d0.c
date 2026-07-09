@@ -40,7 +40,7 @@ LAB_0050961f:
     puVar3 = (undefined4 *)0x0;
   }
   else {
-    FUN_00505760(puVar3);
+    Panel_BaseConstructor(puVar3);
     *puVar3 = &PTR_LAB_00557c5c;
     *(undefined1 *)(puVar3 + 0xe) = 1;
   }

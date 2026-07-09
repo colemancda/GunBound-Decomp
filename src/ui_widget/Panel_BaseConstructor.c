@@ -1,4 +1,4 @@
-/* FUN_00505760 - 0x00505760 in the original binary.
+/* Panel_BaseConstructor - 0x00505760 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_00505760(undefined4 *param_1)
+undefined4 * Panel_BaseConstructor(undefined4 *param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;

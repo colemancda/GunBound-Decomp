@@ -46,7 +46,7 @@ undefined4 * BuildLobbyChatPanel(int param_1)
     puVar9 = (undefined4 *)0x0;
   }
   else {
-    FUN_00505760(puVar5);
+    Panel_BaseConstructor(puVar5);
     *puVar5 = &PTR_LAB_00557cd4;
     *(undefined1 *)(puVar5 + 0xe) = 1;
     *(undefined1 *)((int)puVar5 + 5) = 0;

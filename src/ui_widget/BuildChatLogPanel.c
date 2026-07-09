@@ -32,7 +32,7 @@ void BuildChatLogPanel(undefined4 param_1,int param_2)
     puVar2 = (undefined4 *)0x0;
   }
   else {
-    FUN_00505760(puVar2);
+    Panel_BaseConstructor(puVar2);
     *puVar2 = &PTR_LAB_00557b94;
     puVar5 = puVar2 + 0x2a;
     for (iVar6 = 1000; iVar6 != 0; iVar6 = iVar6 + -1) {

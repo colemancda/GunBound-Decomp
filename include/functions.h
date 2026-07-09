@@ -1499,7 +1499,7 @@ void FUN_00505520();
 void FUN_00505580();
 void FUN_005056c0();
 void __thiscall FUN_00505700();
-undefined4 * FUN_00505760();
+undefined4 * Panel_BaseConstructor();
 void __thiscall FUN_005057f0();
 void __fastcall FUN_00505890();
 void __fastcall FUN_00505900();

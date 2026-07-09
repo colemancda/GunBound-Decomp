@@ -27,7 +27,7 @@ undefined4 * BuildChannelUserListPanel(undefined4 param_1)
     puVar1 = (undefined4 *)0x0;
   }
   else {
-    FUN_00505760(puVar1);
+    Panel_BaseConstructor(puVar1);
     *puVar1 = &PTR_LAB_00557cac;
     *(undefined1 *)(puVar1 + 0xe) = 1;
     *(undefined1 *)((int)puVar1 + 5) = 0;

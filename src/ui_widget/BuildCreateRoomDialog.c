@@ -46,7 +46,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
     puVar10 = (undefined4 *)0x0;
   }
   else {
-    FUN_00505760(puVar6);
+    Panel_BaseConstructor(puVar6);
     *puVar6 = &PTR_LAB_00557c34;
     *(undefined1 *)(puVar6 + 0xe) = 1;
     puVar10 = puVar6;

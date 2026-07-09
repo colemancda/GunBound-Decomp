@@ -1,5 +1,5 @@
 /* CPanel base + CWorldListPanel construction - promoted from the raw C
- * ports src/unnamed/FUN_00505760.c (the out-of-line CPanel ctor,
+ * ports src/unnamed/Panel_BaseConstructor.c (the out-of-line CPanel ctor,
  * 0x505760) and src/ui_widget/BuildWorldListPanel.c (0x5099d0).
  * See src/cxx/README.md. */
 #include "Widget.h"
