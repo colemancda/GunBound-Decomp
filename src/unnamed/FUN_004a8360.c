@@ -309,12 +309,12 @@ LAB_004aa2ed:
         uVar8 = FUN_0040a500(pbStack_afc,auStack_688);
         puStack_10 = (undefined1 *)0x1;
         pbStack_af8 = (byte *)FUN_0040a7d0(uVar8,auStack_8b4,7);
-        puStack_10._0_1_ = 2;
+        SUBFIELD(puStack_10,0,undefined1) = 2;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_b10 = (byte *)PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_b10 = (byte *)FUN_0040a8c0(pbStack_af8,auStack_adc,local_b10);
-        puStack_10._0_1_ = 3;
+        SUBFIELD(puStack_10,0,undefined1) = 3;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         piStack_ae8 = param_1 + 0xd7b;
         pbStack_af8 = (byte *)PeekPacketChecksumState();
@@ -330,14 +330,14 @@ LAB_004aa2ed:
         local_b10 = (byte *)PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         FUN_0043af40(iVar6,iVar7,local_b10,pbStack_b08,local_af0,pbStack_af8,(char)param_1[0xf]);
-        puStack_10._0_1_ = 2;
+        SUBFIELD(puStack_10,0,undefined1) = 2;
         local_b10 = pbStack_ac8;
         if (pbStack_ac8 != (byte *)0x0) {
           FUN_0040a240();
           FUN_0040b540(apbStack_b04);
           param_1 = piStack_af4;
         }
-        puStack_10 = (undefined1 *)CONCAT31(puStack_10._1_3_,1);
+        puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),1);
         local_b10 = pbStack_8a0;
         if (pbStack_8a0 != (byte *)0x0) {
           FUN_0040a240();
@@ -421,12 +421,12 @@ LAB_004aa2ed:
   uVar8 = FUN_0040a500(pbStack_afc,auStack_8b4);
   puStack_10 = (undefined1 *)0x4;
   pbStack_af8 = (byte *)FUN_0040a7d0(uVar8,auStack_adc,7);
-  puStack_10._0_1_ = 5;
+  SUBFIELD(puStack_10,0,undefined1) = 5;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_b10 = (byte *)PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_b10 = (byte *)FUN_0040a8c0(pbStack_af8,auStack_688,local_b10);
-  puStack_10._0_1_ = 6;
+  SUBFIELD(puStack_10,0,undefined1) = 6;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   piStack_ae8 = param_1 + 0xd7b;
   pbStack_af8 = (byte *)PeekPacketChecksumState();
@@ -443,7 +443,7 @@ LAB_004aa2ed:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_0043af40(iVar6,iStack_b14,local_b10,pbStack_b08,local_af0,pbStack_af8,(char)param_1[0xf]);
   pbVar9 = pbStack_674;
-  puStack_10._0_1_ = 5;
+  SUBFIELD(puStack_10,0,undefined1) = 5;
   if (pbStack_674 != (byte *)0x0) {
     FUN_0040a240();
     local_b10 = pbVar9;
@@ -451,7 +451,7 @@ LAB_004aa2ed:
     param_1 = piStack_af4;
   }
   pbVar9 = pbStack_ac8;
-  puStack_10 = (undefined1 *)CONCAT31(puStack_10._1_3_,4);
+  puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),4);
   if (pbStack_ac8 != (byte *)0x0) {
     FUN_0040a240();
     local_b10 = pbVar9;
@@ -517,7 +517,7 @@ LAB_004a87b1:
     local_b10 = (byte *)PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_b10 = (byte *)FUN_0040a8c0(pbStack_af8,auStack_688,local_b10);
-    puStack_10._0_1_ = 9;
+    SUBFIELD(puStack_10,0,undefined1) = 9;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     pbStack_af8 = (byte *)PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -531,7 +531,7 @@ LAB_004a87b1:
     local_b10 = (byte *)PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_0043af40(pbVar9,iVar6,local_b10,pbStack_b08,local_af0,pbStack_af8,(char)param_1[0xf]);
-    puStack_10 = (undefined1 *)CONCAT31(puStack_10._1_3_,8);
+    puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),8);
     local_b10 = pbStack_674;
     if (pbStack_674 != (byte *)0x0) {
       iVar7 = (int)pbStack_674 << 4;
@@ -643,7 +643,7 @@ LAB_004a87ec:
   local_b10 = (byte *)PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_b10 = (byte *)FUN_0040a8c0(pbStack_af8,auStack_688,local_b10);
-  puStack_10._0_1_ = 0xb;
+  SUBFIELD(puStack_10,0,undefined1) = 0xb;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pbStack_af8 = (byte *)PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -657,7 +657,7 @@ LAB_004a87ec:
   local_b10 = (byte *)PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_0043af40(pbVar9,iStack_b14,local_b10,pbStack_b08,local_af0,pbStack_af8,(char)param_1[0xf]);
-  puStack_10 = (undefined1 *)CONCAT31(puStack_10._1_3_,10);
+  puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),10);
   if (pbStack_674 != (byte *)0x0) {
     iVar6 = (int)pbStack_674 << 4;
     pbStack_b08 = (byte *)0x10;
@@ -820,7 +820,7 @@ LAB_004a9af3:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   apbStack_b04[0] = (byte *)PeekPacketChecksumState();
   iVar6 = PeekPacketChecksumState();
-  apbStack_b04[0] = (byte *)CONCAT31(apbStack_b04[0]._1_3_,(int)apbStack_b04[0] < iVar6);
+  apbStack_b04[0] = (byte *)CONCAT31(SUBFIELD(apbStack_b04[0],1,undefined3),(int)apbStack_b04[0] < iVar6);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar4 = FUN_00406610(apbStack_b04[0]);
   if (cVar4 != '\0') {
@@ -963,7 +963,7 @@ LAB_004a9552:
     uStack_694 = 0;
     pbStack_8a0 = (byte *)0x0;
     EncodeOutgoingPacketField(0);
-    puStack_10 = (undefined1 *)CONCAT31(puStack_10._1_3_,0x10);
+    puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),0x10);
     FUN_004262d0(apiStack_ae4[0] + 4,auStack_8b4);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
@@ -980,7 +980,7 @@ LAB_004a9552:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_00432320((char)param_1[0xf],1,1,apbStack_b04[0],0,100,0xff,param_1[0xfe5],0);
     pbVar9 = pbStack_8a0;
-    puStack_10 = (undefined1 *)CONCAT31(puStack_10._1_3_,0xf);
+    puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),0xf);
     if (pbStack_8a0 != (byte *)0x0) {
       iVar7 = (int)pbStack_8a0 << 4;
       apiStack_ae4[0] = (int *)0x10;
@@ -1018,7 +1018,7 @@ LAB_004a9552:
       uStack_8bc = 0;
       pbStack_ac8 = (byte *)0x0;
       EncodeOutgoingPacketField(0);
-      puStack_10._0_1_ = 0xe;
+      SUBFIELD(puStack_10,0,undefined1) = 0xe;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeOutgoingPacketField(piStack_ae8);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -1041,7 +1041,7 @@ LAB_004a9552:
       FUN_004065a0(apbStack_b04[0],0,100,0xff,iVar7,0);
       FUN_00432320((char)param_1[0xf],1,1,pbVar9,uVar8,uVar19,uVar20,iVar7,uVar21);
       pbVar9 = pbStack_ac8;
-      puStack_10 = (undefined1 *)CONCAT31(puStack_10._1_3_,0xd);
+      puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),0xd);
       if (pbStack_ac8 != (byte *)0x0) {
         iVar7 = (int)pbStack_ac8 << 4;
         apiStack_ae4[0] = (int *)0x10;
