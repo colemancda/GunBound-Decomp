@@ -1559,7 +1559,7 @@ void FUN_005098e0();
 void __fastcall FUN_00509960();
 void FUN_005099b0();
 undefined4 * BuildWorldListPanel();
-void CreateScrollListWidget();
+undefined4 *CreateScrollListWidget(); /* returns the new widget object */
 undefined4 * BuildLobbyChatPanel();
 undefined4 * BuildChannelUserListPanel();
 undefined4 * BuildAvatarStorePanel();
