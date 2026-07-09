@@ -44,9 +44,9 @@ void FUN_00434ac0(undefined4 param_1,int param_2)
     piVar2[6] = 0x183a;
     piVar2[0xe] = 0x189e;
     piVar2[0xe25] = 0x1fa6;
-    piVar2[0xe26] = s_caseflame_00553c78._0_4_;
-    piVar2[0xe27] = s_caseflame_00553c78._4_4_;
-    *(undefined2 *)(piVar2 + 0xe28) = s_caseflame_00553c78._8_2_;
+    piVar2[0xe26] = SUBFIELD(s_caseflame_00553c78,0,undefined4);
+    piVar2[0xe27] = SUBFIELD(s_caseflame_00553c78,4,undefined4);
+    *(undefined2 *)(piVar2 + 0xe28) = SUBFIELD(s_caseflame_00553c78,8,undefined2);
     *(undefined1 *)(piVar2 + 0xf) = 0xff;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(param_2);
@@ -135,10 +135,10 @@ void FUN_00434ac0(undefined4 param_1,int param_2)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    *(undefined4 *)((int)piVar2 + 0x3813) = s_caseblast_xes_00553c68._0_4_;
-    *(undefined4 *)((int)piVar2 + 0x3817) = s_caseblast_xes_00553c68._4_4_;
-    *(undefined4 *)((int)piVar2 + 0x381b) = s_caseblast_xes_00553c68._8_4_;
-    *(undefined2 *)((int)piVar2 + 0x381f) = s_caseblast_xes_00553c68._12_2_;
+    *(undefined4 *)((int)piVar2 + 0x3813) = SUBFIELD(s_caseblast_xes_00553c68,0,undefined4);
+    *(undefined4 *)((int)piVar2 + 0x3817) = SUBFIELD(s_caseblast_xes_00553c68,4,undefined4);
+    *(undefined4 *)((int)piVar2 + 0x381b) = SUBFIELD(s_caseblast_xes_00553c68,8,undefined4);
+    *(undefined2 *)((int)piVar2 + 0x381f) = SUBFIELD(s_caseblast_xes_00553c68,12,undefined2);
     RegisterActiveObject();
   }
   *unaff_FS_OFFSET = local_c;
