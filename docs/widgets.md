@@ -129,7 +129,7 @@ leaf widgets above. All register with the global UI panel manager
 | Builder | vtable | Screen — panel | Composition |
 |---|---|---|---|
 | `BuildWorldListPanel` (`0x5099d0`) | `0x557f08` | State 2 — server WORLD LIST | 2 buttons (View All / Friends) + scrollbar; rows drawn by `RenderWorldListRow` |
-| `BuildBuddyPanel` | `0x557be4` | shared — **buddy list** (lobby / ready room / WndProc) | buddy list + scrollbar |
+| `BuildBuddyPanel` | `0x557be4` | shared — **buddy list** (lobby / ready room / WndProc); singleton keyed 20000, at (568,11) 211×267 | Add (`0x2bd`) / Del (`0x2be`) / close-X (`0x2bf`) label buttons + a page-7 scrollbar; res IDs `0x2bc`–`0x2bf` |
 | `BuildLobbyChatPanel` | `0x557cd4` | State 3 — lobby **chat** panel | wide text-entry (`0x1e4` px) + label + scrollbar |
 | `FUN_00509d80` | `0x557cac` | State 3 — lobby list panel (user/room list; content not fully pinned) | scrollbar (page 7) |
 | `FUN_005094f0` | `0x557ee0` | State 9 — Ready Room list panel | scrollbar (page 9) |
