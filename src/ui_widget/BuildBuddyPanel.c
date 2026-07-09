@@ -27,7 +27,7 @@
 #include "ghidra_types.h"
 
 
-void BuildBuddyPanel(void)
+undefined4 BuildBuddyPanel(void)
 
 {
   int iVar1;

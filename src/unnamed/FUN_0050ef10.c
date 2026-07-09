@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0050ef10(int *param_1)
+undefined4 FUN_0050ef10(int *param_1)
 
 {
   int *piVar1;
