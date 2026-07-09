@@ -17,6 +17,10 @@ void FUN_0050efa0(void *manager);
 /* BringToFront (0x509960, __fastcall manager/panel): unlink the
  * panel's manager node and relink it at the head of the z-order. */
 void __fastcall FUN_00509960(void *manager, CPanel *panel);
+/* 0x506f60: seed the shared overlay EDIT control's text for a focused
+ * CEditBox (SetWindowTextA; empty string when passed null). Receiver
+ * and text arrive in EDI/ESI - unresolved custom regs. */
+void FUN_00506f60(void);
 /* The global UI panel manager (0xe53c40): +4 list head, +8 tail. */
 extern unsigned char g_uiPanelManager;
 }
@@ -207,6 +211,66 @@ CAvatarStorePanel * BuildAvatarStorePanel(int total)
     tab->SetEnabled(false);
     p->AddChild(tab);
     return p;
+}
+
+/* 0x508190 - BuildCreateRoomDialog (docs/widgets.md; takes the manager
+ * plus two values stored into +0x94/+0x98). SINGLETON keyed 0 with the
+ * BringToFront exists-path. Fresh build at (243,202) 313x193:
+ * room-name CEditBox (maxLen 20; its OS EDIT control seeded via
+ * 0x506f60 and focused after the manager sweep), password CEditBox
+ * (maxLen 4), the four-cell game-mode grid (ids 0-3, sprites 0x518+i,
+ * 27x27 at y 8, default the 4th), four option toggles (ids 4-7,
+ * sprites 0x514-0x517, 45x24 in a 2x2 block, id 4 pre-selected), and
+ * OK (id 8, sprite 0x51d) / Cancel (id 9, 0x51c). The original
+ * inlines the label factory for ids 4-9. */
+void BuildCreateRoomDialog(void *manager, int arg2, int arg3)
+{
+    for (CPanelListNode *n = PanelListHead(); n != 0; n = n->m_next) {
+        CPanel *q = n->m_panel;
+        if (q->m_typeId == 0 && q->m_id == 0) {
+            FUN_00509960(&g_uiPanelManager, q);
+            return;
+        }
+    }
+    CCreateRoomDialog *p = new CCreateRoomDialog();
+    p->m_id = 0;
+    p->m_unk4c = 0;
+    p->m_unk44 = 0x2713;
+    p->m_unk48 = 0;
+    p->m_x = 0xf3;
+    p->m_y = 0xca;
+    p->m_width = 0x139;
+    p->m_height = 0xc1;
+    p->m_unk94 = arg2;
+    p->m_unk98 = arg3;
+    CEditBox *roomName = CreateTextEntryWidget(0, 0x60, 0x2c, 0xbe, 0xc, 0x14);
+    p->AddChild(roomName);
+    FUN_00506f60();
+    FUN_0050efa0(0 /* g_uiPanelManager; receiver convention unresolved */);
+    roomName->SetFocus(true);
+    p->AddChild(CreateTextEntryWidget(1, 0x60, 0x46, 0xbe, 0xc, 4));
+    int i = 0;
+    for (int x = 0xad; x < 0x12d; x += 0x20, ++i) {
+        CLabel *mode = CreateLabelWidget(i, 0x518 + i, x, 8, 0x1b, 0x1b);
+        mode->m_tabSelected = (u8)(i == 3);
+        p->AddChild(mode);
+    }
+    static const struct { int id, sprite, x, y, w, h, sel; } kToggles[] = {
+        { 4, 0x514, 0x16, 0x5f, 0x2d, 0x18, 1 },
+        { 5, 0x515, 0x45, 0x5f, 0x2d, 0x18, 0 },
+        { 6, 0x516, 0x16, 0x7a, 0x2d, 0x18, 0 },
+        { 7, 0x517, 0x45, 0x7a, 0x2d, 0x18, 0 },
+        { 8, 0x51d, 0xd5, 0x99, 0x52, 0x22, 0 },
+        { 9, 0x51c, 0x80, 0x99, 0x52, 0x22, 0 },
+    };
+    for (int t = 0; t < 6; ++t) {
+        CLabel *l = CreateLabelWidget(kToggles[t].id, kToggles[t].sprite,
+                                      kToggles[t].x, kToggles[t].y,
+                                      kToggles[t].w, kToggles[t].h);
+        l->m_tabSelected = (u8)kToggles[t].sel;
+        p->AddChild(l);
+    }
+    FUN_0050eea0(p);
 }
 
 /* 0x509110 - BuildBuddyPanel (docs/widgets.md: the shared buddy list).

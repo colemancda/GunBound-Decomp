@@ -35,6 +35,7 @@ GB_STATIC_ASSERT(sizeof(CLobbyChatPanel)       == 0x94, lobbychat_size);
 GB_STATIC_ASSERT(sizeof(CAvatarStorePanel)     == 0x9c, avatarstore_size);
 GB_STATIC_ASSERT(sizeof(CEnterRoomNumberDialog) == 0x90, roomnodialog_size);
 GB_STATIC_ASSERT(sizeof(CBuddyPanel)            == 0x94, buddy_size);
+GB_STATIC_ASSERT(sizeof(CCreateRoomDialog)      == 0x9c, createroom_size);
 GB_STATIC_ASSERT(sizeof(CPanelListNode)         == 0x0c, panelnode_size);
 
 /* offset checks can't live in the class body (incomplete type there), so

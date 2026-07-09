@@ -307,11 +307,22 @@ public:
     int m_unk90;                               /* +0x90 */
 };
 
-/* The remaining confirmed concrete panels (identity + vtable confirmed;
- * field maps not yet reconstructed, so no size asserts yet):
- *   CChatLogPanel          vtable 0x557b94  BuildChatLogPanel (~0x1050 bytes)
- *   CCreateRoomDialog      vtable 0x557c34  BuildCreateRoomDialog (state 3) */
-class CChatLogPanel          : public CPanel {};
-class CCreateRoomDialog      : public CPanel {};
+/* State 3's Create Room dialog: room-name (maxLen 20) and password
+ * (maxLen 4) text entries, the 4-cell game-mode picker grid (sprites
+ * 0x518+, default the 4th mode), four option toggle labels (sprites
+ * 0x514-0x517, first pre-selected), OK/Cancel. A SINGLETON keyed 0
+ * that brings the existing dialog to front. */
+class CCreateRoomDialog : public CPanel {      /* vtable 0x557c34; builder 0x508190 */
+public:
+    CCreateRoomDialog() { m_unk38 = 1; }
+    int m_unk90;                               /* +0x90: never initialized by the builder */
+    int m_unk94;                               /* +0x94: builder's 2nd argument */
+    int m_unk98;                               /* +0x98: builder's 3rd argument */
+};
+
+/* The last unreconstructed panel (identity + vtable confirmed):
+ *   CChatLogPanel  vtable 0x557b94  BuildChatLogPanel (~0x1050 bytes,
+ *                  embeds the ~4 KB chat history buffer) */
+class CChatLogPanel : public CPanel {};
 
 #endif /* GB_CXX_WIDGET_H */
