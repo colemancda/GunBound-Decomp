@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-void BlitSpriteClipped(int param_1)
+undefined4 BlitSpriteClipped(int param_1)
 
 {
   int in_EAX;

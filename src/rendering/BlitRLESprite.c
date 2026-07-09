@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-void __thiscall BlitRLESprite(int param_1,undefined4 param_2,undefined4 param_3)
+undefined4 __thiscall BlitRLESprite(int param_1,undefined4 param_2,undefined4 param_3)
 
 {
   byte bVar1;

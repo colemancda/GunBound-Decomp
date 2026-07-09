@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-void BlitSprite16bpp(int param_1,int param_2)
+undefined4 BlitSprite16bpp(int param_1,int param_2)
 
 {
   ushort uVar1;

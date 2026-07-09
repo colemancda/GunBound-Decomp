@@ -61,9 +61,9 @@ void SubFromPacketChecksum();
 undefined4 GetDisplayConfigFromRegistry();
 undefined4 __fastcall ReadRegistryDword(); /* returns the _atol result (EAX) */
 void __fastcall WriteRegistryDword();
-void __thiscall BlitRLESprite();
-void BlitSprite16bpp();
-void BlitSpriteClipped();
+undefined4 __thiscall BlitRLESprite();
+undefined4 BlitSprite16bpp();
+undefined4 BlitSpriteClipped();
 void __thiscall BuildRotatedSpriteQuad();
 undefined4 EnumTextureFormatsCallback();
 int * FindPreloadedTextureByName();
