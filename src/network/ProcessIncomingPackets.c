@@ -80,11 +80,11 @@ LAB_004d33f1:
     uVar7 = FUN_0040a7d0(param_1 + 0x2a8,local_2230,0x343fd);
     local_4 = 0;
     FUN_0040a5f0(uVar7,local_2454,0x29ac03);
-    local_4._0_1_ = 1;
+    SUBFIELD(local_4,0,undefined1) = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     sVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_4 = (uint)local_4._1_3_ << 8;
+    local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     if (local_2440 != 0) {
       iVar14 = 0;
       iVar6 = local_2440 * 0x10;
@@ -438,7 +438,7 @@ LAB_004d2b17:
     uVar3 = *lParam;
     if (0x1000 < uVar3) {
       if (((uVar3 != 0x1001) && (uVar3 != 0x1002)) && (uVar3 != 0x100f)) {
-switchD_004d2b8e_caseD_3:
+switchD_004d2b8e_caseD_3:; /* empty statement: a C89 label cannot precede } */
       }
       goto LAB_004d3379;
     }
