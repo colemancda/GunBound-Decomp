@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_005006f0(void)
+undefined4 FUN_005006f0(void)
 
 {
   undefined1 local_c [12];

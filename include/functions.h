@@ -1396,7 +1396,7 @@ undefined4 * FUN_00500580();
 void FUN_00500650();
 void FUN_005006b0();
 void __thiscall FUN_005006c0();
-void FUN_005006f0();
+undefined4 FUN_005006f0();
 undefined4 FUN_00500710();
 void FUN_00500790();
 undefined4 * FUN_00500840();

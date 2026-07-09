@@ -88,8 +88,8 @@ void FUN_004ff770(int *param_1,int param_2)
                        *(undefined2 *)(iVar4 + 0x12),iVar4 + 4);
             FUN_00500710();
           }
-          *local_3190 = CONCAT22(local_3174.sa_data._4_2_,local_3174.sa_data._2_2_);
-          *(undefined2 *)(local_3190 + 1) = local_3174.sa_data._0_2_;
+          *local_3190 = CONCAT22(SUBFIELD(local_3174.sa_data,4,undefined2),SUBFIELD(local_3174.sa_data,2,undefined2));
+          *(undefined2 *)(local_3190 + 1) = SUBFIELD(local_3174.sa_data,0,undefined2);
           return;
         }
       }
@@ -103,18 +103,18 @@ void FUN_004ff770(int *param_1,int param_2)
       local_3178 = 0;
       cVar2 = FUN_004fe860(param_1,&local_3190);
       if (cVar2 == '\0') {
-        FUN_004fe8d0(&local_3188,CONCAT22(local_3174.sa_data._4_2_,local_3174.sa_data._2_2_),
-                     CONCAT22(local_3174.sa_data._2_2_,local_3174.sa_data._0_2_),
-                     CONCAT22(local_3174.sa_data._4_2_,local_3174.sa_data._2_2_),
-                     CONCAT22(local_3174.sa_data._2_2_,local_3174.sa_data._0_2_));
+        FUN_004fe8d0(&local_3188,CONCAT22(SUBFIELD(local_3174.sa_data,4,undefined2),SUBFIELD(local_3174.sa_data,2,undefined2)),
+                     CONCAT22(SUBFIELD(local_3174.sa_data,2,undefined2),SUBFIELD(local_3174.sa_data,0,undefined2)),
+                     CONCAT22(SUBFIELD(local_3174.sa_data,4,undefined2),SUBFIELD(local_3174.sa_data,2,undefined2)),
+                     CONCAT22(SUBFIELD(local_3174.sa_data,2,undefined2),SUBFIELD(local_3174.sa_data,0,undefined2)));
         cVar2 = FUN_004fe860(param_1,&local_3190);
         if (cVar2 == '\0') {
           return;
         }
       }
       else {
-        *local_3190 = CONCAT22(local_3174.sa_data._4_2_,local_3174.sa_data._2_2_);
-        *(undefined2 *)(local_3190 + 1) = local_3174.sa_data._0_2_;
+        *local_3190 = CONCAT22(SUBFIELD(local_3174.sa_data,4,undefined2),SUBFIELD(local_3174.sa_data,2,undefined2));
+        *(undefined2 *)(local_3190 + 1) = SUBFIELD(local_3174.sa_data,0,undefined2);
       }
       puVar1 = local_3190;
       local_3150 = 0x26;
