@@ -87,6 +87,16 @@ AvatarStore (0x34818):
   `ProcessPacket` **after** its `ClientContext.h` slices exist, not before.
   The reconstructable-today part of State02's is the 0x1102 SoA populator
   (now readable via `ServerListSoA`); it lands with the arena work.
+  **Update (arena work done):** `ClientContext.h` now types every
+  data region State02's `ProcessPacket` touches — server-list SoA,
+  room grid/player/inventory accessors, the `PeerEndpoint` record
+  (+0x23330) and the per-player checksum-state array (+0xebef4). With
+  the data model in place the remaining barrier is purely the size of
+  the transcription (569 lines of packet arithmetic across ~6 opcodes);
+  it's now a mechanical, unblocked promotion rather than a
+  blocked-on-data one. Same applies to the other big handlers: type
+  their screen's arena slice first (room-list slices already exist),
+  then the handler is mechanical.
 - The 15 not-yet-dumped state vtables: dump each `vtable_StateNN_*` in Ghidra
   the way State11 was done, so slots past 9 get declared before their
   bodies are promoted (Ready Room is known to have 20 slots).
