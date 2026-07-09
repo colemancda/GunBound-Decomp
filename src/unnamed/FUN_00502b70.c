@@ -10,6 +10,9 @@
 void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint param_4)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xffffffc8;
   void *_Memory;
   uint uVar1;
   int iVar2;

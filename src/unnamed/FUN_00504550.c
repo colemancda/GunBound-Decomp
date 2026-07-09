@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00504550(undefined4 param_1,undefined4 *param_2,undefined4 *param_3)
+undefined4 __fastcall FUN_00504550(undefined4 param_1,undefined4 *param_2,undefined4 *param_3)
 
 {
   byte bVar1;
