@@ -196,7 +196,7 @@ LAB_004287a5:
   case 0xe:
     *(undefined1 *)(param_1 + 0x115) = 6;
     *(undefined4 *)(param_1 + 0x118) = 0;
-    FUN_004021b0(*(undefined4 *)(iVar4 + 0x3f804));
+    FindBuddyRoomsForServer(*(undefined4 *)(iVar4 + 0x3f804));
     iVar2 = DAT_007934e8;
     if (g_serverSelectRecordCount != 0) {
       *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x2101;

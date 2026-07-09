@@ -1,13 +1,13 @@
-/* FUN_004021b0 - 0x004021b0 in the original binary.
+/* FindBuddyRoomsForServer - 0x004021b0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * The Find Friend scan: walks the active room list for entries of type 0x12 on the current server, filtered by a second (register-passed, uncaptured) key - most plausibly a buddy/user id - building a deduplicated, sorted result list at the state object's +0xe20. See docs/screens/03_game_room_list.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004021b0(undefined4 param_1,int param_2,int param_3)
+void __fastcall FindBuddyRoomsForServer(undefined4 param_1,int param_2,int param_3)
 
 {
   char cVar1;

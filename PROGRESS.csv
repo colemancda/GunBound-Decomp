@@ -29,7 +29,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00402020,63,FUN_00402020,false,1,0,RAW-src
 00402060,238,FUN_00402060,false,1,0,RAW-src
 00402160,72,FUN_00402160,false,1,0,RAW-src
-004021b0,239,FUN_004021b0,false,1,0,RAW-src
+004021b0,239,FindBuddyRoomsForServer,false,1,0,RAW-src
 004022b0,66,FUN_004022b0,false,1,0,RAW-src
 00402300,169,FUN_00402300,false,1,4,RAW-src
 004023b0,77,FUN_004023b0,false,1,1,RAW-src
