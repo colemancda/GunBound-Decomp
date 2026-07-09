@@ -1,13 +1,13 @@
-/* FUN_00429c60 - 0x00429c60 in the original binary.
+/* SendCreateRoom - 0x00429c60 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Create Room dialog submit handler: copies the room-name and password text fields and sends outgoing opcode 0x2120. See PROTOCOL.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00429c60(int param_1)
+void SendCreateRoom(int param_1)
 
 {
   char cVar1;

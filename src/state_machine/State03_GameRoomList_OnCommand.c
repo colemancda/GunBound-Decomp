@@ -21,7 +21,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
   if (param_2 != 0) {
     if (param_2 == 10) {
       if (*(char *)(param_1 + 0xc) != '\0') {
-        FUN_00429c60(param_1);
+        SendCreateRoom(param_1);
       }
       if (*(char *)(param_1 + 0xd) != '\0') {
         SendJoinRoomSelected();
@@ -237,7 +237,7 @@ LAB_004287a5:
     FUN_00429dc0();
     return;
   case 0x29:
-    FUN_00429c60(param_1);
+    SendCreateRoom(param_1);
     return;
   default:
     return;

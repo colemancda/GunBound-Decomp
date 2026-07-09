@@ -381,7 +381,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00429810,812,State03_GameRoomList_RenderRoomLabel,false,1,10,RAW-src
 00429b50,210,SendJoinRoomChecked,false,2,3,RAW-src
 00429c30,39,FUN_00429c30,false,1,1,RAW-src
-00429c60,339,FUN_00429c60,false,2,3,RAW-src
+00429c60,339,SendCreateRoom,false,2,3,RAW-src
 00429dc0,17,FUN_00429dc0,false,2,1,RAW-src
 00429de0,428,SendJoinRoomByNumber,false,2,4,RAW-src
 00429f90,20,FUN_00429f90,false,2,1,RAW-src

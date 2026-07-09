@@ -450,7 +450,7 @@ void __fastcall FUN_00429730();
 void FUN_00429800();
 void SendJoinRoomChecked();
 void __fastcall FUN_00429c30();
-void FUN_00429c60();
+void SendCreateRoom();
 void FUN_00429dc0();
 void SendJoinRoomByNumber();
 void FUN_00429f90();
