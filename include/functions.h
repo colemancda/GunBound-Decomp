@@ -459,7 +459,7 @@ void SendJoinRoomSelected();
 void FUN_0042a090();
 void __thiscall FUN_0042a220();
 void FUN_0042a680();
-void FUN_0042aba0();
+void State03_GameRoomList_CreateButtons();
 int FUN_0042ada0();
 uint __thiscall FUN_0042ae30();
 undefined2 * FUN_0042aeb0();

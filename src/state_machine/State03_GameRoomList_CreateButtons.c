@@ -1,14 +1,13 @@
-/* FUN_0042aba0 - 0x0042aba0 in the original binary.
+/* State03_GameRoomList_CreateButtons - 0x0042aba0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Creates the lobby's 12 bottom-bar buttons (exit/buddy/ranking/avatar/create/join/viewall/wait/prev/next/friend/directgo). See docs/screens/03_game_room_list.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0042aba0(void)
+void State03_GameRoomList_CreateButtons(void)
 
 {
   CreateButtonWidget(&DAT_00e9be90,0,0,1000,s_b_gamelist_exit_0055379c,0x28,0x227,0x6b,0x2d,0,0);

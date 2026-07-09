@@ -248,7 +248,7 @@ switchD_00428058_default:
   if (opcode < 0x2106) {
     if (opcode == 0x2105) {
       if (*payload != 0) {
-        FUN_0042aba0();
+        State03_GameRoomList_CreateButtons();
         *(undefined4 *)((int)this + 0x124) = 0xffffffff;
         return;
       }

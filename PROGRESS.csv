@@ -390,7 +390,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0042a090,394,FUN_0042a090,false,14,4,RAW-src
 0042a220,1107,FUN_0042a220,false,1,7,RAW-src
 0042a680,1299,FUN_0042a680,false,1,8,RAW-src
-0042aba0,508,FUN_0042aba0,false,2,2,RAW-src
+0042aba0,508,State03_GameRoomList_CreateButtons,false,2,2,RAW-src
 0042ada0,137,FUN_0042ada0,false,4,0,RAW-src
 0042ae30,118,FUN_0042ae30,false,8,3,RAW-src
 0042aeb0,142,FUN_0042aeb0,false,1,2,RAW-src
