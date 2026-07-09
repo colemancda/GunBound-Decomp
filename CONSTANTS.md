@@ -530,3 +530,43 @@ derivable from the client alone:
 in the data segment) — it's the sound effect played at both endpoints when
 `stage.dat`'s `귀환`/"Return" gimmick swaps two players' positions. See
 FILEFORMATS.md/STRINGS.md for the correction.
+
+## 12. Room settings bitmasks
+
+Two distinct bitmasks describe a room. **Bit *positions* below are confirmed
+from the decompile; where a value's *meaning* is inferred rather than read from
+the binary, it is marked (inferred).**
+
+### 12a. Per-room `info` dword — room-list response (`0x2103`, `+0x44984`)
+
+The `u32` broadcast per room in the bulk room-grid list. Only two fields are
+decoded by the client (`RenderRoomCard` / `FUN_0042a680`); the other bits are
+never read and their meaning is unknown.
+
+| Bits | Field | Values |
+|---|---|---|
+| 16-17 | **game mode** | `0`-`3` (inferred: Solo / Team-Score / Jewel / Tag — one of GunBound's four modes; exact value→name mapping not confirmed from the binary) |
+| 18-19 | **fullness level** | `0`-`3`, drives the population-gauge sprite on the card |
+| 0-15, 20-31 | (not read by this client) | unknown |
+
+The card's mode/map icon is `spriteIndex = ((info >> 16) & 3) * 11 + mapByte`,
+where `mapByte` is the separate per-room map field (`+0x4497c`, up to 11 maps).
+
+### 12b. Room-options dword — host config (Ready Room, `0x3101`)
+
+Set by the host and sent via opcode `0x3101` (read from the state object at
+`this+0x26c`, packed with `QueueOutgoingPacketField`). Confirmed radio-group
+bit ranges; **which group is turn-time vs. game-type vs. item/tank limit is NOT
+decoded** (needs the room-config panel's localized strings, which this project
+can't read — only the numeric message IDs).
+
+| Bits | Mask | Control group | Dispatcher cases (`State09_ReadyRoom_OnCommand`) |
+|---|---|---|---|
+| 0-3 | `0x0000000f` | group A (inferred: a 3-value radio) | `0x28`-`0x2a` |
+| 8-11 | `0x00000f00` | group B (inferred: a 4-value radio) | `0x1e`-`0x21` |
+| 12-13 | `0x00003000` | group C (2-value radio) | `0x32`-`0x35` |
+| 14-15 | `0x0000c000` | group D (2-value radio; `0x3c` also commits) | `0x3c`-`0x3e` |
+| ~18-23 | `0x00fc0000` | group E | `0xb`-`0xd` |
+
+Separately, opcode `0x3103` sets **room player capacity** (a byte = 4 / 6 / 8,
+not part of this dword). See [docs/screens/09_ready_room.md](docs/screens/09_ready_room.md).
