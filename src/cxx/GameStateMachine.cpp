@@ -35,6 +35,46 @@ void *FindPreloadedTextureByName(const char *name);
 void FUN_00461c60(const char *cursorName);/* select the named cursor */
 void FUN_005099b0(void);
 void FUN_004f0320(void);
+int __stdcall LoadSpriteSet(void *container, int key); /* .img name in EAX, .mp3 in EDI */
+extern unsigned char DAT_00ea0e18;
+/* the three out-of-line state constructors (Ghidra-flattened
+ * __thiscall: storage in as first arg, object out) */
+void *FUN_00443c20(void *storage);  /* CState07AvatarStore ctor */
+void *FUN_004d3770(void *storage);  /* CState09ReadyRoom ctor */
+void *FUN_004b3f90(void *storage);  /* CState11InBattle ctor */
+}
+
+/* The state-construction section of InitGame (0x40eaa0, interior) as
+ * its own function: build all sixteen state objects - slots 0/15 are
+ * plain base CGameState instances (vtable 0x553fb0, the null-object
+ * pattern), the simple states are direct news whose inline field
+ * inits live in the C++ default ctors, and the three big states go
+ * through their out-of-line constructors - then preload the shared UI
+ * sprite sets every screen's labels reference (button faces 500-800+,
+ * the 0x259/0x25a scrollbar arrows, the 0x2bd-0x2bf buddy buttons,
+ * the 0x2c6-0x2cb chat-window set...). Kept in InitGame's exact
+ * order; slots 4, 8 and 12-14 are never constructed. */
+void ConstructGameStates()
+{
+    g_gameStateVTableArray[0] = new CGameState();
+    g_gameStateVTableArray[1] = new CState01Title();
+    g_gameStateVTableArray[2] = new CState02ServerSelect();
+    g_gameStateVTableArray[3] = new CState03GameRoomList();
+    g_gameStateVTableArray[5] = new CState05Logo1();
+    g_gameStateVTableArray[6] = new CState06Logo2();
+    g_gameStateVTableArray[7] = (CGameState *)FUN_00443c20(operator new(0x34818));
+    g_gameStateVTableArray[9] = (CGameState *)FUN_004d3770(operator new(0x78c));
+    g_gameStateVTableArray[10] = new CState10Loading();
+    g_gameStateVTableArray[11] = (CGameState *)FUN_004b3f90(operator new(0x2408));
+    g_gameStateVTableArray[15] = new CGameState();
+    static const int kSharedSpriteSets[] = {
+        500, 600, 0x259, 0x25a, 0x262, 0x263, 0x264, 700,
+        0x2bd, 0x2be, 0x2bf, 0x2c6, 0x2c7, 0x2c8, 0x2c9, 0x2ca, 0x2cb,
+        800, 0x321, 0x322, 0x323, 900, 0x385, 0x38e, 0x398, 0,
+    };
+    for (int i = 0; i < (int)(sizeof(kSharedSpriteSets) / sizeof(int)); ++i) {
+        LoadSpriteSet(&DAT_00ea0e18, kSharedSpriteSets[i]);
+    }
 }
 
 /* 0x4122f0. Guarded transition: fire the old state's exit hook, tear

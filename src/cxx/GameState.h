@@ -70,12 +70,23 @@ public:
 
 class CState02ServerSelect : public CGameState {/* size 0x6c; ProcessPacket 0x4e02b0 */
 public:
-    u8 m_raw[0x6c - 4];                         /* field map not yet reconstructed */
+    CState02ServerSelect() : m_unk68(-1) {}     /* the only init InitGame does inline */
+
+    u8  m_raw[0x68 - 4];                        /* field map not yet reconstructed */
+    int m_unk68;                                /* +0x68: starts -1 (selection index?) */
 };
 
-class CState03GameRoomList : public CGameState {/* size 0x294; ProcessPacket 0x426ad0 */
+class CState03GameRoomList : public CGameState {/* size 0x294; ProcessPacket 0x426ad0.
+                                                 * The Ghidra project names its vtable
+                                                 * vtable_State3_NetworkSession. */
 public:
-    u8 m_raw[0x294 - 4];                        /* field map not yet reconstructed */
+    CState03GameRoomList() : m_unk11c(0), m_unk288(1) {} /* InitGame's inline inits */
+
+    u8  m_rawA[0x11c - 4];                      /* field map not yet reconstructed */
+    int m_unk11c;                               /* +0x11c: starts 0 */
+    u8  m_rawB[0x288 - 0x120];                  /* +0x120 */
+    u8  m_unk288;                               /* +0x288: starts 1 */
+    u8  m_rawC[0x294 - 0x289];                  /* +0x289 */
 };
 
 class CState05Logo1 : public CGameState {       /* size 8 */
