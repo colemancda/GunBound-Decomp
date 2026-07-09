@@ -331,27 +331,43 @@ item/inventory-adjacent record insert — the helper function names weren't
 resolved to a clear semantic, only the lookup-then-insert-on-miss pattern is
 confirmed.
 
-#### Opcode `0x2103` — Room player list update (bulk)
+#### Opcode `0x2103` — Bulk room-grid list (corrected)
 
-**Direction**: incoming.
+**Direction**: incoming — the server's response to the outgoing `0x2100`/
+`0x2101` list request.
 
-**Payload**: `payload[0]` (a `byte`), the number of players in the room.
-Followed by that many per-player entries, each containing a name string and
-flags/stats fields.
+**Correction:** an earlier draft called this the "room player list (who's in a
+room)." Tracing the `payload[0] == 0` branch against the fields `RenderRoomCard`
+actually reads shows it's the **room-browser grid** — the list of *rooms* (up to
+6, the 2×3 grid), not players in one room. Every field it writes is indexed by
+**room slot**, not player slot, and they're exactly the ones `RenderRoomCard`
+blits per card. The in-room player roster is a separate concern (`0x2105` and
+the Ready Room's own state).
 
-**Behavior**: populates a per-slot array up to `payload[0]` entries. This is
-the **bulk** version of a player-record update — six related fields
-(display buffer, and five smaller stat fields) all get written for every
-slot in one pass. The exact same six fields are individually update-able one
-field at a time via opcodes `0x21f2` through `0x21f7` (below) — `0x2103` is
-the "sync everything for the whole room" variant, used e.g. right after
-joining a room, while the `0x21fX` family are incremental single-field
-updates sent as things change during normal room membership.
+**Payload (`payload[0] == 0` — the bulk grid fill):**
+```
+u8   mode           (payload[1]) -> +0x44648  (6 == "full list" mode)
+repeat per room slot (until an entry has nameLen 0):
+  u16  roomNumber    -> +0x44664 + slot*4
+  u8   nameLen
+  char name[nameLen] -> +0x4469a + slot area  (room title, clamped to 30 bytes)
+  u8   map           -> +0x4497c + slot        (mode/map icon)
+  u32  info          -> +0x44984 + slot*4      (bits 18-19 = fullness gauge)
+  u8   flagA         -> +0x4499c + slot        (small icon A)
+  u8   flagB         -> +0x449a2 + slot        (small icon B)
+  u8   status        -> +0x449a8 + slot        (status icon 7/8/9)
+  u8   lock          -> +0x449ae + slot        (private/password padlock)
+```
+(All offsets are off `g_clientContext`.) The per-slot occupied flag is
+`+0x4464c + slot*4` (set to 1 for a filled entry); the six grid slots are
+zeroed before the fill. See
+[docs/screens/03_game_room_list.md](docs/screens/03_game_room_list.md) for how
+`RenderRoomCard` draws each field.
 
-**Significance**: this is the fundamental **room player list** — what
-populates the UI list of who's currently in the game room, with their
-names/stats/ready-status. See "Confirmed recurring structures" below for the
-exact field offsets, which are shared with the `0x21fX` family.
+**The `0x21f3`–`0x21f7` family are the incremental single-slot updates** to
+these same per-room grid fields (map / info / flagA / flagB / status), sent as
+individual rooms change without re-pushing the whole grid — the "sync one field
+of one room" counterpart to this bulk fill.
 
 #### Opcode `0x2104` — Join room request (outgoing) — client-side room selection, fully traced
 
@@ -2299,7 +2315,7 @@ this document:
 | Per-player packet-checksum-state | `0x224` (548 bytes) | **Resolved and reclassified this pass** — the array at `playerId * 0x224 + 0xebef4` (touched by `0x3020`'s disconnect handler) is **not** a gameplay struct at all: traced every call site touching this array across the binary (34 total, via a whole-binary immediate-operand scan for `0xebef4`) and found the computed pointer is passed directly into `PeekPacketChecksumState`/`FUN_0040a4d0` (a thin critical-section wrapper around the same function). This is an array of **per-player instances of the packet-checksum-state object** (see the "Packet-checksum utility family" section in [ARCHITECTURE.md](ARCHITECTURE.md)), not a `PlayerGameSlot`. |
 | Player game slot (unresolved) | `0x224` (548 bytes) | Separately seen in a 20-element accumulation loop in the room-list's stat-summing (unlabeled) opcode, and the Avatar Store's 8-element per-avatar array (`FUN_00443c20`'s constructor) — these may or may not be the same struct as the checksum-state one above (same size could be coincidence, or the checksum state could be embedded as a sub-object within a larger per-player struct in these other contexts). Not resolved this pass. Action `0x8408` does **not** populate this — that action writes into four separate 4-byte-per-slot `uint` arrays (`+0x228`/`+0x2a8`/`+0x328`/`+0x3a8`, indexed by active-slot position), a completely different structure (see that action's writeup above). |
 | Room player display slot | `0x80` (128 bytes) | Room-list opcodes `0x2105`/`0x21f0`/`0x21f2` all write into this exact buffer, indexed as `base + slot*0x80`. |
-| Room player stat fields (per-slot, individually syncable) | Six fields: 1 byte / 1 byte / 4 bytes / 1 byte / 1 byte / 1 byte, at fixed offsets `+0x4497c` / `+0x4499c` / `+0x44984` / `+0x449a2` / `+0x449a8` / `+0x449ae` from a per-room base | Opcode `0x2103` (bulk update, all six fields at once) and opcodes `0x21f3`-`0x21f7` (individual per-field updates, one opcode per field — a sixth opcode for the `+0x449ae` field wasn't found, suggesting it may only be bulk-updatable) populate this exact same field set. |
+| Per-**room** grid fields (per room slot, individually syncable) — *corrected from "player stat fields"; they're indexed by room slot and drawn by `RenderRoomCard`* | Six fields: `map` (1B, `+0x4497c`) / `flagA` (1B, `+0x4499c`) / `info` (4B, `+0x44984`, bits 18-19 = fullness) / `flagB` (1B, `+0x449a2`) / `status` (1B, `+0x449a8`) / `lock` (1B, `+0x449ae`), from the room-slot base | Opcode `0x2103` (`payload[0]==0`) bulk-fills all six for every room slot; opcodes `0x21f3`-`0x21f7` update them one field/room at a time (no `0x21fX` for `+0x449ae`/lock, so lock is bulk-only). |
 | In-Battle turn-setup array | 8 shorts (16 bytes) at offset `+0x2302` | Channel 2 actions `0xc301` (initial write, paired with the turn-timer field) and `0xc308` (mid-turn update, standalone) both target this array. |
 | Inventory item | `0x9c` (156 bytes) | Avatar Store opcode `0x6002` — four `uint` id fields, a `time_t` expiration timestamp, and a variable-length trailing blob. |
 | Player name/label buffer | `0x1120` (4,384 bytes) | Channel 2's In-Battle movement action (`0xc304`) looks up per-player entries in an array with this stride — a second, much larger parallel array distinct from the 548-byte player-game-slot array. |
