@@ -310,9 +310,9 @@ void FUN_0042de70(undefined1 param_1,int param_2,int param_3,int param_4,int par
     piVar5[0xe25] = 8000;
     iVar6 = FindPreloadedTextureByName(s_bulletevent1p_00553d50);
     piVar5[7] = iVar6;
-    piVar5[0xe26] = s_flameevent1_00553e2c._0_4_;
-    piVar5[0xe27] = s_flameevent1_00553e2c._4_4_;
-    piVar5[0xe28] = s_flameevent1_00553e2c._8_4_;
+    piVar5[0xe26] = SUBFIELD(s_flameevent1_00553e2c,0,undefined4);
+    piVar5[0xe27] = SUBFIELD(s_flameevent1_00553e2c,4,undefined4);
+    piVar5[0xe28] = SUBFIELD(s_flameevent1_00553e2c,8,undefined4);
   }
   piVar5 = local_8ac;
   (**(code **)(*local_8ac + 4))(s_normal_00552230);
@@ -482,7 +482,7 @@ LAB_0042ec76:
     fStack_8a4 = (float)((uint)fStack_8a4 & 0xffffff00);
   }
   else {
-    fStack_8a4 = (float)CONCAT31(fStack_8a4._1_3_,1);
+    fStack_8a4 = (float)CONCAT31(SUBFIELD(fStack_8a4,1,undefined3),1);
     if (0x6e < param_6) goto LAB_0042ec76;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -605,7 +605,7 @@ LAB_0042f012:
   iVar6 = PeekPacketChecksumState();
   unaff_EBP = CONCAT13(iVar6 == 0,(int3)unaff_EBP);
   (*pcVar13)(&DAT_005a9068);
-  if (local_8b4._3_1_ != '\0') {
+  if (SUBFIELD(local_8b4,3,undefined1) != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = _rand();
     *(byte *)(piVar5 + 0xfe8) = (byte)iVar6;
