@@ -10,6 +10,9 @@
 void FUN_004388e0(void)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xfffff740;
   char cVar1;
   int *piVar2;
   int iVar3;
@@ -87,9 +90,9 @@ void FUN_004388e0(void)
     piVar2[0xe25] = 8000;
     iVar3 = FindPreloadedTextureByName();
     piVar2[7] = iVar3;
-    piVar2[0xe26] = s_flameevent1_00553e2c._0_4_;
-    piVar2[0xe27] = s_flameevent1_00553e2c._4_4_;
-    piVar2[0xe28] = s_flameevent1_00553e2c._8_4_;
+    piVar2[0xe26] = SUBFIELD(s_flameevent1_00553e2c,0,undefined4);
+    piVar2[0xe27] = SUBFIELD(s_flameevent1_00553e2c,4,undefined4);
+    piVar2[0xe28] = SUBFIELD(s_flameevent1_00553e2c,8,undefined4);
   }
   pcVar13 = s_normal_00552230;
   (**(code **)(*piVar2 + 4))();
@@ -210,13 +213,13 @@ void FUN_004388e0(void)
     pcVar9 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_0040a8c0();
-    puStack_8._0_1_ = 5;
+    SUBFIELD(puStack_8,0,undefined1) = 5;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     PeekPacketChecksumState();
     EncodeOutgoingPacketField();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,4);
+    puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),4);
     if (iStack_88c != 0) {
       FUN_0040a240();
       FUN_0040b540();
@@ -235,13 +238,13 @@ void FUN_004388e0(void)
     (*pcVar9)();
     piStack_8d0 = (int *)0x4390ad;
     FUN_0040a8c0();
-    uStack_c = CONCAT31(uStack_c._1_3_,7);
+    uStack_c = CONCAT31(SUBFIELD(uStack_c,1,undefined3),7);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     PeekPacketChecksumState();
     EncodeOutgoingPacketField();
     (*pcVar9)();
-    uStack_10 = CONCAT31(uStack_10._1_3_,6);
+    uStack_10 = CONCAT31(SUBFIELD(uStack_10,1,undefined3),6);
     if (iStack_670 != 0) {
       FUN_0040a240();
       FUN_0040b540();
@@ -273,7 +276,7 @@ void FUN_004388e0(void)
     EncodeOutgoingPacketField();
     piStack_8d0 = (int *)0x4391ee;
     (*pcVar9)();
-    puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,8);
+    puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),8);
     if (iStack_668 != 0) {
       FUN_0040a240();
       FUN_0040b540();
@@ -315,7 +318,7 @@ void FUN_004388e0(void)
     puStack_8d4 = &DAT_005a9068;
     puStack_8d8 = (undefined1 *)0x43932d;
     (*pcVar9)();
-    uStack_20 = CONCAT31(uStack_20._1_3_,10);
+    uStack_20 = CONCAT31(SUBFIELD(uStack_20,1,undefined3),10);
     if (iStack_680 != 0) {
       puStack_8d8 = (undefined1 *)0x43934c;
       FUN_0040a240();
@@ -348,7 +351,7 @@ void FUN_004388e0(void)
     EncodeOutgoingPacketField(uVar5);
     puVar12 = &DAT_005a9068;
     (*pcVar9)(&DAT_005a9068);
-    uStack_38 = CONCAT31(uStack_38._1_3_,0xc);
+    uStack_38 = CONCAT31(SUBFIELD(uStack_38,1,undefined3),0xc);
     if (iStack_698 != 0) {
       FUN_0040a240();
       FUN_0040b540(&puStack_8d8);
@@ -374,7 +377,7 @@ void FUN_004388e0(void)
     uVar5 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(uVar5);
     (*pcVar9)(&DAT_005a9068);
-    puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,0xe);
+    puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xe);
     if (iStack_444 != 0) {
       FUN_0040a240();
       FUN_0040b540();
