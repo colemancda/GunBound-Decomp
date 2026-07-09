@@ -52,9 +52,9 @@ void FUN_00508910(void)
       FUN_0050e670(puVar3);
       FUN_0050efa0(unaff_EDI);
       (**(code **)*puVar3)(1);
-      uVar4 = FUN_00507ee0(0,0x5dd,0xd5,0x76,0x52,0x22);
+      uVar4 = CreateLabelWidget(0,0x5dd,0xd5,0x76,0x52,0x22);
       FUN_0050e670(uVar4);
-      uVar4 = FUN_00507ee0(1,0x5dc,0x80,0x76,0x52,0x22);
+      uVar4 = CreateLabelWidget(1,0x5dc,0x80,0x76,0x52,0x22);
       FUN_0050e670(uVar4);
       FUN_0050eea0(puVar5);
       *unaff_FS_OFFSET = puVar2;

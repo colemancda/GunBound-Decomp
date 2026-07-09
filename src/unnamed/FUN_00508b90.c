@@ -52,9 +52,9 @@ void FUN_00508b90(void)
       FUN_0050e670(puVar3);
       FUN_0050efa0(unaff_EDI);
       (**(code **)*puVar3)(1);
-      uVar4 = FUN_00507ee0(0,0x2c8,0x42,0x6b,0x4a,0x1a);
+      uVar4 = CreateLabelWidget(0,0x2c8,0x42,0x6b,0x4a,0x1a);
       FUN_0050e670(uVar4);
-      uVar4 = FUN_00507ee0(1,0x2c9,0x97,0x6b,0x4a,0x1a);
+      uVar4 = CreateLabelWidget(1,0x2c9,0x97,0x6b,0x4a,0x1a);
       FUN_0050e670(uVar4);
       uVar6 = 0xffff;
       uVar4 = FUN_0043dc70(&DAT_00796eec,4000);

@@ -53,9 +53,9 @@ void FUN_00509780(void)
       uVar3 = FUN_0043dc70(&DAT_00796eec,0x15f);
       uVar3 = FUN_00507ff0(0x14,0x32,0xce,0x8a,uVar3,uVar4);
       FUN_0050e670(uVar3);
-      uVar3 = FUN_00507ee0(0,0x640,0x48,0xd0,0x51,0x21);
+      uVar3 = CreateLabelWidget(0,0x640,0x48,0xd0,0x51,0x21);
       FUN_0050e670(uVar3);
-      uVar3 = FUN_00507ee0(1,0x641,0x9d,0xd0,0x51,0x21);
+      uVar3 = CreateLabelWidget(1,0x641,0x9d,0xd0,0x51,0x21);
       FUN_0050e670(uVar3);
       FUN_0050eea0(puVar2);
       break;

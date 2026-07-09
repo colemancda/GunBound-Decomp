@@ -73,7 +73,7 @@ void FUN_00508190(int param_1,undefined4 param_2,undefined4 param_3)
   piVar1 = puVar10 + 3;
   param_1 = 0xad;
   do {
-    iVar9 = FUN_00507ee0(iVar11,iVar11 + 0x518,param_1,8,0x1b,0x1b);
+    iVar9 = CreateLabelWidget(iVar11,iVar11 + 0x518,param_1,8,0x1b,0x1b);
     *(bool *)(iVar9 + 0x3a) = iVar11 == 3;
     uVar4 = puVar10[4];
     if (((uint)puVar10[5] <= uVar4) && (cVar5 = FUN_0050ed30(), cVar5 == '\0')) goto LAB_0050874e;

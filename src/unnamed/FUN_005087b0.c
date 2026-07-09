@@ -54,9 +54,9 @@ void __fastcall FUN_005087b0(undefined4 param_1)
       (**(code **)*puVar3)(1);
       uVar4 = FUN_00507f60(1,99,0x54,0xb4,0xc,4);
       FUN_0050e670(uVar4);
-      uVar4 = FUN_00507ee0(0,0x579,0xd5,0x76,0x52,0x22);
+      uVar4 = CreateLabelWidget(0,0x579,0xd5,0x76,0x52,0x22);
       FUN_0050e670(uVar4);
-      uVar4 = FUN_00507ee0(1,0x578,0x80,0x76,0x52,0x22);
+      uVar4 = CreateLabelWidget(1,0x578,0x80,0x76,0x52,0x22);
       FUN_0050e670(uVar4);
       FUN_0050eea0(puVar5);
       return;

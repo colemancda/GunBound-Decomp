@@ -41,7 +41,7 @@ void FUN_0050ce60(int param_1)
       }
       iVar2 = FUN_0050e620();
       if (iVar2 == -1) {
-        uVar4 = FUN_00507ee0(0,0x4b0,0xe,0x1fc,0x40,0x17);
+        uVar4 = CreateLabelWidget(0,0x4b0,0xe,0x1fc,0x40,0x17);
         FUN_0050e670(uVar4);
       }
     }
@@ -56,7 +56,7 @@ void FUN_0050ce60(int param_1)
       }
       iVar2 = FUN_0050e620();
       if (iVar2 == -1) {
-        uVar4 = FUN_00507ee0(3,0x4b3,0xe,0x1fc,0x40,0x17);
+        uVar4 = CreateLabelWidget(3,0x4b3,0xe,0x1fc,0x40,0x17);
         FUN_0050e670(uVar4);
         return;
       }

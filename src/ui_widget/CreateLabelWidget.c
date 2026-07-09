@@ -1,14 +1,13 @@
-/* FUN_00507ee0 - 0x00507ee0 in the original binary.
+/* CreateLabelWidget - 0x00507ee0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Constructs a 0x40-byte label/small-button widget (vtable 0x557da0). Args (id, spriteOrMsgId, x, y, w, h); on click its mouse-down fires the parent's OnCommand(0, id, 0). Part of the reusable container/panel widget hierarchy - see docs/widgets.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00507ee0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
+void CreateLabelWidget(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
                  undefined4 param_5,undefined4 param_6)
 
 {
