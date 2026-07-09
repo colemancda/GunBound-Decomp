@@ -77,6 +77,16 @@ AvatarStore (0x34818):
   deserves its own header and is shared by many systems).
 - Promote each state's `OnEnter`/`OnExit`/`OnCommand`/`ProcessPacket`/
   `ProcessBattleAction` (all named ports for 01/02/03/05/06/07/09/10/11).
+  **Ordering caveat (learned on State02):** the big `ProcessPacket`
+  handlers (State02's is 575 lines) touch several *other* `g_clientContext`
+  sub-arenas beyond the one documented for that screen — State02's alone
+  reaches `+0x23330` (peer-address block), `+0x3ae2c` and `+0xebee4`
+  (checksum-state region), none of which are typed yet. Transcribing those
+  as raw `*(u32*)(ctx+N)` pointer math gains nothing over the existing C
+  raw port and risks transcription error, so promote a screen's
+  `ProcessPacket` **after** its `ClientContext.h` slices exist, not before.
+  The reconstructable-today part of State02's is the 0x1102 SoA populator
+  (now readable via `ServerListSoA`); it lands with the arena work.
 - The 15 not-yet-dumped state vtables: dump each `vtable_StateNN_*` in Ghidra
   the way State11 was done, so slots past 9 get declared before their
   bodies are promoted (Ready Room is known to have 20 slots).
