@@ -209,6 +209,36 @@ CAvatarStorePanel * BuildAvatarStorePanel(int total)
     return p;
 }
 
+/* 0x509110 - BuildBuddyPanel (docs/widgets.md: the shared buddy list).
+ * SINGLETON keyed 20000: if already registered, just set the existing
+ * panel's +0x1d reshow flag. Otherwise: (568,11) 211x267 with the
+ * close-X (sprite 0x2bf) / Add (0x2bd) / Del (0x2be) labels along the
+ * top and the page-7 scrollbar; front-inserted like the dialogs. */
+void BuildBuddyPanel()
+{
+    for (CPanelListNode *n = PanelListHead(); n != 0; n = n->m_next) {
+        CPanel *q = n->m_panel;
+        if (q->m_typeId == 0 && q->m_id == 20000) {
+            q->m_unk1d = 1;
+            return;
+        }
+    }
+    CBuddyPanel *p = new CBuddyPanel();
+    p->m_id = 20000;
+    p->m_unk4c = 0;
+    p->m_unk44 = 700;
+    p->m_unk48 = 0;
+    p->m_x = 0x238;
+    p->m_y = 0xb;
+    p->m_width = 0xd3;
+    p->m_height = 0x10b;
+    p->AddChild(CreateLabelWidget(0, 0x2bf, 0xb4, 7, 0x16, 0x14));
+    p->AddChild(CreateLabelWidget(1, 0x2bd, 0x5e, 7, 0x27, 0x14));
+    p->AddChild(CreateLabelWidget(2, 0x2be, 0x89, 7, 0x27, 0x14));
+    p->AddChild(CreateScrollListWidget(0, 0, 0xb7, 0x49, 0x12, 0x98, 7));
+    FUN_0050eea0(p);
+}
+
 /* 0x5087b0 - BuildEnterRoomNumberDialog (docs/widgets.md; __fastcall).
  * SINGLETON: if a (typeId 0, key 1) panel is already registered,
  * bring it to front and return. Otherwise: key 1 at (243,202) 314x160,

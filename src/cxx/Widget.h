@@ -92,7 +92,9 @@ public:
     u8       m_enabled;      /* +0x1c: set recursively by SetEnabled (0x50e7d0),
                               * default 1; gates click reporting in
                               * CLabel::OnMouseDown alongside +0x38 */
-    u8       m_unk1d;        /* +0x1d */
+    u8       m_unk1d;        /* +0x1d: reshow/attention request - re-opening
+                              * the buddy-panel singleton sets it on the
+                              * existing panel (0x509110) */
     u8       m_hidden;       /* +0x1e: short-circuits HitTest and Draw */
     u8       m_unk1f;        /* +0x1f */
     int      m_typeId;       /* +0x20: widget class/type id - focus
@@ -295,14 +297,20 @@ public:
     CEnterRoomNumberDialog() {}                /* base defaults only */
 };
 
+/* The shared buddy list (lobby / ready room / WndProc). A SINGLETON
+ * keyed 20000: re-opening sets the existing panel's +0x1d flag
+ * instead of rebuilding or refocusing. Close-X / Add / Del labels +
+ * a page-7 scrollbar. */
+class CBuddyPanel : public CPanel {            /* vtable 0x557be4; builder 0x509110 */
+public:
+    CBuddyPanel() { m_unk90 = -1; }            /* base defaults + the +0x90 slot */
+    int m_unk90;                               /* +0x90 */
+};
+
 /* The remaining confirmed concrete panels (identity + vtable confirmed;
  * field maps not yet reconstructed, so no size asserts yet):
- *   CBuddyPanel            vtable 0x557be4  BuildBuddyPanel 0x509110 (shared; SINGLETON key
- *                                           20000 - the builder walks g_uiPanelManager's list
- *                                           first and returns the existing panel; size 0x94)
  *   CChatLogPanel          vtable 0x557b94  BuildChatLogPanel (~0x1050 bytes)
  *   CCreateRoomDialog      vtable 0x557c34  BuildCreateRoomDialog (state 3) */
-class CBuddyPanel            : public CPanel {};
 class CChatLogPanel          : public CPanel {};
 class CCreateRoomDialog      : public CPanel {};
 
