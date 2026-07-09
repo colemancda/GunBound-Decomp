@@ -47,11 +47,11 @@ uint FUN_00425ac0(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
     uVar3 = FUN_0040a6e0(uVar1 + 0xb30,local_230,10);
     local_4 = 1;
     FUN_0040a6e0(uVar3,local_678,param_3);
-    local_4._0_1_ = 2;
+    SUBFIELD(local_4,0,undefined1) = 2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_4 = CONCAT31(local_4._1_3_,1);
+    local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
     if (local_664 != 0) {
       FUN_0040a240();
       FUN_0040b540(local_680);
