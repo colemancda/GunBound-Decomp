@@ -39,11 +39,11 @@ void FUN_004d2680(void)
   uVar4 = FUN_0040a7d0(unaff_ESI + 0x84,local_230,0x343fd);
   local_4 = 0;
   FUN_0040a5f0(uVar4,local_454,0x269ec3);
-  local_4._0_1_ = 1;
+  SUBFIELD(local_4,0,undefined1) = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   *(undefined2 *)(unaff_ESI + 0x4d2) = uVar2;
   if (local_440 != 0) {
     FUN_0040a240();
