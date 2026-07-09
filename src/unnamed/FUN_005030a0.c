@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_005030a0(void)
+undefined4 FUN_005030a0(void)
 
 {
   undefined4 *unaff_FS_OFFSET;

@@ -10,6 +10,9 @@
 void FUN_00503130(int param_1,int param_2,uint param_3)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xffffffd0;
   int *piVar1;
   uint uVar2;
   int iVar3;
@@ -80,7 +83,7 @@ void FUN_00503130(int param_1,int param_2,uint param_3)
       }
       local_18 = local_18 << 3;
       pvVar4 = operator_new(local_18);
-      local_8 = CONCAT31(local_8._1_3_,1);
+      local_8 = CONCAT31(SUBFIELD(local_8,1,undefined3),1);
       iVar3 = FUN_005045d0(param_2,pvVar4,param_2);
       FUN_00504190(iVar3,param_2);
       FUN_005045d0(*(undefined4 *)(param_1 + 8),iVar3 + param_3 * 8,param_2);
@@ -104,7 +107,7 @@ void FUN_00503130(int param_1,int param_2,uint param_3)
       local_18 = param_3 * 8;
       if ((uint)(local_1c - param_2 >> 3) < param_3) {
         FUN_005045d0(local_1c,local_18 + param_2,param_2);
-        local_8 = CONCAT31(local_8._1_3_,3);
+        local_8 = CONCAT31(SUBFIELD(local_8,1,undefined3),3);
         FUN_00504190(*(undefined4 *)(param_1 + 8),param_2);
         local_8 = 0;
         iVar3 = *(int *)(param_1 + 8) + local_18;
