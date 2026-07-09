@@ -485,6 +485,15 @@ int CWorldListPanel::RowHitTest(int x, int y)
 }
 
 extern "C" {
+extern unsigned int DAT_007934f0;   /* per-connection context base (channel-1 send buffer inside:
+                                     * u16 opcode at +0x4d4, write cursor at +0x44d0, payload
+                                     * bytes from +0x4d0+cursor) */
+extern unsigned int DAT_00e54a9c;   /* buddy/selector record count guard */
+extern unsigned char DAT_00e54aa0;  /* selector record storage */
+void FUN_004d2530(void *record);    /* append a selector record to the pending packet */
+void FUN_004d2680(void);            /* flush/send the pending channel-1 packet */
+void FUN_00402060(void);            /* buddy-list refresh */
+extern const char s_disable_00551e68[];
 extern unsigned int DAT_0056d118;
 extern unsigned int DAT_00e9be94;   /* flat-ButtonWidget registry header */
 extern const char s_active_00551e58[];
@@ -548,6 +557,134 @@ bool CWorldListPanel::OnMouseDown(int x, int y)
         FUN_00406300(st->m_highlightedSlot != -1);
     }
     return consumed;
+}
+
+/* Set the flat-registry connect button (bucket entries keyed 0 and 1
+ * in DAT_00e9be94) to a named state via its vtable slot 1 - the shared
+ * shape all the world-list handlers repeat; kept literal pending the
+ * flat-ButtonWidget reconstruction (PLAN.md Phase 1.6). */
+static void SetRegistryButtonState(const char *stateName)
+{
+    int *rec;
+    if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0 &&
+        (rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), rec[2] == 0)) {
+        ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(stateName);
+    }
+    if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
+        rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10);
+        unsigned int k = (unsigned int)rec[2];
+        while (k < 2) {
+            if (k == 1) {
+                ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(stateName);
+                break;
+            }
+            rec = (int *)rec[4];
+            k = (unsigned int)rec[2];
+        }
+    }
+}
+
+/* WorldListPanel_OnCommand (0x50d810) - the tab switcher. Click (evt
+ * 0) on id 0 = View All: reset the view mode/scroll/error array,
+ * build and send the 0x1100 server-list page request ({u8 0, u8 0,
+ * u16 0} = page 0), clear the highlight, disable the connect button
+ * and mark tab 0 selected. Click on id 1 = Friends: view mode 2,
+ * buddy refresh; with no selector records the SoA count is cleared
+ * and the connect button reflects the local player record
+ * (active/ready), otherwise a 0x1101 paged-fetch goes out with a
+ * selector record appended and the button is disabled; tab 1 becomes
+ * the selected one. EVERYTHING then falls through to the base
+ * OnCommand default (focus nav + parent forward), exactly as the
+ * original tail-calls 0x50eb10. */
+void CWorldListPanel::OnCommand(int evt, int id, int arg)
+{
+    unsigned char *ctx = (unsigned char *)DAT_007934f0;
+    CState02ServerSelect *st = (CState02ServerSelect *)g_gameStateVTableArray[2];
+    if (evt == 0 && id == 0) {
+        st->m_scrollA = 0;
+        st->m_viewMode = 0;
+        for (int i = 0; i < 16; ++i) {
+            st->m_slotError[i] = 0;
+        }
+        *(int *)(ctx + 0x44d0) = 6;
+        *(unsigned short *)(ctx + 0x4d4) = 0x1100;
+        *(unsigned char *)(ctx + 0x4d6) = 0;
+        int cur = *(int *)(ctx + 0x44d0);
+        *(int *)(ctx + 0x44d0) = cur + 1;
+        *(unsigned char *)(ctx + 0x4d1 + cur) = 0;
+        *(int *)(ctx + 0x44d0) += 1;
+        st->m_scrollA = 0;
+        st->m_scrollOffset = 0;
+        *(unsigned short *)(ctx + 0x4d0 + *(int *)(ctx + 0x44d0)) = 0;
+        *(int *)(ctx + 0x44d0) += 2;
+        FUN_004d2680();
+        st->m_highlightedSlot = -1;
+        DAT_0056d118 = 0;
+        SetRegistryButtonState(s_disable_00551e68);
+        FUN_00406300(0);
+        int t = FindChildIndex(1, 0);
+        if (t != m_children.GetCount()) {
+            ((CLabel *)m_children[(unsigned int)t])->m_tabSelected = 1;
+        }
+        t = FindChildIndex(1, 1);
+        if (t != m_children.GetCount()) {
+            ((CLabel *)m_children[(unsigned int)t])->m_tabSelected = 0;
+        }
+    } else if (evt == 0 && id == 1) {
+        st->m_viewMode = 2;
+        st->m_scrollA = 0;
+        FUN_00402060();
+        st->m_highlightedSlot = -1;
+        bool enable;
+        if (DAT_00e54a9c == 0) {
+            *(unsigned char *)(g_clientContext + 0x3f808) = 0;
+            st->m_unk1c = (int)(st->m_unk1c & ~0xff); /* byte +0x1c cleared */
+            DAT_0056d118 = 0xffffffff;
+            int *rec;
+            enable = st->m_highlightedSlot != -1;
+            if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0 &&
+                (rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), rec[2] == 0) &&
+                (rec[9] == 3 || rec[9] == -1)) {
+                ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(
+                    (char)rec[0x13] == 1 ? s_active_00551e58 : s_ready_00551e80);
+            }
+            if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
+                rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10);
+                unsigned int k = (unsigned int)rec[2];
+                while (k < 2) {
+                    if (k == 1) {
+                        if (rec[9] == 3 || rec[9] == -1) {
+                            ((void (__cdecl *)(const char *))*(void **)(rec[0] + 4))(
+                                (char)rec[0x13] == 1 ? s_active_00551e58 : s_ready_00551e80);
+                        }
+                        break;
+                    }
+                    rec = (int *)rec[4];
+                    k = (unsigned int)rec[2];
+                }
+            }
+        } else {
+            *(unsigned short *)(ctx + 0x4d4) = 0x1101;
+            *(int *)(ctx + 0x44d0) = 6;
+            st->m_scrollA = 0;
+            st->m_scrollOffset = 0;
+            FUN_004d2530(&DAT_00e54aa0);
+            FUN_004d2680();
+            DAT_0056d118 = 0;
+            SetRegistryButtonState(s_disable_00551e68);
+            enable = false;
+        }
+        FUN_00406300(enable);
+        int t = FindChildIndex(1, 0);
+        if (t != m_children.GetCount()) {
+            ((CLabel *)m_children[(unsigned int)t])->m_tabSelected = 0;
+        }
+        t = FindChildIndex(1, 1);
+        if (t != m_children.GetCount()) {
+            ((CLabel *)m_children[(unsigned int)t])->m_tabSelected = 1;
+        }
+    }
+    CWidget::OnCommand(evt, id, arg);
 }
 
 /* 0x5099d0 - BuildWorldListPanel (docs/screens/02_server_select.md's

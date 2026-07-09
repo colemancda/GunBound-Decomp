@@ -82,7 +82,8 @@ public:
     u8  m_unk07;             /* +0x07 */
     int m_highlightedSlot;   /* +0x08: UI cursor, -1 = none (set from RowHitTest) */
     int m_unk0c;             /* +0x0c */
-    int m_unk10;             /* +0x10 */
+    u8  m_viewMode;          /* +0x10: 0 = all servers, 2 = friends (the world-list tabs) */
+    u8  m_pad11[3];          /* +0x11 */
     int m_scrollA;           /* +0x14: scroll/paging (seeded from a global at OnEnter) */
     int m_scrollOffset;      /* +0x18: current page offset sent in the 0x1100 request */
     int m_unk1c;             /* +0x1c */
