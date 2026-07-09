@@ -81,11 +81,11 @@ this base set — slots 9+ are per-state and must be checked individually.
     battle scene; the HUD/chat overlay still uses the software blitter.
 - **Sprites/textures** come from `.xfs` archives (see [FILEFORMATS.md](../../FILEFORMATS.md)).
   A texture is looked up by name via `FindPreloadedTextureByName` /
-  `FUN_004f30c0` (cache lookup), then blitted. A negative stored frame index
+  `FindSpriteFrame` (cache lookup), then blitted. A negative stored frame index
   (`+0x30` on a widget) is the standard **hidden** sentinel.
 - **Text** is drawn with a bitmap font via `BlitRLESprite`; higher-level text
   is prepped via `FUN_004ed9f0` / `FUN_0041b8c0` (label-text setters) and
-  word-wrapped via `FUN_0041b4b0` (used for server descriptions and dialog
+  word-wrapped via `RenderWrappedText` (used for server descriptions and dialog
   message bodies).
 
 ### The generic UI-widget system
@@ -140,7 +140,7 @@ Three layers (all confirmed — see ARCHITECTURE.md "The generic UI-widget syste
    timing fields; **slot 2** (`0x405e90`) advances animation state via the
    generic sprite-animation ticker `FUN_00450730` (frame timer → frame index
    at `+0x30`); **slot 3** (`0x405ea0`) is the actual draw (reads `+0x30`
-   frame, `+0x38`/`+0x3C` position, blits via `FUN_004f30c0` +
+   frame, `+0x38`/`+0x3C` position, blits via `FindSpriteFrame` +
    `BlitSprite16bpp`/`BlitSpriteClipped`); slot 4 is a no-op `RET`.
    Animation and drawing are cleanly split (slot 2 = advance, slot 3 = draw).
 
@@ -165,11 +165,11 @@ parent panel.
 | Builder | Screen / list |
 |---|---|
 | `BuildWorldListPanel` (`0x5099d0`) | State 2 — server WORLD LIST |
-| `FUN_00509110` | shared **buddy list** (lobby / ready room / WndProc) |
-| `FUN_00509af0`, `FUN_00509d80` | State 3 — lobby panels |
+| `BuildBuddyPanel` | shared **buddy list** (lobby / ready room / WndProc) |
+| `BuildLobbyChatPanel`, `FUN_00509d80` | State 3 — lobby panels |
 | `FUN_005094f0` | State 9 — Ready Room list |
-| `FUN_00509e60` | State 7 — Avatar Store list |
-| `FUN_00509260` | a panel via `FUN_004025e0` |
+| `BuildAvatarStorePanel` | State 7 — Avatar Store list |
+| `BuildChatLogPanel` | a panel via `FUN_004025e0` |
 
 The widget owns only the scrollbar chrome and the scroll *position*; the
 **parent panel owns the list content** and decides what to do on the `0x2000`
@@ -191,24 +191,24 @@ one. Screen docs give offsets relative to `g_clientContext`.
 
 ### Error / message dialog (shared)
 
-Errors surface through a **generic popup**, `FUN_004124a0`, not per-screen code:
+Errors surface through a **generic popup**, `ShowErrorDialog`, not per-screen code:
 - The screen stores an error/message code, then something calls
-  `FUN_004124a0(closeSockets)` with the message index in `EAX`.
-- It looks up a localized message string via `FUN_0043dc70(&DAT_00796eec,
-  code + 0xc7)`, word-wraps it with `FUN_0041b4b0` into buffer `DAT_005b1d70`,
+  `ShowErrorDialog(closeSockets)` with the message index in `EAX`.
+- It looks up a localized message string via `GetLocalizedString(&DAT_00796eec,
+  code + 0xc7)`, word-wraps it with `RenderWrappedText` into buffer `DAT_005b1d70`,
   sets the dialog rect in `_DAT_00e53c24..30` = `{0xf9, 0x229, 0xc1, 0x171}`,
   and creates the shared **`b_error_confirm`** OK button at (0x1c6, 0x14b),
-  size 0x4a×0x1a. `FUN_004ee200()` activates the panel.
+  size 0x4a×0x1a. `ClampCursorToRect()` activates the panel.
 - If `closeSockets != 0` it tears down the game sockets.
 
-**Two display forms.** `FUN_004124a0` is the in-game styled dialog. Separately,
-the incoming-packet pump (`FUN_004d27e0`) shows some server-reported status/
+**Two display forms.** `ShowErrorDialog` is the in-game styled dialog. Separately,
+the incoming-packet pump (`ProcessIncomingPackets`) shows some server-reported status/
 error codes via a **native Win32 `MessageBoxA`** (same localized-string source,
-`FUN_0043dc70`). Which one is used depends on the code and whether a target
+`GetLocalizedString`). Which one is used depends on the code and whether a target
 `HWND` is available.
 
 **Connection errors** don't have their own widget — the async connect result is
 reduced to a flag (`conn+0x84e5`, "connected") by the connection-state poller
-`FUN_004d27e0`, and the owning screen's tick calls `FUN_004124a0` when that flag
+`ProcessIncomingPackets`, and the owning screen's tick calls `ShowErrorDialog` when that flag
 is clear after the attempt finishes. See
 [02_server_select.md](02_server_select.md) "Errors" for the worked example.
