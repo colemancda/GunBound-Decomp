@@ -1219,7 +1219,7 @@ void __thiscall FUN_004ef610();
 void FUN_004ef7e0();
 void FUN_004ef820();
 void FUN_004ef870();
-void FUN_004ef880();
+void AudioStreamThreadProc();
 undefined4 FUN_004ef970();
 void FUN_004f0100();
 void FUN_004f01d0();

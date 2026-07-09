@@ -1,14 +1,13 @@
-/* FUN_004ef880 - 0x004ef880 in the original binary.
+/* AudioStreamThreadProc - 0x004ef880 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * The DirectSound streaming worker-thread body: a double-buffered loop that WaitForMultipleObjects on the sound object's 2 position-notification events (100ms timeout), calling the object's refill method (vtable slot 0, given the event index) to decode+fill the just-played buffer half, plus a periodic tick (slot 1); loops while the running flag (obj+0x10) is set. See ARCHITECTURE.md audio section. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004ef880(void)
+void AudioStreamThreadProc(void)
 
 {
   DWORD DVar1;

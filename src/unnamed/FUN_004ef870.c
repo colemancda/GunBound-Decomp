@@ -11,7 +11,7 @@
 void FUN_004ef870(void)
 
 {
-  FUN_004ef880();
+  AudioStreamThreadProc();
   return;
 }
 
