@@ -320,9 +320,33 @@ public:
     int m_unk98;                               /* +0x98: builder's 3rd argument */
 };
 
-/* The last unreconstructed panel (identity + vtable confirmed):
- *   CChatLogPanel  vtable 0x557b94  BuildChatLogPanel (~0x1050 bytes,
- *                  embeds the ~4 KB chat history buffer) */
-class CChatLogPanel : public CPanel {};
+/* Static wrapped-text widget - the 10th widget class, discovered via
+ * the chat-log builder (no raw-port name existed; factory FUN_00507ff0).
+ * Type id 3 fills the 1/2/4 gap. Holds an RGB565 color and a 0x500-byte
+ * word-wrapped copy of its text (RenderWrappedText, wrap width w/6
+ * chars at the 6px font). */
+class CStaticText : public CWidget {           /* vtable 0x557f30, size 0x53c; factory 0x507ff0 */
+public:
+    CStaticText() : m_color(0) { m_typeId = 3; }
+
+    u16 m_color;                     /* +0x38: RGB565 text color */
+    u8  m_wrapped[0x500];            /* +0x3a: word-wrapped text (0x80-byte lines) */
+    u8  m_pad53a[2];                 /* +0x53a */
+};
+
+/* The whisper/direct-message window (PROTOCOL.md channel 3): keyed
+ * 0x4e21 (20001), carries the chat partner's name, a title
+ * CStaticText, the input CEditBox (not auto-focused mid-battle), a
+ * close-X and the page-14 scrollbar - plus the embedded 4 KB history
+ * buffer that gives the class its 0x1050 size. */
+class CChatLogPanel : public CPanel {          /* vtable 0x557b94; builder BuildChatLogPanel */
+public:
+    CChatLogPanel();                           /* inlined in the builder */
+
+    char m_partnerName[0x18];        /* +0x90: copied from the partner record (+0x21) */
+    u8   m_history[4000];            /* +0xa8: zeroed at build; the chat history buffer */
+    int  m_unk1048;                  /* +0x1048 */
+    int  m_unk104c;                  /* +0x104c */
+};
 
 #endif /* GB_CXX_WIDGET_H */

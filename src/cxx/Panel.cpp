@@ -30,6 +30,10 @@ static CPanelListNode *PanelListHead()
     return *(CPanelListNode **)((unsigned char *)&g_uiPanelManager + 4);
 }
 
+extern "C" int RenderWrappedText(void *outBuf, const char *text, int lineBytes,
+                                 int charsPerLine, int bufBytes, int flag); /* 0x41b4b0 */
+extern "C" int g_currentGameState;
+
 /* C++-linkage factories defined in Label.cpp / ScrollBar.cpp */
 CLabel * __stdcall CreateLabelWidget(int id, int spriteId, int x, int y, int w, int h);
 CScrollBar * __stdcall CreateScrollListWidget(int spriteBase, int total,
@@ -211,6 +215,72 @@ CAvatarStorePanel * BuildAvatarStorePanel(int total)
     tab->SetEnabled(false);
     p->AddChild(tab);
     return p;
+}
+
+/* 0x507ff0 - the CStaticText factory (no raw-port name existed;
+ * discovered via the chat-log builder). Wraps the text into the
+ * widget's own buffer at creation. */
+CStaticText *CreateStaticTextWidget(int x, int y, int w, int h,
+                                    const char *text, u16 color)
+{
+    CStaticText *p = new CStaticText();
+    p->m_id = 0;
+    p->m_x = x;
+    p->m_y = y;
+    p->m_height = h;
+    p->m_color = color;
+    p->m_width = w;
+    for (int i = 0; i < 0x500; ++i) {
+        p->m_wrapped[i] = 0;
+    }
+    RenderWrappedText(p->m_wrapped, text, 0x80, w / 6, 0x500, 1);
+    return p;
+}
+
+/* Construction state from the chat-log builder's guarded section. */
+CChatLogPanel::CChatLogPanel()
+{
+    for (int i = 0; i < 4000; ++i) {
+        m_history[i] = 0;
+    }
+    m_unk1048 = 0;
+    m_unk104c = 0;
+}
+
+/* BuildChatLogPanel (docs/widgets.md; the whisper/direct-message
+ * window). Keyed 0x4e21 (20001) at (541,272) 254x291: copies the
+ * partner's name out of their record (+0x21), the close-X (sprite
+ * 0x2c7), the input CEditBox (maxLen 80) - auto-focused after the
+ * manager sweep UNLESS in-battle (state 11 leaves keyboard focus on
+ * the game) - the partner-name CStaticText in white (0xffff), and the
+ * page-14 scrollbar. */
+void BuildChatLogPanel(int arg1, int partnerRecord)
+{
+    const char *name = (const char *)(partnerRecord + 0x21);
+    CChatLogPanel *p = new CChatLogPanel();
+    p->m_id = 0x4e21;
+    p->m_unk4c = 0;
+    p->m_unk44 = 0x2c6;
+    p->m_unk48 = 0;
+    p->m_x = 0x21d;
+    p->m_y = 0x110;
+    p->m_width = 0xfe;
+    p->m_height = 0x123;
+    {
+        char *dst = p->m_partnerName;
+        const char *src = name;
+        while ((*dst++ = *src++) != 0) {}
+    }
+    p->AddChild(CreateLabelWidget(0, 0x2c7, 0xdf, 7, 0x16, 0x14));
+    CEditBox *input = CreateTextEntryWidget(0, 0x13, 0x109, 0xd3, 0xc, 0x50);
+    p->AddChild(input);
+    FUN_0050efa0(0 /* g_uiPanelManager; receiver convention unresolved */);
+    if (g_currentGameState != 0xb) {
+        input->SetFocus(true);
+    }
+    p->AddChild(CreateStaticTextWidget(0x57, 0xb, 0x91, 0xc, name, 0xffff));
+    p->AddChild(CreateScrollListWidget(0, 0, 0xe3, 0x44, 0x12, 0x9d, 0xe));
+    FUN_0050eea0(p);
 }
 
 /* 0x508190 - BuildCreateRoomDialog (docs/widgets.md; takes the manager
