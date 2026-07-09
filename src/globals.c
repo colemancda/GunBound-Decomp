@@ -2056,3 +2056,27 @@ uint8_t LAB_00540762;
 uint8_t LAB_00540806;
 uint8_t LAB_0054095a;
 uint8_t LAB_00540a36;
+
+/* Raw absolute-address access markers - see globals.h. */
+uint8_t cRam0055a4ac;
+double dRam00548778;
+double dRam00548788;
+double dRam00548fd8;
+double dRam00548fe8;
+double dRam005490d8;
+double dRam005490e8;
+double dRam005490f8;
+double dRam00549108;
+double dRam00549118;
+double dRam00549128;
+double dRam00549138;
+double dRam00549148;
+double dRam00549158;
+double dRam00549168;
+double dRam00549178;
+double dRam00549188;
+int16_t sRamfffffffc;
+uint32_t uRam0000020c;
+uint32_t uRam00001e50;
+uint32_t uRam005490a8;
+uint32_t uRamfffffff8;

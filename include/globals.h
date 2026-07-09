@@ -1460,6 +1460,34 @@ extern uint8_t LAB_00540806;
 extern uint8_t LAB_0054095a;
 extern uint8_t LAB_00540a36;
 
+
+/* Raw absolute-address accesses Ghidra could not attribute to a
+ * named symbol (<t>Ram<address>, typed by the prefix: c=char,
+ * d=double, s=short, u=undefined4). Marker storage so the raw
+ * ports parse - never linked/run in this state. */
+extern uint8_t cRam0055a4ac;
+extern double dRam00548778;
+extern double dRam00548788;
+extern double dRam00548fd8;
+extern double dRam00548fe8;
+extern double dRam005490d8;
+extern double dRam005490e8;
+extern double dRam005490f8;
+extern double dRam00549108;
+extern double dRam00549118;
+extern double dRam00549128;
+extern double dRam00549138;
+extern double dRam00549148;
+extern double dRam00549158;
+extern double dRam00549168;
+extern double dRam00549178;
+extern double dRam00549188;
+extern int16_t sRamfffffffc;
+extern uint32_t uRam0000020c;
+extern uint32_t uRam00001e50;
+extern uint32_t uRam005490a8;
+extern uint32_t uRamfffffff8;
+
 #endif
 
 /* Second pass: ~800 addresses missing from the original scan (see
