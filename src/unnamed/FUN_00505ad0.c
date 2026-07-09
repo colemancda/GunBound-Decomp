@@ -38,7 +38,7 @@ void FUN_00505ad0(int param_1)
   if (*(int *)(*(int *)(param_1 + 0x50) + -0xc) != 0) {
     cVar1 = FUN_00415b00(*(int *)(param_1 + 0x50));
     if (cVar1 == '\x01') {
-      pcVar5 = (char *)FUN_0043dc70(&DAT_00796eec,0x202);
+      pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x202);
       pcVar3 = pcVar5 + 1;
       do {
         cVar1 = *pcVar5;
@@ -53,7 +53,7 @@ void FUN_00505ad0(int param_1)
         FUN_00402720(&DAT_00e53e88,param_1 + 0x90,*(undefined4 *)(param_1 + 0x50));
         goto LAB_00505bbe;
       }
-      pcVar5 = (char *)FUN_0043dc70(&DAT_00796eec,0x205);
+      pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x205);
       pcVar3 = pcVar5 + 1;
       do {
         cVar1 = *pcVar5;
@@ -62,7 +62,7 @@ void FUN_00505ad0(int param_1)
       iVar4 = (int)pcVar5 - (int)pcVar3;
       uVar8 = 0x205;
     }
-    uVar8 = FUN_0043dc70(&DAT_00796eec,uVar8);
+    uVar8 = GetLocalizedString(&DAT_00796eec,uVar8);
     FUN_00505900(uVar8,iVar4);
   }
 LAB_00505bbe:

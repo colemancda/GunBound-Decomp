@@ -1,14 +1,13 @@
-/* FUN_0043dc70 - 0x0043dc70 in the original binary.
+/* GetLocalizedString - 0x0043dc70 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Looks up a localized UI string by numeric id from the string-resource map (DAT_005b1444 / &DAT_00796eec) and returns a pointer to it. Used for all dialog/message text. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_0043dc70(void)
+undefined4 * GetLocalizedString(void)
 
 {
   int *piVar1;

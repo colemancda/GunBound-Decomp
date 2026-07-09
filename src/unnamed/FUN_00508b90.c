@@ -57,7 +57,7 @@ void FUN_00508b90(void)
       uVar4 = CreateLabelWidget(1,0x2c9,0x97,0x6b,0x4a,0x1a);
       FUN_0050e670(uVar4);
       uVar6 = 0xffff;
-      uVar4 = FUN_0043dc70(&DAT_00796eec,4000);
+      uVar4 = GetLocalizedString(&DAT_00796eec,4000);
       uVar4 = FUN_00507ff0(0x15,0x2d,200,0x1e,uVar4,uVar6);
       FUN_0050e670(uVar4);
       FUN_0050eea0(puVar5);

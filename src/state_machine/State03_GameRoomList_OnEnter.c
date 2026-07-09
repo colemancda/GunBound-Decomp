@@ -143,7 +143,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
     iVar4 = *param_1;
     uVar8 = 6;
     uVar7 = 2;
-    uVar6 = FUN_0043dc70(&DAT_00796eec,0xc351);
+    uVar6 = GetLocalizedString(&DAT_00796eec,0xc351);
     (**(code **)(iVar4 + 0x28))(uVar6,uVar7,uVar8);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -153,7 +153,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
     iVar4 = *param_1;
     uVar8 = 6;
     uVar7 = 2;
-    uVar6 = FUN_0043dc70(&DAT_00796eec,0xc352);
+    uVar6 = GetLocalizedString(&DAT_00796eec,0xc352);
     (**(code **)(iVar4 + 0x28))(uVar6,uVar7,uVar8);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -163,7 +163,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
     iVar4 = *param_1;
     uVar8 = 6;
     uVar7 = 2;
-    uVar6 = FUN_0043dc70(&DAT_00796eec,0xc353);
+    uVar6 = GetLocalizedString(&DAT_00796eec,0xc353);
     (**(code **)(iVar4 + 0x28))(uVar6,uVar7,uVar8);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -173,7 +173,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
     iVar4 = *param_1;
     uVar8 = 6;
     uVar7 = 2;
-    uVar6 = FUN_0043dc70(&DAT_00796eec,0xc354);
+    uVar6 = GetLocalizedString(&DAT_00796eec,0xc354);
     (**(code **)(iVar4 + 0x28))(uVar6,uVar7,uVar8);
   }
   return;

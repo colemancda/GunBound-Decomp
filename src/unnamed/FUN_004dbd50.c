@@ -33,11 +33,11 @@ void FUN_004dbd50(int *param_1,int param_2)
     if ((bVar8 != (bool)*(char *)(uVar6 + 0x4d8 + (int)param_1)) && (param_2 == '\x01')) {
       if (bVar8) {
         uVar2 = FUN_0041eb10(iVar3,(&DAT_0056dc40)[uVar6]);
-        _Format = (char *)FUN_0043dc70(&DAT_00796eec,0x278);
+        _Format = (char *)GetLocalizedString(&DAT_00796eec,0x278);
       }
       else {
         uVar2 = FUN_0041eb10(iVar3,(&DAT_0056dc40)[uVar6]);
-        _Format = (char *)FUN_0043dc70(&DAT_00796eec,0x279);
+        _Format = (char *)GetLocalizedString(&DAT_00796eec,0x279);
       }
       _sprintf(local_80,_Format,uVar2);
       (**(code **)(*param_1 + 0x28))(local_80,2,6);

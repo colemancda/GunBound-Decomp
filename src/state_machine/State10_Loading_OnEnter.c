@@ -122,7 +122,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   switch(uVar7) {
   case 0:
-    pcVar6 = (char *)FUN_0043dc70(&DAT_00796eec,800);
+    pcVar6 = (char *)GetLocalizedString(&DAT_00796eec,800);
     pcVar10 = (char *)(param_1 + 8);
     do {
       cVar3 = *pcVar6;
@@ -132,7 +132,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
     } while (cVar3 != '\0');
     break;
   case 1:
-    pcVar6 = (char *)FUN_0043dc70(&DAT_00796eec,0x321);
+    pcVar6 = (char *)GetLocalizedString(&DAT_00796eec,0x321);
     pcVar10 = (char *)(param_1 + 8);
     do {
       cVar3 = *pcVar6;
@@ -142,7 +142,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
     } while (cVar3 != '\0');
     break;
   case 2:
-    pcVar6 = (char *)FUN_0043dc70(&DAT_00796eec,0x322);
+    pcVar6 = (char *)GetLocalizedString(&DAT_00796eec,0x322);
     pcVar10 = (char *)(param_1 + 8);
     do {
       cVar3 = *pcVar6;
@@ -152,7 +152,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
     } while (cVar3 != '\0');
     break;
   case 3:
-    pcVar6 = (char *)FUN_0043dc70(&DAT_00796eec,0x323);
+    pcVar6 = (char *)GetLocalizedString(&DAT_00796eec,0x323);
     pcVar10 = (char *)(param_1 + 8);
     do {
       cVar3 = *pcVar6;
@@ -163,7 +163,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   }
   uVar8 = (uint)(*(byte *)(g_clientContext + 0x45124) >> 1);
   uVar9 = uVar8;
-  pcVar6 = (char *)FUN_0043dc70(&DAT_00796eec,0x324);
+  pcVar6 = (char *)GetLocalizedString(&DAT_00796eec,0x324);
   _sprintf(acStack_100,pcVar6,uVar8,uVar9);
   pcVar6 = acStack_100;
   do {
@@ -189,7 +189,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   }
   cVar3 = *(char *)(iVar12 + 0x45123);
   if (cVar3 == '\0') {
-    pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0x325);
+    pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0x325);
     pcVar6 = pcVar10;
     do {
       cVar3 = *pcVar6;
@@ -215,7 +215,7 @@ LAB_0043eca8:
   }
   else {
     if (cVar3 == '\x01') {
-      pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0x326);
+      pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0x326);
       pcVar6 = pcVar10;
       do {
         cVar3 = *pcVar6;
@@ -230,7 +230,7 @@ LAB_0043eca8:
       goto LAB_0043eca8;
     }
     if (cVar3 == '\x02') {
-      pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0x327);
+      pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0x327);
       pcVar6 = pcVar10;
       do {
         cVar3 = *pcVar6;
@@ -247,7 +247,7 @@ LAB_0043eca8:
   }
   cVar3 = *(char *)(g_clientContext + 0x45126);
   if (cVar3 == '\0') {
-    pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0x328);
+    pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0x328);
     pcVar6 = pcVar10;
     do {
       cVar3 = *pcVar6;
@@ -273,7 +273,7 @@ LAB_0043ed58:
   }
   else {
     if (cVar3 == '\x01') {
-      pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0x329);
+      pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0x329);
       pcVar6 = pcVar10;
       do {
         cVar3 = *pcVar6;
@@ -288,7 +288,7 @@ LAB_0043ed58:
       goto LAB_0043ed58;
     }
     if (cVar3 == '\x02') {
-      pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0x32a);
+      pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0x32a);
       pcVar6 = pcVar10;
       do {
         cVar3 = *pcVar6;
@@ -304,7 +304,7 @@ LAB_0043ed58:
     }
   }
   if (*(char *)(g_clientContext + 0x45127) == '\0') {
-    pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0x32b);
+    pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0x32b);
     pcVar6 = pcVar10;
     do {
       cVar3 = *pcVar6;
@@ -321,7 +321,7 @@ LAB_0043ed58:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    pcVar6 = (char *)FUN_0043dc70(&DAT_00796eec,0x32c);
+    pcVar6 = (char *)GetLocalizedString(&DAT_00796eec,0x32c);
     _sprintf(acStack_80,pcVar6,uVar7);
     pcVar6 = acStack_80;
     do {
@@ -347,7 +347,7 @@ LAB_0043ed58:
     }
     cVar3 = *(char *)(iVar12 + 0x45127);
     if (cVar3 == '\x01') {
-      pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0x32d);
+      pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0x32d);
       pcVar6 = pcVar10;
       do {
         cVar3 = *pcVar6;
@@ -361,7 +361,7 @@ LAB_0043ed58:
       } while (*pcVar1 != '\0');
     }
     else if (cVar3 == '\x02') {
-      pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0x32e);
+      pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0x32e);
       pcVar6 = pcVar10;
       do {
         cVar3 = *pcVar6;
@@ -376,7 +376,7 @@ LAB_0043ed58:
     }
     else {
       if (cVar3 != '\x03') goto LAB_0043eec8;
-      pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0x32f);
+      pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0x32f);
       pcVar6 = pcVar10;
       do {
         cVar3 = *pcVar6;

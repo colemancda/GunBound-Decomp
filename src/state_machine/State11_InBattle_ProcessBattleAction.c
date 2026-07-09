@@ -254,7 +254,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
               iVar4 = (uint)*(byte *)puVar12 * 0xd + 0x457f1 + g_clientContext;
               iVar10 = (uint)bVar16 * 0xd + 0x457f1 + g_clientContext;
               iVar6 = iVar4;
-              pcVar5 = (char *)FUN_0043dc70(&DAT_00796eec,0x260);
+              pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x260);
               _sprintf((char *)local_27d8,pcVar5,iVar10,iVar4,iVar6);
               (**(code **)(*param_1 + 0x28))(local_27d8,2,6);
               *unaff_FS_OFFSET = uStack_20;
@@ -761,7 +761,7 @@ LAB_004b7c01:
                 FUN_004368f0(uVar20,uVar21,uVar22);
                 uVar21 = FUN_0040a4d0(&local_2658);
                 iVar4 = iVar4 + 0xae15;
-                pcVar5 = (char *)FUN_0043dc70(&DAT_00796eec,0x265);
+                pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x265);
                 _sprintf((char *)local_27d8,pcVar5,iVar4,uVar21);
                 (**(code **)(*local_27ec + 0x28))(local_27d8,4,3);
                 FUN_0040b030();
@@ -789,7 +789,7 @@ LAB_004b7c01:
                 FUN_004368f0(uVar20,uVar21,uVar22);
                 uVar21 = FUN_0040a4d0(&local_2658);
                 iVar4 = iVar4 + 0xae15;
-                pcVar5 = (char *)FUN_0043dc70(&DAT_00796eec,0x266);
+                pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x266);
                 _sprintf((char *)local_27d8,pcVar5,iVar4,uVar21);
                 (**(code **)(*local_27ec + 0x28))(local_27d8,3,2);
               }
@@ -818,7 +818,7 @@ LAB_004b7c01:
                 FUN_004368f0(uVar20,uVar21,uVar22);
                 uVar21 = FUN_0040a4d0(&local_2658);
                 iVar4 = iVar4 + 0xae15;
-                pcVar5 = (char *)FUN_0043dc70(&DAT_00796eec,0x262);
+                pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x262);
                 _sprintf((char *)local_27d8,pcVar5,iVar4,uVar21);
                 (**(code **)(*local_27ec + 0x28))(local_27d8,4,3);
                 FUN_0040b030();
@@ -847,7 +847,7 @@ LAB_004b7c01:
                 FUN_004368f0(uVar20,uVar21,uVar22);
                 uVar21 = FUN_0040a4d0(&local_2658);
                 iVar4 = iVar4 + 0xae15;
-                pcVar5 = (char *)FUN_0043dc70(&DAT_00796eec,0x263);
+                pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x263);
                 _sprintf((char *)local_27d8,pcVar5,iVar4,uVar21);
                 (**(code **)(*local_27ec + 0x28))(local_27d8,3,2);
                 puVar8 = local_27f0;
@@ -877,7 +877,7 @@ LAB_004b7c01:
                   FUN_004368f0(uVar20,uVar21,uVar22);
                   uVar21 = FUN_0040a4d0(&local_2658);
                   puVar19 = puVar8 + 0xae15;
-                  pcVar5 = (char *)FUN_0043dc70(&DAT_00796eec,0x264);
+                  pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x264);
                   _sprintf((char *)local_27d8,pcVar5,puVar19,uVar21);
                   (**(code **)(*local_27ec + 0x28))(local_27d8,3,2);
                 }
@@ -897,7 +897,7 @@ LAB_004b7c01:
               iVar4 = *piVar7;
               uVar22 = 8;
               uVar20 = 3;
-              uVar21 = FUN_0043dc70(&DAT_00796eec,0x25c);
+              uVar21 = GetLocalizedString(&DAT_00796eec,0x25c);
               (**(code **)(iVar4 + 0x28))(uVar21,uVar20,uVar22);
               FUN_0040b060();
               cVar2 = FUN_0040b330(&DAT_0067e3d0 + g_clientContext,0);
@@ -907,7 +907,7 @@ LAB_004b7c01:
               iVar4 = *piVar7;
               uVar22 = 8;
               uVar20 = 3;
-              uVar21 = FUN_0043dc70(&DAT_00796eec,0x25d);
+              uVar21 = GetLocalizedString(&DAT_00796eec,0x25d);
               (**(code **)(iVar4 + 0x28))(uVar21,uVar20,uVar22);
               FUN_0040b060();
               cVar2 = FUN_0040b330(&DAT_0067e5f4 + g_clientContext,0);
@@ -946,7 +946,7 @@ LAB_004b7fb2:
           iVar4 = *local_27ec;
           uVar22 = 6;
           uVar20 = 2;
-          uVar21 = FUN_0043dc70(&DAT_00796eec,0x267);
+          uVar21 = GetLocalizedString(&DAT_00796eec,0x267);
           (**(code **)(iVar4 + 0x28))(uVar21,uVar20,uVar22);
           *unaff_FS_OFFSET = uStack_20;
           return;
@@ -1209,14 +1209,14 @@ LAB_004b7fb2:
             iVar4 = iVar4 + 0xae15;
             uVar21 = FUN_0040a4d0(&local_2658);
             iVar10 = iVar4;
-            pcVar5 = (char *)FUN_0043dc70(&DAT_00796eec,0x274);
+            pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x274);
             _sprintf(local_26d8,pcVar5,iVar10,uVar21);
             (**(code **)(*local_27ec + 0x28))(local_26d8,4,3);
             FUN_00438360();
             puVar8 = (undefined *)FUN_0040a4d0(g_clientContext + 0x3b49c);
             if (local_27f0 == puVar8) {
               iVar10 = *(int *)(g_clientContext + 0x44e60) + 1;
-              pcVar5 = (char *)FUN_0043dc70(&DAT_00796eec,5000);
+              pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,5000);
               _sprintf(local_26d8,pcVar5,iVar4,iVar10);
               iVar4 = DAT_007934e8;
               *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;

@@ -50,7 +50,7 @@ void FUN_004d0a10(int *param_1,undefined2 *param_2)
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar4 = iVar4 - iVar5;
-      _Format = (char *)FUN_0043dc70(&DAT_00796eec,0x261);
+      _Format = (char *)GetLocalizedString(&DAT_00796eec,0x261);
       _sprintf(local_80,_Format,iVar4);
       (**(code **)(*param_1 + 0x28))(local_80,2,6);
     }

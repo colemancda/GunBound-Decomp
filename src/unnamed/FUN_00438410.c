@@ -187,7 +187,7 @@ LAB_00438814:
     if ((uVar12 & 1) != 0) {
       uVar12 = DAT_005b3480 * 0xda003 + 0x5703b11;
       DAT_005b3480 = DAT_005b3480 + (uVar12 * 0x61 + 0x61) % 0xf4241;
-      FUN_0043dc70(&DAT_00796eec,uVar12 % 10 + 0x803);
+      GetLocalizedString(&DAT_00796eec,uVar12 % 10 + 0x803);
       FUN_004382d0();
     }
   }

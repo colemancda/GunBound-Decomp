@@ -63,7 +63,7 @@ void FUN_00402ad0(int param_1,char *param_2)
     }
     if (*(int **)(param_1 + 0x1bdc) != (int *)0x0) {
       (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x20))(&local_a0,g_clientContext + 0x23313,param_2);
-      pcVar4 = (char *)FUN_0043dc70(&DAT_00796eec,0xfa6);
+      pcVar4 = (char *)GetLocalizedString(&DAT_00796eec,0xfa6);
       _sprintf(acStack_8c,pcVar4);
       FUN_00509030(&g_uiPanelManager,acStack_8c);
       return;

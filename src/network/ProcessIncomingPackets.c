@@ -1,6 +1,6 @@
 /* ProcessIncomingPackets - 0x004d27e0 in the original binary.
  *
- * The main received-packet pump: first resolves the async connect result into the conn+0x84e5 (connected) flag, then drains the received-frame ring and dispatches each packet - routing to a window (SendMessageA) or surfacing errors via ShowErrorDialog / a native MessageBoxA (localized strings via FUN_0043dc70). Raw/near-verbatim port of Ghidra's
+ * The main received-packet pump: first resolves the async connect result into the conn+0x84e5 (connected) flag, then drains the received-frame ring and dispatches each packet - routing to a window (SendMessageA) or surfacing errors via ShowErrorDialog / a native MessageBoxA (localized strings via GetLocalizedString). Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
@@ -260,14 +260,14 @@ LAB_004d2b2c:
               if (uVar10 == 0x30) {
                 if (param_2 == (HWND)0x0) goto LAB_004d3379;
                 UVar18 = 0;
-                pCVar11 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x19d);
+                pCVar11 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x19d);
                 uVar7 = 0x197;
               }
               else {
                 if (uVar10 != 0x60) goto switchD_004d2d94_caseD_5;
                 if (param_2 == (HWND)0x0) goto LAB_004d3379;
                 UVar18 = 0;
-                pCVar11 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x19d);
+                pCVar11 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x19d);
                 uVar7 = 0x198;
               }
               goto LAB_004d33cb;
@@ -319,7 +319,7 @@ LAB_004d2b2c:
             goto LAB_004d337b;
           }
           UVar18 = 0;
-          pCVar11 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x19c);
+          pCVar11 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x19c);
           uVar7 = 400;
           break;
         case 2:
@@ -329,7 +329,7 @@ LAB_004d2b2c:
         case 8:
           if (param_2 == (HWND)0x0) goto LAB_004d3379;
           UVar18 = 0;
-          pCVar11 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x19c);
+          pCVar11 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x19c);
           uVar7 = 0x191;
           break;
         default:
@@ -340,7 +340,7 @@ LAB_004d2b2c:
             goto LAB_004d337b;
           }
           UVar18 = 0;
-          pCVar11 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x19d);
+          pCVar11 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x19d);
           uVar7 = 0x193;
           break;
         case 0x11:
@@ -349,7 +349,7 @@ LAB_004d2b2c:
             goto LAB_004d337b;
           }
           UVar18 = 0;
-          pCVar11 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x19d);
+          pCVar11 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x19d);
           uVar7 = 0x194;
           break;
         case 0x12:
@@ -358,7 +358,7 @@ LAB_004d2b2c:
             goto LAB_004d337b;
           }
           UVar18 = 0;
-          pCVar11 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x19d);
+          pCVar11 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x19d);
           uVar7 = 0x195;
           break;
         case 0x13:
@@ -370,7 +370,7 @@ LAB_004d2b2c:
 switchD_004d2d94_caseD_13:
           if (param_2 == (HWND)0x0) goto LAB_004d3379;
           UVar18 = 0;
-          pCVar11 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x19d);
+          pCVar11 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x19d);
           uVar7 = 0x196;
           break;
         case 0x19:
@@ -379,11 +379,11 @@ switchD_004d2d94_caseD_13:
             goto LAB_004d337b;
           }
           UVar18 = 0;
-          pCVar11 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x19d);
+          pCVar11 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x19d);
           uVar7 = 0x192;
         }
 LAB_004d33cb:
-        lpText = (LPCSTR)FUN_0043dc70(&DAT_00796eec,uVar7);
+        lpText = (LPCSTR)GetLocalizedString(&DAT_00796eec,uVar7);
         MessageBoxA(param_2,lpText,pCVar11,UVar18);
 LAB_004d2b24:
         if (param_2 == (HWND)0x0) goto LAB_004d3383;
@@ -413,24 +413,24 @@ LAB_004d2b17:
       uVar3 = *lParam;
       if (uVar3 == 0) {
         UVar18 = 0;
-        pCVar11 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x19d);
+        pCVar11 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x19d);
         uVar7 = 0x199;
         goto LAB_004d33cb;
       }
       if (uVar3 == 1) {
         iVar6 = g_clientContext + 0x23330;
-        pcVar9 = (char *)FUN_0043dc70(&DAT_00796eec,0x19a);
+        pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,0x19a);
         _sprintf(local_24d4,pcVar9,iVar6);
         UVar18 = 0;
-        pCVar11 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x19e);
+        pCVar11 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x19e);
         MessageBoxA(param_2,local_24d4,pCVar11,UVar18);
       }
       else if (uVar3 == 2) {
         iVar6 = g_clientContext + 0x23313;
-        pcVar9 = (char *)FUN_0043dc70(&DAT_00796eec,0x19b);
+        pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,0x19b);
         _sprintf(local_24d4,pcVar9,iVar6);
         UVar18 = 0;
-        pCVar11 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x19e);
+        pCVar11 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x19e);
         MessageBoxA(param_2,local_24d4,pCVar11,UVar18);
       }
       goto LAB_004d2b24;

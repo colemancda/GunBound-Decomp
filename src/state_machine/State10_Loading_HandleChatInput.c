@@ -58,7 +58,7 @@ void __thiscall State10_Loading_HandleChatInput(int *param_1,int param_2,int par
       uVar6 = 6;
       uVar5 = 2;
       iVar1 = *param_1;
-      uVar4 = FUN_0043dc70(&DAT_00796eec,uVar4);
+      uVar4 = GetLocalizedString(&DAT_00796eec,uVar4);
       (**(code **)(iVar1 + 0x28))(uVar4,uVar5,uVar6);
     }
   }

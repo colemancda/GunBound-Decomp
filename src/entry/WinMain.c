@@ -306,13 +306,13 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   if (DAT_00793516 == '\x01') {
     if (DAT_00793640 == 1) {
       UVar16 = 0;
-      pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13b);
+      pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13b);
       uVar6 = 300;
     }
     else {
       if (DAT_00793640 != 2) goto LAB_0040e75c;
       UVar16 = 0;
-      pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13b);
+      pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13b);
       uVar6 = 0x13c;
     }
     goto LAB_0040e0f1;
@@ -323,48 +323,48 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
       switch(DVar3) {
       case 0x809b:
         UVar16 = 0;
-        pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,30000);
-        pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x7535);
+        pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,30000);
+        pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x7535);
         MessageBoxA(hWnd,pCVar9,pCVar8,UVar16);
         break;
       default:
 switchD_0040e15b_caseD_e:
-        pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x13a);
+        pcVar11 = (char *)GetLocalizedString(&DAT_00796eec,0x13a);
         _sprintf(acStack_d48,pcVar11,DVar3);
         UVar16 = 0;
-        pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13d);
+        pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13d);
         MessageBoxA((HWND)0x0,acStack_d48,pCVar8,UVar16);
         uVar6 = 0x140;
         goto LAB_0040e744;
       case 0x80aa:
         UVar16 = 0;
-        pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,30000);
-        pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x7536);
+        pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,30000);
+        pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x7536);
         MessageBoxA(hWnd,pCVar9,pCVar8,UVar16);
         break;
       case 0x80c8:
         UVar16 = 0;
-        pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,30000);
-        pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x7537);
+        pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,30000);
+        pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x7537);
         MessageBoxA(hWnd,pCVar9,pCVar8,UVar16);
         break;
       case 0x8154:
       case 0x817c:
         UVar16 = 0;
-        pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,30000);
-        pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x7539);
+        pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,30000);
+        pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x7539);
         MessageBoxA(hWnd,pCVar9,pCVar8,UVar16);
         break;
       case 0x815e:
         UVar16 = 0;
-        pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,30000);
-        pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x7538);
+        pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,30000);
+        pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x7538);
         MessageBoxA(hWnd,pCVar9,pCVar8,UVar16);
         break;
       case 0x8168:
         UVar16 = 0;
-        pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,30000);
-        pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x753a);
+        pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,30000);
+        pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x753a);
         MessageBoxA(hWnd,pCVar9,pCVar8,UVar16);
       }
       goto LAB_0040e75c;
@@ -372,30 +372,30 @@ switchD_0040e15b_caseD_e:
     if (DVar3 == 0x8099) {
 switchD_0040e507_caseD_8078:
       UVar16 = 0;
-      pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,30000);
-      pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x7534);
+      pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,30000);
+      pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x7534);
       MessageBoxA(hWnd,pCVar9,pCVar8,UVar16);
     }
     else {
       switch(DVar3) {
       case 0x8070:
         UVar16 = 0;
-        pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,30000);
-        pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x753b);
+        pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,30000);
+        pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x753b);
         MessageBoxA(hWnd,pCVar9,pCVar8,UVar16);
         break;
       default:
         goto switchD_0040e15b_caseD_e;
       case 0x8072:
         UVar16 = 0;
-        pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,30000);
-        pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x7533);
+        pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,30000);
+        pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x7533);
         MessageBoxA(hWnd,pCVar9,pCVar8,UVar16);
         break;
       case 0x8073:
         UVar16 = 0;
-        pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,30000);
-        pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x7532);
+        pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,30000);
+        pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x7532);
         MessageBoxA(hWnd,pCVar9,pCVar8,UVar16);
         break;
       case 0x8078:
@@ -410,15 +410,15 @@ switchD_0040e507_caseD_8078:
   }
   if (DVar3 == 0x806e) {
     UVar16 = 0;
-    pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,30000);
-    pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x7531);
+    pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,30000);
+    pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x7531);
     MessageBoxA(hWnd,pCVar9,pCVar8,UVar16);
     goto LAB_0040e75c;
   }
   switch(DVar3) {
   case 0xd:
     UVar16 = 0;
-    pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13d);
+    pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13d);
     uVar6 = 0x135;
     goto LAB_0040e0f1;
   default:
@@ -427,104 +427,104 @@ switchD_0040e507_caseD_8078:
   case 0x15:
   case 0x1c:
     UVar16 = 0;
-    pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13d);
-    pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x136);
+    pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13d);
+    pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x136);
     MessageBoxA((HWND)0x0,pCVar9,pCVar8,UVar16);
     uVar6 = 0x13e;
     goto LAB_0040e744;
   case 0x13:
     UVar16 = 0;
-    pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13d);
+    pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13d);
     uVar6 = 0x138;
     goto LAB_0040e0f1;
   case 0x1a:
     UVar16 = 0;
-    pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13d);
-    pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x137);
+    pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13d);
+    pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x137);
     MessageBoxA((HWND)0x0,pCVar9,pCVar8,UVar16);
     uVar6 = 0x13f;
 LAB_0040e744:
     nShowCmd_00 = 1;
     lpDirectory = (LPCSTR)0x0;
     pCVar9 = (LPCSTR)0x0;
-    pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,uVar6);
+    pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,uVar6);
     ShellExecuteA((HWND)0x0,&DAT_00552728,pCVar8,pCVar9,lpDirectory,nShowCmd_00);
     break;
   case 0x1b:
     UVar16 = 0;
-    pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13d);
+    pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13d);
     uVar6 = 0x139;
 LAB_0040e0f1:
-    pCVar9 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,uVar6);
+    pCVar9 = (LPCSTR)GetLocalizedString(&DAT_00796eec,uVar6);
     MessageBoxA((HWND)0x0,pCVar9,pCVar8,UVar16);
     break;
   case 0xcd:
     puVar17 = &DAT_005b1ed0;
     uVar6 = DAT_007934c8;
     uVar10 = FUN_0040a4d0(&DAT_00796878);
-    pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x133);
+    pcVar11 = (char *)GetLocalizedString(&DAT_00796eec,0x133);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6,puVar17);
     goto LAB_0040e1a0;
   case 0xce:
     puVar17 = &DAT_005b1ed0;
     uVar6 = DAT_007934c8;
     uVar10 = FUN_0040a4d0(&DAT_00796878);
-    pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x134);
+    pcVar11 = (char *)GetLocalizedString(&DAT_00796eec,0x134);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6,puVar17);
     goto LAB_0040e1a0;
   case 0xe1:
     uVar6 = FUN_0040a4d0(g_clientContext + 0xf5b48);
     uVar10 = FUN_0040a4d0(&DAT_00e525e8);
-    pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x12d);
+    pcVar11 = (char *)GetLocalizedString(&DAT_00796eec,0x12d);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6);
     goto LAB_0040e1a0;
   case 0xe2:
     puVar17 = &DAT_005b1ed0;
-    pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x12e);
+    pcVar11 = (char *)GetLocalizedString(&DAT_00796eec,0x12e);
     _sprintf(acStack_d48,pcVar11,puVar17);
     goto LAB_0040e1ec;
   case 0xe3:
     uVar6 = *(undefined4 *)(g_clientContext + 0x1a1e44);
     uVar10 = FUN_0040a4d0(&DAT_00e525e8);
-    pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x12f);
+    pcVar11 = (char *)GetLocalizedString(&DAT_00796eec,0x12f);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6);
     UVar16 = 0;
-    pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13b);
+    pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13b);
     MessageBoxA((HWND)0x0,acStack_d48,pCVar8,UVar16);
     break;
   case 0xe4:
     puVar17 = &DAT_005b1ed0;
-    pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x130);
+    pcVar11 = (char *)GetLocalizedString(&DAT_00796eec,0x130);
     _sprintf(acStack_d48,pcVar11,puVar17);
     UVar16 = 0;
-    pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13b);
+    pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13b);
     MessageBoxA((HWND)0x0,acStack_d48,pCVar8,UVar16);
     break;
   case 0xe5:
     puVar17 = &DAT_005b1ed0;
-    pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x132);
+    pcVar11 = (char *)GetLocalizedString(&DAT_00796eec,0x132);
     _sprintf(acStack_d48,pcVar11,puVar17);
     UVar16 = 0;
-    pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13b);
+    pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13b);
     MessageBoxA((HWND)0x0,acStack_d48,pCVar8,UVar16);
     break;
   case 0xe6:
     uVar6 = FUN_0041e9a0(g_clientContext,99);
     uVar10 = FUN_0040a4d0(&DAT_00e525e8);
-    pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x131);
+    pcVar11 = (char *)GetLocalizedString(&DAT_00796eec,0x131);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6);
 LAB_0040e1ec:
     UVar16 = 0;
-    pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13b);
+    pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13b);
     MessageBoxA((HWND)0x0,acStack_d48,pCVar8,UVar16);
     break;
   case 0xe7:
     puVar17 = &DAT_005b1ed0;
-    pcVar11 = (char *)FUN_0043dc70(&DAT_00796eec,0x142);
+    pcVar11 = (char *)GetLocalizedString(&DAT_00796eec,0x142);
     _sprintf(acStack_d48,pcVar11,puVar17);
 LAB_0040e1a0:
     UVar16 = 0;
-    pCVar8 = (LPCSTR)FUN_0043dc70(&DAT_00796eec,0x13b);
+    pCVar8 = (LPCSTR)GetLocalizedString(&DAT_00796eec,0x13b);
     MessageBoxA((HWND)0x0,acStack_d48,pCVar8,UVar16);
   }
 LAB_0040e75c:

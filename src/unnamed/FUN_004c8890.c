@@ -534,16 +534,16 @@ LAB_004c9ad7:
     }
   }
 LAB_004c9b12:
-  pcVar4 = (char *)FUN_0043dc70(&DAT_00796eec,0x33e);
+  pcVar4 = (char *)GetLocalizedString(&DAT_00796eec,0x33e);
   do {
     cVar1 = *pcVar4;
     pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
   uVar14 = 0;
-  FUN_0043dc70(&DAT_00796eec,0x33e);
+  GetLocalizedString(&DAT_00796eec,0x33e);
   FUN_004eb510(0x28,uVar14);
   uVar14 = 0xffff;
-  FUN_0043dc70(&DAT_00796eec,0x33e);
+  GetLocalizedString(&DAT_00796eec,0x33e);
   BlitRLESprite(0x28,uVar14);
   goto LAB_004c9ba8;
   while( true ) {
@@ -563,16 +563,16 @@ LAB_004c96d9:
     }
   }
 LAB_004c9714:
-  pcVar4 = (char *)FUN_0043dc70(&DAT_00796eec,0x33f);
+  pcVar4 = (char *)GetLocalizedString(&DAT_00796eec,0x33f);
   do {
     cVar1 = *pcVar4;
     pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
   uVar14 = 0;
-  FUN_0043dc70(&DAT_00796eec,0x33f);
+  GetLocalizedString(&DAT_00796eec,0x33f);
   FUN_004eb510(0x28,uVar14);
   uVar14 = 0xffff;
-  FUN_0043dc70(&DAT_00796eec,0x33f);
+  GetLocalizedString(&DAT_00796eec,0x33f);
   BlitRLESprite(0x28,uVar14);
   goto LAB_004c9ba8;
   while( true ) {
@@ -592,16 +592,16 @@ LAB_004c92db:
     }
   }
 LAB_004c9316:
-  pcVar4 = (char *)FUN_0043dc70(&DAT_00796eec,0x340);
+  pcVar4 = (char *)GetLocalizedString(&DAT_00796eec,0x340);
   do {
     cVar1 = *pcVar4;
     pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
   uVar14 = 0;
-  FUN_0043dc70(&DAT_00796eec,0x340);
+  GetLocalizedString(&DAT_00796eec,0x340);
   FUN_004eb510(0x28,uVar14);
   uVar14 = 0xffff;
-  FUN_0043dc70(&DAT_00796eec,0x340);
+  GetLocalizedString(&DAT_00796eec,0x340);
   BlitRLESprite(0x28,uVar14);
 LAB_004c9ba8:
   if ((*(int *)(param_1 + 0x10cc) != -1) && (*(int *)(param_1 + 0x10d0) != -1)) {
@@ -1031,18 +1031,18 @@ LAB_004ca958:
     goto LAB_004ca958;
   }
   if (*(char *)(param_1 + 0x11d8) != '\0') {
-    pcVar4 = (char *)FUN_0043dc70(&DAT_00796eec,0x280);
+    pcVar4 = (char *)GetLocalizedString(&DAT_00796eec,0x280);
     do {
       cVar1 = *pcVar4;
       pcVar4 = pcVar4 + 1;
     } while (cVar1 != '\0');
     uVar15 = 1;
     uVar8 = 0;
-    uVar14 = FUN_0043dc70(&DAT_00796eec,0x280);
+    uVar14 = GetLocalizedString(&DAT_00796eec,0x280);
     FUN_0041b8c0(g_clientContext,2,0,0,uVar14,uVar8,uVar15);
     FUN_0041b8c0(g_clientContext,2,0,0,&DAT_0054b460,0,1);
     if (*(char *)(g_clientContext + 0x62155) == '\0') {
-      pcVar3 = (char *)FUN_0043dc70(&DAT_00796eec,0x27c);
+      pcVar3 = (char *)GetLocalizedString(&DAT_00796eec,0x27c);
       pcVar4 = acStack_80;
       do {
         cVar1 = *pcVar3;
@@ -1052,7 +1052,7 @@ LAB_004ca958:
       } while (cVar1 != '\0');
     }
     else {
-      pcVar3 = (char *)FUN_0043dc70(&DAT_00796eec,0x27d);
+      pcVar3 = (char *)GetLocalizedString(&DAT_00796eec,0x27d);
       pcVar4 = acStack_80;
       do {
         cVar1 = *pcVar3;
@@ -1261,7 +1261,7 @@ LAB_004cab43:
   if (*(char *)(param_1 + 0x11d8) != '\0') {
     FUN_0041b8c0(g_clientContext,2,0,0,&DAT_0054b460,0,1);
     if (*(char *)(g_clientContext + 0x62155) == '\x01') {
-      pcVar3 = (char *)FUN_0043dc70(&DAT_00796eec,0x27e);
+      pcVar3 = (char *)GetLocalizedString(&DAT_00796eec,0x27e);
       pcVar4 = acStack_80;
       do {
         cVar1 = *pcVar3;
@@ -1271,7 +1271,7 @@ LAB_004cab43:
       } while (cVar1 != '\0');
     }
     else {
-      pcVar3 = (char *)FUN_0043dc70(&DAT_00796eec,0x27f);
+      pcVar3 = (char *)GetLocalizedString(&DAT_00796eec,0x27f);
       pcVar4 = acStack_80;
       do {
         cVar1 = *pcVar3;
@@ -1342,7 +1342,7 @@ LAB_004cac7c:
 LAB_004cacd1:
     if ((*(char *)(param_1 + 0x11d8) != '\0') &&
        (*(ushort *)(&DAT_006aa660 + g_clientContext) != 0xffff)) {
-      pcVar4 = (char *)FUN_0043dc70(&DAT_00796eec,
+      pcVar4 = (char *)GetLocalizedString(&DAT_00796eec,
                                     *(byte *)(g_clientContext + 0x62155) + 0xc35b +
                                     (uint)*(ushort *)(&DAT_006aa660 + g_clientContext) * 2);
       do {
@@ -1351,7 +1351,7 @@ LAB_004cacd1:
       } while (cVar1 != '\0');
       uVar15 = 1;
       uVar8 = 0;
-      uVar14 = FUN_0043dc70(&DAT_00796eec,
+      uVar14 = GetLocalizedString(&DAT_00796eec,
                             *(byte *)(g_clientContext + 0x62155) + 0xc35b +
                             (uint)*(ushort *)(&DAT_006aa660 + g_clientContext) * 2);
       FUN_0041b8c0(g_clientContext,2,0,0,uVar14,uVar8,uVar15);

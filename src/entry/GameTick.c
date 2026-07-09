@@ -53,7 +53,7 @@ void GameTick(void)
   uVar10 = (DVar3 - DAT_007934e0) / 0x32;
   if (DAT_00793521 != '\0') {
     puVar12 = &DAT_005b22d0;
-    _Format = (char *)FUN_0043dc70(&DAT_00796eec,9000);
+    _Format = (char *)GetLocalizedString(&DAT_00796eec,9000);
     _sprintf(local_400,_Format,puVar12);
     DAT_00793521 = '\0';
     (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_400,2,6);
@@ -108,7 +108,7 @@ void GameTick(void)
       uVar13 = 6;
       uVar11 = 2;
       DAT_00793515 = '\x01';
-      uVar4 = FUN_0043dc70(&DAT_00796eec,0x141);
+      uVar4 = GetLocalizedString(&DAT_00796eec,0x141);
       (**(code **)(iVar5 + 0x28))(uVar4,uVar11,uVar13);
       *(undefined4 *)(&DAT_0067e3c8 + g_clientContext) = 0;
     }

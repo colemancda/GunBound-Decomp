@@ -23,7 +23,7 @@ void FUN_00425960(void)
   }
   *(undefined4 *)(&DAT_0067ec64 + unaff_EBX) = 0;
   *(undefined4 *)(&DAT_0067ec68 + unaff_EBX) = 0;
-  FUN_0043dc70(&DAT_00796eec,0x200);
+  GetLocalizedString(&DAT_00796eec,0x200);
   FUN_00413af0();
   return;
 }

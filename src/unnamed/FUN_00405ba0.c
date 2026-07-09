@@ -68,7 +68,7 @@ void FUN_00405ba0(void)
   *(int *)(unaff_EBX + 0x1000) = *(int *)(unaff_EBX + 0x1000) + 8;
   iVar8 = *(int *)(iVar14 + 0x3f804);
   if (iVar8 == -1) {
-    pcVar6 = (char *)FUN_0043dc70(&DAT_00796eec,0x334);
+    pcVar6 = (char *)GetLocalizedString(&DAT_00796eec,0x334);
     pcVar7 = pcVar6;
     do {
       cVar1 = *pcVar7;
@@ -96,18 +96,18 @@ void FUN_00405ba0(void)
     if (iVar9 == -1) {
       iVar9 = *(int *)(iVar14 + 0x44e60) + 1;
       iVar8 = iVar8 + 1;
-      pcVar7 = (char *)FUN_0043dc70(&DAT_00796eec,0x335);
+      pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0x335);
     }
     else {
       if (iVar9 == -2) {
         iVar8 = iVar8 + 1;
-        pcVar7 = (char *)FUN_0043dc70(&DAT_00796eec,0x336);
+        pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0x336);
         _sprintf((char *)&local_88,pcVar7,iVar8);
         goto LAB_00405d5e;
       }
       iVar9 = iVar9 + 1;
       iVar8 = iVar8 + 1;
-      pcVar7 = (char *)FUN_0043dc70(&DAT_00796eec,0x337);
+      pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0x337);
     }
     _sprintf((char *)&local_88,pcVar7,iVar8,iVar9);
   }

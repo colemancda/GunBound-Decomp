@@ -45,7 +45,7 @@ void FUN_004daa60(int *param_1,int param_2)
     uVar6 = 4;
     *(char *)(g_clientContext + 0x45578) = cVar5;
     iVar1 = *param_1;
-    uVar2 = FUN_0043dc70(&DAT_00796eec,(in_EAX >> 0x18) + 10000);
+    uVar2 = GetLocalizedString(&DAT_00796eec,(in_EAX >> 0x18) + 10000);
     (**(code **)(iVar1 + 0x28))(uVar2,uVar6,uVar7);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

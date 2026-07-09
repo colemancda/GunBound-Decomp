@@ -28,7 +28,7 @@ void ShowErrorDialogFmt(int param_1,undefined4 param_2)
   _DAT_00e53c28 = 0x229;
   _DAT_00e53c2c = 0xc1;
   _DAT_00e53c30 = 0x171;
-  _Format = (char *)FUN_0043dc70(&DAT_00796eec,in_EAX + 199);
+  _Format = (char *)GetLocalizedString(&DAT_00796eec,in_EAX + 199);
   _sprintf(local_200,_Format,param_2);
   puVar3 = &DAT_005b1d70;
   for (iVar2 = 0x57; iVar2 != 0; iVar2 = iVar2 + -1) {

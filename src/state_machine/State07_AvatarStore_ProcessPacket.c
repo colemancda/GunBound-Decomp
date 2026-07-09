@@ -309,7 +309,7 @@ LAB_0044469b:
         FUN_0044b0b0(this);
         FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
         QueueOutgoingPacketField(4);
-        pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0xea6a);
+        pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0xea6a);
         pcVar7 = (char *)((int)this + 0x327d4);
         do {
           cVar2 = *pcVar10;
@@ -319,9 +319,9 @@ LAB_0044469b:
         } while (cVar2 != '\0');
         iVar4 = (int)this + 0x34794;
         *(undefined1 *)((int)this + 0x32854) = 0;
-        pcVar7 = (char *)FUN_0043dc70(&DAT_00796eec,0xea6b);
+        pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0xea6b);
         _sprintf((char *)((int)this + 0x328d4),pcVar7,iVar4);
-        pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0xea6c);
+        pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0xea6c);
         pcVar7 = (char *)((int)this + 0x32954);
         do {
           cVar2 = *pcVar10;
@@ -330,7 +330,7 @@ LAB_0044469b:
           pcVar7 = pcVar7 + 1;
         } while (cVar2 != '\0');
         *(undefined1 *)((int)this + 0x329d4) = 0;
-        pcVar10 = (char *)FUN_0043dc70(&DAT_00796eec,0xea6d);
+        pcVar10 = (char *)GetLocalizedString(&DAT_00796eec,0xea6d);
         pcVar7 = (char *)((int)this + 0x32a54);
         do {
           cVar2 = *pcVar10;
@@ -421,7 +421,7 @@ switchD_004449fc_default:
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             ShowErrorDialog(0);
             iVar4 = g_clientContext + 0x23330;
-            pcVar7 = (char *)FUN_0043dc70(&DAT_00796eec,0xfa8);
+            pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0xfa8);
             _sprintf((char *)local_508,pcVar7,iVar4);
             FUN_00402900(&DAT_00e53e88,(int)this + 0x32ce3);
             FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
