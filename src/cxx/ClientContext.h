@@ -75,4 +75,26 @@ inline u16 *Ctx_roomCardIds(int ctx) { return reinterpret_cast<u16 *>(ctx + 0x44
  * Protocol.h), 16 x 0x9c at +0x44be8. */
 inline void *Ctx_inventory(int ctx) { return reinterpret_cast<void *>(ctx + 0x44be8); }
 
+/* --- Peer/relay endpoint record (State 2 address-report path) ---------
+ * Written from the 0x101f-family address-report packet (State02's
+ * ProcessPacket tail) and handed to FUN_005204f0. Four dwords; the
+ * flag byte at +0x0c is cleared on each update. Field meanings not
+ * fully decoded, but the record shape (4x u32) is confirmed. */
+struct PeerEndpoint {
+    u32 addr;    /* +0x00 (abs +0x23330) */
+    u32 field4;  /* +0x04 (abs +0x23334) */
+    u32 field8;  /* +0x08 (abs +0x23338) */
+    u8  flagC;   /* +0x0c (abs +0x2333c) - cleared per update */
+};
+inline PeerEndpoint *Ctx_peerEndpoint(int ctx) { return reinterpret_cast<PeerEndpoint *>(ctx + 0x23330); }
+
+/* --- Per-player packet-checksum-state array --------------------------
+ * PROTOCOL.md "Confirmed recurring structures": the 0x224-stride array
+ * at +0xebef4 is per-player instances of the packet-checksum-state
+ * object (indexed playerId * 0x224), reached by the checksum utility
+ * family - NOT a gameplay slot struct. Exposed as an opaque
+ * base+stride accessor; the object's own fields belong to the
+ * checksum subsystem's own reconstruction. */
+inline u8 *Ctx_checksumState(int ctx, int playerId) { return reinterpret_cast<u8 *>(ctx + 0xebef4 + playerId * 0x224); }
+
 #endif /* GB_CXX_CLIENTCONTEXT_H */

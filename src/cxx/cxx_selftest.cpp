@@ -62,6 +62,8 @@ static void gb_widget_offset_checks()
     GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, currentPlayers) == 0x410ca - 0x3f808, soa_players);
     GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, maxCapacity) == 0x410ea - 0x3f808, soa_maxcap);
     GB_STATIC_ASSERT(GB_OFFSETOF(ServerListSoA, animState)   == 0x4110a - 0x3f808, soa_anim);
+    GB_STATIC_ASSERT(GB_OFFSETOF(PeerEndpoint, field8) == 0x23338 - 0x23330, peer_f8);
+    GB_STATIC_ASSERT(GB_OFFSETOF(PeerEndpoint, flagC)  == 0x2333c - 0x23330, peer_flag);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbActionHeader, actionType) == 0x02, off_actiontype);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbActionHeader, sourceSlot) == 0x05, off_srcslot);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbFirePayload, shotData) == 0x2c - 0x21, off_shotdata);
