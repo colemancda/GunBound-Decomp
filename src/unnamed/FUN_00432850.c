@@ -12,6 +12,13 @@
 void FUN_00432850(int param_1,int param_2)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xffffe1b4;
+  undefined stack0xffffe1b8;
+  undefined stack0xffffe1bc;
+  undefined stack0xffffe1c0;
+  undefined stack0xffffe1c4;
   char cVar1;
   void *pvVar2;
   int *piVar3;
@@ -126,8 +133,8 @@ void FUN_00432850(int param_1,int param_2)
         piVar3[6] = 0x1a8e;
         piVar3[0xe] = 0x1a8f;
         piVar3[0xe25] = 0x2013;
-        piVar3[0xe26] = s_flame123_00553cec._0_4_;
-        piVar3[0xe27] = s_flame123_00553cec._4_4_;
+        piVar3[0xe26] = SUBFIELD(s_flame123_00553cec,0,undefined4);
+        piVar3[0xe27] = SUBFIELD(s_flame123_00553cec,4,undefined4);
         *(char *)(piVar3 + 0xe28) = s_flame123_00553cec[8];
         iVar4 = FindPreloadedTextureByName();
         piVar3[7] = iVar4;
@@ -138,9 +145,9 @@ void FUN_00432850(int param_1,int param_2)
         piVar3[0xe25] = 8000;
         iVar4 = FindPreloadedTextureByName();
         piVar3[7] = iVar4;
-        piVar3[0xe26] = s_flameevent1_00553e2c._0_4_;
-        piVar3[0xe27] = s_flameevent1_00553e2c._4_4_;
-        piVar3[0xe28] = s_flameevent1_00553e2c._8_4_;
+        piVar3[0xe26] = SUBFIELD(s_flameevent1_00553e2c,0,undefined4);
+        piVar3[0xe27] = SUBFIELD(s_flameevent1_00553e2c,4,undefined4);
+        piVar3[0xe28] = SUBFIELD(s_flameevent1_00553e2c,8,undefined4);
       }
       *(undefined1 *)(piVar3 + 0xf) = *(undefined1 *)(param_1 + 0x3c);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
