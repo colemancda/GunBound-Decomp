@@ -1443,7 +1443,7 @@ int __fastcall FUN_00502ad0();
 int * FUN_00502b00();
 void __thiscall FUN_00502b70();
 void __thiscall FUN_00502e20();
-void FUN_005030a0();
+undefined4 FUN_005030a0();
 void FUN_00503110();
 void FUN_00503130();
 void __thiscall FUN_005033e0();
@@ -1631,7 +1631,7 @@ undefined4 __thiscall ScrollListWidget_OnMouseUp();
 void __fastcall FUN_0050f660();
 uint __fastcall FUN_0050f770();
 void __fastcall FUN_0050f840();
-void FUN_0050f890();
+undefined8 FUN_0050f890(); /* 64-bit result used from EDX:EAX at call sites */
 undefined8 FUN_0050f8b0();
 void FUN_0050fd90();
 void FUN_0050fe50();
