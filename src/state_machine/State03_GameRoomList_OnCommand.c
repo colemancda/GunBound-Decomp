@@ -97,7 +97,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
     FUN_00509780();
     return;
   case 4:
-    FUN_00429c30();
+    OpenCreateRoomDialog();
     return;
   case 5:
     SendJoinRoomChecked();
