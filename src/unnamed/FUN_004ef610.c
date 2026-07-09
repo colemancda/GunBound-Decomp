@@ -10,6 +10,9 @@
 void __thiscall FUN_004ef610(int param_1,int param_2)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xffffffd0;
   LPCRITICAL_SECTION lpCriticalSection;
   LONG *pLVar1;
   int *piVar2;
