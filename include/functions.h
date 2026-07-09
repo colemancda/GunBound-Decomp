@@ -1550,7 +1550,7 @@ void BuildBuddyPanel();
 void BuildChatLogPanel();
 void FUN_005093e0();
 void FUN_00509410();
-undefined4 * FUN_005094f0();
+undefined4 * BuildReadyRoomChatPanel();
 void FUN_005095d0();
 void FUN_00509700();
 int FUN_00509730();

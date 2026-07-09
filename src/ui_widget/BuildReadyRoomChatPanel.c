@@ -1,14 +1,13 @@
-/* FUN_005094f0 - 0x005094f0 in the original binary.
+/* BuildReadyRoomChatPanel - 0x005094f0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Builds the Ready Room chat-log panel (a 480x160 scrollbar-only CPanel, vtable 0x557ee0, at the bottom of the screen). Its row renderer draws color-coded chat messages. See docs/widgets.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_005094f0(undefined4 param_1)
+undefined4 * BuildReadyRoomChatPanel(undefined4 param_1)
 
 {
   undefined4 *puVar1;

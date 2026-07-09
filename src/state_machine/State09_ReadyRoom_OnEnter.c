@@ -364,7 +364,7 @@ LAB_004d759e:
     iVar4 = g_clientContext;
     if (0x4590b < iStack_94) {
       *(undefined4 *)(param_1 + 0x73c) = 0;
-      iVar4 = FUN_005094f0(&g_uiPanelManager);
+      iVar4 = BuildReadyRoomChatPanel(&g_uiPanelManager);
       *(int *)(param_1 + 0x788) = iVar4;
       *(undefined1 *)(iVar4 + 0x1e) = 1;
       return;
