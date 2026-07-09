@@ -10,6 +10,12 @@
 void FUN_0044a000(int param_1,int param_2)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xfffffed0;
+  undefined stack0xfffffed8;
+  undefined stack0xfffffee0;
+  undefined stack0xfffffee8;
   int iVar1;
   int iVar2;
   int iVar3;
@@ -95,14 +101,14 @@ LAB_0044a1b2:
     local_10c = local_104 + 0xadc;
     iVar1 = PeekPacketChecksumState();
     pcVar5 = (code *)LeaveCriticalSection;
-    uStack_110._3_1_ = iVar1 != 0;
+    SUBFIELD(uStack_110,3,undefined1) = iVar1 != 0;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if (uStack_110._3_1_ != '\0') {
+    if (SUBFIELD(uStack_110,3,undefined1) != '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar1 = PeekPacketChecksumState();
-      uStack_110._3_1_ = iVar1 < 1;
+      SUBFIELD(uStack_110,3,undefined1) = iVar1 < 1;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      if (uStack_110._3_1_ == '\0') {
+      if (SUBFIELD(uStack_110,3,undefined1) == '\0') {
         if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
           if (*(char *)(iVar1 + 0x18) == '\x01') {
             BlitSprite16bpp();
@@ -378,11 +384,11 @@ LAB_0044a1b2:
     (*pcVar6)(&DAT_005a9068);
     PeekPacketChecksumState();
     (*pcVar5)(&DAT_005a9068);
-    if ((uStack_110._3_1_ != '\0') && (uVar7 < 3)) {
+    if ((SUBFIELD(uStack_110,3,undefined1) != '\0') && (uVar7 < 3)) {
       (*pcVar6)();
       PeekPacketChecksumState();
       (*pcVar5)();
-      if (uStack_110._3_1_ == '\0') {
+      if (SUBFIELD(uStack_110,3,undefined1) == '\0') {
         if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
           if (*(char *)(iVar1 + 0x18) == '\x01') {
             BlitSprite16bpp();
