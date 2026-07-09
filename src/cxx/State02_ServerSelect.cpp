@@ -1,0 +1,128 @@
+/* CState02ServerSelect - the server/channel select screen. Promoted
+ * from src/state_machine/State02_ServerSelect_OnEnter.c (0x4e14b0).
+ * Evidence: docs/screens/02_server_select.md. See src/cxx/README.md. */
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <winsock2.h>
+#include <string.h>
+#include "GameState.h"
+#include "Widget.h"
+
+class CWorldListPanel;
+CWorldListPanel *BuildWorldListPanel(void *manager);
+
+extern "C" {
+int PlayMusicTrack(int trackId);
+int __stdcall LoadSpriteSet(void *container, int key);
+extern unsigned char DAT_00ea0e18;
+extern int g_clientContext;
+extern unsigned char DAT_0067ec70;
+extern unsigned char g_uiPanelManager;
+void AppendPersistentButtonName(void *slot);
+/* the flat 80-byte ButtonWidget factory (separate system, PLAN.md
+ * Phase 1.6): (registry, ?, id, spriteBase, name, x, y, w, h,
+ * enabledFlag, ?) */
+void CreateButtonWidget(void *registry, int a, int id, int spriteBase,
+                        const char *name, int x, int y, int w, int h,
+                        int enabled, int b);
+extern unsigned char DAT_00e9be90;      /* flat-ButtonWidget registry */
+extern const char s_b_server_exitgame_00557144[];
+extern const char s_b_server_buddygame_00557170[];
+extern const char s_b_server_choiceserver_00557158[];
+void BeginServerConnect(void *target, int a);
+extern unsigned char DAT_005b2ad0;      /* broker connect target record */
+extern int DAT_005b33e8;
+extern int DAT_005b2b64;                /* server count hint for the scroll seed */
+extern unsigned int DAT_007934e4;       /* shared EDIT-control singleton (+8 = live flag) */
+extern unsigned int DAT_007934e8;       /* double-buffered connection context */
+extern unsigned int DAT_007934f4;       /* outgoing packet buffer base */
+void FUN_00405ba0(void);
+void FUN_00404410(void *arg);
+extern unsigned char DAT_00e53e88;
+}
+
+/* 0x4e14b0. Load the screen's sprite sets (10000/10001 + button faces
+ * 1000-0x3ea and the 0x44c/0x44d tab faces), reset three persistent
+ * button-name slots, create the three flat bottom-bar buttons
+ * (exitgame / buddygame / choiceserver - the last starts disabled),
+ * wipe the entire 16-entry server SoA arena at g_clientContext+0x3f808,
+ * reset the state fields (uiDirty on, view mode All, scroll seeded
+ * from DAT_005b2b64/16 or the previous server id/16), build the world
+ * list panel, kick the async broker connect, tear down a leftover
+ * connected socket from a previous session, start the channel music,
+ * and reset the chat-log side. The SoA wipe uses memsets where the
+ * original unrolls dword stores - same effect, byte-polish deferred
+ * until the arena becomes a real struct. */
+void CState02ServerSelect::OnEnter()
+{
+    LoadSpriteSet(&DAT_00ea0e18, 10000);
+    LoadSpriteSet(&DAT_00ea0e18, 0x2711);
+    LoadSpriteSet(&DAT_00ea0e18, 1000);
+    LoadSpriteSet(&DAT_00ea0e18, 0x3e9);
+    LoadSpriteSet(&DAT_00ea0e18, 0x3ea);
+    LoadSpriteSet(&DAT_00ea0e18, 0x44c);
+    LoadSpriteSet(&DAT_00ea0e18, 0x44d);
+    for (int i = 0; i < 3; ++i) {
+        AppendPersistentButtonName((unsigned char *)&DAT_0067ec70 + g_clientContext);
+    }
+    CreateButtonWidget(&DAT_00e9be90, 0, 0, 1000, s_b_server_exitgame_00557144,
+                       0x28, 0x227, 0x6b, 0x2d, 1, 0);
+    CreateButtonWidget(&DAT_00e9be90, 0, 1, 0x3e9, s_b_server_buddygame_00557170,
+                       0xa3, 0x227, 0x6b, 0x2d, 1, 0);
+    CreateButtonWidget(&DAT_00e9be90, 0, 2, 0x3ea, s_b_server_choiceserver_00557158,
+                       0x199, 0x227, 0x6b, 0x2d, 0, 0);
+
+    unsigned char *ctx = (unsigned char *)g_clientContext;
+    m_highlightedSlot = -1;
+    ctx[0x3f808] = 0;                       /* count */
+    memset(ctx + 0x3f809, 0, 0x10);         /* onlineFlag[16] */
+    memset(ctx + 0x3f81a, 0, 0x20);         /* serverId[16] */
+    memset(ctx + 0x3f84a, 0, 0x800);        /* name[16][128] */
+    memset(ctx + 0x4004a, 0, 0x1000);       /* desc[16][256] */
+    memset(ctx + 0x4104a, 0, 0x40);         /* serverIp[16] */
+    memset(ctx + 0x4108a, 0, 0x90);         /* port/unk2/players/maxCap[16] + animState */
+
+    m_connecting = 0;
+    m_unk05 = 0;
+    m_uiDirty = 1;
+    m_unk0c = -1;
+    m_viewMode = 0;
+    unsigned int page;
+    if ((int)DAT_005b2b64 < 1) {
+        int prev = *(int *)(ctx + 0x3f804);
+        page = prev < 1 ? 0 : (unsigned int)((prev + ((prev >> 31) & 0xf)) >> 4);
+    } else {
+        page = (unsigned int)DAT_005b2b64 >> 4;
+    }
+    m_scrollA = (int)page;
+    m_scrollOffset = (int)page;
+    m_unk1c = 0;
+    BuildWorldListPanel(&g_uiPanelManager);
+    BeginServerConnect(&DAT_005b2ad0, DAT_005b33e8);
+    m_unk07 = 1;
+    *(unsigned char *)(DAT_007934e4 + 8) = 1;   /* show the shared EDIT overlay */
+    /* leftover connected socket from a previous session: tear it down */
+    if (*(char *)(DAT_007934e8 + 0x84e5) != 0) {
+        int conn = *(int *)(DAT_007934e8 + 0x84e0);
+        if (conn != 0) {
+            *(int *)(conn + 0x22c) = 1;
+            if (*(unsigned int *)(conn + 0x24) != 0xffffffff) {
+                closesocket(*(SOCKET *)(conn + 0x24));
+            }
+            *(int *)(conn + 0x24) = -1;
+            *(unsigned char *)(conn + 0x22a) = 0;
+            *(unsigned char *)(DAT_007934e8 + 0x84e5) = 0;
+        }
+    }
+    m_tickCounter = 0;
+    PlayMusicTrack(1);
+    bool haveBuffer = DAT_007934f4 != 0;
+    m_inputEnabled = 0;
+    *(int *)(ctx + 0x3f804) = -1;
+    if (haveBuffer) {
+        FUN_00405ba0();
+        return;
+    }
+    FUN_00404410(&DAT_00e53e88);
+}

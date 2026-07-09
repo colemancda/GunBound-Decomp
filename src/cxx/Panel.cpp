@@ -700,8 +700,12 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
  * stack slot. They're passed as 0 here until the curated Ghidra
  * project pins them; the builder's argument is presumably the world
  * count headed for EDI. */
-CWorldListPanel * BuildWorldListPanel(int total)
+CWorldListPanel * BuildWorldListPanel(void *manager)
 {
+    /* the argument is &g_uiPanelManager (confirmed by State02's
+     * OnEnter call site); the original forwards it into the scrollbar
+     * factory's never-read first stack slot */
+    (void)manager;
     CWorldListPanel *p = new CWorldListPanel();
     p->m_id = 9000;
     p->m_unk4c = 0;
@@ -715,7 +719,7 @@ CWorldListPanel * BuildWorldListPanel(int total)
     viewAll->m_tabSelected = 1;
     p->AddChild(viewAll);
     p->AddChild(CreateLabelWidget(1, 0x44d, 0x1a3, 0x1eb, 0x4a, 0x1a));
-    p->AddChild(CreateScrollListWidget(0, total, 0x203, 0x4a, 0x12, 0x179, 0));
+    p->AddChild(CreateScrollListWidget(0, 0, 0x203, 0x4a, 0x12, 0x179, 0));
     PanelManager_Register(p);
     return p;
 }

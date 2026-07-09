@@ -75,8 +75,11 @@ class CState02ServerSelect : public CGameState {/* size 0x6c; ProcessPacket 0x4e
 public:
     CState02ServerSelect() : m_connectingSlot(-1) {} /* the only init InitGame does inline */
 
+    virtual void OnEnter();  /* 0x4e14b0 - promoted, State02_ServerSelect.cpp */
+
     u8  m_connecting;        /* +0x04: set while a connect attempt is in flight */
     u8  m_unk05;             /* +0x05 */
+    /* (+0x06 m_uiDirty starts 1, +0x07 starts 1 - both set in OnEnter) */
     u8  m_uiDirty;           /* +0x06: UI-dirty/interactable flag - WorldListPanel's
                               * mouse handler gates row selection on it == 1 */
     u8  m_unk07;             /* +0x07 */
