@@ -30,7 +30,7 @@ undefined4 * FUN_004d2170(undefined4 *param_1,int param_2,undefined4 param_3)
   *(undefined1 *)(param_1 + 0x132) = 0;
   param_1[0xaf] = 0;
   EncodeOutgoingPacketField(0);
-  local_4 = CONCAT31(local_4._1_3_,1);
+  local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

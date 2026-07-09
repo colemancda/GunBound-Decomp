@@ -1075,7 +1075,7 @@ void FUN_004e51f0();
 void __fastcall FUN_004e5400();
 undefined4 * __thiscall FUN_004e5430();
 ulong __fastcall FUN_004e5480();
-void FUN_004e54e0();
+undefined4 FUN_004e54e0();
 void FUN_004e5590();
 bool ReceiveFramedPackets();
 void __thiscall HandleSocketEvent();
