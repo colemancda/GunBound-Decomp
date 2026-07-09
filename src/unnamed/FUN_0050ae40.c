@@ -10,6 +10,9 @@
 void __fastcall FUN_0050ae40(int param_1)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xffffff64;
   undefined *puVar1;
   char extraout_AH;
   int in_EAX;
