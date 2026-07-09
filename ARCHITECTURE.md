@@ -797,6 +797,42 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
   (`0x40c470`/`0x40c550`/`0x40c620`) — persist display bit-depth setting under
   `Software\Softnyx\GunBound`.
 
+## The custom cursor system
+
+The client hides the OS cursor and manages its own. Several cooperating pieces:
+
+- **OS cursor hidden.** `WinMain` calls `ShowCursor(0)` right before the game
+  loop (re-enabled only on exit). The window class registers `IDC_ARROW`, but
+  it isn't used during play.
+- **Custom cursor sprite.** `ChangeGameState` preloads `cursor.img` via
+  `FindPreloadedTextureByName("cursor")` into **`g_cursorTexture`** on every
+  state transition — the in-game pointer, drawn at the mouse position each
+  frame (the blit is in an as-yet-unported per-frame render).
+- **A 9-entry `HCURSOR` array, `g_edgeCursors[9]`** (index 0 = normal, 1–8 =
+  the eight screen-edge directions), loaded in an unported cursor init.
+  `WndProc` handles **`WM_SETCURSOR`** with
+  `SetCursor(g_edgeCursors[g_cursorDirection])`.
+- **In-battle edge-scroll drives the direction.** `FUN_004bd8b0` (State 11 slot
+  9, per tick) tests the mouse against the 800×600 edges
+  (`X > 0x31b` right, `Y < 5` top, `Y > 0x253` bottom, left), computes a
+  direction 0–8, and — only when it changes (cached in
+  **`g_lastCursorDirection`**) — sets **`g_cursorDirection`** and `SetCursor`s
+  the matching arrow. The same index feeds the 8-directional camera scroll.
+- **Relative-mouse capture** (`WndProc` mouse-move): when a mode flag
+  (`DAT_00e53c3c`) is clear, it reads the movement delta, accumulates it into
+  camera/aim globals (`DAT_00e536c0`/`c4`), then `SetCursorPos`-snaps the
+  pointer back to a fixed anchor (`DAT_0056d10c`/`DAT_0056d110`) — FPS-style
+  relative mouse for camera/aim.
+- **Cursor clamping** (`ClampCursorToRect`, `0x4ee200`) confines the pointer to
+  a rect, e.g. snapping it onto a modal dialog.
+
+**Open point:** `ShowCursor(0)` hides the OS cursor, yet the code actively
+`SetCursor`s custom `HCURSOR`s. Either the `cursor.img` sprite is the visible
+pointer (with `g_cursorDirection` mainly driving camera-scroll direction), or
+the OS cursor is re-shown per-context and the `HCURSOR`s are what's drawn — not
+decidable from static analysis. The cursor state machine (9 directions, edge
+detection, relative capture, clamping) is confirmed regardless.
+
 ## Open threads / good next targets
 
 1. **DONE** — all 16 game states identified and named.
