@@ -10,6 +10,7 @@
 #include "gb_common.h"
 #include "GameState.h"
 #include "Widget.h"
+#include "Protocol.h"
 
 /* --- CGameState hierarchy: confirmed allocation sizes ------------------ */
 GB_STATIC_ASSERT(sizeof(CState01Title)       == 8,       state01_size);
@@ -21,6 +22,11 @@ GB_STATIC_ASSERT(sizeof(CState07AvatarStore) == 0x34818, state07_size);
 GB_STATIC_ASSERT(sizeof(CState09ReadyRoom)   == 0x78c,   state09_size);
 GB_STATIC_ASSERT(sizeof(CState10Loading)     == 0x150,   state10_size);
 GB_STATIC_ASSERT(sizeof(CState11InBattle)    == 0x2408,  state11_size);
+
+/* --- Wire structures: PROTOCOL.md-confirmed layouts --------------------- */
+GB_STATIC_ASSERT(sizeof(GbActionHeader) == 0x21,  actionheader_size);
+GB_STATIC_ASSERT(sizeof(GbFirePayload)  == 0x1c,  firepayload_size);
+GB_STATIC_ASSERT(sizeof(GbInventoryItem)== 0x9c,  invitem_size);
 
 /* --- CWidget hierarchy: confirmed field offsets and sizes -------------- */
 GB_STATIC_ASSERT(sizeof(CWidget)    == 0x38,  widget_size);
@@ -44,6 +50,11 @@ GB_STATIC_ASSERT(sizeof(CPanelListNode)         == 0x0c, panelnode_size);
  * they're functions-scope typedefs here */
 static void gb_widget_offset_checks()
 {
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbActionHeader, actionType) == 0x02, off_actiontype);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbActionHeader, sourceSlot) == 0x05, off_srcslot);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbFirePayload, shotData) == 0x2c - 0x21, off_shotdata);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbInventoryItem, expYear) == 0x12, off_expyear);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbInventoryItem, blob) == 0x1c, off_invblob);
     GB_STATIC_ASSERT(GB_OFFSETOF(CState02ServerSelect, m_slotError) == 0x28, off_sloterr);
     GB_STATIC_ASSERT(GB_OFFSETOF(CState02ServerSelect, m_connectingSlot) == 0x68, off_connslot);
     GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_parent)     == 0x08, off_parent);
