@@ -1414,7 +1414,7 @@ char * FUN_00500ef0();
 void thunk_FUN_00500f80();
 void FUN_00500f80();
 void FUN_00500f90();
-void FUN_00500fa0();
+undefined4 FUN_00500fa0();
 void __fastcall FUN_00501010();
 void FUN_00501070();
 void FUN_005011c0();
