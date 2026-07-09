@@ -12,6 +12,9 @@
 void __fastcall FUN_0047b2f0(int *param_1)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xfffff524;
   int *piVar1;
   byte bVar2;
   bool bVar3;
