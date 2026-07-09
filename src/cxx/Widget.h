@@ -194,19 +194,49 @@ public:
 };
 
 /* Container/dialog base - each concrete panel is its own class (own
- * vtable) sharing the container behavior: broadcast input/draw to
- * children, forward child OnCommand events up (often into the owning
- * game state's command dispatcher). Built by the panel-builder catalog
- * in docs/widgets.md; all register with g_uiPanelManager. */
+ * vtable) sharing the container behavior. The base is a REAL class
+ * with its own vtable (0x557bbc) and out-of-line constructor
+ * (0x505760, called by every builder), sized exactly 0x90:
+ * CWidget (0x38) + the panel state below + a 16-slot embedded array
+ * of ATL CString handles at +0x50 (the base ctor runs
+ * _eh_vector_constructor_iterator_ over it; each slot's ctor
+ * allocates through the string manager at DAT_005b1444 and stores
+ * body+0x10 - ATL7 CStringData's 16-byte header - and the dtor is a
+ * refcounted release). All panels register with g_uiPanelManager
+ * (0x50eea0): a doubly-linked list, prepended or appended by the
+ * m_insertAtFront flag. */
 class CPanel : public CWidget {
 public:
-    /* per-panel fields vary; dialog sizes run 0x90-0x9c, the chat-log
-     * panel is ~0x1050 (embeds a ~4 KB history buffer) */
+    /* 0x505760 - promoted, Panel.cpp (the CString slot construction
+     * is deferred pending a CString reconstruction; see there). */
+    CPanel();
+
+    u8    m_unk38;           /* +0x38: builders override (WorldList sets 1) */
+    u8    m_unk39;           /* +0x39: base drag flag slot; ctor clears */
+    u8    m_unk3a[2];        /* +0x3a */
+    int   m_unk3c;           /* +0x3c */
+    int   m_unk40;           /* +0x40 */
+    int   m_unk44;           /* +0x44 */
+    int   m_unk48;           /* +0x48 */
+    int   m_unk4c;           /* +0x4c */
+    char *m_strings[16];     /* +0x50: ATL CString handles (see class comment) */
 };
 
-/* The nine confirmed concrete panels (identity + vtable confirmed; field
- * maps not yet reconstructed, so no size asserts yet):
- *   CWorldListPanel        vtable 0x557f08  BuildWorldListPanel 0x5099d0 (state 2)
+/* State 2's server WORLD LIST panel (docs/screens/02_server_select.md):
+ * two bottom buttons (View All / Friends) + the row-list scrollbar.
+ * Size 0x94 = CPanel + the +0x90 field. */
+class CWorldListPanel : public CPanel {   /* vtable 0x557f08; builder 0x5099d0 */
+public:
+    CWorldListPanel();                    /* inlined in the builder */
+
+    virtual bool OnMouseDown(int x, int y);           /* WorldListPanel_OnMouseDown - port pending */
+    virtual void OnCommand(int evt, int id, int arg); /* 0x50d810 WorldListPanel_OnCommand - port pending */
+
+    int m_unk90;             /* +0x90: builder inits to -1 (selection?) */
+};
+
+/* The remaining confirmed concrete panels (identity + vtable confirmed;
+ * field maps not yet reconstructed, so no size asserts yet):
  *   CBuddyPanel            vtable 0x557be4  BuildBuddyPanel (shared; singleton key 20000)
  *   CLobbyChatPanel        vtable 0x557cd4  BuildLobbyChatPanel (state 3)
  *   CChannelUserListPanel  vtable 0x557cac  BuildChannelUserListPanel 0x509d80 (state 3)
@@ -215,7 +245,6 @@ public:
  *   CChatLogPanel          vtable 0x557b94  BuildChatLogPanel (~0x1050 bytes)
  *   CEnterRoomNumberDialog vtable 0x557df0  BuildEnterRoomNumberDialog (state 3)
  *   CCreateRoomDialog      vtable 0x557c34  BuildCreateRoomDialog (state 3) */
-class CWorldListPanel        : public CPanel {};   /* OnCommand override: WorldListPanel_OnCommand 0x50d810 */
 class CBuddyPanel            : public CPanel {};
 class CLobbyChatPanel        : public CPanel {};
 class CChannelUserListPanel  : public CPanel {};

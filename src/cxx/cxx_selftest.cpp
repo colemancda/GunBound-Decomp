@@ -27,6 +27,8 @@ GB_STATIC_ASSERT(sizeof(CWidget)    == 0x38,  widget_size);
 GB_STATIC_ASSERT(sizeof(CLabel)     == 0x40,  label_size);
 GB_STATIC_ASSERT(sizeof(CEditBox)   == 0x140, editbox_size);
 GB_STATIC_ASSERT(sizeof(CScrollBar) == 0x58,  scrollbar_size);
+GB_STATIC_ASSERT(sizeof(CPanel)     == 0x90,  panel_size);
+GB_STATIC_ASSERT(sizeof(CWorldListPanel) == 0x94, worldlist_size);
 
 /* offset checks can't live in the class body (incomplete type there), so
  * they're functions-scope typedefs here */
@@ -47,4 +49,6 @@ static void gb_widget_offset_checks()
     GB_STATIC_ASSERT(GB_OFFSETOF(CEditBox, m_maxLen)    == 0x138, off_maxlen);
     GB_STATIC_ASSERT(GB_OFFSETOF(CScrollBar, m_total)   == 0x38, off_total);
     GB_STATIC_ASSERT(GB_OFFSETOF(CScrollBar, m_scrollPos)== 0x40, off_scrollpos);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CPanel, m_strings)     == 0x50, off_strings);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CWorldListPanel, m_unk90) == 0x90, off_unk90);
 }
