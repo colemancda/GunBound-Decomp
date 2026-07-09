@@ -12,6 +12,19 @@ every string embedded in the binary, and [CONSTANTS.md](CONSTANTS.md) for a
 consolidated index of every enum/constant/opcode/struct-offset confirmed
 across all of the above.
 
+## Reimplementation guides
+
+Reimplementation-focused docs, built from the reverse engineering above:
+
+- [docs/screens/](docs/screens/README.md) — one build-oriented document per
+  game screen (state, rendering, input, network, transitions).
+- [docs/widgets.md](docs/widgets.md) — the reusable UI-widget system (the
+  `CWidget`/`CPanel` hierarchy, the flat `ButtonWidget`, and the panel catalog).
+- [docs/porting-sdl3.md](docs/porting-sdl3.md) — mapping the DirectX/Win32 usage
+  to **SDL3** (a faithful, cross-platform port).
+- [docs/porting-spritekit.md](docs/porting-spritekit.md) — mapping the client to
+  Apple's **SpriteKit** (an idiomatic scene-graph re-expression).
+
 ## Reference file hashes
 
 The original game/asset files are not committed to this repo (proprietary,
