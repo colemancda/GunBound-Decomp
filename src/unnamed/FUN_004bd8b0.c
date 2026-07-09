@@ -307,79 +307,79 @@ LAB_004bdd1c:
       iVar6 = *(int *)(&DAT_005f2f44 + iVar5);
       bVar13 = bVar13 | 8;
     }
-    if (DAT_007a7668 < 9) {
+    if (g_lastCursorDirection < 9) {
       switch(bVar13) {
       case 0:
-        if (DAT_007a7668 != 0) {
+        if (g_lastCursorDirection != 0) {
           FUN_00461c60();
-          DAT_00793510 = 0;
-          hCursor = DAT_005b1c4c;
+          g_cursorDirection = 0;
+          hCursor = g_edgeCursors[0];
 LAB_004bdf96:
           SetCursor(hCursor);
           iVar5 = g_clientContext;
         }
         break;
       case 1:
-        if (DAT_007a7668 != 7) {
+        if (g_lastCursorDirection != 7) {
           FUN_00461c60();
-          DAT_00793510 = 7;
-          hCursor = DAT_005b1c68;
+          g_cursorDirection = 7;
+          hCursor = g_edgeCursors[7];
           goto LAB_004bdf96;
         }
         break;
       case 2:
-        if (DAT_007a7668 != 3) {
+        if (g_lastCursorDirection != 3) {
           FUN_00461c60();
-          DAT_00793510 = 3;
-          hCursor = DAT_005b1c58;
+          g_cursorDirection = 3;
+          hCursor = g_edgeCursors[3];
           goto LAB_004bdf96;
         }
         break;
       case 4:
-        if (DAT_007a7668 != 1) {
+        if (g_lastCursorDirection != 1) {
           FUN_00461c60();
-          DAT_00793510 = 1;
-          hCursor = DAT_005b1c50;
+          g_cursorDirection = 1;
+          hCursor = g_edgeCursors[1];
           goto LAB_004bdf96;
         }
         break;
       case 5:
-        if (DAT_007a7668 != 8) {
+        if (g_lastCursorDirection != 8) {
           FUN_00461c60();
-          DAT_00793510 = 8;
-          hCursor = DAT_005b1c6c;
+          g_cursorDirection = 8;
+          hCursor = g_edgeCursors[8];
           goto LAB_004bdf96;
         }
         break;
       case 6:
-        if (DAT_007a7668 != 2) {
+        if (g_lastCursorDirection != 2) {
           FUN_00461c60();
-          DAT_00793510 = 2;
-          hCursor = DAT_005b1c54;
+          g_cursorDirection = 2;
+          hCursor = g_edgeCursors[2];
           goto LAB_004bdf96;
         }
         break;
       case 8:
-        if (DAT_007a7668 != 5) {
+        if (g_lastCursorDirection != 5) {
           FUN_00461c60();
-          DAT_00793510 = 5;
-          hCursor = DAT_005b1c60;
+          g_cursorDirection = 5;
+          hCursor = g_edgeCursors[5];
           goto LAB_004bdf96;
         }
         break;
       case 9:
-        if (DAT_007a7668 != 6) {
+        if (g_lastCursorDirection != 6) {
           FUN_00461c60();
-          DAT_00793510 = 6;
-          hCursor = DAT_005b1c64;
+          g_cursorDirection = 6;
+          hCursor = g_edgeCursors[6];
           goto LAB_004bdf96;
         }
         break;
       case 10:
-        if (DAT_007a7668 != 4) {
+        if (g_lastCursorDirection != 4) {
           FUN_00461c60();
-          DAT_00793510 = 4;
-          hCursor = DAT_005b1c5c;
+          g_cursorDirection = 4;
+          hCursor = g_edgeCursors[4];
           goto LAB_004bdf96;
         }
       }

@@ -32,7 +32,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     }
     else if (param_2 < 0x21) {
       if (param_2 == 0x20) {
-        SetCursor((HCURSOR)(&DAT_005b1c4c)[DAT_00793510]);
+        SetCursor((HCURSOR)(&g_edgeCursors[0])[g_cursorDirection]);
         return 1;
       }
       if (param_2 == 2) {

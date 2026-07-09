@@ -368,7 +368,12 @@ extern uint8_t DAT_005a9084;
 extern uint32_t DAT_005b1444;
 extern uint32_t DAT_005b15ac;
 extern uint32_t DAT_005b1c48;
-extern uint32_t DAT_005b1c4c;
+/* g_edgeCursors (was DAT_005b1c4c..DAT_005b1c6c) - a 9-element HCURSOR array
+ * for the custom cursor: index 0 = normal, 1-8 = the eight screen-edge
+ * directions. Selected by g_cursorDirection and applied via SetCursor on
+ * WM_SETCURSOR (WndProc) and per-tick in-battle (the edge-scroll logic in
+ * State11 slot 9). Loaded in an as-yet-unported cursor init. */
+extern uint32_t g_edgeCursors[9];
 extern uint8_t DAT_005b1c70;
 extern uint8_t DAT_005b1cf0;
 extern uint32_t DAT_005b1d70;
@@ -561,7 +566,7 @@ extern uint32_t DAT_00793500;
 extern uint32_t DAT_00793504;
 extern uint8_t DAT_0079350c;
 extern uint8_t DAT_0079350d;
-extern uint32_t DAT_00793510;
+extern uint32_t g_cursorDirection;
 extern uint8_t DAT_00793514;
 extern uint8_t DAT_00793515;
 extern uint8_t DAT_00793516;
@@ -623,8 +628,10 @@ extern uint8_t DAT_00796078;
 extern uint8_t DAT_00796878;
 extern uint8_t DAT_00796aa0;
 extern uint8_t DAT_00796eec;
-extern uint8_t DAT_007a7660;
-#define _DAT_007a7660 DAT_007a7660
+/* g_cursorTexture (was DAT_007a7660) - the custom cursor sprite (cursor.img),
+ * preloaded via FindPreloadedTextureByName("cursor") on every ChangeGameState;
+ * the in-game pointer drawn at the mouse position. */
+extern uint8_t g_cursorTexture;
 extern uint32_t DAT_007a7674;
 extern uint8_t DAT_007a768c;
 extern uint8_t DAT_00d9aa20;
@@ -1802,14 +1809,6 @@ extern uint32_t DAT_005b0efc;
 extern uint32_t DAT_005b12fc;
 extern uint32_t DAT_005b137c;
 extern uint32_t DAT_005b13fc;
-extern uint32_t DAT_005b1c50;
-extern uint32_t DAT_005b1c54;
-extern uint32_t DAT_005b1c58;
-extern uint32_t DAT_005b1c5c;
-extern uint32_t DAT_005b1c60;
-extern uint32_t DAT_005b1c64;
-extern uint32_t DAT_005b1c68;
-extern uint32_t DAT_005b1c6c;
 extern uint32_t DAT_005c7fb8;
 extern uint32_t DAT_005f2f44;
 extern uint32_t DAT_005f2f48;
@@ -1899,7 +1898,7 @@ extern uint32_t DAT_00793720;
 extern uint32_t DAT_00793724;
 extern uint32_t DAT_007949c8;
 extern uint32_t DAT_00794e48;
-extern uint32_t DAT_007a7668;
+extern uint32_t g_lastCursorDirection;
 extern uint32_t DAT_00989680;
 extern uint32_t DAT_00e54a9c;
 extern uint32_t DAT_00e54aa0;
