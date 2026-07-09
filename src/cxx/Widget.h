@@ -234,8 +234,12 @@ class CWorldListPanel : public CPanel {   /* vtable 0x557f08; builder 0x5099d0 *
 public:
     CWorldListPanel();                    /* inlined in the builder */
 
-    virtual bool OnMouseDown(int x, int y);           /* WorldListPanel_OnMouseDown - port pending */
+    virtual bool OnMouseDown(int x, int y);           /* WorldListPanel_OnMouseDown - port pending on the
+                                                       * CPanel mouse-down default chain (0x505430) */
     virtual void OnCommand(int evt, int id, int arg); /* 0x50d810 WorldListPanel_OnCommand - port pending */
+
+    int RowHitTest(int x, int y);   /* WorldListRowHitTest - promoted, Panel.cpp. NOTE: this in
+                                     * EAX, x in EDI in the original (custom-register family). */
 
     int m_unk90;             /* +0x90: builder inits to -1 (selection?) */
 };

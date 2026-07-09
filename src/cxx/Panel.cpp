@@ -23,6 +23,7 @@ void __fastcall PanelManager_BringToFront(void *manager, CPanel *panel);
 void TextEntry_SetControlText(void);
 /* The global UI panel manager (0xe53c40): +4 list head, +8 tail. */
 extern unsigned char g_uiPanelManager;
+extern int g_clientContext;
 }
 
 static CPanelListNode *PanelListHead()
@@ -405,6 +406,26 @@ void __fastcall BuildEnterRoomNumberDialog(int arg)
     p->AddChild(CreateLabelWidget(0, 0x579, 0xd5, 0x76, 0x52, 0x22));
     p->AddChild(CreateLabelWidget(1, 0x578, 0x80, 0x76, 0x52, 0x22));
     PanelManager_Register(p);
+}
+
+/* WorldListRowHitTest - which server row the point lands on. The rows
+ * are a 2-column grid inside the panel: cells 223x73 apart starting at
+ * (+0x16, +0x2d) panel-relative, each 0xdf x 0x49; a row only counts
+ * while its server's onlineFlag (the SoA at g_clientContext+0x3f809)
+ * is 1. Returns the slot index or -1. */
+int CWorldListPanel::RowHitTest(int x, int y)
+{
+    int count = (int)*(unsigned char *)(g_clientContext + 0x3f808);
+    for (int i = 0; i < count; ++i) {
+        int cellX = m_x + 0x16 + (i & 1) * 0xf7;
+        int cellY = m_y + 0x2d + (i / 2) * 0x49;
+        if (cellX <= x && x <= cellX + 0xdf &&
+            cellY <= y && y <= cellY + 0x49 &&
+            *(char *)(g_clientContext + 0x3f809 + i) == 1) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 /* 0x5099d0 - BuildWorldListPanel (docs/screens/02_server_select.md's

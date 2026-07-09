@@ -44,6 +44,8 @@ GB_STATIC_ASSERT(sizeof(CPanelListNode)         == 0x0c, panelnode_size);
  * they're functions-scope typedefs here */
 static void gb_widget_offset_checks()
 {
+    GB_STATIC_ASSERT(GB_OFFSETOF(CState02ServerSelect, m_slotError) == 0x28, off_sloterr);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CState02ServerSelect, m_connectingSlot) == 0x68, off_connslot);
     GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_parent)     == 0x08, off_parent);
     GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_children)   == 0x0c, off_children);
     GB_STATIC_ASSERT(sizeof(CAtlArray<CWidget *>) == 0x10, atlarray_size);

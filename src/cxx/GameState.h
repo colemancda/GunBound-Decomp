@@ -68,12 +68,29 @@ public:
     int m_frameCounter;                         /* +0x04: the state's only field */
 };
 
+/* Server/Channel select. Field map from docs/screens/02_server_select.md
+ * (offsets confirmed there); the server list itself is NOT in this
+ * object - it is the 16-entry SoA at g_clientContext+0x3f808. */
 class CState02ServerSelect : public CGameState {/* size 0x6c; ProcessPacket 0x4e02b0 */
 public:
-    CState02ServerSelect() : m_unk68(-1) {}     /* the only init InitGame does inline */
+    CState02ServerSelect() : m_connectingSlot(-1) {} /* the only init InitGame does inline */
 
-    u8  m_raw[0x68 - 4];                        /* field map not yet reconstructed */
-    int m_unk68;                                /* +0x68: starts -1 (selection index?) */
+    u8  m_connecting;        /* +0x04: set while a connect attempt is in flight */
+    u8  m_unk05;             /* +0x05 */
+    u8  m_uiDirty;           /* +0x06: UI-dirty/interactable flag - WorldListPanel's
+                              * mouse handler gates row selection on it == 1 */
+    u8  m_unk07;             /* +0x07 */
+    int m_highlightedSlot;   /* +0x08: UI cursor, -1 = none (set from RowHitTest) */
+    int m_unk0c;             /* +0x0c */
+    int m_unk10;             /* +0x10 */
+    int m_scrollA;           /* +0x14: scroll/paging (seeded from a global at OnEnter) */
+    int m_scrollOffset;      /* +0x18: current page offset sent in the 0x1100 request */
+    int m_unk1c;             /* +0x1c */
+    int m_tickCounter;       /* +0x20 */
+    u8  m_inputEnabled;      /* +0x24: set to (highlightedSlot != -1) on row click */
+    u8  m_pad25[3];          /* +0x25 */
+    int m_slotError[16];     /* +0x28: per-slot connect error codes 0x1d-0x20 */
+    int m_connectingSlot;    /* +0x68: slot a connect is targeting, -1 = none */
 };
 
 class CState03GameRoomList : public CGameState {/* size 0x294; ProcessPacket 0x426ad0.
