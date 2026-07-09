@@ -71,7 +71,7 @@ void __thiscall FUN_0049c120(int param_1,undefined4 param_2,int param_3)
   puStack_8 = &LAB_0053ef1b;
   uStack_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_c;
-  pcStack_10 = FUN_0049c13f;
+  pcStack_10 = (code *)FUN_0049c13f; /* cast: __fastcall vs code()'s default cc */
   puStack_2498 = (undefined *)0x49c14c;
   uVar4 = FUN_0045f840();
   switch(param_2) {
@@ -143,7 +143,7 @@ LAB_0049c219:
     uStack_24a4 = 0x49c266;
     uVar9 = FUN_0040aba0();
     puStack_2498 = (undefined *)0x3;
-    uStack_4 = CONCAT31(uStack_4._1_3_,1);
+    uStack_4 = CONCAT31(SUBFIELD(uStack_4,1,undefined3),1);
     iStack_24a0 = 0x49c284;
     puStack_249c = (undefined1 *)uVar7;
     iStack_24a0 = FUN_004065a0();
@@ -209,7 +209,7 @@ LAB_0049c350:
     uStack_24b0 = FUN_0040aba0();
     puStack_24cc = (undefined *)0x3;
     puStack_24d0 = (undefined1 *)uStack_24b8;
-    uStack_38 = CONCAT31(uStack_38._1_3_,3);
+    uStack_38 = CONCAT31(SUBFIELD(uStack_38,1,undefined3),3);
     iStack_24d4 = 0x49c3af;
     iStack_24d4 = FUN_004065a0();
     uStack_24d8 = uVar4;
@@ -220,7 +220,7 @@ LAB_0049c350:
     FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uStack_24b4,6,0,
                  CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                           *(int *)(param_1 + 0xae2c) != 0),uVar10,uVar9,uVar8,uVar7);
-    uStack_6c = CONCAT31(uStack_6c._1_3_,2);
+    uStack_6c = CONCAT31(SUBFIELD(uStack_6c,1,undefined3),2);
     FUN_0040a2a0();
     uStack_6c = 0xffffffff;
     FUN_0040a2a0();
@@ -244,7 +244,7 @@ LAB_0049c470:
     uVar9 = FUN_0040aca0(iVar1,&uStack_24d8,iVar2);
     uStack_6c = 4;
     uVar10 = FUN_0040aba0(param_1 + 0x90c,auStack_1a24,param_1 + 0x53fc);
-    uStack_6c = CONCAT31(uStack_6c._1_3_,5);
+    uStack_6c = CONCAT31(SUBFIELD(uStack_6c,1,undefined3),5);
     uVar7 = FUN_004065a0(uVar7,3);
     uVar5 = FUN_0040a4d0(param_1 + 0x7864);
     uVar6 = FUN_0040a4d0(param_1 + 0x4d90);
@@ -252,7 +252,7 @@ LAB_0049c470:
     uVar10 = FUN_0040a4d0(uVar10);
     FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar8,6,0,*(int *)(param_1 + 0xae2c) != 0,uVar10,uVar9
                  ,uVar6,uVar5,uVar4,uVar7);
-    uStack_4 = CONCAT31(uStack_4._1_3_,4);
+    uStack_4 = CONCAT31(SUBFIELD(uStack_4,1,undefined3),4);
     puStack_2498 = (undefined *)0x49c526;
     FUN_0040a2a0();
     uStack_4 = 0xffffffff;
@@ -302,11 +302,11 @@ LAB_0049c5bf:
     puStack_2498 = (undefined *)(param_1 + 0x5844);
     puStack_249c = auStack_1574;
     iStack_24a0 = param_1 + 0x90c;
-    uStack_4._0_1_ = 7;
+    SUBFIELD(uStack_4,0,undefined1) = 7;
     uStack_24a4 = 0x49c637;
     uVar10 = FUN_0040aba0();
     puStack_2498 = (undefined *)0x2;
-    uStack_4 = CONCAT31(uStack_4._1_3_,8);
+    uStack_4 = CONCAT31(SUBFIELD(uStack_4,1,undefined3),8);
     iStack_24a0 = 0x49c655;
     puStack_249c = (undefined1 *)uVar7;
     iStack_24a0 = FUN_004065a0();
@@ -333,10 +333,10 @@ LAB_0049c5bf:
     uStack_24c4 = uStack_2480;
     puStack_24cc = (undefined *)0x49c6b0;
     FUN_0042bbb0();
-    uStack_38._0_1_ = 7;
+    SUBFIELD(uStack_38,0,undefined1) = 7;
     puStack_24cc = (undefined *)0x49c6c4;
     FUN_0040a2a0();
-    uStack_38 = CONCAT31(uStack_38._1_3_,6);
+    uStack_38 = CONCAT31(SUBFIELD(uStack_38,1,undefined3),6);
     puStack_24cc = (undefined *)0x49c6d8;
     FUN_0040a2a0();
     uStack_38 = 0xffffffff;
@@ -378,12 +378,12 @@ LAB_0049c733:
     puStack_24cc = (undefined *)(param_1 + 0x5844);
     puStack_24d0 = auStack_205c;
     iStack_24d4 = param_1 + 0x90c;
-    uStack_38._0_1_ = 10;
+    SUBFIELD(uStack_38,0,undefined1) = 10;
     uStack_24d8 = 0x49c79b;
     iStack_24a8 = FUN_0040aba0();
     puStack_24cc = (undefined *)0x2;
     puStack_24d0 = (undefined1 *)uStack_24b8;
-    uStack_38 = CONCAT31(uStack_38._1_3_,0xb);
+    uStack_38 = CONCAT31(SUBFIELD(uStack_38,1,undefined3),0xb);
     iStack_24d4 = 0x49c7b9;
     iStack_24d4 = FUN_004065a0();
     uStack_24d8 = uVar4;
@@ -394,10 +394,10 @@ LAB_0049c733:
     FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uStack_24b4,6,1,
                  CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                           *(int *)(param_1 + 0xae2c) != 0),uVar9,uVar8,uVar7,uVar4);
-    uStack_4._0_1_ = 10;
+    SUBFIELD(uStack_4,0,undefined1) = 10;
     puStack_2498 = (undefined *)0x49c815;
     FUN_0040a2a0();
-    uStack_4 = CONCAT31(uStack_4._1_3_,9);
+    uStack_4 = CONCAT31(SUBFIELD(uStack_4,1,undefined3),9);
     puStack_2498 = (undefined *)0x49c829;
     FUN_0040a2a0();
     uStack_4 = 0xffffffff;
@@ -461,7 +461,7 @@ LAB_0049c8d2:
     uStack_4 = 0xc;
     uStack_24a4 = 0x49c917;
     uVar8 = FUN_0040aba0();
-    uStack_4._0_1_ = 0xd;
+    SUBFIELD(uStack_4,0,undefined1) = 0xd;
     puStack_2498 = (undefined *)(uint)*(ushort *)(param_1 + 0xbfbc);
     puStack_249c = (undefined1 *)(param_1 + 0x7864);
     iStack_24a0 = 0x49c937;
@@ -479,7 +479,7 @@ LAB_0049c8d2:
     uStack_24b4 = 0x49c95f;
     iStack_24ac = uVar4;
     FUN_004317b0();
-    uStack_4 = CONCAT31(uStack_4._1_3_,0xc);
+    uStack_4 = CONCAT31(SUBFIELD(uStack_4,1,undefined3),0xc);
     puStack_2498 = (undefined *)0x49c973;
     FUN_0040a2a0();
     uStack_4 = 0xffffffff;
@@ -522,11 +522,11 @@ LAB_0049c8d2:
       puStack_2498 = (undefined *)(param_1 + 0x5844);
       puStack_249c = auStack_ac0;
       iStack_24a0 = param_1 + 0x90c;
-      uStack_4._0_1_ = 0xf;
+      SUBFIELD(uStack_4,0,undefined1) = 0xf;
       uStack_24a4 = 0x49ca8f;
       uVar10 = FUN_0040aba0();
       puStack_2498 = (undefined *)0x1;
-      uStack_4._0_1_ = 0x10;
+      SUBFIELD(uStack_4,0,undefined1) = 0x10;
       iStack_24a0 = 0x49caad;
       puStack_249c = (undefined1 *)uVar7;
       iStack_24a0 = FUN_004065a0();
@@ -551,10 +551,10 @@ LAB_0049c8d2:
       uStack_24c0 = 0;
       uStack_24c8 = 0x49cafb;
       FUN_0042de70();
-      uStack_4._0_1_ = 0xf;
+      SUBFIELD(uStack_4,0,undefined1) = 0xf;
       puStack_2498 = (undefined *)0x49cb0f;
       FUN_0040a2a0();
-      uStack_4 = CONCAT31(uStack_4._1_3_,0xe);
+      uStack_4 = CONCAT31(SUBFIELD(uStack_4,1,undefined3),0xe);
       puStack_2498 = (undefined *)0x49cb23;
       FUN_0040a2a0();
       uStack_4 = 0xffffffff;
