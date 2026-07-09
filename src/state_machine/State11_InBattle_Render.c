@@ -42,7 +42,7 @@ void State11_InBattle_Render(void)
   int *piStack_a2c;
   char *pcStack_a28;
   int *piStack_a24;
-  undefined4 uStack_a20;
+  int *uStack_a20; /* was undefined4; indexed/dereferenced as int * at some sites */
   char *pcStack_a1c;
   int *piStack_a18;
   uint uStack_a14;
@@ -1555,7 +1555,7 @@ void State11_InBattle_Render(void)
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (iVar5 == 2) {
 LAB_004c6daa:
-          uStack_a38 = uStack_a20._3_1_ == '\0';
+          uStack_a38 = SUBFIELD(uStack_a20,3,undefined1) == '\0';
         }
         else {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -1978,7 +1978,7 @@ LAB_004c7566:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar6 == 2) {
 LAB_004c7ef8:
-      uStack_a38 = uStack_a20._3_1_ == '\0';
+      uStack_a38 = SUBFIELD(uStack_a20,3,undefined1) == '\0';
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
