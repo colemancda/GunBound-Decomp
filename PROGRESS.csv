@@ -1202,7 +1202,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ee120,162,FUN_004ee120,false,1,0,RAW-src
 004ee1d0,30,FUN_004ee1d0,false,2,2,RAW-src
 004ee1f0,7,FUN_004ee1f0,false,3,0,RAW-src
-004ee200,104,FUN_004ee200,false,5,1,RAW-src
+004ee200,104,ClampCursorToRect,false,5,1,RAW-src
 004ee270,163,FUN_004ee270,false,2,0,RAW-src
 004ee320,471,FUN_004ee320,false,1,1,RAW-src
 004ee540,101,FUN_004ee540,false,2,0,RAW-src

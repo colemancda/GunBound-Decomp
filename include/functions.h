@@ -1197,7 +1197,7 @@ void __fastcall FUN_004ee0d0();
 void FUN_004ee120();
 void * __thiscall FUN_004ee1d0();
 void __fastcall FUN_004ee1f0();
-void __fastcall FUN_004ee200();
+void __fastcall ClampCursorToRect();
 undefined4 __fastcall FUN_004ee270();
 void __fastcall FUN_004ee320();
 void __fastcall FUN_004ee540();

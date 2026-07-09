@@ -1,14 +1,13 @@
-/* FUN_004ee200 - 0x004ee200 in the original binary.
+/* ClampCursorToRect - 0x004ee200 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Clamps the mouse cursor into a rectangle stored on the target object (+0x58c..+0x5a0) via SetCursorPos - used e.g. to snap the pointer onto a modal dialog. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004ee200(int param_1)
+void __fastcall ClampCursorToRect(int param_1)
 
 {
   int iVar1;

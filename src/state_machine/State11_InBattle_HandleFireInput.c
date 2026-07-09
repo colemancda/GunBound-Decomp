@@ -563,7 +563,7 @@ LAB_004606d5:
     if ((&DAT_005f2f40)[iVar18] == '\x02') {
       FUN_00461c60(s_normal_00552230);
       FUN_0040a4d0(param_1 + 0x1e19);
-      FUN_004ee200();
+      ClampCursorToRect();
     }
     *(undefined1 *)(DAT_007934e4 + 8) = 1;
   }

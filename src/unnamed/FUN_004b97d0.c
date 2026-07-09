@@ -898,7 +898,7 @@ LAB_004bafd2:
   FUN_0043d6d0();
   Replay_FlushEvent();
   FUN_0040a4d0(*(int *)(g_clientContext + 0x621e0) + 0x7864);
-  FUN_004ee200();
+  ClampCursorToRect();
   FUN_00406500(0);
   FUN_00406500(0);
   QueueOutgoingPacketField(0xffffffff);

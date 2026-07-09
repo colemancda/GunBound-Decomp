@@ -12,7 +12,7 @@
  *   2. Creates the OK button: CreateButtonWidget(list, 1000000, 1000000,
  *      0x385, "b_error_confirm", 0x1c6, 0x14b, 0x4a, 0x1a, 1, 0) -> at
  *      (454,331), 74x26; action code 0x385.
- *   3. Snaps the cursor onto the dialog (FUN_004ee200 -> SetCursorPos).
+ *   3. Snaps the cursor onto the dialog (ClampCursorToRect -> SetCursorPos).
  *   4. Clears the text scratch buffer (DAT_005b1d70) and sets the dialog rect
  *      globals (_DAT_00e53c24..30 = {0xf9,0x229,0xc1,0x171}).
  *   5. Looks up the localized message string, GetLocalizedString(&DAT_00796eec,
@@ -59,7 +59,7 @@ void ShowErrorDialog(int param_1)
   g_stateChangeInProgress = in_EAX;
   CreateButtonWidget(&DAT_00e9be90,1000000,1000000,0x385,s_b_error_confirm_00552238,0x1c6,0x14b,0x4a
                      ,0x1a,1,0);
-  FUN_004ee200();
+  ClampCursorToRect();
   uVar8 = 1;
   uVar7 = 0x15e;
   uVar6 = 0x2b;

@@ -23,7 +23,7 @@ void ShowErrorDialogFmt(int param_1,undefined4 param_2)
   g_stateChangeInProgress = in_EAX;
   CreateButtonWidget(&DAT_00e9be90,1000000,1000000,0x385,s_b_error_confirm_00552238,0x1c6,0x14b,0x4a
                      ,0x1a,1,0);
-  FUN_004ee200();
+  ClampCursorToRect();
   _DAT_00e53c24 = 0xf9;
   _DAT_00e53c28 = 0x229;
   _DAT_00e53c2c = 0xc1;
