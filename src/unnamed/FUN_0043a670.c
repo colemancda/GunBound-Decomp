@@ -11,6 +11,9 @@
 void FUN_0043a670(void)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xfffffdb4;
   byte bVar1;
   int *piVar2;
   int iVar3;
@@ -47,8 +50,12 @@ void FUN_0043a670(void)
   if (uVar5 < 0x186a2) {
 LAB_0043a6e0:
     if (uVar5 != 0x186a1) goto code_r0x0043a6e7;
+    /* Ghidra also emitted a no-op store back to the EnterCriticalSection
+     * import slot here ((code *)EnterCriticalSection = pcVar4) - a
+     * function designator isn't an assignable lvalue in C, so the
+     * self-store is dropped and only the load survives. */
     for (piVar2 = (int *)piVar11[4]; pcVar4 = (code *)EnterCriticalSection,
-        (code *)EnterCriticalSection = pcVar4, piVar11 != piVar2; piVar2 = (int *)piVar2[4]) {
+        piVar11 != piVar2; piVar2 = (int *)piVar2[4]) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       bVar12 = *(byte *)((int)piVar2 + 0x8bbd);
       bVar1 = *(byte *)((int)piVar2 + 0x8bbe);
