@@ -14,7 +14,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-LRESULT WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
+LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
 
 {
   char cVar1;

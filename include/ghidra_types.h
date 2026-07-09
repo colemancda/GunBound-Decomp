@@ -41,6 +41,10 @@ typedef struct hostent hostent;
  * needed since these functions aren't hand-verified/called anywhere
  * yet, just declared so functions.h's forward declarations parse. */
 typedef struct exception exception;
+/* Ghidra types registry-API results as LSTATUS, a typedef newer
+ * Windows SDKs added to winreg.h; MSVC 7.1's Platform SDK predates it.
+ * Same underlying type (LONG) as the RegXxx return values. */
+typedef LONG LSTATUS;
 
 /* Ghidra infers `__time32_t` (the 32-bit time_t used by later MSVC
  * CRTs, once the 32/64-bit time_t split existed) for `time()` call

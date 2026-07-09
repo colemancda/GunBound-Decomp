@@ -35,7 +35,7 @@ void ChangeGameState();
 void GameTick();
 int InitGame();
 void Shutdown();
-LRESULT WndProc();
+LRESULT __stdcall WndProc(); /* window proc - __stdcall so &WndProc converts to WNDPROC */
 bool __fastcall DecodeXFSEntryBlock();
 int FindXFSEntry();
 undefined4 LoadChooseEventConfig();
@@ -59,7 +59,7 @@ void PostTurnEvent();
 void QueueOutgoingPacketField();
 void SubFromPacketChecksum();
 undefined4 GetDisplayConfigFromRegistry();
-void __fastcall ReadRegistryDword();
+undefined4 __fastcall ReadRegistryDword(); /* returns the _atol result (EAX) */
 void __fastcall WriteRegistryDword();
 void __thiscall BlitRLESprite();
 void BlitSprite16bpp();

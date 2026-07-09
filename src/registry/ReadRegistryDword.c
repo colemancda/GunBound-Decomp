@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-void __fastcall ReadRegistryDword(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+undefined4 __fastcall ReadRegistryDword(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
   int iVar1;
@@ -56,7 +56,6 @@ void __fastcall ReadRegistryDword(undefined4 param_1,undefined4 param_2,undefine
       iVar3 = iVar3 + 1;
     } while (iVar3 < iVar1);
   }
-  _atol((char *)local_d4);
-  return;
+  return _atol((char *)local_d4);
 }
 
