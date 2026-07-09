@@ -22,7 +22,7 @@ undefined4 __thiscall ScrollListWidget_OnMouseUp(int param_1,int param_2,int par
   *(undefined1 *)(param_1 + 0x44) = 0;
   *(undefined1 *)(param_1 + 0x45) = 0;
   *(undefined1 *)(param_1 + 4) = 0;
-  cVar1 = FUN_0050e950(param_2,param_3);
+  cVar1 = Widget_MouseUpChildren(param_2,param_3);
   if ((cVar1 == '\0') &&
      ((((*(char *)(param_1 + 0x1e) != '\0' || (param_2 <= *(int *)(param_1 + 0x28))) ||
        (*(int *)(param_1 + 0x30) + *(int *)(param_1 + 0x28) <= param_2)) ||

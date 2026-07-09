@@ -96,7 +96,7 @@ LAB_0050a582:
   }
   *(undefined4 *)(param_1 + 0x94) = 0xffffffff;
   *(undefined1 *)(param_1 + 0x90) = 0;
-  cVar3 = FUN_0050e950(param_2,param_3);
+  cVar3 = Widget_MouseUpChildren(param_2,param_3);
   if ((cVar3 == '\0') &&
      (((*(char *)(param_1 + 0x1e) != '\0' || (param_2 <= *(int *)(param_1 + 0x28))) ||
       ((*(int *)(param_1 + 0x30) + *(int *)(param_1 + 0x28) <= param_2 ||

@@ -1602,7 +1602,7 @@ void __thiscall Widget_SetEnabled();
 void FUN_0050e820();
 undefined1 __thiscall Widget_MouseMoveChildren();
 undefined1 __thiscall Widget_MouseDownChildren();
-undefined1 __thiscall FUN_0050e950();
+undefined1 __thiscall Widget_MouseUpChildren();
 undefined1 __thiscall Widget_HitTest();
 undefined1 __thiscall Widget_DispatchKeyToChildren();
 undefined4 __thiscall Widget_DispatchMouseToChildren();

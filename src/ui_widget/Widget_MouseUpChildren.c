@@ -1,4 +1,4 @@
-/* FUN_0050e950 - 0x0050e950 in the original binary.
+/* Widget_MouseUpChildren - 0x0050e950 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-undefined1 __thiscall FUN_0050e950(int param_1,undefined4 param_2,undefined4 param_3)
+undefined1 __thiscall Widget_MouseUpChildren(int param_1,undefined4 param_2,undefined4 param_3)
 
 {
   char cVar1;
