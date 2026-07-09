@@ -1662,7 +1662,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050f3f0,111,FUN_0050f3f0,false,1,0,RAW-src
 0050f500,231,ScrollListWidget_OnMouseDown,false,1,2,RAW-src
 0050f5f0,100,ScrollListWidget_OnMouseUp,false,1,1,RAW-src
-0050f660,264,FUN_0050f660,false,1,3,RAW-src
+0050f660,264,ScrollListWidget_Draw,false,1,3,RAW-src
 0050f770,66,FUN_0050f770,false,1,1,RAW-src
 0050f840,67,FUN_0050f840,false,1,0,RAW-src
 0050f890,20,FUN_0050f890,false,1,1,RAW-src

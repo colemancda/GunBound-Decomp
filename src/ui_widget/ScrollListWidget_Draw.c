@@ -1,4 +1,4 @@
-/* FUN_0050f660 - 0x0050f660 in the original binary.
+/* ScrollListWidget_Draw - 0x0050f660 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0050f660(int param_1)
+void __fastcall ScrollListWidget_Draw(int param_1)
 
 {
   char cVar1;
