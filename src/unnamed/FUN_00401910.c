@@ -34,7 +34,7 @@ undefined4 * FUN_00401910(undefined4 *param_1)
   param_1[0x6fd] = 10;
   param_1[0x6fe] = 0;
   FUN_004fe420(0x3f400000,0x3e800000,0x40100000);
-  local_4 = CONCAT31(local_4._1_3_,2);
+  local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
   puVar3 = param_1 + 3;
   for (iVar2 = 0x300; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar3 = 0;
