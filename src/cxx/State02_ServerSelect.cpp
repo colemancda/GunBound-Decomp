@@ -8,6 +8,7 @@
 #include <string.h>
 #include "GameState.h"
 #include "Widget.h"
+#include "ActiveObjects.h"
 
 class CWorldListPanel;
 CWorldListPanel *BuildWorldListPanel(void *manager);
@@ -37,7 +38,11 @@ extern int DAT_005b2b64;                /* server count hint for the scroll seed
 extern unsigned int DAT_007934e4;       /* shared EDIT-control singleton (+8 = live flag) */
 extern unsigned int DAT_007934e8;       /* double-buffered connection context */
 extern unsigned int DAT_007934f4;       /* outgoing packet buffer base */
+extern unsigned int DAT_007934f0;       /* per-connection context base */
 void FUN_00405ba0(void);
+void FUN_00401650(void);                /* flat-ButtonWidget per-slot destroy (index in regs) */
+extern unsigned char DAT_0067ec74;      /* persistent button-name arena */
+extern unsigned char DAT_0069ec74;
 void FUN_00404410(void *arg);
 extern unsigned char DAT_00e53e88;
 }
@@ -125,4 +130,36 @@ void CState02ServerSelect::OnEnter()
         return;
     }
     FUN_00404410(&DAT_00e53e88);
+}
+
+/* 0x4e17f0. Destroy the screen's nine sprite buckets - for each
+ * button-face base 1000/1001/1002, the base+9000, base and base+100
+ * sets (the original inlines the same bucket walk nine times) - then
+ * destroy the registered flat buttons, wipe the persistent
+ * button-name arenas, and tear down the connection socket exactly as
+ * OnEnter does for leftovers (this one off DAT_007934f0). */
+void CState02ServerSelect::OnExit()
+{
+    for (unsigned int base = 1000; base < 1003; ++base) {
+        ActiveObjects_DestroyBucket(base + 9000);
+        ActiveObjects_DestroyBucket(base);
+        ActiveObjects_DestroyBucket(base + 100);
+    }
+    int *buttonCount = (int *)((unsigned char *)&DAT_0067ec70 + g_clientContext);
+    for (int i = 0; i < *buttonCount; ++i) {
+        FUN_00401650();
+    }
+    *buttonCount = 0;
+    memset((unsigned char *)&DAT_0067ec74 + g_clientContext, 0, 0x20000);
+    memset((unsigned char *)&DAT_0069ec74 + g_clientContext, 0, 0x6000);
+    int conn = *(int *)(DAT_007934f0 + 0x84e0);
+    if (conn != 0) {
+        *(int *)(conn + 0x22c) = 1;
+        if (*(unsigned int *)(conn + 0x24) != 0xffffffff) {
+            closesocket(*(SOCKET *)(conn + 0x24));
+        }
+        *(int *)(conn + 0x24) = -1;
+        *(unsigned char *)(conn + 0x22a) = 0;
+        *(unsigned char *)(DAT_007934f0 + 0x84e5) = 0;
+    }
 }

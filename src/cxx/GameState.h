@@ -76,6 +76,7 @@ public:
     CState02ServerSelect() : m_connectingSlot(-1) {} /* the only init InitGame does inline */
 
     virtual void OnEnter();  /* 0x4e14b0 - promoted, State02_ServerSelect.cpp */
+    virtual void OnExit();   /* 0x4e17f0 - promoted, State02_ServerSelect.cpp */
 
     u8  m_connecting;        /* +0x04: set while a connect attempt is in flight */
     u8  m_unk05;             /* +0x05 */
