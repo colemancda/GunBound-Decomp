@@ -15,7 +15,7 @@ void FUN_00449db0(int param_1)
   uint uVar3;
   undefined4 *puVar4;
   undefined4 *puVar5;
-  undefined1 auVar6 [4];
+  undefined4 auVar6; /* Ghidra register slot; was undefined1 [4] */
   undefined4 uVar7;
   undefined1 uVar8;
   int iVar9;
@@ -24,7 +24,7 @@ void FUN_00449db0(int param_1)
   int iVar12;
   undefined4 *puVar13;
   undefined2 *puVar14;
-  undefined1 local_84 [4];
+  undefined4 local_84; /* Ghidra register slot; was undefined1 [4] */
   undefined4 uStack_80;
   
   puVar13 = (undefined4 *)(param_1 + 0x2d114);
@@ -36,16 +36,16 @@ void FUN_00449db0(int param_1)
   EncodeOutgoingPacketField(0xffffffff);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar11 = 20000;
-  local_84 = (undefined1  [4])0xa;
+  local_84 = (undefined4)0xa;
   while( true ) {
     puVar13 = *(undefined4 **)(DAT_00ea0e1c + 0x1c);
     uVar3 = puVar13[1];
     if (uVar3 <= uVar11) break;
 LAB_00449e39:
     uVar11 = uVar11 + 1;
-    local_84 = (undefined1  [4])((int)local_84 + -1);
-    if (local_84 == (undefined1  [4])0x0) {
-      local_84 = (undefined1  [4])(param_1 + 0x2d114);
+    local_84 = (undefined4)((int)local_84 + -1);
+    if (local_84 == (undefined4)0x0) {
+      local_84 = (undefined4)(param_1 + 0x2d114);
       iVar12 = 0;
       iVar9 = param_1 + 0x458;
       *(int *)(param_1 + 0x450) =
@@ -61,7 +61,7 @@ LAB_00449e39:
           uVar8 = DAT_00555a16;
           uVar10 = DAT_00555a14;
         }
-        uStack_80 = (undefined *)CONCAT22(CONCAT11(uStack_80._3_1_,uVar8),uVar10);
+        uStack_80 = (undefined *)CONCAT22(CONCAT11(SUBFIELD(uStack_80,3,undefined1),uVar8),uVar10);
         switch(*(undefined4 *)(param_1 + 0x44c)) {
         case 0:
           puVar14 = (undefined2 *)(local_84 + 3);
@@ -103,7 +103,7 @@ LAB_00449e39:
         auVar6 = local_84;
         RenderWrappedText(local_84,iVar9 + 0x17a4,0x18,0x15,0x78,1);
         iVar12 = iVar12 + 1;
-        local_84 = (undefined1  [4])((int)auVar6 + 0x78);
+        local_84 = (undefined4)((int)auVar6 + 0x78);
         iVar9 = iVar9 + 0x17e4;
       } while (iVar12 < 9);
       return;
