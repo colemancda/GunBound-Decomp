@@ -1,7 +1,6 @@
-/* FUN_00412820 - 0x00412820 in the original binary.
+/* ShowMessageDialog - 0x00412820 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Error/message dialog variant that renders a caller-supplied literal string (no string-table lookup), otherwise identical to ShowErrorDialog. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
@@ -10,7 +9,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_00412820(undefined4 param_1,int param_2)
+void ShowMessageDialog(undefined4 param_1,int param_2)
 
 {
   int iVar1;

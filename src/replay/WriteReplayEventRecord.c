@@ -940,7 +940,7 @@ LAB_00410792:
       else {
         uVar15 = 0;
       }
-      FUN_00412820(acStack_b09 + 1,uVar15);
+      ShowMessageDialog(acStack_b09 + 1,uVar15);
       pbVar22 = param_3;
     }
     break;

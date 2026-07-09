@@ -28,7 +28,7 @@
  *   ShowErrorDialog(closeSockets)          - localized string by id, verbatim.
  *   ShowErrorDialogFmt(closeSockets, value)   - localized string used as a printf
  *                                         format, sprintf'd with one value.
- *   FUN_00412820(text, closeSockets)    - a caller-supplied literal string.
+ *   ShowMessageDialog(text, closeSockets)    - a caller-supplied literal string.
  * All three build the same b_error_confirm OK button (action 0x385) and share
  * the modal/teardown logic above. See docs/screens/README.md "Error / message
  * dialog" and docs/screens/02_server_select.md "Errors" for the callers.

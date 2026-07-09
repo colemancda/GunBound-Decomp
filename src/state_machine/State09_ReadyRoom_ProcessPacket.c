@@ -197,7 +197,7 @@ LAB_004d3bd3:
       if (opcode == 0x3fff) {
         FUN_004da460(this,0,0);
         if (payloadLen != 0) {
-          FUN_00412820(payload,0);
+          ShowMessageDialog(payload,0);
         }
         iVar17 = DAT_007934e8;
         *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
