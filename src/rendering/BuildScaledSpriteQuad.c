@@ -1,7 +1,6 @@
-/* FUN_004eca50 - 0x004eca50 in the original binary.
+/* BuildScaledSpriteQuad - 0x004eca50 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Rotated textured-quad emitter with independent X/Y scale (uses 4 distinct scale-constant globals vs BuildRotatedSpriteQuad's uniform 2), for non-1:1 sprites such as the Ready Room zoomed avatar preview. Appends two triangles to g_spriteVertexBuffer. See ARCHITECTURE.md rendering section. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
@@ -11,7 +10,7 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void __thiscall
-FUN_004eca50(int param_1,int param_2,int param_3,char param_4,byte param_5,uint param_6)
+BuildScaledSpriteQuad(int param_1,int param_2,int param_3,char param_4,byte param_5,uint param_6)
 
 {
   float fVar1;

@@ -187,7 +187,7 @@ void State11_InBattle_Render(void)
               iVar5 = g_clientContext;
               if (((iVar7 != 0) && (*(int *)(iVar7 + 0x24) != 0xe)) &&
                  (*(char *)(g_clientContext + iVar19 * 8 + 0x1fe8c + uVar16) != '\0')) {
-                FUN_004eca50();
+                BuildScaledSpriteQuad();
               }
             }
             else {
@@ -240,7 +240,7 @@ void State11_InBattle_Render(void)
               iVar5 = g_clientContext;
               if (((iVar19 != 0) && (*(int *)(iVar19 + 0x24) != 0xe)) &&
                  (*(char *)(g_clientContext + iStack_944 * 8 + 0x1fe90 + uVar16) != '\0')) {
-                FUN_004eca50();
+                BuildScaledSpriteQuad();
               }
             }
             else {
@@ -293,7 +293,7 @@ void State11_InBattle_Render(void)
                 *(float *)(iVar6 + 0x80) = (float)(uVar16 & 1) * _DAT_00557fb8;
                 *(float *)(iVar6 + 0x84) = (float)(uVar16 >> 1) * _DAT_00557fb8;
                 *(undefined4 *)(iVar6 + 0x88) = 0x3f000000;
-                FUN_004eca50();
+                BuildScaledSpriteQuad();
               }
             }
             uVar16 = uVar16 + 1;
@@ -340,7 +340,7 @@ void State11_InBattle_Render(void)
                 *(float *)(iVar6 + 0x80) = (float)(uVar16 & 1) * _DAT_00557fb8;
                 *(float *)(iVar6 + 0x84) = (float)(uVar16 >> 1) * _DAT_00557fb8;
                 *(undefined4 *)(iVar6 + 0x88) = 0x3f000000;
-                FUN_004eca50();
+                BuildScaledSpriteQuad();
               }
             }
             uVar16 = uVar16 + 1;
@@ -402,7 +402,7 @@ void State11_InBattle_Render(void)
               iVar5 = g_clientContext;
               if ((*(int *)(iVar19 + 0x24) != 0xe) &&
                  (*(char *)(g_clientContext + 0x1fe8c + uVar16) != '\0')) {
-                FUN_004eca50();
+                BuildScaledSpriteQuad();
               }
             }
             else {
@@ -460,7 +460,7 @@ void State11_InBattle_Render(void)
               iVar5 = g_clientContext;
               if (((iVar19 != 0) && (*(int *)(iVar19 + 0x24) != 0xe)) &&
                  (*(char *)(uStack_98c + 0x1fe90 + g_clientContext) != '\0')) {
-                FUN_004eca50();
+                BuildScaledSpriteQuad();
               }
             }
             else {
@@ -509,7 +509,7 @@ void State11_InBattle_Render(void)
             *(undefined4 *)(iVar6 + 0x88) = 0x3f000000;
             *(float *)(iVar6 + 0x80) = fVar3;
             *(float *)(iVar6 + 0x84) = (float)(uVar16 >> 1) * _DAT_00557fb8;
-            FUN_004eca50();
+            BuildScaledSpriteQuad();
           }
         }
         uVar16 = uVar16 + 1;
@@ -546,7 +546,7 @@ void State11_InBattle_Render(void)
             *(undefined4 *)(iVar6 + 0x88) = 0x3f000000;
             *(float *)(iVar6 + 0x80) = fVar3;
             *(float *)(iVar6 + 0x84) = (float)(uVar16 >> 1) * _DAT_00557fb8;
-            FUN_004eca50();
+            BuildScaledSpriteQuad();
           }
         }
         uVar16 = uVar16 + 1;

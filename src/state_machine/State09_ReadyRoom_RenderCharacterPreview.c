@@ -54,7 +54,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
         *(undefined4 *)(iVar4 + 0x88) = 0x3f000000;
         *(float *)(iVar4 + 0x80) = (float)(uVar6 % 2) * _DAT_00557fb8;
         *(float *)(iVar4 + 0x84) = (float)(int)((ulonglong)uVar6 / 2) * _DAT_00557fb8;
-        FUN_004eca50(uVar2,uVar1,
+        BuildScaledSpriteQuad(uVar2,uVar1,
                      CONCAT31((int3)((ulonglong)uVar6 / 2 >> 8),
                               *(char *)(iVar7 + 0x4590c + uVar6) == '\0'),0xff,0xffffff);
         iVar8 = iVar7;
@@ -89,7 +89,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
         *(undefined4 *)(iVar4 + 0x88) = 0x3f000000;
         *(float *)(iVar4 + 0x80) = (float)(uVar6 % 2) * _DAT_00557fb8;
         *(float *)(iVar4 + 0x84) = (float)(int)((ulonglong)uVar6 / 2) * _DAT_00557fb8;
-        FUN_004eca50(uVar2,uVar1,
+        BuildScaledSpriteQuad(uVar2,uVar1,
                      CONCAT31((int3)((ulonglong)uVar6 / 2 >> 8),
                               *(char *)(iVar3 + 0x45910 + uVar6) == '\0'),0xff,0xffffff);
         iVar7 = iVar3;
@@ -124,7 +124,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
         *(undefined4 *)(iVar4 + 0x88) = 0x3f000000;
         *(float *)(iVar4 + 0x80) = (float)(uVar6 % 2) * _DAT_00557fb8;
         *(float *)(iVar4 + 0x84) = (float)(int)((ulonglong)uVar6 / 2) * _DAT_00557fb8;
-        FUN_004eca50(uVar2,uVar1,
+        BuildScaledSpriteQuad(uVar2,uVar1,
                      CONCAT31((int3)((ulonglong)uVar6 / 2 >> 8),
                               *(char *)(iVar3 + 0x4590c + uVar6) == '\0'),0xff,0xffffff);
         iVar8 = iVar3;
@@ -159,7 +159,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
         *(undefined4 *)(iVar4 + 0x88) = 0x3f000000;
         *(float *)(iVar4 + 0x80) = (float)(uVar6 % 2) * _DAT_00557fb8;
         *(float *)(iVar4 + 0x84) = (float)(int)((ulonglong)uVar6 / 2) * _DAT_00557fb8;
-        FUN_004eca50(uVar2,uVar1,
+        BuildScaledSpriteQuad(uVar2,uVar1,
                      CONCAT31((int3)((ulonglong)uVar6 / 2 >> 8),
                               *(char *)(iVar3 + 0x45910 + uVar6) == '\0'),0xff,0xffffff);
         iVar7 = iVar3;
@@ -200,7 +200,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
         *(undefined4 *)(iVar4 + 0x88) = 0x3f000000;
         *(float *)(iVar4 + 0x80) = (float)(uVar6 % 2) * _DAT_00557fb8;
         *(float *)(iVar4 + 0x84) = (float)(uVar6 / 2) * _DAT_00557fb8;
-        FUN_004eca50(uVar2,uVar1,*(char *)(iVar3 + 0x4590c + uVar6) == '\0',0xff,0xffffff);
+        BuildScaledSpriteQuad(uVar2,uVar1,*(char *)(iVar3 + 0x4590c + uVar6) == '\0',0xff,0xffffff);
         iVar8 = iVar3;
       }
       uVar6 = uVar6 + 1;
@@ -233,7 +233,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
         *(undefined4 *)(iVar4 + 0x88) = 0x3f000000;
         *(float *)(iVar4 + 0x80) = (float)(uVar6 % 2) * _DAT_00557fb8;
         *(float *)(iVar4 + 0x84) = (float)(int)((ulonglong)uVar6 / 2) * _DAT_00557fb8;
-        FUN_004eca50(uVar2,uVar1,
+        BuildScaledSpriteQuad(uVar2,uVar1,
                      CONCAT31((int3)((ulonglong)uVar6 / 2 >> 8),
                               *(char *)(iVar3 + 0x45910 + uVar6) == '\0'),0xff,0xffffff);
         iVar7 = iVar3;
@@ -267,7 +267,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
         *(undefined4 *)(iVar4 + 0x88) = 0x3f000000;
         *(float *)(iVar4 + 0x80) = (float)(uVar6 % 2) * _DAT_00557fb8;
         *(float *)(iVar4 + 0x84) = (float)(int)((ulonglong)uVar6 / 2) * _DAT_00557fb8;
-        FUN_004eca50(uVar2,uVar1,
+        BuildScaledSpriteQuad(uVar2,uVar1,
                      CONCAT31((int3)((ulonglong)uVar6 / 2 >> 8),
                               *(char *)(iVar3 + 0x4590c + uVar6) == '\0'),0xff,0xffffff);
         iVar8 = iVar3;
@@ -300,7 +300,7 @@ void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1)
         *(undefined4 *)(iVar4 + 0x88) = 0x3f000000;
         *(float *)(iVar4 + 0x80) = (float)(uVar6 % 2) * _DAT_00557fb8;
         *(float *)(iVar4 + 0x84) = (float)(int)((ulonglong)uVar6 / 2) * _DAT_00557fb8;
-        FUN_004eca50(uVar2,uVar1,
+        BuildScaledSpriteQuad(uVar2,uVar1,
                      CONCAT31((int3)((ulonglong)uVar6 / 2 >> 8),
                               *(char *)(iVar7 + 0x45910 + uVar6) == '\0'),0xff,0xffffff);
         iVar8 = iVar7;

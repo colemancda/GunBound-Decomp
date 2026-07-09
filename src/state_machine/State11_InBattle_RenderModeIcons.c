@@ -62,7 +62,7 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar2 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_004eca50(0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar2 * 0x18) == 1,0xff,0xffffff);
+      BuildScaledSpriteQuad(0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar2 * 0x18) == 1,0xff,0xffffff);
       FlushSpriteBatch();
       if (DAT_00793614 != 2) {
         DAT_00793614 = 2;
@@ -74,7 +74,7 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar1 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_004eca50(0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar1 * 0x18) == 1,0xff,0xffffff);
+      BuildScaledSpriteQuad(0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar1 * 0x18) == 1,0xff,0xffffff);
       FlushSpriteBatch();
     }
   }

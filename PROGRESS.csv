@@ -1182,7 +1182,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ec430,466,FUN_004ec430,false,4,0,RAW-src
 004ec610,556,FUN_004ec610,false,1,0,RAW-src
 004ec840,522,FUN_004ec840,false,6,0,RAW-src
-004eca50,532,FUN_004eca50,false,18,0,RAW-src
+004eca50,532,BuildScaledSpriteQuad,false,18,0,RAW-src
 004ecc70,614,FUN_004ecc70,false,17,0,RAW-src
 004ecee0,475,FUN_004ecee0,false,2,0,RAW-src
 004ed0c0,571,FUN_004ed0c0,false,2,0,RAW-src
