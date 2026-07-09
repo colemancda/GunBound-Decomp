@@ -281,7 +281,7 @@ int __thiscall FUN_0040bda0();
 undefined4 * FUN_0040be20();
 int __thiscall FUN_0040bee0();
 void __thiscall FUN_0040bfd0();
-void FUN_0040c110();
+undefined4 FUN_0040c110();
 void __fastcall FUN_0040c150();
 void __fastcall FUN_0040c1b0();
 void FUN_0040c210();
