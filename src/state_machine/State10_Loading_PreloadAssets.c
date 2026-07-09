@@ -17,6 +17,9 @@
 void __fastcall State10_Loading_PreloadAssets(int param_1)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xffffff7f;
   undefined4 *puVar1;
   char cVar2;
   undefined4 uVar3;
