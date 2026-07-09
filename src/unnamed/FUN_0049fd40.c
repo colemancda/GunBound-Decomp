@@ -314,7 +314,9 @@ LAB_004a0a52:
       FUN_0040a4d0(param_1 + 0xfe9);
       FUN_0040a4d0(param_1 + 0xfe9);
     }
-    local_af4 = (int *)(float)(int)piStack_ae4;
+    /* float->pointer isn't a legal C cast; go through (int) (raw-port
+     * register-reuse artifact, value semantics unverified). */
+    local_af4 = (int *)(int)(float)(int)piStack_ae4;
     uVar5 = FUN_0053753c();
     uVar6 = FUN_0053753c();
     QueueOutgoingPacketField(uVar5);
@@ -540,7 +542,7 @@ LAB_004a0ccf:
         uStack_8a4 = 0;
         uStack_ab0 = 0;
         EncodeOutgoingPacketField(0);
-        puStack_8._0_1_ = 0x10;
+        SUBFIELD(puStack_8,0,undefined1) = 0x10;
         FUN_004262d0(local_acc + 4,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState();
@@ -556,7 +558,7 @@ LAB_004a0ccf:
         puVar18 = puStack_aec;
         FUN_004065a0(puStack_aec,0,100,0xff,iVar4,0);
         FUN_00432320((char)param_1[0xf],1,1,puVar18,uVar5,uVar6,uVar19,iVar4,uVar20);
-        puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,0xf);
+        puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xf);
         FUN_0040a2a0();
 LAB_004a0f88:
         puStack_8 = (undefined1 *)0xffffffff;
@@ -572,7 +574,7 @@ LAB_004a0f88:
           uStack_680 = 0;
           uStack_88c = 0;
           EncodeOutgoingPacketField(0);
-          puStack_8._0_1_ = 0xe;
+          SUBFIELD(puStack_8,0,undefined1) = 0xe;
           QueueOutgoingPacketField(iStack_adc);
           QueueOutgoingPacketField(piStack_ad8);
           FUN_004262d0(local_acc + 4,auStack_8a0);
@@ -585,7 +587,7 @@ LAB_004a0f88:
           uVar5 = FUN_0040a4d0(auStack_ac4);
           FUN_004065a0(uVar5,uVar6,uVar19,uVar20,iVar4,uVar21);
           FUN_00432320((char)param_1[0xf],1,1,uVar5,uVar6,uVar19,uVar20,iVar4,uVar21);
-          puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,0xd);
+          puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xd);
           FUN_0040a2a0();
           goto LAB_004a0f88;
         }
@@ -707,7 +709,7 @@ LAB_004a101f:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_aec = (undefined *)PeekPacketChecksumState();
   iVar3 = PeekPacketChecksumState();
-  puStack_aec = (undefined *)CONCAT31(puStack_aec._1_3_,(int)puStack_aec < iVar3);
+  puStack_aec = (undefined *)CONCAT31(SUBFIELD(puStack_aec,1,undefined3),(int)puStack_aec < iVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar1 = FUN_00406610(puStack_aec);
   if (cVar1 != '\0') {
