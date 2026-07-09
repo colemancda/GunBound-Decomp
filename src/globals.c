@@ -22,6 +22,8 @@ uint32_t g_spriteVertexCount;
 uint32_t g_stateChangeInProgress;
 uint8_t g_stateChangeRequested;
 
+uint8_t IMAGE_DOS_HEADER_00400000;
+
 uint8_t DAT_0054b420;
 uint8_t DAT_0054b438;
 uint32_t DAT_0054cb00;

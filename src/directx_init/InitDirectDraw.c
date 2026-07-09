@@ -53,7 +53,10 @@ byte InitDirectDraw(undefined4 param_1)
   undefined4 uStack_90;
   undefined4 uStack_4c;
   undefined4 uStack_3c;
-  
+  /* Ghidra artifact: raw stack reference the decompiler couldn't map
+   * to a named local; declared so the raw port parses. */
+  undefined stack0xffffff20;
+
   DAT_007935ec = in_EAX;
   g_hDDrawDll = LoadLibraryA(s_ddraw_dll_00557510);
   if (g_hDDrawDll == (HMODULE)0x0) {

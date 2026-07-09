@@ -81,6 +81,13 @@ extern uint8_t g_stateChangeRequested;
 
 /* --- Generic globals (unnamed, type inferred from Ghidra only) --- */
 
+/* Ghidra's symbol for the PE image base (the DOS header at 0x400000).
+ * Only its *address* is ever used (pointer comparisons against the
+ * image base), so a one-byte marker object is enough - Ghidra's real
+ * IMAGE_DOS_HEADER type isn't needed, keeping this header free of
+ * windows.h dependencies. */
+extern uint8_t IMAGE_DOS_HEADER_00400000;
+
 extern uint8_t DAT_0054b420;
 extern uint8_t DAT_0054b438;
 extern uint32_t DAT_0054cb00;
