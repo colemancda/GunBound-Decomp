@@ -93,7 +93,7 @@ void __thiscall FUN_004aed30(int param_1,undefined4 param_2,int param_3)
     uVar6 = FUN_0040aca0(param_1 + 0xb30,local_112c,param_1 + 0x5620);
     local_4 = 0;
     uVar7 = FUN_0040aba0(param_1 + 0x90c,local_89c,param_1 + 0x53fc);
-    local_4._0_1_ = 1;
+    SUBFIELD(local_4,0,undefined1) = 1;
     uVar4 = FUN_004065a0(uVar4,1);
     uVar8 = FUN_0040a4d0(param_1 + 0x7864);
     uVar9 = FUN_0040a4d0(param_1 + 0x4d90);
@@ -101,7 +101,7 @@ void __thiscall FUN_004aed30(int param_1,undefined4 param_2,int param_3)
     uVar7 = FUN_0040a4d0(uVar7);
     FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar5,0xb,0,*(int *)(param_1 + 0xae2c) != 0,uVar7,
                  uVar6,uVar9,uVar8,uVar3,uVar4);
-    local_4 = (uint)local_4._1_3_ << 8;
+    local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
@@ -130,7 +130,7 @@ LAB_004aef85:
     uVar5 = FUN_0040aca0(param_1 + 0xb30,local_ce4,param_1 + 0x5a68);
     local_4 = 2;
     uVar6 = FUN_0040aba0(param_1 + 0x90c,local_1574,param_1 + 0x5844);
-    local_4 = CONCAT31(local_4._1_3_,3);
+    local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
     uVar4 = FUN_004065a0(uVar4,2);
     uVar7 = FUN_0040a4d0(param_1 + 0x7864);
     uVar8 = FUN_0040a4d0(param_1 + 0x4d90);
@@ -139,7 +139,7 @@ LAB_004aef85:
     FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_1584,0xb,1,
                  CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                           *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar8,uVar7,uVar3,uVar4);
-    uStack_38 = CONCAT31(uStack_38._1_3_,2);
+    uStack_38 = CONCAT31(SUBFIELD(uStack_38,1,undefined3),2);
     FUN_0040a2a0();
     uStack_38 = 0xffffffff;
     FUN_0040a2a0();
@@ -163,7 +163,7 @@ LAB_004af0af:
     uVar6 = FUN_0040aca0(param_1 + 0xb30,auStack_1384,param_1 + 0x5a68);
     uStack_38 = 4;
     uVar7 = FUN_0040aba0(param_1 + 0x90c,auStack_488,param_1 + 0x5844);
-    uStack_38 = CONCAT31(uStack_38._1_3_,5);
+    uStack_38 = CONCAT31(SUBFIELD(uStack_38,1,undefined3),5);
     uVar3 = FUN_004065a0(uVar3,2);
     uVar8 = FUN_0040a4d0(param_1 + 0x7864);
     uVar9 = FUN_0040a4d0(param_1 + 0x4d90);
@@ -172,7 +172,7 @@ LAB_004af0af:
     FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar4,0xb,1,
                  CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                           *(int *)(param_1 + 0xae2c) != 0),uVar7,uVar6,uVar9,uVar8,uVar5,uVar3);
-    local_4 = CONCAT31(local_4._1_3_,4);
+    local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),4);
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
@@ -205,14 +205,14 @@ LAB_004af2ec:
     uVar4 = FUN_0040aca0(param_1 + 0xb30,local_ac0,param_1 + 0x5620);
     local_4 = 6;
     uVar5 = FUN_0040aba0(param_1 + 0x90c,local_f08,param_1 + 0x53fc);
-    local_4._0_1_ = 7;
+    SUBFIELD(local_4,0,undefined1) = 7;
     uVar10 = (uint)*(ushort *)(param_1 + 0xbfbc);
     uVar6 = FUN_0040a4d0(param_1 + 0x7864);
     uVar7 = FUN_0040a4d0(param_1 + 0x4d90);
     uVar4 = FUN_0040a4d0(uVar4);
     uVar5 = FUN_0040a4d0(uVar5);
     FUN_004317b0(*(undefined1 *)(param_1 + 8),uVar3,uVar5,uVar4,uVar7,uVar6,uVar10);
-    local_4 = CONCAT31(local_4._1_3_,6);
+    local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),6);
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
@@ -235,7 +235,7 @@ LAB_004af2ec:
       local_4 = 8;
       uVar6 = FUN_0040aba0(param_1 + 0x90c,local_678,param_1 + 0x5c8c);
       uVar12 = 1;
-      local_4._0_1_ = 9;
+      SUBFIELD(local_4,0,undefined1) = 9;
       uVar7 = FUN_004065a0(uVar4,1);
       uVar8 = FUN_0040a4d0(param_1 + 0x7864);
       uVar9 = FUN_0040a4d0(param_1 + 0x4d90);
@@ -243,7 +243,7 @@ LAB_004af2ec:
       uVar6 = FUN_0040a4d0(uVar6);
       FUN_0042de70(*(undefined1 *)(param_1 + 8),0,0xb,*(int *)(param_1 + 0xae2c) != 0,uVar6,uVar5,
                    uVar9,uVar8,uVar3,uVar7,uVar4,uVar12);
-      local_4 = CONCAT31(local_4._1_3_,8);
+      local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),8);
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();
