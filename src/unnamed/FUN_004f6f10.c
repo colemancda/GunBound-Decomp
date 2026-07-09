@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004f6f10(void)
+undefined4 FUN_004f6f10(void)
 
 {
   void *pvVar1;

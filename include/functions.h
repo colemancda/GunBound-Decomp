@@ -1313,7 +1313,7 @@ undefined * __fastcall FUN_004f4810();
 int __fastcall FUN_004f48b0();
 uint __fastcall FUN_004f4d10();
 undefined4 __fastcall FUN_004f5e10();
-void FUN_004f6f10();
+undefined4 FUN_004f6f10();
 uint FUN_004f6f40();
 undefined4 FUN_004f70b0();
 undefined4 FUN_004f7210();

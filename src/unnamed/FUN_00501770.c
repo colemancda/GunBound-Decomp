@@ -111,10 +111,10 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
           do {
             *local_4970 = *puVar15;
             local_4970 = local_4970 + 1;
-            local_496c._0_4_ = puVar15[1];
-            local_496c.sa_data._2_4_ = puVar15[2];
-            local_496c.sa_data._6_4_ = puVar15[3];
-            local_496c.sa_data._10_4_ = puVar15[4];
+            SUBFIELD(local_496c,0,undefined4) = puVar15[1];
+            SUBFIELD(local_496c.sa_data,2,undefined4) = puVar15[2];
+            SUBFIELD(local_496c.sa_data,6,undefined4) = puVar15[3];
+            SUBFIELD(local_496c.sa_data,10,undefined4) = puVar15[4];
             local_495c = 0;
             uVar10 = 0;
             do {
@@ -272,7 +272,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
             local_4650 = local_4984;
             local_4658 = uStack_4938;
             local_4668 = 0x13;
-            local_464c[0] = CONCAT22(local_464c[0]._2_2_,local_496c.sa_data._0_2_);
+            local_464c[0] = CONCAT22(SUBFIELD(local_464c[0],2,undefined2),SUBFIELD(local_496c.sa_data,0,undefined2));
             cVar4 = FUN_004f7210(*(undefined4 *)(param_1 + 0x1784),local_2ed8,0x1750);
             if (cVar4 != '\0') {
               FUN_00502500(0x1010);
@@ -315,7 +315,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
         FUN_004fdc50();
         FUN_00503e30(local_48ba + 0x40);
         FUN_005037f0();
-        local_4978 = CONCAT22(local_4978._2_2_,*(undefined2 *)(pcVar12 + 0x18));
+        local_4978 = CONCAT22(SUBFIELD(local_4978,2,undefined2),*(undefined2 *)(pcVar12 + 0x18));
         uVar6 = *(ushort *)(pcVar12 + 0x1a);
         pcVar12 = pcVar12 + 0x1c;
         if (100 < uVar6) {
@@ -390,11 +390,11 @@ LAB_00501b17:
   if (uVar6 < 0x3004) {
     if (uVar6 == 0x3003) {
       if ((1 < param_3) && (*puVar1 == 0)) {
-        local_496c.sa_data._2_4_ = *(undefined4 *)(param_2 + 10);
-        local_496c._0_4_ = *(undefined4 *)(param_2 + 6);
+        SUBFIELD(local_496c.sa_data,2,undefined4) = *(undefined4 *)(param_2 + 10);
+        SUBFIELD(local_496c,0,undefined4) = *(undefined4 *)(param_2 + 6);
         pcVar12 = *(char **)(param_1 + 0x17b0);
-        local_496c.sa_data._6_4_ = *(undefined4 *)(param_2 + 0xe);
-        local_496c.sa_data._10_4_ = *(undefined4 *)(param_2 + 0x12);
+        SUBFIELD(local_496c.sa_data,6,undefined4) = *(undefined4 *)(param_2 + 0xe);
+        SUBFIELD(local_496c.sa_data,10,undefined4) = *(undefined4 *)(param_2 + 0x12);
         local_495c = 0;
         if (pcVar12 != *(char **)(param_1 + 0x17b4)) {
           do {
@@ -420,17 +420,17 @@ LAB_00501b17:
       }
     }
     else if (((uVar6 == 0x3001) && (1 < param_3)) && (*puVar1 == 0)) {
-      local_496c._0_4_ = *(undefined4 *)(param_2 + 6);
-      local_496c.sa_data._2_4_ = *(undefined4 *)(param_2 + 10);
-      local_496c.sa_data._6_4_ = *(undefined4 *)(param_2 + 0xe);
-      local_496c.sa_data._10_4_ = *(undefined4 *)(param_2 + 0x12);
+      SUBFIELD(local_496c,0,undefined4) = *(undefined4 *)(param_2 + 6);
+      SUBFIELD(local_496c.sa_data,2,undefined4) = *(undefined4 *)(param_2 + 10);
+      SUBFIELD(local_496c.sa_data,6,undefined4) = *(undefined4 *)(param_2 + 0xe);
+      SUBFIELD(local_496c.sa_data,10,undefined4) = *(undefined4 *)(param_2 + 0x12);
       local_495c = 0;
       FUN_00503e10();
       FUN_004fdc50();
       FUN_00503e30(local_48ba + 0x2e);
       local_4924 = *(undefined4 *)(param_2 + 0x22);
       local_4920 = *(undefined4 *)(param_2 + 0x26);
-      local_4978 = CONCAT22(local_4978._2_2_,*(undefined2 *)(param_2 + 0x2a));
+      local_4978 = CONCAT22(SUBFIELD(local_4978,2,undefined2),*(undefined2 *)(param_2 + 0x2a));
       local_491c = 0;
       FUN_004fdc50();
       iVar7 = local_497c;
@@ -452,10 +452,10 @@ LAB_00501b17:
         local_4970 = (undefined4 *)(param_1 + -0x2c8);
         puVar15 = (undefined4 *)(param_2 + 6);
         do {
-          local_496c._0_4_ = *puVar15;
-          local_496c.sa_data._2_4_ = puVar15[1];
-          local_496c.sa_data._6_4_ = puVar15[2];
-          local_496c.sa_data._10_4_ = puVar15[3];
+          SUBFIELD(local_496c,0,undefined4) = *puVar15;
+          SUBFIELD(local_496c.sa_data,2,undefined4) = puVar15[1];
+          SUBFIELD(local_496c.sa_data,6,undefined4) = puVar15[2];
+          SUBFIELD(local_496c.sa_data,10,undefined4) = puVar15[3];
           local_4902 = *(char *)(puVar15 + 4) != '\0';
           pcVar12 = (char *)((int)puVar15 + 0x11);
           local_495c = 0;
