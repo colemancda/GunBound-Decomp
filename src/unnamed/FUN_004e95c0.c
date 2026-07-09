@@ -9,7 +9,9 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004e95c0(double param_1,float *param_2)
+/* param_2 is a register slot Ghidra typed float * but reuses as a
+ * float value carrier; undefined4 keeps every site legal C. */
+void FUN_004e95c0(double param_1,undefined4 param_2)
 
 {
   int iVar1;
@@ -68,7 +70,9 @@ LAB_004e9694:
       else {
         pfVar5 = (float *)(*(int *)(unaff_EBX + 0x124) + iVar6 * 4);
         pfVar7 = (float *)(*(int *)(unaff_EBX + 0x128) + iVar6 * 4);
-        param_2 = (float *)((*pfVar7 - pfVar7[-1]) *
+        /* float->pointer isn't a legal C cast; go through (int) (raw-port
+         * register-reuse artifact, value semantics unverified). */
+        param_2 = (float *)(int)((*pfVar7 - pfVar7[-1]) *
                             ((param_1 - *(float *)(*(int *)(unaff_EBX + 0x124) + -4 + iVar6 * 4)) /
                             (*pfVar5 - pfVar5[-1])) + pfVar7[-1]);
       }
