@@ -61,7 +61,7 @@ void FUN_00509260(undefined4 param_1,int param_2)
   } while (cVar1 != '\0');
   uVar4 = CreateLabelWidget(0,0x2c7,0xdf,7,0x16,0x14);
   FUN_0050e670(uVar4);
-  puVar5 = (undefined4 *)FUN_00507f60(0,0x13,0x109,0xd3,0xc,0x50);
+  puVar5 = (undefined4 *)CreateTextEntryWidget(0,0x13,0x109,0xd3,0xc,0x50);
   FUN_0050e670(puVar5);
   FUN_0050efa0(param_1);
   if (g_currentGameState != 0xb) {

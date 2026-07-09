@@ -1,14 +1,13 @@
-/* FUN_00507f60 - 0x00507f60 in the original binary.
+/* CreateTextEntryWidget - 0x00507f60 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Constructs a 0x140-byte editable text-entry widget (vtable 0x557c84) backed by a real Win32 EDIT control. Args (id, msgId, x, y, w, maxLen). See docs/widgets.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00507f60(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
+void CreateTextEntryWidget(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
                  undefined4 param_5,undefined4 param_6)
 
 {

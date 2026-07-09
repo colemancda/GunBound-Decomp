@@ -48,7 +48,7 @@ void FUN_00508910(void)
       puVar5[0xb] = 0xca;
       puVar5[0xc] = 0x139;
       puVar5[0xd] = 0xa0;
-      puVar3 = (undefined4 *)FUN_00507f60(0,99,0x38,0xbe,0xc,4);
+      puVar3 = (undefined4 *)CreateTextEntryWidget(0,99,0x38,0xbe,0xc,4);
       FUN_0050e670(puVar3);
       FUN_0050efa0(unaff_EDI);
       (**(code **)*puVar3)(1);

@@ -53,7 +53,7 @@ undefined4 * FUN_00509af0(int param_1)
   puVar9[0xb] = 0x11f;
   puVar9[0xc] = 0x225;
   puVar9[0xd] = 0x103;
-  puVar6 = (undefined4 *)FUN_00507f60(0,0x1a,0xeb,0x1e4,0xc,0x50);
+  puVar6 = (undefined4 *)CreateTextEntryWidget(0,0x1a,0xeb,0x1e4,0xc,0x50);
   FUN_0050e670(puVar6);
   FUN_0050efa0(param_1);
   (**(code **)*puVar6)(1);

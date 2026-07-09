@@ -48,11 +48,11 @@ void __fastcall FUN_005087b0(undefined4 param_1)
       puVar5[0xb] = 0xca;
       puVar5[0xc] = 0x13a;
       puVar5[0xd] = 0xa0;
-      puVar3 = (undefined4 *)FUN_00507f60(0,99,0x32,0xb4,0xc,4);
+      puVar3 = (undefined4 *)CreateTextEntryWidget(0,99,0x32,0xb4,0xc,4);
       FUN_0050e670(puVar3);
       FUN_0050efa0(unaff_EDI);
       (**(code **)*puVar3)(1);
-      uVar4 = FUN_00507f60(1,99,0x54,0xb4,0xc,4);
+      uVar4 = CreateTextEntryWidget(1,99,0x54,0xb4,0xc,4);
       FUN_0050e670(uVar4);
       uVar4 = CreateLabelWidget(0,0x579,0xd5,0x76,0x52,0x22);
       FUN_0050e670(uVar4);
