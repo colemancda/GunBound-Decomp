@@ -254,7 +254,7 @@ uint8_t DAT_005a9068;
 uint8_t DAT_005a9084;
 uint32_t DAT_005b1444;
 uint32_t DAT_005b15ac;
-uint32_t DAT_005b1c48;
+int *DAT_005b1c48;
 uint32_t g_edgeCursors[9];
 uint8_t DAT_005b1c70;
 uint8_t DAT_005b1cf0;

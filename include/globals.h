@@ -367,7 +367,7 @@ extern uint8_t DAT_005a9068;
 extern uint8_t DAT_005a9084;
 extern uint32_t DAT_005b1444;
 extern uint32_t DAT_005b15ac;
-extern uint32_t DAT_005b1c48;
+extern int *DAT_005b1c48; /* used dereferenced/indexed at call sites (FUN_0040c6f0) */
 /* g_edgeCursors (was DAT_005b1c4c..DAT_005b1c6c) - a 9-element HCURSOR array
  * for the custom cursor: index 0 = normal, 1-8 = the eight screen-edge
  * directions. Selected by g_cursorDirection and applied via SetCursor on
