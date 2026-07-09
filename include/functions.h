@@ -555,7 +555,7 @@ void __fastcall FUN_00443780();
 void __thiscall FUN_004437e0();
 void FUN_00443840();
 void __thiscall FUN_00443b00();
-void FUN_00443b60();
+undefined4 FUN_00443b60();
 void FUN_00443ba0();
 void FUN_00443be0();
 void FUN_00443c00();
