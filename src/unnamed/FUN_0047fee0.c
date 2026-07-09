@@ -68,7 +68,7 @@ void FUN_0047fee0(int param_1)
   }
   else {
     FUN_0040a6e0(iVar3,auStack_458,400);
-    puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,1);
+    puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
     uStack_680 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
@@ -79,7 +79,7 @@ void FUN_0047fee0(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,1);
+  puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
   unaff_ESI[0xff2] = iVar3;
   if (iStack_668 != 0) {
     FUN_0040a240();
