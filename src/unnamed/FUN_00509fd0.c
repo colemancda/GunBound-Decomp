@@ -25,7 +25,10 @@ void __fastcall FUN_00509fd0(undefined4 *param_1)
     piVar1 = param_1 + 2;
     *piVar1 = *piVar1 + -1;
     if (*piVar1 == 0) {
-      FUN_00509fd0();
+      /* Ghidra emitted this __fastcall self-call with no args (it lost
+       * track of ECX); MSVC hard-errors on the byte-count mismatch
+       * (C2708), so pass the current parameter through. */
+      FUN_00509fd0(param_1);
     }
     iVar2 = param_1[2];
   }
