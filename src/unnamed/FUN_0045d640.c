@@ -52,19 +52,19 @@ LAB_0045d679:
   uVar5 = FUN_0040a8c0(unaff_EDI + 0x355,auStack_89c,2);
   iStack_4 = 0;
   uVar5 = FUN_0040aca0(unaff_EDI + 0x243,auStack_678,uVar5);
-  iStack_4._0_1_ = 1;
+  SUBFIELD(iStack_4,0,undefined1) = 1;
   uVar6 = FUN_0045f300(unaff_EDI);
   FUN_0040a5f0(uVar5,auStack_ac0,uVar6);
-  iStack_4._0_1_ = 2;
+  SUBFIELD(iStack_4,0,undefined1) = 2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iStack_4._0_1_ = 1;
+  SUBFIELD(iStack_4,0,undefined1) = 1;
   if (iStack_aac != 0) {
     FUN_0040a240();
     FUN_0040b540(auStack_ac8);
   }
-  iStack_4 = (uint)iStack_4._1_3_ << 8;
+  iStack_4 = (uint)SUBFIELD(iStack_4,1,undefined3) << 8;
   if (iStack_664 != 0) {
     FUN_0040a240();
     FUN_0040b540(auStack_ac8);
@@ -80,14 +80,14 @@ LAB_0045d679:
     uVar5 = FUN_0040a8c0(unaff_EDI + 0x355,auStack_ac0,2);
     iStack_4 = 3;
     uVar5 = FUN_0040aba0(unaff_EDI + 0x243,auStack_678,uVar5);
-    iStack_4._0_1_ = 4;
+    SUBFIELD(iStack_4,0,undefined1) = 4;
     uVar6 = FUN_0045f300(unaff_EDI);
     uVar5 = FUN_0040a5f0(uVar5,auStack_89c,uVar6);
-    iStack_4._0_1_ = 5;
+    SUBFIELD(iStack_4,0,undefined1) = 5;
     cVar2 = FUN_0040b330(uVar5,param_1);
-    iStack_4._0_1_ = 4;
+    SUBFIELD(iStack_4,0,undefined1) = 4;
     FUN_0040a2a0();
-    iStack_4 = CONCAT31(iStack_4._1_3_,3);
+    iStack_4 = CONCAT31(SUBFIELD(iStack_4,1,undefined3),3);
     FUN_0040a2a0();
     iStack_4 = 0xffffffff;
     FUN_0040a2a0();
@@ -97,14 +97,14 @@ LAB_0045d679:
       uVar5 = FUN_0040aca0(piVar1,auStack_ac0,unaff_EDI + 0x3de);
       iStack_4 = 6;
       uVar5 = FUN_0040aca0(uVar5,auStack_678,unaff_EDI + 0x4f0);
-      iStack_4._0_1_ = 7;
+      SUBFIELD(iStack_4,0,undefined1) = 7;
       uVar6 = FUN_0045f5d0();
       uVar5 = FUN_0040a5f0(uVar5,auStack_89c,uVar6);
-      iStack_4._0_1_ = 8;
+      SUBFIELD(iStack_4,0,undefined1) = 8;
       iVar7 = FUN_0040a4d0(uVar5);
-      iStack_4._0_1_ = 7;
+      SUBFIELD(iStack_4,0,undefined1) = 7;
       FUN_0040a2a0();
-      iStack_4 = CONCAT31(iStack_4._1_3_,6);
+      iStack_4 = CONCAT31(SUBFIELD(iStack_4,1,undefined3),6);
       FUN_0040a2a0();
       iStack_4 = 0xffffffff;
       FUN_0040a2a0();
@@ -114,9 +114,9 @@ LAB_0045d679:
         iStack_4 = 9;
         uVar6 = FUN_0045f5d0();
         uVar5 = FUN_0040a5f0(uVar5,auStack_454,uVar6);
-        iStack_4._0_1_ = 10;
+        SUBFIELD(iStack_4,0,undefined1) = 10;
         cVar2 = FUN_0040b330(uVar5,param_2);
-        iStack_4 = CONCAT31(iStack_4._1_3_,9);
+        iStack_4 = CONCAT31(SUBFIELD(iStack_4,1,undefined3),9);
         FUN_0040a2a0();
         iStack_4 = 0xffffffff;
         FUN_0040a2a0();
