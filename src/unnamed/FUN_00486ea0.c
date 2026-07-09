@@ -565,7 +565,7 @@ LAB_00487a8c:
         uStack_8a4 = 0;
         uStack_ab0 = 0;
         EncodeOutgoingPacketField(0);
-        puStack_8._0_1_ = 0x10;
+        SUBFIELD(puStack_8,0,undefined1) = 0x10;
         FUN_004262d0(iStack_ad8 + 0x10,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState();
@@ -580,7 +580,7 @@ LAB_00487a8c:
         uVar6 = 0;
         FUN_004065a0(uVar5,0,100,0xff,iVar8,0);
         FUN_00432320((char)param_1[0xf],1,1,uVar5,uVar6,uVar19,uVar21,iVar8,uVar22);
-        puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,0xf);
+        puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xf);
         FUN_0040a2a0();
 LAB_00487d3f:
         puStack_8 = (undefined1 *)0xffffffff;
@@ -596,7 +596,7 @@ LAB_00487d3f:
           uStack_680 = 0;
           uStack_88c = 0;
           EncodeOutgoingPacketField(0);
-          puStack_8._0_1_ = 0xe;
+          SUBFIELD(puStack_8,0,undefined1) = 0xe;
           QueueOutgoingPacketField(uStack_ad0);
           QueueOutgoingPacketField(fStack_ad4);
           FUN_004262d0(iStack_ad8 + 0x10,auStack_8a0);
@@ -609,7 +609,7 @@ LAB_00487d3f:
           uVar5 = FUN_0040a4d0(auStack_ac4);
           FUN_004065a0(uVar5,uVar6,uVar19,uVar21,iVar8,uVar22);
           FUN_00432320((char)param_1[0xf],1,1,uVar5,uVar6,uVar19,uVar21,iVar8,uVar22);
-          puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,0xd);
+          puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xd);
           FUN_0040a2a0();
           goto LAB_00487d3f;
         }
