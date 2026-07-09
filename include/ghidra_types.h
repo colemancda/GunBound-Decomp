@@ -89,8 +89,15 @@ typedef long long longlong;
  * that strictly takes zero arguments - call sites with real arguments
  * then fail with "too many arguments to function", since these vtable
  * calls have every different signature depending on which slot's being
- * invoked. `code()` imposes no such constraint. */
-typedef void code();
+ * invoked. `code()` imposes no such constraint.
+ *
+ * Returns `int`, not `void`: Ghidra freely assigns/casts these calls'
+ * results (`iVar4 = (**(code **)...)();`), and MSVC 7.1 makes using a
+ * void call result a hard error (C2120 "'void' illegal with all
+ * types", C2069 "cast of 'void' term to non-'void'"). An int return
+ * keeps every such site legal C while call sites that ignore the
+ * result are unaffected. */
+typedef int code();
 
 /* MSVC calling-convention keywords Ghidra emits that GCC/Clang don't
  * recognize the same way on x86-64 (where the distinction is moot -
