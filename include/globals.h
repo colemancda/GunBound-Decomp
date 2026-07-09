@@ -1067,7 +1067,7 @@ extern void *PTR_DAT_00555500;
 extern void *PTR_DAT_00555650;
 extern void *PTR_DAT_00555cc8;
 extern void *PTR_DAT_00555e2c;
-extern void *PTR_DAT_00563b40;
+extern char *PTR_DAT_00563b40; /* char *, not void *: call sites do byte-offset arithmetic on it (see the g_pD3DDevice7 comment) */
 extern void *PTR_DAT_00568180;
 extern void *PTR_DAT_00568800;
 extern void *PTR_DAT_00568810;
@@ -1495,6 +1495,13 @@ extern uint32_t uRam00001e50;
 extern uint32_t uRam005490a8;
 extern uint32_t uRamfffffff8;
 
+
+/* Ghidra switchD_<site>::switchdataD_<addr> jumptable symbols, renamed
+ * with __ for :: (not C). Address-only markers like the LAB_ labels:
+ * the raw ports index off &<symbol> and switch on the entries as
+ * integers. */
+extern uint8_t *switchD_0050fe76__switchdataD_0051008c;
+extern uint8_t *switchD_0051392e__switchdataD_00514460;
 #endif
 
 /* Second pass: ~800 addresses missing from the original scan (see

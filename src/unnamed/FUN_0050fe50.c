@@ -28,8 +28,8 @@ void FUN_0050fe50(void)
     pbVar6 = DAT_005a9680;
     uVar7 = DAT_005ab4fc;
     do {
-      switch((&switchD_0050fe76::switchdataD_0051008c)[uVar7]) {
-      case (undefined *)0x50fe7d:
+      switch((int)(&switchD_0050fe76__switchdataD_0051008c)[uVar7]) {
+      case 0x50fe7d:
         if (iVar3 < 0x12) {
           for (; iVar3 < 0x19; iVar3 = iVar3 + 8) {
             uVar1 = uVar1 << 8 | (uint)*pbVar6;
@@ -48,7 +48,7 @@ void FUN_0050fe50(void)
              (float)(&DAT_005a9888)[uVar7] * *(float *)((int)&DAT_005a9684 + iVar4);
         uVar1 = uVar1 - (uVar7 << ((byte)iVar3 & 0x1f));
         break;
-      case (undefined *)0x50feec:
+      case 0x50feec:
         if (iVar3 < 0xc) {
           for (; iVar3 < 0x19; iVar3 = iVar3 + 8) {
             uVar1 = uVar1 << 8 | (uint)*pbVar6;
@@ -63,7 +63,7 @@ void FUN_0050fe50(void)
         *(float *)((int)&DAT_005a99f4 + iVar4) = fVar8;
         *(float *)(iVar4 + 0x5a9af4) = fVar8;
         break;
-      case (undefined *)0x50ff7d:
+      case 0x50ff7d:
         if (iVar3 < 6) {
           for (; iVar3 < 0x19; iVar3 = iVar3 + 8) {
             uVar1 = uVar1 << 8 | (uint)*pbVar6;
@@ -79,7 +79,7 @@ void FUN_0050fe50(void)
         DAT_005ab704 = iVar3;
         *(float *)((int)&DAT_005a99f4 + iVar4) = fVar8;
         goto LAB_00510068;
-      case (undefined *)0x50ffe8:
+      case 0x50ffe8:
         if (iVar3 < 0xc) {
           for (; iVar3 < 0x19; iVar3 = iVar3 + 8) {
             uVar1 = uVar1 << 8 | (uint)*pbVar6;
@@ -101,7 +101,7 @@ void FUN_0050fe50(void)
 LAB_00510068:
         *(float *)(iVar4 + 0x5a9af4) = fVar8;
         *(float *)(iVar4 + 0x5a9bf4) = fVar8;
-      case (undefined *)0x510074:
+      case 0x510074:
         goto switchD_0050fe76_caseD_510074;
       }
       iVar3 = iVar3 + -6;

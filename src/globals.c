@@ -859,7 +859,7 @@ void *PTR_DAT_00555500;
 void *PTR_DAT_00555650;
 void *PTR_DAT_00555cc8;
 void *PTR_DAT_00555e2c;
-void *PTR_DAT_00563b40;
+char *PTR_DAT_00563b40;
 void *PTR_DAT_00568180;
 void *PTR_DAT_00568800;
 void *PTR_DAT_00568810;
@@ -2074,3 +2074,7 @@ uint32_t uRam0000020c;
 uint32_t uRam00001e50;
 uint32_t uRam005490a8;
 uint32_t uRamfffffff8;
+
+/* Jumptable markers - see globals.h. */
+uint8_t *switchD_0050fe76__switchdataD_0051008c;
+uint8_t *switchD_0051392e__switchdataD_00514460;
