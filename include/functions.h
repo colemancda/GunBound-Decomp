@@ -1523,7 +1523,7 @@ void __fastcall FUN_00506dc0();
 void __thiscall FUN_00506e10();
 void FUN_00506e70();
 void FUN_00506f30();
-void FUN_00506f60();
+void TextEntry_SetControlText();
 void __fastcall TextEntry_SyncFromControl();
 undefined4 __thiscall FUN_00507090();
 void __thiscall FUN_00507170();

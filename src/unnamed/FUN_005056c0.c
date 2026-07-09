@@ -19,7 +19,7 @@ void FUN_005056c0(void)
                     /* WARNING: Subroutine does not return */
       FUN_004010c0(0x80070057);
     }
-    FUN_00506f60();
+    TextEntry_SetControlText();
   }
   return;
 }

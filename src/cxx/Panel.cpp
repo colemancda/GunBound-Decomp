@@ -20,7 +20,7 @@ void __fastcall PanelManager_BringToFront(void *manager, CPanel *panel);
 /* 0x506f60: seed the shared overlay EDIT control's text for a focused
  * CEditBox (SetWindowTextA; empty string when passed null). Receiver
  * and text arrive in EDI/ESI - unresolved custom regs. */
-void FUN_00506f60(void);
+void TextEntry_SetControlText(void);
 /* The global UI panel manager (0xe53c40): +4 list head, +8 tail. */
 extern unsigned char g_uiPanelManager;
 }
@@ -315,7 +315,7 @@ void BuildCreateRoomDialog(void *manager, int arg2, int arg3)
     p->m_unk98 = arg3;
     CEditBox *roomName = CreateTextEntryWidget(0, 0x60, 0x2c, 0xbe, 0xc, 0x14);
     p->AddChild(roomName);
-    FUN_00506f60();
+    TextEntry_SetControlText();
     PanelManager_ClearAllFocus(0 /* g_uiPanelManager; receiver convention unresolved */);
     roomName->SetFocus(true);
     p->AddChild(CreateTextEntryWidget(1, 0x60, 0x46, 0xbe, 0xc, 4));

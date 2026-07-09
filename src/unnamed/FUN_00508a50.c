@@ -47,7 +47,7 @@ undefined4 FUN_00508a50(int param_1)
       Widget_AddChild(puVar3);
       PanelManager_ClearAllFocus(param_1);
       (**(code **)*puVar3)(1);
-      FUN_00506f60();
+      TextEntry_SetControlText();
       uVar4 = CreateLabelWidget(0,0x4ba,0xd5,0x76,0x52,0x22);
       Widget_AddChild(uVar4);
       uVar4 = CreateLabelWidget(1,0x4bb,0x80,0x76,0x52,0x22);

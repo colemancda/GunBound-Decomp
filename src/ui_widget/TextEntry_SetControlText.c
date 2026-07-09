@@ -1,4 +1,4 @@
-/* FUN_00506f60 - 0x00506f60 in the original binary.
+/* TextEntry_SetControlText - 0x00506f60 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00506f60(void)
+void TextEntry_SetControlText(void)
 
 {
   char cVar1;
