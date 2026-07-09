@@ -101,7 +101,7 @@ void __fastcall FUN_0047ca40(int *param_1)
     else {
       FUN_0040a5f0(iVar5 + 0xb30,auStack_89c,
                    (-(uint)((char)param_1[0xfe8] != '\0') & 0xffffff38) - 200);
-      uStack_4 = CONCAT31(uStack_4._1_3_,1);
+      uStack_4 = CONCAT31(SUBFIELD(uStack_4,1,undefined3),1);
       local_acc = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar6 = PeekPacketChecksumState();
