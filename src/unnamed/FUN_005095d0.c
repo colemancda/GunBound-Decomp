@@ -65,7 +65,7 @@ LAB_0050961f:
   uVar7 = 0xffff;
   uVar5 = FUN_0041eb80(g_clientContext,param_2);
   uVar5 = FUN_00507ff0(0x17,0x22,0x8c,0x4c,uVar5,uVar7);
-  FUN_0050e670(uVar5);
+  Widget_AddChild(uVar5);
   FUN_0050eea0(puVar3);
   *unaff_FS_OFFSET = local_c;
   return;

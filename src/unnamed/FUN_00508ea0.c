@@ -49,9 +49,9 @@ joined_r0x00508ec8:
     puVar3[0xc] = 200;
     puVar3[0xd] = 0x8a;
     uVar4 = CreateLabelWidget(0,0x2ca,0x44,0x66,0x37,0x1a);
-    FUN_0050e670(uVar4);
+    Widget_AddChild(uVar4);
     uVar4 = CreateLabelWidget(1,0x2cb,0x82,0x66,0x37,0x1a);
-    FUN_0050e670(uVar4);
+    Widget_AddChild(uVar4);
     puVar5 = unaff_EDI;
     if (unaff_EDI != (uchar *)0x0) {
       do {
@@ -63,7 +63,7 @@ joined_r0x00508ec8:
     _Format = (char *)GetLocalizedString(&DAT_00796eec,0xfa5);
     _sprintf(local_8c,_Format);
     uVar4 = FUN_00507ff0(0x17,0x2b,0x9a,0x33,local_8c,0xffff);
-    FUN_0050e670(uVar4);
+    Widget_AddChild(uVar4);
     FUN_0050eea0(puVar3);
   }
   else {

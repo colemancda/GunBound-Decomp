@@ -41,7 +41,7 @@ undefined4 * BuildReadyRoomChatPanel(undefined4 param_1)
   puVar1[0xc] = 0x1e0;
   puVar1[0xd] = 0xa0;
   uVar2 = CreateScrollListWidget(param_1,0x1c7,0x33,0x12,0x45,9);
-  FUN_0050e670(uVar2);
+  Widget_AddChild(uVar2);
   FUN_0050eea0(puVar1);
   return puVar1;
 }

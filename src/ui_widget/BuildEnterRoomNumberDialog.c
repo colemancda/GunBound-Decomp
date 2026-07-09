@@ -49,15 +49,15 @@ void __fastcall BuildEnterRoomNumberDialog(undefined4 param_1)
       puVar5[0xc] = 0x13a;
       puVar5[0xd] = 0xa0;
       puVar3 = (undefined4 *)CreateTextEntryWidget(0,99,0x32,0xb4,0xc,4);
-      FUN_0050e670(puVar3);
+      Widget_AddChild(puVar3);
       FUN_0050efa0(unaff_EDI);
       (**(code **)*puVar3)(1);
       uVar4 = CreateTextEntryWidget(1,99,0x54,0xb4,0xc,4);
-      FUN_0050e670(uVar4);
+      Widget_AddChild(uVar4);
       uVar4 = CreateLabelWidget(0,0x579,0xd5,0x76,0x52,0x22);
-      FUN_0050e670(uVar4);
+      Widget_AddChild(uVar4);
       uVar4 = CreateLabelWidget(1,0x578,0x80,0x76,0x52,0x22);
-      FUN_0050e670(uVar4);
+      Widget_AddChild(uVar4);
       FUN_0050eea0(puVar5);
       return;
     }

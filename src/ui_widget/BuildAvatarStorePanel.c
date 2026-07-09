@@ -46,17 +46,17 @@ undefined4 * BuildAvatarStorePanel(undefined4 param_1)
   puVar1[0xc] = 0xf0;
   puVar1[0xd] = 0x21d;
   uVar2 = CreateScrollListWidget(param_1,0xcf,0x8c,0x12,0xab,0xe);
-  FUN_0050e670(uVar2);
+  Widget_AddChild(uVar2);
   FUN_0050eea0(puVar1);
   uVar2 = CreateLabelWidget(0,0x4b0,0xe,0x1fc,0x40,0x17);
   FUN_0050e7d0(0);
-  FUN_0050e670(uVar2);
+  Widget_AddChild(uVar2);
   uVar2 = CreateLabelWidget(1,0x4b1,0x57,0x1fc,0x40,0x17);
   FUN_0050e7d0(0);
-  FUN_0050e670(uVar2);
+  Widget_AddChild(uVar2);
   uVar2 = CreateLabelWidget(2,0x4b2,0xa0,0x1fc,0x40,0x17);
   FUN_0050e7d0(0);
-  FUN_0050e670(uVar2);
+  Widget_AddChild(uVar2);
   *unaff_FS_OFFSET = local_c;
   return puVar1;
 }

@@ -49,13 +49,13 @@ void FUN_00508910(void)
       puVar5[0xc] = 0x139;
       puVar5[0xd] = 0xa0;
       puVar3 = (undefined4 *)CreateTextEntryWidget(0,99,0x38,0xbe,0xc,4);
-      FUN_0050e670(puVar3);
+      Widget_AddChild(puVar3);
       FUN_0050efa0(unaff_EDI);
       (**(code **)*puVar3)(1);
       uVar4 = CreateLabelWidget(0,0x5dd,0xd5,0x76,0x52,0x22);
-      FUN_0050e670(uVar4);
+      Widget_AddChild(uVar4);
       uVar4 = CreateLabelWidget(1,0x5dc,0x80,0x76,0x52,0x22);
-      FUN_0050e670(uVar4);
+      Widget_AddChild(uVar4);
       FUN_0050eea0(puVar5);
       *unaff_FS_OFFSET = puVar2;
       return;

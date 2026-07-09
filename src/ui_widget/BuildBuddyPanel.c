@@ -65,13 +65,13 @@ undefined4 BuildBuddyPanel(void)
       puVar2[0xc] = 0xd3;
       puVar2[0xd] = 0x10b;
       uVar3 = CreateLabelWidget(0,0x2bf,0xb4,7,0x16,0x14);
-      FUN_0050e670(uVar3);
+      Widget_AddChild(uVar3);
       uVar3 = CreateLabelWidget(1,0x2bd,0x5e,7,0x27,0x14);
-      FUN_0050e670(uVar3);
+      Widget_AddChild(uVar3);
       uVar3 = CreateLabelWidget(2,0x2be,0x89,7,0x27,0x14);
-      FUN_0050e670(uVar3);
+      Widget_AddChild(uVar3);
       uVar3 = CreateScrollListWidget(unaff_ESI,0xb7,0x49,0x12,0x98,7);
-      FUN_0050e670(uVar3);
+      Widget_AddChild(uVar3);
       FUN_0050eea0(puVar2);
       return;
     }

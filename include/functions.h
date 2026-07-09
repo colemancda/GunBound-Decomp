@@ -1594,7 +1594,7 @@ undefined4 __thiscall FUN_0050e4c0();
 void __fastcall Widget_DrawChildren();
 void __fastcall FUN_0050e560();
 uint __fastcall Widget_FindChildIndex();
-void FUN_0050e670();
+void Widget_AddChild();
 void FUN_0050e6c0();
 void __thiscall FUN_0050e730();
 void __fastcall FUN_0050e790();

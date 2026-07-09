@@ -42,7 +42,7 @@ undefined4 * BuildChannelUserListPanel(undefined4 param_1)
   puVar1[0xc] = 0xd1;
   puVar1[0xd] = 0x103;
   uVar2 = CreateScrollListWidget(param_1,0xb3,0x3f,0x12,0x9a,7);
-  FUN_0050e670(uVar2);
+  Widget_AddChild(uVar2);
   FUN_0050eea0(puVar1);
   *unaff_FS_OFFSET = local_c;
   return puVar1;

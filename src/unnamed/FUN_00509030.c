@@ -41,9 +41,9 @@ void FUN_00509030(undefined4 param_1,undefined4 param_2)
   puVar1[0xc] = 200;
   puVar1[0xd] = 0x8a;
   uVar2 = CreateLabelWidget(0,0x2ca,0x82,0x66,0x37,0x1a);
-  FUN_0050e670(uVar2);
+  Widget_AddChild(uVar2);
   uVar2 = FUN_00507ff0(0x17,0x2b,0x9a,0x33,param_2,0xffff);
-  FUN_0050e670(uVar2);
+  Widget_AddChild(uVar2);
   FUN_0050eea0(puVar1);
   *unaff_FS_OFFSET = local_c;
   return;

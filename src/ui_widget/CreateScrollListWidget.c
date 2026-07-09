@@ -56,9 +56,9 @@ CreateScrollListWidget(undefined4 param_1,undefined4 param_2,undefined4 param_3,
   puVar1[0xd] = param_5;
   puVar1[0x15] = (in_EAX * 5 + 300) * 2;
   uVar2 = CreateLabelWidget(0,in_EAX * 10 + 0x259,0,0xffffffe4,0x12,0x12);
-  FUN_0050e670(uVar2);
+  Widget_AddChild(uVar2);
   uVar2 = CreateLabelWidget(1,in_EAX * 10 + 0x25a,0,param_5 + 10,0x12,0x12);
-  FUN_0050e670(uVar2);
+  Widget_AddChild(uVar2);
   puVar1[0xf] = param_6;
   puVar1[0xe] = unaff_EDI;
   if (unaff_EDI < 1) {

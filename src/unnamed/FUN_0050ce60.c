@@ -42,7 +42,7 @@ void FUN_0050ce60(int param_1)
       iVar2 = Widget_FindChildIndex();
       if (iVar2 == -1) {
         uVar4 = CreateLabelWidget(0,0x4b0,0xe,0x1fc,0x40,0x17);
-        FUN_0050e670(uVar4);
+        Widget_AddChild(uVar4);
       }
     }
     else {
@@ -57,7 +57,7 @@ void FUN_0050ce60(int param_1)
       iVar2 = Widget_FindChildIndex();
       if (iVar2 == -1) {
         uVar4 = CreateLabelWidget(3,0x4b3,0xe,0x1fc,0x40,0x17);
-        FUN_0050e670(uVar4);
+        Widget_AddChild(uVar4);
         return;
       }
     }
