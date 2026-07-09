@@ -71,7 +71,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
     else {
       FUN_0040a5f0(iVar2 + 0xb30,local_458,
                    (-(uint)((char)unaff_ESI[0xfe8] != '\0') & 0xffffff38) - 200);
-      puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,1);
+      puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
       uStack_45c = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar3 = PeekPacketChecksumState();
