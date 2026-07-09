@@ -87,7 +87,7 @@ inside `g_clientContext`, 16 entries each, packed contiguously from `+0x3f808`:
 | +0x3f81a | `serverId[16]` | u16 |
 | +0x3f83a | `regionOrType[16]` | u8 |
 | +0x3f84a | `name[16][128]` | char |
-| +0x4004a | `desc[16][256]` | char (word-wrapped via `FUN_0041b4b0`) |
+| +0x4004a | `desc[16][256]` | char (word-wrapped via `RenderWrappedText`) |
 | +0x4104a | `serverIp[16]` | u32 (packed IPv4) |
 | +0x4108a | `port[16]` | u16 |
 | +0x410aa | `unknownField2[16]` | u16 |
@@ -181,28 +181,28 @@ calling **`RenderWorldListRow`** (`0x50dc80`) once per server. Each row:
    (`currentPlayers ≤ maxCapacity`), call **`FUN_004e1bf0(this)`** with the
    index in `EDI`. That helper:
    - if `this+0x28[slot] != 0` (a prior error) → show error dialog
-     `FUN_004124a0` instead of connecting;
+     `ShowErrorDialog` instead of connecting;
    - else `sprintf` the packed IP as `"%d.%d.%d.%d"` from `serverIp[slot]`,
      open a socket to `ip:port` via `BeginServerConnect`, set `this+4 = 1`
      (connecting), disable the button, and record **`this+0x68 = slot`**.
 
 ## Errors
 Three distinct error paths, all surfacing through the shared in-game dialog
-`FUN_004124a0` (the `b_error_confirm` OK button + a word-wrapped localized
-message from the string table, `FUN_0043dc70(&DAT_00796eec, id)`):
+`ShowErrorDialog` (the `b_error_confirm` OK button + a word-wrapped localized
+message from the string table, `GetLocalizedString(&DAT_00796eec, id)`):
 
 - **Communication / connection failure** — the async connect is resolved by the
-  connection-state poller `FUN_004d27e0`: while a connect is in progress
+  connection-state poller `ProcessIncomingPackets`: while a connect is in progress
   (`conn+0x84e4`) and the connection object's state field (`conn+0x22c`) leaves
   "dialing" (3), it clears `+0x84e4` and sets `+0x84e5 = (state == 2)`
   ("connected"). The ServerSelect **tick** (`0x4e1960`) polls this: when the
   attempt finishes and `+0x84e5 == 0` (didn't connect), it calls
-  **`FUN_004124a0(0)`** → the error dialog. A mid-session socket failure (e.g.
+  **`ShowErrorDialog(0)`** → the error dialog. A mid-session socket failure (e.g.
   a keepalive `sendto` failing in `FUN_00401200`) instead calls
-  **`FUN_004124a0(1)`** — the `1` also tears the game sockets down.
+  **`ShowErrorDialog(1)`** — the `1` also tears the game sockets down.
 - **Server-reported errors while communicating** — the packet pump
-  `FUN_004d27e0` dispatches received packets; various server error codes (under
-  opcode `0x2001`, e.g. sub-code `0x20`) call `FUN_004124a0`, while some other
+  `ProcessIncomingPackets` dispatches received packets; various server error codes (under
+  opcode `0x2001`, e.g. sub-code `0x20`) call `ShowErrorDialog`, while some other
   status codes are shown via a **native Win32 `MessageBoxA`** with a localized
   string. (On the worker thread, a socket `FD_CLOSE`/connect-fail also enqueues
   status code `0x65` to the owning UI object's event queue as a softer signal.)
@@ -210,7 +210,7 @@ message from the string table, `FUN_0043dc70(&DAT_00796eec, id)`):
   `0x5001`/`0x5011`/`0x5012`/`0x5013` maps to error code `0x1d`–`0x20` and
   stores it in `this+0x28[slot]`, then re-enables the connect button; the
   dialog appears on the *next* connect attempt (via `FUN_004e1bf0`'s guard →
-  `FUN_004124a0`, message string `code + 0xc7`).
+  `ShowErrorDialog`, message string `code + 0xc7`).
 
 See README "Error / message dialog" for the dialog's layout.
 
