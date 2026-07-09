@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004aa830(void)
+undefined4 FUN_004aa830(void)
 
 {
   int iVar1;

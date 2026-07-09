@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-void EncodeChecksumState(void)
+undefined4 EncodeChecksumState(void)
 
 {
   undefined4 uVar1;
