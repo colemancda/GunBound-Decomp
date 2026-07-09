@@ -1,13 +1,13 @@
-/* FUN_0050e520 - 0x0050e520 in the original binary.
+/* Widget_DrawChildren - 0x0050e520 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Base widget draw broadcast (vtable slot 8): calls each child's draw method (+0x20). Composite-pattern render. See docs/widgets.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0050e520(int param_1)
+void __fastcall Widget_DrawChildren(int param_1)
 
 {
   uint uVar1;
