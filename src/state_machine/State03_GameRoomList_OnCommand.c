@@ -1,13 +1,13 @@
-/* FUN_004285c0 - 0x004285c0 in the original binary.
+/* State03_GameRoomList_OnCommand - 0x004285c0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * The lobby command/action dispatcher (vtable slot 5): every button, menu item, and list event funnels here; eventType 0 dispatches on button id. See docs/screens/03_game_room_list.md for the full button map. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004285c0(int param_1,int param_2,undefined4 param_3,undefined4 param_4)
+void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined4 param_3,undefined4 param_4)
 
 {
   undefined4 *puVar1;

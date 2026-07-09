@@ -372,7 +372,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00426ac0,7,CGameState_BaseDestructor,false,1,0,RAW-src
 00426ad0,6736,State03_GameRoomList_ProcessPacket,false,1,32,RAW-src
 00428550,102,FUN_00428550,false,6,2,RAW-src
-004285c0,1370,FUN_004285c0,false,1,20,RAW-src
+004285c0,1370,State03_GameRoomList_OnCommand,false,1,20,RAW-src
 00428b90,360,FUN_00428b90,false,1,6,RAW-src
 00428d00,1907,State03_GameRoomList_OnEnter,false,1,18,RAW-src
 00429480,674,State03_GameRoomList_OnExit,false,1,1,RAW-src

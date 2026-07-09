@@ -1455,7 +1455,7 @@ uint32_t DAT_00e54aa0;
 /* --- 0x2101 server-select selector-record table ---
  * Standalone global (not the server-list SoA, which lives in g_clientContext
  * at +0x3f808). Records are 12 bytes each; the emit path in
- * State-3 dispatch (FUN_004285c0, opcode 0x2101) copies one record verbatim
+ * State-3 dispatch (State03_GameRoomList_OnCommand, opcode 0x2101) copies one record verbatim
  * into the send buffer, indexing g_serverSelectRecords + idx*0xc.
  * Ghidra mistyped the base as uint32_t, but the idx*0xc math is byte
  * arithmetic, so this is a byte array. The three u32 fields per record are

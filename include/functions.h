@@ -444,7 +444,7 @@ undefined4 FUN_004268b0();
 int __thiscall FUN_00426960();
 int FUN_00426a60();
 int FUN_00428550();
-void __thiscall FUN_004285c0();
+void __thiscall State03_GameRoomList_OnCommand();
 void __thiscall FUN_00428b90();
 void __fastcall FUN_00429730();
 void FUN_00429800();
