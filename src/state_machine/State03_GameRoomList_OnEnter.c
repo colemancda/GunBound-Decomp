@@ -135,7 +135,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   param_1[0x49] = -1;
   FUN_005093e0();
   FUN_0050f290();
-  FUN_00509110();
+  BuildBuddyPanel();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

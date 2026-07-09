@@ -53,7 +53,7 @@ void __thiscall FUN_004285c0(int param_1,int param_2,undefined4 param_3,undefine
     *(undefined4 *)(param_1 + 0x11c) = 0;
     return;
   case 1:
-    FUN_00509110();
+    BuildBuddyPanel();
     return;
   case 2:
   case 6:

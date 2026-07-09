@@ -27,7 +27,7 @@ LRESULT WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
   if (param_2 < 0x106) {
     if (param_2 == 0x105) {
       if (param_3 == 0x79) {
-        FUN_00509110();
+        BuildBuddyPanel();
       }
     }
     else if (param_2 < 0x21) {

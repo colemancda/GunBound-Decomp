@@ -1546,7 +1546,7 @@ void FUN_00508b90();
 void FUN_00508d00();
 void FUN_00508ea0();
 void FUN_00509030();
-void FUN_00509110();
+void BuildBuddyPanel();
 void FUN_00509260();
 void FUN_005093e0();
 void FUN_00509410();

@@ -21,7 +21,7 @@
  *   0x46/0x47                map change (QueueOutgoingPacketField map index)
  *   100..113 (0x64..0x71)    select character (buttonId-100) -> 0x3200
  *   0x72                     select "random"/none            -> 0x3200 (0xff)
- *   300                      buddy panel (FUN_00509110)
+ *   300                      buddy panel (BuildBuddyPanel)
  * FUN_004da460(this,0,0) is called before most sends (prepare/clear packet).
  *
  * Raw/near-verbatim port of Ghidra's
@@ -107,7 +107,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
       return (uint)bVar1;
     }
     if (param_4 == 300) {
-      uVar3 = FUN_00509110();
+      uVar3 = BuildBuddyPanel();
       return uVar3;
     }
     if (param_4 < 100) {

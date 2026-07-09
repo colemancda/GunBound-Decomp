@@ -86,7 +86,7 @@ LAB_00445543:
     FUN_0044bf00(param_1);
     break;
   case 1:
-    FUN_00509110();
+    BuildBuddyPanel();
     break;
   case 10:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);

@@ -1,14 +1,13 @@
-/* FUN_00509110 - 0x00509110 in the original binary.
+/* BuildBuddyPanel - 0x00509110 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Builds the shared buddy-list panel (a scroll list of buddies), registered with g_uiPanelManager. Used from the lobby, the ready room, and WndProc. See docs/widgets.md panel catalog. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00509110(void)
+void BuildBuddyPanel(void)
 
 {
   int iVar1;
