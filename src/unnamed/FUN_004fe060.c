@@ -31,7 +31,7 @@ undefined4 FUN_004fe060(void)
     local_10.sa_family = 2;
     local_10.sa_data[0] = '\0';
     local_10.sa_data[1] = '\0';
-    local_10.sa_data._2_4_ = htonl(0);
+    SUBFIELD(local_10.sa_data,2,undefined4) = htonl(0);
     iVar3 = bind(*(SOCKET *)(unaff_ESI + 0x288),&local_10,0x10);
     if ((iVar3 != -1) &&
        (iVar3 = WSAAsyncSelect(*(SOCKET *)(unaff_ESI + 0x288),*(HWND *)(unaff_ESI + 0x28c),0x54d,3),
