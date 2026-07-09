@@ -31,7 +31,7 @@ void FUN_00507cc0(undefined4 param_1,int param_2)
     if (*(int *)(iVar1 + 0x10) != 0) {
       if (*(int *)(iVar1 + 0x10) == 0) break;
       do {
-        FUN_0050e7d0(param_1);
+        Widget_SetEnabled(param_1);
         uVar2 = uVar2 + 1;
       } while (uVar2 < *(uint *)(iVar1 + 0x10));
     }

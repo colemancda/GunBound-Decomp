@@ -29,7 +29,7 @@ void FUN_0050cdf0(int param_1)
                     /* WARNING: Subroutine does not return */
         FUN_004010c0(0x80070057);
       }
-      FUN_0050e7d0(uVar2);
+      Widget_SetEnabled(uVar2);
     }
     iVar3 = iVar3 + 1;
     if (3 < iVar3) {

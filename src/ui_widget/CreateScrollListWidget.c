@@ -62,10 +62,10 @@ CreateScrollListWidget(undefined4 param_1,undefined4 param_2,undefined4 param_3,
   puVar1[0xf] = param_6;
   puVar1[0xe] = unaff_EDI;
   if (unaff_EDI < 1) {
-    FUN_0050e7d0(0);
+    Widget_SetEnabled(0);
     return puVar1;
   }
-  FUN_0050e7d0(1);
+  Widget_SetEnabled(1);
   return puVar1;
 }
 

@@ -49,13 +49,13 @@ undefined4 * BuildAvatarStorePanel(undefined4 param_1)
   Widget_AddChild(uVar2);
   FUN_0050eea0(puVar1);
   uVar2 = CreateLabelWidget(0,0x4b0,0xe,0x1fc,0x40,0x17);
-  FUN_0050e7d0(0);
+  Widget_SetEnabled(0);
   Widget_AddChild(uVar2);
   uVar2 = CreateLabelWidget(1,0x4b1,0x57,0x1fc,0x40,0x17);
-  FUN_0050e7d0(0);
+  Widget_SetEnabled(0);
   Widget_AddChild(uVar2);
   uVar2 = CreateLabelWidget(2,0x4b2,0xa0,0x1fc,0x40,0x17);
-  FUN_0050e7d0(0);
+  Widget_SetEnabled(0);
   Widget_AddChild(uVar2);
   *unaff_FS_OFFSET = local_c;
   return puVar1;

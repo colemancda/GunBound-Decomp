@@ -25,10 +25,10 @@ void FUN_00505520(int param_1,undefined4 param_2)
     *(int *)(iVar1 + 0x38) = param_1;
     *(undefined4 *)(iVar1 + 0x3c) = param_2;
     if (param_1 < 1) {
-      FUN_0050e7d0(0);
+      Widget_SetEnabled(0);
       return;
     }
-    FUN_0050e7d0(1);
+    Widget_SetEnabled(1);
   }
   return;
 }
