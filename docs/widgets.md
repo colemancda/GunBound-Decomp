@@ -130,9 +130,9 @@ leaf widgets above. All register with the global UI panel manager
 |---|---|---|---|
 | `BuildWorldListPanel` (`0x5099d0`) | `0x557f08` | State 2 — server WORLD LIST | 2 buttons (View All / Friends) + scrollbar; rows drawn by `RenderWorldListRow` |
 | `BuildBuddyPanel` | `0x557be4` | shared — **buddy list** (lobby / ready room / WndProc); singleton keyed 20000, at (568,11) 211×267 | Add (`0x2bd`) / Del (`0x2be`) / close-X (`0x2bf`) label buttons + a page-7 scrollbar; res IDs `0x2bc`–`0x2bf` |
-| `BuildLobbyChatPanel` | `0x557cd4` | State 3 — lobby **chat** panel | wide text-entry (`0x1e4` px) + label + scrollbar |
-| `FUN_00509d80` | `0x557cac` | State 3 — lobby list panel (user/room list; content not fully pinned) | scrollbar (page 7) |
-| `FUN_005094f0` | `0x557ee0` | State 9 — Ready Room list panel | scrollbar (page 9) |
+| `BuildLobbyChatPanel` | `0x557cd4` | State 3 — lobby **chat** panel (549×259) | a 484×12 chat-input `CEditBox` (maxLen 80) + a small label + a page-13 scrollbar |
+| `FUN_00509d80` | `0x557cac` | State 3 — lobby list panel (209-wide; content inferred = channel user list) | **scrollbar-only** (page 7); no input widgets |
+| `FUN_005094f0` | `0x557ee0` | State 9 — Ready Room panel (480×160, bottom; content inferred = chat log) | **scrollbar-only** (page 9); no input widgets |
 | `BuildAvatarStorePanel` | `0x557eb8` | State 7 — Avatar Store item panel | 3 category labels (msg `0x4b0`–`0x4b2`) + scrollbar (page 0xe) |
 | `BuildChatLogPanel` | `0x557b94` | **chat log** panel (via `FUN_004025e0`), 0x1050-byte object with a ~4 KB history buffer | label + text-entry |
 | `BuildEnterRoomNumberDialog` | `0x557df0` | State 3 — "enter room by number" dialog | labels + OK/Cancel + text field |
