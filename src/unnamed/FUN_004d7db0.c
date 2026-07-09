@@ -365,7 +365,7 @@ LAB_004d8685:
       uVar7 = FUN_0040a6e0(g_clientContext + 0x39f30 + iVar3,local_23c,1);
       local_c = 2;
       FUN_0040a7d0(uVar7,local_684,2);
-      local_c = CONCAT31(local_c._1_3_,3);
+      local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),3);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar12 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -388,7 +388,7 @@ LAB_004d8685:
     uVar7 = FUN_0040a6e0(g_clientContext + 0x3a154 + iVar3,local_460,1);
     local_c = 0;
     FUN_0040a7d0(uVar7,local_8a8,2);
-    local_c = CONCAT31(local_c._1_3_,1);
+    local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),1);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar12 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -425,7 +425,7 @@ LAB_004d892f:
     }
   }
 LAB_004d896a:
-  local_c = CONCAT31(local_c._1_3_,2);
+  local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),2);
   if (local_670 != 0) {
     iVar13 = local_670 << 4;
     iVar5 = 0x10;
