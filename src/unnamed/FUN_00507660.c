@@ -42,7 +42,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
     }
   }
   else if (param_2 == 0x1000) {
-    uVar6 = FUN_0050e620();
+    uVar6 = Widget_FindChildIndex();
     if (uVar6 != 0xffffffff) {
       cVar3 = PacketChecksumNotEquals(g_clientContext + 0x449c4,1);
       if (cVar3 != '\0') {

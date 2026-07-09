@@ -16,7 +16,7 @@ undefined4 FUN_00506210(undefined4 *param_1)
   char *pcVar4;
   char *pcVar5;
   
-  uVar3 = FUN_0050e620();
+  uVar3 = Widget_FindChildIndex();
   if (uVar3 != 0xffffffff) {
     if ((uint)param_1[4] <= uVar3) {
                     /* WARNING: Subroutine does not return */

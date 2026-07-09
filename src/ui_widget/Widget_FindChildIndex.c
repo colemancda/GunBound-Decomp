@@ -1,4 +1,4 @@
-/* FUN_0050e620 - 0x0050e620 in the original binary.
+/* Widget_FindChildIndex - 0x0050e620 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-uint __fastcall FUN_0050e620(int param_1)
+uint __fastcall Widget_FindChildIndex(int param_1)
 
 {
   uint uVar1;

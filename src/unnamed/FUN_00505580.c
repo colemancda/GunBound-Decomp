@@ -20,7 +20,7 @@ void FUN_00505580(int param_1)
   undefined4 uVar8;
   char local_100 [256];
   
-  uVar2 = FUN_0050e620();
+  uVar2 = Widget_FindChildIndex();
   if (uVar2 != 0xffffffff) {
     if (*(uint *)(param_1 + 0x10) <= uVar2) {
                     /* WARNING: Subroutine does not return */

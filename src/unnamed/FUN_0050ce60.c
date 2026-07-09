@@ -31,7 +31,7 @@ void FUN_0050ce60(int param_1)
     uVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((uVar3 & 0xe0000000) == 0) {
-      uVar3 = FUN_0050e620();
+      uVar3 = Widget_FindChildIndex();
       if (uVar3 != 0xffffffff) {
         if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -39,14 +39,14 @@ void FUN_0050ce60(int param_1)
         }
         FUN_0050e6c0();
       }
-      iVar2 = FUN_0050e620();
+      iVar2 = Widget_FindChildIndex();
       if (iVar2 == -1) {
         uVar4 = CreateLabelWidget(0,0x4b0,0xe,0x1fc,0x40,0x17);
         FUN_0050e670(uVar4);
       }
     }
     else {
-      uVar3 = FUN_0050e620();
+      uVar3 = Widget_FindChildIndex();
       if (uVar3 != 0xffffffff) {
         if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -54,7 +54,7 @@ void FUN_0050ce60(int param_1)
         }
         FUN_0050e6c0();
       }
-      iVar2 = FUN_0050e620();
+      iVar2 = Widget_FindChildIndex();
       if (iVar2 == -1) {
         uVar4 = CreateLabelWidget(3,0x4b3,0xe,0x1fc,0x40,0x17);
         FUN_0050e670(uVar4);

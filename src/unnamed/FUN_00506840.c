@@ -16,7 +16,7 @@ void FUN_00506840(int param_1)
   
   iVar2 = 0;
   do {
-    uVar1 = FUN_0050e620();
+    uVar1 = Widget_FindChildIndex();
     if (uVar1 != 0xffffffff) {
       if (*(uint *)(unaff_EBX + 0x10) <= uVar1) {
                     /* WARNING: Subroutine does not return */

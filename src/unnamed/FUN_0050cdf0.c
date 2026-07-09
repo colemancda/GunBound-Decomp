@@ -17,7 +17,7 @@ void FUN_0050cdf0(int param_1)
   
   iVar3 = 0;
   do {
-    uVar1 = FUN_0050e620();
+    uVar1 = Widget_FindChildIndex();
     if (uVar1 != 0xffffffff) {
       if (((*(char *)(param_1 + 0x91) == '\0') && (unaff_BL != '\0')) && (iVar3 != 1)) {
         uVar2 = 1;

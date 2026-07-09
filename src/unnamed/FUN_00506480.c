@@ -16,7 +16,7 @@ undefined4 FUN_00506480(undefined4 *param_1)
   char *pcVar4;
   char *pcVar5;
   
-  uVar3 = FUN_0050e620();
+  uVar3 = Widget_FindChildIndex();
   if (uVar3 != 0xffffffff) {
     if ((uint)param_1[4] <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -32,7 +32,7 @@ undefined4 FUN_00506480(undefined4 *param_1)
     }
     FUN_004056c0(param_1 + 0x14,pcVar5);
   }
-  uVar3 = FUN_0050e620();
+  uVar3 = Widget_FindChildIndex();
   if (uVar3 != 0xffffffff) {
     if ((uint)param_1[4] <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -49,7 +49,7 @@ undefined4 FUN_00506480(undefined4 *param_1)
     FUN_004056c0(param_1 + 0x15,pcVar5);
   }
   if (*(int *)(param_1[0x14] + -0xc) == 0) {
-    uVar3 = FUN_0050e620();
+    uVar3 = Widget_FindChildIndex();
     if (uVar3 != 0xffffffff) {
       if ((uint)param_1[4] <= uVar3) {
                     /* WARNING: Subroutine does not return */

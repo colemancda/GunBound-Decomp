@@ -92,7 +92,7 @@ void __thiscall WorldListPanel_OnCommand(int param_1,int param_2,int param_3,und
       }
     }
     FUN_00406300(0);
-    uVar3 = FUN_0050e620();
+    uVar3 = Widget_FindChildIndex();
     if (uVar3 != 0xffffffff) {
       if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -100,7 +100,7 @@ void __thiscall WorldListPanel_OnCommand(int param_1,int param_2,int param_3,und
       }
       *(undefined1 *)(*(int *)(*(int *)(param_1 + 0xc) + uVar3 * 4) + 0x3a) = 1;
     }
-    uVar3 = FUN_0050e620();
+    uVar3 = Widget_FindChildIndex();
     if (uVar3 != 0xffffffff) {
       if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -183,7 +183,7 @@ LAB_0050d953:
   }
 LAB_0050da2d:
   FUN_00406300(bVar7);
-  uVar3 = FUN_0050e620();
+  uVar3 = Widget_FindChildIndex();
   if (uVar3 != 0xffffffff) {
     if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
@@ -191,7 +191,7 @@ LAB_0050da2d:
     }
     *(undefined1 *)(*(int *)(*(int *)(param_1 + 0xc) + uVar3 * 4) + 0x3a) = 0;
   }
-  uVar3 = FUN_0050e620();
+  uVar3 = Widget_FindChildIndex();
   if (uVar3 != 0xffffffff) {
     if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */

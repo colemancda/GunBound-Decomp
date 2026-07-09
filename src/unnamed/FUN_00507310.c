@@ -49,7 +49,7 @@ joined_r0x00507384:
       goto LAB_00507427;
     }
   }
-  iVar4 = FUN_0050e620();
+  iVar4 = Widget_FindChildIndex();
   if (iVar4 != -1) {
     FUN_005056c0(*(int *)(g_clientContext + 0x44248 +
                          (*(int *)(&DAT_005f2f3c + g_clientContext) + iVar5) * 4) * 0xd + 0x41445 +

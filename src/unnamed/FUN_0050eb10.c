@@ -19,7 +19,7 @@ void __thiscall FUN_0050eb10(int *param_1,int param_2,undefined4 param_3,undefin
   
   uVar1 = param_1[4];
   if (param_2 == 0x1100) {
-    uVar2 = FUN_0050e620();
+    uVar2 = Widget_FindChildIndex();
     uVar3 = uVar2 + 1;
     if ((int)uVar3 < (int)uVar1) {
       do {
@@ -42,7 +42,7 @@ void __thiscall FUN_0050eb10(int *param_1,int param_2,undefined4 param_3,undefin
     }
   }
   else if (param_2 == 0x1101) {
-    uVar3 = FUN_0050e620();
+    uVar3 = Widget_FindChildIndex();
     iVar6 = 0;
     if (0 < (int)uVar1) {
       iVar4 = uVar3 + uVar1;
@@ -68,7 +68,7 @@ LAB_0050ecad:
     }
   }
   else if (param_2 == 0x1102) {
-    uVar2 = FUN_0050e620();
+    uVar2 = Widget_FindChildIndex();
     iVar6 = 0;
     uVar3 = uVar2;
     if (0 < (int)uVar1) {
