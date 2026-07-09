@@ -1234,6 +1234,35 @@ globals) where `BuildRotatedSpriteQuad` uses only 2 (uniform scale). Likely
 exists to support the Ready Room preview's zoomed/non-1:1 avatar display,
 whereas in-battle sprites are always drawn at native scale.
 
+### The quad-emitter family and the in-battle scene composer
+
+`BuildRotatedSpriteQuad` and `FUN_004eca50` are two of a **family of ~7
+quad-emitters** — small functions that all stage 4 corners into the same
+scratch area (`0x00ea0e28`) and append two triangles to `g_spriteVertexBuffer`
+(`g_spriteVertexCount += 2`), then get batch-flushed by `FUN_004f4110`. They
+differ only in the transform they apply:
+| Emitter | Sig (partial) | Distinction |
+|---|---|---|
+| `BuildRotatedSpriteQuad` (`0x4ec430`) | `(x, y, angle, flip, color)` | rotated, uniform scale — the standard in-battle sprite |
+| `FUN_004eca50` | `(x, y, angle, flip, scale, color)` | rotated, **independent X/Y scale** (Ready Room zoomed preview) |
+| `FUN_004ecc70` | `(x, y, flip, w, h, color)` | rotated to an explicit w×h |
+| `FUN_004ed300` / `FUN_004ed0c0` | larger | rotated variants with extra params (offset/pivot) |
+| `FUN_004ecee0` | `(x, y, color)` | rotated, minimal params |
+| **`FUN_004ebff0`** | `(x, y)` | **axis-aligned — no `g_sineTable360` use at all**, the unrotated fast path |
+
+All share the confirmed vertex format (`FVF 0x244`, 36-byte XYZRHW/DIFFUSE/TEX2
+vertices, diffuse = opaque white, texture UVs from a `+0x80` rect) and route
+into the one batched `DrawPrimitive`.
+
+**`State11_InBattle_Render`** (slot 14, `0x4c3020`, **22.5 KB**) is the scene
+composer that drives them: it walks every drawable layer/object of the battle
+scene and, per element, does `FindTextureCacheEntryByName(...)` then calls the
+appropriate quad-emitter — terrain, mobiles, projectiles, jewels
+(`JewelTexture`), and special-weapon effects (`SpecialTexture1/2`, etc.). It is
+genuinely large and layer-ordered; only its overall shape (texture-lookup →
+quad-emit, per layer) is mapped, not every individual layer's exact
+order/conditions.
+
 ### `DAT_007935fc` — resolved: the Z-buffer
 
 Traced its creation in `SetupZBuffer` (`0x4ef9a0`, was `FUN_004ef9a0`):
