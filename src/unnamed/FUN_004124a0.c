@@ -1,9 +1,41 @@
 /* FUN_004124a0 - 0x004124a0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The shared in-game error/message dialog (~40 call sites). Shows a modal
+ * popup with a word-wrapped localized message and a single OK button.
+ *
+ * Signature is `(char closeSockets)` in C, but the message id also arrives in
+ * a register (EAX, invisible to Ghidra) -> stored into g_stateChangeInProgress.
+ * Steps:
+ *   1. Records the dialog as modal: DAT_0079350c = closeSockets, and
+ *      g_stateChangeInProgress = message id. GameTick gates input/updates on
+ *      these being nonzero (the popup blocks the screen underneath).
+ *   2. Creates the OK button: CreateButtonWidget(list, 1000000, 1000000,
+ *      0x385, "b_error_confirm", 0x1c6, 0x14b, 0x4a, 0x1a, 1, 0) -> at
+ *      (454,331), 74x26; action code 0x385.
+ *   3. Snaps the cursor onto the dialog (FUN_004ee200 -> SetCursorPos).
+ *   4. Clears the text scratch buffer (DAT_005b1d70) and sets the dialog rect
+ *      globals (_DAT_00e53c24..30 = {0xf9,0x229,0xc1,0x171}).
+ *   5. Looks up the localized message string, FUN_0043dc70(&DAT_00796eec,
+ *      msgId + 0xc7), and word-wraps it into DAT_005b1d70 via
+ *      FUN_0041b4b0(buf, str, x=0x32, y=0x2b, wrapWidth=0x15e, 1).
+ *   6. If closeSockets != 0: tears down all three connection objects
+ *      (DAT_005b2b58 / DAT_005b2b5c / DAT_005b2b60 -> mark state 1, closesocket
+ *      +0x24, clear connected flags +0x22a/+0x84e5), releases the COM object
+ *      DAT_00e55a64 (vtable +4 = Release), closes the whisper/direct link if
+ *      active (DAT_007934f4 -> FUN_004059a0), and SetEvent(DAT_00e55ce8).
+ *
+ * One of a three-overload family that differ only in the message source:
+ *   FUN_004124a0(closeSockets)          - localized string by id, verbatim.
+ *   FUN_00412650(closeSockets, value)   - localized string used as a printf
+ *                                         format, sprintf'd with one value.
+ *   FUN_00412820(text, closeSockets)    - a caller-supplied literal string.
+ * All three build the same b_error_confirm OK button (action 0x385) and share
+ * the modal/teardown logic above. See docs/screens/README.md "Error / message
+ * dialog" and docs/screens/02_server_select.md "Errors" for the callers.
+ *
+ * Not renamed in-tree: ~40 call sites would each need touching.
+ * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified.
+ * See src/README.md's "Raw/verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
