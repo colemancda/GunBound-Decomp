@@ -13,7 +13,7 @@ void __thiscall FUN_00507170(int param_1,undefined4 param_2)
   if (*(char *)(param_1 + 4) != '\0') {
     Widget_DispatchKeyToChildren(param_2);
   }
-  FUN_0050eab0(param_2);
+  Widget_DispatchMouseToChildren(param_2);
   return;
 }
 
