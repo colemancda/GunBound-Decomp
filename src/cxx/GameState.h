@@ -63,7 +63,7 @@ public:
 class CState01Title : public CGameState {       /* size 8; vtable_State01_Title */
 public:
     virtual void OnEnter();                     /* 0x4e5370 - promoted, State01_Title.cpp */
-    virtual void OnExit();                      /* 0x4e53a0 - promoted, State01_Title.cpp */
+    virtual void OnExit();                      /* 0x4e53b0 - promoted, State01_Title.cpp */
 
     int m_frameCounter;                         /* +0x04: the state's only field */
 };
@@ -107,6 +107,8 @@ public:
 
 class CState10Loading : public CGameState {     /* size 0x150 */
 public:
+    virtual void OnExit();                      /* 0x43eff0 - promoted, State10_Loading.cpp */
+
     u8 m_raw[0x150 - 4];                        /* field map not yet reconstructed */
 };
 

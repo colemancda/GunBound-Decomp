@@ -1,6 +1,6 @@
 /* CState01Title - Title screen methods, promoted from the raw C ports
  * src/state_machine/State01_Title_OnEnter.c (0x4e5370) and
- * State01_Title_OnExit.c (0x4e53a0). See src/cxx/README.md.
+ * State01_Title_OnExit.c (0x4e53b0). See src/cxx/README.md.
  *
  * The raw OnEnter port was already byte-compared against the original
  * (see its header comment): Ghidra typed it __fastcall(int) because a
@@ -17,6 +17,7 @@
  * be revisited when LoadSpriteSet itself is promoted.
  */
 #include "GameState.h"
+#include "ActiveObjects.h"
 
 extern "C" {
 int PlayMusicTrack(int trackId);              /* 0x4f2e40-family; raw decl: uint PlayMusicTrack() */
@@ -29,8 +30,6 @@ int __stdcall LoadSpriteSet(void *container, int key);
                                                * the only remaining byte-diff in OnEnter - not
                                                * expressible from C++ without the custom
                                                * convention. */
-extern unsigned char DAT_00ea0e18;            /* active-object container storage */
-extern unsigned int  DAT_00ea0e1c;            /* active-object container (list head ptr at +0x1c) */
 }
 
 /* 0x4e5370 - reset the frame counter, start the title music, and prime
@@ -43,34 +42,10 @@ void CState01Title::OnEnter()
     PlayMusicTrack(0);
 }
 
-/* 0x4e53a0 - walk the active-object container's bucket list to key
- * 10000 and run every registered object's destructor (vtable slot 0,
- * flag 1 = free), then reset the bucket's intrusive list to empty.
- * Raw port kept the container untyped (undefined4*), and so does this
- * promotion - the container classes aren't reconstructed yet. */
+/* 0x4e53b0 - destroy container bucket 10000 (the title screen's
+ * sprite set); the walk is the shared ActiveObjects_DestroyBucket
+ * inline, which every state OnExit inlines identically. */
 void CState01Title::OnExit()
 {
-    unsigned int **bucket = *(unsigned int ***)(DAT_00ea0e1c + 0x1c);
-    unsigned int key = (unsigned int)bucket[1];
-    if (key < 0x2711) {
-        while (key != 10000) {
-            bucket = (unsigned int **)bucket[7];
-            key = (unsigned int)bucket[1];
-            if (10000 < key) {
-                return;
-            }
-        }
-        unsigned int **node = (unsigned int **)bucket[4];
-        while (node != bucket) {
-            unsigned int **obj = (unsigned int **)*node;
-            node = (unsigned int **)node[4];
-            /* obj->vtable[0](1): scalar-deleting destructor, free=1.
-             * Truly __thiscall (this=obj in ECX); expressed like the raw
-             * port's code* call until the container's element class is
-             * reconstructed and this becomes a real virtual call. */
-            ((void (__cdecl *)(int))*obj)(1);
-        }
-        bucket[3] = (unsigned int *)bucket;
-        bucket[4] = (unsigned int *)bucket;
-    }
+    ActiveObjects_DestroyBucket(10000);
 }
