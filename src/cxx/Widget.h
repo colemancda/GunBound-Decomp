@@ -23,7 +23,14 @@
  * vtables). Base impls named where shared verbatim across classes. */
 class CWidget {
 public:
-    virtual ~CWidget();                                 /* slot 0  +0x00: scalar-deleting dtor, 0x50e860 on most classes */
+    /* SLOT 0/10 CORRECTION (supersedes docs/widgets.md's original table):
+     * the base OnCommand (0x50eb10) moves focus by calling child slot 0
+     * with an explicit 0 (loser) / 1 (gainer) argument - slot 0 is
+     * SetFocus(bool), NOT the destructor. The scalar-deleting dtor is
+     * slot 10 (which is why both slots resolved to 0x50e860 in classes
+     * with a trivial SetFocus). CEditBox's +0x04 active flag is the
+     * state this toggles. */
+    virtual void SetFocus(bool active);                 /* slot 0  +0x00: 0x50e860 trivial impl on most classes */
     virtual bool OnMouseMove(int x, int y);             /* slot 1  +0x04: per-class */
     virtual bool OnMouseDown(int x, int y);             /* slot 2  +0x08: per-class (Label_OnMouseDown, scrollbar 0x50f500) */
     virtual bool OnMouseUp(int x, int y);               /* slot 3  +0x0c: per-class */
@@ -38,12 +45,15 @@ public:
                                                          * command dispatcher. */
     virtual void Draw();                                /* slot 8  +0x20: self + child broadcast (Widget_DrawChildren) */
     virtual void Update();                              /* slot 9  +0x24: per-class hook (e.g. panel row-loop 0x50dc40) */
-    virtual void OnDestroy(bool freeMem);               /* slot 10 +0x28: 0x50e860 */
+    virtual ~CWidget();                                 /* slot 10 +0x28: the real scalar-deleting dtor */
     virtual bool OnDragMove(int x, int y);              /* slot 11 +0x2c: base drag, FUN_0050e3a0 */
 
     /* Non-virtual base helpers (real member functions in the binary,
      * called by subclass handlers): */
     bool MouseDownCommon(int x, int y);   /* 0x50e2f0: shared mouse-down tail (drag arming) */
+    int FindChildIndex(int typeId, int id); /* 0x50e620 - promoted, Widget.cpp. NOTE: Ghidra shows
+                                             * the args arriving in EDI/ESI (custom-register family);
+                                             * returns child count when not found. */
     bool MouseDownChildren(int x, int y); /* 0x50e8e0: broadcast mouse-down (slot 2) to children */
     bool MouseUpChildren(int x, int y);   /* 0x50e950: broadcast mouse-up (slot 3) to children */
 
@@ -63,7 +73,9 @@ public:
     u8       m_unk1d;        /* +0x1d */
     u8       m_hidden;       /* +0x1e: short-circuits HitTest and Draw */
     u8       m_unk1f;        /* +0x1f */
-    int      m_unk20;        /* +0x20 */
+    int      m_typeId;       /* +0x20: widget class/type id - focus
+                              * navigation (0x50eb10) scans children with
+                              * m_typeId == 2 (the text-entry class) */
     int      m_id;           /* +0x24: reported to the parent's OnCommand */
     int      m_x;            /* +0x28 */
     int      m_y;            /* +0x2c */

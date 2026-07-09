@@ -44,7 +44,7 @@ scrollbar (`0x557e90`), and panel (`0x557f08`) vtables:
 
 | Slot (off) | Role | Shared base impl |
 |---|---|---|
-| 0 (`+0x00`) | destructor | `0x50e860` (most classes) |
+| 0 (`+0x00`) | **SetFocus(bool)** — **corrected**: the base slot-7 focus mover (`0x50eb10`) calls child slot 0 with an explicit `0` (focus loser) / `1` (focus gainer) argument, so slot 0 is a focus/activate hook, not the destructor. `CEditBox`'s `+0x04` active flag is the state it toggles. | `0x50e860` (trivial in most classes) |
 | 1 (`+0x04`) | mouse-move | per-class; base drag = `FUN_0050e3a0` (slot 11 in some) |
 | 2 (`+0x08`) | mouse-down | per-class (e.g. label `Label_OnMouseDown`, scrollbar `FUN_0050f500`) |
 | 3 (`+0x0c`) | mouse-up | per-class |
@@ -54,7 +54,7 @@ scrollbar (`0x557e90`), and panel (`0x557f08`) vtables:
 | 7 (`+0x1c`) | **command/callback + focus-nav** | `FUN_0050eb10` (leaf) — receives child callbacks (`0x2000` scroll, `0x1100`/`0x1101` focus move); panels override (e.g. `WorldListPanel_OnCommand`) |
 | 8 (`+0x20`) | **draw** | per-class; also broadcasts draw to children (container base `Widget_DrawChildren`) |
 | 9 (`+0x24`) | secondary render / per-class hook | per-class (e.g. panel row-loop `0x50dc40`) |
-| 10 (`+0x28`) | secondary destructor | `0x50e860` |
+| 10 (`+0x28`) | **scalar-deleting destructor** — **corrected** from "secondary destructor": with slot 0 being SetFocus, this is the real dtor slot (both resolved to `0x50e860` in classes whose SetFocus is trivial, which is what made slot 0 look like a dtor). | `0x50e860` |
 | 11 (`+0x2c`) | base drag mouse-move | `FUN_0050e3a0` |
 
 ### The event model — the `+0x1c` callback
@@ -67,6 +67,15 @@ its **parent's** slot-7 method (`parent.vtable[+0x1c]`) with
   `+0x24`.
 - **Scrollbar change** → fires `parent[+0x1c](0x2000, id, newScrollPos)`.
 - **Text-entry / dialog commit / cancel** → event types **10** / **0xb**.
+- **Focus navigation** → the leaf slot-7 default (`0x50eb10`) handles
+  **0x1100** (next) / **0x1101** (prev) / **0x1102** (set-with-wraparound)
+  by scanning children whose `+0x20` type id is **2** (the text-entry
+  class) and calling slot 0 (`SetFocus`) with 0/1 on the loser/gainer;
+  when focus runs off the end it reports **0x1000** through its own
+  (virtual) slot 7. Child lookup is by `(+0x20 type, +0x24 id)` via
+  `0x50e620`. The `+0x0c` child list is an **ATL7 `CAtlArray`**
+  (`0x50ed30` is its `GrowBuffer` byte-for-byte, `+0x18` its
+  `m_nGrowBy`); the C++ reconstruction lives in src/cxx/.
 
 A **panel's** slot-7 either handles the event itself or forwards it to the
 **owning game state's command dispatcher** — which is exactly why those
@@ -164,7 +173,7 @@ children, and containers are just widgets that do.
 // ~0x38-0x40 bytes; the CLabel subclass is exactly 0x40.
 class CWidget {
 public:
-    virtual ~CWidget();                                // slot 0  (+0x00)  scalar-deleting dtor (0x50e860)
+    virtual void SetFocus(bool active);                // slot 0  (+0x00)  focus/activate hook (0x50e860 trivial default) - see corrected table above
     virtual bool OnMouseMove(int x, int y);            // slot 1  (+0x04)
     virtual bool OnMouseDown(int x, int y);            // slot 2  (+0x08)
     virtual bool OnMouseUp  (int x, int y);            // slot 3  (+0x0c)
@@ -174,7 +183,7 @@ public:
     virtual void OnCommand(int evt, int id, int arg);  // slot 7  (+0x1c)  the child->parent callback
     virtual void Draw();                               // slot 8  (+0x20)  self + broadcast to children (Widget_DrawChildren)
     virtual void Update();                             // slot 9  (+0x24)
-    virtual void OnDestroy(bool freeMem);              // slot 10 (+0x28)  (0x50e860)
+    virtual ~CWidget();                                // slot 10 (+0x28)  scalar-deleting dtor (0x50e860) - see corrected table above
     virtual bool OnDragMove(int x, int y);             // slot 11 (+0x2c)  FUN_0050e3a0
 protected:
     // vtable                                          // +0x00

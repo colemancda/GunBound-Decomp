@@ -73,6 +73,83 @@ bool CWidget::DispatchMouse(int msg)
     return false;
 }
 
+/* 0x50e620. Index of the child matching (typeId, id); child count when
+ * absent. The focus mover calls it with typeId 2 (text-entry) and the
+ * id of the child that sent the focus event. */
+int CWidget::FindChildIndex(int typeId, int id)
+{
+    unsigned int count = (unsigned int)m_children.GetCount();
+    for (unsigned int i = 0; i < count; ++i) {
+        if (m_children[i]->m_typeId == typeId && m_children[i]->m_id == id) {
+            return (int)i;
+        }
+    }
+    return (int)count;
+}
+
+/* 0x50eb10, vtable slot 7 - the leaf/base OnCommand default: the focus
+ * mover plus the upward-forwarding tail of the event spine.
+ *   0x1100 focus-next: from the sender (the focused type-2 child), scan
+ *          forward; SetFocus(0) the loser, SetFocus(1) the winner; if
+ *          focus runs off the end, report 0x1000 through our own
+ *          (virtual) OnCommand so panel overrides see it.
+ *   0x1101 focus-prev / 0x1102 focus-set: same, scanning backward /
+ *          from the current position with wraparound. The target-index
+ *          arithmetic mirrors the decompile literally.
+ *   anything else: forward to m_parent. */
+void CWidget::OnCommand(int evt, int id, int arg)
+{
+    int count = m_children.GetCount();
+    if (evt == 0x1100) {
+        unsigned int cur = (unsigned int)FindChildIndex(2, id);
+        unsigned int i = cur + 1;
+        for (; (int)i < count; ++i) {
+            if (m_children[i]->m_typeId == 2 && i != cur) {
+                m_children[cur]->SetFocus(false);
+                m_children[i]->SetFocus(true);
+                return;
+            }
+        }
+        if (i == (unsigned int)count) {
+            OnCommand(0x1000, id, 0);
+        }
+    } else if (evt == 0x1101) {
+        unsigned int cur = (unsigned int)FindChildIndex(2, id);
+        int steps = 0;
+        int walk = (int)cur + count;
+        if (0 < count) {
+            do {
+                unsigned int probe = (unsigned int)(walk % count);
+                if (m_children[probe]->m_typeId == 2 && probe != cur) {
+                    m_children[cur]->SetFocus(false);
+                    m_children[(unsigned int)(((int)cur - steps + count) % count)]->SetFocus(true);
+                    return;
+                }
+                ++steps;
+                --walk;
+            } while (steps < count);
+        }
+    } else if (evt == 0x1102) {
+        unsigned int cur = (unsigned int)FindChildIndex(2, id);
+        int steps = 0;
+        int walk = (int)cur;
+        if (0 < count) {
+            do {
+                unsigned int probe = (unsigned int)(walk % count);
+                if (m_children[probe]->m_typeId == 2 && probe != cur) {
+                    m_children[cur]->SetFocus(false);
+                    m_children[(unsigned int)((steps + (int)probe) % count)]->SetFocus(true);
+                    return;
+                }
+                ++steps;
+                ++walk;
+            } while (steps < count);
+        }
+    } else if (m_parent != 0) {
+        m_parent->OnCommand(evt, id, arg);
+    }
+}
+
 /* 0x50e520, vtable slot 8 (container base). Ghidra typed it __fastcall
  * (this in ECX, no other args) - as a member function the convention is
  * exact. No hidden check in the original: hiding is enforced on the
