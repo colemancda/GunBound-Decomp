@@ -46,6 +46,64 @@ CWorldListPanel::CWorldListPanel()
     m_unk05[0] = 0;
 }
 
+/* Construction state from the 0x509d80 builder's guarded section. */
+CChannelUserListPanel::CChannelUserListPanel()
+{
+    m_unk38 = 1;
+    m_unk05[0] = 0;
+}
+
+/* 0x509d80 - BuildChannelUserListPanel (docs/widgets.md: the lobby's
+ * channel user list). Key 0x232a at (572,287) 209x259, one page-7
+ * scrollbar at (179,63) h 154. Same invisible EAX/EDI scrollbar
+ * register args as BuildWorldListPanel - the builder's argument is
+ * forwarded as the factory's never-read stack slot and presumably
+ * doubles as the EDI total. */
+CChannelUserListPanel * BuildChannelUserListPanel(int total)
+{
+    CChannelUserListPanel *p = new CChannelUserListPanel();
+    p->m_id = 0x232a;
+    p->m_unk4c = 0;
+    p->m_unk44 = 0x2712;
+    p->m_unk48 = 0;
+    p->m_x = 0x23c;
+    p->m_y = 0x11f;
+    p->m_width = 0xd1;
+    p->m_height = 0x103;
+    p->AddChild(CreateScrollListWidget(0, total, 0xb3, 0x3f, 0x12, 0x9a, 7));
+    FUN_0050eea0(p);
+    return p;
+}
+
+/* Construction state from the 0x5094f0 builder's guarded section: this
+ * one starts HIDDEN (+0x1e) and front-inserted (+0x05 stays 1). */
+CReadyRoomChatPanel::CReadyRoomChatPanel()
+{
+    m_unk38 = 1;
+    m_unk05[0] = 1;
+    m_hidden = 1;
+}
+
+/* 0x5094f0 - BuildReadyRoomChatPanel (docs/widgets.md: the Ready Room
+ * chat log). Key 2000 at (21,385) 480x160, one page-9 scrollbar at
+ * (455,51) h 69; +0x48 starts at 0xb (vs 0 in the list panels - likely
+ * the visible-row count). */
+CReadyRoomChatPanel * BuildReadyRoomChatPanel(int total)
+{
+    CReadyRoomChatPanel *p = new CReadyRoomChatPanel();
+    p->m_unk4c = 0;
+    p->m_id = 2000;
+    p->m_unk44 = 10000;
+    p->m_unk48 = 0xb;
+    p->m_x = 0x15;
+    p->m_y = 0x181;
+    p->m_width = 0x1e0;
+    p->m_height = 0xa0;
+    p->AddChild(CreateScrollListWidget(0, total, 0x1c7, 0x33, 0x12, 0x45, 9));
+    FUN_0050eea0(p);
+    return p;
+}
+
 /* 0x5099d0 - BuildWorldListPanel (docs/screens/02_server_select.md's
  * WORLD LIST). Panel key 9000 at (11,13) 545x530, with the View All
  * (id 0, sprite 0x44c) and Friends (id 1, sprite 0x44d) bottom

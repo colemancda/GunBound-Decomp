@@ -29,6 +29,8 @@ GB_STATIC_ASSERT(sizeof(CEditBox)   == 0x140, editbox_size);
 GB_STATIC_ASSERT(sizeof(CScrollBar) == 0x58,  scrollbar_size);
 GB_STATIC_ASSERT(sizeof(CPanel)     == 0x90,  panel_size);
 GB_STATIC_ASSERT(sizeof(CWorldListPanel) == 0x94, worldlist_size);
+GB_STATIC_ASSERT(sizeof(CChannelUserListPanel) == 0x90, channeluser_size);
+GB_STATIC_ASSERT(sizeof(CReadyRoomChatPanel)   == 0x90, readychat_size);
 
 /* offset checks can't live in the class body (incomplete type there), so
  * they're functions-scope typedefs here */

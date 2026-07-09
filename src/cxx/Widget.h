@@ -238,20 +238,35 @@ public:
     int m_unk90;             /* +0x90: builder inits to -1 (selection?) */
 };
 
+/* State 3's lobby channel-user-list (rows drawn by
+ * RenderChannelUserRow: status flag + rank icon + name). Plain-sized
+ * CPanel; key 0x232a at (572,287) 209x259 with a page-7 scrollbar. */
+class CChannelUserListPanel : public CPanel {  /* vtable 0x557cac; builder 0x509d80 */
+public:
+    CChannelUserListPanel();                   /* inlined in the builder */
+};
+
+/* State 9's Ready Room chat log (rows drawn by RenderReadyRoomChatRow,
+ * color-coded by message type). Plain-sized CPanel; key 2000 at
+ * (21,385) 480x160 with a page-9 scrollbar; starts HIDDEN and is
+ * front-inserted in the manager's z-order. */
+class CReadyRoomChatPanel : public CPanel {    /* vtable 0x557ee0; builder 0x5094f0 */
+public:
+    CReadyRoomChatPanel();                     /* inlined in the builder */
+};
+
 /* The remaining confirmed concrete panels (identity + vtable confirmed;
  * field maps not yet reconstructed, so no size asserts yet):
- *   CBuddyPanel            vtable 0x557be4  BuildBuddyPanel (shared; singleton key 20000)
+ *   CBuddyPanel            vtable 0x557be4  BuildBuddyPanel 0x509110 (shared; SINGLETON key
+ *                                           20000 - the builder walks g_uiPanelManager's list
+ *                                           first and returns the existing panel; size 0x94)
  *   CLobbyChatPanel        vtable 0x557cd4  BuildLobbyChatPanel (state 3)
- *   CChannelUserListPanel  vtable 0x557cac  BuildChannelUserListPanel 0x509d80 (state 3)
- *   CReadyRoomChatPanel    vtable 0x557ee0  BuildReadyRoomChatPanel 0x5094f0 (state 9)
  *   CAvatarStorePanel      vtable 0x557eb8  BuildAvatarStorePanel (state 7)
  *   CChatLogPanel          vtable 0x557b94  BuildChatLogPanel (~0x1050 bytes)
  *   CEnterRoomNumberDialog vtable 0x557df0  BuildEnterRoomNumberDialog (state 3)
  *   CCreateRoomDialog      vtable 0x557c34  BuildCreateRoomDialog (state 3) */
 class CBuddyPanel            : public CPanel {};
 class CLobbyChatPanel        : public CPanel {};
-class CChannelUserListPanel  : public CPanel {};
-class CReadyRoomChatPanel    : public CPanel {};
 class CAvatarStorePanel      : public CPanel {};
 class CChatLogPanel          : public CPanel {};
 class CEnterRoomNumberDialog : public CPanel {};
