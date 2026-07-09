@@ -35,7 +35,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
     piVar1 = puVar6 + 2;
     puVar6 = (undefined4 *)*puVar6;
     if ((*(int *)(*piVar1 + 0x20) == 0) && (*(int *)(*piVar1 + 0x24) == 0)) {
-      FUN_00509960();
+      PanelManager_BringToFront();
       *unaff_FS_OFFSET = local_c;
       return;
     }

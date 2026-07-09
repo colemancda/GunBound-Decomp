@@ -1556,7 +1556,7 @@ void FUN_00509700();
 int FUN_00509730();
 void FUN_00509780();
 void FUN_005098e0();
-void __fastcall FUN_00509960();
+void __fastcall PanelManager_BringToFront();
 void FUN_005099b0();
 undefined4 * BuildWorldListPanel();
 undefined4 *CreateScrollListWidget(); /* returns the new widget object */

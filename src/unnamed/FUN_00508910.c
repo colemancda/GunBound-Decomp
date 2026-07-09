@@ -63,7 +63,7 @@ void FUN_00508910(void)
     piVar1 = puVar2 + 2;
     puVar2 = (undefined4 *)*puVar2;
   } while ((*(int *)(*piVar1 + 0x20) != 0) || (*(int *)(*piVar1 + 0x24) != 2));
-  FUN_00509960();
+  PanelManager_BringToFront();
   *unaff_FS_OFFSET = local_c;
   return;
 }

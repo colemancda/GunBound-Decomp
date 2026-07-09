@@ -64,7 +64,7 @@ void __fastcall BuildEnterRoomNumberDialog(undefined4 param_1)
     piVar1 = puVar2 + 2;
     puVar2 = (undefined4 *)*puVar2;
   } while ((*(int *)(*piVar1 + 0x20) != 0) || (*(int *)(*piVar1 + 0x24) != 1));
-  FUN_00509960(param_1);
+  PanelManager_BringToFront(param_1);
   return;
 }
 

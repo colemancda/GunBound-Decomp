@@ -16,7 +16,7 @@ void PanelManager_Register(void *panel);
 void PanelManager_ClearAllFocus(void *manager);
 /* BringToFront (0x509960, __fastcall manager/panel): unlink the
  * panel's manager node and relink it at the head of the z-order. */
-void __fastcall FUN_00509960(void *manager, CPanel *panel);
+void __fastcall PanelManager_BringToFront(void *manager, CPanel *panel);
 /* 0x506f60: seed the shared overlay EDIT control's text for a focused
  * CEditBox (SetWindowTextA; empty string when passed null). Receiver
  * and text arrive in EDI/ESI - unresolved custom regs. */
@@ -298,7 +298,7 @@ void BuildCreateRoomDialog(void *manager, int arg2, int arg3)
     for (CPanelListNode *n = PanelListHead(); n != 0; n = n->m_next) {
         CPanel *q = n->m_panel;
         if (q->m_typeId == 0 && q->m_id == 0) {
-            FUN_00509960(&g_uiPanelManager, q);
+            PanelManager_BringToFront(&g_uiPanelManager, q);
             return;
         }
     }
@@ -384,7 +384,7 @@ void __fastcall BuildEnterRoomNumberDialog(int arg)
     for (CPanelListNode *n = PanelListHead(); n != 0; n = n->m_next) {
         CPanel *q = n->m_panel;
         if (q->m_typeId == 0 && q->m_id == 1) {
-            FUN_00509960(&g_uiPanelManager, q);
+            PanelManager_BringToFront(&g_uiPanelManager, q);
             return;
         }
     }

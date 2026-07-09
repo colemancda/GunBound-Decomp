@@ -1,4 +1,4 @@
-/* FUN_00509960 - 0x00509960 in the original binary.
+/* PanelManager_BringToFront - 0x00509960 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00509960(int param_1,int param_2)
+void __fastcall PanelManager_BringToFront(int param_1,int param_2)
 
 {
   int *piVar1;
