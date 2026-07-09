@@ -73,7 +73,7 @@ Every button/control/chat-commit funnels through this (slot 5),
 | 0x46/0x47 | change map (map index) | (`QueueOutgoingPacketField`) |
 | **100–113** | **select character** (`id−100`) | **`0x3200`** |
 | 0x72 | select random/none | `0x3200` (0xff) |
-| 300 | buddy panel (`FUN_00509110`) | — |
+| 300 | buddy panel (`BuildBuddyPanel`) | — |
 
 - **`/`-commands**: shared parser `FUN_004218c0` — staff-credits easter eggs
   (`/comsik`, etc.), GM/debug commands (`noack`, `clear`, `logging`), and three
