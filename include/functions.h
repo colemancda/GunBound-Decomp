@@ -1237,7 +1237,7 @@ int __fastcall FUN_004f1020();
 uint FUN_004f11a0();
 uint FUN_004f1220();
 undefined4 __thiscall FUN_004f1390();
-void FUN_004f1460();
+undefined4 FUN_004f1460();
 void * __thiscall FUN_004f14c0();
 void FUN_004f14e0();
 undefined4 FUN_004f1520();

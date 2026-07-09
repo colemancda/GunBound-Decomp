@@ -11,6 +11,9 @@
 uint FUN_00423e20(undefined4 param_1,int param_2)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xffffff80;
   char cVar1;
   uint in_EAX;
   uint uVar2;
@@ -73,7 +76,7 @@ uint FUN_00423e20(undefined4 param_1,int param_2)
     break;
   case 3:
     stack0xffffff80 = DAT_00552c78;
-    uStack_7f._1_1_ = DAT_00552c7a;
+    SUBFIELD(uStack_7f,1,undefined1) = DAT_00552c7a;
   }
   puVar5 = (undefined4 *)auStack_81;
   do {
