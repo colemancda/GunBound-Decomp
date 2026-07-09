@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004ed870(int param_1,int param_2)
+undefined4 __thiscall FUN_004ed870(int param_1,int param_2)
 
 {
   ushort uVar1;
