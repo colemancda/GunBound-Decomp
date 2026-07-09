@@ -32,8 +32,8 @@ undefined4 __thiscall FUN_00503930(undefined4 *param_1,char *param_2,char *param
   if (iVar2 == -1) {
     return 0;
   }
-  *(undefined4 *)param_2 = local_10.sa_data._2_4_;
-  *(undefined2 *)param_3 = local_10.sa_data._0_2_;
+  *(undefined4 *)param_2 = SUBFIELD(local_10.sa_data,2,undefined4);
+  *(undefined2 *)param_3 = SUBFIELD(local_10.sa_data,0,undefined2);
   return 1;
 }
 
