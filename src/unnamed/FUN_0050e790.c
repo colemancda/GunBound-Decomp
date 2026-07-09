@@ -21,7 +21,10 @@ void __fastcall FUN_0050e790(int param_1)
       FUN_004010c0(0x80070057);
     }
     do {
-      FUN_0050e790();
+      /* Ghidra emitted this __fastcall self-call with no args (it lost
+       * track of ECX); MSVC hard-errors on the byte-count mismatch
+       * (C2708), so pass the current parameter through. */
+      FUN_0050e790(param_1);
       uVar1 = uVar1 + 1;
     } while (uVar1 < *(uint *)(param_1 + 0x10));
   }
