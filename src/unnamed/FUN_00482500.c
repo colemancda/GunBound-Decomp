@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00482500(void)
+undefined4 FUN_00482500(void)
 
 {
   undefined4 *unaff_ESI;
