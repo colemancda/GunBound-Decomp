@@ -1596,7 +1596,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005099d0,274,BuildWorldListPanel,false,1,6,RAW-src
 00509af0,654,BuildLobbyChatPanel,false,1,10,RAW-src
 00509d80,212,FUN_00509d80,false,1,5,RAW-src
-00509e60,360,FUN_00509e60,false,1,7,RAW-src
+00509e60,360,BuildAvatarStorePanel,false,1,7,RAW-src
 00509fd0,88,FUN_00509fd0,false,6,2,RAW-src
 0050a030,381,FUN_0050a030,false,1,8,RAW-src
 0050a1b0,354,FUN_0050a1b0,false,1,10,RAW-src

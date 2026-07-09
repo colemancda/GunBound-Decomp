@@ -168,7 +168,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
       uVar2 = piVar1[2];
     }
   }
-  uVar5 = FUN_00509e60(&g_uiPanelManager);
+  uVar5 = BuildAvatarStorePanel(&g_uiPanelManager);
   *(undefined4 *)(param_1 + 0x34784) = uVar5;
   FUN_00449250(param_1,1,0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

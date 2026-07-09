@@ -1,14 +1,13 @@
-/* FUN_00509e60 - 0x00509e60 in the original binary.
+/* BuildAvatarStorePanel - 0x00509e60 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Builds the Avatar Store item panel (three category labels, msg 0x4b0-0x4b2, plus a scrollbar). See docs/widgets.md panel catalog. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_00509e60(undefined4 param_1)
+undefined4 * BuildAvatarStorePanel(undefined4 param_1)
 
 {
   undefined4 *puVar1;

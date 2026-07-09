@@ -1562,7 +1562,7 @@ undefined4 * BuildWorldListPanel();
 void CreateScrollListWidget();
 undefined4 * BuildLobbyChatPanel();
 undefined4 * FUN_00509d80();
-undefined4 * FUN_00509e60();
+undefined4 * BuildAvatarStorePanel();
 void __fastcall FUN_00509fd0();
 undefined4 __thiscall FUN_0050a030();
 uint __thiscall FUN_0050a1b0();
