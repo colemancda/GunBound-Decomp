@@ -27,7 +27,7 @@ int FUN_00518e30(int param_1,int param_2,int param_3,uint param_4)
   
   param_2 = param_2 >> 2;
   local_8 = 0xf;
-  local_8._0_1_ = 0xf;
+  SUBFIELD(local_8,0,undefined1) = 0xf;
   local_c = -1;
   if (param_4 == 0) {
     local_14 = 0;
