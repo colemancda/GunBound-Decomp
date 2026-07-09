@@ -208,7 +208,7 @@ void FUN_00406170();
 undefined4 FUN_004061e0();
 void FUN_00406280();
 void FUN_004062b0();
-void __fastcall FUN_00406300();
+undefined4 __fastcall FUN_00406300();
 void __fastcall FUN_00406380();
 uint __fastcall FUN_00406400();
 byte * __fastcall FUN_00406440();
