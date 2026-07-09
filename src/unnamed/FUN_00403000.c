@@ -30,11 +30,11 @@ void __thiscall FUN_00403000(ushort *param_1,undefined4 param_2)
   if (in_AX == 0x1021) {
     if (*param_1 == 0) {
       local_40 = *(undefined4 *)(param_1 + 7);
-      local_1c._1_3_ = (undefined3)*(undefined4 *)(param_1 + 3);
-      local_1c = CONCAT31(local_1c._1_3_,(char)((uint)*(undefined4 *)(param_1 + 1) >> 0x18));
+      SUBFIELD(local_1c,1,undefined3) = (undefined3)*(undefined4 *)(param_1 + 3);
+      local_1c = CONCAT31(SUBFIELD(local_1c,1,undefined3),(char)((uint)*(undefined4 *)(param_1 + 1) >> 0x18));
       uStack_3c = *(undefined4 *)(param_1 + 9);
-      local_18._1_3_ = (undefined3)*(undefined4 *)(param_1 + 5);
-      local_18 = CONCAT31(local_18._1_3_,(char)((uint)*(undefined4 *)(param_1 + 3) >> 0x18));
+      SUBFIELD(local_18,1,undefined3) = (undefined3)*(undefined4 *)(param_1 + 5);
+      local_18 = CONCAT31(SUBFIELD(local_18,1,undefined3),(char)((uint)*(undefined4 *)(param_1 + 3) >> 0x18));
       local_14 = (undefined1)((uint)*(undefined4 *)(param_1 + 5) >> 0x18);
       uStack_38 = *(undefined4 *)(param_1 + 0xb);
       uStack_34 = *(undefined4 *)(param_1 + 0xd);
@@ -51,13 +51,13 @@ void __thiscall FUN_00403000(ushort *param_1,undefined4 param_2)
   else if (in_AX == 0x1023) {
     puVar3 = param_1 + 1;
     for (uVar2 = (uint)*param_1; uVar2 != 0; uVar2 = uVar2 - 1) {
-      uStack_3c._1_3_ = (undefined3)*(undefined4 *)(puVar3 + 2);
-      uStack_3c = CONCAT31(uStack_3c._1_3_,(char)((uint)*(undefined4 *)puVar3 >> 0x18));
-      uStack_38._1_3_ = (undefined3)*(undefined4 *)(puVar3 + 4);
-      uStack_38 = CONCAT31(uStack_38._1_3_,(char)((uint)*(undefined4 *)(puVar3 + 2) >> 0x18));
+      SUBFIELD(uStack_3c,1,undefined3) = (undefined3)*(undefined4 *)(puVar3 + 2);
+      uStack_3c = CONCAT31(SUBFIELD(uStack_3c,1,undefined3),(char)((uint)*(undefined4 *)puVar3 >> 0x18));
+      SUBFIELD(uStack_38,1,undefined3) = (undefined3)*(undefined4 *)(puVar3 + 4);
+      uStack_38 = CONCAT31(SUBFIELD(uStack_38,1,undefined3),(char)((uint)*(undefined4 *)(puVar3 + 2) >> 0x18));
       local_20 = *(undefined4 *)(puVar3 + 8);
-      uStack_34._1_3_ = (undefined3)*(undefined4 *)(puVar3 + 6);
-      uStack_34 = CONCAT31(uStack_34._1_3_,(char)((uint)*(undefined4 *)(puVar3 + 4) >> 0x18));
+      SUBFIELD(uStack_34,1,undefined3) = (undefined3)*(undefined4 *)(puVar3 + 6);
+      uStack_34 = CONCAT31(SUBFIELD(uStack_34,1,undefined3),(char)((uint)*(undefined4 *)(puVar3 + 4) >> 0x18));
       uStack_30 = (undefined1)((uint)*(undefined4 *)(puVar3 + 6) >> 0x18);
       local_1c = *(undefined4 *)(puVar3 + 10);
       local_18 = *(undefined4 *)(puVar3 + 0xc);
