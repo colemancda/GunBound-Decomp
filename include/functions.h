@@ -1577,7 +1577,7 @@ void FUN_0050cdf0();
 void FUN_0050ce60();
 void FUN_0050cff0();
 void FUN_0050d160();
-void __fastcall FUN_0050d200();
+void __fastcall RenderReadyRoomChatRow();
 undefined1 __thiscall WorldListPanel_OnMouseDown();
 undefined4 __thiscall FUN_0050d7a0();
 void __thiscall WorldListPanel_OnCommand();

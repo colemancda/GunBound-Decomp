@@ -1,13 +1,13 @@
-/* FUN_0050d200 - 0x0050d200 in the original binary.
+/* RenderReadyRoomChatRow - 0x0050d200 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Row renderer (vtable slot 9) for the Ready Room chat-log panel: draws each message with a per-row icon (+0x3f73c) and a message-type byte (+0x3c4d8) that selects one of several RGB565 text colors (white/gray/yellow/red/...) - the same color-coded-chat idiom as the in-battle chat renderer. Indexed via +0x3b97c off g_clientContext. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0050d200(int param_1)
+void __fastcall RenderReadyRoomChatRow(int param_1)
 
 {
   char cVar1;
