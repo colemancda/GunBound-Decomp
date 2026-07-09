@@ -62,6 +62,9 @@ public:
 
 class CState01Title : public CGameState {       /* size 8; vtable_State01_Title */
 public:
+    virtual void OnEnter();                     /* 0x4e5370 - promoted, State01_Title.cpp */
+    virtual void OnExit();                      /* 0x4e53a0 - promoted, State01_Title.cpp */
+
     int m_frameCounter;                         /* +0x04: the state's only field */
 };
 
