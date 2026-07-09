@@ -1,14 +1,13 @@
-/* FUN_00509af0 - 0x00509af0 in the original binary.
+/* BuildLobbyChatPanel - 0x00509af0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Builds the lobby chat panel (a wide Win32-EDIT text field + label + scrollbar). See docs/widgets.md panel catalog. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_00509af0(int param_1)
+undefined4 * BuildLobbyChatPanel(int param_1)
 
 {
   uint uVar1;

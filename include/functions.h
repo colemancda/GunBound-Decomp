@@ -1560,7 +1560,7 @@ void __fastcall FUN_00509960();
 void FUN_005099b0();
 undefined4 * BuildWorldListPanel();
 void CreateScrollListWidget();
-undefined4 * FUN_00509af0();
+undefined4 * BuildLobbyChatPanel();
 undefined4 * FUN_00509d80();
 undefined4 * FUN_00509e60();
 void __fastcall FUN_00509fd0();
