@@ -25,8 +25,8 @@ undefined1 ConnectSocketToTarget(void)
   *(SOCKET *)(unaff_ESI + 0x24) = SVar1;
   if (SVar1 != 0xffffffff) {
     local_10.sa_family = 2;
-    local_10.sa_data._0_2_ = htons(*(u_short *)(unaff_ESI + 0x228));
-    local_10.sa_data._2_4_ = FUN_004e5480();
+    SUBFIELD(local_10.sa_data,0,undefined2) = htons(*(u_short *)(unaff_ESI + 0x228));
+    SUBFIELD(local_10.sa_data,2,undefined4) = FUN_004e5480();
     iVar2 = connect(*(SOCKET *)(unaff_ESI + 0x24),&local_10,0x10);
     if (iVar2 == 0) {
       *(undefined1 *)(unaff_ESI + 0x22a) = 1;
