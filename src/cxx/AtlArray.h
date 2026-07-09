@@ -88,14 +88,18 @@ public:
         return false;
     }
 
-    bool Add(const E &e)
+    /* ATL7 CAtlArray::Add throws E_OUTOFMEMORY on growth failure -
+     * confirmed in the widget AddChild (0x50e670), which AtlThrows
+     * 0x8007000e when the grow fails. */
+    void Add(const E &e)
     {
-        if (!GrowBuffer((unsigned int)m_nSize + 1)) {
-            return false;
+        if ((unsigned int)m_nMaxSize <= (unsigned int)m_nSize) {
+            if (!GrowBuffer((unsigned int)m_nSize + 1)) {
+                FUN_004010c0(0x8007000e); /* AtlThrow(E_OUTOFMEMORY) */
+            }
         }
         m_pData[m_nSize] = e;
         ++m_nSize;
-        return true;
     }
 
     /* layout is load-bearing: embedded in CWidget at +0x0c..+0x1b */

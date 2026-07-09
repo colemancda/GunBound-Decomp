@@ -20,6 +20,39 @@ int CScrollBar::ThumbHeight()
     return m_height;
 }
 
+extern CLabel * __stdcall CreateLabelWidget(int id, int spriteId, int x, int y, int w, int h);
+
+/* 0x5080a0 - the scrollbar factory (docs' CreateScrollListWidget).
+ * Same guarded-default-ctor + unguarded-pokes split as the other
+ * factories, plus construction of the two 18x18 arrow children (id 0
+ * up, placed above the track at y -28; id 1 down, below it at h+10;
+ * sprites spriteBase*10 + 0x259/0x25a) and a final SetEnabled(total
+ * >= 1) so an empty list starts disabled.
+ *
+ * NOTE: the original takes spriteBase in EAX and total in EDI (the
+ * docs' "item count arrives in a register") - a custom convention not
+ * expressible from C++, so they're normal parameters here; exact
+ * byte-match is blocked on that, same family as FUN_004f1790. The
+ * first stack argument of the original is never read (id is hardcoded
+ * 0); dropped here. */
+CScrollBar * __stdcall CreateScrollListWidget(int spriteBase, int total,
+                                              int x, int y, int w, int h, int pageSize)
+{
+    CScrollBar *p = new CScrollBar();
+    p->m_y = y;
+    p->m_x = x;
+    p->m_width = w;
+    p->m_id = 0;
+    p->m_height = h;
+    p->m_unk54 = (spriteBase * 5 + 300) * 2;
+    p->AddChild(CreateLabelWidget(0, spriteBase * 10 + 0x259, 0, -0x1c, 0x12, 0x12));
+    p->AddChild(CreateLabelWidget(1, spriteBase * 10 + 0x25a, 0, h + 10, 0x12, 0x12));
+    p->m_pageSize = pageSize;
+    p->m_total = total;
+    p->SetEnabled(0 < total);
+    return p;
+}
+
 /* 0x50f770. Is the point over the thumb: x within the track (inclusive),
  * y within [thumbTop, thumbTop + ThumbHeight()]. */
 bool CScrollBar::IsOverThumb(int x, int y)

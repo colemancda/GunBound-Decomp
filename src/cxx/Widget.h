@@ -29,7 +29,7 @@ public:
      * +0x1d/+0x1e clear. The type id, id and rect are deliberately NOT
      * initialized here - every factory assigns them from its arguments
      * (matching the binary, which leaves them uninitialized in between). */
-    CWidget() : m_unk04(0), m_parent(0), m_unk1c(1), m_unk1d(0), m_hidden(0) {}
+    CWidget() : m_unk04(0), m_parent(0), m_enabled(1), m_unk1d(0), m_hidden(0) {}
 
     /* SLOT 0/10 CORRECTION (supersedes docs/widgets.md's original table):
      * the base OnCommand (0x50eb10) moves focus by calling child slot 0
@@ -63,6 +63,12 @@ public:
                                            * consumed-or-inside (shared tail of leaf press handlers) */
     bool MouseMoveChildren(int x, int y); /* 0x50e870 - promoted, Widget.cpp */
     void MoveBy(int dx, int dy);          /* 0x50e730 - promoted, Widget.cpp */
+    void AddChild(CWidget *child);        /* 0x50e670 - promoted, Widget.cpp: append (grow-or-throw),
+                                           * shift the child from parent-relative to absolute
+                                           * coordinates, set its m_parent. Ghidra shows this
+                                           * arriving in EBX (custom-register family). */
+    void SetEnabled(bool enabled);        /* 0x50e7d0 - promoted, Widget.cpp: recursive; clears the
+                                           * +0x04 active flag when disabling */
     int FindChildIndex(int typeId, int id); /* 0x50e620 - promoted, Widget.cpp. NOTE: Ghidra shows
                                              * the args arriving in EDI/ESI (custom-register family);
                                              * returns child count when not found. */
@@ -80,7 +86,8 @@ public:
                               * helper 0x50ed30 IS its GrowBuffer, and the
                               * broadcast loops' inlined AtlThrow guard IS
                               * its checked operator[] (see AtlArray.h) */
-    u8       m_unk1c;        /* +0x1c: byte flag; gates click reporting in
+    u8       m_enabled;      /* +0x1c: set recursively by SetEnabled (0x50e7d0),
+                              * default 1; gates click reporting in
                               * CLabel::OnMouseDown alongside +0x38 */
     u8       m_unk1d;        /* +0x1d */
     u8       m_hidden;       /* +0x1e: short-circuits HitTest and Draw */
@@ -145,6 +152,13 @@ public:
  * m_parent->OnCommand(0x2000, m_id, m_scrollPos) on change. */
 class CScrollBar : public CWidget {  /* vtable 0x557e90, size 0x58; ctor CreateScrollListWidget 0x5080a0 */
 public:
+    /* Default ctor, inlined (null-guarded) into the 0x5080a0 factory:
+     * type id 4, total -1, pageSize/scrollPos 0, both press modes clear. */
+    CScrollBar() : m_total(-1), m_pageSize(0), m_scrollPos(0), m_pressed(0), m_dragging(0)
+    {
+        m_typeId = 4;
+    }
+
     virtual bool OnMouseDown(int x, int y);  /* 0x50f500 - promoted, ScrollBar.cpp */
     virtual bool OnMouseUp(int x, int y);    /* 0x50f5f0 - promoted, ScrollBar.cpp */
     virtual void Draw();                     /* 0x50f660 - promoted, ScrollBar.cpp. Bound to slot 8
@@ -168,7 +182,8 @@ public:
     int m_grabOffset;                /* +0x48: thumbTop - mouseY at grab time */
     int m_lastX;                     /* +0x4c: last mouse x (stored by both handlers) */
     int m_lastY;                     /* +0x50: last mouse y */
-    u8  m_unk54[4];                  /* +0x54 */
+    int m_unk54;                     /* +0x54: (spriteBase*5 + 300)*2, set by the factory -
+                                      * role not yet pinned */
 };
 
 /* Container/dialog base - each concrete panel is its own class (own

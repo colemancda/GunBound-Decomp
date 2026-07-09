@@ -181,6 +181,35 @@ bool CWidget::MouseUpChildren(int x, int y)
     return any;
 }
 
+/* 0x50e670. Append a child: grow-or-throw via the CAtlArray (the
+ * original open-codes Add's body; E_OUTOFMEMORY on growth failure),
+ * shift the child from parent-relative to absolute coordinates, and
+ * take ownership of its callback parent pointer. Ghidra shows `this`
+ * arriving in EBX. */
+void CWidget::AddChild(CWidget *child)
+{
+    m_children.Add(child);
+    child->MoveBy(m_x, m_y);
+    child->m_parent = this;
+}
+
+/* 0x50e7d0. Recursively enable/disable this subtree (+0x1c); disabling
+ * also drops the +0x04 active flag. */
+void CWidget::SetEnabled(bool enabled)
+{
+    m_enabled = (u8)enabled;
+    if (m_unk04 != 0) {
+        m_unk04 = 0;
+    }
+    if (m_children.GetCount() != 0) {
+        unsigned int i = 0;
+        do {
+            m_children[i]->SetEnabled(enabled);
+            ++i;
+        } while (i < (unsigned int)m_children.GetCount());
+    }
+}
+
 /* 0x50e620. Index of the child matching (typeId, id); child count when
  * absent. The focus mover calls it with typeId 2 (text-entry) and the
  * id of the child that sent the focus event. */

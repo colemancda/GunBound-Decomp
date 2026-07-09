@@ -27,7 +27,7 @@ CLabel * __stdcall CreateLabelWidget(int id, int spriteId, int x, int y, int w, 
  * "Draw blits via FindSpriteFrame": the blit is parent-mediated.) */
 void CLabel::Draw()
 {
-    if (m_unk38 != 0 && m_unk1c != 0) {
+    if (m_unk38 != 0 && m_enabled != 0) {
         OnCommand(1, m_id, 0);
     }
     if (m_children.GetCount() != 0) {
@@ -54,7 +54,7 @@ bool CLabel::OnMouseDown(int x, int y)
     bool inside = !m_hidden &&
                   m_x < x && x < m_x + m_width &&
                   m_y < y && y < m_y + m_height;
-    if (inside && m_unk38 != 0 && m_unk1c != 0) {
+    if (inside && m_unk38 != 0 && m_enabled != 0) {
         OnCommand(0, m_id, 0);
     }
     if (ResetPressState(x, y)) {
