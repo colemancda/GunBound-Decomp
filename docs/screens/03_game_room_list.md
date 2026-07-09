@@ -19,7 +19,7 @@ From STRINGS.md's `b_gamelist_*` / `gamelist_*` clusters (`0x553xxx`–`0x5544xx
   `gamelist_channel.img`, `gamelist_chat.img`, `gamelist_create.img`,
   `gamelist_directgo.img`, `gamelist_password.img`, `gameliststage.img` (the
   create-room / direct-go / password sub-dialogs).
-- **Bottom-bar buttons** (via `FUN_0042aba0`; IDs/positions in the button map
+- **Bottom-bar buttons** (via `State03_GameRoomList_CreateButtons`; IDs/positions in the button map
   below): `b_gamelist_exit`, `b_gamelist_buddy`, `b_gamelist_ranking`,
   `b_gamelist_avatar`, `b_gamelist_create`, `b_gamelist_join`,
   `b_gamelist_viewall`, `b_gamelist_wait`, `b_gamelist_prev`,
@@ -28,14 +28,14 @@ From STRINGS.md's `b_gamelist_*` / `gamelist_*` clusters (`0x553xxx`–`0x5544xx
   `b_gamelist_buddydown`, `b_gamelist_channelup`/`b_gamelist_channeldown`.
 - **Dialog buttons**: `b_gamelist_yes.img`, `b_gamelist_no.img`.
 - **Room-card frames** (the per-room card background + icons, sprite indices
-  1–15 below) are drawn via `FUN_004f30c0` frame lookups — they live in a
+  1–15 below) are drawn via `FindSpriteFrame` frame lookups — they live in a
   gamelist sprite sheet (most likely `gamelist_back.img`); the renderer keys
   them by frame index, not filename, so the exact sheet isn't named in code.
 
 ## Rendering — the room-card grid
 `RenderRoomLabel` (slot 15, called by `GameTick`) draws the static chrome, then
 loops up to **6 room slots** (`g_clientContext+0x4464c`..`+0x44664`, 4-byte
-stride, skipping the client's own room) calling **`FUN_0042a220(slot)`** per
+stride, skipping the client's own room) calling **`RenderRoomCard(slot)`** per
 occupied slot. Full geometry from that function:
 
 **Grid:** `slot/3` selects the **column** (slots 0–2 = left, X base `0x18`;
@@ -44,7 +44,7 @@ slots 3–5 = right, X base `0x144`); `slot%3` selects the **row** (Y = `slot%3 
 base `1` (left) / `4` (right); **`+2`** if this is the joined room (`this+4`),
 **`+1`** if it's the hovered/selected room (`this+8`) → frames 1–6.
 
-**Per-card elements** — each is a `FUN_004f30c0` frame lookup + blit; positions
+**Per-card elements** — each is a `FindSpriteFrame` frame lookup + blit; positions
 are relative to the card's column X (`Xc`) and row Y (`Yr`):
 | Element | Pos (x, y) | Sprite frame | Source field (`g_clientContext + … + slot`) |
 |---|---|---|---|
@@ -79,11 +79,11 @@ Room cards are **not** `ButtonWidget`s. The state's own **mouse slot**
 - **Left-click** → select/highlight a room (drives the 3-state background).
 - **Right-click** (not double-click) → **join**: sends outgoing opcode `0x2104`.
 
-## The command dispatcher — `FUN_004285c0` (vtable slot 5)
+## The command dispatcher — `State03_GameRoomList_OnCommand` (vtable slot 5)
 Every lobby button/menu/list event funnels through this one function,
 `(this, eventType, param_3, buttonId)`:
 - `eventType==0` → a button was clicked, dispatch on `buttonId` (table below;
-  confirmed against the real button-creation call `FUN_0042aba0`, not the
+  confirmed against the real button-creation call `State03_GameRoomList_CreateButtons`, not the
   widget's own 1000-range "action code" field — see ARCHITECTURE.md).
 - `eventType==0xa` → confirm/commit (branches on pending-op flags `+0xc/+0xd/+0xe`).
 - `eventType==0xb` → cancel/dismiss the active dialog (`FUN_0050ef10`).
@@ -93,22 +93,22 @@ Every lobby button/menu/list event funnels through this one function,
 | ID | Image | Action | Effect |
 |---|---|---|---|
 | 0 | `b_gamelist_exit` | Exit lobby | `ChangeGameState(2)` → Server Select |
-| 1 | `b_gamelist_buddy` | (Re)build buddy-list panel | `FUN_00509110` (also in OnEnter) |
+| 1 | `b_gamelist_buddy` | (Re)build buddy-list panel | `BuildBuddyPanel` (also in OnEnter) |
 | 2 | `b_gamelist_ranking` | — | no case; no-op in this build |
 | 3 | `b_gamelist_avatar` | Enter Avatar Store | send `0x6000` (if inventory loaded) |
-| 4 | `b_gamelist_create` | **Open Create Room dialog** | `FUN_00429c30` → `FUN_00508190`, title msg `0x62b2`, room-name/password fields |
+| 4 | `b_gamelist_create` | **Open Create Room dialog** | `OpenCreateRoomDialog` → `BuildCreateRoomDialog`, title msg `0x62b2`, room-name/password fields |
 | 5 | `b_gamelist_join` | Join selected room (checked) | `SendJoinRoomChecked` → `0x2110`; skips if already in that room |
 | 0xa | `b_gamelist_viewall` | Filter mode 1 ("view all") | request room list `0x2100` (mode=1) |
 | 0xb | `b_gamelist_wait` | Filter mode 2 ("waiting only") | request room list `0x2100` (mode=2) |
 | 0xc | `b_gamelist_prev` | Page prev | `0x2100`/`0x2101` (page `-0x118`) |
 | 0xd | `b_gamelist_next` | Page next | `0x2100`/`0x2101` (page `+0x118`) |
-| 0xe | `b_gamelist_friend` | **Find Friend** — locate a buddy's room | `FUN_004021b0` scans active rooms (filter param not fully pinned down); found → `0x2101`; not found → clears `+0x44648` |
-| 0xf | `b_gamelist_directgo` | Open "enter room by number" dialog | `FUN_005087b0`, msg `0x2715` |
+| 0xe | `b_gamelist_friend` | **Find Friend** — locate a buddy's room | `FindBuddyRoomsForServer` scans active rooms (filter param not fully pinned down); found → `0x2101`; not found → clears `+0x44648` |
+| 0xf | `b_gamelist_directgo` | Open "enter room by number" dialog | `BuildEnterRoomNumberDialog`, msg `0x2715` |
 
 **Dialog-internal codes** (reached via a dialog's own OK/Cancel, not a
 top-level button): `0x1e`/`0x20`/`0x28` = Cancel (`FUN_0050ef10`); `0x1f` =
 `SendJoinRoomSelected` → `0x2110`; `0x21` = `SendJoinRoomByNumber` → `0x2110`;
-`0x29` (and the `eventType==0xa && flag@+0xc` path) = **`FUN_00429c60`, the
+`0x29` (and the `eventType==0xa && flag@+0xc` path) = **`SendCreateRoom`, the
 Create Room dialog's submit handler** → sends `0x2120` (room name + password).
 
 ## List navigation, scrolling, and the (vestigial) channel buttons
@@ -126,14 +126,14 @@ page. You move through the list/channels with the bottom-bar buttons:
 `b_gamelist_channelup`/`channeldown`, `b_buddy_up`/`down`/`exit`, and
 `b_error_confirm` — which preloads their `.img` definitions. But of these, only
 **`b_error_confirm` is ever actually instantiated** (`CreateButtonWidget` in the
-error/message dialogs `FUN_004124a0`/`FUN_00412650`/`FUN_00412820`). The four
+error/message dialogs `ShowErrorDialog`/`ShowErrorDialogFmt`/`ShowMessageDialog`). The four
 scroll names and the three buddy names are **never passed to `CreateButtonWidget`
 anywhere** — they're registered/preloaded but no widget is created and no click
 handler exists for them. So `b_gamelist_channelup`/`channeldown` explain why the
 images ship, but there is **no functional channel-scroll control** on this
 screen (the concrete mechanism behind the earlier "no direct channel picker"
 finding). The buddy list's own scrolling (right-hand panel, built by
-`FUN_00509110`) uses the generic scroll-list widget with its own arrow children,
+`BuildBuddyPanel`) uses the generic scroll-list widget with its own arrow children,
 not these named buttons.
 
 ## OnEnter (`0x428d00`) notes
@@ -154,10 +154,10 @@ confirmation), `0x21f0`–`0x21f7` (per-field player updates), `0x6001`/`0x6002`
 record — sends one 12-byte record from the selector table, see below),
 `0x2104` (right-click quick-join from the room grid, via `FUN_00428b90`),
 `0x2110` (join room — three emitters, see below), `0x2120` (**Create Room** —
-room name + password, from `FUN_00429c60`), `0x6000` (enter Avatar Store).
+room name + password, from `SendCreateRoom`), `0x6000` (enter Avatar Store).
 Full list under "State 3" in PROTOCOL.md.
 
-### Create Room dialog — 10 widgets, fully laid out (`FUN_00508190`)
+### Create Room dialog — 10 widgets, fully laid out (`BuildCreateRoomDialog`)
 Opened by button `4` (`b_gamelist_create`); title msg `0x62b2`. Widgets, in
 creation order:
 
@@ -170,7 +170,7 @@ creation order:
 | Button (id 8) | (0xd5,0x99) 0x52×0x22 | `0x51d` | OK/Cancel (right) |
 | Button (id 9) | (0x80,0x99) 0x52×0x22 | `0x51c` | OK/Cancel (left) |
 
-**Submit** (`FUN_00429c60`) only visibly copies the **name and password**
+**Submit** (`SendCreateRoom`) only visibly copies the **name and password**
 fields into the `0x2120` payload — whether the player-limit/mode selections
 are sent at all (bundled some other way, or via a separate opcode) is not
 confirmed.
@@ -179,7 +179,7 @@ Field offsets (x/y/w/h at `+0x28`/`+0x2c`/`+0x30`/`+0x34`) are confirmed via
 the widget class's own hit-test method, not just positional inference — see
 ARCHITECTURE.md's "Create Room dialog" writeup for the full derivation and
 the same class's use (with an OK/Cancel pair sized identically to this
-dialog's) in the "enter room by number" dialog (`FUN_005087b0`).
+dialog's) in the "enter room by number" dialog (`BuildEnterRoomNumberDialog`).
 
 ### `0x2110` — join room (three emitters, one wire layout)
 All three write the same fixed 8-byte packet; only the source of the two
@@ -203,7 +203,7 @@ Triggered by the **Find Friend** button (`b_gamelist_friend`, ID `0xe`), not
 a general channel picker (see the two-stage correction in PROTOCOL.md's
 `0x2100` section — first thought absent, then thought a free channel
 selector, now confirmed as a buddy-locate feature from the real button
-image). `FUN_004021b0(currentServerId)` scans active room objects (type
+image). `FindBuddyRoomsForServer(currentServerId)` scans active room objects (type
 `0x12`) filtered by a second, uncaptured parameter (plausibly a buddy ID, not
 confirmed), building a deduplicated result list. If any match, sends one
 **12-byte record** verbatim from the standalone selector table
