@@ -102,26 +102,26 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
       uVar2 = FUN_0040aba0(iVar1 + 0x6744,local_230,iVar1 + 0x6db0);
       local_4 = 0;
       uVar3 = FUN_0040aba0(iVar1 + 0x6968,local_678,iVar1 + 0x6fd4);
-      local_4._0_1_ = 1;
+      SUBFIELD(local_4,0,undefined1) = 1;
       uVar3 = FUN_0040ada0(iVar4 + 0x6744,local_454,uVar3);
-      local_4._0_1_ = 2;
+      SUBFIELD(local_4,0,undefined1) = 2;
       FUN_0040aea0(uVar3,local_89c,uVar2);
-      local_4._0_1_ = 3;
+      SUBFIELD(local_4,0,undefined1) = 3;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      local_4._0_1_ = 2;
+      SUBFIELD(local_4,0,undefined1) = 2;
       if (local_888 != 0) {
         FUN_0040a240();
         FUN_0040b540(local_8a4);
       }
-      local_4._0_1_ = 1;
+      SUBFIELD(local_4,0,undefined1) = 1;
       if (local_440 != 0) {
         FUN_0040a240();
         FUN_0040b540(local_8a4);
       }
-      local_4 = (uint)local_4._1_3_ << 8;
+      local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
       if (local_664 != 0) {
         FUN_0040a240();
         FUN_0040b540(local_8a4);
