@@ -1560,7 +1560,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00507170,34,FUN_00507170,false,1,2,RAW-src
 005071a0,368,FUN_005071a0,false,1,4,RAW-src
 00507310,336,FUN_00507310,false,1,4,RAW-src
-005074a0,440,FUN_005074a0,false,1,6,RAW-src
+005074a0,440,RenderChannelUserRow,false,1,6,RAW-src
 00507660,620,FUN_00507660,false,1,15,RAW-src
 005078f0,892,FUN_005078f0,false,1,6,RAW-src
 00507cc0,128,FUN_00507cc0,false,2,3,RAW-src

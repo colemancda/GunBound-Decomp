@@ -1529,7 +1529,7 @@ undefined4 __thiscall FUN_00507090();
 void __thiscall FUN_00507170();
 void __fastcall FUN_005071a0();
 undefined4 __thiscall FUN_00507310();
-void __fastcall FUN_005074a0();
+void __fastcall RenderChannelUserRow();
 void __thiscall FUN_00507660();
 void __fastcall FUN_005078f0();
 void FUN_00507cc0();

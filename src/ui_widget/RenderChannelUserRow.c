@@ -1,13 +1,13 @@
-/* FUN_005074a0 - 0x005074a0 in the original binary.
+/* RenderChannelUserRow - 0x005074a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Row renderer (vtable slot 9) for the channel user-list panel: draws up to 7 user rows - a status icon (flag bit 0x80 at +0x42949), a rank/level icon (+0x43e48), and the user name - indexed via the +0x44248 array off g_clientContext. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_005074a0(int param_1)
+void __fastcall RenderChannelUserRow(int param_1)
 
 {
   int iVar1;
