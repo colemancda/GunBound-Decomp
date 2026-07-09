@@ -1582,7 +1582,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00508ea0,400,FUN_00508ea0,false,1,10,RAW-src
 00509030,223,FUN_00509030,false,5,6,RAW-src
 00509110,331,BuildBuddyPanel,false,6,6,RAW-src
-00509260,367,FUN_00509260,false,2,9,RAW-src
+00509260,367,BuildChatLogPanel,false,2,9,RAW-src
 005093e0,47,FUN_005093e0,false,1,0,RAW-src
 00509410,223,FUN_00509410,false,1,6,RAW-src
 005094f0,210,FUN_005094f0,false,1,5,RAW-src

@@ -48,7 +48,7 @@ void FUN_004025e0(undefined4 param_1,char *param_2)
       *(undefined2 *)((int)puVar4 + 0x2e) = 500;
       bVar2 = true;
     }
-    FUN_00509260(&g_uiPanelManager,puVar4);
+    BuildChatLogPanel(&g_uiPanelManager,puVar4);
     if ((bVar2) && (puVar4 != (undefined4 *)0x0)) {
       (**(code **)*puVar4)(1);
     }

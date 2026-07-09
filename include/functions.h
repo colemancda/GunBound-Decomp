@@ -1547,7 +1547,7 @@ void FUN_00508d00();
 void FUN_00508ea0();
 void FUN_00509030();
 void BuildBuddyPanel();
-void FUN_00509260();
+void BuildChatLogPanel();
 void FUN_005093e0();
 void FUN_00509410();
 undefined4 * FUN_005094f0();

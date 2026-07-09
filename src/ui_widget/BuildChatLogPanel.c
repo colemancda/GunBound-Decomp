@@ -1,14 +1,13 @@
-/* FUN_00509260 - 0x00509260 in the original binary.
+/* BuildChatLogPanel - 0x00509260 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Builds the chat-log panel (a 0x1050-byte object embedding a ~4 KB history buffer, plus a text-entry). See docs/widgets.md panel catalog. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00509260(undefined4 param_1,int param_2)
+void BuildChatLogPanel(undefined4 param_1,int param_2)
 
 {
   char cVar1;
