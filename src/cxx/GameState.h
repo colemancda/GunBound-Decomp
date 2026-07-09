@@ -106,7 +106,13 @@ class CState03GameRoomList : public CGameState {/* size 0x294; ProcessPacket 0x4
 public:
     CState03GameRoomList() : m_unk11c(0), m_unk288(1) {} /* InitGame's inline inits */
 
-    u8  m_rawA[0x11c - 4];                      /* field map not yet reconstructed */
+    void RenderRoomCard(int slot);              /* 0x42a220 - promoted, State03_GameRoomList.cpp
+                                                 * (non-virtual helper; +0x04 = selected room,
+                                                 * +0x08 = hovered room) */
+
+    int m_selectedRoom;                         /* +0x04: room slot under the join selection */
+    int m_hoveredRoom;                          /* +0x08: room slot under the cursor */
+    u8  m_rawA[0x11c - 0x0c];                   /* field map not yet reconstructed */
     int m_unk11c;                               /* +0x11c: starts 0 */
     u8  m_rawB[0x288 - 0x120];                  /* +0x120 */
     u8  m_unk288;                               /* +0x288: starts 1 */
