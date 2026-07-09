@@ -1,6 +1,16 @@
 /* BuildLobbyChatPanel - 0x00509af0 in the original binary.
  *
- * Builds the lobby chat panel (a wide Win32-EDIT text field + label + scrollbar). See docs/widgets.md panel catalog. Raw/near-verbatim port of Ghidra's
+ * Builds the lobby chat panel. A 0x94-byte CPanel (vtable PTR_LAB_00557cd4),
+ * 0x225 x 0x103 = 549x259. Children:
+ *   CreateTextEntryWidget(0, 0x1a, 0xeb, 0x1e4, 0xc, 0x50) -> the chat INPUT
+ *       line: a Win32-EDIT-backed field at (26,235), 484x12, max length 80.
+ *   a small 0x40-byte label/icon widget (vtable 0x557da0, 22x22).
+ *   CreateScrollListWidget(mgr, 0x20e, 0x3f, 0x12, 0x9a, 0xd) -> scrollbar at
+ *       (526,63), 18x154, page size 13.
+ * The chat history rows are drawn by the panel itself, not as child widgets.
+ * See docs/widgets.md panel catalog.
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
