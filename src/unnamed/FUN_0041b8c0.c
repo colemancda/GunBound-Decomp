@@ -27,7 +27,7 @@ void FUN_0041b8c0(int param_1,char param_2,char *param_3,char *param_4,char *par
   char *pcVar11;
   undefined2 *puVar12;
   bool bVar13;
-  undefined1 local_98 [4];
+  undefined4 local_98; /* Ghidra register slot; was undefined1 [4] */
   undefined4 local_94;
   undefined4 local_90;
   undefined4 local_8c;
@@ -164,7 +164,7 @@ LAB_0041bac3:
     pcVar5 = pcVar5 + 1;
   } while (cVar1 != '\0');
   cVar1 = (param_7 == '\0') * '\b' + 'H';
-  local_98 = (undefined1  [4])((uint)(param_7 == '\0') * 4 + 9);
+  local_98 = (undefined4)((uint)(param_7 == '\0') * 4 + 9);
   iVar6 = FUN_0041b410(pcVar4 + (int)(pcVar5 + ((2 - (int)pcVar11) - (int)pcVar3)),in_EAX,cVar1);
   iVar9 = *(int *)(param_1 + 0x3b980) + 1;
   *(int *)(param_1 + 0x3b980) = iVar9;
