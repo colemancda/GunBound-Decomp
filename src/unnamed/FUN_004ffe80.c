@@ -68,19 +68,19 @@ joined_r0x004ffee3:
         *(int *)(_Source + 0x2c) = *(int *)(_Source + 0x2c) + 1;
         if (*(int *)(_Source + 0x14) == 0) {
           if (*(int *)(_Source + 0x1c) != 0) {
-            local_38.sa_data._0_2_ = *(undefined2 *)(_Source + 0x20);
-            local_38.sa_data._2_4_ = *(int *)(_Source + 0x1c);
+            SUBFIELD(local_38.sa_data,0,undefined2) = *(undefined2 *)(_Source + 0x20);
+            SUBFIELD(local_38.sa_data,2,undefined4) = *(int *)(_Source + 0x1c);
             sendto(param_1[0xa2],(char *)&local_28,(uint)local_28,0,&local_38,0x10);
           }
           if (*(int *)(_Source + 0x24) == 0) goto LAB_00500008;
           s = param_1[0xa2];
-          local_38.sa_data._0_2_ = *(undefined2 *)(_Source + 0x28);
-          local_38.sa_data._2_4_ = *(int *)(_Source + 0x24);
+          SUBFIELD(local_38.sa_data,0,undefined2) = *(undefined2 *)(_Source + 0x28);
+          SUBFIELD(local_38.sa_data,2,undefined4) = *(int *)(_Source + 0x24);
         }
         else {
-          local_38.sa_data._0_2_ = *(undefined2 *)(_Source + 0x18);
+          SUBFIELD(local_38.sa_data,0,undefined2) = *(undefined2 *)(_Source + 0x18);
           s = param_1[0xa2];
-          local_38.sa_data._2_4_ = *(int *)(_Source + 0x14);
+          SUBFIELD(local_38.sa_data,2,undefined4) = *(int *)(_Source + 0x14);
         }
         sendto(s,(char *)&local_28,(uint)local_28,0,&local_38,0x10);
       }
