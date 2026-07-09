@@ -88,8 +88,8 @@ LAB_004379f7:
   (*pcVar6)(&DAT_005a9068);
   EncodeOutgoingPacketField(uVar4);
   (*pcVar8)(&DAT_005a9068);
-  piVar7[0xe26] = s_flame73_00553c04._0_4_;
-  piVar7[0xe27] = s_flame73_00553c04._4_4_;
+  piVar7[0xe26] = SUBFIELD(s_flame73_00553c04,0,undefined4);
+  piVar7[0xe27] = SUBFIELD(s_flame73_00553c04,4,undefined4);
   pcVar9 = (char *)((int)piVar7 + 0x3813);
   pcVar5 = PTR_s_72blast_xes_0056d328;
   do {
