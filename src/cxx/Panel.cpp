@@ -14,6 +14,16 @@ void FUN_0050eea0(void *panel);
  * registered panel subtree's +0x04 focus flag (receiver conventions
  * unresolved, same manager family). */
 void FUN_0050efa0(void *manager);
+/* BringToFront (0x509960, __fastcall manager/panel): unlink the
+ * panel's manager node and relink it at the head of the z-order. */
+void __fastcall FUN_00509960(void *manager, CPanel *panel);
+/* The global UI panel manager (0xe53c40): +4 list head, +8 tail. */
+extern unsigned char g_uiPanelManager;
+}
+
+static CPanelListNode *PanelListHead()
+{
+    return *(CPanelListNode **)((unsigned char *)&g_uiPanelManager + 4);
 }
 
 /* C++-linkage factories defined in Label.cpp / ScrollBar.cpp */
@@ -197,6 +207,40 @@ CAvatarStorePanel * BuildAvatarStorePanel(int total)
     tab->SetEnabled(false);
     p->AddChild(tab);
     return p;
+}
+
+/* 0x5087b0 - BuildEnterRoomNumberDialog (docs/widgets.md; __fastcall).
+ * SINGLETON: if a (typeId 0, key 1) panel is already registered,
+ * bring it to front and return. Otherwise: key 1 at (243,202) 314x160,
+ * two 4-char CEditBoxes (the room number focused after the manager
+ * focus sweep, then the password) and OK (sprite 0x579) / Cancel
+ * (0x578) labels. Keeps the base ctor's insert-at-front default. */
+void __fastcall BuildEnterRoomNumberDialog(int arg)
+{
+    for (CPanelListNode *n = PanelListHead(); n != 0; n = n->m_next) {
+        CPanel *q = n->m_panel;
+        if (q->m_typeId == 0 && q->m_id == 1) {
+            FUN_00509960(&g_uiPanelManager, q);
+            return;
+        }
+    }
+    CEnterRoomNumberDialog *p = new CEnterRoomNumberDialog();
+    p->m_id = 1;
+    p->m_unk4c = 0;
+    p->m_unk44 = 0x2715;
+    p->m_unk48 = 0;
+    p->m_x = 0xf3;
+    p->m_y = 0xca;
+    p->m_width = 0x13a;
+    p->m_height = 0xa0;
+    CEditBox *roomNo = CreateTextEntryWidget(0, 99, 0x32, 0xb4, 0xc, 4);
+    p->AddChild(roomNo);
+    FUN_0050efa0(0 /* g_uiPanelManager; receiver convention unresolved */);
+    roomNo->SetFocus(true);
+    p->AddChild(CreateTextEntryWidget(1, 99, 0x54, 0xb4, 0xc, 4));
+    p->AddChild(CreateLabelWidget(0, 0x579, 0xd5, 0x76, 0x52, 0x22));
+    p->AddChild(CreateLabelWidget(1, 0x578, 0x80, 0x76, 0x52, 0x22));
+    FUN_0050eea0(p);
 }
 
 /* 0x5099d0 - BuildWorldListPanel (docs/screens/02_server_select.md's

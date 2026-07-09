@@ -277,17 +277,33 @@ public:
     int m_unk98;                               /* +0x98 */
 };
 
+/* g_uiPanelManager's doubly-linked list node (allocated by 0x50f350,
+ * linked by the 0x50eea0 insert; the singleton builders walk these). */
+struct CPanelListNode {
+    CPanelListNode *m_next;   /* +0x00 */
+    CPanelListNode *m_prev;   /* +0x04 */
+    CPanel         *m_panel;  /* +0x08 */
+};
+
+/* State 3's "enter room by number" dialog: two 4-char text entries
+ * (room number / password) + OK/Cancel labels. A SINGLETON: the
+ * builder walks the manager list for (typeId 0, key 1) and brings the
+ * existing dialog to front instead of rebuilding. Keeps the base
+ * ctor's insert-at-front default - dialogs land on top. */
+class CEnterRoomNumberDialog : public CPanel { /* vtable 0x557df0; builder 0x5087b0 */
+public:
+    CEnterRoomNumberDialog() {}                /* base defaults only */
+};
+
 /* The remaining confirmed concrete panels (identity + vtable confirmed;
  * field maps not yet reconstructed, so no size asserts yet):
  *   CBuddyPanel            vtable 0x557be4  BuildBuddyPanel 0x509110 (shared; SINGLETON key
  *                                           20000 - the builder walks g_uiPanelManager's list
  *                                           first and returns the existing panel; size 0x94)
  *   CChatLogPanel          vtable 0x557b94  BuildChatLogPanel (~0x1050 bytes)
- *   CEnterRoomNumberDialog vtable 0x557df0  BuildEnterRoomNumberDialog (state 3)
  *   CCreateRoomDialog      vtable 0x557c34  BuildCreateRoomDialog (state 3) */
 class CBuddyPanel            : public CPanel {};
 class CChatLogPanel          : public CPanel {};
-class CEnterRoomNumberDialog : public CPanel {};
 class CCreateRoomDialog      : public CPanel {};
 
 #endif /* GB_CXX_WIDGET_H */

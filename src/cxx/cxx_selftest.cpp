@@ -33,6 +33,8 @@ GB_STATIC_ASSERT(sizeof(CChannelUserListPanel) == 0x90, channeluser_size);
 GB_STATIC_ASSERT(sizeof(CReadyRoomChatPanel)   == 0x90, readychat_size);
 GB_STATIC_ASSERT(sizeof(CLobbyChatPanel)       == 0x94, lobbychat_size);
 GB_STATIC_ASSERT(sizeof(CAvatarStorePanel)     == 0x9c, avatarstore_size);
+GB_STATIC_ASSERT(sizeof(CEnterRoomNumberDialog) == 0x90, roomnodialog_size);
+GB_STATIC_ASSERT(sizeof(CPanelListNode)         == 0x0c, panelnode_size);
 
 /* offset checks can't live in the class body (incomplete type there), so
  * they're functions-scope typedefs here */
