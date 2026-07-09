@@ -145,17 +145,35 @@ not these named buttons.
   disconnected notices on return from battle).
 
 ## Network (see PROTOCOL.md — this state's opcodes are extensive)
-**Incoming**: `0x2103` (bulk room player-list update), `0x2105` (player
-info/profile broadcast; defines `RoomPlayerSlot`), `0x2121` (join
-confirmation), `0x21f0`–`0x21f7` (per-field player updates), `0x6001`/`0x6002`
-(→ Avatar Store transition & inventory).
-**Outgoing** (from the command dispatcher / mouse handler): `0x2100`
-(request/refresh room list, filter mode + page), `0x2101` (buddy-room-locator
-record — sends one 12-byte record from the selector table, see below),
-`0x2104` (right-click quick-join from the room grid, via `FUN_00428b90`),
-`0x2110` (join room — three emitters, see below), `0x2120` (**Create Room** —
-room name + password, from `SendCreateRoom`), `0x6000` (enter Avatar Store).
-Full list under "State 3" in PROTOCOL.md.
+
+### Room-list lifecycle
+All over the game-server TCP connection (the connection subsystem). The room
+grid holds **up to 6 rooms** (`+0x4464c` occupied flags, `+0x44664` numbers)
+plus per-room fields; the channel's user list is separate (`0x2105`).
+
+1. **Request** — the client sends **`0x2100`** (filter mode `+0x115` + page) or
+   **`0x2101`** (Find Friend), driven by `State03_GameRoomList_OnCommand` on the
+   View All / Waiting / Prev / Next / Friend buttons.
+2. **Bulk fill** — the server replies with **`0x2103`** (`payload[0]==0`): the
+   whole grid in one packet — per room: `roomNumber, name, map, info (fullness
+   in bits 18-19), flagA, flagB, status, lock` (wire format in PROTOCOL.md).
+3. **Incremental updates** — as individual rooms change, **`0x21f3`–`0x21f7`**
+   update single per-room grid fields (map/info/flags/status) without a full
+   refresh; **`0x21f1`** removes a room slot.
+4. **Render** — `RenderRoomCard` draws each occupied slot from those fields.
+5. **Join** — left-click selects a room (`this+8`); **right-click sends
+   `0x2104`** (or `0x2110` by number). The server confirms with **`0x2121`**
+   (initializes the joined room's player slots) → `ChangeGameState(9)` (Ready
+   Room).
+6. **Channel users** — **`0x2105`** broadcasts per-player info (the channel
+   user-list panel, `BuildChannelUserListPanel`).
+
+**Outgoing** (dispatcher / mouse): `0x2100`, `0x2101`, `0x2104`, `0x2110`
+(join, three emitters — see below), `0x2120` (**Create Room**, from
+`SendCreateRoom`), `0x6000` (Avatar Store).
+**Incoming**: `0x2103` (bulk grid), `0x21f1`/`0x21f3`–`0x21f7` (per-room
+updates), `0x2105` (channel user), `0x2121` (join confirm), `0x6001`/`0x6002`
+(Avatar Store transition + inventory). Full list under "State 3" in PROTOCOL.md.
 
 ### Create Room dialog — 10 widgets, fully laid out (`BuildCreateRoomDialog`)
 Opened by button `4` (`b_gamelist_create`); title msg `0x62b2`. Widgets, in
