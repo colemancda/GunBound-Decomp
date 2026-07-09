@@ -12,6 +12,9 @@
 void __fastcall FUN_00481320(int *param_1)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xfffff524;
   int *piVar1;
   byte bVar2;
   bool bVar3;
@@ -371,7 +374,7 @@ joined_r0x00481401:
     local_ad0 = (int *)FUN_0040b180(param_1 + 0x99,local_ac0,8);
     local_4 = 0;
     FUN_0040b180(param_1 + 0x10,local_89c,8);
-    local_4._0_1_ = 1;
+    SUBFIELD(local_4,0,undefined1) = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_ad0 = (int *)PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -382,7 +385,7 @@ joined_r0x00481401:
       *(undefined4 *)(iVar8 + 0x3fa8) = uVar10;
       *(int **)(iVar8 + 0x3fac) = local_ad0;
     }
-    local_4 = (uint)local_4._1_3_ << 8;
+    local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     if (local_888 != 0) {
       FUN_0040a240();
       FUN_0040b540(&local_ad0);
