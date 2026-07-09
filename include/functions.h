@@ -1331,7 +1331,7 @@ int FUN_004fcdf0();
 undefined4 FUN_004fce60();
 void FUN_004fceb0();
 void FUN_004fcee0();
-void FUN_004fcf10();
+undefined4 FUN_004fcf10();
 void FUN_004fcf70();
 undefined4 FUN_004fd030();
 undefined4 FUN_004fd090();

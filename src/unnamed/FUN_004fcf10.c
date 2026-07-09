@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004fcf10(undefined4 param_1,undefined4 param_2)
+undefined4 FUN_004fcf10(undefined4 param_1,undefined4 param_2)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
