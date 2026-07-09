@@ -64,7 +64,7 @@ joined_r0x00508ec8:
     _sprintf(local_8c,_Format);
     uVar4 = FUN_00507ff0(0x17,0x2b,0x9a,0x33,local_8c,0xffff);
     Widget_AddChild(uVar4);
-    FUN_0050eea0(puVar3);
+    PanelManager_Register(puVar3);
   }
   else {
     iVar2 = puVar3[2];

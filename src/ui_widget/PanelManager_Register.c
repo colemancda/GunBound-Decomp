@@ -1,4 +1,4 @@
-/* FUN_0050eea0 - 0x0050eea0 in the original binary.
+/* PanelManager_Register - 0x0050eea0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0050eea0(int param_1)
+void PanelManager_Register(int param_1)
 
 {
   int *piVar1;

@@ -1645,7 +1645,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050ed30,167,AtlArray_GrowBuffer,false,13,3,RAW-src
 0050ede0,30,FUN_0050ede0,false,1,2,RAW-src
 0050ee00,158,FUN_0050ee00,false,2,3,RAW-src
-0050eea0,99,FUN_0050eea0,false,17,1,RAW-src
+0050eea0,99,PanelManager_Register,false,17,1,RAW-src
 0050ef10,137,FUN_0050ef10,false,14,3,RAW-src
 0050efa0,94,FUN_0050efa0,false,7,2,RAW-src
 0050f000,31,FUN_0050f000,false,2,0,RAW-src

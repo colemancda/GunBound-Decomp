@@ -47,7 +47,7 @@ undefined4 * BuildAvatarStorePanel(undefined4 param_1)
   puVar1[0xd] = 0x21d;
   uVar2 = CreateScrollListWidget(param_1,0xcf,0x8c,0x12,0xab,0xe);
   Widget_AddChild(uVar2);
-  FUN_0050eea0(puVar1);
+  PanelManager_Register(puVar1);
   uVar2 = CreateLabelWidget(0,0x4b0,0xe,0x1fc,0x40,0x17);
   Widget_SetEnabled(0);
   Widget_AddChild(uVar2);

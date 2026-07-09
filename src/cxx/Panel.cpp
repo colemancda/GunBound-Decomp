@@ -9,7 +9,7 @@ extern "C" {
  * prepends or appends by the panel's m_unk05 front-flag. The manager
  * object arrives in EAX (custom-register family) - modeled as a plain
  * extern until the manager class is reconstructed. */
-void FUN_0050eea0(void *panel);
+void PanelManager_Register(void *panel);
 /* Manager-wide clear-all-focus sweep (0x50efa0): drops every
  * registered panel subtree's +0x04 focus flag (receiver conventions
  * unresolved, same manager family). */
@@ -94,7 +94,7 @@ CChannelUserListPanel * BuildChannelUserListPanel(int total)
     p->m_width = 0xd1;
     p->m_height = 0x103;
     p->AddChild(CreateScrollListWidget(0, total, 0xb3, 0x3f, 0x12, 0x9a, 7));
-    FUN_0050eea0(p);
+    PanelManager_Register(p);
     return p;
 }
 
@@ -123,7 +123,7 @@ CReadyRoomChatPanel * BuildReadyRoomChatPanel(int total)
     p->m_width = 0x1e0;
     p->m_height = 0xa0;
     p->AddChild(CreateScrollListWidget(0, total, 0x1c7, 0x33, 0x12, 0x45, 9));
-    FUN_0050eea0(p);
+    PanelManager_Register(p);
     return p;
 }
 
@@ -171,7 +171,7 @@ CLobbyChatPanel * BuildLobbyChatPanel(int selectedTab)
         p->AddChild(tab);
     }
     p->AddChild(CreateScrollListWidget(0, 0, 0x20e, 0x3f, 0x12, 0x9a, 0xd));
-    FUN_0050eea0(p);
+    PanelManager_Register(p);
     return p;
 }
 
@@ -203,7 +203,7 @@ CAvatarStorePanel * BuildAvatarStorePanel(int total)
     p->m_width = 0xf0;
     p->m_height = 0x21d;
     p->AddChild(CreateScrollListWidget(0, total, 0xcf, 0x8c, 0x12, 0xab, 0xe));
-    FUN_0050eea0(p);
+    PanelManager_Register(p);
     CLabel *tab;
     tab = CreateLabelWidget(0, 0x4b0, 0xe, 0x1fc, 0x40, 0x17);
     tab->SetEnabled(false);
@@ -280,7 +280,7 @@ void BuildChatLogPanel(int arg1, int partnerRecord)
     }
     p->AddChild(CreateStaticTextWidget(0x57, 0xb, 0x91, 0xc, name, 0xffff));
     p->AddChild(CreateScrollListWidget(0, 0, 0xe3, 0x44, 0x12, 0x9d, 0xe));
-    FUN_0050eea0(p);
+    PanelManager_Register(p);
 }
 
 /* 0x508190 - BuildCreateRoomDialog (docs/widgets.md; takes the manager
@@ -340,7 +340,7 @@ void BuildCreateRoomDialog(void *manager, int arg2, int arg3)
         l->m_tabSelected = (u8)kToggles[t].sel;
         p->AddChild(l);
     }
-    FUN_0050eea0(p);
+    PanelManager_Register(p);
 }
 
 /* 0x509110 - BuildBuddyPanel (docs/widgets.md: the shared buddy list).
@@ -370,7 +370,7 @@ void BuildBuddyPanel()
     p->AddChild(CreateLabelWidget(1, 0x2bd, 0x5e, 7, 0x27, 0x14));
     p->AddChild(CreateLabelWidget(2, 0x2be, 0x89, 7, 0x27, 0x14));
     p->AddChild(CreateScrollListWidget(0, 0, 0xb7, 0x49, 0x12, 0x98, 7));
-    FUN_0050eea0(p);
+    PanelManager_Register(p);
 }
 
 /* 0x5087b0 - BuildEnterRoomNumberDialog (docs/widgets.md; __fastcall).
@@ -404,7 +404,7 @@ void __fastcall BuildEnterRoomNumberDialog(int arg)
     p->AddChild(CreateTextEntryWidget(1, 99, 0x54, 0xb4, 0xc, 4));
     p->AddChild(CreateLabelWidget(0, 0x579, 0xd5, 0x76, 0x52, 0x22));
     p->AddChild(CreateLabelWidget(1, 0x578, 0x80, 0x76, 0x52, 0x22));
-    FUN_0050eea0(p);
+    PanelManager_Register(p);
 }
 
 /* 0x5099d0 - BuildWorldListPanel (docs/screens/02_server_select.md's
@@ -436,6 +436,6 @@ CWorldListPanel * BuildWorldListPanel(int total)
     p->AddChild(viewAll);
     p->AddChild(CreateLabelWidget(1, 0x44d, 0x1a3, 0x1eb, 0x4a, 0x1a));
     p->AddChild(CreateScrollListWidget(0, total, 0x203, 0x4a, 0x12, 0x179, 0));
-    FUN_0050eea0(p);
+    PanelManager_Register(p);
     return p;
 }

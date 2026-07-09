@@ -60,7 +60,7 @@ void FUN_00508b90(void)
       uVar4 = GetLocalizedString(&DAT_00796eec,4000);
       uVar4 = FUN_00507ff0(0x15,0x2d,200,0x1e,uVar4,uVar6);
       Widget_AddChild(uVar4);
-      FUN_0050eea0(puVar5);
+      PanelManager_Register(puVar5);
       *unaff_FS_OFFSET = puVar2;
       return;
     }

@@ -56,7 +56,7 @@ undefined4 * BuildWorldListPanel(undefined4 param_1)
   Widget_AddChild(uVar3);
   uVar3 = CreateScrollListWidget(param_1,0x203,0x4a,0x12,0x179,0);
   Widget_AddChild(uVar3);
-  FUN_0050eea0(puVar1);
+  PanelManager_Register(puVar1);
   return puVar1;
 }
 

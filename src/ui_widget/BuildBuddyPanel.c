@@ -72,7 +72,7 @@ undefined4 BuildBuddyPanel(void)
       Widget_AddChild(uVar3);
       uVar3 = CreateScrollListWidget(unaff_ESI,0xb7,0x49,0x12,0x98,7);
       Widget_AddChild(uVar3);
-      FUN_0050eea0(puVar2);
+      PanelManager_Register(puVar2);
       return;
     }
     iVar1 = puVar2[2];

@@ -70,7 +70,7 @@ void BuildChatLogPanel(undefined4 param_1,int param_2)
   Widget_AddChild(uVar4);
   uVar4 = CreateScrollListWidget(param_1,0xe3,0x44,0x12,0x9d,0xe);
   Widget_AddChild(uVar4);
-  FUN_0050eea0(puVar2);
+  PanelManager_Register(puVar2);
   *unaff_FS_OFFSET = uStack_c;
   return;
 }

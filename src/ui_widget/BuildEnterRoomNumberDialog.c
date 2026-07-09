@@ -58,7 +58,7 @@ void __fastcall BuildEnterRoomNumberDialog(undefined4 param_1)
       Widget_AddChild(uVar4);
       uVar4 = CreateLabelWidget(1,0x578,0x80,0x76,0x52,0x22);
       Widget_AddChild(uVar4);
-      FUN_0050eea0(puVar5);
+      PanelManager_Register(puVar5);
       return;
     }
     piVar1 = puVar2 + 2;

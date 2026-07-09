@@ -1611,7 +1611,7 @@ void __fastcall FUN_0050ecf0();
 undefined4 AtlArray_GrowBuffer();
 void * __thiscall FUN_0050ede0();
 void __fastcall FUN_0050ee00();
-void FUN_0050eea0();
+void PanelManager_Register();
 undefined4 FUN_0050ef10();
 void FUN_0050efa0();
 int __fastcall FUN_0050f000();

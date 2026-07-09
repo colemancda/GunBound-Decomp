@@ -56,7 +56,7 @@ void FUN_00508910(void)
       Widget_AddChild(uVar4);
       uVar4 = CreateLabelWidget(1,0x5dc,0x80,0x76,0x52,0x22);
       Widget_AddChild(uVar4);
-      FUN_0050eea0(puVar5);
+      PanelManager_Register(puVar5);
       *unaff_FS_OFFSET = puVar2;
       return;
     }

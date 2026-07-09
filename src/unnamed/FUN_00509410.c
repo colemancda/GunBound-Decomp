@@ -43,7 +43,7 @@ void FUN_00509410(undefined4 param_1,undefined4 param_2)
   Widget_AddChild(uVar2);
   uVar2 = FUN_00507ff0(0x16,0x27,0xbb,0x25,param_2,0xffff);
   Widget_AddChild(uVar2);
-  FUN_0050eea0(puVar1);
+  PanelManager_Register(puVar1);
   return;
 }
 

@@ -52,7 +52,7 @@ undefined4 FUN_00508a50(int param_1)
       Widget_AddChild(uVar4);
       uVar4 = CreateLabelWidget(1,0x4bb,0x80,0x76,0x52,0x22);
       Widget_AddChild(uVar4);
-      FUN_0050eea0(puVar2);
+      PanelManager_Register(puVar2);
       break;
     }
     piVar1 = puVar2 + 2;

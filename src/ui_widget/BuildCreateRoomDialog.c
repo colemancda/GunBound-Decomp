@@ -314,7 +314,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
     Widget_MoveBy(puVar10[10],puVar10[0xb]);
     puVar7[2] = puVar10;
     puVar10[0x24] = 1;
-    FUN_0050eea0(puVar10);
+    PanelManager_Register(puVar10);
     *unaff_FS_OFFSET = puVar6;
     return;
   }
