@@ -37,7 +37,7 @@ undefined4 __thiscall FUN_0050a030(int param_1,int param_2,int param_3)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_004240c0(g_clientContext,(uVar4 & 0x8000) == 0x8000,(int)uVar4 >> 0x10,uVar4 & 0x7fff);
   }
-  cVar2 = FUN_0050e870(param_2,param_3);
+  cVar2 = Widget_MouseMoveChildren(param_2,param_3);
   if ((cVar2 == '\0') &&
      ((((*(char *)(param_1 + 0x1e) != '\0' || (param_2 <= *(int *)(param_1 + 0x28))) ||
        (*(int *)(param_1 + 0x30) + *(int *)(param_1 + 0x28) <= param_2)) ||
