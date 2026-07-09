@@ -52,7 +52,7 @@ void __fastcall FUN_00477930(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = *(int *)(param_1 + 0x30);
   if ((DAT_0079352c != 0) && (-1 < iVar1)) {
-    iVar4 = FUN_004f30c0();
+    iVar4 = FindSpriteFrame();
     if (iVar4 != 0) {
       if (*(char *)(iVar4 + 0x18) == '\x01') {
         BlitSprite16bpp(uVar3,uVar2);

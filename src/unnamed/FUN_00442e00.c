@@ -29,7 +29,7 @@ void FUN_00442e00(void)
   iVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (((unaff_EDI == iVar5) && (bVar1 = *(byte *)(g_clientContext + 0x3b6c0), DAT_0079352c != 0)) &&
-     (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
+     (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(0x267,iVar7 + -2);
     }
@@ -40,7 +40,7 @@ void FUN_00442e00(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if (((unaff_EDI == iVar5) && (DAT_0079352c != 0)) && (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
+  if (((unaff_EDI == iVar5) && (DAT_0079352c != 0)) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(0x2f3,iVar7 + 3);
     }
@@ -51,7 +51,7 @@ void FUN_00442e00(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if (((DAT_0079352c != 0) && (-1 < iVar5 + 7)) && (iVar6 = FUN_004f30c0(), iVar6 != 0)) {
+  if (((DAT_0079352c != 0) && (-1 < iVar5 + 7)) && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
     if (*(char *)(iVar6 + 0x18) == '\x01') {
       BlitSprite16bpp(0x272,iVar7);
     }
@@ -60,7 +60,7 @@ void FUN_00442e00(void)
     }
   }
   uVar3 = *(undefined2 *)(g_clientContext + 0x50116 + unaff_EDI * 2);
-  if ((DAT_0079352c != 0) && (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(0x290,iVar7);
     }
@@ -73,7 +73,7 @@ void FUN_00442e00(void)
   iVar5 = g_clientContext;
   BlitRLESprite(iVar7 + 0xe,0xffff);
   cVar2 = *(char *)(iVar5 + 0x449ba + unaff_EDI);
-  if ((DAT_0079352c != 0) && (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(0x24d,iVar7 + 6);
       return;

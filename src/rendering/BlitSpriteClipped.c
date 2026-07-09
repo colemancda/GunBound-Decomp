@@ -20,7 +20,7 @@ void BlitSpriteClipped(int param_1)
   int iVar2;
   int local_4;
   
-  if (((DAT_0079352c != 0) && (-1 < param_1)) && (iVar1 = FUN_004f30c0(), iVar1 != 0)) {
+  if (((DAT_0079352c != 0) && (-1 < param_1)) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
     iVar2 = in_EAX + *(int *)(iVar1 + 0x2c);
     local_4 = *(int *)(iVar1 + 0x24) - ((DAT_00793534 - iVar2 < 0) - 1 & DAT_00793534 - iVar2);
     if (iVar2 < DAT_00793534) {

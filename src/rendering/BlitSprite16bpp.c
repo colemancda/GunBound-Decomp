@@ -31,7 +31,7 @@ void BlitSprite16bpp(int param_1,int param_2)
   int local_8;
   
   if (((DAT_0079352c != 0) && (-1 < in_EAX)) &&
-     (iVar4 = FUN_004f30c0(), iVar3 = DAT_00793530, iVar4 != 0)) {
+     (iVar4 = FindSpriteFrame(), iVar3 = DAT_00793530, iVar4 != 0)) {
     iVar2 = *(int *)(iVar4 + 0x28);
     param_2 = param_2 + *(int *)(iVar4 + 0x2c);
     puVar6 = *(ushort **)(iVar4 + 0x34);

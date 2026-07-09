@@ -333,7 +333,7 @@ LAB_00479655:
     FUN_0040a2a0();
     (**(code **)(*param_1 + 4))(s_damage_00555cc0);
     cVar1 = FUN_004065a0();
-    if ((cVar1 == '\x01') && (iVar2 = FUN_004f30c0(), iVar2 != 0)) {
+    if ((cVar1 == '\x01') && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
       AddToPacketChecksum(local_2d0c);
     }
     QueueOutgoingPacketField(*(undefined1 *)(unaff_EDI + 0x3c));

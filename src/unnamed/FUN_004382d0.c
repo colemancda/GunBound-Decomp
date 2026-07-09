@@ -18,7 +18,7 @@ void FUN_004382d0(void)
   
   cVar1 = FUN_004065a0();
   if ((cVar1 == '\0') && (unaff_EBX != 0)) {
-    puVar2 = (undefined4 *)FUN_004f30c0();
+    puVar2 = (undefined4 *)FindSpriteFrame();
     if (puVar2 != (undefined4 *)0x0) {
       *(undefined4 *)(puVar2[3] + 0x10) = puVar2[4];
       *(undefined4 *)(puVar2[4] + 0xc) = puVar2[3];

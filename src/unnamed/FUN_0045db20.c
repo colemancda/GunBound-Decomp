@@ -457,7 +457,7 @@ LAB_0045e442:
           }
         }
         cVar3 = FUN_004065a0();
-        if ((cVar3 == '\x01') && (iVar6 = FUN_004f30c0(), iVar6 != 0)) {
+        if ((cVar3 == '\x01') && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
           AddToPacketChecksum(iVar7);
         }
       }

@@ -43,7 +43,7 @@ void FUN_004ce3d0(int param_1)
           EncodeChecksumState(uVar4);
           uVar4 = QueueOutgoingPacketField(0);
           EncodeChecksumState(uVar4);
-          iVar2 = FUN_004f30c0();
+          iVar2 = FindSpriteFrame();
           if (iVar2 != 0) {
             *(undefined1 *)(iVar2 + 0x14) = 1;
           }

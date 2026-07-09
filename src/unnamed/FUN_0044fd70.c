@@ -54,7 +54,7 @@ void __fastcall FUN_0044fd70(int param_1)
     return;
   }
   if (*(uint *)(param_1 + 8) < 8) {
-    iVar4 = FUN_004f30c0();
+    iVar4 = FindSpriteFrame();
     if (iVar4 != 0) {
       *(undefined4 *)(param_1 + 0x38) = *(undefined4 *)(iVar4 + 0x38);
       *(int *)(param_1 + 0x3c) = *(int *)(iVar4 + 0x3c) + -0x1e;
@@ -93,7 +93,7 @@ void __fastcall FUN_0044fd70(int param_1)
     }
   }
   else {
-    iVar6 = FUN_004f30c0();
+    iVar6 = FindSpriteFrame();
     if (iVar6 == 0) {
       *(undefined1 *)(param_1 + 0x14) = 1;
       goto LAB_0044fe4c;

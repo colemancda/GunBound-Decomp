@@ -23,7 +23,7 @@ void __thiscall FUN_004ed870(int param_1,int param_2)
   int local_c;
   int local_8;
   
-  if (((DAT_0079352c != 0) && (-1 < param_1)) && (iVar3 = FUN_004f30c0(), iVar3 != 0)) {
+  if (((DAT_0079352c != 0) && (-1 < param_1)) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
     iVar2 = *(int *)(iVar3 + 0x28);
     iVar7 = in_EAX + *(int *)(iVar3 + 0x2c);
     puVar4 = *(ushort **)(iVar3 + 0x34);

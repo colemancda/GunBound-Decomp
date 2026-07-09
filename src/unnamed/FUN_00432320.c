@@ -84,7 +84,7 @@ FUN_00432320(int param_1,byte param_2,int param_3,byte param_4,int param_5,undef
       *pcVar7 = cVar1;
       pcVar7 = pcVar7 + 1;
     } while (cVar1 != '\0');
-    iVar4 = FUN_004f30c0();
+    iVar4 = FindSpriteFrame();
     if (iVar4 != 0) {
       uVar3 = FUN_004ac260();
       QueueOutgoingPacketField(uVar3);

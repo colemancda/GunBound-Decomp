@@ -70,7 +70,7 @@ void FUN_00408180(int param_1)
     if (cVar1 != '\0') {
       iVar3 = *(int *)(param_1 + 0x44);
       iVar13 = *(int *)(param_1 + 0x40);
-      if ((DAT_0079352c != 0) && (iVar2 = FUN_004f30c0(), iVar2 != 0)) {
+      if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
         if (*(char *)(iVar2 + 0x18) == '\x01') {
           BlitSprite16bpp(iVar13 + 4,iVar3 + 0x17);
         }
@@ -156,7 +156,7 @@ LAB_0040855d:
       do {
         if (((((&local_1008)[iVar3] != ' ') &&
              (iVar2 = (&local_1008)[iVar3] + 0x8d, DAT_0079352c != 0)) && (-1 < iVar2)) &&
-           (iVar6 = FUN_004f30c0(), iVar6 != 0)) {
+           (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
           if (*(char *)(iVar6 + 0x18) == '\x01') {
             BlitSprite16bpp(iVar13,0x239);
           }
@@ -173,7 +173,7 @@ LAB_0040855d:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar13 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      if (((iVar13 <= iVar3) && (DAT_0079352c != 0)) && (iVar3 = FUN_004f30c0(), iVar3 != 0)) {
+      if (((iVar13 <= iVar3) && (DAT_0079352c != 0)) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
         if (*(char *)(iVar3 + 0x18) == '\x01') {
           BlitSprite16bpp(0x2ac,0x239);
         }
@@ -212,7 +212,7 @@ LAB_00408a10:
     do {
       if (((((&local_1008)[iVar3] != ' ') &&
            (iVar2 = (&local_1008)[iVar3] + 0x8d, DAT_0079352c != 0)) && (-1 < iVar2)) &&
-         (iVar6 = FUN_004f30c0(), iVar6 != 0)) {
+         (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
         if (*(char *)(iVar6 + 0x18) == '\x01') {
           BlitSprite16bpp(iVar13,0x239);
         }
@@ -229,7 +229,7 @@ LAB_00408a10:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar13 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if (((iVar13 <= iVar3) && (DAT_0079352c != 0)) && (iVar3 = FUN_004f30c0(), iVar3 != 0)) {
+    if (((iVar13 <= iVar3) && (DAT_0079352c != 0)) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
         BlitSprite16bpp(0x2e6,0x239);
       }

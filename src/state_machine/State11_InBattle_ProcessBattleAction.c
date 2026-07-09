@@ -232,7 +232,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
                 if (cVar2 != '\0') {
                   local_27f0 = (undefined *)0x0;
                   do {
-                    iVar10 = FUN_004f30c0();
+                    iVar10 = FindSpriteFrame();
                     if (iVar10 != 0) {
                       iVar6 = FUN_0040a4d0(iVar4 + 0x90c);
                       iVar10 = FUN_0040a4d0(iVar10 + 0x25c);

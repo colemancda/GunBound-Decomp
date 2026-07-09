@@ -27,7 +27,7 @@ void FUN_0044c460(int param_1,int param_2,int param_3,int param_4,int param_5,in
   local_4 = param_4;
 LAB_0044c490:
   if (local_4 % 3 == 0) {
-    if ((((bVar3) && (DAT_0079352c != 0)) && (-1 < in_EAX)) && (iVar4 = FUN_004f30c0(), iVar4 != 0))
+    if ((((bVar3) && (DAT_0079352c != 0)) && (-1 < in_EAX)) && (iVar4 = FindSpriteFrame(), iVar4 != 0))
     {
       if (*(char *)(iVar4 + 0x18) == '\x01') {
         BlitSprite16bpp(param_1);

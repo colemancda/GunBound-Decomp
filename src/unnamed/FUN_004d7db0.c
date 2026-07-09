@@ -57,7 +57,7 @@ void __fastcall FUN_004d7db0(int param_1)
   if (DAT_00793522 != '\0') {
     FUN_004eadb0();
   }
-  if ((DAT_0079352c != 0) && (iVar3 = FUN_004f30c0(), iVar3 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0);
     }
@@ -109,7 +109,7 @@ LAB_004d81a0:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((uVar12 & uVar4) != uVar4) goto LAB_004d8264;
     if (local_a4c == 4) {
-      if ((DAT_0079352c != 0) && (iVar6 = FUN_004f30c0(), iVar6 != 0)) {
+      if ((DAT_0079352c != 0) && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
         if (*(char *)(iVar6 + 0x18) == '\x01') {
           BlitSprite16bpp(iVar5,iVar3);
         }
@@ -134,7 +134,7 @@ LAB_004d81a0:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     iVar6 = iVar6 + 10;
-    if (((DAT_0079352c != 0) && (-1 < iVar6)) && (iVar13 = FUN_004f30c0(), iVar13 != 0)) {
+    if (((DAT_0079352c != 0) && (-1 < iVar6)) && (iVar13 = FindSpriteFrame(), iVar13 != 0)) {
       if (*(char *)(iVar13 + 0x18) == '\x01') {
         BlitSprite16bpp(iVar5,iVar3);
         goto LAB_004d844e;
@@ -156,7 +156,7 @@ LAB_004d7f30:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((uVar4 & uVar11) == uVar11) {
     if (local_a4c == 4) {
-      if ((DAT_0079352c != 0) && (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
+      if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
         if (*(char *)(iVar5 + 0x18) == '\x01') {
           BlitSprite16bpp(iVar13,iVar3);
         }
@@ -181,7 +181,7 @@ LAB_004d7f30:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     iVar5 = iVar5 + 10;
-    if (((DAT_0079352c != 0) && (-1 < iVar5)) && (iVar6 = FUN_004f30c0(), iVar6 != 0)) {
+    if (((DAT_0079352c != 0) && (-1 < iVar5)) && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
       if (*(char *)(iVar6 + 0x18) == '\x01') {
         BlitSprite16bpp(iVar13,iVar3);
       }
@@ -225,7 +225,7 @@ LAB_004d8258:
   if (local_a4c == 4) {
     iVar5 = iVar13 + 0x1c4;
 LAB_004d8264:
-    if ((DAT_0079352c != 0) && (iVar13 = FUN_004f30c0(), iVar13 != 0)) {
+    if ((DAT_0079352c != 0) && (iVar13 = FindSpriteFrame(), iVar13 != 0)) {
       if (*(char *)(iVar13 + 0x18) == '\x01') {
         BlitSprite16bpp(iVar5,iVar3);
       }

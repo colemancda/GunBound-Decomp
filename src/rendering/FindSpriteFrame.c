@@ -1,4 +1,4 @@
-/* FUN_004f30c0 - 0x004f30c0 in the original binary.
+/* FindSpriteFrame - 0x004f30c0 in the original binary.
  *
  * Loaded-sprite/frame resolver for the software blitter (the project's
  * hottest render primitive - 173 call sites across 43 files, and the thing
@@ -27,7 +27,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_004f30c0(undefined4 param_1,uint param_2)
+int __fastcall FindSpriteFrame(undefined4 param_1,uint param_2)
 
 {
   uint uVar1;

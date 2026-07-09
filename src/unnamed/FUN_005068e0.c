@@ -20,7 +20,7 @@ void __fastcall FUN_005068e0(int param_1)
     iVar1 = *(int *)(param_1 + 0x2c);
     iVar2 = *(int *)(param_1 + 0x28);
     iVar3 = *(int *)(param_1 + 0x90);
-    if (((DAT_0079352c != 0) && (-1 < iVar3)) && (iVar4 = FUN_004f30c0(), iVar4 != 0)) {
+    if (((DAT_0079352c != 0) && (-1 < iVar3)) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
       if (*(char *)(iVar4 + 0x18) == '\x01') {
         BlitSprite16bpp(iVar2 + 0x7c,iVar1 + 0x5c);
         return;

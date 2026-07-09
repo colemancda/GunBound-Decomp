@@ -38,7 +38,7 @@ void __thiscall FUN_0040d020(int param_1,int param_2)
         FUN_0040ccf0();
         *(undefined4 *)(param_2 + 8) = 0;
       }
-      if ((*(int *)(param_2 + 8) != 0) && (iVar3 = FUN_004f30c0(), iVar3 != 0)) {
+      if ((*(int *)(param_2 + 8) != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
         FUN_0040ccf0();
         *(int *)(param_2 + 8) = iVar3;
         FUN_0040cc50();
@@ -48,7 +48,7 @@ void __thiscall FUN_0040d020(int param_1,int param_2)
     else {
       if (param_1 == 0xd) {
         if (*(char *)(*(int *)(*(int *)(param_2 + 8) + 0x10) + 0x15) == '\0') {
-          iVar3 = FUN_004f30c0();
+          iVar3 = FindSpriteFrame();
           if (iVar3 == 0) {
             return;
           }

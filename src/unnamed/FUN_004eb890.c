@@ -15,7 +15,7 @@ void FUN_004eb890(void)
   int iVar1;
   
   if ((DAT_0079352c != 0) && (-1 < in_EAX)) {
-    iVar1 = FUN_004f30c0();
+    iVar1 = FindSpriteFrame();
     if (iVar1 != 0) {
       if (*(char *)(iVar1 + 0x18) == '\x01') {
         BlitSprite16bpp();

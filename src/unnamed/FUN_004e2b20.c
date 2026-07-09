@@ -39,7 +39,7 @@ void __fastcall FUN_004e2b20(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (-iVar1 < *(int *)(param_1 + 0xefc)) {
     iVar1 = *(int *)(param_1 + 0xf04);
-    if (((DAT_0079352c != 0) && (-1 < iVar1)) && (iVar2 = FUN_004f30c0(), iVar2 != 0)) {
+    if (((DAT_0079352c != 0) && (-1 < iVar1)) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
         BlitSprite16bpp(0x106,0x1df);
       }
@@ -113,7 +113,7 @@ void __fastcall FUN_004e2b20(int param_1)
         FUN_0040b540(local_8a8);
       }
     }
-    if (((DAT_0079352c != 0) && (-1 < local_8a0)) && (iVar1 = FUN_004f30c0(), iVar1 != 0)) {
+    if (((DAT_0079352c != 0) && (-1 < local_8a0)) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
       if (*(char *)(iVar1 + 0x18) == '\x01') {
         BlitSprite16bpp(0x10d,500);
       }
@@ -187,7 +187,7 @@ void __fastcall FUN_004e2b20(int param_1)
         FUN_0040b540(local_8a8);
       }
     }
-    if (((DAT_0079352c != 0) && (-1 < local_8a0)) && (iVar1 = FUN_004f30c0(), iVar1 != 0)) {
+    if (((DAT_0079352c != 0) && (-1 < local_8a0)) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
       if (*(char *)(iVar1 + 0x18) == '\x01') {
         BlitSprite16bpp(0x129,500);
       }
@@ -261,7 +261,7 @@ void __fastcall FUN_004e2b20(int param_1)
         FUN_0040b540(local_8a8);
       }
     }
-    if (((DAT_0079352c != 0) && (-1 < iVar1)) && (iVar2 = FUN_004f30c0(), iVar2 != 0)) {
+    if (((DAT_0079352c != 0) && (-1 < iVar1)) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
         BlitSprite16bpp(0x145,500);
         *unaff_FS_OFFSET = local_c;

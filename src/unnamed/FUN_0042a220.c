@@ -37,7 +37,7 @@ void __thiscall FUN_0042a220(int param_1,int param_2)
   else if (*(int *)(param_1 + 8) == param_2) {
     iVar8 = iVar8 + 1;
   }
-  if ((DAT_0079352c != 0) && (iVar4 = FUN_004f30c0(), iVar4 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar7,iVar6 + 0x3a);
     }
@@ -46,7 +46,7 @@ void __thiscall FUN_0042a220(int param_1,int param_2)
     }
   }
   if (((*(char *)(g_clientContext + 0x449b4 + param_2) != '\0') && (DAT_0079352c != 0)) &&
-     (iVar8 = FUN_004f30c0(), iVar8 != 0)) {
+     (iVar8 = FindSpriteFrame(), iVar8 != 0)) {
     if (*(char *)(iVar8 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar7 + 0xb1,iVar6 + 0x42);
     }
@@ -56,7 +56,7 @@ void __thiscall FUN_0042a220(int param_1,int param_2)
   }
   bVar1 = *(byte *)(g_clientContext + 0x4499c + param_2);
   iVar8 = g_clientContext + 0x4499c;
-  if ((DAT_0079352c != 0) && (iVar4 = FUN_004f30c0(), iVar4 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar7 + 0xc3,iVar6 + 0x46);
     }
@@ -66,7 +66,7 @@ void __thiscall FUN_0042a220(int param_1,int param_2)
   }
   bVar1 = *(byte *)(g_clientContext + 0x449a2 + param_2);
   iVar4 = g_clientContext + 0x449a2;
-  if ((DAT_0079352c != 0) && (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar7 + 0xd2,iVar6 + 0x46);
     }
@@ -76,7 +76,7 @@ void __thiscall FUN_0042a220(int param_1,int param_2)
   }
   bVar1 = *(byte *)(g_clientContext + 0x44986 + param_2 * 4);
   bVar2 = *(byte *)(g_clientContext + 0x4497c + param_2);
-  if ((DAT_0079352c != 0) && (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar7 + 0x6a,iVar6 + 0x5b);
     }
@@ -93,7 +93,7 @@ void __thiscall FUN_0042a220(int param_1,int param_2)
   else {
     uVar9 = 7;
   }
-  if ((DAT_0079352c != 0) && (iVar8 = FUN_004f30c0(), iVar8 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar8 = FindSpriteFrame(), iVar8 != 0)) {
     if (*(char *)(iVar8 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar7 + 0x13,iVar6 + 0x55);
     }
@@ -102,7 +102,7 @@ void __thiscall FUN_0042a220(int param_1,int param_2)
     }
   }
   if (*(char *)(g_clientContext + 0x449ae + param_2) != '\0') {
-    if ((DAT_0079352c != 0) && (iVar8 = FUN_004f30c0(), iVar8 != 0)) {
+    if ((DAT_0079352c != 0) && (iVar8 = FindSpriteFrame(), iVar8 != 0)) {
       if (*(char *)(iVar8 + 0x18) == '\x01') {
         BlitSprite16bpp((-(uint)(param_2 / 3 != 0) & 0xffffff06) + 0xea + iVar7,iVar6 + 0x52);
       }
@@ -117,7 +117,7 @@ void __thiscall FUN_0042a220(int param_1,int param_2)
   BlitRLESprite(iVar6 + 0x44,0xffff);
   FUN_004eadb0();
   uVar3 = *(uint *)(g_clientContext + 0x44984 + param_2 * 4);
-  if ((DAT_0079352c != 0) && (iVar8 = FUN_004f30c0(), iVar8 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar8 = FindSpriteFrame(), iVar8 != 0)) {
     if (*(char *)(iVar8 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar7 + 0xb1,iVar6 + 0x5b);
       return;

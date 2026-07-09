@@ -36,7 +36,7 @@ LAB_005074e1:
   }
   iVar6 = iVar1 + 9;
   if ((*(byte *)(iVar4 + 0x42949 + iVar2 * 8) & 0x80) == 0) {
-    if ((DAT_0079352c != 0) && (iVar4 = FUN_004f30c0(), iVar4 != 0)) {
+    if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
       if (*(char *)(iVar4 + 0x18) != '\x01') {
         uVar8 = 2;
         goto LAB_00507577;
@@ -44,7 +44,7 @@ LAB_005074e1:
       BlitSprite16bpp(iVar6,iVar7);
     }
   }
-  else if ((DAT_0079352c != 0) && (iVar4 = FUN_004f30c0(), iVar4 != 0)) {
+  else if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar6,iVar7);
     }

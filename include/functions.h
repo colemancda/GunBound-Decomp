@@ -1275,7 +1275,7 @@ undefined4 * FUN_004f2f00();
 int __fastcall FUN_004f2f90();
 void FUN_004f3020();
 void FUN_004f3060();
-int __fastcall FUN_004f30c0();
+int __fastcall FindSpriteFrame();
 void FUN_004f3100();
 undefined4 * __fastcall FUN_004f3150();
 void * __thiscall FUN_004f3390();

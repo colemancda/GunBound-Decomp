@@ -37,7 +37,7 @@ void __fastcall FUN_0050d200(int param_1)
       if (uVar3 != 0) {
         iVar4 = *(int *)(param_1 + 0x28);
         iVar9 = uVar3 - 1;
-        if (((DAT_0079352c != 0) && (-1 < iVar9)) && (iVar5 = FUN_004f30c0(), iVar5 != 0)) {
+        if (((DAT_0079352c != 0) && (-1 < iVar9)) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
           if (*(char *)(iVar5 + 0x18) == '\x01') {
             BlitSprite16bpp(iVar4 + 0x1a,iVar7);
           }

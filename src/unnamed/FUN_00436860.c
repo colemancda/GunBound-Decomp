@@ -18,7 +18,7 @@ void __fastcall FUN_00436860(int param_1,int param_2,undefined4 param_3,undefine
   cVar1 = FUN_004065a0();
   if (cVar1 == '\0') {
     if (param_1 != -1) {
-      iVar2 = FUN_004f30c0();
+      iVar2 = FindSpriteFrame();
       if (iVar2 != 0) {
         *(undefined4 *)(iVar2 + 0x40) = 0;
         *(int *)(iVar2 + 0x48) = *(int *)(iVar2 + 0x48) + param_2;

@@ -47,7 +47,7 @@ void FUN_004cee30(int param_1)
   iVar1 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar1 == 4) {
-    piVar3 = (int *)FUN_004f30c0();
+    piVar3 = (int *)FindSpriteFrame();
     if ((piVar3 != (int *)0x0) &&
        (iVar1 = piVar3[0xf], piVar3[0xf] = iVar1 + 0x28, 1000 < iVar1 + 0x28)) {
       piVar3[0xf] = 1000;
@@ -57,7 +57,7 @@ LAB_004cefa6:
     (**(code **)(*piVar3 + 4))(pcVar4);
   }
   else {
-    piVar3 = (int *)FUN_004f30c0();
+    piVar3 = (int *)FindSpriteFrame();
     if (piVar3 != (int *)0x0) {
       pcVar4 = s_normal_00552230;
       goto LAB_004cefa6;

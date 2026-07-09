@@ -29,7 +29,7 @@ void __fastcall FUN_004e4bc0(int param_1,uint param_2,uint param_3)
     }
     if ((0 < (int)param_3) && (*(char *)(in_EAX + 0x51 + param_1) != '\x01')) {
       *(undefined1 *)(in_EAX + 0x51 + param_1) = 1;
-      iVar2 = FUN_004f30c0();
+      iVar2 = FindSpriteFrame();
       if (iVar2 != 0) {
         puVar3 = *(ushort **)(iVar2 + 0x34);
         if (0 < in_EAX) {

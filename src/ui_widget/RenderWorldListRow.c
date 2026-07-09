@@ -49,7 +49,7 @@ void __fastcall RenderWorldListRow(int param_1)
   if (*(uint *)(g_gameStateVTableArray[2] + 8) == in_EAX) {
     cVar8 = '\x03';
   }
-  if ((DAT_0079352c != 0) && (iVar6 = FUN_004f30c0(), iVar6 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
     if (*(char *)(iVar6 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar1,iVar2);
     }

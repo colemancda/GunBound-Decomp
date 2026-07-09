@@ -17,7 +17,7 @@ void FUN_004b3e60(undefined2 *param_1)
   
   if (*(char *)(param_1 + 0x191) != '\0') {
     iVar3 = *(int *)(param_1 + 0x194);
-    if ((DAT_0079352c != 0) && (iVar2 = FUN_004f30c0(), iVar2 != 0)) {
+    if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
         BlitSprite16bpp(iVar3,0x17d);
       }
@@ -26,7 +26,7 @@ void FUN_004b3e60(undefined2 *param_1)
       }
     }
     uVar1 = *param_1;
-    if ((DAT_0079352c != 0) && (iVar2 = FUN_004f30c0(), iVar2 != 0)) {
+    if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
         BlitSprite16bpp(iVar3 + 0x13,0x18c);
       }

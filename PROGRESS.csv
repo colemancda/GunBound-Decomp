@@ -1293,7 +1293,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f2fb0,102,RegisterActiveObject,false,79,1,RAW-src
 004f3020,55,FUN_004f3020,false,2,0,RAW-src
 004f3060,81,FUN_004f3060,false,17,0,RAW-src
-004f30c0,53,FUN_004f30c0,false,181,0,RAW-src
+004f30c0,53,FindSpriteFrame,false,181,0,RAW-src
 004f3100,73,FUN_004f3100,false,3,0,RAW-src
 004f3150,573,FUN_004f3150,false,2,0,RAW-src
 004f3390,30,FUN_004f3390,false,1,2,RAW-src
