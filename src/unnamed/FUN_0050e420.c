@@ -20,7 +20,7 @@ undefined4 __thiscall FUN_0050e420(undefined4 *param_1,int param_2,int param_3)
     uVar2 = 1;
   }
   *(undefined1 *)(param_1 + 1) = uVar2;
-  cVar1 = FUN_0050e8e0(param_2,param_3);
+  cVar1 = Widget_MouseDownChildren(param_2,param_3);
   if ((*(char *)(param_1 + 1) == '\0') && (cVar1 == '\0')) {
     (**(code **)*param_1)(0);
   }

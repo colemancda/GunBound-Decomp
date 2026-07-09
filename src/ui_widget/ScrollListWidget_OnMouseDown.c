@@ -52,7 +52,7 @@ undefined4 __thiscall ScrollListWidget_OnMouseDown(int param_1,int param_2,int p
   }
   *(char *)(param_1 + 0x44) = local_1;
 LAB_0050f5bf:
-  cVar2 = FUN_0050e8e0(param_2,param_3);
+  cVar2 = Widget_MouseDownChildren(param_2,param_3);
   if ((cVar2 == '\0') && (local_1 == '\0')) {
     return 0;
   }
