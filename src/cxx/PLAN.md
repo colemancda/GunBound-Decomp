@@ -120,7 +120,7 @@ Ordered by how confirmed their docs are:
 
 | Blocker | Blocks | Approach |
 |---|---|---|
-| `FUN_004f1790` register args (EAX/EDI) | exact-match of all OnEnters | decompile + byte-compare it once (Phase 2.4) |
+| `FUN_004f1790` register args (EAX/EDI) | exact-match of all OnEnters | **RESOLVED**: EAX = .img sprite-set name, EDI = .mp3 name; callee-cleans its two stack args (container, key). Residual is only the register loads themselves. |
 | custom register conventions (`ThumbHeight` this-in-EAX, `IsOverThumb` y-in-EBX) | exact-match of a few widget helpers | likely compiler-internal/inlined-sibling artifacts; revisit after the container class lands |
 | `__thiscall` C ports can't byte-match | everything not yet promoted | that's this whole plan |
 | `g_clientContext` blob layout | State09/11 field maps, chat pipeline | reconstruct incrementally per-screen (Phase 3) |

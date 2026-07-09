@@ -20,17 +20,17 @@
  * (symbol decorated `@State01_Title_OnEnter@4`, matching fastcall's
  * mangling) instead of a stack argument.
  *
- * Two residual differences, not yet resolved: the original also saves/
- * restores edi and loads two extra constants (`mov eax,0x5572cc`,
- * `mov edi,0x5572c0`) this function's own decompilation doesn't show;
- * and the original never cleans the stack after its call to
- * FUN_004f1790 (no `add esp,8`), while a normal __cdecl call would.
- * That strongly suggests FUN_004f1790 is actually callee-cleans-stack
- * (__stdcall or __fastcall, not __cdecl as currently declared) and
- * probably takes more real parameters than the 2 modeled here - the
- * two mystery constant loads are plausible candidates for extra
- * arguments. Not investigated further this pass; a real fix needs
- * FUN_004f1790 itself decompiled and byte-compared the same way.
+ * RESOLVED (2026-07-09, via a fresh headless-Ghidra decompile of
+ * FUN_004f1790 plus reading the constants out of the binary): the two
+ * "mystery" loads are real register arguments - EAX = 0x5572cc =
+ * "titlemode.img" (the sprite-set name FUN_004f1790 looks up: it
+ * loads that .img and registers one frame object per frame, vtable
+ * 0x557524, under the given container key), and EDI = 0x5572c0 =
+ * "title.mp3" (passed through to the music path). FUN_004f1790 is
+ * indeed callee-cleans on its two stack args (container, key). The
+ * remaining byte-diff on this function is exactly those two loads +
+ * the edi save/restore, not expressible from C without the custom
+ * convention; see src/cxx/State01_Title.cpp for the C++ promotion.
  */
 #include "ghidra_types.h"
 #include <windows.h>

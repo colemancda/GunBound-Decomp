@@ -21,15 +21,14 @@
 extern "C" {
 int PlayMusicTrack(int trackId);              /* 0x4f2e40-family; raw decl: uint PlayMusicTrack() */
 int __stdcall FUN_004f1790(void *container, int key);
-                                              /* active-object container lookup/prep. __stdcall here
-                                               * (diverging from the raw C decl): the original's
-                                               * OnEnter does NOT clean the stack after this call -
-                                               * byte-compared at 0x4e5383. It also loads 0x5572cc
-                                               * into EAX and 0x5572c0 into EDI first (register args
-                                               * of a custom convention, or values the callee reads)
-                                               * - not expressible from C++; still the one residual
-                                               * byte difference, pending FUN_004f1790's own
-                                               * decompile (same open item as the raw port's). */
+                                              /* RESOLVED: the sprite-set loader. Takes the .img
+                                               * name in EAX ("titlemode.img" here - it registers
+                                               * one frame object per frame under `key`) and the
+                                               * music name in EDI ("title.mp3"), plus these two
+                                               * callee-cleaned stack args. The EAX/EDI loads are
+                                               * the only remaining byte-diff in OnEnter - not
+                                               * expressible from C++ without the custom
+                                               * convention. */
 extern unsigned char DAT_00ea0e18;            /* active-object container storage */
 extern unsigned int  DAT_00ea0e1c;            /* active-object container (list head ptr at +0x1c) */
 }
