@@ -36,7 +36,7 @@ void __fastcall FUN_0050f660(int param_1)
       if (0 < iVar4) {
         iVar5 = iVar5 + (*(int *)(param_1 + 0x34) * *(int *)(param_1 + 0x40)) / iVar4;
       }
-      iVar3 = FUN_0050e050();
+      iVar3 = ScrollListWidget_ThumbHeight();
       if (iVar3 + iVar5 < *(int *)(param_1 + 0x50)) {
         iVar5 = *(int *)(param_1 + 0x3c) + *(int *)(param_1 + 0x40);
         iVar4 = iVar4 - *(int *)(param_1 + 0x3c);

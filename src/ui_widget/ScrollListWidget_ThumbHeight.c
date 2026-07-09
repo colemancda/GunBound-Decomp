@@ -1,4 +1,4 @@
-/* FUN_0050e050 - 0x0050e050 in the original binary.
+/* ScrollListWidget_ThumbHeight - 0x0050e050 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_0050e050(void)
+int ScrollListWidget_ThumbHeight(void)
 
 {
   int in_EAX;

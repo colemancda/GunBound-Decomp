@@ -23,7 +23,7 @@ uint __fastcall FUN_0050f770(int param_1,int param_2)
       iVar3 = iVar3 + uVar1;
     }
     if (iVar3 <= unaff_EBX) {
-      iVar2 = FUN_0050e050();
+      iVar2 = ScrollListWidget_ThumbHeight();
       uVar1 = iVar2 + iVar3;
       if (unaff_EBX <= (int)uVar1) {
         return CONCAT31((int3)(uVar1 >> 8),1);

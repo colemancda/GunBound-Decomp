@@ -1618,7 +1618,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050dc80,690,RenderWorldListRow,false,1,7,RAW-src
 0050df40,144,WorldListRowHitTest,false,3,0,RAW-src
 0050dfd0,118,FUN_0050dfd0,false,1,2,RAW-src
-0050e050,54,FUN_0050e050,false,4,0,RAW-src
+0050e050,54,ScrollListWidget_ThumbHeight,false,4,0,RAW-src
 0050e090,380,FUN_0050e090,false,1,5,RAW-src
 0050e2f0,90,FUN_0050e2f0,false,1,1,RAW-src
 0050e350,78,FUN_0050e350,false,1,1,RAW-src

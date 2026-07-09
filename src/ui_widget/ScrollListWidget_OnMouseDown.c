@@ -40,7 +40,7 @@ undefined4 __thiscall ScrollListWidget_OnMouseDown(int param_1,int param_2,int p
     if (0 < iVar1) {
       iVar5 = iVar4 + (*(int *)(param_1 + 0x40) * *(int *)(param_1 + 0x34)) / iVar1;
     }
-    if ((iVar5 <= param_3) && (iVar3 = FUN_0050e050(), param_3 <= iVar3 + iVar5)) {
+    if ((iVar5 <= param_3) && (iVar3 = ScrollListWidget_ThumbHeight(), param_3 <= iVar3 + iVar5)) {
       if (0 < iVar1) {
         iVar4 = iVar4 + (*(int *)(param_1 + 0x40) * *(int *)(param_1 + 0x34)) / iVar1;
       }

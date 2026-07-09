@@ -1584,7 +1584,7 @@ void __thiscall WorldListPanel_OnCommand();
 void __fastcall RenderWorldListRow();
 uint WorldListRowHitTest();
 void __fastcall FUN_0050dfd0();
-int FUN_0050e050();
+int ScrollListWidget_ThumbHeight();
 void __fastcall FUN_0050e090();
 undefined4 __thiscall FUN_0050e2f0();
 void __fastcall FUN_0050e350();

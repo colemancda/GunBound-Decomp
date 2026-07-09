@@ -19,7 +19,7 @@ void __fastcall FUN_0050e090(int param_1)
   
   if (((*(char *)(param_1 + 0x1e) == '\0') && (iVar4 = *(int *)(param_1 + 0x38), 0 < iVar4)) &&
      (*(int *)(param_1 + 0x3c) <= iVar4)) {
-    iVar2 = FUN_0050e050();
+    iVar2 = ScrollListWidget_ThumbHeight();
     uVar1 = *(undefined4 *)(param_1 + 0x28);
     iVar4 = *(int *)(param_1 + 0x2c) + (*(int *)(param_1 + 0x40) * *(int *)(param_1 + 0x34)) / iVar4
     ;

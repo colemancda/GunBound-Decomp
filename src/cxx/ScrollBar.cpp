@@ -1,7 +1,7 @@
 /* CScrollBar methods - promoted from the raw C ports
  * src/ui_widget/ScrollListWidget_OnMouseDown.c (0x50f500) and
  * ScrollListWidget_OnMouseUp.c (0x50f5f0), plus the thumb-height helper
- * FUN_0050e050. See src/cxx/README.md. */
+ * ScrollListWidget_ThumbHeight. See src/cxx/README.md. */
 #include "Widget.h"
 
 /* 0x50e050. Thumb height in pixels: the page's share of the track
