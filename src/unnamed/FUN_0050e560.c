@@ -39,7 +39,10 @@ void __fastcall FUN_0050e560(undefined4 *param_1)
     if ((uint)param_1[4] <= uVar2) break;
     pvVar1 = *(void **)(param_1[3] + uVar2 * 4);
     if (pvVar1 != (void *)0x0) {
-      FUN_0050e560();
+      /* Ghidra emitted this __fastcall self-call with no args (it lost
+       * track of ECX); MSVC hard-errors on the byte-count mismatch
+       * (C2708), so pass the current parameter through. */
+      FUN_0050e560(param_1);
       _free(pvVar1);
     }
     if ((uint)param_1[4] < uVar4) break;
