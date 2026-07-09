@@ -79,7 +79,7 @@ undefined4 __thiscall FUN_00503c40(undefined4 *param_1,ushort *param_2,uint para
   if (uVar2 <= uVar4 + param_3) {
     uVar5 = uVar2 - uVar4;
     if (uVar4 == 2) {
-      local_2ee8[0]._0_2_ = *(undefined2 *)(param_1 + 1);
+      SUBFIELD(local_2ee8[0],0,undefined2) = *(undefined2 *)(param_1 + 1);
     }
     else {
       puVar9 = local_2ee8;
