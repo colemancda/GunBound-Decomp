@@ -704,7 +704,7 @@ void __fastcall FUN_0046b680();
 void __fastcall FUN_0046c990();
 void FUN_0046ca40();
 void __fastcall FUN_0046ca60();
-void FUN_0046cb60();
+undefined4 FUN_0046cb60();
 void * __thiscall FUN_0046cb80();
 void FUN_0046cba0();
 int __fastcall FUN_0046cbb0();

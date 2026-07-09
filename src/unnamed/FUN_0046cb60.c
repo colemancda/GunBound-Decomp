@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0046cb60(void)
+undefined4 FUN_0046cb60(void)
 
 {
   undefined4 in_EAX;
