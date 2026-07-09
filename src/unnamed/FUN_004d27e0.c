@@ -448,10 +448,10 @@ switchD_004d2b8e_caseD_3:
     case 0:
       goto LAB_004d3379;
     case 1:
-      FUN_00412650(1,g_clientContext + 0x2331c);
+      ShowErrorDialogFmt(1,g_clientContext + 0x2331c);
       break;
     case 2:
-      FUN_00412650(1,g_clientContext + 0x23313);
+      ShowErrorDialogFmt(1,g_clientContext + 0x23313);
       break;
     default:
       goto switchD_004d2b8e_caseD_3;

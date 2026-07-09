@@ -319,7 +319,7 @@ void FUN_0040d760();
 void __fastcall FUN_00411b40();
 void FUN_00412130();
 void ShowErrorDialog();
-void FUN_00412650();
+void ShowErrorDialogFmt();
 void FUN_00412820();
 void FUN_004129c0();
 uint FUN_00412e00();

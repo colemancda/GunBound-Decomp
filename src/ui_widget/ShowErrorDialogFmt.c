@@ -1,7 +1,6 @@
-/* FUN_00412650 - 0x00412650 in the original binary.
+/* ShowErrorDialogFmt - 0x00412650 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * Error/message dialog variant: looks up a localized string by id and sprintf's it with one value, otherwise identical to ShowErrorDialog (same b_error_confirm OK button, modal flag DAT_0079350c, optional socket teardown). Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
@@ -10,7 +9,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_00412650(int param_1,undefined4 param_2)
+void ShowErrorDialogFmt(int param_1,undefined4 param_2)
 
 {
   int iVar1;
