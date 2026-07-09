@@ -1482,7 +1482,7 @@ undefined4 * FUN_00504480();
 undefined4 __fastcall FUN_00504550();
 int __fastcall FUN_005045a0();
 int * __thiscall FUN_005045d0();
-void __fastcall FUN_005046b0();
+undefined4 __fastcall FUN_005046b0();
 void FUN_00504730();
 undefined4 FUN_00504790();
 uint FUN_00504880();
