@@ -114,7 +114,7 @@ class CLabel : public CWidget {      /* vtable 0x557da0, size 0x40; factory Crea
 public:
     /* Default ctor, inlined (null-guarded) into the 0x507ee0 factory;
      * the factory then pokes id/sprite/rect UNGUARDED - see Label.cpp. */
-    CLabel() : m_unk38(0), m_unk39(0) { m_typeId = 1; m_unk3a[0] = 0; }
+    CLabel() : m_unk38(0), m_unk39(0) { m_typeId = 1; m_tabSelected = 0; }
 
     virtual bool OnMouseDown(int x, int y);  /* 0x5052e0 - promoted, Label.cpp */
     virtual void Draw();                     /* 0x50e350 - promoted, Label.cpp: reports evt 1 upward
