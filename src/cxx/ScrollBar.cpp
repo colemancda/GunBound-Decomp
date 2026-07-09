@@ -20,6 +20,76 @@ int CScrollBar::ThumbHeight()
     return m_height;
 }
 
+/* 0x50f770. Is the point over the thumb: x within the track (inclusive),
+ * y within [thumbTop, thumbTop + ThumbHeight()]. */
+bool CScrollBar::IsOverThumb(int x, int y)
+{
+    if (m_x <= x && x <= m_x + m_width) {
+        int thumbTop = m_y;
+        if (0 < m_total) {
+            thumbTop = m_y + (m_scrollPos * m_height) / m_total;
+        }
+        if (thumbTop <= y && y <= thumbTop + ThumbHeight()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/* 0x50f660, the draw-path hook (see the slot-binding note in Widget.h).
+ * While the track (not the thumb) is held pressed, page-scroll one
+ * pageSize per frame toward the held point - the "auto-scroll while
+ * held past the ends" behavior - reporting each change up the
+ * OnCommand spine (0x2000). Then the usual child draw broadcast. */
+void CScrollBar::Draw()
+{
+    if (m_pressed != '\0' && 0 < m_total) {
+        int heldY = m_lastY;
+        if (!IsOverThumb(m_lastX, heldY)) {
+            /* held above the thumb: page up (clamped at 0) */
+            unsigned int pos = (unsigned int)m_scrollPos;
+            if (heldY < m_y + (int)((unsigned int)m_height * pos) / m_total) {
+                unsigned int newPos = pos - (unsigned int)m_pageSize;
+                if ((int)newPos < 0) {
+                    newPos = 0;
+                }
+                if (newPos != pos) {
+                    m_scrollPos = (int)newPos;
+                    if (m_parent != 0) {
+                        m_parent->OnCommand(0x2000, m_id, (int)newPos);
+                    }
+                }
+            }
+            /* held below the thumb: page down (clamped to total - pageSize) */
+            int thumbTop = m_y;
+            if (0 < m_total) {
+                thumbTop = m_y + (m_height * m_scrollPos) / m_total;
+            }
+            if (thumbTop + ThumbHeight() < m_lastY) {
+                int want = m_pageSize + m_scrollPos;
+                int maxPos = m_total - m_pageSize;
+                int newPos = want < maxPos ? want : maxPos;
+                if (newPos < 0) {
+                    newPos = 0;
+                }
+                if (newPos != m_scrollPos) {
+                    m_scrollPos = newPos;
+                    if (m_parent != 0) {
+                        m_parent->OnCommand(0x2000, m_id, newPos);
+                    }
+                }
+            }
+        }
+    }
+    if (m_childCount != 0) {
+        unsigned int i = 0;
+        do {
+            ChildAt(this, i)->Draw();
+            ++i;
+        } while (i < (unsigned int)m_childCount);
+    }
+}
+
 /* 0x50f500, vtable slot 2. Record the click, then decide between the
  * two press modes: a hit on the thumb itself arms dragging (+grab
  * offset so the thumb doesn't jump under the cursor); any other press

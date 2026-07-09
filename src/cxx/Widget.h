@@ -121,7 +121,14 @@ class CScrollBar : public CWidget {  /* vtable 0x557e90, size 0x58; ctor CreateS
 public:
     virtual bool OnMouseDown(int x, int y);  /* 0x50f500 - promoted, ScrollBar.cpp */
     virtual bool OnMouseUp(int x, int y);    /* 0x50f5f0 - promoted, ScrollBar.cpp */
+    virtual void Draw();                     /* 0x50f660 - promoted, ScrollBar.cpp. Bound to slot 8
+                                              * from its shape (ends in the child +0x20 draw
+                                              * broadcast, same as the other Draw overrides);
+                                              * dumping vtable 0x557e90 to pin slot 8 vs 9 is
+                                              * still open. */
 
+    bool IsOverThumb(int x, int y);  /* 0x50f770 - promoted, ScrollBar.cpp. NOTE: Ghidra shows y
+                                      * arriving in EBX (custom register use); see ThumbHeight. */
     int ThumbHeight();               /* 0x50e050 - promoted, ScrollBar.cpp. NOTE: Ghidra shows the
                                       * original receiving this in EAX (in_EAX), not ECX - a custom
                                       * convention to sort out when byte-matching this one. */
