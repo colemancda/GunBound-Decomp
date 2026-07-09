@@ -40,9 +40,9 @@ void FUN_00436220(undefined4 param_1,undefined4 param_2,undefined4 param_3)
     piVar2[7] = iVar3;
     (**(code **)(*piVar2 + 4))(s_normal_00552230);
     piVar2[0xe25] = 0x1fa6;
-    piVar2[0xe26] = s_caseflame_00553c78._0_4_;
-    piVar2[0xe27] = s_caseflame_00553c78._4_4_;
-    *(undefined2 *)(piVar2 + 0xe28) = s_caseflame_00553c78._8_2_;
+    piVar2[0xe26] = SUBFIELD(s_caseflame_00553c78,0,undefined4);
+    piVar2[0xe27] = SUBFIELD(s_caseflame_00553c78,4,undefined4);
+    *(undefined2 *)(piVar2 + 0xe28) = SUBFIELD(s_caseflame_00553c78,8,undefined2);
     *(undefined1 *)(piVar2 + 0xf) = 0xff;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(param_2);
