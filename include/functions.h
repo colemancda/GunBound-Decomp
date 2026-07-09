@@ -1608,7 +1608,7 @@ undefined1 __thiscall Widget_DispatchKeyToChildren();
 undefined4 __thiscall Widget_DispatchMouseToChildren();
 void __thiscall Widget_OnCommandDefault();
 void __fastcall FUN_0050ecf0();
-undefined4 FUN_0050ed30();
+undefined4 AtlArray_GrowBuffer();
 void * __thiscall FUN_0050ede0();
 void __fastcall FUN_0050ee00();
 void FUN_0050eea0();

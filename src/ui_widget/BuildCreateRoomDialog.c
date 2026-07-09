@@ -76,7 +76,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
     iVar9 = CreateLabelWidget(iVar11,iVar11 + 0x518,param_1,8,0x1b,0x1b);
     *(bool *)(iVar9 + 0x3a) = iVar11 == 3;
     uVar4 = puVar10[4];
-    if (((uint)puVar10[5] <= uVar4) && (cVar5 = FUN_0050ed30(), cVar5 == '\0')) goto LAB_0050874e;
+    if (((uint)puVar10[5] <= uVar4) && (cVar5 = AtlArray_GrowBuffer(), cVar5 == '\0')) goto LAB_0050874e;
     piVar2 = (int *)(*piVar1 + uVar4 * 4);
     if (piVar2 != (int *)0x0) {
       *piVar2 = iVar9;
@@ -115,7 +115,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   puVar7[0xd] = 0x18;
   *(undefined1 *)((int)puVar7 + 0x3a) = 1;
   uVar4 = puVar10[4];
-  if (((uint)puVar10[5] <= uVar4) && (cVar5 = FUN_0050ed30(), cVar5 == '\0')) {
+  if (((uint)puVar10[5] <= uVar4) && (cVar5 = AtlArray_GrowBuffer(), cVar5 == '\0')) {
                     /* WARNING: Subroutine does not return */
     FUN_004010c0(0x8007000e);
   }
@@ -153,7 +153,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   puVar7[0xc] = 0x2d;
   puVar7[0xd] = 0x18;
   uVar4 = puVar10[4];
-  if (((uint)puVar10[5] <= uVar4) && (cVar5 = FUN_0050ed30(), cVar5 == '\0')) {
+  if (((uint)puVar10[5] <= uVar4) && (cVar5 = AtlArray_GrowBuffer(), cVar5 == '\0')) {
                     /* WARNING: Subroutine does not return */
     FUN_004010c0(0x8007000e);
   }
@@ -191,7 +191,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   puVar7[0xc] = 0x2d;
   puVar7[0xd] = 0x18;
   uVar4 = puVar10[4];
-  if (((uint)puVar10[5] <= uVar4) && (cVar5 = FUN_0050ed30(), cVar5 == '\0')) {
+  if (((uint)puVar10[5] <= uVar4) && (cVar5 = AtlArray_GrowBuffer(), cVar5 == '\0')) {
                     /* WARNING: Subroutine does not return */
     FUN_004010c0(0x8007000e);
   }
@@ -229,7 +229,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   puVar7[0xc] = 0x2d;
   puVar7[0xd] = 0x18;
   uVar4 = puVar10[4];
-  if (((uint)puVar10[5] <= uVar4) && (cVar5 = FUN_0050ed30(), cVar5 == '\0')) {
+  if (((uint)puVar10[5] <= uVar4) && (cVar5 = AtlArray_GrowBuffer(), cVar5 == '\0')) {
                     /* WARNING: Subroutine does not return */
     FUN_004010c0(0x8007000e);
   }
@@ -267,7 +267,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   puVar7[0xc] = 0x52;
   puVar7[0xd] = 0x22;
   uVar4 = puVar10[4];
-  if (((uint)puVar10[5] <= uVar4) && (cVar5 = FUN_0050ed30(), cVar5 == '\0')) {
+  if (((uint)puVar10[5] <= uVar4) && (cVar5 = AtlArray_GrowBuffer(), cVar5 == '\0')) {
                     /* WARNING: Subroutine does not return */
     FUN_004010c0(0x8007000e);
   }
@@ -305,7 +305,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   puVar7[0xc] = 0x52;
   puVar7[0xd] = 0x22;
   uVar4 = puVar10[4];
-  if ((uVar4 < (uint)puVar10[5]) || (cVar5 = FUN_0050ed30(), cVar5 != '\0')) {
+  if ((uVar4 < (uint)puVar10[5]) || (cVar5 = AtlArray_GrowBuffer(), cVar5 != '\0')) {
     puVar3 = (undefined4 *)(*piVar1 + uVar4 * 4);
     if (puVar3 != (undefined4 *)0x0) {
       *puVar3 = puVar7;

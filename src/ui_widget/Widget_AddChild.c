@@ -18,7 +18,7 @@ void Widget_AddChild(int param_1)
   
   uVar2 = *(uint *)(unaff_EBX + 0x10);
   if (*(uint *)(unaff_EBX + 0x14) <= uVar2) {
-    cVar3 = FUN_0050ed30();
+    cVar3 = AtlArray_GrowBuffer();
     if (cVar3 == '\0') {
                     /* WARNING: Subroutine does not return */
       FUN_004010c0(0x8007000e);

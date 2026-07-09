@@ -1,7 +1,7 @@
 /* Minimal reconstruction of ATL7's CAtlArray<E> (atlcoll.h, VS2003).
  *
  * Evidence this is what the binary uses (see src/cxx/PLAN.md Phase 1.1):
- * the widget child-array grow helper (FUN_0050ed30, 0x50ed30) matches
+ * the widget child-array grow helper (AtlArray_GrowBuffer, 0x50ed30) matches
  * CAtlArray::GrowBuffer exactly - field layout {m_pData, m_nSize,
  * m_nMaxSize, m_nGrowBy}, the malloc/memmove/free reallocation, and the
  * signature growth policy nGrowBy = clamp(m_nSize/8, 4, 1024) - and the
@@ -41,7 +41,7 @@ public:
         return m_pData[i];
     }
 
-    /* 0x50ed30 (FUN_0050ed30). Ensure capacity for nNewMaxSize elements;
+    /* 0x50ed30 (AtlArray_GrowBuffer). Ensure capacity for nNewMaxSize elements;
      * returns false only on allocation failure. NOTE: Ghidra shows the
      * original receiving `this` in ESI and the argument in EAX - the
      * custom-register family again; presumably an artifact of how the

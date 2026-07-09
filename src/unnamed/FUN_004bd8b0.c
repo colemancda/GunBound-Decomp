@@ -1552,7 +1552,7 @@ LAB_004c08c8:
       uVar11 = *(uint *)(&DAT_006a76f8 + iVar6);
       iVar5 = iVar6;
       if ((*(uint *)(&DAT_006a76fc + iVar6) <= uVar11) &&
-         (cVar3 = FUN_0050ed30(), iVar5 = g_clientContext, cVar3 == '\0')) {
+         (cVar3 = AtlArray_GrowBuffer(), iVar5 = g_clientContext, cVar3 == '\0')) {
                     /* WARNING: Subroutine does not return */
         FUN_004010c0();
       }

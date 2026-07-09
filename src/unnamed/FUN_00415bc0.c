@@ -25,7 +25,7 @@ uint __fastcall FUN_00415bc0(int *param_1)
   *unaff_FS_OFFSET = &local_c;
   uVar2 = param_1[1];
   if ((uint)param_1[2] <= uVar2) {
-    cVar3 = FUN_0050ed30();
+    cVar3 = AtlArray_GrowBuffer();
     if (cVar3 == '\0') {
                     /* WARNING: Subroutine does not return */
       FUN_004010c0(0x8007000e);

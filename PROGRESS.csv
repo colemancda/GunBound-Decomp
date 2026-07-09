@@ -1642,7 +1642,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050eab0,85,Widget_DispatchMouseToChildren,false,24,1,RAW-src
 0050eb10,465,Widget_OnCommandDefault,false,46,2,RAW-src
 0050ecf0,56,FUN_0050ecf0,false,8,1,RAW-src
-0050ed30,167,FUN_0050ed30,false,13,3,RAW-src
+0050ed30,167,AtlArray_GrowBuffer,false,13,3,RAW-src
 0050ede0,30,FUN_0050ede0,false,1,2,RAW-src
 0050ee00,158,FUN_0050ee00,false,2,3,RAW-src
 0050eea0,99,FUN_0050eea0,false,17,1,RAW-src

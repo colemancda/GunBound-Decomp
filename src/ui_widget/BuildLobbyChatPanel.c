@@ -96,7 +96,7 @@ undefined4 * BuildLobbyChatPanel(int param_1)
     puVar6[0xd] = 0x16;
     *(bool *)((int)puVar6 + 0x3a) = iVar8 == param_1;
     uVar1 = puVar9[4];
-    if (((uint)puVar9[5] <= uVar1) && (cVar4 = FUN_0050ed30(), cVar4 == '\0')) goto LAB_00509cbe;
+    if (((uint)puVar9[5] <= uVar1) && (cVar4 = AtlArray_GrowBuffer(), cVar4 == '\0')) goto LAB_00509cbe;
     puVar7 = (undefined4 *)(puVar9[3] + uVar1 * 4);
     if (puVar7 != (undefined4 *)0x0) {
       *puVar7 = puVar6;
@@ -109,7 +109,7 @@ undefined4 * BuildLobbyChatPanel(int param_1)
   } while (iVar11 < 0x208);
   iVar11 = CreateScrollListWidget(unaff_retaddr,0x20e,0x3f,0x12,0x9a,0xd);
   uVar1 = puVar9[4];
-  if ((uVar1 < (uint)puVar9[5]) || (cVar4 = FUN_0050ed30(), cVar4 != '\0')) {
+  if ((uVar1 < (uint)puVar9[5]) || (cVar4 = AtlArray_GrowBuffer(), cVar4 != '\0')) {
     piVar10 = (int *)(puVar9[3] + uVar1 * 4);
     if (piVar10 != (int *)0x0) {
       *piVar10 = iVar11;

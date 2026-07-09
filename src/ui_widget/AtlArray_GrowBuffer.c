@@ -1,4 +1,4 @@
-/* FUN_0050ed30 - 0x0050ed30 in the original binary.
+/* AtlArray_GrowBuffer - 0x0050ed30 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_0050ed30(void)
+undefined4 AtlArray_GrowBuffer(void)
 
 {
   uint in_EAX;
