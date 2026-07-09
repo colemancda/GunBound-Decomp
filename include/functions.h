@@ -1603,7 +1603,7 @@ void FUN_0050e820();
 undefined1 __thiscall FUN_0050e870();
 undefined1 __thiscall FUN_0050e8e0();
 undefined1 __thiscall FUN_0050e950();
-undefined1 __thiscall FUN_0050e9c0();
+undefined1 __thiscall Widget_HitTest();
 undefined1 __thiscall FUN_0050ea50();
 undefined4 __thiscall FUN_0050eab0();
 void __thiscall FUN_0050eb10();

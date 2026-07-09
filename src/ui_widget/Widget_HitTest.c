@@ -1,13 +1,13 @@
-/* FUN_0050e9c0 - 0x0050e9c0 in the original binary.
+/* Widget_HitTest - 0x0050e9c0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Base widget hit-test (vtable slot 4): tests the point against the widget rect (+0x28/+0x2c/+0x30/+0x34) then broadcasts to children (composite pattern). See docs/widgets.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined1 __thiscall FUN_0050e9c0(int param_1,int param_2,int param_3)
+undefined1 __thiscall Widget_HitTest(int param_1,int param_2,int param_3)
 
 {
   int iVar1;
