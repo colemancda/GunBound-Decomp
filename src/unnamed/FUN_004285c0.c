@@ -215,7 +215,7 @@ LAB_004287a5:
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
     return;
   case 0xf:
-    FUN_005087b0();
+    BuildEnterRoomNumberDialog();
     uVar5 = 0;
     break;
   case 0x1e:

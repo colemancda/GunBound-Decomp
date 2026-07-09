@@ -1539,7 +1539,7 @@ void * __thiscall FUN_00507e10();
 void FUN_00507e30();
 char FUN_00507ea0();
 void FUN_00508190();
-void __fastcall FUN_005087b0();
+void __fastcall BuildEnterRoomNumberDialog();
 void FUN_00508910();
 void FUN_00508a50();
 void FUN_00508b90();

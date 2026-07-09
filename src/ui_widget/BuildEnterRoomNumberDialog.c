@@ -1,13 +1,13 @@
-/* FUN_005087b0 - 0x005087b0 in the original binary.
+/* BuildEnterRoomNumberDialog - 0x005087b0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * Builds the lobby 'enter room by number' dialog (labels + a numeric text field + OK/Cancel). See docs/widgets.md and docs/screens/03_game_room_list.md. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_005087b0(undefined4 param_1)
+void __fastcall BuildEnterRoomNumberDialog(undefined4 param_1)
 
 {
   int *piVar1;

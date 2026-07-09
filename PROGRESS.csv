@@ -1574,7 +1574,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00507ff0,172,FUN_00507ff0,false,9,2,RAW-src
 005080a0,237,CreateScrollListWidget,false,7,4,RAW-src
 00508190,1557,FUN_00508190,false,1,12,RAW-src
-005087b0,342,FUN_005087b0,false,1,8,RAW-src
+005087b0,342,BuildEnterRoomNumberDialog,false,1,8,RAW-src
 00508910,314,FUN_00508910,false,1,8,RAW-src
 00508a50,310,FUN_00508a50,false,1,8,RAW-src
 00508b90,354,FUN_00508b90,false,1,10,RAW-src
