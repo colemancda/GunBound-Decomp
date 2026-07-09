@@ -30,7 +30,7 @@ void InitCommP2PNotifyWindow(void)
   unaff_EDI[0xb0] = 0;
   unaff_EDI[0xb1] = 0;
   WSAStartup(0x202,&local_190);
-  hWnd = CreateWindowExA(0,s_STATIC_00557b50,s_CCommP2P<>_Notify_Window_00557b34,0x80000000,0,0,0,0,
+  hWnd = CreateWindowExA(0,s_STATIC_00557b50,s_CCommP2P_Notify_Window_00557b34,0x80000000,0,0,0,0,
                          (HWND)0x0,(HMENU)0x0,(HINSTANCE)0x0,(LPVOID)0x0);
   unaff_EDI[0xa3] = hWnd;
   if (hWnd != (HWND)0x0) {

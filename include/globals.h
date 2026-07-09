@@ -2182,6 +2182,11 @@ extern const char s_teleport2_005543cc[];
  * respectively. */
 extern const char s_map_set_T_too_long_00551fec[];
 extern const char s_invalid_map_set_T_iterator_00552000[];
+/* Renamed from Ghidra's literal s_CCommP2P<>_Notify_Window_00557b34 -
+ * the embedded `<>` makes the literal name invalid as a C identifier
+ * (same reasoning as the map/set<T> strings above). Real content
+ * extracted from the binary: "CCommP2P<> Notify Window". */
+extern const char s_CCommP2P_Notify_Window_00557b34[];
 extern void *PTR_s_101blast_xes_0056d2b4;
 extern void *PTR_s_11blast_xes_0056d290;
 extern void *PTR_s_121blast_xes_0056d33c;

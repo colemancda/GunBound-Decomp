@@ -1849,6 +1849,7 @@ const char s_ssflame9_00554ce4[] = "ssflame9";
 const char s_teleport2_005543cc[] = "teleport2";
 const char s_map_set_T_too_long_00551fec[] = "map/set<T> too long";
 const char s_invalid_map_set_T_iterator_00552000[] = "invalid map/set<T> iterator";
+const char s_CCommP2P_Notify_Window_00557b34[] = "CCommP2P<> Notify Window";
 void *PTR_s_101blast_xes_0056d2b4;
 void *PTR_s_11blast_xes_0056d290;
 void *PTR_s_121blast_xes_0056d33c;
