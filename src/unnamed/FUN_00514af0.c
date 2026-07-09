@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00514af0(int param_1)
+undefined4 FUN_00514af0(int param_1)
 
 {
   byte bVar1;

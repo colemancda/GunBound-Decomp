@@ -1641,7 +1641,7 @@ void FUN_00513850();
 void FUN_00513900();
 int FUN_005146c0();
 int FUN_00514950();
-void FUN_00514af0();
+undefined4 FUN_00514af0();
 void FUN_00514cc0();
 undefined8 FUN_00514fc0();
 void FUN_00515420();
