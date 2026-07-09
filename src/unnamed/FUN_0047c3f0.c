@@ -12,6 +12,9 @@
 void FUN_0047c3f0(void)
 
 {
+  /* Ghidra artifact: raw stack reference the decompiler could not
+   * map to a named local; declared so the raw port parses. */
+  undefined stack0xfffff524;
   char cVar1;
   int iVar2;
   int iVar3;
@@ -88,7 +91,7 @@ void FUN_0047c3f0(void)
     else {
       FUN_0040a5f0(iVar2 + 0xb30,auStack_ac4,
                    (-(uint)((char)unaff_ESI[0xfe8] != '\0') & 0xffffff38) - 200);
-      puStack_8 = (undefined1 *)CONCAT31(puStack_8._1_3_,1);
+      puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
       uStack_ad4 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar3 = PeekPacketChecksumState();
@@ -133,7 +136,7 @@ void FUN_0047c3f0(void)
   }
   else {
     FUN_0040a6e0(iVar3,auStack_684,400);
-    iStack_10 = CONCAT31(iStack_10._1_3_,3);
+    iStack_10 = CONCAT31(SUBFIELD(iStack_10,1,undefined3),3);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();
     (*pcVar8)(&DAT_005a9068);
@@ -144,7 +147,7 @@ void FUN_0047c3f0(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
   (*pcVar8)(&DAT_005a9068);
-  uStack_18 = CONCAT31(uStack_18._1_3_,3);
+  uStack_18 = CONCAT31(SUBFIELD(uStack_18,1,undefined3),3);
   unaff_ESI[0xff3] = iVar3;
   if (iStack_89c != 0) {
     FUN_0040a240();
