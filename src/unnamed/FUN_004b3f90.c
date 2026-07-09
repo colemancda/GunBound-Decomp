@@ -23,7 +23,7 @@ undefined4 * FUN_004b3f90(undefined4 *param_1)
   *param_1 = &vtable_State11_InBattle;
   FUN_00406440();
   _eh_vector_constructor_iterator_(param_1 + 0x477,0x224,8,FUN_0040a280,FUN_0040a2a0);
-  local_4 = CONCAT31(local_4._1_3_,1);
+  local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
   FUN_00406440();
   FUN_00406440();
   FUN_00406440();
