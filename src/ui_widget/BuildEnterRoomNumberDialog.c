@@ -50,7 +50,7 @@ void __fastcall BuildEnterRoomNumberDialog(undefined4 param_1)
       puVar5[0xd] = 0xa0;
       puVar3 = (undefined4 *)CreateTextEntryWidget(0,99,0x32,0xb4,0xc,4);
       Widget_AddChild(puVar3);
-      FUN_0050efa0(unaff_EDI);
+      PanelManager_ClearAllFocus(unaff_EDI);
       (**(code **)*puVar3)(1);
       uVar4 = CreateTextEntryWidget(1,99,0x54,0xb4,0xc,4);
       Widget_AddChild(uVar4);

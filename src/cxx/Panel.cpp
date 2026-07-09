@@ -13,7 +13,7 @@ void PanelManager_Register(void *panel);
 /* Manager-wide clear-all-focus sweep (0x50efa0): drops every
  * registered panel subtree's +0x04 focus flag (receiver conventions
  * unresolved, same manager family). */
-void FUN_0050efa0(void *manager);
+void PanelManager_ClearAllFocus(void *manager);
 /* BringToFront (0x509960, __fastcall manager/panel): unlink the
  * panel's manager node and relink it at the head of the z-order. */
 void __fastcall FUN_00509960(void *manager, CPanel *panel);
@@ -156,7 +156,7 @@ CLobbyChatPanel * BuildLobbyChatPanel(int selectedTab)
     p->m_height = 0x103;
     CEditBox *input = CreateTextEntryWidget(0, 0x1a, 0xeb, 0x1e4, 0xc, 0x50);
     p->AddChild(input);
-    FUN_0050efa0(0 /* g_uiPanelManager; receiver convention unresolved */);
+    PanelManager_ClearAllFocus(0 /* g_uiPanelManager; receiver convention unresolved */);
     input->SetFocus(true);
     int i = 0;
     for (int x = 0x108; x < 0x208; x += 0x20, ++i) {
@@ -274,7 +274,7 @@ void BuildChatLogPanel(int arg1, int partnerRecord)
     p->AddChild(CreateLabelWidget(0, 0x2c7, 0xdf, 7, 0x16, 0x14));
     CEditBox *input = CreateTextEntryWidget(0, 0x13, 0x109, 0xd3, 0xc, 0x50);
     p->AddChild(input);
-    FUN_0050efa0(0 /* g_uiPanelManager; receiver convention unresolved */);
+    PanelManager_ClearAllFocus(0 /* g_uiPanelManager; receiver convention unresolved */);
     if (g_currentGameState != 0xb) {
         input->SetFocus(true);
     }
@@ -316,7 +316,7 @@ void BuildCreateRoomDialog(void *manager, int arg2, int arg3)
     CEditBox *roomName = CreateTextEntryWidget(0, 0x60, 0x2c, 0xbe, 0xc, 0x14);
     p->AddChild(roomName);
     FUN_00506f60();
-    FUN_0050efa0(0 /* g_uiPanelManager; receiver convention unresolved */);
+    PanelManager_ClearAllFocus(0 /* g_uiPanelManager; receiver convention unresolved */);
     roomName->SetFocus(true);
     p->AddChild(CreateTextEntryWidget(1, 0x60, 0x46, 0xbe, 0xc, 4));
     int i = 0;
@@ -399,7 +399,7 @@ void __fastcall BuildEnterRoomNumberDialog(int arg)
     p->m_height = 0xa0;
     CEditBox *roomNo = CreateTextEntryWidget(0, 99, 0x32, 0xb4, 0xc, 4);
     p->AddChild(roomNo);
-    FUN_0050efa0(0 /* g_uiPanelManager; receiver convention unresolved */);
+    PanelManager_ClearAllFocus(0 /* g_uiPanelManager; receiver convention unresolved */);
     roomNo->SetFocus(true);
     p->AddChild(CreateTextEntryWidget(1, 99, 0x54, 0xb4, 0xc, 4));
     p->AddChild(CreateLabelWidget(0, 0x579, 0xd5, 0x76, 0x52, 0x22));

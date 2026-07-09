@@ -45,7 +45,7 @@ undefined4 FUN_00508a50(int param_1)
       puVar2[0xd] = 0xca;
       puVar3 = (undefined4 *)CreateTextEntryWidget(0,0x6a,0x48,0xb6,0xc,0x14);
       Widget_AddChild(puVar3);
-      FUN_0050efa0(param_1);
+      PanelManager_ClearAllFocus(param_1);
       (**(code **)*puVar3)(1);
       FUN_00506f60();
       uVar4 = CreateLabelWidget(0,0x4ba,0xd5,0x76,0x52,0x22);

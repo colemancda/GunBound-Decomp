@@ -62,7 +62,7 @@ void BuildChatLogPanel(undefined4 param_1,int param_2)
   Widget_AddChild(uVar4);
   puVar5 = (undefined4 *)CreateTextEntryWidget(0,0x13,0x109,0xd3,0xc,0x50);
   Widget_AddChild(puVar5);
-  FUN_0050efa0(param_1);
+  PanelManager_ClearAllFocus(param_1);
   if (g_currentGameState != 0xb) {
     (**(code **)*puVar5)(1);
   }

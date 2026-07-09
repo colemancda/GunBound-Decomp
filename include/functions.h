@@ -1613,7 +1613,7 @@ void * __thiscall FUN_0050ede0();
 void __fastcall FUN_0050ee00();
 void PanelManager_Register();
 undefined4 FUN_0050ef10();
-void FUN_0050efa0();
+void PanelManager_ClearAllFocus();
 int __fastcall FUN_0050f000();
 undefined1 __thiscall FUN_0050f020();
 char __thiscall FUN_0050f060();

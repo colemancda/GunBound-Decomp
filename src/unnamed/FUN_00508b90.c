@@ -50,7 +50,7 @@ void FUN_00508b90(void)
       puVar5[0xd] = 0x94;
       puVar3 = (undefined4 *)CreateTextEntryWidget(0,0x32,0x58,0x8c,0xc,0xc);
       Widget_AddChild(puVar3);
-      FUN_0050efa0(unaff_EDI);
+      PanelManager_ClearAllFocus(unaff_EDI);
       (**(code **)*puVar3)(1);
       uVar4 = CreateLabelWidget(0,0x2c8,0x42,0x6b,0x4a,0x1a);
       Widget_AddChild(uVar4);

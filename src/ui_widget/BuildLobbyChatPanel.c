@@ -64,7 +64,7 @@ undefined4 * BuildLobbyChatPanel(int param_1)
   puVar9[0xd] = 0x103;
   puVar6 = (undefined4 *)CreateTextEntryWidget(0,0x1a,0xeb,0x1e4,0xc,0x50);
   Widget_AddChild(puVar6);
-  FUN_0050efa0(param_1);
+  PanelManager_ClearAllFocus(param_1);
   (**(code **)*puVar6)(1);
   iVar8 = 0;
   iVar11 = 0x108;

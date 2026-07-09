@@ -65,7 +65,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   puVar7 = (undefined4 *)CreateTextEntryWidget(0,0x60,0x2c,0xbe,0xc,0x14);
   Widget_AddChild(puVar7);
   FUN_00506f60();
-  FUN_0050efa0(param_1);
+  PanelManager_ClearAllFocus(param_1);
   (**(code **)*puVar7)(1);
   uVar8 = CreateTextEntryWidget(1,0x60,0x46,0xbe,0xc,4);
   Widget_AddChild(uVar8);
