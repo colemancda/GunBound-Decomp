@@ -1,0 +1,82 @@
+/* The game-state transition spine - promoted from the raw C port
+ * src/entry/ChangeGameState.c (0x4122f0). See src/cxx/README.md and
+ * ARCHITECTURE.md "The game-state machine".
+ *
+ * The old state's OnExit (slot 8) and the new state's OnEnter (slot 7)
+ * become real virtual calls here; the raw port's
+ * (**(code **)(*obj + 0x20))() shape is exactly this dispatch with the
+ * this-pointer dropped by the decompiler. */
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
+#include "GameState.h"
+
+extern "C" {
+extern int g_currentGameState;            /* 0x7934d0 */
+extern unsigned int g_stateChangeInProgress; /* 0x793508 */
+extern unsigned char g_stateChangeRequested; /* 0x7934d4 */
+extern CGameState *g_gameStateVTableArray[16]; /* 0x5b33f8 (a.k.a. g_gameStateObjects);
+                                                * declared char*[] in the C tree - the C++
+                                                * layer types the elements for real */
+extern int g_clientContext;
+extern unsigned char DAT_00e55a45;
+extern unsigned int DAT_00e9be98, DAT_00e9be9c, DAT_00e9c104;
+extern unsigned int DAT_0056d108, DAT_007934d8;
+extern unsigned char DAT_0067ec70;
+extern void *g_cursorTexture;
+extern const char s_cursor_005524e8[];
+extern const char s_normal_00552230[];
+
+void FUN_004f3020(void);                  /* active-object sweep (called twice) */
+void FUN_005098e0(int key);               /* destroy the UI panels registered under key */
+void AppendPersistentButtonName(void *slot); /* per-slot register-arg index dropped by Ghidra */
+void *FindPreloadedTextureByName(const char *name);
+void FUN_00461c60(const char *cursorName);/* select the named cursor */
+void FUN_005099b0(void);
+void FUN_004f0320(void);
+}
+
+/* 0x4122f0. Guarded transition: fire the old state's exit hook, tear
+ * down per-screen UI (the key-10000 panel bucket and the active-object
+ * sweeps), special-case QUIT (15) into PostQuitMessage, then reset the
+ * nine persistent bottom-bar button-name slots and the cursor before
+ * firing the new state's enter hook. A transition requested DURING the
+ * enter hook (g_stateChangeRequested) suppresses the tail bookkeeping
+ * so GameTick can dispatch the follow-up next frame. */
+void ChangeGameState(int newStateId)
+{
+    if (newStateId == g_currentGameState || g_stateChangeInProgress != 0) {
+        return;
+    }
+    DAT_00e55a45 = 0;
+    g_gameStateVTableArray[g_currentGameState]->OnExit();
+    FUN_004f3020();
+    DAT_00e9be98 = 0;
+    DAT_00e9be9c = 0;
+    DAT_00e9c104 = 0;
+    FUN_004f3020();
+    FUN_005098e0(10000);
+    if (newStateId == 0xf) {
+        PostQuitMessage(0);
+        return;
+    }
+    /* nine persistent button-name slots; the slot index rides in a
+     * register the decompiler dropped, so the raw port shows nine
+     * identical calls - kept literal */
+    for (int i = 0; i < 9; ++i) {
+        AppendPersistentButtonName((unsigned char *)&DAT_0067ec70 + g_clientContext);
+    }
+    g_cursorTexture = FindPreloadedTextureByName(s_cursor_005524e8);
+    FUN_00461c60(s_normal_00552230);
+    FUN_005099b0();
+    g_gameStateVTableArray[newStateId]->OnEnter();
+    g_currentGameState = newStateId;
+    FUN_004f0320();
+    if (g_stateChangeRequested != 0) {
+        g_stateChangeRequested = 0;
+        return;
+    }
+    DAT_0056d108 = 10;
+    DAT_007934d8 = 0xffffffff;
+}
