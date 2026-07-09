@@ -80,11 +80,17 @@ public:
 
 class CState05Logo1 : public CGameState {       /* size 8 */
 public:
+    virtual void OnEnter();                     /* 0x4433f0 - promoted, State05_Logo1.cpp */
+    virtual void OnExit();                      /* 0x443430 - promoted, State05_Logo1.cpp */
+
     int m_frameCounter;                         /* +0x04 (same shape as Title) */
 };
 
 class CState06Logo2 : public CGameState {       /* size 8 */
 public:
+    virtual void OnEnter();                     /* 0x443280 - promoted, State06_Logo2.cpp */
+    virtual void OnExit();                      /* 0x4432c0 - promoted, State06_Logo2.cpp */
+
     int m_frameCounter;                         /* +0x04 */
 };
 
