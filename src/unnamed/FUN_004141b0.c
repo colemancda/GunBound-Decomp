@@ -109,7 +109,7 @@ LAB_00414245:
              ,param_2 & 0x7fff);
     uVar2 = param_2;
   }
-  local_80a8 = CONCAT22(local_80a8._2_2_,(short)uVar2);
+  local_80a8 = CONCAT22(SUBFIELD(local_80a8,2,undefined2),(short)uVar2);
   local_808c = FUN_004f1790(&DAT_00ea0e18,0x186a1);
   if (param_3 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
