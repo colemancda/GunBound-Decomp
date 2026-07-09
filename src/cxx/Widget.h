@@ -124,7 +124,10 @@ public:
                                       * evt-1 reports from Draw (the scrollbar arrows' auto-
                                       * repeat rides on this); cleared by ResetPressState */
     u8  m_unk39;                     /* +0x39: (base drag flag slot per docs/widgets.md) */
-    u8  m_unk3a[2];                  /* +0x3a */
+    u8  m_tabSelected;               /* +0x3a: tab/radio selected flag - WorldListPanel's
+                                      * OnCommand flips it between the View All/Friends
+                                      * labels, and the builder pre-sets the default tab */
+    u8  m_unk3b;                     /* +0x3b */
     int m_spriteId;                  /* +0x3c: sprite/message id; Draw (0x50e350) blits via FindSpriteFrame */
 };
 

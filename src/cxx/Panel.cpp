@@ -71,7 +71,7 @@ CWorldListPanel * BuildWorldListPanel(int total)
     p->m_width = 0x221;
     p->m_height = 0x212;
     CLabel *viewAll = CreateLabelWidget(0, 0x44c, 0x145, 0x1eb, 0x4a, 0x1a);
-    viewAll->m_unk3a[0] = 1;
+    viewAll->m_tabSelected = 1;
     p->AddChild(viewAll);
     p->AddChild(CreateLabelWidget(1, 0x44d, 0x1a3, 0x1eb, 0x4a, 0x1a));
     p->AddChild(CreateScrollListWidget(0, total, 0x203, 0x4a, 0x12, 0x179, 0));
