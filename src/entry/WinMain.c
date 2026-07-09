@@ -239,7 +239,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   ShowCursor(0);
   local_dac = InitGame(hWnd,hInstance);
   if (local_dac == 0) {
-    FUN_0040d260(g_clientContext + 0x2331c);
+    BuildSystemInfoBlob(g_clientContext + 0x2331c);
     SetFocus(hWnd);
     local_db4 = DAT_007934f4;
     SignalConnectRequest(0x20a3);
@@ -271,7 +271,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     }
     iVar13 = InitGame(hWnd,hInstance);
     if (iVar13 == 0) {
-      FUN_0040d260(g_clientContext + 0x2331c);
+      BuildSystemInfoBlob(g_clientContext + 0x2331c);
       SetFocus(hWnd);
       DAT_007934e0 = timeGetTime();
       ChangeGameState(5);

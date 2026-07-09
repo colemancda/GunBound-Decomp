@@ -9,7 +9,7 @@ int __stdcall LoadSpriteSet(void *container, int key); /* sprite-set loader; .im
                                                        * .mp3 name in EDI (see State01_Title.cpp) */
 extern unsigned char DAT_00ea0e18;
 extern unsigned int  DAT_00ea0e1c;
-void FUN_0040d260(void *outBlob);        /* fills the 36-byte system-info blob */
+void BuildSystemInfoBlob(void *outBlob);        /* fills the 36-byte system-info blob */
 unsigned int FUN_004e5ac0(int handle, int len); /* channel send */
 extern unsigned int DAT_007934f4;        /* outgoing packet buffer base (declared uint in the C
                                           * tree; used as a pointer here, cast locally) */
@@ -59,7 +59,7 @@ void CState05Logo1::OnExit()
     }
 send_info:
     unsigned int blob[9];
-    FUN_0040d260(blob);
+    BuildSystemInfoBlob(blob);
     unsigned short *buf = (unsigned short *)DAT_007934f4;
     if (buf != 0) {
         buf[1] = 0xa000;

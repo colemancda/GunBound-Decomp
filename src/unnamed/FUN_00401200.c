@@ -33,7 +33,7 @@ void __fastcall FUN_00401200(int param_1)
     }
   }
   if ((DAT_00e55a54 != '\0') && (DAT_00e55a58 < 0x1e)) {
-    FUN_0040d260(local_20);
+    BuildSystemInfoBlob(local_20);
     if (DAT_00e55a64 != (int *)0x0) {
       (**(code **)(*DAT_00e55a64 + 0xc))(&DAT_005b1c70,DAT_005b33f4,local_20,local_40);
     }

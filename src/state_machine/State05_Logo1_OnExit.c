@@ -48,7 +48,7 @@ void State05_Logo1_OnExit(void)
   puVar5[3] = puVar5;
   puVar5[4] = puVar5;
 LAB_00443475:
-  FUN_0040d260(&uStack_2c);
+  BuildSystemInfoBlob(&uStack_2c);
   puVar4 = DAT_007934f4;
   if (DAT_007934f4 != (undefined2 *)0x0) {
     /* DAT_007934f4[1] in the original: rewritten through puVar4 (same

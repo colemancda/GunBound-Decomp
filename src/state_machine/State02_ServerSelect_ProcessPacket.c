@@ -246,7 +246,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           FUN_00404410(&DAT_00e53e88);
         }
         else {
-          FUN_0040d260(auStack_a0);
+          BuildSystemInfoBlob(auStack_a0);
           if (DAT_00e55a64 != (int *)0x0) {
             (**(code **)(*DAT_00e55a64 + 0xc))(&DAT_005b1c70,DAT_005b33f4,auStack_a0,&uStack_c0);
           }
@@ -311,7 +311,7 @@ LAB_004e0d7f:
   }
   if (opcode == 0x1001) {
     *(undefined1 *)((int)this + 5) = 0;
-    FUN_0040d260(auStack_a0);
+    BuildSystemInfoBlob(auStack_a0);
     iVar20 = DAT_007934ec;
     *(undefined2 *)(DAT_007934ec + 0x4d4) = 0x1010;
     *(undefined4 *)(iVar20 + 0x44d0) = 6;

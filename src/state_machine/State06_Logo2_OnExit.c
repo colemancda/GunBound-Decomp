@@ -28,7 +28,7 @@ void State06_Logo2_OnExit(void)
       puVar4 = (undefined4 *)puVar4[7];
       uVar1 = puVar4[1];
       if (10000 < uVar1) {
-        FUN_0040d260(auStack_28);
+        BuildSystemInfoBlob(auStack_28);
         return;
       }
     }
@@ -41,7 +41,7 @@ void State06_Logo2_OnExit(void)
     puVar4[3] = puVar4;
     puVar4[4] = puVar4;
   }
-  FUN_0040d260(auStack_28);
+  BuildSystemInfoBlob(auStack_28);
   return;
 }
 

@@ -313,7 +313,7 @@ void FUN_0040d180();
 void thunk_FUN_00415600();
 void FUN_0040d1c0();
 int __fastcall FUN_0040d200();
-void FUN_0040d260();
+void BuildSystemInfoBlob();
 void LoadClientSettingsFromRegistry();
 void FUN_0040d760();
 void __fastcall FUN_00411b40();

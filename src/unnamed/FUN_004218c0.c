@@ -91,7 +91,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
   if (((iVar4 == 0) || (iVar4 = __stricmp(local_220,&DAT_005535d8), iVar4 == 0)) ||
      ((iVar4 = __stricmp(local_220,s_message_005535d0), iVar4 == 0 ||
       (iVar4 = __stricmp(local_220,&DAT_005535cc), iVar4 == 0)))) {
-    FUN_0040d260(local_1a0);
+    BuildSystemInfoBlob(local_1a0);
     iVar4 = FUN_00525ea0(&local_100,local_80);
     if (iVar4 == 0) {
       if (2 < iVar3) {

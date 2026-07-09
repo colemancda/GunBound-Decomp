@@ -30,7 +30,7 @@ undefined4 FUN_00415230(void)
   *(undefined2 *)puVar5 = 0;
   *(undefined1 *)((int)puVar5 + 2) = 0;
   pcVar2 = local_108;
-  FUN_0040d260(local_88);
+  BuildSystemInfoBlob(local_88);
   do {
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;

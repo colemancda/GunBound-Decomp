@@ -1,4 +1,4 @@
-/* FUN_0040d260 - 0x0040d260 in the original binary.
+/* BuildSystemInfoBlob - 0x0040d260 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0040d260(undefined4 *param_1)
+void BuildSystemInfoBlob(undefined4 *param_1)
 
 {
   undefined4 *unaff_ESI;

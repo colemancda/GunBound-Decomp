@@ -8,7 +8,7 @@ int PlayMusicTrack(int trackId);
 int __stdcall LoadSpriteSet(void *container, int key);
 extern unsigned char DAT_00ea0e18;
 extern unsigned int  DAT_00ea0e1c;
-void FUN_0040d260(void *outBlob);
+void BuildSystemInfoBlob(void *outBlob);
 }
 
 /* 0x443280 - same shape as Title/Logo1: prime bucket 10000 (with
@@ -34,7 +34,7 @@ void CState06Logo2::OnExit()
             bucket = (unsigned int **)bucket[7];
             key = (unsigned int)bucket[1];
             if (10000 < key) {
-                FUN_0040d260(blob);
+                BuildSystemInfoBlob(blob);
                 return;
             }
         }
@@ -47,5 +47,5 @@ void CState06Logo2::OnExit()
         bucket[3] = (unsigned int *)bucket;
         bucket[4] = (unsigned int *)bucket;
     }
-    FUN_0040d260(blob);
+    BuildSystemInfoBlob(blob);
 }

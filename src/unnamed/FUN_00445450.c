@@ -940,7 +940,7 @@ LAB_00446f6d:
     FUN_0044b720(param_1);
     FUN_00449250(param_1,1,0);
   case 0x3d:
-    FUN_0040d260(&local_4518);
+    BuildSystemInfoBlob(&local_4518);
     puVar11 = &local_4518;
     pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0xea69);
     _sprintf(local_4418,pcVar13,puVar11);
