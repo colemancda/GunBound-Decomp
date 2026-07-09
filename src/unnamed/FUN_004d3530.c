@@ -70,11 +70,11 @@ void FUN_004d3530(int param_1)
   uVar2 = FUN_0040a7d0(param_1 + 0x84,local_5454,0x343fd);
   local_4 = 0;
   FUN_0040a5f0(uVar2,local_5230,0x269ec3);
-  local_4._0_1_ = 1;
+  SUBFIELD(local_4,0,undefined1) = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar1 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_4 = (uint)local_4._1_3_ << 8;
+  local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   *(undefined2 *)(param_1 + 0x44d6) = uVar1;
   if (local_521c != 0) {
     FUN_0040a240();
