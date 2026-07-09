@@ -103,7 +103,7 @@ void __fastcall FUN_004acd10(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_45c[0] = PeekPacketChecksumState();
   iVar7 = PeekPacketChecksumState();
-  local_45c[0] = CONCAT31(local_45c[0]._1_3_,local_45c[0] < iVar7);
+  local_45c[0] = CONCAT31(SUBFIELD(local_45c[0],1,undefined3),local_45c[0] < iVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar3 = FUN_00406610(local_45c[0]);
   if (cVar3 != '\0') {
