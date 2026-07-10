@@ -71,8 +71,8 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
         cVar1 = FUN_0050f260(param_3);
         cVar1 = '\x01' - (cVar1 != '\0');
       }
-      uVar4 = DAT_0056d10c;
-      uVar3 = DAT_0056d110;
+      uVar4 = g_cursorAnchorX;
+      uVar3 = g_cursorAnchorY;
       if (param_3 == 0x7a) {
         DAT_00793520 = 1;
       }
@@ -100,12 +100,12 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     if ((bool)cVar1) {
       FUN_004061e0();
     }
-    DAT_00e536c0 = DAT_00e536c0 + (uVar4 - DAT_0056d10c);
-    DAT_00e536c4 = DAT_00e536c4 + (uVar3 - DAT_0056d110);
-    if ((DAT_00e53c3c == '\0') && ((DAT_0056d10c != uVar4 || (DAT_0056d110 != uVar3)))) {
-      SetCursorPos(DAT_0056d10c,DAT_0056d110);
-      uVar4 = DAT_0056d10c;
-      uVar3 = DAT_0056d110;
+    DAT_00e536c0 = DAT_00e536c0 + (uVar4 - g_cursorAnchorX);
+    DAT_00e536c4 = DAT_00e536c4 + (uVar3 - g_cursorAnchorY);
+    if ((DAT_00e53c3c == '\0') && ((g_cursorAnchorX != uVar4 || (g_cursorAnchorY != uVar3)))) {
+      SetCursorPos(g_cursorAnchorX,g_cursorAnchorY);
+      uVar4 = g_cursorAnchorX;
+      uVar3 = g_cursorAnchorY;
     }
     goto LAB_0041038c;
   case 0x201:
@@ -124,8 +124,8 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     cVar1 = DAT_00e9bea4 != '\x01';
     FUN_00406170();
     DAT_00e9bea4 = 0;
-    uVar4 = DAT_0056d10c;
-    uVar3 = DAT_0056d110;
+    uVar4 = g_cursorAnchorX;
+    uVar3 = g_cursorAnchorY;
     goto LAB_0041038c;
   case 0x203:
     cVar1 = FUN_0050f1f0(param_4 & 0xffff,param_4 >> 0x10);
@@ -134,11 +134,11 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     cVar1 = FUN_0050f150(param_4 & 0xffff,param_4 >> 0x10);
 LAB_00410384:
     cVar1 = '\x01' - (cVar1 != '\0');
-    uVar4 = DAT_0056d10c;
-    uVar3 = DAT_0056d110;
+    uVar4 = g_cursorAnchorX;
+    uVar3 = g_cursorAnchorY;
 LAB_0041038c:
-    DAT_0056d110 = uVar3;
-    DAT_0056d10c = uVar4;
+    g_cursorAnchorY = uVar3;
+    g_cursorAnchorX = uVar4;
     if (cVar1 == '\0') goto LAB_004103ac;
   }
 switchD_004101d3_caseD_113:

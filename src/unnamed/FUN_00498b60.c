@@ -135,7 +135,7 @@ LAB_00498f85:
     EncodeOutgoingPacketField(local_8c4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
@@ -220,7 +220,7 @@ LAB_00499217:
   local_8c4 = 0;
   do {
     iVar5 = GetPlayerRecordBySlot(g_clientContext);
-    if ((iVar5 != 0) && (cVar2 = FUN_004065a0(), cVar2 != '\x01')) {
+    if ((iVar5 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')) {
       FUN_0040aca0(param_1 + 0x10,local_684,iVar5 + 0x90c);
       local_c = 8;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

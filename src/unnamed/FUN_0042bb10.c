@@ -18,7 +18,7 @@ void __thiscall FUN_0042bb10(int param_1,undefined4 param_2,int param_3)
   int iVar5;
   int unaff_ESI;
   
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
     pvVar2 = operator_new(0x48);
     if (pvVar2 == (void *)0x0) {

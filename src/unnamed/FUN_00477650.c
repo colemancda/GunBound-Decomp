@@ -33,7 +33,7 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
    * Same rationale as entry/InitGame.c - see src/README.md. local_4's
    * `._0_1_`/`._1_3_` partial-field accesses are rewritten as plain
    * int operations, same reasoning as FUN_004174c0.c's fix. */
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if ((cVar1 == '\0') && (*(char *)(param_1 + 0x14) == '\0')) {
     uVar2 = FUN_0040a8c0(param_4 + 0x2908,local_678,2);
     local_4 = 0;

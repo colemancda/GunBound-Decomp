@@ -21,7 +21,7 @@ uint FUN_0041ea30(undefined4 param_1,int param_2)
     uVar1 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (param_2 == uVar1) {
-      uVar1 = FUN_004065a0();
+      uVar1 = PeekPacketChecksumBool();
       return uVar1;
     }
     iVar2 = iVar2 + 1;

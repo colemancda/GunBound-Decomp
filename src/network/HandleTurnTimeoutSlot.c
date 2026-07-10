@@ -68,7 +68,7 @@ void HandleTurnTimeoutSlot(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (param_1 == uVar6) {
       pbVar1 = (byte *)((int)piVar5 + 0x8bba);
-      cVar4 = FUN_004065a0();
+      cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar8 = _rand();
@@ -98,7 +98,7 @@ void HandleTurnTimeoutSlot(int param_1)
         CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26
                            ,0,0);
         FUN_00406300(0);
-        cVar4 = FUN_004065a0();
+        cVar4 = PeekPacketChecksumBool();
         if (cVar4 == '\x01') {
           FUN_00406300(1);
           FUN_00405fb0();

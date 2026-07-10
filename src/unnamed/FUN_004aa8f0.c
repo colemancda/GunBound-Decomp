@@ -82,7 +82,7 @@ void __fastcall FUN_004aa8f0(int param_1)
   FUN_004372f0(*(undefined4 *)(param_1 + 8),uVar4,uVar3,*(undefined4 *)(param_1 + 0x3894),
                param_1 + 0x3898);
   iVar1 = g_clientContext;
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 != '\x01') {
     iVar11 = *(int *)(&DAT_006a7750 + iVar1);
     if (iVar11 < 0x10) {
@@ -95,12 +95,12 @@ void __fastcall FUN_004aa8f0(int param_1)
     }
     *(int *)(&DAT_006a7754 + iVar1) = iVar11;
   }
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
     FUN_004ee9b0(0);
     pcVar12 = (code *)LeaveCriticalSection;
   }
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 != '\0') {
     cVar2 = FUN_0043a530();
     if (cVar2 == '\0') {

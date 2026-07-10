@@ -17,7 +17,7 @@ void FUN_00436ac0(undefined4 param_1,undefined4 param_2)
   int iVar5;
   int unaff_EBX;
   
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if ((cVar1 == '\0') && (unaff_EBX != 0xff)) {
     pvVar2 = operator_new(0x50);
     if (pvVar2 == (void *)0x0) {

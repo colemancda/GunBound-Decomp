@@ -22,7 +22,7 @@ uint FUN_00439600(int *param_1,int param_2,int param_3,int param_4,int param_5,i
   int local_94;
   char local_80 [128];
   
-  uVar3 = FUN_004065a0();
+  uVar3 = PeekPacketChecksumBool();
   if ((char)uVar3 == '\0') {
     bVar1 = (&DAT_005f2f54)[g_clientContext];
     uVar3 = (uint)bVar1;

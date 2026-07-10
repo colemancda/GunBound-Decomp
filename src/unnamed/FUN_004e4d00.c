@@ -36,7 +36,7 @@ void FUN_004e4d00(int param_1)
   short local_c;
   int local_4;
   
-  cVar5 = FUN_004065a0();
+  cVar5 = PeekPacketChecksumBool();
   if (cVar5 != '\x01') {
     iVar6 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar15 = *(uint *)(iVar6 + 4);

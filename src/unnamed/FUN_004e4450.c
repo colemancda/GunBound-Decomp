@@ -179,7 +179,7 @@ void FUN_004e4450(int param_1,int param_2,int param_3)
       }
     } while (local_34 <= local_30);
   }
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if ((cVar2 != '\x01') && ((&DAT_005f2f54)[g_clientContext] != '\x01')) {
     local_30 = iVar8 + 3;
     local_38 = 1 - local_30;

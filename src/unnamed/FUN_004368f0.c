@@ -14,7 +14,7 @@ void FUN_004368f0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
   char cVar1;
   undefined4 *puVar2;
   
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
     puVar2 = operator_new(0x4c);
     if (puVar2 == (undefined4 *)0x0) {

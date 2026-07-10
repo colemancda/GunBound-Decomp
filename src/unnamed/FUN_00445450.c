@@ -61,7 +61,7 @@ void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefine
   FUN_00425350();
   local_4 = 0;
   if (param_2 != 0) {
-    if ((param_2 != 0xb) || (cVar1 = FUN_004065a0(), cVar1 != '\0')) goto switchD_00445591_caseD_2;
+    if ((param_2 != 0xb) || (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) goto switchD_00445591_caseD_2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = _rand();
     *(char *)(param_1 + 0x32c54) = (char)iVar3;
@@ -90,8 +90,8 @@ LAB_00445543:
     break;
   case 10:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
-    if (((cVar1 != '\0') || (cVar1 = FUN_004065a0(), cVar1 == '\x01')) ||
-       ((cVar1 = FUN_004065a0(), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
+    if (((cVar1 != '\0') || (cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01')) ||
+       ((cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,1);
     FUN_00449250(param_1,1,0);
     FUN_00406380(1);
@@ -99,8 +99,8 @@ LAB_00445543:
     goto LAB_00445629;
   case 0xb:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
-    if (((cVar1 != '\0') || (cVar1 = FUN_004065a0(), cVar1 == '\x01')) ||
-       ((cVar1 = FUN_004065a0(), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
+    if (((cVar1 != '\0') || (cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01')) ||
+       ((cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,0);
     FUN_00449250(param_1,1,0);
     FUN_00406380(0);
@@ -116,8 +116,8 @@ LAB_004457e7:
     break;
   case 0xc:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
-    if ((((cVar1 != '\0') || (cVar1 = FUN_004065a0(), cVar1 == '\x01')) ||
-        (cVar1 = FUN_004065a0(), cVar1 == '\x01')) || (g_stateChangeInProgress != 0)) break;
+    if ((((cVar1 != '\0') || (cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01')) ||
+        (cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01')) || (g_stateChangeInProgress != 0)) break;
     FUN_00449540(param_1,2);
     FUN_00449250(param_1,1,0);
     FUN_00406380(0);
@@ -126,8 +126,8 @@ LAB_004457e7:
     goto LAB_0044563c;
   case 0xd:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
-    if (((cVar1 != '\0') || (cVar1 = FUN_004065a0(), cVar1 == '\x01')) ||
-       ((cVar1 = FUN_004065a0(), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
+    if (((cVar1 != '\0') || (cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01')) ||
+       ((cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,3);
     FUN_00449250(param_1,1,0);
     FUN_00406380(0);
@@ -137,21 +137,21 @@ LAB_004457e7:
     goto LAB_004457e7;
   case 0xe:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
-    if ((cVar1 == '\0') && (cVar1 = FUN_004065a0(), cVar1 != '\x01')) {
-      FUN_004065a0();
+    if ((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) {
+      PeekPacketChecksumBool();
     }
     break;
   case 0xf:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
-    if ((((cVar1 == '\0') && (cVar1 = FUN_004065a0(), cVar1 != '\x01')) &&
-        (cVar1 = FUN_004065a0(), cVar1 != '\x01')) && (g_stateChangeInProgress == 0)) {
+    if ((((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
+        (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) && (g_stateChangeInProgress == 0)) {
       FUN_0044b460();
     }
     break;
   case 0x10:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
-    if (((cVar1 == '\0') && (cVar1 = FUN_004065a0(), cVar1 != '\x01')) &&
-       ((cVar1 = FUN_004065a0(), cVar1 != '\x01' && (g_stateChangeInProgress == 0)))) {
+    if (((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
+       ((cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01' && (g_stateChangeInProgress == 0)))) {
       if (*(uint *)(g_clientContext + 0x44e24) < 100) {
         FUN_00425350();
         iVar3 = param_1 + 4;
@@ -272,22 +272,22 @@ LAB_004457e7:
     break;
   case 0x11:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
-    if ((((cVar1 == '\0') && (cVar1 = FUN_004065a0(), cVar1 != '\x01')) &&
-        (cVar1 = FUN_004065a0(), cVar1 != '\x01')) && (g_stateChangeInProgress == 0)) {
+    if ((((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
+        (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) && (g_stateChangeInProgress == 0)) {
       FUN_00449b60(param_1);
     }
     break;
   case 0x12:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
-    if (((cVar1 == '\0') && (cVar1 = FUN_004065a0(), cVar1 != '\x01')) &&
-       ((cVar1 = FUN_004065a0(), cVar1 != '\x01' && (g_stateChangeInProgress == 0)))) {
+    if (((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
+       ((cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01' && (g_stateChangeInProgress == 0)))) {
       FUN_00449db0(param_1);
     }
     break;
   case 0x14:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
-    if ((((cVar1 == '\0') && (cVar1 = FUN_004065a0(), cVar1 != '\x01')) &&
-        (cVar1 = FUN_004065a0(), cVar1 != '\x01')) && (g_stateChangeInProgress == 0)) {
+    if ((((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
+        (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) && (g_stateChangeInProgress == 0)) {
       iVar3 = param_1 + 0x3054c;
       iVar9 = FUN_0040a4d0(param_1 + 0x228);
       QueueOutgoingPacketField(iVar9 + *(int *)(param_1 + 0x454));
@@ -366,8 +366,8 @@ LAB_004457e7:
     break;
   case 0x16:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
-    if (((cVar1 == '\0') && (cVar1 = FUN_004065a0(), cVar1 != '\x01')) &&
-       ((cVar1 = FUN_004065a0(), cVar1 != '\x01' && (g_stateChangeInProgress == 0)))) {
+    if (((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
+       ((cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01' && (g_stateChangeInProgress == 0)))) {
       iVar3 = param_1 + 0x3054c;
       iVar9 = FUN_0040a4d0(param_1 + 0x228);
       QueueOutgoingPacketField(iVar9 + *(int *)(param_1 + 0x454));
@@ -497,8 +497,8 @@ LAB_004457e7:
     break;
   case 0x1a:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
-    if ((((cVar1 == '\0') && (cVar1 = FUN_004065a0(), cVar1 != '\x01')) &&
-        (cVar1 = FUN_004065a0(), cVar1 != '\x01')) && (g_stateChangeInProgress == 0)) {
+    if ((((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
+        (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) && (g_stateChangeInProgress == 0)) {
       FUN_00425350();
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),4);
       iVar3 = param_1 + 0x3054c;
@@ -613,7 +613,7 @@ LAB_00446d2b:
         FUN_0040a2a0();
         FUN_0040a4d0(iVar3);
         FUN_00426570();
-        cVar1 = FUN_004065a0();
+        cVar1 = PeekPacketChecksumBool();
         iVar9 = DAT_007934e8;
         *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
         if (cVar1 == '\0') {
@@ -673,7 +673,7 @@ LAB_00446d2b:
         iVar3 = param_1 + 0x3054c;
         FUN_0040a4d0(iVar3);
         FUN_00426570();
-        cVar1 = FUN_004065a0();
+        cVar1 = PeekPacketChecksumBool();
         iVar9 = DAT_007934e8;
         *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
         if (cVar1 == '\0') {
@@ -790,7 +790,7 @@ LAB_00446f6d:
         *(undefined1 *)(param_1 + 0x30bb9) = 0;
         FUN_0040a4d0(iVar3);
         FUN_00426570();
-        cVar1 = FUN_004065a0();
+        cVar1 = PeekPacketChecksumBool();
         iVar9 = DAT_007934e8;
         *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
         if (cVar1 == '\0') {
@@ -847,7 +847,7 @@ LAB_00446f6d:
         FUN_004d2530(param_1 + 0x32d63);
         FUN_0040a4d0(iVar3);
         FUN_00426570();
-        cVar1 = FUN_004065a0();
+        cVar1 = PeekPacketChecksumBool();
         iVar3 = DAT_007934e8;
         if (cVar1 == '\0') {
           uVar12 = 0;

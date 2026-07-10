@@ -310,8 +310,12 @@ extern uint8_t DAT_00569e2c;
 extern uint8_t DAT_00569e48;
 extern uint8_t DAT_00569e68;
 extern uint32_t DAT_0056d108;
-extern uint32_t DAT_0056d10c;
-extern uint32_t DAT_0056d110;
+/* g_cursorAnchorX / g_cursorAnchorY (were DAT_0056d10c / DAT_0056d110) - the
+ * on-screen cursor position: where GameTick blits the cursor sprite, and the
+ * SetCursorPos snap-back anchor for FPS-style relative mouse. Maintained by
+ * WndProc mouse handling. See ARCHITECTURE.md "custom cursor". */
+extern uint32_t g_cursorAnchorX;
+extern uint32_t g_cursorAnchorY;
 extern uint32_t DAT_0056d118;
 extern uint8_t DAT_0056d350;
 extern uint32_t DAT_0056d3d8;
@@ -563,7 +567,10 @@ extern uint32_t DAT_007934f4;
 extern uint8_t DAT_007934f8;
 extern uint32_t DAT_007934fc;
 extern uint32_t DAT_00793500;
-extern uint32_t DAT_00793504;
+/* g_frameCounter (was DAT_00793504) - running elapsed-frame counter, advanced
+ * by GameTick each tick (`+= framesElapsed`). Drives frame-timed animation,
+ * e.g. the replay cursor blink (`g_frameCounter % 0x14 < 10`). */
+extern uint32_t g_frameCounter;
 extern uint8_t DAT_0079350c;
 extern uint8_t DAT_0079350d;
 extern uint32_t g_cursorDirection;
@@ -652,7 +659,11 @@ extern uint8_t g_localizedStringTable;
  * preloaded via FindPreloadedTextureByName("cursor") on every ChangeGameState;
  * the in-game pointer drawn at the mouse position. */
 extern uint8_t g_cursorTexture;
-extern uint32_t DAT_007a7674;
+/* g_cursorFrame (was DAT_007a7674) - current cursor.img frame index that
+ * GameTick blits at (g_cursorAnchorX, g_cursorAnchorY). -1 hides the cursor;
+ * 0..101 selects one of cursor.img's 102 frames (the shape/animation state).
+ * See ARCHITECTURE.md "custom cursor". */
+extern uint32_t g_cursorFrame;
 extern uint8_t DAT_007a768c;
 extern uint8_t DAT_00d9aa20;
 extern uint8_t DAT_00d9aa24;

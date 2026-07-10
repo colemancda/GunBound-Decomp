@@ -38,7 +38,7 @@ void FUN_004785f0(int param_1)
   local_4 = 0xffffffff;
   puStack_8 = &LAB_00539797;
   *unaff_FS_OFFSET = &local_c;
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\x01') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(0);

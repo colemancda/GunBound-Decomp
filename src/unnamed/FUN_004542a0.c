@@ -87,13 +87,13 @@ void __thiscall FUN_004542a0(int param_1,undefined4 param_2,int param_3)
       puVar11 = &DAT_00794e48;
     }
     uVar5 = FUN_0040a4d0(puVar11);
-    cVar2 = FUN_004065a0();
+    cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\x01') {
 LAB_0045439b:
       local_1e0c = 0;
     }
     else {
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       local_1e0c = 8;
       if (cVar2 == '\x01') goto LAB_0045439b;
     }
@@ -101,7 +101,7 @@ LAB_0045439b:
     local_4 = 0;
     uVar7 = FUN_0040aba0(param_1 + 0x90c,local_112c,param_1 + 0x53fc);
     local_4 = 1;
-    uVar5 = FUN_004065a0(uVar5,1);
+    uVar5 = PeekPacketChecksumBool(uVar5,1);
     uVar8 = FUN_0040a4d0(param_1 + 0x7864);
     uVar9 = FUN_0040a4d0(param_1 + 0x4d90);
     uVar6 = FUN_0040a4d0(uVar6);
@@ -112,7 +112,7 @@ LAB_0045439b:
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
-    cVar2 = FUN_004065a0();
+    cVar2 = PeekPacketChecksumBool();
     goto joined_r0x00454a06;
   case 6:
     switch(param_3) {
@@ -125,13 +125,13 @@ LAB_0045439b:
         puVar11 = &DAT_00794e48;
       }
       uVar5 = FUN_0040a4d0(puVar11);
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\x01') {
 LAB_00454508:
         local_1e08 = 0;
       }
       else {
-        cVar2 = FUN_004065a0();
+        cVar2 = PeekPacketChecksumBool();
         local_1e08 = 8;
         if (cVar2 == '\x01') goto LAB_00454508;
       }
@@ -139,7 +139,7 @@ LAB_00454508:
       local_4 = 2;
       uVar7 = FUN_0040aba0(param_1 + 0x90c,local_ce4,param_1 + 0x5844);
       local_4 = 3;
-      uVar5 = FUN_004065a0(uVar5,4);
+      uVar5 = PeekPacketChecksumBool(uVar5,4);
       uVar8 = FUN_0040a4d0(param_1 + 0x7864);
       uVar9 = FUN_0040a4d0(param_1 + 0x4d90);
       uVar6 = FUN_0040a4d0(uVar6);
@@ -150,7 +150,7 @@ LAB_00454508:
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
         FUN_004ee9b0(0);
       }
@@ -165,13 +165,13 @@ LAB_00454508:
         puVar11 = &DAT_00794e48;
       }
       uVar5 = FUN_0040a4d0(puVar11);
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\x01') {
 LAB_00454665:
         local_1e08 = 1;
       }
       else {
-        cVar2 = FUN_004065a0();
+        cVar2 = PeekPacketChecksumBool();
         local_1e08 = 9;
         if (cVar2 == '\x01') goto LAB_00454665;
       }
@@ -179,7 +179,7 @@ LAB_00454665:
       local_4 = 4;
       uVar7 = FUN_0040aba0(param_1 + 0x90c,local_454,param_1 + 0x5844);
       local_4 = 5;
-      uVar5 = FUN_004065a0(uVar5,4);
+      uVar5 = PeekPacketChecksumBool(uVar5,4);
       uVar8 = FUN_0040a4d0(param_1 + 0x7864);
       uVar9 = FUN_0040a4d0(param_1 + 0x4d90);
       uVar6 = FUN_0040a4d0(uVar6);
@@ -190,7 +190,7 @@ LAB_00454665:
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
         FUN_004ee9b0(0);
       }
@@ -204,13 +204,13 @@ LAB_00454665:
         puVar11 = &DAT_00794e48;
       }
       uVar5 = FUN_0040a4d0(puVar11);
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\x01') {
 LAB_004547bc:
         local_1e08 = 2;
       }
       else {
-        cVar2 = FUN_004065a0();
+        cVar2 = PeekPacketChecksumBool();
         local_1e08 = 10;
         if (cVar2 == '\x01') goto LAB_004547bc;
       }
@@ -218,7 +218,7 @@ LAB_004547bc:
       local_4 = 6;
       uVar7 = FUN_0040aba0(param_1 + 0x90c,local_89c,param_1 + 0x5844);
       local_4 = 7;
-      uVar5 = FUN_004065a0(uVar5,4);
+      uVar5 = PeekPacketChecksumBool(uVar5,4);
       uVar8 = FUN_0040a4d0(param_1 + 0x7864);
       uVar9 = FUN_0040a4d0(param_1 + 0x4d90);
       uVar6 = FUN_0040a4d0(uVar6);
@@ -229,7 +229,7 @@ LAB_004547bc:
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
         FUN_004ee9b0(0);
       }
@@ -243,13 +243,13 @@ LAB_004547bc:
         puVar11 = &DAT_00794e48;
       }
       uVar5 = FUN_0040a4d0(puVar11);
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\x01') {
 LAB_00454919:
         local_1e08 = 3;
       }
       else {
-        cVar2 = FUN_004065a0();
+        cVar2 = PeekPacketChecksumBool();
         local_1e08 = 0xb;
         if (cVar2 == '\x01') goto LAB_00454919;
       }
@@ -257,7 +257,7 @@ LAB_00454919:
       local_4 = 8;
       uVar7 = FUN_0040aba0(param_1 + 0x90c,local_1798,param_1 + 0x5844);
       local_4 = 9;
-      uVar5 = FUN_004065a0(uVar5,4);
+      uVar5 = PeekPacketChecksumBool(uVar5,4);
       uVar8 = FUN_0040a4d0(param_1 + 0x7864);
       uVar9 = FUN_0040a4d0(param_1 + 0x4d90);
       uVar6 = FUN_0040a4d0(uVar6);
@@ -268,14 +268,14 @@ LAB_00454919:
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
     }
 joined_r0x00454a06:
     if (cVar2 == '\0') {
       FUN_004ee9b0(0);
     }
-    cVar2 = FUN_004065a0();
-    if ((cVar2 == '\0') && (cVar2 = FUN_004065a0(), cVar2 == '\0')) {
+    cVar2 = PeekPacketChecksumBool();
+    if ((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
 LAB_00454b61:
       cVar2 = FUN_0043a530();
       if (cVar2 == '\0') {
@@ -289,8 +289,8 @@ LAB_00454b61:
     uVar3 = 8;
     if (param_3 != 8) break;
     QueueOutgoingPacketField(0xffffffff);
-    cVar2 = FUN_004065a0();
-    if ((cVar2 == '\x01') || (cVar2 = FUN_004065a0(), cVar2 == '\x01')) {
+    cVar2 = PeekPacketChecksumBool();
+    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
       uVar3 = 0;
     }
     uVar5 = FUN_0040aca0(param_1 + 0xb30,local_ac0,param_1 + 0x5620);
@@ -307,7 +307,7 @@ LAB_00454b61:
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
-    cVar2 = FUN_004065a0();
+    cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\0') {
       FUN_004ee9b0(0);
     }
@@ -327,7 +327,7 @@ LAB_00454b61:
       uVar7 = FUN_0040aba0(param_1 + 0x90c,local_678,param_1 + 0x5c8c);
       uVar12 = 1;
       local_4 = 0xd;
-      uVar8 = FUN_004065a0(uVar5,1);
+      uVar8 = PeekPacketChecksumBool(uVar5,1);
       uVar9 = FUN_0040a4d0(param_1 + 0x7864);
       uVar10 = FUN_0040a4d0(param_1 + 0x4d90);
       uVar6 = FUN_0040a4d0(uVar6);
@@ -338,7 +338,7 @@ LAB_00454b61:
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
         FUN_004ee9b0(0);
       }

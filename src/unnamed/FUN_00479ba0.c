@@ -101,7 +101,7 @@ LAB_00479d44:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeOutgoingPacketField(0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      cVar3 = FUN_004065a0();
+      cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\x01') {
         uVar7 = FUN_00415c60();
         if ((uVar7 & 1) != 0) {
@@ -125,7 +125,7 @@ LAB_00479e75:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeOutgoingPacketField(0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      cVar3 = FUN_004065a0();
+      cVar3 = PeekPacketChecksumBool();
       if ((cVar3 == '\x01') && (iVar5 < *(int *)(&DAT_006a7724 + g_clientContext))) goto LAB_00479e75;
     }
   }
@@ -139,7 +139,7 @@ LAB_00479e75:
     EncodeOutgoingPacketField(iVar5 + 1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_0040afb0(param_1 + 0x67d);
-    cVar3 = FUN_004065a0();
+    cVar3 = PeekPacketChecksumBool();
     if (cVar3 != '\0') {
       FUN_0040a4d0(g_clientContext + 0x5b1ac);
       FUN_0040a4d0(g_clientContext + 0x5af88);
@@ -159,15 +159,15 @@ LAB_00479e75:
       FUN_0040ab60(uVar4);
     }
   }
-  iVar5 = FUN_004065a0();
+  iVar5 = PeekPacketChecksumBool();
   if ((char)iVar5 != '\0') goto LAB_0047a932;
-  cVar3 = FUN_004065a0();
+  cVar3 = PeekPacketChecksumBool();
   if (cVar3 == '\x01') {
     iVar6 = FUN_0040a4d0(param_1 + 0x120);
     iVar8 = FUN_0040a4d0(param_1 + 0x97);
     iVar5 = g_clientContext;
     piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar3 = FUN_004065a0();
+    cVar3 = PeekPacketChecksumBool();
     if ((cVar3 == '\0') && ((&DAT_006a7758)[iVar5] != '\0')) {
       if (((&DAT_006a7736)[iVar5] == '\x01') &&
          ((uVar7 = iVar6 - *(int *)(&DAT_006a7714 + iVar5) >> 0x1f,
@@ -232,7 +232,7 @@ LAB_00479e75:
   iVar6 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((iVar5 < iVar6) || (cVar3 = FUN_0040b450(param_1 + 0x232,param_1 + 0x1a9), cVar3 != '\0')) {
-    cVar3 = FUN_004065a0();
+    cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\x01') {
       uVar4 = FUN_0040a4d0(&DAT_00e55ab8);
       QueueOutgoingPacketField(uVar4);

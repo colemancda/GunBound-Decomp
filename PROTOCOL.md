@@ -1890,7 +1890,7 @@ than one packed struct per slot.
 **Direction**: incoming.
 
 **Behavior**: guarded on a successful `GetPlayerRecordBySlot` lookup and a
-turn/state check (`FUN_004065a0() == 0`); when both pass, relays two
+turn/state check (`PeekPacketChecksumBool() == 0`); when both pass, relays two
 16-bit fields from the payload (`payload+0x22`, `payload+0x24`) as
 outgoing packet fields, encoding the checksum state after each, then
 queues a boolean derived from `payload+0x26 == 1`.

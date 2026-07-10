@@ -175,7 +175,7 @@ LAB_0044469b:
             local_520 = local_520 + 1;
           } while (local_520 < (int)(uint)uVar1);
         }
-        cVar2 = FUN_004065a0();
+        cVar2 = PeekPacketChecksumBool();
         if (cVar2 == '\0') {
           FUN_0044b900(this);
         }
@@ -381,15 +381,15 @@ LAB_0044469b:
               if (iVar20 == iVar6) {
                 switch(local_520) {
                 case 0:
-                  cVar2 = FUN_004065a0();
+                  cVar2 = PeekPacketChecksumBool();
                   uVar11 = -(uint)(cVar2 != '\0') & 0x8000;
                   break;
                 case 1:
-                  cVar2 = FUN_004065a0();
+                  cVar2 = PeekPacketChecksumBool();
                   uVar11 = -(uint)(cVar2 != '\0') & 0x8000;
                   break;
                 case 2:
-                  cVar2 = FUN_004065a0();
+                  cVar2 = PeekPacketChecksumBool();
                   uVar11 = -(uint)(cVar2 != '\0') & 0x8000;
                   break;
                 case 3:
@@ -494,15 +494,15 @@ LAB_00444d76:
           if (iVar4 == iVar20) {
             switch(local_514) {
             case 0:
-              cVar2 = FUN_004065a0();
+              cVar2 = PeekPacketChecksumBool();
               uVar11 = -(uint)(cVar2 != '\0') & 0x8000;
               break;
             case 1:
-              cVar2 = FUN_004065a0();
+              cVar2 = PeekPacketChecksumBool();
               uVar11 = -(uint)(cVar2 != '\0') & 0x8000;
               break;
             case 2:
-              cVar2 = FUN_004065a0();
+              cVar2 = PeekPacketChecksumBool();
               uVar11 = -(uint)(cVar2 != '\0') & 0x8000;
               break;
             case 3:

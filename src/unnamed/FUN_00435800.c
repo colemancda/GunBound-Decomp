@@ -31,7 +31,7 @@ void FUN_00435800(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053aed4;
   *unaff_FS_OFFSET = &local_c;
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
     iVar2 = (int)(param_3 + (param_3 >> 0x1f & 3U)) >> 2;
     for (iVar6 = (param_2 - iVar2) + -5; iVar6 <= iVar2 + 5 + param_2; iVar6 = iVar6 + 1) {

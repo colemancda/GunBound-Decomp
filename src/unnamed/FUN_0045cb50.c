@@ -36,7 +36,7 @@ void __fastcall FUN_0045cb50(int *param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if ((iVar5 + 500 < iVar4) || (cVar3 = FUN_004065a0(), cVar3 == '\x01')) {
+  if ((iVar5 + 500 < iVar4) || (cVar3 = PeekPacketChecksumBool(), cVar3 == '\x01')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -67,7 +67,7 @@ LAB_0045cc63:
       QueueOutgoingPacketField(iVar5 - iVar4);
       QueueOutgoingPacketField(1);
       param_1[0x2ffb] = 0;
-      cVar3 = FUN_004065a0();
+      cVar3 = PeekPacketChecksumBool();
       if ((cVar3 == '\x01') &&
          (((cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,1), cVar3 != '\0' ||
            (cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar3 != '\0')) &&
@@ -90,7 +90,7 @@ LAB_0045cc63:
       }
       QueueOutgoingPacketField(0);
       param_1[0x2ffb] = 0;
-      cVar3 = FUN_004065a0();
+      cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\x01') {
 LAB_0045cdb1:
         uVar6 = FUN_0040a4d0(&DAT_00e55ab8);
@@ -117,7 +117,7 @@ LAB_0045cdb1:
   else {
     FUN_0040b030();
     FUN_0040afb0(piVar1);
-    cVar3 = FUN_004065a0();
+    cVar3 = PeekPacketChecksumBool();
     if ((cVar3 == '\x01') &&
        ((cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,1), cVar3 != '\0' ||
         (cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar3 != '\0')))) {
@@ -134,7 +134,7 @@ LAB_0045cdb1:
       param_1[0x2ffb] = param_1[0x2ffb] % iVar5;
     }
   }
-  cVar3 = FUN_004065a0();
+  cVar3 = PeekPacketChecksumBool();
   if ((cVar3 == '\x01') &&
      ((cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,1), cVar3 != '\0' ||
       (cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar3 != '\0')))) {
@@ -142,7 +142,7 @@ LAB_0045cdb1:
     iVar7 = FUN_0040a4d0(param_1 + 0x243);
     iVar5 = g_clientContext;
     piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar3 = FUN_004065a0();
+    cVar3 = PeekPacketChecksumBool();
     if ((cVar3 == '\0') && ((&DAT_006a7758)[iVar5] != '\0')) {
       if (((&DAT_006a7736)[iVar5] == '\x01') &&
          ((uVar11 = iVar4 - *(int *)(&DAT_006a7714 + iVar5) >> 0x1f,

@@ -259,7 +259,7 @@ LAB_004560f2:
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         }
       }
-      cVar8 = FUN_004065a0();
+      cVar8 = PeekPacketChecksumBool();
       if ((cVar8 == '\0') && (iVar13 = FUN_004511b0(local_15a4), iVar13 != 0)) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar13 = _rand();
@@ -306,7 +306,7 @@ LAB_004560f2:
         }
       }
       iVar13 = local_15a4;
-      cVar8 = FUN_004065a0();
+      cVar8 = PeekPacketChecksumBool();
       if (cVar8 != '\0') {
         FUN_00436ec0(iVar13,local_15b4);
       }
@@ -525,7 +525,7 @@ LAB_00456a3c:
           }
         }
         pbVar17 = (byte *)(iVar13 + 0x3918);
-        cVar8 = FUN_004065a0();
+        cVar8 = PeekPacketChecksumBool();
         if ((cVar8 == '\0') && (iVar16 = FUN_004511b0(local_15b8), iVar16 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar16 = _rand();
@@ -576,7 +576,7 @@ LAB_00456a3c:
           }
         }
         iVar16 = local_15b8;
-        cVar8 = FUN_004065a0();
+        cVar8 = PeekPacketChecksumBool();
         if (cVar8 != '\0') {
           FUN_00436ec0(iVar16,local_15a4);
         }

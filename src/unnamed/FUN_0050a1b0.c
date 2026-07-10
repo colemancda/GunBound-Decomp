@@ -23,9 +23,9 @@ uint __thiscall FUN_0050a1b0(int param_1,int param_2,int param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = CONCAT31((int3)((uint)extraout_EAX >> 8),iVar4 != 0);
   if (iVar4 == 0) {
-    uVar5 = FUN_004065a0();
+    uVar5 = PeekPacketChecksumBool();
     if ((char)uVar5 != '\x01') {
-      uVar5 = FUN_004065a0();
+      uVar5 = PeekPacketChecksumBool();
       if (((char)uVar5 != '\x01') && (uVar5 = g_stateChangeInProgress, g_stateChangeInProgress == 0)
          ) {
         iVar4 = FUN_0050cdb0();

@@ -19,7 +19,7 @@ void FUN_00438360(void)
   int unaff_ESI;
   bool bVar6;
   
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 != '\0') {
     return;
   }

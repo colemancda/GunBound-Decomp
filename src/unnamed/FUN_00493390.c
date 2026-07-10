@@ -252,7 +252,7 @@ LAB_004937c8:
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
         }
-        cVar8 = FUN_004065a0();
+        cVar8 = PeekPacketChecksumBool();
         if ((cVar8 == '\0') && (iVar11 = FUN_004511b0(local_15ac), iVar11 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar11 = _rand();
@@ -282,7 +282,7 @@ LAB_004937c8:
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           FUN_00436bd0(local_15ac - (iVar13 >> 8),local_159c - (iVar11 >> 8),param_1[0x794]);
         }
-        cVar8 = FUN_004065a0();
+        cVar8 = PeekPacketChecksumBool();
         if (cVar8 != '\0') {
           FUN_00436ec0(local_15ac,local_159c);
         }
@@ -508,7 +508,7 @@ LAB_0049410b:
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
         }
-        cVar8 = FUN_004065a0();
+        cVar8 = PeekPacketChecksumBool();
         if ((cVar8 == '\0') && (iVar14 = FUN_004511b0(local_15ac), iVar14 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar14 = _rand();
@@ -539,7 +539,7 @@ LAB_0049410b:
           FUN_00436bd0(local_15ac - ((int)local_1598[0] >> 8),local_159c - (iVar14 >> 8),
                        param_1[0x794]);
         }
-        cVar8 = FUN_004065a0();
+        cVar8 = PeekPacketChecksumBool();
         if (cVar8 != '\0') {
           FUN_00436ec0(local_15ac,local_159c);
         }

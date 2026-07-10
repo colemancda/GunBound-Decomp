@@ -78,8 +78,8 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
       puVar11 = &DAT_00794e48;
     }
     uVar5 = FUN_0040a4d0(puVar11);
-    cVar2 = FUN_004065a0();
-    if ((cVar2 == '\x01') || (cVar2 = FUN_004065a0(), cVar2 == '\x01')) {
+    cVar2 = PeekPacketChecksumBool();
+    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
       uVar6 = 0;
     }
     else {
@@ -89,7 +89,7 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     local_4 = 0;
     uVar8 = FUN_0040aba0(param_1 + 0x90c,local_454,param_1 + 0x53fc);
     local_4 = 1;
-    uVar5 = FUN_004065a0(uVar5,1);
+    uVar5 = PeekPacketChecksumBool(uVar5,1);
     uVar9 = FUN_0040a4d0(param_1 + 0x7864);
     uVar10 = FUN_0040a4d0(param_1 + 0x4d90);
     uVar7 = FUN_0040a4d0(uVar7);
@@ -100,12 +100,12 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
-    cVar2 = FUN_004065a0();
+    cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\0') {
       FUN_004ee9b0(0);
     }
-    cVar2 = FUN_004065a0();
-    if ((cVar2 != '\0') || (cVar2 = FUN_004065a0(), cVar2 != '\0')) break;
+    cVar2 = PeekPacketChecksumBool();
+    if ((cVar2 != '\0') || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) break;
     goto LAB_00466d5c;
   case 6:
     if (param_3 != 1) break;
@@ -117,8 +117,8 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
       puVar11 = &DAT_00794e48;
     }
     uVar5 = FUN_0040a4d0(puVar11);
-    cVar2 = FUN_004065a0();
-    if ((cVar2 == '\x01') || (cVar2 = FUN_004065a0(), cVar2 == '\x01')) {
+    cVar2 = PeekPacketChecksumBool();
+    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
       uVar6 = 0;
     }
     else {
@@ -128,7 +128,7 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     local_4 = 2;
     uVar8 = FUN_0040aba0(param_1 + 0x90c,local_112c,param_1 + 0x5844);
     local_4 = 3;
-    uVar5 = FUN_004065a0(uVar5,1);
+    uVar5 = PeekPacketChecksumBool(uVar5,1);
     uVar9 = FUN_0040a4d0(param_1 + 0x7864);
     uVar10 = FUN_0040a4d0(param_1 + 0x4d90);
     uVar7 = FUN_0040a4d0(uVar7);
@@ -139,12 +139,12 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
-    cVar2 = FUN_004065a0();
+    cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\0') {
       FUN_004ee9b0(0);
     }
-    cVar2 = FUN_004065a0();
-    if ((cVar2 != '\0') || (cVar2 = FUN_004065a0(), cVar2 != '\0')) break;
+    cVar2 = PeekPacketChecksumBool();
+    if ((cVar2 != '\0') || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) break;
     cVar2 = FUN_0043a530();
     if (cVar2 == '\0') {
       uVar3 = 0x1e;
@@ -154,8 +154,8 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
   case 8:
     if (param_3 != 1) break;
     QueueOutgoingPacketField(0xffffffff);
-    cVar2 = FUN_004065a0();
-    if ((cVar2 == '\x01') || (cVar2 = FUN_004065a0(), cVar2 == '\x01')) {
+    cVar2 = PeekPacketChecksumBool();
+    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
       uVar3 = 0;
     }
     else {
@@ -175,7 +175,7 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     FUN_0040a2a0();
     local_4 = 0xffffffff;
     FUN_0040a2a0();
-    cVar2 = FUN_004065a0();
+    cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\0') {
       FUN_004ee9b0(0);
     }
@@ -204,7 +204,7 @@ LAB_00466d7f:
       uVar7 = FUN_0040aba0(param_1 + 0x90c,local_678,param_1 + 0x5c8c);
       uVar12 = 1;
       local_4 = 7;
-      uVar8 = FUN_004065a0(uVar5,1);
+      uVar8 = PeekPacketChecksumBool(uVar5,1);
       uVar9 = FUN_0040a4d0(param_1 + 0x7864);
       uVar10 = FUN_0040a4d0(param_1 + 0x4d90);
       uVar6 = FUN_0040a4d0(uVar6);
@@ -215,7 +215,7 @@ LAB_00466d7f:
       FUN_0040a2a0();
       local_4 = 0xffffffff;
       FUN_0040a2a0();
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
         FUN_004ee9b0(0);
       }

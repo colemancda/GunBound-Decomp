@@ -85,7 +85,7 @@ LAB_004399d4:
       iVar8 = FUN_0053753c();
       (**(code **)(*piVar11 + 4))(&DAT_00553b90);
       piVar11[0x11] = iVar6;
-      cVar3 = FUN_004065a0();
+      cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
         uStack_234 = 0;
         uStack_440 = 0;
@@ -108,7 +108,7 @@ LAB_004399d4:
         uVar16 = 0xff;
         uVar15 = 100;
         uVar14 = 0;
-        FUN_004065a0(uVar9,0,100,0xff,uVar10,0);
+        PeekPacketChecksumBool(uVar9,0,100,0xff,uVar10,0);
         FUN_00432320(*(undefined1 *)(iVar12 + 0x3c),1,1,uVar9,uVar14,uVar15,uVar16,uVar10,uVar17);
         local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
         FUN_0040a2a0();
@@ -139,7 +139,7 @@ LAB_004399d4:
           uVar14 = 0;
           FUN_0040a4d0(auStack_454);
           uVar9 = FUN_0040a4d0(auStack_230);
-          FUN_004065a0(uVar9,uVar14,uVar15,uVar16,uVar10,uVar17);
+          PeekPacketChecksumBool(uVar9,uVar14,uVar15,uVar16,uVar10,uVar17);
           FUN_00432320(*(undefined1 *)(iVar12 + 0x3c),1,1,uVar9,uVar14,uVar15,uVar16,uVar10,uVar17);
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
           FUN_0040a2a0();
@@ -156,7 +156,7 @@ LAB_004399d4:
       puVar5[0xfe9] = uVar10;
       iVar4 = FUN_004ac400();
       puVar5[0xfe8] = iVar4 * *(int *)(iVar12 + 0x3f94);
-      cVar3 = FUN_004065a0();
+      cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
         RegisterActiveObject();
       }

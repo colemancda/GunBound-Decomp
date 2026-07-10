@@ -54,7 +54,7 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
       *(uint *)(g_gameStateVTableArray[0xb] + 0x10a4) = (uint)*(ushort *)(packetBuf + 0x22);
       piVar3 = (int *)GetPlayerRecordBySlot(iVar5);
       if (piVar3 != (int *)0x0) {
-        if ((piVar3[9] != 0xe) && (cVar2 = FUN_004065a0(), cVar2 == '\x01')) {
+        if ((piVar3[9] != 0xe) && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
           uVar4 = FUN_0040aba0(piVar3 + 0x19d1,auStack_230,piVar3 + 0x1b6c);
           iStack_4 = 0;
           uVar4 = FUN_0040a8c0(uVar4,auStack_454,3);

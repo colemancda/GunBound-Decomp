@@ -74,7 +74,7 @@ void __fastcall FUN_004acd10(int param_1)
       uVar10 = 0xff;
       uVar4 = 0;
       iVar7 = local_45c[0];
-      FUN_004065a0(0,local_45c[0],0xff,2,1);
+      PeekPacketChecksumBool(0,local_45c[0],0xff,2,1);
       FUN_00431d90(*(undefined1 *)(param_1 + 0x3c),3,0,uVar4,iVar7,uVar10,uVar11,uVar12);
       local_4 = 0;
       if (local_440 != 0) {
@@ -90,7 +90,7 @@ void __fastcall FUN_004acd10(int param_1)
     goto switchD_004ad044_caseD_3;
   }
   *(undefined1 *)(param_1 + 0x14) = 1;
-  cVar3 = FUN_004065a0();
+  cVar3 = PeekPacketChecksumBool();
   if ((cVar3 != '\0') && (cVar3 = FUN_0043a530(), cVar3 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
@@ -122,7 +122,7 @@ void __fastcall FUN_004acd10(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar7 < 1) goto LAB_004ace87;
 LAB_004aced3:
-    cVar3 = FUN_004065a0();
+    cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\0') {
       FUN_00406500(1);
     }

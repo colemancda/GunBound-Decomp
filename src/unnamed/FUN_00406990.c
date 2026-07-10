@@ -274,7 +274,7 @@ LAB_00406e95:
 LAB_00406f80:
     FUN_004eb8e0(7000);
   }
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     FUN_0040a8c0(*(int *)(g_clientContext + 0x621e0) + 0x8bc4,local_f08,200);
     local_4 = 0xc;

@@ -159,7 +159,7 @@ void __fastcall FUN_00491b40(int param_1)
       FUN_0040b540(local_480);
     }
     iVar5 = g_clientContext;
-    cVar1 = FUN_004065a0();
+    cVar1 = PeekPacketChecksumBool();
     if (cVar1 != '\x01') {
       iVar4 = *(int *)(&DAT_006a7750 + iVar5);
       if (iVar4 < 0x10) {
@@ -172,7 +172,7 @@ void __fastcall FUN_00491b40(int param_1)
       }
       *(int *)(&DAT_006a7754 + iVar5) = iVar4;
     }
-    cVar1 = FUN_004065a0();
+    cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\0') {
       FUN_004ee9b0(0);
     }
@@ -182,7 +182,7 @@ void __fastcall FUN_00491b40(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    cVar1 = FUN_004065a0();
+    cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\0') {
       pvVar6 = operator_new(0x54);
       if (pvVar6 == (void *)0x0) {

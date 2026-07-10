@@ -18,7 +18,7 @@ void FUN_004262d0(int param_1,undefined4 param_2)
   ushort local_8 [2];
   uint local_4;
   
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\x01') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();

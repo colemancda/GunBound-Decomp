@@ -37,7 +37,7 @@ void FUN_0044b170(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    cVar1 = FUN_004065a0();
+    cVar1 = PeekPacketChecksumBool();
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(-(uint)(cVar1 != '\0') & 0x8000 | uVar3 & 0x7fff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

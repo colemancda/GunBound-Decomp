@@ -16,7 +16,7 @@ void FUN_004382d0(void)
   void *pvVar3;
   int unaff_EBX;
   
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if ((cVar1 == '\0') && (unaff_EBX != 0)) {
     puVar2 = (undefined4 *)FindSpriteFrame();
     if (puVar2 != (undefined4 *)0x0) {

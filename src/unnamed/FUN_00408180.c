@@ -65,7 +65,7 @@ void FUN_00408180(int param_1)
   if (*(char *)(g_clientContext + 0x3b6c0) == -1) goto LAB_00409972;
   if ((((*(int *)(g_clientContext + 0x227bc) == 0xc0) ||
        (*(int *)(g_clientContext + 0x621e4) != *(int *)(g_clientContext + 0x621e0))) &&
-      (cVar1 = FUN_004065a0(), cVar1 == '\x01')) && (cVar1 = FUN_004065a0(), cVar1 == '\0')) {
+      (cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01')) && (cVar1 = PeekPacketChecksumBool(), cVar1 == '\0')) {
     cVar1 = FUN_0040b330(*(int *)(g_clientContext + 0x621e0) + 0x60d4,0);
     if (cVar1 != '\0') {
       iVar3 = *(int *)(param_1 + 0x44);

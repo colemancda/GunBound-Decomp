@@ -148,14 +148,14 @@ LAB_0043c0e0:
                     if ((((bVar17 || (bVar3 >> (bVar14 & 7) & 1) != 1) &&
                          (cVar7 = FUN_00406860(), cVar7 != '\0')) &&
                         (cVar7 = FUN_00406860(), cVar7 != '\0')) &&
-                       ((piVar5 != piVar16 && (cVar7 = FUN_004065a0(), cVar7 == '\x01')))) {
+                       ((piVar5 != piVar16 && (cVar7 = PeekPacketChecksumBool(), cVar7 == '\x01')))) {
                       iVar8 = *(int *)(&DAT_006a7724 + g_clientContext);
                       (*pcVar15)(&DAT_005a9068);
                       iVar10 = PeekPacketChecksumState();
                       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                       pcVar15 = (code *)EnterCriticalSection;
                       if ((iVar10 < iVar8) &&
-                         ((cVar7 = FUN_004065a0(), pcVar15 = (code *)EnterCriticalSection,
+                         ((cVar7 = PeekPacketChecksumBool(), pcVar15 = (code *)EnterCriticalSection,
                           cVar7 == '\0' && (piVar5[9] != 0xe)))) {
                         uVar12 = FUN_0040aca0(piVar5 + 0x243,local_460,piVar16 + 0x243);
                         local_c = 1;

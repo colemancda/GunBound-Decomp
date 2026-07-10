@@ -260,7 +260,7 @@ LAB_004735e2:
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         }
       }
-      cVar8 = FUN_004065a0();
+      cVar8 = PeekPacketChecksumBool();
       if ((cVar8 == '\0') && (iVar12 = FUN_004511b0(local_15a8), iVar12 != 0)) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar12 = _rand();
@@ -291,7 +291,7 @@ LAB_004735e2:
         FUN_00436bd0(local_15a8 - (local_1584[0] >> 8),local_15b8 - (iVar12 >> 8),
                      *(undefined4 *)(iVar13 + 0x1e50));
       }
-      cVar8 = FUN_004065a0();
+      cVar8 = PeekPacketChecksumBool();
       iVar12 = local_15a8;
       if (cVar8 != '\0') {
         FUN_00436ec0(local_15a8,local_15b8);
@@ -517,7 +517,7 @@ LAB_00473e6c:
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
         }
-        cVar8 = FUN_004065a0();
+        cVar8 = PeekPacketChecksumBool();
         if ((cVar8 == '\0') && (iVar17 = FUN_004511b0(local_15bc), iVar17 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar17 = _rand();
@@ -552,7 +552,7 @@ LAB_00473e6c:
           FUN_00436bd0(local_15bc - (local_157c[0] >> 8),local_15a8 - ((int)local_15b4[0] >> 8),
                        *(undefined4 *)(iVar13 + 0x1e50));
         }
-        cVar8 = FUN_004065a0();
+        cVar8 = PeekPacketChecksumBool();
         iVar17 = local_15bc;
         if (cVar8 != '\0') {
           FUN_00436ec0(local_15bc,local_15a8);

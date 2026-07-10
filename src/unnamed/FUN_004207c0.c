@@ -68,7 +68,7 @@ LAB_00420846:
   local_8b8 = (int *)0x0;
 LAB_00420896:
   if ((local_8ac != (int *)0x0) && (local_8b8 != (int *)0x0)) {
-    cVar3 = FUN_004065a0();
+    cVar3 = PeekPacketChecksumBool();
     piVar2 = local_8b8;
     if (cVar3 == '\0') {
       piVar2 = local_8ac;

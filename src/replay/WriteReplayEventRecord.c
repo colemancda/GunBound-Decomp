@@ -240,7 +240,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                 (&g_replayEventBuffer)[g_replayEventCursor] = (char)iVar19;
                 g_replayEventCursor = g_replayEventCursor + 1;
                 if (iVar19 == 0xe) {
-                  cVar4 = FUN_004065a0();
+                  cVar4 = PeekPacketChecksumBool();
                   if (cVar4 == '\0') {
                     FUN_00406500(1);
                   }
@@ -265,7 +265,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
       goto switchD_004105f7_caseD_1022;
     }
     if (uVar6 != 0x4410) goto switchD_004105f7_caseD_1022;
-    cVar4 = FUN_004065a0();
+    cVar4 = PeekPacketChecksumBool();
     if (cVar4 == '\0') {
       FUN_00406500(1);
       *(byte *)(g_clientContext + 0x62155) = *pbVar22;
@@ -348,10 +348,10 @@ LAB_00411727:
       pbVar22 = param_3;
       if ((cVar4 != '\0') &&
          ((((cVar4 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar4 != '\0' ||
-            (cVar4 = FUN_004065a0(), pbVar22 = param_3, cVar4 == '\x01')) &&
-           (cVar4 = FUN_004065a0(), pbVar22 = param_3, cVar4 == '\0')) &&
+            (cVar4 = PeekPacketChecksumBool(), pbVar22 = param_3, cVar4 == '\x01')) &&
+           (cVar4 = PeekPacketChecksumBool(), pbVar22 = param_3, cVar4 == '\0')) &&
           ((g_currentGameState != 0xb ||
-           (cVar4 = FUN_004065a0(), pbVar22 = param_3, cVar4 != '\x01')))))) {
+           (cVar4 = PeekPacketChecksumBool(), pbVar22 = param_3, cVar4 != '\x01')))))) {
         FUN_00413bf0();
         pbVar22 = param_3;
       }

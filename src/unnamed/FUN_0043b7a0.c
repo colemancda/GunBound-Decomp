@@ -46,11 +46,11 @@ void FUN_0043b7a0(undefined4 param_1,int param_2,int param_3,int param_4,int par
 LAB_0043b830:
       if (uVar7 != 0x186a1) goto code_r0x0043b838;
       for (piVar1 = (int *)piVar9[4]; piVar9 != piVar1; piVar1 = (int *)piVar1[4]) {
-        cVar2 = FUN_004065a0();
+        cVar2 = PeekPacketChecksumBool();
         iVar5 = g_clientContext;
-        if (((cVar2 != '\0') && (cVar2 = FUN_004065a0(), iVar5 = g_clientContext, cVar2 != '\x01')) &&
+        if (((cVar2 != '\0') && (cVar2 = PeekPacketChecksumBool(), iVar5 = g_clientContext, cVar2 != '\x01')) &&
            (piVar1[9] != 0xe)) {
-          cVar2 = FUN_004065a0();
+          cVar2 = PeekPacketChecksumBool();
           iVar6 = param_4;
           if (cVar2 != '\0') {
             iVar6 = param_4 / 5 + param_4;

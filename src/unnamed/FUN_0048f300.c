@@ -72,15 +72,15 @@ undefined1 FUN_0048f300(int param_1)
   local_2490 = 0;
   do {
     piVar5 = (int *)GetPlayerRecordBySlot(g_clientContext);
-    if ((piVar5 != (int *)0x0) && (cVar4 = FUN_004065a0(), cVar4 != '\x01')) {
+    if ((piVar5 != (int *)0x0) && (cVar4 = PeekPacketChecksumBool(), cVar4 != '\x01')) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar6 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      cVar4 = FUN_004065a0();
+      cVar4 = PeekPacketChecksumBool();
       if (cVar4 != '\0') {
         iVar6 = iVar6 / 2 + iVar6;
       }
-      cVar4 = FUN_004065a0();
+      cVar4 = PeekPacketChecksumBool();
       if (cVar4 != '\0') {
         iVar6 = iVar6 + ((int)(iVar6 + (iVar6 >> 0x1f & 3U)) >> 2);
       }
@@ -136,35 +136,35 @@ LAB_0048f583:
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar6 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        cVar4 = FUN_004065a0();
+        cVar4 = PeekPacketChecksumBool();
         if (cVar4 == '\x01') {
-          cVar4 = FUN_004065a0();
+          cVar4 = PeekPacketChecksumBool();
           if (cVar4 == '\x01') {
             iVar6 = iVar6 + -4;
           }
-          cVar4 = FUN_004065a0();
+          cVar4 = PeekPacketChecksumBool();
           if (cVar4 == '\x01') {
             iVar6 = iVar6 + 4;
           }
         }
-        cVar4 = FUN_004065a0();
+        cVar4 = PeekPacketChecksumBool();
         if (cVar4 == '\x01') {
-          cVar4 = FUN_004065a0();
+          cVar4 = PeekPacketChecksumBool();
           if (cVar4 == '\x01') {
             iVar6 = iVar6 + -4;
           }
-          cVar4 = FUN_004065a0();
+          cVar4 = PeekPacketChecksumBool();
           if (cVar4 == '\x01') {
             iVar6 = iVar6 + 4;
           }
         }
-        cVar4 = FUN_004065a0();
+        cVar4 = PeekPacketChecksumBool();
         if (cVar4 == '\x01') {
-          cVar4 = FUN_004065a0();
+          cVar4 = PeekPacketChecksumBool();
           if (cVar4 == '\x01') {
             iVar6 = iVar6 + 4;
           }
-          cVar4 = FUN_004065a0();
+          cVar4 = PeekPacketChecksumBool();
           if (cVar4 == '\x01') {
             iVar6 = iVar6 + -4;
           }

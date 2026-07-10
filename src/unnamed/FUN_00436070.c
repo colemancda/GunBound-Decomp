@@ -22,7 +22,7 @@ void FUN_00436070(undefined4 param_1,undefined4 param_2,int param_3)
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053ca9b;
   *unaff_FS_OFFSET = &local_c;
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
     pvVar2 = operator_new(0x4a8);
     local_4 = 0;

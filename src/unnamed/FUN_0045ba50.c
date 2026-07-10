@@ -215,7 +215,7 @@ void FUN_0045ba50(int param_1)
       FUN_0040b540(local_ac8);
     }
   }
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     FUN_0040a5f0(param_1 + 0x4948,local_ac0,local_ad4);
     local_4 = 0xe;
@@ -228,7 +228,7 @@ void FUN_0045ba50(int param_1)
       FUN_0040a240();
       FUN_0040b540(local_ac8);
     }
-    cVar1 = FUN_004065a0();
+    cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\x01') {
       FUN_0040a5f0(param_1 + 0x4948,local_ac0,local_ad4);
       local_4 = 0xf;

@@ -85,9 +85,9 @@ LAB_0043b008:
         SUBFIELD(uStack_8d0,3,undefined1) = (char)(uVar8 >> 0x18);
         bVar13 = SUBFIELD(uStack_8d0,3,undefined1) != '\0';
         iVar5 = g_clientContext;
-        if (((bVar13) && (cVar2 = FUN_004065a0(), iVar5 = g_clientContext, cVar2 != '\x01')) &&
+        if (((bVar13) && (cVar2 = PeekPacketChecksumBool(), iVar5 = g_clientContext, cVar2 != '\x01')) &&
            (piVar11[9] != 0xe)) {
-          cVar2 = FUN_004065a0();
+          cVar2 = PeekPacketChecksumBool();
           iVar10 = param_4;
           if (cVar2 != '\0') {
             iVar10 = param_4 / 5 + param_4;

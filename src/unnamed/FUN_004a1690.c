@@ -20,7 +20,7 @@ void __fastcall FUN_004a1690(int *param_1)
     param_1[0xfe7] = param_1[0xfe7] + 1;
   }
   FUN_00450730();
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState();

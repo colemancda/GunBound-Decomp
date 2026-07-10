@@ -20,7 +20,7 @@ void __fastcall FUN_0047ab00(int param_1)
     return;
   }
   if (iVar2 == *(int *)(param_1 + 0x3f9c)) {
-    cVar1 = FUN_004065a0();
+    cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\0') {
       FUN_004ee9b0(0);
     }

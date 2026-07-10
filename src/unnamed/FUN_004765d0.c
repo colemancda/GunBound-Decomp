@@ -57,10 +57,10 @@ void __fastcall FUN_004765d0(int *param_1)
   EncodeOutgoingPacketField(iVar8 + iVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
-  cVar6 = FUN_004065a0();
+  cVar6 = PeekPacketChecksumBool();
   if (cVar6 != '\0') {
     *(undefined1 *)(param_1 + 5) = 1;
-    cVar6 = FUN_004065a0();
+    cVar6 = PeekPacketChecksumBool();
     if (cVar6 == '\0') {
       FUN_004ee9b0(0);
     }
@@ -126,7 +126,7 @@ void __fastcall FUN_004765d0(int *param_1)
       uVar11 = FUN_0040a4d0(piVar1);
       FUN_004372f0(1,uVar11,uVar10,uVar18,pcVar19);
     }
-    cVar6 = FUN_004065a0();
+    cVar6 = PeekPacketChecksumBool();
     if ((cVar6 != '\0') && (cVar6 = FUN_0043a530(), cVar6 == '\0')) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar10 = PeekPacketChecksumState();
@@ -232,7 +232,7 @@ LAB_00476b65:
   if (iVar7 < 0) {
 LAB_00476d03:
     *(undefined1 *)(param_1 + 5) = 1;
-    cVar6 = FUN_004065a0();
+    cVar6 = PeekPacketChecksumBool();
     if ((cVar6 != '\0') && (cVar6 = FUN_0043a530(), cVar6 == '\0')) {
       iVar7 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
       if ((iVar7 == 5) || (uVar10 = 2, iVar7 == 6)) {
@@ -261,7 +261,7 @@ LAB_00476d03:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar7 = g_clientContext;
     piVar9 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar6 = FUN_004065a0();
+    cVar6 = PeekPacketChecksumBool();
     if ((cVar6 == '\0') && ((&DAT_006a7758)[iVar7] != '\0')) {
       if (((&DAT_006a7736)[iVar7] == '\x01') &&
          ((uVar12 = iVar8 - *(int *)(&DAT_006a7714 + iVar7) >> 0x1f,

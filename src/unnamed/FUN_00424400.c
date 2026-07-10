@@ -26,7 +26,7 @@ void FUN_00424400(void)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_8 = local_8 + -1;
   } while (local_8 != 0);
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   local_10 = 0;
   if (*(int *)(unaff_ESI + 0x44e24) != 0) {
     do {

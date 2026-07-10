@@ -28,11 +28,11 @@ void FUN_0045ea40(void)
   uStack_4 = 0xffffffff;
   puStack_8 = &LAB_0053ab71;
   *unaff_FS_OFFSET = &local_c;
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if ((cVar1 != '\0') && (unaff_ESI[9] != 0xe)) {
-    cVar1 = FUN_004065a0();
+    cVar1 = PeekPacketChecksumBool();
     if (cVar1 != '\0') {
-      cVar1 = FUN_004065a0();
+      cVar1 = PeekPacketChecksumBool();
       if (cVar1 != '\x01') {
         iVar3 = unaff_ESI[9];
         if ((((iVar3 != 5) && (iVar3 != 6)) && (iVar3 != 8)) && (iVar3 != 10)) {
@@ -46,7 +46,7 @@ void FUN_0045ea40(void)
           iVar3 = FUN_0040a4d0(uVar2);
           uStack_4 = 0xffffffff;
           FUN_0040a2a0();
-          cVar1 = FUN_004065a0();
+          cVar1 = PeekPacketChecksumBool();
           if (cVar1 == '\x01') {
             iVar4 = FUN_0040a4d0(&DAT_00796aa0);
             iVar3 = iVar3 + (iVar3 * 8) / iVar4;

@@ -58,7 +58,7 @@ void __fastcall FUN_004cf310(int param_1)
       local_464 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_45c = &DAT_006a7708 + g_clientContext;
-      cVar1 = FUN_004065a0();
+      cVar1 = PeekPacketChecksumBool();
       iVar5 = local_464;
       if ((cVar1 == '\0') && (local_45c[0x50] != '\0')) {
         iVar4 = 400;
@@ -200,7 +200,7 @@ void __fastcall FUN_004cf310(int param_1)
       return;
     case 1:
       cVar1 = PacketChecksumEquals(g_clientContext + 0x45354,3);
-      if ((cVar1 != '\0') && (cVar1 = FUN_004065a0(), cVar1 == '\x01')) {
+      if ((cVar1 != '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01')) {
         FUN_00406500(0);
         *(undefined1 *)(param_1 + 0x94) = 1;
         uVar6 = FUN_0040a4d0(&DAT_00794bf0);

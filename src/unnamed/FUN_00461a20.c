@@ -21,7 +21,7 @@ void FUN_00461a20(int param_1)
   int local_1c;
   undefined4 local_14 [5];
   
-  cVar3 = FUN_004065a0();
+  cVar3 = PeekPacketChecksumBool();
   if (cVar3 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState();

@@ -61,7 +61,7 @@ void __fastcall FUN_00480310(int *param_1)
   param_1[0xfec] = (param_1[0xfec] + 1) % 0x16;
   iVar5 = GetPlayerRecordBySlot(g_clientContext);
   if (param_1[9] == 0) {
-    uVar3 = FUN_004065a0();
+    uVar3 = PeekPacketChecksumBool();
     *(undefined1 *)(param_1 + 0xfe8) = uVar3;
   }
   pcVar15 = (code *)EnterCriticalSection;
@@ -272,15 +272,15 @@ void __fastcall FUN_00480310(int *param_1)
         }
         uVar18 = 1;
         uVar16 = 8;
-        uVar9 = FUN_004065a0(uVar8,8,1);
+        uVar9 = PeekPacketChecksumBool(uVar8,8,1);
         uVar10 = FUN_0040a4d0(param_1 + 0x4e7);
         iVar7 = param_1[0xfe7];
         uVar11 = FUN_0040a4d0(param_1 + 0x99);
         uVar12 = FUN_0040a4d0(param_1 + 0x10);
-        uVar13 = FUN_004065a0(uVar12,uVar11,iVar7,uVar10,uVar9);
+        uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar7,uVar10,uVar9);
         FUN_0042f4b0(*(byte *)(param_1 + 2) & 7,iVar6,1,uVar13,uVar12,uVar11,iVar7,uVar10,uVar9,
                      uVar8,uVar16,uVar18);
-        cVar4 = FUN_004065a0();
+        cVar4 = PeekPacketChecksumBool();
         if (cVar4 == '\0') {
           FUN_004ee9b0(0);
         }
@@ -351,15 +351,15 @@ void __fastcall FUN_00480310(int *param_1)
     uVar8 = FUN_0040a4d0(puVar17);
     uVar18 = 0;
     uVar16 = 1;
-    uVar9 = FUN_004065a0(uVar8,1,0);
+    uVar9 = PeekPacketChecksumBool(uVar8,1,0);
     uVar10 = FUN_0040a4d0(param_1 + 0x4e7);
     iVar5 = param_1[0xfe7];
     uVar11 = FUN_0040a4d0(param_1 + 0x99);
     uVar12 = FUN_0040a4d0(param_1 + 0x10);
-    uVar13 = FUN_004065a0(uVar12,uVar11,iVar5,uVar10,uVar9);
+    uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar5,uVar10,uVar9);
     FUN_0042f4b0(*(byte *)(param_1 + 2) & 7,param_1[0xfe9],0,uVar13,uVar12,uVar11,iVar5,uVar10,uVar9
                  ,uVar8,uVar16,uVar18);
-    cVar4 = FUN_004065a0();
+    cVar4 = PeekPacketChecksumBool();
   }
   else {
     if (param_1[9] != 2) goto LAB_0048108e;
@@ -402,15 +402,15 @@ void __fastcall FUN_00480310(int *param_1)
       uVar8 = FUN_0040a4d0(puVar17);
       uVar18 = 0;
       uVar16 = 3;
-      uVar9 = FUN_004065a0(uVar8,3,0);
+      uVar9 = PeekPacketChecksumBool(uVar8,3,0);
       uVar10 = FUN_0040a4d0(param_1 + 0x4e7);
       iVar5 = param_1[0xfe7] + -1;
       uVar11 = FUN_0040a4d0(param_1 + 0x99);
       uVar12 = FUN_0040a4d0(piVar1);
-      uVar13 = FUN_004065a0(uVar12,uVar11,iVar5,uVar10,uVar9);
+      uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar5,uVar10,uVar9);
       FUN_0042f4b0(*(byte *)(param_1 + 2) & 7,param_1[0xfe9],1,uVar13,uVar12,uVar11,iVar5,uVar10,
                    uVar9,uVar8,uVar16,uVar18);
-      cVar4 = FUN_004065a0();
+      cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
         FUN_004ee9b0(0);
       }
@@ -427,15 +427,15 @@ void __fastcall FUN_00480310(int *param_1)
       uVar8 = FUN_0040a4d0(puVar17);
       uVar18 = 0;
       uVar16 = 3;
-      uVar9 = FUN_004065a0(uVar8,3,0);
+      uVar9 = PeekPacketChecksumBool(uVar8,3,0);
       uVar10 = FUN_0040a4d0(param_1 + 0x4e7);
       iVar5 = param_1[0xfe7];
       uVar11 = FUN_0040a4d0(param_1 + 0x99);
       uVar12 = FUN_0040a4d0(piVar1);
-      uVar13 = FUN_004065a0(uVar12,uVar11,iVar5,uVar10,uVar9);
+      uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar5,uVar10,uVar9);
       FUN_0042f4b0(*(byte *)(param_1 + 2) & 7,param_1[0xfe9] + 1,1,uVar13,uVar12,uVar11,iVar5,uVar10
                    ,uVar9,uVar8,uVar16,uVar18);
-      cVar4 = FUN_004065a0();
+      cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
         FUN_004ee9b0(0);
       }
@@ -452,21 +452,21 @@ void __fastcall FUN_00480310(int *param_1)
     uVar8 = FUN_0040a4d0(puVar17);
     uVar18 = 0;
     uVar16 = 3;
-    uVar9 = FUN_004065a0(uVar8,3,0);
+    uVar9 = PeekPacketChecksumBool(uVar8,3,0);
     uVar10 = FUN_0040a4d0(param_1 + 0x4e7);
     iVar5 = param_1[0xfe7] + 1;
     uVar11 = FUN_0040a4d0(param_1 + 0x99);
     uVar12 = FUN_0040a4d0(piVar1);
-    uVar13 = FUN_004065a0(uVar12,uVar11,iVar5,uVar10,uVar9);
+    uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar5,uVar10,uVar9);
     FUN_0042f4b0(*(byte *)(param_1 + 2) & 7,param_1[0xfe9] + 2,1,uVar13,uVar12,uVar11,iVar5,uVar10,
                  uVar9,uVar8,uVar16,uVar18);
-    cVar4 = FUN_004065a0();
+    cVar4 = PeekPacketChecksumBool();
   }
   if (cVar4 == '\0') {
     FUN_004ee9b0(0);
   }
-  cVar4 = FUN_004065a0();
-  if ((cVar4 == '\0') && (cVar4 = FUN_004065a0(), cVar4 == '\0')) {
+  cVar4 = PeekPacketChecksumBool();
+  if ((cVar4 == '\0') && (cVar4 = PeekPacketChecksumBool(), cVar4 == '\0')) {
     cVar4 = FUN_0043a530();
     if (cVar4 == '\0') {
       uVar8 = FUN_0040a4d0(&DAT_007949c8);

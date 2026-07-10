@@ -33,7 +33,7 @@ void __thiscall FUN_00434fc0(undefined4 param_1,undefined4 param_2,int param_3)
   puStack_8 = &LAB_0053ca9b;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
-  cVar2 = FUN_004065a0(param_1);
+  cVar2 = PeekPacketChecksumBool(param_1);
   if (cVar2 == '\0') {
     if ((-1 < param_3) && (param_3 < *(int *)(&DAT_006a7720 + g_clientContext))) {
       pcVar3 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + param_3);
@@ -212,7 +212,7 @@ LAB_00435034:
     RegisterActiveObject();
     iVar11 = g_clientContext;
     piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar2 = FUN_004065a0();
+    cVar2 = PeekPacketChecksumBool();
     if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar11] != '\0')) {
       if (((&DAT_006a7736)[iVar11] == '\x01') &&
          ((uVar13 = iVar9 - *(int *)(&DAT_006a7714 + iVar11) >> 0x1f,

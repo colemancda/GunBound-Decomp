@@ -21,7 +21,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
   int iVar8;
   byte bVar9;
   
-  if ((*(int *)(g_clientContext + 0x621e0) != 0) && (cVar3 = FUN_004065a0(), cVar3 != '\0')) {
+  if ((*(int *)(g_clientContext + 0x621e0) != 0) && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar7 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -82,11 +82,11 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       cVar3 = FUN_0041ea30(g_clientContext,*(undefined2 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc));
       if (cVar3 != '\0') {
-        cVar3 = FUN_004065a0();
+        cVar3 = PeekPacketChecksumBool();
         if (cVar3 == '\0') {
           FUN_00406500(0);
           FUN_00406500(0);
-          cVar3 = FUN_004065a0();
+          cVar3 = PeekPacketChecksumBool();
           if (cVar3 == '\0') {
             FUN_00406500(1);
             Replay_AppendEvent(0xc301);

@@ -15,7 +15,7 @@ void __fastcall FUN_00436860(int param_1,int param_2,undefined4 param_3,undefine
   int iVar2;
   void *pvVar3;
   
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
     if (param_1 != -1) {
       iVar2 = FindSpriteFrame();

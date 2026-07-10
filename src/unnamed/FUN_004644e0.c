@@ -51,16 +51,16 @@ undefined1 FUN_004644e0(int param_1)
   local_cf0 = 0;
   do {
     piVar3 = (int *)GetPlayerRecordBySlot(g_clientContext);
-    if ((piVar3 != (int *)0x0) && (cVar2 = FUN_004065a0(), cVar2 != '\x01')) {
+    if ((piVar3 != (int *)0x0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar4 = PeekPacketChecksumState();
       local_d08[0] = uVar4;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 != '\0') {
         uVar4 = (int)uVar4 / 2 + uVar4;
       }
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 != '\0') {
         uVar4 = uVar4 + ((int)(uVar4 + ((int)uVar4 >> 0x1f & 3U)) >> 2);
       }

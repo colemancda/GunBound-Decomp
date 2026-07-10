@@ -41,7 +41,7 @@ int GetPlayerRecordBySlot(int param_1)
     if (unaff_EDI < uVar1) break;
 LAB_00420726:
     if (uVar1 == unaff_EDI) {
-      cVar3 = FUN_004065a0();
+      cVar3 = PeekPacketChecksumBool();
       if ((bool)cVar3 != (unaff_BL == '\0')) {
         return iVar4;
       }
@@ -70,7 +70,7 @@ LAB_00420748:
           return 0;
         }
       }
-      cVar3 = FUN_004065a0();
+      cVar3 = PeekPacketChecksumBool();
       if ((bool)cVar3 != (unaff_BL == '\0')) {
         return iVar4;
       }

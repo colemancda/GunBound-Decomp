@@ -21,8 +21,8 @@ void FUN_004203b0(int param_1)
   int local_8;
   
   local_14 = 0;
-  if (((*(int *)(param_1 + 0x621e0) != 0) && (cVar1 = FUN_004065a0(), cVar1 != '\0')) &&
-     (cVar1 = FUN_004065a0(), cVar1 != '\0')) {
+  if (((*(int *)(param_1 + 0x621e0) != 0) && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) &&
+     (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) {
     local_14 = FUN_0045d150();
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

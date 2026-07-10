@@ -62,7 +62,7 @@ void __fastcall State02_ServerSelect_OnTick(int param_1)
       FUN_00406300(*(int *)(param_1 + 8) != -1);
       ShowErrorDialog(0);
       *(undefined1 *)(param_1 + 6) = 1;
-      cVar3 = FUN_004065a0();
+      cVar3 = PeekPacketChecksumBool();
       if (cVar3 != '\0') {
         FUN_00406500(0);
       }
@@ -95,7 +95,7 @@ void __fastcall State02_ServerSelect_OnTick(int param_1)
     *(int *)(iVar6 + 0x44d0) = iVar5 + 1;
     *(undefined1 *)(iVar5 + 0x4d1 + iVar6) = 0;
     *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 1;
-    cVar3 = FUN_004065a0();
+    cVar3 = PeekPacketChecksumBool();
     iVar6 = DAT_007934f0;
     if (cVar3 == '\0') {
       *(undefined2 *)(*(int *)(DAT_007934f0 + 0x44d0) + 0x4d0 + DAT_007934f0) =

@@ -16,9 +16,9 @@ undefined4 FUN_0045ec30(void)
   int iVar2;
   int iVar3;
   
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
-    cVar1 = FUN_004065a0();
+    cVar1 = PeekPacketChecksumBool();
     iVar2 = in_EAX + 0x4948;
     if (cVar1 == '\0') {
       cVar1 = FUN_0040b4d0(in_EAX + 0x292c,iVar2);

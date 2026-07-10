@@ -437,7 +437,7 @@ how the server tracks each client's current context.
 |---|---|
 | `0x1001` | **Outgoing packet builder** (not a received-opcode branch in the usual sense — triggered by the server's request). Writes opcode `0x1010` into the send buffer at `DAT_007934ec+0x4d4`, appends this client's own info via `FUN_004d2570`, then calls `getsockname()` **twice** to grab the local socket's bound address, appending both into the outgoing packet, then finalizes/sends via `FUN_004d25e0`/`FUN_004d2680`. **This is the P2P NAT-traversal handshake** — the client reports its own local `IP:port` back to the server (ties to the `CCommP2P<>` notify window found in Phase 1; GunBound uses server-mediated P2P for actual battle traffic). |
 | `0x101f` | Sets `DAT_00e55e3c=1`, `DAT_007934f8=1` (login/session flags), stores `*payload` and `payload[2]` into globals `DAT_005b2b54`/`DAT_005b343c` — likely session ID / server address handoff after channel selection. |
-| `0x1012` | Error-code translator: maps server error codes `0x5001/0x5011/0x5012/0x5013` to sequential internal reason codes `0x1d..0x20` stored per-slot, then calls `FUN_004065a0()` (room-membership check) — likely drives a "can't join: <reason>" error dialog. |
+| `0x1012` | Error-code translator: maps server error codes `0x5001/0x5011/0x5012/0x5013` to sequential internal reason codes `0x1d..0x20` stored per-slot, then calls `PeekPacketChecksumBool()` (room-membership check) — likely drives a "can't join: <reason>" error dialog. |
 | `0x1102` | Zeros a 4 KB buffer then parses a list of variable-length entries (2-byte + 1-byte + length-prefixed string) into a table at `+0x3f84a` — **server/channel list population** for the "choiceserver" screen. |
 
 ## Network protocol — `State07_AvatarStore_ProcessPacket` (`0x4440c0`)
@@ -863,11 +863,11 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
   is a 102-frame, 22×22 sprite** (confirmed from the asset header — vs. 1 frame
   for `titlemode.img`, 5 for `bullet1n.img`). The **actual per-frame draw is in
   `GameTick` (`0x413130`)**, traced via Ghidra: each frame, if
-  `DAT_007a7674 >= 0` and the sprites are loaded, it resolves the cursor's
+  `g_cursorFrame >= 0` and the sprites are loaded, it resolves the cursor's
   current frame with `FindSpriteFrame` (`0x4f30c0`) and blits it **at the mouse
-  anchor `(DAT_0056d10c, DAT_0056d110)`** — `BlitSprite16bpp` on the hardware
-  path, else `BlitSpriteClipped(DAT_007a7674)` (software). So:
-  - **The current cursor frame is `DAT_007a7674`.** A value of `-1` hides the
+  anchor `(g_cursorAnchorX, g_cursorAnchorY)`** — `BlitSprite16bpp` on the hardware
+  path, else `BlitSpriteClipped(g_cursorFrame)` (software). So:
+  - **The current cursor frame is `g_cursorFrame`.** A value of `-1` hides the
     cursor (skips the draw); `0…101` selects one of the 102 `cursor.img`
     frames. This is the cursor's shape/animation state.
   - **`g_cursorTexture` (`0x7a7660`) is write-only** — the preload *registers*
@@ -875,10 +875,10 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
     current-sprite/`FindSpriteFrame` context, not through that handle. (That's
     why the cursor blit doesn't reference `g_cursorTexture`.)
   - **Replay-playback variant:** a separate branch (guarded by the
-    `FUN_004065a0` replay check) blinks the cursor — visible on a
-    `DAT_00793504 % 0x14 < 10` schedule, i.e. **on for 10 of every 20 frames
-    (~50% duty)** — and draws a fixed frame instead of `DAT_007a7674`.
-  - **Not yet pinned:** the *writer* of `DAT_007a7674`. Its stores are
+    `PeekPacketChecksumBool` replay check) blinks the cursor — visible on a
+    `g_frameCounter % 0x14 < 10` schedule, i.e. **on for 10 of every 20 frames
+    (~50% duty)** — and draws a fixed frame instead of `g_cursorFrame`.
+  - **Not yet pinned:** the *writer* of `g_cursorFrame`. Its stores are
     computed/indirect (the cursor globals `0x7a7660`–`0x7a7674` sit in one
     cluster), so `getReferencesTo` finds only the `GameTick` read. Whether the
     frame is time-cycled (spinning animation) or context-selected (e.g. the
@@ -898,7 +898,7 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
 - **Relative-mouse capture** (`WndProc` mouse-move): when a mode flag
   (`DAT_00e53c3c`) is clear, it reads the movement delta, accumulates it into
   camera/aim globals (`DAT_00e536c0`/`c4`), then `SetCursorPos`-snaps the
-  pointer back to a fixed anchor (`DAT_0056d10c`/`DAT_0056d110`) — FPS-style
+  pointer back to a fixed anchor (`g_cursorAnchorX`/`g_cursorAnchorY`) — FPS-style
   relative mouse for camera/aim.
 - **Cursor clamping** (`ClampCursorToRect`, `0x4ee200`) confines the pointer to
   a rect, e.g. snapping it onto a modal dialog.
@@ -911,7 +911,7 @@ pointer** — with the OS cursor hidden they're effectively a *direction latch*:
 `g_cursorDirection` (set by the same edge test) is what actually feeds the
 8-directional camera scroll, and the `SetCursor` calls are a vestige of an
 HCURSOR-based design. (`GetCursorPos` is never called; the pointer position
-comes from `WndProc` mouse messages into the `DAT_0056d10c/d110` anchor.)
+comes from `WndProc` mouse messages into the `g_cursorAnchorX/d110` anchor.)
 
 ## Open threads / good next targets
 

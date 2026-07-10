@@ -32,11 +32,11 @@ void FUN_0043c6a0(void)
   *unaff_FS_OFFSET = &local_c;
   iVar3 = GetPlayerRecordBySlot(uVar4);
   if (iVar3 != 0) {
-    cVar2 = FUN_004065a0();
+    cVar2 = PeekPacketChecksumBool();
     if (cVar2 != '\0') {
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 != '\x01') {
-        cVar2 = FUN_004065a0();
+        cVar2 = PeekPacketChecksumBool();
         iVar1 = iVar3 + 0x6744;
         if (cVar2 == '\x01') {
           uVar4 = FUN_0040a7d0(iVar1,local_89c,8);

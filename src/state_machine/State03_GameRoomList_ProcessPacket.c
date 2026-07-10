@@ -418,7 +418,7 @@ switchD_00428058_default:
           puVar12 = puVar12 + 1;
         } while ((int)local_688 < (int)(uint)*(byte *)(iVar10 + 0x44648));
       }
-      cVar7 = FUN_004065a0();
+      cVar7 = PeekPacketChecksumBool();
       iVar10 = g_clientContext;
       if ((cVar7 == '\x01') && (*(short *)(g_clientContext + 0x3b96f) != -1)) {
         iVar24 = (int)*(short *)(g_clientContext + 0x3b96f) % 6;
@@ -881,7 +881,7 @@ switchD_00428058_default:
       else {
         FUN_00405ba0();
       }
-      cVar7 = FUN_004065a0();
+      cVar7 = PeekPacketChecksumBool();
       if (cVar7 != '\0') {
         FUN_00406500(0);
       }
@@ -936,7 +936,7 @@ switchD_00428058_default:
       *(undefined4 *)((int)this + 4) = 0xffffffff;
     }
   }
-  cVar7 = FUN_004065a0();
+  cVar7 = PeekPacketChecksumBool();
   if (cVar7 != '\0') {
     FUN_00406500(0);
   }

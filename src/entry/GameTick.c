@@ -66,8 +66,8 @@ void GameTick(void)
   if (1 < uVar10) {
     DAT_00793500 = DAT_00793500 + -1 + uVar10;
   }
-  DAT_00793504 = DAT_00793504 + uVar10;
-  cVar2 = FUN_004065a0();
+  g_frameCounter = g_frameCounter + uVar10;
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\x01') {
     SubFromPacketChecksum(uVar10);
     cVar2 = FUN_0040b360(&DAT_006aa67c + g_clientContext,0);
@@ -272,8 +272,8 @@ LAB_00413933:
       FUN_004062b0(&DAT_00e9be90);
       FUN_004062b0(&DAT_00e9c0fc);
     }
-    cVar2 = FUN_004065a0();
-    if ((cVar2 == '\x01') && (DAT_00793504 % 0x14 < 10)) {
+    cVar2 = PeekPacketChecksumBool();
+    if ((cVar2 == '\x01') && (g_frameCounter % 0x14 < 10)) {
       if (DAT_0079352c != 0) {
         iVar5 = FindSpriteFrame();
         if (iVar5 != 0) {
@@ -289,10 +289,10 @@ LAB_00413933:
     }
     else {
 LAB_004139be:
-      iVar5 = DAT_007a7674;
-      if (((DAT_0079352c != 0) && (-1 < DAT_007a7674)) && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
+      iVar5 = g_cursorFrame;
+      if (((DAT_0079352c != 0) && (-1 < g_cursorFrame)) && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
         if (*(char *)(iVar6 + 0x18) == '\x01') {
-          BlitSprite16bpp(DAT_0056d10c,DAT_0056d110);
+          BlitSprite16bpp(g_cursorAnchorX,g_cursorAnchorY);
         }
         else {
           BlitSpriteClipped(iVar5);

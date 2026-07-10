@@ -935,7 +935,7 @@ LAB_0042d5ba:
 LAB_0042d667:
   FUN_0041da80(g_clientContext,local_8bc,param_3,param_12,0);
   iVar6 = GetPlayerRecordBySlot(g_clientContext);
-  if ((iVar6 != 0) && (cVar5 = FUN_004065a0(), cVar5 != '\0')) {
+  if ((iVar6 != 0) && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) {
     uVar8 = FUN_0040a8c0(local_8bc + 0x930,auStack_8a0,4);
     puStack_8 = (undefined1 *)0x25;
     FUN_0040afb0(uVar8);
@@ -967,7 +967,7 @@ LAB_0042d667:
       uVar7 = uVar4;
     }
   }
-  cVar5 = FUN_004065a0();
+  cVar5 = PeekPacketChecksumBool();
   pcVar15 = (code *)LeaveCriticalSection;
   if (cVar5 == '\x01') {
     uVar8 = FUN_0040a7d0(local_8bc + 0x930,auStack_67c,3);

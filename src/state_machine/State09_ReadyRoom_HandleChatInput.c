@@ -38,7 +38,7 @@ void __thiscall State09_ReadyRoom_HandleChatInput(int *param_1,int param_2,int p
   
   if (param_2 == 0x100) {
     if ((param_3 == 0xd) && (DAT_007933b8 == '\x01')) {
-      cVar4 = FUN_004065a0();
+      cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
         FUN_0040c880();
         if ((acStack_80[0] != '\0') &&

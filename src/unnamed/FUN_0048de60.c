@@ -87,7 +87,7 @@ void __fastcall FUN_0048de60(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_00437150(uVar5,uVar4,0x3c,uVar3);
   iVar1 = g_clientContext;
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 != '\x01') {
     iVar11 = *(int *)(&DAT_006a7750 + iVar1);
     if (iVar11 < 0x10) {
@@ -100,7 +100,7 @@ void __fastcall FUN_0048de60(int param_1)
     }
     *(int *)(&DAT_006a7754 + iVar1) = iVar11;
   }
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
     FUN_004ee9b0(0);
   }

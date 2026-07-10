@@ -30,7 +30,7 @@ void __fastcall FUN_00479910(int *param_1)
   /* Windows SEH __try/__except frame setup stripped - handler body
    * (LAB_0053aef6) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 != '\0') {
     (**(code **)(*param_1 + 4))(s_shock_00553b80);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -66,7 +66,7 @@ void __fastcall FUN_00479910(int *param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    cVar2 = FUN_004065a0();
+    cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\0') {
       puVar7 = operator_new(0x50);
       if (puVar7 == (undefined4 *)0x0) {

@@ -42,7 +42,7 @@ LAB_004ceb04:
           iVar8 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = g_clientContext;
-          cVar5 = FUN_004065a0();
+          cVar5 = PeekPacketChecksumBool();
           if ((cVar5 == '\0') && ((&DAT_006a7758)[iVar6] != '\0')) {
             iVar10 = 400;
             if (399 < iVar8) {
@@ -74,8 +74,8 @@ LAB_004ceb04:
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar6 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        if (((iVar6 < 1) && (cVar5 = FUN_004065a0(), cVar5 != '\0')) &&
-           (cVar5 = FUN_004065a0(), cVar5 == '\0')) {
+        if (((iVar6 < 1) && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) &&
+           (cVar5 = PeekPacketChecksumBool(), cVar5 == '\0')) {
           iVar6 = *(int *)(g_clientContext + 0x621e0);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar7 = _rand();

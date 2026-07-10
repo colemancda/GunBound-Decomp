@@ -91,8 +91,8 @@ undefined4 FUN_00439e40(int param_1)
   FUN_0043a670();
   iVar4 = GetPlayerRecordBySlot(g_clientContext);
   *(int *)(g_clientContext + 0x621e4) = iVar4;
-  if ((((iVar4 != 0) && (cVar2 = FUN_004065a0(), cVar2 != '\0')) &&
-      (cVar2 = FUN_004065a0(), cVar2 != '\x01')) &&
+  if ((((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) &&
+      (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')) &&
      ((uVar6 = FUN_0040a4d0(g_clientContext + 0x3b49c), param_1 != uVar6 ||
       ((cVar2 = FUN_0040b360(*(int *)(g_clientContext + 0x621e0) + 0x6968,0), cVar2 == '\0' &&
        (iVar4 = (**(code **)(**(int **)(g_clientContext + 0x621e0) + 0x14))(), iVar4 < 9000)))))) {
@@ -135,7 +135,7 @@ undefined4 FUN_00439e40(int param_1)
     if (cVar2 != '\0') {
       FUN_00406500(1);
     }
-    cVar2 = FUN_004065a0();
+    cVar2 = PeekPacketChecksumBool();
     if ((cVar2 != '\0') && (iVar4 = FUN_004f2f90(), iVar4 != 0)) {
       for (iVar3 = *(int *)(iVar4 + 0x10); iVar3 != iVar4; iVar3 = *(int *)(iVar3 + 0x10)) {
         if (*(char *)(g_clientContext + 0x45127) == '\x03') {
@@ -150,7 +150,7 @@ undefined4 FUN_00439e40(int param_1)
     iVar3 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e4) + 0xb30);
     iVar7 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e4) + 0x90c);
     iVar4 = g_clientContext;
-    cVar2 = FUN_004065a0();
+    cVar2 = PeekPacketChecksumBool();
     if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar4] != '\0')) {
       iVar9 = 400;
       if (399 < iVar7) {

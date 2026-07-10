@@ -244,7 +244,7 @@ LAB_00495f90:
   EncodeOutgoingPacketField(puVar33);
   puVar25 = &DAT_005a9068;
   (*pcVar18)(&DAT_005a9068);
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
     FUN_0040b180(param_1 + 0x10,local_d10,8);
     uStack_30 = 9;
@@ -363,7 +363,7 @@ LAB_004972ef:
     else {
 LAB_004974a8:
       *(undefined1 *)(param_1 + 5) = 1;
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if ((cVar2 != '\0') && (cVar2 = FUN_0043a530(), cVar2 == '\0')) {
         iVar4 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar4 == 5) || (uVar5 = 2, iVar4 == 6)) {
@@ -386,7 +386,7 @@ LAB_004974a8:
       (*pcVar18)(&DAT_005a9068);
       iVar4 = g_clientContext;
       piVar29 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar4] != '\0')) {
         if (((&DAT_006a7736)[iVar4] == '\x01') &&
            ((uVar14 = iVar13 - *(int *)(&DAT_006a7714 + iVar4) >> 0x1f,
@@ -454,7 +454,7 @@ LAB_004974a8:
     goto LAB_00497710;
   }
   FUN_004262d0(param_1[2],param_1 + 0x45e);
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
@@ -504,7 +504,7 @@ LAB_004964ea:
     uVar22 = 2;
     uVar21 = 0xff;
     uVar6 = 0;
-    FUN_004065a0(0,iVar4,0xff,2,0);
+    PeekPacketChecksumBool(0,iVar4,0xff,2,0);
     FUN_00431d90((char)param_1[0xf],7,0,uVar6,iVar4,uVar21,uVar22,uVar23);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -558,7 +558,7 @@ LAB_0049676b:
       iVar9 = FUN_0053753c();
       (**(code **)(*piVar29 + 4))(&DAT_00553b90);
       piVar29[0x11] = iVar8;
-      cVar3 = FUN_004065a0();
+      cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
         uStack_8d8 = 0;
         uStack_ae4 = 0;
@@ -580,7 +580,7 @@ LAB_0049676b:
         uVar23 = 0xff;
         uVar22 = 100;
         uVar21 = 0;
-        FUN_004065a0(uVar6,0,100,0xff,iVar4,0);
+        PeekPacketChecksumBool(uVar6,0,100,0xff,iVar4,0);
         FUN_00432320((char)param_1[0xf],1,1,uVar6,uVar21,uVar22,uVar23,iVar4,uVar10);
         uStack_3c = CONCAT31(SUBFIELD(uStack_3c,1,undefined3),7);
         FUN_0040a2a0();
@@ -611,7 +611,7 @@ LAB_00496a28:
           uVar21 = 0;
           FUN_0040a4d0(auStack_af8);
           uVar6 = FUN_0040a4d0(&stack0xfffff2e4);
-          FUN_004065a0(uVar6,uVar21,uVar22,uVar23,iVar4,uVar10);
+          PeekPacketChecksumBool(uVar6,uVar21,uVar22,uVar23,iVar4,uVar10);
           FUN_00432320((char)param_1[0xf],1,1,uVar6,uVar21,uVar22,uVar23,iVar4,uVar10);
           uStack_3c = CONCAT31(SUBFIELD(uStack_3c,1,undefined3),5);
           FUN_0040a2a0();
@@ -628,7 +628,7 @@ LAB_00496a28:
       puVar27[0xfe9] = uVar5;
       iVar4 = FUN_004ac400();
       puVar27[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar3 = FUN_004065a0();
+      cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
         RegisterActiveObject();
       }
@@ -704,7 +704,7 @@ LAB_00496abf:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_00437150(uVar21,uVar6,0x3c,uVar5);
   iVar4 = g_clientContext;
-  cVar3 = FUN_004065a0();
+  cVar3 = PeekPacketChecksumBool();
   if (cVar3 != '\x01') {
     iVar13 = *(int *)(&DAT_006a7750 + iVar4);
     if (iVar13 < 0xb) {
@@ -717,11 +717,11 @@ LAB_00496abf:
     }
     *(int *)(&DAT_006a7754 + iVar4) = iVar13;
   }
-  cVar3 = FUN_004065a0();
+  cVar3 = PeekPacketChecksumBool();
   if (cVar3 == '\0') {
     FUN_004ee9b0(0);
   }
-  cVar3 = FUN_004065a0();
+  cVar3 = PeekPacketChecksumBool();
   pcVar18 = (code *)LeaveCriticalSection;
   if ((cVar3 != '\0') &&
      (cVar3 = FUN_0043a530(), pcVar18 = (code *)LeaveCriticalSection, cVar3 == '\0')) {
@@ -766,7 +766,7 @@ LAB_00496f3d:
     (*pcVar18)(&DAT_005a9068);
     if (cVar3 == '\0') goto LAB_00496f3d;
 LAB_00496f89:
-    cVar3 = FUN_004065a0();
+    cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\0') {
       FUN_00406500(1);
     }

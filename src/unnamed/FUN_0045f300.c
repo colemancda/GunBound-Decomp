@@ -84,7 +84,7 @@ LAB_0045f51b:
   if (5 < local_acc) {
     local_acc = 6;
   }
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();

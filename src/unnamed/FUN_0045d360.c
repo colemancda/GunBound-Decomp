@@ -33,9 +33,9 @@ int FUN_0045d360(int param_1)
   iVar5 = ((400 - iVar3) / iVar4) * iVar5;
   cVar1 = FUN_00406860();
   if (cVar1 != '\0') {
-    cVar1 = FUN_004065a0();
+    cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\0') {
-      cVar1 = FUN_004065a0();
+      cVar1 = PeekPacketChecksumBool();
       if (cVar1 == '\0') {
         iVar3 = in_EAX + 0x9230;
       }
@@ -51,7 +51,7 @@ int FUN_0045d360(int param_1)
     }
     iVar5 = iVar5 + iVar3;
   }
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\x01') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState();
@@ -89,7 +89,7 @@ LAB_0045d4b9:
   iVar5 = iVar5 + iVar3;
 LAB_0045d527:
   *(undefined1 *)(in_EAX + 0xae68) = 1;
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(iVar5 + iVar2);

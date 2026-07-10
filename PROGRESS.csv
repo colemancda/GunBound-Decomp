@@ -109,7 +109,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004064a0,93,FUN_004064a0,false,42,1,RAW-src
 00406500,41,FUN_00406500,false,260,3,RAW-src
 00406530,108,FUN_00406530,false,62,3,RAW-src
-004065a0,97,FUN_004065a0,false,1297,2,RAW-src
+004065a0,97,PeekPacketChecksumBool,false,1297,2,RAW-src
 00406610,118,FUN_00406610,false,92,2,RAW-src
 00406690,120,FUN_00406690,false,2,2,RAW-src
 00406710,161,FUN_00406710,false,37,2,RAW-src

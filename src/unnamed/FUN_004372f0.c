@@ -18,7 +18,7 @@ FUN_004372f0(char param_1,undefined4 param_2,int param_3,int param_4,int param_5
   int iVar4;
   int iVar5;
   
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
     pvVar2 = operator_new(0x54);
     if (pvVar2 == (void *)0x0) {

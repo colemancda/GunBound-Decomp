@@ -36,7 +36,7 @@ FUN_0042b0b0(undefined4 param_1,uint param_2,int param_3,undefined4 param_4,int 
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053defa;
   *unaff_FS_OFFSET = &local_c;
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') goto LAB_0042bab0;
   switch(param_3) {
   case 0:

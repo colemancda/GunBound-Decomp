@@ -71,7 +71,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         FUN_00406500(1);
         break;
       case 7:
-        cVar1 = FUN_004065a0();
+        cVar1 = PeekPacketChecksumBool();
         iVar7 = iVar2 + 0x6744;
         if (cVar1 == '\0') {
           uVar6 = FUN_0040a4d0(&DAT_00794bf0);
@@ -126,7 +126,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         FUN_00406500(1);
         break;
       case 7:
-        cVar1 = FUN_004065a0();
+        cVar1 = PeekPacketChecksumBool();
         iVar7 = iVar2 + 0x6744;
         if (cVar1 == '\0') {
           uVar6 = FUN_0040a8c0(iVar7,local_ce4,4);
@@ -160,7 +160,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         do {
           iVar3 = GetPlayerRecordBySlot(g_clientContext);
           if ((((iVar3 != 0) && (*(int *)(iVar3 + 0x24) != 0xe)) &&
-              (cVar1 = FUN_004065a0(), cVar1 != '\x01')) &&
+              (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
              ((*(char *)(g_clientContext + 0x45122) == '\0' ||
               (*(int *)(iVar3 + 0xae2c) == *(int *)(iVar2 + 0xae2c))))) {
             cVar1 = FUN_0040b330(iVar3 + 0x6968,uVar6);

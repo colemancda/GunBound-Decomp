@@ -61,7 +61,7 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   puStack_8 = &LAB_00539d55;
   *unaff_FS_OFFSET = &local_c;
   uStack_10 = 0x478ccf;
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if ((cVar1 != '\0') || ((char)param_1[5] == '\x01')) goto LAB_004798f4;
   local_2d0c = 0;
   FUN_0040a6e0(param_1 + 0x97,local_2028,param_2);
@@ -332,7 +332,7 @@ LAB_00479655:
     local_4 = 0xffffffff;
     FUN_0040a2a0();
     (**(code **)(*param_1 + 4))(s_damage_00555cc0);
-    cVar1 = FUN_004065a0();
+    cVar1 = PeekPacketChecksumBool();
     if ((cVar1 == '\x01') && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
       AddToPacketChecksum(local_2d0c);
     }

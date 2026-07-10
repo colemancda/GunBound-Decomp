@@ -23,15 +23,15 @@ int FUN_0045f840(void)
   }
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     iVar2 = iVar2 + (iVar2 * 0x14) / 100;
   }
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     iVar2 = iVar2 + (iVar2 * 0x14) / 100;
   }
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     if (*(char *)(unaff_EBX + 0x651c) == '\x01') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

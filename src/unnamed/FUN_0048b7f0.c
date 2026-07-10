@@ -257,7 +257,7 @@ LAB_0048bc2e:
             iVar3 = local_15b4;
           }
         }
-        cVar1 = FUN_004065a0();
+        cVar1 = PeekPacketChecksumBool();
         if ((cVar1 == '\0') && (iVar5 = FUN_004511b0(local_15b8), iVar5 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar5 = _rand();
@@ -288,7 +288,7 @@ LAB_0048bc2e:
           FUN_00436bd0(local_15b8 - (iVar5 >> 8),local_15bc - (iVar3 >> 8),
                        *(undefined4 *)(local_15b4 + 0x1e50));
         }
-        cVar1 = FUN_004065a0();
+        cVar1 = PeekPacketChecksumBool();
         if (cVar1 != '\0') {
           FUN_00436ec0(local_15b8,local_15bc);
         }
@@ -338,8 +338,8 @@ LAB_0048d0e3:
           local_15a0 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar5 = FUN_00425ac0(g_clientContext,local_15a0,local_158c,iVar5 / *(int *)(iVar3 + 0x3fa4));
-          if (((iVar5 != 0) && (cVar1 = FUN_004065a0(), cVar1 != '\0')) &&
-             (cVar1 = FUN_004065a0(), cVar1 != '\x01')) {
+          if (((iVar5 != 0) && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) &&
+             (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) {
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar3 = local_15b4;
             EncodeOutgoingPacketField(local_15b8 << 8);
@@ -550,7 +550,7 @@ LAB_0048c664:
         }
         iVar5 = local_15b4;
         pbVar11 = (byte *)(local_15b4 + 0x3918);
-        cVar1 = FUN_004065a0();
+        cVar1 = PeekPacketChecksumBool();
         if ((cVar1 == '\0') && (iVar3 = FUN_004511b0(iVar3), iVar3 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar3 = _rand();
@@ -581,7 +581,7 @@ LAB_0048c664:
           FUN_00436bd0(local_15c4 - ((int)local_15ac >> 8),local_15b8 - (iVar3 >> 8),
                        *(undefined4 *)(local_15b4 + 0x1e50));
         }
-        cVar1 = FUN_004065a0();
+        cVar1 = PeekPacketChecksumBool();
         if (cVar1 != '\0') {
           FUN_00436ec0(local_15c4,local_15b8);
         }
@@ -633,8 +633,8 @@ LAB_0048d0d0:
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar5 = FUN_00425ac0(g_clientContext,local_15a0,local_1580[0],
                                (int)local_15ac / *(int *)(iVar3 + 0x3fa4));
-          if (((iVar5 != 0) && (cVar1 = FUN_004065a0(), cVar1 != '\0')) &&
-             (cVar1 = FUN_004065a0(), cVar1 != '\x01')) {
+          if (((iVar5 != 0) && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) &&
+             (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) {
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar3 = local_15b4;
             EncodeOutgoingPacketField(local_15c4 << 8);

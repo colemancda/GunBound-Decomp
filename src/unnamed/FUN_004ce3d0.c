@@ -31,7 +31,7 @@ void FUN_004ce3d0(int param_1)
       }
       piVar3 = (int *)GetPlayerRecordBySlot(g_clientContext);
       if (piVar3 != (int *)0x0) {
-        cVar1 = FUN_004065a0();
+        cVar1 = PeekPacketChecksumBool();
         if (cVar1 == '\x01') {
           (**(code **)(*piVar3 + 4))(&DAT_00553bcc);
           FUN_00406500(1);

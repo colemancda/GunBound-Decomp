@@ -77,7 +77,7 @@ void __fastcall FUN_004a8360(int *param_1)
   EncodeOutgoingPacketField(iVar6 + local_b0c);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
-  cVar4 = FUN_004065a0();
+  cVar4 = PeekPacketChecksumBool();
   if (cVar4 == '\0') {
     FUN_0040b180(param_1 + 0x10,auStack_688,8);
     puStack_10 = (undefined1 *)0x11;
@@ -183,7 +183,7 @@ LAB_004aa132:
     if (iVar6 < 0) {
 LAB_004aa2ed:
       *(undefined1 *)(param_1 + 5) = 1;
-      cVar4 = FUN_004065a0();
+      cVar4 = PeekPacketChecksumBool();
       if ((cVar4 != '\0') && (cVar4 = FUN_0043a530(), cVar4 == '\0')) {
         iVar6 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar6 == 5) || (uVar8 = 2, iVar6 == 6)) {
@@ -214,7 +214,7 @@ LAB_004aa2ed:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar6 = g_clientContext;
       piVar13 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar4 = FUN_004065a0();
+      cVar4 = PeekPacketChecksumBool();
       if ((cVar4 == '\0') && ((&DAT_006a7758)[iVar6] != '\0')) {
         if (((&DAT_006a7736)[iVar6] == '\x01') &&
            ((uVar15 = iVar7 - *(int *)(&DAT_006a7714 + iVar6) >> 0x1f,
@@ -303,7 +303,7 @@ LAB_004aa2ed:
         uVar19 = 1;
         uVar8 = 0;
         pbVar9 = local_b10;
-        FUN_004065a0(0,local_b10,uVar15,1,0);
+        PeekPacketChecksumBool(0,local_b10,uVar15,1,0);
         FUN_00431d90((char)param_1[0xf],7,1,uVar8,pbVar9,uVar15,uVar19,uVar20);
         pbStack_afc = (byte *)(param_1 + 0xc66);
         uVar8 = FUN_0040a500(pbStack_afc,auStack_688);
@@ -351,11 +351,11 @@ LAB_004aa2ed:
           FUN_0040b540(apbStack_b04);
           param_1 = piStack_af4;
         }
-        cVar4 = FUN_004065a0();
+        cVar4 = PeekPacketChecksumBool();
         pbVar9 = local_b10;
         if (cVar4 != '\0') {
           local_b10 = &DAT_006a7708 + g_clientContext;
-          cVar4 = FUN_004065a0();
+          cVar4 = PeekPacketChecksumBool();
           pbVar9 = local_b10;
           if ((cVar4 == '\0') && (local_b10[0x50] != 0)) {
             if ((local_b10[0x2e] == 1) &&
@@ -1038,7 +1038,7 @@ LAB_004a9552:
       uVar19 = 100;
       uVar8 = 0;
       pbVar9 = apbStack_b04[0];
-      FUN_004065a0(apbStack_b04[0],0,100,0xff,iVar7,0);
+      PeekPacketChecksumBool(apbStack_b04[0],0,100,0xff,iVar7,0);
       FUN_00432320((char)param_1[0xf],1,1,pbVar9,uVar8,uVar19,uVar20,iVar7,uVar21);
       pbVar9 = pbStack_ac8;
       puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),0xd);

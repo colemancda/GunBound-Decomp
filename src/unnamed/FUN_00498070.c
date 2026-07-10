@@ -47,15 +47,15 @@ void FUN_00498070(int *param_1)
   local_8c8 = 0;
   do {
     iVar3 = GetPlayerRecordBySlot(g_clientContext);
-    if ((iVar3 != 0) && (cVar2 = FUN_004065a0(), cVar2 != '\x01')) {
+    if ((iVar3 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar4 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 != '\0') {
         iVar4 = iVar4 / 5 + iVar4;
       }
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 != '\0') {
         iVar4 = iVar4 - iVar4 / 2;
       }

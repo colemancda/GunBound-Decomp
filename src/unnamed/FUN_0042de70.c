@@ -620,7 +620,7 @@ LAB_0042f012:
   }
 LAB_0042f0e2:
   FUN_0041da80(g_clientContext,piVar5,1,param_11,1);
-  cVar4 = FUN_004065a0();
+  cVar4 = PeekPacketChecksumBool();
   if (cVar4 == '\x01') {
     local_8ac = (int *)FUN_0040a7d0(piVar5 + 0x930,auStack_8a0,3);
     puStack_8 = (undefined1 *)0x14;

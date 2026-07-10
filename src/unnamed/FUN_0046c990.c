@@ -22,7 +22,7 @@ void __fastcall FUN_0046c990(int *param_1)
   if ((char)param_1[0xd] == '\x01') {
     (**(code **)(*param_1 + 4))(&PTR_DAT_00555e2c);
   }
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState();

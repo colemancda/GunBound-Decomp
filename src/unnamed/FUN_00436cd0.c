@@ -16,7 +16,7 @@ void __thiscall FUN_00436cd0(int param_1,int param_2,int param_3)
   int iVar4;
   int iVar5;
   
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
     iVar2 = _rand();
     if ((uint)(byte)(&DAT_005f2f54)[g_clientContext] * param_3 - iVar2 % 200 != 0 &&

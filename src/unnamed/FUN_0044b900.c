@@ -51,10 +51,10 @@ void FUN_0044b900(int param_1)
   uStack_10 = 0x44b91f;
   FUN_00425350();
   local_4 = 0;
-  cVar3 = FUN_004065a0();
+  cVar3 = PeekPacketChecksumBool();
   pcVar11 = (code *)LeaveCriticalSection;
   if (cVar3 != '\0') {
-    cVar3 = FUN_004065a0();
+    cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\x01') goto LAB_0044bdfe;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = _rand();
@@ -193,7 +193,7 @@ void FUN_0044b900(int param_1)
       }
       _sprintf((char *)((int)&local_190c + 3),s__05d_img_00555a08,local_1874 & 0x7fff);
       LoadSpriteSet(&DAT_00ea0e18,40000);
-      cVar3 = FUN_004065a0();
+      cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
         CreateButtonWidget(&DAT_00e9be90,0,0x36,0x516,s_b_storewindow_confirm_00555a8c,0x14d,0x154,
                            0x4a,0x1a,1,0);

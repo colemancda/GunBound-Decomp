@@ -86,7 +86,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   param_1[0xa3] = iVar4;
   iVar4 = BuildChannelUserListPanel(&g_uiPanelManager);
   param_1[0xa4] = iVar4;
-  cVar3 = FUN_004065a0();
+  cVar3 = PeekPacketChecksumBool();
   if ((cVar3 == '\x01') && (*(short *)(g_clientContext + 0x3b96f) != -1)) {
     *(undefined1 *)((int)param_1 + 0x115) = 1;
   }
@@ -104,7 +104,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   *(int *)(iVar2 + 0x44d0) = iVar4 + 1;
   *(undefined1 *)(iVar4 + 0x4d1 + iVar2) = *(undefined1 *)((int)param_1 + 0x116);
   *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
-  cVar3 = FUN_004065a0();
+  cVar3 = PeekPacketChecksumBool();
   iVar4 = DAT_007934e8;
   if ((cVar3 == '\x01') && (*(ushort *)(g_clientContext + 0x3b96f) != 0xffff)) {
     *(short *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) =

@@ -19,8 +19,8 @@ void FUN_00464060(void)
   int iVar6;
   int unaff_EDI;
   
-  cVar2 = FUN_004065a0();
-  if (((cVar2 == '\0') && (cVar2 = FUN_004065a0(), cVar2 != '\0')) &&
+  cVar2 = PeekPacketChecksumBool();
+  if (((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) &&
      (*(int *)(unaff_EDI + 0x24) != 0xe)) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = _rand();

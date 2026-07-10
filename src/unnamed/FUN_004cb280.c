@@ -246,7 +246,7 @@ LAB_004cb8d4:
   uVar8 = PeekPacketChecksumState();
   (*pcVar14)(&DAT_005a9068);
   if (local_718 != uVar8) goto LAB_004cbd7a;
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\x01') {
 LAB_004cbb03:
     Replay_AppendEvent(0xc40b);
@@ -284,7 +284,7 @@ LAB_004cbb03:
             goto LAB_004cbad9;
           }
         }
-        if ((*(int *)(iVar3 + 0x24) != 0xe) || (cVar1 = FUN_004065a0(), cVar1 == '\0')) {
+        if ((*(int *)(iVar3 + 0x24) != 0xe) || (cVar1 = PeekPacketChecksumBool(), cVar1 == '\0')) {
           Replay_AppendEvent(0xc801);
           (&g_replayEventBuffer)[g_replayEventCursor] = (undefined1)local_714;
           g_replayEventCursor = g_replayEventCursor + 1;
@@ -314,7 +314,7 @@ LAB_004cbad9:
     *(undefined4 *)(param_1 + 0x23cc) = 400;
     if (*(int *)(iVar3 + 0x621e0) == 0) goto LAB_004cbd7a;
     pbVar12 = (byte *)(param_1 + 0x23d4);
-    cVar1 = FUN_004065a0();
+    cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\x01') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar3 = _rand();
@@ -344,7 +344,7 @@ LAB_004cbad9:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     (*pcVar14)(&DAT_005a9068);
-    if ((((int)local_718 <= iVar3) && (cVar1 = FUN_004065a0(), cVar1 == '\0')) &&
+    if ((((int)local_718 <= iVar3) && (cVar1 = PeekPacketChecksumBool(), cVar1 == '\0')) &&
        (*(char *)(g_clientContext + 0x45127) != '\0')) {
       Replay_AppendEvent(0xc305);
       Replay_FlushEvent();

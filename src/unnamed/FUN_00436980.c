@@ -17,7 +17,7 @@ void __thiscall FUN_00436980(undefined4 param_1,int param_2,int param_3,int para
   undefined4 *puVar5;
   int iVar6;
   
-  cVar1 = FUN_004065a0(param_1);
+  cVar1 = PeekPacketChecksumBool(param_1);
   if ((cVar1 == '\0') && (iVar6 = 0, (&DAT_005f2f54)[g_clientContext] != '\0')) {
     do {
       puVar2 = operator_new(0x4c);

@@ -17,7 +17,7 @@ void FUN_00437150(int param_1,int param_2,int param_3,int param_4)
   undefined4 *puVar5;
   int local_8;
   
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if ((cVar1 == '\0') &&
      (local_8 = 0, 0 < (int)((uint)(byte)(&DAT_005f2f54)[g_clientContext] * param_4))) {
     do {

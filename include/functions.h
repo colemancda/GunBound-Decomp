@@ -215,7 +215,7 @@ byte * __fastcall FUN_00406440();
 void FUN_004064a0();
 void FUN_00406500();
 undefined4 __fastcall FUN_00406530();
-char FUN_004065a0();
+char PeekPacketChecksumBool();
 undefined4 FUN_00406610();
 undefined4 FUN_00406690();
 undefined4 FUN_00406710();

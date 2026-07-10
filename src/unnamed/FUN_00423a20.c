@@ -31,7 +31,7 @@ void __fastcall FUN_00423a20(int param_1)
     (&g_replayEventBuffer)[g_replayEventCursor] = in_AL;
     g_replayEventCursor = g_replayEventCursor + 1;
     if (in_AL == 0xe) {
-      cVar4 = FUN_004065a0();
+      cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
         iVar7 = *(int *)(g_clientContext + 0x621e0);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

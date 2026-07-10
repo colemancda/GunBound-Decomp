@@ -21,7 +21,7 @@ void FUN_00436fd0(int param_1,int param_2,int param_3,int param_4,int param_5)
   int local_4;
   
   iVar1 = param_3;
-  cVar2 = FUN_004065a0();
+  cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
     if (0 < param_3) {
       param_3 = 0;

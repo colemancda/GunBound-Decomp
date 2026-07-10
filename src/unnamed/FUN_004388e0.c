@@ -175,7 +175,7 @@ void FUN_004388e0(void)
   puStack_8d4 = (undefined1 *)0x438df7;
   FUN_0041da80();
   iVar3 = GetPlayerRecordBySlot();
-  if ((iVar3 != 0) && (cVar1 = FUN_004065a0(), cVar1 != '\0')) {
+  if ((iVar3 != 0) && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) {
     FUN_0040a8c0();
     puStack_8 = (undefined1 *)0x1;
     FUN_0040afb0();
@@ -201,7 +201,7 @@ void FUN_004388e0(void)
       FUN_0040b540();
     }
   }
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   pcVar9 = (code *)LeaveCriticalSection;
   pcVar10 = (code *)EnterCriticalSection;
   if (cVar1 == '\x01') {

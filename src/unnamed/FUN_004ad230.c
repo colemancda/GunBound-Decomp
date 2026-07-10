@@ -50,7 +50,7 @@ void __fastcall FUN_004ad230(int param_1)
   (*pcVar7)(&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  cVar1 = FUN_004065a0();
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
     pvVar5 = operator_new(0x54);
     if (pvVar5 == (void *)0x0) {

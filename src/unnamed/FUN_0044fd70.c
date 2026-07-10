@@ -61,7 +61,7 @@ void __fastcall FUN_0044fd70(int param_1)
       goto LAB_0044fe4c;
     }
     iVar6 = GetPlayerRecordBySlot(iVar6);
-    if ((iVar6 == 0) || (cVar2 = FUN_004065a0(), cVar2 != '\0')) {
+    if ((iVar6 == 0) || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) {
       *(undefined1 *)(param_1 + 0x14) = 1;
     }
     uVar3 = FUN_0040a4d0(iVar6 + 0x90c);

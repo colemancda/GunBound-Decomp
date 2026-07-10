@@ -106,7 +106,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
   if (uVar1 < 0x8501) {
     if (uVar1 == 0x8500) {
       iVar4 = GetPlayerRecordBySlot(g_clientContext);
-      if ((iVar4 != 0) && (cVar2 = FUN_004065a0(), cVar2 == '\0')) {
+      if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
         uVar21 = QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x22));
         EncodeChecksumState(uVar21);
         uVar21 = QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x24));
@@ -128,7 +128,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
           cVar2 = *(char *)(param_2 + 0x25);
           QueueOutgoingPacketField(*(char *)(param_2 + 0x26) == '\x01');
           FUN_00406500(cVar2 == '\x02');
-          cVar3 = FUN_004065a0();
+          cVar3 = PeekPacketChecksumBool();
           if (cVar3 == '\0') {
             FUN_00406500(cVar2 == '\x01');
           }
@@ -357,7 +357,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       else if (((((uVar1 == 0x8005) &&
                  (uVar11 = FUN_0040a4d0(g_clientContext + 0x3b49c), bVar16 != uVar11)) &&
                 ((iVar4 = GetPlayerRecordBySlot(g_clientContext), iVar4 != 0 &&
-                 ((cVar2 = FUN_004065a0(), cVar2 != '\0' && (cVar2 = FUN_004065a0(), cVar2 != '\0'))
+                 ((cVar2 = PeekPacketChecksumBool(), cVar2 != '\0' && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0'))
                  )))) && (*(int *)(iVar4 + 0x24) != 5)) && (*(int *)(iVar4 + 0x24) != 6)) {
         QueueOutgoingPacketField(*puVar12);
         QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x23));
@@ -419,7 +419,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       FUN_0043c4f0();
       FUN_00406500(0);
       FUN_004207c0(g_clientContext,bVar16);
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
         uVar11 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
         if (((char)uVar11 == '\0') ||
@@ -440,9 +440,9 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
         }
         FUN_00406300(uVar21);
       }
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        cVar2 = FUN_004065a0();
+        cVar2 = PeekPacketChecksumBool();
         if (cVar2 == '\x01') {
           FUN_00406300(1);
           FUN_00405fb0();
@@ -559,7 +559,7 @@ LAB_004b7c01:
           param_1[0x429] = (uint)*(ushort *)(param_2 + 0x22);
           piVar7 = (int *)GetPlayerRecordBySlot(iVar4);
           if (piVar7 != (int *)0x0) {
-            if ((piVar7[9] != 0xe) && (cVar2 = FUN_004065a0(), cVar2 == '\x01')) {
+            if ((piVar7[9] != 0xe) && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
               uVar21 = FUN_0040aba0(piVar7 + 0x19d1,local_2258,piVar7 + 0x1b6c);
               local_c = 2;
               uVar21 = FUN_0040a8c0(uVar21,local_8a8,3);
@@ -622,7 +622,7 @@ LAB_004b7c01:
             local_27ec[0x429] = (uint)*(ushort *)(param_2 + 0x22);
             piVar7 = (int *)GetPlayerRecordBySlot(iVar4);
             if (piVar7 != (int *)0x0) {
-              if ((piVar7[9] != 0xe) && (cVar2 = FUN_004065a0(), cVar2 == '\x01')) {
+              if ((piVar7[9] != 0xe) && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
                 uVar21 = FUN_0040aba0(piVar7 + 0x19d1,local_1e10,piVar7 + 0x1b6c);
                 local_c = 0;
                 uVar21 = FUN_0040a8c0(uVar21,local_19c8,3);
@@ -921,12 +921,12 @@ LAB_004b7c01:
             }
           }
 LAB_004b7674:
-          cVar2 = FUN_004065a0();
+          cVar2 = PeekPacketChecksumBool();
           if (cVar2 != '\x01') break;
 LAB_004b7fb2:
           cVar2 = FUN_0040b390(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
-          if (((cVar2 != '\0') && (cVar2 = FUN_004065a0(), cVar2 == '\0')) &&
-             ((g_currentGameState != 0xb || (cVar2 = FUN_004065a0(), cVar2 != '\x01')))) {
+          if (((cVar2 != '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) &&
+             ((g_currentGameState != 0xb || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')))) {
             FUN_00413bf0();
             *unaff_FS_OFFSET = local_14;
             return;
@@ -1035,7 +1035,7 @@ LAB_004b7fb2:
       FUN_00406500(0);
       cVar2 = FUN_0043c820();
       if (cVar2 == '\x01') {
-        cVar2 = FUN_004065a0();
+        cVar2 = PeekPacketChecksumBool();
         if (cVar2 != '\0') {
           *(undefined4 *)((int)piVar7 + 0xbffa) = DAT_00553b70;
           *(undefined2 *)((int)piVar7 + 0xbffe) = DAT_00553b74;
@@ -1047,7 +1047,7 @@ LAB_004b7fb2:
         *unaff_FS_OFFSET = local_14;
         return;
       }
-      cVar2 = FUN_004065a0();
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
         iVar4 = *piVar7;
         pcVar5 = (char *)&DAT_00553b68;
@@ -1089,7 +1089,7 @@ LAB_004b7fb2:
       bVar16 = *(byte *)puVar12;
       uVar11 = FUN_0040a4d0(g_clientContext + 0x3b49c);
       if (((uVar11 == bVar16) && (*(int *)(g_clientContext + 0x621e0) != 0)) &&
-         (cVar2 = FUN_004065a0(), cVar2 == '\0')) {
+         (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
         FUN_00406500(1);
         iVar6 = DAT_007934e8;
         iVar10 = g_clientContext;
