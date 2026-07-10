@@ -1,16 +1,30 @@
-/* FUN_004ed5a0 - 0x004ed5a0 in the original binary.
+/* BuildColorQuad - 0x004ed5a0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Appends one **untextured, vertex-coloured quad** (two triangles) to
+ * g_spriteVertexBuffer for the frame's DrawPrimitive flush - the plain-fill
+ * member of the quad-emitter family (cf. BuildSpriteQuad /
+ * BuildRotatedSpriteQuad, which carry texture UVs). Params 1-8 are the four
+ * corner positions (x,y each), params 9-14 the six triangle-list vertex
+ * colours (ARGB). It stages them into the DAT_00ea0e28 scratch, copies the
+ * 0x1b-dword (108-byte) vertex record into g_spriteVertexBuffer at
+ * g_spriteVertexCount, mirrors the position/colour spans into the two
+ * companion arrays (DAT_006ba1fc / DAT_006ba244, 0x6c stride), and advances
+ * g_spriteVertexCount by 2 (a quad = two triangles).
+ *
+ * Its one confirmed use is the **modal-dialog screen dim**: GameTick calls
+ * BuildColorQuad(0,0, 799,0, 799,599, 0,599, 0,0,0,0, 0x80000000,
+ * 0x80000000) - a full-screen quad filled with 50%-alpha black - whenever a
+ * dialog is up (g_stateChangeInProgress != 0). See ARCHITECTURE.md.
+ *
+ * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified.
+ * See src/README.md's "Raw/verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004ed5a0(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,
+void BuildColorQuad(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,
                  int param_7,int param_8,undefined4 param_9,undefined4 param_10,undefined4 param_11,
                  undefined4 param_12,undefined4 param_13,undefined4 param_14)
 

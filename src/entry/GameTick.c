@@ -230,7 +230,7 @@ LAB_004137a9:
         (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
         (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
       }
-      FUN_004ed5a0(0,0,799,0,799,599,0,599,0,0,0,0,0x80000000,0x80000000);
+      BuildColorQuad(0,0,799,0,799,599,0,599,0,0,0,0,0x80000000,0x80000000);
     }
     if (DAT_00793610 != '\0') {
       (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,7,0);

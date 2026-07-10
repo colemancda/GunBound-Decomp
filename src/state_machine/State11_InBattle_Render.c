@@ -575,7 +575,7 @@ void State11_InBattle_Render(void)
     if (*(char *)(iVar5 + 0x22d33 + iStack_9a8) != '\0') {
       iVar19 = 2;
       do {
-        FUN_004ed5a0();
+        BuildColorQuad();
         iVar19 = iVar19 + -1;
       } while (iVar19 != 0);
     }
@@ -631,7 +631,7 @@ void State11_InBattle_Render(void)
         uStack_a08 = (*(int *)(iVar5 + 0x217b0 + g_clientContext) -
                      *(int *)(&DAT_006a7710 + g_clientContext)) + 400;
         piStack_a0c = (int *)0x4c4a04;
-        FUN_004ed5a0();
+        BuildColorQuad();
         iStack_9b8 = iStack_9b8 + 1;
         iVar5 = iVar5 + 0x10;
       } while (iStack_9b8 < (int)(uint)*(byte *)(iStack_9bc + 0x21748 + iVar6));
@@ -2245,7 +2245,7 @@ LAB_004c865b:
   *(undefined4 *)(iVar5 + 0x22d3f) = 0;
   if (*(char *)((int)pcStack_a28 + 0x11d0) != '\0') {
     _DAT_00792194 = 1;
-    FUN_004ed5a0(0,0,799,0,799,599,0,599,0,0,0,0,0x80000000,0x80000000);
+    BuildColorQuad(0,0,799,0,799,599,0,599,0,0,0,0,0x80000000,0x80000000);
   }
   *unaff_FS_OFFSET = uStack_114;
   return;

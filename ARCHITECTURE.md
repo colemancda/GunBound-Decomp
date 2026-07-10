@@ -1504,8 +1504,16 @@ handles at `ctx+0x1fe6c…` to `-1`, **advance two particle-trail history ring
 buffers** (the two shift-loops copy each trail entry from the previous frame's,
 so trails fade over 15 / 7 frames), clear the per-frame transient active flags
 (player `+0x20b0c`, special `+0x22d24`, jewel `+0x23244`, …), and — if a flag is
-set — draw one **full-screen 800×600 dim overlay** (`FUN_004ed5a0(0,0,799,…,599,…,
+set — draw one **full-screen 800×600 dim overlay** (`BuildColorQuad(0,0,799,…,599,…,
 0x80000000)`, i.e. 50%-alpha black) used for fade/pause transitions.
+`BuildColorQuad` (`0x4ed5a0`, was `FUN_004ed5a0`) is the plain-fill member of
+the quad-emitter family — it appends an **untextured, vertex-coloured** quad
+(4 corner positions + 6 ARGB vertex colours) to `g_spriteVertexBuffer`, unlike
+`BuildSpriteQuad`/`BuildRotatedSpriteQuad` which carry texture UVs. **`GameTick`
+draws this same dim under every modal dialog**, not just battle transitions:
+when `g_stateChangeInProgress != 0` (a `ShowErrorDialog` popup is up) it fills
+the whole 800×600 back buffer with the 50%-alpha-black quad before blitting the
+dialog panel — the shade behind error/message dialogs.
 
 `g_frameTriangleCounter` (was `DAT_0079365c`; incremented by `g_spriteVertexCount`
 before every flush, reset to 0 once per frame in `GameTick`) is a per-frame

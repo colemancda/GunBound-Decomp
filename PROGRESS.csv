@@ -1187,7 +1187,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ecee0,475,FUN_004ecee0,false,2,0,RAW-src
 004ed0c0,571,FUN_004ed0c0,false,2,0,RAW-src
 004ed300,658,FUN_004ed300,false,4,0,RAW-src
-004ed5a0,253,FUN_004ed5a0,false,4,0,RAW-src
+004ed5a0,253,BuildColorQuad,false,4,0,RAW-src
 004ed6a0,463,BlitSprite16bpp,false,252,1,RAW-src
 004ed870,376,FUN_004ed870,false,21,2,RAW-src
 004ed9f0,163,FUN_004ed9f0,false,36,2,RAW-src
