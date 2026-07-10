@@ -20,6 +20,9 @@ import struct
 G_CURRENT_STATE = 0x7934D0
 G_STATE_OBJECTS = 0x5B33F8
 G_CLIENT_CTX    = 0x5B3484
+# g_uiPanelManager (Panel.cpp): +4 = list head, +8 = tail; nodes are
+# CPanelListNode { m_next@+0, m_prev@+4, m_panel@+8 }, null-terminated.
+G_UI_PANEL_MGR  = 0x00E53C40
 
 STATE_NAMES = {
     0: "NULL", 1: "Title", 2: "ServerSelect", 3: "GameRoomList", 5: "Logo1",
@@ -141,8 +144,24 @@ def _dump_widget(addr, depth, maxdepth, seen):
             _dump_widget(_u32(data + i * 4), depth + 1, maxdepth, seen)
 
 
+def _dump_panels(maxdepth):
+    head = _u32(G_UI_PANEL_MGR + 4)
+    tail = _u32(G_UI_PANEL_MGR + 8)
+    print("g_uiPanelManager @0x%08x  list head=0x%08x tail=0x%08x" % (G_UI_PANEL_MGR, head, tail))
+    node, n, seen = head, 0, set()
+    while node and node not in seen and n < 64:
+        seen.add(node)
+        n += 1
+        panel = _u32(node + 8)
+        print("--- panel #%d  node=0x%08x  panel=0x%08x ---" % (n, node, panel))
+        _dump_widget(panel, 0, maxdepth, set())
+        node = _u32(node)          # m_next
+    if n == 0:
+        print("(no panels attached to the manager)")
+
+
 class GbState(gdb.Command):
-    """Decode GunBound's live C++ GameState. Usage: gbstate [ctx|raw [N]|widget <addr> [depth]]"""
+    """Decode GunBound's live C++ GameState. Usage: gbstate [ctx|raw [N]|widget <addr> [d]|panels [d]]"""
 
     def __init__(self):
         super().__init__("gbstate", gdb.COMMAND_USER)
@@ -165,6 +184,9 @@ class GbState(gdb.Command):
             addr = int(args[1], 0)
             maxdepth = int(args[2], 0) if len(args) > 2 else 8
             _dump_widget(addr, 0, maxdepth, set())
+        elif args and args[0] == "panels":
+            maxdepth = int(args[1], 0) if len(args) > 1 else 8
+            _dump_panels(maxdepth)
         else:
             _dump_state()
 
