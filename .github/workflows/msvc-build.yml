@@ -1,0 +1,97 @@
+# Full-tree MSVC 7.10 build (tools/msvc-env/_link_attempt.sh) on GitHub-hosted
+# runners: compiles every raw-port .c with real cl.exe /O2 under Wine and links
+# gunbound.exe (/FORCE). Supersedes the old per-file /Zs syntax sweep — a full
+# codegen compile is strictly stronger than a syntax check.
+#
+# Gates: any COMPILE-ERR fails the job (the tree is 1802/1802 clean — this is
+# the regression gate); the unresolved-external count is informational (the
+# remaining ~957 are known fastcall arity mismatches from Ghidra-dropped
+# register args, tracked for a call-site fix sweep).
+#
+# The MSVC 7.10 toolchain is proprietary and NOT in the repo. It is pulled from
+# the msvc7.zip asset on the 0.1.0 release (the zip contains msvc7/bin/cl.exe
+# etc. at its root, so it unpacks straight into tools/msvc-env/). The tree is
+# cached between runs so the ~91 MB download only happens on a cache miss.
+#
+# Not run per-PR: ~1800 cl.exe invocations under Wine take >1h, so it's gated
+# to main pushes, manual dispatch, and a weekly schedule.
+name: msvc-build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * 1'  # Mondays 06:00 UTC
+
+env:
+  MSVC7_URL: https://github.com/colemancda/GunBound-Decomp/releases/download/0.1.0/msvc7.zip
+
+jobs:
+  msvc-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache msvc7 tree
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: tools/msvc-env/msvc7
+          key: msvc7-tree-0.1.0
+
+      - name: Download + extract msvc7 tree
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          curl -fsSL "$MSVC7_URL" -o /tmp/msvc7.zip
+          # Zip holds msvc7/... at its root (+ macOS __MACOSX cruft we skip);
+          # extracting into tools/msvc-env/ yields tools/msvc-env/msvc7/.
+          unzip -q /tmp/msvc7.zip 'msvc7/*' -d tools/msvc-env
+          test -f tools/msvc-env/msvc7/bin/cl.exe \
+            || { echo "cl.exe missing after extract — check zip layout"; exit 1; }
+
+      - name: Build gb-msvc image
+        run: docker build --platform linux/amd64 -t gb-msvc tools/msvc-env
+
+      - name: Compile + link with MSVC 7.10
+        run: |
+          set -o pipefail
+          docker run --rm --platform linux/amd64 -v "$PWD":/work -w /work \
+            gb-msvc bash /work/tools/msvc-env/_link_attempt.sh 2>&1 | tee msvc-build.log
+
+      - name: Check results
+        run: |
+          cerr=$(grep -c '^COMPILE-ERR' msvc-build.log || true)
+          unresolved=$(sed -n 's/^=== unresolved externals: \([0-9]*\).*/\1/p' msvc-build.log)
+          exe=build/link_attempt/gunbound.exe
+          {
+            echo '## msvc-build (cl.exe 13.10.3052, /O2 + link /FORCE)'
+            echo ''
+            echo "Compile errors: **${cerr}**"
+            echo "Unresolved externals: **${unresolved:-?}**"
+            if [ -f "$exe" ]; then
+              echo "Linked exe: **$(stat -c%s "$exe") bytes**"
+            else
+              echo 'Linked exe: **NOT PRODUCED**'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$cerr" -gt 0 ]; then
+            echo "::error::$cerr file(s) failed to compile under MSVC 7.10"
+            grep -A3 '^COMPILE-ERR' msvc-build.log
+            exit 1
+          fi
+          if [ ! -f "$exe" ]; then
+            echo "::error::link produced no exe"
+            exit 1
+          fi
+
+      - name: Upload exe + link log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gunbound-msvc-build
+          path: |
+            build/link_attempt/gunbound.exe
+            build/link_attempt/link.log
+            msvc-build.log
+          if-no-files-found: warn
