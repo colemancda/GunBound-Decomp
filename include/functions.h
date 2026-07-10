@@ -123,7 +123,7 @@ void __fastcall FUN_00401370();
 int FUN_00401610();
 void FUN_00401650();
 uint FUN_00401820();
-HMODULE FUN_00401880();
+HMODULE FUN_00401880(uint param_1,WORD param_2); /* narrow WORD arg: empty-paren decl conflicts under gcc */
 undefined4 * FUN_00401910();
 void * __thiscall FUN_00401a50();
 void FUN_00401a70();
@@ -1360,7 +1360,7 @@ void FUN_004fe490();
 undefined4 __fastcall FUN_004fe500();
 void __fastcall FUN_004fe590();
 void FUN_004fe5d0();
-int FUN_004fe5f0();
+int FUN_004fe5f0(undefined4 param_1,u_short param_2); /* narrow u_short arg: empty-paren decl conflicts under gcc */
 void __fastcall FUN_004fe6a0();
 LRESULT FUN_004fe6f0();
 undefined4 FUN_004fe860();
