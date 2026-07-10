@@ -76,7 +76,8 @@ its **parent's** slot-7 method (`parent.vtable[+0x1c]`) with
   `0x50e620`. The object-field **`+0x20` type id** (not to be confused with
   the vtable's `+0x20` *draw* slot) is **runtime-confirmed** from a live panel
   dump: **`0` = panel/container, `1` = label/button (`0x557da0`), `2` =
-  text-entry (`0x557c84`), `4` = scroll-list (`0x557e90`)**. `+0x24` is the
+  text-entry (`0x557c84`), `3` = static text / message block (`0x557f30`, the
+  multi-line prompt text in dialogs), `4` = scroll-list (`0x557e90`)**. `+0x24` is the
   per-widget id used for command routing. The `+0x0c` child list is an
   **ATL7 `CAtlArray`**
   (`0x50ed30` is its `GrowBuffer` byte-for-byte, `+0x18` its
@@ -150,6 +151,7 @@ leaf widgets above. All register with the global UI panel manager
 | `BuildAvatarStorePanel` | `0x557eb8` | State 7 — Avatar Store item panel | 3 category labels (msg `0x4b0`–`0x4b2`) + scrollbar (page 0xe) |
 | `BuildChatLogPanel` | `0x557b94` | **chat log** panel (via `FUN_004025e0`), 0x1050-byte object with a ~4 KB history buffer | label + text-entry |
 | `BuildEnterRoomNumberDialog` | `0x557df0` | State 3 — "enter room by number" dialog | labels + OK/Cancel + text field |
+| (add-buddy dialog) | `0x557e68` | **"add buddy ID" dialog** (from the buddy panel's Add button); id 10000 at (281,206) 241×148 — runtime-confirmed | a `typeId 3` message block (`0x557f30`, "To add your friends' ID…") + a text-entry field (`0x557c84`, id 0) + **ADD** (id 0) / **CLOSE** (id 1) label buttons |
 | `BuildCreateRoomDialog` | `0x557c34` | State 3 — Create Room dialog | name/password text fields + option grid + OK/Cancel |
 
 Confidence: the widget classes, slot layout, and event model are confirmed by
