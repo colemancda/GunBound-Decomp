@@ -184,4 +184,8 @@ typedef int code();
  * see include/functions.h's own header comment. */
 #include "functions.h"
 
+/* Ghidra intrinsic pseudo-ops (CONCAT/SUB/LOCK/ROUND/...): defined as
+ * macros so the raw ports link. See the header for semantics. */
+#include "ghidra_intrinsics.h"
+
 #endif
