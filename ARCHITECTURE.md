@@ -876,13 +876,21 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
     `BlitSpriteClipped(g_cursorFrame)` always passes frame `0`. *(This corrects
     an earlier note that read `g_cursorFrame` as a 0…101 animation state — it
     isn't.)*
-  - **So `g_cursorFrame` does not drive the animation.** The cursor sprite +
-    frame index actually drawn are passed to `FindSpriteFrame` in **registers
-    Ghidra doesn't recover**, and `FindSpriteFrame` is a **stateless
-    `(spriteSet, frameIndex)` lookup** (no time-advance of its own). So which
-    of `cursor.img`'s 102 frames is shown — and whether it cycles at all —
-    **can't be determined from the ported code**; it depends on the register
-    setup at the call site, which needs raw-disassembly recovery.
+  - **Register args recovered — this draw is a static frame 0.** Disassembling
+    the call site (`0x4139c6`) shows `FindSpriteFrame` is invoked with
+    `eax = &DAT_00ea0e18` (the shared sprite container), `edx = 0` (the outer
+    resource-group key), and `esi = g_cursorFrame = 0` (the inner frame key) —
+    and `esi` is passed straight on to `BlitSpriteClipped`. All three inputs
+    are constants, so **the GameTick mouse-pointer draw is always
+    `(container 0xea0e18, group 0, frame 0)` — a static sprite, not an
+    animation.** `FindSpriteFrame` itself is a stateless `(group, frame)`
+    lookup, so nothing here cycles frames.
+  - **Therefore the animation seen in-game is a *different* draw.** The pointer
+    plainly animates while playing, but not through this path — so it is either
+    the **in-battle aim crosshair** (drawn by the battle scene at the aim/mouse
+    point with its own frame index) or a sprite whose frame the sprite-tick
+    system advances independently. Locating that draw (and confirming whether
+    `cursor.img`'s other 101 frames are what it cycles) is the open item.
   - **`g_cursorTexture` (`0x7a7660`) is write-only** (also verified by byte
     search: one reference, the `ChangeGameState` write) — the preload merely
     *registers* `cursor.img` in the sprite cache; the draw goes through the
