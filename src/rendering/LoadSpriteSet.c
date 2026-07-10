@@ -9,30 +9,41 @@
 #include "ghidra_types.h"
 
 
-int LoadSpriteSet(undefined4 param_1,undefined4 param_2)
+/* Promoted: `imgName` is the sprite-set name (e.g. "logomode.img")
+ * that arrived in EAX. The read cursor is a 0x1024-byte scratch buffer
+ * (operator_new); the archive's file handle and LZHUF state live inside
+ * g_graphicsArchive at +0x1040 / +0x1048. */
+int LoadSpriteSet(undefined4 param_1,undefined4 param_2,char *imgName)
 
 {
-  undefined4 in_EAX;
+  void *readState;
   int iVar1;
-  void *pvVar2;
-  undefined4 *puVar3;
   int iVar4;
+  undefined4 *puVar3;
   int local_c;
   int local_8;
   int local_4;
-  
-  /* ReadXFSEntry is void-returning (see its own definition) - the
-   * return-value use in the comma-expression below is a Ghidra
-   * per-call-site decompilation inconsistency, same class as
-   * entry/WinMain.c's FUN_004058c0 fix. iVar1 keeps whatever value it
-   * already held (from FindXFSEntry) instead of being reassigned. */
-  iVar1 = FindXFSEntry(&g_graphicsArchive,in_EAX);
-  if ((((iVar1 == 0) || (pvVar2 = operator_new(0x1024), pvVar2 == (void *)0x0)) ||
-      (ReadXFSEntry(iVar1,&DAT_00f12e18), iVar1 == 0)) ||
-     (local_8 = iVar1, ReadXFSEntryByte(iVar1,&local_4), local_4 != 0)) {
+  HANDLE gh = *(HANDLE *)(g_graphicsArchive.bytes + 0x1040);
+  void  *lz = g_graphicsArchive.bytes + 0x1048;
+
+  iVar1 = FindXFSEntry(&g_graphicsArchive,imgName);   /* entry record */
+  if (iVar1 == 0) {
     return 0;
   }
-  ReadXFSEntryByte(iVar1,&local_c);
+  readState = operator_new(0x1024);
+  if (readState == (void *)0x0) {
+    return 0;
+  }
+  readState = (void *)ReadXFSEntry(readState,gh,1,iVar1,lz);
+  if (readState == (void *)0x0) {
+    return 0;
+  }
+  local_8 = iVar1;
+  ReadXFSEntryByte(readState,(undefined4 *)&local_4,4);
+  if (local_4 != 0) {
+    return 0;
+  }
+  ReadXFSEntryByte(readState,(undefined4 *)&local_c,4);
   iVar1 = 0;
   if (0 < local_c) {
     do {

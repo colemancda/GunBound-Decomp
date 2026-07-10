@@ -8,13 +8,17 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_004f0990(undefined4 param_1,char *param_2)
+/* Promoted: case-insensitive name compare. The two strings arrived in
+ * EAX (`a`) and EDX (`b`); Ghidra kept EDX as param_2 but dropped EAX.
+ * Used by FindXFSEntry to match the requested entry name. */
+int FUN_004f0990(char *a,char *b)
 
 {
-  char *in_EAX;
+  char *in_EAX = a;
+  char *param_2 = b;
   int iVar1;
   int iVar2;
-  
+
   while( true ) {
     if ((*in_EAX == '\0') && (*param_2 == '\0')) {
       return 0;

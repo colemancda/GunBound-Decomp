@@ -12,9 +12,13 @@
 #include <windows.h>
 
 
-int FindXFSEntry(int param_1)
+/* Promoted: `name` is the requested entry name that arrived in EAX
+ * (Ghidra dropped it) and is compared against each entry via the
+ * 0x4f0990 name comparator. `param_1` is the XFS archive object. */
+int FindXFSEntry(void *param_1_,char *name)
 
 {
+  int param_1 = (int)param_1_;
   uint uVar1;
   bool bVar2;
   int iVar3;
@@ -40,7 +44,7 @@ int FindXFSEntry(int param_1)
     else {
       iVar8 = (uVar7 & 0x3ff) * 0x80 + iVar8;
     }
-    iVar3 = FUN_004f0990();
+    iVar3 = FUN_004f0990(name,(char *)iVar8);
     if (iVar3 == 0) break;
     if (iVar3 < 0) {
       uVar5 = uVar7;

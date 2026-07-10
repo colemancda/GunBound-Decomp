@@ -11,10 +11,11 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-int FUN_004f1a50(undefined4 param_1,undefined4 param_2,int param_3,int param_4)
+/* Promoted like LoadSpriteSet: `imgName` was in EAX; handle/LZHUF live
+ * in g_graphicsArchive at +0x1040 / +0x1048. */
+int FUN_004f1a50(undefined4 param_1,undefined4 param_2,int param_3,int param_4,char *imgName)
 
 {
-  undefined4 in_EAX;
   int iVar1;
   void *pvVar2;
   undefined4 *puVar3;
@@ -23,15 +24,17 @@ int FUN_004f1a50(undefined4 param_1,undefined4 param_2,int param_3,int param_4)
   int local_c;
   void *local_8;
   int local_4;
-  
-  iVar1 = FindXFSEntry(&g_graphicsArchive,in_EAX);
+  HANDLE gh = *(HANDLE *)(g_graphicsArchive.bytes + 0x1040);
+  void  *lz = g_graphicsArchive.bytes + 0x1048;
+
+  iVar1 = FindXFSEntry(&g_graphicsArchive,imgName);
   if (((iVar1 != 0) && (pvVar2 = operator_new(0x1024), pvVar2 != (void *)0x0)) &&
-     (pvVar2 = (void *)ReadXFSEntry(iVar1,&DAT_00f12e18), pvVar2 != (void *)0x0)) {
+     (pvVar2 = (void *)ReadXFSEntry(pvVar2,gh,1,iVar1,lz), pvVar2 != (void *)0x0)) {
     local_14 = 0;
     local_8 = pvVar2;
-    ReadXFSEntryByte(pvVar2,&local_4);
+    ReadXFSEntryByte(pvVar2,(undefined4 *)&local_4,4);
     if (local_4 == 0) {
-      ReadXFSEntryByte(pvVar2,&local_10);
+      ReadXFSEntryByte(pvVar2,(undefined4 *)&local_10,4);
       local_c = 0;
       if (0 < local_10) {
         do {

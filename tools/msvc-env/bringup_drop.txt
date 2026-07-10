@@ -19,3 +19,9 @@ src_unnamed_FUN_004d2170.obj
 src_unnamed_FUN_004d23f0.obj
 # auto-dropped by bringup_loop: crashed at 0x0040C22C
 src_unnamed_FUN_004058c0.obj
+# Startup XFS loaders whose internal read calls (FindXFSEntry/ReadXFSEntry
+# via g_xfsScratch) are not yet promoted - they load strings/game-data
+# the logo doesn't need. Drop for bring-up until promoted.
+src_fileformat_LoadLocalizedStrings.obj
+src_fileformat_LoadGameDataFiles.obj
+src_fileformat_LoadChooseEventConfig.obj

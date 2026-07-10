@@ -12,14 +12,25 @@
 #include <windows.h>
 
 
-undefined4 __fastcall ReadXFSEntry(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
+/* Promoted from the custom-register convention Ghidra emitted as
+ * __fastcall+unaff_ESI+in_EAX. Real args (from 0x4f0380 disasm):
+ *   readState (ESI) - caller's 0x1024-byte scratch/cursor buffer, also
+ *                     the return value
+ *   handle    (EAX) - the archive's open file HANDLE
+ *   flag      (DL)  - the "seekable/streamed" flag (was param_2)
+ *   entry     (EBP, 1st stack arg) - the entry record from FindXFSEntry
+ *   lzhuf     (ECX, 2nd stack arg) - the archive's LZHUF decode state */
+undefined4 ReadXFSEntry(void *readState,HANDLE handle,char flag,int entry,undefined4 lzhuf)
 
 {
-  undefined4 in_EAX;
+  undefined4 in_EAX = (undefined4)handle;
+  char param_2 = flag;
+  int param_3 = entry;
+  undefined4 param_4 = lzhuf;
   int iVar1;
-  undefined4 *unaff_ESI;
+  undefined4 *unaff_ESI = (undefined4 *)readState;
   undefined4 *puVar2;
-  
+
   unaff_ESI[0x400] = in_EAX;
   unaff_ESI[0x401] = param_3;
   unaff_ESI[0x403] = 0;
@@ -34,7 +45,7 @@ undefined4 __fastcall ReadXFSEntry(undefined4 param_1,int param_2,int param_3,un
   unaff_ESI[0x405] = 0;
   *(undefined1 *)(unaff_ESI + 0x408) = 1;
   if ((param_2 != '\0') && (*(int *)(param_3 + 0x70) == 0)) {
-    DecodeXFSEntryBlock();
+    DecodeXFSEntryBlock(unaff_ESI);
   }
   /* bare `return;` in a value-returning function - a Ghidra/MSVC
    * tolerance gcc rejects (-Wreturn-mismatch). The original leaves

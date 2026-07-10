@@ -14,9 +14,12 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-bool __fastcall DecodeXFSEntryBlock(int param_1)
+/* Promoted: `readState` (the caller's XFS read cursor) arrived in ECX
+ * (__fastcall this); Ghidra already recovered it as param_1. */
+bool DecodeXFSEntryBlock(void *readState)
 
 {
+  int param_1 = (int)readState;
   DWORD DVar1;
   int *piVar2;
   int iVar3;

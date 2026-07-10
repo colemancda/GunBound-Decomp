@@ -5,8 +5,11 @@
 
 extern "C" {
 int PlayMusicTrack(int trackId);
-int __stdcall LoadSpriteSet(void *container, int key); /* sprite-set loader; .img name in EAX,
-                                                       * .mp3 name in EDI (see State01_Title.cpp) */
+/* Promoted to cdecl with an explicit name (was .img name in EAX). The
+ * old __stdcall decl decorated to _LoadSpriteSet@8 and never bound to
+ * the real cdecl definition - the call hit a bring-up stub, so sprites
+ * never loaded. */
+int LoadSpriteSet(void *container, int key, const char *imgName);
 extern unsigned char DAT_00ea0e18;
 extern unsigned int  DAT_00ea0e1c;
 void BuildSystemInfoBlob(void *outBlob);        /* fills the 36-byte system-info blob */
@@ -20,7 +23,7 @@ extern unsigned int DAT_007934f4;        /* outgoing packet buffer base (declare
  * register args), reset the frame counter, start the music. */
 void CState05Logo1::OnEnter()
 {
-    LoadSpriteSet(&DAT_00ea0e18, 10000);
+    LoadSpriteSet(&DAT_00ea0e18, 10000, "logomode.img");
     m_frameCounter = 0;
     PlayMusicTrack(0);
 }

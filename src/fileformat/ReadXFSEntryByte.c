@@ -12,13 +12,16 @@
 #include <windows.h>
 
 
-uint ReadXFSEntryByte(undefined4 *param_1,undefined4 *param_2)
+/* Promoted: reads `count` bytes (was in EAX) from the XFS read cursor
+ * `readState` (param_1) into `outBuf` (param_2), decoding blocks on
+ * demand. Returns the byte count read (or an error sentinel). */
+uint ReadXFSEntryByte(undefined4 *param_1,undefined4 *param_2,uint count)
 
 {
+  uint in_EAX = count;
   char *pcVar1;
   undefined4 *puVar2;
   char cVar3;
-  uint in_EAX;
   DWORD DVar4;
   BOOL BVar5;
   uint uVar6;
@@ -86,7 +89,7 @@ LAB_004f0884:
       puVar10 = (undefined4 *)((int)puVar10 + 1);
       puVar11 = (undefined4 *)((int)puVar11 + 1);
     }
-    cVar3 = DecodeXFSEntryBlock();
+    cVar3 = DecodeXFSEntryBlock(puVar2);
     if (cVar3 != '\0') {
       param_1 = (undefined4 *)((int)param_1 + uVar7);
       param_2 = (undefined4 *)(uVar7 + (int)param_2);
@@ -98,7 +101,7 @@ LAB_004f0884:
           puVar10 = puVar10 + 1;
           puVar11 = puVar11 + 1;
         }
-        cVar3 = DecodeXFSEntryBlock();
+        cVar3 = DecodeXFSEntryBlock(puVar2);
         if (cVar3 == '\0') {
           return 0xfffffffe;
         }

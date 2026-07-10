@@ -11,10 +11,12 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-int FUN_004f18c0(undefined4 param_1,undefined4 param_2,int param_3)
+/* Promoted like LoadSpriteSet: `imgName` was in EAX; the read cursor is
+ * pvVar2 (operator_new 0x1024); handle/LZHUF state live in
+ * g_graphicsArchive at +0x1040 / +0x1048. */
+int FUN_004f18c0(undefined4 param_1,undefined4 param_2,int param_3,char *imgName)
 
 {
-  undefined4 in_EAX;
   int iVar1;
   void *pvVar2;
   undefined4 *puVar3;
@@ -22,22 +24,23 @@ int FUN_004f18c0(undefined4 param_1,undefined4 param_2,int param_3)
   int local_c;
   void *local_8;
   int local_4;
-  
-  /* ReadXFSEntry is void-returning (see its own definition) - the
-   * return-value use in the comma-expression below is a Ghidra
-   * per-call-site decompilation inconsistency, same class as
-   * entry/WinMain.c's FUN_004058c0 fix. pvVar2 keeps the buffer
-   * pointer from operator_new instead of being reassigned - matches
-   * the two-argument ReadXFSEntry(handle, buffer) usage seen
-   * elsewhere, where the second argument is an out-buffer, not
-   * something whose result should replace pvVar2. */
-  iVar1 = FindXFSEntry(&g_graphicsArchive,in_EAX);
-  if ((((iVar1 == 0) || (pvVar2 = operator_new(0x1024), pvVar2 == (void *)0x0)) ||
-      (ReadXFSEntry(iVar1,&DAT_00f12e18), pvVar2 == (void *)0x0)) ||
-     (local_8 = pvVar2, ReadXFSEntryByte(pvVar2,&local_4), local_4 != 0)) {
+  HANDLE gh = *(HANDLE *)(g_graphicsArchive.bytes + 0x1040);
+  void  *lz = g_graphicsArchive.bytes + 0x1048;
+
+  iVar1 = FindXFSEntry(&g_graphicsArchive,imgName);
+  if ((iVar1 == 0) || (pvVar2 = operator_new(0x1024), pvVar2 == (void *)0x0)) {
     return 0;
   }
-  ReadXFSEntryByte(pvVar2,&local_10);
+  pvVar2 = (void *)ReadXFSEntry(pvVar2,gh,1,iVar1,lz);
+  if (pvVar2 == (void *)0x0) {
+    return 0;
+  }
+  local_8 = pvVar2;
+  ReadXFSEntryByte(pvVar2,(undefined4 *)&local_4,4);
+  if (local_4 != 0) {
+    return 0;
+  }
+  ReadXFSEntryByte(pvVar2,(undefined4 *)&local_10,4);
   local_c = 0;
   if (0 < local_10) {
     do {
