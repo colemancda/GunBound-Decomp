@@ -999,6 +999,7 @@ void FUN_004d0a10();
 undefined4 FUN_004d0dd0();
 void FUN_004d0e90();
 void FUN_004d0fd0();
+void ComposeAvatarSprites(); /* 0x4d1500 - in-battle avatar compositor (action 0xf00b): {gender}{cat}%05d.img part sprites */
 uint FUN_004d2130();
 undefined4 * FUN_004d2170();
 void FUN_004d22d0();
@@ -1035,7 +1036,7 @@ int FUN_004dc0f0();
 int FUN_004dc140();
 void FUN_004dc200();
 int FUN_004dc570();
-void __fastcall FUN_004dc5c0();
+void __fastcall LoadRoomSlotAvatar();
 void FUN_004dc6d0();
 void __fastcall FUN_004dc820();
 void __fastcall FUN_004dca80();

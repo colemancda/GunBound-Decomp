@@ -211,7 +211,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
     }
     else if (uVar2 == 0x8400) {
       uVar9 = (uint)bVar1;
-      FUN_004dc5c0();
+      LoadRoomSlotAvatar();
       cVar3 = *(char *)(g_clientContext + 0x458fc + uVar9 * 2);
       if ((cVar3 != -1) && (cVar3 < '\x11')) {
         _sprintf(local_488,s_tank_d_00553fa0,cVar3 + 1);

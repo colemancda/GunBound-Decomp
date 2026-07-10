@@ -1,14 +1,23 @@
-/* FUN_004dc5c0 - 0x004dc5c0 in the original binary.
+/* LoadRoomSlotAvatar - 0x004dc5c0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Loads/composites a room-slot player's worn avatar. Reads the slot's
+ * avatarEquipped record at g_clientContext + 0x458bc + slot*8 (four packed u16
+ * part codes; high bit of word 0 = gender), applies the per-gender default
+ * table at +0x6aa662 (0xffff sentinel -> use the record's own words), then
+ * calls the compositor LoadAvatarSprites (0x4141b0) with the four part codes.
+ *
+ * NOTE: previously mis-read (in PROTOCOL.md) as a "team-side spawn
+ * position/camera setup" finalizer - +0x458bc is the avatar record, not
+ * coordinates, and the &0x8000 bit is gender, not team side. See FILEFORMATS.md
+ * "Avatar.xfs".
+ *
+ * Function IDENTITY is confirmed; the BODY is a raw/near-verbatim Ghidra port,
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004dc5c0(int param_1)
+void __fastcall LoadRoomSlotAvatar(int param_1)
 
 {
   ushort uVar1;

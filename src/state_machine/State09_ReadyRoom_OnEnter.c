@@ -311,7 +311,7 @@ LAB_004d722d:
   iStack_94 = 0x458fc;
   do {
     if (*(char *)(iVar4 + 0x45914 + (int)pvStack_90) != '\0') {
-      FUN_004dc5c0();
+      LoadRoomSlotAvatar();
       iVar4 = g_clientContext;
     }
     cVar1 = *(char *)(iStack_94 + iVar4);

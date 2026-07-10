@@ -769,42 +769,42 @@ void FUN_004dcbe0(int param_1)
     break;
   case 0x3c:
     if (*(char *)(g_clientContext + 0x5010d) != '\0') {
-      FUN_004dc5c0();
+      LoadRoomSlotAvatar();
     }
     break;
   case 0x3d:
     if (*(char *)(g_clientContext + 0x5010e) != '\0') {
-      FUN_004dc5c0();
+      LoadRoomSlotAvatar();
     }
     break;
   case 0x3e:
     if (*(char *)(g_clientContext + 0x5010f) != '\0') {
-      FUN_004dc5c0();
+      LoadRoomSlotAvatar();
     }
     break;
   case 0x3f:
     if (*(char *)(g_clientContext + 0x50110) != '\0') {
-      FUN_004dc5c0();
+      LoadRoomSlotAvatar();
     }
     break;
   case 0x40:
     if (*(char *)(g_clientContext + 0x50111) != '\0') {
-      FUN_004dc5c0();
+      LoadRoomSlotAvatar();
     }
     break;
   case 0x41:
     if (*(char *)(g_clientContext + 0x50112) != '\0') {
-      FUN_004dc5c0();
+      LoadRoomSlotAvatar();
     }
     break;
   case 0x42:
     if (*(char *)(g_clientContext + 0x50113) != '\0') {
-      FUN_004dc5c0();
+      LoadRoomSlotAvatar();
     }
     break;
   case 0x43:
     if (*(char *)(g_clientContext + 0x50114) != '\0') {
-      FUN_004dc5c0();
+      LoadRoomSlotAvatar();
     }
     break;
   case 0x44:

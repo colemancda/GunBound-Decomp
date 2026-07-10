@@ -1,12 +1,21 @@
-/* LoadTerrainDeformationFrame - 0x004d1500 in the original binary.
+/* ComposeAvatarSprites - 0x004d1500 in the original binary.
  *
- * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
- * verified against documented behavior beyond what's already in
- * ARCHITECTURE.md/PROTOCOL.md/FILEFORMATS.md. Calls to unnamed
- * FUN_<address> helpers and DAT_<address>/_DAT_<address> globals are
- * left as-is (undeclared) - this file won't link standalone yet. See
- * src/README.md's "Raw/verbatim ports" section for status and how
- * these get promoted to verified.
+ * The in-battle avatar compositor. Called as
+ * ComposeAvatarSprites(slot, bodyId, headId, glassesId, flagId) - it builds the
+ * four avatar part sprite names and LoadSpriteSet's them into a 32 KB buffer:
+ * %cb%05d.img (body, param_2), %ch%05d.img (head, param_3), %cg%05d.img
+ * (glasses, param_4), mf%05d.img (flag, param_5), plus their large "...l.img"
+ * in-battle variants. The gender char is taken from the player's stored avatar
+ * record (g_clientContext + 0x501fe + slot*8, high bit -> 'm'/'f').
+ *
+ * This is the handler for battle action 0xf00b (an in-battle avatar/costume
+ * change); the peer lobby compositor is LoadAvatarSprites (0x4141b0). See
+ * FILEFORMATS.md "Avatar.xfs". IMPORTANT: this was previously mis-named
+ * "LoadTerrainDeformationFrame" and 0xf00b mis-read as "terrain deformation" -
+ * the mf/%cb/%cg/%ch strings are avatar parts, not map/color-channel frames.
+ *
+ * Function IDENTITY is confirmed; the BODY is a raw/near-verbatim Ghidra port,
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -14,7 +23,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void LoadTerrainDeformationFrame
+void ComposeAvatarSprites
                (int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
                undefined4 param_5)
 

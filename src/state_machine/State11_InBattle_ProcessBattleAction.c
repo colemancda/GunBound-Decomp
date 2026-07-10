@@ -1077,7 +1077,7 @@ LAB_004b7fb2:
         }
         break;
       case 0xf00b:
-        LoadTerrainDeformationFrame
+        ComposeAvatarSprites
                   (bVar16,*puVar12,*(undefined2 *)(param_2 + 0x23),*(undefined2 *)(param_2 + 0x25),
                    *(undefined2 *)(param_2 + 0x27));
         *unaff_FS_OFFSET = local_14;

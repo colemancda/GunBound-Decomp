@@ -974,24 +974,25 @@ codebase** (the room-list stat-summing loop from the Room→Ready-Room
 transition) into the replay buffer. This is a **state-snapshot/logging
 step**, not a selection packet.
 
-`FUN_004dc5c0(slot)`, the finalizer, reads a per-slot ushort at
-`+0x458bc+slot*8` and tests its high bit (`&0x8000`) to pick between two
-sets of coordinate-override fields (a second per-side array, with `-1`
-sentinels falling back to the per-slot defaults at `+0x458be`/`+0x458c0`/
-`+0x458c2`), then calls `FUN_004141b0(x, y, ..., 0, slot+200000,
-slot+300000)` — reads as **team-side-based spawn position/camera setup**
-(the high bit is very likely the team-side flag, selecting which of two
-coordinate sets a player's camera/position uses), not a UI selection
-confirmation.
+`LoadRoomSlotAvatar(slot)` (`0x4dc5c0`) reads the per-slot **`avatarEquipped`**
+record at `+0x458bc+slot*8` — **four packed `u16` avatar part codes**, not
+coordinates. It tests the high bit (`&0x8000`) of word 0 as the **gender**
+selector, uses the per-gender default table (`+0x6aa662`, `-1`/`0xffff`
+sentinels falling back to the record's own words at `+0x458be`/`+0x458c0`/
+`+0x458c2`), then calls the avatar compositor `LoadAvatarSprites`
+(`0x4141b0`, `= FUN_004141b0`) — i.e. it **loads and composites the player's
+worn avatar** (body/head/glasses/flag → `graphics.xfs` sprites), not spawn
+position/camera.
 
-**Significance**: corrects the earlier "character/team selection"
-hypothesis, which came from context (Ready Room screen) rather than
-tracing what the handler actually does. The real behavior is a
-match-start bookkeeping step: log a full state snapshot to the replay,
-then position each player's camera/spawn based on their already-assigned
-team side. Actual character/weapon selection is confirmed elsewhere as
-action `0x8100`/`0x8400` on Channel 2 (see the `ProcessBattleAction`
-section), not this opcode.
+**Significance**: corrects two earlier hypotheses on this handler. It is not
+"character/team selection" (that context-driven guess came from the Ready Room
+screen), and it is not "team-side spawn position/camera setup" (the `&0x8000`
+bit is **gender**, and `+0x458bc` is the avatar record, not a coordinate set —
+see FILEFORMATS.md "Avatar.xfs" for the `avatarEquipped` layout). The real
+behavior is match-start bookkeeping: log a full state snapshot to the replay,
+then load each player's avatar sprites. Actual character/weapon selection is
+confirmed elsewhere as action `0x8100`/`0x8400` on Channel 2 (see the
+`ProcessBattleAction` section), not this opcode.
 
 #### Opcode `0x3020` — Simple ready/unready toggle
 
@@ -1516,7 +1517,7 @@ notification.
 
 **Behavior**: performs the **exact same** texture-selection and two-
 sub-object application logic as action `0x8100` above, but reached via a
-different immediate predecessor call (`FUN_004dc5c0()` is invoked first,
+different immediate predecessor call (`LoadRoomSlotAvatar()` is invoked first,
 before the shared texture-application logic).
 
 **Significance**: given the identical downstream effect, the most plausible
@@ -2230,27 +2231,30 @@ functions.
 **Significance**: a simple query-and-relay of an unidentified per-player
 field — the field's semantic meaning wasn't independently determined.
 
-#### Action `0xf00b` — Terrain deformation
+#### Action `0xf00b` — In-battle avatar change
 
 **Direction**: incoming.
 
-**Behavior**: delegates to a dedicated function
-(`LoadTerrainDeformationFrame`, `0x4d1500`, originally `FUN_004d1500`)
-which constructs and loads a set of numbered map-frame image filenames:
-`mf%05d.img` (the base frame), plus three colored-channel variant filenames
-(`%cb%05d.img`, `%cg%05d.img`, `%ch%05d.img` — likely blue/green/hue or
-similar tinting-channel variants used for visual damage-state layering), and
-correspondingly-suffixed `l`-variant filenames for what's presumably a
-second rendering layer (`mf%05dl.img`, `%cb%05dl.img`, etc.), all loaded
-into a large (32 KB) local stack buffer.
+**Behavior**: delegates to the avatar compositor `ComposeAvatarSprites`
+(`0x4d1500`, originally `FUN_004d1500`), called as
+`ComposeAvatarSprites(slot, body, head, glasses, flag)` with the four part ids
+taken from the payload (`body` at the first field, `head`/`glasses`/`flag` at
+`+0x23`/`+0x25`/`+0x27`). It builds the four avatar part sprite filenames —
+`%cb%05d.img` (body), `%ch%05d.img` (head), `%cg%05d.img` (glasses),
+`mf%05d.img` (flag) — plus their large `"...l.img"` in-battle variants, taking
+the gender char from the player's stored avatar record
+(`g_clientContext + 0x501fe + slot*8`, high bit), and `LoadSpriteSet`s them into
+a 32 KB composition buffer. These are the **same avatar part sprites** described
+in FILEFORMATS.md ("Avatar.xfs"), shared with the lobby compositor
+`LoadAvatarSprites` (`0x4141b0`).
 
-**Significance**: this is the classic GunBound **post-explosion terrain
-crater** mechanic — after a weapon impacts the terrain, the server tells
-all clients which pre-baked, numbered deformed-terrain frame image to
-display at the impact location, rather than each client independently
-computing/rendering a procedural deformation. This confirms terrain
-destruction in GunBound is implemented via **pre-rendered frame swapping**,
-not runtime procedural mesh/heightmap deformation.
+**Significance**: **corrects the earlier "terrain deformation" reading.** The
+`mf`/`%cb`/`%cg`/`%ch` strings are avatar parts (flag/body/glasses/head), not
+"map-frame / color-channel" images, and the function computes an avatar gender
+char, so `0xf00b` **re-composites a player's worn avatar mid-battle** (e.g. an
+equip/costume change taking effect during a match), not a post-impact terrain
+crater. How terrain destruction is actually rendered is unconfirmed and not this
+opcode.
 
 ---
 

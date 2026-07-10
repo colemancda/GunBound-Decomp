@@ -131,7 +131,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
           if (opcode == 0x3010) {
             FUN_004db720();
             FUN_004dc200(*payload);
-            FUN_004dc5c0();
+            LoadRoomSlotAvatar();
             return;
           }
           if (opcode != 0x3020) {
