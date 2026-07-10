@@ -18,7 +18,17 @@ preview, map selection, and the item/loadout picker before the match starts.
   `CharEffectTexture1/2` (same families as In-Battle — preloaded via
   `0x4d7b20`, identical to Loading's preload list).
 
-## Rendering (three panels)
+## Rendering (three render slots)
+These are the state's own **render slots** (custom-drawn regions), *not*
+composite widget panels. **Runtime-confirmed**: a live view dump of the Ready
+Room shows exactly **one** `g_uiPanelManager` panel — the chat log
+(`BuildReadyRoomChatPanel` `0x557ee0`, id 2000, at `(21,385) 480×160`, often
+`hidden` while a popup is up). Everything else — the character preview, the
+team slots, the mobile-select grid, the item/avatar shop, the game-mode option
+buttons, CHANGE/START — is drawn by these slots and by `CreateButtonWidget`
+buttons in the flat `DAT_00e9be90` registry (see the button table below), not
+by the widget tree.
+
 - **Character preview** — `State09_ReadyRoom_RenderCharacterPreview` (`0x4d90c0`,
   2,575 bytes): draws a live preview of the **currently selected** character/
   avatar using the avatar/character/effect texture families.

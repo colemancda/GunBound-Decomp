@@ -260,6 +260,18 @@ panel 1                       (w 314, h 160)   (opened by "Go To"/directgo, id 0
 └─ [1] label   id 1  "Cancel"     +(128,118) 82×34
 ```
 
+### Ready Room chat log — `BuildReadyRoomChatPanel` (`0x557ee0`, id 2000) — State 9
+```
+panel 2000                         (21,385,480,160)   hidden while a popup is up
+└─ [4] scroll  id 0                (476,436,18,69)
+   (chat rows custom-drawn by RenderReadyRoomChatRow)
+```
+Note: in State 9 this chat panel is **the only `g_uiPanelManager` panel** — the
+rest of the Ready Room (team slots, mobile-select grid, item/avatar shop, game-
+mode option buttons, CHANGE/START) is **not** in the widget tree; it's drawn by
+the state's own render path and its buttons live in the flat `ButtonWidget`
+registry (`DAT_00e9be90`), like State 3's `CreateButtons`.
+
 ### Whisper "TO" panel — `BuildChatLogPanel` (`0x557b94`, id 20001) — private message
 ```
 panel 20001                        (541,272,254,291)   ("TO <name>")
