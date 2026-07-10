@@ -857,21 +857,34 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
 - **OS cursor hidden.** `WinMain` calls `ShowCursor(0)` right before the game
   loop (re-enabled only on exit). The window class registers `IDC_ARROW`, but
   it isn't used during play.
-- **Custom cursor sprite.** `ChangeGameState` preloads `cursor.img` via
-  `FindPreloadedTextureByName("cursor")` into **`g_cursorTexture`** on every
-  state transition — the in-game pointer, drawn at the mouse position each
-  frame (the blit is in an as-yet-unported per-frame render).
-  - **`cursor.img` is a 102-frame, 22×22 sprite** (confirmed from the asset
-    header — vs. 1 frame for `titlemode.img`, 5 for `bullet1n.img`). So the
-    cursor is a rich multi-frame set — an animated and/or multi-context pointer
-    — not a single static image.
-  - **The animation timing is NOT reverse-engineered.** `g_cursorTexture`
-    (`0x7a7660`) has **zero references in the ported `src/`** — the code that
-    selects *which* of the 102 frames to draw and *how fast* to advance lives
-    entirely in the unported per-frame cursor blit. There is therefore **no
-    documented animation frame-rate/time-base**; it would have to be recovered
-    by decompiling that blit (look for a frame index advanced off a per-frame
-    counter, e.g. `frame = (counter / speed) % 102`).
+- **Custom cursor sprite — the visible pointer, drawn by `GameTick`.**
+  `ChangeGameState` preloads `cursor.img` via
+  `FindPreloadedTextureByName("cursor")` into `g_cursorTexture`; **`cursor.img`
+  is a 102-frame, 22×22 sprite** (confirmed from the asset header — vs. 1 frame
+  for `titlemode.img`, 5 for `bullet1n.img`). The **actual per-frame draw is in
+  `GameTick` (`0x413130`)**, traced via Ghidra: each frame, if
+  `DAT_007a7674 >= 0` and the sprites are loaded, it resolves the cursor's
+  current frame with `FindSpriteFrame` (`0x4f30c0`) and blits it **at the mouse
+  anchor `(DAT_0056d10c, DAT_0056d110)`** — `BlitSprite16bpp` on the hardware
+  path, else `BlitSpriteClipped(DAT_007a7674)` (software). So:
+  - **The current cursor frame is `DAT_007a7674`.** A value of `-1` hides the
+    cursor (skips the draw); `0…101` selects one of the 102 `cursor.img`
+    frames. This is the cursor's shape/animation state.
+  - **`g_cursorTexture` (`0x7a7660`) is write-only** — the preload *registers*
+    `cursor.img` in the sprite cache, but the draw reads the frame through the
+    current-sprite/`FindSpriteFrame` context, not through that handle. (That's
+    why the cursor blit doesn't reference `g_cursorTexture`.)
+  - **Replay-playback variant:** a separate branch (guarded by the
+    `FUN_004065a0` replay check) blinks the cursor — visible on a
+    `DAT_00793504 % 0x14 < 10` schedule, i.e. **on for 10 of every 20 frames
+    (~50% duty)** — and draws a fixed frame instead of `DAT_007a7674`.
+  - **Not yet pinned:** the *writer* of `DAT_007a7674`. Its stores are
+    computed/indirect (the cursor globals `0x7a7660`–`0x7a7674` sit in one
+    cluster), so `getReferencesTo` finds only the `GameTick` read. Whether the
+    frame is time-cycled (spinning animation) or context-selected (e.g. the
+    aim cursor's frame derived from the shot angle, plus normal/wait variants —
+    102 frames is a lot, consistent with angle-indexed aim frames) is the open
+    question; recovering it means decompiling whatever sets that global.
 - **A 9-entry `HCURSOR` array, `g_edgeCursors[9]`** (index 0 = normal, 1–8 =
   the eight screen-edge directions), loaded in an unported cursor init.
   `WndProc` handles **`WM_SETCURSOR`** with
@@ -890,12 +903,15 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
 - **Cursor clamping** (`ClampCursorToRect`, `0x4ee200`) confines the pointer to
   a rect, e.g. snapping it onto a modal dialog.
 
-**Open point:** `ShowCursor(0)` hides the OS cursor, yet the code actively
-`SetCursor`s custom `HCURSOR`s. Either the `cursor.img` sprite is the visible
-pointer (with `g_cursorDirection` mainly driving camera-scroll direction), or
-the OS cursor is re-shown per-context and the `HCURSOR`s are what's drawn — not
-decidable from static analysis. The cursor state machine (9 directions, edge
-detection, relative capture, clamping) is confirmed regardless.
+**Resolved:** `ShowCursor(0)` (called once in `WinMain`, restored on exit)
+hides the OS cursor for the whole session, and the visible pointer is the
+**software-blitted `cursor.img` sprite drawn by `GameTick`** (above). The
+`g_edgeCursors` `HCURSOR`s set by `SetCursor` are therefore **not the drawn
+pointer** — with the OS cursor hidden they're effectively a *direction latch*:
+`g_cursorDirection` (set by the same edge test) is what actually feeds the
+8-directional camera scroll, and the `SetCursor` calls are a vestige of an
+HCURSOR-based design. (`GetCursorPos` is never called; the pointer position
+comes from `WndProc` mouse messages into the `DAT_0056d10c/d110` anchor.)
 
 ## Open threads / good next targets
 
