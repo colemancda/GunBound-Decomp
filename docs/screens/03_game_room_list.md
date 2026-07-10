@@ -120,6 +120,28 @@ page. You move through the list/channels with the bottom-bar buttons:
   the list (all rooms vs. waiting-only), re-requesting with a mode byte.
 - **Find Friend** (`b_gamelist_friend`, id `0xe`) — jump to a buddy's room.
 
+### The filter toggle and its "active" (yellow) highlight
+The three filter buttons (**View All / Waiting / Find Friend**) are a
+**mutually-exclusive toggle**: the current filter is a persistent byte at
+**`this+0x115`** — `1` = View All, `2` = Waiting, `6` = Friend (clicking Friend
+also runs `FindBuddyRoomsForServer`). One value is always set, and **OnEnter
+seeds it (default View All / `1`)**, so exactly one filter is always current.
+
+The active button is shown highlighted via the **button-widget visual-state**
+system, *not* a hard-coded colour. Each `ButtonWidget`'s **vtable slot 4** is a
+`SetState(name)` that swaps the button's sprite frame by name — the confirmed
+state strings are `"normal"` (`0x552230`), `"active"` (`0x551e58`), `"select"`
+(`0x551e60`), `"ready"` (`0x551e80`), and `"disable"` (`0x551e68`). The
+**`"active"` state is the highlighted (yellow) frame**. Consistent with this,
+the toggle buttons' art carries an extra frame: `b_gamelist_viewall.img` and
+`b_gamelist_friend.img` have **5 frames** each, versus **4** for the non-toggle
+`b_gamelist_exit.img` — the 5th is the active/selected look. After every filter
+change (and at the end of `CreateButtons`), **`FUN_0042a090`** re-walks the
+button list and re-applies the states so the newly-chosen filter shows `"active"`
+and the others revert. (`CreateButtonWidget` itself sets `"active"` at creation
+when a button's toggle flag `field[0x13]` is set.) The exact yellow tint lives
+in the sprite art, so it isn't an RGB constant in the code.
+
 **The dedicated channel up/down buttons are vestigial in this build.**
 `ChangeGameState` name-registers nine persistent cross-screen button images via
 `AppendPersistentButtonName` — `b_gamelist_buddyup`/`buddydown`,

@@ -861,6 +861,17 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
   `FindPreloadedTextureByName("cursor")` into **`g_cursorTexture`** on every
   state transition — the in-game pointer, drawn at the mouse position each
   frame (the blit is in an as-yet-unported per-frame render).
+  - **`cursor.img` is a 102-frame, 22×22 sprite** (confirmed from the asset
+    header — vs. 1 frame for `titlemode.img`, 5 for `bullet1n.img`). So the
+    cursor is a rich multi-frame set — an animated and/or multi-context pointer
+    — not a single static image.
+  - **The animation timing is NOT reverse-engineered.** `g_cursorTexture`
+    (`0x7a7660`) has **zero references in the ported `src/`** — the code that
+    selects *which* of the 102 frames to draw and *how fast* to advance lives
+    entirely in the unported per-frame cursor blit. There is therefore **no
+    documented animation frame-rate/time-base**; it would have to be recovered
+    by decompiling that blit (look for a frame index advanced off a per-frame
+    counter, e.g. `frame = (counter / speed) % 102`).
 - **A 9-entry `HCURSOR` array, `g_edgeCursors[9]`** (index 0 = normal, 1–8 =
   the eight screen-edge directions), loaded in an unported cursor init.
   `WndProc` handles **`WM_SETCURSOR`** with
