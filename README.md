@@ -47,6 +47,9 @@ Reimplementation-focused docs, built from the reverse engineering above:
   game screen (state, rendering, input, network, transitions).
 - [docs/widgets.md](docs/widgets.md) — the reusable UI-widget system (the
   `CWidget`/`CPanel` hierarchy, the flat `ButtonWidget`, and the panel catalog).
+- [docs/localized-strings.md](docs/localized-strings.md) — the extracted
+  `Language.txt` string table (id → verbatim Portuguese + English translation),
+  and how ids map to server error codes.
 - [docs/porting-sdl3.md](docs/porting-sdl3.md) — mapping the DirectX/Win32 usage
   to **SDL3** (a faithful, cross-platform port).
 - [docs/porting-spritekit.md](docs/porting-spritekit.md) — mapping the client to

@@ -1242,12 +1242,51 @@ error-dialog family reads, at the confirmed ids:
 | 200 | 1 | Server access error — can't reach the requested server, try others / later |
 | 201 | 2 | **Access time has expired** — network problem or the wait was too long; the connection will close; try later |
 | 205 | 6 | Login error — wrong password |
-| 215 | — | Game room locked — a match is in progress, can't enter |
-| 220 | — | Version error — different version, reinstall/update |
+| 215 | 16 | Game room locked — a match is in progress, can't enter |
+| 220 | 21 | Version error — different version, reinstall/update |
 
-A different-language server ships a different `Language.txt` with the same
-ids (e.g. an English build renders id 201 as the "Access time has expired."
-text seen in reference screenshots).
+The **full table is extracted and documented** in
+[docs/localized-strings.md](docs/localized-strings.md): all **41 defined ids
+(200–240)**, verbatim Portuguese + English translation, pulled from
+`orig/graphics.xfs`'s `Language.txt` and **checksum-verified**. A key finding
+from that extraction: this build's table is **sparse — only the error-dialog
+family (200–240) is defined**; every other id the code requests (loading, HUD,
+replay, avatar-store, …) is *not present* in the shipped asset (those UI
+elements are image-driven), and id 241 is truncated. A different-language
+server ships a different `Language.txt` with the same ids (e.g. an English
+build renders id 201 as the "Access time has expired." text seen in reference
+screenshots).
+
+**Who calls it, and the id-block map.** `GetLocalizedString` is one of the
+most-called functions in the client: **~256 call sites across 46 functions**
+(`LoadLocalizedStrings`, by contrast, is called exactly once, from
+`InitGame`). Almost every site passes a **literal** id, and the ids turn out
+to be **partitioned into contiguous per-feature blocks** — each screen/
+subsystem owns a numeric range, so the table is effectively a set of
+per-feature string arrays addressed by a base id. (Round-decimal arguments in
+the raw ports — `800`, `20000`, `30000`, `60000` — are just block-start ids
+written in decimal: `0x320`, `0x4e20`, `0x7530`, `0xea60`.) The block owners,
+from the call sites:
+
+| Id range | Caller(s) | What the block is (semantics inferred from caller) |
+|---|---|---|
+| `code + 0xc7` (computed, ~199–260) | `ShowErrorDialog` / `ShowErrorDialogFmt` | the error-dialog family (confirmed; the only major *computed*-id site) |
+| `0x12d`–`0x142`, `0x7530`–`0x753b` | `WinMain` | startup / window-title / version-&-update messages (also several `MessageBoxA` prompts) |
+| `0x19a`–`0x19e` | `ProcessIncomingPackets` | server packet status / error notifications |
+| `0x25c`–`0x274` | `State11_InBattle_ProcessBattleAction`, `FUN_004bd8b0` (State11 slot 9) | in-battle event / status messages |
+| `0x27c`–`0x280`, `0x33e`–`0x340` | `FUN_004c8890` (State11 slot 15 — the HUD/chat renderer) | HUD / scoreboard labels |
+| `0x320`–`0x32f` | `State10_Loading_OnEnter` | loading-screen labels (16 contiguous) |
+| `0x4e20`–`0x4e23` | `State03_GameRoomList_RenderRoomLabel` | room-list column headers |
+| `0x1770`–`0x177f` | `WriteReplayEventRecord` | replay event-type descriptions (16 contiguous, one per event kind) |
+| `0x2c3`–`0x2cb`, `0xea60`–`0xea69` | `FUN_00445450` (unnamed avatar-store UI builder) | avatar-store labels |
+| `0xea6a`–`0xea6d`, `0xfa8` | `State07_AvatarStore_ProcessPacket` | avatar-store purchase-dialog strings (confirmed) |
+
+A handful of sites pass a **computed/variable** id (`uVar…`, `iVar + N`)
+rather than a literal — the error family (`code + 0xc7`) is the main one; the
+rest are small per-caller offsets into the block above them. The takeaway for
+a reimplementation: the localization table is not an opaque bag of strings but
+a **block-addressed layout**, so a port can keep the same id scheme and load
+the same `Language.txt` verbatim.
 
 ### Sprite-sheet frame selection
 
