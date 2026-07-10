@@ -35,7 +35,12 @@ void ChangeGameState();
 void GameTick();
 int InitGame();
 void Shutdown();
-LRESULT __stdcall WndProc(); /* window proc - __stdcall so &WndProc converts to WNDPROC */
+/* window proc - full signature so the __stdcall decoration matches the
+ * definition (_WndProc@16). An empty-paren `__stdcall WndProc()` decorated the
+ * reference as _WndProc@0, which didn't match the @16 definition, so &WndProc
+ * bound to a no-op stub - that stub returned 0 to WM_NCCREATE and made
+ * CreateWindowExA fail (NULL hWnd), collapsing all of DirectDraw init. */
+LRESULT __stdcall WndProc(HWND, UINT, WPARAM, LPARAM);
 bool DecodeXFSEntryBlock();
 int FindXFSEntry();
 undefined4 LoadChooseEventConfig();

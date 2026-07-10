@@ -15,12 +15,11 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-byte InitDirectDraw(undefined4 param_1)
+byte InitDirectDraw(undefined4 param_1, HWND hWnd)
 
 {
   int *piVar1;
   char cVar2;
-  HWND in_EAX;
   FARPROC pFVar3;
   int iVar4;
   undefined4 *puVar5;
@@ -65,7 +64,10 @@ byte InitDirectDraw(undefined4 param_1)
   DDSURFACEDESC2 ddsd;
   DDSCAPS2 ddscaps;
 
-  DAT_007935ec = in_EAX;
+  /* The main game window handle arrived in EAX in the original (a dropped
+   * register arg in Ghidra's port); InitGame passes it explicitly now.
+   * SetCooperativeLevel below needs a valid HWND or it returns 0x80070018. */
+  DAT_007935ec = (uint32_t)hWnd;
   g_hDDrawDll = LoadLibraryA(s_ddraw_dll_00557510);
   if (g_hDDrawDll == (HMODULE)0x0) {
     return 0x1a;

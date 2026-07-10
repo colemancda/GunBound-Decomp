@@ -45,7 +45,9 @@ int InitGame(undefined4 param_1,undefined4 param_2)
   CoInitialize((LPVOID)0x0);
   DAT_00588f4c = 0;
   BuildAssetPath(local_40c,&DAT_005b1ed0,s_graphics_xfs_00551fdc,0);
-  iVar1 = InitDirectDraw(local_40c);
+  /* param_1 is the main window HWND (WinMain calls InitGame(hWnd, hInstance));
+   * the original passed it to InitDirectDraw in EAX. */
+  iVar1 = InitDirectDraw(local_40c, (HWND)param_1);
   if (iVar1 == 0) {
     iVar1 = LoadGameDataFiles(g_clientContext);
     if (iVar1 != 0) {
