@@ -1,16 +1,26 @@
-/* FUN_004141b0 - 0x004141b0 in the original binary.
+/* LoadAvatarSprites - 0x004141b0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The avatar sprite compositor. Given a character's four avatar equip codes
+ * (param_1=head, param_2=body, param_3=glasses, param_4=flag), it builds each
+ * part's sprite filename and loads it via LoadSpriteSet, assembling the
+ * multi-part avatar. Confirms the Avatar.xfs part format (see FILEFORMATS.md):
+ *   - equip code bit 15 = gender (set -> 'm'=0x6d, clear -> 'f'=0x66, via
+ *     `(-((code & 0x8000)!=0) & 7) + 0x66`); bits 0..14 = the part id (record
+ *     index in the matching {gender}{cat}.dat table); 0xffffffff = no part.
+ *   - sprite name = "{gender}{cat}%05d.img" (body %cb, glasses %cg, head %ch),
+ *     flag = "mf%05d.img"; each also has a large "...l.img" in-battle variant.
+ * Called from the Avatar Store (State07) and the room/battle avatar draw paths.
+ *
+ * Function IDENTITY is confirmed (avatar part-sprite compositor); the BODY is a
+ * raw/near-verbatim Ghidra port (register-args), not hand-verified. See
+ * src/README.md's "Raw/verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void FUN_004141b0(uint param_1,uint param_2,uint param_3,uint param_4,int param_5,uint param_6,
+void LoadAvatarSprites(uint param_1,uint param_2,uint param_3,uint param_4,int param_5,uint param_6,
                  uint param_7)
 
 {

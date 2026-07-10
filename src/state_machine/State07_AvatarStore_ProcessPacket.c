@@ -165,7 +165,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
             }
             *(int *)(iVar4 + 0x44bec) = *(int *)(iVar4 + 0x44bec) + 1;
             FUN_0042ae30(&local_468);
-            FUN_004141b0(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
+            LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
             FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
             pcVar19 = (code *)EnterCriticalSection;
@@ -225,7 +225,7 @@ LAB_0044469b:
                 iVar4 = FUN_0040a4d0(&DAT_005f4894 + g_clientContext);
               } while (iVar20 < iVar4);
             }
-            FUN_004141b0(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
+            LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
             FUN_0044b0b0(this);
             FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
@@ -305,7 +305,7 @@ LAB_0044469b:
         FUN_0042ae30(&local_468);
         FUN_0042ae30(&local_468);
         QueueOutgoingPacketField(0xffffffff);
-        FUN_004141b0(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,300000);
+        LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,300000);
         FUN_0044b0b0(this);
         FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
         QueueOutgoingPacketField(4);
@@ -403,7 +403,7 @@ switchD_004449fc_default:
                 EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                 EncodeOutgoingPacketField(0xffffffff);
                 LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-                FUN_004141b0(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
+                LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                              300000);
                 break;
               }
@@ -516,7 +516,7 @@ switchD_00444e7c_default:
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             EncodeOutgoingPacketField(0xffffffff);
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            FUN_004141b0(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
+            LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
             break;
           }

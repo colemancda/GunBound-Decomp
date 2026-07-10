@@ -44,7 +44,7 @@ void FUN_0044b170(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004141b0(0xffffffff,0xffffffff,0xffffffff,0xffffffff,param_1 + 0x31488,200000,300000);
+    LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,param_1 + 0x31488,200000,300000);
     FUN_00449250(param_1,1,1);
   }
   return;

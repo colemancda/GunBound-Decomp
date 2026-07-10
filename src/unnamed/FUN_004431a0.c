@@ -36,7 +36,7 @@ void FUN_004431a0(void)
   if (uVar1 == 0xffff) {
     uVar1 = *(ushort *)(g_clientContext + 0x50204 + in_EAX * 8);
   }
-  FUN_004141b0(uVar1 & 0x7fff,uVar4 & 0x7fff,uVar3 & 0x7fff,uVar2 & 0x7fff,0,in_EAX + 200000,
+  LoadAvatarSprites(uVar1 & 0x7fff,uVar4 & 0x7fff,uVar3 & 0x7fff,uVar2 & 0x7fff,0,in_EAX + 200000,
                in_EAX + 300000);
   return;
 }

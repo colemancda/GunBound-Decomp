@@ -103,7 +103,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   FUN_0044b0b0(param_1);
   FUN_00424400();
   *(undefined1 *)(param_1 + 0x30bb8) = 0;
-  FUN_004141b0(0xffffffff,0xffffffff,0xffffffff,0xffffffff,param_1 + 0x31488,200000,300000);
+  LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,param_1 + 0x31488,200000,300000);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(0xffffffff);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

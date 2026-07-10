@@ -329,6 +329,7 @@ void FUN_00413af0();
 void FUN_00413bf0();
 void FUN_00413ee0();
 void __fastcall FUN_00414070();
+void LoadAvatarSprites(); /* 0x4141b0 - resolve avatar equip codes (head/body/glasses/flag) to {gender}{cat}%05d.img sprites */
 undefined4 FUN_00415230();
 undefined1 FUN_004152d0();
 void __fastcall FUN_004153b0();

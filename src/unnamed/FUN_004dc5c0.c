@@ -37,10 +37,10 @@ void __fastcall FUN_004dc5c0(int param_1)
     if (sVar2 == -1) {
       sVar2 = *(short *)(g_clientContext + 0x458be + param_1 * 8);
     }
-    FUN_004141b0(sVar2,uVar6,sVar3,sVar5,0,param_1 + 200000,param_1 + 300000);
+    LoadAvatarSprites(sVar2,uVar6,sVar3,sVar5,0,param_1 + 200000,param_1 + 300000);
     return;
   }
-  FUN_004141b0(*(undefined2 *)(g_clientContext + 0x458be + param_1 * 8),uVar1,
+  LoadAvatarSprites(*(undefined2 *)(g_clientContext + 0x458be + param_1 * 8),uVar1,
                *(undefined2 *)(g_clientContext + 0x458c0 + param_1 * 8),
                *(undefined2 *)(g_clientContext + 0x458c2 + param_1 * 8),0,param_1 + 200000,
                param_1 + 300000);

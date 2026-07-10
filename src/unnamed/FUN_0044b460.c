@@ -37,7 +37,7 @@ void FUN_0044b460(void)
     uVar4 = 0xffffffff;
     goto LAB_0044b59d;
   case 1:
-    FUN_004141b0(uVar4 | uVar1 & 0xffff,0xffffffff,0xffffffff,0xffffffff,unaff_ESI + 0x31488,200000,
+    LoadAvatarSprites(uVar4 | uVar1 & 0xffff,0xffffffff,0xffffffff,0xffffffff,unaff_ESI + 0x31488,200000,
                  300000);
     FUN_00449250(unaff_ESI,1,1);
     return;
@@ -54,7 +54,7 @@ void FUN_0044b460(void)
   }
   uVar1 = 0xffffffff;
 LAB_0044b59d:
-  FUN_004141b0(0xffffffff,uVar1,uVar4,uVar3,unaff_ESI + 0x31488,200000,300000);
+  LoadAvatarSprites(0xffffffff,uVar1,uVar4,uVar3,unaff_ESI + 0x31488,200000,300000);
 switchD_0044b51a_default:
   FUN_00449250(unaff_ESI,1,1);
   return;
