@@ -204,6 +204,22 @@ def _channel_roster(ctx):
     return {"base": "ctx+0x41440", "users": users}
 
 
+def _room_slots(ctx, maxslots=8):
+    # Ready-Room (State 9) slot occupants. Found live at ctx+0x457f1 as 0xD-byte
+    # records: a 12-byte NUL-terminated name buffer + a trailing status byte at
+    # record+0xc (candidate ready/team flag - semantics inferred from one sample,
+    # confirm by toggling Ready). Distinct from Ctx_roomPlayerName (+0x4467c, the
+    # lobby room-card array, empty in-room).
+    slots = []
+    for s in range(maxslots):
+        rec = ctx + 0x457F1 + s * 0xD
+        nm = _cstr(rec, 0xC)
+        st = _rd(rec + 0xC, 1)[0]
+        if nm or st:
+            slots.append({"slot": s, "name": nm, "status": st})
+    return slots
+
+
 def _local_user(ctx):
     # ctx+0x2331c holds the local account name (confirmed live). The struct
     # ClientContext.h calls "PeerEndpoint" (0x23330) overlaps a second copy.
@@ -219,6 +235,7 @@ def _context_obj():
         "localUser": _local_user(ctx),
         "serverList": _server_list(ctx),
         "channelRoster": _channel_roster(ctx),
+        "roomSlots": _room_slots(ctx),
         "rooms": _rooms(ctx),
         "roomPlayers": _players(ctx),
         "peerEndpoint": _peer(ctx),
@@ -256,6 +273,11 @@ def _dump_ctx():
     print("localUser %s: %r" % (lu["off"], lu["name"]))
     cr = doc["channelRoster"]
     print("channelRoster %s: %s" % (cr["base"], [u["name"] for u in cr["users"]]))
+    rs = doc["roomSlots"]
+    if rs:
+        print("roomSlots (ctx+0x457f1, 0xD stride):")
+        for s in rs:
+            print("  slot %d: status=0x%02x  %r" % (s["slot"], s["status"], s["name"]))
     sl = doc["serverList"]
     print("ServerList %s  count=%d  selected=%d  currentServerName=%r"
           % (sl["base"], sl["count"], sl["selectedServerId"], sl["currentServerName"]))

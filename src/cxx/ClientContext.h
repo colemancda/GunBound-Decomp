@@ -66,6 +66,17 @@ inline char *Ctx_localUserName(int ctx) { return reinterpret_cast<char *>(ctx + 
  * which is the in-ROOM player array and read back EMPTY while in the channel. */
 inline char *Ctx_channelUserName(int ctx, int slot) { return reinterpret_cast<char *>(ctx + 0x41445 + slot * 0xd); }
 
+/* --- Ready-Room slots (State 9) ---------------------------------------
+ * The pre-battle room's occupant slots. Found live at ctx+0x457f1 as
+ * 0xD-byte records: a 12-byte NUL-terminated name buffer + a trailing
+ * status byte at record+0xc (colemancda2@+0, admin one record later at
+ * +0xd). The +0xc byte is a candidate ready/team flag - semantics
+ * inferred from a single sample; confirm by toggling Ready in a room.
+ * This is distinct from Ctx_roomPlayerName (+0x4467c), which is the lobby
+ * room-card array and reads EMPTY once inside a room. */
+inline char *Ctx_roomSlotName(int ctx, int slot)  { return reinterpret_cast<char *>(ctx + 0x457f1 + slot * 0xd); }
+inline u8   &Ctx_roomSlotStatus(int ctx, int slot) { return *reinterpret_cast<u8 *>(ctx + 0x457f1 + slot * 0xd + 0xc); }
+
 /* --- Room list (State 3) arena ----------------------------------------
  * The lobby's 6 room-card slots (3x2 grid). Per PROTOCOL.md
  * ("Per-room grid fields" + "RoomPlayerSlot"), the per-slot data is
