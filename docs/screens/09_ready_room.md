@@ -22,8 +22,10 @@ preview, map selection, and the item/loadout picker before the match starts.
 These are the state's own **render slots** (custom-drawn regions), *not*
 composite widget panels. **Runtime-confirmed**: a live view dump of the Ready
 Room shows exactly **one** `g_uiPanelManager` panel — the chat log
-(`BuildReadyRoomChatPanel` `0x557ee0`, id 2000, at `(21,385) 480×160`, often
-`hidden` while a popup is up). Everything else — the character preview, the
+(`BuildReadyRoomChatPanel` `0x557ee0`, id 2000, at `(21,385) 480×160`; its
+`hidden` flag toggles between captures — seen both hidden and visible with the
+same center popup on screen, so the trigger isn't the popup; not yet pinned).
+Everything else — the character preview, the
 team slots, the mobile-select grid, the item/avatar shop, the game-mode option
 buttons, CHANGE/START — is drawn by these slots and by `CreateButtonWidget`
 buttons in the flat `DAT_00e9be90` registry (see the button table below), not

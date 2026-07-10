@@ -262,11 +262,15 @@ panel 1                       (w 314, h 160)   (opened by "Go To"/directgo, id 0
 
 ### Ready Room chat log — `BuildReadyRoomChatPanel` (`0x557ee0`, id 2000) — State 9
 ```
-panel 2000                         (21,385,480,160)   hidden while a popup is up
+panel 2000                         (21,385,480,160)   hidden flag toggles (see note)
 └─ [4] scroll  id 0                (476,436,18,69)
    (chat rows custom-drawn by RenderReadyRoomChatRow)
 ```
-Note: in State 9 this chat panel is **the only `g_uiPanelManager` panel** — the
+Its `hidden` flag toggles between captures (seen both `true` and `false`) with
+the *same* center map/mode popup on screen, so the trigger isn't "a popup is up"
+— it's some other state (initial room-setup vs. settled, or a per-tab toggle);
+not yet pinned. Note: in State 9 this chat panel is **the only
+`g_uiPanelManager` panel** — the
 rest of the Ready Room (team slots, mobile-select grid, item/avatar shop, game-
 mode option buttons, CHANGE/START) is **not** in the widget tree; it's drawn by
 the state's own render path and its buttons live in the flat `ButtonWidget`
