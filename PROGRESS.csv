@@ -530,7 +530,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0044a000,4257,FUN_0044a000,false,1,12,RAW-src
 0044b0b0,180,FUN_0044b0b0,false,8,5,RAW-src
 0044b170,438,EquipAvatarPart,false,1,8,RAW-src
-0044b330,295,FUN_0044b330,false,1,8,RAW-src
+0044b330,295,UnequipAvatarSlot,false,1,8,RAW-src
 0044b460,339,FUN_0044b460,false,1,5,RAW-src
 0044b5d0,334,FUN_0044b5d0,false,2,0,RAW-src
 0044b720,467,FUN_0044b720,false,11,2,RAW-src

@@ -60,7 +60,7 @@ LAB_0050a700:
     if (iVar4 == iVar8 + iVar9) break;
   }
   if (local_8 != 4) {
-    FUN_0044b330(puVar1);
+    UnequipAvatarSlot(puVar1);
     goto LAB_0050a8b0;
   }
   if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar9)) {

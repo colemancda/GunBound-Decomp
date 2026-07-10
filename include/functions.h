@@ -580,7 +580,7 @@ void FUN_00449db0();
 void FUN_0044a000();
 void FUN_0044b0b0();
 void EquipAvatarPart(int param_1);
-void FUN_0044b330();
+void UnequipAvatarSlot(int param_1);
 void FUN_0044b460();
 void __fastcall FUN_0044b5d0();
 void FUN_0044b720();

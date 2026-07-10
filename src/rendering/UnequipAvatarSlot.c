@@ -1,13 +1,20 @@
-/* FUN_0044b330 - 0x0044b330 in the original binary.
+/* UnequipAvatarSlot - 0x0044b330 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
+ * Avatar Store "unequip / clear slot" action: transmits the id=0 "Standard/none"
+ * equip code (EncodeOutgoingPacketField: gender bit only, part id 0) plus a
+ * 0xffffffff index, then refreshes the local preview via LoadAvatarSprites.
+ * Peer of EquipAvatarPart (0x44b170, which sends a real part code + index) and
+ * PreviewAvatarPart (0x44b460, local try-on with no send). Dispatched from the
+ * store item-action handler (FUN_0050a640).
+ *
+ * Function IDENTITY is confirmed (Avatar-Store unequip, transmits); the BODY is
+ * a raw/near-verbatim Ghidra port, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0044b330(int param_1)
+void UnequipAvatarSlot(int param_1)
 
 {
   char cVar1;
