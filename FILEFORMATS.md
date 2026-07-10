@@ -372,6 +372,45 @@ still-open "which type id is which named mobile" question — matching these
 stats against a known-good GunBound mobile stat reference would resolve it
 without per-vtable disassembly.
 
+### `Avatar.xfs` — the avatar part tables (confirmed)
+
+`Avatar.xfs` is an XFS2 archive (opened by `LoadGameDataFiles`, `0x419d90`)
+holding **8 LZHUF-compressed part tables**, one per gender × category —
+`{gender}{category}.dat`, gender ∈ `{f,m}`, category ∈ `{b,g,h,f}`:
+
+| category | slot | example names |
+|---|---|---|
+| `b` | **Body** (clothing) | Standard, Space Marine, School Uniform, Pirate Captain |
+| `g` | **Glasses / eyes** (desc calls it "Face") | Battle Goggle, Pilot Goggle, Zoro Mask, Sunglasses |
+| `h` | **Head** (hair / hat) | Space Marine, Safety Helmet, Punk Hair, Rome Helmet |
+| `f` | **Flag** | Blue Flag, Red Flag, France, … |
+
+Only `mf.dat` (174 flags) is populated; `ff.dat` is empty (0 records) — flags
+are gender-neutral and always drawn from the `mf` namespace. Male/female share
+Body (78) and Glasses (37) counts; Head differs (f 81 / m 77).
+
+**Each `.dat` decodes to:** a `uint32 recordCount`, then `recordCount` fixed
+**132 (`0x84`)-byte records** — the record math is exact for all 8 files
+(`4 + count*0x84 == decoded size`):
+
+| Offset | Size | Field |
+|---|---|---|
+| `0x00` | 4 | `id` — a 0-based sequential index (equals the record's position) |
+| `0x04` | 0x40 | `name` — NUL-terminated ASCII display name (e.g. `"Pirate Captain"`) |
+| `0x44` | 0x40 | `desc` — NUL-terminated ASCII description (e.g. `"Pirate captain clothing"`) |
+
+**Part equip codes** (how a worn part is referenced elsewhere — confirmed from
+the avatar compositor `0x004141b0`): a part is a code where **bit 15 = gender**
+(`0x8000` set → male `'m'`, clear → female `'f'`) and **bits 0–14 = the part
+id** (the record index above); `0xffffffff` means "no part in this slot". The
+drawn sprite is `"{gender}{category}{id:05d}.img"` inside `graphics.xfs`, with a
+large `"...l.img"` variant for the in-battle size; the **flag** sprite ignores
+gender and is always `"mf{id:05d}.img"`. So a body code `0x8005` → male body id
+5 → `mb00005.img`, matching `mb.dat` record 5 ("Roman General").
+
+Decode/verify with `tools/lzhuf/decode_avatar.py orig/Avatar.xfs` (add `--csv`
+to dump all 8 tables).
+
 ## `ChooseEvent.txt` — confirmed text config format
 
 Lives *inside* `graphics.xfs` (not a standalone file), parsed by
