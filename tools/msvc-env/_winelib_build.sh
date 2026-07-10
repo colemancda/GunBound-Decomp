@@ -15,7 +15,7 @@ done
 # (C++) to an object and add it to the link so those symbols resolve.
 winegcc -m32 -std=gnu11 -Iinclude $RELAX -c src/cxx/crt_shims_c.c -o build/crt_shims.o 2>>build/winelib_err.txt
 echo "compiling+linking $(echo "$SRCS" | wc -l) files via winegcc..."
-winegcc -m32 -std=gnu11 -Iinclude $RELAX -o build/gunbound.exe $SRCS build/crt_shims.o -lws2_32 -lwinmm -ldsound -lddraw -ldinput8 -lole32 -lgdi32 -lshell32 -limm32 -luser32 -ladvapi32 -lm 2>build/winelib_err.txt
+winegcc -m32 -std=gnu11 -Iinclude $RELAX -o build/gunbound.exe $SRCS build/crt_shims.o -lws2_32 -lwinmm -ldsound -lddraw -ldinput8 -lole32 -lgdi32 -lshell32 -limm32 -luser32 -ladvapi32 -lm -ldxguid 2>build/winelib_err.txt
 echo "WINEGCC-EXIT=$?"
 echo "=== error count ==="; grep -c 'error:' build/winelib_err.txt
 echo "=== undefined reference count ==="; grep -c 'undefined reference' build/winelib_err.txt
