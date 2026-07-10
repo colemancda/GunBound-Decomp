@@ -125,7 +125,10 @@ undefined4 __thiscall FUN_00503c40(undefined4 *param_1,ushort *param_2,uint para
       if ((int)param_3 <= unaff_ESI) {
         return 1;
       }
-      uVar3 = FUN_00503c40(auStack_1780,unaff_EBX);
+      /* Ghidra dropped the recursive call's 3rd arg (the count/length
+       * param_3, guarded against unaff_ESI just above). Restored so this
+       * __thiscall(3-param) recursion matches its own signature. */
+      uVar3 = FUN_00503c40(auStack_1780,unaff_EBX,param_3);
       return uVar3;
     }
     return 0;

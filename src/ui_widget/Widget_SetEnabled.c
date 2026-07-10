@@ -24,7 +24,11 @@ void __thiscall Widget_SetEnabled(int param_1,undefined4 param_2)
       FUN_004010c0(0x80070057);
     }
     do {
-      Widget_SetEnabled(param_2);
+      /* Ghidra dropped the recursive call's `this` (child pointer) arg;
+       * broadcasts the enabled flag to the uVar1-th child at param_1+0xc
+       * (matches CWidget::SetEnabled -> m_children[i]->SetEnabled() in
+       * src/cxx/Widget.cpp). */
+      Widget_SetEnabled(*(int *)(*(int *)(param_1 + 0xc) + uVar1 * 4),param_2);
       uVar1 = uVar1 + 1;
     } while (uVar1 < *(uint *)(param_1 + 0x10));
   }

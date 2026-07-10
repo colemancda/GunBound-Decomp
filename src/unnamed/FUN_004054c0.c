@@ -11,8 +11,11 @@ void __thiscall FUN_004054c0(int param_1,int param_2)
 
 {
   if (param_2 != *(int *)(param_1 + 0x14)) {
-    FUN_004054c0(*(undefined4 *)(param_2 + 0x108));
-    FUN_004054c0(*(undefined4 *)(param_2 + 0x10c));
+    /* Ghidra dropped the recursive calls' `this` (param_1) arg - this is
+     * a binary-tree walk: same container `this`, left/right child nodes
+     * at param_2+0x108/+0x10c passed as the node argument. */
+    FUN_004054c0(param_1,*(undefined4 *)(param_2 + 0x108));
+    FUN_004054c0(param_1,*(undefined4 *)(param_2 + 0x10c));
     thunk_FUN_00405320();
     *(undefined4 *)(param_2 + 0x108) = *(undefined4 *)(param_1 + 8);
     *(int *)(param_1 + 8) = param_2;
