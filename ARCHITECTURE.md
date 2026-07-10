@@ -863,28 +863,35 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
   is a 102-frame, 22×22 sprite** (confirmed from the asset header — vs. 1 frame
   for `titlemode.img`, 5 for `bullet1n.img`). The **actual per-frame draw is in
   `GameTick` (`0x413130`)**, traced via Ghidra: each frame, if
-  `g_cursorFrame >= 0` and the sprites are loaded, it resolves the cursor's
-  current frame with `FindSpriteFrame` (`0x4f30c0`) and blits it **at the mouse
-  anchor `(g_cursorAnchorX, g_cursorAnchorY)`** — `BlitSprite16bpp` on the hardware
+  `g_cursorFrame >= 0` and the sprites are loaded, it resolves a sprite frame
+  with `FindSpriteFrame` (`0x4f30c0`) and blits it **at the cursor anchor
+  `(g_cursorAnchorX, g_cursorAnchorY)`** — `BlitSprite16bpp` on the hardware
   path, else `BlitSpriteClipped(g_cursorFrame)` (software). So:
-  - **The current cursor frame is `g_cursorFrame`.** A value of `-1` hides the
-    cursor (skips the draw); `0…101` selects one of the 102 `cursor.img`
-    frames. This is the cursor's shape/animation state.
-  - **`g_cursorTexture` (`0x7a7660`) is write-only** — the preload *registers*
-    `cursor.img` in the sprite cache, but the draw reads the frame through the
-    current-sprite/`FindSpriteFrame` context, not through that handle. (That's
-    why the cursor blit doesn't reference `g_cursorTexture`.)
+  - **`g_cursorFrame` is effectively a constant 0, *not* an animation index.**
+    A byte search shows the address `0x7a7674` occurs **exactly once in the
+    whole binary** — the `mov esi,[0x7a7674]` read in `GameTick` — and it lives
+    in the zero-initialized data region, so it is **never written and always
+    `0`**. The `-1 < g_cursorFrame` test is therefore an always-true
+    visibility gate (`-1` would mean "hidden", but nothing ever sets it), and
+    `BlitSpriteClipped(g_cursorFrame)` always passes frame `0`. *(This corrects
+    an earlier note that read `g_cursorFrame` as a 0…101 animation state — it
+    isn't.)*
+  - **So `g_cursorFrame` does not drive the animation.** The cursor sprite +
+    frame index actually drawn are passed to `FindSpriteFrame` in **registers
+    Ghidra doesn't recover**, and `FindSpriteFrame` is a **stateless
+    `(spriteSet, frameIndex)` lookup** (no time-advance of its own). So which
+    of `cursor.img`'s 102 frames is shown — and whether it cycles at all —
+    **can't be determined from the ported code**; it depends on the register
+    setup at the call site, which needs raw-disassembly recovery.
+  - **`g_cursorTexture` (`0x7a7660`) is write-only** (also verified by byte
+    search: one reference, the `ChangeGameState` write) — the preload merely
+    *registers* `cursor.img` in the sprite cache; the draw goes through the
+    `FindSpriteFrame` current-sprite path, not this handle.
   - **Replay-playback variant:** a separate branch (guarded by the
-    `PeekPacketChecksumBool` replay check) blinks the cursor — visible on a
-    `g_frameCounter % 0x14 < 10` schedule, i.e. **on for 10 of every 20 frames
-    (~50% duty)** — and draws a fixed frame instead of `g_cursorFrame`.
-  - **Not yet pinned:** the *writer* of `g_cursorFrame`. Its stores are
-    computed/indirect (the cursor globals `0x7a7660`–`0x7a7674` sit in one
-    cluster), so `getReferencesTo` finds only the `GameTick` read. Whether the
-    frame is time-cycled (spinning animation) or context-selected (e.g. the
-    aim cursor's frame derived from the shot angle, plus normal/wait variants —
-    102 frames is a lot, consistent with angle-indexed aim frames) is the open
-    question; recovering it means decompiling whatever sets that global.
+    `PeekPacketChecksumBool` replay-mode read) **blinks** the cursor — visible
+    on a `g_frameCounter % 0x14 < 10` schedule, i.e. **on for 10 of every 20
+    frames (~50% duty)**. This blink is the one confirmed time-based cursor
+    behaviour in the analyzable code.
 - **A 9-entry `HCURSOR` array, `g_edgeCursors[9]`** (index 0 = normal, 1–8 =
   the eight screen-edge directions), loaded in an unported cursor init.
   `WndProc` handles **`WM_SETCURSOR`** with

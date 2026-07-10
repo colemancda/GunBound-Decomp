@@ -659,10 +659,14 @@ extern uint8_t g_localizedStringTable;
  * preloaded via FindPreloadedTextureByName("cursor") on every ChangeGameState;
  * the in-game pointer drawn at the mouse position. */
 extern uint8_t g_cursorTexture;
-/* g_cursorFrame (was DAT_007a7674) - current cursor.img frame index that
- * GameTick blits at (g_cursorAnchorX, g_cursorAnchorY). -1 hides the cursor;
- * 0..101 selects one of cursor.img's 102 frames (the shape/animation state).
- * See ARCHITECTURE.md "custom cursor". */
+/* g_cursorFrame (was DAT_007a7674) - the frame index GameTick passes to
+ * BlitSpriteClipped when drawing the cursor at (g_cursorAnchorX,
+ * g_cursorAnchorY). NOTE: the address 0x7a7674 occurs exactly once in the
+ * binary (that read) and sits in zero-init data, so it is never written and
+ * is always 0 - i.e. a constant, not an animation index; the `-1 < ...` guard
+ * is effectively always true. The real frame selection is in register args to
+ * FindSpriteFrame that Ghidra doesn't recover. See ARCHITECTURE.md "custom
+ * cursor". */
 extern uint32_t g_cursorFrame;
 extern uint8_t DAT_007a768c;
 extern uint8_t DAT_00d9aa20;
