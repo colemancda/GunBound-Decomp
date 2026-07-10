@@ -10,6 +10,7 @@
  */
 #include "ghidra_types.h"
 #include <windows.h>
+#include "winmain_bringup.h"   /* launch bring-up scaffolding (not in original) */
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -56,67 +57,68 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   char cStack_408;
   undefined4 uStack_407;
   
+  WinMain_BringupInit();   /* init value-guard key table (see winmain_bringup.h) */
   FUN_00525f26(s_test_txt_00552c30);
   FUN_00525f26(s_c__comsik_txt_00552778);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0x118);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[0], 0x118);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[1], 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(2);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[2], 2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(4);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[3], 4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(5);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[4], 5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(8);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[5], 8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(10);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[6], 10);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0xf);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[7], 0xf);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0x14);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[8], 0x14);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0x19);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[9], 0x19);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0x1e);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[10], 0x1e);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0x32);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[11], 0x32);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0x46);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[12], 0x46);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0x50);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[13], 0x50);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0x62);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[14], 0x62);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(100);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[15], 100);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0xa0);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[16], 0xa0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(200);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[17], 200);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0x100);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[18], 0x100);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0x168);
+  EncodeOutgoingPacketField(g_vgWinMainObjects[19], 0x168);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pvVar2 = CreateMutexA((LPSECURITY_ATTRIBUTES)0x0,1,s_SoftnyxGunBound_gme_00552764);
   DVar3 = GetLastError();
@@ -179,15 +181,19 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     cVar1 = *pCVar12;
     pCVar12 = pCVar12 + 1;
   } while (cVar1 != '\0');
-  if ((int)pCVar12 - (int)(_Src + 1) != 0x60) {
-    return 0;
+  /* BRING-UP: the original hard-returns here unless launched by the .NET
+   * launcher with a 96-byte (0x60) session-key command line, then sscanf-parses
+   * that key into DAT_005b3440. Kept faithful when the launcher args ARE present;
+   * skipped (rather than `return 0`) when absent, so the startup path can be
+   * exercised standalone. See docs - reaching the logo needs no valid key. */
+  if ((int)pCVar12 - (int)(_Src + 1) == 0x60) {
+    iVar13 = 0;
+    do {
+      _sscanf(_Src,&DAT_0055275c,&DAT_005b3440 + iVar13);
+      iVar13 = iVar13 + 1;
+      _Src = _Src + 2;
+    } while (iVar13 < 0x30);
   }
-  iVar13 = 0;
-  do {
-    _sscanf(_Src,&DAT_0055275c,&DAT_005b3440 + iVar13);
-    iVar13 = iVar13 + 1;
-    _Src = _Src + 2;
-  } while (iVar13 < 0x30);
   if (hPrevInstance == (HINSTANCE)0x0) {
     local_da4.style = 0xb;
     local_da4.lpfnWndProc = WndProc;

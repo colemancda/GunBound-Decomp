@@ -4,7 +4,7 @@
  * target. Reconstructed (like InitDirectDraw) from the original disassembly
  * because Ghidra emitted the DirectDraw/Direct3D COM calls as argument-less
  * `(**(code**)(*iface + off))()` and scattered the surface/caps descriptors
- * across disconnected stack locals (piStack_*/auStack_130/aiStack_140). Against
+ * across disconnected stack locals (piStack_*, auStack_130, aiStack_140). Against
  * native ddraw that faults: the vtable methods read uninitialised stack for
  * their args and the CreateSurface descriptor is malformed. All six COM calls
  * are rewritten with explicit arguments and contiguous structs; argument order

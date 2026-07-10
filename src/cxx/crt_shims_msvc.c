@@ -25,6 +25,14 @@
 /* --- Ghidra-renamed CRT (source `_x` -> symbol `__x`) --- */
 void  _free(void *p)                          { free(p); }
 void *_malloc(unsigned int n)                 { return malloc(n); }
+
+/* operator new/delete: the raw ports call Ghidra's C-symbol `operator_new`/
+ * `operator_delete` (not the C++ `??2`/`??3` mangling), so define them as plain
+ * cdecl here. C++ operator new is malloc-plus-throw-on-failure and every raw
+ * call site null-checks the result, so malloc/free are behaviorally correct.
+ * Counterpart of crt_shims_c.c's winegcc versions (that file is __WINE__-only). */
+void *operator_new(unsigned int size)         { return malloc(size); }
+void  operator_delete(void *p)                { free(p); }
 void *_realloc(void *p, unsigned int n)       { return realloc(p, n); }
 int   _rand(void)                             { return rand(); }
 long  _atol(const char *s)                    { return atol(s); }

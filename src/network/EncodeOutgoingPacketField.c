@@ -12,7 +12,13 @@
 #include <windows.h>
 
 
-void EncodeOutgoingPacketField(uint param_1)
+/* `self` is the object pointer Ghidra dropped as `unaff_EDI`: the original
+ * passes `this` in EDI (a custom register convention, callee cleans the one
+ * stack arg via `ret 4` at 0x40a43a). Recovered from the real binary - every
+ * caller is `mov edi,<obj>; call 0x40a380`. Made an explicit leading parameter
+ * so callers can pass it; other (not-yet-swept) 1-arg call sites still compile
+ * against the K&R decl in functions.h and simply don't run pre-logo. */
+void EncodeOutgoingPacketField(void *self, uint param_1)
 
 {
   uint uVar1;
@@ -20,7 +26,7 @@ void EncodeOutgoingPacketField(uint param_1)
   undefined4 *puVar3;
   int iVar4;
   uint *puVar5;
-  int unaff_EDI;
+  int unaff_EDI = (int)self;
   undefined1 local_8 [8];
   
   uVar2 = param_1;
