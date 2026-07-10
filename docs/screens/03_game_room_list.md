@@ -103,7 +103,7 @@ Every lobby button/menu/list event funnels through this one function,
 | 0xc | `b_gamelist_prev` | Page prev | `0x2100`/`0x2101` (page `-0x118`) |
 | 0xd | `b_gamelist_next` | Page next | `0x2100`/`0x2101` (page `+0x118`) |
 | 0xe | `b_gamelist_friend` | **Find Friend** — locate a buddy's room | `FindBuddyRoomsForServer` scans active rooms (filter param not fully pinned down); found → `0x2101`; not found → clears `+0x44648` |
-| 0xf | `b_gamelist_directgo` | Open "enter room by number" dialog | `BuildEnterRoomNumberDialog`, msg `0x2715` |
+| 0xf | `b_gamelist_directgo` | Open the **"DIRECT GO"** dialog (go straight to a room) | `BuildEnterRoomNumberDialog` (`0x557df0`, id 1), msg `0x2715`; runtime-confirmed to hold **Room No.** + **Password** text-entry fields (ids 0/1) + Ok/Cancel — so it's a jump-to-room-by-number-with-password, not just a number entry |
 
 **Dialog-internal codes** (reached via a dialog's own OK/Cancel, not a
 top-level button): `0x1e`/`0x20`/`0x28` = Cancel (`FUN_0050ef10`); `0x1f` =

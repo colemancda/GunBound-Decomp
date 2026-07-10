@@ -150,7 +150,7 @@ leaf widgets above. All register with the global UI panel manager
 | `BuildReadyRoomChatPanel` (`0x5094f0`) | `0x557ee0` | State 9 — Ready Room **chat log** (480×160, bottom) | scrollbar (page 9); rows (`RenderReadyRoomChatRow`) = color-coded messages by type byte |
 | `BuildAvatarStorePanel` | `0x557eb8` | State 7 — Avatar Store item panel | 3 category labels (msg `0x4b0`–`0x4b2`) + scrollbar (page 0xe) |
 | `BuildChatLogPanel` | `0x557b94` | **chat log** panel (via `FUN_004025e0`), 0x1050-byte object with a ~4 KB history buffer | label + text-entry |
-| `BuildEnterRoomNumberDialog` | `0x557df0` | State 3 — "enter room by number" dialog | labels + OK/Cancel + text field |
+| `BuildEnterRoomNumberDialog` | `0x557df0` | State 3 — the **"DIRECT GO"** dialog (opened by the "Go To"/`directgo` button, id `0xf`); id 1 at (459,33) 314×160 — runtime-confirmed | **two** text-entry fields (`0x557c84`) — **Room No.** (id 0) + **Password** (id 1) — plus **Ok** (id 0) / **Cancel** (id 1) label buttons |
 | (add-buddy dialog) | `0x557e68` | **"add buddy ID" dialog** (from the buddy panel's Add button); id 10000 at (281,206) 241×148 — runtime-confirmed | a `typeId 3` message block (`0x557f30`, "To add your friends' ID…") + a text-entry field (`0x557c84`, id 0) + **ADD** (id 0) / **CLOSE** (id 1) label buttons |
 | `BuildCreateRoomDialog` | `0x557c34` | State 3 — Create Room dialog | name/password text fields + option grid + OK/Cancel |
 
