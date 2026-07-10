@@ -400,7 +400,9 @@ uint8_t DAT_006aa66e;
 uint8_t DAT_006aa674;
 uint8_t DAT_006aa67c;
 uint8_t DAT_006aab04;
-uint8_t DAT_006b90f8;
+uint32_t DAT_006b90f8; /* holds a void* from FUN_004f3980 (was uint8_t, which
+                        * truncated the pointer to 1 byte -> FUN_004f3a00 wrote
+                        * through [byte+8] and faulted) */
 uint32_t DAT_006b9100;
 uint8_t DAT_006ba1fc;
 uint8_t DAT_006ba244;

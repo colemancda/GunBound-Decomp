@@ -538,7 +538,7 @@ extern uint8_t DAT_006aa66e;
 extern uint8_t DAT_006aa674;
 extern uint8_t DAT_006aa67c;
 extern uint8_t DAT_006aab04;
-extern uint8_t DAT_006b90f8;
+extern uint32_t DAT_006b90f8;
 #define _DAT_006b90f8 DAT_006b90f8
 extern uint32_t DAT_006b9100;
 extern uint8_t DAT_006ba1fc;
