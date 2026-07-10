@@ -339,8 +339,38 @@ the actual record data only exists after passing through
 
 This means the `orig/characterdata.dat` (1,130 bytes) etc. sample files
 already in this repo (see hashes in [README.md](README.md)) are **compressed
-blobs**, not directly-readable struct arrays — any future work to parse
-their actual field layout needs the LZHUF decoder implemented first.
+blobs**, not directly-readable struct arrays. The repo's LZHUF decoder
+(`tools/lzhuf/lzhuf.py`) now decodes them directly — `decode_lzhuf(raw, 0x14c0)`
+for `characterdata.dat` — so the layouts below are extracted from real data.
+
+### `characterdata.dat` — the mobile stat table (confirmed)
+
+Decodes to **5,312 bytes = exactly 16 records of `0x14c` (332) bytes**, one per
+mobile — and the **record index is the mobile type id**, i.e. it lines up 1:1
+with `CreateMobile`'s (`0x42b0b0`) 16-way `switch(mobileType)` factory (types
+`0..0xF`; see ARCHITECTURE.md's mobile-object anchor). Each record is an array
+of little-endian **`u32` stat fields** (no text — mobile *names* are not stored
+here):
+
+- `+0x00`/`+0x04`: constant `0x1c` (28) / `0x18` (24) across every record — a
+  header/dimension pair, not a per-mobile stat.
+- `+0x0c`, `+0x14`, `+0x18`, `+0x54`, `+0x60`, `+0x64`, …: scalar per-mobile
+  stats (values in the 10–100 range — e.g. `+0x0c` = 55/50/40/90/… per type).
+- Several **3-element sub-arrays** (e.g. `+0xb0`/`+0xc0`/`+0xcc` triplets like
+  `210,68,144`) — the classic GunBound **Shot1 / Shot2 / SuperShot** per-mobile
+  pattern (three consecutive equal-or-related values repeat throughout the
+  record).
+- Records **2 and 15** carry anomalously high leading values
+  (`170/165/135`, `170/170/130`) versus the 40–90 range of the other 14 —
+  likely special/boss or placeholder mobiles.
+
+Note the game only **checksum-validates** this file at load (the decoded buffer
+is a local stack copy, discarded afterwards — see above), so these stats aren't
+necessarily what battle uses at runtime; but the file **structure** (16 ×
+332-byte type-indexed records) is confirmed and is a solid anchor for the
+still-open "which type id is which named mobile" question — matching these
+stats against a known-good GunBound mobile stat reference would resolve it
+without per-vtable disassembly.
 
 ## `ChooseEvent.txt` — confirmed text config format
 

@@ -848,9 +848,11 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
   differentiated by behavior (vtable methods), and the string constants
   clustered near the vtables (`LightningTexture`, `FirewallTexture`,
   `TornadoTexture`, `jflame%d`, …) are *shared effect/animation* textures, not a
-  type→name table. Naming the 16 mobiles needs per-vtable method disassembly or
-  cross-referencing the `type+5000` sprite ids against the asset archives —
-  neither done yet, so no names are asserted here.
+  type→name table. Naming the 16 mobiles needs per-vtable method disassembly,
+  cross-referencing the `type+5000` sprite ids against the asset archives, or
+  matching the **type-indexed stat records** in `characterdata.dat` (16 ×
+  332-byte records, now decoded — see FILEFORMATS.md) against a known-good
+  GunBound mobile stat reference — none done yet, so no names are asserted here.
 
 ## Subsystem init functions (confirmed)
 
