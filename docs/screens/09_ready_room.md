@@ -37,6 +37,13 @@ by the widget tree.
 - **Roster + item picker** — slot 13 (`FUN_004d7db0`, 4,854 bytes):
   - **8-player ready roster**, 2 rows × 4 cols, using the per-slot
     `PeekPacketChecksumState()` bit idiom (same as Loading) to show who's ready.
+    Backed by the **room-slot array at `ctx+0x457f1`** (0xD-byte records: a
+    12-byte NUL-terminated name + a status/flag byte at record `+0xc`;
+    `Ctx_roomSlotName` in `src/cxx/ClientContext.h`). Runtime-confirmed from a
+    live dump: `colemancda2` @ slot 0, `admin` @ slot 1, both `+0xc == 0`. The
+    same array is indexed by `slot*0xd + 0x457f1` in State03's 0x2105 handler
+    (which populates it), State09 chat/battle-action, and State10 loading — so
+    the roster persists Ready Room → Loading → Battle.
   - **Paginated item-loadout grid**: 9 slots/page (3×3, spacing
     `(i%3)*0x46+0x210` / `(i/3)*0x2d+0x193`), item IDs from `this+0x518`,
     sprite via the global item-ID→sprite table `&DAT_0056dc40`, labels via
