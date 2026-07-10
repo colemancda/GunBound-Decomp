@@ -9,6 +9,7 @@
  * these get promoted to verified.
  */
 #include "ghidra_types.h"
+#include "xfs.h"
 #include <windows.h>
 
 
@@ -25,7 +26,9 @@ void ShutdownDirectDraw(void)
     }
     iVar1 = iVar1 + 4;
   } while (iVar1 < 0x1000);
-  FUN_004f0d70();
+  /* Original set ESI=&g_graphicsArchive before this call (dropped by Ghidra);
+   * FUN_004f0d70 (CloseXFSArchive) flushes and closes the graphics archive. */
+  FUN_004f0d70(&g_graphicsArchive);
   FUN_004f3e70();
   FUN_004f3a30();
   FUN_004f46b0();

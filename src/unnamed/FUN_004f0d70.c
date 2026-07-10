@@ -6,11 +6,17 @@
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
+#include "xfs.h"
 
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-undefined4 FUN_004f0d70(void)
+/* CloseXFSArchive - flushes any dirty blocks back to the archive file, frees
+ * the 0x400 cached block pointers at archive+0x40, closes the file handle
+ * (archive+0x1040) and marks it XFS_CLOSED. The archive `this` pointer arrived
+ * in ESI in the original (a dropped register arg in Ghidra's `(void)` port);
+ * promoted to an explicit parameter so callers can pass it. */
+undefined4 FUN_004f0d70(XFSArchive *archive)
 
 {
   undefined4 uVar1;
@@ -18,7 +24,7 @@ undefined4 FUN_004f0d70(void)
   BOOL BVar3;
   undefined4 *puVar4;
   int iVar5;
-  int unaff_ESI;
+  int unaff_ESI = (int)archive;
   DWORD DStack_4000c;
   DWORD DStack_40008;
   uint uStack_40004;
