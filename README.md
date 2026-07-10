@@ -48,8 +48,8 @@ Reimplementation-focused docs, built from the reverse engineering above:
 - [docs/widgets.md](docs/widgets.md) — the reusable UI-widget system (the
   `CWidget`/`CPanel` hierarchy, the flat `ButtonWidget`, and the panel catalog).
 - [docs/localized-strings.md](docs/localized-strings.md) — the extracted
-  `Language.txt` string table (id → verbatim Portuguese + English translation),
-  and how ids map to server error codes.
+  `Language.txt` string table (id → verbatim **English** message), and how ids
+  map to server error codes.
 - [docs/porting-sdl3.md](docs/porting-sdl3.md) — mapping the DirectX/Win32 usage
   to **SDL3** (a faithful, cross-platform port).
 - [docs/porting-spritekit.md](docs/porting-spritekit.md) — mapping the client to
@@ -62,22 +62,33 @@ gitignored under `orig/`). These SHA-256 hashes pin the exact copies the
 decompilation is being verified against — re-hash your local copy and compare
 before relying on any progress here.
 
+The content assets (`graphics.xfs`, `sound.xfs`, `avatar.xfs`, and the `.dat`
+files) are the **`TestClient/` set from
+[jglim/gunbound-launcher](https://github.com/jglim/gunbound-launcher)** — an
+**English** build. Critically, that client's **`GunBound.gme` is byte-for-byte
+identical to our decompilation target** (`4af6283d…`), so the decomp stays
+valid against it and its assets are the ones the target actually loads.
+
 | File | SHA-256 | Size |
 |------|---------|------|
 | `GunBound.gme` | `4af6283dfd151f5256b9bc0da8d07fff16384950c00da3b2baae825f5fc0fcde` | 1,815,040 |
 | `Launcher.cs` | `6b6f479b24632391ade9b4a959029464832a3c08a598912360d1ecf5add0b258` | 16,876 |
-| `avatar.xfs` | `117399ff9d2aed6b2777f992617c47cb073881845473d013f9a3e782c1a31d96` | 122,361 |
-| `graphics.xfs` | `d8d74e09ea223af34842161a9b0ca256b6b2e30e92d165dd0cd31b7ccabf111c` | 206,333,514 |
-| `sound.xfs` | `4804a933d155c0159ff86df4321a79caaff2ccf2b7da69de5b442df4d1e4af6a` | 18,604,789 |
+| `avatar.xfs` | `829be830e0c50c273d5e0ece03c22fbe0c45e07527129e60e8843d16a1df0e6d` | 22,968 |
+| `graphics.xfs` | `a52f9f468bb1c6d772bfa0431ec436b0c515a7cebc490c6970e55c7dffb20f08` | 90,913,019 |
+| `sound.xfs` | `081c1b9f5751c486512a9df1a894f6db7a5ed891b8ebdad9fbce1b9169901023` | 18,604,788 |
 | `characterdata.dat` | `b7278385d6ea60af3cdcbccbf6df15a74e857f196adbb87e5e99bea6a0feecaf` | 1,130 |
-| `itemdata.dat` | `752299574279973d055ed7a0220832e5cd94f7e255a65fe767cdd75de7164c26` | 1,729 |
+| `itemdata.dat` | `de6f4d3c424df046d344c4f952542255a1eeb2898457eac74ff6379051b48523` | 1,650 |
 | `specialdata.dat` | `9cc0d99f87e4fff6fd56160c3737fb966546ab9bb77a6a33374cb4642233e086` | 88 |
 | `stage.dat` | `103c2b488977e1721becf8cb90496f95477302ec24141f94116d5214a3e6cfca` | 1,238 |
 
 `graphics.xfs`/`sound.xfs`/`avatar.xfs` are **not committed** (too large,
 and `orig/` is gitignored regardless) — hashes above just pin the exact
 copies used to validate the file-format findings in
-[FILEFORMATS.md](FILEFORMATS.md).
+[FILEFORMATS.md](FILEFORMATS.md). The **container formats** documented there
+are unchanged by the asset swap (the `.xfs`/`.dat` layouts are identical), but
+some *content* examples in FILEFORMATS.md (e.g. Portuguese item-description
+text) were taken from the previous asset set and now read as English in the
+committed hashes' files.
 
 Not yet hashed/copied into `orig/`: `characterdata_imortal.dat`,
 `characterdata_original.dat`, `GunBound.exe` (the .NET launcher stub, not

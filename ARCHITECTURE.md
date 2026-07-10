@@ -1234,28 +1234,28 @@ and the packet pump surfaces some server error codes via a native
 **Locale = which `Language.txt` is packed.** The runtime language is
 determined entirely by the `Language.txt` shipped in that server's
 `graphics.xfs`; the code is locale-agnostic. The `orig/graphics.xfs` in this
-repo carries a **Portuguese** table (the GunBound.CA/Brazilian build), whose
-error-dialog family reads, at the confirmed ids:
+repo is the **English** build (jglim/gunbound-launcher `TestClient`, whose
+`GunBound.gme` is identical to our target), whose error-dialog family reads, at
+the confirmed ids:
 
-| id | code | message (translated) |
+| id | code | message (verbatim) |
 |---|---|---|
-| 200 | 1 | Server access error — can't reach the requested server, try others / later |
-| 201 | 2 | **Access time has expired** — network problem or the wait was too long; the connection will close; try later |
-| 205 | 6 | Login error — wrong password |
-| 215 | 16 | Game room locked — a match is in progress, can't enter |
-| 220 | 21 | Version error — different version, reinstall/update |
+| 200 | 1 | Server Access Error — Can't access to server you required. |
+| 201 | 2 | **Access time has expired.** — network/timeout; the connection will close automatically |
+| 205 | 6 | Login Error — Wrong password. |
+| 215 | 16 | Game Room Blocked — The room is in playing. You cannot enter. |
+| 220 | 21 | Version Error — Different version. Connection closed. |
 
 The **full table is extracted and documented** in
-[docs/localized-strings.md](docs/localized-strings.md): all **41 defined ids
-(200–240)**, verbatim Portuguese + English translation, pulled from
-`orig/graphics.xfs`'s `Language.txt` and **checksum-verified**. A key finding
-from that extraction: this build's table is **sparse — only the error-dialog
-family (200–240) is defined**; every other id the code requests (loading, HUD,
-replay, avatar-store, …) is *not present* in the shipped asset (those UI
-elements are image-driven), and id 241 is truncated. A different-language
-server ships a different `Language.txt` with the same ids (e.g. an English
-build renders id 201 as the "Access time has expired." text seen in reference
-screenshots).
+[docs/localized-strings.md](docs/localized-strings.md): all **48 defined ids
+(200–247)**, verbatim English, pulled from `orig/graphics.xfs`'s `Language.txt`
+and **checksum-verified** (`0x4441cd69`). A key finding from that extraction:
+this build's table is **sparse — only the error/message-dialog family (200–247)
+is defined**; every other id the code requests (loading, HUD, replay,
+avatar-store, …) is *not present* in the shipped asset (those UI elements are
+image-driven), and id 247 is truncated. A different-language server ships a
+different `Language.txt` with the same ids (the previous Portuguese/Brazilian
+build defined ids 200–240).
 
 **Who calls it, and the id-block map.** `GetLocalizedString` is one of the
 most-called functions in the client: **~256 call sites across 46 functions**

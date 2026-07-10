@@ -6,81 +6,91 @@ table built at startup by `LoadLocalizedStrings` (`0x43da00`) and read by
 the subsystem and the id-block/caller map. This document is the **string
 table itself**.
 
-## What's actually in the shipped asset — important
+## What's actually in the shipped asset
 
-- **Source**: the `Language.txt` entry inside `orig/graphics.xfs`, extracted
-  and **checksum-verified** (`verify_checksum.py` → `MATCH`). Re-extract with:
+- **Source**: the `Language.txt` entry inside `orig/graphics.xfs` — the
+  **English** `TestClient` build from
+  [jglim/gunbound-launcher](https://github.com/jglim/gunbound-launcher), whose
+  `GunBound.gme` is byte-for-byte identical to our decompilation target.
+  Extracted and **checksum-verified** (`verify_checksum.py` →
+  `stored=0x4441cd69 computed=0x4441cd69 MATCH`). Re-extract with:
   ```
   cd tools/lzhuf
   python3 -c "from extract_toc import read_toc; from decode_img import decode_entry_partial; \
     e=[x for x in read_toc('../../orig/graphics.xfs')[0] if x[0].lower()=='language.txt'][0]; \
     open('/tmp/Language.txt','wb').write(decode_entry_partial('../../orig/graphics.xfs',e[1],e[2],e[3],e[4],e[3]))"
   ```
-- **The table is sparse.** This build defines **only ids 200–240** — the
-  entire **error-dialog family**. Id 241 is present but **truncated** in the
-  asset (`"Erro em Comprar\nNao…"` runs straight into ~16 KB of binary
-  padding that fills out the entry's 20,242-byte decompressed size). Every
-  *other* id the code requests (loading labels `0x320+`, HUD `0x27c+`, replay
-  `0x1770+`, avatar-store `0xea6x`, …) is **not defined in this asset** — those
-  UI elements are image/bitmap-driven in this build, and only the message-box
-  dialogs are text-driven.
-- **Language is Portuguese** (the GunBound.CA / Brazilian build). The client
-  binary contains **no English text** — locale is entirely a function of which
-  `Language.txt` a server packs. The **English column below is a translation**
-  of the Portuguese, provided as a reading aid; it is **not** the original
-  English wording an English (ijji/WC) server shipped. The Portuguese column is
-  the verbatim ground truth.
+- **The table is sparse.** This build defines **only ids 200–247** — the
+  entire **error/message-dialog family**. Id 247 is present but **truncated**
+  (`"Server Connection Terminates\n\nInfor…"` runs straight into ~14 KB of
+  binary padding that fills out the entry's 18,211-byte decompressed size).
+  Every *other* id the code requests (loading labels `0x320+`, HUD `0x27c+`,
+  replay `0x1770+`, avatar-store `0xea6x`, …) is **not defined in this asset** —
+  those UI elements are image/bitmap-driven in this build, and only the
+  message-box dialogs are text-driven. (The previous Portuguese asset was the
+  same shape, defining ids 200–240.)
+- **This text is the authentic original English** — extracted verbatim,
+  including the original typos (`Server Fuction Error`, `Loging Error`,
+  `Selected Server in for guild members only`), the real support address in id
+  206, and the dated maintenance notice in id 244.
 - **Id ↔ error code**: `ShowErrorDialog(code)` resolves `id = code + 0xc7`
-  (199). So the server-sent error code is `id − 199`, given in the second
+  (199). So the server-sent error code is `id − 199`, given in the first
   column. `<br>` marks a line break inside a message; a doubled `<br><br>` is
-  the blank line between an error's title and its body.
+  the blank line between an error's title and its body. `%s` is a runtime
+  substitution (a player/ID name).
 
-## Error-dialog family (ids 200–240)
+## Error/message-dialog family (ids 200–247)
 
-| id / code | Portuguese (verbatim from the asset) | English (translation) |
-|---|---|---|
-| 200 / 1 | Erro de Acesso do Servidor<br><br>Nao pode acessar o servidor que voce solicitou.<br>Por favor use outros servidores ou tente um pouco mais tarde. | Server Access Error<br><br>Cannot access the server you requested.<br>Please use other servers or try again a little later. |
-| 201 / 2 | O tempo de acesso expirou.<br><br>Houve problema na rede ou o tempo de espera foi longo demais.<br>A conexao sera fechada automaticamente.<br>Por favor tente mais tarde. | Access time has expired.<br><br>There was a network problem or the wait was too long.<br>The connection will be closed automatically.<br>Please try again later. |
-| 202 / 3 | Erro de funcao do Servidor<br>\O servidor nao consegue trabalhar adequadamente.<br>Por favor tente um  pouco mas tarde. | Server Function Error<br>The server cannot work properly.<br>Please try again a little later. |
-| 203 / 4 | Erro de funcao do Servidor<br>Houve erros devido a funcionalidade do servidor.<br>Por favor tentar um pouco mais tarde. | Server Function Error<br>There were errors due to server functionality.<br>Please try again a little later. |
-| 204 / 5 | Reinicie o Servidor!<br><br>LEMBRE-SE DESSA REGRA: Voce precisa reiniciar o servidor toda vez que criar uma nova conta para jogar! | Restart the Server!<br><br>REMEMBER THIS RULE: You must restart the server every time you create a new account to play! |
-| 205 / 6 | Erro de Login<br><br>Senha errada.<br>Por favor checar sua senha. | Login Error<br><br>Wrong password.<br>Please check your password. |
-| 206 / 7 | Erro de Login<br>Seu Login nao pode ser usada neste servidor.<br>Por favor usar os servidores que servem seu pais. | Login Error<br>Your login cannot be used on this server.<br>Please use the servers that serve your country. |
-| 207 / 8 | Deve estar VAZIO!!! | Must be EMPTY!!! *(placeholder/reserved slot)* |
-| 208 / 9 | Erro Interno de Dados<br><br>Os dados internos foram alterados.<br>Por favor reiniciar o GunBound. | Internal Data Error<br><br>The internal data was altered.<br>Please restart GunBound. |
-| 209 / 10 | Erro de acesso de canal<br><br>Excesso de usuarios no canal.<br>Por favor tente conectar em canal diferente. | Channel Access Error<br><br>Too many users in the channel.<br>Please try connecting to a different channel. |
-| 210 / 11 | Erro de criacao de canal<br><br>Nao pode criar mais canais.<br>Por favor utilize os canais existentes. | Channel Creation Error<br><br>Cannot create more channels.<br>Please use the existing channels. |
-| 211 / 12 | Erro de acesso de canal<br><br>Voce ja esta dentro do canal. | Channel Access Error<br><br>You are already inside the channel. |
-| 212 / 13 | Erro de Acesso de Sala de Jogo<br><br>Excesso de usuarios na sala.<br>Por favor tente conectar numa sala diferente. | Game Room Access Error<br><br>Too many users in the room.<br>Please try connecting to a different room. |
-| 213 / 14 | Erro de Criacao de Sala de Jogo<br><br>Sala de jogo nao pode ser criada.<br>Por favor use a sala existente. | Game Room Creation Error<br><br>The game room cannot be created.<br>Please use the existing room. |
-| 214 / 15 | Erro de Entrada em Sala de Jogo<br><br>Voce ja esta dentro da sala. | Game Room Entry Error<br><br>You are already inside the room. |
-| 215 / 16 | Sala de Jogo Bloqueada<br><br>A sala esta em jogo.<br>Voce nao pode entrar. | Game Room Locked<br><br>The room is in a match.<br>You cannot enter. |
-| 216 / 17 | Erro de Inicializacao de Jogo<br><br><br>Ainda nao esta preparada para iniciar.. | Game Start Error<br><br><br>It is not ready to start yet.. |
-| 217 / 18 | Conexao do Servidor fechada<br><br>Houve tentativa de um outro usuario utilizar o mesmo Login.<br>A conexao foi encerrada. | Server Connection Closed<br><br>Another user attempted to use the same login.<br>The connection was terminated. |
-| 218 / 19 | Erro de Comunicacao<br><br>Impossivel de comunicar ou convidar outros, devido a erro em sistema de comunidade. | Communication Error<br><br>Unable to communicate with or invite others, due to an error in the community system. |
-| 219 / 20 | Acesso Proibido<br><br>Este Login e  proibido<br>Conexao encerrada. | Access Forbidden<br><br>This login is forbidden<br>Connection terminated. |
-| 220 / 21 | Erro de Versao<br><br>Versao diferente.<br>Conexao encerrada<br> Tente reinstalar, ou verificar atualizacoes. | Version Error<br><br>Different version.<br>Connection terminated<br>Try reinstalling, or check for updates. |
-| 221 / 22 | Loging Error<br><br>Login nao autorizado.<br>Por favor registre um outro Login novamente. | Login Error *(sic: "Loging")*<br><br>Login not authorized.<br>Please register another login again. |
-| 222 / 23 | Conexao com o Servidor Encerrada<br><br>Conexao de jogo de %s sera proibida.<br>Conexao encerrada. | Server Connection Terminated<br><br>Game connection from %s will be forbidden.<br>Connection terminated. *(`%s` = a name)* |
-| 223 / 24 | Conexao com o Servidor Encerrada. | Connection to the Server Terminated. |
-| 224 / 25 | Modificacao de dados<br><br>Arquivo importante foi modificado.<br>Aplicacao se encerrando. | Data Modification<br><br>An important file was modified.<br>Application shutting down. |
-| 225 / 26 | O Programa Interferiu<br><br>Escrever a mesma palavra varias vezes pode prejudicar outras.<br>Uso frequente das mesmas palavras(spammer) pode resultar na perda do Login.<br> Jogo foi encerrado. | Interference Detected<br><br>Writing the same word many times can harm others.<br>Frequent use of the same words (spamming) can result in loss of the login.<br>The game was terminated. |
-| 226 / 27 | Erro de Compra.<br><br>Nao ha Ouro ou Cash(dinheiro) suficiente.<br>Por favor comprar items diferentes. | Purchase Error.<br><br>Not enough Gold or Cash.<br>Please buy different items. |
-| 227 / 28 | Erro de Dados Internos.<br><br>Os dados internos foram modificados.<br>Por favor reinicie o Jogo GunBound. | Internal Data Error.<br><br>The internal data was modified.<br>Please restart the GunBound game. |
-| 228 / 29 | Acesso ao Servidor esta Proibido<br><br>O Servidor Selecionado e limitado por niveis.<br>Por favor usar diferentes servidores. | Server Access is Forbidden<br><br>The selected server is level-limited.<br>Please use different servers. |
-| 229 / 30 | Acesso ao Servidor esta Proibido<br><br>O Servidor Selecionado e apenas para membros da liga.<br>Por favor usar servidores diferentes. | Server Access is Forbidden<br><br>The selected server is for league members only.<br>Please use different servers. |
-| 230 / 31 | Acesso ao Servidor esta Proibido<br><br>O servidor selecionado e somente para nao-membros da liga.<br>Por favor usar servidores diferentes. | Server Access is Forbidden<br><br>The selected server is for non-league members only.<br>Please use different servers. |
-| 231 / 32 | Acesso ao Servidor esta Proibido<br><br>Sua liga nao pode acessar este servidor.<br>Por favor usar servidores diferentes. | Server Access is Forbidden<br><br>Your league cannot access this server.<br>Please use different servers. |
-| 232 / 33 | Erro na hora de dar presente.<br><br> O Login nao existe.<br>Por favor verificar o Login utilizado. | Error while sending a gift.<br><br>The login does not exist.<br>Please verify the login used. |
-| 233 / 34 | Erro de Venda<br><br>Nao se pode Vender itens comprados.. | Sale Error<br><br>Purchased items cannot be sold.. |
-| 234 / 35 | Erro de Venda<br><br>Nao se pode vender itens de evento. | Sale Error<br><br>Event items cannot be sold. |
-| 235 / 36 | Erro de Venda<br><br>Nao se pode vender itens recebidos. | Sale Error<br><br>Received items cannot be sold. |
-| 236 / 37 | Erro em dar presente<br><br>Nao se pode dar items ganhos de presente. | Gift Error<br><br>Items that were won cannot be given as gifts. |
-| 237 / 38 | Erro de Doacao<br><br>Tentou enviar itens nao existentes.<br>Por favor tentar novamente. | Donation Error<br><br>Attempted to send non-existent items.<br>Please try again. |
-| 238 / 39 | Enviando doacoes<br><br>O presente nao pode ser enviada. | Sending donations<br><br>The gift could not be sent. |
-| 239 / 40 | Erro de Comunicacao<br><br>A comunicacao nao esta sendo feita adequadamente. Jogo fechado. | Communication Error<br><br>Communication is not working properly. Game closed. |
-| 240 / 41 | Erro de Comunicacao<br><br>A comunicacao de dados nao esta sendo feita adequadamente.<br>Por favor reinicie o GunBound.<br>Jogo encerrado. | Communication Error<br><br>Data communication is not working properly.<br>Please restart GunBound.<br>Game terminated. |
-| 241 / 42 | Erro em Comprar<br>Nao… *(truncated in the asset — message runs into binary padding)* | Purchase Error<br>No… *(truncated)* |
+| id / code | Message (verbatim English) |
+|---|---|
+| 200 / 1 | Server Access Error<br><br>Can't access to server you required.<br>Please use other servers or try little later. |
+| 201 / 2 | Access time has expired.<br><br>Either the problem in network or waiting time were too long.<br>The connection will close automatically.<br>Please try little later. |
+| 202 / 3 | Server Fuction Error<br><br>Server isn't working properly.<br>Please try little later. |
+| 203 / 4 | Server Function Error<br>There were errors on server functions.<br>Please try little later. |
+| 204 / 5 | Login Error<br><br>Unregistered ID.<br>Please make a new ID. |
+| 205 / 6 | Login Error<br><br>Wrong password.<br>Please check your password. |
+| 206 / 7 | Login Error<br>Your ID can not be used on GIS.<br>Please use your local service.<br>Contact Gunbound for more questions.<br>(gunbound GM : gunbound_int@softnyx.co.kr) |
+| 207 / 8 | Must be EMPTY!!! *(placeholder/reserved slot)* |
+| 208 / 9 | Internal Data Error<br><br>The Internal data has been changed.<br>Please restart GunBound. |
+| 209 / 10 | Channel access Error<br><br>Too many users in the channel.<br>Please try different channels. |
+| 210 / 11 | Channel creation Error<br><br>Cannot create a channel.<br>Please use existing channels. |
+| 211 / 12 | Channel access Error<br><br>You are already inside the channel. |
+| 212 / 13 | Game Room Access Error<br><br>Too many users in the room.<br>Please try different rooms. |
+| 213 / 14 | Game Room Creation Error<br><br>Can't create a room.<br>Please use one of the existing rooms. |
+| 214 / 15 | Game Room Entry Error<br><br>You are already inside the room. |
+| 215 / 16 | Game Room Blocked<br><br>The room is in playing.<br>You cannot enter. |
+| 216 / 17 | Game Start Error<br><br><br>Can't start yet. |
+| 217 / 18 | Server connection closed<br><br>Other user is trying to login using the same ID.<br>The connection closed. |
+| 218 / 19 | Community Error<br><br>Can't communicate or invite others due to community error. |
+| 219 / 20 | Access Forbidden<br><br>This is the forbidden ID<br>Connection closed. |
+| 220 / 21 | Version Error<br><br>Different version.<br>Connection closed. |
+| 221 / 22 | Loging Error<br><br>Unauthorized ID.<br>Please register ID again. |
+| 222 / 23 | Server Connection Closed<br><br>%s's game connection is forbidden.<br>Connection closed. |
+| 223 / 24 | Server Connection Closed<br><br>%s's guild game connection is forbidden.<br>Connection closed. |
+| 224 / 25 | Data Modification<br><br>Important file was modified.<br>Application terminates. |
+| 225 / 26 | Program Interfered<br><br>Writing same word repeatedly can harm others.<br>Frequent use of writing same words can result in losing ID.<br>Game shut down. |
+| 226 / 27 | Buy Error<br><br>Don't have enough money.<br>Please buy different items. |
+| 227 / 28 | Internal Data Error -2<br><br>Internal data has been modified.<br>Please restart GunBound Game. |
+| 228 / 29 | Server Access Forbidden<br><br>Selected Server is limited by levels.<br>Please use different servers. |
+| 229 / 30 | Server Access Forbidden<br><br>Selected Server in for guild members only.<br>Please use different servers. |
+| 230 / 31 | Server Access Forbidden<br><br>Selected server is only for non-guild members.<br>Please use different servers. |
+| 231 / 32 | Server Access Forbidden<br><br>Your guild cannot access this server.<br>Please use different servers. |
+| 232 / 33 | Gift Error<br><br>The ID does not exist.<br>Please check you ID. |
+| 233 / 34 | Sell Error<br><br>Can't Sell bought items. |
+| 234 / 35 | Sell Error<br><br>Can't Sell event items. |
+| 235 / 36 | Sell Error<br><br>Can't sell gifted items. |
+| 236 / 37 | Gift Error<br><br>Can't send gifted items to others as gift. |
+| 237 / 38 | Gift Error<br><br>Tried to send non-existing item(s).<br>Please retry. |
+| 238 / 39 | Sending Gift<br><br>The gift has been sent. |
+| 239 / 40 | Communication Error<br><br>Communication is not done properly.Game closed. |
+| 240 / 41 | Communication Error<br><br>Data communication is not done properly.<br>Please restart GunBound.<br>Game closed. |
+| 241 / 42 | Buy Error<br>Can't buy any more items due to reaching the closet limit(100).<br>Please sell or throw away some of your avatars and retry. |
+| 242 / 43 | Room Creation Restriction<br><br>Cannot create rooms in the chosen server.<br>Please use other. |
+| 243 / 44 | Sell/Throw out Error<br><br>This is not a purchased item(s).<br>Please retry. |
+| 244 / 45 | Gift Function in Check<br><br>Under maintenance for improved functionality.<br>(Estimated Date : ~ August 13th , Tuesday) |
+| 245 / 46 | Surrender Confirm<br><br>Surrender this game and give your team members 100 gold each. |
+| 246 / 47 | Shopping Error<br><br>You have purchased too many item(s). <br>Throw out or sell unnecessary item(s).<br>(You can only have under 100 items) |
+| 247 / 48 | Server Connection Terminates<br><br>Infor… *(truncated in the asset — message runs into binary padding)* |
 
 ## Ids the code requests but this asset does not define
 
@@ -89,7 +99,13 @@ The client's `GetLocalizedString` call sites reference several other id blocks
 `0x12d–0x142`/`0x7530–0x753b`, packet notices `0x19a–0x19e`, battle events
 `0x25c–0x274`, HUD `0x27c–0x340`, loading `0x320–0x32f`, room-list
 `0x4e20–0x4e23`, replay `0x1770–0x177f`, avatar-store `0xea60–0xea6d`. **None
-of these are present** in this build's `Language.txt` — only ids 200–240 are.
-Documenting their strings would require a more complete (or English)
-`Language.txt` from another GunBound distribution; the values are not
-recoverable from the assets in this repo.
+of these are present** in this build's `Language.txt` — only ids 200–247 are.
+Those UI elements are image-driven; their strings are not recoverable from the
+assets in this repo.
+
+## Previous (Portuguese) build
+
+Before the asset swap, `orig/graphics.xfs` was the 206 MB Brazilian build,
+whose `Language.txt` defined ids 200–240 in Portuguese (id 241 truncated). That
+table is preserved in this file's git history if a translation cross-reference
+is ever needed.

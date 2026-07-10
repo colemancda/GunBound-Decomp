@@ -1144,11 +1144,13 @@ loader code). Traced two more call sites of `OpenXFSArchive`/`FindXFSEntry`:
   serves every dialog/message string from — the full text-localization path
   (see ARCHITECTURE.md "Text localization"). A `\n` inside a message is a
   literal line break, so a multi-line error body (title sentence, blank
-  line, detail) is one table entry. The shipped `orig/graphics.xfs` carries
-  a Portuguese `Language.txt` (ids 200+ are the error-dialog family: 200 =
-  server-access error, 201 = "access time expired"/network-timeout, 205 =
-  bad password, …); a different server ships a different-language file at
-  the same ids.
+  line, detail) is one table entry. The shipped `orig/graphics.xfs` (the
+  English jglim/gunbound-launcher build) carries an English `Language.txt`
+  defining ids 200–247, the error-dialog family (200 = "Server Access Error",
+  201 = "Access time has expired.", 205 = "Wrong password", …); a different
+  server ships a different-language file at the same ids (the prior Brazilian
+  build defined 200–240 in Portuguese). Full table (checksum-verified):
+  [docs/localized-strings.md](docs/localized-strings.md).
 - `FUN_004e3500`: identical pattern, opens `graphics.xfs`, then
   `FindXFSEntry(handle, "Sound.txt")` — confirms **`Sound.txt`** likewise
   lives inside `graphics.xfs`, not on disk as its own file.
