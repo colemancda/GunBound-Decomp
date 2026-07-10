@@ -19,6 +19,9 @@ mkdir -p "$OUT"
 
 # main tree (lzhuf included - DecodeLZHUFBlock/InitLZHUFTree are referenced)
 mapfile -t FILES < <(find src -name '*.c' ! -path 'src/unnamed/msvc_crt_atl/*' ! -name 'test_lzhuf.c' ! -name 'crt_shims_c.c' | sort)
+# C++ reconstruction layer. crt_shims.cpp stays out: it duplicates the
+# CRT forwards crt_shims_msvc.c already provides for this link.
+mapfile -t -O "${#FILES[@]}" FILES < <(find src/cxx -name '*.cpp' ! -name 'crt_shims.cpp' | sort)
 # the CRT/ATL helpers the main code needs that DO compile clean
 for extra in FUN_00520380 FUN_005204f0 FUN_00525ea0 FUN_00525f26 FUN_00525fac \
              FUN_00527cb4 FUN_00527f34 FUN_00527ff4 FUN_0053753c FUN_005375c0; do
@@ -29,7 +32,7 @@ total=${#FILES[@]}; i=0; cerr=0
 echo "Compiling $total objects..."
 for f in "${FILES[@]}"; do
   i=$((i+1))
-  obj="$OUT/$(echo "$f" | tr '/' '_' | sed 's/\.c$/.obj/')"
+  obj="$OUT/$(echo "$f" | tr '/' '_' | sed 's/\.cpp$/.obj/;s/\.c$/.obj/')"
   [ -f "$obj" ] && continue
   win='Z:\work\'"${f//\//\\}"
   wobj='Z:\work\'"${obj//\//\\}"
@@ -43,7 +46,7 @@ ls *.obj > objs.rsp
 wine "$LINK" /nologo /SUBSYSTEM:WINDOWS /FORCE /OUT:gunbound.exe @objs.rsp \
   kernel32.lib user32.lib gdi32.lib ws2_32.lib ddraw.lib dsound.lib dinput.lib \
   winmm.lib advapi32.lib shell32.lib imm32.lib ole32.lib comctl32.lib \
-  libcmt.lib > link.log 2>&1
+  libcmt.lib libcpmt.lib > link.log 2>&1
 echo "=== unresolved externals: $(grep -c 'unresolved external' link.log) ==="
 echo "=== first 20 unresolved symbol names (deduped) ==="
 grep -oE 'unresolved external symbol [^ ]+' link.log | sed 's/unresolved external symbol //' | sort | uniq -c | sort -rn | head -20
