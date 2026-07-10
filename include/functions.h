@@ -466,6 +466,7 @@ uint __thiscall FUN_0042ae30();
 undefined2 * FUN_0042aeb0();
 undefined4 FUN_0042af40();
 void FUN_0042b010();
+void __thiscall CreateMobile(); /* 0x42b0b0 - battle-mobile factory (16-way type->class) */
 void __thiscall FUN_0042bb10();
 void FUN_0042f4b0();
 void FUN_004305c0();

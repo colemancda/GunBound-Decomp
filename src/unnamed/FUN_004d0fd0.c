@@ -45,7 +45,7 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0042b0b0((uint)param_1,param_2,uVar3,uVar2,*(undefined4 *)(iVar1 + 0xae2c),
+    CreateMobile((uint)param_1,param_2,uVar3,uVar2,*(undefined4 *)(iVar1 + 0xae2c),
                  *(undefined4 *)(iVar1 + 0xae38),*(undefined4 *)(iVar1 + 0xae3c),iVar1 + 0xae15,
                  iVar1 + 0xae22,*(undefined4 *)(iVar1 + 0xae30),*(undefined4 *)(iVar1 + 0xae34),1);
     iVar4 = GetPlayerRecordBySlot(g_clientContext);

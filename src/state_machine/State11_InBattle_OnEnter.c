@@ -156,7 +156,7 @@ void __fastcall State11_InBattle_OnEnter(int param_1)
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         puStack_98 = (undefined *)PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        FUN_0042b0b0(iStack_94,puStack_98,0xfffffff6,10000,
+        CreateMobile(iStack_94,puStack_98,0xfffffff6,10000,
                      *(undefined1 *)(g_clientContext + 0x4590c + iStack_94),
                      *(undefined2 *)(iVar8 + -0x10 + g_clientContext),
                      *(undefined2 *)(iVar8 + g_clientContext),iStack_88 + 0x457f1 + g_clientContext,
@@ -188,7 +188,7 @@ void __fastcall State11_InBattle_OnEnter(int param_1)
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         puStack_98 = (undefined *)PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        FUN_0042b0b0(iStack_94,puStack_98,*(undefined2 *)(iVar8 + 0x4100 + g_clientContext),
+        CreateMobile(iStack_94,puStack_98,*(undefined2 *)(iVar8 + 0x4100 + g_clientContext),
                      *(undefined2 *)(iVar8 + 0x4110 + g_clientContext),
                      *(undefined1 *)(g_clientContext + 0x4590c + iStack_94),
                      *(undefined2 *)(iVar8 + -0x10 + g_clientContext),
@@ -215,7 +215,7 @@ void __fastcall State11_InBattle_OnEnter(int param_1)
           uVar16 = *(undefined2 *)(iVar8 + 0x4110 + g_clientContext);
           uVar7 = (uint)*(ushort *)(iVar8 + 0x4100 + g_clientContext);
 LAB_004bbe6b:
-          FUN_0042b0b0(iStack_94 + 8,puStack_98,uVar7,uVar16,uVar1,uVar3,uVar2,iVar9,iVar6,uVar17,
+          CreateMobile(iStack_94 + 8,puStack_98,uVar7,uVar16,uVar1,uVar3,uVar2,iVar9,iVar6,uVar17,
                        uVar10,0);
           iVar6 = g_clientContext;
         }

@@ -72,7 +72,7 @@ inline char *Ctx_channelUserName(int ctx, int slot) { return reinterpret_cast<ch
  * State03_GameRoomList_ProcessPacket's 0x2105 ("room player list") handler
  * and read by State09/10/11. The roster persists Ready Room -> Loading ->
  * Battle. Names live at ctx+0x457f1 (0xD-byte records, name + a byte at +0xc);
- * State11_InBattle_OnEnter spawns a mobile (FUN_0042b0b0) for each slot whose
+ * State11_InBattle_OnEnter spawns a mobile (CreateMobile) for each slot whose
  * Ctx_roomSlotActive byte is nonzero. Live: colemancda2 @ slot 0, admin @
  * slot 1. Distinct from Ctx_roomPlayerName (+0x4467c), the lobby room-card
  * array (empty in a room).

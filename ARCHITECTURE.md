@@ -804,6 +804,23 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
 - **0x17e4 (6,116) bytes** — two large arrays (9 and 21 elements) inside the
   state-7 object, constructor `FUN_00425350` / destructor `FUN_004254a0`.
   Purpose unknown; possibly per-round history, per-map-tile, or animation data.
+- **0xd1d4 (53,716) bytes** — **the battle mobile object** (one per in-play
+  tank). Created by the factory **`CreateMobile`** (`0x42b0b0`,
+  `src/battle/CreateMobile.c`): a 16-way `switch(mobileType)` over ids `0..0xF`,
+  each branch `operator_new(0xd1d4)` + shared base ctor `FUN_00458b80` + a
+  **per-type vtable** (`PTR_FUN_00555af8` for type 0, then `0x556230`,
+  `0x5562a8`, `0x5566a0`, `0x556264`, `0x555c14`, `0x556448`, `0x5561ec`,
+  `0x555d34`, `0x5560f0`, `0x555f7c`, `0x556640`, `0x555f18`, …, `0x555d54`);
+  `default` falls back to type 0. So the 16 mobiles are 16 C++ subclasses of a
+  common base, distinguished only by vtable — the classic GunBound mobile
+  roster (Armor, Mage, Nak, Trico, …). After construction `CreateMobile` loads
+  the mobile's `avata`/`tank%d` textures (`FindPreloadedTextureByName`), copies
+  the player name into the object, primes its animation state, then registers
+  it into the client context (`FUN_0041c360`) and the global active-object list
+  (`RegisterActiveObject`) — i.e. it constructs **and** spawns into the running
+  battle. `State11_InBattle_OnEnter` calls it once per active room slot (the
+  `Ctx_roomSlotActive`/`+0x45914` gate); interleaved `EncodeOutgoingPacketField`
+  calls thread each spawn through the lockstep/replay sync stream.
 
 ## Subsystem init functions (confirmed)
 

@@ -1,15 +1,27 @@
-/* FUN_0042b0b0 - 0x0042b0b0 in the original binary.
+/* CreateMobile - 0x0042b0b0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The battle-mobile factory. `switch(mobileType)` over ids 0..0xF, each
+ * `operator_new(0xd1d4)` (the ~53 KB mobile object) + a per-type vtable
+ * (PTR_FUN_00555af8, 0x556230, 0x5562a8, ...) sharing base ctor FUN_00458b80;
+ * `default` falls back to type 0. It then loads the mobile's "avata"/"tank%d"
+ * textures, copies the player name (and a second string) into the object,
+ * primes its animation state, and registers it into the client context
+ * (FUN_0041c360) and the global active-object list (RegisterActiveObject) - so
+ * it constructs AND spawns the mobile into the running battle. Called once per
+ * active room slot by State11_InBattle_OnEnter. The interleaved
+ * EncodeOutgoingPacketField calls thread the spawn through the lockstep/replay
+ * sync stream.
+ *
+ * Function IDENTITY is confirmed (16-way type->class factory); the BODY is
+ * still a raw/near-verbatim Ghidra port (register-args reconstruction, so the
+ * param list is unreliable) and not hand-verified. See src/README.md's
+ * "Raw/verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
 void __thiscall
-FUN_0042b0b0(undefined4 param_1,uint param_2,int param_3,undefined4 param_4,int param_5,int param_6,
+CreateMobile(undefined4 param_1,uint param_2,int param_3,undefined4 param_4,int param_5,int param_6,
             int param_7,char *param_8,char *param_9,undefined4 param_10,int param_11,int param_12,
             char param_13)
 
