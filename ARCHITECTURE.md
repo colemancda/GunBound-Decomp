@@ -900,16 +900,24 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
     on a `g_frameCounter % 0x14 < 10` schedule, i.e. **on for 10 of every 20
     frames (~50% duty)**. This blink is the one confirmed time-based cursor
     behaviour in the analyzable code.
-- **A 9-entry `HCURSOR` array, `g_edgeCursors[9]`** (index 0 = normal, 1–8 =
-  the eight screen-edge directions), loaded in an unported cursor init.
-  `WndProc` handles **`WM_SETCURSOR`** with
-  `SetCursor(g_edgeCursors[g_cursorDirection])`.
+- **No custom OS cursor.** The window class registers the **standard
+  `IDC_ARROW`** (`LoadCursorA(NULL, MAKEINTRESOURCE(0x7f00))` — the only
+  `LoadCursor`/`LoadImage`/`CreateCursor` call in the whole binary). The
+  9-entry `g_edgeCursors[9]` array (meant to be per-direction cursors) is
+  **never populated** — verified by byte search: every entry (`0x5b1c4c`…
+  `0x5b1c6c`) sits in zero-initialized data and is **read but never written**
+  anywhere, so all nine are **NULL**. `WndProc`'s `WM_SETCURSOR` therefore does
+  `SetCursor(g_edgeCursors[g_cursorDirection])` = **`SetCursor(NULL)`**, which
+  *hides* the OS cursor (it doesn't select a custom shape). So the directional-
+  HCURSOR design is entirely vestigial; there is **no OS-cursor customization**.
 - **In-battle edge-scroll drives the direction.** `FUN_004bd8b0` (State 11 slot
   9, per tick) tests the mouse against the 800×600 edges
   (`X > 0x31b` right, `Y < 5` top, `Y > 0x253` bottom, left), computes a
   direction 0–8, and — only when it changes (cached in
   **`g_lastCursorDirection`**) — sets **`g_cursorDirection`** and `SetCursor`s
-  the matching arrow. The same index feeds the 8-directional camera scroll.
+  `g_edgeCursors[dir]` (which is `NULL`, so effectively a no-op / hide). The
+  meaningful output is `g_cursorDirection`, which feeds the 8-directional
+  camera scroll.
 - **Relative-mouse capture** (`WndProc` mouse-move): when a mode flag
   (`DAT_00e53c3c`) is clear, it reads the movement delta, accumulates it into
   camera/aim globals (`DAT_00e536c0`/`c4`), then `SetCursorPos`-snaps the
