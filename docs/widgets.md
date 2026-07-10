@@ -156,7 +156,7 @@ leaf widgets above. All register with the global UI panel manager
 | `BuildChannelUserListPanel` (`0x509d80`) | `0x557cac` | State 3 — lobby **channel user list** (209-wide) | scrollbar (page 7); rows (`RenderChannelUserRow`) = status flag + rank icon + name per user |
 | `BuildReadyRoomChatPanel` (`0x5094f0`) | `0x557ee0` | State 9 — Ready Room **chat log** (480×160, bottom) | scrollbar (page 9); rows (`RenderReadyRoomChatRow`) = color-coded messages by type byte |
 | `BuildAvatarStorePanel` | `0x557eb8` | State 7 — Avatar Store item panel | 3 category labels (msg `0x4b0`–`0x4b2`) + scrollbar (page 0xe) |
-| `BuildChatLogPanel` | `0x557b94` | **chat log** panel (via `FUN_004025e0`), 0x1050-byte object with a ~4 KB history buffer | label + text-entry |
+| `BuildChatLogPanel` | `0x557b94` | the **whisper / private-message ("TO") panel** (via `FUN_004025e0`); id 20001 at (541,272) 254×291 — runtime-confirmed. 0x1050-byte object with a ~4 KB history buffer | close-X (`0x557da0`, id 0) + recipient name **static-text** (`0x557f30`, `typeId 3`) + whisper-input **text-entry** (`0x557c84`) + page scrollbar |
 | `BuildEnterRoomNumberDialog` | `0x557df0` | State 3 — the **"DIRECT GO"** dialog (opened by the "Go To"/`directgo` button, id `0xf`); id 1 at (459,33) 314×160 — runtime-confirmed | **two** text-entry fields (`0x557c84`) — **Room No.** (id 0) + **Password** (id 1) — plus **Ok** (id 0) / **Cancel** (id 1) label buttons |
 | (add-buddy dialog) | `0x557e68` | **"add buddy ID" dialog** (from the buddy panel's Add button); id 10000 at (281,206) 241×148 — runtime-confirmed | a `typeId 3` message block (`0x557f30`, "To add your friends' ID…") + a text-entry field (`0x557c84`, id 0) + **ADD** (id 0) / **CLOSE** (id 1) label buttons |
 | `BuildCreateRoomDialog` | `0x557c34` | State 3 — Create Room dialog | name/password text fields + option grid + OK/Cancel |
@@ -248,6 +248,15 @@ panel 1                       (w 314, h 160)   (opened by "Go To"/directgo, id 0
 ├─ [2] edit    id 1  "Password"   +(99,84)  180×12
 ├─ [1] label   id 0  "Ok"         +(213,118) 82×34
 └─ [1] label   id 1  "Cancel"     +(128,118) 82×34
+```
+
+### Whisper "TO" panel — `BuildChatLogPanel` (`0x557b94`, id 20001) — private message
+```
+panel 20001                        (541,272,254,291)   ("TO <name>")
+├─ [1] label   id 0  close-X       (764,279,22,20)
+├─ [3] text    id 0  recipient     (628,283,145,12)   the "TO" target name
+├─ [2] edit    id 0  whisper input (560,537,211,12)   focused
+└─ [4] scroll  id 0                (768,340,18,157)   disabled when log empty
 ```
 
 **Layout conventions observed across panels:** panels register in

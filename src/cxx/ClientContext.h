@@ -81,10 +81,18 @@ inline void *Ctx_inventory(int ctx) { return reinterpret_cast<void *>(ctx + 0x44
  * ProcessPacket tail) and handed to FUN_005204f0. Four dwords; the
  * flag byte at +0x0c is cleared on each update. Field meanings not
  * fully decoded, but the record shape (4x u32) is confirmed. */
+/* CORRECTION (live client-context dump): the first 12 bytes here are not an
+ * IP endpoint - they hold a NUL-terminated ASCII string, the local player's
+ * account ID. A lobby dump read "colemancda2\0" across addr/field4/field8
+ * (addr=0x656c6f63 "cole", field4=0x636e616d "manc", field8=0x00326164
+ * "da2\0"). So this record is (at least in the lobby) the player-ID string,
+ * not a peer IP:port - the "address-report" naming and the IP interpretation
+ * are suspect and should be revisited. The u32 fields below are retained as
+ * raw 12-byte string storage (their offsets are what the layout asserts check). */
 struct PeerEndpoint {
-    u32 addr;    /* +0x00 (abs +0x23330) */
-    u32 field4;  /* +0x04 (abs +0x23334) */
-    u32 field8;  /* +0x08 (abs +0x23338) */
+    u32 addr;    /* +0x00 (abs +0x23330) - name[0..3], e.g. "cole" */
+    u32 field4;  /* +0x04 (abs +0x23334) - name[4..7], e.g. "manc" */
+    u32 field8;  /* +0x08 (abs +0x23338) - name[8..11], e.g. "da2\0" */
     u8  flagC;   /* +0x0c (abs +0x2333c) - cleared per update */
 };
 inline PeerEndpoint *Ctx_peerEndpoint(int ctx) { return reinterpret_cast<PeerEndpoint *>(ctx + 0x23330); }
