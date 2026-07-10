@@ -66,22 +66,39 @@ inline char *Ctx_localUserName(int ctx) { return reinterpret_cast<char *>(ctx + 
  * which is the in-ROOM player array and read back EMPTY while in the channel. */
 inline char *Ctx_channelUserName(int ctx, int slot) { return reinterpret_cast<char *>(ctx + 0x41445 + slot * 0xd); }
 
-/* --- Ready-Room slots (State 9) ---------------------------------------
- * The pre-battle room's occupant slots. ctx+0x457f1, 0xD-byte records: a
- * 12-byte NUL-terminated name buffer + a trailing byte at record+0xc.
- * Live sample: colemancda2 @ slot 0, admin @ slot 1 (+0xd), both +0xc == 0.
+/* --- Room slots (States 3/9/10/11) - the 0x2105 per-player SoA ---------
+ * The room's 8 occupant slots. NOT a single struct array but a set of
+ * PARALLEL per-slot arrays (struct-of-arrays), all populated together by
+ * State03_GameRoomList_ProcessPacket's 0x2105 ("room player list") handler
+ * and read by State09/10/11. The roster persists Ready Room -> Loading ->
+ * Battle. Names live at ctx+0x457f1 (0xD-byte records, name + a byte at +0xc);
+ * State11_InBattle_OnEnter spawns a mobile (FUN_0042b0b0) for each slot whose
+ * Ctx_roomSlotActive byte is nonzero. Live: colemancda2 @ slot 0, admin @
+ * slot 1. Distinct from Ctx_roomPlayerName (+0x4467c), the lobby room-card
+ * array (empty in a room).
  *
- * The base (0x457f1) and 0xD stride are CODE-CONFIRMED, not just one live
- * read: many handlers index `slot*0xd + 0x457f1` - State03_GameRoomList_
- * ProcessPacket populates it (0x2105 room-player packet; sibling u16 array at
- * +0x458ac), and State09 (HandleChatInput / ProcessBattleAction) and
- * State10_Loading_ProcessBattleAction all read it by slot. So the roster
- * persists Ready Room -> Loading -> Battle. Only the record+0xc byte's exact
- * meaning (ready/team flag) is still inferred; confirm by toggling Ready.
- * Distinct from Ctx_roomPlayerName (+0x4467c), the lobby room-card array
- * (empty in a room). */
-inline char *Ctx_roomSlotName(int ctx, int slot)  { return reinterpret_cast<char *>(ctx + 0x457f1 + slot * 0xd); }
+ * Per-slot SoA map (ctx-relative base, element stride, source byte in the
+ * 0x2105 record; roles marked (?) are structurally certain but semantically
+ * inferred - confirm against live dumps):
+ *   +0x457f1  x0xD  char[12]  name          (pkt +1)
+ *   +0x457fd  x0xD  u8        status/ready   zeroed on join (pkt: none) (?)
+ *   +0x4585c  x4    u32       (pkt +0xd) (?)
+ *   +0x4589c  x2    u16       (pkt +0x11) (?)
+ *   +0x4587c  x4    u32       (pkt +0x13) -> roster/battle-player object (?)
+ *   +0x458ac  x2    u16       (pkt +0x17) -> roster/battle-player object (?)
+ *   +0x4590c  x1    u8        (pkt +0x1b) selection/position byte (?)
+ *   +0x45914  x1    u8        (pkt +0x1c) ACTIVE/team - gates battle spawn
+ *   +0x4591c  x2    u16       (pkt +0x2d) mobile/avatar A (+4 bias, 0x17=rnd) (?)
+ *   +0x4592c  x2    u16       (pkt +0x2f) mobile/avatar B (+4 bias, 0x17=rnd) (?)
+ * The +0x4587c(u32) and +0x458ac(u16) travel with the name into the
+ * roster/battle-player object (FUN_004e74c0). The name base and 0xD stride
+ * are code-confirmed across State03/09/10/11. */
+inline char *Ctx_roomSlotName(int ctx, int slot)   { return reinterpret_cast<char *>(ctx + 0x457f1 + slot * 0xd); }
 inline u8   &Ctx_roomSlotStatus(int ctx, int slot) { return *reinterpret_cast<u8 *>(ctx + 0x457f1 + slot * 0xd + 0xc); }
+/* Nonzero => slot participates in the match; State11_InBattle_OnEnter spawns a
+ * mobile per active slot. Carries a small value (1/3 seen) that also encodes
+ * team/role; the 0x2105 handler normalizes 3->1 for the local slot. */
+inline u8   &Ctx_roomSlotActive(int ctx, int slot) { return *reinterpret_cast<u8 *>(ctx + 0x45914 + slot); }
 
 /* --- Room list (State 3) arena ----------------------------------------
  * The lobby's 6 room-card slots (3x2 grid). Per PROTOCOL.md
