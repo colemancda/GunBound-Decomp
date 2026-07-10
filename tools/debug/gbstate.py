@@ -100,24 +100,184 @@ def _dump_state():
         print(_hexdump(obj, _rd(obj, n)))
 
 
-def _dump_ctx():
-    ctx = _u32(G_CLIENT_CTX)
-    print("g_clientContext base = 0x%08x" % ctx)
-    if ctx == 0:
-        print("  (not yet allocated)")
-        return
+# --- g_clientContext export (offsets from src/cxx/ClientContext.h) --------------
+def _cstr(addr, maxlen):
+    b = _rd(addr, maxlen)
+    if b is None:
+        return None
+    return b.split(b"\x00")[0].decode("latin1", "replace")
+
+
+def _ip(v):
+    return "%d.%d.%d.%d" % (v & 0xFF, (v >> 8) & 0xFF, (v >> 16) & 0xFF, (v >> 24) & 0xFF)
+
+
+def _server_list(ctx):
     soa = ctx + 0x3F808
     count = _rd(soa, 1)[0]
-    sel = struct.unpack("<i", _rd(ctx + 0x3F804, 4))[0]
-    print("ServerListSoA @0x%08x  count=%d  selectedServerId=%d" % (soa, count, sel))
     online = _rd(soa + 0x001, 16)
-    sid_arr = struct.unpack("<16H", _rd(soa + 0x012, 32))
+    sid = struct.unpack("<16H", _rd(soa + 0x012, 32))
+    region = _rd(soa + 0x032, 16)
+    ip = struct.unpack("<16I", _rd(soa + 0x1842, 64))
+    port = struct.unpack("<16H", _rd(soa + 0x1882, 32))
     cur = struct.unpack("<16H", _rd(soa + 0x18c2, 32))
-    cap = struct.unpack("<16H", _rd(soa + 0x18e2, 32))
-    for i in range(min(count if count <= 16 else 16, 16)):
-        nm = _rd(soa + 0x042 + i * 128, 128).split(b"\x00")[0].decode("latin1", "replace")
-        print("  [%2d] id=%-5d online=%d players=%d/%d  %r"
-              % (i, sid_arr[i], online[i], cur[i], cap[i], nm))
+    # maxCapacity is stored big-endian (live: 100 -> bytes 00 64; LE read gave
+    # 0x6400/25600). See ClientContext.h note. currentPlayers was 0 in all
+    # samples so its byte order is still unconfirmed (left little-endian).
+    cap = struct.unpack(">16H", _rd(soa + 0x18e2, 32))
+    anim = _rd(soa + 0x1902, 16)
+    servers = []
+    for i in range(16):
+        nm = _cstr(soa + 0x042 + i * 128, 128)
+        if not (i < count or online[i] or nm):
+            continue
+        servers.append({
+            "idx": i, "id": sid[i], "online": online[i], "region": region[i],
+            "name": nm, "desc": _cstr(soa + 0x842 + i * 256, 256),
+            "ip": _ip(ip[i]), "port": port[i],
+            "players": cur[i], "maxCapacity": cap[i], "anim": anim[i],
+        })
+    return {
+        "base": "0x%08x" % soa, "count": count,
+        "selectedServerId": struct.unpack("<i", _rd(ctx + 0x3F804, 4))[0],
+        "currentServerName": _cstr(ctx + 0x3B8E8, 64),
+        "servers": servers,
+    }
+
+
+def _rooms(ctx):
+    rooms = []
+    for i in range(6):
+        info = _u32(ctx + 0x44984 + i * 4)
+        rooms.append({
+            "slot": i,
+            "cardId": struct.unpack("<H", _rd(ctx + 0x44664 + i * 2, 2))[0],
+            "map": _rd(ctx + 0x4497C + i, 1)[0],
+            "info": "0x%08x" % info, "fullness": (info >> 18) & 3,
+            "flagA": _rd(ctx + 0x4499C + i, 1)[0], "flagB": _rd(ctx + 0x449A2 + i, 1)[0],
+            "status": _rd(ctx + 0x449A8 + i, 1)[0], "lock": _rd(ctx + 0x449AE + i, 1)[0],
+        })
+    return rooms
+
+
+def _players(ctx, maxslots=16):
+    out = []
+    for s in range(maxslots):
+        nm = _cstr(ctx + 0x4467C + s * 0x80, 0x80)
+        if nm:
+            out.append({"slot": s, "name": nm})
+    return out
+
+
+def _peer(ctx):
+    return {"addr": _ip(_u32(ctx + 0x23330)), "field4": "0x%08x" % _u32(ctx + 0x23334),
+            "field8": "0x%08x" % _u32(ctx + 0x23338), "flagC": _rd(ctx + 0x2333C, 1)[0]}
+
+
+def _inventory(ctx):
+    items = []
+    for i in range(16):
+        w0 = _u32(ctx + 0x44BE8 + i * 0x9C)
+        if w0:
+            items.append({"slot": i, "word0": "0x%08x" % w0})
+    return items
+
+
+def _channel_roster(ctx):
+    # The lobby/channel user list (CChannelUserListPanel). Found live at
+    # ctx+0x41440 as ~0xD-byte, name-inline records (admin@+5, colemancda2@+0x12).
+    # Scan the region for NUL-terminated printable names rather than assume the
+    # exact stride (only 2 users were available to sample).
+    region = _rd(ctx + 0x41440, 0x400) or b""
+    users, i = [], 0
+    while i < len(region):
+        if 32 <= region[i] < 127:
+            j = region.find(b"\x00", i)
+            if j < 0:
+                j = len(region)
+            s = region[i:j]
+            if len(s) >= 2 and all(32 <= b < 127 for b in s):
+                users.append({"off": "ctx+0x%x" % (0x41440 + i), "name": s.decode("latin1")})
+            i = j + 1
+        else:
+            i += 1
+    return {"base": "ctx+0x41440", "users": users}
+
+
+def _local_user(ctx):
+    # ctx+0x2331c holds the local account name (confirmed live). The struct
+    # ClientContext.h calls "PeerEndpoint" (0x23330) overlaps a second copy.
+    return {"off": "ctx+0x2331c", "name": _cstr(ctx + 0x2331C, 0x20)}
+
+
+def _context_obj():
+    ctx = _u32(G_CLIENT_CTX)
+    if not ctx:
+        return {"g_clientContext": 0, "note": "not allocated"}
+    return {
+        "g_clientContext": "0x%08x" % ctx,
+        "localUser": _local_user(ctx),
+        "serverList": _server_list(ctx),
+        "channelRoster": _channel_roster(ctx),
+        "rooms": _rooms(ctx),
+        "roomPlayers": _players(ctx),
+        "peerEndpoint": _peer(ctx),
+        "inventory": _inventory(ctx),
+    }
+
+
+def _find(needle, size=0x120000):
+    """Scan the g_clientContext arena for a byte string; report ctx+offset hits."""
+    ctx = _u32(G_CLIENT_CTX)
+    if not ctx:
+        print("g_clientContext not allocated")
+        return
+    data = _rd(ctx, size) or b""
+    t = needle.encode("latin1") if isinstance(needle, str) else needle
+    hits, idx = [], 0
+    while len(hits) < 64:
+        j = data.find(t, idx)
+        if j < 0:
+            break
+        hits.append(j)
+        idx = j + 1
+    print("find %r in [ctx, ctx+0x%x): %d hit(s)" % (needle, size, len(hits)))
+    for h in hits:
+        print("  ctx+0x%-6x  (0x%08x)" % (h, ctx + h))
+
+
+def _dump_ctx():
+    doc = _context_obj()
+    if not doc.get("serverList"):
+        print("g_clientContext = %s (%s)" % (doc.get("g_clientContext"), doc.get("note")))
+        return
+    print("g_clientContext = %s" % doc["g_clientContext"])
+    lu = doc["localUser"]
+    print("localUser %s: %r" % (lu["off"], lu["name"]))
+    cr = doc["channelRoster"]
+    print("channelRoster %s: %s" % (cr["base"], [u["name"] for u in cr["users"]]))
+    sl = doc["serverList"]
+    print("ServerList %s  count=%d  selected=%d  currentServerName=%r"
+          % (sl["base"], sl["count"], sl["selectedServerId"], sl["currentServerName"]))
+    for s in sl["servers"]:
+        print("  [%2d] id=%-5d online=%d region=%d %s:%d  players=%d/%d anim=%d  %r"
+              % (s["idx"], s["id"], s["online"], s["region"], s["ip"], s["port"],
+                 s["players"], s["maxCapacity"], s["anim"], s["name"]))
+    pl = doc["roomPlayers"]
+    print("Room players (%d named):" % len(pl))
+    for p in pl:
+        print("  slot %2d: %r" % (p["slot"], p["name"]))
+    print("Rooms (6 lobby slots):")
+    for r in doc["rooms"]:
+        if r["map"] or r["status"] or r["cardId"]:
+            print("  slot %d: card=%d map=%d status=%d lock=%d full=%d info=%s"
+                  % (r["slot"], r["cardId"], r["map"], r["status"], r["lock"],
+                     r["fullness"], r["info"]))
+    pe = doc["peerEndpoint"]
+    print("PeerEndpoint: addr=%s field4=%s field8=%s flagC=%d"
+          % (pe["addr"], pe["field4"], pe["field8"], pe["flagC"]))
+    inv = doc["inventory"]
+    print("Inventory: %d non-empty slots" % len(inv))
 
 
 def _dump_widget(addr, depth, maxdepth, seen):
@@ -213,7 +373,7 @@ def _state_obj_dict():
 
 
 class GbState(gdb.Command):
-    """Decode GunBound's live C++ GameState. Usage: gbstate [ctx|raw [N]|widget <addr> [d]|panels [d]|json [path]]"""
+    """Decode GunBound's live C++ GameState. Usage: gbstate [ctx [json path]|find <s>|raw [N]|widget <a> [d]|panels [d]|json [path]]"""
 
     def __init__(self):
         super().__init__("gbstate", gdb.COMMAND_USER)
@@ -221,7 +381,13 @@ class GbState(gdb.Command):
     def invoke(self, arg, from_tty):
         args = arg.split()
         if args and args[0] == "ctx":
-            _dump_ctx()
+            if len(args) > 1 and args[1] == "json":
+                path = args[2] if len(args) > 2 else "/tmp/gb-context.json"
+                with open(path, "w") as fh:
+                    json.dump(_context_obj(), fh, indent=2)
+                print("gbstate: wrote %s" % path)
+            else:
+                _dump_ctx()
         elif args and args[0] == "raw":
             n = int(args[1], 0) if len(args) > 1 else 0x40
             sid = struct.unpack("<i", _rd(G_CURRENT_STATE, 4))[0]
@@ -236,6 +402,12 @@ class GbState(gdb.Command):
             addr = int(args[1], 0)
             maxdepth = int(args[2], 0) if len(args) > 2 else 8
             _dump_widget(addr, 0, maxdepth, set())
+        elif args and args[0] == "find":
+            if len(args) < 2:
+                print("usage: gbstate find <string> [hexsize]")
+                return
+            size = int(args[2], 0) if len(args) > 2 else 0x120000
+            _find(args[1], size)
         elif args and args[0] == "panels":
             maxdepth = int(args[1], 0) if len(args) > 1 else 8
             _dump_panels(maxdepth)
