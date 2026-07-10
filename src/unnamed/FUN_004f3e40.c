@@ -15,7 +15,7 @@ void FUN_004f3e40(void)
   int iVar2;
   undefined4 *puVar3;
   
-  puVar3 = &DAT_007921b0;
+  puVar3 = DAT_007921b0;
   for (iVar2 = 0x400; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar3 = 0;
     puVar3 = puVar3 + 1;

@@ -16,9 +16,9 @@ void * FUN_004f3980(void)
   uint uVar3;
   
   iVar1 = DAT_0079364c + ((int)DAT_0079364c >> 0x1f & 0x3ffU);
-  if ((&DAT_006b9100)[iVar1 >> 10] == 0) {
+  if (DAT_006b9100[iVar1 >> 10] == 0) {
     pvVar2 = operator_new(0x3000);
-    (&DAT_006b9100)[(int)(DAT_0079364c + ((int)DAT_0079364c >> 0x1f & 0x3ffU)) >> 10] = pvVar2;
+    DAT_006b9100[(int)(DAT_0079364c + ((int)DAT_0079364c >> 0x1f & 0x3ffU)) >> 10] = pvVar2;
     DAT_0079364c = DAT_0079364c + 1;
     return pvVar2;
   }
@@ -27,6 +27,6 @@ void * FUN_004f3980(void)
     uVar3 = (uVar3 - 1 | 0xfffffc00) + 1;
   }
   DAT_0079364c = DAT_0079364c + 1;
-  return (void *)((&DAT_006b9100)[iVar1 >> 10] + uVar3 * 0xc);
+  return (void *)(DAT_006b9100[iVar1 >> 10] + uVar3 * 0xc);
 }
 

@@ -403,13 +403,18 @@ uint8_t DAT_006aab04;
 uint32_t DAT_006b90f8; /* holds a void* from FUN_004f3980 (was uint8_t, which
                         * truncated the pointer to 1 byte -> FUN_004f3a00 wrote
                         * through [byte+8] and faulted) */
-uint32_t DAT_006b9100;
+/* 0x400-entry block table for the 12-byte-record pool (FUN_004f3980 alloc,
+ * FUN_004f3a00 reset). Was a lone uint32_t, so the reset's 0x1000-byte zero
+ * ran off the end and wiped adjacent globals (e.g. g_pBackBufferSurface). */
+uint32_t DAT_006b9100[0x400];
 uint8_t DAT_006ba1fc;
 uint8_t DAT_006ba244;
 uint32_t DAT_00792190;
 uint8_t DAT_00792194;
 uint8_t DAT_00792198;
-uint32_t DAT_007921b0;
+/* 0x400-entry block table for the 0x80-byte-record pool (FUN_004f3dc0 alloc,
+ * FUN_004f3e40 reset) - the sibling of DAT_006b9100; same undersizing bug. */
+uint32_t DAT_007921b0[0x400];
 uint16_t DAT_00793228;
 uint8_t DAT_007933b8;
 uint32_t DAT_007933bc;
@@ -635,7 +640,11 @@ uint8_t DAT_00f11de0;
 uint8_t DAT_00f12e14;
 uint8_t DAT_00f12e18;
 uint8_t DAT_00f22504;
-uint32_t DAT_00f22650;
+/* 0x400-entry pointer table cleared at the end of InitDirectDraw and freed by
+ * ShutdownDirectDraw/FUN_00543970. Was a lone uint32_t, so the 0x1000-byte
+ * clear ran off the end and zeroed g_pD3DDevice7 (which sits just above it),
+ * breaking SetupZBuffer. */
+uint32_t DAT_00f22650[0x400];
 uint8_t DAT_00f23650;
 uint8_t DAT_00f23654;
 uint8_t DAT_00f23658;

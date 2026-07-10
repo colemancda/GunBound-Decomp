@@ -540,7 +540,7 @@ extern uint8_t DAT_006aa67c;
 extern uint8_t DAT_006aab04;
 extern uint32_t DAT_006b90f8;
 #define _DAT_006b90f8 DAT_006b90f8
-extern uint32_t DAT_006b9100;
+extern uint32_t DAT_006b9100[0x400];
 extern uint8_t DAT_006ba1fc;
 extern uint8_t DAT_006ba244;
 extern uint32_t DAT_00792190;
@@ -548,7 +548,7 @@ extern uint8_t DAT_00792194;
 #define _DAT_00792194 DAT_00792194
 extern uint8_t DAT_00792198;
 #define _DAT_00792198 DAT_00792198
-extern uint32_t DAT_007921b0;
+extern uint32_t DAT_007921b0[0x400];
 extern uint16_t DAT_00793228;
 extern uint8_t DAT_007933b8;
 extern uint32_t DAT_007933bc;
@@ -866,7 +866,7 @@ extern uint8_t DAT_00f11de0;
 extern uint8_t DAT_00f12e14;
 extern uint8_t DAT_00f12e18;
 extern uint8_t DAT_00f22504;
-extern uint32_t DAT_00f22650;
+extern uint32_t DAT_00f22650[0x400];
 extern uint8_t DAT_00f23650;
 #define _DAT_00f23650 DAT_00f23650
 extern uint8_t DAT_00f23654;

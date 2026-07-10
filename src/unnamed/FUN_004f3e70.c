@@ -13,7 +13,7 @@ void FUN_004f3e70(void)
 {
   undefined4 *puVar1;
   
-  puVar1 = &DAT_007921b0;
+  puVar1 = DAT_007921b0;
   do {
     if ((void *)*puVar1 != (void *)0x0) {
       _free((void *)*puVar1);

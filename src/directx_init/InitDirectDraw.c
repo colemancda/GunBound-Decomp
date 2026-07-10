@@ -233,7 +233,7 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
   OpenXFSArchive(&g_graphicsArchive,param_1,1,0);
   _DAT_00f23658 = 600;
   _DAT_00f23654 = 800;
-  puVar5 = &DAT_00f22650;
+  puVar5 = DAT_00f22650;
   for (iVar4 = 0x400; iVar4 != 0; iVar4 = iVar4 + -1) {
     *puVar5 = 0;
     puVar5 = puVar5 + 1;
