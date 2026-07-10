@@ -88,6 +88,7 @@ inline char *Ctx_channelUserName(int ctx, int slot) { return reinterpret_cast<ch
  *   +0x458ac  x2    u16       (pkt +0x17) -> roster/battle-player object (?)
  *   +0x4590c  x1    u8        (pkt +0x1b) selection/position byte (?)
  *   +0x45914  x1    u8        (pkt +0x1c) ACTIVE/team - gates battle spawn
+ *   +0x458bc  x8    u16[4]    (pkt +0x1d/+0x21) avatarEquipped - see below
  *   +0x4591c  x2    u16       (pkt +0x2d) mobile/avatar A (+4 bias, 0x17=rnd) (?)
  *   +0x4592c  x2    u16       (pkt +0x2f) mobile/avatar B (+4 bias, 0x17=rnd) (?)
  * The +0x4587c(u32) and +0x458ac(u16) travel with the name into the
@@ -99,6 +100,14 @@ inline u8   &Ctx_roomSlotStatus(int ctx, int slot) { return *reinterpret_cast<u8
  * mobile per active slot. Carries a small value (1/3 seen) that also encodes
  * team/role; the 0x2105 handler normalizes 3->1 for the local slot. */
 inline u8   &Ctx_roomSlotActive(int ctx, int slot) { return *reinterpret_cast<u8 *>(ctx + 0x45914 + slot); }
+
+/* avatarEquipped: the worn outfit as four packed u16 part codes (each: bit15 =
+ * gender, bits0-14 = id into the {gender}{cat}.dat part table - see
+ * FILEFORMATS.md "Avatar.xfs"). word0=Body, word2=Glasses (confirmed);
+ * word1/word3 = Head/Flag (the two unpackers 0x4431a0/0x4dc5c0 disagree which).
+ * Copied to +0x501fe+slot*8 in the Ready Room; unpacked + composited by
+ * LoadAvatarSprites (0x4141b0) into the AvataTexture render targets. */
+inline u16 *Ctx_avatarEquipped(int ctx, int slot) { return reinterpret_cast<u16 *>(ctx + 0x458bc + slot * 8); }
 
 /* --- Room list (State 3) arena ----------------------------------------
  * The lobby's 6 room-card slots (3x2 grid). Per PROTOCOL.md

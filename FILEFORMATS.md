@@ -411,6 +411,40 @@ gender and is always `"mf{id:05d}.img"`. So a body code `0x8005` → male body i
 Decode/verify with `tools/lzhuf/decode_avatar.py orig/Avatar.xfs` (add `--csv`
 to dump all 8 tables).
 
+**The `avatarEquipped` value — an 8-byte / `UInt64` record of four part codes.**
+A worn outfit is **four `u16` part codes packed little-endian** (each code has
+the `bit 15 = gender`, `bits 0–14 = id` encoding above):
+
+| u16 word | byte offset | bits | slot |
+|---|---|---|---|
+| word 0 | `+0` | 0–15  | **Body** (confirmed) |
+| word 1 | `+2` | 16–31 | Head **or** Flag — see note |
+| word 2 | `+4` | 32–47 | **Glasses** (confirmed) |
+| word 3 | `+6` | 48–63 | Flag **or** Head — see note |
+
+So to split the `UInt64`: `body = v & 0xffff`, `glasses = (v>>32) & 0xffff`,
+and the other two are `(v>>16)&0xffff` / `(v>>48)&0xffff`. **Note:** the two
+in-binary unpackers disagree on which of word 1 / word 3 is Head vs Flag —
+`0x004dc5c0` reads word 1 = head, word 3 = flag; `0x004431a0` reads the opposite
+— and Body/Glasses are agreed. Resolve with a one-shot live test: equip a
+distinctive flag, then read `g_clientContext + 0x458bc + slot*8` and see whether
+the flag id lands in word 1 or word 3.
+
+**Where it lives / the pipeline.** The record arrives on the wire in the
+**`0x2105` room-player packet** at record offset `+0x1d` (a `u32` = words 0–1)
+and `+0x21` (a `u32` = words 2–3); it is stored per player at
+`g_clientContext + 0x458bc + slot*8` (the room copy) and mirrored to
+`+0x501fe + slot*8` on entering the Ready Room. At draw time an unpacker
+(`0x004431a0` / `0x004dc5c0`, or the slot-keyed `0x4d1500`) splits it into the
+four codes and calls the compositor `LoadAvatarSprites` (`0x4141b0`), which
+`LoadSpriteSet`s each `{gender}{cat}{id:05d}.img` from `graphics.xfs` and blits
+them into a per-player buffer (`+0x50240 + slot*0x1120`). The final composite
+lands in the runtime render targets **`AvataTexture1`/`AvataTexture2`** — which
+are created/named at runtime and drawn into, **not** parsed from any on-disk
+`.xtf` (no `.xtf` string exists in the binary); a shipped `AvataTexture*.xtf`
+that compresses ~131 KB → ~4 KB is therefore just a blank/near-empty surface
+dump, consistent with it being a runtime target rather than a pre-baked avatar.
+
 ## `ChooseEvent.txt` — confirmed text config format
 
 Lives *inside* `graphics.xfs` (not a standalone file), parsed by
