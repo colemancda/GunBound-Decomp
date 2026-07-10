@@ -305,6 +305,25 @@ named this pass; the connection object is the large per-connection struct at
   native binary provisions no address itself — presumably the installer or
   the `.NET` launcher stub writes these keys.
 
+- **Client version is provisioned, not hardcoded — with a subtlety.** There
+  are two distinct "versions":
+  - **The binary's build stamp**: `GunBound.gme`'s PE `VS_VERSION_INFO`
+    resource (at file offset `0x1a868a`) reads **FileVersion `0.0.2.40`**
+    (= client version **240**), ProductName "Softnyx GunBound Project",
+    CompanyName "Softnyx". This is a static build stamp in the binary.
+  - **The version reported to the server** (the one the login handshake sends
+    and the server checks — a mismatch yields the "Version Error" dialog, id
+    220). This is **not** the PE stamp and **not** a compiled-in constant:
+    `LoadClientSettingsFromRegistry` reads the `"Version"` DWORD from
+    `HKCU\Software\Softnyx\GunBound` and immediately relays it via
+    `EncodeOutgoingPacketField` (wrapped in the anti-tamper value guard) — with
+    **no client-side comparison against any baked-in number**. The game is
+    version-agnostic and forwards whatever the registry says; the launcher
+    provisions it (the jglim/gunbound-launcher `Launcher.ini` sets
+    `VERSION=280`). So this exact binary is *stamped* 240 but *runs as* 280 —
+    the version series (…236 / 240 / 252 / 280…) lives in the registry/launcher,
+    not the `.gme`.
+
 - **`BeginServerConnect` (`0x4d2480`)** is the public "connect to host:port"
   entry. It resets outgoing packet-field state, then calls
   **`SignalConnectRequest` (`0x4e5a50`)**, which stores the target port

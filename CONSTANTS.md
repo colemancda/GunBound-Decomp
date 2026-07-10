@@ -491,6 +491,18 @@ derivable from the client alone:
 **Registry paths**: `Software\Softnyx\GunBound`, `Software\Softnyx\GameBuddy`,
 `System\CurrentControlSet\Services\Class\%s`.
 
+**Client version**: two distinct values (see ARCHITECTURE.md "Connection
+subsystem").
+- **Binary build stamp** — PE `VS_VERSION_INFO` FileVersion `0.0.2.40`
+  (= version **240**), ProductName "Softnyx GunBound Project", CompanyName
+  "Softnyx" (`GunBound.gme` file offset `0x1a868a`). Static, informational.
+- **Protocol version** — the `Version` DWORD under
+  `HKCU\Software\Softnyx\GunBound`, read by `LoadClientSettingsFromRegistry`
+  and relayed to the server in the login handshake (mismatch → error dialog id
+  220). Not compiled in; provisioned by the launcher (jglim
+  `Launcher.ini` = `280`). The 236 / 240 / 252 / 280 series is a
+  registry/launcher value, not a `.gme` constant.
+
 **Filename/format strings**:
 - `%s%s - %s.sv` — replay filename template
 - `%Y%m%d %H%M` — replay filename timestamp
