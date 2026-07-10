@@ -876,21 +876,25 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
     `BlitSpriteClipped(g_cursorFrame)` always passes frame `0`. *(This corrects
     an earlier note that read `g_cursorFrame` as a 0…101 animation state — it
     isn't.)*
-  - **Register args recovered — this draw is a static frame 0.** Disassembling
-    the call site (`0x4139c6`) shows `FindSpriteFrame` is invoked with
-    `eax = &DAT_00ea0e18` (the shared sprite container), `edx = 0` (the outer
-    resource-group key), and `esi = g_cursorFrame = 0` (the inner frame key) —
-    and `esi` is passed straight on to `BlitSpriteClipped`. All three inputs
-    are constants, so **the GameTick mouse-pointer draw is always
-    `(container 0xea0e18, group 0, frame 0)` — a static sprite, not an
-    animation.** `FindSpriteFrame` itself is a stateless `(group, frame)`
-    lookup, so nothing here cycles frames.
-  - **Therefore the animation seen in-game is a *different* draw.** The pointer
-    plainly animates while playing, but not through this path — so it is either
-    the **in-battle aim crosshair** (drawn by the battle scene at the aim/mouse
-    point with its own frame index) or a sprite whose frame the sprite-tick
-    system advances independently. Locating that draw (and confirming whether
-    `cursor.img`'s other 101 frames are what it cycles) is the open item.
+  - **Register args recovered — the requested frame index is a constant 0.**
+    Disassembling the call site (`0x4139c6`) shows `FindSpriteFrame` is invoked
+    with `eax = &DAT_00ea0e18` (the shared sprite container), `edx = 0` (the
+    outer key = **sprite id 0**), and `esi = g_cursorFrame = 0` (the inner frame
+    key), and `esi` is passed on to `BlitSpriteClipped`. **Sprite id 0 is the
+    cursor** — it's the last persistent sprite loaded in `InitGame`
+    (`LoadSpriteSet(&DAT_00ea0e18, 0)`). So the draw resolves *(id 0, frame 0)*
+    and the row blitter (`FUN_004eb940`) is a plain clipped memcpy.
+  - **Static analysis cannot explain the observed animation — a real gap.** The
+    cursor **is** observed to animate on every screen (server list onward), yet
+    every input to this draw is a constant: `g_cursorFrame` is never written
+    (proven by byte search), and `FindSpriteFrame` is a stateless lookup that
+    keys frames `0…N` — so the code always requests *frame 0* of sprite id 0.
+    Nothing in the ported/decompiled path advances it. The most likely
+    reconciliation is that sprite id 0's per-frame **node objects carry a vtable
+    (`PTR_FUN_00557524`)** and an internal current-frame that some update path
+    cycles — but that advance has **not** been isolated. This is a point where
+    static analysis has plateaued; a debugger/emulated run watching the sprite's
+    drawn frame per tick would settle it directly.
   - **`g_cursorTexture` (`0x7a7660`) is write-only** (also verified by byte
     search: one reference, the `ChangeGameState` write) — the preload merely
     *registers* `cursor.img` in the sprite cache; the draw goes through the
