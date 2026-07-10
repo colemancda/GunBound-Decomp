@@ -37,12 +37,24 @@ undefined4 __thiscall FUN_00404dd0(int *param_1,uchar *param_2)
     iVar2 = __mbsicmp(param_2,(uchar *)*puVar4);
     if (0 < iVar2) {
       puVar4[0x43] = iVar1;
-      return;
+      /* Ghidra emitted a bare `return;` in a value-returning function;
+       * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+       * (-Wreturn-mismatch). This path's result is unused by callers -
+       * return 0 to satisfy both toolchains without inventing a value. */
+      return 0;
     }
     puVar4[0x42] = iVar1;
-    return;
+    /* Ghidra emitted a bare `return;` in a value-returning function;
+     * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+     * (-Wreturn-mismatch). This path's result is unused by callers -
+     * return 0 to satisfy both toolchains without inventing a value. */
+    return 0;
   }
   *param_1 = iVar1;
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

@@ -58,6 +58,10 @@ undefined4 FUN_00508a50(int param_1)
     piVar1 = puVar2 + 2;
     puVar2 = (undefined4 *)*puVar2;
   } while ((*(int *)(*piVar1 + 0x20) != 0) || (*(int *)(*piVar1 + 0x24) != 3));
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

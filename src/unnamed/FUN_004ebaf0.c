@@ -24,7 +24,11 @@ undefined4 __fastcall FUN_004ebaf0(uint param_1,uint param_2)
       iVar2 = *(int *)(iVar2 + 0x1c);
       uVar1 = *(uint *)(iVar2 + 4);
       if (param_2 < uVar1) {
-        return;
+        /* Ghidra emitted a bare `return;` in a value-returning function;
+         * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+         * (-Wreturn-mismatch). This path's result is unused by callers -
+         * return 0 to satisfy both toolchains without inventing a value. */
+        return 0;
       }
     }
     iVar2 = *(int *)(iVar2 + 0x10);
@@ -34,7 +38,11 @@ undefined4 __fastcall FUN_004ebaf0(uint param_1,uint param_2)
         iVar2 = *(int *)(iVar2 + 0x10);
         uVar1 = *(uint *)(iVar2 + 8);
         if (param_1 < uVar1) {
-          return;
+          /* Ghidra emitted a bare `return;` in a value-returning function;
+           * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+           * (-Wreturn-mismatch). This path's result is unused by callers -
+           * return 0 to satisfy both toolchains without inventing a value. */
+          return 0;
         }
       }
       uVar4 = *(undefined4 *)(iVar2 + 0x20);
@@ -55,6 +63,10 @@ undefined4 __fastcall FUN_004ebaf0(uint param_1,uint param_2)
       }
     }
   }
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

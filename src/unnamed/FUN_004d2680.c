@@ -57,6 +57,10 @@ undefined4 FUN_004d2680(void)
   FUN_004e5ac0(*(undefined4 *)(unaff_ESI + 0x84e0),*(undefined4 *)(unaff_ESI + 0x44d0));
   *(undefined4 *)(unaff_ESI + 0x84ec) = 0;
   *unaff_FS_OFFSET = local_c;
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

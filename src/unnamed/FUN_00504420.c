@@ -39,6 +39,10 @@ undefined4 FUN_00504420(undefined4 *param_1,undefined4 param_2,undefined4 param_
   *puVar1 = param_3;
   puVar1[1] = param_2;
   *(int *)(unaff_EBX + 8) = *(int *)(unaff_EBX + 8) + 1;
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

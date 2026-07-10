@@ -29,7 +29,11 @@ undefined4 FUN_0050ef10(int *param_1)
       break;
       piVar4 = piVar2;
       if (piVar2 == (int *)0x0) {
-        return;
+        /* Ghidra emitted a bare `return;` in a value-returning function;
+         * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+         * (-Wreturn-mismatch). This path's result is unused by callers -
+         * return 0 to satisfy both toolchains without inventing a value. */
+        return 0;
       }
     }
     if (piVar4 == (int *)*piVar1) {
@@ -55,6 +59,10 @@ undefined4 FUN_0050ef10(int *param_1)
     FUN_0050e560();
     _free(_Memory);
   }
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

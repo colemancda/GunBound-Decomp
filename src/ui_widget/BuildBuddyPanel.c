@@ -73,12 +73,20 @@ undefined4 BuildBuddyPanel(void)
       uVar3 = CreateScrollListWidget(unaff_ESI,0xb7,0x49,0x12,0x98,7);
       Widget_AddChild(uVar3);
       PanelManager_Register(puVar2);
-      return;
+      /* Ghidra emitted a bare `return;` in a value-returning function;
+       * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+       * (-Wreturn-mismatch). This path's result is unused by callers -
+       * return 0 to satisfy both toolchains without inventing a value. */
+      return 0;
     }
     iVar1 = puVar2[2];
     puVar2 = (undefined4 *)*puVar2;
   } while ((*(int *)(iVar1 + 0x20) != 0) || (*(int *)(iVar1 + 0x24) != 20000));
   *(undefined1 *)(iVar1 + 0x1d) = 1;
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

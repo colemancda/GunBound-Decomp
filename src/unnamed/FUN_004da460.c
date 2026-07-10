@@ -60,7 +60,11 @@ undefined4 FUN_004da460(int param_1,undefined4 param_2,uint param_3)
   cVar9 = (char)param_2;
   DAT_0056d118 = (cVar9 != '\x01') - 1;
   if ((char)param_3 != '\0') {
-    return;
+    /* Ghidra emitted a bare `return;` in a value-returning function;
+     * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+     * (-Wreturn-mismatch). This path's result is unused by callers -
+     * return 0 to satisfy both toolchains without inventing a value. */
+    return 0;
   }
   if (cVar9 == '\0') {
 LAB_004da4f7:
@@ -221,6 +225,10 @@ LAB_004daa0a:
     iVar4 = CONCAT31(extraout_var_06,1);
   }
   FUN_00406300(iVar4);
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

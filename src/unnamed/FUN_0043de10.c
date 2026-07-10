@@ -24,12 +24,20 @@ undefined4 FUN_0043de10(void)
     LOCK();
     in_EAX[3] = in_EAX[3] + 1;
     UNLOCK();
-    return;
+    /* Ghidra emitted a bare `return;` in a value-returning function;
+     * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+     * (-Wreturn-mismatch). This path's result is unused by callers -
+     * return 0 to satisfy both toolchains without inventing a value. */
+    return 0;
   }
   iVar3 = (**(code **)*puVar2)(in_EAX[1],1);
   if (iVar3 == 0) {
     FUN_004058b0();
-    return;
+    /* Ghidra emitted a bare `return;` in a value-returning function;
+     * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+     * (-Wreturn-mismatch). This path's result is unused by callers -
+     * return 0 to satisfy both toolchains without inventing a value. */
+    return 0;
   }
   *(int *)(iVar3 + 4) = in_EAX[1];
   iVar1 = in_EAX[1];
@@ -45,6 +53,10 @@ undefined4 FUN_0043de10(void)
     piVar5 = (int *)((int)piVar5 + 1);
     piVar6 = (int *)((int)piVar6 + 1);
   }
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

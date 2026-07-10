@@ -38,6 +38,10 @@ undefined4 FUN_004eebe0(void)
   unaff_ESI[0x28] = 20000;
   unaff_ESI[0x2c] = uVar1;
   unaff_ESI[0x2d] = 0xffffffff;
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

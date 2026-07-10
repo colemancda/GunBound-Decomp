@@ -26,6 +26,10 @@ undefined4 FUN_00476510(void)
   *(byte *)((int)unaff_ESI + 0xf46) = bVar2;
   *(byte *)((int)unaff_ESI + 0xf47) = bVar2 + *(byte *)((int)unaff_ESI + 0xf45) + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

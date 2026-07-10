@@ -14,6 +14,10 @@ undefined4 FUN_0047b2a0(void)
   
   FUN_00454dc0(unaff_ESI,0x186a2);
   *unaff_ESI = &PTR_FUN_00556058;
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

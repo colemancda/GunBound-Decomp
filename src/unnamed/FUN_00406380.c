@@ -24,7 +24,11 @@ undefined4 __fastcall FUN_00406380(undefined4 param_1,uint param_2,int param_3)
       iVar2 = *(int *)(iVar2 + 0x1c);
       uVar1 = *(uint *)(iVar2 + 4);
       if (param_2 < uVar1) {
-        return;
+        /* Ghidra emitted a bare `return;` in a value-returning function;
+         * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+         * (-Wreturn-mismatch). This path's result is unused by callers -
+         * return 0 to satisfy both toolchains without inventing a value. */
+        return 0;
       }
     }
     piVar3 = *(int **)(iVar2 + 0x10);
@@ -34,14 +38,22 @@ undefined4 __fastcall FUN_00406380(undefined4 param_1,uint param_2,int param_3)
         piVar3 = (int *)piVar3[4];
         uVar1 = piVar3[2];
         if (unaff_EDI < uVar1) {
-          return;
+          /* Ghidra emitted a bare `return;` in a value-returning function;
+           * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+           * (-Wreturn-mismatch). This path's result is unused by callers -
+           * return 0 to satisfy both toolchains without inventing a value. */
+          return 0;
         }
       }
       *(undefined1 *)(piVar3 + 0x13) = 0;
       if (param_3 == '\0') {
         if (piVar3[9] != 3) {
           (**(code **)(*piVar3 + 4))(s_ready_00551e80);
-          return;
+          /* Ghidra emitted a bare `return;` in a value-returning function;
+           * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+           * (-Wreturn-mismatch). This path's result is unused by callers -
+           * return 0 to satisfy both toolchains without inventing a value. */
+          return 0;
         }
       }
       else if (piVar3[9] != 3) {
@@ -50,6 +62,10 @@ undefined4 __fastcall FUN_00406380(undefined4 param_1,uint param_2,int param_3)
       }
     }
   }
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 

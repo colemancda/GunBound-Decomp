@@ -26,11 +26,19 @@ undefined4 FUN_004f4350(void)
     *(undefined1 **)(unaff_ESI + 0x114) = puVar1;
     *(undefined4 *)(puVar1 + 0x114) = 0;
     *(undefined1 **)(unaff_ESI + 0x118) = puVar1;
-    return;
+    /* Ghidra emitted a bare `return;` in a value-returning function;
+     * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+     * (-Wreturn-mismatch). This path's result is unused by callers -
+     * return 0 to satisfy both toolchains without inventing a value. */
+    return 0;
   }
   *(undefined1 **)(*(int *)(unaff_ESI + 0x118) + 0x114) = puVar1;
   *(undefined4 *)(puVar1 + 0x114) = 0;
   *(undefined1 **)(unaff_ESI + 0x118) = puVar1;
-  return;
+  /* Ghidra emitted a bare `return;` in a value-returning function;
+   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
+   * (-Wreturn-mismatch). This path's result is unused by callers -
+   * return 0 to satisfy both toolchains without inventing a value. */
+  return 0;
 }
 
