@@ -104,7 +104,11 @@ inline u8   &Ctx_roomSlotActive(int ctx, int slot) { return *reinterpret_cast<u8
 /* avatarEquipped: the worn outfit as four packed u16 part codes (each: bit15 =
  * gender, bits0-14 = id into the {gender}{cat}.dat part table - see
  * FILEFORMATS.md "Avatar.xfs"). word0=Body, word2=Glasses (confirmed);
- * word1/word3 = Head/Flag (the two unpackers 0x4431a0/0x4dc5c0 disagree which).
+ * word1/word3 = Head vs Flag is UNRESOLVED: LoadRoomSlotAvatar (0x4dc5c0) reads
+ * word1=head/word3=flag; LoadReadyRoomSlotAvatar (0x4431a0) reads the opposite
+ * (default-table indices +0x664/+0x668 swapped too). Both are raw, unverified
+ * ports so exactly one is transposed, and the 0x2105 writer only packs
+ * {body,word1}/{glasses,word3} - no tiebreak. Settle it with a live equip test.
  * Copied to +0x501fe+slot*8 in the Ready Room; unpacked + composited by
  * LoadAvatarSprites (0x4141b0) into the AvataTexture render targets. */
 inline u16 *Ctx_avatarEquipped(int ctx, int slot) { return reinterpret_cast<u16 *>(ctx + 0x458bc + slot * 8); }
