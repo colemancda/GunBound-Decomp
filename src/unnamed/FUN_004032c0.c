@@ -94,7 +94,7 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
         }
         if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
           (**(code **)(**(int **)(param_2 + 0x1bdc) + 0x20))();
-          pcVar6 = (char *)GetLocalizedString(&DAT_00796eec,0xfa6);
+          pcVar6 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa6);
           _sprintf(local_10c,pcVar6,uStack_4);
           FUN_00509030(&g_uiPanelManager,local_10c);
           return;
@@ -153,7 +153,7 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
       FUN_00508d00(&g_uiPanelManager);
       return;
     case 0x2001:
-      pcVar6 = (char *)GetLocalizedString(&DAT_00796eec,0xfa3 - (uint)(*(char *)(param_1 + 8) != '\0'));
+      pcVar6 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa3 - (uint)(*(char *)(param_1 + 8) != '\0'));
       _sprintf(local_10c + 0xc,pcVar6);
       FUN_00509030(&g_uiPanelManager,local_10c + 0xc);
       return;

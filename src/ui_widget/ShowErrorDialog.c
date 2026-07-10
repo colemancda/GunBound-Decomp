@@ -15,7 +15,7 @@
  *   3. Snaps the cursor onto the dialog (ClampCursorToRect -> SetCursorPos).
  *   4. Clears the text scratch buffer (DAT_005b1d70) and sets the dialog rect
  *      globals (_DAT_00e53c24..30 = {0xf9,0x229,0xc1,0x171}).
- *   5. Looks up the localized message string, GetLocalizedString(&DAT_00796eec,
+ *   5. Looks up the localized message string, GetLocalizedString(&g_localizedStringTable,
  *      msgId + 0xc7), and word-wraps it into DAT_005b1d70 via
  *      RenderWrappedText(buf, str, x=0x32, y=0x2b, wrapWidth=0x15e, 1).
  *   6. If closeSockets != 0: tears down all three connection objects
@@ -74,7 +74,7 @@ void ShowErrorDialog(int param_1)
   _DAT_00e53c2c = 0xc1;
   _DAT_00e53c30 = 0x171;
   *(undefined2 *)puVar4 = 0;
-  uVar2 = GetLocalizedString(&DAT_00796eec,in_EAX + 199);
+  uVar2 = GetLocalizedString(&g_localizedStringTable,in_EAX + 199);
   RenderWrappedText(&DAT_005b1d70,uVar2,uVar5,uVar6,uVar7,uVar8);
   iVar3 = DAT_005b2b58;
   if (param_1 != '\0') {

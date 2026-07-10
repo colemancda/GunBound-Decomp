@@ -39,7 +39,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
    * fault-recovery behavior for a failed init step ever turns out to
    * matter, this is the place to revisit. */
   FUN_00415900();
-  FUN_0043da00(&DAT_00796eec);
+  LoadLocalizedStrings(&g_localizedStringTable);
   FUN_004e3500(&DAT_00794e14);
   LoadChooseEventConfig(&DAT_00e9bea8);
   CoInitialize((LPVOID)0x0);

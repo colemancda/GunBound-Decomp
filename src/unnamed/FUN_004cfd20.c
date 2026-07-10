@@ -32,7 +32,7 @@ void FUN_004cfd20(void)
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
   uVar9 = 0;
-  GetLocalizedString(&DAT_00796eec,3000);
+  GetLocalizedString(&g_localizedStringTable,3000);
   BlitRLESprite(0x1bb,uVar9);
   pcVar2 = (char *)(*(int *)(in_EAX + 0x10cc) * 0xd + 0x457f1 + g_clientContext);
   do {
@@ -40,7 +40,7 @@ void FUN_004cfd20(void)
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
   uVar9 = 0xffff;
-  GetLocalizedString(&DAT_00796eec,3000);
+  GetLocalizedString(&g_localizedStringTable,3000);
   BlitRLESprite(0x1ba,uVar9);
   iVar3 = *(int *)(in_EAX + 0x10cc);
   uVar7 = *(uint *)(g_clientContext + 0x4599c + iVar3 * 4);
@@ -52,7 +52,7 @@ void FUN_004cfd20(void)
     uVar8 = 999;
   }
   uVar9 = *(undefined4 *)(g_clientContext + 0x4593c + iVar3 * 4);
-  pcVar2 = (char *)GetLocalizedString(&DAT_00796eec,0xbb9);
+  pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0xbb9);
   _sprintf(local_80,pcVar2,uVar9,uVar8,uVar7);
   BlitRLESprite(0x1ce,0);
   BlitRLESprite(0x1cd,0xffff);
@@ -91,7 +91,7 @@ void FUN_004cfd20(void)
   iVar3 = (iVar4 * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + 0x1a1e48 + g_clientContext
   ;
   uVar7 = (uint)(*(int *)(g_clientContext + 0x472fc + *(int *)(in_EAX + 0x10cc) * 4) * 100) / uVar7;
-  pcVar2 = (char *)GetLocalizedString(&DAT_00796eec,0xbba);
+  pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0xbba);
   _sprintf(local_80,pcVar2,uVar7,iVar3,local_84);
   BlitRLESprite(0x1dd,0);
   BlitRLESprite(0x1dc,0xffff);
@@ -121,11 +121,11 @@ void FUN_004cfd20(void)
   }
   uVar7 = (uint)(*(int *)(g_clientContext + 0x459bc + (iVar5 + *(int *)(in_EAX + 0x10cc) * 0x14) * 4) *
                 100) / uVar7;
-  uVar9 = GetLocalizedString(&DAT_00796eec,iVar5 + 1000);
+  uVar9 = GetLocalizedString(&g_localizedStringTable,iVar5 + 1000);
   uVar8 = (uint)(*(int *)(g_clientContext + 0x459bc + (iVar4 + *(int *)(in_EAX + 0x10cc) * 0x14) * 4) *
                 100) / uVar8;
-  uVar6 = GetLocalizedString(&DAT_00796eec,iVar4 + 1000);
-  pcVar2 = (char *)GetLocalizedString(&DAT_00796eec,0xbbb);
+  uVar6 = GetLocalizedString(&g_localizedStringTable,iVar4 + 1000);
+  pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0xbbb);
   _sprintf(local_80,pcVar2,uVar6,uVar8,uVar9,uVar7);
   BlitRLESprite(0x1ec,0);
   BlitRLESprite(0x1eb,0xffff);
@@ -135,7 +135,7 @@ void FUN_004cfd20(void)
     uVar8 = uVar7;
   }
   uVar8 = *(uint *)(g_clientContext + 0x4733c + *(int *)(in_EAX + 0x10cc) * 4) / uVar8;
-  pcVar2 = (char *)GetLocalizedString(&DAT_00796eec,0xbbc);
+  pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0xbbc);
   _sprintf(local_80,pcVar2,uVar8);
   BlitRLESprite(0x1fb,0);
   BlitRLESprite(0x1fa,0xffff);

@@ -194,7 +194,7 @@ one. Screen docs give offsets relative to `g_clientContext`.
 Errors surface through a **generic popup**, `ShowErrorDialog`, not per-screen code:
 - The screen stores an error/message code, then something calls
   `ShowErrorDialog(closeSockets)` with the message index in `EAX`.
-- It looks up a localized message string via `GetLocalizedString(&DAT_00796eec,
+- It looks up a localized message string via `GetLocalizedString(&g_localizedStringTable,
   code + 0xc7)`, word-wraps it with `RenderWrappedText` into buffer `DAT_005b1d70`,
   sets the dialog rect in `_DAT_00e53c24..30` = `{0xf9, 0x229, 0xc1, 0x171}`,
   and creates the shared **`b_error_confirm`** OK button at (0x1c6, 0x14b),

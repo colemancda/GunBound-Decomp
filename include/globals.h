@@ -640,7 +640,14 @@ extern uint8_t DAT_00795878;
 extern uint8_t DAT_00796078;
 extern uint8_t DAT_00796878;
 extern uint8_t DAT_00796aa0;
-extern uint8_t DAT_00796eec;
+/* g_localizedStringTable (was DAT_00796eec) - the localized UI-string map,
+ * an id -> string table built once by LoadLocalizedStrings from the
+ * "Language.txt" entry in graphics.xfs, then read by GetLocalizedString.
+ * All dialog/message text (error popups, MessageBoxA prompts) is looked up
+ * here by numeric id. Its address (&g_localizedStringTable) is what both
+ * functions take as the table handle. See ARCHITECTURE.md "Text
+ * localization". */
+extern uint8_t g_localizedStringTable;
 /* g_cursorTexture (was DAT_007a7660) - the custom cursor sprite (cursor.img),
  * preloaded via FindPreloadedTextureByName("cursor") on every ChangeGameState;
  * the in-game pointer drawn at the mouse position. */

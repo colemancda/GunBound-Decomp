@@ -14,7 +14,7 @@ extern int g_clientContext;
 extern unsigned char DAT_007933b8;      /* "chat entry armed" flag */
 extern unsigned int DAT_007934e4;       /* shared overlay EDIT control (+4 = HWND) */
 extern unsigned char DAT_00551cb1;      /* the empty string the EDIT is reset to */
-extern unsigned char DAT_00796eec;      /* localized-string table base */
+extern unsigned char g_localizedStringTable;      /* localized-string table base */
 char FUN_004065a0(void);                /* replay-playback mode check */
 void FUN_0040c880(char *out);           /* read the EDIT control's text into out[128] */
 char FUN_004218c0(int ctx, char *text); /* slash-command handler (true = consumed) */
@@ -71,7 +71,7 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
                 msgId = 0x205;
             }
             int *self = (int *)this;
-            void *localized = GetLocalizedString(&DAT_00796eec, msgId);
+            void *localized = GetLocalizedString(&g_localizedStringTable, msgId);
             ((void (__cdecl *)(void *, int, int))*(void **)(*self + 0x28))(localized, 2, 6);
         }
     } else {

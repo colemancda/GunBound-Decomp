@@ -57,7 +57,7 @@ void FUN_00508b90(void)
       uVar4 = CreateLabelWidget(1,0x2c9,0x97,0x6b,0x4a,0x1a);
       Widget_AddChild(uVar4);
       uVar6 = 0xffff;
-      uVar4 = GetLocalizedString(&DAT_00796eec,4000);
+      uVar4 = GetLocalizedString(&g_localizedStringTable,4000);
       uVar4 = CreateStaticTextWidget(0x15,0x2d,200,0x1e,uVar4,uVar6);
       Widget_AddChild(uVar4);
       PanelManager_Register(puVar5);

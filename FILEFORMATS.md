@@ -1135,10 +1135,20 @@ Resolves a question flagged as open in [STRINGS.md](STRINGS.md) (the `Language.t
 `Sound.txt`/`FourWord.txt` filenames hadn't been cross-referenced against
 loader code). Traced two more call sites of `OpenXFSArchive`/`FindXFSEntry`:
 
-- `FUN_0043da00`: `BuildAssetPath(buf, &DAT_005b1ed0, "graphics.xfs", 0)` →
-  `OpenXFSArchive(buf, 1, 0)` → `FindXFSEntry(handle, "Language.txt")` —
-  confirms **`Language.txt` is not a standalone file**, it's an entry inside
-  `graphics.xfs`, read the same way `ChooseEvent.txt` is.
+- `LoadLocalizedStrings` (`0x0043da00`): `BuildAssetPath(buf, &DAT_005b1ed0,
+  "graphics.xfs", 0)` → `OpenXFSArchive(buf, 1, 0)` →
+  `FindXFSEntry(handle, "Language.txt")` — confirms **`Language.txt` is not a
+  standalone file**, it's an entry inside `graphics.xfs`, read the same way
+  `ChooseEvent.txt` is. It parses the entry's `"<id>\t<message>\r\n"` lines
+  into the `g_localizedStringTable` id→string map that `GetLocalizedString`
+  serves every dialog/message string from — the full text-localization path
+  (see ARCHITECTURE.md "Text localization"). A `\n` inside a message is a
+  literal line break, so a multi-line error body (title sentence, blank
+  line, detail) is one table entry. The shipped `orig/graphics.xfs` carries
+  a Portuguese `Language.txt` (ids 200+ are the error-dialog family: 200 =
+  server-access error, 201 = "access time expired"/network-timeout, 205 =
+  bad password, …); a different server ships a different-language file at
+  the same ids.
 - `FUN_004e3500`: identical pattern, opens `graphics.xfs`, then
   `FindXFSEntry(handle, "Sound.txt")` — confirms **`Sound.txt`** likewise
   lives inside `graphics.xfs`, not on disk as its own file.

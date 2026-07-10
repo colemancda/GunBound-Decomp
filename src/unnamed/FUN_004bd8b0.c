@@ -790,7 +790,7 @@ code_r0x004be720:
           uVar7 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = unaff_ESI + 0xae15;
-          pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,0x268);
+          pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,0x268);
           _sprintf(acStack_37d0,pcVar9,iVar6,uVar7);
           pcVar9 = acStack_37d0;
 LAB_004beff9:
@@ -849,7 +849,7 @@ LAB_004bedb3:
               uVar7 = PeekPacketChecksumState();
               LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
               iVar6 = unaff_ESI + 0xae15;
-              pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,0x269);
+              pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,0x269);
               _sprintf(acStack_3a50,pcVar9,iVar6,uVar7);
               pcVar9 = acStack_3a50;
               goto LAB_004beff9;
@@ -914,7 +914,7 @@ LAB_004bedb3:
           uVar7 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = (int)uStack_3d70 + 0xae15;
-          pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,0x26a);
+          pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,0x26a);
           _sprintf(acStack_3944,pcVar9,iVar6,uVar7);
           (**(code **)(*piVar15 + 0x28))(acStack_3944,4,3);
         }
@@ -966,7 +966,7 @@ LAB_004bedb3:
             uVar7 = PeekPacketChecksumState();
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar6 = (int)uStack_3d70 + 0xae15;
-            pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,0x26b);
+            pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,0x26b);
             _sprintf(acStack_3644,pcVar9,iVar6,uVar7);
             (**(code **)(*piVar15 + 0x28))(acStack_3644,4,3);
           }
@@ -1029,7 +1029,7 @@ LAB_004bedb3:
           uVar7 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = (int)uStack_3d70 + 0xae15;
-          pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,0x26c);
+          pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,0x26c);
           _sprintf(acStack_3844,pcVar9,iVar6,uVar7);
           (**(code **)(*piVar15 + 0x28))(acStack_3844,4,3);
         }
@@ -1103,7 +1103,7 @@ LAB_004bedb3:
         uVar7 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar6 = (int)unaff_EBX + 0xae15;
-        pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,0x26d);
+        pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,0x26d);
         _sprintf(acStack_36d0,pcVar9,iVar6,uVar7);
         (**(code **)(*piVar15 + 0x28))(acStack_36d0,3,2);
       }
@@ -1167,7 +1167,7 @@ LAB_004bedb3:
           uVar7 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = (int)uStack_3d70 + 0xae15;
-          pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,0x26f);
+          pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,0x26f);
           _sprintf(acStack_39c4,pcVar9,iVar6,uVar7);
           pcVar9 = acStack_39c4;
           goto LAB_004c008f;
@@ -1219,7 +1219,7 @@ LAB_004bedb3:
           uVar7 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = (int)uStack_3d70 + 0xae15;
-          pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,0x270);
+          pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,0x270);
           _sprintf(acStack_38c4,pcVar9,iVar6,uVar7);
           pcVar9 = acStack_38c4;
           goto LAB_004c008f;
@@ -1283,7 +1283,7 @@ LAB_004bedb3:
         uVar7 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar6 = (int)uStack_3d70 + 0xae15;
-        pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,0x26e);
+        pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,0x26e);
         _sprintf(acStack_3744,pcVar9,iVar6,uVar7);
         pcVar9 = acStack_3744;
 LAB_004c008f:
@@ -1377,7 +1377,7 @@ LAB_004c008f:
           uVar8 = 0x271;
 LAB_004c08c8:
           iVar6 = (int)uStack_3d70 + 0xae15;
-          pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,uVar8);
+          pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,uVar8);
           _sprintf(acStack_3b4c,pcVar9,iVar6,uVar7);
           (**(code **)(*piVar15 + 0x28))(acStack_3b4c,4,3);
         }
@@ -1495,7 +1495,7 @@ LAB_004c08c8:
             uVar7 = PeekPacketChecksumState();
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar6 = (int)piVar15 + 0xae15;
-            pcVar9 = (char *)GetLocalizedString(&DAT_00796eec,0x273);
+            pcVar9 = (char *)GetLocalizedString(&g_localizedStringTable,0x273);
             _sprintf(acStack_3b3c,pcVar9,iVar6,uVar7);
             (**(code **)(*unaff_EBX + 0x28))(acStack_3b3c,4,3);
             FUN_00438360();

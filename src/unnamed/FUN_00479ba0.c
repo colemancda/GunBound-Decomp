@@ -106,7 +106,7 @@ LAB_00479d44:
         uVar7 = FUN_00415c60();
         if ((uVar7 & 1) != 0) {
           uVar7 = FUN_00415c60();
-          GetLocalizedString(&DAT_00796eec,uVar7 % 10 + 0x80d);
+          GetLocalizedString(&g_localizedStringTable,uVar7 % 10 + 0x80d);
           FUN_004382d0();
         }
 LAB_00479e75:
@@ -284,7 +284,7 @@ LAB_00479e75:
         uVar12 = FUN_0040a4d0(auStack_678);
         iVar8 = iVar6 + 0xae15;
         iVar10 = FUN_0040a4d0(piVar1);
-        pcVar14 = (char *)GetLocalizedString(&DAT_00796eec,iVar10 + 600);
+        pcVar14 = (char *)GetLocalizedString(&g_localizedStringTable,iVar10 + 600);
         _sprintf(acStack_91c,pcVar14,iVar8,uVar12,uVar4);
         cVar3 = PacketChecksumEquals(piVar1,3);
         if (cVar3 == '\0') {
@@ -387,7 +387,7 @@ LAB_0047a634:
       uVar12 = FUN_0040a4d0(param_1 + 0x97);
       FUN_004372f0(iVar5 - (uVar7 & 3),uVar12,uVar4,iVar6,pcVar14);
       uVar7 = FUN_00415c60();
-      GetLocalizedString(&DAT_00796eec,uVar7 % 10 + 0x7f9);
+      GetLocalizedString(&g_localizedStringTable,uVar7 % 10 + 0x7f9);
       FUN_004382d0();
     }
     *(undefined1 *)(param_1 + 5) = 1;
@@ -404,12 +404,12 @@ LAB_0047a634:
     iVar6 = _rand();
     if (iVar5 == 0) {
       iVar5 = iVar6 % 10 + 0x7d1;
-      pcVar14 = (char *)GetLocalizedString(&DAT_00796eec,iVar5);
+      pcVar14 = (char *)GetLocalizedString(&g_localizedStringTable,iVar5);
       do {
         cVar3 = *pcVar14;
         pcVar14 = pcVar14 + 1;
       } while (cVar3 != '\0');
-      uVar4 = GetLocalizedString(&DAT_00796eec,iVar5);
+      uVar4 = GetLocalizedString(&g_localizedStringTable,iVar5);
     }
     else {
       puVar13 = (undefined4 *)FUN_00415450();

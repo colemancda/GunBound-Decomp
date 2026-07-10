@@ -177,7 +177,7 @@ void FUN_004cb280(int param_1)
         (*pcVar14)(&DAT_005a9068);
         iVar3 = iVar3 + 0xae15;
         iVar4 = iVar3;
-        pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0x274);
+        pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0x274);
         _sprintf(&stack0xfffff8dc,pcVar7,iVar4,uVar6);
         (**(code **)(*piStack_28 + 0x28))(&stack0xfffff8dc,4,3);
         FUN_00438360();
@@ -186,7 +186,7 @@ void FUN_004cb280(int param_1)
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (local_714 == iVar4) {
           iVar4 = *(int *)(g_clientContext + 0x44e60) + 1;
-          pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,5000);
+          pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,5000);
           _sprintf(local_6f8,pcVar7,iVar3,iVar4);
           iVar4 = DAT_007934e8;
           *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;

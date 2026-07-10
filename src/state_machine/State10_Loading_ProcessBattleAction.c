@@ -46,7 +46,7 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
       iVar5 = (uint)*(byte *)(packetBuf + 0x21) * 0xd + 0x457f1 + g_clientContext;
       iVar10 = (uint)bVar1 * 0xd + 0x457f1 + g_clientContext;
       iVar11 = iVar5;
-      _Format = (char *)GetLocalizedString(&DAT_00796eec,0x260);
+      _Format = (char *)GetLocalizedString(&g_localizedStringTable,0x260);
       _sprintf(acStack_4d4,_Format,iVar10,iVar5,iVar11);
       (**(code **)(*(int *)this + 0x28))(acStack_4d4,2,6);
     }

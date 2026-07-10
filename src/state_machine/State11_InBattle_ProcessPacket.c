@@ -120,7 +120,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
       }
       else if (opcode == 0x3020) {
         iVar6 = (uint)*payload * 0xd + 0x457f1 + g_clientContext;
-        pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x25f);
+        pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x25f);
         _sprintf(local_91c,pcVar5,iVar6);
         (**(code **)(*(int *)this + 0x28))(local_91c,2,6);
         cVar2 = FUN_004065a0();
@@ -185,7 +185,7 @@ LAB_004b4324:
                   AddToPacketChecksum(uVar9);
                   uVar9 = FUN_0040a4d0(&DAT_00796aa0);
                   iVar6 = iVar8 + 0x50196 + g_clientContext;
-                  pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x281);
+                  pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x281);
                   _sprintf(local_99c,pcVar5,iVar6,uVar9);
                   (**(code **)(*(int *)this + 0x28))(local_99c,4,3);
                   iVar6 = g_clientContext;
@@ -215,7 +215,7 @@ LAB_004b4324:
                   AddToPacketChecksum(uVar9);
                   uVar9 = FUN_0040a4d0(&DAT_00796aa0);
                   iVar6 = iVar8 + 0x50196 + g_clientContext;
-                  pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x281);
+                  pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x281);
                   _sprintf(local_91c,pcVar5,iVar6,uVar9);
                   (**(code **)(*(int *)this + 0x28))(local_91c,4,3);
                   iVar6 = g_clientContext;
@@ -395,7 +395,7 @@ LAB_004b4324:
             iVar6 = *(int *)this;
             uVar20 = 8;
             uVar19 = 3;
-            uVar9 = GetLocalizedString(&DAT_00796eec,0x25c);
+            uVar9 = GetLocalizedString(&g_localizedStringTable,0x25c);
             (**(code **)(iVar6 + 0x28))(uVar9,uVar19,uVar20);
             FUN_0040b060();
             cVar2 = FUN_0040b330(&DAT_0067e3d0 + g_clientContext,0);
@@ -405,7 +405,7 @@ LAB_004b4324:
             iVar6 = *(int *)this;
             uVar20 = 8;
             uVar19 = 3;
-            uVar9 = GetLocalizedString(&DAT_00796eec,0x25d);
+            uVar9 = GetLocalizedString(&g_localizedStringTable,0x25d);
             (**(code **)(iVar6 + 0x28))(uVar9,uVar19,uVar20);
             FUN_0040b060();
             cVar2 = FUN_0040b330(&DAT_0067e5f4 + g_clientContext,0);
@@ -561,7 +561,7 @@ LAB_004b4d38:
       uVar9 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar8 = iVar8 + 0xae15;
-      pcVar5 = (char *)GetLocalizedString(&DAT_00796eec,0x25e);
+      pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x25e);
       _sprintf(local_99c,pcVar5,iVar8,uVar9);
       local_4 = 2;
       FUN_0040a2a0();

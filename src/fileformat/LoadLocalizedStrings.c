@@ -1,16 +1,23 @@
-/* FUN_0043da00 - 0x0043da00 in the original binary.
+/* LoadLocalizedStrings - 0x0043da00 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Builds the localized UI-string table (g_localizedStringTable, param_1)
+ * that GetLocalizedString later indexes. Opens graphics.xfs, finds the
+ * "Language.txt" entry (FindXFSEntry), reads it a byte at a time
+ * (ReadXFSEntryByte), and parses its "<id>\t<message>\r\n" lines into the
+ * id -> string map. Called once from InitGame. This is the load half of
+ * the text-localization subsystem; see ARCHITECTURE.md "Text
+ * localization" and FILEFORMATS.md's Language.txt entry.
+ *
+ * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified
+ * (the SEH frame and the line-parse loop's exact bounds are Ghidra-shaped).
+ * See src/README.md's "Raw/verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-undefined4 FUN_0043da00(undefined4 param_1)
+undefined4 LoadLocalizedStrings(undefined4 param_1)
 
 {
   bool bVar1;

@@ -1,8 +1,16 @@
 /* GetLocalizedString - 0x0043dc70 in the original binary.
  *
- * Looks up a localized UI string by numeric id from the string-resource map (DAT_005b1444 / &DAT_00796eec) and returns a pointer to it. Used for all dialog/message text. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Looks up a localized UI string by numeric id in g_localizedStringTable
+ * (the id -> string map LoadLocalizedStrings built from graphics.xfs's
+ * Language.txt) and returns a pointer to it. The read half of the
+ * text-localization subsystem: every dialog/message string (error popups
+ * via ShowErrorDialog, native MessageBoxA prompts) resolves through here.
+ * DAT_005b1444 is the ATL allocator vtable used to marshal the returned
+ * string object, not the string table itself. See ARCHITECTURE.md "Text
+ * localization".
+ *
+ * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified.
+ * See src/README.md's "Raw/verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 

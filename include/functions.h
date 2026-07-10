@@ -525,7 +525,7 @@ void FUN_0043d910();
 void FUN_0043d930();
 void FUN_0043d970();
 void FUN_0043d9b0();
-undefined4 FUN_0043da00();
+undefined4 LoadLocalizedStrings();
 undefined4 * GetLocalizedString();
 int FUN_0043dd40();
 void FUN_0043ddb0();

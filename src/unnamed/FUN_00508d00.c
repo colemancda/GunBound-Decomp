@@ -62,7 +62,7 @@ joined_r0x00508d28:
       } while (uVar1 != '\0');
     }
     FUN_004056c0(puVar3 + 0x14,unaff_EDI);
-    _Format = (char *)GetLocalizedString(&DAT_00796eec,0xfa1);
+    _Format = (char *)GetLocalizedString(&g_localizedStringTable,0xfa1);
     _sprintf(local_8c,_Format);
     uVar4 = CreateStaticTextWidget(0x17,0x2b,0x9a,0x33,local_8c,0xffff);
     Widget_AddChild(uVar4);

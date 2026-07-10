@@ -171,7 +171,7 @@ LAB_004457e7:
         uVar4 = FUN_0040a4d0(local_4318);
         QueueOutgoingPacketField
                   ((uint)local_451c | uVar4 | (*(uint *)(param_1 + 0x44c) & 0xf) << 0x10);
-        pcVar8 = (char *)GetLocalizedString(&DAT_00796eec,700);
+        pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,700);
         pcVar13 = (char *)(param_1 + 0x327d4);
         do {
           cVar1 = *pcVar8;
@@ -180,7 +180,7 @@ LAB_004457e7:
           pcVar13 = pcVar13 + 1;
         } while (cVar1 != '\0');
         pcVar13 = local_40f4;
-        pcVar8 = (char *)GetLocalizedString(&DAT_00796eec,60000);
+        pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,60000);
         _sprintf((char *)(param_1 + 0x32854),pcVar8,pcVar13);
         pcVar13 = local_40f4;
         iVar9 = param_1 - (int)pcVar13;
@@ -191,27 +191,27 @@ LAB_004457e7:
         } while (cVar1 != '\0');
         iVar9 = FUN_0040a4d0(local_40dc);
         if (iVar9 == 0) {
-          pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0xea62);
+          pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea62);
           _sprintf((char *)(param_1 + 0x32954),pcVar13);
         }
         else {
           uVar12 = FUN_0040a4d0(local_40dc);
-          pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0xea61);
+          pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea61);
           _sprintf((char *)(param_1 + 0x32954),pcVar13,uVar12);
         }
         iVar9 = FUN_0040a4d0(local_3eb8);
         if (iVar9 == 0) {
-          pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0xea64);
+          pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea64);
           _sprintf((char *)(param_1 + 0x329d4),pcVar13);
         }
         else {
           uVar12 = FUN_0040a4d0(local_3eb8);
-          pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0xea63);
+          pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea63);
           _sprintf((char *)(param_1 + 0x329d4),pcVar13,uVar12);
         }
         iVar9 = FUN_0040a4d0(local_40dc);
         iVar9 = (iVar9 * 6) / 10;
-        pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0xea65);
+        pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea65);
         _sprintf((char *)(param_1 + 0x32a54),pcVar13,iVar9);
         if (*(int *)(param_1 + 0x44c) == 3) {
           *(undefined1 *)(param_1 + 0x32bd4) = 0;
@@ -220,13 +220,13 @@ LAB_004457e7:
         else {
           iVar9 = FUN_0040a4d0(iVar3);
           if (*(char *)(*(int *)(param_1 + 0x450) * 9 + 0x2d54c + iVar9 + param_1) == '\0') {
-            pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0xea67);
+            pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea67);
           }
           else {
-            pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0xea66);
+            pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea66);
           }
           _sprintf((char *)(param_1 + 0x32b54),pcVar13);
-          pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0xea68);
+          pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea68);
           _sprintf((char *)(param_1 + 0x32bd4),pcVar13);
         }
         iVar9 = g_clientContext + 0x398c4;
@@ -311,7 +311,7 @@ LAB_004457e7:
               iVar3 = FUN_0040a4d0(iVar3 + 0x22c);
               FUN_00423e20(g_clientContext,iVar3 >> 0x10 & 0xffffff0f);
               QueueOutgoingPacketField(2);
-              pcVar8 = (char *)GetLocalizedString(&DAT_00796eec,0x2c3);
+              pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c3);
               pcVar13 = (char *)(param_1 + 0x327d4);
               do {
                 cVar1 = *pcVar8;
@@ -320,21 +320,21 @@ LAB_004457e7:
                 pcVar13 = pcVar13 + 1;
               } while (cVar1 != '\0');
               pcVar13 = local_40f4;
-              pcVar8 = (char *)GetLocalizedString(&DAT_00796eec,0x2c4);
+              pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c4);
               _sprintf((char *)(param_1 + 0x32854),pcVar8,pcVar13);
               iVar3 = FUN_0040a4d0(local_40dc);
               iVar9 = FUN_0040a4d0(&DAT_00e9ba40);
               iVar9 = (iVar3 * 6) / iVar9;
-              pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0x2c5);
+              pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c5);
               _sprintf((char *)(param_1 + 0x328d4),pcVar13,iVar9);
               iVar3 = FUN_0040a4d0(local_40dc);
               iVar9 = FUN_0040a4d0(&DAT_00e9ba40);
               iVar10 = FUN_0040a4d0(g_clientContext + 0x396a0);
               iVar10 = (iVar3 * 6) / iVar9 + iVar10;
-              pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0x2c6);
+              pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c6);
               _sprintf((char *)(param_1 + 0x32954),pcVar13,iVar10);
               *(undefined1 *)(param_1 + 0x329d4) = 0;
-              pcVar8 = (char *)GetLocalizedString(&DAT_00796eec,0x2c7);
+              pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c7);
               pcVar13 = (char *)(param_1 + 0x32a54);
               do {
                 cVar1 = *pcVar8;
@@ -515,7 +515,7 @@ LAB_004457e7:
         iVar3 = FUN_0040a4d0(iVar3 + 0x22c);
         FUN_00423e20(g_clientContext,iVar3 >> 0x10 & 0xffffff0f);
         QueueOutgoingPacketField(3);
-        pcVar8 = (char *)GetLocalizedString(&DAT_00796eec,0x2c8);
+        pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c8);
         pcVar13 = (char *)(param_1 + 0x327d4);
         do {
           cVar1 = *pcVar8;
@@ -524,10 +524,10 @@ LAB_004457e7:
           pcVar13 = pcVar13 + 1;
         } while (cVar1 != '\0');
         pcVar13 = local_40f4;
-        pcVar8 = (char *)GetLocalizedString(&DAT_00796eec,0x2c9);
+        pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c9);
         _sprintf((char *)(param_1 + 0x32854),pcVar8,pcVar13);
         *(undefined1 *)(param_1 + 0x328d4) = 0;
-        pcVar8 = (char *)GetLocalizedString(&DAT_00796eec,0x2ca);
+        pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2ca);
         pcVar13 = (char *)(param_1 + 0x32954);
         do {
           cVar1 = *pcVar8;
@@ -536,7 +536,7 @@ LAB_004457e7:
           pcVar13 = pcVar13 + 1;
         } while (cVar1 != '\0');
         *(undefined1 *)(param_1 + 0x329d4) = 0;
-        pcVar8 = (char *)GetLocalizedString(&DAT_00796eec,0x2cb);
+        pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2cb);
         pcVar13 = (char *)(param_1 + 0x32a54);
         do {
           cVar1 = *pcVar8;
@@ -942,7 +942,7 @@ LAB_00446f6d:
   case 0x3d:
     BuildSystemInfoBlob(&local_4518);
     puVar11 = &local_4518;
-    pcVar13 = (char *)GetLocalizedString(&DAT_00796eec,0xea69);
+    pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea69);
     _sprintf(local_4418,pcVar13,puVar11);
     ShellExecuteA((HWND)0x0,&DAT_00552728,local_4418,(LPCSTR)0x0,(LPCSTR)0x0,1);
     *(undefined1 *)(param_1 + 0x34814) = 1;

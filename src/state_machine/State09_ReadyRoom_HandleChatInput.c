@@ -65,7 +65,7 @@ void __thiscall State09_ReadyRoom_HandleChatInput(int *param_1,int param_2,int p
           uVar15 = 6;
           uVar14 = 2;
           iVar5 = *param_1;
-          uVar13 = GetLocalizedString(&DAT_00796eec,uVar13);
+          uVar13 = GetLocalizedString(&g_localizedStringTable,uVar13);
           (**(code **)(iVar5 + 0x28))(uVar13,uVar14,uVar15);
         }
       }

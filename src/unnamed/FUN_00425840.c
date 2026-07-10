@@ -28,7 +28,7 @@ void FUN_00425840(void)
       iVar2 = __stricmp(unaff_ESI,(char *)(g_clientContext + 0x23330));
       if (iVar2 != 0) {
         FUN_00415bc0(unaff_ESI);
-        pcVar3 = (char *)GetLocalizedString(&DAT_00796eec,0x1fe);
+        pcVar3 = (char *)GetLocalizedString(&g_localizedStringTable,0x1fe);
         _sprintf(local_80,pcVar3);
         (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_80,2,6);
       }

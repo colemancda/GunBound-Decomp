@@ -483,7 +483,7 @@ uint8_t DAT_00795878;
 uint8_t DAT_00796078;
 uint8_t DAT_00796878;
 uint8_t DAT_00796aa0;
-uint8_t DAT_00796eec;
+uint8_t g_localizedStringTable;
 uint8_t g_cursorTexture;
 uint32_t DAT_007a7674;
 uint8_t DAT_007a768c;

@@ -427,7 +427,7 @@ how the server tracks each client's current context.
 |---|---|
 | `0x600f` | Builds and sends an outgoing `0x6000` request (empty payload) — likely "give me my inventory," triggered on entering the store. |
 | `0x6002` | Parses a list of **owned-item entries**: each has a timestamp (parsed via `_localtime` → day/month/year, i.e. an **expiration date**), item-id fields, and a variable-length blob, stored into a per-item array at `+0x44be8` with a **confirmed 0x9c (156)-byte stride**. This is the **inventory/purchased-items list**. Full struct layout confirmed by mapping the decompiled stack-local offsets — see below. |
-| `0x6017` (`*payload==0`) | Builds a **purchase confirmation dialog**: loads localized strings by resource ID (`GetLocalizedString(&DAT_00796eec, 0xea6a..0xea6d)`), formats item name/price via `sprintf`, shows the `b_storewindow_confirm` popup image. |
+| `0x6017` (`*payload==0`) | Builds a **purchase confirmation dialog**: loads localized strings by resource ID (`GetLocalizedString(&g_localizedStringTable, 0xea6a..0xea6d)`), formats item name/price via `sprintf`, shows the `b_storewindow_confirm` popup image. |
 | `0x6017` (`*payload==0x6003`) | Sends a `0x6000` reply packet — likely the purchase confirmation's "yes" response. |
 | `0x6037` (`*payload==0`) | Guards on a slot-count check (`FUN_004010c0(0x80070057)` fatal-errors if out of range) then calls `FUN_0044c370()` — a purchase-commit path, not fully traced. |
 
@@ -1200,6 +1200,54 @@ Two distinct, confirmed lookup mechanisms:
   (root at `+0x1b4`, `next` at `+0x98`), used by `State11_InBattle_Render` to
   resolve a sprite-effect name to a cache entry, then write computed sprite-
   sheet UV coordinates into it (`+0x80`/`+0x84`/`+0x88`) before drawing.
+
+### Text localization
+
+Every visible UI string — dialog titles/bodies, error popups, the
+`MessageBoxA` prompts — is **data, not code**: the client ships no
+hard-coded English/Portuguese text. Two functions make up the subsystem,
+both keyed on numeric ids:
+
+- **`LoadLocalizedStrings`** (`0x43da00`, was `FUN_0043da00`): the loader,
+  called once from `InitGame`. It opens `graphics.xfs`, `FindXFSEntry`s the
+  **`Language.txt`** entry (a plain text file *inside* the archive, not on
+  disk — see [FILEFORMATS.md](FILEFORMATS.md)), reads it a byte at a time
+  with `ReadXFSEntryByte`, and parses its `"<id>\t<message>\r\n"` lines into
+  the **`g_localizedStringTable`** (`0x796eec`, was `DAT_00796eec`)
+  id→string map. A `\n` within a message is a literal line break, so a
+  multi-line error (title sentence, blank line, detail paragraph) is a
+  single table entry.
+- **`GetLocalizedString`** (`0x43dc70`): the reader. Every UI text site
+  calls `GetLocalizedString(&g_localizedStringTable, id)` to resolve a
+  string by id. (`DAT_005b1444` in its body is the ATL allocator vtable
+  used to marshal the returned string object — *not* the string table.)
+
+**How ids are chosen.** Error dialogs go through the shared
+`ShowErrorDialog(closeSockets)`, which maps a per-screen error/reason code
+to a message id via **`id = code + 0xc7`** (the error-dialog family starts
+at id 199) and word-wraps the resolved string into the `error_back.img`
+popup. Other prompts pass an id directly — e.g. the Avatar Store purchase
+dialog resolves `GetLocalizedString(&g_localizedStringTable, 0xea6a..0xea6d)`,
+and the packet pump surfaces some server error codes via a native
+`MessageBoxA` from the same table.
+
+**Locale = which `Language.txt` is packed.** The runtime language is
+determined entirely by the `Language.txt` shipped in that server's
+`graphics.xfs`; the code is locale-agnostic. The `orig/graphics.xfs` in this
+repo carries a **Portuguese** table (the GunBound.CA/Brazilian build), whose
+error-dialog family reads, at the confirmed ids:
+
+| id | code | message (translated) |
+|---|---|---|
+| 200 | 1 | Server access error — can't reach the requested server, try others / later |
+| 201 | 2 | **Access time has expired** — network problem or the wait was too long; the connection will close; try later |
+| 205 | 6 | Login error — wrong password |
+| 215 | — | Game room locked — a match is in progress, can't enter |
+| 220 | — | Version error — different version, reinstall/update |
+
+A different-language server ships a different `Language.txt` with the same
+ids (e.g. an English build renders id 201 as the "Access time has expired."
+text seen in reference screenshots).
 
 ### Sprite-sheet frame selection
 

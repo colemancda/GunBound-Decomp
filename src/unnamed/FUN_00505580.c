@@ -44,11 +44,11 @@ void FUN_00505580(int param_1)
         FUN_00402ad0(&DAT_00e53e88,&DAT_0054b460);
         goto LAB_0050566b;
       }
-      pcVar4 = (char *)GetLocalizedString(&DAT_00796eec,0xfa7);
+      pcVar4 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa7);
     }
     else {
       uVar8 = *(undefined4 *)(param_1 + 0x50);
-      pcVar4 = (char *)GetLocalizedString(&DAT_00796eec,0xfa4);
+      pcVar4 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa4);
       _sprintf(local_100,pcVar4,uVar8);
       pcVar4 = local_100;
     }

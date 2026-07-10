@@ -170,7 +170,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
             *(int *)(g_gameStateVTableArray[3] + 0x11c) = iVar3 / 6;
             FUN_004d2680();
             iVar3 = iVar3 + 1;
-            pcVar2 = (char *)GetLocalizedString(&DAT_00796eec,0x27a);
+            pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0x27a);
             _sprintf(local_1a0,pcVar2,iVar3);
             (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_1a0,2,6);
             return 1;
@@ -208,7 +208,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
           if (iVar4 == 0) {
             iVar3 = *(int *)(&DAT_0067ec64 + param_1);
             iVar4 = iVar3;
-            pcVar2 = (char *)GetLocalizedString(&DAT_00796eec,0x1fc);
+            pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0x1fc);
             _sprintf(local_1a0,pcVar2,iVar4);
             (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_1a0,2,6);
             uVar10 = 0;
@@ -635,7 +635,7 @@ LAB_00421b11:
   }
   uVar15 = 0x1f6;
 LAB_00422eef:
-  GetLocalizedString(&DAT_00796eec,uVar15);
+  GetLocalizedString(&g_localizedStringTable,uVar15);
   FUN_00413af0();
   return 1;
 }

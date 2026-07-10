@@ -56,7 +56,7 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,20000);
+  pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,20000);
   _sprintf(acStack_80,pcVar7,uVar5);
   pcVar7 = acStack_80;
   do {
@@ -67,7 +67,7 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0x4e21);
+  pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e21);
   _sprintf(acStack_80,pcVar7,uVar5);
   pcVar7 = acStack_80;
   do {
@@ -78,13 +78,13 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0x4e22);
+  pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e22);
   _sprintf(acStack_80,pcVar7,uVar5);
   BlitRLESprite(0x27,0x1f3b);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  pcVar7 = (char *)GetLocalizedString(&DAT_00796eec,0x4e23);
+  pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e23);
   _sprintf(acStack_80,pcVar7,uVar5);
   pcVar7 = acStack_80;
   do {

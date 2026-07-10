@@ -189,7 +189,7 @@ calling **`RenderWorldListRow`** (`0x50dc80`) once per server. Each row:
 ## Errors
 Three distinct error paths, all surfacing through the shared in-game dialog
 `ShowErrorDialog` (the `b_error_confirm` OK button + a word-wrapped localized
-message from the string table, `GetLocalizedString(&DAT_00796eec, id)`):
+message from the string table, `GetLocalizedString(&g_localizedStringTable, id)`):
 
 - **Communication / connection failure** — the async connect is resolved by the
   connection-state poller `ProcessIncomingPackets`: while a connect is in progress
