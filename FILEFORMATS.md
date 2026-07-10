@@ -426,10 +426,17 @@ the `bit 15 = gender`, `bits 0–14 = id` encoding above):
 So to split the `UInt64`: `body = v & 0xffff`, `glasses = (v>>32) & 0xffff`,
 and the other two are `(v>>16)&0xffff` / `(v>>48)&0xffff`. **Note:** the two
 in-binary unpackers disagree on which of word 1 / word 3 is Head vs Flag —
-`0x004dc5c0` reads word 1 = head, word 3 = flag; `0x004431a0` reads the opposite
-— and Body/Glasses are agreed. Resolve with a one-shot live test: equip a
-distinctive flag, then read `g_clientContext + 0x458bc + slot*8` and see whether
-the flag id lands in word 1 or word 3.
+`LoadRoomSlotAvatar` (`0x004dc5c0`) reads word 1 = head, word 3 = flag;
+`LoadReadyRoomSlotAvatar` (`0x004431a0`) reads the *opposite* (its per-gender
+default-table indices `+0x664`/`+0x668` are swapped to match). Both are raw,
+not-hand-verified Ghidra ports, so exactly one has Head/Flag transposed; Body and
+Glasses are agreed. The `0x2105` writer (State03) is **not** a tiebreaker: it
+stores two `u32`s — `{body (low), word1 (high)}` and `{glasses (low), word3
+(high)}` — which pins Body/Glasses but says nothing about which high half is Head
+vs Flag. **This is genuinely unresolved from static analysis.** Resolve with a
+one-shot live test: equip a distinctive flag (e.g. France `0x8007`), then read
+`g_clientContext + 0x458bc + slot*8` and see whether the flag id lands in word 1
+or word 3.
 
 **Where it lives / the pipeline.** The record arrives on the wire in the
 **`0x2105` room-player packet** at record offset `+0x1d` (a `u32` = words 0–1)
