@@ -86,7 +86,12 @@ dump of the object (`vtable 0x5570f0`); names/semantics match the
 **The "View All / Friends" toggle** (the two buttons at the bottom of the WORLD
 LIST) is `m_viewMode` (`+0x10`): **`0` = View All** (default), **`2` = Friends**.
 That is this screen's server-filter toggle — distinct from State 3's
-room-filter buttons.
+room-filter buttons. **Both values confirmed live**: one capture shows
+`m_viewMode = 0`, and after clicking Friends another shows `m_viewMode = 2` with
+the Friends button rendered **yellow**. Note the yellow "active" highlight is
+**not a widget-tree flag** — in both captures the two label buttons are
+`enabled = true` and neither is `focused`; the panel picks which one to draw
+active purely from `m_viewMode`.
 
 ## The WORLD LIST panel (runtime-confirmed structure)
 Built by `BuildWorldListPanel` (`0x5099d0`) and registered in
