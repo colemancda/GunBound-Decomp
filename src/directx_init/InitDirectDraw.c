@@ -57,6 +57,13 @@ byte InitDirectDraw(undefined4 param_1)
   /* Ghidra artifact: raw stack reference the decompiler couldn't map
    * to a named local; declared so the raw port parses. */
   undefined stack0xffffff20;
+  /* Real Win32 surface-description structs. The Ghidra decompile scattered
+   * these fields across disconnected stack locals (auStack_a4/uStack_90/
+   * uStack_3c/aiStack_b4), so CreateSurface saw a malformed DDSURFACEDESC2
+   * (dwBackBufferCount=0, ddsCaps=0) and faulted in ddraw's HAL. Rebuilt as
+   * contiguous structs; field values recovered from orig 0x4efb81-0x4efcd0. */
+  DDSURFACEDESC2 ddsd;
+  DDSCAPS2 ddscaps;
 
   DAT_007935ec = in_EAX;
   g_hDDrawDll = LoadLibraryA(s_ddraw_dll_00557510);
@@ -96,62 +103,52 @@ byte InitDirectDraw(undefined4 param_1)
       return 0x1c;
     }
   }
-  puVar5 = auStack_a4;
-  for (iVar4 = 0x1f; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *puVar5 = 0;
-    puVar5 = puVar5 + 1;
-  }
-  auStack_a4[0] = 0x7c;
+  ZeroMemory(&ddsd, sizeof(ddsd));
+  ddsd.dwSize = sizeof(ddsd);                         /* 0x7c */
   if (DAT_00588f4c == '\0') {
+    /* fullscreen: complex flip chain, primary surface + one back buffer */
     _DAT_006773b4 = 0;
     _DAT_006773bc = 800;
     _DAT_006773b8 = 0;
     _DAT_006773c0 = 600;
-    auStack_a4[1] = 0x21;
-    uStack_3c = 0x6218;
-    uStack_90 = 1;
+    ddsd.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;   /* 0x21 */
+    ddsd.dwBackBufferCount = 1;
+    /* PRIMARYSURFACE|FLIP|COMPLEX|3DDEVICE|VIDEOMEMORY */
+    ddsd.ddsCaps.dwCaps = 0x6218;
   }
   else {
-    puStack_100 = (undefined4 *)0x4efbb5;
     GetClientRect(DAT_007935ec,(LPRECT)&DAT_006773b4);
-    puStack_100 = (undefined4 *)0x4efbc8;
     ClientToScreen(DAT_007935ec,(LPPOINT)&DAT_006773b4);
-    puStack_100 = (undefined4 *)0x4efbd6;
     ClientToScreen(DAT_007935ec,(LPPOINT)&DAT_006773bc);
-    auStack_a4[1] = 1;
-    uStack_3c = 0x200;
+    ddsd.dwFlags = DDSD_CAPS;                          /* 0x1 */
+    ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;      /* 0x200 */
   }
-  puStack_100 = auStack_a4;
-  piStack_104 = g_pDirectDraw7;
-  ppiStack_108 = (int **)0x4efc38;
-  iVar4 = (**(code **)(*g_pDirectDraw7 + 0x18))(g_pDirectDraw7, auStack_a4, &g_pPrimarySurface, 0);
+  iVar4 = (**(code **)(*g_pDirectDraw7 + 0x18))
+                    (g_pDirectDraw7, &ddsd, &g_pPrimarySurface, 0);
   if (iVar4 < 0) {
     return 0x1d;
   }
   if (DAT_00588f4c == '\0') {
-    ppiStack_108 = &g_pBackBufferSurface;
-    ppiStack_10c = (int **)&stack0xffffff20;
-    piStack_110 = g_pPrimarySurface;
-    piStack_114 = (int *)0x4efcd0;
+    /* fullscreen: fetch the attached back buffer of the flip chain */
+    ZeroMemory(&ddscaps, sizeof(ddscaps));
+    ddscaps.dwCaps = DDSCAPS_BACKBUFFER;              /* 0x4 */
     iVar4 = (**(code **)(*g_pPrimarySurface + 0x30))
-                      (g_pPrimarySurface, &stack0xffffff20, &g_pBackBufferSurface);
+                      (g_pPrimarySurface, &ddscaps, &g_pBackBufferSurface);
     if (iVar4 < 0) {
       return 0x1f;
     }
   }
   else {
-    aiStack_b4[1] = 7;
-    ppiStack_108 = (int **)0x4efc63;
-    uStack_a8 = FUN_0053753c();
-    ppiStack_108 = (int **)0x4efc72;
-    aiStack_b4[2] = FUN_0053753c();
-    ppiStack_108 = (int **)0x0;
-    ppiStack_10c = &g_pBackBufferSurface;
-    piStack_110 = aiStack_b4;
-    uStack_4c = 0x2040;
-    piStack_114 = g_pDirectDraw7;
-    uStack_118 = 0x4efc97;
-    iVar4 = (**(code **)(*g_pDirectDraw7 + 0x18))(g_pDirectDraw7, aiStack_b4, &g_pBackBufferSurface, 0);
+    /* windowed: create a separate off-screen back buffer sized to the client.
+     * FUN_0053753c is an ftol-style helper the original fed via the x87 stack
+     * (flds DAT_00588f50/DAT_00588f54); the register/FPU arg is a Ghidra
+     * artifact left as-is - windowed mode is not the bring-up path. */
+    ddsd.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;  /* 0x7 */
+    ddsd.dwWidth = (DWORD)FUN_0053753c();
+    ddsd.dwHeight = (DWORD)FUN_0053753c();
+    ddsd.ddsCaps.dwCaps = 0x2040;                     /* 3DDEVICE|OFFSCREENPLAIN */
+    iVar4 = (**(code **)(*g_pDirectDraw7 + 0x18))
+                      (g_pDirectDraw7, &ddsd, &g_pBackBufferSurface, 0);
     if (iVar4 < 0) {
       return 0x1e;
     }
