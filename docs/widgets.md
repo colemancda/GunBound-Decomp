@@ -122,6 +122,13 @@ widget's internal buffer at `+0x38` via `GetWindowTextA(hwnd, this+0x38, 0x80)`.
 Constructor `(id, msgId, x, y, w, maxLen)`. Used for the Create Room name/
 password fields, the "enter room by number" field, and chat input.
 
+### Static text / message block — `0x557f30` (`typeId 3`)
+A non-interactive multi-line **text block** used for a dialog's prompt/message
+(e.g. the add-buddy dialog's "To add your friends' ID, click his/her ID in the
+channel."). Runtime-confirmed as `+0x20` type id `3`; sits in dialog panels as a
+plain display element (no click handler). Distinct from the `0x557da0`
+label/button (`typeId 1`), which is a clickable sprite/text cell.
+
 ### Scrollbar — `FUN_005080a0` = `CreateScrollListWidget` (`0x557e90`, 0x58 bytes)
 A fixed **18-px-wide vertical scrollbar** (the `w` argument is `0x12` in every
 call). Owns scroll position (`+0x40`), total items (`+0x38`, via register), page
@@ -162,6 +169,90 @@ data they read: `BuildChannelUserListPanel` draws users (status/rank/name from
 draws color-coded chat (message-type byte at `+0x3c4d8`). Register-passed
 constructor arguments (e.g. the scrollbar item count, some panel keys) aren't
 always visible in the decompile.
+
+---
+
+## Runtime-verified panel & dialog layouts
+
+Captured live by walking the widget tree (`tools/debug/gbstate.py`). Each node
+reports `(typeId, vtable, id, rect{x,y,w,h}, enabled, focused, hidden)`; rects
+are screen pixels on the 800×600 back buffer; ids are per-widget command ids.
+
+**Widget class map** (`+0x20` type id — runtime-confirmed):
+
+| typeId | vtable | class | size |
+|---|---|---|---|
+| `0` | per-panel (`0x557f08`, `0x557be4`, `0x557cd4`, `0x557cac`, `0x557df0`, `0x557e68`, …) | container / panel | varies |
+| `1` | `0x557da0` | label / button (clickable sprite/text cell) | `0x40` |
+| `2` | `0x557c84` | text-entry (Win32 `EDIT`-backed) | `0x140` |
+| `3` | `0x557f30` | static text / message block | — |
+| `4` | `0x557e90` | scroll-list (18-px scrollbar + up/down arrows) | `0x58` |
+
+Every scroll-list auto-owns two 18×18 arrow children (`up` id 0, `down` id 1),
+omitted below for brevity except where noted.
+
+### WORLD LIST — `BuildWorldListPanel` (`0x557f08`, id 9000) — State 2
+```
+panel 9000                         (11,13,545,530)
+├─ [1] label   id 0  "View All"    (336,504,74,26)
+├─ [1] label   id 1  "Friends"     (430,504,74,26)
+└─ [4] scroll  id 0                (526,87,18,377)   disabled when list empty
+      up (526,59,18,18) · down (526,474,18,18)
+   (server rows are custom-drawn by RenderWorldListRow — not widgets)
+```
+
+### Buddy list — `BuildBuddyPanel` (`0x557be4`, id 20000) — shared
+```
+panel 20000                        (568,11,211,267)
+├─ [1] label   id 0  close-X       (748,18,22,20)
+├─ [1] label   id 1  "Add"         (662,18,39,20)
+├─ [1] label   id 2  "Del"         (705,18,39,20)
+└─ [4] scroll  id 0                (751,84,18,152)
+      up (751,56,18,18) · down (751,246,18,18)
+```
+
+### Add-buddy dialog — `0x557e68`, id 10000
+```
+panel 10000                        (281,206,241,148)
+├─ [3] message id 0  prompt text   (302,251,200,30)  "To add your friends' ID…"
+├─ [2] edit    id 0  ID input      (331,294,140,12)  focused
+├─ [1] label   id 0  "ADD"         (347,313,74,26)
+└─ [1] label   id 1  "CLOSE"       (432,313,74,26)
+```
+
+### Lobby chat — `BuildLobbyChatPanel` (`0x557cd4`, id 9001) — State 3
+```
+panel 9001                         (23,287,549,259)
+├─ [2] edit    id 0  chat input    (49,522,484,12)   maxLen 80
+├─ [1] label   id 0  tab "CH 1"    (287,296,22,22)
+├─ [1] label   id 1  tab "CH 2"    (319,296,22,22)
+├─ … ids 2–6 …                     (x = 351,383,415,447,479 · 32-px stride)
+├─ [1] label   id 7  tab "CH 8"    (511,296,22,22)
+└─ [4] scroll  id 0  chat scrollbar(549,350,18,154)
+```
+
+### Channel user list — `BuildChannelUserListPanel` (`0x557cac`, id 9002) — State 3
+```
+panel 9002                         (572,287,209,259)
+└─ [4] scroll  id 0                (751,350,18,154)
+   (user rows custom-drawn by RenderChannelUserRow)
+```
+
+### DIRECT GO dialog — `BuildEnterRoomNumberDialog` (`0x557df0`, id 1) — State 3
+```
+panel 1                            (459,33,314,160)   (opened by "Go To"/directgo, id 0xf)
+├─ [2] edit    id 0  "Room No."    (558,83,180,12)   focused
+├─ [2] edit    id 1  "Password"    (558,117,180,12)
+├─ [1] label   id 0  "Ok"          (672,151,82,34)
+└─ [1] label   id 1  "Cancel"      (587,151,82,34)
+```
+
+**Layout conventions observed across panels:** panels register in
+`g_uiPanelManager` and stack (a modal dialog sits on top of the persistent
+panels — e.g. the add-buddy dialog over the buddy + world-list panels).
+Scroll-lists are `enabled:false` while their content is empty. The panel `id`
+scheme is loose — persistent lobby panels use `9000`/`9001`/`9002`, shared
+panels a round `10000`/`20000`, and transient dialogs a small local id (`1`).
 
 ---
 
