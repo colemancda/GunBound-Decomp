@@ -500,7 +500,10 @@ extern const char s_active_00551e58[];
 extern const char s_ready_00551e80[];
 void FUN_00406300(int enabled);     /* connect-button enable */
 }
-extern CGameState *g_gameStateVTableArray[16];
+extern "C" CGameState *g_gameStateVTableArray[16]; /* 0x5b33f8 - the C tree
+                                     * defines it (globals.c, as char*[16]);
+                                     * C linkage so both sides bind the same
+                                     * symbol */
 
 /* WorldListPanel_OnMouseDown - the row-selection handler. Runs the
  * CPanel default first (a DIRECT 0x505430 call in the original, not

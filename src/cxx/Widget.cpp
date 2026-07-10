@@ -310,3 +310,37 @@ void CWidget::Draw()
         } while (i < (unsigned int)m_children.GetCount());
     }
 }
+
+/* Base entries for the per-class slots. Slots 1/2/3 point at the
+ * child-broadcast bodies above (0x50e870/0x50e8e0/0x50e950) - concrete
+ * classes that take input themselves override the slot and call the
+ * broadcast as their shared tail (see ResetPressState). */
+bool CWidget::OnMouseMove(int x, int y)
+{
+    return MouseMoveChildren(x, y);
+}
+
+bool CWidget::OnMouseDown(int x, int y)
+{
+    return MouseDownChildren(x, y);
+}
+
+bool CWidget::OnMouseUp(int x, int y)
+{
+    return MouseUpChildren(x, y);
+}
+
+/* Slot 9, the per-class secondary render/refresh hook (panel row-loop
+ * 0x50dc40, text-entry TextEntry_SyncFromControl). No base behavior
+ * observed anywhere - the base entry is a no-op. */
+void CWidget::Update()
+{
+}
+
+/* Slot 10 - 0x50e860, byte-identical to SetFocus (identical-code
+ * folding; see the Widget.h slot-10 note). Kept as a separate method so
+ * the vtable keeps its 12 distinct slots. */
+void CWidget::v10(bool b)
+{
+    m_focused = (u8)b;
+}
