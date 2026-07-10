@@ -807,20 +807,50 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
 - **0xd1d4 (53,716) bytes** — **the battle mobile object** (one per in-play
   tank). Created by the factory **`CreateMobile`** (`0x42b0b0`,
   `src/battle/CreateMobile.c`): a 16-way `switch(mobileType)` over ids `0..0xF`,
-  each branch `operator_new(0xd1d4)` + shared base ctor `FUN_00458b80` + a
-  **per-type vtable** (`PTR_FUN_00555af8` for type 0, then `0x556230`,
-  `0x5562a8`, `0x5566a0`, `0x556264`, `0x555c14`, `0x556448`, `0x5561ec`,
-  `0x555d34`, `0x5560f0`, `0x555f7c`, `0x556640`, `0x555f18`, …, `0x555d54`);
+  each branch `operator_new(0xd1d4)` + shared base ctor **`InitMobile`**
+  (`0x458b80`, sets the base vtable `0x555c68`) + a **per-type vtable** override.
   `default` falls back to type 0. So the 16 mobiles are 16 C++ subclasses of a
-  common base, distinguished only by vtable — the classic GunBound mobile
-  roster (Armor, Mage, Nak, Trico, …). After construction `CreateMobile` loads
-  the mobile's `avata`/`tank%d` textures (`FindPreloadedTextureByName`), copies
-  the player name into the object, primes its animation state, then registers
-  it into the client context (`FUN_0041c360`) and the global active-object list
-  (`RegisterActiveObject`) — i.e. it constructs **and** spawns into the running
-  battle. `State11_InBattle_OnEnter` calls it once per active room slot (the
+  common base, distinguished only by vtable — the GunBound mobile roster. After
+  construction `CreateMobile` loads the mobile's `avata`/`tank%d` textures
+  (`FindPreloadedTextureByName`), copies the player name into the object, primes
+  its animation state, sets sprite-id fields (`obj[6] = type+5000`,
+  `obj[0x241] = type+0x13ec`), then registers it into the client context
+  (`FUN_0041c360`) and the global active-object list (`RegisterActiveObject`) —
+  i.e. it constructs **and** spawns into the running battle.
+  `State11_InBattle_OnEnter` calls it once per active room slot (the
   `Ctx_roomSlotActive`/`+0x45914` gate); interleaved `EncodeOutgoingPacketField`
   calls thread each spawn through the lockstep/replay sync stream.
+
+  **type → vtable table** (from CreateMobile's cases):
+
+  | type | vtable      | notes |
+  |------|-------------|-------|
+  | 0    | `0x555af8`  | also the `default` fallback |
+  | 1    | `0x556230`  | |
+  | 2    | `0x5562a8`  | |
+  | 3    | `0x5566a0`  | |
+  | 4    | `0x556264`  | |
+  | 5    | `0x555c14`  | |
+  | 6    | `0x556448`  | |
+  | 7    | `0x5561ec`  | |
+  | 8    | `0x555d34`  | |
+  | 9    | `0x5560f0`  | extra ctor step `FUN_00437f70` when arg13 set |
+  | 10   | `0x555f7c`  | |
+  | 11   | `0x556640`  | |
+  | 12   | `0x555f18`  | |
+  | 13   | `0x555e54`  | **dedicated ctor** `FUN_0046cb60` (sets `obj[0x2ffc]=2`) |
+  | 14   | `0x556038`  | extra ctor step `FUN_00438100` when arg13 set |
+  | 15   | `0x555d54`  | |
+
+  Types 9, 13, and 14 are structurally special (dedicated ctor / extra
+  construction step); the rest just swap the vtable inline. **The canonical
+  mobile NAME for each type id is not yet mapped** — the subclasses are
+  differentiated by behavior (vtable methods), and the string constants
+  clustered near the vtables (`LightningTexture`, `FirewallTexture`,
+  `TornadoTexture`, `jflame%d`, …) are *shared effect/animation* textures, not a
+  type→name table. Naming the 16 mobiles needs per-vtable method disassembly or
+  cross-referencing the `type+5000` sprite ids against the asset archives —
+  neither done yet, so no names are asserted here.
 
 ## Subsystem init functions (confirmed)
 
