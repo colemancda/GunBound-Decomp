@@ -67,13 +67,19 @@ inline char *Ctx_localUserName(int ctx) { return reinterpret_cast<char *>(ctx + 
 inline char *Ctx_channelUserName(int ctx, int slot) { return reinterpret_cast<char *>(ctx + 0x41445 + slot * 0xd); }
 
 /* --- Ready-Room slots (State 9) ---------------------------------------
- * The pre-battle room's occupant slots. Found live at ctx+0x457f1 as
- * 0xD-byte records: a 12-byte NUL-terminated name buffer + a trailing
- * status byte at record+0xc (colemancda2@+0, admin one record later at
- * +0xd). The +0xc byte is a candidate ready/team flag - semantics
- * inferred from a single sample; confirm by toggling Ready in a room.
- * This is distinct from Ctx_roomPlayerName (+0x4467c), which is the lobby
- * room-card array and reads EMPTY once inside a room. */
+ * The pre-battle room's occupant slots. ctx+0x457f1, 0xD-byte records: a
+ * 12-byte NUL-terminated name buffer + a trailing byte at record+0xc.
+ * Live sample: colemancda2 @ slot 0, admin @ slot 1 (+0xd), both +0xc == 0.
+ *
+ * The base (0x457f1) and 0xD stride are CODE-CONFIRMED, not just one live
+ * read: many handlers index `slot*0xd + 0x457f1` - State03_GameRoomList_
+ * ProcessPacket populates it (0x2105 room-player packet; sibling u16 array at
+ * +0x458ac), and State09 (HandleChatInput / ProcessBattleAction) and
+ * State10_Loading_ProcessBattleAction all read it by slot. So the roster
+ * persists Ready Room -> Loading -> Battle. Only the record+0xc byte's exact
+ * meaning (ready/team flag) is still inferred; confirm by toggling Ready.
+ * Distinct from Ctx_roomPlayerName (+0x4467c), the lobby room-card array
+ * (empty in a room). */
 inline char *Ctx_roomSlotName(int ctx, int slot)  { return reinterpret_cast<char *>(ctx + 0x457f1 + slot * 0xd); }
 inline u8   &Ctx_roomSlotStatus(int ctx, int slot) { return *reinterpret_cast<u8 *>(ctx + 0x457f1 + slot * 0xd + 0xc); }
 
