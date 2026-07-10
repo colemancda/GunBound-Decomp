@@ -118,6 +118,14 @@ Set `CREATE_SUSPENDED=FALSE` again when you're done so normal play isn't blocked
 > The `wine-gdbstub.sh` direct-launch path (passing a captured `CRED_ARG`) still
 > exists as a fallback, but CREATE_SUSPENDED is simpler and always correct.
 
+### Targeted probes (auto-continuing, safe)
+- `cursor-probe.sh` + `gbcursor.py` — logs the cursor draw to resolve the animation frame.
+- `avatar-probe.sh` + `gbavatar.py` — traces the avatar subsystem: names the three
+  Avatar-Store slot handlers (`0x44b170/0x44b330/0x44b460`) by which user action fires
+  them, dumps the `avatarEquipped` record on the unpackers to resolve the Head/Flag
+  word order, and logs the compositor's unpacked codes. See its header for how to read
+  the output (equip a distinctive flag + Standard head, then enter a room).
+
 ### High-value uses for the decomp
 - **Struct layouts** (`FILEFORMATS.md` / `PROTOCOL.md`): break on a function taking
   a struct ptr, dump memory at the arg, read real field offsets/values.
