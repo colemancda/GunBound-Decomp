@@ -655,18 +655,20 @@ extern uint8_t DAT_00796aa0;
  * functions take as the table handle. See ARCHITECTURE.md "Text
  * localization". */
 extern uint8_t g_localizedStringTable;
-/* g_cursorTexture (was DAT_007a7660) - the custom cursor sprite (cursor.img),
- * preloaded via FindPreloadedTextureByName("cursor") on every ChangeGameState;
- * the in-game pointer drawn at the mouse position. */
-extern uint8_t g_cursorTexture;
-/* g_cursorFrame (was DAT_007a7674) - the frame index GameTick passes to
- * BlitSpriteClipped when drawing the cursor at (g_cursorAnchorX,
- * g_cursorAnchorY). NOTE: the address 0x7a7674 occurs exactly once in the
- * binary (that read) and sits in zero-init data, so it is never written and
- * is always 0 - i.e. a constant, not an animation index; the `-1 < ...` guard
- * is effectively always true. The real frame selection is in register args to
- * FindSpriteFrame that Ghidra doesn't recover. See ARCHITECTURE.md "custom
+/* g_cursorTexture (was DAT_007a7660) - actually field +0x1c of the animated-
+ * cursor object at 0x7a7644: the cursor's anim descriptor, set by
+ * FindPreloadedTextureByName("cursor") in ChangeGameState and read every tick
+ * by AdvanceSpriteAnimation (as [obj+0x1c]). NOT write-only - only the store
+ * is absolute; the reads are object-relative. See ARCHITECTURE.md "custom
  * cursor". */
+extern uint8_t g_cursorTexture;
+/* g_cursorFrame (was DAT_007a7674) - the current cursor sprite frame that
+ * GameTick's draw passes to FindSpriteFrame/BlitSpriteClipped. It is field
+ * +0x30 of the animated-cursor object at 0x7a7644, so AdvanceSpriteAnimation
+ * writes it each tick as [obj+0x30] (no absolute reference to 0x7a7674 - which
+ * is why a byte search saw only the read). CONFIRMED on the live client to
+ * cycle 0..16 -> 0 each frame (a ~17-step keyframe cursor animation); it is
+ * NOT a constant. See ARCHITECTURE.md "custom cursor". */
 extern uint32_t g_cursorFrame;
 extern uint8_t DAT_007a768c;
 extern uint8_t DAT_00d9aa20;

@@ -223,7 +223,7 @@ LAB_00479e75:
     }
   }
   FUN_004785f0(param_1);
-  FUN_00450730();
+  AdvanceSpriteAnimation();
   if ((char)param_1[0xd] != '\0') {
     (**(code **)(*param_1 + 4))(s_normal_00552230);
   }

@@ -100,7 +100,7 @@ void GameTick(void)
   for (; uVar10 != 0; uVar10 = uVar10 - 1) {
     FUN_004ee540();
     FUN_004ee0d0();
-    FUN_00450730();
+    AdvanceSpriteAnimation();
   }
   if (5 < *(int *)(&DAT_0067e3c8 + g_clientContext)) {
     if (DAT_00793515 == '\0') {

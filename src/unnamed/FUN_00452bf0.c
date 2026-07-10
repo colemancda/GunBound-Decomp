@@ -15,7 +15,7 @@ void __fastcall FUN_00452bf0(int *param_1)
   undefined4 uVar3;
   
   (**(code **)(*param_1 + 0x18))();
-  FUN_00450730();
+  AdvanceSpriteAnimation();
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

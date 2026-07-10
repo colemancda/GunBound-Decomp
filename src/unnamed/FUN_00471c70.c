@@ -13,7 +13,7 @@ int __fastcall FUN_00471c70(int param_1)
   int iVar1;
   int iVar2;
   
-  FUN_00450730();
+  AdvanceSpriteAnimation();
   if (*(char *)(param_1 + 0x34) != '\0') {
     *(undefined1 *)(param_1 + 0x14) = 1;
   }

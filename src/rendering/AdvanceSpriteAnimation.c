@@ -1,14 +1,23 @@
-/* FUN_00450730 - 0x00450730 in the original binary.
+/* AdvanceSpriteAnimation - 0x00450730 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Generic per-tick keyframe-animation advance for a sprite-animation-player
+ * object (the object pointer arrives in EAX; Ghidra shows it arg-less).
+ * Called once per elapsed frame from GameTick's update loop (and ~10 other
+ * sites). Fields: +0x1c = anim descriptor (tables at +8 loop-flag, +0xc
+ * step-count, +0x10 step->frame, +0x14 step-duration), +0x20 enabled,
+ * +0x24 current animation/state, +0x28 sub-timer, +0x2c current step,
+ * +0x30 the resolved sprite frame to draw. Each tick it ticks the sub-timer,
+ * advances the step when the step's duration elapses, loops at the end, and
+ * writes step->frame into +0x30. **This is the routine that animates the
+ * software cursor** (the cursor object is the singleton at 0x7a7644, whose
+ * +0x30 is g_cursorFrame) - see ARCHITECTURE.md "custom cursor".
+ * Confirmed against a live-client debugger probe (g_cursorFrame cycles
+ * 0..16 in lockstep with the per-frame call). Raw/near-verbatim Ghidra port.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00450730(void)
+void AdvanceSpriteAnimation(void)
 
 {
   char cVar1;

@@ -39,7 +39,7 @@ void __fastcall FUN_00498b60(int *param_1)
   uStack_14 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_14;
   FUN_004986a0(param_1);
-  FUN_00450730();
+  AdvanceSpriteAnimation();
   FUN_00498070(param_1);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState();

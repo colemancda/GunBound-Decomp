@@ -890,25 +890,35 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
     the pointer really is a **17-frame animated sprite** (sprite id 0), not the
     static frame 0 an earlier static pass had concluded. *(That earlier
     conclusion was wrong — see next.)*
-  - **Why static analysis missed it.** `g_cursorFrame` (`0x7a7674`) is written
-    every frame, yet the address occurs **exactly once** in the whole binary —
-    the `mov esi,[0x7a7674]` **read** at `0x4139c6`; there is **no absolute
-    write** (no `mov [abs]`, `lea`, or `inc`), and the cluster base `0x7a7660`
-    only appears as the `ChangeGameState` write. The advance is therefore a
-    **register-indirect store** (`mov [reg+disp], val` where `reg+disp`
-    resolves to `0x7a7674` at runtime), so it carries **no absolute reference
-    for xref/byte-search to find** — which is exactly why the byte-search-based
-    "never written / constant 0" reading was wrong. The writer is reached only
-    through a runtime pointer (most likely the sprite object's per-tick update,
-    vtable `PTR_FUN_00557524`); pinning it needs a **hardware** watchpoint on
-    `0x7a7674` at runtime, not static xref. Note `cursor.img` has 102 frames but
-    the drawn cursor cycles only ~17 — so sprite id 0 is a smaller animated
-    cursor, distinct from the 102-frame `cursor.img` preloaded (unused) into
-    `g_cursorTexture`.
-  - **`g_cursorTexture` (`0x7a7660`) is write-only** (also verified by byte
-    search: one reference, the `ChangeGameState` write) — the preload merely
-    *registers* `cursor.img` in the sprite cache; the draw goes through the
-    `FindSpriteFrame` current-sprite path, not this handle.
+  - **The writer — `AdvanceSpriteAnimation` (`0x450730`), and why static missed
+    it.** The "cursor globals" are actually **fields of one animated-cursor
+    object at `0x7a7644`** (a singleton, 19 refs): `g_cursorFrame` is
+    **`obj+0x30`**, so the per-tick advance is `mov [eax+0x30], …` — *no
+    absolute reference to `0x7a7674`*, which is exactly why byte-search/xref
+    found only the read and I wrongly called it "constant". GameTick's update
+    loop calls `AdvanceSpriteAnimation(obj=0x7a7644)` **once per elapsed frame**
+    (`0x413354`; the function is generic — ~10 other callers animate other
+    objects the same way). It's a **keyframe player**:
+
+    | `obj+` | meaning |
+    |---|---|
+    | `0x1c` | anim descriptor = `FindPreloadedTextureByName("cursor")` (tables at `+8` loop-flag, `+0xc` step-count, `+0x10` step→frame, `+0x14` step-duration) |
+    | `0x20` | enabled |
+    | `0x24` | current animation/state index |
+    | `0x28` | sub-timer (ticks inside the current step) |
+    | `0x2c` | current keyframe step |
+    | `0x30` | **`g_cursorFrame`** — resolved sprite frame to draw |
+
+    Each tick: `++subTimer`; if it reaches `step_duration[state][step]` advance
+    the step; if the step passes `step_count[state]` loop back to 0; then
+    `g_cursorFrame = step→frame[state][step]`. With ~17 one-tick steps mapping
+    step→frame linearly, that produces the observed `0…16→0` loop.
+  - **`g_cursorTexture` (`0x7a7660`) is the cursor's anim descriptor**
+    (`obj+0x1c`), *not* write-only — it's read every tick by
+    `AdvanceSpriteAnimation` as `[eax+0x1c]`. (My earlier "write-only" was the
+    same byte-search artifact: the reads are object-relative, only
+    `ChangeGameState`'s store is absolute.) `cursor.img`'s 102 frames are the
+    pool the ~17-step animation draws from.
   - **Replay-playback variant:** a separate branch (guarded by the
     `PeekPacketChecksumBool` replay-mode read) **blinks** the cursor — visible
     on a `g_frameCounter % 0x14 < 10` schedule, i.e. **on for 10 of every 20

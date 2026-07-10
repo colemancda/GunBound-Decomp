@@ -16,7 +16,7 @@ void __fastcall FUN_0047ab00(int param_1)
   iVar2 = *(int *)(param_1 + 0x3fa0) + 1;
   *(int *)(param_1 + 0x3fa0) = iVar2;
   if (iVar2 < *(int *)(param_1 + 0x3f9c)) {
-    FUN_00450730();
+    AdvanceSpriteAnimation();
     return;
   }
   if (iVar2 == *(int *)(param_1 + 0x3f9c)) {

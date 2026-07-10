@@ -19,7 +19,7 @@ void __fastcall FUN_004a1690(int *param_1)
   if (param_1[0xfe7] != -1) {
     param_1[0xfe7] = param_1[0xfe7] + 1;
   }
-  FUN_00450730();
+  AdvanceSpriteAnimation();
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -60,7 +60,7 @@ void __fastcall FUN_0047ca40(int *param_1)
   *unaff_FS_OFFSET = &uStack_c;
   local_acc = 0;
   FUN_0047bfd0();
-  FUN_00450730();
+  AdvanceSpriteAnimation();
   if ((char)param_1[0xd] != '\0') {
     (**(code **)(*param_1 + 4))(s_normal_00552230);
   }

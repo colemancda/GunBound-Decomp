@@ -41,7 +41,7 @@ void __fastcall FUN_00461ca0(int *param_1)
   if (cVar5 == '\x01') goto LAB_004628db;
   cVar5 = PeekPacketChecksumBool();
   if (cVar5 == '\0') {
-    FUN_00450730();
+    AdvanceSpriteAnimation();
     *unaff_FS_OFFSET = uStack_c;
     return;
   }
@@ -85,7 +85,7 @@ void __fastcall FUN_00461ca0(int *param_1)
     (**(code **)(*param_1 + 0x18))();
   }
   FUN_0045ba50(param_1);
-  FUN_00450730();
+  AdvanceSpriteAnimation();
   if ((char)param_1[0xd] != '\0') {
     FUN_0045ed80();
   }

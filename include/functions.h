@@ -613,7 +613,7 @@ void __fastcall FUN_0044fff0();
 void __fastcall FUN_00450600();
 int FUN_00450650();
 void __fastcall FUN_00450700();
-void FUN_00450730();
+void AdvanceSpriteAnimation();
 void FUN_004507d0();
 void FUN_00450810();
 void FUN_00450860();
