@@ -14,7 +14,7 @@ undefined4 FUN_0046cb60(void)
   undefined4 in_EAX;
   undefined4 *unaff_ESI;
   
-  FUN_00458b80(unaff_ESI,in_EAX);
+  InitMobile(unaff_ESI,in_EAX);
   *unaff_ESI = &PTR_FUN_00555e54;
   unaff_ESI[0x2ffc] = 2;
   /* Ghidra emitted a bare `return;` in a value-returning function;

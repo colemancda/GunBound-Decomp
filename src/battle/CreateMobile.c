@@ -2,7 +2,7 @@
  *
  * The battle-mobile factory. `switch(mobileType)` over ids 0..0xF, each
  * `operator_new(0xd1d4)` (the ~53 KB mobile object) + a per-type vtable
- * (PTR_FUN_00555af8, 0x556230, 0x5562a8, ...) sharing base ctor FUN_00458b80;
+ * (PTR_FUN_00555af8, 0x556230, 0x5562a8, ...) sharing base ctor InitMobile;
  * `default` falls back to type 0. It then loads the mobile's "avata"/"tank%d"
  * textures, copies the player name (and a second string) into the object,
  * primes its animation state, and registers it into the client context
@@ -59,7 +59,7 @@ LAB_0042b5ad:
       piVar3 = (int *)0x0;
     }
     else {
-      FUN_00458b80(piVar3,param_2);
+      InitMobile(piVar3,param_2);
       *piVar3 = (int)&PTR_FUN_00555af8;
     }
     break;
@@ -70,7 +70,7 @@ LAB_0042b5ad:
       piVar3 = (int *)0x0;
     }
     else {
-      FUN_00458b80(piVar3,param_2);
+      InitMobile(piVar3,param_2);
       *piVar3 = (int)&PTR_FUN_00556230;
     }
     local_4 = 0xffffffff;
@@ -80,49 +80,49 @@ LAB_0042b5ad:
     piVar3 = operator_new(0xd1d4);
     local_4 = 2;
     if (piVar3 == (int *)0x0) goto LAB_0042b5ad;
-    FUN_00458b80(piVar3,param_2);
+    InitMobile(piVar3,param_2);
     *piVar3 = (int)&PTR_FUN_005562a8;
     break;
   case 3:
     piVar3 = operator_new(0xd1d4);
     local_4 = 3;
     if (piVar3 == (int *)0x0) goto LAB_0042b5ad;
-    FUN_00458b80(piVar3,param_2);
+    InitMobile(piVar3,param_2);
     *piVar3 = (int)&PTR_FUN_005566a0;
     break;
   case 4:
     piVar3 = operator_new(0xd1d4);
     local_4 = 4;
     if (piVar3 == (int *)0x0) goto LAB_0042b5ad;
-    FUN_00458b80(piVar3,param_2);
+    InitMobile(piVar3,param_2);
     *piVar3 = (int)&PTR_FUN_00556264;
     break;
   case 5:
     piVar3 = operator_new(0xd1d4);
     local_4 = 5;
     if (piVar3 == (int *)0x0) goto LAB_0042b5ad;
-    FUN_00458b80(piVar3,param_2);
+    InitMobile(piVar3,param_2);
     *piVar3 = (int)&PTR_FUN_00555c14;
     break;
   case 6:
     piVar3 = operator_new(0xd1d4);
     local_4 = 6;
     if (piVar3 == (int *)0x0) goto LAB_0042b5ad;
-    FUN_00458b80(piVar3,param_2);
+    InitMobile(piVar3,param_2);
     *piVar3 = (int)&PTR_FUN_00556448;
     break;
   case 7:
     piVar3 = operator_new(0xd1d4);
     local_4 = 7;
     if (piVar3 == (int *)0x0) goto LAB_0042b5ad;
-    FUN_00458b80(piVar3,param_2);
+    InitMobile(piVar3,param_2);
     *piVar3 = (int)&PTR_FUN_005561ec;
     break;
   case 8:
     piVar3 = operator_new(0xd1d4);
     local_4 = 8;
     if (piVar3 == (int *)0x0) goto LAB_0042b5ad;
-    FUN_00458b80(piVar3,param_2);
+    InitMobile(piVar3,param_2);
     *piVar3 = (int)&PTR_FUN_00555d34;
     break;
   case 9:
@@ -132,7 +132,7 @@ LAB_0042b5ad:
       piVar3 = (int *)0x0;
     }
     else {
-      FUN_00458b80(piVar3,param_2);
+      InitMobile(piVar3,param_2);
       *piVar3 = (int)&PTR_FUN_005560f0;
     }
     local_4 = 0xffffffff;
@@ -148,21 +148,21 @@ LAB_0042b5ad:
     piVar3 = operator_new(0xd1d4);
     local_4 = 10;
     if (piVar3 == (int *)0x0) goto LAB_0042b5ad;
-    FUN_00458b80(piVar3,param_2);
+    InitMobile(piVar3,param_2);
     *piVar3 = (int)&PTR_FUN_00555f7c;
     break;
   case 0xb:
     piVar3 = operator_new(0xd1d4);
     local_4 = 0xb;
     if (piVar3 == (int *)0x0) goto LAB_0042b5ad;
-    FUN_00458b80(piVar3,param_2);
+    InitMobile(piVar3,param_2);
     *piVar3 = (int)&PTR_FUN_00556640;
     break;
   case 0xc:
     piVar3 = operator_new(0xd1d4);
     local_4 = 0xc;
     if (piVar3 == (int *)0x0) goto LAB_0042b5ad;
-    FUN_00458b80(piVar3,param_2);
+    InitMobile(piVar3,param_2);
     *piVar3 = (int)&PTR_FUN_00555f18;
     break;
   case 0xd:
@@ -182,7 +182,7 @@ LAB_0042b5ad:
       piVar3 = (int *)0x0;
     }
     else {
-      FUN_00458b80(piVar3,param_2);
+      InitMobile(piVar3,param_2);
       *piVar3 = (int)&PTR_FUN_00556038;
     }
     local_4 = 0xffffffff;
@@ -198,7 +198,7 @@ LAB_0042b5ad:
     piVar3 = operator_new(0xd1d4);
     local_4 = 0xf;
     if (piVar3 == (int *)0x0) goto LAB_0042b5ad;
-    FUN_00458b80(piVar3,param_2);
+    InitMobile(piVar3,param_2);
     *piVar3 = (int)&PTR_FUN_00555d54;
     break;
   default:
@@ -209,7 +209,7 @@ LAB_0042b5ad:
       piVar3 = (int *)0x0;
     }
     else {
-      FUN_00458b80(piVar3,param_2);
+      InitMobile(piVar3,param_2);
       *piVar3 = (int)&PTR_FUN_00555af8;
     }
   }

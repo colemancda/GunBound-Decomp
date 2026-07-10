@@ -645,7 +645,7 @@ uint __fastcall FUN_00455b60();
 void __thiscall FUN_00455cc0();
 void __fastcall FUN_004572b0();
 void FUN_004585e0();
-undefined4 * FUN_00458b80();
+undefined4 *InitMobile(); /* 0x458b80 - mobile base ctor (sets base vtable 0x555c68) */
 void * __thiscall FUN_0045a540();
 void FUN_0045a560();
 void __fastcall FUN_0045b900();

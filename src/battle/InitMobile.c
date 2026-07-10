@@ -1,14 +1,22 @@
-/* FUN_00458b80 - 0x00458b80 in the original binary.
+/* InitMobile - 0x00458b80 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The battle-mobile base constructor. Invoked by CreateMobile (the factory)
+ * on the freshly-allocated 0xd1d4-byte object before the per-type vtable is
+ * applied: it stores the owner arg, seeds the characteristic fields (id/health
+ * 0x186a1, various -1/0 slots), installs the BASE mobile vtable
+ * (*obj = &PTR_FUN_00555c68 - which CreateMobile then overrides with the
+ * concrete type's vtable), and constructs the embedded sub-object at obj+0xe
+ * (FUN_0044fb40). Only reached from mobile-creation paths (CreateMobile and the
+ * type-0xd wrapper FUN_0046cb60).
+ *
+ * Function IDENTITY is confirmed (mobile base ctor); the BODY is a raw/near-
+ * verbatim Ghidra port, not hand-verified. See src/README.md's "Raw/verbatim
+ * ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_00458b80(undefined4 *param_1,undefined4 param_2)
+undefined4 * InitMobile(undefined4 *param_1,undefined4 param_2)
 
 {
   undefined4 uVar1;

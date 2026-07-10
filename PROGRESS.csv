@@ -604,7 +604,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004585e0,166,FUN_004585e0,false,23,5,RAW-src
 00458920,216,FUN_00458920,false,12,1,RAW-src
 00458a00,216,FUN_00458a00,false,12,1,RAW-src
-00458b80,6590,FUN_00458b80,false,17,8,RAW-src
+00458b80,6590,InitMobile,false,17,8,RAW-src
 0045a540,31,FUN_0045a540,false,1,2,RAW-src
 0045a560,4559,FUN_0045a560,false,17,4,RAW-src
 0045b730,453,FUN_0045b730,false,4,0,RAW-src
