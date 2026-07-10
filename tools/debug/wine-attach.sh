@@ -21,6 +21,10 @@ export WINEARCH=win32
 export WINEDEBUG="${WINEDEBUG:--all}"
 export WINELOADER="$RUN/bin/wine"
 export PATH="$RUN/bin:$PATH"
+# MUST match how Lutris launched the game, or winedbg joins a different wineserver
+# session and sees no processes.
+export WINEESYNC="${WINEESYNC:-1}"
+export WINEFSYNC="${WINEFSYNC:-1}"
 
 # Resolve the Wine (Windows) pid from winedbg's process list. The name lives in
 # single quotes; the first hex column on that line is the wpid.

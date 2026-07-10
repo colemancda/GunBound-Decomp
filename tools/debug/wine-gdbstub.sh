@@ -26,6 +26,8 @@ export WINEARCH=win32
 export WINEDEBUG="${WINEDEBUG:--all}"
 export WINELOADER="$RUN/bin/wine"
 export PATH="$RUN/bin:$PATH"
+export WINEESYNC="${WINEESYNC:-1}"
+export WINEFSYNC="${WINEFSYNC:-1}"
 
 cd "$(dirname "$EXE")"
 

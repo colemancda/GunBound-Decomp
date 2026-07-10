@@ -96,19 +96,27 @@ game, then attach the gdb stub to the running process** (`winedbg --gdb --no-sta
    cursor follows `$pc` and registers/stack/memory show live values. Addresses are
    `RVA + 0x400000` (entry = `0x5277df`).
 
-### Debugging from the very first instruction (advanced)
+### Debugging from the very first instruction — use CREATE_SUSPENDED
 
-To break in early init *before* the game runs, you need it launched under the stub
-with a valid encrypted command line (see the handoff section). Capture that argument
-once (attach with `wine-attach.sh`, read `GetCommandLineA`'s buffer, or snoop the
-launcher's `CreateProcess`), then:
+The launcher itself has the clean answer. `TestClient/Launcher.ini` supports
+`CREATE_SUSPENDED` (and `INJECT_DLL`). Set:
 ```
-tools/debug/wine-gdbstub.sh 12345 <ENCRYPTED_HEX_ARG>
+CREATE_SUSPENDED=TRUE
 ```
-This loads `GunBound.gme` **suspended at ntdll pre-entry**; connect from Ghidra as
-above and set a breakpoint at `0x5277df` / `WinMain` before resuming. Without the
-arg it still reaches `WinMain` (fine for DirectDraw/XFS/init breakpoints) but fails
-credential decryption.
+Now `Launcher.exe` creates `GunBound.gme` **suspended, with the correct encrypted
+credentials already on its command line**, and does not resume it. Then:
+
+1. Launch via Lutris (the launcher spawns the suspended game and exits — that's
+   `EXIT_IMMEDIATELY`, harmless).
+2. `tools/debug/wine-attach.sh 12345` — attaches to the suspended process.
+3. Connect Ghidra, set a breakpoint at `0x5277df` (CRT entry) or `WinMain`, then
+   Resume. You catch init from the very first instruction *with* real credentials —
+   no replication, no timing race.
+
+Set `CREATE_SUSPENDED=FALSE` again when you're done so normal play isn't blocked.
+
+> The `wine-gdbstub.sh` direct-launch path (passing a captured `CRED_ARG`) still
+> exists as a fallback, but CREATE_SUSPENDED is simpler and always correct.
 
 ### High-value uses for the decomp
 - **Struct layouts** (`FILEFORMATS.md` / `PROTOCOL.md`): break on a function taking
@@ -117,6 +125,118 @@ credential decryption.
 - **Checksum/packet** (`AddToPacketChecksum`, `EncodeChecksumState`,
   `EncodeOutgoingPacketField`): capture real in/out bytes as ground-truth test
   vectors for the reimplementation.
+
+## Capturing network test vectors
+
+`netcap.py` + `capture-net-vectors.sh` breakpoint the encode/checksum/receive
+functions and log their real inputs/outputs — ground truth for validating the
+reimplementation. Addresses and conventions were read from the disassembly:
+
+| Function | VA | Captured |
+|---|---|---|
+| `PeekPacketChecksumState` | `0x40a2e0` | state obj `[EAX..+0x20]` |
+| `EncodeOutgoingPacketField` | `0x40a380` | state `[EDI..+0x20]`, value `[esp+4]` |
+| `EncodeChecksumState` | `0x40a4a0` | state in `EAX`, + return value |
+| `AddToPacketChecksum` | `0x40aab0` | state `EAX`, added value `[esp+4]` |
+| `SubFromPacketChecksum` | `0x40aaf0` | state `EAX`, sub value `[esp+4]` |
+| `BuildSystemInfoBlob` | `0x40d260` | out buffer `[esp+4]` on return (AES-keyed blob) |
+| `ReceiveFramedPackets` | `0x4e5610` | inbound bytes `[EBX+0x230]` on return |
+
+Usage (needs a stub from `wine-attach.sh`; this is an **alternative** to the Ghidra
+connection — one gdb per stub):
+```
+tools/debug/capture-net-vectors.sh 12345 /tmp/gunbound-netvectors.log
+```
+It auto-continues (never halts the game) and caps hits per breakpoint
+(`NETCAP_MAX_HITS`, default 25). Env knobs: `NETCAP_SECONDS=N` auto-detaches after
+N seconds (leaves the game clean); `NETCAP_GROUPS=checksum,blob,recv` limits scope.
+Ctrl-C also stops and detaches. Drive traffic (join a room, fire) while it logs.
+
+> **Safety notes (learned the hard way — two frozen sessions during bring-up):**
+>
+> 1. **No `FinishBreakpoint`.** An earlier version used it to capture return values.
+>    Over the winedbg remote stub it trips a gdb internal-error
+>    (`finish_step_over` assertion); gdb aborts while the game is stopped at a
+>    breakpoint. `netcap.py` now uses only plain auto-continuing breakpoints, with
+>    return captures planted at fixed `ret` addresses — no stepping, no FinishBreakpoint.
+>
+> 2. **Clean detach must `interrupt` first.** You cannot delete breakpoints or
+>    detach while the target is running (gdb errors out). The auto-detach path does
+>    `interrupt` → `delete` → `detach` → `quit`. If it doesn't, breakpoints are left
+>    planted and gdb wedges.
+>
+> 3. **winedbg attach mode is KillOnExit — killing the stub kills the game.** In
+>    attach mode winedbg *is* the debugger; if it dies (or you `kill` a wedged one)
+>    the OS terminates the debuggee. So: **never hard-kill the stub while attached.**
+>    Always stop via Ctrl-C (gdb detaches) or let `NETCAP_SECONDS` auto-detach. If a
+>    stub ever wedges with the port closed, there is no non-fatal recovery — the
+>    game will be lost, so relaunch it.
+>
+> Because of #3, prefer **short `NETCAP_SECONDS` runs** and only capture when the
+> game is actually on a screen that exercises the target code (e.g. the World List /
+> in a room for checksum+recv traffic; a login/loading screen produces zero hits).
+
+### Interactive capture inside Ghidra
+
+Two Ghidra launchers are registered (connect dropdown):
+
+- **gdb (wine remote stub)** — plain interactive attach.
+- **gdb (wine remote stub + netcap logging)** — same, but also installs netcap's
+  logger breakpoints (`wine-remote-gdb-netcap.sh`). They auto-continue (never halt
+  the game) and stream vectors to `OPT_NETCAP_LOG` (default
+  `/tmp/gunbound-netvectors.log`) while you use Ghidra normally. They're `internal`
+  so they don't clutter Ghidra's breakpoint list. **No timed auto-detach** — you
+  drive the game to make traffic, watch the log, and **disconnect in Ghidra** to
+  detach cleanly. Set your own Ghidra UI breakpoints on top if you want to halt and
+  inspect a specific hit with the Listing in front of you.
+
+> Captures only produce data when the game is actually sending/receiving — the
+> World List *refreshing*, or in a room. A "PLEASE WAIT" / login screen is parked on
+> the server and yields zero hits.
+
+## Getting all the C++ objects into Ghidra (DWARF, not hand-transcription)
+
+Every reconstructed type in `src/cxx/` can be pushed into Ghidra with exact,
+compiler-verified layouts — no retyping structs by hand:
+
+```
+tools/debug/build_ghidra_types.sh          # -> build/gb_cxx_types.o  (ELF32 + DWARF)
+```
+It compiles the `src/cxx/` headers with host `g++ -m32 -g -femit-class-debug-always`.
+Because the headers' `GB_STATIC_ASSERT`s force g++'s layout to equal MSVC 7.1's
+(== the binary), the DWARF offsets/sizes/vtables/inheritance are the real ones.
+
+Then import into Ghidra (already run once; re-run after header changes):
+```
+analyzeHeadless <proj> GbTypes -import build/gb_cxx_types.o \
+    -postScript ExportDwarfTypesToGdt.java ghidra/gb_cxx_types.gdt   # -> portable archive
+analyzeHeadless ghidra GunBound -process GunBound.gme \
+    -postScript ApplyCxxTypes.java ghidra/gb_cxx_types.gdt           # import + retype globals
+```
+This imported all 35 C++ types (CGameState + 10 states, the CWidget/CPanel tree,
+protocol structs, ServerListSoA) into `ghidra/GunBound.gpr` and typed
+`g_gameStateObjects` (0x5b33f8) as `CGameState *[16]`. In the GUI you can also just
+`File -> Open File Archive -> ghidra/gb_cxx_types.gdt` and drag types onto data.
+
+The state objects are heap-allocated, so apply a `CStateNN *` at the decompiler
+(right-click -> Retype) or in the **Debugger** — once typed, both the decompiler
+and the live Debugger memory/Watches view render named C++ fields.
+
+## Reading the live C++ GameState (`gbstate.py`)
+
+`gbstate.py` decodes the running game's `CGameState` object into named fields from
+`src/cxx/GameState.h` / `ClientContext.h`. Load it in any gdb attached to the stub
+(standalone or next to netcap):
+```
+(gdb) source tools/debug/gbstate.py
+(gdb) gbstate            # current CGameState* → state id/name, vtable, named fields
+(gdb) gbstate ctx        # server-list SoA from g_clientContext (names/players/caps)
+(gdb) gbstate raw 0x80   # hexdump the current state object
+```
+Anchors: `g_currentGameState @0x7934d0`, `g_gameStateObjects[16] @0x5b33f8`,
+`g_clientContext @0x5b3484`. It has full field maps for states 1/2/3/5/6 and
+hexdumps the rest. Read-only. In Ghidra you get the same thing graphically once the
+`CState*` structs are in the Data Type Manager and applied to `g_gameStateObjects`.
 
 ## Teardown / troubleshooting
 
