@@ -229,10 +229,14 @@ and the live Debugger memory/Watches view render named C++ fields.
 (standalone or next to netcap):
 ```
 (gdb) source tools/debug/gbstate.py
-(gdb) gbstate            # current CGameState* → state id/name, vtable, named fields
-(gdb) gbstate ctx        # server-list SoA from g_clientContext (names/players/caps)
-(gdb) gbstate raw 0x80   # hexdump the current state object
+(gdb) gbstate                 # current CGameState* → state id/name, vtable, named fields
+(gdb) gbstate ctx             # server-list SoA from g_clientContext (names/players/caps)
+(gdb) gbstate raw 0x80        # hexdump the current state object
+(gdb) gbstate widget <addr>   # walk a CWidget/CPanel tree: rect, type/id, [Focus/Enabled/Hidden], children
 ```
+`gbstate widget` recurses the `m_children` (CAtlArray) tree and prints each node's
+rect/type/id/flags — pass a root panel pointer read from the state object or the
+decompiler.
 Anchors: `g_currentGameState @0x7934d0`, `g_gameStateObjects[16] @0x5b33f8`,
 `g_clientContext @0x5b3484`. It has full field maps for states 1/2/3/5/6 and
 hexdumps the rest. Read-only. In Ghidra you get the same thing graphically once the

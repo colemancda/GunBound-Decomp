@@ -116,8 +116,33 @@ def _dump_ctx():
               % (i, sid_arr[i], online[i], cur[i], cap[i], nm))
 
 
+def _dump_widget(addr, depth, maxdepth, seen):
+    # CWidget layout (Widget.h): +0x00 vtable, +0x04 m_focused, +0x08 m_parent,
+    # +0x0c m_children (CAtlArray: m_pData@+0x0c, m_nSize@+0x10), +0x1c m_enabled,
+    # +0x1e m_hidden, +0x20 m_typeId, +0x24 m_id, +0x28 x, +0x2c y, +0x30 w, +0x34 h.
+    ind = "  " * depth
+    if addr == 0:
+        print(ind + "(null)")
+        return
+    if addr in seen:
+        print(ind + "0x%08x (cycle)" % addr)
+        return
+    seen.add(addr)
+    vt = _u32(addr)
+    r = lambda off, fmt: struct.unpack("<" + fmt, _rd(addr + off, struct.calcsize(fmt)))[0]
+    flags = ("F" if r(0x04, "B") else "-") + ("E" if r(0x1c, "B") else "-") + ("H" if r(0x1e, "B") else "-")
+    cnt = r(0x10, "i")
+    data = _u32(addr + 0x0c)
+    print("%s0x%08x vt=%08x type=%d id=%d rect=(%d,%d %dx%d) [%s] children=%d"
+          % (ind, addr, vt, r(0x20, "i"), r(0x24, "i"),
+             r(0x28, "i"), r(0x2c, "i"), r(0x30, "i"), r(0x34, "i"), flags, cnt))
+    if depth < maxdepth and 0 < cnt <= 256 and data:
+        for i in range(cnt):
+            _dump_widget(_u32(data + i * 4), depth + 1, maxdepth, seen)
+
+
 class GbState(gdb.Command):
-    """Decode GunBound's live C++ GameState. Usage: gbstate [ctx|raw [N]]"""
+    """Decode GunBound's live C++ GameState. Usage: gbstate [ctx|raw [N]|widget <addr> [depth]]"""
 
     def __init__(self):
         super().__init__("gbstate", gdb.COMMAND_USER)
@@ -131,6 +156,15 @@ class GbState(gdb.Command):
             sid = struct.unpack("<i", _rd(G_CURRENT_STATE, 4))[0]
             obj = _u32(G_STATE_OBJECTS + sid * 4)
             print(_hexdump(obj, _rd(obj, n)))
+        elif args and args[0] == "widget":
+            if len(args) < 2:
+                print("usage: gbstate widget <addr> [maxdepth]   "
+                      "(walks the CWidget/CPanel tree; get a root ptr from the "
+                      "state object or the decompiler)")
+                return
+            addr = int(args[1], 0)
+            maxdepth = int(args[2], 0) if len(args) > 2 else 8
+            _dump_widget(addr, 0, maxdepth, set())
         else:
             _dump_state()
 
