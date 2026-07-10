@@ -103,7 +103,7 @@ void CState02ServerSelect::OnEnter()
     m_connecting = 0;
     m_sendHandshake = 0;
     m_uiDirty = 1;
-    m_unk0c = -1;
+    m_selectedSlot = -1;
     m_viewMode = 0;
     unsigned int page;
     if ((int)DAT_005b2b64 < 1) {

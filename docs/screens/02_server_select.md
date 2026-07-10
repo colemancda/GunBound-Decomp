@@ -75,13 +75,22 @@ dump of the object (`vtable 0x5570f0`); names/semantics match the
 | +0x05 | `m_sendHandshake` | connect succeeded → send `0x1000` next tick |
 | +0x06 | `m_uiDirty` | UI-dirty / interactable gate (row select needs `==1`) |
 | +0x07 | `m_wantInitialList` | set by OnEnter → tick sends the first `0x1100` page request |
-| +0x08 | `m_highlightedSlot` | UI cursor, `-1` = none |
+| +0x08 | `m_highlightedSlot` | selected server slot, `-1` = none. **Confirmed live**: clicking the row set it `-1 → 0` |
+| +0x0c | `m_selectedSlot` (was `m_unk0c`) | tracks the selection alongside `+0x08` — moved `-1 → 0` in lockstep on the same row-click |
 | +0x10 | **`m_viewMode`** | **the World List View All / Friends toggle: `0` = View All, `2` = Friends** |
 | +0x14 / +0x18 | `m_scrollA` / `m_scrollOffset` | scroll/paging (offset sent in `0x1100`) |
 | +0x20 | `m_tickCounter` | free-running tick counter |
-| +0x24 | `m_inputEnabled` | set to `(highlightedSlot != -1)` on row click |
+| +0x24 | `m_inputEnabled` | set to `(highlightedSlot != -1)` on row click — **gates the SERVER button**. Confirmed live: `0 → 1` when the row was selected |
 | +0x28 | `m_slotError[16]` | per-slot connect error codes `0x1d`–`0x20` |
 | +0x68 | `m_connectingSlot` | slot a connect targets, `-1` = none |
+
+**Selection flow (runtime-confirmed).** `OnEnter` seeds `m_highlightedSlot` /
+`m_selectedSlot` = `-1` and `m_inputEnabled` = 0 (nothing selected → the bottom
+**SERVER** button is disabled/grey). Clicking a server row hit-tests to a slot
+and sets both slot fields to that index and `m_inputEnabled = 1`, which
+**enables the SERVER button** (the connect trigger). A live capture of a
+selected row shows exactly `m_highlightedSlot = m_selectedSlot = 0`,
+`m_inputEnabled = 1`.
 
 **The "View All / Friends" toggle** (the two buttons at the bottom of the WORLD
 LIST) is `m_viewMode` (`+0x10`): **`0` = View All** (default), **`2` = Friends**.

@@ -86,8 +86,10 @@ public:
                               * mouse handler gates row selection on it == 1 */
     u8  m_wantInitialList;   /* +0x07: set by OnEnter - the tick sends the first
                               * 0x1100 page request once the socket connects */
-    int m_highlightedSlot;   /* +0x08: UI cursor, -1 = none (set from RowHitTest) */
-    int m_unk0c;             /* +0x0c */
+    int m_highlightedSlot;   /* +0x08: selected server slot, -1 = none (set from
+                              * RowHitTest). Live capture: row-click set it -1->0 */
+    int m_selectedSlot;      /* +0x0c: tracks the selection alongside +0x08 - moved
+                              * -1->0 in lockstep on the same row-click (live) */
     u8  m_viewMode;          /* +0x10: 0 = all servers, 2 = friends (the world-list tabs) */
     u8  m_pad11[3];          /* +0x11 */
     int m_scrollA;           /* +0x14: scroll/paging (seeded from a global at OnEnter) */
