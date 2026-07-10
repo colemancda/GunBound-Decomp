@@ -134,8 +134,9 @@ inside `g_clientContext`, 16 entries each, packed contiguously from `+0x3f808`.
 **Confirmed live**: a client-context dump has `g_clientContext = 0x7a7ae0` and
 the SoA base at `0x7e72e8` (= `+0x3f808`), decoding entry 0 as `name`
 "OptiPlex 7020", `desc` "GunBound World Server", `ip` `100.65.243.48`,
-`port` 8370, `online` 1, `players` 0, `maxCapacity` 25600, with `count` = 1 —
-matching this layout field-for-field.
+`port` 8370, `online` 1, `players` 0, `maxCapacity` 100, with `count` = 1 —
+matching this layout field-for-field. (The local account name lives separately
+at `g_clientContext+0x2331c` = "colemancda2".)
 
 | Arena offset | Field | Type×16 |
 |---|---|---|

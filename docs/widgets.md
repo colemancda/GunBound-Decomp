@@ -166,7 +166,17 @@ decompilation. All nine panel *identities* are now confirmed — the two formerl
 "inferred" list panels were pinned by tracing their slot-9 row renderers to the
 data they read: `BuildChannelUserListPanel` draws users (status/rank/name from
 `g_clientContext+0x44248/+0x42949/+0x43e48`), and `BuildReadyRoomChatPanel`
-draws color-coded chat (message-type byte at `+0x3c4d8`). Register-passed
+draws color-coded chat (message-type byte at `+0x3c4d8`).
+
+> **Live-dump note (to reconcile):** a client-context dump found the channel
+> user **roster** as a packed 13-byte-stride array at `g_clientContext+0x41440`
+> (names decoded live: "admin" @ `+0x41445`, "colemancda2" @ `+0x41452`) — a
+> *different* location from the parallel `+0x43e48`-family offsets above. These
+> may be two structures (a packed roster vs. render-time parallel arrays) or one
+> of the offsets is mis-derived; worth re-tracing `RenderChannelUserRow` against
+> the runtime layout. Also note the local account name is at `+0x2331c`.
+
+Register-passed
 constructor arguments (e.g. the scrollbar item count, some panel keys) aren't
 always visible in the decompile.
 
@@ -270,6 +280,15 @@ per open. Scroll-lists are `enabled:false` while their content is empty. The
 panel `id` scheme is loose — persistent lobby panels use `9000`/`9001`/`9002`,
 shared panels a round `10000`/`20000`, and transient dialogs a small local id
 (`1`).
+
+**Error/message dialogs are a *separate* layer.** `ShowErrorDialog`/`Fmt`/
+`ShowMessageDialog` build their OK button via `CreateButtonWidget` on the
+**`DAT_00e9be90`** button registry (the flat `ButtonWidget` list), *not*
+`g_uiPanelManager` — so an on-screen error box (e.g. "Access time has expired")
+does **not** appear in a `g_uiPanelManager` view dump. The two UI systems
+coexist: the composite `CWidget`/`CPanel` tree in `g_uiPanelManager`, and the
+flat `ButtonWidget` registry (`DAT_00e9be90`) used by dialogs and some
+bottom-bar buttons.
 
 ---
 
