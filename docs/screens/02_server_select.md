@@ -109,6 +109,16 @@ The View All/Friends buttons here are **`CLabel`-based** (`0x557da0`), *not* the
 flat `ButtonWidget` used by State 3's `CreateButtons` — the two screens build
 their bottom bars with different widget classes.
 
+**Rows are not widgets — confirmed with a populated list.** A live capture with
+the world list showing an actual server (name + fullness dial) has the WORLD
+LIST panel still holding **exactly its 3 children** (View All, Friends,
+scrollbar) — no per-row widget appears in the tree. So each server row is
+**custom-drawn by `RenderWorldListRow`** straight from the server SoA
+(`+0x3f808`, below), not built as child widgets; the scroll-list widget only
+provides the scrollbar/arrows. (Same capture confirms `BuildBuddyPanel`'s
+`0x557be4` panel, id 20000 at `(568,11) 211×267`, opening beside it with its
+Add/Del/close-X buttons + buddy scrollbar.)
+
 ## The server list — where it's stored
 Received via **opcode `0x1102`** and unpacked into a **structure-of-arrays**
 inside `g_clientContext`, 16 entries each, packed contiguously from `+0x3f808`:
