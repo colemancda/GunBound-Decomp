@@ -571,7 +571,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00450600,75,FUN_00450600,false,1,1,RAW-src
 00450650,176,FUN_00450650,false,1,0,RAW-src
 00450700,48,FUN_00450700,false,1,0,RAW-src
-00450730,159,FUN_00450730,false,32,0,RAW-src
+00450730,159,AdvanceSpriteAnimation,false,32,0,RAW-src
 004507d0,60,FUN_004507d0,false,3,0,RAW-src
 00450810,73,FUN_00450810,false,1,0,RAW-src
 00450860,60,FUN_00450860,false,4,0,RAW-src
