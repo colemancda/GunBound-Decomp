@@ -1,13 +1,21 @@
-/* FUN_0044b460 - 0x0044b460 in the original binary.
+/* PreviewAvatarPart - 0x0044b460 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Avatar Store "try-on / preview" action: composites the selected part into the
+ * LOCAL avatar preview only - it does NOT call EncodeOutgoingPacketField, so
+ * nothing is transmitted. A switch on the selected category ([esi+0x44c]:
+ * 0=body, 1=head, 2=glasses, 3=flag) sets that one part code and passes the rest
+ * as 0xffffffff to the compositor LoadAvatarSprites. Peer of EquipAvatarPart
+ * (0x44b170) / UnequipAvatarSlot (0x44b330), which both transmit. Dispatched
+ * from FUN_00445450.
+ *
+ * Function IDENTITY is confirmed (Avatar-Store try-on preview, local only); the
+ * BODY is a raw/near-verbatim Ghidra port, not hand-verified. See src/README.md's
+ * "Raw/verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0044b460(void)
+void PreviewAvatarPart(void)
 
 {
   uint uVar1;
