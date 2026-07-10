@@ -68,7 +68,8 @@ byte InitDirectDraw(undefined4 param_1)
   if (iVar4 < 0) {
     return 0x19;
   }
-  iVar4 = (**(code **)(*g_pDirectDraw7 + 0x50))();
+  iVar4 = (**(code **)(*g_pDirectDraw7 + 0x50))
+                    (g_pDirectDraw7, DAT_007935ec, (DAT_00588f4c == '\0') ? 0xc13 : 0xc08);
   piVar1 = g_pDirectDraw7;
   if (iVar4 < 0) {
     return 0x18;
@@ -82,7 +83,8 @@ byte InitDirectDraw(undefined4 param_1)
     ppiStack_108 = (int **)FUN_0053753c();
     ppiStack_10c = (int **)piVar1;
     piStack_110 = (int *)0x4efb71;
-    iVar4 = (**(code **)(iVar4 + 0x54))();
+    iVar4 = (**(code **)(iVar4 + 0x54))
+                      (piVar1, FUN_0053753c(), FUN_0053753c(), DAT_00588f60, DAT_00588f48, 0);
     if (iVar4 < 0) {
       return 0x1c;
     }
@@ -115,7 +117,7 @@ byte InitDirectDraw(undefined4 param_1)
   puStack_100 = auStack_a4;
   piStack_104 = g_pDirectDraw7;
   ppiStack_108 = (int **)0x4efc38;
-  iVar4 = (**(code **)(*g_pDirectDraw7 + 0x18))();
+  iVar4 = (**(code **)(*g_pDirectDraw7 + 0x18))(g_pDirectDraw7, auStack_a4, &g_pPrimarySurface, 0);
   if (iVar4 < 0) {
     return 0x1d;
   }
@@ -124,7 +126,8 @@ byte InitDirectDraw(undefined4 param_1)
     ppiStack_10c = (int **)&stack0xffffff20;
     piStack_110 = g_pPrimarySurface;
     piStack_114 = (int *)0x4efcd0;
-    iVar4 = (**(code **)(*g_pPrimarySurface + 0x30))();
+    iVar4 = (**(code **)(*g_pPrimarySurface + 0x30))
+                      (g_pPrimarySurface, &stack0xffffff20, &g_pBackBufferSurface);
     if (iVar4 < 0) {
       return 0x1f;
     }
@@ -141,7 +144,7 @@ byte InitDirectDraw(undefined4 param_1)
     uStack_4c = 0x2040;
     piStack_114 = g_pDirectDraw7;
     uStack_118 = 0x4efc97;
-    iVar4 = (**(code **)(*g_pDirectDraw7 + 0x18))();
+    iVar4 = (**(code **)(*g_pDirectDraw7 + 0x18))(g_pDirectDraw7, aiStack_b4, &g_pBackBufferSurface, 0);
     if (iVar4 < 0) {
       return 0x1e;
     }
@@ -151,21 +154,21 @@ byte InitDirectDraw(undefined4 param_1)
   uStack_120 = 0;
   piStack_124 = g_pDirectDraw7;
   pHStack_128 = (HWND)0x4efcf2;
-  (**(code **)(*g_pDirectDraw7 + 0x10))();
+  (**(code **)(*g_pDirectDraw7 + 0x10))(g_pDirectDraw7, 0, &g_pClipper, 0);
   pHStack_128 = DAT_007935ec;
   uStack_12c = 0;
   piStack_130 = g_pClipper;
   piStack_134 = (int *)0x4efd05;
-  (**(code **)(*g_pClipper + 0x20))();
+  (**(code **)(*g_pClipper + 0x20))(g_pClipper, 0, DAT_007935ec);
   piStack_134 = g_pClipper;
   piStack_138 = g_pBackBufferSurface;
   ppiStack_13c = (int **)0x4efd17;
-  (**(code **)(*g_pBackBufferSurface + 0x70))();
+  (**(code **)(*g_pBackBufferSurface + 0x70))(g_pBackBufferSurface, g_pClipper);
   ppiStack_13c = &g_pDirect3D7;
   puStack_140 = &IID_IDirect3D7;
   piStack_144 = g_pDirectDraw7;
   ppIStack_148 = (IMAGE_DOS_HEADER **)0x4efd2b;
-  iVar4 = (**(code **)*g_pDirectDraw7)();
+  iVar4 = (**(code **)*g_pDirectDraw7)(g_pDirectDraw7, &IID_IDirect3D7, &g_pDirect3D7);
   if (iVar4 < 0) {
     return 0x20;
   }
@@ -174,7 +177,7 @@ byte InitDirectDraw(undefined4 param_1)
   puStack_150 = &DAT_00f22504;
   piStack_154 = g_pDirect3D7;
   puStack_158 = (undefined4 *)0x4efd57;
-  iVar4 = (**(code **)(*g_pDirect3D7 + 0x10))();
+  iVar4 = (**(code **)(*g_pDirect3D7 + 0x10))(g_pDirect3D7, &DAT_00f22504, g_pBackBufferSurface, &g_pD3DDevice7);
   if (iVar4 < 0) {
     return 0x21;
   }
@@ -187,7 +190,7 @@ byte InitDirectDraw(undefined4 param_1)
   puStack_158 = &uStack_120;
   piStack_110 = (int *)0x0;
   ppiStack_10c = (int **)0x3f800000;
-  iVar4 = (**(code **)(*(int *)g_pD3DDevice7 + 0x34))(g_pD3DDevice7);
+  iVar4 = (**(code **)(*(int *)g_pD3DDevice7 + 0x34))(g_pD3DDevice7, &uStack_120);
   if (iVar4 < 0) {
     return 0x22;
   }

@@ -62,14 +62,15 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
     iStack_5c = DAT_0079355c;
     uStack_60 = DAT_0079354c;
     uStack_64 = 0x4ee646;
-    iVar2 = (**(code **)(*DAT_0079354c + 0x18))();
+    iVar2 = (**(code **)(*DAT_0079354c + 0x18))(DAT_0079354c, DAT_0079355c, 2);
     if (-1 < iVar2) {
       uStack_64 = 0;
       ppiStack_68 = &DAT_00793550;
       puStack_6c = &stack0xffffffc4;
       piStack_70 = DAT_0079354c;
       puStack_74 = (undefined4 *)0x4ee697;
-      iVar2 = (**(code **)(*DAT_0079354c + 0xc))();
+      iVar2 = (**(code **)(*DAT_0079354c + 0xc))
+                        (DAT_0079354c, &stack0xffffffc4, &DAT_00793550, 0);
       if (-1 < iVar2) {
         iStack_5c = DAT_00588f3c;
         puStack_74 = &uStack_60;
@@ -77,7 +78,7 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
         uStack_54 = (int **)CONCAT22(DAT_00588f40,(DAT_00588f40 >> 3) * (short)_DAT_00588f38);
         iStack_58 = DAT_00588f44;
         piStack_78 = DAT_00793550;
-        (**(code **)(*DAT_00793550 + 0x38))();
+        (**(code **)(*DAT_00793550 + 0x38))(DAT_00793550, &uStack_60);
         (**(code **)(*DAT_00793550 + 0x30))(DAT_00793550,0,0,1);
         DAT_00793554 = operator_new(DAT_00793560 * 4);
         DAT_00793558 = operator_new(DAT_00793560 * 4);
