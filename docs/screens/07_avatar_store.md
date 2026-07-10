@@ -25,6 +25,24 @@ items and confirms purchases.
   for the store grid were not individually enumerated in this pass — treat the
   Ready Room item-grid renderer (below) as the closest confirmed analogue.
 
+## Avatar parts & the live preview (see FILEFORMATS.md — "Avatar.xfs")
+The four category tabs map 1:1 to the avatar part tables in `Avatar.xfs`:
+`b_store_cap` → **Head** (`{m,f}h.dat`), `b_store_cloth` → **Body** (`{m,f}b.dat`),
+`b_store_glasse` → **Glasses** (`{m,f}g.dat`), `b_store_flag` → **Flag** (`mf.dat`).
+Each part table is `u32 count` + 132-byte `{ id, name[0x40], desc[0x40] }` records
+(fully decoded — `tools/lzhuf/decode_avatar.py`).
+
+The live preview composes the avatar the same way the lobby/battle does: a set of
+per-part **equip codes** (each a `u16`: bit 15 = gender, bits 0–14 = the part id /
+record index) is fed to the compositor **`LoadAvatarSprites`** (`0x4141b0`), which
+`LoadSpriteSet`s each `{gender}{cat}{id:05d}.img` from `graphics.xfs` and blits the
+parts into the **`AvataTexture1/2`** runtime render target. The store's slot
+handlers (`FUN_0044b170` equip-a-code / `FUN_0044b330` clear-slot / `FUN_0044b460`)
+push the previewed code into the store context (`+0x31488`) and re-run the
+compositor. A committed outfit is stored as the packed `avatarEquipped` UInt64
+(4 × u16 = Body / Head-or-Flag / Glasses / Flag-or-Head — see FILEFORMATS.md;
+split it with `decode_avatar.py --equip <hex>`).
+
 ## Network (see PROTOCOL.md — "State 7" / Avatar Store)
 | Opcode | Dir | Meaning |
 |---|---|---|

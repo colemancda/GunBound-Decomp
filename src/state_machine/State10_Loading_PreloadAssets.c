@@ -697,42 +697,42 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     break;
   case 0x46:
     if (*(char *)(g_clientContext + 0x5010d) != '\0') {
-      FUN_004431a0();
+      LoadReadyRoomSlotAvatar();
     }
     break;
   case 0x47:
     if (*(char *)(g_clientContext + 0x5010e) != '\0') {
-      FUN_004431a0();
+      LoadReadyRoomSlotAvatar();
     }
     break;
   case 0x48:
     if (*(char *)(g_clientContext + 0x5010f) != '\0') {
-      FUN_004431a0();
+      LoadReadyRoomSlotAvatar();
     }
     break;
   case 0x49:
     if (*(char *)(g_clientContext + 0x50110) != '\0') {
-      FUN_004431a0();
+      LoadReadyRoomSlotAvatar();
     }
     break;
   case 0x4a:
     if (*(char *)(g_clientContext + 0x50111) != '\0') {
-      FUN_004431a0();
+      LoadReadyRoomSlotAvatar();
     }
     break;
   case 0x4b:
     if (*(char *)(g_clientContext + 0x50112) != '\0') {
-      FUN_004431a0();
+      LoadReadyRoomSlotAvatar();
     }
     break;
   case 0x4c:
     if (*(char *)(g_clientContext + 0x50113) != '\0') {
-      FUN_004431a0();
+      LoadReadyRoomSlotAvatar();
     }
     break;
   case 0x4d:
     if (*(char *)(g_clientContext + 0x50114) != '\0') {
-      FUN_004431a0();
+      LoadReadyRoomSlotAvatar();
     }
     break;
   case 0x4e:

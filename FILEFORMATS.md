@@ -409,7 +409,8 @@ gender and is always `"mf{id:05d}.img"`. So a body code `0x8005` → male body i
 5 → `mb00005.img`, matching `mb.dat` record 5 ("Roman General").
 
 Decode/verify with `tools/lzhuf/decode_avatar.py orig/Avatar.xfs` (add `--csv`
-to dump all 8 tables).
+to dump all 8 tables, or `--equip <hex>` to split an `avatarEquipped` UInt64 —
+see below — into named parts).
 
 **The `avatarEquipped` value — an 8-byte / `UInt64` record of four part codes.**
 A worn outfit is **four `u16` part codes packed little-endian** (each code has

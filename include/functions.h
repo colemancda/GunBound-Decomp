@@ -544,7 +544,7 @@ int __fastcall FUN_00442280();
 void FUN_00442d50();
 void FUN_00442e00();
 void FUN_004430c0();
-void FUN_004431a0();
+void LoadReadyRoomSlotAvatar(); /* 0x4431a0 - unpack the ready-room avatar copy (+0x501fe) -> LoadAvatarSprites */
 void __fastcall FUN_00443330();
 void __fastcall FUN_00443540();
 void FUN_00443570();

@@ -491,7 +491,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00442d50,162,FUN_00442d50,false,1,1,RAW-src
 00442e00,692,FUN_00442e00,false,2,8,RAW-src
 004430c0,223,FUN_004430c0,false,1,0,RAW-src
-004431a0,216,FUN_004431a0,false,8,1,RAW-src
+004431a0,216,LoadReadyRoomSlotAvatar,false,8,1,RAW-src
 00443280,49,State06_Logo2_OnEnter,false,1,2,RAW-src
 004432c0,111,State06_Logo2_OnExit,false,1,1,RAW-src
 00443330,39,FUN_00443330,false,1,1,RAW-src

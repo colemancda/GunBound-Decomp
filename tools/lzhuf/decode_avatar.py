@@ -10,13 +10,26 @@ Avatar.xfs (an XFS2 archive) holds 8 LZHUF-compressed part tables named
 Each .dat is:  uint32 recordCount, then recordCount fixed 132 (0x84)-byte
 records:  { uint32 id (== record index); char name[0x40]; char desc[0x40] }.
 
-A part is referenced elsewhere by a 16-bit-ish equip code (see the avatar
+A part is referenced elsewhere by a 16-bit equip code (see the avatar
 compositor at 0x004141b0): bit 15 = gender (1=male 'm', 0=female 'f'),
-bits 0..14 = the part id (this record index); 0xffffffff means "no part".
+bits 0..14 = the part id (this record index); 0xffff/0xffffffff means "no part".
 The drawn sprite is "{gender}{category}{id:05d}.img" in graphics.xfs
 (plus a large "...l.img" variant); the flag sprite prefix is always "mf".
 
-Usage:  python3 decode_avatar.py <Avatar.xfs> [--csv]
+An 'avatarEquipped' value is a UInt64 packing FOUR of those u16 codes,
+little-endian (see FILEFORMATS.md "Avatar.xfs"):
+    word 0 (bits  0-15) = Body      (confirmed)
+    word 1 (bits 16-31) = Head or Flag   -- the two in-binary unpackers
+    word 2 (bits 32-47) = Glasses   (confirmed)
+    word 3 (bits 48-63) = Flag or Head   -- (0x4431a0/0x4dc5c0) disagree
+Body/Glasses are firm; Head vs Flag at words 1/3 is ambiguous in static
+analysis (a live equip test resolves it) so this tool reports both readings.
+
+Usage:
+  python3 decode_avatar.py <Avatar.xfs>            # dump the 8 part tables
+  python3 decode_avatar.py <Avatar.xfs> --csv      # all rows as CSV
+  python3 decode_avatar.py <Avatar.xfs> --equip <hex>   # split an avatarEquipped
+                                                        # UInt64 into named parts
 """
 import sys
 import struct
@@ -60,13 +73,61 @@ def load_all(xfs_path):
     return out
 
 
+def decode_part_code(code):
+    """Split one u16 equip code -> (gender_char, part_id) or (None, None) if empty."""
+    code &= 0xffff
+    if code == 0xffff:
+        return None, None
+    return ('m' if (code & 0x8000) else 'f'), (code & 0x7fff)
+
+
+def part_name(tables, gender, cat, pid):
+    """Look up a part's display name from the loaded tables, or '?' / '(none)'."""
+    if gender is None:
+        return '(none)'
+    recs = tables.get(f'{gender}{cat}.dat', (0, []))[1]
+    if 0 <= pid < len(recs):
+        return recs[pid][1]
+    return f'#{pid}'
+
+
+def split_equipped(value):
+    """Split an avatarEquipped UInt64 into its four little-endian u16 words."""
+    return [(value >> (16 * i)) & 0xffff for i in range(4)]
+
+
+def print_equipped(tables, value):
+    words = split_equipped(value)
+    print(f'avatarEquipped = 0x{value:016x}')
+    # word 0 = Body, word 2 = Glasses (confirmed); words 1/3 = Head/Flag (ambiguous)
+    for idx, cat, label in ((0, 'b', 'Body   '), (2, 'g', 'Glasses')):
+        g, pid = decode_part_code(words[idx])
+        gl = GENDER.get(g, '-')
+        print(f'  word{idx} (bits {idx*16:2d}-{idx*16+15}) {label} 0x{words[idx]:04x}'
+              f'  {gl:<6} -> {part_name(tables, g, cat, pid)}')
+    for idx in (1, 3):
+        g, pid = decode_part_code(words[idx])
+        gl = GENDER.get(g, '-')
+        head = part_name(tables, g, 'h', pid)
+        flag = part_name(tables, 'm', 'f', pid)  # flag prefix is always 'mf'
+        print(f'  word{idx} (bits {idx*16:2d}-{idx*16+15}) Head/Flag 0x{words[idx]:04x}'
+              f'  {gl:<6} -> Head: {head}   |   Flag: {flag}')
+    print('  (Body/Glasses confirmed; Head vs Flag at words 1/3 is order-ambiguous '
+          '- see FILEFORMATS.md)')
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
         sys.exit(1)
     xfs_path = sys.argv[1]
-    as_csv = '--csv' in sys.argv[2:]
+    argv = sys.argv[2:]
+    as_csv = '--csv' in argv
     tables = load_all(xfs_path)
+    if '--equip' in argv:
+        raw = argv[argv.index('--equip') + 1]
+        print_equipped(tables, int(raw, 16) if raw.lower().startswith('0x') else int(raw, 16))
+        return
     if as_csv:
         print('file,gender,category,id,name,description')
         for fname, (count, recs) in tables.items():
