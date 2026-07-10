@@ -876,25 +876,35 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
     `BlitSpriteClipped(g_cursorFrame)` always passes frame `0`. *(This corrects
     an earlier note that read `g_cursorFrame` as a 0…101 animation state — it
     isn't.)*
-  - **Register args recovered — the requested frame index is a constant 0.**
-    Disassembling the call site (`0x4139c6`) shows `FindSpriteFrame` is invoked
-    with `eax = &DAT_00ea0e18` (the shared sprite container), `edx = 0` (the
-    outer key = **sprite id 0**), and `esi = g_cursorFrame = 0` (the inner frame
-    key), and `esi` is passed on to `BlitSpriteClipped`. **Sprite id 0 is the
-    cursor** — it's the last persistent sprite loaded in `InitGame`
-    (`LoadSpriteSet(&DAT_00ea0e18, 0)`). So the draw resolves *(id 0, frame 0)*
-    and the row blitter (`FUN_004eb940`) is a plain clipped memcpy.
-  - **Static analysis cannot explain the observed animation — a real gap.** The
-    cursor **is** observed to animate on every screen (server list onward), yet
-    every input to this draw is a constant: `g_cursorFrame` is never written
-    (proven by byte search), and `FindSpriteFrame` is a stateless lookup that
-    keys frames `0…N` — so the code always requests *frame 0* of sprite id 0.
-    Nothing in the ported/decompiled path advances it. The most likely
-    reconciliation is that sprite id 0's per-frame **node objects carry a vtable
-    (`PTR_FUN_00557524`)** and an internal current-frame that some update path
-    cycles — but that advance has **not** been isolated. This is a point where
-    static analysis has plateaued; a debugger/emulated run watching the sprite's
-    drawn frame per tick would settle it directly.
+  - **The draw site.** Disassembling `0x4139c6` shows `FindSpriteFrame` is
+    invoked with `eax = &DAT_00ea0e18` (the shared sprite container), `edx = 0`
+    (the outer key = **sprite id 0**), and `esi = g_cursorFrame` (the inner
+    frame key), and `esi` is passed on to `BlitSpriteClipped`. **Sprite id 0 is
+    the cursor** — the last persistent sprite loaded in `InitGame`
+    (`LoadSpriteSet(&DAT_00ea0e18, 0)`); the row blitter (`FUN_004eb940`) is a
+    plain clipped memcpy.
+  - **The cursor animates — a 17-frame loop, confirmed on the live client.** A
+    debugger probe (`tools/debug/cursor-probe.sh`, logging at `0x4139dc`) shows
+    `g_cursorFrame` **advances `0→1→…→16→0` one step per tick, in lockstep with
+    `g_frameCounter`**, and each value resolves a distinct sprite-frame node. So
+    the pointer really is a **17-frame animated sprite** (sprite id 0), not the
+    static frame 0 an earlier static pass had concluded. *(That earlier
+    conclusion was wrong — see next.)*
+  - **Why static analysis missed it.** `g_cursorFrame` (`0x7a7674`) is written
+    every frame, yet the address occurs **exactly once** in the whole binary —
+    the `mov esi,[0x7a7674]` **read** at `0x4139c6`; there is **no absolute
+    write** (no `mov [abs]`, `lea`, or `inc`), and the cluster base `0x7a7660`
+    only appears as the `ChangeGameState` write. The advance is therefore a
+    **register-indirect store** (`mov [reg+disp], val` where `reg+disp`
+    resolves to `0x7a7674` at runtime), so it carries **no absolute reference
+    for xref/byte-search to find** — which is exactly why the byte-search-based
+    "never written / constant 0" reading was wrong. The writer is reached only
+    through a runtime pointer (most likely the sprite object's per-tick update,
+    vtable `PTR_FUN_00557524`); pinning it needs a **hardware** watchpoint on
+    `0x7a7674` at runtime, not static xref. Note `cursor.img` has 102 frames but
+    the drawn cursor cycles only ~17 — so sprite id 0 is a smaller animated
+    cursor, distinct from the 102-frame `cursor.img` preloaded (unused) into
+    `g_cursorTexture`.
   - **`g_cursorTexture` (`0x7a7660`) is write-only** (also verified by byte
     search: one reference, the `ChangeGameState` write) — the preload merely
     *registers* `cursor.img` in the sprite cache; the draw goes through the
