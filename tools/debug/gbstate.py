@@ -16,6 +16,7 @@
 
 import gdb
 import struct
+import json
 
 G_CURRENT_STATE = 0x7934D0
 G_STATE_OBJECTS = 0x5B33F8
@@ -160,8 +161,59 @@ def _dump_panels(maxdepth):
         print("(no panels attached to the manager)")
 
 
+def _widget_obj(addr, depth, maxdepth, seen):
+    if addr == 0:
+        return None
+    if addr in seen:
+        return {"addr": "0x%08x" % addr, "cycle": True}
+    seen.add(addr)
+    r = lambda off, fmt: struct.unpack("<" + fmt, _rd(addr + off, struct.calcsize(fmt)))[0]
+    cnt = r(0x10, "i")
+    data = _u32(addr + 0x0c)
+    node = {
+        "addr": "0x%08x" % addr,
+        "vtable": "0x%08x" % _u32(addr),
+        "typeId": r(0x20, "i"),
+        "id": r(0x24, "i"),
+        "rect": {"x": r(0x28, "i"), "y": r(0x2c, "i"), "w": r(0x30, "i"), "h": r(0x34, "i")},
+        "focused": bool(r(0x04, "B")),
+        "enabled": bool(r(0x1c, "B")),
+        "hidden": bool(r(0x1e, "B")),
+        "childCount": cnt,
+        "children": [],
+    }
+    if depth < maxdepth and 0 < cnt <= 256 and data:
+        for i in range(cnt):
+            c = _widget_obj(_u32(data + i * 4), depth + 1, maxdepth, seen)
+            if c is not None:
+                node["children"].append(c)
+    return node
+
+
+def _panels_obj(maxdepth):
+    head = _u32(G_UI_PANEL_MGR + 4)
+    panels, node, seen, n = [], head, set(), 0
+    while node and node not in seen and n < 64:
+        seen.add(node)
+        n += 1
+        panels.append(_widget_obj(_u32(node + 8), 0, maxdepth, set()))
+        node = _u32(node)
+    return {"manager": "0x%08x" % G_UI_PANEL_MGR, "head": "0x%08x" % head, "panels": panels}
+
+
+def _state_obj_dict():
+    sid = struct.unpack("<i", _rd(G_CURRENT_STATE, 4))[0]
+    obj = _u32(G_STATE_OBJECTS + sid * 4)
+    d = {"id": sid, "name": STATE_NAMES.get(sid, "?"),
+         "object": "0x%08x" % obj, "vtable": "0x%08x" % _u32(obj) if obj else None,
+         "fields": {}}
+    for off, fmt, fname in FIELDS.get(sid, []):
+        d["fields"][fname] = struct.unpack("<" + fmt, _rd(obj + off, struct.calcsize(fmt)))[0]
+    return d
+
+
 class GbState(gdb.Command):
-    """Decode GunBound's live C++ GameState. Usage: gbstate [ctx|raw [N]|widget <addr> [d]|panels [d]]"""
+    """Decode GunBound's live C++ GameState. Usage: gbstate [ctx|raw [N]|widget <addr> [d]|panels [d]|json [path]]"""
 
     def __init__(self):
         super().__init__("gbstate", gdb.COMMAND_USER)
@@ -187,6 +239,12 @@ class GbState(gdb.Command):
         elif args and args[0] == "panels":
             maxdepth = int(args[1], 0) if len(args) > 1 else 8
             _dump_panels(maxdepth)
+        elif args and args[0] == "json":
+            path = args[1] if len(args) > 1 else "/tmp/gb-view.json"
+            doc = {"gameState": _state_obj_dict(), "view": _panels_obj(16)}
+            with open(path, "w") as fh:
+                json.dump(doc, fh, indent=2)
+            print("gbstate: wrote %s" % path)
         else:
             _dump_state()
 

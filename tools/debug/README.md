@@ -233,6 +233,8 @@ and the live Debugger memory/Watches view render named C++ fields.
 (gdb) gbstate ctx             # server-list SoA from g_clientContext (names/players/caps)
 (gdb) gbstate raw 0x80        # hexdump the current state object
 (gdb) gbstate widget <addr>   # walk a CWidget/CPanel tree: rect, type/id, [Focus/Enabled/Hidden], children
+(gdb) gbstate panels          # walk g_uiPanelManager and dump every attached panel's tree (auto-root)
+(gdb) gbstate json [path]     # write gameState + view hierarchy as JSON (default /tmp/gb-view.json)
 ```
 `gbstate widget` recurses the `m_children` (CAtlArray) tree and prints each node's
 rect/type/id/flags — pass a root panel pointer read from the state object or the
