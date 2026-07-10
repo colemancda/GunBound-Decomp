@@ -250,8 +250,8 @@ uint8_t DAT_00588f64;
 void * DAT_0058b248;
 uint8_t DAT_0058b8d6;
 uint8_t DAT_0058bb04;
-uint8_t DAT_005a9068;
-uint8_t DAT_005a9084;
+/* DAT_005a9068, DAT_005a9084: moved to globals_sized.c - both are
+ * CRITICAL_SECTIONs, a one-byte cell under-sizes them */
 uint32_t DAT_005b1444;
 uint32_t DAT_005b15ac;
 int *DAT_005b1c48;
@@ -483,7 +483,8 @@ uint8_t DAT_00795878;
 uint8_t DAT_00796078;
 uint8_t DAT_00796878;
 uint8_t DAT_00796aa0;
-uint8_t g_localizedStringTable;
+/* g_localizedStringTable: moved to globals_sized.c - the whole string
+ * map lives at this address, not one byte */
 uint8_t g_cursorTexture;
 uint32_t g_cursorFrame;
 uint8_t DAT_007a768c;
@@ -557,7 +558,7 @@ uint8_t DAT_00e9af10;
 uint32_t DAT_00e9af14;
 uint8_t DAT_00e9af18;
 uint8_t DAT_00e9af1c;
-uint8_t DAT_00e9af44;
+/* DAT_00e9af44: moved to globals_sized.c (CRITICAL_SECTION) */
 uint32_t DAT_00e9b188;
 uint32_t DAT_00e9b198;
 uint8_t DAT_00e9b1c4;

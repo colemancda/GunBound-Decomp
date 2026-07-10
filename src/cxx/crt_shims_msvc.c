@@ -100,6 +100,26 @@ double fptan(double x) { return tan(x); }
 double SQRT(double x)  { return sqrt(x); }
 double FID_conflict__cos(double x) { return cos(x); } /* Ghidra-renamed cos */
 
+/* --- Startup hook: initialize the static CRITICAL_SECTIONs ---
+ * WinMain's first act is EnterCriticalSection(&DAT_005a9068); in the
+ * original binary a C++ static initializer set these up. Our ports
+ * lost that, so register an initializer in the CRT's C-init table
+ * (.CRT$XCU) - libcmt runs it before WinMain. Storage lives in
+ * src/globals_sized.c. */
+extern unsigned char DAT_005a9068[24], DAT_005a9084[24], DAT_00e9af44[24];
+static void gb_init_critical_sections(void)
+{
+    InitializeCriticalSection((LPCRITICAL_SECTION)DAT_005a9068);
+    InitializeCriticalSection((LPCRITICAL_SECTION)DAT_005a9084);
+    InitializeCriticalSection((LPCRITICAL_SECTION)DAT_00e9af44);
+}
+/* data_seg, NOT #pragma section(...,read): VC7.1's linker keeps a
+ * read-only .CRT$XCU out of the read-write .CRT group libcmt walks in
+ * _cinit, so the hook silently never runs (verified empirically). */
+#pragma data_seg(".CRT$XCU")
+static void (*gb_init_cs_entry)(void) = gb_init_critical_sections;
+#pragma data_seg()
+
 /* --- Win32 calls a raw port declares without the stdcall prototype
  *     (so the object references the cdecl symbol) --- */
 unsigned long timeGetTime(void) { return GetTickCount(); }

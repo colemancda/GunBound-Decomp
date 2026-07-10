@@ -1,0 +1,16 @@
+# Objects EXCLUDED from the bring-up link (gunbound_bringup.exe only -
+# the measurement link keeps them). One basename per line; their
+# symbols fall out as unresolved and gen_bringup_stubs.py turns them
+# into no-op stubs automatically. Add a file here when its raw port
+# reads an uninitialized register artifact (unaff_EDI/in_EAX/...) on
+# the startup path and crashes before the logo screen.
+#
+# value-guard encode: reads unaff_EDI (the dropped this-pointer of the
+# guard cell) - WinMain's anti-tamper preamble, not needed for the logo
+src_network_EncodeOutgoingPacketField.obj
+# network-manager ctor: reads unaff_ESI (dropped this); crashes in
+# FUN_004e5bb0(NULL). Network stack not needed for the logo.
+src_unnamed_FUN_004e54e0.obj
+# SEH-frame ctor (unaff_FS_OFFSET deref): a state-object ctor from the
+# InitGame chain; its state isn't on the logo path.
+src_unnamed_FUN_004d2170.obj

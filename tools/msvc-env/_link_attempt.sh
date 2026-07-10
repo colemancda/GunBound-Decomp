@@ -33,7 +33,7 @@ echo "Compiling $total objects..."
 for f in "${FILES[@]}"; do
   i=$((i+1))
   obj="$OUT/$(echo "$f" | tr '/' '_' | sed 's/\.cpp$/.obj/;s/\.c$/.obj/')"
-  [ -f "$obj" ] && continue
+  [ -f "$obj" ] && [ "$obj" -nt "$f" ] && continue  # skip only FRESH objects
   win='Z:\work\'"${f//\//\\}"
   wobj='Z:\work\'"${obj//\//\\}"
   out=$(wine "$CL" /c /nologo /O2 "/Fo$wobj" "$win" 2>&1)
