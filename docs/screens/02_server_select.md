@@ -150,7 +150,7 @@ at `g_clientContext+0x2331c` = "colemancda2".)
 | +0x4108a | `port[16]` | u16 |
 | +0x410aa | `unknownField2[16]` | u16 |
 | +0x410ca | `currentPlayers[16]` | u16 |
-| +0x410ea | `maxCapacity[16]` | u16 |
+| +0x410ea | `maxCapacity[16]` | u16 — **big-endian / network order**: slot 0 = 100 is stored as bytes `00 64`, so a little-endian read gives `0x6400` (25600); byte-swap to get the real cap |
 | +0x4110a | `animState[16]` | u8 (per-slot blink, written by tick) |
 
 Full wire format in [PROTOCOL.md](../../PROTOCOL.md) (opcode `0x1102`). Max 16
