@@ -94,7 +94,7 @@ LAB_0050a89a:
       if ((uVar5 & 0x30000) != 0x30000) goto LAB_0050a8b0;
     }
   }
-  FUN_0044b170(puVar1);
+  EquipAvatarPart(puVar1);
 LAB_0050a8b0:
   uVar7 = 0;
   if ((((*(char *)(param_1 + 0x1e) == '\0') && (*(int *)(param_1 + 0x28) < param_2)) &&

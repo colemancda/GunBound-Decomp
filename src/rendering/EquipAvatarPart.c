@@ -1,13 +1,20 @@
-/* FUN_0044b170 - 0x0044b170 in the original binary.
+/* EquipAvatarPart - 0x0044b170 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
+ * Avatar Store "equip" action: transmits the selected part's equip code via
+ * EncodeOutgoingPacketField (bit15 = gender | bits0-14 = part id) followed by
+ * its inventory index, then refreshes the local preview via LoadAvatarSprites.
+ * Peer of UnequipAvatarSlot (0x44b330, which sends the id=0 "Standard/none"
+ * clear) and PreviewAvatarPart (0x44b460, a local try-on that does NOT send).
+ * Dispatched from the store item-action handler (FUN_0050a640).
+ *
+ * Function IDENTITY is confirmed (Avatar-Store equip, transmits); the BODY is a
+ * raw/near-verbatim Ghidra port, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0044b170(int param_1)
+void EquipAvatarPart(int param_1)
 
 {
   char cVar1;
