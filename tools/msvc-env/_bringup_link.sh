@@ -25,7 +25,7 @@ do_link() {
   wine "$LINK" /nologo /SUBSYSTEM:WINDOWS /FORCE /MAP:gunbound_bringup.map /OUT:gunbound_bringup.exe @objs_bringup.rsp \
     kernel32.lib user32.lib gdi32.lib ws2_32.lib ddraw.lib dsound.lib dinput.lib \
     winmm.lib advapi32.lib shell32.lib imm32.lib ole32.lib comctl32.lib \
-    libcmt.lib libcpmt.lib > link_bringup.log 2>&1
+    dxguid.lib libcmt.lib libcpmt.lib > link_bringup.log 2>&1
 }
 
 # pass 1: no stubs - enumerate the full unresolved set (including

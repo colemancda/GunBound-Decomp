@@ -46,7 +46,7 @@ ls *.obj > objs.rsp
 wine "$LINK" /nologo /SUBSYSTEM:WINDOWS /FORCE /OUT:gunbound.exe @objs.rsp \
   kernel32.lib user32.lib gdi32.lib ws2_32.lib ddraw.lib dsound.lib dinput.lib \
   winmm.lib advapi32.lib shell32.lib imm32.lib ole32.lib comctl32.lib \
-  libcmt.lib libcpmt.lib > link.log 2>&1
+  dxguid.lib libcmt.lib libcpmt.lib > link.log 2>&1
 echo "=== unresolved externals: $(grep -c 'unresolved external' link.log) ==="
 echo "=== first 20 unresolved symbol names (deduped) ==="
 grep -oE 'unresolved external symbol [^ ]+' link.log | sed 's/unresolved external symbol //' | sort | uniq -c | sort -rn | head -20
