@@ -239,20 +239,28 @@ panel 9002                         (572,287,209,259)
 ```
 
 ### DIRECT GO dialog — `BuildEnterRoomNumberDialog` (`0x557df0`, id 1) — State 3
+Children are placed at **fixed offsets from the panel origin**, so the whole
+dialog can be positioned anywhere (two captures put the panel at `(459,33)` and
+`(243,202)` with byte-identical relative layout):
 ```
-panel 1                            (459,33,314,160)   (opened by "Go To"/directgo, id 0xf)
-├─ [2] edit    id 0  "Room No."    (558,83,180,12)   focused
-├─ [2] edit    id 1  "Password"    (558,117,180,12)
-├─ [1] label   id 0  "Ok"          (672,151,82,34)
-└─ [1] label   id 1  "Cancel"      (587,151,82,34)
+panel 1                       (w 314, h 160)   (opened by "Go To"/directgo, id 0xf)
+├─ [2] edit    id 0  "Room No."   +(99,50)  180×12   focused
+├─ [2] edit    id 1  "Password"   +(99,84)  180×12
+├─ [1] label   id 0  "Ok"         +(213,118) 82×34
+└─ [1] label   id 1  "Cancel"     +(128,118) 82×34
 ```
 
 **Layout conventions observed across panels:** panels register in
 `g_uiPanelManager` and stack (a modal dialog sits on top of the persistent
 panels — e.g. the add-buddy dialog over the buddy + world-list panels).
-Scroll-lists are `enabled:false` while their content is empty. The panel `id`
-scheme is loose — persistent lobby panels use `9000`/`9001`/`9002`, shared
-panels a round `10000`/`20000`, and transient dialogs a small local id (`1`).
+**Child rects are absolute screen coords, but the invariant is each child's
+offset from the panel top-left** — the same dialog captured at two positions
+keeps identical child offsets (see DIRECT GO), so persistent panels use the
+fixed on-screen positions listed above while transient dialogs are re-placed
+per open. Scroll-lists are `enabled:false` while their content is empty. The
+panel `id` scheme is loose — persistent lobby panels use `9000`/`9001`/`9002`,
+shared panels a round `10000`/`20000`, and transient dialogs a small local id
+(`1`).
 
 ---
 
