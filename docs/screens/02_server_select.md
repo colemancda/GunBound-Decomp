@@ -65,16 +65,44 @@ are the least certain — `10000` maps to the background by analogy with other
 screens; `0x2711`'s exact target isn't confirmed.
 
 ## State object fields (offsets into the 0x6c object)
-| Offset | Field |
-|---|---|
-| +0x04 | connecting flag (set to 1 while a connect is in progress) |
-| +0x06 | UI-dirty / redraw flag |
-| +0x08 | **highlighted slot** (UI cursor), init `-1` |
-| +0x24 | input-enabled flag |
-| +0x28 | **per-slot error-code array** (16 × `int`), values `0x1d`–`0x20` |
-| +0x68 | **slot currently being connected to**, init `-1` |
-| +0x14/+0x18 | scroll/paging value (derived from a global at OnEnter) |
-| +0x20 | tick counter |
+**Runtime-confirmed** — every field below was verified against a live debugger
+dump of the object (`vtable 0x5570f0`); names/semantics match the
+`CState02ServerSelect` reconstruction in `src/cxx/GameState.h`.
+
+| Offset | Field | Notes |
+|---|---|---|
+| +0x04 | `m_connecting` | 1 while a connect attempt is in flight |
+| +0x05 | `m_sendHandshake` | connect succeeded → send `0x1000` next tick |
+| +0x06 | `m_uiDirty` | UI-dirty / interactable gate (row select needs `==1`) |
+| +0x07 | `m_wantInitialList` | set by OnEnter → tick sends the first `0x1100` page request |
+| +0x08 | `m_highlightedSlot` | UI cursor, `-1` = none |
+| +0x10 | **`m_viewMode`** | **the World List View All / Friends toggle: `0` = View All, `2` = Friends** |
+| +0x14 / +0x18 | `m_scrollA` / `m_scrollOffset` | scroll/paging (offset sent in `0x1100`) |
+| +0x20 | `m_tickCounter` | free-running tick counter |
+| +0x24 | `m_inputEnabled` | set to `(highlightedSlot != -1)` on row click |
+| +0x28 | `m_slotError[16]` | per-slot connect error codes `0x1d`–`0x20` |
+| +0x68 | `m_connectingSlot` | slot a connect targets, `-1` = none |
+
+**The "View All / Friends" toggle** (the two buttons at the bottom of the WORLD
+LIST) is `m_viewMode` (`+0x10`): **`0` = View All** (default), **`2` = Friends**.
+That is this screen's server-filter toggle — distinct from State 3's
+room-filter buttons.
+
+## The WORLD LIST panel (runtime-confirmed structure)
+Built by `BuildWorldListPanel` (`0x5099d0`) and registered in
+`g_uiPanelManager` (`0xe53c40`). A live dump shows the tree (widget `typeId` is
+the `+0x20` class id — `0` = panel, `1` = label/button, `4` = scroll-list):
+
+- **Panel** `vtable 0x557f08`, `typeId 0`, id **9000**, rect `(11,13,545,530)` — the framed list area. Children:
+  - **View All** — label button (`0x557da0`, `typeId 1`), id **0**, rect `(336,504,74,26)`
+  - **Friends** — label button (`0x557da0`, `typeId 1`), id **1**, rect `(430,504,74,26)`
+  - **Scroll-list** (`0x557e90`, `typeId 4`), id 0, rect `(526,87,18,377)` — 18 px wide at the right edge; `enabled=false` when the list is empty. Children:
+    - **Up** arrow — label (`0x557da0`), id 0, rect `(526,59,18,18)`
+    - **Down** arrow — label (`0x557da0`), id 1, rect `(526,474,18,18)`
+
+The View All/Friends buttons here are **`CLabel`-based** (`0x557da0`), *not* the
+flat `ButtonWidget` used by State 3's `CreateButtons` — the two screens build
+their bottom bars with different widget classes.
 
 ## The server list — where it's stored
 Received via **opcode `0x1102`** and unpacked into a **structure-of-arrays**

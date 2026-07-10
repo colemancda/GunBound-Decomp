@@ -73,7 +73,12 @@ its **parent's** slot-7 method (`parent.vtable[+0x1c]`) with
   class) and calling slot 0 (`SetFocus`) with 0/1 on the loser/gainer;
   when focus runs off the end it reports **0x1000** through its own
   (virtual) slot 7. Child lookup is by `(+0x20 type, +0x24 id)` via
-  `0x50e620`. The `+0x0c` child list is an **ATL7 `CAtlArray`**
+  `0x50e620`. The object-field **`+0x20` type id** (not to be confused with
+  the vtable's `+0x20` *draw* slot) is **runtime-confirmed** from a live panel
+  dump: **`0` = panel/container, `1` = label/button (`0x557da0`), `2` =
+  text-entry (`0x557c84`), `4` = scroll-list (`0x557e90`)**. `+0x24` is the
+  per-widget id used for command routing. The `+0x0c` child list is an
+  **ATL7 `CAtlArray`**
   (`0x50ed30` is its `GrowBuffer` byte-for-byte, `+0x18` its
   `m_nGrowBy`); the C++ reconstruction lives in src/cxx/.
 
