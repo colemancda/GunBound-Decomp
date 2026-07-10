@@ -109,6 +109,10 @@ public:
     void RenderRoomCard(int slot);              /* 0x42a220 - promoted, State03_GameRoomList.cpp
                                                  * (non-virtual helper; +0x04 = selected room,
                                                  * +0x08 = hovered room) */
+    void RenderRoomLabel();                     /* 0x429810 - vtable slot 15, the per-frame
+                                                 * render hook (GameTick calls it). Kept
+                                                 * non-virtual like RenderRoomCard until
+                                                 * State03's slots 10-15 are dumped. */
 
     int m_selectedRoom;                         /* +0x04: room slot under the join selection */
     int m_hoveredRoom;                          /* +0x08: room slot under the cursor */

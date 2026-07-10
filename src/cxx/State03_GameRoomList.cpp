@@ -1,26 +1,35 @@
-/* CState03GameRoomList - the lobby / game-room-list screen. Promoted
- * from src/state_machine/RenderRoomCard.c (0x42a220). Evidence:
- * PROTOCOL.md "Per-room grid fields", docs/screens/03_game_room_list.md.
- * See src/cxx/README.md.
+/* CState03GameRoomList - the lobby / game-room-list screen. Promoted:
+ * RenderRoomCard (0x42a220) and its caller RenderRoomLabel (0x429810,
+ * the vtable-slot-15 render hook). Evidence: PROTOCOL.md "Per-room grid
+ * fields", docs/screens/03_game_room_list.md. See src/cxx/README.md.
  *
  * This is the first handler to read entirely through ClientContext.h's
  * room-grid accessors - the payoff of the arena reconstruction. The
  * sprite/blit helpers take their arguments in registers (Ghidra shows
  * them arg-less), so those calls stay in the raw external-call shape;
  * this is a renderer, so the value is readability, not byte-matching. */
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
 #include "GameState.h"
 #include "ClientContext.h"
 
 extern "C" {
 extern unsigned int DAT_0079352c;         /* "sprites loaded" gate */
 extern void *PTR_DAT_00551ecc;            /* the "%d" room-number format string */
+extern const char s__s__3d__3d__005536b8[]; /* "%s[%3d/%3d]" scoreboard/banner format */
+extern unsigned char g_localizedStringTable; /* localized-string table base */
+extern CRITICAL_SECTION DAT_005a9068;     /* the value-guard lock */
 int  FindSpriteFrame(void);               /* resolves the current frame (args in regs) */
 void BlitSprite16bpp(int x, int y);       /* hardware blit (frame in regs) */
 void BlitSpriteClipped(int frame);        /* software blit */
 void BlitRLESprite(int x, int color);
-int  _sprintf(char *buf, const char *fmt, int arg);
+int  _sprintf(char *buf, const char *fmt, ...);
 void FUN_004ed9f0(int x, const char *text, int a, int b); /* text prep */
 void FUN_004eadb0(void);                  /* text draw step */
+int  PeekPacketChecksumState(void);       /* decode one value-guarded field */
+void *GetLocalizedString(void *table, int id);
 
 /* Extra room-grid bytes RenderRoomCard reads that aren't in the six
  * documented fields: +0x449b4 (a per-room presence/avatar flag) and
@@ -155,5 +164,83 @@ void CState03GameRoomList::RenderRoomCard(int slot)
             return;
         }
         BlitSpriteClipped(((info >> 0x12) & 3) + 10);
+    }
+}
+
+/* One value-guarded read: the anti-tamper field decode runs under the
+ * shared guard lock (0x5a9068). */
+static int ReadGuardedField()
+{
+    EnterCriticalSection(&DAT_005a9068);
+    int v = PeekPacketChecksumState();
+    LeaveCriticalSection(&DAT_005a9068);
+    return v;
+}
+
+/* 0x429810, vtable slot 15 - the lobby's per-frame render hook (GameTick
+ * calls it). Draws the two background layers, the channel banner
+ * ("<name>[<a>/<b>]"), the four localized column headers, then every
+ * occupied room card except the client's own. Blit positions are
+ * register-passed (Ghidra shows them arg-less), so like RenderRoomCard
+ * this is a readability reconstruction, not byte-matched. */
+void CState03GameRoomList::RenderRoomLabel()
+{
+    int ctx = g_clientContext;
+    char text[128];
+    int frame;
+
+    /* background layer 1 */
+    if (DAT_0079352c != 0 && (frame = FindSpriteFrame()) != 0) {
+        if (*(char *)(frame + 0x18) == 1) BlitSprite16bpp(0, 0); /* y in reg */
+        else BlitSpriteClipped(0);
+    }
+    /* background layer 2 (frame index at ctx+0x23344) */
+    u16 bgFrame = *(u16 *)(ctx + 0x23344);
+    if (DAT_0079352c != 0 && (frame = FindSpriteFrame()) != 0) {
+        if (*(char *)(frame + 0x18) == 1) BlitSprite16bpp(0xac, 9);
+        else BlitSpriteClipped(bgFrame);
+    }
+
+    /* channel banner, only when a channel name is set (ctx+0x23313). Both
+     * counters are value-guarded; original arg order is (name, b, a). */
+    if (*(char *)(ctx + 0x23313) != 0) {
+        int a = ReadGuardedField();
+        int b = ReadGuardedField();
+        _sprintf(text, s__s__3d__3d__005536b8, ctx + 0x23313, b, a);
+        BlitRLESprite(9, 0xfd0f);
+    }
+    BlitRLESprite(0x17, 0xffff);
+
+    /* four localized column headers, each labelled with a guarded count.
+     * The walk-to-NUL after the sprintf is the inlined string-length pass
+     * the RLE text blitter consumes (headers 1/2/4 have it, header 3 does
+     * not - preserved from the original). */
+    int v;
+    v = ReadGuardedField();
+    _sprintf(text, (const char *)GetLocalizedString(&g_localizedStringTable, 20000), v);
+    { char *p = text; while (*p) ++p; }
+    BlitRLESprite(9, 0xffff);
+
+    v = ReadGuardedField();
+    _sprintf(text, (const char *)GetLocalizedString(&g_localizedStringTable, 0x4e21), v);
+    { char *p = text; while (*p) ++p; }
+    BlitRLESprite(0x16, 0xffff);
+
+    v = ReadGuardedField();
+    _sprintf(text, (const char *)GetLocalizedString(&g_localizedStringTable, 0x4e22), v);
+    BlitRLESprite(0x27, 0x1f3b);
+
+    v = ReadGuardedField();
+    _sprintf(text, (const char *)GetLocalizedString(&g_localizedStringTable, 0x4e23), v);
+    { char *p = text; while (*p) ++p; }
+    BlitRLESprite(0x27, 0xe703);
+
+    /* every occupied room card except the client's own (this+0x124); the
+     * room-present flags are the 6-int array at ctx+0x4464c. */
+    int ownRoom = *(int *)((char *)this + 0x124);
+    for (int slot = 0; slot < 6; ++slot) {
+        if (*(int *)(ctx + 0x4464c + slot * 4) != 0 && slot != ownRoom) {
+            RenderRoomCard(slot);
+        }
     }
 }
