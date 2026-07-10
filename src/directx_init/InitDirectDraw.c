@@ -64,7 +64,14 @@ byte InitDirectDraw(undefined4 param_1)
     return 0x1a;
   }
   pFVar3 = GetProcAddress(g_hDDrawDll,s_DirectDrawCreateEx_005574fc);
-  iVar4 = (*pFVar3)();
+  /* DirectDrawCreateEx(lpGuid=NULL, lplpDD=&g_pDirectDraw7, iid=IID_IDirectDraw7,
+   * pUnkOuter=NULL). Ghidra emitted this as an argless `(*pFVar3)()`; the real
+   * argument push order was recovered from the original at 0x4efae2-0x4efaee
+   * (push NULL / &IID_IDirectDraw7 / &g_pDirectDraw7 / NULL). Without the args
+   * ddraw reads uninitialised stack for the requested IID and faults at
+   * ddraw+0x21d5a (NULL deref while walking its interface list). */
+  iVar4 = ((HRESULT (WINAPI *)(GUID *, LPVOID *, REFIID, IUnknown *))pFVar3)
+              (NULL, (LPVOID *)&g_pDirectDraw7, &IID_IDirectDraw7, NULL);
   if (iVar4 < 0) {
     return 0x19;
   }
