@@ -1381,6 +1381,48 @@ a reimplementation: the localization table is not an opaque bag of strings but
 a **block-addressed layout**, so a port can keep the same id scheme and load
 the same `Language.txt` verbatim.
 
+### The sprite keyframe-animation player (`AdvanceSpriteAnimation`)
+
+A **generic per-object keyframe animator** drives most animated sprites in the
+game — mobiles, effects, UI, and the software cursor. `AdvanceSpriteAnimation`
+(`0x450730`, was `FUN_00450730`) advances one animation-player object per call
+and is invoked **once per elapsed frame** from GameTick's update loop (and from
+~10 other sites, each animating a different object). The cursor is the singleton
+instance at `0x7a7644` (its `+0x30` output is `g_cursorFrame`).
+
+**The player object** (fields relative to the object pointer, passed in EAX):
+
+| off | field |
+|---|---|
+| `+0x1c` | **anim descriptor** pointer (nullable → no-op) |
+| `+0x20` | enabled byte (0 → no-op) |
+| `+0x24` | **current animation index** (the "state"; `< 0` → no-op) |
+| `+0x28` | sub-timer — ticks elapsed within the current step |
+| `+0x2c` | current keyframe **step** |
+| `+0x30` | **output: the resolved sprite frame** to draw |
+| `+0x34` | "finished" flag (set when a non-looping anim ends, or on reset) |
+
+**The descriptor** is a shared, per-sprite set of parallel tables, each indexed
+by the animation index (`state`), then by step:
+
+| off | table |
+|---|---|
+| `+0x08` | loop flags — `byte[state]`: `0` = play-once/stop, nonzero = loop |
+| `+0x0c` | step counts — `int[state]` |
+| `+0x10` | step→frame — `int*[state]`, `[step]` = the sprite frame to draw |
+| `+0x14` | step durations — `int*[state]`, `[step]` = ticks that step is held |
+
+**Per tick** (when enabled, descriptor present, `state ≥ 0`): if the descriptor
+isn't ready (`*descriptor == 0`) it resets (step/timer/frame = 0, finished = 1);
+otherwise it `++`s the sub-timer, and when the timer reaches
+`duration[state][step]` it advances the step and clears the timer. When the step
+passes `stepCount[state]` it **loops** (step = 0) if `loop[state]` is set, else
+**stops** on the last step and sets the finished flag. Finally it writes
+`frame[state][step]` into `+0x30`. For the cursor that's a ~17-step,
+one-tick-per-step looping animation → the `0…16→0` cycle observed on the live
+client (see "The custom cursor system"). Confirmed by decompilation + a
+debugger probe.
+
 ### Sprite-sheet frame selection
 
 Seen dozens of times in `State11_InBattle_Render`:
