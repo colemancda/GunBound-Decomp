@@ -145,7 +145,7 @@ leaf widgets above. All register with the global UI panel manager
 |---|---|---|---|
 | `BuildWorldListPanel` (`0x5099d0`) | `0x557f08` | State 2 — server WORLD LIST | 2 buttons (View All / Friends) + scrollbar; rows drawn by `RenderWorldListRow` |
 | `BuildBuddyPanel` | `0x557be4` | shared — **buddy list** (lobby / ready room / WndProc); singleton keyed 20000, at (568,11) 211×267 | Add (`0x2bd`) / Del (`0x2be`) / close-X (`0x2bf`) label buttons + a page-7 scrollbar; res IDs `0x2bc`–`0x2bf` |
-| `BuildLobbyChatPanel` | `0x557cd4` | State 3 — lobby **chat** panel (549×259) | a 484×12 chat-input `CEditBox` (maxLen 80) + a small label + a page-13 scrollbar |
+| `BuildLobbyChatPanel` | `0x557cd4` | State 3 — lobby **chat** panel (549×259, id 9001) — runtime-confirmed | a 484×12 chat-input `CEditBox` (`0x557c84`, maxLen 80) + **8 "CH 1–8" channel-tab labels** (`0x557da0`, ids 0–7, 22×22) + a page-13 scrollbar |
 | `BuildChannelUserListPanel` (`0x509d80`) | `0x557cac` | State 3 — lobby **channel user list** (209-wide) | scrollbar (page 7); rows (`RenderChannelUserRow`) = status flag + rank icon + name per user |
 | `BuildReadyRoomChatPanel` (`0x5094f0`) | `0x557ee0` | State 9 — Ready Room **chat log** (480×160, bottom) | scrollbar (page 9); rows (`RenderReadyRoomChatRow`) = color-coded messages by type byte |
 | `BuildAvatarStorePanel` | `0x557eb8` | State 7 — Avatar Store item panel | 3 category labels (msg `0x4b0`–`0x4b2`) + scrollbar (page 0xe) |

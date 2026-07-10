@@ -152,9 +152,16 @@ error/message dialogs `ShowErrorDialog`/`ShowErrorDialogFmt`/`ShowMessageDialog`
 scroll names and the three buddy names are **never passed to `CreateButtonWidget`
 anywhere** — they're registered/preloaded but no widget is created and no click
 handler exists for them. So `b_gamelist_channelup`/`channeldown` explain why the
-images ship, but there is **no functional channel-scroll control** on this
-screen (the concrete mechanism behind the earlier "no direct channel picker"
-finding). The buddy list's own scrolling (right-hand panel, built by
+images ship, but there is **no functional channel *up/down scroll* control**.
+
+**However, there IS a channel picker — corrected by a live dump.** The lobby's
+chat panel (`BuildLobbyChatPanel`, `0x557cd4`, id 9001) contains **8 channel
+tabs "CH 1–8" as `CLabel` widgets** (`0x557da0`, `typeId 1`, ids 0–7, 22×22 at
+`y=296`, `x` = 287,319,…,511 on a 32-px stride) — the row of numbered tabs
+across the top of the CHATTING panel. So channel switching *does* exist; it's
+just these panel labels (built by the chat-panel builder), not the vestigial
+`b_gamelist_channelup/down` bottom-bar buttons. (This supersedes the earlier
+"no direct channel picker" note.) The buddy list's own scrolling (right-hand panel, built by
 `BuildBuddyPanel`) uses the generic scroll-list widget with its own arrow children,
 not these named buttons.
 
