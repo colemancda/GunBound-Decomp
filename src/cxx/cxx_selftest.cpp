@@ -13,6 +13,7 @@
 #include "Protocol.h"
 #include "ClientContext.h"
 #include "ValueGuard.h"
+#include "Mobile.h"
 
 /* --- CGameState hierarchy: confirmed allocation sizes ------------------ */
 GB_STATIC_ASSERT(sizeof(CState01Title)       == 8,       state01_size);
@@ -24,6 +25,9 @@ GB_STATIC_ASSERT(sizeof(CState07AvatarStore) == 0x34818, state07_size);
 GB_STATIC_ASSERT(sizeof(CState09ReadyRoom)   == 0x78c,   state09_size);
 GB_STATIC_ASSERT(sizeof(CState10Loading)     == 0x150,   state10_size);
 GB_STATIC_ASSERT(sizeof(CState11InBattle)    == 0x2408,  state11_size);
+
+/* --- CMobile: confirmed object size (CreateMobile's operator_new(0xd1d4)) --- */
+GB_STATIC_ASSERT(sizeof(CMobile) == 0xd1d4, mobile_size);
 
 /* --- Wire structures: PROTOCOL.md-confirmed layouts --------------------- */
 GB_STATIC_ASSERT(sizeof(GbActionHeader) == 0x21,  actionheader_size);
@@ -91,4 +95,16 @@ static void gb_widget_offset_checks()
     GB_STATIC_ASSERT(GB_OFFSETOF(CScrollBar, m_scrollPos)== 0x40, off_scrollpos);
     GB_STATIC_ASSERT(GB_OFFSETOF(CPanel, m_strings)     == 0x50, off_strings);
     GB_STATIC_ASSERT(GB_OFFSETOF(CWorldListPanel, m_unk90) == 0x90, off_unk90);
+
+    /* CMobile: confirmed field offsets (InitMobile / CreateMobile / HandleFireInput) */
+    GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_idBase)       == 0x04,   off_mob_id);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_owner)        == 0x08,   off_mob_owner);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_spriteId)     == 0x18,   off_mob_sprite);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_tankTexture)  == 0x1c,   off_mob_tanktex);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_avataTexture) == 0x54,   off_mob_avatatex);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_fireAngle)    == 0x243,  off_mob_angle);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_firePower)    == 0x2cc,  off_mob_power);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_spriteId2)    == 0x904,  off_mob_sprite2);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_name)         == 0xae15, off_mob_name);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_type13Field)  == 0xbff0, off_mob_t13);
 }

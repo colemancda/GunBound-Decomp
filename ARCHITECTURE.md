@@ -854,6 +854,16 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
   332-byte records, now decoded — see FILEFORMATS.md) against a known-good
   GunBound mobile stat reference — none done yet, so no names are asserted here.
 
+  The class hierarchy is reconstructed in **`src/cxx/Mobile.h`** (`CMobile`
+  base + the 16-entry type→vtable table), with the object size and confirmed
+  field offsets machine-checked in `cxx_selftest.cpp`. The base vtable
+  (`0x555c68`) is **8 slots**: `[0]` scalar-deleting dtor (per-type), `[1]`
+  handle-acquire, `[2]/[3]` update/serialize, `[4]` no-op, `[5]` update
+  (type 13 overrides), `[6]` `HandleFireInput` (`0x45f910`, shared), `[7]` the
+  per-type main action (base is a no-op — every subclass overrides it). Each
+  subclass overrides only slots 0 and 7 (type 13 also slot 5) and adds no data
+  members, so all 16 share the identical `0xd1d4` layout.
+
 ## Subsystem init functions (confirmed)
 
 - `InitDirectDraw` (`0x4efaa0`) — `LoadLibraryA("ddraw.dll")` + `DirectDrawCreateEx`.
