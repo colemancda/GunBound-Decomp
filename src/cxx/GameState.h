@@ -113,6 +113,9 @@ public:
                                                  * render hook (GameTick calls it). Kept
                                                  * non-virtual like RenderRoomCard until
                                                  * State03's slots 10-15 are dumped. */
+    void CreateButtons();                       /* 0x42aba0 - build the 12 bottom-bar
+                                                 * buttons (helper; void(void) in the
+                                                 * original, called from OnEnter) */
 
     int m_selectedRoom;                         /* +0x04: room slot under the join selection */
     int m_hoveredRoom;                          /* +0x08: room slot under the cursor */

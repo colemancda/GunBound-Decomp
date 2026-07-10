@@ -1,7 +1,8 @@
 /* CState03GameRoomList - the lobby / game-room-list screen. Promoted:
- * RenderRoomCard (0x42a220) and its caller RenderRoomLabel (0x429810,
- * the vtable-slot-15 render hook). Evidence: PROTOCOL.md "Per-room grid
- * fields", docs/screens/03_game_room_list.md. See src/cxx/README.md.
+ * RenderRoomCard (0x42a220), its caller RenderRoomLabel (0x429810, the
+ * vtable-slot-15 render hook), and CreateButtons (0x42aba0, the bottom-bar
+ * button setup). Evidence: PROTOCOL.md "Per-room grid fields",
+ * docs/screens/03_game_room_list.md. See src/cxx/README.md.
  *
  * This is the first handler to read entirely through ClientContext.h's
  * room-grid accessors - the payoff of the arena reconstruction. The
@@ -243,4 +244,55 @@ void CState03GameRoomList::RenderRoomLabel()
             RenderRoomCard(slot);
         }
     }
+}
+
+/* --- CreateButtons (0x42aba0) --------------------------------------- */
+extern "C" {
+extern unsigned char DAT_00e9be90;          /* the button-widget registry */
+void CreateButtonWidget(void *registry, int a, int id, int spriteBase,
+                        const char *name, int x, int y, int w, int h,
+                        int enabled, int b);
+void FUN_0042a090(void);                     /* post-build fixup (unnamed) */
+extern const char s_b_gamelist_exit_0055379c[];
+extern const char s_b_gamelist_buddy_00553788[];
+extern const char s_b_gamelist_ranking_00553774[];
+extern const char s_b_gamelist_avatar_00553760[];
+extern const char s_b_gamelist_create_0055374c[];
+extern const char s_b_gamelist_join_0055373c[];
+extern const char s_b_gamelist_viewall_00553728[];
+extern const char s_b_gamelist_wait_00553718[];
+extern const char s_b_gamelist_prev_00553708[];
+extern const char s_b_gamelist_next_005536f8[];
+extern const char s_b_gamelist_friend_005536e4[];
+extern const char s_b_gamelist_directgo_005536d0[];
+}
+
+/* 0x42aba0 - create the lobby's 12 bottom-bar buttons: the six primary
+ * actions along y=0x227 (exit/buddy/ranking/avatar/create/join) and six
+ * secondary/navigation buttons along y=0xf6 (viewall/wait/prev/next/
+ * friend/directgo). The command id is the raw slot index; the sprite-set
+ * ids were preloaded by OnEnter. void(void) in the original. */
+void CState03GameRoomList::CreateButtons()
+{
+    struct Btn { int id; int spriteBase; const char *name; int x, y, w, h; };
+    static const Btn buttons[] = {
+        { 0x0, 1000,  s_b_gamelist_exit_0055379c,     0x28,  0x227, 0x6b, 0x2d },
+        { 0x1, 0x3e9, s_b_gamelist_buddy_00553788,    0xa3,  0x227, 0x6b, 0x2d },
+        { 0x2, 0x3ea, s_b_gamelist_ranking_00553774,  0x11e, 0x227, 0x6b, 0x2d },
+        { 0x3, 0x3eb, s_b_gamelist_avatar_00553760,   0x199, 0x227, 0x6b, 0x2d },
+        { 0x4, 0x3ec, s_b_gamelist_create_0055374c,   0x214, 0x227, 0x6b, 0x2d },
+        { 0x5, 0x3ed, s_b_gamelist_join_0055373c,     0x28f, 0x227, 0x6b, 0x2d },
+        { 0xa, 0x44c, s_b_gamelist_viewall_00553728,  0x2a,  0xf6,  0x51, 0x21 },
+        { 0xb, 0x44d, s_b_gamelist_wait_00553718,     0x83,  0xf6,  0x51, 0x21 },
+        { 0xc, 0x44e, s_b_gamelist_prev_00553708,     0xf2,  0xf6,  0x31, 0x21 },
+        { 0xd, 0x44f, s_b_gamelist_next_005536f8,     0x124, 0xf6,  0x31, 0x21 },
+        { 0xe, 0x450, s_b_gamelist_friend_005536e4,   0x173, 0xf6,  0x51, 0x21 },
+        { 0xf, 0x451, s_b_gamelist_directgo_005536d0, 0x1cc, 0xf6,  0x51, 0x21 },
+    };
+    for (int i = 0; i < 12; ++i) {
+        const Btn &b = buttons[i];
+        CreateButtonWidget(&DAT_00e9be90, 0, b.id, b.spriteBase, b.name,
+                           b.x, b.y, b.w, b.h, 0, 0);
+    }
+    FUN_0042a090();
 }
