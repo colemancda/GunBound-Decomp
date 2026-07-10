@@ -31,7 +31,13 @@ struct ServerListSoA {
     u16 port[16];             /* +0x1882 (abs +0x4108a) */
     u16 unknownField2[16];    /* +0x18a2 (abs +0x410aa) */
     u16 currentPlayers[16];   /* +0x18c2 (abs +0x410ca) */
-    u16 maxCapacity[16];      /* +0x18e2 (abs +0x410ea) */
+    u16 maxCapacity[16];      /* +0x18e2 (abs +0x410ea) - BIG-ENDIAN (network
+                               * order): live read of slot 0 = 100 stored as
+                               * bytes 00 64, i.e. a little-endian u16 read
+                               * yields 0x6400/25600. Read as big-endian, or
+                               * byte-swap, to get the real cap. (currentPlayers
+                               * was 0 in every sample, so its order is still
+                               * unconfirmed - assume the same.) */
     u8  animState[16];        /* +0x1902 (abs +0x4110a) */
 };
 #pragma pack(pop)
@@ -45,6 +51,20 @@ inline ServerListSoA *ServerList_of(int ctx)
  * absolute offset (not part of the SoA above). */
 inline int  &Ctx_selectedServerId(int ctx) { return *reinterpret_cast<int *>(ctx + 0x3f804); }
 inline char *Ctx_currentServerName(int ctx) { return reinterpret_cast<char *>(ctx + 0x3b8e8); }
+
+/* Local account name. Confirmed by live debugger read in State 3: the ASCII
+ * string "colemancda2" sits at ctx+0x2331c (a second copy 0x14 bytes later at
+ * ctx+0x23330 - see the PeerEndpoint note below). */
+inline char *Ctx_localUserName(int ctx) { return reinterpret_cast<char *>(ctx + 0x2331c); }
+
+/* --- Lobby/channel user list (State 3) --------------------------------
+ * The CChannelUserListPanel (vtable 0x557cac) roster. Found live at
+ * ctx+0x41440 as name-inline records: "admin" at ctx+0x41445 and
+ * "colemancda2" at ctx+0x41452 - a ~0xD-byte stride (only two users were
+ * available to sample, so the exact record layout/stride is inferred, not
+ * confirmed). NOTE: this is distinct from Ctx_roomPlayerName (+0x4467c),
+ * which is the in-ROOM player array and read back EMPTY while in the channel. */
+inline char *Ctx_channelUserName(int ctx, int slot) { return reinterpret_cast<char *>(ctx + 0x41445 + slot * 0xd); }
 
 /* --- Room list (State 3) arena ----------------------------------------
  * The lobby's 6 room-card slots (3x2 grid). Per PROTOCOL.md
@@ -80,15 +100,13 @@ inline void *Ctx_inventory(int ctx) { return reinterpret_cast<void *>(ctx + 0x44
  * Written from the 0x101f-family address-report packet (State02's
  * ProcessPacket tail) and handed to FUN_005204f0. Four dwords; the
  * flag byte at +0x0c is cleared on each update. Field meanings not
- * fully decoded, but the record shape (4x u32) is confirmed. */
-/* CORRECTION (live client-context dump): the first 12 bytes here are not an
- * IP endpoint - they hold a NUL-terminated ASCII string, the local player's
- * account ID. A lobby dump read "colemancda2\0" across addr/field4/field8
- * (addr=0x656c6f63 "cole", field4=0x636e616d "manc", field8=0x00326164
- * "da2\0"). So this record is (at least in the lobby) the player-ID string,
- * not a peer IP:port - the "address-report" naming and the IP interpretation
- * are suspect and should be revisited. The u32 fields below are retained as
- * raw 12-byte string storage (their offsets are what the layout asserts check). */
+ * fully decoded, but the record shape (4x u32) is confirmed.
+ *
+ * WARNING - live inspection in State 3 shows this region holding the ASCII
+ * account name ("colemancda2": addr="cole", field4="manc", field8="da2\0"),
+ * i.e. a second copy of Ctx_localUserName, NOT a 4-dword IP endpoint. Either
+ * the region is reused after login or the address-report interpretation is
+ * misattributed - the "PeerEndpoint" shape needs re-confirmation. */
 struct PeerEndpoint {
     u32 addr;    /* +0x00 (abs +0x23330) - name[0..3], e.g. "cole" */
     u32 field4;  /* +0x04 (abs +0x23334) - name[4..7], e.g. "manc" */
