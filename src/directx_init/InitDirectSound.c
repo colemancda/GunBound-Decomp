@@ -8,6 +8,7 @@
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
  */
+#include "xfs.h"
 #include "ghidra_types.h"
 #include <windows.h>
 
@@ -45,7 +46,10 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
   uStack_54 = (int **)param_3;
   DAT_0079355c = param_1;
   iStack_58 = 0x4ee604;
-  OpenXFSArchive();
+  /* original: ESI=sound-archive singleton (0xea0f50), path in ECX
+   * (=param_1), writeFlag 1, param_3 0. Bring-up routes it through the
+   * shared scratch archive. */
+  OpenXFSArchive(&g_xfsScratch,(LPCSTR)param_1,1,0);
   DAT_00793560 = 0x1f;
   if (param_2 < 0x20) {
     DAT_00793560 = param_2;

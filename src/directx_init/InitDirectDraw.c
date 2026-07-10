@@ -8,6 +8,7 @@
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
  */
+#include "xfs.h"
 #include "ghidra_types.h"
 #include <windows.h>
 
@@ -220,7 +221,7 @@ byte InitDirectDraw(undefined4 param_1)
   (**(code **)(*(int *)g_pD3DDevice7 + 0x94))(g_pD3DDevice7,0,4,4);
   (**(code **)(*(int *)g_pD3DDevice7 + 0x50))(g_pD3DDevice7,8,3);
   (**(code **)(*(int *)g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x88,1);
-  OpenXFSArchive(param_1,1,0);
+  OpenXFSArchive(&g_graphicsArchive,param_1,1,0);
   _DAT_00f23658 = 600;
   _DAT_00f23654 = 800;
   puVar5 = &DAT_00f22650;

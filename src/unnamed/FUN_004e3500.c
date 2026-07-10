@@ -5,6 +5,7 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
+#include "xfs.h"
 #include "ghidra_types.h"
 
 
@@ -57,7 +58,7 @@ undefined4 FUN_004e3500(undefined4 param_1)
   uStack_10748 = 0;
   local_c = 0;
   BuildAssetPath(auStack_10b50,&DAT_005b1ed0,s_graphics_xfs_00551fdc,0);
-  OpenXFSArchive(auStack_10b50,1,0);
+  OpenXFSArchive(&g_xfsScratch,auStack_10b50,1,0);
   iVar6 = FindXFSEntry(auStack_10750,s_Sound_txt_00557218);
   if (((iVar6 == 0) || (pvVar4 = operator_new(0x1024), pvVar4 == (void *)0x0)) ||
   /* ReadXFSEntry is void-returning - see src/fileformat/LoadChooseEventConfig.c's fix. */

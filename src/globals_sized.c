@@ -19,6 +19,15 @@ unsigned char DAT_005a9068[24];
 unsigned char DAT_005a9084[24];
 unsigned char DAT_00e9af44[24];
 
+/* The graphics.xfs archive singleton (was the 1-byte DAT_00f11dd0).
+ * 0x10740 bytes; OpenXFSArchive stores the file handle at +0x1040 and
+ * decoded blocks up to +0x10730. LoadSpriteSet reads sprites from it
+ * via FindXFSEntry(&g_graphicsArchive, name). The startup hook in
+ * crt_shims_msvc.c sets its handle to XFS_CLOSED before WinMain. */
+#include "xfs.h"
+XFSArchive g_graphicsArchive;
+XFSArchive g_xfsScratch;
+
 /* The localized UI-string map (was DAT_00796eec). LoadLocalizedStrings
  * builds the whole table at this address; 259 call sites pass
  * &g_localizedStringTable as the map base. 64 KB is generous - the

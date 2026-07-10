@@ -5,6 +5,7 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
+#include "xfs.h"
 #include "ghidra_types.h"
 
 
@@ -30,7 +31,7 @@ int FUN_004f18c0(undefined4 param_1,undefined4 param_2,int param_3)
    * the two-argument ReadXFSEntry(handle, buffer) usage seen
    * elsewhere, where the second argument is an out-buffer, not
    * something whose result should replace pvVar2. */
-  iVar1 = FindXFSEntry(&DAT_00f11dd0,in_EAX);
+  iVar1 = FindXFSEntry(&g_graphicsArchive,in_EAX);
   if ((((iVar1 == 0) || (pvVar2 = operator_new(0x1024), pvVar2 == (void *)0x0)) ||
       (ReadXFSEntry(iVar1,&DAT_00f12e18), pvVar2 == (void *)0x0)) ||
      (local_8 = pvVar2, ReadXFSEntryByte(pvVar2,&local_4), local_4 != 0)) {

@@ -625,7 +625,9 @@ uint8_t DAT_00ea0eac;
 uint32_t DAT_00ea0f54;
 uint8_t DAT_00eb168c;
 uint8_t DAT_00eb1bd8;
-uint8_t DAT_00f11dd0;
+/* DAT_00f11dd0: the graphics.xfs archive singleton - promoted to the
+ * real 0x10740-byte XFSArchive g_graphicsArchive in globals_sized.c
+ * (a one-byte cell here under-sized it; OpenXFSArchive reads +0x1040). */
 uint32_t DAT_00f11dd4;
 uint8_t DAT_00f11de0;
 uint8_t DAT_00f12e14;

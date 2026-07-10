@@ -859,7 +859,7 @@ extern uint8_t DAT_00ea0eac;
 extern uint32_t DAT_00ea0f54;
 extern uint8_t DAT_00eb168c;
 extern uint8_t DAT_00eb1bd8;
-extern uint8_t DAT_00f11dd0;
+/* DAT_00f11dd0 promoted to XFSArchive g_graphicsArchive - see xfs.h */
 extern uint32_t DAT_00f11dd4;
 extern uint8_t DAT_00f11de0;
 #define _DAT_00f11de0 DAT_00f11de0

@@ -8,6 +8,7 @@
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
  */
+#include "xfs.h"
 #include "ghidra_types.h"
 #include <windows.h>
 
@@ -48,7 +49,7 @@ byte LoadGameDataFiles(int param_1)
   
   uStack_c = 0x419da0;
   BuildAssetPath(auStack_181b8,&DAT_005b1ed0,s_Avatar_xfs_00553660,0);
-  cVar4 = OpenXFSArchive(auStack_181b8,1,0);
+  cVar4 = OpenXFSArchive(&g_xfsScratch,auStack_181b8,1,0);
   if (cVar4 == '\0') {
     return 7;
   }

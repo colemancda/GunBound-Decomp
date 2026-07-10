@@ -9,12 +9,18 @@
  * these get promoted to verified.
  */
 #include "ghidra_types.h"
+#include "xfs.h"
 #include <windows.h>
 
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-undefined4 OpenXFSArchive(LPCSTR param_1,int param_2,int param_3)
+/* Promoted: `archive` is the XFS object Ghidra dropped from ESI (the
+ * archive's implicit `this`). Callers pass the per-file singleton
+ * (&g_graphicsArchive) or a local archive object; the object's handle
+ * field at +0x1040 must be XFS_CLOSED (-1) on entry or this
+ * early-returns 0x40001. */
+undefined4 OpenXFSArchive(XFSArchive *archive,LPCSTR param_1,int param_2,int param_3)
 
 {
   HANDLE hFile;
@@ -23,7 +29,7 @@ undefined4 OpenXFSArchive(LPCSTR param_1,int param_2,int param_3)
   void *pvVar3;
   int iVar4;
   uint uVar5;
-  short *unaff_ESI;
+  short *unaff_ESI = (short *)archive;
   short *psVar6;
   DWORD DStack_40008;
   DWORD DStack_40004;

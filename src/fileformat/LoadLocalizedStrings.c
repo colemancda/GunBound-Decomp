@@ -12,6 +12,7 @@
  * (the SEH frame and the line-parse loop's exact bounds are Ghidra-shaped).
  * See src/README.md's "Raw/verbatim ports" section for status.
  */
+#include "xfs.h"
 #include "ghidra_types.h"
 
 
@@ -63,7 +64,7 @@ undefined4 LoadLocalizedStrings(undefined4 param_1)
   uStack_10748 = 0;
   local_c = 0;
   BuildAssetPath(auStack_10b50,&DAT_005b1ed0,s_graphics_xfs_00551fdc,0);
-  OpenXFSArchive(auStack_10b50,1,0);
+  OpenXFSArchive(&g_xfsScratch,auStack_10b50,1,0);
   iVar5 = FindXFSEntry(auStack_10750,s_Language_txt_00554008);
   if (((iVar5 == 0) || (pvVar2 = operator_new(0x1024), pvVar2 == (void *)0x0)) ||
      (uStack_10f54 = ReadXFSEntry(iVar5,local_f708), uStack_10f54 == 0)) {

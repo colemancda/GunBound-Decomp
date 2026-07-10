@@ -8,6 +8,7 @@
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
  */
+#include "xfs.h"
 #include "ghidra_types.h"
 #include <windows.h>
 
@@ -56,7 +57,7 @@ undefined4 LoadChooseEventConfig(void)
   uStack_10748 = 0;
   local_c = 0;
   BuildAssetPath(auStack_10b50,&DAT_005b1ed0,s_graphics_xfs_00551fdc,0);
-  OpenXFSArchive(auStack_10b50,1,0);
+  OpenXFSArchive(&g_xfsScratch,auStack_10b50,1,0);
   iVar4 = FindXFSEntry(auStack_10750,s_ChooseEvent_txt_00551fcc);
   /* ReadXFSEntry is void-returning (see its own definition) - this
    * call site's return-value use is a Ghidra per-call-site

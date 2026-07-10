@@ -5,6 +5,7 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
+#include "xfs.h"
 #include "ghidra_types.h"
 
 
@@ -25,7 +26,7 @@ int LoadSpriteSet(undefined4 param_1,undefined4 param_2)
    * per-call-site decompilation inconsistency, same class as
    * entry/WinMain.c's FUN_004058c0 fix. iVar1 keeps whatever value it
    * already held (from FindXFSEntry) instead of being reassigned. */
-  iVar1 = FindXFSEntry(&DAT_00f11dd0,in_EAX);
+  iVar1 = FindXFSEntry(&g_graphicsArchive,in_EAX);
   if ((((iVar1 == 0) || (pvVar2 = operator_new(0x1024), pvVar2 == (void *)0x0)) ||
       (ReadXFSEntry(iVar1,&DAT_00f12e18), iVar1 == 0)) ||
      (local_8 = iVar1, ReadXFSEntryByte(iVar1,&local_4), local_4 != 0)) {
