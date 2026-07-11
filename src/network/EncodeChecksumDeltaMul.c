@@ -1,34 +1,37 @@
-/* FUN_0040b180 - 0x0040b180 in the original binary.
+/* EncodeChecksumDeltaMul - 0x0040a7d0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * No confirmed real name/purpose - referenced by at least one already-
+ * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-int FUN_0040b180(undefined4 param_1,int param_2,int param_3)
+int EncodeChecksumDeltaMul(undefined4 param_1,int param_2,int param_3)
 
 {
   int iVar1;
   undefined4 uVar2;
+  undefined4 *unaff_FS_OFFSET;
   undefined1 local_238 [28];
   int local_21c;
   undefined1 local_10;
   undefined4 local_c;
+  undefined1 *puStack_8;
   uint local_4;
   
   local_4 = 0xffffffff;
-  /* Windows SEH __try/__except frame setup stripped - handler body
-   * wasn't included in this function's own decompile. Same
-   * rationale as entry/InitGame.c - see src/README.md. */
+  puStack_8 = &LAB_00538e6a;
+  local_c = *unaff_FS_OFFSET;
+  *unaff_FS_OFFSET = &local_c;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_10 = 0;
   local_21c = 0;
   EncodeOutgoingPacketField(0);
   local_4 = 1;
   iVar1 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar1 >> (param_3 & 0x1f));
+  EncodeOutgoingPacketField(iVar1 * param_3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined1 *)(param_2 + 0x220) = 0;
   *(undefined4 *)(param_2 + 0x14) = 0;
@@ -39,6 +42,7 @@ int FUN_0040b180(undefined4 param_1,int param_2,int param_3)
     ScrambleChecksumGuardBytes();
     FUN_0040b540(local_238);
   }
+  *unaff_FS_OFFSET = local_c;
   return param_2;
 }
 

@@ -251,7 +251,7 @@ void FUN_004ccd10(int *param_1)
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_71c = (undefined *)PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        uVar9 = FUN_0040a7d0(local_678,local_230,local_71c + iVar7);
+        uVar9 = EncodeChecksumDeltaMul(local_678,local_230,local_71c + iVar7);
         local_4 = 1;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_71c = (undefined *)PeekPacketChecksumState();

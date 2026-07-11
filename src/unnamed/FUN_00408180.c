@@ -66,7 +66,7 @@ void FUN_00408180(int param_1)
   if ((((*(int *)(g_clientContext + 0x227bc) == 0xc0) ||
        (*(int *)(g_clientContext + 0x621e4) != *(int *)(g_clientContext + 0x621e0))) &&
       (cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01')) && (cVar1 = PeekPacketChecksumBool(), cVar1 == '\0')) {
-    cVar1 = FUN_0040b330(*(int *)(g_clientContext + 0x621e0) + 0x60d4,0);
+    cVar1 = PacketChecksumLessThan(*(int *)(g_clientContext + 0x621e0) + 0x60d4,0);
     if (cVar1 != '\0') {
       iVar3 = *(int *)(param_1 + 0x44);
       iVar13 = *(int *)(param_1 + 0x40);
@@ -432,7 +432,7 @@ LAB_00408b80:
     else {
       uVar5 = 1;
     }
-    uVar8 = FUN_0040a7d0(uVar7 + 0x6968,local_454,0x40);
+    uVar8 = EncodeChecksumDeltaMul(uVar7 + 0x6968,local_454,0x40);
     local_4 = 2;
     EncodeChecksumDeltaDiv(uVar8,local_ac0,uVar5);
     local_4 = 3;
@@ -520,7 +520,7 @@ LAB_00408b80:
     FUN_004eb800(local_1010[0],(-(uint)(iVar2 < iVar6) & 0x5af7) + 0x65a9);
     uVar5 = EncodeChecksumPairSum(iVar13,local_230,iVar3);
     local_4 = 6;
-    uVar8 = FUN_0040a7d0(local_101c + 0x6fd4,local_678,0x40);
+    uVar8 = EncodeChecksumDeltaMul(local_101c + 0x6fd4,local_678,0x40);
     local_4 = 7;
     FUN_0040aea0(uVar8,local_89c,uVar5);
     local_4 = 8;

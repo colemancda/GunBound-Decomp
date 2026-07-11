@@ -564,7 +564,7 @@ LAB_004b7c01:
               local_c = 2;
               uVar21 = EncodeChecksumDeltaDiv(uVar21,local_8a8,3);
               SUBFIELD(local_c,0,undefined1) = 3;
-              local_27e5 = FUN_0040b490(piVar7 + 0x1a5a,uVar21);
+              local_27e5 = CompareChecksumPair(piVar7 + 0x1a5a,uVar21);
               local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),2);
               ScrubChecksumGuard();
               local_c = 0xffffffff;
@@ -627,7 +627,7 @@ LAB_004b7c01:
                 local_c = 0;
                 uVar21 = EncodeChecksumDeltaDiv(uVar21,local_19c8,3);
                 SUBFIELD(local_c,0,undefined1) = 1;
-                local_27e5 = FUN_0040b490(piVar7 + 0x1a5a,uVar21);
+                local_27e5 = CompareChecksumPair(piVar7 + 0x1a5a,uVar21);
                 local_c = (uint)SUBFIELD(local_c,1,undefined3) << 8;
                 ScrubChecksumGuard();
                 local_c = 0xffffffff;
@@ -748,7 +748,7 @@ LAB_004b7c01:
                 EncodeChecksumStateXored();
                 iVar10 = PeekChecksumStateUnderLock(uVar11 * 0x1120 + 0x5113c + g_clientContext);
                 iVar6 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-                uVar21 = FUN_0040a7d0(&local_2658,local_acc,iVar10 + iVar6);
+                uVar21 = EncodeChecksumDeltaMul(&local_2658,local_acc,iVar10 + iVar6);
                 SUBFIELD(local_c,0,undefined1) = 0xb;
                 uVar20 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                 uVar21 = EncodeChecksumDeltaDiv(uVar21,local_f14,uVar20);
@@ -776,7 +776,7 @@ LAB_004b7c01:
                 EncodeChecksumStateXored();
                 iVar10 = PeekChecksumStateUnderLock(uVar11 * 0x1120 + 0x5113c + g_clientContext);
                 iVar6 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-                uVar21 = FUN_0040a7d0(&local_2658,local_135c,iVar10 + iVar6);
+                uVar21 = EncodeChecksumDeltaMul(&local_2658,local_135c,iVar10 + iVar6);
                 SUBFIELD(local_c,0,undefined1) = 0xd;
                 uVar20 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                 uVar21 = EncodeChecksumDeltaDiv(uVar21,local_17a4,uVar20);
@@ -805,7 +805,7 @@ LAB_004b7c01:
                 EncodeChecksumStateXored();
                 iVar10 = PeekChecksumStateUnderLock(uVar11 * 0x1120 + 0x5113c + g_clientContext);
                 iVar6 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-                uVar21 = FUN_0040a7d0(&local_2658,local_1bec,iVar10 + iVar6);
+                uVar21 = EncodeChecksumDeltaMul(&local_2658,local_1bec,iVar10 + iVar6);
                 SUBFIELD(local_c,0,undefined1) = 5;
                 uVar20 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                 uVar21 = EncodeChecksumDeltaDiv(uVar21,local_2034,uVar20);
@@ -834,7 +834,7 @@ LAB_004b7c01:
                 EncodeChecksumStateXored();
                 iVar10 = PeekChecksumStateUnderLock(uVar11 * 0x1120 + 0x5113c + g_clientContext);
                 iVar6 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-                uVar21 = FUN_0040a7d0(&local_2658,local_1138,iVar10 + iVar6);
+                uVar21 = EncodeChecksumDeltaMul(&local_2658,local_1138,iVar10 + iVar6);
                 SUBFIELD(local_c,0,undefined1) = 7;
                 uVar20 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                 uVar21 = EncodeChecksumDeltaDiv(uVar21,local_460,uVar20);
@@ -863,7 +863,7 @@ LAB_004b7c01:
                   EncodeChecksumStateXored();
                   iVar4 = PeekChecksumStateUnderLock((int)piVar7 * 0x1120 + 0x5113c + g_clientContext);
                   iVar10 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-                  uVar21 = FUN_0040a7d0(&local_2658,local_1580,iVar4 + iVar10);
+                  uVar21 = EncodeChecksumDeltaMul(&local_2658,local_1580,iVar4 + iVar10);
                   SUBFIELD(local_c,0,undefined1) = 9;
                   uVar20 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                   uVar21 = EncodeChecksumDeltaDiv(uVar21,local_cf0,uVar20);
@@ -904,7 +904,7 @@ LAB_004b7c01:
               uVar21 = GetLocalizedString(&g_localizedStringTable,0x25c);
               (**(code **)(iVar4 + 0x28))(uVar21,uVar20,uVar22);
               FUN_0040b060();
-              cVar2 = FUN_0040b330(&DAT_0067e3d0 + g_clientContext,0);
+              cVar2 = PacketChecksumLessThan(&DAT_0067e3d0 + g_clientContext,0);
             }
             else {
               if (cVar2 != '\x01') goto LAB_004b7674;
@@ -914,7 +914,7 @@ LAB_004b7c01:
               uVar21 = GetLocalizedString(&g_localizedStringTable,0x25d);
               (**(code **)(iVar4 + 0x28))(uVar21,uVar20,uVar22);
               FUN_0040b060();
-              cVar2 = FUN_0040b330(&DAT_0067e5f4 + g_clientContext,0);
+              cVar2 = PacketChecksumLessThan(&DAT_0067e5f4 + g_clientContext,0);
             }
             if (cVar2 != '\0') {
               QueueOutgoingPacketField(0);
@@ -1195,7 +1195,7 @@ LAB_004b7fb2:
             EncodeChecksumStateXored();
             iVar10 = PeekChecksumStateUnderLock(local_27e4 + 0x5113c + g_clientContext);
             iVar6 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-            uVar21 = FUN_0040a7d0(&local_2658,local_23c,iVar10 + iVar6);
+            uVar21 = EncodeChecksumDeltaMul(&local_2658,local_23c,iVar10 + iVar6);
             SUBFIELD(local_c,0,undefined1) = 0x10;
             uVar20 = PeekChecksumStateUnderLock(&DAT_00796aa0);
             uVar21 = EncodeChecksumDeltaDiv(uVar21,local_684,uVar20);

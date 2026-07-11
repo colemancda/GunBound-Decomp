@@ -1,4 +1,4 @@
-/* FUN_0040b330 - 0x0040b330 in the original binary.
+/* PacketChecksumLessThan - 0x0040b330 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-bool FUN_0040b330(undefined4 param_1,int param_2)
+bool PacketChecksumLessThan(undefined4 param_1,int param_2)
 
 {
   int iVar1;

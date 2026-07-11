@@ -248,7 +248,7 @@ void __fastcall FUN_00462900(int param_1)
           else {
             local_928 = 1;
           }
-          uVar7 = FUN_0040a7d0(param_1 + 0x6968,local_678,0x4c);
+          uVar7 = EncodeChecksumDeltaMul(param_1 + 0x6968,local_678,0x4c);
           local_4 = 0x10;
           uVar7 = EncodeChecksumDeltaDiv(uVar7,local_89c,local_928);
           local_4 = 0x11;
@@ -267,7 +267,7 @@ void __fastcall FUN_00462900(int param_1)
           local_4 = 0x12;
           uVar11 = EncodeChecksumDeltaDiv(uVar11,local_230,3);
           local_4 = 0x13;
-          cVar3 = FUN_0040b490(param_1 + 0x6968,uVar11);
+          cVar3 = CompareChecksumPair(param_1 + 0x6968,uVar11);
           local_4 = 0x12;
           ScrubChecksumGuard();
           local_4 = 0xffffffff;
@@ -284,7 +284,7 @@ void __fastcall FUN_00462900(int param_1)
           else {
             uVar7 = 1;
           }
-          uVar11 = FUN_0040a7d0(param_1 + 0x6fd4,local_89c,0x4c);
+          uVar11 = EncodeChecksumDeltaMul(param_1 + 0x6fd4,local_89c,0x4c);
           local_4 = 0x16;
           uVar7 = EncodeChecksumDeltaDiv(uVar11,local_230,uVar7);
           uVar11 = 0x21d8;

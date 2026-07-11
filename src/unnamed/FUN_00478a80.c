@@ -64,7 +64,7 @@ char FUN_00478a80(int param_1,int param_2,int param_3)
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
       if (iVar3 <= param_3) {
-        cVar1 = FUN_0040b330(param_1 + 0x480,param_3);
+        cVar1 = PacketChecksumLessThan(param_1 + 0x480,param_3);
         cVar1 = '\x01' - (cVar1 != '\0');
         goto LAB_00478c8e;
       }

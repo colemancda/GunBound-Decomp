@@ -169,7 +169,7 @@ LAB_004adaf2:
     (**(code **)(*param_1 + 0x20))();
     goto LAB_004ae0cf;
   }
-  FUN_0040b180(param_1 + 0x10,auStack_ac4,8);
+  EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac4,8);
   puStack_8 = (undefined1 *)0x5;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState();
@@ -181,7 +181,7 @@ LAB_004adaf2:
     FUN_0040b540(&puStack_acc);
     pcVar11 = (code *)LeaveCriticalSection;
   }
-  FUN_0040b180(param_1 + 0x99,auStack_ac4,8);
+  EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac4,8);
   puStack_8 = (undefined1 *)0x6;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState();
@@ -203,7 +203,7 @@ LAB_004adaf2:
     uVar8 = PeekPacketChecksumState();
     (*pcVar11)(&DAT_005a9068);
     if ((int)((uVar8 ^ (int)uVar8 >> 0x1f) - ((int)uVar8 >> 0x1f)) < 200) {
-      cVar1 = FUN_0040b330(param_1 + 0x122,0);
+      cVar1 = PacketChecksumLessThan(param_1 + 0x122,0);
       if (cVar1 == '\0') {
         uVar5 = 200;
       }
@@ -217,14 +217,14 @@ LAB_004adaf2:
     uVar5 = EncodeChecksumPairDiff(param_1[0x3d2] + 0x38,auStack_45c,uVar5);
     uStack_c = 8;
     unaff_EBX = 3;
-    cVar1 = FUN_0040b490(param_1 + 0x3d5,uVar5);
+    cVar1 = CompareChecksumPair(param_1 + 0x3d5,uVar5);
     if (cVar1 == '\0') {
       uVar5 = EncodeChecksumDeltaDiv(param_1[0x3d2] + 0x25c,auStack_8a4,4);
       uStack_c = 9;
       uVar5 = EncodeChecksumPairSum(param_1[0x3d2] + 0x38,auStack_ac8,uVar5);
       uStack_c = 10;
       unaff_EBX = 0xf;
-      cVar1 = FUN_0040b490(uVar5,param_1 + 0x3d5);
+      cVar1 = CompareChecksumPair(uVar5,param_1 + 0x3d5);
       bVar13 = false;
       if (cVar1 != '\0') goto LAB_004add3c;
     }
@@ -277,7 +277,7 @@ LAB_004add3c:
     (*pcVar11)(&DAT_005a9068);
     if (((iVar2 <= iVar3) ||
         (cVar1 = FUN_0040b300(param_1 + 0x45e,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
-        cVar1 != '\0')) || (cVar1 = FUN_0040b330(param_1 + 0x45e,0xfffffc18), cVar1 != '\0'))
+        cVar1 != '\0')) || (cVar1 = PacketChecksumLessThan(param_1 + 0x45e,0xfffffc18), cVar1 != '\0'))
     goto LAB_004adef8;
   }
   else {

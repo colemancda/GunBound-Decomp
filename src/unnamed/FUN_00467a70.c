@@ -71,7 +71,7 @@ void __fastcall FUN_00467a70(int *param_1)
   (**(code **)(*param_1 + 0x14))(8);
   cVar6 = PeekPacketChecksumBool();
   if (cVar6 == '\0') {
-    FUN_0040b180(param_1 + 0x10,auStack_ac4,8);
+    EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac4,8);
     puStack_8 = (undefined1 *)0x0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar10 = PeekPacketChecksumState();
@@ -83,7 +83,7 @@ void __fastcall FUN_00467a70(int *param_1)
       FUN_0040b540(local_ad4);
       pcVar17 = (code *)LeaveCriticalSection;
     }
-    FUN_0040b180(param_1 + 0x99,auStack_ac4,8);
+    EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac4,8);
     local_ad8 = param_1 + 0x45e;
     puStack_8 = (undefined1 *)0x1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -107,7 +107,7 @@ void __fastcall FUN_00467a70(int *param_1)
       unaff_EBX = PeekPacketChecksumState();
       (*pcVar17)(&DAT_005a9068);
       if ((int)((unaff_EBX ^ (int)unaff_EBX >> 0x1f) - ((int)unaff_EBX >> 0x1f)) < 200) {
-        cVar6 = FUN_0040b330(param_1 + 0x122,0);
+        cVar6 = PacketChecksumLessThan(param_1 + 0x122,0);
         if (cVar6 == '\0') {
           uVar10 = 200;
         }
@@ -122,7 +122,7 @@ void __fastcall FUN_00467a70(int *param_1)
       uStack_c = 3;
       bVar4 = false;
       bVar3 = false;
-      cVar6 = FUN_0040b490(param_1 + 0x3d5,uVar10);
+      cVar6 = CompareChecksumPair(param_1 + 0x3d5,uVar10);
       if (cVar6 == '\0') {
         uVar10 = EncodeChecksumDeltaDiv(param_1[0x3d2] + 0x25c,auStack_8a4,4);
         uStack_c = 4;
@@ -130,7 +130,7 @@ void __fastcall FUN_00467a70(int *param_1)
         uStack_c = 5;
         bVar4 = true;
         bVar3 = true;
-        cVar6 = FUN_0040b490(uVar10,param_1 + 0x3d5);
+        cVar6 = CompareChecksumPair(uVar10,param_1 + 0x3d5);
         bVar5 = false;
         if (cVar6 != '\0') goto LAB_00468200;
       }
@@ -177,7 +177,7 @@ LAB_00468200:
       piVar1 = local_ad8;
       if (((iVar7 <= iVar8) ||
           (cVar6 = FUN_0040b300(local_ad8,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
-          cVar6 != '\0')) || (cVar6 = FUN_0040b330(piVar1,0xfffffc18), cVar6 != '\0'))
+          cVar6 != '\0')) || (cVar6 = PacketChecksumLessThan(piVar1,0xfffffc18), cVar6 != '\0'))
       goto LAB_004683bc;
     }
     else {
@@ -369,7 +369,7 @@ LAB_00467e48:
   iVar7 = PeekPacketChecksumState();
   iVar8 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if ((iVar8 <= iVar7) || (cVar6 = FUN_0040b490(param_1 + 0xed2,param_1 + 0xf5b), cVar6 == '\0')) {
+  if ((iVar8 <= iVar7) || (cVar6 = CompareChecksumPair(param_1 + 0xed2,param_1 + 0xf5b), cVar6 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar7 = PeekPacketChecksumState();
     iVar8 = PeekPacketChecksumState();

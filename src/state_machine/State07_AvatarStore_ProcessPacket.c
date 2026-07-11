@@ -291,7 +291,7 @@ LAB_0044469b:
         FUN_0040afb0((int)this + 0x30770);
         QueueOutgoingPacketField(0);
         QueueOutgoingPacketField(0);
-        cVar2 = FUN_0040b330(g_clientContext + 0x396a0,0);
+        cVar2 = PacketChecksumLessThan(g_clientContext + 0x396a0,0);
         if (cVar2 != '\0') {
           QueueOutgoingPacketField(0);
         }
@@ -462,7 +462,7 @@ switchD_004449fc_default:
       if (*payload == 0) {
         FUN_0040afb0((int)this + 0x30770);
         QueueOutgoingPacketField(0);
-        cVar2 = FUN_0040b330(g_clientContext + 0x396a0,0);
+        cVar2 = PacketChecksumLessThan(g_clientContext + 0x396a0,0);
         if (cVar2 != '\0') {
           QueueOutgoingPacketField(0);
         }

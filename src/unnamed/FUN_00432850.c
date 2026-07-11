@@ -183,7 +183,7 @@ void FUN_00432850(int param_1,int param_2)
       FloatToInt64();
       EncodeOutgoingPacketField();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_0040a7d0();
+      EncodeChecksumDeltaMul();
       local_4 = 5;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();
@@ -202,7 +202,7 @@ void FUN_00432850(int param_1,int param_2)
         FUN_0040b540();
         pcVar11 = (code *)LeaveCriticalSection;
       }
-      FUN_0040a7d0();
+      EncodeChecksumDeltaMul();
       local_4 = 6;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();

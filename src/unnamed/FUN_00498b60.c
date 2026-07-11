@@ -200,7 +200,7 @@ LAB_00498f85:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      if ((iVar5 < iVar4) && (cVar2 = FUN_0040b330(param_1 + 0x99,0xffffff38), cVar2 == '\0'))
+      if ((iVar5 < iVar4) && (cVar2 = PacketChecksumLessThan(param_1 + 0x99,0xffffff38), cVar2 == '\0'))
       goto LAB_00499217;
     }
   }

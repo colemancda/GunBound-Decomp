@@ -77,7 +77,7 @@ LAB_004d33f1:
     iVar6 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(iVar6 + 2 + local_24e4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar7 = FUN_0040a7d0(param_1 + 0x2a8,local_2230,0x343fd);
+    uVar7 = EncodeChecksumDeltaMul(param_1 + 0x2a8,local_2230,0x343fd);
     local_4 = 0;
     EncodeChecksumDeltaAdd(uVar7,local_2454,0x29ac03);
     SUBFIELD(local_4,0,undefined1) = 1;

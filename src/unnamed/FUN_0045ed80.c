@@ -108,7 +108,7 @@ LAB_0045ef56:
     }
     uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x19d1,auStack_454,3);
     uStack_4 = 0;
-    cVar1 = FUN_0040b490(param_1 + 0x1a5a,uVar4);
+    cVar1 = CompareChecksumPair(param_1 + 0x1a5a,uVar4);
     uStack_4 = 0xffffffff;
     ScrubChecksumGuard();
     if (cVar1 == '\0') {
@@ -117,7 +117,7 @@ LAB_0045ef56:
     else {
       (**(code **)(*param_1 + 4))(s_wnormal_00553618);
     }
-    cVar1 = FUN_0040b330(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
+    cVar1 = PacketChecksumLessThan(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
     if (cVar1 == '\0') goto LAB_0045f2bb;
     iVar6 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a0);
     iVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
@@ -145,7 +145,7 @@ LAB_0045f039:
     }
     uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x19d1,auStack_89c,3);
     uStack_4 = 1;
-    cVar1 = FUN_0040b490(param_1 + 0x1a5a,uVar4);
+    cVar1 = CompareChecksumPair(param_1 + 0x1a5a,uVar4);
     uStack_4 = 0xffffffff;
     ScrubChecksumGuard();
     if (cVar1 == '\0') {
@@ -154,7 +154,7 @@ LAB_0045f039:
     else {
       (**(code **)(*param_1 + 4))(s_wnormal_00553618);
     }
-    cVar1 = FUN_0040b330(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
+    cVar1 = PacketChecksumLessThan(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
     if (cVar1 == '\0') goto LAB_0045f2bb;
     iVar6 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a0);
     iVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
@@ -169,7 +169,7 @@ LAB_0045f039:
   case 8:
     uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x19d1,auStack_678,3);
     uStack_4 = 2;
-    cVar1 = FUN_0040b490(param_1 + 0x1a5a,uVar4);
+    cVar1 = CompareChecksumPair(param_1 + 0x1a5a,uVar4);
     uStack_4 = 0xffffffff;
     ScrubChecksumGuard();
     if (cVar1 == '\0') {
@@ -178,7 +178,7 @@ LAB_0045f039:
     else {
       (**(code **)(*param_1 + 4))(s_wnormal_00553618);
     }
-    cVar1 = FUN_0040b330(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
+    cVar1 = PacketChecksumLessThan(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
     if (cVar1 == '\0') goto LAB_0045f2bb;
     iVar6 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a0);
     iVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);

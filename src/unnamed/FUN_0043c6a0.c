@@ -39,7 +39,7 @@ void FUN_0043c6a0(void)
         cVar2 = PeekPacketChecksumBool();
         iVar1 = iVar3 + 0x6744;
         if (cVar2 == '\x01') {
-          uVar4 = FUN_0040a7d0(iVar1,local_89c,8);
+          uVar4 = EncodeChecksumDeltaMul(iVar1,local_89c,8);
           local_4 = 0;
           uVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar4 = EncodeChecksumDeltaDiv(uVar4,local_454,uVar5);
@@ -49,7 +49,7 @@ void FUN_0043c6a0(void)
           ScrubChecksumGuard();
         }
         else {
-          uVar4 = FUN_0040a7d0(iVar1,local_230,3);
+          uVar4 = EncodeChecksumDeltaMul(iVar1,local_230,3);
           local_4 = 2;
           uVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar4 = EncodeChecksumDeltaDiv(uVar4,local_678,uVar5);

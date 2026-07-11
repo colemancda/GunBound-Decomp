@@ -122,7 +122,7 @@ LAB_00408159:
     uVar9 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
-  uVar3 = FUN_0040a7d0(*(int *)(g_clientContext + 0x621e0) + 0x7864,local_89c,0x28);
+  uVar3 = EncodeChecksumDeltaMul(*(int *)(g_clientContext + 0x621e0) + 0x7864,local_89c,0x28);
   local_4 = 0;
   uVar9 = EncodeChecksumDeltaDiv(uVar3,local_678,uVar9);
   local_4 = 1;
@@ -172,7 +172,7 @@ LAB_00406d42:
     uVar9 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
-  uVar3 = FUN_0040a7d0(*(int *)(g_clientContext + 0x621e0) + 0x7a88,local_ce4,0x28);
+  uVar3 = EncodeChecksumDeltaMul(*(int *)(g_clientContext + 0x621e0) + 0x7a88,local_ce4,0x28);
   local_4 = 3;
   uVar9 = EncodeChecksumDeltaDiv(uVar3,local_678,uVar9);
   local_4 = 4;
@@ -228,7 +228,7 @@ LAB_00406e95:
         if (iVar6 == 0xff) {
           uVar9 = EncodeChecksumDeltaSub(iVar10 + 0x3a154 + g_clientContext,local_ce4,1);
           local_4 = 6;
-          uVar9 = FUN_0040a7d0(uVar9,local_678,2);
+          uVar9 = EncodeChecksumDeltaMul(uVar9,local_678,2);
           local_4 = 7;
           EncodeChecksumDeltaAdd(uVar9,local_89c,iVar2 == *(int *)(g_clientContext + 0xf0374));
           local_4 = 8;
@@ -249,7 +249,7 @@ LAB_00406e95:
         else {
           uVar9 = EncodeChecksumDeltaSub(iVar10 + 0x39f30 + g_clientContext,local_f08,1);
           local_4 = 9;
-          uVar9 = FUN_0040a7d0(uVar9,local_ac0,2);
+          uVar9 = EncodeChecksumDeltaMul(uVar9,local_ac0,2);
           local_4 = 10;
           EncodeChecksumDeltaAdd(uVar9,local_454,iVar2 == *(int *)(g_clientContext + 0xf0374));
           local_4 = 0xb;
@@ -797,7 +797,7 @@ code_r0x00407cad:
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar2 == -1) goto LAB_00407df7;
-  FUN_0040a7d0(g_clientContext + 0xebcbc,local_f08,0x14);
+  EncodeChecksumDeltaMul(g_clientContext + 0xebcbc,local_f08,0x14);
   local_4 = 0x11;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState();

@@ -144,7 +144,7 @@ LAB_004ace87:
   iVar7 = PeekPacketChecksumState();
   bVar2 = iVar7 <= local_45c[0];
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if ((bVar2) || (cVar3 = FUN_0040b490(param_1 + 0x3b48,param_1 + 0x3d6c), cVar3 == '\0')) {
+  if ((bVar2) || (cVar3 = CompareChecksumPair(param_1 + 0x3b48,param_1 + 0x3d6c), cVar3 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_45c[0] = PeekPacketChecksumState();
     iVar7 = PeekPacketChecksumState();

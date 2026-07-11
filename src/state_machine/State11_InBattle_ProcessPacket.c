@@ -398,7 +398,7 @@ LAB_004b4324:
             uVar9 = GetLocalizedString(&g_localizedStringTable,0x25c);
             (**(code **)(iVar6 + 0x28))(uVar9,uVar19,uVar20);
             FUN_0040b060();
-            cVar2 = FUN_0040b330(&DAT_0067e3d0 + g_clientContext,0);
+            cVar2 = PacketChecksumLessThan(&DAT_0067e3d0 + g_clientContext,0);
           }
           else {
             if (cVar2 != '\x01') goto LAB_004b541a;
@@ -408,7 +408,7 @@ LAB_004b4324:
             uVar9 = GetLocalizedString(&g_localizedStringTable,0x25d);
             (**(code **)(iVar6 + 0x28))(uVar9,uVar19,uVar20);
             FUN_0040b060();
-            cVar2 = FUN_0040b330(&DAT_0067e5f4 + g_clientContext,0);
+            cVar2 = PacketChecksumLessThan(&DAT_0067e5f4 + g_clientContext,0);
           }
           if (cVar2 != '\0') {
             QueueOutgoingPacketField(0);
@@ -550,7 +550,7 @@ LAB_004b4d38:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_9a4[0] = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar9 = FUN_0040a7d0(local_89c,local_230,local_9a4[0] + iVar6);
+      uVar9 = EncodeChecksumDeltaMul(local_89c,local_230,local_9a4[0] + iVar6);
       local_4 = 2;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_9a4[0] = PeekPacketChecksumState();

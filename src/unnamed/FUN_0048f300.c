@@ -169,7 +169,7 @@ LAB_0048f583:
             iVar6 = iVar6 + -4;
           }
         }
-        uVar8 = FUN_0040a7d0(g_clientContext + 0x15406c,local_f08,iVar6);
+        uVar8 = EncodeChecksumDeltaMul(g_clientContext + 0x15406c,local_f08,iVar6);
         local_4 = 2;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar9 = PeekPacketChecksumState();

@@ -54,14 +54,14 @@ LAB_0045cc63:
     bVar2 = false;
   }
   else {
-    cVar3 = FUN_0040b330(param_1 + 0x243,*(undefined4 *)(&DAT_006a7720 + g_clientContext));
+    cVar3 = PacketChecksumLessThan(param_1 + 0x243,*(undefined4 *)(&DAT_006a7720 + g_clientContext));
     bVar2 = true;
     if (cVar3 == '\0') goto LAB_0045cc63;
   }
   uStack_4 = 0xffffffff;
   ScrubChecksumGuard();
   if (bVar2) {
-    cVar3 = FUN_0040b330(piVar1,5);
+    cVar3 = PacketChecksumLessThan(piVar1,5);
     if (cVar3 == '\0') {
       iVar4 = PeekChecksumStateUnderLock(piVar1);
       QueueOutgoingPacketField(iVar5 - iVar4);
@@ -78,7 +78,7 @@ LAB_0045cc63:
       if (param_1[9] == 0xd) {
         uVar6 = EncodeChecksumDeltaDiv(param_1 + 0x19d1,auStack_230,3);
         uStack_4 = 1;
-        cVar3 = FUN_0040b490(param_1 + 0x1a5a,uVar6);
+        cVar3 = CompareChecksumPair(param_1 + 0x1a5a,uVar6);
         uStack_4 = 0xffffffff;
         ScrubChecksumGuard();
         if (cVar3 == '\0') {

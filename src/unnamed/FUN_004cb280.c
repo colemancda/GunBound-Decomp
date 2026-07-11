@@ -136,7 +136,7 @@ void FUN_004cb280(int param_1)
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState();
         (*pcVar14)(&DAT_005a9068);
-        uVar6 = FUN_0040a7d0(auStack_68c,auStack_244,puVar18 + iVar4);
+        uVar6 = EncodeChecksumDeltaMul(auStack_68c,auStack_244,puVar18 + iVar4);
         uStack_18 = 1;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState();

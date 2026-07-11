@@ -87,7 +87,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
     FUN_0041da80(g_clientContext,piVar8,param_5,param_10,1);
     cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\x01') {
-      uVar4 = FUN_0040a7d0(piVar8 + 0x930,local_89c,3);
+      uVar4 = EncodeChecksumDeltaMul(piVar8 + 0x930,local_89c,3);
       local_4 = 1;
       uVar5 = PeekChecksumStateUnderLock(&DAT_00e55ab8);
       uVar4 = EncodeChecksumDeltaDiv(uVar4,local_678,uVar5);
@@ -97,7 +97,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
-      uVar4 = FUN_0040a7d0(piVar8 + 0x9b9,local_678,3);
+      uVar4 = EncodeChecksumDeltaMul(piVar8 + 0x9b9,local_678,3);
       local_4 = 3;
       uVar5 = PeekChecksumStateUnderLock(&DAT_00e55ab8);
       uVar4 = EncodeChecksumDeltaDiv(uVar4,local_89c,uVar5);
@@ -107,7 +107,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
-      uVar4 = FUN_0040a7d0(piVar8 + 0xa42,local_678,3);
+      uVar4 = EncodeChecksumDeltaMul(piVar8 + 0xa42,local_678,3);
       local_4 = 5;
       uVar5 = PeekChecksumStateUnderLock(&DAT_00e55ab8);
       uVar4 = EncodeChecksumDeltaDiv(uVar4,local_89c,uVar5);
@@ -121,7 +121,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
     cVar1 = FUN_00406610(*(char *)(g_clientContext + 0x45127) == '\x02');
     if (cVar1 != '\0') {
       uVar4 = PeekChecksumStateUnderLock(&DAT_00e9c578);
-      uVar4 = FUN_0040a7d0(piVar8 + 0x930,local_678,uVar4);
+      uVar4 = EncodeChecksumDeltaMul(piVar8 + 0x930,local_678,uVar4);
       local_4 = 7;
       uVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
       uVar4 = EncodeChecksumDeltaDiv(uVar4,local_89c,uVar5);
@@ -132,7 +132,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
       uVar4 = PeekChecksumStateUnderLock(&DAT_00e9c578);
-      uVar4 = FUN_0040a7d0(piVar8 + 0x9b9,local_678,uVar4);
+      uVar4 = EncodeChecksumDeltaMul(piVar8 + 0x9b9,local_678,uVar4);
       local_4 = 9;
       uVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
       uVar4 = EncodeChecksumDeltaDiv(uVar4,local_89c,uVar5);
@@ -143,7 +143,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
       uVar4 = PeekChecksumStateUnderLock(&DAT_00e9c578);
-      uVar4 = FUN_0040a7d0(piVar8 + 0xa42,local_230,uVar4);
+      uVar4 = EncodeChecksumDeltaMul(piVar8 + 0xa42,local_230,uVar4);
       local_4 = 0xb;
       uVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
       uVar4 = EncodeChecksumDeltaDiv(uVar4,local_454,uVar5);

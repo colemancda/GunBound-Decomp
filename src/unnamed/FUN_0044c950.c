@@ -77,7 +77,7 @@ void __fastcall FUN_0044c950(int *param_1)
   (**(code **)(*param_1 + 0x14))();
   cVar3 = PeekPacketChecksumBool();
   if (cVar3 == '\0') {
-    FUN_0040b180(param_1 + 0x10,auStack_ac4,8);
+    EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac4,8);
     puStack_8 = (undefined1 *)0x8;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
@@ -89,7 +89,7 @@ void __fastcall FUN_0044c950(int *param_1)
       FUN_0040b540(apuStack_adc);
       pcVar13 = (code *)LeaveCriticalSection;
     }
-    FUN_0040b180(param_1 + 0x99,auStack_ac4,8);
+    EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac4,8);
     puStack_8 = (undefined1 *)0x9;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
@@ -112,7 +112,7 @@ void __fastcall FUN_0044c950(int *param_1)
       unaff_EBX = PeekPacketChecksumState();
       (*pcVar13)(&DAT_005a9068);
       if ((int)((unaff_EBX ^ (int)unaff_EBX >> 0x1f) - ((int)unaff_EBX >> 0x1f)) < 200) {
-        cVar3 = FUN_0040b330(param_1 + 0x122,0);
+        cVar3 = PacketChecksumLessThan(param_1 + 0x122,0);
         if (cVar3 == '\0') {
           uVar7 = 200;
         }
@@ -127,7 +127,7 @@ void __fastcall FUN_0044c950(int *param_1)
       uStack_c = 0xb;
       bVar1 = false;
       bVar15 = false;
-      cVar3 = FUN_0040b490(param_1 + 0x3d5,uVar7);
+      cVar3 = CompareChecksumPair(param_1 + 0x3d5,uVar7);
       if (cVar3 == '\0') {
         uVar7 = EncodeChecksumDeltaDiv(param_1[0x3d2] + 0x25c,auStack_8a4,4);
         uStack_c = 0xc;
@@ -135,7 +135,7 @@ void __fastcall FUN_0044c950(int *param_1)
         uStack_c = 0xd;
         bVar1 = true;
         bVar15 = true;
-        cVar3 = FUN_0040b490(uVar7,param_1 + 0x3d5);
+        cVar3 = CompareChecksumPair(uVar7,param_1 + 0x3d5);
         bVar2 = false;
         if (cVar3 != '\0') goto LAB_0044d5d2;
       }
@@ -182,7 +182,7 @@ LAB_0044d5d2:
       (*pcVar13)(&DAT_005a9068);
       if (((cVar3 != '\0') ||
           (cVar3 = FUN_0040b300(unaff_EBX,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
-          cVar3 != '\0')) || (cVar3 = FUN_0040b330(unaff_EBX,0xfffffc18), cVar3 != '\0'))
+          cVar3 != '\0')) || (cVar3 = PacketChecksumLessThan(unaff_EBX,0xfffffc18), cVar3 != '\0'))
       goto LAB_0044d78e;
     }
     else {

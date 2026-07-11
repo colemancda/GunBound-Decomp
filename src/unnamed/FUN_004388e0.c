@@ -205,7 +205,7 @@ void FUN_004388e0(void)
   pcVar9 = (code *)LeaveCriticalSection;
   pcVar10 = (code *)EnterCriticalSection;
   if (cVar1 == '\x01') {
-    FUN_0040a7d0();
+    EncodeChecksumDeltaMul();
     pcVar10 = (code *)EnterCriticalSection;
     puStack_8 = (undefined1 *)0x4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -231,7 +231,7 @@ void FUN_004388e0(void)
       FUN_0040b540();
       pcVar9 = (code *)LeaveCriticalSection;
     }
-    FUN_0040a7d0();
+    EncodeChecksumDeltaMul();
     puStack_8 = (undefined1 *)0x6;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
@@ -258,7 +258,7 @@ void FUN_004388e0(void)
     }
     piStack_8d0 = piVar2 + 0xa42;
     puStack_8d4 = (undefined1 *)0x439172;
-    FUN_0040a7d0();
+    EncodeChecksumDeltaMul();
     uStack_10 = 8;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();
@@ -296,7 +296,7 @@ void FUN_004388e0(void)
     (*pcVar9)();
     piStack_8d0 = piVar2 + 0x930;
     puStack_8d4 = (undefined1 *)0x4392c2;
-    FUN_0040a7d0();
+    EncodeChecksumDeltaMul();
     uStack_10 = 10;
     (*pcVar10)();
     puVar6 = (undefined1 *)PeekPacketChecksumState();
@@ -338,7 +338,7 @@ void FUN_004388e0(void)
     (*pcVar10)();
     PeekPacketChecksumState();
     (*pcVar9)(&DAT_005a9068);
-    FUN_0040a7d0(piVar2 + 0x9b9,&stack0xfffff740,puVar12);
+    EncodeChecksumDeltaMul(piVar2 + 0x9b9,&stack0xfffff740,puVar12);
     uStack_28 = 0xc;
     (*pcVar10)(&DAT_005a9068);
     piStack_8d0 = (int *)PeekPacketChecksumState();
@@ -366,7 +366,7 @@ void FUN_004388e0(void)
     (*pcVar10)(&DAT_005a9068);
     PeekPacketChecksumState();
     (*pcVar9)(&DAT_005a9068);
-    FUN_0040a7d0(piVar2 + 0xa42,auStack_26c,puVar11);
+    EncodeChecksumDeltaMul(piVar2 + 0xa42,auStack_26c,puVar11);
     uStack_40 = 0xe;
     (*pcVar10)(&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();

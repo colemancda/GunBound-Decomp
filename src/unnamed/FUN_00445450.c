@@ -601,7 +601,7 @@ LAB_00446d2b:
         iVar9 = FUN_00426570();
         iVar9 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
         FUN_00423e20(g_clientContext,iVar9 >> 0x10 & 0xffffff0f);
-        uVar12 = FUN_0040a7d0(local_15b4,local_1c38,6);
+        uVar12 = EncodeChecksumDeltaMul(local_15b4,local_1c38,6);
         SUBFIELD(local_4,0,undefined1) = 7;
         uVar7 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
         uVar12 = EncodeChecksumDeltaDiv(uVar12,local_1e5c,uVar7);
@@ -628,7 +628,7 @@ LAB_00446d2b:
           iVar3 = DAT_007934e8;
           *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
           *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
-          uVar12 = FUN_0040a7d0(local_15b4,local_2b34,6);
+          uVar12 = EncodeChecksumDeltaMul(local_15b4,local_2b34,6);
           SUBFIELD(local_4,0,undefined1) = 9;
           uVar7 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
           uVar12 = EncodeChecksumDeltaDiv(uVar12,local_26ec,uVar7);
@@ -654,7 +654,7 @@ LAB_00446d2b:
           iVar3 = DAT_007934e8;
           *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
           *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
-          uVar12 = FUN_0040a7d0(local_15b4,local_1a14,6);
+          uVar12 = EncodeChecksumDeltaMul(local_15b4,local_1a14,6);
           SUBFIELD(local_4,0,undefined1) = 0xb;
           uVar7 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
           uVar12 = EncodeChecksumDeltaDiv(uVar12,local_22a4,uVar7);

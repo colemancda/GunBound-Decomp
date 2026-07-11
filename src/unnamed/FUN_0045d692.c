@@ -56,7 +56,7 @@ int FUN_0045d692(void)
     EncodeChecksumPairSum();
     FUN_0045f300();
     EncodeChecksumDeltaAdd();
-    cVar1 = FUN_0040b330();
+    cVar1 = PacketChecksumLessThan();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
@@ -75,7 +75,7 @@ int FUN_0045d692(void)
         EncodeChecksumPairDiff();
         FUN_0045f5d0();
         EncodeChecksumDeltaAdd();
-        cVar1 = FUN_0040b330();
+        cVar1 = PacketChecksumLessThan();
         ScrubChecksumGuard();
         ScrubChecksumGuard();
         uVar5 = extraout_var_01;

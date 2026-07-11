@@ -84,7 +84,7 @@ LAB_0045d679:
     uVar6 = FUN_0045f300(unaff_EDI);
     uVar5 = EncodeChecksumDeltaAdd(uVar5,auStack_89c,uVar6);
     SUBFIELD(iStack_4,0,undefined1) = 5;
-    cVar2 = FUN_0040b330(uVar5,param_1);
+    cVar2 = PacketChecksumLessThan(uVar5,param_1);
     SUBFIELD(iStack_4,0,undefined1) = 4;
     ScrubChecksumGuard();
     iStack_4 = CONCAT31(SUBFIELD(iStack_4,1,undefined3),3);
@@ -115,7 +115,7 @@ LAB_0045d679:
         uVar6 = FUN_0045f5d0();
         uVar5 = EncodeChecksumDeltaAdd(uVar5,auStack_454,uVar6);
         SUBFIELD(iStack_4,0,undefined1) = 10;
-        cVar2 = FUN_0040b330(uVar5,param_2);
+        cVar2 = PacketChecksumLessThan(uVar5,param_2);
         iStack_4 = CONCAT31(SUBFIELD(iStack_4,1,undefined3),9);
         ScrubChecksumGuard();
         iStack_4 = 0xffffffff;

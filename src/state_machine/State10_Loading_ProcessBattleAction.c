@@ -59,7 +59,7 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
           iStack_4 = 0;
           uVar4 = EncodeChecksumDeltaDiv(uVar4,auStack_454,3);
           iStack_4 = 1;
-          cVar2 = FUN_0040b490(piVar3 + 0x1a5a,uVar4);
+          cVar2 = CompareChecksumPair(piVar3 + 0x1a5a,uVar4);
           iStack_4 = 0;
           ScrubChecksumGuard();
           iStack_4 = 0xffffffff;

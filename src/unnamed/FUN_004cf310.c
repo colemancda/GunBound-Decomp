@@ -124,7 +124,7 @@ void __fastcall FUN_004cf310(int param_1)
         FUN_0043c4f0();
       }
     }
-    uVar6 = FUN_0040a7d0(piVar2 + 0x237a,auStack_234,2);
+    uVar6 = EncodeChecksumDeltaMul(piVar2 + 0x237a,auStack_234,2);
     puStack_8 = (undefined1 *)0x0;
     EncodeChecksumPairSum((*(byte *)(param_1 + 0x10a8) & 0x80000007) * 0x224 + 0xebef4 + g_clientContext,
                  auStack_458,uVar6);
@@ -204,11 +204,11 @@ void __fastcall FUN_004cf310(int param_1)
         FUN_00406500(0);
         *(undefined1 *)(param_1 + 0x94) = 1;
         uVar6 = PeekChecksumStateUnderLock(&DAT_00794bf0);
-        cVar1 = FUN_0040b330(&DAT_006a8e90 + g_clientContext,uVar6);
+        cVar1 = PacketChecksumLessThan(&DAT_006a8e90 + g_clientContext,uVar6);
         if (cVar1 == '\0') {
-          cVar1 = FUN_0040b330(&DAT_006a8e90 + g_clientContext,0x28);
+          cVar1 = PacketChecksumLessThan(&DAT_006a8e90 + g_clientContext,0x28);
           if (cVar1 == '\0') {
-            cVar1 = FUN_0040b330(&DAT_006a8e90 + g_clientContext,0x50);
+            cVar1 = PacketChecksumLessThan(&DAT_006a8e90 + g_clientContext,0x50);
             iVar5 = 3 - (uint)(cVar1 != '\0');
           }
           else {

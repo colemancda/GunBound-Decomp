@@ -116,7 +116,7 @@ LAB_00464824:
           }
           else {
 LAB_004647f7:
-            cVar2 = FUN_0040b490(param_1 + 0x40,piVar3 + 0x243);
+            cVar2 = CompareChecksumPair(param_1 + 0x40,piVar3 + 0x243);
             if ((cVar2 != '\0') && (cVar2 = PacketChecksumEquals(piVar3 + 0x715,1), cVar2 != '\0'))
             goto LAB_00464824;
           }

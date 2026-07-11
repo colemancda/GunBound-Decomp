@@ -128,7 +128,7 @@ LAB_00420896:
     uVar6 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(uVar6);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0040b490(local_8b8 + 0x20c6,local_8ac + 0x214f);
+    CompareChecksumPair(local_8b8 + 0x20c6,local_8ac + 0x214f);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(uVar6);
@@ -199,7 +199,7 @@ LAB_00420896:
     uStack_4 = 2;
     uVar6 = EncodeChecksumDeltaDiv(uVar6,auStack_89c,3);
     uStack_4 = 3;
-    cVar3 = FUN_0040b490(local_8b8 + 0x1a5a,uVar6);
+    cVar3 = CompareChecksumPair(local_8b8 + 0x1a5a,uVar6);
     uStack_4 = 2;
     if (iStack_888 != 0) {
       ScrambleChecksumGuardBytes();
@@ -375,7 +375,7 @@ LAB_00420896:
     puStack_8 = (undefined1 *)0x4;
     uVar6 = EncodeChecksumDeltaDiv(uVar6,auStack_458,3);
     puStack_8 = 5;
-    cVar3 = FUN_0040b490(local_8ac + 0x1a5a,uVar6);
+    cVar3 = CompareChecksumPair(local_8ac + 0x1a5a,uVar6);
     puStack_8 = (undefined1 *)4;
     if (piStack_444 != (int *)0x0) {
       ScrambleChecksumGuardBytes();

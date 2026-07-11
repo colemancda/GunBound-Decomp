@@ -36,7 +36,7 @@ int __fastcall FUN_00491a40(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar3 = extraout_var;
       if (iVar2 < iVar1) {
-        FUN_0040b330(param_1 + 0x1178,0xfffffc18);
+        PacketChecksumLessThan(param_1 + 0x1178,0xfffffc18);
         uVar3 = extraout_var_00;
         if (extraout_AL == '\0') {
           return CONCAT31(extraout_var_00,1);

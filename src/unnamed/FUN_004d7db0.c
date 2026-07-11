@@ -364,7 +364,7 @@ LAB_004d8685:
     if (iVar13 != 0xff) {
       uVar7 = EncodeChecksumDeltaSub(g_clientContext + 0x39f30 + iVar3,local_23c,1);
       local_c = 2;
-      FUN_0040a7d0(uVar7,local_684,2);
+      EncodeChecksumDeltaMul(uVar7,local_684,2);
       local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),3);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar12 = PeekPacketChecksumState();
@@ -387,7 +387,7 @@ LAB_004d8685:
     }
     uVar7 = EncodeChecksumDeltaSub(g_clientContext + 0x3a154 + iVar3,local_460,1);
     local_c = 0;
-    FUN_0040a7d0(uVar7,local_8a8,2);
+    EncodeChecksumDeltaMul(uVar7,local_8a8,2);
     local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),1);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar12 = PeekPacketChecksumState();

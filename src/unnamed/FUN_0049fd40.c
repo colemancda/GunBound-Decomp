@@ -324,7 +324,7 @@ LAB_004a0a52:
     FUN_00406500(0);
     pcVar14 = (code *)LeaveCriticalSection;
   }
-  FUN_0040b180(param_1 + 0x10,auStack_ac4,8);
+  EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac4,8);
   piStack_af0 = param_1 + 0x3d5;
   puStack_8 = (undefined1 *)0x11;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -339,7 +339,7 @@ LAB_004a0a52:
     pcVar14 = (code *)LeaveCriticalSection;
     unaff_EBX = uStack_ab4;
   }
-  FUN_0040b180(param_1 + 0x99,&piStack_ac8,8);
+  EncodeChecksumDeltaShr(param_1 + 0x99,&piStack_ac8,8);
   piStack_ae4 = param_1 + 0x45e;
   uStack_c = 0x12;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -363,7 +363,7 @@ LAB_004a0a52:
     uVar7 = PeekPacketChecksumState();
     (*pcVar14)(&DAT_005a9068);
     if ((int)((uVar7 ^ (int)uVar7 >> 0x1f) - ((int)uVar7 >> 0x1f)) < 200) {
-      cVar1 = FUN_0040b330(param_1 + 0x122,0);
+      cVar1 = PacketChecksumLessThan(param_1 + 0x122,0);
       if (cVar1 == '\0') {
         uVar5 = 200;
       }
@@ -377,14 +377,14 @@ LAB_004a0a52:
     uVar5 = EncodeChecksumPairDiff(param_1[0x3d2] + 0x38,auStack_460,uVar5);
     uStack_10 = 0x14;
     unaff_EBX = 0x30;
-    cVar1 = FUN_0040b490(local_af8,uVar5);
+    cVar1 = CompareChecksumPair(local_af8,uVar5);
     if (cVar1 == '\0') {
       uVar5 = EncodeChecksumDeltaDiv(param_1[0x3d2] + 0x25c,auStack_8a8,4);
       uStack_10 = 0x15;
       uVar5 = EncodeChecksumPairSum(param_1[0x3d2] + 0x38,&local_acc,uVar5);
       uStack_10 = 0x16;
       unaff_EBX = 0xf0;
-      cVar1 = FUN_0040b490(uVar5,local_af8);
+      cVar1 = CompareChecksumPair(uVar5,local_af8);
       bVar17 = false;
       if (cVar1 != '\0') goto LAB_004a0643;
     }
@@ -436,7 +436,7 @@ LAB_004a0643:
     (*pcVar14)(&DAT_005a9068);
     if (((iVar3 < iVar4) ||
         (cVar1 = FUN_0040b2d0(piStack_ae0,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
-        cVar1 != '\0')) || (cVar1 = FUN_0040b330(piStack_ae0,0xfffffc18), cVar1 != '\0'))
+        cVar1 != '\0')) || (cVar1 = PacketChecksumLessThan(piStack_ae0,0xfffffc18), cVar1 != '\0'))
     goto LAB_004a07f1;
   }
   else {

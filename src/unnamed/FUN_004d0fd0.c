@@ -81,7 +81,7 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
       uVar2 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_0040b490(iVar4 + 0x8318,iVar1 + 0x853c);
+      CompareChecksumPair(iVar4 + 0x8318,iVar1 + 0x853c);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar2);

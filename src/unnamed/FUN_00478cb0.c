@@ -202,7 +202,7 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
-      uVar3 = FUN_0040a7d0(unaff_EDI + 0x1e54,local_2d00,uVar3);
+      uVar3 = EncodeChecksumDeltaMul(unaff_EDI + 0x1e54,local_2d00,uVar3);
       local_4 = 0xd;
       uVar3 = EncodeChecksumDeltaDiv(uVar3,local_1be0,1000);
       SUBFIELD(local_4,0,undefined1) = 0xe;
@@ -233,7 +233,7 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
-      uVar3 = FUN_0040a7d0(unaff_EDI + 0x2078,local_89c,uVar3);
+      uVar3 = EncodeChecksumDeltaMul(unaff_EDI + 0x2078,local_89c,uVar3);
       local_4 = 0x13;
       uVar3 = EncodeChecksumDeltaDiv(uVar3,local_112c,1000);
       SUBFIELD(local_4,0,undefined1) = 0x14;
@@ -265,7 +265,7 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
-      uVar3 = FUN_0040a7d0(unaff_EDI + 0x229c,local_19bc,uVar3);
+      uVar3 = EncodeChecksumDeltaMul(unaff_EDI + 0x229c,local_19bc,uVar3);
       local_4 = 0x19;
       uVar3 = EncodeChecksumDeltaDiv(uVar3,local_2028,1000);
       SUBFIELD(local_4,0,undefined1) = 0x1a;
@@ -277,7 +277,7 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
     ScrubChecksumGuard();
   }
 LAB_00479655:
-  uVar3 = FUN_0040a7d0(unaff_EDI + 0x17e4,local_1be0,local_2d0c);
+  uVar3 = EncodeChecksumDeltaMul(unaff_EDI + 0x17e4,local_1be0,local_2d0c);
   local_4 = 0x1b;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_2d20[0] = PeekPacketChecksumState();

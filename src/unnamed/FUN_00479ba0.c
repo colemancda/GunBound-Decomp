@@ -77,7 +77,7 @@ LAB_00479d44:
     iVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar6 < 0) goto LAB_00479d44;
-    cVar3 = FUN_0040b330(param_1 + 0x97,*(undefined4 *)(&DAT_006a7720 + g_clientContext));
+    cVar3 = PacketChecksumLessThan(param_1 + 0x97,*(undefined4 *)(&DAT_006a7720 + g_clientContext));
     bVar2 = true;
     if (cVar3 == '\0') goto LAB_00479d44;
   }
@@ -270,7 +270,7 @@ LAB_00479e75:
       if (iVar6 != 0) {
         iVar8 = PeekChecksumStateUnderLock(iVar5 * 0x1120 + 0x5113c + g_clientContext);
         iVar10 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-        uVar4 = FUN_0040a7d0(local_89c,auStack_230,iVar8 + iVar10);
+        uVar4 = EncodeChecksumDeltaMul(local_89c,auStack_230,iVar8 + iVar10);
         local_4 = 5;
         uVar12 = PeekChecksumStateUnderLock(&DAT_00796aa0);
         uVar4 = EncodeChecksumDeltaDiv(uVar4,auStack_454,uVar12);
@@ -318,7 +318,7 @@ LAB_0047a564:
       cVar3 = *(char *)(g_clientContext + 0x50126 + iVar5);
       if (cVar3 == '\0') {
         FUN_0040afb0(auStack_678);
-        cVar3 = FUN_0040b330(&DAT_0067e3d0 + g_clientContext,0);
+        cVar3 = PacketChecksumLessThan(&DAT_0067e3d0 + g_clientContext,0);
 joined_r0x0047a5db:
         if (cVar3 != '\0') {
           QueueOutgoingPacketField(0);
@@ -326,7 +326,7 @@ joined_r0x0047a5db:
       }
       else if (cVar3 == '\x01') {
         FUN_0040afb0(auStack_678);
-        cVar3 = FUN_0040b330(&DAT_0067e5f4 + g_clientContext,0);
+        cVar3 = PacketChecksumLessThan(&DAT_0067e5f4 + g_clientContext,0);
         goto joined_r0x0047a5db;
       }
       uVar4 = PeekChecksumStateUnderLock(&DAT_00796aa0);

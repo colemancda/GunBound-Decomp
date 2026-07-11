@@ -36,7 +36,7 @@ undefined4 FUN_004d2680(void)
   iVar3 = PeekPacketChecksumState();
   EncodeOutgoingPacketField(iVar3 + iVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar4 = FUN_0040a7d0(unaff_ESI + 0x84,local_230,0x343fd);
+  uVar4 = EncodeChecksumDeltaMul(unaff_ESI + 0x84,local_230,0x343fd);
   local_4 = 0;
   EncodeChecksumDeltaAdd(uVar4,local_454,0x269ec3);
   SUBFIELD(local_4,0,undefined1) = 1;

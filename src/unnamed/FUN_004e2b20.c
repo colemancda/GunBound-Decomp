@@ -47,7 +47,7 @@ void __fastcall FUN_004e2b20(int param_1)
         BlitSpriteClipped(iVar1);
       }
     }
-    uVar3 = FUN_0040a7d0(param_1 + 0x224,local_89c,2);
+    uVar3 = EncodeChecksumDeltaMul(param_1 + 0x224,local_89c,2);
     local_4 = 0;
     uVar3 = EncodeChecksumDeltaAdd(uVar3,local_678,*(undefined4 *)(param_1 + 0xefc));
     SUBFIELD(local_4,0,undefined1) = 1;
@@ -75,9 +75,9 @@ void __fastcall FUN_004e2b20(int param_1)
       ScrambleChecksumGuardBytes();
       FUN_0040b540(local_8b4);
     }
-    FUN_0040a7d0(param_1 + 0x224,local_678,2);
+    EncodeChecksumDeltaMul(param_1 + 0x224,local_678,2);
     local_4 = 3;
-    local_8a8[0] = FUN_0040a7d0(param_1 + 0x890,local_89c,2);
+    local_8a8[0] = EncodeChecksumDeltaMul(param_1 + 0x890,local_89c,2);
     SUBFIELD(local_4,0,undefined1) = 4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_8b4[0] = PeekPacketChecksumState();
@@ -99,7 +99,7 @@ void __fastcall FUN_004e2b20(int param_1)
       FUN_0040b540(local_8a8);
     }
     if (local_8a9 != '\0') {
-      FUN_0040a7d0(param_1 + 0x890,local_89c,2);
+      EncodeChecksumDeltaMul(param_1 + 0x890,local_89c,2);
       local_4 = 5;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar2 = PeekPacketChecksumState();
@@ -121,7 +121,7 @@ void __fastcall FUN_004e2b20(int param_1)
         BlitSpriteClipped(local_8a0);
       }
     }
-    uVar3 = FUN_0040a7d0(param_1 + 0x448,local_454,2);
+    uVar3 = EncodeChecksumDeltaMul(param_1 + 0x448,local_454,2);
     local_4 = 6;
     uVar3 = EncodeChecksumDeltaAdd(uVar3,local_678,*(undefined4 *)(param_1 + 0xefc));
     SUBFIELD(local_4,0,undefined1) = 7;
@@ -149,9 +149,9 @@ void __fastcall FUN_004e2b20(int param_1)
       ScrambleChecksumGuardBytes();
       FUN_0040b540(local_8a8);
     }
-    FUN_0040a7d0(param_1 + 0x448,local_678,2);
+    EncodeChecksumDeltaMul(param_1 + 0x448,local_678,2);
     local_4 = 9;
-    local_8b4[0] = FUN_0040a7d0(param_1 + 0xab4,local_89c,2);
+    local_8b4[0] = EncodeChecksumDeltaMul(param_1 + 0xab4,local_89c,2);
     SUBFIELD(local_4,0,undefined1) = 10;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_8a8[0] = PeekPacketChecksumState();
@@ -173,7 +173,7 @@ void __fastcall FUN_004e2b20(int param_1)
       FUN_0040b540(local_8a8);
     }
     if (local_8a9 != '\0') {
-      FUN_0040a7d0(param_1 + 0xab4,local_89c,2);
+      EncodeChecksumDeltaMul(param_1 + 0xab4,local_89c,2);
       local_4 = 0xb;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar2 = PeekPacketChecksumState();
@@ -195,7 +195,7 @@ void __fastcall FUN_004e2b20(int param_1)
         BlitSpriteClipped(local_8a0);
       }
     }
-    uVar3 = FUN_0040a7d0(param_1 + 0x66c,local_454,2);
+    uVar3 = EncodeChecksumDeltaMul(param_1 + 0x66c,local_454,2);
     local_4 = 0xc;
     uVar3 = EncodeChecksumDeltaAdd(uVar3,local_678,*(undefined4 *)(param_1 + 0xefc));
     SUBFIELD(local_4,0,undefined1) = 0xd;
@@ -223,9 +223,9 @@ void __fastcall FUN_004e2b20(int param_1)
       ScrambleChecksumGuardBytes();
       FUN_0040b540(local_8a8);
     }
-    FUN_0040a7d0(param_1 + 0x66c,local_678,2);
+    EncodeChecksumDeltaMul(param_1 + 0x66c,local_678,2);
     local_4 = 0xf;
-    local_8b4[0] = FUN_0040a7d0(param_1 + 0xcd8,local_89c,2);
+    local_8b4[0] = EncodeChecksumDeltaMul(param_1 + 0xcd8,local_89c,2);
     SUBFIELD(local_4,0,undefined1) = 0x10;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_8a8[0] = PeekPacketChecksumState();
@@ -248,7 +248,7 @@ void __fastcall FUN_004e2b20(int param_1)
     }
     iVar1 = local_8a0;
     if (local_8a9 != '\0') {
-      FUN_0040a7d0(param_1 + 0xcd8,local_230,2);
+      EncodeChecksumDeltaMul(param_1 + 0xcd8,local_230,2);
       local_4 = 0x11;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar1 = PeekPacketChecksumState();

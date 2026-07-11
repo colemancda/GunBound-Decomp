@@ -36,7 +36,7 @@ void FUN_004dcbe0(int param_1)
   *unaff_FS_OFFSET = &local_c;
   iVar6 = g_clientContext + 0x475c8;
   *(int *)(param_1 + 0x740) = *(int *)(param_1 + 0x740) + 1;
-  FUN_0040a7d0(iVar6,local_230,0xb);
+  EncodeChecksumDeltaMul(iVar6,local_230,0xb);
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = PeekPacketChecksumState();

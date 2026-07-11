@@ -195,7 +195,7 @@ LAB_0045de25:
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
-      uVar4 = FUN_0040a7d0(param_1 + 0x1e54,local_3148,uVar4);
+      uVar4 = EncodeChecksumDeltaMul(param_1 + 0x1e54,local_3148,uVar4);
       local_4 = 0x10;
       uVar4 = EncodeChecksumDeltaDiv(uVar4,local_1e04,1000);
       SUBFIELD(local_4,0,undefined1) = 0x11;
@@ -227,7 +227,7 @@ LAB_0045de25:
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
-      uVar4 = FUN_0040a7d0(param_1 + 0x2078,local_89c,uVar4);
+      uVar4 = EncodeChecksumDeltaMul(param_1 + 0x2078,local_89c,uVar4);
       local_4 = 0x16;
       uVar4 = EncodeChecksumDeltaDiv(uVar4,local_112c,1000);
       SUBFIELD(local_4,0,undefined1) = 0x17;
@@ -260,7 +260,7 @@ LAB_0045de25:
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
-      uVar4 = FUN_0040a7d0(param_1 + 0x229c,local_1be0,uVar4);
+      uVar4 = EncodeChecksumDeltaMul(param_1 + 0x229c,local_1be0,uVar4);
       local_4 = 0x1c;
       uVar4 = EncodeChecksumDeltaDiv(uVar4,local_ac0,1000);
       SUBFIELD(local_4,0,undefined1) = 0x1d;
@@ -275,7 +275,7 @@ LAB_0045de25:
 LAB_0045e442:
     local_31d4 = 0;
   }
-  uVar4 = FUN_0040a7d0(param_1 + 0x17e4,local_1e04,local_31d4);
+  uVar4 = EncodeChecksumDeltaMul(param_1 + 0x17e4,local_1e04,local_31d4);
   local_4 = 0x1e;
   uVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
   uVar4 = EncodeChecksumDeltaDiv(uVar4,local_3148,uVar5);
