@@ -1,4 +1,4 @@
-/* FUN_004f7600 - 0x004f7600 in the original binary.
+/* Sha1Final - 0x004f7600 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004f7600(void)
+void Sha1Final(void)
 
 {
   int iVar1;
@@ -54,7 +54,7 @@ switchD_004f7624_switchD:
     if (iVar2 < 0x10) {
       *(undefined4 *)(iVar1 + iVar2 * 4) = 0;
     }
-    FUN_004f76f0(1);
+    Sha1TransformBuffer(1);
     iVar2 = 0;
   }
   puVar7 = (undefined4 *)(iVar1 + iVar2 * 4);
@@ -65,7 +65,7 @@ switchD_004f7624_switchD:
 LAB_004f7684:
   *(undefined4 *)(unaff_EBX + 0x54) = *(undefined4 *)(unaff_EBX + 0x18);
   *(undefined4 *)(unaff_EBX + 0x58) = *(undefined4 *)(unaff_EBX + 0x14);
-  FUN_004f76f0(1);
+  Sha1TransformBuffer(1);
   *(undefined4 *)(unaff_EBX + 0x5c) = 0;
   return;
 }

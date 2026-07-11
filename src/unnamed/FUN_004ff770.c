@@ -138,11 +138,11 @@ void FUN_004ff770(int *param_1,int param_2)
           if ((bVar5) && (local_318c != 0)) {
             FUN_004f76c0();
             FUN_004f7360();
-            FUN_004f7380(local_3128,&local_2eba);
+            Sha1Absorb(local_3128,&local_2eba);
             FUN_004f7360();
-            FUN_004f7380(local_3128,local_2eaa);
-            FUN_004f7380(local_3128,local_2e9a);
-            FUN_004f7600();
+            Sha1Absorb(local_3128,local_2eaa);
+            Sha1Absorb(local_3128,local_2e9a);
+            Sha1Final();
             FUN_004f48b0(2);
             FUN_004fcd50(local_30c8);
             if ((uint)local_173e <= local_2ebc - 0x36) {

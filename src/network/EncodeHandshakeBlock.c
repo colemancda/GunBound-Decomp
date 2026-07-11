@@ -46,14 +46,14 @@ uint EncodeHandshakeBlock(undefined4 param_1,undefined4 param_2,undefined4 param
     bVar3 = (char)uVar5 + 1;
     uVar5 = (uint)bVar3;
   } while (bVar3 < 0x10);
-  FUN_004f7380(&local_28c);
+  Sha1Absorb(&local_28c);
   do {
     cVar1 = *in_EAX;
     in_EAX = in_EAX + 1;
   } while (cVar1 != '\0');
-  FUN_004f7380(&local_28c);
-  FUN_004f7380(&local_28c,&param_3);
-  FUN_004f7600();
+  Sha1Absorb(&local_28c);
+  Sha1Absorb(&local_28c,&param_3);
+  Sha1Final();
   uVar5 = FUN_004f48b0(3);
   if ((short)uVar5 == 1) {
     local_4 = 0;

@@ -1,4 +1,4 @@
-/* FUN_004f76f0 - 0x004f76f0 in the original binary.
+/* Sha1TransformBuffer - 0x004f76f0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004f76f0(undefined4 param_1,uint *param_2,int param_3)
+void __fastcall Sha1TransformBuffer(undefined4 param_1,uint *param_2,int param_3)
 
 {
   uint uVar1;

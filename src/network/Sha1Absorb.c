@@ -1,4 +1,4 @@
-/* FUN_004f7380 - 0x004f7380 in the original binary.
+/* Sha1Absorb - 0x004f7380 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004f7380(int param_1,byte *param_2)
+void Sha1Absorb(int param_1,byte *param_2)
 
 {
   int iVar1;
@@ -135,14 +135,14 @@ LAB_004f7529:
         *(uint *)(iVar1 + iVar7 * 4) =
              (uint)bVar5 << 0x18 | (uint)*pbVar2 << 0x10 | (uint)*pbVar3 << 8 | (uint)*pbVar4;
       }
-      FUN_004f76f0(1);
+      Sha1TransformBuffer(1);
       in_EAX = (in_EAX - 0x40) + *(int *)(param_1 + 0x5c);
       *(undefined4 *)(param_1 + 0x5c) = 0;
     }
   }
   uVar8 = in_EAX >> 6;
   if (uVar8 != 0) {
-    FUN_004f9fa0(uVar8);
+    Sha1TransformBlocks(uVar8);
     param_2 = param_2 + uVar8 * 0x40;
     in_EAX = in_EAX + uVar8 * -0x40;
   }

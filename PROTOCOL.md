@@ -87,7 +87,7 @@ runs `EncodePacketBlocks`, which loops `EncodeCipherBlock` over 12-byte input bl
 (`AppendEncodedBlock`) is produced by `EncodeHandshakeBlock`, which keys the encode
 with **SHA-1** (initialised with the standard SHA-1 constants `0x67452301`,
 `0xefcdab89`, `0x98badcfe`, `0x10325476`, `0xc3d2e1f0`) over a 16-byte per-connection
-key. (The SHA-1 primitives `FUN_004f7380`/`004f7600` remain unnamed.)
+key. The SHA-1 implementation is fully named: `Sha1Absorb` (feed data), `Sha1Final` (pad + length), `Sha1TransformBuffer` / `Sha1TransformBlocks` (the 80-round block compression, single-buffer and bulk-input variants).
 
 **Receive side** (the inverse). `ReceiveFramedPackets` (Winsock `recv`) fills a
 per-connection ring buffer; `ProcessIncomingPackets` (`0x4d27e0`) drains it each

@@ -1,4 +1,4 @@
-/* FUN_004f9fa0 - 0x004f9fa0 in the original binary.
+/* Sha1TransformBlocks - 0x004f9fa0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004f9fa0(uint *param_1,int param_2)
+void __thiscall Sha1TransformBlocks(uint *param_1,int param_2)
 
 {
   byte *in_EAX;

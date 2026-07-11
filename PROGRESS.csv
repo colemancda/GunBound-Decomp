@@ -1339,11 +1339,11 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f7210,146,FUN_004f7210,false,3,1,RAW-src
 004f72b0,175,FUN_004f72b0,false,2,1,RAW-src
 004f7360,20,FUN_004f7360,false,2,0,RAW-src
-004f7380,593,FUN_004f7380,false,9,2,RAW-src
-004f7600,169,FUN_004f7600,false,3,1,RAW-src
+004f7380,593,Sha1Absorb,false,9,2,RAW-src
+004f7600,169,Sha1Final,false,3,1,RAW-src
 004f76c0,46,FUN_004f76c0,false,1,0,RAW-src
-004f76f0,10408,FUN_004f76f0,false,3,0,RAW-src
-004f9fa0,11645,FUN_004f9fa0,false,1,0,RAW-src
+004f76f0,10408,Sha1TransformBuffer,false,3,0,RAW-src
+004f9fa0,11645,Sha1TransformBlocks,false,1,0,RAW-src
 004fcd20,44,FUN_004fcd20,false,1,1,RAW-src
 004fcd50,44,FUN_004fcd50,false,1,1,RAW-src
 004fcd80,103,FUN_004fcd80,false,6,3,RAW-src

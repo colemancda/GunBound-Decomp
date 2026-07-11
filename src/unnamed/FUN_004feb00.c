@@ -53,15 +53,15 @@ FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 
   local_19c8 = 0;
   local_19c4 = 0;
   local_1980 = 0;
-  FUN_004f7380(&local_19dc,local_176e);
+  Sha1Absorb(&local_19dc,local_176e);
   pcVar2 = param_1;
   do {
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
-  FUN_004f7380(&local_19dc,param_1);
-  FUN_004f7380(&local_19dc,&param_5);
-  FUN_004f7600();
+  Sha1Absorb(&local_19dc,param_1);
+  Sha1Absorb(&local_19dc,&param_5);
+  Sha1Final();
   FUN_004f48b0(1);
   FUN_004fcd20(local_197c);
   uVar4 = iVar3 + 0x26;
