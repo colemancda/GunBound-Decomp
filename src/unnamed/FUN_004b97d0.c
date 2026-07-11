@@ -608,7 +608,7 @@ LAB_004b9bb0:
         FUN_00405fb0();
         CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,
                            0);
-        uVar9 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
+        uVar9 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
         if (((char)uVar9 == '\0') ||
            (uVar9 = *(uint *)(g_clientContext + 0x621e0), *(short *)(uVar9 + 0xbfbc) != 0)) {
           uVar9 = uVar9 & 0xffffff00;
@@ -631,7 +631,7 @@ LAB_004b9bb0:
         uVar20 = 1;
       }
       else {
-        cVar4 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
+        cVar4 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
         if (((cVar4 == '\0') &&
             ((cVar4 = PeekPacketChecksumBool(), cVar4 != '\x01' ||
              (*(char *)(g_clientContext + 0x45127) != '\x03')))) ||

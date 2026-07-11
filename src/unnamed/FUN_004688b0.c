@@ -357,7 +357,7 @@ LAB_00468fef:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if ((iVar5 < 0) && (cVar4 = FUN_0040b2d0(piStack_ae8 + 0x122,0), cVar4 != '\0')) {
+    if ((iVar5 < 0) && (cVar4 = PacketChecksumGreaterThan(piStack_ae8 + 0x122,0), cVar4 != '\0')) {
 LAB_0046942b:
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {

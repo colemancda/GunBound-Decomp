@@ -310,7 +310,7 @@ LAB_00411727:
           uVar15 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           puVar16 = &DAT_0067e5f4 + g_clientContext;
         }
-        cVar4 = FUN_0040b300(puVar16,uVar15);
+        cVar4 = PacketChecksumGreaterEqual(puVar16,uVar15);
         if (cVar4 != '\0') goto LAB_00411727;
       }
       local_d78 = 0;
@@ -327,14 +327,14 @@ LAB_00411727:
           uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar15 = EncodeChecksumDeltaDiv(uVar15,local_684,uVar17);
           SUBFIELD(local_c,0,undefined1) = 4;
-          FUN_0040afb0(uVar15);
+          EmitChecksumSum(uVar15);
           SUBFIELD(local_c,0,undefined1) = 3;
           ScrubChecksumGuard();
           SUBFIELD(local_c,0,undefined1) = 2;
           ScrubChecksumGuard();
           local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),1);
           ScrubChecksumGuard();
-          FUN_0040afb0(local_d30);
+          EmitChecksumSum(local_d30);
           iVar19 = g_clientContext;
         }
         local_d78 = local_d78 + 1;

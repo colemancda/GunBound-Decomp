@@ -94,7 +94,7 @@ undefined4 FUN_00439e40(int param_1)
   if ((((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) &&
       (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')) &&
      ((uVar6 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c), param_1 != uVar6 ||
-      ((cVar2 = FUN_0040b360(*(int *)(g_clientContext + 0x621e0) + 0x6968,0), cVar2 == '\0' &&
+      ((cVar2 = PacketChecksumLessEqual(*(int *)(g_clientContext + 0x621e0) + 0x6968,0), cVar2 == '\0' &&
        (iVar4 = (**(code **)(**(int **)(g_clientContext + 0x621e0) + 0x14))(), iVar4 < 9000)))))) {
     SetGuardedBool(1);
     SetGuardedBool(0);

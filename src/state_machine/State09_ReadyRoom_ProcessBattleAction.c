@@ -228,7 +228,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
     }
     else if (((uVar2 == 0x9002) && (*(char *)((int)this + 0x4cc) == '\0')) &&
             (*(int *)((int)this + 0x4d4) == -1)) {
-      cVar3 = FUN_0040b3d0(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
+      cVar3 = ChecksumPairDiffers(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
       if (cVar3 != '\0') {
         *(undefined4 *)((int)this + 0x4d4) = 0x31;
         return;

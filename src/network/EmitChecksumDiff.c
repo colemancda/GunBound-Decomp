@@ -1,4 +1,4 @@
-/* FUN_0040b360 - 0x0040b360 in the original binary.
+/* EmitChecksumDiff - 0x0040aff0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,14 +8,17 @@
 #include "ghidra_types.h"
 
 
-bool FUN_0040b360(undefined4 param_1,int param_2)
+void EmitChecksumDiff(void)
 
 {
   int iVar1;
+  int iVar2;
   
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState();
+  EncodeOutgoingPacketField(iVar1 - iVar2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  return iVar1 <= param_2;
+  return;
 }
 

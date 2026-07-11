@@ -421,7 +421,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       FUN_004207c0(g_clientContext,bVar16);
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        uVar11 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
+        uVar11 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
         if (((char)uVar11 == '\0') ||
            (uVar11 = *(uint *)(g_clientContext + 0x621e0), *(short *)(uVar11 + 0xbfbc) != 0)) {
           uVar11 = uVar11 & 0xffffff00;
@@ -431,7 +431,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
         }
         CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x23,0x22
                            ,uVar11,0);
-        cVar2 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
+        cVar2 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
         if ((cVar2 == '\0') || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
           uVar21 = 0;
         }
@@ -758,7 +758,7 @@ LAB_004b7c01:
                 ScrubChecksumGuard();
                 local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                 ScrubChecksumGuard();
-                FUN_0040afb0(&local_2658);
+                EmitChecksumSum(&local_2658);
                 uVar22 = 1;
                 uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
                 uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
@@ -786,7 +786,7 @@ LAB_004b7c01:
                 ScrubChecksumGuard();
                 local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                 ScrubChecksumGuard();
-                FUN_0040afb0(&local_2658);
+                EmitChecksumSum(&local_2658);
                 uVar22 = 0xfffffffc;
                 uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
                 uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
@@ -815,7 +815,7 @@ LAB_004b7c01:
                 ScrubChecksumGuard();
                 local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                 ScrubChecksumGuard();
-                FUN_0040afb0(&local_2658);
+                EmitChecksumSum(&local_2658);
                 uVar22 = 1;
                 uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
                 uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
@@ -844,7 +844,7 @@ LAB_004b7c01:
                 ScrubChecksumGuard();
                 local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                 ScrubChecksumGuard();
-                FUN_0040afb0(&local_2658);
+                EmitChecksumSum(&local_2658);
                 uVar22 = 0xfffffffc;
                 uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
                 uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
@@ -873,7 +873,7 @@ LAB_004b7c01:
                   ScrubChecksumGuard();
                   local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                   ScrubChecksumGuard();
-                  FUN_0040afb0(&local_2658);
+                  EmitChecksumSum(&local_2658);
                   puVar8 = local_27f0;
                   uVar22 = 0xffffffff;
                   uVar21 = PeekChecksumStateUnderLock(local_27f0 + 0xb30);
@@ -1185,7 +1185,7 @@ LAB_004b7fb2:
         do {
           iVar4 = local_27dc;
           local_27e0 = param_1;
-          cVar2 = FUN_0040b300(param_1,2);
+          cVar2 = PacketChecksumGreaterEqual(param_1,2);
           if (cVar2 != '\0') {
             QueueOutgoingPacketField(0);
             iVar4 = GetPlayerRecordBySlot(g_clientContext);
@@ -1205,7 +1205,7 @@ LAB_004b7fb2:
             ScrubChecksumGuard();
             local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),0xf);
             ScrubChecksumGuard();
-            FUN_0040afb0(&local_2658);
+            EmitChecksumSum(&local_2658);
             uVar22 = 4;
             uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
             uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);

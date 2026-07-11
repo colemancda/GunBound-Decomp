@@ -90,8 +90,8 @@ void __fastcall FUN_004ae3a0(int *param_1)
     ScrubChecksumGuard();
     cVar6 = FUN_00406610(param_1[0x3d2] != 0);
     if (cVar6 == '\0') {
-      FUN_0040afb0(param_1 + 0x2bd);
-      FUN_0040afb0(param_1 + 0x346);
+      EmitChecksumSum(param_1 + 0x2bd);
+      EmitChecksumSum(param_1 + 0x346);
     }
     else {
       uVar13 = PeekChecksumStateUnderLock(param_1 + 0x122);
@@ -158,8 +158,8 @@ LAB_004ae9a8:
     iVar7 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((((iVar7 < 0) ||
-         (cVar6 = FUN_0040b300(piVar2,*(undefined4 *)(&DAT_006a7720 + g_clientContext)), cVar6 != '\0')
-         ) || (cVar6 = FUN_0040b300(piVar1,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
+         (cVar6 = PacketChecksumGreaterEqual(piVar2,*(undefined4 *)(&DAT_006a7720 + g_clientContext)), cVar6 != '\0')
+         ) || (cVar6 = PacketChecksumGreaterEqual(piVar1,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
               cVar6 != '\0')) || (cVar6 = PacketChecksumLessThan(piVar1,0xfffffc18), cVar6 != '\0')) {
       *(undefined1 *)(param_1 + 5) = 1;
       cVar6 = PeekPacketChecksumBool();
@@ -299,7 +299,7 @@ LAB_004ae9a8:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if ((iVar7 < 0) && (cVar6 = FUN_0040b2d0(param_1 + 0x122,0), cVar6 != '\0')) {
+  if ((iVar7 < 0) && (cVar6 = PacketChecksumGreaterThan(param_1 + 0x122,0), cVar6 != '\0')) {
 LAB_004ae748:
     cVar6 = PeekPacketChecksumBool();
     if (cVar6 == '\0') {

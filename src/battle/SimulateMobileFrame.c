@@ -51,7 +51,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
     if (cVar5 != '\0') {
       QueueOutgoingPacketField(0);
     }
-    cVar5 = FUN_0040b300(param_1 + 0x243,*(undefined4 *)(&DAT_006a7720 + g_clientContext));
+    cVar5 = PacketChecksumGreaterEqual(param_1 + 0x243,*(undefined4 *)(&DAT_006a7720 + g_clientContext));
     if (cVar5 != '\0') {
       QueueOutgoingPacketField(*(int *)(&DAT_006a7720 + g_clientContext) + -1);
     }
@@ -96,7 +96,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
   if (((cVar5 == '\0') && (param_1[9] != 0xd)) && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) {
     piVar1 = param_1 + 0x579;
     piVar2 = param_1 + 0x243;
-    cVar5 = FUN_0040b3d0(piVar2,piVar1);
+    cVar5 = ChecksumPairDiffers(piVar2,piVar1);
     if (cVar5 == '\0') {
       if ((param_1[9] != 1) && (param_1[9] != 3)) goto LAB_004622cf;
       uVar9 = EncodeChecksumDeltaDiv(param_1 + 0x19d1,auStack_454,3);
@@ -118,7 +118,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
         uStack_4 = 5;
         uVar10 = PeekChecksumStateUnderLock(uVar9);
         if (((int)((uVar10 ^ (int)uVar10 >> 0x1f) - ((int)uVar10 >> 0x1f)) < 3) ||
-           ((cVar5 = FUN_0040b300(piVar2,*(int *)(&DAT_006a7720 + g_clientContext) + -2), cVar5 != '\0'
+           ((cVar5 = PacketChecksumGreaterEqual(piVar2,*(int *)(&DAT_006a7720 + g_clientContext) + -2), cVar5 != '\0'
             && (*(int *)(&DAT_006a7720 + g_clientContext) != 2)))) {
           bVar3 = true;
         }
@@ -150,7 +150,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
           uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar9 = EncodeChecksumDeltaDiv(param_1 + 0x21d8,auStack_454,uVar9);
           uStack_4 = 9;
-          FUN_0040afb0(uVar9);
+          EmitChecksumSum(uVar9);
           goto LAB_0046205f;
         }
         EncodeChecksumState(piVar1);
@@ -163,8 +163,8 @@ void __fastcall SimulateMobileFrame(int *param_1)
         uStack_4 = 0;
         uVar10 = PeekChecksumStateUnderLock(uVar9);
         if (((int)((uVar10 ^ (int)uVar10 >> 0x1f) - ((int)uVar10 >> 0x1f)) < 3) ||
-           ((cVar5 = FUN_0040b360(piVar2,1), cVar5 != '\0' &&
-            (cVar5 = FUN_0040b360(piVar1,1), cVar5 != '\0')))) {
+           ((cVar5 = PacketChecksumLessEqual(piVar2,1), cVar5 != '\0' &&
+            (cVar5 = PacketChecksumLessEqual(piVar1,1), cVar5 != '\0')))) {
           bVar3 = true;
         }
         else {
@@ -195,12 +195,12 @@ void __fastcall SimulateMobileFrame(int *param_1)
           uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar9 = EncodeChecksumDeltaDiv(param_1 + 0x21d8,auStack_454,uVar9);
           uStack_4 = 4;
-          FUN_0040aff0(uVar9);
+          EmitChecksumDiff(uVar9);
 LAB_0046205f:
           uStack_4 = 0xffffffff;
           ScrubChecksumGuard();
           uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-          FUN_0040ab60(uVar9);
+          EmitChecksumMod(uVar9);
           goto LAB_004622cf;
         }
         EncodeChecksumState(piVar1);
@@ -243,13 +243,13 @@ LAB_004622cf:
     }
   }
   piVar1 = param_1 + 0x22f1;
-  cVar5 = FUN_0040b2d0(piVar1,0);
+  cVar5 = PacketChecksumGreaterThan(piVar1,0);
   if ((((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool(), cVar5 == '\x01')) &&
       (cVar5 = PeekPacketChecksumBool(), cVar5 == '\x01')) &&
      ((*(int *)(&DAT_005f3768 + g_clientContext) != 1 && (*(int *)(&DAT_005f3768 + g_clientContext) != 2))
      )) {
     FUN_0040b060();
-    uVar9 = FUN_0040a9c0(piVar1,auStack_454,0x14);
+    uVar9 = EncodeChecksumDeltaMod(piVar1,auStack_454,0x14);
     uStack_4 = 0xb;
     cVar5 = PacketChecksumEquals(uVar9,0);
     if ((((cVar5 == '\0') ||
@@ -303,7 +303,7 @@ LAB_004622cf:
       Replay_FlushEvent();
     }
   }
-  cVar5 = FUN_0040b300(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
+  cVar5 = PacketChecksumGreaterEqual(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
   if (((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool(), cVar5 == '\x01')) &&
      ((cVar5 = PacketChecksumEquals(g_clientContext + 0x45354,1), cVar5 != '\0' ||
       (cVar5 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar5 != '\0')))) {

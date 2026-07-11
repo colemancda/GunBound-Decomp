@@ -314,7 +314,7 @@ void FUN_004305c0(void)
   if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) {
     EncodeChecksumDeltaDiv();
     uStack_88 = 1;
-    FUN_0040afb0();
+    EmitChecksumSum();
     uStack_88 = 0xffffffff;
     if (uStack_90c != 0) {
       ScrambleChecksumGuardBytes();
@@ -322,7 +322,7 @@ void FUN_004305c0(void)
     }
     EncodeChecksumDeltaDiv();
     uStack_88 = 2;
-    FUN_0040afb0();
+    EmitChecksumSum();
     uStack_88 = 0xffffffff;
     if (uStack_90c != 0) {
       ScrambleChecksumGuardBytes();
@@ -330,7 +330,7 @@ void FUN_004305c0(void)
     }
     EncodeChecksumDeltaDiv();
     uStack_88 = 3;
-    FUN_0040afb0();
+    EmitChecksumSum();
     uStack_88 = 0xffffffff;
     if (uStack_90c != 0) {
       ScrambleChecksumGuardBytes();

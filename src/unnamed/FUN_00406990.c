@@ -289,7 +289,7 @@ LAB_00406f80:
     }
     uVar9 = EncodeChecksumDeltaDiv(*(int *)(g_clientContext + 0x621e0) + 0x8bc4,local_ac0,0x14);
     local_4 = 0xd;
-    FUN_0040a9c0(uVar9,local_f08,10);
+    EncodeChecksumDeltaMod(uVar9,local_f08,10);
     local_4 = 0xe;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
@@ -320,7 +320,7 @@ LAB_00406f80:
 LAB_00407429:
     uVar9 = EncodeChecksumDeltaDiv(*(int *)(g_clientContext + 0x621e0) + 0x8bc4,local_ac0,2);
     local_4 = 0xf;
-    FUN_0040a9c0(uVar9,local_f08,10);
+    EncodeChecksumDeltaMod(uVar9,local_f08,10);
     local_4 = 0x10;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();

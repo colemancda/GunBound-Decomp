@@ -1,4 +1,4 @@
-/* FUN_0040afb0 - 0x0040afb0 in the original binary.
+/* ChecksumPairDiffers - 0x0040b3d0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0040afb0(void)
+bool ChecksumPairDiffers(void)
 
 {
   int iVar1;
@@ -17,8 +17,7 @@ void FUN_0040afb0(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = PeekPacketChecksumState();
   iVar2 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar2 + iVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  return;
+  return iVar1 != iVar2;
 }
 

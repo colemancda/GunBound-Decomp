@@ -51,7 +51,7 @@ void __fastcall FUN_004e2b20(int param_1)
     local_4 = 0;
     uVar3 = EncodeChecksumDeltaAdd(uVar3,local_678,*(undefined4 *)(param_1 + 0xefc));
     SUBFIELD(local_4,0,undefined1) = 1;
-    FUN_0040a9c0(uVar3,local_454,0x14);
+    EncodeChecksumDeltaMod(uVar3,local_454,0x14);
     SUBFIELD(local_4,0,undefined1) = 2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar1 = PeekPacketChecksumState();
@@ -125,7 +125,7 @@ void __fastcall FUN_004e2b20(int param_1)
     local_4 = 6;
     uVar3 = EncodeChecksumDeltaAdd(uVar3,local_678,*(undefined4 *)(param_1 + 0xefc));
     SUBFIELD(local_4,0,undefined1) = 7;
-    FUN_0040a9c0(uVar3,local_89c,0x14);
+    EncodeChecksumDeltaMod(uVar3,local_89c,0x14);
     SUBFIELD(local_4,0,undefined1) = 8;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar1 = PeekPacketChecksumState();
@@ -199,7 +199,7 @@ void __fastcall FUN_004e2b20(int param_1)
     local_4 = 0xc;
     uVar3 = EncodeChecksumDeltaAdd(uVar3,local_678,*(undefined4 *)(param_1 + 0xefc));
     SUBFIELD(local_4,0,undefined1) = 0xd;
-    FUN_0040a9c0(uVar3,local_89c,0x14);
+    EncodeChecksumDeltaMod(uVar3,local_89c,0x14);
     SUBFIELD(local_4,0,undefined1) = 0xe;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar1 = PeekPacketChecksumState();

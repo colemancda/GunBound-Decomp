@@ -138,7 +138,7 @@ LAB_00479e75:
     iVar5 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(iVar5 + 1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0040afb0(param_1 + 0x67d);
+    EmitChecksumSum(param_1 + 0x67d);
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 != '\0') {
       PeekChecksumStateUnderLock(g_clientContext + 0x5b1ac);
@@ -150,13 +150,13 @@ LAB_00479e75:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x5f4,local_89c,uVar4);
       local_4 = 2;
-      FUN_0040afb0(uVar4);
+      EmitChecksumSum(uVar4);
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar4 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_0040ab60(uVar4);
+      EmitChecksumMod(uVar4);
     }
   }
   iVar5 = PeekPacketChecksumBool();
@@ -317,7 +317,7 @@ LAB_00479e75:
 LAB_0047a564:
       cVar3 = *(char *)(g_clientContext + 0x50126 + iVar5);
       if (cVar3 == '\0') {
-        FUN_0040afb0(auStack_678);
+        EmitChecksumSum(auStack_678);
         cVar3 = PacketChecksumLessThan(&DAT_0067e3d0 + g_clientContext,0);
 joined_r0x0047a5db:
         if (cVar3 != '\0') {
@@ -325,15 +325,15 @@ joined_r0x0047a5db:
         }
       }
       else if (cVar3 == '\x01') {
-        FUN_0040afb0(auStack_678);
+        EmitChecksumSum(auStack_678);
         cVar3 = PacketChecksumLessThan(&DAT_0067e5f4 + g_clientContext,0);
         goto joined_r0x0047a5db;
       }
       uVar4 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-      cVar3 = FUN_0040b300(&DAT_0067e5f4 + g_clientContext,uVar4);
+      cVar3 = PacketChecksumGreaterEqual(&DAT_0067e5f4 + g_clientContext,uVar4);
       if (cVar3 == '\0') {
         uVar4 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-        cVar3 = FUN_0040b300(&DAT_0067e3d0 + g_clientContext,uVar4);
+        cVar3 = PacketChecksumGreaterEqual(&DAT_0067e3d0 + g_clientContext,uVar4);
         if (cVar3 != '\0') goto LAB_0047a634;
       }
       else {

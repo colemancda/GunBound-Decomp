@@ -271,7 +271,7 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     SetGuardedBool(0);
     FUN_00405fb0();
     CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,0);
-    cVar3 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
+    cVar3 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
     if ((cVar3 == '\0') || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
       uVar10 = 0;
     }
@@ -280,7 +280,7 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     }
     CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x23,0x22,
                        uVar10,0);
-    uVar8 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
+    uVar8 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
     if (((char)uVar8 == '\0') ||
        (uVar8 = *(uint *)(g_clientContext + 0x621e0), *(short *)(uVar8 + 0xbfbc) != 0)) {
       uVar8 = uVar8 & 0xffffff00;
@@ -304,7 +304,7 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     SetGuardedBool(0);
     FUN_00405fb0();
     CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0);
-    cVar3 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
+    cVar3 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
     if ((cVar3 == '\0') || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
       uVar10 = 0;
     }
@@ -313,7 +313,7 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     }
     CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x23,0x22,
                        uVar10,0);
-    cVar3 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
+    cVar3 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
     if ((cVar3 == '\0') || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
       uVar10 = 0;
     }

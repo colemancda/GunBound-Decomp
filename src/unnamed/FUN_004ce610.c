@@ -108,7 +108,7 @@ LAB_004ce86c:
   case 6:
     AddToPacketChecksum(0xb4);
     uVar6 = PeekChecksumStateUnderLock(&DAT_00e9bed8);
-    cVar4 = FUN_0040b2d0(g_clientContext + 0x5b1ac,uVar6);
+    cVar4 = PacketChecksumGreaterThan(g_clientContext + 0x5b1ac,uVar6);
     if (cVar4 != '\0') {
       uVar6 = PeekChecksumStateUnderLock(&DAT_00e9bed8);
       SubFromPacketChecksum(uVar6);

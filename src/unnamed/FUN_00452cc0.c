@@ -341,9 +341,9 @@ LAB_00453238:
     }
     cVar3 = FUN_00406610(param_1[0x3d2] != 0);
     if (cVar3 == '\0') {
-      FUN_0040afb0(param_1 + 0x2bd);
-      FUN_0040afb0(param_1 + 0x346);
-      cVar3 = FUN_0040b2d0(param_1 + 0x1ab,0);
+      EmitChecksumSum(param_1 + 0x2bd);
+      EmitChecksumSum(param_1 + 0x346);
+      cVar3 = PacketChecksumGreaterThan(param_1 + 0x1ab,0);
       if (cVar3 != '\0') {
         param_1[0xfea] = 0;
       }
@@ -417,8 +417,8 @@ LAB_00453b3c:
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 != '\0') {
       AddToPacketChecksum(param_1[0xfea]);
-      if (((param_1[0xfea] == 1) && (cVar3 = FUN_0040b300(param_1 + 0x70b,0x5a), cVar3 != '\0')) ||
-         ((param_1[0xfea] == -1 && (cVar3 = FUN_0040b360(param_1 + 0x70b,0x5a), cVar3 != '\0')))) {
+      if (((param_1[0xfea] == 1) && (cVar3 = PacketChecksumGreaterEqual(param_1 + 0x70b,0x5a), cVar3 != '\0')) ||
+         ((param_1[0xfea] == -1 && (cVar3 = PacketChecksumLessEqual(param_1 + 0x70b,0x5a), cVar3 != '\0')))) {
         param_1[0xfea] = 0;
         QueueOutgoingPacketField(0);
       }
@@ -426,8 +426,8 @@ LAB_00453b3c:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     (*pcVar15)(&DAT_005a9068);
-    if ((((cStack_ad9 != '\0') || (cVar3 = FUN_0040b300(), cVar3 != '\0')) ||
-        (cVar3 = FUN_0040b300(), cVar3 != '\0')) || (cVar3 = PacketChecksumLessThan(), cVar3 != '\0')) {
+    if ((((cStack_ad9 != '\0') || (cVar3 = PacketChecksumGreaterEqual(), cVar3 != '\0')) ||
+        (cVar3 = PacketChecksumGreaterEqual(), cVar3 != '\0')) || (cVar3 = PacketChecksumLessThan(), cVar3 != '\0')) {
       *(undefined1 *)(param_1 + 5) = 1;
       cVar3 = PeekPacketChecksumBool();
       if ((cVar3 != '\0') && (cVar3 = FUN_0043a530(), cVar3 == '\0')) {
@@ -583,7 +583,7 @@ LAB_004535de:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   (*pcVar15)(&DAT_005a9068);
-  if ((cStack_ad9 == '\0') || (cVar3 = FUN_0040b2d0(), cVar3 == '\0')) {
+  if ((cStack_ad9 == '\0') || (cVar3 = PacketChecksumGreaterThan(), cVar3 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState();
     (*pcVar15)();

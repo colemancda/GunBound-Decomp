@@ -121,8 +121,8 @@ LAB_0047b4f8:
     }
     cVar7 = FUN_00406610(param_1[0x3d2] != 0);
     if (cVar7 == '\0') {
-      FUN_0040afb0(param_1 + 0x2bd);
-      FUN_0040afb0(param_1 + 0x346);
+      EmitChecksumSum(param_1 + 0x2bd);
+      EmitChecksumSum(param_1 + 0x346);
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -198,7 +198,7 @@ LAB_0047ba1d:
       cVar5 = iVar8 <= iVar9;
       (*pcVar17)(&DAT_005a9068);
       if (((cVar5 != '\0') ||
-          (cVar5 = FUN_0040b300(uVar10,*(undefined4 *)(&DAT_006a7724 + g_clientContext)), cVar5 != '\0'
+          (cVar5 = PacketChecksumGreaterEqual(uVar10,*(undefined4 *)(&DAT_006a7724 + g_clientContext)), cVar5 != '\0'
           )) || (cVar5 = PacketChecksumLessThan(uVar10,0xfffffc18), cVar5 != '\0')) goto LAB_0047bbd8;
     }
     else {

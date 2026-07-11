@@ -1,4 +1,4 @@
-/* FUN_0040a9c0 - 0x0040a9c0 in the original binary.
+/* EncodeChecksumDeltaMod - 0x0040a9c0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_0040a9c0(undefined4 param_1,int param_2,int param_3)
+int EncodeChecksumDeltaMod(undefined4 param_1,int param_2,int param_3)
 
 {
   int iVar1;

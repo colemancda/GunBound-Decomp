@@ -92,7 +92,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       uVar5 = PeekChecksumStateUnderLock(&DAT_00e55ab8);
       uVar4 = EncodeChecksumDeltaDiv(uVar4,local_678,uVar5);
       SUBFIELD(local_4,0,undefined1) = 2;
-      FUN_0040afb0(uVar4);
+      EmitChecksumSum(uVar4);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
@@ -102,7 +102,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       uVar5 = PeekChecksumStateUnderLock(&DAT_00e55ab8);
       uVar4 = EncodeChecksumDeltaDiv(uVar4,local_89c,uVar5);
       SUBFIELD(local_4,0,undefined1) = 4;
-      FUN_0040afb0(uVar4);
+      EmitChecksumSum(uVar4);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
@@ -112,7 +112,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       uVar5 = PeekChecksumStateUnderLock(&DAT_00e55ab8);
       uVar4 = EncodeChecksumDeltaDiv(uVar4,local_89c,uVar5);
       SUBFIELD(local_4,0,undefined1) = 6;
-      FUN_0040afb0(uVar4);
+      EmitChecksumSum(uVar4);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),5);
       ScrubChecksumGuard();
       local_4 = 0xffffffff;

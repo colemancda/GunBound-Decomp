@@ -333,10 +333,10 @@ void __fastcall FUN_004513b0(int *param_1)
     if (cVar2 == '\0') {
       uStack_b68 = (int **)(param_1 + 0x2bd);
       uStack_b6c = (undefined *)0x4528b9;
-      FUN_0040afb0();
+      EmitChecksumSum();
       uStack_b68 = (int **)(param_1 + 0x346);
       uStack_b6c = (undefined *)0x4528cd;
-      FUN_0040afb0();
+      EmitChecksumSum();
       uStack_b68 = (int **)&DAT_005a9068;
       uStack_b6c = (undefined *)0x4528d4;
       (*pcVar17)();
@@ -430,8 +430,8 @@ LAB_0045279a:
       iVar4 = PeekPacketChecksumState();
       EncodeOutgoingPacketField((undefined *)((int)uStack_b5c + iVar4));
       (*pcVar16)(&DAT_005a9068);
-      if (((param_1[0xfe9] == 1) && (cVar2 = FUN_0040b300(param_1 + 0x70b,0x5a), cVar2 != '\0')) ||
-         ((param_1[0xfe9] == -1 && (cVar2 = FUN_0040b360(param_1 + 0x70b,0x5a), cVar2 != '\0')))) {
+      if (((param_1[0xfe9] == 1) && (cVar2 = PacketChecksumGreaterEqual(param_1 + 0x70b,0x5a), cVar2 != '\0')) ||
+         ((param_1[0xfe9] == -1 && (cVar2 = PacketChecksumLessEqual(param_1 + 0x70b,0x5a), cVar2 != '\0')))) {
         param_1[0xfe9] = 0;
         QueueOutgoingPacketField(0);
       }
@@ -446,7 +446,7 @@ LAB_0045279a:
       PeekPacketChecksumState();
       (*pcVar16)(&DAT_005a9068);
       if (((cVar28 != '\0') ||
-          (cVar2 = FUN_0040b300(in_stack_fffff450,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
+          (cVar2 = PacketChecksumGreaterEqual(in_stack_fffff450,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
           cVar2 != '\0')) || (cVar2 = PacketChecksumLessThan(in_stack_fffff450,0xfffffc18), cVar2 != '\0'))
       goto LAB_00452a0a;
     }

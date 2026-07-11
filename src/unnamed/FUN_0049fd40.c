@@ -355,8 +355,8 @@ LAB_004a0a52:
   }
   cVar1 = FUN_00406610(param_1[0x3d2] != 0);
   if (cVar1 == '\0') {
-    FUN_0040afb0(param_1 + 0x2bd);
-    FUN_0040afb0(param_1 + 0x346);
+    EmitChecksumSum(param_1 + 0x2bd);
+    EmitChecksumSum(param_1 + 0x346);
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -435,7 +435,7 @@ LAB_004a0643:
     iVar4 = PeekPacketChecksumState();
     (*pcVar14)(&DAT_005a9068);
     if (((iVar3 < iVar4) ||
-        (cVar1 = FUN_0040b2d0(piStack_ae0,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
+        (cVar1 = PacketChecksumGreaterThan(piStack_ae0,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
         cVar1 != '\0')) || (cVar1 = PacketChecksumLessThan(piStack_ae0,0xfffffc18), cVar1 != '\0'))
     goto LAB_004a07f1;
   }

@@ -225,7 +225,7 @@ LAB_004720c9:
     iVar2 = param_1 + 0x4d90;
     iStack_4d50 = 0x472228;
     puStack_4d4c = (undefined1 *)iVar2;
-    cVar3 = FUN_0040b2d0();
+    cVar3 = PacketChecksumGreaterThan();
     if (cVar3 == '\0') {
       if (*(char *)(param_1 + 0x651c) == '\x01') {
         puStack_4d48 = &DAT_00796aa0;

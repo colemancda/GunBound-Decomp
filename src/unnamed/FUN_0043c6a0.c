@@ -44,7 +44,7 @@ void FUN_0043c6a0(void)
           uVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar4 = EncodeChecksumDeltaDiv(uVar4,local_454,uVar5);
           local_4 = 1;
-          FUN_0040afb0(uVar4);
+          EmitChecksumSum(uVar4);
           local_4 = 0;
           ScrubChecksumGuard();
         }
@@ -54,7 +54,7 @@ void FUN_0043c6a0(void)
           uVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar4 = EncodeChecksumDeltaDiv(uVar4,local_678,uVar5);
           local_4 = 3;
-          FUN_0040afb0(uVar4);
+          EmitChecksumSum(uVar4);
           local_4 = 2;
           ScrubChecksumGuard();
         }

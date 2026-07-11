@@ -104,8 +104,8 @@ void __fastcall FUN_0044c950(int *param_1)
     }
     cVar3 = FUN_00406610(param_1[0x3d2] != 0);
     if (cVar3 == '\0') {
-      FUN_0040afb0(param_1 + 0x2bd);
-      FUN_0040afb0(param_1 + 0x346);
+      EmitChecksumSum(param_1 + 0x2bd);
+      EmitChecksumSum(param_1 + 0x346);
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -181,7 +181,7 @@ LAB_0044d5d2:
       cVar3 = iVar4 <= iVar5;
       (*pcVar13)(&DAT_005a9068);
       if (((cVar3 != '\0') ||
-          (cVar3 = FUN_0040b300(unaff_EBX,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
+          (cVar3 = PacketChecksumGreaterEqual(unaff_EBX,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
           cVar3 != '\0')) || (cVar3 = PacketChecksumLessThan(unaff_EBX,0xfffffc18), cVar3 != '\0'))
       goto LAB_0044d78e;
     }

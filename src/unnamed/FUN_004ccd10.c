@@ -195,7 +195,7 @@ void FUN_004ccd10(int *param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar9 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      cVar4 = FUN_0040b300(&DAT_0067e3d0 + g_clientContext,uVar9);
+      cVar4 = PacketChecksumGreaterEqual(&DAT_0067e3d0 + g_clientContext,uVar9);
       if (cVar4 == '\0') goto LAB_004cd6de;
     }
     cVar4 = FUN_0040b390(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);

@@ -496,7 +496,7 @@ LAB_004b4d38:
       uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
       puVar11 = &DAT_0067e5f4 + g_clientContext;
     }
-    cVar2 = FUN_0040b300(puVar11,uVar9);
+    cVar2 = PacketChecksumGreaterEqual(puVar11,uVar9);
     if (cVar2 != '\0') goto LAB_004b4d38;
   }
   local_9b4 = 0;

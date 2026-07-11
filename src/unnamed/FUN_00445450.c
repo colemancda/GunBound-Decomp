@@ -233,13 +233,13 @@ LAB_004457e7:
         *(undefined1 *)(param_1 + 0x32ad4) = 0;
         *(undefined1 *)(param_1 + 0x328d4) = 0;
         uVar12 = PeekChecksumStateUnderLock(iVar9);
-        cVar1 = FUN_0040b2d0(local_3eb8,uVar12);
+        cVar1 = PacketChecksumGreaterThan(local_3eb8,uVar12);
         if (cVar1 != '\0') {
           CreateButtonWidget(&DAT_00e9be90,0,0x3c,0x518,s_b_storewindow_cashcharge_00555a70,0xd0,
                              0x146,0x88,0x28,1,0);
         }
         uVar12 = PeekChecksumStateUnderLock(g_clientContext + 0x396a0);
-        cVar1 = FUN_0040b360(local_40dc,uVar12);
+        cVar1 = PacketChecksumLessEqual(local_40dc,uVar12);
         if ((cVar1 == '\0') || (cVar1 = PacketChecksumNotEquals(local_40dc,0), cVar1 == '\0')) {
           uVar12 = 0;
         }
@@ -249,7 +249,7 @@ LAB_004457e7:
         CreateButtonWidget(&DAT_00e9be90,0,0x32,0x519,s_b_storewindow_gold_00555a5c,0xea,0x178,0x55,
                            0x24,uVar12,0);
         uVar12 = PeekChecksumStateUnderLock(g_clientContext + 0x398c4);
-        cVar1 = FUN_0040b360(local_3eb8,uVar12);
+        cVar1 = PacketChecksumLessEqual(local_3eb8,uVar12);
         if ((cVar1 == '\0') || (cVar1 = PacketChecksumNotEquals(local_3eb8,0), cVar1 == '\0')) {
           uVar12 = 0;
         }

@@ -49,7 +49,7 @@ void __fastcall FUN_0045cb50(int *param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if ((iVar4 < iVar5) || (cVar3 = FUN_0040b300(param_1 + 0x243,0), cVar3 == '\0')) {
+  if ((iVar4 < iVar5) || (cVar3 = PacketChecksumGreaterEqual(param_1 + 0x243,0), cVar3 == '\0')) {
 LAB_0045cc63:
     bVar2 = false;
   }
@@ -116,7 +116,7 @@ LAB_0045cdb1:
   }
   else {
     FUN_0040b030();
-    FUN_0040afb0(piVar1);
+    EmitChecksumSum(piVar1);
     cVar3 = PeekPacketChecksumBool();
     if ((cVar3 == '\x01') &&
        ((cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,1), cVar3 != '\0' ||

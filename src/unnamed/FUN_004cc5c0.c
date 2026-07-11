@@ -59,7 +59,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         uVar4 = PeekChecksumStateUnderLock(&DAT_00796aa0);
         uVar6 = EncodeChecksumDeltaDiv(uVar6,local_1350,uVar4);
         local_4 = 4;
-        FUN_0040aff0(uVar6);
+        EmitChecksumDiff(uVar6);
         local_4 = 3;
         ScrubChecksumGuard();
         local_4 = 0xffffffff;
@@ -80,7 +80,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
           uVar4 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar6 = EncodeChecksumDeltaDiv(uVar6,local_678,uVar4);
           local_4 = 8;
-          FUN_0040afb0(uVar6);
+          EmitChecksumSum(uVar6);
           local_4 = 7;
           ScrubChecksumGuard();
         }
@@ -91,7 +91,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
           uVar4 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar6 = EncodeChecksumDeltaDiv(uVar6,local_f08,uVar4);
           local_4 = 6;
-          FUN_0040afb0(uVar6);
+          EmitChecksumSum(uVar6);
           local_4 = 5;
           ScrubChecksumGuard();
         }
@@ -105,7 +105,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
       case 0xf:
         AddToPacketChecksum(0xb4);
         uVar6 = PeekChecksumStateUnderLock(&DAT_00e9bed8);
-        cVar1 = FUN_0040b2d0(g_clientContext + 0x5b1ac,uVar6);
+        cVar1 = PacketChecksumGreaterThan(g_clientContext + 0x5b1ac,uVar6);
         if (cVar1 != '\0') {
           uVar6 = PeekChecksumStateUnderLock(&DAT_00e9bed8);
           SubFromPacketChecksum(uVar6);
@@ -131,7 +131,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         if (cVar1 == '\0') {
           uVar6 = EncodeChecksumDeltaDiv(iVar7,local_ce4,4);
           local_4 = 2;
-          FUN_0040afb0(uVar6);
+          EmitChecksumSum(uVar6);
         }
         else {
           uVar6 = EncodeChecksumDeltaMul(iVar7,local_89c,3);
@@ -139,7 +139,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
           uVar4 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
           uVar6 = EncodeChecksumDeltaDiv(uVar6,local_454,uVar4);
           local_4 = 1;
-          FUN_0040afb0(uVar6);
+          EmitChecksumSum(uVar6);
           local_4 = 0;
           ScrubChecksumGuard();
         }
