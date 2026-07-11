@@ -41,7 +41,7 @@ struct CValueGuard {
     u32 enc2;       /* +0x0c: value ^ keyTable[handle][2] */
     u32 enc3;       /* +0x10: value ^ keyTable[handle][3] */
     u32 tableHandle;/* +0x14: rotating key-table index (0 = uninitialized); the
-                     * EncodeChecksumDelta*/Pair* encoders reset this to 0 */
+                     * EncodeChecksumDelta and EncodeChecksumPair encoders reset it to 0 */
     /* +0x18..0x21f: the guard's own integrity-tracking state - a pointer at
      * +0x18 is checked against DAT_00793774 on read (via FUN_0040b8c0); the
      * rest is value copies / registry linkage, left opaque until reconstructed. */
