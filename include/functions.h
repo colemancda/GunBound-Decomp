@@ -1083,7 +1083,7 @@ void __fastcall DarkenTerrainScorchRow();
 void RebuildTerrainColumnCache();
 void FUN_004e4f50();
 void ComputeShotViewBounds();
-void __fastcall TickDisconnectTimeout();
+void __fastcall State01_Title_OnTick();
 undefined4 * __thiscall FUN_004e5430();
 ulong __fastcall FUN_004e5480();
 undefined4 FUN_004e54e0(undefined4 *, undefined4, undefined4);
