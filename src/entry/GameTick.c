@@ -61,7 +61,7 @@ void GameTick(void)
   if (uVar10 == 0) {
     return;
   }
-  FUN_004129c0(uVar10);
+  PumpBattleActions(uVar10);
   DAT_007934fc = DAT_007934fc + 1;
   if (1 < uVar10) {
     DAT_00793500 = DAT_00793500 + -1 + uVar10;

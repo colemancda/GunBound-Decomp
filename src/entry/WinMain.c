@@ -515,7 +515,7 @@ LAB_0040e0f1:
     MessageBoxA((HWND)0x0,acStack_d48,pCVar8,UVar16);
     break;
   case 0xe6:
-    uVar6 = FUN_0041e9a0(g_clientContext,99);
+    uVar6 = GetItemQuantityByIcon(g_clientContext,99);
     uVar10 = PeekChecksumStateUnderLock(&DAT_00e525e8);
     pcVar11 = (char *)GetLocalizedString(&g_localizedStringTable,0x131);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6);

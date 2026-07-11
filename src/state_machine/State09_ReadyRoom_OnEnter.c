@@ -269,7 +269,7 @@ LAB_004d722d:
   *(undefined4 *)(param_1 + 0x4d4) = 0xffffffff;
   *(undefined1 *)(param_1 + 0x618) = 1;
   *(undefined4 *)(param_1 + 0x620) = 0;
-  FUN_004dbd50(param_1,0);
+  BuildItemLoadout(param_1,0);
   *(undefined4 *)(param_1 + 0x268) = 0;
   *(undefined4 *)(param_1 + 0x628) = 0xffffffff;
   _DAT_00e9af1c = 500;

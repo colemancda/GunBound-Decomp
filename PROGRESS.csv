@@ -238,7 +238,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004124a0,432,ShowErrorDialog,false,40,7,RAW-src
 00412650,456,ShowErrorDialogFmt,false,3,8,RAW-src
 00412820,401,ShowMessageDialog,false,2,6,RAW-src
-004129c0,1075,FUN_004129c0,false,1,15,RAW-src
+004129c0,1075,PumpBattleActions,false,1,15,RAW-src
 00412e00,73,FUN_00412e00,false,1,3,RAW-src
 00412e50,733,FUN_00412e50,false,1,6,RAW-src
 00413130,2483,GameTick,false,1,41,RAW-src
@@ -305,10 +305,10 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0041c2c0,156,FUN_0041c2c0,false,84,3,RAW-src
 0041c360,5919,FUN_0041c360,false,2,12,RAW-src
 0041da80,3859,FUN_0041da80,false,11,8,RAW-src
-0041e9a0,130,FUN_0041e9a0,false,8,3,RAW-src
+0041e9a0,130,GetItemQuantityByIcon,false,8,3,RAW-src
 0041ea30,106,FUN_0041ea30,false,1,4,RAW-src
 0041eaa0,106,FUN_0041eaa0,false,5,4,RAW-src
-0041eb10,101,FUN_0041eb10,false,3,3,RAW-src
+0041eb10,101,FindItemRecordByIcon,false,3,3,RAW-src
 0041eb80,101,FUN_0041eb80,false,1,3,RAW-src
 0041ebf0,543,FUN_0041ebf0,false,1,8,RAW-src
 0041ee10,378,FUN_0041ee10,false,4,0,RAW-src
@@ -1005,8 +1005,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004db720,495,FUN_004db720,false,7,1,RAW-src
 004db920,346,FUN_004db920,false,4,4,RAW-src
 004dba80,715,FUN_004dba80,false,1,9,RAW-src
-004dbd50,462,FUN_004dbd50,false,5,7,RAW-src
-004dbf30,442,FUN_004dbf30,false,1,4,RAW-src
+004dbd50,462,BuildItemLoadout,false,5,7,RAW-src
+004dbf30,442,ResetItemSlotCounters,false,1,4,RAW-src
 004dc0f0,79,FUN_004dc0f0,false,1,3,RAW-src
 004dc140,192,FUN_004dc140,false,1,3,RAW-src
 004dc200,870,FUN_004dc200,false,2,6,RAW-src

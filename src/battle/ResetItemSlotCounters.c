@@ -1,4 +1,4 @@
-/* FUN_004dbf30 - 0x004dbf30 in the original binary.
+/* ResetItemSlotCounters - 0x004dbf30 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004dbf30(uint param_1)
+void ResetItemSlotCounters(uint param_1)
 
 {
   char cVar1;

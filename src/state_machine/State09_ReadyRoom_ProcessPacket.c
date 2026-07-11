@@ -834,14 +834,14 @@ LAB_004d4cc7:
         FUN_00405fb0();
         CreateButtonWidget(&DAT_00e9be90,0,0,1000,s_b_ready_ready_005570c8,0x28f,0x226,0x6b,0x2d,1,0
                           );
-        FUN_004dbd50(this,0);
+        BuildItemLoadout(this,0);
       }
       else {
         FUN_00405fb0();
         CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_ready_startgame_005570d8,0x28f,0x226,0x6b,
                            0x2d,1,0);
         *(undefined1 *)((int)this + 0x4cc) = 0;
-        FUN_004dbd50(this,0);
+        BuildItemLoadout(this,0);
         FUN_004db720();
         FUN_004da460(this,1,0);
       }

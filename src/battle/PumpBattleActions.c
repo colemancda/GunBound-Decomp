@@ -1,4 +1,4 @@
-/* FUN_004129c0 - 0x004129c0 in the original binary.
+/* PumpBattleActions - 0x004129c0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -10,7 +10,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004129c0(int param_1)
+void PumpBattleActions(int param_1)
 
 {
   int iVar1;

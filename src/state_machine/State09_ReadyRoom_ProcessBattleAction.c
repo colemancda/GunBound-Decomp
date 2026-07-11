@@ -138,7 +138,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
               pcVar6 = pcVar6 + 1;
             } while (cVar3 != '\0');
             FUN_004db920();
-            FUN_004dbd50(this,1);
+            BuildItemLoadout(this,1);
             return;
           }
         }
@@ -161,7 +161,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
           return;
         }
         if (uVar2 == 0x8004) {
-          FUN_004dbd50(this,1);
+          BuildItemLoadout(this,1);
           return;
         }
       }

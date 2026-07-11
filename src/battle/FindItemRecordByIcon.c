@@ -1,4 +1,4 @@
-/* FUN_0041e9a0 - 0x0041e9a0 in the original binary.
+/* FindItemRecordByIcon - 0x0041eb10 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,26 +8,22 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_0041e9a0(undefined4 param_1,int param_2)
+int FindItemRecordByIcon(int param_1,int param_2)
 
 {
   uint uVar1;
-  undefined4 uVar2;
-  int iVar3;
+  int iVar2;
   
-  iVar3 = 0;
+  iVar2 = 0;
   do {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar1 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (param_2 == uVar1) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar2 = PeekPacketChecksumState();
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      return uVar2;
+      return (int)&PTR_DAT_0058b248 + param_1 + iVar2 * 0x9bc;
     }
-    iVar3 = iVar3 + 1;
-  } while (iVar3 < 100);
+    iVar2 = iVar2 + 1;
+  } while (iVar2 < 100);
   return 0;
 }
 

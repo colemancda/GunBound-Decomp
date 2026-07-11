@@ -351,7 +351,7 @@ LAB_004d85fe:
     }
   }
 LAB_004d862d:
-  uVar7 = FUN_0041e9a0(g_clientContext,(uint)uVar1);
+  uVar7 = GetItemQuantityByIcon(g_clientContext,(uint)uVar1);
   _sprintf(local_a28,(char *)&PTR_DAT_00551ecc,uVar7);
   FUN_004ed9f0(0x7d,local_a28,3,5);
   local_a4c = local_a4c + 1;

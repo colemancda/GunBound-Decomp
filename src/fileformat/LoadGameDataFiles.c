@@ -640,7 +640,7 @@ byte LoadGameDataFiles(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar9 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar8 = FUN_0041e9a0(param_1,99);
+    iVar8 = GetItemQuantityByIcon(param_1,99);
     return -(iVar8 != iVar9) & 6;
   }
   return 4;

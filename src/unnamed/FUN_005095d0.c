@@ -54,7 +54,7 @@ LAB_0050961f:
   puVar3[0xb] = 0x17d;
   puVar3[0xc] = 0xab;
   puVar3[0xd] = 0x8b;
-  pcVar4 = (char *)FUN_0041eb10(uVar5,param_2);
+  pcVar4 = (char *)FindItemRecordByIcon(uVar5,param_2);
   pcVar6 = (char *)(puVar3 + 0x24);
   do {
     cVar1 = *pcVar4;
