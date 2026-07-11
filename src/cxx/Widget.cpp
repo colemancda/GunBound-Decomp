@@ -203,7 +203,15 @@ bool CWidget::MouseUpChildren(int x, int y)
  * original open-codes Add's body; E_OUTOFMEMORY on growth failure),
  * shift the child from parent-relative to absolute coordinates, and
  * take ownership of its callback parent pointer. Ghidra shows `this`
- * arriving in EBX. */
+ * arriving in EBX.
+ * score.sh: 2380/3200 (/O2), the worst match ratio in this file (25.6%)
+ * - confirmed NOT chaseable from portable C++: the original really does
+ * take `this` in EBX rather than ECX (a non-standard calling convention
+ * a normal __thiscall member function can't reproduce without inline
+ * asm/`__declspec(naked)`), so the prologue alone guarantees a
+ * mismatch. Everything past the prologue (grow-or-throw, MoveBy call,
+ * parent pointer store) is logically identical; not worth further
+ * byte-chasing given the convention mismatch is structural. */
 void CWidget::AddChild(CWidget *child)
 {
     m_children.Add(child);
@@ -251,11 +259,22 @@ int CWidget::FindChildIndex(int typeId, int id)
  *   0x1101 focus-prev / 0x1102 focus-set: same, scanning backward /
  *          from the current position with wraparound. The target-index
  *          arithmetic mirrors the decompile literally.
- *   anything else: forward to m_parent. */
+ *   anything else: forward to m_parent.
+ * score.sh: 13120 -> 8175/17900 (/O2) after switching the dispatch from
+ * an if/else-if chain to a real `switch` - the original compiles the
+ * evt==0x1100/0x1101/0x1102 check as a dense subl-then-decrement-chain
+ * jump sequence, which MSVC 7.1 only emits for an actual switch
+ * statement, not sequential if/else-if compares (confirmed: the
+ * dispatch prologue is now instruction-for-instruction identical).
+ * Remaining delta is register allocation (ebx/ebp for this/count in the
+ * original vs. esi/edi here) - a much deeper rabbit hole, not chased
+ * further this pass. See tools/promote.sh src/cxx/Widget.cpp
+ * '?OnCommand@CWidget@@UAEXHHH@Z' 50eb10 50ece1 */
 void CWidget::OnCommand(int evt, int id, int arg)
 {
     int count = m_children.GetCount();
-    if (evt == 0x1100) {
+    switch (evt) {
+    case 0x1100: {
         unsigned int cur = (unsigned int)FindChildIndex(2, id);
         unsigned int i = cur + 1;
         for (; (int)i < count; ++i) {
@@ -268,7 +287,9 @@ void CWidget::OnCommand(int evt, int id, int arg)
         if (i == (unsigned int)count) {
             OnCommand(0x1000, id, 0);
         }
-    } else if (evt == 0x1101) {
+        break;
+    }
+    case 0x1101: {
         unsigned int cur = (unsigned int)FindChildIndex(2, id);
         int steps = 0;
         int walk = (int)cur + count;
@@ -284,7 +305,9 @@ void CWidget::OnCommand(int evt, int id, int arg)
                 --walk;
             } while (steps < count);
         }
-    } else if (evt == 0x1102) {
+        break;
+    }
+    case 0x1102: {
         unsigned int cur = (unsigned int)FindChildIndex(2, id);
         int steps = 0;
         int walk = (int)cur;
@@ -300,8 +323,13 @@ void CWidget::OnCommand(int evt, int id, int arg)
                 ++walk;
             } while (steps < count);
         }
-    } else if (m_parent != 0) {
-        m_parent->OnCommand(evt, id, arg);
+        break;
+    }
+    default:
+        if (m_parent != 0) {
+            m_parent->OnCommand(evt, id, arg);
+        }
+        break;
     }
 }
 
