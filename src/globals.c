@@ -1,7 +1,8 @@
 /* Storage for the globals declared in globals.h. See that file's
  * header comment for status/caveats. */
-#include <windows.h> /* GUID (DAT_00f22504) */
+#include "ghidra_types.h" /* winsock2.h before windows.h, WIN32_LEAN_AND_MEAN */
 #include "globals.h"
+#include "functions.h" /* HandleSocketEvent/NoOpMethod (PTR_FUN_005572e8 init) */
 
 int32_t g_currentGameState;
 int32_t g_pendingGameState;
@@ -1045,7 +1046,13 @@ void *PTR_FUN_005566a0;
 void *PTR_FUN_005566c0;
 void *PTR_FUN_00556a40;
 void *PTR_FUN_005572dc;
-void *PTR_FUN_005572e8;
+/* Connection object's 2-entry vtable {HandleSocketEvent, NoOpMethod} -
+ * decoded byte-for-byte from orig .data 0x5572e8-0x5572ef (values
+ * 0x4e57c0, 0x429800). Only referenced by the connection-object family
+ * (FUN_004e54e0.c/FUN_004e5590.c), unlike the widely-shared
+ * PTR_FUN_005572dc immediately before it, so safe to type as a real
+ * function-pointer array instead of a lone null placeholder. */
+void *PTR_FUN_005572e8[2] = { (void *)HandleSocketEvent, (void *)NoOpMethod };
 void *PTR_FUN_005572f0;
 void *PTR_FUN_00557300;
 void *PTR_FUN_0055745c;
@@ -1074,7 +1081,31 @@ void *PTR_LAB_00551cb8;
 void *PTR_LAB_00551cf4;
 void *PTR_LAB_005520a4;
 void *PTR_LAB_005520ac;
-void *PTR_LAB_00553fb0;
+/* CGameState's shared "null object" vtable (states 0/pre-init and 15/quit
+ * - see ARCHITECTURE.md's CGameState vtable table). Decoded byte-for-byte
+ * from orig .data 0x553fb0-0x553fdb (12 x 4-byte slots). Slot 0 (scalar-
+ * deleting destructor, orig 0x43d8f0) isn't ported yet and is never
+ * called on the startup/logo/server-list path - pointed at NoOpMethod as
+ * a safe placeholder, not a value-guard/checksum concern. Slots 1/5/6/10
+ * = CGameState_NoOpVirtual_A (0x448430); slots 2/3/4 =
+ * CGameState_NoOpVirtual_B (0x4fdef0); slots 7/8/9/11 = NoOpMethod
+ * (0x429800) - includes OnEnter(+0x1c)/OnExit(+0x20), matching "a
+ * null-object pattern for the two states that need no real enter/exit
+ * behavior" already noted in ARCHITECTURE.md. */
+void *PTR_LAB_00553fb0[12] = {
+  (void *)NoOpMethod,             /* slot 0: dtor (not ported; unused here) */
+  (void *)CGameState_NoOpVirtual_A,
+  (void *)CGameState_NoOpVirtual_B,
+  (void *)CGameState_NoOpVirtual_B,
+  (void *)CGameState_NoOpVirtual_B,
+  (void *)CGameState_NoOpVirtual_A,
+  (void *)CGameState_NoOpVirtual_A,
+  (void *)NoOpMethod,             /* slot 7: OnEnter */
+  (void *)NoOpMethod,             /* slot 8: OnExit */
+  (void *)NoOpMethod,
+  (void *)CGameState_NoOpVirtual_A,
+  (void *)NoOpMethod,
+};
 void *PTR_LAB_00553ff8;
 void *PTR_LAB_00554000;
 void *PTR_LAB_005572e0;
