@@ -1,14 +1,20 @@
 /* FUN_004ef970 - 0x004ef970 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The IDirect3D7::EnumZBufferFormats callback passed by SetupZBuffer: it
+ * copies the enumerated DDPIXELFORMAT (32 bytes) into the caller's context
+ * when the Z-buffer bit depths (offset +0xc) match, then returns
+ * D3DENUMRET_CANCEL (0) to stop the enum; otherwise D3DENUMRET_OK (1) to
+ * continue. DirectDraw enum callbacks are __stdcall (the original ends in
+ * `ret 8`); WITHOUT it the port defaults to __cdecl and wine's ddraw - which
+ * invokes the callback as __stdcall - leaks 8 bytes of args on every call,
+ * drifting ESP until the stack corrupts and control returns into garbage
+ * (observed as a page fault at EIP=0x000000dd during SetupZBuffer). The
+ * __stdcall decorates it _FUN_004ef970@8, matching functions.h.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004ef970(undefined4 *param_1,undefined4 *param_2)
+undefined4 __stdcall FUN_004ef970(undefined4 *param_1,undefined4 *param_2)
 
 {
   int iVar1;
