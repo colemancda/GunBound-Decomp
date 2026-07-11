@@ -12,7 +12,18 @@
 #include <windows.h>
 
 
-undefined4 EnumTextureFormatsCallback(undefined4 *param_1)
+/* IDirect3DDevice7::EnumTextureFormats callback (LPD3DENUMPIXELFORMATSCALLBACK).
+ * DirectDraw/Direct3D enum callbacks are __stdcall and take two args
+ * (LPDDPIXELFORMAT, LPVOID lpContext); the original ends in `ret 8`. Ghidra
+ * dropped the convention and the unused context arg, so the port defaulted to
+ * __cdecl/1-arg. wine's ddraw invokes it as __stdcall/2-arg, so each enumerated
+ * format leaked 8 bytes of stack (caller expects callee cleanup), drifting ESP
+ * until the return chain corrupted and control jumped to a stale stack value
+ * (observed as an execute fault at &g_graphicsArchive). Same class as the
+ * FUN_004ef970 (EnumZBufferFormats callback) fix in commit c9ecc32.
+ * __stdcall(LPDDPIXELFORMAT, LPVOID) decorates to _EnumTextureFormatsCallback@8,
+ * matching functions.h. param_2 (context) is unused, as in the original. */
+undefined4 __stdcall EnumTextureFormatsCallback(undefined4 *param_1,undefined4 param_2)
 
 {
   int iVar1;

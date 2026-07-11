@@ -71,7 +71,9 @@ undefined4 __thiscall BlitRLESprite();
 undefined4 BlitSprite16bpp();
 undefined4 BlitSpriteClipped();
 void __thiscall BuildRotatedSpriteQuad();
-undefined4 EnumTextureFormatsCallback();
+/* __stdcall D3D enum callback - full signature so &EnumTextureFormatsCallback
+ * decorates to _EnumTextureFormatsCallback@8 (see the .c). */
+undefined4 __stdcall EnumTextureFormatsCallback(undefined4 *, undefined4);
 int * FindPreloadedTextureByName();
 byte * FindTextureCacheEntryByName();
 undefined4 LockBackBuffer();
