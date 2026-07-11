@@ -413,7 +413,7 @@ undefined4 FUN_004218c0();
 void __thiscall FUN_00422f10();
 void FUN_00422f70();
 void FUN_00423050();
-void FUN_00423130();
+void ApplyBattleActionToContext();
 void __fastcall FUN_00423a20();
 undefined4 FUN_00423bf0();
 uint FUN_00423e20();

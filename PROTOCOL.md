@@ -1567,6 +1567,40 @@ packets and recorded replay-file events** through one shared code path
 (i.e. replay playback re-feeds logged events into this dispatcher rather
 than using a separate replay-specific execution path).
 
+#### Item availability — server→client bitmask (no client item-use action)
+
+**How items reach the client.** There is **no client→server item-use action**.
+The client's only per-turn transmission is Fire (`0x8403` = angle + power); item
+effects (Dual → 2 shots, Power-up, Teleport, Change-Wind, …) are resolved
+**server-side** and their results are broadcast back (see action `0x8400`). What
+the client *receives* is a **64-bit item-ownership bitmask** — bit *i* = "the
+player has battle item *i*" (`i` in 0–63; items 0–10 are the battle-usable set).
+It is written to `g_clientContext + 0x457a1` (low 32) / `+0x457a5` (high 32) by
+three carriers, all applied by **`ApplyBattleActionToContext` (`0x423130`)** — a
+`switch(actionType)` that maps broadcast battle actions onto client-context
+fields:
+
+| carrier | source | bitmask offset in payload |
+|---|---|---|
+| `0x2105` room packet (Channel 1, State03) | room/loadout setup | subrecord `+5` (low32), `+9` (high32) |
+| action `0x8004` | mid-battle item update | payload `+0` (low32), `+0x25` (high32) |
+| action `0x8000` | battle/turn setup (also sets current-slot, room-name string) | payload `+0x27` (low32), `+0x2b` (high32) |
+
+The Ready Room loadout builder (`FUN_004dbd50`) scans this mask and packs the
+owned indices into the state's loadout array (`+0x518`, count `+0x61c`, cap 11);
+index *i* also indexes the `DAT_0056dc40` icon table. See ARCHITECTURE.md's Ready
+Room item-grid section. The `itemdata.dat`→ordinal mapping is the server's and is
+not present in the client.
+
+**Other actions `ApplyBattleActionToContext` handles** (server→client state, each
+`(this=ctx, packet, len)`): `0x8101` per-slot byte→`+0x4590c`; `0x8002`
+current-slot→`+0x45124`; `0x8100` per-slot u16→`+0x458fc`; `0x8102`/`0x8103`
+per-slot active/team→`+0x45914` (`Ctx_roomSlotActive`); `0x82ff` per-slot
+flag→`+0x449ba`; **`0x8400`** the resolved per-slot shot/damage arrays
+(`+0x459bc`/`+0x4667c`, 0xa0-stride, summed into `+0x4663c`/`+0x4665c`) — the
+server-computed turn result; `0x0001` roster-slot insert; `0x0307` turn-end /
+defeat (replay `0xc302`); `0x8001` field relay; `0xf00e` enables replay logging.
+
 #### Action `3` — Generic notification toast
 
 **Direction**: incoming.

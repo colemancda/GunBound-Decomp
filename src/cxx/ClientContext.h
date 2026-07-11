@@ -101,6 +101,19 @@ inline u8   &Ctx_roomSlotStatus(int ctx, int slot) { return *reinterpret_cast<u8
  * team/role; the 0x2105 handler normalizes 3->1 for the local slot. */
 inline u8   &Ctx_roomSlotActive(int ctx, int slot) { return *reinterpret_cast<u8 *>(ctx + 0x45914 + slot); }
 
+/* Item-ownership bitmask: 64 bits (8 bytes) at +0x457a1, bit i = "the local
+ * player has battle item i". This is the ONLY item wire-state - the server pushes
+ * it; the client never sends an item-use action (fire is angle+power only, and
+ * item effects like Dual/Teleport are resolved server-side). Delivered by:
+ *   - 0x2105 room packet (State03): low32 @ subrecord+5, high32 @ +9
+ *   - battle action 0x8004  (ApplyBattleActionToContext): low32 @ payload+0, high32 @ payload+0x25
+ *   - battle action 0x8000  (battle setup): low32 @ payload+0x27, high32 @ payload+0x2b
+ * The Ready Room loadout builder (FUN_004dbd50) scans this mask and packs the
+ * owned item indices (0..63) into the state's loadout array (+0x518, count +0x61c,
+ * capped 11); index i also indexes the DAT_0056dc40 icon table. Items 0..10 are
+ * the battle-usable items; per-item counts are CValueGuard-protected. */
+inline u32 *Ctx_itemOwnedMask(int ctx) { return reinterpret_cast<u32 *>(ctx + 0x457a1); }  /* [0]=items 0-31, [1]=32-63 */
+
 /* avatarEquipped: the worn outfit as four packed u16 part codes (each: bit15 =
  * gender (1=male 'm', 0=female 'f'), bits0-14 = id into the {gender}{cat}.dat
  * part table - see FILEFORMATS.md "Avatar.xfs"). Word order RESOLVED (2026) from

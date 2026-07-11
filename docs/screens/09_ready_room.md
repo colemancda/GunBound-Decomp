@@ -55,11 +55,16 @@ by the widget tree.
     low byte selects an enabled/disabled frame pair (`*2`, `-2`/`-1`),
     high byte (`0x00`/`0xff`) selects texture `0x2713`/`0x2714`. Confirmed
     against `itemdata.dat`'s own `0x30` field (same encoding, every real
-    item's value appears in the table verbatim) — but what actually
-    indexes the table at runtime is still open (ruled out: item type ID
-    and record slot number, both fail cross-reference), so the shelf
-    icon↔item-name mapping itself is still not fully resolved, only the
-    table's format is.
+    item's value appears in the table verbatim). **What indexes it —
+    resolved:** `this+0x518` holds the compact item index 0–63 (also the
+    `DAT_0056dc40` index and the ownership-bitmask bit). The loadout builder
+    `FUN_004dbd50` scans the 64-bit item-ownership bitmask the server pushes
+    to `g_clientContext+0x457a1` and packs each owned index into `+0x518`
+    (count `+0x61c`, cap 11); items 0–10 are battle-usable. Per-cell quantity
+    is a guarded lookup (`FUN_0041e9a0`) keyed by the icon value. So the
+    `itemdata.dat`→ordinal mapping is the server's — see PROTOCOL.md "Item
+    availability". (The shelf icon↔item-*name* mapping still needs the store
+    strings, but the runtime indexing is no longer open.)
 - **Map thumbnails** — slot 15 (`FUN_004d9ae0`, 2,406 bytes): draws content at
   six fixed screen positions — most plausibly the map-selection thumbnails
   (strong inference; not cross-checked against `ready_selectmap.img`).

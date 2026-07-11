@@ -328,7 +328,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00422f10,81,FUN_00422f10,false,4,1,RAW-src
 00422f70,220,FUN_00422f70,false,1,1,RAW-src
 00423050,220,FUN_00423050,false,1,0,RAW-src
-00423130,2278,FUN_00423130,false,2,17,RAW-src
+00423130,2278,ApplyBattleActionToContext,false,2,17,RAW-src
 00423a20,462,FUN_00423a20,false,3,11,RAW-src
 00423bf0,550,FUN_00423bf0,false,1,7,RAW-src
 00423e20,647,FUN_00423e20,false,9,5,RAW-src

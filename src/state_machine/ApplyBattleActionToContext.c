@@ -1,4 +1,4 @@
-/* FUN_00423130 - 0x00423130 in the original binary.
+/* ApplyBattleActionToContext - 0x00423130 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00423130(int param_1,int param_2,int param_3)
+void ApplyBattleActionToContext(int param_1,int param_2,int param_3)
 
 {
   byte bVar1;

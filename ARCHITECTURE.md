@@ -2094,22 +2094,24 @@ previously-unexamined ones. Findings:
       own on-disk `0x30` field (see FILEFORMATS.md) uses this *exact same*
       encoding — every populated record's `0x30` value appears verbatim
       somewhere in this 40-entry table — confirming both draw from one
-      shared icon-ID vocabulary. But cross-referencing rules out the two
-      obvious hypotheses for what `param_1+0x518`'s per-slot values
-      actually are: **not `itemdata.dat`'s type/category ID at `0x28`**
-      (real data has two records sharing type ID `1` — "Dual" and "Bunge
-      shot" — with genuinely different icons/`0x30` values, so type ID
-      alone can't select the icon) **and not the record's own on-disk slot
-      number** either (record slot 1, "Teleport", has `0x30=0xff0a`, which
-      isn't `DAT_0056dc40[1]`). The real per-item identifier that reaches
-      `param_1+0x518` isn't present anywhere in `itemdata.dat`'s own
-      fields, so resolving it needs either tracing whatever code assigns
-      it (not yet located) or a live capture correlating a known item's
-      network/inventory ID with which slot fires. The previous
-      screenshot-derived shelf icon mapping in
-      `docs/screens/09_ready_room.md` is superseded for the *encoding
-      scheme* by the above but not yet replaceable with a real id→icon
-      table until that indexing question is resolved.
+      shared icon-ID vocabulary.
+
+      **RESOLVED (2026) — the `+0x518` identifier is a compact item index
+      0–63.** The loadout builder `FUN_004dbd50` scans an 8-byte (64-bit)
+      **item-ownership bitmask** the server pushes to
+      `g_clientContext + 0x457a1` (bit *i* = "player owns battle item *i*")
+      and packs each *owned* index into `+0x518` (count in `+0x61c`, capped
+      **11**). So the per-slot value is neither `itemdata.dat`'s type ID nor
+      its on-disk slot — it's the item's ordinal in the 0–63 space that
+      **also** indexes `DAT_0056dc40` (icon) and the ownership bitmask bit.
+      Items 0–10 are the battle-usable set; their per-turn counts are
+      `CValueGuard`-protected. `DAT_0056dc40[index]` gives the icon; the
+      quantity drawn per cell comes from a 100-entry guarded lookup keyed by
+      that icon value (`FUN_0041e9a0`). The bitmask arrives via the `0x2105`
+      room packet (`+5`/`+9`) and battle actions `0x8004` / `0x8000` (see
+      PROTOCOL.md "Item availability"); the `itemdata.dat`→ordinal mapping is
+      the server's, and that is why it is absent from `itemdata.dat`'s own
+      fields.
     - This function also loads the full `AvataTexture`/`CharacterTexture`/
       effect-texture family again (same as `RenderCharacterPreview`),
       consistent with it sharing the screen with the live character

@@ -40,7 +40,7 @@ void FUN_004129c0(int param_1)
       _fwrite(&local_40c,1,4,*(FILE **)(&g_replayFileHandle + g_clientContext));
       _fwrite(local_400,1,local_40c,*(FILE **)(&g_replayFileHandle + g_clientContext));
     }
-    FUN_00423130(g_clientContext,local_400,local_40c);
+    ApplyBattleActionToContext(g_clientContext,local_400,local_40c);
     if ((int *)g_gameStateVTableArray[g_currentGameState] != (int *)0x0) {
       (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 8))(local_400,local_40c);
     }
@@ -72,7 +72,7 @@ LAB_00412baa:
   }
   cVar2 = FUN_004e80d0(&DAT_00e55ce0,local_400,&local_40c);
   while (cVar2 != '\0') {
-    FUN_00423130(g_clientContext,local_400,local_40c);
+    ApplyBattleActionToContext(g_clientContext,local_400,local_40c);
     if ((int *)g_gameStateVTableArray[g_currentGameState] != (int *)0x0) {
       (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 8))(local_400,local_40c);
     }
