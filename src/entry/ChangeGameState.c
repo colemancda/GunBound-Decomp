@@ -21,12 +21,12 @@ void ChangeGameState(int newStateId)
   if ((newStateId != g_currentGameState) && (g_stateChangeInProgress == 0)) {
     DAT_00e55a45 = 0;
     (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x20))();
-    FUN_004f3020();
+    FUN_004f3020((int)&DAT_00e9be90);
     _DAT_00e9be98 = 0;
     _DAT_00e9be9c = 0;
     DAT_00e9c104 = 0;
-    FUN_004f3020();
-    FUN_005098e0(10000);
+    FUN_004f3020((int)&DAT_00e9c0fc);
+    FUN_005098e0((int)&g_uiPanelManager, 10000);
     if (newStateId == 0xf) {
       PostQuitMessage(0);
       return;
