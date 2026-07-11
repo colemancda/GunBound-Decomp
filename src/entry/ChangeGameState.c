@@ -15,12 +15,22 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Unknown calling convention */
 
+/* CGameState's OnEnter(+0x1c)/OnExit(+0x20) virtuals both take `this` via
+ * ECX (__fastcall) - orig 0x41230b/0x41231b and 0x412450-0x412468 both
+ * show `mov ecx, [.. *4+0x5b33f8]` (the state object) immediately before
+ * `call [eax+0x20/0x1c]`, with no other push - the generic zero-arg
+ * code() cast this file used to make those calls with silently dropped
+ * `this`, leaving every OnEnter/OnExit reading garbage/null off its own
+ * object pointer. */
+typedef void (__fastcall *GameStateVirtualFn)(void *thisPtr);
+
 void ChangeGameState(int newStateId)
 
 {
   if ((newStateId != g_currentGameState) && (g_stateChangeInProgress == 0)) {
     DAT_00e55a45 = 0;
-    (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x20))();
+    ((GameStateVirtualFn)(*(void ***)g_gameStateVTableArray[g_currentGameState])[8])
+              (g_gameStateVTableArray[g_currentGameState]);
     FUN_004f3020((int)&DAT_00e9be90);
     _DAT_00e9be98 = 0;
     _DAT_00e9be9c = 0;
@@ -43,7 +53,8 @@ void ChangeGameState(int newStateId)
     g_cursorTexture = FindPreloadedTextureByName(s_cursor_005524e8);
     ResolveObjectHandle(s_normal_00552230);
     FUN_005099b0();
-    (**(code **)(*(int *)g_gameStateVTableArray[newStateId] + 0x1c))();
+    ((GameStateVirtualFn)(*(void ***)g_gameStateVTableArray[newStateId])[7])
+              (g_gameStateVTableArray[newStateId]);
     g_currentGameState = newStateId;
     FUN_004f0320();
     if (g_stateChangeRequested != '\0') {
