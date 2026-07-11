@@ -108,10 +108,10 @@ LAB_00412cb3:
     }
     iStack_404 = iVar4;
     if (iVar1 == 2) {
-      Replay_AppendEvent(3);
-      (&g_replayEventBuffer)[g_replayEventCursor] = (char)iVar4;
-      g_replayEventCursor = g_replayEventCursor + 1;
-      Replay_FlushEvent();
+      QueueBroadcastEvent(3);
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)iVar4;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+      BroadcastQueuedEvent();
     }
     else if (iVar1 == 5) {
       *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
@@ -127,10 +127,10 @@ LAB_00412cb3:
         *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 1;
         EncodePacketBody();
         SendOutgoingPacket();
-        Replay_AppendEvent(0xf007);
-        (&g_replayEventBuffer)[g_replayEventCursor] = (undefined1)iStack_404;
-        g_replayEventCursor = g_replayEventCursor + 1;
-        Replay_FlushEvent();
+        QueueBroadcastEvent(0xf007);
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (undefined1)iStack_404;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+        BroadcastQueuedEvent();
         iVar4 = iStack_404;
       }
     }

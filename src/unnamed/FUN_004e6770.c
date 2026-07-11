@@ -64,12 +64,12 @@ void __fastcall FUN_004e6770(int param_1)
           bVar9 = g_currentGameState == 0xb;
           *(DWORD *)(param_1 + 0x4522c) = DVar6;
           if (bVar9) {
-            Replay_AppendEvent(0x8fff);
-            Replay_FlushEvent();
+            QueueBroadcastEvent(0x8fff);
+            BroadcastQueuedEvent();
           }
           else {
-            Replay_AppendEvent(0x4fff);
-            Replay_FlushEvent();
+            QueueBroadcastEvent(0x4fff);
+            BroadcastQueuedEvent();
           }
         }
         if (2000 < DVar6 - DStack_40) {
@@ -130,7 +130,7 @@ LAB_004e6b17:
                 *(int *)(param_1 + 0x454f4) = *(int *)(param_1 + 0x454f4) + 1;
                 FUN_004e8040(uVar8);
                 *(uint *)(iVar4 + 0x13c + param_1) = *(uint *)(iVar4 + 0x13c + param_1) | uVar7;
-                Replay_AppendEvent(0xf00c);
+                QueueBroadcastEvent(0xf00c);
                 *(byte *)(param_1 + 0x44dec + *(int *)(param_1 + 0x44fec)) = bVar1;
                 *(int *)(param_1 + 0x44fec) = *(int *)(param_1 + 0x44fec) + 1;
                 FUN_004e7140(0xffffffff);

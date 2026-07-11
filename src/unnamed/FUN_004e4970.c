@@ -33,25 +33,25 @@ void FUN_004e4970(int param_1,int param_2,int param_3,undefined4 param_4,undefin
       *(int *)(in_EAX + 0x854) = unaff_EDI - param_1 / 2;
       FUN_00439600(&DAT_006a7f70 + g_clientContext,unaff_EBX,unaff_EDI,param_1,param_7,param_8);
       if (DAT_0079352a != '\0') {
-        Replay_AppendEvent(0xf004);
-        (&g_replayEventBuffer)[g_replayEventCursor] = 0;
+        QueueBroadcastEvent(0xf004);
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
         param_6 = param_4;
         param_3 = param_1;
 LAB_004e4ac8:
-        piVar1 = (int *)(&DAT_00e9aacd + g_replayEventCursor);
-        g_replayEventCursor = g_replayEventCursor + 1;
+        piVar1 = (int *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         *piVar1 = unaff_EBX;
-        piVar1 = (int *)(&DAT_00e9aad0 + g_replayEventCursor);
-        g_replayEventCursor = g_replayEventCursor + 4;
+        piVar1 = (int *)(&DAT_00e9aad0 + g_dwBroadcastEventCursor);
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
         *piVar1 = unaff_EDI;
-        piVar1 = (int *)(&DAT_00e9aad0 + g_replayEventCursor);
-        g_replayEventCursor = g_replayEventCursor + 4;
+        piVar1 = (int *)(&DAT_00e9aad0 + g_dwBroadcastEventCursor);
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
         *piVar1 = param_3;
-        puVar2 = (undefined4 *)(&DAT_00e9aad0 + g_replayEventCursor);
-        g_replayEventCursor = g_replayEventCursor + 4;
+        puVar2 = (undefined4 *)(&DAT_00e9aad0 + g_dwBroadcastEventCursor);
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
         *puVar2 = param_6;
-        g_replayEventCursor = g_replayEventCursor + 4;
-        Replay_FlushEvent();
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
+        BroadcastQueuedEvent();
         return;
       }
     }
@@ -62,8 +62,8 @@ LAB_004e4ac8:
       bVar4 = DAT_0079352a != '\0';
       *(int *)(in_EAX + 0x854) = unaff_EDI - param_2 / 2;
       if (bVar4) {
-        Replay_AppendEvent(0xf004);
-        (&g_replayEventBuffer)[g_replayEventCursor] = 1;
+        QueueBroadcastEvent(0xf004);
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
         param_6 = param_5;
         param_3 = param_2;
         goto LAB_004e4ac8;
@@ -76,8 +76,8 @@ LAB_004e4ac8:
       bVar4 = DAT_0079352a != '\0';
       *(int *)(in_EAX + 0x854) = unaff_EDI - param_3 / 2;
       if (bVar4) {
-        Replay_AppendEvent(0xf004);
-        (&g_replayEventBuffer)[g_replayEventCursor] = 2;
+        QueueBroadcastEvent(0xf004);
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 2;
         goto LAB_004e4ac8;
       }
     }

@@ -170,17 +170,17 @@ void ApplyBattleActionToContext(int param_1,int param_2,int param_3)
        (puVar4[0x10bd] == '\0')) {
 LAB_0042326c:
       FUN_004e7d60(0xffff);
-      Replay_AppendEvent(0xc302);
+      QueueBroadcastEvent(0xc302);
       iVar8 = g_clientContext;
-      (&g_replayEventBuffer)[g_replayEventCursor] = *(byte *)puVar12;
-      g_replayEventCursor = g_replayEventCursor + 1;
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(byte *)puVar12;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       uVar6 = PeekChecksumStateUnderLock(iVar8 + 0xeba98);
-      *(undefined4 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
-      g_replayEventCursor = g_replayEventCursor + 4;
+      *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
       if (*(byte *)puVar12 == 0xe) {
         uVar6 = FUN_0045d360(0);
-        *(undefined4 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
-        g_replayEventCursor = g_replayEventCursor + 4;
+        *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
       }
       FUN_004e7140(bVar1);
       return;

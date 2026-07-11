@@ -59,7 +59,7 @@ void FUN_0041f200(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_c = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar7 = g_replayEventCursor;
+  iVar7 = g_dwBroadcastEventCursor;
   if ((iVar8 == 3) && (!bVar16)) {
     local_20 = local_8 + local_20;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -112,17 +112,17 @@ void FUN_0041f200(void)
       local_1c = 0x1a;
     }
   }
-  (&g_replayEventBuffer)[g_replayEventCursor] = (char)local_1c;
-  puVar1 = (undefined2 *)(&DAT_00e9aacd + g_replayEventCursor);
-  g_replayEventCursor = g_replayEventCursor + 1;
+  (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)local_1c;
+  puVar1 = (undefined2 *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
+  g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
   *puVar1 = (undefined2)local_20;
-  puVar2 = &DAT_00e9aace + g_replayEventCursor;
-  g_replayEventCursor = g_replayEventCursor + 2;
+  puVar2 = &DAT_00e9aace + g_dwBroadcastEventCursor;
+  g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
   *puVar2 = (undefined1)local_c;
-  puVar2 = &DAT_00e9aacd + g_replayEventCursor;
-  g_replayEventCursor = g_replayEventCursor + 1;
+  puVar2 = &DAT_00e9aacd + g_dwBroadcastEventCursor;
+  g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
   *puVar2 = (undefined1)local_8;
-  g_replayEventCursor = g_replayEventCursor + 1;
+  g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -132,12 +132,12 @@ void FUN_0041f200(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  (&g_replayEventBuffer)[g_replayEventCursor] = uVar4;
+  (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar4;
   if ((iVar8 != 0) || (bVar16)) {
-    puVar2 = &DAT_00e9aacd + g_replayEventCursor;
-    g_replayEventCursor = g_replayEventCursor + 1;
+    puVar2 = &DAT_00e9aacd + g_dwBroadcastEventCursor;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     *puVar2 = 0xff;
-    g_replayEventCursor = g_replayEventCursor + 1;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     if ((iVar8 != 1) || (bVar16)) goto LAB_0041f7e9;
     uVar11 = FUN_004217b0(0);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -172,20 +172,20 @@ void FUN_0041f200(void)
     sVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar11 = FUN_004217b0(1);
-    (&g_replayEventBuffer)[g_replayEventCursor] = 0;
-    g_replayEventCursor = g_replayEventCursor + 1;
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     bVar5 = FUN_004217b0(2);
-    (&g_replayEventBuffer)[g_replayEventCursor] = (bVar5 & 0x3f) + 0x40;
-    psVar3 = (short *)(&DAT_00e9aacd + g_replayEventCursor);
-    g_replayEventCursor = g_replayEventCursor + 1;
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (bVar5 & 0x3f) + 0x40;
+    psVar3 = (short *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     *psVar3 = (short)(uVar11 % uStack00000004) + sVar6;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
 LAB_0041fb05:
-    (&g_replayEventBuffer)[g_replayEventCursor] = 0xff;
-    g_replayEventCursor = g_replayEventCursor + 1;
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0xff;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
   }
   else {
-    g_replayEventCursor = g_replayEventCursor + 1;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     uVar11 = FUN_004217b0(0);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
@@ -219,17 +219,17 @@ LAB_0041fb05:
     sVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar11 = FUN_004217b0(1);
-    (&g_replayEventBuffer)[g_replayEventCursor] = 0;
-    g_replayEventCursor = g_replayEventCursor + 1;
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     bVar5 = FUN_004217b0(2);
-    (&g_replayEventBuffer)[g_replayEventCursor] = (bVar5 & 0x3f) + 0x40;
-    psVar3 = (short *)(&DAT_00e9aacd + g_replayEventCursor);
-    g_replayEventCursor = g_replayEventCursor + 1;
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (bVar5 & 0x3f) + 0x40;
+    psVar3 = (short *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     *psVar3 = (short)(uVar11 % local_8) + sVar6;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
 LAB_0041f7e9:
-    (&g_replayEventBuffer)[g_replayEventCursor] = 0xff;
-    g_replayEventCursor = g_replayEventCursor + 1;
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0xff;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     if ((iVar8 != 2) || (bVar16)) goto LAB_0041fb05;
     uVar11 = FUN_004217b0(0);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -264,14 +264,14 @@ LAB_0041f7e9:
     sVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar11 = FUN_004217b0(1);
-    (&g_replayEventBuffer)[g_replayEventCursor] = 0;
-    g_replayEventCursor = g_replayEventCursor + 1;
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     bVar5 = FUN_004217b0(2);
-    (&g_replayEventBuffer)[g_replayEventCursor] = (bVar5 & 0x3f) + 0x40;
-    psVar3 = (short *)(&DAT_00e9aacd + g_replayEventCursor);
-    g_replayEventCursor = g_replayEventCursor + 1;
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (bVar5 & 0x3f) + 0x40;
+    psVar3 = (short *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     *psVar3 = (short)(uVar11 % uStack00000004) + sVar6;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar8 = PeekPacketChecksumState();
@@ -281,25 +281,25 @@ LAB_0041f7e9:
     iVar8 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar8 < 6) {
-      (&g_replayEventBuffer)[g_replayEventCursor] = 0;
-      g_replayEventCursor = g_replayEventCursor + 1;
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar8 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar9 = _rand();
-      (&g_replayEventBuffer)[g_replayEventCursor] = (char)(iVar9 % iVar8);
-      g_replayEventCursor = g_replayEventCursor + 1;
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)(iVar9 % iVar8);
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       iVar8 = _rand();
-      *(short *)(&g_replayEventBuffer + g_replayEventCursor) = (short)iVar8;
-      g_replayEventCursor = g_replayEventCursor + 2;
+      *(short *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = (short)iVar8;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
       goto LAB_0041fd16;
     }
   }
-  (&g_replayEventBuffer)[g_replayEventCursor] = 0xff;
-  g_replayEventCursor = g_replayEventCursor + 1;
+  (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0xff;
+  g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
 LAB_0041fd16:
-  uVar13 = g_replayEventCursor - iVar7;
-  puVar14 = (undefined4 *)(&g_replayEventBuffer + iVar7);
+  uVar13 = g_dwBroadcastEventCursor - iVar7;
+  puVar14 = (undefined4 *)(&g_abBroadcastEventBuffer + iVar7);
   puVar15 = (undefined4 *)(in_EAX + 0xeba78);
   for (uVar11 = uVar13 >> 2; uVar11 != 0; uVar11 = uVar11 - 1) {
     *puVar15 = *puVar14;

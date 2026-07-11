@@ -86,7 +86,7 @@ void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3)
     *(char *)(uVar6 + 0x3c0 + param_1) = cVar4 + '\x01';
   }
   if (*(short *)(param_1 + 0x4529c) == -0x6000) {
-    Replay_AppendEvent(0xa001);
+    QueueBroadcastEvent(0xa001);
     FUN_004e7140(*(undefined1 *)((int)param_3 + 5));
   }
   if (*(short *)(param_1 + 0x4529c) == -0x5fff) {

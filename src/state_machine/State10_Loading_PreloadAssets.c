@@ -811,8 +811,8 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x51:
-    Replay_AppendEvent(0x82ff);
-    Replay_FlushEvent();
+    QueueBroadcastEvent(0x82ff);
+    BroadcastQueuedEvent();
   }
   if (*(int *)(param_1 + 0x108) == -1) {
     iVar4 = 0;
@@ -839,8 +839,8 @@ LAB_00442056:
     iVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar4 == iVar5) {
-      Replay_AppendEvent(0x8600);
-      Replay_FlushEvent();
+      QueueBroadcastEvent(0x8600);
+      BroadcastQueuedEvent();
     }
   }
   return;

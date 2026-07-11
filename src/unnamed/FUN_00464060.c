@@ -48,19 +48,19 @@ void FUN_00464060(void)
     *(char *)(iVar4 + 0x4d0 + iVar6) = cVar2;
     *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 1;
     SendOutgoingPacket();
-    Replay_AppendEvent(0xc304);
-    *(uint *)(&g_replayEventBuffer + g_replayEventCursor) = *(uint *)(unaff_EDI + 0xb0b0) | 0x10;
-    iVar4 = g_replayEventCursor;
-    g_replayEventCursor = g_replayEventCursor + 4;
+    QueueBroadcastEvent(0xc304);
+    *(uint *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = *(uint *)(unaff_EDI + 0xb0b0) | 0x10;
+    iVar4 = g_dwBroadcastEventCursor;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
     if ((*(char *)(unaff_EDI + 0xb0ac) == -1) && (*(int *)(unaff_EDI + 0xb0b0) != 4)) {
       uVar3 = PeekChecksumStateUnderLock(g_clientContext + 0x62630);
-      (&g_replayEventBuffer)[g_replayEventCursor] = uVar3;
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar3;
     }
     else {
       (&DAT_00e9aad0)[iVar4] = *(char *)(unaff_EDI + 0xb0ac);
     }
-    g_replayEventCursor = g_replayEventCursor + 1;
-    Replay_FlushEvent();
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+    BroadcastQueuedEvent();
     return;
   }
   return;

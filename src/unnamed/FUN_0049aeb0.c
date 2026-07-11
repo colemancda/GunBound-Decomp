@@ -329,16 +329,16 @@ LAB_0049bfbb:
           *(byte *)(param_1 + 0xf46) = bVar12 | bVar17;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (DAT_0079352a != '\0') {
-            Replay_AppendEvent(0xf002);
-            (&g_replayEventBuffer)[g_replayEventCursor] = *(undefined1 *)(param_1 + 8);
-            puVar1 = (uint *)(&DAT_00e9aacd + g_replayEventCursor);
-            g_replayEventCursor = g_replayEventCursor + 1;
+            QueueBroadcastEvent(0xf002);
+            (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)(param_1 + 8);
+            puVar1 = (uint *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
             *puVar1 = local_15b0;
-            puVar1 = (uint *)(&DAT_00e9aad0 + g_replayEventCursor);
-            g_replayEventCursor = g_replayEventCursor + 4;
+            puVar1 = (uint *)(&DAT_00e9aad0 + g_dwBroadcastEventCursor);
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
             *puVar1 = local_15a0;
-            g_replayEventCursor = g_replayEventCursor + 4;
-            Replay_FlushEvent();
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
+            BroadcastQueuedEvent();
           }
           break;
         }

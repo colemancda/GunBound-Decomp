@@ -63,11 +63,11 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
   if (opcode < 0x3232) {
     if (opcode == 0x3231) {
       if (*(short *)payload == 0) {
-        Replay_AppendEvent(0x8102);
-        (&g_replayEventBuffer)[g_replayEventCursor] =
+        QueueBroadcastEvent(0x8102);
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] =
              (*(char *)((int)this + 8) != '\0') * '\x02' + '\x01';
-        g_replayEventCursor = g_replayEventCursor + 1;
-        Replay_FlushEvent();
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+        BroadcastQueuedEvent();
         RefreshReadyRoomControls(this,1,1);
         *(bool *)(*(int *)((int)this + 0x788) + 0x1e) = *(char *)((int)this + 8) == '\0';
         return;
@@ -87,28 +87,28 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
           if (*(short *)payload != 0) {
             return;
           }
-          Replay_AppendEvent(0x8000);
-          (&g_replayEventBuffer)[g_replayEventCursor] = *(undefined1 *)((int)this + 9);
-          g_replayEventCursor = g_replayEventCursor + 1;
+          QueueBroadcastEvent(0x8000);
+          (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)((int)this + 9);
+          g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
           uVar11 = PeekChecksumStateUnderLock((int)this + 0xc);
-          *(undefined4 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-          puVar23 = &DAT_00e9aad0 + g_replayEventCursor;
-          g_replayEventCursor = g_replayEventCursor + 4;
+          *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+          puVar23 = &DAT_00e9aad0 + g_dwBroadcastEventCursor;
+          g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
           *puVar23 = *(undefined1 *)((int)this + 0x230);
-          iVar17 = g_replayEventCursor;
-          puVar22 = (undefined4 *)(&DAT_00e9aacd + g_replayEventCursor);
-          g_replayEventCursor = g_replayEventCursor + 1;
+          iVar17 = g_dwBroadcastEventCursor;
+          puVar22 = (undefined4 *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
+          g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
           *puVar22 = *(undefined4 *)((int)this + 0x25d);
           *(undefined4 *)(&DAT_00e9aad1 + iVar17) = *(undefined4 *)((int)this + 0x261);
-          g_replayEventCursor = g_replayEventCursor + 8;
+          g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 8;
           pcVar13 = (char *)((int)this + 0x62d);
           pcVar12 = pcVar13;
           do {
             cVar10 = *pcVar12;
             pcVar12 = pcVar12 + 1;
           } while (cVar10 != '\0');
-          Replay_AppendString(pcVar13);
-          Replay_FlushEvent();
+          AppendBroadcastString(pcVar13);
+          BroadcastQueuedEvent();
           RefreshReadyRoomControls(this,1,1);
           iVar17 = g_clientContext - (int)pcVar13;
           pcVar12 = pcVar13;
@@ -117,20 +117,20 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
             pcVar12[iVar17 + 0x44e64] = cVar10;
             pcVar12 = pcVar12 + 1;
           } while (cVar10 != '\0');
-          Replay_AppendEvent(0x8003);
+          QueueBroadcastEvent(0x8003);
           pcVar12 = pcVar13;
           do {
             cVar10 = *pcVar12;
             pcVar12 = pcVar12 + 1;
           } while (cVar10 != '\0');
-          Replay_AppendString(pcVar13);
-          Replay_FlushEvent();
+          AppendBroadcastString(pcVar13);
+          BroadcastQueuedEvent();
           return;
         }
         if (opcode != 0x2001) {
           if (opcode == 0x3010) {
             ComputeTurnOrder();
-            Replay_WriteBattleSnapshot(*payload);
+            BroadcastBattleSnapshot(*payload);
             LoadRoomSlotAvatar();
             return;
           }
@@ -162,20 +162,20 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
         if (*(short *)payload != 0) {
           return;
         }
-        Replay_AppendEvent(0x8200);
-        (&g_replayEventBuffer)[g_replayEventCursor] = payload[2];
+        QueueBroadcastEvent(0x8200);
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = payload[2];
 LAB_004d3bd3:
-        g_replayEventCursor = g_replayEventCursor + 1;
-        Replay_FlushEvent();
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+        BroadcastQueuedEvent();
         uVar11 = 1;
         goto LAB_004d3bec;
       }
       if (opcode == 0x3201) {
         if (*(short *)payload == 0) {
-          Replay_AppendEvent(0x8100);
-          (&g_replayEventBuffer)[g_replayEventCursor] = *(undefined1 *)((int)this + 0x259);
-          puVar23 = &DAT_00e9aacd + g_replayEventCursor;
-          g_replayEventCursor = g_replayEventCursor + 1;
+          QueueBroadcastEvent(0x8100);
+          (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)((int)this + 0x259);
+          puVar23 = &DAT_00e9aacd + g_dwBroadcastEventCursor;
+          g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
           *puVar23 = *(undefined1 *)((int)this + 0x25a);
           goto LAB_004d3bd3;
         }
@@ -185,8 +185,8 @@ LAB_004d3bd3:
           return;
         }
         if (*(short *)payload == 0) {
-          Replay_AppendEvent(0x8101);
-          (&g_replayEventBuffer)[g_replayEventCursor] = *(undefined1 *)((int)this + 0x25b);
+          QueueBroadcastEvent(0x8101);
+          (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)((int)this + 0x25b);
           goto LAB_004d3bd3;
         }
       }
@@ -813,8 +813,8 @@ LAB_004d4cc7:
       DAT_0056d108 = 0;
       _DAT_007934d8 = 1;
       *(undefined1 *)(*(int *)((int)this + 0x788) + 0x1e) = 1;
-      Replay_AppendEvent(0x8103);
-      Replay_FlushEvent();
+      QueueBroadcastEvent(0x8103);
+      BroadcastQueuedEvent();
       if (*(int *)(&DAT_006a64b4 + g_clientContext) == -1) {
         return;
       }

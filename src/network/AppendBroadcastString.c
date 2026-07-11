@@ -1,4 +1,4 @@
-/* Replay_AppendString - 0x004e6db0 in the original binary.
+/* AppendBroadcastString - 0x004e6db0 in the original binary.
  *
  * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
  * verified against documented behavior beyond what's already in
@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-void __fastcall Replay_AppendString(undefined4 param_1,uint param_2,undefined4 *param_3)
+void __fastcall AppendBroadcastString(undefined4 param_1,uint param_2,undefined4 *param_3)
 
 {
   int in_EAX;

@@ -97,8 +97,8 @@ LAB_004d7cd2:
     *(int *)(param_1 + 0x73c) = iVar3;
     if (200 < iVar3) {
       *(undefined4 *)(param_1 + 0x73c) = 0;
-      Replay_AppendEvent(0xa000);
-      Replay_FlushEvent();
+      QueueBroadcastEvent(0xa000);
+      BroadcastQueuedEvent();
       return;
     }
   }

@@ -216,7 +216,7 @@ its role:
 | 6 | `0x4b97d0` | **Mouse-input dispatcher** — dispatches directly on literal Win32 mouse message values (`> 0x202`, `== 0x204`, `!= 0x205` branches are visible — i.e. `WM_LBUTTONUP`/`WM_RBUTTONDOWN`/`WM_RBUTTONUP` territory) |
 | 7 | `0x4bb730` | `State11_InBattle_OnEnter` |
 | 8 | `0x4bcd00` | `State11_InBattle_OnExit` |
-| 9 | `0x4bd8b0` | Large (17KB decompiled, ~2,070 lines) function — this is the **same function** already documented elsewhere as `GameTick`'s unconditional per-tick hook (8-directional screen-edge cursor/camera-scroll bitmask, confirmed during the physics investigation). Only the first ~370 lines are the cursor/camera logic; the remaining ~1,700 lines (not previously read) include outgoing-packet field encoding, replay event logging, an unconditional per-tick call to the active-object container's flagged-entry garbage collector (`FUN_004f3100`, see the generic-container note below), and what looks like turn-phase-adjacent bookkeeping (`0xc303` referenced as a literal). Still not fully mapped end to end — genuinely large and multi-purpose. |
+| 9 | `0x4bd8b0` | Large (17KB decompiled, ~2,070 lines) function — this is the **same function** already documented elsewhere as `GameTick`'s unconditional per-tick hook (8-directional screen-edge cursor/camera-scroll bitmask, confirmed during the physics investigation). Only the first ~370 lines are the cursor/camera logic; the remaining ~1,700 lines (not previously read) include outgoing-packet field encoding, broadcast-event logging, an unconditional per-tick call to the active-object container's flagged-entry garbage collector (`FUN_004f3100`, see the generic-container note below), and what looks like turn-phase-adjacent bookkeeping (`0xc303` referenced as a literal). Still not fully mapped end to end — genuinely large and multi-purpose. |
 | 10 | `0x4c1b90` | **Chat character-input helper**: appends a typed character into a per-message buffer at `+0x58b64` (9-byte stride) and a secondary buffer at `+0x58c4a` (14-byte stride), with a literal control-character remap table (`'@'→0x0a`, `'#'→0x0b`, `'$'→0x0c`, `'%'→0x0d`, `'^'→0x0e`, `'&'→0x0f`, `'*'→0x10`) — almost certainly the mechanism behind GunBound's in-chat emoticon/special-character shortcuts (typing `^` or `&` inserting a small icon rather than the literal character) |
 | 11 | `0x4c1c90` | Small per-tick-looking helper (increments a counter at `this+8`, conditionally calls a couple of update functions) |
 | 12 | `0x4c1d10` | One-line delegate — calls `FUN_004508a0` on a fixed per-connection offset (`+0x6a7f88`), nothing else |
@@ -483,20 +483,20 @@ existence, length-prefix mechanism, and destination offset are confirmed.
 
 Opcodes `0x30xx`/`0x31xx`/`0x32xx`/`0x34xx`/`0x44xx`. This handler is also where
 the **replay-recording system** (see below) is driven from — most branches
-call `Replay_AppendEvent` with a distinct event-type code.
+call `QueueBroadcastEvent` with a distinct event-type code.
 
 | Opcode | Behavior |
 |---|---|
-| `0x2001` | **Leave ready room.** If a flag (`DAT_00793522`) is set, force-exits state 11 (In-Battle) via its own vtable exit-hook (`g_gameStateObjects[0xb]+0x20`) — i.e. this can tear down an in-progress battle. Then `g_pendingGameState = 3` (back to Game Room List). |
-| `0x3010` | **Corrected — not character/team selection.** Calls `ComputeTurnOrder()` (shared ready-toggle, same as `0x3020` below) then `Replay_WriteBattleSnapshot(*payload)`/`LoadRoomSlotAvatar()` — a **match-start replay-log snapshot** (event `0x8400`, reusing the same 20-element/`0x224`-stride loop found in the Room→Ready-Room transition) plus **(re)loading each slot's worn avatar** (`LoadRoomSlotAvatar` reads the `avatarEquipped` record at `+0x458bc+slot*8` — the per-slot high bit is **gender**, not team side — and composites the parts via `LoadAvatarSprites`). See PROTOCOL.md's corrected writeup and FILEFORMATS.md "Avatar.xfs". |
+| `0x2001` | **Leave ready room.** If a flag (`g_bBattleSessionActive`) is set, force-exits state 11 (In-Battle) via its own vtable exit-hook (`g_gameStateObjects[0xb]+0x20`) — i.e. this can tear down an in-progress battle. Then `g_pendingGameState = 3` (back to Game Room List). |
+| `0x3010` | **Corrected — not character/team selection.** Calls `ComputeTurnOrder()` (shared ready-toggle, same as `0x3020` below) then `BroadcastBattleSnapshot(*payload)`/`LoadRoomSlotAvatar()` — a **match-start state broadcast** (event `0x8400`, reusing the same 20-element/`0x224`-stride loop found in the Room→Ready-Room transition; see "Two separate systems previously conflated as 'replay'") plus **(re)loading each slot's worn avatar** (`LoadRoomSlotAvatar` reads the `avatarEquipped` record at `+0x458bc+slot*8` — the per-slot high bit is **gender**, not team side — and composites the parts via `LoadAvatarSprites`). See PROTOCOL.md's corrected writeup and FILEFORMATS.md "Avatar.xfs". |
 | `0x3020` | Calls `ComputeTurnOrder()` only — simpler ready/unready toggle. |
-| `0x3105` | Records replay event `0x8102` (self) or `0x8000`+player-id+position fields (others), and sends `WM_USER+...` (`0xc5`) UI notification — **player joined ready room**. |
-| `0x3151` | Records replay event `0x8200` with `payload[2]` — likely **team change**. |
-| `0x3201` | Records replay event `0x8100` with two fields from `this` — likely **weapon/character selection change**. |
-| `0x3211` | Records replay event `0x8101` — likely **map vote/selection**. |
-| `0x3231` | Records replay event `0x8102` — **ready-status toggle**. |
+| `0x3105` | Queues broadcast event `0x8102` (self) or `0x8000`+player-id+position fields (others), and sends `WM_USER+...` (`0xc5`) UI notification — **player joined ready room**. |
+| `0x3151` | Queues broadcast event `0x8200` with `payload[2]` — likely **team change**. |
+| `0x3201` | Queues broadcast event `0x8100` with two fields from `this` — likely **weapon/character selection change**. |
+| `0x3211` | Queues broadcast event `0x8101` — likely **map vote/selection**. |
+| `0x3231` | Queues broadcast event `0x8102` — **ready-status toggle**. |
 | `0x3fff` | Sends outgoing packet opcode `0x2000` with payload `0xffff` — **leave/cancel notification to server**. |
-| `0x3432` | Closes the open replay file (`fclose`) if one is open — **match/session end, stop recording**. |
+| `0x3432` | Closes the open `.sv` match-record file (`fclose`) if one is open — **match/session end, stop recording**. |
 | `0x4410` (only if not already leaving) | Replies with outgoing opcode `0x3232` — looks like a **server keepalive/ping ack**. |
 
 ## Network protocol — `State11_InBattle_ProcessPacket` (`0x4b4100`)
@@ -507,7 +507,7 @@ Opcodes shared with the ready room (`0x2001`, `0x3020`, `0x3233`, `0x3400`,
 | Opcode | Behavior |
 |---|---|
 | `0x2001` | **Leave battle** → `g_pendingGameState = 3` (Game Room List). |
-| `0x3020` | **Player disconnected mid-match**: shift-compacts three of the four small per-slot spawn arrays (see action `0x8408`'s row below — **not** a `0x224`-byte stride, corrected from an earlier pass), separately reads that player's **packet-checksum state** from a per-player array at `playerId*0x224 + 0xebef4` (confirmed via `PeekPacketChecksumState`, see the packet-checksum utility section below), records replay event `0x307` with the departed player's stats, and — if the departed player held the active turn — reassigns it (`FUN_00413bf0`, likely `AdvanceTurn`). Full writeup in [PROTOCOL.md](PROTOCOL.md). |
+| `0x3020` | **Player disconnected mid-match**: shift-compacts three of the four small per-slot spawn arrays (see action `0x8408`'s row below — **not** a `0x224`-byte stride, corrected from an earlier pass), separately reads that player's **packet-checksum state** from a per-player array at `playerId*0x224 + 0xebef4` (confirmed via `PeekPacketChecksumState`, see the packet-checksum utility section below), records broadcast event `0x307` with the departed player's stats, and — if the departed player held the active turn — reassigns it (`FUN_00413bf0`, likely `AdvanceTurn`). Full writeup in [PROTOCOL.md](PROTOCOL.md). |
 | `0x3233` | **Match ends** → `g_pendingGameState = 9` (back to Ready Room). Writes a terminator byte (`2`) to the replay file and closes it — matches state 9's `0x3432` as the recording bookend. |
 | `0x3400` | separate branch, not fully traced |
 | `0x3fff` | Same "leave/cancel" outgoing `0x2000`/`0xffff` packet as the ready room. |
@@ -551,10 +551,13 @@ wind/spawn data) while still on the loading screen.
   8-player cap independently again).
 - `+0x21` (33): payload start.
 
-Action `0x8500` matches a replay-log event code exactly — strong evidence this
-function processes **both live network packets and recorded replay events**
-through the same code path (i.e. replay playback re-feeds logged `0x8xxx`
-events into this same dispatcher rather than having a separate player).
+Action `0x8500` matches a `QueueBroadcastEvent` code exactly (see "Two separate
+systems previously conflated as 'replay'" below) — strong evidence this
+function processes **both server-relayed packets and incoming peer-broadcast
+events** through the same code path, i.e. a `0x8xxx` event arriving over the
+UDP peer-broadcast channel is fed into this same action dispatcher rather than
+having a separate receive path (corrected from an earlier "replay playback"
+guess — this is live peer traffic, not logged-event playback).
 
 | Action | Behavior |
 |---|---|
@@ -747,55 +750,75 @@ re-encodes `state / divisor`, zero-divisor guarded) — both skip the
 guard-buffer/scrub ceremony the `EncodeChecksumDelta*` family uses, re-encoding
 directly.
 
-## The replay-recording system
+## Two separate systems previously conflated as "replay"
 
-**High confidence.** GunBound records matches to a local replay file:
+An earlier pass named a cluster of functions under a `Replay_*`/`g_replayEvent*`
+family, on the assumption they were all one local match-recording system. Fully
+decompiling the two key functions (`WriteReplayEventRecord` and
+`BroadcastQueuedEvent`, formerly `Replay_FlushEvent`) this pass showed **these
+are two unrelated mechanisms that happen to run side by side** — one genuinely
+writes a local file, the other never touches a file at all. They are documented
+separately below; the second family was renamed off "Replay" accordingly.
+
+### 1. The local `.sv` match-record file — genuine, file-based
+
+**High confidence, directly observed via `_fwrite`.** `WriteReplayEventRecord`
+(`0x4104f0`) writes a local file unconditionally whenever the file handle is
+open — no relation to the broadcast system below:
 
 - File handle: a global `FILE*` at `DAT_006a9b68` (not yet given a clean name —
   it's accessed via `&DAT_006a9b68 + DAT_005b3484`, an odd indexing pattern
   worth double-checking), opened somewhere in the Ready Room's entry flow
   (filename format confirmed as `%s%s - %s.sv`, `%Y%m%d %H%M` timestamp style,
   found in state 9's string references).
-- Event buffer: `g_replayEventBuffer` (`0xe9aacc`) is a flat byte buffer;
-  `g_replayEventCursor` (`0xe9accc`) is the write cursor.
-- `Replay_AppendEvent(code)` (`0x4e6c90`, was `FUN_004e6c90`) appends a
-  known event-type code (a ushort, values seen: `0x307`, `0x8000`, `0x8100`,
-  `0x8101`, `0x8102`, `0x8103`, `0x8200`, `0x8500`) — callers then manually
-  append the event's payload bytes to the same buffer before calling...
-- `Replay_FlushEvent()` (`0x4e6fc0`, was `FUN_004e6fc0`) — **corrected: this does
-  not write to `DAT_006a9b68` or any file.** Fully decompiled this pass:
-  `EncryptEventBroadcast` (`0x4e6df0`, was `FUN_004e6df0`) checksums the pending
-  event body and encrypts it in place via `EncodeCipherBlock` (the same transport
-  cipher used for regular packets — see "Packet transport crypto" below), then
-  `Replay_FlushEvent` loops the **8 room slots**, and for each slot with a
-  pending-event bit set, calls `SendUdpDatagram` (`0x4e72d0`, was `FUN_004e72d0`)
-  **twice** — once to that slot's primary `(ip, port)` and once to a secondary
-  `(ip, port)` pair if present — i.e. it **directly broadcasts the encrypted
-  event to every other connected peer over UDP**, bypassing the main
-  client-server socket entirely. This means the `Replay_*` / `g_replayEvent*`
-  family (named under the assumption this was a local `.sv` replay-file writer)
-  is at least partly a **peer-to-peer action-relay/broadcast channel** — a
-  fourth transport alongside the documented channel 1/2/3. The `.sv`-file
-  evidence (filename format string, the `DAT_006a9b68` handle, the `2`
-  terminator-byte writes at session start/end) still stands and may be a
-  *separate* local-recording path that taps the same event buffer elsewhere —
-  not yet traced. **This needs a dedicated follow-up pass** to determine
-  whether "replay" is the right name for this subsystem at all, before doing
-  a wholesale rename of the `Replay_*`/`g_replayEvent*` family.
-- `Replay_AppendString(str)` (`0x4e6db0`, was `FUN_004e6db0`) — a string
-  variant of the same append pattern (used for name fields).
-- `Replay_WriteBattleSnapshot(flushFlag)` (`0x4dc200`, was `FUN_004dc200`) — the
-  **full-state snapshot record** (event `0x8400`). Fired from
-  `State09_ReadyRoom_OnEnter` at session start (and the `0x3010`/`0x3020` packet
-  handlers): appends `0x8400`, then serializes the battle-scene header
-  (`ctx+0x2331c..0x23338`) followed by **both** 20-element `0x224`-stride guarded
-  per-slot arrays (8 bytes/element via `PeekPacketChecksumState`, bound
-  `20*0x224 = 0x2ad0`) — the seeded state needed to reconstruct the match from
-  frame 0. `flushFlag == -1` flushes; otherwise it chains to `FUN_004e7140`.
+- `WriteReplayEventRecord(size, type, body)` (`0x4104f0`) — if
+  `g_replayFileHandle != NULL`, writes a fixed record header (a `0` tag byte,
+  a 4-byte value from `DAT_005b3424+4`, the `size`, the `type`) followed by the
+  raw `body` bytes, via direct `_fwrite` calls. `PumpBattleActions` (`0x412a20`)
+  does the same thing inline for battle-action packets (tag byte `1` instead of
+  `0`). This is the actual, confirmed local match-record writer.
 - The file is closed with a small terminator byte (`2`) written first — seen
   at both `State09`'s `0x3432` (session end) and `State11`'s `0x3233` (match
   end back to ready room), i.e. **recording spans from ready-room entry
   through match end**, not just the battle itself.
+- Reconstructing the `.sv` file format (event-code table + per-event payload
+  layouts, now that the true writer is pinned down) is still a good standalone
+  follow-up — a replay parser/viewer independent of the rest of the game.
+
+### 2. The peer-broadcast event channel — renamed off "Replay"
+
+**High confidence, directly observed via `sendto`/cipher calls.** This is a
+**separate, UDP-based, peer-to-peer event broadcast** — not a file writer at
+all. Renamed this pass (was `Replay_*`/`g_replayEvent*`):
+
+- Event buffer: `g_abBroadcastEventBuffer` (`0xe9aacc`) is a flat byte buffer;
+  `g_dwBroadcastEventCursor` (`0xe9accc`) is the write cursor.
+- `QueueBroadcastEvent(code)` (`0x4e6c90`, was `Replay_AppendEvent`) appends a
+  known event-type code (a ushort, values seen: `0x307`, `0x8000`, `0x8100`,
+  `0x8101`, `0x8102`, `0x8103`, `0x8200`, `0x8500`) — callers then manually
+  append the event's payload bytes to the same buffer before calling...
+- `BroadcastQueuedEvent()` (`0x4e6fc0`, was `Replay_FlushEvent`) — fully
+  decompiled: `EncryptEventBroadcast` (`0x4e6df0`) checksums the pending event
+  body and encrypts it in place via `EncodeCipherBlock` (the same transport
+  cipher used for regular packets — see "Packet transport crypto" below), then
+  `BroadcastQueuedEvent` loops the **8 room slots**, and for each slot with a
+  pending-event bit set, calls `SendUdpDatagram` (`0x4e72d0`) **twice** — once
+  to that slot's primary `(ip, port)` and once to a secondary `(ip, port)` pair
+  if present — i.e. it **directly broadcasts the encrypted event to every other
+  connected peer over UDP**, bypassing the main client-server socket entirely.
+  This is a peer-to-peer action-relay channel, likely for low-latency shot/move
+  sync alongside (not instead of) the authoritative server relay — a fourth
+  transport alongside the documented channel 1/2/3.
+- `AppendBroadcastString(str)` (`0x4e6db0`, was `Replay_AppendString`) — a
+  string variant of the same append pattern (used for name fields).
+- `BroadcastBattleSnapshot(flushFlag)` (`0x4dc200`, was `Replay_WriteBattleSnapshot`)
+  — the **full-state snapshot record** (event `0x8400`). Fired from
+  `State09_ReadyRoom_OnEnter` at session start (and the `0x3010`/`0x3020` packet
+  handlers): appends `0x8400`, then serializes the battle-scene header
+  (`ctx+0x2331c..0x23338`) followed by **both** 20-element `0x224`-stride guarded
+  per-slot arrays (8 bytes/element via `PeekPacketChecksumState`, bound
+  `20*0x224 = 0x2ad0`) — the full seeded state broadcast to a newly-joined or
+  resyncing peer. `flushFlag == -1` flushes; otherwise it chains to `FUN_004e7140`.
 
 ### The capture gate and the battle frame loop
 
@@ -816,7 +839,7 @@ The same flag selects the per-frame work in the battle main loop:
   cursor logic, the 300-frame idle timeout (auto-sends the `0x2000` packet), the
   active-object GC (`0x4f3100`), and updates all 8×2 scene objects through their
   vtables. Then: **if `g_bBattleSessionActive == 0`** it just emits a `0xa000`
-  replay heartbeat every 200 frames; **if `!= 0`** it delegates the frame to…
+  broadcast heartbeat every 200 frames; **if `!= 0`** it delegates the frame to…
 - **`ProcessBattleFrame`** (`0x4dcbe0`, was `FUN_004dcbe0`, ~12 KB — the 2nd
   largest function in the binary). This is the live per-frame battle processor:
   it advances the world frame counter (`+0x740`), works through guard-protected
@@ -825,7 +848,7 @@ The same flag selects the per-frame work in the battle main loop:
   (`bullet1-16` in n/p/s/l variants, `flame`/`ssflame`/`jflame` 1-16, `tank1-16`,
   jewel, thor, teleport, rayonmine, crystal, the `b_play_*` HUD buttons, …),
   instantiating each via `LoadSpriteSet` / `FindPreloadedTextureByName` /
-  `LoadRoomSlotAvatar`, playing sounds, and appending replay events.
+  `LoadRoomSlotAvatar`, playing sounds, and appending broadcast events.
 
 This is a strong, self-contained subsystem — reconstructing the `.sv` file
 format (event-code table + per-event payload layouts) would be a good
@@ -1119,8 +1142,8 @@ comes from `WndProc` mouse messages into the `g_cursorAnchorX/d110` anchor.)
    detail is wanted, now with a proven, fast methodology.
 4. **DONE** — states 9 and 11's `ProcessPacket` overrides found, named, and
    mapped. Discovered the client-side **replay-recording system** as a
-   byproduct (`.sv` files, typed event log, `Replay_AppendEvent`/
-   `Replay_FlushEvent`).
+   byproduct (`.sv` files, typed event log, `QueueBroadcastEvent`/
+   `BroadcastQueuedEvent`).
 5. **DONE, and further advanced this pass** — found and mapped the second
    virtual channel: `CGameState` vtable slot 2 (`ProcessBattleAction`),
    overridden only by Loading, Ready Room, and In-Battle (every other state
@@ -1524,7 +1547,7 @@ from the call sites:
 | `0x12d`–`0x142`, `0x7530`–`0x753b` | `WinMain` | startup / window-title / version-&-update messages (also several `MessageBoxA` prompts) |
 | `0x19a`–`0x19e` | `ProcessIncomingPackets` | server packet status / error notifications |
 | `0x25c`–`0x274` | `State11_InBattle_ProcessBattleAction`, `FUN_004bd8b0` (State11 slot 9) | in-battle event / status messages |
-| `0x27c`–`0x280`, `0x33e`–`0x340` | `FUN_004c8890` (State11 slot 15 — the HUD/chat renderer) | HUD / scoreboard labels |
+| `0x27c`–`0x280`, `0x33e`–`0x340` | `State11_InBattle_RenderHud` (State11 slot 15 — the HUD/chat renderer) | HUD / scoreboard labels |
 | `0x320`–`0x32f` | `State10_Loading_OnEnter` | loading-screen labels (16 contiguous) |
 | `0x4e20`–`0x4e23` | `State03_GameRoomList_RenderRoomLabel` | room-list column headers |
 | `0x1770`–`0x177f` | `WriteReplayEventRecord` | replay event-type descriptions (16 contiguous, one per event kind) |
@@ -2243,14 +2266,14 @@ previously-unexamined ones. Findings:
   (dispatch on `param_2==0x100`=`WM_KEYDOWN`, checking `param_3==0xd`=Enter),
   not render functions. On Enter, reads the chat textbox, and if the text
   isn't a recognized command, **logs it to the replay stream**
-  (`Replay_AppendEvent(1)` + `Replay_AppendString`) — confirms replays
+  (`QueueBroadcastEvent(1)` + `AppendBroadcastString`) — confirms replays
   capture chat messages, not just game actions.
 
   **Investigated how a typed chat message is actually sent over the
   network — genuinely didn't find it, worth recording precisely.** The
   normal-message success path in `State09_ReadyRoom_HandleChatInput` is
-  exactly: `Replay_AppendEvent(1)` → copy the text → `Replay_AppendString`
-  → `Replay_FlushEvent()` → clear the textbox (`SetWindowTextA`) → return.
+  exactly: `QueueBroadcastEvent(1)` → copy the text → `AppendBroadcastString`
+  → `BroadcastQueuedEvent()` → clear the textbox (`SetWindowTextA`) → return.
   **No `QueueOutgoingPacketField`/`EncodeOutgoingPacketField` call (the
   confirmed outgoing-packet-field API used everywhere else in this
   project) appears anywhere in this function**, nor in its gatekeeper

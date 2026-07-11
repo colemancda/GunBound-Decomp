@@ -463,14 +463,14 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
             }
             iVar4 = __stricmp(local_220,s_clear_00552cfc);
             if ((iVar4 == 0) && (iVar3 == 1)) {
-              Replay_AppendEvent(0x9000);
-              Replay_FlushEvent();
+              QueueBroadcastEvent(0x9000);
+              BroadcastQueuedEvent();
               return 1;
             }
             iVar4 = __stricmp(local_220,s_logging_00552cf4);
             if ((iVar4 == 0) && (iVar3 == 1)) {
-              Replay_AppendEvent(0xf00e);
-              Replay_FlushEvent();
+              QueueBroadcastEvent(0xf00e);
+              BroadcastQueuedEvent();
               return 1;
             }
             iVar5 = __stricmp(local_220,s_shrduatlwkr_00552ce8);

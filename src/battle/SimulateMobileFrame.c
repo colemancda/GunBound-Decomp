@@ -280,27 +280,27 @@ LAB_004622cf:
     cVar5 = CheckGuardedBoolAnd(uVar9);
     if (((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) &&
        (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) {
-      Replay_AppendEvent(0x8402);
+      QueueBroadcastEvent(0x8402);
       uVar7 = PeekChecksumStateUnderLock(param_1 + 0x243);
-      *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar7;
-      g_replayEventCursor = g_replayEventCursor + 2;
+      *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
       uVar7 = PeekChecksumStateUnderLock(param_1 + 0x2cc);
-      *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar7;
-      g_replayEventCursor = g_replayEventCursor + 2;
+      *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
       uVar6 = PacketChecksumEquals(param_1 + 0x715,1);
-      (&g_replayEventBuffer)[g_replayEventCursor] = uVar6;
-      g_replayEventCursor = g_replayEventCursor + 1;
-      Replay_FlushEvent();
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar6;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+      BroadcastQueuedEvent();
       SetGuardedBool(0);
       SetGuardedBool(0);
-      Replay_AppendEvent(0xc301);
-      (&g_replayEventBuffer)[g_replayEventCursor] = 1;
-      g_replayEventCursor = g_replayEventCursor + 1;
+      QueueBroadcastEvent(0xc301);
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       uVar7 = FUN_0045d360(1);
-      *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar7;
-      g_replayEventCursor = g_replayEventCursor + 2;
+      *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
       FUN_0041f200(0);
-      Replay_FlushEvent();
+      BroadcastQueuedEvent();
     }
   }
   cVar5 = PacketChecksumGreaterEqual(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));

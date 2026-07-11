@@ -120,7 +120,10 @@ Ordered by how confirmed their docs are:
 2. **Connection subsystem** (`CCommP2P`: the notify-window + thread-backed
    broker connect, §"Connection subsystem"; several named `src/network/`
    ports) — a real class with its vtable at `PTR_LAB_00557654`-family.
-3. **Replay recorder** (`Replay_*` named ports + `WriteReplayEventRecord`).
+3. **Match recorder + peer broadcast** (`WriteReplayEventRecord` for the local
+   `.sv` file; `QueueBroadcastEvent`/`BroadcastQueuedEvent`/`AppendBroadcastString`/
+   `BroadcastBattleSnapshot` for the separate UDP peer-broadcast channel —
+   two distinct systems, see ARCHITECTURE.md).
 4. **XFS archive reader** (`src/fileformat/` — 8 named ports, format fully
    documented in FILEFORMATS.md) — likely a plain struct + free functions,
    possibly not a class at all; decide from the ctor pattern.

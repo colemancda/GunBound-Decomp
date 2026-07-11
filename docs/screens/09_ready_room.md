@@ -23,7 +23,7 @@ preview, map selection, and the item/loadout picker before the match starts.
 | 6 | `0x4d6210` | `State09_ReadyRoom_HandleChatInput` |
 | 7 | `0x4d6810` | `State09_ReadyRoom_OnEnter` |
 | 8 | `0x4d7630` | `State09_ReadyRoom_OnExit` |
-| 9 | `0x4d7b20` | `State09_ReadyRoom_OnTick` — per-frame tick (**was mislabelled "texture preload"**). AFK/round timers, item-icon cursor, 300-frame idle timeout, active-object GC, 8×2 scene-object updates; when `g_bBattleSessionActive` it delegates the frame to `ProcessBattleFrame` (`0x4dcbe0`), else emits the `0xa000` replay heartbeat. The host auto-start countdown is gated by `CheckAllPlayersReady` (`0x4db4b0`). Slot-9 = OnTick per the State02/State11 convention. |
+| 9 | `0x4d7b20` | `State09_ReadyRoom_OnTick` — per-frame tick (**was mislabelled "texture preload"**). AFK/round timers, item-icon cursor, 300-frame idle timeout, active-object GC, 8×2 scene-object updates; when `g_bBattleSessionActive` it delegates the frame to `ProcessBattleFrame` (`0x4dcbe0`), else emits the `0xa000` broadcast heartbeat. The host auto-start countdown is gated by `CheckAllPlayersReady` (`0x4db4b0`). Slot-9 = OnTick per the State02/State11 convention. |
 | 10 | `0x4d7d70` | text-draw helper (`strlen` → `FUN_0041b8c0`) |
 | 11,12 | `0x429800` | no-op |
 | 13 | `0x4d7db0` | `State09_ReadyRoom_RenderRosterAndItems` |

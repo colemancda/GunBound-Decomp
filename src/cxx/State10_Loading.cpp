@@ -20,9 +20,9 @@ void FUN_0040c880(char *out);           /* read the EDIT control's text into out
 char FUN_004218c0(int ctx, char *text); /* slash-command handler (true = consumed) */
 char FUN_00415b00(char *text);          /* "message too long" check */
 char FUN_00415230(void);                /* "not allowed right now" check */
-void Replay_AppendEvent(int type);
-void Replay_AppendString(const char *s);
-void Replay_FlushEvent(void);
+void QueueBroadcastEvent(int type);
+void AppendBroadcastString(const char *s);
+void BroadcastQueuedEvent(void);
 void FUN_00426230(void);                /* playback-mode chat path */
 void *GetLocalizedString(void *table, int id);
 }
@@ -63,9 +63,9 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
             if (FUN_00415b00(text) == 1) {
                 msgId = 0x202;
             } else if (FUN_00415230() == 0) {
-                Replay_AppendEvent(1);
-                Replay_AppendString(text);
-                Replay_FlushEvent();
+                QueueBroadcastEvent(1);
+                AppendBroadcastString(text);
+                BroadcastQueuedEvent();
                 goto reset;
             } else {
                 msgId = 0x205;

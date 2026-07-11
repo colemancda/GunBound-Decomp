@@ -61,15 +61,15 @@ LAB_004ce86c:
         ;
         *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 1;
         SendOutgoingPacket();
-        Replay_AppendEvent(0xc304);
+        QueueBroadcastEvent(0xc304);
         iVar5 = g_clientContext;
-        *(undefined4 *)(&g_replayEventBuffer + g_replayEventCursor) =
+        *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) =
              *(undefined4 *)(*(int *)(g_clientContext + 0x621e0) + 0xb0b0);
-        puVar1 = &DAT_00e9aad0 + g_replayEventCursor;
-        g_replayEventCursor = g_replayEventCursor + 4;
+        puVar1 = &DAT_00e9aad0 + g_dwBroadcastEventCursor;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
         *puVar1 = *(undefined1 *)(*(int *)(iVar5 + 0x621e0) + 0xb0ac);
-        g_replayEventCursor = g_replayEventCursor + 1;
-        Replay_FlushEvent();
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+        BroadcastQueuedEvent();
       }
     }
     FUN_004cea70(param_1);

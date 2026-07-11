@@ -198,8 +198,8 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
   case 1:
     cVar2 = CheckAllPlayersReady();
     if (cVar2 == '\0') {
-      Replay_AppendEvent(0x9002);
-      uVar3 = Replay_FlushEvent();
+      QueueBroadcastEvent(0x9002);
+      uVar3 = BroadcastQueuedEvent();
       return uVar3;
     }
     RefreshReadyRoomControls(param_1,0,0);

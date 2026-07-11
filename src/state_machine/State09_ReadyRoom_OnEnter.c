@@ -276,7 +276,7 @@ LAB_004d722d:
   _DAT_00e9aac4 = 0;
   _DAT_00e9aac8 = 0;
   InterlockedExchange((LONG *)&DAT_00e9aac0,0);
-  Replay_WriteBattleSnapshot(0xffffffff);
+  BroadcastBattleSnapshot(0xffffffff);
   iVar4 = g_clientContext;
   *(undefined1 *)(param_1 + 0x62c) = 0;
   *(undefined4 *)(&DAT_0067e3c8 + iVar4) = 0;

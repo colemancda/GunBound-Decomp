@@ -27,9 +27,9 @@ void __fastcall FUN_00423a20(int param_1)
   if (cVar4 != '\0') {
     *(undefined4 *)(&DAT_006a7670 + (uint)in_AL * 8 + param_1) = 0;
     *(undefined4 *)((int)(&DAT_006a7670 + (uint)in_AL * 8 + param_1) + 4) = 0;
-    Replay_AppendEvent(0xc303);
-    (&g_replayEventBuffer)[g_replayEventCursor] = in_AL;
-    g_replayEventCursor = g_replayEventCursor + 1;
+    QueueBroadcastEvent(0xc303);
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = in_AL;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     if (in_AL == 0xe) {
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
@@ -46,12 +46,12 @@ void __fastcall FUN_00423a20(int param_1)
         *(byte *)(iVar7 + 0x8bad) = bVar8 + bVar2 + -0x34;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
-      *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) =
+      *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) =
            *(undefined2 *)(&DAT_006aab04 + param_1);
-      g_replayEventCursor = g_replayEventCursor + 2;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
       FUN_0041f200(0);
     }
-    Replay_FlushEvent();
+    BroadcastQueuedEvent();
     uVar3 = *(uint *)(&DAT_006a76f8 + g_clientContext);
     uVar6 = 0;
     iVar7 = g_clientContext;

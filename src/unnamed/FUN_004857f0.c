@@ -384,17 +384,17 @@ LAB_0048631a:
           if (DAT_0079352a != '\0') {
             uVar10 = 0xf004;
 LAB_00486469:
-            Replay_AppendEvent(uVar10);
-            (&g_replayEventBuffer)[g_replayEventCursor] = *(undefined1 *)(iVar9 + 8);
-            piVar1 = (int *)(&DAT_00e9aacd + g_replayEventCursor);
-            g_replayEventCursor = g_replayEventCursor + 1;
+            QueueBroadcastEvent(uVar10);
+            (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)(iVar9 + 8);
+            piVar1 = (int *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
             *piVar1 = local_15c0;
-            piVar1 = (int *)(&DAT_00e9aad0 + g_replayEventCursor);
-            g_replayEventCursor = g_replayEventCursor + 4;
+            piVar1 = (int *)(&DAT_00e9aad0 + g_dwBroadcastEventCursor);
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
             *piVar1 = local_15b8;
 LAB_00486e6e:
-            g_replayEventCursor = g_replayEventCursor + 4;
-            Replay_FlushEvent();
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
+            BroadcastQueuedEvent();
           }
           break;
         }
@@ -673,14 +673,14 @@ LAB_00486cde:
           *(byte *)(iVar9 + 0xf47) = bVar15 + *(char *)(iVar9 + 0xf45) + -0x34;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (DAT_0079352a != '\0') {
-            Replay_AppendEvent(0xf004);
-            (&g_replayEventBuffer)[g_replayEventCursor] = *(undefined1 *)(iVar9 + 8);
+            QueueBroadcastEvent(0xf004);
+            (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)(iVar9 + 8);
 LAB_00486e42:
-            piVar1 = (int *)(&DAT_00e9aacd + g_replayEventCursor);
-            g_replayEventCursor = g_replayEventCursor + 1;
+            piVar1 = (int *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
             *piVar1 = local_15c0;
-            piVar1 = (int *)(&DAT_00e9aad0 + g_replayEventCursor);
-            g_replayEventCursor = g_replayEventCursor + 4;
+            piVar1 = (int *)(&DAT_00e9aad0 + g_dwBroadcastEventCursor);
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
             *piVar1 = local_15b8;
             goto LAB_00486e6e;
           }
@@ -716,8 +716,8 @@ LAB_00486e42:
           *(byte *)(iVar9 + 0xf47) = bVar15 + *(char *)(iVar9 + 0xf45) + -0x34;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (DAT_0079352a != '\0') {
-            Replay_AppendEvent(0xf002);
-            (&g_replayEventBuffer)[g_replayEventCursor] = *(undefined1 *)(iVar9 + 8);
+            QueueBroadcastEvent(0xf002);
+            (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)(iVar9 + 8);
             goto LAB_00486e42;
           }
           break;

@@ -1009,7 +1009,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004dbf30,442,ResetItemSlotCounters,false,1,4,RAW-src
 004dc0f0,79,FUN_004dc0f0,false,1,3,RAW-src
 004dc140,192,FUN_004dc140,false,1,3,RAW-src
-004dc200,870,Replay_WriteBattleSnapshot,false,2,6,RAW-src
+004dc200,870,BroadcastBattleSnapshot,false,2,6,RAW-src
 004dc570,67,FindItemGridCell,false,3,0,RAW-src
 004dc5c0,270,LoadRoomSlotAvatar,false,11,1,RAW-src
 004dc6d0,323,RegisterTankSprite,false,1,5,RAW-src
@@ -1084,12 +1084,12 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e6770,986,FUN_004e6770,false,1,21,RAW-src
 004e6b50,52,FUN_004e6b50,false,1,2,RAW-src
 004e6b90,245,FUN_004e6b90,false,1,4,RAW-src
-004e6c90,122,Replay_AppendEvent,false,110,1,RAW-src
+004e6c90,122,QueueBroadcastEvent,false,110,1,RAW-src
 004e6d10,151,FUN_004e6d10,false,2,0,RAW-src
-004e6db0,64,Replay_AppendString,false,6,0,RAW-src
+004e6db0,64,AppendBroadcastString,false,6,0,RAW-src
 004e6df0,292,EncryptEventBroadcast,false,2,2,RAW-src
 004e6f20,153,FUN_004e6f20,false,2,2,RAW-src
-004e6fc0,375,Replay_FlushEvent,false,84,9,RAW-src
+004e6fc0,375,BroadcastQueuedEvent,false,84,9,RAW-src
 004e7140,389,FUN_004e7140,false,9,8,RAW-src
 004e72d0,106,SendUdpDatagram,false,16,3,RAW-src
 004e7340,150,FUN_004e7340,false,4,1,RAW-src

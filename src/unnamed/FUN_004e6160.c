@@ -216,7 +216,7 @@ LAB_004e64e4:
              DVar5 - *(int *)(param_1 + 0x45240 + (uint)local_243 * 4) >> 1;
         return 1;
       }
-      Replay_AppendEvent(0xa001);
+      QueueBroadcastEvent(0xa001);
       FUN_004e7140(local_243);
       return 1;
     }

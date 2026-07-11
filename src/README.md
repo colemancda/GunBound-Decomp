@@ -192,7 +192,7 @@ about most of them:
   shared `CGameState_*` base-class functions.
 - **`network/`** — the packet-checksum family (`EncodeOutgoingPacketField`,
   `PeekPacketChecksumState`, etc.), `PostTurnEvent`, `HandleTurnTimeoutSlot`.
-- **`replay/`** — `Replay_AppendEvent`/`AppendString`/`FlushEvent`,
+- **`replay/`** — `QueueBroadcastEvent`/`AppendString`/`FlushEvent`,
   `WriteReplayEventRecord`.
 - **`rendering/`** — the `Blit*` family, `BuildRotatedSpriteQuad`,
   `PresentFrame`, texture-cache lookups.

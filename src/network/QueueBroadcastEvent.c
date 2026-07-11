@@ -1,4 +1,4 @@
-/* Replay_AppendEvent - 0x004e6c90 in the original binary.
+/* QueueBroadcastEvent - 0x004e6c90 in the original binary.
  *
  * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
  * verified against documented behavior beyond what's already in
@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-void Replay_AppendEvent(int param_1)
+void QueueBroadcastEvent(int param_1)
 
 {
   int iVar1;

@@ -55,8 +55,8 @@ void FUN_0043e280(undefined4 param_1,int param_2,short *param_3)
       g_stateChangeRequested = 0;
       DAT_0056d108 = 0;
       _DAT_007934d8 = 1;
-      Replay_AppendEvent(0x8103);
-      Replay_FlushEvent();
+      QueueBroadcastEvent(0x8103);
+      BroadcastQueuedEvent();
       if (*(int *)(&DAT_006a64b4 + g_clientContext) != -1) {
         FUN_004eeae0();
         *(undefined4 *)(&DAT_006a64b4 + g_clientContext) = 0xffffffff;

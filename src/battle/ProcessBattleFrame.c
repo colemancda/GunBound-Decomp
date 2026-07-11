@@ -886,8 +886,8 @@ void ProcessBattleFrame(int param_1)
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x47:
-    Replay_AppendEvent(0x82ff);
-    Replay_FlushEvent();
+    QueueBroadcastEvent(0x82ff);
+    BroadcastQueuedEvent();
   }
   if (*(int *)(param_1 + 0x744) == -1) {
     iVar6 = 0;
@@ -915,8 +915,8 @@ LAB_004dfad9:
     iVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar6 == iVar5) {
-      Replay_AppendEvent(0x8600);
-      Replay_FlushEvent();
+      QueueBroadcastEvent(0x8600);
+      BroadcastQueuedEvent();
     }
   }
   *unaff_FS_OFFSET = local_c;

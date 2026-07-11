@@ -397,9 +397,9 @@ LAB_0047a634:
   if (((iVar6 % 1000 == 0) && (iVar5 = PacketChecksumEquals(param_1 + 0x67d,0), (char)iVar5 != '\0')
       ) && (iVar5 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c), (char)iVar5 != '\0'
            )) {
-    Replay_AppendEvent(0x4004);
-    (&g_replayEventBuffer)[g_replayEventCursor] = (char)param_1[2];
-    g_replayEventCursor = g_replayEventCursor + 1;
+    QueueBroadcastEvent(0x4004);
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)param_1[2];
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     iVar5 = param_1[0x791];
     iVar6 = _rand();
     if (iVar5 == 0) {
@@ -421,8 +421,8 @@ LAB_0047a634:
       puVar13 = (undefined4 *)FUN_00415450();
       uVar4 = *puVar13;
     }
-    Replay_AppendString(uVar4);
-    iVar5 = Replay_FlushEvent();
+    AppendBroadcastString(uVar4);
+    iVar5 = BroadcastQueuedEvent();
   }
 LAB_0047a932:
   *unaff_FS_OFFSET = local_c;

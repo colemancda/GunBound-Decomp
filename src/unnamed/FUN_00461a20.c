@@ -48,31 +48,31 @@ void FUN_00461a20(int param_1)
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EncodeOutgoingPacketField(uVar2);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        Replay_AppendEvent(0x8406);
+        QueueBroadcastEvent(0x8406);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar5 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar5;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar5;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar5 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar5;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar5;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar8 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        (&g_replayEventBuffer)[g_replayEventCursor] = '\x01' - (iVar8 != 1);
-        puVar1 = &DAT_00e9aacd + g_replayEventCursor;
-        g_replayEventCursor = g_replayEventCursor + 1;
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = '\x01' - (iVar8 != 1);
+        puVar1 = &DAT_00e9aacd + g_dwBroadcastEventCursor;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         *puVar1 = (undefined1)local_1c;
-        g_replayEventCursor = g_replayEventCursor + 1;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar4 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        (&g_replayEventBuffer)[g_replayEventCursor] = uVar4;
-        g_replayEventCursor = g_replayEventCursor + 1;
-        Replay_FlushEvent();
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar4;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+        BroadcastQueuedEvent();
       }
     }
   }

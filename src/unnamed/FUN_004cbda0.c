@@ -26,27 +26,27 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
     iVar7 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar7 != 0) {
-      Replay_AppendEvent(0xc401);
-      (&g_replayEventBuffer)[g_replayEventCursor] = (char)param_2;
-      g_replayEventCursor = g_replayEventCursor + 1;
+      QueueBroadcastEvent(0xc401);
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)param_2;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       cVar3 = PacketChecksumEquals(param_2 * 0x224 + 0x39f30 + g_clientContext,0xff);
       if (cVar3 == '\0') {
-        (&g_replayEventBuffer)[g_replayEventCursor] = 0;
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
         iVar7 = g_clientContext;
-        g_replayEventCursor = g_replayEventCursor + 1;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         *(undefined2 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) = 0;
       }
       else {
         QueueOutgoingPacketField(0);
-        (&g_replayEventBuffer)[g_replayEventCursor] = 0xff;
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0xff;
         iVar7 = g_clientContext;
         param_2 = param_2 + 1;
-        g_replayEventCursor = g_replayEventCursor + 1;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         *(undefined2 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) = 0xff00;
       }
       uVar4 = PeekChecksumStateUnderLock(param_2 * 0x224 + 0x39f30 + iVar7);
-      (&g_replayEventBuffer)[g_replayEventCursor] = uVar4;
-      g_replayEventCursor = g_replayEventCursor + 1;
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar4;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       iVar7 = *(int *)(g_clientContext + 0x621e0);
       uVar5 = PeekChecksumStateUnderLock(param_2 * 0x224 + 0x39f30 + g_clientContext);
       puVar1 = (ushort *)(iVar7 + 0xbfbc);
@@ -56,16 +56,16 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
       iVar7 = g_clientContext;
-      *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
-      g_replayEventCursor = g_replayEventCursor + 2;
+      *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
       uVar6 = PeekChecksumStateUnderLock(*(int *)(iVar7 + 0x621e0) + 0xb30);
       iVar7 = g_clientContext;
-      *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
-      g_replayEventCursor = g_replayEventCursor + 2;
+      *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
       uVar4 = PacketChecksumEquals(*(int *)(iVar7 + 0x621e0) + 0x1c54,1);
-      (&g_replayEventBuffer)[g_replayEventCursor] = uVar4;
-      g_replayEventCursor = g_replayEventCursor + 1;
-      Replay_FlushEvent();
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar4;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+      BroadcastQueuedEvent();
       FUN_004cc5c0(*(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 8),cVar3 != '\0',
                    *(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc));
       iVar7 = *(int *)(g_clientContext + 0x621e0);
@@ -89,14 +89,14 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
           cVar3 = PeekPacketChecksumBool();
           if (cVar3 == '\0') {
             SetGuardedBool(1);
-            Replay_AppendEvent(0xc301);
-            (&g_replayEventBuffer)[g_replayEventCursor] = 1;
-            g_replayEventCursor = g_replayEventCursor + 1;
+            QueueBroadcastEvent(0xc301);
+            (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
             uVar6 = FUN_0045d360(0);
-            *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
-            g_replayEventCursor = g_replayEventCursor + 2;
+            *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
             FUN_0041f200(0);
-            Replay_FlushEvent();
+            BroadcastQueuedEvent();
           }
         }
         SetGuardedBool(0);

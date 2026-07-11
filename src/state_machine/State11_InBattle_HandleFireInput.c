@@ -178,10 +178,10 @@ LAB_0045fb8c:
       else {
         QueueOutgoingPacketField(0);
         QueueOutgoingPacketField(0);
-        Replay_AppendEvent(0x4001);
-        (&g_replayEventBuffer)[g_replayEventCursor] = 0;
-        g_replayEventCursor = g_replayEventCursor + 1;
-        Replay_FlushEvent();
+        QueueBroadcastEvent(0x4001);
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+        BroadcastQueuedEvent();
       }
       if (((&DAT_006a64a4)[g_clientContext] == '\0') &&
          (cVar9 = PeekPacketChecksumBool(), iVar18 = g_clientContext, cVar9 != '\0')) {
@@ -293,10 +293,10 @@ LAB_0046000e:
       else {
         QueueOutgoingPacketField(1);
         QueueOutgoingPacketField(0);
-        Replay_AppendEvent(0x4001);
-        (&g_replayEventBuffer)[g_replayEventCursor] = 1;
-        g_replayEventCursor = g_replayEventCursor + 1;
-        Replay_FlushEvent();
+        QueueBroadcastEvent(0x4001);
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+        BroadcastQueuedEvent();
       }
       if (((&DAT_006a64a4)[g_clientContext] == '\0') &&
          (cVar9 = PeekPacketChecksumBool(), iVar18 = g_clientContext, cVar9 != '\0')) {
@@ -323,17 +323,17 @@ LAB_0046000e:
       QueueOutgoingPacketField(0);
       cVar9 = PeekPacketChecksumBool();
       if ((cVar9 == '\x01') && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01')) {
-        Replay_AppendEvent(0x8402);
+        QueueBroadcastEvent(0x8402);
         uVar11 = PeekChecksumStateUnderLock(param_1 + 0x243);
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         uVar11 = PeekChecksumStateUnderLock(param_1 + 0x2cc);
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         uVar10 = PacketChecksumEquals(param_1 + 0x715,1);
-        (&g_replayEventBuffer)[g_replayEventCursor] = uVar10;
-        g_replayEventCursor = g_replayEventCursor + 1;
-        Replay_FlushEvent();
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar10;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+        BroadcastQueuedEvent();
       }
     }
   }
@@ -421,11 +421,11 @@ LAB_00460553:
     QueueOutgoingPacketField(uVar17);
   }
   if (bVar5) {
-    Replay_AppendEvent(0x4006);
+    QueueBroadcastEvent(0x4006);
     uVar11 = PeekChecksumStateUnderLock(piVar19);
-    *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-    g_replayEventCursor = g_replayEventCursor + 2;
-    Replay_FlushEvent();
+    *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+    BroadcastQueuedEvent();
   }
   piVar19 = param_1 + 0x1d90;
   uVar17 = EncodeChecksumDeltaMul(piVar19,local_b40,10);
@@ -466,30 +466,30 @@ LAB_004606d5:
         uVar17 = 0x8403;
       }
     }
-    Replay_AppendEvent(uVar17);
+    QueueBroadcastEvent(uVar17);
     uVar11 = PeekChecksumStateUnderLock(param_1 + 0x243);
-    *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     uVar11 = PeekChecksumStateUnderLock(param_1 + 0x2cc);
-    *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     piVar20 = param_1 + 0x715;
     uVar10 = PacketChecksumEquals(piVar20,1);
-    (&g_replayEventBuffer)[g_replayEventCursor] = uVar10;
-    g_replayEventCursor = g_replayEventCursor + 1;
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar10;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     uVar10 = PeekPacketChecksumBool();
-    (&g_replayEventBuffer)[g_replayEventCursor] = uVar10;
-    g_replayEventCursor = g_replayEventCursor + 1;
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar10;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     uVar11 = PeekChecksumStateUnderLock(param_1 + 0x1364);
-    *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     sVar12 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
     sVar13 = PeekChecksumStateUnderLock(piVar19);
-    *(short *)(&g_replayEventBuffer + g_replayEventCursor) = sVar12 * sVar13;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    *(short *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = sVar12 * sVar13;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     cVar9 = FUN_0045ec30();
-    (&g_replayEventBuffer)[g_replayEventCursor] = cVar9 != '\0';
-    g_replayEventCursor = g_replayEventCursor + 1;
+    (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = cVar9 != '\0';
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     cVar9 = PacketChecksumEquals(piVar20,0);
     if (cVar9 == '\0') {
       PeekChecksumStateUnderLock(param_1 + 0x273c);
@@ -503,11 +503,11 @@ LAB_004606d5:
     uVar11 = FloatToInt64();
     PeekChecksumStateUnderLock(param_1 + 0x27c5);
     uVar14 = FloatToInt64();
-    *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-    puVar1 = (undefined2 *)(&DAT_00e9aace + g_replayEventCursor);
-    g_replayEventCursor = g_replayEventCursor + 2;
+    *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+    puVar1 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     *puVar1 = uVar14;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     cVar9 = PacketChecksumEquals(piVar20,0);
     if (cVar9 == '\0') {
       PeekChecksumStateUnderLock(param_1 + 0x284e);
@@ -521,11 +521,11 @@ LAB_004606d5:
     uVar11 = FloatToInt64();
     PeekChecksumStateUnderLock(param_1 + 0x28d7);
     uVar14 = FloatToInt64();
-    *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-    puVar1 = (undefined2 *)(&DAT_00e9aace + g_replayEventCursor);
-    g_replayEventCursor = g_replayEventCursor + 2;
+    *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+    puVar1 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     *puVar1 = uVar14;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     cVar9 = PacketChecksumEquals(piVar20,0);
     if (cVar9 == '\0') {
       PeekChecksumStateUnderLock(param_1 + 0x2a72);
@@ -539,23 +539,23 @@ LAB_004606d5:
     uVar11 = FloatToInt64();
     PeekChecksumStateUnderLock(param_1 + 0x2afb);
     uVar14 = FloatToInt64();
-    *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-    puVar1 = (undefined2 *)(&DAT_00e9aace + g_replayEventCursor);
-    g_replayEventCursor = g_replayEventCursor + 2;
+    *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+    puVar1 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     *puVar1 = uVar14;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     uVar11 = PeekChecksumStateUnderLock(g_clientContext + 0x5af88);
     iVar18 = g_clientContext;
-    *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     uVar11 = PeekChecksumStateUnderLock(iVar18 + 0x5b1ac);
-    *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-    puVar2 = &DAT_00e9aace + g_replayEventCursor;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+    puVar2 = &DAT_00e9aace + g_dwBroadcastEventCursor;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     *puVar2 = 0;
-    g_replayEventCursor = g_replayEventCursor + 1;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     FUN_0043d6d0();
-    Replay_FlushEvent();
+    BroadcastQueuedEvent();
     SetGuardedBool(0);
     SetGuardedBool(0);
     iVar18 = g_clientContext;
@@ -625,29 +625,29 @@ LAB_004606d5:
             uVar17 = 0x8403;
           }
         }
-        Replay_AppendEvent(uVar17);
+        QueueBroadcastEvent(uVar17);
         uVar11 = PeekChecksumStateUnderLock(param_1 + 0x243);
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         uVar11 = PeekChecksumStateUnderLock(param_1 + 0x2cc);
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         piVar20 = param_1 + 0x715;
         uVar10 = PacketChecksumEquals(piVar20,1);
-        (&g_replayEventBuffer)[g_replayEventCursor] = uVar10;
-        g_replayEventCursor = g_replayEventCursor + 1;
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar10;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         uVar10 = PeekPacketChecksumBool();
-        (&g_replayEventBuffer)[g_replayEventCursor] = uVar10;
-        g_replayEventCursor = g_replayEventCursor + 1;
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar10;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         uVar11 = PeekChecksumStateUnderLock(param_1 + 0x1364);
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         uVar11 = PeekChecksumStateUnderLock(piVar19);
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         cVar9 = FUN_0045ec30();
-        (&g_replayEventBuffer)[g_replayEventCursor] = cVar9 != '\0';
-        g_replayEventCursor = g_replayEventCursor + 1;
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = cVar9 != '\0';
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         cVar9 = PacketChecksumEquals(piVar20,0);
         if (cVar9 == '\0') {
           PeekChecksumStateUnderLock(param_1 + 0x273c);
@@ -663,11 +663,11 @@ LAB_004606d5:
         PeekChecksumStateUnderLock(param_1 + 0x27c5);
         FUN_004ead70();
         uVar14 = FloatToInt64();
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-        puVar1 = (undefined2 *)(&DAT_00e9aace + g_replayEventCursor);
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        puVar1 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         *puVar1 = uVar14;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         cVar9 = PacketChecksumEquals(piVar20,0);
         if (cVar9 == '\0') {
           PeekChecksumStateUnderLock(param_1 + 0x284e);
@@ -683,11 +683,11 @@ LAB_004606d5:
         PeekChecksumStateUnderLock(param_1 + 0x28d7);
         FUN_004ead70();
         uVar14 = FloatToInt64();
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-        puVar1 = (undefined2 *)(&DAT_00e9aace + g_replayEventCursor);
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        puVar1 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         *puVar1 = uVar14;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         cVar9 = PacketChecksumEquals(piVar20,0);
         if (cVar9 == '\0') {
           PeekChecksumStateUnderLock(param_1 + 0x2a72);
@@ -704,23 +704,23 @@ LAB_004606d5:
         FUN_004ead70();
         uVar14 = FloatToInt64();
         iVar18 = g_clientContext;
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-        puVar1 = (undefined2 *)(&DAT_00e9aace + g_replayEventCursor);
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        puVar1 = (undefined2 *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         *puVar1 = uVar14;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         uVar11 = PeekChecksumStateUnderLock(iVar18 + 0x5af88);
         iVar18 = g_clientContext;
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         uVar11 = PeekChecksumStateUnderLock(iVar18 + 0x5b1ac);
-        *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-        puVar2 = &DAT_00e9aace + g_replayEventCursor;
-        g_replayEventCursor = g_replayEventCursor + 2;
+        *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        puVar2 = &DAT_00e9aace + g_dwBroadcastEventCursor;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         *puVar2 = 0;
-        g_replayEventCursor = g_replayEventCursor + 1;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         FUN_0043d6d0();
-        Replay_FlushEvent();
+        BroadcastQueuedEvent();
         SetGuardedBool(0);
         SetGuardedBool(0);
         *(undefined1 *)(param_1 + 0x2ffa) = 0;
@@ -839,13 +839,13 @@ LAB_004613b2:
       iVar18 = DAT_007934e4;
       *(undefined1 *)(DAT_007934e4 + 8) = 0;
       SetWindowTextA(*(HWND *)(iVar18 + 4),&DAT_00551cb1);
-      Replay_AppendEvent(0x8006);
+      QueueBroadcastEvent(0x8006);
       uVar11 = PeekChecksumStateUnderLock(param_1 + 0x243);
-      *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-      g_replayEventCursor = g_replayEventCursor + 2;
+      *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
       uVar11 = PeekChecksumStateUnderLock(param_1 + 0x2cc);
-      *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-      g_replayEventCursor = g_replayEventCursor + 2;
+      *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
       cVar9 = PeekPacketChecksumBool();
       if (cVar9 == '\0') {
         cVar9 = PeekPacketChecksumBool();
@@ -854,24 +854,24 @@ LAB_004613b2:
       else {
         uVar10 = 2;
       }
-      (&g_replayEventBuffer)[g_replayEventCursor] = uVar10;
-      g_replayEventCursor = g_replayEventCursor + 1;
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar10;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       uVar10 = PacketChecksumEquals(param_1 + 0x715,1);
-      (&g_replayEventBuffer)[g_replayEventCursor] = uVar10;
-      g_replayEventCursor = g_replayEventCursor + 1;
-      Replay_FlushEvent();
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar10;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+      BroadcastQueuedEvent();
     }
   }
   if ((((param_1[9] == 1) || (param_1[9] == 3)) && (cVar9 = PeekPacketChecksumBool(), cVar9 != '\0')) &&
      (0x14 < param_1[0x2b84])) {
-    Replay_AppendEvent(0x8005);
+    QueueBroadcastEvent(0x8005);
     uVar11 = PeekChecksumStateUnderLock(param_1 + 0x243);
-    *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-    g_replayEventCursor = g_replayEventCursor + 2;
+    *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     uVar11 = PeekChecksumStateUnderLock(param_1 + 0x2cc);
-    *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
-    g_replayEventCursor = g_replayEventCursor + 2;
-    Replay_FlushEvent();
+    *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+    g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+    BroadcastQueuedEvent();
     param_1[0x2b84] = 0;
   }
   iVar18 = *(int *)(&DAT_006a7724 + g_clientContext);
@@ -900,14 +900,14 @@ LAB_004613b2:
       SetGuardedBool(0);
       SetGuardedBool(0);
       SetGuardedBool(1);
-      Replay_AppendEvent(0xc301);
-      (&g_replayEventBuffer)[g_replayEventCursor] = 1;
-      puVar1 = (undefined2 *)(&DAT_00e9aacd + g_replayEventCursor);
-      g_replayEventCursor = g_replayEventCursor + 1;
+      QueueBroadcastEvent(0xc301);
+      (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
+      puVar1 = (undefined2 *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       *puVar1 = 0xffff;
-      g_replayEventCursor = g_replayEventCursor + 2;
+      g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
       FUN_0041f200(0);
-      Replay_FlushEvent();
+      BroadcastQueuedEvent();
     }
     *(undefined1 *)(param_1 + 0x2b85) = 1;
   }

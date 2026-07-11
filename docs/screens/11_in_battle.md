@@ -23,7 +23,7 @@ overlay still uses the software blitter. The most complex state.
 | 6 | `0x4b97d0` | `State11_InBattle_HandleMouseInput` — **mouse-input dispatcher** (Win32 mouse codes) |
 | 7 | `0x4bb730` | OnEnter |
 | 8 | `0x4bcd00` | OnExit |
-| 9 | `0x4bd8b0` | **`State11_InBattle_OnTick`** — the per-frame update (largest function in the binary, 17 KB). Structurally confirmed as the OnTick slot: State02's vtable has the identical slot-7/8/9 = OnEnter/OnExit/OnTick layout. 8-dir screen-edge camera-scroll cursor logic, chat-input field poll (`GetWindowTextA`), outgoing-packet field encoding, replay event logging, per-tick active-object GC (`FUN_004f3100`), turn-phase bookkeeping |
+| 9 | `0x4bd8b0` | **`State11_InBattle_OnTick`** — the per-frame update (largest function in the binary, 17 KB). Structurally confirmed as the OnTick slot: State02's vtable has the identical slot-7/8/9 = OnEnter/OnExit/OnTick layout. 8-dir screen-edge camera-scroll cursor logic, chat-input field poll (`GetWindowTextA`), outgoing-packet field encoding, broadcast-event logging, per-tick active-object GC (`FUN_004f3100`), turn-phase bookkeeping |
 | 10 | `0x4c1b90` | chat character-input helper (emoticon/control-char remap: `@→0x0a`…`*→0x10`) |
 | 11 | `0x4c1c90` | small per-tick counter/update helper |
 | 12 | `0x4c1d10` | one-line delegate → `FUN_004508a0` at `+0x6a7f88` |
@@ -78,8 +78,11 @@ overlay still uses the software blitter. The most complex state.
 - **Turn state machine** lives inside `ProcessBattleAction` (`0x4b5460`) — see
   ARCHITECTURE.md "The turn state machine". Ballistics (wind/angle/power),
   turn ordering, and per-mobile state are handled here.
-- **Replay recording**: actions and chat are logged to the replay stream
-  (see ARCHITECTURE.md "The replay-recording system").
+- **Recording/broadcast**: actions and chat are written to the local `.sv`
+  match record (`WriteReplayEventRecord`) *and* separately broadcast to peers
+  over UDP (`QueueBroadcastEvent`/`BroadcastQueuedEvent`) — two distinct
+  systems, see ARCHITECTURE.md "Two separate systems previously conflated as
+  'replay'".
 
 ### Firing & projectile spawning
 Each mobile's **slot-7 `MainAction`** is a `switch(animEvent)` weapon-fire
@@ -97,7 +100,7 @@ All three `operator_new` the projectile, resolve its texture via
 `FindPreloadedTextureByName`, serialize position + the **velocity vector**
 (`power × g_sineTable360[angle]`, a 360-entry sine LUT indexed by
 `(angle+90)%360` for the x/cos term and `angle%360` for the y/sin term, via
-`FloatToInt64`) into the outgoing packet, append a **`0xf000`** replay event, and
+`FloatToInt64`) into the outgoing packet, append a **`0xf000`** broadcast event, and
 register the object (`RegisterActiveObject` + `FUN_0041da80`). The per-projectile
 constructors (`FUN_00454dc0`, `FUN_00468860`, …, one per bullet class) remain
 `FUN_`-named. `g_sineTable360` is the ballistics sine table referenced above.

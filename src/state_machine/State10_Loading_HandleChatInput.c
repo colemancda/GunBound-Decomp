@@ -43,14 +43,14 @@ void __thiscall State10_Loading_HandleChatInput(int *param_1,int param_2,int par
       else {
         cVar2 = FUN_00415230();
         if (cVar2 == '\0') {
-          Replay_AppendEvent(1);
+          QueueBroadcastEvent(1);
           pcVar3 = acStack_80;
           do {
             cVar2 = *pcVar3;
             pcVar3 = pcVar3 + 1;
           } while (cVar2 != '\0');
-          Replay_AppendString(acStack_80);
-          Replay_FlushEvent();
+          AppendBroadcastString(acStack_80);
+          BroadcastQueuedEvent();
           goto LAB_0043e820;
         }
         uVar4 = 0x205;

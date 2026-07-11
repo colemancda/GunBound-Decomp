@@ -1,4 +1,4 @@
-/* Replay_FlushEvent - 0x004e6fc0 in the original binary.
+/* BroadcastQueuedEvent - 0x004e6fc0 in the original binary.
  *
  * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
  * verified against documented behavior beyond what's already in
@@ -12,7 +12,7 @@
 #include <windows.h>
 
 
-undefined4 Replay_FlushEvent(void)
+undefined4 BroadcastQueuedEvent(void)
 
 {
   undefined2 *puVar1;

@@ -236,20 +236,20 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                 iVar12 = iVar19 * 8 + g_clientContext;
                 *(undefined4 *)(&DAT_006a7670 + iVar12) = 0;
                 *(undefined4 *)((int)(&DAT_006a7670 + iVar12) + 4) = 0;
-                Replay_AppendEvent(0xc303);
-                (&g_replayEventBuffer)[g_replayEventCursor] = (char)iVar19;
-                g_replayEventCursor = g_replayEventCursor + 1;
+                QueueBroadcastEvent(0xc303);
+                (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)iVar19;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
                 if (iVar19 == 0xe) {
                   cVar4 = PeekPacketChecksumBool();
                   if (cVar4 == '\0') {
                     SetGuardedBool(1);
                   }
                   uVar5 = FUN_0045d360(0);
-                  *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar5;
-                  g_replayEventCursor = g_replayEventCursor + 2;
+                  *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar5;
+                  g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
                   FUN_0041f200(0);
                 }
-                Replay_FlushEvent();
+                BroadcastQueuedEvent();
                 FUN_00415470();
                 local_d78 = local_d78 - 1;
                 if (*(int *)(&DAT_006a76f8 + g_clientContext) == 0) {
