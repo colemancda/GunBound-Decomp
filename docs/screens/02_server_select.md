@@ -38,11 +38,11 @@ slots 5 and 6).
 | Buddy-game button | `b_server_buddygame` | (0xa3, 0x227) 0x6b×0x2d |
 | Connect button | `b_server_choiceserver` | (0x199, 0x227) 0x6b×0x2d, **created disabled** |
 | Error dialog OK | `b_error_confirm` (shared) | (0x1c6, 0x14b) 0x4a×0x1a |
-- **Audio**: `channel.mp3` (started by `FUN_004eea30(1)`)
+- **Audio**: `channel.mp3` (started by `PlayMusicTrack(1)`)
 
 ### Images loaded by resource ID
 Only the three bottom buttons appear as string literals in `OnEnter`; every
-other resource is preloaded **by numeric ID** via `FUN_004f1790(&DAT_00ea0e18,
+other resource is preloaded **by numeric ID** via `LoadSpriteSet(&DAT_00ea0e18,
 id)` (an XFS-defined resource loader), then bound to a widget. The seven IDs
 `OnEnter` preloads:
 
@@ -157,7 +157,7 @@ Full wire format in [PROTOCOL.md](../../PROTOCOL.md) (opcode `0x1102`). Max 16
 entries (the `desc` table is exactly 16×256 = 0x1000).
 
 ## OnEnter (`0x4e14b0`)
-1. Register button definitions (`FUN_004f1790` ×7; `AppendPersistentButtonName` ×3).
+1. Register button definitions (`LoadSpriteSet` ×7; `AppendPersistentButtonName` ×3).
 2. Create the three buttons above (`b_server_choiceserver` disabled).
 3. Reset `this+8 = -1`; **zero the entire server-list SoA** (`+0x3f808`…`+0x4111a`).
 4. Compute an initial scroll/paging value into `+0x14`/`+0x18`.
@@ -174,20 +174,20 @@ entries (the `desc` table is exactly 16×256 = 0x1000).
 > **Correction (supersedes an earlier "no list UI / no scroll view / connects
 > to first server" conclusion).** That conclusion was wrong: it only looked at
 > the state's own vtable slots + the three `CreateButtonWidget` calls and
-> missed that `OnEnter` also calls **`FUN_005099d0(&DAT_00e53c40)`**, which
+> missed that `OnEnter` also calls **`BuildWorldListPanel(&DAT_00e53c40)`**, which
 > builds a full **scroll-list panel** through the generic UI-widget system.
-> `FUN_005099d0` is called *only* from this screen's `OnEnter`.
+> `BuildWorldListPanel` is called *only* from this screen's `OnEnter`.
 
 - The state has **no bespoke render slot** (slot 15 is the shared background
   blit `0x443570`, drawing `server_list.img`); the three top-level buttons and
   the whole list panel draw via the generic active-object sweep.
-- **`FUN_005099d0`** creates a ~545×530 panel (at `(0xb,0xd)`) with two panel
+- **`BuildWorldListPanel`** creates a ~545×530 panel (at `(0xb,0xd)`) with two panel
   buttons (msg `0x44c`/`0x44d`) and a **scroll-list widget** built by
-  **`FUN_005080a0`** (class vtable `0x557e90`, 0x58-byte object).
+  **`CreateScrollListWidget`** (class vtable `0x557e90`, 0x58-byte object).
 - The scroll-list widget:
   - auto-creates its own **up/down scroll-arrow buttons** (two 18×18 child
     widgets, at the top and bottom of the track);
-  - has a **draggable scrollbar thumb** — mouse-down (`FUN_0050f500`) hit-tests
+  - has a **draggable scrollbar thumb** — mouse-down (`ScrollListWidget_OnMouseDown`) hit-tests
     the thumb rect computed from scroll position (`+0x40`), content total
     (`+0x38`), and track height (`+0x34`) and begins a drag; mouse-move
     (`FUN_0050f460`) recomputes the position during the drag;
@@ -195,7 +195,7 @@ entries (the `desc` table is exactly 16×256 = 0x1000).
     (clamped to `total − pageSize`);
   - on any scroll change (drag or arrows) fires a callback to the parent
     panel: **cmd `0x2000` + the new scroll position**.
-- The parent panel's handler (`FUN_0050d810`) writes the scroll offset back
+- The parent panel's handler (`WorldListPanel_OnCommand`) writes the scroll offset back
   into the **ServerSelect state object** (`g_gameStateVTableArray[2]+0x14`/
   `+0x18`) and issues a **server request** for that page — see below.
 
@@ -304,7 +304,7 @@ See README "Error / message dialog" for the dialog's layout.
 
 ## Reimplementation checklist
 1. Load `server_list.img` + `channel.mp3`; create the three top-level buttons
-   (connect disabled) and the scroll-list panel (`FUN_005099d0`).
+   (connect disabled) and the scroll-list panel (`BuildWorldListPanel`).
 2. Connect to the broker; request a page (`0x1100`, scroll offset from `+0x18`);
    store each `0x1102` page into the 16-entry SoA.
 3. Render the scroll list: visible rows + a draggable scrollbar thumb + up/down

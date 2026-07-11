@@ -152,7 +152,7 @@ The host-only room-config controls dispatch to two different sends:
   sends it — the 4/6/8-player room-size selector.
 - **`0x3101` — room-options bitfield dword** (cases `0xb`–`0x3e`): each control
   is a radio group that clears its own bit range and sets the chosen value in a
-  single settings dword (read via `FUN_0040a4d0(this+0x26c)`), pushed with
+  single settings dword (read via `PeekChecksumStateUnderLock(this+0x26c)`), pushed with
   `QueueOutgoingPacketField`. Confirmed **bit-group layout** (values written by
   consecutive case IDs; exact per-option *labels* need the config-panel strings
   and aren't decoded):

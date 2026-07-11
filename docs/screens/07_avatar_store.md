@@ -37,7 +37,7 @@ per-part **equip codes** (each a `u16`: bit 15 = gender, bits 0–14 = the part 
 record index) is fed to the compositor **`LoadAvatarSprites`** (`0x4141b0`), which
 `LoadSpriteSet`s each `{gender}{cat}{id:05d}.img` from `graphics.xfs` and blits the
 parts into the **`AvataTexture1/2`** runtime render target. The store's slot
-handlers (`FUN_0044b170` equip-a-code / `FUN_0044b330` clear-slot / `FUN_0044b460`)
+handlers (`EquipAvatarPart` equip-a-code / `UnequipAvatarSlot` clear-slot / `PreviewAvatarPart`)
 push the previewed code into the store context (`+0x31488`) and re-run the
 compositor. A committed outfit is stored as the packed `avatarEquipped` UInt64
 (4 × u16 = Body / Head-or-Flag / Glasses / Flag-or-Head — see FILEFORMATS.md;

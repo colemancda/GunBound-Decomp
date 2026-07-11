@@ -138,7 +138,7 @@ Three layers (all confirmed — see ARCHITECTURE.md "The generic UI-widget syste
 
    **`vtable_ButtonWidget` slots** (5): slot 0 scalar-deleting dtor; slot 1
    timing fields; **slot 2** (`0x405e90`) advances animation state via the
-   generic sprite-animation ticker `FUN_00450730` (frame timer → frame index
+   generic sprite-animation ticker `AdvanceSpriteAnimation` (frame timer → frame index
    at `+0x30`); **slot 3** (`0x405ea0`) is the actual draw (reads `+0x30`
    frame, `+0x38`/`+0x3C` position, blits via `FindSpriteFrame` +
    `BlitSprite16bpp`/`BlitSpriteClipped`); slot 4 is a no-op `RET`.
@@ -166,8 +166,8 @@ parent panel.
 |---|---|
 | `BuildWorldListPanel` (`0x5099d0`) | State 2 — server WORLD LIST |
 | `BuildBuddyPanel` | shared **buddy list** (lobby / ready room / WndProc) |
-| `BuildLobbyChatPanel`, `FUN_00509d80` | State 3 — lobby panels |
-| `FUN_005094f0` | State 9 — Ready Room list |
+| `BuildLobbyChatPanel`, `BuildChannelUserListPanel` | State 3 — lobby panels |
+| `BuildReadyRoomChatPanel` | State 9 — Ready Room list |
 | `BuildAvatarStorePanel` | State 7 — Avatar Store list |
 | `BuildChatLogPanel` | a panel via `FUN_004025e0` |
 

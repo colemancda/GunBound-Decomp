@@ -48,8 +48,8 @@ extern const char s_ready_00551e80[];
 void FUN_00406300(int enabled);
 void ShowErrorDialog(int mode);
 void FUN_004d2680(void);            /* flush/send the pending channel-1 packet */
-char FUN_004065a0(void);                /* mode check gating the page-offset source */
-void FUN_00406500(int a);
+char PeekPacketChecksumBool(void);                /* mode check gating the page-offset source */
+void SetGuardedBool(int a);
 void FUN_004d24f0(void);
 unsigned char FUN_00402020(void);       /* per-slot blink randomizer */
 void FUN_00401650(void);                /* flat-ButtonWidget per-slot destroy (index in regs) */
@@ -206,13 +206,13 @@ static void ConnectButtonFromPlayerRecord()
     }
 }
 
-/* 0x4e1960 (FUN_004e1960) - the per-frame tick, vtable slot 9. Four
+/* 0x4e1960 (State02_ServerSelect_OnTick) - the per-frame tick, vtable slot 9. Four
  * jobs: (1) resolve a finished connect attempt - failure resets the
  * connect button and pops ShowErrorDialog(0), success arms the
  * handshake; (2) send the 0x1000 handshake the tick after connecting;
  * (3) once connected, send the initial 0x1100 page request OnEnter
  * armed (page = the saved scroll offset, or the channel-derived value
- * when FUN_004065a0 says so) after clearing the per-slot errors;
+ * when PeekPacketChecksumBool says so) after clearing the per-slot errors;
  * (4) roll each listed server's blink animState. */
 void CState02ServerSelect::OnTick()
 {
@@ -225,8 +225,8 @@ void CState02ServerSelect::OnTick()
             FUN_00406300(m_highlightedSlot != -1);
             ShowErrorDialog(0);
             m_uiDirty = 1;
-            if (FUN_004065a0() != 0) {
-                FUN_00406500(0);
+            if (PeekPacketChecksumBool() != 0) {
+                SetGuardedBool(0);
             }
             FUN_004d24f0();
             cfg = (unsigned char *)DAT_007934ec;
@@ -254,7 +254,7 @@ void CState02ServerSelect::OnTick()
         *(int *)(ctx + 0x44d0) = cur + 1;
         *(unsigned char *)(ctx + 0x4d1 + cur) = 0;
         *(int *)(ctx + 0x44d0) += 1;
-        if (FUN_004065a0() == 0) {
+        if (PeekPacketChecksumBool() == 0) {
             *(unsigned short *)(ctx + 0x4d0 + *(int *)(ctx + 0x44d0)) =
                 (unsigned short)m_scrollOffset;
         } else {

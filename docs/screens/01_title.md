@@ -15,7 +15,7 @@ No interactive UI at all.
 - **Audio**: `title.mp3`
 
 ## OnEnter (`0x4e5370`)
-- Audio setup only — starts title music via `FUN_004f1790(&DAT_00ea0e18, 10000)`.
+- Audio setup only — starts title music via `LoadSpriteSet(&DAT_00ea0e18, 10000)`.
 - **No blit calls, no `CreateButtonWidget`** — Title has no widgets (confirmed
   exception to "every OnEnter builds buttons").
 

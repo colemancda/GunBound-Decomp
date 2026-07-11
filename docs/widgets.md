@@ -45,17 +45,17 @@ scrollbar (`0x557e90`), and panel (`0x557f08`) vtables:
 | Slot (off) | Role | Shared base impl |
 |---|---|---|
 | 0 (`+0x00`) | **SetFocus(bool)** — **confirmed by decompiling `0x50e860`** (headless Ghidra export; the function is vtable-only-referenced so no raw port existed): its whole body is `this->+0x04 = arg`. The base slot-7 focus mover (`0x50eb10`) calls it with `0`/`1` on the focus loser/gainer; `CEditBox`'s `+0x04` flag is the state it toggles. | `0x50e860` |
-| 1 (`+0x04`) | mouse-move | per-class; base drag = `FUN_0050e3a0` (slot 11 in some) |
-| 2 (`+0x08`) | mouse-down | per-class (e.g. label `Label_OnMouseDown`, scrollbar `FUN_0050f500`) |
+| 1 (`+0x04`) | mouse-move | per-class; base drag = `Widget_OnDragMove` (slot 11 in some) |
+| 2 (`+0x08`) | mouse-down | per-class (e.g. label `Label_OnMouseDown`, scrollbar `ScrollListWidget_OnMouseDown`) |
 | 3 (`+0x0c`) | mouse-up | per-class |
 | 4 (`+0x10`) | **hit-test** | `Widget_HitTest` — rect test (`+0x28`/`+0x2c`/`+0x30`/`+0x34`) then broadcast to children |
 | 5 (`+0x14`) | keyboard input | `Widget_DispatchKeyToChildren` — broadcast to children's slot 5 |
 | 6 (`+0x18`) | mouse input | `Widget_DispatchMouseToChildren` — broadcast to children's slot 6 |
-| 7 (`+0x1c`) | **command/callback + focus-nav** | `FUN_0050eb10` (leaf) — receives child callbacks (`0x2000` scroll, `0x1100`/`0x1101` focus move); panels override (e.g. `WorldListPanel_OnCommand`) |
+| 7 (`+0x1c`) | **command/callback + focus-nav** | `Widget_OnCommandDefault` (leaf) — receives child callbacks (`0x2000` scroll, `0x1100`/`0x1101` focus move); panels override (e.g. `WorldListPanel_OnCommand`) |
 | 8 (`+0x20`) | **draw** | per-class; also broadcasts draw to children (container base `Widget_DrawChildren`) |
 | 9 (`+0x24`) | secondary render / per-class hook | per-class (e.g. panel row-loop `0x50dc40`) |
 | 10 (`+0x28`) | unknown trivial one-byte setter — `0x50e860`'s decompile (`this->+0x04 = arg`, 3 instructions) rules out any destructor reading; slot 10 resolving to the same address as slot 0 is identical-code folding of another trivial setter. This vtable has **no virtual destructor slot**. | `0x50e860` (folded) |
-| 11 (`+0x2c`) | base drag mouse-move | `FUN_0050e3a0` |
+| 11 (`+0x2c`) | base drag mouse-move | `Widget_OnDragMove` |
 
 ### The event model — the `+0x1c` callback
 This is the spine of the whole system. When a leaf widget is activated it calls
@@ -129,7 +129,7 @@ channel."). Runtime-confirmed as `+0x20` type id `3`; sits in dialog panels as a
 plain display element (no click handler). Distinct from the `0x557da0`
 label/button (`typeId 1`), which is a clickable sprite/text cell.
 
-### Scrollbar — `FUN_005080a0` = `CreateScrollListWidget` (`0x557e90`, 0x58 bytes)
+### Scrollbar — `CreateScrollListWidget` (`0x557e90`, 0x58 bytes)
 A fixed **18-px-wide vertical scrollbar** (the `w` argument is `0x12` in every
 call). Owns scroll position (`+0x40`), total items (`+0x38`, via register), page
 size (`+0x3c`), and auto-creates its own up/down arrow child buttons. Draggable
@@ -334,12 +334,12 @@ public:
     virtual void Draw();                               // slot 8  (+0x20)  self + broadcast to children (Widget_DrawChildren)
     virtual void Update();                             // slot 9  (+0x24)
     virtual ~CWidget();                                // slot 10 (+0x28)  scalar-deleting dtor (0x50e860) - see corrected table above
-    virtual bool OnDragMove(int x, int y);             // slot 11 (+0x2c)  FUN_0050e3a0
+    virtual bool OnDragMove(int x, int y);             // slot 11 (+0x2c)  Widget_OnDragMove
 protected:
     // vtable                                          // +0x00
     CWidget*  m_parent;          // +0x08  callback target for OnCommand
     CWidget** m_children;        // +0x0c  \
-    int       m_childCount;      // +0x10   > growable array (ptr / size / capacity; grow = FUN_0050ed30)
+    int       m_childCount;      // +0x10   > growable array (ptr / size / capacity; grow = AtlArray_GrowBuffer)
     int       m_childCap;        // +0x14  /
     bool      m_hidden;          // +0x1e  short-circuits HitTest/Draw
     int       m_id;              // +0x24  reported to OnCommand
@@ -362,7 +362,7 @@ class CEditBox : public CWidget {        // vtable 0x557c84, ctor CreateTextEntr
 };
 
 // Vertical scrollbar, 0x58 bytes.
-class CScrollBar : public CWidget {      // vtable 0x557e90, ctor FUN_005080a0(parent, x,y, 0x12, h, pageSize)
+class CScrollBar : public CWidget {      // vtable 0x557e90, ctor CreateScrollListWidget(parent, x,y, 0x12, h, pageSize)
     int  m_total;      // +0x38  (arrives in a register)
     int  m_pageSize;   // +0x3c
     int  m_scrollPos;  // +0x40
@@ -388,7 +388,7 @@ class CPanel : public CWidget {          // e.g. 0x557f08 (world list), 0x557be4
   single-inheritance `CWidget` — slot 0 **and** slot 10 both resolve to
   `0x50e860`, which could indicate a small multiple-inheritance base or just a
   shared trivial destructor (can't tell); whether `m_children` is a raw array or
-  an STL/custom `vector` (the grow helper `FUN_0050ed30` looks hand-rolled
+  an STL/custom `vector` (the grow helper `AtlArray_GrowBuffer` looks hand-rolled
   `ptr/size/cap`, so probably a custom `CArray`-style template).
 - The flat **`ButtonWidget`** (vtable `0x551e44`, 5 slots) is a *separate,
   simpler* class, not part of this hierarchy — the client had (at least) two UI

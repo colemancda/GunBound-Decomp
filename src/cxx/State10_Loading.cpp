@@ -15,7 +15,7 @@ extern unsigned char DAT_007933b8;      /* "chat entry armed" flag */
 extern unsigned int DAT_007934e4;       /* shared overlay EDIT control (+4 = HWND) */
 extern unsigned char DAT_00551cb1;      /* the empty string the EDIT is reset to */
 extern unsigned char g_localizedStringTable;      /* localized-string table base */
-char FUN_004065a0(void);                /* replay-playback mode check */
+char PeekPacketChecksumBool(void);                /* replay-playback mode check */
 void FUN_0040c880(char *out);           /* read the EDIT control's text into out[128] */
 char FUN_004218c0(int ctx, char *text); /* slash-command handler (true = consumed) */
 char FUN_00415b00(char *text);          /* "message too long" check */
@@ -56,7 +56,7 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
     if (DAT_007933b8 != 1) {
         return;
     }
-    if (FUN_004065a0() == 0) {
+    if (PeekPacketChecksumBool() == 0) {
         FUN_0040c880(text);
         if (text[0] != '\0' && FUN_004218c0(g_clientContext, text) == 0) {
             int msgId;
