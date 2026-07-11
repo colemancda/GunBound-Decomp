@@ -19,10 +19,10 @@ mkdir -p build
 TYPES=$(grep -hoE '^(class|struct) C?[A-Za-z0-9]+' src/cxx/*.h \
         | awk '{print $2}' | grep -vE '^CAtlArray$' | awk '!seen[$0]++')
 
-TU="$(mktemp --suffix=.cpp)"
+TU="${TMPDIR:-/tmp}/gb_cxx_types_tu.$$.cpp"   # portable (BSD/GNU); .cpp suffix needed by g++
 trap 'rm -f "$TU"' EXIT
 {
-  for h in gb_common.h GameState.h Widget.h Protocol.h ClientContext.h ValueGuard.h AtlArray.h; do
+  for h in gb_common.h GameState.h Widget.h Protocol.h ClientContext.h ValueGuard.h AtlArray.h Mobile.h; do
     echo "#include \"$h\""
   done
   # One member of each type forces GCC to emit its full layout in DWARF.
