@@ -31,7 +31,7 @@ extern unsigned char DAT_00e9be90;      /* flat-ButtonWidget registry */
 extern const char s_b_server_exitgame_00557144[];
 extern const char s_b_server_buddygame_00557170[];
 extern const char s_b_server_choiceserver_00557158[];
-void BeginServerConnect(void *target, int a);
+void BeginServerConnect(void *target, int a, int connCtxBase);
 extern unsigned char DAT_005b2ad0;      /* broker connect target record */
 extern int DAT_005b33e8;
 extern int DAT_005b2b64;                /* server count hint for the scroll seed */
@@ -116,7 +116,7 @@ void CState02ServerSelect::OnEnter()
     m_scrollOffset = (int)page;
     m_unk1c = 0;
     BuildWorldListPanel(&g_uiPanelManager);
-    BeginServerConnect(&DAT_005b2ad0, DAT_005b33e8);
+    BeginServerConnect(&DAT_005b2ad0, DAT_005b33e8, (int)DAT_007934f0);
     m_wantInitialList = 1;
     *(unsigned char *)(DAT_007934e4 + 8) = 1;   /* show the shared EDIT overlay */
     /* leftover connected socket from a previous session: tear it down */

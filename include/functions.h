@@ -1011,7 +1011,7 @@ uint FUN_004d2130();
 undefined4 * FUN_004d2170();
 void FUN_004d22d0();
 void FUN_004d23f0();
-void BeginServerConnect();
+void BeginServerConnect(undefined4, undefined4, int);
 void FUN_004d24f0();
 void __fastcall AppendPacketBytes();
 void __fastcall AppendEncodedBlock();

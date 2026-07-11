@@ -56,7 +56,12 @@ void ConnectToSelectedServer(int param_1)
     iVar3 = g_clientContext;
     *(undefined1 *)(param_1 + 0x24) = 0;
     *(undefined1 *)(iVar4 + 0x84e6) = 0;
-    BeginServerConnect(local_80,*(undefined2 *)(iVar3 + 0x4108a + unaff_EDI * 2));
+    /* unaff_EBX for this call site is DAT_007934ec, not DAT_007934f0 -
+     * inferred from the +0x84e6 write on iVar4 (=DAT_007934ec) immediately
+     * above, matching the +0x84e0/+0x84e4 family's offsets on that same
+     * base pointer. Not traced against original disassembly for this
+     * specific call site; not on the current bring-up path. */
+    BeginServerConnect(local_80,*(undefined2 *)(iVar3 + 0x4108a + unaff_EDI * 2),DAT_007934ec);
     *(undefined1 *)(param_1 + 4) = 1;
     *(int *)(param_1 + 0x68) = unaff_EDI;
   }

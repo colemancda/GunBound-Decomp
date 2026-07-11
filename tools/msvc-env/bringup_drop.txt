@@ -8,17 +8,12 @@
 # value-guard encode: reads unaff_EDI (the dropped this-pointer of the
 # guard cell) - WinMain's anti-tamper preamble, not needed for the logo
 src_network_EncodeOutgoingPacketField.obj
-# network-manager ctor: reads unaff_ESI (dropped this); crashes in
-# FUN_004e5bb0(NULL). Network stack not needed for the logo.
-src_unnamed_FUN_004e54e0.obj
 # SEH-frame ctor (unaff_FS_OFFSET deref): a state-object ctor from the
 # InitGame chain; its state isn't on the logo path.
 src_unnamed_FUN_004d2170.obj
 # local-IP enumeration (gethostname); writes through dropped unaff_EDI
 # output pointer. Called from WinMain; not needed for the logo.
 src_unnamed_FUN_004d23f0.obj
-# auto-dropped by bringup_loop: crashed at 0x0040C22C
-src_unnamed_FUN_004058c0.obj
 # Startup XFS loaders whose internal read calls (FindXFSEntry/ReadXFSEntry
 # via g_xfsScratch) are not yet promoted - they load strings/game-data
 # the logo doesn't need. Drop for bring-up until promoted.
