@@ -81,7 +81,7 @@ void __fastcall FUN_004765d0(int *param_1)
       puStack_8 = (undefined1 *)0x0;
       PeekChecksumStateUnderLock(uVar10);
       PeekChecksumStateUnderLock(param_1 + 0x3d5);
-      iVar7 = FUN_004e4340();
+      iVar7 = FindGroundHeightAtColumn();
       iVar8 = PeekChecksumStateUnderLock(piVar2);
       puStack_8 = (undefined1 *)0xffffffff;
       ScrubChecksumGuard();

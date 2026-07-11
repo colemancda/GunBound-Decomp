@@ -72,13 +72,19 @@ public:
      * advances sprite animation, records replay events, updates the
      * color/AI counters. Dispatches to several other vtable slots. */
     virtual void v2_SimulateFrame();
-    /* slot 3 +0x0c: 0x462900 (shared) - large method. Role unconfirmed. */
-    virtual void v3();
+    /* slot 3 +0x0c: 0x462900 = RenderMobile (shared) - the mobile draw pass:
+     * blits the tank sprite (FUN_0045b730/b900), draws the aim/trajectory
+     * markers (BlitRLESprite) from the fire angle via trig (FUN_004ead90/70 ->
+     * FloatToInt64), and sprintf's a "%d,%d" coordinate overlay drawn
+     * digit-by-digit; populates the per-slot turn-display array. */
+    virtual void v3_Render();
     /* slot 4 +0x10: 0x429800 (shared) - no-op (`return;`). */
     virtual void v4_NoOp();
-    /* slot 5 +0x14: 0x45c6e0 (shared; type 13 overrides -> 0x46cbb0) -
-     * update-ish, checksum-state buffers. Role unconfirmed. */
-    virtual void v5_Update();
+    /* slot 5 +0x14: 0x45c6e0 = ComputeMobileGroundY (shared; type 13 overrides
+     * -> 0x46cbb0) - queries the terrain height below the mobile via
+     * FindGroundHeightAtColumn (0x4e4340, a downward column scan of the terrain
+     * bitmap for the first solid pixel), guard-verified, and returns it. */
+    virtual int v5_ComputeGroundY();
     /* slot 6 +0x18: 0x45f910 = HandleFireInput (shared) - decides a fire
      * attempt's outcome and emits the 0x8403 Fire action; reads the fire
      * angle/power CValueGuard objects at byte 0x90c / 0xb30 (see below). CONFIRMED. */

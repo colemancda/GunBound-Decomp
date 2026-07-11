@@ -42,7 +42,7 @@ int __fastcall FUN_0046cbb0(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_68c = FUN_004e4340();
+  local_68c = FindGroundHeightAtColumn();
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
@@ -79,7 +79,7 @@ int __fastcall FUN_0046cbb0(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_688[0] = FUN_004e4340();
+    local_688[0] = FindGroundHeightAtColumn();
     local_4 = 0xffffffff;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
@@ -107,7 +107,7 @@ int __fastcall FUN_0046cbb0(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_688[0] = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      local_68c = FUN_004e4340();
+      local_68c = FindGroundHeightAtColumn();
       local_4 = 0xffffffff;
       if (local_664 != 0) {
         ScrambleChecksumGuardBytes();

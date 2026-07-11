@@ -469,7 +469,7 @@ LAB_0044d07e:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = FUN_004e4340();
+  iVar5 = FindGroundHeightAtColumn();
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_ab0 != 0) {
     ScrambleChecksumGuardBytes();

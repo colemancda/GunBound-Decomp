@@ -1,4 +1,4 @@
-/* FUN_00462900 - 0x00462900 in the original binary.
+/* RenderMobile - 0x00462900 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -9,7 +9,7 @@
 
 /* WARNING: Removing unreachable block (ram,0x00462a32) */
 
-void __fastcall FUN_00462900(int param_1)
+void __fastcall RenderMobile(int param_1)
 
 {
   int iVar1;

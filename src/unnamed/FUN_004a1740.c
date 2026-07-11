@@ -79,7 +79,7 @@ LAB_004a2741:
         local_4 = 0;
         PeekChecksumStateUnderLock(uVar9);
         PeekChecksumStateUnderLock(iVar13);
-        iVar7 = FUN_004e4340();
+        iVar7 = FindGroundHeightAtColumn();
         local_4 = 0xffffffff;
         ScrubChecksumGuard();
         uVar9 = EncodeChecksumDeltaSub(param_1,local_f08,6);
@@ -88,7 +88,7 @@ LAB_004a2741:
         SUBFIELD(local_4,0,undefined1) = 2;
         PeekChecksumStateUnderLock(uVar9);
         PeekChecksumStateUnderLock(uVar10);
-        iVar8 = FUN_004e4340();
+        iVar8 = FindGroundHeightAtColumn();
         local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
         ScrubChecksumGuard();
         local_4 = 0xffffffff;
@@ -99,7 +99,7 @@ LAB_004a2741:
         SUBFIELD(local_4,0,undefined1) = 4;
         PeekChecksumStateUnderLock(uVar9);
         PeekChecksumStateUnderLock(uVar10);
-        iVar11 = FUN_004e4340();
+        iVar11 = FindGroundHeightAtColumn();
         local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
         ScrubChecksumGuard();
         local_4 = 0xffffffff;

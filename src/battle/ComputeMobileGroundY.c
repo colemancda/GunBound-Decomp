@@ -1,4 +1,4 @@
-/* FUN_0045c6e0 - 0x0045c6e0 in the original binary.
+/* ComputeMobileGroundY - 0x0045c6e0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_0045c6e0(int param_1)
+int __fastcall ComputeMobileGroundY(int param_1)
 
 {
   int iVar1;
@@ -47,7 +47,7 @@ int __fastcall FUN_0045c6e0(int param_1)
   local_67c = param_1 + 0x90c;
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_680 = FUN_004e4340();
+  local_680 = FindGroundHeightAtColumn();
   local_4 = 0;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
@@ -86,7 +86,7 @@ int __fastcall FUN_0045c6e0(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = FUN_004e4340();
+    iVar4 = FindGroundHeightAtColumn();
     local_4 = 0xffffffff;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
@@ -112,7 +112,7 @@ int __fastcall FUN_0045c6e0(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = FUN_004e4340();
+      iVar3 = FindGroundHeightAtColumn();
       local_4 = 0xffffffff;
       if (local_664 != 0) {
         ScrambleChecksumGuardBytes();

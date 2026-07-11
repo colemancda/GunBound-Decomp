@@ -610,7 +610,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0045b730,453,FUN_0045b730,false,4,0,RAW-src
 0045b900,336,FUN_0045b900,false,4,0,RAW-src
 0045ba50,3207,FUN_0045ba50,false,2,17,RAW-src
-0045c6e0,1133,FUN_0045c6e0,false,17,10,RAW-src
+0045c6e0,1133,ComputeMobileGroundY,false,17,10,RAW-src
 0045cb50,1521,FUN_0045cb50,false,1,24,RAW-src
 0045d150,523,FUN_0045d150,false,3,5,RAW-src
 0045d360,725,FUN_0045d360,false,9,8,RAW-src
@@ -627,7 +627,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00461a20,573,FUN_00461a20,false,1,8,RAW-src
 00461c60,63,FUN_00461c60,false,139,1,RAW-src
 00461ca0,3153,SimulateMobileFrame,false,17,38,RAW-src
-00462900,3369,FUN_00462900,false,17,26,RAW-src
+00462900,3369,RenderMobile,false,17,26,RAW-src
 00463630,1613,FUN_00463630,false,1,17,RAW-src
 00463c80,450,FUN_00463c80,false,1,5,RAW-src
 00463e50,522,FUN_00463e50,false,1,6,RAW-src
@@ -1045,7 +1045,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e3d60,677,FUN_004e3d60,false,2,6,RAW-src
 004e4010,513,FUN_004e4010,false,2,1,RAW-src
 004e4220,272,FUN_004e4220,false,1,3,RAW-src
-004e4340,65,FUN_004e4340,false,40,0,RAW-src
+004e4340,65,FindGroundHeightAtColumn,false,40,0,RAW-src
 004e4390,57,FUN_004e4390,false,5,0,RAW-src
 004e43d0,55,FUN_004e43d0,false,5,0,RAW-src
 004e4410,64,FUN_004e4410,false,5,0,RAW-src

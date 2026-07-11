@@ -241,7 +241,7 @@ LAB_004ae9a8:
   cVar6 = PeekPacketChecksumBool();
   if (cVar6 != '\0') {
     PeekChecksumStateUnderLock(piVar2);
-    uVar9 = FUN_004e4340();
+    uVar9 = FindGroundHeightAtColumn();
     uVar11 = uVar9;
     uVar10 = PeekChecksumStateUnderLock(piVar2);
     FUN_00436070(&DAT_006a7f70 + g_clientContext,uVar10,uVar11);

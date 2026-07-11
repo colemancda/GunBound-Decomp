@@ -107,7 +107,7 @@ LAB_0045fb8c:
             bVar5 = true;
             PeekChecksumStateUnderLock(uVar17);
             PeekChecksumStateUnderLock(uVar15);
-            iVar18 = FUN_004e4340();
+            iVar18 = FindGroundHeightAtColumn();
             iVar25 = PeekChecksumStateUnderLock(uVar16);
             if ((iVar18 <= iVar25) || (cVar9 = PacketChecksumGreaterThan(param_1 + 0x243,0), cVar9 == '\0'))
             goto LAB_0045fb8c;
@@ -225,7 +225,7 @@ LAB_0046000e:
             bVar5 = true;
             PeekChecksumStateUnderLock(uVar17);
             PeekChecksumStateUnderLock(uVar15);
-            iVar18 = FUN_004e4340();
+            iVar18 = FindGroundHeightAtColumn();
             iVar25 = PeekChecksumStateUnderLock(uVar16);
             if ((iVar18 <= iVar25) ||
                (cVar9 = PacketChecksumLessThan(param_1 + 0x243,*(int *)(&DAT_006a7720 + g_clientContext) + -2),

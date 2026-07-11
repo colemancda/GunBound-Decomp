@@ -48,7 +48,7 @@ void FUN_0045ba50(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004e4340();
+  FindGroundHeightAtColumn();
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
@@ -73,7 +73,7 @@ void FUN_0045ba50(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004e4340();
+  FindGroundHeightAtColumn();
   iVar3 = local_664;
   SUBFIELD(local_4,0,undefined1) = 4;
   if (local_664 != 0) {
@@ -116,7 +116,7 @@ void FUN_0045ba50(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_ad0[0] = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004e4340();
+  FindGroundHeightAtColumn();
   SUBFIELD(local_4,0,undefined1) = 8;
   local_ad0[0] = local_aac;
   if (local_aac != 0) {

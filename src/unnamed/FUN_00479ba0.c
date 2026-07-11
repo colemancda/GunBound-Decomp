@@ -57,7 +57,7 @@ int __fastcall FUN_00479ba0(int *param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = FUN_004e4340();
+  iVar5 = FindGroundHeightAtColumn();
   local_4 = 0xffffffff;
   if (local_888 != 0) {
     ScrambleChecksumGuardBytes();

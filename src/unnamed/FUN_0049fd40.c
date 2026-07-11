@@ -239,13 +239,13 @@ LAB_004a0a52:
         ScrubChecksumGuard();
         PeekChecksumStateUnderLock(param_1 + 0x45e);
         PeekChecksumStateUnderLock(piVar15);
-        iVar3 = FUN_004e4340();
+        iVar3 = FindGroundHeightAtColumn();
         if (iVar3 != 10000) {
           uVar5 = EncodeChecksumDeltaSub(param_1 + 0x45e,auStack_ac4,8);
           puStack_8 = (undefined1 *)0x5;
           PeekChecksumStateUnderLock(uVar5);
           PeekChecksumStateUnderLock(piVar15);
-          iVar3 = FUN_004e4340();
+          iVar3 = FindGroundHeightAtColumn();
           puStack_8 = (undefined1 *)0xffffffff;
           ScrubChecksumGuard();
           uVar5 = EncodeChecksumDeltaSub(param_1 + 0x45e,auStack_ac4,8);

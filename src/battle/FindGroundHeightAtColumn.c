@@ -1,4 +1,4 @@
-/* FUN_004e4340 - 0x004e4340 in the original binary.
+/* FindGroundHeightAtColumn - 0x004e4340 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_004e4340(undefined4 param_1,int param_2)
+int __fastcall FindGroundHeightAtColumn(undefined4 param_1,int param_2)
 
 {
   int iVar1;

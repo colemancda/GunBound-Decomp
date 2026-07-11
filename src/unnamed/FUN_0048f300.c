@@ -261,7 +261,7 @@ LAB_0048f583:
               SUBFIELD(local_4,0,undefined1) = 0xe;
               PeekChecksumStateUnderLock(uVar8);
               PeekChecksumStateUnderLock(uVar9);
-              iVar7 = FUN_004e4340();
+              iVar7 = FindGroundHeightAtColumn();
               iVar10 = PeekChecksumStateUnderLock(local_2480[0]);
               SUBFIELD(local_4,0,undefined1) = 0xd;
               ScrubChecksumGuard();
@@ -295,7 +295,7 @@ LAB_0048f583:
               SUBFIELD(local_4,0,undefined1) = 9;
               PeekChecksumStateUnderLock(uVar8);
               PeekChecksumStateUnderLock(uVar9);
-              iVar7 = FUN_004e4340();
+              iVar7 = FindGroundHeightAtColumn();
               iVar10 = PeekChecksumStateUnderLock(local_2480[0]);
               SUBFIELD(local_4,0,undefined1) = 8;
               ScrubChecksumGuard();
