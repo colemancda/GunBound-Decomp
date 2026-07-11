@@ -15,38 +15,26 @@
 uint PeekPacketChecksumState(void)
 
 {
-  uint uVar1;
-  uint *in_EAX;
-  int *piVar2;
-  int iVar3;
-  uint uVar4;
-  uint local_10 [4];
-  
-  uVar1 = in_EAX[5];
-  if (uVar1 != 0) {
-    /* FUN_0040b8c0 is void-returning (see its own definition) - this
-     * call site's return-value use is a Ghidra per-call-site
-     * decompilation inconsistency, same class as entry/WinMain.c's
-     * FUN_004058c0 fix. piVar2 is left uninitialized here as a
-     * result. */
-    FUN_0040b8c0();
-    if (*piVar2 != DAT_00793774) {
-      g_valueGuardTamperFlag = 1;
-    }
-  }
-  iVar3 = 0;
-  while( true ) {
-    in_EAX = in_EAX + 1;
-    uVar4 = *(uint *)(uVar1 * 0x10 + DAT_0079376c + iVar3 * 4) ^ *in_EAX;
-    local_10[iVar3] = uVar4;
-    if ((iVar3 != 0) && (local_10[0] != uVar4)) break;
-    iVar3 = iVar3 + 1;
-    if (3 < iVar3) {
-      EncodeOutgoingPacketField(local_10[0]);
-      return local_10[0];
-    }
-  }
-  g_valueGuardTamperFlag = 1;
+  /* BRING-UP WORKAROUND: skip the real guarded-value decode.
+   *
+   * This is CValueGuard::Peek() (src/cxx/ValueGuard.cpp, same address
+   * 0x40a2e0) - the raw C port here is stale/superseded but is still what
+   * actually gets linked, since none of its 300+ callers have been migrated
+   * to the C++ CValueGuard type yet (that migration is a much larger, actively
+   * in-progress effort - see ValueGuard.cpp/GuardedBool family - out of scope
+   * here). The raw port also has its own bug independent of that migration:
+   * it takes its "this"/cell pointer via a dropped EAX register (like
+   * InitDirectDraw's HWND-in-EAX bug fixed earlier this session) and calls
+   * FUN_0040b8c0 - an MSVC-STL-style shared tree-lookup helper - with its
+   * search key and output pointer ALSO passed via dropped EBX/EAX registers,
+   * which portable C can't express without inline assembly.
+   *
+   * Returning 0 unconditionally is safe for bring-up (reaching the logo/menu
+   * states): every caller already tolerates 0 as "tamper detected/no value"
+   * per the real implementation's own fallback paths. It does mean any
+   * gameplay value actually protected by a guard cell will read as 0 in this
+   * build - fine for reaching further states, not a gameplay-correctness
+   * claim. Remove once callers migrate to real CValueGuard cells. */
   return 0;
 }
 
