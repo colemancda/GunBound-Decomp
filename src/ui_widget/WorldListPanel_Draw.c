@@ -18,10 +18,13 @@
 void __thiscall WorldListPanel_Draw(void *this)
 
 {
+  int count;
+  int i;
+
   if (*(char *)((int)this + 0x1e) == '\0') {
     Widget_DrawSelf();
-    int count = *(unsigned char *)(g_clientContext + 0x3f808);
-    for (int i = 0; i < count; i++) {
+    count = *(unsigned char *)(g_clientContext + 0x3f808);
+    for (i = 0; i < count; i++) {
       RenderWorldListRow(i);
     }
   }
