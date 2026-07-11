@@ -1,0 +1,92 @@
+/* CProjectile - the in-battle projectile (shot) object: the sibling of CMobile,
+ * the thing every weapon fires. Reconstructed from InitProjectile (0x454dc0),
+ * SimulateProjectileFrame (0x455cc0) and the shot spawners
+ * (SpawnPrimaryShot/SpawnSuperShot/SpawnItemProjectile). See src/cxx/README.md.
+ *
+ * CONFIRMED (from the binary):
+ *  - The base object is 0x3f9c bytes; allocated by the shot spawners
+ *    (operator_new(0x3f9c)) and constructed by InitProjectile(this, 0x186a2).
+ *    Per-weapon subtypes are larger (0x3fa0 / 0x40a8 / 0x4940 / 0x4838 / 0x41cc
+ *    / 0x42d8 / 0x494c ...): a thin per-type ctor (e.g. FUN_00468860) calls
+ *    InitProjectile then swaps in its own vtable (e.g. 0x555dac) - the same
+ *    pattern as the 16 CMobile subclasses.
+ *  - Single base vtable at 0x555c34 (dumped: 13 slots). NOT related to CMobile's
+ *    vtable (0x555c68, 8 slots) - the two are separate, adjacent vtables that
+ *    only reuse two shared method implementations as slots: 0x461c60
+ *    (acquire-handle, slots 1/9) and 0x429800 (no-op, slots 4/12). CProjectile
+ *    does NOT share a base class with CMobile.
+ *  - Most of the object (from +0x54, spaced 0x224) is ~29 CValueGuard cells plus
+ *    GuardedBools - the anti-cheat-protected position/velocity/damage/timing
+ *    state (same treatment as CMobile). They are left as padding here until the
+ *    guard fields are individually mapped.
+ *
+ * GUESSED: all slot names except SimulateFrame (slot 5 = SimulateProjectileFrame,
+ * confirmed) and the destructor. Interior fields between the named ones are
+ * unmapped (guard cells / padding).
+ */
+#ifndef GB_CXX_PROJECTILE_H
+#define GB_CXX_PROJECTILE_H
+
+#include "gb_common.h"
+
+#pragma pack(push, 1)
+/* The battle projectile. Declaration order of the virtuals IS the confirmed base
+ * vtable order (0x555c34, 13 slots). */
+class CProjectile {
+public:
+    /* slot 0 +0x00: scalar-deleting destructor 0x455550 (-> real dtor 0x455570,
+     * then conditional operator_delete). */
+    virtual ~CProjectile();
+    /* slot 1 +0x04: 0x461c60 (shared) - acquire-handle; the same implementation
+     * used by CMobile's slot 1 (reads +0x1c, resolves via FindStringNoCase). */
+    virtual void v1_AcquireHandle();
+    /* slot 2 +0x08: 0x48f1c0 - per-frame animate tick: advances the sprite
+     * animation (AdvanceSpriteAnimation) and dispatches slot 6, bumping a small
+     * frame counter (+0x3b44). */
+    virtual void v2_AnimateTick();
+    /* slot 3 +0x0c: 0x458690 (vtable-only; Ghidra has not defined it). */
+    virtual void v3();
+    /* slot 4 +0x10: 0x429800 (shared) - no-op (`return;`). */
+    virtual void v4_NoOp();
+    /* slot 5 +0x14: 0x455cc0 = SimulateProjectileFrame (CONFIRMED) - the per-frame
+     * ballistics/state update: physics helpers, guard-protected fields, replay
+     * events 0xf002/0xf003. No spawn/render calls. */
+    virtual void SimulateFrame();
+    /* slot 6 +0x18: 0x4572b0 - spawn/detonate: operator_new + InitProjectile
+     * (child/cluster projectiles) + RegisterActiveObject + AcquireSoundChannel;
+     * emits the projectile's effects. */
+    virtual void v6_SpawnEffects();
+    /* slot 7 +0x1c: 0x458850 (vtable-only). */
+    virtual void v7();
+    /* slot 8 +0x20: 0x40ca00 (a 32-byte thunk). */
+    virtual void v8();
+    /* slot 9 +0x24: 0x461c60 (shared acquire-handle again). */
+    virtual void v9_AcquireHandle();
+    /* slot 10 +0x28: 0x458ae0 (vtable-only). */
+    virtual void v10();
+    /* slot 11 +0x2c: 0x458b00 (vtable-only). */
+    virtual void v11();
+    /* slot 12 +0x30: 0x429800 (shared) - no-op. */
+    virtual void v12_NoOp();
+
+    /* ---- data members (confirmed offsets; interior gaps are guard cells /
+     * unmapped padding) ---- */
+    u32 m_ctorArg0;      /* +0x04: InitProjectile's param_3 (owner/shot arg) */
+    u32 m_ctorArg1;      /* +0x08: InitProjectile's param_1 (type/owner arg) */
+    u8  m_pad0c[0xc];    /* +0x0c */
+    u32 m_spriteId;      /* +0x18: primary sprite/animation set id (spawners set 6000+shot) */
+    u32 m_texture;       /* +0x1c: projectile texture handle (FindPreloadedTextureByName) */
+    u8  m_pad20[0x18];   /* +0x20 */
+    u32 m_lifetime;      /* +0x38: spawner sets m_spriteId + 100 */
+    u8  m_flags;         /* +0x3c: low 3 bits = a per-shot tag (retaddr & 7) */
+    /* +0x3d..0x3f8f: mostly ~29 CValueGuard cells (0x224 stride from +0x54) and
+     * GuardedBools - the guarded projectile state; plus the blast/flame effect
+     * sprite-name strings (blast name at +0x3813). Left as padding. */
+    u8  m_pad3d[0x3f53];
+    u32 m_subtype;       /* +0x3f90: shot subtype / blast frame set (spawners set 0..7, 0xff) */
+    u32 m_field3f94;     /* +0x3f94: spawner's param_12 (a per-shot value) */
+    u8  m_pad3f98[4];    /* +0x3f98..0x3f9b - tail padding to the confirmed 0x3f9c size */
+};
+#pragma pack(pop)
+
+#endif /* GB_CXX_PROJECTILE_H */

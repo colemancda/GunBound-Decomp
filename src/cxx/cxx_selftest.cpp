@@ -17,6 +17,7 @@
 #include "ClientContext.h"
 #include "ValueGuard.h"
 #include "Mobile.h"
+#include "Projectile.h"
 
 /* --- CGameState hierarchy: confirmed allocation sizes ------------------ */
 GB_STATIC_ASSERT(sizeof(CState01Title)       == 8,       state01_size);
@@ -31,6 +32,9 @@ GB_STATIC_ASSERT(sizeof(CState11InBattle)    == 0x2408,  state11_size);
 
 /* --- CMobile: confirmed object size (CreateMobile's operator_new(0xd1d4)) --- */
 GB_STATIC_ASSERT(sizeof(CMobile) == 0xd1d4, mobile_size);
+
+/* --- CProjectile: confirmed base object size (shot spawners' operator_new(0x3f9c)) --- */
+GB_STATIC_ASSERT(sizeof(CProjectile) == 0x3f9c, projectile_size);
 
 /* --- Wire structures: PROTOCOL.md-confirmed layouts --------------------- */
 GB_STATIC_ASSERT(sizeof(GbActionHeader) == 0x21,  actionheader_size);
@@ -80,8 +84,10 @@ static void gb_widget_offset_checks()
     GB_STATIC_ASSERT(GB_OFFSETOF(GbActionHeader, actionType) == 0x02, off_actiontype);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbActionHeader, sourceSlot) == 0x05, off_srcslot);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbFirePayload, shotData) == 0x2c - 0x21, off_shotdata);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbInventoryItem, name) == 0x04, off_invname);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbInventoryItem, expYear) == 0x12, off_expyear);
-    GB_STATIC_ASSERT(GB_OFFSETOF(GbInventoryItem, blob) == 0x1c, off_invblob);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbInventoryItem, displayField) == 0x18, off_invdisp);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbInventoryItem, description) == 0x1c, off_invdesc);
     GB_STATIC_ASSERT(GB_OFFSETOF(CState02ServerSelect, m_slotError) == 0x28, off_sloterr);
     GB_STATIC_ASSERT(GB_OFFSETOF(CState02ServerSelect, m_connectingSlot) == 0x68, off_connslot);
     GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_parent)     == 0x08, off_parent);
@@ -114,4 +120,10 @@ static void gb_widget_offset_checks()
     GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_spriteId2)    == 0x904,  off_mob_sprite2);
     GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_name)         == 0xae15, off_mob_name);
     GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_type13Field)  == 0xbff0, off_mob_t13);
+
+    /* CProjectile: confirmed field offsets (InitProjectile / the shot spawners) */
+    GB_STATIC_ASSERT(GB_OFFSETOF(CProjectile, m_spriteId)  == 0x18,   off_proj_sprite);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CProjectile, m_texture)   == 0x1c,   off_proj_tex);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CProjectile, m_lifetime)  == 0x38,   off_proj_life);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CProjectile, m_subtype)   == 0x3f90, off_proj_subtype);
 }

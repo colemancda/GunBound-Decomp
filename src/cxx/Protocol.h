@@ -54,6 +54,7 @@ struct GbFirePayload {            /* wire offset = 0x21 + member offset */
 struct GbInventoryItem {
     u32  id0;          /* +0x00: item id; tracked as running min/max, checksum-fed */
     char name[12];     /* +0x04: item NAME (inline ASCII; drawn in the detail panel) */
+    u16  pad10;        /* +0x10: the wire time_t low half; not stored (parsed to y/m/d) */
     u16  expYear;      /* +0x12: tm_year + 1900 (from the wire time_t at +0x10) */
     u8   expMonth;     /* +0x14: tm_mon + 1 */
     u8   expDay;       /* +0x15: tm_mday */
