@@ -20,12 +20,31 @@
  *   5. IDirectDrawSurface7::AddAttachedSurface (vtbl+0xc) -> attach to back buffer.
  *   6. IDirect3DDevice7::SetRenderTarget (vtbl+0x20) -> bind. Return HR >= 0.
  *
- * The enum match key and result use a STANDALONE DDPIXELFORMAT (zfmt), not a
- * sub-object of a reused DDSURFACEDESC2: MSVC /O2 (FPO) computed
- * &desc.ddpfPixelFormat 8 bytes off from where GetSurfaceDesc had written the
- * format into the same reused local, so the callback compared the wrong dword
- * (a colour-key mask instead of the bit depth) and never matched -> the Z
- * CreateSurface then got a descriptor with no pixel format and faulted.
+ * Two bugs had to be fixed to get this far, both verified against a live
+ * GunBound.gme via tools/msvc-env/orig_launcher_susp.c + WINEDEBUG=+ddraw:
+ *
+ *  - The enum match key and result use a STANDALONE DDPIXELFORMAT (zfmt), not
+ *    a sub-object of a reused DDSURFACEDESC2: MSVC /O2 (FPO) computed
+ *    &desc.ddpfPixelFormat 8 bytes off from where GetSurfaceDesc had written
+ *    the format into the same reused local, so the callback compared the
+ *    wrong dword and never matched.
+ *
+ *  - EVERY vtable call below is dispatched through an EXPLICIT __stdcall
+ *    function-pointer cast, not the generic `code` (K&R/unspecified-args)
+ *    type used elsewhere in raw ports. `code()` has no prototype, so MSVC
+ *    defaults it to __cdecl and emits a caller-side `add esp, N` after each
+ *    call to pop the arguments *itself* pushed - but every one of these is a
+ *    real COM vtable method, which is __stdcall and ALREADY pops its own
+ *    args via `ret N` before returning. That's a double stack cleanup: each
+ *    call leaves ESP N bytes higher than it should be, i.e. the local-
+ *    variable "slack" between ESP and the saved EBP/return address shrinks
+ *    a little more per call. This function makes six such calls in a row
+ *    (more than most other raw ports), and by the sixth (SetRenderTarget)
+ *    the accumulated drift was enough for the callee's own prologue to land
+ *    its writes on our saved EBP, corrupting it - confirmed live: a hardware
+ *    watchpoint on the saved-EBP stack slot fired from *inside ddraw.dll*
+ *    during the SetRenderTarget call. Giving every call site its real
+ *    prototype makes MSVC skip the redundant caller-side cleanup entirely.
  *
  * Body is a hand-reconstruction, not a raw Ghidra port; see src/README.md.
  */
@@ -36,13 +55,12 @@
  * by raw offset to avoid the anonymous-union member-name variance. */
 #define PF_BITDEPTH(pf) (*(DWORD *)((char *)(pf) + 0xc))
 
-/* Force frame pointers for this function. Under /O2 (FPO) MSVC 7.1 computes the
- * addresses of the large DDSURFACEDESC2 locals inconsistently across the COM
- * calls that adjust ESP (the function also dynamically aligns ESP), so a
- * descriptor filled by GetSurfaceDesc via &desc was read back 8 bytes off via
- * &desc.field elsewhere - the enum matched the wrong dword and CreateSurface
- * got a malformed descriptor. EBP-relative locals are stable, so keep them. */
-#pragma optimize("y", off)
+typedef HRESULT (WINAPI *GetCapsFn)(void *, D3DDEVICEDESC7 *);
+typedef HRESULT (WINAPI *GetSurfaceDescFn)(void *, DDSURFACEDESC2 *);
+typedef HRESULT (WINAPI *EnumZBufferFormatsFn)(void *, REFCLSID, LPD3DENUMPIXELFORMATSCALLBACK, LPVOID);
+typedef HRESULT (WINAPI *CreateSurfaceFn)(void *, DDSURFACEDESC2 *, void **, IUnknown *);
+typedef HRESULT (WINAPI *AddAttachedSurfaceFn)(void *, void *);
+typedef HRESULT (WINAPI *SetRenderTargetFn)(void *, void *, DWORD);
 
 
 bool SetupZBuffer(void)
@@ -54,7 +72,7 @@ bool SetupZBuffer(void)
   int hr;
 
   /* 1. Device caps. Z-buffer-less hidden-surface removal -> no Z-buffer needed. */
-  (**(code **)(*g_pD3DDevice7 + 0xc))(g_pD3DDevice7, &devDesc);
+  ((GetCapsFn)(*(void ***)g_pD3DDevice7)[3])(g_pD3DDevice7, &devDesc);
   if ((devDesc.dpcTriCaps.dwRasterCaps & D3DPRASTERCAPS_ZBUFFERLESSHSR) != 0) {
     return true;
   }
@@ -62,19 +80,19 @@ bool SetupZBuffer(void)
   /* 2. Back-buffer descriptor: dimensions + display bit depth. */
   ZeroMemory(&bbDesc, sizeof(bbDesc));
   bbDesc.dwSize = sizeof(bbDesc);          /* 0x7c */
-  (**(code **)(*g_pBackBufferSurface + 0x58))(g_pBackBufferSurface, &bbDesc);
+  ((GetSurfaceDescFn)(*(void ***)g_pBackBufferSurface)[0x16])(g_pBackBufferSurface, &bbDesc);
 
   /* 3. Find a Z format. The callback matches zfmt+0xc against each enumerated
    *    format's +0xc; seed it with the display depth, then retry forcing 16-bit
    *    (orig 0x4efa2f). zfmt.dwSize stays 0 until a format is copied in. */
   ZeroMemory(&zfmt, sizeof(zfmt));
   PF_BITDEPTH(&zfmt) = PF_BITDEPTH(&bbDesc.ddpfPixelFormat);
-  (**(code **)(*g_pDirect3D7 + 0x18))
+  ((EnumZBufferFormatsFn)(*(void ***)g_pDirect3D7)[6])
       (g_pDirect3D7, &DAT_00f22504, FUN_004ef970, &zfmt);
   if (zfmt.dwSize == 0) {
     ZeroMemory(&zfmt, sizeof(zfmt));
     PF_BITDEPTH(&zfmt) = 0x10;            /* 16-bit depth */
-    (**(code **)(*g_pDirect3D7 + 0x18))
+    ((EnumZBufferFormatsFn)(*(void ***)g_pDirect3D7)[6])
         (g_pDirect3D7, &DAT_00f22504, FUN_004ef970, &zfmt);
     if (zfmt.dwSize == 0) {
       return false;
@@ -90,16 +108,19 @@ bool SetupZBuffer(void)
   zDesc.ddpfPixelFormat = zfmt;
   zDesc.ddsCaps.dwCaps = DDSCAPS_ZBUFFER | DDSCAPS_VIDEOMEMORY;           /* 0x24000 */
 
-  hr = (**(code **)(*g_pDirectDraw7 + 0x18))(g_pDirectDraw7, &zDesc, &g_pZBufferSurface, 0);
+  hr = ((CreateSurfaceFn)(*(void ***)g_pDirectDraw7)[6])
+           (g_pDirectDraw7, &zDesc, (void **)&g_pZBufferSurface, 0);
   if (hr < 0) {
     return false;
   }
   /* 5. Attach the Z-buffer to the back buffer. */
-  hr = (**(code **)(*g_pBackBufferSurface + 0xc))(g_pBackBufferSurface, g_pZBufferSurface);
+  hr = ((AddAttachedSurfaceFn)(*(void ***)g_pBackBufferSurface)[3])
+           (g_pBackBufferSurface, g_pZBufferSurface);
   if (hr < 0) {
     return false;
   }
   /* 6. Bind the back buffer (now with attached Z) as the render target. */
-  hr = (**(code **)(*g_pD3DDevice7 + 0x20))(g_pD3DDevice7, g_pBackBufferSurface, 0);
+  hr = ((SetRenderTargetFn)(*(void ***)g_pD3DDevice7)[8])
+           (g_pD3DDevice7, g_pBackBufferSurface, 0);
   return hr >= 0;
 }
