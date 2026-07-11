@@ -8,10 +8,13 @@
 #include "ghidra_types.h"
 
 
-void FUN_004156c0(void)
+/* __beginthread thread proc; receives the control-block pointer __beginthread
+ * was given (see FUN_00415530.c) as its normal __cdecl argument and forwards
+ * it to the wait loop. */
+void FUN_004156c0(void *param_1)
 
 {
-  FUN_00415810();
+  FUN_00415810(param_1);
   return;
 }
 

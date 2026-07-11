@@ -534,6 +534,11 @@ uint8_t DAT_00796aa0;
  * map lives at this address, not one byte */
 uint8_t g_cursorTexture;
 uint32_t g_cursorFrame;
+/* Worker-thread control block for FUN_00415530/FUN_004156c0/FUN_00415810 -
+ * same shape as DAT_00e9c334 above, but the running flag is at +0xc here.
+ * Sized to 0x10 (not 0x20 like its sibling) since DAT_007a768c, the very
+ * next declared global, is only 0x10 bytes higher (0x7a768c-0x7a767c). */
+uint8_t DAT_007a767c[0x10];
 uint8_t DAT_007a768c;
 uint8_t DAT_00d9aa20;
 uint8_t DAT_00d9aa24;
@@ -639,7 +644,13 @@ uint8_t DAT_00e9bed8;
 uint8_t DAT_00e9c0fc;
 uint32_t DAT_00e9c104;
 uint8_t DAT_00e9c108;
-uint32_t DAT_00e9c33c;
+/* Worker-thread control block for FUN_00415500/FUN_004156b0/FUN_004157b0:
+ * +4 thread handle (uintptr_t), +8/+0xc two wait handles, +0x10 running flag.
+ * Was completely undeclared (the raw ports take it via a dropped ESI
+ * register). DAT_00e9c33c (a HANDLE SetEvent'd in Shutdown.c) is this same
+ * struct's +8 field under its own Ghidra-assigned symbol - sized to absorb
+ * it (0xe9c33c - 0xe9c334 = 8) rather than declare overlapping storage. */
+uint8_t DAT_00e9c334[0x18];
 uint8_t DAT_00e9c344;
 uint8_t DAT_00e9c348;
 uint32_t DAT_00e9c9c8;

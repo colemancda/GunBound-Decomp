@@ -8,12 +8,11 @@
 #include "ghidra_types.h"
 
 
-void FUN_004157b0(void)
+void FUN_004157b0(int *unaff_ESI)
 
 {
   DWORD DVar1;
-  int *unaff_ESI;
-  
+
   if ((char)unaff_ESI[4] != '\0') {
     do {
       DVar1 = WaitForMultipleObjects(2,(HANDLE *)(unaff_ESI + 2),0,10);

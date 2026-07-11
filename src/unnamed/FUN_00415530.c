@@ -8,12 +8,14 @@
 #include "ghidra_types.h"
 
 
-bool FUN_00415530(void)
+/* Original passes ESI=&DAT_007a767c (a fixed global control block, orig
+ * 0x40f39d) - Ghidra dropped it as unaff_ESI. Promoted to an explicit
+ * parameter; the sole caller (InitGame.c) now passes it directly. */
+bool FUN_00415530(void *unaff_ESI)
 
 {
   uintptr_t uVar1;
-  void *unaff_ESI;
-  
+
   *(undefined1 *)((int)unaff_ESI + 0xc) = 1;
   uVar1 = __beginthread(FUN_004156c0,0,unaff_ESI);
   *(uintptr_t *)((int)unaff_ESI + 4) = uVar1;

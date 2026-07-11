@@ -40,7 +40,9 @@ void Shutdown(int param_1)
     FUN_0040d760();
     SetEvent(DAT_00e55ce8);
     DAT_00e9c344 = 0;
-    SetEvent(DAT_00e9c33c);
+    /* DAT_00e9c33c was this worker-thread struct's +8 HANDLE field under its
+     * own Ghidra symbol; see globals.c's DAT_00e9c334 comment. */
+    SetEvent(*(HANDLE *)(DAT_00e9c334 + 8));
     (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x20))();
     g_currentGameState = 0;
     uVar6 = 600;

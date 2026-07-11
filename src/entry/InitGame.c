@@ -267,8 +267,11 @@ int InitGame(undefined4 param_1,undefined4 param_2)
            * guessing what DAT_007934e4 should become. */
           FUN_0040c670();
         }
-        FUN_00415500();
-        FUN_00415530();
+        /* Both take a fixed global control-block pointer via a dropped ESI
+         * register in the original (0x40f38e/0x40f39d); see their own .c
+         * files for the recovered addresses. */
+        FUN_00415500(DAT_00e9c334);
+        FUN_00415530(DAT_007a767c);
         InterlockedExchange((LONG *)&DAT_00e9c348,1);
         FUN_004e6b50();
         _DAT_00e9acd0 = &DAT_00793798;

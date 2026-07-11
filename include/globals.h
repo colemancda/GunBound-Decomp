@@ -670,6 +670,7 @@ extern uint8_t g_cursorTexture;
  * cycle 0..16 -> 0 each frame (a ~17-step keyframe cursor animation); it is
  * NOT a constant. See ARCHITECTURE.md "custom cursor". */
 extern uint32_t g_cursorFrame;
+extern uint8_t DAT_007a767c[0x10]; /* worker-thread control block - see globals.c */
 extern uint8_t DAT_007a768c;
 extern uint8_t DAT_00d9aa20;
 extern uint8_t DAT_00d9aa24;
@@ -812,7 +813,7 @@ extern uint8_t DAT_00e9c0fc;
 extern uint32_t DAT_00e9c104;
 extern uint8_t DAT_00e9c108;
 #define _DAT_00e9c108 DAT_00e9c108
-extern uint32_t DAT_00e9c33c;
+extern uint8_t DAT_00e9c334[0x18]; /* worker-thread control block - see globals.c */
 extern uint8_t DAT_00e9c344;
 extern uint8_t DAT_00e9c348;
 extern uint32_t DAT_00e9c9c8;
