@@ -1,4 +1,4 @@
-/* FUN_004d3770 - 0x004d3770 in the original binary.
+/* State09_ReadyRoom_Construct - 0x004d3770 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_004d3770(undefined4 *param_1)
+undefined4 * State09_ReadyRoom_Construct(undefined4 *param_1)
 
 {
   int iVar1;

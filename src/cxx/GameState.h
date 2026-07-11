@@ -150,7 +150,7 @@ public:
                                                  * slot array (placement not yet mapped) */
 };
 
-class CState09ReadyRoom : public CGameState {   /* size 0x78c; ctor FUN_004d3770 */
+class CState09ReadyRoom : public CGameState {   /* size 0x78c; ctor State09_ReadyRoom_Construct */
 public:
     u8 m_raw[0x78c - 4];                        /* field map not yet reconstructed */
 };

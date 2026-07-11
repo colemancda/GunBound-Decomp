@@ -40,7 +40,7 @@ extern unsigned char DAT_00ea0e18;
 /* the three out-of-line state constructors (Ghidra-flattened
  * __thiscall: storage in as first arg, object out) */
 void *FUN_00443c20(void *storage);  /* CState07AvatarStore ctor */
-void *FUN_004d3770(void *storage);  /* CState09ReadyRoom ctor */
+void *State09_ReadyRoom_Construct(void *storage);  /* CState09ReadyRoom ctor */
 void *FUN_004b3f90(void *storage);  /* CState11InBattle ctor */
 }
 
@@ -63,7 +63,7 @@ void ConstructGameStates()
     g_gameStateVTableArray[5] = new CState05Logo1();
     g_gameStateVTableArray[6] = new CState06Logo2();
     g_gameStateVTableArray[7] = (CGameState *)FUN_00443c20(operator new(0x34818));
-    g_gameStateVTableArray[9] = (CGameState *)FUN_004d3770(operator new(0x78c));
+    g_gameStateVTableArray[9] = (CGameState *)State09_ReadyRoom_Construct(operator new(0x78c));
     g_gameStateVTableArray[10] = new CState10Loading();
     g_gameStateVTableArray[11] = (CGameState *)FUN_004b3f90(operator new(0x2408));
     g_gameStateVTableArray[15] = new CGameState();

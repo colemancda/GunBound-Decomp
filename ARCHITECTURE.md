@@ -119,7 +119,7 @@ the Ghidra project follow `StateNN_Name_OnEnter/OnExit`; vtables are
 | 5 | **Logo screen 1** | `logomode.img`, `logo.mp3` | 8 |
 | 6 | **Logo screen 2** | `logomode2.img`, `logo2.mp3` | 8 |
 | 7 | **Avatar Store / Shop** | `store_*.img`, `b_store_buy/cap/cloth/glasse/flag.img` | 0x34818 (215 KB); ctor `FUN_00443c20` builds an 8×0x224-byte array (per-avatar slots) |
-| 9 | **Ready Room** (pre-battle) | `ready_selectmap.img`, `ready_selectcharacter.img`, `b_ready_startgame.img` | 0x78c; ctor `FUN_004d3770` |
+| 9 | **Ready Room** (pre-battle) | `ready_selectmap.img`, `ready_selectcharacter.img`, `b_ready_startgame.img` | 0x78c; ctor `State09_ReadyRoom_Construct` |
 | 10 | **Loading** | `loadmode.img`, `loadstage.img` | 0x150 |
 | 11 | **In-Battle / Playing** | `stage%d.mp3`, `b_play_weapon2/weapon3/skip/tag/all` | 0x2408 (9 KB); ctor `FUN_004b3f90` |
 | 12–14 | (unused/reserved) | none constructed | — |

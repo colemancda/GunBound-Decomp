@@ -168,7 +168,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
           g_gameStateVTableArray[9] = (undefined *)0x0;
         }
         else {
-          g_gameStateVTableArray[9] = (undefined *)FUN_004d3770(pvVar2);
+          g_gameStateVTableArray[9] = (undefined *)State09_ReadyRoom_Construct(pvVar2);
         }
         uStack_4 = 0xffffffff;
         g_gameStateVTableArray[10] = operator_new(0x150);

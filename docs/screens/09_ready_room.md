@@ -6,7 +6,7 @@ preview, map selection, and the item/loadout picker before the match starts.
 ## Identity
 - **State ID**: 9
 - **vtable**: `vtable_State09_ReadyRoom` (`0x5569f8`)
-- **Object size**: 0x78c bytes — constructed by `FUN_004d3770`
+- **Object size**: 0x78c bytes — constructed by `State09_ReadyRoom_Construct`
 - **ProcessPacket**: `State09_ReadyRoom_ProcessPacket` (`0x4d38c0`)
 - **OnEnter**: `0x4d6810` · **OnExit**: `0x4d7630` · **OnTick**: `State09_ReadyRoom_OnTick` (`0x4d7b20`)
 - **Chat/keyboard input**: `State09_ReadyRoom_HandleChatInput` (`0x4d6210`)
@@ -76,6 +76,8 @@ by the widget tree.
     `(i%3)*0x46+0x210` / `(i/3)*0x2d+0x193`), item IDs from `this+0x518`,
     sprite via the global item-ID→sprite table `&g_awItemIconTable`, labels via
     `FUN_004ed9f0`. Current page at `this+0x620`, item count at `this+0x61c`.
+    The cursor→cell mapping is `FindItemGridCell` (`0x4dc570`), which hit-tests
+    the mouse against that same 3-column geometry and returns cell 0–8 (or −1).
     **Table encoding decoded** (see ARCHITECTURE.md's Ready Room section):
     40 `uint16` entries, packed `(sheet_flag:8)(icon_pair_index:8)` —
     low byte selects an enabled/disabled frame pair (`*2`, `-2`/`-1`),

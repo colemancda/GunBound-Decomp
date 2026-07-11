@@ -1,4 +1,4 @@
-/* FUN_004dc570 - 0x004dc570 in the original binary.
+/* FindItemGridCell - 0x004dc570 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_004dc570(void)
+int FindItemGridCell(void)
 
 {
   int iVar1;

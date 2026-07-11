@@ -23,7 +23,7 @@ void __fastcall State09_ReadyRoom_OnTick(int param_1)
   if (-1 < *(int *)(param_1 + 0x4d4)) {
     *(int *)(param_1 + 0x4d4) = *(int *)(param_1 + 0x4d4) + -1;
   }
-  iVar3 = FUN_004dc570();
+  iVar3 = FindItemGridCell();
   if ((iVar3 == -1) || (g_bBattleSessionActive != '\0')) {
     FUN_00509700();
     *(undefined2 *)(param_1 + 0x6b4) = 0;
