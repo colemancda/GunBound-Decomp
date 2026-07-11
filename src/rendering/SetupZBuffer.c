@@ -31,6 +31,28 @@
 
 bool SetupZBuffer(void)
 {
+  /* BRING-UP WORKAROUND: skip Z-buffer creation entirely.
+   *
+   * The reconstruction below matches the original binary exactly (verified
+   * field-by-field against a live GunBound.gme via tools/msvc-env/
+   * orig_launcher_susp.c: the original's z-buffer CreateSurface/
+   * AddAttachedSurface/SetRenderTarget all return HR=0). But under this
+   * wine/wined3d build the bring-up exe's CreateSurface crashes
+   * NON-DETERMINISTICALLY - the fault surfaces on a thread wine spawns
+   * inside wined3d.dll itself (its asynchronous command-stream worker), so
+   * the symptom and timing vary run-to-run and even debugger breakpoint
+   * overhead perturbs it. It reproduces even with an all-correct descriptor,
+   * so it is not a descriptor/arg bug in this function.
+   *
+   * The logo/menu states are 2-D sprite blits and do not depend on the
+   * depth buffer, so returning success (as the original does on its
+   * D3DPRASTERCAPS_ZBUFFERLESSHSR early-out path) lets InitDirectDraw
+   * complete and startup proceed. Remove this once the wined3d CS-thread
+   * crash is understood; the full implementation is preserved below.
+   *
+   * Disassembly-faithful body kept for reference / re-enable. */
+  return true;
+#if 0
   D3DDEVICEDESC7 devDesc;   /* GetCaps output (orig at SP0+0x7c) */
   DDSURFACEDESC2 zdesc;     /* back-buffer desc, reused as the Z-buffer desc (SP0+0) */
   int hr;
@@ -90,4 +112,5 @@ bool SetupZBuffer(void)
   }
   hr = (**(code **)(*g_pD3DDevice7 + 0x20))(g_pD3DDevice7, g_pBackBufferSurface, 0);
   return hr >= 0;
+#endif
 }
