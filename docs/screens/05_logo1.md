@@ -1,7 +1,13 @@
 # State 5 — Logo 1 (Softnyx publisher splash)
 
-First screen in the boot flow. About as simple as a screen gets: show a
-full-screen logo, play a jingle, auto-advance after ~2 seconds.
+**Corrected: not the normal boot entry.** `WinMain`'s primary path
+(`InitGame` returns `0`) calls `ChangeGameState(6)` — **Logo 2** — directly;
+this screen is only reached via a secondary `WinMain` branch that re-runs
+`InitGame` after a specific non-zero return code (`0x17`) and then calls
+`ChangeGameState(5)` instead (see `06_logo2.md`'s "In" section). So on a
+normal launch this screen is skipped entirely. About as simple as a screen
+gets otherwise: show a full-screen logo, play a jingle, auto-advance after
+~2 seconds.
 
 ## Identity
 - **State ID**: 5

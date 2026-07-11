@@ -125,8 +125,13 @@ the Ghidra project follow `StateNN_Name_OnEnter/OnExit`; vtables are
 | 12–14 | (unused/reserved) | none constructed | — |
 | 15 | **Quit** | shares null vtable `0x553fb0`; `ChangeGameState(0xf)` calls `PostQuitMessage(0)` directly | 4 |
 
-**Screen flow** (from `ChangeGameState` targets): Logo1(5) → Logo2(6) →
-Title(1) → ServerSelect(2) → GameRoomList(3) ⇄ AvatarStore(7), and
+**Screen flow** (from `ChangeGameState` targets): **the normal boot path is
+`InitGame` → `ChangeGameState(6)` = Logo2(6) → Title(1) → ServerSelect(2)**
+directly — Logo1(5) is *not* on this path. `WinMain` only routes through
+Logo1(5) → Logo2(6) as a fallback, when a first `InitGame` call returns a
+specific non-zero code (`0x17`) and a second `InitGame` call is made before
+`ChangeGameState(5)` (see `docs/screens/06_logo2.md`). From Title(1) the flow
+continues ServerSelect(2) → GameRoomList(3) ⇄ AvatarStore(7), and
 GameRoomList(3) → ReadyRoom(9) → InBattle(11), with Loading(10) interstitial.
 States 0 and 15 use a shared trivial "null object" vtable — the null-object
 pattern for states needing no enter/exit behavior.
