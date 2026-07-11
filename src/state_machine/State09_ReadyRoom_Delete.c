@@ -1,4 +1,4 @@
-/* FUN_004d37f0 - 0x004d37f0 in the original binary.
+/* State09_ReadyRoom_Delete - 0x004d37f0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,10 +7,10 @@
 #include "ghidra_types.h"
 
 
-void * __thiscall FUN_004d37f0(void *param_1,int param_2)
+void * __thiscall State09_ReadyRoom_Delete(void *param_1,int param_2)
 
 {
-  FUN_004d3810();
+  State09_ReadyRoom_Destroy();
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

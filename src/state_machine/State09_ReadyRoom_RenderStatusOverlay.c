@@ -1,4 +1,4 @@
-/* FUN_004d9ae0 - 0x004d9ae0 in the original binary.
+/* State09_ReadyRoom_RenderStatusOverlay - 0x004d9ae0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004d9ae0(int param_1)
+void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
 
 {
   uint uVar1;

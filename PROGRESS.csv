@@ -984,8 +984,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d34f0,56,FUN_004d34f0,false,2,0,RAW-src
 004d3530,533,FUN_004d3530,false,2,11,RAW-src
 004d3770,121,FUN_004d3770,false,1,1,RAW-src
-004d37f0,30,FUN_004d37f0,false,1,2,RAW-src
-004d3810,163,FUN_004d3810,false,1,2,RAW-src
+004d37f0,30,State09_ReadyRoom_Delete,false,1,2,RAW-src
+004d3810,163,State09_ReadyRoom_Destroy,false,1,2,RAW-src
 004d38c0,5576,State09_ReadyRoom_ProcessPacket,false,1,44,RAW-src
 004d4ea0,1556,State09_ReadyRoom_ProcessBattleAction,false,1,18,RAW-src
 004d54c0,20,FUN_004d54c0,false,1,1,RAW-src
@@ -993,11 +993,11 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d6210,1518,State09_ReadyRoom_HandleChatInput,false,1,25,RAW-src
 004d6810,3601,State09_ReadyRoom_OnEnter,false,1,30,RAW-src
 004d7630,1253,State09_ReadyRoom_OnExit,false,1,3,RAW-src
-004d7b20,583,AdvanceBattleFrame,false,1,15,RAW-src
+004d7b20,583,State09_ReadyRoom_OnTick,false,1,15,RAW-src
 004d7d70,58,FUN_004d7d70,false,1,1,RAW-src
 004d7db0,4854,State09_ReadyRoom_RenderRosterAndItems,false,1,18,RAW-src
 004d90c0,2575,State09_ReadyRoom_RenderCharacterPreview,false,1,2,RAW-src
-004d9ae0,2406,FUN_004d9ae0,false,1,14,RAW-src
+004d9ae0,2406,State09_ReadyRoom_RenderStatusOverlay,false,1,14,RAW-src
 004da460,1532,RefreshReadyRoomControls,false,49,6,RAW-src
 004daa60,2544,FUN_004daa60,false,4,10,RAW-src
 004db4b0,177,FUN_004db4b0,false,2,4,RAW-src

@@ -8,15 +8,41 @@ preview, map selection, and the item/loadout picker before the match starts.
 - **vtable**: `vtable_State09_ReadyRoom` (`0x5569f8`)
 - **Object size**: 0x78c bytes — constructed by `FUN_004d3770`
 - **ProcessPacket**: `State09_ReadyRoom_ProcessPacket` (`0x4d38c0`)
-- **OnEnter**: `0x4d6810` · **OnExit**: `0x4d7630`
+- **OnEnter**: `0x4d6810` · **OnExit**: `0x4d7630` · **OnTick**: `State09_ReadyRoom_OnTick` (`0x4d7b20`)
 - **Chat/keyboard input**: `State09_ReadyRoom_HandleChatInput` (`0x4d6210`)
+
+## Full vtable map (`0x5569f8`, 20 slots)
+| Slot | Addr | Role |
+|---|---|---|
+| 0 | `0x4d37f0` | `State09_ReadyRoom_Delete` — scalar-deleting destructor (→ `State09_ReadyRoom_Destroy` body `0x4d3810` + conditional `free`) |
+| 1 | `0x4d38c0` | `State09_ReadyRoom_ProcessPacket` |
+| 2 | `0x4d4ea0` | `State09_ReadyRoom_ProcessBattleAction` |
+| 3 | `0x4d54c0` | tiny handler: `if (arg == 1) RefreshReadyRoomControls(this,1,0)` — refresh-on-activate |
+| 4 | `0x4fdef0` | shared no-op |
+| 5 | `0x4d54e0` | `State09_ReadyRoom_OnCommand` (command dispatcher) |
+| 6 | `0x4d6210` | `State09_ReadyRoom_HandleChatInput` |
+| 7 | `0x4d6810` | `State09_ReadyRoom_OnEnter` |
+| 8 | `0x4d7630` | `State09_ReadyRoom_OnExit` |
+| 9 | `0x4d7b20` | `State09_ReadyRoom_OnTick` — per-frame tick (**was mislabelled "texture preload"**). AFK/round timers, item-icon cursor, 300-frame idle timeout, active-object GC, 8×2 scene-object updates; when `g_bBattleSessionActive` it delegates the frame to `ProcessBattleFrame` (`0x4dcbe0`), else emits the `0xa000` replay heartbeat. Slot-9 = OnTick per the State02/State11 convention. |
+| 10 | `0x4d7d70` | text-draw helper (`strlen` → `FUN_0041b8c0`) |
+| 11,12 | `0x429800` | no-op |
+| 13 | `0x4d7db0` | `State09_ReadyRoom_RenderRosterAndItems` |
+| 14 | `0x4d90c0` | `State09_ReadyRoom_RenderCharacterPreview` |
+| 15 | `0x4d9ae0` | `State09_ReadyRoom_RenderStatusOverlay` — in-session status/HUD overlay (**was mislabelled "map thumbnails"**): countdown-timer blink icons (`+0x4d4`/`+0x6b0`), per-player turn-order indicators (`+0x768` loop vs current turn `+0x3b6c0`), wind/aim status blits, and the chat input echo (`DAT_007933b8` → `GetWindowTextA`). Partly gated by `g_bBattleSessionActive`. |
+| 16,17 | `0x429800` | no-op |
+| 18 | `0x40ca00` | inherited base infra (secondary scalar-deleting dtor thunk → `FUN_004711e0`) |
+| 19 | `0x461c60` | inherited base infra (resource/connection poll) |
 
 ## Resources / images
 - `ready_selectmap.img`, `ready_selectcharacter.img`, `b_ready_startgame`
   (plus shared persistent buttons).
 - Textures: `AvataTexture1/2`, `CharacterTexture1/2`, `AvataEffectTexture1/2`,
-  `CharEffectTexture1/2` (same families as In-Battle — preloaded via
-  `0x4d7b20`, identical to Loading's preload list).
+  `CharEffectTexture1/2` (same families as In-Battle — identical to Loading's
+  preload list). These are loaded through the `OnTick` (`0x4d7b20`) →
+  `ProcessBattleFrame` (`0x4dcbe0`) path, which resolves the whole battle sprite
+  roster by content id via `LoadSpriteSet` / `FindPreloadedTextureByName` (the
+  earlier "`0x4d7b20` = texture preload" note conflated the tick with the loader
+  it delegates to).
 
 ## Rendering (three render slots)
 These are the state's own **render slots** (custom-drawn regions), *not*
@@ -67,12 +93,20 @@ by the widget tree.
     (`tools/lzhuf/decode_item.py`): **ord 0–10 = Dual, Blood, Energy up 2,
     Energy up 1, Dual+, Change Wind, Team Teleport, Bunge shot, Power up,
     Thunder, Teleport**. See PROTOCOL.md "Item availability" and ARCHITECTURE.md.
-- **Map thumbnails** — slot 15 (`FUN_004d9ae0`, 2,406 bytes): draws content at
-  six fixed screen positions — most plausibly the map-selection thumbnails
-  (strong inference; not cross-checked against `ready_selectmap.img`).
-- Remaining slots: `0x4d54c0` (20-byte ready-status check), **`0x4d54e0` =
-  `State09_ReadyRoom_OnCommand`** (the command dispatcher — *not* a "UI updater"
-  as an earlier draft guessed; see below), `0x4d7b20` (texture preload).
+- **Status/HUD overlay** — slot 15 (`State09_ReadyRoom_RenderStatusOverlay`,
+  `0x4d9ae0`, 2,406 bytes): **corrected — not "map thumbnails."** Draws the
+  in-session status overlay: two countdown-timer blink icons (`this+0x4d4`,
+  `this+0x6b0`, blink via `timer/10 & mask`), a per-player turn-order indicator
+  loop (`this+0x768`, drawn only when `this+0x740 > 2`, colour keyed on the
+  slot vs the current-turn byte `ctx+0x3b6c0`), several wind/aim status blits at
+  positions derived from `ctx+0x45124..0x45127`, and finally the chat input echo
+  (when the chat-active flag `DAT_007933b8 == 1`, reads the edit control via
+  `GetWindowTextA` and blits it). Much of the body is gated by
+  `g_bBattleSessionActive`, i.e. it's the overlay for the live recorded session.
+- Remaining slots: `0x4d54c0` (slot 3 — refreshes controls when its arg is 1),
+  **`0x4d54e0` = `State09_ReadyRoom_OnCommand`** (the command dispatcher — *not* a
+  "UI updater" as an earlier draft guessed; see below). See the full vtable map
+  above for slots 0/9/10.
 
 ## Buttons (`OnEnter`, `0x4d6810`)
 `CreateButtonWidget` calls, by button ID:

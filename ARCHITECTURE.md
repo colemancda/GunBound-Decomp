@@ -770,7 +770,7 @@ captures a per-slot record **only when `g_bBattleSessionActive == 1` and
 
 The same flag selects the per-frame work in the battle main loop:
 
-- **`AdvanceBattleFrame`** (`0x4d7b20`, was `FUN_004d7b20`) runs every frame on the
+- **`State09_ReadyRoom_OnTick`** (`0x4d7b20`, was `FUN_004d7b20`) runs every frame on the
   battle-world object. It decrements the AFK/round timers, runs the item-icon
   cursor logic, the 300-frame idle timeout (auto-sends the `0x2000` packet), the
   active-object GC (`0x4f3100`), and updates all 8×2 scene objects through their
@@ -2156,7 +2156,7 @@ previously-unexamined ones. Findings:
       effect-texture family again (same as `RenderCharacterPreview`),
       consistent with it sharing the screen with the live character
       preview rather than being a separate overlay.
-  - **Slot 15** (`FUN_004d9ae0`, 2,406 bytes) draws content at several
+  - **Slot 15** (`State09_ReadyRoom_RenderStatusOverlay`, 2,406 bytes) draws content at several
     **fixed, non-computed screen positions** (not a formula-driven grid
     like the item picker) — most plausibly **map-selection thumbnails**
     given the small, fixed count of distinct positions (six), though this

@@ -1,4 +1,4 @@
-/* AdvanceBattleFrame - 0x004d7b20 in the original binary.
+/* State09_ReadyRoom_OnTick - 0x004d7b20 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall AdvanceBattleFrame(int param_1)
+void __fastcall State09_ReadyRoom_OnTick(int param_1)
 
 {
   short sVar1;
