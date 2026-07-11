@@ -15,8 +15,8 @@ void FUN_004f1eb0(void)
   
   uVar1 = 0;
   do {
-    (&DAT_006990c0)[uVar1] = (uint)SQRT((float)((uVar1 | 0x3f8000) << 8)) & 0x7fffff;
-    (&DAT_006790c0)[uVar1] = (uint)SQRT((float)((uVar1 | 0x400000) << 8)) & 0x7fffff;
+    DAT_006990c0[uVar1] = (uint)SQRT((float)((uVar1 | 0x3f8000) << 8)) & 0x7fffff;
+    DAT_006790c0[uVar1] = (uint)SQRT((float)((uVar1 | 0x400000) << 8)) & 0x7fffff;
     uVar1 = uVar1 + 1;
   } while (uVar1 < 0x8000);
   return;

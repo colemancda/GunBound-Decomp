@@ -340,7 +340,12 @@ uint8_t DAT_006773c0;
  * 28 bytes into adjacent globals. */
 uint32_t DAT_00677544[8];
 uint32_t DAT_006777e8[8];
-uint32_t DAT_006790c0;
+/* 0x8000-entry sqrt lookup table (32768 * 4 = 0x20000 bytes), filled by
+ * FUN_004f1eb0 and read by FUN_004ed300. Was a lone uint32_t; its sibling
+ * table DAT_006990c0 sits exactly 0x20000 bytes higher in the original
+ * image, confirming the real size. Undersized, the fill loop wrote past
+ * the end of the whole executable image and faulted. */
+uint32_t DAT_006790c0[0x8000];
 uint8_t DAT_0067e348;
 uint8_t DAT_0067e3c8;
 uint8_t DAT_0067e3cc;
@@ -353,7 +358,9 @@ uint8_t DAT_0067ec64;
 uint8_t DAT_0067ec68;
 uint8_t DAT_0067ec70;
 uint8_t DAT_0067ec74;
-uint32_t DAT_006990c0;
+/* 0x8000-entry sqrt lookup table, sibling of DAT_006790c0 above - see its
+ * comment. */
+uint32_t DAT_006990c0[0x8000];
 uint8_t DAT_0069ec74;
 uint8_t DAT_006a647c;
 uint8_t DAT_006a6481;

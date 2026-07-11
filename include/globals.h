@@ -450,7 +450,7 @@ extern uint8_t DAT_006773c0;
 #define _DAT_006773c0 DAT_006773c0
 extern uint32_t DAT_00677544[8]; /* DDPIXELFORMAT - see globals.c */
 extern uint32_t DAT_006777e8[8]; /* DDPIXELFORMAT - see globals.c */
-extern uint32_t DAT_006790c0;
+extern uint32_t DAT_006790c0[0x8000];
 extern uint8_t DAT_0067e348;
 extern uint8_t DAT_0067e3c8;
 extern uint8_t DAT_0067e3cc;
@@ -463,7 +463,7 @@ extern uint8_t DAT_0067ec64;
 extern uint8_t DAT_0067ec68;
 extern uint8_t DAT_0067ec70;
 extern uint8_t DAT_0067ec74;
-extern uint32_t DAT_006990c0;
+extern uint32_t DAT_006990c0[0x8000];
 extern uint8_t DAT_0069ec74;
 extern uint8_t DAT_006a647c;
 extern uint8_t DAT_006a6481;

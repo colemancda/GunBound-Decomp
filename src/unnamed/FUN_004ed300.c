@@ -40,7 +40,7 @@ FUN_004ed300(int param_1,int param_2,int param_3,int param_4,int param_5,undefin
   }
   else {
     local_8 = (float)(((int)fVar1 + 0xc0800000U >> 1) + 0x3f800000 & 0x7f800000 |
-                     (&DAT_006790c0)[(uint)fVar1 >> 8 & 0xffff]);
+                     DAT_006790c0[(uint)fVar1 >> 8 & 0xffff]);
   }
   iVar4 = iVar4 % 0x168;
   iVar3 = (iVar4 + 0x5a) % 0x168;
