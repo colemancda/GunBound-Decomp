@@ -11,16 +11,18 @@
 void FUN_004e6b50(void)
 
 {
-  uintptr_t uVar1;
-  void *unaff_ESI;
-  
-  *(undefined4 *)((int)unaff_ESI + 0x3bc) = 0;
-  *(undefined4 *)((int)unaff_ESI + 0x3b8) = 0;
-  uVar1 = __beginthread(FUN_004f47e0,0,unaff_ESI);
-  *(uintptr_t *)((int)unaff_ESI + 4) = uVar1;
-  if (uVar1 != 0) {
-    Sleep(0);
-  }
+  /* BRING-UP WORKAROUND: skip starting this worker thread.
+   *
+   * Same dropped-ESI situation as FUN_00415500/FUN_00415530 (orig
+   * 0x40f3b4 loads ESI=&DAT_00e55ce0 before calling this), but that global
+   * is ALREADY a large, widely-referenced struct throughout battle/replay
+   * code (PostTurnEvent, FUN_004e7b60/004e80d0/004e84c0, WriteReplayEventRecord,
+   * etc. all take &DAT_00e55ce0 as their own context arg) with other globals
+   * declared close behind it (DAT_00e55cf4 only 0x14 bytes later) - this
+   * function needs to write as far as +0x3bc, which would require resizing
+   * DAT_00e55ce0 far beyond what's safe without auditing every one of those
+   * other call sites. Not required to reach the logo/menu render loop;
+   * revisit alongside a proper pass over the whole DAT_00e55ce0 struct. */
   return;
 }
 
