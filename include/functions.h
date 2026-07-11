@@ -128,7 +128,7 @@ void FUN_004011b0();
 void __fastcall FUN_00401200();
 void __fastcall FUN_00401350();
 void __fastcall FUN_00401370();
-int FUN_00401610();
+int FindStringNoCase();
 void FUN_00401650();
 uint FUN_00401820();
 HMODULE FUN_00401880(uint param_1,WORD param_2); /* narrow WORD arg: empty-paren decl conflicts under gcc */
@@ -672,7 +672,7 @@ undefined4 __fastcall FUN_0045f5d0();
 int FUN_0045f840();
 void FUN_00461a20();
 void __fastcall FUN_00461c60();
-void __fastcall FUN_00461ca0();
+void __fastcall SimulateMobileFrame();
 void __fastcall FUN_00462900();
 void FUN_00463630();
 void FUN_00463c80();

@@ -174,5 +174,5 @@ The host-only room-config controls dispatch to two different sends:
 - Vtable slots 18 (`0x40ca00`) / 19 (`0x461c60`) are **inherited base-class
   infra**, not Ready-Room UI: slot 18 is a secondary scalar-deleting destructor
   thunk (→ `FUN_004711e0`), slot 19 (`0x461c60`) a small resource/connection
-  poll (reads `+0x1c`, calls `FUN_00401610`, sets `+0x20`/`+0x24`/`+0x34` — the
+  poll (reads `+0x1c`, calls `FindStringNoCase`, sets `+0x20`/`+0x24`/`+0x34` — the
   same field shape as the connection object). Neither is screen-specific.

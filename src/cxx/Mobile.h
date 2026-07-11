@@ -64,11 +64,14 @@ public:
      * its own (e.g. type 0 = 0x44e8f0). */
     virtual ~CMobile();
     /* slot 1 +0x04: 0x461c60 (shared) - acquires a handle: if +0x1c != 0,
-     * +0x24 = FUN_00401610(), sets the +0x20 active flag / +0x34 fail flag. */
+     * +0x24 = FindStringNoCase(), sets the +0x20 active flag / +0x34 fail flag. */
     virtual void v1_AcquireHandle();
-    /* slot 2 +0x08: 0x461ca0 (shared) - large method over per-player
-     * checksum-state (0x224) buffers; update/serialize. Role unconfirmed. */
-    virtual void v2();
+    /* slot 2 +0x08: 0x461ca0 = SimulateMobileFrame (shared) - the per-frame
+     * mobile tick: runs the anti-cheat guard checks, reads the fire
+     * angle/power CValueGuards (0x243/0x2cc int-index = byte 0x90c/0xb30),
+     * advances sprite animation, records replay events, updates the
+     * color/AI counters. Dispatches to several other vtable slots. */
+    virtual void v2_SimulateFrame();
     /* slot 3 +0x0c: 0x462900 (shared) - large method. Role unconfirmed. */
     virtual void v3();
     /* slot 4 +0x10: 0x429800 (shared) - no-op (`return;`). */

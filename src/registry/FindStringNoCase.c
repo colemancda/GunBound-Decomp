@@ -1,4 +1,4 @@
-/* FUN_00401610 - 0x00401610 in the original binary.
+/* FindStringNoCase - 0x00401610 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_00401610(void)
+int FindStringNoCase(void)
 
 {
   int iVar1;
