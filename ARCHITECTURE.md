@@ -756,6 +756,36 @@ player-record accessor called throughout the battle/room code.
   end back to ready room), i.e. **recording spans from ready-room entry
   through match end**, not just the battle itself.
 
+### The capture gate and the battle frame loop
+
+The whole recording path is gated by one byte flag, **`g_bBattleSessionActive`**
+(`0x793522`, was `DAT_00793522`): `1` while an active recorded match session is
+running, `0` when idle/exited. It is set to `1` by `State09_ReadyRoom_ProcessPacket`
+(`0x4d46ca`, on the match-start packet) and cleared to `0` by
+`State09_ReadyRoom_OnExit` (`0x4d7ae8`) — matching the "recording spans ready-room
+entry through match end" observation above. `WriteReplayEventRecord` (`0x411240`)
+captures a per-slot record **only when `g_bBattleSessionActive == 1` and
+`g_currentGameState == 9`**, which is what fixes the direction: `1` is the
+**capture/live** mode, not replay playback.
+
+The same flag selects the per-frame work in the battle main loop:
+
+- **`AdvanceBattleFrame`** (`0x4d7b20`, was `FUN_004d7b20`) runs every frame on the
+  battle-world object. It decrements the AFK/round timers, runs the item-icon
+  cursor logic, the 300-frame idle timeout (auto-sends the `0x2000` packet), the
+  active-object GC (`0x4f3100`), and updates all 8×2 scene objects through their
+  vtables. Then: **if `g_bBattleSessionActive == 0`** it just emits a `0xa000`
+  replay heartbeat every 200 frames; **if `!= 0`** it delegates the frame to…
+- **`ProcessBattleFrame`** (`0x4dcbe0`, was `FUN_004dcbe0`, ~12 KB — the 2nd
+  largest function in the binary). This is the live per-frame battle processor:
+  it advances the world frame counter (`+0x740`), works through guard-protected
+  state on `g_clientContext` (`+0x475c4`/`+0x475c8`), and holds a very large
+  content-id → sprite-name switch covering the *entire* in-battle sprite roster
+  (`bullet1-16` in n/p/s/l variants, `flame`/`ssflame`/`jflame` 1-16, `tank1-16`,
+  jewel, thor, teleport, rayonmine, crystal, the `b_play_*` HUD buttons, …),
+  instantiating each via `LoadSpriteSet` / `FindPreloadedTextureByName` /
+  `LoadRoomSlotAvatar`, playing sounds, and appending replay events.
+
 This is a strong, self-contained subsystem — reconstructing the `.sv` file
 format (event-code table + per-event payload layouts) would be a good
 standalone follow-up, and is probably the most "shippable" single feature to
