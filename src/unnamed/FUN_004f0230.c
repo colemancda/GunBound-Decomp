@@ -33,9 +33,9 @@ bool __fastcall FUN_004f0230(undefined4 param_1,undefined4 param_2,int param_3)
   local_1c = 0x10;
   local_10 = 1;
   iVar1 = 8;
-  puVar2 = &DAT_006777e8;
+  puVar2 = DAT_006777e8;
   if (param_3 == '\0') {
-    puVar2 = &DAT_00677544;
+    puVar2 = DAT_00677544;
   }
   puVar3 = local_40;
   for (; iVar1 != 0; iVar1 = iVar1 + -1) {

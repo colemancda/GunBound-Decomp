@@ -311,8 +311,12 @@ uint8_t DAT_006773b4;
 uint8_t DAT_006773b8;
 uint8_t DAT_006773bc;
 uint8_t DAT_006773c0;
-uint32_t DAT_00677544;
-uint32_t DAT_006777e8;
+/* Two DDPIXELFORMAT slots (0x20 bytes = 8 dwords each): the 16-bit RGB and
+ * DXT/FourCC texture formats matched by EnumTextureFormatsCallback and read
+ * back by FUN_004f0230. Were lone uint32_t, so the 8-dword copy overflowed
+ * 28 bytes into adjacent globals. */
+uint32_t DAT_00677544[8];
+uint32_t DAT_006777e8[8];
 uint32_t DAT_006790c0;
 uint8_t DAT_0067e348;
 uint8_t DAT_0067e3c8;

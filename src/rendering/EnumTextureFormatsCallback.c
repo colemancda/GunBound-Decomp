@@ -34,7 +34,7 @@ undefined4 __stdcall EnumTextureFormatsCallback(undefined4 *param_1,undefined4 p
     if ((param_1[1] & 1) == 0) {
       if (((param_1[7] == 0) && (param_1[4] == 0xf800)) &&
          ((param_1[5] == 0x7e0 && (param_1[6] == 0x1f)))) {
-        puVar2 = &DAT_00677544;
+        puVar2 = DAT_00677544;
         for (iVar1 = 8; iVar1 != 0; iVar1 = iVar1 + -1) {
           *puVar2 = *param_1;
           param_1 = param_1 + 1;
@@ -44,7 +44,7 @@ undefined4 __stdcall EnumTextureFormatsCallback(undefined4 *param_1,undefined4 p
     }
     else if (((param_1[7] == 0xf000) && (param_1[4] == 0xf00)) &&
             ((param_1[5] == 0xf0 && (param_1[6] == 0xf)))) {
-      puVar2 = &DAT_006777e8;
+      puVar2 = DAT_006777e8;
       for (iVar1 = 8; iVar1 != 0; iVar1 = iVar1 + -1) {
         *puVar2 = *param_1;
         param_1 = param_1 + 1;
