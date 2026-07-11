@@ -14,7 +14,13 @@ void __fastcall FUN_00401200(int param_1)
   int iVar2;
   sockaddr local_40 [2];
   undefined1 local_20 [32];
-  
+  /* BuildSystemInfoBlob's 2nd output (orig ESI, dropped) - NOT verified
+   * against this call site's original disassembly; added only to satisfy
+   * the now-2-parameter signature (see BuildSystemInfoBlob.c). Revisit if
+   * this code path is ever exercised. */
+  undefined4 systemInfoBlob2 [6];
+
+
   iVar1 = DAT_007934e8;
   if (DAT_007934e8 != 0) {
     iVar2 = *(int *)(DAT_007934e8 + 0x84ec) + 1;
@@ -33,7 +39,7 @@ void __fastcall FUN_00401200(int param_1)
     }
   }
   if ((DAT_00e55a54 != '\0') && (DAT_00e55a58 < 0x1e)) {
-    BuildSystemInfoBlob(local_20);
+    BuildSystemInfoBlob(local_20, systemInfoBlob2);
     if (DAT_00e55a64 != (int *)0x0) {
       (**(code **)(*DAT_00e55a64 + 0xc))(&DAT_005b1c70,DAT_005b33f4,local_20,local_40);
     }
