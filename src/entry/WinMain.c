@@ -166,16 +166,16 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     DAT_007934f4 = (HDC)0x0;
   }
   else {
-    /* FUN_004058c0's own definition (src/unnamed/FUN_004058c0.c) returns
-     * void, but this call site treats it as if it returns a value - one
-     * of many call-site/definition signature mismatches from Ghidra's
-     * per-call-site calling-convention inference (see include/
-     * functions.h's header comment). Left as a bare call rather than
-     * guessing what DAT_007934f4 should become; a real fix needs
-     * comparing this against the confirmed behavior already documented
-     * in ARCHITECTURE.md/PROTOCOL.md for whatever this connection-setup
-     * code turns out to be. */
-    FUN_004058c0(3,&DAT_00795070);
+    /* DAT_007934f4 = pvVar4 recovered from orig 0x40dc17-0x40dc24: the
+     * original stores eax (pvVar4) into edi BEFORE calling FUN_004058c0
+     * (which takes it as a dropped-EDI context arg - see that file), and
+     * SignalConnectRequest later reads *(DAT_007934f4+0x2004) expecting
+     * this same object. FUN_004058c0 itself is still a raw, unverified
+     * port of a deep constructor chain (FUN_004e54e0 and beyond build a
+     * 0x24a70-byte connection object) - called for its side effects, not
+     * its (nonexistent) return value. */
+    DAT_007934f4 = pvVar4;
+    FUN_004058c0(pvVar4,3,&DAT_00795070);
   }
   DVar3 = timeGetTime();
   FUN_00525c42(DVar3);
@@ -252,7 +252,9 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     BuildSystemInfoBlob(g_clientContext + 0x2331c, systemInfoBlob2);
     SetFocus(hWnd);
     local_db4 = DAT_007934f4;
-    SignalConnectRequest(0x20a3);
+    /* Recovered args: connection sub-object at *(DAT_007934f4+0x2004),
+     * hostname "localhost" (orig 0x551e38) - see SignalConnectRequest.c. */
+    SignalConnectRequest(*(int *)((char *)DAT_007934f4 + 0x2004), "localhost", 0x20a3);
     *(undefined1 *)&local_db4[0x802].unused = 1;
     DAT_007934e0 = timeGetTime();
     ChangeGameState(6);

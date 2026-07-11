@@ -8,13 +8,15 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004e54e0(undefined4 param_1,undefined4 param_2)
+/* unaff_ESI (the object being constructed) arrives via a dropped ESI
+ * register in the original (`mov esi, eax` before the call in
+ * FUN_004058c0) - promoted to an explicit first parameter. */
+undefined4 FUN_004e54e0(undefined4 *unaff_ESI, undefined4 param_1,undefined4 param_2)
 
 {
   int iVar1;
-  undefined4 *unaff_ESI;
   undefined4 *puVar2;
-  
+
   FUN_004e5bb0(unaff_ESI);
   *unaff_ESI = &PTR_FUN_005572e8;
   unaff_ESI[0x9290] = 0;

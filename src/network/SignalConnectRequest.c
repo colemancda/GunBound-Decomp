@@ -15,14 +15,18 @@
 #include "ghidra_types.h"
 
 
-void SignalConnectRequest(int param_1)
+/* unaff_ESI (the connection object) and unaff_EDI (the hostname string to
+ * copy in) both arrive via dropped registers in the original (orig
+ * 0x40de77-0x40de82: `mov esi, [eax+0x2004]` where eax=DAT_007934f4, and
+ * `mov edi, 0x551e38` -> the string "localhost", a hardcoded loopback
+ * default). Promoted to explicit parameters; the sole caller (WinMain.c)
+ * passes both directly. */
+void SignalConnectRequest(int unaff_ESI, char *unaff_EDI, int param_1)
 
 {
   char cVar1;
   int iVar2;
-  int unaff_ESI;
-  char *unaff_EDI;
-  
+
   *(undefined4 *)(unaff_ESI + 0x22c) = 1;
   if (*(SOCKET *)(unaff_ESI + 0x24) != 0xffffffff) {
     closesocket(*(SOCKET *)(unaff_ESI + 0x24));
