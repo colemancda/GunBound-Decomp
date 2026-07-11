@@ -442,7 +442,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00438360,175,FUN_00438360,false,7,4,RAW-src
 00438410,1211,FUN_00438410,false,2,13,RAW-src
 004388e0,3351,FUN_004388e0,false,1,22,RAW-src
-00439600,727,FUN_00439600,false,3,10,RAW-src
+00439600,727,SpawnCraterDebris,false,3,10,RAW-src
 004398e0,1196,FUN_004398e0,false,5,19,RAW-src
 00439d90,168,FUN_00439d90,false,1,5,RAW-src
 00439e40,1754,FUN_00439e40,false,1,17,RAW-src
@@ -1049,10 +1049,10 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e4390,57,FUN_004e4390,false,5,0,RAW-src
 004e43d0,55,FUN_004e43d0,false,5,0,RAW-src
 004e4410,64,FUN_004e4410,false,5,0,RAW-src
-004e4450,1300,FUN_004e4450,false,3,5,RAW-src
-004e4970,578,FUN_004e4970,false,23,5,RAW-src
-004e4bc0,319,FUN_004e4bc0,false,5,1,RAW-src
-004e4d00,583,FUN_004e4d00,false,23,1,RAW-src
+004e4450,1300,CarveTerrainCrater,false,3,5,RAW-src
+004e4970,578,ApplyCraterExcavation,false,23,5,RAW-src
+004e4bc0,319,DarkenTerrainScorchRow,false,5,1,RAW-src
+004e4d00,583,RebuildTerrainColumnCache,false,23,1,RAW-src
 004e4f50,130,FUN_004e4f50,false,1,4,RAW-src
 004e4fe0,520,FUN_004e4fe0,false,25,1,RAW-src
 004e51f0,303,ComputeShotViewBounds,false,3,1,RAW-src

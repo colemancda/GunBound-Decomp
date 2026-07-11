@@ -92,8 +92,8 @@ void __fastcall FUN_0046a4d0(int *param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004e4970(local_adc[0],uStack_ad4,uStack_ac8,uStack_ad0,uStack_acc,uVar10,uVar9,uVar8);
-    FUN_004e4d00(&DAT_006a7708 + g_clientContext);
+    ApplyCraterExcavation(local_adc[0],uStack_ad4,uStack_ac8,uStack_ad0,uStack_acc,uVar10,uVar9,uVar8);
+    RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

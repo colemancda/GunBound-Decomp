@@ -1,4 +1,4 @@
-/* FUN_00439600 - 0x00439600 in the original binary.
+/* SpawnCraterDebris - 0x00439600 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-uint FUN_00439600(int *param_1,int param_2,int param_3,int param_4,int param_5,int param_6)
+uint SpawnCraterDebris(int *param_1,int param_2,int param_3,int param_4,int param_5,int param_6)
 
 {
   byte bVar1;

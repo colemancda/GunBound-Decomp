@@ -723,6 +723,56 @@ further static analysis of this client binary alone. I'm treating this
 physics thread as closed for static analysis purposes unless new evidence
 surfaces elsewhere.
 
+## Terrain: the collision mask and the crater-carving pipeline
+
+**High confidence, fully traced.** The battle terrain is a per-column occupancy
+bitmap (a byte array, non-zero = solid ground) on a terrain object with fields:
+`+0x18` row stride, `+0x1c` column count/scan bound, `+0x34` the mask buffer
+base, `+0x51` a "row already processed" flag array, `+0x854`/`+0x858` the
+excavated-column min/max range.
+
+- **`FindGroundHeightAtColumn`** (`0x4e4340`) — the read side: scans the mask
+  buffer down a column from a starting row until it finds the first non-zero
+  (solid) byte, returning that row as the ground height (`10000` = no ground
+  found / off the terrain). Called by `ComputeMobileGroundY` and every mobile's
+  fall/landing check.
+- **`CarveTerrainCrater(radius, centerX, centerY, aspectParam, ...)`** (`0x4e4450`)
+  — the write side: a **Bresenham midpoint-circle rasterizer** that zeroes the
+  mask buffer within an ellipse (the circle math is squashed by an aspect-ratio
+  parameter, giving GunBound's characteristic non-circular craters). For each
+  carved row it also calls **`DarkenTerrainScorchRow`** (`0x4e4bc0`) on a
+  slightly wider ring — that function walks the terrain's **visual** RLE sprite
+  pixel data (the same `.img` run-length format documented in FILEFORMATS.md:
+  `[stride][run_count]` then `[x_offset][length][pixels]` spans) and darkens
+  each pixel via `(pixel & 0xe79c) >> 2` (a per-channel divide-by-~4), producing
+  the scorch-mark ring around a fresh crater. Rows are marked processed via the
+  `+0x51` flag array so the darken pass only runs once per row per impact.
+- **`SpawnCraterDebris`** (`0x439600`) — spawns a handful of `ani_%02d`
+  animated-sprite debris/explosion particle objects with randomized position,
+  velocity, and simulated gravity (a `0x3c - iVar5` term) — the flying-dirt-clod
+  visual that accompanies a crater.
+- **`ApplyCraterExcavation`** (`0x4e4970`) — the per-impact orchestrator, called
+  from `CProjectile::DetonateProjectile` (`0x4572b0`): calls
+  `CarveTerrainCrater`, sets the excavated-column range (`+0x854`/`+0x858`) so
+  the next step only touches changed columns, calls `SpawnCraterDebris`, and
+  (gated on `DAT_0079352a`) broadcasts event `0xf004` (impact position) via
+  `QueueBroadcastEvent`/`BroadcastQueuedEvent` (see "Two separate systems
+  previously conflated as 'replay'").
+- **`RebuildTerrainColumnCache`** (`0x4e4d00`) — called right after
+  `ApplyCraterExcavation` in `DetonateProjectile`. For each column, if it falls
+  outside the excavated range it copies the previous cached column data
+  straight through (a ping-pong buffer swap between `terrainObj+0x34` and
+  `terrainObj+0x3c`); if it falls inside the excavated range it re-runs an
+  RLE-style zero-run compaction over the mask to rebuild that column's cached
+  representation from the now-carved mask. This is what keeps whatever consumes
+  the terrain mask (rendering, ground-height queries) consistent after a crater
+  without recomputing every column every impact.
+
+Together this is the complete crater pipeline: **impact → carve circular hole in
+the collision mask → darken the scorch ring in the visual sprite → spawn debris
+particles → broadcast the impact → rebuild the per-column cache for only the
+changed columns.**
+
 ## Packet-checksum utility family (broadly recurring)
 
 A cluster of tiny functions, called from nearly every packet handler decompiled

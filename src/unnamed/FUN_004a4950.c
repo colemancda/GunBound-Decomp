@@ -670,8 +670,8 @@ LAB_004a558f:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004e4970(uVar12,uVar11,uVar10,uVar23,uVar22,uVar21,uVar6,uVar5);
-  FUN_004e4d00(&DAT_006a7708 + g_clientContext);
+  ApplyCraterExcavation(uVar12,uVar11,uVar10,uVar23,uVar22,uVar21,uVar6,uVar5);
+  RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

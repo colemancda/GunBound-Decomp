@@ -1,4 +1,4 @@
-/* FUN_004e4d00 - 0x004e4d00 in the original binary.
+/* RebuildTerrainColumnCache - 0x004e4d00 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -11,7 +11,7 @@
 /* WARNING: Removing unreachable block (ram,0x004e4d77) */
 /* WARNING: Removing unreachable block (ram,0x004e4d61) */
 
-void FUN_004e4d00(int param_1)
+void RebuildTerrainColumnCache(int param_1)
 
 {
   ushort *puVar1;

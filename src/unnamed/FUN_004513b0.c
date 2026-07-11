@@ -910,8 +910,8 @@ LAB_00451f7a:
   (*pcVar17)(&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004e4970(uVar10,uVar9,puVar24,puVar25,puVar23,puVar26,puVar22,uVar8);
-  FUN_004e4d00(&DAT_006a7708 + g_clientContext);
+  ApplyCraterExcavation(uVar10,uVar9,puVar24,puVar25,puVar23,puVar26,puVar22,uVar8);
+  RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
   puVar22 = &DAT_005a9068;
   (*pcVar17)(&DAT_005a9068);
   PeekPacketChecksumState();

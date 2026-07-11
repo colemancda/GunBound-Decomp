@@ -1,4 +1,4 @@
-/* FUN_004e4450 - 0x004e4450 in the original binary.
+/* CarveTerrainCrater - 0x004e4450 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e4450(int param_1,int param_2,int param_3)
+void CarveTerrainCrater(int param_1,int param_2,int param_3)
 
 {
   int iVar1;
@@ -190,7 +190,7 @@ void FUN_004e4450(int param_1,int param_2,int param_3)
     iVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_10 = local_30 * param_3;
-    FUN_004e4bc0((local_10 / iVar3) * 2);
+    DarkenTerrainScorchRow((local_10 / iVar3) * 2);
     if (-1 < local_30) {
       iVar3 = 0;
       do {
@@ -211,14 +211,14 @@ void FUN_004e4450(int param_1,int param_2,int param_3)
         iVar9 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar9 = (iVar3 / iVar9) * 2;
-        FUN_004e4bc0(iVar9);
-        FUN_004e4bc0(iVar9);
+        DarkenTerrainScorchRow(iVar9);
+        DarkenTerrainScorchRow(iVar9);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar9 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar9 = (local_10 / iVar9) * 2;
-        FUN_004e4bc0(iVar9);
-        FUN_004e4bc0(iVar9);
+        DarkenTerrainScorchRow(iVar9);
+        DarkenTerrainScorchRow(iVar9);
       } while (local_34 <= local_30);
     }
     puVar10 = (undefined4 *)(unaff_ESI + 0x51);

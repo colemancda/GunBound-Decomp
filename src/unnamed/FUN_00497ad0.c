@@ -71,13 +71,13 @@ void __fastcall FUN_00497ad0(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004e4970(uVar3,local_474[0],local_45c,local_46c,local_464,local_460,local_468,local_458);
+    ApplyCraterExcavation(uVar3,local_474[0],local_45c,local_46c,local_464,local_460,local_468,local_458);
     local_4 = 0xffffffff;
     if (local_440 != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_474);
     }
-    FUN_004e4d00(&DAT_006a7708 + g_clientContext);
+    RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(uVar3);

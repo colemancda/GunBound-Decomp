@@ -54,8 +54,8 @@ void __fastcall FUN_004aa8f0(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004e4970(uVar10,uVar9,uVar8,uVar7,uVar6,uVar5,uVar4,uVar3);
-  FUN_004e4d00(&DAT_006a7708 + g_clientContext);
+  ApplyCraterExcavation(uVar10,uVar9,uVar8,uVar7,uVar6,uVar5,uVar4,uVar3);
+  RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState();
   pcVar12 = (code *)LeaveCriticalSection;

@@ -293,8 +293,8 @@ LAB_00468fef:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004e4970(uStack_acc,iStack_ad0,iStack_ad8,iStack_ad4,uVar18,apuStack_ae0[0],uVar17,uVar8);
-    FUN_004e4d00(&DAT_006a7708 + g_clientContext);
+    ApplyCraterExcavation(uStack_acc,iStack_ad0,iStack_ad8,iStack_ad4,uVar18,apuStack_ae0[0],uVar17,uVar8);
+    RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -411,8 +411,8 @@ LAB_0046942b:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004e4970(uStack_acc,iStack_ad0,iStack_ad8,iStack_ad4,uVar18,apuStack_ae0[0],uVar17,uVar8);
-  FUN_004e4d00(&DAT_006a7708 + g_clientContext);
+  ApplyCraterExcavation(uStack_acc,iStack_ad0,iStack_ad8,iStack_ad4,uVar18,apuStack_ae0[0],uVar17,uVar8);
+  RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar8 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
