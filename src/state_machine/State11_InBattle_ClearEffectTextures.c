@@ -1,4 +1,4 @@
-/* FUN_004c1d30 - 0x004c1d30 in the original binary.
+/* State11_InBattle_ClearEffectTextures - 0x004c1d30 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004c1d30(void)
+void State11_InBattle_ClearEffectTextures(void)
 
 {
   int *piVar1;

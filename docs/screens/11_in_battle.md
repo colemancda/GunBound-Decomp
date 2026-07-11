@@ -15,7 +15,7 @@ overlay still uses the software blitter. The most complex state.
 ## Full vtable map
 | Slot | Addr | Role |
 |---|---|---|
-| 0 | `0x4b4060` | destructor |
+| 0 | `0x4b4060` | `State11_InBattle_Delete` — scalar-deleting destructor (→ `State11_InBattle_Destroy` body `0x4b4080` + conditional `free`) |
 | 1 | `0x4b4100` | ProcessPacket |
 | 2 | `0x4b5460` | ProcessBattleAction (battle-action channel) |
 | 3,4 | `0x4fdef0` | shared no-op |
@@ -27,7 +27,7 @@ overlay still uses the software blitter. The most complex state.
 | 10 | `0x4c1b90` | chat character-input helper (emoticon/control-char remap: `@→0x0a`…`*→0x10`) |
 | 11 | `0x4c1c90` | small per-tick counter/update helper |
 | 12 | `0x4c1d10` | one-line delegate → `FUN_004508a0` at `+0x6a7f88` |
-| 13 | `0x4c1d30` | **per-frame dynamic-texture clear**: Lock/zero-fill/Unlock (`DDSURFACEDESC2` 0x7c) across ~24 named effect textures (`AvataTexture`, `BulletTexture`, `FlameTexture1-4`, `ThorTexture`, …) |
+| 13 | `0x4c1d30` | `State11_InBattle_ClearEffectTextures` — **per-frame dynamic-texture clear**: Lock/zero-fill/Unlock (`DDSURFACEDESC2` 0x7c) across ~24 named effect textures (`AvataTexture`, `BulletTexture`, `FlameTexture1-4`, `ThorTexture`, …) |
 | 14 | `0x4c3020` | `State11_InBattle_Render` (the D3D battle scene) |
 | 15 | `0x4c8890` | `State11_InBattle_RenderHud` — **software-blit HUD/chat-log renderer** (see below) |
 | 16 | `0x4caed0` | `State11_InBattle_RenderModeIcons` |
