@@ -7,7 +7,7 @@
  * for a miss), sets the "valid selection" flag (+0x24 = row!=-1), refreshes the
  * connect-button label/enabled state (InvokeWidget(+8 != -1)). This is the
  * row-click -> selection wiring; connecting then happens when the SERVER button
- * is pressed (FUN_004e1170 -> FUN_004e1bf0 on the selected slot).
+ * is pressed (FUN_004e1170 -> ConnectToSelectedServer on the selected slot).
  *
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/

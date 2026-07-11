@@ -494,11 +494,11 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004431a0,216,LoadReadyRoomSlotAvatar,false,8,1,RAW-src
 00443280,49,State06_Logo2_OnEnter,false,1,2,RAW-src
 004432c0,111,State06_Logo2_OnExit,false,1,1,RAW-src
-00443330,39,FUN_00443330,false,1,1,RAW-src
+00443330,39,State06_Logo2_OnTick,false,1,1,RAW-src
 004433f0,49,State05_Logo1_OnEnter,false,1,2,RAW-src
 00443430,262,State05_Logo1_OnExit,false,1,2,RAW-src
 00443540,40,FUN_00443540,false,1,1,RAW-src
-00443570,62,FUN_00443570,false,3,3,RAW-src
+00443570,62,RenderScreenBackdrop,false,3,3,RAW-src
 004435b0,44,FUN_004435b0,false,1,2,RAW-src
 004435e0,44,FUN_004435e0,false,1,2,RAW-src
 00443610,39,FUN_00443610,false,2,1,RAW-src
@@ -1029,7 +1029,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e14b0,825,State02_ServerSelect_OnEnter,false,1,9,RAW-src
 004e17f0,366,State02_ServerSelect_OnExit,false,1,2,RAW-src
 004e1960,651,State02_ServerSelect_OnTick,false,1,7,RAW-src
-004e1bf0,342,FUN_004e1bf0,false,4,4,RAW-src
+004e1bf0,342,ConnectToSelectedServer,false,4,4,RAW-src
 004e1d50,320,FUN_004e1d50,false,1,5,RAW-src
 004e1e90,212,FUN_004e1e90,false,1,3,RAW-src
 004e1f70,2985,FUN_004e1f70,false,7,5,RAW-src
@@ -1615,6 +1615,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050d5a0,362,WorldListPanel_OnMouseDown,false,1,3,RAW-src
 0050d7a0,101,FUN_0050d7a0,false,1,2,RAW-src
 0050d810,1065,WorldListPanel_OnCommand,false,1,7,RAW-src
+0050dc40,63,WorldListPanel_Draw,false,1,3,RAW-src
 0050dc80,690,RenderWorldListRow,false,1,7,RAW-src
 0050df40,144,WorldListRowHitTest,false,3,0,RAW-src
 0050dfd0,118,FUN_0050dfd0,false,1,2,RAW-src

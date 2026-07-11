@@ -8,7 +8,7 @@
  * hostname string is passed via a register (EDI) the decompiler didn't
  * model, so it isn't visible in the C signature. Used for both the broker
  * (State02 ServerSelect OnEnter) and the chosen game server (via
- * FUN_004e1bf0). Because SignalConnectRequest closes any existing socket
+ * ConnectToSelectedServer). Because SignalConnectRequest closes any existing socket
  * first, calling this again retargets the same connection object.
  *
  * Raw/near-verbatim port of Ghidra's

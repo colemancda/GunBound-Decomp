@@ -191,7 +191,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
         }
         else {
           *(uint *)((int)pvStack_e4 + 8) = uVar6;
-          FUN_004e1bf0(pvStack_e4);
+          ConnectToSelectedServer(pvStack_e4);
         }
       }
       DAT_0056d118 = 0xffffffff;

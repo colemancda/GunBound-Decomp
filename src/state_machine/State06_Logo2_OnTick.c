@@ -1,4 +1,4 @@
-/* FUN_00443330 - 0x00443330 in the original binary.
+/* State06_Logo2_OnTick - 0x00443330 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00443330(int param_1)
+void __fastcall State06_Logo2_OnTick(int param_1)
 
 {
   int iVar1;

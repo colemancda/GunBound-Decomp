@@ -363,7 +363,7 @@ named this pass; the connection object is the large per-connection struct at
   drained/displayed on failure wasn't traced this pass (open item).
 
 - **Broker and game-server connections reuse one connection object.** Picking
-  a server (`FUN_004e1bf0`) calls the same `BeginServerConnect` with the list
+  a server (`ConnectToSelectedServer`) calls the same `BeginServerConnect` with the list
   entry's IP:port; since `SignalConnectRequest` closes any existing socket
   first, this **retargets** the same object from the broker to the game server
   — there is no separate broker-vs-game connection.
@@ -2759,7 +2759,7 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
      else.
    - **A real scroll-list server browser + select→connect state machine.**
      (Corrects an earlier draft here that claimed
-     `this+0x68` is never written — the write lives in `FUN_004e1bf0`, a
+     `this+0x68` is never written — the write lives in `ConnectToSelectedServer`, a
      *non-vtable* helper called by the input handlers, which was missed on
      the first address-range pass.) **Opcode `0x1102` populates a real,
      richly-structured, up-to-16-entry server list** (server ID, name,
@@ -2775,7 +2775,7 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
 
      Both the click handler (`FUN_004e1170`) and the Enter handler
      (`FUN_004e1430`), after checking the highlighted server is online and
-     not full, call `FUN_004e1bf0(this)`. That helper `sprintf`s the packed
+     not full, call `ConnectToSelectedServer(this)`. That helper `sprintf`s the packed
      IP as `"%d.%d.%d.%d"`, opens a socket to `ip:port` via `BeginServerConnect`,
      and writes **`this+0x68 = <highlighted index>`**. When the server acks
      (opcode `0x2001`, `*payload==0`), the client reads the entry at
@@ -2812,7 +2812,7 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
        initial scroll offset from the registry `LastServer` value ÷ 16.
 
      **Per-row draw and row-click selection are now both traced.** The
-     panel's render slot (`0x50dc40`) loops the server count calling
+     **`WorldListPanel_Draw`** (`0x50dc40`) loops the server count calling
      `RenderWorldListRow` (`0x50dc80`) per row: a 2-column grid (247px column
      / 73px row pitch), a background sprite shaded by selection state
      (state 3 when the row index == the highlighted slot `state+8`), the

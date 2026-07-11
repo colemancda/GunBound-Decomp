@@ -1,4 +1,4 @@
-/* FUN_004e1bf0 - 0x004e1bf0 in the original binary.
+/* ConnectToSelectedServer - 0x004e1bf0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -15,7 +15,7 @@
 /* WARNING: Removing unreachable block (ram,0x004e1cc3) */
 /* WARNING: Removing unreachable block (ram,0x004e1ccd) */
 
-void FUN_004e1bf0(int param_1)
+void ConnectToSelectedServer(int param_1)
 
 {
   int *piVar1;

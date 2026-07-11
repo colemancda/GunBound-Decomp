@@ -27,7 +27,7 @@ below. (This corrects an earlier writeup that claimed there was no list UI.)
 | 9 | `0x4e1960` | per-frame tick: resends keepalive/status packets, animates per-slot byte array |
 | 2,4,10–17 | — | shared no-op / generic stubs |
 
-Non-vtable helper: **`FUN_004e1bf0`** — the connect-request builder (called by
+Non-vtable helper: **`ConnectToSelectedServer`** — the connect-request builder (called by
 slots 5 and 6).
 
 ## Resources / images
@@ -206,7 +206,7 @@ offset (state `+0x18`); the server replies with that 16-entry page via
 (`0x1100`/`0x1101`) rather than being a purely local view.
 
 ### Per-row rendering (now traced)
-The panel's render slot (`0x50dc40`) loops `count` (`g_clientContext+0x3f808`)
+**`WorldListPanel_Draw`** (`0x50dc40`) loops `count` (`g_clientContext+0x3f808`)
 calling **`RenderWorldListRow`** (`0x50dc80`) once per server. Each row:
 - **2-column grid layout** — x = `(i%2)·0xf7 + 0x16 + panelX`, y =
   `(i/2)·0x49 + 0x2d + panelY` (247px column pitch, 73px row pitch), matching
@@ -236,7 +236,7 @@ calling **`RenderWorldListRow`** (`0x50dc80`) once per server. Each row:
      when nothing is highlighted.
 2. On confirm (SERVER/choice-server button → `0x4e1170`, or Enter →
    `0x4e1430`), after checking the slot is online and not full
-   (`currentPlayers ≤ maxCapacity`), call **`FUN_004e1bf0(this)`** with the
+   (`currentPlayers ≤ maxCapacity`), call **`ConnectToSelectedServer(this)`** with the
    index in `EDI`. That helper:
    - if `this+0x28[slot] != 0` (a prior error) → show error dialog
      `ShowErrorDialog` instead of connecting;
@@ -267,7 +267,7 @@ message from the string table, `GetLocalizedString(&g_localizedStringTable, id)`
 - **Retry of a slot that already errored** — `0x1012` with sub-code
   `0x5001`/`0x5011`/`0x5012`/`0x5013` maps to error code `0x1d`–`0x20` and
   stores it in `this+0x28[slot]`, then re-enables the connect button; the
-  dialog appears on the *next* connect attempt (via `FUN_004e1bf0`'s guard →
+  dialog appears on the *next* connect attempt (via `ConnectToSelectedServer`'s guard →
   `ShowErrorDialog`, message string `code + 0xc7`).
 
 See README "Error / message dialog" for the dialog's layout.
