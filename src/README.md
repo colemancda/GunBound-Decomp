@@ -303,8 +303,8 @@ Concretely, that means:
     reference, same unrecoverable class as
     `State10_Loading_PreloadAssets.c`)
   - `unnamed/FUN_0043af40.c`, `unnamed/FUN_0044a000.c`,
-    `unnamed/FUN_0044b900.c`, `unnamed/FUN_0044c950.c` (sub-byte-field
-    access; `FUN_0044a000.c` additionally has its own
+    `state_machine/RenderInventoryItemDetail.c`, `unnamed/FUN_0044c950.c`
+    (sub-byte-field access; `FUN_0044a000.c` additionally has its own
     `stack0xfffffee8` raw-stack reference)
   - `unnamed/FUN_0044d9b0.c`, `unnamed/FUN_00452cc0.c` (sub-byte-field
     access - `stack0xfffff51c`/`stack0xfffff518`/etc. raw-stack
