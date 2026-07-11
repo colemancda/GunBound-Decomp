@@ -55,6 +55,12 @@ bool SetupZBuffer(void)
    *    matches a Z format of the display's bit depth. Orig: dwFlags=0x1007 @
    *    0x4ef9f5, ddsCaps=0x24000 @ 0x4ef9fd, dwSize=0 @ 0x4efa05. */
   zdesc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH | DDSD_PIXELFORMAT; /* 0x1007 */
+  /* Zero the whole DDSCAPS2 (not just dwCaps) before repurposing the
+   * back-buffer descriptor: dwCaps2/dwCaps3/dwCaps4 are separate dwords that
+   * GetSurfaceDesc left set to whatever the back buffer (a flip-chain
+   * COMPLEX surface) reported, and wine's ddraw rejects a Z-buffer
+   * CreateSurface with E_INVALIDARG if those stale bits are still present. */
+  ZeroMemory(&zdesc.ddsCaps, sizeof(zdesc.ddsCaps));
   zdesc.ddsCaps.dwCaps = DDSCAPS_ZBUFFER | DDSCAPS_VIDEOMEMORY;           /* 0x24000 */
   zdesc.ddpfPixelFormat.dwSize = 0;
 
