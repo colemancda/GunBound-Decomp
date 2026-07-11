@@ -10,7 +10,7 @@ overlay still uses the software blitter. The most complex state.
 - **Object size**: 0x2408 (~9 KB) — constructed by `FUN_004b3f90`
 - **ProcessPacket**: `State11_InBattle_ProcessPacket` (`0x4b4100`)
 - **ProcessBattleAction**: `State11_InBattle_ProcessBattleAction` (`0x4b5460`)
-- **OnEnter**: `0x4bb730` · **OnExit**: `0x4bcd00`
+- **OnEnter**: `0x4bb730` · **OnExit**: `0x4bcd00` · **OnTick**: `State11_InBattle_OnTick` (`0x4bd8b0`)
 
 ## Full vtable map
 | Slot | Addr | Role |
@@ -23,7 +23,7 @@ overlay still uses the software blitter. The most complex state.
 | 6 | `0x4b97d0` | **mouse-input dispatcher** (Win32 mouse codes) |
 | 7 | `0x4bb730` | OnEnter |
 | 8 | `0x4bcd00` | OnExit |
-| 9 | `0x4bd8b0` | large multi-purpose per-tick hook: 8-dir screen-edge camera-scroll cursor logic, outgoing-packet field encoding, replay event logging, per-tick active-object GC (`FUN_004f3100`), turn-phase bookkeeping |
+| 9 | `0x4bd8b0` | **`State11_InBattle_OnTick`** — the per-frame update (largest function in the binary, 17 KB). Structurally confirmed as the OnTick slot: State02's vtable has the identical slot-7/8/9 = OnEnter/OnExit/OnTick layout. 8-dir screen-edge camera-scroll cursor logic, chat-input field poll (`GetWindowTextA`), outgoing-packet field encoding, replay event logging, per-tick active-object GC (`FUN_004f3100`), turn-phase bookkeeping |
 | 10 | `0x4c1b90` | chat character-input helper (emoticon/control-char remap: `@→0x0a`…`*→0x10`) |
 | 11 | `0x4c1c90` | small per-tick counter/update helper |
 | 12 | `0x4c1d10` | one-line delegate → `FUN_004508a0` at `+0x6a7f88` |

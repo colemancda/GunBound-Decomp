@@ -1,4 +1,4 @@
-/* FUN_004bd8b0 - 0x004bd8b0 in the original binary.
+/* State11_InBattle_OnTick - 0x004bd8b0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -11,7 +11,7 @@
 /* WARNING (jumptable): Unable to track spacebase fully for stack */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __fastcall FUN_004bd8b0(int *param_1)
+void __fastcall State11_InBattle_OnTick(int *param_1)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not

@@ -979,7 +979,7 @@ void __fastcall FUN_004b4080();
 void __thiscall FUN_004b82b0();
 void __thiscall FUN_004b97d0();
 void FUN_004b9cd2();
-void __fastcall FUN_004bd8b0();
+void __fastcall State11_InBattle_OnTick();
 void __thiscall FUN_004c1b90();
 void __fastcall FUN_004c1c90();
 void FUN_004c1d10();
