@@ -54,7 +54,7 @@ undefined4 SendOutgoingPacket(void)
     ScrambleChecksumGuardBytes();
     FUN_0040b540(local_45c);
   }
-  FUN_004e5ac0(*(undefined4 *)(unaff_ESI + 0x84e0),*(undefined4 *)(unaff_ESI + 0x44d0));
+  SendSocketData(*(undefined4 *)(unaff_ESI + 0x84e0),*(undefined4 *)(unaff_ESI + 0x44d0));
   *(undefined4 *)(unaff_ESI + 0x84ec) = 0;
   *unaff_FS_OFFSET = local_c;
   /* Ghidra emitted a bare `return;` in a value-returning function;

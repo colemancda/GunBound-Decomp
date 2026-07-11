@@ -69,7 +69,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
               *(char *)(iVar2 + 0x4d6) = (char)puVar4[1];
               *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
               AppendPacketBytes(puVar5);
-              FUN_004d25e0();
+              EncodePacketBody();
               SendOutgoingPacket();
               FUN_00425700();
             }

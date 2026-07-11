@@ -45,7 +45,7 @@ void FUN_00402cf0(int param_1)
       *(int *)(iVar5 + 0x44d0) = iVar4 + 0xc;
       *(undefined1 *)(iVar4 + 0x4dc + iVar5) = 0;
       *(int *)(iVar5 + 0x44d0) = *(int *)(iVar5 + 0x44d0) + 1;
-      FUN_004d25e0();
+      EncodePacketBody();
       SendOutgoingPacket();
     }
     FUN_004026a0(0x2004,&DAT_0054b460,0);
@@ -61,7 +61,7 @@ void FUN_00402cf0(int param_1)
     iVar5 = *(int *)(puVar1 + 0x1000) + 0x10;
     *(int *)(puVar1 + 0x1000) = iVar5;
     *puVar1 = (short)iVar5;
-    FUN_004e5ac0(*(undefined4 *)(puVar1 + 0x1002),iVar5);
+    SendSocketData(*(undefined4 *)(puVar1 + 0x1002),iVar5);
     FUN_00401ee0(param_1);
     return;
   }

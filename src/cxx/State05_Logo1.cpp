@@ -13,7 +13,7 @@ int LoadSpriteSet(void *container, int key, const char *imgName);
 extern unsigned char DAT_00ea0e18;
 extern unsigned int  DAT_00ea0e1c;
 void BuildSystemInfoBlob(void *outBlob);        /* fills the 36-byte system-info blob */
-unsigned int FUN_004e5ac0(int handle, int len); /* channel send */
+unsigned int SendSocketData(int handle, int len); /* channel send */
 extern unsigned int DAT_007934f4;        /* outgoing packet buffer base (declared uint in the C
                                           * tree; used as a pointer here, cast locally) */
 }
@@ -86,6 +86,6 @@ send_info:
         int len = *(int *)((unsigned char *)buf + 0x2000) + 0x14;
         *(int *)((unsigned char *)buf + 0x2000) = len;
         buf[0] = (unsigned short)len;
-        FUN_004e5ac0(*(int *)((unsigned char *)buf + 0x2004), len);
+        SendSocketData(*(int *)((unsigned char *)buf + 0x2004), len);
     }
 }

@@ -60,7 +60,7 @@ void FUN_00404700(int param_1)
       *(int *)(iVar3 + 0x44d0) = iVar4 + 0xc;
       *(undefined1 *)(iVar4 + 0x4dc + iVar3) = 0;
       *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 1;
-      FUN_004d25e0();
+      EncodePacketBody();
       SendOutgoingPacket();
     }
     FUN_004026a0(0x2005,local_50,0x18);

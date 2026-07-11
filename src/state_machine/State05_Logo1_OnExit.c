@@ -77,7 +77,7 @@ LAB_00443475:
     iVar6 = *(int *)(puVar4 + 0x1000) + 0x14;
     *(int *)(puVar4 + 0x1000) = iVar6;
     *puVar4 = (short)iVar6;
-    FUN_004e5ac0(*(undefined4 *)(puVar4 + 0x1002),iVar6);
+    SendSocketData(*(undefined4 *)(puVar4 + 0x1002),iVar6);
   }
   return;
 }

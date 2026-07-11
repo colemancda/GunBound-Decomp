@@ -12,7 +12,7 @@ void __fastcall FUN_00405a20(undefined2 *param_1)
 
 {
   *param_1 = param_1[0x1000];
-  FUN_004e5ac0(*(undefined4 *)(param_1 + 0x1002),*(undefined4 *)(param_1 + 0x1000));
+  SendSocketData(*(undefined4 *)(param_1 + 0x1002),*(undefined4 *)(param_1 + 0x1000));
   return;
 }
 

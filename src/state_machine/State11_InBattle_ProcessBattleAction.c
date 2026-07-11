@@ -1241,7 +1241,7 @@ LAB_004b7fb2:
                 pcVar5 = pcVar5 + 1;
               } while (cVar2 != '\0');
               AppendPacketBytes(local_26d8);
-              FUN_004d25e0();
+              EncodePacketBody();
               SendOutgoingPacket();
             }
             local_c = 0xffffffff;

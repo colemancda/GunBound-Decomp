@@ -1,4 +1,4 @@
-/* FUN_004d25e0 - 0x004d25e0 in the original binary.
+/* EncodePacketBody - 0x004d25e0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -10,7 +10,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void __fastcall FUN_004d25e0(int param_1)
+void __fastcall EncodePacketBody(int param_1)
 
 {
   uint uVar1;

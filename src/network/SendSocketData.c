@@ -1,4 +1,4 @@
-/* FUN_004e5ac0 - 0x004e5ac0 in the original binary.
+/* SendSocketData - 0x004e5ac0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -10,7 +10,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-uint __thiscall FUN_004e5ac0(char *param_1,int param_2,uint param_3)
+uint __thiscall SendSocketData(char *param_1,int param_2,uint param_3)
 
 {
   uint len;

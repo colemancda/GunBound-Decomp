@@ -315,7 +315,7 @@ LAB_004e0d7f:
     iVar20 = DAT_007934ec;
     *(undefined2 *)(DAT_007934ec + 0x4d4) = 0x1010;
     *(undefined4 *)(iVar20 + 0x44d0) = 6;
-    FUN_004d2570(auStack_a0,&uStack_c0);
+    AppendEncodedBlock(auStack_a0,&uStack_c0);
     iVar20 = DAT_007934ec;
     puVar21 = (undefined4 *)(*(int *)(DAT_007934ec + 0x44d0) + 0x4d0 + DAT_007934ec);
     *puVar21 = uStack_c0;
@@ -343,7 +343,7 @@ LAB_004e0d7f:
     *(undefined2 *)(*(int *)(DAT_007934ec + 0x44d0) + 0x4d0 + DAT_007934ec) =
          SUBFIELD(sStack_d0.sa_data,0,undefined2);
     *(int *)(iVar20 + 0x44d0) = *(int *)(iVar20 + 0x44d0) + 2;
-    FUN_004d25e0();
+    EncodePacketBody();
     SendOutgoingPacket();
     return;
   }

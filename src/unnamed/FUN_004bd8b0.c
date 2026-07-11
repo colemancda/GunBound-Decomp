@@ -224,7 +224,7 @@ LAB_004bdd1c:
                 *(undefined2 *)(iVar14 + 0x4d4) = 0x4000;
                 *(byte *)(iVar14 + 0x4d6) = bVar13;
                 *(int *)(iVar14 + 0x44d0) = *(int *)(iVar14 + 0x44d0) + 1;
-                FUN_004d25e0();
+                EncodePacketBody();
                 SendOutgoingPacket();
                 Replay_AppendEvent();
                 (&g_replayEventBuffer)[g_replayEventCursor] = (undefined1)local_3d4c;

@@ -85,7 +85,7 @@ void FUN_004d3530(int param_1)
     ScrambleChecksumGuardBytes();
     FUN_0040b540(local_545c);
   }
-  FUN_004e5ac0(*(undefined4 *)(param_1 + 0x84e0),local_5464);
+  SendSocketData(*(undefined4 *)(param_1 + 0x84e0),local_5464);
   *(undefined4 *)(param_1 + 0x84ec) = 0;
   *unaff_FS_OFFSET = local_c;
   return;

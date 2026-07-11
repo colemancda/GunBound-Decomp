@@ -1,4 +1,4 @@
-/* FUN_004d2570 - 0x004d2570 in the original binary.
+/* AppendEncodedBlock - 0x004d2570 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004d2570(undefined4 param_1)
+void __fastcall AppendEncodedBlock(undefined4 param_1)
 
 {
   int iVar1;

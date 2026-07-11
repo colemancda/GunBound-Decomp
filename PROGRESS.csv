@@ -976,8 +976,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d2480,102,BeginServerConnect,false,2,4,RAW-src
 004d24f0,59,FUN_004d24f0,false,4,1,RAW-src
 004d2530,64,AppendPacketBytes,false,9,0,RAW-src
-004d2570,97,FUN_004d2570,false,1,1,RAW-src
-004d25e0,152,FUN_004d25e0,false,22,2,RAW-src
+004d2570,97,AppendEncodedBlock,false,1,1,RAW-src
+004d25e0,152,EncodePacketBody,false,22,2,RAW-src
 004d2680,350,SendOutgoingPacket,false,100,9,RAW-src
 004d27e0,3116,ProcessIncomingPackets,false,3,19,RAW-src
 004d34a0,65,FUN_004d34a0,false,1,0,RAW-src
@@ -1069,7 +1069,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e59b0,103,ConnectSocketToTarget,false,1,4,RAW-src
 004e5a20,40,CloseConnectionSocket,false,4,1,RAW-src
 004e5a50,97,SignalConnectRequest,false,2,1,RAW-src
-004e5ac0,233,FUN_004e5ac0,false,12,7,RAW-src
+004e5ac0,233,SendSocketData,false,12,7,RAW-src
 004e5bb0,67,FUN_004e5bb0,false,1,1,RAW-src
 004e5c00,79,ShutdownConnectionThread,false,1,3,RAW-src
 004e5c50,26,FUN_004e5c50,false,1,1,RAW-src

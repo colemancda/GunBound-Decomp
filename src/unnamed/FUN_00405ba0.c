@@ -137,7 +137,7 @@ LAB_00405d5e:
   iVar14 = *(int *)(unaff_EBX + 0x1000) + uVar10;
   *(int *)(unaff_EBX + 0x1000) = iVar14;
   *unaff_EBX = (short)iVar14;
-  FUN_004e5ac0(*(undefined4 *)(unaff_EBX + 0x1002),iVar14);
+  SendSocketData(*(undefined4 *)(unaff_EBX + 0x1002),iVar14);
   return;
 }
 

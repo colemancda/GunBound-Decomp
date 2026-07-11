@@ -587,7 +587,7 @@ LAB_00446d18:
       local_4 = local_4 & 0xffffff00;
       ScrubChecksumGuard();
 LAB_00446d2b:
-      FUN_004d25e0();
+      EncodePacketBody();
       SendOutgoingPacket();
       *(undefined1 *)(param_1 + 0x32f90) = 0;
     }
@@ -874,7 +874,7 @@ LAB_00446f6d:
         *(int *)(iVar3 + 0x44d0) = iVar9 + 0xc;
         *(undefined1 *)(iVar9 + 0x4dc + iVar3) = 1;
         *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 1;
-        FUN_004d25e0();
+        EncodePacketBody();
         SendOutgoingPacket();
         *(undefined1 *)(param_1 + 0x32f90) = 0;
         FUN_00406300(0);
@@ -913,7 +913,7 @@ LAB_00446f6d:
     *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     ScrubChecksumGuard();
-    FUN_004d25e0();
+    EncodePacketBody();
     SendOutgoingPacket();
     *(undefined1 *)(param_1 + 0x32f90) = 0;
     QueueOutgoingPacketField(0);

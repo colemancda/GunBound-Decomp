@@ -125,7 +125,7 @@ LAB_00412cb3:
         *(undefined2 *)(iVar3 + 0x4d4) = 0x4000;
         *(char *)(iVar3 + 0x4d6) = (char)iVar4;
         *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 1;
-        FUN_004d25e0();
+        EncodePacketBody();
         SendOutgoingPacket();
         Replay_AppendEvent(0xf007);
         (&g_replayEventBuffer)[g_replayEventCursor] = (undefined1)iStack_404;
