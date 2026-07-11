@@ -1059,7 +1059,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e5320,30,CGameState_ScalarDeletingDestructor,false,6,2,RAW-src
 004e5370,49,State01_Title_OnEnter,false,1,2,RAW-src
 004e53b0,72,State01_Title_OnExit,false,1,0,RAW-src
-004e5400,40,FUN_004e5400,false,1,1,RAW-src
+004e5400,40,TickDisconnectTimeout,false,1,1,RAW-src
 004e5430,41,FUN_004e5430,false,1,2,RAW-src
 004e5480,81,FUN_004e5480,false,1,2,RAW-src
 004e54e0,163,FUN_004e54e0,false,2,2,RAW-src
@@ -1087,11 +1087,11 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e6c90,122,Replay_AppendEvent,false,110,1,RAW-src
 004e6d10,151,FUN_004e6d10,false,2,0,RAW-src
 004e6db0,64,Replay_AppendString,false,6,0,RAW-src
-004e6df0,292,FUN_004e6df0,false,2,2,RAW-src
+004e6df0,292,EncryptEventBroadcast,false,2,2,RAW-src
 004e6f20,153,FUN_004e6f20,false,2,2,RAW-src
 004e6fc0,375,Replay_FlushEvent,false,84,9,RAW-src
 004e7140,389,FUN_004e7140,false,9,8,RAW-src
-004e72d0,106,FUN_004e72d0,false,16,3,RAW-src
+004e72d0,106,SendUdpDatagram,false,16,3,RAW-src
 004e7340,150,FUN_004e7340,false,4,1,RAW-src
 004e73e0,77,FUN_004e73e0,false,1,1,RAW-src
 004e7430,137,FUN_004e7430,false,3,1,RAW-src

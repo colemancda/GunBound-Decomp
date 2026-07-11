@@ -76,7 +76,7 @@ void __fastcall FUN_004e6770(int param_1)
           if (0 < *(int *)(param_1 + 0x45208)) {
             *(int *)(param_1 + 0x45208) = *(int *)(param_1 + 0x45208) + -1;
             EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x17c));
-            FUN_004e72d0(param_1 + 0x45212,4);
+            SendUdpDatagram(param_1 + 0x45212,4);
             LeaveCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x17c));
           }
           DStack_40 = DVar6;

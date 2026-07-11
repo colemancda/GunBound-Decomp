@@ -46,9 +46,9 @@ void FUN_004e6b90(void)
         uVar2 = *(undefined1 *)((int)psVar7 + 7);
         *(short *)(iVar5 + 0x4522c) = psVar7[1];
         *(undefined1 *)(unaff_ESI + 0x45294 + uVar6) = uVar2;
-        FUN_004e72d0(psVar7,*psVar7);
+        SendUdpDatagram(psVar7,*psVar7);
         if (*local_8 != -1) {
-          FUN_004e72d0(psVar7,*psVar7);
+          SendUdpDatagram(psVar7,*psVar7);
         }
       }
     }

@@ -762,8 +762,26 @@ directly.
   known event-type code (a ushort, values seen: `0x307`, `0x8000`, `0x8100`,
   `0x8101`, `0x8102`, `0x8103`, `0x8200`, `0x8500`) — callers then manually
   append the event's payload bytes to the same buffer before calling...
-- `Replay_FlushEvent()` (`0x4e6fc0`, was `FUN_004e6fc0`) — writes the buffered
-  event out (presumably to `DAT_006a9b68`) and resets the cursor.
+- `Replay_FlushEvent()` (`0x4e6fc0`, was `FUN_004e6fc0`) — **corrected: this does
+  not write to `DAT_006a9b68` or any file.** Fully decompiled this pass:
+  `EncryptEventBroadcast` (`0x4e6df0`, was `FUN_004e6df0`) checksums the pending
+  event body and encrypts it in place via `EncodeCipherBlock` (the same transport
+  cipher used for regular packets — see "Packet transport crypto" below), then
+  `Replay_FlushEvent` loops the **8 room slots**, and for each slot with a
+  pending-event bit set, calls `SendUdpDatagram` (`0x4e72d0`, was `FUN_004e72d0`)
+  **twice** — once to that slot's primary `(ip, port)` and once to a secondary
+  `(ip, port)` pair if present — i.e. it **directly broadcasts the encrypted
+  event to every other connected peer over UDP**, bypassing the main
+  client-server socket entirely. This means the `Replay_*` / `g_replayEvent*`
+  family (named under the assumption this was a local `.sv` replay-file writer)
+  is at least partly a **peer-to-peer action-relay/broadcast channel** — a
+  fourth transport alongside the documented channel 1/2/3. The `.sv`-file
+  evidence (filename format string, the `DAT_006a9b68` handle, the `2`
+  terminator-byte writes at session start/end) still stands and may be a
+  *separate* local-recording path that taps the same event buffer elsewhere —
+  not yet traced. **This needs a dedicated follow-up pass** to determine
+  whether "replay" is the right name for this subsystem at all, before doing
+  a wholesale rename of the `Replay_*`/`g_replayEvent*` family.
 - `Replay_AppendString(str)` (`0x4e6db0`, was `FUN_004e6db0`) — a string
   variant of the same append pattern (used for name fields).
 - `Replay_WriteBattleSnapshot(flushFlag)` (`0x4dc200`, was `FUN_004dc200`) — the

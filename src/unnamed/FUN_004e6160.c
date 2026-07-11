@@ -154,9 +154,9 @@ undefined4 FUN_004e6160(int param_1)
       FUN_004e6d10(CONCAT13(local_243,CONCAT12(local_244,sStack_246)),
                    CONCAT22(uStack_23f,CONCAT11(cStack_240,local_241)));
       EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x17c));
-      FUN_004e72d0(local_48,0x24);
+      SendUdpDatagram(local_48,0x24);
       if (*(int *)(param_1 + 0x38 + (uint)local_243 * 4) != -1) {
-        FUN_004e72d0(local_48,0x24);
+        SendUdpDatagram(local_48,0x24);
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x17c));
       return 1;
@@ -194,9 +194,9 @@ LAB_004e64e4:
         EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x17c));
         FUN_004e6d10(CONCAT13(local_243,CONCAT12(local_244,sStack_246)),
                      CONCAT22(uStack_23f,CONCAT11(cStack_240,local_241)));
-        FUN_004e72d0(extraout_EDX,0x24);
+        SendUdpDatagram(extraout_EDX,0x24);
         if (*(int *)(param_1 + 0x38 + (uint)local_243 * 4) != -1) {
-          FUN_004e72d0(local_48,0x24);
+          SendUdpDatagram(local_48,0x24);
         }
         puVar8 = &local_248;
         puVar10 = (undefined4 *)((uint)local_243 * 0x200 + 0x41bd8 + param_1);

@@ -82,9 +82,9 @@ void FUN_004e77e0(int param_1)
         local_1e3 = local_204[2];
         local_1fa = bVar3;
         if (*(char *)(uVar8 + 0x454e4 + param_1) == '\0') {
-          FUN_004e72d0(&local_200,(undefined2)local_200);
+          SendUdpDatagram(&local_200,(undefined2)local_200);
           if (*piVar4 != -1) {
-            FUN_004e72d0(&local_200,(undefined2)local_200);
+            SendUdpDatagram(&local_200,(undefined2)local_200);
           }
         }
         else {
@@ -145,9 +145,9 @@ LAB_004e79e6:
     local_1e3 = puVar10[2];
     local_1fa = bVar3;
     if (*(char *)(uVar8 + 0x454e4 + param_1) == '\0') {
-      FUN_004e72d0(&local_200,(undefined2)local_200);
+      SendUdpDatagram(&local_200,(undefined2)local_200);
       if (*(int *)(param_1 + 0x38 + uVar8 * 4) != -1) {
-        FUN_004e72d0(&local_200,(undefined2)local_200);
+        SendUdpDatagram(&local_200,(undefined2)local_200);
       }
     }
     else {

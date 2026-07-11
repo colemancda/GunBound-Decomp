@@ -1,4 +1,4 @@
-/* FUN_004e6df0 - 0x004e6df0 in the original binary.
+/* EncryptEventBroadcast - 0x004e6df0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e6df0(void)
+void EncryptEventBroadcast(void)
 
 {
   char cVar1;

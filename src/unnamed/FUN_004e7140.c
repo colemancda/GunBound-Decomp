@@ -17,7 +17,7 @@ void FUN_004e7140(uint param_1)
   byte bVar4;
   int in_EAX;
   
-  FUN_004e6df0();
+  EncryptEventBroadcast();
   if ((int)param_1 < 8) {
     bVar4 = (byte)param_1;
     if (param_1 != 0xffffffff) {
@@ -43,9 +43,9 @@ void FUN_004e7140(uint param_1)
     }
     EnterCriticalSection((LPCRITICAL_SECTION)(in_EAX + 0x17c));
     if (*(char *)(param_1 + 0x454e4 + in_EAX) == '\0') {
-      FUN_004e72d0(puVar1,*puVar1);
+      SendUdpDatagram(puVar1,*puVar1);
       if (*(int *)(in_EAX + 0x38 + param_1 * 4) != -1) {
-        FUN_004e72d0(puVar1,*puVar1);
+        SendUdpDatagram(puVar1,*puVar1);
       }
     }
     else {

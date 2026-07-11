@@ -1,4 +1,4 @@
-/* FUN_004e72d0 - 0x004e72d0 in the original binary.
+/* SendUdpDatagram - 0x004e72d0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall FUN_004e72d0(int param_1,int param_2,char *param_3,int param_4)
+undefined4 __fastcall SendUdpDatagram(int param_1,int param_2,char *param_3,int param_4)
 
 {
   int in_EAX;

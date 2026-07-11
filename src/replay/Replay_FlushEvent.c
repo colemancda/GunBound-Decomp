@@ -26,7 +26,7 @@ undefined4 Replay_FlushEvent(void)
   undefined4 *local_8;
   int *local_4;
   
-  FUN_004e6df0();
+  EncryptEventBroadcast();
   *(undefined2 *)(in_EAX + 0x44dec) = *(undefined2 *)(in_EAX + 0x44fec);
   if ((*(byte *)(in_EAX + 0x44def) & 0x80) == 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)(in_EAX + 0x17c));
@@ -48,9 +48,9 @@ undefined4 Replay_FlushEvent(void)
         *(undefined4 *)(in_EAX + 0x44e09) = local_8[2];
         if (*(char *)(uVar4 + 0x454e4 + in_EAX) == '\0') {
           puVar1 = (undefined2 *)(in_EAX + 0x44dec);
-          FUN_004e72d0(puVar1,*(undefined2 *)(in_EAX + 0x44dec));
+          SendUdpDatagram(puVar1,*(undefined2 *)(in_EAX + 0x44dec));
           if (*local_4 != -1) {
-            FUN_004e72d0(puVar1,*puVar1);
+            SendUdpDatagram(puVar1,*puVar1);
           }
         }
         else {
