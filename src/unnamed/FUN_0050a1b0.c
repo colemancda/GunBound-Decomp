@@ -33,7 +33,7 @@ uint __thiscall FUN_0050a1b0(int param_1,int param_2,int param_3)
            ((uint)(*(int *)(puVar1 + 0x454) + iVar4) < *(uint *)(g_clientContext + 0x44e24))) {
           QueueOutgoingPacketField(iVar4);
           *(undefined1 *)(param_1 + 0x90) = 1;
-          FUN_0050ce60(param_1);
+          RefreshConnectionStatusLabel(param_1);
           RadioGroup_RefreshEnableStates(param_1);
         }
         cVar2 = FUN_005052b0();

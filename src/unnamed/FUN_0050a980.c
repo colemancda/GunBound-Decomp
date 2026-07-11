@@ -34,7 +34,7 @@ void __thiscall FUN_0050a980(undefined4 *param_1,int param_2,int param_3,undefin
   else if ((param_2 == 0x2000) && (param_3 == 0)) {
     *(undefined4 *)(g_gameStateVTableArray[7] + 0x454) = param_4;
     FUN_0044b0b0(puVar1);
-    FUN_0050ce60(param_1);
+    RefreshConnectionStatusLabel(param_1);
     Widget_OnCommandDefault(0x2000,0,param_4);
     return;
   }

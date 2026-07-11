@@ -1,4 +1,4 @@
-/* FUN_0050ce60 - 0x0050ce60 in the original binary.
+/* RefreshConnectionStatusLabel - 0x0050ce60 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0050ce60(int param_1)
+void RefreshConnectionStatusLabel(int param_1)
 
 {
   undefined *puVar1;
@@ -37,7 +37,7 @@ void FUN_0050ce60(int param_1)
                     /* WARNING: Subroutine does not return */
           ThrowCxxException(0x80070057);
         }
-        FUN_0050e6c0();
+        Widget_RemoveChild();
       }
       iVar2 = Widget_FindChildIndex();
       if (iVar2 == -1) {
@@ -52,7 +52,7 @@ void FUN_0050ce60(int param_1)
                     /* WARNING: Subroutine does not return */
           ThrowCxxException(0x80070057);
         }
-        FUN_0050e6c0();
+        Widget_RemoveChild();
       }
       iVar2 = Widget_FindChildIndex();
       if (iVar2 == -1) {

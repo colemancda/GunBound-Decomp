@@ -1,4 +1,4 @@
-/* FUN_005095d0 - 0x005095d0 in the original binary.
+/* BuildItemDescriptionTooltip - 0x005095d0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_005095d0(int param_1,undefined4 param_2)
+void BuildItemDescriptionTooltip(int param_1,undefined4 param_2)
 
 {
   char cVar1;

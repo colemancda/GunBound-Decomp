@@ -1,4 +1,4 @@
-/* FUN_00509700 - 0x00509700 in the original binary.
+/* HideStoreItemTooltipPanel - 0x00509700 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00509700(void)
+void HideStoreItemTooltipPanel(void)
 
 {
   int iVar1;

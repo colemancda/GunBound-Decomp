@@ -25,7 +25,7 @@ void __fastcall State09_ReadyRoom_OnTick(int param_1)
   }
   iVar3 = FindItemGridCell();
   if ((iVar3 == -1) || (g_bBattleSessionActive != '\0')) {
-    FUN_00509700();
+    HideStoreItemTooltipPanel();
     *(undefined2 *)(param_1 + 0x6b4) = 0;
     *(undefined4 *)(param_1 + 0x6b8) = 0xffffffff;
   }
@@ -39,7 +39,7 @@ void __fastcall State09_ReadyRoom_OnTick(int param_1)
           *(short *)(param_1 + 0x6b4) = sVar1;
         }
         else if (*(int *)(param_1 + 0x6b8) == 0) {
-          FUN_005095d0(&g_uiPanelManager,sVar1);
+          BuildItemDescriptionTooltip(&g_uiPanelManager,sVar1);
           *(short *)(param_1 + 0x6b4) = sVar1;
         }
       }
@@ -47,7 +47,7 @@ void __fastcall State09_ReadyRoom_OnTick(int param_1)
   }
   iVar3 = *(int *)(param_1 + 0x6b8);
   if (((iVar3 != -1) && (0 < iVar3)) && (*(int *)(param_1 + 0x6b8) = iVar3 + -1, iVar3 + -1 == 0)) {
-    FUN_005095d0(&g_uiPanelManager,*(undefined2 *)(param_1 + 0x6b4));
+    BuildItemDescriptionTooltip(&g_uiPanelManager,*(undefined2 *)(param_1 + 0x6b4));
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
