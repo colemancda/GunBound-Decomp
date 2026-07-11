@@ -1,4 +1,9 @@
-/* FillRect - 0x004eb800 in the original binary.
+/* FillScreenRect - 0x004eb800 in the original binary.
+ *
+ * Renamed from FillRect (its first assigned name) to FillScreenRect: it
+ * collided with the real Win32 GDI FillRect(HDC, const RECT*, HBRUSH) that
+ * <windows.h> already declares, breaking the whole build (C2373 redefinition)
+ * for every file that includes both functions.h and windows.h.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +12,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FillRect(int param_1,int param_2,int param_3,int param_4)
+void __fastcall FillScreenRect(int param_1,int param_2,int param_3,int param_4)
 
 {
   int in_EAX;

@@ -234,7 +234,7 @@ void __fastcall RenderMobile(int param_1)
         if ((*(int *)(param_1 + 0x24) != 0xe) &&
            (cVar3 = PacketChecksumNotEquals(g_clientContext + 0x45354,3), cVar3 != '\0')) {
           FUN_004eb7a0(iVar5 + 1,0x4e,5);
-          FillRect(0x4c,0x2965);
+          FillScreenRect(0x4c,0x2965);
           iVar5 = param_1 + 0x6db0;
           iVar8 = param_1 + 0x6744;
           uVar7 = EncodeChecksumPairSum(iVar8,local_230,iVar5);
@@ -272,7 +272,7 @@ void __fastcall RenderMobile(int param_1)
           ScrubChecksumGuard();
           local_4 = 0xffffffff;
           ScrubChecksumGuard();
-          FillRect(uVar7,(-(uint)(cVar3 != '\0') & 0x5af7) + 0x65a9);
+          FillScreenRect(uVar7,(-(uint)(cVar3 != '\0') & 0x5af7) + 0x65a9);
           uVar7 = EncodeChecksumPairSum(iVar8,local_454,iVar5);
           local_4 = 0x14;
           iVar14 = PeekChecksumStateUnderLock(uVar7);
@@ -290,7 +290,7 @@ void __fastcall RenderMobile(int param_1)
           uVar11 = 0x21d8;
           local_4 = 0x17;
           uVar7 = PeekChecksumStateUnderLock(uVar7);
-          FillRect(uVar7,uVar11);
+          FillScreenRect(uVar7,uVar11);
           local_4 = 0x16;
           ScrubChecksumGuard();
           local_4 = 0x15;
