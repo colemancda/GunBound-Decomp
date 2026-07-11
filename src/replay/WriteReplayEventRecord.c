@@ -555,14 +555,14 @@ LAB_004111c0:
     iVar19 = __stricmp(&DAT_006aa408 + g_clientContext,(char *)&local_d58);
     if (iVar19 == 0) {
       uVar15 = FUN_004d34f0(&local_d44);
-      FUN_004d3530(uVar15);
+      FlushEncodedSocketBuffer(uVar15);
       (&DAT_006aa408)[g_clientContext] = 0;
     }
     iVar19 = __stricmp(&DAT_006aa600 + g_clientContext,(char *)&local_d58);
     pbVar22 = param_3;
     if (iVar19 == 0) {
       uVar15 = FUN_004d34f0(&local_d44);
-      FUN_004d3530(uVar15);
+      FlushEncodedSocketBuffer(uVar15);
       (&DAT_006aa600)[g_clientContext] = 0;
       pbVar22 = param_3;
     }

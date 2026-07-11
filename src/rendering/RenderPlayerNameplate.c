@@ -1,4 +1,4 @@
-/* FUN_004dba80 - 0x004dba80 in the original binary.
+/* RenderPlayerNameplate - 0x004dba80 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004dba80(int param_1)
+void RenderPlayerNameplate(int param_1)
 
 {
   char *pcVar1;

@@ -303,7 +303,7 @@ LAB_004d84db:
 LAB_004d8518:
   iVar3 = 0;
   do {
-    FUN_004dba80(iVar3);
+    RenderPlayerNameplate(iVar3);
     iVar3 = iVar3 + 1;
   } while (iVar3 < 8);
   local_a4c = 0;
@@ -825,7 +825,7 @@ LAB_004d8b02:
       }
     } while (iVar10 < 0x100);
   }
-  FUN_004dc820();
+  RenderRoomMobiles();
   if (local_a30 != 0) {
     piVar2 = *(int **)(*(int *)(local_a30 + 0x94) + 0x110);
     (**(code **)(*piVar2 + 0x80))(piVar2,0);

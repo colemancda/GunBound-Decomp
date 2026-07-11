@@ -982,7 +982,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d27e0,3116,ProcessIncomingPackets,false,3,19,RAW-src
 004d34a0,65,FUN_004d34a0,false,1,0,RAW-src
 004d34f0,56,FUN_004d34f0,false,2,0,RAW-src
-004d3530,533,FUN_004d3530,false,2,11,RAW-src
+004d3530,533,FlushEncodedSocketBuffer,false,2,11,RAW-src
 004d3770,121,State09_ReadyRoom_Construct,false,1,1,RAW-src
 004d37f0,30,State09_ReadyRoom_Delete,false,1,2,RAW-src
 004d3810,163,State09_ReadyRoom_Destroy,false,1,2,RAW-src
@@ -1004,7 +1004,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004db570,426,TallyRoomTeamStats,false,4,0,RAW-src
 004db720,495,ComputeTurnOrder,false,7,1,RAW-src
 004db920,346,RefreshTeamSlotHighlights,false,4,4,RAW-src
-004dba80,715,FUN_004dba80,false,1,9,RAW-src
+004dba80,715,RenderPlayerNameplate,false,1,9,RAW-src
 004dbd50,462,BuildItemLoadout,false,5,7,RAW-src
 004dbf30,442,ResetItemSlotCounters,false,1,4,RAW-src
 004dc0f0,79,FUN_004dc0f0,false,1,3,RAW-src
@@ -1013,8 +1013,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004dc570,67,FindItemGridCell,false,3,0,RAW-src
 004dc5c0,270,LoadRoomSlotAvatar,false,11,1,RAW-src
 004dc6d0,323,RegisterTankSprite,false,1,5,RAW-src
-004dc820,595,FUN_004dc820,false,1,5,RAW-src
-004dca80,349,FUN_004dca80,false,2,0,RAW-src
+004dc820,595,RenderRoomMobiles,false,1,5,RAW-src
+004dca80,349,BlitMobilePart,false,2,0,RAW-src
 004dcbe0,12254,ProcessBattleFrame,false,1,21,RAW-src
 004dfce0,199,FUN_004dfce0,false,1,0,RAW-src
 004dfdb0,184,FUN_004dfdb0,false,3,5,RAW-src

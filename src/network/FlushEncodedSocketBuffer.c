@@ -1,4 +1,4 @@
-/* FUN_004d3530 - 0x004d3530 in the original binary.
+/* FlushEncodedSocketBuffer - 0x004d3530 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -10,7 +10,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void FUN_004d3530(int param_1)
+void FlushEncodedSocketBuffer(int param_1)
 
 {
   undefined2 uVar1;

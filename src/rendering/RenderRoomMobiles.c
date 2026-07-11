@@ -1,4 +1,4 @@
-/* FUN_004dc820 - 0x004dc820 in the original binary.
+/* RenderRoomMobiles - 0x004dc820 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -9,7 +9,7 @@
 
 /* WARNING: Removing unreachable block (ram,0x004dc8ef) */
 
-void __fastcall FUN_004dc820(int param_1)
+void __fastcall RenderRoomMobiles(int param_1)
 
 {
   uint uVar1;
@@ -51,11 +51,11 @@ void __fastcall FUN_004dc820(int param_1)
       iVar3 = (local_10 % 4 & 0x80000001) * 2;
       iVar4 = (uVar6 * iVar8 + iVar3) * 0x80 + *(int *)(g_clientContext + 0x1fe1c + uVar1 * 4);
       if (iVar2 != -1) {
-        FUN_004dca80(iVar4,iVar8);
+        BlitMobilePart(iVar4,iVar8);
         iVar8 = *(int *)(iVar5 + 0x1fe3c + uVar1 * 4);
         iVar4 = (uVar6 * iVar8 + iVar3) * 0x80 + *(int *)(iVar5 + 0x1fe34 + uVar1 * 4);
       }
-      FUN_004dca80(iVar4,iVar8);
+      BlitMobilePart(iVar4,iVar8);
       iVar8 = *(int *)(iVar5 + 0x1fe4c + uVar1 * 4);
       if (iVar2 == -1) {
         uVar7 = *(undefined4 *)(local_14[1] + 0x30);

@@ -95,6 +95,13 @@ by the widget tree.
     (`tools/lzhuf/decode_item.py`): **ord 0–10 = Dual, Blood, Energy up 2,
     Energy up 1, Dual+, Change Wind, Team Teleport, Bunge shot, Power up,
     Thunder, Teleport**. See PROTOCOL.md "Item availability" and ARCHITECTURE.md.
+  - **Per-slot helpers** (called from the roster render): `RenderPlayerNameplate`
+    (`0x4dba80`) draws one seat's nameplate — seat position from a fixed LUT
+    indexed by the `ComputeTurnOrder` array (`this+0x4a0`), then the name +
+    two scores (`"%s %3d %3d"`) and the ready/turn indicator; `RenderRoomMobiles`
+    (`0x4dc820`) loops the 8 slots and composites each occupied player's mobile
+    from its `id+5000` sprite (registered by `RegisterTankSprite`) via
+    `BlitMobilePart` (`0x4dca80`, a 128-clamped clipped-tile sprite copy).
 - **Status/HUD overlay** — slot 15 (`State09_ReadyRoom_RenderStatusOverlay`,
   `0x4d9ae0`, 2,406 bytes): **corrected — not "map thumbnails."** Draws the
   in-session status overlay: two countdown-timer blink icons (`this+0x4d4`,
