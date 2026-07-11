@@ -172,7 +172,7 @@ LAB_004aa132:
           ScrubChecksumGuard();
         }
         else {
-          FUN_00406500(0);
+          SetGuardedBool(0);
         }
       }
     }

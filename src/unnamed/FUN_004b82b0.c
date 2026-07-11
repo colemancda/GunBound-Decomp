@@ -159,7 +159,7 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
       *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
       return;
     }
-    FUN_00406500(1);
+    SetGuardedBool(1);
     Replay_AppendEvent(0x8402);
     uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
     *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
@@ -185,8 +185,8 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     if (cVar3 == '\0') {
       return;
     }
-    FUN_00406500(0);
-    FUN_00406500(0);
+    SetGuardedBool(0);
+    SetGuardedBool(0);
     Replay_AppendEvent(0xc301);
     (&g_replayEventBuffer)[g_replayEventCursor] = 1;
     puVar1 = (undefined2 *)(&DAT_00e9aacd + g_replayEventCursor);
@@ -267,8 +267,8 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
       return;
     }
     *(undefined4 *)(g_clientContext + 0xebef0) = 0xfffffffd;
-    FUN_00406500(0);
-    FUN_00406500(0);
+    SetGuardedBool(0);
+    SetGuardedBool(0);
     FUN_00405fb0();
     CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,0);
     cVar3 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
@@ -300,8 +300,8 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
       return;
     }
     *(undefined4 *)(g_clientContext + 0xebef0) = 0xffffffe8;
-    FUN_00406500(1);
-    FUN_00406500(0);
+    SetGuardedBool(1);
+    SetGuardedBool(0);
     FUN_00405fb0();
     CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0);
     cVar3 = FUN_0040b2d0(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
@@ -339,7 +339,7 @@ LAB_004b8aeb:
          (*(int *)(&DAT_005f3768 + g_clientContext) != 2)) && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0'))
        && ((cVar3 = PeekPacketChecksumBool(), cVar3 != '\0' && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0')))) {
       FUN_00406300(0);
-      FUN_00406500(0);
+      SetGuardedBool(0);
       Replay_AppendEvent(0x8402);
       uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
       *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
@@ -354,9 +354,9 @@ LAB_004b8aeb:
       Replay_FlushEvent();
       cVar3 = FUN_00406860();
       if (cVar3 != '\0') {
-        FUN_00406500(0);
-        FUN_00406500(0);
-        FUN_00406500(1);
+        SetGuardedBool(0);
+        SetGuardedBool(0);
+        SetGuardedBool(1);
         Replay_AppendEvent(0xc301);
         (&g_replayEventBuffer)[g_replayEventCursor] = 1;
         g_replayEventCursor = g_replayEventCursor + 1;
@@ -511,7 +511,7 @@ LAB_004b8aeb:
   case 0x12:
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 != '\0') {
-      FUN_00406500(1);
+      SetGuardedBool(1);
       FUN_00405fb0();
       CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0);
       CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,0)

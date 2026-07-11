@@ -36,7 +36,7 @@ undefined4 * FUN_0046dde0(undefined4 *param_1)
   param_1[9] = 0xffffffff;
   local_4 = 0;
   *param_1 = &PTR_FUN_00555e74;
-  FUN_00406440();
+  InitGuardedBool();
   *(undefined1 *)(param_1 + 0x97) = 0;
   param_1[0x14] = 0;
   EncodeOutgoingPacketField(0);

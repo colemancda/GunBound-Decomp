@@ -150,7 +150,7 @@ LAB_004ae9a8:
           ScrubChecksumGuard();
         }
         else {
-          FUN_00406500(0);
+          SetGuardedBool(0);
         }
       }
     }
@@ -303,7 +303,7 @@ LAB_004ae9a8:
 LAB_004ae748:
     cVar6 = PeekPacketChecksumBool();
     if (cVar6 == '\0') {
-      FUN_00406500(1);
+      SetGuardedBool(1);
     }
   }
   else {
@@ -317,7 +317,7 @@ LAB_004ae748:
   if (((cVar6 != '\0') && (cVar6 = CompareChecksumPair(piVar1,param_1 + 0xf5b), cVar6 != '\0')) ||
      ((cVar6 = FUN_0040b410(piVar2,piVar1), cVar6 != '\0' &&
       ((cVar6 = FUN_0040b410(piVar1,param_1 + 0xf5b), cVar6 != '\0' && (5 < param_1[0xed1])))))) {
-    FUN_00406500(1);
+    SetGuardedBool(1);
   }
 LAB_004aece0:
   *unaff_FS_OFFSET = uStack_c;

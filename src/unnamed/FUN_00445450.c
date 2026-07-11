@@ -387,7 +387,7 @@ LAB_004457e7:
           iVar9 = FUN_00426570();
           iVar9 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
           FUN_00423e20(g_clientContext,iVar9 >> 0x10 & 0xffffff0f);
-          FUN_00406500(1);
+          SetGuardedBool(1);
           PeekChecksumStateUnderLock(iVar3);
           iVar9 = FUN_00426570();
           iVar9 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
@@ -724,7 +724,7 @@ LAB_00446d2b:
     FUN_0044b720(param_1);
     break;
   case 0x34:
-    FUN_00406500(0);
+    SetGuardedBool(0);
     FUN_00405fb0();
     FUN_00405fb0();
     FUN_00405fb0();
@@ -766,7 +766,7 @@ LAB_00446d2b:
       pcVar13 = (char *)(param_1 + 0x32ce3);
       iVar3 = __stricmp(pcVar13,(char *)(g_clientContext + 0x23330));
       if (iVar3 != 0) {
-        FUN_00406500(1);
+        SetGuardedBool(1);
         iVar3 = param_1 + 0x3054c;
         iVar9 = PeekChecksumStateUnderLock(&DAT_005f4ab8 + g_clientContext);
         iVar10 = PeekChecksumStateUnderLock(iVar3);

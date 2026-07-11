@@ -53,9 +53,9 @@ undefined4 * FUN_00443c20(undefined4 *param_1)
   param_1[0xc971] = 0;
   EncodeOutgoingPacketField(0);
   local_4 = 10;
-  FUN_00406440();
-  FUN_00406440();
-  FUN_00406440();
+  InitGuardedBool();
+  InitGuardedBool();
+  InitGuardedBool();
   FUN_00425350();
   *unaff_FS_OFFSET = local_c;
   return param_1;

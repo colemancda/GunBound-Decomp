@@ -35,12 +35,12 @@ int __fastcall FUN_00418a10(int param_1)
   *(undefined4 *)(param_1 + 0x680) = 0;
   EncodeOutgoingPacketField(0);
   SUBFIELD(local_4,0,undefined1) = 3;
-  FUN_00406440();
-  FUN_00406440();
-  FUN_00406440();
-  FUN_00406440();
-  FUN_00406440();
-  FUN_00406440();
+  InitGuardedBool();
+  InitGuardedBool();
+  InitGuardedBool();
+  InitGuardedBool();
+  InitGuardedBool();
+  InitGuardedBool();
   *(undefined1 *)(param_1 + 0xac4) = 0;
   *(undefined4 *)(param_1 + 0x8b8) = 0;
   EncodeOutgoingPacketField(0);

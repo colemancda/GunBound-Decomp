@@ -64,7 +64,7 @@ void __fastcall State02_ServerSelect_OnTick(int param_1)
       *(undefined1 *)(param_1 + 6) = 1;
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 != '\0') {
-        FUN_00406500(0);
+        SetGuardedBool(0);
       }
       FUN_004d24f0();
       iVar6 = DAT_007934ec;

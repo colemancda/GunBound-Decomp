@@ -169,12 +169,12 @@ LAB_0043c0e0:
                         ScrubChecksumGuard();
                         pcVar15 = (code *)EnterCriticalSection;
                         if (iVar10 * iVar10 + iVar8 * iVar8 < iVar9) {
-                          FUN_00406500(1);
+                          SetGuardedBool(1);
                           QueueOutgoingPacketField(0);
                           piVar1 = piVar16 + 0x2cb8;
                           EncodeChecksumState(piVar1);
                           EncodeChecksumState(piVar16 + 0x2d41);
-                          FUN_00406500(0);
+                          SetGuardedBool(0);
                           *(char *)(piVar5 + 0x2c2b) = (char)piVar16[0x2c2b];
                           iVar8 = piVar5[9];
                           if ((((iVar8 != 0xe) && (iVar8 != 5)) && (iVar8 != 6)) &&

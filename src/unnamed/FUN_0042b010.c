@@ -15,7 +15,7 @@ void FUN_0042b010(void)
   byte bVar3;
   int unaff_EDI;
   
-  FUN_00406440();
+  InitGuardedBool();
   *(undefined4 *)(unaff_EDI + 8) = 0;
   *(undefined4 *)(unaff_EDI + 0xc) = 0;
   *(undefined4 *)(unaff_EDI + 0x10) = 0;

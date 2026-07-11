@@ -64,8 +64,8 @@ undefined4 * FUN_00477bb0(undefined4 *param_1,undefined4 param_2)
   param_1[0x34a] = 0;
   EncodeOutgoingPacketField(0);
   local_4 = 7;
-  FUN_00406440();
-  FUN_00406440();
+  InitGuardedBool();
+  InitGuardedBool();
   *(undefined1 *)(param_1 + 0x458) = 0;
   param_1[0x3d5] = 0;
   EncodeOutgoingPacketField(0);
@@ -90,7 +90,7 @@ undefined4 * FUN_00477bb0(undefined4 *param_1,undefined4 param_2)
   param_1[0x682] = 0;
   EncodeOutgoingPacketField(0);
   local_4 = 0xd;
-  FUN_00406440();
+  InitGuardedBool();
   *(undefined1 *)(param_1 + 0x78f) = 0;
   param_1[0x70c] = 0;
   EncodeOutgoingPacketField(0);

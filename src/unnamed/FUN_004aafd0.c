@@ -157,7 +157,7 @@ LAB_004ab7ad:
           ScrubChecksumGuard();
         }
         else {
-          FUN_00406500(0);
+          SetGuardedBool(0);
         }
       }
     }
@@ -357,7 +357,7 @@ LAB_004ab0f1:
 LAB_004ab442:
     cVar6 = PeekPacketChecksumBool();
     if (cVar6 == '\0') {
-      FUN_00406500(1);
+      SetGuardedBool(1);
     }
   }
   else {

@@ -56,7 +56,7 @@ void FUN_00437d90(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
     }
     *(char *)(piVar7 + 0xf) = (char)param_4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004064a0(param_5);
+    EncodeGuardedBool(param_5);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = FindPreloadedTextureByName(s_crystal_00553bfc);
     piVar7[7] = iVar3;

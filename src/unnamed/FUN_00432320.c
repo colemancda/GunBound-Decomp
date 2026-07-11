@@ -63,12 +63,12 @@ FUN_00432320(int param_1,byte param_2,int param_3,byte param_4,int param_5,undef
     uVar3 = EncodeChecksumState(uVar3);
     uVar3 = EncodeChecksumState(uVar3);
     EncodeChecksumState(uVar3);
-    FUN_00406500(param_6);
+    SetGuardedBool(param_6);
     QueueOutgoingPacketField(param_7);
-    FUN_00406500(0);
+    SetGuardedBool(0);
     QueueOutgoingPacketField(0);
     piVar8[0xfe4] = (uint)param_8;
-    FUN_00406500(1);
+    SetGuardedBool(1);
     if (param_10 == '\0') {
       iVar4 = (param_4 != 0) + 1;
     }
@@ -103,10 +103,10 @@ FUN_00432320(int param_1,byte param_2,int param_3,byte param_4,int param_5,undef
     QueueOutgoingPacketField(0x96);
     QueueOutgoingPacketField(0x96);
     QueueOutgoingPacketField(100);
-    FUN_00406500(0);
-    FUN_00406500(1);
-    FUN_00406500(0);
-    FUN_00406500(0);
+    SetGuardedBool(0);
+    SetGuardedBool(1);
+    SetGuardedBool(0);
+    SetGuardedBool(0);
     QueueOutgoingPacketField(0);
     QueueOutgoingPacketField(0);
     cVar1 = FUN_00406610(*(char *)(g_clientContext + 0x45127) == '\x02');

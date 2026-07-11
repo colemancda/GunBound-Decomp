@@ -262,7 +262,7 @@ LAB_004add3c:
         ScrubChecksumGuard();
       }
       else {
-        FUN_00406500(0);
+        SetGuardedBool(0);
       }
     }
   }

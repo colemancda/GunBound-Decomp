@@ -20,7 +20,7 @@ int FUN_00428550(int param_1)
   local_4 = 0xffffffff;
   puStack_8 = &LAB_005380ab;
   *unaff_FS_OFFSET = &local_c;
-  FUN_00406440();
+  InitGuardedBool();
   *(undefined1 *)(param_1 + 0x228) = 0;
   *(undefined4 *)(param_1 + 0x1c) = 0;
   EncodeOutgoingPacketField(0);

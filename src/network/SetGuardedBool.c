@@ -1,4 +1,4 @@
-/* FUN_00406500 - 0x00406500 in the original binary.
+/* SetGuardedBool - 0x00406500 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,11 +8,11 @@
 #include "ghidra_types.h"
 
 
-void FUN_00406500(undefined4 param_1)
+void SetGuardedBool(undefined4 param_1)
 
 {
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004064a0(param_1);
+  EncodeGuardedBool(param_1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   return;
 }

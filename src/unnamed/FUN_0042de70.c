@@ -101,7 +101,7 @@ void FUN_0042de70(undefined1 param_1,int param_2,int param_3,int param_4,int par
     iVar6 = FindPreloadedTextureByName(s_bullet3p_00553e08);
     piVar5[7] = iVar6;
     piVar5[0xfe4] = 1;
-    FUN_00406500(0);
+    SetGuardedBool(0);
     break;
   case 3:
     local_8b4 = operator_new(0x3fa4);
@@ -147,7 +147,7 @@ void FUN_0042de70(undefined1 param_1,int param_2,int param_3,int param_4,int par
     iVar6 = FindPreloadedTextureByName(s_bullet6p_00553de4);
     piVar5[7] = iVar6;
     piVar5[0xfe4] = 1;
-    FUN_00406500(0);
+    SetGuardedBool(0);
     break;
   case 6:
     local_8b4 = operator_new(0x3f9c);
@@ -465,13 +465,13 @@ void FUN_0042de70(undefined1 param_1,int param_2,int param_3,int param_4,int par
   *(byte *)((int)piVar5 + 0xf47) = bVar3 + bVar11 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004064a0(param_9);
+  EncodeGuardedBool(param_9);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(param_8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004064a0(param_3);
+  EncodeGuardedBool(param_3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(param_10);
@@ -486,7 +486,7 @@ LAB_0042ec76:
     if (0x6e < param_6) goto LAB_0042ec76;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004064a0(fStack_8a4);
+  EncodeGuardedBool(fStack_8a4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(0);
@@ -599,7 +599,7 @@ LAB_0042f012:
     uStack_8a8 = uStack_8a8 & 0xffffff00;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004064a0(uStack_8a8);
+  EncodeGuardedBool(uStack_8a8);
   (*pcVar13)(&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = PeekPacketChecksumState();

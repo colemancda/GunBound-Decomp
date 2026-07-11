@@ -84,11 +84,11 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
       if (cVar3 != '\0') {
         cVar3 = PeekPacketChecksumBool();
         if (cVar3 == '\0') {
-          FUN_00406500(0);
-          FUN_00406500(0);
+          SetGuardedBool(0);
+          SetGuardedBool(0);
           cVar3 = PeekPacketChecksumBool();
           if (cVar3 == '\0') {
-            FUN_00406500(1);
+            SetGuardedBool(1);
             Replay_AppendEvent(0xc301);
             (&g_replayEventBuffer)[g_replayEventCursor] = 1;
             g_replayEventCursor = g_replayEventCursor + 1;
@@ -99,8 +99,8 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
             Replay_FlushEvent();
           }
         }
-        FUN_00406500(0);
-        FUN_00406500(0);
+        SetGuardedBool(0);
+        SetGuardedBool(0);
         QueueOutgoingPacketField(0xffffffff);
         QueueOutgoingPacketField(0xffffffff);
         *(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe8) = 0;

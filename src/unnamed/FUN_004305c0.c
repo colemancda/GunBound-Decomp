@@ -205,13 +205,13 @@ void FUN_004305c0(void)
   *(byte *)((int)piVar3 + 0xf47) = bVar7 + bVar8 + -0x34;
   (*pcVar10)();
   (*pcVar9)();
-  FUN_004064a0();
+  EncodeGuardedBool();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (*pcVar9)();
   EncodeOutgoingPacketField();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (*pcVar9)();
-  FUN_004064a0();
+  EncodeGuardedBool();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (*pcVar9)();
   EncodeOutgoingPacketField();

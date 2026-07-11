@@ -34,7 +34,7 @@ void FUN_004ce3d0(int param_1)
         cVar1 = PeekPacketChecksumBool();
         if (cVar1 == '\x01') {
           (**(code **)(*piVar3 + 4))(&DAT_00553bcc);
-          FUN_00406500(1);
+          SetGuardedBool(1);
           QueueOutgoingPacketField(0);
           piVar3[0x2ffb] = 0;
           QueueOutgoingPacketField(0);
@@ -49,9 +49,9 @@ void FUN_004ce3d0(int param_1)
           }
           PeekChecksumStateUnderLock(piVar3 + 0x68b);
           FUN_0041c360(g_clientContext,piVar3);
-          FUN_00406500(0);
+          SetGuardedBool(0);
           *(undefined1 *)(piVar3 + 0x2b85) = 0;
-          FUN_00406500(0);
+          SetGuardedBool(0);
           QueueOutgoingPacketField(0);
           QueueOutgoingPacketField(0);
           QueueOutgoingPacketField(0);

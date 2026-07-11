@@ -144,7 +144,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
         }
       }
       else if (uVar6 != 0x600f) goto switchD_004105f7_caseD_1022;
-      FUN_00406500(1);
+      SetGuardedBool(1);
       goto switchD_004105f7_caseD_1022;
     }
     if (uVar6 == 0x4501) {
@@ -242,7 +242,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                 if (iVar19 == 0xe) {
                   cVar4 = PeekPacketChecksumBool();
                   if (cVar4 == '\0') {
-                    FUN_00406500(1);
+                    SetGuardedBool(1);
                   }
                   uVar5 = FUN_0045d360(0);
                   *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar5;
@@ -267,7 +267,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
     if (uVar6 != 0x4410) goto switchD_004105f7_caseD_1022;
     cVar4 = PeekPacketChecksumBool();
     if (cVar4 == '\0') {
-      FUN_00406500(1);
+      SetGuardedBool(1);
       *(byte *)(g_clientContext + 0x62155) = *pbVar22;
       FUN_0040a280();
       local_c = 0;
@@ -356,7 +356,7 @@ LAB_00411727:
         pbVar22 = param_3;
       }
     }
-    FUN_00406500(1);
+    SetGuardedBool(1);
     goto switchD_004105f7_caseD_1022;
   }
   if (uVar6 == 0x200f) {
@@ -950,11 +950,11 @@ LAB_00410792:
   case 0x1040:
     iVar19 = *(int *)pbVar22;
     if (iVar19 == 0) {
-      FUN_00406500(0);
+      SetGuardedBool(0);
       QueueOutgoingPacketField(0);
     }
     else {
-      FUN_00406500(1);
+      SetGuardedBool(1);
       QueueOutgoingPacketField(iVar19 * 0x14);
     }
   }

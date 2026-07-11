@@ -240,7 +240,7 @@ LAB_0046ab4e:
         ScrubChecksumGuard();
       }
       else {
-        FUN_00406500(0);
+        SetGuardedBool(0);
       }
     }
   }

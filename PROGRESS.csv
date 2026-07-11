@@ -105,9 +105,9 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00406300,119,FUN_00406300,false,100,0,RAW-src
 00406380,116,FUN_00406380,false,13,0,RAW-src
 00406400,62,FUN_00406400,false,5,0,RAW-src
-00406440,90,FUN_00406440,false,103,1,RAW-src
-004064a0,93,FUN_004064a0,false,42,1,RAW-src
-00406500,41,FUN_00406500,false,260,3,RAW-src
+00406440,90,InitGuardedBool,false,103,1,RAW-src
+004064a0,93,EncodeGuardedBool,false,42,1,RAW-src
+00406500,41,SetGuardedBool,false,260,3,RAW-src
 00406530,108,FUN_00406530,false,62,3,RAW-src
 004065a0,97,PeekPacketChecksumBool,false,1297,2,RAW-src
 00406610,118,FUN_00406610,false,92,2,RAW-src

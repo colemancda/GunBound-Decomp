@@ -113,7 +113,7 @@ LAB_00479e75:
         uVar4 = PeekChecksumStateUnderLock(&DAT_00e55ab8);
         QueueOutgoingPacketField(uVar4);
         FUN_0040b030();
-        FUN_00406500(0);
+        SetGuardedBool(0);
       }
     }
     else {

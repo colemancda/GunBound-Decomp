@@ -556,8 +556,8 @@ LAB_004606d5:
     g_replayEventCursor = g_replayEventCursor + 1;
     FUN_0043d6d0();
     Replay_FlushEvent();
-    FUN_00406500(0);
-    FUN_00406500(0);
+    SetGuardedBool(0);
+    SetGuardedBool(0);
     iVar18 = g_clientContext;
     *(undefined1 *)(param_1 + 0x2ffa) = 0;
     if ((&DAT_005f2f40)[iVar18] == '\x02') {
@@ -721,8 +721,8 @@ LAB_004606d5:
         g_replayEventCursor = g_replayEventCursor + 1;
         FUN_0043d6d0();
         Replay_FlushEvent();
-        FUN_00406500(0);
-        FUN_00406500(0);
+        SetGuardedBool(0);
+        SetGuardedBool(0);
         *(undefined1 *)(param_1 + 0x2ffa) = 0;
         QueueOutgoingPacketField(0xffffffff);
         QueueOutgoingPacketField(0xffffffff);
@@ -897,9 +897,9 @@ LAB_004613b2:
     uVar17 = FUN_00406860();
     cVar9 = FUN_00406610(uVar17);
     if ((cVar9 != '\0') && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01')) {
-      FUN_00406500(0);
-      FUN_00406500(0);
-      FUN_00406500(1);
+      SetGuardedBool(0);
+      SetGuardedBool(0);
+      SetGuardedBool(1);
       Replay_AppendEvent(0xc301);
       (&g_replayEventBuffer)[g_replayEventCursor] = 1;
       puVar1 = (undefined2 *)(&DAT_00e9aacd + g_replayEventCursor);

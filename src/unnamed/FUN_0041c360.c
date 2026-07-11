@@ -537,25 +537,25 @@ void __thiscall FUN_0041c360(int param_1,int param_2,int param_3)
   bVar1 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004064a0((bVar1 & 8) == 8);
+  EncodeGuardedBool((bVar1 & 8) == 8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   bVar1 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004064a0((bVar1 & 4) == 4);
+  EncodeGuardedBool((bVar1 & 4) == 4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   bVar1 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004064a0((bVar1 & 2) == 2);
+  EncodeGuardedBool((bVar1 & 2) == 2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar6 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004064a0(CONCAT31((int3)((uVar6 & 0xffffff01) >> 8),
+  EncodeGuardedBool(CONCAT31((int3)((uVar6 & 0xffffff01) >> 8),
                         '\x01' - ((char)(uVar6 & 0xffffff01) != '\x01')));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -16,8 +16,8 @@ undefined4 * FUN_00451270(undefined4 *param_1)
   
   FUN_00454dc0(param_1,0x186a2);
   *param_1 = &PTR_FUN_00555bd0;
-  FUN_00406440();
-  FUN_00406440();
+  InitGuardedBool();
+  InitGuardedBool();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = _rand();
   *(byte *)(param_1 + 0xfe7) = (byte)iVar2;

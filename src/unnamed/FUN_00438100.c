@@ -60,7 +60,7 @@ void FUN_00438100(undefined4 param_1,int param_2,int param_3,uint param_4,undefi
   piVar4[0xfea] = param_2;
   piVar4[0xfeb] = param_3 + 200;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004064a0(param_5);
+  EncodeGuardedBool(param_5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = FindPreloadedTextureByName(s_knightion_00553bdc);
   piVar4[7] = iVar2;

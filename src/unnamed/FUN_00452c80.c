@@ -14,8 +14,8 @@ undefined4 FUN_00452c80(void)
   
   FUN_00454dc0(unaff_ESI,0x186a2);
   *unaff_ESI = &PTR_FUN_00555bf0;
-  FUN_00406440();
-  FUN_00406440();
+  InitGuardedBool();
+  InitGuardedBool();
   unaff_ESI[0xfe7] = 0;
   unaff_ESI[0xfeb] = 0xffffffff;
   /* Ghidra emitted a bare `return;` in a value-returning function;

@@ -74,7 +74,7 @@ LAB_0042b5ad:
       *piVar3 = (int)&PTR_FUN_00556230;
     }
     local_4 = 0xffffffff;
-    FUN_00406500(0);
+    SetGuardedBool(0);
     goto LAB_0042b60a;
   case 2:
     piVar3 = operator_new(0xd1d4);
@@ -247,7 +247,7 @@ LAB_0042b60a:
   piVar3[0x15] = iVar5;
   (**(code **)(piVar3[0xe] + 4))(s_normal_00552230);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004064a0(param_12);
+  EncodeGuardedBool(param_12);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(1);
@@ -256,7 +256,7 @@ LAB_0042b60a:
   iVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004064a0(iVar5 == unaff_retaddr);
+  EncodeGuardedBool(iVar5 == unaff_retaddr);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = 0xae15 - (int)param_8;
   do {

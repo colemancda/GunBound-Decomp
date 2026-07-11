@@ -715,7 +715,7 @@ LAB_0048a13e:
         }
         puStack_7e84 = (undefined *)0x1;
         puStack_7e88 = (undefined1 *)0x48a172;
-        FUN_00406500();
+        SetGuardedBool();
       }
     }
     break;
@@ -1229,12 +1229,12 @@ LAB_0048a661:
         *(undefined4 *)(&DAT_005f376c + iVar1) = 0;
         puStack_7e84 = (undefined *)0x1;
         puStack_7e88 = (undefined1 *)0x48b2fd;
-        FUN_00406500();
+        SetGuardedBool();
       }
       else {
         puStack_7e84 = (undefined *)0x1;
         puStack_7e88 = (undefined1 *)0x48b310;
-        FUN_00406500();
+        SetGuardedBool();
       }
     }
   }

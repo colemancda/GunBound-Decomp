@@ -321,7 +321,7 @@ LAB_004a0a52:
     uVar6 = FloatToInt64();
     QueueOutgoingPacketField(uVar5);
     QueueOutgoingPacketField(uVar6);
-    FUN_00406500(0);
+    SetGuardedBool(0);
     pcVar14 = (code *)LeaveCriticalSection;
   }
   EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac4,8);
@@ -422,7 +422,7 @@ LAB_004a0643:
         ScrubChecksumGuard();
       }
       else {
-        FUN_00406500(0);
+        SetGuardedBool(0);
       }
     }
   }

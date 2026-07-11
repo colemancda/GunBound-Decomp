@@ -96,11 +96,11 @@ undefined4 FUN_00439e40(int param_1)
      ((uVar6 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c), param_1 != uVar6 ||
       ((cVar2 = FUN_0040b360(*(int *)(g_clientContext + 0x621e0) + 0x6968,0), cVar2 == '\0' &&
        (iVar4 = (**(code **)(**(int **)(g_clientContext + 0x621e0) + 0x14))(), iVar4 < 9000)))))) {
-    FUN_00406500(1);
-    FUN_00406500(0);
-    FUN_00406500(1);
-    FUN_00406500(1);
-    FUN_00406500(0);
+    SetGuardedBool(1);
+    SetGuardedBool(0);
+    SetGuardedBool(1);
+    SetGuardedBool(1);
+    SetGuardedBool(0);
     *(undefined4 *)(*(int *)(g_clientContext + 0x621e4) + 0xae10) = 0;
     QueueOutgoingPacketField(0);
     QueueOutgoingPacketField(400);
@@ -133,7 +133,7 @@ undefined4 FUN_00439e40(int param_1)
     QueueOutgoingPacketField(2);
     cVar2 = FUN_00406610(*(char *)(g_clientContext + 0x45127) == '\x01');
     if (cVar2 != '\0') {
-      FUN_00406500(1);
+      SetGuardedBool(1);
     }
     cVar2 = PeekPacketChecksumBool();
     if ((cVar2 != '\0') && (iVar4 = FUN_004f2f90(), iVar4 != 0)) {

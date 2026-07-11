@@ -291,8 +291,8 @@ LAB_004622cf:
       (&g_replayEventBuffer)[g_replayEventCursor] = uVar6;
       g_replayEventCursor = g_replayEventCursor + 1;
       Replay_FlushEvent();
-      FUN_00406500(0);
-      FUN_00406500(0);
+      SetGuardedBool(0);
+      SetGuardedBool(0);
       Replay_AppendEvent(0xc301);
       (&g_replayEventBuffer)[g_replayEventCursor] = 1;
       g_replayEventCursor = g_replayEventCursor + 1;
@@ -316,8 +316,8 @@ LAB_004622cf:
       (&DAT_006a7758)[iVar12] = 0;
     }
     *(undefined1 *)(param_1 + 0x2b85) = 1;
-    FUN_00406500(0);
-    FUN_00406500(1);
+    SetGuardedBool(0);
+    SetGuardedBool(1);
   }
   cVar5 = FUN_00406610(param_1[9] != 0xe);
   if (cVar5 == '\0') {
@@ -377,7 +377,7 @@ LAB_00462742:
   cVar5 = PacketChecksumNotEquals(param_1 + 0x243,param_1[0x30a9]);
   if ((cVar5 != '\0') ||
      (cVar5 = PacketChecksumNotEquals(param_1 + 0x2cc,param_1[0x30aa]), cVar5 != '\0')) {
-    FUN_00406500(1);
+    SetGuardedBool(1);
   }
   iVar12 = PeekChecksumStateUnderLock(param_1 + 0x243);
   param_1[0x30a9] = iVar12;

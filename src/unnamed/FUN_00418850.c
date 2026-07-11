@@ -31,9 +31,9 @@ int __fastcall FUN_00418850(int param_1)
   *(undefined4 *)(param_1 + 0x47c) = 0;
   EncodeOutgoingPacketField(0);
   local_4 = 2;
-  FUN_00406440();
-  FUN_00406440();
-  FUN_00406440();
+  InitGuardedBool();
+  InitGuardedBool();
+  InitGuardedBool();
   *(undefined1 *)(param_1 + 0x8b8) = 0;
   *(undefined4 *)(param_1 + 0x6ac) = 0;
   EncodeOutgoingPacketField(0);

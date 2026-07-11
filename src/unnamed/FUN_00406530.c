@@ -23,7 +23,7 @@ undefined4 __fastcall FUN_00406530(undefined4 param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     cVar1 = '\0';
   }
-  FUN_004064a0(cVar1);
+  EncodeGuardedBool(cVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   return param_1;
 }

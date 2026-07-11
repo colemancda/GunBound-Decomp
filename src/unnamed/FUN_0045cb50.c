@@ -105,12 +105,12 @@ LAB_0045cdb1:
           FUN_004d25e0();
           FUN_004d2680();
         }
-        FUN_00406500(0);
-        FUN_00406500(1);
+        SetGuardedBool(0);
+        SetGuardedBool(1);
         EncodeChecksumState(param_1 + 0x243);
         iVar5 = FUN_004257b0();
         QueueOutgoingPacketField(iVar5 + param_1[0x2fee]);
-        FUN_00406500(0);
+        SetGuardedBool(0);
       }
     }
   }

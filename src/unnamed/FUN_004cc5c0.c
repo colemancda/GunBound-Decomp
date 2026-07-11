@@ -48,10 +48,10 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
     if (param_2 == '\0') {
       switch(param_3) {
       case 1:
-        FUN_00406500(1);
+        SetGuardedBool(1);
         break;
       case 2:
-        FUN_00406500(1);
+        SetGuardedBool(1);
         break;
       case 3:
         uVar6 = EncodeChecksumDeltaMul(iVar2 + 0x6744,local_112c,8);
@@ -68,7 +68,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         if (cVar1 != '\0') {
           QueueOutgoingPacketField(1);
         }
-        FUN_00406500(1);
+        SetGuardedBool(1);
         break;
       case 7:
         cVar1 = PeekPacketChecksumBool();
@@ -115,15 +115,15 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
     else {
       switch(param_3) {
       case 1:
-        FUN_00406500(1);
-        FUN_00406500(0);
+        SetGuardedBool(1);
+        SetGuardedBool(0);
         break;
       case 2:
-        FUN_00406500(1);
-        FUN_00406500(0);
+        SetGuardedBool(1);
+        SetGuardedBool(0);
         break;
       case 6:
-        FUN_00406500(1);
+        SetGuardedBool(1);
         break;
       case 7:
         cVar1 = PeekPacketChecksumBool();
@@ -151,7 +151,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         }
         break;
       case 10:
-        FUN_00406500(1);
+        SetGuardedBool(1);
         break;
       case 0xb:
         uVar6 = 10000;

@@ -533,7 +533,7 @@ void __fastcall FUN_0047ca40(int *param_1)
       uVar8 = PeekChecksumStateUnderLock(&DAT_007949c8);
       QueueOutgoingPacketField(uVar8);
     }
-    FUN_00406500(1);
+    SetGuardedBool(1);
   }
 LAB_0047dbc9:
   *unaff_FS_OFFSET = uStack_10;
