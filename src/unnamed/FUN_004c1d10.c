@@ -10,7 +10,7 @@
 void FUN_004c1d10(void)
 
 {
-  FUN_004508a0(&DAT_006a7f88 + g_clientContext);
+  RenderWeatherHazards(&DAT_006a7f88 + g_clientContext);
   return;
 }
 

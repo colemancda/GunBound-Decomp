@@ -575,7 +575,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004507d0,60,FUN_004507d0,false,3,0,RAW-src
 00450810,73,FUN_00450810,false,1,0,RAW-src
 00450860,60,FUN_00450860,false,4,0,RAW-src
-004508a0,729,FUN_004508a0,false,1,5,RAW-src
+004508a0,729,RenderWeatherHazards,false,1,5,RAW-src
 00450b80,73,FUN_00450b80,false,1,0,RAW-src
 00450bd0,73,FUN_00450bd0,false,1,0,RAW-src
 00450c20,387,FUN_00450c20,false,1,1,RAW-src

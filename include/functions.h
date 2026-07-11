@@ -627,7 +627,7 @@ void AdvanceSpriteAnimation();
 void FUN_004507d0();
 void FUN_00450810();
 void FUN_00450860();
-void FUN_004508a0();
+void RenderWeatherHazards();
 void FUN_00450b80();
 void FUN_00450bd0();
 void FUN_00450c20();

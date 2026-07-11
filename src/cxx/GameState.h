@@ -180,7 +180,7 @@ public:
     virtual void ChatInputChar(int ch);         /* slot 10 +0x28: 0x4c1b90 appends to the chat buffers,
                                                  * remaps '@#$%^&*' to emoticon control codes 0x0a-0x10 */
     virtual void TickCounters();                /* slot 11 +0x2c: 0x4c1c90 small per-tick helper */
-    virtual void UpdateActiveObjectSlot();      /* slot 12 +0x30: 0x4c1d10 one-line delegate to FUN_004508a0 */
+    virtual void UpdateActiveObjectSlot();      /* slot 12 +0x30: 0x4c1d10 one-line delegate to RenderWeatherHazards */
     virtual void ClearEffectTextures();         /* slot 13 +0x34: 0x4c1d30 per-frame Lock/zero/Unlock of the
                                                  * ~24 dynamic effect render-targets */
     virtual void Render();                      /* slot 14 +0x38: 0x4c3020 State11_InBattle_Render (D3D scene) */
