@@ -15,6 +15,21 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
+/* Every raw vtable call below is dispatched through an explicit __stdcall
+ * function-pointer cast, not the generic `code` (K&R/unspecified-args) type.
+ * `code()` defaults to __cdecl under MSVC, so the compiler emits a caller-
+ * side `add esp, N` after some of these calls to pop args it pushed itself -
+ * but every one is a real COM vtable method (__stdcall, already self-cleans
+ * via `ret N`). That double cleanup corrupts the caller's frame once enough
+ * such calls accumulate - see SetupZBuffer.c/InitDirectDraw.c for the full
+ * writeup and how this was found (a hardware watchpoint on the saved-EBP
+ * stack slot, firing from inside a DirectX DLL). */
+typedef HRESULT (WINAPI *SetCooperativeLevelFn)(void *, HWND, DWORD);
+typedef HRESULT (WINAPI *CreateSoundBufferFn)(void *, const void *, void **, IUnknown *);
+typedef HRESULT (WINAPI *SetFormatFn)(void *, const void *);
+typedef HRESULT (WINAPI *PlayFn)(void *, DWORD, DWORD, DWORD);
+#define VTBL(iface, n) (*(void ***)(iface))[n]
+
 undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
 
 {
@@ -54,23 +69,24 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
   if (param_2 < 0x20) {
     DAT_00793560 = param_2;
   }
-  uStack_54 = (int **)0x0;
-  iStack_58 = 0x4ee624;
-  iVar2 = (*pFVar1)();
+  /* DirectSoundCreate8(pcGuidDevice=NULL, ppDS8=&DAT_0079354c, pUnkOuter=NULL).
+   * Ghidra emitted this as an argless `(*pFVar1)()`; the real argument push
+   * order was recovered from the original at 0x4ee619-0x4ee622 (push NULL /
+   * &DAT_0079354c / NULL). Without the args, DAT_0079354c never gets a valid
+   * IDirectSound8 pointer written into it, and the very next line's vtable
+   * dereference (*DAT_0079354c) reads NULL/garbage and calls through it. */
+  iVar2 = ((HRESULT (WINAPI *)(GUID *, void **, IUnknown *))pFVar1)
+              (NULL, (void **)&DAT_0079354c, NULL);
   if (-1 < iVar2) {
     iStack_58 = 2;
     iStack_5c = DAT_0079355c;
     uStack_60 = DAT_0079354c;
     uStack_64 = 0x4ee646;
-    iVar2 = (**(code **)(*DAT_0079354c + 0x18))(DAT_0079354c, DAT_0079355c, 2);
+    iVar2 = ((SetCooperativeLevelFn)VTBL(DAT_0079354c, 6))
+                (DAT_0079354c, (HWND)DAT_0079355c, 2);
     if (-1 < iVar2) {
-      uStack_64 = 0;
-      ppiStack_68 = &DAT_00793550;
-      puStack_6c = &stack0xffffffc4;
-      piStack_70 = DAT_0079354c;
-      puStack_74 = (undefined4 *)0x4ee697;
-      iVar2 = (**(code **)(*DAT_0079354c + 0xc))
-                        (DAT_0079354c, &stack0xffffffc4, &DAT_00793550, 0);
+      iVar2 = ((CreateSoundBufferFn)VTBL(DAT_0079354c, 3))
+                  (DAT_0079354c, &stack0xffffffc4, (void **)&DAT_00793550, 0);
       if (-1 < iVar2) {
         iStack_5c = DAT_00588f3c;
         puStack_74 = &uStack_60;
@@ -78,8 +94,8 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
         uStack_54 = (int **)CONCAT22(DAT_00588f40,(DAT_00588f40 >> 3) * (short)_DAT_00588f38);
         iStack_58 = DAT_00588f44;
         piStack_78 = DAT_00793550;
-        (**(code **)(*DAT_00793550 + 0x38))(DAT_00793550, &uStack_60);
-        (**(code **)(*DAT_00793550 + 0x30))(DAT_00793550,0,0,1);
+        ((SetFormatFn)VTBL(DAT_00793550, 0xe))(DAT_00793550, &uStack_60);
+        ((PlayFn)VTBL(DAT_00793550, 0xc))(DAT_00793550,0,0,1);
         DAT_00793554 = operator_new(DAT_00793560 * 4);
         DAT_00793558 = operator_new(DAT_00793560 * 4);
         pvVar3 = operator_new(0xb8);
@@ -112,8 +128,8 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
         if (DAT_00793560 != 0) {
           do {
             uStack_60 = (int *)((-(uint)(uVar5 != 0) & 0xffffffe0) + 0x1a2);
-            (**(code **)(*DAT_0079354c + 0xc))
-                      (DAT_0079354c,&uStack_64,(void *)((int)DAT_00793558 + uVar5 * 4),0);
+            ((CreateSoundBufferFn)VTBL(DAT_0079354c, 3))
+                      (DAT_0079354c,&uStack_64,(void **)((int)DAT_00793558 + uVar5 * 4),0);
             uVar5 = uVar5 + 1;
           } while (uVar5 < DAT_00793560);
         }
