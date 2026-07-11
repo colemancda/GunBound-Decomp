@@ -2,10 +2,13 @@
  * layouts documented (and binary-confirmed) in ARCHITECTURE.md and
  * docs/widgets.md. This TU includes every header in src/cxx/ and asserts
  * the object sizes and field offsets, so one real-MSVC syntax check
- * validates the whole tree:
+ * validates the whole tree. Run it with:
  *
- *   docker exec gb-check wine 'Z:\opt\msvc7\bin\cl.exe' /c /nologo /Zs \
- *       'Z:\work\src\cxx\cxx_selftest.cpp'
+ *   tools/msvc-env/validate_cxx_selftest.sh   (MSVC 7.10 cl.exe /Zs, gb-msvc image)
+ *
+ * (32-bit clang can only validate the sizeof asserts - the GB_OFFSETOF
+ * null-deref isn't a constant expression there, so the offset asserts need the
+ * real-MSVC path above.)
  */
 #include "gb_common.h"
 #include "GameState.h"
