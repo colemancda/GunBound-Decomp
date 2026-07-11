@@ -1148,10 +1148,58 @@ void *PTR_LAB_00557f30;
 void *PTR_LAB_00557f58;
 void *PTR_LAB_00563ddc;
 void *vtable_ButtonWidget[32];
-void *vtable_State01_Title[32];
-void *vtable_State02_ServerSelect[32];
-void *vtable_State05_Logo1[32];
-void *vtable_State06_Logo2[32];
+/* Per-state CGameState vtables (see ARCHITECTURE.md's "CGameState base
+ * class and virtual dispatch" table for the slot layout: 0=dtor,
+ * 1=ProcessPacket, 2-4=other no-op virtuals, 5=keyboard dispatch,
+ * 6=mouse dispatch, 7=OnEnter, 8=OnExit, 9=OnTick/cursor-update). These
+ * were declared as zero-initialized [32] arrays but never populated
+ * anywhere - every virtual call through them read a null entry. Slots
+ * confirmed (real functions already in src/) are wired below; slots
+ * whose target isn't ported yet, and aren't reachable on the startup/
+ * logo/title/server-select path, are pointed at NoOpMethod as a
+ * placeholder (matching the null-object idiom PTR_LAB_00553fb0 already
+ * uses for the same purpose). All addresses decoded byte-for-byte from
+ * the original binary's .data section at each state's vtable location. */
+void *vtable_State01_Title[32] = {
+  (void *)NoOpMethod, /* dtor: shared 0x4e5320, not yet ported */
+  (void *)CGameState_NoOpVirtual_A, (void *)CGameState_NoOpVirtual_B,
+  (void *)CGameState_NoOpVirtual_B, (void *)CGameState_NoOpVirtual_B,
+  (void *)CGameState_NoOpVirtual_A,
+  (void *)NoOpMethod, /* slot 6 mouse dispatch: 0x4e5340, not yet ported */
+  (void *)State01_Title_OnEnter, (void *)State01_Title_OnExit,
+  (void *)State01_Title_OnTick,
+};
+void *vtable_State02_ServerSelect[32] = {
+  (void *)NoOpMethod, /* dtor: shared 0x4e5320, not yet ported */
+  (void *)State02_ServerSelect_ProcessPacket,
+  (void *)CGameState_NoOpVirtual_B,
+  (void *)NoOpMethod, /* slot 3: 0x4e1200, not yet ported */
+  (void *)CGameState_NoOpVirtual_B,
+  (void *)NoOpMethod, /* slot 5: 0x4e1170, not yet ported */
+  (void *)NoOpMethod, /* slot 6 mouse dispatch: 0x4e1430 - the "missing
+                        * bridge" function flagged during the WinMain-to-
+                        * ServerSelect path trace; not yet ported */
+  (void *)State02_ServerSelect_OnEnter, (void *)State02_ServerSelect_OnExit,
+  (void *)State02_ServerSelect_OnTick,
+};
+void *vtable_State05_Logo1[32] = {
+  (void *)NoOpMethod, /* dtor: shared 0x4e5320, not yet ported */
+  (void *)CGameState_NoOpVirtual_A, (void *)CGameState_NoOpVirtual_B,
+  (void *)CGameState_NoOpVirtual_B, (void *)CGameState_NoOpVirtual_B,
+  (void *)CGameState_NoOpVirtual_A,
+  (void *)NoOpMethod, /* slot 6 mouse dispatch: 0x4433c0, not yet ported */
+  (void *)State05_Logo1_OnEnter, (void *)State05_Logo1_OnExit,
+  (void *)FUN_00443540,
+};
+void *vtable_State06_Logo2[32] = {
+  (void *)NoOpMethod, /* dtor: shared 0x4e5320, not yet ported */
+  (void *)CGameState_NoOpVirtual_A, (void *)CGameState_NoOpVirtual_B,
+  (void *)CGameState_NoOpVirtual_B, (void *)CGameState_NoOpVirtual_B,
+  (void *)CGameState_NoOpVirtual_A,
+  (void *)NoOpMethod, /* slot 6 mouse dispatch: 0x4433c0, not yet ported */
+  (void *)State06_Logo2_OnEnter, (void *)State06_Logo2_OnExit,
+  (void *)State06_Logo2_OnTick,
+};
 void *vtable_State07_AvatarStore[32];
 void *vtable_State09_ReadyRoom[32];
 void *vtable_State10_Loading[32];
