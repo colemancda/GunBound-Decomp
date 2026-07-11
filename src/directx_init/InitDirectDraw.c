@@ -190,8 +190,8 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
   if (pIVar6 < &IMAGE_DOS_HEADER_00400000) {
     return 0x1b;
   }
-  FUN_004f3e40();
-  FUN_004f3a00();
+  InitTextureCachePool();
+  InitSpriteRegistryPool();
   ((SetRenderStateFn)VTBL(g_pD3DDevice7, 0x14))(g_pD3DDevice7,0x13,5);
   ((SetRenderStateFn)VTBL(g_pD3DDevice7, 0x14))(g_pD3DDevice7,0x14,6);
   ((SetRenderStateFn)VTBL(g_pD3DDevice7, 0x14))(g_pD3DDevice7,0x28,1);

@@ -440,11 +440,11 @@ uint8_t DAT_006aa66e;
 uint8_t DAT_006aa674;
 uint8_t DAT_006aa67c;
 uint8_t DAT_006aab04;
-uint32_t DAT_006b90f8; /* holds a void* from FUN_004f3980 (was uint8_t, which
-                        * truncated the pointer to 1 byte -> FUN_004f3a00 wrote
+uint32_t DAT_006b90f8; /* holds a void* from AllocSpriteRegistryNode (was uint8_t, which
+                        * truncated the pointer to 1 byte -> InitSpriteRegistryPool wrote
                         * through [byte+8] and faulted) */
-/* 0x400-entry block table for the 12-byte-record pool (FUN_004f3980 alloc,
- * FUN_004f3a00 reset). Was a lone uint32_t, so the reset's 0x1000-byte zero
+/* 0x400-entry block table for the 12-byte-record pool (AllocSpriteRegistryNode alloc,
+ * InitSpriteRegistryPool reset). Was a lone uint32_t, so the reset's 0x1000-byte zero
  * ran off the end and wiped adjacent globals (e.g. g_pBackBufferSurface). */
 uint32_t DAT_006b9100[0x400];
 uint8_t DAT_006ba1fc;
@@ -452,8 +452,8 @@ uint8_t DAT_006ba244;
 uint32_t DAT_00792190;
 uint8_t DAT_00792194;
 uint8_t DAT_00792198;
-/* 0x400-entry block table for the 0x80-byte-record pool (FUN_004f3dc0 alloc,
- * FUN_004f3e40 reset) - the sibling of DAT_006b9100; same undersizing bug. */
+/* 0x400-entry block table for the 0x80-byte-record pool (AllocTextureCacheNode alloc,
+ * InitTextureCachePool reset) - the sibling of DAT_006b9100; same undersizing bug. */
 uint32_t DAT_007921b0[0x400];
 uint16_t DAT_00793228;
 uint8_t DAT_007933b8;

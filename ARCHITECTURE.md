@@ -1378,6 +1378,28 @@ In-Battle render pass; scanning every `SetRenderState` call site in it
   those two globals are simply the last-set SRCBLEND/DESTBLEND cache, not
   meaningfully different per-effect values beyond the 5/6 vs 5/2 split.
 
+**`InitDirectDraw`'s full call sequence, traced end to end this pass**:
+`LoadLibraryA("ddraw.dll")` → `DirectDrawCreateEx` → `SetCooperativeLevel`
+(fullscreen exclusive `DAT_00588f4c!=0`, or normal windowed) →
+`SetDisplayMode(800,600,...)` (fullscreen only) → `CreateSurface` (primary +
+flip chain fullscreen, or a single windowed surface) → `GetAttachedSurface`
+(back buffer, fullscreen) or a second `CreateSurface` (windowed) →
+`CreateClipper` + `Clipper->SetHWnd` + `Surface->SetClipper` (windowed) →
+`QueryInterface(IID_IDirect3D7)` → `CreateDevice` (`g_pD3DDevice7`) →
+`SetViewport` → `EnumTextureFormats(EnumTextureFormatsCallback)` →
+`GetAvailableVidMem` → **`InitTextureCachePool`** (`0x4f3e40`) +
+**`InitSpriteRegistryPool`** (`0x4f3a00`) — two pooled bump-allocator tables
+zeroed and given their first block (128-byte elements via
+`AllocTextureCacheNode`/`0x4f3dc0`, and 12-byte elements via
+`AllocSpriteRegistryNode`/`0x4f3980` respectively; the 12-byte size matches
+this codebase's small AVL-tree-node pattern, though the exact consumers of
+both pools weren't confirmed via caller-graph — several call sites elsewhere
+in this codebase are reached through a register-based calling convention the
+decompiler doesn't surface) → texture-stage filter states (`SetTextureStageState`
+×10, min/mag/mip filtering + texture-coordinate wrap modes) → `OpenXFSArchive`
+(the startup graphics archive) → zero a third, larger `0x1000`-dword region
+and set its screen-dimension fields (800×600) → **`SetupZBuffer`** (`0x4ef9a0`).
+
 Fullscreen vs. windowed still branches on `DAT_00588f4c` (fullscreen =
 hardcoded 800×600 exclusive; windowed = `GetClientRect`/`ClientToScreen`).
 

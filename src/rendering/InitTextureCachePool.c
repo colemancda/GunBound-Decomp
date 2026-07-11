@@ -1,4 +1,4 @@
-/* FUN_004f3e40 - 0x004f3e40 in the original binary.
+/* InitTextureCachePool - 0x004f3e40 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004f3e40(void)
+void InitTextureCachePool(void)
 
 {
   undefined1 *puVar1;
@@ -20,7 +20,7 @@ void FUN_004f3e40(void)
     *puVar3 = 0;
     puVar3 = puVar3 + 1;
   }
-  puVar1 = (undefined1 *)FUN_004f3dc0();
+  puVar1 = (undefined1 *)AllocTextureCacheNode();
   DAT_00792190 = puVar1;
   *puVar1 = 0;
   *(undefined4 *)(puVar1 + 0x70) = 0;

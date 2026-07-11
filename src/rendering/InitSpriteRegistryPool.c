@@ -1,4 +1,4 @@
-/* FUN_004f3a00 - 0x004f3a00 in the original binary.
+/* InitSpriteRegistryPool - 0x004f3a00 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -10,7 +10,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004f3a00(void)
+void InitSpriteRegistryPool(void)
 
 {
   int iVar1;
@@ -21,7 +21,7 @@ void FUN_004f3a00(void)
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  _DAT_006b90f8 = FUN_004f3980();
+  _DAT_006b90f8 = AllocSpriteRegistryNode();
   *(undefined4 *)(_DAT_006b90f8 + 8) = 0;
   return;
 }
