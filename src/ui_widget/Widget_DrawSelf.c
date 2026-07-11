@@ -1,4 +1,4 @@
-/* FUN_005054b0 - 0x005054b0 in the original binary.
+/* Widget_DrawSelf - 0x005054b0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_005054b0(int param_1)
+void __fastcall Widget_DrawSelf(int param_1)
 
 {
   undefined4 uVar1;
@@ -26,13 +26,13 @@ void __fastcall FUN_005054b0(int param_1)
     if (iVar4 != 0) {
       if (*(char *)(iVar4 + 0x18) == '\x01') {
         BlitSprite16bpp(uVar2,uVar1);
-        FUN_0050ecf0();
+        Widget_DrawChildrenDeep();
         return;
       }
       BlitSpriteClipped(iVar3);
     }
   }
-  FUN_0050ecf0();
+  Widget_DrawChildrenDeep();
   return;
 }
 

@@ -314,7 +314,7 @@ LAB_004d588d:
       } while (cVar2 != '\0');
       AppendPacketBytes((char *)(param_1 + 0x62d));
       SendOutgoingPacket();
-      FUN_0050ef10(&g_uiPanelManager);
+      PanelManager_Unregister(&g_uiPanelManager);
       uVar3 = InvokeWidget(1);
       return uVar3;
     }
@@ -324,7 +324,7 @@ LAB_004d588d:
     return uVar3;
   case 9:
     InvokeWidget(1);
-    uVar3 = FUN_0050ef10(&g_uiPanelManager);
+    uVar3 = PanelManager_Unregister(&g_uiPanelManager);
     return uVar3;
   case 10:
     RefreshReadyRoomControls(param_1,0,0);

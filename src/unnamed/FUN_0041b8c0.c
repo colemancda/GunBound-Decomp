@@ -198,7 +198,7 @@ LAB_0041bac3:
         return;
       }
     }
-    FUN_00505520(iVar9,local_98);
+    Widget_SetChildRange(iVar9,local_98);
     uVar8 = Widget_FindChildIndex();
     if (uVar8 != 0xffffffff) {
       if (*(uint *)(iVar6 + 0x10) <= uVar8) {

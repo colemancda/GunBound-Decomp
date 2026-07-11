@@ -41,10 +41,10 @@ void __fastcall FUN_0050f290(int *param_1)
       param_1[5] = (int)piVar4;
       param_1[3] = iVar3 + -1;
       if (iVar3 + -1 == 0) {
-        FUN_00509fd0();
+        PanelManager_ReleasePool();
       }
       (**(code **)(*param_1 + 0x18))();
-      FUN_0050e560();
+      WidgetChildArray_Destroy();
       _free(_Memory);
     }
   }

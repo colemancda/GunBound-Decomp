@@ -167,7 +167,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
             FUN_0042ae30(&local_468);
             LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
-            FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
+            Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
             pcVar19 = (code *)EnterCriticalSection;
 LAB_0044469b:
             local_c = 0xffffffff;
@@ -228,7 +228,7 @@ LAB_0044469b:
             LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
             FUN_0044b0b0(this);
-            FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
+            Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
           }
           *(undefined1 *)(g_clientContext + 0x44bf8) = 1;
           return;
@@ -307,7 +307,7 @@ LAB_0044469b:
         QueueOutgoingPacketField(0xffffffff);
         LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,300000);
         FUN_0044b0b0(this);
-        FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
+        Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
         QueueOutgoingPacketField(4);
         pcVar10 = (char *)GetLocalizedString(&g_localizedStringTable,0xea6a);
         pcVar7 = (char *)((int)this + 0x327d4);
@@ -424,7 +424,7 @@ switchD_004449fc_default:
             pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa8);
             _sprintf((char *)local_508,pcVar7,iVar4);
             FUN_00402900(&DAT_00e53e88,(int)this + 0x32ce3);
-            FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
+            Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
           }
           else if (*payload == 0x6002) {
             ShowErrorDialog(0);
@@ -531,7 +531,7 @@ switchD_00444e7c_default:
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EncodeOutgoingPacketField(0xffffffff);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        FUN_00505520(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
+        Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
       }
       else if (*payload == 0x6002) {
         ShowErrorDialog(0);

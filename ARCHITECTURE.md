@@ -2113,7 +2113,7 @@ param_3, buttonId)`:
     on the object's pending-op flags at `+0xc`/`+0xd`/`+0xe` and finalizes
     (create-room submit `0x2120`, join-selected, or join-by-number).
   - `0xb` (11) — a cancel/dismiss event; closes the active dialog
-    (`FUN_0050ef10`).
+    (`PanelManager_Unregister`).
 
 - **The `param_4` switch dispatches on button ID, not the widget's stored
   "action code."** Cross-checked against the lobby's real button-creation
@@ -2161,7 +2161,7 @@ param_3, buttonId)`:
 
   Dialog-internal actions (reached via `eventType==0xa`/`0xb` from a dialog's
   own OK/Cancel, not a top-level lobby button) use higher codes:
-  `0x1e`/`0x20`/`0x28` are plain **Cancel** buttons (`FUN_0050ef10`, dismiss
+  `0x1e`/`0x20`/`0x28` are plain **Cancel** buttons (`PanelManager_Unregister`, dismiss
   the active dialog); `0x1f` and `0x21` are **Join-selected**/**Join-by-number**
   confirms (`SendJoinRoomSelected`/`SendJoinRoomByNumber`); `0x29` and the
   `eventType==0xa && flag@+0xc` path both reach **`SendCreateRoom`, the Create
@@ -2781,6 +2781,59 @@ never showed it. Reading the raw x86 disassembly directly resolved it.
    sorted-container primitive, reused for both the time-keyed turn-event
    queue and this layer-keyed active-object/render registry** — not two
    independently-implemented data structures.
+
+### The Widget base class's own mouse/draw dispatch (0x505-0x50f cluster)
+
+Separate from `ButtonWidget` (the flat, non-hierarchical widget documented
+above), the panel system (`Panel_BaseConstructor`, `Build*Panel` — chat logs,
+world list, buddy list, avatar store) uses a genuine **tree-structured Widget
+base class** with a child array and a much larger vtable. Named this pass:
+
+- **Mouse dispatch, children-first.** `Widget_OnMouseDown` (`0x50e420`) and
+  `Widget_OnMouseUp` (`0x50e4c0`) are the base class's own handlers: each
+  first delegates to `Widget_MouseDownChildren`/`Widget_MouseUpChildren` (walk
+  the child array), and only if no child consumed the event does it hit-test
+  its own bounds (`+0x28..+0x30` x/width, `+0x2c..+0x34` y/height) and invoke
+  its own click vtable slot (`vtable[0]`). `Widget_OnMouseDown` also tracks a
+  drag-eligibility flag (`+0x39`) gated on a modal-lock field (`+0xe`).
+- **Draw, two parallel recursion paths.** `Widget_DrawChildren` (`0x50e520`,
+  named earlier) calls each child's vtable slot `0x20`. A second, structurally
+  identical helper, **`Widget_DrawChildrenDeep`** (`0x50ecf0`), calls slot
+  `0x24` instead — used by leaf/row-style widgets (`Widget_DrawSelf`
+  `0x505430`→`0x5054b0`, `ScrollListWidget_DrawThumb` `0x50e090`) that paint
+  their own content with raw `FindSpriteFrame`+blit calls first, then recurse
+  into their own children via this second path. The two draw slots (`0x20`
+  vs `0x24`) most likely correspond to `Draw` at different vtable indices in
+  different subclasses (an intermediate class adding virtuals shifts the
+  slot), rather than two semantically different draw passes — not fully
+  confirmed.
+- **`Widget_DrawSelf`** (`0x5054b0`) — draws a widget's own sprite frame
+  (`+0x48` frame index, `+0x28`/`+0x2c` position, gated on the `+0x1e`
+  hidden flag) then calls `Widget_DrawChildrenDeep`. Callers are exclusively
+  list-row renderers (`RenderChannelUserRow`, `RenderReadyRoomChatRow`) —
+  this is the shared "row background" draw helper.
+- **`ScrollListWidget_DrawThumb`** (`0x50e090`) — draws the scrollbar thumb
+  as three pieces (top cap frame 0, a tiled body of frame-1 segments sized by
+  `ScrollListWidget_ThumbHeight`, bottom cap frame 2), then also recurses via
+  `Widget_DrawChildrenDeep`.
+- **`RadioGroup_OnMouseDown`** (`0x505430`) — a container click handler: hit-
+  tests itself, then walks its children for type-`2` entries (radio buttons),
+  invoking the first one whose "selected" flag is unset, or the currently-
+  selected one if any is already set — the click-to-select behavior behind
+  the room-option/settings radio groups.
+- **`Widget_SetChildRange`** (`0x505520`) — finds a child by index
+  (`Widget_FindChildIndex`), sets a `min`/`max`-shaped pair on it (`+0x38`/
+  `+0x3c`), and enables/disables it based on the sign of the new value —
+  matches a scrollbar or slider's range-update call.
+- **`WidgetChildArray_Destroy`** (`0x50e560`) — a real MSVC destructor
+  (installs its own vtable pointer at entry, the standard dtor pattern),
+  recursively frees a nested array of child widget pointers.
+- **`PanelManager_Unregister`** (`0x50ef10`) — the counterpart to
+  `PanelManager_Register`: finds a panel by its `(x, y)` key in the manager's
+  linked list, unlinks it, and — once the manager's registered-panel count
+  hits zero — calls **`PanelManager_ReleasePool`** (`0x509fd0`), which drains
+  a free-node pool and fully resets the manager (matches `PanelManager_Register`'s
+  own node-allocator, `0x50f350`, being pool-backed).
 
 **This answers the original open question**: Title/Logo/ServerSelect (and
 every other screen) don't need bespoke per-state render code because their

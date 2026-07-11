@@ -1,4 +1,4 @@
-/* FUN_0050ef10 - 0x0050ef10 in the original binary.
+/* PanelManager_Unregister - 0x0050ef10 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_0050ef10(int *param_1)
+undefined4 PanelManager_Unregister(int *param_1)
 
 {
   int *piVar1;
@@ -53,10 +53,10 @@ undefined4 FUN_0050ef10(int *param_1)
     param_1[5] = (int)piVar4;
     param_1[3] = iVar3 + -1;
     if (iVar3 + -1 == 0) {
-      FUN_00509fd0();
+      PanelManager_ReleasePool();
     }
     (**(code **)(*param_1 + 0x18))();
-    FUN_0050e560();
+    WidgetChildArray_Destroy();
     _free(_Memory);
   }
   /* Ghidra emitted a bare `return;` in a value-returning function;

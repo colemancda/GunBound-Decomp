@@ -1,4 +1,4 @@
-/* FUN_0050e560 - 0x0050e560 in the original binary.
+/* WidgetChildArray_Destroy - 0x0050e560 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0050e560(undefined4 *param_1)
+void __fastcall WidgetChildArray_Destroy(undefined4 *param_1)
 
 {
   void *pvVar1;
@@ -42,7 +42,7 @@ void __fastcall FUN_0050e560(undefined4 *param_1)
       /* Ghidra emitted this __fastcall self-call with no args (it lost
        * track of ECX); MSVC hard-errors on the byte-count mismatch
        * (C2708), so pass the current parameter through. */
-      FUN_0050e560(param_1);
+      WidgetChildArray_Destroy(param_1);
       _free(pvVar1);
     }
     if ((uint)param_1[4] < uVar4) break;

@@ -23,7 +23,7 @@ void __fastcall RenderChannelUserRow(int param_1)
   if (*(char *)(param_1 + 0x1e) != '\0') {
     return;
   }
-  FUN_005054b0();
+  Widget_DrawSelf();
   iVar4 = g_clientContext;
   FUN_0041b6b0();
   iVar1 = *(int *)(param_1 + 0x28);

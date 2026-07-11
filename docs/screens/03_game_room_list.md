@@ -86,7 +86,7 @@ Every lobby button/menu/list event funnels through this one function,
   confirmed against the real button-creation call `State03_GameRoomList_CreateButtons`, not the
   widget's own 1000-range "action code" field — see ARCHITECTURE.md).
 - `eventType==0xa` → confirm/commit (branches on pending-op flags `+0xc/+0xd/+0xe`).
-- `eventType==0xb` → cancel/dismiss the active dialog (`FUN_0050ef10`).
+- `eventType==0xb` → cancel/dismiss the active dialog (`PanelManager_Unregister`).
 
 **Button map** (`buttonId` when `eventType==0`):
 
@@ -106,7 +106,7 @@ Every lobby button/menu/list event funnels through this one function,
 | 0xf | `b_gamelist_directgo` | Open the **"DIRECT GO"** dialog (go straight to a room) | `BuildEnterRoomNumberDialog` (`0x557df0`, id 1), msg `0x2715`; runtime-confirmed to hold **Room No.** + **Password** text-entry fields (ids 0/1) + Ok/Cancel — so it's a jump-to-room-by-number-with-password, not just a number entry |
 
 **Dialog-internal codes** (reached via a dialog's own OK/Cancel, not a
-top-level button): `0x1e`/`0x20`/`0x28` = Cancel (`FUN_0050ef10`); `0x1f` =
+top-level button): `0x1e`/`0x20`/`0x28` = Cancel (`PanelManager_Unregister`); `0x1f` =
 `SendJoinRoomSelected` → `0x2110`; `0x21` = `SendJoinRoomByNumber` → `0x2110`;
 `0x29` (and the `eventType==0xa && flag@+0xc` path) = **`SendCreateRoom`, the
 Create Room dialog's submit handler** → sends `0x2120` (room name + password).

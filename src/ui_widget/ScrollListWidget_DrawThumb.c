@@ -1,4 +1,4 @@
-/* FUN_0050e090 - 0x0050e090 in the original binary.
+/* ScrollListWidget_DrawThumb - 0x0050e090 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0050e090(int param_1)
+void __fastcall ScrollListWidget_DrawThumb(int param_1)
 
 {
   undefined4 uVar1;
@@ -55,15 +55,15 @@ void __fastcall FUN_0050e090(int param_1)
     if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
         BlitSprite16bpp(uVar1,iVar4 + (iVar3 + 1) * 5);
-        FUN_0050ecf0();
+        Widget_DrawChildrenDeep();
         return;
       }
       BlitSpriteClipped(2);
     }
-    FUN_0050ecf0();
+    Widget_DrawChildrenDeep();
     return;
   }
-  FUN_0050ecf0();
+  Widget_DrawChildrenDeep();
   return;
 }
 

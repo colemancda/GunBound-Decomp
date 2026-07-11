@@ -10,7 +10,7 @@
 void __fastcall FUN_00506dc0(int param_1)
 
 {
-  FUN_005054b0();
+  Widget_DrawSelf();
   DrawFontString(*(int *)(param_1 + 0x2c) + 0x10,0);
   BlitRLESprite(*(int *)(param_1 + 0x2c) + 0x10,0xffff);
   return;

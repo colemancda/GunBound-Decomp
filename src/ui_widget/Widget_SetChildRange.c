@@ -1,4 +1,4 @@
-/* FUN_00505520 - 0x00505520 in the original binary.
+/* Widget_SetChildRange - 0x00505520 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00505520(int param_1,undefined4 param_2)
+void Widget_SetChildRange(int param_1,undefined4 param_2)
 
 {
   int iVar1;

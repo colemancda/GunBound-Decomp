@@ -39,7 +39,7 @@ LAB_0050e6ed:
         if (unaff_EDI == (void *)0x0) {
           return;
         }
-        FUN_0050e560();
+        WidgetChildArray_Destroy();
         _free(unaff_EDI);
         return;
       }

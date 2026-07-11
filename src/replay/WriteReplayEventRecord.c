@@ -372,7 +372,7 @@ LAB_004111c0:
     iVar12 = FUN_0050f000();
     pbVar22 = param_3;
     if (iVar12 != 0) {
-      FUN_00505520(*(undefined1 *)(iVar19 + 0x41344),7);
+      Widget_SetChildRange(*(undefined1 *)(iVar19 + 0x41344),7);
       pbVar22 = param_3;
     }
     goto switchD_004105f7_caseD_1022;

@@ -13,7 +13,7 @@ void __fastcall FUN_00505890(int param_1)
   int iVar1;
   
   if (*(char *)(param_1 + 0x1e) == '\0') {
-    FUN_005054b0();
+    Widget_DrawSelf();
     iVar1 = 0x2a;
     do {
       BlitRLESprite(*(int *)(param_1 + 0x2c) + iVar1,0xffff);

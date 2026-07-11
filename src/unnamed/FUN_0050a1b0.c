@@ -37,7 +37,7 @@ uint __thiscall FUN_0050a1b0(int param_1,int param_2,int param_3)
           FUN_0050cdf0(param_1);
         }
         cVar2 = FUN_005052b0();
-        cVar3 = FUN_00505430(param_2,param_3);
+        cVar3 = RadioGroup_OnMouseDown(param_2,param_3);
         if ((cVar2 == '\0') && (cVar3 == '\0')) {
           QueueOutgoingPacketField(0xffffffff);
           FUN_0050cdf0(param_1);

@@ -74,7 +74,7 @@ FUN_00401d50(char *param_1,int param_2,char param_3,undefined4 param_4,short par
               return;
             }
           }
-          FUN_00505520(iVar3,7);
+          Widget_SetChildRange(iVar3,7);
           return;
         }
       }

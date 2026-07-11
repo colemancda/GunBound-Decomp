@@ -38,9 +38,9 @@ void FUN_005098e0(int param_1)
       piVar1 = (int *)(in_EAX + 0xc);
       *piVar1 = *piVar1 + -1;
       if (*piVar1 == 0) {
-        FUN_00509fd0();
+        PanelManager_ReleasePool();
       }
-      FUN_0050e560();
+      WidgetChildArray_Destroy();
       _free(_Memory);
     }
   }

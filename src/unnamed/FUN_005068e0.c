@@ -16,7 +16,7 @@ void __fastcall FUN_005068e0(int param_1)
   int iVar4;
   
   if (*(char *)(param_1 + 0x1e) == '\0') {
-    FUN_005054b0();
+    Widget_DrawSelf();
     iVar1 = *(int *)(param_1 + 0x2c);
     iVar2 = *(int *)(param_1 + 0x28);
     iVar3 = *(int *)(param_1 + 0x90);

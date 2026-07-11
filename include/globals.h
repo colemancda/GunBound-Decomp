@@ -710,7 +710,7 @@ extern uint8_t DAT_00e53c3c;
 /* g_uiPanelManager (was DAT_00e53c40) - the global UI panel/dialog container
  * that screens attach dynamic panels to. Passed by address to the panel
  * builders/closers (BuildWorldListPanel, the lobby buddy panel BuildBuddyPanel,
- * the Create Room dialog BuildCreateRoomDialog, FUN_0050ef10 close, etc.). Typed
+ * the Create Room dialog BuildCreateRoomDialog, PanelManager_Unregister close, etc.). Typed
  * uint8_t by Ghidra but is really a container object; kept as-is until the
  * class is modeled. */
 extern uint8_t g_uiPanelManager;

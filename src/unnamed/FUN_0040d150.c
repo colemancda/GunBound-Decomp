@@ -41,15 +41,15 @@ void __fastcall thunk_FUN_0050ee00(undefined4 *param_1)
       piVar1 = param_1 + 3;
       *piVar1 = *piVar1 + -1;
       if (*piVar1 == 0) {
-        FUN_00509fd0();
+        PanelManager_ReleasePool();
       }
       if (_Memory != (void *)0x0) {
-        FUN_0050e560();
+        WidgetChildArray_Destroy();
         _free(_Memory);
       }
     } while (param_1[3] != 0);
   }
-  FUN_00509fd0();
+  PanelManager_ReleasePool();
   *unaff_FS_OFFSET = uStack_c;
   return;
 }

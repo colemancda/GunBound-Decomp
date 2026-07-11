@@ -85,7 +85,7 @@ LAB_00429cbe:
   *(undefined1 *)(iVar8 + 0x4d4 + iVar2) = *(undefined1 *)(param_1 + 0x114);
   *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
   SendOutgoingPacket();
-  FUN_0050ef10(&g_uiPanelManager);
+  PanelManager_Unregister(&g_uiPanelManager);
   return;
 }
 

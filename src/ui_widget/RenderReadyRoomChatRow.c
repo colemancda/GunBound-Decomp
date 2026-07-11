@@ -25,7 +25,7 @@ void __fastcall RenderReadyRoomChatRow(int param_1)
   int local_10;
   
   if (*(char *)(param_1 + 0x1e) == '\0') {
-    FUN_005054b0();
+    Widget_DrawSelf();
     iVar7 = *(int *)(param_1 + 0x2c) + 0x14;
     local_10 = 0;
     iVar8 = param_1;

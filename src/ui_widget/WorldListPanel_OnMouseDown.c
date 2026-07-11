@@ -32,7 +32,7 @@ undefined1 __thiscall WorldListPanel_OnMouseDown(int param_1,int param_2,int par
   undefined1 uVar4;
   int iVar5;
   
-  uVar4 = FUN_00505430(param_2,param_3);
+  uVar4 = RadioGroup_OnMouseDown(param_2,param_3);
   if ((((*(char *)(param_1 + 0x1e) != '\0') || (param_2 <= *(int *)(param_1 + 0x28))) ||
       (*(int *)(param_1 + 0x30) + *(int *)(param_1 + 0x28) <= param_2)) ||
      ((param_3 <= *(int *)(param_1 + 0x2c) ||

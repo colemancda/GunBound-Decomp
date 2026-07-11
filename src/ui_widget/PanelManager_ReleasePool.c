@@ -1,4 +1,4 @@
-/* FUN_00509fd0 - 0x00509fd0 in the original binary.
+/* PanelManager_ReleasePool - 0x00509fd0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00509fd0(undefined4 *param_1)
+void __fastcall PanelManager_ReleasePool(undefined4 *param_1)
 
 {
   int *piVar1;
@@ -28,7 +28,7 @@ void __fastcall FUN_00509fd0(undefined4 *param_1)
       /* Ghidra emitted this __fastcall self-call with no args (it lost
        * track of ECX); MSVC hard-errors on the byte-count mismatch
        * (C2708), so pass the current parameter through. */
-      FUN_00509fd0(param_1);
+      PanelManager_ReleasePool(param_1);
     }
     iVar2 = param_1[2];
   }

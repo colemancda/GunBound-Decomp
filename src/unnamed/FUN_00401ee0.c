@@ -51,7 +51,7 @@ void FUN_00401ee0(int param_1)
           return;
         }
       }
-      FUN_00505520(iVar3,7);
+      Widget_SetChildRange(iVar3,7);
     }
   }
   return;

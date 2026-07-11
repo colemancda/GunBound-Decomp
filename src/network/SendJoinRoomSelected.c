@@ -52,7 +52,7 @@ LAB_0042a00d:
   *(undefined4 *)(iVar2 + 0x4d2 + iVar4) = *(undefined4 *)(in_EAX + 0x8f);
   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 4;
   SendOutgoingPacket();
-  FUN_0050ef10(&g_uiPanelManager);
+  PanelManager_Unregister(&g_uiPanelManager);
   return;
 }
 
