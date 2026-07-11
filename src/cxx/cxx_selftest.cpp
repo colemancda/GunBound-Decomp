@@ -71,6 +71,9 @@ static void gb_widget_offset_checks()
     GB_STATIC_ASSERT(GB_OFFSETOF(PeerEndpoint, flagC)  == 0x2333c - 0x23330, peer_flag);
     GB_STATIC_ASSERT(GB_OFFSETOF(CValueGuard, enc0)    == 0x04, vg_enc0);
     GB_STATIC_ASSERT(GB_OFFSETOF(CValueGuard, tableHandle) == 0x14, vg_handle);
+    GB_STATIC_ASSERT(GB_OFFSETOF(CValueGuard, activeFlag)  == 0x220, vg_activeflag);
+    GB_STATIC_ASSERT(sizeof(CValueGuard) == 0x224, vg_size);
+    GB_STATIC_ASSERT(sizeof(GuardedBool) == 3,      guardedbool_size);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbActionHeader, actionType) == 0x02, off_actiontype);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbActionHeader, sourceSlot) == 0x05, off_srcslot);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbFirePayload, shotData) == 0x2c - 0x21, off_shotdata);
