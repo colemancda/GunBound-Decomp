@@ -1,4 +1,4 @@
-/* FUN_0042de70 - 0x0042de70 in the original binary.
+/* SpawnSuperShot - 0x0042de70 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -9,7 +9,7 @@
 
 /* WARNING: Removing unreachable block (ram,0x0042e5f3) */
 
-void FUN_0042de70(undefined1 param_1,int param_2,int param_3,int param_4,int param_5,int param_6,
+void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int param_5,int param_6,
                  int param_7,undefined4 param_8,undefined4 param_9,undefined4 param_10,int param_11)
 
 {

@@ -1,4 +1,4 @@
-/* FUN_004317b0 - 0x004317b0 in the original binary.
+/* SpawnItemProjectile - 0x004317b0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -9,7 +9,7 @@
 
 /* WARNING: Removing unreachable block (ram,0x00431855) */
 
-void FUN_004317b0(undefined4 param_1,int param_2,int param_3)
+void SpawnItemProjectile(undefined4 param_1,int param_2,int param_3)
 
 {
   void *pvVar1;

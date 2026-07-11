@@ -398,11 +398,11 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0042b010,134,FUN_0042b010,false,1,4,RAW-src
 0042b0b0,2584,CreateMobile,false,4,21,RAW-src
 0042bb10,155,FUN_0042bb10,false,5,5,RAW-src
-0042bbb0,8819,FUN_0042bbb0,false,61,46,RAW-src
-0042de70,5627,FUN_0042de70,false,25,38,RAW-src
+0042bbb0,8819,SpawnPrimaryShot,false,61,46,RAW-src
+0042de70,5627,SpawnSuperShot,false,25,38,RAW-src
 0042f4b0,4357,FUN_0042f4b0,false,5,24,RAW-src
 004305c0,4583,FUN_004305c0,false,8,24,RAW-src
-004317b0,1491,FUN_004317b0,false,16,11,RAW-src
+004317b0,1491,SpawnItemProjectile,false,16,11,RAW-src
 00431d90,1421,FUN_00431d90,false,36,15,RAW-src
 00432320,1322,FUN_00432320,false,50,15,RAW-src
 00432850,3970,FUN_00432850,false,1,20,RAW-src

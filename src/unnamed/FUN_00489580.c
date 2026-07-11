@@ -182,7 +182,7 @@ LAB_0048968e:
       uVar4 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_7e70,4,0,*(int *)(param_1 + 0xae2c) != 0,uVar6
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_7e70,4,0,*(int *)(param_1 + 0xae2c) != 0,uVar6
                    ,uVar5,uVar4,uVar10,uVar3);
       SUBFIELD(local_4,0,undefined1) = 1;
       puStack_7e84 = (undefined *)0x489782;
@@ -251,7 +251,7 @@ LAB_0048982c:
       uVar4 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_7e6c,4,0,*(int *)(param_1 + 0xae2c) != 0,uVar6
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_7e6c,4,0,*(int *)(param_1 + 0xae2c) != 0,uVar6
                    ,uVar5,uVar4,uVar10,uVar3);
       SUBFIELD(local_4,0,undefined1) = 4;
       puStack_7e84 = (undefined *)0x489920;
@@ -317,7 +317,7 @@ LAB_004899ca:
       uVar4 = PeekChecksumStateUnderLock(uVar4);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_7e6c,4,0,*(int *)(param_1 + 0xae2c) != 0,uVar6
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_7e6c,4,0,*(int *)(param_1 + 0xae2c) != 0,uVar6
                    ,uVar5,uVar4,uVar10,uVar3);
       SUBFIELD(local_4,0,undefined1) = 7;
       puStack_7e84 = (undefined *)0x489ab5;
@@ -383,7 +383,7 @@ LAB_00489b5f:
       uVar4 = PeekChecksumStateUnderLock(uVar4);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_7e6c,4,0,*(int *)(param_1 + 0xae2c) != 0,uVar6
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_7e6c,4,0,*(int *)(param_1 + 0xae2c) != 0,uVar6
                    ,uVar5,uVar4,uVar10,uVar3);
       SUBFIELD(local_4,0,undefined1) = 10;
       puStack_7e84 = (undefined *)0x489c4a;
@@ -448,7 +448,7 @@ LAB_0048a1ce:
       uVar7 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_7e6c,4,1,
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_7e6c,4,1,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar7,uVar4,uVar10);
       SUBFIELD(uStack_38,0,undefined1) = 0xd;
@@ -488,7 +488,7 @@ LAB_0048a32a:
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
       uVar8 = PeekChecksumStateUnderLock(uVar8);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar4,4,1,
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar4,4,1,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar8,uVar7,uVar6,uVar5,uVar10,uVar9);
       SUBFIELD(uStack_6c,0,undefined1) = 0x11;
@@ -529,7 +529,7 @@ LAB_0048a4ae:
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
       uVar8 = PeekChecksumStateUnderLock(uVar8);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar4,4,1,*(int *)(param_1 + 0xae2c) != 0,uVar8,
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar4,4,1,*(int *)(param_1 + 0xae2c) != 0,uVar8,
                    uVar7,uVar6,uVar5,uVar3,uVar10);
       SUBFIELD(local_4,0,undefined1) = 0x15;
       puStack_7e84 = (undefined *)0x48a5b3;
@@ -596,7 +596,7 @@ LAB_00489d03:
     uVar7 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar4 = PeekChecksumStateUnderLock(uVar4);
     uVar5 = PeekChecksumStateUnderLock(uVar5);
-    FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_7e6c,4,1,
+    SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_7e6c,4,1,
                  CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                           *(int *)(param_1 + 0xae2c) != 0),uVar5,uVar4,uVar7,uVar6,uVar10);
     uStack_38 = CONCAT31(SUBFIELD(uStack_38,1,undefined3),0x17);
@@ -634,7 +634,7 @@ LAB_00489e2b:
     uVar6 = PeekChecksumStateUnderLock(uVar6);
     uVar7 = PeekChecksumStateUnderLock(uVar7);
     uVar8 = PeekChecksumStateUnderLock(uVar8);
-    FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar4,4,1,
+    SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar4,4,1,
                  CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                           *(int *)(param_1 + 0xae2c) != 0),uVar8,uVar7,uVar6,uVar5,uVar10,uVar9);
     SUBFIELD(uStack_6c,0,undefined1) = 0x1b;
@@ -675,7 +675,7 @@ LAB_00489fb5:
     uVar6 = PeekChecksumStateUnderLock(uVar6);
     uVar7 = PeekChecksumStateUnderLock(uVar7);
     uVar8 = PeekChecksumStateUnderLock(uVar8);
-    FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar4,4,1,*(int *)(param_1 + 0xae2c) != 0,uVar8,uVar7,
+    SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar4,4,1,*(int *)(param_1 + 0xae2c) != 0,uVar8,uVar7,
                  uVar6,uVar5,uVar3,uVar10);
     SUBFIELD(local_4,0,undefined1) = 0x1f;
     puStack_7e84 = (undefined *)0x48a0ba;
@@ -754,7 +754,7 @@ LAB_0048a661:
     iStack_7e8c = PeekChecksumStateUnderLock();
     uVar3 = PeekChecksumStateUnderLock(uVar3);
     uVar10 = PeekChecksumStateUnderLock(uVar10);
-    FUN_004317b0(*(undefined1 *)(param_1 + 8),local_7e70,uVar10,uVar3);
+    SpawnItemProjectile(*(undefined1 *)(param_1 + 8),local_7e70,uVar10,uVar3);
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x21);
     puStack_7e84 = (undefined *)0x48a70c;
     ScrubChecksumGuard();
@@ -808,7 +808,7 @@ LAB_0048a661:
       uVar4 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042de70(*(undefined1 *)(param_1 + 8),0,4,
+      SpawnSuperShot(*(undefined1 *)(param_1 + 8),0,4,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar4,uVar10,uVar3);
       SUBFIELD(local_4,0,undefined1) = 0x24;
@@ -865,7 +865,7 @@ LAB_0048a661:
       uVar4 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042de70(*(undefined1 *)(param_1 + 8),1,4,*(int *)(param_1 + 0xae2c) != 0,uVar6,uVar5,
+      SpawnSuperShot(*(undefined1 *)(param_1 + 8),1,4,*(int *)(param_1 + 0xae2c) != 0,uVar6,uVar5,
                    uVar4,uVar10,uVar3);
       SUBFIELD(local_4,0,undefined1) = 0x27;
       puStack_7e84 = (undefined *)0x48a9ef;
@@ -919,7 +919,7 @@ LAB_0048a661:
       uVar4 = PeekChecksumStateUnderLock(uVar4);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042de70(*(undefined1 *)(param_1 + 8),2,4,*(int *)(param_1 + 0xae2c) != 0,uVar6,uVar5,
+      SpawnSuperShot(*(undefined1 *)(param_1 + 8),2,4,*(int *)(param_1 + 0xae2c) != 0,uVar6,uVar5,
                    uVar4,uVar10,uVar3);
       SUBFIELD(local_4,0,undefined1) = 0x2a;
       puStack_7e84 = (undefined *)0x48ab51;
@@ -973,7 +973,7 @@ LAB_0048a661:
       uVar4 = PeekChecksumStateUnderLock(uVar4);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042de70(*(undefined1 *)(param_1 + 8),3,4,
+      SpawnSuperShot(*(undefined1 *)(param_1 + 8),3,4,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar4,uVar10,uVar3);
       SUBFIELD(local_4,0,undefined1) = 0x2d;
@@ -1031,7 +1031,7 @@ LAB_0048a661:
       uVar4 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042de70(*(undefined1 *)(param_1 + 8),4,4,
+      SpawnSuperShot(*(undefined1 *)(param_1 + 8),4,4,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar4,uVar10,uVar3);
       SUBFIELD(local_4,0,undefined1) = 0x30;
@@ -1089,7 +1089,7 @@ LAB_0048a661:
       uVar4 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042de70(*(undefined1 *)(param_1 + 8),5,4,
+      SpawnSuperShot(*(undefined1 *)(param_1 + 8),5,4,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar4,uVar10,uVar3);
       SUBFIELD(local_4,0,undefined1) = 0x33;
@@ -1144,7 +1144,7 @@ LAB_0048a661:
       uVar4 = PeekChecksumStateUnderLock(uVar4);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042de70(*(undefined1 *)(param_1 + 8),6,4,*(int *)(param_1 + 0xae2c) != 0,uVar6,uVar5,
+      SpawnSuperShot(*(undefined1 *)(param_1 + 8),6,4,*(int *)(param_1 + 0xae2c) != 0,uVar6,uVar5,
                    uVar4,uVar10,uVar3);
       SUBFIELD(local_4,0,undefined1) = 0x36;
       puStack_7e84 = (undefined *)0x48b109;
@@ -1198,7 +1198,7 @@ LAB_0048a661:
       uVar4 = PeekChecksumStateUnderLock(uVar4);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042de70(*(undefined1 *)(param_1 + 8),7,4,*(int *)(param_1 + 0xae2c) != 0,uVar6,uVar5,
+      SpawnSuperShot(*(undefined1 *)(param_1 + 8),7,4,*(int *)(param_1 + 0xae2c) != 0,uVar6,uVar5,
                    uVar4,uVar10,uVar3);
       SUBFIELD(local_4,0,undefined1) = 0x39;
       puStack_7e84 = (undefined *)0x48b26b;

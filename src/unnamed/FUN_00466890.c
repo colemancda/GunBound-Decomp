@@ -94,7 +94,7 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     uVar10 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar7 = PeekChecksumStateUnderLock(uVar7);
     uVar8 = PeekChecksumStateUnderLock(uVar8);
-    FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar6,8,0,*(int *)(param_1 + 0xae2c) != 0,uVar8,uVar7,
+    SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar6,8,0,*(int *)(param_1 + 0xae2c) != 0,uVar8,uVar7,
                  uVar10,uVar9,uVar3,uVar5);
     local_4 = 0;
     ScrubChecksumGuard();
@@ -133,7 +133,7 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     uVar10 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar7 = PeekChecksumStateUnderLock(uVar7);
     uVar8 = PeekChecksumStateUnderLock(uVar8);
-    FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar6,8,1,*(int *)(param_1 + 0xae2c) != 0,uVar8,uVar7,
+    SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar6,8,1,*(int *)(param_1 + 0xae2c) != 0,uVar8,uVar7,
                  uVar10,uVar9,uVar3,uVar5);
     local_4 = 2;
     ScrubChecksumGuard();
@@ -170,7 +170,7 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     uVar8 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar5 = PeekChecksumStateUnderLock(uVar5);
     uVar6 = PeekChecksumStateUnderLock(uVar6);
-    FUN_004317b0(*(undefined1 *)(param_1 + 8),uVar3,uVar6,uVar5,uVar8,uVar7,uVar4);
+    SpawnItemProjectile(*(undefined1 *)(param_1 + 8),uVar3,uVar6,uVar5,uVar8,uVar7,uVar4);
     local_4 = 4;
     ScrubChecksumGuard();
     local_4 = 0xffffffff;
@@ -209,7 +209,7 @@ LAB_00466d7f:
       uVar10 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
-      FUN_0042de70(*(undefined1 *)(param_1 + 8),8,8,*(int *)(param_1 + 0xae2c) != 0,uVar7,uVar6,
+      SpawnSuperShot(*(undefined1 *)(param_1 + 8),8,8,*(int *)(param_1 + 0xae2c) != 0,uVar7,uVar6,
                    uVar10,uVar9,uVar3,uVar8,uVar5,uVar12);
       local_4 = 6;
       ScrubChecksumGuard();

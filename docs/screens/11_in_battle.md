@@ -81,6 +81,27 @@ overlay still uses the software blitter. The most complex state.
 - **Replay recording**: actions and chat are logged to the replay stream
   (see ARCHITECTURE.md "The replay-recording system").
 
+### Firing & projectile spawning
+Each mobile's **slot-7 `MainAction`** is a `switch(animEvent)` weapon-fire
+dispatcher (type 0 = `Mobile00_MainAction` `0x44e920`). At the fire frame it
+reads the fire angle/power `CValueGuard`s (`+0x90c`/`+0xb30`) and position, then
+calls one of three shared **projectile spawners** with the mobile's bullet type
+(0–0xF) and a shot flag:
+- **`SpawnPrimaryShot`** (`0x42bbb0`) — the main Shot-1/Shot-2 projectile;
+  `switch(bulletType)` picks the per-type projectile class + `bullet{N}n`
+  (normal) / `bullet{N}s` (super, `param_4`) texture.
+- **`SpawnSuperShot`** (`0x42de70`) — the SS variant (`bullet{N}p` textures).
+- **`SpawnItemProjectile`** (`0x4317b0`) — item-drop projectile (`bulletitem`).
+
+All three `operator_new` the projectile, resolve its texture via
+`FindPreloadedTextureByName`, serialize position + the **velocity vector**
+(`power × g_sineTable360[angle]`, a 360-entry sine LUT indexed by
+`(angle+90)%360` for the x/cos term and `angle%360` for the y/sin term, via
+`FloatToInt64`) into the outgoing packet, append a **`0xf000`** replay event, and
+register the object (`RegisterActiveObject` + `FUN_0041da80`). The per-projectile
+constructors (`FUN_00454dc0`, `FUN_00468860`, …, one per bullet class) remain
+`FUN_`-named. `g_sineTable360` is the ballistics sine table referenced above.
+
 ## Network (see PROTOCOL.md — "State 11")
 - `State11_InBattle_ProcessPacket` (`0x4b4100`) for lobby-style opcodes and
   the dedicated **battle-action channel** via `ProcessBattleAction` (a second

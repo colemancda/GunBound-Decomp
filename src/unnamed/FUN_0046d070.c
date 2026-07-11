@@ -119,7 +119,7 @@ LAB_0046d169:
     uVar8 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar6 = PeekChecksumStateUnderLock(uVar6);
     uVar7 = PeekChecksumStateUnderLock(uVar7);
-    FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_337c,0xd,0,*(int *)(param_1 + 0xae2c) != 0,uVar7
+    SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_337c,0xd,0,*(int *)(param_1 + 0xae2c) != 0,uVar7
                  ,uVar6,uVar8,uVar5,uVar3,uVar4);
     local_4 = 1;
     ScrubChecksumGuard();
@@ -164,7 +164,7 @@ LAB_0046d318:
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
       uVar8 = PeekChecksumStateUnderLock(uVar8);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_3378,0xd,1,
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_3378,0xd,1,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar8,uVar7,uVar6,uVar5,uVar3,uVar4);
       local_4 = 5;
@@ -214,7 +214,7 @@ LAB_0046d4e6:
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
       uVar8 = PeekChecksumStateUnderLock(uVar8);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_3378,0xd,1,*(int *)(param_1 + 0xae2c) != 0,
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_3378,0xd,1,*(int *)(param_1 + 0xae2c) != 0,
                    uVar8,uVar7,uVar6,uVar5,uVar3,uVar4);
       local_4 = 9;
       ScrubChecksumGuard();
@@ -262,7 +262,7 @@ LAB_0046d6ae:
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
       uVar8 = PeekChecksumStateUnderLock(uVar8);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_3378,0xd,1,*(int *)(param_1 + 0xae2c) != 0,
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_3378,0xd,1,*(int *)(param_1 + 0xae2c) != 0,
                    uVar8,uVar7,uVar6,uVar5,uVar3,uVar4);
       local_4 = 0xd;
       ScrubChecksumGuard();
@@ -310,7 +310,7 @@ LAB_0046d87c:
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
       uVar8 = PeekChecksumStateUnderLock(uVar8);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_3378,0xd,1,
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_3378,0xd,1,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar8,uVar7,uVar6,uVar5,uVar3,uVar4);
       local_4 = 0x11;
@@ -357,7 +357,7 @@ LAB_0046db83:
       uVar7 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar4 = PeekChecksumStateUnderLock(uVar4);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
-      FUN_004317b0(*(undefined1 *)(param_1 + 8),uVar3,uVar5,uVar4,uVar7,uVar6,uVar10);
+      SpawnItemProjectile(*(undefined1 *)(param_1 + 8),uVar3,uVar5,uVar4,uVar7,uVar6,uVar10);
       local_4 = 0x16;
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
@@ -403,7 +403,7 @@ LAB_0046db83:
     uVar9 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar6 = PeekChecksumStateUnderLock(uVar6);
     uVar7 = PeekChecksumStateUnderLock(uVar7);
-    FUN_0042de70(*(undefined1 *)(param_1 + 8),8,0xd,
+    SpawnSuperShot(*(undefined1 *)(param_1 + 8),8,0xd,
                  CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                           *(int *)(param_1 + 0xae2c) != 0),uVar7,uVar6,uVar9,uVar5,uVar3,uVar8,uVar4
                  ,uVar12);

@@ -100,7 +100,7 @@ LAB_0044ea19:
     uVar9 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar6 = PeekChecksumStateUnderLock(uVar6);
     uVar7 = PeekChecksumStateUnderLock(uVar7);
-    FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_1134,0,0,*(int *)(param_1 + 0xae2c) != 0,uVar7,
+    SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_1134,0,0,*(int *)(param_1 + 0xae2c) != 0,uVar7,
                  uVar6,uVar9,uVar8,uVar3,uVar5);
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     ScrubChecksumGuard();
@@ -137,7 +137,7 @@ LAB_0044eb7a:
     uVar9 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar6 = PeekChecksumStateUnderLock(uVar6);
     uVar7 = PeekChecksumStateUnderLock(uVar7);
-    FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_1130,0,1,*(int *)(param_1 + 0xae2c) != 0,uVar7,
+    SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_1130,0,1,*(int *)(param_1 + 0xae2c) != 0,uVar7,
                  uVar6,uVar9,uVar8,uVar3,uVar5);
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
     ScrubChecksumGuard();
@@ -178,7 +178,7 @@ LAB_0044edbd:
     uVar8 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar5 = PeekChecksumStateUnderLock(uVar5);
     uVar6 = PeekChecksumStateUnderLock(uVar6);
-    FUN_004317b0(*(undefined1 *)(param_1 + 8),uVar3,uVar6,uVar5,uVar8,uVar7,uVar4);
+    SpawnItemProjectile(*(undefined1 *)(param_1 + 8),uVar3,uVar6,uVar5,uVar8,uVar7,uVar4);
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),4);
     ScrubChecksumGuard();
     local_4 = 0xffffffff;
@@ -208,7 +208,7 @@ LAB_0044edbd:
       uVar10 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
-      FUN_0042de70(*(undefined1 *)(param_1 + 8),0,0,*(int *)(param_1 + 0xae2c) != 0,uVar7,uVar6,
+      SpawnSuperShot(*(undefined1 *)(param_1 + 8),0,0,*(int *)(param_1 + 0xae2c) != 0,uVar7,uVar6,
                    uVar10,uVar9,uVar3,uVar8,uVar5,uVar12);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),6);
       ScrubChecksumGuard();

@@ -97,7 +97,7 @@ public:
      * Mobile00_MainAction 0x44e920). It switch()es on the animation event and,
      * at the fire frame, reads the fire angle/power guards (+0x90c/+0xb30) and
      * position, then spawns the projectile via the shared shot-spawners
-     * (FUN_0042bbb0 / FUN_004317b0 / FUN_0042de70) and acquires/releases the
+     * (SpawnPrimaryShot / SpawnItemProjectile / SpawnSuperShot) and acquires/releases the
      * firing sound channel (AcquireSoundChannel 0x4ee9b0, handle at +0xb0a4).
      * This is where the 16 mobiles' distinct behaviour lives; only type 0 is
      * named so far. */

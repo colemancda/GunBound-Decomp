@@ -478,7 +478,7 @@ void __thiscall CreateMobile(); /* 0x42b0b0 - battle-mobile factory (16-way type
 void __thiscall FUN_0042bb10();
 void FUN_0042f4b0();
 void FUN_004305c0();
-void FUN_004317b0();
+void SpawnItemProjectile();
 void FUN_00432850();
 void FUN_004337f0();
 void FUN_00434160();

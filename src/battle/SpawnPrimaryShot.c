@@ -1,4 +1,4 @@
-/* FUN_0042bbb0 - 0x0042bbb0 in the original binary.
+/* SpawnPrimaryShot - 0x0042bbb0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -9,7 +9,7 @@
 
 /* WARNING: Removing unreachable block (ram,0x0042cb86) */
 
-void FUN_0042bbb0(undefined1 param_1,uint param_2,uint param_3,uint param_4,int param_5,int param_6,
+void SpawnPrimaryShot(undefined1 param_1,uint param_2,uint param_3,uint param_4,int param_5,int param_6,
                  int param_7,int param_8,undefined4 param_9,undefined4 param_10,undefined4 param_11,
                  int param_12)
 

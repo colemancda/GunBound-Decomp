@@ -60,7 +60,7 @@ void __fastcall FUN_0049c13f(int param_1)
     PeekChecksumStateUnderLock();
     PeekChecksumStateUnderLock();
     PeekChecksumStateUnderLock();
-    FUN_0042bbb0();
+    SpawnPrimaryShot();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
     PeekChecksumStateUnderLock();
@@ -75,7 +75,7 @@ void __fastcall FUN_0049c13f(int param_1)
     PeekChecksumStateUnderLock();
     PeekChecksumStateUnderLock();
     PeekChecksumStateUnderLock();
-    FUN_0042bbb0();
+    SpawnPrimaryShot();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
     PeekChecksumStateUnderLock();
@@ -90,7 +90,7 @@ void __fastcall FUN_0049c13f(int param_1)
     PeekChecksumStateUnderLock();
     PeekChecksumStateUnderLock();
     PeekChecksumStateUnderLock();
-    FUN_0042bbb0();
+    SpawnPrimaryShot();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
     cVar2 = PeekPacketChecksumBool();
@@ -113,7 +113,7 @@ void __fastcall FUN_0049c13f(int param_1)
     PeekChecksumStateUnderLock();
     PeekChecksumStateUnderLock();
     PeekChecksumStateUnderLock();
-    FUN_0042bbb0();
+    SpawnPrimaryShot();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
@@ -131,7 +131,7 @@ void __fastcall FUN_0049c13f(int param_1)
     PeekChecksumStateUnderLock();
     PeekChecksumStateUnderLock();
     PeekChecksumStateUnderLock();
-    FUN_0042bbb0();
+    SpawnPrimaryShot();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
@@ -164,7 +164,7 @@ LAB_0049c9ad:
     PeekChecksumStateUnderLock();
     PeekChecksumStateUnderLock();
     PeekChecksumStateUnderLock();
-    FUN_004317b0();
+    SpawnItemProjectile();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
     cVar2 = PeekPacketChecksumBool();
@@ -186,7 +186,7 @@ LAB_0049c9ad:
       PeekChecksumStateUnderLock();
       PeekChecksumStateUnderLock();
       PeekChecksumStateUnderLock();
-      FUN_0042de70();
+      SpawnSuperShot();
       ScrubChecksumGuard();
       ScrubChecksumGuard();
       ScrubChecksumGuard();

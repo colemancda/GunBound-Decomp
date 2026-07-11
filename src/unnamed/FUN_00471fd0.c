@@ -203,7 +203,7 @@ LAB_004720c9:
     uStack_4d70 = 0xc;
     uStack_4d74 = local_4d34;
     puStack_4d7c = (undefined *)0x47219a;
-    FUN_0042bbb0();
+    SpawnPrimaryShot();
     SUBFIELD(local_4,0,undefined1) = 1;
     puStack_4d48 = (undefined *)0x4721ae;
     ScrubChecksumGuard();
@@ -296,7 +296,7 @@ LAB_00472811:
       uStack_4d70 = 0xc;
       uStack_4d74 = local_4d30;
       puStack_4d7c = (undefined *)0x472908;
-      FUN_0042bbb0();
+      SpawnPrimaryShot();
       SUBFIELD(uStack_38,0,undefined1) = 0x13;
       puStack_4d7c = (undefined *)0x47291c;
       ScrubChecksumGuard();
@@ -365,7 +365,7 @@ LAB_0047299f:
       uStack_4da4 = 0xc;
       uStack_4da8 = uStack_4d64;
       puStack_4db0 = (undefined *)0x472a50;
-      FUN_0042bbb0();
+      SpawnPrimaryShot();
       uStack_6c = CONCAT31(SUBFIELD(uStack_6c,1,undefined3),0x15);
       puStack_4db0 = (undefined *)0x472a64;
       ScrubChecksumGuard();
@@ -421,7 +421,7 @@ LAB_00472abf:
       uVar9 = PeekChecksumStateUnderLock(iStack_4d90);
       uVar10 = PeekChecksumStateUnderLock(uStack_4d88);
       uVar5 = PeekChecksumStateUnderLock(iStack_4d8c);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uStack_4d98,0xc,1,
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uStack_4d98,0xc,1,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar5,uVar10,uVar9,uVar8,uVar7);
       SUBFIELD(uStack_a0,0,undefined1) = 0x19;
@@ -462,7 +462,7 @@ LAB_00472c47:
       uVar10 = PeekChecksumStateUnderLock(uVar10);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar8,0xc,1,
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar8,0xc,1,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar10,uVar9,uVar4,uVar7);
       SUBFIELD(local_4,0,undefined1) = 0x1d;
@@ -545,7 +545,7 @@ LAB_00472275:
       uStack_4d70 = 0xc;
       uStack_4d74 = local_4d30;
       puStack_4d7c = (undefined *)0x47236c;
-      FUN_0042bbb0();
+      SpawnPrimaryShot();
       SUBFIELD(uStack_38,0,undefined1) = 5;
       puStack_4d7c = (undefined *)0x472380;
       ScrubChecksumGuard();
@@ -614,7 +614,7 @@ LAB_00472403:
       uStack_4da4 = 0xc;
       uStack_4da8 = uStack_4d64;
       puStack_4db0 = (undefined *)0x4724b4;
-      FUN_0042bbb0();
+      SpawnPrimaryShot();
       uStack_6c = CONCAT31(SUBFIELD(uStack_6c,1,undefined3),7);
       puStack_4db0 = (undefined *)0x4724c8;
       ScrubChecksumGuard();
@@ -670,7 +670,7 @@ LAB_00472523:
       uVar9 = PeekChecksumStateUnderLock(iStack_4d90);
       uVar10 = PeekChecksumStateUnderLock(uStack_4d88);
       uVar5 = PeekChecksumStateUnderLock(iStack_4d8c);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uStack_4d98,0xc,1,
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uStack_4d98,0xc,1,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar5,uVar10,uVar9,uVar8,uVar7);
       SUBFIELD(uStack_a0,0,undefined1) = 0xb;
@@ -711,7 +711,7 @@ LAB_004726ab:
       uVar10 = PeekChecksumStateUnderLock(uVar10);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042bbb0(*(undefined1 *)(param_1 + 8),uVar8,0xc,1,
+      SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar8,0xc,1,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar10,uVar9,uVar4,uVar7);
       SUBFIELD(local_4,0,undefined1) = 0xf;
@@ -802,7 +802,7 @@ LAB_00472e11:
     uStack_4d60 = (uint)*(byte *)(param_1 + 8);
     uStack_4d64 = 0x472e9e;
     uStack_4d5c = uVar4;
-    FUN_004317b0();
+    SpawnItemProjectile();
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x1f);
     puStack_4d48 = (undefined *)0x472eb2;
     ScrubChecksumGuard();
@@ -871,7 +871,7 @@ LAB_00472e11:
       uStack_4d6c = 0xc;
       uStack_4d70 = 0;
       uStack_4d78 = 0x473026;
-      FUN_0042de70();
+      SpawnSuperShot();
       SUBFIELD(local_4,0,undefined1) = 0x22;
       puStack_4d48 = (undefined *)0x47303a;
       ScrubChecksumGuard();

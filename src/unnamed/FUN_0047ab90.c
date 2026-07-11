@@ -100,7 +100,7 @@ LAB_0047ac89:
     uVar8 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar5 = PeekChecksumStateUnderLock(uVar5);
     uVar6 = PeekChecksumStateUnderLock(uVar6);
-    FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_1134,0xe,0,*(int *)(param_1 + 0xae2c) != 0,uVar6
+    SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_1134,0xe,0,*(int *)(param_1 + 0xae2c) != 0,uVar6
                  ,uVar5,uVar8,uVar7,uVar3,uVar4);
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     ScrubChecksumGuard();
@@ -137,7 +137,7 @@ LAB_0047adea:
     uVar8 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar5 = PeekChecksumStateUnderLock(uVar5);
     uVar6 = PeekChecksumStateUnderLock(uVar6);
-    FUN_0042bbb0(*(undefined1 *)(param_1 + 8),local_1130,0xe,1,*(int *)(param_1 + 0xae2c) != 0,uVar6
+    SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_1130,0xe,1,*(int *)(param_1 + 0xae2c) != 0,uVar6
                  ,uVar5,uVar8,uVar7,uVar3,uVar4);
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
     ScrubChecksumGuard();
@@ -174,7 +174,7 @@ joined_r0x0047aed1:
       uVar7 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar4 = PeekChecksumStateUnderLock(uVar4);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
-      FUN_004317b0(*(undefined1 *)(param_1 + 8),uVar3,uVar5,uVar4,uVar7,uVar6,uVar10);
+      SpawnItemProjectile(*(undefined1 *)(param_1 + 8),uVar3,uVar5,uVar4,uVar7,uVar6,uVar10);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),6);
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
@@ -217,7 +217,7 @@ joined_r0x0047aed1:
       uVar9 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
-      FUN_0042de70(*(undefined1 *)(param_1 + 8),8,0xe,
+      SpawnSuperShot(*(undefined1 *)(param_1 + 8),8,0xe,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                             *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar9,uVar8,uVar3,uVar7,
                    uVar4,uVar12);
