@@ -52,7 +52,12 @@ void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefine
   undefined4 local_c;
   undefined1 *puStack_8;
   uint local_4;
-  
+  /* BuildSystemInfoBlob's 2nd output (orig ESI, dropped) - NOT verified
+   * against this call site's original disassembly; added only to satisfy
+   * the now-2-parameter signature (see BuildSystemInfoBlob.c). Revisit if
+   * this code path is ever exercised. */
+  undefined4 systemInfoBlob2 [6];
+
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053d96a;
   local_c = *unaff_FS_OFFSET;
@@ -940,7 +945,7 @@ LAB_00446f6d:
     FUN_0044b720(param_1);
     FUN_00449250(param_1,1,0);
   case 0x3d:
-    BuildSystemInfoBlob(&local_4518);
+    BuildSystemInfoBlob(&local_4518, systemInfoBlob2);
     puVar11 = &local_4518;
     pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea69);
     _sprintf(local_4418,pcVar13,puVar11);

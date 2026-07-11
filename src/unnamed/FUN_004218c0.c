@@ -36,7 +36,12 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
   char local_100;
   undefined4 local_ff [31];
   undefined1 local_80 [128];
-  
+  /* BuildSystemInfoBlob's 2nd output (orig ESI, dropped) - NOT verified
+   * against this call site's original disassembly; added only to satisfy
+   * the now-2-parameter signature (see BuildSystemInfoBlob.c). Revisit if
+   * this code path is ever exercised. */
+  undefined4 systemInfoBlob2 [6];
+
   FUN_00423050(param_1,param_2);
   if (*param_2 != '/') {
     return 0;
@@ -91,7 +96,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
   if (((iVar4 == 0) || (iVar4 = __stricmp(local_220,&DAT_005535d8), iVar4 == 0)) ||
      ((iVar4 = __stricmp(local_220,s_message_005535d0), iVar4 == 0 ||
       (iVar4 = __stricmp(local_220,&DAT_005535cc), iVar4 == 0)))) {
-    BuildSystemInfoBlob(local_1a0);
+    BuildSystemInfoBlob(local_1a0, systemInfoBlob2);
     iVar4 = FUN_00525ea0(&local_100,local_80);
     if (iVar4 == 0) {
       if (2 < iVar3) {

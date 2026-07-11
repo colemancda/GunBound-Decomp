@@ -76,6 +76,11 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
   undefined4 uStack_b4;
   undefined4 uStack_b0;
   undefined1 auStack_a0 [32];
+  /* BuildSystemInfoBlob's 2nd output (orig ESI, dropped) - NOT verified
+   * against this call site's original disassembly; added only to satisfy
+   * the now-2-parameter signature (see BuildSystemInfoBlob.c). Revisit if
+   * this code path is ever exercised. */
+  undefined4 systemInfoBlob2[6];
   byte abStack_80 [128];
   
   iVar20 = g_clientContext;
@@ -246,7 +251,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           FUN_00404410(&DAT_00e53e88);
         }
         else {
-          BuildSystemInfoBlob(auStack_a0);
+          BuildSystemInfoBlob(auStack_a0, systemInfoBlob2);
           if (DAT_00e55a64 != (int *)0x0) {
             (**(code **)(*DAT_00e55a64 + 0xc))(&DAT_005b1c70,DAT_005b33f4,auStack_a0,&uStack_c0);
           }
@@ -311,7 +316,7 @@ LAB_004e0d7f:
   }
   if (opcode == 0x1001) {
     *(undefined1 *)((int)this + 5) = 0;
-    BuildSystemInfoBlob(auStack_a0);
+    BuildSystemInfoBlob(auStack_a0, systemInfoBlob2);
     iVar20 = DAT_007934ec;
     *(undefined2 *)(DAT_007934ec + 0x4d4) = 0x1010;
     *(undefined4 *)(iVar20 + 0x44d0) = 6;
