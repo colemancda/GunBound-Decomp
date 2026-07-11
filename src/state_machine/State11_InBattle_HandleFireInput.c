@@ -561,7 +561,7 @@ LAB_004606d5:
     iVar18 = g_clientContext;
     *(undefined1 *)(param_1 + 0x2ffa) = 0;
     if ((&DAT_005f2f40)[iVar18] == '\x02') {
-      ResolveObjectHandle(s_normal_00552230);
+      ResolveNamedState(s_normal_00552230);
       PeekChecksumStateUnderLock(param_1 + 0x1e19);
       ClampCursorToRect();
     }

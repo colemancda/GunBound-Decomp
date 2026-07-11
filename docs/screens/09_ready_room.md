@@ -31,7 +31,7 @@ preview, map selection, and the item/loadout picker before the match starts.
 | 15 | `0x4d9ae0` | `State09_ReadyRoom_RenderStatusOverlay` — in-session status/HUD overlay (**was mislabelled "map thumbnails"**): countdown-timer blink icons (`+0x4d4`/`+0x6b0`), per-player turn-order indicators (`+0x768` loop vs current turn `+0x3b6c0`), wind/aim status blits, and the chat input echo (`DAT_007933b8` → `GetWindowTextA`). Partly gated by `g_bBattleSessionActive`. |
 | 16,17 | `0x429800` | no-op |
 | 18 | `DeletePoisonedBaseObject` (`0x40ca00`) | inherited base infra (secondary scalar-deleting dtor thunk → `ScrubObjectVtable`) |
-| 19 | `0x461c60` | inherited base infra (resource/connection poll) |
+| 19 | `ResolveNamedState` (`0x461c60`) | inherited base infra (named-state string resolver) |
 
 ## Resources / images
 - `ready_selectmap.img`, `ready_selectcharacter.img`, `b_ready_startgame`
@@ -262,12 +262,16 @@ outbound. It finishes by recomputing derived state:
   DEATH72): the encode + bit masks are decoded (above); only the human label per
   group is unmapped, and it's UI-art (popup hit regions), not a code string —
   resolve with a one-shot live click-and-diff on `this+0x26c`.
-- Vtable slots 18 (`DeletePoisonedBaseObject`, `0x40ca00`) / 19 (`0x461c60`) are
-  **inherited base-class infra**, not Ready-Room UI: slot 18 is a secondary
-  scalar-deleting destructor thunk (→ `ScrubObjectVtable`, `0x4711e0` — installs
-  `&PTR_LAB_0055752c` into the object's vtable, the same "poisoned vtable"
-  pointer used by `CProjectile::DestroyProjectile`; the shared cross-subsystem
-  teardown idiom itself is still unnamed as a concept), slot 19 (`0x461c60`) a
-  small resource/connection poll (reads `+0x1c`, calls `FindStringNoCase`, sets
-  `+0x20`/`+0x24`/`+0x34` — the same field shape as the connection object).
+- Vtable slots 18 (`DeletePoisonedBaseObject`, `0x40ca00`) / 19
+  (`ResolveNamedState`, `0x461c60`) are **inherited base-class infra**, not
+  Ready-Room UI: slot 18 is a secondary scalar-deleting destructor thunk (→
+  `ScrubObjectVtable`, `0x4711e0` — installs `&PTR_LAB_0055752c` into the
+  object's vtable, the same "poisoned vtable" pointer used by
+  `CProjectile::DestroyProjectile`; the shared cross-subsystem teardown idiom
+  itself is still unnamed as a concept), slot 19 (`ResolveNamedState`) a
+  generic named-state string resolver (reads `+0x1c`, calls
+  `FindStringNoCase`, sets `+0x20`/`+0x24`/`+0x34`) confirmed elsewhere as
+  the flat `ButtonWidget`'s `SetState`-equivalent (see
+  `src/cxx/ButtonWidget.h`) — the same field shape reused across unrelated
+  classes, not a connection-specific poll as an earlier draft guessed.
   Neither is screen-specific.

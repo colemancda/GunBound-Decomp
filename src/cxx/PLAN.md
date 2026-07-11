@@ -18,34 +18,60 @@ code).
 
 ## Phase 1 — finish the widget system (evidence: docs/widgets.md, named ports)
 
-The most complete documentation, the smallest objects, and every function is
-already a named port. Remaining work, in dependency order:
+**Status update (2026-07-11): items 1-5 below turned out to already be
+written** (`AtlArray.h`, `Widget.cpp`/`.h`, `ScrollBar.cpp`, `Label.cpp`,
+`EditBox.cpp`, `Panel.cpp` — the last has all nine `Build*Panel` factories
+plus `CWorldListPanel::OnMouseDown`/`OnCommand`), just never checked off
+here. The whole tree (`cxx_selftest.cpp` + every `.cpp`) compiles clean
+under real MSVC 7.1 via `tools/msvc-env` (`gb-msvc` docker image). What's
+*not* yet done for 1-5 is the byte-compare pass this doc's ground rules
+call for (`tools/score.sh` per function) — no `tools/promote.sh` exists yet
+(see Tooling section) and no per-function score has been recorded in
+comments, so "promoted" here means "written and layout-asserted," not yet
+"byte-verified." Treat that gap as the real remaining Phase 1 work before
+moving to Phase 2, rather than rewriting 1-5 from scratch.
 
-1. **The checked child container.** Every broadcast method inlines the same
-   bounds-guard (`FUN_004010c0` = AtlThrow-style). Reconstruct the
-   `ptr/size/cap` growable array (grow helper `0x50ed30`) as a small class
-   (probably `CSimpleArray`-shaped) — this converts `ChildAt()` from a helper
-   into the real `operator[]` and is what the remaining byte-diff deltas in
-   HitTest/Draw hinge on.
-2. **Base leaf behavior**: `MouseDownCommon` (`0x50e2f0`), `OnDragMove`
-   (`0x50e3a0`), the leaf `OnCommand` default (`0x50eb10` — the
-   focus-move/scroll bookkeeping), the shared dtor (`0x50e860`), label `Draw`
-   (`0x50e350`, needs `FindSpriteFrame` extern only).
-3. **Scrollbar remainder**: arrow-step handler family (`0x50f7c0`,
-   `FUN_0050f660`'s ±1 stepping cousin), `OnMouseMove` drag tracking.
-4. **Constructors**: `CreateLabelWidget`, `CreateTextEntryWidget`,
-   `CreateScrollListWidget`, and the base `CWidget` ctor they all call.
-   Requires (1). This is where `operator new` + vtable-install gets modeled,
-   which unlocks…
-5. **Panel subclasses**: `CWorldListPanel` first (it has `OnCommand`
-   `0x50d810`, `OnMouseDown`, and the row renderer `RenderWorldListRow` all
-   as named ports), then the other eight builders from the catalog. Each
-   panel promotion carries its screen's widget-composition knowledge from
-   docs/screens/*.md into a real constructor.
-6. **The flat `ButtonWidget`** (separate 5-slot system, vtable `0x551e44`):
-   `CreateButtonWidget`, `LoadButtonDefinitionFromXFS`,
-   `RegisterActiveObject` — small, self-contained, evidence in
-   docs/screens/README.md.
+1. ~~The checked child container~~ — **done**: `AtlArray.h`'s
+   `CAtlArray<E>` (bounds-guard `operator[]`, `GrowBuffer` matching
+   `0x50ed30` exactly, `Add` matching the `AddChild` throw-on-OOM shape).
+   `CWidget::m_children` is `CAtlArray<CWidget *>`.
+2. ~~Base leaf behavior~~ — **done**: `ResetPressState` (`0x50e2f0`),
+   `OnDragMove` (`0x50e3a0`), leaf `OnCommand` default (`0x50eb10`),
+   `SetFocus`/slot-10 (`0x50e860`), `CLabel::Draw` (`0x50e350`) are all in
+   `Widget.cpp`/`Label.cpp`.
+3. **Scrollbar remainder**: mostly done (`ScrollBar.cpp`, 217 lines,
+   includes the arrow-stepper `0x50f7c0`) — spot-check against
+   `FUN_0050f660`'s ±1 cousin and `OnMouseMove` drag tracking before
+   considering this fully closed.
+4. ~~Constructors~~ — **done**: `CreateLabelWidget`, `CreateTextEntryWidget`,
+   `CreateScrollListWidget` all exist with the base `CWidget()` ctor.
+5. ~~Panel subclasses~~ — **done**: `Panel.cpp` has `CWorldListPanel` (full
+   `OnMouseDown`/`OnCommand`/factory) plus `BuildChannelUserListPanel`,
+   `BuildReadyRoomChatPanel`, `BuildLobbyChatPanel`, `BuildAvatarStorePanel`,
+   `BuildCreateRoomDialog`, `BuildBuddyPanel`, `BuildEnterRoomNumberDialog`.
+6. **The flat `ButtonWidget`** — **done** (2026-07-11): `ButtonWidget.h`/
+   `.cpp`, `CButtonWidget` (80-byte object, 5-slot vtable). Two of its five
+   vtable slots turned out to be shared with unrelated classes and were
+   already named (`DeletePoisonedBaseObject` slot 0, `NoOpMethod` slot 4);
+   the other three were newly named this pass: `TickButtonAnimation`
+   (slot 2, `0x405e90`), `DrawButtonWidget` (slot 3, `0x405ea0`), and
+   `ResolveNamedState` (slot 1, `0x461c60` — corrects a prior misnaming
+   as "ResolveObjectHandle"/a generic resource-handle resolver; it's
+   actually a generic named-state string lookup, confirmed here as this
+   class's `SetState(name)`, and cross-referenced as the same function
+   Ready Room's base infra uses at vtable slot 19). `RegisterActiveObject`
+   itself (`0x4f2fb0`, the sorted active-object list insert) is still an
+   extern call, not reconstructed — same "own unit of work" scope note as
+   the checked-container item above; it shares its node structure with the
+   turn-event scheduler per ARCHITECTURE.md's "PostTurnEvent" note.
+   `LoadButtonDefinitionFromXFS` (the XFS-backed button-definition loader,
+   0x401440) is also still unreconstructed — a distinct, self-contained
+   follow-up, evidence in docs/screens/README.md.
+
+**Actual remaining Phase 1 work**: the byte-compare pass (build
+`tools/promote.sh`, run `score.sh` per promoted method, record results),
+`RegisterActiveObject`'s sorted-container reconstruction, and
+`LoadButtonDefinitionFromXFS`'s promotion.
 
 ## Phase 2 — the state machine spine (evidence: ARCHITECTURE.md §CGameState)
 

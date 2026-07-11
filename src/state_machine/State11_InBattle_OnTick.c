@@ -311,7 +311,7 @@ LAB_004bdd1c:
       switch(bVar13) {
       case 0:
         if (g_lastCursorDirection != 0) {
-          ResolveObjectHandle();
+          ResolveNamedState();
           g_cursorDirection = 0;
           hCursor = g_edgeCursors[0];
 LAB_004bdf96:
@@ -321,7 +321,7 @@ LAB_004bdf96:
         break;
       case 1:
         if (g_lastCursorDirection != 7) {
-          ResolveObjectHandle();
+          ResolveNamedState();
           g_cursorDirection = 7;
           hCursor = g_edgeCursors[7];
           goto LAB_004bdf96;
@@ -329,7 +329,7 @@ LAB_004bdf96:
         break;
       case 2:
         if (g_lastCursorDirection != 3) {
-          ResolveObjectHandle();
+          ResolveNamedState();
           g_cursorDirection = 3;
           hCursor = g_edgeCursors[3];
           goto LAB_004bdf96;
@@ -337,7 +337,7 @@ LAB_004bdf96:
         break;
       case 4:
         if (g_lastCursorDirection != 1) {
-          ResolveObjectHandle();
+          ResolveNamedState();
           g_cursorDirection = 1;
           hCursor = g_edgeCursors[1];
           goto LAB_004bdf96;
@@ -345,7 +345,7 @@ LAB_004bdf96:
         break;
       case 5:
         if (g_lastCursorDirection != 8) {
-          ResolveObjectHandle();
+          ResolveNamedState();
           g_cursorDirection = 8;
           hCursor = g_edgeCursors[8];
           goto LAB_004bdf96;
@@ -353,7 +353,7 @@ LAB_004bdf96:
         break;
       case 6:
         if (g_lastCursorDirection != 2) {
-          ResolveObjectHandle();
+          ResolveNamedState();
           g_cursorDirection = 2;
           hCursor = g_edgeCursors[2];
           goto LAB_004bdf96;
@@ -361,7 +361,7 @@ LAB_004bdf96:
         break;
       case 8:
         if (g_lastCursorDirection != 5) {
-          ResolveObjectHandle();
+          ResolveNamedState();
           g_cursorDirection = 5;
           hCursor = g_edgeCursors[5];
           goto LAB_004bdf96;
@@ -369,7 +369,7 @@ LAB_004bdf96:
         break;
       case 9:
         if (g_lastCursorDirection != 6) {
-          ResolveObjectHandle();
+          ResolveNamedState();
           g_cursorDirection = 6;
           hCursor = g_edgeCursors[6];
           goto LAB_004bdf96;
@@ -377,7 +377,7 @@ LAB_004bdf96:
         break;
       case 10:
         if (g_lastCursorDirection != 4) {
-          ResolveObjectHandle();
+          ResolveNamedState();
           g_cursorDirection = 4;
           hCursor = g_edgeCursors[4];
           goto LAB_004bdf96;

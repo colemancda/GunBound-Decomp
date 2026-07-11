@@ -92,6 +92,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00405dc0,12,FUN_00405dc0,false,2,1,RAW-src
 00405dd0,94,FUN_00405dd0,false,1,2,RAW-src
 00405e30,87,FUN_00405e30,false,1,0,RAW-src
+00405e90,16,TickButtonAnimation,false,4,1,RAW-src
+00405ea0,89,DrawButtonWidget,false,6,4,RAW-src
 00405f00,29,FUN_00405f00,false,1,1,RAW-src
 00405f20,31,FUN_00405f20,false,1,2,RAW-src
 00405f40,97,FUN_00405f40,false,2,1,RAW-src
@@ -625,7 +627,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0045f840,208,FUN_0045f840,false,16,4,RAW-src
 0045f910,8453,State11_InBattle_HandleFireInput,false,16,50,RAW-src
 00461a20,573,FUN_00461a20,false,1,8,RAW-src
-00461c60,63,ResolveObjectHandle,false,139,1,RAW-src
+00461c60,63,ResolveNamedState,false,139,1,RAW-src
 00461ca0,3153,SimulateMobileFrame,false,17,38,RAW-src
 00462900,3369,RenderMobile,false,17,26,RAW-src
 00463630,1613,FUN_00463630,false,1,17,RAW-src

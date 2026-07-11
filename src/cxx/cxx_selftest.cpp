@@ -18,6 +18,7 @@
 #include "ValueGuard.h"
 #include "Mobile.h"
 #include "Projectile.h"
+#include "ButtonWidget.h"
 
 /* --- CGameState hierarchy: confirmed allocation sizes ------------------ */
 GB_STATIC_ASSERT(sizeof(CState01Title)       == 8,       state01_size);

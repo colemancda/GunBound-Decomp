@@ -46,7 +46,7 @@ void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int 
         DAT_00e53c3c = '\0';
       }
       (&DAT_006a7758)[g_clientContext] = 0;
-      ResolveObjectHandle(&DAT_00553f90);
+      ResolveNamedState(&DAT_00553f90);
       return;
     }
     if (param_2 != 0x205) {
@@ -94,7 +94,7 @@ void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int 
       uVar5 = 1;
     }
     (&DAT_006a7758)[g_clientContext] = uVar5;
-    ResolveObjectHandle(s_normal_00552230);
+    ResolveNamedState(s_normal_00552230);
     return;
   }
   if (param_2 != 0x202) {
@@ -536,7 +536,7 @@ void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int 
       if (DAT_00e53c3c != '\0') {
         DAT_00e53c3c = '\0';
       }
-      ResolveObjectHandle(&DAT_00556980);
+      ResolveNamedState(&DAT_00556980);
       InvokeWidget(0);
       QueueBroadcastEvent(0x8006);
       uVar7 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
@@ -904,7 +904,7 @@ LAB_004bafd2:
   QueueOutgoingPacketField(0xffffffff);
   QueueOutgoingPacketField(0xffffffff);
   *(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe8) = 0;
-  ResolveObjectHandle(s_normal_00552230);
+  ResolveNamedState(s_normal_00552230);
   iVar13 = g_clientContext;
 LAB_004bb56e:
   _DAT_00e9b80c = 10;
