@@ -563,7 +563,7 @@ LAB_004b00de:
     if (bVar23) {
       iVar4 = piVar22[0xf];
       iVar15 = piVar22[0xe];
-      iVar9 = FUN_004f1f10();
+      iVar9 = CalculateAngleFromDelta();
       iVar10 = FloatToInt64();
       iVar15 = iVar15 - iVar10;
       iVar10 = FloatToInt64();

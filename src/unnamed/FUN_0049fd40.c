@@ -525,7 +525,7 @@ LAB_004a0ccf:
       piStack_ad4 = (int *)piVar15[0xf];
       piStack_ae4 = (int *)piVar15[0xe];
       piStack_ac8 = piVar15;
-      local_af4 = (int *)FUN_004f1f10();
+      local_af4 = (int *)CalculateAngleFromDelta();
       iVar3 = FloatToInt64();
       piStack_ae4 = (int *)((int)piStack_ae4 - iVar3);
       iVar3 = FloatToInt64();

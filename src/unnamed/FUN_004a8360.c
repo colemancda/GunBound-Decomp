@@ -939,7 +939,7 @@ LAB_004a9552:
   apbStack_b04[0] = (byte *)piVar13[0xf];
   local_af0 = (int *)piVar13[0xe];
   piStack_aec = piVar13;
-  iVar6 = FUN_004f1f10();
+  iVar6 = CalculateAngleFromDelta();
   iVar7 = FloatToInt64();
   local_af0 = (int *)((int)local_af0 - iVar7);
   iVar7 = FloatToInt64();

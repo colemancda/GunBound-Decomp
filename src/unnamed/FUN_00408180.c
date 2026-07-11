@@ -414,7 +414,7 @@ LAB_00408b80:
     }
     DrawVLine();
     DrawVLine();
-    FUN_004eb800(0x40,0x2965);
+    FillRect(0x40,0x2965);
     iVar3 = uVar7 + 0x6db0;
     iVar13 = uVar7 + 0x6744;
     EncodeChecksumPairSum(iVar13,local_f08,iVar3);
@@ -517,7 +517,7 @@ LAB_00408b80:
       } while (local_1028 != 0);
       TreeLowerBound(local_1024);
     }
-    FUN_004eb800(local_1010[0],(-(uint)(iVar2 < iVar6) & 0x5af7) + 0x65a9);
+    FillRect(local_1010[0],(-(uint)(iVar2 < iVar6) & 0x5af7) + 0x65a9);
     uVar5 = EncodeChecksumPairSum(iVar13,local_230,iVar3);
     local_4 = 6;
     uVar8 = EncodeChecksumDeltaMul(local_101c + 0x6fd4,local_678,0x40);
@@ -527,7 +527,7 @@ LAB_00408b80:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004eb800(uVar5,0x21d8);
+    FillRect(uVar5,0x21d8);
     local_4 = 7;
     if (local_888 != 0) {
       iVar3 = local_888 << 4;
@@ -605,7 +605,7 @@ LAB_00409310:
     iVar2 = PeekPacketChecksumState();
     (*pcVar12)(&DAT_005a9068);
     if (iVar13 == iVar2) {
-      FUN_004eb800(0x82,0x5327);
+      FillRect(0x82,0x5327);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState();

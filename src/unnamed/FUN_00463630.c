@@ -114,7 +114,7 @@ void FUN_00463630(int param_1)
         if (*(int *)(param_1 + 0x24) != 0xe) {
           FUN_004eb7a0(iVar4 + 1,0x4e,5);
           local_113c[0] = iVar4 + 2;
-          FUN_004eb800(0x4c,0x2965);
+          FillRect(0x4c,0x2965);
           iVar2 = param_1 + 0x6db0;
           iVar4 = param_1 + 0x6744;
           uVar3 = EncodeChecksumPairSum(iVar4,local_ac0,iVar2);
@@ -153,7 +153,7 @@ void FUN_00463630(int param_1)
           ScrubChecksumGuard();
           local_4 = 0xffffffff;
           ScrubChecksumGuard();
-          FUN_004eb800(uVar3,local_1130);
+          FillRect(uVar3,local_1130);
           uVar3 = EncodeChecksumPairSum(iVar4,local_230,iVar2);
           local_4 = 0xc;
           iVar5 = PeekChecksumStateUnderLock(uVar3);
@@ -171,7 +171,7 @@ void FUN_00463630(int param_1)
           uVar6 = 0x21d8;
           local_4 = 0xf;
           uVar3 = PeekChecksumStateUnderLock(uVar3);
-          FUN_004eb800(uVar3,uVar6);
+          FillRect(uVar3,uVar6);
           local_4 = 0xe;
           ScrubChecksumGuard();
           local_4 = 0xd;

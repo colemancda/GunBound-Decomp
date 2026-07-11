@@ -175,7 +175,7 @@ LAB_00468c86:
     if (bVar16) {
       apuStack_ae0[0] = (undefined4 *)piVar15[0xf];
       iStack_ad4 = piVar15[0xe];
-      iStack_ad8 = FUN_004f1f10();
+      iStack_ad8 = CalculateAngleFromDelta();
       iVar6 = FloatToInt64();
       iStack_ad4 = iStack_ad4 - iVar6;
       iVar6 = FloatToInt64();

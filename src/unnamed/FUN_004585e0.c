@@ -18,7 +18,7 @@ void FUN_004585e0(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = FUN_004f1f10();
+  iVar1 = CalculateAngleFromDelta();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(((iVar1 + 1) / 3) * 3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

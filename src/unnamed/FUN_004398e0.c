@@ -80,7 +80,7 @@ LAB_004399d4:
     if (bVar13) {
       iVar4 = piVar11[0xf];
       iVar2 = piVar11[0xe];
-      iVar6 = FUN_004f1f10();
+      iVar6 = CalculateAngleFromDelta();
       iVar7 = FloatToInt64();
       iVar8 = FloatToInt64();
       (**(code **)(*piVar11 + 4))(&DAT_00553b90);

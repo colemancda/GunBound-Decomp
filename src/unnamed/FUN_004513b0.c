@@ -674,7 +674,7 @@ LAB_00451a3a:
       puStack_b44 = (undefined4 *)piVar18[0xf];
       piStack_b48 = (int *)piVar18[0xe];
       piStack_b3c = piVar18;
-      puStack_b4c = (undefined *)FUN_004f1f10();
+      puStack_b4c = (undefined *)CalculateAngleFromDelta();
       iVar4 = FloatToInt64();
       piStack_b48 = (int *)((int)piStack_b48 - iVar4);
       iVar4 = FloatToInt64();

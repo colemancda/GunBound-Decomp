@@ -1,4 +1,4 @@
-/* FUN_004f1f10 - 0x004f1f10 in the original binary.
+/* CalculateAngleFromDelta - 0x004f1f10 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_004f1f10(int param_1)
+int __fastcall CalculateAngleFromDelta(int param_1)
 
 {
   int in_EAX;

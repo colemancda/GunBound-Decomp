@@ -60,7 +60,7 @@ void __fastcall FUN_0044fff0(int param_1)
   iVar4 = iVar8 + iVar4 * -2;
   iVar10 = iVar4 + -0x1a;
   iVar8 = iVar8 + -0x1a;
-  FUN_004eb800(iVar11,0xffff);
+  FillRect(iVar11,0xffff);
   if (0 < iVar11) {
     iVar12 = (iVar11 - 1U) / 6 + 1;
     iVar11 = iVar7;

@@ -1375,8 +1375,9 @@ directly** for a large class of content:
   (`DAT_00793530`/`0056df30` = left/right, `DAT_00793534`/`0056df34` = top/bottom;
   bounded to 800×600).
 - **`FillPixels16`** (`0x4f26f0`) — the word-aligned 16bpp run fill (a `memset`
-  for `u16`); **`DrawHLine`** (`0x4eb5d0`) and **`DrawVLine`** (`0x4eb6b0`) are the
-  clipped horizontal/vertical single-colour spans built on it.
+  for `u16`); **`DrawHLine`** (`0x4eb5d0`), **`DrawVLine`** (`0x4eb6b0`), and
+  **`FillRect`** (`0x4eb800`, row-by-row) are the clipped single-colour
+  primitives built on it.
 - **`DrawSprite`** (`0x4eb890`) — the canonical "resolve frame via
   `FindSpriteFrame`, then pick `BlitSprite16bpp` (direct, flag `+0x18==1`) vs
   `BlitSpriteClipped`" dispatch; this exact `if`-chain is inlined all over the

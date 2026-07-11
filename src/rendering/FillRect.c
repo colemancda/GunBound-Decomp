@@ -1,4 +1,4 @@
-/* FUN_004eb800 - 0x004eb800 in the original binary.
+/* FillRect - 0x004eb800 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004eb800(int param_1,int param_2,int param_3,int param_4)
+void __fastcall FillRect(int param_1,int param_2,int param_3,int param_4)
 
 {
   int in_EAX;

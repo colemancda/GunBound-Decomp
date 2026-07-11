@@ -371,7 +371,7 @@ LAB_004ad793:
       puStack_acc = (undefined4 *)piVar12[0xf];
       iVar2 = piVar12[0xe];
       piStack_ad4 = piVar12;
-      iVar3 = FUN_004f1f10();
+      iVar3 = CalculateAngleFromDelta();
       iVar6 = FloatToInt64();
       iVar7 = FloatToInt64();
       iVar7 = (int)puStack_acc - iVar7;

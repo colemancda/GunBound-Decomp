@@ -143,7 +143,7 @@ void FUN_0045ba50(int param_1)
   }
   PeekPacketChecksumState();
   PeekPacketChecksumState();
-  iVar3 = FUN_004f1f10();
+  iVar3 = CalculateAngleFromDelta();
   if (0x10e < iVar3) {
     iVar3 = iVar3 + -0x168;
   }

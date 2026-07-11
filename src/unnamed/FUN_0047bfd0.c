@@ -19,7 +19,7 @@ void FUN_0047bfd0(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = FUN_004f1f10();
+  uVar1 = CalculateAngleFromDelta();
   *(undefined4 *)(unaff_ESI + 0x3f9c) = uVar1;
   return;
 }

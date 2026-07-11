@@ -549,7 +549,7 @@ LAB_00487a8c:
     if (bVar18) {
       puStack_acc = (undefined4 *)piVar17[0xf];
       piStack_adc = (int *)piVar17[0xe];
-      fStack_ae0 = (float)FUN_004f1f10();
+      fStack_ae0 = (float)CalculateAngleFromDelta();
       iVar4 = FloatToInt64();
       piStack_adc = (int *)((int)piStack_adc - iVar4);
       iVar4 = FloatToInt64();
