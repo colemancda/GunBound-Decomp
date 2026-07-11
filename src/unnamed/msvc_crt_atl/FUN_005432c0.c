@@ -10,7 +10,7 @@
 void FUN_005432c0(void)
 
 {
-  FUN_004711e0();
+  ScrubObjectVtable();
   return;
 }
 

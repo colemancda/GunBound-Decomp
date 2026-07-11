@@ -51,8 +51,8 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
           ThrowCxxException(0x80070057);
         }
         FUN_004055b0();
-        if ((puVar4[1] != 0) && (cVar3 = FUN_004218c0(g_clientContext,puVar5), cVar3 == '\0')) {
-          cVar3 = FUN_00415b00(puVar5);
+        if ((puVar4[1] != 0) && (cVar3 = ParseChatSlashCommand(g_clientContext,puVar5), cVar3 == '\0')) {
+          cVar3 = CheckChatWordFilter(puVar5);
           if (cVar3 == '\x01') {
             iVar2 = *(int *)g_gameStateVTableArray[3];
             uVar9 = 6;

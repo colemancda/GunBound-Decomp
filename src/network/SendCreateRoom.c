@@ -20,7 +20,7 @@ void SendCreateRoom(int param_1)
   int iVar8;
   char *pcVar9;
   
-  FUN_0042a090();
+  RefreshGameRoomListControls();
   puVar3 = DAT_00e53c44;
   do {
     if (puVar3 == (undefined4 *)0x0) goto LAB_00429cbe;

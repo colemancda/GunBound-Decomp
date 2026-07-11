@@ -10,7 +10,7 @@ avatar/buddy buttons. Owns the largest protocol handler in the game.
 - **ProcessPacket**: `State03_GameRoomList_ProcessPacket` (`0x426ad0`, 6,736
   bytes — the biggest handler in the protocol)
 - **OnEnter**: `0x428d00` · **OnExit**: `0x429480`
-- **Input slots**: keyboard `0x4285c0` (slot 5), **mouse `0x428b90`** (slot 6)
+- **Input slots**: keyboard `0x4285c0` (slot 5), **mouse `State03_GameRoomList_HandleMouseInput` (`0x428b90`)** (slot 6)
 - **Render slot**: slot 15 = `State03_GameRoomList_RenderRoomLabel` (`0x429810`)
 
 ## Resources / images
@@ -75,7 +75,8 @@ Buttons draw separately via the generic active-object sweep.
 
 ## Input — room selection & join
 Room cards are **not** `ButtonWidget`s. The state's own **mouse slot**
-(`0x428b90`) hit-tests the same 6-slot grid via `FUN_0042ada0`:
+(`State03_GameRoomList_HandleMouseInput`, `0x428b90`) hit-tests the same
+6-slot grid via `RoomCardHitTest` (`0x42ada0`):
 - **Left-click** → select/highlight a room (drives the 3-state background).
 - **Right-click** (not double-click) → **join**: sends outgoing opcode `0x2104`.
 
@@ -136,7 +137,7 @@ state strings are `"normal"` (`0x552230`), `"active"` (`0x551e58`), `"select"`
 the toggle buttons' art carries an extra frame: `b_gamelist_viewall.img` and
 `b_gamelist_friend.img` have **5 frames** each, versus **4** for the non-toggle
 `b_gamelist_exit.img` — the 5th is the active/selected look. After every filter
-change (and at the end of `CreateButtons`), **`FUN_0042a090`** re-walks the
+change (and at the end of `CreateButtons`), **`RefreshGameRoomListControls`** re-walks the
 button list and re-applies the states so the newly-chosen filter shows `"active"`
 and the others revert. (`CreateButtonWidget` itself sets `"active"` at creation
 when a button's toggle flag `field[0x13]` is set.) The exact yellow tint lives

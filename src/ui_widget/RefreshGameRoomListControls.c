@@ -1,4 +1,4 @@
-/* FUN_0042a090 - 0x0042a090 in the original binary.
+/* RefreshGameRoomListControls - 0x0042a090 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -11,7 +11,7 @@
 /* WARNING: Removing unreachable block (ram,0x0042a0d2) */
 /* WARNING: Removing unreachable block (ram,0x0042a0dc) */
 
-void FUN_0042a090(void)
+void RefreshGameRoomListControls(void)
 
 {
   int *piVar1;

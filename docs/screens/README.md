@@ -84,7 +84,7 @@ this base set — slots 9+ are per-state and must be checked individually.
   `FindSpriteFrame` (cache lookup), then blitted. A negative stored frame index
   (`+0x30` on a widget) is the standard **hidden** sentinel.
 - **Text** is drawn with a bitmap font via `BlitRLESprite`; higher-level text
-  is prepped via `BlitSpriteText` / `FUN_0041b8c0` (label-text setters) and
+  is prepped via `BlitSpriteText` / `AppendChatLogEntry` (label-text setters) and
   word-wrapped via `RenderWrappedText` (used for server descriptions and dialog
   message bodies).
 

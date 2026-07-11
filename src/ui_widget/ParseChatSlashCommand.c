@@ -1,4 +1,4 @@
-/* FUN_004218c0 - 0x004218c0 in the original binary.
+/* ParseChatSlashCommand - 0x004218c0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -10,7 +10,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 FUN_004218c0(int param_1,char *param_2)
+undefined4 ParseChatSlashCommand(int param_1,char *param_2)
 
 {
   char cVar1;

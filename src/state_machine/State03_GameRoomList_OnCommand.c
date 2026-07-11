@@ -84,7 +84,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
   case 3:
     cVar3 = PacketChecksumEquals(g_clientContext + 0x449c4,2);
     if (cVar3 == '\0') {
-      FUN_0042a090();
+      RefreshGameRoomListControls();
       iVar2 = DAT_007934e8;
       iVar4 = g_clientContext;
       *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
@@ -134,7 +134,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
     *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 2;
     SendOutgoingPacket();
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
-    FUN_0042a090();
+    RefreshGameRoomListControls();
     return;
   case 0xc:
     cVar3 = *(char *)(param_1 + 0x115);
@@ -165,7 +165,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
     *(int *)(iVar2 + 0x44d0) = iVar4;
     SendOutgoingPacket();
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
-    FUN_0042a090();
+    RefreshGameRoomListControls();
     return;
   case 0xd:
     if (*(char *)(param_1 + 0x115) == '\x06') {
@@ -191,7 +191,7 @@ LAB_0042879e:
 LAB_004287a5:
     SendOutgoingPacket();
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
-    FUN_0042a090();
+    RefreshGameRoomListControls();
     return;
   case 0xe:
     *(undefined1 *)(param_1 + 0x115) = 6;
@@ -205,13 +205,13 @@ LAB_004287a5:
       *(undefined4 *)(param_1 + 0x11c) = 0;
       AppendPacketBytes(g_serverSelectRecords);
       SendOutgoingPacket();
-      FUN_0042a090();
+      RefreshGameRoomListControls();
       *(undefined4 *)(param_1 + 4) = 0xffffffff;
       return;
     }
     *(undefined1 *)(iVar4 + 0x44648) = 0;
     *(undefined1 *)(param_1 + 0x120) = 0;
-    FUN_0042a090();
+    RefreshGameRoomListControls();
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
     return;
   case 0xf:
@@ -229,7 +229,7 @@ LAB_004287a5:
     uVar5 = 1;
     break;
   case 0x21:
-    FUN_0042a090();
+    RefreshGameRoomListControls();
     SendJoinRoomByNumber(param_1);
     uVar5 = 1;
     break;

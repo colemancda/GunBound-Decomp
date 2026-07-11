@@ -718,9 +718,9 @@ LAB_004b9bb0:
     cVar4 = PeekPacketChecksumBool();
     if (cVar4 == '\0') {
       FUN_0040c880();
-      if ((acStack_80[0] != '\0') && (cVar4 = FUN_004218c0(g_clientContext,acStack_80), cVar4 == '\0'))
+      if ((acStack_80[0] != '\0') && (cVar4 = ParseChatSlashCommand(g_clientContext,acStack_80), cVar4 == '\0'))
       {
-        cVar4 = FUN_00415b00(acStack_80);
+        cVar4 = CheckChatWordFilter(acStack_80);
         if (cVar4 == '\x01') {
           uVar20 = 0x202;
         }

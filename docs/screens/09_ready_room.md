@@ -17,20 +17,20 @@ preview, map selection, and the item/loadout picker before the match starts.
 | 0 | `0x4d37f0` | `State09_ReadyRoom_Delete` — scalar-deleting destructor (→ `State09_ReadyRoom_Destroy` body `0x4d3810` + conditional `free`) |
 | 1 | `0x4d38c0` | `State09_ReadyRoom_ProcessPacket` |
 | 2 | `0x4d4ea0` | `State09_ReadyRoom_ProcessBattleAction` |
-| 3 | `0x4d54c0` | tiny handler: `if (arg == 1) RefreshReadyRoomControls(this,1,0)` — refresh-on-activate |
+| 3 | `State09_ReadyRoom_OnActivate` (`0x4d54c0`) | tiny handler: `if (arg == 1) RefreshReadyRoomControls(this,1,0)` — refresh-on-activate |
 | 4 | `0x4fdef0` | shared no-op |
 | 5 | `0x4d54e0` | `State09_ReadyRoom_OnCommand` (command dispatcher) |
 | 6 | `0x4d6210` | `State09_ReadyRoom_HandleChatInput` |
 | 7 | `0x4d6810` | `State09_ReadyRoom_OnEnter` |
 | 8 | `0x4d7630` | `State09_ReadyRoom_OnExit` |
 | 9 | `0x4d7b20` | `State09_ReadyRoom_OnTick` — per-frame tick (**was mislabelled "texture preload"**). AFK/round timers, item-icon cursor, 300-frame idle timeout, active-object GC, 8×2 scene-object updates; when `g_bBattleSessionActive` it delegates the frame to `ProcessBattleFrame` (`0x4dcbe0`), else emits the `0xa000` broadcast heartbeat. The host auto-start countdown is gated by `CheckAllPlayersReady` (`0x4db4b0`). Slot-9 = OnTick per the State02/State11 convention. |
-| 10 | `0x4d7d70` | text-draw helper (`strlen` → `FUN_0041b8c0`) |
+| 10 | `AppendReadyRoomStatusMessage` (`0x4d7d70`) | text-draw helper (`strlen` → `AppendChatLogEntry`) |
 | 11,12 | `0x429800` | no-op |
 | 13 | `0x4d7db0` | `State09_ReadyRoom_RenderRosterAndItems` |
 | 14 | `0x4d90c0` | `State09_ReadyRoom_RenderCharacterPreview` |
 | 15 | `0x4d9ae0` | `State09_ReadyRoom_RenderStatusOverlay` — in-session status/HUD overlay (**was mislabelled "map thumbnails"**): countdown-timer blink icons (`+0x4d4`/`+0x6b0`), per-player turn-order indicators (`+0x768` loop vs current turn `+0x3b6c0`), wind/aim status blits, and the chat input echo (`DAT_007933b8` → `GetWindowTextA`). Partly gated by `g_bBattleSessionActive`. |
 | 16,17 | `0x429800` | no-op |
-| 18 | `0x40ca00` | inherited base infra (secondary scalar-deleting dtor thunk → `FUN_004711e0`) |
+| 18 | `DeletePoisonedBaseObject` (`0x40ca00`) | inherited base infra (secondary scalar-deleting dtor thunk → `ScrubObjectVtable`) |
 | 19 | `0x461c60` | inherited base infra (resource/connection poll) |
 
 ## Resources / images
@@ -112,7 +112,7 @@ by the widget tree.
   (when the chat-active flag `DAT_007933b8 == 1`, reads the edit control via
   `GetWindowTextA` and blits it). Much of the body is gated by
   `g_bBattleSessionActive`, i.e. it's the overlay for the live recorded session.
-- Remaining slots: `0x4d54c0` (slot 3 — refreshes controls when its arg is 1),
+- Remaining slots: `State09_ReadyRoom_OnActivate` (`0x4d54c0`, slot 3 — refreshes controls when its arg is 1),
   **`0x4d54e0` = `State09_ReadyRoom_OnCommand`** (the command dispatcher — *not* a
   "UI updater" as an earlier draft guessed; see below). See the full vtable map
   above for slots 0/9/10.
@@ -134,10 +134,12 @@ by the widget tree.
 Every button/control/chat-commit funnels through this (slot 5),
 `(this, eventType, _, buttonId)`:
 - `eventType==0` → button `buttonId` (table below).
-- `eventType==10` → **chat commit**: copies the typed text and, if not a
-  slash-command (`FUN_00415b00`), **sends it as chat — opcode `0x3104`** (via
-  `FUN_004d2530`/`FUN_004d2680`). *(This resolves the earlier "chat-send call
-  not found" item — it's a normal queued packet, not raw Winsock.)*
+- `eventType==10` → **chat commit**: copies the typed text and, if it does not
+  fail `CheckChatWordFilter`'s banned-word scan (`0x415b00` — corrects an
+  earlier draft that mislabeled this as a slash-command check; slash commands
+  are handled separately, see below), **sends it as chat — opcode `0x3104`**
+  (via `FUN_004d2530`/`FUN_004d2680`). *(This resolves the earlier "chat-send
+  call not found" item — it's a normal queued packet, not raw Winsock.)*
 - `eventType==0xb` → cancel/dismiss.
 
 **buttonId → action / outgoing opcode:**
@@ -156,7 +158,7 @@ Every button/control/chat-commit funnels through this (slot 5),
 | 0x72 | select random/none | `0x3200` (0xff) |
 | 300 | buddy panel (`BuildBuddyPanel`) | — |
 
-- **`/`-commands**: shared parser `FUN_004218c0` — staff-credits easter eggs
+- **`/`-commands**: shared parser `ParseChatSlashCommand` (`0x4218c0`) — staff-credits easter eggs
   (`/comsik`, etc.), GM/debug commands (`noack`, `clear`, `logging`), and three
   Korean-2beolsik-encoded GM commands gated on `g_currentGameState==9`.
 - **`State09_ReadyRoom_HandleChatInput`** (`0x4d6210`, slot 6): the raw
@@ -260,8 +262,12 @@ outbound. It finishes by recomputing derived state:
   DEATH72): the encode + bit masks are decoded (above); only the human label per
   group is unmapped, and it's UI-art (popup hit regions), not a code string —
   resolve with a one-shot live click-and-diff on `this+0x26c`.
-- Vtable slots 18 (`0x40ca00`) / 19 (`0x461c60`) are **inherited base-class
-  infra**, not Ready-Room UI: slot 18 is a secondary scalar-deleting destructor
-  thunk (→ `FUN_004711e0`), slot 19 (`0x461c60`) a small resource/connection
-  poll (reads `+0x1c`, calls `FindStringNoCase`, sets `+0x20`/`+0x24`/`+0x34` — the
-  same field shape as the connection object). Neither is screen-specific.
+- Vtable slots 18 (`DeletePoisonedBaseObject`, `0x40ca00`) / 19 (`0x461c60`) are
+  **inherited base-class infra**, not Ready-Room UI: slot 18 is a secondary
+  scalar-deleting destructor thunk (→ `ScrubObjectVtable`, `0x4711e0` — installs
+  `&PTR_LAB_0055752c` into the object's vtable, the same "poisoned vtable"
+  pointer used by `CProjectile::DestroyProjectile`; the shared cross-subsystem
+  teardown idiom itself is still unnamed as a concept), slot 19 (`0x461c60`) a
+  small resource/connection poll (reads `+0x1c`, calls `FindStringNoCase`, sets
+  `+0x20`/`+0x24`/`+0x34` — the same field shape as the connection object).
+  Neither is screen-specific.

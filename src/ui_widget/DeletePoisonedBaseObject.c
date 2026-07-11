@@ -1,4 +1,4 @@
-/* FUN_0040ca00 - 0x0040ca00 in the original binary.
+/* DeletePoisonedBaseObject - 0x0040ca00 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,10 +7,10 @@
 #include "ghidra_types.h"
 
 
-void * __thiscall FUN_0040ca00(void *param_1,int param_2)
+void * __thiscall DeletePoisonedBaseObject(void *param_1,int param_2)
 
 {
-  FUN_004711e0();
+  ScrubObjectVtable();
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

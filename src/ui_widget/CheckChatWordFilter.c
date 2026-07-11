@@ -1,4 +1,4 @@
-/* FUN_00415b00 - 0x00415b00 in the original binary.
+/* CheckChatWordFilter - 0x00415b00 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00415b00(char *param_1)
+undefined4 CheckChatWordFilter(char *param_1)
 
 {
   char *pcVar1;

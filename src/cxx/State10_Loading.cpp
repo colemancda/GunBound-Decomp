@@ -17,8 +17,8 @@ extern unsigned char DAT_00551cb1;      /* the empty string the EDIT is reset to
 extern unsigned char g_localizedStringTable;      /* localized-string table base */
 char PeekPacketChecksumBool(void);                /* replay-playback mode check */
 void FUN_0040c880(char *out);           /* read the EDIT control's text into out[128] */
-char FUN_004218c0(int ctx, char *text); /* slash-command handler (true = consumed) */
-char FUN_00415b00(char *text);          /* "message too long" check */
+char ParseChatSlashCommand(int ctx, char *text); /* slash-command handler (true = consumed) */
+char CheckChatWordFilter(char *text);          /* "message too long" check */
 char FUN_00415230(void);                /* "not allowed right now" check */
 void QueueBroadcastEvent(int type);
 void AppendBroadcastString(const char *s);
@@ -58,9 +58,9 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
     }
     if (PeekPacketChecksumBool() == 0) {
         FUN_0040c880(text);
-        if (text[0] != '\0' && FUN_004218c0(g_clientContext, text) == 0) {
+        if (text[0] != '\0' && ParseChatSlashCommand(g_clientContext, text) == 0) {
             int msgId;
-            if (FUN_00415b00(text) == 1) {
+            if (CheckChatWordFilter(text) == 1) {
                 msgId = 0x202;
             } else if (FUN_00415230() == 0) {
                 QueueBroadcastEvent(1);

@@ -18,7 +18,7 @@ void FUN_00442240(char *param_1,undefined4 param_2,undefined4 param_3)
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
-  FUN_0041b8c0(g_clientContext,param_2,0,0,param_1,param_3,0);
+  AppendChatLogEntry(g_clientContext,param_2,0,0,param_1,param_3,0);
   return;
 }
 

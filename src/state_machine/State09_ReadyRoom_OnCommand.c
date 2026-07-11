@@ -4,9 +4,10 @@
  * button, room-option control, character pick, and chat commit funnels here.
  * Signature (this, eventType, param_3, buttonId):
  *   eventType==0  -> a button/control was activated; dispatch on buttonId.
- *   eventType==10 -> chat/textbox commit: copy the typed text, and if it isn't
- *                    a slash-command (FUN_00415b00) send it as chat, opcode
- *                    0x3104 (via AppendPacketBytes/SendOutgoingPacket).
+ *   eventType==10 -> chat/textbox commit: copy the typed text, and if it does
+ *                    not fail the banned-word scan (CheckChatWordFilter) send
+ *                    it as chat, opcode 0x3104 (via
+ *                    AppendPacketBytes/SendOutgoingPacket).
  *   eventType==0xb-> cancel/dismiss.
  * buttonId cases (outgoing opcodes; see docs/screens/09_ready_room.md):
  *   0   Ready toggle        -> 0x3230
@@ -62,7 +63,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
         pcVar12 = pcVar12 + 1;
       } while (cVar2 != '\0');
       if ((*pcVar13 != '\0') &&
-         (cVar2 = FUN_00415b00(pcVar13), iVar10 = DAT_007934e8, cVar2 == '\0')) {
+         (cVar2 = CheckChatWordFilter(pcVar13), iVar10 = DAT_007934e8, cVar2 == '\0')) {
         *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3104;
         *(undefined4 *)(iVar10 + 0x44d0) = 6;
         pcVar12 = pcVar13;

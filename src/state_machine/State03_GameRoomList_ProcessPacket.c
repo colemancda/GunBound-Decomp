@@ -349,7 +349,7 @@ switchD_00428058_default:
     if (opcode == 0x201f) {
       iVar10 = FUN_004259d0((uint)(byte)*payload * 0xd + 0x41445 + g_clientContext);
       if (iVar10 == -1) {
-        FUN_0041b8c0(g_clientContext,0,(uint)(byte)*payload * 9 + 0x43548 + g_clientContext,
+        AppendChatLogEntry(g_clientContext,0,(uint)(byte)*payload * 9 + 0x43548 + g_clientContext,
                      (uint)(byte)*payload * 0xd + 0x41445 + g_clientContext,payload + 7,0,0);
         return;
       }
@@ -433,7 +433,7 @@ switchD_00428058_default:
           return;
         }
         SetGuardedBool(0);
-        FUN_0042a090();
+        RefreshGameRoomListControls();
         return;
       }
       goto LAB_00426d84;
@@ -721,7 +721,7 @@ switchD_00428058_default:
                 bVar3 = *pbVar18;
                 pbVar18 = pbVar18 + 1;
               } while (bVar3 != 0);
-              FUN_0041b8c0(g_clientContext,2,0,0,&local_668,0,1);
+              AppendChatLogEntry(g_clientContext,2,0,0,&local_668,0,1);
               iVar10 = 0;
               pbVar18 = &local_668;
               for (iVar14 = 0x80; iVar14 != 0; iVar14 = iVar14 + -1) {
@@ -744,7 +744,7 @@ switchD_00428058_default:
           bVar3 = *pbVar18;
           pbVar18 = pbVar18 + 1;
         } while (bVar3 != 0);
-        FUN_0041b8c0(g_clientContext,2,0,0,&local_668,0,1);
+        AppendChatLogEntry(g_clientContext,2,0,0,&local_668,0,1);
         return;
       }
       FUN_00429dc0();
@@ -905,7 +905,7 @@ switchD_00428058_default:
               bVar3 = *pbVar19;
               pbVar19 = pbVar19 + 1;
             } while (bVar3 != 0);
-            FUN_0041b8c0(iVar10,2,0,0,&local_668,0,1);
+            AppendChatLogEntry(iVar10,2,0,0,&local_668,0,1);
             iVar14 = 0;
             pbVar19 = &local_668;
             for (iVar15 = 0x40; iVar10 = g_clientContext, iVar15 != 0; iVar15 = iVar15 + -1) {
@@ -928,7 +928,7 @@ switchD_00428058_default:
         bVar3 = *pbVar18;
         pbVar18 = pbVar18 + 1;
       } while (bVar3 != 0);
-      FUN_0041b8c0(iVar10,2,0,0,&local_668,0,1);
+      AppendChatLogEntry(iVar10,2,0,0,&local_668,0,1);
       return;
     }
     if (*payload == 0x1d) {
@@ -941,7 +941,7 @@ switchD_00428058_default:
     SetGuardedBool(0);
   }
 LAB_00426d84:
-  FUN_0042a090();
+  RefreshGameRoomListControls();
   return;
 }
 

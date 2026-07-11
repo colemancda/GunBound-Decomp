@@ -1,4 +1,4 @@
-/* FUN_00428b90 - 0x00428b90 in the original binary.
+/* State03_GameRoomList_HandleMouseInput - 0x00428b90 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00428b90(int param_1,uint param_2,undefined4 param_3,uint param_4)
+void __thiscall State03_GameRoomList_HandleMouseInput(int param_1,uint param_2,undefined4 param_3,uint param_4)
 
 {
   int iVar1;
@@ -18,7 +18,7 @@ void __thiscall FUN_00428b90(int param_1,uint param_2,undefined4 param_3,uint pa
   
   if (param_2 < 0x204) {
     if (param_2 == 0x203) {
-      iVar3 = FUN_0042ada0(param_4 >> 0x10,0);
+      iVar3 = RoomCardHitTest(param_4 >> 0x10,0);
       if (iVar3 != -1) {
         cVar2 = FUN_00406400();
         if (cVar2 == '\x01') {
@@ -28,7 +28,7 @@ void __thiscall FUN_00428b90(int param_1,uint param_2,undefined4 param_3,uint pa
       }
     }
     else if ((param_2 != 0x100) && (param_2 == 0x201)) {
-      iVar3 = FUN_0042ada0(param_4 >> 0x10,0);
+      iVar3 = RoomCardHitTest(param_4 >> 0x10,0);
       if (iVar3 != -1) {
         *(int *)(param_1 + 4) = iVar3;
         InvokeWidget(1);
@@ -39,7 +39,7 @@ void __thiscall FUN_00428b90(int param_1,uint param_2,undefined4 param_3,uint pa
     }
   }
   else if (param_2 == 0x204) {
-    iVar4 = FUN_0042ada0(param_4 >> 0x10,1);
+    iVar4 = RoomCardHitTest(param_4 >> 0x10,1);
     iVar1 = DAT_007934e8;
     iVar3 = g_clientContext;
     if ((iVar4 != -1) && (*(int *)(g_clientContext + 0x4464c + iVar4 * 4) == 1)) {

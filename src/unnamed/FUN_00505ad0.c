@@ -36,7 +36,7 @@ void FUN_00505ad0(int param_1)
     FUN_004056c0(param_1 + 0x50,pcVar5);
   }
   if (*(int *)(*(int *)(param_1 + 0x50) + -0xc) != 0) {
-    cVar1 = FUN_00415b00(*(int *)(param_1 + 0x50));
+    cVar1 = CheckChatWordFilter(*(int *)(param_1 + 0x50));
     if (cVar1 == '\x01') {
       pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x202);
       pcVar3 = pcVar5 + 1;

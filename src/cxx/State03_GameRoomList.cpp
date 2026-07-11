@@ -252,7 +252,7 @@ extern unsigned char DAT_00e9be90;          /* the button-widget registry */
 void CreateButtonWidget(void *registry, int a, int id, int spriteBase,
                         const char *name, int x, int y, int w, int h,
                         int enabled, int b);
-void FUN_0042a090(void);                     /* post-build fixup (unnamed) */
+void RefreshGameRoomListControls(void);                     /* post-build fixup (unnamed) */
 extern const char s_b_gamelist_exit_0055379c[];
 extern const char s_b_gamelist_buddy_00553788[];
 extern const char s_b_gamelist_ranking_00553774[];
@@ -294,5 +294,5 @@ void CState03GameRoomList::CreateButtons()
         CreateButtonWidget(&DAT_00e9be90, 0, b.id, b.spriteBase, b.name,
                            b.x, b.y, b.w, b.h, 0, 0);
     }
-    FUN_0042a090();
+    RefreshGameRoomListControls();
 }

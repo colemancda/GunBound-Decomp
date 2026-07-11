@@ -379,7 +379,7 @@ mapped of the three known `ProcessPacket` overrides. Confirmed opcodes:
 | Opcode | Behavior |
 |---|---|
 | `0x2001` | Branches on `*payload==0`; calls one of two cleanup/notify helpers, then `FUN_00507cc0(1, ...)`. |
-| `0x201f` | Looks up a slot via `FUN_004259d0`; on miss, calls `FUN_0041b8c0` with derived offsets — looks like a per-slot record insert (chat line? item?). |
+| `0x201f` | Looks up a slot via `FUN_004259d0`; on miss, calls `AppendChatLogEntry` with derived offsets — looks like a per-slot record insert (chat line? item?). |
 | `0x2103` | Populates a per-player-slot array (name/flags/stats) up to `playerCount` slots — **room player list update**. |
 | `0x2105` | Copies a string + several small fields into a per-slot 0x80-byte display buffer at `+0x4467c` (slot stride 0x80), then mirrors it into `this+300`/`this+0x1ac`/`this+0x1b0` — **player info/profile broadcast for a target slot** (`this+0x124` holds the target slot index, set by a prior packet). |
 | `0x2111` | separate branch, not yet decompiled |
@@ -569,7 +569,7 @@ guess — this is live peer traffic, not logged-event playback).
 | `3` | Calls the `ShowMessage`-style virtual at `this vtable +0x28` with a formatted string — a generic in-battle notification/toast. |
 | `0x4001` | Single-byte flag toggle (only when the acting slot isn't this client) — cheap status flag, not yet identified precisely. |
 | `0x4002` | **Chat message with spatial proximity filtering**: computes the distance between the sender and each of the 8 player slots, delivering the message only within ~150 units — positional/proximity chat during battle. |
-| `0x4003`, `0x4004` | Similar per-player text-record lookups/inserts (`FUN_004259d0`/`FUN_0041b8c0`, the same helpers seen in the room-list handler) — likely other chat/notification variants (team chat? system message?). |
+| `0x4003`, `0x4004` | Similar per-player text-record lookups/inserts (`FUN_004259d0`/`AppendChatLogEntry`, the same helpers seen in the room-list handler) — likely other chat/notification variants (team chat? system message?). |
 | `0x8402`, `0x8406` | Relay two ushort fields + a boolean flag from the packet, re-encoding them into an outgoing packet via `QueueOutgoingPacketField`/`EncodeOutgoingPacketField` — **confirmed** (not just "likely") aim/angle+power broadcast: tracing the send side (`FUN_00461ca0`) shows both opcodes are sent right after reading `this+0x243`/`this+0x2cc`, the exact same fields already confirmed as angle/power in Fire's own payload. See PROTOCOL.md for the full cross-reference. |
 | `0x8403` | **Fire.** The richest payload: 2 fields, 2 bool flags, 2 more fields, then **8 sequential shorts** (`+0x2c`..`+0x3a`, 16 bytes — likely trajectory waypoints or arc sample points), forwarded via the same outgoing-encode helpers, then plays the `ifire` sound effect. This is the confirmed weapon-fire action; exact waypoint semantics not yet decoded. |
 | `0x8404` | Appends a new entry across four parallel per-slot arrays at `+0x27`/`+0xa7`/`+0x127`/`+0x1a7` (a *different*, smaller set of parallel arrays than `0x8408`'s) — some other per-shot or per-projectile record, calls `FUN_004ccbb0`. |
@@ -2146,8 +2146,8 @@ concrete results:
 
   **Room selection/joining, traced from the click side.** The room cards
   aren't `ButtonWidget` objects — clicks are handled directly by the
-  state's own mouse-message vtable slot (`FUN_00428b90`), which hit-tests
-  against the same 6-slot grid geometry via `FUN_0042ada0`. Left-click
+  state's own mouse-message vtable slot (`State03_GameRoomList_HandleMouseInput`), which hit-tests
+  against the same 6-slot grid geometry via `RoomCardHitTest`. Left-click
   selects/highlights a room (driving the 3-state background above);
   right-click (not double-click) sends the actual join request — outgoing
   opcode `0x2104`, a new addition to PROTOCOL.md's Channel 1 opcode list.
@@ -2475,7 +2475,7 @@ previously-unexamined ones. Findings:
   of formatted-local-time comparison via `FUN_0040d260`/`FUN_00525ea0`,
   not a network call; purpose not pinned down, doesn't look like a
   profanity filter or send routine from its shape). The only other calls
-  on this path are `FUN_004218c0` (the already-documented `/`-command
+  on this path are `ParseChatSlashCommand` (the already-documented `/`-command
   parser, confirmed not a network function) and, for two special-case
   outcomes (link-detected/`0x202`, or `FUN_00415230`'s check failing/
   `0x205`), a `vtable+0x28` call that resolves and displays a localized
@@ -2501,7 +2501,7 @@ previously-unexamined ones. Findings:
   `send()`. The send lives in the Ready Room's command dispatcher
   `State09_ReadyRoom_OnCommand` (`0x4d54e0`), on its `eventType==10`
   chat-commit path: it copies the typed text and, if it isn't a slash-command
-  (`FUN_00415b00`), sends it via the standard `FUN_004d2530`/`FUN_004d2680`
+  (`CheckChatWordFilter`), sends it via the standard `FUN_004d2530`/`FUN_004d2680`
   queued-packet path. So `HandleChatInput` (`0x4d6210`) handles the keystrokes
   and replay logging, and the committed text is transmitted here. The
   in-battle equivalent remains open.
@@ -2520,7 +2520,7 @@ previously-unexamined ones. Findings:
   in STRINGS.md).
   - **The developer-name easter egg — fully traced, and it's more than a
     credits screen.** Both chat handlers call a shared `/`-command parser
-    (`FUN_004218c0`, 5,693 bytes) that splits the typed text on `/`,
+    (`ParseChatSlashCommand`, 5,693 bytes) that splits the typed text on `/`,
     extracts the first word, and `stricmp`s it (case-insensitive, and
     gated on `iVar3 == 1` — exactly one token, no extra arguments) against
     a long hardcoded list. Two genuinely distinct categories:
@@ -2595,7 +2595,7 @@ live status display, not a static "please wait" splash:
   elsewhere for turn-highlight-style UI.
 - Slot 10 (`FUN_00442240`, 58 bytes) is not itself a render call — it's a
   small string-forwarding helper (computes a string's length then calls
-  `FUN_0041b8c0`, a generic widget/label-text setter), consistent with
+  `AppendChatLogEntry`, a generic widget/label-text setter), consistent with
   the generic UI-widget system documented below.
 
 ### Slot 9 ("generic tick hook") is often just timer logic, not render

@@ -42,8 +42,8 @@ void __thiscall State09_ReadyRoom_HandleChatInput(int *param_1,int param_2,int p
       if (cVar4 == '\0') {
         FUN_0040c880();
         if ((acStack_80[0] != '\0') &&
-           (cVar4 = FUN_004218c0(g_clientContext,acStack_80), cVar4 == '\0')) {
-          cVar4 = FUN_00415b00(acStack_80);
+           (cVar4 = ParseChatSlashCommand(g_clientContext,acStack_80), cVar4 == '\0')) {
+          cVar4 = CheckChatWordFilter(acStack_80);
           if (cVar4 == '\x01') {
             uVar13 = 0x202;
           }

@@ -286,7 +286,7 @@ LAB_004d0801:
       cVar1 = *pcVar9;
       pcVar9 = pcVar9 + 1;
     } while (cVar1 != '\0');
-    FUN_0041b8c0(g_clientContext,2,0,0,local_100,0,1);
+    AppendChatLogEntry(g_clientContext,2,0,0,local_100,0,1);
   }
   if ((*(ushort *)(&DAT_006aa660 + g_clientContext) != 0xffff) && (param_2 != '\0')) {
     uVar6 = *(ushort *)(&DAT_006aa660 + g_clientContext) + 4;

@@ -1,4 +1,4 @@
-/* FUN_0041b8c0 - 0x0041b8c0 in the original binary.
+/* AppendChatLogEntry - 0x0041b8c0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0041b8c0(int param_1,char param_2,char *param_3,char *param_4,char *param_5,
+void AppendChatLogEntry(int param_1,char param_2,char *param_3,char *param_4,char *param_5,
                  undefined2 param_6,char param_7)
 
 {

@@ -15,7 +15,7 @@ void __fastcall FUN_00429730(int param_1)
   undefined4 uVar3;
   int iVar4;
   
-  uVar3 = FUN_0042ada0(g_cursorAnchorY,0);
+  uVar3 = RoomCardHitTest(g_cursorAnchorY,0);
   iVar1 = g_clientContext;
   *(undefined4 *)(param_1 + 8) = uVar3;
   iVar4 = 0;

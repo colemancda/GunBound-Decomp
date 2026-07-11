@@ -1,4 +1,4 @@
-/* FUN_004711e0 - 0x004711e0 in the original binary.
+/* State09_ReadyRoom_OnActivate - 0x004d54c0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,12 +7,12 @@
 #include "ghidra_types.h"
 
 
-void FUN_004711e0(void)
+void __thiscall State09_ReadyRoom_OnActivate(undefined4 param_1,int param_2)
 
 {
-  undefined4 *in_EAX;
-  
-  *in_EAX = &PTR_LAB_0055752c;
+  if (param_2 == 1) {
+    RefreshReadyRoomControls(param_1,1,0);
+  }
   return;
 }
 

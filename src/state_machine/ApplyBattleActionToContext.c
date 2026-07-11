@@ -114,7 +114,7 @@ void ApplyBattleActionToContext(int param_1,int param_2,int param_3)
         }
         FUN_004e3740(&DAT_00794e14);
         AcquireSoundChannel(uVar6);
-        FUN_0041b8c0(param_1,0,(uint)bVar1 * 9 + 0x457a9 + param_1,iVar8,puVar12,0,1);
+        AppendChatLogEntry(param_1,0,(uint)bVar1 * 9 + 0x457a9 + param_1,iVar8,puVar12,0,1);
         return;
       }
       iVar8 = (uint)bVar1 * 0xd + 0x41445 + param_1;
@@ -122,7 +122,7 @@ void ApplyBattleActionToContext(int param_1,int param_2,int param_3)
       if (iVar7 != -1) {
         return;
       }
-      FUN_0041b8c0(param_1,0,(uint)bVar1 * 9 + 0x43548 + param_1,iVar8,puVar12,0,0);
+      AppendChatLogEntry(param_1,0,(uint)bVar1 * 9 + 0x43548 + param_1,iVar8,puVar12,0,0);
       return;
     }
     if (uVar3 != 0x307) {

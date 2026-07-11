@@ -203,7 +203,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040c8d0,31,FUN_0040c8d0,false,1,1,RAW-src
 0040c8f0,131,FUN_0040c8f0,false,4,3,RAW-src
 0040c980,124,FUN_0040c980,false,2,0,RAW-src
-0040ca00,32,FUN_0040ca00,false,24,2,RAW-src
+0040ca00,32,DeletePoisonedBaseObject,false,24,2,RAW-src
 0040cc50,145,FUN_0040cc50,false,4,2,RAW-src
 0040ccf0,72,FUN_0040ccf0,false,9,2,RAW-src
 0040cd40,25,FUN_0040cd40,false,1,1,RAW-src
@@ -272,7 +272,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004158e0,5,thunk_FUN_004158f0,true,2,0,RAW-src
 004158f0,8,FUN_004158f0,false,1,1,RAW-src
 00415900,500,FUN_00415900,false,1,12,RAW-src
-00415b00,184,FUN_00415b00,false,6,2,RAW-src
+00415b00,184,CheckChatWordFilter,false,6,2,RAW-src
 00415bc0,112,FUN_00415bc0,false,3,3,RAW-src
 00415c60,52,FUN_00415c60,false,5,0,RAW-src
 00415ca0,63,FUN_00415ca0,false,2,0,RAW-src
@@ -295,7 +295,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0041b6f0,233,FUN_0041b6f0,false,1,0,RAW-src
 0041b7e0,82,FUN_0041b7e0,false,3,0,RAW-src
 0041b840,118,FUN_0041b840,false,2,0,RAW-src
-0041b8c0,1039,FUN_0041b8c0,false,20,6,RAW-src
+0041b8c0,1039,AppendChatLogEntry,false,20,6,RAW-src
 0041bce0,887,FUN_0041bce0,false,1,4,RAW-src
 0041c0a0,232,FUN_0041c0a0,false,1,0,RAW-src
 0041c190,66,FUN_0041c190,false,2,1,RAW-src
@@ -324,7 +324,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004217b0,110,FUN_004217b0,false,9,3,RAW-src
 00421820,72,FUN_00421820,false,1,0,RAW-src
 00421870,70,FUN_00421870,false,6,0,RAW-src
-004218c0,5693,FUN_004218c0,false,4,29,RAW-src
+004218c0,5693,ParseChatSlashCommand,false,4,29,RAW-src
 00422f10,81,FUN_00422f10,false,4,1,RAW-src
 00422f70,220,FUN_00422f70,false,1,1,RAW-src
 00423050,220,FUN_00423050,false,1,0,RAW-src
@@ -373,7 +373,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00426ad0,6736,State03_GameRoomList_ProcessPacket,false,1,32,RAW-src
 00428550,102,FUN_00428550,false,6,2,RAW-src
 004285c0,1370,State03_GameRoomList_OnCommand,false,1,20,RAW-src
-00428b90,360,FUN_00428b90,false,1,6,RAW-src
+00428b90,360,State03_GameRoomList_HandleMouseInput,false,1,6,RAW-src
 00428d00,1907,State03_GameRoomList_OnEnter,false,1,18,RAW-src
 00429480,674,State03_GameRoomList_OnExit,false,1,1,RAW-src
 00429730,194,FUN_00429730,false,1,3,RAW-src
@@ -387,11 +387,11 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00429f90,20,FUN_00429f90,false,2,1,RAW-src
 00429fb0,20,FUN_00429fb0,false,2,1,RAW-src
 00429fd0,180,SendJoinRoomSelected,false,2,3,RAW-src
-0042a090,394,FUN_0042a090,false,14,4,RAW-src
+0042a090,394,RefreshGameRoomListControls,false,14,4,RAW-src
 0042a220,1107,RenderRoomCard,false,1,7,RAW-src
 0042a680,1299,FUN_0042a680,false,1,8,RAW-src
 0042aba0,508,State03_GameRoomList_CreateButtons,false,2,2,RAW-src
-0042ada0,137,FUN_0042ada0,false,4,0,RAW-src
+0042ada0,137,RoomCardHitTest,false,4,0,RAW-src
 0042ae30,118,FUN_0042ae30,false,8,3,RAW-src
 0042aeb0,142,FUN_0042aeb0,false,1,2,RAW-src
 0042af40,172,FUN_0042af40,false,2,3,RAW-src
@@ -685,7 +685,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0046faf0,32,FUN_0046faf0,false,1,2,RAW-src
 0046fb10,13,FUN_0046fb10,false,1,1,RAW-src
 0046fb20,5814,FUN_0046fb20,false,1,25,RAW-src
-004711e0,7,FUN_004711e0,false,2,0,RAW-src
+004711e0,7,ScrubObjectVtable,false,2,0,RAW-src
 004711f0,71,FUN_004711f0,false,1,3,RAW-src
 00471320,290,FUN_00471320,false,1,5,RAW-src
 00471450,31,FUN_00471450,false,1,2,RAW-src
@@ -988,13 +988,13 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d3810,163,State09_ReadyRoom_Destroy,false,1,2,RAW-src
 004d38c0,5576,State09_ReadyRoom_ProcessPacket,false,1,44,RAW-src
 004d4ea0,1556,State09_ReadyRoom_ProcessBattleAction,false,1,18,RAW-src
-004d54c0,20,FUN_004d54c0,false,1,1,RAW-src
+004d54c0,20,State09_ReadyRoom_OnActivate,false,1,1,RAW-src
 004d54e0,3167,State09_ReadyRoom_OnCommand,false,1,23,RAW-src
 004d6210,1518,State09_ReadyRoom_HandleChatInput,false,1,25,RAW-src
 004d6810,3601,State09_ReadyRoom_OnEnter,false,1,30,RAW-src
 004d7630,1253,State09_ReadyRoom_OnExit,false,1,3,RAW-src
 004d7b20,583,State09_ReadyRoom_OnTick,false,1,15,RAW-src
-004d7d70,58,FUN_004d7d70,false,1,1,RAW-src
+004d7d70,58,AppendReadyRoomStatusMessage,false,1,1,RAW-src
 004d7db0,4854,State09_ReadyRoom_RenderRosterAndItems,false,1,18,RAW-src
 004d90c0,2575,State09_ReadyRoom_RenderCharacterPreview,false,1,2,RAW-src
 004d9ae0,2406,State09_ReadyRoom_RenderStatusOverlay,false,1,14,RAW-src
