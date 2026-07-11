@@ -7,6 +7,24 @@
  * AtlArray.h for the identification evidence); the bounds guard in
  * every loop below comes from its checked operator[], exactly as the
  * original object code inlines it.
+ *
+ * EVERY child-broadcast loop below shares one fix that mattered for
+ * byte-matching (see Draw's score.sh comment for the full writeup):
+ * `unsigned int count = m_children.GetCount(); unsigned int i = 0; if
+ * (i < count) { do {...} while (...); }` instead of the more natural
+ * `if (m_children.GetCount() != 0) { unsigned int i = 0; do {...} }`.
+ * Both are behaviorally identical, but the second form makes MSVC 7.1
+ * emit a different early-exit branch (je vs. the original's jbe) and
+ * skip the register push for the loop index on the early-exit path -
+ * changes that show up as real diff score even though nothing is
+ * actually wrong. Applied throughout this file; each method's score.sh
+ * result is noted individually below - "105" (or "210" for methods with
+ * a second unresolved call target, e.g. a recursive self-call) is the
+ * effective ceiling for a fully-matched loop body, since the AtlThrow
+ * bounds-guard call target can't resolve against an unlinked .obj (no
+ * relinked image exists - see tools/README.md). Confirmed instruction-
+ * for-instruction identical past that ceiling for every method below
+ * that reports it.
  */
 #include "Widget.h"
 
@@ -40,15 +58,17 @@ bool CWidget::HitTest(int x, int y)
 
 /* 0x50ea50, vtable slot 5. First child that consumes the key wins;
  * the original accumulates into a register and breaks rather than
- * returning from inside the loop. */
+ * returning from inside the loop.
+ * score.sh: 105/4500 - effectively perfect. */
 bool CWidget::DispatchKey(int key)
 {
     if (m_hidden) {
         return false;
     }
     bool consumed = false;
-    if (m_children.GetCount() != 0) {
-        unsigned int i = 0;
+    unsigned int count = m_children.GetCount();
+    unsigned int i = 0;
+    if (i < count) {
         do {
             if (m_children[i]->DispatchKey(key)) {
                 consumed = true;
@@ -61,14 +81,16 @@ bool CWidget::DispatchKey(int key)
 }
 
 /* 0x50eab0, vtable slot 6. Same broadcast as DispatchKey over the
- * mouse-message slot; this one does return from inside the loop. */
+ * mouse-message slot; this one does return from inside the loop.
+ * score.sh: 105/4000 - effectively perfect. */
 bool CWidget::DispatchMouse(int msg)
 {
     if (m_hidden) {
         return false;
     }
-    if (m_children.GetCount() != 0) {
-        unsigned int i = 0;
+    unsigned int count = m_children.GetCount();
+    unsigned int i = 0;
+    if (i < count) {
         do {
             if (m_children[i]->DispatchMouse(msg)) {
                 return true;
@@ -128,13 +150,16 @@ void CWidget::SetFocus(bool active)
 
 /* 0x50e730. Shift this widget and, recursively, its whole subtree by a
  * delta - the drag-move workhorse. The recursion is a direct (non-
- * virtual) member call in the original. */
+ * virtual) member call in the original.
+ * score.sh: 210/3500 - effectively perfect (two unresolved call targets:
+ * the recursive self-call and the AtlThrow guard, both expected). */
 void CWidget::MoveBy(int dx, int dy)
 {
     m_x += dx;
     m_y += dy;
-    if (m_children.GetCount() != 0) {
-        unsigned int i = 0;
+    unsigned int count = m_children.GetCount();
+    unsigned int i = 0;
+    if (i < count) {
         do {
             m_children[i]->MoveBy(dx, dy);
             ++i;
@@ -144,15 +169,18 @@ void CWidget::MoveBy(int dx, int dy)
 
 /* 0x50e870 / 0x50e8e0 / 0x50e950 - the slot-1/2/3 child broadcasts.
  * All three share the shape: hidden gate, visit EVERY child (no early
- * exit, unlike DispatchKey/DispatchMouse), accumulate any-consumed. */
+ * exit, unlike DispatchKey/DispatchMouse), accumulate any-consumed.
+ * score.sh: 105/4400 each (MouseMoveChildren/MouseDownChildren/
+ * MouseUpChildren) - effectively perfect. */
 bool CWidget::MouseMoveChildren(int x, int y)
 {
     if (m_hidden) {
         return false;
     }
     bool any = false;
-    if (m_children.GetCount() != 0) {
-        unsigned int i = 0;
+    unsigned int count = m_children.GetCount();
+    unsigned int i = 0;
+    if (i < count) {
         do {
             if (m_children[i]->OnMouseMove(x, y)) {
                 any = true;
@@ -169,8 +197,9 @@ bool CWidget::MouseDownChildren(int x, int y)
         return false;
     }
     bool any = false;
-    if (m_children.GetCount() != 0) {
-        unsigned int i = 0;
+    unsigned int count = m_children.GetCount();
+    unsigned int i = 0;
+    if (i < count) {
         do {
             if (m_children[i]->OnMouseDown(x, y)) {
                 any = true;
@@ -187,8 +216,9 @@ bool CWidget::MouseUpChildren(int x, int y)
         return false;
     }
     bool any = false;
-    if (m_children.GetCount() != 0) {
-        unsigned int i = 0;
+    unsigned int count = m_children.GetCount();
+    unsigned int i = 0;
+    if (i < count) {
         do {
             if (m_children[i]->OnMouseUp(x, y)) {
                 any = true;
@@ -220,15 +250,18 @@ void CWidget::AddChild(CWidget *child)
 }
 
 /* 0x50e7d0. Recursively enable/disable this subtree (+0x1c); disabling
- * also drops the +0x04 active flag. */
+ * also drops the +0x04 active flag.
+ * score.sh: 210/3000 - effectively perfect (recursive self-call +
+ * AtlThrow guard, both unresolved as expected). */
 void CWidget::SetEnabled(bool enabled)
 {
     m_enabled = (u8)enabled;
     if (m_focused != 0) {
         m_focused = 0;
     }
-    if (m_children.GetCount() != 0) {
-        unsigned int i = 0;
+    unsigned int count = m_children.GetCount();
+    unsigned int i = 0;
+    if (i < count) {
         do {
             m_children[i]->SetEnabled(enabled);
             ++i;
