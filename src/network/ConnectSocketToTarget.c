@@ -6,6 +6,11 @@
  * and calls connect(); on success sets the connected flag (conn+0x22a=1).
  * Returns that flag. Invoked from HandleSocketEvent's op 2.
  *
+ * unaff_ESI (the connection object) arrives via a dropped ESI register;
+ * the sole caller (HandleSocketEvent.c) already computes the right value
+ * (param_1 + 0x28) but it was silently discarded against this function's
+ * previous (void) signature. Promoted to an explicit parameter.
+ *
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
@@ -13,14 +18,13 @@
 #include "ghidra_types.h"
 
 
-undefined1 ConnectSocketToTarget(void)
+undefined1 ConnectSocketToTarget(int unaff_ESI)
 
 {
   SOCKET SVar1;
   int iVar2;
-  int unaff_ESI;
   sockaddr local_10;
-  
+
   SVar1 = socket(2,1,0);
   *(SOCKET *)(unaff_ESI + 0x24) = SVar1;
   if (SVar1 != 0xffffffff) {
