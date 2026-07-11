@@ -15,47 +15,44 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
+/* Every call below dispatches through an EXPLICIT __stdcall function-pointer
+ * cast, not the generic `code` (K&R/unspecified-args) type used elsewhere in
+ * raw ports. `code()` has no prototype, so MSVC defaults it to __cdecl and
+ * emits a caller-side `add esp, N` after some of these calls to pop the
+ * arguments it *itself* pushed - but every one of these is a real COM vtable
+ * method, which is __stdcall and ALREADY pops its own args via `ret N` before
+ * returning. That is a double stack cleanup: the call leaves ESP N bytes
+ * higher than it should be, shrinking the slack between ESP and the saved
+ * EBP/return address by N bytes. Confirmed live (hardware watchpoint on the
+ * saved-EBP stack slot, fired from inside ddraw.dll) that this corrupts the
+ * caller's frame once enough such calls accumulate in one function - see
+ * SetupZBuffer.c for the full writeup. Giving every call site its real
+ * prototype makes MSVC skip the redundant caller-side cleanup entirely. */
+typedef HRESULT (WINAPI *QueryInterfaceFn)(void *, REFIID, void **);
+typedef HRESULT (WINAPI *SetCooperativeLevelFn)(void *, HWND, DWORD);
+typedef HRESULT (WINAPI *SetDisplayModeFn)(void *, DWORD, DWORD, DWORD, DWORD, DWORD);
+typedef HRESULT (WINAPI *CreateSurfaceFn)(void *, DDSURFACEDESC2 *, void **, IUnknown *);
+typedef HRESULT (WINAPI *GetAttachedSurfaceFn)(void *, DDSCAPS2 *, void **);
+typedef HRESULT (WINAPI *CreateClipperFn)(void *, DWORD, void **, IUnknown *);
+typedef HRESULT (WINAPI *SetHWndFn)(void *, DWORD, HWND);
+typedef HRESULT (WINAPI *SetClipperFn)(void *, void *);
+typedef HRESULT (WINAPI *CreateDeviceFn)(void *, REFCLSID, void *, void **);
+typedef HRESULT (WINAPI *SetViewportFn)(void *, void *);
+typedef HRESULT (WINAPI *EnumTextureFormatsFn)(void *, void *, LPVOID);
+typedef HRESULT (WINAPI *GetAvailableVidMemFn)(void *, DDSCAPS2 *, DWORD *, DWORD *);
+typedef HRESULT (WINAPI *SetRenderStateFn)(void *, DWORD, DWORD);
+typedef HRESULT (WINAPI *SetTextureStageStateFn)(void *, DWORD, DWORD, DWORD);
+
+/* Nth pointer-sized vtable slot (N = byte offset / 4). */
+#define VTBL(iface, n) (*(void ***)(iface))[n]
+
 byte InitDirectDraw(undefined4 param_1, HWND hWnd)
 
 {
-  int *piVar1;
-  char cVar2;
-  FARPROC pFVar3;
   int iVar4;
-  undefined4 *puVar5;
+  FARPROC pFVar3;
   IMAGE_DOS_HEADER *pIVar6;
-  undefined4 *puStack_158;
-  int *piStack_154;
-  undefined *puStack_150;
-  int *piStack_14c;
-  IMAGE_DOS_HEADER **ppIStack_148;
-  int *piStack_144;
-  undefined *puStack_140;
-  int **ppiStack_13c;
-  int *piStack_138;
-  int *piStack_134;
-  int *piStack_130;
-  undefined4 uStack_12c;
-  HWND pHStack_128;
-  int *piStack_124;
-  undefined4 uStack_120;
-  int **ppiStack_11c;
-  undefined4 uStack_118;
-  int *piStack_114;
-  int *piStack_110;
-  int **ppiStack_10c;
-  int **ppiStack_108;
-  int *piStack_104;
-  undefined4 *puStack_100;
-  int aiStack_b4 [3];
-  undefined4 uStack_a8;
-  undefined4 auStack_a4 [5];
-  undefined4 uStack_90;
-  undefined4 uStack_4c;
-  undefined4 uStack_3c;
-  /* Ghidra artifact: raw stack reference the decompiler couldn't map
-   * to a named local; declared so the raw port parses. */
-  undefined stack0xffffff20;
+  D3DVIEWPORT7 viewport;
   /* Real Win32 surface-description structs. The Ghidra decompile scattered
    * these fields across disconnected stack locals (auStack_a4/uStack_90/
    * uStack_3c/aiStack_b4), so CreateSurface saw a malformed DDSURFACEDESC2
@@ -63,6 +60,8 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
    * contiguous structs; field values recovered from orig 0x4efb81-0x4efcd0. */
   DDSURFACEDESC2 ddsd;
   DDSCAPS2 ddscaps;
+  DDSCAPS2 vidMemCaps;
+  DWORD vidMemTotal, vidMemFree;
 
   /* The main game window handle arrived in EAX in the original (a dropped
    * register arg in Ghidra's port); InitGame passes it explicitly now.
@@ -84,21 +83,19 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
   if (iVar4 < 0) {
     return 0x19;
   }
-  iVar4 = (**(code **)(*g_pDirectDraw7 + 0x50))
-                    (g_pDirectDraw7, DAT_007935ec, (DAT_00588f4c == '\0') ? 0xc13 : 0xc08);
-  piVar1 = g_pDirectDraw7;
+  iVar4 = ((SetCooperativeLevelFn)VTBL(g_pDirectDraw7, 0x14))
+                    (g_pDirectDraw7, (HWND)DAT_007935ec, (DAT_00588f4c == '\0') ? 0xc13 : 0xc08);
   if (iVar4 < 0) {
     return 0x18;
   }
   if (DAT_00588f4c == '\0') {
     /* SetDisplayMode(width, height, bpp, refresh, flags). The original passed
-     * ftol(DAT_00588f50) / ftol(DAT_00588f54) for width/height - FUN_0053753c
+     * ftol(DAT_00588f50) / ftol(DAT_00588f54) for width/height - FloatToInt64
      * is _ftol, fed the float via the x87 stack (a `flds` the recompiled
      * argless call never emits, so it returned garbage/0 and the mode came out
      * 0x0x0). DAT_00588f50/54 are now real floats; convert them directly. */
-    iVar4 = *g_pDirectDraw7;
-    iVar4 = (**(code **)(iVar4 + 0x54))
-                      (piVar1, (int)DAT_00588f50, (int)DAT_00588f54,
+    iVar4 = ((SetDisplayModeFn)VTBL(g_pDirectDraw7, 0x15))
+                      (g_pDirectDraw7, (DWORD)DAT_00588f50, (DWORD)DAT_00588f54,
                        DAT_00588f60, DAT_00588f48, 0);
     if (iVar4 < 0) {
       return 0x1c;
@@ -124,8 +121,8 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
     ddsd.dwFlags = DDSD_CAPS;                          /* 0x1 */
     ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;      /* 0x200 */
   }
-  iVar4 = (**(code **)(*g_pDirectDraw7 + 0x18))
-                    (g_pDirectDraw7, &ddsd, &g_pPrimarySurface, 0);
+  iVar4 = ((CreateSurfaceFn)VTBL(g_pDirectDraw7, 6))
+                    (g_pDirectDraw7, &ddsd, (void **)&g_pPrimarySurface, 0);
   if (iVar4 < 0) {
     return 0x1d;
   }
@@ -133,8 +130,8 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
     /* fullscreen: fetch the attached back buffer of the flip chain */
     ZeroMemory(&ddscaps, sizeof(ddscaps));
     ddscaps.dwCaps = DDSCAPS_BACKBUFFER;              /* 0x4 */
-    iVar4 = (**(code **)(*g_pPrimarySurface + 0x30))
-                      (g_pPrimarySurface, &ddscaps, &g_pBackBufferSurface);
+    iVar4 = ((GetAttachedSurfaceFn)VTBL(g_pPrimarySurface, 0xc))
+                      (g_pPrimarySurface, &ddscaps, (void **)&g_pBackBufferSurface);
     if (iVar4 < 0) {
       return 0x1f;
     }
@@ -148,98 +145,73 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
     ddsd.dwWidth = (DWORD)FloatToInt64();
     ddsd.dwHeight = (DWORD)FloatToInt64();
     ddsd.ddsCaps.dwCaps = 0x2040;                     /* 3DDEVICE|OFFSCREENPLAIN */
-    iVar4 = (**(code **)(*g_pDirectDraw7 + 0x18))
-                      (g_pDirectDraw7, &ddsd, &g_pBackBufferSurface, 0);
+    iVar4 = ((CreateSurfaceFn)VTBL(g_pDirectDraw7, 6))
+                      (g_pDirectDraw7, &ddsd, (void **)&g_pBackBufferSurface, 0);
     if (iVar4 < 0) {
       return 0x1e;
     }
   }
-  uStack_118 = 0;
-  ppiStack_11c = &g_pClipper;
-  uStack_120 = 0;
-  piStack_124 = g_pDirectDraw7;
-  pHStack_128 = (HWND)0x4efcf2;
-  (**(code **)(*g_pDirectDraw7 + 0x10))(g_pDirectDraw7, 0, &g_pClipper, 0);
-  pHStack_128 = DAT_007935ec;
-  uStack_12c = 0;
-  piStack_130 = g_pClipper;
-  piStack_134 = (int *)0x4efd05;
-  (**(code **)(*g_pClipper + 0x20))(g_pClipper, 0, DAT_007935ec);
-  piStack_134 = g_pClipper;
-  piStack_138 = g_pBackBufferSurface;
-  ppiStack_13c = (int **)0x4efd17;
-  (**(code **)(*g_pBackBufferSurface + 0x70))(g_pBackBufferSurface, g_pClipper);
-  ppiStack_13c = &g_pDirect3D7;
-  puStack_140 = &IID_IDirect3D7;
-  piStack_144 = g_pDirectDraw7;
-  ppIStack_148 = (IMAGE_DOS_HEADER **)0x4efd2b;
-  iVar4 = (**(code **)*g_pDirectDraw7)(g_pDirectDraw7, &IID_IDirect3D7, &g_pDirect3D7);
+  ((CreateClipperFn)VTBL(g_pDirectDraw7, 4))(g_pDirectDraw7, 0, (void **)&g_pClipper, 0);
+  ((SetHWndFn)VTBL(g_pClipper, 8))(g_pClipper, 0, DAT_007935ec);
+  ((SetClipperFn)VTBL(g_pBackBufferSurface, 0x1c))(g_pBackBufferSurface, g_pClipper);
+  iVar4 = ((QueryInterfaceFn)VTBL(g_pDirectDraw7, 0))
+                    (g_pDirectDraw7, &IID_IDirect3D7, (void **)&g_pDirect3D7);
   if (iVar4 < 0) {
     return 0x20;
   }
-  ppIStack_148 = &g_pD3DDevice7;
-  piStack_14c = g_pBackBufferSurface;
-  puStack_150 = &DAT_00f22504;
-  piStack_154 = g_pDirect3D7;
-  puStack_158 = (undefined4 *)0x4efd57;
-  iVar4 = (**(code **)(*g_pDirect3D7 + 0x10))(g_pDirect3D7, &DAT_00f22504, g_pBackBufferSurface, &g_pD3DDevice7);
+  iVar4 = ((CreateDeviceFn)VTBL(g_pDirect3D7, 4))
+                    (g_pDirect3D7, &DAT_00f22504, g_pBackBufferSurface, (void **)&g_pD3DDevice7);
   if (iVar4 < 0) {
     return 0x21;
   }
-  uStack_120 = 0;
-  ppiStack_11c = (int **)0x0;
-  puStack_158 = (undefined4 *)0x4efd7a;
-  uStack_118 = FloatToInt64();
-  puStack_158 = (undefined4 *)0x4efd89;
-  piStack_114 = (int *)FloatToInt64();
-  puStack_158 = &uStack_120;
-  piStack_110 = (int *)0x0;
-  ppiStack_10c = (int **)0x3f800000;
-  iVar4 = (**(code **)(*(int *)g_pD3DDevice7 + 0x34))(g_pD3DDevice7, &uStack_120);
+  /* D3DVIEWPORT7{dwX=0, dwY=0, dwWidth, dwHeight, dvMinZ=0.0, dvMaxZ=1.0}.
+   * Recovered from the original's disconnected locals at 0x4efd7a-0x4efd9d:
+   * width/height came from the SAME ftol(DAT_00588f50/54) pair used for
+   * SetDisplayMode, dvMinZ=0 and dvMaxZ=1.0 (bit pattern 0x3f800000). */
+  ZeroMemory(&viewport, sizeof(viewport));
+  viewport.dwWidth = (DWORD)DAT_00588f50;
+  viewport.dwHeight = (DWORD)DAT_00588f54;
+  viewport.dvMaxZ = 1.0f;
+  iVar4 = ((SetViewportFn)VTBL(g_pD3DDevice7, 0xd))(g_pD3DDevice7, &viewport);
   if (iVar4 < 0) {
     return 0x22;
   }
-  pIVar6 = g_pD3DDevice7;
-  iVar4 = (**(code **)(*(int *)g_pD3DDevice7 + 0x10))(g_pD3DDevice7,EnumTextureFormatsCallback,0);
+  pIVar6 = (IMAGE_DOS_HEADER *)g_pD3DDevice7;
+  iVar4 = ((EnumTextureFormatsFn)VTBL(g_pD3DDevice7, 4))
+                    (g_pD3DDevice7, EnumTextureFormatsCallback, 0);
   if (iVar4 < 0) {
     return 0x23;
   }
-  puStack_150 = (undefined *)0x0;
-  piStack_14c = (int *)0x0;
-  ppIStack_148 = (IMAGE_DOS_HEADER **)0x0;
-  piStack_154 = (int *)0x1000;
-  (**(code **)(*g_pDirectDraw7 + 0x5c))(g_pDirectDraw7,&piStack_154,&puStack_158,&ppiStack_11c);
+  /* DDSCAPS2{dwCaps=DDSCAPS_TEXTURE, rest 0}; recovered from orig 0x4efd2e-0x4efd52. */
+  ZeroMemory(&vidMemCaps, sizeof(vidMemCaps));
+  vidMemCaps.dwCaps = DDSCAPS_TEXTURE;
+  ((GetAvailableVidMemFn)VTBL(g_pDirectDraw7, 0x17))
+      (g_pDirectDraw7, &vidMemCaps, &vidMemTotal, &vidMemFree);
   if (pIVar6 < &IMAGE_DOS_HEADER_00400000) {
     return 0x1b;
   }
   FUN_004f3e40();
   FUN_004f3a00();
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x28,1);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x94))(g_pD3DDevice7,0,0x10,5);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x94))(g_pD3DDevice7,0,0x11,3);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x94))(g_pD3DDevice7,1,0x10,5);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x94))(g_pD3DDevice7,1,0x11,3);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x94))(g_pD3DDevice7,0,2,2);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x94))(g_pD3DDevice7,0,3,0);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x94))(g_pD3DDevice7,0,5,2);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x94))(g_pD3DDevice7,0,6,0);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x94))(g_pD3DDevice7,0,1,4);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x94))(g_pD3DDevice7,0,4,4);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x50))(g_pD3DDevice7,8,3);
-  (**(code **)(*(int *)g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x88,1);
+  ((SetRenderStateFn)VTBL(g_pD3DDevice7, 0x14))(g_pD3DDevice7,0x13,5);
+  ((SetRenderStateFn)VTBL(g_pD3DDevice7, 0x14))(g_pD3DDevice7,0x14,6);
+  ((SetRenderStateFn)VTBL(g_pD3DDevice7, 0x14))(g_pD3DDevice7,0x28,1);
+  ((SetTextureStageStateFn)VTBL(g_pD3DDevice7, 0x25))(g_pD3DDevice7,0,0x10,5);
+  ((SetTextureStageStateFn)VTBL(g_pD3DDevice7, 0x25))(g_pD3DDevice7,0,0x11,3);
+  ((SetTextureStageStateFn)VTBL(g_pD3DDevice7, 0x25))(g_pD3DDevice7,1,0x10,5);
+  ((SetTextureStageStateFn)VTBL(g_pD3DDevice7, 0x25))(g_pD3DDevice7,1,0x11,3);
+  ((SetTextureStageStateFn)VTBL(g_pD3DDevice7, 0x25))(g_pD3DDevice7,0,2,2);
+  ((SetTextureStageStateFn)VTBL(g_pD3DDevice7, 0x25))(g_pD3DDevice7,0,3,0);
+  ((SetTextureStageStateFn)VTBL(g_pD3DDevice7, 0x25))(g_pD3DDevice7,0,5,2);
+  ((SetTextureStageStateFn)VTBL(g_pD3DDevice7, 0x25))(g_pD3DDevice7,0,6,0);
+  ((SetTextureStageStateFn)VTBL(g_pD3DDevice7, 0x25))(g_pD3DDevice7,0,1,4);
+  ((SetTextureStageStateFn)VTBL(g_pD3DDevice7, 0x25))(g_pD3DDevice7,0,4,4);
+  ((SetRenderStateFn)VTBL(g_pD3DDevice7, 0x14))(g_pD3DDevice7,8,3);
+  ((SetRenderStateFn)VTBL(g_pD3DDevice7, 0x14))(g_pD3DDevice7,0x88,1);
   OpenXFSArchive(&g_graphicsArchive,param_1,1,0);
   _DAT_00f23658 = 600;
   _DAT_00f23654 = 800;
-  puVar5 = DAT_00f22650;
-  for (iVar4 = 0x400; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *puVar5 = 0;
-    puVar5 = puVar5 + 1;
-  }
+  ZeroMemory(DAT_00f22650, sizeof(DAT_00f22650));
   _DAT_00f23650 = 0;
   DAT_00f2465c = 0;
-  cVar2 = SetupZBuffer();
-  return -(cVar2 != '\x01') & 100;
+  return SetupZBuffer() ? 0 : 100;
 }
-
