@@ -18,7 +18,7 @@ undefined4 FUN_004fce60(void)
   iVar2 = 0;
   if (0 < *(int *)(unaff_EDI + 0x280) + 1) {
     do {
-      sVar1 = FUN_004f5e10(iVar2 + unaff_EBX);
+      sVar1 = DecodeCipherBlock(iVar2 + unaff_EBX);
       if (sVar1 != 1) {
         return 0;
       }

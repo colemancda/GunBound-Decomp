@@ -26,9 +26,9 @@ void BuildSystemInfoBlob(undefined4 *param_1)
   
   local_4 = 0;
   FUN_004f48b0(2);
-  FUN_004f5e10(&local_24c,local_20c);
-  FUN_004f5e10(&local_23c,local_20c);
-  FUN_004f5e10(local_22c,local_20c);
+  DecodeCipherBlock(&local_24c,local_20c);
+  DecodeCipherBlock(&local_23c,local_20c);
+  DecodeCipherBlock(local_22c,local_20c);
   *param_1 = local_24c;
   param_1[1] = local_248;
   param_1[2] = local_244;

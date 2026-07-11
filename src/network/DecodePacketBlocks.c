@@ -1,4 +1,4 @@
-/* FUN_004f7150 - 0x004f7150 in the original binary.
+/* DecodePacketBlocks - 0x004f7150 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -9,7 +9,7 @@
 
 
 undefined4 __thiscall
-FUN_004f7150(undefined4 *param_1,int param_2,ushort param_3,undefined4 param_4,int param_5)
+DecodePacketBlocks(undefined4 *param_1,int param_2,ushort param_3,undefined4 param_4,int param_5)
 
 {
   short sVar1;
@@ -38,7 +38,7 @@ FUN_004f7150(undefined4 *param_1,int param_2,ushort param_3,undefined4 param_4,i
   if (0 < iVar3) {
     iVar4 = 0;
     do {
-      sVar1 = FUN_004f5e10(&local_10,param_2);
+      sVar1 = DecodeCipherBlock(&local_10,param_2);
       if ((sVar1 != 1) || (local_10 != (uint)param_3 + *(int *)(param_2 + 0x20c))) {
         return 0;
       }

@@ -89,6 +89,27 @@ with **SHA-1** (initialised with the standard SHA-1 constants `0x67452301`,
 `0xefcdab89`, `0x98badcfe`, `0x10325476`, `0xc3d2e1f0`) over a 16-byte per-connection
 key. (The SHA-1 primitives `FUN_004f7380`/`004f7600` remain unnamed.)
 
+**Receive side** (the inverse). `ReceiveFramedPackets` (Winsock `recv`) fills a
+per-connection ring buffer; `ProcessIncomingPackets` (`0x4d27e0`) drains it each
+tick:
+
+    ReceiveFramedPackets (recv) -> ring buffer
+    ProcessIncomingPackets:
+      - validate the LCG sequence tag (state*0x343fd + 0x29ac03) against the header
+      - read header: [seq][opcode][payload...]
+      - for encrypted opcodes -> `DecodePacketBlocks` (16-byte blocks -> 12 bytes
+        each, the inverse of EncodePacketBlocks; loops `DecodeCipherBlock` and
+        checks a per-block sequence tag)
+      - dispatch: `SendMessageA(hwnd, 0x464, ...)` posts the decoded packet to the
+        active screen's message handler (or shows an error dialog for error
+        opcodes), then `WriteReplayEventRecord` logs it.
+
+So the cipher is symmetric: `EncodeCipherBlock` (12->16) / `DecodeCipherBlock`
+(16->12) are the per-block primitives, wrapped by `EncodePacketBlocks` /
+`DecodePacketBlocks`. Not every opcode is body-encrypted — `ProcessIncomingPackets`
+only decodes a specific opcode set (e.g. `0x4102`, `0x3432`, `0x6001`, `0x6002`,
+`0x4106`, `0x4410`, `0x1021`, `0x1032`/`0x1033`, `0x201f`).
+
 ### Channel 1 header
 
 Just the three parameters passed to `ProcessPacket`:

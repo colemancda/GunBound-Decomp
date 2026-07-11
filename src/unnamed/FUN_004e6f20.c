@@ -22,7 +22,7 @@ void FUN_004e6f20(undefined4 *param_1,uint param_2)
   if (0 < iVar1) {
     puVar3 = param_1;
     do {
-      FUN_004f5e10((undefined1 *)(((int)local_400 - (int)param_1) + (int)puVar3),in_EAX + 0x44ff8);
+      DecodeCipherBlock((undefined1 *)(((int)local_400 - (int)param_1) + (int)puVar3),in_EAX + 0x44ff8);
       puVar3 = puVar3 + 4;
       iVar1 = iVar1 + -1;
     } while (iVar1 != 0);

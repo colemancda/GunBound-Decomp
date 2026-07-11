@@ -124,7 +124,7 @@ LAB_004d2a70:
     iVar6 = local_24e4 + -4;
     puVar16 = lParam;
 LAB_004d2a90:
-    FUN_004f7150(uVar7,uVar2,puVar16,0x2000);
+    DecodePacketBlocks(uVar7,uVar2,puVar16,0x2000);
     iVar6 = (int)(iVar6 + (iVar6 >> 0x1f & 0xfU)) >> 4;
     uVar13 = iVar6 * 0xc;
     puVar15 = local_200c;

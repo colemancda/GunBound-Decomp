@@ -36,7 +36,7 @@ undefined4 __thiscall FUN_004f72b0(undefined4 *param_1,int param_2,undefined4 pa
   if (0 < iVar3) {
     iVar4 = 0;
     do {
-      sVar1 = FUN_004f5e10(&local_10,param_2);
+      sVar1 = DecodeCipherBlock(&local_10,param_2);
       if ((sVar1 != 1) || (local_10 != *(int *)(param_2 + 0x20c))) {
         return 0;
       }

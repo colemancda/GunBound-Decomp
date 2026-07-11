@@ -1327,7 +1327,7 @@ void FUN_004f47e0();
 undefined * __fastcall FUN_004f4810();
 int __fastcall FUN_004f48b0();
 uint __fastcall EncodeCipherBlock();
-undefined4 __fastcall FUN_004f5e10();
+undefined4 __fastcall DecodeCipherBlock();
 undefined4 FUN_004f6f10();
 uint EncodeHandshakeBlock();
 undefined4 EncodePacketBlocks();

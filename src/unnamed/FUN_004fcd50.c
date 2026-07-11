@@ -14,7 +14,7 @@ void __thiscall FUN_004fcd50(int param_1,undefined4 param_2)
   
   if (0 < in_EAX) {
     do {
-      FUN_004f5e10(param_1,param_2);
+      DecodeCipherBlock(param_1,param_2);
       param_1 = param_1 + 0x10;
       in_EAX = in_EAX + -1;
     } while (in_EAX != 0);
