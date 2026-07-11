@@ -11,50 +11,25 @@
 undefined4 __fastcall FUN_004edd70(int param_1)
 
 {
-  int *piVar1;
-  int iVar2;
-  undefined4 uStack_38;
-  int *piStack_34;
-  undefined *puStack_30;
-  int *piStack_2c;
-  int iStack_28;
-  int *piStack_24;
-  undefined4 uStack_20;
-  undefined4 uStack_14;
-  
-  uStack_20 = 0;
-  piVar1 = (int *)(param_1 + 4);
-  iStack_28 = param_1 + 8;
-  piStack_2c = DAT_00674f68;
-  puStack_30 = (undefined *)0x4edd8c;
-  piStack_24 = piVar1;
-  iVar2 = (**(int (**)())(*DAT_00674f68 + 0xc))();
-  if (-1 < iVar2) {
-    piStack_34 = (int *)*piVar1;
-    puStack_30 = &DAT_0054b420;
-    uStack_38 = 0x4edd9d;
-    iVar2 = (**(int (**)())(*piStack_34 + 0x2c))();
-    if (-1 < iVar2) {
-      uStack_38 = 6;
-      iVar2 = (**(int (**)())(*(int *)*piVar1 + 0x34))((int *)*piVar1,uStack_14);
-      if (-1 < iVar2) {
-        uStack_38 = 0x14;
-        piStack_34 = (int *)0x10;
-        puStack_30 = (undefined *)0x0;
-        piStack_2c = (int *)0x0;
-        iStack_28 = 0x40;
-        iVar2 = (**(int (**)())(*(int *)*piVar1 + 0x18))((int *)*piVar1,1,&uStack_38);
-        if (-1 < iVar2) {
-          piVar1 = (int *)*piVar1;
-          if (piVar1 != (int *)0x0) {
-            (**(int (**)())(*piVar1 + 0x1c))(piVar1);
-          }
-          *(undefined1 *)(param_1 + 0x54) = 1;
-          return 1;
-        }
-      }
-    }
-  }
+  /* BRING-UP WORKAROUND: skip DirectInput keyboard-device acquisition.
+   *
+   * Ghidra's decompile at THIS call site is unusable as-is: InitGame.c calls
+   * FUN_004edd70(param_1) passing its OWN param_1 (the window handle), but
+   * the original disassembly (0x40ecb0-0x40ecb5) shows the real caller
+   * loads ECX with a FIXED GLOBAL STRUCT ADDRESS (0xe52810) instead - Ghidra
+   * gave both unrelated values the same "param_1" name. That struct's field
+   * at +8 holds a REFGUID (recovered as an argument to
+   * IDirectInput8::CreateDevice at vtbl+0xc, per 0x4edd7e-0x4edd89) that in
+   * turn needs its own runtime constructor (FUN_004edce0 called from
+   * WinMain-level startup, 0x4100ab/0x4100b0) to populate correctly, and the
+   * whole thing chains into more vtable calls (SetCooperativeLevel-style at
+   * +0x2c, SetDataFormat-style at +0x34, SetProperty-style at +0x18) whose
+   * struct layouts aren't recovered yet either.
+   *
+   * None of this blocks reaching the logo/menu states (they're 2-D sprite
+   * blits; DirectInput device binding only matters once real keyboard/mouse
+   * input needs processing), so skip it for bring-up. Revisit once the
+   * 0xe52810 struct's real field layout is understood. */
   return 0;
 }
 

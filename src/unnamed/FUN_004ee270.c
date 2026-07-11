@@ -11,50 +11,15 @@
 undefined4 __fastcall FUN_004ee270(int param_1)
 
 {
-  int *piVar1;
-  int iVar2;
-  undefined4 uStack_38;
-  int *piStack_34;
-  undefined *puStack_30;
-  int *piStack_2c;
-  int iStack_28;
-  int *piStack_24;
-  undefined4 uStack_20;
-  undefined4 uStack_14;
-  
-  uStack_20 = 0;
-  piVar1 = (int *)(param_1 + 4);
-  iStack_28 = param_1 + 8;
-  piStack_2c = DAT_00674f68;
-  puStack_30 = (undefined *)0x4ee28c;
-  piStack_24 = piVar1;
-  iVar2 = (**(int (**)())(*DAT_00674f68 + 0xc))();
-  if (-1 < iVar2) {
-    piStack_34 = (int *)*piVar1;
-    puStack_30 = &DAT_0054b438;
-    uStack_38 = 0x4ee29d;
-    iVar2 = (**(int (**)())(*piStack_34 + 0x2c))();
-    if (-1 < iVar2) {
-      uStack_38 = 6;
-      iVar2 = (**(int (**)())(*(int *)*piVar1 + 0x34))((int *)*piVar1,uStack_14);
-      if (-1 < iVar2) {
-        uStack_38 = 0x14;
-        piStack_34 = (int *)0x10;
-        puStack_30 = (undefined *)0x0;
-        piStack_2c = (int *)0x0;
-        iStack_28 = 0x40;
-        iVar2 = (**(int (**)())(*(int *)*piVar1 + 0x18))((int *)*piVar1,1,&uStack_38);
-        if (-1 < iVar2) {
-          piVar1 = (int *)*piVar1;
-          if (piVar1 != (int *)0x0) {
-            (**(int (**)())(*piVar1 + 0x1c))(piVar1);
-          }
-          *(undefined1 *)(param_1 + 0x54) = 1;
-          return 1;
-        }
-      }
-    }
-  }
+  /* BRING-UP WORKAROUND: skip DirectInput mouse-device acquisition.
+   *
+   * Same situation as FUN_004edd70 (the keyboard counterpart, called right
+   * before this in InitGame) - Ghidra gave the real caller's fixed global
+   * struct address (0xe53698, per orig 0x40ecbb) the same "param_1" name as
+   * InitGame's own window-handle parameter, and the struct's field layout
+   * (REFGUID at +8, populated by a separate runtime constructor) isn't
+   * recovered yet. Not required to reach the logo/menu states; see
+   * FUN_004edd70.c for the full writeup. */
   return 0;
 }
 

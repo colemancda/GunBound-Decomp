@@ -17,66 +17,20 @@
 void LoadButtonDefinitionFromXFS(void)
 
 {
-  void *_Memory;
-  void *pvVar1;
-  int iVar2;
-  int iVar3;
-  uint *unaff_EBX;
-  int iVar4;
-  int local_4;
-  
-  _Memory = (void *)FUN_004f1390(0);
-  if (_Memory != (void *)0x0) {
-    ReadXFSEntryByte(_Memory,unaff_EBX);
-    pvVar1 = operator_new(*unaff_EBX << 2);
-    unaff_EBX[1] = (uint)pvVar1;
-    pvVar1 = operator_new(*unaff_EBX);
-    unaff_EBX[2] = (uint)pvVar1;
-    pvVar1 = operator_new(*unaff_EBX << 2);
-    unaff_EBX[3] = (uint)pvVar1;
-    pvVar1 = operator_new(*unaff_EBX << 2);
-    unaff_EBX[4] = (uint)pvVar1;
-    pvVar1 = operator_new(*unaff_EBX << 2);
-    unaff_EBX[5] = (uint)pvVar1;
-    iVar4 = 0;
-    if (0 < (int)*unaff_EBX) {
-      while (iVar2 = ReadXFSEntryByte(_Memory,&local_4), iVar2 != -1) {
-        pvVar1 = operator_new(local_4 + 1);
-        iVar2 = iVar4 * 4;
-        *(void **)(iVar2 + unaff_EBX[1]) = pvVar1;
-        iVar3 = ReadXFSEntryByte(_Memory,*(undefined4 *)(iVar2 + unaff_EBX[1]));
-        if (iVar3 == -1) break;
-        *(undefined1 *)(local_4 + *(int *)(iVar2 + unaff_EBX[1])) = 0;
-        iVar3 = ReadXFSEntryByte(_Memory,unaff_EBX[2] + iVar4);
-        if ((iVar3 == -1) || (iVar3 = ReadXFSEntryByte(_Memory,unaff_EBX[3] + iVar2), iVar3 == -1))
-        break;
-        pvVar1 = operator_new(*(int *)(iVar2 + unaff_EBX[3]) << 2);
-        *(void **)(iVar2 + unaff_EBX[4]) = pvVar1;
-        pvVar1 = operator_new(*(int *)(iVar2 + unaff_EBX[3]) << 2);
-        *(void **)(iVar2 + unaff_EBX[5]) = pvVar1;
-        iVar3 = ReadXFSEntryByte(_Memory,*(undefined4 *)(unaff_EBX[4] + iVar2));
-        if ((iVar3 == -1) ||
-           ((iVar2 = ReadXFSEntryByte(_Memory,*(undefined4 *)(iVar2 + unaff_EBX[5])), iVar2 == -1 ||
-            (iVar4 = iVar4 + 1, (int)*unaff_EBX <= iVar4)))) break;
-      }
-    }
-    if (*(char *)((int)_Memory + 0x1018) == '\0') {
-      if ((*(int *)((int)_Memory + 0x100c) != 0) &&
-         (*(int *)(*(int *)((int)_Memory + 0x1004) + 0x70) == 0)) {
-        FUN_004f0530();
-      }
-      iVar4 = *(int *)((int)_Memory + 0x1004);
-      if (*(int *)(iVar4 + 0x70) == 1) {
-        iVar4 = *(int *)(iVar4 + 0x78);
-      }
-      else {
-        iVar4 = *(int *)(iVar4 + 0x7c);
-      }
-      _DAT_00f11de0 = _DAT_00f11de0 + iVar4;
-      DAT_00f12e14 = 0;
-    }
-    _free(_Memory);
-  }
+  /* BRING-UP WORKAROUND: skip button-definition loading entirely.
+   *
+   * Two dropped-register issues, neither with a quick fix: FUN_004f1390(0)
+   * needs an XFSArchive* and a name string via implicit EDI/EAX registers
+   * inherited from the caller's own context (see FUN_004eae60.c for the
+   * same situation), and this function's OWN output buffer (unaff_EBX) is
+   * ALSO a dropped register never assigned anywhere in the decompiled body -
+   * it's used as a 6-int header (count + 5 allocated array pointers) that
+   * some caller-side local must have supplied. Recovering either means
+   * tracing register provenance through multiple call levels.
+   *
+   * This loads clickable-button hit-test/icon definitions - not required to
+   * reach the logo/menu render loop (which is what bring-up targets); revisit
+   * once the archive/name/output-buffer provenance is understood. */
   return;
 }
 
