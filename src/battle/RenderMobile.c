@@ -61,8 +61,8 @@ void __fastcall RenderMobile(int param_1)
         iVar5 = *(int *)(g_clientContext + 0x1fe2c);
         iVar10 = *(int *)(g_clientContext + 0x1fe30);
         if (iVar5 != 0) {
-          FUN_0045b900(iVar5,iVar10);
-          FUN_0045b900(iVar10 / 2 + iVar5,iVar10);
+          BlitSpriteDirect(iVar5,iVar10);
+          BlitSpriteDirect(iVar10 / 2 + iVar5,iVar10);
         }
       }
     }
@@ -77,7 +77,7 @@ void __fastcall RenderMobile(int param_1)
     else {
       uVar7 = *(undefined4 *)(param_1 + 0x18);
     }
-    FUN_0045b730(uVar7,*(undefined4 *)(param_1 + 0x68),
+    BlitSpriteAttached(uVar7,*(undefined4 *)(param_1 + 0x68),
                  (*(int *)(g_clientContext + 0x1fe4c + uVar4 * 4) * uVar13 + iVar14) * 0x80 +
                  *(int *)(g_clientContext + 0x1fe44 + uVar4 * 4),iVar10);
     uVar6 = *(uint *)(param_1 + 8) >> 2 & 1;
@@ -87,7 +87,7 @@ void __fastcall RenderMobile(int param_1)
     else {
       uVar7 = *(undefined4 *)(param_1 + 0x18);
     }
-    uVar6 = FUN_0045b730(uVar7,*(undefined4 *)(param_1 + 0x68),
+    uVar6 = BlitSpriteAttached(uVar7,*(undefined4 *)(param_1 + 0x68),
                          (*(int *)(iVar8 + 0x1fe5c + uVar6 * 4) * uVar13 + iVar14) * 0x80 +
                          *(int *)(iVar8 + 0x1fe54 + uVar6 * 4),iVar10);
     *(uint *)(iVar8 + ((*(uint *)(param_1 + 8) & 7) + 0x154c) * 0x18) = uVar6 & 0xff;
@@ -133,11 +133,11 @@ void __fastcall RenderMobile(int param_1)
       iVar8 = g_clientContext;
       *(undefined4 *)(g_clientContext + 0x1ff1c + (*(uint *)(param_1 + 8) & 7) * 0x18) =
            *(undefined4 *)(&DAT_0056d468 + (iVar9 * 0x1e + *(int *)(param_1 + 0x24)) * 4);
-      FUN_0045b900((uVar13 * iVar10 + iVar14) * 0x80 + iVar5,iVar10);
+      BlitSpriteDirect((uVar13 * iVar10 + iVar14) * 0x80 + iVar5,iVar10);
       if (*(int *)(iVar8 + 0x1fe34 + (*(uint *)(param_1 + 8) >> 2 & 1) * 4) != 0) {
         uVar6 = *(uint *)(param_1 + 8) >> 2 & 1;
         iVar5 = *(int *)(iVar8 + 0x1fe3c + uVar6 * 4);
-        FUN_0045b900((iVar5 * uVar13 + iVar14) * 0x80 + *(int *)(iVar8 + 0x1fe34 + uVar6 * 4),iVar5)
+        BlitSpriteDirect((iVar5 * uVar13 + iVar14) * 0x80 + *(int *)(iVar8 + 0x1fe34 + uVar6 * 4),iVar5)
         ;
       }
       cVar3 = FUN_00406610(*(int *)(param_1 + 0x24) != 0xe);

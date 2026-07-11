@@ -607,8 +607,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00458b80,6590,InitMobile,false,17,8,RAW-src
 0045a540,31,FUN_0045a540,false,1,2,RAW-src
 0045a560,4559,FUN_0045a560,false,17,4,RAW-src
-0045b730,453,FUN_0045b730,false,4,0,RAW-src
-0045b900,336,FUN_0045b900,false,4,0,RAW-src
+0045b730,453,BlitSpriteAttached,false,4,0,RAW-src
+0045b900,336,BlitSpriteDirect,false,4,0,RAW-src
 0045ba50,3207,FUN_0045ba50,false,2,17,RAW-src
 0045c6e0,1133,ComputeMobileGroundY,false,17,10,RAW-src
 0045cb50,1521,FUN_0045cb50,false,1,24,RAW-src

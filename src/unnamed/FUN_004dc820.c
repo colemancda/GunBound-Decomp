@@ -65,7 +65,7 @@ void __fastcall FUN_004dc820(int param_1)
         uVar7 = *(undefined4 *)(local_14[1] + 0x30);
         iVar4 = iVar2 + 5000;
       }
-      FUN_0045b730(iVar4,uVar7,
+      BlitSpriteAttached(iVar4,uVar7,
                    (uVar6 * iVar8 + iVar3) * 0x80 + *(int *)(iVar5 + 0x1fe44 + uVar1 * 4),iVar8);
       iVar8 = *(int *)(iVar5 + 0x1fe5c + uVar1 * 4);
       if (iVar2 == -1) {
@@ -76,7 +76,7 @@ void __fastcall FUN_004dc820(int param_1)
         uVar7 = *(undefined4 *)(local_14[1] + 0x30);
         iVar2 = iVar2 + 5000;
       }
-      FUN_0045b730(iVar2,uVar7,
+      BlitSpriteAttached(iVar2,uVar7,
                    (uVar6 * iVar8 + iVar3) * 0x80 + *(int *)(iVar5 + 0x1fe54 + uVar1 * 4),iVar8);
     }
     local_8 = local_8 + 2;

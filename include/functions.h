@@ -656,7 +656,7 @@ void FUN_004585e0();
 undefined4 *InitMobile(); /* 0x458b80 - mobile base ctor (sets base vtable 0x555c68) */
 void * __thiscall FUN_0045a540();
 void FUN_0045a560();
-void __fastcall FUN_0045b900();
+void __fastcall BlitSpriteDirect();
 void FUN_0045ba50();
 int __fastcall ComputeMobileGroundY();
 void __fastcall FUN_0045cb50();

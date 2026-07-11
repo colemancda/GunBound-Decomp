@@ -1,4 +1,4 @@
-/* FUN_0045b900 - 0x0045b900 in the original binary.
+/* BlitSpriteDirect - 0x0045b900 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0045b900(undefined4 param_1,uint param_2,int param_3,int param_4)
+void __fastcall BlitSpriteDirect(undefined4 param_1,uint param_2,int param_3,int param_4)
 
 {
   int iVar1;

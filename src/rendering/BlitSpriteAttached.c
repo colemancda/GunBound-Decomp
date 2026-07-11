@@ -1,4 +1,4 @@
-/* FUN_0045b730 - 0x0045b730 in the original binary.
+/* BlitSpriteAttached - 0x0045b730 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -8,7 +8,7 @@
 
 
 uint __fastcall
-FUN_0045b730(undefined4 param_1,uint param_2,uint param_3,uint param_4,int param_5,int param_6)
+BlitSpriteAttached(undefined4 param_1,uint param_2,uint param_3,uint param_4,int param_5,int param_6)
 
 {
   int iVar1;

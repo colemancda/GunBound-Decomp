@@ -73,10 +73,12 @@ public:
      * color/AI counters. Dispatches to several other vtable slots. */
     virtual void v2_SimulateFrame();
     /* slot 3 +0x0c: 0x462900 = RenderMobile (shared) - the mobile draw pass:
-     * blits the tank sprite (FUN_0045b730/b900), draws the aim/trajectory
-     * markers (BlitRLESprite) from the fire angle via trig (FUN_004ead90/70 ->
-     * FloatToInt64), and sprintf's a "%d,%d" coordinate overlay drawn
-     * digit-by-digit; populates the per-slot turn-display array. */
+     * blits the tank sprite via BlitSpriteAttached (0x45b730) / BlitSpriteDirect
+     * (0x45b900) - direct (non-RLE) sprite copies clipped to the 128x128 tile -
+     * draws the aim/trajectory markers (BlitRLESprite), and sprintf's a "%d,%d"
+     * coordinate overlay drawn digit-by-digit; populates the per-slot
+     * turn-display array. (The +0x90c fire-angle field is fed through the
+     * FUN_004ead90/70 = (x+90)/360 and x/360 helpers, then FloatToInt64.) */
     virtual void v3_Render();
     /* slot 4 +0x10: 0x429800 (shared) - no-op (`return;`). */
     virtual void v4_NoOp();
