@@ -1565,7 +1565,7 @@ LAB_004c6daa:
         }
         iVar5 = *(int *)(g_clientContext + 0x621e0);
         if (*(int *)(g_clientContext + 0x621e4) == iVar5) {
-          FUN_0040a500(iVar5 + 0x62f8,auStack_774);
+          EncodeChecksumNegate(iVar5 + 0x62f8,auStack_774);
           uStack_100 = 5;
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           PeekPacketChecksumState();
@@ -1591,7 +1591,7 @@ LAB_004c6f6d:
           }
         }
         else {
-          FUN_0040a500(iVar5 + 0x62f8,&piStack_a18);
+          EncodeChecksumNegate(iVar5 + 0x62f8,&piStack_a18);
           uStack_100 = 6;
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           PeekPacketChecksumState();
@@ -1986,7 +1986,7 @@ LAB_004c7ef8:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar6 == 0xf) goto LAB_004c7ef8;
     }
-    FUN_0040a500(*(int *)(g_clientContext + 0x621e4) + 0x62f8,auStack_32c);
+    EncodeChecksumNegate(*(int *)(g_clientContext + 0x621e4) + 0x62f8,auStack_32c);
     uStack_100 = 0xc;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();

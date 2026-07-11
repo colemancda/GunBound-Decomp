@@ -906,7 +906,7 @@ void *PTR_DAT_00568800;
 void *PTR_DAT_00568810;
 void *PTR_DAT_0056d460;
 /* 100 x 0x9bc (2492) item records; itemdata.dat loaded here. See FindItemRecordByIcon. */
-uint8_t g_abItemRecords[249200];
+uint8_t g_abItemRecords[2492];  /* one record; array is up to 100 x 0x9bc, see FindItemRecordByIcon */
 void *PTR_FUN_00544b5c;
 void *PTR_FUN_00544b68;
 void *PTR_FUN_00544b74;

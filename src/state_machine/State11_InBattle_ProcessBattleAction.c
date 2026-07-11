@@ -1101,7 +1101,7 @@ LAB_004b7fb2:
         *(undefined1 *)(iVar4 + 0x4d4 + iVar6) =
              *(undefined1 *)(*(int *)(iVar10 + 0x621e0) + 0xb0ac);
         *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 1;
-        FUN_004d2680();
+        SendOutgoingPacket();
         Replay_AppendEvent(0xc304);
         iVar4 = g_clientContext;
         *(undefined4 *)(&g_replayEventBuffer + g_replayEventCursor) =
@@ -1240,9 +1240,9 @@ LAB_004b7fb2:
                 cVar2 = *pcVar5;
                 pcVar5 = pcVar5 + 1;
               } while (cVar2 != '\0');
-              FUN_004d2530(local_26d8);
+              AppendPacketBytes(local_26d8);
               FUN_004d25e0();
-              FUN_004d2680();
+              SendOutgoingPacket();
             }
             local_c = 0xffffffff;
             ScrubChecksumGuard();

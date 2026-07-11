@@ -47,7 +47,7 @@ extern const char s_active_00551e58[];
 extern const char s_ready_00551e80[];
 void FUN_00406300(int enabled);
 void ShowErrorDialog(int mode);
-void FUN_004d2680(void);            /* flush/send the pending channel-1 packet */
+void SendOutgoingPacket(void);            /* flush/send the pending channel-1 packet */
 char PeekPacketChecksumBool(void);                /* mode check gating the page-offset source */
 void SetGuardedBool(int a);
 void FUN_004d24f0(void);
@@ -238,7 +238,7 @@ void CState02ServerSelect::OnTick()
     if (m_sendHandshake != 0) {
         *(unsigned short *)(cfg + 0x4d4) = 0x1000;
         *(int *)(cfg + 0x44d0) = 6;
-        FUN_004d2680();
+        SendOutgoingPacket();
         m_sendHandshake = 0;
     }
     unsigned char *ctx = (unsigned char *)DAT_007934f0;
@@ -262,7 +262,7 @@ void CState02ServerSelect::OnTick()
                 (unsigned short)(*(unsigned short *)((unsigned char *)g_clientContext + 0x3b96b) >> 4);
         }
         *(int *)(ctx + 0x44d0) += 2;
-        FUN_004d2680();
+        SendOutgoingPacket();
     }
     unsigned char *gctx = (unsigned char *)g_clientContext;
     int count = (int)gctx[0x3f808];

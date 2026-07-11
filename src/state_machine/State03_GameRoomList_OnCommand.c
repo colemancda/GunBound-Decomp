@@ -91,7 +91,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
       *(undefined2 *)(iVar2 + 0x4d4) = 0x6000;
       *(bool *)(iVar2 + 0x4d6) = *(char *)(iVar4 + 0x44bf8) == '\0';
       *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
-      FUN_004d2680();
+      SendOutgoingPacket();
       return;
     }
     FUN_00509780();
@@ -132,7 +132,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
     *(undefined4 *)(param_1 + 0x11c) = 0;
     *(undefined2 *)(*(int *)(iVar2 + 0x44d0) + 0x4d0 + iVar2) = 0;
     *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 2;
-    FUN_004d2680();
+    SendOutgoingPacket();
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
     FUN_0042a090();
     return;
@@ -163,7 +163,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
       iVar4 = *(int *)(iVar2 + 0x44d0) + 2;
     }
     *(int *)(iVar2 + 0x44d0) = iVar4;
-    FUN_004d2680();
+    SendOutgoingPacket();
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
     FUN_0042a090();
     return;
@@ -173,7 +173,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
       *(undefined4 *)(iVar2 + 0x44d0) = 6;
       iVar4 = *(int *)(param_1 + 0x118) + 1;
       *(int *)(param_1 + 0x11c) = iVar4;
-      FUN_004d2530(g_serverSelectRecords + iVar4 * 0xc);
+      AppendPacketBytes(g_serverSelectRecords + iVar4 * 0xc);
       goto LAB_004287a5;
     }
     *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
@@ -189,7 +189,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
 LAB_0042879e:
     *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 2;
 LAB_004287a5:
-    FUN_004d2680();
+    SendOutgoingPacket();
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
     FUN_0042a090();
     return;
@@ -203,8 +203,8 @@ LAB_004287a5:
       *(undefined4 *)(iVar2 + 0x44d0) = 6;
       *(undefined4 *)(param_1 + 0x118) = 0;
       *(undefined4 *)(param_1 + 0x11c) = 0;
-      FUN_004d2530(g_serverSelectRecords);
-      FUN_004d2680();
+      AppendPacketBytes(g_serverSelectRecords);
+      SendOutgoingPacket();
       FUN_0042a090();
       *(undefined4 *)(param_1 + 4) = 0xffffffff;
       return;

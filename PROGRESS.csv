@@ -139,7 +139,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040a470,41,QueueOutgoingPacketField,false,570,3,RAW-src
 0040a4a0,46,EncodeChecksumState,false,123,4,RAW-src
 0040a4d0,40,PeekChecksumStateUnderLock,false,1566,3,RAW-src
-0040a500,229,FUN_0040a500,false,55,6,RAW-src
+0040a500,229,EncodeChecksumNegate,false,55,6,RAW-src
 0040a5f0,236,EncodeChecksumDeltaAdd,false,264,6,RAW-src
 0040a6e0,234,EncodeChecksumDeltaSub,false,208,6,RAW-src
 0040a7d0,235,EncodeChecksumDeltaMul,false,128,6,RAW-src
@@ -975,10 +975,10 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d23f0,142,FUN_004d23f0,false,3,2,RAW-src
 004d2480,102,BeginServerConnect,false,2,4,RAW-src
 004d24f0,59,FUN_004d24f0,false,4,1,RAW-src
-004d2530,64,FUN_004d2530,false,9,0,RAW-src
+004d2530,64,AppendPacketBytes,false,9,0,RAW-src
 004d2570,97,FUN_004d2570,false,1,1,RAW-src
 004d25e0,152,FUN_004d25e0,false,22,2,RAW-src
-004d2680,350,FUN_004d2680,false,100,9,RAW-src
+004d2680,350,SendOutgoingPacket,false,100,9,RAW-src
 004d27e0,3116,ProcessIncomingPackets,false,3,19,RAW-src
 004d34a0,65,FUN_004d34a0,false,1,0,RAW-src
 004d34f0,56,FUN_004d34f0,false,2,0,RAW-src

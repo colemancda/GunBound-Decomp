@@ -353,7 +353,7 @@ LAB_0047a634:
           }
           *(int *)(iVar5 + 0x44d0) = *(int *)(iVar5 + 0x44d0) + 1;
           FUN_004d25e0();
-          FUN_004d2680();
+          SendOutgoingPacket();
           g_gameStateVTableArray[0xb][0x2382] = 1;
           local_4 = 3;
           ScrubChecksumGuard();

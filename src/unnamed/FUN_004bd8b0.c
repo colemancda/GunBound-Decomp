@@ -157,7 +157,7 @@ void __fastcall FUN_004bd8b0(int *param_1)
     iVar6 = DAT_007934e8;
     *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
     *(undefined4 *)(iVar6 + 0x44d0) = 6;
-    FUN_004d2680();
+    SendOutgoingPacket();
     iVar6 = g_clientContext;
     piVar15 = uStack_3d78;
   }
@@ -225,7 +225,7 @@ LAB_004bdd1c:
                 *(byte *)(iVar14 + 0x4d6) = bVar13;
                 *(int *)(iVar14 + 0x44d0) = *(int *)(iVar14 + 0x44d0) + 1;
                 FUN_004d25e0();
-                FUN_004d2680();
+                SendOutgoingPacket();
                 Replay_AppendEvent();
                 (&g_replayEventBuffer)[g_replayEventCursor] = (undefined1)local_3d4c;
                 g_replayEventCursor = g_replayEventCursor + 1;
@@ -645,7 +645,7 @@ code_r0x004be720:
       *(int *)(iVar14 + 0x44d0) = iVar6 + 4;
       *(undefined1 *)(iVar6 + 0x4d4 + iVar14) = *(undefined1 *)(*(int *)(iVar5 + 0x621e0) + 0xb0ac);
       *(int *)(iVar14 + 0x44d0) = *(int *)(iVar14 + 0x44d0) + 1;
-      FUN_004d2680();
+      SendOutgoingPacket();
       Replay_AppendEvent();
       iVar6 = g_clientContext;
       *(undefined4 *)(&g_replayEventBuffer + g_replayEventCursor) =

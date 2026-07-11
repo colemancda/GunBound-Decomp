@@ -45,7 +45,7 @@ void __thiscall FUN_00404330(int param_1,char *param_2)
     puVar1[2] = *(undefined4 *)(param_2 + 8);
     puVar1[3] = *(undefined4 *)(param_2 + 0xc);
     *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 0x10;
-    FUN_004d2680();
+    SendOutgoingPacket();
   }
   FUN_004026a0(0x1002,param_2,0);
   return;

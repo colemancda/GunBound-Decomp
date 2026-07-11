@@ -1,4 +1,4 @@
-/* FUN_0040a500 - 0x0040a500 in the original binary.
+/* EncodeChecksumNegate - 0x0040a500 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_0040a500(undefined4 param_1,int param_2)
+int EncodeChecksumNegate(undefined4 param_1,int param_2)
 
 {
   int iVar1;

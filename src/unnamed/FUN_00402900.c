@@ -90,7 +90,7 @@ void FUN_00402900(int param_1,char *param_2)
       *(undefined1 *)(iVar3 + 0x4dc + iVar8) = 0;
       *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 1;
       FUN_004d25e0();
-      FUN_004d2680();
+      SendOutgoingPacket();
     }
     pcVar4 = in_EAX;
     do {

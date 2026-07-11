@@ -103,7 +103,7 @@ LAB_0045cdb1:
           *(char *)(iVar5 + 0x4d6) = (char)param_1[2];
           *(int *)(iVar5 + 0x44d0) = *(int *)(iVar5 + 0x44d0) + 1;
           FUN_004d25e0();
-          FUN_004d2680();
+          SendOutgoingPacket();
         }
         SetGuardedBool(0);
         SetGuardedBool(1);

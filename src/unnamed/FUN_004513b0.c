@@ -412,7 +412,7 @@ LAB_0045279a:
         iVar4 = param_1[0x3d4];
         param_1[0x3d4] = iVar4 + 1;
         if (iVar4 + 1 < 3) {
-          uVar8 = FUN_0040a500(param_1 + 0x122,auStack_29c);
+          uVar8 = EncodeChecksumNegate(param_1 + 0x122,auStack_29c);
           uStack_70 = 0xe;
           EncodeChecksumState(uVar8);
           uStack_70 = 0xffffffff;

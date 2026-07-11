@@ -69,7 +69,7 @@ void __fastcall FUN_004d7b20(int param_1)
           *(undefined2 *)(iVar3 + 0x4d4) = 0x2000;
           *(undefined2 *)(iVar3 + 0x4d6) = 0xffff;
           *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 2;
-          FUN_004d2680();
+          SendOutgoingPacket();
         }
       }
       goto LAB_004d7cd2;

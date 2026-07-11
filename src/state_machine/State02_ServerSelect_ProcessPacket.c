@@ -344,7 +344,7 @@ LAB_004e0d7f:
          SUBFIELD(sStack_d0.sa_data,0,undefined2);
     *(int *)(iVar20 + 0x44d0) = *(int *)(iVar20 + 0x44d0) + 2;
     FUN_004d25e0();
-    FUN_004d2680();
+    SendOutgoingPacket();
     return;
   }
   if (opcode != 0x1012) {

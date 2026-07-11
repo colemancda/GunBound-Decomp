@@ -144,7 +144,7 @@ void FUN_0044bf00(int param_1)
   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 2;
 LAB_0044c2d6:
   FUN_004d25e0();
-  FUN_004d2680();
+  SendOutgoingPacket();
   FUN_00449250(param_1,0,0);
   return;
 }

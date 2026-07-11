@@ -61,7 +61,7 @@ void FUN_00404700(int param_1)
       *(undefined1 *)(iVar4 + 0x4dc + iVar3) = 0;
       *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 1;
       FUN_004d25e0();
-      FUN_004d2680();
+      SendOutgoingPacket();
     }
     FUN_004026a0(0x2005,local_50,0x18);
   }

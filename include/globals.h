@@ -1109,7 +1109,7 @@ extern void *PTR_DAT_00568180;
 extern void *PTR_DAT_00568800;
 extern void *PTR_DAT_00568810;
 extern void *PTR_DAT_0056d460;
-extern uint8_t g_abItemRecords[249200];
+extern uint8_t g_abItemRecords[2492];
 extern void *PTR_FUN_00544b5c;
 extern void *PTR_FUN_00544b68;
 extern void *PTR_FUN_00544b74;

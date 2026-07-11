@@ -42,7 +42,7 @@ undefined4 __fastcall FUN_0045f5d0(int param_1)
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar2 < 1) {
-    uVar3 = FUN_0040a500(param_1 + 0x62f8,local_230);
+    uVar3 = EncodeChecksumNegate(param_1 + 0x62f8,local_230);
     local_4 = 2;
     uVar3 = EncodeChecksumDeltaSub(uVar3,local_678,4);
     SUBFIELD(local_4,0,undefined1) = 3;

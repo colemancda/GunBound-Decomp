@@ -77,7 +77,7 @@ void __fastcall State02_ServerSelect_OnTick(int param_1)
   if (*(char *)(param_1 + 5) != '\0') {
     *(undefined2 *)(iVar6 + 0x4d4) = 0x1000;
     *(undefined4 *)(iVar6 + 0x44d0) = 6;
-    FUN_004d2680();
+    SendOutgoingPacket();
     *(undefined1 *)(param_1 + 5) = 0;
   }
   iVar6 = DAT_007934f0;
@@ -106,7 +106,7 @@ void __fastcall State02_ServerSelect_OnTick(int param_1)
            *(ushort *)(g_clientContext + 0x3b96b) >> 4;
     }
     *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 2;
-    FUN_004d2680();
+    SendOutgoingPacket();
   }
   iVar6 = g_clientContext;
   iVar5 = 0;

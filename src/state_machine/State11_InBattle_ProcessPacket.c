@@ -70,7 +70,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
       *(undefined2 *)(iVar6 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar6 + 0x4d6) = 0xffff;
       *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 2;
-      FUN_004d2680();
+      SendOutgoingPacket();
       *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
     }
     else if (opcode < 0x3234) {
@@ -100,7 +100,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
           *(undefined2 *)(iVar6 + 0x4d4) = 0x2000;
           *(undefined2 *)(iVar6 + 0x4d6) = 0xffff;
           *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 2;
-          FUN_004d2680();
+          SendOutgoingPacket();
           *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
         }
       }
@@ -354,7 +354,7 @@ LAB_004b4324:
         *(undefined2 *)(iVar18 + 0x4d4) = 0x2000;
         *(undefined2 *)(iVar18 + 0x4d6) = 0xffff;
         *(int *)(iVar18 + 0x44d0) = *(int *)(iVar18 + 0x44d0) + 2;
-        FUN_004d2680();
+        SendOutgoingPacket();
         FUN_00422f10(*(undefined4 *)(g_clientContext + 0x44e60));
         iVar8 = g_clientContext;
         *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;

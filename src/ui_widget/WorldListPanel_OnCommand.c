@@ -72,7 +72,7 @@ void __thiscall WorldListPanel_OnCommand(int param_1,int param_2,int param_3,und
     *(undefined4 *)(puVar1 + 0x18) = 0;
     *(undefined2 *)(*(int *)(iVar2 + 0x44d0) + 0x4d0 + iVar2) = 0;
     *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 2;
-    FUN_004d2680();
+    SendOutgoingPacket();
     *(undefined4 *)(puVar1 + 8) = 0xffffffff;
     DAT_0056d118 = 0;
     if ((*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) &&
@@ -160,8 +160,8 @@ LAB_0050d953:
     *(undefined4 *)(iVar2 + 0x44d0) = 6;
     *(undefined4 *)(puVar1 + 0x14) = 0;
     *(undefined4 *)(puVar1 + 0x18) = 0;
-    FUN_004d2530(&DAT_00e54aa0);
-    FUN_004d2680();
+    AppendPacketBytes(&DAT_00e54aa0);
+    SendOutgoingPacket();
     DAT_0056d118 = 0;
     if ((*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) &&
        (piVar4 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar4[2] == 0)) {

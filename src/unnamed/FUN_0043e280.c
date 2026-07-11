@@ -21,7 +21,7 @@ void FUN_0043e280(undefined4 param_1,int param_2,short *param_3)
       *(undefined2 *)(iVar1 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar1 + 0x4d6) = 0xffff;
       *(int *)(iVar1 + 0x44d0) = *(int *)(iVar1 + 0x44d0) + 2;
-      FUN_004d2680();
+      SendOutgoingPacket();
       *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
       return;
     }
@@ -46,7 +46,7 @@ void FUN_0043e280(undefined4 param_1,int param_2,short *param_3)
         *(undefined2 *)(iVar1 + 0x4d4) = 0x2000;
         *(undefined2 *)(iVar1 + 0x4d6) = 0xffff;
         *(int *)(iVar1 + 0x44d0) = *(int *)(iVar1 + 0x44d0) + 2;
-        FUN_004d2680();
+        SendOutgoingPacket();
         *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
         return;
       }
@@ -66,7 +66,7 @@ void FUN_0043e280(undefined4 param_1,int param_2,short *param_3)
   else if ((param_2 == 0x4410) && (g_pendingGameState != 3)) {
     *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
     *(undefined4 *)(iVar1 + 0x44d0) = 6;
-    FUN_004d2680();
+    SendOutgoingPacket();
     return;
   }
   return;

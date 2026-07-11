@@ -711,7 +711,7 @@ LAB_004b9bb0:
       iVar13 = DAT_007934e8;
       *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
       *(undefined4 *)(iVar13 + 0x44d0) = 6;
-      FUN_004d2680();
+      SendOutgoingPacket();
       return;
     }
     if (DAT_007933b8 != '\x01') goto LAB_004b9e53;

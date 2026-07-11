@@ -204,12 +204,12 @@ LAB_004d3bd3:
         *(undefined2 *)(iVar17 + 0x4d4) = 0x2000;
         *(undefined2 *)(iVar17 + 0x4d6) = 0xffff;
         *(int *)(iVar17 + 0x44d0) = *(int *)(iVar17 + 0x44d0) + 2;
-        FUN_004d2680();
+        SendOutgoingPacket();
       }
       else if ((opcode == 0x4410) && (g_pendingGameState != 3)) {
         *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
         *(undefined4 *)(iVar19 + 0x44d0) = 6;
-        FUN_004d2680();
+        SendOutgoingPacket();
         return;
       }
       return;
@@ -803,7 +803,7 @@ LAB_004d4cc7:
         *(undefined2 *)(iVar19 + 0x4d4) = 0x2000;
         *(undefined2 *)(iVar19 + 0x4d6) = 0xffff;
         *(int *)(iVar19 + 0x44d0) = *(int *)(iVar19 + 0x44d0) + 2;
-        FUN_004d2680();
+        SendOutgoingPacket();
         *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
         return;
       }

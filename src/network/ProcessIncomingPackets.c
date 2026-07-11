@@ -166,7 +166,7 @@ LAB_004d2adb:
       *(undefined2 *)(param_1 + 0x4d4) = 0x2000;
       *(undefined2 *)(param_1 + 0x4d6) = 0xffff;
       *(int *)(param_1 + 0x44d0) = *(int *)(param_1 + 0x44d0) + 2;
-      FUN_004d2680();
+      SendOutgoingPacket();
     }
     else if ((uVar13 == 0x6017) || (uVar13 == 0x6037)) goto LAB_004d2d5c;
     goto switchD_004d2d94_caseD_5;

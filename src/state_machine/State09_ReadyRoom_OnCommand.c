@@ -6,7 +6,7 @@
  *   eventType==0  -> a button/control was activated; dispatch on buttonId.
  *   eventType==10 -> chat/textbox commit: copy the typed text, and if it isn't
  *                    a slash-command (FUN_00415b00) send it as chat, opcode
- *                    0x3104 (via FUN_004d2530/FUN_004d2680).
+ *                    0x3104 (via AppendPacketBytes/SendOutgoingPacket).
  *   eventType==0xb-> cancel/dismiss.
  * buttonId cases (outgoing opcodes; see docs/screens/09_ready_room.md):
  *   0   Ready toggle        -> 0x3230
@@ -70,8 +70,8 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
           cVar2 = *pcVar12;
           pcVar12 = pcVar12 + 1;
         } while (cVar2 != '\0');
-        FUN_004d2530(pcVar13);
-        uVar3 = FUN_004d2680();
+        AppendPacketBytes(pcVar13);
+        uVar3 = SendOutgoingPacket();
         return uVar3;
       }
       if (DAT_00e9c104 != 0) {
@@ -227,10 +227,10 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
         iVar10 = iVar10 + -1;
         *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 1;
       } while (iVar10 != 0);
-      uVar3 = FUN_004d2680();
+      uVar3 = SendOutgoingPacket();
       return uVar3;
     }
-    uVar3 = FUN_004d2680();
+    uVar3 = SendOutgoingPacket();
     return uVar3;
   case 2:
     RefreshReadyRoomControls(param_1,0,0);
@@ -242,7 +242,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
     *(bool *)(param_1 + 0x25b) = bVar14;
     *(bool *)(*(int *)(iVar8 + 0x44d0) + 0x4d0 + iVar8) = bVar14;
     *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 1;
-    uVar3 = FUN_004d2680();
+    uVar3 = SendOutgoingPacket();
     return uVar3;
   case 3:
     RefreshReadyRoomControls(param_1,0,0);
@@ -251,7 +251,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
     *(undefined2 *)(iVar10 + 0x4d4) = 0x2000;
     *(undefined2 *)(iVar10 + 0x4d6) = 0xffff;
     *(int *)(iVar10 + 0x44d0) = *(int *)(iVar10 + 0x44d0) + 2;
-    uVar3 = FUN_004d2680();
+    uVar3 = SendOutgoingPacket();
     return uVar3;
   case 4:
     RefreshReadyRoomControls(param_1,0,0);
@@ -312,8 +312,8 @@ LAB_004d588d:
         cVar2 = *pcVar13;
         pcVar13 = pcVar13 + 1;
       } while (cVar2 != '\0');
-      FUN_004d2530((char *)(param_1 + 0x62d));
-      FUN_004d2680();
+      AppendPacketBytes((char *)(param_1 + 0x62d));
+      SendOutgoingPacket();
       FUN_0050ef10(&g_uiPanelManager);
       uVar3 = FUN_00406300(1);
       return uVar3;
@@ -385,7 +385,7 @@ LAB_004d5bde:
     *(char *)(*(int *)(iVar10 + 0x44d0) + 0x4d0 + iVar10) = cVar2;
 LAB_004d5661:
     *(int *)(iVar10 + 0x44d0) = *(int *)(iVar10 + 0x44d0) + 1;
-    uVar3 = FUN_004d2680();
+    uVar3 = SendOutgoingPacket();
     return uVar3;
   case 0x1e:
     RefreshReadyRoomControls(param_1,0,0);
@@ -455,7 +455,7 @@ LAB_004d5a42:
     iVar10 = DAT_007934e8;
     *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar9;
     *(int *)(iVar10 + 0x44d0) = *(int *)(iVar10 + 0x44d0) + 4;
-    uVar3 = FUN_004d2680();
+    uVar3 = SendOutgoingPacket();
     return uVar3;
   case 0x3d:
     RefreshReadyRoomControls(param_1,0,0);
@@ -473,7 +473,7 @@ LAB_004d5a42:
     iVar10 = DAT_007934e8;
     *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar9;
     *(int *)(iVar10 + 0x44d0) = *(int *)(iVar10 + 0x44d0) + 4;
-    uVar3 = FUN_004d2680();
+    uVar3 = SendOutgoingPacket();
     return uVar3;
   }
 LAB_004d5ecb:
@@ -484,7 +484,7 @@ LAB_004d5ecb:
   iVar10 = DAT_007934e8;
   *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar9;
   *(int *)(iVar10 + 0x44d0) = *(int *)(iVar10 + 0x44d0) + 4;
-  uVar3 = FUN_004d2680();
+  uVar3 = SendOutgoingPacket();
   return uVar3;
 }
 

@@ -294,12 +294,12 @@ LAB_0048780a:
       param_1[0xfe7] = 0;
     }
     cVar1 = FUN_004a1740(param_1);
-    uVar5 = FUN_0040a500(param_1 + 0x122,auStack_ac4);
+    uVar5 = EncodeChecksumNegate(param_1 + 0x122,auStack_ac4);
     puStack_8 = (undefined1 *)0xa;
     EncodeChecksumState(uVar5);
     puStack_8 = (undefined1 *)0xffffffff;
     ScrubChecksumGuard();
-    uVar5 = FUN_0040a500(param_1 + 0x1ab,auStack_ac4);
+    uVar5 = EncodeChecksumNegate(param_1 + 0x1ab,auStack_ac4);
     puStack_8 = (undefined1 *)0xb;
     EncodeChecksumState(uVar5);
     puStack_8 = (undefined1 *)0xffffffff;
@@ -434,7 +434,7 @@ LAB_00488365:
       iVar4 = param_1[0x3d4];
       param_1[0x3d4] = iVar4 + 1;
       if (iVar4 + 1 < 3) {
-        uVar5 = FUN_0040a500(param_1 + 0x122,auStack_250);
+        uVar5 = EncodeChecksumNegate(param_1 + 0x122,auStack_250);
         uStack_24 = 0x17;
         EncodeChecksumState(uVar5);
         uStack_24 = 0xffffffff;

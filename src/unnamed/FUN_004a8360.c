@@ -165,7 +165,7 @@ LAB_004aa132:
         iVar6 = param_1[0x3d4];
         param_1[0x3d4] = iVar6 + 1;
         if (iVar6 + 1 < 3) {
-          uVar8 = FUN_0040a500(param_1 + 0x122,auStack_240);
+          uVar8 = EncodeChecksumNegate(param_1 + 0x122,auStack_240);
           puStack_10 = (undefined1 *)0x17;
           EncodeChecksumState(uVar8);
           puStack_10 = (undefined1 *)0xffffffff;
@@ -306,7 +306,7 @@ LAB_004aa2ed:
         PeekPacketChecksumBool(0,local_b10,uVar15,1,0);
         FUN_00431d90((char)param_1[0xf],7,1,uVar8,pbVar9,uVar15,uVar19,uVar20);
         pbStack_afc = (byte *)(param_1 + 0xc66);
-        uVar8 = FUN_0040a500(pbStack_afc,auStack_688);
+        uVar8 = EncodeChecksumNegate(pbStack_afc,auStack_688);
         puStack_10 = (undefined1 *)0x1;
         pbStack_af8 = (byte *)EncodeChecksumDeltaMul(uVar8,auStack_8b4,7);
         SUBFIELD(puStack_10,0,undefined1) = 2;
@@ -418,7 +418,7 @@ LAB_004aa2ed:
   }
   FUN_00436150(&DAT_006a7f70 + g_clientContext,iVar6,iStack_b14,0);
   pbStack_afc = (byte *)(param_1 + 0xc66);
-  uVar8 = FUN_0040a500(pbStack_afc,auStack_8b4);
+  uVar8 = EncodeChecksumNegate(pbStack_afc,auStack_8b4);
   puStack_10 = (undefined1 *)0x4;
   pbStack_af8 = (byte *)EncodeChecksumDeltaMul(uVar8,auStack_adc,7);
   SUBFIELD(puStack_10,0,undefined1) = 5;

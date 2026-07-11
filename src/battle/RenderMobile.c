@@ -144,7 +144,7 @@ void __fastcall RenderMobile(int param_1)
       iVar5 = g_clientContext;
       if (cVar3 != '\0') {
         *(undefined4 *)(g_clientContext + 0x227a8) = 1;
-        uVar7 = FUN_0040a500(param_1 + 0x62f8,local_89c);
+        uVar7 = EncodeChecksumNegate(param_1 + 0x62f8,local_89c);
         local_4 = 0;
         uVar7 = EncodeChecksumDeltaAdd(uVar7,local_678,0x5a);
         local_4 = 1;
@@ -161,7 +161,7 @@ void __fastcall RenderMobile(int param_1)
         ScrubChecksumGuard();
         local_4 = 0xffffffff;
         ScrubChecksumGuard();
-        uVar7 = FUN_0040a500(param_1 + 0x62f8,local_454);
+        uVar7 = EncodeChecksumNegate(param_1 + 0x62f8,local_454);
         local_4 = 3;
         uVar7 = EncodeChecksumDeltaAdd(uVar7,local_678,0x5a);
         local_4 = 4;

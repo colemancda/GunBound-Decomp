@@ -22,7 +22,7 @@ void __fastcall FUN_00401200(int param_1)
     if (0x1d < iVar2) {
       *(undefined2 *)(iVar1 + 0x4d4) = 0;
       *(undefined4 *)(iVar1 + 0x44d0) = 6;
-      FUN_004d2680();
+      SendOutgoingPacket();
       *(undefined4 *)(DAT_007934e8 + 0x84ec) = 0;
     }
     if ((*(char *)(param_1 + 0x10) != '\0') && (DAT_00e9af60 = DAT_00e9af60 + 1, 0xb < DAT_00e9af60)

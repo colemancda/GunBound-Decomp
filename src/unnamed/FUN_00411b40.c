@@ -161,7 +161,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
           *(int *)(iVar7 + 0x44d0) = iVar1 + 1;
           *(ushort *)(iVar1 + 0x4d1 + iVar7) = *(ushort *)(iVar2 + 0x3b96b) / 10;
           *(int *)(iVar7 + 0x44d0) = *(int *)(iVar7 + 0x44d0) + 2;
-          FUN_004d2680();
+          SendOutgoingPacket();
           return;
         }
       }

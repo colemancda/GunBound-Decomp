@@ -168,7 +168,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
             g_gameStateVTableArray[3][0x115] = 1;
             g_gameStateVTableArray[3][0x116] = 0;
             *(int *)(g_gameStateVTableArray[3] + 0x11c) = iVar3 / 6;
-            FUN_004d2680();
+            SendOutgoingPacket();
             iVar3 = iVar3 + 1;
             pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0x27a);
             _sprintf(local_1a0,pcVar2,iVar3);
@@ -499,10 +499,10 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
                   iVar3 = iVar3 + -1;
                   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 1;
                 } while (iVar3 != 0);
-                FUN_004d2680();
+                SendOutgoingPacket();
                 return 1;
               }
-              FUN_004d2680();
+              SendOutgoingPacket();
               return 1;
             }
             if (((g_currentGameState == 9) && (DAT_00793522 == '\0')) && (iVar3 == 1)) {
@@ -517,7 +517,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
                 iVar3 = DAT_007934e8;
                 *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar15;
                 *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
-                FUN_004d2680();
+                SendOutgoingPacket();
                 return 1;
               }
               if (((g_currentGameState == 9) && (DAT_00793522 == '\0')) &&
@@ -541,8 +541,8 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
                 cVar1 = *pcVar2;
                 pcVar2 = pcVar2 + 1;
               } while (cVar1 != '\0');
-              FUN_004d2530(param_2);
-              FUN_004d2680();
+              AppendPacketBytes(param_2);
+              SendOutgoingPacket();
               return 1;
             }
             if (g_currentGameState != 9) {
@@ -620,7 +620,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
         *(char *)(iVar4 + 0x4d6) = (char)iVar3;
 LAB_00422d6b:
         *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 1;
-        FUN_004d2680();
+        SendOutgoingPacket();
         return 1;
       }
       goto LAB_00421b11;

@@ -154,7 +154,7 @@ LAB_004664c9:
         iVar5 = piVar9[0x3d4];
         piVar9[0x3d4] = iVar5 + 1;
         if (iVar5 + 1 < 3) {
-          uVar8 = FUN_0040a500(piVar9 + 0x122,auStack_234);
+          uVar8 = EncodeChecksumNegate(piVar9 + 0x122,auStack_234);
           puStack_8 = (undefined1 *)0xb;
           EncodeChecksumState(uVar8);
           puStack_8 = (undefined1 *)0xffffffff;

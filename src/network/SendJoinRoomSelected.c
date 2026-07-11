@@ -51,7 +51,7 @@ LAB_0042a00d:
   *(int *)(iVar4 + 0x44d0) = iVar2 + 2;
   *(undefined4 *)(iVar2 + 0x4d2 + iVar4) = *(undefined4 *)(in_EAX + 0x8f);
   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 4;
-  FUN_004d2680();
+  SendOutgoingPacket();
   FUN_0050ef10(&g_uiPanelManager);
   return;
 }
