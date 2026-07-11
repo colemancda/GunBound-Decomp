@@ -32,7 +32,7 @@ void FUN_0048f280(undefined4 *param_1)
   }
   param_1[0xfe8] = 0xffffffff;
   local_4 = 0xffffffff;
-  FUN_00455570(param_1);
+  DestroyProjectile(param_1);
   *unaff_FS_OFFSET = uStack_c;
   return;
 }

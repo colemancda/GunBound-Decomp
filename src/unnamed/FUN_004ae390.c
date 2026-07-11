@@ -13,7 +13,7 @@ void FUN_004ae390(void)
   undefined4 *in_EAX;
   
   *in_EAX = &PTR_FUN_0055631c;
-  FUN_00455570(in_EAX);
+  DestroyProjectile(in_EAX);
   return;
 }
 

@@ -1,4 +1,4 @@
-/* FUN_00455550 - 0x00455550 in the original binary.
+/* DeleteProjectile - 0x00455550 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,10 +7,10 @@
 #include "ghidra_types.h"
 
 
-void * __thiscall FUN_00455550(void *param_1,int param_2)
+void * __thiscall DeleteProjectile(void *param_1,int param_2)
 
 {
-  FUN_00455570(param_1);
+  DestroyProjectile(param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }

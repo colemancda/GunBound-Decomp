@@ -42,7 +42,7 @@ void FUN_004a4830(undefined4 *param_1)
   }
   local_4 = 0xffffffff;
   *param_1 = &PTR_FUN_005560d0;
-  FUN_00455570(param_1);
+  DestroyProjectile(param_1);
   *unaff_FS_OFFSET = local_c;
   return;
 }
