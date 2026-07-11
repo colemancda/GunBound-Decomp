@@ -1,5 +1,6 @@
 /* Storage for the globals declared in globals.h. See that file's
  * header comment for status/caveats. */
+#include <windows.h> /* GUID (DAT_00f22504) */
 #include "globals.h"
 
 int32_t g_currentGameState;
@@ -639,7 +640,14 @@ uint32_t DAT_00f11dd4;
 uint8_t DAT_00f11de0;
 uint8_t DAT_00f12e14;
 uint8_t DAT_00f12e18;
-uint8_t DAT_00f22504;
+/* IID_IDirect3DHALDevice. In the original this is a BSS global populated at
+ * startup by a small init routine (0x542900) that copies it in from a
+ * separate .data constant; here it's just given the GUID value directly.
+ * Was declared uint8_t (1 byte), so CreateDevice/EnumZBufferFormats - which
+ * take &DAT_00f22504 as a 16-byte REFCLSID - read 15 bytes of adjacent
+ * memory as part of the "GUID" and (since nothing ever wrote the real
+ * value) actually passed an all-zero CLSID. */
+GUID DAT_00f22504 = {0x84e63de0, 0x46aa, 0x11cf, {0x81, 0x6f, 0x00, 0x00, 0xc0, 0x20, 0x15, 0x6e}};
 /* 0x400-entry pointer table cleared at the end of InitDirectDraw and freed by
  * ShutdownDirectDraw/FUN_00543970. Was a lone uint32_t, so the 0x1000-byte
  * clear ran off the end and zeroed g_pD3DDevice7 (which sits just above it),

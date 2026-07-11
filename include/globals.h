@@ -865,7 +865,7 @@ extern uint8_t DAT_00f11de0;
 #define _DAT_00f11de0 DAT_00f11de0
 extern uint8_t DAT_00f12e14;
 extern uint8_t DAT_00f12e18;
-extern uint8_t DAT_00f22504;
+extern GUID DAT_00f22504; /* IID_IDirect3DHALDevice - see globals.c */
 extern uint32_t DAT_00f22650[0x400];
 extern uint8_t DAT_00f23650;
 #define _DAT_00f23650 DAT_00f23650
