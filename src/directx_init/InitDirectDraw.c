@@ -91,16 +91,15 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
     return 0x18;
   }
   if (DAT_00588f4c == '\0') {
+    /* SetDisplayMode(width, height, bpp, refresh, flags). The original passed
+     * ftol(DAT_00588f50) / ftol(DAT_00588f54) for width/height - FUN_0053753c
+     * is _ftol, fed the float via the x87 stack (a `flds` the recompiled
+     * argless call never emits, so it returned garbage/0 and the mode came out
+     * 0x0x0). DAT_00588f50/54 are now real floats; convert them directly. */
     iVar4 = *g_pDirectDraw7;
-    puStack_100 = (undefined4 *)DAT_00588f60;
-    piStack_104 = (int *)0x4efb60;
-    piStack_104 = (int *)FloatToInt64();
-    ppiStack_108 = (int **)0x4efb6c;
-    ppiStack_108 = (int **)FloatToInt64();
-    ppiStack_10c = (int **)piVar1;
-    piStack_110 = (int *)0x4efb71;
     iVar4 = (**(code **)(iVar4 + 0x54))
-                      (piVar1, FloatToInt64(), FloatToInt64(), DAT_00588f60, DAT_00588f48, 0);
+                      (piVar1, (int)DAT_00588f50, (int)DAT_00588f54,
+                       DAT_00588f60, DAT_00588f48, 0);
     if (iVar4 < 0) {
       return 0x1c;
     }

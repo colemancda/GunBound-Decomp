@@ -257,11 +257,19 @@ uint16_t DAT_00588f38;
 uint32_t DAT_00588f3c;
 uint16_t DAT_00588f40;
 uint32_t DAT_00588f44;
-uint32_t DAT_00588f48;
+/* Display-mode config, statically initialised in the original's .data
+ * (0x588f48). InitDirectDraw's fullscreen path feeds these to SetDisplayMode
+ * (800x600x16) and SetupZBuffer relies on the resulting 16-bit back buffer
+ * to pick a matching Z-buffer format. The port had left them zero-init'd
+ * (SetDisplayMode(0,0,0) -> 32-bit desktop mode -> no Z-format match ->
+ * SetupZBuffer crash), and had DAT_00588f50/54 as uint8_t although they hold
+ * floats (800.0/600.0) that the coordinate transforms in FUN_004eda*0 also
+ * read. Values decoded from orig .data 0x588f48-0x588f60. */
+uint32_t DAT_00588f48 = 60;    /* refresh rate (WinMain may overwrite) */
 uint8_t DAT_00588f4c;
-uint8_t DAT_00588f50;
-uint8_t DAT_00588f54;
-uint32_t DAT_00588f60;
+float DAT_00588f50 = 800.0f;   /* screen width  */
+float DAT_00588f54 = 600.0f;   /* screen height */
+uint32_t DAT_00588f60 = 16;    /* bit depth */
 uint8_t DAT_00588f64;
 void * DAT_0058b248;
 uint8_t DAT_0058b8d6;

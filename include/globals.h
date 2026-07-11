@@ -354,9 +354,9 @@ extern uint16_t DAT_00588f40;
 extern uint32_t DAT_00588f44;
 extern uint32_t DAT_00588f48;
 extern uint8_t DAT_00588f4c;
-extern uint8_t DAT_00588f50;
+extern float DAT_00588f50;
 #define _DAT_00588f50 DAT_00588f50
-extern uint8_t DAT_00588f54;
+extern float DAT_00588f54;
 #define _DAT_00588f54 DAT_00588f54
 extern uint32_t DAT_00588f60;
 extern uint8_t DAT_00588f64;
