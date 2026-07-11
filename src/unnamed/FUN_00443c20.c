@@ -47,7 +47,7 @@ undefined4 * FUN_00443c20(undefined4 *param_1)
   local_4 = 7;
   FUN_0044fb40(param_1 + 0xc2ef);
   local_4 = 8;
-  _eh_vector_constructor_iterator_(param_1 + 0xc522,0x224,8,FUN_0040a280,ScrubChecksumGuard);
+  _eh_vector_constructor_iterator_(param_1 + 0xc522,0x224,8,InitGuardSlot,ScrubChecksumGuard);
   local_4 = 9;
   *(undefined1 *)(param_1 + 0xc9f4) = 0;
   param_1[0xc971] = 0;

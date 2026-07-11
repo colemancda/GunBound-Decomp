@@ -113,7 +113,7 @@ void FUN_0043bda0(void)
                 *(byte *)((int)piVar16 + 0xb0b9) = bVar14;
                 *(byte *)((int)piVar16 + 0xb0ba) = *(byte *)(piVar16 + 0x2c2e) + bVar14 + -0x34;
                 LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-                FUN_0040ada0(piVar16 + 0x2d41,local_684,piVar16 + 0x2d41);
+                InitGuardedChecksumSlot(piVar16 + 0x2d41,local_684,piVar16 + 0x2d41);
                 local_c = 0;
                 EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                 iVar9 = PeekPacketChecksumState();

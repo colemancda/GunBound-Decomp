@@ -315,8 +315,8 @@ LAB_004ae748:
   piVar1 = param_1 + 0xed2;
   cVar6 = CompareChecksumPair(piVar2,piVar1);
   if (((cVar6 != '\0') && (cVar6 = CompareChecksumPair(piVar1,param_1 + 0xf5b), cVar6 != '\0')) ||
-     ((cVar6 = FUN_0040b410(piVar2,piVar1), cVar6 != '\0' &&
-      ((cVar6 = FUN_0040b410(piVar1,param_1 + 0xf5b), cVar6 != '\0' && (5 < param_1[0xed1])))))) {
+     ((cVar6 = CompareChecksumExceeds(piVar2,piVar1), cVar6 != '\0' &&
+      ((cVar6 = CompareChecksumExceeds(piVar1,param_1 + 0xf5b), cVar6 != '\0' && (5 < param_1[0xed1])))))) {
     SetGuardedBool(1);
   }
 LAB_004aece0:

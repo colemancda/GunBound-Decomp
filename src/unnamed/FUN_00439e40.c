@@ -118,7 +118,7 @@ undefined4 FUN_00439e40(int param_1)
       iVar4 = PeekChecksumStateUnderLock(*(int *)(iVar4 + 0x621e4) + 0x741c);
       iVar3 = PeekChecksumStateUnderLock((uint)param_1 * 0x1120 + 0x50f18 + g_clientContext);
       AddToPacketChecksum(iVar4 + iVar3);
-      cVar2 = FUN_0040b410(*(int *)(g_clientContext + 0x621e4) + 0x6fd4,
+      cVar2 = CompareChecksumExceeds(*(int *)(g_clientContext + 0x621e4) + 0x6fd4,
                            *(int *)(g_clientContext + 0x621e4) + 0x6db0);
       if (cVar2 != '\0') {
         EncodeChecksumState(*(int *)(g_clientContext + 0x621e4) + 0x6db0);

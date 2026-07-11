@@ -338,12 +338,12 @@ joined_r0x0047a5db:
       }
       else {
 LAB_0047a634:
-        cVar3 = FUN_0040b390(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
+        cVar3 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
         iVar5 = DAT_007934e8;
         if ((cVar3 != '\0') && (g_gameStateVTableArray[0xb][0x2382] == '\0')) {
           *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x4200;
           *(undefined4 *)(iVar5 + 0x44d0) = 6;
-          cVar3 = FUN_0040b410(&DAT_0067e5f4 + g_clientContext,&DAT_0067e3d0 + g_clientContext);
+          cVar3 = CompareChecksumExceeds(&DAT_0067e5f4 + g_clientContext,&DAT_0067e3d0 + g_clientContext);
           iVar5 = DAT_007934e8;
           if (cVar3 == '\0') {
             *(undefined1 *)(DAT_007934e8 + 0x4d0 + *(int *)(DAT_007934e8 + 0x44d0)) = 0;
@@ -363,7 +363,7 @@ LAB_0047a634:
         }
       }
       AcquireSoundChannel(0);
-      FUN_0040b060();
+      EncodeDecrementedChecksum();
       local_4 = 3;
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
@@ -395,7 +395,7 @@ LAB_0047a634:
   iVar6 = _rand();
   iVar5 = iVar6 / 1000;
   if (((iVar6 % 1000 == 0) && (iVar5 = PacketChecksumEquals(param_1 + 0x67d,0), (char)iVar5 != '\0')
-      ) && (iVar5 = FUN_0040b390(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c), (char)iVar5 != '\0'
+      ) && (iVar5 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c), (char)iVar5 != '\0'
            )) {
     Replay_AppendEvent(0x4004);
     (&g_replayEventBuffer)[g_replayEventCursor] = (char)param_1[2];

@@ -737,7 +737,7 @@ LAB_004b7c01:
               ((char)local_27ec[0x474] == '\0')) &&
              (cVar2 = PacketChecksumNotEquals(g_clientContext + 0x45354,3), bVar16 = local_27e5,
              cVar2 != '\0')) {
-            FUN_0040a280();
+            InitGuardSlot();
             piVar7 = local_27e0;
             bVar16 = bVar16 & 0xf;
             local_c = 4;
@@ -903,7 +903,7 @@ LAB_004b7c01:
               uVar20 = 3;
               uVar21 = GetLocalizedString(&g_localizedStringTable,0x25c);
               (**(code **)(iVar4 + 0x28))(uVar21,uVar20,uVar22);
-              FUN_0040b060();
+              EncodeDecrementedChecksum();
               cVar2 = PacketChecksumLessThan(&DAT_0067e3d0 + g_clientContext,0);
             }
             else {
@@ -913,7 +913,7 @@ LAB_004b7c01:
               uVar20 = 3;
               uVar21 = GetLocalizedString(&g_localizedStringTable,0x25d);
               (**(code **)(iVar4 + 0x28))(uVar21,uVar20,uVar22);
-              FUN_0040b060();
+              EncodeDecrementedChecksum();
               cVar2 = PacketChecksumLessThan(&DAT_0067e5f4 + g_clientContext,0);
             }
             if (cVar2 != '\0') {
@@ -924,7 +924,7 @@ LAB_004b7674:
           cVar2 = PeekPacketChecksumBool();
           if (cVar2 != '\x01') break;
 LAB_004b7fb2:
-          cVar2 = FUN_0040b390(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
+          cVar2 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
           if (((cVar2 != '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) &&
              ((g_currentGameState != 0xb || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')))) {
             FUN_00413bf0();
@@ -1190,7 +1190,7 @@ LAB_004b7fb2:
             QueueOutgoingPacketField(0);
             iVar4 = GetPlayerRecordBySlot(g_clientContext);
             AddToPacketChecksum(4);
-            FUN_0040a280();
+            InitGuardSlot();
             local_c = 0xf;
             EncodeChecksumStateXored();
             iVar10 = PeekChecksumStateUnderLock(local_27e4 + 0x5113c + g_clientContext);

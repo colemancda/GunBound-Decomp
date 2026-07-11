@@ -389,7 +389,7 @@ undefined4 * InitMobile(undefined4 *param_1,undefined4 param_2)
   param_1[0x2d46] = 0;
   EncodeOutgoingPacketField(0);
   local_4 = 0x52;
-  _eh_vector_constructor_iterator_(param_1 + 0x2dca,0x224,4,FUN_0040a280,ScrubChecksumGuard);
+  _eh_vector_constructor_iterator_(param_1 + 0x2dca,0x224,4,InitGuardSlot,ScrubChecksumGuard);
   local_4 = 0x53;
   InitGuardedBool();
   InitGuardedBool();

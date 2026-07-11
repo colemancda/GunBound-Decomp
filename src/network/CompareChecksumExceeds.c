@@ -1,4 +1,4 @@
-/* FUN_0040b4d0 - 0x0040b4d0 in the original binary.
+/* CompareChecksumExceeds - 0x0040b410 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-bool FUN_0040b4d0(void)
+bool CompareChecksumExceeds(void)
 
 {
   int iVar1;
@@ -18,6 +18,6 @@ bool FUN_0040b4d0(void)
   iVar1 = PeekPacketChecksumState();
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  return iVar1 <= iVar2;
+  return iVar2 < iVar1;
 }
 

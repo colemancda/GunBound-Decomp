@@ -97,7 +97,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         }
         local_4 = 0xffffffff;
         ScrubChecksumGuard();
-        cVar1 = FUN_0040b410(iVar2 + 0x6968,iVar7);
+        cVar1 = CompareChecksumExceeds(iVar2 + 0x6968,iVar7);
         if (cVar1 != '\0') {
           EncodeChecksumState(iVar7);
         }
@@ -145,7 +145,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         }
         local_4 = 0xffffffff;
         ScrubChecksumGuard();
-        cVar1 = FUN_0040b410(iVar2 + 0x6968,iVar7);
+        cVar1 = CompareChecksumExceeds(iVar2 + 0x6968,iVar7);
         if (cVar1 != '\0') {
           EncodeChecksumState(iVar7);
         }

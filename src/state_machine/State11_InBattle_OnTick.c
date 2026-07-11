@@ -1748,7 +1748,7 @@ LAB_004c0f5c:
       if (uStack_3d70 != DAT_00e9af14) {
         FUN_004e87b0(&DAT_00e9af10,&local_3d68,uStack_3d70);
       }
-      cVar3 = FUN_0040b390(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
+      cVar3 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
       iVar6 = g_clientContext;
       if (cVar3 == '\0') {
         Replay_AppendEvent(0xc302);

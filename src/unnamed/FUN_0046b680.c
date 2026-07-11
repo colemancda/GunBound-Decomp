@@ -585,7 +585,7 @@ LAB_0046c22e:
     iVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((iVar5 <= iVar6) ||
-       ((cVar4 = FUN_0040b410(piStack_ad8 + 0xed2,piStack_ad8 + 0xf5b), cVar4 == '\0' ||
+       ((cVar4 = CompareChecksumExceeds(piStack_ad8 + 0xed2,piStack_ad8 + 0xf5b), cVar4 == '\0' ||
         (piStack_ad8[0xed1] < 6)))) goto LAB_0046c976;
   }
   iVar5 = g_clientContext;

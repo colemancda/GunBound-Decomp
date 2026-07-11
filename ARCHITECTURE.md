@@ -718,8 +718,9 @@ functions, including `0x3020`'s disconnect handler and
 `playerId * 0x224 + 0xebef4` computes a pointer into an **array of
 per-player packet-checksum-state objects** (0x224/548 bytes each),
 passed directly into `PeekPacketChecksumState` (sometimes via the thin
-wrapper `FUN_0040a4d0`, which is just `EnterCriticalSection` +
-`PeekPacketChecksumState` + `LeaveCriticalSection`). This resolves what
+wrapper `PeekChecksumStateUnderLock` (`0x40a4d0`), which is just
+`EnterCriticalSection` + `PeekPacketChecksumState` + `LeaveCriticalSection`).
+This resolves what
 several earlier passes had flagged as an unidentified `0x224`-byte
 "`PlayerGameSlot`" struct spawned by action `0x8408` — that was a
 conflation; `0x8408` never touches this array at all (it populates four
@@ -731,6 +732,20 @@ happens to share the size, is still unresolved.
 
 Also named this round: `GetPlayerRecordBySlot` (`0x4206f0`) — a per-slot
 player-record accessor called throughout the battle/room code.
+
+**Two-state comparator siblings of `CompareChecksumPair`.** `CompareChecksumPair`
+(`0x40b490`, `a<b`) turned out to have a small family of siblings — same
+no-argument, peek-two-live-states shape, one op each: `CompareChecksumMatch`
+(`0x40b390`, `a==b`), `CompareChecksumExceeds` (`0x40b410`, `a>b`),
+`CompareChecksumAtMost` (`0x40b4d0`, `a<=b`). These are distinct from the
+`PacketChecksumEquals`/`PacketChecksumGreaterThan`/etc. family, which compares
+one peeked state against a **literal parameter** rather than two live states.
+
+**Two more `EncodeChecksumDelta*` lightweight siblings**: `EncodeDecrementedChecksum`
+(`0x40b060`, re-encodes `state - 1`) and `EncodeDividedChecksum` (`0x40ab20`,
+re-encodes `state / divisor`, zero-divisor guarded) — both skip the
+guard-buffer/scrub ceremony the `EncodeChecksumDelta*` family uses, re-encoding
+directly.
 
 ## The replay-recording system
 
@@ -810,7 +825,7 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
   **packet-checksum-state** objects at `+0xebef4` (see the packet-checksum
   utility section above) — not a gameplay struct. (2) The state-7 Avatar
   Store's 8-element array uses a *different*, much more minimal
-  constructor/destructor pair (`FUN_0040a280`/`FUN_0040a2a0`, size 24/53
+  constructor/destructor pair (`InitGuardSlot`/`ScrubChecksumGuard`, size 24/53
   bytes) — decompiled this pass: the constructor just zeroes a byte at
   `+0x220` and a dword at `+0x14`, then calls `EncodeOutgoingPacketField(0)`;
   the destructor conditionally frees whatever the `+0x14` field points to.
@@ -820,7 +835,13 @@ fully decompile (a replay parser/viewer) independent of the rest of the game.
   may or may not own a heap sub-object," used here for per-avatar-slot data
   but probably reused elsewhere too (this exact ctor/dtor pair, with the
   same `0x224` stride, also appears in `FUN_00415d40`'s huge object-init
-  function from earlier session work). (3) The room-list's 20-element
+  function from earlier session work). A related, larger initializer,
+  **`InitGuardedChecksumSlot`** (`0x40ada0`, 248 bytes), does the same
+  `+0x220`/`+0x14` zero-init plus an extra `EncodeChecksumDeltaMul`-seeded
+  checksum step inside an SEH scaffold; called from `WriteReplayEventRecord`
+  and a cluster of per-type projectile constructors — likely the guard-slot
+  initializer used when the owning object also needs an initial checksum
+  contribution seeded at construction time. (3) The room-list's 20-element
   loop **doesn't cleanly match either identity** — checked this pass: its
   loop counter increments by `0x224` up to `0x2ad0` (confirming 20
   iterations, `20*0x224 = 0x2ad0`), but the actual per-element field
@@ -1166,7 +1187,7 @@ comes from `WndProc` mouse messages into the `g_cursorAnchorX/d110` anchor.)
    battle-spawn arrays). Followed up further this pass: the state-7
    8-element array turned out to be a **third, distinct** `0x224`-sized
    thing — a generic minimal container (owned-pointer-plus-flag, ctor/dtor
-   `FUN_0040a280`/`FUN_0040a2a0`), not obviously gameplay data either, and
+   `InitGuardSlot`/`ScrubChecksumGuard`), not obviously gameplay data either, and
    reused elsewhere in the engine (same ctor/dtor pair, same stride, seen in
    `FUN_00415d40`'s object-init too) — see the recurring-structures list
    above. The room-list's 20-element loop is **inconclusive**: its `0x224`

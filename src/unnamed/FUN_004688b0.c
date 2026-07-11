@@ -374,8 +374,8 @@ LAB_0046942b:
     piVar15 = piStack_ae8 + 0xed2;
     cVar4 = CompareChecksumPair(piStack_ae8 + 0x3d5,piVar15);
     if (((cVar4 != '\0') && (cVar4 = CompareChecksumPair(piVar15,piStack_ae8 + 0xf5b), cVar4 != '\0')) ||
-       ((cVar4 = FUN_0040b410(piStack_ae8 + 0x3d5,piVar15), cVar4 != '\0' &&
-        ((cVar4 = FUN_0040b410(piVar15,piStack_ae8 + 0xf5b), cVar4 != '\0' &&
+       ((cVar4 = CompareChecksumExceeds(piStack_ae8 + 0x3d5,piVar15), cVar4 != '\0' &&
+        ((cVar4 = CompareChecksumExceeds(piVar15,piStack_ae8 + 0xf5b), cVar4 != '\0' &&
          (5 < piStack_ae8[0xed1])))))) {
       SetGuardedBool(1);
     }

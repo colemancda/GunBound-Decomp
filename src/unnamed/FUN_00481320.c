@@ -348,7 +348,7 @@ LAB_004816cf:
     PeekPacketChecksumState();
     (*pcVar17)(&DAT_005a9068);
     if ((cVar5 == '\0') ||
-       ((cVar5 = FUN_0040b410(param_1 + 0xed2,param_1 + 0xf5b), cVar5 == '\0' ||
+       ((cVar5 = CompareChecksumExceeds(param_1 + 0xed2,param_1 + 0xf5b), cVar5 == '\0' ||
         (param_1[0xed1] < 6)))) goto LAB_00481e0f;
   }
   iVar8 = g_clientContext;

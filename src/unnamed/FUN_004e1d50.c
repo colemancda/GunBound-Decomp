@@ -24,9 +24,9 @@ int FUN_004e1d50(int param_1)
   *(undefined4 *)(param_1 + 0x14) = 0;
   EncodeOutgoingPacketField(0);
   local_4 = 0;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x224),0x224,3,FUN_0040a280,ScrubChecksumGuard);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x224),0x224,3,InitGuardSlot,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 1;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x890),0x224,3,FUN_0040a280,ScrubChecksumGuard);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x890),0x224,3,InitGuardSlot,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 2;
   *(undefined1 *)(param_1 + 0x1128) = 0;
   *(undefined4 *)(param_1 + 0xf1c) = 0;

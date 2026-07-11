@@ -135,7 +135,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
           uVar17 = (uint)local_9b5;
           local_9b4 = uVar17;
           local_9a8 = GetPlayerRecordBySlot(g_clientContext);
-          cVar2 = FUN_0040b390(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
+          cVar2 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
           if (((cVar2 != '\0') && (uVar17 == *(uint *)((int)this + 0x10a0))) && (payload[2] != 0)) {
             Replay_AppendEvent(0x307);
             (&g_replayEventBuffer)[g_replayEventCursor] = 0xff;
@@ -232,7 +232,7 @@ LAB_004b4324:
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if ((uVar17 == *(uint *)((int)this + 0x10a0)) ||
              (uVar14 = FUN_004d0dd0(), uVar17 == uVar14)) {
-            cVar2 = FUN_0040b390(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
+            cVar2 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
             if (cVar2 != '\0') {
               Replay_AppendEvent(0x8500);
               iVar6 = local_9a8;
@@ -278,7 +278,7 @@ LAB_004b4324:
           }
           cVar2 = PeekPacketChecksumBool();
           if ((((cVar2 == '\x01') &&
-               (cVar2 = FUN_0040b390(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4), cVar2 != '\0'))
+               (cVar2 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4), cVar2 != '\0'))
               && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) &&
              ((g_currentGameState != 0xb || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')))) {
             FUN_00413bf0();
@@ -287,7 +287,7 @@ LAB_004b4324:
       }
     }
     else if (opcode == 0x3400) {
-      cVar2 = FUN_0040b390(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
+      cVar2 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
       if ((cVar2 != '\0') && (*(char *)((int)this + 0x11d0) != '\0')) {
         FUN_00413bf0();
       }
@@ -299,7 +299,7 @@ LAB_004b4324:
         iVar6 = local_9b0;
         cVar2 = PeekPacketChecksumBool();
         if (cVar2 == '\x01') {
-          cVar2 = FUN_0040b390(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
+          cVar2 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
           if (cVar2 == '\0') {
             Replay_AppendEvent(0xc302);
             iVar8 = g_clientContext;
@@ -361,7 +361,7 @@ LAB_004b4324:
         piVar16 = local_9ac;
       }
       if (((uint)piVar16 & 0xf000) == 0xf000) {
-        cVar2 = FUN_0040b390(iVar8 + 0x3b6c4,iVar8 + 0x3b49c);
+        cVar2 = CompareChecksumMatch(iVar8 + 0x3b6c4,iVar8 + 0x3b49c);
         if (cVar2 != '\0') {
           Replay_AppendEvent(0x8500);
           (&g_replayEventBuffer)[g_replayEventCursor] = local_9b5;
@@ -397,7 +397,7 @@ LAB_004b4324:
             uVar19 = 3;
             uVar9 = GetLocalizedString(&g_localizedStringTable,0x25c);
             (**(code **)(iVar6 + 0x28))(uVar9,uVar19,uVar20);
-            FUN_0040b060();
+            EncodeDecrementedChecksum();
             cVar2 = PacketChecksumLessThan(&DAT_0067e3d0 + g_clientContext,0);
           }
           else {
@@ -407,7 +407,7 @@ LAB_004b4324:
             uVar19 = 3;
             uVar9 = GetLocalizedString(&g_localizedStringTable,0x25d);
             (**(code **)(iVar6 + 0x28))(uVar9,uVar19,uVar20);
-            FUN_0040b060();
+            EncodeDecrementedChecksum();
             cVar2 = PacketChecksumLessThan(&DAT_0067e5f4 + g_clientContext,0);
           }
           if (cVar2 != '\0') {

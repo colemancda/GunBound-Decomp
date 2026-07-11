@@ -22,7 +22,7 @@ undefined4 * FUN_004b3f90(undefined4 *param_1)
   local_4 = 0;
   *param_1 = &vtable_State11_InBattle;
   InitGuardedBool();
-  _eh_vector_constructor_iterator_(param_1 + 0x477,0x224,8,FUN_0040a280,ScrubChecksumGuard);
+  _eh_vector_constructor_iterator_(param_1 + 0x477,0x224,8,InitGuardSlot,ScrubChecksumGuard);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
   InitGuardedBool();
   InitGuardedBool();

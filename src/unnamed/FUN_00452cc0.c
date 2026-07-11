@@ -90,7 +90,7 @@ void __fastcall FUN_00452cc0(int *param_1)
   if ((char)param_1[0xd] == '\x01') {
     if (param_1[9] == 1) {
       (**(code **)(*param_1 + 4))();
-      FUN_0040ada0();
+      InitGuardedChecksumSlot();
       puStack_8 = (undefined1 *)0x0;
       EncodeChecksumDeltaDiv();
       puStack_8 = 1;
@@ -110,7 +110,7 @@ void __fastcall FUN_00452cc0(int *param_1)
         TreeLowerBound();
         pcVar15 = (code *)LeaveCriticalSection;
       }
-      FUN_0040ada0();
+      InitGuardedChecksumSlot();
       puStack_8 = (undefined1 *)0x2;
       EncodeChecksumDeltaDiv();
       puStack_8 = (undefined1 *)3;
@@ -130,7 +130,7 @@ void __fastcall FUN_00452cc0(int *param_1)
         TreeLowerBound();
         pcVar15 = (code *)LeaveCriticalSection;
       }
-      uVar6 = FUN_0040ada0(param_1 + 0x8a7);
+      uVar6 = InitGuardedChecksumSlot(param_1 + 0x8a7);
       uStack_c = 4;
       EncodeChecksumDeltaDiv(uVar6);
       uStack_c = 5;
@@ -150,7 +150,7 @@ void __fastcall FUN_00452cc0(int *param_1)
         TreeLowerBound();
         pcVar15 = (code *)LeaveCriticalSection;
       }
-      uVar6 = FUN_0040ada0(param_1 + 0x930,auStack_8a8);
+      uVar6 = InitGuardedChecksumSlot(param_1 + 0x930,auStack_8a8);
       uStack_10 = 6;
       EncodeChecksumDeltaDiv(uVar6,auStack_acc);
       uStack_10 = 7;
@@ -170,7 +170,7 @@ void __fastcall FUN_00452cc0(int *param_1)
         TreeLowerBound(&stack0xfffff51c);
         pcVar15 = (code *)LeaveCriticalSection;
       }
-      uVar6 = FUN_0040ada0(param_1 + 0x9b9,auStack_8ac,param_1 + 0xd7b);
+      uVar6 = InitGuardedChecksumSlot(param_1 + 0x9b9,auStack_8ac,param_1 + 0xd7b);
       uStack_14 = 8;
       EncodeChecksumDeltaDiv(uVar6,auStack_ad0,100);
       uStack_14 = 9;
@@ -190,7 +190,7 @@ void __fastcall FUN_00452cc0(int *param_1)
         TreeLowerBound(&stack0xfffff518);
         pcVar15 = (code *)LeaveCriticalSection;
       }
-      uVar6 = FUN_0040ada0(param_1 + 0xa42,auStack_8b0,param_1 + 0xd7b);
+      uVar6 = InitGuardedChecksumSlot(param_1 + 0xa42,auStack_8b0,param_1 + 0xd7b);
       uStack_18 = 10;
       EncodeChecksumDeltaDiv(uVar6,auStack_ad4,100);
       uStack_18 = 0xb;
@@ -598,8 +598,8 @@ LAB_00453887:
   }
   cVar3 = CompareChecksumPair();
   if (((cVar3 != '\0') && (cVar3 = CompareChecksumPair(), cVar3 != '\0')) ||
-     ((cVar3 = FUN_0040b410(), cVar3 != '\0' &&
-      ((cVar3 = FUN_0040b410(), cVar3 != '\0' && (5 < param_1[0xed1])))))) {
+     ((cVar3 = CompareChecksumExceeds(), cVar3 != '\0' &&
+      ((cVar3 = CompareChecksumExceeds(), cVar3 != '\0' && (5 < param_1[0xed1])))))) {
     SetGuardedBool();
   }
 LAB_00453f0d:

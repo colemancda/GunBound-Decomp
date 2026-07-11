@@ -506,7 +506,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
               return 1;
             }
             if (((g_currentGameState == 9) && (g_bBattleSessionActive == '\0')) && (iVar3 == 1)) {
-              cVar1 = FUN_0040b390(param_1 + 0x3b6c4,param_1 + 0x3b49c);
+              cVar1 = CompareChecksumMatch(param_1 + 0x3b6c4,param_1 + 0x3b49c);
               if ((cVar1 != '\0') && (iVar4 = FUN_00409c70(&DAT_00e9bea8), iVar4 != -1)) {
                 uVar10 = PeekChecksumStateUnderLock(g_gameStateVTableArray[9] + 0x26c);
                 QueueOutgoingPacketField(uVar10 & 0xfffff | iVar4 << 0x18);
@@ -521,7 +521,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
                 return 1;
               }
               if (((g_currentGameState == 9) && (g_bBattleSessionActive == '\0')) &&
-                 ((cVar1 = FUN_0040b390(param_1 + 0x3b6c4,param_1 + 0x3b49c), cVar1 != '\0' &&
+                 ((cVar1 = CompareChecksumMatch(param_1 + 0x3b6c4,param_1 + 0x3b49c), cVar1 != '\0' &&
                   (iVar5 = __stricmp(local_220,s_shrduarhkswjs_00552cd8), iVar4 = DAT_007934e8,
                   iVar5 == 0)))) {
                 *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
@@ -603,7 +603,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
   }
   if (iVar3 == 2) {
     if (g_currentGameState == 9) {
-      cVar1 = FUN_0040b390(param_1 + 0x3b6c4,param_1 + 0x3b49c);
+      cVar1 = CompareChecksumMatch(param_1 + 0x3b6c4,param_1 + 0x3b49c);
       if (cVar1 != '\0') {
         FUN_00421870();
         iVar3 = 0;

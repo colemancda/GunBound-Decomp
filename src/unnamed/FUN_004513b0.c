@@ -812,7 +812,7 @@ LAB_00451ebf:
     PeekPacketChecksumState();
     (*pcVar16)(&DAT_005a9068);
     if ((cVar2 != '\0') &&
-       ((cVar2 = FUN_0040b410(param_1 + 0xed2,param_1 + 0xf5b), cVar2 != '\0' &&
+       ((cVar2 = CompareChecksumExceeds(param_1 + 0xed2,param_1 + 0xf5b), cVar2 != '\0' &&
         (5 < param_1[0xed1])))) goto LAB_00451f7a;
   }
   else {

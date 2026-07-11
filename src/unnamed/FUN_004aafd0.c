@@ -382,7 +382,7 @@ LAB_004ab3f6:
     iVar8 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((iVar7 <= iVar8) ||
-       ((cVar6 = FUN_0040b410(param_1 + 0xed2,param_1 + 0xf5b), cVar6 == '\0' ||
+       ((cVar6 = CompareChecksumExceeds(param_1 + 0xed2,param_1 + 0xf5b), cVar6 == '\0' ||
         (param_1[0xed1] < 6)))) goto LAB_004abb49;
   }
   iVar7 = g_clientContext;

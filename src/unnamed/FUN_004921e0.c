@@ -252,7 +252,7 @@ LAB_00492677:
   *(undefined4 *)(&DAT_005f3768 + iVar4) = 5;
   *(undefined4 *)(&DAT_005f376c + iVar4) = 0;
 LAB_00492912:
-  FUN_0040ada0(param_1 + 0xc66,local_acc,param_1 + 0xc66);
+  InitGuardedChecksumSlot(param_1 + 0xc66,local_acc,param_1 + 0xc66);
   local_c = 8;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_ad0 = PeekPacketChecksumState();

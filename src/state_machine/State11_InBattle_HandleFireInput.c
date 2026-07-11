@@ -143,7 +143,7 @@ LAB_0045fb8c:
                 (**(code **)(*param_1 + 4))(s_wmove_00555ca0);
               }
             }
-            FUN_0040b060();
+            EncodeDecrementedChecksum();
             uVar17 = EncodeChecksumDeltaMul(param_1 + 0x12db,local_b40,2);
             local_4 = 5;
             iVar18 = PeekChecksumStateUnderLock(uVar17);
@@ -258,7 +258,7 @@ LAB_0046000e:
                 (**(code **)(*param_1 + 4))(s_wmove_00555ca0);
               }
             }
-            FUN_0040b060();
+            EncodeDecrementedChecksum();
             uVar17 = EncodeChecksumDeltaMul(param_1 + 0x12db,local_b40,2);
             local_4 = 0xc;
             iVar18 = PeekChecksumStateUnderLock(uVar17);
@@ -371,14 +371,14 @@ LAB_0046000e:
         FUN_0040b030();
       }
       else {
-        FUN_0040b060();
+        EncodeDecrementedChecksum();
       }
       bVar5 = true;
     }
     if ((DAT_00e5283c == 1000) && (DAT_007934c4 == '\0')) {
       cVar9 = PacketChecksumGreaterThan(param_1 + 0x939,0x5a);
       if (cVar9 == '\0') {
-        FUN_0040b060();
+        EncodeDecrementedChecksum();
       }
       else {
         FUN_0040b030();
@@ -600,7 +600,7 @@ LAB_004606d5:
         uVar17 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
         uVar17 = EncodeChecksumDeltaMul(param_1 + 0x1d90,local_b40,uVar17);
         local_4 = 0x12;
-        cVar9 = FUN_0040b410(piVar19,uVar17);
+        cVar9 = CompareChecksumExceeds(piVar19,uVar17);
         local_4 = 0xffffffff;
         ScrubChecksumGuard();
         if (cVar9 != '\0') {

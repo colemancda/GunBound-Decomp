@@ -269,9 +269,9 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
     if (cVar4 == '\0') {
       SetGuardedBool(1);
       *(byte *)(g_clientContext + 0x62155) = *pbVar22;
-      FUN_0040a280();
+      InitGuardSlot();
       local_c = 0;
-      FUN_0040a280();
+      InitGuardSlot();
       local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),1);
       EncodeChecksumStateXored();
       EncodeChecksumStateXored();
@@ -322,7 +322,7 @@ LAB_00411727:
           uVar15 = PeekChecksumStateUnderLock(iVar12 + 0x5113c + iVar19);
           uVar15 = EncodeChecksumDeltaAdd(&DAT_00796aa0,local_23c,uVar15);
           SUBFIELD(local_c,0,undefined1) = 2;
-          uVar15 = FUN_0040ada0(acStack_b09 + 1,local_460,uVar15);
+          uVar15 = InitGuardedChecksumSlot(acStack_b09 + 1,local_460,uVar15);
           SUBFIELD(local_c,0,undefined1) = 3;
           uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar15 = EncodeChecksumDeltaDiv(uVar15,local_684,uVar17);
@@ -344,7 +344,7 @@ LAB_00411727:
       ScrubChecksumGuard();
       local_c = 0xffffffff;
       ScrubChecksumGuard();
-      cVar4 = FUN_0040b390(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
+      cVar4 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
       pbVar22 = param_3;
       if ((cVar4 != '\0') &&
          ((((cVar4 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar4 != '\0' ||

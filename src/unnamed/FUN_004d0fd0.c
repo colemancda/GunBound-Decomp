@@ -103,7 +103,7 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
       local_4 = 0;
       uVar3 = EncodeChecksumPairSum(iVar1 + 0x6968,local_678,iVar1 + 0x6fd4);
       SUBFIELD(local_4,0,undefined1) = 1;
-      uVar3 = FUN_0040ada0(iVar4 + 0x6744,local_454,uVar3);
+      uVar3 = InitGuardedChecksumSlot(iVar4 + 0x6744,local_454,uVar3);
       SUBFIELD(local_4,0,undefined1) = 2;
       FUN_0040aea0(uVar3,local_89c,uVar2);
       SUBFIELD(local_4,0,undefined1) = 3;

@@ -778,7 +778,7 @@ LAB_004a15b5:
     iVar3 = PeekPacketChecksumState();
     bVar17 = (int)puStack_aec <= iVar3;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if (((bVar17) || (cVar1 = FUN_0040b410(iStack_ad0 + 0x3b48,iStack_ad0 + 0x3d6c), cVar1 == '\0'))
+    if (((bVar17) || (cVar1 = CompareChecksumExceeds(iStack_ad0 + 0x3b48,iStack_ad0 + 0x3d6c), cVar1 == '\0'))
        || (*(int *)(iStack_ad0 + 0x3b44) < 6)) goto LAB_004a166b;
   }
   iVar3 = g_clientContext;

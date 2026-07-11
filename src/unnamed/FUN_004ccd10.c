@@ -198,12 +198,12 @@ void FUN_004ccd10(int *param_1)
       cVar4 = PacketChecksumGreaterEqual(&DAT_0067e3d0 + g_clientContext,uVar9);
       if (cVar4 == '\0') goto LAB_004cd6de;
     }
-    cVar4 = FUN_0040b390(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
+    cVar4 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
     iVar7 = DAT_007934e8;
     if ((cVar4 != '\0') && (*(char *)((int)param_1 + 0x2382) == '\0')) {
       *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x4200;
       *(undefined4 *)(iVar7 + 0x44d0) = 6;
-      cVar4 = FUN_0040b410(&DAT_0067e5f4 + g_clientContext,&DAT_0067e3d0 + g_clientContext);
+      cVar4 = CompareChecksumExceeds(&DAT_0067e5f4 + g_clientContext,&DAT_0067e3d0 + g_clientContext);
       iVar7 = DAT_007934e8;
       if (cVar4 == '\0') {
         *(undefined1 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = 0;

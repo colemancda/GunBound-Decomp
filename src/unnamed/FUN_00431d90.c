@@ -154,12 +154,12 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
     }
-    FUN_0040ab20();
-    FUN_0040ab20();
-    FUN_0040ab20();
-    FUN_0040ab20();
-    FUN_0040ab20();
-    FUN_0040ab20();
+    EncodeDividedChecksum();
+    EncodeDividedChecksum();
+    EncodeDividedChecksum();
+    EncodeDividedChecksum();
+    EncodeDividedChecksum();
+    EncodeDividedChecksum();
     (**(code **)(*piVar8 + 8))();
     (**(code **)*piVar8)(1);
   }

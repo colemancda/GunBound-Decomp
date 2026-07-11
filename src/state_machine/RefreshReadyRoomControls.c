@@ -100,7 +100,7 @@ LAB_004da4f7:
   InvokeWidget(param_3);
   InvokeWidget(param_3);
   if ((cVar9 == '\0') ||
-     (cVar2 = FUN_0040b390(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4), cVar2 == '\0')) {
+     (cVar2 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4), cVar2 == '\0')) {
     cVar2 = '\0';
     bVar10 = false;
   }

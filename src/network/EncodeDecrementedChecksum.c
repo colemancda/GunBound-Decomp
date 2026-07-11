@@ -1,4 +1,4 @@
-/* FUN_0040b390 - 0x0040b390 in the original binary.
+/* EncodeDecrementedChecksum - 0x0040b060 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,16 +8,15 @@
 #include "ghidra_types.h"
 
 
-bool FUN_0040b390(void)
+void EncodeDecrementedChecksum(void)
 
 {
   int iVar1;
-  int iVar2;
   
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = PeekPacketChecksumState();
-  iVar2 = PeekPacketChecksumState();
+  EncodeOutgoingPacketField(iVar1 + -1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  return iVar1 == iVar2;
+  return;
 }
 

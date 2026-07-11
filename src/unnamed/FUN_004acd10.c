@@ -151,7 +151,7 @@ LAB_004ace87:
     bVar2 = local_45c[0] <= iVar7;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((bVar2) ||
-       ((cVar3 = FUN_0040b410(param_1 + 0x3b48,param_1 + 0x3d6c), cVar3 == '\0' ||
+       ((cVar3 = CompareChecksumExceeds(param_1 + 0x3b48,param_1 + 0x3d6c), cVar3 == '\0' ||
         (*(int *)(param_1 + 0x3b44) < 6)))) goto switchD_004ad044_caseD_3;
   }
   iVar7 = g_clientContext;

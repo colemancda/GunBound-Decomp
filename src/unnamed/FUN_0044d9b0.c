@@ -86,7 +86,7 @@ void __fastcall FUN_0044d9b0(int *param_1)
   if ((char)param_1[0xd] == '\x01') {
     if (param_1[9] == 1) {
       (**(code **)(*param_1 + 4))(s_cnormal_00555ae8);
-      uVar7 = FUN_0040ada0(param_1 + 0x795,auStack_ac4,param_1 + 0xcf2);
+      uVar7 = InitGuardedChecksumSlot(param_1 + 0x795,auStack_ac4,param_1 + 0xcf2);
       puStack_8 = (undefined1 *)0x0;
       EncodeChecksumDeltaDiv(uVar7,auStack_8a0,100);
       puStack_8 = 1;
@@ -106,7 +106,7 @@ void __fastcall FUN_0044d9b0(int *param_1)
         TreeLowerBound(&local_ad8);
         pcVar16 = (code *)LeaveCriticalSection;
       }
-      uVar7 = FUN_0040ada0(param_1 + 0x81e,auStack_8a0,param_1 + 0xcf2);
+      uVar7 = InitGuardedChecksumSlot(param_1 + 0x81e,auStack_8a0,param_1 + 0xcf2);
       puStack_8 = (undefined1 *)0x2;
       EncodeChecksumDeltaDiv(uVar7,auStack_ac4,100);
       puStack_8 = (undefined1 *)3;
@@ -126,7 +126,7 @@ void __fastcall FUN_0044d9b0(int *param_1)
         TreeLowerBound(&uStack_adc);
         pcVar16 = (code *)LeaveCriticalSection;
       }
-      uVar7 = FUN_0040ada0(param_1 + 0x8a7,auStack_8a4,param_1 + 0xcf2);
+      uVar7 = InitGuardedChecksumSlot(param_1 + 0x8a7,auStack_8a4,param_1 + 0xcf2);
       uStack_c = 4;
       unaff_EBP = EncodeChecksumDeltaDiv(uVar7,auStack_ac8,100);
       uStack_c = 5;
@@ -146,7 +146,7 @@ void __fastcall FUN_0044d9b0(int *param_1)
         TreeLowerBound(&iStack_ae0);
         pcVar16 = (code *)LeaveCriticalSection;
       }
-      uVar7 = FUN_0040ada0(param_1 + 0x930,auStack_8a8,param_1 + 0xd7b);
+      uVar7 = InitGuardedChecksumSlot(param_1 + 0x930,auStack_8a8,param_1 + 0xd7b);
       uStack_10 = 6;
       EncodeChecksumDeltaDiv(uVar7,auStack_acc,100);
       uStack_10 = 7;
@@ -166,7 +166,7 @@ void __fastcall FUN_0044d9b0(int *param_1)
         TreeLowerBound(&stack0xfffff51c);
         pcVar16 = (code *)LeaveCriticalSection;
       }
-      uVar7 = FUN_0040ada0(param_1 + 0x9b9,auStack_8ac,param_1 + 0xd7b);
+      uVar7 = InitGuardedChecksumSlot(param_1 + 0x9b9,auStack_8ac,param_1 + 0xd7b);
       uStack_14 = 8;
       EncodeChecksumDeltaDiv(uVar7,&uStack_ad0,100);
       uStack_14 = 9;
@@ -186,7 +186,7 @@ void __fastcall FUN_0044d9b0(int *param_1)
         TreeLowerBound(&stack0xfffff518);
         pcVar16 = (code *)LeaveCriticalSection;
       }
-      uVar7 = FUN_0040ada0(param_1 + 0xa42,auStack_8b0,param_1 + 0xd7b);
+      uVar7 = InitGuardedChecksumSlot(param_1 + 0xa42,auStack_8b0,param_1 + 0xd7b);
       uStack_18 = 10;
       EncodeChecksumDeltaDiv(uVar7,auStack_ad4,100);
       uStack_18 = 0xb;
@@ -504,8 +504,8 @@ LAB_0044e2cb:
   piVar1 = param_1 + 0xed2;
   cVar5 = CompareChecksumPair(param_1 + 0x3d5,piVar1);
   if (((cVar5 != '\0') && (cVar5 = CompareChecksumPair(piVar1,param_1 + 0xf5b), cVar5 != '\0')) ||
-     ((cVar5 = FUN_0040b410(param_1 + 0x3d5,piVar1), cVar5 != '\0' &&
-      ((cVar5 = FUN_0040b410(piVar1,param_1 + 0xf5b), cVar5 != '\0' && (5 < param_1[0xed1])))))) {
+     ((cVar5 = CompareChecksumExceeds(param_1 + 0x3d5,piVar1), cVar5 != '\0' &&
+      ((cVar5 = CompareChecksumExceeds(piVar1,param_1 + 0xf5b), cVar5 != '\0' && (5 < param_1[0xed1])))))) {
     SetGuardedBool(1);
   }
 LAB_0044e8d1:

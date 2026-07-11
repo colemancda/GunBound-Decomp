@@ -1,4 +1,4 @@
-/* FUN_0040ada0 - 0x0040ada0 in the original binary.
+/* InitGuardedChecksumSlot - 0x0040ada0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_0040ada0(undefined4 param_1,int param_2)
+int InitGuardedChecksumSlot(undefined4 param_1,int param_2)
 
 {
   int iVar1;

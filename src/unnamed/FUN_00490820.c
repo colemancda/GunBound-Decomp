@@ -582,7 +582,7 @@ LAB_00491321:
     cVar4 = iVar6 < iVar5;
     (*pcVar15)(&DAT_005a9068);
     if ((cVar4 == '\0') ||
-       ((cVar4 = FUN_0040b410(param_1 + 0xed2,param_1 + 0xf5b), cVar4 == '\0' ||
+       ((cVar4 = CompareChecksumExceeds(param_1 + 0xed2,param_1 + 0xf5b), cVar4 == '\0' ||
         (param_1[0xed1] < 6)))) goto LAB_00491a21;
   }
   iVar5 = g_clientContext;

@@ -90,7 +90,7 @@ void FUN_004cb280(int param_1)
     if ((iVar4 == iVar5) && (*(char *)(param_1 + 0x2382) == '\0')) {
       *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x4200;
       *(undefined4 *)(iVar3 + 0x44d0) = 6;
-      cVar1 = FUN_0040b410(&DAT_0067e5f4 + g_clientContext,&DAT_0067e3d0 + g_clientContext);
+      cVar1 = CompareChecksumExceeds(&DAT_0067e5f4 + g_clientContext,&DAT_0067e3d0 + g_clientContext);
       iVar3 = DAT_007934e8;
       if (cVar1 == '\0') {
         *(undefined1 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = 0;

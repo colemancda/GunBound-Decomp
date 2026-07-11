@@ -79,9 +79,9 @@ void FUN_00432850(int param_1,int param_2)
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = (int)&local_c;
   uStack_10 = 0x43286f;
-  FUN_0040ada0();
+  InitGuardedChecksumSlot();
   local_4 = 0;
-  FUN_0040ada0();
+  InitGuardedChecksumSlot();
   local_4 = 1;
   EncodeChecksumPairSum();
   local_4 = 2;
@@ -267,7 +267,7 @@ void FUN_00432850(int param_1,int param_2)
         pcVar7 = pcVar7 + 1;
       } while (cVar1 != '\0');
       FUN_0041da80(g_clientContext,piVar3,1,1,1);
-      uVar8 = FUN_0040ada0(piVar3 + 0x795,auStack_17b4,piVar3 + 0xcf2);
+      uVar8 = InitGuardedChecksumSlot(piVar3 + 0x795,auStack_17b4,piVar3 + 0xcf2);
       uStack_20 = 7;
       EncodeChecksumDeltaDiv(uVar8,auStack_19d8,100);
       uStack_20 = 8;
@@ -301,7 +301,7 @@ void FUN_00432850(int param_1,int param_2)
         TreeLowerBound(&stack0xffffe1c4);
         pcVar11 = (code *)LeaveCriticalSection;
       }
-      uVar8 = FUN_0040ada0(piVar3 + 0x81e,auStack_114c,piVar3 + 0xcf2);
+      uVar8 = InitGuardedChecksumSlot(piVar3 + 0x81e,auStack_114c,piVar3 + 0xcf2);
       uStack_24 = 9;
       EncodeChecksumDeltaDiv(uVar8,auStack_474,100);
       uStack_24 = 10;
@@ -335,7 +335,7 @@ void FUN_00432850(int param_1,int param_2)
         TreeLowerBound(&stack0xffffe1c0);
         pcVar11 = (code *)LeaveCriticalSection;
       }
-      uVar8 = FUN_0040ada0(piVar3 + 0x8a7,auStack_d08,piVar3 + 0xcf2);
+      uVar8 = InitGuardedChecksumSlot(piVar3 + 0x8a7,auStack_d08,piVar3 + 0xcf2);
       uStack_28 = 0xb;
       EncodeChecksumDeltaDiv(uVar8,auStack_8c0,100);
       uStack_28 = 0xc;
@@ -369,7 +369,7 @@ void FUN_00432850(int param_1,int param_2)
         TreeLowerBound(&stack0xffffe1bc);
         pcVar11 = (code *)LeaveCriticalSection;
       }
-      uVar8 = FUN_0040ada0(piVar3 + 0x930,auStack_1378,piVar3 + 0xd7b);
+      uVar8 = InitGuardedChecksumSlot(piVar3 + 0x930,auStack_1378,piVar3 + 0xd7b);
       uStack_2c = 0xd;
       EncodeChecksumDeltaDiv(uVar8,auStack_159c,100);
       uStack_2c = 0xe;
@@ -403,7 +403,7 @@ void FUN_00432850(int param_1,int param_2)
         TreeLowerBound(&stack0xffffe1b8);
         pcVar11 = (code *)LeaveCriticalSection;
       }
-      uVar8 = FUN_0040ada0(piVar3 + 0x9b9,auStack_aec,piVar3 + 0xd7b);
+      uVar8 = InitGuardedChecksumSlot(piVar3 + 0x9b9,auStack_aec,piVar3 + 0xd7b);
       uStack_30 = 0xf;
       EncodeChecksumDeltaDiv(uVar8,auStack_f34,100);
       uStack_30 = 0x10;
@@ -437,7 +437,7 @@ void FUN_00432850(int param_1,int param_2)
         TreeLowerBound(&stack0xffffe1b4);
         pcVar11 = (code *)LeaveCriticalSection;
       }
-      uVar8 = FUN_0040ada0(piVar3 + 0xa42,auStack_260,piVar3 + 0xd7b);
+      uVar8 = InitGuardedChecksumSlot(piVar3 + 0xa42,auStack_260,piVar3 + 0xd7b);
       uStack_34 = 0x11;
       EncodeChecksumDeltaDiv(uVar8,auStack_6a8,100);
       uStack_34 = 0x12;

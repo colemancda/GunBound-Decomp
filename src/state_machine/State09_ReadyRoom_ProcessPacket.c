@@ -829,7 +829,7 @@ LAB_004d4cc7:
         PeekChecksumStateUnderLock(g_clientContext + 0x44efc);
         ApplyRoomSettings(this,uVar18);
       }
-      cVar10 = FUN_0040b390(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
+      cVar10 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
       if (cVar10 == '\0') {
         RemoveWidget();
         CreateButtonWidget(&DAT_00e9be90,0,0,1000,s_b_ready_ready_005570c8,0x28f,0x226,0x6b,0x2d,1,0

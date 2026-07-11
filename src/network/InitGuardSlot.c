@@ -1,4 +1,4 @@
-/* FUN_0040a280 - 0x0040a280 in the original binary.
+/* InitGuardSlot - 0x0040a280 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_0040a280(int param_1)
+int __fastcall InitGuardSlot(int param_1)
 
 {
   *(undefined1 *)(param_1 + 0x220) = 0;

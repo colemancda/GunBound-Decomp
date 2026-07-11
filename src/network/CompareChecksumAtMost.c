@@ -1,4 +1,4 @@
-/* FUN_0040b060 - 0x0040b060 in the original binary.
+/* CompareChecksumAtMost - 0x0040b4d0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,15 +8,16 @@
 #include "ghidra_types.h"
 
 
-void FUN_0040b060(void)
+bool CompareChecksumAtMost(void)
 
 {
   int iVar1;
+  int iVar2;
   
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar1 + -1);
+  iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  return;
+  return iVar1 <= iVar2;
 }
 

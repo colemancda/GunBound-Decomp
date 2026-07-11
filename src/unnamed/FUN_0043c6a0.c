@@ -60,7 +60,7 @@ void FUN_0043c6a0(void)
         }
         local_4 = 0xffffffff;
         ScrubChecksumGuard();
-        cVar2 = FUN_0040b410(iVar3 + 0x6968,iVar1);
+        cVar2 = CompareChecksumExceeds(iVar3 + 0x6968,iVar1);
         if (cVar2 != '\0') {
           EncodeChecksumState(iVar1);
         }
