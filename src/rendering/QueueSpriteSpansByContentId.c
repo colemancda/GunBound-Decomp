@@ -1,4 +1,4 @@
-/* FUN_004eb8e0 - 0x004eb8e0 in the original binary.
+/* QueueSpriteSpansByContentId - 0x004eb8e0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004eb8e0(uint param_1,uint param_2)
+void __thiscall QueueSpriteSpansByContentId(uint param_1,uint param_2)
 
 {
   uint uVar1;
@@ -39,10 +39,10 @@ void __thiscall FUN_004eb8e0(uint param_1,uint param_2)
     return;
   }
   if (*(char *)(iVar2 + 0x18) == '\x01') {
-    FUN_004ed870();
+    QueueSpriteFrameSpans();
     return;
   }
-  FUN_004ebaf0();
+  QueueTextureRegionSpans();
   return;
 }
 

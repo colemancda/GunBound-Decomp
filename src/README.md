@@ -292,7 +292,7 @@ Concretely, that means:
   never set to anything but zero, so these are safe, purely mechanical
   rewrites: `var._0_1_ = N;` → `var = N;`, `var = (uint)var._1_3_ << 8;`
   → `var = 0;`, `var = CONCAT31(var._1_3_,N);` → `var = N;`.
-  `unnamed/FUN_004174c0.c` and `unnamed/FUN_00406990.c` were fully
+  `unnamed/FUN_004174c0.c` and `unnamed/DrawWindGauge.c` were fully
   fixed this way (plus their SEH plumbing). `unnamed/FUN_00432850.c`,
   `unnamed/FUN_0044d9b0.c`, and `unnamed/FUN_00452cc0.c` had this same
   sub-case applied but remain broken for other, unrelated reasons

@@ -706,7 +706,7 @@ uint32_t DAT_00f22650[0x400];
 uint8_t DAT_00f23650;
 uint8_t DAT_00f23654;
 uint8_t DAT_00f23658;
-uint8_t DAT_00f2465c;
+int32_t g_nCompositorLayer;
 const char s_Acks_will_not_be_send_00552d04[] = "Acks will not be send";
 const char s_AutoRefresh_00552818[] = "AutoRefresh";
 const char s_AvataEffectTexture1_00556900[] = "AvataEffectTexture1";

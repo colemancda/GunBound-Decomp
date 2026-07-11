@@ -1,4 +1,4 @@
-/* FUN_004c1c90 - 0x004c1c90 in the original binary.
+/* RenderWindGaugeTick - 0x004c1c90 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004c1c90(int param_1)
+void __fastcall RenderWindGaugeTick(int param_1)
 
 {
   int iVar1;
@@ -20,8 +20,8 @@ void __fastcall FUN_004c1c90(int param_1)
   }
   FUN_004e3bd0();
   SetClipRect();
-  FUN_00406990(&DAT_006a647c + g_clientContext);
-  FUN_004e93e0(1);
+  DrawWindGauge(&DAT_006a647c + g_clientContext);
+  FlushCompositorLayer(1);
   return;
 }
 

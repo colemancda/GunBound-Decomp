@@ -212,6 +212,6 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
   _DAT_00f23654 = 800;
   ZeroMemory(DAT_00f22650, sizeof(DAT_00f22650));
   _DAT_00f23650 = 0;
-  DAT_00f2465c = 0;
+  g_nCompositorLayer = 0;
   return SetupZBuffer() ? 0 : 100;
 }

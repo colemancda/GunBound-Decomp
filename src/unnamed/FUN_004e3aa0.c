@@ -14,7 +14,7 @@ void FUN_004e3aa0(int param_1)
   int iVar2;
   int iVar3;
   
-  DAT_00f2465c = 1;
+  g_nCompositorLayer = 1;
   iVar2 = *(int *)(DAT_00ea0e1c + 0x1c);
   uVar1 = *(uint *)(iVar2 + 4);
   iVar3 = iVar2;
@@ -51,10 +51,10 @@ LAB_004e3af8:
         }
       }
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        FUN_004ed870();
+        QueueSpriteFrameSpans();
       }
       else {
-        FUN_004ebaf0(-(((*(int *)(iVar3 + 0x20) + -800) * (*(int *)(param_1 + 8) + -400)) /
+        QueueTextureRegionSpans(-(((*(int *)(iVar3 + 0x20) + -800) * (*(int *)(param_1 + 8) + -400)) /
                       (*(int *)(param_1 + 0x18) + -800)));
       }
     }

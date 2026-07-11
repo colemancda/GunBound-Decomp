@@ -874,7 +874,7 @@ extern uint8_t DAT_00f23654;
 #define _DAT_00f23654 DAT_00f23654
 extern uint8_t DAT_00f23658;
 #define _DAT_00f23658 DAT_00f23658
-extern uint8_t DAT_00f2465c;
+extern int32_t g_nCompositorLayer;
 
 /* --- String literals (real content extracted from the binary) --- */
 

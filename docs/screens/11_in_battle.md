@@ -25,7 +25,7 @@ overlay still uses the software blitter. The most complex state.
 | 8 | `0x4bcd00` | OnExit |
 | 9 | `0x4bd8b0` | **`State11_InBattle_OnTick`** — the per-frame update (largest function in the binary, 17 KB). Structurally confirmed as the OnTick slot: State02's vtable has the identical slot-7/8/9 = OnEnter/OnExit/OnTick layout. 8-dir screen-edge camera-scroll cursor logic, chat-input field poll (`GetWindowTextA`), outgoing-packet field encoding, broadcast-event logging, per-tick active-object GC (`FUN_004f3100`), turn-phase bookkeeping |
 | 10 | `0x4c1b90` | chat character-input helper (emoticon/control-char remap: `@→0x0a`…`*→0x10`) |
-| 11 | `0x4c1c90` | small per-tick counter/update helper |
+| 11 | `0x4c1c90` | `RenderWindGaugeTick` — draws the wind gauge each tick: a rotating direction vane (8 frames) plus a digit-sprite wind-strength number, via `DrawWindGauge` (`0x406990`). Composited through the span-based HUD compositor (see ARCHITECTURE.md "The span-based HUD compositor"). |
 | 12 | `0x4c1d10` | one-line delegate → `FUN_004508a0` at `+0x6a7f88` |
 | 13 | `0x4c1d30` | `State11_InBattle_ClearEffectTextures` — **per-frame dynamic-texture clear**: Lock/zero-fill/Unlock (`DDSURFACEDESC2` 0x7c) across ~24 named effect textures (`AvataTexture`, `BulletTexture`, `FlameTexture1-4`, `ThorTexture`, …) |
 | 14 | `0x4c3020` | `State11_InBattle_Render` (the D3D battle scene) |

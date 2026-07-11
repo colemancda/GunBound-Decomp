@@ -611,7 +611,7 @@ LAB_004c9ba8:
     FUN_004cfb20();
   }
   SetClipRect();
-  FUN_004e93e0(3);
+  FlushCompositorLayer(3);
   FUN_00408180(&DAT_006a647c + g_clientContext);
   iVar6 = g_clientContext;
   if ((*(char *)(param_1 + 0x11ac) != '\0') && (*(char *)(param_1 + 0x11d0) == '\0')) {

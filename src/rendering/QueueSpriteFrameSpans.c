@@ -1,4 +1,4 @@
-/* FUN_004ed870 - 0x004ed870 in the original binary.
+/* QueueSpriteFrameSpans - 0x004ed870 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_004ed870(int param_1,int param_2)
+undefined4 __thiscall QueueSpriteFrameSpans(int param_1,int param_2)
 
 {
   ushort uVar1;
@@ -68,13 +68,13 @@ undefined4 __thiscall FUN_004ed870(int param_1,int param_2)
                 }
                 else {
                   if (iVar3 < iVar5) {
-                    FUN_004e9130(iVar7,iVar3 + 1,puVar8 + 2);
+                    QueueCompositorSpan(iVar7,iVar3 + 1,puVar8 + 2);
                     iVar3 = DAT_0056df30;
                     break;
                   }
                   puVar9 = puVar8 + 2;
                 }
-                FUN_004e9130(iVar7,iVar5,puVar9);
+                QueueCompositorSpan(iVar7,iVar5,puVar9);
                 uVar6 = (uint)puVar8[1];
                 iVar3 = DAT_0056df30;
               }

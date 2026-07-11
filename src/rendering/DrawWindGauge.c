@@ -1,4 +1,4 @@
-/* FUN_00406990 - 0x00406990 in the original binary.
+/* DrawWindGauge - 0x00406990 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00406990(int *param_1)
+void DrawWindGauge(int *param_1)
 
 {
   char cVar1;
@@ -52,7 +52,7 @@ void FUN_00406990(int *param_1)
    * throughout this function; its `._0_1_`/`._1_3_` partial-field
    * accesses are rewritten as plain int operations, same reasoning as
    * FUN_004174c0.c's fix. */
-  DAT_00f2465c = 3;
+  g_nCompositorLayer = 3;
   iVar2 = *(int *)(iVar2 + 0x1c);
   uVar11 = *(uint *)(iVar2 + 4);
   while (uVar11 < 0x1b59) {
@@ -73,10 +73,10 @@ void FUN_00406990(int *param_1)
 LAB_004069e1:
     if (bVar13) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        FUN_004ed870();
+        QueueSpriteFrameSpans();
       }
       else {
-        FUN_004ebaf0(0);
+        QueueTextureRegionSpans(0);
       }
       break;
     }
@@ -103,13 +103,13 @@ LAB_00408159:
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar2 == 1) {
-    FUN_004eb8e0(7000);
+    QueueSpriteSpansByContentId(7000);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar2 == 3) {
-    FUN_004eb8e0(7000);
+    QueueSpriteSpansByContentId(7000);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState();
@@ -235,7 +235,7 @@ LAB_00406e95:
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          FUN_004eb8e0(0x1b5a);
+          QueueSpriteSpansByContentId(0x1b5a);
           local_4 = 7;
           ScrubChecksumGuard();
           local_4 = 6;
@@ -256,7 +256,7 @@ LAB_00406e95:
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          FUN_004eb8e0(0x1b59);
+          QueueSpriteSpansByContentId(0x1b59);
           local_4 = 10;
           ScrubChecksumGuard();
           local_4 = 9;
@@ -272,7 +272,7 @@ LAB_00406e95:
   }
   else {
 LAB_00406f80:
-    FUN_004eb8e0(7000);
+    QueueSpriteSpansByContentId(7000);
   }
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
@@ -281,7 +281,7 @@ LAB_00406f80:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004eb8e0(500);
+    QueueSpriteSpansByContentId(500);
     local_4 = 0xffffffff;
     if (local_ef4 != 0) {
       ScrambleChecksumGuardBytes();
@@ -294,7 +294,7 @@ LAB_00406f80:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004eb8e0(500);
+    QueueSpriteSpansByContentId(500);
     local_4 = 0xd;
     if (local_ef4 != 0) {
       ScrambleChecksumGuardBytes();
@@ -325,7 +325,7 @@ LAB_00407429:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004eb8e0(500);
+    QueueSpriteSpansByContentId(500);
     local_4 = 0xf;
     if (local_ef4 != 0) {
       ScrambleChecksumGuardBytes();
@@ -352,14 +352,14 @@ LAB_00407429:
     iVar2 = 0x186;
     do {
       if (local_f88[iVar10] != ' ') {
-        FUN_004eb8e0(500);
+        QueueSpriteSpansByContentId(500);
       }
       iVar2 = iVar2 + 0xb;
       iVar10 = iVar10 + 1;
     } while (iVar2 < 0x19c);
   }
   else {
-    FUN_004eb8e0(500);
+    QueueSpriteSpansByContentId(500);
   }
   iVar2 = *(int *)(DAT_00ea0e1c + 0x1c);
   uVar11 = *(uint *)(iVar2 + 4);
@@ -441,7 +441,7 @@ LAB_004077e3:
   }
 LAB_00407859:
   if ((char)param_1[10] != '\0') {
-    FUN_004eb8e0(7000);
+    QueueSpriteSpansByContentId(7000);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -454,7 +454,7 @@ LAB_00407859:
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     SetClipRect();
-    FUN_004eb8e0(7000);
+    QueueSpriteSpansByContentId(7000);
     SetClipRect();
     pcVar12 = (code *)EnterCriticalSection;
   }
@@ -526,10 +526,10 @@ LAB_00407859:
 LAB_00406a43:
     if (uVar11 == 1) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        FUN_004ed870();
+        QueueSpriteFrameSpans();
       }
       else {
-        FUN_004ebaf0(0);
+        QueueTextureRegionSpans(0);
       }
       break;
     }
@@ -542,10 +542,10 @@ LAB_00406a43:
 LAB_00406d0a:
     if (uVar11 == 2) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        FUN_004ed870();
+        QueueSpriteFrameSpans();
       }
       else {
-        FUN_004ebaf0(0xf4);
+        QueueTextureRegionSpans(0xf4);
       }
       break;
     }
@@ -558,10 +558,10 @@ LAB_00406d0a:
 LAB_00406e61:
     if (uVar11 == 4) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        FUN_004ed870();
+        QueueSpriteFrameSpans();
       }
       else {
-        FUN_004ebaf0(uVar9);
+        QueueTextureRegionSpans(uVar9);
       }
       break;
     }
@@ -574,10 +574,10 @@ LAB_00406e61:
 LAB_004073ee:
     if (uVar11 == 0x9c) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        FUN_004ed870();
+        QueueSpriteFrameSpans();
       }
       else {
-        FUN_004ebaf0(0x2f7);
+        QueueTextureRegionSpans(0x2f7);
       }
       break;
     }
@@ -590,10 +590,10 @@ LAB_004073ee:
 LAB_004075f6:
     if (uVar11 == 0xb1) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        FUN_004ed870();
+        QueueSpriteFrameSpans();
       }
       else {
-        FUN_004ebaf0(0x187);
+        QueueTextureRegionSpans(0x187);
       }
       break;
     }
@@ -606,10 +606,10 @@ LAB_004075f6:
 LAB_00407694:
     if (uVar11 == 0xb2) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        FUN_004ed870();
+        QueueSpriteFrameSpans();
       }
       else {
-        FUN_004ebaf0(0x8a);
+        QueueTextureRegionSpans(0x8a);
       }
       break;
     }
@@ -623,10 +623,10 @@ LAB_00407742:
     if (uVar8 == uVar11) {
       if (-1 < (int)uVar11) {
         if (*(char *)(iVar10 + 0x18) == '\x01') {
-          FUN_004ed870();
+          QueueSpriteFrameSpans();
         }
         else {
-          FUN_004ebaf0(0x91);
+          QueueTextureRegionSpans(0x91);
         }
       }
       break;
@@ -641,10 +641,10 @@ LAB_004077ad:
     if (uVar8 == uVar11) {
       if (-1 < (int)uVar11) {
         if (*(char *)(iVar2 + 0x18) == '\x01') {
-          FUN_004ed870();
+          QueueSpriteFrameSpans();
         }
         else {
-          FUN_004ebaf0(0x99);
+          QueueTextureRegionSpans(0x99);
         }
       }
       break;
@@ -658,10 +658,10 @@ LAB_004077ad:
 LAB_00407823:
     if (uVar11 == uVar8) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        FUN_004ed870();
+        QueueSpriteFrameSpans();
       }
       else {
-        FUN_004ebaf0(0xab);
+        QueueTextureRegionSpans(0xab);
       }
       break;
     }
@@ -674,7 +674,7 @@ LAB_00407823:
 LAB_00407b5d:
     if (uVar11 == 0xb2) {
       if (*(char *)(iVar2 + 0x18) != '\x01') goto LAB_00407b8f;
-      FUN_004ed870(0x141);
+      QueueSpriteFrameSpans(0x141);
       break;
     }
   }
@@ -686,7 +686,7 @@ LAB_00407b5d:
 LAB_00407af4:
     if (uVar11 == 0xb0) {
       if (*(char *)(iVar2 + 0x18) != '\x01') goto LAB_00407b8f;
-      FUN_004ed870(0x141);
+      QueueSpriteFrameSpans(0x141);
       break;
     }
   }
@@ -698,7 +698,7 @@ LAB_00407af4:
 LAB_00407a7a:
     if (uVar11 == 0xb1) {
       if (*(char *)(iVar2 + 0x18) != '\x01') goto LAB_00407b8f;
-      FUN_004ed870(0x141);
+      QueueSpriteFrameSpans(0x141);
       break;
     }
   }
@@ -710,11 +710,11 @@ LAB_00407a7a:
 LAB_004079ff:
     if (uVar11 == 0xaf) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        FUN_004ed870();
+        QueueSpriteFrameSpans();
       }
       else {
 LAB_00407b8f:
-        FUN_004ebaf0(0x141);
+        QueueTextureRegionSpans(0x141);
       }
       break;
     }
@@ -765,7 +765,7 @@ LAB_00407c6b:
     if (uVar11 == uVar8) {
       if (-1 < (int)uVar8) {
         if (*(char *)(iVar5 + 0x18) != '\x01') goto LAB_00407c95;
-        FUN_004ed870(iVar2);
+        QueueSpriteFrameSpans(iVar2);
       }
       break;
     }
@@ -778,11 +778,11 @@ LAB_00407c6b:
 LAB_00407c03:
     if (uVar11 == 0x91) {
       if (*(char *)(iVar5 + 0x18) == '\x01') {
-        FUN_004ed870();
+        QueueSpriteFrameSpans();
       }
       else {
 LAB_00407c95:
-        FUN_004ebaf0(iVar2);
+        QueueTextureRegionSpans(iVar2);
       }
       break;
     }
@@ -824,10 +824,10 @@ LAB_00407d6b:
     if (uVar8 == uVar11) {
       if (-1 < (int)uVar11) {
         if (*(char *)(iVar2 + 0x18) == '\x01') {
-          FUN_004ed870();
+          QueueSpriteFrameSpans();
         }
         else {
-          FUN_004ebaf0(0x53);
+          QueueTextureRegionSpans(0x53);
         }
       }
       break;
@@ -937,10 +937,10 @@ LAB_0040809a:
     if (uVar11 == uVar8) {
       if (-1 < (int)uVar8) {
         if (*(char *)(iVar10 + 0x18) == '\x01') {
-          FUN_004ed870();
+          QueueSpriteFrameSpans();
         }
         else {
-          FUN_004ebaf0(iVar2);
+          QueueTextureRegionSpans(iVar2);
         }
       }
       break;

@@ -1528,6 +1528,39 @@ directly** for a large class of content:
   `BlitSpriteText` (`0x4ed9f0`), which renders numbers/labels from *sprite*
   glyphs rather than the vector font.
 
+### The span-based HUD compositor
+
+**High confidence, fully traced.** Separate from the direct-blit primitives
+above, a handful of HUD elements (currently confirmed: the in-battle wind
+gauge, `DrawWindGauge`/`RenderWindGaugeTick`) are drawn through a **deferred,
+z-ordered span compositor** instead of blitting straight to the back buffer:
+
+- **`QueueCompositorSpan`** (`0x4e9130`) — inserts a horizontal pixel span
+  into a per-scanline interval list (16-byte nodes: `x0, x1, priority-tag byte,
+  next ptr, data ptr`) allocated from pooled `0x4000`-byte blocks, splitting/
+  merging existing spans on that row as needed. This is the low-level insert;
+  it never touches the real back buffer.
+- **`QueueSpriteFrameSpans`** (`0x4ed870`) and **`QueueTextureRegionSpans`**
+  (`0x4ebaf0`, row-by-row via **`QueueTextureRowSpan`** `0x4eba80`) are the two
+  sprite-draw paths that feed spans into the compositor — the RLE-frame vs
+  cached-atlas-region split mirrors `BlitSprite16bpp`/`BlitSpriteClipped`, but
+  routed through `QueueCompositorSpan` instead of writing pixels directly.
+- **`QueueSpriteSpansByContentId`** (`0x4eb8e0`) — looks up a sprite/texture
+  by a two-level content-id tree key and dispatches to whichever of the two
+  span-queuing paths applies (same `frame->+0x18==1` flag as `DrawSprite`).
+- **`g_nCompositorLayer`** (`0x0f2465c`) — the active priority/z-tag; draw
+  callers set it (values `1`/`2`/`3` seen) before queuing spans for that layer.
+- **`FlushCompositorLayer(tag)`** (`0x4e93e0`) — walks every row's span list,
+  copies only the spans matching `tag` into the real back buffer
+  (`DAT_0079352c`), and marks each row's queue for that tag consumed.
+
+**Why this exists (inferred, not confirmed):** the wind gauge composites a
+rotating vane sprite (8 frames) and a multi-digit number (one sprite per
+glyph) that visually overlap at the same screen position every frame; queuing
+spans and flushing once avoids redundant overdraw/z-fighting between the
+pieces compared to blitting each one directly. Whether any other HUD element
+besides the wind gauge uses this compositor is not yet checked.
+
 So the pipeline per frame is roughly: `Clear` (D3D) → Lock back buffer →
 software-blit map/terrain/UI sprites (RLE, 16bpp) → Unlock → `BeginScene` /
 draw hardware sprite quads / `EndScene` (D3D) → `PresentFrame` (Blt to

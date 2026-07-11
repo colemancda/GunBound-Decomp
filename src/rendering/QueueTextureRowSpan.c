@@ -1,4 +1,4 @@
-/* FUN_004eba80 - 0x004eba80 in the original binary.
+/* QueueTextureRowSpan - 0x004eba80 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004eba80(int param_1,int param_2,int param_3)
+void __fastcall QueueTextureRowSpan(int param_1,int param_2,int param_3)
 
 {
   int in_EAX;
@@ -22,7 +22,7 @@ void __fastcall FUN_004eba80(int param_1,int param_2,int param_3)
     if (DAT_0056df30 < param_1 + param_3) {
       param_3 = (DAT_0056df30 - param_1) + 1;
     }
-    FUN_004e9130(param_1,param_1 + param_3,param_2);
+    QueueCompositorSpan(param_1,param_1 + param_3,param_2);
   }
   return;
 }

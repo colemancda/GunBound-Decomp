@@ -1,4 +1,4 @@
-/* FUN_004e9130 - 0x004e9130 in the original binary.
+/* QueueCompositorSpan - 0x004e9130 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e9130(int param_1,int param_2,int param_3)
+void QueueCompositorSpan(int param_1,int param_2,int param_3)
 
 {
   byte bVar1;

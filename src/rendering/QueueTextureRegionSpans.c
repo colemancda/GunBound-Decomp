@@ -1,4 +1,4 @@
-/* FUN_004ebaf0 - 0x004ebaf0 in the original binary.
+/* QueueTextureRegionSpans - 0x004ebaf0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall FUN_004ebaf0(uint param_1,uint param_2)
+undefined4 __fastcall QueueTextureRegionSpans(uint param_1,uint param_2)
 
 {
   uint uVar1;
@@ -56,7 +56,7 @@ undefined4 __fastcall FUN_004ebaf0(uint param_1,uint param_2)
       }
       if (0 < iVar3) {
         do {
-          FUN_004eba80(uVar4);
+          QueueTextureRowSpan(uVar4);
           uVar4 = *(undefined4 *)(iVar2 + 0x20);
           iVar3 = iVar3 + -1;
         } while (iVar3 != 0);
