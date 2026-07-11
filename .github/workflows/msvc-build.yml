@@ -15,6 +15,10 @@
 #
 # Not run per-PR: ~1800 cl.exe invocations under Wine take >1h, so it's gated
 # to main pushes, manual dispatch, and a weekly schedule.
+#
+# Also renders tools/gen_diff_report.py's instruction-level diff (original
+# binary vs. this run's recompiled .obj files) for the WinMain-to-server-list
+# function path and uploads it as its own artifact on every run, pass or fail.
 name: msvc-build
 
 on:
@@ -59,6 +63,22 @@ jobs:
           docker run --rm --platform linux/amd64 -v "$PWD":/work -w /work \
             gb-msvc bash /work/tools/msvc-env/_link_attempt.sh 2>&1 | tee msvc-build.log
 
+      - name: Set up disassembly-diff tooling
+        if: always()
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends llvm
+          pip install --quiet --break-system-packages colorama cxxfilt watchdog levenshtein
+          # apt's "llvm" pulls in a versioned llvm-objdump-N; find it (asm-differ
+          # string-matches the executable path for "llvm-", see diff_settings.py).
+          echo "GB_OBJDUMP=$(command -v llvm-objdump-* | sort -V | tail -1)" >> "$GITHUB_ENV"
+
+      - name: Generate disassembly-diff report
+        if: always()
+        run: |
+          python3 tools/gen_diff_report.py \
+            build/link_attempt diff-report.html || echo "::warning::diff report generation failed (non-fatal)"
+
       - name: Check results
         run: |
           cerr=$(grep -c '^COMPILE-ERR' msvc-build.log || true)
@@ -94,4 +114,14 @@ jobs:
             build/link_attempt/gunbound.exe
             build/link_attempt/link.log
             msvc-build.log
+          if-no-files-found: warn
+
+      - name: Upload disassembly-diff report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gunbound-diff-report
+          path: |
+            diff-report.html
+            diff-report.json
           if-no-files-found: warn
