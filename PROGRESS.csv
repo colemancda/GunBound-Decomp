@@ -1217,7 +1217,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004eebe0,143,FUN_004eebe0,false,1,3,RAW-src
 004eec70,152,FUN_004eec70,false,4,1,RAW-src
 004eef00,125,FUN_004eef00,false,1,4,RAW-src
-004eef80,1040,FUN_004eef80,false,1,8,RAW-src
+004eef80,1040,DecodeSoundBufferChunk,false,1,8,RAW-src
 004ef3a0,72,FUN_004ef3a0,false,1,3,RAW-src
 004ef3f0,93,FUN_004ef3f0,false,1,4,RAW-src
 004ef5b0,82,FUN_004ef5b0,false,2,3,RAW-src
@@ -1666,11 +1666,11 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050f770,66,ScrollListWidget_IsOverThumb,false,1,1,RAW-src
 0050f840,67,FUN_0050f840,false,1,0,RAW-src
 0050f890,20,FUN_0050f890,false,1,1,RAW-src
-0050f8b0,1247,FUN_0050f8b0,false,4,4,RAW-src
+0050f8b0,1247,DecodeMpegLayerIISamples,false,4,4,RAW-src
 0050fd90,180,FUN_0050fd90,false,1,0,RAW-src
 0050fe50,571,FUN_0050fe50,false,1,0,RAW-src
 005100a0,11837,FUN_005100a0,false,1,0,RAW-src
-00512f80,1041,FUN_00512f80,false,2,4,RAW-src
+00512f80,1041,DecodeMpegAudioFrame,false,2,4,RAW-src
 005133a0,21,FUN_005133a0,false,2,0,RAW-src
 00513850,168,FUN_00513850,false,1,0,RAW-src
 00513900,2912,FUN_00513900,false,1,0,RAW-src
@@ -1683,7 +1683,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00515420,1441,FUN_00515420,false,3,10,RAW-src
 00515b90,2103,FUN_00515b90,false,1,1,RAW-src
 005163d0,1002,FUN_005163d0,false,1,3,RAW-src
-005167c0,269,FUN_005167c0,false,3,3,RAW-src
+005167c0,269,InitMpegSynthesisTables,false,3,3,RAW-src
 005168d0,94,FUN_005168d0,false,4,2,RAW-src
 005169e0,94,FUN_005169e0,false,1,2,RAW-src
 00516a40,94,FUN_00516a40,false,1,2,RAW-src

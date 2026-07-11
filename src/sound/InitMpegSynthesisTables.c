@@ -1,4 +1,4 @@
-/* FUN_005167c0 - 0x005167c0 in the original binary.
+/* InitMpegSynthesisTables - 0x005167c0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -9,7 +9,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_005167c0(void)
+void InitMpegSynthesisTables(void)
 
 {
   int iVar1;

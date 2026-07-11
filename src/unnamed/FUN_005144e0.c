@@ -89,7 +89,7 @@ FUN_005144e0(int param_1,undefined4 param_2,int param_3,undefined4 param_4,uint 
     puVar7 = puVar7 + 1;
   }
   _DAT_00f25ef4 = 0;
-  FUN_005167c0();
+  InitMpegSynthesisTables();
   return 1;
 }
 

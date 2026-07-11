@@ -1,4 +1,4 @@
-/* FUN_00512f80 - 0x00512f80 in the original binary.
+/* DecodeMpegAudioFrame - 0x00512f80 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -10,7 +10,7 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4
-FUN_00512f80(int param_1,undefined4 param_2,int param_3,undefined4 param_4,uint param_5,int param_6)
+DecodeMpegAudioFrame(int param_1,undefined4 param_2,int param_3,undefined4 param_4,uint param_5,int param_6)
 
 {
   int iVar1;
@@ -200,7 +200,7 @@ FUN_00512f80(int param_1,undefined4 param_2,int param_3,undefined4 param_4,uint 
     puVar17 = puVar17 + 1;
   }
   _DAT_00f25ef4 = 0;
-  FUN_005167c0();
+  InitMpegSynthesisTables();
   return 1;
 }
 

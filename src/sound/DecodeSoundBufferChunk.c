@@ -1,4 +1,4 @@
-/* FUN_004eef80 - 0x004eef80 in the original binary.
+/* DecodeSoundBufferChunk - 0x004eef80 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004eef80(int param_1,int param_2)
+void __thiscall DecodeSoundBufferChunk(int param_1,int param_2)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -89,7 +89,7 @@ LAB_004ef344:
                   piVar3 = *(int **)(DAT_00793558 + *(int *)(param_1 + 0x38) * 4);
                   goto LAB_004ef161;
                 }
-                iVar2 = FUN_00512f80(param_1 + 0x58,iVar2,0,0,0,DAT_00588f3c);
+                iVar2 = DecodeMpegAudioFrame(param_1 + 0x58,iVar2,0,0,0,DAT_00588f3c);
                 if (iVar2 != 0) {
                   FUN_005133a0(&stack0xffffffc8);
                   goto LAB_004ef13b;

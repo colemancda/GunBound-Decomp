@@ -1081,9 +1081,46 @@ DLLs), so any `.mp3` decode is in-house/statically linked.
 - **Volume/mode** come from the registry (`MusicVolume`, `EffectVolume`,
   `MidiMode`) via `LoadClientSettingsFromRegistry`.
 
-Open: which of the two objects is music vs. effects, where the in-house mp3
-decode lives (the refill path, `slot 0`), and the sound-effect trigger API
-(how a one-shot SFX is queued) — not yet traced.
+**Resolved this pass: the in-house MPEG audio (mp3) decoder, found and
+architecturally mapped.** The streaming worker's `slot 0` refill method is
+**`DecodeSoundBufferChunk`** (`0x4eef80`): it locks the DirectSound buffer
+(vtable `+0x2c`), decodes compressed audio straight into the locked region,
+and unlocks (vtable `+0x4c`). The actual decode is a substantial, previously
+entirely `FUN_`-named subsystem occupying roughly `0x50f8b0`-`0x517xxx` —
+confirmed as genuine MPEG-1 Audio decode (not a generic LZHUF/compression
+variant, despite superficially similar bitstream-reading code shape) from
+unambiguous fingerprints:
+- A `2^(x/12)`-style scalefactor power table and a sampling-rate reciprocal
+  table (`_DAT_00544370 / *(int*)(&DAT_005637e8+i)`).
+- Grouped-sample reconstruction tables built by base-3/5/9 digit
+  decomposition — the classic MPEG-1 **Layer II** grouped-sample coding
+  scheme for its 3-, 5-, and 9-level quantizers.
+- A layer/mode dispatch (`DecodeMpegAudioFrame`, `0x512f80`) selecting one of
+  several decode paths via a function-pointer table indexed by a mode field,
+  zero-initializing a **2304-dword output buffer** — exactly `1152 samples ×
+  2 channels`, the standard MPEG-1 frame sample count.
+- **`InitMpegSynthesisTables`** (`0x5167c0`): builds `1/cos(...)` twiddle
+  factors for a radix-2 butterfly (sizes 16/8/4/2/1) and zeroes two
+  512-sample circular history buffers — the polyphase synthesis filterbank's
+  classic IMDCT/windowing setup and V-buffer.
+- **`DecodeMpegLayerIISamples`** (`0x50f8b0`): the actual bitstream-to-sample
+  decode, walking the allocation-info/scalefactor tables via a
+  variable-bit-length reader.
+
+This is a **substantial, self-contained subsystem** (dozens of internal
+functions across `0x50f8b0`-`0x517xxx`: bit allocation, scalefactor decode,
+requantization, IMDCT, polyphase synthesis) — only the four functions above
+were named and documented this pass; the deep internals (Huffman/allocation
+codebooks, the actual IMDCT butterfly, per-subband synthesis) remain
+`FUN_`-named. Two sibling frame-decode paths dispatched from
+`DecodeMpegAudioFrame` (`0x5144e0`, `0x5163d0` — plausibly Layer I and Layer
+III/III-with-Huffman) weren't traced this pass. A dedicated follow-up pass
+could map this out fully; it's a well-bounded, independently interesting
+target (confirming exact MPEG layer/bitrate/samplerate support) separate from
+the rest of the game logic.
+
+Still open: which of the two DirectSound objects is music vs. effects, and
+the sound-effect trigger API (how a one-shot SFX is queued).
 
 ## The custom cursor system
 

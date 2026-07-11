@@ -1222,7 +1222,7 @@ void FUN_004eeb70();
 undefined4 FUN_004eebe0(); /* __thiscall ctor: call sites use the returned this-pointer */
 undefined4 FUN_004eec70();
 void __fastcall FUN_004eef00();
-void __thiscall FUN_004eef80();
+void __thiscall DecodeSoundBufferChunk();
 undefined4 FUN_004ef3a0(); /* __thiscall ctor: call sites use the returned this-pointer */
 void FUN_004ef3f0();
 void __fastcall FUN_004ef5b0();
@@ -1647,7 +1647,7 @@ void __fastcall ScrollListWidget_Draw();
 uint __fastcall ScrollListWidget_IsOverThumb();
 void __fastcall FUN_0050f840();
 undefined8 FUN_0050f890(); /* 64-bit result used from EDX:EAX at call sites */
-undefined8 FUN_0050f8b0();
+undefined8 DecodeMpegLayerIISamples();
 void FUN_0050fd90();
 void FUN_0050fe50();
 void FUN_005100a0();
@@ -1661,7 +1661,7 @@ void FUN_00514cc0();
 undefined8 FUN_00514fc0();
 void FUN_00515420();
 undefined4 FUN_00515b90();
-void FUN_005167c0();
+void InitMpegSynthesisTables();
 void FUN_005168d0();
 void FUN_005169e0();
 void FUN_00516a40();

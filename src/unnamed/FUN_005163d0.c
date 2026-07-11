@@ -158,7 +158,7 @@ LAB_005164e7:
   } while ((int)piVar6 < 0xf25eac);
   FUN_00519aa0();
   FUN_0051a120();
-  FUN_005167c0();
+  InitMpegSynthesisTables();
   puVar2 = &DAT_005ada3c;
   for (iVar4 = 0x240; iVar4 != 0; iVar4 = iVar4 + -1) {
     *puVar2 = 0;
