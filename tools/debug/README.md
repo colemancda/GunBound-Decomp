@@ -125,6 +125,13 @@ Set `CREATE_SUSPENDED=FALSE` again when you're done so normal play isn't blocked
   them, dumps the `avatarEquipped` record on the unpackers to resolve the Head/Flag
   word order, and logs the compositor's unpacked codes. See its header for how to read
   the output (equip a distinctive flag + Standard head, then enter a room).
+- `roomsettings-probe.sh` + `gbroomsettings.py` — binds the Ready Room option-toggle
+  **labels** (A SIDE / SSDEATH / ATTACK / DEATH72 / game-mode) to the `0x3101`
+  settings-dword **bit groups**. The encode is decoded statically
+  (`docs/screens/09_ready_room.md`) but the toggles are image-mapped hit regions, so
+  which label is which group needs a live click: **host a room**, click each option
+  once, and read the `GROUP` each `CLICK buttonId=...` line prints (with a
+  `settings=...` bit-level cross-check). ~4 clicks resolve the whole map.
 
 ### High-value uses for the decomp
 - **Struct layouts** (`FILEFORMATS.md` / `PROTOCOL.md`): break on a function taking
