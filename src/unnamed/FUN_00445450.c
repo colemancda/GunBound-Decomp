@@ -887,7 +887,7 @@ LAB_00446f6d:
     FUN_0040cf80(&DAT_00e9c0fc);
     break;
   case 0x36:
-    FUN_0044b900(param_1);
+    RenderInventoryItemDetail(param_1);
     break;
   case 0x37:
     iVar3 = PeekChecksumStateUnderLock(param_1 + 4);

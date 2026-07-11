@@ -44,23 +44,28 @@ struct GbFirePayload {            /* wire offset = 0x21 + member offset */
     /* +0x3d: trailing data (consumed by FUN_0043d780) */
 };
 
-/* Avatar Store opcode 0x6002 - the in-memory inventory item the
- * handler decodes each wire entry into (0x9c bytes, array at
- * DAT_005b3484+0x44be8; ARCHITECTURE.md "InventoryItem"). The wire
- * time_t itself isn't stored - only its parsed date parts. */
+/* Avatar Store opcode 0x6002 - the in-memory inventory item the handler
+ * decodes each wire entry into (0x9c bytes, array at DAT_005b3484+0x44be8;
+ * ARCHITECTURE.md "InventoryItem"). Field roles decoded (2026) from
+ * RenderInventoryItemDetail (0x44b900), the owned-item detail renderer.
+ * Wire entry = this same 0x1c-byte fixed head then a length-prefixed blob:
+ * the wire time_t at +0x10 is parsed to y/m/d (not stored raw), and the blob
+ * (length byte at wire +0x18, bytes from +0x19) lands at +0x1c. */
 struct GbInventoryItem {
-    u32 id0;          /* +0x00: checksum-fed; tracked as running min/max */
-    u32 id1;          /* +0x04 */
-    u32 id2;          /* +0x08 */
-    u32 id3;          /* +0x0c */
-    u16 pad10;        /* +0x10 */
-    u16 expYear;      /* +0x12: tm_year + 1900 */
-    u8  expMonth;     /* +0x14: tm_mon + 1 */
-    u8  expDay;       /* +0x15: tm_mday */
-    u16 pad16;        /* +0x16 */
-    u32 id4;          /* +0x18: checksum-fed alongside id0 */
-    u8  blob[0x80];   /* +0x1c: length-prefixed variable blob (length byte
-                       * at wire offset 24, bytes from 25) */
+    u32  id0;          /* +0x00: item id; tracked as running min/max, checksum-fed */
+    char name[12];     /* +0x04: item NAME (inline ASCII; drawn in the detail panel) */
+    u16  expYear;      /* +0x12: tm_year + 1900 (from the wire time_t at +0x10) */
+    u8   expMonth;     /* +0x14: tm_mon + 1 */
+    u8   expDay;       /* +0x15: tm_mday */
+    u16  pad16;        /* +0x16 */
+    u32  displayField; /* +0x18: packed display attrs -
+                        *   bits 0-14 : icon sprite id -> "%05d.img" (& 0x7fff)
+                        *   bit 8      : rarity/color select (name text color)
+                        *   bit 15     : gender/variant
+                        *   bits 16-19 : category (0-3; selects an icon-suffix sprite) */
+    char description[0x80]; /* +0x1c: item DESCRIPTION text (the "blob"; wrapped
+                        * and drawn via RenderWrappedText). Length-prefixed on the
+                        * wire (byte at wire +0x18, up to 0x80 bytes). */
 };
 
 #pragma pack(pop)

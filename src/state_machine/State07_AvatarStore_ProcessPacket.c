@@ -177,7 +177,7 @@ LAB_0044469b:
         }
         cVar2 = PeekPacketChecksumBool();
         if (cVar2 == '\0') {
-          FUN_0044b900(this);
+          RenderInventoryItemDetail(this);
         }
         iVar4 = g_clientContext;
         *(undefined1 *)((int)this + 0x32f92) = 1;

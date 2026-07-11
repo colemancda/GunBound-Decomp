@@ -534,14 +534,14 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0044b460,339,PreviewAvatarPart,false,1,5,RAW-src
 0044b5d0,334,FUN_0044b5d0,false,2,0,RAW-src
 0044b720,467,FUN_0044b720,false,11,2,RAW-src
-0044b900,1328,FUN_0044b900,false,3,20,RAW-src
+0044b900,1328,RenderInventoryItemDetail,false,3,20,RAW-src
 0044be40,186,FUN_0044be40,false,1,6,RAW-src
 0044bf00,1005,FUN_0044bf00,false,2,11,RAW-src
 0044c310,94,FUN_0044c310,false,1,1,RAW-src
 0044c370,93,FUN_0044c370,false,2,1,RAW-src
 0044c3d0,137,FUN_0044c3d0,false,3,0,RAW-src
 0044c460,308,FUN_0044c460,false,2,3,RAW-src
-0044c5a0,67,FUN_0044c5a0,false,1,2,RAW-src
+0044c5a0,67,RemoveInventoryItems,false,1,2,RAW-src
 0044c5f0,58,FUN_0044c5f0,false,5,2,RAW-src
 0044c630,99,FUN_0044c630,false,3,2,RAW-src
 0044c6a0,157,FUN_0044c6a0,false,4,3,RAW-src

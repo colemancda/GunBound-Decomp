@@ -1,4 +1,4 @@
-/* FUN_0044c5a0 - 0x0044c5a0 in the original binary.
+/* RemoveInventoryItems - 0x0044c5a0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0044c5a0(void)
+void RemoveInventoryItems(void)
 
 {
   int in_EAX;

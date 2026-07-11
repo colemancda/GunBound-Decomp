@@ -832,20 +832,29 @@ with one or more `0x6002` packets (below) listing owned items.
 
 **Direction**: incoming.
 
-**Payload**: per-entry: four `uint` id fields, a `time_t` (4-byte Unix-style
-timestamp, parsed via `localtime()` into day/month/year components — an
-**expiration date**), and a variable-length trailing blob.
+**Payload**: a `u16` count, then that many entries. Each entry is a **25-byte
+(`0x19`) fixed head then a length-prefixed blob** (fields **decoded** from
+`RenderInventoryItemDetail` `0x44b900`):
 
-**Behavior**: each parsed entry is stored into a confirmed **156-byte
-(`0x9c`) item struct array** at offset `+0x44be8` from the store object
-base.
+| wire off | type | field |
+|---|---|---|
+| `+0x00` | `u32` | item id (tracked as running min/max) |
+| `+0x04` | `char[12]` | **item name** (inline ASCII) |
+| `+0x10` | `time_t` | expiration (parsed via `localtime` → y/m/d) |
+| `+0x14` | `u32` | **display field** — `bits 0-14` icon id (`"%05d.img"`), `bit 8` rarity/color, `bit 15` gender, `bits 16-19` category |
+| `+0x18` | `u8` | blob length `L` |
+| `+0x19` | `u8[L]` | **description** text (the "blob"; wrapped-rendered) |
 
-**Significance**: this is the **owned/purchased item inventory list** shown
-in the avatar store — each item has an expiration date (many avatar/cosmetic
-items in games like this are time-limited rentals rather than permanent
-purchases), confirming the store supports rental-style items. See
-[FILEFORMATS.md](FILEFORMATS.md) and "Confirmed recurring structures" for
-the 156-byte struct.
+**Behavior**: each entry is stored into the **156-byte (`0x9c`)
+`GbInventoryItem`** array at `+0x44be8` (the `time_t` is parsed to y/m/d, not
+stored raw; the blob lands at struct `+0x1c`). See `src/cxx/Protocol.h`.
+
+**Significance**: this is the **owned/purchased item inventory list** in the
+avatar store. The "undecoded blob" is the item **description**, and the item
+**name ships inline** (`+0x04`) — so no separate id→name table is needed; the
+detail panel draws name + `%04d-%02d-%02d` expiration + wrapped description +
+the `%05d.img` icon straight from the packet. Each item's expiration date
+confirms the store's rental-style (time-limited) items.
 
 #### Opcode `0x6005` — Store init / price-list population
 

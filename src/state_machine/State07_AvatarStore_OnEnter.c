@@ -192,7 +192,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
     FUN_0044b720(param_1);
   }
   else {
-    FUN_0044b900(param_1);
+    RenderInventoryItemDetail(param_1);
   }
   *(undefined4 *)(param_1 + 0x34790) = 0;
   *(undefined1 *)(param_1 + 0x34814) = 0;

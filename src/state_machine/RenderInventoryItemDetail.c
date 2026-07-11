@@ -1,4 +1,4 @@
-/* FUN_0044b900 - 0x0044b900 in the original binary.
+/* RenderInventoryItemDetail - 0x0044b900 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -10,7 +10,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void FUN_0044b900(int param_1)
+void RenderInventoryItemDetail(int param_1)
 
 {
   char *pcVar1;
@@ -118,7 +118,7 @@ void FUN_0044b900(int param_1)
         puVar14 = puVar14 + 1;
         puVar15 = puVar15 + 1;
       }
-      FUN_0044c5a0();
+      RemoveInventoryItems();
       uVar2 = local_1874;
       uVar12 = local_1874 >> 0x10;
       FUN_00423e20(g_clientContext,uVar12 & 0xf);
