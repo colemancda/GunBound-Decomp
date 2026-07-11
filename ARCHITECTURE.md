@@ -1853,7 +1853,7 @@ concrete results:
     set — almost certainly the "private/password-protected room" padlock
     seen in the classic GunBound lobby UI.
   - The **room number** (`sprintf("%d", roomIndex+1)`, rendered via a
-    different helper, `FUN_004ed9f0`, not `BlitRLESprite` directly — a
+    different helper, `BlitSpriteText`, not `BlitRLESprite` directly — a
     distinct, not-yet-explored text-rendering path) and the **player
     count** (via `BlitRLESprite`, the bitmap-font renderer).
   - A final **"fullness" icon** (4 possible states, extracted from bits
@@ -2104,7 +2104,7 @@ previously-unexamined ones. Findings:
       `(index%3)*0x46+0x210` / `(index/3)*0x2d+0x193` spacing), reading
       item IDs from a per-client array (`param_1+0x518`) and looking up
       each item's display sprite through a **global item-ID → sprite-index
-      table** (`&g_awItemIconTable`) — with a label (via `FUN_004ed9f0`, the
+      table** (`&g_awItemIconTable`) — with a label (via `BlitSpriteText`, the
       confirmed text-render/prep helper) drawn under each icon. The
       current page is tracked at `param_1+0x620`, total item count at
       `+0x61c` — this is the player's **inventory/item-loadout picker**,

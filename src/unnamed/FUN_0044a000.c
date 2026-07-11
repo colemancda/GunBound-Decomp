@@ -131,7 +131,7 @@ LAB_0044a1b2:
         PeekChecksumStateUnderLock();
       }
       _sprintf(local_100,&DAT_00555654);
-      FUN_004ed9f0();
+      BlitSpriteText();
       uVar7 = 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -170,7 +170,7 @@ LAB_0044a1b2:
         PeekChecksumStateUnderLock();
       }
       _sprintf((char *)&local_108,&DAT_00555654);
-      FUN_004ed9f0(0x28,&local_108);
+      BlitSpriteText(0x28,&local_108);
       uVar7 = uVar7 + 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -213,7 +213,7 @@ LAB_0044a1b2:
         iVar2 = -iVar2;
       }
       _sprintf((char *)&uStack_110,&DAT_00555654,iVar2);
-      FUN_004ed9f0(0x28,&uStack_110,2,6);
+      BlitSpriteText(0x28,&uStack_110,2,6);
       uVar7 = uVar7 + 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -254,7 +254,7 @@ LAB_0044a1b2:
         iVar2 = -iVar2;
       }
       _sprintf(&stack0xfffffee8,&DAT_00555654,iVar2);
-      FUN_004ed9f0(0x28,&stack0xfffffee8,2,6);
+      BlitSpriteText(0x28,&stack0xfffffee8,2,6);
       uVar7 = uVar7 + 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -297,7 +297,7 @@ LAB_0044a1b2:
         iVar2 = -iVar2;
       }
       _sprintf(&stack0xfffffee0,&DAT_00555654,iVar2);
-      FUN_004ed9f0(0x28,&stack0xfffffee0,2,6);
+      BlitSpriteText(0x28,&stack0xfffffee0,2,6);
       uVar7 = uVar7 + 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -338,7 +338,7 @@ LAB_0044a1b2:
         iVar2 = -iVar2;
       }
       _sprintf(&stack0xfffffed8,&DAT_00555654,iVar2);
-      FUN_004ed9f0(0x28,&stack0xfffffed8,2,6);
+      BlitSpriteText(0x28,&stack0xfffffed8,2,6);
       uVar7 = uVar7 + 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -376,7 +376,7 @@ LAB_0044a1b2:
         iVar1 = -iVar1;
       }
       _sprintf(&stack0xfffffed0,&DAT_00555654,iVar1);
-      FUN_004ed9f0(0x28,&stack0xfffffed0,2,6);
+      BlitSpriteText(0x28,&stack0xfffffed0,2,6);
       uVar7 = uVar7 + 1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
@@ -411,7 +411,7 @@ LAB_0044a1b2:
         PeekChecksumStateUnderLock();
       }
       _sprintf(local_100,&DAT_00555654);
-      FUN_004ed9f0();
+      BlitSpriteText();
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;
     }

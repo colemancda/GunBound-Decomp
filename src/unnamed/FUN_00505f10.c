@@ -67,9 +67,9 @@ void __thiscall FUN_00505f10(int param_1,int param_2)
           uVar3 = *(ushort *)(param_2 + 0x33);
         }
         _sprintf(local_80,(char *)&PTR_DAT_00551ecc,uVar3 + 1);
-        FUN_004ed9f0(0x28,local_80,3,6);
+        BlitSpriteText(0x28,local_80,3,6);
         _sprintf(local_80,(char *)&PTR_DAT_00551ecc,*(ushort *)(param_2 + 0x31) + 1);
-        FUN_004ed9f0(0x28,local_80,3,6);
+        BlitSpriteText(0x28,local_80,3,6);
         return;
       }
       if (*(short *)(param_2 + 0x31) != -1) {

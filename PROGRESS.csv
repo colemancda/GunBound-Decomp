@@ -114,7 +114,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00406690,120,FUN_00406690,false,2,2,RAW-src
 00406710,161,CheckBothGuardedBools,false,37,2,RAW-src
 004067c0,159,FUN_004067c0,false,2,2,RAW-src
-00406860,103,FUN_00406860,false,35,2,RAW-src
+00406860,103,DecodeGuardedBool,false,35,2,RAW-src
 004068d0,190,FUN_004068d0,false,1,0,RAW-src
 00406990,6109,FUN_00406990,false,1,18,RAW-src
 00408180,6148,FUN_00408180,false,1,30,RAW-src
@@ -302,7 +302,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0041c1e0,77,FUN_0041c1e0,false,1,0,RAW-src
 0041c230,82,FUN_0041c230,false,1,0,RAW-src
 0041c290,38,FUN_0041c290,false,7,0,RAW-src
-0041c2c0,156,FUN_0041c2c0,false,84,3,RAW-src
+0041c2c0,156,CheckRoomSlotActive,false,84,3,RAW-src
 0041c360,5919,FUN_0041c360,false,2,12,RAW-src
 0041da80,3859,FUN_0041da80,false,11,8,RAW-src
 0041e9a0,130,GetItemQuantityByIcon,false,8,3,RAW-src
@@ -1190,7 +1190,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ed5a0,253,BuildColorQuad,false,4,0,RAW-src
 004ed6a0,463,BlitSprite16bpp,false,252,1,RAW-src
 004ed870,376,FUN_004ed870,false,21,2,RAW-src
-004ed9f0,163,FUN_004ed9f0,false,36,2,RAW-src
+004ed9f0,163,BlitSpriteText,false,36,2,RAW-src
 004edaa0,175,FUN_004edaa0,false,2,0,RAW-src
 004edb50,184,FUN_004edb50,false,1,0,RAW-src
 004edc50,91,InitDirectInput,false,1,2,RAW-src

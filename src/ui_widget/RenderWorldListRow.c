@@ -63,7 +63,7 @@ void __fastcall RenderWorldListRow(int param_1)
     cVar3 = *pcVar7;
     pcVar7 = pcVar7 + 1;
   } while (cVar3 != '\0');
-  FUN_004ed9f0(0xf8,local_80,(int)pcVar7 - (int)(local_80 + 1),8);
+  BlitSpriteText(0xf8,local_80,(int)pcVar7 - (int)(local_80 + 1),8);
   pcVar7 = local_80;
   do {
     cVar3 = *pcVar7;

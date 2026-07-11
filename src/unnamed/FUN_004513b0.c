@@ -213,7 +213,7 @@ void __fastcall FUN_004513b0(int *param_1)
     puStack_b20 = (undefined *)(iVar5 / iVar4);
   }
   puStack_b44 = (undefined4 *)0x451659;
-  cVar2 = FUN_00406860();
+  cVar2 = DecodeGuardedBool();
   if (cVar2 != '\0') {
     puStack_b44 = (undefined4 *)&DAT_005a9068;
     piStack_b48 = (int *)0x45166a;

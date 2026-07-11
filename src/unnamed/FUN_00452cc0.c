@@ -290,7 +290,7 @@ LAB_00453238:
     puVar22 = (undefined *)-(int)puVar22;
     iVar5 = iVar10 / iVar9;
   }
-  cVar3 = FUN_00406860();
+  cVar3 = DecodeGuardedBool();
   if (cVar3 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar9 = PeekPacketChecksumState();

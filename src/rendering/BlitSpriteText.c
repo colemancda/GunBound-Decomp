@@ -1,4 +1,4 @@
-/* FUN_004ed9f0 - 0x004ed9f0 in the original binary.
+/* BlitSpriteText - 0x004ed9f0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004ed9f0(int param_1,int param_2,int param_3,int param_4,int param_5)
+void __thiscall BlitSpriteText(int param_1,int param_2,int param_3,int param_4,int param_5)
 
 {
   uint uVar1;

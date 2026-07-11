@@ -111,7 +111,7 @@ void __thiscall RenderRoomCard(int param_1,int param_2)
     }
   }
   _sprintf(local_80,(char *)&PTR_DAT_00551ecc,*(int *)(g_clientContext + 0x44664 + param_2 * 4) + 1);
-  FUN_004ed9f0(0x14,local_80,3,0xb);
+  BlitSpriteText(0x14,local_80,3,0xb);
   FUN_004eadb0();
   BlitRLESprite(iVar6 + 0x44,0xffff);
   FUN_004eadb0();

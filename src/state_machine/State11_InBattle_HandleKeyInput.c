@@ -146,7 +146,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     if (g_stateChangeInProgress != 0x2e) {
       return;
     }
-    uVar10 = FUN_00406860();
+    uVar10 = DecodeGuardedBool();
     cVar3 = CheckGuardedBoolAnd(uVar10);
     iVar7 = DAT_007934e8;
     if (cVar3 == '\0') {
@@ -180,7 +180,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     *(undefined1 *)(iVar7 + 0x4d4 + iVar2) = 0;
     *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
     SendOutgoingPacket();
-    uVar10 = FUN_00406860();
+    uVar10 = DecodeGuardedBool();
     cVar3 = CheckGuardedBoolAnd(uVar10);
     if (cVar3 == '\0') {
       return;
@@ -352,7 +352,7 @@ LAB_004b8aeb:
       (&g_replayEventBuffer)[g_replayEventCursor] = uVar4;
       g_replayEventCursor = g_replayEventCursor + 1;
       Replay_FlushEvent();
-      cVar3 = FUN_00406860();
+      cVar3 = DecodeGuardedBool();
       if (cVar3 != '\0') {
         SetGuardedBool(0);
         SetGuardedBool(0);
@@ -466,7 +466,7 @@ LAB_004b8aeb:
     }
     break;
   case 0xd:
-    uVar10 = FUN_00406860();
+    uVar10 = DecodeGuardedBool();
     cVar3 = CheckGuardedBoolAnd(uVar10);
     if ((cVar3 == '\0') &&
        (cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,1), iVar7 = DAT_007934e8, cVar3 == '\0')

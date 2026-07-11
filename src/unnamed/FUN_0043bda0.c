@@ -146,8 +146,8 @@ LAB_0043c0e0:
                     }
                     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                     if ((((bVar17 || (bVar3 >> (bVar14 & 7) & 1) != 1) &&
-                         (cVar7 = FUN_00406860(), cVar7 != '\0')) &&
-                        (cVar7 = FUN_00406860(), cVar7 != '\0')) &&
+                         (cVar7 = DecodeGuardedBool(), cVar7 != '\0')) &&
+                        (cVar7 = DecodeGuardedBool(), cVar7 != '\0')) &&
                        ((piVar5 != piVar16 && (cVar7 = PeekPacketChecksumBool(), cVar7 == '\x01')))) {
                       iVar8 = *(int *)(&DAT_006a7724 + g_clientContext);
                       (*pcVar15)(&DAT_005a9068);

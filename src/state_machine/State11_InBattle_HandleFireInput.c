@@ -894,7 +894,7 @@ LAB_004613b2:
     if ((cVar9 != '\0') && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\0')) {
       FUN_00464060();
     }
-    uVar17 = FUN_00406860();
+    uVar17 = DecodeGuardedBool();
     cVar9 = CheckGuardedBoolAnd(uVar17);
     if ((cVar9 != '\0') && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01')) {
       SetGuardedBool(0);

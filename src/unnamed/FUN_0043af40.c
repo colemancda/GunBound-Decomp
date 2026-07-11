@@ -92,7 +92,7 @@ LAB_0043b008:
           if (cVar2 != '\0') {
             iVar10 = param_4 / 5 + param_4;
           }
-          cVar2 = FUN_00406860();
+          cVar2 = DecodeGuardedBool();
           iVar5 = g_clientContext;
           pcVar12 = (code *)EnterCriticalSection;
           if (cVar2 != '\0') {

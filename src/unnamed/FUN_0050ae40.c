@@ -191,7 +191,7 @@ LAB_0050b11f:
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf(local_80,&DAT_00555654,iVar2);
-      FUN_004ed9f0(0x28,local_80,2,6);
+      BlitSpriteText(0x28,local_80,2,6);
       local_90 = 1;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -232,7 +232,7 @@ LAB_0050b11f:
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf(local_80,&DAT_00555654,iVar2);
-      FUN_004ed9f0(0x28,local_80,2,6);
+      BlitSpriteText(0x28,local_80,2,6);
       local_90 = local_90 + -1;
       pcVar7 = (code *)LeaveCriticalSection;
     }
@@ -276,7 +276,7 @@ LAB_0050b11f:
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf((char *)&local_84,&DAT_00555654,iVar2);
-      FUN_004ed9f0(0x28,&local_84,2,6);
+      BlitSpriteText(0x28,&local_84,2,6);
       local_94 = local_94 + -1;
       pcVar7 = (code *)LeaveCriticalSection;
     }
@@ -319,7 +319,7 @@ LAB_0050b11f:
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf((char *)&local_88,&DAT_00555654,iVar2);
-      FUN_004ed9f0(0x28,&local_88,2,6);
+      BlitSpriteText(0x28,&local_88,2,6);
       puVar3 = (undefined *)(unaff_EBX + -1);
       pcVar7 = (code *)LeaveCriticalSection;
     }
@@ -362,7 +362,7 @@ LAB_0050b11f:
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf((char *)&local_8c,&DAT_00555654,iVar2);
-      FUN_004ed9f0(0x28,&local_8c,2,6);
+      BlitSpriteText(0x28,&local_8c,2,6);
       puVar3 = (undefined *)(unaff_EBP + -1);
       pcVar7 = (code *)LeaveCriticalSection;
     }
@@ -402,7 +402,7 @@ LAB_0050b11f:
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf((char *)&local_90,&DAT_00555654,iVar2);
-      FUN_004ed9f0(0x28,&local_90,2,6);
+      BlitSpriteText(0x28,&local_90,2,6);
       puVar3 = (undefined *)(unaff_ESI + -1);
       pcVar7 = (code *)LeaveCriticalSection;
     }
@@ -442,7 +442,7 @@ LAB_0050b11f:
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf((char *)&local_94,&DAT_00555654,iVar2);
-      FUN_004ed9f0(0x28,&local_94,2,6);
+      BlitSpriteText(0x28,&local_94,2,6);
       puVar3 = unaff_EDI + -1;
       pcVar7 = (code *)LeaveCriticalSection;
       unaff_EDI = puVar3;
@@ -482,7 +482,7 @@ LAB_0050b11f:
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf(&stack0xffffff64,&DAT_00555654,iVar2);
-      FUN_004ed9f0(0x28,&stack0xffffff64,2,6);
+      BlitSpriteText(0x28,&stack0xffffff64,2,6);
     }
     return;
   }

@@ -1,4 +1,4 @@
-/* FUN_00406860 - 0x00406860 in the original binary.
+/* DecodeGuardedBool - 0x00406860 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-bool FUN_00406860(void)
+bool DecodeGuardedBool(void)
 
 {
   byte bVar1;

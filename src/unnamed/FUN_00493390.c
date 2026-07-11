@@ -220,7 +220,7 @@ LAB_004937c8:
           }
           local_158d = '\x01';
         }
-        cVar8 = FUN_00406860();
+        cVar8 = DecodeGuardedBool();
         if ((cVar8 != '\0') && ((char)param_1[0xfe7] == '\0')) {
           iVar11 = FUN_00451030(local_15ac);
           param_1[0x3d2] = iVar11;
@@ -472,7 +472,7 @@ LAB_0049410b:
           }
           local_158d = '\x01';
         }
-        cVar8 = FUN_00406860();
+        cVar8 = DecodeGuardedBool();
         if ((cVar8 != '\0') && ((char)param_1[0xfe7] == '\0')) {
           iVar14 = FUN_00451030(local_15ac);
           param_1[0x3d2] = iVar14;

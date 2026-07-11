@@ -73,7 +73,7 @@ void __fastcall State09_ReadyRoom_RenderRosterAndItems(int param_1)
     }
   }
   _sprintf(local_928,(char *)&PTR_DAT_00551ecc,*(int *)(g_clientContext + 0x44e60) + 1);
-  FUN_004ed9f0(0x46,local_928,3,0xb);
+  BlitSpriteText(0x46,local_928,3,0xb);
   FUN_004eadb0();
   iVar3 = g_clientContext;
   BlitRLESprite(0xf,0xffff);
@@ -353,7 +353,7 @@ LAB_004d85fe:
 LAB_004d862d:
   uVar7 = GetItemQuantityByIcon(g_clientContext,(uint)uVar1);
   _sprintf(local_a28,(char *)&PTR_DAT_00551ecc,uVar7);
-  FUN_004ed9f0(0x7d,local_a28,3,5);
+  BlitSpriteText(0x7d,local_a28,3,5);
   local_a4c = local_a4c + 1;
   if (8 < (int)local_a4c) goto LAB_004d867a;
   goto LAB_004d8540;

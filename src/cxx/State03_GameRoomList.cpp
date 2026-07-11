@@ -27,7 +27,7 @@ void BlitSprite16bpp(int x, int y);       /* hardware blit (frame in regs) */
 void BlitSpriteClipped(int frame);        /* software blit */
 void BlitRLESprite(int x, int color);
 int  _sprintf(char *buf, const char *fmt, ...);
-void FUN_004ed9f0(int x, const char *text, int a, int b); /* text prep */
+void BlitSpriteText(int x, const char *text, int a, int b); /* text prep */
 void FUN_004eadb0(void);                  /* text draw step */
 int  PeekPacketChecksumState(void);       /* decode one value-guarded field */
 void *GetLocalizedString(void *table, int id);
@@ -152,7 +152,7 @@ void CState03GameRoomList::RenderRoomCard(int slot)
 
     /* room number text (local room-card id + 1) */
     _sprintf(numText, (const char *)&PTR_DAT_00551ecc, Ctx_roomCardIds(ctx)[slot * 2] + 1);
-    FUN_004ed9f0(0x14, numText, 3, 0xb);
+    BlitSpriteText(0x14, numText, 3, 0xb);
     FUN_004eadb0();
     BlitRLESprite(yBand + 0x44, 0xffff);
     FUN_004eadb0();

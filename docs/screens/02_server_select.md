@@ -215,7 +215,7 @@ calling **`RenderWorldListRow`** (`0x50dc80`) once per server. Each row:
   flag; **state `3` if `i == g_gameStateVTableArray[2]+8`** (the highlighted
   row), state `2` if `i == +0xc`. So the highlighted slot `+8` is read here at
   draw time to shade the selected row.
-- **Server number** — `sprintf("%d", serverId+1)` → `FUN_004ed9f0` +
+- **Server number** — `sprintf("%d", serverId+1)` → `BlitSpriteText` +
   `BlitRLESprite` (white `0xffff`).
 - **Name + two description lines** — `BlitRLESprite` (colour `0xb77f`) at
   y+0x1e, 14px line pitch (text sourced from the SoA name/`desc` arrays,

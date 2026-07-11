@@ -276,7 +276,7 @@ LAB_004622cf:
       *(undefined1 *)(DAT_007934e4 + 8) = 1;
     }
     ResolveObjectHandle(s_normal_00552230);
-    uVar9 = FUN_00406860();
+    uVar9 = DecodeGuardedBool();
     cVar5 = CheckGuardedBoolAnd(uVar9);
     if (((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) &&
        (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) {

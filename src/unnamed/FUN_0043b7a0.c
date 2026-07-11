@@ -55,7 +55,7 @@ LAB_0043b830:
           if (cVar2 != '\0') {
             iVar6 = param_4 / 5 + param_4;
           }
-          cVar2 = FUN_00406860();
+          cVar2 = DecodeGuardedBool();
           iVar5 = g_clientContext;
           if (cVar2 != '\0') {
             EncodeChecksumDeltaSub(piVar1 + 0x243,local_454,param_1);

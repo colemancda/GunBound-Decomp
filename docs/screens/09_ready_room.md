@@ -75,7 +75,7 @@ by the widget tree.
   - **Paginated item-loadout grid**: 9 slots/page (3×3, spacing
     `(i%3)*0x46+0x210` / `(i/3)*0x2d+0x193`), item IDs from `this+0x518`,
     sprite via the global item-ID→sprite table `&g_awItemIconTable`, labels via
-    `FUN_004ed9f0`. Current page at `this+0x620`, item count at `this+0x61c`.
+    `BlitSpriteText`. Current page at `this+0x620`, item count at `this+0x61c`.
     The cursor→cell mapping is `FindItemGridCell` (`0x4dc570`), which hit-tests
     the mouse against that same 3-column geometry and returns cell 0–8 (or −1).
     **Table encoding decoded** (see ARCHITECTURE.md's Ready Room section):

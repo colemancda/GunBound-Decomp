@@ -78,7 +78,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 5:
-    cVar3 = FUN_0041c2c0(g_clientContext,0);
+    cVar3 = CheckRoomSlotActive(g_clientContext,0);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,5000);
       LoadSpriteSet(&DAT_00ea0e18,0x13ec);
@@ -86,7 +86,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 6:
-    cVar3 = FUN_0041c2c0(g_clientContext,0);
+    cVar3 = CheckRoomSlotActive(g_clientContext,0);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,6000);
@@ -102,7 +102,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 7:
-    cVar3 = FUN_0041c2c0(g_clientContext,0);
+    cVar3 = CheckRoomSlotActive(g_clientContext,0);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,8000);
@@ -117,7 +117,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 8:
-    cVar3 = FUN_0041c2c0(g_clientContext,1);
+    cVar3 = CheckRoomSlotActive(g_clientContext,1);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1389);
       LoadSpriteSet(&DAT_00ea0e18,0x13ed);
@@ -125,7 +125,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 9:
-    cVar3 = FUN_0041c2c0(g_clientContext,1);
+    cVar3 = CheckRoomSlotActive(g_clientContext,1);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1772);
@@ -141,7 +141,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 10:
-    cVar3 = FUN_0041c2c0(g_clientContext,1);
+    cVar3 = CheckRoomSlotActive(g_clientContext,1);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1f42);
@@ -156,7 +156,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0xb:
-    cVar3 = FUN_0041c2c0(g_clientContext,2);
+    cVar3 = CheckRoomSlotActive(g_clientContext,2);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x138a);
       LoadSpriteSet(&DAT_00ea0e18,0x13ee);
@@ -164,7 +164,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0xc:
-    cVar3 = FUN_0041c2c0(g_clientContext,2);
+    cVar3 = CheckRoomSlotActive(g_clientContext,2);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1774);
@@ -180,7 +180,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0xd:
-    cVar3 = FUN_0041c2c0(g_clientContext,2);
+    cVar3 = CheckRoomSlotActive(g_clientContext,2);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1f44);
@@ -195,7 +195,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0xe:
-    cVar3 = FUN_0041c2c0(g_clientContext,3);
+    cVar3 = CheckRoomSlotActive(g_clientContext,3);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x138b);
       LoadSpriteSet(&DAT_00ea0e18,0x13ef);
@@ -203,7 +203,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0xf:
-    cVar3 = FUN_0041c2c0(g_clientContext,3);
+    cVar3 = CheckRoomSlotActive(g_clientContext,3);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1776);
@@ -219,7 +219,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x10:
-    cVar3 = FUN_0041c2c0(g_clientContext,3);
+    cVar3 = CheckRoomSlotActive(g_clientContext,3);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1f46);
@@ -234,7 +234,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x11:
-    cVar3 = FUN_0041c2c0(g_clientContext,4);
+    cVar3 = CheckRoomSlotActive(g_clientContext,4);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x138c);
       LoadSpriteSet(&DAT_00ea0e18,0x13f0);
@@ -242,7 +242,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x12:
-    cVar3 = FUN_0041c2c0(g_clientContext,4);
+    cVar3 = CheckRoomSlotActive(g_clientContext,4);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1778);
@@ -258,7 +258,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x13:
-    cVar3 = FUN_0041c2c0(g_clientContext,4);
+    cVar3 = CheckRoomSlotActive(g_clientContext,4);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1f48);
@@ -273,7 +273,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x14:
-    cVar3 = FUN_0041c2c0(g_clientContext,5);
+    cVar3 = CheckRoomSlotActive(g_clientContext,5);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x138d);
       LoadSpriteSet(&DAT_00ea0e18,0x13f1);
@@ -281,7 +281,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x15:
-    cVar3 = FUN_0041c2c0(g_clientContext,5);
+    cVar3 = CheckRoomSlotActive(g_clientContext,5);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x177a);
@@ -297,7 +297,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x16:
-    cVar3 = FUN_0041c2c0(g_clientContext,5);
+    cVar3 = CheckRoomSlotActive(g_clientContext,5);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1f4a);
@@ -312,7 +312,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x17:
-    cVar3 = FUN_0041c2c0(g_clientContext,6);
+    cVar3 = CheckRoomSlotActive(g_clientContext,6);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x138e);
       LoadSpriteSet(&DAT_00ea0e18,0x13f2);
@@ -320,7 +320,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x18:
-    cVar3 = FUN_0041c2c0(g_clientContext,6);
+    cVar3 = CheckRoomSlotActive(g_clientContext,6);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x177c);
@@ -351,7 +351,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x19:
-    cVar3 = FUN_0041c2c0(g_clientContext,6);
+    cVar3 = CheckRoomSlotActive(g_clientContext,6);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1f4c);
@@ -366,7 +366,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x1a:
-    cVar3 = FUN_0041c2c0(g_clientContext,7);
+    cVar3 = CheckRoomSlotActive(g_clientContext,7);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x138f);
       LoadSpriteSet(&DAT_00ea0e18,0x13f3);
@@ -374,7 +374,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x1b:
-    cVar3 = FUN_0041c2c0(g_clientContext,7);
+    cVar3 = CheckRoomSlotActive(g_clientContext,7);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x177e);
@@ -390,7 +390,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x1c:
-    cVar3 = FUN_0041c2c0(g_clientContext,7);
+    cVar3 = CheckRoomSlotActive(g_clientContext,7);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1f4f);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
@@ -401,7 +401,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x1d:
-    cVar3 = FUN_0041c2c0(g_clientContext,8);
+    cVar3 = CheckRoomSlotActive(g_clientContext,8);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1390);
       LoadSpriteSet(&DAT_00ea0e18,0x13f4);
@@ -409,7 +409,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x1e:
-    cVar3 = FUN_0041c2c0(g_clientContext,8);
+    cVar3 = CheckRoomSlotActive(g_clientContext,8);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1780);
@@ -425,7 +425,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x1f:
-    cVar3 = FUN_0041c2c0(g_clientContext,8);
+    cVar3 = CheckRoomSlotActive(g_clientContext,8);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1f50);
@@ -443,7 +443,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x20:
-    cVar3 = FUN_0041c2c0(g_clientContext,9);
+    cVar3 = CheckRoomSlotActive(g_clientContext,9);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1391);
       LoadSpriteSet(&DAT_00ea0e18,0x13f5);
@@ -451,7 +451,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x21:
-    cVar3 = FUN_0041c2c0(g_clientContext,9);
+    cVar3 = CheckRoomSlotActive(g_clientContext,9);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1782);
@@ -467,7 +467,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x22:
-    cVar3 = FUN_0041c2c0(g_clientContext,9);
+    cVar3 = CheckRoomSlotActive(g_clientContext,9);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1f52);
@@ -485,7 +485,7 @@ void ProcessBattleFrame(int param_1)
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x23:
-    cVar3 = FUN_0041c2c0(g_clientContext,10);
+    cVar3 = CheckRoomSlotActive(g_clientContext,10);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1392);
       LoadSpriteSet(&DAT_00ea0e18,0x13f6);
@@ -493,7 +493,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x24:
-    cVar3 = FUN_0041c2c0(g_clientContext,10);
+    cVar3 = CheckRoomSlotActive(g_clientContext,10);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1784);
@@ -509,7 +509,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x25:
-    cVar3 = FUN_0041c2c0(g_clientContext,10);
+    cVar3 = CheckRoomSlotActive(g_clientContext,10);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1f54);
@@ -524,7 +524,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x26:
-    cVar3 = FUN_0041c2c0(g_clientContext,0xb);
+    cVar3 = CheckRoomSlotActive(g_clientContext,0xb);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1393);
       LoadSpriteSet(&DAT_00ea0e18,0x13f7);
@@ -532,7 +532,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x27:
-    cVar3 = FUN_0041c2c0(g_clientContext,0xb);
+    cVar3 = CheckRoomSlotActive(g_clientContext,0xb);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1786);
@@ -551,7 +551,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x28:
-    cVar3 = FUN_0041c2c0(g_clientContext,0xb);
+    cVar3 = CheckRoomSlotActive(g_clientContext,0xb);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1f56);
@@ -566,7 +566,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x29:
-    cVar3 = FUN_0041c2c0(g_clientContext,0xc);
+    cVar3 = CheckRoomSlotActive(g_clientContext,0xc);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1394);
       LoadSpriteSet(&DAT_00ea0e18,0x13f8);
@@ -574,7 +574,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x2a:
-    cVar3 = FUN_0041c2c0(g_clientContext,0xc);
+    cVar3 = CheckRoomSlotActive(g_clientContext,0xc);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1788);
@@ -590,7 +590,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x2b:
-    cVar3 = FUN_0041c2c0(g_clientContext,0xc);
+    cVar3 = CheckRoomSlotActive(g_clientContext,0xc);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1f58);
@@ -668,7 +668,7 @@ void ProcessBattleFrame(int param_1)
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x32:
-    cVar3 = FUN_0041c2c0(g_clientContext,0xf);
+    cVar3 = CheckRoomSlotActive(g_clientContext,0xf);
     if (cVar3 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1397);
       LoadSpriteSet(&DAT_00ea0e18,0x13fb);
@@ -676,7 +676,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x33:
-    cVar3 = FUN_0041c2c0(g_clientContext,0xf);
+    cVar3 = CheckRoomSlotActive(g_clientContext,0xf);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x178e);
@@ -692,7 +692,7 @@ void ProcessBattleFrame(int param_1)
     }
     break;
   case 0x34:
-    cVar3 = FUN_0041c2c0(g_clientContext,0xf);
+    cVar3 = CheckRoomSlotActive(g_clientContext,0xf);
     if (cVar3 != '\0') {
       if (*(char *)(g_clientContext + 0x45578) == '\0') {
         LoadSpriteSet(&DAT_00ea0e18,0x1f5e);

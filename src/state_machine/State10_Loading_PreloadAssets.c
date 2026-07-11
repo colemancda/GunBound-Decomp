@@ -62,7 +62,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0xf:
-    cVar2 = FUN_0041c2c0(g_clientContext,0);
+    cVar2 = CheckRoomSlotActive(g_clientContext,0);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,5000);
       LoadSpriteSet(&DAT_00ea0e18,0x13ec);
@@ -70,7 +70,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x10:
-    cVar2 = FUN_0041c2c0(g_clientContext,0);
+    cVar2 = CheckRoomSlotActive(g_clientContext,0);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,6000);
       LoadSpriteSet(&DAT_00ea0e18,0x1771);
@@ -84,7 +84,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x11:
-    cVar2 = FUN_0041c2c0(g_clientContext,0);
+    cVar2 = CheckRoomSlotActive(g_clientContext,0);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,8000);
       LoadSpriteSet(&DAT_00ea0e18,0x1f41);
@@ -97,7 +97,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x12:
-    cVar2 = FUN_0041c2c0(g_clientContext,1);
+    cVar2 = CheckRoomSlotActive(g_clientContext,1);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1389);
       LoadSpriteSet(&DAT_00ea0e18,0x13ed);
@@ -105,7 +105,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x13:
-    cVar2 = FUN_0041c2c0(g_clientContext,1);
+    cVar2 = CheckRoomSlotActive(g_clientContext,1);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1772);
       LoadSpriteSet(&DAT_00ea0e18,0x1773);
@@ -119,7 +119,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x14:
-    cVar2 = FUN_0041c2c0(g_clientContext,1);
+    cVar2 = CheckRoomSlotActive(g_clientContext,1);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f42);
       LoadSpriteSet(&DAT_00ea0e18,0x1f43);
@@ -132,7 +132,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x15:
-    cVar2 = FUN_0041c2c0(g_clientContext,2);
+    cVar2 = CheckRoomSlotActive(g_clientContext,2);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x138a);
       LoadSpriteSet(&DAT_00ea0e18,0x13ee);
@@ -140,7 +140,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x16:
-    cVar2 = FUN_0041c2c0(g_clientContext,2);
+    cVar2 = CheckRoomSlotActive(g_clientContext,2);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1774);
       LoadSpriteSet(&DAT_00ea0e18,0x1775);
@@ -154,7 +154,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x17:
-    cVar2 = FUN_0041c2c0(g_clientContext,2);
+    cVar2 = CheckRoomSlotActive(g_clientContext,2);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f44);
       LoadSpriteSet(&DAT_00ea0e18,0x1f45);
@@ -167,7 +167,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x18:
-    cVar2 = FUN_0041c2c0(g_clientContext,3);
+    cVar2 = CheckRoomSlotActive(g_clientContext,3);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x138b);
       LoadSpriteSet(&DAT_00ea0e18,0x13ef);
@@ -175,7 +175,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x19:
-    cVar2 = FUN_0041c2c0(g_clientContext,3);
+    cVar2 = CheckRoomSlotActive(g_clientContext,3);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1776);
       LoadSpriteSet(&DAT_00ea0e18,0x1777);
@@ -189,7 +189,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x1a:
-    cVar2 = FUN_0041c2c0(g_clientContext,3);
+    cVar2 = CheckRoomSlotActive(g_clientContext,3);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f46);
       LoadSpriteSet(&DAT_00ea0e18,0x1f47);
@@ -202,7 +202,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x1b:
-    cVar2 = FUN_0041c2c0(g_clientContext,4);
+    cVar2 = CheckRoomSlotActive(g_clientContext,4);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x138c);
       LoadSpriteSet(&DAT_00ea0e18,0x13f0);
@@ -210,7 +210,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x1c:
-    cVar2 = FUN_0041c2c0(g_clientContext,4);
+    cVar2 = CheckRoomSlotActive(g_clientContext,4);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1778);
       LoadSpriteSet(&DAT_00ea0e18,0x1779);
@@ -224,7 +224,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x1d:
-    cVar2 = FUN_0041c2c0(g_clientContext,4);
+    cVar2 = CheckRoomSlotActive(g_clientContext,4);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f48);
       LoadSpriteSet(&DAT_00ea0e18,0x1f49);
@@ -237,7 +237,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x1e:
-    cVar2 = FUN_0041c2c0(g_clientContext,5);
+    cVar2 = CheckRoomSlotActive(g_clientContext,5);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x138d);
       LoadSpriteSet(&DAT_00ea0e18,0x13f1);
@@ -245,7 +245,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x1f:
-    cVar2 = FUN_0041c2c0(g_clientContext,5);
+    cVar2 = CheckRoomSlotActive(g_clientContext,5);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x177a);
       LoadSpriteSet(&DAT_00ea0e18,0x177b);
@@ -259,7 +259,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x20:
-    cVar2 = FUN_0041c2c0(g_clientContext,5);
+    cVar2 = CheckRoomSlotActive(g_clientContext,5);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f4a);
       LoadSpriteSet(&DAT_00ea0e18,0x1f4b);
@@ -272,7 +272,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x21:
-    cVar2 = FUN_0041c2c0(g_clientContext,6);
+    cVar2 = CheckRoomSlotActive(g_clientContext,6);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x138e);
       LoadSpriteSet(&DAT_00ea0e18,0x13f2);
@@ -280,7 +280,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x22:
-    cVar2 = FUN_0041c2c0(g_clientContext,6);
+    cVar2 = CheckRoomSlotActive(g_clientContext,6);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x177c);
       LoadSpriteSet(&DAT_00ea0e18,0x177d);
@@ -309,7 +309,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x23:
-    cVar2 = FUN_0041c2c0(g_clientContext,6);
+    cVar2 = CheckRoomSlotActive(g_clientContext,6);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f4c);
       LoadSpriteSet(&DAT_00ea0e18,0x1f4d);
@@ -322,7 +322,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x24:
-    cVar2 = FUN_0041c2c0(g_clientContext,7);
+    cVar2 = CheckRoomSlotActive(g_clientContext,7);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x138f);
       LoadSpriteSet(&DAT_00ea0e18,0x13f3);
@@ -330,7 +330,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x25:
-    cVar2 = FUN_0041c2c0(g_clientContext,7);
+    cVar2 = CheckRoomSlotActive(g_clientContext,7);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x177e);
       LoadSpriteSet(&DAT_00ea0e18,0x177f);
@@ -344,7 +344,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x26:
-    cVar2 = FUN_0041c2c0(g_clientContext,7);
+    cVar2 = CheckRoomSlotActive(g_clientContext,7);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f4f);
       AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
@@ -355,7 +355,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x27:
-    cVar2 = FUN_0041c2c0(g_clientContext,8);
+    cVar2 = CheckRoomSlotActive(g_clientContext,8);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1390);
       LoadSpriteSet(&DAT_00ea0e18,0x13f4);
@@ -363,7 +363,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x28:
-    cVar2 = FUN_0041c2c0(g_clientContext,8);
+    cVar2 = CheckRoomSlotActive(g_clientContext,8);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1780);
       LoadSpriteSet(&DAT_00ea0e18,0x1781);
@@ -377,7 +377,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x29:
-    cVar2 = FUN_0041c2c0(g_clientContext,8);
+    cVar2 = CheckRoomSlotActive(g_clientContext,8);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f50);
       LoadSpriteSet(&DAT_00ea0e18,0x1f51);
@@ -393,7 +393,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x2a:
-    cVar2 = FUN_0041c2c0(g_clientContext,9);
+    cVar2 = CheckRoomSlotActive(g_clientContext,9);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1391);
       LoadSpriteSet(&DAT_00ea0e18,0x13f5);
@@ -401,7 +401,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x2b:
-    cVar2 = FUN_0041c2c0(g_clientContext,9);
+    cVar2 = CheckRoomSlotActive(g_clientContext,9);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1782);
       LoadSpriteSet(&DAT_00ea0e18,0x1783);
@@ -415,7 +415,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x2c:
-    cVar2 = FUN_0041c2c0(g_clientContext,9);
+    cVar2 = CheckRoomSlotActive(g_clientContext,9);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f52);
       LoadSpriteSet(&DAT_00ea0e18,0x1f53);
@@ -431,7 +431,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x2d:
-    cVar2 = FUN_0041c2c0(g_clientContext,10);
+    cVar2 = CheckRoomSlotActive(g_clientContext,10);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1392);
       LoadSpriteSet(&DAT_00ea0e18,0x13f6);
@@ -439,7 +439,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x2e:
-    cVar2 = FUN_0041c2c0(g_clientContext,10);
+    cVar2 = CheckRoomSlotActive(g_clientContext,10);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1784);
       LoadSpriteSet(&DAT_00ea0e18,0x1785);
@@ -453,7 +453,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x2f:
-    cVar2 = FUN_0041c2c0(g_clientContext,10);
+    cVar2 = CheckRoomSlotActive(g_clientContext,10);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f54);
       LoadSpriteSet(&DAT_00ea0e18,0x1f55);
@@ -466,7 +466,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x30:
-    cVar2 = FUN_0041c2c0(g_clientContext,0xb);
+    cVar2 = CheckRoomSlotActive(g_clientContext,0xb);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1393);
       LoadSpriteSet(&DAT_00ea0e18,0x13f7);
@@ -474,7 +474,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x31:
-    cVar2 = FUN_0041c2c0(g_clientContext,0xb);
+    cVar2 = CheckRoomSlotActive(g_clientContext,0xb);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1786);
       LoadSpriteSet(&DAT_00ea0e18,0x1787);
@@ -491,7 +491,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x32:
-    cVar2 = FUN_0041c2c0(g_clientContext,0xb);
+    cVar2 = CheckRoomSlotActive(g_clientContext,0xb);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f56);
       LoadSpriteSet(&DAT_00ea0e18,0x1f57);
@@ -504,7 +504,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x33:
-    cVar2 = FUN_0041c2c0(g_clientContext,0xc);
+    cVar2 = CheckRoomSlotActive(g_clientContext,0xc);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1394);
       LoadSpriteSet(&DAT_00ea0e18,0x13f8);
@@ -512,7 +512,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x34:
-    cVar2 = FUN_0041c2c0(g_clientContext,0xc);
+    cVar2 = CheckRoomSlotActive(g_clientContext,0xc);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1788);
       LoadSpriteSet(&DAT_00ea0e18,0x1789);
@@ -526,7 +526,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x35:
-    cVar2 = FUN_0041c2c0(g_clientContext,0xc);
+    cVar2 = CheckRoomSlotActive(g_clientContext,0xc);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f58);
       LoadSpriteSet(&DAT_00ea0e18,0x1f59);
@@ -602,7 +602,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x3c:
-    cVar2 = FUN_0041c2c0(g_clientContext,0xf);
+    cVar2 = CheckRoomSlotActive(g_clientContext,0xf);
     if (cVar2 != '\0') {
       LoadSpriteSet(&DAT_00ea0e18,0x1397);
       LoadSpriteSet(&DAT_00ea0e18,0x13fb);
@@ -610,7 +610,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x3d:
-    cVar2 = FUN_0041c2c0(g_clientContext,0xf);
+    cVar2 = CheckRoomSlotActive(g_clientContext,0xf);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x178e);
       LoadSpriteSet(&DAT_00ea0e18,0x178f);
@@ -624,7 +624,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     }
     break;
   case 0x3e:
-    cVar2 = FUN_0041c2c0(g_clientContext,0xf);
+    cVar2 = CheckRoomSlotActive(g_clientContext,0xf);
     if ((cVar2 != '\0') && (*(char *)(g_clientContext + 0x45578) == '\0')) {
       LoadSpriteSet(&DAT_00ea0e18,0x1f5e);
       LoadSpriteSet(&DAT_00ea0e18,0x1f5f);

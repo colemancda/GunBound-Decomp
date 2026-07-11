@@ -31,7 +31,7 @@ int FUN_0045d360(int param_1)
   iVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = ((400 - iVar3) / iVar4) * iVar5;
-  cVar1 = FUN_00406860();
+  cVar1 = DecodeGuardedBool();
   if (cVar1 != '\0') {
     cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\0') {
