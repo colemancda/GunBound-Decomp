@@ -1026,7 +1026,7 @@ void * __thiscall FUN_004d37f0();
 void __fastcall FUN_004d3810();
 void __thiscall FUN_004d54c0();
 uint __thiscall State09_ReadyRoom_OnCommand();
-void __fastcall FUN_004d7b20();
+void __fastcall AdvanceBattleFrame();
 void FUN_004d7d70();
 void __fastcall State09_ReadyRoom_RenderRosterAndItems();
 void __fastcall FUN_004d9ae0();
