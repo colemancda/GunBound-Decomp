@@ -18,7 +18,10 @@
 #
 # Also renders tools/gen_diff_report.py's instruction-level diff (original
 # binary vs. this run's recompiled .obj files) for the WinMain-to-server-list
-# function path and uploads it as its own artifact on every run, pass or fail.
+# function path, and tools/gen_cxx_score_report.py's equivalent byte-
+# verification report for the promoted src/cxx C++ methods (see
+# src/cxx/PLAN.md's "byte-compare pass") - both uploaded as their own
+# artifacts on every run, pass or fail.
 name: msvc-build
 
 on:
@@ -79,6 +82,12 @@ jobs:
           python3 tools/gen_diff_report.py \
             build/link_attempt diff-report.html || echo "::warning::diff report generation failed (non-fatal)"
 
+      - name: Generate src/cxx byte-verification report
+        if: always()
+        run: |
+          python3 tools/gen_cxx_score_report.py \
+            build/link_attempt cxx-score-report.html || echo "::warning::cxx score report generation failed (non-fatal)"
+
       - name: Check results
         run: |
           cerr=$(grep -c '^COMPILE-ERR' msvc-build.log || true)
@@ -124,4 +133,14 @@ jobs:
           path: |
             diff-report.html
             diff-report.json
+          if-no-files-found: warn
+
+      - name: Upload src/cxx byte-verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gunbound-cxx-score-report
+          path: |
+            cxx-score-report.html
+            cxx-score-report.json
           if-no-files-found: warn
