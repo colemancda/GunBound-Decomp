@@ -144,7 +144,7 @@ void FUN_00418dc0(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x44;
   _eh_vector_destructor_iterator_(&DAT_005c7fb8 + param_1,0x157c,0x20,FUN_00418b90);
   SUBFIELD(local_4,0,undefined1) = 0x43;
-  _eh_vector_destructor_iterator_((void *)((int)&g_abItemRecords + param_1),0x9bc,100,FUN_00418910)
+  _eh_vector_destructor_iterator_((void *)((int)&g_abItemRecords + param_1),0x9bc,100,DestroyItemRecord)
   ;
   SUBFIELD(local_4,0,undefined1) = 0x42;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x1a1e48),0x7d28,0x80,FUN_004186b0);

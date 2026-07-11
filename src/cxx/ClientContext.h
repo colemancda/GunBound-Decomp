@@ -110,7 +110,7 @@ inline u8   &Ctx_roomSlotActive(int ctx, int slot) { return *reinterpret_cast<u8
  *   - battle action 0x8000  (battle setup): low32 @ payload+0x27, high32 @ payload+0x2b
  * The Ready Room loadout builder (BuildItemLoadout) scans this mask and packs the
  * owned item indices (0..63) into the state's loadout array (+0x518, count +0x61c,
- * capped 11); index i also indexes the DAT_0056dc40 icon table. Items 0..10 are
+ * capped 11); index i also indexes the g_awItemIconTable icon table. Items 0..10 are
  * the battle-usable items; per-item counts are CValueGuard-protected. */
 inline u32 *Ctx_itemOwnedMask(int ctx) { return reinterpret_cast<u32 *>(ctx + 0x457a1); }  /* [0]=items 0-31, [1]=32-63 */
 

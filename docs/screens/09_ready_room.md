@@ -48,7 +48,7 @@ by the widget tree.
     the roster persists Ready Room → Loading → Battle.
   - **Paginated item-loadout grid**: 9 slots/page (3×3, spacing
     `(i%3)*0x46+0x210` / `(i/3)*0x2d+0x193`), item IDs from `this+0x518`,
-    sprite via the global item-ID→sprite table `&DAT_0056dc40`, labels via
+    sprite via the global item-ID→sprite table `&g_awItemIconTable`, labels via
     `FUN_004ed9f0`. Current page at `this+0x620`, item count at `this+0x61c`.
     **Table encoding decoded** (see ARCHITECTURE.md's Ready Room section):
     40 `uint16` entries, packed `(sheet_flag:8)(icon_pair_index:8)` —
@@ -57,13 +57,13 @@ by the widget tree.
     against `itemdata.dat`'s own `0x30` field (same encoding, every real
     item's value appears in the table verbatim). **What indexes it —
     resolved:** `this+0x518` holds the compact item index 0–63 (also the
-    `DAT_0056dc40` index and the ownership-bitmask bit). The loadout builder
+    `g_awItemIconTable` index and the ownership-bitmask bit). The loadout builder
     `FUN_004dbd50` scans the 64-bit item-ownership bitmask the server pushes
     to `g_clientContext+0x457a1` and packs each owned index into `+0x518`
     (count `+0x61c`, cap 11); items 0–10 are battle-usable. Per-cell quantity
     is a guarded lookup (`FUN_0041e9a0`) keyed by the icon value. The
     ordinal→item identity is recovered from client data by matching each
-    `DAT_0056dc40` icon code to a record's `0x30` field in `itemdata.dat`
+    `g_awItemIconTable` icon code to a record's `0x30` field in `itemdata.dat`
     (`tools/lzhuf/decode_item.py`): **ord 0–10 = Dual, Blood, Energy up 2,
     Energy up 1, Dual+, Change Wind, Team Teleport, Bunge shot, Power up,
     Thunder, Teleport**. See PROTOCOL.md "Item availability" and ARCHITECTURE.md.
@@ -136,7 +136,7 @@ host), `0x3210` (change team), `0x3200` (select character), `0x3104` (chat),
    load `ready_selectmap.img` / `ready_selectcharacter.img` / `b_ready_startgame`.
 2. Render: character preview + 8-slot roster (ready bits) + paginated item grid
    (3×3, page at `+0x620`) + map thumbnails.
-3. Item lookup: item ID → sprite via `&DAT_0056dc40`.
+3. Item lookup: item ID → sprite via `&g_awItemIconTable`.
 4. Character picker: grid of `b_ready_character` buttons (id `100+i`) → select
    sends `0x3200`. Ready → `0x3230`, Start → `0x3430`, Team → `0x3210`.
 5. Chat: Enter → command parse (`/`) else send via the dispatcher's chat-commit

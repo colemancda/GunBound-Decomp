@@ -282,8 +282,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004174c0,4210,FUN_004174c0,false,2,2,RAW-src
 00418540,363,FUN_00418540,false,1,2,RAW-src
 004186b0,410,FUN_004186b0,false,2,3,RAW-src
-00418850,181,FUN_00418850,false,1,2,RAW-src
-00418910,254,FUN_00418910,false,2,2,RAW-src
+00418850,181,InitItemRecord,false,1,2,RAW-src
+00418910,254,DestroyItemRecord,false,2,2,RAW-src
 00418a10,369,FUN_00418a10,false,1,2,RAW-src
 00418b90,554,FUN_00418b90,false,2,2,RAW-src
 00418dc0,3939,FUN_00418dc0,false,1,11,RAW-src

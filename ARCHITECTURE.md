@@ -2066,13 +2066,13 @@ previously-unexamined ones. Findings:
       `(index%3)*0x46+0x210` / `(index/3)*0x2d+0x193` spacing), reading
       item IDs from a per-client array (`param_1+0x518`) and looking up
       each item's display sprite through a **global item-ID → sprite-index
-      table** (`&DAT_0056dc40`) — with a label (via `FUN_004ed9f0`, the
+      table** (`&g_awItemIconTable`) — with a label (via `FUN_004ed9f0`, the
       confirmed text-render/prep helper) drawn under each icon. The
       current page is tracked at `param_1+0x620`, total item count at
       `+0x61c` — this is the player's **inventory/item-loadout picker**,
       confirmed as a real paginated grid rather than a fixed short list.
 
-      **`DAT_0056dc40`'s encoding — decoded directly from the real binary
+      **`g_awItemIconTable`'s encoding — decoded directly from the real binary
       and its consumer code** (`State09_ReadyRoom_RenderRosterAndItems`,
       right after the lookup
       above). Table bounds confirmed empirically: it's exactly **40
@@ -2103,9 +2103,9 @@ previously-unexamined ones. Findings:
       and packs each *owned* index into `+0x518` (count in `+0x61c`, capped
       **11**). So the per-slot value is neither `itemdata.dat`'s type ID nor
       its on-disk slot — it's the item's ordinal in the 0–63 space that
-      **also** indexes `DAT_0056dc40` (icon) and the ownership bitmask bit.
+      **also** indexes `g_awItemIconTable` (icon) and the ownership bitmask bit.
       Items 0–10 are the battle-usable set; their per-turn counts are
-      `CValueGuard`-protected. `DAT_0056dc40[index]` gives the icon; the
+      `CValueGuard`-protected. `g_awItemIconTable[index]` gives the icon; the
       quantity drawn per cell comes from a 100-entry guarded lookup keyed by
       that icon value (`FUN_0041e9a0`). The bitmask arrives via the `0x2105`
       room packet (`+5`/`+9`) and battle actions `0x8004` / `0x8000` (see
@@ -2114,7 +2114,7 @@ previously-unexamined ones. Findings:
       **The 40-entry table and the ordinal→item identity are now both
       extracted** (`tools/lzhuf/decode_item.py`, values baked into
       `src/globals.c`). The runtime index question was the last gap, and it's
-      closed: `DAT_0056dc40[ordinal]` is that ordinal's icon code, and matching
+      closed: `g_awItemIconTable[ordinal]` is that ordinal's icon code, and matching
       each icon code to a record's `0x30` field in the decompressed
       `itemdata.dat` recovers the item — so the ordinal→item mapping is *not*
       server-only; it's derivable entirely from client data. Ordinals 0–10

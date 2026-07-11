@@ -6,11 +6,11 @@ itemdata.dat is a flat LZHUF-compressed file (target 0x7850 = 100 records of
     0x00  char[0x20]  name (NUL-terminated; a couple are Korean mojibake)
     0x24  uint32      price
     0x28  uint32      item type/family id
-    0x30  uint16      packed shelf-icon code (same packing as DAT_0056dc40)
+    0x30  uint16      packed shelf-icon code (same packing as g_awItemIconTable)
     0x32  ...         localized description
 
 The runtime item bar/shelf is indexed by an *item ordinal* (= item-ownership
-bitmask bit, ctx+0x457a1), and DAT_0056dc40[ordinal] is that ordinal's icon code.
+bitmask bit, ctx+0x457a1), and g_awItemIconTable[ordinal] is that ordinal's icon code.
 Matching each ordinal's icon code back to a record's 0x30 recovers which item each
 ordinal is -- entirely from client data. Ordinals 0-10 are the battle items.
 
@@ -23,9 +23,9 @@ from lzhuf import decode_lzhuf
 REC = 308
 OUT = 0x7850
 
-# DAT_0056dc40 @ 0x56dc40 - the 40-entry shelf-icon table, verbatim from the binary
+# g_awItemIconTable @ 0x56dc40 - the 40-entry shelf-icon table, verbatim from the binary
 # (low byte = icon-pair index, high byte 0x00/0xff = icon-sheet texture 0x2713/0x2714)
-DAT_0056DC40 = [
+ITEM_ICON_TABLE = [
     0xff01, 0x0003, 0xff07, 0x0007, 0xff02, 0x000f, 0xff0b, 0x0001,
     0x0002, 0xff06, 0xff0a, 0xff04, 0xff05, 0x0006, 0xff08, 0xff09,
     0x0008, 0x0009, 0x0003, 0x000b, 0x000c, 0x000d, 0x000e, 0x0004,
@@ -62,9 +62,9 @@ def main(argv):
     for i, name, price, typ, icon in items:
         print(f'{i:>3} {name[:16]:<16} {price:>6} {typ:>4} 0x{icon:04x}')
 
-    print('\nitem ordinal -> icon (DAT_0056dc40) -> item name:')
+    print('\nitem ordinal -> icon (g_awItemIconTable) -> item name:')
     print(f"{'ord':>3} {'icon':>6}  item")
-    for ordn, icon in enumerate(DAT_0056DC40):
+    for ordn, icon in enumerate(ITEM_ICON_TABLE):
         tag = '  (battle item)' if ordn <= 10 else ''
         print(f'{ordn:>3} 0x{icon:04x}  {by_icon.get(icon, "-- (not in this build)")}{tag}')
 

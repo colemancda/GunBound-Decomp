@@ -5,7 +5,7 @@
  * ARCHITECTURE.md's Ready Room section): draws the turn/round-count label,
  * the 8-player ready roster (status icons + avatar previews, refreshing the
  * anti-cheat value-guard key table per slot), the paginated 3x3 item-loadout
- * grid (icons via the DAT_0056dc40 shelf-icon table, decoded this pass too -
+ * grid (icons via the g_awItemIconTable shelf-icon table, decoded this pass too -
  * see ARCHITECTURE.md/FILEFORMATS.md), and reloads the Avata/Character/Effect
  * texture-cache family. Raw/near-verbatim port of Ghidra's decompiler output
  * otherwise, not hand-verified line-by-line. See src/README.md's "Raw/
@@ -311,7 +311,7 @@ LAB_004d8540:
   iVar3 = local_a4c + *(int *)(param_1 + 0x620) * 9;
   if (iVar3 < *(int *)(param_1 + 0x61c)) {
     iVar3 = *(int *)(param_1 + 0x518 + iVar3 * 4);
-    uVar1 = DAT_0056dc40[iVar3];
+    uVar1 = g_awItemIconTable[iVar3];
     iVar13 = (uVar1 & 0xff) * 2;
     uVar12 = iVar13 - 2;
     if ((*(char *)(iVar3 + 0x4d8 + param_1) == '\0') || (*(char *)(param_1 + 0x4cc) == '\x01')) {

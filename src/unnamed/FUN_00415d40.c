@@ -284,7 +284,7 @@ int FUN_00415d40(int param_1)
             ((void *)(param_1 + 0x1a1e48),0x7d28,0x80,FUN_00418540,FUN_004186b0);
   SUBFIELD(local_4,0,undefined1) = 0x43;
   _eh_vector_constructor_iterator_
-            ((void *)((int)&g_abItemRecords + param_1),0x9bc,100,FUN_00418850,FUN_00418910);
+            ((void *)((int)&g_abItemRecords + param_1),0x9bc,100,InitItemRecord,DestroyItemRecord);
   SUBFIELD(local_4,0,undefined1) = 0x44;
   _eh_vector_constructor_iterator_(&DAT_005c7fb8 + param_1,0x157c,0x20,FUN_00418a10,FUN_00418b90);
   SUBFIELD(local_4,0,undefined1) = 0x45;

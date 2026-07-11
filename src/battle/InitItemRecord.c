@@ -1,4 +1,4 @@
-/* FUN_00418850 - 0x00418850 in the original binary.
+/* InitItemRecord - 0x00418850 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_00418850(int param_1)
+int __fastcall InitItemRecord(int param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;

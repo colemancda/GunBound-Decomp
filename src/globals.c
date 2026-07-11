@@ -232,7 +232,7 @@ uint8_t DAT_0056dc30;
  *   0 Dual   1 Blood   2 Energy up 2   3 Energy up 1   4 Dual+   5 Change Wind
  *   6 Team Teleport   7 Bunge shot   8 Power up   9 Thunder   10 Teleport
  * Ordinals 11-39 are icon slots for items not defined in this build's itemdata. */
-uint16_t DAT_0056dc40[40] = {
+uint16_t g_awItemIconTable[40] = {
     0xff01, 0x0003, 0xff07, 0x0007, 0xff02, 0x000f, 0xff0b, 0x0001,
     0x0002, 0xff06, 0xff0a, 0xff04, 0xff05, 0x0006, 0xff08, 0xff09,
     0x0008, 0x0009, 0x0003, 0x000b, 0x000c, 0x000d, 0x000e, 0x0004,
