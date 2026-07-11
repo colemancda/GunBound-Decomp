@@ -419,7 +419,7 @@ joined_r0x0049c851:
       if (cVar3 == '\0') {
 LAB_0049c9ad:
         puStack_2498 = (undefined *)0x49c9b2;
-        cVar3 = FUN_0043a530();
+        cVar3 = InitChecksumSeed();
         if (cVar3 == '\0') {
           puStack_2498 = &DAT_007949c8;
           puStack_249c = (undefined1 *)0x49c9c0;
@@ -568,7 +568,7 @@ LAB_0049c8d2:
         AcquireSoundChannel();
       }
       puStack_2498 = (undefined *)0x49cb62;
-      cVar3 = FUN_0043a530();
+      cVar3 = InitChecksumSeed();
       if (cVar3 == '\0') {
         puStack_2498 = &DAT_007949c8;
         puStack_249c = (undefined1 *)0x49cb70;

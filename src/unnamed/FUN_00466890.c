@@ -145,7 +145,7 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     }
     cVar2 = PeekPacketChecksumBool();
     if ((cVar2 != '\0') || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) break;
-    cVar2 = FUN_0043a530();
+    cVar2 = InitChecksumSeed();
     if (cVar2 == '\0') {
       uVar3 = 0x1e;
       goto LAB_00466d70;
@@ -180,7 +180,7 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
       AcquireSoundChannel(0);
     }
 LAB_00466d5c:
-    cVar2 = FUN_0043a530();
+    cVar2 = InitChecksumSeed();
     if (cVar2 == '\0') {
       uVar3 = PeekChecksumStateUnderLock(&DAT_007949c8);
 LAB_00466d70:
@@ -219,7 +219,7 @@ LAB_00466d7f:
       if (cVar2 == '\0') {
         AcquireSoundChannel(0);
       }
-      cVar2 = FUN_0043a530();
+      cVar2 = InitChecksumSeed();
       if (cVar2 == '\0') {
         uVar3 = PeekChecksumStateUnderLock(&DAT_007949c8);
         QueueOutgoingPacketField(uVar3);

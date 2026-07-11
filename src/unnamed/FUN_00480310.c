@@ -303,7 +303,7 @@ void __fastcall FUN_00480310(int *param_1)
           *(undefined1 *)(param_1 + 0xff1) = 0;
           iVar5 = PeekChecksumStateUnderLock(iVar5 + 0x90c);
           param_1[0xfed] = iVar5;
-          cVar4 = FUN_0043a530();
+          cVar4 = InitChecksumSeed();
           if (cVar4 == '\0') {
             uVar8 = PeekChecksumStateUnderLock(&DAT_007949c8);
             QueueOutgoingPacketField(uVar8);
@@ -467,7 +467,7 @@ void __fastcall FUN_00480310(int *param_1)
   }
   cVar4 = PeekPacketChecksumBool();
   if ((cVar4 == '\0') && (cVar4 = PeekPacketChecksumBool(), cVar4 == '\0')) {
-    cVar4 = FUN_0043a530();
+    cVar4 = InitChecksumSeed();
     if (cVar4 == '\0') {
       uVar8 = PeekChecksumStateUnderLock(&DAT_007949c8);
       QueueOutgoingPacketField(uVar8);

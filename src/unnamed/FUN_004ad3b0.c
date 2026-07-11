@@ -69,7 +69,7 @@ void __fastcall FUN_004ad3b0(int *param_1)
   (**(code **)(*param_1 + 0x14))(8);
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
-    FUN_004262d0(param_1[2],param_1 + 0x45e);
+    SyncOutgoingChecksumField(param_1[2],param_1 + 0x45e);
     cVar1 = PeekPacketChecksumBool();
     if (cVar1 != '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -284,7 +284,7 @@ LAB_004add3c:
 LAB_004adef8:
     *(undefined1 *)(param_1 + 5) = 1;
     cVar1 = PeekPacketChecksumBool();
-    if ((cVar1 != '\0') && (cVar1 = FUN_0043a530(), cVar1 == '\0')) {
+    if ((cVar1 != '\0') && (cVar1 = InitChecksumSeed(), cVar1 == '\0')) {
       iVar2 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
       if ((iVar2 == 5) || (uVar5 = 2, iVar2 == 6)) {
         uVar5 = 0x19;
@@ -387,7 +387,7 @@ LAB_004ad793:
         iStack_ab0 = 0;
         EncodeOutgoingPacketField(0);
         SUBFIELD(puStack_8,0,undefined1) = 4;
-        FUN_004262d0(piStack_ad0 + 4,auStack_ac4);
+        SyncOutgoingChecksumField(piStack_ad0 + 4,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -420,7 +420,7 @@ LAB_004ada51:
           SUBFIELD(puStack_8,0,undefined1) = 2;
           QueueOutgoingPacketField(uStack_ad8);
           QueueOutgoingPacketField(uStack_adc);
-          FUN_004262d0(piStack_ad0 + 4,auStack_8a0);
+          SyncOutgoingChecksumField(piStack_ad0 + 4,auStack_8a0);
           iVar9 = param_1[0xfe5];
           uVar17 = 0;
           uVar16 = 0xff;

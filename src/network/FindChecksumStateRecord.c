@@ -1,4 +1,4 @@
-/* FUN_0043d640 - 0x0043d640 in the original binary.
+/* FindChecksumStateRecord - 0x0043d640 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-uint __fastcall FUN_0043d640(int param_1,int param_2,undefined2 *param_3,undefined2 *param_4)
+uint __fastcall FindChecksumStateRecord(int param_1,int param_2,undefined2 *param_3,undefined2 *param_4)
 
 {
   uint uVar1;

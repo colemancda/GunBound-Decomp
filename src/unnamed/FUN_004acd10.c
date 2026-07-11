@@ -91,7 +91,7 @@ void __fastcall FUN_004acd10(int param_1)
   }
   *(undefined1 *)(param_1 + 0x14) = 1;
   cVar3 = PeekPacketChecksumBool();
-  if ((cVar3 != '\0') && (cVar3 = FUN_0043a530(), cVar3 == '\0')) {
+  if ((cVar3 != '\0') && (cVar3 = InitChecksumSeed(), cVar3 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

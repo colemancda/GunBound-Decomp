@@ -328,7 +328,7 @@ LAB_0044e580:
         cVar5 != '\0')) || (cVar5 = PacketChecksumLessThan(iVar6,0xfffffc18), cVar5 != '\0')) {
       *(undefined1 *)(param_1 + 5) = 1;
       cVar5 = PeekPacketChecksumBool();
-      if ((cVar5 != '\0') && (cVar5 = FUN_0043a530(), cVar5 == '\0')) {
+      if ((cVar5 != '\0') && (cVar5 = InitChecksumSeed(), cVar5 == '\0')) {
         iVar6 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar6 == 5) || (uVar7 = 2, iVar6 == 6)) {
           uVar7 = 0x19;
@@ -401,7 +401,7 @@ LAB_0044e580:
     }
     goto LAB_0044e8d1;
   }
-  FUN_004262d0(param_1[2],param_1 + 0x45e);
+  SyncOutgoingChecksumField(param_1[2],param_1 + 0x45e);
   cVar5 = PeekPacketChecksumBool();
   if (cVar5 != '\0') {
     iVar6 = PeekChecksumStateUnderLock(param_1 + 0x3d5);
@@ -471,7 +471,7 @@ LAB_0044e02e:
   }
   cVar5 = PeekPacketChecksumBool();
   iVar6 = g_clientContext;
-  if ((cVar5 != '\0') && (cVar5 = FUN_0043a530(), iVar6 = g_clientContext, cVar5 == '\0')) {
+  if ((cVar5 != '\0') && (cVar5 = InitChecksumSeed(), iVar6 = g_clientContext, cVar5 == '\0')) {
     uVar7 = PeekChecksumStateUnderLock(&DAT_007949c8);
     QueueOutgoingPacketField(uVar7);
     iVar6 = g_clientContext;

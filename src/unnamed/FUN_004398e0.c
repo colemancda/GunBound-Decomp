@@ -95,7 +95,7 @@ LAB_004399d4:
         uStack_21c = 0;
         EncodeOutgoingPacketField(0);
         SUBFIELD(local_4,0,undefined1) = 4;
-        FUN_004262d0(param_2 + 0x10,auStack_230);
+        SyncOutgoingChecksumField(param_2 + 0x10,auStack_230);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -130,7 +130,7 @@ LAB_004399d4:
           SUBFIELD(local_4,0,undefined1) = 2;
           QueueOutgoingPacketField(param_3);
           QueueOutgoingPacketField(param_4);
-          FUN_004262d0(param_2 + 0x10,auStack_454);
+          SyncOutgoingChecksumField(param_2 + 0x10,auStack_454);
           iVar12 = param_5;
           uVar10 = *(undefined4 *)(param_5 + 0x3f94);
           uVar17 = 0;

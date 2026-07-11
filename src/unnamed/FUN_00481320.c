@@ -205,7 +205,7 @@ LAB_00481a4d:
 LAB_00481c0c:
       *(undefined1 *)(param_1 + 5) = 1;
       cVar5 = PeekPacketChecksumBool();
-      if ((cVar5 != '\0') && (cVar5 = FUN_0043a530(), cVar5 == '\0')) {
+      if ((cVar5 != '\0') && (cVar5 = InitChecksumSeed(), cVar5 == '\0')) {
         iVar8 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar8 == 5) || (uVar10 = 2, iVar8 == 6)) {
           uVar10 = 0x19;

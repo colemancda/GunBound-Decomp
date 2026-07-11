@@ -1,4 +1,4 @@
-/* FUN_0043a530 - 0x0043a530 in the original binary.
+/* InitChecksumSeed - 0x0043a530 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_0043a530(void)
+undefined4 InitChecksumSeed(void)
 
 {
   uint uVar1;

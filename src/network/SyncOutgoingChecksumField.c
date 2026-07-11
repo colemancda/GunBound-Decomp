@@ -1,4 +1,4 @@
-/* FUN_004262d0 - 0x004262d0 in the original binary.
+/* SyncOutgoingChecksumField - 0x004262d0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004262d0(int param_1,undefined4 param_2)
+void SyncOutgoingChecksumField(int param_1,undefined4 param_2)
 
 {
   char cVar1;
@@ -26,10 +26,10 @@ void FUN_004262d0(int param_1,undefined4 param_2)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0043d5d0(uVar3,uVar2);
+    InsertChecksumStateRecord(uVar3,uVar2);
     return;
   }
-  cVar1 = FUN_0043d640(local_8,&param_1);
+  cVar1 = FindChecksumStateRecord(local_8,&param_1);
   if (cVar1 == '\x01') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = PeekPacketChecksumState();

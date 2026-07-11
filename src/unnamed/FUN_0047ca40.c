@@ -263,7 +263,7 @@ void __fastcall FUN_0047ca40(int *param_1)
           }
           iVar5 = iVar5 + 1;
         } while (iVar5 < 8);
-        cVar4 = FUN_0043a530();
+        cVar4 = InitChecksumSeed();
         if (cVar4 == '\0') {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           uVar8 = PeekPacketChecksumState();
@@ -528,7 +528,7 @@ void __fastcall FUN_0047ca40(int *param_1)
                uVar25);
   cVar4 = PeekPacketChecksumBool();
   if ((cVar4 == '\0') && (cVar4 = PeekPacketChecksumBool(), cVar4 == '\0')) {
-    cVar4 = FUN_0043a530();
+    cVar4 = InitChecksumSeed();
     if (cVar4 == '\0') {
       uVar8 = PeekChecksumStateUnderLock(&DAT_007949c8);
       QueueOutgoingPacketField(uVar8);

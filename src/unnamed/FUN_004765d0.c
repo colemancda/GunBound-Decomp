@@ -127,7 +127,7 @@ void __fastcall FUN_004765d0(int *param_1)
       FUN_004372f0(1,uVar11,uVar10,uVar18,pcVar19);
     }
     cVar6 = PeekPacketChecksumBool();
-    if ((cVar6 != '\0') && (cVar6 = FUN_0043a530(), cVar6 == '\0')) {
+    if ((cVar6 != '\0') && (cVar6 = InitChecksumSeed(), cVar6 == '\0')) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar10 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -233,7 +233,7 @@ LAB_00476b65:
 LAB_00476d03:
     *(undefined1 *)(param_1 + 5) = 1;
     cVar6 = PeekPacketChecksumBool();
-    if ((cVar6 != '\0') && (cVar6 = FUN_0043a530(), cVar6 == '\0')) {
+    if ((cVar6 != '\0') && (cVar6 = InitChecksumSeed(), cVar6 == '\0')) {
       iVar7 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
       if ((iVar7 == 5) || (uVar10 = 2, iVar7 == 6)) {
         uVar10 = 0x19;

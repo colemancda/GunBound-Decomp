@@ -188,7 +188,7 @@ LAB_00483427:
 LAB_004835e2:
       *(undefined1 *)(param_1 + 5) = 1;
       cVar2 = PeekPacketChecksumBool();
-      if ((cVar2 != '\0') && (cVar2 = FUN_0043a530(), cVar2 == '\0')) {
+      if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
         iVar4 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar4 == 5) || (uVar7 = 2, iVar4 == 6)) {
           uVar7 = 0x19;
@@ -263,7 +263,7 @@ LAB_004835e2:
     goto LAB_004837a0;
   }
   *(undefined1 *)(param_1 + 5) = 1;
-  FUN_004262d0(param_1[2],param_1 + 0x45e);
+  SyncOutgoingChecksumField(param_1[2],param_1 + 0x45e);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -462,7 +462,7 @@ LAB_00482b76:
         iStack_ab0 = 0;
         EncodeOutgoingPacketField(0);
         SUBFIELD(puStack_8,0,undefined1) = 4;
-        FUN_004262d0(iStack_ac8 + 0x10,auStack_ac4);
+        SyncOutgoingChecksumField(iStack_ac8 + 0x10,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -495,7 +495,7 @@ LAB_00482e3e:
           SUBFIELD(puStack_8,0,undefined1) = 2;
           QueueOutgoingPacketField(piStack_ad4);
           QueueOutgoingPacketField(uStack_ad8);
-          FUN_004262d0(iStack_ac8 + 0x10,auStack_8a0);
+          SyncOutgoingChecksumField(iStack_ac8 + 0x10,auStack_8a0);
           iVar4 = param_1[0xfe5];
           uVar22 = 0;
           uVar21 = 0xff;
@@ -543,7 +543,7 @@ LAB_00482edf:
   PeekPacketChecksumBool(0,uVar7,uVar15,1,0);
   FUN_00431d90((char)param_1[0xf],7,0,uVar8,uVar7,uVar15,uVar9,uVar21);
   cVar2 = PeekPacketChecksumBool();
-  if ((cVar2 != '\0') && (cVar2 = FUN_0043a530(), cVar2 == '\0')) {
+  if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

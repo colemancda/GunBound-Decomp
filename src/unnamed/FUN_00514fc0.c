@@ -42,15 +42,15 @@ undefined8 FUN_00514fc0(byte *param_1,undefined4 *param_2)
   uVar7 = uVar5 >> ((byte)DAT_00f25e04 & 0x1f);
   DAT_00f25e00 = uVar5 - (uVar7 << ((byte)DAT_00f25e04 & 0x1f));
   if (uVar7 == 0xfff) {
-    FUN_00514af0(1);
-    FUN_00514af0(2);
-    FUN_00514af0(1);
-    FUN_00514af0(4);
-    FUN_00514af0(2);
-    FUN_00514af0(1);
-    FUN_00514af0(1);
-    FUN_00514af0(2);
-    FUN_00514af0(2);
+    ConsumeMpegBits(1);
+    ConsumeMpegBits(2);
+    ConsumeMpegBits(1);
+    ConsumeMpegBits(4);
+    ConsumeMpegBits(2);
+    ConsumeMpegBits(1);
+    ConsumeMpegBits(1);
+    ConsumeMpegBits(2);
+    ConsumeMpegBits(2);
     if (DAT_005ae7e8 != 1) {
       DAT_005ae7ec = 0;
     }
@@ -58,26 +58,26 @@ undefined8 FUN_00514fc0(byte *param_1,undefined4 *param_2)
     DAT_005ae348 = (int)DAT_005ae7ec >> 1;
     DAT_005ada38 = 0;
     if (iVar4 == 0) {
-      FUN_00514af0(0x14);
+      ConsumeMpegBits(0x14);
       DAT_005ada38 = 2;
     }
     else {
-      FUN_00514af0(4);
+      ConsumeMpegBits(4);
     }
     if (0 < iVar2) {
       DAT_005aba30 = (*(int *)(&DAT_00563d0c + (DAT_005ae34c * 0x10 + iVar2) * 4) * 0xb40) /
                      *(int *)(&DAT_00563cec + (DAT_005ae924 + DAT_005ae34c * 4) * 4);
     }
-    FUN_00514af0(9);
+    ConsumeMpegBits(9);
     bVar11 = DAT_005ae7e8 != 3;
     if (bVar11) {
-      FUN_00514af0(3);
+      ConsumeMpegBits(3);
       iVar4 = 2;
       DAT_005ae7dc = 2;
       local_4 = 0x24;
     }
     else {
-      FUN_00514af0(5);
+      ConsumeMpegBits(5);
       iVar4 = 1;
       DAT_005ae7dc = 1;
       local_4 = 0x15;
@@ -88,7 +88,7 @@ undefined8 FUN_00514fc0(byte *param_1,undefined4 *param_2)
     if (iVar4 != 0) {
       puVar10 = &DAT_005ae7f8;
       do {
-        FUN_00514af0(4);
+        ConsumeMpegBits(4);
         *puVar10 = uVar3;
         iVar8 = iVar8 + 1;
         puVar10 = puVar10 + 1;
@@ -101,58 +101,58 @@ undefined8 FUN_00514fc0(byte *param_1,undefined4 *param_2)
       piVar9 = local_8;
       if (0 < iVar2) {
         do {
-          FUN_00514af0(0xc);
+          ConsumeMpegBits(0xc);
           piVar9[-2] = iVar2;
-          FUN_00514af0(9);
+          ConsumeMpegBits(9);
           piVar9[-1] = iVar2;
-          FUN_00514af0(8);
+          ConsumeMpegBits(8);
           iVar2 = iVar2 + DAT_005ae928;
           bVar11 = DAT_005ae348 != 0;
           *piVar9 = iVar2;
           if (bVar11) {
             *piVar9 = iVar2 + -2;
           }
-          FUN_00514af0(4);
+          ConsumeMpegBits(4);
           piVar9[1] = iVar2;
-          FUN_00514af0(1);
+          ConsumeMpegBits(1);
           piVar9[2] = iVar2;
           if (iVar2 == 0) {
             piVar9[4] = 0;
             piVar9[3] = 0;
-            FUN_00514af0(5);
+            ConsumeMpegBits(5);
             piVar9[5] = iVar2;
-            FUN_00514af0(5);
+            ConsumeMpegBits(5);
             piVar9[6] = iVar2;
-            FUN_00514af0(5);
+            ConsumeMpegBits(5);
             piVar9[7] = iVar2;
-            FUN_00514af0(4);
+            ConsumeMpegBits(4);
             piVar9[0xb] = iVar2;
-            FUN_00514af0(3);
+            ConsumeMpegBits(3);
             piVar9[0xc] = iVar2;
           }
           else {
-            FUN_00514af0(2);
+            ConsumeMpegBits(2);
             piVar9[3] = iVar2;
-            FUN_00514af0(1);
+            ConsumeMpegBits(1);
             piVar9[4] = iVar2;
-            FUN_00514af0(5);
+            ConsumeMpegBits(5);
             piVar9[5] = iVar2;
-            FUN_00514af0(5);
+            ConsumeMpegBits(5);
             piVar9[6] = iVar2;
-            FUN_00514af0(3);
+            ConsumeMpegBits(3);
             piVar9[8] = iVar2;
-            FUN_00514af0(3);
+            ConsumeMpegBits(3);
             piVar9[9] = iVar2;
-            FUN_00514af0(3);
+            ConsumeMpegBits(3);
             piVar9[10] = iVar2;
             piVar9[0xb] = 7;
             piVar9[0xc] = 0xd;
           }
-          FUN_00514af0(1);
+          ConsumeMpegBits(1);
           piVar9[0xd] = iVar2;
-          FUN_00514af0(1);
+          ConsumeMpegBits(1);
           piVar9[0xe] = iVar2;
-          FUN_00514af0(1);
+          ConsumeMpegBits(1);
           piVar9[0xf] = iVar2;
           iVar4 = iVar4 + 1;
           piVar9 = piVar9 + 0x12;

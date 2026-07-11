@@ -39,7 +39,7 @@ int FUN_0043d780(byte *param_1)
       local_8 = *pbVar7;
       pbVar7 = pbVar7 + 5;
       local_8 = CONCAT22(*(undefined2 *)pbVar1,(undefined2)local_8);
-      if ((*(uint *)(in_EAX + 0x10) <= uVar5) && (cVar6 = FUN_0043d840(), cVar6 == '\0')) {
+      if ((*(uint *)(in_EAX + 0x10) <= uVar5) && (cVar6 = GrowChecksumStateArray(), cVar6 == '\0')) {
                     /* WARNING: Subroutine does not return */
         ThrowCxxException(0x8007000e);
       }

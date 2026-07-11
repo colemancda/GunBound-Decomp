@@ -143,7 +143,7 @@ joined_r0x0049c851:
     cVar2 = PeekPacketChecksumBool();
     if ((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
 LAB_0049c9ad:
-      cVar2 = FUN_0043a530();
+      cVar2 = InitChecksumSeed();
       if (cVar2 == '\0') {
         PeekChecksumStateUnderLock();
         QueueOutgoingPacketField();
@@ -194,7 +194,7 @@ LAB_0049c9ad:
       if (cVar2 == '\0') {
         AcquireSoundChannel();
       }
-      cVar2 = FUN_0043a530();
+      cVar2 = InitChecksumSeed();
       if (cVar2 == '\0') {
         PeekChecksumStateUnderLock();
         QueueOutgoingPacketField();

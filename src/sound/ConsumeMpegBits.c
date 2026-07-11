@@ -1,4 +1,4 @@
-/* FUN_00514af0 - 0x00514af0 in the original binary.
+/* ConsumeMpegBits - 0x00514af0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00514af0(int param_1)
+undefined4 ConsumeMpegBits(int param_1)
 
 {
   byte bVar1;

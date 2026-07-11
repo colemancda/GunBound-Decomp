@@ -454,7 +454,7 @@ LAB_0045279a:
 LAB_00452a0a:
       *(undefined1 *)(param_1 + 5) = 1;
       cVar2 = PeekPacketChecksumBool();
-      if ((cVar2 != '\0') && (cVar2 = FUN_0043a530(), cVar2 == '\0')) {
+      if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
         iVar4 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar4 == 5) || (uVar8 = 2, iVar4 == 6)) {
           uVar8 = 0x19;
@@ -531,7 +531,7 @@ LAB_00452a0a:
   uStack_b5c = (undefined **)param_1[2];
   uStack_b58 = param_1 + 0x45e;
   uStack_b60 = (undefined **)0x45174e;
-  FUN_004262d0();
+  SyncOutgoingChecksumField();
   uStack_b58 = (int *)0x451759;
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 != '\0') {
@@ -691,7 +691,7 @@ LAB_00451a3a:
         puStack_b18 = (undefined *)0x0;
         EncodeOutgoingPacketField(0);
         uStack_70 = 4;
-        FUN_004262d0(puStack_b30 + 4,&puStack_b2c);
+        SyncOutgoingChecksumField(puStack_b30 + 4,&puStack_b2c);
         (*pcVar17)(&DAT_005a9068);
         PeekPacketChecksumState();
         (*pcVar16)(&DAT_005a9068);
@@ -724,7 +724,7 @@ LAB_00451d02:
           uStack_70 = 2;
           QueueOutgoingPacketField(puStack_b34);
           QueueOutgoingPacketField(ppuStack_b38);
-          FUN_004262d0(puStack_b30 + 4,auStack_908);
+          SyncOutgoingChecksumField(puStack_b30 + 4,auStack_908);
           iVar4 = param_1[0xfe5];
           uVar29 = 0;
           uVar27 = 0xff;
@@ -964,7 +964,7 @@ LAB_00451f7a:
     AcquireSoundChannel(0);
   }
   cVar2 = PeekPacketChecksumBool();
-  if ((cVar2 != '\0') && (cVar2 = FUN_0043a530(), cVar2 == '\0')) {
+  if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
     (*pcVar17)(&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

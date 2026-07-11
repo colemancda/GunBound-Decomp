@@ -23,11 +23,11 @@ void FUN_00519260(undefined4 *param_1,int param_2,int param_3,int param_4)
       iVar5 = 6;
       puVar4 = param_1 + 0x24;
       do {
-        uVar2 = FUN_00514af0(uVar3);
+        uVar2 = ConsumeMpegBits(uVar3);
         puVar4[-0xd] = uVar2;
-        uVar2 = FUN_00514af0(uVar3);
+        uVar2 = ConsumeMpegBits(uVar3);
         *puVar4 = uVar2;
-        uVar2 = FUN_00514af0(uVar3);
+        uVar2 = ConsumeMpegBits(uVar3);
         puVar4[0xd] = uVar2;
         puVar4 = puVar4 + 1;
         iVar5 = iVar5 + -1;
@@ -35,11 +35,11 @@ void FUN_00519260(undefined4 *param_1,int param_2,int param_3,int param_4)
       iVar5 = 6;
       param_1 = param_1 + 0x2a;
       do {
-        uVar3 = FUN_00514af0(uVar1);
+        uVar3 = ConsumeMpegBits(uVar1);
         param_1[-0xd] = uVar3;
-        uVar3 = FUN_00514af0(uVar1);
+        uVar3 = ConsumeMpegBits(uVar1);
         *param_1 = uVar3;
-        uVar3 = FUN_00514af0(uVar1);
+        uVar3 = ConsumeMpegBits(uVar1);
         param_1[0xd] = uVar3;
         param_1 = param_1 + 1;
         iVar5 = iVar5 + -1;
@@ -49,7 +49,7 @@ void FUN_00519260(undefined4 *param_1,int param_2,int param_3,int param_4)
     iVar5 = 8;
     puVar4 = param_1;
     do {
-      uVar2 = FUN_00514af0(uVar3);
+      uVar2 = ConsumeMpegBits(uVar3);
       *puVar4 = uVar2;
       puVar4 = puVar4 + 1;
       iVar5 = iVar5 + -1;
@@ -57,11 +57,11 @@ void FUN_00519260(undefined4 *param_1,int param_2,int param_3,int param_4)
     iVar5 = 3;
     puVar4 = param_1 + 0x27;
     do {
-      uVar2 = FUN_00514af0(uVar3);
+      uVar2 = ConsumeMpegBits(uVar3);
       puVar4[-0xd] = uVar2;
-      uVar2 = FUN_00514af0(uVar3);
+      uVar2 = ConsumeMpegBits(uVar3);
       *puVar4 = uVar2;
-      uVar2 = FUN_00514af0(uVar3);
+      uVar2 = ConsumeMpegBits(uVar3);
       puVar4[0xd] = uVar2;
       puVar4 = puVar4 + 1;
       iVar5 = iVar5 + -1;
@@ -69,11 +69,11 @@ void FUN_00519260(undefined4 *param_1,int param_2,int param_3,int param_4)
     iVar5 = 6;
     param_1 = param_1 + 0x2a;
     do {
-      uVar3 = FUN_00514af0(uVar1);
+      uVar3 = ConsumeMpegBits(uVar1);
       param_1[-0xd] = uVar3;
-      uVar3 = FUN_00514af0(uVar1);
+      uVar3 = ConsumeMpegBits(uVar1);
       *param_1 = uVar3;
-      uVar3 = FUN_00514af0(uVar1);
+      uVar3 = ConsumeMpegBits(uVar1);
       param_1[0xd] = uVar3;
       param_1 = param_1 + 1;
       iVar5 = iVar5 + -1;
@@ -85,7 +85,7 @@ void FUN_00519260(undefined4 *param_1,int param_2,int param_3,int param_4)
       iVar5 = 6;
       puVar4 = param_1;
       do {
-        uVar2 = FUN_00514af0(uVar3);
+        uVar2 = ConsumeMpegBits(uVar3);
         *puVar4 = uVar2;
         puVar4 = puVar4 + 1;
         iVar5 = iVar5 + -1;
@@ -104,7 +104,7 @@ void FUN_00519260(undefined4 *param_1,int param_2,int param_3,int param_4)
       puVar4 = param_1 + 6;
       iVar5 = 5;
       do {
-        uVar2 = FUN_00514af0(uVar3);
+        uVar2 = ConsumeMpegBits(uVar3);
         *puVar4 = uVar2;
         puVar4 = puVar4 + 1;
         iVar5 = iVar5 + -1;
@@ -123,7 +123,7 @@ void FUN_00519260(undefined4 *param_1,int param_2,int param_3,int param_4)
       puVar4 = param_1 + 0xb;
       iVar5 = 5;
       do {
-        uVar3 = FUN_00514af0(uVar1);
+        uVar3 = ConsumeMpegBits(uVar1);
         *puVar4 = uVar3;
         puVar4 = puVar4 + 1;
         iVar5 = iVar5 + -1;
@@ -142,7 +142,7 @@ void FUN_00519260(undefined4 *param_1,int param_2,int param_3,int param_4)
       param_1 = param_1 + 0x10;
       iVar5 = 5;
       do {
-        uVar3 = FUN_00514af0(uVar1);
+        uVar3 = ConsumeMpegBits(uVar1);
         *param_1 = uVar3;
         param_1 = param_1 + 1;
         iVar5 = iVar5 + -1;
@@ -161,7 +161,7 @@ void FUN_00519260(undefined4 *param_1,int param_2,int param_3,int param_4)
   iVar5 = 0xb;
   puVar4 = param_1;
   do {
-    uVar2 = FUN_00514af0(uVar3);
+    uVar2 = ConsumeMpegBits(uVar3);
     *puVar4 = uVar2;
     puVar4 = puVar4 + 1;
     iVar5 = iVar5 + -1;
@@ -169,7 +169,7 @@ void FUN_00519260(undefined4 *param_1,int param_2,int param_3,int param_4)
   iVar5 = 10;
   param_1 = param_1 + 0xb;
   do {
-    uVar3 = FUN_00514af0(uVar1);
+    uVar3 = ConsumeMpegBits(uVar1);
     *param_1 = uVar3;
     param_1 = param_1 + 1;
     iVar5 = iVar5 + -1;

@@ -743,7 +743,7 @@ joined_r0x00472d90:
       if (cVar3 == '\0') {
 LAB_00472eec:
         puStack_4d48 = (undefined *)0x472ef1;
-        cVar3 = FUN_0043a530();
+        cVar3 = InitChecksumSeed();
         if (cVar3 == '\0') {
           puStack_4d48 = &DAT_007949c8;
           puStack_4d4c = (undefined1 *)0x472eff;
@@ -889,7 +889,7 @@ LAB_00472e11:
         AcquireSoundChannel();
       }
       puStack_4d48 = (undefined *)0x47308d;
-      cVar3 = FUN_0043a530();
+      cVar3 = InitChecksumSeed();
       if (cVar3 == '\0') {
         puStack_4d48 = &DAT_007949c8;
         puStack_4d4c = (undefined1 *)0x47309b;

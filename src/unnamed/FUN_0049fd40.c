@@ -89,7 +89,7 @@ void __fastcall FUN_0049fd40(int *param_1)
        ((cVar1 = PeekPacketChecksumBool(), cVar1 != '\0' || ((char)param_1[0xfe8] != '\0')))) {
       piStack_ae0 = param_1 + 0x45e;
       piStack_af0 = param_1 + 0x3d5;
-      FUN_004262d0(param_1[2],piStack_ae0);
+      SyncOutgoingChecksumField(param_1[2],piStack_ae0);
       cVar1 = PeekPacketChecksumBool();
       if (cVar1 != '\0') {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -443,7 +443,7 @@ LAB_004a0643:
 LAB_004a07f1:
     *(undefined1 *)(param_1 + 5) = 1;
     cVar1 = PeekPacketChecksumBool();
-    if ((cVar1 != '\0') && (cVar1 = FUN_0043a530(), cVar1 == '\0')) {
+    if ((cVar1 != '\0') && (cVar1 = InitChecksumSeed(), cVar1 == '\0')) {
       uVar5 = PeekChecksumStateUnderLock(&DAT_007949c8);
       QueueOutgoingPacketField(uVar5);
     }
@@ -543,7 +543,7 @@ LAB_004a0ccf:
         uStack_ab0 = 0;
         EncodeOutgoingPacketField(0);
         SUBFIELD(puStack_8,0,undefined1) = 0x10;
-        FUN_004262d0(local_acc + 4,auStack_ac4);
+        SyncOutgoingChecksumField(local_acc + 4,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -577,7 +577,7 @@ LAB_004a0f88:
           SUBFIELD(puStack_8,0,undefined1) = 0xe;
           QueueOutgoingPacketField(iStack_adc);
           QueueOutgoingPacketField(piStack_ad8);
-          FUN_004262d0(local_acc + 4,auStack_8a0);
+          SyncOutgoingChecksumField(local_acc + 4,auStack_8a0);
           iVar4 = param_1[0xfe5];
           uVar21 = 0;
           uVar20 = 0xff;
@@ -697,7 +697,7 @@ LAB_004a101f:
     AcquireSoundChannel(0);
   }
   cVar1 = PeekPacketChecksumBool();
-  if ((cVar1 != '\0') && (cVar1 = FUN_0043a530(), cVar1 == '\0')) {
+  if ((cVar1 != '\0') && (cVar1 = InitChecksumSeed(), cVar1 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

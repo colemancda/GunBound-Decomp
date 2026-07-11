@@ -249,15 +249,15 @@ undefined4 FUN_00515b90(int param_1)
       if (uVar1 == 0) {
         (&DAT_005ae818)[iVar7 * 0x12] = 0;
         (&DAT_005ae814)[iVar7 * 0x12] = 0;
-        uVar5 = FUN_00514af0(5);
+        uVar5 = ConsumeMpegBits(5);
         (&DAT_005ae81c)[iVar7 * 0x12] = uVar5;
-        uVar5 = FUN_00514af0(5);
+        uVar5 = ConsumeMpegBits(5);
         (&DAT_005ae820)[iVar7 * 0x12] = uVar5;
-        uVar5 = FUN_00514af0(5);
+        uVar5 = ConsumeMpegBits(5);
         (&DAT_005ae824)[iVar7 * 0x12] = uVar5;
-        uVar5 = FUN_00514af0(4);
+        uVar5 = ConsumeMpegBits(4);
         (&DAT_005ae834)[iVar7 * 0x12] = uVar5;
-        uVar5 = FUN_00514af0(3);
+        uVar5 = ConsumeMpegBits(3);
         (&DAT_005ae838)[iVar7 * 0x12] = uVar5;
       }
       else {
@@ -273,17 +273,17 @@ undefined4 FUN_00515b90(int param_1)
         uVar9 = DAT_00f25e00 >> (bVar6 & 0x1f);
         (&DAT_005ae814)[iVar7 * 0x12] = uVar9;
         DAT_00f25e00 = DAT_00f25e00 - (uVar9 << (bVar6 & 0x1f));
-        uVar5 = FUN_00514af0(1);
+        uVar5 = ConsumeMpegBits(1);
         (&DAT_005ae818)[iVar7 * 0x12] = uVar5;
-        uVar5 = FUN_00514af0(5);
+        uVar5 = ConsumeMpegBits(5);
         (&DAT_005ae81c)[iVar7 * 0x12] = uVar5;
-        uVar5 = FUN_00514af0(5);
+        uVar5 = ConsumeMpegBits(5);
         (&DAT_005ae820)[iVar7 * 0x12] = uVar5;
-        uVar5 = FUN_00514af0(3);
+        uVar5 = ConsumeMpegBits(3);
         (&DAT_005ae828)[iVar7 * 0x12] = uVar5;
-        uVar5 = FUN_00514af0(3);
+        uVar5 = ConsumeMpegBits(3);
         (&DAT_005ae82c)[iVar7 * 0x12] = uVar5;
-        uVar5 = FUN_00514af0(3);
+        uVar5 = ConsumeMpegBits(3);
         (&DAT_005ae830)[iVar7 * 0x12] = uVar5;
         if ((&DAT_005ae814)[iVar7 * 0x12] == 2) {
           (&DAT_005ae834)[iVar7 * 0x12] = 5;
@@ -295,9 +295,9 @@ undefined4 FUN_00515b90(int param_1)
         }
       }
       (&DAT_005ae83c)[iVar7 * 0x12] = 0;
-      uVar5 = FUN_00514af0(1);
+      uVar5 = ConsumeMpegBits(1);
       (&DAT_005ae840)[iVar7 * 0x12] = uVar5;
-      uVar5 = FUN_00514af0(1);
+      uVar5 = ConsumeMpegBits(1);
       (&DAT_005ae844)[iVar7 * 0x12] = uVar5;
       iVar3 = iVar3 + 1;
     } while (iVar3 < DAT_005ae7dc);

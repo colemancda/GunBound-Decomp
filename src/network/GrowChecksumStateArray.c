@@ -1,4 +1,4 @@
-/* FUN_0043d840 - 0x0043d840 in the original binary.
+/* GrowChecksumStateArray - 0x0043d840 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_0043d840(void)
+undefined4 GrowChecksumStateArray(void)
 
 {
   uint in_EAX;

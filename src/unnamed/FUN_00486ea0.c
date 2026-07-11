@@ -94,7 +94,7 @@ void __fastcall FUN_00486ea0(int *param_1)
     iVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((iVar3 * 2 <= param_1[0xfe7]) || (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) {
-      FUN_004262d0(param_1[2],param_1 + 0x45e);
+      SyncOutgoingChecksumField(param_1[2],param_1 + 0x45e);
       cVar1 = PeekPacketChecksumBool();
       if (cVar1 != '\0') {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -462,7 +462,7 @@ LAB_00488365:
 LAB_00488574:
     *(undefined1 *)(param_1 + 5) = 1;
     cVar1 = PeekPacketChecksumBool();
-    if ((cVar1 != '\0') && (cVar1 = FUN_0043a530(), cVar1 == '\0')) {
+    if ((cVar1 != '\0') && (cVar1 = InitChecksumSeed(), cVar1 == '\0')) {
       (*pcVar14)(&DAT_005a9068);
       uVar5 = PeekPacketChecksumState();
       (*pcVar16)(&DAT_005a9068);
@@ -566,7 +566,7 @@ LAB_00487a8c:
         uStack_ab0 = 0;
         EncodeOutgoingPacketField(0);
         SUBFIELD(puStack_8,0,undefined1) = 0x10;
-        FUN_004262d0(iStack_ad8 + 0x10,auStack_ac4);
+        SyncOutgoingChecksumField(iStack_ad8 + 0x10,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -599,7 +599,7 @@ LAB_00487d3f:
           SUBFIELD(puStack_8,0,undefined1) = 0xe;
           QueueOutgoingPacketField(uStack_ad0);
           QueueOutgoingPacketField(fStack_ad4);
-          FUN_004262d0(iStack_ad8 + 0x10,auStack_8a0);
+          SyncOutgoingChecksumField(iStack_ad8 + 0x10,auStack_8a0);
           iVar8 = param_1[0xfe5];
           uVar22 = 0;
           uVar21 = 0xff;
@@ -687,7 +687,7 @@ LAB_00487dd6:
     pcVar16 = (code *)LeaveCriticalSection;
   }
   cVar1 = PeekPacketChecksumBool();
-  if ((cVar1 != '\0') && (cVar1 = FUN_0043a530(), cVar1 == '\0')) {
+  if ((cVar1 != '\0') && (cVar1 = InitChecksumSeed(), cVar1 == '\0')) {
     uVar5 = PeekChecksumStateUnderLock(&DAT_007949c8);
     QueueOutgoingPacketField(uVar5);
     iVar4 = g_clientContext;
