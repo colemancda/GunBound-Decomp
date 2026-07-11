@@ -68,13 +68,13 @@ void __fastcall FUN_0044fd70(int param_1)
     *(undefined4 *)(param_1 + 0x38) = uVar3;
     uVar3 = EncodeChecksumDeltaSub(iVar6 + 0xb30,local_230,0x3c);
     local_4 = 1;
-    cVar2 = PacketChecksumLessThan(uVar3,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
+    cVar2 = PacketChecksumLessThan(uVar3,*(undefined4 *)(&g_nCameraBoundY + g_clientContext));
     bVar7 = cVar2 == '\0';
     if (bVar7) {
       puVar5 = local_678;
       local_458 = 0;
       local_664 = 0;
-      EncodeOutgoingPacketField(*(undefined4 *)(&DAT_006a7724 + g_clientContext));
+      EncodeOutgoingPacketField(*(undefined4 *)(&g_nCameraBoundY + g_clientContext));
       local_4 = 3;
     }
     else {

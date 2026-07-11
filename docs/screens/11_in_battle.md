@@ -48,8 +48,8 @@ overlay still uses the software blitter. The most complex state.
   - **Blend-state cache** (`g_currentBlendMode`): `1` = normal alpha
     (`SRCALPHA`/`INVSRCALPHA`), `2` = additive glow (`SRCALPHA`/`ONE`); only
     reprogrammed on change.
-  - **Camera scroll** subtracted from world positions (`camX`=`DAT_006a7710`,
-    `camY`=`DAT_006a7714`), biased by +400 / +0x12a (half of 800×600).
+  - **Camera scroll** subtracted from world positions (`camX`=`g_nCameraX`,
+    `camY`=`g_nCameraY`), biased by +400 / +0x12a (half of 800×600).
   - **Anti-cheat value guard**: the main mobile's gameplay values are read via
     `PeekPacketChecksumState` (×110) under `EnterCriticalSection(&DAT_005a9068)`;
     each value is a `(a,b,check)` triple validated as `check==(a+b-0x34)&0xff`,

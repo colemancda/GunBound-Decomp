@@ -220,7 +220,7 @@ void __fastcall FUN_004cf310(int param_1)
         }
         uVar6 = 1;
         iVar3 = PeekChecksumStateUnderLock(&DAT_006a81b8 + g_clientContext);
-        FUN_00438410(&DAT_006a7f70 + g_clientContext,iVar3 % *(int *)(&DAT_006a7720 + g_clientContext),
+        FUN_00438410(&DAT_006a7f70 + g_clientContext,iVar3 % *(int *)(&g_nCameraBoundX + g_clientContext),
                      iVar5,uVar6);
         *unaff_FS_OFFSET = local_c;
         return;

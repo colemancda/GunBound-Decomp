@@ -36,7 +36,7 @@ void SpawnItemProjectile(undefined4 param_1,int param_2,int param_3)
     piVar6 = (int *)FUN_00476510();
   }
   local_4 = 0xffffffff;
-  FUN_004e51f0();
+  ComputeShotViewBounds();
   piVar6[6] = -1;
   piVar6[0xe25] = -1;
   *(undefined2 *)(piVar6 + 0xfe7) = in_stack_0000001c;

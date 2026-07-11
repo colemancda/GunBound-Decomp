@@ -51,9 +51,9 @@ void __fastcall SimulateMobileFrame(int *param_1)
     if (cVar5 != '\0') {
       QueueOutgoingPacketField(0);
     }
-    cVar5 = PacketChecksumGreaterEqual(param_1 + 0x243,*(undefined4 *)(&DAT_006a7720 + g_clientContext));
+    cVar5 = PacketChecksumGreaterEqual(param_1 + 0x243,*(undefined4 *)(&g_nCameraBoundX + g_clientContext));
     if (cVar5 != '\0') {
-      QueueOutgoingPacketField(*(int *)(&DAT_006a7720 + g_clientContext) + -1);
+      QueueOutgoingPacketField(*(int *)(&g_nCameraBoundX + g_clientContext) + -1);
     }
   }
   FUN_0045cb50();
@@ -118,8 +118,8 @@ void __fastcall SimulateMobileFrame(int *param_1)
         uStack_4 = 5;
         uVar10 = PeekChecksumStateUnderLock(uVar9);
         if (((int)((uVar10 ^ (int)uVar10 >> 0x1f) - ((int)uVar10 >> 0x1f)) < 3) ||
-           ((cVar5 = PacketChecksumGreaterEqual(piVar2,*(int *)(&DAT_006a7720 + g_clientContext) + -2), cVar5 != '\0'
-            && (*(int *)(&DAT_006a7720 + g_clientContext) != 2)))) {
+           ((cVar5 = PacketChecksumGreaterEqual(piVar2,*(int *)(&g_nCameraBoundX + g_clientContext) + -2), cVar5 != '\0'
+            && (*(int *)(&g_nCameraBoundX + g_clientContext) != 2)))) {
           bVar3 = true;
         }
         else {
@@ -303,7 +303,7 @@ LAB_004622cf:
       BroadcastQueuedEvent();
     }
   }
-  cVar5 = PacketChecksumGreaterEqual(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
+  cVar5 = PacketChecksumGreaterEqual(param_1 + 0x2cc,*(undefined4 *)(&g_nCameraBoundY + g_clientContext));
   if (((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool(), cVar5 == '\x01')) &&
      ((cVar5 = PacketChecksumEquals(g_clientContext + 0x45354,1), cVar5 != '\0' ||
       (cVar5 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar5 != '\0')))) {

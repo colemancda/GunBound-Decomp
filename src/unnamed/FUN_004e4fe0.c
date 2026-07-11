@@ -45,9 +45,9 @@ FUN_004e4fe0(int param_1,int param_2,int *param_3,int *param_4,int param_5,char 
         if (*(int *)(param_2 + 0x1c) < in_EAX) {
           return 0;
         }
-        if (((((param_6 != '\0') && (param_1 < *(int *)(&DAT_006a7720 + iVar5))) && (-1 < in_EAX))
-            && ((in_EAX < *(int *)(&DAT_006a7724 + iVar5) &&
-                (*(char *)(*(int *)(&DAT_006a7720 + iVar5) * in_EAX +
+        if (((((param_6 != '\0') && (param_1 < *(int *)(&g_nCameraBoundX + iVar5))) && (-1 < in_EAX))
+            && ((in_EAX < *(int *)(&g_nCameraBoundY + iVar5) &&
+                (*(char *)(*(int *)(&g_nCameraBoundX + iVar5) * in_EAX +
                            *(int *)(&DAT_006a773c + iVar5) + param_1) != '\0')))) ||
            ((param_7 != '\0' && (cVar2 = FUN_00450e10(in_EAX), iVar5 = g_clientContext, cVar2 != '\0'))
            )) {
@@ -68,10 +68,10 @@ LAB_004e51d2:
     if (param_1 <= *(int *)(param_2 + 0x18)) {
       iVar8 = g_clientContext;
       while (((-1 < param_1 && (-0x1f5 < in_EAX)) && (in_EAX <= *(int *)(param_2 + 0x1c)))) {
-        if ((((param_6 != '\0') && (param_1 < *(int *)(&DAT_006a7720 + iVar8))) &&
+        if ((((param_6 != '\0') && (param_1 < *(int *)(&g_nCameraBoundX + iVar8))) &&
             ((-1 < in_EAX &&
-             ((in_EAX < *(int *)(&DAT_006a7724 + iVar8) &&
-              (*(char *)(*(int *)(&DAT_006a7720 + iVar8) * in_EAX + *(int *)(&DAT_006a773c + iVar8)
+             ((in_EAX < *(int *)(&g_nCameraBoundY + iVar8) &&
+              (*(char *)(*(int *)(&g_nCameraBoundX + iVar8) * in_EAX + *(int *)(&DAT_006a773c + iVar8)
                         + param_1) != '\0')))))) ||
            ((param_7 != '\0' && (cVar2 = FUN_00450e10(in_EAX), iVar8 = g_clientContext, cVar2 != '\0'))
            )) goto LAB_004e51d2;

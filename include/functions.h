@@ -1082,7 +1082,7 @@ void FUN_004e4450();
 void __fastcall FUN_004e4bc0();
 void FUN_004e4d00();
 void FUN_004e4f50();
-void FUN_004e51f0();
+void ComputeShotViewBounds();
 void __fastcall TickDisconnectTimeout();
 undefined4 * __thiscall FUN_004e5430();
 ulong __fastcall FUN_004e5480();

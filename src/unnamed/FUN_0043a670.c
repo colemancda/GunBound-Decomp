@@ -245,12 +245,12 @@ LAB_0043a6b7:
     (*pcVar13)(&DAT_005a9068);
     iVar8 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if ((-1 < iVar8) && (iVar14 = *(int *)(&DAT_006a7720 + g_clientContext), iVar8 < iVar14)) {
+    if ((-1 < iVar8) && (iVar14 = *(int *)(&g_nCameraBoundX + g_clientContext), iVar8 < iVar14)) {
       if ((int)puVar17 < 0) {
         puVar17 = (undefined *)0x0;
       }
       pcVar9 = (char *)((int)puVar17 * iVar14 + *(int *)(&DAT_006a773c + g_clientContext) + iVar8);
-      for (; (int)puVar17 < *(int *)(&DAT_006a7724 + g_clientContext); puVar17 = puVar17 + 1) {
+      for (; (int)puVar17 < *(int *)(&g_nCameraBoundY + g_clientContext); puVar17 = puVar17 + 1) {
         if (*pcVar9 != '\0') goto LAB_0043ae95;
         pcVar9 = pcVar9 + iVar14;
       }

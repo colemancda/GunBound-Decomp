@@ -58,7 +58,7 @@ LAB_004a2741:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   else {
-    iVar7 = *(int *)(&DAT_006a7720 + g_clientContext);
+    iVar7 = *(int *)(&g_nCameraBoundX + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar8 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -73,7 +73,7 @@ LAB_004a2741:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     else {
-      cVar6 = PacketChecksumEquals(param_1,*(int *)(&DAT_006a7724 + g_clientContext) + -1);
+      cVar6 = PacketChecksumEquals(param_1,*(int *)(&g_nCameraBoundY + g_clientContext) + -1);
       if (cVar6 == '\0') {
         uVar9 = EncodeChecksumDeltaSub(param_1,local_112c,6);
         local_4 = 0;

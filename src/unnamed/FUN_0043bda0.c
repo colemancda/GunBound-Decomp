@@ -87,7 +87,7 @@ void FUN_0043bda0(void)
           }
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (bVar17 && (bVar3 >> (bVar14 & 7) & 1) == 1) {
-            iVar9 = *(int *)(&DAT_006a7724 + g_clientContext);
+            iVar9 = *(int *)(&g_nCameraBoundY + g_clientContext);
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar8 = PeekPacketChecksumState();
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -149,7 +149,7 @@ LAB_0043c0e0:
                          (cVar7 = DecodeGuardedBool(), cVar7 != '\0')) &&
                         (cVar7 = DecodeGuardedBool(), cVar7 != '\0')) &&
                        ((piVar5 != piVar16 && (cVar7 = PeekPacketChecksumBool(), cVar7 == '\x01')))) {
-                      iVar8 = *(int *)(&DAT_006a7724 + g_clientContext);
+                      iVar8 = *(int *)(&g_nCameraBoundY + g_clientContext);
                       (*pcVar15)(&DAT_005a9068);
                       iVar10 = PeekPacketChecksumState();
                       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

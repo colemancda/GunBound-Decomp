@@ -228,7 +228,7 @@ LAB_0046000e:
             iVar18 = FindGroundHeightAtColumn();
             iVar25 = PeekChecksumStateUnderLock(uVar16);
             if ((iVar18 <= iVar25) ||
-               (cVar9 = PacketChecksumLessThan(param_1 + 0x243,*(int *)(&DAT_006a7720 + g_clientContext) + -2),
+               (cVar9 = PacketChecksumLessThan(param_1 + 0x243,*(int *)(&g_nCameraBoundX + g_clientContext) + -2),
                cVar9 == '\0')) goto LAB_0046000e;
             bVar4 = true;
           }
@@ -874,7 +874,7 @@ LAB_004613b2:
     BroadcastQueuedEvent();
     param_1[0x2b84] = 0;
   }
-  iVar18 = *(int *)(&DAT_006a7724 + g_clientContext);
+  iVar18 = *(int *)(&g_nCameraBoundY + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar25 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -40,7 +40,7 @@ void __fastcall FUN_00471550(int param_1)
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
   local_688[0] = 0;
-  uVar2 = EncodeChecksumDeltaSub(param_1 + 0x3c,local_678,*(undefined4 *)(&DAT_006a7710 + g_clientContext));
+  uVar2 = EncodeChecksumDeltaSub(param_1 + 0x3c,local_678,*(undefined4 *)(&g_nCameraX + g_clientContext));
   local_4 = 0;
   EncodeChecksumDeltaAdd(uVar2,local_454,400);
   local_4 = 1;
@@ -129,7 +129,7 @@ LAB_004716eb:
       _DAT_00ea0e80 = 0xffffffff;
       _DAT_00ea0e5c = 0xffffffff;
       _DAT_00ea0e38 = 0xffffffff;
-      if (iVar4 < *(int *)(&DAT_006a7724 + g_clientContext)) {
+      if (iVar4 < *(int *)(&g_nCameraBoundY + g_clientContext)) {
         puVar7 = (undefined4 *)(&DAT_006ba1fc + g_spriteVertexCount * 0x6c);
         iVar3 = iVar4;
         do {
@@ -181,7 +181,7 @@ LAB_004716eb:
             local_688[0] = (local_688[0] - 1 | 0xfffffff8) + 1;
           }
           iVar3 = iVar6;
-        } while (iVar6 < *(int *)(&DAT_006a7724 + g_clientContext));
+        } while (iVar6 < *(int *)(&g_nCameraBoundY + g_clientContext));
       }
     }
   }

@@ -48,7 +48,7 @@ LAB_004ceb04:
             if (399 < iVar8) {
               iVar10 = iVar8;
             }
-            iVar9 = *(int *)(&DAT_006a7720 + iVar6) + -400;
+            iVar9 = *(int *)(&g_nCameraBoundX + iVar6) + -400;
             if ((iVar10 <= iVar9) && (iVar9 = iVar8, iVar8 < 400)) {
               iVar9 = 400;
             }
@@ -56,13 +56,13 @@ LAB_004ceb04:
             if (-0x15 < iVar7) {
               iVar8 = iVar7;
             }
-            iVar10 = *(int *)(&DAT_006a7724 + iVar6) + -0x104;
-            if ((iVar8 <= *(int *)(&DAT_006a7724 + iVar6) + -0x104) &&
+            iVar10 = *(int *)(&g_nCameraBoundY + iVar6) + -0x104;
+            if ((iVar8 <= *(int *)(&g_nCameraBoundY + iVar6) + -0x104) &&
                (iVar10 = -0x14, -0x15 < iVar7)) {
               iVar10 = iVar7;
             }
-            *(int *)(&DAT_006a7718 + iVar6) = iVar9;
-            *(int *)(&DAT_006a771c + iVar6) = iVar10;
+            *(int *)(&g_nCameraScrollX + iVar6) = iVar9;
+            *(int *)(&g_nCameraScrollY + iVar6) = iVar10;
           }
         }
         *(uint *)(param_1 + 0x10c0) = uVar12;

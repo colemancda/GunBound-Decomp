@@ -26,9 +26,9 @@ void FUN_00458920(int *param_1,int *param_2,int param_3,int param_4,int param_5,
       while( true ) {
         param_7 = param_7 + param_6;
         iVar3 = param_7 >> 0x10;
-        if (((((param_8 != '\0') && (-1 < param_3)) && (param_3 < *(int *)(&DAT_006a7720 + iVar2)))
-            && ((-1 < iVar3 && (iVar3 < *(int *)(&DAT_006a7724 + iVar2))))) &&
-           (*(char *)(*(int *)(&DAT_006a7720 + iVar2) * iVar3 + *(int *)(&DAT_006a773c + iVar2) +
+        if (((((param_8 != '\0') && (-1 < param_3)) && (param_3 < *(int *)(&g_nCameraBoundX + iVar2)))
+            && ((-1 < iVar3 && (iVar3 < *(int *)(&g_nCameraBoundY + iVar2))))) &&
+           (*(char *)(*(int *)(&g_nCameraBoundX + iVar2) * iVar3 + *(int *)(&DAT_006a773c + iVar2) +
                      param_3) != '\0')) {
           *param_1 = param_3;
           *param_2 = iVar3;

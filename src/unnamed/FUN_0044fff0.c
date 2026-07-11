@@ -30,8 +30,8 @@ void __fastcall FUN_0044fff0(int param_1)
   local_10 = *(int *)(param_1 + 0x38);
   iVar8 = *(int *)(param_1 + 0x3c);
   if (g_currentGameState == 0xb) {
-    local_10 = local_10 + (400 - *(int *)(&DAT_006a7710 + g_clientContext));
-    iVar8 = iVar8 + (0x12a - *(int *)(&DAT_006a7714 + g_clientContext));
+    local_10 = local_10 + (400 - *(int *)(&g_nCameraX + g_clientContext));
+    iVar8 = iVar8 + (0x12a - *(int *)(&g_nCameraY + g_clientContext));
   }
   iVar5 = *(int *)(param_1 + 0x2d4);
   iVar7 = 0;

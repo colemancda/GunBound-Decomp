@@ -75,7 +75,7 @@ void SpawnPrimaryShot(undefined1 param_1,uint param_2,uint param_3,uint param_4,
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053ddcf;
   *unaff_FS_OFFSET = &uStack_c;
-  FUN_004e51f0();
+  ComputeShotViewBounds();
   switch(param_3) {
   case 0:
     if ((char)param_4 == '\0') {

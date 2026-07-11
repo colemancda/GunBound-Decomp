@@ -183,7 +183,7 @@ void __fastcall RenderMobile(int param_1)
         *(int *)(iVar5 + 0x227b8) = *(int *)(param_1 + 0xb098) << 0x18;
         *(undefined4 *)(iVar5 + 0x227bc) = *(undefined4 *)(param_1 + 0xb0a0);
       }
-      uVar7 = EncodeChecksumDeltaSub(iVar1,local_454,*(undefined4 *)(&DAT_006a7710 + iVar5));
+      uVar7 = EncodeChecksumDeltaSub(iVar1,local_454,*(undefined4 *)(&g_nCameraX + iVar5));
       local_4 = 6;
       uVar7 = EncodeChecksumDeltaAdd(uVar7,local_678,400);
       local_4 = 7;
@@ -196,7 +196,7 @@ void __fastcall RenderMobile(int param_1)
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
-      uVar7 = EncodeChecksumDeltaSub(param_1 + 0xb30,local_454,*(undefined4 *)(&DAT_006a7714 + g_clientContext));
+      uVar7 = EncodeChecksumDeltaSub(param_1 + 0xb30,local_454,*(undefined4 *)(&g_nCameraY + g_clientContext));
       local_4 = 9;
       uVar7 = EncodeChecksumDeltaAdd(uVar7,local_678,0x10e);
       local_4 = 10;
@@ -215,7 +215,7 @@ void __fastcall RenderMobile(int param_1)
       }
       if (((DAT_00793530 <= iVar5 + 0x53) && (iVar5 <= DAT_0056df30)) &&
          ((DAT_00793534 <= iVar10 + 0x1f && (iVar10 <= DAT_0056df34)))) {
-        uVar7 = EncodeChecksumDeltaSub(iVar1,local_678,*(undefined4 *)(&DAT_006a7710 + g_clientContext));
+        uVar7 = EncodeChecksumDeltaSub(iVar1,local_678,*(undefined4 *)(&g_nCameraX + g_clientContext));
         local_4 = 0xc;
         uVar7 = EncodeChecksumDeltaAdd(uVar7,local_89c,400);
         local_4 = 0xd;

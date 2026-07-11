@@ -77,7 +77,7 @@ LAB_00479d44:
     iVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar6 < 0) goto LAB_00479d44;
-    cVar3 = PacketChecksumLessThan(param_1 + 0x97,*(undefined4 *)(&DAT_006a7720 + g_clientContext));
+    cVar3 = PacketChecksumLessThan(param_1 + 0x97,*(undefined4 *)(&g_nCameraBoundX + g_clientContext));
     bVar2 = true;
     if (cVar3 == '\0') goto LAB_00479d44;
   }
@@ -126,7 +126,7 @@ LAB_00479e75:
       EncodeOutgoingPacketField(0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       cVar3 = PeekPacketChecksumBool();
-      if ((cVar3 == '\x01') && (iVar5 < *(int *)(&DAT_006a7724 + g_clientContext))) goto LAB_00479e75;
+      if ((cVar3 == '\x01') && (iVar5 < *(int *)(&g_nCameraBoundY + g_clientContext))) goto LAB_00479e75;
     }
   }
   else {
@@ -170,17 +170,17 @@ LAB_00479e75:
     cVar3 = PeekPacketChecksumBool();
     if ((cVar3 == '\0') && ((&DAT_006a7758)[iVar5] != '\0')) {
       if (((&DAT_006a7736)[iVar5] == '\x01') &&
-         ((uVar7 = iVar6 - *(int *)(&DAT_006a7714 + iVar5) >> 0x1f,
-          200 < (int)((iVar6 - *(int *)(&DAT_006a7714 + iVar5) ^ uVar7) - uVar7) ||
-          (uVar7 = iVar8 - *(int *)(&DAT_006a7710 + iVar5) >> 0x1f,
-          300 < (int)((iVar8 - *(int *)(&DAT_006a7710 + iVar5) ^ uVar7) - uVar7))))) {
+         ((uVar7 = iVar6 - *(int *)(&g_nCameraY + iVar5) >> 0x1f,
+          200 < (int)((iVar6 - *(int *)(&g_nCameraY + iVar5) ^ uVar7) - uVar7) ||
+          (uVar7 = iVar8 - *(int *)(&g_nCameraX + iVar5) >> 0x1f,
+          300 < (int)((iVar8 - *(int *)(&g_nCameraX + iVar5) ^ uVar7) - uVar7))))) {
         (&DAT_006a7736)[iVar5] = 0;
       }
       iVar10 = 400;
       if (399 < iVar8) {
         iVar10 = iVar8;
       }
-      iVar9 = *(int *)(&DAT_006a7720 + iVar5) + -400;
+      iVar9 = *(int *)(&g_nCameraBoundX + iVar5) + -400;
       if ((iVar10 <= iVar9) && (iVar9 = 400, 399 < iVar8)) {
         iVar9 = iVar8;
       }
@@ -188,19 +188,19 @@ LAB_00479e75:
       if (iVar6 < -0x14) {
         iVar8 = -0x14;
       }
-      iVar10 = *(int *)(&DAT_006a7724 + iVar5) + -0x104;
-      if ((iVar8 <= *(int *)(&DAT_006a7724 + iVar5) + -0x104) && (iVar10 = iVar6, iVar6 < -0x14)) {
+      iVar10 = *(int *)(&g_nCameraBoundY + iVar5) + -0x104;
+      if ((iVar8 <= *(int *)(&g_nCameraBoundY + iVar5) + -0x104) && (iVar10 = iVar6, iVar6 < -0x14)) {
         iVar10 = -0x14;
       }
       local_924[0] = *piVar1;
-      *(int *)(&DAT_006a771c + iVar5) = iVar10;
+      *(int *)(&g_nCameraScrollY + iVar5) = iVar10;
       local_924[0] = local_924[0] - iVar9;
       if (((*(int *)(&DAT_006a770c + iVar5) - iVar10) * (*(int *)(&DAT_006a770c + iVar5) - iVar10) +
            local_924[0] * local_924[0] < 40000) &&
          (((&DAT_006a7734)[iVar5] == '\x01' || ((&DAT_006a7f6c)[iVar5] == '\0')))) {
-        *(int *)(&DAT_006a7710 + iVar5) = iVar9;
+        *(int *)(&g_nCameraX + iVar5) = iVar9;
         *piVar1 = iVar9;
-        *(int *)(&DAT_006a7714 + iVar5) = iVar10;
+        *(int *)(&g_nCameraY + iVar5) = iVar10;
         *(int *)(&DAT_006a770c + iVar5) = iVar10;
       }
       if ((((&DAT_006a7734)[iVar5] == '\0') && ((&DAT_006a7f6c)[iVar5] == '\x01')) &&
@@ -214,11 +214,11 @@ LAB_00479e75:
         if ((iVar11 <= iVar8) && (iVar11 = iVar6, iVar9 <= iVar6)) {
           iVar11 = iVar9;
         }
-        *(int *)(&DAT_006a7718 + iVar5) = iVar11;
+        *(int *)(&g_nCameraScrollX + iVar5) = iVar11;
       }
       if ((&DAT_006a7734)[iVar5] == '\x01') {
-        *(int *)(&DAT_006a7718 + iVar5) = iVar9;
-        *(int *)(&DAT_006a771c + iVar5) = iVar10;
+        *(int *)(&g_nCameraScrollX + iVar5) = iVar9;
+        *(int *)(&g_nCameraScrollY + iVar5) = iVar10;
       }
     }
   }
@@ -227,7 +227,7 @@ LAB_00479e75:
   if ((char)param_1[0xd] != '\0') {
     (**(code **)(*param_1 + 4))(s_normal_00552230);
   }
-  iVar5 = *(int *)(&DAT_006a7724 + g_clientContext);
+  iVar5 = *(int *)(&g_nCameraBoundY + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

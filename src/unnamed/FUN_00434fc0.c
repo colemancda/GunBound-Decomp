@@ -35,15 +35,15 @@ void __thiscall FUN_00434fc0(undefined4 param_1,undefined4 param_2,int param_3)
   *unaff_FS_OFFSET = &local_c;
   cVar2 = PeekPacketChecksumBool(param_1);
   if (cVar2 == '\0') {
-    if ((-1 < param_3) && (param_3 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+    if ((-1 < param_3) && (param_3 < *(int *)(&g_nCameraBoundX + g_clientContext))) {
       pcVar3 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + param_3);
       iVar11 = 0;
-      if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
+      if (0 < *(int *)(&g_nCameraBoundY + g_clientContext)) {
         do {
           if (*pcVar3 != '\0') goto LAB_00435034;
-          pcVar3 = pcVar3 + *(int *)(&DAT_006a7720 + g_clientContext);
+          pcVar3 = pcVar3 + *(int *)(&g_nCameraBoundX + g_clientContext);
           iVar11 = iVar11 + 1;
-        } while (iVar11 < *(int *)(&DAT_006a7724 + g_clientContext));
+        } while (iVar11 < *(int *)(&g_nCameraBoundY + g_clientContext));
       }
     }
     iVar11 = 10000;
@@ -215,17 +215,17 @@ LAB_00435034:
     cVar2 = PeekPacketChecksumBool();
     if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar11] != '\0')) {
       if (((&DAT_006a7736)[iVar11] == '\x01') &&
-         ((uVar13 = iVar9 - *(int *)(&DAT_006a7714 + iVar11) >> 0x1f,
-          200 < (int)((iVar9 - *(int *)(&DAT_006a7714 + iVar11) ^ uVar13) - uVar13) ||
-          (uVar13 = param_3 - *(int *)(&DAT_006a7710 + iVar11) >> 0x1f,
-          300 < (int)((param_3 - *(int *)(&DAT_006a7710 + iVar11) ^ uVar13) - uVar13))))) {
+         ((uVar13 = iVar9 - *(int *)(&g_nCameraY + iVar11) >> 0x1f,
+          200 < (int)((iVar9 - *(int *)(&g_nCameraY + iVar11) ^ uVar13) - uVar13) ||
+          (uVar13 = param_3 - *(int *)(&g_nCameraX + iVar11) >> 0x1f,
+          300 < (int)((param_3 - *(int *)(&g_nCameraX + iVar11) ^ uVar13) - uVar13))))) {
         (&DAT_006a7736)[iVar11] = 0;
       }
       iVar6 = 400;
       if (399 < param_3) {
         iVar6 = param_3;
       }
-      iVar7 = *(int *)(&DAT_006a7720 + iVar11) + -400;
+      iVar7 = *(int *)(&g_nCameraBoundX + iVar11) + -400;
       if ((iVar6 <= iVar7) && (iVar7 = param_3, param_3 < 400)) {
         iVar7 = 400;
       }
@@ -233,18 +233,18 @@ LAB_00435034:
       if (-0x15 < iVar9) {
         iVar6 = iVar9;
       }
-      iVar8 = *(int *)(&DAT_006a7724 + iVar11) + -0x104;
+      iVar8 = *(int *)(&g_nCameraBoundY + iVar11) + -0x104;
       if ((iVar6 <= iVar8) && (iVar8 = iVar9, iVar9 < -0x14)) {
         iVar8 = -0x14;
       }
       iVar9 = *piVar1 - iVar7;
-      *(int *)(&DAT_006a771c + iVar11) = iVar8;
+      *(int *)(&g_nCameraScrollY + iVar11) = iVar8;
       if (((*(int *)(&DAT_006a770c + iVar11) - iVar8) * (*(int *)(&DAT_006a770c + iVar11) - iVar8) +
            iVar9 * iVar9 < 40000) &&
          (((&DAT_006a7734)[iVar11] == '\x01' || ((&DAT_006a7f6c)[iVar11] == '\0')))) {
-        *(int *)(&DAT_006a7710 + iVar11) = iVar7;
+        *(int *)(&g_nCameraX + iVar11) = iVar7;
         *piVar1 = iVar7;
-        *(int *)(&DAT_006a7714 + iVar11) = iVar8;
+        *(int *)(&g_nCameraY + iVar11) = iVar8;
         *(int *)(&DAT_006a770c + iVar11) = iVar8;
       }
       if ((((&DAT_006a7734)[iVar11] == '\0') && ((&DAT_006a7f6c)[iVar11] == '\x01')) &&
@@ -258,11 +258,11 @@ LAB_00435034:
         if ((iVar10 <= iVar6) && (iVar10 = iVar9, iVar7 <= iVar9)) {
           iVar10 = iVar7;
         }
-        *(int *)(&DAT_006a7718 + iVar11) = iVar10;
+        *(int *)(&g_nCameraScrollX + iVar11) = iVar10;
       }
       if ((&DAT_006a7734)[iVar11] == '\x01') {
-        *(int *)(&DAT_006a7718 + iVar11) = iVar7;
-        *(int *)(&DAT_006a771c + iVar11) = iVar8;
+        *(int *)(&g_nCameraScrollX + iVar11) = iVar7;
+        *(int *)(&g_nCameraScrollY + iVar11) = iVar8;
       }
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

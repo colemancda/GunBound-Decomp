@@ -33,7 +33,7 @@ void FUN_0043b7a0(undefined4 param_1,int param_2,int param_3,int param_4,int par
   /* Windows SEH __try/__except frame setup stripped - handler body
    * (LAB_0053ae5c) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
-  if (param_2 <= *(int *)(&DAT_006a7724 + iVar5)) {
+  if (param_2 <= *(int *)(&g_nCameraBoundY + iVar5)) {
     if (param_3 != 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();

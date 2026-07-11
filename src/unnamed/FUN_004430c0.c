@@ -39,7 +39,7 @@ LAB_00443118:
   puVar5 = (ushort *)(g_clientContext + 0x49a2c);
   do {
     if (*(char *)(g_clientContext + 0x45914 + iVar8) != '\0') {
-      iVar3 = *(int *)(&DAT_006a7720 + g_clientContext);
+      iVar3 = *(int *)(&g_nCameraBoundX + g_clientContext);
       if (iVar3 < 1) {
         iVar3 = 1;
       }

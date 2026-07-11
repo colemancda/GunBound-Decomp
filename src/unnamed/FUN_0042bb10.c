@@ -29,13 +29,13 @@ void __thiscall FUN_0042bb10(int param_1,undefined4 param_2,int param_3)
     }
     iVar5 = g_clientContext;
     piVar3[0xe] = unaff_ESI;
-    iVar4 = *(int *)(&DAT_006a7724 + iVar5) + -0x26;
-    if (param_1 <= *(int *)(&DAT_006a7724 + iVar5) + -0x26) {
+    iVar4 = *(int *)(&g_nCameraBoundY + iVar5) + -0x26;
+    if (param_1 <= *(int *)(&g_nCameraBoundY + iVar5) + -0x26) {
       iVar4 = param_1;
     }
     piVar3[0xf] = iVar4;
     piVar3[0x11] = param_3;
-    *(bool *)(piVar3 + 0x10) = *(int *)(&DAT_006a7720 + iVar5) / 2 < unaff_ESI;
+    *(bool *)(piVar3 + 0x10) = *(int *)(&g_nCameraBoundX + iVar5) / 2 < unaff_ESI;
     iVar5 = FindPreloadedTextureByName(s_rider_00553f98);
     piVar3[7] = iVar5;
     (**(code **)(*piVar3 + 4))(&DAT_00553f90);

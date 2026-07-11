@@ -41,7 +41,7 @@ LAB_004dfd29:
     iVar5 = iVar3;
     if (*(char *)(iVar3 + 0x45914 + iVar9) != '\0') {
       iVar2 = (int)((longlong)(ulonglong)((uint)*puVar6 * 0x2ec) /
-                   (longlong)*(int *)(&DAT_006a7720 + iVar3));
+                   (longlong)*(int *)(&g_nCameraBoundX + iVar3));
       piVar8[-8] = iVar2;
       iVar5 = g_clientContext;
       if (iVar7 == 0) {

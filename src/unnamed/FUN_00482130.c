@@ -43,7 +43,7 @@ void __fastcall FUN_00482130(int param_1)
   puStack_8 = &LAB_00539a17;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
-  uVar3 = EncodeChecksumDeltaSub(param_1 + 0x38,local_454,*(undefined4 *)(&DAT_006a7710 + g_clientContext));
+  uVar3 = EncodeChecksumDeltaSub(param_1 + 0x38,local_454,*(undefined4 *)(&g_nCameraX + g_clientContext));
   local_4 = 0;
   EncodeChecksumDeltaAdd(uVar3,local_ac0,400);
   SUBFIELD(local_4,0,undefined1) = 1;
@@ -62,7 +62,7 @@ void __fastcall FUN_00482130(int param_1)
   }
   if ((DAT_00793530 <= iVar4 + 0x20) && (local_ad0[0] = iVar4 + -0x20, local_ad0[0] <= DAT_0056df30)
      ) {
-    uVar3 = EncodeChecksumDeltaSub(param_1 + 0x25c,local_230,*(undefined4 *)(&DAT_006a7714 + g_clientContext));
+    uVar3 = EncodeChecksumDeltaSub(param_1 + 0x25c,local_230,*(undefined4 *)(&g_nCameraY + g_clientContext));
     local_4 = 2;
     uVar3 = EncodeChecksumDeltaAdd(uVar3,local_678,0x104);
     SUBFIELD(local_4,0,undefined1) = 3;

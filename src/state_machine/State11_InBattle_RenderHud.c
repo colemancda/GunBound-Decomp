@@ -476,7 +476,7 @@ LAB_004c8edb:
 LAB_004c8ce0:
     if (uVar11 == uVar10) {
       if (*(char *)(iVar6 + 0x18) == '\x01') {
-        BlitSprite16bpp((piVar12[-0x100] - *(int *)(&DAT_006a7710 + g_clientContext)) + 400,0x24);
+        BlitSprite16bpp((piVar12[-0x100] - *(int *)(&g_nCameraX + g_clientContext)) + 400,0x24);
       }
       else {
         BlitSpriteClipped(uVar10);
@@ -496,7 +496,7 @@ LAB_004c8d14:
 LAB_004c8df4:
     if (uVar11 == uVar10) {
       if (*(char *)(iVar6 + 0x18) == '\x01') {
-        BlitSprite16bpp((piVar12[-0x80] - *(int *)(&DAT_006a7710 + g_clientContext)) + 400,0x24);
+        BlitSprite16bpp((piVar12[-0x80] - *(int *)(&g_nCameraX + g_clientContext)) + 400,0x24);
       }
       else {
         BlitSpriteClipped(uVar10);
@@ -524,7 +524,7 @@ LAB_004c8e28:
 LAB_004c9ad7:
     if (uVar2 == uVar11) {
       if (*(char *)(iVar7 + 0x18) == '\x01') {
-        BlitSprite16bpp(((uVar10 % uStack_a4 + iVar6) - *(int *)(&DAT_006a7710 + g_clientContext)) +
+        BlitSprite16bpp(((uVar10 % uStack_a4 + iVar6) - *(int *)(&g_nCameraX + g_clientContext)) +
                         400,0x24);
       }
       else {
@@ -553,7 +553,7 @@ LAB_004c9b12:
 LAB_004c96d9:
     if (uVar2 == uVar11) {
       if (*(char *)(iVar7 + 0x18) == '\x01') {
-        BlitSprite16bpp(((uVar10 % uStack_a4 + iVar6) - *(int *)(&DAT_006a7710 + g_clientContext)) +
+        BlitSprite16bpp(((uVar10 % uStack_a4 + iVar6) - *(int *)(&g_nCameraX + g_clientContext)) +
                         400,0x24);
       }
       else {
@@ -582,7 +582,7 @@ LAB_004c9714:
 LAB_004c92db:
     if (uVar2 == uVar11) {
       if (*(char *)(iVar7 + 0x18) == '\x01') {
-        BlitSprite16bpp(((uVar10 % uStack_a4 + iVar6) - *(int *)(&DAT_006a7710 + g_clientContext)) +
+        BlitSprite16bpp(((uVar10 % uStack_a4 + iVar6) - *(int *)(&g_nCameraX + g_clientContext)) +
                         400,0x24);
       }
       else {

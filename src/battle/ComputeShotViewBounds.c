@@ -1,4 +1,4 @@
-/* FUN_004e51f0 - 0x004e51f0 in the original binary.
+/* ComputeShotViewBounds - 0x004e51f0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e51f0(void)
+void ComputeShotViewBounds(void)
 
 {
   uint uVar1;

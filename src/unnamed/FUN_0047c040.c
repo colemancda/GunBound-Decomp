@@ -62,11 +62,11 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     aiStack_464[0] = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if (*(int *)(&DAT_006a7724 + g_clientContext) + iVar3 < aiStack_464[0]) {
+    if (*(int *)(&g_nCameraBoundY + g_clientContext) + iVar3 < aiStack_464[0]) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar3 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = *(int *)(&DAT_006a7724 + g_clientContext) + iVar3;
+      iVar3 = *(int *)(&g_nCameraBoundY + g_clientContext) + iVar3;
     }
     else {
       EncodeChecksumDeltaAdd(iVar2 + 0xb30,local_458,

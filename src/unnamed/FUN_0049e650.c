@@ -332,9 +332,9 @@ LAB_0049ea8b:
         }
         iVar9 = local_15ac;
         iVar10 = local_15c0;
-        if ((((-1 < iVar5) && (iVar5 < *(int *)(&DAT_006a7720 + g_clientContext))) && (-1 < local_15c0)
-            ) && ((local_15c0 < *(int *)(&DAT_006a7724 + g_clientContext) &&
-                  (*(char *)(*(int *)(&DAT_006a7720 + g_clientContext) * local_15c0 +
+        if ((((-1 < iVar5) && (iVar5 < *(int *)(&g_nCameraBoundX + g_clientContext))) && (-1 < local_15c0)
+            ) && ((local_15c0 < *(int *)(&g_nCameraBoundY + g_clientContext) &&
+                  (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * local_15c0 +
                              *(int *)(&DAT_006a773c + g_clientContext) + iVar5) != '\0')))) {
           FUN_00458920(&local_15c4,&local_15c0,local_1598,local_1594,local_1590,local_1584,
                        local_1588,1,0);
@@ -392,8 +392,8 @@ LAB_0049ea8b:
           }
           break;
         }
-        if (((iVar9 < 0) || (*(int *)(&DAT_006a7720 + g_clientContext) + -1 < iVar9)) ||
-           ((iVar10 < -0x113 || (*(int *)(&DAT_006a7724 + g_clientContext) + -1 < iVar10))))
+        if (((iVar9 < 0) || (*(int *)(&g_nCameraBoundX + g_clientContext) + -1 < iVar9)) ||
+           ((iVar10 < -0x113 || (*(int *)(&g_nCameraBoundY + g_clientContext) + -1 < iVar10))))
         goto LAB_0049fb78;
         local_1594 = local_1594 + param_2;
         local_15ac = iVar9 + local_1578;
@@ -589,9 +589,9 @@ LAB_0049f398:
         }
         iVar10 = local_15ac;
         iVar9 = local_15c4;
-        if ((((-1 < iVar5) && (iVar5 < *(int *)(&DAT_006a7720 + g_clientContext))) && (-1 < local_15ac)
-            ) && ((local_15ac < *(int *)(&DAT_006a7724 + g_clientContext) &&
-                  (*(char *)(local_15ac * *(int *)(&DAT_006a7720 + g_clientContext) +
+        if ((((-1 < iVar5) && (iVar5 < *(int *)(&g_nCameraBoundX + g_clientContext))) && (-1 < local_15ac)
+            ) && ((local_15ac < *(int *)(&g_nCameraBoundY + g_clientContext) &&
+                  (*(char *)(local_15ac * *(int *)(&g_nCameraBoundX + g_clientContext) +
                              *(int *)(&DAT_006a773c + g_clientContext) + iVar5) != '\0')))) {
           FUN_00458a00(&local_15c4,&local_15c0,local_1598,local_1594,local_1590,local_1584,
                        local_1588,1,0);
@@ -655,8 +655,8 @@ LAB_0049f398:
           }
           break;
         }
-        if (((iVar9 < 0) || (*(int *)(&DAT_006a7720 + g_clientContext) + -1 < iVar9)) ||
-           ((iVar10 < -0x113 || (*(int *)(&DAT_006a7724 + g_clientContext) + -1 < iVar10))))
+        if (((iVar9 < 0) || (*(int *)(&g_nCameraBoundX + g_clientContext) + -1 < iVar9)) ||
+           ((iVar10 < -0x113 || (*(int *)(&g_nCameraBoundY + g_clientContext) + -1 < iVar10))))
         goto LAB_0049fb78;
         local_1594 = local_1594 + param_2;
         local_15ac = iVar10 + local_1578;
@@ -667,7 +667,7 @@ LAB_0049fd17:
   *unaff_FS_OFFSET = local_c;
   return;
 LAB_0049fb78:
-  iVar5 = *(int *)(&DAT_006a7720 + g_clientContext) + -1;
+  iVar5 = *(int *)(&g_nCameraBoundX + g_clientContext) + -1;
   iVar4 = iVar5;
   if (iVar9 <= iVar5) {
     iVar4 = iVar9;
@@ -678,7 +678,7 @@ LAB_0049fb78:
   else if (iVar5 < iVar9) {
     local_15c4 = iVar5;
   }
-  iVar5 = *(int *)(&DAT_006a7724 + g_clientContext) + -1;
+  iVar5 = *(int *)(&g_nCameraBoundY + g_clientContext) + -1;
   iVar4 = iVar5;
   if (iVar10 <= iVar5) {
     iVar4 = iVar10;

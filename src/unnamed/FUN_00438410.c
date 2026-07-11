@@ -135,15 +135,15 @@ switchD_0043857e_default:
     *(byte *)((int)piVar6 + 0x1c19) = bVar11;
     *(byte *)((int)piVar6 + 0x1c1a) = bVar11 + *(byte *)(piVar6 + 0x706) + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if ((-1 < param_2) && (param_2 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+    if ((-1 < param_2) && (param_2 < *(int *)(&g_nCameraBoundX + g_clientContext))) {
       pcVar9 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + param_2);
       local_94 = 0;
-      if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
+      if (0 < *(int *)(&g_nCameraBoundY + g_clientContext)) {
         do {
           if (*pcVar9 != '\0') goto LAB_00438814;
-          pcVar9 = pcVar9 + *(int *)(&DAT_006a7720 + g_clientContext);
+          pcVar9 = pcVar9 + *(int *)(&g_nCameraBoundX + g_clientContext);
           local_94 = local_94 + 1;
-        } while (local_94 < *(int *)(&DAT_006a7724 + g_clientContext));
+        } while (local_94 < *(int *)(&g_nCameraBoundY + g_clientContext));
       }
     }
     local_94 = 10000;

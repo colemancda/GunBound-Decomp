@@ -67,11 +67,11 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     aiStack_464[0] = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if (*(int *)(&DAT_006a7724 + g_clientContext) + unaff_EBX < aiStack_464[0]) {
+    if (*(int *)(&g_nCameraBoundY + g_clientContext) + unaff_EBX < aiStack_464[0]) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       unaff_EBX = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = *(int *)(&DAT_006a7724 + g_clientContext) + unaff_EBX;
+      iVar3 = *(int *)(&g_nCameraBoundY + g_clientContext) + unaff_EBX;
     }
     else {
       if (((char)unaff_ESI[0xfe8] != '\0') || (uVar4 = 0xffffff38, (char)unaff_ESI[0xff1] != '\0'))

@@ -156,7 +156,7 @@ undefined4 FUN_00439e40(int param_1)
       if (399 < iVar7) {
         iVar9 = iVar7;
       }
-      iVar8 = *(int *)(&DAT_006a7720 + iVar4) + -400;
+      iVar8 = *(int *)(&g_nCameraBoundX + iVar4) + -400;
       if ((iVar9 <= iVar8) && (iVar8 = iVar7, iVar7 < 400)) {
         iVar8 = 400;
       }
@@ -164,12 +164,12 @@ undefined4 FUN_00439e40(int param_1)
       if (-0x15 < iVar3) {
         iVar7 = iVar3;
       }
-      iVar9 = *(int *)(&DAT_006a7724 + iVar4) + -0x104;
-      if ((iVar7 <= *(int *)(&DAT_006a7724 + iVar4) + -0x104) && (iVar9 = -0x14, -0x15 < iVar3)) {
+      iVar9 = *(int *)(&g_nCameraBoundY + iVar4) + -0x104;
+      if ((iVar7 <= *(int *)(&g_nCameraBoundY + iVar4) + -0x104) && (iVar9 = -0x14, -0x15 < iVar3)) {
         iVar9 = iVar3;
       }
-      *(int *)(&DAT_006a7718 + iVar4) = iVar8;
-      *(int *)(&DAT_006a771c + iVar4) = iVar9;
+      *(int *)(&g_nCameraScrollX + iVar4) = iVar8;
+      *(int *)(&g_nCameraScrollY + iVar4) = iVar9;
     }
     return 0;
   }

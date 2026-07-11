@@ -62,7 +62,7 @@ void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int 
         if (399 < iVar11) {
           iVar15 = iVar11;
         }
-        iVar12 = *(int *)(&DAT_006a7720 + iVar13) + -400;
+        iVar12 = *(int *)(&g_nCameraBoundX + iVar13) + -400;
         if ((iVar15 <= iVar12) && (iVar12 = iVar11, iVar11 < 400)) {
           iVar12 = 400;
         }
@@ -70,13 +70,13 @@ void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int 
         if (-0x15 < iVar10) {
           iVar11 = iVar10;
         }
-        iVar15 = *(int *)(&DAT_006a7724 + iVar13) + -0x104;
-        if ((iVar11 <= *(int *)(&DAT_006a7724 + iVar13) + -0x104) &&
+        iVar15 = *(int *)(&g_nCameraBoundY + iVar13) + -0x104;
+        if ((iVar11 <= *(int *)(&g_nCameraBoundY + iVar13) + -0x104) &&
            (iVar15 = -0x14, -0x15 < iVar10)) {
           iVar15 = iVar10;
         }
-        *(int *)(&DAT_006a7718 + iVar13) = iVar12;
-        *(int *)(&DAT_006a771c + iVar13) = iVar15;
+        *(int *)(&g_nCameraScrollX + iVar13) = iVar12;
+        *(int *)(&g_nCameraScrollY + iVar13) = iVar15;
       }
       *(undefined1 *)((int)param_1 + 0x91) = 1;
       if (DAT_00e53c3c != '\0') {
@@ -376,7 +376,7 @@ void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int 
         puVar16 = &DAT_006a64c4 + g_clientContext;
         psVar1 = (short *)(&DAT_00e9aace + g_dwBroadcastEventCursor);
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-        *psVar1 = *(short *)(&DAT_006a7710 + g_clientContext) + (short)param_4 + -400;
+        *psVar1 = *(short *)(&g_nCameraX + g_clientContext) + (short)param_4 + -400;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         iVar13 = PeekChecksumStateUnderLock(puVar16);
         if (iVar13 == 1) {
@@ -414,7 +414,7 @@ void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int 
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         iVar10 = g_clientContext + 0x3b49c;
         *(short *)(&DAT_00e9aace + iVar13) =
-             *(short *)(&DAT_006a7710 + g_clientContext) + (short)param_4 + -400;
+             *(short *)(&g_nCameraX + g_clientContext) + (short)param_4 + -400;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         iVar13 = PeekChecksumStateUnderLock(iVar10);
         uVar14 = PeekChecksumStateUnderLock(iVar13 * 0x224 + 0xebef4 + g_clientContext);
@@ -431,8 +431,8 @@ void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int 
         *(undefined1 *)((int)param_1 + 0x93) = 0;
         (&DAT_006a7758)[iVar13] = 1;
       }
-      iVar10 = FUN_0043c550(*(int *)(&DAT_006a7710 + iVar13) + -400 + uVar17,
-                            *(int *)(&DAT_006a7714 + iVar13) + -0x12a + uVar9);
+      iVar10 = FUN_0043c550(*(int *)(&g_nCameraX + iVar13) + -400 + uVar17,
+                            *(int *)(&g_nCameraY + iVar13) + -0x12a + uVar9);
       iVar13 = g_clientContext;
       if (iVar10 != -1) {
         _DAT_00e9b4e8 = *(undefined2 *)(g_clientContext + 0x4591c + iVar10 * 2);
@@ -689,7 +689,7 @@ LAB_004b9bb0:
       if (399 < iVar11) {
         iVar15 = iVar11;
       }
-      iVar12 = *(int *)(&DAT_006a7720 + iVar13) + -400;
+      iVar12 = *(int *)(&g_nCameraBoundX + iVar13) + -400;
       if ((iVar15 <= iVar12) && (iVar12 = iVar11, iVar11 < 400)) {
         iVar12 = 400;
       }
@@ -697,13 +697,13 @@ LAB_004b9bb0:
       if (-0x15 < iVar10) {
         iVar11 = iVar10;
       }
-      iVar15 = *(int *)(&DAT_006a7724 + iVar13) + -0x104;
-      if ((iVar11 <= *(int *)(&DAT_006a7724 + iVar13) + -0x104) && (iVar15 = -0x14, -0x15 < iVar10))
+      iVar15 = *(int *)(&g_nCameraBoundY + iVar13) + -0x104;
+      if ((iVar11 <= *(int *)(&g_nCameraBoundY + iVar13) + -0x104) && (iVar15 = -0x14, -0x15 < iVar10))
       {
         iVar15 = iVar10;
       }
-      *(int *)(&DAT_006a7718 + iVar13) = iVar12;
-      *(int *)(&DAT_006a771c + iVar13) = iVar15;
+      *(int *)(&g_nCameraScrollX + iVar13) = iVar12;
+      *(int *)(&g_nCameraScrollY + iVar13) = iVar15;
       return;
     }
     if (((char)param_1[0x474] != '\0') && (cVar4 = FUN_00406400(), cVar4 == '\x01')) {

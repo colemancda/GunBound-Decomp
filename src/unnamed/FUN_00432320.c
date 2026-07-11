@@ -36,8 +36,8 @@ FUN_00432320(int param_1,byte param_2,int param_3,byte param_4,int param_5,undef
   puStack_8 = &LAB_0053cbe0;
   *unaff_FS_OFFSET = &local_c;
   piVar8 = (int *)0x0;
-  if ((((-1 < param_5) && (param_5 < *(int *)(&DAT_006a7720 + g_clientContext))) && (-0xc9 < param_1))
-     && (param_1 < *(int *)(&DAT_006a7724 + g_clientContext))) {
+  if ((((-1 < param_5) && (param_5 < *(int *)(&g_nCameraBoundX + g_clientContext))) && (-0xc9 < param_1))
+     && (param_1 < *(int *)(&g_nCameraBoundY + g_clientContext))) {
     pvVar2 = operator_new(0x3fa0);
     local_4 = 0;
     if (pvVar2 != (void *)0x0) {

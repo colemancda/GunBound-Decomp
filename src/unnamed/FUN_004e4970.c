@@ -19,8 +19,8 @@ void FUN_004e4970(int param_1,int param_2,int param_3,undefined4 param_4,undefin
   int unaff_EDI;
   bool bVar4;
   
-  if ((((unaff_EBX < 0) || (*(int *)(&DAT_006a7720 + g_clientContext) <= unaff_EBX)) || (unaff_EDI < 0)
-      ) || (*(int *)(&DAT_006a7724 + g_clientContext) <= unaff_EDI)) {
+  if ((((unaff_EBX < 0) || (*(int *)(&g_nCameraBoundX + g_clientContext) <= unaff_EBX)) || (unaff_EDI < 0)
+      ) || (*(int *)(&g_nCameraBoundY + g_clientContext) <= unaff_EDI)) {
     *(undefined4 *)(in_EAX + 0x858) = 0xffffffff;
     *(undefined4 *)(in_EAX + 0x854) = 0xffffffff;
   }

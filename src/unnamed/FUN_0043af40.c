@@ -48,8 +48,8 @@ void FUN_0043af40(int param_1,int param_2,int param_3,int param_4,int param_5,in
   local_14 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_14;
   pcVar12 = (code *)EnterCriticalSection;
-  if (*(int *)(&DAT_006a7724 + g_clientContext) < param_2) {
-    param_2 = *(int *)(&DAT_006a7724 + g_clientContext);
+  if (*(int *)(&g_nCameraBoundY + g_clientContext) < param_2) {
+    param_2 = *(int *)(&g_nCameraBoundY + g_clientContext);
   }
   local_8bc = param_4;
   pcVar9 = (code *)LeaveCriticalSection;
@@ -63,7 +63,7 @@ void FUN_0043af40(int param_1,int param_2,int param_3,int param_4,int param_5,in
     iVar5 = g_clientContext;
   }
   do {
-    if (((param_2 < 0) || (param_1 < 0)) || (*(int *)(&DAT_006a7720 + iVar5) <= param_1)) {
+    if (((param_2 < 0) || (param_1 < 0)) || (*(int *)(&g_nCameraBoundX + iVar5) <= param_1)) {
       *unaff_FS_OFFSET = local_14;
       return;
     }

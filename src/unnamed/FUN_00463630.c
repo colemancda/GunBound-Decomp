@@ -50,7 +50,7 @@ void FUN_00463630(int param_1)
   if (iVar2 != 3) {
     cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\0') {
-      uVar3 = EncodeChecksumDeltaSub(param_1 + 0x90c,local_112c,*(undefined4 *)(&DAT_006a7710 + g_clientContext))
+      uVar3 = EncodeChecksumDeltaSub(param_1 + 0x90c,local_112c,*(undefined4 *)(&g_nCameraX + g_clientContext))
       ;
       local_4 = 0;
       uVar3 = EncodeChecksumDeltaAdd(uVar3,local_f08,400);
@@ -75,7 +75,7 @@ void FUN_00463630(int param_1)
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_113c);
       }
-      uVar3 = EncodeChecksumDeltaSub(param_1 + 0xb30,local_ce4,*(undefined4 *)(&DAT_006a7714 + g_clientContext));
+      uVar3 = EncodeChecksumDeltaSub(param_1 + 0xb30,local_ce4,*(undefined4 *)(&g_nCameraY + g_clientContext));
       local_4 = 3;
       uVar3 = EncodeChecksumDeltaAdd(uVar3,local_f08,0x10e);
       local_4 = 4;

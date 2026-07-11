@@ -75,15 +75,15 @@ void __fastcall FUN_004ad3b0(int *param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar2 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      if ((-1 < iVar2) && (iVar2 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+      if ((-1 < iVar2) && (iVar2 < *(int *)(&g_nCameraBoundX + g_clientContext))) {
         pcVar4 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + iVar2);
         puStack_af0 = (undefined4 *)0x0;
-        if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
+        if (0 < *(int *)(&g_nCameraBoundY + g_clientContext)) {
           do {
             if (*pcVar4 != '\0') goto LAB_004ad512;
-            pcVar4 = pcVar4 + *(int *)(&DAT_006a7720 + g_clientContext);
+            pcVar4 = pcVar4 + *(int *)(&g_nCameraBoundX + g_clientContext);
             puStack_af0 = (undefined4 *)((int)puStack_af0 + 1);
-          } while ((int)puStack_af0 < *(int *)(&DAT_006a7724 + g_clientContext));
+          } while ((int)puStack_af0 < *(int *)(&g_nCameraBoundY + g_clientContext));
         }
       }
       puStack_af0 = (undefined4 *)0x2710;
@@ -271,12 +271,12 @@ LAB_004add3c:
   PeekPacketChecksumState();
   (*pcVar11)(&DAT_005a9068);
   if ((char)(unaff_EBX >> 0x18) == '\0') {
-    iVar2 = *(int *)(&DAT_006a7720 + g_clientContext);
+    iVar2 = *(int *)(&g_nCameraBoundX + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState();
     (*pcVar11)(&DAT_005a9068);
     if (((iVar2 <= iVar3) ||
-        (cVar1 = PacketChecksumGreaterEqual(param_1 + 0x45e,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
+        (cVar1 = PacketChecksumGreaterEqual(param_1 + 0x45e,*(undefined4 *)(&g_nCameraBoundY + g_clientContext)),
         cVar1 != '\0')) || (cVar1 = PacketChecksumLessThan(param_1 + 0x45e,0xfffffc18), cVar1 != '\0'))
     goto LAB_004adef8;
   }
@@ -308,17 +308,17 @@ LAB_004adef8:
     cVar1 = PeekPacketChecksumBool();
     if ((cVar1 == '\0') && ((&DAT_006a7758)[iVar2] != '\0')) {
       if (((&DAT_006a7736)[iVar2] == '\x01') &&
-         ((uVar8 = iVar3 - *(int *)(&DAT_006a7714 + iVar2) >> 0x1f,
-          200 < (int)((iVar3 - *(int *)(&DAT_006a7714 + iVar2) ^ uVar8) - uVar8) ||
-          (uVar8 = iVar6 - *(int *)(&DAT_006a7710 + iVar2) >> 0x1f,
-          300 < (int)((iVar6 - *(int *)(&DAT_006a7710 + iVar2) ^ uVar8) - uVar8))))) {
+         ((uVar8 = iVar3 - *(int *)(&g_nCameraY + iVar2) >> 0x1f,
+          200 < (int)((iVar3 - *(int *)(&g_nCameraY + iVar2) ^ uVar8) - uVar8) ||
+          (uVar8 = iVar6 - *(int *)(&g_nCameraX + iVar2) >> 0x1f,
+          300 < (int)((iVar6 - *(int *)(&g_nCameraX + iVar2) ^ uVar8) - uVar8))))) {
         (&DAT_006a7736)[iVar2] = 0;
       }
       iVar7 = 400;
       if (399 < iVar6) {
         iVar7 = iVar6;
       }
-      iVar9 = *(int *)(&DAT_006a7720 + iVar2) + -400;
+      iVar9 = *(int *)(&g_nCameraBoundX + iVar2) + -400;
       if ((iVar7 <= iVar9) && (iVar9 = iVar6, iVar6 < 400)) {
         iVar9 = 400;
       }
@@ -326,18 +326,18 @@ LAB_004adef8:
       if (-0x15 < iVar3) {
         iVar6 = iVar3;
       }
-      iVar7 = *(int *)(&DAT_006a7724 + iVar2) + -0x104;
+      iVar7 = *(int *)(&g_nCameraBoundY + iVar2) + -0x104;
       if ((iVar6 <= iVar7) && (iVar7 = -0x14, -0x15 < iVar3)) {
         iVar7 = iVar3;
       }
       iVar3 = *piVar12 - iVar9;
-      *(int *)(&DAT_006a771c + iVar2) = iVar7;
+      *(int *)(&g_nCameraScrollY + iVar2) = iVar7;
       if (((*(int *)(&DAT_006a770c + iVar2) - iVar7) * (*(int *)(&DAT_006a770c + iVar2) - iVar7) +
            iVar3 * iVar3 < 40000) &&
          (((&DAT_006a7734)[iVar2] == '\x01' || ((&DAT_006a7f6c)[iVar2] == '\0')))) {
-        *(int *)(&DAT_006a7710 + iVar2) = iVar9;
+        *(int *)(&g_nCameraX + iVar2) = iVar9;
         *piVar12 = iVar9;
-        *(int *)(&DAT_006a7714 + iVar2) = iVar7;
+        *(int *)(&g_nCameraY + iVar2) = iVar7;
         *(int *)(&DAT_006a770c + iVar2) = iVar7;
       }
       if ((((&DAT_006a7734)[iVar2] == '\0') && ((&DAT_006a7f6c)[iVar2] == '\x01')) &&
@@ -351,11 +351,11 @@ LAB_004adef8:
         if ((iVar10 <= iVar6) && (iVar10 = iVar3, iVar9 <= iVar3)) {
           iVar10 = iVar9;
         }
-        *(int *)(&DAT_006a7718 + iVar2) = iVar10;
+        *(int *)(&g_nCameraScrollX + iVar2) = iVar10;
       }
       if ((&DAT_006a7734)[iVar2] == '\x01') {
-        *(int *)(&DAT_006a7718 + iVar2) = iVar9;
-        *(int *)(&DAT_006a771c + iVar2) = iVar7;
+        *(int *)(&g_nCameraScrollX + iVar2) = iVar9;
+        *(int *)(&g_nCameraScrollY + iVar2) = iVar7;
       }
     }
   }

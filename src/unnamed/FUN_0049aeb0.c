@@ -293,10 +293,10 @@ LAB_0049b2e9:
         if (cVar9 != '\0') {
           FUN_00436ec0(uVar11,local_15a0);
         }
-        if ((((-1 < (int)uVar11) && ((int)uVar11 < *(int *)(&DAT_006a7720 + g_clientContext))) &&
+        if ((((-1 < (int)uVar11) && ((int)uVar11 < *(int *)(&g_nCameraBoundX + g_clientContext))) &&
             (-1 < (int)uVar16)) &&
-           (((int)uVar16 < *(int *)(&DAT_006a7724 + g_clientContext) &&
-            (*(char *)(*(int *)(&DAT_006a7720 + g_clientContext) * uVar16 +
+           (((int)uVar16 < *(int *)(&g_nCameraBoundY + g_clientContext) &&
+            (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * uVar16 +
                        *(int *)(&DAT_006a773c + g_clientContext) + uVar11) != '\0')))) {
           FUN_00458920(&local_15b0,&local_15a0,local_1580[0],local_1594,local_1590,iVar14,local_159c
                        ,1,0);
@@ -505,10 +505,10 @@ LAB_0049b9fa:
         if (cVar9 != '\0') {
           FUN_00436ec0(uVar11,local_15ac);
         }
-        if ((((-1 < (int)uVar11) && ((int)uVar11 < *(int *)(&DAT_006a7720 + g_clientContext))) &&
+        if ((((-1 < (int)uVar11) && ((int)uVar11 < *(int *)(&g_nCameraBoundX + g_clientContext))) &&
             (-1 < (int)uVar16)) &&
-           (((int)uVar16 < *(int *)(&DAT_006a7724 + g_clientContext) &&
-            (*(char *)(*(int *)(&DAT_006a7720 + g_clientContext) * uVar16 +
+           (((int)uVar16 < *(int *)(&g_nCameraBoundY + g_clientContext) &&
+            (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * uVar16 +
                        *(int *)(&DAT_006a773c + g_clientContext) + uVar11) != '\0')))) {
           FUN_00458a00(&local_15b0,&local_15a0,local_1588[0],local_1594,local_1590,iVar19,local_159c
                        ,1,0);

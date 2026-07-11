@@ -24,13 +24,13 @@ int __fastcall FUN_00491a40(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = (uint3)((uint)extraout_EAX >> 8);
   if (-1 < iVar1) {
-    iVar1 = *(int *)(&DAT_006a7720 + g_clientContext);
+    iVar1 = *(int *)(&g_nCameraBoundX + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = (uint3)((uint)extraout_EAX_00 >> 8);
     if (iVar2 < iVar1) {
-      iVar1 = *(int *)(&DAT_006a7724 + g_clientContext);
+      iVar1 = *(int *)(&g_nCameraBoundY + g_clientContext);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar2 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

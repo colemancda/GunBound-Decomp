@@ -127,10 +127,10 @@ void State11_InBattle_Render(void)
     piVar8 = (int *)(iVar6 + 0x20b18);
     do {
       if (*(char *)(iVar6 + 0x20b0c + uStack_93c) == '\x01') {
-        if ((((DAT_00793530 <= (piVar8[-1] - *(int *)(&DAT_006a7710 + iVar6)) + 0x1ba) &&
-             ((piVar8[-1] - *(int *)(&DAT_006a7710 + iVar6)) + 0x166 <= DAT_0056df30)) &&
-            (DAT_00793534 <= (*piVar8 - *(int *)(&DAT_006a7714 + iVar6)) + 0x154)) &&
-           ((*piVar8 - *(int *)(&DAT_006a7714 + iVar6)) + 0x100 <= DAT_0056df34)) {
+        if ((((DAT_00793530 <= (piVar8[-1] - *(int *)(&g_nCameraX + iVar6)) + 0x1ba) &&
+             ((piVar8[-1] - *(int *)(&g_nCameraX + iVar6)) + 0x166 <= DAT_0056df30)) &&
+            (DAT_00793534 <= (*piVar8 - *(int *)(&g_nCameraY + iVar6)) + 0x154)) &&
+           ((*piVar8 - *(int *)(&g_nCameraY + iVar6)) + 0x100 <= DAT_0056df34)) {
           *(undefined4 *)(iVar5 + 0x88) = 0x3ea80000;
           *(float *)(iVar5 + 0x80) = (float)(uStack_93c % 3) * _DAT_00558064;
           *(float *)(iVar5 + 0x84) = (float)(uStack_93c / 3) * _DAT_00558064;
@@ -174,8 +174,8 @@ void State11_InBattle_Render(void)
             iVar7 = *(int *)(iStack_938 + 0x20b14 + iVar5);
             iVar12 = *(int *)(iStack_938 + 0x20b18 + iVar5);
           }
-          iVar7 = iVar7 + (400 - *(int *)(&DAT_006a7710 + iVar5));
-          iVar12 = iVar12 + (0x12a - *(int *)(&DAT_006a7714 + iVar5));
+          iVar7 = iVar7 + (400 - *(int *)(&g_nCameraX + iVar5));
+          iVar12 = iVar12 + (0x12a - *(int *)(&g_nCameraY + iVar5));
           if (((DAT_00793530 <= iVar7 + 0x40) && (iVar7 + -0x3e <= DAT_0056df30)) &&
              ((DAT_00793534 <= iVar12 + 0x10 && (iVar12 + -0x70 <= DAT_0056df34)))) {
             fVar3 = (float)(uVar16 & 1) * _DAT_00557fb8;
@@ -227,8 +227,8 @@ void State11_InBattle_Render(void)
             iVar19 = *(int *)(iStack_95c + 0x20b54 + iVar5);
             iVar7 = *(int *)(iStack_95c + 0x20b58 + iVar5);
           }
-          iVar19 = iVar19 + (400 - *(int *)(&DAT_006a7710 + iVar5));
-          iVar7 = iVar7 + (0x12a - *(int *)(&DAT_006a7714 + iVar5));
+          iVar19 = iVar19 + (400 - *(int *)(&g_nCameraX + iVar5));
+          iVar7 = iVar7 + (0x12a - *(int *)(&g_nCameraY + iVar5));
           if (((DAT_00793530 <= iVar19 + 0x40) && (iVar19 + -0x40 <= DAT_0056df30)) &&
              ((DAT_00793534 <= iVar7 + 0x10 && (iVar7 + -0x70 <= DAT_0056df34)))) {
             fVar3 = (float)(uVar16 & 1) * _DAT_00557fb8;
@@ -284,9 +284,9 @@ void State11_InBattle_Render(void)
             if ((*piVar8 == iVar5) && (*(char *)(iStack_964 + uVar16) != '\0')) {
               iVar19 = uVar16 + iStack_968 * 8;
               iVar7 = *(int *)(g_clientContext + 0x1ff0c + iVar19 * 0x18) -
-                      *(int *)(&DAT_006a7710 + g_clientContext);
+                      *(int *)(&g_nCameraX + g_clientContext);
               iVar19 = *(int *)(g_clientContext + 0x1ff10 + iVar19 * 0x18) -
-                       *(int *)(&DAT_006a7714 + g_clientContext);
+                       *(int *)(&g_nCameraY + g_clientContext);
               if ((DAT_00793530 <= iVar7 + 0x1d0) &&
                  (((iVar7 + 0x152 <= DAT_0056df30 && (DAT_00793534 <= iVar19 + 0x13a)) &&
                   (iVar19 + 0xba <= DAT_0056df34)))) {
@@ -331,9 +331,9 @@ void State11_InBattle_Render(void)
             if ((*piVar8 == iStack_974) && (*(char *)(iStack_95c + uVar16) != '\0')) {
               iVar5 = uVar16 + iStack_970 * 8;
               iVar19 = *(int *)(g_clientContext + 0x1ff6c + iVar5 * 0x18) -
-                       *(int *)(&DAT_006a7710 + g_clientContext);
+                       *(int *)(&g_nCameraX + g_clientContext);
               iVar5 = *(int *)(g_clientContext + 0x1ff70 + iVar5 * 0x18) -
-                      *(int *)(&DAT_006a7714 + g_clientContext);
+                      *(int *)(&g_nCameraY + g_clientContext);
               if ((DAT_00793530 <= iVar19 + 0x1d0) &&
                  (((iVar19 + 0x150 <= DAT_0056df30 && (DAT_00793534 <= iVar5 + 0x13a)) &&
                   (iVar5 + 0xba <= DAT_0056df34)))) {
@@ -389,8 +389,8 @@ void State11_InBattle_Render(void)
             iVar19 = *(int *)(iStack_968 + 0x20b14 + iVar5);
             iVar7 = *(int *)(iStack_968 + 0x20b18 + iVar5);
           }
-          iVar19 = iVar19 + (400 - *(int *)(&DAT_006a7710 + iVar5));
-          iVar7 = iVar7 + (0x12a - *(int *)(&DAT_006a7714 + iVar5));
+          iVar19 = iVar19 + (400 - *(int *)(&g_nCameraX + iVar5));
+          iVar7 = iVar7 + (0x12a - *(int *)(&g_nCameraY + iVar5));
           if (((DAT_00793530 <= iVar19 + 0x40) && (iVar19 + -0x3e <= DAT_0056df30)) &&
              ((DAT_00793534 <= iVar7 + 0x10 && (iVar7 + -0x70 <= DAT_0056df34)))) {
             fVar3 = (float)(uVar16 & 1) * _DAT_00557fb8;
@@ -447,8 +447,8 @@ void State11_InBattle_Render(void)
             iVar19 = *(int *)(iStack_988 + 0x20b54 + iVar5);
             iVar7 = *(int *)(iStack_988 + 0x20b58 + iVar5);
           }
-          iVar19 = iVar19 + (400 - *(int *)(&DAT_006a7710 + iVar5));
-          iVar7 = iVar7 + (0x12a - *(int *)(&DAT_006a7714 + iVar5));
+          iVar19 = iVar19 + (400 - *(int *)(&g_nCameraX + iVar5));
+          iVar7 = iVar7 + (0x12a - *(int *)(&g_nCameraY + iVar5));
           if ((((DAT_00793530 <= iVar19 + 0x40) && (iVar19 + -0x40 <= DAT_0056df30)) &&
               (DAT_00793534 <= iVar7 + 0x10)) && (iVar7 + -0x70 <= DAT_0056df34)) {
             fVar3 = (float)(uStack_98c & 1) * _DAT_00557fb8;
@@ -501,10 +501,10 @@ void State11_InBattle_Render(void)
       do {
         if (((*piVar8 == iStack_990) && (*(char *)(uVar16 + 0x1fe8c + g_clientContext) != '\0')) &&
            (piVar14[4] == 1)) {
-          if ((((DAT_00793530 <= (*piVar14 - *(int *)(&DAT_006a7710 + g_clientContext)) + 0x1d0) &&
-               ((*piVar14 - *(int *)(&DAT_006a7710 + g_clientContext)) + 0x152 <= DAT_0056df30)) &&
-              (DAT_00793534 <= (piVar14[1] - *(int *)(&DAT_006a7714 + g_clientContext)) + 0x13a)) &&
-             ((piVar14[1] - *(int *)(&DAT_006a7714 + g_clientContext)) + 0xba <= DAT_0056df34)) {
+          if ((((DAT_00793530 <= (*piVar14 - *(int *)(&g_nCameraX + g_clientContext)) + 0x1d0) &&
+               ((*piVar14 - *(int *)(&g_nCameraX + g_clientContext)) + 0x152 <= DAT_0056df30)) &&
+              (DAT_00793534 <= (piVar14[1] - *(int *)(&g_nCameraY + g_clientContext)) + 0x13a)) &&
+             ((piVar14[1] - *(int *)(&g_nCameraY + g_clientContext)) + 0xba <= DAT_0056df34)) {
             fVar3 = (float)(uVar16 & 1) * _DAT_00557fb8;
             *(undefined4 *)(iVar6 + 0x88) = 0x3f000000;
             *(float *)(iVar6 + 0x80) = fVar3;
@@ -538,10 +538,10 @@ void State11_InBattle_Render(void)
       do {
         if (((*piVar8 == iStack_99c) && (*(char *)(uVar16 + 0x1fe90 + g_clientContext) != '\0')) &&
            (piVar14[4] == 1)) {
-          if (((DAT_00793530 <= (*piVar14 - *(int *)(&DAT_006a7710 + g_clientContext)) + 0x1d0) &&
-              ((*piVar14 - *(int *)(&DAT_006a7710 + g_clientContext)) + 0x150 <= DAT_0056df30)) &&
-             ((DAT_00793534 <= (piVar14[1] - *(int *)(&DAT_006a7714 + g_clientContext)) + 0x13a &&
-              ((piVar14[1] - *(int *)(&DAT_006a7714 + g_clientContext)) + 0xba <= DAT_0056df34)))) {
+          if (((DAT_00793530 <= (*piVar14 - *(int *)(&g_nCameraX + g_clientContext)) + 0x1d0) &&
+              ((*piVar14 - *(int *)(&g_nCameraX + g_clientContext)) + 0x150 <= DAT_0056df30)) &&
+             ((DAT_00793534 <= (piVar14[1] - *(int *)(&g_nCameraY + g_clientContext)) + 0x13a &&
+              ((piVar14[1] - *(int *)(&g_nCameraY + g_clientContext)) + 0xba <= DAT_0056df34)))) {
             fVar3 = (float)(uVar16 & 1) * _DAT_00557fb8;
             *(undefined4 *)(iVar6 + 0x88) = 0x3f000000;
             *(float *)(iVar6 + 0x80) = fVar3;
@@ -627,9 +627,9 @@ void State11_InBattle_Render(void)
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar6 = g_clientContext;
         pcStack_a04 = (char *)((*(int *)(iVar5 + 0x217b4 + g_clientContext) -
-                               *(int *)(&DAT_006a7714 + g_clientContext)) + 0x12a);
+                               *(int *)(&g_nCameraY + g_clientContext)) + 0x12a);
         uStack_a08 = (*(int *)(iVar5 + 0x217b0 + g_clientContext) -
-                     *(int *)(&DAT_006a7710 + g_clientContext)) + 400;
+                     *(int *)(&g_nCameraX + g_clientContext)) + 400;
         piStack_a0c = (int *)0x4c4a04;
         BuildColorQuad();
         iStack_9b8 = iStack_9b8 + 1;
@@ -651,8 +651,8 @@ void State11_InBattle_Render(void)
     g_spriteVertexCount = 0;
   }
   if (*(char *)(g_clientContext + 0x23244) == '\x01') {
-    iVar5 = *(int *)(g_clientContext + 0x23248) - *(int *)(&DAT_006a7710 + g_clientContext);
-    iVar6 = *(int *)(g_clientContext + 0x2324c) - *(int *)(&DAT_006a7714 + g_clientContext);
+    iVar5 = *(int *)(g_clientContext + 0x23248) - *(int *)(&g_nCameraX + g_clientContext);
+    iVar6 = *(int *)(g_clientContext + 0x2324c) - *(int *)(&g_nCameraY + g_clientContext);
     if ((((DAT_00793530 <= iVar5 + 0x210) && (iVar5 + 0x110 <= DAT_0056df30)) &&
         (DAT_00793534 <= iVar6 + 0x1aa)) && (iVar6 + 0xaa <= DAT_0056df34)) {
       if (g_currentBlendMode != 1) {
@@ -716,8 +716,8 @@ void State11_InBattle_Render(void)
         if ((*(char *)(iStack_9ac + uVar16) != '\0') &&
            (*(char *)(uVar16 + 0x21748 + g_clientContext) == '\0')) {
           iVar5 = *(int *)(g_clientContext + (iStack_9c0 * 0x10 + 0x1a35 + uVar16) * 0x14) -
-                  *(int *)(&DAT_006a7710 + g_clientContext);
-          iVar19 = *(int *)((int)piStack_9c4 + -0xc) - *(int *)(&DAT_006a7714 + g_clientContext);
+                  *(int *)(&g_nCameraX + g_clientContext);
+          iVar19 = *(int *)((int)piStack_9c4 + -0xc) - *(int *)(&g_nCameraY + g_clientContext);
           if (((DAT_00793530 <= iVar5 + 0x1c0) &&
               ((iVar5 + 0x160 <= DAT_0056df30 && (DAT_00793534 <= iVar19 + 0x15a)))) &&
              (iVar19 + 0xfa <= DAT_0056df34)) {
@@ -765,10 +765,10 @@ void State11_InBattle_Render(void)
         if (((*(char *)(uVar16 + iStack_9b8) != '\0') &&
             (*(char *)(uVar16 + 0x21748 + g_clientContext) == '\0')) && (piStack_9d0[2] == 1)) {
           iVar5 = *(int *)(g_clientContext + (iStack_9cc * 0x10 + 0x1a35 + uVar16) * 0x14) -
-                  *(int *)(&DAT_006a7710 + g_clientContext);
+                  *(int *)(&g_nCameraX + g_clientContext);
           if (((DAT_00793530 <= iVar5 + 0x1c0) && (iVar5 + 0x160 <= DAT_0056df30)) &&
-             ((DAT_00793534 <= (*piStack_9d0 - *(int *)(&DAT_006a7714 + g_clientContext)) + 0x15a &&
-              ((*piStack_9d0 - *(int *)(&DAT_006a7714 + g_clientContext)) + 0xfa <= DAT_0056df34)))) {
+             ((DAT_00793534 <= (*piStack_9d0 - *(int *)(&g_nCameraY + g_clientContext)) + 0x15a &&
+              ((*piStack_9d0 - *(int *)(&g_nCameraY + g_clientContext)) + 0xfa <= DAT_0056df34)))) {
             fVar3 = (float)(uVar16 & 3) * _DAT_00558054;
             *(undefined4 *)(iVar6 + 0x88) = 0x3e800000;
             *(float *)(iVar6 + 0x80) = fVar3;
@@ -817,9 +817,9 @@ void State11_InBattle_Render(void)
       iVar6 = g_clientContext;
       if (iVar5 != 0) {
         iVar19 = *(int *)(iStack_9e0 + 0x21718 + g_clientContext) -
-                 *(int *)(&DAT_006a7710 + g_clientContext);
+                 *(int *)(&g_nCameraX + g_clientContext);
         iVar7 = *(int *)(iStack_9e0 + 0x2171c + g_clientContext) -
-                *(int *)(&DAT_006a7714 + g_clientContext);
+                *(int *)(&g_nCameraY + g_clientContext);
         if (((DAT_00793530 <= iVar19 + 0x210) && (iVar19 + 0x110 <= DAT_0056df30)) &&
            ((DAT_00793534 <= iVar7 + 0x1aa && (iVar7 + 0xaa <= DAT_0056df34)))) {
           pcStack_a04 = (char *)0x0;
@@ -860,8 +860,8 @@ void State11_InBattle_Render(void)
     iVar5 = g_clientContext;
     do {
       if (*(char *)(uVar16 + 0x21644 + iVar5) != '\0') {
-        iVar19 = piVar8[-1] - *(int *)(&DAT_006a7710 + iVar5);
-        piVar14 = (int *)(&DAT_006a7714 + iVar5);
+        iVar19 = piVar8[-1] - *(int *)(&g_nCameraX + iVar5);
+        piVar14 = (int *)(&g_nCameraY + iVar5);
         pcStack_a04 = (char *)(iVar19 + 400);
         iVar5 = g_clientContext;
         if ((((DAT_00793530 <= iVar19 + 0x1d0) && (iVar19 + 0x150 <= DAT_0056df30)) &&
@@ -908,9 +908,9 @@ void State11_InBattle_Render(void)
     uStack_9e4 = 0;
     do {
       if (*(char *)(uStack_9e4 + 0x21648 + g_clientContext) != '\0') {
-        iVar5 = piVar8[-1] - *(int *)(&DAT_006a7710 + g_clientContext);
+        iVar5 = piVar8[-1] - *(int *)(&g_nCameraX + g_clientContext);
         pcStack_a10 = (char *)(iVar5 + 400);
-        iVar19 = *piVar8 - *(int *)(&DAT_006a7714 + g_clientContext);
+        iVar19 = *piVar8 - *(int *)(&g_nCameraY + g_clientContext);
         piStack_a0c = (int *)(iVar19 + 0x12a);
         if (((DAT_00793530 <= iVar5 + 0x1d0) && (iVar5 + 0x150 <= DAT_0056df30)) &&
            ((DAT_00793534 <= iVar19 + 0x16a && (iVar19 + 0xea <= DAT_0056df34)))) {
@@ -959,9 +959,9 @@ void State11_InBattle_Render(void)
     uStack_9f0 = 0;
     do {
       if (*(char *)(uStack_9f0 + 0x2164c + g_clientContext) != '\0') {
-        iVar5 = piVar8[-1] - *(int *)(&DAT_006a7710 + g_clientContext);
+        iVar5 = piVar8[-1] - *(int *)(&g_nCameraX + g_clientContext);
         pcStack_a1c = (char *)(iVar5 + 400);
-        iVar19 = *piVar8 - *(int *)(&DAT_006a7714 + g_clientContext);
+        iVar19 = *piVar8 - *(int *)(&g_nCameraY + g_clientContext);
         piStack_a18 = (int *)(iVar19 + 0x12a);
         if (((DAT_00793530 <= iVar5 + 0x1d0) && (iVar5 + 0x150 <= DAT_0056df30)) &&
            ((DAT_00793534 <= iVar19 + 0x16a && (iVar19 + 0xea <= DAT_0056df34)))) {
@@ -1010,9 +1010,9 @@ void State11_InBattle_Render(void)
     uVar16 = 0;
     do {
       if (*(char *)(uVar16 + 0x21650 + g_clientContext) != '\0') {
-        iVar5 = piVar8[-1] - *(int *)(&DAT_006a7710 + g_clientContext);
+        iVar5 = piVar8[-1] - *(int *)(&g_nCameraX + g_clientContext);
         pcStack_a28 = (char *)(iVar5 + 400);
-        iVar19 = *piVar8 - *(int *)(&DAT_006a7714 + g_clientContext);
+        iVar19 = *piVar8 - *(int *)(&g_nCameraY + g_clientContext);
         piStack_a24 = (int *)(iVar19 + 0x12a);
         if ((((DAT_00793530 <= iVar5 + 0x1d0) && (iVar5 + 0x150 <= DAT_0056df30)) &&
             (DAT_00793534 <= iVar19 + 0x16a)) && (iVar19 + 0xea <= DAT_0056df34)) {
@@ -1073,8 +1073,8 @@ void State11_InBattle_Render(void)
     do {
       iVar5 = DAT_00793530;
       if (*(char *)((int)piStack_a0c + g_clientContext + 0x22cd4) != '\0') {
-        iVar19 = piVar8[-1] - *(int *)(&DAT_006a7710 + g_clientContext);
-        iVar7 = *piVar8 - *(int *)(&DAT_006a7714 + g_clientContext);
+        iVar19 = piVar8[-1] - *(int *)(&g_nCameraX + g_clientContext);
+        iVar7 = *piVar8 - *(int *)(&g_nCameraY + g_clientContext);
         uStack_a14 = (uint)piStack_a0c >> 3;
         fVar3 = (float)((uint)piStack_a0c & 7) * _DAT_00558040;
         *(undefined4 *)(iVar6 + 0x88) = 0x3e000000;
@@ -1138,8 +1138,8 @@ void State11_InBattle_Render(void)
     do {
       iVar6 = DAT_00793530;
       if (*(char *)((int)piStack_a18 + g_clientContext + 0x22cd4) != '\0') {
-        iVar5 = piVar8[-1] - *(int *)(&DAT_006a7710 + g_clientContext);
-        iVar19 = *piVar8 - *(int *)(&DAT_006a7714 + g_clientContext);
+        iVar5 = piVar8[-1] - *(int *)(&g_nCameraX + g_clientContext);
+        iVar19 = *piVar8 - *(int *)(&g_nCameraY + g_clientContext);
         uStack_a20 = (int *)((uint)piStack_a18 >> 3);
         fVar3 = (float)((uint)piStack_a18 & 7) * _DAT_00558040;
         *(undefined4 *)(uStack_a08 + 0x88) = 0x3e000000;
@@ -1194,9 +1194,9 @@ void State11_InBattle_Render(void)
       do {
         iVar5 = DAT_00793530;
         if (*(char *)((int)piStack_a18 + g_clientContext + 0x23278) != '\0') {
-          iVar12 = uStack_a20[-1] - *(int *)(&DAT_006a7710 + g_clientContext);
+          iVar12 = uStack_a20[-1] - *(int *)(&g_nCameraX + g_clientContext);
           iVar19 = *uStack_a20;
-          iVar7 = *(int *)(&DAT_006a7714 + g_clientContext);
+          iVar7 = *(int *)(&g_nCameraY + g_clientContext);
           piStack_a2c = (int *)((uint)piStack_a18 >> 2);
           *(float *)(iVar6 + 0x80) = (float)((uint)piStack_a18 & 3) * _DAT_00558054;
           iVar11 = (iVar19 - iVar7) + 0x12a;
@@ -1234,9 +1234,9 @@ void State11_InBattle_Render(void)
       do {
         iVar5 = DAT_00793530;
         if (*(char *)((int)piStack_a24 + g_clientContext + 0x23278) != '\0') {
-          iVar12 = piStack_a2c[-1] - *(int *)(&DAT_006a7710 + g_clientContext);
+          iVar12 = piStack_a2c[-1] - *(int *)(&g_nCameraX + g_clientContext);
           iVar19 = *piStack_a2c;
-          iVar7 = *(int *)(&DAT_006a7714 + g_clientContext);
+          iVar7 = *(int *)(&g_nCameraY + g_clientContext);
           uStack_a38 = (uint)piStack_a24 >> 2;
           *(float *)(iVar6 + 0x80) = (float)((uint)piStack_a24 & 3) * _DAT_00558054;
           iVar11 = (iVar19 - iVar7) + 0x12a;
@@ -1272,8 +1272,8 @@ void State11_InBattle_Render(void)
   }
   else {
     if (*(char *)(g_clientContext + 0x22d24) != '\0') {
-      iVar5 = *(int *)(g_clientContext + 0x22d28) - *(int *)(&DAT_006a7710 + g_clientContext);
-      iVar19 = *(int *)(g_clientContext + 0x22d2c) - *(int *)(&DAT_006a7714 + g_clientContext);
+      iVar5 = *(int *)(g_clientContext + 0x22d28) - *(int *)(&g_nCameraX + g_clientContext);
+      iVar19 = *(int *)(g_clientContext + 0x22d2c) - *(int *)(&g_nCameraY + g_clientContext);
       if (((DAT_00793530 < iVar5 + 0x210) && (iVar5 + 0x110 < DAT_0056df30)) &&
          ((DAT_00793534 < iVar19 + 0x16a && (iVar19 + 0x6a < DAT_0056df34)))) {
         *(undefined4 *)(iVar6 + 0x80) = 0;
@@ -1303,8 +1303,8 @@ void State11_InBattle_Render(void)
   }
   else {
     if (*(char *)(g_clientContext + 0x22d24) != '\0') {
-      iVar5 = *(int *)(g_clientContext + 0x22d28) - *(int *)(&DAT_006a7710 + g_clientContext);
-      iVar19 = *(int *)(g_clientContext + 0x22d2c) - *(int *)(&DAT_006a7714 + g_clientContext);
+      iVar5 = *(int *)(g_clientContext + 0x22d28) - *(int *)(&g_nCameraX + g_clientContext);
+      iVar19 = *(int *)(g_clientContext + 0x22d2c) - *(int *)(&g_nCameraY + g_clientContext);
       if (((DAT_00793530 < iVar5 + 0x210) && (iVar5 + 0x110 < DAT_0056df30)) &&
          ((DAT_00793534 < iVar19 + 0x16a && (iVar19 + 0x6a < DAT_0056df34)))) {
         *(undefined4 *)(iVar6 + 0x80) = 0;
@@ -1362,7 +1362,7 @@ void State11_InBattle_Render(void)
       iVar5 = g_clientContext;
       if (!bVar17 || !bVar18) {
         uVar9 = EncodeChecksumDeltaSub(*(int *)(g_clientContext + 0x621e0) + 0x90c,&piStack_a18,
-                             *(undefined4 *)(&DAT_006a7710 + g_clientContext));
+                             *(undefined4 *)(&g_nCameraX + g_clientContext));
         uStack_100 = 0;
         EncodeChecksumDeltaAdd(uVar9,auStack_550,400);
         uStack_100 = 1;
@@ -1394,7 +1394,7 @@ void State11_InBattle_Render(void)
           TreeLowerBound(&uStack_a38);
         }
         uVar9 = EncodeChecksumDeltaSub(*(int *)(g_clientContext + 0x621e0) + 0xb30,auStack_774,
-                             *(undefined4 *)(&DAT_006a7714 + g_clientContext));
+                             *(undefined4 *)(&g_nCameraY + g_clientContext));
         uStack_100 = 2;
         uVar9 = EncodeChecksumDeltaAdd(uVar9,auStack_550,0x104);
         uStack_100 = 3;
@@ -1832,7 +1832,7 @@ LAB_004c7566:
      (*(char *)(iVar6 + 0xbfe8) == '\x01')) {
     piStack_a30 = (int *)((-(uint)(*(int *)(iVar6 + 0xae2c) != *(int *)(iVar19 + 0xae2c)) & 0xfe45ea
                           ) + 0xc000ea16);
-    uVar9 = EncodeChecksumDeltaSub(iVar6 + 0x90c,&piStack_a18,*(undefined4 *)(&DAT_006a7710 + iVar5));
+    uVar9 = EncodeChecksumDeltaSub(iVar6 + 0x90c,&piStack_a18,*(undefined4 *)(&g_nCameraX + iVar5));
     uStack_100 = 7;
     EncodeChecksumDeltaAdd(uVar9,auStack_774,400);
     uStack_100 = 8;
@@ -1863,7 +1863,7 @@ LAB_004c7566:
       TreeLowerBound(&uStack_a38);
     }
     uVar9 = EncodeChecksumDeltaSub(*(int *)(g_clientContext + 0x621e4) + 0xb30,auStack_550,
-                         *(undefined4 *)(&DAT_006a7714 + g_clientContext));
+                         *(undefined4 *)(&g_nCameraY + g_clientContext));
     uStack_100 = 9;
     uVar9 = EncodeChecksumDeltaAdd(uVar9,&piStack_a18,0x104);
     uStack_100 = 10;

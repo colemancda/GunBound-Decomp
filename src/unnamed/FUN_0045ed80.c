@@ -117,7 +117,7 @@ LAB_0045ef56:
     else {
       (**(code **)(*param_1 + 4))(s_wnormal_00553618);
     }
-    cVar1 = PacketChecksumLessThan(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
+    cVar1 = PacketChecksumLessThan(param_1 + 0x2cc,*(undefined4 *)(&g_nCameraBoundY + g_clientContext));
     if (cVar1 == '\0') goto LAB_0045f2bb;
     iVar6 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a0);
     iVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
@@ -154,7 +154,7 @@ LAB_0045f039:
     else {
       (**(code **)(*param_1 + 4))(s_wnormal_00553618);
     }
-    cVar1 = PacketChecksumLessThan(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
+    cVar1 = PacketChecksumLessThan(param_1 + 0x2cc,*(undefined4 *)(&g_nCameraBoundY + g_clientContext));
     if (cVar1 == '\0') goto LAB_0045f2bb;
     iVar6 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a0);
     iVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
@@ -178,7 +178,7 @@ LAB_0045f039:
     else {
       (**(code **)(*param_1 + 4))(s_wnormal_00553618);
     }
-    cVar1 = PacketChecksumLessThan(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
+    cVar1 = PacketChecksumLessThan(param_1 + 0x2cc,*(undefined4 *)(&g_nCameraBoundY + g_clientContext));
     if (cVar1 == '\0') goto LAB_0045f2bb;
     iVar6 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a0);
     iVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);

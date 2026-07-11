@@ -48,15 +48,15 @@ void __fastcall FUN_004837e0(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      if ((-1 < iVar5) && (iVar5 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+      if ((-1 < iVar5) && (iVar5 < *(int *)(&g_nCameraBoundX + g_clientContext))) {
         pcVar6 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + iVar5);
         local_10 = 0;
-        if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
+        if (0 < *(int *)(&g_nCameraBoundY + g_clientContext)) {
           do {
             if (*pcVar6 != '\0') goto LAB_0048398a;
-            pcVar6 = pcVar6 + *(int *)(&DAT_006a7720 + g_clientContext);
+            pcVar6 = pcVar6 + *(int *)(&g_nCameraBoundX + g_clientContext);
             local_10 = local_10 + 1;
-          } while (local_10 < *(int *)(&DAT_006a7724 + g_clientContext));
+          } while (local_10 < *(int *)(&g_nCameraBoundY + g_clientContext));
         }
       }
       local_10 = 10000;
@@ -104,15 +104,15 @@ LAB_0048398a:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      if ((-1 < iVar5) && (iVar5 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+      if ((-1 < iVar5) && (iVar5 < *(int *)(&g_nCameraBoundX + g_clientContext))) {
         pcVar6 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + iVar5);
         local_10 = 0;
-        if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
+        if (0 < *(int *)(&g_nCameraBoundY + g_clientContext)) {
           do {
             if (*pcVar6 != '\0') goto LAB_00483b89;
-            pcVar6 = pcVar6 + *(int *)(&DAT_006a7720 + g_clientContext);
+            pcVar6 = pcVar6 + *(int *)(&g_nCameraBoundX + g_clientContext);
             local_10 = local_10 + 1;
-          } while (local_10 < *(int *)(&DAT_006a7724 + g_clientContext));
+          } while (local_10 < *(int *)(&g_nCameraBoundY + g_clientContext));
         }
       }
       local_10 = 10000;
@@ -173,15 +173,15 @@ LAB_00483b89:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      if ((-1 < iVar5) && (iVar5 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+      if ((-1 < iVar5) && (iVar5 < *(int *)(&g_nCameraBoundX + g_clientContext))) {
         pcVar6 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + iVar5);
         local_10 = 0;
-        if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
+        if (0 < *(int *)(&g_nCameraBoundY + g_clientContext)) {
           do {
             if (*pcVar6 != '\0') goto LAB_00483e2e;
-            pcVar6 = pcVar6 + *(int *)(&DAT_006a7720 + g_clientContext);
+            pcVar6 = pcVar6 + *(int *)(&g_nCameraBoundX + g_clientContext);
             local_10 = local_10 + 1;
-          } while (local_10 < *(int *)(&DAT_006a7724 + g_clientContext));
+          } while (local_10 < *(int *)(&g_nCameraBoundY + g_clientContext));
         }
       }
       local_10 = 10000;

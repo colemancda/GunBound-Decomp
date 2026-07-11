@@ -92,11 +92,11 @@ void __fastcall FUN_0047ca40(int *param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if (*(int *)(&DAT_006a7724 + g_clientContext) + iStack_ad4 < iVar6) {
+    if (*(int *)(&g_nCameraBoundY + g_clientContext) + iStack_ad4 < iVar6) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar6 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar6 = *(int *)(&DAT_006a7724 + g_clientContext) + iVar6;
+      iVar6 = *(int *)(&g_nCameraBoundY + g_clientContext) + iVar6;
     }
     else {
       EncodeChecksumDeltaAdd(iVar5 + 0xb30,auStack_89c,

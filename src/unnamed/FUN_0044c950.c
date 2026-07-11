@@ -175,13 +175,13 @@ LAB_0044d5d2:
     PeekPacketChecksumState();
     (*pcVar13)(&DAT_005a9068);
     if (cVar20 == '\0') {
-      iVar4 = *(int *)(&DAT_006a7720 + g_clientContext);
+      iVar4 = *(int *)(&g_nCameraBoundX + g_clientContext);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       cVar3 = iVar4 <= iVar5;
       (*pcVar13)(&DAT_005a9068);
       if (((cVar3 != '\0') ||
-          (cVar3 = PacketChecksumGreaterEqual(unaff_EBX,*(undefined4 *)(&DAT_006a7724 + g_clientContext)),
+          (cVar3 = PacketChecksumGreaterEqual(unaff_EBX,*(undefined4 *)(&g_nCameraBoundY + g_clientContext)),
           cVar3 != '\0')) || (cVar3 = PacketChecksumLessThan(unaff_EBX,0xfffffc18), cVar3 != '\0'))
       goto LAB_0044d78e;
     }
@@ -210,17 +210,17 @@ LAB_0044d78e:
       cVar3 = PeekPacketChecksumBool();
       if ((cVar3 == '\0') && ((&DAT_006a7758)[iVar4] != '\0')) {
         if (((&DAT_006a7736)[iVar4] == '\x01') &&
-           ((uVar12 = iVar5 - *(int *)(&DAT_006a7714 + iVar4) >> 0x1f,
-            200 < (int)((iVar5 - *(int *)(&DAT_006a7714 + iVar4) ^ uVar12) - uVar12) ||
-            (uVar12 = iVar8 - *(int *)(&DAT_006a7710 + iVar4) >> 0x1f,
-            300 < (int)((iVar8 - *(int *)(&DAT_006a7710 + iVar4) ^ uVar12) - uVar12))))) {
+           ((uVar12 = iVar5 - *(int *)(&g_nCameraY + iVar4) >> 0x1f,
+            200 < (int)((iVar5 - *(int *)(&g_nCameraY + iVar4) ^ uVar12) - uVar12) ||
+            (uVar12 = iVar8 - *(int *)(&g_nCameraX + iVar4) >> 0x1f,
+            300 < (int)((iVar8 - *(int *)(&g_nCameraX + iVar4) ^ uVar12) - uVar12))))) {
           (&DAT_006a7736)[iVar4] = 0;
         }
         iVar10 = 400;
         if (399 < iVar8) {
           iVar10 = iVar8;
         }
-        iVar9 = *(int *)(&DAT_006a7720 + iVar4) + -400;
+        iVar9 = *(int *)(&g_nCameraBoundX + iVar4) + -400;
         if ((iVar10 <= iVar9) && (iVar9 = iVar8, iVar8 < 400)) {
           iVar9 = 400;
         }
@@ -228,18 +228,18 @@ LAB_0044d78e:
         if (-0x15 < iVar5) {
           iVar8 = iVar5;
         }
-        iVar10 = *(int *)(&DAT_006a7724 + iVar4) + -0x104;
+        iVar10 = *(int *)(&g_nCameraBoundY + iVar4) + -0x104;
         if ((iVar8 <= iVar10) && (iVar10 = -0x14, -0x15 < iVar5)) {
           iVar10 = iVar5;
         }
         iVar5 = *piVar14 - iVar9;
-        *(int *)(&DAT_006a771c + iVar4) = iVar10;
+        *(int *)(&g_nCameraScrollY + iVar4) = iVar10;
         if (((*(int *)(&DAT_006a770c + iVar4) - iVar10) * (*(int *)(&DAT_006a770c + iVar4) - iVar10)
              + iVar5 * iVar5 < 40000) &&
            (((&DAT_006a7734)[iVar4] == '\x01' || ((&DAT_006a7f6c)[iVar4] == '\0')))) {
-          *(int *)(&DAT_006a7710 + iVar4) = iVar9;
+          *(int *)(&g_nCameraX + iVar4) = iVar9;
           *piVar14 = iVar9;
-          *(int *)(&DAT_006a7714 + iVar4) = iVar10;
+          *(int *)(&g_nCameraY + iVar4) = iVar10;
           *(int *)(&DAT_006a770c + iVar4) = iVar10;
         }
         if ((((&DAT_006a7734)[iVar4] == '\0') && ((&DAT_006a7f6c)[iVar4] == '\x01')) &&
@@ -253,11 +253,11 @@ LAB_0044d78e:
           if ((iVar11 <= iVar8) && (iVar11 = iVar5, iVar9 <= iVar5)) {
             iVar11 = iVar9;
           }
-          *(int *)(&DAT_006a7718 + iVar4) = iVar11;
+          *(int *)(&g_nCameraScrollX + iVar4) = iVar11;
         }
         if ((&DAT_006a7734)[iVar4] == '\x01') {
-          *(int *)(&DAT_006a7718 + iVar4) = iVar9;
-          *(int *)(&DAT_006a771c + iVar4) = iVar10;
+          *(int *)(&g_nCameraScrollX + iVar4) = iVar9;
+          *(int *)(&g_nCameraScrollY + iVar4) = iVar10;
         }
       }
     }
@@ -270,15 +270,15 @@ LAB_0044d78e:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if ((-1 < iVar4) && (iVar4 < *(int *)(&DAT_006a7720 + g_clientContext))) {
+    if ((-1 < iVar4) && (iVar4 < *(int *)(&g_nCameraBoundX + g_clientContext))) {
       pcVar6 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + iVar4);
       puStack_ae4 = (undefined4 *)0x0;
-      if (0 < *(int *)(&DAT_006a7724 + g_clientContext)) {
+      if (0 < *(int *)(&g_nCameraBoundY + g_clientContext)) {
         do {
           if (*pcVar6 != '\0') goto LAB_0044ca9a;
-          pcVar6 = pcVar6 + *(int *)(&DAT_006a7720 + g_clientContext);
+          pcVar6 = pcVar6 + *(int *)(&g_nCameraBoundX + g_clientContext);
           puStack_ae4 = (undefined4 *)((int)puStack_ae4 + 1);
-        } while ((int)puStack_ae4 < *(int *)(&DAT_006a7724 + g_clientContext));
+        } while ((int)puStack_ae4 < *(int *)(&g_nCameraBoundY + g_clientContext));
       }
     }
     puStack_ae4 = (undefined4 *)0x2710;

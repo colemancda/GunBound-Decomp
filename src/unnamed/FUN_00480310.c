@@ -88,7 +88,7 @@ void __fastcall FUN_00480310(int *param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    bVar2 = iVar6 <= *(int *)(&DAT_006a7724 + g_clientContext) + aiStack_ac8[0];
+    bVar2 = iVar6 <= *(int *)(&g_nCameraBoundY + g_clientContext) + aiStack_ac8[0];
     if (bVar2) {
       uVar8 = EncodeChecksumDeltaAdd(iVar5 + 0xb30,auStack_89c,
                            (-(uint)((char)param_1[0xfe8] != '\0') & 0xfffffea2) - 200);
@@ -99,7 +99,7 @@ void __fastcall FUN_00480310(int *param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar5 = *(int *)(&DAT_006a7724 + g_clientContext) + iVar5;
+      iVar5 = *(int *)(&g_nCameraBoundY + g_clientContext) + iVar5;
     }
     param_1[0xfee] = iVar5;
     uStack_4 = 2;
@@ -125,7 +125,7 @@ void __fastcall FUN_00480310(int *param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     aiStack_ac8[0] = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    bVar2 = aiStack_ac8[0] <= *(int *)(&DAT_006a7724 + g_clientContext) + iVar6;
+    bVar2 = aiStack_ac8[0] <= *(int *)(&g_nCameraBoundY + g_clientContext) + iVar6;
     if (bVar2) {
       uVar8 = EncodeChecksumDeltaSub(iVar5 + 0xb30,auStack_ac0,400);
       uStack_4 = CONCAT31(SUBFIELD(uStack_4,1,undefined3),1);
@@ -135,7 +135,7 @@ void __fastcall FUN_00480310(int *param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar5 = *(int *)(&DAT_006a7724 + g_clientContext) + iVar5;
+      iVar5 = *(int *)(&g_nCameraBoundY + g_clientContext) + iVar5;
     }
     param_1[0xfee] = iVar5;
     uStack_4 = 0;

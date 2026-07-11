@@ -232,13 +232,13 @@ LAB_00492677:
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (-1 < iVar4) {
-    local_aec[0] = *(int *)(&DAT_006a7720 + g_clientContext);
+    local_aec[0] = *(int *)(&g_nCameraBoundX + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     bVar9 = iVar4 < local_aec[0];
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (bVar9) {
-      local_aec[0] = *(int *)(&DAT_006a7724 + g_clientContext);
+      local_aec[0] = *(int *)(&g_nCameraBoundY + g_clientContext);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar4 = PeekPacketChecksumState();
       bVar9 = iVar4 < local_aec[0];

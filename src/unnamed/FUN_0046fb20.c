@@ -323,10 +323,10 @@ LAB_0046ff52:
         iVar12 = local_15b0;
         iVar15 = g_clientContext;
         *(int *)(iVar11 + 0x3f9c) = (*(int *)(iVar11 + 0x3f9c) + 1) % 6;
-        if ((((-1 < local_15b0) && (local_15b0 < *(int *)(&DAT_006a7720 + iVar15))) &&
+        if ((((-1 < local_15b0) && (local_15b0 < *(int *)(&g_nCameraBoundX + iVar15))) &&
             (-1 < local_15b4)) &&
-           ((local_15b4 < *(int *)(&DAT_006a7724 + iVar15) &&
-            (*(char *)(*(int *)(&DAT_006a7720 + iVar15) * local_15b4 +
+           ((local_15b4 < *(int *)(&g_nCameraBoundY + iVar15) &&
+            (*(char *)(*(int *)(&g_nCameraBoundX + iVar15) * local_15b4 +
                        *(int *)(&DAT_006a773c + iVar15) + local_15b0) != '\0')))) {
           FUN_00458920(&local_15bc,&local_15b4,local_1588,local_1598,local_1590,local_158c,
                        local_1594,1,0);
@@ -595,10 +595,10 @@ LAB_0047090c:
         iVar16 = local_15b0;
         iVar12 = g_clientContext;
         *(int *)(iVar11 + 0x3f9c) = (*(int *)(iVar11 + 0x3f9c) + 1) % 6;
-        if ((((-1 < local_15bc) && (local_15bc < *(int *)(&DAT_006a7720 + iVar12))) &&
+        if ((((-1 < local_15bc) && (local_15bc < *(int *)(&g_nCameraBoundX + iVar12))) &&
             (-1 < local_15b0)) &&
-           ((local_15b0 < *(int *)(&DAT_006a7724 + iVar12) &&
-            (*(char *)(local_15b0 * *(int *)(&DAT_006a7720 + iVar12) +
+           ((local_15b0 < *(int *)(&g_nCameraBoundY + iVar12) &&
+            (*(char *)(local_15b0 * *(int *)(&g_nCameraBoundX + iVar12) +
                        *(int *)(&DAT_006a773c + iVar12) + local_15bc) != '\0')))) {
           FUN_00458a00(&local_15bc,&local_15b4,local_1584,local_1598,local_1590,local_158c,
                        local_1594,1,0);

@@ -671,15 +671,41 @@ weapon effect/bullet sprite-name tables — e.g. `bullet1n`/`bullet1s`,
 asset table system, useful context for the render side later, not physics.)
 
 **Also fully decompiled `GameTick`'s unconditional per-tick hook**
-(`FUN_004bd8b0`, called every 50 ms regardless of network activity for
+(`State11_InBattle_OnTick`, called every 50 ms regardless of network activity for
 Ready Room/Store/In-Battle — the most plausible place for local, tick-driven
 physics if it existed). 2,071 lines, zero floating-point instructions. Its
 actual logic (not just its strings) is confirmed to be an **8-directional
-screen-edge cursor/camera-scroll system**: a bitmask (`bVar13`) built from
-comparing the cursor position against edge thresholds selects one of 9 cursor
-handles and accumulates a camera-scroll offset. The slot-machine minigame
-strings found earlier are a different branch of this same function. No
-trajectory code here either.
+screen-edge cursor/camera-scroll system**, now traced end to end (globals
+named this pass):
+
+- Cursor position (`DAT_0056d10c`/`DAT_0056d110`) is compared against the
+  800×600 screen edges (`<5` / `>0x31b`=795 for X, `<5` / `>0x253`=595 for Y)
+  to build a 4-bit direction bitmask (left/right/up/down). The bitmask
+  (0/1/2/4/5/6/8/9/10 — the 8 diagonal+cardinal combos, plus 0 for center)
+  selects one of 9 `HCURSOR` handles via `SetCursor` (tracked in `DAT_00793510`,
+  0–8) and, separately, a per-direction scroll-speed pair from the table at
+  `DAT_005f2f44`.
+- That speed feeds two accumulators: **`g_nCameraScrollX`/`g_nCameraScrollY`**
+  (`0x6a7718`/`0x6a771c`), incremented by `(perDirectionSpeed * sign)/10` each
+  tick, then clamped to `[g_nCameraBoundX±400]` (X) and
+  `[g_nCameraBoundY-0x104, g_nCameraBoundY-0x14]` (Y, asymmetric — matches the
+  stage top/bottom asymmetry seen elsewhere). `State11_InBattle_HandleMouseInput`
+  also writes these two directly (presumably drag-scroll).
+- **`g_nCameraX`/`g_nCameraY`** (`0x6a7710`/`0x6a7714`) are the values the
+  renderer actually reads (`State11_InBattle_Render`, `RenderMobile`: world
+  position minus camX/camY, biased +400/+0x12a). These are a **separate pair**
+  from the scroll accumulator above — read broadly, but not written anywhere
+  in `State11_InBattle_OnTick` itself. The exact update path from
+  `g_nCameraScrollX/Y` into `g_nCameraX/Y` (smoothing? direct copy elsewhere?)
+  is not yet traced.
+- **`g_nCameraBoundX`/`g_nCameraBoundY`** (`0x6a7720`/`0x6a7724`) are the clamp
+  center the scroll accumulator is kept within; also read as a generic
+  position-bound check across dozens of per-type projectile/mobile functions
+  (likely derived from the stage/terrain extents at match start — compare
+  `ComputeShotViewBounds`'s similar terrain-derived per-shot bounds, `0x4e51f0`).
+
+The slot-machine minigame strings found earlier are a different branch of
+this same function. No trajectory code here either.
 
 **Conclusion, now reasonably well-supported rather than speculative**: across
 every angle checked — the packet receive handler, the local fire-input
@@ -1093,7 +1119,7 @@ The client hides the OS cursor and manages its own. Several cooperating pieces:
   `SetCursor(g_edgeCursors[g_cursorDirection])` = **`SetCursor(NULL)`**, which
   *hides* the OS cursor (it doesn't select a custom shape). So the directional-
   HCURSOR design is entirely vestigial; there is **no OS-cursor customization**.
-- **In-battle edge-scroll drives the direction.** `FUN_004bd8b0` (State 11 slot
+- **In-battle edge-scroll drives the direction.** `State11_InBattle_OnTick` (State 11 slot
   9, per tick) tests the mouse against the 800×600 edges
   (`X > 0x31b` right, `Y < 5` top, `Y > 0x253` bottom, left), computes a
   direction 0–8, and — only when it changes (cached in
@@ -1546,7 +1572,7 @@ from the call sites:
 | `code + 0xc7` (computed, ~199–260) | `ShowErrorDialog` / `ShowErrorDialogFmt` | the error-dialog family (confirmed; the only major *computed*-id site) |
 | `0x12d`–`0x142`, `0x7530`–`0x753b` | `WinMain` | startup / window-title / version-&-update messages (also several `MessageBoxA` prompts) |
 | `0x19a`–`0x19e` | `ProcessIncomingPackets` | server packet status / error notifications |
-| `0x25c`–`0x274` | `State11_InBattle_ProcessBattleAction`, `FUN_004bd8b0` (State11 slot 9) | in-battle event / status messages |
+| `0x25c`–`0x274` | `State11_InBattle_ProcessBattleAction`, `State11_InBattle_OnTick` (State11 slot 9) | in-battle event / status messages |
 | `0x27c`–`0x280`, `0x33e`–`0x340` | `State11_InBattle_RenderHud` (State11 slot 15 — the HUD/chat renderer) | HUD / scoreboard labels |
 | `0x320`–`0x32f` | `State10_Loading_OnEnter` | loading-screen labels (16 contiguous) |
 | `0x4e20`–`0x4e23` | `State03_GameRoomList_RenderRoomLabel` | room-list column headers |
@@ -1776,8 +1802,8 @@ equals 3*, which independently **confirms game mode 3 = Jewel** — drawn twice
 additive) → the **main mobile block** (`&DAT_00554060` texture) described next.
 
 **World→screen and culling.** Every object's world position has the camera
-scroll subtracted (`worldX - camX`, `camX` at `DAT_006a7710`; `worldY - camY`
-at `DAT_006a7714`) and is then biased by `+400` / `+0x12a` (half of the 800×600
+scroll subtracted (`worldX - camX`, `camX` at `g_nCameraX`; `worldY - camY`
+at `g_nCameraY`) and is then biased by `+400` / `+0x12a` (half of the 800×600
 back buffer). Culling compares against the clip rect `DAT_00793530` (left) /
 `DAT_0056df30` (right) / `DAT_00793534` (top) / `DAT_0056df34` (bottom).
 

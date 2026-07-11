@@ -44,8 +44,8 @@ void FUN_0043c860(int param_1,int param_2)
   iVar3 = g_clientContext;
   *(undefined4 *)(param_1 + 0xc) = 0;
   *(undefined4 *)(param_1 + 0x10) = 0;
-  iVar2 = *(int *)(&DAT_006a7724 + iVar3);
-  iVar4 = *(int *)(&DAT_006a7720 + iVar3);
+  iVar2 = *(int *)(&g_nCameraBoundY + iVar3);
+  iVar4 = *(int *)(&g_nCameraBoundX + iVar3);
   puVar11 = *(undefined4 **)(&DAT_006a773c + iVar3);
   puVar13 = *(undefined4 **)(&DAT_006a7740 + iVar3);
   for (uVar8 = (uint)(iVar2 * iVar4) >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
@@ -396,8 +396,8 @@ code_r0x0043cb21:
   *(byte *)(param_1 + 6) = *(byte *)(param_1 + 4) + bVar9 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = g_clientContext;
-  iVar6 = *(int *)(&DAT_006a7724 + g_clientContext);
-  iVar2 = *(int *)(&DAT_006a7720 + g_clientContext);
+  iVar6 = *(int *)(&g_nCameraBoundY + g_clientContext);
+  iVar2 = *(int *)(&g_nCameraBoundX + g_clientContext);
   puVar11 = *(undefined4 **)(&DAT_006a7740 + g_clientContext);
   puVar13 = *(undefined4 **)(&DAT_006a773c + g_clientContext);
   for (uVar8 = (uint)(iVar6 * iVar2) >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
