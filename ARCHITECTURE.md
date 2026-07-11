@@ -488,7 +488,7 @@ call `Replay_AppendEvent` with a distinct event-type code.
 | Opcode | Behavior |
 |---|---|
 | `0x2001` | **Leave ready room.** If a flag (`DAT_00793522`) is set, force-exits state 11 (In-Battle) via its own vtable exit-hook (`g_gameStateObjects[0xb]+0x20`) — i.e. this can tear down an in-progress battle. Then `g_pendingGameState = 3` (back to Game Room List). |
-| `0x3010` | **Corrected — not character/team selection.** Calls `ComputeTurnOrder()` (shared ready-toggle, same as `0x3020` below) then `FUN_004dc200(*payload)`/`LoadRoomSlotAvatar()` — a **match-start replay-log snapshot** (event `0x8400`, reusing the same 20-element/`0x224`-stride loop found in the Room→Ready-Room transition) plus **(re)loading each slot's worn avatar** (`LoadRoomSlotAvatar` reads the `avatarEquipped` record at `+0x458bc+slot*8` — the per-slot high bit is **gender**, not team side — and composites the parts via `LoadAvatarSprites`). See PROTOCOL.md's corrected writeup and FILEFORMATS.md "Avatar.xfs". |
+| `0x3010` | **Corrected — not character/team selection.** Calls `ComputeTurnOrder()` (shared ready-toggle, same as `0x3020` below) then `Replay_WriteBattleSnapshot(*payload)`/`LoadRoomSlotAvatar()` — a **match-start replay-log snapshot** (event `0x8400`, reusing the same 20-element/`0x224`-stride loop found in the Room→Ready-Room transition) plus **(re)loading each slot's worn avatar** (`LoadRoomSlotAvatar` reads the `avatarEquipped` record at `+0x458bc+slot*8` — the per-slot high bit is **gender**, not team side — and composites the parts via `LoadAvatarSprites`). See PROTOCOL.md's corrected writeup and FILEFORMATS.md "Avatar.xfs". |
 | `0x3020` | Calls `ComputeTurnOrder()` only — simpler ready/unready toggle. |
 | `0x3105` | Records replay event `0x8102` (self) or `0x8000`+player-id+position fields (others), and sends `WM_USER+...` (`0xc5`) UI notification — **player joined ready room**. |
 | `0x3151` | Records replay event `0x8200` with `payload[2]` — likely **team change**. |
@@ -751,6 +751,14 @@ player-record accessor called throughout the battle/room code.
   event out (presumably to `DAT_006a9b68`) and resets the cursor.
 - `Replay_AppendString(str)` (`0x4e6db0`, was `FUN_004e6db0`) — a string
   variant of the same append pattern (used for name fields).
+- `Replay_WriteBattleSnapshot(flushFlag)` (`0x4dc200`, was `FUN_004dc200`) — the
+  **full-state snapshot record** (event `0x8400`). Fired from
+  `State09_ReadyRoom_OnEnter` at session start (and the `0x3010`/`0x3020` packet
+  handlers): appends `0x8400`, then serializes the battle-scene header
+  (`ctx+0x2331c..0x23338`) followed by **both** 20-element `0x224`-stride guarded
+  per-slot arrays (8 bytes/element via `PeekPacketChecksumState`, bound
+  `20*0x224 = 0x2ad0`) — the seeded state needed to reconstruct the match from
+  frame 0. `flushFlag == -1` flushes; otherwise it chains to `FUN_004e7140`.
 - The file is closed with a small terminator byte (`2`) written first — seen
   at both `State09`'s `0x3432` (session end) and `State11`'s `0x3233` (match
   end back to ready room), i.e. **recording spans from ready-room entry

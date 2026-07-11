@@ -1009,10 +1009,10 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004dbf30,442,ResetItemSlotCounters,false,1,4,RAW-src
 004dc0f0,79,FUN_004dc0f0,false,1,3,RAW-src
 004dc140,192,FUN_004dc140,false,1,3,RAW-src
-004dc200,870,FUN_004dc200,false,2,6,RAW-src
+004dc200,870,Replay_WriteBattleSnapshot,false,2,6,RAW-src
 004dc570,67,FUN_004dc570,false,3,0,RAW-src
 004dc5c0,270,LoadRoomSlotAvatar,false,11,1,RAW-src
-004dc6d0,323,FUN_004dc6d0,false,1,5,RAW-src
+004dc6d0,323,RegisterTankSprite,false,1,5,RAW-src
 004dc820,595,FUN_004dc820,false,1,5,RAW-src
 004dca80,349,FUN_004dca80,false,2,0,RAW-src
 004dcbe0,12254,ProcessBattleFrame,false,1,21,RAW-src

@@ -172,7 +172,7 @@ void __fastcall State09_ReadyRoom_OnEnter(int param_1)
   }
   iVar4 = 0;
   do {
-    FUN_004dc6d0(iVar4);
+    RegisterTankSprite(iVar4);
     iVar4 = iVar4 + 1;
   } while (iVar4 < 0x10);
   LoadSpriteSet(&DAT_00ea0e18,0x14b4);
@@ -276,7 +276,7 @@ LAB_004d722d:
   _DAT_00e9aac4 = 0;
   _DAT_00e9aac8 = 0;
   InterlockedExchange((LONG *)&DAT_00e9aac0,0);
-  FUN_004dc200(0xffffffff);
+  Replay_WriteBattleSnapshot(0xffffffff);
   iVar4 = g_clientContext;
   *(undefined1 *)(param_1 + 0x62c) = 0;
   *(undefined4 *)(&DAT_0067e3c8 + iVar4) = 0;

@@ -130,7 +130,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
         if (opcode != 0x2001) {
           if (opcode == 0x3010) {
             ComputeTurnOrder();
-            FUN_004dc200(*payload);
+            Replay_WriteBattleSnapshot(*payload);
             LoadRoomSlotAvatar();
             return;
           }
