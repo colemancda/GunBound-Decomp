@@ -1531,9 +1531,12 @@ directly** for a large class of content:
 ### The span-based HUD compositor
 
 **High confidence, fully traced.** Separate from the direct-blit primitives
-above, a handful of HUD elements (currently confirmed: the in-battle wind
-gauge, `DrawWindGauge`/`RenderWindGaugeTick`) are drawn through a **deferred,
-z-ordered span compositor** instead of blitting straight to the back buffer:
+above, a handful of HUD elements — currently confirmed: the in-battle wind
+gauge (`DrawWindGauge`) and the two-layer stage-decoration parallax object
+(`DrawStageDecorationBase`/`DrawStageDecorationParallax`, see
+`LoadStageDecorationSet`), both driven from `RenderWindGaugeTick` (In-Battle
+`OnTick` vtable slot 11) — are drawn through a **deferred, z-ordered span
+compositor** instead of blitting straight to the back buffer:
 
 - **`QueueCompositorSpan`** (`0x4e9130`) — inserts a horizontal pixel span
   into a per-scanline interval list (16-byte nodes: `x0, x1, priority-tag byte,
@@ -1554,12 +1557,30 @@ z-ordered span compositor** instead of blitting straight to the back buffer:
   copies only the spans matching `tag` into the real back buffer
   (`DAT_0079352c`), and marks each row's queue for that tag consumed.
 
-**Why this exists (inferred, not confirmed):** the wind gauge composites a
-rotating vane sprite (8 frames) and a multi-digit number (one sprite per
-glyph) that visually overlap at the same screen position every frame; queuing
-spans and flushing once avoids redundant overdraw/z-fighting between the
-pieces compared to blitting each one directly. Whether any other HUD element
-besides the wind gauge uses this compositor is not yet checked.
+**Why this exists (inferred, not confirmed):** both confirmed users draw
+several overlapping pieces at (near-)the same screen position every frame —
+the wind gauge's rotating vane + multi-digit number, and the stage
+decoration's base + parallax-offset layers; queuing spans and flushing once
+per priority tag avoids redundant overdraw/z-fighting between the pieces
+compared to blitting each one directly. `g_nCompositorLayer` values seen are
+`1`/`2` (stage decoration parallax/base) and `3` (wind gauge) — matching one
+tag per composited element. Whether any other HUD element uses this
+compositor is not yet checked.
+
+**Stage decoration / parallax layer** (`LoadStageDecorationSet`, `0x4e3d60`):
+a per-stage active-object (type key `60000`/`0xea60`) holding a named,
+multi-frame sprite set (frames `"%s%d.img"`, loaded via `LoadSpriteSet`),
+sized to the loaded background image's dimensions. Called from
+`State10_Loading_PreloadAssets` (stage load) and `ProcessBattleFrame`. Two
+sub-pieces are drawn from it each tick, gated on a per-difficulty/stage flag
+(`DAT_005f2f55`):
+- `DrawStageDecorationBase` (`0x4e3bd0`) — sub-object 0, offset directly by
+  `(400-g_nCameraX, 0x12a-g_nCameraY)` (the same half-screen bias the main
+  battle-scene camera transform uses).
+- `DrawStageDecorationParallax` (`0x4e3aa0`) — sub-object 1, offset by a
+  perspective-divide term `-((objX-800)*(g_nCameraX-400))/(g_nCameraBoundX-800)`
+  — a genuine parallax formula, so this piece scrolls at a different rate than
+  the base layer as the camera pans.
 
 So the pipeline per frame is roughly: `Clear` (D3D) → Lock back buffer →
 software-blit map/terrain/UI sprites (RLE, 16bpp) → Unlock → `BeginScene` /

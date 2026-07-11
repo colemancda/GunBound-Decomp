@@ -50,7 +50,7 @@ void ProcessBattleFrame(int param_1)
   switch(*(undefined4 *)(param_1 + 0x740)) {
   case 2:
     iVar5 = (uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28;
-    FUN_004e3d60(&DAT_006a7708 + g_clientContext,iVar5 + 0x1a1ec8 + g_clientContext);
+    LoadStageDecorationSet(&DAT_006a7708 + g_clientContext,iVar5 + 0x1a1ec8 + g_clientContext);
     FUN_004dfce0(param_1);
     _sprintf((char *)((int)&uStack_331 + 1),(char *)&PTR_DAT_00555500,
              iVar5 + 0x1a1ec8 + g_clientContext);

@@ -1039,10 +1039,10 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e3810,223,FUN_004e3810,false,1,3,RAW-src
 004e38f0,183,FUN_004e38f0,false,1,2,RAW-src
 004e39b0,240,FUN_004e39b0,false,1,2,RAW-src
-004e3aa0,294,FUN_004e3aa0,false,1,3,RAW-src
-004e3bd0,126,FUN_004e3bd0,false,1,2,RAW-src
+004e3aa0,294,DrawStageDecorationParallax,false,1,3,RAW-src
+004e3bd0,126,DrawStageDecorationBase,false,1,2,RAW-src
 004e3c50,267,FUN_004e3c50,false,2,4,RAW-src
-004e3d60,677,FUN_004e3d60,false,2,6,RAW-src
+004e3d60,677,LoadStageDecorationSet,false,2,6,RAW-src
 004e4010,513,FUN_004e4010,false,2,1,RAW-src
 004e4220,272,FUN_004e4220,false,1,3,RAW-src
 004e4340,65,FindGroundHeightAtColumn,false,40,0,RAW-src

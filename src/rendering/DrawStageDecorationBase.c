@@ -1,4 +1,4 @@
-/* FUN_004e3bd0 - 0x004e3bd0 in the original binary.
+/* DrawStageDecorationBase - 0x004e3bd0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_004e3bd0(int param_1)
+int __fastcall DrawStageDecorationBase(int param_1)
 
 {
   uint uVar1;

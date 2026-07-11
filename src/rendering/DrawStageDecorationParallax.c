@@ -1,4 +1,4 @@
-/* FUN_004e3aa0 - 0x004e3aa0 in the original binary.
+/* DrawStageDecorationParallax - 0x004e3aa0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e3aa0(int param_1)
+void DrawStageDecorationParallax(int param_1)
 
 {
   uint uVar1;

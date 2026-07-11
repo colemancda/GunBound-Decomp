@@ -16,9 +16,9 @@ void __fastcall RenderWindGaugeTick(int param_1)
   iVar1 = g_clientContext;
   *(int *)(param_1 + 8) = *(int *)(param_1 + 8) + 1;
   if ((&DAT_005f2f55)[iVar1] == '\x01') {
-    FUN_004e3aa0(&DAT_006a7708 + iVar1);
+    DrawStageDecorationParallax(&DAT_006a7708 + iVar1);
   }
-  FUN_004e3bd0();
+  DrawStageDecorationBase();
   SetClipRect();
   DrawWindGauge(&DAT_006a647c + g_clientContext);
   FlushCompositorLayer(1);

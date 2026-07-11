@@ -1,4 +1,4 @@
-/* FUN_004e3d60 - 0x004e3d60 in the original binary.
+/* LoadStageDecorationSet - 0x004e3d60 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e3d60(int param_1,char *param_2)
+void LoadStageDecorationSet(int param_1,char *param_2)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
