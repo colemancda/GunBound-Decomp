@@ -34,7 +34,9 @@ by the widget tree.
 - **Character preview** — `State09_ReadyRoom_RenderCharacterPreview` (`0x4d90c0`,
   2,575 bytes): draws a live preview of the **currently selected** character/
   avatar using the avatar/character/effect texture families.
-- **Roster + item picker** — slot 13 (`FUN_004d7db0`, 4,854 bytes):
+- **Roster + item picker** — slot 13
+  (`State09_ReadyRoom_RenderRosterAndItems`, `0x4d7db0`, was `FUN_004d7db0`,
+  4,854 bytes):
   - **8-player ready roster**, 2 rows × 4 cols, using the per-slot
     `PeekPacketChecksumState()` bit idiom (same as Loading) to show who's ready.
     Backed by the **room-slot array at `ctx+0x457f1`** (0xD-byte records: a

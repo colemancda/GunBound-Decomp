@@ -1,13 +1,20 @@
-/* FUN_004d7db0 - 0x004d7db0 in the original binary.
+/* State09_ReadyRoom_RenderRosterAndItems - 0x004d7db0 in the original binary,
+ * was FUN_004d7db0. State09 (Ready Room) vtable slot 13.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
+ * Combined player-roster + item-loadout renderer, traced this pass (see
+ * ARCHITECTURE.md's Ready Room section): draws the turn/round-count label,
+ * the 8-player ready roster (status icons + avatar previews, refreshing the
+ * anti-cheat value-guard key table per slot), the paginated 3x3 item-loadout
+ * grid (icons via the DAT_0056dc40 shelf-icon table, decoded this pass too -
+ * see ARCHITECTURE.md/FILEFORMATS.md), and reloads the Avata/Character/Effect
+ * texture-cache family. Raw/near-verbatim port of Ghidra's decompiler output
+ * otherwise, not hand-verified line-by-line. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004d7db0(int param_1)
+void __fastcall State09_ReadyRoom_RenderRosterAndItems(int param_1)
 
 {
   ushort uVar1;

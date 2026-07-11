@@ -2053,7 +2053,8 @@ previously-unexamined ones. Findings:
   large vtable-13/15 functions (previously unexamined, but already flagged
   as `BlitRLESprite` callers back in the very first caller-scan of this
   project) turn out to render distinct panels:
-  - **Slot 13** (`FUN_004d7db0`, 4,854 bytes) is a **combined
+  - **Slot 13** (`State09_ReadyRoom_RenderRosterAndItems`, `0x4d7db0`, was
+    `FUN_004d7db0`, 4,854 bytes) is a **combined
     player-roster + item-selection renderer**, drawn top-to-bottom in one
     function:
     - An **8-player ready-roster row** (2 rows × 4 columns), using the
@@ -2072,7 +2073,8 @@ previously-unexamined ones. Findings:
       confirmed as a real paginated grid rather than a fixed short list.
 
       **`DAT_0056dc40`'s encoding — decoded directly from the real binary
-      and its consumer code** (`FUN_004d7db0`, right after the lookup
+      and its consumer code** (`State09_ReadyRoom_RenderRosterAndItems`,
+      right after the lookup
       above). Table bounds confirmed empirically: it's exactly **40
       `uint16` entries** (`0x56dc40`-`0x56dc8f`) — entry 40 lands on an
       unrelated string (`"cosmik"` + what looks like a build GUID/stamp),
