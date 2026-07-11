@@ -41,6 +41,10 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   undefined1 *puVar17;
   INT nShowCmd_00;
   HKEY local_db8;
+  /* BuildSystemInfoBlob's 2nd output (orig ESI - a caller-local stack buffer
+   * distinct from the g_clientContext-relative param_1 storage). 5 dwords +
+   * a trailing zero byte (0x15 bytes); rounded up. */
+  undefined4 systemInfoBlob2[6];
   HDC local_db4;
   LPBYTE local_db0;
   DWORD local_dac;
@@ -245,7 +249,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   ShowCursor(0);
   local_dac = InitGame(hWnd,hInstance);
   if (local_dac == 0) {
-    BuildSystemInfoBlob(g_clientContext + 0x2331c);
+    BuildSystemInfoBlob(g_clientContext + 0x2331c, systemInfoBlob2);
     SetFocus(hWnd);
     local_db4 = DAT_007934f4;
     SignalConnectRequest(0x20a3);
@@ -277,7 +281,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     }
     iVar13 = InitGame(hWnd,hInstance);
     if (iVar13 == 0) {
-      BuildSystemInfoBlob(g_clientContext + 0x2331c);
+      BuildSystemInfoBlob(g_clientContext + 0x2331c, systemInfoBlob2);
       SetFocus(hWnd);
       DAT_007934e0 = timeGetTime();
       ChangeGameState(5);

@@ -8,10 +8,15 @@
 #include "ghidra_types.h"
 
 
-void BuildSystemInfoBlob(undefined4 *param_1)
+/* param_2 (the second output blob) arrives via a dropped ESI register in the
+ * original - both call sites (WinMain.c) set up a SEPARATE local stack buffer
+ * for it (esi = &local, distinct from param_1's own storage), not an offset
+ * of param_1. Promoted to an explicit parameter; callers now pass their own
+ * local buffer's address. */
+void BuildSystemInfoBlob(undefined4 *param_1, undefined4 *param_2)
 
 {
-  undefined4 *unaff_ESI;
+  undefined4 *unaff_ESI = param_2;
   undefined4 local_24c;
   undefined4 local_248;
   undefined4 local_244;
