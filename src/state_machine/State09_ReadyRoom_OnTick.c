@@ -54,7 +54,7 @@ void __fastcall State09_ReadyRoom_OnTick(int param_1)
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar3 == iVar4) {
-    cVar2 = FUN_004db4b0();
+    cVar2 = CheckAllPlayersReady();
     if (cVar2 != '\0') {
       if (*(int *)(param_1 + 0x6b0) == -1) {
         *(undefined4 *)(param_1 + 0x6b0) = 300;

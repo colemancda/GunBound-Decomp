@@ -196,7 +196,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
     *(bool *)(*(int *)(iVar10 + 0x44d0) + 0x4d0 + iVar10) = bVar14;
     goto LAB_004d5661;
   case 1:
-    cVar2 = FUN_004db4b0();
+    cVar2 = CheckAllPlayersReady();
     if (cVar2 == '\0') {
       Replay_AppendEvent(0x9002);
       uVar3 = Replay_FlushEvent();

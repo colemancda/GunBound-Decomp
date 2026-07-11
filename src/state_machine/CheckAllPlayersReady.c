@@ -1,4 +1,4 @@
-/* FUN_004db4b0 - 0x004db4b0 in the original binary.
+/* CheckAllPlayersReady - 0x004db4b0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-uint __fastcall FUN_004db4b0(int param_1)
+uint __fastcall CheckAllPlayersReady(int param_1)
 
 {
   char cVar1;

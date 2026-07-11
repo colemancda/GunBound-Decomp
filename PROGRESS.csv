@@ -1000,7 +1000,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d9ae0,2406,State09_ReadyRoom_RenderStatusOverlay,false,1,14,RAW-src
 004da460,1532,RefreshReadyRoomControls,false,49,6,RAW-src
 004daa60,2544,ApplyRoomSettings,false,4,10,RAW-src
-004db4b0,177,FUN_004db4b0,false,2,4,RAW-src
+004db4b0,177,CheckAllPlayersReady,false,2,4,RAW-src
 004db570,426,TallyRoomTeamStats,false,4,0,RAW-src
 004db720,495,ComputeTurnOrder,false,7,1,RAW-src
 004db920,346,RefreshTeamSlotHighlights,false,4,4,RAW-src

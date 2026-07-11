@@ -1032,7 +1032,7 @@ void __fastcall State09_ReadyRoom_RenderRosterAndItems();
 void __fastcall State09_ReadyRoom_RenderStatusOverlay();
 undefined4 RefreshReadyRoomControls();
 void ApplyRoomSettings();
-uint __fastcall FUN_004db4b0();
+uint __fastcall CheckAllPlayersReady();
 void __fastcall TallyRoomTeamStats();
 void ComputeTurnOrder();
 void RefreshTeamSlotHighlights();
