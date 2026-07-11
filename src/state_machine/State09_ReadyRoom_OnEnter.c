@@ -264,7 +264,7 @@ LAB_004d722d:
   SendMessageA(*(HWND *)(DAT_007934e4 + 4),0xc5,0x3c,0);
   FUN_004db570();
   FUN_004db720();
-  FUN_004da460(param_1,1,0);
+  RefreshReadyRoomControls(param_1,1,0);
   PlayMusicTrack(1);
   *(undefined4 *)(param_1 + 0x4d4) = 0xffffffff;
   *(undefined1 *)(param_1 + 0x618) = 1;

@@ -1,4 +1,4 @@
-/* FUN_004da460 - 0x004da460 in the original binary.
+/* RefreshReadyRoomControls - 0x004da460 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -11,7 +11,7 @@
 /* WARNING: Removing unreachable block (ram,0x004da471) */
 /* WARNING: Removing unreachable block (ram,0x004da47b) */
 
-undefined4 FUN_004da460(int param_1,undefined4 param_2,uint param_3)
+undefined4 RefreshReadyRoomControls(int param_1,undefined4 param_2,uint param_3)
 
 {
   int *piVar1;

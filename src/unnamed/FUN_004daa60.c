@@ -245,7 +245,7 @@ LAB_004db3cd:
 switchD_004db2fc_default:
   FUN_004db720();
   FUN_004db920();
-  FUN_004da460(param_1,1,0);
+  RefreshReadyRoomControls(param_1,1,0);
   return;
 }
 

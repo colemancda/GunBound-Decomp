@@ -86,7 +86,7 @@ LAB_004d67e1:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if ((((iVar5 == 2) && (0x17a < uVar10)) && (uVar10 < 0x1ea)) &&
          (((0x186 < param_4 && (param_4 < 0x218)) && ((char)param_1[0x133] == '\0')))) {
-        FUN_004da460(param_1,0,0);
+        RefreshReadyRoomControls(param_1,0,0);
         iVar6 = DAT_007934e8;
         *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
         *(undefined2 *)(iVar6 + 0x4d4) = 0x3200;
@@ -205,7 +205,7 @@ LAB_004d6626:
         (((cVar4 = FUN_00406400(), cVar4 != '\0' && (iVar5 = FUN_004dc570(), iVar5 != -1)) &&
          (iVar5 = iVar5 + param_1[0x188] * 9, uVar10 = param_1[iVar5 + 0x146],
          iVar5 < param_1[0x187])))))) {
-      FUN_004da460(param_1,0,0);
+      RefreshReadyRoomControls(param_1,0,0);
       iVar5 = g_clientContext;
       *(undefined4 *)((int)param_1 + 0x25d) = *(undefined4 *)(g_clientContext + 0x457a1);
       *(undefined4 *)((int)param_1 + 0x261) = *(undefined4 *)(iVar5 + 0x457a5);

@@ -549,7 +549,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
               return 1;
             }
             FUN_00421870();
-            FUN_004da460(g_gameStateVTableArray[9],0,0);
+            RefreshReadyRoomControls(g_gameStateVTableArray[9],0,0);
             iVar3 = DAT_007934e8;
             iVar4 = g_clientContext + 0x45354;
             *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3200;

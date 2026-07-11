@@ -998,7 +998,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d7db0,4854,State09_ReadyRoom_RenderRosterAndItems,false,1,18,RAW-src
 004d90c0,2575,State09_ReadyRoom_RenderCharacterPreview,false,1,2,RAW-src
 004d9ae0,2406,FUN_004d9ae0,false,1,14,RAW-src
-004da460,1532,FUN_004da460,false,49,6,RAW-src
+004da460,1532,RefreshReadyRoomControls,false,49,6,RAW-src
 004daa60,2544,FUN_004daa60,false,4,10,RAW-src
 004db4b0,177,FUN_004db4b0,false,2,4,RAW-src
 004db570,426,FUN_004db570,false,4,0,RAW-src

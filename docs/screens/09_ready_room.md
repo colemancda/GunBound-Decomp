@@ -157,27 +157,38 @@ The host-only room-config controls dispatch to two different sends:
 - **`0x3103` — room player capacity** (cases `0x14`–`0x17`): sets a byte at
   `this+0x230` to `4` / `6` / `8` (case `0x17` computes `((count+1)/2)*2`) and
   sends it — the 4/6/8-player room-size selector.
-- **`0x3101` — room-options bitfield dword** (cases `0xb`–`0x3e`): each control
-  is a radio group that clears its own bit range and sets the chosen value in a
-  single settings dword (read via `PeekChecksumStateUnderLock(this+0x26c)`), pushed with
-  `QueueOutgoingPacketField`. Confirmed **bit-group layout** (values written by
-  consecutive case IDs; exact per-option *labels* need the config-panel strings
-  and aren't decoded):
-  | Dword bits | Mask | Control (cases) |
-  |---|---|---|
-  | 0–3 | `0x0000000f` | option group A (`0x28`–`0x2a`) |
-  | 8–11 | `0x00000f00` | option group B (`0x1e`–`0x21`) |
-  | 12–13 | `0x00003000` | option group C (`0x32`–`0x35`) |
-  | 14–15 | `0x0000c000` | option group D (`0x3c`–`0x3e`); `0x3c` also commits |
-  | ~18–23 | `0x00fc0000` | option group E (`0xb`–`0xd`) |
+- **`0x3101` — room-options bitfield dword** (cases `0xa`–`0x3e`): each control
+  is a radio group that reads the guarded settings dword
+  (`PeekChecksumStateUnderLock(this+0x26c)`), clears its own bit field, ORs in the
+  chosen value, and re-sends the whole dword with opcode `0x3101`. **Full bit
+  layout + per-case values decoded** from `State09_ReadyRoom_OnCommand`
+  (`0x4d54e0`):
 
-  These are the classic GunBound room settings (game type, item/tank
-  restrictions, etc.); which group is which isn't determinable from the
-  bit-packing alone.
+  | Bits | Mask | Group | Case → value |
+  |---|---|---|---|
+  | 0–3 | `0x0000000f` | A (3-way) | `0x2a`→0 · `0x28`→1 · `0x29`→2 |
+  | 8–11 | `0x00000f00` | B (4-way) | `0x21`→0 · `0x1e`→1 · `0x1f`→2 · `0x20`→3 |
+  | 12–13 | `0x00003000` | C (3-way) | `0x32`/`0x35`→1 · `0x33`→2 · `0x34`→3 |
+  | 14–15 | `0x0000c000` | D (2-way) | `0x3c`/`0x3e`→1 (`0x4000`) · `0x3d`→2 (`0x8000`) |
+  | 16–17 | `0x00030000` | map-variant | cases `0x46`–`0x48`: cycles `(cur+1) % N`, `N = DAT_0056d350[mapId]` |
+  | 18–23 | `0x00fc0000` | E — game mode | `0xd`→0 · `0xb`→`0x80000` · `0xc`→`0xc0000` · `0xa`→`0x440000` |
+
+  So the *encode* is fully pinned — a reimplementation can read `this+0x26c`,
+  extract each group by its mask, and drive the buttons. What is **not** in the
+  code is which on-screen label (**A SIDE / SSDEATH / ATTACK / DEATH72**) is which
+  group: the host room-config toggles are **image-mapped hit regions in a popup**,
+  not `CreateButtonWidget` widgets, so there's no sprite→label→case link to trace
+  (the toggle art is in the option `.img`, keyed by hit-test coordinates). Binding
+  label→group is a one-shot live correlation: click each labeled toggle and read
+  which bit field of `this+0x26c` changes. (Group E = the game-mode radio is the
+  one already inferred; the 16–17 field tracks a per-map variant count from
+  `DAT_0056d350`.)
 
 ## Still open
-- Per-option semantics of the `0x3101` bitfield groups above (need the
-  room-config panel's button labels/strings).
+- **Label→group binding** for `0x3101` groups A–D (A SIDE / SSDEATH / ATTACK /
+  DEATH72): the encode + bit masks are decoded (above); only the human label per
+  group is unmapped, and it's UI-art (popup hit regions), not a code string —
+  resolve with a one-shot live click-and-diff on `this+0x26c`.
 - Vtable slots 18 (`0x40ca00`) / 19 (`0x461c60`) are **inherited base-class
   infra**, not Ready-Room UI: slot 18 is a secondary scalar-deleting destructor
   thunk (→ `FUN_004711e0`), slot 19 (`0x461c60`) a small resource/connection

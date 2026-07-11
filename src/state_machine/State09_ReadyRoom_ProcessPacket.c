@@ -68,7 +68,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
              (*(char *)((int)this + 8) != '\0') * '\x02' + '\x01';
         g_replayEventCursor = g_replayEventCursor + 1;
         Replay_FlushEvent();
-        FUN_004da460(this,1,1);
+        RefreshReadyRoomControls(this,1,1);
         *(bool *)(*(int *)((int)this + 0x788) + 0x1e) = *(char *)((int)this + 8) == '\0';
         return;
       }
@@ -83,7 +83,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
           FUN_004f3060(&DAT_00e9c0fc);
           SendMessageA(*(HWND *)(DAT_007934e4 + 4),0xc5,0x3c,0);
           *(undefined1 *)((int)this + 0x62c) = 0;
-          FUN_004da460(this,1,0);
+          RefreshReadyRoomControls(this,1,0);
           if (*(short *)payload != 0) {
             return;
           }
@@ -109,7 +109,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
           } while (cVar10 != '\0');
           Replay_AppendString(pcVar13);
           Replay_FlushEvent();
-          FUN_004da460(this,1,1);
+          RefreshReadyRoomControls(this,1,1);
           iVar17 = g_clientContext - (int)pcVar13;
           pcVar12 = pcVar13;
           do {
@@ -195,7 +195,7 @@ LAB_004d3bd3:
   else {
     if (0x3432 < opcode) {
       if (opcode == 0x3fff) {
-        FUN_004da460(this,0,0);
+        RefreshReadyRoomControls(this,0,0);
         if (payloadLen != 0) {
           ShowMessageDialog(payload,0);
         }
@@ -843,7 +843,7 @@ LAB_004d4cc7:
         *(undefined1 *)((int)this + 0x4cc) = 0;
         BuildItemLoadout(this,0);
         FUN_004db720();
-        FUN_004da460(this,1,0);
+        RefreshReadyRoomControls(this,1,0);
       }
       iVar17 = PeekChecksumStateUnderLock(g_clientContext + 0x3b6c4);
       if (*(char *)(iVar17 + 0x45914 + g_clientContext) != '\x03') {
@@ -859,7 +859,7 @@ LAB_004d4cc7:
   }
   uVar11 = 0;
 LAB_004d3bec:
-  FUN_004da460(this,1,uVar11);
+  RefreshReadyRoomControls(this,1,uVar11);
   return;
 code_r0x004d4785:
   puVar22 = (undefined4 *)puVar22[7];

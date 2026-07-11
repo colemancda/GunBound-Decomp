@@ -1030,7 +1030,7 @@ void __fastcall FUN_004d7b20();
 void FUN_004d7d70();
 void __fastcall State09_ReadyRoom_RenderRosterAndItems();
 void __fastcall FUN_004d9ae0();
-undefined4 FUN_004da460();
+undefined4 RefreshReadyRoomControls();
 void FUN_004daa60();
 uint __fastcall FUN_004db4b0();
 void __fastcall FUN_004db570();

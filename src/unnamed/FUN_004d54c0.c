@@ -11,7 +11,7 @@ void __thiscall FUN_004d54c0(undefined4 param_1,int param_2)
 
 {
   if (param_2 == 1) {
-    FUN_004da460(param_1,1,0);
+    RefreshReadyRoomControls(param_1,1,0);
   }
   return;
 }

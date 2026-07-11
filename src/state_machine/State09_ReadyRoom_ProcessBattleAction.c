@@ -44,7 +44,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         uVar7 = (uint)bVar1;
         uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (uVar7 == uVar9) {
-          FUN_004da460(this,1,0);
+          RefreshReadyRoomControls(this,1,0);
           FUN_004db920();
         }
         cVar3 = *(char *)(g_clientContext + 0x458fc + uVar7 * 2);
@@ -66,7 +66,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         if (0x8000 < uVar2) {
           uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
           if (bVar1 == uVar9) {
-            FUN_004da460(this,1,0);
+            RefreshReadyRoomControls(this,1,0);
           }
           uVar9 = (uint)*(byte *)(g_clientContext + 0x45124);
           PeekChecksumStateUnderLock(g_clientContext + 0x44efc);
@@ -117,7 +117,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
           if (uVar2 == 0x8000) {
             uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
             if (bVar1 == uVar9) {
-              FUN_004da460(this,1,0);
+              RefreshReadyRoomControls(this,1,0);
             }
             uVar9 = (uint)*(byte *)(g_clientContext + 0x45124);
             PeekChecksumStateUnderLock(g_clientContext + 0x44efc);
@@ -190,7 +190,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (bVar1 == uVar9) {
           *(undefined1 *)(g_clientContext + 0x3b6c0) = *(undefined1 *)((int)this + 0x25b);
-          FUN_004da460(this,1,0);
+          RefreshReadyRoomControls(this,1,0);
           if (*(char *)(g_clientContext + 0x3b6c0) == -1) {
             *(undefined1 *)(g_clientContext + 0x3b6c0) = 0;
           }
@@ -204,7 +204,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (bVar1 == uVar9) {
           *(bool *)((int)this + 0x4cc) = *pbVar10 == 3;
-          FUN_004da460(this,1,0);
+          RefreshReadyRoomControls(this,1,0);
           return;
         }
       }
