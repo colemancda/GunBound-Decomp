@@ -48,6 +48,16 @@ by the widget tree.
     `(i%3)*0x46+0x210` / `(i/3)*0x2d+0x193`), item IDs from `this+0x518`,
     sprite via the global item-ID→sprite table `&DAT_0056dc40`, labels via
     `FUN_004ed9f0`. Current page at `this+0x620`, item count at `this+0x61c`.
+    **Table encoding decoded** (see ARCHITECTURE.md's Ready Room section):
+    40 `uint16` entries, packed `(sheet_flag:8)(icon_pair_index:8)` —
+    low byte selects an enabled/disabled frame pair (`*2`, `-2`/`-1`),
+    high byte (`0x00`/`0xff`) selects texture `0x2713`/`0x2714`. Confirmed
+    against `itemdata.dat`'s own `0x30` field (same encoding, every real
+    item's value appears in the table verbatim) — but what actually
+    indexes the table at runtime is still open (ruled out: item type ID
+    and record slot number, both fail cross-reference), so the shelf
+    icon↔item-name mapping itself is still not fully resolved, only the
+    table's format is.
 - **Map thumbnails** — slot 15 (`FUN_004d9ae0`, 2,406 bytes): draws content at
   six fixed screen positions — most plausibly the map-selection thumbnails
   (strong inference; not cross-checked against `ready_selectmap.img`).

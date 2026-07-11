@@ -2070,6 +2070,44 @@ previously-unexamined ones. Findings:
       current page is tracked at `param_1+0x620`, total item count at
       `+0x61c` — this is the player's **inventory/item-loadout picker**,
       confirmed as a real paginated grid rather than a fixed short list.
+
+      **`DAT_0056dc40`'s encoding — decoded directly from the real binary
+      and its consumer code** (`FUN_004d7db0`, right after the lookup
+      above). Table bounds confirmed empirically: it's exactly **40
+      `uint16` entries** (`0x56dc40`-`0x56dc8f`) — entry 40 lands on an
+      unrelated string (`"cosmik"` + what looks like a build GUID/stamp),
+      confirming the real boundary rather than the reconstructed source's
+      incidental "next declared global" gap. Each packed entry decodes as:
+      - **low byte** — an icon-pair index. The consumer computes
+        `frame = (entry & 0xff) * 2`, then blits frame `frame-2` normally
+        or `frame-1` when the item is unowned/disabled (`*(itemID+0x4d8)
+        == 0`) or a UI mode flag is set — i.e. **every item icon occupies
+        two adjacent frames in its sheet, an enabled/disabled pair**, and
+        the low byte selects which pair.
+      - **high byte** — `0x00` or `0xff`, selects which of two icon-sheet
+        textures to blit from: `((entry & 0xff00) != 0) + 0x2713`, i.e.
+        texture id `0x2713` (0) or `0x2714` (1).
+
+      **What indexes the table at runtime is still open.** `itemdata.dat`'s
+      own on-disk `0x30` field (see FILEFORMATS.md) uses this *exact same*
+      encoding — every populated record's `0x30` value appears verbatim
+      somewhere in this 40-entry table — confirming both draw from one
+      shared icon-ID vocabulary. But cross-referencing rules out the two
+      obvious hypotheses for what `param_1+0x518`'s per-slot values
+      actually are: **not `itemdata.dat`'s type/category ID at `0x28`**
+      (real data has two records sharing type ID `1` — "Dual" and "Bunge
+      shot" — with genuinely different icons/`0x30` values, so type ID
+      alone can't select the icon) **and not the record's own on-disk slot
+      number** either (record slot 1, "Teleport", has `0x30=0xff0a`, which
+      isn't `DAT_0056dc40[1]`). The real per-item identifier that reaches
+      `param_1+0x518` isn't present anywhere in `itemdata.dat`'s own
+      fields, so resolving it needs either tracing whatever code assigns
+      it (not yet located) or a live capture correlating a known item's
+      network/inventory ID with which slot fires. The previous
+      screenshot-derived shelf icon mapping in
+      `docs/screens/09_ready_room.md` is superseded for the *encoding
+      scheme* by the above but not yet replaceable with a real id→icon
+      table until that indexing question is resolved.
     - This function also loads the full `AvataTexture`/`CharacterTexture`/
       effect-texture family again (same as `RenderCharacterPreview`),
       consistent with it sharing the screen with the live character
