@@ -53,10 +53,10 @@ void RenderPlayerNameplate(int param_1)
 LAB_004dbb40:
   if (iVar3 < (int)(uint)*(byte *)(iVar4 + 0x45124)) {
     if (*(char *)(iVar4 + 0x45914 + param_1) == '\0') {
-      FUN_004eb890();
+      DrawSprite();
       return;
     }
-    FUN_004eb890();
+    DrawSprite();
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -70,7 +70,7 @@ LAB_004dbb40:
         }
       }
     }
-    FUN_004eb890();
+    DrawSprite();
     pcVar1 = (char *)(g_clientContext + param_1 * 9 + 0x457a9);
     if (*pcVar1 != '\0') {
       _sprintf(local_80,s__s__3d__3d__005536b8,pcVar1,
@@ -91,7 +91,7 @@ LAB_004dbb40:
       }
     }
     else {
-      FUN_004eb890();
+      DrawSprite();
     }
   }
   return;

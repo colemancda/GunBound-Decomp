@@ -130,7 +130,7 @@ LAB_0041bebd:
     local_14 = 0xffff;
   }
   pcVar6 = (char *)(iVar8 * 9 + 0x3b984 + param_1);
-  FUN_004eb510(local_10,local_8);
+  DrawFontString(local_10,local_8);
   BlitRLESprite(local_10,iVar9);
   do {
     cVar1 = *pcVar6;
@@ -150,13 +150,13 @@ LAB_0041bebd:
   }
   else {
     pcVar6 = (char *)(param_1 + (iVar8 * 5 + 0xef42) * 4);
-    FUN_004eb510(local_10,iVar9);
+    DrawFontString(local_10,iVar9);
     BlitRLESprite(local_10,local_14);
     do {
       cVar1 = *pcVar6;
       pcVar6 = pcVar6 + 1;
     } while (cVar1 != '\0');
-    FUN_004eb510(local_10,iVar9);
+    DrawFontString(local_10,iVar9);
     BlitRLESprite(local_10,local_14);
   }
   local_10 = local_10 + 0xf;

@@ -80,8 +80,8 @@ void FUN_00408180(int param_1)
       }
     }
     PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x60d4);
-    FUN_004eb890();
-    FUN_004eb890();
+    DrawSprite();
+    DrawSprite();
   }
   if (DAT_007933b8 == '\x01') {
     FUN_0040c8f0(0xca,0x21b,0);
@@ -122,20 +122,20 @@ void FUN_00408180(int param_1)
       if ((*(int *)(param_1 + 0x3c) % 0x14 < 10) ||
          (cVar1 = PacketChecksumNotEquals(&DAT_0067e3d0 + g_clientContext,1), cVar1 != '\0')) {
         PeekChecksumStateUnderLock(&DAT_0067e3d0 + g_clientContext);
-        FUN_004eb890();
+        DrawSprite();
       }
       if ((*(int *)(param_1 + 0x3c) % 0x14 < 10) ||
          (cVar1 = PacketChecksumNotEquals(&DAT_0067e5f4 + g_clientContext,1), cVar1 != '\0')) {
         PeekChecksumStateUnderLock(&DAT_0067e5f4 + g_clientContext);
 LAB_0040855d:
-        FUN_004eb890();
+        DrawSprite();
       }
     }
     else {
       if ((*(int *)(param_1 + 0x3c) % 0x14 < 10) ||
          (cVar1 = PacketChecksumNotEquals(&DAT_0067e3d0 + g_clientContext,1), cVar1 != '\0')) {
         PeekChecksumStateUnderLock(&DAT_0067e3d0 + g_clientContext);
-        FUN_004eb890();
+        DrawSprite();
       }
       if ((*(int *)(param_1 + 0x3c) % 0x14 < 10) ||
          (cVar1 = PacketChecksumNotEquals(&DAT_0067e5f4 + g_clientContext,1), cVar1 != '\0')) {
@@ -395,7 +395,7 @@ LAB_00408b80:
         iVar3 = (DAT_0056df30 - iVar13) + 1;
       }
       if (0 < iVar3) {
-        FUN_004f26f0(DAT_0079352c + (DAT_005b3620 * 0x249 + iVar13) * 2,0xffff,iVar3);
+        FillPixels16(DAT_0079352c + (DAT_005b3620 * 0x249 + iVar13) * 2,0xffff,iVar3);
       }
     }
     iVar3 = 0x42;
@@ -409,11 +409,11 @@ LAB_00408b80:
         iVar3 = (DAT_0056df30 - iVar13) + 1;
       }
       if (0 < iVar3) {
-        FUN_004f26f0(DAT_0079352c + (DAT_005b3620 * 0x24f + iVar13) * 2,0xffff,iVar3);
+        FillPixels16(DAT_0079352c + (DAT_005b3620 * 0x24f + iVar13) * 2,0xffff,iVar3);
       }
     }
-    FUN_004eb6b0();
-    FUN_004eb6b0();
+    DrawVLine();
+    DrawVLine();
     FUN_004eb800(0x40,0x2965);
     iVar3 = uVar7 + 0x6db0;
     iVar13 = uVar7 + 0x6744;
@@ -661,7 +661,7 @@ LAB_004094da:
   }
 LAB_00409561:
   iVar2 = local_1018[0] + 3;
-  FUN_004eb510(iVar2,0);
+  DrawFontString(iVar2,0);
   BlitRLESprite(iVar2,(-(uint)bVar15 & 0x517) + 0xfae8);
   local_1018[0] = local_1018[0] + -0xf;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -25,7 +25,7 @@ void FUN_004cfb20(void)
   if (*(int *)(unaff_ESI + 0x10cc) != -1) {
     iVar4 = 0x183;
   }
-  FUN_004eb510(iVar4,0);
+  DrawFontString(iVar4,0);
   BlitRLESprite(iVar4,0xffff);
   pcVar2 = (char *)(*(int *)(unaff_ESI + 0x10c4) * 0xd + 0x457f1 + iVar6);
   do {

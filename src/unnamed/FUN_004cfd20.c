@@ -24,7 +24,7 @@ void FUN_004cfd20(void)
   char local_80 [128];
   
   iVar3 = g_clientContext;
-  FUN_004eb510(0x1ba,0);
+  DrawFontString(0x1ba,0);
   BlitRLESprite(0x1ba,0xffff);
   pcVar2 = (char *)(*(int *)(in_EAX + 0x10cc) * 0xd + 0x457f1 + iVar3);
   do {

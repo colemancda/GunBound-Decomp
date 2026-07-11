@@ -131,7 +131,7 @@ LAB_00408159:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004eadb0();
+  SetClipRect();
   local_4 = 1;
   if (local_cd0 != 0) {
     ScrambleChecksumGuardBytes();
@@ -160,7 +160,7 @@ LAB_00408159:
     uVar11 = *(uint *)(iVar2 + 4);
   }
 LAB_00406d42:
-  FUN_004eadb0();
+  SetClipRect();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -453,9 +453,9 @@ LAB_00407859:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004eadb0();
+    SetClipRect();
     FUN_004eb8e0(7000);
-    FUN_004eadb0();
+    SetClipRect();
     pcVar12 = (code *)EnterCriticalSection;
   }
   (*pcVar12)(&DAT_005a9068);
@@ -847,7 +847,7 @@ LAB_00407d9e:
     TreeLowerBound(local_f9c);
   }
 LAB_00407df7:
-  FUN_004eadb0();
+  SetClipRect();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -968,7 +968,7 @@ LAB_00408127:
   if (local_fa0 == 0) goto code_r0x00408142;
   goto LAB_00407fd0;
 code_r0x00408142:
-  FUN_004eadb0();
+  SetClipRect();
   goto LAB_00408159;
 }
 

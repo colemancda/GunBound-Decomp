@@ -1,4 +1,4 @@
-/* FUN_004eb6b0 - 0x004eb6b0 in the original binary.
+/* DrawVLine - 0x004eb6b0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004eb6b0(int param_1)
+void __fastcall DrawVLine(int param_1)
 
 {
   int in_EAX;

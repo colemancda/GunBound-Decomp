@@ -222,7 +222,7 @@ its role:
 | 12 | `0x4c1d10` | One-line delegate — calls `FUN_004508a0` on a fixed per-connection offset (`+0x6a7f88`), nothing else |
 | 13 | `0x4c1d30` | **Corrected — not a "special-weapon-effect render function."** Fully decompiled (was previously only skimmed for its string references): this is a **per-frame dynamic-texture clear pass**. It resolves ~24 named dynamic textures via `FindTextureCacheEntryByName` — not just `SpecialTexture1/2`, but the *entire* effect-texture roster (`AvataTexture1/2`, `AvataEffectTexture1/2`, `CharacterTexture1/2`, `TagTexture`, `CharEffectTexture1/2`, `BulletTexture1/2`, `FlameTexture1-4`, `RayonTexture1/2`, `SpecialTexture1/2`, `RiderTexture`, `YesooriTexture`, `JewelTexture`, `ThorTexture1/2`) — and for each one present, does a confirmed **`IDirectDrawSurface7::Lock` (vtable `+0x64`, `DDSURFACEDESC2` size `0x7c`=124 bytes) → zero-fill the entire locked surface → `Unlock` (vtable `+0x80`)** cycle. This clears every dynamic effect render-target to transparent/black once per frame, presumably right before that frame's actual sprite effects get composited into them elsewhere in the render pipeline. |
 | 14 | `0x4c3020` | `State11_InBattle_Render` |
-| 15 | `0x4c8890` | **Corrected — not a "finalize/send" function.** Fully decompiled: this is the **in-battle chat log display renderer**, not a network-send path (searched the whole 1,360-line decompile for any outgoing-packet-encode call — none exist; every effect is a draw call). Confirms this is `State11`'s software-blit render slot (matches `GameTick`'s dispatch of vtable slot 15 to the software path — see the rendering section below), drawing the in-battle HUD chat overlay each frame alongside the D3D battle scene from slot 14. Loops up to **10 visible chat history lines**, each with: a sender-name field (`+0x58b64`, 9-byte stride), a message-text field (`+0x58bbe`, 14-byte stride), a length (`+0x5917c`, `ushort` array), and a **per-line message-type byte** (`+0x58c4a`) that selects one of several distinct `RGB565` text colors via a `switch` (confirmed values include pure green `0x7e0`, pure blue `0x1f`, white `0xffff`, and others) — i.e. **different chat channels/message types (team chat, system messages, etc.) are color-coded**, not just plain text. Message types `0`/`1`/`7` get an extra double-draw outline pass for legibility; other types use a single `FUN_004eb510`-prepped draw (the same text-prep helper already seen in the lobby's room-number rendering). All text drawn via the confirmed bitmap-font renderer, `BlitRLESprite`. |
+| 15 | `0x4c8890` | **Corrected — not a "finalize/send" function.** Fully decompiled: this is the **in-battle chat log display renderer**, not a network-send path (searched the whole 1,360-line decompile for any outgoing-packet-encode call — none exist; every effect is a draw call). Confirms this is `State11`'s software-blit render slot (matches `GameTick`'s dispatch of vtable slot 15 to the software path — see the rendering section below), drawing the in-battle HUD chat overlay each frame alongside the D3D battle scene from slot 14. Loops up to **10 visible chat history lines**, each with: a sender-name field (`+0x58b64`, 9-byte stride), a message-text field (`+0x58bbe`, 14-byte stride), a length (`+0x5917c`, `ushort` array), and a **per-line message-type byte** (`+0x58c4a`) that selects one of several distinct `RGB565` text colors via a `switch` (confirmed values include pure green `0x7e0`, pure blue `0x1f`, white `0xffff`, and others) — i.e. **different chat channels/message types (team chat, system messages, etc.) are color-coded**, not just plain text. Message types `0`/`1`/`7` get an extra double-draw outline pass for legibility; other types use a single `DrawFontString`-prepped draw (the same text-prep helper already seen in the lobby's room-number rendering). All text drawn via the confirmed bitmap-font renderer, `BlitRLESprite`. |
 | 16 | `0x4caed0` | `State11_InBattle_RenderModeIcons` |
 | 17 | `0x429800` | Confirmed genuine no-op (function body is a single `return;`, distinct from the shared `CGameState_NoOpVirtual_B`) — a state-specific empty override rather than reuse of the common stub |
 
@@ -1368,6 +1368,26 @@ directly** for a large class of content:
   `tools/lzhuf/decode_img.py` for the full writeup and extraction tooling.
 - **`BlitSpriteClipped`** (`0x4eb9c0`, was `FUN_004eb9c0`): clips against the
   active clip rect (`DAT_00793534`/`DAT_0056df34`) before blitting.
+
+**The software-blitter primitive set** (all write `unsigned short` pixels to
+`DAT_0079352c + (y*DAT_005b3620 + x)*2` and honour the clip rect):
+- **`SetClipRect`** (`0x4eadb0`) — clamps and stores the clip rectangle
+  (`DAT_00793530`/`0056df30` = left/right, `DAT_00793534`/`0056df34` = top/bottom;
+  bounded to 800×600).
+- **`FillPixels16`** (`0x4f26f0`) — the word-aligned 16bpp run fill (a `memset`
+  for `u16`); **`DrawHLine`** (`0x4eb5d0`) and **`DrawVLine`** (`0x4eb6b0`) are the
+  clipped horizontal/vertical single-colour spans built on it.
+- **`DrawSprite`** (`0x4eb890`) — the canonical "resolve frame via
+  `FindSpriteFrame`, then pick `BlitSprite16bpp` (direct, flag `+0x18==1`) vs
+  `BlitSpriteClipped`" dispatch; this exact `if`-chain is inlined all over the
+  render slots.
+- **Bitmap font**: **`DrawFontString`** (`0x4eb510`) walks a string and emits each
+  glyph via **`DrawNarrowGlyph`** (`0x4eb290`, 6px ASCII / half-width) or
+  **`DrawWideGlyph`** (`0x4eb020`, 14px full-width / Hangul, selected on the
+  high bit). Both glyph drawers synthesise a 1px outline from the bitmap
+  (`b>>2 | b | neighbor>>1`) and plot with the fg colour. This is distinct from
+  `BlitSpriteText` (`0x4ed9f0`), which renders numbers/labels from *sprite*
+  glyphs rather than the vector font.
 
 So the pipeline per frame is roughly: `Clear` (D3D) → Lock back buffer →
 software-blit map/terrain/UI sprites (RLE, 16bpp) → Unlock → `BeginScene` /

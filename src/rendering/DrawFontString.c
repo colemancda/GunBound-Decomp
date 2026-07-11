@@ -1,4 +1,4 @@
-/* FUN_004eb510 - 0x004eb510 in the original binary.
+/* DrawFontString - 0x004eb510 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004eb510(int param_1,undefined4 param_2,undefined4 param_3)
+void __thiscall DrawFontString(int param_1,undefined4 param_2,undefined4 param_3)
 
 {
   char cVar1;
@@ -26,7 +26,7 @@ void __thiscall FUN_004eb510(int param_1,undefined4 param_2,undefined4 param_3)
       if (cVar1 < '\0') {
         pcVar3 = in_EAX + 2;
         if (DAT_00793530 <= iVar2) {
-          FUN_004eb020(param_1,param_2,param_3);
+          DrawWideGlyph(param_1,param_2,param_3);
         }
         param_1 = param_1 + 0xc;
         iVar2 = iVar2 + 0xc;
@@ -34,7 +34,7 @@ void __thiscall FUN_004eb510(int param_1,undefined4 param_2,undefined4 param_3)
       }
       else {
         if ((cVar1 != ' ') && (DAT_00793530 <= local_4)) {
-          FUN_004eb290(param_1,param_2,param_3);
+          DrawNarrowGlyph(param_1,param_2,param_3);
         }
         param_1 = param_1 + 6;
         iVar2 = iVar2 + 6;

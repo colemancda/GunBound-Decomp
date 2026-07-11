@@ -1,4 +1,4 @@
-/* FUN_004eadb0 - 0x004eadb0 in the original binary.
+/* SetClipRect - 0x004eadb0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004eadb0(int param_1)
+void __fastcall SetClipRect(int param_1)
 
 {
   int in_EAX;

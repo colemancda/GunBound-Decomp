@@ -304,7 +304,7 @@ void __fastcall RenderMobile(int param_1)
         }
         pcVar12 = (char *)(param_1 + 0xae22);
         if (*(char *)(param_1 + 0xae22) == '\0') {
-          FUN_004eb890();
+          DrawSprite();
           BlitRLESprite(iVar10 + 10,0);
           BlitRLESprite(iVar10 + 9,(-(uint)bVar15 & 0x517) + 0xfae8);
         }
@@ -330,7 +330,7 @@ void __fastcall RenderMobile(int param_1)
           } while (cVar3 != '\0');
           if (pcVar12 != local_91c + 1) {
             do {
-              FUN_004eb890();
+              DrawSprite();
               local_930 = local_930 + 1;
               pcVar12 = local_91c;
               do {
@@ -342,7 +342,7 @@ void __fastcall RenderMobile(int param_1)
           BlitRLESprite(iVar10 + 8,0);
           iVar5 = (-(uint)bVar15 & 0x517) + 0xfae8;
           BlitRLESprite(iVar10 + 7,iVar5);
-          FUN_004eb890();
+          DrawSprite();
           BlitRLESprite(iVar10 + 0x15,0);
           BlitRLESprite(iVar10 + 0x14,iVar5);
         }

@@ -68,7 +68,7 @@ void FUN_00442e00(void)
       BlitSpriteClipped(uVar3);
     }
   }
-  FUN_004eb510(iVar7 + 1,0x1f);
+  DrawFontString(iVar7 + 1,0x1f);
   BlitRLESprite(iVar7 + 1,0xffff);
   iVar5 = g_clientContext;
   BlitRLESprite(iVar7 + 0xe,0xffff);

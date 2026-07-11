@@ -1,4 +1,4 @@
-/* FUN_004eb020 - 0x004eb020 in the original binary.
+/* DrawWideGlyph - 0x004eb020 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004eb020(int param_1,int param_2,int param_3,int param_4)
+void __thiscall DrawWideGlyph(int param_1,int param_2,int param_3,int param_4)
 
 {
   ushort uVar1;

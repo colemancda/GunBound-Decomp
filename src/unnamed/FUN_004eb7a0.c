@@ -10,10 +10,10 @@
 void FUN_004eb7a0(void)
 
 {
-  FUN_004eb5d0();
-  FUN_004eb5d0();
-  FUN_004eb6b0();
-  FUN_004eb6b0();
+  DrawHLine();
+  DrawHLine();
+  DrawVLine();
+  DrawVLine();
   return;
 }
 

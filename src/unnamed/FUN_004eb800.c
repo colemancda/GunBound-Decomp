@@ -32,7 +32,7 @@ void __fastcall FUN_004eb800(int param_1,int param_2,int param_3,int param_4)
       if ((0 < in_EAX) &&
          (iVar1 = DAT_0079352c + (DAT_005b3620 * param_1 + param_2) * 2, 0 < in_EAX)) {
         do {
-          FUN_004f26f0(iVar1,param_4,param_3);
+          FillPixels16(iVar1,param_4,param_3);
           in_EAX = in_EAX + -1;
           iVar1 = iVar1 + DAT_005b3620 * 2;
         } while (in_EAX != 0);

@@ -166,7 +166,7 @@ LAB_004c8a87:
     uStack_ac = uVar14;
   }
   pcVar4 = pcStack_9c + iVar7;
-  FUN_004eb510(pcVar4,uVar8);
+  DrawFontString(pcVar4,uVar8);
   BlitRLESprite(pcVar4,uStack_b0);
   pcVar3 = pcStack_94;
   do {
@@ -186,14 +186,14 @@ LAB_004c8a87:
     uVar14 = uStack_ac;
   }
   else {
-    FUN_004eb510(pcVar4,uStack_b0);
+    DrawFontString(pcVar4,uStack_b0);
     BlitRLESprite(pcVar4,uVar14);
     pcVar4 = pcStack_9c;
     do {
       cVar1 = *pcVar4;
       pcVar4 = pcVar4 + 1;
     } while (cVar1 != '\0');
-    FUN_004eb510(pcStack_9c + iVar6,uStack_b0);
+    DrawFontString(pcStack_9c + iVar6,uStack_b0);
     BlitRLESprite(pcStack_9c + iVar6,uVar14);
   }
   puStack_8c = puStack_8c + 1;
@@ -512,7 +512,7 @@ LAB_004c8e28:
   } while (cVar1 != '\0');
   BlitRLESprite(0x2d,(-(uint)(*(char *)(*piVar12 + 0x50126 + g_clientContext) !=
                              *(char *)(g_clientContext + 0x3b6c0)) & 0xfffffae9) + 0xffff);
-  FUN_004eb510(0x2d,0);
+  DrawFontString(0x2d,0);
   iStack_a0 = iStack_a0 + 1;
   piVar12 = piVar12 + 1;
   if (*(int *)(param_1 + 0x89c) <= iStack_a0) goto LAB_004c8edb;
@@ -541,7 +541,7 @@ LAB_004c9b12:
   } while (cVar1 != '\0');
   uVar14 = 0;
   GetLocalizedString(&g_localizedStringTable,0x33e);
-  FUN_004eb510(0x28,uVar14);
+  DrawFontString(0x28,uVar14);
   uVar14 = 0xffff;
   GetLocalizedString(&g_localizedStringTable,0x33e);
   BlitRLESprite(0x28,uVar14);
@@ -570,7 +570,7 @@ LAB_004c9714:
   } while (cVar1 != '\0');
   uVar14 = 0;
   GetLocalizedString(&g_localizedStringTable,0x33f);
-  FUN_004eb510(0x28,uVar14);
+  DrawFontString(0x28,uVar14);
   uVar14 = 0xffff;
   GetLocalizedString(&g_localizedStringTable,0x33f);
   BlitRLESprite(0x28,uVar14);
@@ -599,7 +599,7 @@ LAB_004c9316:
   } while (cVar1 != '\0');
   uVar14 = 0;
   GetLocalizedString(&g_localizedStringTable,0x340);
-  FUN_004eb510(0x28,uVar14);
+  DrawFontString(0x28,uVar14);
   uVar14 = 0xffff;
   GetLocalizedString(&g_localizedStringTable,0x340);
   BlitRLESprite(0x28,uVar14);
@@ -610,7 +610,7 @@ LAB_004c9ba8:
   if ((*(int *)(param_1 + 0x10c4) != -1) && (*(int *)(param_1 + 0x10c8) != -1)) {
     FUN_004cfb20();
   }
-  FUN_004eadb0();
+  SetClipRect();
   FUN_004e93e0(3);
   FUN_00408180(&DAT_006a647c + g_clientContext);
   iVar6 = g_clientContext;

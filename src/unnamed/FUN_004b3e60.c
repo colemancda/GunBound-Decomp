@@ -34,7 +34,7 @@ void FUN_004b3e60(undefined2 *param_1)
         BlitSpriteClipped(uVar1);
       }
     }
-    FUN_004eb510(0x18b,0x1f);
+    DrawFontString(0x18b,0x1f);
     BlitRLESprite(0x18b,0xffff);
     BlitRLESprite(0x199,0xffff);
     iVar2 = 0x1b0;

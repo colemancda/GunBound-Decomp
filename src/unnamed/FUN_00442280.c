@@ -58,7 +58,7 @@ int __fastcall FUN_00442280(int param_1)
     }
     FUN_00442d50(param_1);
   }
-  FUN_004eadb0();
+  SetClipRect();
   if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(0x6b,0x237);
@@ -67,7 +67,7 @@ int __fastcall FUN_00442280(int param_1)
       BlitSpriteClipped(0x16);
     }
   }
-  FUN_004eadb0();
+  SetClipRect();
   bVar2 = *(byte *)(g_clientContext + 0x475c4);
   if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
@@ -168,7 +168,7 @@ code_r0x00442607:
     cVar3 = *pcVar7;
     pcVar7 = pcVar7 + 1;
   } while (cVar3 != '\0');
-  FUN_004eb510(0x27,0);
+  DrawFontString(0x27,0);
   do {
     cVar3 = *pcVar8;
     pcVar8 = pcVar8 + 1;
@@ -291,7 +291,7 @@ LAB_00442907:
           iVar13 = (DAT_0056df30 - iVar14) + 1;
         }
         if (0 < iVar13) {
-          FUN_004f26f0(DAT_0079352c + (DAT_005b3620 * 0x21b + iVar14) * 2,0xf800,iVar13);
+          FillPixels16(DAT_0079352c + (DAT_005b3620 * 0x21b + iVar14) * 2,0xf800,iVar13);
         }
       }
       if (((DAT_0079352c != 0) && (0x225 < DAT_0056df34)) && (DAT_00793534 < 0x227)) {
@@ -305,7 +305,7 @@ LAB_00442907:
           iVar13 = (DAT_0056df30 - iVar14) + 1;
         }
         if (0 < iVar13) {
-          FUN_004f26f0(DAT_0079352c + (DAT_005b3620 * 0x226 + iVar14) * 2,0xf800,iVar13);
+          FillPixels16(DAT_0079352c + (DAT_005b3620 * 0x226 + iVar14) * 2,0xf800,iVar13);
         }
       }
       iVar13 = DAT_0056df34;
@@ -432,7 +432,7 @@ LAB_00442790:
     cVar3 = *pcVar8;
     pcVar8 = pcVar8 + 1;
   } while (cVar3 != '\0');
-  FUN_004eb510(*piVar17 + 5,
+  DrawFontString(*piVar17 + 5,
                -(uint)(*(char *)(g_clientContext + 0x4590c + iStack_b0) !=
                       *(char *)(g_clientContext + 0x3b6c0)) & 0xfae8);
   BlitRLESprite(*piVar17 + 5,0xffff);

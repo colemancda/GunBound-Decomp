@@ -1,4 +1,4 @@
-/* FUN_004f26f0 - 0x004f26f0 in the original binary.
+/* FillPixels16 - 0x004f26f0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004f26f0(undefined4 *param_1,undefined4 param_2,uint param_3)
+void FillPixels16(undefined4 *param_1,undefined4 param_2,uint param_3)
 
 {
   uint uVar1;

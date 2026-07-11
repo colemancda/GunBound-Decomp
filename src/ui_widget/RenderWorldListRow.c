@@ -69,7 +69,7 @@ void __fastcall RenderWorldListRow(int param_1)
     cVar3 = *pcVar7;
     pcVar7 = pcVar7 + 1;
   } while (cVar3 != '\0');
-  FUN_004eb510(iVar2 + 9,0);
+  DrawFontString(iVar2 + 9,0);
   pcVar7 = local_80;
   do {
     cVar3 = *pcVar7;

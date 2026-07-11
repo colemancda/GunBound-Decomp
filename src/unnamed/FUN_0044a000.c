@@ -84,7 +84,7 @@ LAB_0044a1b2:
     }
   }
   local_104 = param_2 * 0x17e4 + param_1;
-  FUN_004eb510();
+  DrawFontString();
   BlitRLESprite();
   if ((*(int *)(param_1 + 0x34790) < 0x15) || (*(int *)(param_1 + 0x3478c) != param_2)) {
     if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {

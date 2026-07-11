@@ -54,7 +54,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
     }
   }
   if (g_bBattleSessionActive == '\0') goto LAB_004da2f4;
-  FUN_004eadb0();
+  SetClipRect();
   if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0,0x164);
@@ -63,7 +63,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
       BlitSpriteClipped(0);
     }
   }
-  FUN_004eadb0();
+  SetClipRect();
   if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0x261,0x16d);
@@ -72,7 +72,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
       BlitSpriteClipped(1);
     }
   }
-  FUN_004eadb0();
+  SetClipRect();
   if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0x1a,0x17f);
@@ -119,7 +119,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
           cVar6 = *pcVar5;
           pcVar5 = pcVar5 + 1;
         } while (cVar6 != '\0');
-        FUN_004eb510(*piVar8 + 5,
+        DrawFontString(*piVar8 + 5,
                      -(uint)(*(char *)(g_clientContext + 0x4590c + iStack_8c) !=
                             *(char *)(g_clientContext + 0x3b6c0)) & 0xfae8);
         BlitRLESprite(*piVar8 + 5,0xffff);
@@ -361,10 +361,10 @@ LAB_004da2f4:
         pcVar5 = pcVar5 + 1;
       } while (cVar6 != '\0');
     }
-    FUN_004eb5d0(0xf800);
-    FUN_004eb5d0(0xf800);
-    FUN_004eb6b0();
-    FUN_004eb6b0();
+    DrawHLine(0xf800);
+    DrawHLine(0xf800);
+    DrawVLine();
+    DrawVLine();
     BlitRLESprite(0x170,0);
     BlitRLESprite(0x16f,0xffe0);
   }

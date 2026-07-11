@@ -22,7 +22,7 @@ void __fastcall FUN_005071a0(int param_1)
   if (*(char *)(param_1 + 0x1e) != '\0') {
     return;
   }
-  FUN_004eadb0();
+  SetClipRect();
   if (*(char *)(param_1 + 0x1c) == '\0') {
     uVar5 = *(undefined4 *)(param_1 + 0x2c);
     uVar6 = 0x7bef;
@@ -74,7 +74,7 @@ void __fastcall FUN_005071a0(int param_1)
   }
   BlitRLESprite(uVar5,uVar6);
 LAB_005072f6:
-  FUN_004eadb0();
+  SetClipRect();
   return;
 }
 

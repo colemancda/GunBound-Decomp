@@ -12,14 +12,14 @@ void __fastcall FUN_004c1c90(int param_1)
 {
   int iVar1;
   
-  FUN_004eadb0();
+  SetClipRect();
   iVar1 = g_clientContext;
   *(int *)(param_1 + 8) = *(int *)(param_1 + 8) + 1;
   if ((&DAT_005f2f55)[iVar1] == '\x01') {
     FUN_004e3aa0(&DAT_006a7708 + iVar1);
   }
   FUN_004e3bd0();
-  FUN_004eadb0();
+  SetClipRect();
   FUN_00406990(&DAT_006a647c + g_clientContext);
   FUN_004e93e0(1);
   return;

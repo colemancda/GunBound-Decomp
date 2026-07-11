@@ -59,11 +59,11 @@ void __thiscall FUN_00505f10(int param_1,int param_2)
     if ((*(char *)(param_2 + 0x30) == '\x12') && (*(short *)(param_2 + 0x31) != -1)) {
       if (*(short *)(param_2 + 0x33) != -2) {
         if (*(short *)(param_2 + 0x33) == -1) {
-          FUN_004eb890();
+          DrawSprite();
           uVar3 = *(ushort *)(param_2 + 0x35);
         }
         else {
-          FUN_004eb890();
+          DrawSprite();
           uVar3 = *(ushort *)(param_2 + 0x33);
         }
         _sprintf(local_80,(char *)&PTR_DAT_00551ecc,uVar3 + 1);

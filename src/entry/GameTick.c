@@ -190,7 +190,7 @@ LAB_00413510:
       (**(code **)(*(int *)*puVar1 + 0x24))();
     }
     if ((g_stateChangeInProgress == 0) && (0x28 < DAT_0056d118)) {
-      FUN_004eb890();
+      DrawSprite();
     }
     DAT_0079352c = 0;
     (**(code **)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
