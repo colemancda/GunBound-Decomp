@@ -79,12 +79,12 @@ void __fastcall FUN_004acd10(int param_1)
       local_4 = 0;
       if (local_440 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_45c);
+        TreeLowerBound(local_45c);
       }
       local_4 = 0xffffffff;
       if (local_21c != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_45c);
+        TreeLowerBound(local_45c);
       }
     }
     goto switchD_004ad044_caseD_3;

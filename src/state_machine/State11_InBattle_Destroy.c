@@ -20,7 +20,7 @@ void __fastcall State11_InBattle_Destroy(undefined4 *param_1)
   *unaff_FS_OFFSET = &local_c;
   *param_1 = &vtable_State11_InBattle;
   local_4 = 1;
-  _eh_vector_destructor_iterator_((void *)((int)param_1 + 0x23d7),3,0x10,FUN_00429800);
+  _eh_vector_destructor_iterator_((void *)((int)param_1 + 0x23d7),3,0x10,NoOpMethod);
   local_4 = local_4 & 0xffffff00;
   _eh_vector_destructor_iterator_(param_1 + 0x477,0x224,8,ScrubChecksumGuard);
   *param_1 = &PTR_LAB_00553fb0;

@@ -26,8 +26,8 @@ void FUN_0042a090(void)
   
   cVar7 = (char)unaff_EBX;
   DAT_0056d118 = (cVar7 != '\x01') - 1;
-  FUN_00406300(unaff_EBX);
-  FUN_00406300(unaff_EBX);
+  InvokeWidget(unaff_EBX);
+  InvokeWidget(unaff_EBX);
   if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
     piVar1 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10);
     uVar2 = piVar1[2];
@@ -51,17 +51,17 @@ void FUN_0042a090(void)
   }
   uVar5 = 0;
 LAB_0042a13e:
-  FUN_00406300(uVar5);
-  FUN_00406300(unaff_EBX);
+  InvokeWidget(uVar5);
+  InvokeWidget(unaff_EBX);
   if ((*(int *)(unaff_EDI + 4) == -1) || (cVar7 == '\0')) {
     uVar5 = 0;
   }
   else {
     uVar5 = 1;
   }
-  FUN_00406300(uVar5);
-  FUN_00406300(unaff_EBX);
-  FUN_00406300(unaff_EBX);
+  InvokeWidget(uVar5);
+  InvokeWidget(unaff_EBX);
+  InvokeWidget(unaff_EBX);
   uVar6 = (uint3)((uint)*(int *)(unaff_EDI + 0x118) >> 8);
   if ((*(int *)(unaff_EDI + 0x118) < 1) || (cVar7 == '\0')) {
     iVar4 = (uint)uVar6 << 8;
@@ -69,16 +69,16 @@ LAB_0042a13e:
   else {
     iVar4 = CONCAT31(uVar6,1);
   }
-  FUN_00406300(iVar4);
+  InvokeWidget(iVar4);
   if ((*(char *)(unaff_EDI + 0x120) == '\0') || (cVar7 == '\0')) {
     uVar3 = 0;
   }
   else {
     uVar3 = 1;
   }
-  FUN_00406300(uVar3);
-  FUN_00406300(unaff_EBX);
-  FUN_00406300(unaff_EBX);
+  InvokeWidget(uVar3);
+  InvokeWidget(unaff_EBX);
+  InvokeWidget(unaff_EBX);
   return;
 }
 

@@ -61,19 +61,19 @@ void __fastcall FUN_004e2b20(int param_1)
     local_8a8[0] = local_440;
     if (local_440 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8b4);
+      TreeLowerBound(local_8b4);
     }
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     local_8a8[0] = local_664;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8b4);
+      TreeLowerBound(local_8b4);
     }
     local_4 = 0xffffffff;
     local_8a8[0] = local_888;
     if (local_888 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8b4);
+      TreeLowerBound(local_8b4);
     }
     EncodeChecksumDeltaMul(param_1 + 0x224,local_678,2);
     local_4 = 3;
@@ -90,13 +90,13 @@ void __fastcall FUN_004e2b20(int param_1)
     local_8b4[0] = local_888;
     if (local_888 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8a8);
+      TreeLowerBound(local_8a8);
     }
     local_4 = 0xffffffff;
     local_8b4[0] = local_664;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8a8);
+      TreeLowerBound(local_8a8);
     }
     if (local_8a9 != '\0') {
       EncodeChecksumDeltaMul(param_1 + 0x890,local_89c,2);
@@ -110,7 +110,7 @@ void __fastcall FUN_004e2b20(int param_1)
       if (local_888 != 0) {
         ScrambleChecksumGuardBytes();
         local_8b4[0] = iVar1;
-        FUN_0040b540(local_8a8);
+        TreeLowerBound(local_8a8);
       }
     }
     if (((DAT_0079352c != 0) && (-1 < local_8a0)) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
@@ -135,19 +135,19 @@ void __fastcall FUN_004e2b20(int param_1)
     local_8b4[0] = local_888;
     if (local_888 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8a8);
+      TreeLowerBound(local_8a8);
     }
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),6);
     local_8b4[0] = local_664;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8a8);
+      TreeLowerBound(local_8a8);
     }
     local_4 = 0xffffffff;
     local_8b4[0] = local_440;
     if (local_440 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8a8);
+      TreeLowerBound(local_8a8);
     }
     EncodeChecksumDeltaMul(param_1 + 0x448,local_678,2);
     local_4 = 9;
@@ -164,13 +164,13 @@ void __fastcall FUN_004e2b20(int param_1)
     local_8b4[0] = local_888;
     if (local_888 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8a8);
+      TreeLowerBound(local_8a8);
     }
     local_4 = 0xffffffff;
     local_8b4[0] = local_664;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8a8);
+      TreeLowerBound(local_8a8);
     }
     if (local_8a9 != '\0') {
       EncodeChecksumDeltaMul(param_1 + 0xab4,local_89c,2);
@@ -184,7 +184,7 @@ void __fastcall FUN_004e2b20(int param_1)
       if (local_888 != 0) {
         ScrambleChecksumGuardBytes();
         local_8b4[0] = iVar1;
-        FUN_0040b540(local_8a8);
+        TreeLowerBound(local_8a8);
       }
     }
     if (((DAT_0079352c != 0) && (-1 < local_8a0)) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
@@ -209,19 +209,19 @@ void __fastcall FUN_004e2b20(int param_1)
     local_8b4[0] = local_888;
     if (local_888 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8a8);
+      TreeLowerBound(local_8a8);
     }
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xc);
     local_8b4[0] = local_664;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8a8);
+      TreeLowerBound(local_8a8);
     }
     local_4 = 0xffffffff;
     local_8b4[0] = local_440;
     if (local_440 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_8a8);
+      TreeLowerBound(local_8a8);
     }
     EncodeChecksumDeltaMul(param_1 + 0x66c,local_678,2);
     local_4 = 0xf;
@@ -238,13 +238,13 @@ void __fastcall FUN_004e2b20(int param_1)
     if (local_888 != 0) {
       ScrambleChecksumGuardBytes();
       local_8b4[0] = local_888;
-      FUN_0040b540(local_8a8);
+      TreeLowerBound(local_8a8);
     }
     local_4 = 0xffffffff;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
       local_8b4[0] = local_664;
-      FUN_0040b540(local_8a8);
+      TreeLowerBound(local_8a8);
     }
     iVar1 = local_8a0;
     if (local_8a9 != '\0') {
@@ -258,7 +258,7 @@ void __fastcall FUN_004e2b20(int param_1)
       if (local_21c != 0) {
         ScrambleChecksumGuardBytes();
         local_8b4[0] = local_21c;
-        FUN_0040b540(local_8a8);
+        TreeLowerBound(local_8a8);
       }
     }
     if (((DAT_0079352c != 0) && (-1 < iVar1)) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {

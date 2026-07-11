@@ -53,12 +53,12 @@ void __fastcall FUN_00482130(int param_1)
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (local_aac != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_ad0);
+    TreeLowerBound(local_ad0);
   }
   local_4 = 0xffffffff;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_ad0);
+    TreeLowerBound(local_ad0);
   }
   if ((DAT_00793530 <= iVar4 + 0x20) && (local_ad0[0] = iVar4 + -0x20, local_ad0[0] <= DAT_0056df30)
      ) {
@@ -74,17 +74,17 @@ void __fastcall FUN_00482130(int param_1)
     SUBFIELD(local_4,0,undefined1) = 3;
     if (local_888 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_ac8);
+      TreeLowerBound(local_ac8);
     }
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_ac8);
+      TreeLowerBound(local_ac8);
     }
     local_4 = 0xffffffff;
     if (local_21c != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_ac8);
+      TreeLowerBound(local_ac8);
     }
     iVar2 = DAT_00793534;
     if ((DAT_00793534 <= iVar5) &&

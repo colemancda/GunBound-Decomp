@@ -75,7 +75,7 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   SUBFIELD(local_2d18,0,undefined4) = local_2014;
   if (local_2014 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_2d20);
+    TreeLowerBound(local_2d20);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
@@ -164,14 +164,14 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),7);
   if (local_245c != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_2d08);
+    TreeLowerBound(local_2d08);
     iVar2 = local_2d10;
   }
   local_4 = 0xffffffff;
   local_2d18 = (double)CONCAT44(SUBFIELD(local_2d18,4,undefined4),local_28a4);
   if (local_28a4 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_2d08);
+    TreeLowerBound(local_2d08);
     iVar2 = local_2d10;
   }
   iVar5 = param_2 * param_2 + local_2d20[0] * local_2d20[0];
@@ -291,13 +291,13 @@ LAB_00479655:
   local_2d20[0] = local_2cec;
   if (local_2cec != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_2d08);
+    TreeLowerBound(local_2d08);
   }
   local_4 = 0xffffffff;
   local_2d20[0] = local_1bcc;
   if (local_1bcc != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_2d08);
+    TreeLowerBound(local_2d08);
   }
   EncodeChecksumDeltaDiv(unaff_EDI + 0x15c0,local_2d00,2);
   local_4 = 0x1d;
@@ -320,7 +320,7 @@ LAB_00479655:
   if (local_2cec != 0) {
     ScrambleChecksumGuardBytes();
     local_2d20[0] = local_2cec;
-    FUN_0040b540(local_2d08);
+    TreeLowerBound(local_2d08);
   }
   if (0 < iVar5) {
     AddToPacketChecksum(iVar5);

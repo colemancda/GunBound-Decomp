@@ -74,31 +74,31 @@ LAB_004da4f7:
     param_3 = 1;
     if (*(char *)(param_1 + 0x4cc) != '\0') goto LAB_004da4f7;
   }
-  FUN_00406300(param_2);
-  FUN_00406300(param_2);
-  FUN_00406300(param_2);
+  InvokeWidget(param_2);
+  InvokeWidget(param_2);
+  InvokeWidget(param_2);
   if (((char)param_3 == '\0') || (*(char *)(g_clientContext + 0x45122) == '\0')) {
     uVar3 = 0;
   }
   else {
     uVar3 = 1;
   }
-  FUN_00406300(uVar3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
-  FUN_00406300(param_3);
+  InvokeWidget(uVar3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
+  InvokeWidget(param_3);
   if ((cVar9 == '\0') ||
      (cVar2 = FUN_0040b390(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4), cVar2 == '\0')) {
     cVar2 = '\0';
@@ -108,54 +108,54 @@ LAB_004da4f7:
     bVar10 = true;
     cVar2 = '\x01';
   }
-  FUN_00406300(cVar2);
-  FUN_00406300(cVar2);
+  InvokeWidget(cVar2);
+  InvokeWidget(cVar2);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   iVar5 = PeekPacketChecksumState();
   param_3 = iVar4 == iVar5;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_00406300(param_3);
-  FUN_00406300(cVar2);
-  FUN_00406300(cVar2);
-  FUN_00406300(cVar2);
-  FUN_00406300(cVar2);
-  FUN_00406300(cVar2);
-  FUN_00406300(cVar2);
-  FUN_00406300(cVar2);
-  FUN_00406300(cVar2);
-  FUN_00406300(cVar2);
-  FUN_00406300(cVar2);
-  FUN_00406300(cVar2);
-  FUN_00406300(cVar2);
+  InvokeWidget(param_3);
+  InvokeWidget(cVar2);
+  InvokeWidget(cVar2);
+  InvokeWidget(cVar2);
+  InvokeWidget(cVar2);
+  InvokeWidget(cVar2);
+  InvokeWidget(cVar2);
+  InvokeWidget(cVar2);
+  InvokeWidget(cVar2);
+  InvokeWidget(cVar2);
+  InvokeWidget(cVar2);
+  InvokeWidget(cVar2);
+  InvokeWidget(cVar2);
   if ((bVar10) && (*(char *)(g_clientContext + 0x45127) != '\0')) {
     iVar4 = CONCAT31(extraout_var,1);
   }
   else {
     iVar4 = (uint)extraout_var << 8;
   }
-  FUN_00406300(iVar4);
+  InvokeWidget(iVar4);
   if ((bVar10) && (*(char *)(g_clientContext + 0x45127) != '\0')) {
     iVar4 = CONCAT31(extraout_var_00,1);
   }
   else {
     iVar4 = (uint)extraout_var_00 << 8;
   }
-  FUN_00406300(iVar4);
+  InvokeWidget(iVar4);
   if ((bVar10) && (*(char *)(g_clientContext + 0x45127) != '\0')) {
     uVar3 = 1;
   }
   else {
     uVar3 = 0;
   }
-  FUN_00406300(uVar3);
+  InvokeWidget(uVar3);
   if ((bVar10) && (*(char *)(g_clientContext + 0x45127) != '\0')) {
     iVar4 = CONCAT31(extraout_var_01,1);
   }
   else {
     iVar4 = (uint)extraout_var_01 << 8;
   }
-  FUN_00406300(iVar4);
+  InvokeWidget(iVar4);
   uVar7 = extraout_var_02;
   if (bVar10) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -171,7 +171,7 @@ LAB_004da4f7:
 LAB_004da901:
     iVar4 = (uint)uVar7 << 8;
   }
-  FUN_00406300(iVar4);
+  InvokeWidget(iVar4);
   uVar7 = extraout_var_04;
   if (bVar10) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -187,7 +187,7 @@ LAB_004da901:
 LAB_004da964:
     iVar4 = (uint)uVar7 << 8;
   }
-  FUN_00406300(iVar4);
+  InvokeWidget(iVar4);
   cVar11 = '\0';
   if (bVar10) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -202,7 +202,7 @@ LAB_004da964:
 LAB_004da9cb:
     uVar3 = 0;
   }
-  uVar6 = FUN_00406300(uVar3);
+  uVar6 = InvokeWidget(uVar3);
   if (cVar11 != '\0') {
     uVar6 = (uint)*(char *)(g_clientContext + 0x44ef8);
     if (1 < *(int *)(&DAT_0056d350 + uVar6 * 4)) {
@@ -216,7 +216,7 @@ LAB_004da9cb:
   }
   uVar6 = uVar6 & 0xffffff00;
 LAB_004daa0a:
-  FUN_00406300(uVar6);
+  InvokeWidget(uVar6);
   if (((cVar11 == '\0') || (*(int *)(&DAT_0056d350 + *(char *)(g_clientContext + 0x44ef8) * 4) < 2)) ||
      (cVar9 == '\0')) {
     iVar4 = (uint)extraout_var_06 << 8;
@@ -224,7 +224,7 @@ LAB_004daa0a:
   else {
     iVar4 = CONCAT31(extraout_var_06,1);
   }
-  FUN_00406300(iVar4);
+  InvokeWidget(iVar4);
   /* Ghidra emitted a bare `return;` in a value-returning function;
    * MSVC falls through with whatever's in EAX, gcc 14 rejects it
    * (-Wreturn-mismatch). This path's result is unused by callers -

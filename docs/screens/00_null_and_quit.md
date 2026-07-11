@@ -5,7 +5,7 @@ transition machinery has valid targets.
 
 ## State 0 — Null / pre-init
 - **Object**: 4 bytes (vtable ptr only), shared null-object vtable `0x553fb0`.
-- **Vtable**: every slot is a shared no-op stub (`FUN_00429800`, a bare `RET`,
+- **Vtable**: every slot is a shared no-op stub (`NoOpMethod`, a bare `RET`,
   for slots 7/8 = OnEnter/OnExit). Nothing loads, nothing renders.
 - **Purpose**: the initial/idle slot before the boot flow begins; also the
   "poisoned" vtable a destroyed state object is re-pointed at (see

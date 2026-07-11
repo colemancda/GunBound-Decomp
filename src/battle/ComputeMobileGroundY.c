@@ -51,12 +51,12 @@ int __fastcall ComputeMobileGroundY(int param_1)
   local_4 = 0;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_688);
+    TreeLowerBound(local_688);
   }
   local_4 = 0xffffffff;
   if (local_664 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_688);
+    TreeLowerBound(local_688);
   }
   uVar2 = EncodeChecksumDeltaDiv(iVar5,local_454,2);
   local_4 = 2;
@@ -69,12 +69,12 @@ int __fastcall ComputeMobileGroundY(int param_1)
   local_4 = 2;
   if (local_664 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_688);
+    TreeLowerBound(local_688);
   }
   local_4 = 0xffffffff;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_688);
+    TreeLowerBound(local_688);
   }
   iVar3 = local_680;
   if (bVar6) {
@@ -90,7 +90,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
     local_4 = 0xffffffff;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_688);
+      TreeLowerBound(local_688);
     }
     EncodeChecksumPairDiff(iVar1,local_678,iVar5);
     local_4 = 5;
@@ -100,7 +100,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
     local_4 = 0xffffffff;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_688);
+      TreeLowerBound(local_688);
     }
     iVar3 = local_680;
     if (iVar4 == iVar5) {
@@ -116,7 +116,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
       local_4 = 0xffffffff;
       if (local_664 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_688);
+        TreeLowerBound(local_688);
       }
       EncodeChecksumDeltaAdd(iVar1,local_230,1);
       local_4 = 7;
@@ -126,7 +126,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
       local_4 = 0xffffffff;
       if (local_21c != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_688);
+        TreeLowerBound(local_688);
       }
       if (iVar3 == iVar5) {
         iVar3 = PeekChecksumStateUnderLock(iVar1);

@@ -267,7 +267,7 @@ void FUN_004ccd10(int *param_1)
         if (local_440 != (undefined *)0x0) {
           ScrambleChecksumGuardBytes();
           local_71c = puVar3;
-          FUN_0040b540(local_700);
+          TreeLowerBound(local_700);
           uVar8 = local_714;
         }
         puVar3 = local_21c;
@@ -275,7 +275,7 @@ void FUN_004ccd10(int *param_1)
         if (local_21c != (undefined *)0x0) {
           ScrambleChecksumGuardBytes();
           local_71c = puVar3;
-          FUN_0040b540(local_700);
+          TreeLowerBound(local_700);
           uVar8 = local_714;
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -348,7 +348,7 @@ void FUN_004ccd10(int *param_1)
         if (local_664 != (undefined *)0x0) {
           ScrambleChecksumGuardBytes();
           local_71c = puVar3;
-          FUN_0040b540(local_700);
+          TreeLowerBound(local_700);
         }
       }
       local_704 = local_704 + 0x1120;
@@ -490,16 +490,16 @@ LAB_004cd6de:
         (*pcVar18)(&DAT_005a9068);
         cVar4 = PeekPacketChecksumBool();
         if (cVar4 == '\x01') {
-          FUN_00406300(1);
-          FUN_00405fb0();
+          InvokeWidget(1);
+          RemoveWidget();
           uVar22 = 6;
           pcVar10 = s_b_play_weapon1_00554164;
           uVar21 = 0x3e9;
           uVar9 = 1;
         }
         else {
-          FUN_00406300(1);
-          FUN_00405fb0();
+          InvokeWidget(1);
+          RemoveWidget();
           uVar22 = 0x2e;
           pcVar10 = s_b_play_weapon2_00554154;
           uVar21 = 0x3ea;
@@ -514,7 +514,7 @@ LAB_004cd6de:
       if (cVar4 == '\0') {
         CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26
                            ,1,0);
-        FUN_00406300(1);
+        InvokeWidget(1);
         pcVar18 = (code *)LeaveCriticalSection;
       }
     }
@@ -609,7 +609,7 @@ LAB_004cd6de:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_00406300(param_1[0x428] == iVar7);
+  InvokeWidget(param_1[0x428] == iVar7);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -625,7 +625,7 @@ LAB_004cd6de:
 LAB_004ce0c7:
     uVar9 = 0;
   }
-  FUN_00406300(uVar9);
+  InvokeWidget(uVar9);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

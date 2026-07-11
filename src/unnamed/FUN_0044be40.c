@@ -31,7 +31,7 @@ undefined4 FUN_0044be40(int param_1,int param_2)
   local_4 = 0xffffffff;
   if (local_21c != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_238);
+    TreeLowerBound(local_238);
   }
   *unaff_FS_OFFSET = local_c;
   return uVar1;

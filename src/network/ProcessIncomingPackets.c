@@ -93,7 +93,7 @@ LAB_004d33f1:
         *(char *)(iVar6 + DAT_0079376c + iVar14) = (char)iVar8;
         iVar14 = iVar14 + 1;
       } while (iVar14 < 0x10);
-      FUN_0040b540(local_24dc);
+      TreeLowerBound(local_24dc);
     }
     local_4 = 0xffffffff;
     if (local_221c != 0) {
@@ -104,7 +104,7 @@ LAB_004d33f1:
         *(char *)(iVar6 + DAT_0079376c + iVar14) = (char)iVar8;
         iVar14 = iVar14 + 1;
       } while (iVar14 < 0x10);
-      FUN_0040b540(local_24dc);
+      TreeLowerBound(local_24dc);
     }
   } while (*psVar1 != sVar5);
   uVar2 = psVar1[1];

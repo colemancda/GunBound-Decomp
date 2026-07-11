@@ -315,15 +315,15 @@ LAB_004d588d:
       AppendPacketBytes((char *)(param_1 + 0x62d));
       SendOutgoingPacket();
       FUN_0050ef10(&g_uiPanelManager);
-      uVar3 = FUN_00406300(1);
+      uVar3 = InvokeWidget(1);
       return uVar3;
     }
     *(undefined1 *)(param_1 + 0x62c) = 1;
-    FUN_00406300(0);
+    InvokeWidget(0);
     uVar3 = FUN_00508a50(&g_uiPanelManager,g_clientContext + 0x44e64);
     return uVar3;
   case 9:
-    FUN_00406300(1);
+    InvokeWidget(1);
     uVar3 = FUN_0050ef10(&g_uiPanelManager);
     return uVar3;
   case 10:

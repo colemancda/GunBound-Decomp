@@ -68,8 +68,8 @@ void RenderInventoryItemDetail(int param_1)
     pcVar11 = (code *)LeaveCriticalSection;
     *(byte *)(param_1 + 0x32c56) = bVar8 + bVar9 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_00405fb0();
-    FUN_00405fb0();
+    RemoveWidget();
+    RemoveWidget();
     FUN_0040cdf0();
     FUN_0040cdf0();
   }
@@ -84,10 +84,10 @@ void RenderInventoryItemDetail(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeOutgoingPacketField(0);
       (*pcVar11)(&DAT_005a9068);
-      FUN_00405fb0();
-      FUN_00405fb0();
-      FUN_00405fb0();
-      FUN_00405fb0();
+      RemoveWidget();
+      RemoveWidget();
+      RemoveWidget();
+      RemoveWidget();
       pcVar13 = (code *)EnterCriticalSection;
     }
     iVar5 = *(int *)(g_clientContext + 0x44bec);
@@ -103,7 +103,7 @@ void RenderInventoryItemDetail(int param_1)
       *(byte *)(param_1 + 0x32e64) = bVar9;
       *(byte *)(param_1 + 0x32e65) = bVar9 + *(char *)(param_1 + 0x32e63) + -0x34;
       (*pcVar11)(&DAT_005a9068);
-      FUN_00405fb0();
+      RemoveWidget();
       FUN_0044b720(param_1);
     }
     else {

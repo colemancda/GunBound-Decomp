@@ -33,7 +33,7 @@ undefined4 __fastcall FUN_004ac400(int param_1)
   local_4 = 0xffffffff;
   if (local_21c != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_238);
+    TreeLowerBound(local_238);
   }
   return uVar1;
 }

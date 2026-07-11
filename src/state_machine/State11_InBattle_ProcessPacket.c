@@ -420,14 +420,14 @@ LAB_004b4324:
   }
   if (opcode != 0x4410) {
     if (opcode == 0x4413) {
-      FUN_00405fb0();
-      FUN_00405fb0();
-      FUN_00405fb0();
-      FUN_00405fb0();
-      FUN_00405fb0();
-      FUN_00405fb0();
-      FUN_00405fb0();
-      FUN_00405fb0();
+      RemoveWidget();
+      RemoveWidget();
+      RemoveWidget();
+      RemoveWidget();
+      RemoveWidget();
+      RemoveWidget();
+      RemoveWidget();
+      RemoveWidget();
       *(undefined1 *)((int)this + 0x11d0) = 1;
       *(undefined4 *)((int)this + 0x11d4) = 0;
       CreateButtonWidget(&DAT_00e9be90,0,0x10,0x3f8,s_b_result_confirm_00554074,0x29f,0x1b9,0x67,
@@ -578,14 +578,14 @@ LAB_004b4d38:
   if (local_664 != (int *)0x0) {
     ScrambleChecksumGuardBytes();
     local_9ac = piVar16;
-    FUN_0040b540(local_9a4);
+    TreeLowerBound(local_9a4);
   }
   piVar16 = local_888;
   local_4 = 0xffffffff;
   if (local_888 != (int *)0x0) {
     ScrambleChecksumGuardBytes();
     local_9ac = piVar16;
-    FUN_0040b540(local_9a4);
+    TreeLowerBound(local_9a4);
   }
 LAB_004b541a:
   *unaff_FS_OFFSET = local_c;

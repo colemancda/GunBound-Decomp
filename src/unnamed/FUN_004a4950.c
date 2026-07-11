@@ -168,14 +168,14 @@ LAB_004a4a60:
   if (local_cd0 != 0) {
     ScrambleChecksumGuardBytes();
     local_d14 = local_cd0;
-    FUN_0040b540();
+    TreeLowerBound();
     pcVar18 = (code *)LeaveCriticalSection;
   }
   local_4 = 0xffffffff;
   if (local_aac != 0) {
     ScrambleChecksumGuardBytes();
     local_d14 = local_aac;
-    FUN_0040b540();
+    TreeLowerBound();
     pcVar18 = (code *)LeaveCriticalSection;
   }
   local_d14 = param_1[0x102a] % 0x168;
@@ -208,7 +208,7 @@ LAB_004a4a60:
   uStack_18 = 0xffffffff;
   if (local_ce4 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(&stack0xfffff2e0);
+    TreeLowerBound(&stack0xfffff2e0);
     pcVar18 = (code *)LeaveCriticalSection;
   }
   EncodeChecksumPairDiff(param_1 + 0x99,&local_cf8,param_1 + 0x11c7);
@@ -220,7 +220,7 @@ LAB_004a4a60:
   uStack_1c = 0xffffffff;
   if (puStack_ce8 != (undefined *)0x0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(&stack0xfffff2dc);
+    TreeLowerBound(&stack0xfffff2dc);
     pcVar18 = (code *)LeaveCriticalSection;
     puVar33 = puStack_ce8;
   }
@@ -256,7 +256,7 @@ LAB_004a4a60:
     uStack_34 = 0xffffffff;
     if (local_d00 != (int *)0x0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(&stack0xfffff2dc);
+      TreeLowerBound(&stack0xfffff2dc);
       pcVar18 = (code *)LeaveCriticalSection;
       piVar29 = piVar30;
     }
@@ -270,7 +270,7 @@ LAB_004a4a60:
     uStack_38 = 0xffffffff;
     if (local_d04 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(&stack0xfffff2d8);
+      TreeLowerBound(&stack0xfffff2d8);
       pcVar18 = (code *)LeaveCriticalSection;
     }
     cVar3 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
@@ -443,12 +443,12 @@ LAB_004a5f78:
       uStack_48 = CONCAT31(SUBFIELD(uStack_48,1,undefined3),0x10);
       if (iStack_6a8 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(&stack0xfffff2c8);
+        TreeLowerBound(&stack0xfffff2c8);
       }
       uStack_48 = 0xffffffff;
       if (iStack_260 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(&stack0xfffff2c8);
+        TreeLowerBound(&stack0xfffff2c8);
       }
     }
     goto LAB_004a61e0;

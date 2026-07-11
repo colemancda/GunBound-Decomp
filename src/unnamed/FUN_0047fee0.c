@@ -83,17 +83,17 @@ void FUN_0047fee0(int param_1)
   unaff_ESI[0xff2] = iVar3;
   if (iStack_668 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(aiStack_688);
+    TreeLowerBound(aiStack_688);
   }
   puStack_8 = (undefined1 *)0x0;
   if (((uStack_680 & 1) != 0) && (iStack_444 != 0)) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(aiStack_688);
+    TreeLowerBound(aiStack_688);
   }
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_220 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(aiStack_688);
+    TreeLowerBound(aiStack_688);
   }
   unaff_ESI[0xff3] = 1;
   if (*(char *)(iVar2 + 0x651c) == '\0') {

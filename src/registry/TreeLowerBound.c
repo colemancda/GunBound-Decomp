@@ -1,4 +1,4 @@
-/* FUN_0040b540 - 0x0040b540 in the original binary.
+/* TreeLowerBound - 0x0040b540 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_0040b540(undefined4 *param_1)
+undefined4 * TreeLowerBound(undefined4 *param_1)
 
 {
   bool bVar1;

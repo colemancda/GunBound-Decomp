@@ -54,12 +54,12 @@ undefined4 __fastcall FUN_0045f5d0(int param_1)
     SUBFIELD(local_4,0,undefined1) = 3;
     if (local_888 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_ac8);
+      TreeLowerBound(local_ac8);
     }
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_ac8);
+      TreeLowerBound(local_ac8);
     }
     local_4 = 0xffffffff;
     if (local_21c == 0) goto LAB_0045f7ff;
@@ -76,13 +76,13 @@ undefined4 __fastcall FUN_0045f5d0(int param_1)
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     if (local_440 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_ac8);
+      TreeLowerBound(local_ac8);
     }
     local_4 = 0xffffffff;
     if (local_aac == 0) goto LAB_0045f7ff;
     ScrambleChecksumGuardBytes();
   }
-  FUN_0040b540(local_ac8);
+  TreeLowerBound(local_ac8);
 LAB_0045f7ff:
   if (4 < iVar2) {
     iVar2 = 5;

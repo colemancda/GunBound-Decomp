@@ -21,12 +21,12 @@ void FUN_004a69f0(undefined4 *param_1)
   local_4 = 1;
   if (param_1[0x9c] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   local_4 = local_4 & 0xffffff00;
   if (param_1[0x13] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   *param_1 = &PTR_LAB_0055752c;
   return;

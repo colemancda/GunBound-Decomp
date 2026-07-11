@@ -61,7 +61,7 @@ int __fastcall FUN_00479ba0(int *param_1)
   local_4 = 0xffffffff;
   if (local_888 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_924);
+    TreeLowerBound(local_924);
   }
   EncodeChecksumPairSum(param_1 + 0x120,local_89c,param_1 + 0x67d);
   local_4 = 1;
@@ -84,7 +84,7 @@ LAB_00479d44:
   local_4 = 0xffffffff;
   if (local_888 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_924);
+    TreeLowerBound(local_924);
   }
   if (bVar2) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

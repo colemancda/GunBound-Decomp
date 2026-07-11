@@ -1,4 +1,4 @@
-/* FUN_00405fb0 - 0x00405fb0 in the original binary.
+/* RemoveWidget - 0x00405fb0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00405fb0(undefined4 param_1,uint param_2)
+void __fastcall RemoveWidget(undefined4 param_1,uint param_2)
 
 {
   int iVar1;

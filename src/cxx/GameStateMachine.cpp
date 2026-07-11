@@ -32,7 +32,7 @@ void FUN_004f3020(void);                  /* active-object sweep (called twice) 
 void FUN_005098e0(int key);               /* destroy the UI panels registered under key */
 void AppendPersistentButtonName(void *slot); /* per-slot register-arg index dropped by Ghidra */
 void *FindPreloadedTextureByName(const char *name);
-void FUN_00461c60(const char *cursorName);/* select the named cursor */
+void ResolveObjectHandle(const char *cursorName);/* select the named cursor */
 void FUN_005099b0(void);
 void FUN_004f0320(void);
 int __stdcall LoadSpriteSet(void *container, int key); /* .img name in EAX, .mp3 in EDI */
@@ -108,7 +108,7 @@ void ChangeGameState(int newStateId)
         AppendPersistentButtonName((unsigned char *)&DAT_0067ec70 + g_clientContext);
     }
     g_cursorTexture = FindPreloadedTextureByName(s_cursor_005524e8);
-    FUN_00461c60(s_normal_00552230);
+    ResolveObjectHandle(s_normal_00552230);
     FUN_005099b0();
     g_gameStateVTableArray[newStateId]->OnEnter();
     g_currentGameState = newStateId;

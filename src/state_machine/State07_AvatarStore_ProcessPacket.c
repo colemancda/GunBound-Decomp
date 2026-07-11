@@ -450,8 +450,8 @@ switchD_004449fc_default:
           *(byte *)((int)this + 0x32c55) = bVar12;
           *(byte *)((int)this + 0x32c56) = *(byte *)((int)this + 0x32c54) + bVar12 + -0x34;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          FUN_00405fb0();
-          FUN_00405fb0();
+          RemoveWidget();
+          RemoveWidget();
           FUN_0040cdf0();
           FUN_0040cdf0();
           FUN_0044b720(this);

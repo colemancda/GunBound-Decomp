@@ -107,13 +107,13 @@ void FUN_0047c3f0(void)
     unaff_ESI[0xfee] = iVar3;
     if (((uStack_ad4 & 1) != 0) && (uStack_ad4 = uStack_ad4 & 0xfffffffe, iStack_ab0 != 0)) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(aiStack_acc);
+      TreeLowerBound(aiStack_acc);
     }
     puStack_8 = (undefined1 *)0xffffffff;
     pcVar8 = (code *)LeaveCriticalSection;
     if (iStack_444 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(aiStack_acc);
+      TreeLowerBound(aiStack_acc);
       pcVar8 = (code *)LeaveCriticalSection;
     }
   }
@@ -151,17 +151,17 @@ void FUN_0047c3f0(void)
   unaff_ESI[0xff3] = iVar3;
   if (iStack_89c != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(&stack0xfffff524);
+    TreeLowerBound(&stack0xfffff524);
   }
   uStack_18 = 2;
   if (((uVar5 & 2) != 0) && (iStack_678 != 0)) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(&stack0xfffff524);
+    TreeLowerBound(&stack0xfffff524);
   }
   uStack_18 = 0xffffffff;
   if (iStack_230 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(&stack0xfffff524);
+    TreeLowerBound(&stack0xfffff524);
   }
   fVar9 = (float10)_DAT_00558070;
   unaff_ESI[0xff4] = 1;

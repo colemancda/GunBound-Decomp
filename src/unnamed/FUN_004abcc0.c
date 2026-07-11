@@ -23,17 +23,17 @@ void FUN_004abcc0(undefined4 *param_1)
   local_4 = 2;
   if (param_1[0x12a] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   local_4 = 1;
   if (param_1[0xa1] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   local_4 = 0;
   if (param_1[0x18] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   *param_1 = &PTR_LAB_0055752c;
   *unaff_FS_OFFSET = local_c;

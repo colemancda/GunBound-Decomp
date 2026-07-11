@@ -831,13 +831,13 @@ LAB_004d4cc7:
       }
       cVar10 = FUN_0040b390(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
       if (cVar10 == '\0') {
-        FUN_00405fb0();
+        RemoveWidget();
         CreateButtonWidget(&DAT_00e9be90,0,0,1000,s_b_ready_ready_005570c8,0x28f,0x226,0x6b,0x2d,1,0
                           );
         BuildItemLoadout(this,0);
       }
       else {
-        FUN_00405fb0();
+        RemoveWidget();
         CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_ready_startgame_005570d8,0x28f,0x226,0x6b,
                            0x2d,1,0);
         *(undefined1 *)((int)this + 0x4cc) = 0;

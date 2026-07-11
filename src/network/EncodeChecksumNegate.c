@@ -39,7 +39,7 @@ int EncodeChecksumNegate(undefined4 param_1,int param_2)
   local_4 = local_4 & 0xffffff00;
   if (local_21c != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_238);
+    TreeLowerBound(local_238);
   }
   return param_2;
 }

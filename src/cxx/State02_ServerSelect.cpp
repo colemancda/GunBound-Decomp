@@ -45,7 +45,7 @@ extern unsigned int DAT_0056d118;
 extern unsigned int DAT_00e9be94;
 extern const char s_active_00551e58[];
 extern const char s_ready_00551e80[];
-void FUN_00406300(int enabled);
+void InvokeWidget(int enabled);
 void ShowErrorDialog(int mode);
 void SendOutgoingPacket(void);            /* flush/send the pending channel-1 packet */
 char PeekPacketChecksumBool(void);                /* mode check gating the page-offset source */
@@ -222,7 +222,7 @@ void CState02ServerSelect::OnTick()
         if (*(char *)(cfg + 0x84e5) == 0) {
             DAT_0056d118 = 0xffffffff;
             ConnectButtonFromPlayerRecord();
-            FUN_00406300(m_highlightedSlot != -1);
+            InvokeWidget(m_highlightedSlot != -1);
             ShowErrorDialog(0);
             m_uiDirty = 1;
             if (PeekPacketChecksumBool() != 0) {

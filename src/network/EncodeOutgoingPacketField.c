@@ -34,7 +34,7 @@ void EncodeOutgoingPacketField(void *self, uint param_1)
   if (uVar1 != 0) {
     ScrambleChecksumGuardBytes();
     param_1 = uVar1;
-    FUN_0040b540(local_8);
+    TreeLowerBound(local_8);
   }
   if (DAT_00793778 == 0) {
     iVar4 = 0;

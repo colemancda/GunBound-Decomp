@@ -284,7 +284,7 @@ Concretely, that means:
   exception-cleanup-index local (`local_c`/`local_4`/`uStack_c`/
   `puStack_8`/etc. - the same slot the SEH frame plumbing uses, or one
   right next to it) gets counted through a function's many
-  `FUN_0040a240`/`FUN_0040b540` cleanup-pair calls via single-byte
+  `FUN_0040a240`/`TreeLowerBound` cleanup-pair calls via single-byte
   writes that Ghidra renders as `var._0_1_ = N;`, plus one or more
   resets rendered as `var = (uint)var._1_3_ << 8;` or
   `var = CONCAT31(var._1_3_,N);`. In every case checked, the variable

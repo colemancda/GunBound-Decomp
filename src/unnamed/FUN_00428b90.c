@@ -31,7 +31,7 @@ void __thiscall FUN_00428b90(int param_1,uint param_2,undefined4 param_3,uint pa
       iVar3 = FUN_0042ada0(param_4 >> 0x10,0);
       if (iVar3 != -1) {
         *(int *)(param_1 + 4) = iVar3;
-        FUN_00406300(1);
+        InvokeWidget(1);
       }
       *(undefined4 *)(param_1 + 0x124) = 0xffffffff;
       FUN_00507d50();

@@ -22,22 +22,22 @@ void FUN_00443dc0(undefined4 *param_1)
   local_4 = 3;
   if (param_1[0x1ae] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 2;
   if (param_1[0x125] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 1;
   if (param_1[0x9c] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (param_1[0x13] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   *param_1 = &PTR_LAB_0055752c;
   *unaff_FS_OFFSET = local_c;

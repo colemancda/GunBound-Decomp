@@ -153,7 +153,7 @@ void __fastcall State11_InBattle_OnTick(int *param_1)
      && (iVar5 = param_1[0x475] + 1, param_1[0x475] = iVar5, piVar15 = (int *)&stack0xfffffffc,
         300 < iVar5)) {
     param_1[0x475] = -1;
-    FUN_00406300();
+    InvokeWidget();
     iVar6 = DAT_007934e8;
     *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
     *(undefined4 *)(iVar6 + 0x44d0) = 6;
@@ -311,7 +311,7 @@ LAB_004bdd1c:
       switch(bVar13) {
       case 0:
         if (g_lastCursorDirection != 0) {
-          FUN_00461c60();
+          ResolveObjectHandle();
           g_cursorDirection = 0;
           hCursor = g_edgeCursors[0];
 LAB_004bdf96:
@@ -321,7 +321,7 @@ LAB_004bdf96:
         break;
       case 1:
         if (g_lastCursorDirection != 7) {
-          FUN_00461c60();
+          ResolveObjectHandle();
           g_cursorDirection = 7;
           hCursor = g_edgeCursors[7];
           goto LAB_004bdf96;
@@ -329,7 +329,7 @@ LAB_004bdf96:
         break;
       case 2:
         if (g_lastCursorDirection != 3) {
-          FUN_00461c60();
+          ResolveObjectHandle();
           g_cursorDirection = 3;
           hCursor = g_edgeCursors[3];
           goto LAB_004bdf96;
@@ -337,7 +337,7 @@ LAB_004bdf96:
         break;
       case 4:
         if (g_lastCursorDirection != 1) {
-          FUN_00461c60();
+          ResolveObjectHandle();
           g_cursorDirection = 1;
           hCursor = g_edgeCursors[1];
           goto LAB_004bdf96;
@@ -345,7 +345,7 @@ LAB_004bdf96:
         break;
       case 5:
         if (g_lastCursorDirection != 8) {
-          FUN_00461c60();
+          ResolveObjectHandle();
           g_cursorDirection = 8;
           hCursor = g_edgeCursors[8];
           goto LAB_004bdf96;
@@ -353,7 +353,7 @@ LAB_004bdf96:
         break;
       case 6:
         if (g_lastCursorDirection != 2) {
-          FUN_00461c60();
+          ResolveObjectHandle();
           g_cursorDirection = 2;
           hCursor = g_edgeCursors[2];
           goto LAB_004bdf96;
@@ -361,7 +361,7 @@ LAB_004bdf96:
         break;
       case 8:
         if (g_lastCursorDirection != 5) {
-          FUN_00461c60();
+          ResolveObjectHandle();
           g_cursorDirection = 5;
           hCursor = g_edgeCursors[5];
           goto LAB_004bdf96;
@@ -369,7 +369,7 @@ LAB_004bdf96:
         break;
       case 9:
         if (g_lastCursorDirection != 6) {
-          FUN_00461c60();
+          ResolveObjectHandle();
           g_cursorDirection = 6;
           hCursor = g_edgeCursors[6];
           goto LAB_004bdf96;
@@ -377,7 +377,7 @@ LAB_004bdf96:
         break;
       case 10:
         if (g_lastCursorDirection != 4) {
-          FUN_00461c60();
+          ResolveObjectHandle();
           g_cursorDirection = 4;
           hCursor = g_edgeCursors[4];
           goto LAB_004bdf96;
@@ -578,13 +578,13 @@ LAB_004be4b1:
       local_3d68 = local_3d34;
       if (local_3d34 != (int *)0x0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540();
+        TreeLowerBound();
       }
       local_c = 0xffffffff;
       local_3d68 = local_3588;
       if (local_3588 != (int *)0x0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540();
+        TreeLowerBound();
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_3d68 = (int *)PeekPacketChecksumState();
@@ -772,13 +772,13 @@ code_r0x004be720:
           uStack_34 = 3;
           if (iStack_35b0 != 0) {
             ScrambleChecksumGuardBytes();
-            FUN_0040b540(&stack0xffffc278);
+            TreeLowerBound(&stack0xffffc278);
             piVar15 = unaff_EDI;
           }
           uStack_34 = 2;
           if (iStack_698 != 0) {
             ScrambleChecksumGuardBytes();
-            FUN_0040b540(&stack0xffffc278);
+            TreeLowerBound(&stack0xffffc278);
             piVar15 = unaff_EDI;
           }
           (*pcVar16)(&DAT_005a9068);
@@ -831,13 +831,13 @@ LAB_004bedb3:
               uStack_28 = 5;
               if (iStack_2f38 != 0) {
                 ScrambleChecksumGuardBytes();
-                FUN_0040b540(&stack0xffffc284);
+                TreeLowerBound(&stack0xffffc284);
                 piVar15 = unaff_EBX;
               }
               uStack_28 = 2;
               if (iStack_244 != 0) {
                 ScrambleChecksumGuardBytes();
-                FUN_0040b540(&stack0xffffc284);
+                TreeLowerBound(&stack0xffffc284);
                 piVar15 = unaff_EBX;
               }
               (*pcVar16)(&DAT_005a9068);
@@ -889,7 +889,7 @@ LAB_004bedb3:
               iVar6 = iVar6 + 1;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            FUN_0040b540(&stack0xffffc284);
+            TreeLowerBound(&stack0xffffc284);
             piVar15 = unaff_EBX;
           }
           uStack_28 = 2;
@@ -902,7 +902,7 @@ LAB_004bedb3:
               iVar6 = iVar6 + 1;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            FUN_0040b540(&stack0xffffc284);
+            TreeLowerBound(&stack0xffffc284);
             piVar15 = unaff_EBX;
           }
           (*pcVar16)(&DAT_005a9068);
@@ -948,13 +948,13 @@ LAB_004bedb3:
             uStack_28 = 9;
             if (iStack_26a8 != 0) {
               ScrambleChecksumGuardBytes();
-              FUN_0040b540(&stack0xffffc284);
+              TreeLowerBound(&stack0xffffc284);
               piVar15 = unaff_EBX;
             }
             uStack_28 = 2;
             if (iStack_468 != 0) {
               ScrambleChecksumGuardBytes();
-              FUN_0040b540(&stack0xffffc284);
+              TreeLowerBound(&stack0xffffc284);
               piVar15 = unaff_EBX;
             }
             (*pcVar16)(&DAT_005a9068);
@@ -1004,7 +1004,7 @@ LAB_004bedb3:
               iVar6 = iVar6 + 1;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            FUN_0040b540(&stack0xffffc284);
+            TreeLowerBound(&stack0xffffc284);
             piVar15 = unaff_EBX;
           }
           uStack_28 = 2;
@@ -1017,7 +1017,7 @@ LAB_004bedb3:
               iVar6 = iVar6 + 1;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            FUN_0040b540(&stack0xffffc284);
+            TreeLowerBound(&stack0xffffc284);
             piVar15 = unaff_EBX;
           }
           (*pcVar16)(&DAT_005a9068);
@@ -1071,7 +1071,7 @@ LAB_004bedb3:
             iVar6 = iVar6 + 1;
             iVar5 = iVar5 + -1;
           } while (iVar5 != 0);
-          FUN_0040b540(&stack0xffffc280);
+          TreeLowerBound(&stack0xffffc280);
           piVar15 = uStack_3d78;
         }
         uStack_2c = 2;
@@ -1084,7 +1084,7 @@ LAB_004bedb3:
             iVar6 = iVar6 + 1;
             iVar5 = iVar5 + -1;
           } while (iVar5 != 0);
-          FUN_0040b540(&stack0xffffc280);
+          TreeLowerBound(&stack0xffffc280);
           piVar15 = uStack_3d78;
         }
         (*pcVar16)(&DAT_005a9068);
@@ -1141,7 +1141,7 @@ LAB_004bedb3:
               iVar6 = iVar6 + 1;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            FUN_0040b540(&stack0xffffc27c);
+            TreeLowerBound(&stack0xffffc27c);
             piVar15 = unaff_EBX;
           }
           unaff_ESI = uStack_28cc;
@@ -1155,7 +1155,7 @@ LAB_004bedb3:
               iVar6 = iVar6 + 1;
               iVar5 = iVar5 + -1;
             } while (iVar5 != 0);
-            FUN_0040b540(&stack0xffffc27c);
+            TreeLowerBound(&stack0xffffc27c);
             piVar15 = unaff_EBX;
           }
           (*pcVar16)(&DAT_005a9068);
@@ -1198,7 +1198,7 @@ LAB_004bedb3:
           uStack_28 = 0x13;
           if (uStack_2484 != 0) {
             ScrambleChecksumGuardBytes();
-            FUN_0040b540(&stack0xffffc27c);
+            TreeLowerBound(&stack0xffffc27c);
             piVar15 = unaff_EBX;
             unaff_ESI = uVar11;
           }
@@ -1206,7 +1206,7 @@ LAB_004bedb3:
           uStack_28 = 2;
           if (uStack_203c != 0) {
             ScrambleChecksumGuardBytes();
-            FUN_0040b540(&stack0xffffc27c);
+            TreeLowerBound(&stack0xffffc27c);
             piVar15 = unaff_EBX;
             unaff_ESI = uVar11;
           }
@@ -1257,7 +1257,7 @@ LAB_004bedb3:
             iVar6 = iVar6 + 1;
             iVar5 = iVar5 + -1;
           } while (iVar5 != 0);
-          FUN_0040b540(&stack0xffffc27c);
+          TreeLowerBound(&stack0xffffc27c);
           piVar15 = unaff_EBX;
         }
         unaff_ESI = uStack_cf8;
@@ -1271,7 +1271,7 @@ LAB_004bedb3:
             iVar6 = iVar6 + 1;
             iVar5 = iVar5 + -1;
           } while (iVar5 != 0);
-          FUN_0040b540(&stack0xffffc27c);
+          TreeLowerBound(&stack0xffffc27c);
           piVar15 = unaff_EBX;
         }
         (*pcVar16)(&DAT_005a9068);
@@ -1309,7 +1309,7 @@ LAB_004c008f:
           local_3d68 = (int *)((int)local_3d68 + -1);
         } while (local_3d68 != (int *)0x0);
         local_3d60 = piVar2;
-        FUN_0040b540();
+        TreeLowerBound();
         piVar15 = local_3d58;
       }
       if (bVar18) {
@@ -1347,7 +1347,7 @@ LAB_004c008f:
           uStack_28 = 0x16;
           if (uStack_315c != 0) {
             ScrambleChecksumGuardBytes();
-            FUN_0040b540(&stack0xffffc27c);
+            TreeLowerBound(&stack0xffffc27c);
             piVar15 = unaff_EBX;
             unaff_ESI = uVar11;
           }
@@ -1355,7 +1355,7 @@ LAB_004c008f:
           uStack_28 = 2;
           if (uStack_3380 != 0) {
             ScrambleChecksumGuardBytes();
-            FUN_0040b540(&stack0xffffc27c);
+            TreeLowerBound(&stack0xffffc27c);
             piVar15 = unaff_EBX;
             unaff_ESI = uVar11;
           }
@@ -1413,7 +1413,7 @@ LAB_004c08c8:
             uStack_28 = 0x18;
             if (uStack_f1c != 0) {
               ScrambleChecksumGuardBytes();
-              FUN_0040b540(&stack0xffffc27c);
+              TreeLowerBound(&stack0xffffc27c);
               piVar15 = unaff_EBX;
               unaff_ESI = uVar11;
             }
@@ -1421,7 +1421,7 @@ LAB_004c08c8:
             uStack_28 = 2;
             if (uStack_ad4 != 0) {
               ScrambleChecksumGuardBytes();
-              FUN_0040b540(&stack0xffffc27c);
+              TreeLowerBound(&stack0xffffc27c);
               piVar15 = unaff_EBX;
               unaff_ESI = uVar11;
             }
@@ -1471,12 +1471,12 @@ LAB_004c08c8:
             uStack_28 = 0x1a;
             if (iStack_17ac != 0) {
               ScrambleChecksumGuardBytes();
-              FUN_0040b540(&stack0xffffc27c);
+              TreeLowerBound(&stack0xffffc27c);
             }
             uStack_28 = 2;
             if (iStack_1364 != 0) {
               ScrambleChecksumGuardBytes();
-              FUN_0040b540(&stack0xffffc27c);
+              TreeLowerBound(&stack0xffffc27c);
             }
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar6 = PeekPacketChecksumState();
@@ -1518,7 +1518,7 @@ LAB_004c08c8:
           iVar6 = iVar6 + -1;
         } while (iVar6 != 0);
         local_3d60 = local_3d34;
-        FUN_0040b540();
+        TreeLowerBound();
       }
       local_3d54 = local_3d54 + 1;
     } while ((int)local_3d54 < 8);
@@ -1821,7 +1821,7 @@ LAB_004c13d9:
     uStack_1c = 0xffffffff;
     if (piStack_3374 != (int *)0x0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(&uStack_3d78);
+      TreeLowerBound(&uStack_3d78);
       piVar15 = local_3d68;
     }
     iVar14 = iVar6 + -7;
@@ -1842,7 +1842,7 @@ LAB_004c13d9:
     uStack_3d78 = (int *)iStack_3158;
     if (iStack_3158 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(&stack0xffffc280);
+      TreeLowerBound(&stack0xffffc280);
       piVar15 = piStack_3374;
     }
     (*pcVar16)(&DAT_005a9068);

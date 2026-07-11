@@ -65,27 +65,27 @@ void __fastcall FUN_00477930(int param_1)
   local_4 = 3;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_ac8);
+    TreeLowerBound(local_ac8);
   }
   local_4 = 2;
   if (local_aac != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_ac8);
+    TreeLowerBound(local_ac8);
   }
   local_4 = 1;
   if (local_888 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_ac8);
+    TreeLowerBound(local_ac8);
   }
   local_4 = 0;
   if (local_664 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_ac8);
+    TreeLowerBound(local_ac8);
   }
   local_4 = 0xffffffff;
   if (local_21c != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_ac8);
+    TreeLowerBound(local_ac8);
   }
   *unaff_FS_OFFSET = local_c;
   return;

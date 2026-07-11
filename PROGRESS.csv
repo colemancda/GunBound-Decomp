@@ -95,14 +95,14 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00405f00,29,FUN_00405f00,false,1,1,RAW-src
 00405f20,31,FUN_00405f20,false,1,2,RAW-src
 00405f40,97,FUN_00405f40,false,2,1,RAW-src
-00405fb0,106,FUN_00405fb0,false,133,0,RAW-src
+00405fb0,106,RemoveWidget,false,133,0,RAW-src
 00406020,245,CreateButtonWidget,false,115,4,RAW-src
 00406120,66,FUN_00406120,false,2,1,RAW-src
 00406170,106,FUN_00406170,false,1,3,RAW-src
 004061e0,160,FUN_004061e0,false,1,3,RAW-src
 00406280,48,FUN_00406280,false,1,0,RAW-src
 004062b0,76,FUN_004062b0,false,4,0,RAW-src
-00406300,119,FUN_00406300,false,100,0,RAW-src
+00406300,119,InvokeWidget,false,100,0,RAW-src
 00406380,116,SetWidgetReadyState,false,13,0,RAW-src
 00406400,62,FUN_00406400,false,5,0,RAW-src
 00406440,90,InitGuardedBool,false,103,1,RAW-src
@@ -172,7 +172,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040b490,56,CompareChecksumPair,false,136,3,RAW-src
 0040b4d0,56,FUN_0040b4d0,false,9,3,RAW-src
 0040b510,38,FUN_0040b510,false,0,1,RAW-src
-0040b540,183,FUN_0040b540,false,1179,2,RAW-src
+0040b540,183,TreeLowerBound,false,1179,2,RAW-src
 0040b600,692,FUN_0040b600,false,2,9,RAW-src
 0040b8c0,91,FUN_0040b8c0,false,2,0,RAW-src
 0040b940,101,FUN_0040b940,false,0,2,RAW-src
@@ -377,7 +377,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00428d00,1907,State03_GameRoomList_OnEnter,false,1,18,RAW-src
 00429480,674,State03_GameRoomList_OnExit,false,1,1,RAW-src
 00429730,194,FUN_00429730,false,1,3,RAW-src
-00429800,1,FUN_00429800,false,176,0,RAW-src
+00429800,1,NoOpMethod,false,176,0,RAW-src
 00429810,812,State03_GameRoomList_RenderRoomLabel,false,1,10,RAW-src
 00429b50,210,SendJoinRoomChecked,false,2,3,RAW-src
 00429c30,39,OpenCreateRoomDialog,false,1,1,RAW-src
@@ -625,7 +625,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0045f840,208,FUN_0045f840,false,16,4,RAW-src
 0045f910,8453,State11_InBattle_HandleFireInput,false,16,50,RAW-src
 00461a20,573,FUN_00461a20,false,1,8,RAW-src
-00461c60,63,FUN_00461c60,false,139,1,RAW-src
+00461c60,63,ResolveObjectHandle,false,139,1,RAW-src
 00461ca0,3153,SimulateMobileFrame,false,17,38,RAW-src
 00462900,3369,RenderMobile,false,17,26,RAW-src
 00463630,1613,FUN_00463630,false,1,17,RAW-src

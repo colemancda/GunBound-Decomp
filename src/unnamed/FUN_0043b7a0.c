@@ -118,7 +118,7 @@ LAB_0043ba8e:
             local_4 = 0xffffffff;
             if (local_664 != 0) {
               ScrambleChecksumGuardBytes();
-              FUN_0040b540(local_680);
+              TreeLowerBound(local_680);
             }
             EncodeChecksumDeltaSub(piVar1 + 0x120,local_230,param_2);
             local_4 = 3;
@@ -128,7 +128,7 @@ LAB_0043ba8e:
             local_4 = 0xffffffff;
             if (local_21c != 0) {
               ScrambleChecksumGuardBytes();
-              FUN_0040b540(local_680);
+              TreeLowerBound(local_680);
             }
             if (iVar6 * iVar6 + iVar5 * iVar5 < param_4 * param_4) {
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

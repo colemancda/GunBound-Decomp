@@ -39,16 +39,16 @@ int FUN_0045d692(void)
   cStack00000007 = in_stack_00000ad4 < iVar3;
   if (in_stack_00000024 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540();
+    TreeLowerBound();
   }
   if (in_stack_0000046c != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540();
+    TreeLowerBound();
   }
   uVar4 = 0;
   if (in_stack_00000248 != 0) {
     ScrambleChecksumGuardBytes();
-    uVar4 = FUN_0040b540();
+    uVar4 = TreeLowerBound();
   }
   uVar5 = (uint3)((uint)uVar4 >> 8);
   if (cStack00000007 == '\0') {

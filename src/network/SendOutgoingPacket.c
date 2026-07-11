@@ -47,12 +47,12 @@ undefined4 SendOutgoingPacket(void)
   *(undefined2 *)(unaff_ESI + 0x4d2) = uVar2;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_45c);
+    TreeLowerBound(local_45c);
   }
   local_4 = 0xffffffff;
   if (local_21c != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_45c);
+    TreeLowerBound(local_45c);
   }
   SendSocketData(*(undefined4 *)(unaff_ESI + 0x84e0),*(undefined4 *)(unaff_ESI + 0x44d0));
   *(undefined4 *)(unaff_ESI + 0x84ec) = 0;

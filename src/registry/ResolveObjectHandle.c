@@ -1,4 +1,4 @@
-/* FUN_00461c60 - 0x00461c60 in the original binary.
+/* ResolveObjectHandle - 0x00461c60 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00461c60(int param_1)
+void __fastcall ResolveObjectHandle(int param_1)
 
 {
   int iVar1;

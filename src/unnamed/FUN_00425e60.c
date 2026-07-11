@@ -51,7 +51,7 @@ FUN_00425e60(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param
         local_4 = 0xffffffff;
         if (local_440 != 0) {
           ScrambleChecksumGuardBytes();
-          FUN_0040b540(local_45c);
+          TreeLowerBound(local_45c);
         }
         EncodeChecksumDeltaSub(uVar1 + 0x264,local_230,param_4);
         local_4 = 1;
@@ -61,7 +61,7 @@ FUN_00425e60(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param
         local_4 = 0xffffffff;
         if (local_21c != 0) {
           ScrambleChecksumGuardBytes();
-          FUN_0040b540(local_45c);
+          TreeLowerBound(local_45c);
         }
         return (param_5 * param_5 <= iVar3 * iVar3 + iVar4 * iVar4) - 1 & uVar1;
       }

@@ -498,7 +498,7 @@ extern unsigned int DAT_0056d118;
 extern unsigned int DAT_00e9be94;   /* flat-ButtonWidget registry header */
 extern const char s_active_00551e58[];
 extern const char s_ready_00551e80[];
-void FUN_00406300(int enabled);     /* connect-button enable */
+void InvokeWidget(int enabled);     /* connect-button enable */
 }
 extern "C" CGameState *g_gameStateVTableArray[16]; /* 0x5b33f8 - the C tree
                                      * defines it (globals.c, as char*[16]);
@@ -557,7 +557,7 @@ bool CWorldListPanel::OnMouseDown(int x, int y)
                 k = (unsigned int)rec[2];
             }
         }
-        FUN_00406300(st->m_highlightedSlot != -1);
+        InvokeWidget(st->m_highlightedSlot != -1);
     }
     return consumed;
 }
@@ -624,7 +624,7 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
         st->m_highlightedSlot = -1;
         DAT_0056d118 = 0;
         SetRegistryButtonState(s_disable_00551e68);
-        FUN_00406300(0);
+        InvokeWidget(0);
         int t = FindChildIndex(1, 0);
         if (t != m_children.GetCount()) {
             ((CLabel *)m_children[(unsigned int)t])->m_tabSelected = 1;
@@ -677,7 +677,7 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
             SetRegistryButtonState(s_disable_00551e68);
             enable = false;
         }
-        FUN_00406300(enable);
+        InvokeWidget(enable);
         int t = FindChildIndex(1, 0);
         if (t != m_children.GetCount()) {
             ((CLabel *)m_children[(unsigned int)t])->m_tabSelected = 0;

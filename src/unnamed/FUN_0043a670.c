@@ -270,7 +270,7 @@ LAB_0043ae95:
         iVar8 = iVar8 + 1;
         iVar14 = iVar14 + -1;
       } while (iVar14 != 0);
-      FUN_0040b540(local_238);
+      TreeLowerBound(local_238);
       pcVar13 = (code *)EnterCriticalSection;
     }
   }

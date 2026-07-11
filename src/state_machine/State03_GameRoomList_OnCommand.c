@@ -242,7 +242,7 @@ LAB_004287a5:
   default:
     return;
   }
-  FUN_00406300(uVar5);
+  InvokeWidget(uVar5);
   return;
 }
 

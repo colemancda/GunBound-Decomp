@@ -306,7 +306,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   local_c = 0xffffffff;
   if (iStack_448 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540();
+    TreeLowerBound();
     pcVar5 = (code *)LeaveCriticalSection;
     param_3 = (undefined1 *)unaff_retaddr;
   }
@@ -323,7 +323,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   uStack_14 = 0xffffffff;
   if (iStack_450 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540();
+    TreeLowerBound();
     pcVar5 = (code *)LeaveCriticalSection;
     param_3 = puStack_8;
     unaff_EDI = iStack_450;
@@ -340,7 +340,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   uStack_1c = 0xffffffff;
   if (puStack_458 != (undefined *)0x0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(&stack0xfffffb80);
+    TreeLowerBound(&stack0xfffffb80);
     pcVar5 = (code *)LeaveCriticalSection;
     param_3 = (undefined1 *)iStack_10;
     puVar7 = puStack_458;
@@ -358,7 +358,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   uStack_24 = 0xffffffff;
   if (local_460 != (undefined *)0x0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(&stack0xfffffb78);
+    TreeLowerBound(&stack0xfffffb78);
     pcVar5 = (code *)LeaveCriticalSection;
     param_3 = (undefined1 *)iStack_18;
     puVar6 = puVar7;
@@ -379,7 +379,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   uStack_2c = 0xffffffff;
   if (local_468[0] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(&stack0xfffffb70);
+    TreeLowerBound(&stack0xfffffb70);
     pcVar5 = (code *)LeaveCriticalSection;
   }
   iVar3 = iStack_18;
@@ -398,7 +398,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   uStack_34 = 0xffffffff;
   if (iStack_24c != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(&stack0xfffffb74);
+    TreeLowerBound(&stack0xfffffb74);
   }
   *unaff_FS_OFFSET = uStack_3c;
   return;

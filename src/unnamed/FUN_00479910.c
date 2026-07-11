@@ -52,7 +52,7 @@ void __fastcall FUN_00479910(int *param_1)
     uStack_4 = 0xffffffff;
     if (iStack_440 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(auStack_45c);
+      TreeLowerBound(auStack_45c);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
@@ -98,7 +98,7 @@ void __fastcall FUN_00479910(int *param_1)
     uStack_4 = 0xffffffff;
     if (iStack_21c != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(auStack_45c);
+      TreeLowerBound(auStack_45c);
     }
   }
   return;

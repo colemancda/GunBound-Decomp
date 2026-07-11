@@ -90,7 +90,7 @@ void __fastcall FUN_004a8360(int *param_1)
     if (pbStack_674 != (byte *)0x0) {
       ScrambleChecksumGuardBytes();
       apbStack_b04[0] = pbVar9;
-      FUN_0040b540(&local_b10);
+      TreeLowerBound(&local_b10);
       param_1 = piStack_af4;
     }
     EncodeChecksumDeltaShr(param_1 + 0x99,auStack_688,8);
@@ -104,7 +104,7 @@ void __fastcall FUN_004a8360(int *param_1)
     if (pbStack_674 != (byte *)0x0) {
       ScrambleChecksumGuardBytes();
       apbStack_b04[0] = pbStack_674;
-      FUN_0040b540(&local_b10);
+      TreeLowerBound(&local_b10);
       param_1 = piStack_af4;
     }
     cVar4 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
@@ -282,7 +282,7 @@ LAB_004aa2ed:
   local_b10 = pbStack_ac8;
   if (pbStack_ac8 != (byte *)0x0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(apbStack_b04);
+    TreeLowerBound(apbStack_b04);
     param_1 = piStack_af4;
   }
   iVar7 = 0;
@@ -334,21 +334,21 @@ LAB_004aa2ed:
         local_b10 = pbStack_ac8;
         if (pbStack_ac8 != (byte *)0x0) {
           ScrambleChecksumGuardBytes();
-          FUN_0040b540(apbStack_b04);
+          TreeLowerBound(apbStack_b04);
           param_1 = piStack_af4;
         }
         puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),1);
         local_b10 = pbStack_8a0;
         if (pbStack_8a0 != (byte *)0x0) {
           ScrambleChecksumGuardBytes();
-          FUN_0040b540(apbStack_b04);
+          TreeLowerBound(apbStack_b04);
           param_1 = piStack_af4;
         }
         puStack_10 = (undefined1 *)0xffffffff;
         local_b10 = pbStack_674;
         if (pbStack_674 != (byte *)0x0) {
           ScrambleChecksumGuardBytes();
-          FUN_0040b540(apbStack_b04);
+          TreeLowerBound(apbStack_b04);
           param_1 = piStack_af4;
         }
         cVar4 = PeekPacketChecksumBool();
@@ -447,7 +447,7 @@ LAB_004aa2ed:
   if (pbStack_674 != (byte *)0x0) {
     ScrambleChecksumGuardBytes();
     local_b10 = pbVar9;
-    FUN_0040b540(apbStack_b04);
+    TreeLowerBound(apbStack_b04);
     param_1 = piStack_af4;
   }
   pbVar9 = pbStack_ac8;
@@ -455,7 +455,7 @@ LAB_004aa2ed:
   if (pbStack_ac8 != (byte *)0x0) {
     ScrambleChecksumGuardBytes();
     local_b10 = pbVar9;
-    FUN_0040b540(apbStack_b04);
+    TreeLowerBound(apbStack_b04);
     param_1 = piStack_af4;
   }
   pbVar11 = pbStack_8a0;
@@ -464,7 +464,7 @@ LAB_004aa2ed:
   if (pbStack_8a0 != (byte *)0x0) {
     ScrambleChecksumGuardBytes();
     local_b10 = pbVar11;
-    FUN_0040b540(apbStack_b04);
+    TreeLowerBound(apbStack_b04);
     param_1 = piStack_af4;
     pbVar9 = local_b10;
   }
@@ -486,7 +486,7 @@ LAB_004a86e6:
       iVar6 = iVar6 + 1;
       pbStack_b08 = (byte *)((int)pbStack_b08 + -1);
     } while (pbStack_b08 != (byte *)0x0);
-    FUN_0040b540(apbStack_b04);
+    TreeLowerBound(apbStack_b04);
     param_1 = piStack_af4;
   }
   local_b10 = *(byte **)(&DAT_006a7724 + g_clientContext);
@@ -542,7 +542,7 @@ LAB_004a87b1:
         iVar7 = iVar7 + 1;
         pbStack_b08 = pbStack_b08 + -1;
       } while (pbStack_b08 != (byte *)0x0);
-      FUN_0040b540(apbStack_b04);
+      TreeLowerBound(apbStack_b04);
       param_1 = piStack_af4;
     }
     puStack_10 = (undefined1 *)0xffffffff;
@@ -556,7 +556,7 @@ LAB_004a87b1:
         iVar7 = iVar7 + 1;
         pbStack_b08 = pbStack_b08 + -1;
       } while (pbStack_b08 != (byte *)0x0);
-      FUN_0040b540(apbStack_b04);
+      TreeLowerBound(apbStack_b04);
       param_1 = piStack_af4;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -668,7 +668,7 @@ LAB_004a87ec:
       pbStack_b08 = pbStack_b08 + -1;
     } while (pbStack_b08 != (byte *)0x0);
     local_b10 = pbStack_674;
-    FUN_0040b540(apbStack_b04);
+    TreeLowerBound(apbStack_b04);
     param_1 = piStack_af4;
   }
   puStack_10 = (undefined1 *)0xffffffff;
@@ -682,7 +682,7 @@ LAB_004a87ec:
       iVar6 = iVar6 + 1;
       iVar7 = iVar7 + -1;
     } while (iVar7 != 0);
-    FUN_0040b540(apbStack_b04);
+    TreeLowerBound(apbStack_b04);
     param_1 = piStack_af4;
   }
 LAB_004a89b5:
@@ -991,7 +991,7 @@ LAB_004a9552:
         apiStack_ae4[0] = (int *)((int)apiStack_ae4[0] + -1);
       } while (apiStack_ae4[0] != (int *)0x0);
       apbStack_b04[0] = pbVar9;
-      FUN_0040b540(apiStack_ae4);
+      TreeLowerBound(apiStack_ae4);
       param_1 = piStack_af4;
     }
     puStack_10 = (undefined1 *)0xffffffff;
@@ -1052,7 +1052,7 @@ LAB_004a9552:
           apiStack_ae4[0] = (int *)((int)apiStack_ae4[0] + -1);
         } while (apiStack_ae4[0] != (int *)0x0);
         apbStack_b04[0] = pbVar9;
-        FUN_0040b540(apiStack_ae4);
+        TreeLowerBound(apiStack_ae4);
         param_1 = piStack_af4;
       }
       puStack_10 = (undefined1 *)0xffffffff;
@@ -1068,7 +1068,7 @@ LAB_004a9552:
         } while (iVar10 != 0);
 LAB_004a9a04:
         apbStack_b04[0] = pbVar9;
-        FUN_0040b540(apiStack_ae4);
+        TreeLowerBound(apiStack_ae4);
         param_1 = piStack_af4;
       }
     }

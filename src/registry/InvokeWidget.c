@@ -1,4 +1,4 @@
-/* FUN_00406300 - 0x00406300 in the original binary.
+/* InvokeWidget - 0x00406300 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall FUN_00406300(undefined4 param_1,uint param_2,int param_3)
+undefined4 __fastcall InvokeWidget(undefined4 param_1,uint param_2,int param_3)
 
 {
   int iVar1;

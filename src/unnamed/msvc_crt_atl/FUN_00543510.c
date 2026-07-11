@@ -14,7 +14,7 @@ void FUN_00543510(void)
   
   if (DAT_007949dc != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_8);
+    TreeLowerBound(local_8);
   }
   return;
 }

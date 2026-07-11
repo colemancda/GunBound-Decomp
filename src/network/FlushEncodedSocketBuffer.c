@@ -78,12 +78,12 @@ void FlushEncodedSocketBuffer(int param_1)
   *(undefined2 *)(param_1 + 0x44d6) = uVar1;
   if (local_521c != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_545c);
+    TreeLowerBound(local_545c);
   }
   local_4 = 0xffffffff;
   if (local_5440 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_545c);
+    TreeLowerBound(local_545c);
   }
   SendSocketData(*(undefined4 *)(param_1 + 0x84e0),local_5464);
   *(undefined4 *)(param_1 + 0x84ec) = 0;

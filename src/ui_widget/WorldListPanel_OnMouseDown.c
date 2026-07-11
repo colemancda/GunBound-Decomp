@@ -5,7 +5,7 @@
  * row via WorldListRowHitTest and writes the result into the ServerSelect
  * state as the highlighted slot: g_gameStateVTableArray[2]+8 = <row> (or -1
  * for a miss), sets the "valid selection" flag (+0x24 = row!=-1), refreshes the
- * connect-button label/enabled state (FUN_00406300(+8 != -1)). This is the
+ * connect-button label/enabled state (InvokeWidget(+8 != -1)). This is the
  * row-click -> selection wiring; connecting then happens when the SERVER button
  * is pressed (FUN_004e1170 -> FUN_004e1bf0 on the selected slot).
  *
@@ -74,7 +74,7 @@ undefined1 __thiscall WorldListPanel_OnMouseDown(int param_1,int param_2,int par
         uVar2 = piVar1[2];
       }
     }
-    FUN_00406300(*(int *)(puVar3 + 8) != -1);
+    InvokeWidget(*(int *)(puVar3 + 8) != -1);
   }
   return uVar4;
 }

@@ -334,7 +334,7 @@ LAB_004a0a52:
   uStack_c = 0xffffffff;
   if (uStack_ab4 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(&piStack_af0);
+    TreeLowerBound(&piStack_af0);
     param_1 = piStack_ad4;
     pcVar14 = (code *)LeaveCriticalSection;
     unaff_EBX = uStack_ab4;
@@ -349,7 +349,7 @@ LAB_004a0a52:
   uStack_10 = 0xffffffff;
   if (iStack_ab8 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(&local_af4);
+    TreeLowerBound(&local_af4);
     param_1 = piStack_ad8;
     pcVar14 = (code *)LeaveCriticalSection;
   }

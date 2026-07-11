@@ -51,12 +51,12 @@ int FUN_0045f300(int param_1)
     local_4 = 3;
     if (local_888 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_ac8);
+      TreeLowerBound(local_ac8);
     }
     local_4 = 2;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_ac8);
+      TreeLowerBound(local_ac8);
     }
     local_4 = 0xffffffff;
     if (local_21c == 0) goto LAB_0045f51b;
@@ -73,13 +73,13 @@ int FUN_0045f300(int param_1)
     local_4 = 0;
     if (local_aac != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_ac8);
+      TreeLowerBound(local_ac8);
     }
     local_4 = 0xffffffff;
     if (local_440 == 0) goto LAB_0045f51b;
     ScrambleChecksumGuardBytes();
   }
-  FUN_0040b540(local_ac8);
+  TreeLowerBound(local_ac8);
 LAB_0045f51b:
   if (5 < local_acc) {
     local_acc = 6;

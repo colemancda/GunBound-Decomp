@@ -72,9 +72,9 @@ void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefine
     *(byte *)(param_1 + 0x32c55) = bVar14;
     *(byte *)(param_1 + 0x32c56) = *(byte *)(param_1 + 0x32c54) + bVar14 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_00405fb0();
+    RemoveWidget();
 LAB_00445543:
-    FUN_00405fb0();
+    RemoveWidget();
     FUN_0040cdf0();
     FUN_0040cdf0();
     FUN_0044b720(param_1);
@@ -708,26 +708,26 @@ LAB_00446d2b:
       }
     }
     QueueOutgoingPacketField(0);
-    FUN_00405fb0();
-    FUN_00405fb0();
-    FUN_00405fb0();
-    FUN_00405fb0();
+    RemoveWidget();
+    RemoveWidget();
+    RemoveWidget();
+    RemoveWidget();
     FUN_0044b720(param_1);
     FUN_00449250(param_1,1,0);
     break;
   case 0x33:
     QueueOutgoingPacketField(0);
-    FUN_00405fb0();
-    FUN_00405fb0();
-    FUN_00405fb0();
-    FUN_00405fb0();
+    RemoveWidget();
+    RemoveWidget();
+    RemoveWidget();
+    RemoveWidget();
     FUN_0044b720(param_1);
     break;
   case 0x34:
     SetGuardedBool(0);
-    FUN_00405fb0();
-    FUN_00405fb0();
-    FUN_00405fb0();
+    RemoveWidget();
+    RemoveWidget();
+    RemoveWidget();
     goto LAB_00445543;
   case 0x35:
     pcVar8 = (char *)FUN_0040cfe0();
@@ -877,8 +877,8 @@ LAB_00446f6d:
         EncodePacketBody();
         SendOutgoingPacket();
         *(undefined1 *)(param_1 + 0x32f90) = 0;
-        FUN_00406300(0);
-        FUN_00406300(0);
+        InvokeWidget(0);
+        InvokeWidget(0);
         FUN_0040cf30(0);
         FUN_0040cf30(0);
         break;
@@ -917,26 +917,26 @@ LAB_00446f6d:
     SendOutgoingPacket();
     *(undefined1 *)(param_1 + 0x32f90) = 0;
     QueueOutgoingPacketField(0);
-    FUN_00405fb0();
-    FUN_00405fb0();
-    FUN_00405fb0();
-    FUN_00405fb0();
+    RemoveWidget();
+    RemoveWidget();
+    RemoveWidget();
+    RemoveWidget();
     FUN_0044b720(param_1);
     FUN_00449250(param_1,0,0);
     break;
   case 0x3b:
     *(undefined1 *)(param_1 + 0x32f90) = 1;
     QueueOutgoingPacketField(0);
-    FUN_00405fb0();
+    RemoveWidget();
     FUN_0044b720(param_1);
     FUN_00449250(param_1,1,0);
     break;
   case 0x3c:
     QueueOutgoingPacketField(0);
-    FUN_00405fb0();
-    FUN_00405fb0();
-    FUN_00405fb0();
-    FUN_00405fb0();
+    RemoveWidget();
+    RemoveWidget();
+    RemoveWidget();
+    RemoveWidget();
     FUN_0044b720(param_1);
     FUN_00449250(param_1,1,0);
   case 0x3d:

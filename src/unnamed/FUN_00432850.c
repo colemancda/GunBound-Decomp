@@ -91,17 +91,17 @@ void FUN_00432850(int param_1,int param_2)
   local_4 = 1;
   if (local_19a8 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540();
+    TreeLowerBound();
   }
   local_4 = 0;
   if (local_1bcc != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540();
+    TreeLowerBound();
   }
   local_4 = 0xffffffff;
   if (local_1df0 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540();
+    TreeLowerBound();
   }
   FloatToInt64();
   FloatToInt64();
@@ -113,7 +113,7 @@ void FUN_00432850(int param_1,int param_2)
   local_4 = 0xffffffff;
   if (local_1df0 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540();
+    TreeLowerBound();
   }
   local_1e0c = 0;
   if (0 < param_2) {
@@ -199,7 +199,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           local_1e24 = local_1e24 + -1;
         } while (local_1e24 != 0);
-        FUN_0040b540();
+        TreeLowerBound();
         pcVar11 = (code *)LeaveCriticalSection;
       }
       EncodeChecksumDeltaMul();
@@ -218,7 +218,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        FUN_0040b540();
+        TreeLowerBound();
         pcVar11 = (code *)LeaveCriticalSection;
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -285,7 +285,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        FUN_0040b540(&stack0xffffe1c4);
+        TreeLowerBound(&stack0xffffe1c4);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_24 = 0xffffffff;
@@ -298,7 +298,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        FUN_0040b540(&stack0xffffe1c4);
+        TreeLowerBound(&stack0xffffe1c4);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = FUN_0040ada0(piVar3 + 0x81e,auStack_114c,piVar3 + 0xcf2);
@@ -319,7 +319,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        FUN_0040b540(&stack0xffffe1c0);
+        TreeLowerBound(&stack0xffffe1c0);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_28 = 0xffffffff;
@@ -332,7 +332,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        FUN_0040b540(&stack0xffffe1c0);
+        TreeLowerBound(&stack0xffffe1c0);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = FUN_0040ada0(piVar3 + 0x8a7,auStack_d08,piVar3 + 0xcf2);
@@ -353,7 +353,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        FUN_0040b540(&stack0xffffe1bc);
+        TreeLowerBound(&stack0xffffe1bc);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_2c = 0xffffffff;
@@ -366,7 +366,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        FUN_0040b540(&stack0xffffe1bc);
+        TreeLowerBound(&stack0xffffe1bc);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = FUN_0040ada0(piVar3 + 0x930,auStack_1378,piVar3 + 0xd7b);
@@ -387,7 +387,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        FUN_0040b540(&stack0xffffe1b8);
+        TreeLowerBound(&stack0xffffe1b8);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_30 = 0xffffffff;
@@ -400,7 +400,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        FUN_0040b540(&stack0xffffe1b8);
+        TreeLowerBound(&stack0xffffe1b8);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = FUN_0040ada0(piVar3 + 0x9b9,auStack_aec,piVar3 + 0xd7b);
@@ -421,7 +421,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        FUN_0040b540(&stack0xffffe1b4);
+        TreeLowerBound(&stack0xffffe1b4);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_34 = 0xffffffff;
@@ -434,7 +434,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        FUN_0040b540(&stack0xffffe1b4);
+        TreeLowerBound(&stack0xffffe1b4);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = FUN_0040ada0(piVar3 + 0xa42,auStack_260,piVar3 + 0xd7b);
@@ -455,7 +455,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           local_1e24 = local_1e24 + -1;
         } while (local_1e24 != 0);
-        FUN_0040b540();
+        TreeLowerBound();
       }
       local_4 = 0xffffffff;
       if (iStack_21c != 0) {
@@ -467,7 +467,7 @@ void FUN_00432850(int param_1,int param_2)
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        FUN_0040b540();
+        TreeLowerBound();
       }
       RegisterActiveObject();
       local_1e10 = local_1e10 + 6;

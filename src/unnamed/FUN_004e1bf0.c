@@ -51,7 +51,7 @@ void FUN_004e1bf0(int param_1)
         uVar2 = piVar1[2];
       }
     }
-    FUN_00406300(0);
+    InvokeWidget(0);
     iVar4 = DAT_007934ec;
     iVar3 = g_clientContext;
     *(undefined1 *)(param_1 + 0x24) = 0;

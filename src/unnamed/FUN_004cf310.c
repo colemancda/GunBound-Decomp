@@ -136,14 +136,14 @@ void __fastcall FUN_004cf310(int param_1)
     local_c = local_c & 0xffffff00;
     if (iStack_448 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(&local_464);
+      TreeLowerBound(&local_464);
       pcVar9 = (code *)LeaveCriticalSection;
       unaff_EBX = iStack_448;
     }
     local_c = 0xffffffff;
     if (iStack_224 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(&local_464);
+      TreeLowerBound(&local_464);
       pcVar9 = (code *)LeaveCriticalSection;
       unaff_EBX = iStack_224;
     }
@@ -162,8 +162,8 @@ void __fastcall FUN_004cf310(int param_1)
          ) {
         if (*(char *)(g_clientContext + 0x45126) != '\0') {
           FUN_004e1f70();
-          FUN_00405fb0();
-          FUN_00405fb0();
+          RemoveWidget();
+          RemoveWidget();
           pcVar9 = (code *)LeaveCriticalSection;
           *(undefined4 *)(&DAT_006a73c8 + g_clientContext) = 1;
           param_1 = unaff_EBX;

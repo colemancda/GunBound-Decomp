@@ -50,12 +50,12 @@ void __fastcall FUN_0046e020(int param_1)
   local_4 = 0;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_688);
+    TreeLowerBound(local_688);
   }
   local_4 = 0xffffffff;
   if (local_664 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_688);
+    TreeLowerBound(local_688);
   }
   iVar6 = param_1 + 0x260;
   EncodeChecksumDeltaDiv(iVar6,local_454,2);
@@ -81,13 +81,13 @@ LAB_0046e1bb:
     local_688[0] = local_688[0] & 0xfffffffd;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_680);
+      TreeLowerBound(local_680);
     }
   }
   local_4 = 0xffffffff;
   if (((local_688[0] & 1) != 0) && (local_440 != 0)) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_680);
+    TreeLowerBound(local_680);
   }
   if (!bVar1) {
     iVar4 = FindTextureCacheEntryByName(s_LightningTexture_00555b9c);
@@ -111,7 +111,7 @@ LAB_0046e1bb:
       _DAT_00ea0e94 = DAT_00ea0e28;
       if (local_664 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_680);
+        TreeLowerBound(local_680);
       }
       EncodeChecksumDeltaDiv(iVar6,local_230,2);
       local_4 = 5;
@@ -123,7 +123,7 @@ LAB_0046e1bb:
       DAT_00ea0e70 = _DAT_00ea0e4c;
       if (local_21c != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_680);
+        TreeLowerBound(local_680);
       }
       _DAT_00ea0ea4 = 0xffffffff;
       _DAT_00ea0e80 = 0xffffffff;

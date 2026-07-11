@@ -82,7 +82,7 @@ void __fastcall FUN_0045ed80(int *param_1)
     uStack_4 = 0xffffffff;
     if (iStack_21c != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(auStack_924);
+      TreeLowerBound(auStack_924);
     }
     if (iVar6 < iVar7) {
       (**(code **)(*param_1 + 4))(s_wnormal_00553618);

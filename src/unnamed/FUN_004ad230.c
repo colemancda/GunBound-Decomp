@@ -41,7 +41,7 @@ void __fastcall FUN_004ad230(int param_1)
   *(undefined4 *)(param_1 + 0x3f9c) = uVar2;
   if (local_21c != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_238);
+    TreeLowerBound(local_238);
     pcVar7 = (code *)EnterCriticalSection;
   }
   (*pcVar7)(&DAT_005a9068);

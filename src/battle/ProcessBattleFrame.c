@@ -45,7 +45,7 @@ void ProcessBattleFrame(int param_1)
   local_4 = 0xffffffff;
   if (local_21c != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_338);
+    TreeLowerBound(local_338);
   }
   switch(*(undefined4 *)(param_1 + 0x740)) {
   case 2:

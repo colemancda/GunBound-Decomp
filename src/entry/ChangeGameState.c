@@ -41,7 +41,7 @@ void ChangeGameState(int newStateId)
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     g_cursorTexture = FindPreloadedTextureByName(s_cursor_005524e8);
-    FUN_00461c60(s_normal_00552230);
+    ResolveObjectHandle(s_normal_00552230);
     FUN_005099b0();
     (**(code **)(*(int *)g_gameStateVTableArray[newStateId] + 0x1c))();
     g_currentGameState = newStateId;

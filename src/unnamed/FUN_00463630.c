@@ -63,17 +63,17 @@ void FUN_00463630(int param_1)
       local_4 = 1;
       if (local_cd0 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_113c);
+        TreeLowerBound(local_113c);
       }
       local_4 = 0;
       if (local_ef4 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_113c);
+        TreeLowerBound(local_113c);
       }
       local_4 = 0xffffffff;
       if (local_1118 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_113c);
+        TreeLowerBound(local_113c);
       }
       uVar3 = EncodeChecksumDeltaSub(param_1 + 0xb30,local_ce4,*(undefined4 *)(&DAT_006a7714 + g_clientContext));
       local_4 = 3;
@@ -87,17 +87,17 @@ void FUN_00463630(int param_1)
       local_4 = 4;
       if (local_1118 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_113c);
+        TreeLowerBound(local_113c);
       }
       local_4 = 3;
       if (local_ef4 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_113c);
+        TreeLowerBound(local_113c);
       }
       local_4 = 0xffffffff;
       if (local_cd0 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_113c);
+        TreeLowerBound(local_113c);
       }
       if (500 < iVar2) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -442,7 +442,7 @@ LAB_004d896a:
       iVar13 = iVar13 + 1;
       iVar5 = iVar5 + -1;
     } while (iVar5 != 0);
-    FUN_0040b540(&local_a38);
+    TreeLowerBound(&local_a38);
   }
   local_c = 0xffffffff;
   if (local_228 != 0) {
@@ -454,7 +454,7 @@ LAB_004d896a:
       iVar13 = iVar13 + 1;
       iVar5 = iVar5 + -1;
     } while (iVar5 != 0);
-    FUN_0040b540(&local_a38);
+    TreeLowerBound(&local_a38);
   }
   goto LAB_004d8a20;
   while( true ) {
@@ -483,7 +483,7 @@ LAB_004d87cf:
       iVar13 = iVar13 + 1;
       iVar5 = iVar5 + -1;
     } while (iVar5 != 0);
-    FUN_0040b540(&local_a38);
+    TreeLowerBound(&local_a38);
   }
   local_c = 0xffffffff;
   if (local_44c != 0) {
@@ -495,7 +495,7 @@ LAB_004d87cf:
       iVar13 = iVar13 + 1;
       iVar5 = iVar5 + -1;
     } while (iVar5 != 0);
-    FUN_0040b540(&local_a38);
+    TreeLowerBound(&local_a38);
   }
   local_a4c = local_a4c + 0x24;
   iVar3 = iVar3 + 0x224;

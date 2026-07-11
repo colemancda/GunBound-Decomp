@@ -97,13 +97,13 @@ void __fastcall FUN_0044d9b0(int *param_1)
       puStack_8 = (undefined1 *)0;
       if (iStack_88c != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(&local_ad8);
+        TreeLowerBound(&local_ad8);
         pcVar16 = (code *)LeaveCriticalSection;
       }
       puStack_8 = (undefined1 *)0xffffffff;
       if (iStack_ab0 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(&local_ad8);
+        TreeLowerBound(&local_ad8);
         pcVar16 = (code *)LeaveCriticalSection;
       }
       uVar7 = FUN_0040ada0(param_1 + 0x81e,auStack_8a0,param_1 + 0xcf2);
@@ -117,13 +117,13 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uStack_c = 2;
       if (iStack_ab4 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(&uStack_adc);
+        TreeLowerBound(&uStack_adc);
         pcVar16 = (code *)LeaveCriticalSection;
       }
       uStack_c = 0xffffffff;
       if (iStack_890 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(&uStack_adc);
+        TreeLowerBound(&uStack_adc);
         pcVar16 = (code *)LeaveCriticalSection;
       }
       uVar7 = FUN_0040ada0(param_1 + 0x8a7,auStack_8a4,param_1 + 0xcf2);
@@ -137,13 +137,13 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uStack_10 = 4;
       if (iStack_ab8 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(&iStack_ae0);
+        TreeLowerBound(&iStack_ae0);
         pcVar16 = (code *)LeaveCriticalSection;
       }
       uStack_10 = 0xffffffff;
       if (iStack_894 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(&iStack_ae0);
+        TreeLowerBound(&iStack_ae0);
         pcVar16 = (code *)LeaveCriticalSection;
       }
       uVar7 = FUN_0040ada0(param_1 + 0x930,auStack_8a8,param_1 + 0xd7b);
@@ -157,13 +157,13 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uStack_14 = 6;
       if (iStack_abc != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(&stack0xfffff51c);
+        TreeLowerBound(&stack0xfffff51c);
         pcVar16 = (code *)LeaveCriticalSection;
       }
       uStack_14 = 0xffffffff;
       if (iStack_898 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(&stack0xfffff51c);
+        TreeLowerBound(&stack0xfffff51c);
         pcVar16 = (code *)LeaveCriticalSection;
       }
       uVar7 = FUN_0040ada0(param_1 + 0x9b9,auStack_8ac,param_1 + 0xd7b);
@@ -177,13 +177,13 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uStack_18 = 8;
       if (iStack_ac0 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(&stack0xfffff518);
+        TreeLowerBound(&stack0xfffff518);
         pcVar16 = (code *)LeaveCriticalSection;
       }
       uStack_18 = 0xffffffff;
       if (iStack_89c != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(&stack0xfffff518);
+        TreeLowerBound(&stack0xfffff518);
         pcVar16 = (code *)LeaveCriticalSection;
       }
       uVar7 = FUN_0040ada0(param_1 + 0xa42,auStack_8b0,param_1 + 0xd7b);
@@ -198,14 +198,14 @@ void __fastcall FUN_0044d9b0(int *param_1)
       if (iStack_aac != 0) {
         ScrambleChecksumGuardBytes();
         iStack_ae0 = iStack_aac;
-        FUN_0040b540(auStack_ad4);
+        TreeLowerBound(auStack_ad4);
         pcVar16 = (code *)LeaveCriticalSection;
       }
       uStack_4 = 0xffffffff;
       if (iStack_888 != 0) {
         ScrambleChecksumGuardBytes();
         iStack_ae0 = iStack_888;
-        FUN_0040b540(auStack_ad4);
+        TreeLowerBound(auStack_ad4);
         pcVar16 = (code *)LeaveCriticalSection;
       }
       goto LAB_0044df28;
@@ -237,7 +237,7 @@ LAB_0044df28:
     uStack_14 = 0xffffffff;
     if (iStack_abc != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(&uStack_adc);
+      TreeLowerBound(&uStack_adc);
       pcVar16 = (code *)LeaveCriticalSection;
     }
     EncodeChecksumDeltaShr(param_1 + 0x99,&uStack_ad0,8);
@@ -249,7 +249,7 @@ LAB_0044df28:
     uStack_18 = 0xffffffff;
     if (iStack_ac0 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(&iStack_ae0);
+      TreeLowerBound(&iStack_ae0);
       pcVar16 = (code *)LeaveCriticalSection;
     }
     cVar5 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);

@@ -47,12 +47,12 @@ void FUN_004d22d0(int param_1)
   }
   if (*(int *)(param_1 + 700) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(auStack_14);
+    TreeLowerBound(auStack_14);
   }
   local_4 = 0xffffffff;
   if (*(int *)(param_1 + 0x98) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(auStack_14);
+    TreeLowerBound(auStack_14);
   }
   *unaff_FS_OFFSET = uStack_c;
   return;

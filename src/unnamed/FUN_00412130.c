@@ -68,7 +68,7 @@ LAB_004122c7:
   if ((uVar2 == 1000000) && (iVar3 == 1000000)) {
 LAB_0041225f:
     g_stateChangeInProgress = 0;
-    FUN_00405fb0();
+    RemoveWidget();
     _DAT_00e53c24 = 0;
     _DAT_00e53c28 = 799;
     _DAT_00e53c2c = 0;

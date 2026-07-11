@@ -151,13 +151,13 @@ void FUN_004cb280(int param_1)
         uStack_20 = 1;
         if (iStack_45c != 0) {
           ScrambleChecksumGuardBytes();
-          FUN_0040b540(&stack0xfffff8e4);
+          TreeLowerBound(&stack0xfffff8e4);
           iVar3 = unaff_EBP;
         }
         uStack_20 = 0;
         if (iStack_238 != 0) {
           ScrambleChecksumGuardBytes();
-          FUN_0040b540(&stack0xfffff8e4);
+          TreeLowerBound(&stack0xfffff8e4);
           iVar3 = unaff_EBP;
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -229,7 +229,7 @@ void FUN_004cb280(int param_1)
         pcVar14 = (code *)LeaveCriticalSection;
         if (local_664 != 0) {
           ScrambleChecksumGuardBytes();
-          FUN_0040b540(local_700);
+          TreeLowerBound(local_700);
           pcVar14 = (code *)LeaveCriticalSection;
         }
       }

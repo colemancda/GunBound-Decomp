@@ -46,12 +46,12 @@ int __fastcall FUN_0046cbb0(int param_1)
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_688);
+    TreeLowerBound(local_688);
   }
   local_4 = 0xffffffff;
   if (local_664 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_688);
+    TreeLowerBound(local_688);
   }
   uVar1 = EncodeChecksumDeltaDiv(param_1 + 0xf78,local_454,2);
   local_4 = 2;
@@ -63,12 +63,12 @@ int __fastcall FUN_0046cbb0(int param_1)
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
   if (local_664 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_688);
+    TreeLowerBound(local_688);
   }
   local_4 = 0xffffffff;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_688);
+    TreeLowerBound(local_688);
   }
   if (local_68c == iVar2) {
     EncodeChecksumPairDiff(param_1 + 0xb30,local_678,param_1 + 0xf78);
@@ -83,7 +83,7 @@ int __fastcall FUN_0046cbb0(int param_1)
     local_4 = 0xffffffff;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_680);
+      TreeLowerBound(local_680);
     }
     EncodeChecksumPairDiff(param_1 + 0xb30,local_678,param_1 + 0xf78);
     local_4 = 5;
@@ -96,7 +96,7 @@ int __fastcall FUN_0046cbb0(int param_1)
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
       local_688[0] = iVar2;
-      FUN_0040b540(local_680);
+      TreeLowerBound(local_680);
     }
     if (bVar4) {
       EncodeChecksumDeltaAdd(param_1 + 0xb30,local_678,1);
@@ -112,7 +112,7 @@ int __fastcall FUN_0046cbb0(int param_1)
       if (local_664 != 0) {
         ScrambleChecksumGuardBytes();
         local_688[0] = local_664;
-        FUN_0040b540(local_680);
+        TreeLowerBound(local_680);
       }
       EncodeChecksumDeltaAdd(param_1 + 0xb30,local_230,1);
       local_4 = 7;
@@ -123,7 +123,7 @@ int __fastcall FUN_0046cbb0(int param_1)
       if (local_21c != 0) {
         ScrambleChecksumGuardBytes();
         local_688[0] = local_21c;
-        FUN_0040b540(local_680);
+        TreeLowerBound(local_680);
       }
       if (local_68c == iVar2) {
         local_68c = PeekChecksumStateUnderLock(param_1 + 0xb30);

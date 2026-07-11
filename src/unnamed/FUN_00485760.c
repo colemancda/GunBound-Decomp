@@ -23,7 +23,7 @@ void FUN_00485760(undefined4 *param_1)
   local_4 = 0;
   if (param_1[0xfee] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   local_4 = 0xffffffff;
   *param_1 = &PTR_FUN_0055631c;

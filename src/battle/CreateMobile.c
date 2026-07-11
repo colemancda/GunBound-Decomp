@@ -290,7 +290,7 @@ LAB_0042b60a:
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(auStack_4dc);
+      TreeLowerBound(auStack_4dc);
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x1b6c,auStack_454,2);
     local_4 = 0x12;
@@ -301,7 +301,7 @@ LAB_0042b60a:
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(auStack_4dc);
+      TreeLowerBound(auStack_4dc);
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x1ae3,auStack_454,2);
     local_4 = 0x13;
@@ -312,7 +312,7 @@ LAB_0042b60a:
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(auStack_4dc);
+      TreeLowerBound(auStack_4dc);
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x1c7e,auStack_230,2);
     local_4 = 0x14;
@@ -323,7 +323,7 @@ LAB_0042b60a:
     local_4 = 0xffffffff;
     if (iStack_21c != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(auStack_4dc);
+      TreeLowerBound(auStack_4dc);
     }
   }
   RegisterActiveObject();

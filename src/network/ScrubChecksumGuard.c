@@ -15,7 +15,7 @@ undefined4 __fastcall ScrubChecksumGuard(int param_1)
   
   if (*(int *)(param_1 + 0x14) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_8);
+    TreeLowerBound(local_8);
   }
   /* Ghidra emitted a bare `return;` in a value-returning function;
    * MSVC falls through with whatever's in EAX, gcc 14 rejects it

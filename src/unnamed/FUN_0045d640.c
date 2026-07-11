@@ -62,18 +62,18 @@ LAB_0045d679:
   SUBFIELD(iStack_4,0,undefined1) = 1;
   if (iStack_aac != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(auStack_ac8);
+    TreeLowerBound(auStack_ac8);
   }
   iStack_4 = (uint)SUBFIELD(iStack_4,1,undefined3) << 8;
   if (iStack_664 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(auStack_ac8);
+    TreeLowerBound(auStack_ac8);
   }
   iStack_4 = 0xffffffff;
   uVar5 = 0;
   if (iStack_888 != 0) {
     ScrambleChecksumGuardBytes();
-    uVar5 = FUN_0040b540(auStack_ac8);
+    uVar5 = TreeLowerBound(auStack_ac8);
   }
   uVar8 = (uint3)((uint)uVar5 >> 8);
   if (iVar7 <= param_1) {

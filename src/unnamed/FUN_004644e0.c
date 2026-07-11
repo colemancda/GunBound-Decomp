@@ -73,7 +73,7 @@ undefined1 FUN_004644e0(int param_1)
       local_d08[0] = local_888;
       if (local_888 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_d00);
+        TreeLowerBound(local_d00);
       }
       local_d08[0] = EncodeChecksumPairDiff(param_1 + 0x264,local_ac0,piVar3 + 0x2cc);
       local_4 = 1;
@@ -84,7 +84,7 @@ undefined1 FUN_004644e0(int param_1)
       local_d08[0] = local_aac;
       if (local_aac != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_d00);
+        TreeLowerBound(local_d00);
       }
       if (iVar6 * iVar6 + iVar5 * iVar5 < (int)(uVar4 * uVar4)) {
         EncodeChecksumPairDiff(param_1 + 0x40,local_ce4,piVar3 + 0x243);
@@ -95,7 +95,7 @@ undefined1 FUN_004644e0(int param_1)
         local_4 = 0xffffffff;
         if (local_cd0 != 0) {
           ScrambleChecksumGuardBytes();
-          FUN_0040b540(local_d00);
+          TreeLowerBound(local_d00);
         }
         if (2 < (int)((uVar4 ^ (int)uVar4 >> 0x1f) - ((int)uVar4 >> 0x1f))) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -170,7 +170,7 @@ LAB_004647f7:
           iVar5 = iVar5 + 1;
           local_d10 = local_d10 + -1;
         } while (local_d10 != 0);
-        FUN_0040b540(auStack_cf8);
+        TreeLowerBound(auStack_cf8);
       }
       local_cf0 = 0;
       do {
@@ -205,7 +205,7 @@ LAB_00464ec3:
           iVar6 = iVar6 + 1;
           iVar10 = iVar10 + -1;
         } while (iVar10 != 0);
-        FUN_0040b540(auStack_cf8);
+        TreeLowerBound(auStack_cf8);
       }
       local_cf0 = 0;
       do {
@@ -246,7 +246,7 @@ LAB_00464a63:
       iVar6 = iVar6 + 1;
       local_d08[0] = local_d08[0] - 1;
     } while (local_d08[0] != 0);
-    FUN_0040b540(auStack_cf8);
+    TreeLowerBound(auStack_cf8);
   }
   EncodeChecksumPairDiff(param_1 + 0x264,local_89c,iVar5 + 0x264);
   local_4 = 5;
@@ -263,7 +263,7 @@ LAB_00464a63:
       iVar6 = iVar6 + 1;
       local_d08[0] = local_d08[0] - 1;
     } while (local_d08[0] != 0);
-    FUN_0040b540(local_d08);
+    TreeLowerBound(local_d08);
   }
   if ((int)(aiStack_cec[0] * aiStack_cec[0] + auStack_cf8[0] * auStack_cf8[0]) < (int)local_d00[0])
   {
@@ -285,7 +285,7 @@ LAB_00464a63:
         iVar6 = iVar6 + 1;
         local_d08[0] = local_d08[0] - 1;
       } while (local_d08[0] != 0);
-      FUN_0040b540(aiStack_cec);
+      TreeLowerBound(aiStack_cec);
     }
     if (2 < (int)(uVar4 - uVar9)) {
       local_d10 = *(int *)(iVar5 + 0x3fbc);
@@ -371,7 +371,7 @@ LAB_00464fc1:
       iVar10 = iVar10 + 1;
       local_d08[0] = local_d08[0] - 1;
     } while (local_d08[0] != 0);
-    FUN_0040b540(auStack_cf8);
+    TreeLowerBound(auStack_cf8);
   }
   EncodeChecksumPairDiff(param_1 + 0x264,local_ac0,iVar6 + 0x480);
   local_4 = 9;
@@ -390,7 +390,7 @@ LAB_00464fc1:
       iVar10 = iVar10 + 1;
       local_d08[0] = local_d08[0] - 1;
     } while (local_d08[0] != 0);
-    FUN_0040b540(local_d08);
+    TreeLowerBound(local_d08);
     uVar4 = auStack_cf8[0];
   }
   if ((int)(aiStack_cec[0] * aiStack_cec[0] + uVar4 * uVar4) < iVar5) {
@@ -410,7 +410,7 @@ LAB_00464fc1:
         iVar10 = iVar10 + 1;
         local_d08[0] = local_d08[0] - 1;
       } while (local_d08[0] != 0);
-      FUN_0040b540(auStack_cf8);
+      TreeLowerBound(auStack_cf8);
     }
     if (2 < (int)((uVar4 ^ (int)uVar4 >> 0x1f) - ((int)uVar4 >> 0x1f))) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -464,7 +464,7 @@ LAB_00464fc1:
           if (uVar4 != 0) {
             ScrambleChecksumGuardBytes();
             local_d00[0] = uVar4;
-            FUN_0040b540(auStack_cf8);
+            TreeLowerBound(auStack_cf8);
           }
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = PeekPacketChecksumState();

@@ -86,7 +86,7 @@ void __fastcall FUN_0044c950(int *param_1)
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(apuStack_adc);
+      TreeLowerBound(apuStack_adc);
       pcVar13 = (code *)LeaveCriticalSection;
     }
     EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac4,8);
@@ -98,7 +98,7 @@ void __fastcall FUN_0044c950(int *param_1)
     uStack_c = 0xffffffff;
     if (uStack_ab4 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(&piStack_ae0);
+      TreeLowerBound(&piStack_ae0);
       pcVar13 = (code *)LeaveCriticalSection;
       unaff_EBX = uStack_ab4;
     }
@@ -473,7 +473,7 @@ LAB_0044d07e:
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_ab0 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(apuStack_adc);
+    TreeLowerBound(apuStack_adc);
     pcVar13 = (code *)LeaveCriticalSection;
   }
   if (iVar5 < iVar4) {

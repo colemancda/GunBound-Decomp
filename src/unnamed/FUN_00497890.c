@@ -35,12 +35,12 @@ void FUN_00497890(undefined4 *param_1)
   param_1[0xff3] = 0xffffffff;
   if (param_1[0x1083] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(auStack_14);
+    TreeLowerBound(auStack_14);
   }
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (param_1[0xffa] != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(auStack_14);
+    TreeLowerBound(auStack_14);
   }
   local_4 = 0xffffffff;
   DestroyProjectile(param_1);

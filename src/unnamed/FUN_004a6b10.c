@@ -52,12 +52,12 @@ void __fastcall FUN_004a6b10(int param_1)
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (local_aac != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_ac8);
+    TreeLowerBound(local_ac8);
   }
   local_4 = 0xffffffff;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_ac8);
+    TreeLowerBound(local_ac8);
   }
   if ((DAT_00793530 <= iVar4 + 0x20) && (iVar4 + -0x20 <= DAT_0056df30)) {
     uVar3 = EncodeChecksumDeltaSub(param_1 + 0x25c,local_230,*(undefined4 *)(&DAT_006a7714 + g_clientContext));
@@ -72,17 +72,17 @@ void __fastcall FUN_004a6b10(int param_1)
     SUBFIELD(local_4,0,undefined1) = 3;
     if (local_888 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_ac8);
+      TreeLowerBound(local_ac8);
     }
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_ac8);
+      TreeLowerBound(local_ac8);
     }
     local_4 = 0xffffffff;
     if (local_21c != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_ac8);
+      TreeLowerBound(local_ac8);
     }
     iVar1 = DAT_00793534;
     if ((DAT_00793534 <= iVar5) &&

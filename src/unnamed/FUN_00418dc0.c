@@ -30,12 +30,12 @@ void FUN_00418dc0(int param_1)
   FUN_004f0d70();
   if (*(int *)(&DAT_006aa8b4 + param_1) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x5e;
   if (*(int *)(&DAT_006aa690 + param_1) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x5d;
   _eh_vector_destructor_iterator_(&DAT_006aa630 + param_1,4,10,FUN_00405320);
@@ -44,22 +44,22 @@ void FUN_00418dc0(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x5a;
   if (*(int *)(&DAT_006aa1f8 + param_1) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x59;
   if (*(int *)(&DAT_006a9fd4 + param_1) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x58;
   if (*(int *)(&DAT_006a9db0 + param_1) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x57;
   if (*(int *)(&DAT_006a9b8c + param_1) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x56;
   _eh_vector_destructor_iterator_(&DAT_006a8e90 + param_1,0x224,6,ScrubChecksumGuard);
@@ -68,7 +68,7 @@ void FUN_00418dc0(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x54;
   if (*(int *)(&DAT_006a7fa8 + param_1) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x53);
   *(undefined ***)(&DAT_006a7f88 + param_1) = &PTR_FUN_00557534;
@@ -113,22 +113,22 @@ void FUN_00418dc0(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x4c;
   if (*(int *)(&DAT_0067ea50 + param_1) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x4b;
   if (*(int *)(&DAT_0067e82c + param_1) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x4a;
   if (*(int *)(&DAT_0067e608 + param_1) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x49;
   if (*(int *)(&DAT_0067e3e4 + param_1) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x48;
   _eh_vector_destructor_iterator_(&DAT_005f5348 + param_1,0x224,0x400,ScrubChecksumGuard);
@@ -137,7 +137,7 @@ void FUN_00418dc0(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x46;
   if (*(int *)(&DAT_005f48a8 + param_1) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x45;
   _eh_vector_destructor_iterator_(&DAT_005f3774 + param_1,0x224,8,ScrubChecksumGuard);
@@ -161,34 +161,34 @@ void FUN_00418dc0(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x3c;
   if (*(int *)(param_1 + 0xebcd0) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x3b;
   if (*(int *)(param_1 + 0xebaac) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x3a;
   if (*(int *)(param_1 + 0xeb868) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x39;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x62854),0x224,0x400,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x38;
   if (*(int *)(param_1 + 0x62644) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x37;
   if (*(int *)(param_1 + 0x62420) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x36;
   if (*(int *)(param_1 + 0x621fc) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x35;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x61020),0x224,8,ScrubChecksumGuard);
@@ -205,39 +205,39 @@ void FUN_00418dc0(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x2f;
   if (*(int *)(param_1 + 0x5b870) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x2e;
   if (*(int *)(param_1 + 0x5b608) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x2d;
   if (*(int *)(param_1 + 0x5b3e4) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x2c;
   if (*(int *)(param_1 + 0x5b1c0) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x2b;
   if (*(int *)(param_1 + 0x5af9c) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x2a;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x595d8),0x224,0xc,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x29;
   if (*(int *)(param_1 + 0x593c8) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x28;
   if (*(int *)(param_1 + 0x591a4) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x27;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x50240),0x224,0x40,ScrubChecksumGuard);
@@ -248,32 +248,32 @@ void FUN_00418dc0(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x24;
   if (*(int *)(param_1 + 0x475dc) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x23;
   if (*(int *)(param_1 + 0x473b4) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x22;
   if (*(int *)(param_1 + 0x45590) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x21;
   if (*(int *)(param_1 + 0x45368) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x20;
   if (*(int *)(param_1 + 0x45140) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x1f;
   if (*(int *)(param_1 + 0x44f10) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x1e;
   iVar5 = *(int *)(param_1 + 0x44e50);
@@ -314,7 +314,7 @@ void FUN_00418dc0(int param_1)
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x1a);
   if (*(int *)(param_1 + 0x44c10) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   if (*(void **)(param_1 + 0x44be8) != (void *)0x0) {
     _free(*(void **)(param_1 + 0x44be8));
@@ -322,22 +322,22 @@ void FUN_00418dc0(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x18;
   if (*(int *)(param_1 + 0x449d8) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x17;
   if (*(int *)(param_1 + 0x41130) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x16;
   if (*(int *)(param_1 + 0x3b6d8) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x15;
   if (*(int *)(param_1 + 0x3b4b0) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x14;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x3ac08),0x224,4,ScrubChecksumGuard);
@@ -346,32 +346,32 @@ void FUN_00418dc0(int param_1)
   SUBFIELD(local_4,0,undefined1) = 0x12;
   if (*(int *)(param_1 + 0x39d20) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x11;
   if (*(int *)(param_1 + 0x39afc) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0x10;
   if (*(int *)(param_1 + 0x398d8) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0xf;
   if (*(int *)(param_1 + 0x396b4) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0xe;
   if (*(int *)(param_1 + 0x39490) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0xd;
   if (*(int *)(param_1 + 0x3926c) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 0xc;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x36788),0x224,0x14,ScrubChecksumGuard);
@@ -392,22 +392,22 @@ void FUN_00418dc0(int param_1)
   SUBFIELD(local_4,0,undefined1) = 4;
   if (*(int *)(param_1 + 0x239c8) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 3;
   if (*(int *)(param_1 + 0x237a4) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 2;
   if (*(int *)(param_1 + 0x23580) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
   if (*(int *)(param_1 + 0x2335c) != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(local_14);
+    TreeLowerBound(local_14);
   }
   if (*(int *)(param_1 + 0x10728) != -1) {
     FUN_004f0d70();

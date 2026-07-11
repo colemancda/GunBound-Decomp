@@ -91,7 +91,7 @@ void __thiscall WorldListPanel_OnCommand(int param_1,int param_2,int param_3,und
         uVar3 = piVar4[2];
       }
     }
-    FUN_00406300(0);
+    InvokeWidget(0);
     uVar3 = Widget_FindChildIndex();
     if (uVar3 != 0xffffffff) {
       if (*(uint *)(param_1 + 0x10) <= uVar3) {
@@ -182,7 +182,7 @@ LAB_0050d953:
     bVar7 = false;
   }
 LAB_0050da2d:
-  FUN_00406300(bVar7);
+  InvokeWidget(bVar7);
   uVar3 = Widget_FindChildIndex();
   if (uVar3 != 0xffffffff) {
     if (*(uint *)(param_1 + 0x10) <= uVar3) {

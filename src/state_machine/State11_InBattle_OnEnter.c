@@ -466,7 +466,7 @@ LAB_004bbe6b:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       *(undefined1 *)(param_1 + 0x11c5) = 0;
       *(undefined4 *)(param_1 + 0x11c8) = 0xffffffff;
-      FUN_00429800();
+      NoOpMethod();
       iStack_94 = 0;
       do {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

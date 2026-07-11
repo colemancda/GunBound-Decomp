@@ -49,12 +49,12 @@ void FUN_00499650(int *param_1,undefined4 param_2,undefined4 param_3,int param_4
     local_4 = 0;
     if (local_440 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_688);
+      TreeLowerBound(local_688);
     }
     local_4 = 0xffffffff;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_688);
+      TreeLowerBound(local_688);
     }
     EncodeChecksumDeltaSub(param_1 + 0x10,local_678,param_2);
     local_4 = 2;
@@ -64,7 +64,7 @@ void FUN_00499650(int *param_1,undefined4 param_2,undefined4 param_3,int param_4
     local_4 = 0xffffffff;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_690);
+      TreeLowerBound(local_690);
     }
     EncodeChecksumDeltaSub(param_1 + 0x99,local_230,param_3);
     local_4 = 3;
@@ -75,7 +75,7 @@ void FUN_00499650(int *param_1,undefined4 param_2,undefined4 param_3,int param_4
     local_4 = 0xffffffff;
     if (local_21c != 0) {
       ScrambleChecksumGuardBytes();
-      FUN_0040b540(local_680);
+      TreeLowerBound(local_680);
       iVar5 = local_690[0];
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -29,7 +29,7 @@ undefined4 * FUN_004b3f90(undefined4 *param_1)
   InitGuardedBool();
   InitGuardedBool();
   InitGuardedBool();
-  _eh_vector_constructor_iterator_((void *)((int)param_1 + 0x23d7),3,0x10,InitGuardedBool,FUN_00429800)
+  _eh_vector_constructor_iterator_((void *)((int)param_1 + 0x23d7),3,0x10,InitGuardedBool,NoOpMethod)
   ;
   *(undefined1 *)(param_1 + 0x474) = 0;
   param_1[0x475] = 0xffffffff;

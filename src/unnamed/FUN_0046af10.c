@@ -83,7 +83,7 @@ void __fastcall FUN_0046af10(int *param_1)
   if (piStack_ab0 != (int *)0x0) {
     ScrambleChecksumGuardBytes();
     local_ad0 = piStack_ab0;
-    FUN_0040b540(&local_acc);
+    TreeLowerBound(&local_acc);
     pcVar13 = (code *)LeaveCriticalSection;
   }
   EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac4,8);
@@ -96,7 +96,7 @@ void __fastcall FUN_0046af10(int *param_1)
   uStack_c = 0xffffffff;
   if (uStack_ab4 != 0) {
     ScrambleChecksumGuardBytes();
-    FUN_0040b540(&local_ad0);
+    TreeLowerBound(&local_ad0);
     pcVar13 = (code *)LeaveCriticalSection;
     unaff_EBX = uStack_ab4;
   }

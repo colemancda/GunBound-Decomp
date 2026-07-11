@@ -59,7 +59,7 @@ void __fastcall State02_ServerSelect_OnTick(int param_1)
           uVar2 = piVar1[2];
         }
       }
-      FUN_00406300(*(int *)(param_1 + 8) != -1);
+      InvokeWidget(*(int *)(param_1 + 8) != -1);
       ShowErrorDialog(0);
       *(undefined1 *)(param_1 + 6) = 1;
       cVar3 = PeekPacketChecksumBool();

@@ -114,22 +114,22 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
       SUBFIELD(local_4,0,undefined1) = 2;
       if (local_888 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_8a4);
+        TreeLowerBound(local_8a4);
       }
       SUBFIELD(local_4,0,undefined1) = 1;
       if (local_440 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_8a4);
+        TreeLowerBound(local_8a4);
       }
       local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
       if (local_664 != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_8a4);
+        TreeLowerBound(local_8a4);
       }
       local_4 = 0xffffffff;
       if (local_21c != 0) {
         ScrambleChecksumGuardBytes();
-        FUN_0040b540(local_8a4);
+        TreeLowerBound(local_8a4);
       }
     }
   }

@@ -62,12 +62,12 @@ void FUN_00435da0(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
         local_4 = 0;
         if (local_440 != 0) {
           ScrambleChecksumGuardBytes();
-          FUN_0040b540(local_45c);
+          TreeLowerBound(local_45c);
         }
         local_4 = 0xffffffff;
         if (local_21c != 0) {
           ScrambleChecksumGuardBytes();
-          FUN_0040b540(local_45c);
+          TreeLowerBound(local_45c);
         }
         goto LAB_0043604a;
       }

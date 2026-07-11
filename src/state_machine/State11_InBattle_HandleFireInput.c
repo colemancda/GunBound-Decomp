@@ -561,7 +561,7 @@ LAB_004606d5:
     iVar18 = g_clientContext;
     *(undefined1 *)(param_1 + 0x2ffa) = 0;
     if ((&DAT_005f2f40)[iVar18] == '\x02') {
-      FUN_00461c60(s_normal_00552230);
+      ResolveObjectHandle(s_normal_00552230);
       PeekChecksumStateUnderLock(param_1 + 0x1e19);
       ClampCursorToRect();
     }
@@ -835,7 +835,7 @@ LAB_004613b2:
         local_4 = 0xffffffff;
         ScrubChecksumGuard();
       }
-      FUN_00406300(0);
+      InvokeWidget(0);
       iVar18 = DAT_007934e4;
       *(undefined1 *)(DAT_007934e4 + 8) = 0;
       SetWindowTextA(*(HWND *)(iVar18 + 4),&DAT_00551cb1);

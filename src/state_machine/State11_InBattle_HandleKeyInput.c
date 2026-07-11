@@ -91,7 +91,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
               Replay_AppendEvent(0x8405);
               Replay_FlushEvent();
             }
-            FUN_00406300(0);
+            InvokeWidget(0);
             return;
           }
           return;
@@ -225,9 +225,9 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
       return;
     }
     *(undefined1 *)(param_1 + 0x11ac) = 0;
-    FUN_00405fb0();
-    FUN_00405fb0();
-    FUN_00405fb0();
+    RemoveWidget();
+    RemoveWidget();
+    RemoveWidget();
     iVar7 = g_clientContext;
     (&DAT_005f2f40)[g_clientContext] = *(undefined1 *)(param_1 + 0x11ad);
     *(undefined4 *)(&DAT_005f2f44 + iVar7) = *(undefined4 *)(param_1 + 0x11b0);
@@ -269,7 +269,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     *(undefined4 *)(g_clientContext + 0xebef0) = 0xfffffffd;
     SetGuardedBool(0);
     SetGuardedBool(0);
-    FUN_00405fb0();
+    RemoveWidget();
     CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,0);
     cVar3 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
     if ((cVar3 == '\0') || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
@@ -288,7 +288,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     else {
       uVar8 = CONCAT31((int3)(uVar8 >> 8),1);
     }
-    FUN_00406300(uVar8);
+    InvokeWidget(uVar8);
     Replay_AppendEvent(0x4005);
     iVar7 = g_clientContext;
     (&g_replayEventBuffer)[g_replayEventCursor] = 0;
@@ -302,7 +302,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     *(undefined4 *)(g_clientContext + 0xebef0) = 0xffffffe8;
     SetGuardedBool(1);
     SetGuardedBool(0);
-    FUN_00405fb0();
+    RemoveWidget();
     CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0);
     cVar3 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
     if ((cVar3 == '\0') || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
@@ -320,7 +320,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     else {
       uVar10 = 1;
     }
-    FUN_00406300(uVar10);
+    InvokeWidget(uVar10);
     Replay_AppendEvent(0x4005);
     iVar7 = g_clientContext;
     (&g_replayEventBuffer)[g_replayEventCursor] = 1;
@@ -338,7 +338,7 @@ LAB_004b8aeb:
     if ((((*(int *)(&DAT_005f3768 + g_clientContext) != 1) &&
          (*(int *)(&DAT_005f3768 + g_clientContext) != 2)) && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0'))
        && ((cVar3 = PeekPacketChecksumBool(), cVar3 != '\0' && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0')))) {
-      FUN_00406300(0);
+      InvokeWidget(0);
       SetGuardedBool(0);
       Replay_AppendEvent(0x8402);
       uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
@@ -372,24 +372,24 @@ LAB_004b8aeb:
     }
     break;
   case 4:
-    FUN_00405fb0();
+    RemoveWidget();
     CreateButtonWidget(&DAT_00e9be90,0,5,0x3ed,s_b_play_team_00554114,0xa8,0x219,0x1d,0x10,1,0);
     *(undefined1 *)(g_clientContext + 0xebee5) = 1;
     return;
   case 5:
-    FUN_00405fb0();
+    RemoveWidget();
     CreateButtonWidget(&DAT_00e9be90,0,4,0x3ec,s_b_play_all_0055412c,0xa8,0x219,0x1d,0x10,1,0);
     *(undefined1 *)(g_clientContext + 0xebee5) = 0;
     return;
   case 8:
-    FUN_00405fb0();
-    FUN_00405fb0();
+    RemoveWidget();
+    RemoveWidget();
     FUN_004e1f70();
     *(undefined4 *)(&DAT_006a73c8 + g_clientContext) = 1;
     return;
   case 9:
-    FUN_00405fb0();
-    FUN_00405fb0();
+    RemoveWidget();
+    RemoveWidget();
     cVar3 = PacketChecksumEquals(&DAT_006a64c4 + g_clientContext,6);
     if ((cVar3 == '\0') &&
        (cVar3 = PacketChecksumEquals(&DAT_006a64c4 + g_clientContext,7), iVar7 = g_clientContext,
@@ -420,7 +420,7 @@ LAB_004b8aeb:
     uVar4 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
     goto LAB_004b8ad9;
   case 10:
-    FUN_00405fb0();
+    RemoveWidget();
     *(undefined1 *)(param_1 + 0x92) = 0;
     FUN_004e1f70();
     iVar7 = g_clientContext;
@@ -429,9 +429,9 @@ LAB_004b8aeb:
     return;
   case 0xc:
     *(undefined1 *)(param_1 + 0x11ac) = 0;
-    FUN_00405fb0();
-    FUN_00405fb0();
-    FUN_00405fb0();
+    RemoveWidget();
+    RemoveWidget();
+    RemoveWidget();
     iVar7 = g_clientContext;
     (&DAT_005f2f40)[g_clientContext] = *(undefined1 *)(param_1 + 0x11ad);
     *(undefined4 *)(&DAT_005f2f44 + iVar7) = *(undefined4 *)(param_1 + 0x11b0);
@@ -484,12 +484,12 @@ LAB_004b8aeb:
     return;
   case 0xe:
     *(undefined1 *)(param_1 + 0x11ac) = 0;
-    FUN_00405fb0();
-    FUN_00405fb0();
-    FUN_00405fb0();
+    RemoveWidget();
+    RemoveWidget();
+    RemoveWidget();
     return;
   case 0x10:
-    FUN_00406300(0);
+    InvokeWidget(0);
     iVar7 = DAT_007934e8;
     *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
     *(undefined4 *)(iVar7 + 0x44d0) = 6;
@@ -504,7 +504,7 @@ LAB_004b8aeb:
         Replay_AppendEvent(0x8405);
         Replay_FlushEvent();
       }
-      FUN_00406300(0);
+      InvokeWidget(0);
       return;
     }
     break;
@@ -512,7 +512,7 @@ LAB_004b8aeb:
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 != '\0') {
       SetGuardedBool(1);
-      FUN_00405fb0();
+      RemoveWidget();
       CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0);
       CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,0)
       ;
