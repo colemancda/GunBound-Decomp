@@ -61,10 +61,12 @@ by the widget tree.
     `FUN_004dbd50` scans the 64-bit item-ownership bitmask the server pushes
     to `g_clientContext+0x457a1` and packs each owned index into `+0x518`
     (count `+0x61c`, cap 11); items 0–10 are battle-usable. Per-cell quantity
-    is a guarded lookup (`FUN_0041e9a0`) keyed by the icon value. So the
-    `itemdata.dat`→ordinal mapping is the server's — see PROTOCOL.md "Item
-    availability". (The shelf icon↔item-*name* mapping still needs the store
-    strings, but the runtime indexing is no longer open.)
+    is a guarded lookup (`FUN_0041e9a0`) keyed by the icon value. The
+    ordinal→item identity is recovered from client data by matching each
+    `DAT_0056dc40` icon code to a record's `0x30` field in `itemdata.dat`
+    (`tools/lzhuf/decode_item.py`): **ord 0–10 = Dual, Blood, Energy up 2,
+    Energy up 1, Dual+, Change Wind, Team Teleport, Bunge shot, Power up,
+    Thunder, Teleport**. See PROTOCOL.md "Item availability" and ARCHITECTURE.md.
 - **Map thumbnails** — slot 15 (`FUN_004d9ae0`, 2,406 bytes): draws content at
   six fixed screen positions — most plausibly the map-selection thumbnails
   (strong inference; not cross-checked against `ready_selectmap.img`).

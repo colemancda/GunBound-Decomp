@@ -32,7 +32,7 @@ void __fastcall FUN_004d7b20(int param_1)
   else {
     iVar3 = iVar3 + *(int *)(param_1 + 0x620) * 9;
     if (iVar3 < *(int *)(param_1 + 0x61c)) {
-      sVar1 = (&DAT_0056dc40)[*(int *)(param_1 + 0x518 + iVar3 * 4)];
+      sVar1 = DAT_0056dc40[*(int *)(param_1 + 0x518 + iVar3 * 4)];
       if ((sVar1 != 0) && (*(short *)(param_1 + 0x6b4) != sVar1)) {
         if (*(int *)(param_1 + 0x6b8) == -1) {
           *(undefined4 *)(param_1 + 0x6b8) = 5;

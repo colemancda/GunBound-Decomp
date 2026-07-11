@@ -223,7 +223,22 @@ void * DAT_0056d460;
 uint32_t DAT_0056dbe8;
 uint8_t DAT_0056dbf0;
 uint8_t DAT_0056dc30;
-uint16_t DAT_0056dc40;
+/* Item shelf-icon table (0x56dc40) - 40 packed uint16 entries extracted verbatim
+ * from the binary. Each entry: low byte = icon-pair index (frame = low*2, then -2
+ * enabled / -1 disabled), high byte = 0x00/0xff selecting icon-sheet texture
+ * 0x2713 / 0x2714. Indexed by the item ordinal = item-ownership bitmask bit
+ * (Ctx_itemOwnedMask). Ordinals 0-10 are the battle items; identity recovered by
+ * matching each entry to itemdata.dat's 0x30 field (tools/lzhuf/decode_item.py):
+ *   0 Dual   1 Blood   2 Energy up 2   3 Energy up 1   4 Dual+   5 Change Wind
+ *   6 Team Teleport   7 Bunge shot   8 Power up   9 Thunder   10 Teleport
+ * Ordinals 11-39 are icon slots for items not defined in this build's itemdata. */
+uint16_t DAT_0056dc40[40] = {
+    0xff01, 0x0003, 0xff07, 0x0007, 0xff02, 0x000f, 0xff0b, 0x0001,
+    0x0002, 0xff06, 0xff0a, 0xff04, 0xff05, 0x0006, 0xff08, 0xff09,
+    0x0008, 0x0009, 0x0003, 0x000b, 0x000c, 0x000d, 0x000e, 0x0004,
+    0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
+    0x0018, 0x0019, 0x001a, 0x001b, 0x001c, 0xff0a, 0x001d, 0x0005,
+};
 uint8_t DAT_0056dc90;
 uint8_t DAT_0056dc95;
 uint8_t DAT_0056dc97;

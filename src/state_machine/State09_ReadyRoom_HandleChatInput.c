@@ -183,7 +183,7 @@ LAB_004d6626:
       if (param_1[0x187] <= iVar5) {
         return;
       }
-      uVar3 = (&DAT_0056dc40)[param_1[iVar5 + 0x146]];
+      uVar3 = DAT_0056dc40[param_1[iVar5 + 0x146]];
       if (*(char *)(param_1[iVar5 + 0x146] + 0x4d8 + (int)param_1) == '\0') {
         return;
       }

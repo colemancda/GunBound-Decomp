@@ -32,11 +32,11 @@ void FUN_004dbd50(int *param_1,int param_2)
     bVar8 = (*(byte *)(uVar6 / 8 + 0x457a1 + iVar3) & bVar1) == bVar1;
     if ((bVar8 != (bool)*(char *)(uVar6 + 0x4d8 + (int)param_1)) && (param_2 == '\x01')) {
       if (bVar8) {
-        uVar2 = FUN_0041eb10(iVar3,(&DAT_0056dc40)[uVar6]);
+        uVar2 = FUN_0041eb10(iVar3,DAT_0056dc40[uVar6]);
         _Format = (char *)GetLocalizedString(&g_localizedStringTable,0x278);
       }
       else {
-        uVar2 = FUN_0041eb10(iVar3,(&DAT_0056dc40)[uVar6]);
+        uVar2 = FUN_0041eb10(iVar3,DAT_0056dc40[uVar6]);
         _Format = (char *)GetLocalizedString(&g_localizedStringTable,0x279);
       }
       _sprintf(local_80,_Format,uVar2);
@@ -45,7 +45,7 @@ void FUN_004dbd50(int *param_1,int param_2)
     }
     *(bool *)(uVar6 + 0x4d8 + (int)param_1) = bVar8;
     if ((!bVar8) && ((int)uVar6 < 0xb)) {
-      FUN_004dbf30((&DAT_0056dc40)[uVar6]);
+      FUN_004dbf30(DAT_0056dc40[uVar6]);
       iVar3 = g_clientContext;
     }
     uVar6 = uVar6 + 1;

@@ -2109,9 +2109,19 @@ previously-unexamined ones. Findings:
       quantity drawn per cell comes from a 100-entry guarded lookup keyed by
       that icon value (`FUN_0041e9a0`). The bitmask arrives via the `0x2105`
       room packet (`+5`/`+9`) and battle actions `0x8004` / `0x8000` (see
-      PROTOCOL.md "Item availability"); the `itemdata.dat`→ordinal mapping is
-      the server's, and that is why it is absent from `itemdata.dat`'s own
-      fields.
+      PROTOCOL.md "Item availability").
+
+      **The 40-entry table and the ordinal→item identity are now both
+      extracted** (`tools/lzhuf/decode_item.py`, values baked into
+      `src/globals.c`). The runtime index question was the last gap, and it's
+      closed: `DAT_0056dc40[ordinal]` is that ordinal's icon code, and matching
+      each icon code to a record's `0x30` field in the decompressed
+      `itemdata.dat` recovers the item — so the ordinal→item mapping is *not*
+      server-only; it's derivable entirely from client data. Ordinals 0–10
+      (the battle items) resolve to: **0 Dual, 1 Blood, 2 Energy up 2, 3 Energy
+      up 1, 4 Dual+, 5 Change Wind, 6 Team Teleport, 7 Bunge shot, 8 Power up,
+      9 Thunder, 10 Teleport**. Ordinals 11–39 are icon slots for items this
+      build's `itemdata.dat` doesn't define (only 13 of 100 records populated).
     - This function also loads the full `AvataTexture`/`CharacterTexture`/
       effect-texture family again (same as `RenderCharacterPreview`),
       consistent with it sharing the screen with the live character

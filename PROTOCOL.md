@@ -1588,9 +1588,11 @@ fields:
 
 The Ready Room loadout builder (`FUN_004dbd50`) scans this mask and packs the
 owned indices into the state's loadout array (`+0x518`, count `+0x61c`, cap 11);
-index *i* also indexes the `DAT_0056dc40` icon table. See ARCHITECTURE.md's Ready
-Room item-grid section. The `itemdata.dat`→ordinal mapping is the server's and is
-not present in the client.
+index *i* also indexes the `DAT_0056dc40` icon table. The ordinal→item identity is
+recovered client-side by matching `DAT_0056dc40[i]` to a record's `0x30` code in
+`itemdata.dat` (`tools/lzhuf/decode_item.py`): ordinals 0–10 = **Dual, Blood,
+Energy up 2, Energy up 1, Dual+, Change Wind, Team Teleport, Bunge shot, Power up,
+Thunder, Teleport**. See ARCHITECTURE.md's Ready Room item-grid section.
 
 **Other actions `ApplyBattleActionToContext` handles** (server→client state, each
 `(this=ctx, packet, len)`): `0x8101` per-slot byte→`+0x4590c`; `0x8002`

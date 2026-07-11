@@ -311,7 +311,7 @@ LAB_004d8540:
   iVar3 = local_a4c + *(int *)(param_1 + 0x620) * 9;
   if (iVar3 < *(int *)(param_1 + 0x61c)) {
     iVar3 = *(int *)(param_1 + 0x518 + iVar3 * 4);
-    uVar1 = (&DAT_0056dc40)[iVar3];
+    uVar1 = DAT_0056dc40[iVar3];
     iVar13 = (uVar1 & 0xff) * 2;
     uVar12 = iVar13 - 2;
     if ((*(char *)(iVar3 + 0x4d8 + param_1) == '\0') || (*(char *)(param_1 + 0x4cc) == '\x01')) {
