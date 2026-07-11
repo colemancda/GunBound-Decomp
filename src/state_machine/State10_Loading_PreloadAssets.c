@@ -825,7 +825,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
   }
 LAB_00442056:
   if (*(int *)(param_1 + 0x108) % 0x14 == 0) {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   if ((0 < *(int *)(param_1 + 0x108)) &&
      (iVar4 = *(int *)(param_1 + 0x108) + -1, *(int *)(param_1 + 0x108) = iVar4, iVar4 == 0)) {

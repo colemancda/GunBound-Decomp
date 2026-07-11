@@ -83,7 +83,7 @@ LAB_0048398a:
       FUN_00431d90(*(undefined1 *)(param_1 + 0x3c),7,0,uVar3,uVar2,uVar4,uVar8,uVar9);
       cVar1 = PeekPacketChecksumBool();
       if (cVar1 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
     }
     local_18 = local_18 + 1;
@@ -152,7 +152,7 @@ LAB_00483b89:
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (local_19 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
     }
     local_18 = local_18 + 1;
@@ -221,7 +221,7 @@ LAB_00483e2e:
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (local_19 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
     }
     local_18 = local_18 + 1;

@@ -900,7 +900,7 @@ void FUN_004dcbe0(int param_1)
   }
 LAB_004dfad9:
   if (*(int *)(param_1 + 0x744) % 0x14 == 0) {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   if ((0 < *(int *)(param_1 + 0x744)) &&
      (iVar6 = *(int *)(param_1 + 0x744) + -1, *(int *)(param_1 + 0x744) = iVar6, iVar6 == 0)) {

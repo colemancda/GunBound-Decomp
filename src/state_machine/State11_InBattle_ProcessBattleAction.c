@@ -211,7 +211,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
                   pbVar14 = pbVar14 + 1;
                 }
                 FUN_004e3740(&DAT_00794e14);
-                FUN_004ee9b0(uVar21);
+                AcquireSoundChannel(uVar21);
                 FUN_0041ef90(g_clientContext,0,local_27e4,puVar12,uVar11,local_27ec[3] + 300,0);
                 FUN_0041b8c0(g_clientContext,0,(int)local_27e0 * 9 + 0x5012e + g_clientContext,
                              local_27f0 + g_clientContext + 0x50196,puVar12,0,1);
@@ -306,7 +306,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
               pbVar14 = pbVar14 + 1;
             }
             FUN_004e3740(&DAT_00794e14);
-            FUN_004ee9b0(uVar21);
+            AcquireSoundChannel(uVar21);
             FUN_0041ef90(g_clientContext,7,local_27e4,puVar12,uVar11,local_27ec[3] + 300,0);
             FUN_0041b8c0(g_clientContext,7,(int)local_27e0 * 9 + 0x5012e + g_clientContext,
                          local_27f0 + g_clientContext + 0x50196,puVar12,0,1);

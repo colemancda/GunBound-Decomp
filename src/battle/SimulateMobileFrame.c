@@ -264,7 +264,7 @@ LAB_004622cf:
     uStack_4 = 0xffffffff;
     ScrubChecksumGuard();
     if (bVar3) {
-      FUN_004ee9b0(0);
+      AcquireSoundChannel(0);
     }
   }
   bVar3 = false;

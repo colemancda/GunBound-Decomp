@@ -102,7 +102,7 @@ void __fastcall FUN_0048b420(int param_1)
   }
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState();

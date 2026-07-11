@@ -97,7 +97,7 @@ void __fastcall FUN_004aa8f0(int param_1)
   }
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
     pcVar12 = (code *)LeaveCriticalSection;
   }
   cVar2 = PeekPacketChecksumBool();

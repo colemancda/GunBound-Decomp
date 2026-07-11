@@ -282,7 +282,7 @@ void __fastcall FUN_00480310(int *param_1)
                      uVar8,uVar16,uVar18);
         cVar4 = PeekPacketChecksumBool();
         if (cVar4 == '\0') {
-          FUN_004ee9b0(0);
+          AcquireSoundChannel(0);
         }
         if (param_1[0xff3] < 3) {
           param_1[0xff3] = param_1[0xff3] + 1;
@@ -412,7 +412,7 @@ void __fastcall FUN_00480310(int *param_1)
                    uVar9,uVar8,uVar16,uVar18);
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
       goto LAB_0048108e;
     }
@@ -437,7 +437,7 @@ void __fastcall FUN_00480310(int *param_1)
                    ,uVar9,uVar8,uVar16,uVar18);
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
       goto LAB_0048108e;
     }
@@ -463,7 +463,7 @@ void __fastcall FUN_00480310(int *param_1)
     cVar4 = PeekPacketChecksumBool();
   }
   if (cVar4 == '\0') {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   cVar4 = PeekPacketChecksumBool();
   if ((cVar4 == '\0') && (cVar4 = PeekPacketChecksumBool(), cVar4 == '\0')) {

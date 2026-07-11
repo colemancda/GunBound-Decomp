@@ -719,7 +719,7 @@ LAB_00496abf:
   }
   cVar3 = PeekPacketChecksumBool();
   if (cVar3 == '\0') {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   cVar3 = PeekPacketChecksumBool();
   pcVar18 = (code *)LeaveCriticalSection;

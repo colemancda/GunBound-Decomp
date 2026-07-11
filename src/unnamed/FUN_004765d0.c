@@ -62,7 +62,7 @@ void __fastcall FUN_004765d0(int *param_1)
     *(undefined1 *)(param_1 + 5) = 1;
     cVar6 = PeekPacketChecksumBool();
     if (cVar6 == '\0') {
-      FUN_004ee9b0(0);
+      AcquireSoundChannel(0);
     }
     piVar9 = (int *)GetPlayerRecordBySlot(g_clientContext);
     if ((piVar9 != (int *)0x0) && ((short)param_1[0xfe7] == -0xf6)) {

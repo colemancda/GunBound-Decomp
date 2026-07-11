@@ -267,7 +267,7 @@ LAB_004bdd1c:
   }
   else {
     if (*(int *)(&DAT_006a64b4 + g_clientContext) == -1) {
-      uVar7 = FUN_004ee9b0();
+      uVar7 = AcquireSoundChannel();
       *(undefined4 *)(&DAT_006a64b4 + g_clientContext) = uVar7;
       param_1 = local_3d58;
     }
@@ -1888,7 +1888,7 @@ LAB_004c13d9:
         *(undefined4 *)(&DAT_006a73c8 + g_clientContext) = 2;
       }
       else {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
         Replay_AppendEvent(0x8407);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar6 = PeekPacketChecksumState();

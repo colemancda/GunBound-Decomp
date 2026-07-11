@@ -342,7 +342,7 @@ LAB_00468fef:
     }
     cVar4 = PeekPacketChecksumBool();
     if (cVar4 == '\0') {
-      FUN_004ee9b0(0);
+      AcquireSoundChannel(0);
     }
     cVar4 = PeekPacketChecksumBool();
     if ((cVar4 != '\0') && (cVar4 = FUN_0043a530(), cVar4 == '\0')) {
@@ -460,7 +460,7 @@ LAB_0046942b:
   }
   cVar4 = PeekPacketChecksumBool();
   if (cVar4 == '\0') {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   uVar8 = EncodeChecksumDeltaMul(piStack_ae8 + 0x930,auStack_8a0,7);
   puStack_8 = (undefined1 *)0x5;

@@ -20,7 +20,7 @@ void FUN_00406170(void)
      ((piVar1[9] == 1 || (piVar1[9] == 5)))) {
     FUN_004f2da0(0,piVar1[1],piVar1[2]);
     (**(code **)(*piVar1 + 4))(s_mouse_00551e70);
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   return;
 }

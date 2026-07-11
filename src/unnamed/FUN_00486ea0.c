@@ -683,7 +683,7 @@ LAB_00487dd6:
   FUN_004373c0(uVar6,uVar5,0x2078,s_ssflame13_005548d8);
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
     pcVar16 = (code *)LeaveCriticalSection;
   }
   cVar1 = PeekPacketChecksumBool();

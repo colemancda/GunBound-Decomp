@@ -67,7 +67,7 @@ LAB_004cefa6:
   iVar1 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   _sprintf(acStack_80,s__dmoon_xes_0055674c,iVar1 + 1);
-  FUN_004ee9b0(0);
+  AcquireSoundChannel(0);
 LAB_004cefef:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = PeekPacketChecksumState();

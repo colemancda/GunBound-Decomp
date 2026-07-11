@@ -79,7 +79,7 @@ void __thiscall FUN_0049c120(int param_1,undefined4 param_2,int param_3)
     if (*(int *)(param_1 + 0xb0a4) == -1) {
       puStack_2498 = (undefined *)0x1;
       puStack_249c = (undefined1 *)0x49c180;
-      uVar4 = FUN_004ee9b0();
+      uVar4 = AcquireSoundChannel();
       *(undefined4 *)(param_1 + 0xb0a4) = uVar4;
     }
     break;
@@ -100,7 +100,7 @@ void __thiscall FUN_0049c120(int param_1,undefined4 param_2,int param_3)
     if (*(int *)(param_1 + 0xb0a4) == -1) {
       puStack_2498 = (undefined *)0x1;
       puStack_249c = (undefined1 *)0x49c1a8;
-      uVar4 = FUN_004ee9b0();
+      uVar4 = AcquireSoundChannel();
       *(undefined4 *)(param_1 + 0xb0a4) = uVar4;
     }
     break;
@@ -409,7 +409,7 @@ joined_r0x0049c851:
     if (cVar3 == '\0') {
       puStack_2498 = (undefined *)0x0;
       puStack_249c = (undefined1 *)0x49c860;
-      FUN_004ee9b0();
+      AcquireSoundChannel();
     }
     puStack_2498 = (undefined *)0x49c86e;
     cVar3 = PeekPacketChecksumBool();
@@ -490,7 +490,7 @@ LAB_0049c8d2:
     if (cVar3 == '\0') {
       puStack_2498 = (undefined *)0x0;
       puStack_249c = (undefined1 *)0x49c9aa;
-      FUN_004ee9b0();
+      AcquireSoundChannel();
     }
     goto LAB_0049c9ad;
   case 10:
@@ -565,7 +565,7 @@ LAB_0049c8d2:
       if (cVar3 == '\0') {
         puStack_2498 = (undefined *)0x0;
         puStack_249c = (undefined1 *)0x49cb5a;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
       puStack_2498 = (undefined *)0x49cb62;
       cVar3 = FUN_0043a530();

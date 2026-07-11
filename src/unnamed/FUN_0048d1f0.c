@@ -49,13 +49,13 @@ void __thiscall FUN_0048d1f0(int param_1,undefined4 param_2,int param_3)
   switch(param_2) {
   case 1:
     if (*(int *)(param_1 + 0xb0a4) == -1) {
-      uVar3 = FUN_004ee9b0(1);
+      uVar3 = AcquireSoundChannel(1);
       *(undefined4 *)(param_1 + 0xb0a4) = uVar3;
     }
     break;
   case 4:
     if (*(int *)(param_1 + 0xb0a4) == -1) {
-      uVar3 = FUN_004ee9b0(1);
+      uVar3 = AcquireSoundChannel(1);
       *(undefined4 *)(param_1 + 0xb0a4) = uVar3;
     }
     break;
@@ -134,7 +134,7 @@ LAB_0048d44a:
     cVar2 = PeekPacketChecksumBool();
 joined_r0x0048d531:
     if (cVar2 == '\0') {
-      FUN_004ee9b0(0);
+      AcquireSoundChannel(0);
     }
     cVar2 = PeekPacketChecksumBool();
     if ((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
@@ -173,7 +173,7 @@ LAB_0048d68d:
     ScrubChecksumGuard();
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\0') {
-      FUN_004ee9b0(0);
+      AcquireSoundChannel(0);
     }
     goto LAB_0048d68d;
   case 10:
@@ -206,7 +206,7 @@ LAB_0048d68d:
       ScrubChecksumGuard();
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
       cVar2 = FUN_0043a530();
       if (cVar2 == '\0') {

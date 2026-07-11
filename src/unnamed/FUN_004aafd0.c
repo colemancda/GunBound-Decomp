@@ -321,7 +321,7 @@ LAB_004ab0f1:
   *(undefined1 *)(param_1 + 5) = 1;
   cVar6 = PeekPacketChecksumBool();
   if (cVar6 == '\0') {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   cVar6 = PeekPacketChecksumBool();
   if ((cVar6 != '\0') && (cVar6 = FUN_0043a530(), cVar6 == '\0')) {

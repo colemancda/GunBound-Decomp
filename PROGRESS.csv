@@ -557,7 +557,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0044d9b0,3898,FUN_0044d9b0,false,1,33,RAW-src
 0044e8f0,32,FUN_0044e8f0,false,1,2,RAW-src
 0044e910,13,FUN_0044e910,false,1,1,RAW-src
-0044e920,1715,FUN_0044e920,false,1,14,RAW-src
+0044e920,1715,Mobile00_MainAction,false,1,14,RAW-src
 0044f000,20,FUN_0044f000,false,1,1,RAW-src
 0044f020,32,FUN_0044f020,false,1,2,RAW-src
 0044f040,13,FUN_0044f040,false,1,1,RAW-src
@@ -1208,7 +1208,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ee540,101,FUN_004ee540,false,2,0,RAW-src
 004ee5b0,657,InitDirectSound,false,1,6,RAW-src
 004ee850,339,FUN_004ee850,false,1,6,RAW-src
-004ee9b0,113,FUN_004ee9b0,false,150,0,RAW-src
+004ee9b0,113,AcquireSoundChannel,false,150,0,RAW-src
 004eea30,164,PlayMusicTrack,false,24,0,RAW-src
 004eeae0,39,FUN_004eeae0,false,12,0,RAW-src
 004eeb10,30,FUN_004eeb10,false,9,0,RAW-src

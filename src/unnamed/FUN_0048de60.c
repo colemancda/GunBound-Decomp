@@ -102,7 +102,7 @@ void __fastcall FUN_0048de60(int param_1)
   }
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   return;
 }

@@ -106,7 +106,7 @@ void __thiscall FUN_00489580(int param_1,undefined4 param_2,int param_3)
     if (*(int *)(param_1 + 0xb0a4) == -1) {
       puStack_7e84 = (undefined *)0x1;
       puStack_7e88 = (undefined1 *)0x4895e0;
-      uVar3 = FUN_004ee9b0();
+      uVar3 = AcquireSoundChannel();
       *(undefined4 *)(param_1 + 0xb0a4) = uVar3;
     }
     break;
@@ -127,7 +127,7 @@ void __thiscall FUN_00489580(int param_1,undefined4 param_2,int param_3)
     if (*(int *)(param_1 + 0xb0a4) == -1) {
       puStack_7e84 = (undefined *)0x1;
       puStack_7e88 = (undefined1 *)0x489608;
-      uVar3 = FUN_004ee9b0();
+      uVar3 = AcquireSoundChannel();
       *(undefined4 *)(param_1 + 0xb0a4) = uVar3;
     }
     break;
@@ -198,7 +198,7 @@ LAB_0048968e:
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x4897cd;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
     default:
       goto switchD_0048a765_caseD_4;
@@ -267,7 +267,7 @@ LAB_0048982c:
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48996b;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
       goto switchD_0048a765_caseD_4;
     case 0xc:
@@ -333,7 +333,7 @@ LAB_004899ca:
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x489b00;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
       goto switchD_0048a765_caseD_4;
     case 0x11:
@@ -548,7 +548,7 @@ LAB_0048a4ae:
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48a612;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
       break;
     }
@@ -695,7 +695,7 @@ joined_r0x0048a106:
     if (cVar2 == '\0') {
       puStack_7e84 = (undefined *)0x0;
       puStack_7e88 = (undefined1 *)0x48a115;
-      FUN_004ee9b0();
+      AcquireSoundChannel();
     }
     puStack_7e84 = (undefined *)0x48a123;
     cVar2 = PeekPacketChecksumBool();
@@ -766,7 +766,7 @@ LAB_0048a661:
     if (cVar2 == '\0') {
       puStack_7e84 = (undefined *)0x0;
       puStack_7e88 = (undefined1 *)0x48a743;
-      FUN_004ee9b0();
+      AcquireSoundChannel();
     }
     goto LAB_0048a13e;
   case 10:
@@ -825,7 +825,7 @@ LAB_0048a661:
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48a8cf;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
       break;
     case 5:
@@ -881,7 +881,7 @@ LAB_0048a661:
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48aa3a;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
       break;
     case 7:
@@ -935,7 +935,7 @@ LAB_0048a661:
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48ab9c;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
       break;
     case 9:
@@ -990,7 +990,7 @@ LAB_0048a661:
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48acfe;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
       break;
     case 0xc:
@@ -1048,7 +1048,7 @@ LAB_0048a661:
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48ae78;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
       break;
     case 0xf:
@@ -1106,7 +1106,7 @@ LAB_0048a661:
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48aff2;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
       break;
     case 0x11:
@@ -1160,7 +1160,7 @@ LAB_0048a661:
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48b154;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
       break;
     case 0x13:
@@ -1214,7 +1214,7 @@ LAB_0048a661:
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48b2b2;
-        FUN_004ee9b0();
+        AcquireSoundChannel();
       }
       puStack_7e84 = (undefined *)0x48b2ba;
       cVar2 = FUN_0043a530();

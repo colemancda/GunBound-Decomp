@@ -32,7 +32,7 @@ undefined4 FUN_004061e0(void)
       if (((*(int *)(in_EAX + 0xc) == 0) && (iVar2 = piVar3[9], iVar2 != 3)) &&
          ((iVar2 != 4 && (iVar2 != 5)))) {
         (**(code **)(*piVar3 + 4))(s_mouse_00551e70);
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
       return 1;
     }

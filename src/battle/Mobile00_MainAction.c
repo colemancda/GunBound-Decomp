@@ -1,4 +1,4 @@
-/* FUN_0044e920 - 0x0044e920 in the original binary.
+/* Mobile00_MainAction - 0x0044e920 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -9,7 +9,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void __thiscall FUN_0044e920(int param_1,undefined4 param_2,int param_3)
+void __thiscall Mobile00_MainAction(int param_1,undefined4 param_2,int param_3)
 
 {
   int iVar1;
@@ -49,7 +49,7 @@ void __thiscall FUN_0044e920(int param_1,undefined4 param_2,int param_3)
   switch(param_2) {
   case 1:
     if (*(int *)(param_1 + 0xb0a4) == -1) {
-      uVar3 = FUN_004ee9b0(1);
+      uVar3 = AcquireSoundChannel(1);
       *(undefined4 *)(param_1 + 0xb0a4) = uVar3;
     }
     break;
@@ -67,7 +67,7 @@ void __thiscall FUN_0044e920(int param_1,undefined4 param_2,int param_3)
     break;
   case 4:
     if (*(int *)(param_1 + 0xb0a4) == -1) {
-      uVar3 = FUN_004ee9b0(1);
+      uVar3 = AcquireSoundChannel(1);
       *(undefined4 *)(param_1 + 0xb0a4) = uVar3;
     }
     break;
@@ -146,7 +146,7 @@ LAB_0044eb7a:
     cVar2 = PeekPacketChecksumBool();
 joined_r0x0044ec61:
     if (cVar2 == '\0') {
-      FUN_004ee9b0(0);
+      AcquireSoundChannel(0);
     }
     cVar2 = PeekPacketChecksumBool();
     if ((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
@@ -185,7 +185,7 @@ LAB_0044edbd:
     ScrubChecksumGuard();
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\0') {
-      FUN_004ee9b0(0);
+      AcquireSoundChannel(0);
     }
     goto LAB_0044edbd;
   case 10:
@@ -216,7 +216,7 @@ LAB_0044edbd:
       ScrubChecksumGuard();
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
       cVar2 = FUN_0043a530();
       if (cVar2 == '\0') {

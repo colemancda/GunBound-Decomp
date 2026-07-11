@@ -456,7 +456,7 @@ LAB_0048e8fe:
   (**(code **)(*param_1 + 0x20))();
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   cVar2 = PeekPacketChecksumBool();
   if ((cVar2 != '\0') && (cVar2 = FUN_0043a530(), cVar2 == '\0')) {

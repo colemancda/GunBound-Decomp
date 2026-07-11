@@ -523,7 +523,7 @@ LAB_0046ecce:
   }
   cVar4 = PeekPacketChecksumBool();
   if (cVar4 == '\0') {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar8 = PeekPacketChecksumState();

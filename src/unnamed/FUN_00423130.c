@@ -113,7 +113,7 @@ void FUN_00423130(int param_1,int param_2,int param_3)
           pbVar19 = pbVar19 + 1;
         }
         FUN_004e3740(&DAT_00794e14);
-        FUN_004ee9b0(uVar6);
+        AcquireSoundChannel(uVar6);
         FUN_0041b8c0(param_1,0,(uint)bVar1 * 9 + 0x457a9 + param_1,iVar8,puVar12,0,1);
         return;
       }

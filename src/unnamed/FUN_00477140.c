@@ -166,7 +166,7 @@ void FUN_00477140(void)
   }
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   *unaff_FS_OFFSET = uStack_1c;
   return;

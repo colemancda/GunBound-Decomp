@@ -362,7 +362,7 @@ LAB_0047a634:
           goto LAB_0047a932;
         }
       }
-      FUN_004ee9b0(0);
+      AcquireSoundChannel(0);
       FUN_0040b060();
       local_4 = 3;
       ScrubChecksumGuard();

@@ -515,7 +515,7 @@ LAB_004b1f3e:
   }
   cVar4 = PeekPacketChecksumBool();
   if (cVar4 == '\0') {
-    FUN_004ee9b0(0);
+    AcquireSoundChannel(0);
   }
   cVar4 = PeekPacketChecksumBool();
   if ((cVar4 != '\0') && (cVar4 = FUN_0043a530(), cVar4 == '\0')) {

@@ -679,7 +679,7 @@ LAB_004ce1bd:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004ee9b0(0);
+  AcquireSoundChannel(0);
   local_71c = (undefined *)0x8005;
   FUN_004e8a70();
   if (local_714 != DAT_00e9af14) {

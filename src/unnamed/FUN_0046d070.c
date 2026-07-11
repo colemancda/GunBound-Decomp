@@ -65,7 +65,7 @@ void __thiscall FUN_0046d070(int param_1,undefined4 param_2,int param_3)
   switch(param_2) {
   case 1:
     if (*(int *)(param_1 + 0xb0a4) == -1) {
-      uVar3 = FUN_004ee9b0(1);
+      uVar3 = AcquireSoundChannel(1);
       *(undefined4 *)(param_1 + 0xb0a4) = uVar3;
     }
     break;
@@ -83,7 +83,7 @@ void __thiscall FUN_0046d070(int param_1,undefined4 param_2,int param_3)
     break;
   case 4:
     if (*(int *)(param_1 + 0xb0a4) == -1) {
-      uVar3 = FUN_004ee9b0(1);
+      uVar3 = AcquireSoundChannel(1);
       *(undefined4 *)(param_1 + 0xb0a4) = uVar3;
     }
     break;
@@ -177,7 +177,7 @@ LAB_0046d318:
       ScrubChecksumGuard();
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
     default:
       goto switchD_0046d2bc_caseD_2;
@@ -226,7 +226,7 @@ LAB_0046d4e6:
       ScrubChecksumGuard();
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
       goto switchD_0046d2bc_caseD_2;
     case 0xb:
@@ -274,7 +274,7 @@ LAB_0046d6ae:
       ScrubChecksumGuard();
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
       goto switchD_0046d2bc_caseD_2;
     case 0x10:
@@ -325,7 +325,7 @@ LAB_0046d87c:
     }
 joined_r0x0046d9da:
     if (cVar2 == '\0') {
-      FUN_004ee9b0(0);
+      AcquireSoundChannel(0);
     }
     cVar2 = PeekPacketChecksumBool();
     if ((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
@@ -364,7 +364,7 @@ LAB_0046db83:
       ScrubChecksumGuard();
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
       cVar2 = FUN_0043a530();
       if (cVar2 == '\0') {
@@ -415,7 +415,7 @@ LAB_0046db83:
     ScrubChecksumGuard();
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\0') {
-      FUN_004ee9b0(0);
+      AcquireSoundChannel(0);
     }
     goto LAB_0046db83;
   }

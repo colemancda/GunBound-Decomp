@@ -55,7 +55,7 @@ void __thiscall FUN_004542a0(int param_1,undefined4 param_2,int param_3)
   switch(param_2) {
   case 1:
     if (*(int *)(param_1 + 0xb0a4) == -1) {
-      uVar3 = FUN_004ee9b0(1);
+      uVar3 = AcquireSoundChannel(1);
       *(undefined4 *)(param_1 + 0xb0a4) = uVar3;
     }
     break;
@@ -73,7 +73,7 @@ void __thiscall FUN_004542a0(int param_1,undefined4 param_2,int param_3)
     break;
   case 4:
     if (*(int *)(param_1 + 0xb0a4) == -1) {
-      uVar3 = FUN_004ee9b0(1);
+      uVar3 = AcquireSoundChannel(1);
       *(undefined4 *)(param_1 + 0xb0a4) = uVar3;
     }
     break;
@@ -152,7 +152,7 @@ LAB_00454508:
       ScrubChecksumGuard();
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
     default:
       goto switchD_004544ac_caseD_9;
@@ -192,7 +192,7 @@ LAB_00454665:
       ScrubChecksumGuard();
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
       goto switchD_004544ac_caseD_9;
     case 0xc:
@@ -231,7 +231,7 @@ LAB_004547bc:
       ScrubChecksumGuard();
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
       goto switchD_004544ac_caseD_9;
     case 0xe:
@@ -272,7 +272,7 @@ LAB_00454919:
     }
 joined_r0x00454a06:
     if (cVar2 == '\0') {
-      FUN_004ee9b0(0);
+      AcquireSoundChannel(0);
     }
     cVar2 = PeekPacketChecksumBool();
     if ((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
@@ -309,7 +309,7 @@ LAB_00454b61:
     ScrubChecksumGuard();
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\0') {
-      FUN_004ee9b0(0);
+      AcquireSoundChannel(0);
     }
     goto LAB_00454b61;
   case 10:
@@ -340,7 +340,7 @@ LAB_00454b61:
       ScrubChecksumGuard();
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        FUN_004ee9b0(0);
+        AcquireSoundChannel(0);
       }
       cVar2 = FUN_0043a530();
       if (cVar2 == '\0') {
