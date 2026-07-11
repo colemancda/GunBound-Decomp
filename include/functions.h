@@ -651,7 +651,7 @@ void * __thiscall DeleteProjectile();
 void DestroyProjectile();
 uint __fastcall FUN_00455b60();
 void __thiscall SimulateProjectileFrame();
-void __fastcall FUN_004572b0();
+void __fastcall DetonateProjectile();
 void FUN_004585e0();
 undefined4 *InitMobile(); /* 0x458b80 - mobile base ctor (sets base vtable 0x555c68) */
 void * __thiscall FUN_0045a540();
@@ -851,7 +851,7 @@ void FUN_0048dcc0();
 undefined4 FUN_0048de40();
 void __fastcall FUN_0048de60();
 void __fastcall FUN_0048e1d0();
-void __fastcall FUN_0048f1c0();
+void __fastcall AnimateProjectileTick();
 void * __thiscall FUN_0048f260();
 void FUN_0048f280();
 undefined1 FUN_0048f300();

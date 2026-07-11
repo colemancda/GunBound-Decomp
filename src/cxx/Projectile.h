@@ -20,9 +20,10 @@
  *    state (same treatment as CMobile). They are left as padding here until the
  *    guard fields are individually mapped.
  *
- * GUESSED: all slot names except SimulateFrame (slot 5 = SimulateProjectileFrame,
- * confirmed) and the destructor. Interior fields between the named ones are
- * unmapped (guard cells / padding).
+ * GUESSED: the vtable-only slots (3/7/8/10/11) and the shared no-ops. CONFIRMED:
+ * slot 0 (dtor), slot 2 (AnimateProjectileTick), slot 5 (SimulateProjectileFrame),
+ * slot 6 (DetonateProjectile). Interior fields between the named ones are unmapped
+ * (guard cells / padding).
  */
 #ifndef GB_CXX_PROJECTILE_H
 #define GB_CXX_PROJECTILE_H
@@ -40,10 +41,11 @@ public:
     /* slot 1 +0x04: 0x461c60 (shared) - acquire-handle; the same implementation
      * used by CMobile's slot 1 (reads +0x1c, resolves via FindStringNoCase). */
     virtual void v1_AcquireHandle();
-    /* slot 2 +0x08: 0x48f1c0 - per-frame animate tick: advances the sprite
-     * animation (AdvanceSpriteAnimation) and dispatches slot 6, bumping a small
-     * frame counter (+0x3b44). */
-    virtual void v2_AnimateTick();
+    /* slot 2 +0x08: 0x48f1c0 = AnimateProjectileTick - per-frame animate tick:
+     * dispatches slot 6 (Detonate), then advances the sprite animation
+     * (AdvanceSpriteAnimation), bumping a small frame counter (+0x3b44) and
+     * firing a replay event when it reaches 5. */
+    virtual void AnimateProjectileTick();
     /* slot 3 +0x0c: 0x458690 (vtable-only; Ghidra has not defined it). */
     virtual void v3();
     /* slot 4 +0x10: 0x429800 (shared) - no-op (`return;`). */
@@ -52,10 +54,12 @@ public:
      * ballistics/state update: physics helpers, guard-protected fields, replay
      * events 0xf002/0xf003. No spawn/render calls. */
     virtual void SimulateFrame();
-    /* slot 6 +0x18: 0x4572b0 - spawn/detonate: operator_new + InitProjectile
-     * (child/cluster projectiles) + RegisterActiveObject + AcquireSoundChannel;
-     * emits the projectile's effects. */
-    virtual void v6_SpawnEffects();
+    /* slot 6 +0x18: 0x4572b0 = DetonateProjectile - impact/detonation handler:
+     * operator_new(0x3fbc) + InitProjectile a child blast object (vtable
+     * 0x55658c), scans the object list for terrain (0x186aa marker), computes
+     * the crater (FloatToInt64), spawns damage particles (FUN_00432320),
+     * RegisterActiveObject + AcquireSoundChannel, then rescrambles a guard. */
+    virtual void DetonateProjectile();
     /* slot 7 +0x1c: 0x458850 (vtable-only). */
     virtual void v7();
     /* slot 8 +0x20: 0x40ca00 (a 32-byte thunk). */

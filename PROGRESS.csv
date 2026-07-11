@@ -600,7 +600,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00455570,1513,DestroyProjectile,false,39,2,RAW-src
 00455b60,346,FUN_00455b60,false,6,0,RAW-src
 00455cc0,5606,SimulateProjectileFrame,false,39,24,RAW-src
-004572b0,4899,FUN_004572b0,false,13,46,RAW-src
+004572b0,4899,DetonateProjectile,false,13,46,RAW-src
 004585e0,166,FUN_004585e0,false,23,5,RAW-src
 00458920,216,FUN_00458920,false,12,1,RAW-src
 00458a00,216,FUN_00458a00,false,12,1,RAW-src
@@ -805,7 +805,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0048de40,20,FUN_0048de40,false,1,1,RAW-src
 0048de60,871,FUN_0048de60,false,8,11,RAW-src
 0048e1d0,4073,FUN_0048e1d0,false,3,40,RAW-src
-0048f1c0,146,FUN_0048f1c0,false,28,7,RAW-src
+0048f1c0,146,AnimateProjectileTick,false,28,7,RAW-src
 0048f260,31,FUN_0048f260,false,1,2,RAW-src
 0048f280,128,FUN_0048f280,false,1,1,RAW-src
 0048f300,5219,FUN_0048f300,false,1,26,RAW-src

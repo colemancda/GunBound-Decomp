@@ -1,4 +1,4 @@
-/* FUN_0048f1c0 - 0x0048f1c0 in the original binary.
+/* AnimateProjectileTick - 0x0048f1c0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0048f1c0(int *param_1)
+void __fastcall AnimateProjectileTick(int *param_1)
 
 {
   char cVar1;

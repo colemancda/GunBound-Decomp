@@ -25,7 +25,7 @@ void __fastcall FUN_0047ab00(int param_1)
       AcquireSoundChannel(0);
     }
   }
-  FUN_0048f1c0();
+  AnimateProjectileTick();
   return;
 }
 
