@@ -40,7 +40,7 @@ void FUN_004e6df0(void)
   if (0 < (int)(iVar3 + (iVar3 >> 0x1f & 0xfU)) >> 4) {
     puVar4 = local_400;
     do {
-      FUN_004f4d10(puVar4,unaff_EBX + 0x44ff8);
+      EncodeCipherBlock(puVar4,unaff_EBX + 0x44ff8);
       iVar3 = *(int *)(unaff_EBX + 0x44fec) + -0x12;
       iVar5 = iVar5 + 1;
       puVar4 = puVar4 + 4;

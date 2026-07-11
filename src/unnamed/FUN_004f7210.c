@@ -20,7 +20,7 @@ undefined4 FUN_004f7210(undefined4 param_1,int param_2,int param_3)
     iVar3 = 0;
     if (0 < iVar2) {
       do {
-        sVar1 = FUN_004f4d10(param_2,param_1);
+        sVar1 = EncodeCipherBlock(param_2,param_1);
         if (sVar1 != 1) {
           return 0;
         }

@@ -1330,11 +1330,11 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f47e0,40,FUN_004f47e0,false,1,1,RAW-src
 004f4810,149,FUN_004f4810,false,1,0,RAW-src
 004f48b0,1117,FUN_004f48b0,false,8,0,RAW-src
-004f4d10,4345,FUN_004f4d10,false,8,0,RAW-src
+004f4d10,4345,EncodeCipherBlock,false,8,0,RAW-src
 004f5e10,4337,FUN_004f5e10,false,8,0,RAW-src
 004f6f10,40,FUN_004f6f10,false,1,1,RAW-src
-004f6f40,353,FUN_004f6f40,false,2,5,RAW-src
-004f70b0,157,FUN_004f70b0,false,2,1,RAW-src
+004f6f40,353,EncodeHandshakeBlock,false,2,5,RAW-src
+004f70b0,157,EncodePacketBlocks,false,2,1,RAW-src
 004f7150,184,FUN_004f7150,false,1,1,RAW-src
 004f7210,146,FUN_004f7210,false,3,1,RAW-src
 004f72b0,175,FUN_004f72b0,false,2,1,RAW-src

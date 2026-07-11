@@ -1,4 +1,4 @@
-/* FUN_004f4d10 - 0x004f4d10 in the original binary.
+/* EncodeCipherBlock - 0x004f4d10 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-uint __fastcall FUN_004f4d10(undefined4 param_1,uint *param_2,uint *param_3,int param_4)
+uint __fastcall EncodeCipherBlock(undefined4 param_1,uint *param_2,uint *param_3,int param_4)
 
 {
   int iVar1;

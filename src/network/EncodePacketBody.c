@@ -25,7 +25,7 @@ void __fastcall EncodePacketBody(int param_1)
   
   uStack_4 = 0x4d25ea;
   iVar3 = *(int *)(unaff_EBX + 0x44d0) - param_1;
-  FUN_004f70b0(*(undefined4 *)(unaff_EBX + 0x84e8),*(undefined2 *)(unaff_EBX + 0x4d4),local_5000,
+  EncodePacketBlocks(*(undefined4 *)(unaff_EBX + 0x84e8),*(undefined2 *)(unaff_EBX + 0x4d4),local_5000,
                0x5000);
   uVar4 = ((iVar3 + 5) / 0xc) * 0x10;
   puVar5 = local_5000;

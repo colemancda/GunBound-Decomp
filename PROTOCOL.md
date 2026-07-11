@@ -72,6 +72,23 @@ All outgoing packet fields are pushed through a lightweight
 `PacketChecksumEquals`/`NotEquals` — see ARCHITECTURE.md) — this is **not
 cryptographic encryption**, more an anti-tamper/integrity/sequence measure.
 
+That field-level guard is a *separate* layer from the **transport-layer packet
+cipher** applied on the way out the socket. The outgoing-packet path is:
+
+    build (opcode @ +0x4d4, `AppendPacketBytes` payload)
+      -> [ `EncodePacketBody` / `AppendEncodedBlock` ]     (selective, keyed)
+      -> `SendOutgoingPacket`   (writes length + an LCG-advanced sequence field,
+                                 next = state*0x343fd + 0x269ec3, into the header)
+      -> `SendSocketData`       (Winsock `send()`, queues on WSAEWOULDBLOCK)
+
+The keyed body encode is a real block cipher, **not** the field XOR: `EncodePacketBody`
+runs `EncodePacketBlocks`, which loops `EncodeCipherBlock` over 12-byte input blocks
+(each -> 16-byte output, a 12->16 expansion). The P2P handshake's client-info block
+(`AppendEncodedBlock`) is produced by `EncodeHandshakeBlock`, which keys the encode
+with **SHA-1** (initialised with the standard SHA-1 constants `0x67452301`,
+`0xefcdab89`, `0x98badcfe`, `0x10325476`, `0xc3d2e1f0`) over a 16-byte per-connection
+key. (The SHA-1 primitives `FUN_004f7380`/`004f7600` remain unnamed.)
+
 ### Channel 1 header
 
 Just the three parameters passed to `ProcessPacket`:

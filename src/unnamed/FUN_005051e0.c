@@ -36,10 +36,10 @@ void __fastcall FUN_005051e0(int param_1,int param_2)
     do {
       if (iVar3 == iVar5 + -1) {
         _strncpy(local_10,local_14,0x10);
-        FUN_004f4d10(pvVar2,param_2);
+        EncodeCipherBlock(pvVar2,param_2);
       }
       else {
-        FUN_004f4d10(pvVar2,param_2);
+        EncodeCipherBlock(pvVar2,param_2);
       }
       iVar3 = iVar3 + 1;
       local_14 = local_14 + 0x10;

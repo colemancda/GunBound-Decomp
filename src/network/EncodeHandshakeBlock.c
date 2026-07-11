@@ -1,4 +1,4 @@
-/* FUN_004f6f40 - 0x004f6f40 in the original binary.
+/* EncodeHandshakeBlock - 0x004f6f40 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-uint FUN_004f6f40(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
+uint EncodeHandshakeBlock(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
 
 {
   char cVar1;
@@ -60,8 +60,8 @@ uint FUN_004f6f40(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
     FUN_004f48b0(1);
     _strncpy(local_22c,unaff_ESI,0x10);
     local_21c = param_3;
-    sVar4 = FUN_004f4d10(iVar2,local_20c);
-    if ((sVar4 == 1) && (sVar4 = FUN_004f4d10(iVar2 + 0x10,local_20c), sVar4 == 1)) {
+    sVar4 = EncodeCipherBlock(iVar2,local_20c);
+    if ((sVar4 == 1) && (sVar4 = EncodeCipherBlock(iVar2 + 0x10,local_20c), sVar4 == 1)) {
       return 1;
     }
     return 0;

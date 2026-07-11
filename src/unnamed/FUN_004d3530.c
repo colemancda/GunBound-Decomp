@@ -45,7 +45,7 @@ void FUN_004d3530(int param_1)
   }
   if (*(int *)(param_1 + 0x84dc) != -1) {
     iVar5 = local_5464 - *(int *)(param_1 + 0x84dc);
-    FUN_004f70b0(*(undefined4 *)(param_1 + 0x84e8),*(undefined2 *)(param_1 + 0x44d8),local_500c,
+    EncodePacketBlocks(*(undefined4 *)(param_1 + 0x84e8),*(undefined2 *)(param_1 + 0x44d8),local_500c,
                  0x5000);
     uVar6 = ((iVar5 + 5) / 0xc) * 0x10;
     puVar7 = local_500c;

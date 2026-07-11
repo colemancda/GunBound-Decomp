@@ -17,7 +17,7 @@ void __fastcall AppendEncodedBlock(undefined4 param_1)
   undefined4 *puVar3;
   undefined4 local_20 [8];
   
-  FUN_004f6f40(*(undefined4 *)(unaff_EBX + 0x84e8),
+  EncodeHandshakeBlock(*(undefined4 *)(unaff_EBX + 0x84e8),
                &DAT_0056dbf0 + *(int *)(unaff_EBX + 0x4cc) * 0x10,param_1,local_20);
   puVar2 = local_20;
   puVar3 = (undefined4 *)(*(int *)(unaff_EBX + 0x44d0) + 0x4d0 + unaff_EBX);

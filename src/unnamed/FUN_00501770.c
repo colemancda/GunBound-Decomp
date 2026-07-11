@@ -258,7 +258,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
         *(undefined4 *)(param_1 + 0x1784) = uVar9;
         cVar4 = FUN_004fcd80(local_4914,0x11);
         if (((cVar4 != '\0') && (cVar4 = FUN_004fcd80(&local_4944,0x15), cVar4 != '\0')) &&
-           (cVar4 = FUN_004f6f40(*(undefined4 *)(param_1 + 0x1784),&DAT_00551b7c,
+           (cVar4 = EncodeHandshakeBlock(*(undefined4 *)(param_1 + 0x1784),&DAT_00551b7c,
                                  *(undefined4 *)puVar1,&local_2ef8), cVar4 != '\0')) {
           local_4978 = 0x10;
           cVar4 = FUN_00503930(&local_4984,&local_497c);
