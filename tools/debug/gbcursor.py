@@ -70,22 +70,42 @@ class DrawBP(gdb.Breakpoint):
 
 
 _detach = [False]
+_timer = [None]
+
+
+def _cleanup(reason):
+    if _timer[0] is not None:
+        _timer[0].cancel()
+        _timer[0] = None
+    out("#### gbcursor: %s — cleaning up, detaching ####" % reason)
+    for cmd in ("delete", "detach", "quit"):
+        try:
+            gdb.execute(cmd)
+        except Exception as e:
+            out("  (%s error: %s)" % (cmd, e))
 
 
 def _on_stop(evt):
     if not _detach[0]:
         return
     _detach[0] = False
-    try:
-        out("#### gbcursor: budget reached — cleaning up, detaching ####")
-        gdb.execute("delete")
-        gdb.execute("detach")
-        gdb.execute("quit")
-    except Exception as e:
-        out("  (detach error: %s)" % e)
+    _cleanup("budget reached")
+
+
+def _on_exit(evt):
+    # The remote can drop on its own (game crash under Wine/wined3d, unrelated
+    # to this probe) before NETCAP_SECONDS elapses - cancel the pending timer
+    # so its callback doesn't fire into a torn-down interpreter later and
+    # crash GDB itself (see gbavatar.py's _on_exit for the full writeup of
+    # the crash this caused there).
+    if _timer[0] is not None:
+        _timer[0].cancel()
+        _timer[0] = None
+    out("#### gbcursor: remote/inferior exited - nothing more to detach ####")
 
 
 gdb.events.stop.connect(_on_stop)
+gdb.events.exited.connect(_on_exit)
 DrawBP()
 out("#### gbcursor: logging cursor draw @0x%x -> %s (cap %d) ####" % (DRAW_VA, LOG_PATH, MAX_HITS))
 if DURATION > 0:
@@ -93,5 +113,12 @@ if DURATION > 0:
 
     def _fire():
         _detach[0] = True
-        gdb.post_event(lambda: gdb.execute("interrupt"))
-    threading.Timer(DURATION, _fire).start()
+        try:
+            gdb.post_event(lambda: gdb.execute("interrupt"))
+        except Exception as e:
+            out("  (interrupt request error: %s)" % e)
+    # daemon=True: get killed with the interpreter on shutdown rather than
+    # firing its callback into a torn-down GDB later.
+    _timer[0] = threading.Timer(DURATION, _fire)
+    _timer[0].daemon = True
+    _timer[0].start()

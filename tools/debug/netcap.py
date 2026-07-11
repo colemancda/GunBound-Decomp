@@ -152,6 +152,7 @@ def install():
 # gdb stop-event handler that fires once the target genuinely halts. And we NEVER
 # hard-kill winedbg (attach mode = KillOnExit — that would take the game with it).
 _detach_requested = False
+_timer = None
 
 
 def _on_stop(event):
@@ -159,23 +160,46 @@ def _on_stop(event):
     if not _detach_requested:
         return
     _detach_requested = False
-    try:
-        out("\n#### netcap: budget reached — deleting breakpoints, detaching, quitting ####")
-        gdb.execute("delete")     # restores int3-patched bytes in the target
-        gdb.execute("detach")     # resume + release the game cleanly
-        gdb.execute("quit")
-    except Exception as e:
-        out("  (clean detach error: %s)" % e)
+    out("\n#### netcap: budget reached — deleting breakpoints, detaching, quitting ####")
+    for cmd in ("delete", "detach", "quit"):   # tried independently - see _on_exit
+        try:
+            gdb.execute(cmd)
+        except Exception as e:
+            out("  (%s error: %s)" % (cmd, e))
+
+
+def _on_exit(event):
+    # The remote (winedbg's gdbstub) can drop on its own - e.g. the game
+    # crashing under Wine/wined3d, unrelated to this probe - well before
+    # NETCAP_SECONDS elapses. The timer below used to stay alive regardless
+    # and fire its gdb.post_event()/gdb.execute() callback into GDB's Python
+    # interpreter after the session had already ended, which crashed GDB
+    # itself with a native segfault rather than a catchable exception (seen
+    # in practice on gbavatar.py, which shares this exact pattern - see that
+    # file's _on_exit for the full writeup). Cancelling here avoids it.
+    global _timer
+    if _timer is not None:
+        _timer.cancel()
+        _timer = None
+    out("#### netcap: remote/inferior exited - nothing more to detach ####")
 
 
 def _request_detach():
     global _detach_requested
     _detach_requested = True
-    gdb.post_event(lambda: gdb.execute("interrupt"))   # quick, non-blocking
+    try:
+        gdb.post_event(lambda: gdb.execute("interrupt"))   # quick, non-blocking
+    except Exception as e:
+        out("  (interrupt request error: %s)" % e)
 
 
 gdb.events.stop.connect(_on_stop)
+gdb.events.exited.connect(_on_exit)
 install()
 if DURATION > 0:
     out("#### netcap: will auto-detach after %.0fs ####" % DURATION)
-    threading.Timer(DURATION, _request_detach).start()
+    # daemon=True: get killed with the interpreter on shutdown rather than
+    # firing its callback into a torn-down GDB later.
+    _timer = threading.Timer(DURATION, _request_detach)
+    _timer.daemon = True
+    _timer.start()

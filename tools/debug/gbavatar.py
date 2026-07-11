@@ -110,22 +110,48 @@ class Site(gdb.Breakpoint):
 
 
 _detach = [False]
+_timer = [None]
+
+
+def _cleanup(reason):
+    if _timer[0] is not None:
+        _timer[0].cancel()
+        _timer[0] = None
+    out("#### gbavatar: %s — cleaning up, detaching ####" % reason)
+    # Each gdb.execute() tried independently: if the remote already dropped
+    # (see below), "delete"/"detach" raise but "quit" should still run rather
+    # than being skipped by one earlier exception.
+    for cmd in ("delete", "detach", "quit"):
+        try:
+            gdb.execute(cmd)
+        except Exception as e:
+            out("  (%s error: %s)" % (cmd, e))
 
 
 def _on_stop(evt):
     if not _detach[0]:
         return
     _detach[0] = False
-    try:
-        out("#### gbavatar: budget reached — cleaning up, detaching ####")
-        gdb.execute("delete")
-        gdb.execute("detach")
-        gdb.execute("quit")
-    except Exception as e:
-        out("  (detach error: %s)" % e)
+    _cleanup("budget reached")
+
+
+def _on_exit(evt):
+    # The remote (winedbg's gdbstub) can drop on its own - e.g. the game
+    # crashing under Wine/wined3d, unrelated to our probe - well before
+    # GBAVATAR_SECONDS elapses. Previously the timer thread below stayed
+    # alive regardless and fired its gdb.post_event()/gdb.execute() callback
+    # into GDB's Python interpreter after the session had already ended
+    # (possibly mid-shutdown), which crashed GDB itself with a native
+    # segfault (not a catchable Python exception) rather than just erroring.
+    # Cancelling here as soon as the inferior is gone avoids that.
+    if _timer[0] is not None:
+        _timer[0].cancel()
+        _timer[0] = None
+    out("#### gbavatar: remote/inferior exited - nothing more to detach ####")
 
 
 gdb.events.stop.connect(_on_stop)
+gdb.events.exited.connect(_on_exit)
 for va, kind in ((0x44B170, "handler"), (0x44B330, "handler"), (0x44B460, "handler"),
                  (0x4141B0, "compose"), (0x4DC5C0, "room"), (0x4431A0, "ready")):
     Site(va, kind)
@@ -135,5 +161,14 @@ if DURATION > 0:
 
     def _fire():
         _detach[0] = True
-        gdb.post_event(lambda: gdb.execute("interrupt"))
-    threading.Timer(DURATION, _fire).start()
+        try:
+            gdb.post_event(lambda: gdb.execute("interrupt"))
+        except Exception as e:
+            out("  (interrupt request error: %s)" % e)
+    # daemon=True: if GDB itself is exiting (interpreter teardown after the
+    # user quits, or the remote already dropped - see _on_exit above) this
+    # thread is abruptly killed with it instead of firing its callback into
+    # a torn-down interpreter, which is what crashed GDB natively last time.
+    _timer[0] = threading.Timer(DURATION, _fire)
+    _timer[0].daemon = True
+    _timer[0].start()
