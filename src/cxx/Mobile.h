@@ -77,8 +77,8 @@ public:
      * update-ish, checksum-state buffers. Role unconfirmed. */
     virtual void v5_Update();
     /* slot 6 +0x18: 0x45f910 = HandleFireInput (shared) - decides a fire
-     * attempt's outcome and emits the 0x8403 Fire action; reads m_fireAngle
-     * (+0x243) / m_firePower (+0x2cc). CONFIRMED. */
+     * attempt's outcome and emits the 0x8403 Fire action; reads the fire
+     * angle/power CValueGuard objects at byte 0x90c / 0xb30 (see below). CONFIRMED. */
     virtual void HandleFireInput();
     /* slot 7 +0x1c: the per-type MAIN action. Base = CGameState_NoOpVirtual_B
      * (0x4fdef0, no-op); every subclass overrides it (e.g. type 0 = 0x44e920).
@@ -93,11 +93,15 @@ public:
     u32  m_tankTexture;        /* +0x1c: CreateMobile: tank%d texture handle; also the +0x1c handle v1() polls */
     u8   m_pad20[0x34];
     u32  m_avataTexture;       /* +0x54: CreateMobile: avata texture handle */
-    u8   m_pad58[0x1eb];
-    u8   m_fireAngle;          /* +0x243: HandleFireInput: 1st Fire payload field (angle) */
-    u8   m_pad244[0x88];
-    u8   m_firePower;          /* +0x2cc: HandleFireInput: 2nd Fire payload field (power) */
-    u8   m_pad2cd[0x637];
+    /* The "fire angle" / "fire power" are NOT scalars here. HandleFireInput
+     * accesses them as `param_1 + 0x243` / `+0x2cc` on an int* (Ghidra
+     * type-propagation, 2026), i.e. BYTE offsets 0x90c / 0xb30, and passes them
+     * to the CValueGuard encoders (EncodeChecksumDeltaSub / ScrubChecksumGuard)
+     * - each is a 0x224-byte anti-cheat guard object, not a u8. (An earlier
+     * draft placed u8 m_fireAngle/m_firePower at 0x243/0x2cc, mistaking the
+     * int-INDEX for a byte offset; corrected to padding.) Most of CMobile is
+     * such guard objects; they are left as padding until CValueGuard is modeled. */
+    u8   m_pad58[0x8ac];
     u32  m_spriteId2;          /* +0x904: CreateMobile: mobileType + 0x13ec (5100+type) - secondary sprite id */
     u8   m_pad908[0xa50d];
     char m_name[0xd];          /* +0xae15: CreateMobile copies the player name here (0xD stride; 2nd string at +0xae22) */

@@ -102,8 +102,9 @@ static void gb_widget_offset_checks()
     GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_spriteId)     == 0x18,   off_mob_sprite);
     GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_tankTexture)  == 0x1c,   off_mob_tanktex);
     GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_avataTexture) == 0x54,   off_mob_avatatex);
-    GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_fireAngle)    == 0x243,  off_mob_angle);
-    GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_firePower)    == 0x2cc,  off_mob_power);
+    /* m_fireAngle/m_firePower removed: they were u8 at int-index 0x243/0x2cc
+     * misread as byte offsets; the fields are CValueGuard objects at byte
+     * 0x90c/0xb30 (see Mobile.h). */
     GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_spriteId2)    == 0x904,  off_mob_sprite2);
     GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_name)         == 0xae15, off_mob_name);
     GB_STATIC_ASSERT(GB_OFFSETOF(CMobile, m_type13Field)  == 0xbff0, off_mob_t13);
