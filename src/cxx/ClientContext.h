@@ -102,15 +102,18 @@ inline u8   &Ctx_roomSlotStatus(int ctx, int slot) { return *reinterpret_cast<u8
 inline u8   &Ctx_roomSlotActive(int ctx, int slot) { return *reinterpret_cast<u8 *>(ctx + 0x45914 + slot); }
 
 /* avatarEquipped: the worn outfit as four packed u16 part codes (each: bit15 =
- * gender, bits0-14 = id into the {gender}{cat}.dat part table - see
- * FILEFORMATS.md "Avatar.xfs"). word0=Body, word2=Glasses (confirmed);
- * word1/word3 = Head vs Flag is UNRESOLVED: LoadRoomSlotAvatar (0x4dc5c0) reads
- * word1=head/word3=flag; LoadReadyRoomSlotAvatar (0x4431a0) reads the opposite
- * (default-table indices +0x664/+0x668 swapped too). Both are raw, unverified
- * ports so exactly one is transposed, and the 0x2105 writer only packs
- * {body,word1}/{glasses,word3} - no tiebreak. Settle it with a live equip test.
- * Copied to +0x501fe+slot*8 in the Ready Room; unpacked + composited by
- * LoadAvatarSprites (0x4141b0) into the AvataTexture render targets. */
+ * gender (1=male 'm', 0=female 'f'), bits0-14 = id into the {gender}{cat}.dat
+ * part table - see FILEFORMATS.md "Avatar.xfs"). Word order RESOLVED (2026) from
+ * ComposeAvatarSprites (0x4d1500): it builds each on-body sprite as
+ * "%c{cat}%05d.img", reading the gender bit straight from the matching word -
+ *   word0 (+0x00) = Body    ('b', %cb) - gender from +0x501fe
+ *   word1 (+0x02) = Head    ('h', %ch) - gender from +0x50200
+ *   word2 (+0x04) = Glasses ('g', %cg) - gender from +0x50202
+ *   word3 (+0x06) = Flag    ('f') - NOT in the on-body composite, drawn separately
+ * This confirms LoadRoomSlotAvatar's (0x4dc5c0) word1=head/word3=flag reading;
+ * LoadReadyRoomSlotAvatar (0x4431a0) was the transposed raw port. Copied to
+ * +0x501fe+slot*8 in the Ready Room; unpacked + composited by ComposeAvatarSprites
+ * / LoadAvatarSprites (0x4141b0) into the AvataTexture render targets. */
 inline u16 *Ctx_avatarEquipped(int ctx, int slot) { return reinterpret_cast<u16 *>(ctx + 0x458bc + slot * 8); }
 
 /* --- Room list (State 3) arena ----------------------------------------

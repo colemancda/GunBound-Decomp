@@ -418,25 +418,23 @@ the `bit 15 = gender`, `bits 0–14 = id` encoding above):
 
 | u16 word | byte offset | bits | slot |
 |---|---|---|---|
-| word 0 | `+0` | 0–15  | **Body** (confirmed) |
-| word 1 | `+2` | 16–31 | Head **or** Flag — see note |
-| word 2 | `+4` | 32–47 | **Glasses** (confirmed) |
-| word 3 | `+6` | 48–63 | Flag **or** Head — see note |
+| word 0 | `+0` | 0–15  | **Body** (`b`) |
+| word 1 | `+2` | 16–31 | **Head** (`h`) |
+| word 2 | `+4` | 32–47 | **Glasses** (`g`) |
+| word 3 | `+6` | 48–63 | **Flag** (`f`) |
 
-So to split the `UInt64`: `body = v & 0xffff`, `glasses = (v>>32) & 0xffff`,
-and the other two are `(v>>16)&0xffff` / `(v>>48)&0xffff`. **Note:** the two
-in-binary unpackers disagree on which of word 1 / word 3 is Head vs Flag —
-`LoadRoomSlotAvatar` (`0x004dc5c0`) reads word 1 = head, word 3 = flag;
-`LoadReadyRoomSlotAvatar` (`0x004431a0`) reads the *opposite* (its per-gender
-default-table indices `+0x664`/`+0x668` are swapped to match). Both are raw,
-not-hand-verified Ghidra ports, so exactly one has Head/Flag transposed; Body and
-Glasses are agreed. The `0x2105` writer (State03) is **not** a tiebreaker: it
-stores two `u32`s — `{body (low), word1 (high)}` and `{glasses (low), word3
-(high)}` — which pins Body/Glasses but says nothing about which high half is Head
-vs Flag. **This is genuinely unresolved from static analysis.** Resolve with a
-one-shot live test: equip a distinctive flag (e.g. France `0x8007`), then read
-`g_clientContext + 0x458bc + slot*8` and see whether the flag id lands in word 1
-or word 3.
+So to split the `UInt64`: `body = v & 0xffff`, `head = (v>>16)&0xffff`,
+`glasses = (v>>32)&0xffff`, `flag = (v>>48)&0xffff`.
+
+**Word order confirmed (2026) from `ComposeAvatarSprites` (`0x004d1500`)**, the
+on-body compositor. It builds each part's sprite filename as `%c{cat}%05d.img`
+(`%c` = `'m'` if bit 15 else `'f'`) and reads the gender bit *directly from the
+matching word*: word 0 → `%cb` (body), word 1 → `%ch` (head), word 2 → `%cg`
+(glasses). Word 3 is the flag, which is drawn as a separate banner rather than
+composited onto the body, hence its absence from the compositor. This confirms
+`LoadRoomSlotAvatar`'s (`0x004dc5c0`) word 1 = head / word 3 = flag reading;
+`LoadReadyRoomSlotAvatar` (`0x004431a0`) was the transposed raw port (its
+per-gender default-table indices `+0x664`/`+0x668` are swapped).
 
 **Where it lives / the pipeline.** The record arrives on the wire in the
 **`0x2105` room-player packet** at record offset `+0x1d` (a `u32` = words 0–1)

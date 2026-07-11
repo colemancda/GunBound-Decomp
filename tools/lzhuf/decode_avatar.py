@@ -18,12 +18,12 @@ The drawn sprite is "{gender}{category}{id:05d}.img" in graphics.xfs
 
 An 'avatarEquipped' value is a UInt64 packing FOUR of those u16 codes,
 little-endian (see FILEFORMATS.md "Avatar.xfs"):
-    word 0 (bits  0-15) = Body      (confirmed)
-    word 1 (bits 16-31) = Head or Flag   -- the two in-binary unpackers
-    word 2 (bits 32-47) = Glasses   (confirmed)
-    word 3 (bits 48-63) = Flag or Head   -- (0x4431a0/0x4dc5c0) disagree
-Body/Glasses are firm; Head vs Flag at words 1/3 is ambiguous in static
-analysis (a live equip test resolves it) so this tool reports both readings.
+    word 0 (bits  0-15) = Body      (b)
+    word 1 (bits 16-31) = Head      (h)
+    word 2 (bits 32-47) = Glasses   (g)
+    word 3 (bits 48-63) = Flag      (f)
+Word order confirmed from ComposeAvatarSprites (0x4d1500): it composites
+word0->%cb, word1->%ch, word2->%cg; word3 is the flag (drawn separately).
 
 Usage:
   python3 decode_avatar.py <Avatar.xfs>            # dump the 8 part tables
@@ -99,21 +99,15 @@ def split_equipped(value):
 def print_equipped(tables, value):
     words = split_equipped(value)
     print(f'avatarEquipped = 0x{value:016x}')
-    # word 0 = Body, word 2 = Glasses (confirmed); words 1/3 = Head/Flag (ambiguous)
-    for idx, cat, label in ((0, 'b', 'Body   '), (2, 'g', 'Glasses')):
+    # word order confirmed from ComposeAvatarSprites (0x4d1500)
+    for idx, cat, label in ((0, 'b', 'Body   '), (1, 'h', 'Head   '),
+                            (2, 'g', 'Glasses'), (3, 'f', 'Flag   ')):
         g, pid = decode_part_code(words[idx])
         gl = GENDER.get(g, '-')
+        # the flag table is only populated under the 'mf' prefix
+        lookup_g = 'm' if cat == 'f' else g
         print(f'  word{idx} (bits {idx*16:2d}-{idx*16+15}) {label} 0x{words[idx]:04x}'
-              f'  {gl:<6} -> {part_name(tables, g, cat, pid)}')
-    for idx in (1, 3):
-        g, pid = decode_part_code(words[idx])
-        gl = GENDER.get(g, '-')
-        head = part_name(tables, g, 'h', pid)
-        flag = part_name(tables, 'm', 'f', pid)  # flag prefix is always 'mf'
-        print(f'  word{idx} (bits {idx*16:2d}-{idx*16+15}) Head/Flag 0x{words[idx]:04x}'
-              f'  {gl:<6} -> Head: {head}   |   Flag: {flag}')
-    print('  (Body/Glasses confirmed; Head vs Flag at words 1/3 is order-ambiguous '
-          '- see FILEFORMATS.md)')
+              f'  {gl:<6} -> {part_name(tables, lookup_g, cat, pid)}')
 
 
 def main():

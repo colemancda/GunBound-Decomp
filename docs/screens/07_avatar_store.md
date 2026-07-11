@@ -40,8 +40,9 @@ parts into the **`AvataTexture1/2`** runtime render target. The store's slot
 handlers (`EquipAvatarPart` equip-a-code / `UnequipAvatarSlot` clear-slot / `PreviewAvatarPart`)
 push the previewed code into the store context (`+0x31488`) and re-run the
 compositor. A committed outfit is stored as the packed `avatarEquipped` UInt64
-(4 × u16 = Body / Head-or-Flag / Glasses / Flag-or-Head — see FILEFORMATS.md;
-split it with `decode_avatar.py --equip <hex>`).
+(4 × u16 = Body / Head / Glasses / Flag — word order confirmed from
+`ComposeAvatarSprites` (`0x4d1500`); see FILEFORMATS.md; split it with
+`decode_avatar.py --equip <hex>`).
 
 ## Network (see PROTOCOL.md — "State 7" / Avatar Store)
 | Opcode | Dir | Meaning |
