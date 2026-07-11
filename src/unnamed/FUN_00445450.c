@@ -94,7 +94,7 @@ LAB_00445543:
        ((cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,1);
     FUN_00449250(param_1,1,0);
-    FUN_00406380(1);
+    SetWidgetReadyState(1);
     uVar12 = 0;
     goto LAB_00445629;
   case 0xb:
@@ -103,16 +103,16 @@ LAB_00445543:
        ((cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,0);
     FUN_00449250(param_1,1,0);
-    FUN_00406380(0);
+    SetWidgetReadyState(0);
     uVar12 = 1;
 LAB_00445629:
-    FUN_00406380(uVar12);
+    SetWidgetReadyState(uVar12);
     uVar12 = 0;
 LAB_0044563c:
-    FUN_00406380(uVar12);
+    SetWidgetReadyState(uVar12);
     uVar12 = 0;
 LAB_004457e7:
-    FUN_00406380(uVar12);
+    SetWidgetReadyState(uVar12);
     break;
   case 0xc:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
@@ -120,8 +120,8 @@ LAB_004457e7:
         (cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01')) || (g_stateChangeInProgress != 0)) break;
     FUN_00449540(param_1,2);
     FUN_00449250(param_1,1,0);
-    FUN_00406380(0);
-    FUN_00406380(0);
+    SetWidgetReadyState(0);
+    SetWidgetReadyState(0);
     uVar12 = 1;
     goto LAB_0044563c;
   case 0xd:
@@ -130,9 +130,9 @@ LAB_004457e7:
        ((cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,3);
     FUN_00449250(param_1,1,0);
-    FUN_00406380(0);
-    FUN_00406380(0);
-    FUN_00406380(0);
+    SetWidgetReadyState(0);
+    SetWidgetReadyState(0);
+    SetWidgetReadyState(0);
     uVar12 = 1;
     goto LAB_004457e7;
   case 0xe:

@@ -1,4 +1,4 @@
-/* FUN_004db570 - 0x004db570 in the original binary.
+/* TallyRoomTeamStats - 0x004db570 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004db570(int param_1)
+void __fastcall TallyRoomTeamStats(int param_1)
 
 {
   char cVar1;

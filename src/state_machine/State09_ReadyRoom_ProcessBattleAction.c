@@ -45,7 +45,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (uVar7 == uVar9) {
           RefreshReadyRoomControls(this,1,0);
-          FUN_004db920();
+          RefreshTeamSlotHighlights();
         }
         cVar3 = *(char *)(g_clientContext + 0x458fc + uVar7 * 2);
         if ((cVar3 == -1) || ('\x10' < cVar3)) {
@@ -70,7 +70,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
           }
           uVar9 = (uint)*(byte *)(g_clientContext + 0x45124);
           PeekChecksumStateUnderLock(g_clientContext + 0x44efc);
-          FUN_004daa60(this,uVar9);
+          ApplyRoomSettings(this,uVar9);
           return;
         }
         if (uVar2 == 1) {
@@ -121,7 +121,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
             }
             uVar9 = (uint)*(byte *)(g_clientContext + 0x45124);
             PeekChecksumStateUnderLock(g_clientContext + 0x44efc);
-            FUN_004daa60(this,uVar9);
+            ApplyRoomSettings(this,uVar9);
             iVar4 = g_clientContext + 0x44efc;
             *(undefined1 *)((int)this + 9) = *(undefined1 *)(g_clientContext + 0x44ef8);
             uVar5 = PeekChecksumStateUnderLock(iVar4);
@@ -137,7 +137,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
               pcVar6[(int)this + iVar4] = cVar3;
               pcVar6 = pcVar6 + 1;
             } while (cVar3 != '\0');
-            FUN_004db920();
+            RefreshTeamSlotHighlights();
             BuildItemLoadout(this,1);
             return;
           }
@@ -196,8 +196,8 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
           }
         }
         FUN_00415ce0((uint)bVar1);
-        FUN_004db570();
-        FUN_004db720();
+        TallyRoomTeamStats();
+        ComputeTurnOrder();
         return;
       }
       if (uVar2 == 0x8102) {

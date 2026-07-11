@@ -218,6 +218,34 @@ The host-only room-config controls dispatch to two different sends:
   one already inferred; the 16–17 field tracks a per-map variant count from
   `DAT_0056d350`.)
 
+### The inbound decode — `ApplyRoomSettings` (`0x4daa60`)
+The receive-side counterpart of the encode above. Called when a `0x3101`/`0x3103`
+settings update arrives (settings dword in `EAX`, game-mode byte as the 2nd arg).
+It unpacks the dword into per-field context bytes at **`ctx+0x45120..0x45128`**
+(bit 4 → `+0x45120`, bits 5–6 → `+0x45121`, bit 7 → `+0x45122`, bits 0–3 →
+`+0x45123`, mode byte → `+0x45124`, bits 8–11 → `+0x45127`, bits 12–13 →
+`+0x45128`, bits 14–15 → `+0x45126`), rebuilds the on-screen `b_ready_option`
+toggle buttons (ids `0x3f2`–`0x431`, one radio per group at the `0x13d`/`0x193`
+columns) to reflect the new values, and re-encodes a couple of the fields
+outbound. It finishes by recomputing derived state:
+`ComputeTurnOrder` → `RefreshTeamSlotHighlights` → `RefreshReadyRoomControls`.
+
+### Ready Room derived-state helpers (`OnEnter` / `OnTick` / `ApplyRoomSettings`)
+- **`TallyRoomTeamStats`** (`0x4db570`) — walks the 8 room slots (occupancy
+  `ctx+0x45914`, team byte `ctx+0x4590c`, a per-slot `short` at `ctx+0x4591e`)
+  and produces per-team member counts (`+0x490`/`+0x494`) and a team-averaged
+  value (`+0x4ce`/`+0x4d0`, sum ÷ count ÷ 5; `0xffff` when a team is empty).
+- **`ComputeTurnOrder`** (`0x4db720`) — calls `TallyRoomTeamStats`, then fills the
+  8-byte seat/turn-order array at `this+0x4a0`: assigns order indices to occupied
+  slots by team, then back-fills any empty entries from the interleave permutation
+  `{0,4,1,5,2,6,3,7}` (alternating-team turn sequence). Runs first thing in
+  `OnTick`.
+- **`RefreshTeamSlotHighlights`** (`0x4db920`) — for each room slot, sets the
+  corresponding tree widget's sprite state to `"ready"`/`"active"` via
+  **`SetWidgetReadyState`** (`0x406380`, a generic two-level widget-tree lookup
+  that swaps a widget's sprite to `ready_`/`active_` and toggles its highlight
+  byte `+0x13`), and computes the "both team leaders present" gate.
+
 ## Still open
 - **Label→group binding** for `0x3101` groups A–D (A SIDE / SSDEATH / ATTACK /
   DEATH72): the encode + bit masks are decoded (above); only the human label per

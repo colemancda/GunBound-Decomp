@@ -119,7 +119,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
          ((cVar2 = PacketChecksumEquals(g_clientContext + 0x45354,2), cVar2 != '\0' &&
           (iVar10 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c),
           (int)*(char *)(g_clientContext + 0x458fd + iVar10 * 2) == param_4 - 100)))) {
-        uVar3 = FUN_00406380(1);
+        uVar3 = SetWidgetReadyState(1);
         return uVar3;
       }
       RefreshReadyRoomControls(param_1,0,0);

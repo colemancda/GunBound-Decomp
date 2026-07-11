@@ -103,7 +103,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00406280,48,FUN_00406280,false,1,0,RAW-src
 004062b0,76,FUN_004062b0,false,4,0,RAW-src
 00406300,119,FUN_00406300,false,100,0,RAW-src
-00406380,116,FUN_00406380,false,13,0,RAW-src
+00406380,116,SetWidgetReadyState,false,13,0,RAW-src
 00406400,62,FUN_00406400,false,5,0,RAW-src
 00406440,90,InitGuardedBool,false,103,1,RAW-src
 004064a0,93,EncodeGuardedBool,false,42,1,RAW-src
@@ -999,11 +999,11 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d90c0,2575,State09_ReadyRoom_RenderCharacterPreview,false,1,2,RAW-src
 004d9ae0,2406,State09_ReadyRoom_RenderStatusOverlay,false,1,14,RAW-src
 004da460,1532,RefreshReadyRoomControls,false,49,6,RAW-src
-004daa60,2544,FUN_004daa60,false,4,10,RAW-src
+004daa60,2544,ApplyRoomSettings,false,4,10,RAW-src
 004db4b0,177,FUN_004db4b0,false,2,4,RAW-src
-004db570,426,FUN_004db570,false,4,0,RAW-src
-004db720,495,FUN_004db720,false,7,1,RAW-src
-004db920,346,FUN_004db920,false,4,4,RAW-src
+004db570,426,TallyRoomTeamStats,false,4,0,RAW-src
+004db720,495,ComputeTurnOrder,false,7,1,RAW-src
+004db920,346,RefreshTeamSlotHighlights,false,4,4,RAW-src
 004dba80,715,FUN_004dba80,false,1,9,RAW-src
 004dbd50,462,BuildItemLoadout,false,5,7,RAW-src
 004dbf30,442,ResetItemSlotCounters,false,1,4,RAW-src

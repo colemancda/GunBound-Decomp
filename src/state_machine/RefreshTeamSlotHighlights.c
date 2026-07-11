@@ -1,4 +1,4 @@
-/* FUN_004db920 - 0x004db920 in the original binary.
+/* RefreshTeamSlotHighlights - 0x004db920 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004db920(void)
+void RefreshTeamSlotHighlights(void)
 
 {
   char cVar1;
@@ -33,7 +33,7 @@ LAB_004db999:
       if (cVar1 == iVar3) goto LAB_004db999;
       iVar2 = (uint)(uint3)(cVar1 >> 7) << 8;
     }
-    FUN_00406380(iVar2);
+    SetWidgetReadyState(iVar2);
     iVar3 = iVar3 + 1;
   } while (iVar3 < 0xe);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -59,7 +59,7 @@ LAB_004db999:
     bVar4 = *(char *)(g_clientContext + 0x458fc + iVar2 * 2) == -1;
   }
 LAB_004dba63:
-  FUN_00406380(bVar4);
+  SetWidgetReadyState(bVar4);
   return;
 }
 

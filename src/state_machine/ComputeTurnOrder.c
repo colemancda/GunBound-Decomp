@@ -1,4 +1,4 @@
-/* FUN_004db720 - 0x004db720 in the original binary.
+/* ComputeTurnOrder - 0x004db720 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004db720(void)
+void ComputeTurnOrder(void)
 
 {
   char *pcVar1;
@@ -28,7 +28,7 @@ void FUN_004db720(void)
   int local_24;
   int local_20 [8];
   
-  FUN_004db570();
+  TallyRoomTeamStats();
   iVar11 = g_clientContext;
   uVar7 = *(uint *)(extraout_ECX + 0x490);
   uVar4 = (uint)(*(byte *)(g_clientContext + 0x45124) >> 1);

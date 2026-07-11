@@ -21,7 +21,7 @@ uint __fastcall FUN_004db4b0(int param_1)
   if (0 < (int)*(uint *)(param_1 + 0x628)) {
     return *(uint *)(param_1 + 0x628) & 0xffffff00;
   }
-  FUN_004db570();
+  TallyRoomTeamStats();
   if ((((*(char *)(g_clientContext + 0x45122) == '\0') ||
        (*(int *)(extraout_ECX + 0x490) == *(int *)(extraout_ECX + 0x494))) ||
       (uVar3 = (uint3)((uint)*(int *)(extraout_ECX + 0x490) >> 8),

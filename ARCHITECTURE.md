@@ -488,8 +488,8 @@ call `Replay_AppendEvent` with a distinct event-type code.
 | Opcode | Behavior |
 |---|---|
 | `0x2001` | **Leave ready room.** If a flag (`DAT_00793522`) is set, force-exits state 11 (In-Battle) via its own vtable exit-hook (`g_gameStateObjects[0xb]+0x20`) — i.e. this can tear down an in-progress battle. Then `g_pendingGameState = 3` (back to Game Room List). |
-| `0x3010` | **Corrected — not character/team selection.** Calls `FUN_004db720()` (shared ready-toggle, same as `0x3020` below) then `FUN_004dc200(*payload)`/`LoadRoomSlotAvatar()` — a **match-start replay-log snapshot** (event `0x8400`, reusing the same 20-element/`0x224`-stride loop found in the Room→Ready-Room transition) plus **(re)loading each slot's worn avatar** (`LoadRoomSlotAvatar` reads the `avatarEquipped` record at `+0x458bc+slot*8` — the per-slot high bit is **gender**, not team side — and composites the parts via `LoadAvatarSprites`). See PROTOCOL.md's corrected writeup and FILEFORMATS.md "Avatar.xfs". |
-| `0x3020` | Calls `FUN_004db720()` only — simpler ready/unready toggle. |
+| `0x3010` | **Corrected — not character/team selection.** Calls `ComputeTurnOrder()` (shared ready-toggle, same as `0x3020` below) then `FUN_004dc200(*payload)`/`LoadRoomSlotAvatar()` — a **match-start replay-log snapshot** (event `0x8400`, reusing the same 20-element/`0x224`-stride loop found in the Room→Ready-Room transition) plus **(re)loading each slot's worn avatar** (`LoadRoomSlotAvatar` reads the `avatarEquipped` record at `+0x458bc+slot*8` — the per-slot high bit is **gender**, not team side — and composites the parts via `LoadAvatarSprites`). See PROTOCOL.md's corrected writeup and FILEFORMATS.md "Avatar.xfs". |
+| `0x3020` | Calls `ComputeTurnOrder()` only — simpler ready/unready toggle. |
 | `0x3105` | Records replay event `0x8102` (self) or `0x8000`+player-id+position fields (others), and sends `WM_USER+...` (`0xc5`) UI notification — **player joined ready room**. |
 | `0x3151` | Records replay event `0x8200` with `payload[2]` — likely **team change**. |
 | `0x3201` | Records replay event `0x8100` with two fields from `this` — likely **weapon/character selection change**. |

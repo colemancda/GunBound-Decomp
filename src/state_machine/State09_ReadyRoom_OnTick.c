@@ -16,7 +16,7 @@ void __fastcall State09_ReadyRoom_OnTick(int param_1)
   int iVar4;
   int *piVar5;
   
-  FUN_004db720();
+  ComputeTurnOrder();
   if (-1 < *(int *)(param_1 + 0x628)) {
     *(int *)(param_1 + 0x628) = *(int *)(param_1 + 0x628) + -1;
   }

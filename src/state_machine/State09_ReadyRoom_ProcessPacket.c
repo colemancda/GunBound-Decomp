@@ -129,7 +129,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
         }
         if (opcode != 0x2001) {
           if (opcode == 0x3010) {
-            FUN_004db720();
+            ComputeTurnOrder();
             FUN_004dc200(*payload);
             LoadRoomSlotAvatar();
             return;
@@ -137,7 +137,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
           if (opcode != 0x3020) {
             return;
           }
-          FUN_004db720();
+          ComputeTurnOrder();
           return;
         }
         if (*(short *)payload != 0) {
@@ -827,7 +827,7 @@ LAB_004d4cc7:
         FUN_00425a30(g_clientContext);
         uVar18 = (uint)*(byte *)(g_clientContext + 0x45124);
         PeekChecksumStateUnderLock(g_clientContext + 0x44efc);
-        FUN_004daa60(this,uVar18);
+        ApplyRoomSettings(this,uVar18);
       }
       cVar10 = FUN_0040b390(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
       if (cVar10 == '\0') {
@@ -842,7 +842,7 @@ LAB_004d4cc7:
                            0x2d,1,0);
         *(undefined1 *)((int)this + 0x4cc) = 0;
         BuildItemLoadout(this,0);
-        FUN_004db720();
+        ComputeTurnOrder();
         RefreshReadyRoomControls(this,1,0);
       }
       iVar17 = PeekChecksumStateUnderLock(g_clientContext + 0x3b6c4);

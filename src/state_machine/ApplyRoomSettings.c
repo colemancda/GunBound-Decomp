@@ -1,4 +1,4 @@
-/* FUN_004daa60 - 0x004daa60 in the original binary.
+/* ApplyRoomSettings - 0x004daa60 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004daa60(int *param_1,int param_2)
+void ApplyRoomSettings(int *param_1,int param_2)
 
 {
   int iVar1;
@@ -243,8 +243,8 @@ LAB_004db263:
 LAB_004db3cd:
   FUN_00405fb0();
 switchD_004db2fc_default:
-  FUN_004db720();
-  FUN_004db920();
+  ComputeTurnOrder();
+  RefreshTeamSlotHighlights();
   RefreshReadyRoomControls(param_1,1,0);
   return;
 }

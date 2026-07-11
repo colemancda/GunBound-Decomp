@@ -249,9 +249,9 @@ LAB_004d722d:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004daa60(param_1,*(undefined1 *)(g_clientContext + 0x45124));
+  ApplyRoomSettings(param_1,*(undefined1 *)(g_clientContext + 0x45124));
   *(undefined1 *)(param_1 + 0x4cc) = 0;
-  FUN_004db920();
+  RefreshTeamSlotHighlights();
   iVar4 = DAT_007934e4;
   _DAT_00e9b1c4 = 0;
   _DAT_00e9b1cc = 0;
@@ -262,8 +262,8 @@ LAB_004d722d:
   *(undefined1 *)(DAT_007934e4 + 8) = 1;
   SetWindowTextA(*(HWND *)(iVar4 + 4),&DAT_00551cb1);
   SendMessageA(*(HWND *)(DAT_007934e4 + 4),0xc5,0x3c,0);
-  FUN_004db570();
-  FUN_004db720();
+  TallyRoomTeamStats();
+  ComputeTurnOrder();
   RefreshReadyRoomControls(param_1,1,0);
   PlayMusicTrack(1);
   *(undefined4 *)(param_1 + 0x4d4) = 0xffffffff;
