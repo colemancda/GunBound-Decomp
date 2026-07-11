@@ -11,16 +11,18 @@
 void FUN_004f3e70(void)
 
 {
-  undefined4 *puVar1;
-  
-  puVar1 = DAT_007921b0;
-  do {
-    if ((void *)*puVar1 != (void *)0x0) {
-      _free((void *)*puVar1);
+  int iVar1;
+
+  /* Free every block in the 0x400-entry table. The original's loop bound was
+   * the hardcoded end address 0x7931b0 (= &DAT_007921b0 + 0x1000 in the
+   * original image); with the table relocated by the linker that constant is
+   * meaningless, so iterate by element count instead. */
+  for (iVar1 = 0; iVar1 < 0x400; iVar1 = iVar1 + 1) {
+    if ((void *)DAT_007921b0[iVar1] != (void *)0x0) {
+      _free((void *)DAT_007921b0[iVar1]);
     }
-    *puVar1 = 0;
-    puVar1 = puVar1 + 1;
-  } while ((int)puVar1 < 0x7931b0);
+    DAT_007921b0[iVar1] = 0;
+  }
   return;
 }
 
