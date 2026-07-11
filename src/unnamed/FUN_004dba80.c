@@ -80,7 +80,7 @@ LAB_004dbb40:
     }
     iVar4 = g_clientContext;
     BlitRLESprite(iVar5 + 0x21,0);
-    if ((DAT_00793522 == '\0') && (*(char *)(iVar4 + 0x45914 + param_1) == '\x04')) {
+    if ((g_bBattleSessionActive == '\0') && (*(char *)(iVar4 + 0x45914 + param_1) == '\x04')) {
       if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
         if (*(char *)(iVar4 + 0x18) != '\x01') {
           BlitSpriteClipped(6);

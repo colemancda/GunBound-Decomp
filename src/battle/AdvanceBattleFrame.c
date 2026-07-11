@@ -24,7 +24,7 @@ void __fastcall AdvanceBattleFrame(int param_1)
     *(int *)(param_1 + 0x4d4) = *(int *)(param_1 + 0x4d4) + -1;
   }
   iVar3 = FUN_004dc570();
-  if ((iVar3 == -1) || (DAT_00793522 != '\0')) {
+  if ((iVar3 == -1) || (g_bBattleSessionActive != '\0')) {
     FUN_00509700();
     *(undefined2 *)(param_1 + 0x6b4) = 0;
     *(undefined4 *)(param_1 + 0x6b8) = 0xffffffff;
@@ -92,7 +92,7 @@ LAB_004d7cd2:
     } while (iVar4 != 0);
     iVar3 = iVar3 + -1;
   } while (iVar3 != 0);
-  if (DAT_00793522 == '\0') {
+  if (g_bBattleSessionActive == '\0') {
     iVar3 = *(int *)(param_1 + 0x73c) + 1;
     *(int *)(param_1 + 0x73c) = iVar3;
     if (200 < iVar3) {
@@ -103,7 +103,7 @@ LAB_004d7cd2:
     }
   }
   else {
-    FUN_004dcbe0(param_1);
+    ProcessBattleFrame(param_1);
   }
   return;
 }

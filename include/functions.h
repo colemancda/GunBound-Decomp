@@ -1047,7 +1047,7 @@ void __fastcall LoadRoomSlotAvatar();
 void FUN_004dc6d0();
 void __fastcall FUN_004dc820();
 void __fastcall FUN_004dca80();
-void FUN_004dcbe0();
+void ProcessBattleFrame();
 void FUN_004dfce0();
 void FUN_004dfdb0();
 undefined4 * FUN_004dfe70();

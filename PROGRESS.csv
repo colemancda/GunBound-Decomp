@@ -1015,7 +1015,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004dc6d0,323,FUN_004dc6d0,false,1,5,RAW-src
 004dc820,595,FUN_004dc820,false,1,5,RAW-src
 004dca80,349,FUN_004dca80,false,2,0,RAW-src
-004dcbe0,12254,FUN_004dcbe0,false,1,21,RAW-src
+004dcbe0,12254,ProcessBattleFrame,false,1,21,RAW-src
 004dfce0,199,FUN_004dfce0,false,1,0,RAW-src
 004dfdb0,184,FUN_004dfdb0,false,3,5,RAW-src
 004dfe70,309,FUN_004dfe70,false,1,1,RAW-src

@@ -590,7 +590,7 @@ extern uint8_t DAT_0079351c;
 #define _DAT_0079351c DAT_0079351c
 extern uint8_t DAT_00793520;
 extern uint8_t DAT_00793521;
-extern uint8_t DAT_00793522;
+extern uint8_t g_bBattleSessionActive;
 extern uint8_t DAT_00793529;
 extern uint8_t DAT_0079352a;
 extern uint32_t DAT_0079352c;

@@ -29,7 +29,7 @@ void __fastcall LoadRoomSlotAvatar(int param_1)
   
   uVar1 = *(ushort *)(g_clientContext + 0x458bc + param_1 * 8);
   uVar4 = (uint)((uVar1 & 0x8000) != 0x8000);
-  if ((DAT_00793522 != '\0') && (*(short *)(&DAT_006aa660 + g_clientContext) != -1)) {
+  if ((g_bBattleSessionActive != '\0') && (*(short *)(&DAT_006aa660 + g_clientContext) != -1)) {
     sVar5 = *(short *)(&DAT_006aa668 + uVar4 * 8 + g_clientContext);
     if (sVar5 == -1) {
       sVar5 = *(short *)(g_clientContext + 0x458c2 + param_1 * 8);

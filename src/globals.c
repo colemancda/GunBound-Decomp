@@ -479,7 +479,7 @@ uint8_t DAT_00793518;
 uint8_t DAT_0079351c;
 uint8_t DAT_00793520;
 uint8_t DAT_00793521;
-uint8_t DAT_00793522;
+uint8_t g_bBattleSessionActive;
 uint8_t DAT_00793529;
 uint8_t DAT_0079352a;
 uint32_t DAT_0079352c;

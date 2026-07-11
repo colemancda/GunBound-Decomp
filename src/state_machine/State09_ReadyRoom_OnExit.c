@@ -177,7 +177,7 @@ LAB_004d78a7:
     puVar8[4] = puVar8;
   }
 LAB_004d78d5:
-  if (DAT_00793522 == '\0') {
+  if (g_bBattleSessionActive == '\0') {
     uVar5 = 1000;
     do {
       puVar8 = *(undefined4 **)(DAT_00ea0e1c + 0x1c);
@@ -303,7 +303,7 @@ LAB_004d7a8d:
     }
   }
   piVar6 = (int *)(param_1 + 0x700);
-  DAT_00793522 = 0;
+  g_bBattleSessionActive = 0;
   iVar7 = 8;
   do {
     if ((undefined4 *)piVar6[-1] != (undefined4 *)0x0) {

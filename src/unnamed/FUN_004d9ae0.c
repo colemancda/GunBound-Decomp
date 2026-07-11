@@ -53,7 +53,7 @@ void __fastcall FUN_004d9ae0(int param_1)
       }
     }
   }
-  if (DAT_00793522 == '\0') goto LAB_004da2f4;
+  if (g_bBattleSessionActive == '\0') goto LAB_004da2f4;
   FUN_004eadb0();
   if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {

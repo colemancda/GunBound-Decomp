@@ -83,7 +83,7 @@ void GameTick(void)
   FUN_0041c0a0();
   FUN_004022b0();
   FUN_00412130();
-  if ((DAT_00793522 == '\0') && (DAT_00793517 == '\0')) {
+  if ((g_bBattleSessionActive == '\0') && (DAT_00793517 == '\0')) {
     DAT_00793517 = 0;
     for (uVar8 = uVar10; uVar8 != 0; uVar8 = uVar8 - 1) {
       (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x24))();

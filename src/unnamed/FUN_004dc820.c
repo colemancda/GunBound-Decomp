@@ -35,7 +35,7 @@ void __fastcall FUN_004dc820(int param_1)
       iVar2 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = g_clientContext;
-      if (DAT_00793522 == '\0') {
+      if (g_bBattleSessionActive == '\0') {
         iVar2 = (int)*(char *)(local_8 + g_clientContext);
         if (iVar2 < 0x11) {
           if (0xc < iVar2) {

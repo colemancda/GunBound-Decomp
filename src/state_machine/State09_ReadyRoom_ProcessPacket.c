@@ -143,7 +143,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
         if (*(short *)payload != 0) {
           return;
         }
-        if (DAT_00793522 != '\0') {
+        if (g_bBattleSessionActive != '\0') {
           (**(code **)(*(int *)g_gameStateVTableArray[0xb] + 0x20))();
         }
         _DAT_007934d8 = 1;
@@ -491,7 +491,7 @@ LAB_004d438d:
       }
       _DAT_00e9be98 = 0;
       _DAT_00e9be9c = 0;
-      DAT_00793522 = 1;
+      g_bBattleSessionActive = 1;
       puVar22 = DAT_00e53c44;
       do {
         if (puVar22 == (undefined4 *)0x0) goto LAB_004d46f3;

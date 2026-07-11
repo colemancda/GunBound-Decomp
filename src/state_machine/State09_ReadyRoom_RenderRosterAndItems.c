@@ -61,7 +61,7 @@ void __fastcall State09_ReadyRoom_RenderRosterAndItems(int param_1)
   puStack_10 = &LAB_0053becc;
   uStack_14 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_14;
-  if (DAT_00793522 != '\0') {
+  if (g_bBattleSessionActive != '\0') {
     FUN_004eadb0();
   }
   if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
@@ -84,7 +84,7 @@ void __fastcall State09_ReadyRoom_RenderRosterAndItems(int param_1)
   _sprintf(local_928,s__d__s_00556ae8,*(int *)(iVar3 + 0x3f804) + 1,iVar3 + 0x3b8e8);
   BlitRLESprite(0xf,0xffff);
   local_a4c = 0;
-  if (DAT_00793522 == '\0') {
+  if (g_bBattleSessionActive == '\0') {
 LAB_004d81a0:
     uVar12 = local_a4c & 0x80000003;
     if ((int)uVar12 < 0) {

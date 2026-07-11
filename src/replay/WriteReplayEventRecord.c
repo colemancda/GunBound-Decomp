@@ -220,7 +220,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
         if ((bVar27) || (g_pendingGameState != 3)) {
           *(char *)(iVar19 + 0x45125) = *(char *)(iVar19 + 0x45125) + -1;
           *(undefined1 *)(*pbVar22 + 0x45914 + iVar19) = 0;
-          if ((g_currentGameState == 9) && (DAT_00793522 == '\x01')) {
+          if ((g_currentGameState == 9) && (g_bBattleSessionActive == '\x01')) {
             QueueOutgoingPacketField(0xffffffff);
           }
           FUN_004e7560();
