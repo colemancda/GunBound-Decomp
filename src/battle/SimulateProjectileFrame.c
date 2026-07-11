@@ -1,4 +1,4 @@
-/* FUN_00455cc0 - 0x00455cc0 in the original binary.
+/* SimulateProjectileFrame - 0x00455cc0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -9,7 +9,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void __thiscall FUN_00455cc0(int param_1,int param_2)
+void __thiscall SimulateProjectileFrame(int param_1,int param_2)
 
 {
   int *piVar1;

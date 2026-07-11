@@ -599,7 +599,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00455550,31,FUN_00455550,false,1,2,RAW-src
 00455570,1513,FUN_00455570,false,39,2,RAW-src
 00455b60,346,FUN_00455b60,false,6,0,RAW-src
-00455cc0,5606,FUN_00455cc0,false,39,24,RAW-src
+00455cc0,5606,SimulateProjectileFrame,false,39,24,RAW-src
 004572b0,4899,FUN_004572b0,false,13,46,RAW-src
 004585e0,166,FUN_004585e0,false,23,5,RAW-src
 00458920,216,FUN_00458920,false,12,1,RAW-src

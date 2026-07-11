@@ -650,7 +650,7 @@ undefined4 * __thiscall InitProjectile();
 void * __thiscall FUN_00455550();
 void FUN_00455570();
 uint __fastcall FUN_00455b60();
-void __thiscall FUN_00455cc0();
+void __thiscall SimulateProjectileFrame();
 void __fastcall FUN_004572b0();
 void FUN_004585e0();
 undefined4 *InitMobile(); /* 0x458b80 - mobile base ctor (sets base vtable 0x555c68) */
