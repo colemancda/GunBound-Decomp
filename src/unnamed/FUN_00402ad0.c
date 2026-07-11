@@ -65,7 +65,7 @@ void FUN_00402ad0(int param_1,char *param_2)
       (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x20))(&local_a0,g_clientContext + 0x23313,param_2);
       pcVar4 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa6);
       _sprintf(acStack_8c,pcVar4);
-      FUN_00509030(&g_uiPanelManager,acStack_8c);
+      BuildItemTooltipPanel(&g_uiPanelManager,acStack_8c);
       return;
     }
   }

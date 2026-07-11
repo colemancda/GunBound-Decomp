@@ -1,4 +1,4 @@
-/* FUN_0050cdf0 - 0x0050cdf0 in the original binary.
+/* RadioGroup_RefreshEnableStates - 0x0050cdf0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0050cdf0(int param_1)
+void RadioGroup_RefreshEnableStates(int param_1)
 
 {
   uint uVar1;

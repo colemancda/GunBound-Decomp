@@ -1,4 +1,4 @@
-/* FUN_0050f390 - 0x0050f390 in the original binary.
+/* PanelManager_GrowNodePool - 0x0050f390 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0050f390(void)
+void PanelManager_GrowNodePool(void)
 
 {
   undefined4 *puVar1;

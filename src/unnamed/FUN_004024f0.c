@@ -61,10 +61,10 @@ void FUN_004024f0(undefined4 param_1,char *param_2)
     pcVar8 = pcVar8 + 1;
   }
   FUN_00426120(local_80);
-  iVar3 = FUN_00509730();
+  iVar3 = PanelManager_FindByName();
   if (iVar3 == 0) {
     FUN_004025e0(param_1,in_EAX);
-    iVar3 = FUN_00509730();
+    iVar3 = PanelManager_FindByName();
     if (iVar3 == 0) {
       return;
     }

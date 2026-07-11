@@ -36,7 +36,7 @@ char __thiscall FUN_0050f060(int param_1,undefined4 param_2,undefined4 param_3)
           if (piVar1[4] != 0) {
             if (piVar1[4] == 0) goto LAB_0050f13f;
             do {
-              FUN_0050e790();
+              Widget_ClearPressedRecursive();
               uVar6 = uVar6 + 1;
             } while (uVar6 < (uint)piVar1[4]);
           }
@@ -65,7 +65,7 @@ char __thiscall FUN_0050f060(int param_1,undefined4 param_2,undefined4 param_3)
     } while (piVar1[4] == 0);
     if (piVar1[4] == 0) break;
     do {
-      FUN_0050e790();
+      Widget_ClearPressedRecursive();
       uVar6 = uVar6 + 1;
     } while (uVar6 < (uint)piVar1[4]);
   }

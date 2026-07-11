@@ -1,4 +1,4 @@
-/* FUN_0050f350 - 0x0050f350 in the original binary.
+/* PanelManager_PrependNode - 0x0050f350 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,13 +8,13 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_0050f350(undefined4 *param_1,undefined4 param_2,undefined4 param_3)
+undefined4 PanelManager_PrependNode(undefined4 *param_1,undefined4 param_2,undefined4 param_3)
 
 {
   undefined4 *puVar1;
   int in_EAX;
   
-  FUN_0050f390();
+  PanelManager_GrowNodePool();
   puVar1 = *(undefined4 **)(in_EAX + 0x10);
   if (puVar1 != (undefined4 *)0x0) {
     puVar1[2] = *param_1;

@@ -120,7 +120,7 @@ undefined4 * BuildLobbyChatPanel(int param_1)
     piVar10 = (int *)(unaff_retaddr + 4);
     if (*(char *)((int)puVar9 + 5) == '\0') {
       uVar3 = *(undefined4 *)(unaff_retaddr + 8);
-      FUN_0050f390();
+      PanelManager_GrowNodePool();
       puVar6 = *(undefined4 **)(unaff_retaddr + 0x14);
       if (puVar6 != (undefined4 *)0x0) {
         puVar6[2] = puVar9;
@@ -139,7 +139,7 @@ undefined4 * BuildLobbyChatPanel(int param_1)
     }
     else {
       iVar11 = *piVar10;
-      FUN_0050f390();
+      PanelManager_GrowNodePool();
       piVar2 = *(int **)(unaff_retaddr + 0x14);
       if (piVar2 != (int *)0x0) {
         piVar2[2] = (int)puVar9;

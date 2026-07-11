@@ -34,13 +34,13 @@ uint __thiscall FUN_0050a1b0(int param_1,int param_2,int param_3)
           QueueOutgoingPacketField(iVar4);
           *(undefined1 *)(param_1 + 0x90) = 1;
           FUN_0050ce60(param_1);
-          FUN_0050cdf0(param_1);
+          RadioGroup_RefreshEnableStates(param_1);
         }
         cVar2 = FUN_005052b0();
         cVar3 = RadioGroup_OnMouseDown(param_2,param_3);
         if ((cVar2 == '\0') && (cVar3 == '\0')) {
           QueueOutgoingPacketField(0xffffffff);
-          FUN_0050cdf0(param_1);
+          RadioGroup_RefreshEnableStates(param_1);
         }
         if ((((0x239 < param_2) && (param_2 < 0x275)) && (0x2b < param_3)) && (param_3 < 0x67)) {
           puVar1[0x31484] = 1;

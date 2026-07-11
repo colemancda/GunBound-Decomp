@@ -27,7 +27,7 @@ undefined4 __thiscall FUN_0050a030(int param_1,int param_2,int param_3)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(0xffffffff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0050cdf0(param_1);
+    RadioGroup_RefreshEnableStates(param_1);
     if (*(uint *)(g_clientContext + 0x44e24) <= *(uint *)(param_1 + 0x94)) {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x80070057);

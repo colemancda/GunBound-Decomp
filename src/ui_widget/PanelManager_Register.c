@@ -17,7 +17,7 @@ void PanelManager_Register(int param_1)
   
   piVar1 = (int *)(in_EAX + 4);
   if (*(char *)(param_1 + 5) == '\0') {
-    iVar2 = FUN_0050f350(&param_1,*(undefined4 *)(in_EAX + 8),0);
+    iVar2 = PanelManager_PrependNode(&param_1,*(undefined4 *)(in_EAX + 8),0);
     if (*(int **)(in_EAX + 8) != (int *)0x0) {
       **(int **)(in_EAX + 8) = iVar2;
       *(int *)(in_EAX + 8) = iVar2;
@@ -27,7 +27,7 @@ void PanelManager_Register(int param_1)
     *(int *)(in_EAX + 8) = iVar2;
     return;
   }
-  iVar2 = FUN_0050f350(&param_1,0,*piVar1);
+  iVar2 = PanelManager_PrependNode(&param_1,0,*piVar1);
   if (*piVar1 != 0) {
     *(int *)(*piVar1 + 4) = iVar2;
     *piVar1 = iVar2;

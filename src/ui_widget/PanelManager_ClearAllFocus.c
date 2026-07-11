@@ -30,7 +30,7 @@ void PanelManager_ClearAllFocus(int *param_1)
     } while (*(int *)(iVar2 + 0x10) == 0);
     if (*(int *)(iVar2 + 0x10) == 0) break;
     do {
-      FUN_0050e790();
+      Widget_ClearPressedRecursive();
       uVar3 = uVar3 + 1;
     } while (uVar3 < *(uint *)(iVar2 + 0x10));
   }

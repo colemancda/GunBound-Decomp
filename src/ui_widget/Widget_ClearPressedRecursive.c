@@ -1,4 +1,4 @@
-/* FUN_0050e790 - 0x0050e790 in the original binary.
+/* Widget_ClearPressedRecursive - 0x0050e790 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0050e790(int param_1)
+void __fastcall Widget_ClearPressedRecursive(int param_1)
 
 {
   uint uVar1;
@@ -24,7 +24,7 @@ void __fastcall FUN_0050e790(int param_1)
       /* Ghidra emitted this __fastcall self-call with no args (it lost
        * track of ECX); MSVC hard-errors on the byte-count mismatch
        * (C2708), so pass the current parameter through. */
-      FUN_0050e790(param_1);
+      Widget_ClearPressedRecursive(param_1);
       uVar1 = uVar1 + 1;
     } while (uVar1 < *(uint *)(param_1 + 0x10));
   }

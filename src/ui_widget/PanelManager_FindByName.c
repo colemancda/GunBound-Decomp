@@ -1,4 +1,4 @@
-/* FUN_00509730 - 0x00509730 in the original binary.
+/* PanelManager_FindByName - 0x00509730 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_00509730(void)
+int PanelManager_FindByName(void)
 
 {
   undefined4 *puVar1;
