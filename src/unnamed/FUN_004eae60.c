@@ -11,14 +11,22 @@
 void FUN_004eae60(void)
 
 {
-  int iVar1;
-  
-  iVar1 = FUN_004f1390(0);
-  if (iVar1 != 0) {
-    ReadXFSEntryByte(iVar1,&DAT_00673628);
-    ReadXFSEntryByte(iVar1,&DAT_005b3628);
-    FUN_004f1460();
-  }
+  /* BRING-UP WORKAROUND: skip this startup data load entirely.
+   *
+   * FUN_004f1390 (called with param_1=0 here) opens an XFS entry via two
+   * further-implicit register args (an XFSArchive* in EDI and a name string
+   * in EAX) that are themselves inherited from the CALLER's context rather
+   * than passed explicitly - Ghidra didn't recover either, and neither is
+   * set anywhere in this function or its own callers' C source (InitGame
+   * just calls FUN_004eae60() with nothing else established). Recovering
+   * the real archive/name would mean tracing register provenance back
+   * through multiple call levels without a quick original-binary anchor.
+   *
+   * This reads DAT_00673628/DAT_005b3628 (purpose unconfirmed - likely
+   * non-essential startup config/version data) via FUN_004f1390/
+   * ReadXFSEntryByte/FUN_004f1460. Skipping it entirely is safe for
+   * bring-up (reaching the logo/menu states); revisit once the archive/name
+   * provenance is understood. */
   return;
 }
 
