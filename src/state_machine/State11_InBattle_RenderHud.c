@@ -1,4 +1,4 @@
-/* FUN_004c8890 - 0x004c8890 in the original binary.
+/* State11_InBattle_RenderHud - 0x004c8890 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -10,7 +10,7 @@
 /* WARNING: Removing unreachable block (ram,0x004c9c36) */
 /* WARNING: Removing unreachable block (ram,0x004c9c40) */
 
-void __fastcall FUN_004c8890(int param_1)
+void __fastcall State11_InBattle_RenderHud(int param_1)
 
 {
   char cVar1;

@@ -19,8 +19,8 @@ overlay still uses the software blitter. The most complex state.
 | 1 | `0x4b4100` | ProcessPacket |
 | 2 | `0x4b5460` | ProcessBattleAction (battle-action channel) |
 | 3,4 | `0x4fdef0` | shared no-op |
-| 5 | `0x4b82b0` | **keyboard/chat-input dispatcher** (message-code switch) |
-| 6 | `0x4b97d0` | **mouse-input dispatcher** (Win32 mouse codes) |
+| 5 | `0x4b82b0` | `State11_InBattle_HandleKeyInput` — **keyboard/chat-input dispatcher** (message-code switch) |
+| 6 | `0x4b97d0` | `State11_InBattle_HandleMouseInput` — **mouse-input dispatcher** (Win32 mouse codes) |
 | 7 | `0x4bb730` | OnEnter |
 | 8 | `0x4bcd00` | OnExit |
 | 9 | `0x4bd8b0` | **`State11_InBattle_OnTick`** — the per-frame update (largest function in the binary, 17 KB). Structurally confirmed as the OnTick slot: State02's vtable has the identical slot-7/8/9 = OnEnter/OnExit/OnTick layout. 8-dir screen-edge camera-scroll cursor logic, chat-input field poll (`GetWindowTextA`), outgoing-packet field encoding, replay event logging, per-tick active-object GC (`FUN_004f3100`), turn-phase bookkeeping |
@@ -29,7 +29,7 @@ overlay still uses the software blitter. The most complex state.
 | 12 | `0x4c1d10` | one-line delegate → `FUN_004508a0` at `+0x6a7f88` |
 | 13 | `0x4c1d30` | **per-frame dynamic-texture clear**: Lock/zero-fill/Unlock (`DDSURFACEDESC2` 0x7c) across ~24 named effect textures (`AvataTexture`, `BulletTexture`, `FlameTexture1-4`, `ThorTexture`, …) |
 | 14 | `0x4c3020` | `State11_InBattle_Render` (the D3D battle scene) |
-| 15 | `0x4c8890` | **software-blit HUD/chat-log renderer** (see below) |
+| 15 | `0x4c8890` | `State11_InBattle_RenderHud` — **software-blit HUD/chat-log renderer** (see below) |
 | 16 | `0x4caed0` | `State11_InBattle_RenderModeIcons` |
 | 17 | `0x429800` | genuine no-op (state-specific empty override) |
 

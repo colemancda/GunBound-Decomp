@@ -1,4 +1,4 @@
-/* FUN_004b82b0 - 0x004b82b0 in the original binary.
+/* State11_InBattle_HandleKeyInput - 0x004b82b0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
+void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int param_3,uint param_4)
 
 {
   undefined2 *puVar1;

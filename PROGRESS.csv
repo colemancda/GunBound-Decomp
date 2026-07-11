@@ -933,8 +933,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004b4080,115,FUN_004b4080,false,1,1,RAW-src
 004b4100,4903,State11_InBattle_ProcessPacket,false,1,48,RAW-src
 004b5460,11718,State11_InBattle_ProcessBattleAction,false,1,70,RAW-src
-004b82b0,5271,FUN_004b82b0,false,1,31,RAW-src
-004b97d0,8005,FUN_004b97d0,false,1,46,RAW-src
+004b82b0,5271,State11_InBattle_HandleKeyInput,false,1,31,RAW-src
+004b97d0,8005,State11_InBattle_HandleMouseInput,false,1,46,RAW-src
 004b9cd2,13,FUN_004b9cd2,false,25,0,RAW-src
 004bb730,5572,State11_InBattle_OnEnter,false,1,23,RAW-src
 004bcd00,2962,State11_InBattle_OnExit,false,1,6,RAW-src
@@ -944,7 +944,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004c1d10,17,FUN_004c1d10,false,1,1,RAW-src
 004c1d30,4765,FUN_004c1d30,false,1,4,RAW-src
 004c3020,22543,State11_InBattle_Render,false,1,25,RAW-src
-004c8890,9420,FUN_004c8890,false,1,19,RAW-src
+004c8890,9420,State11_InBattle_RenderHud,false,1,19,RAW-src
 004caed0,944,State11_InBattle_RenderModeIcons,false,1,8,RAW-src
 004cb280,2834,FUN_004cb280,false,4,22,RAW-src
 004cbda0,1080,FUN_004cbda0,false,3,16,RAW-src

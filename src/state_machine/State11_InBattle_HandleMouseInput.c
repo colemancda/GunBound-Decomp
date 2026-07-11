@@ -1,4 +1,4 @@
-/* FUN_004b97d0 - 0x004b97d0 in the original binary.
+/* State11_InBattle_HandleMouseInput - 0x004b97d0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -9,7 +9,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __thiscall FUN_004b97d0(int *param_1,uint param_2,int param_3,uint param_4)
+void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int param_3,uint param_4)
 
 {
   short *psVar1;
