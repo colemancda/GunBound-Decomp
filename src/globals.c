@@ -165,7 +165,12 @@ uint16_t DAT_00556ae4;
 uint8_t DAT_00557234;
 uint32_t DAT_00557258;
 uint8_t DAT_0055725c;
-uint8_t DAT_005573c8;
+/* IID_IDirectInput8A. Passed as the REFIID to DirectInput8Create but was
+ * declared uint8_t (1 byte); DirectInput8Create correctly rejected the
+ * resulting garbage 16-byte IID with E_NOINTERFACE (0x80004002), leaving
+ * DAT_00674f68 NULL. Decoded byte-for-byte from orig .data 0x5573c8-0x5573d7
+ * - same bug/fix class as DAT_00f22504 (IID_IDirect3DHALDevice) earlier. */
+GUID DAT_005573c8 = {0xbf798030, 0x483a, 0x4da2, {0xaa, 0x99, 0x5d, 0x64, 0xed, 0x36, 0x97, 0x00}};
 uint16_t DAT_0055751c;
 uint32_t DAT_00557554;
 uint8_t DAT_00557558;

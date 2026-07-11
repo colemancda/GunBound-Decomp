@@ -234,7 +234,7 @@ extern uint16_t DAT_00556ae4;
 extern uint8_t DAT_00557234;
 extern uint32_t DAT_00557258;
 extern uint8_t DAT_0055725c;
-extern uint8_t DAT_005573c8;
+extern GUID DAT_005573c8; /* IID_IDirectInput8A - see globals.c */
 extern uint16_t DAT_0055751c;
 extern uint32_t DAT_00557554;
 extern uint8_t DAT_00557558;
