@@ -29,8 +29,16 @@ bool InitDirectInput(undefined4 param_1)
       /* LAB_004edc10 in Ghidra's output is the entry point of the
        * enumeration callback it split out separately as FUN_004edd10 -
        * same address range, just labeled differently at this call
-       * site vs. its own decompilation. */
-      iVar2 = (**(int (**)())(*DAT_00674f68 + 0x10))(DAT_00674f68,4,FUN_004edd10,0,1);
+       * site vs. its own decompilation.
+       *
+       * Dispatched through an explicit __stdcall cast, not the generic
+       * `int (**)()` (K&R/unspecified-args) type: that defaults to __cdecl
+       * under MSVC, so the compiler emits a caller-side stack cleanup on top
+       * of the real __stdcall COM callee's own - see SetupZBuffer.c for the
+       * full writeup of this bug class. */
+      iVar2 = ((HRESULT (WINAPI *)(void *, DWORD, LPVOID, LPVOID, DWORD))
+                   (*(void ***)DAT_00674f68)[4])
+                  (DAT_00674f68, 4, FUN_004edd10, 0, 1);
       return -1 < iVar2;
     }
   }
