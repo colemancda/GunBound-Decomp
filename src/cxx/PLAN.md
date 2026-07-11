@@ -25,11 +25,12 @@ plus `CWorldListPanel::OnMouseDown`/`OnCommand`), just never checked off
 here. The whole tree (`cxx_selftest.cpp` + every `.cpp`) compiles clean
 under real MSVC 7.1 via `tools/msvc-env` (`gb-msvc` docker image). What's
 *not* yet done for 1-5 is the byte-compare pass this doc's ground rules
-call for (`tools/score.sh` per function) — no `tools/promote.sh` exists yet
-(see Tooling section) and no per-function score has been recorded in
-comments, so "promoted" here means "written and layout-asserted," not yet
-"byte-verified." Treat that gap as the real remaining Phase 1 work before
-moving to Phase 2, rather than rewriting 1-5 from scratch.
+call for (`tools/score.sh` per function) — `tools/promote.sh` now exists
+(see below) and three methods have recorded scores, but most of the tree
+is still unverified, so "promoted" here mostly still means "written and
+layout-asserted," not yet "byte-verified." Treat that gap as the real
+remaining Phase 1 work before moving to Phase 2, rather than rewriting 1-5
+from scratch.
 
 1. ~~The checked child container~~ — **done**: `AtlArray.h`'s
    `CAtlArray<E>` (bounds-guard `operator[]`, `GrowBuffer` matching
@@ -68,10 +69,32 @@ moving to Phase 2, rather than rewriting 1-5 from scratch.
    0x401440) is also still unreconstructed — a distinct, self-contained
    follow-up, evidence in docs/screens/README.md.
 
-**Actual remaining Phase 1 work**: the byte-compare pass (build
-`tools/promote.sh`, run `score.sh` per promoted method, record results),
-`RegisterActiveObject`'s sorted-container reconstruction, and
-`LoadButtonDefinitionFromXFS`'s promotion.
+**Byte-compare pass: started (2026-07-11).** `tools/promote.sh` now exists
+(compile-one-file + `score.sh` in one command). First three `CWidget`
+methods checked:
+- `SetFocus` (`0x50e860`): **0/300 - perfect byte match**, the first
+  confirmed in this tree.
+- `Draw` (`0x50e520`): **105/2200**, effectively perfect - every
+  instruction matches except the unresolvable AtlThrow call target (no
+  relinked image exists to resolve cross-function call targets, see
+  tools/README.md). Getting from an initial 850 down to 105 took two
+  source-shape changes with no behavioral difference: caching
+  `m_children.GetCount()` into a local before the branch, and declaring
+  the loop index `i` outside the `if` rather than inside it - both changed
+  MSVC 7.1's early-exit codegen even though the C++ semantics are
+  identical. Documented inline in Widget.cpp since it's non-obvious and
+  will recur for every other child-broadcast method in this file.
+- `HitTest` (`0x50e9c0`): **645/5700**, same loop fix applied (905→645)
+  but not fully closed - the remaining delta is in how the chained
+  `a && b && c && d` rect-test expression accumulates into `hit` (register
+  vs. stack temp), not yet chased down.
+
+Remaining Phase 1 work: apply the same loop-shape fix (verified via
+`tools/promote.sh`) to the other child-broadcast methods in Widget.cpp
+(`DispatchKey`, `DispatchMouse`, `MouseMoveChildren`, `MouseDownChildren`,
+`MouseUpChildren`, `MoveBy`) and then the rest of the tree; chase
+`HitTest`'s remaining delta; `RegisterActiveObject`'s sorted-container
+reconstruction; `LoadButtonDefinitionFromXFS`'s promotion.
 
 ## Phase 2 — the state machine spine (evidence: ARCHITECTURE.md §CGameState)
 
@@ -162,8 +185,11 @@ Ordered by how confirmed their docs are:
   `cxx_selftest.cpp` + every `.cpp` under src/cxx with real MSVC (the current
   `*.c` sweeps skip the tree entirely). Wire it into
   `tools/msvc-env/_msvc_check_inner.sh` as a third mode.
-- A tiny `tools/promote.sh` wrapping the compile + `score.sh` loop
-  (symbol-mangling lookup included) to make the per-method byte-diff cheap.
+- ~~A tiny `tools/promote.sh` wrapping the compile + `score.sh` loop~~ —
+  **done** (2026-07-11): `tools/promote.sh <cxx-source> <mangled-symbol>
+  <start-VA-hex> <end-VA-hex>`. Symbol-mangling lookup is still manual
+  (`llvm-objdump -t build/X_cmp.obj | grep MethodName` after a first
+  compile) - not wrapped in the script.
 
 ## Known cross-cutting blockers
 

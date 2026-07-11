@@ -12,7 +12,12 @@
 
 /* 0x50e9c0, vtable slot 4. Rect test against (+0x28..+0x34), then
  * broadcast to every child's HitTest - a child hit counts even when the
- * point misses this widget's own rect. Hidden (+0x1e) short-circuits. */
+ * point misses this widget's own rect. Hidden (+0x1e) short-circuits.
+ * score.sh: 645/5700 (/O2) - the child-walk loop is byte-identical
+ * (confirmed via tools/promote.sh); remaining delta is how the chained
+ * `a && b && c && d` rect test accumulates into `hit` (register vs stack
+ * temp) plus the unresolvable AtlThrow call target - not yet chased
+ * further. */
 bool CWidget::HitTest(int x, int y)
 {
     if (m_hidden) {
@@ -20,8 +25,9 @@ bool CWidget::HitTest(int x, int y)
     }
     bool hit = m_x < x && x < m_x + m_width &&
                m_y < y && y < m_y + m_height;
-    if (m_children.GetCount() != 0) {
-        unsigned int i = 0;
+    unsigned int count = m_children.GetCount();
+    unsigned int i = 0;
+    if (i < count) {
         do {
             if (m_children[i]->HitTest(x, y)) {
                 hit = true;
@@ -111,7 +117,10 @@ bool CWidget::OnDragMove(int x, int y)
 /* 0x50e860 (exported via ghidra_scripts/DecompileAt.java - no raw port
  * existed; the function is only reachable through vtables). The
  * trivial focus setter shared - via identical-code folding - with
- * slot 10. */
+ * slot 10.
+ * score.sh: 0/300 (/O2) - perfect byte match, the first confirmed in
+ * this tree. tools/promote.sh src/cxx/Widget.cpp
+ * '?SetFocus@CWidget@@UAEX_N@Z' 50e860 50e868 */
 void CWidget::SetFocus(bool active)
 {
     m_focused = (u8)active;
@@ -299,11 +308,21 @@ void CWidget::OnCommand(int evt, int id, int arg)
 /* 0x50e520, vtable slot 8 (container base). Ghidra typed it __fastcall
  * (this in ECX, no other args) - as a member function the convention is
  * exact. No hidden check in the original: hiding is enforced on the
- * hit-test/input path, not the draw broadcast. */
+ * hit-test/input path, not the draw broadcast.
+ * score.sh: 105/2200 (/O2), effectively a perfect match - every
+ * instruction is byte-identical except the unresolvable AtlThrow call
+ * target (expected without a full relinked image, tools/README.md).
+ * Getting here required caching GetCount() into a local `count` and
+ * initializing the loop index `i` OUTSIDE the `if`, both ahead of the
+ * branch - inlining GetCount() into the condition or scoping `i` inside
+ * the `if` (the more "natural" C++ phrasing) changes the compiler's
+ * early-exit codegen and costs several hundred points. See
+ * tools/promote.sh for the verify command. */
 void CWidget::Draw()
 {
-    if (m_children.GetCount() != 0) {
-        unsigned int i = 0;
+    unsigned int count = m_children.GetCount();
+    unsigned int i = 0;
+    if (i < count) {
         do {
             m_children[i]->Draw();
             ++i;
