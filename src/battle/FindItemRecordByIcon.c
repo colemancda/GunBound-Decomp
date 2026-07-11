@@ -20,7 +20,7 @@ int FindItemRecordByIcon(int param_1,int param_2)
     uVar1 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (param_2 == uVar1) {
-      return (int)&PTR_DAT_0058b248 + param_1 + iVar2 * 0x9bc;
+      return (int)&g_abItemRecords + param_1 + iVar2 * 0x9bc;
     }
     iVar2 = iVar2 + 1;
   } while (iVar2 < 100);
