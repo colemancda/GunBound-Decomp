@@ -22,7 +22,7 @@ uint FUN_004e5c70(undefined4 *param_1)
     cVar2 = FUN_004e5d10();
     if (cVar2 == '\0') {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x8007000e);
+      ThrowCxxException(0x8007000e);
     }
   }
   puVar4 = (undefined4 *)(uVar1 * 0x4004 + *unaff_EBX);

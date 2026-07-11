@@ -23,7 +23,7 @@ undefined1 __thiscall Widget_MouseDownChildren(int param_1,undefined4 param_2,un
     local_1 = 0;
     if (*(int *)(param_1 + 0x10) == 0) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     do {
       (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar2 * 4) + 8))(param_2,param_3);

@@ -22,12 +22,12 @@ void FUN_00426810(int param_1)
   *unaff_FS_OFFSET = &local_c;
   local_4 = 0;
   if (*(int *)(param_1 + 0x240) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 0xffffffff;
   if (*(int *)(param_1 + 0x1c) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   *unaff_FS_OFFSET = local_c;

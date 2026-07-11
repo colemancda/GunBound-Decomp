@@ -116,7 +116,7 @@ void __fastcall FUN_00505900(int param_1,char *param_2,char *param_3,uint param_
   if (uVar7 != 0xffffffff) {
     if (*(uint *)(param_1 + 0x10) <= uVar7) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     *(undefined4 *)(*(int *)(*(int *)(param_1 + 0xc) + uVar7 * 4) + 0x40) =
          *(undefined4 *)(param_1 + 0x1048);

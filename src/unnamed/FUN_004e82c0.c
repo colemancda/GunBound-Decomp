@@ -59,6 +59,6 @@ undefined1 __fastcall FUN_004e82c0(int param_1)
   }
 LAB_004e8398:
                     /* WARNING: Subroutine does not return */
-  FUN_004010c0(0x80070057);
+  ThrowCxxException(0x80070057);
 }
 

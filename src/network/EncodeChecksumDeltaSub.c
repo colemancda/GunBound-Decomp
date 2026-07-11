@@ -1,4 +1,4 @@
-/* FUN_0040aca0 - 0x0040aca0 in the original binary.
+/* EncodeChecksumDeltaSub - 0x0040a6e0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,12 +8,11 @@
 #include "ghidra_types.h"
 
 
-int FUN_0040aca0(undefined4 param_1,int param_2)
+int EncodeChecksumDeltaSub(undefined4 param_1,int param_2,int param_3)
 
 {
   int iVar1;
-  int iVar2;
-  undefined4 uVar3;
+  undefined4 uVar2;
   undefined4 *unaff_FS_OFFSET;
   undefined1 local_238 [28];
   int local_21c;
@@ -32,16 +31,15 @@ int FUN_0040aca0(undefined4 param_1,int param_2)
   EncodeOutgoingPacketField(0);
   local_4 = 1;
   iVar1 = PeekPacketChecksumState();
-  iVar2 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar1 - iVar2);
+  EncodeOutgoingPacketField(iVar1 - param_3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined1 *)(param_2 + 0x220) = 0;
   *(undefined4 *)(param_2 + 0x14) = 0;
-  uVar3 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar3);
+  uVar2 = PeekPacketChecksumState();
+  EncodeOutgoingPacketField(uVar2);
   local_4 = local_4 & 0xffffff00;
   if (local_21c != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_238);
   }
   *unaff_FS_OFFSET = local_c;

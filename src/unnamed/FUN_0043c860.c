@@ -174,47 +174,14 @@ code_r0x0043cb21:
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = FUN_0053753c();
+  uVar5 = FloatToInt64();
   EncodeOutgoingPacketField(uVar5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = FUN_0053753c();
-  EncodeOutgoingPacketField(uVar5);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if (iVar2 == 0) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  }
-  else {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = FUN_0053753c();
-  EncodeOutgoingPacketField(uVar5);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = FUN_0053753c();
+  uVar5 = FloatToInt64();
   EncodeOutgoingPacketField(uVar5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -240,14 +207,47 @@ code_r0x0043cb21:
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = FUN_0053753c();
+  uVar5 = FloatToInt64();
   EncodeOutgoingPacketField(uVar5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = FUN_0053753c();
+  uVar5 = FloatToInt64();
+  EncodeOutgoingPacketField(uVar5);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  iVar2 = PeekPacketChecksumState();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  if (iVar2 == 0) {
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  }
+  else {
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    PeekPacketChecksumState();
+    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  }
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  PeekPacketChecksumState();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  uVar5 = FloatToInt64();
+  EncodeOutgoingPacketField(uVar5);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  PeekPacketChecksumState();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  uVar5 = FloatToInt64();
   EncodeOutgoingPacketField(uVar5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = g_clientContext;

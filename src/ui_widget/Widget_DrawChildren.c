@@ -16,7 +16,7 @@ void __fastcall Widget_DrawChildren(int param_1)
   if (*(int *)(param_1 + 0x10) != 0) {
     if (*(int *)(param_1 + 0x10) == 0) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     do {
       (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar1 * 4) + 0x20))();

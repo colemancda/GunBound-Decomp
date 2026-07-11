@@ -42,7 +42,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
     if (uVar2 < 0x8101) {
       if (uVar2 == 0x8100) {
         uVar7 = (uint)bVar1;
-        uVar9 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (uVar7 == uVar9) {
           FUN_004da460(this,1,0);
           FUN_004db920();
@@ -64,12 +64,12 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
       }
       if (uVar2 < 0x8003) {
         if (0x8000 < uVar2) {
-          uVar9 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+          uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
           if (bVar1 == uVar9) {
             FUN_004da460(this,1,0);
           }
           uVar9 = (uint)*(byte *)(g_clientContext + 0x45124);
-          FUN_0040a4d0(g_clientContext + 0x44efc);
+          PeekChecksumStateUnderLock(g_clientContext + 0x44efc);
           FUN_004daa60(this,uVar9);
           return;
         }
@@ -115,16 +115,16 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
             return;
           }
           if (uVar2 == 0x8000) {
-            uVar9 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+            uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
             if (bVar1 == uVar9) {
               FUN_004da460(this,1,0);
             }
             uVar9 = (uint)*(byte *)(g_clientContext + 0x45124);
-            FUN_0040a4d0(g_clientContext + 0x44efc);
+            PeekChecksumStateUnderLock(g_clientContext + 0x44efc);
             FUN_004daa60(this,uVar9);
             iVar4 = g_clientContext + 0x44efc;
             *(undefined1 *)((int)this + 9) = *(undefined1 *)(g_clientContext + 0x44ef8);
-            uVar5 = FUN_0040a4d0(iVar4);
+            uVar5 = PeekChecksumStateUnderLock(iVar4);
             QueueOutgoingPacketField(uVar5);
             iVar4 = g_clientContext;
             *(undefined4 *)((int)this + 0x25d) = *(undefined4 *)(g_clientContext + 0x457a1);
@@ -169,7 +169,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
     else if (uVar2 < 0x8201) {
       if (uVar2 == 0x8200) {
         bVar1 = *pbVar10;
-        uVar9 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (bVar1 == uVar9) {
           FUN_00422f10(*(undefined4 *)(g_clientContext + 0x44e60));
           iVar4 = DAT_007934e8;
@@ -187,7 +187,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         return;
       }
       if (uVar2 == 0x8101) {
-        uVar9 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (bVar1 == uVar9) {
           *(undefined1 *)(g_clientContext + 0x3b6c0) = *(undefined1 *)((int)this + 0x25b);
           FUN_004da460(this,1,0);
@@ -201,7 +201,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         return;
       }
       if (uVar2 == 0x8102) {
-        uVar9 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+        uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (bVar1 == uVar9) {
           *(bool *)((int)this + 0x4cc) = *pbVar10 == 3;
           FUN_004da460(this,1,0);

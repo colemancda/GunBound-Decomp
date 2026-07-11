@@ -44,7 +44,7 @@ undefined4 * FUN_0043e150(undefined4 param_1)
     if (puVar1 == (undefined4 *)0x0) {
 LAB_0043e189:
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x8007000e);
+      ThrowCxxException(0x8007000e);
     }
     *puVar1 = unaff_ESI[3];
     unaff_ESI[3] = puVar1;

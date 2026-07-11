@@ -34,31 +34,31 @@ uint FUN_00425ac0(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
   uVar1 = GetPlayerRecordBySlot(param_1);
   uVar5 = 0;
   if (uVar1 != 0) {
-    FUN_0040a6e0(uVar1 + 0x90c,local_454,param_2);
+    EncodeChecksumDeltaSub(uVar1 + 0x90c,local_454,param_2);
     local_4 = 0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (local_440 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_680);
     }
-    uVar3 = FUN_0040a6e0(uVar1 + 0xb30,local_230,10);
+    uVar3 = EncodeChecksumDeltaSub(uVar1 + 0xb30,local_230,10);
     local_4 = 1;
-    FUN_0040a6e0(uVar3,local_678,param_3);
+    EncodeChecksumDeltaSub(uVar3,local_678,param_3);
     SUBFIELD(local_4,0,undefined1) = 2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
     if (local_664 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_680);
     }
     local_4 = 0xffffffff;
     if (local_21c != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_680);
     }
     uVar5 = (param_4 * param_4 <= iVar4 * iVar4 + iVar2 * iVar2) - 1 & uVar1;

@@ -47,94 +47,94 @@ void __fastcall FUN_0049c13f(int param_1)
   case 5:
     if (in_stack_0000248c != 0xb) break;
     QueueOutgoingPacketField();
-    FUN_0040a4d0();
+    PeekChecksumStateUnderLock();
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 != '\x01') {
       PeekPacketChecksumBool();
     }
-    FUN_0040aca0();
-    FUN_0040aba0();
+    EncodeChecksumPairDiff();
+    EncodeChecksumPairSum();
     PeekPacketChecksumBool();
     PeekPacketChecksumBool();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
     FUN_0042bbb0();
-    FUN_0040a2a0();
-    FUN_0040a2a0();
-    FUN_0040a4d0();
+    ScrubChecksumGuard();
+    ScrubChecksumGuard();
+    PeekChecksumStateUnderLock();
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 != '\x01') {
       PeekPacketChecksumBool();
     }
-    FUN_0040aca0();
-    FUN_0040aba0();
+    EncodeChecksumPairDiff();
+    EncodeChecksumPairSum();
     PeekPacketChecksumBool();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
     FUN_0042bbb0();
-    FUN_0040a2a0();
-    FUN_0040a2a0();
-    FUN_0040a4d0();
+    ScrubChecksumGuard();
+    ScrubChecksumGuard();
+    PeekChecksumStateUnderLock();
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 != '\x01') {
       PeekPacketChecksumBool();
     }
-    FUN_0040aca0();
-    FUN_0040aba0();
+    EncodeChecksumPairDiff();
+    EncodeChecksumPairSum();
     PeekPacketChecksumBool();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
     FUN_0042bbb0();
-    FUN_0040a2a0();
-    FUN_0040a2a0();
+    ScrubChecksumGuard();
+    ScrubChecksumGuard();
     cVar2 = PeekPacketChecksumBool();
     goto joined_r0x0049c851;
   case 6:
     if (in_stack_0000248c != 0xb) break;
     QueueOutgoingPacketField();
-    FUN_0040a4d0();
+    PeekChecksumStateUnderLock();
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 != '\x01') {
       PeekPacketChecksumBool();
     }
-    FUN_0040a4d0();
-    FUN_0040a5f0();
-    FUN_0040aca0();
-    FUN_0040aba0();
+    PeekChecksumStateUnderLock();
+    EncodeChecksumDeltaAdd();
+    EncodeChecksumPairDiff();
+    EncodeChecksumPairSum();
     PeekPacketChecksumBool();
     PeekPacketChecksumBool();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
     FUN_0042bbb0();
-    FUN_0040a2a0();
-    FUN_0040a2a0();
-    FUN_0040a2a0();
-    FUN_0040a4d0();
+    ScrubChecksumGuard();
+    ScrubChecksumGuard();
+    ScrubChecksumGuard();
+    PeekChecksumStateUnderLock();
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 != '\x01') {
       PeekPacketChecksumBool();
     }
-    FUN_0040a4d0();
-    FUN_0040a6e0();
-    FUN_0040aca0();
-    FUN_0040aba0();
+    PeekChecksumStateUnderLock();
+    EncodeChecksumDeltaSub();
+    EncodeChecksumPairDiff();
+    EncodeChecksumPairSum();
     PeekPacketChecksumBool();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
     FUN_0042bbb0();
-    FUN_0040a2a0();
-    FUN_0040a2a0();
-    FUN_0040a2a0();
+    ScrubChecksumGuard();
+    ScrubChecksumGuard();
+    ScrubChecksumGuard();
     cVar2 = PeekPacketChecksumBool();
 joined_r0x0049c851:
     if (cVar2 == '\0') {
@@ -145,7 +145,7 @@ joined_r0x0049c851:
 LAB_0049c9ad:
       cVar2 = FUN_0043a530();
       if (cVar2 == '\0') {
-        FUN_0040a4d0();
+        PeekChecksumStateUnderLock();
         QueueOutgoingPacketField();
       }
       FUN_00406500();
@@ -158,15 +158,15 @@ LAB_0049c9ad:
     if (cVar2 != '\x01') {
       PeekPacketChecksumBool();
     }
-    FUN_0040aca0();
-    FUN_0040aba0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
-    FUN_0040a4d0();
+    EncodeChecksumPairDiff();
+    EncodeChecksumPairSum();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
+    PeekChecksumStateUnderLock();
     FUN_004317b0();
-    FUN_0040a2a0();
-    FUN_0040a2a0();
+    ScrubChecksumGuard();
+    ScrubChecksumGuard();
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\0') {
       FUN_004ee9b0();
@@ -175,28 +175,28 @@ LAB_0049c9ad:
   case 10:
     if (in_stack_0000248c == 0xb) {
       QueueOutgoingPacketField();
-      FUN_0040a4d0();
-      FUN_0040a4d0();
-      FUN_0040a5f0();
-      FUN_0040aca0();
-      FUN_0040aba0();
+      PeekChecksumStateUnderLock();
+      PeekChecksumStateUnderLock();
+      EncodeChecksumDeltaAdd();
+      EncodeChecksumPairDiff();
+      EncodeChecksumPairSum();
       PeekPacketChecksumBool();
       PeekPacketChecksumBool();
-      FUN_0040a4d0();
-      FUN_0040a4d0();
-      FUN_0040a4d0();
-      FUN_0040a4d0();
+      PeekChecksumStateUnderLock();
+      PeekChecksumStateUnderLock();
+      PeekChecksumStateUnderLock();
+      PeekChecksumStateUnderLock();
       FUN_0042de70();
-      FUN_0040a2a0();
-      FUN_0040a2a0();
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
+      ScrubChecksumGuard();
+      ScrubChecksumGuard();
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
         FUN_004ee9b0();
       }
       cVar2 = FUN_0043a530();
       if (cVar2 == '\0') {
-        FUN_0040a4d0();
+        PeekChecksumStateUnderLock();
         QueueOutgoingPacketField();
         iVar1 = g_clientContext;
         *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;

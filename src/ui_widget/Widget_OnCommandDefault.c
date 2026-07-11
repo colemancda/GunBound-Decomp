@@ -27,7 +27,7 @@ void __thiscall Widget_OnCommandDefault(int *param_1,int param_2,undefined4 para
         if ((*(int *)(*(int *)(param_1[3] + uVar3 * 4) + 0x20) == 2) && (uVar3 != uVar2)) {
           if ((uint)param_1[4] <= uVar2) {
                     /* WARNING: Subroutine does not return */
-            FUN_004010c0(0x80070057);
+            ThrowCxxException(0x80070057);
           }
           (**(code **)**(undefined4 **)(param_1[3] + uVar2 * 4))(0);
           if ((uint)param_1[4] <= uVar3) goto LAB_0050ecad;
@@ -50,7 +50,7 @@ void __thiscall Widget_OnCommandDefault(int *param_1,int param_2,undefined4 para
         if ((*(int *)(*(int *)(param_1[3] + uVar2 * 4) + 0x20) == 2) && (uVar2 != uVar3)) {
           if ((uint)param_1[4] <= uVar3) {
                     /* WARNING: Subroutine does not return */
-            FUN_004010c0(0x80070057);
+            ThrowCxxException(0x80070057);
           }
           (**(code **)**(undefined4 **)(param_1[3] + uVar3 * 4))(0);
           iVar6 = (uVar3 - iVar6) + uVar1;
@@ -64,7 +64,7 @@ void __thiscall Widget_OnCommandDefault(int *param_1,int param_2,undefined4 para
       }
 LAB_0050ecad:
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
   }
   else if (param_2 == 0x1102) {
@@ -84,7 +84,7 @@ LAB_0050ec3c:
             }
           }
                     /* WARNING: Subroutine does not return */
-          FUN_004010c0(0x80070057);
+          ThrowCxxException(0x80070057);
         }
         iVar6 = iVar6 + 1;
         uVar3 = uVar3 + 1;

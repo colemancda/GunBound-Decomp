@@ -31,7 +31,7 @@ void __fastcall FUN_004ad230(int param_1)
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
   *(undefined4 *)(param_1 + 0x3fa0) = 0;
-  FUN_0040aba0(param_1 + 0xf54,local_230,param_1 + 0x1178);
+  EncodeChecksumPairSum(param_1 + 0xf54,local_230,param_1 + 0x1178);
   pcVar7 = (code *)EnterCriticalSection;
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -40,7 +40,7 @@ void __fastcall FUN_004ad230(int param_1)
   local_4 = 0xffffffff;
   *(undefined4 *)(param_1 + 0x3f9c) = uVar2;
   if (local_21c != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_238);
     pcVar7 = (code *)EnterCriticalSection;
   }

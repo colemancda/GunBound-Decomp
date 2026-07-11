@@ -31,7 +31,7 @@ undefined1 __thiscall Widget_HitTest(int param_1,int param_2,int param_3)
   if (*(int *)(param_1 + 0x10) != 0) {
     if (*(int *)(param_1 + 0x10) == 0) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     do {
       cVar2 = (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar4 * 4) + 0x10))(iVar1,param_3);

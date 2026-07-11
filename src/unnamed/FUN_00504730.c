@@ -18,7 +18,7 @@ void FUN_00504730(void)
     puVar1 = _malloc(*(int *)(unaff_ESI + 0x14) * 0x177c + 4);
     if (puVar1 == (undefined4 *)0x0) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x8007000e);
+      ThrowCxxException(0x8007000e);
     }
     *puVar1 = *(undefined4 *)(unaff_ESI + 0xc);
     *(undefined4 **)(unaff_ESI + 0xc) = puVar1;

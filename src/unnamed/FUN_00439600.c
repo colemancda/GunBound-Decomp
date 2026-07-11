@@ -39,14 +39,14 @@ uint FUN_00439600(int *param_1,int param_2,int param_3,int param_4,int param_5,i
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar4 = FUN_0053753c();
+      iVar4 = FloatToInt64();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar5 = FUN_0053753c();
+      iVar5 = FloatToInt64();
       uVar3 = param_4 * -0x55555554;
       iVar2 = (param_4 * 2) / 3;
       if (0 < local_94) {

@@ -24,7 +24,7 @@ mapfile -t FILES < <(find src -name '*.c' ! -path 'src/unnamed/msvc_crt_atl/*' !
 mapfile -t -O "${#FILES[@]}" FILES < <(find src/cxx -name '*.cpp' ! -name 'crt_shims.cpp' | sort)
 # the CRT/ATL helpers the main code needs that DO compile clean
 for extra in FUN_00520380 FUN_005204f0 FUN_00525ea0 FUN_00525f26 FUN_00525fac \
-             FUN_00527cb4 FUN_00527f34 FUN_00527ff4 FUN_0053753c FUN_005375c0; do
+             FUN_00527cb4 FUN_00527f34 FUN_00527ff4 FloatToInt64 FUN_005375c0; do
   FILES+=("src/unnamed/msvc_crt_atl/$extra.c")
 done
 

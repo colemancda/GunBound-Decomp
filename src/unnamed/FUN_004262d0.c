@@ -35,7 +35,7 @@ void FUN_004262d0(int param_1,undefined4 param_2)
     local_4 = PeekPacketChecksumState();
     pcVar5 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if ((local_8[0] == local_4) && (uVar4 = FUN_0040a4d0(param_2), param_1 == uVar4)) {
+    if ((local_8[0] == local_4) && (uVar4 = PeekChecksumStateUnderLock(param_2), param_1 == uVar4)) {
       return;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

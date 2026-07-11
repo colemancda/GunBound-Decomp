@@ -96,7 +96,7 @@ void __thiscall WorldListPanel_OnCommand(int param_1,int param_2,int param_3,und
     if (uVar3 != 0xffffffff) {
       if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       *(undefined1 *)(*(int *)(*(int *)(param_1 + 0xc) + uVar3 * 4) + 0x3a) = 1;
     }
@@ -104,7 +104,7 @@ void __thiscall WorldListPanel_OnCommand(int param_1,int param_2,int param_3,und
     if (uVar3 != 0xffffffff) {
       if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       *(undefined1 *)(*(int *)(*(int *)(param_1 + 0xc) + uVar3 * 4) + 0x3a) = 0;
     }
@@ -187,7 +187,7 @@ LAB_0050da2d:
   if (uVar3 != 0xffffffff) {
     if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     *(undefined1 *)(*(int *)(*(int *)(param_1 + 0xc) + uVar3 * 4) + 0x3a) = 0;
   }
@@ -195,7 +195,7 @@ LAB_0050da2d:
   if (uVar3 != 0xffffffff) {
     if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     *(undefined1 *)(*(int *)(*(int *)(param_1 + 0xc) + uVar3 * 4) + 0x3a) = 1;
   }

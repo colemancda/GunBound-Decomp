@@ -21,52 +21,52 @@ void __fastcall FUN_00418b90(int param_1)
   *unaff_FS_OFFSET = &local_c;
   local_4 = 8;
   if (*(int *)(param_1 + 0x136c) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 7;
   if (*(int *)(param_1 + 0x1148) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 6;
   if (*(int *)(param_1 + 0xf24) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 5;
   if (*(int *)(param_1 + 0xd00) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 4;
   if (*(int *)(param_1 + 0xadc) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 3;
   if (*(int *)(param_1 + 0x8b8) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 2;
   if (*(int *)(param_1 + 0x680) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 1;
   if (*(int *)(param_1 + 0x45c) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 0;
   if (*(int *)(param_1 + 0x238) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 0xffffffff;
   if (*(int *)(param_1 + 0x14) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   *unaff_FS_OFFSET = local_c;

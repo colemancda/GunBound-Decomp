@@ -22,7 +22,7 @@ void FUN_0049e5d0(undefined4 *param_1)
   *param_1 = &PTR_FUN_0055649c;
   local_4 = 0;
   if (param_1[0xfee] != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 0xffffffff;

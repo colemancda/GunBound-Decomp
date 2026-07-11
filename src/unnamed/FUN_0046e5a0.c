@@ -81,7 +81,7 @@ void __fastcall FUN_0046e5a0(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(apuStack_ad0);
       param_1 = piStack_ae0;
     }
@@ -94,7 +94,7 @@ void __fastcall FUN_0046e5a0(int *param_1)
     puStack_8 = (undefined1 *)0xffffffff;
     piVar17 = param_1;
     if (iStack_ab0 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(apuStack_ad0);
       piVar17 = piStack_ae0;
     }
@@ -117,17 +117,17 @@ void __fastcall FUN_0046e5a0(int *param_1)
         }
         QueueOutgoingPacketField(uVar8);
       }
-      uVar8 = FUN_0040a8c0(piVar17[0x3d2] + 0x25c,auStack_67c,4);
+      uVar8 = EncodeChecksumDeltaDiv(piVar17[0x3d2] + 0x25c,auStack_67c,4);
       puStack_8 = (undefined1 *)0x7;
-      uVar8 = FUN_0040aca0(piVar17[0x3d2] + 0x38,auStack_458,uVar8);
+      uVar8 = EncodeChecksumPairDiff(piVar17[0x3d2] + 0x38,auStack_458,uVar8);
       puStack_8 = (undefined1 *)0x8;
       bVar2 = false;
       bVar19 = false;
       cVar4 = FUN_0040b490(piVar17 + 0x3d5,uVar8);
       if (cVar4 == '\0') {
-        uVar8 = FUN_0040a8c0(piVar17[0x3d2] + 0x25c,auStack_8a0,4);
+        uVar8 = EncodeChecksumDeltaDiv(piVar17[0x3d2] + 0x25c,auStack_8a0,4);
         puStack_8 = (undefined1 *)0x9;
-        uVar8 = FUN_0040aba0(piVar17[0x3d2] + 0x38,auStack_ac4,uVar8);
+        uVar8 = EncodeChecksumPairSum(piVar17[0x3d2] + 0x38,auStack_ac4,uVar8);
         puStack_8 = (undefined1 *)0xa;
         bVar2 = true;
         bVar19 = true;
@@ -141,16 +141,16 @@ LAB_0046f73e:
       }
       puStack_8 = (undefined1 *)0x9;
       if (bVar19) {
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
       }
       puStack_8 = (undefined1 *)0x8;
       if (bVar2) {
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
       }
       puStack_8 = (undefined1 *)0x7;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       puStack_8 = (undefined1 *)0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       if (bVar3) {
         iVar5 = piVar17[0x3d4];
         piVar17[0x3d4] = iVar5 + 1;
@@ -159,7 +159,7 @@ LAB_0046f73e:
           puStack_8 = (undefined1 *)0xb;
           EncodeChecksumState(uVar8);
           puStack_8 = (undefined1 *)0xffffffff;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
         }
         else {
           FUN_00406500(0);
@@ -359,8 +359,8 @@ LAB_0046e965:
       apuStack_ad0[0] = (undefined4 *)piVar15[0xf];
       iVar6 = piVar15[0xe];
       iVar11 = FUN_004f1f10();
-      iVar9 = FUN_0053753c();
-      iVar10 = FUN_0053753c();
+      iVar9 = FloatToInt64();
+      iVar10 = FloatToInt64();
       iVar10 = (int)apuStack_ad0[0] - iVar10;
       (**(code **)(*piVar15 + 4))(&DAT_00553b90);
       piVar15[0x11] = iVar11;
@@ -390,10 +390,10 @@ LAB_0046e965:
         PeekPacketChecksumBool(uVar8,0,100,0xff,iVar5,0);
         FUN_00432320((char)param_1[0xf],1,1,uVar8,uVar20,uVar21,uVar22,iVar5,uVar23);
         puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),3);
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
 LAB_0046ec2d:
         puStack_8 = (undefined1 *)0xffffffff;
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
       }
       else {
         cVar4 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&uStack_ad8,&uStack_ad4,2,1,1);
@@ -414,12 +414,12 @@ LAB_0046ec2d:
           uVar22 = 0xff;
           uVar21 = 100;
           uVar20 = 0;
-          FUN_0040a4d0(auStack_8a0);
-          uVar8 = FUN_0040a4d0(auStack_ac4);
+          PeekChecksumStateUnderLock(auStack_8a0);
+          uVar8 = PeekChecksumStateUnderLock(auStack_ac4);
           PeekPacketChecksumBool(uVar8,uVar20,uVar21,uVar22,iVar5,uVar23);
           FUN_00432320((char)param_1[0xf],1,1,uVar8,uVar20,uVar21,uVar22,iVar5,uVar23);
           puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
           goto LAB_0046ec2d;
         }
       }

@@ -281,7 +281,7 @@ LAB_0042b60a:
   }
   FUN_0041c360(g_clientContext,piVar3);
   if ((char)param_12 == '\0') {
-    FUN_0040a8c0(piVar3 + 0x19d1,auStack_454,2);
+    EncodeChecksumDeltaDiv(piVar3 + 0x19d1,auStack_454,2);
     local_4 = 0x11;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
@@ -289,10 +289,10 @@ LAB_0042b60a:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(auStack_4dc);
     }
-    FUN_0040a8c0(piVar3 + 0x1b6c,auStack_454,2);
+    EncodeChecksumDeltaDiv(piVar3 + 0x1b6c,auStack_454,2);
     local_4 = 0x12;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
@@ -300,10 +300,10 @@ LAB_0042b60a:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(auStack_4dc);
     }
-    FUN_0040a8c0(piVar3 + 0x1ae3,auStack_454,2);
+    EncodeChecksumDeltaDiv(piVar3 + 0x1ae3,auStack_454,2);
     local_4 = 0x13;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
@@ -311,10 +311,10 @@ LAB_0042b60a:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(auStack_4dc);
     }
-    FUN_0040a8c0(piVar3 + 0x1c7e,auStack_230,2);
+    EncodeChecksumDeltaDiv(piVar3 + 0x1c7e,auStack_230,2);
     local_4 = 0x14;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
@@ -322,7 +322,7 @@ LAB_0042b60a:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (iStack_21c != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(auStack_4dc);
     }
   }

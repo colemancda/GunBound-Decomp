@@ -41,6 +41,6 @@ void FUN_00507cc0(undefined4 param_1,int param_2)
     }
   }
                     /* WARNING: Subroutine does not return */
-  FUN_004010c0(0x80070057);
+  ThrowCxxException(0x80070057);
 }
 

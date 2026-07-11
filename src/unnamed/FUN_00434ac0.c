@@ -86,7 +86,7 @@ void FUN_00434ac0(undefined4 param_1,int param_2)
     iVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = FUN_0053753c();
+    iVar5 = FloatToInt64();
     EncodeOutgoingPacketField((iVar5 << 8) / iVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -99,7 +99,7 @@ void FUN_00434ac0(undefined4 param_1,int param_2)
     iVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = FUN_0053753c();
+    iVar5 = FloatToInt64();
     EncodeOutgoingPacketField(((0x62 - iVar5) * 0x100) / iVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -491,7 +491,7 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
                   iVar4 = DAT_007934e8;
                   *(short *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = (short)iVar5;
                   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 2;
-                  iVar5 = FUN_0040a4d0(&DAT_00796aa0);
+                  iVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                   iVar9 = _rand();
                   iVar4 = DAT_007934e8;
                   *(char *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) =
@@ -508,12 +508,12 @@ undefined4 FUN_004218c0(int param_1,char *param_2)
             if (((g_currentGameState == 9) && (DAT_00793522 == '\0')) && (iVar3 == 1)) {
               cVar1 = FUN_0040b390(param_1 + 0x3b6c4,param_1 + 0x3b49c);
               if ((cVar1 != '\0') && (iVar4 = FUN_00409c70(&DAT_00e9bea8), iVar4 != -1)) {
-                uVar10 = FUN_0040a4d0(g_gameStateVTableArray[9] + 0x26c);
+                uVar10 = PeekChecksumStateUnderLock(g_gameStateVTableArray[9] + 0x26c);
                 QueueOutgoingPacketField(uVar10 & 0xfffff | iVar4 << 0x18);
                 iVar3 = DAT_007934e8;
                 *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3101;
                 *(undefined4 *)(iVar3 + 0x44d0) = 6;
-                uVar15 = FUN_0040a4d0(g_gameStateVTableArray[9] + 0xc);
+                uVar15 = PeekChecksumStateUnderLock(g_gameStateVTableArray[9] + 0xc);
                 iVar3 = DAT_007934e8;
                 *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar15;
                 *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;

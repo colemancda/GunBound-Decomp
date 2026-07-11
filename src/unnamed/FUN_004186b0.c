@@ -20,32 +20,32 @@ void __fastcall FUN_004186b0(int param_1)
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
   local_4 = 8;
-  _eh_vector_destructor_iterator_((void *)(param_1 + 0x6c08),0x224,8,FUN_0040a2a0);
+  _eh_vector_destructor_iterator_((void *)(param_1 + 0x6c08),0x224,8,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 7;
-  _eh_vector_destructor_iterator_((void *)(param_1 + 0x5ae8),0x224,8,FUN_0040a2a0);
+  _eh_vector_destructor_iterator_((void *)(param_1 + 0x5ae8),0x224,8,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 6;
-  _eh_vector_destructor_iterator_((void *)(param_1 + 0x49c8),0x224,8,FUN_0040a2a0);
+  _eh_vector_destructor_iterator_((void *)(param_1 + 0x49c8),0x224,8,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 5;
-  _eh_vector_destructor_iterator_((void *)(param_1 + 0x38a8),0x224,8,FUN_0040a2a0);
+  _eh_vector_destructor_iterator_((void *)(param_1 + 0x38a8),0x224,8,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 4;
-  _eh_vector_destructor_iterator_((void *)(param_1 + 0x2788),0x224,8,FUN_0040a2a0);
+  _eh_vector_destructor_iterator_((void *)(param_1 + 0x2788),0x224,8,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 3;
-  _eh_vector_destructor_iterator_((void *)(param_1 + 0x1668),0x224,8,FUN_0040a2a0);
+  _eh_vector_destructor_iterator_((void *)(param_1 + 0x1668),0x224,8,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 2;
   if (*(int *)(param_1 + 0x1458) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 1;
-  _eh_vector_destructor_iterator_((void *)(param_1 + 0x548),0x224,7,FUN_0040a2a0);
+  _eh_vector_destructor_iterator_((void *)(param_1 + 0x548),0x224,7,ScrubChecksumGuard);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (*(int *)(param_1 + 0x338) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 0xffffffff;
   if (*(int *)(param_1 + 0x114) != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   *unaff_FS_OFFSET = local_c;

@@ -19,7 +19,7 @@ void FUN_0050e820(void)
     if (*(int *)(unaff_EDI + 0x10) == 0) {
 LAB_0050e851:
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     do {
       if (*(int *)(*(int *)(unaff_EDI + 0xc) + uVar1 * 4) != unaff_EBX) {

@@ -93,7 +93,7 @@ void __thiscall FUN_0046fb20(int param_1,int param_2)
   local_4 = 0xffffffff;
   local_15b8 = local_1560;
   if (local_1560 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_15a8);
   }
   local_158c = param_1 + 0x264;
@@ -105,10 +105,10 @@ void __thiscall FUN_0046fb20(int param_1,int param_2)
   local_4 = 0xffffffff;
   local_15b8 = local_1560;
   if (local_1560 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_15a8);
   }
-  uVar10 = FUN_0040aca0(local_1584,local_ac0,param_1 + 0x488);
+  uVar10 = EncodeChecksumPairDiff(local_1584,local_ac0,param_1 + 0x488);
   local_4 = 2;
   FUN_0040b180(uVar10,local_1574,8);
   SUBFIELD(local_4,0,undefined1) = 3;
@@ -118,18 +118,18 @@ void __thiscall FUN_0046fb20(int param_1,int param_2)
   iVar11 = local_1560;
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
   if (local_1560 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     local_15b8 = iVar11;
     FUN_0040b540(local_15a8);
   }
   iVar11 = local_aac;
   local_4 = 0xffffffff;
   if (local_aac != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     local_15b8 = iVar11;
     FUN_0040b540(local_15a8);
   }
-  uVar10 = FUN_0040aca0(local_158c,local_1574,local_159c + 0x6ac);
+  uVar10 = EncodeChecksumPairDiff(local_158c,local_1574,local_159c + 0x6ac);
   local_4 = 4;
   FUN_0040b180(uVar10,local_ac0,8);
   SUBFIELD(local_4,0,undefined1) = 5;
@@ -140,13 +140,13 @@ void __thiscall FUN_0046fb20(int param_1,int param_2)
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),4);
   local_15b8 = local_aac;
   if (local_aac != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_15a8);
   }
   local_4 = 0xffffffff;
   local_15b8 = local_1560;
   if (local_1560 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_15a8);
   }
   uVar14 = local_1588 - local_1590 >> 0x1f;
@@ -172,14 +172,14 @@ void __thiscall FUN_0046fb20(int param_1,int param_2)
         local_15bc = local_15b0;
         if ((local_15a9 == '\0') &&
            (iVar15 = FUN_004510f0(local_15b0), iVar11 = local_15a0, iVar15 != 0)) {
-          FUN_0040a5f0(local_15a0,local_112c,param_2);
+          EncodeChecksumDeltaAdd(local_15a0,local_112c,param_2);
           local_4 = 6;
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar15 = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (iVar15 < 0x14) {
 LAB_0046ff52:
-            FUN_0040a5f0(iVar11,local_89c,param_2);
+            EncodeChecksumDeltaAdd(iVar11,local_89c,param_2);
             local_4 = 8;
             bVar3 = true;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -189,7 +189,7 @@ LAB_0046ff52:
               uVar10 = 0x14;
             }
             else {
-              FUN_0040a5f0(iVar11,local_454,param_2);
+              EncodeChecksumDeltaAdd(iVar11,local_454,param_2);
               local_4 = 9;
               bVar3 = true;
               bVar2 = true;
@@ -199,7 +199,7 @@ LAB_0046ff52:
             }
           }
           else {
-            FUN_0040a5f0(iVar11,local_1350,param_2);
+            EncodeChecksumDeltaAdd(iVar11,local_1350,param_2);
             local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),7);
             bVar4 = true;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -213,22 +213,22 @@ LAB_0046ff52:
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           local_4 = 8;
           if ((bVar2) && (bVar2 = false, local_440 != 0)) {
-            FUN_0040a240();
+            ScrambleChecksumGuardBytes();
             FUN_0040b540(local_1580);
           }
           local_4 = 7;
           if ((bVar3) && (bVar3 = false, local_888 != 0)) {
-            FUN_0040a240();
+            ScrambleChecksumGuardBytes();
             FUN_0040b540(local_1580);
           }
           local_4 = 6;
           if ((bVar4) && (bVar4 = false, local_133c != 0)) {
-            FUN_0040a240();
+            ScrambleChecksumGuardBytes();
             FUN_0040b540(local_1580);
           }
           local_4 = 0xffffffff;
           if (local_1118 != 0) {
-            FUN_0040a240();
+            ScrambleChecksumGuardBytes();
             FUN_0040b540(local_1580);
           }
           local_15a9 = '\x01';
@@ -302,13 +302,13 @@ LAB_0046ff52:
           FUN_00436bd0(local_15b0 - iVar12,local_15b4 - iVar15,*(undefined4 *)(iVar11 + 0x1e50));
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),10);
           if (local_ef4 != 0) {
-            FUN_0040a240();
+            ScrambleChecksumGuardBytes();
             FUN_0040b540(local_1580);
             iVar11 = local_159c;
           }
           local_4 = 0xffffffff;
           if (local_cd0 != 0) {
-            FUN_0040a240();
+            ScrambleChecksumGuardBytes();
             FUN_0040b540(local_1580);
             iVar11 = local_159c;
           }
@@ -429,14 +429,14 @@ LAB_004711aa:
         local_15bc = local_1594 >> 0x10;
         if ((local_15a9 == '\0') &&
            (iVar12 = FUN_004510f0(local_15bc), iVar11 = local_15a0, iVar12 != 0)) {
-          local_15a8[0] = FUN_0040a5f0(local_15a0,local_1350,param_2);
+          local_15a8[0] = EncodeChecksumDeltaAdd(local_15a0,local_1350,param_2);
           local_4 = 0xc;
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           local_15a8[0] = PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if ((int)local_15a8[0] < 0x14) {
 LAB_0047090c:
-            local_15a8[0] = FUN_0040a5f0(iVar11,local_f08,param_2);
+            local_15a8[0] = EncodeChecksumDeltaAdd(iVar11,local_f08,param_2);
             local_4 = 0xe;
             bVar6 = true;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -446,7 +446,7 @@ LAB_0047090c:
               uVar10 = 0x14;
             }
             else {
-              FUN_0040a5f0(iVar11,local_ce4,param_2);
+              EncodeChecksumDeltaAdd(iVar11,local_ce4,param_2);
               local_4 = 0xf;
               bVar6 = true;
               bVar5 = true;
@@ -456,7 +456,7 @@ LAB_0047090c:
             }
           }
           else {
-            local_15a8[0] = FUN_0040a5f0(iVar11,local_112c,param_2);
+            local_15a8[0] = EncodeChecksumDeltaAdd(iVar11,local_112c,param_2);
             local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xd);
             bVar7 = true;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -471,28 +471,28 @@ LAB_0047090c:
           uVar14 = local_cd0;
           local_4 = 0xe;
           if ((bVar5) && (bVar5 = false, local_cd0 != 0)) {
-            FUN_0040a240();
+            ScrambleChecksumGuardBytes();
             local_15a8[0] = uVar14;
             FUN_0040b540(local_1580);
           }
           uVar14 = local_ef4;
           local_4 = 0xd;
           if ((bVar6) && (bVar6 = false, local_ef4 != 0)) {
-            FUN_0040a240();
+            ScrambleChecksumGuardBytes();
             local_15a8[0] = uVar14;
             FUN_0040b540(local_1580);
           }
           uVar14 = local_1118;
           local_4 = 0xc;
           if ((bVar7) && (bVar7 = false, local_1118 != 0)) {
-            FUN_0040a240();
+            ScrambleChecksumGuardBytes();
             local_15a8[0] = uVar14;
             FUN_0040b540(local_1580);
           }
           uVar14 = local_133c;
           local_4 = 0xffffffff;
           if (local_133c != 0) {
-            FUN_0040a240();
+            ScrambleChecksumGuardBytes();
             local_15a8[0] = uVar14;
             FUN_0040b540(local_1580);
           }
@@ -571,7 +571,7 @@ LAB_0047090c:
           uVar14 = local_664;
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x10);
           if (local_664 != 0) {
-            FUN_0040a240();
+            ScrambleChecksumGuardBytes();
             local_15a8[0] = uVar14;
             FUN_0040b540(local_1580);
             iVar11 = local_159c;
@@ -579,7 +579,7 @@ LAB_0047090c:
           uVar14 = local_21c;
           local_4 = 0xffffffff;
           if (local_21c != 0) {
-            FUN_0040a240();
+            ScrambleChecksumGuardBytes();
             local_15a8[0] = uVar14;
             FUN_0040b540(local_1580);
             iVar11 = local_159c;

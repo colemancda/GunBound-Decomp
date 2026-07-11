@@ -22,7 +22,7 @@ uint FUN_004259d0(uchar *param_1)
     do {
       if (*(uint *)(&DAT_0067ec64 + unaff_EDI) <= uVar3) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       iVar2 = __mbsicmp(*(uchar **)(*(int *)(&DAT_0067ec60 + unaff_EDI) + uVar3 * 4),param_1);
       if (iVar2 == 0) {

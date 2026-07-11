@@ -45,9 +45,9 @@ undefined4 FUN_00500c00(undefined4 *param_1,int param_2,int param_3)
     }
   }
   param_1[2] = param_2;
-  uVar2 = FUN_0053753c();
+  uVar2 = FloatToInt64();
   param_1[6] = uVar2;
-  uVar3 = FUN_0053753c();
+  uVar3 = FloatToInt64();
   param_1[7] = uVar3;
   if (uVar3 < 0x11) {
     param_1[7] = 0;

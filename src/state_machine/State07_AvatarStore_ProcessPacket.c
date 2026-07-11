@@ -152,7 +152,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
             if ((*(uint *)(g_clientContext + 0x44bf0) <= uVar11) &&
                (cVar2 = FUN_004268b0(), cVar2 == '\0')) {
                     /* WARNING: Subroutine does not return */
-              FUN_004010c0(0x8007000e);
+              ThrowCxxException(0x8007000e);
             }
             piVar14 = (int *)(uVar11 * 0x9c + *piVar14);
             if (piVar14 != (int *)0x0) {
@@ -207,7 +207,7 @@ LAB_0044469b:
             FUN_0044c5f0();
             FUN_0044c5f0();
             iVar20 = 0;
-            iVar4 = FUN_0040a4d0(&DAT_005f4894 + g_clientContext);
+            iVar4 = PeekChecksumStateUnderLock(&DAT_005f4894 + g_clientContext);
             if (0 < iVar4) {
               do {
                 FUN_00428550(&local_468);
@@ -222,7 +222,7 @@ LAB_0044469b:
                 local_c = 0xffffffff;
                 FUN_00426810(&local_468);
                 iVar20 = iVar20 + 1;
-                iVar4 = FUN_0040a4d0(&DAT_005f4894 + g_clientContext);
+                iVar4 = PeekChecksumStateUnderLock(&DAT_005f4894 + g_clientContext);
               } while (iVar20 < iVar4);
             }
             LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
@@ -255,7 +255,7 @@ LAB_0044469b:
           if (*(char *)((int)this + 0x30bb9) == '\0') {
             puVar16 = (undefined2 *)((int)this + 0x325a8);
             do {
-              uVar3 = FUN_0040a4d0(iVar20 + 0x3ac08 + g_clientContext);
+              uVar3 = PeekChecksumStateUnderLock(iVar20 + 0x3ac08 + g_clientContext);
               *puVar16 = uVar3;
               iVar20 = iVar20 + 0x224;
               puVar16 = puVar16 + 1;
@@ -300,7 +300,7 @@ LAB_0044469b:
         local_464 = FUN_0044c310();
         FUN_00406500(0);
         QueueOutgoingPacketField(0x80000000);
-        uVar9 = FUN_0040a4d0((int)this + 0x3054c);
+        uVar9 = PeekChecksumStateUnderLock((int)this + 0x3054c);
         QueueOutgoingPacketField(uVar9);
         FUN_0042ae30(&local_468);
         FUN_0042ae30(&local_468);
@@ -361,13 +361,13 @@ LAB_0044469b:
       if (opcode != 0x6027) {
         if (opcode == 0x6037) {
           if (*payload == 0) {
-            uVar11 = FUN_0040a4d0((int)this + 0x3054c);
+            uVar11 = PeekChecksumStateUnderLock((int)this + 0x3054c);
             if (*(uint *)(g_clientContext + 0x44e24) <= uVar11) {
                     /* WARNING: Subroutine does not return */
-              FUN_004010c0(0x80070057);
+              ThrowCxxException(0x80070057);
             }
             FUN_0044c370();
-            FUN_0040a4d0((int)this + 0x3054c);
+            PeekChecksumStateUnderLock((int)this + 0x3054c);
             FUN_0044c6a0(g_clientContext + 0x44e20);
             iVar4 = 0;
             local_520 = 0;
@@ -467,19 +467,19 @@ switchD_004449fc_default:
           QueueOutgoingPacketField(0);
         }
         iVar4 = (int)this + 0x3054c;
-        uVar11 = FUN_0040a4d0(iVar4);
+        uVar11 = PeekChecksumStateUnderLock(iVar4);
         if (*(uint *)(g_clientContext + 0x44e24) <= uVar11) {
 LAB_00444d76:
                     /* WARNING: Subroutine does not return */
-          FUN_004010c0(0x80070057);
+          ThrowCxxException(0x80070057);
         }
         FUN_0044c370();
-        FUN_0040a4d0(iVar4);
+        PeekChecksumStateUnderLock(iVar4);
         FUN_0044c6a0(g_clientContext + 0x44e20);
         uVar11 = *(uint *)(g_clientContext + 0x44e34);
-        uVar8 = FUN_0040a4d0(iVar4);
+        uVar8 = PeekChecksumStateUnderLock(iVar4);
         if (uVar8 < uVar11) {
-          FUN_0040a4d0(iVar4);
+          PeekChecksumStateUnderLock(iVar4);
           FUN_0044c6a0(g_clientContext + 0x44e30);
         }
         local_514 = 0;

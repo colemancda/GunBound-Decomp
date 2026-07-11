@@ -25,7 +25,7 @@ void FUN_00405760(void)
     if (*(int *)(iVar4 + -4) < 0) {
       if (*(int *)(iVar4 + -8) < 0) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       *(undefined4 *)(iVar4 + -0xc) = 0;
       *(undefined1 *)*unaff_ESI = 0;

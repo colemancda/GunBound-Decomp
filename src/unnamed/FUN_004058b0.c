@@ -12,6 +12,6 @@ void FUN_004058b0(void)
 
 {
                     /* WARNING: Subroutine does not return */
-  FUN_004010c0(0x8007000e);
+  ThrowCxxException(0x8007000e);
 }
 

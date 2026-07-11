@@ -21,7 +21,7 @@ uint FUN_004d2130(undefined4 param_1)
     cVar3 = AtlArray_GrowBuffer();
     if (cVar3 == '\0') {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x8007000e);
+      ThrowCxxException(0x8007000e);
     }
   }
   puVar1 = (undefined4 *)(*in_EAX + uVar2 * 4);

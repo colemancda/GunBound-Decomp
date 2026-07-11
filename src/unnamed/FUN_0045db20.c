@@ -74,201 +74,201 @@ FUN_0045db20(int param_1,int *param_2,int param_3,undefined4 param_4,char param_
   if ((((cVar3 != '\0') || (param_2[9] == 0xe)) || (cVar3 = PeekPacketChecksumBool(), cVar3 == '\0')) ||
      (cVar3 = PeekPacketChecksumBool(), cVar3 == '\x01')) goto LAB_0045ea1c;
   local_31cc = param_3;
-  uVar4 = FUN_0040a6e0(param_2 + 0x243,local_224c,param_3);
+  uVar4 = EncodeChecksumDeltaSub(param_2 + 0x243,local_224c,param_3);
   local_4 = 0;
   uVar5 = FUN_0045f300(param_2);
-  uVar4 = FUN_0040a5f0(uVar4,local_2470,uVar5);
+  uVar4 = EncodeChecksumDeltaAdd(uVar4,local_2470,uVar5);
   SUBFIELD(local_4,0,undefined1) = 1;
-  param_3 = FUN_0040a4d0(uVar4);
+  param_3 = PeekChecksumStateUnderLock(uVar4);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
-  FUN_0040a2a0();
+  ScrubChecksumGuard();
   local_4 = 0xffffffff;
-  FUN_0040a2a0();
-  iVar6 = FUN_0040a4d0(g_clientContext + 0x475c8);
-  iVar6 = FUN_0040a4d0((iVar6 * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + 0x1a1f48 +
+  ScrubChecksumGuard();
+  iVar6 = PeekChecksumStateUnderLock(g_clientContext + 0x475c8);
+  iVar6 = PeekChecksumStateUnderLock((iVar6 * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + 0x1a1f48 +
                        g_clientContext);
   if (iVar6 == 0) {
-    uVar4 = FUN_0040a8c0(param_1 + 0x24c0,local_2694,2);
+    uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x24c0,local_2694,2);
     local_4 = 2;
-    uVar5 = FUN_0040a4d0(&DAT_00e9ba40);
-    uVar4 = FUN_0040a5f0(uVar4,local_2adc,uVar5);
+    uVar5 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+    uVar4 = EncodeChecksumDeltaAdd(uVar4,local_2adc,uVar5);
     SUBFIELD(local_4,0,undefined1) = 3;
-    iVar7 = FUN_0040a4d0(uVar4);
+    iVar7 = PeekChecksumStateUnderLock(uVar4);
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
-    FUN_0040a2a0();
+    ScrubChecksumGuard();
     local_4 = 0xffffffff;
-    FUN_0040a2a0();
+    ScrubChecksumGuard();
     iVar6 = param_1 + 0x2b2c;
-    iVar8 = FUN_0040a4d0(iVar6);
+    iVar8 = PeekChecksumStateUnderLock(iVar6);
     if (iVar8 < 1) {
       iVar6 = 1;
     }
     else {
 LAB_0045de1d:
-      iVar6 = FUN_0040a4d0(iVar6);
+      iVar6 = PeekChecksumStateUnderLock(iVar6);
     }
 LAB_0045de25:
-    iVar8 = FUN_0040a4d0(&DAT_00796aa0);
+    iVar8 = PeekChecksumStateUnderLock(&DAT_00796aa0);
     param_3 = (iVar8 * param_3) / iVar6;
   }
   else {
     if (iVar6 == 1) {
-      uVar4 = FUN_0040a8c0(param_1 + 0x26e4,local_2d00,2);
+      uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x26e4,local_2d00,2);
       local_4 = 4;
-      uVar5 = FUN_0040a4d0(&DAT_00e9ba40);
-      uVar4 = FUN_0040a5f0(uVar4,local_2028,uVar5);
+      uVar5 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+      uVar4 = EncodeChecksumDeltaAdd(uVar4,local_2028,uVar5);
       SUBFIELD(local_4,0,undefined1) = 5;
-      iVar7 = FUN_0040a4d0(uVar4);
+      iVar7 = PeekChecksumStateUnderLock(uVar4);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),4);
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       local_4 = 0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       iVar6 = param_1 + 0x2d50;
-      iVar8 = FUN_0040a4d0(iVar6);
+      iVar8 = PeekChecksumStateUnderLock(iVar6);
       if (0 < iVar8) goto LAB_0045de1d;
       iVar6 = 1;
       goto LAB_0045de25;
     }
     iVar7 = local_31cc;
     if (iVar6 == 2) {
-      uVar4 = FUN_0040a8c0(param_1 + 0x2908,local_28b8,2);
+      uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x2908,local_28b8,2);
       local_4 = 6;
-      uVar5 = FUN_0040a4d0(&DAT_00e9ba40);
-      uVar4 = FUN_0040a5f0(uVar4,local_2f24,uVar5);
+      uVar5 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+      uVar4 = EncodeChecksumDeltaAdd(uVar4,local_2f24,uVar5);
       SUBFIELD(local_4,0,undefined1) = 7;
-      iVar7 = FUN_0040a4d0(uVar4);
+      iVar7 = PeekChecksumStateUnderLock(uVar4);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),6);
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       local_4 = 0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       iVar6 = param_1 + 0x2f74;
-      iVar8 = FUN_0040a4d0(iVar6);
+      iVar8 = PeekChecksumStateUnderLock(iVar6);
       if (0 < iVar8) goto LAB_0045de1d;
       iVar6 = 1;
       goto LAB_0045de25;
     }
   }
-  iVar6 = FUN_0040a4d0(param_2 + 0x3de);
-  iVar8 = FUN_0040a4d0(param_2 + 0x4f0);
-  uVar4 = FUN_0040a6e0(param_2 + 0x2cc,local_2028,(iVar6 - iVar8) / 2);
+  iVar6 = PeekChecksumStateUnderLock(param_2 + 0x3de);
+  iVar8 = PeekChecksumStateUnderLock(param_2 + 0x4f0);
+  uVar4 = EncodeChecksumDeltaSub(param_2 + 0x2cc,local_2028,(iVar6 - iVar8) / 2);
   local_4 = 8;
-  uVar5 = FUN_0040a4d0(param_2 + 0x4f0);
-  uVar4 = FUN_0040a6e0(uVar4,local_2d00,uVar5);
+  uVar5 = PeekChecksumStateUnderLock(param_2 + 0x4f0);
+  uVar4 = EncodeChecksumDeltaSub(uVar4,local_2d00,uVar5);
   SUBFIELD(local_4,0,undefined1) = 9;
-  uVar4 = FUN_0040a6e0(uVar4,local_2adc,param_4);
+  uVar4 = EncodeChecksumDeltaSub(uVar4,local_2adc,param_4);
   SUBFIELD(local_4,0,undefined1) = 10;
   uVar5 = FUN_0045f5d0();
-  uVar4 = FUN_0040a5f0(uVar4,local_2694,uVar5);
+  uVar4 = EncodeChecksumDeltaAdd(uVar4,local_2694,uVar5);
   SUBFIELD(local_4,0,undefined1) = 0xb;
-  iVar6 = FUN_0040a4d0(uVar4);
+  iVar6 = PeekChecksumStateUnderLock(uVar4);
   SUBFIELD(local_4,0,undefined1) = 10;
-  FUN_0040a2a0();
+  ScrubChecksumGuard();
   SUBFIELD(local_4,0,undefined1) = 9;
-  FUN_0040a2a0();
+  ScrubChecksumGuard();
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),8);
-  FUN_0040a2a0();
+  ScrubChecksumGuard();
   local_4 = 0xffffffff;
-  FUN_0040a2a0();
+  ScrubChecksumGuard();
   if (param_3 * param_3 + iVar6 * iVar6 < iVar7 * iVar7) {
-    iVar6 = FUN_0040a4d0(g_clientContext + 0x475c8);
-    iVar6 = FUN_0040a4d0((iVar6 * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + 0x1a1f48
+    iVar6 = PeekChecksumStateUnderLock(g_clientContext + 0x475c8);
+    iVar6 = PeekChecksumStateUnderLock((iVar6 * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + 0x1a1f48
                          + g_clientContext);
     if (iVar6 == 0) {
-      uVar4 = FUN_0040a8c0(param_1 + 0x24c0,local_f08,2);
+      uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x24c0,local_f08,2);
       local_4 = 0xc;
-      uVar5 = FUN_0040a4d0(&DAT_00e9ba40);
-      uVar4 = FUN_0040a5f0(uVar4,local_1350,uVar5);
+      uVar5 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+      uVar4 = EncodeChecksumDeltaAdd(uVar4,local_1350,uVar5);
       SUBFIELD(local_4,0,undefined1) = 0xd;
-      uVar5 = FUN_0040a8c0(param_1 + 0x24c0,local_1798,2);
+      uVar5 = EncodeChecksumDeltaDiv(param_1 + 0x24c0,local_1798,2);
       SUBFIELD(local_4,0,undefined1) = 0xe;
-      uVar9 = FUN_0040a4d0(&DAT_00e9ba40);
-      uVar5 = FUN_0040a5f0(uVar5,local_19bc,uVar9);
+      uVar9 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+      uVar5 = EncodeChecksumDeltaAdd(uVar5,local_19bc,uVar9);
       SUBFIELD(local_4,0,undefined1) = 0xf;
-      FUN_0040a4d0(uVar4);
-      FUN_0040a4d0(uVar5);
-      uVar4 = FUN_0053753c();
+      PeekChecksumStateUnderLock(uVar4);
+      PeekChecksumStateUnderLock(uVar5);
+      uVar4 = FloatToInt64();
       SUBFIELD(local_4,0,undefined1) = 0xe;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       SUBFIELD(local_4,0,undefined1) = 0xd;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xc);
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       local_4 = 0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       uVar4 = FUN_0040a7d0(param_1 + 0x1e54,local_3148,uVar4);
       local_4 = 0x10;
-      uVar4 = FUN_0040a8c0(uVar4,local_1e04,1000);
+      uVar4 = EncodeChecksumDeltaDiv(uVar4,local_1e04,1000);
       SUBFIELD(local_4,0,undefined1) = 0x11;
-      local_31d4 = FUN_0040a4d0(uVar4);
+      local_31d4 = PeekChecksumStateUnderLock(uVar4);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x10);
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       local_4 = 0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
     }
     else if (iVar6 == 1) {
-      uVar4 = FUN_0040a8c0(param_1 + 0x26e4,local_454,2);
+      uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x26e4,local_454,2);
       local_4 = 0x12;
-      uVar5 = FUN_0040a4d0(&DAT_00e9ba40);
-      uVar4 = FUN_0040a5f0(uVar4,local_1574,uVar5);
+      uVar5 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+      uVar4 = EncodeChecksumDeltaAdd(uVar4,local_1574,uVar5);
       SUBFIELD(local_4,0,undefined1) = 0x13;
-      uVar5 = FUN_0040a8c0(param_1 + 0x26e4,local_ce4,2);
+      uVar5 = EncodeChecksumDeltaDiv(param_1 + 0x26e4,local_ce4,2);
       SUBFIELD(local_4,0,undefined1) = 0x14;
-      uVar9 = FUN_0040a4d0(&DAT_00e9ba40);
-      uVar5 = FUN_0040a5f0(uVar5,local_678,uVar9);
+      uVar9 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+      uVar5 = EncodeChecksumDeltaAdd(uVar5,local_678,uVar9);
       SUBFIELD(local_4,0,undefined1) = 0x15;
-      FUN_0040a4d0(uVar4);
-      FUN_0040a4d0(uVar5);
-      uVar4 = FUN_0053753c();
+      PeekChecksumStateUnderLock(uVar4);
+      PeekChecksumStateUnderLock(uVar5);
+      uVar4 = FloatToInt64();
       SUBFIELD(local_4,0,undefined1) = 0x14;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       SUBFIELD(local_4,0,undefined1) = 0x13;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x12);
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       local_4 = 0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       uVar4 = FUN_0040a7d0(param_1 + 0x2078,local_89c,uVar4);
       local_4 = 0x16;
-      uVar4 = FUN_0040a8c0(uVar4,local_112c,1000);
+      uVar4 = EncodeChecksumDeltaDiv(uVar4,local_112c,1000);
       SUBFIELD(local_4,0,undefined1) = 0x17;
-      local_31d4 = FUN_0040a4d0(uVar4);
+      local_31d4 = PeekChecksumStateUnderLock(uVar4);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x16);
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       local_4 = 0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
     }
     else {
       if (iVar6 != 2) goto LAB_0045e442;
-      uVar4 = FUN_0040a8c0(param_1 + 0x2908,local_2470,2);
+      uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x2908,local_2470,2);
       local_4 = 0x18;
-      uVar5 = FUN_0040a4d0(&DAT_00e9ba40);
-      uVar4 = FUN_0040a5f0(uVar4,local_224c,uVar5);
+      uVar5 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+      uVar4 = EncodeChecksumDeltaAdd(uVar4,local_224c,uVar5);
       SUBFIELD(local_4,0,undefined1) = 0x19;
-      uVar5 = FUN_0040a8c0(param_1 + 0x2908,local_2f24,2);
+      uVar5 = EncodeChecksumDeltaDiv(param_1 + 0x2908,local_2f24,2);
       SUBFIELD(local_4,0,undefined1) = 0x1a;
-      uVar9 = FUN_0040a4d0(&DAT_00e9ba40);
-      uVar5 = FUN_0040a5f0(uVar5,local_28b8,uVar9);
+      uVar9 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+      uVar5 = EncodeChecksumDeltaAdd(uVar5,local_28b8,uVar9);
       SUBFIELD(local_4,0,undefined1) = 0x1b;
-      FUN_0040a4d0(uVar4);
-      FUN_0040a4d0(uVar5);
-      uVar4 = FUN_0053753c();
+      PeekChecksumStateUnderLock(uVar4);
+      PeekChecksumStateUnderLock(uVar5);
+      uVar4 = FloatToInt64();
       SUBFIELD(local_4,0,undefined1) = 0x1a;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       SUBFIELD(local_4,0,undefined1) = 0x19;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x18);
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       local_4 = 0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       uVar4 = FUN_0040a7d0(param_1 + 0x229c,local_1be0,uVar4);
       local_4 = 0x1c;
-      uVar4 = FUN_0040a8c0(uVar4,local_ac0,1000);
+      uVar4 = EncodeChecksumDeltaDiv(uVar4,local_ac0,1000);
       SUBFIELD(local_4,0,undefined1) = 0x1d;
-      local_31d4 = FUN_0040a4d0(uVar4);
+      local_31d4 = PeekChecksumStateUnderLock(uVar4);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x1c);
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       local_4 = 0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
     }
   }
   else {
@@ -277,33 +277,33 @@ LAB_0045e442:
   }
   uVar4 = FUN_0040a7d0(param_1 + 0x17e4,local_1e04,local_31d4);
   local_4 = 0x1e;
-  uVar5 = FUN_0040a4d0(&DAT_00796aa0);
-  uVar4 = FUN_0040a8c0(uVar4,local_3148,uVar5);
+  uVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
+  uVar4 = EncodeChecksumDeltaDiv(uVar4,local_3148,uVar5);
   SUBFIELD(local_4,0,undefined1) = 0x1f;
-  iVar6 = FUN_0040a4d0(uVar4);
+  iVar6 = PeekChecksumStateUnderLock(uVar4);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x1e);
-  FUN_0040a2a0();
+  ScrubChecksumGuard();
   local_4 = 0xffffffff;
-  FUN_0040a2a0();
-  uVar4 = FUN_0040a8c0(param_1 + 0x15c0,local_3148,2);
+  ScrubChecksumGuard();
+  uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x15c0,local_3148,2);
   local_4 = 0x20;
-  iVar7 = FUN_0040a4d0(param_1 + 0x139c);
-  iVar8 = FUN_0040a4d0(&DAT_00796aa0);
-  iVar10 = FUN_0040a4d0(uVar4);
-  iVar11 = FUN_0040a4d0(&DAT_00796aa0);
+  iVar7 = PeekChecksumStateUnderLock(param_1 + 0x139c);
+  iVar8 = PeekChecksumStateUnderLock(&DAT_00796aa0);
+  iVar10 = PeekChecksumStateUnderLock(uVar4);
+  iVar11 = PeekChecksumStateUnderLock(&DAT_00796aa0);
   iVar11 = ((iVar7 + iVar8 + iVar10) * iVar6) / iVar11;
   local_4 = 0xffffffff;
-  FUN_0040a2a0();
+  ScrubChecksumGuard();
   if (iVar11 != 0) {
-    iVar6 = FUN_0040a4d0(param_2 + 0x1948);
+    iVar6 = PeekChecksumStateUnderLock(param_2 + 0x1948);
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 != '\0') {
-      uVar4 = FUN_0040a8c0(param_2 + 0x1948,local_3148,5);
+      uVar4 = EncodeChecksumDeltaDiv(param_2 + 0x1948,local_3148,5);
       local_4 = 0x21;
-      iVar7 = FUN_0040a4d0(uVar4);
+      iVar7 = PeekChecksumStateUnderLock(uVar4);
       iVar6 = iVar6 - iVar7;
       local_4 = 0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
     }
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\x01') {
@@ -338,34 +338,34 @@ LAB_0045e442:
         iVar6 = iVar6 + -4;
       }
     }
-    iVar7 = FUN_0040a4d0(&DAT_00796aa0);
+    iVar7 = PeekChecksumStateUnderLock(&DAT_00796aa0);
     iVar7 = (iVar6 * iVar11) / iVar7;
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\x01') {
-      iVar6 = FUN_0040a4d0(param_2 + 0x2dca);
-      iVar8 = FUN_0040a4d0(&DAT_00796aa0);
-      iVar10 = FUN_0040a4d0(&DAT_00796aa0);
+      iVar6 = PeekChecksumStateUnderLock(param_2 + 0x2dca);
+      iVar8 = PeekChecksumStateUnderLock(&DAT_00796aa0);
+      iVar10 = PeekChecksumStateUnderLock(&DAT_00796aa0);
       iVar7 = ((iVar6 + iVar8) * iVar7) / iVar10;
     }
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\x01') {
-      iVar6 = FUN_0040a4d0(param_2 + 0x2e53);
-      iVar8 = FUN_0040a4d0(&DAT_00796aa0);
-      iVar10 = FUN_0040a4d0(&DAT_00796aa0);
+      iVar6 = PeekChecksumStateUnderLock(param_2 + 0x2e53);
+      iVar8 = PeekChecksumStateUnderLock(&DAT_00796aa0);
+      iVar10 = PeekChecksumStateUnderLock(&DAT_00796aa0);
       iVar7 = ((iVar6 + iVar8) * iVar7) / iVar10;
     }
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\x01') {
-      iVar6 = FUN_0040a4d0(param_2 + 0x2edc);
-      iVar8 = FUN_0040a4d0(&DAT_00796aa0);
-      iVar10 = FUN_0040a4d0(&DAT_00796aa0);
+      iVar6 = PeekChecksumStateUnderLock(param_2 + 0x2edc);
+      iVar8 = PeekChecksumStateUnderLock(&DAT_00796aa0);
+      iVar10 = PeekChecksumStateUnderLock(&DAT_00796aa0);
       iVar7 = ((iVar6 + iVar8) * iVar7) / iVar10;
     }
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\x01') {
-      iVar6 = FUN_0040a4d0(param_2 + 0x2f65);
-      iVar8 = FUN_0040a4d0(&DAT_00796aa0);
-      iVar10 = FUN_0040a4d0(&DAT_00796aa0);
+      iVar6 = PeekChecksumStateUnderLock(param_2 + 0x2f65);
+      iVar8 = PeekChecksumStateUnderLock(&DAT_00796aa0);
+      iVar10 = PeekChecksumStateUnderLock(&DAT_00796aa0);
       iVar7 = ((iVar6 + iVar8) * iVar7) / iVar10;
     }
     if (0 < iVar7) {
@@ -373,9 +373,9 @@ LAB_0045e442:
         iVar6 = 0;
         piVar12 = param_2 + 0x2dca;
         do {
-          iVar8 = FUN_0040a4d0(piVar12);
+          iVar8 = PeekChecksumStateUnderLock(piVar12);
           if (iVar8 + *(int *)(param_6 + iVar6 * 4) < 0x32) {
-            iVar8 = FUN_0040a4d0(piVar12);
+            iVar8 = PeekChecksumStateUnderLock(piVar12);
             iVar8 = iVar8 + *(int *)(param_6 + iVar6 * 4);
           }
           else {
@@ -395,11 +395,11 @@ LAB_0045e442:
       *(undefined2 *)puVar13 = 0;
       *(undefined1 *)((int)puVar13 + 2) = 0;
       if (param_5 == '\0') {
-        uVar4 = FUN_0040a6e0(param_2 + 0x243,local_3148,local_31cc);
+        uVar4 = EncodeChecksumDeltaSub(param_2 + 0x243,local_3148,local_31cc);
         local_4 = 0x22;
-        iVar6 = FUN_0040a4d0(uVar4);
+        iVar6 = PeekChecksumStateUnderLock(uVar4);
         local_4 = 0xffffffff;
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
         cVar3 = PacketChecksumEquals(param_2 + 0x715,0);
         if (cVar3 == '\0') {
           bVar1 = iVar6 < 1;
@@ -426,11 +426,11 @@ LAB_0045e442:
       }
       cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,3);
       if (cVar3 == '\0') {
-        uVar4 = FUN_0040a6e0(param_2 + 0x1bf5,local_3148,iVar7);
+        uVar4 = EncodeChecksumDeltaSub(param_2 + 0x1bf5,local_3148,iVar7);
         local_4 = 0x23;
-        iVar6 = FUN_0040a4d0(uVar4);
+        iVar6 = PeekChecksumStateUnderLock(uVar4);
         local_4 = 0xffffffff;
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
         if (iVar6 < 1) {
           QueueOutgoingPacketField(0);
         }
@@ -439,13 +439,13 @@ LAB_0045e442:
           iVar6 = 0;
         }
         AddToPacketChecksum(iVar6);
-        uVar4 = FUN_0040a6e0(param_2 + 0x2cc,auStack_230,0xf);
+        uVar4 = EncodeChecksumDeltaSub(param_2 + 0x2cc,auStack_230,0xf);
         local_4 = 0x24;
-        uVar4 = FUN_0040a4d0(uVar4);
-        uVar5 = FUN_0040a4d0(param_2 + 0x243);
+        uVar4 = PeekChecksumStateUnderLock(uVar4);
+        uVar5 = PeekChecksumStateUnderLock(param_2 + 0x243);
         FUN_00436860(uVar5,uVar4);
         local_4 = 0xffffffff;
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
         *(undefined1 *)(param_2 + 0x2c2b) = *(undefined1 *)(param_1 + 0x3c);
         if (*(byte *)(param_1 + 0x3c) < 8) {
           if (*(char *)(*(byte *)(param_1 + 0x3c) + 0x4590c + g_clientContext) ==

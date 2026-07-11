@@ -21,7 +21,7 @@ undefined4 * FUN_00500840(undefined4 param_1,undefined4 param_2)
     piVar2 = _malloc(unaff_ESI[9] * 0x1768 + 4);
     if (piVar2 == (int *)0x0) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x8007000e);
+      ThrowCxxException(0x8007000e);
     }
     *piVar2 = unaff_ESI[10];
     unaff_ESI[10] = (int)piVar2;

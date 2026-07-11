@@ -65,7 +65,7 @@ LAB_0050a700:
   }
   if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar9)) {
                     /* WARNING: Subroutine does not return */
-    FUN_004010c0(0x80070057);
+    ThrowCxxException(0x80070057);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState();
@@ -74,7 +74,7 @@ LAB_0050a700:
   if (cVar2 == '\0') {
     if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar9)) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState();
@@ -84,7 +84,7 @@ LAB_0050a700:
   else {
     if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar9)) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState();

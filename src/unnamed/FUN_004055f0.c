@@ -56,7 +56,7 @@ undefined4 __thiscall FUN_004055f0(HMODULE param_1,int *param_2)
         return 1;
       }
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
   }
   return 0;

@@ -52,7 +52,7 @@ void FUN_0047fee0(int param_1)
   iVar3 = iVar2 + 0xb30;
   *(undefined1 *)(unaff_ESI + 0xff8) = 0;
   *(undefined1 *)(unaff_ESI + 0xff1) = 1;
-  aiStack_688[0] = FUN_0040a6e0(iVar3,auStack_234,400);
+  aiStack_688[0] = EncodeChecksumDeltaSub(iVar3,auStack_234,400);
   puStack_8 = (undefined1 *)0x0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
@@ -67,14 +67,14 @@ void FUN_0047fee0(int param_1)
     iVar4 = *(int *)(&DAT_006a7724 + g_clientContext) + iVar4;
   }
   else {
-    FUN_0040a6e0(iVar3,auStack_458,400);
+    EncodeChecksumDeltaSub(iVar3,auStack_458,400);
     puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
     uStack_680 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
-  FUN_0040a6e0(iVar3,local_67c,iVar4);
+  EncodeChecksumDeltaSub(iVar3,local_67c,iVar4);
   puStack_8 = (undefined1 *)0x2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
@@ -82,17 +82,17 @@ void FUN_0047fee0(int param_1)
   puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
   unaff_ESI[0xff2] = iVar3;
   if (iStack_668 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(aiStack_688);
   }
   puStack_8 = (undefined1 *)0x0;
   if (((uStack_680 & 1) != 0) && (iStack_444 != 0)) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(aiStack_688);
   }
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_220 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(aiStack_688);
   }
   unaff_ESI[0xff3] = 1;
@@ -128,7 +128,7 @@ void FUN_0047fee0(int param_1)
   EncodeOutgoingPacketField(iVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   fptan((float10)_DAT_00558070);
-  iVar2 = FUN_0053753c();
+  iVar2 = FloatToInt64();
   if (param_1 < 0) {
     iVar3 = iVar2 / 2 + iVar2 + unaff_retaddr;
     iVar2 = -iVar2;

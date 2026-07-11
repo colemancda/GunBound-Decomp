@@ -41,21 +41,21 @@ void FUN_0045ea40(void)
         FUN_00406500(0);
         cVar1 = PacketChecksumEquals(g_clientContext + 0x45354,3);
         if (cVar1 == '\0') {
-          uVar2 = FUN_0040aba0(unaff_ESI + 0x2cb8,auStack_454,unaff_ESI + 0x2c2f);
+          uVar2 = EncodeChecksumPairSum(unaff_ESI + 0x2cb8,auStack_454,unaff_ESI + 0x2c2f);
           uStack_4 = 0;
-          iVar3 = FUN_0040a4d0(uVar2);
+          iVar3 = PeekChecksumStateUnderLock(uVar2);
           uStack_4 = 0xffffffff;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
           cVar1 = PeekPacketChecksumBool();
           if (cVar1 == '\x01') {
-            iVar4 = FUN_0040a4d0(&DAT_00796aa0);
+            iVar4 = PeekChecksumStateUnderLock(&DAT_00796aa0);
             iVar3 = iVar3 + (iVar3 * 8) / iVar4;
           }
-          uVar2 = FUN_0040a6e0(unaff_ESI + 0x1bf5,auStack_454,iVar3);
+          uVar2 = EncodeChecksumDeltaSub(unaff_ESI + 0x1bf5,auStack_454,iVar3);
           uStack_4 = 1;
-          iVar3 = FUN_0040a4d0(uVar2);
+          iVar3 = PeekChecksumStateUnderLock(uVar2);
           uStack_4 = 0xffffffff;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
           if (iVar3 < 1) {
             QueueOutgoingPacketField(0);
           }
@@ -64,13 +64,13 @@ void FUN_0045ea40(void)
             iVar3 = 0;
           }
           AddToPacketChecksum(iVar3);
-          uVar2 = FUN_0040a6e0(unaff_ESI + 0x2cc,auStack_230,0xf);
+          uVar2 = EncodeChecksumDeltaSub(unaff_ESI + 0x2cc,auStack_230,0xf);
           uStack_4 = 2;
-          uVar2 = FUN_0040a4d0(uVar2);
-          uVar5 = FUN_0040a4d0(unaff_ESI + 0x243);
+          uVar2 = PeekChecksumStateUnderLock(uVar2);
+          uVar5 = PeekChecksumStateUnderLock(unaff_ESI + 0x243);
           FUN_00436860(uVar5,uVar2);
           uStack_4 = 0xffffffff;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
         }
       }
     }

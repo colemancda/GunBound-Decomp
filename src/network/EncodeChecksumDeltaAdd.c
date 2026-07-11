@@ -1,4 +1,4 @@
-/* FUN_0040a5f0 - 0x0040a5f0 in the original binary.
+/* EncodeChecksumDeltaAdd - 0x0040a5f0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_0040a5f0(undefined4 param_1,int param_2,int param_3)
+int EncodeChecksumDeltaAdd(undefined4 param_1,int param_2,int param_3)
 
 {
   int iVar1;
@@ -38,7 +38,7 @@ int FUN_0040a5f0(undefined4 param_1,int param_2,int param_3)
   EncodeOutgoingPacketField(uVar2);
   local_4 = local_4 & 0xffffff00;
   if (local_21c != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_238);
   }
   return param_2;

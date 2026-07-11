@@ -60,7 +60,7 @@ void __fastcall FUN_00423a20(int param_1)
         if (uVar3 <= uVar6) {
 LAB_00423b89:
                     /* WARNING: Subroutine does not return */
-          FUN_004010c0(0x80070057);
+          ThrowCxxException(0x80070057);
         }
         if (*(uint *)(*(int *)(&DAT_006a76f4 + g_clientContext) + uVar6 * 4) == (uint)in_AL) {
           piVar1 = (int *)(&DAT_006a76f8 + g_clientContext);

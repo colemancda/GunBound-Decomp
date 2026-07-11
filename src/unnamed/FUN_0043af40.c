@@ -96,18 +96,18 @@ LAB_0043b008:
           iVar5 = g_clientContext;
           pcVar12 = (code *)EnterCriticalSection;
           if (cVar2 != '\0') {
-            FUN_0040a6e0(piVar11 + 0x243,local_460,param_1);
+            EncodeChecksumDeltaSub(piVar11 + 0x243,local_460,param_1);
             local_c = 0;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             PeekPacketChecksumState();
             (*pcVar9)(&DAT_005a9068);
             puStack_10 = (undefined1 *)0xffffffff;
             if (iStack_450 != 0) {
-              FUN_0040a240();
+              ScrambleChecksumGuardBytes();
               FUN_0040b540(&local_8bc);
               pcVar9 = (code *)LeaveCriticalSection;
             }
-            iVar6 = FUN_0040a6e0(piVar11 + 0x2cc,auStack_8ac,param_2);
+            iVar6 = EncodeChecksumDeltaSub(piVar11 + 0x2cc,auStack_8ac,param_2);
             puStack_10 = (undefined1 *)0x1;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             local_8bc = PeekPacketChecksumState();
@@ -115,7 +115,7 @@ LAB_0043b008:
             local_8c8 = local_894;
             local_c = 0xffffffff;
             if (local_894 != 0) {
-              FUN_0040a240();
+              ScrambleChecksumGuardBytes();
               FUN_0040b540(local_8b0);
               pcVar9 = (code *)LeaveCriticalSection;
             }
@@ -191,7 +191,7 @@ LAB_0043b408:
         if (piVar7 != piVar11) {
           do {
             if ((char)piVar11[5] == '\0') {
-              FUN_0040a6e0(piVar11 + 0x97,local_684,param_1);
+              EncodeChecksumDeltaSub(piVar11 + 0x97,local_684,param_1);
               local_c = 2;
               (*pcVar12)(&DAT_005a9068);
               PeekPacketChecksumState();
@@ -210,7 +210,7 @@ LAB_0043b408:
                 pcVar9 = (code *)LeaveCriticalSection;
                 pcVar12 = (code *)EnterCriticalSection;
               }
-              FUN_0040a6e0(piVar11 + 0x120,auStack_244,param_2);
+              EncodeChecksumDeltaSub(piVar11 + 0x120,auStack_244,param_2);
               local_14 = 3;
               (*pcVar12)(&DAT_005a9068);
               piVar7 = (int *)PeekPacketChecksumState();

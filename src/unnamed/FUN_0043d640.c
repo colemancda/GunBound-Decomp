@@ -26,12 +26,12 @@ uint __fastcall FUN_0043d640(int param_1,int param_2,undefined2 *param_3,undefin
       if (*(uint *)(param_1 + 0xc) <= uVar2) {
 LAB_0043d6a5:
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       if (*(char *)(iVar3 + *(int *)(param_1 + 8)) == param_2) {
         if (*(uint *)(param_1 + 0xc) <= uVar2) {
                     /* WARNING: Subroutine does not return */
-          FUN_004010c0(0x80070057);
+          ThrowCxxException(0x80070057);
         }
         *param_3 = *(undefined2 *)(uVar2 * 6 + 2 + *(int *)(param_1 + 8));
         if (uVar2 < *(uint *)(param_1 + 0xc)) {

@@ -48,7 +48,7 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     *(undefined4 *)((int)puVar6 + 1) = DAT_005554f8;
     *(undefined1 *)((int)puVar6 + 5) = DAT_005554fc;
     LoadSpriteSet(&DAT_00ea0e18,0x1e14);
-    DAT_00793634 = FUN_0040a4d0((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a328c +
+    DAT_00793634 = PeekChecksumStateUnderLock((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a328c +
                                 g_clientContext);
     break;
   case 0xd:

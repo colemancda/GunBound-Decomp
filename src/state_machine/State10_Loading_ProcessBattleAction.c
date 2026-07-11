@@ -55,15 +55,15 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
       piVar3 = (int *)GetPlayerRecordBySlot(iVar5);
       if (piVar3 != (int *)0x0) {
         if ((piVar3[9] != 0xe) && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
-          uVar4 = FUN_0040aba0(piVar3 + 0x19d1,auStack_230,piVar3 + 0x1b6c);
+          uVar4 = EncodeChecksumPairSum(piVar3 + 0x19d1,auStack_230,piVar3 + 0x1b6c);
           iStack_4 = 0;
-          uVar4 = FUN_0040a8c0(uVar4,auStack_454,3);
+          uVar4 = EncodeChecksumDeltaDiv(uVar4,auStack_454,3);
           iStack_4 = 1;
           cVar2 = FUN_0040b490(piVar3 + 0x1a5a,uVar4);
           iStack_4 = 0;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
           iStack_4 = 0xffffffff;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
           if (cVar2 == '\0') {
             (**(code **)(*piVar3 + 4))(s_normal_00552230);
           }
@@ -78,7 +78,7 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
         FUN_00406500(0);
         FUN_00406500(0);
       }
-      iVar5 = FUN_0040a4d0((uint)bVar1 * 0x224 + 0xebef4 + g_clientContext);
+      iVar5 = PeekChecksumStateUnderLock((uint)bVar1 * 0x224 + 0xebef4 + g_clientContext);
       if (((iVar5 != -1) && (iVar5 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a4), iVar5 != 60000)
           ) && (iVar5 != 0xffff)) {
         AddToPacketChecksum(iVar5);

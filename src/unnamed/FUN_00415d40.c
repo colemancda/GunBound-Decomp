@@ -56,28 +56,28 @@ int FUN_00415d40(int param_1)
   *(undefined4 *)(param_1 + 0x239c8) = 0;
   EncodeOutgoingPacketField(0);
   SUBFIELD(local_4,0,undefined1) = 5;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x23bd8),0x224,0x14,FUN_0040a280,FUN_0040a2a0)
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x23bd8),0x224,0x14,FUN_0040a280,ScrubChecksumGuard)
   ;
   SUBFIELD(local_4,0,undefined1) = 6;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x266a8),0x224,0x14,FUN_0040a280,FUN_0040a2a0)
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x266a8),0x224,0x14,FUN_0040a280,ScrubChecksumGuard)
   ;
   SUBFIELD(local_4,0,undefined1) = 7;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x29178),0x224,0x14,FUN_0040a280,FUN_0040a2a0)
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x29178),0x224,0x14,FUN_0040a280,ScrubChecksumGuard)
   ;
   SUBFIELD(local_4,0,undefined1) = 8;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x2bc48),0x224,0x14,FUN_0040a280,FUN_0040a2a0)
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x2bc48),0x224,0x14,FUN_0040a280,ScrubChecksumGuard)
   ;
   SUBFIELD(local_4,0,undefined1) = 9;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x2e718),0x224,0x14,FUN_0040a280,FUN_0040a2a0)
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x2e718),0x224,0x14,FUN_0040a280,ScrubChecksumGuard)
   ;
   SUBFIELD(local_4,0,undefined1) = 10;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x311e8),0x224,0x14,FUN_0040a280,FUN_0040a2a0)
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x311e8),0x224,0x14,FUN_0040a280,ScrubChecksumGuard)
   ;
   SUBFIELD(local_4,0,undefined1) = 0xb;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x33cb8),0x224,0x14,FUN_0040a280,FUN_0040a2a0)
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x33cb8),0x224,0x14,FUN_0040a280,ScrubChecksumGuard)
   ;
   SUBFIELD(local_4,0,undefined1) = 0xc;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x36788),0x224,0x14,FUN_0040a280,FUN_0040a2a0)
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x36788),0x224,0x14,FUN_0040a280,ScrubChecksumGuard)
   ;
   SUBFIELD(local_4,0,undefined1) = 0xd;
   *(undefined1 *)(param_1 + 0x39478) = 0;
@@ -104,9 +104,9 @@ int FUN_00415d40(int param_1)
   *(undefined4 *)(param_1 + 0x39d20) = 0;
   EncodeOutgoingPacketField(0);
   SUBFIELD(local_4,0,undefined1) = 0x13;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x39f30),0x224,6,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x39f30),0x224,6,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x14;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x3ac08),0x224,4,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x3ac08),0x224,4,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x15;
   FUN_00406440();
   *(undefined1 *)(param_1 + 0x3b6bc) = 0;
@@ -183,13 +183,13 @@ int FUN_00415d40(int param_1)
   *(undefined4 *)(param_1 + 0x475dc) = 0;
   EncodeOutgoingPacketField(0);
   SUBFIELD(local_4,0,undefined1) = 0x25;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x477ec),0x224,0x10,FUN_0040a280,FUN_0040a2a0)
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x477ec),0x224,0x10,FUN_0040a280,ScrubChecksumGuard)
   ;
   SUBFIELD(local_4,0,undefined1) = 0x26;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x49a4c),0x224,0x30,FUN_0040a280,FUN_0040a2a0)
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x49a4c),0x224,0x30,FUN_0040a280,ScrubChecksumGuard)
   ;
   SUBFIELD(local_4,0,undefined1) = 0x27;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x50240),0x224,0x40,FUN_0040a280,FUN_0040a2a0)
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x50240),0x224,0x40,FUN_0040a280,ScrubChecksumGuard)
   ;
   SUBFIELD(local_4,0,undefined1) = 0x28;
   *(undefined1 *)(param_1 + 0x593b0) = 0;
@@ -200,7 +200,7 @@ int FUN_00415d40(int param_1)
   *(undefined4 *)(param_1 + 0x593c8) = 0;
   EncodeOutgoingPacketField(0);
   SUBFIELD(local_4,0,undefined1) = 0x2a;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x595d8),0x224,0xc,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x595d8),0x224,0xc,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x2b;
   *(undefined1 *)(param_1 + 0x5b1a8) = 0;
   *(undefined4 *)(param_1 + 0x5af9c) = 0;
@@ -223,17 +223,17 @@ int FUN_00415d40(int param_1)
   *(undefined4 *)(param_1 + 0x5b870) = 0;
   EncodeOutgoingPacketField(0);
   SUBFIELD(local_4,0,undefined1) = 0x30;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x5ba80),0x224,8,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x5ba80),0x224,8,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x31;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x5cba0),0x224,8,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x5cba0),0x224,8,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x32;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x5dcc0),0x224,8,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x5dcc0),0x224,8,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x33;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x5ede0),0x224,8,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x5ede0),0x224,8,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x34;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x5ff00),0x224,8,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x5ff00),0x224,8,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x35;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0x61020),0x224,8,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0x61020),0x224,8,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x36;
   FUN_00406440();
   FUN_00406440();
@@ -255,7 +255,7 @@ int FUN_00415d40(int param_1)
   EncodeOutgoingPacketField(0);
   SUBFIELD(local_4,0,undefined1) = 0x39;
   _eh_vector_constructor_iterator_
-            ((void *)(param_1 + 0x62854),0x224,0x400,FUN_0040a280,FUN_0040a2a0);
+            ((void *)(param_1 + 0x62854),0x224,0x400,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x3a;
   *(undefined1 *)(param_1 + 0xeba74) = 0;
   *(undefined4 *)(param_1 + 0xeb868) = 0;
@@ -269,13 +269,13 @@ int FUN_00415d40(int param_1)
   *(undefined4 *)(param_1 + 0xebcd0) = 0;
   EncodeOutgoingPacketField(0);
   SUBFIELD(local_4,0,undefined1) = 0x3d;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0xebef4),0x224,8,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0xebef4),0x224,8,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x3e;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0xed014),0x224,8,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0xed014),0x224,8,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x3f;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0xee134),0x224,8,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0xee134),0x224,8,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x40;
-  _eh_vector_constructor_iterator_((void *)(param_1 + 0xef254),0x224,8,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_((void *)(param_1 + 0xef254),0x224,8,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x41;
   _eh_vector_constructor_iterator_
             ((void *)(param_1 + 0xf0384),0xb1ac,0x10,FUN_00416c20,FUN_004174c0);
@@ -289,15 +289,15 @@ int FUN_00415d40(int param_1)
   _eh_vector_constructor_iterator_(&DAT_005c7fb8 + param_1,0x157c,0x20,FUN_00418a10,FUN_00418b90);
   SUBFIELD(local_4,0,undefined1) = 0x45;
   FUN_00406440();
-  _eh_vector_constructor_iterator_(&DAT_005f3774 + param_1,0x224,8,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_(&DAT_005f3774 + param_1,0x224,8,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x46;
   (&DAT_005f4ab4)[param_1] = 0;
   *(undefined4 *)(&DAT_005f48a8 + param_1) = 0;
   EncodeOutgoingPacketField(0);
   SUBFIELD(local_4,0,undefined1) = 0x47;
-  _eh_vector_constructor_iterator_(&DAT_005f4ab8 + param_1,0x224,4,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_(&DAT_005f4ab8 + param_1,0x224,4,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x48;
-  _eh_vector_constructor_iterator_(&DAT_005f5348 + param_1,0x224,0x400,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_(&DAT_005f5348 + param_1,0x224,0x400,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x49;
   FUN_00406440();
   (&DAT_0067e5f0)[param_1] = 0;
@@ -365,9 +365,9 @@ int FUN_00415d40(int param_1)
   *(undefined4 *)(&DAT_006a7fa8 + param_1) = 0;
   EncodeOutgoingPacketField(0);
   SUBFIELD(local_4,0,undefined1) = 0x55;
-  _eh_vector_constructor_iterator_(&DAT_006a81b8 + param_1,0x224,6,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_(&DAT_006a81b8 + param_1,0x224,6,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x56;
-  _eh_vector_constructor_iterator_(&DAT_006a8e90 + param_1,0x224,6,FUN_0040a280,FUN_0040a2a0);
+  _eh_vector_constructor_iterator_(&DAT_006a8e90 + param_1,0x224,6,FUN_0040a280,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 0x57;
   FUN_00406440();
   FUN_00406440();

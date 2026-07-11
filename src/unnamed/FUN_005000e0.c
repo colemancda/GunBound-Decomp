@@ -24,7 +24,7 @@ void FUN_005000e0(void)
       cVar1 = FUN_00500c00(unaff_ESI,unaff_ESI[2],1);
       if (cVar1 == '\0') {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x8007000e);
+        ThrowCxxException(0x8007000e);
       }
     }
     FUN_00501420(local_8,local_c);

@@ -30,7 +30,7 @@ void ParseChooseEventLine(void)
       cVar1 = FUN_00500c00(unaff_ESI,unaff_ESI[2],1);
       if (cVar1 == '\0') {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x8007000e);
+        ThrowCxxException(0x8007000e);
       }
     }
     iVar2 = FUN_00409d10(unaff_ESI,in_EAX,local_c);

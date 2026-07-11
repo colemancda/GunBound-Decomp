@@ -93,7 +93,7 @@ undefined4 FUN_00439e40(int param_1)
   *(int *)(g_clientContext + 0x621e4) = iVar4;
   if ((((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) &&
       (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')) &&
-     ((uVar6 = FUN_0040a4d0(g_clientContext + 0x3b49c), param_1 != uVar6 ||
+     ((uVar6 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c), param_1 != uVar6 ||
       ((cVar2 = FUN_0040b360(*(int *)(g_clientContext + 0x621e0) + 0x6968,0), cVar2 == '\0' &&
        (iVar4 = (**(code **)(**(int **)(g_clientContext + 0x621e0) + 0x14))(), iVar4 < 9000)))))) {
     FUN_00406500(1);
@@ -104,7 +104,7 @@ undefined4 FUN_00439e40(int param_1)
     *(undefined4 *)(*(int *)(g_clientContext + 0x621e4) + 0xae10) = 0;
     QueueOutgoingPacketField(0);
     QueueOutgoingPacketField(400);
-    iVar4 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e4) + 0x1a2c);
+    iVar4 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e4) + 0x1a2c);
     uVar5 = EncodeChecksumState(iVar4 * 0xb1ac + 0xf3b2c + g_clientContext);
     EncodeChecksumState(uVar5);
     iVar4 = g_clientContext;
@@ -115,8 +115,8 @@ undefined4 FUN_00439e40(int param_1)
     *(undefined4 *)(*(int *)(iVar4 + 0x621e4) + 0xb0a0) = 0x3c0;
     *(undefined4 *)(*(int *)(iVar4 + 0x621e4) + 0xbfe0) = 200;
     if (*(int *)(*(int *)(iVar4 + 0x621e4) + 0xc2ac) == 0) {
-      iVar4 = FUN_0040a4d0(*(int *)(iVar4 + 0x621e4) + 0x741c);
-      iVar3 = FUN_0040a4d0((uint)param_1 * 0x1120 + 0x50f18 + g_clientContext);
+      iVar4 = PeekChecksumStateUnderLock(*(int *)(iVar4 + 0x621e4) + 0x741c);
+      iVar3 = PeekChecksumStateUnderLock((uint)param_1 * 0x1120 + 0x50f18 + g_clientContext);
       AddToPacketChecksum(iVar4 + iVar3);
       cVar2 = FUN_0040b410(*(int *)(g_clientContext + 0x621e4) + 0x6fd4,
                            *(int *)(g_clientContext + 0x621e4) + 0x6db0);
@@ -147,8 +147,8 @@ undefined4 FUN_00439e40(int param_1)
         QueueOutgoingPacketField(uVar5);
       }
     }
-    iVar3 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e4) + 0xb30);
-    iVar7 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e4) + 0x90c);
+    iVar3 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e4) + 0xb30);
+    iVar7 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e4) + 0x90c);
     iVar4 = g_clientContext;
     cVar2 = PeekPacketChecksumBool();
     if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar4] != '\0')) {

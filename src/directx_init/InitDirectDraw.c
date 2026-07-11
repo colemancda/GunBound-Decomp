@@ -94,13 +94,13 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
     iVar4 = *g_pDirectDraw7;
     puStack_100 = (undefined4 *)DAT_00588f60;
     piStack_104 = (int *)0x4efb60;
-    piStack_104 = (int *)FUN_0053753c();
+    piStack_104 = (int *)FloatToInt64();
     ppiStack_108 = (int **)0x4efb6c;
-    ppiStack_108 = (int **)FUN_0053753c();
+    ppiStack_108 = (int **)FloatToInt64();
     ppiStack_10c = (int **)piVar1;
     piStack_110 = (int *)0x4efb71;
     iVar4 = (**(code **)(iVar4 + 0x54))
-                      (piVar1, FUN_0053753c(), FUN_0053753c(), DAT_00588f60, DAT_00588f48, 0);
+                      (piVar1, FloatToInt64(), FloatToInt64(), DAT_00588f60, DAT_00588f48, 0);
     if (iVar4 < 0) {
       return 0x1c;
     }
@@ -142,12 +142,12 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
   }
   else {
     /* windowed: create a separate off-screen back buffer sized to the client.
-     * FUN_0053753c is an ftol-style helper the original fed via the x87 stack
+     * FloatToInt64 is an ftol-style helper the original fed via the x87 stack
      * (flds DAT_00588f50/DAT_00588f54); the register/FPU arg is a Ghidra
      * artifact left as-is - windowed mode is not the bring-up path. */
     ddsd.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;  /* 0x7 */
-    ddsd.dwWidth = (DWORD)FUN_0053753c();
-    ddsd.dwHeight = (DWORD)FUN_0053753c();
+    ddsd.dwWidth = (DWORD)FloatToInt64();
+    ddsd.dwHeight = (DWORD)FloatToInt64();
     ddsd.ddsCaps.dwCaps = 0x2040;                     /* 3DDEVICE|OFFSCREENPLAIN */
     iVar4 = (**(code **)(*g_pDirectDraw7 + 0x18))
                       (g_pDirectDraw7, &ddsd, &g_pBackBufferSurface, 0);
@@ -190,9 +190,9 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
   uStack_120 = 0;
   ppiStack_11c = (int **)0x0;
   puStack_158 = (undefined4 *)0x4efd7a;
-  uStack_118 = FUN_0053753c();
+  uStack_118 = FloatToInt64();
   puStack_158 = (undefined4 *)0x4efd89;
-  piStack_114 = (int *)FUN_0053753c();
+  piStack_114 = (int *)FloatToInt64();
   puStack_158 = &uStack_120;
   piStack_110 = (int *)0x0;
   ppiStack_10c = (int **)0x3f800000;

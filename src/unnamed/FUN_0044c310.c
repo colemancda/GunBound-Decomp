@@ -23,7 +23,7 @@ int FUN_0044c310(void)
       if (*(uint *)(g_clientContext + 0x44e24) <= uVar1) {
 LAB_0044c364:
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       if (iVar3 < *(int *)(*(int *)(g_clientContext + 0x44e20) + 4 + iVar2)) {
         if (*(uint *)(g_clientContext + 0x44e24) <= uVar1) goto LAB_0044c364;

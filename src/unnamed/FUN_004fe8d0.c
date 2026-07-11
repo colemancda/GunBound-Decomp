@@ -80,7 +80,7 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
     do {
       if ((uint)piVar8[0x21] <= local_b4) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       iVar5 = piVar8[0x20] + (int)local_b8;
       cVar1 = FUN_004fe110(param_1,param_2,*(undefined2 *)(iVar5 + 0xc),iVar5 + 0x10,

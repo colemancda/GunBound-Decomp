@@ -23,7 +23,7 @@ undefined4 __fastcall FUN_004ac4d0(int param_1)
   puStack_8 = &LAB_0053df6b;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
-  FUN_0040a6e0(param_1 + 0x4c,local_230,1);
+  EncodeChecksumDeltaSub(param_1 + 0x4c,local_230,1);
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
@@ -33,7 +33,7 @@ undefined4 __fastcall FUN_004ac4d0(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if (local_21c != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_238);
   }
   *unaff_FS_OFFSET = local_c;

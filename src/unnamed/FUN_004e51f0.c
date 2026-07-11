@@ -36,7 +36,7 @@ void FUN_004e51f0(void)
     do {
       if (*(uint *)(&DAT_006a7f7c + g_clientContext) <= uVar5) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       uVar2 = (uint)*(ushort *)(*(int *)(&DAT_006a7f78 + g_clientContext) + 2 + iVar4);
       if ((int)uVar6 <= (int)uVar2) {

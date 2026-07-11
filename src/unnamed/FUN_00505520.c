@@ -19,7 +19,7 @@ void FUN_00505520(int param_1,undefined4 param_2)
   if (uVar2 != 0xffffffff) {
     if (*(uint *)(unaff_EBX + 0x10) <= uVar2) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     iVar1 = *(int *)(*(int *)(unaff_EBX + 0xc) + uVar2 * 4);
     *(int *)(iVar1 + 0x38) = param_1;

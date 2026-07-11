@@ -32,14 +32,14 @@ void EquipAvatarPart(int param_1)
     uVar4 = *(int *)(param_1 + 0x454) + iVar2;
     if (*(uint *)(g_clientContext + 0x44e24) <= uVar4) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (*(uint *)(g_clientContext + 0x44e24) <= uVar4) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();

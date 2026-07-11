@@ -44,21 +44,21 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
         g_replayEventCursor = g_replayEventCursor + 1;
         *(undefined2 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) = 0xff00;
       }
-      uVar4 = FUN_0040a4d0(param_2 * 0x224 + 0x39f30 + iVar7);
+      uVar4 = PeekChecksumStateUnderLock(param_2 * 0x224 + 0x39f30 + iVar7);
       (&g_replayEventBuffer)[g_replayEventCursor] = uVar4;
       g_replayEventCursor = g_replayEventCursor + 1;
       iVar7 = *(int *)(g_clientContext + 0x621e0);
-      uVar5 = FUN_0040a4d0(param_2 * 0x224 + 0x39f30 + g_clientContext);
+      uVar5 = PeekChecksumStateUnderLock(param_2 * 0x224 + 0x39f30 + g_clientContext);
       puVar1 = (ushort *)(iVar7 + 0xbfbc);
       *puVar1 = *puVar1 | uVar5;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeOutgoingPacketField(0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar6 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e0) + 0x90c);
+      uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
       iVar7 = g_clientContext;
       *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
       g_replayEventCursor = g_replayEventCursor + 2;
-      uVar6 = FUN_0040a4d0(*(int *)(iVar7 + 0x621e0) + 0xb30);
+      uVar6 = PeekChecksumStateUnderLock(*(int *)(iVar7 + 0x621e0) + 0xb30);
       iVar7 = g_clientContext;
       *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
       g_replayEventCursor = g_replayEventCursor + 2;

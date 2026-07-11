@@ -109,7 +109,7 @@ void FUN_0044b900(int param_1)
     else {
       if (*(int *)(g_clientContext + 0x44bec) == 0) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       puVar14 = *(undefined4 **)(g_clientContext + 0x44be8);
       puVar15 = &local_188c;

@@ -90,7 +90,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
           Replay_AppendEvent(0x8000);
           (&g_replayEventBuffer)[g_replayEventCursor] = *(undefined1 *)((int)this + 9);
           g_replayEventCursor = g_replayEventCursor + 1;
-          uVar11 = FUN_0040a4d0((int)this + 0xc);
+          uVar11 = PeekChecksumStateUnderLock((int)this + 0xc);
           *(undefined4 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar11;
           puVar23 = &DAT_00e9aad0 + g_replayEventCursor;
           g_replayEventCursor = g_replayEventCursor + 4;
@@ -826,7 +826,7 @@ LAB_004d4cc7:
       if (1 < payloadLen) {
         FUN_00425a30(g_clientContext);
         uVar18 = (uint)*(byte *)(g_clientContext + 0x45124);
-        FUN_0040a4d0(g_clientContext + 0x44efc);
+        PeekChecksumStateUnderLock(g_clientContext + 0x44efc);
         FUN_004daa60(this,uVar18);
       }
       cVar10 = FUN_0040b390(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
@@ -845,11 +845,11 @@ LAB_004d4cc7:
         FUN_004db720();
         FUN_004da460(this,1,0);
       }
-      iVar17 = FUN_0040a4d0(g_clientContext + 0x3b6c4);
+      iVar17 = PeekChecksumStateUnderLock(g_clientContext + 0x3b6c4);
       if (*(char *)(iVar17 + 0x45914 + g_clientContext) != '\x03') {
         return;
       }
-      iVar17 = FUN_0040a4d0(g_clientContext + 0x3b6c4);
+      iVar17 = PeekChecksumStateUnderLock(g_clientContext + 0x3b6c4);
       *(undefined1 *)(iVar17 + 0x45914 + g_clientContext) = 1;
       return;
     }

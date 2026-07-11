@@ -203,7 +203,7 @@ LAB_0041bac3:
     if (uVar8 != 0xffffffff) {
       if (*(uint *)(iVar6 + 0x10) <= uVar8) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       *(undefined4 *)(*(int *)(*(int *)(iVar6 + 0xc) + uVar8 * 4) + 0x40) =
            *(undefined4 *)(param_1 + 0x3b97c);

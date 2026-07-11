@@ -161,6 +161,6 @@ undefined4 * BuildLobbyChatPanel(int param_1)
   }
 LAB_00509cbe:
                     /* WARNING: Subroutine does not return */
-  FUN_004010c0(0x8007000e);
+  ThrowCxxException(0x8007000e);
 }
 

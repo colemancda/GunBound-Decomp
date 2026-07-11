@@ -17,7 +17,7 @@ void FUN_005056c0(void)
   if (uVar1 != 0xffffffff) {
     if (*(uint *)(unaff_EBX + 0x10) <= uVar1) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     TextEntry_SetControlText();
   }

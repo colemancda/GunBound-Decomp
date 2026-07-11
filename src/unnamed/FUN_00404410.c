@@ -127,7 +127,7 @@ void FUN_00404410(int param_1)
                  (cVar7 = FUN_00500c00(piVar11,*(undefined4 *)(&DAT_006aa424 + iVar9),1),
                  cVar7 == '\0')) {
                     /* WARNING: Subroutine does not return */
-                FUN_004010c0(0x8007000e);
+                ThrowCxxException(0x8007000e);
               }
               iVar8 = FUN_00426960(piVar11,pcVar12,local_16c);
             }

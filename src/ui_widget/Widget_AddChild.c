@@ -21,7 +21,7 @@ void Widget_AddChild(int param_1)
     cVar3 = AtlArray_GrowBuffer();
     if (cVar3 == '\0') {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x8007000e);
+      ThrowCxxException(0x8007000e);
     }
   }
   piVar1 = (int *)(*(int *)(unaff_EBX + 0xc) + uVar2 * 4);

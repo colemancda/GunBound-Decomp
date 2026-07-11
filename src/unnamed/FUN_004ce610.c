@@ -107,15 +107,15 @@ LAB_004ce86c:
     break;
   case 6:
     AddToPacketChecksum(0xb4);
-    uVar6 = FUN_0040a4d0(&DAT_00e9bed8);
+    uVar6 = PeekChecksumStateUnderLock(&DAT_00e9bed8);
     cVar4 = FUN_0040b2d0(g_clientContext + 0x5b1ac,uVar6);
     if (cVar4 != '\0') {
-      uVar6 = FUN_0040a4d0(&DAT_00e9bed8);
+      uVar6 = PeekChecksumStateUnderLock(&DAT_00e9bed8);
       SubFromPacketChecksum(uVar6);
     }
   default:
 switchD_004ce6ac_default:
-    uVar6 = FUN_0040a4d0(&DAT_00e9ba40);
+    uVar6 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
     QueueOutgoingPacketField(uVar6);
     break;
   case 7:

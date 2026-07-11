@@ -47,7 +47,7 @@ void FUN_004ce3d0(int param_1)
           if (iVar2 != 0) {
             *(undefined1 *)(iVar2 + 0x14) = 1;
           }
-          FUN_0040a4d0(piVar3 + 0x68b);
+          PeekChecksumStateUnderLock(piVar3 + 0x68b);
           FUN_0041c360(g_clientContext,piVar3);
           FUN_00406500(0);
           *(undefined1 *)(piVar3 + 0x2b85) = 0;

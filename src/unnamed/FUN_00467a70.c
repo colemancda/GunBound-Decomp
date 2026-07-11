@@ -79,7 +79,7 @@ void __fastcall FUN_00467a70(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_ad4);
       pcVar17 = (code *)LeaveCriticalSection;
     }
@@ -92,7 +92,7 @@ void __fastcall FUN_00467a70(int *param_1)
     (*pcVar17)(&DAT_005a9068);
     uStack_c = 0xffffffff;
     if (uStack_ab4 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(&local_ad8);
       pcVar17 = (code *)LeaveCriticalSection;
       unaff_EBX = uStack_ab4;
@@ -116,17 +116,17 @@ void __fastcall FUN_00467a70(int *param_1)
         }
         QueueOutgoingPacketField(uVar10);
       }
-      uVar10 = FUN_0040a8c0(param_1[0x3d2] + 0x25c,auStack_680,4);
+      uVar10 = EncodeChecksumDeltaDiv(param_1[0x3d2] + 0x25c,auStack_680,4);
       uStack_c = 2;
-      uVar10 = FUN_0040aca0(param_1[0x3d2] + 0x38,auStack_45c,uVar10);
+      uVar10 = EncodeChecksumPairDiff(param_1[0x3d2] + 0x38,auStack_45c,uVar10);
       uStack_c = 3;
       bVar4 = false;
       bVar3 = false;
       cVar6 = FUN_0040b490(param_1 + 0x3d5,uVar10);
       if (cVar6 == '\0') {
-        uVar10 = FUN_0040a8c0(param_1[0x3d2] + 0x25c,auStack_8a4,4);
+        uVar10 = EncodeChecksumDeltaDiv(param_1[0x3d2] + 0x25c,auStack_8a4,4);
         uStack_c = 4;
-        uVar10 = FUN_0040aba0(param_1[0x3d2] + 0x38,&uStack_ac8,uVar10);
+        uVar10 = EncodeChecksumPairSum(param_1[0x3d2] + 0x38,&uStack_ac8,uVar10);
         uStack_c = 5;
         bVar4 = true;
         bVar3 = true;
@@ -140,16 +140,16 @@ LAB_00468200:
       }
       uStack_c = 4;
       if (bVar3) {
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
       }
       uStack_c = 3;
       if (bVar4) {
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
       }
       uStack_c = 2;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       uStack_c = 0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       if (bVar5) {
         iVar7 = param_1[0x3d4];
         param_1[0x3d4] = iVar7 + 1;
@@ -158,7 +158,7 @@ LAB_00468200:
           uStack_c = 6;
           EncodeChecksumState(uVar10);
           uStack_c = 0xffffffff;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
         }
         else {
           FUN_00406500(0);

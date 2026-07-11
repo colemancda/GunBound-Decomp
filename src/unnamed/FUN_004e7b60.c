@@ -38,19 +38,19 @@ uint FUN_004e7b60(int param_1,undefined4 *param_2,uint *param_3)
     iVar6 = 0;
     if (*(int *)(param_1 + 0x454a8) == 0) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     do {
       FUN_004e8a70();
       if (local_c == *(int *)(param_1 + 0x45234)) {
         if (*(uint *)(param_1 + 0x454a8) <= uVar4) {
                     /* WARNING: Subroutine does not return */
-          FUN_004010c0(0x80070057);
+          ThrowCxxException(0x80070057);
         }
         if (local_8[*(byte *)(*(int *)(param_1 + 0x454a4) + 4 + iVar6)] == '\0') {
           if (*(uint *)(param_1 + 0x454a8) <= uVar4) {
                     /* WARNING: Subroutine does not return */
-            FUN_004010c0(0x80070057);
+            ThrowCxxException(0x80070057);
           }
           iVar6 = uVar4 * 0x206;
           uVar1 = *(ushort *)(*(int *)(param_1 + 0x454a4) + 2 + iVar6);
@@ -78,16 +78,16 @@ uint FUN_004e7b60(int param_1,undefined4 *param_2,uint *param_3)
               return CONCAT31((int3)((uint)iVar6 >> 8),1);
             }
                     /* WARNING: Subroutine does not return */
-            FUN_004010c0(0x80070057);
+            ThrowCxxException(0x80070057);
           }
                     /* WARNING: Subroutine does not return */
-          FUN_004010c0(0x80070057);
+          ThrowCxxException(0x80070057);
         }
       }
       else {
         if (*(uint *)(param_1 + 0x454a8) <= uVar4) {
                     /* WARNING: Subroutine does not return */
-          FUN_004010c0(0x80070057);
+          ThrowCxxException(0x80070057);
         }
         local_8[*(byte *)(*(int *)(param_1 + 0x454a4) + 4 + iVar6)] = '\x01';
       }

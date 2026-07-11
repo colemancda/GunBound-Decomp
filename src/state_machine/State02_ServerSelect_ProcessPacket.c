@@ -324,7 +324,7 @@ LAB_004e0d7f:
     puVar21[3] = uStack_b4;
     puVar21[4] = uStack_b0;
     *(int *)(iVar20 + 0x44d0) = *(int *)(iVar20 + 0x44d0) + 0x14;
-    uVar5 = FUN_0040a4d0(&DAT_00796878);
+    uVar5 = PeekChecksumStateUnderLock(&DAT_00796878);
     iVar8 = DAT_007934ec;
     *(undefined4 *)(*(int *)(DAT_007934ec + 0x44d0) + 0x4d0 + DAT_007934ec) = uVar5;
     iVar20 = *(int *)(iVar8 + 0x44d0);
@@ -426,19 +426,19 @@ LAB_004e0d7f:
   QueueOutgoingPacketField(uStack_ec >> 0x10);
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
-    FUN_0040a4d0(g_clientContext + 0x3ae2c);
+    PeekChecksumStateUnderLock(g_clientContext + 0x3ae2c);
     if (extraout_AH_01 < '\0') {
       QueueOutgoingPacketField(0);
     }
-    FUN_0040a4d0(g_clientContext + 0x3b050);
+    PeekChecksumStateUnderLock(g_clientContext + 0x3b050);
     if (extraout_AH_02 < '\0') goto LAB_004e04b5;
   }
   else {
-    FUN_0040a4d0(g_clientContext + 0x3ae2c);
+    PeekChecksumStateUnderLock(g_clientContext + 0x3ae2c);
     if (-1 < extraout_AH) {
       QueueOutgoingPacketField(0);
     }
-    FUN_0040a4d0(g_clientContext + 0x3b050);
+    PeekChecksumStateUnderLock(g_clientContext + 0x3b050);
     if (-1 < extraout_AH_00) {
 LAB_004e04b5:
       QueueOutgoingPacketField(0);

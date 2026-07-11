@@ -21,7 +21,7 @@ uint __fastcall Widget_FindChildIndex(int param_1)
       if (*(uint *)(param_1 + 0x10) <= uVar1) {
 LAB_0050e65a:
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       if (*(int *)(*(int *)(*(int *)(param_1 + 0xc) + uVar1 * 4) + 0x20) == unaff_EDI) {
         if (*(uint *)(param_1 + 0x10) <= uVar1) goto LAB_0050e65a;

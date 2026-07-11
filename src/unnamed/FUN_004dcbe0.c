@@ -44,7 +44,7 @@ void FUN_004dcbe0(int param_1)
   bVar1 = *(byte *)(g_clientContext + 0x475c4);
   local_4 = 0xffffffff;
   if (local_21c != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_338);
   }
   switch(*(undefined4 *)(param_1 + 0x740)) {
@@ -65,7 +65,7 @@ void FUN_004dcbe0(int param_1)
     *(undefined4 *)((int)puVar7 + 1) = DAT_005554f8;
     *(undefined1 *)((int)puVar7 + 5) = DAT_005554fc;
     LoadSpriteSet(&DAT_00ea0e18,0x1e14);
-    DAT_00793634 = FUN_0040a4d0(((uint)bVar1 + iVar6) * 0x7d28 + 0x1a328c + g_clientContext);
+    DAT_00793634 = PeekChecksumStateUnderLock(((uint)bVar1 + iVar6) * 0x7d28 + 0x1a328c + g_clientContext);
     break;
   case 3:
     FUN_004e4010((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1ec8 + g_clientContext);

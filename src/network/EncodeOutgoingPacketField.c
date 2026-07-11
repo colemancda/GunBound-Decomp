@@ -32,7 +32,7 @@ void EncodeOutgoingPacketField(void *self, uint param_1)
   uVar2 = param_1;
   uVar1 = *(uint *)(unaff_EDI + 0x14);
   if (uVar1 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     param_1 = uVar1;
     FUN_0040b540(local_8);
   }

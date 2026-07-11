@@ -21,7 +21,7 @@ void FUN_00500940(int *param_1,undefined4 *param_2)
       cVar1 = FUN_00500c00(param_1,param_1[2],1);
       if (cVar1 == '\0') {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x8007000e);
+        ThrowCxxException(0x8007000e);
       }
     }
     iVar2 = FUN_00501560(in_EAX,param_1);

@@ -161,10 +161,10 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     }
     FUN_00406500(1);
     Replay_AppendEvent(0x8402);
-    uVar6 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e0) + 0x90c);
+    uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
     *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
     g_replayEventCursor = g_replayEventCursor + 2;
-    uVar6 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e0) + 0xb30);
+    uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xb30);
     *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
     g_replayEventCursor = g_replayEventCursor + 2;
     uVar4 = PacketChecksumEquals(*(int *)(g_clientContext + 0x621e0) + 0x1c54,1);
@@ -341,10 +341,10 @@ LAB_004b8aeb:
       FUN_00406300(0);
       FUN_00406500(0);
       Replay_AppendEvent(0x8402);
-      uVar6 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e0) + 0x90c);
+      uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
       *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
       g_replayEventCursor = g_replayEventCursor + 2;
-      uVar6 = FUN_0040a4d0(*(int *)(g_clientContext + 0x621e0) + 0xb30);
+      uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0xb30);
       iVar7 = g_clientContext;
       *(undefined2 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
       g_replayEventCursor = g_replayEventCursor + 2;
@@ -407,17 +407,17 @@ LAB_004b8aeb:
     *(undefined4 *)(&DAT_006a73c8 + g_clientContext) = 1;
     FUN_004e1f70();
     Replay_AppendEvent(0x8404);
-    sVar5 = FUN_0040a4d0(g_clientContext + 0xeba98);
+    sVar5 = PeekChecksumStateUnderLock(g_clientContext + 0xeba98);
     iVar7 = g_clientContext;
     *(short *)(&g_replayEventBuffer + g_replayEventCursor) = sVar5 + 4;
     puVar1 = (undefined2 *)(&DAT_00e9aace + g_replayEventCursor);
     g_replayEventCursor = g_replayEventCursor + 2;
     *puVar1 = 0xffec;
     g_replayEventCursor = g_replayEventCursor + 2;
-    uVar4 = FUN_0040a4d0(&DAT_006a64c4 + iVar7);
+    uVar4 = PeekChecksumStateUnderLock(&DAT_006a64c4 + iVar7);
     (&g_replayEventBuffer)[g_replayEventCursor] = uVar4;
     g_replayEventCursor = g_replayEventCursor + 1;
-    uVar4 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+    uVar4 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
     goto LAB_004b8ad9;
   case 10:
     FUN_00405fb0();

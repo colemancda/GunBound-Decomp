@@ -23,7 +23,7 @@ void FUN_00505ad0(int param_1)
   if (uVar2 != 0xffffffff) {
     if (*(uint *)(param_1 + 0x10) <= uVar2) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     pcVar5 = (char *)(*(int *)(*(int *)(param_1 + 0xc) + uVar2 * 4) + 0x38);
     pcVar3 = pcVar5;
@@ -80,6 +80,6 @@ LAB_00505bbe:
     return;
   }
                     /* WARNING: Subroutine does not return */
-  FUN_004010c0(0x80070057);
+  ThrowCxxException(0x80070057);
 }
 

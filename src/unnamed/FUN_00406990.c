@@ -124,9 +124,9 @@ LAB_00408159:
   }
   uVar3 = FUN_0040a7d0(*(int *)(g_clientContext + 0x621e0) + 0x7864,local_89c,0x28);
   local_4 = 0;
-  uVar9 = FUN_0040a8c0(uVar3,local_678,uVar9);
+  uVar9 = EncodeChecksumDeltaDiv(uVar3,local_678,uVar9);
   local_4 = 1;
-  FUN_0040a5f0(uVar9,local_ce4,0xf4);
+  EncodeChecksumDeltaAdd(uVar9,local_ce4,0xf4);
   local_4 = 2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
@@ -134,17 +134,17 @@ LAB_00408159:
   FUN_004eadb0();
   local_4 = 1;
   if (local_cd0 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_f9c);
   }
   local_4 = 0;
   if (local_664 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_f9c);
   }
   local_4 = 0xffffffff;
   if (local_888 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_f9c);
   }
   iVar2 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -174,9 +174,9 @@ LAB_00406d42:
   }
   uVar3 = FUN_0040a7d0(*(int *)(g_clientContext + 0x621e0) + 0x7a88,local_ce4,0x28);
   local_4 = 3;
-  uVar9 = FUN_0040a8c0(uVar3,local_678,uVar9);
+  uVar9 = EncodeChecksumDeltaDiv(uVar3,local_678,uVar9);
   local_4 = 4;
-  FUN_0040a5f0(uVar9,local_89c,0xf5);
+  EncodeChecksumDeltaAdd(uVar9,local_89c,0xf5);
   local_4 = 5;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar9 = PeekPacketChecksumState();
@@ -196,17 +196,17 @@ LAB_00406d42:
 LAB_00406e95:
   local_4 = 4;
   if (local_888 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_f9c);
   }
   local_4 = 3;
   if (local_664 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_f9c);
   }
   local_4 = 0xffffffff;
   if (local_cd0 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_f9c);
   }
   if (*param_1 == -1) {
@@ -226,43 +226,43 @@ LAB_00406e95:
         iVar6 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (iVar6 == 0xff) {
-          uVar9 = FUN_0040a6e0(iVar10 + 0x3a154 + g_clientContext,local_ce4,1);
+          uVar9 = EncodeChecksumDeltaSub(iVar10 + 0x3a154 + g_clientContext,local_ce4,1);
           local_4 = 6;
           uVar9 = FUN_0040a7d0(uVar9,local_678,2);
           local_4 = 7;
-          FUN_0040a5f0(uVar9,local_89c,iVar2 == *(int *)(g_clientContext + 0xf0374));
+          EncodeChecksumDeltaAdd(uVar9,local_89c,iVar2 == *(int *)(g_clientContext + 0xf0374));
           local_4 = 8;
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           FUN_004eb8e0(0x1b5a);
           local_4 = 7;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
           local_4 = 6;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
           local_4 = 0xffffffff;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
           iVar2 = iVar2 + 1;
           iVar10 = iVar10 + 0x224;
           iVar5 = iVar5 + 0x24;
         }
         else {
-          uVar9 = FUN_0040a6e0(iVar10 + 0x39f30 + g_clientContext,local_f08,1);
+          uVar9 = EncodeChecksumDeltaSub(iVar10 + 0x39f30 + g_clientContext,local_f08,1);
           local_4 = 9;
           uVar9 = FUN_0040a7d0(uVar9,local_ac0,2);
           local_4 = 10;
-          FUN_0040a5f0(uVar9,local_454,iVar2 == *(int *)(g_clientContext + 0xf0374));
+          EncodeChecksumDeltaAdd(uVar9,local_454,iVar2 == *(int *)(g_clientContext + 0xf0374));
           local_4 = 0xb;
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           PeekPacketChecksumState();
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           FUN_004eb8e0(0x1b59);
           local_4 = 10;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
           local_4 = 9;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
           local_4 = 0xffffffff;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
         }
       }
       iVar5 = iVar5 + 0x24;
@@ -276,7 +276,7 @@ LAB_00406f80:
   }
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
-    FUN_0040a8c0(*(int *)(g_clientContext + 0x621e0) + 0x8bc4,local_f08,200);
+    EncodeChecksumDeltaDiv(*(int *)(g_clientContext + 0x621e0) + 0x8bc4,local_f08,200);
     local_4 = 0xc;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState();
@@ -284,10 +284,10 @@ LAB_00406f80:
     FUN_004eb8e0(500);
     local_4 = 0xffffffff;
     if (local_ef4 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_f9c);
     }
-    uVar9 = FUN_0040a8c0(*(int *)(g_clientContext + 0x621e0) + 0x8bc4,local_ac0,0x14);
+    uVar9 = EncodeChecksumDeltaDiv(*(int *)(g_clientContext + 0x621e0) + 0x8bc4,local_ac0,0x14);
     local_4 = 0xd;
     FUN_0040a9c0(uVar9,local_f08,10);
     local_4 = 0xe;
@@ -297,12 +297,12 @@ LAB_00406f80:
     FUN_004eb8e0(500);
     local_4 = 0xd;
     if (local_ef4 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_f9c);
     }
     local_4 = 0xffffffff;
     if (local_aac != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_f9c);
     }
     iVar2 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -318,7 +318,7 @@ LAB_00406f80:
       uVar11 = *(uint *)(iVar2 + 4);
     }
 LAB_00407429:
-    uVar9 = FUN_0040a8c0(*(int *)(g_clientContext + 0x621e0) + 0x8bc4,local_ac0,2);
+    uVar9 = EncodeChecksumDeltaDiv(*(int *)(g_clientContext + 0x621e0) + 0x8bc4,local_ac0,2);
     local_4 = 0xf;
     FUN_0040a9c0(uVar9,local_f08,10);
     local_4 = 0x10;
@@ -328,12 +328,12 @@ LAB_00407429:
     FUN_004eb8e0(500);
     local_4 = 0xf;
     if (local_ef4 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_f9c);
     }
     local_4 = 0xffffffff;
     if (local_aac != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_f9c);
     }
   }
@@ -909,7 +909,7 @@ LAB_00407fd0:
   iVar10 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar10 != -1) {
-    FUN_0040a5f0(uVar11 * 0x224 + 0x595d8 + g_clientContext,local_230,0xa5);
+    EncodeChecksumDeltaAdd(uVar11 * 0x224 + 0x595d8 + g_clientContext,local_230,0xa5);
     local_4 = 0x12;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();

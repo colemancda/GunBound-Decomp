@@ -237,7 +237,7 @@ LAB_0043a6b7:
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
     }
-    FUN_0040a6e0(iVar3 + 0x480,&stack0xfffffdb4,10);
+    EncodeChecksumDeltaSub(iVar3 + 0x480,&stack0xfffffdb4,10);
     uStack_20 = 0;
     (*pcVar13)(&DAT_005a9068);
     PeekPacketChecksumState();

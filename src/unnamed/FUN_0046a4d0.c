@@ -159,7 +159,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_ab0 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_adc);
     param_1 = piVar7;
   }
@@ -172,7 +172,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
   puStack_8 = (undefined1 *)0xffffffff;
   piVar16 = param_1;
   if (iStack_ab0 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_adc);
     piVar16 = piVar7;
   }
@@ -195,17 +195,17 @@ void __fastcall FUN_0046a4d0(int *param_1)
       }
       QueueOutgoingPacketField(uVar8);
     }
-    uVar8 = FUN_0040a8c0(piVar16[0x3d2] + 0x25c,auStack_67c,4);
+    uVar8 = EncodeChecksumDeltaDiv(piVar16[0x3d2] + 0x25c,auStack_67c,4);
     puStack_8 = (undefined1 *)0x2;
-    uVar8 = FUN_0040aca0(piVar16[0x3d2] + 0x38,auStack_8a0,uVar8);
+    uVar8 = EncodeChecksumPairDiff(piVar16[0x3d2] + 0x38,auStack_8a0,uVar8);
     puStack_8 = (undefined1 *)0x3;
     bVar2 = false;
     bVar1 = false;
     cVar4 = FUN_0040b490(piVar16 + 0x3d5,uVar8);
     if (cVar4 == '\0') {
-      uVar8 = FUN_0040a8c0(piVar16[0x3d2] + 0x25c,auStack_458,4);
+      uVar8 = EncodeChecksumDeltaDiv(piVar16[0x3d2] + 0x25c,auStack_458,4);
       puStack_8 = (undefined1 *)0x4;
-      uVar8 = FUN_0040aba0(piVar16[0x3d2] + 0x38,auStack_ac4,uVar8);
+      uVar8 = EncodeChecksumPairSum(piVar16[0x3d2] + 0x38,auStack_ac4,uVar8);
       puStack_8 = (undefined1 *)0x5;
       bVar2 = true;
       bVar1 = true;
@@ -219,16 +219,16 @@ LAB_0046ab4e:
     }
     puStack_8 = (undefined1 *)0x4;
     if (bVar1) {
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
     }
     puStack_8 = (undefined1 *)0x3;
     if (bVar2) {
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
     }
     puStack_8 = (undefined1 *)0x2;
-    FUN_0040a2a0();
+    ScrubChecksumGuard();
     puStack_8 = (undefined1 *)0xffffffff;
-    FUN_0040a2a0();
+    ScrubChecksumGuard();
     if (bVar3) {
       iVar5 = piVar16[0x3d4];
       piVar16[0x3d4] = iVar5 + 1;
@@ -237,7 +237,7 @@ LAB_0046ab4e:
         puStack_8 = (undefined1 *)0x6;
         EncodeChecksumState(uVar8);
         puStack_8 = (undefined1 *)0xffffffff;
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
       }
       else {
         FUN_00406500(0);

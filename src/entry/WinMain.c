@@ -467,20 +467,20 @@ LAB_0040e0f1:
   case 0xcd:
     puVar17 = &DAT_005b1ed0;
     uVar6 = DAT_007934c8;
-    uVar10 = FUN_0040a4d0(&DAT_00796878);
+    uVar10 = PeekChecksumStateUnderLock(&DAT_00796878);
     pcVar11 = (char *)GetLocalizedString(&g_localizedStringTable,0x133);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6,puVar17);
     goto LAB_0040e1a0;
   case 0xce:
     puVar17 = &DAT_005b1ed0;
     uVar6 = DAT_007934c8;
-    uVar10 = FUN_0040a4d0(&DAT_00796878);
+    uVar10 = PeekChecksumStateUnderLock(&DAT_00796878);
     pcVar11 = (char *)GetLocalizedString(&g_localizedStringTable,0x134);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6,puVar17);
     goto LAB_0040e1a0;
   case 0xe1:
-    uVar6 = FUN_0040a4d0(g_clientContext + 0xf5b48);
-    uVar10 = FUN_0040a4d0(&DAT_00e525e8);
+    uVar6 = PeekChecksumStateUnderLock(g_clientContext + 0xf5b48);
+    uVar10 = PeekChecksumStateUnderLock(&DAT_00e525e8);
     pcVar11 = (char *)GetLocalizedString(&g_localizedStringTable,0x12d);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6);
     goto LAB_0040e1a0;
@@ -491,7 +491,7 @@ LAB_0040e0f1:
     goto LAB_0040e1ec;
   case 0xe3:
     uVar6 = *(undefined4 *)(g_clientContext + 0x1a1e44);
-    uVar10 = FUN_0040a4d0(&DAT_00e525e8);
+    uVar10 = PeekChecksumStateUnderLock(&DAT_00e525e8);
     pcVar11 = (char *)GetLocalizedString(&g_localizedStringTable,0x12f);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6);
     UVar16 = 0;
@@ -516,7 +516,7 @@ LAB_0040e0f1:
     break;
   case 0xe6:
     uVar6 = FUN_0041e9a0(g_clientContext,99);
-    uVar10 = FUN_0040a4d0(&DAT_00e525e8);
+    uVar10 = PeekChecksumStateUnderLock(&DAT_00e525e8);
     pcVar11 = (char *)GetLocalizedString(&g_localizedStringTable,0x131);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6);
 LAB_0040e1ec:

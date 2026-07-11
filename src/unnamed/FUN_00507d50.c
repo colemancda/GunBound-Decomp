@@ -33,7 +33,7 @@ void __fastcall FUN_00507d50(int param_1)
       if (*(uint *)(param_1 + 0x10) <= uVar2) {
 LAB_00507d98:
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       (**(code **)**(undefined4 **)(*(int *)(param_1 + 0xc) + uVar2 * 4))(1);
     }

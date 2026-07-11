@@ -48,7 +48,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
       if (cVar3 != '\0') {
         if (*(uint *)(param_1 + 0x10) <= uVar6) {
                     /* WARNING: Subroutine does not return */
-          FUN_004010c0(0x80070057);
+          ThrowCxxException(0x80070057);
         }
         FUN_004055b0();
         if ((puVar4[1] != 0) && (cVar3 = FUN_004218c0(g_clientContext,puVar5), cVar3 == '\0')) {
@@ -85,7 +85,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
       }
       if (*(uint *)(param_1 + 0x10) <= uVar6) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       FUN_00506f30();
     }

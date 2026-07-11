@@ -33,7 +33,7 @@ void __fastcall FUN_00489310(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = FUN_0053753c();
+  iVar1 = FloatToInt64();
   *(int *)(param_1 + 0x38) = *(int *)(param_1 + 0x38) + iVar1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
@@ -44,7 +44,7 @@ void __fastcall FUN_00489310(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = FUN_0053753c();
+  iVar1 = FloatToInt64();
   *(int *)(param_1 + 0x3c) = *(int *)(param_1 + 0x3c) + (-5 - iVar1);
   return;
 }

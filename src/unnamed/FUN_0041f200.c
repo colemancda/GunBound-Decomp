@@ -157,11 +157,11 @@ void FUN_0041f200(void)
       uStack00000004 = 1;
     }
     else {
-      iVar9 = FUN_0040a4d0(in_EAX + 0x475c8);
-      iVar9 = FUN_0040a4d0((iVar9 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar8 +
+      iVar9 = PeekChecksumStateUnderLock(in_EAX + 0x475c8);
+      iVar9 = PeekChecksumStateUnderLock((iVar9 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar8 +
                            0x1a45d0 + in_EAX);
-      iVar10 = FUN_0040a4d0(in_EAX + 0x475c8);
-      iVar8 = FUN_0040a4d0((iVar10 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar8 +
+      iVar10 = PeekChecksumStateUnderLock(in_EAX + 0x475c8);
+      iVar8 = PeekChecksumStateUnderLock((iVar10 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar8 +
                            0x1a34b0 + in_EAX);
       uStack00000004 = iVar9 - iVar8;
     }
@@ -204,11 +204,11 @@ LAB_0041fb05:
       local_8 = 1;
     }
     else {
-      iVar10 = FUN_0040a4d0(in_EAX + 0x475c8);
-      iVar10 = FUN_0040a4d0((iVar10 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar9 +
+      iVar10 = PeekChecksumStateUnderLock(in_EAX + 0x475c8);
+      iVar10 = PeekChecksumStateUnderLock((iVar10 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar9 +
                             0x1a6810 + in_EAX);
-      iVar12 = FUN_0040a4d0(in_EAX + 0x475c8);
-      iVar9 = FUN_0040a4d0((iVar12 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar9 +
+      iVar12 = PeekChecksumStateUnderLock(in_EAX + 0x475c8);
+      iVar9 = PeekChecksumStateUnderLock((iVar12 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar9 +
                            0x1a56f0 + in_EAX);
       local_8 = iVar10 - iVar9;
     }
@@ -249,11 +249,11 @@ LAB_0041f7e9:
       uStack00000004 = 1;
     }
     else {
-      iVar9 = FUN_0040a4d0(in_EAX + 0x475c8);
-      iVar9 = FUN_0040a4d0((iVar9 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar8 +
+      iVar9 = PeekChecksumStateUnderLock(in_EAX + 0x475c8);
+      iVar9 = PeekChecksumStateUnderLock((iVar9 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar8 +
                            0x1a8a50 + in_EAX);
-      iVar10 = FUN_0040a4d0(in_EAX + 0x475c8);
-      iVar8 = FUN_0040a4d0((iVar10 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar8 +
+      iVar10 = PeekChecksumStateUnderLock(in_EAX + 0x475c8);
+      iVar8 = PeekChecksumStateUnderLock((iVar10 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar8 +
                            0x1a7930 + in_EAX);
       uStack00000004 = iVar9 - iVar8;
     }

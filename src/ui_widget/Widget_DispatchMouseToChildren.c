@@ -20,7 +20,7 @@ undefined4 __thiscall Widget_DispatchMouseToChildren(int param_1,undefined4 para
   if (*(int *)(param_1 + 0x10) != 0) {
     if (*(int *)(param_1 + 0x10) == 0) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     do {
       (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar2 * 4) + 0x18))(param_2);

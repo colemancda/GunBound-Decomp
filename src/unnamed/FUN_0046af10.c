@@ -81,7 +81,7 @@ void __fastcall FUN_0046af10(int *param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)0xffffffff;
   if (piStack_ab0 != (int *)0x0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     local_ad0 = piStack_ab0;
     FUN_0040b540(&local_acc);
     pcVar13 = (code *)LeaveCriticalSection;
@@ -95,7 +95,7 @@ void __fastcall FUN_0046af10(int *param_1)
   (*pcVar13)(&DAT_005a9068);
   uStack_c = 0xffffffff;
   if (uStack_ab4 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(&local_ad0);
     pcVar13 = (code *)LeaveCriticalSection;
     unaff_EBX = uStack_ab4;
@@ -119,16 +119,16 @@ void __fastcall FUN_0046af10(int *param_1)
       }
       QueueOutgoingPacketField(uVar6);
     }
-    uVar6 = FUN_0040a8c0(param_1[0x3d2] + 0x25c,auStack_680,4);
+    uVar6 = EncodeChecksumDeltaDiv(param_1[0x3d2] + 0x25c,auStack_680,4);
     uStack_c = 2;
-    uVar6 = FUN_0040aca0(param_1[0x3d2] + 0x38,auStack_8a4,uVar6);
+    uVar6 = EncodeChecksumPairDiff(param_1[0x3d2] + 0x38,auStack_8a4,uVar6);
     uStack_c = 3;
     unaff_EBX = 3;
     cVar3 = FUN_0040b490(param_1 + 0x3d5,uVar6);
     if (cVar3 == '\0') {
-      uVar6 = FUN_0040a8c0(param_1[0x3d2] + 0x25c,auStack_45c,4);
+      uVar6 = EncodeChecksumDeltaDiv(param_1[0x3d2] + 0x25c,auStack_45c,4);
       uStack_c = 4;
-      uVar6 = FUN_0040aba0(param_1[0x3d2] + 0x38,auStack_ac8,uVar6);
+      uVar6 = EncodeChecksumPairSum(param_1[0x3d2] + 0x38,auStack_ac8,uVar6);
       uStack_c = 5;
       unaff_EBX = 0xf;
       cVar3 = FUN_0040b490(uVar6,param_1 + 0x3d5);
@@ -142,21 +142,21 @@ LAB_0046b275:
     uStack_c = 4;
     if ((unaff_EBX & 8) != 0) {
       unaff_EBX = unaff_EBX & 0xfffffff7;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
     }
     uStack_c = 3;
     if ((unaff_EBX & 4) != 0) {
       unaff_EBX = unaff_EBX & 0xfffffffb;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
     }
     uStack_c = 2;
     if ((unaff_EBX & 2) != 0) {
       unaff_EBX = unaff_EBX & 0xfffffffd;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
     }
     uStack_c = 0xffffffff;
     if ((unaff_EBX & 1) != 0) {
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
     }
     if (bVar2) {
       iVar4 = param_1[0x3d4];
@@ -166,7 +166,7 @@ LAB_0046b275:
         uStack_c = 6;
         EncodeChecksumState(uVar6);
         uStack_c = 0xffffffff;
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
       }
       else {
         FUN_00406500(0);

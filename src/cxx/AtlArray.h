@@ -6,7 +6,7 @@
  * m_nMaxSize, m_nGrowBy}, the malloc/memmove/free reallocation, and the
  * signature growth policy nGrowBy = clamp(m_nSize/8, 4, 1024) - and the
  * bounds guard inlined into every child-broadcast loop (AtlThrow with
- * E_INVALIDARG, FUN_004010c0) matches CAtlArray's checked element access.
+ * E_INVALIDARG, ThrowCxxException) matches CAtlArray's checked element access.
  * The client is ATL-era code elsewhere too (CAtlBaseModule in
  * FUN_00401880).
  *
@@ -22,7 +22,7 @@
 #include <string.h>
 #include "gb_common.h"
 
-extern "C" __declspec(noreturn) void FUN_004010c0(long hr); /* AtlThrow */
+extern "C" __declspec(noreturn) void ThrowCxxException(long hr); /* AtlThrow */
 
 template <class E>
 class CAtlArray {
@@ -36,7 +36,7 @@ public:
     E &operator[](unsigned int i)
     {
         if (i >= (unsigned int)m_nSize) {
-            FUN_004010c0(0x80070057); /* AtlThrow(E_INVALIDARG) */
+            ThrowCxxException(0x80070057); /* AtlThrow(E_INVALIDARG) */
         }
         return m_pData[i];
     }
@@ -95,7 +95,7 @@ public:
     {
         if ((unsigned int)m_nMaxSize <= (unsigned int)m_nSize) {
             if (!GrowBuffer((unsigned int)m_nSize + 1)) {
-                FUN_004010c0(0x8007000e); /* AtlThrow(E_OUTOFMEMORY) */
+                ThrowCxxException(0x8007000e); /* AtlThrow(E_OUTOFMEMORY) */
             }
         }
         m_pData[m_nSize] = e;

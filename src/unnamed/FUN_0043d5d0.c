@@ -24,7 +24,7 @@ void __thiscall FUN_0043d5d0(int param_1,int param_2,int param_3)
       cVar3 = FUN_0043d840();
       if (cVar3 == '\0') {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x8007000e);
+        ThrowCxxException(0x8007000e);
       }
     }
     puVar1 = (undefined4 *)(*(int *)(param_1 + 8) + uVar2 * 6);

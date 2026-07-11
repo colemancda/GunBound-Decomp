@@ -61,25 +61,25 @@ void __fastcall FUN_0048d8e0(int param_1)
               if (cVar2 != '\0') {
                 iVar7 = piVar6[0x2c2a];
                 piVar6[0x2c2a] = iVar7 + 1;
-                uVar3 = FUN_0040a6e0(piVar6 + 0x2cc,local_230,iVar7 * 0xf);
+                uVar3 = EncodeChecksumDeltaSub(piVar6 + 0x2cc,local_230,iVar7 * 0xf);
                 local_4 = 0;
-                FUN_0040a4d0(piVar6 + 0x1bf5);
-                uVar3 = FUN_0040a4d0(uVar3);
-                uVar4 = FUN_0040a4d0(piVar6 + 0x243);
+                PeekChecksumStateUnderLock(piVar6 + 0x1bf5);
+                uVar3 = PeekChecksumStateUnderLock(uVar3);
+                uVar4 = PeekChecksumStateUnderLock(piVar6 + 0x243);
                 FUN_00436860(uVar4,uVar3);
                 local_4 = 0xffffffff;
-                FUN_0040a2a0();
+                ScrubChecksumGuard();
                 if (*(byte *)(param_1 + 0x3c) < 8) {
                   if (*(char *)(*(byte *)(param_1 + 0x3c) + 0x4590c + g_clientContext) ==
                       *(char *)((piVar6[2] & 7U) + 0x4590c + g_clientContext)) {
                     piVar1 = (int *)(g_clientContext + 0x5b83c + (uint)*(byte *)(param_1 + 0x3c) * 4);
-                    iVar7 = FUN_0040a4d0(piVar6 + 0x1bf5);
+                    iVar7 = PeekChecksumStateUnderLock(piVar6 + 0x1bf5);
                     *piVar1 = *piVar1 + iVar7;
                     *(undefined1 *)(piVar6 + 0x2c2d) = 1;
                   }
                   else {
                     piVar1 = (int *)(g_clientContext + 0x5b81c + (uint)*(byte *)(param_1 + 0x3c) * 4);
-                    iVar7 = FUN_0040a4d0(piVar6 + 0x1bf5);
+                    iVar7 = PeekChecksumStateUnderLock(piVar6 + 0x1bf5);
                     *piVar1 = *piVar1 + iVar7;
                   }
                 }

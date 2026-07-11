@@ -22,22 +22,22 @@ void FUN_004a4830(undefined4 *param_1)
   *param_1 = &PTR_FUN_005564f0;
   local_4 = 3;
   if (param_1[0x11cc] != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 2;
   if (param_1[0x1143] != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 1;
   if (param_1[0x10ba] != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 0;
   if (param_1[0x1031] != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = 0xffffffff;

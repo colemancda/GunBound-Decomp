@@ -44,15 +44,15 @@ LAB_004aad77:
       }
       local_1c = 0xff;
     }
-    iVar8 = FUN_0053753c();
+    iVar8 = FloatToInt64();
     iVar7 = *(int *)(param_1 + 0x3fa8);
     iVar1 = *(int *)(param_1 + 0x3fb0);
-    iVar9 = FUN_0053753c();
+    iVar9 = FloatToInt64();
     iVar2 = *(int *)(param_1 + 0x3fb0);
-    iVar10 = FUN_0053753c();
+    iVar10 = FloatToInt64();
     iVar3 = *(int *)(param_1 + 0x3fac);
     iVar4 = *(int *)(param_1 + 0x3fb4);
-    iVar11 = FUN_0053753c();
+    iVar11 = FloatToInt64();
     iVar5 = *(int *)(param_1 + 0x3fb4);
     *(int *)(iVar6 + 0x22d44 + (iVar13 + *(int *)(param_1 + 8) * 2) * 0x28) = iVar7 + iVar8;
     *(int *)(iVar6 + 0x22d48 + (iVar13 + *(int *)(param_1 + 8) * 2) * 0x28) = iVar3 + iVar10;

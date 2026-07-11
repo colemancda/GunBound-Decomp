@@ -17,7 +17,7 @@ void FUN_004e5cc0(void)
   
   if ((uint)unaff_EDI[1] < (uint)(in_EAX + unaff_EBX)) {
                     /* WARNING: Subroutine does not return */
-    FUN_004010c0(0x80070057);
+    ThrowCxxException(0x80070057);
   }
   iVar1 = (unaff_EDI[1] - in_EAX) - unaff_EBX;
   if (iVar1 != 0) {

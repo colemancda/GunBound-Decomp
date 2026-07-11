@@ -8,7 +8,7 @@ SRCS=$(find src -name '*.c' ! -path 'src/unnamed/msvc_crt_atl/*' ! -path 'src/cx
 # Pull in the specific CRT/ATL-tree helpers the main code references
 # that compile clean (math/string/registry helpers Ghidra split out).
 for h in FUN_00520380 FUN_005204f0 FUN_00525ea0 FUN_00525f26 FUN_00525fac \
-         FUN_00527cb4 FUN_00527f34 FUN_00527ff4 FUN_0053753c FUN_005375c0; do
+         FUN_00527cb4 FUN_00527f34 FUN_00527ff4 FloatToInt64 FUN_005375c0; do
   SRCS="$SRCS src/unnamed/msvc_crt_atl/$h.c"
 done
 # crt_shims.cpp defines operator_new/_free/_rand/_sprintf/... - compile it

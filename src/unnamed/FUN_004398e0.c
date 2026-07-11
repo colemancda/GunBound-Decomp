@@ -81,8 +81,8 @@ LAB_004399d4:
       iVar4 = piVar11[0xf];
       iVar2 = piVar11[0xe];
       iVar6 = FUN_004f1f10();
-      iVar7 = FUN_0053753c();
-      iVar8 = FUN_0053753c();
+      iVar7 = FloatToInt64();
+      iVar8 = FloatToInt64();
       (**(code **)(*piVar11 + 4))(&DAT_00553b90);
       piVar11[0x11] = iVar6;
       cVar3 = PeekPacketChecksumBool();
@@ -111,9 +111,9 @@ LAB_004399d4:
         PeekPacketChecksumBool(uVar9,0,100,0xff,uVar10,0);
         FUN_00432320(*(undefined1 *)(iVar12 + 0x3c),1,1,uVar9,uVar14,uVar15,uVar16,uVar10,uVar17);
         local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
         local_4 = 0xffffffff;
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
         iVar12 = param_5;
       }
       else {
@@ -137,14 +137,14 @@ LAB_004399d4:
           uVar16 = 0xff;
           uVar15 = 100;
           uVar14 = 0;
-          FUN_0040a4d0(auStack_454);
-          uVar9 = FUN_0040a4d0(auStack_230);
+          PeekChecksumStateUnderLock(auStack_454);
+          uVar9 = PeekChecksumStateUnderLock(auStack_230);
           PeekPacketChecksumBool(uVar9,uVar14,uVar15,uVar16,uVar10,uVar17);
           FUN_00432320(*(undefined1 *)(iVar12 + 0x3c),1,1,uVar9,uVar14,uVar15,uVar16,uVar10,uVar17);
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
           local_4 = 0xffffffff;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
         }
       }
       puVar5[0xfea] = iVar2 - iVar7;

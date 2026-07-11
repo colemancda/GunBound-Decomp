@@ -42,7 +42,7 @@ int FUN_0045d360(int param_1)
       else {
         iVar3 = in_EAX + 0x9454;
       }
-      iVar3 = FUN_0040a4d0(iVar3);
+      iVar3 = PeekChecksumStateUnderLock(iVar3);
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -70,7 +70,7 @@ int FUN_0045d360(int param_1)
       iVar3 = 0;
     }
     else {
-      iVar4 = FUN_0040a4d0((*(uint *)(in_EAX + 8) & 7) * 0x1120 + 0x50cf4 + g_clientContext);
+      iVar4 = PeekChecksumStateUnderLock((*(uint *)(in_EAX + 8) & 7) * 0x1120 + 0x50cf4 + g_clientContext);
       iVar3 = FUN_0041e9a0(g_clientContext,*(undefined2 *)(in_EAX + 0xbfbc));
       iVar3 = iVar3 + iVar4 * -3;
     }

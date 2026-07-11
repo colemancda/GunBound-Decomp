@@ -14,7 +14,7 @@ int __fastcall FUN_004e5c50(int *param_1)
   
   if ((uint)param_1[1] <= in_EAX) {
                     /* WARNING: Subroutine does not return */
-    FUN_004010c0(0x80070057);
+    ThrowCxxException(0x80070057);
   }
   return in_EAX * 0x4004 + *param_1;
 }

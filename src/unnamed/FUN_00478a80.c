@@ -30,39 +30,39 @@ char FUN_00478a80(int param_1,int param_2,int param_3)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_0040a6e0(param_1 + 0x25c,local_454,uVar2);
+  EncodeChecksumDeltaSub(param_1 + 0x25c,local_454,uVar2);
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if (local_440 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_45c);
   }
   if (iVar3 <= param_2) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0040a5f0(param_1 + 0x25c,local_454,uVar2);
+    EncodeChecksumDeltaAdd(param_1 + 0x25c,local_454,uVar2);
     local_4 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (local_440 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_45c);
     }
     if (param_2 <= iVar3) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar2 = FUN_0040a6e0(param_1 + 0x480,local_230,uVar2);
+      uVar2 = EncodeChecksumDeltaSub(param_1 + 0x480,local_230,uVar2);
       local_4 = 2;
-      iVar3 = FUN_0040a4d0(uVar2);
+      iVar3 = PeekChecksumStateUnderLock(uVar2);
       local_4 = 0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       if (iVar3 <= param_3) {
         cVar1 = FUN_0040b330(param_1 + 0x480,param_3);
         cVar1 = '\x01' - (cVar1 != '\0');

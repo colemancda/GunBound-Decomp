@@ -26,7 +26,7 @@ void FUN_0044c370(void)
       if (*(uint *)(iVar2 + 0x44e24) <= uVar3) {
 LAB_0044c3c3:
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       if (unaff_EBX < *(int *)(*(int *)(iVar2 + 0x44e20) + 4 + iVar4)) {
         if (*(uint *)(iVar2 + 0x44e24) <= uVar3) goto LAB_0044c3c3;

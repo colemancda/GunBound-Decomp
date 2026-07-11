@@ -22,12 +22,12 @@ void __fastcall FUN_004d3810(undefined4 *param_1)
   *param_1 = &vtable_State09_ReadyRoom;
   local_4 = 1;
   if (param_1[0xa0] != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   local_4 = local_4 & 0xffffff00;
   if (param_1[8] != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_14);
   }
   *param_1 = &PTR_LAB_00553fb0;

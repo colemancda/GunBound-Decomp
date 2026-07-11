@@ -20,7 +20,7 @@ undefined4 FUN_00506bf0(undefined4 *param_1)
   if (uVar3 != 0xffffffff) {
     if ((uint)param_1[4] <= uVar3) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     pcVar5 = (char *)(*(int *)(param_1[3] + uVar3 * 4) + 0x38);
     pcVar4 = pcVar5;

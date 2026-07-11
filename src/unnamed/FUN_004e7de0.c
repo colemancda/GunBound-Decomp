@@ -98,7 +98,7 @@ void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3)
   uVar7 = *(uint *)(param_1 + 0x454b8);
   if ((*(uint *)(param_1 + 0x454bc) <= uVar7) && (cVar4 = FUN_004e8fc0(), cVar4 == '\0')) {
                     /* WARNING: Subroutine does not return */
-    FUN_004010c0(0x8007000e);
+    ThrowCxxException(0x8007000e);
   }
   puVar11 = (undefined4 *)(uVar7 * 0x206 + *(int *)(param_1 + 0x454b4));
   if (puVar11 != (undefined4 *)0x0) {

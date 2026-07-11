@@ -32,7 +32,7 @@ undefined4 FUN_00415b00(char *param_1)
     if (DAT_00e9c9e0 == 0) {
 LAB_00415ba7:
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     do {
       pcVar4 = *(char **)(DAT_00e9c9dc + uVar6 * 4);

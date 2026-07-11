@@ -41,7 +41,7 @@ void FUN_00500440(int *param_1,uint param_2)
     puVar5 = puVar2;
     if (puVar2 == (undefined4 *)0x0) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x8007000e);
+      ThrowCxxException(0x8007000e);
     }
     for (; uVar6 != 0; uVar6 = uVar6 - 1) {
       *puVar5 = 0;
@@ -64,9 +64,9 @@ void FUN_00500440(int *param_1,uint param_2)
     _free((void *)*param_1);
     *param_1 = (int)puVar2;
     param_1[2] = param_2;
-    iVar3 = FUN_0053753c();
+    iVar3 = FloatToInt64();
     param_1[6] = iVar3;
-    uVar6 = FUN_0053753c();
+    uVar6 = FloatToInt64();
     param_1[7] = uVar6;
     if (uVar6 < 0x11) {
       param_1[7] = 0;

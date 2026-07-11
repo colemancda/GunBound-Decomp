@@ -28,7 +28,7 @@ uint __fastcall FUN_00415bc0(int *param_1)
     cVar3 = AtlArray_GrowBuffer();
     if (cVar3 == '\0') {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x8007000e);
+      ThrowCxxException(0x8007000e);
     }
   }
   iVar1 = *param_1 + uVar2 * 4;

@@ -80,7 +80,7 @@ LAB_004e85b8:
         if (((uVar4 <= uVar5) || (uVar4 <= uVar6)) || (uVar4 <= uVar5)) {
 LAB_004e86e2:
                     /* WARNING: Subroutine does not return */
-          FUN_004010c0(0x80070057);
+          ThrowCxxException(0x80070057);
         }
         uVar4 = (uint)*(ushort *)(local_4 + 2 + iVar3);
         bVar10 = true;

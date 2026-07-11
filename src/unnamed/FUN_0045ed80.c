@@ -73,7 +73,7 @@ void __fastcall FUN_0045ed80(int *param_1)
       param_1[0x2b99] = -1;
       goto LAB_0045f2bb;
     }
-    FUN_0040a8c0(param_1 + 0x19d1,auStack_230,3);
+    EncodeChecksumDeltaDiv(param_1 + 0x19d1,auStack_230,3);
     uStack_4 = 3;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
@@ -81,7 +81,7 @@ void __fastcall FUN_0045ed80(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_4 = 0xffffffff;
     if (iStack_21c != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(auStack_924);
     }
     if (iVar6 < iVar7) {
@@ -106,11 +106,11 @@ LAB_0045ef56:
       FUN_00406500(0);
       goto LAB_0045f2bb;
     }
-    uVar4 = FUN_0040a8c0(param_1 + 0x19d1,auStack_454,3);
+    uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x19d1,auStack_454,3);
     uStack_4 = 0;
     cVar1 = FUN_0040b490(param_1 + 0x1a5a,uVar4);
     uStack_4 = 0xffffffff;
-    FUN_0040a2a0();
+    ScrubChecksumGuard();
     if (cVar1 == '\0') {
       (**(code **)(*param_1 + 4))(s_normal_00552230);
     }
@@ -120,7 +120,7 @@ LAB_0045ef56:
     cVar1 = FUN_0040b330(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
     if (cVar1 == '\0') goto LAB_0045f2bb;
     iVar6 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a0);
-    iVar5 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+    iVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
     iVar7 = g_clientContext;
     if (iVar6 != iVar5) {
       if (*(char *)(g_clientContext + 0x4590c + iVar6) != *(char *)(g_clientContext + 0x3b6c0)) {
@@ -143,11 +143,11 @@ LAB_0045f039:
       }
       goto LAB_0045ef56;
     }
-    uVar4 = FUN_0040a8c0(param_1 + 0x19d1,auStack_89c,3);
+    uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x19d1,auStack_89c,3);
     uStack_4 = 1;
     cVar1 = FUN_0040b490(param_1 + 0x1a5a,uVar4);
     uStack_4 = 0xffffffff;
-    FUN_0040a2a0();
+    ScrubChecksumGuard();
     if (cVar1 == '\0') {
       (**(code **)(*param_1 + 4))(s_normal_00552230);
     }
@@ -157,7 +157,7 @@ LAB_0045f039:
     cVar1 = FUN_0040b330(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
     if (cVar1 == '\0') goto LAB_0045f2bb;
     iVar6 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a0);
-    iVar5 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+    iVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
     iVar7 = g_clientContext;
     if (iVar6 != iVar5) {
       if (*(char *)(g_clientContext + 0x4590c + iVar6) != *(char *)(g_clientContext + 0x3b6c0)) {
@@ -167,11 +167,11 @@ LAB_0045f039:
     }
     break;
   case 8:
-    uVar4 = FUN_0040a8c0(param_1 + 0x19d1,auStack_678,3);
+    uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x19d1,auStack_678,3);
     uStack_4 = 2;
     cVar1 = FUN_0040b490(param_1 + 0x1a5a,uVar4);
     uStack_4 = 0xffffffff;
-    FUN_0040a2a0();
+    ScrubChecksumGuard();
     if (cVar1 == '\0') {
       (**(code **)(*param_1 + 4))(s_normal_00552230);
     }
@@ -181,7 +181,7 @@ LAB_0045f039:
     cVar1 = FUN_0040b330(param_1 + 0x2cc,*(undefined4 *)(&DAT_006a7724 + g_clientContext));
     if (cVar1 == '\0') goto LAB_0045f2bb;
     iVar6 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a0);
-    iVar5 = FUN_0040a4d0(g_clientContext + 0x3b49c);
+    iVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
     iVar7 = g_clientContext;
     if (iVar6 != iVar5) {
       if (*(char *)(g_clientContext + 0x4590c + iVar6) != *(char *)(g_clientContext + 0x3b6c0)) {

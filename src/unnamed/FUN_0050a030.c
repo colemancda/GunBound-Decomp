@@ -30,7 +30,7 @@ undefined4 __thiscall FUN_0050a030(int param_1,int param_2,int param_3)
     FUN_0050cdf0(param_1);
     if (*(uint *)(g_clientContext + 0x44e24) <= *(uint *)(param_1 + 0x94)) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();

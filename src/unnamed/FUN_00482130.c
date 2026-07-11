@@ -43,47 +43,47 @@ void __fastcall FUN_00482130(int param_1)
   puStack_8 = &LAB_00539a17;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
-  uVar3 = FUN_0040a6e0(param_1 + 0x38,local_454,*(undefined4 *)(&DAT_006a7710 + g_clientContext));
+  uVar3 = EncodeChecksumDeltaSub(param_1 + 0x38,local_454,*(undefined4 *)(&DAT_006a7710 + g_clientContext));
   local_4 = 0;
-  FUN_0040a5f0(uVar3,local_ac0,400);
+  EncodeChecksumDeltaAdd(uVar3,local_ac0,400);
   SUBFIELD(local_4,0,undefined1) = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (local_aac != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_ad0);
   }
   local_4 = 0xffffffff;
   if (local_440 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_ad0);
   }
   if ((DAT_00793530 <= iVar4 + 0x20) && (local_ad0[0] = iVar4 + -0x20, local_ad0[0] <= DAT_0056df30)
      ) {
-    uVar3 = FUN_0040a6e0(param_1 + 0x25c,local_230,*(undefined4 *)(&DAT_006a7714 + g_clientContext));
+    uVar3 = EncodeChecksumDeltaSub(param_1 + 0x25c,local_230,*(undefined4 *)(&DAT_006a7714 + g_clientContext));
     local_4 = 2;
-    uVar3 = FUN_0040a5f0(uVar3,local_678,0x104);
+    uVar3 = EncodeChecksumDeltaAdd(uVar3,local_678,0x104);
     SUBFIELD(local_4,0,undefined1) = 3;
-    FUN_0040a5f0(uVar3,local_89c,0x26);
+    EncodeChecksumDeltaAdd(uVar3,local_89c,0x26);
     SUBFIELD(local_4,0,undefined1) = 4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     SUBFIELD(local_4,0,undefined1) = 3;
     if (local_888 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_ac8);
     }
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
     if (local_664 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_ac8);
     }
     local_4 = 0xffffffff;
     if (local_21c != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_ac8);
     }
     iVar2 = DAT_00793534;

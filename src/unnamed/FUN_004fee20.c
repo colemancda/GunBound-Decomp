@@ -36,7 +36,7 @@ void FUN_004fee20(void)
         unaff_ESI[0xb] = iVar6;
         unaff_ESI[1] = iVar3 - 1U;
         if ((iVar3 - 1U < (uint)unaff_ESI[7]) && (unaff_ESI[8] == 0)) {
-          uVar5 = FUN_0053753c();
+          uVar5 = FloatToInt64();
           iVar6 = 0;
           if (0x11 < uVar5) {
             do {

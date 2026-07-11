@@ -41,7 +41,7 @@ void FUN_00464060(void)
     *(int *)(iVar6 + 0x44d0) = iVar4;
     cVar2 = *(char *)(unaff_EDI + 0xb0ac);
     if ((cVar2 == -1) && (*(int *)(unaff_EDI + 0xb0b0) != 4)) {
-      cVar2 = FUN_0040a4d0(g_clientContext + 0x62630);
+      cVar2 = PeekChecksumStateUnderLock(g_clientContext + 0x62630);
       iVar4 = *(int *)(DAT_007934e8 + 0x44d0);
       iVar6 = DAT_007934e8;
     }
@@ -53,7 +53,7 @@ void FUN_00464060(void)
     iVar4 = g_replayEventCursor;
     g_replayEventCursor = g_replayEventCursor + 4;
     if ((*(char *)(unaff_EDI + 0xb0ac) == -1) && (*(int *)(unaff_EDI + 0xb0b0) != 4)) {
-      uVar3 = FUN_0040a4d0(g_clientContext + 0x62630);
+      uVar3 = PeekChecksumStateUnderLock(g_clientContext + 0x62630);
       (&g_replayEventBuffer)[g_replayEventCursor] = uVar3;
     }
     else {

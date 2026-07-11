@@ -174,7 +174,7 @@ LAB_0042326c:
       iVar8 = g_clientContext;
       (&g_replayEventBuffer)[g_replayEventCursor] = *(byte *)puVar12;
       g_replayEventCursor = g_replayEventCursor + 1;
-      uVar6 = FUN_0040a4d0(iVar8 + 0xeba98);
+      uVar6 = PeekChecksumStateUnderLock(iVar8 + 0xeba98);
       *(undefined4 *)(&g_replayEventBuffer + g_replayEventCursor) = uVar6;
       g_replayEventCursor = g_replayEventCursor + 4;
       if (*(byte *)puVar12 == 0xe) {
@@ -326,7 +326,7 @@ LAB_0042326c:
   else if (uVar3 != 0x8600) {
     if (uVar3 == 0xc302) {
       if ((bVar1 < 8) &&
-         (iVar8 = *(int *)(param_2 + 0x22), iVar7 = FUN_0040a4d0(g_clientContext + 0xeba98),
+         (iVar8 = *(int *)(param_2 + 0x22), iVar7 = PeekChecksumStateUnderLock(g_clientContext + 0xeba98),
          iVar8 == iVar7)) {
         (&DAT_006a7670)[param_1 + (uint)*(byte *)puVar12 * 8 + (uint)bVar1] = 1;
         if ((*(byte *)puVar12 == 0xe) &&

@@ -35,37 +35,37 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
    * int operations, same reasoning as FUN_004174c0.c's fix. */
   cVar1 = PeekPacketChecksumBool();
   if ((cVar1 == '\0') && (*(char *)(param_1 + 0x14) == '\0')) {
-    uVar2 = FUN_0040a8c0(param_4 + 0x2908,local_678,2);
+    uVar2 = EncodeChecksumDeltaDiv(param_4 + 0x2908,local_678,2);
     local_4 = 0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0040a5f0(uVar2,local_454,uVar3);
+    EncodeChecksumDeltaAdd(uVar2,local_454,uVar3);
     local_4 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0;
     if (local_440 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_688);
     }
     local_4 = 0xffffffff;
     if (local_664 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_688);
     }
-    FUN_0040a6e0(param_1 + 0x40,local_678,param_2);
+    EncodeChecksumDeltaSub(param_1 + 0x40,local_678,param_2);
     local_4 = 2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_688[0] = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (local_664 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_690);
     }
-    FUN_0040a6e0(param_1 + 0x264,local_230,param_3);
+    EncodeChecksumDeltaSub(param_1 + 0x264,local_230,param_3);
     local_4 = 3;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState();
@@ -73,7 +73,7 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (local_21c != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_680);
       iVar5 = local_690[0];
     }

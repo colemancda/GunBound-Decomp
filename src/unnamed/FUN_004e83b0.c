@@ -50,7 +50,7 @@ void FUN_004e83b0(void)
     if (*(int *)(unaff_ESI + 0x454b8) == 0) {
 LAB_004e8470:
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     do {
       if (*(char *)(*(int *)(unaff_ESI + 0x454b4) + 4 + iVar4) == unaff_BL) {

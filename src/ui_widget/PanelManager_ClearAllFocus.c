@@ -35,6 +35,6 @@ void PanelManager_ClearAllFocus(int *param_1)
     } while (uVar3 < *(uint *)(iVar2 + 0x10));
   }
                     /* WARNING: Subroutine does not return */
-  FUN_004010c0(0x80070057);
+  ThrowCxxException(0x80070057);
 }
 

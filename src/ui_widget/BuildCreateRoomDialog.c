@@ -117,7 +117,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   uVar4 = puVar10[4];
   if (((uint)puVar10[5] <= uVar4) && (cVar5 = AtlArray_GrowBuffer(), cVar5 == '\0')) {
                     /* WARNING: Subroutine does not return */
-    FUN_004010c0(0x8007000e);
+    ThrowCxxException(0x8007000e);
   }
   puVar3 = (undefined4 *)(*piVar1 + uVar4 * 4);
   if (puVar3 != (undefined4 *)0x0) {
@@ -155,7 +155,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   uVar4 = puVar10[4];
   if (((uint)puVar10[5] <= uVar4) && (cVar5 = AtlArray_GrowBuffer(), cVar5 == '\0')) {
                     /* WARNING: Subroutine does not return */
-    FUN_004010c0(0x8007000e);
+    ThrowCxxException(0x8007000e);
   }
   puVar3 = (undefined4 *)(*piVar1 + uVar4 * 4);
   if (puVar3 != (undefined4 *)0x0) {
@@ -193,7 +193,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   uVar4 = puVar10[4];
   if (((uint)puVar10[5] <= uVar4) && (cVar5 = AtlArray_GrowBuffer(), cVar5 == '\0')) {
                     /* WARNING: Subroutine does not return */
-    FUN_004010c0(0x8007000e);
+    ThrowCxxException(0x8007000e);
   }
   puVar3 = (undefined4 *)(*piVar1 + uVar4 * 4);
   if (puVar3 != (undefined4 *)0x0) {
@@ -231,7 +231,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   uVar4 = puVar10[4];
   if (((uint)puVar10[5] <= uVar4) && (cVar5 = AtlArray_GrowBuffer(), cVar5 == '\0')) {
                     /* WARNING: Subroutine does not return */
-    FUN_004010c0(0x8007000e);
+    ThrowCxxException(0x8007000e);
   }
   puVar3 = (undefined4 *)(*piVar1 + uVar4 * 4);
   if (puVar3 != (undefined4 *)0x0) {
@@ -269,7 +269,7 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   uVar4 = puVar10[4];
   if (((uint)puVar10[5] <= uVar4) && (cVar5 = AtlArray_GrowBuffer(), cVar5 == '\0')) {
                     /* WARNING: Subroutine does not return */
-    FUN_004010c0(0x8007000e);
+    ThrowCxxException(0x8007000e);
   }
   puVar3 = (undefined4 *)(*piVar1 + uVar4 * 4);
   if (puVar3 != (undefined4 *)0x0) {
@@ -320,6 +320,6 @@ void BuildCreateRoomDialog(int param_1,undefined4 param_2,undefined4 param_3)
   }
 LAB_0050874e:
                     /* WARNING: Subroutine does not return */
-  FUN_004010c0(0x8007000e);
+  ThrowCxxException(0x8007000e);
 }
 

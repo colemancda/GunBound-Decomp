@@ -19,7 +19,7 @@ void __thiscall Widget_MoveBy(int param_1,int param_2,int param_3)
   if (*(int *)(param_1 + 0x10) != 0) {
     if (*(int *)(param_1 + 0x10) == 0) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     do {
       /* Ghidra dropped the recursive call's `this` (child pointer) arg;

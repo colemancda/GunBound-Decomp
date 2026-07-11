@@ -48,7 +48,7 @@ void __fastcall FUN_00491b40(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0040a6e0(param_1 + 0x264,local_454,uVar2);
+    EncodeChecksumDeltaSub(param_1 + 0x264,local_454,uVar2);
     local_4 = 0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_45c = PeekPacketChecksumState();
@@ -84,7 +84,7 @@ void __fastcall FUN_00491b40(int param_1)
     ;
     local_4 = 0xffffffff;
     if (local_440 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_480);
     }
     FUN_004e4d00(&DAT_006a7708 + g_clientContext);
@@ -95,7 +95,7 @@ void __fastcall FUN_00491b40(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0040a6e0(param_1 + 0x264,local_454,uVar2);
+    EncodeChecksumDeltaSub(param_1 + 0x264,local_454,uVar2);
     local_4 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
@@ -103,13 +103,13 @@ void __fastcall FUN_00491b40(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (local_440 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_480);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0040a6e0(param_1 + 0x264,local_454,uVar2);
+    EncodeChecksumDeltaSub(param_1 + 0x264,local_454,uVar2);
     local_4 = 2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
@@ -120,13 +120,13 @@ void __fastcall FUN_00491b40(int param_1)
     FUN_00450eb0(uVar3,uVar2,param_1,1,0,0);
     local_4 = 0xffffffff;
     if (local_440 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_480);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0040a6e0(param_1 + 0x264,local_454,uVar2);
+    EncodeChecksumDeltaSub(param_1 + 0x264,local_454,uVar2);
     local_4 = 3;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
@@ -137,13 +137,13 @@ void __fastcall FUN_00491b40(int param_1)
     FUN_00436ac0(uVar3,uVar2);
     local_4 = 0xffffffff;
     if (local_440 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_480);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0040a6e0(param_1 + 0x264,local_230,uVar2);
+    EncodeChecksumDeltaSub(param_1 + 0x264,local_230,uVar2);
     local_4 = 4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
@@ -155,7 +155,7 @@ void __fastcall FUN_00491b40(int param_1)
                  param_1 + 0x3898);
     local_4 = 0xffffffff;
     if (local_21c != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(local_480);
     }
     iVar5 = g_clientContext;

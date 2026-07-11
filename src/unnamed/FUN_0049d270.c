@@ -78,7 +78,7 @@ void __fastcall FUN_0049d270(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(apuStack_ad0);
       param_1 = piStack_ad8;
     }
@@ -91,7 +91,7 @@ void __fastcall FUN_0049d270(int *param_1)
     puStack_8 = (undefined1 *)0xffffffff;
     piVar9 = param_1;
     if (iStack_ab0 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(apuStack_ad0);
       piVar9 = piStack_ad8;
     }
@@ -114,17 +114,17 @@ void __fastcall FUN_0049d270(int *param_1)
         }
         QueueOutgoingPacketField(uVar8);
       }
-      uVar8 = FUN_0040a8c0(piVar9[0x3d2] + 0x25c,auStack_67c,4);
+      uVar8 = EncodeChecksumDeltaDiv(piVar9[0x3d2] + 0x25c,auStack_67c,4);
       puStack_8 = (undefined1 *)0x7;
-      uVar8 = FUN_0040aca0(piVar9[0x3d2] + 0x38,auStack_458,uVar8);
+      uVar8 = EncodeChecksumPairDiff(piVar9[0x3d2] + 0x38,auStack_458,uVar8);
       puStack_8 = (undefined1 *)0x8;
       bVar2 = false;
       bVar16 = false;
       cVar4 = FUN_0040b490(piVar9 + 0x3d5,uVar8);
       if (cVar4 == '\0') {
-        uVar8 = FUN_0040a8c0(piVar9[0x3d2] + 0x25c,auStack_8a0,4);
+        uVar8 = EncodeChecksumDeltaDiv(piVar9[0x3d2] + 0x25c,auStack_8a0,4);
         puStack_8 = (undefined1 *)0x9;
-        uVar8 = FUN_0040aba0(piVar9[0x3d2] + 0x38,auStack_ac4,uVar8);
+        uVar8 = EncodeChecksumPairSum(piVar9[0x3d2] + 0x38,auStack_ac4,uVar8);
         puStack_8 = (undefined1 *)0xa;
         bVar2 = true;
         bVar16 = true;
@@ -138,16 +138,16 @@ LAB_0049e1d8:
       }
       puStack_8 = (undefined1 *)0x9;
       if (bVar16) {
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
       }
       puStack_8 = (undefined1 *)0x8;
       if (bVar2) {
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
       }
       puStack_8 = (undefined1 *)0x7;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       puStack_8 = (undefined1 *)0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       if (bVar3) {
         iVar5 = piVar9[0x3d4];
         piVar9[0x3d4] = iVar5 + 1;
@@ -156,7 +156,7 @@ LAB_0049e1d8:
           puStack_8 = (undefined1 *)0xb;
           EncodeChecksumState(uVar8);
           puStack_8 = (undefined1 *)0xffffffff;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
         }
         else {
           FUN_00406500(0);
@@ -294,8 +294,8 @@ LAB_0049d635:
       apuStack_ad0[0] = (undefined4 *)piVar9[0xf];
       iVar6 = piVar9[0xe];
       iVar10 = FUN_004f1f10();
-      iVar11 = FUN_0053753c();
-      iVar12 = FUN_0053753c();
+      iVar11 = FloatToInt64();
+      iVar12 = FloatToInt64();
       iVar12 = (int)apuStack_ad0[0] - iVar12;
       (**(code **)(*piVar9 + 4))(&DAT_00553b90);
       piVar9[0x11] = iVar10;
@@ -325,10 +325,10 @@ LAB_0049d635:
         PeekPacketChecksumBool(uVar8,0,100,0xff,iVar5,0);
         FUN_00432320((char)param_1[0xf],1,1,uVar8,uVar17,uVar18,uVar19,iVar5,uVar20);
         puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),3);
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
 LAB_0049d8fd:
         puStack_8 = (undefined1 *)0xffffffff;
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
       }
       else {
         cVar4 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&uStack_adc,&local_ad4,2,1,1);
@@ -349,12 +349,12 @@ LAB_0049d8fd:
           uVar19 = 0xff;
           uVar18 = 100;
           uVar17 = 0;
-          FUN_0040a4d0(auStack_8a0);
-          uVar8 = FUN_0040a4d0(auStack_ac4);
+          PeekChecksumStateUnderLock(auStack_8a0);
+          uVar8 = PeekChecksumStateUnderLock(auStack_ac4);
           PeekPacketChecksumBool(uVar8,uVar17,uVar18,uVar19,iVar5,uVar20);
           FUN_00432320((char)param_1[0xf],1,1,uVar8,uVar17,uVar18,uVar19,iVar5,uVar20);
           puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
           goto LAB_0049d8fd;
         }
       }

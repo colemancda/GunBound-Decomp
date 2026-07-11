@@ -17,7 +17,7 @@ uint FUN_00500e30(void)
   uint uVar2;
   int iVar3;
   
-  uVar2 = FUN_0053753c();
+  uVar2 = FloatToInt64();
   iVar3 = 0;
   if (0x11 < uVar2) {
     do {

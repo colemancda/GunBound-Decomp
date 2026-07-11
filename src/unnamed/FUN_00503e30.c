@@ -23,7 +23,7 @@ void FUN_00503e30(undefined4 param_1)
       cVar1 = FUN_00500c00(unaff_EDI,unaff_EDI[2],1);
       if (cVar1 == '\0') {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x8007000e);
+        ThrowCxxException(0x8007000e);
       }
     }
     iVar2 = FUN_00504480(local_8,param_1);

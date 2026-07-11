@@ -72,7 +72,7 @@ joined_r0x00503aa3:
       iVar11 = 0;
       if (puVar3[0x21] == 0) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       do {
         iVar7 = puVar3[0x20] + iVar11;

@@ -26,7 +26,7 @@ int __thiscall FUN_00426960(int param_1,int *param_2,undefined4 param_3,undefine
     piVar1 = _malloc(param_2[9] * 0x10 + 4);
     if (piVar1 == (int *)0x0) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x8007000e);
+      ThrowCxxException(0x8007000e);
     }
     *piVar1 = param_2[10];
     param_2[10] = (int)piVar1;

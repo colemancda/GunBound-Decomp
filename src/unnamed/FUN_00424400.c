@@ -174,7 +174,7 @@ void FUN_00424400(void)
       if (*(uint *)(unaff_ESI + 0x44e24) <= local_10) {
 LAB_00424a44:
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();

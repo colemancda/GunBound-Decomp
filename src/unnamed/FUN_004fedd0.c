@@ -19,7 +19,7 @@ uint FUN_004fedd0(void)
     cVar2 = FUN_005001f0();
     if (cVar2 == '\0') {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x8007000e);
+      ThrowCxxException(0x8007000e);
     }
   }
   if (uVar1 * 0x1750 + *in_EAX != 0) {

@@ -93,7 +93,7 @@ LAB_00500008:
           if (*(uint *)(_Source + 0x98) <= uVar3) {
 LAB_005000d3:
                     /* WARNING: Subroutine does not return */
-            FUN_004010c0(0x80070057);
+            ThrowCxxException(0x80070057);
           }
           iVar7 = *(int *)(_Source + 0x94) + iVar6;
           _Var4 = FID_conflict___time32((__time32_t *)0x0);

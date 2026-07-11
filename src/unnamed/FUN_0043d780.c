@@ -41,7 +41,7 @@ int FUN_0043d780(byte *param_1)
       local_8 = CONCAT22(*(undefined2 *)pbVar1,(undefined2)local_8);
       if ((*(uint *)(in_EAX + 0x10) <= uVar5) && (cVar6 = FUN_0043d840(), cVar6 == '\0')) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x8007000e);
+        ThrowCxxException(0x8007000e);
       }
       puVar2 = (undefined4 *)(*(int *)(in_EAX + 8) + uVar5 * 6);
       if (puVar2 != (undefined4 *)0x0) {

@@ -26,7 +26,7 @@ void FUN_0050e6c0(void)
     if (uVar1 <= uVar2) {
 LAB_0050e6ed:
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     if (*(void **)(*(int *)(unaff_ESI + 0xc) + uVar2 * 4) == unaff_EDI) {
       if (uVar2 + 1 <= *(uint *)(unaff_ESI + 0x10)) {

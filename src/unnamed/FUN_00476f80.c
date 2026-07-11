@@ -34,24 +34,24 @@ void FUN_00476f80(int param_1)
     iVar2 = GetPlayerRecordBySlot(g_clientContext);
     if (((iVar2 != 0) && (*(int *)(iVar2 + 0x24) != 0xe)) &&
        (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) {
-      FUN_0040aca0(param_1 + 0x40,local_454,iVar2 + 0x90c);
+      EncodeChecksumPairDiff(param_1 + 0x40,local_454,iVar2 + 0x90c);
       local_4 = 0;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar3 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if (local_440 != 0) {
-        FUN_0040a240();
+        ScrambleChecksumGuardBytes();
         FUN_0040b540(local_45c);
       }
-      FUN_0040aca0(param_1 + 0x264,local_230,iVar2 + 0xb30);
+      EncodeChecksumPairDiff(param_1 + 0x264,local_230,iVar2 + 0xb30);
       local_4 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar4 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if (local_21c != 0) {
-        FUN_0040a240();
+        ScrambleChecksumGuardBytes();
         FUN_0040b540(local_45c);
       }
       if (iVar4 * iVar4 + iVar3 * iVar3 < 0x640) {

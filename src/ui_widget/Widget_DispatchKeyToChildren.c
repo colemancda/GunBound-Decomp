@@ -22,7 +22,7 @@ undefined1 __thiscall Widget_DispatchKeyToChildren(int param_1,undefined4 param_
   if (*(int *)(param_1 + 0x10) != 0) {
     if (*(int *)(param_1 + 0x10) == 0) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     while( true ) {
       (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar3 * 4) + 0x14))(param_2);

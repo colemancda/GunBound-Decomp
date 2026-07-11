@@ -27,7 +27,7 @@ void FUN_0050cdf0(int param_1)
       }
       if (*(uint *)(param_1 + 0x10) <= uVar1) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       Widget_SetEnabled(uVar2);
     }

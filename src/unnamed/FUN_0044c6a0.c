@@ -19,7 +19,7 @@ void FUN_0044c6a0(int *param_1)
   
   if ((uint)param_1[1] < (uint)(in_EAX + unaff_EDI)) {
                     /* WARNING: Subroutine does not return */
-    FUN_004010c0(0x80070057);
+    ThrowCxxException(0x80070057);
   }
   iVar1 = (param_1[1] - in_EAX) - unaff_EDI;
   iVar2 = *param_1 + in_EAX * 0x450;

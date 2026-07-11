@@ -25,7 +25,7 @@ void FUN_0050ce60(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar2)) {
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
@@ -35,7 +35,7 @@ void FUN_0050ce60(int param_1)
       if (uVar3 != 0xffffffff) {
         if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
-          FUN_004010c0(0x80070057);
+          ThrowCxxException(0x80070057);
         }
         FUN_0050e6c0();
       }
@@ -50,7 +50,7 @@ void FUN_0050ce60(int param_1)
       if (uVar3 != 0xffffffff) {
         if (*(uint *)(param_1 + 0x10) <= uVar3) {
                     /* WARNING: Subroutine does not return */
-          FUN_004010c0(0x80070057);
+          ThrowCxxException(0x80070057);
         }
         FUN_0050e6c0();
       }

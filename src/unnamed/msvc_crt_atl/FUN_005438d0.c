@@ -10,7 +10,7 @@
 void FUN_005438d0(void)
 
 {
-  _eh_vector_destructor_iterator_(&DAT_00e9cd30,0x224,0x1e,FUN_0040a2a0);
+  _eh_vector_destructor_iterator_(&DAT_00e9cd30,0x224,0x1e,ScrubChecksumGuard);
   return;
 }
 

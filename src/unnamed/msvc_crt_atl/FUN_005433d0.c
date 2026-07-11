@@ -13,7 +13,7 @@ void FUN_005433d0(void)
   undefined1 local_8 [8];
   
   if (DAT_00e53c74 != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_8);
   }
   return;

@@ -157,16 +157,16 @@ LAB_0043c0e0:
                       if ((iVar10 < iVar8) &&
                          ((cVar7 = PeekPacketChecksumBool(), pcVar15 = (code *)EnterCriticalSection,
                           cVar7 == '\0' && (piVar5[9] != 0xe)))) {
-                        uVar12 = FUN_0040aca0(piVar5 + 0x243,local_460,piVar16 + 0x243);
+                        uVar12 = EncodeChecksumPairDiff(piVar5 + 0x243,local_460,piVar16 + 0x243);
                         local_c = 1;
-                        iVar8 = FUN_0040a4d0(uVar12);
+                        iVar8 = PeekChecksumStateUnderLock(uVar12);
                         local_c = 0xffffffff;
-                        FUN_0040a2a0();
-                        uVar12 = FUN_0040aca0(piVar5 + 0x2cc,local_23c,piVar16 + 0x2cc);
+                        ScrubChecksumGuard();
+                        uVar12 = EncodeChecksumPairDiff(piVar5 + 0x2cc,local_23c,piVar16 + 0x2cc);
                         local_c = 2;
-                        iVar10 = FUN_0040a4d0(uVar12);
+                        iVar10 = PeekChecksumStateUnderLock(uVar12);
                         local_c = 0xffffffff;
-                        FUN_0040a2a0();
+                        ScrubChecksumGuard();
                         pcVar15 = (code *)EnterCriticalSection;
                         if (iVar10 * iVar10 + iVar8 * iVar8 < iVar9) {
                           FUN_00406500(1);
@@ -187,7 +187,7 @@ LAB_0043c0e0:
                                 *(char *)(*(byte *)(piVar16 + 0x2c2b) + 0x4590c + g_clientContext)) {
                               piVar2 = (int *)(g_clientContext + 0x5b83c +
                                               (uint)*(byte *)(piVar16 + 0x2c2b) * 4);
-                              iVar8 = FUN_0040a4d0(piVar1);
+                              iVar8 = PeekChecksumStateUnderLock(piVar1);
                               *piVar2 = *piVar2 + iVar8;
                               *(undefined1 *)(piVar5 + 0x2c2d) = 1;
                               pcVar15 = (code *)EnterCriticalSection;
@@ -195,7 +195,7 @@ LAB_0043c0e0:
                             else {
                               piVar2 = (int *)(g_clientContext + 0x5b81c +
                                               (uint)*(byte *)(piVar16 + 0x2c2b) * 4);
-                              iVar8 = FUN_0040a4d0(piVar1);
+                              iVar8 = PeekChecksumStateUnderLock(piVar1);
                               *piVar2 = *piVar2 + iVar8;
                               pcVar15 = (code *)EnterCriticalSection;
                             }

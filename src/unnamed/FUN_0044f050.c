@@ -101,7 +101,7 @@ LAB_0044f258:
     (*pcVar17)(&DAT_005a9068);
     uStack_c = 0xffffffff;
     if (iStack_ab4 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(&local_ad0);
       pcVar17 = (code *)LeaveCriticalSection;
     }
@@ -115,7 +115,7 @@ LAB_0044f258:
     (*pcVar17)();
     uStack_10 = 0xffffffff;
     if (iStack_ab8 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(&stack0xfffff524);
       pcVar17 = (code *)LeaveCriticalSection;
     }
@@ -138,17 +138,17 @@ LAB_0044f258:
         }
         QueueOutgoingPacketField(uVar10);
       }
-      uVar10 = FUN_0040a8c0(param_1[0x3d2] + 0x25c,auStack_684,4);
+      uVar10 = EncodeChecksumDeltaDiv(param_1[0x3d2] + 0x25c,auStack_684,4);
       uStack_10 = 4;
-      uVar10 = FUN_0040aca0(param_1[0x3d2] + 0x38,auStack_460,uVar10);
+      uVar10 = EncodeChecksumPairDiff(param_1[0x3d2] + 0x38,auStack_460,uVar10);
       uStack_10 = 5;
       bVar4 = false;
       bVar3 = false;
       cVar7 = FUN_0040b490(param_1 + 0x3d5,uVar10);
       if (cVar7 == '\0') {
-        uVar10 = FUN_0040a8c0(param_1[0x3d2] + 0x25c,auStack_8a8,4);
+        uVar10 = EncodeChecksumDeltaDiv(param_1[0x3d2] + 0x25c,auStack_8a8,4);
         uStack_10 = 6;
-        uVar10 = FUN_0040aba0(param_1[0x3d2] + 0x38,&uStack_acc,uVar10);
+        uVar10 = EncodeChecksumPairSum(param_1[0x3d2] + 0x38,&uStack_acc,uVar10);
         uStack_10 = 7;
         bVar4 = true;
         bVar3 = true;
@@ -162,16 +162,16 @@ LAB_0044f78b:
       }
       uStack_10 = 6;
       if (bVar3) {
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
       }
       uStack_10 = 5;
       if (bVar4) {
-        FUN_0040a2a0();
+        ScrubChecksumGuard();
       }
       uStack_10 = 4;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       uStack_10 = 0xffffffff;
-      FUN_0040a2a0();
+      ScrubChecksumGuard();
       if ((char)(unaff_ESI >> 0x18) != '\0') {
         iVar8 = param_1[0x3d4];
         param_1[0x3d4] = iVar8 + 1;
@@ -180,7 +180,7 @@ LAB_0044f78b:
           uStack_10 = 8;
           EncodeChecksumState(uVar10);
           uStack_10 = 0xffffffff;
-          FUN_0040a2a0();
+          ScrubChecksumGuard();
         }
         else {
           FUN_00406500(0);
@@ -386,14 +386,14 @@ joined_r0x0044f131:
     }
     local_4 = 0;
     if (local_888 != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(&local_ad0);
       pcVar17 = (code *)LeaveCriticalSection;
     }
     local_4 = 0xffffffff;
     iVar8 = local_ac8;
     if (local_aac != 0) {
-      FUN_0040a240();
+      ScrambleChecksumGuardBytes();
       FUN_0040b540(&local_ad0);
       pcVar17 = (code *)LeaveCriticalSection;
       iVar8 = local_ac8;

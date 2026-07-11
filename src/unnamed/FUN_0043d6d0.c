@@ -27,7 +27,7 @@ void FUN_0043d6d0(void)
 LAB_0043d766:
       g_replayEventCursor = iVar2;
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     do {
       (&g_replayEventBuffer)[g_replayEventCursor] = *(undefined1 *)(iVar4 + *(int *)(in_EAX + 8));

@@ -256,7 +256,7 @@ void FUN_004ccd10(int *param_1)
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_71c = (undefined *)PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        FUN_0040a8c0(uVar9,local_454,local_71c);
+        EncodeChecksumDeltaDiv(uVar9,local_454,local_71c);
         local_4 = 2;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar9 = PeekPacketChecksumState();
@@ -265,7 +265,7 @@ void FUN_004ccd10(int *param_1)
         puVar3 = local_440;
         local_4 = 1;
         if (local_440 != (undefined *)0x0) {
-          FUN_0040a240();
+          ScrambleChecksumGuardBytes();
           local_71c = puVar3;
           FUN_0040b540(local_700);
           uVar8 = local_714;
@@ -273,7 +273,7 @@ void FUN_004ccd10(int *param_1)
         puVar3 = local_21c;
         local_4 = 0;
         if (local_21c != (undefined *)0x0) {
-          FUN_0040a240();
+          ScrambleChecksumGuardBytes();
           local_71c = puVar3;
           FUN_0040b540(local_700);
           uVar8 = local_714;
@@ -346,7 +346,7 @@ void FUN_004ccd10(int *param_1)
         puVar3 = local_664;
         local_4 = 0xffffffff;
         if (local_664 != (undefined *)0x0) {
-          FUN_0040a240();
+          ScrambleChecksumGuardBytes();
           local_71c = puVar3;
           FUN_0040b540(local_700);
         }

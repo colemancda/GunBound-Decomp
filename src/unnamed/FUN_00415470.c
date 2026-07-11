@@ -17,7 +17,7 @@ void __fastcall FUN_00415470(undefined4 param_1,int param_2)
   
   if ((uint)unaff_EDI[1] < (uint)(param_2 + unaff_EBX)) {
                     /* WARNING: Subroutine does not return */
-    FUN_004010c0(0x80070057);
+    ThrowCxxException(0x80070057);
   }
   iVar1 = (unaff_EDI[1] - param_2) - unaff_EBX;
   if (iVar1 != 0) {

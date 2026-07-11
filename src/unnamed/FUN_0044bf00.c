@@ -93,7 +93,7 @@ void FUN_0044bf00(int param_1)
           if ((*(uint *)(iVar6 + 0x44e24) <= local_d0) || (*(uint *)(iVar6 + 0x44e54) <= local_dc))
           {
                     /* WARNING: Subroutine does not return */
-            FUN_004010c0(0x80070057);
+            ThrowCxxException(0x80070057);
           }
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar4 = PeekPacketChecksumState();

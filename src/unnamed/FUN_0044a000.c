@@ -117,7 +117,7 @@ LAB_0044a1b2:
             BlitSpriteClipped();
           }
         }
-        FUN_0040a4d0();
+        PeekChecksumStateUnderLock();
       }
       else {
         if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
@@ -128,7 +128,7 @@ LAB_0044a1b2:
             BlitSpriteClipped();
           }
         }
-        FUN_0040a4d0();
+        PeekChecksumStateUnderLock();
       }
       _sprintf(local_100,&DAT_00555654);
       FUN_004ed9f0();
@@ -156,7 +156,7 @@ LAB_0044a1b2:
             BlitSpriteClipped();
           }
         }
-        FUN_0040a4d0();
+        PeekChecksumStateUnderLock();
       }
       else {
         if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
@@ -167,7 +167,7 @@ LAB_0044a1b2:
             BlitSpriteClipped();
           }
         }
-        FUN_0040a4d0();
+        PeekChecksumStateUnderLock();
       }
       _sprintf((char *)&local_108,&DAT_00555654);
       FUN_004ed9f0(0x28,&local_108);
@@ -198,7 +198,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(0xd);
           }
         }
-        iVar2 = FUN_0040a4d0(uVar8);
+        iVar2 = PeekChecksumStateUnderLock(uVar8);
       }
       else {
         if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
@@ -209,7 +209,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(0xc);
           }
         }
-        iVar2 = FUN_0040a4d0(uVar8);
+        iVar2 = PeekChecksumStateUnderLock(uVar8);
         iVar2 = -iVar2;
       }
       _sprintf((char *)&uStack_110,&DAT_00555654,iVar2);
@@ -239,7 +239,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(0xf);
           }
         }
-        iVar2 = FUN_0040a4d0(uVar8);
+        iVar2 = PeekChecksumStateUnderLock(uVar8);
       }
       else {
         if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
@@ -250,7 +250,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(0xe);
           }
         }
-        iVar2 = FUN_0040a4d0(uVar8);
+        iVar2 = PeekChecksumStateUnderLock(uVar8);
         iVar2 = -iVar2;
       }
       _sprintf(&stack0xfffffee8,&DAT_00555654,iVar2);
@@ -281,7 +281,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(0x11);
           }
         }
-        iVar2 = FUN_0040a4d0(uVar8);
+        iVar2 = PeekChecksumStateUnderLock(uVar8);
       }
       else {
         iVar2 = iVar1 + uVar7 * 0x12;
@@ -293,7 +293,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(0x10);
           }
         }
-        iVar2 = FUN_0040a4d0(uVar8);
+        iVar2 = PeekChecksumStateUnderLock(uVar8);
         iVar2 = -iVar2;
       }
       _sprintf(&stack0xfffffee0,&DAT_00555654,iVar2);
@@ -322,7 +322,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(0x13);
           }
         }
-        iVar2 = FUN_0040a4d0(uVar8);
+        iVar2 = PeekChecksumStateUnderLock(uVar8);
       }
       else {
         iVar2 = iVar1 + uVar7 * 0x12;
@@ -334,7 +334,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(0x12);
           }
         }
-        iVar2 = FUN_0040a4d0(uVar8);
+        iVar2 = PeekChecksumStateUnderLock(uVar8);
         iVar2 = -iVar2;
       }
       _sprintf(&stack0xfffffed8,&DAT_00555654,iVar2);
@@ -361,7 +361,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(0x15);
           }
         }
-        iVar1 = FUN_0040a4d0(uVar8);
+        iVar1 = PeekChecksumStateUnderLock(uVar8);
       }
       else {
         if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
@@ -372,7 +372,7 @@ LAB_0044a1b2:
             BlitSpriteClipped(0x14);
           }
         }
-        iVar1 = FUN_0040a4d0(uVar8);
+        iVar1 = PeekChecksumStateUnderLock(uVar8);
         iVar1 = -iVar1;
       }
       _sprintf(&stack0xfffffed0,&DAT_00555654,iVar1);
@@ -397,7 +397,7 @@ LAB_0044a1b2:
             BlitSpriteClipped();
           }
         }
-        FUN_0040a4d0();
+        PeekChecksumStateUnderLock();
       }
       else {
         if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
@@ -408,7 +408,7 @@ LAB_0044a1b2:
             BlitSpriteClipped();
           }
         }
-        FUN_0040a4d0();
+        PeekChecksumStateUnderLock();
       }
       _sprintf(local_100,&DAT_00555654);
       FUN_004ed9f0();

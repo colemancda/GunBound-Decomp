@@ -22,7 +22,7 @@ void __fastcall FUN_004b4080(undefined4 *param_1)
   local_4 = 1;
   _eh_vector_destructor_iterator_((void *)((int)param_1 + 0x23d7),3,0x10,FUN_00429800);
   local_4 = local_4 & 0xffffff00;
-  _eh_vector_destructor_iterator_(param_1 + 0x477,0x224,8,FUN_0040a2a0);
+  _eh_vector_destructor_iterator_(param_1 + 0x477,0x224,8,ScrubChecksumGuard);
   *param_1 = &PTR_LAB_00553fb0;
   *unaff_FS_OFFSET = local_c;
   return;

@@ -23,14 +23,14 @@ undefined4 FUN_0044be40(int param_1,int param_2)
   puStack_8 = &LAB_0053df6b;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
-  FUN_0040aca0(param_1 + 8,local_230,param_2 + 8);
+  EncodeChecksumPairDiff(param_1 + 8,local_230,param_2 + 8);
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar1 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if (local_21c != 0) {
-    FUN_0040a240();
+    ScrambleChecksumGuardBytes();
     FUN_0040b540(local_238);
   }
   *unaff_FS_OFFSET = local_c;

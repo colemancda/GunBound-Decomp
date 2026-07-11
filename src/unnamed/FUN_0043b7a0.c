@@ -58,20 +58,20 @@ LAB_0043b830:
           cVar2 = FUN_00406860();
           iVar5 = g_clientContext;
           if (cVar2 != '\0') {
-            FUN_0040a6e0(piVar1 + 0x243,local_454,param_1);
+            EncodeChecksumDeltaSub(piVar1 + 0x243,local_454,param_1);
             local_4 = 0;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar3 = PeekPacketChecksumState();
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             local_4 = 0xffffffff;
-            FUN_0040a2a0();
-            FUN_0040a6e0(piVar1 + 0x2cc,local_678,param_2);
+            ScrubChecksumGuard();
+            EncodeChecksumDeltaSub(piVar1 + 0x2cc,local_678,param_2);
             local_4 = 1;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar4 = PeekPacketChecksumState();
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             local_4 = 0xffffffff;
-            FUN_0040a2a0();
+            ScrubChecksumGuard();
             iVar5 = g_clientContext;
             if (iVar4 * iVar4 + iVar3 * iVar3 < iVar6 * iVar6) {
               FUN_00406500(1);
@@ -110,24 +110,24 @@ LAB_0043ba8e:
       if (uVar7 == 0x186a6) {
         for (piVar1 = (int *)piVar9[4]; piVar9 != piVar1; piVar1 = (int *)piVar1[4]) {
           if ((char)piVar1[5] == '\0') {
-            FUN_0040a6e0(piVar1 + 0x97,local_678,param_1);
+            EncodeChecksumDeltaSub(piVar1 + 0x97,local_678,param_1);
             local_4 = 2;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar5 = PeekPacketChecksumState();
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             local_4 = 0xffffffff;
             if (local_664 != 0) {
-              FUN_0040a240();
+              ScrambleChecksumGuardBytes();
               FUN_0040b540(local_680);
             }
-            FUN_0040a6e0(piVar1 + 0x120,local_230,param_2);
+            EncodeChecksumDeltaSub(piVar1 + 0x120,local_230,param_2);
             local_4 = 3;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar6 = PeekPacketChecksumState();
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             local_4 = 0xffffffff;
             if (local_21c != 0) {
-              FUN_0040a240();
+              ScrambleChecksumGuardBytes();
               FUN_0040b540(local_680);
             }
             if (iVar6 * iVar6 + iVar5 * iVar5 < param_4 * param_4) {

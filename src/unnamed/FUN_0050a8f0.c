@@ -22,7 +22,7 @@ void __fastcall FUN_0050a8f0(int param_1)
     if (*(int *)(param_1 + 0x10) == 0) {
 LAB_0050a945:
                     /* WARNING: Subroutine does not return */
-      FUN_004010c0(0x80070057);
+      ThrowCxxException(0x80070057);
     }
     do {
       (**(code **)(**(int **)(*(int *)(param_1 + 0xc) + uVar1 * 4) + 0x20))();

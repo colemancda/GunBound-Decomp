@@ -47,7 +47,7 @@ undefined4 __thiscall FUN_0050a320(int param_1,int param_2,int param_3)
       local_4 = 0;
       if (*(uint *)(g_clientContext + 0x44e24) <= *(uint *)(param_1 + 0x94)) {
                     /* WARNING: Subroutine does not return */
-        FUN_004010c0(0x80070057);
+        ThrowCxxException(0x80070057);
       }
       FUN_0044c740();
       FUN_0044c6a0(g_clientContext + 0x44e20);

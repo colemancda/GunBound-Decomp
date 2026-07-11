@@ -25,7 +25,7 @@ void FUN_004e4970(int param_1,int param_2,int param_3,undefined4 param_4,undefin
     *(undefined4 *)(in_EAX + 0x854) = 0xffffffff;
   }
   else {
-    iVar3 = FUN_0040a4d0((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1f48 + g_clientContext)
+    iVar3 = PeekChecksumStateUnderLock((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1f48 + g_clientContext)
     ;
     if (iVar3 == 0) {
       FUN_004e4450(unaff_EBX,unaff_EDI,param_4);
