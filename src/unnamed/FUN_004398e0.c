@@ -53,7 +53,7 @@ void FUN_004398e0(undefined4 param_1,int param_2,undefined4 param_3,undefined4 p
       puVar5 = (undefined4 *)0x0;
     }
     else {
-      FUN_00454dc0(puVar5,0x186a9);
+      InitProjectile(puVar5,0x186a9);
       *puVar5 = &PTR_FUN_0055658c;
       puVar5[0xfe7] = 0xffffffff;
     }

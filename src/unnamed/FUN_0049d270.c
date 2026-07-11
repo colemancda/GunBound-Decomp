@@ -95,7 +95,7 @@ void __fastcall FUN_0049d270(int *param_1)
       FUN_0040b540(apuStack_ad0);
       piVar9 = piStack_ad8;
     }
-    cVar4 = FUN_00406610(piVar9[0x3d2] != 0);
+    cVar4 = CheckGuardedBoolAnd(piVar9[0x3d2] != 0);
     if (cVar4 == '\0') {
       EmitChecksumSum(piVar9 + 0x2bd);
       EmitChecksumSum(piVar9 + 0x346);
@@ -266,7 +266,7 @@ LAB_0049d3ba:
       puStack_af0 = (undefined4 *)0x0;
     }
     else {
-      FUN_00454dc0(puStack_af0,0x186a9);
+      InitProjectile(puStack_af0,0x186a9);
       *puStack_af0 = &PTR_FUN_0055658c;
       puStack_af0[0xfe7] = 0xffffffff;
     }
@@ -476,7 +476,7 @@ LAB_0049d99e:
   iVar5 = PeekPacketChecksumState();
   iVar6 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  cVar4 = FUN_00406610(iVar5 < iVar6);
+  cVar4 = CheckGuardedBoolAnd(iVar5 < iVar6);
   if (cVar4 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();

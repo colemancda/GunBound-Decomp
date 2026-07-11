@@ -142,7 +142,7 @@ LAB_004ad512:
         puStack_af0 = (undefined4 *)0x0;
       }
       else {
-        FUN_00454dc0(puStack_af0,0x186a9);
+        InitProjectile(puStack_af0,0x186a9);
         *puStack_af0 = &PTR_FUN_0055658c;
         puStack_af0[0xfe7] = 0xffffffff;
       }
@@ -193,7 +193,7 @@ LAB_004adaf2:
     FUN_0040b540(&piStack_ad0);
     pcVar11 = (code *)LeaveCriticalSection;
   }
-  cVar1 = FUN_00406610(param_1[0x3d2] != 0);
+  cVar1 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
   if (cVar1 == '\0') {
     EmitChecksumSum(param_1 + 0x2bd);
     EmitChecksumSum(param_1 + 0x346);
@@ -295,7 +295,7 @@ LAB_004adef8:
       *(undefined4 *)(&DAT_005f376c + iVar2) = 0;
     }
   }
-  cVar1 = FUN_00406710();
+  cVar1 = CheckBothGuardedBools();
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState();

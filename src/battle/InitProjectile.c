@@ -1,4 +1,4 @@
-/* FUN_00454dc0 - 0x00454dc0 in the original binary.
+/* InitProjectile - 0x00454dc0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 * __thiscall FUN_00454dc0(undefined4 param_1,undefined4 *param_2,undefined4 param_3)
+undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,undefined4 param_3)
 
 {
   int iVar1;

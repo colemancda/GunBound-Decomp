@@ -97,7 +97,7 @@ void __fastcall FUN_00465500(int *param_1)
       FUN_0040b540(apuStack_ad0);
       piVar9 = piStack_ad8;
     }
-    cVar4 = FUN_00406610(piVar9[0x3d2] != 0);
+    cVar4 = CheckGuardedBoolAnd(piVar9[0x3d2] != 0);
     if (cVar4 == '\0') {
       EmitChecksumSum(piVar9 + 0x2bd);
       EmitChecksumSum(piVar9 + 0x346);
@@ -190,7 +190,7 @@ LAB_00466684:
           cVar4 != '\0')) || (cVar4 = PacketChecksumLessThan(param_1 + 0x45e,0xfffffc18), cVar4 != '\0'))
       goto LAB_00466684;
     }
-    cVar4 = FUN_00406710();
+    cVar4 = CheckBothGuardedBools();
     if (cVar4 != '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar6 = PeekPacketChecksumState();
@@ -330,7 +330,7 @@ LAB_0046564a:
       puStack_af4 = (undefined4 *)0x0;
     }
     else {
-      FUN_00454dc0(puStack_af4,0x186a9);
+      InitProjectile(puStack_af4,0x186a9);
       *puStack_af4 = &PTR_FUN_0055658c;
       puStack_af4[0xfe7] = 0xffffffff;
     }
@@ -548,7 +548,7 @@ LAB_00465c2e:
   iVar5 = PeekPacketChecksumState();
   iVar6 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  cVar4 = FUN_00406610(iVar5 < iVar6);
+  cVar4 = CheckGuardedBoolAnd(iVar5 < iVar6);
   if (cVar4 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();

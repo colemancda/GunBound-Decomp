@@ -103,7 +103,7 @@ LAB_004493f8:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    cVar4 = FUN_00406610(*(char *)(iVar6 + *(int *)(param_1 + 0x450) * 9 + 0x2d54c + param_1) ==
+    cVar4 = CheckGuardedBoolAnd(*(char *)(iVar6 + *(int *)(param_1 + 0x450) * 9 + 0x2d54c + param_1) ==
                          '\x01');
     bVar8 = cVar4 != '\0';
     uVar5 = FUN_00406860();

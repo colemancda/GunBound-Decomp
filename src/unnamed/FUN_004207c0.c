@@ -104,22 +104,22 @@ LAB_00420896:
         DAT_00793568 = 0;
       }
     }
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
-    FUN_00406530();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
+    RescrambleGuardedBool();
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(uVar6);
@@ -133,7 +133,7 @@ LAB_00420896:
     uVar6 = PeekPacketChecksumState();
     EncodeOutgoingPacketField(uVar6);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_00406530();
+    RescrambleGuardedBool();
     *(short *)(local_8b8 + 0x2fef) = (short)local_8ac[0x2fef];
     *(char *)(local_8b8 + 0x2b9a) = (char)local_8ac[0x2b9a];
     local_8b8[0x2c25] = local_8ac[0x2c25];
@@ -346,7 +346,7 @@ LAB_00420896:
     *(byte *)(local_8ac + 0x22ee) = bVar4;
     *(byte *)((int)local_8ac + 0x8bb9) = bVar4 + *(char *)((int)local_8ac + 0x8bb7) + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_00406530();
+    RescrambleGuardedBool();
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = _rand();
     *(char *)(local_8ac + 0x22f0) = (char)iVar5;

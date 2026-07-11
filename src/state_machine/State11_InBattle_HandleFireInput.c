@@ -890,12 +890,12 @@ LAB_004613b2:
     *(byte *)((int)param_1 + 0xbff9) = *(byte *)((int)param_1 + 0xbff7) + bVar26 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     cVar9 = PeekPacketChecksumBool();
-    cVar9 = FUN_00406610('\x01' - (cVar9 != '\0'));
+    cVar9 = CheckGuardedBoolAnd('\x01' - (cVar9 != '\0'));
     if ((cVar9 != '\0') && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\0')) {
       FUN_00464060();
     }
     uVar17 = FUN_00406860();
-    cVar9 = FUN_00406610(uVar17);
+    cVar9 = CheckGuardedBoolAnd(uVar17);
     if ((cVar9 != '\0') && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01')) {
       SetGuardedBool(0);
       SetGuardedBool(0);

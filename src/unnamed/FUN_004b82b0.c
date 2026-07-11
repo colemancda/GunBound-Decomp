@@ -147,7 +147,7 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
       return;
     }
     uVar10 = FUN_00406860();
-    cVar3 = FUN_00406610(uVar10);
+    cVar3 = CheckGuardedBoolAnd(uVar10);
     iVar7 = DAT_007934e8;
     if (cVar3 == '\0') {
       *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
@@ -181,7 +181,7 @@ void __thiscall FUN_004b82b0(int param_1,int param_2,int param_3,uint param_4)
     *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
     SendOutgoingPacket();
     uVar10 = FUN_00406860();
-    cVar3 = FUN_00406610(uVar10);
+    cVar3 = CheckGuardedBoolAnd(uVar10);
     if (cVar3 == '\0') {
       return;
     }
@@ -467,7 +467,7 @@ LAB_004b8aeb:
     break;
   case 0xd:
     uVar10 = FUN_00406860();
-    cVar3 = FUN_00406610(uVar10);
+    cVar3 = CheckGuardedBoolAnd(uVar10);
     if ((cVar3 == '\0') &&
        (cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,1), iVar7 = DAT_007934e8, cVar3 == '\0')
        ) {
@@ -522,7 +522,7 @@ LAB_004b8aeb:
   return;
 switchD_004b83e0_caseD_3b:
   cVar3 = PeekPacketChecksumBool();
-  cVar3 = FUN_00406610('\x01' - (cVar3 != '\0'));
+  cVar3 = CheckGuardedBoolAnd('\x01' - (cVar3 != '\0'));
   if (cVar3 == '\0') {
     return;
   }

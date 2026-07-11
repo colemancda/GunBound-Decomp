@@ -118,7 +118,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
     }
-    cVar1 = FUN_00406610(*(char *)(g_clientContext + 0x45127) == '\x02');
+    cVar1 = CheckGuardedBoolAnd(*(char *)(g_clientContext + 0x45127) == '\x02');
     if (cVar1 != '\0') {
       uVar4 = PeekChecksumStateUnderLock(&DAT_00e9c578);
       uVar4 = EncodeChecksumDeltaMul(piVar8 + 0x930,local_678,uVar4);

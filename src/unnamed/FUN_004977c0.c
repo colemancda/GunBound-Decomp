@@ -19,7 +19,7 @@ undefined4 * FUN_004977c0(undefined4 *param_1)
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053c0f8;
   *unaff_FS_OFFSET = &local_c;
-  FUN_00454dc0(param_1,0x186a3);
+  InitProjectile(param_1,0x186a3);
   local_4 = 0;
   *param_1 = &PTR_FUN_005563f0;
   *(undefined1 *)(param_1 + 0x107d) = 0;

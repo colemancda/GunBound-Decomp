@@ -33,7 +33,7 @@ void FUN_00437b40(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
     piVar7 = (int *)0x0;
   }
   else {
-    FUN_00454dc0(piVar2,0x186a4);
+    InitProjectile(piVar2,0x186a4);
     *piVar2 = (int)&PTR_FUN_00555cf4;
     *(undefined1 *)(piVar2 + 0xfed) = 0;
     piVar2[0xfec] = 0;

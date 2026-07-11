@@ -1,4 +1,4 @@
-/* FUN_00406710 - 0x00406710 in the original binary.
+/* CheckBothGuardedBools - 0x00406710 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00406710(void)
+undefined4 CheckBothGuardedBools(void)
 
 {
   char cVar1;

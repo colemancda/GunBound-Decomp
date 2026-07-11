@@ -15,7 +15,7 @@ void FUN_0044c740(void)
   int unaff_EBX;
   int unaff_ESI;
   
-  FUN_00406530();
+  RescrambleGuardedBool();
   *(undefined4 *)(unaff_ESI + 4) = *(undefined4 *)(unaff_EBX + 4);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar1 = PeekPacketChecksumState();

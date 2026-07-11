@@ -252,7 +252,7 @@ LAB_0044df28:
       FUN_0040b540(&iStack_ae0);
       pcVar16 = (code *)LeaveCriticalSection;
     }
-    cVar5 = FUN_00406610(param_1[0x3d2] != 0);
+    cVar5 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
     if (cVar5 == '\0') {
       EmitChecksumSum(param_1 + 0x2bd);
       EmitChecksumSum(param_1 + 0x346);
@@ -339,7 +339,7 @@ LAB_0044e580:
         *(undefined4 *)(&DAT_005f376c + iVar6) = 0;
       }
     }
-    cVar5 = FUN_00406710();
+    cVar5 = CheckBothGuardedBools();
     if (cVar5 != '\0') {
       iVar8 = PeekChecksumStateUnderLock(iStack_ae0);
       iVar11 = PeekChecksumStateUnderLock(param_1 + 0x3d5);
@@ -479,7 +479,7 @@ LAB_0044e02e:
     *(undefined4 *)(&DAT_005f376c + iVar6) = 0;
   }
   uVar7 = CompareChecksumPair(iVar6 + 0x5b85c,param_1 + 0xe48);
-  cVar5 = FUN_00406610(uVar7);
+  cVar5 = CheckGuardedBoolAnd(uVar7);
   if (cVar5 != '\0') {
     EncodeChecksumState(param_1 + 0xe48);
   }

@@ -13,7 +13,7 @@ undefined4 FUN_0047f9e0(void)
 {
   undefined4 *unaff_ESI;
   
-  FUN_00454dc0(unaff_ESI,0x186a5);
+  InitProjectile(unaff_ESI,0x186a5);
   unaff_ESI[0xfec] = 0;
   unaff_ESI[0xfea] = 0;
   unaff_ESI[0xfeb] = 0;

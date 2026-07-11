@@ -88,7 +88,7 @@ void __fastcall FUN_004ae3a0(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_4 = 0xffffffff;
     ScrubChecksumGuard();
-    cVar6 = FUN_00406610(param_1[0x3d2] != 0);
+    cVar6 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
     if (cVar6 == '\0') {
       EmitChecksumSum(param_1 + 0x2bd);
       EmitChecksumSum(param_1 + 0x346);
@@ -174,7 +174,7 @@ LAB_004ae9a8:
         *(undefined4 *)(&DAT_005f376c + iVar7) = 0;
       }
     }
-    cVar6 = FUN_00406710();
+    cVar6 = CheckBothGuardedBools();
     if (cVar6 != '\0') {
       iVar8 = PeekChecksumStateUnderLock(piVar1);
       iVar14 = PeekChecksumStateUnderLock(piVar2);
@@ -292,7 +292,7 @@ LAB_004ae9a8:
     *(undefined4 *)(&DAT_005f376c + iVar7) = 0;
   }
   uVar11 = CompareChecksumPair(iVar7 + 0x5b85c,param_1 + 0xe48);
-  cVar6 = FUN_00406610(uVar11);
+  cVar6 = CheckGuardedBoolAnd(uVar11);
   if (cVar6 != '\0') {
     EncodeChecksumState(param_1 + 0xe48);
   }

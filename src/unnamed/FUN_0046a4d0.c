@@ -176,7 +176,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
     FUN_0040b540(local_adc);
     piVar16 = piVar7;
   }
-  cVar4 = FUN_00406610(piVar16[0x3d2] != 0);
+  cVar4 = CheckGuardedBoolAnd(piVar16[0x3d2] != 0);
   if (cVar4 == '\0') {
     EmitChecksumSum(piVar16 + 0x2bd);
     EmitChecksumSum(piVar16 + 0x346);
@@ -267,7 +267,7 @@ LAB_0046ad0a:
         cVar4 != '\0')) || (cVar4 = PacketChecksumLessThan(param_1 + 0x45e,0xfffffc18), cVar4 != '\0'))
     goto LAB_0046ad0a;
   }
-  cVar4 = FUN_00406710();
+  cVar4 = CheckBothGuardedBools();
   if (cVar4 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();

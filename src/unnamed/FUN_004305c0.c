@@ -79,7 +79,7 @@ void FUN_004305c0(void)
     piVar3 = (int *)0x0;
   }
   else {
-    FUN_00454dc0();
+    InitProjectile();
     *piVar3 = (int)&PTR_FUN_00556008;
     piVar3[0xfe8] = 0;
   }
@@ -416,7 +416,7 @@ void FUN_004305c0(void)
       pcVar10 = (code *)LeaveCriticalSection;
     }
   }
-  cVar2 = FUN_00406610();
+  cVar2 = CheckGuardedBoolAnd();
   if (cVar2 != '\0') {
     (*pcVar9)();
     iVar4 = PeekPacketChecksumState();

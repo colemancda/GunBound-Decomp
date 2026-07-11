@@ -143,7 +143,7 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(iVar2);
   (*pcVar5)(&DAT_005a9068);
-  FUN_00406530();
+  RescrambleGuardedBool();
   *unaff_FS_OFFSET = uStack_18;
   return;
 }

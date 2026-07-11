@@ -146,7 +146,7 @@ LAB_00468a0a:
         local_aec = (undefined4 *)0x0;
       }
       else {
-        FUN_00454dc0(local_aec,0x186a9);
+        InitProjectile(local_aec,0x186a9);
         *local_aec = &PTR_FUN_0055658c;
         local_aec[0xfe7] = 0xffffffff;
       }
@@ -350,7 +350,7 @@ LAB_00468fef:
       QueueOutgoingPacketField(uVar8);
     }
     uVar8 = CompareChecksumPair(g_clientContext + 0x5b85c,piStack_ae8 + 0xe48);
-    cVar4 = FUN_00406610(uVar8);
+    cVar4 = CheckGuardedBoolAnd(uVar8);
     if (cVar4 != '\0') {
       EncodeChecksumState(piStack_ae8 + 0xe48);
     }
@@ -627,7 +627,7 @@ LAB_00469dc9:
     FUN_0040b540(apuStack_ae0);
     piVar15 = piStack_ae8;
   }
-  cVar4 = FUN_00406610(piVar15[0x3d2] != 0);
+  cVar4 = CheckGuardedBoolAnd(piVar15[0x3d2] != 0);
   if (cVar4 == '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState();
@@ -747,7 +747,7 @@ LAB_0046a2a6:
     if ((iVar5 <= iVar6) || (cVar4 = PacketChecksumLessThan(param_1 + 0x45e,0xfffffc18), cVar4 != '\0'))
     goto LAB_0046a2a6;
   }
-  cVar4 = FUN_00406710();
+  cVar4 = CheckBothGuardedBools();
   if (cVar4 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();

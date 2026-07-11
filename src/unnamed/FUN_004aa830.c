@@ -15,7 +15,7 @@ undefined4 FUN_004aa830(void)
   byte bVar2;
   undefined4 *unaff_ESI;
   
-  FUN_00454dc0(unaff_ESI,0x186a2);
+  InitProjectile(unaff_ESI,0x186a2);
   *unaff_ESI = &PTR_FUN_0055656c;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = _rand();

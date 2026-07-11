@@ -212,7 +212,7 @@ void FUN_0047c3f0(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(iVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_00406530();
+  RescrambleGuardedBool();
 LAB_0047ca25:
   *unaff_FS_OFFSET = iStack_10;
   return;

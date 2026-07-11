@@ -277,7 +277,7 @@ LAB_004622cf:
     }
     FUN_00461c60(s_normal_00552230);
     uVar9 = FUN_00406860();
-    cVar5 = FUN_00406610(uVar9);
+    cVar5 = CheckGuardedBoolAnd(uVar9);
     if (((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) &&
        (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) {
       Replay_AppendEvent(0x8402);
@@ -319,7 +319,7 @@ LAB_004622cf:
     SetGuardedBool(0);
     SetGuardedBool(1);
   }
-  cVar5 = FUN_00406610(param_1[9] != 0xe);
+  cVar5 = CheckGuardedBoolAnd(param_1[9] != 0xe);
   if (cVar5 == '\0') {
 LAB_00462742:
     bVar4 = false;

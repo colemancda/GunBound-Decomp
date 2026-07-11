@@ -105,7 +105,7 @@ void __fastcall FUN_004acd10(int param_1)
   iVar7 = PeekPacketChecksumState();
   local_45c[0] = CONCAT31(SUBFIELD(local_45c[0],1,undefined3),local_45c[0] < iVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  cVar3 = FUN_00406610(local_45c[0]);
+  cVar3 = CheckGuardedBoolAnd(local_45c[0]);
   if (cVar3 != '\0') {
     local_45c[0] = g_clientContext + 0x5b85c;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

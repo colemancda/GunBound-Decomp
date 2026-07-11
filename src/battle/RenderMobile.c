@@ -140,7 +140,7 @@ void __fastcall RenderMobile(int param_1)
         BlitSpriteDirect((iVar5 * uVar13 + iVar14) * 0x80 + *(int *)(iVar8 + 0x1fe34 + uVar6 * 4),iVar5)
         ;
       }
-      cVar3 = FUN_00406610(*(int *)(param_1 + 0x24) != 0xe);
+      cVar3 = CheckGuardedBoolAnd(*(int *)(param_1 + 0x24) != 0xe);
       iVar5 = g_clientContext;
       if (cVar3 != '\0') {
         *(undefined4 *)(g_clientContext + 0x227a8) = 1;

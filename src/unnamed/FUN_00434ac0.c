@@ -34,7 +34,7 @@ void FUN_00434ac0(undefined4 param_1,int param_2)
       piVar2 = (int *)0x0;
     }
     else {
-      FUN_00454dc0(piVar2,0x186a2);
+      InitProjectile(piVar2,0x186a2);
       *piVar2 = (int)&PTR_FUN_00555dec;
     }
     local_4 = 0xffffffff;

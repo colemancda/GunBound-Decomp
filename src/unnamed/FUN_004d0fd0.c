@@ -57,22 +57,22 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
       if (param_1 == uVar5) {
         *(int *)(g_clientContext + 0x621e0) = iVar4;
       }
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
-      FUN_00406530();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
+      RescrambleGuardedBool();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar2);
@@ -86,7 +86,7 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
       uVar2 = PeekPacketChecksumState();
       EncodeOutgoingPacketField(uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_00406530();
+      RescrambleGuardedBool();
       *(undefined2 *)(iVar4 + 0xbfbc) = *(undefined2 *)(iVar1 + 0xbfbc);
       *(undefined1 *)(iVar4 + 0xae68) = *(undefined1 *)(iVar1 + 0xae68);
       *(undefined4 *)(iVar4 + 0xb094) = *(undefined4 *)(iVar1 + 0xb094);

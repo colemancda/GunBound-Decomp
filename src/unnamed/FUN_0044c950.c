@@ -102,7 +102,7 @@ void __fastcall FUN_0044c950(int *param_1)
       pcVar13 = (code *)LeaveCriticalSection;
       unaff_EBX = uStack_ab4;
     }
-    cVar3 = FUN_00406610(param_1[0x3d2] != 0);
+    cVar3 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
     if (cVar3 == '\0') {
       EmitChecksumSum(param_1 + 0x2bd);
       EmitChecksumSum(param_1 + 0x346);
@@ -197,7 +197,7 @@ LAB_0044d78e:
         QueueOutgoingPacketField(uVar7);
       }
     }
-    cVar3 = FUN_00406710();
+    cVar3 = CheckBothGuardedBools();
     if (cVar3 != '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
@@ -339,7 +339,7 @@ LAB_0044ca9a:
       puStack_ae4 = (undefined4 *)0x0;
     }
     else {
-      FUN_00454dc0(puStack_ae4,0x186a9);
+      InitProjectile(puStack_ae4,0x186a9);
       *puStack_ae4 = &PTR_FUN_0055658c;
       puStack_ae4[0xfe7] = 0xffffffff;
     }

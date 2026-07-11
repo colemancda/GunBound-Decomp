@@ -168,7 +168,7 @@ LAB_0048780a:
           local_ae4 = (undefined4 *)0x0;
         }
         else {
-          FUN_00454dc0(local_ae4,0x186a9);
+          InitProjectile(local_ae4,0x186a9);
           *local_ae4 = &PTR_FUN_0055658c;
           local_ae4[0xfe7] = 0xffffffff;
         }
@@ -360,7 +360,7 @@ LAB_0048780a:
     pcVar14 = (code *)EnterCriticalSection;
     pcVar16 = (code *)LeaveCriticalSection;
   }
-  cVar2 = FUN_00406610(param_1[0x3d2] != 0);
+  cVar2 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
   if (cVar2 == '\0') {
     (*pcVar14)(&DAT_005a9068);
     iVar3 = PeekPacketChecksumState();
@@ -474,7 +474,7 @@ LAB_00488574:
       *(undefined4 *)(&DAT_005f376c + iVar3) = 0;
     }
   }
-  cVar1 = FUN_00406710();
+  cVar1 = CheckBothGuardedBools();
   if (cVar1 != '\0') {
     (*pcVar14)(&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
@@ -698,7 +698,7 @@ LAB_00487dd6:
   PeekPacketChecksumState();
   PeekPacketChecksumState();
   (*pcVar16)(&DAT_005a9068);
-  cVar1 = FUN_00406610(CONCAT13(iVar3 != 4,unaff_EBX));
+  cVar1 = CheckGuardedBoolAnd(CONCAT13(iVar3 != 4,unaff_EBX));
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();

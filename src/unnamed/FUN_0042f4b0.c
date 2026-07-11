@@ -95,7 +95,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
       piVar3 = (int *)0x0;
     }
     else {
-      FUN_00454dc0();
+      InitProjectile();
       *piVar3 = (int)&PTR_FUN_00556468;
       piVar3[0xfe7] = 0;
       piVar3[0x1028] = 0;
@@ -108,7 +108,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
       piVar3 = (int *)0x0;
     }
     else {
-      FUN_00454dc0();
+      InitProjectile();
       *piVar3 = (int)&PTR_FUN_00556468;
       piVar3[0xfe7] = 0;
       piVar3[0x1028] = 0;
@@ -501,7 +501,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
       pcVar11 = (code *)LeaveCriticalSection;
     }
   }
-  cVar2 = FUN_00406610();
+  cVar2 = CheckGuardedBoolAnd();
   if (cVar2 != '\0') {
     (*pcVar10)();
     uVar7 = PeekPacketChecksumState();

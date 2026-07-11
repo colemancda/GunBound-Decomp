@@ -856,7 +856,7 @@ LAB_004bedb3:
             }
           }
         }
-        cVar3 = FUN_00406610(0x31 < *(int *)(g_clientContext + 0x5b81c + (int)piStack_3d5c * 4));
+        cVar3 = CheckGuardedBoolAnd(0x31 < *(int *)(g_clientContext + 0x5b81c + (int)piStack_3d5c * 4));
         if (cVar3 != '\0') {
           (*pcVar16)(&DAT_005a9068);
           EncodeOutgoingPacketField(0x14);
@@ -971,7 +971,7 @@ LAB_004bedb3:
             (**(code **)(*piVar15 + 0x28))(acStack_3644,4,3);
           }
         }
-        cVar3 = FUN_00406610(0x31 < *(int *)(g_clientContext + 0x5b81c + (int)piStack_3d5c * 4));
+        cVar3 = CheckGuardedBoolAnd(0x31 < *(int *)(g_clientContext + 0x5b81c + (int)piStack_3d5c * 4));
         if (cVar3 != '\0') {
           (*pcVar16)(&DAT_005a9068);
           EncodeOutgoingPacketField(0x19);
@@ -1935,7 +1935,7 @@ LAB_004c1730:
     piStack_3d64[0x432] = 1;
   }
   if (((char)piStack_3d64[0x468] == '\x01') && (*(int *)(iVar6 + 0x621e0) != 0)) {
-    cVar3 = FUN_00406710();
+    cVar3 = CheckBothGuardedBools();
     iVar6 = g_clientContext;
     if ((cVar3 == '\0') || ((&DAT_005f2f40)[g_clientContext] != '\x02')) {
       *(undefined1 *)(piVar15 + 0x468) = 0;

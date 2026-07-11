@@ -329,7 +329,7 @@ void __fastcall FUN_004513b0(int *param_1)
     }
     uStack_b68 = (int **)CONCAT31((int3)((uint)uVar8 >> 8),param_1[0x3d2] != 0);
     uStack_b6c = (undefined *)0x452672;
-    cVar2 = FUN_00406610();
+    cVar2 = CheckGuardedBoolAnd();
     if (cVar2 == '\0') {
       uStack_b68 = (int **)(param_1 + 0x2bd);
       uStack_b6c = (undefined *)0x4528b9;
@@ -462,7 +462,7 @@ LAB_00452a0a:
         QueueOutgoingPacketField(uVar8);
       }
     }
-    cVar2 = FUN_00406710();
+    cVar2 = CheckBothGuardedBools();
     if (cVar2 != '\0') {
       (*pcVar17)(&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
@@ -643,7 +643,7 @@ LAB_004517be:
       puStack_b54 = (undefined4 *)0x0;
     }
     else {
-      FUN_00454dc0(puVar7,0x186a9);
+      InitProjectile(puVar7,0x186a9);
       *puVar7 = &PTR_FUN_0055658c;
       puVar7[0xfe7] = 0xffffffff;
       puStack_b54 = puVar7;
@@ -765,7 +765,7 @@ LAB_00451da3:
   cVar28 = '\0';
   uStack_b5c = (undefined **)CONCAT31(SUBFIELD(uStack_b5c,1,undefined3),(int)uStack_b5c < iVar4);
   (*pcVar16)();
-  cVar2 = FUN_00406610(uStack_b60);
+  cVar2 = CheckGuardedBoolAnd(uStack_b60);
   if (cVar2 != '\0') {
     uStack_b60 = (undefined **)(g_clientContext + 0x5b85c);
     (*pcVar17)(&DAT_005a9068);

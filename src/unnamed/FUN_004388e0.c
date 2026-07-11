@@ -69,7 +69,7 @@ void FUN_004388e0(void)
     piVar2 = (int *)0x0;
   }
   else {
-    FUN_00454dc0();
+    InitProjectile();
     *piVar2 = (int)&PTR_FUN_00555e0c;
     piVar2[0xfe8] = 0;
   }
@@ -147,18 +147,18 @@ void FUN_004388e0(void)
   *(byte *)((int)piVar2 + 0xf46) = bVar8;
   *(byte *)((int)piVar2 + 0xf47) = bVar8 + *(char *)((int)piVar2 + 0xf45) + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_00406530();
+  RescrambleGuardedBool();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   EncodeOutgoingPacketField();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_00406530();
+  RescrambleGuardedBool();
   piVar2[0xfe5] = in_stack_00000014;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   EncodeOutgoingPacketField();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_00406530();
+  RescrambleGuardedBool();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   EncodeOutgoingPacketField();
@@ -289,7 +289,7 @@ void FUN_004388e0(void)
       pcVar9 = (code *)LeaveCriticalSection;
     }
   }
-  cVar1 = FUN_00406610();
+  cVar1 = CheckGuardedBoolAnd();
   if (cVar1 != '\0') {
     (*pcVar10)();
     PeekPacketChecksumState();

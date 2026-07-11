@@ -503,7 +503,7 @@ void __thiscall FUN_004b97d0(int *param_1,uint param_2,int param_3,uint param_4)
         (&DAT_006a7758)[g_clientContext] = 0;
         return;
       }
-      cVar4 = FUN_00406710();
+      cVar4 = CheckBothGuardedBools();
       if (cVar4 == '\0') {
         return;
       }

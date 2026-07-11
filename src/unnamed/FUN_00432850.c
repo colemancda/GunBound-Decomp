@@ -124,7 +124,7 @@ void FUN_00432850(int param_1,int param_2)
         piVar3 = (int *)0x0;
       }
       else {
-        piVar3 = (int *)FUN_00454dc0();
+        piVar3 = (int *)InitProjectile();
       }
       iVar4 = g_clientContext;
       local_4 = 0xffffffff;
@@ -241,18 +241,18 @@ void FUN_00432850(int param_1,int param_2)
       *(byte *)((int)piVar3 + 0xf46) = bVar10;
       *(byte *)((int)piVar3 + 0xf47) = bVar10 + *(char *)((int)piVar3 + 0xf45) + -0x34;
       (*pcVar11)();
-      FUN_00406530();
+      RescrambleGuardedBool();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();
       EncodeOutgoingPacketField();
       (*pcVar11)();
-      FUN_00406530();
+      RescrambleGuardedBool();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();
       EncodeOutgoingPacketField();
       (*pcVar11)();
       piVar3[0xfe5] = local_c;
-      FUN_00406530();
+      RescrambleGuardedBool();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState();
       EncodeOutgoingPacketField();

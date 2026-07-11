@@ -147,7 +147,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
             local_128 = local_128 + 1;
           } while (local_128 < (int)local_124);
         }
-        cVar3 = FUN_00406610(g_currentGameState == 2);
+        cVar3 = CheckGuardedBoolAnd(g_currentGameState == 2);
         iVar7 = DAT_007934f0;
         if ((cVar3 != '\0') && (*(char *)(DAT_007934f0 + 0x84e5) == '\x01')) {
           *(undefined4 *)(DAT_007934f0 + 0x44d0) = 6;

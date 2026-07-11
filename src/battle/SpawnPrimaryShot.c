@@ -85,7 +85,7 @@ void SpawnPrimaryShot(undefined1 param_1,uint param_2,uint param_3,uint param_4,
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_00454dc0(local_8bc,0x186a2);
+        local_8b8 = (int *)InitProjectile(local_8bc,0x186a2);
       }
       local_4 = 0xffffffff;
       local_8b8[0x794] = 3;
@@ -163,7 +163,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_00454dc0(local_8bc,0x186a2);
+        local_8b8 = (int *)InitProjectile(local_8bc,0x186a2);
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet3n_00553f68);
@@ -195,7 +195,7 @@ LAB_0042c334:
           pcVar14 = s_bullet4s_00553f44;
         }
         else {
-          local_8b8 = (int *)FUN_00454dc0(local_8bc,0x186a2);
+          local_8b8 = (int *)InitProjectile(local_8bc,0x186a2);
           pcVar14 = s_bullet4s_00553f44;
         }
       }
@@ -224,7 +224,7 @@ LAB_0042c334:
       local_8b8 = (int *)0x0;
     }
     else {
-      local_8b8 = (int *)FUN_00454dc0(local_8bc,0x186a2);
+      local_8b8 = (int *)InitProjectile(local_8bc,0x186a2);
     }
     local_4 = 0xffffffff;
     iVar6 = FindPreloadedTextureByName(s_bullet4n_00553f50);
@@ -239,7 +239,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_00454dc0(local_8bc,0x186a2);
+        local_8b8 = (int *)InitProjectile(local_8bc,0x186a2);
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet5n_00553f38);
@@ -253,7 +253,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_00454dc0(local_8bc,0x186a2);
+        local_8b8 = (int *)InitProjectile(local_8bc,0x186a2);
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet5s_00553f2c);
@@ -316,7 +316,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_00454dc0(local_8bc,0x186a2);
+        local_8b8 = (int *)InitProjectile(local_8bc,0x186a2);
       }
     }
     else {
@@ -440,7 +440,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_00454dc0(local_8bc,0x186a2);
+        local_8b8 = (int *)InitProjectile(local_8bc,0x186a2);
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet11n_00553ea8);
@@ -513,7 +513,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_00454dc0(local_8bc,0x186a2);
+        local_8b8 = (int *)InitProjectile(local_8bc,0x186a2);
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet13n_00553e90);
@@ -1040,7 +1040,7 @@ LAB_0042d667:
       uVar7 = uStack_668;
     }
   }
-  cVar5 = FUN_00406610(*(char *)(g_clientContext + 0x45127) == '\x02');
+  cVar5 = CheckGuardedBoolAnd(*(char *)(g_clientContext + 0x45127) == '\x02');
   if (cVar5 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();

@@ -158,7 +158,7 @@ void __fastcall FUN_004765d0(int *param_1)
     ScrambleChecksumGuardBytes();
     FUN_0040b540(apiStack_acc);
   }
-  cVar6 = FUN_00406610(param_1[0x3d2] != 0);
+  cVar6 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
   if (cVar6 == '\0') {
     EmitChecksumSum(param_1 + 0x2bd);
     EmitChecksumSum(param_1 + 0x346);
@@ -251,7 +251,7 @@ LAB_00476d03:
         cVar6 != '\0')) || (cVar6 = PacketChecksumLessThan(param_1 + 0x45e,0xfffffc18), cVar6 != '\0'))
     goto LAB_00476d03;
   }
-  cVar6 = FUN_00406710();
+  cVar6 = CheckBothGuardedBools();
   if (cVar6 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar8 = PeekPacketChecksumState();

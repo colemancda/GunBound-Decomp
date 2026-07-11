@@ -108,11 +108,11 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00406440,90,InitGuardedBool,false,103,1,RAW-src
 004064a0,93,EncodeGuardedBool,false,42,1,RAW-src
 00406500,41,SetGuardedBool,false,260,3,RAW-src
-00406530,108,FUN_00406530,false,62,3,RAW-src
+00406530,108,RescrambleGuardedBool,false,62,3,RAW-src
 004065a0,97,PeekPacketChecksumBool,false,1297,2,RAW-src
-00406610,118,FUN_00406610,false,92,2,RAW-src
+00406610,118,CheckGuardedBoolAnd,false,92,2,RAW-src
 00406690,120,FUN_00406690,false,2,2,RAW-src
-00406710,161,FUN_00406710,false,37,2,RAW-src
+00406710,161,CheckBothGuardedBools,false,37,2,RAW-src
 004067c0,159,FUN_004067c0,false,2,2,RAW-src
 00406860,103,FUN_00406860,false,35,2,RAW-src
 004068d0,190,FUN_004068d0,false,1,0,RAW-src
@@ -595,7 +595,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00454270,32,FUN_00454270,false,1,2,RAW-src
 00454290,13,FUN_00454290,false,1,1,RAW-src
 004542a0,2775,FUN_004542a0,false,1,14,RAW-src
-00454dc0,1935,FUN_00454dc0,false,86,5,RAW-src
+00454dc0,1935,InitProjectile,false,86,5,RAW-src
 00455550,31,FUN_00455550,false,1,2,RAW-src
 00455570,1513,FUN_00455570,false,39,2,RAW-src
 00455b60,346,FUN_00455b60,false,6,0,RAW-src

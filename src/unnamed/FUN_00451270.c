@@ -14,7 +14,7 @@ undefined4 * FUN_00451270(undefined4 *param_1)
   int iVar2;
   byte bVar3;
   
-  FUN_00454dc0(param_1,0x186a2);
+  InitProjectile(param_1,0x186a2);
   *param_1 = &PTR_FUN_00555bd0;
   InitGuardedBool();
   InitGuardedBool();

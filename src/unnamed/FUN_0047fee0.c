@@ -143,7 +143,7 @@ void FUN_0047fee0(int param_1)
   unaff_ESI[0xff4] = iVar3;
   unaff_ESI[0xfed] = iVar3;
   unaff_ESI[0xff5] = iVar2;
-  FUN_00406530();
+  RescrambleGuardedBool();
 LAB_004802f3:
   *unaff_FS_OFFSET = uStack_10;
   return;

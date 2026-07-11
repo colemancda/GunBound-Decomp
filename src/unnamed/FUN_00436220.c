@@ -32,7 +32,7 @@ void FUN_00436220(undefined4 param_1,undefined4 param_2,undefined4 param_3)
       piVar2 = (int *)0x0;
     }
     else {
-      FUN_00454dc0(piVar2,0x30d42);
+      InitProjectile(piVar2,0x30d42);
       *piVar2 = (int)&PTR_FUN_00555fbc;
     }
     local_4 = 0xffffffff;

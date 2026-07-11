@@ -131,7 +131,7 @@ undefined4 FUN_00439e40(int param_1)
     QueueOutgoingPacketField(0xffffffff);
     QueueOutgoingPacketField(0xffffffff);
     QueueOutgoingPacketField(2);
-    cVar2 = FUN_00406610(*(char *)(g_clientContext + 0x45127) == '\x01');
+    cVar2 = CheckGuardedBoolAnd(*(char *)(g_clientContext + 0x45127) == '\x01');
     if (cVar2 != '\0') {
       SetGuardedBool(1);
     }

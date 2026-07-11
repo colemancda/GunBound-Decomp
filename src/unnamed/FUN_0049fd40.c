@@ -164,7 +164,7 @@ LAB_004a0a52:
           local_af8 = (int *)0x0;
         }
         else {
-          FUN_00454dc0(local_af8,0x186a9);
+          InitProjectile(local_af8,0x186a9);
           *local_af8 = (int)&PTR_FUN_0055658c;
           local_af8[0xfe7] = -1;
         }
@@ -353,7 +353,7 @@ LAB_004a0a52:
     param_1 = piStack_ad8;
     pcVar14 = (code *)LeaveCriticalSection;
   }
-  cVar1 = FUN_00406610(param_1[0x3d2] != 0);
+  cVar1 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
   if (cVar1 == '\0') {
     EmitChecksumSum(param_1 + 0x2bd);
     EmitChecksumSum(param_1 + 0x346);
@@ -448,7 +448,7 @@ LAB_004a07f1:
       QueueOutgoingPacketField(uVar5);
     }
   }
-  cVar1 = FUN_00406710();
+  cVar1 = CheckBothGuardedBools();
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
@@ -711,7 +711,7 @@ LAB_004a101f:
   iVar3 = PeekPacketChecksumState();
   puStack_aec = (undefined *)CONCAT31(SUBFIELD(puStack_aec,1,undefined3),(int)puStack_aec < iVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  cVar1 = FUN_00406610(puStack_aec);
+  cVar1 = CheckGuardedBoolAnd(puStack_aec);
   if (cVar1 != '\0') {
     puStack_aec = (undefined *)(g_clientContext + 0x5b85c);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

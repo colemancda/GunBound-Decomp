@@ -1,4 +1,4 @@
-/* FUN_00406530 - 0x00406530 in the original binary.
+/* RescrambleGuardedBool - 0x00406530 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall FUN_00406530(undefined4 param_1)
+undefined4 __fastcall RescrambleGuardedBool(undefined4 param_1)
 
 {
   char cVar1;

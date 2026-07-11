@@ -17,7 +17,7 @@ undefined4 * FUN_0049e540(undefined4 *param_1)
   /* Windows SEH __try/__except frame setup stripped - handler body
    * (LAB_0053c03a) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
-  FUN_00454dc0(param_1,0x186a2);
+  InitProjectile(param_1,0x186a2);
   local_4 = 0;
   *param_1 = &PTR_FUN_0055649c;
   *(undefined1 *)(param_1 + 0x1071) = 0;
