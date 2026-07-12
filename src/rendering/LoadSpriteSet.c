@@ -70,7 +70,7 @@ int LoadSpriteSet(undefined4 param_1,undefined4 param_2,char *imgName)
         puVar3[0xd] = 0;
         puVar3[0xe] = 0;
       }
-      iVar4 = FUN_004f1520();
+      iVar4 = FUN_004f1520(readState,(int)puVar3);
       if (iVar4 == -1) {
         if (puVar3 != (undefined4 *)0x0) {
           (**(code **)*puVar3)(1);
