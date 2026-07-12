@@ -801,9 +801,16 @@ const char s__s_s_07d_bmp_00552220[] = "%s%s%07d.bmp";
 const char s__s_s____s_sv_005570ac[] = "%s%s - %s.sv";
 const char s_active_00551e58[] = "active";
 const char s_avata_00553fa8[] = "avata";
+const char s_b_buddy_down_00552258[] = "b_buddy_down";
+const char s_b_buddy_exit_00552248[] = "b_buddy_exit";
+const char s_b_buddy_up_00552268[] = "b_buddy_up";
 const char s_b_error_confirm_00552238[] = "b_error_confirm";
 const char s_b_gamelist_avatar_00553760[] = "b_gamelist_avatar";
 const char s_b_gamelist_buddy_00553788[] = "b_gamelist_buddy";
+const char s_b_gamelist_buddydown_005522a4[] = "b_gamelist_buddydown";
+const char s_b_gamelist_buddyup_005522bc[] = "b_gamelist_buddyup";
+const char s_b_gamelist_channeldown_00552274[] = "b_gamelist_channeldown";
+const char s_b_gamelist_channelup_0055228c[] = "b_gamelist_channelup";
 const char s_b_gamelist_create_0055374c[] = "b_gamelist_create";
 const char s_b_gamelist_directgo_005536d0[] = "b_gamelist_directgo";
 const char s_b_gamelist_exit_0055379c[] = "b_gamelist_exit";
@@ -1057,7 +1064,14 @@ void *PTR_FUN_005572f0;
 void *PTR_FUN_00557300;
 void *PTR_FUN_0055745c;
 void *PTR_FUN_00557484;
-void *PTR_FUN_00557524;
+/* LoadSpriteSet's per-entry sprite-object vtable slot 0 (dtor, called
+ * from LoadSpriteSet.c on error via slot 0). Decoded from orig .data
+ * 0x557524: FUN_004f14c0. Was a bare uninitialized global, so the dtor
+ * call crashed on a null vtable. PTR_FUN_00557528/0x557530 immediately
+ * after are separately-addressed vtables already used standalone
+ * elsewhere (FUN_004f1750.c/FUN_004f2e40.c/FUN_004f2f00.c) - left
+ * untouched, not part of this one. */
+void *PTR_FUN_00557524 = (void *)FUN_004f14c0;
 void *PTR_FUN_00557528;
 void *PTR_FUN_00557530;
 void *PTR_FUN_00557534;

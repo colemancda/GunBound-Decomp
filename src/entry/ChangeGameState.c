@@ -41,15 +41,15 @@ void ChangeGameState(int newStateId)
       PostQuitMessage(0);
       return;
     }
-    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_buddyup_005522bc);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_buddydown_005522a4);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_channelup_0055228c);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_channeldown_00552274);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_buddy_up_00552268);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_buddy_down_00552258);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_buddy_exit_00552248);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_error_confirm_00552238);
+    AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_cursor_005524e8);
     g_cursorTexture = FindPreloadedTextureByName(s_cursor_005524e8);
     ResolveNamedState(s_normal_00552230);
     FUN_005099b0();
