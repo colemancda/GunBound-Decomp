@@ -14,6 +14,16 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
+/* CGameState's OnTick(+0x24)/etc. virtuals take `this` via ECX
+ * (__fastcall), same as OnEnter/OnExit - see ChangeGameState.c's
+ * GameStateVirtualFn comment. The generic `code()` cast (plain cdecl)
+ * this file used for these calls pushed `this` on the stack instead of
+ * loading it into ECX, so State06_Logo2_OnTick (declared __fastcall,
+ * confirmed via functions.h) read garbage/null off its own object
+ * pointer and crashed. */
+typedef void (__fastcall *GameStateVirtualFn)(void *thisPtr);
+typedef void (__fastcall *GameStateVirtualFn3)(void *thisPtr, undefined4 a1, undefined4 a2, undefined4 a3);
+
 void GameTick(void)
 
 {
@@ -56,7 +66,8 @@ void GameTick(void)
     _Format = (char *)GetLocalizedString(&g_localizedStringTable,9000);
     _sprintf(local_400,_Format,puVar12);
     DAT_00793521 = '\0';
-    (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_400,2,6);
+    (*(GameStateVirtualFn3 *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))
+              (g_gameStateVTableArray[g_currentGameState],local_400,2,6);
   }
   if (uVar10 == 0) {
     return;
@@ -86,7 +97,8 @@ void GameTick(void)
   if ((g_bBattleSessionActive == '\0') && (DAT_00793517 == '\0')) {
     DAT_00793517 = 0;
     for (uVar8 = uVar10; uVar8 != 0; uVar8 = uVar8 - 1) {
-      (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x24))();
+      (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x24))
+                (g_gameStateVTableArray[g_currentGameState]);
       FUN_004b3e00();
       if (DAT_0056d118 != -1) {
         DAT_0056d118 = DAT_0056d118 + 1;
@@ -94,7 +106,8 @@ void GameTick(void)
     }
   }
   else {
-    (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x24))();
+    (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x24))
+              (g_gameStateVTableArray[g_currentGameState]);
   }
   DAT_00793517 = 0;
   for (; uVar10 != 0; uVar10 = uVar10 - 1) {
@@ -109,7 +122,7 @@ void GameTick(void)
       uVar11 = 2;
       DAT_00793515 = '\x01';
       uVar4 = GetLocalizedString(&g_localizedStringTable,0x141);
-      (**(code **)(iVar5 + 0x28))(uVar4,uVar11,uVar13);
+      (*(GameStateVirtualFn3 *)(iVar5 + 0x28))(g_gameStateVTableArray[g_currentGameState],uVar4,uVar11,uVar13);
       *(undefined4 *)(&DAT_0067e3c8 + g_clientContext) = 0;
     }
     else {
@@ -134,14 +147,16 @@ void GameTick(void)
     }
     else {
       DAT_005b3620 = DAT_005b3620 / 2;
-      (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x2c))();
+      (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x2c))
+                (g_gameStateVTableArray[g_currentGameState]);
       DAT_0079352c = 0;
       (**(code **)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
     }
     iVar5 = (**(int (**)())(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
     if (iVar5 == 0) {
       FUN_004f3ea0();
-      (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x30))();
+      (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x30))
+                (g_gameStateVTableArray[g_currentGameState]);
       if (DAT_00793610 != '\0') {
         (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,7,0);
       }
@@ -156,14 +171,16 @@ LAB_00413510:
     }
     else {
       DAT_005b3620 = DAT_005b3620 / 2;
-      (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x34))();
+      (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x34))
+                (g_gameStateVTableArray[g_currentGameState]);
       DAT_0079352c = 0;
       (**(code **)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
     }
     iVar5 = (**(int (**)())(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
     if (iVar5 == 0) {
       FUN_004f3ea0();
-      (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x38))();
+      (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x38))
+                (g_gameStateVTableArray[g_currentGameState]);
       if (DAT_00793610 != '\0') {
         (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,7,0);
       }
@@ -179,7 +196,8 @@ LAB_00413510:
   }
   else {
     DAT_005b3620 = DAT_005b3620 / 2;
-    (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x3c))();
+    (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x3c))
+              (g_gameStateVTableArray[g_currentGameState]);
     FUN_004b3e60(&DAT_00e9b4e8);
     FUN_004062b0(&DAT_00e9be90);
     FUN_004062b0(&DAT_00e9c0fc);
@@ -187,7 +205,7 @@ LAB_00413510:
     while (iVar5 != 0) {
       puVar1 = (undefined4 *)(iVar5 + 8);
       iVar5 = *(int *)(iVar5 + 4);
-      (**(code **)(*(int *)*puVar1 + 0x24))();
+      (*(GameStateVirtualFn *)(*(int *)*puVar1 + 0x24))((void *)*puVar1);
     }
     if ((g_stateChangeInProgress == 0) && (0x28 < DAT_0056d118)) {
       DrawSprite();
@@ -203,7 +221,8 @@ LAB_00413510:
       (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x1b,0);
     }
     DAT_00793611 = '\0';
-    (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x40))();
+    (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x40))
+              (g_gameStateVTableArray[g_currentGameState]);
     if (DAT_0056d108 == -1) {
 LAB_00413791:
       if (((g_stateChangeInProgress != 0) || (DAT_0079350c != '\0')) || (DAT_0079350d != '\0'))
@@ -246,7 +265,8 @@ LAB_004137a9:
   else {
     DAT_005b3620 = DAT_005b3620 / 2;
     if (DAT_0079350d != '\0') {
-      (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x44))();
+      (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x44))
+                (g_gameStateVTableArray[g_currentGameState]);
     }
     if (g_stateChangeInProgress == 0) {
       if (DAT_0079350d != '\0') goto LAB_00413933;
