@@ -31,7 +31,7 @@ int CScrollBar::ThumbHeight()
     return height;
 }
 
-extern CLabel * __stdcall CreateLabelWidget(int id, int spriteId, int x, int y, int w, int h);
+extern "C" CLabel *CreateLabelWidget(int id, int spriteId, int x, int y, int w, int h);
 
 /* 0x5080a0 - the scrollbar factory (docs' CreateScrollListWidget).
  * Same guarded-default-ctor + unguarded-pokes split as the other
@@ -273,4 +273,23 @@ extern "C" int ScrollListWidget_ThumbHeight()
         mov self, eax
     }
     return self->ThumbHeight();
+}
+
+/* TEMPORARY extern "C" compatibility shim - see the note at the bottom of
+ * Widget.cpp. Matches the ORIGINAL raw-C-compatible signature (6 stack
+ * args, first one unused/dropped - "id is hardcoded 0" per the deleted
+ * raw port's own comment) rather than the clean 7-param C++ factory
+ * above: `spriteBase`/`total` arrive in EAX/EDI in the original (see the
+ * "NOTE" on the real CreateScrollListWidget above), captured here rather
+ * than changed at each of its ~9 remaining raw-C call sites. Overloads
+ * cleanly against the 7-param version since the parameter counts differ.
+ * REMOVE once every caller is ported to call the clean version directly. */
+extern "C" CScrollBar *CreateScrollListWidget(void *, int x, int y, int w, int h, int pageSize)
+{
+    int spriteBase, total;
+    __asm {
+        mov spriteBase, eax
+        mov total, edi
+    }
+    return CreateScrollListWidget(spriteBase, total, x, y, w, h, pageSize);
 }

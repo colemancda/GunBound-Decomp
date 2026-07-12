@@ -12,7 +12,7 @@
  * ctor (the vtable-pointer write lands at a different point relative to
  * the other field writes - a compiler scheduling choice, not a logic
  * difference). Not chased further. */
-CLabel * __stdcall CreateLabelWidget(int id, int spriteId, int x, int y, int w, int h)
+extern "C" CLabel *CreateLabelWidget(int id, int spriteId, int x, int y, int w, int h)
 {
     CLabel *p = new CLabel();
     p->m_id = id;

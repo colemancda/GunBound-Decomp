@@ -56,7 +56,7 @@ extern const char s_ready_00551e80[];    /* "ready" */
  * including its exact fallthrough into a final unconditional "ready" call
  * when the resolved state isn't 3.
  */
-CButtonWidget * __stdcall CreateButtonWidget(void *registry, int layer, int id, int spriteBase,
+extern "C" CButtonWidget *CreateButtonWidget(void *registry, int layer, int id, int spriteBase,
                                               const char *textureName, int x, int y,
                                               int w, int h, char enabled, int arg11)
 {

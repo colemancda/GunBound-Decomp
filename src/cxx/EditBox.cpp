@@ -25,7 +25,7 @@ extern unsigned int DAT_007934e4;
  * CreateLabelWidget's ctor - vtable-pointer-write scheduling, not a
  * logic difference). Not chased further - same low ROI as
  * CreateLabelWidget's equivalent delta. */
-CEditBox * __stdcall CreateTextEntryWidget(int id, int x, int y, int w, int h, int maxLen)
+extern "C" CEditBox *CreateTextEntryWidget(int id, int x, int y, int w, int h, int maxLen)
 {
     CEditBox *p = new CEditBox();
     p->m_id = id;

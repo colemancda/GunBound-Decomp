@@ -57,11 +57,15 @@ extern "C" int RenderWrappedText(void *outBuf, const char *text, int lineBytes,
                                  int charsPerLine, int bufBytes, int flag); /* 0x41b4b0 */
 extern "C" int g_currentGameState;
 
-/* C++-linkage factories defined in Label.cpp / ScrollBar.cpp */
-CLabel * __stdcall CreateLabelWidget(int id, int spriteId, int x, int y, int w, int h);
+/* Factories defined in Label.cpp / EditBox.cpp - extern "C" linkage since
+ * their signatures already exactly match the raw C ports they replace, so
+ * raw C callers can link against them directly with no separate shim
+ * needed (unlike CreateScrollListWidget, which needs a 6-param shim below
+ * since the register-passed spriteBase/total don't fit this shape). */
+extern "C" CLabel *CreateLabelWidget(int id, int spriteId, int x, int y, int w, int h);
 CScrollBar * __stdcall CreateScrollListWidget(int spriteBase, int total,
                                               int x, int y, int w, int h, int pageSize);
-CEditBox * __stdcall CreateTextEntryWidget(int id, int x, int y, int w, int h, int maxLen);
+extern "C" CEditBox *CreateTextEntryWidget(int id, int x, int y, int w, int h, int maxLen);
 
 /* 0x505760 - the CPanel base constructor (a real out-of-line function,
  * SEH-framed; every panel builder calls it before installing its own
@@ -105,7 +109,7 @@ CChannelUserListPanel::CChannelUserListPanel()
  * register args as BuildWorldListPanel - the builder's argument is
  * forwarded as the factory's never-read stack slot and presumably
  * doubles as the EDI total. */
-CChannelUserListPanel * BuildChannelUserListPanel(int total)
+extern "C" CChannelUserListPanel * BuildChannelUserListPanel(int total)
 {
     CChannelUserListPanel *p = new CChannelUserListPanel();
     p->m_id = 0x232a;
@@ -134,7 +138,7 @@ CReadyRoomChatPanel::CReadyRoomChatPanel()
  * chat log). Key 2000 at (21,385) 480x160, one page-9 scrollbar at
  * (455,51) h 69; +0x48 starts at 0xb (vs 0 in the list panels - likely
  * the visible-row count). */
-CReadyRoomChatPanel * BuildReadyRoomChatPanel(int total)
+extern "C" CReadyRoomChatPanel * BuildReadyRoomChatPanel(int total)
 {
     CReadyRoomChatPanel *p = new CReadyRoomChatPanel();
     p->m_unk4c = 0;
@@ -166,7 +170,7 @@ CLobbyChatPanel::CLobbyChatPanel()
  * 22x22 at y 9, x from 0x108 stepping 0x20; the original inlines the
  * label factory in the loop) with the selected one marked, then the
  * page-13 scrollbar. selectedTab is the builder's argument. */
-CLobbyChatPanel * BuildLobbyChatPanel(int selectedTab)
+extern "C" CLobbyChatPanel * BuildLobbyChatPanel(int selectedTab)
 {
     CLobbyChatPanel *p = new CLobbyChatPanel();
     p->m_id = 0x2329;
@@ -214,7 +218,7 @@ CAvatarStorePanel::CAvatarStorePanel()
  * scrollbar; registers with the manager BEFORE adding the three
  * category tab labels (msgs 0x4b0-0x4b2, 64x23 at y 508), each of
  * which starts DISABLED via SetEnabled(false). */
-CAvatarStorePanel * BuildAvatarStorePanel(int total)
+extern "C" CAvatarStorePanel * BuildAvatarStorePanel(int total)
 {
     CAvatarStorePanel *p = new CAvatarStorePanel();
     p->m_id = 0x232b;
@@ -247,7 +251,7 @@ CAvatarStorePanel * BuildAvatarStorePanel(int total)
  * delta documented on CreateLabelWidget/CreateTextEntryWidget/
  * CreateButtonWidget/CreateScrollListWidget applies here too (now 5
  * confirmed instances) - not chased further, same low-ROI category. */
-CStaticText *CreateStaticTextWidget(int x, int y, int w, int h,
+extern "C" CStaticText *CreateStaticTextWidget(int x, int y, int w, int h,
                                     const char *text, u16 color)
 {
     CStaticText *p = new CStaticText();
@@ -281,7 +285,7 @@ CChatLogPanel::CChatLogPanel()
  * manager sweep UNLESS in-battle (state 11 leaves keyboard focus on
  * the game) - the partner-name CStaticText in white (0xffff), and the
  * page-14 scrollbar. */
-void BuildChatLogPanel(int arg1, int partnerRecord)
+extern "C" void BuildChatLogPanel(int arg1, int partnerRecord)
 {
     const char *name = (const char *)(partnerRecord + 0x21);
     CChatLogPanel *p = new CChatLogPanel();
@@ -320,7 +324,7 @@ void BuildChatLogPanel(int arg1, int partnerRecord)
  * sprites 0x514-0x517, 45x24 in a 2x2 block, id 4 pre-selected), and
  * OK (id 8, sprite 0x51d) / Cancel (id 9, 0x51c). The original
  * inlines the label factory for ids 4-9. */
-void BuildCreateRoomDialog(void *manager, int arg2, int arg3)
+extern "C" void BuildCreateRoomDialog(void *manager, int arg2, int arg3)
 {
     for (CPanelListNode *n = PanelListHead(); n != 0; n = n->m_next) {
         CPanel *q = n->m_panel;
@@ -375,7 +379,7 @@ void BuildCreateRoomDialog(void *manager, int arg2, int arg3)
  * panel's +0x1d reshow flag. Otherwise: (568,11) 211x267 with the
  * close-X (sprite 0x2bf) / Add (0x2bd) / Del (0x2be) labels along the
  * top and the page-7 scrollbar; front-inserted like the dialogs. */
-void BuildBuddyPanel()
+extern "C" void BuildBuddyPanel()
 {
     for (CPanelListNode *n = PanelListHead(); n != 0; n = n->m_next) {
         CPanel *q = n->m_panel;
@@ -406,7 +410,7 @@ void BuildBuddyPanel()
  * two 4-char CEditBoxes (the room number focused after the manager
  * focus sweep, then the password) and OK (sprite 0x579) / Cancel
  * (0x578) labels. Keeps the base ctor's insert-at-front default. */
-void __fastcall BuildEnterRoomNumberDialog(int arg)
+extern "C" void __fastcall BuildEnterRoomNumberDialog(int arg)
 {
     for (CPanelListNode *n = PanelListHead(); n != 0; n = n->m_next) {
         CPanel *q = n->m_panel;
@@ -741,7 +745,7 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
  * stack slot. They're passed as 0 here until the curated Ghidra
  * project pins them; the builder's argument is presumably the world
  * count headed for EDI. */
-CWorldListPanel * BuildWorldListPanel(void *manager)
+extern "C" CWorldListPanel * BuildWorldListPanel(void *manager)
 {
     /* the argument is &g_uiPanelManager (confirmed by State02's
      * OnEnter call site); the original forwards it into the scrollbar
