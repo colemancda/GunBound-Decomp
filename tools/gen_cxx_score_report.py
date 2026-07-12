@@ -52,11 +52,27 @@ FUNCS = [
     ("src/cxx/Widget.cpp", "50e620", "?FindChildIndex@CWidget@@QAEHHH@Z", 68),
     ("src/cxx/Widget.cpp", "50e670", "?AddChild@CWidget@@QAEXPAV1@@Z", 80),
     ("src/cxx/Widget.cpp", "50eb10", "?OnCommand@CWidget@@UAEXHHH@Z", 465),
+    ("src/cxx/Label.cpp", "507ee0", "?CreateLabelWidget@@YGPAVCLabel@@HHHHHH@Z", 115),
+    ("src/cxx/Label.cpp", "50e350", "?Draw@CLabel@@UAEXXZ", 78),
+    ("src/cxx/Label.cpp", "5052e0", "?OnMouseDown@CLabel@@UAE_NHH@Z", 152),
+    ("src/cxx/EditBox.cpp", "507030", "?Draw@CEditBox@@UAEXXZ", 94),
+    ("src/cxx/EditBox.cpp", "507f60", "?CreateTextEntryWidget@@YGPAVCEditBox@@HHHHHH@Z", 140),
+    ("src/cxx/ButtonWidget.cpp", "406020",
+     "?CreateButtonWidget@@YGPAVCButtonWidget@@PAXHHHPBDHHHHDH@Z", 245),
 ]
 
 SECTIONS = [
     ("CWidget - base class virtuals + helpers (src/cxx/Widget.cpp)", [
         "src/cxx/Widget.cpp",
+    ]),
+    ("CLabel (src/cxx/Label.cpp)", [
+        "src/cxx/Label.cpp",
+    ]),
+    ("CEditBox (src/cxx/EditBox.cpp)", [
+        "src/cxx/EditBox.cpp",
+    ]),
+    ("CButtonWidget - flat button system (src/cxx/ButtonWidget.cpp)", [
+        "src/cxx/ButtonWidget.cpp",
     ]),
 ]
 

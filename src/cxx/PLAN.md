@@ -114,25 +114,87 @@ not chased further. `AddChild` (2380/3200, worst *ratio* in the file at
 25.6%) is confirmed unfixable from portable C++: the original takes
 `this` in EBX, not ECX.
 
+**Update (2026-07-11, item 1-2 done): `HitTest`'s delta investigated
+further, confirmed as a genuine dead end** - tried rewriting the chained
+`a && b && c && d` as an explicit if/else instead of one expression;
+MSVC 7.1 produces byte-identical output either way, so this is a
+register-allocation heuristic difference (where `hit` lives during the
+chain), not a source-shape issue like the loop-hoist fix. Everything
+that matters (every branch, every vtable call, the full child loop) is
+confirmed correct - not chased further.
+
+**`Label.cpp`/`EditBox.cpp`/`ButtonWidget.cpp`: scored and fixed.**
+
+| File | Method | Before | After |
+|---|---|---|---|
+| Label.cpp | `Draw` | (loop fix) | **105/3500** |
+| Label.cpp | `OnMouseDown` | 2850 | **105/6900** |
+| Label.cpp | `CreateLabelWidget` | — | 550/3600 (ctor scheduling, see below) |
+| EditBox.cpp | `Draw` | 660 | **315/3800** |
+| EditBox.cpp | `CreateTextEntryWidget` | — | 1780/4200 (ctor scheduling) |
+| ButtonWidget.cpp | `CreateButtonWidget` | 4060 | 3520/7700 (see finding below) |
+
+Two new fix patterns found, on top of the loop-hoist/switch ones:
+- **Recomputed vs. cached boolean.** `CLabel::OnMouseDown` had a
+  `bool inside = <rect test>;` cached and reused twice; the original
+  recomputes the whole rect-test chain a second time for the final
+  return instead of caching it. Caching costs real diff score. Combined
+  with switching `if (ResetPressState(...)) return true; return inside;`
+  to `return ResetPressState(...) || <rect test>;` (one shared epilogue,
+  matching the idiom `ResetPressState`/`OnDragMove` already use) -
+  2850 → 105/6900.
+- **Address computed early vs. inline.** `CEditBox::Draw` computes
+  `m_text`'s address inline at each of its two use sites; the original
+  computes it once, early, and reuses it. Caching into a local pointer
+  up front: 660 → 315/3800.
+
+**A real bug found and fixed, not just a score improvement.**
+`CButtonWidget` (`ButtonWidget.h`/`.cpp`) had no constructor - every
+field got poked unconditionally in the factory after `new
+CButtonWidget()`, with no null-guard. The original genuinely
+null-guards this block (skips all the zero/-1 init if `operator new`
+returns null), the same "guarded ctor + unguarded pokes" idiom already
+documented for CLabel/CEditBox. Added a real `CButtonWidget(int layer,
+int id)` constructor so the compiler's own new-then-construct-if-
+non-null codegen reproduces this for free - 4060 → 3520/7700.
+
+**Two confirmed-unfixable deltas, same category as `AddChild`'s EBX
+`this` mismatch:**
+- `CreateLabelWidget`/`CreateTextEntryWidget`/`CreateButtonWidget`'s
+  remaining score is constructor field-write *scheduling* (the
+  vtable-pointer write, and a couple of other field writes, land at
+  different relative positions) - a compiler-internal heuristic, not
+  reproducible from source-level reordering (member-initializer-list
+  order is forced to declaration order in real C++, unlike the
+  backend's store-scheduling freedom). Tried once for
+  `CreateLabelWidget`, no source variant changed it; not chased further
+  for the other two either.
+- `CButtonWidget`'s `RegisterActiveObject` call site is structurally
+  different from what's declared here: the original computes its first
+  argument from a **global** (`*(int*)0x5b3484 + 0x67ec70`), not from
+  `CreateButtonWidget`'s own `registry` parameter, and its calling
+  convention isn't ordinary `__cdecl`/`__stdcall` (no stack cleanup
+  after the call). The `registry`/`layer` parameter pair in the current
+  signature may not be the real shape of the original's first two
+  arguments at all - this needs `RegisterActiveObject`'s own
+  reconstruction (item 5 below) to resolve properly, not a factory-level
+  fix.
+
+All six functions above are wired into `tools/gen_cxx_score_report.py`'s
+`FUNCS` list (21 total now) for the CI artifact.
+
 **Remaining Phase 1 work, in priority order:**
-1. Close `HitTest`'s remaining delta (645/5700) - the chained
-   `a && b && c && d` rect-test's `hit` accumulation (register vs. stack
-   temp), the one piece of `Widget.cpp` not yet effectively perfect.
-2. Score + fix the small files next, same score→diff→fix→verify loop:
-   `Label.cpp` (64 lines), `EditBox.cpp` (57 lines), `ButtonWidget.cpp`
-   (84 lines - written this session, **never scored at all**, worth
-   checking given the open uncertainty already flagged in its own
-   comments around `CreateButtonWidget`'s `layer`/`registry` param
-   mapping).
-3. `ScrollBar.cpp` (217 lines) - already flagged above as "mostly done,
+1. `ScrollBar.cpp` (217 lines) - already flagged above as "mostly done,
    needs a spot-check."
-4. `Panel.cpp` (728 lines, the big one) - nine `Build*Panel` factories
+2. `Panel.cpp` (728 lines, the big one) - nine `Build*Panel` factories
    plus `CWorldListPanel::OnMouseDown`/`OnCommand`. Saved for last:
-   biggest surface area, and the small-file passes will likely surface
-   more reusable fix patterns (like the loop-hoist and switch-vs-if-chain
-   ones) before tackling it.
-5. `RegisterActiveObject`'s sorted-container reconstruction;
-   `LoadButtonDefinitionFromXFS`'s promotion.
+   biggest surface area, and the small-file passes already surfaced
+   several reusable fix patterns (loop-hoist, switch-vs-if-chain,
+   cached-vs-recomputed boolean, early-vs-inline address computation,
+   missing guarded ctor) worth checking for on sight before diffing.
+3. `RegisterActiveObject`'s sorted-container reconstruction (also
+   needed to resolve `CButtonWidget`'s open registry/calling-convention
+   question above); `LoadButtonDefinitionFromXFS`'s promotion.
 
 Each pass: compile → `tools/promote.sh`/manual `score.sh` sweep → diff
 the worst offenders → apply confirmed-safe fixes → re-verify → add

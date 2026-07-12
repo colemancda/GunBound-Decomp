@@ -6,7 +6,12 @@
  * __stdcall (the original ret-cleans 0x18 bytes). Its exact shape is
  * `new CLabel()` (default ctor inlined under the null guard) followed
  * by UNGUARDED argument pokes - the original really does store through
- * a null pointer if the allocation fails; preserved as-is. */
+ * a null pointer if the allocation fails; preserved as-is.
+ * score.sh: 550/3600 - the zero-init and argument pokes all match;
+ * remaining delta is field-write ordering within the inlined default
+ * ctor (the vtable-pointer write lands at a different point relative to
+ * the other field writes - a compiler scheduling choice, not a logic
+ * difference). Not chased further. */
 CLabel * __stdcall CreateLabelWidget(int id, int spriteId, int x, int y, int w, int h)
 {
     CLabel *p = new CLabel();
@@ -24,14 +29,16 @@ CLabel * __stdcall CreateLabelWidget(int id, int spriteId, int x, int y, int w, 
  * own OnCommand spine - the owning panel's OnCommand override does
  * the actual FindSpriteFrame/blit for the label's current state -
  * then the usual child draw broadcast. (Refines docs/widgets.md's
- * "Draw blits via FindSpriteFrame": the blit is parent-mediated.) */
+ * "Draw blits via FindSpriteFrame": the blit is parent-mediated.)
+ * score.sh: 105/3500 - effectively perfect (loop-hoist fix applied). */
 void CLabel::Draw()
 {
     if (m_unk38 != 0 && m_enabled != 0) {
         OnCommand(1, m_id, 0);
     }
-    if (m_children.GetCount() != 0) {
-        unsigned int i = 0;
+    unsigned int count = m_children.GetCount();
+    unsigned int i = 0;
+    if (i < count) {
         do {
             m_children[i]->Draw();
             ++i;
@@ -48,17 +55,25 @@ void CLabel::Draw()
  *
  * Returns whether the event was consumed: true if the shared
  * press-reset tail (ResetPressState, 0x50e2f0) took it, or if the
- * point was inside this label's rect at all. */
+ * point was inside this label's rect at all.
+ * score.sh: 105/6900 (2850 -> 105) - effectively perfect. Two source
+ * fixes: the original recomputes the whole rect-test chain twice (once
+ * to guard OnCommand, again for the return) rather than caching it in a
+ * local - caching it changes the codegen; and the two-return-statement
+ * form (`if (ResetPressState(...)) return true; return inside;`) gets
+ * its own early-return epilogue, whereas `return ResetPressState(...)
+ * || inside;` shares one epilogue with the tail, matching the original
+ * (same idiom already used by ResetPressState/OnDragMove elsewhere in
+ * this file). */
 bool CLabel::OnMouseDown(int x, int y)
 {
-    bool inside = !m_hidden &&
-                  m_x < x && x < m_x + m_width &&
-                  m_y < y && y < m_y + m_height;
-    if (inside && m_unk38 != 0 && m_enabled != 0) {
-        OnCommand(0, m_id, 0);
+    if (!m_hidden && m_x < x && x < m_x + m_width &&
+        m_y < y && y < m_y + m_height) {
+        if (m_unk38 != 0 && m_enabled != 0) {
+            OnCommand(0, m_id, 0);
+        }
     }
-    if (ResetPressState(x, y)) {
-        return true;
-    }
-    return inside;
+    return ResetPressState(x, y) ||
+           (!m_hidden && m_x < x && x < m_x + m_width &&
+            m_y < y && y < m_y + m_height);
 }

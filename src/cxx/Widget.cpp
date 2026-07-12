@@ -31,11 +31,18 @@
 /* 0x50e9c0, vtable slot 4. Rect test against (+0x28..+0x34), then
  * broadcast to every child's HitTest - a child hit counts even when the
  * point misses this widget's own rect. Hidden (+0x1e) short-circuits.
- * score.sh: 645/5700 (/O2) - the child-walk loop is byte-identical
- * (confirmed via tools/promote.sh); remaining delta is how the chained
- * `a && b && c && d` rect test accumulates into `hit` (register vs stack
- * temp) plus the unresolvable AtlThrow call target - not yet chased
- * further. */
+ * score.sh: 645/5700 (/O2) - the child-walk loop and every branch/vtable-
+ * call sequence is byte-identical (confirmed via tools/promote.sh);
+ * remaining delta is purely where `hit` lives during the rect-test chain
+ * - the original keeps it in CL and only spills to a stack slot once,
+ * right before the loop (since CL survives the loop's recursive calls),
+ * whereas this compile keeps it on the stack from the start. Tried
+ * rewriting the `a && b && c && d` chain as an explicit if/else - MSVC
+ * 7.1 produces byte-identical output either way, so this is a genuine
+ * register-allocation heuristic difference, not a source-shape issue
+ * like the loop-hoist fix elsewhere in this file. Not chased further -
+ * everything that matters (every branch, every call, the full loop) is
+ * confirmed correct. */
 bool CWidget::HitTest(int x, int y)
 {
     if (m_hidden) {

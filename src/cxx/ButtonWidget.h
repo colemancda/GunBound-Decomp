@@ -23,6 +23,21 @@
 
 class CButtonWidget {
 public:
+    /* Default ctor, inlined into the 0x406020 factory under the null
+     * guard (same guarded-ctor + unguarded-pokes split as CLabel/
+     * CEditBox's factories - see CreateButtonWidget in ButtonWidget.cpp
+     * for the unguarded position/texture/state pokes that follow).
+     * m_layer/m_id are set here too (the factory's first two real
+     * arguments) even though they're not compile-time constants,
+     * because the original writes them inside the same null-guarded
+     * block, before the vtable-ptr write - matching that requires
+     * passing them through the ctor rather than the factory body. */
+    CButtonWidget(int layer, int id)
+        : m_layer(layer), m_id(id), m_unk0c(0), m_unk10(0), m_unk14(0),
+          m_unk15(0), m_spriteBase(-1), m_texture(0), m_unk20(0),
+          m_state(-1), m_unk28(0), m_unk2c(0)
+    {}
+
     /* SLOT 0 +0x00: the scalar-deleting destructor thunk shared with
      * several unrelated classes (Ready Room's base infra, etc.) - see
      * docs/screens/09_ready_room.md's "poisoned vtable" note. */
