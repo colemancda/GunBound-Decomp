@@ -1,7 +1,28 @@
 /* CPanel base + CWorldListPanel construction - promoted from the raw C
  * ports src/unnamed/Panel_BaseConstructor.c (the out-of-line CPanel ctor,
  * 0x505760) and src/ui_widget/BuildWorldListPanel.c (0x5099d0).
- * See src/cxx/README.md. */
+ * See src/cxx/README.md.
+ *
+ * score.sh sweep (2026-07-11): HandlePress/CPanel::OnMouseDown are
+ * effectively perfect (105/7000, 210/5200); the nine Build*Panel
+ * factories (BuildChannelUserListPanel 4535/6000,
+ * BuildReadyRoomChatPanel 4185/6100, BuildLobbyChatPanel 13985/21000,
+ * BuildAvatarStorePanel 5271/10400, BuildChatLogPanel 5491/11200,
+ * BuildWorldListPanel 4675/8000, BuildBuddyPanel 6340/9700,
+ * BuildEnterRoomNumberDialog 4590/10200) all carry the same guarded-
+ * ctor field-write-scheduling delta already confirmed on
+ * CreateLabelWidget/CreateTextEntryWidget/CreateButtonWidget/
+ * CreateScrollListWidget/CreateStaticTextWidget - not chased
+ * individually, same low-ROI category each time. Three functions are
+ * far larger outliers and were NOT diffed in depth this pass:
+ * CWorldListPanel::OnMouseDown (6475/12800), CWorldListPanel::OnCommand
+ * (30589/33200), and BuildCreateRoomDialog (37925/46000) - all three
+ * are dominated by the DAT_00e9be94 flat-ButtonWidget registry walks
+ * this file's own comments already flag as "kept literal pending the
+ * flat-ButtonWidget reconstruction" (PLAN.md Phase 1's
+ * RegisterActiveObject item); revisit once that lands rather than
+ * hand-diffing register-convention-heavy code that's expected to change
+ * shape anyway. */
 #include "Widget.h"
 #include "GameState.h"
 
@@ -221,7 +242,11 @@ CAvatarStorePanel * BuildAvatarStorePanel(int total)
 
 /* 0x507ff0 - the CStaticText factory (no raw-port name existed;
  * discovered via the chat-log builder). Wraps the text into the
- * widget's own buffer at creation. */
+ * widget's own buffer at creation.
+ * score.sh: 1263/5800 - the same guarded-ctor field-write-scheduling
+ * delta documented on CreateLabelWidget/CreateTextEntryWidget/
+ * CreateButtonWidget/CreateScrollListWidget applies here too (now 5
+ * confirmed instances) - not chased further, same low-ROI category. */
 CStaticText *CreateStaticTextWidget(int x, int y, int w, int h,
                                     const char *text, u16 color)
 {
@@ -414,7 +439,8 @@ void __fastcall BuildEnterRoomNumberDialog(int arg)
  * the mouse-down broadcast; a miss on both drops focus (a real virtual
  * SetFocus(0) on ourselves); a chrome grab (inside, no child took it,
  * not pinned) arms dragging and the press point becomes the drag
- * reference. */
+ * reference.
+ * score.sh: 105/7000 - effectively perfect. */
 bool CPanel::HandlePress(int x, int y)
 {
     u8 inside = 0;
@@ -440,7 +466,9 @@ bool CPanel::HandlePress(int x, int y)
 
 /* 0x505430 - the CPanel OnMouseDown default: run the press core, and
  * when the press was consumed, auto-focus the panel's FIRST edit box
- * unless some edit box already holds focus. */
+ * unless some edit box already holds focus.
+ * score.sh: 210/5200 - effectively perfect (two unresolved call
+ * targets: the AtlThrow guard and the focus-set vtable call). */
 bool CPanel::OnMouseDown(int x, int y)
 {
     bool consumed = HandlePress(x, y);
@@ -468,12 +496,22 @@ bool CPanel::OnMouseDown(int x, int y)
  * are a 2-column grid inside the panel: cells 223x73 apart starting at
  * (+0x16, +0x2d) panel-relative, each 0xdf x 0x49; a row only counts
  * while its server's onlineFlag (the SoA at g_clientContext+0x3f809)
- * is 1. Returns the slot index or -1. */
+ * is 1. Returns the slot index or -1.
+ * score.sh: 2510 -> 1815/5600. Writing the column/row split as `i % 2`/
+ * `i / 2` instead of `i & 1`/`i / 2` matched the original's full signed-
+ * modulo codegen (a bit-correction sequence, `andl $0x80000001`/
+ * `decl`/`orl $-0x2`/`incl`, not a plain bitwise AND) - the original
+ * source apparently used `%` for both column and row, not a mixed `&`/
+ * `/` pair. Remaining delta is confirmed structural: `retl $0x4` in the
+ * original vs. this compile's `retl $0x8` proves one of (x, y) arrives
+ * in a register rather than as a normal stack argument, matching the
+ * same "custom register convention" family documented on
+ * CScrollBar::IsOverThumb/ThumbHeight. */
 int CWorldListPanel::RowHitTest(int x, int y)
 {
     int count = (int)*(unsigned char *)(g_clientContext + 0x3f808);
     for (int i = 0; i < count; ++i) {
-        int cellX = m_x + 0x16 + (i & 1) * 0xf7;
+        int cellX = m_x + 0x16 + (i % 2) * 0xf7;
         int cellY = m_y + 0x2d + (i / 2) * 0x49;
         if (cellX <= x && x <= cellX + 0xdf &&
             cellY <= y && y <= cellY + 0x49 &&

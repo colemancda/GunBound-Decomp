@@ -67,6 +67,27 @@ FUNCS = [
     ("src/cxx/ScrollBar.cpp", "50f7c0", "?OnCommand@CScrollBar@@UAEXHHH@Z", 113),
     ("src/cxx/ScrollBar.cpp", "50f500", "?OnMouseDown@CScrollBar@@UAE_NHH@Z", 231),
     ("src/cxx/ScrollBar.cpp", "50f5f0", "?OnMouseUp@CScrollBar@@UAE_NHH@Z", 100),
+    ("src/cxx/Panel.cpp", "50e420", "?HandlePress@CPanel@@QAE_NHH@Z", 152),
+    ("src/cxx/Panel.cpp", "50df40", "?RowHitTest@CWorldListPanel@@QAEHHH@Z", 144),
+    ("src/cxx/Panel.cpp", "505430", "?OnMouseDown@CPanel@@UAE_NHH@Z", 128),
+    ("src/cxx/Panel.cpp", "50d5a0", "?OnMouseDown@CWorldListPanel@@UAE_NHH@Z", 362),
+    ("src/cxx/Panel.cpp", "50d810", "?OnCommand@CWorldListPanel@@UAEXHHH@Z", 1065),
+    ("src/cxx/Panel.cpp", "509d80",
+     "?BuildChannelUserListPanel@@YAPAVCChannelUserListPanel@@H@Z", 212),
+    ("src/cxx/Panel.cpp", "5094f0",
+     "?BuildReadyRoomChatPanel@@YAPAVCReadyRoomChatPanel@@H@Z", 210),
+    ("src/cxx/Panel.cpp", "509af0",
+     "?BuildLobbyChatPanel@@YAPAVCLobbyChatPanel@@H@Z", 654),
+    ("src/cxx/Panel.cpp", "509e60",
+     "?BuildAvatarStorePanel@@YAPAVCAvatarStorePanel@@H@Z", 360),
+    ("src/cxx/Panel.cpp", "507ff0",
+     "?CreateStaticTextWidget@@YAPAVCStaticText@@HHHHPBDG@Z", 172),
+    ("src/cxx/Panel.cpp", "509260", "?BuildChatLogPanel@@YAXHH@Z", 367),
+    ("src/cxx/Panel.cpp", "5099d0",
+     "?BuildWorldListPanel@@YAPAVCWorldListPanel@@PAX@Z", 274),
+    ("src/cxx/Panel.cpp", "508190", "?BuildCreateRoomDialog@@YAXPAXHH@Z", 1557),
+    ("src/cxx/Panel.cpp", "509110", "?BuildBuddyPanel@@YAXXZ", 331),
+    ("src/cxx/Panel.cpp", "5087b0", "?BuildEnterRoomNumberDialog@@YIXH@Z", 342),
 ]
 
 SECTIONS = [
@@ -84,6 +105,9 @@ SECTIONS = [
     ]),
     ("CScrollBar (src/cxx/ScrollBar.cpp)", [
         "src/cxx/ScrollBar.cpp",
+    ]),
+    ("CPanel + CWorldListPanel (src/cxx/Panel.cpp)", [
+        "src/cxx/Panel.cpp",
     ]),
 ]
 

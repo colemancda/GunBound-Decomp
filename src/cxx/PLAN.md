@@ -216,17 +216,53 @@ Ghidra decompile before "fixing" a suspected logic bug from raw asm
 alone** - the compiler's own reordering can make stack slots read like
 different values than they are.
 
-**Remaining Phase 1 work, in priority order:**
-1. `Panel.cpp` (728 lines, the big one) - nine `Build*Panel` factories
-   plus `CWorldListPanel::OnMouseDown`/`OnCommand`. Saved for last:
-   biggest surface area, and the small-file passes already surfaced
-   several reusable fix patterns (loop-hoist, switch-vs-if-chain,
-   cached-vs-recomputed boolean, early-vs-inline address computation,
-   missing guarded ctor, branchless-clamp bit-trick) worth checking for
-   on sight before diffing.
-2. `RegisterActiveObject`'s sorted-container reconstruction (also
+**`Panel.cpp`: scored (2026-07-11, all 16 addressable methods).**
+`HandlePress` (105/7000) and `CPanel::OnMouseDown` (210/5200) are
+effectively perfect. `RowHitTest` improved 2510 → 1815/5600 (writing the
+row/column split as `i % 2`/`i / 2` instead of a mixed `&`/`/` form
+matched the original's full signed-modulo codegen) with a confirmed
+register-convention ceiling beyond that (`retl $4` vs `$8` proves one
+argument arrives in a register). The nine `Build*Panel` factories all
+carry the by-now-familiar guarded-ctor field-write-scheduling delta
+(5 total confirmed instances of that category across the whole tree
+now) - not chased individually. Three outliers were NOT diffed in depth:
+`CWorldListPanel::OnMouseDown` (6475/12800), `::OnCommand`
+(30589/33200), and `BuildCreateRoomDialog` (37925/46000) - all three are
+dominated by the `DAT_00e9be94` flat-ButtonWidget registry walks this
+file's own comments already flag as blocked on `RegisterActiveObject`'s
+reconstruction (item below); revisit once that lands.
+
+**A real bug found in the tooling itself, not the reconstruction.**
+`gen_diff_report.py`'s `find_symbol_and_size` matched hints by a bare,
+truncated-at-first-`@` name - fine for the raw-C report (one function
+per file, decorated names truncate to something globally unique in
+practice) but silently WRONG for C++ mangled symbols, where two
+different methods sharing a bare name across classes (e.g.
+`CPanel::OnMouseDown` and `CWorldListPanel::OnMouseDown`) both truncate
+to the same string. It picked whichever came first in the object's
+symbol table, meaning `gen_cxx_score_report.py` would have silently
+scored one method's bytes against the OTHER's address range. Fixed:
+try an exact full-string match first; only fall back to the bare-name
+heuristic when it resolves to exactly one candidate, and refuse (return
+`None`) rather than guess when it's ambiguous. Every score number
+actually *reported* in this session's commits was still correct - they
+all came from `tools/score.sh`/manual `diff.py -e` calls with the exact
+mangled symbol passed directly, never through the buggy path - but the
+CI report generator itself had never been exercised against a file with
+overloaded method names until `Panel.cpp`, so this was a real latent bug
+worth catching before it produced a wrong report silently.
+
+**Remaining Phase 1 work:**
+1. `RegisterActiveObject`'s sorted-container reconstruction (also
    needed to resolve `CButtonWidget`'s open registry/calling-convention
-   question above); `LoadButtonDefinitionFromXFS`'s promotion.
+   question, and the three `Panel.cpp` outliers above);
+   `LoadButtonDefinitionFromXFS`'s promotion.
+
+With `Panel.cpp` done, every `.cpp` file in `src/cxx/` (except
+`GameState.cpp`/`GameStateMachine.cpp`/`State0*.cpp`, which are Phase 2+
+territory) has now been through at least one score→diff→fix pass. Phase
+1's widget-system byte-verification is functionally complete modulo the
+known-blocked items above.
 
 Each pass: compile → `tools/promote.sh`/manual `score.sh` sweep → diff
 the worst offenders → apply confirmed-safe fixes → re-verify → add

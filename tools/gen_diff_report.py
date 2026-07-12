@@ -165,13 +165,36 @@ def find_symbol_and_size(objfile, hint):
             starts.append((addr, name, i))
     if not starts:
         return None, None
-    hint_bare = hint.lstrip("_@").split("@")[0].lower()
+    # Try an exact match on the full (decorated/mangled) name first - this
+    # is the only safe option for C++ mangled symbols, where two different
+    # methods (e.g. CPanel::OnMouseDown and CWorldListPanel::OnMouseDown)
+    # can share the same bare function name and only differ in the class
+    # qualifier baked into the rest of the mangled string. The bare-name
+    # fallback below is still needed for the raw-C report's hints, which
+    # are hand-written approximations of the decorated name (calling-
+    # convention decoration can differ slightly from what's guessed) - but
+    # it MUST NOT be used as the primary strategy or it silently picks the
+    # first same-named symbol in the object, scoring the wrong function
+    # entirely (confirmed happening for Panel.cpp's two OnMouseDown
+    # overloads before this fix).
     match = None
     for addr, name, idx in starts:
-        bare = name.lstrip("_@").split("@")[0].lower()
-        if bare == hint_bare:
+        if name == hint:
             match = (addr, name, idx)
             break
+    if match is None:
+        hint_bare = hint.lstrip("_@").split("@")[0].lower()
+        candidates = []
+        for addr, name, idx in starts:
+            bare = name.lstrip("_@").split("@")[0].lower()
+            if bare == hint_bare:
+                candidates.append((addr, name, idx))
+        if len(candidates) == 1:
+            match = candidates[0]
+        elif len(candidates) > 1:
+            # Ambiguous bare-name match (e.g. mangled C++ methods sharing a
+            # function name across classes) - refuse rather than guess.
+            return None, None
     if match is None:
         return None, None
     addr, name, idx = match
