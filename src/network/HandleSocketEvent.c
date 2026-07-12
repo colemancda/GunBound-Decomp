@@ -13,6 +13,13 @@
  * Status codes 0x65/100 are pushed to the generic event queue (FUN_004f2da0)
  * targeting the connection's owning UI object (conn+0x1c).
  *
+ * FUN_004f2da0's 1st arg (the event-queue object, its own dropped
+ * EAX) is conn+0x20 - orig 0x4e57fa/0x4e5833: `mov eax,[esi+0x20]`
+ * stays live (unclobbered) all the way to each `call 0x4f2da0`. This
+ * function already null-checks conn+0x20 before every call site
+ * (`if (*(int*)(param_1+0x20) == 0) return;`, etc.) but never actually
+ * passed it - promoted to an explicit 1st argument at each call site.
+ *
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
@@ -54,12 +61,12 @@ void __thiscall HandleSocketEvent(uint param_1,int param_2)
       if (*(int *)(param_1 + 0x20) == 0) {
         return;
       }
-      FUN_004f2da0(0x65,*(undefined4 *)(param_1 + 0x1c),0);
+      FUN_004f2da0(*(int *)(param_1 + 0x20),0x65,*(undefined4 *)(param_1 + 0x1c),0);
       return;
     }
     *(undefined4 *)(param_1 + 0x22c) = 2;
     if (*(int *)(param_1 + 0x20) != 0) {
-      FUN_004f2da0(100,*(undefined4 *)(param_1 + 0x1c),0);
+      FUN_004f2da0(*(int *)(param_1 + 0x20),100,*(undefined4 *)(param_1 + 0x1c),0);
     }
     WSAEventSelect(*(undefined4 *)(param_1 + 0x24),*(undefined4 *)(param_1 + 0xc),0x23);
     return;
@@ -78,7 +85,7 @@ void __thiscall HandleSocketEvent(uint param_1,int param_2)
     else {
       uVar6 = *(undefined4 *)(param_1 + 0x1c);
     }
-    FUN_004f2da0(0x65,uVar6,0);
+    FUN_004f2da0(*(uint **)(param_1 + 0x20),0x65,uVar6,0);
     CloseConnectionSocket();
   }
 LAB_004e58ad:
@@ -96,7 +103,7 @@ LAB_004e58ad:
         }
         if ((0 < iStack_1c) &&
            (iVar2 = send(*(SOCKET *)(unaff_ESI + 0x24),acStack_401c,iStack_1c,0), iVar2 < 0)) {
-          FUN_004f2da0(0x65,*(undefined4 *)(unaff_ESI + 0x1c),0);
+          FUN_004f2da0(*(uint **)(unaff_ESI + 0x20),0x65,*(undefined4 *)(unaff_ESI + 0x1c),0);
           CloseConnectionSocket();
         }
         FUN_004e5cc0();
@@ -105,14 +112,14 @@ LAB_004e58ad:
       LeaveCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x24a58));
     }
     else {
-      FUN_004f2da0(0x65,*(undefined4 *)(param_1 + 0x1c),0);
+      FUN_004f2da0(*(uint **)(param_1 + 0x20),0x65,*(undefined4 *)(param_1 + 0x1c),0);
       CloseConnectionSocket();
     }
   }
   if ((param_1 & 0x20) == 0) {
     return;
   }
-  FUN_004f2da0(0x65,*(undefined4 *)(uVar4 + 0x1c),0);
+  FUN_004f2da0(*(uint **)(uVar4 + 0x20),0x65,*(undefined4 *)(uVar4 + 0x1c),0);
   CloseConnectionSocket();
   return;
 }
