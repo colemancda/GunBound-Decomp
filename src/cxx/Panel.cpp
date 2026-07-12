@@ -10,7 +10,7 @@ extern "C" {
  * prepends or appends by the panel's m_unk05 front-flag. The manager
  * object arrives in EAX (custom-register family) - modeled as a plain
  * extern until the manager class is reconstructed. */
-void PanelManager_Register(void *panel);
+void __stdcall PanelManager_Register(void *panel);
 /* Manager-wide clear-all-focus sweep (0x50efa0): drops every
  * registered panel subtree's +0x04 focus flag (receiver conventions
  * unresolved, same manager family). */

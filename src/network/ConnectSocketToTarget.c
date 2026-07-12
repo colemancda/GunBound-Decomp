@@ -11,6 +11,10 @@
  * (param_1 + 0x28) but it was silently discarded against this function's
  * previous (void) signature. Promoted to an explicit parameter.
  *
+ * __stdcall confirmed by the original's epilogue (`ret 0x4`, callee
+ * cleans up its one 4-byte argument) - a plain declaration here would
+ * default to __cdecl and leave a caller-side stack-cleanup mismatch.
+ *
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
@@ -18,7 +22,7 @@
 #include "ghidra_types.h"
 
 
-undefined1 ConnectSocketToTarget(int unaff_ESI)
+undefined1 __stdcall ConnectSocketToTarget(int unaff_ESI)
 
 {
   SOCKET SVar1;
