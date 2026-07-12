@@ -39,9 +39,9 @@
 void __fastcall State01_Title_OnEnter(int param_1)
 
 {
-  LoadSpriteSet(&DAT_00ea0e18,10000);
+  LoadSpriteSet(&DAT_00ea0e18,10000,"titlemode.img");
   *(undefined4 *)(param_1 + 4) = 0;
-  PlayMusicTrack(0);
+  PlayMusicTrack(0,(byte *)"title.mp3");
   return;
 }
 

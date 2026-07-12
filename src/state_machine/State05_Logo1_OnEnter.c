@@ -1,5 +1,11 @@
 /* State05_Logo1_OnEnter - 0x004433f0 in the original binary.
  *
+ * Same missing-register-argument bugs as its sibling
+ * State06_Logo2_OnEnter.c: LoadSpriteSet's 3rd arg (imgName, arrives via
+ * EAX) and PlayMusicTrack's 2nd arg (track name, arrives via EDI) were
+ * both dropped. Recovered as "logomode.img"/"logo.mp3" (this state's
+ * counterparts to Logo2's "logomode2.img"/"logo2.mp3").
+ *
  * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
  * verified against documented behavior beyond what's already in
  * ARCHITECTURE.md/PROTOCOL.md/FILEFORMATS.md. Calls to unnamed
@@ -15,9 +21,9 @@
 void __fastcall State05_Logo1_OnEnter(int param_1)
 
 {
-  LoadSpriteSet(&DAT_00ea0e18,10000);
+  LoadSpriteSet(&DAT_00ea0e18,10000,"logomode.img");
   *(undefined4 *)(param_1 + 4) = 0;
-  PlayMusicTrack(0);
+  PlayMusicTrack(0,(byte *)"logo.mp3");
   return;
 }
 
