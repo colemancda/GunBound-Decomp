@@ -259,3 +259,14 @@ bool CScrollBar::OnMouseUp(int x, int y)
             m_x < x && x < m_x + m_width &&
             m_y < y && y < m_y + m_height);
 }
+
+/* TEMPORARY extern "C" compatibility shim - see the note at the bottom of
+ * Widget.cpp. src/ui_widget/ScrollListWidget_OnMouseDown.c had no real
+ * callers left (only doc-comment references), so it was deleted outright
+ * rather than patched in place; this shim exists only in case something
+ * not yet found still needs the old symbol name. REMOVE once confirmed
+ * unnecessary. */
+extern "C" bool ScrollListWidget_OnMouseDown(CScrollBar *this_, int x, int y)
+{
+    return this_->OnMouseDown(x, y);
+}

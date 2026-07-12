@@ -431,3 +431,76 @@ void CWidget::v10(bool b)
 {
     m_focused = (u8)b;
 }
+
+/* ===========================================================================
+ * TEMPORARY extern "C" compatibility shims.
+ *
+ * These exist ONLY so the ~100 raw-C files under src/ that still call these
+ * functions by their old FUN_-derived names (Widget_AddChild, etc.) keep
+ * linking now that the raw C ports (src/ui_widget/Widget_*.c) have been
+ * deleted in favor of the real implementations above. Each shim is NOT
+ * expected to byte-match anything in the original binary - it has no
+ * counterpart there at all (the original never had "two versions" of a
+ * function). The scores that matter are on the CWidget:: methods above.
+ *
+ * REMOVE these once every caller has been migrated to call the C++ methods
+ * directly (or been promoted to C++ itself) - tracked as follow-up work,
+ * not done in this pass. See src/cxx/PLAN.md.
+ *
+ * A few of these (AddChild, FindChildIndex) forward arguments that the
+ * ORIGINAL binary passes in registers the raw C decompile never resolved
+ * (Ghidra's own `unaff_EBX`/`unaff_EDI`/`unaff_ESI` artifacts - see the
+ * deleted raw files' own comments, preserved in git history). Rather than
+ * change every existing caller, each shim below captures that same
+ * register at function entry via inline asm, exactly replicating what the
+ * callers already implicitly relied on - not a new assumption, just made
+ * explicit. Verified via disassembly that the capture is the very first
+ * instruction, before anything else can clobber the register.
+ */
+extern "C" {
+
+void Widget_MoveBy(CWidget *this_, int dx, int dy)
+{
+    this_->MoveBy(dx, dy);
+}
+
+void Widget_SetEnabled(CWidget *this_, bool enabled)
+{
+    this_->SetEnabled(enabled);
+}
+
+
+
+
+void Widget_OnCommandDefault(CWidget *this_, int evt, int id, int arg)
+{
+    this_->OnCommand(evt, id, arg);
+}
+
+/* `this` arrives in EBX in the original (Widget_AddChild.c's own
+ * `unaff_EBX` - the raw port never had `this` as a real parameter at
+ * all). Captured here rather than changed at each of Widget_AddChild's
+ * ~19 call sites. */
+void Widget_AddChild(CWidget *child)
+{
+    CWidget *self;
+    __asm {
+        mov self, ebx
+    }
+    self->AddChild(child);
+}
+
+/* `typeId`/`id` arrive in EDI/ESI in the original (Widget_FindChildIndex.c's
+ * own `unaff_EDI`/`unaff_ESI`). Captured here rather than changed at each
+ * of its ~13 call sites. */
+unsigned int Widget_FindChildIndex(CWidget *this_)
+{
+    int typeId, id;
+    __asm {
+        mov typeId, edi
+        mov id, esi
+    }
+    return (unsigned int)this_->FindChildIndex(typeId, id);
+}
+
+} // extern "C"

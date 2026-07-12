@@ -383,3 +383,86 @@ The end state of this plan is NOT a linkable executable — it's every
 *understood* function existing as byte-verified C++ with real class layouts,
 which is exactly the input the eventual linker-script/full-image milestone
 needs.
+
+## Deduplicating C++-promoted functions from the raw C tree (2026-07-11)
+
+Once a `src/cxx/` method is byte-verified, the matching raw C port under
+`src/ui_widget/`/`src/unnamed/` becomes a literal duplicate. This section
+tracks removing those duplicates so the C++ method is the one source of
+truth, without breaking the ~100 other raw C files that still call the old
+functions by their C-linkage names.
+
+**Process, in order, for each of the ~34 promoted functions:**
+1. `grep -rl "\b<name>\b" src/ --include="*.c"` (excluding the function's own
+   file) to find real callers. **Always re-grep immediately before each
+   step** - earlier deletions in the same pass shift caller counts (e.g.
+   `Widget_ResetPressState` went from 1 caller to 0 once that caller was
+   itself deleted).
+2. **Zero callers** → delete the raw `.c` file outright, remove its
+   `functions.h` declaration, set its `PROGRESS.csv` status to
+   `PARITY-cxx-<File>.cpp`.
+3. **Has callers, clean signature** → add a `extern "C"` **compatibility
+   shim** in the `src/cxx/*.cpp` file: same old name/signature, one-line
+   body forwarding into the real C++ method. Delete the raw `.c`.
+   - **Confirmed via `score.sh` that the opposite direction doesn't work**:
+     making the shim the "real" logic with the C++ method forwarding to it
+     scores *worse* on both sides (tested on `CWidget::MoveBy`: 210→430 for
+     the extern C side using `__cdecl` instead of the original's true
+     `__thiscall`, →3035 for a forwarding C++ side since MSVC 7.1 doesn't
+     inline cross-function calls either direction). Keep the C++ method as
+     the real, byte-matching one.
+4. **Has callers, original decompile never resolved 1-2 register-passed
+   arguments** (Ghidra's `unaff_EBX`/`unaff_EDI`/`unaff_ESI`, e.g.
+   `Widget_AddChild`'s `this` in EBX, `Widget_FindChildIndex`'s `typeId`/`id`
+   in EDI/ESI) → same shim, but capture the register via MSVC inline
+   `__asm { mov local, ebx }` as the shim's first statement (verified via
+   disassembly that the `mov` compiles to literally the first instruction,
+   before anything else can clobber it) - replicates exactly what every
+   existing caller already implicitly relied on, no caller changes needed.
+5. **Reducing shim count further** (optional follow-up, not required for
+   correctness): port individual caller `.c` files to `.cpp` so they call
+   the C++ method directly instead of through the shim. Do this for the
+   *lowest-reference-count* shims first. Per file: `git mv` to `.cpp`,
+   `#include "../cxx/<Header>.h"` (or same-directory `#include "X.h"` if
+   the file is already under `src/cxx/`), replace the shim call with a
+   direct method call, keep every other call in the file as a targeted
+   `extern "C"` forward-declaration into the still-unpromoted raw C tree
+   (do NOT `#include "functions.h"` in a `.cpp` file - its ~1600
+   unprototyped `void foo();` declarations mean "takes no arguments" in
+   C++, not "unspecified", and will conflict with real calls). Compile the
+   ported file standalone to confirm. Once literally nothing references the
+   shim's old name, delete the shim.
+   - **Watch for a recurring pre-existing bug** while porting: several raw
+     C call sites pass only 2 of a shimmed function's 3 real arguments
+     (dropping `this` entirely), tolerated only because C's unprototyped
+     calls don't check argument counts at compile time - at runtime this
+     almost certainly reads garbage off the stack for the missing arg. This
+     is a latent bug in the ORIGINAL raw port, not something introduced by
+     porting; passing `this_` explicitly in the C++ port is the correct
+     fix, found and applied in `FUN_0050d7a0.cpp`/`FUN_0050a030.cpp`.
+   - **Watch for a caller file that turns out to itself be a full,
+     already-promoted method's raw duplicate** (discovered twice this
+     session: `Widget_OnMouseDown.c` was actually `CPanel::HandlePress`'s
+     raw port, `ScrollListWidget_OnMouseDown.c` was `CScrollBar::OnMouseDown`'s -
+     both fully promoted/scored earlier in this same session, just never
+     deduplicated). In that case don't do a minimal call-site patch - delete
+     the raw duplicate outright and add its OWN shim forwarding to the
+     already-existing C++ method (same as step 3), which also naturally
+     removes its dependency on whatever shim you were originally chasing.
+
+**Status as of 2026-07-11**: `Widget.cpp`'s 12 called methods are fully
+done - all shims added, and 7 of them (`Widget_DispatchKeyToChildren`,
+`Widget_DispatchMouseToChildren`, `Widget_OnDragMove`,
+`Widget_MouseMoveChildren`, `Widget_MouseDownChildren`,
+`Widget_MouseUpChildren`) have since had EVERY caller ported and the shim
+itself deleted - only `Widget_AddChild`/`Widget_FindChildIndex` (asm-based,
+20/18 callers) still have live shims. Along the way,
+`ScrollListWidget_OnMouseDown`/`Widget_OnMouseDown` (`CScrollBar`/`CPanel`'s
+own raw duplicates) were also cleaned up per the "caller turns out to be a
+promoted method" case above.
+
+**Not started**: `Label.cpp`/`EditBox.cpp`/`ButtonWidget.cpp`'s remaining
+~7 called functions, and all of `Panel.cpp`'s ~15 called functions
+(`Build*Panel` factories etc.) - their raw C files are all still intact
+and working, nothing broken, just not yet deduplicated. Follow the same
+process above.

@@ -764,3 +764,13 @@ CWorldListPanel * BuildWorldListPanel(void *manager)
     PanelManager_Register(p);
     return p;
 }
+
+/* TEMPORARY extern "C" compatibility shim - see the note at the bottom of
+ * Widget.cpp. src/ui_widget/Widget_OnMouseDown.c (0x50e420) was the raw
+ * port of this exact function (CPanel::HandlePress) - deleted in favor of
+ * this shim since RadioGroup_OnMouseDown.c still calls it by its old name.
+ * REMOVE once that caller is ported to call HandlePress directly. */
+extern "C" bool Widget_OnMouseDown(CPanel *this_, int x, int y)
+{
+    return this_->HandlePress(x, y);
+}
