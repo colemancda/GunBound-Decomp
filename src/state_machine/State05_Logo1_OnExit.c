@@ -30,7 +30,12 @@ void State05_Logo1_OnExit(void)
   undefined4 uStack_10;
   undefined4 uStack_c;
   undefined4 uStack_8;
-  
+  /* BuildSystemInfoBlob's 2nd output (orig ESI, dropped) - NOT verified
+   * against this call site's original disassembly; added only to satisfy
+   * the now-2-parameter signature (see BuildSystemInfoBlob.c). Revisit if
+   * this code path is ever exercised. */
+  undefined4 systemInfoBlob2[6];
+
   puVar5 = *(undefined4 **)(DAT_00ea0e1c + 0x1c);
   uVar1 = puVar5[1];
   while( true ) {
@@ -48,7 +53,7 @@ void State05_Logo1_OnExit(void)
   puVar5[3] = puVar5;
   puVar5[4] = puVar5;
 LAB_00443475:
-  BuildSystemInfoBlob(&uStack_2c);
+  BuildSystemInfoBlob(&uStack_2c, systemInfoBlob2);
   puVar4 = DAT_007934f4;
   if (DAT_007934f4 != (undefined2 *)0x0) {
     /* DAT_007934f4[1] in the original: rewritten through puVar4 (same

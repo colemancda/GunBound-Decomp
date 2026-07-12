@@ -57,7 +57,10 @@ undefined4 * FUN_004d2170(undefined4 *param_1,int param_2,undefined4 param_3)
     pvVar2 = (void *)0x0;
   }
   else {
-    pvVar2 = (void *)FUN_004e54e0(param_2,param_3);
+    /* FUN_004e54e0's 1st arg (unaff_ESI, the object being constructed) is
+     * this same freshly-allocated pvVar2 - same pattern as
+     * FUN_004058c0.c's identical construction call. */
+    FUN_004e54e0(pvVar2,param_2,param_3);
   }
   param_1[0x2138] = pvVar2;
   *(undefined1 *)((int)pvVar2 + 0x18) = 1;

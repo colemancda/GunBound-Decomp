@@ -20,7 +20,12 @@ undefined4 FUN_00415230(void)
   undefined4 local_187;
   char local_108 [128];
   undefined1 local_88 [132];
-  
+  /* BuildSystemInfoBlob's 2nd output (orig ESI, dropped) - NOT verified
+   * against this call site's original disassembly; added only to satisfy
+   * the now-2-parameter signature (see BuildSystemInfoBlob.c). Revisit if
+   * this code path is ever exercised. */
+  undefined4 systemInfoBlob2[6];
+
   local_188 = '\0';
   puVar5 = &local_187;
   for (iVar3 = 0x1f; iVar3 != 0; iVar3 = iVar3 + -1) {
@@ -30,7 +35,7 @@ undefined4 FUN_00415230(void)
   *(undefined2 *)puVar5 = 0;
   *(undefined1 *)((int)puVar5 + 2) = 0;
   pcVar2 = local_108;
-  BuildSystemInfoBlob(local_88);
+  BuildSystemInfoBlob(local_88, systemInfoBlob2);
   do {
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;

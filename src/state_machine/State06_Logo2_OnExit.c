@@ -20,7 +20,12 @@ void State06_Logo2_OnExit(void)
   undefined4 *puVar3;
   undefined4 *puVar4;
   undefined1 auStack_28 [40];
-  
+  /* BuildSystemInfoBlob's 2nd output (orig ESI, dropped) - NOT verified
+   * against this call site's original disassembly; added only to satisfy
+   * the now-2-parameter signature (see BuildSystemInfoBlob.c). Revisit if
+   * this code path is ever exercised. */
+  undefined4 systemInfoBlob2[6];
+
   puVar4 = *(undefined4 **)(DAT_00ea0e1c + 0x1c);
   uVar1 = puVar4[1];
   if (uVar1 < 0x2711) {
@@ -28,7 +33,7 @@ void State06_Logo2_OnExit(void)
       puVar4 = (undefined4 *)puVar4[7];
       uVar1 = puVar4[1];
       if (10000 < uVar1) {
-        BuildSystemInfoBlob(auStack_28);
+        BuildSystemInfoBlob(auStack_28, systemInfoBlob2);
         return;
       }
     }
@@ -41,7 +46,7 @@ void State06_Logo2_OnExit(void)
     puVar4[3] = puVar4;
     puVar4[4] = puVar4;
   }
-  BuildSystemInfoBlob(auStack_28);
+  BuildSystemInfoBlob(auStack_28, systemInfoBlob2);
   return;
 }
 
