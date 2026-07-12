@@ -89,12 +89,55 @@ methods checked:
   `a && b && c && d` rect-test expression accumulates into `hit` (register
   vs. stack temp), not yet chased down.
 
-Remaining Phase 1 work: apply the same loop-shape fix (verified via
-`tools/promote.sh`) to the other child-broadcast methods in Widget.cpp
-(`DispatchKey`, `DispatchMouse`, `MouseMoveChildren`, `MouseDownChildren`,
-`MouseUpChildren`, `MoveBy`) and then the rest of the tree; chase
-`HitTest`'s remaining delta; `RegisterActiveObject`'s sorted-container
-reconstruction; `LoadButtonDefinitionFromXFS`'s promotion.
+**Update (2026-07-11, later same day): Widget.cpp's byte-compare pass is
+essentially done.** Applied the same loop-hoist fix to the remaining six
+child-broadcast methods (all now effectively perfect - every instruction
+matches, remaining score is purely unresolved call-target relocations):
+
+| Method | Before | After |
+|---|---|---|
+| `DispatchKey` | 485/4500 | **105/4500** |
+| `DispatchMouse` | 485/4000 | **105/4000** |
+| `MouseMoveChildren` | 695/4400 | **105/4400** |
+| `MouseDownChildren` | 695/4400 | **105/4400** |
+| `MouseUpChildren` | 695/4400 | **105/4400** |
+| `MoveBy` | 530/3500 | **210/3500** (2 unresolved call targets) |
+| `SetEnabled` | 590/3000 | **210/3000** (2 unresolved call targets) |
+
+Also rewrote `OnCommand`'s `evt==0x1100/0x1101/0x1102` dispatch from an
+if/else-if chain to a real `switch`: MSVC 7.1 only emits the original's
+dense subl-then-decrement jump sequence for an actual switch statement,
+not sequential compares. **13120 → 8175/17900** - the dispatch prologue
+and all three branches are now instruction-for-instruction identical;
+remaining delta is register allocation (`ebx`/`ebp` vs `esi`/`edi`),
+not chased further. `AddChild` (2380/3200, worst *ratio* in the file at
+25.6%) is confirmed unfixable from portable C++: the original takes
+`this` in EBX, not ECX.
+
+**Remaining Phase 1 work, in priority order:**
+1. Close `HitTest`'s remaining delta (645/5700) - the chained
+   `a && b && c && d` rect-test's `hit` accumulation (register vs. stack
+   temp), the one piece of `Widget.cpp` not yet effectively perfect.
+2. Score + fix the small files next, same score→diff→fix→verify loop:
+   `Label.cpp` (64 lines), `EditBox.cpp` (57 lines), `ButtonWidget.cpp`
+   (84 lines - written this session, **never scored at all**, worth
+   checking given the open uncertainty already flagged in its own
+   comments around `CreateButtonWidget`'s `layer`/`registry` param
+   mapping).
+3. `ScrollBar.cpp` (217 lines) - already flagged above as "mostly done,
+   needs a spot-check."
+4. `Panel.cpp` (728 lines, the big one) - nine `Build*Panel` factories
+   plus `CWorldListPanel::OnMouseDown`/`OnCommand`. Saved for last:
+   biggest surface area, and the small-file passes will likely surface
+   more reusable fix patterns (like the loop-hoist and switch-vs-if-chain
+   ones) before tackling it.
+5. `RegisterActiveObject`'s sorted-container reconstruction;
+   `LoadButtonDefinitionFromXFS`'s promotion.
+
+Each pass: compile → `tools/promote.sh`/manual `score.sh` sweep → diff
+the worst offenders → apply confirmed-safe fixes → re-verify → add
+entries to `tools/gen_cxx_score_report.py`'s `FUNCS` list so CI picks it
+up → commit. Once this list is clear, move to Phase 2.
 
 ## Phase 2 — the state machine spine (evidence: ARCHITECTURE.md §CGameState)
 
