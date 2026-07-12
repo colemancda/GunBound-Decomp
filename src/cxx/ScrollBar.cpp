@@ -261,12 +261,16 @@ bool CScrollBar::OnMouseUp(int x, int y)
 }
 
 /* TEMPORARY extern "C" compatibility shim - see the note at the bottom of
- * Widget.cpp. src/ui_widget/ScrollListWidget_OnMouseDown.c had no real
- * callers left (only doc-comment references), so it was deleted outright
- * rather than patched in place; this shim exists only in case something
- * not yet found still needs the old symbol name. REMOVE once confirmed
- * unnecessary. */
-extern "C" bool ScrollListWidget_OnMouseDown(CScrollBar *this_, int x, int y)
+ * Widget.cpp. `this` arrives in EAX in the original (Widget.h's own note
+ * on this method: "Ghidra shows the original receiving this in EAX (in_EAX),
+ * not ECX"), captured here rather than changed at
+ * ScrollListWidget_DrawThumb.c's call site. REMOVE once that caller is
+ * ported to call ThumbHeight() directly. */
+extern "C" int ScrollListWidget_ThumbHeight()
 {
-    return this_->OnMouseDown(x, y);
+    CScrollBar *self;
+    __asm {
+        mov self, eax
+    }
+    return self->ThumbHeight();
 }

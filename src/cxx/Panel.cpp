@@ -766,11 +766,19 @@ CWorldListPanel * BuildWorldListPanel(void *manager)
 }
 
 /* TEMPORARY extern "C" compatibility shim - see the note at the bottom of
- * Widget.cpp. src/ui_widget/Widget_OnMouseDown.c (0x50e420) was the raw
- * port of this exact function (CPanel::HandlePress) - deleted in favor of
- * this shim since RadioGroup_OnMouseDown.c still calls it by its old name.
- * REMOVE once that caller is ported to call HandlePress directly. */
-extern "C" bool Widget_OnMouseDown(CPanel *this_, int x, int y)
+ * Widget.cpp. src/ui_widget/WorldListRowHitTest.c (0x50df40) was the raw
+ * port of this exact function (CWorldListPanel::RowHitTest) - deleted in
+ * favor of this shim. Unlike most shims in this file, this one has a
+ * clean explicit (this, x, y) signature rather than needing inline-asm
+ * register capture: its only remaining caller (src/unnamed/
+ * FUN_0050d7a0.cpp) is already a ported .cpp file under this project's
+ * control, so the call site itself was updated to pass all three
+ * arguments explicitly instead of relying on the original's register-
+ * passed this/x (which a raw C caller can't safely be changed to do,
+ * but an already-ported C++ caller can). REMOVE once nothing calls this
+ * by the old name at all (in which case just call RowHitTest directly). */
+extern "C" int WorldListRowHitTest(CWorldListPanel *this_, int x, int y)
 {
-    return this_->HandlePress(x, y);
+    return this_->RowHitTest(x, y);
 }
+
