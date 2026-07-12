@@ -945,7 +945,7 @@ LAB_004b7fb2:
           else if (cVar2 == '\x03') {
             *(undefined4 *)(&DAT_006a647c + g_clientContext) = 0xb5;
           }
-          PlayMusicTrack(1);
+          PlayMusicTrack(1,(byte *)"sudden.mp3");
           FUN_00438360();
           iVar4 = *local_27ec;
           uVar22 = 6;

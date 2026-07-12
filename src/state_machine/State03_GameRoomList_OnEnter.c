@@ -123,7 +123,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   *(undefined1 *)(param_1 + 3) = 0;
   *(undefined1 *)((int)param_1 + 0xd) = 0;
   *(undefined1 *)((int)param_1 + 0xe) = 0;
-  PlayMusicTrack(1);
+  PlayMusicTrack(1,(byte *)"channel.mp3");
   iVar4 = g_clientContext;
   *(undefined4 *)(&DAT_0067e3c8 + g_clientContext) = 0;
   if (*(FILE **)(&g_replayFileHandle + iVar4) != (FILE *)0x0) {

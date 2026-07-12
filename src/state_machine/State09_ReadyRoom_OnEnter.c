@@ -265,7 +265,7 @@ LAB_004d722d:
   TallyRoomTeamStats();
   ComputeTurnOrder();
   RefreshReadyRoomControls(param_1,1,0);
-  PlayMusicTrack(1);
+  PlayMusicTrack(1,(byte *)"ready.mp3");
   *(undefined4 *)(param_1 + 0x4d4) = 0xffffffff;
   *(undefined1 *)(param_1 + 0x618) = 1;
   *(undefined4 *)(param_1 + 0x620) = 0;

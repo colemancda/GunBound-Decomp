@@ -1,13 +1,26 @@
 /* PlayMusicTrack - 0x004eea30 in the original binary.
  *
- * Music-track control: given a track name (passed in a register, invisible to the C signature), compares it against the currently-playing track (DAT_00793568) and returns early if unchanged, otherwise switches to it via the sound object's vtable+0xc. Called from most screens' OnEnter (title.mp3, channel.mp3, logo.mp3, stage%d.mp3). See ARCHITECTURE.md audio section. Raw/near-verbatim port of Ghidra's
+ * Music-track control: given a track name (passed in a register, invisible
+ * to the C signature), compares it against the currently-playing track
+ * (DAT_00793568) and returns early if unchanged, otherwise switches to it
+ * via the sound object's vtable+0xc. Called from most screens' OnEnter
+ * (title.mp3, channel.mp3, logo.mp3, stage%d.mp3). See ARCHITECTURE.md
+ * audio section.
+ *
+ * unaff_EDI (the track name) arrives via a dropped EDI register - orig
+ * 0x44329a (State06_Logo2_OnEnter's call site): `mov edi, 0x555570` ->
+ * "logo2.mp3", AFTER an explicit `push 0x0` (param_1, unused in the
+ * decompiled body but still a real stack argument affecting caller-side
+ * cleanup) - promoted both to explicit parameters.
+ *
+ * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
 
-uint PlayMusicTrack(void)
+uint PlayMusicTrack(undefined4 param_1, byte *unaff_EDI)
 
 {
   byte bVar1;
@@ -17,9 +30,9 @@ uint PlayMusicTrack(void)
   int iVar4;
   uint uVar5;
   byte *pbVar6;
-  byte *unaff_EDI;
   bool bVar7;
-  
+  (void)param_1;
+
   if ((unaff_EDI != (byte *)0x0) &&
      (in_EAX = CONCAT31((int3)(in_EAX >> 8),DAT_0079354a), DAT_0079354a != '\0')) {
     pbVar2 = unaff_EDI;
