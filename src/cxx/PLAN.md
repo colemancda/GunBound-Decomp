@@ -183,16 +183,48 @@ non-null codegen reproduces this for free - 4060 → 3520/7700.
 All six functions above are wired into `tools/gen_cxx_score_report.py`'s
 `FUNCS` list (21 total now) for the CI artifact.
 
+**`ScrollBar.cpp`: scored and partially fixed (2026-07-11).**
+
+| Method | Before | After |
+|---|---|---|
+| `OnMouseUp` | — | **105/4300** (already effectively perfect) |
+| `ThumbHeight` | 645 | 535/2200 |
+| `Draw` | 2344 | 1744/10800 |
+| `OnCommand` | 2380 | 2235/5100 |
+| `IsOverThumb` | — | 1350/3200 |
+| `OnMouseDown` | — | 1671/9300 |
+| `CreateScrollListWidget` | — | 3900/8400 |
+
+One new confirmed-unfixable category found: `ThumbHeight`/`IsOverThumb`
+both have their own class-comment note that `this`/`y` arrive in
+`EAX`/`EBX` rather than the normal register - same "not reproducible
+from portable C++" family as `CWidget::AddChild`'s EBX `this`. The
+other four still have real, un-chased deltas (branch-ordering/polarity
+mismatches, the `hit`-in-register-vs-stack pattern from `HitTest`, and
+the by-now-familiar ctor field-write-scheduling category) - diminishing
+returns past the fixes already applied (loop-hoist on `Draw`; caching
+`m_height` and matching the `h >= 10` boundary on `ThumbHeight`;
+rewriting two clamps as the branchless `x & ((x < 0) - 1)` bit-trick
+Ghidra's own decompile of `OnCommand` showed literally, on `OnCommand`
+and `Draw`'s page-up path). One near-miss worth flagging for whoever
+picks this up next: a manual asm-differ read of `OnCommand` looked like
+the "any other id" fallback used the raw `id` value instead of the
+hardcoded `1` already in the source - re-decompiling `0x50f7c0` fresh in
+Ghidra confirmed the existing `newPos = 1;` was correct and the asm read
+was a stack-offset misread. Worth remembering: **verify against a fresh
+Ghidra decompile before "fixing" a suspected logic bug from raw asm
+alone** - the compiler's own reordering can make stack slots read like
+different values than they are.
+
 **Remaining Phase 1 work, in priority order:**
-1. `ScrollBar.cpp` (217 lines) - already flagged above as "mostly done,
-   needs a spot-check."
-2. `Panel.cpp` (728 lines, the big one) - nine `Build*Panel` factories
+1. `Panel.cpp` (728 lines, the big one) - nine `Build*Panel` factories
    plus `CWorldListPanel::OnMouseDown`/`OnCommand`. Saved for last:
    biggest surface area, and the small-file passes already surfaced
    several reusable fix patterns (loop-hoist, switch-vs-if-chain,
    cached-vs-recomputed boolean, early-vs-inline address computation,
-   missing guarded ctor) worth checking for on sight before diffing.
-3. `RegisterActiveObject`'s sorted-container reconstruction (also
+   missing guarded ctor, branchless-clamp bit-trick) worth checking for
+   on sight before diffing.
+2. `RegisterActiveObject`'s sorted-container reconstruction (also
    needed to resolve `CButtonWidget`'s open registry/calling-convention
    question above); `LoadButtonDefinitionFromXFS`'s promotion.
 

@@ -6,18 +6,29 @@
 
 /* 0x50e050. Thumb height in pixels: the page's share of the track
  * (pageSize/total), floored at 10 and rounded down to a multiple of 5;
- * a scrollbar with no items fills the whole track. */
+ * a scrollbar with no items fills the whole track.
+ * score.sh: 645 -> 535/2200. Caching m_height into a local (matching
+ * the original's early register load, reused by both branches) and
+ * writing the floor check as `h >= 10` instead of `9 < h` (matching the
+ * original's `cmpl $0xa` boundary) each helped. The remaining delta is
+ * the "this in EAX, not ECX" custom convention noted in Widget.h's
+ * class comment above - confirmed via the diff (my version needs an
+ * extra register + push/pop to preserve `this` across idivl, which the
+ * original doesn't need since it never had to move `this` out of a
+ * scratch register in the first place). Same unfixable-from-portable-
+ * C++ category as CWidget::AddChild. */
 int CScrollBar::ThumbHeight()
 {
+    int height = m_height;
     if (0 < m_total) {
-        int h = (m_pageSize * m_height) / m_total;
+        int h = (m_pageSize * height) / m_total;
         int clamped = 10;
-        if (9 < h) {
+        if (h >= 10) {
             clamped = h;
         }
         return (clamped / 5) * 5;
     }
-    return m_height;
+    return height;
 }
 
 extern CLabel * __stdcall CreateLabelWidget(int id, int spriteId, int x, int y, int w, int h);
@@ -28,6 +39,11 @@ extern CLabel * __stdcall CreateLabelWidget(int id, int spriteId, int x, int y, 
  * up, placed above the track at y -28; id 1 down, below it at h+10;
  * sprites spriteBase*10 + 0x259/0x25a) and a final SetEnabled(total
  * >= 1) so an empty list starts disabled.
+ * score.sh: 3900/8400 - the zero-init and vtable install match; the
+ * guarded-ctor block has the same field-write-scheduling delta already
+ * documented for CreateLabelWidget/CreateTextEntryWidget/
+ * CreateButtonWidget (now confirmed across 4 constructors - a compiler-
+ * internal heuristic, not chased further here either).
  *
  * NOTE: the original takes spriteBase in EAX and total in EDI (the
  * docs' "item count arrives in a register") - a custom convention not
@@ -54,7 +70,13 @@ CScrollBar * __stdcall CreateScrollListWidget(int spriteBase, int total,
 }
 
 /* 0x50f770. Is the point over the thumb: x within the track (inclusive),
- * y within [thumbTop, thumbTop + ThumbHeight()]. */
+ * y within [thumbTop, thumbTop + ThumbHeight()].
+ * score.sh: 1350/3200 - confirmed structural, not chased further: the
+ * `retl` (no stack cleanup) at every original return proves `y` really
+ * does arrive in EBX rather than as a normal stack argument, matching
+ * the "custom register use" note on this method's declaration in
+ * Widget.h. Same unfixable-from-portable-C++ category as
+ * CWidget::AddChild/ThumbHeight above. */
 bool CScrollBar::IsOverThumb(int x, int y)
 {
     if (m_x <= x && x <= m_x + m_width) {
@@ -73,7 +95,13 @@ bool CScrollBar::IsOverThumb(int x, int y)
  * While the track (not the thumb) is held pressed, page-scroll one
  * pageSize per frame toward the held point - the "auto-scroll while
  * held past the ends" behavior - reporting each change up the
- * OnCommand spine (0x2000). Then the usual child draw broadcast. */
+ * OnCommand spine (0x2000). Then the usual child draw broadcast.
+ * score.sh: 2344 -> 1744/10800 (loop-hoist fix + rewriting the page-up
+ * clamp as the branchless `x & ((x < 0) - 1)` bit-trick, matching
+ * Ghidra's literal decompile of the same idiom elsewhere in this file -
+ * see OnCommand's comment). The page-down clamp has the same shape but
+ * wasn't converted - its surrounding branch polarity also differs from
+ * the original (jle vs. jge), a deeper mismatch not chased further. */
 void CScrollBar::Draw()
 {
     if (m_pressed != '\0' && 0 < m_total) {
@@ -83,9 +111,7 @@ void CScrollBar::Draw()
             unsigned int pos = (unsigned int)m_scrollPos;
             if (heldY < m_y + (int)((unsigned int)m_height * pos) / m_total) {
                 unsigned int newPos = pos - (unsigned int)m_pageSize;
-                if ((int)newPos < 0) {
-                    newPos = 0;
-                }
+                newPos = newPos & (((int)newPos < 0) - 1);
                 if (newPos != pos) {
                     m_scrollPos = (int)newPos;
                     if (m_parent != 0) {
@@ -114,8 +140,9 @@ void CScrollBar::Draw()
             }
         }
     }
-    if (m_children.GetCount() != 0) {
-        unsigned int i = 0;
+    unsigned int count = m_children.GetCount();
+    unsigned int i = 0;
+    if (i < count) {
         do {
             m_children[i]->Draw();
             ++i;
@@ -129,25 +156,38 @@ void CScrollBar::Draw()
  * the scroll position once per frame while held - the docs' "+/-1
  * arrow steps" auto-repeat. id 0 = up (clamp at 0), id 1 = down
  * (clamp at total - pageSize, floored at 0), any other id resets the
- * position to 1 (faithful to the original; role of that branch
- * unclear). Changes are reported to the parent as 0x2000. */
+ * position to 1 (CONFIRMED via a fresh Ghidra decompile of 0x50f7c0 -
+ * `else { uVar1 = 1; }` literally, not id itself; an earlier reading of
+ * the raw asm-differ output looked like it read `id` back off the
+ * stack here, but that was a stack-offset misread after the compiler's
+ * own reordering - checked against Ghidra before "fixing" it). Changes
+ * are reported to the parent as 0x2000.
+ * score.sh: 2380 -> 2235/5100 - rewriting the id==0/1 clamps to match
+ * Ghidra's literal branchless bit-trick form (`x & ((x < 0) - 1)`
+ * instead of an if-branch) helped a little; the bulk of the remaining
+ * delta is the id==0 body being laid out as a "cold" tail block after
+ * id==1's body (a pure code-layout/branch-ordering choice) plus a few
+ * reversed-polarity comparisons (sets vs. setl, jg vs. jl) - not chased
+ * further, diminishing returns relative to the other fixes in this
+ * file. */
 void CScrollBar::OnCommand(int evt, int id, int arg)
 {
     if (evt == 1 && 0 < m_total) {
         unsigned int newPos;
         if (id == 0) {
             newPos = (unsigned int)m_scrollPos - 1;
+            newPos = newPos & (((int)newPos < 0) - 1);
+        } else if (id == 1) {
+            unsigned int want = (unsigned int)(m_total - m_pageSize);
+            unsigned int cur = (unsigned int)(m_scrollPos + 1);
+            newPos = cur;
+            if ((int)want <= (int)cur) {
+                newPos = want;
+            }
             if ((int)newPos < 0) {
                 newPos = 0;
-            }
-        } else if (id == 1) {
-            int maxPos = m_total - m_pageSize;
-            int want = m_scrollPos + 1;
-            int n = want <= maxPos ? want : maxPos;
-            if (n < 0) {
-                newPos = 0;
-            } else {
-                newPos = (unsigned int)(want <= maxPos ? want : maxPos);
+            } else if ((int)want <= (int)cur) {
+                newPos = want;
             }
         } else {
             newPos = 1;
@@ -167,7 +207,11 @@ void CScrollBar::OnCommand(int evt, int id, int arg)
  * inside the widget arms m_pressed (the arrows'/track's auto-repeat
  * path, driven per-tick elsewhere). Finally the usual child broadcast
  * (the up/down arrow CLabels) decides consumption together with the
- * rect test. */
+ * rect test.
+ * score.sh: 1671/9300 - the rect-test chain has the same "hit lives in
+ * a register vs. a stack slot" delta already found and left unfixed on
+ * CWidget::HitTest, plus some reversed-polarity comparisons in the
+ * thumb-hit path. Not chased further - same low-ROI category. */
 bool CScrollBar::OnMouseDown(int x, int y)
 {
     m_lastX = x;

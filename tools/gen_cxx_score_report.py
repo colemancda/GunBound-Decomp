@@ -59,6 +59,14 @@ FUNCS = [
     ("src/cxx/EditBox.cpp", "507f60", "?CreateTextEntryWidget@@YGPAVCEditBox@@HHHHHH@Z", 140),
     ("src/cxx/ButtonWidget.cpp", "406020",
      "?CreateButtonWidget@@YGPAVCButtonWidget@@PAXHHHPBDHHHHDH@Z", 245),
+    ("src/cxx/ScrollBar.cpp", "50e050", "?ThumbHeight@CScrollBar@@QAEHXZ", 54),
+    ("src/cxx/ScrollBar.cpp", "5080a0",
+     "?CreateScrollListWidget@@YGPAVCScrollBar@@HHHHHHH@Z", 237),
+    ("src/cxx/ScrollBar.cpp", "50f770", "?IsOverThumb@CScrollBar@@QAE_NHH@Z", 66),
+    ("src/cxx/ScrollBar.cpp", "50f660", "?Draw@CScrollBar@@UAEXXZ", 264),
+    ("src/cxx/ScrollBar.cpp", "50f7c0", "?OnCommand@CScrollBar@@UAEXHHH@Z", 113),
+    ("src/cxx/ScrollBar.cpp", "50f500", "?OnMouseDown@CScrollBar@@UAE_NHH@Z", 231),
+    ("src/cxx/ScrollBar.cpp", "50f5f0", "?OnMouseUp@CScrollBar@@UAE_NHH@Z", 100),
 ]
 
 SECTIONS = [
@@ -73,6 +81,9 @@ SECTIONS = [
     ]),
     ("CButtonWidget - flat button system (src/cxx/ButtonWidget.cpp)", [
         "src/cxx/ButtonWidget.cpp",
+    ]),
+    ("CScrollBar (src/cxx/ScrollBar.cpp)", [
+        "src/cxx/ScrollBar.cpp",
     ]),
 ]
 
