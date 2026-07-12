@@ -20,3 +20,12 @@ src_unnamed_FUN_004d23f0.obj
 src_fileformat_LoadLocalizedStrings.obj
 src_fileformat_LoadGameDataFiles.obj
 src_fileformat_LoadChooseEventConfig.obj
+# CButtonWidget C++ migration in progress: declares 5 virtuals
+# (NoOp/Draw/Tick/SetState/Delete) with no bodies yet, C++-mangled so
+# gen_bringup_stubs.py can't auto-stub them. Only ButtonWidget.cpp
+# itself and cxx_selftest.cpp reference this class; the raw C
+# CreateButtonWidget path (src/ui_widget/CreateButtonWidget.c, a
+# separate non-C++-mangled symbol) is what's actually exercised on the
+# startup/logo/server-select path. Drop for bring-up until the class
+# migration lands its virtual bodies.
+src_cxx_ButtonWidget.obj
