@@ -52,8 +52,16 @@ public:
     virtual void v4_NoOp();
     /* slot 5 +0x14: 0x455cc0 = SimulateProjectileFrame (CONFIRMED) - the per-frame
      * ballistics/state update: physics helpers, guard-protected fields, replay
-     * events 0xf002/0xf003. No spawn/render calls. */
-    virtual void SimulateFrame();
+     * events 0xf002/0xf003. No spawn/render calls.
+     * CORRECTED (2026-07-12, cxx/Projectile.cpp): takes a real second
+     * argument - Ghidra's own fresh decompile shows it consumed throughout
+     * as `in_stack_00000004` (never resolved into the formal parameter
+     * list), used as a per-step time/delta value in the ballistic stepping
+     * loop. The zero-arg declaration here was wrong; DetonateProjectile's
+     * `SimulateFrame();` call (slot-5 dispatch, this header's own earlier
+     * comment) is therefore ALSO missing this argument - not fixed there
+     * yet, flagged as follow-up. */
+    virtual void SimulateFrame(int stepDelta);
     /* slot 6 +0x18: 0x4572b0 = DetonateProjectile - impact/detonation handler:
      * operator_new(0x3fbc) + InitProjectile a child blast object (vtable
      * 0x55658c), scans the object list for terrain (0x186aa marker), computes

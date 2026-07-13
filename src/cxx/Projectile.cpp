@@ -47,7 +47,28 @@
  *    accumulated noise from ~45 unresolved guard-cell call targets across
  *    a function this size, the same category of gap already documented
  *    above, not a structural-shape problem. SEH also stripped, same
- *    tradeoff as the destructor. */
+ *    tradeoff as the destructor.
+ *
+ * KNOWN BUG (2026-07-12, found while attempting SimulateProjectileFrame,
+ * not yet fixed here): `iStack_ab0` in DetonateProjectile below is read
+ * (guarding two `ScrambleChecksumGuardBytes`/`TreeLowerBound` calls)
+ * before it's ever written - a genuine uninitialized read, faithfully
+ * carried over from the raw C port's own identical shape. Root cause
+ * found via a fresh Ghidra decompile of SimulateProjectileFrame: its
+ * local stack layout shows the SAME `<20-byte encode buffer>` followed
+ * immediately by a `<4-byte int>` pattern repeated for every guard-cell
+ * call (e.g. `local_1574[20]` then `local_1560` at offset 0x1574-0x14),
+ * exactly matching CValueGuard's own shape (20 bytes of unk00/enc0-3,
+ * then a 4-byte tableHandle) - strongly suggesting EncodeChecksumDeltaShr/
+ * EncodeChecksumPairDiff/etc. actually write a full 24-byte encoded cell
+ * into `out`, not just the 20 bytes this file assumes, with the trailing
+ * 4 bytes being the "did this get a live handle" flag these guard checks
+ * read. NOT fixed here: confirming this requires disassembling
+ * EncodeChecksumDeltaShr itself to verify it really writes those trailing
+ * 4 bytes, which wasn't done. If confirmed, the fix is to size these
+ * `out` buffers 24 bytes and read the trailer instead of a disconnected
+ * local (auStack_ac4[20]+iStack_ab0 here; the same shape recurs in any
+ * future SimulateProjectileFrame port attempt). */
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
@@ -279,7 +300,12 @@ void CProjectile::DetonateProjectile()
     EncodeOutgoingPacketField(iVar6 + iVar5);
     LeaveCriticalSection(&DAT_005a9068);
     punk = (void *)8;
-    SimulateFrame(); /* was a manual vtable slot-5 (+0x14) call - now a real virtual call */
+    /* was a manual vtable slot-5 (+0x14) call - now a real virtual call.
+     * SimulateFrame's true 2nd arg (see Projectile.h) isn't visible at
+     * THIS call site either (DetonateProjectile's own raw decompile shows
+     * a bare no-stack-arg call) - passing 0 is a placeholder, not a
+     * verified value; flagged in Projectile.h as follow-up. */
+    SimulateFrame(0);
     cVar4 = PeekPacketChecksumBool();
     if (cVar4 == '\0') {
         EncodeChecksumDeltaShr(self->m_pad3d + 3, auStack_ac4, 8);
