@@ -1,23 +1,31 @@
 /* FUN_0040d020 - 0x0040d020 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Keyboard navigation (Tab/Shift+Tab focus cycling, Enter/Escape) among a
+ * widget list's siblings, gated on the message being WM_KEYDOWN.
+ *
+ * FIXED (2026-07-13): `in_EAX` is a dropped register, not garbage -
+ * confirmed via objdump that it's compared before anything else runs
+ * (`cmp eax,0x100` is instruction #1, no prior write to EAX). Sole caller
+ * is WndProc at 0x410057; objdump there shows the ACTUAL bug is in the
+ * caller, not just Ghidra's read: `mov ecx,esi[[wParam]]; mov
+ * eax,edi[uMsg]; push 0xe9c0fc; call 0x40d020` - the raw C port
+ * (src/entry/WndProc.c) had dropped BOTH the uMsg and wParam arguments,
+ * calling `FUN_0040d020(&DAT_00e9c0fc)` with only the stack arg (which
+ * itself landed in the wrong parameter slot). Added `message` as an
+ * explicit trailing parameter and fixed the call site to pass all three.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_0040d020(int param_1,int param_2)
+void __thiscall FUN_0040d020(int param_1,int param_2,int message)
 
 {
   SHORT SVar1;
-  int in_EAX;
   int iVar2;
   int iVar3;
   undefined4 uVar4;
-  
-  if ((in_EAX == 0x100) && (*(int *)(param_2 + 8) != 0)) {
+
+  if ((message == 0x100) && (*(int *)(param_2 + 8) != 0)) {
     if (param_1 == 9) {
       SVar1 = GetKeyState(0x10);
       iVar3 = *(int *)(param_2 + 8);
