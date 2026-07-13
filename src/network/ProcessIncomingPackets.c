@@ -17,6 +17,15 @@
  * is local_200c (read right after the call via `puVar15 = local_200c`
  * to copy the decoded blocks out), so it's now passed explicitly as
  * the first argument.
+ *
+ * SECOND dropped-argument fix (2026-07-13): DecodePacketBlocks also takes
+ * a 6th argument (a byte length, arriving via EAX - see that file's own
+ * header) that this call was missing entirely. Confirmed via objdump at
+ * 0x4d2a90 (`mov eax,esi` right before `call 0x4f7150`): ESI was set at
+ * each branch to `[ebp-4]`/`[ebp-6]` (EBP = this function's own `local_24e4`),
+ * matching `iVar6`, which this file ALREADY computes at both call sites
+ * (`local_24e4 + -4` / `local_24e4 + -6`, lines just above LAB_004d2a90)
+ * but never passed. Now passed explicitly as the 6th argument.
  */
 #include "ghidra_types.h"
 
@@ -138,7 +147,7 @@ LAB_004d2a70:
     iVar6 = local_24e4 + -4;
     puVar16 = lParam;
 LAB_004d2a90:
-    DecodePacketBlocks(local_200c,uVar7,uVar2,puVar16,0x2000);
+    DecodePacketBlocks(local_200c,uVar7,uVar2,puVar16,0x2000,iVar6);
     iVar6 = (int)(iVar6 + (iVar6 >> 0x1f & 0xfU)) >> 4;
     uVar13 = iVar6 * 0xc;
     puVar15 = local_200c;
