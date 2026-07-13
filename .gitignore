@@ -63,7 +63,10 @@ tools/msvc-env/msvc7/
 ghidra_proj/
 tools/.venv/
 tools/.venv-win/
+tools/.venv-angr/
 tools/asm-differ/
+# angr's independent decompile output - reference/scratch, regenerable
+tools/angr_ref/
 *.gme
 *.xfs
 *.dat
