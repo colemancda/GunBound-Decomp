@@ -47,7 +47,7 @@ void FUN_00464060(void)
     }
     *(char *)(iVar4 + 0x4d0 + iVar6) = cVar2;
     *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 1;
-    SendOutgoingPacket();
+    SendOutgoingPacket(iVar6);
     QueueBroadcastEvent(0xc304);
     *(uint *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = *(uint *)(unaff_EDI + 0xb0b0) | 0x10;
     iVar4 = g_dwBroadcastEventCursor;

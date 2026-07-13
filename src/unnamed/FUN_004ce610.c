@@ -60,7 +60,7 @@ LAB_004ce86c:
         *(undefined1 *)(iVar5 + 0x4d4 + iVar3) = *(undefined1 *)(*(int *)(iVar8 + 0x621e0) + 0xb0ac)
         ;
         *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 1;
-        SendOutgoingPacket();
+        SendOutgoingPacket(iVar3);
         QueueBroadcastEvent(0xc304);
         iVar5 = g_clientContext;
         *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) =

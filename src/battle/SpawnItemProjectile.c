@@ -150,7 +150,7 @@ void SpawnItemProjectile(undefined4 param_1,int param_2,int param_3)
   *(undefined4 *)((int)piVar6 + 0x3817) = SUBFIELD(s_itemblast_xes_00553cf8,4,undefined4);
   *(undefined4 *)((int)piVar6 + 0x381b) = SUBFIELD(s_itemblast_xes_00553cf8,8,undefined4);
   *(undefined2 *)((int)piVar6 + 0x381f) = SUBFIELD(s_itemblast_xes_00553cf8,12,undefined2);
-  RegisterActiveObject();
+  RegisterActiveObject(0, 0, (undefined4 *)0);
   *unaff_FS_OFFSET = pvVar1;
   return;
 }

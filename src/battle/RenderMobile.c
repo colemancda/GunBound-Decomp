@@ -304,9 +304,14 @@ void __fastcall RenderMobile(int param_1)
         }
         pcVar12 = (char *)(param_1 + 0xae22);
         if (*(char *)(param_1 + 0xae22) == '\0') {
-          DrawSprite();
-          BlitRLESprite(iVar10 + 10,0);
-          BlitRLESprite(iVar10 + 9,(-(uint)bVar15 & 0x517) + 0xfae8);
+          /* DrawSprite's arg was dropped as `in_EAX`, left unfixed:
+           * objdump at this call site (0x463589) shows it needs
+           * `*(int *)(param_1 + 0xae38)`, a field this decompiled
+           * source never names anywhere else. See DrawSprite.c's
+           * header comment. */
+          DrawSprite(0);
+          BlitRLESprite(0,iVar10 + 10,0,(byte *)0);
+          BlitRLESprite(0,iVar10 + 9,(-(uint)bVar15 & 0x517) + 0xfae8,(byte *)0);
         }
         else {
           do {
@@ -330,7 +335,13 @@ void __fastcall RenderMobile(int param_1)
           } while (cVar3 != '\0');
           if (pcVar12 != local_91c + 1) {
             do {
-              DrawSprite();
+              /* DrawSprite's arg was dropped as `in_EAX`, left unfixed:
+               * objdump at this call site (0x46350b) shows EAX is one
+               * of several loop-carried-register alternatives (keyed
+               * on which digit-string char is being drawn) that this
+               * decompiled loop body doesn't preserve across
+               * iterations. See DrawSprite.c's header comment. */
+              DrawSprite(0);
               local_930 = local_930 + 1;
               pcVar12 = local_91c;
               do {
@@ -339,12 +350,16 @@ void __fastcall RenderMobile(int param_1)
               } while (cVar3 != '\0');
             } while (local_930 < (uint)((int)pcVar12 - (int)(local_91c + 1)));
           }
-          BlitRLESprite(iVar10 + 8,0);
+          BlitRLESprite(0,iVar10 + 8,0,(byte *)0);
           iVar5 = (-(uint)bVar15 & 0x517) + 0xfae8;
-          BlitRLESprite(iVar10 + 7,iVar5);
-          DrawSprite();
-          BlitRLESprite(iVar10 + 0x15,0);
-          BlitRLESprite(iVar10 + 0x14,iVar5);
+          BlitRLESprite(0,iVar10 + 7,iVar5,(byte *)0);
+          /* DrawSprite's arg was dropped as `in_EAX`, left unfixed:
+           * objdump at this call site (0x4635cd) shows it needs the
+           * same `*(int *)(param_1 + 0xae38)` field as the call above
+           * (line ~307). See DrawSprite.c's header comment. */
+          DrawSprite(0);
+          BlitRLESprite(0,iVar10 + 0x15,0,(byte *)0);
+          BlitRLESprite(0,iVar10 + 0x14,iVar5,(byte *)0);
         }
       }
     }

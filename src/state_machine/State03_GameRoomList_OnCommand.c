@@ -91,7 +91,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
       *(undefined2 *)(iVar2 + 0x4d4) = 0x6000;
       *(bool *)(iVar2 + 0x4d6) = *(char *)(iVar4 + 0x44bf8) == '\0';
       *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
-      SendOutgoingPacket();
+      SendOutgoingPacket(iVar2);
       return;
     }
     FUN_00509780();
@@ -132,7 +132,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
     *(undefined4 *)(param_1 + 0x11c) = 0;
     *(undefined2 *)(*(int *)(iVar2 + 0x44d0) + 0x4d0 + iVar2) = 0;
     *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 2;
-    SendOutgoingPacket();
+    SendOutgoingPacket(iVar2);
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
     RefreshGameRoomListControls();
     return;
@@ -163,7 +163,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
       iVar4 = *(int *)(iVar2 + 0x44d0) + 2;
     }
     *(int *)(iVar2 + 0x44d0) = iVar4;
-    SendOutgoingPacket();
+    SendOutgoingPacket(iVar2);
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
     RefreshGameRoomListControls();
     return;
@@ -189,7 +189,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
 LAB_0042879e:
     *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 2;
 LAB_004287a5:
-    SendOutgoingPacket();
+    SendOutgoingPacket(iVar2);
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
     RefreshGameRoomListControls();
     return;
@@ -204,7 +204,7 @@ LAB_004287a5:
       *(undefined4 *)(param_1 + 0x118) = 0;
       *(undefined4 *)(param_1 + 0x11c) = 0;
       AppendPacketBytes(g_serverSelectRecords);
-      SendOutgoingPacket();
+      SendOutgoingPacket(iVar2);
       RefreshGameRoomListControls();
       *(undefined4 *)(param_1 + 4) = 0xffffffff;
       return;

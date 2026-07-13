@@ -603,7 +603,7 @@ LAB_004a0f88:
       local_af8[0xfe8] = iVar3 * param_1[0xfe5];
       cVar1 = PeekPacketChecksumBool();
       if (cVar1 == '\0') {
-        RegisterActiveObject();
+        RegisterActiveObject(0, 0, (undefined4 *)0);
       }
       else {
         (**(code **)*local_af8)(1);

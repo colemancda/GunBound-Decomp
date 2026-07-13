@@ -61,7 +61,7 @@ void FUN_00437150(int param_1,int param_2,int param_3,int param_4)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar4 = _rand();
       puVar5[0x15] = iVar4 % 0x15 - iVar3;
-      RegisterActiveObject();
+      RegisterActiveObject(0, 0, (undefined4 *)0);
       local_8 = local_8 + 1;
     } while (local_8 < (int)((uint)(byte)(&DAT_005f2f54)[g_clientContext] * param_4));
   }

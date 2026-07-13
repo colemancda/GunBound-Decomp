@@ -60,7 +60,7 @@ FUN_00401d50(char *param_1,int param_2,char param_3,undefined4 param_4,short par
       *(undefined4 *)((int)puVar4 + 0x35) = param_6[1];
       *(undefined4 *)((int)puVar4 + 0x39) = param_6[2];
       *(undefined4 *)((int)puVar4 + 0x3d) = param_6[3];
-      cVar2 = RegisterActiveObject();
+      cVar2 = RegisterActiveObject(0, 0, (undefined4 *)0);
       if (cVar2 != '\0') {
         iVar3 = *(int *)(param_2 + 0xc10) + 1;
         *(int *)(param_2 + 0xc10) = iVar3;

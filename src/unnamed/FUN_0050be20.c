@@ -144,7 +144,7 @@ LAB_0050c0b2:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    BlitRLESprite(param_3 + 3,(-(uint)((uVar3 & 0x20000000) != 0x20000000) & 0x480d) + 0xb7f2);
+    BlitRLESprite(0,param_3 + 3,(-(uint)((uVar3 & 0x20000000) != 0x20000000) & 0x480d) + 0xb7f2,(byte *)0);
     local_8c = 2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar1 = PeekPacketChecksumState();

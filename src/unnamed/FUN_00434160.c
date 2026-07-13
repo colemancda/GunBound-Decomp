@@ -255,7 +255,7 @@ LAB_0043428c:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  RegisterActiveObject();
+  RegisterActiveObject(0, 0, (undefined4 *)0);
 LAB_00434a9e:
   *unaff_FS_OFFSET = local_c;
   return;

@@ -39,7 +39,7 @@ void __thiscall FUN_0042bb10(int param_1,undefined4 param_2,int param_3)
     iVar5 = FindPreloadedTextureByName(s_rider_00553f98);
     piVar3[7] = iVar5;
     (**(code **)(*piVar3 + 4))(&DAT_00553f90);
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   return;
 }

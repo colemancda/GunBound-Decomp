@@ -582,7 +582,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
       TreeLowerBound();
     }
   }
-  RegisterActiveObject();
+  RegisterActiveObject(0, 0, (undefined4 *)0);
   *unaff_FS_OFFSET = iStack_84;
   return;
 }

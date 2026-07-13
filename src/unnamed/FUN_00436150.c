@@ -36,7 +36,7 @@ void FUN_00436150(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
     EncodeOutgoingPacketField(param_3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined1 *)(iVar3 + 0x4a8) = param_4;
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   return;
 }

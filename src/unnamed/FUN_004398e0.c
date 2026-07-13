@@ -158,7 +158,7 @@ LAB_004399d4:
       puVar5[0xfe8] = iVar4 * *(int *)(iVar12 + 0x3f94);
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
-        RegisterActiveObject();
+        RegisterActiveObject(0, 0, (undefined4 *)0);
       }
       else {
         (**(code **)*puVar5)(1);

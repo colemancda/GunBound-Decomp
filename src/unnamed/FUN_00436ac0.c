@@ -34,7 +34,7 @@ void FUN_00436ac0(undefined4 param_1,undefined4 param_2)
     iVar5 = _rand();
     *(int *)(iVar3 + 0x18) = unaff_EBX;
     *(int *)(iVar3 + 0x44) = iVar5 % iVar4;
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   return;
 }

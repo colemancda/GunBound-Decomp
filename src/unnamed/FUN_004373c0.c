@@ -44,7 +44,7 @@ FUN_004373c0(char param_1,int param_2,int param_3,int param_4,int param_5,undefi
     iVar5 = FindPreloadedTextureByName(param_6);
     piVar3[7] = iVar5;
     (**(code **)(*piVar3 + 4))(s_flame_00553d2c);
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   return;
 }

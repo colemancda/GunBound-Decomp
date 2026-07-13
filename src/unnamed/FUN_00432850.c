@@ -469,7 +469,7 @@ void FUN_00432850(int param_1,int param_2)
         } while (iVar5 != 0);
         TreeLowerBound();
       }
-      RegisterActiveObject();
+      RegisterActiveObject(0, 0, (undefined4 *)0);
       local_1e10 = local_1e10 + 6;
       local_1e0c = local_1e0c + 1;
     } while (local_1e0c < param_2);

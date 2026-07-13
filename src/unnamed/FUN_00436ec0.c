@@ -45,7 +45,7 @@ void FUN_00436ec0(int param_1,int param_2)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = _rand();
       *(int *)(iVar2 + 0x44) = iVar5 % iVar3;
-      RegisterActiveObject();
+      RegisterActiveObject(0, 0, (undefined4 *)0);
     }
   }
   return;

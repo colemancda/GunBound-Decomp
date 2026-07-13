@@ -35,7 +35,7 @@ void __fastcall FUN_00436860(int param_1,int param_2,undefined4 param_3,undefine
     *(undefined4 *)(iVar2 + 0x3c) = param_4;
     *(int *)(iVar2 + 0x48) = param_2;
     *(undefined4 *)(iVar2 + 0x38) = param_3;
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   return;
 }

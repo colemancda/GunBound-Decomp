@@ -326,7 +326,7 @@ LAB_0042b60a:
       TreeLowerBound(auStack_4dc);
     }
   }
-  RegisterActiveObject();
+  RegisterActiveObject(0, 0, (undefined4 *)0);
 LAB_0042bab0:
   *unaff_FS_OFFSET = local_c;
   return;

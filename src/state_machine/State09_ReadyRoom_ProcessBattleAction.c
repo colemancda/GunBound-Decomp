@@ -177,7 +177,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
           *(undefined2 *)(iVar4 + 0x4d4) = 0x2000;
           *(undefined2 *)(iVar4 + 0x4d6) = 0xffff;
           *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 2;
-          SendOutgoingPacket();
+          SendOutgoingPacket(iVar4);
           return;
         }
         iVar4 = (uint)bVar1 * 0xd + 0x457f1 + g_clientContext;

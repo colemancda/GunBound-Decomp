@@ -78,7 +78,7 @@ void FUN_00437d90(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
       pcVar6 = pcVar6 + 1;
     } while (cVar1 != '\0');
     FUN_0041da80(g_clientContext,piVar7,1,1,1);
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   *unaff_FS_OFFSET = local_c;
   return;

@@ -154,7 +154,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
       *(undefined2 *)(iVar7 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar7 + 0x4d6) = 0xffff;
       *(int *)(iVar7 + 0x44d0) = *(int *)(iVar7 + 0x44d0) + 2;
-      SendOutgoingPacket();
+      SendOutgoingPacket(iVar7);
       FUN_00422f10(*(undefined4 *)(g_clientContext + 0x44e60));
       *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
       return;
@@ -179,7 +179,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     *(int *)(iVar2 + 0x44d0) = iVar7 + 4;
     *(undefined1 *)(iVar7 + 0x4d4 + iVar2) = 0;
     *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
-    SendOutgoingPacket();
+    SendOutgoingPacket(iVar2);
     uVar10 = DecodeGuardedBool();
     cVar3 = CheckGuardedBoolAnd(uVar10);
     if (cVar3 == '\0') {
@@ -475,7 +475,7 @@ LAB_004b8aeb:
       *(undefined2 *)(iVar7 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar7 + 0x4d6) = 0xffff;
       *(int *)(iVar7 + 0x44d0) = *(int *)(iVar7 + 0x44d0) + 2;
-      SendOutgoingPacket();
+      SendOutgoingPacket(iVar7);
       FUN_00422f10(*(undefined4 *)(g_clientContext + 0x44e60));
       *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
       return;
@@ -493,7 +493,7 @@ LAB_004b8aeb:
     iVar7 = DAT_007934e8;
     *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
     *(undefined4 *)(iVar7 + 0x44d0) = 6;
-    SendOutgoingPacket();
+    SendOutgoingPacket(iVar7);
     return;
   case 0x11:
     cVar3 = PacketChecksumNotEquals(g_clientContext + 0x45354,2);

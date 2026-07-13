@@ -12,7 +12,13 @@ int PlayMusicTrack(int trackId);
 int LoadSpriteSet(void *container, int key, const char *imgName);
 extern unsigned char DAT_00ea0e18;
 extern unsigned int  DAT_00ea0e1c;
-void BuildSystemInfoBlob(void *outBlob);        /* fills the 36-byte system-info blob */
+/* Takes 2 outputs, not 1 - the original's second output arrives via a
+ * dropped ESI register (see src/network/BuildSystemInfoBlob.c). This
+ * call site still had the stale 1-param decl/call from before that fix
+ * was propagated here; blob[9] below holds both halves back-to-back
+ * (blob[0..3] for param_1, blob[4..8] for param_2), matching how the
+ * two halves get concatenated into the outgoing packet just below. */
+void BuildSystemInfoBlob(void *outBlob, void *outBlob2);        /* fills the 36-byte system-info blob */
 unsigned int SendSocketData(int handle, int len); /* channel send */
 extern unsigned int DAT_007934f4;        /* outgoing packet buffer base (declared uint in the C
                                           * tree; used as a pointer here, cast locally) */
@@ -62,7 +68,7 @@ void CState05Logo1::OnExit()
     }
 send_info:
     unsigned int blob[9];
-    BuildSystemInfoBlob(blob);
+    BuildSystemInfoBlob(blob, blob + 4);
     unsigned short *buf = (unsigned short *)DAT_007934f4;
     if (buf != 0) {
         buf[1] = 0xa000;

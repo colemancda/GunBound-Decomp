@@ -93,7 +93,7 @@ void __fastcall FUN_00479910(int *param_1)
       puVar7[0x12] = -iVar3;
       puVar7[0xe] = uVar6;
       puVar7[0xf] = uVar5;
-      RegisterActiveObject();
+      RegisterActiveObject(0, 0, (undefined4 *)0);
     }
     uStack_4 = 0xffffffff;
     if (iStack_21c != 0) {

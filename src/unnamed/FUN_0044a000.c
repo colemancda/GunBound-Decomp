@@ -85,7 +85,7 @@ LAB_0044a1b2:
   }
   local_104 = param_2 * 0x17e4 + param_1;
   DrawFontString();
-  BlitRLESprite();
+  BlitRLESprite(0,0,0,(byte *)0);
   if ((*(int *)(param_1 + 0x34790) < 0x15) || (*(int *)(param_1 + 0x3478c) != param_2)) {
     if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
       if (*(char *)(iVar1 + 0x18) == '\x01') {
@@ -427,7 +427,7 @@ LAB_0044a1b2:
     }
     iVar1 = 3;
     do {
-      BlitRLESprite();
+      BlitRLESprite(0,0,0,(byte *)0);
       iVar1 = iVar1 + -1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;

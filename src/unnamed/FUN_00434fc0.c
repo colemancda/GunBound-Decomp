@@ -209,7 +209,7 @@ LAB_00435034:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(0x1e);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
     iVar11 = g_clientContext;
     piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
     cVar2 = PeekPacketChecksumBool();

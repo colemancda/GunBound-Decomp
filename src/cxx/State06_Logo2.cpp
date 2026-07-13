@@ -8,7 +8,13 @@ int PlayMusicTrack(int trackId);
 int __stdcall LoadSpriteSet(void *container, int key);
 extern unsigned char DAT_00ea0e18;
 extern unsigned int  DAT_00ea0e1c;
-void BuildSystemInfoBlob(void *outBlob);
+/* Takes 2 outputs, not 1 - the original's second output arrives via a
+ * dropped ESI register (see src/network/BuildSystemInfoBlob.c). This
+ * call site still had the stale 1-param decl/call from before that fix
+ * was propagated here; the 40-byte local below actually holds both
+ * halves back-to-back (4 dwords for param_1, 5 dwords + null for
+ * param_2), same layout State05_Logo1.cpp's OnExit sends over the wire. */
+void BuildSystemInfoBlob(void *outBlob, void *outBlob2);
 }
 
 /* 0x443280 - same shape as Title/Logo1: prime bucket 10000 (with
@@ -34,7 +40,7 @@ void CState06Logo2::OnExit()
             bucket = (unsigned int **)bucket[7];
             key = (unsigned int)bucket[1];
             if (10000 < key) {
-                BuildSystemInfoBlob(blob);
+                BuildSystemInfoBlob(blob, blob + 16);
                 return;
             }
         }
@@ -47,5 +53,5 @@ void CState06Logo2::OnExit()
         bucket[3] = (unsigned int *)bucket;
         bucket[4] = (unsigned int *)bucket;
     }
-    BuildSystemInfoBlob(blob);
+    BuildSystemInfoBlob(blob, blob + 16);
 }

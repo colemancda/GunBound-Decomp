@@ -1094,7 +1094,7 @@ LAB_004a9a04:
   }
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (cStack_b15 == '\0') {
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   else {
     (*(code *)**(undefined4 **)pbVar9)(1);

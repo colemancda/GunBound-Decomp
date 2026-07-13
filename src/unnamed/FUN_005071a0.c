@@ -66,13 +66,13 @@ void __fastcall FUN_005071a0(int param_1)
       }
       FUN_004eb7a0((local_8 * 6 - *(int *)(param_1 + 0x13c)) + *(int *)(param_1 + 0x28),
                    local_4 * 6 + local_8 * -6 + 2,0xc);
-      BlitRLESprite(*(undefined4 *)(param_1 + 0x2c),0xffff);
+      BlitRLESprite(0,*(undefined4 *)(param_1 + 0x2c),0xffff,(byte *)0);
       goto LAB_005072f6;
     }
     uVar5 = *(undefined4 *)(param_1 + 0x2c);
     uVar6 = 0xffff;
   }
-  BlitRLESprite(uVar5,uVar6);
+  BlitRLESprite(0,uVar5,uVar6,(byte *)0);
 LAB_005072f6:
   SetClipRect();
   return;

@@ -444,7 +444,7 @@ LAB_00474cdd:
       puStack_b04[0xfe8] = iVar5 * param_1[0xfe5];
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
-        RegisterActiveObject();
+        RegisterActiveObject(0, 0, (undefined4 *)0);
       }
       else {
         (**(code **)*puStack_b04)(1);

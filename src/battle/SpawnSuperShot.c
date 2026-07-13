@@ -697,7 +697,7 @@ LAB_0042f0e2:
       TreeLowerBound(&local_8ac);
     }
   }
-  RegisterActiveObject();
+  RegisterActiveObject(0, 0, (undefined4 *)0);
   *unaff_FS_OFFSET = uStack_10;
   return;
 }

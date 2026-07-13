@@ -7,6 +7,21 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
+ *
+ * DROPPED ARGUMENT: Ghidra's decompile took this function as taking no
+ * arguments, but the prologue at 0x409a2b (`push ecx`) saves an incoming
+ * register argument to the stack before the security-cookie call, and
+ * the disassembly shows it's read back at 0x409c35
+ * (`mov esi,[ebp+0x8]`) right before the ParseChooseEventLine call at
+ * 0x409c3c - i.e. this function forwards its own first argument into
+ * ParseChooseEventLine as that callee's registry/event-table pointer.
+ * The one real call site (entry/InitGame.c) already passes
+ * `&DAT_00e9bea8` - a global also passed the same way elsewhere
+ * (ui_widget/ParseChatSlashCommand.c's `FUN_00409c70(&DAT_00e9bea8)`) -
+ * so it was being silently dropped on every call before this fix.
+ * Confirmed via:
+ *   objdump -d -Mintel --start-address=0x409a10 --stop-address=0x409c40 \
+ *     orig/GunBound.gme
  */
 #include "xfs.h"
 #include "ghidra_types.h"
@@ -15,7 +30,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-undefined4 LoadChooseEventConfig(void)
+undefined4 LoadChooseEventConfig(void *param_1)
 
 {
   bool bVar1;
@@ -106,7 +121,7 @@ LAB_00409b81:
         else {
           if (iVar4 != 0) {
             acStack_10f50[iVar4] = '\0';
-            ParseChooseEventLine();
+            ParseChooseEventLine(param_1, acStack_10f50, local_f710);
           }
           iVar4 = 0;
         }

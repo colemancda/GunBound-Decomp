@@ -173,7 +173,7 @@ code_r0x00442607:
     cVar3 = *pcVar8;
     pcVar8 = pcVar8 + 1;
   } while (cVar3 != '\0');
-  BlitRLESprite(0x27,0xffff);
+  BlitRLESprite(0,0x27,0xffff,(byte *)0);
   iVar9 = g_clientContext;
   if (0xd < *(int *)(iVar5 + 4)) {
     iStack_b0 = 0;
@@ -231,9 +231,9 @@ LAB_00442907:
       cVar3 = *pcVar8;
       pcVar8 = pcVar8 + 1;
     } while (cVar3 != '\0');
-    BlitRLESprite(0x118,0xffff);
+    BlitRLESprite(0,0x118,0xffff,(byte *)0);
     if (*(char *)(iVar9 + 0x44ee4) != '\0') {
-      BlitRLESprite(0x117,0xffff);
+      BlitRLESprite(0,0x117,0xffff,(byte *)0);
     }
     FUN_0041bce0(iVar9);
     if (DAT_007933b8 == '\x01') {
@@ -350,13 +350,13 @@ LAB_00442907:
           } while (iVar9 != 0);
         }
       }
-      BlitRLESprite(0x21c,0);
-      iVar12 = BlitRLESprite(0x21b,0xffe0);
+      BlitRLESprite(0,0x21c,0,(byte *)0);
+      iVar12 = BlitRLESprite(0,0x21b,0xffe0,(byte *)0);
       iVar5 = iStack_a4;
       iVar9 = g_clientContext;
     }
     else {
-      iVar12 = BlitRLESprite(0x208,0xffff);
+      iVar12 = BlitRLESprite(0,0x208,0xffff,(byte *)0);
     }
     if (((*(short *)(&DAT_006aa660 + iVar9) != -1) &&
         (iVar12 = *(int *)(iVar5 + 4) / 0x14, *(int *)(iVar5 + 4) % 0x14 < 10)) &&
@@ -435,7 +435,7 @@ LAB_00442790:
   DrawFontString(*piVar17 + 5,
                -(uint)(*(char *)(g_clientContext + 0x4590c + iStack_b0) !=
                       *(char *)(g_clientContext + 0x3b6c0)) & 0xfae8);
-  BlitRLESprite(*piVar17 + 5,0xffff);
+  BlitRLESprite(0,*piVar17 + 5,0xffff,(byte *)0);
 LAB_00442805:
   iStack_ac = iStack_ac + 0xd;
   iStack_b0 = iStack_b0 + 1;

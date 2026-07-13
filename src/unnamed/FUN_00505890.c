@@ -13,10 +13,10 @@ void __fastcall FUN_00505890(int param_1)
   int iVar1;
   
   if (*(char *)(param_1 + 0x1e) == '\0') {
-    Widget_DrawSelf();
+    Widget_DrawSelf(param_1);
     iVar1 = 0x2a;
     do {
-      BlitRLESprite(*(int *)(param_1 + 0x2c) + iVar1,0xffff);
+      BlitRLESprite(0,*(int *)(param_1 + 0x2c) + iVar1,0xffff,(byte *)0);
       iVar1 = iVar1 + 0xe;
     } while (iVar1 < 0xfc);
   }

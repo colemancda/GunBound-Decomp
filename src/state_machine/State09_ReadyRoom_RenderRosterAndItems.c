@@ -76,13 +76,13 @@ void __fastcall State09_ReadyRoom_RenderRosterAndItems(int param_1)
   BlitSpriteText(0x46,local_928,3,0xb);
   SetClipRect();
   iVar3 = g_clientContext;
-  BlitRLESprite(0xf,0xffff);
+  BlitRLESprite(0,0xf,0xffff,(byte *)0);
   SetClipRect();
   if (*(char *)(iVar3 + 0x44ee4) != '\0') {
-    BlitRLESprite(0xf,0xffff);
+    BlitRLESprite(0,0xf,0xffff,(byte *)0);
   }
   _sprintf(local_928,s__d__s_00556ae8,*(int *)(iVar3 + 0x3f804) + 1,iVar3 + 0x3b8e8);
-  BlitRLESprite(0xf,0xffff);
+  BlitRLESprite(0,0xf,0xffff,(byte *)0);
   local_a4c = 0;
   if (g_bBattleSessionActive == '\0') {
 LAB_004d81a0:

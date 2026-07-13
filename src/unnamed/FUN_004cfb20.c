@@ -26,7 +26,7 @@ void FUN_004cfb20(void)
     iVar4 = 0x183;
   }
   DrawFontString(iVar4,0);
-  BlitRLESprite(iVar4,0xffff);
+  BlitRLESprite(0,iVar4,0xffff,(byte *)0);
   pcVar2 = (char *)(*(int *)(unaff_ESI + 0x10c4) * 0xd + 0x457f1 + iVar6);
   do {
     cVar1 = *pcVar2;
@@ -34,7 +34,7 @@ void FUN_004cfb20(void)
   } while (cVar1 != '\0');
   uVar5 = 0;
   GetLocalizedString(&g_localizedStringTable,0xc1c);
-  BlitRLESprite(iVar4 + 1,uVar5);
+  BlitRLESprite(0,iVar4 + 1,uVar5,(byte *)0);
   pcVar2 = (char *)(*(int *)(unaff_ESI + 0x10c4) * 0xd + 0x457f1 + g_clientContext);
   do {
     cVar1 = *pcVar2;
@@ -42,7 +42,7 @@ void FUN_004cfb20(void)
   } while (cVar1 != '\0');
   uVar5 = 0xffff;
   GetLocalizedString(&g_localizedStringTable,0xc1c);
-  BlitRLESprite(iVar4,uVar5);
+  BlitRLESprite(0,iVar4,uVar5,(byte *)0);
   iVar6 = *(int *)(unaff_ESI + 0x1114 + *(int *)(unaff_ESI + 0x10c4) * 4);
   iVar3 = 1;
   if (0 < iVar6) {
@@ -53,8 +53,8 @@ void FUN_004cfb20(void)
   iVar3 = iVar6 / iVar3;
   pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0xc1d);
   _sprintf(local_80,pcVar2,iVar3,uVar5,iVar6);
-  BlitRLESprite(iVar4 + 0x14,0);
-  BlitRLESprite(iVar4 + 0x13,0xffff);
+  BlitRLESprite(0,iVar4 + 0x14,0,(byte *)0);
+  BlitRLESprite(0,iVar4 + 0x13,0xffff,(byte *)0);
   iVar6 = *(int *)(unaff_ESI + 0x1174 + *(int *)(unaff_ESI + 0x10c4) * 4);
   iVar3 = 1;
   if (0 < iVar6) {
@@ -66,8 +66,8 @@ void FUN_004cfb20(void)
   iVar3 = *(int *)(unaff_ESI + 0x1134 + iVar6 * 4) / iVar3;
   pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0xc1e);
   _sprintf(local_80,pcVar2,iVar3,uVar7,uVar5);
-  BlitRLESprite(iVar4 + 0x23,0);
-  BlitRLESprite(iVar4 + 0x22,0xffff);
+  BlitRLESprite(0,iVar4 + 0x23,0,(byte *)0);
+  BlitRLESprite(0,iVar4 + 0x22,0xffff,(byte *)0);
   return;
 }
 

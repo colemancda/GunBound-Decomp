@@ -370,7 +370,7 @@ LAB_00450599:
         cVar1 = *pcVar9;
         pcVar9 = pcVar9 + 1;
       } while (cVar1 != '\0');
-      BlitRLESprite(iVar10,0);
+      BlitRLESprite(0,iVar10,0,(byte *)0);
       iVar8 = iVar8 + 1;
       pcVar9 = pcVar3 + 0x14;
       iVar10 = iVar10 + 0xe;

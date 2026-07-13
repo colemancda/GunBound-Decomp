@@ -69,9 +69,9 @@ void FUN_00442e00(void)
     }
   }
   DrawFontString(iVar7 + 1,0x1f);
-  BlitRLESprite(iVar7 + 1,0xffff);
+  BlitRLESprite(0,iVar7 + 1,0xffff,(byte *)0);
   iVar5 = g_clientContext;
-  BlitRLESprite(iVar7 + 0xe,0xffff);
+  BlitRLESprite(0,iVar7 + 0xe,0xffff,(byte *)0);
   cVar2 = *(char *)(iVar5 + 0x449ba + unaff_EDI);
   if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {

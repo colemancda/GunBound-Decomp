@@ -23,7 +23,7 @@ void __fastcall RenderChannelUserRow(int param_1)
   if (*(char *)(param_1 + 0x1e) != '\0') {
     return;
   }
-  Widget_DrawSelf();
+  Widget_DrawSelf(param_1);
   iVar4 = g_clientContext;
   FUN_0041b6b0();
   iVar1 = *(int *)(param_1 + 0x28);
@@ -86,8 +86,8 @@ LAB_005075d0:
     }
   }
 LAB_00507600:
-  BlitRLESprite(iVar7,0xfd0f);
-  BlitRLESprite(iVar7 + 0xe,0xffff);
+  BlitRLESprite(0,iVar7,0xfd0f,(byte *)0);
+  BlitRLESprite(0,iVar7 + 0xe,0xffff,(byte *)0);
   local_4 = local_4 + 1;
   iVar7 = iVar7 + 0x1e;
   iVar4 = g_clientContext;

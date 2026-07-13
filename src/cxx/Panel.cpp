@@ -533,7 +533,7 @@ extern unsigned int DAT_007934f0;   /* per-connection context base (channel-1 se
 extern unsigned int DAT_00e54a9c;   /* buddy/selector record count guard */
 extern unsigned char DAT_00e54aa0;  /* selector record storage */
 void AppendPacketBytes(void *record);    /* append a selector record to the pending packet */
-void SendOutgoingPacket(void);            /* flush/send the pending channel-1 packet */
+void SendOutgoingPacket(int channelCtx);  /* flush/send the pending channel-1 packet */
 void FUN_00402060(void);            /* buddy-list refresh */
 extern const char s_disable_00551e68[];
 extern unsigned int DAT_0056d118;
@@ -662,7 +662,7 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
         st->m_scrollOffset = 0;
         *(unsigned short *)(ctx + 0x4d0 + *(int *)(ctx + 0x44d0)) = 0;
         *(int *)(ctx + 0x44d0) += 2;
-        SendOutgoingPacket();
+        SendOutgoingPacket((int)ctx);
         st->m_highlightedSlot = -1;
         DAT_0056d118 = 0;
         SetRegistryButtonState(s_disable_00551e68);
@@ -714,7 +714,7 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
             st->m_scrollA = 0;
             st->m_scrollOffset = 0;
             AppendPacketBytes(&DAT_00e54aa0);
-            SendOutgoingPacket();
+            SendOutgoingPacket((int)ctx);
             DAT_0056d118 = 0;
             SetRegistryButtonState(s_disable_00551e68);
             enable = false;

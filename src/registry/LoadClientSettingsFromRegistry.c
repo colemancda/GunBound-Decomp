@@ -16,6 +16,14 @@
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * Fixed a stale call site: EncodeOutgoingPacketField() was previously
+ * promoted to take a leading `self` parameter (the checksum-state object
+ * Ghidra had dropped as unaff_EDI - see EncodeOutgoingPacketField.c's own
+ * header comment), but this file still called it with just the one
+ * value argument. Recovered the missing `self` pointer by disassembling
+ * the call site (`mov edi,0x796878` immediately before `call 0x40a380` at
+ * 0x0040d4a2-0x0040d4a7) and passed &DAT_00796878 explicitly.
  */
 #include "ghidra_types.h"
 
@@ -62,7 +70,13 @@ void LoadClientSettingsFromRegistry(void)
     RegQueryValueExA(local_10,s_Version_00552868,(LPDWORD)0x0,&local_c,(LPBYTE)&local_4,&local_14);
     uVar1 = local_4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(uVar1);
+    /* EncodeOutgoingPacketField takes a leading `self` parameter (the
+     * checksum-state object dropped by Ghidra as unaff_EDI - see that
+     * function's own header comment). At this call site the original
+     * loads a fixed object address into EDI right before the call
+     * (`mov edi,0x796878`), confirmed via objdump on the original binary
+     * at 0x0040d4a2-0x0040d4a7. */
+    EncodeOutgoingPacketField(&DAT_00796878,uVar1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_14 = 1;
     RegQueryValueExA(local_10,s_ShootingMode_00552858,(LPDWORD)0x0,&local_c,&DAT_00d9aa20,&local_14)

@@ -17,7 +17,7 @@ void __thiscall FUN_00506e10(int param_1,int param_2,int param_3,undefined4 para
     if (param_3 == 0) {
       *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x1078;
       *(undefined4 *)(iVar1 + 0x44d0) = 6;
-      SendOutgoingPacket();
+      SendOutgoingPacket(iVar1);
     }
     else if (param_3 != 1) goto LAB_00506e51;
     *(undefined1 *)(param_1 + 0x1d) = 1;

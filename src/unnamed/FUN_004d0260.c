@@ -52,9 +52,9 @@ void FUN_004d0260(int param_1,int param_2,int param_3,int param_4,int param_5)
     _sprintf(local_80,s__s__3d__3d__005536b8,iVar5 + 0x457a9 + iVar4,
              *(undefined4 *)(iVar4 + 0x4597c + param_5 * 4),
              *(undefined4 *)(iVar4 + 0x4599c + param_5 * 4));
-    BlitRLESprite(param_4 + 0x10,0xf800);
+    BlitRLESprite(0,param_4 + 0x10,0xf800,(byte *)0);
   }
-  BlitRLESprite(param_4 + 0x1e,0);
+  BlitRLESprite(0,param_4 + 0x1e,0,(byte *)0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

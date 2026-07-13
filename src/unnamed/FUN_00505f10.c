@@ -39,8 +39,8 @@ void __thiscall FUN_00505f10(int param_1,int param_2)
       BlitSpriteClipped(uVar2);
     }
   }
-  BlitRLESprite(iVar1,0xfd0f);
-  BlitRLESprite(iVar1 + 0xd,0xffff);
+  BlitRLESprite(0,iVar1,0xfd0f,(byte *)0);
+  BlitRLESprite(0,iVar1 + 0xd,0xffff,(byte *)0);
   if (*(char *)(param_2 + 0x30) == '\0') {
     if (DAT_0079352c == 0) {
       return;
@@ -59,11 +59,15 @@ void __thiscall FUN_00505f10(int param_1,int param_2)
     if ((*(char *)(param_2 + 0x30) == '\x12') && (*(short *)(param_2 + 0x31) != -1)) {
       if (*(short *)(param_2 + 0x33) != -2) {
         if (*(short *)(param_2 + 0x33) == -1) {
-          DrawSprite();
+          /* DrawSprite's arg was dropped as `in_EAX` - objdump at this
+           * call site (0x50608d) shows a literal `mov eax,3`. */
+          DrawSprite(3);
           uVar3 = *(ushort *)(param_2 + 0x35);
         }
         else {
-          DrawSprite();
+          /* Same dropped-arg case; objdump at 0x5060a4 shows a literal
+           * `mov eax,2`. */
+          DrawSprite(2);
           uVar3 = *(ushort *)(param_2 + 0x33);
         }
         _sprintf(local_80,(char *)&PTR_DAT_00551ecc,uVar3 + 1);

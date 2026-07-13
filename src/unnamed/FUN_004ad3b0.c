@@ -450,7 +450,7 @@ LAB_004ada51:
         (**(code **)(*param_1 + 0x20))();
         goto LAB_004ae0cf;
       }
-      RegisterActiveObject();
+      RegisterActiveObject(0, 0, (undefined4 *)0);
       goto LAB_004adaf2;
     }
   }

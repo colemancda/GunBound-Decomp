@@ -90,7 +90,7 @@ uint SpawnCraterDebris(int *param_1,int param_2,int param_3,int param_4,int para
           }
           _sprintf(local_80,s_ani__02d_00553b98,uVar3 + 1);
           (**(code **)(*piVar8 + 4))(local_80);
-          uVar3 = RegisterActiveObject();
+          uVar3 = RegisterActiveObject(0, 0, (undefined4 *)0);
           local_94 = local_94 + -1;
         } while (local_94 != 0);
       }

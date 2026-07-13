@@ -38,7 +38,7 @@ void FUN_00439d90(undefined4 param_1,int param_2)
     iVar3 = FindPreloadedTextureByName(&DAT_00553b88);
     piVar4[7] = iVar3;
     (**(code **)(*piVar4 + 4))(s_normal_00552230);
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   return;
 }

@@ -79,9 +79,15 @@ void FUN_00408180(int param_1)
         }
       }
     }
+    /* Both DrawSprite() calls below are missing their arg (dropped as
+     * `in_EAX`), left unfixed here: objdump at 0x4082c6/0x4082e2 shows
+     * both need the return value of the PeekChecksumStateUnderLock()
+     * call just above, which this decompiled source discards - fixing
+     * that call's own dropped return is a prerequisite. See
+     * DrawSprite.c's header comment. */
     PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x60d4);
-    DrawSprite();
-    DrawSprite();
+    DrawSprite(0);
+    DrawSprite(0);
   }
   if (DAT_007933b8 == '\x01') {
     FUN_0040c8f0(0xca,0x21b,0);
@@ -107,35 +113,41 @@ void FUN_00408180(int param_1)
       local_1018[0] = (int)pcVar4 - (int)local_1007;
     }
     FUN_004eb7a0(iVar3 * 6 + 0xca,local_1018[0] * 6 + iVar3 * -6 + 2,0xc);
-    BlitRLESprite(0x21c,0);
-    BlitRLESprite(0x21b,0xffe0);
+    BlitRLESprite(0,0x21c,0,(byte *)0);
+    BlitRLESprite(0,0x21b,0xffe0,(byte *)0);
   }
   else {
-    BlitRLESprite(0x21c,0);
-    BlitRLESprite(0x21b,0xffff);
+    BlitRLESprite(0,0x21c,0,(byte *)0);
+    BlitRLESprite(0,0x21b,0xffff,(byte *)0);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar3 == 1) {
     if (*(char *)(g_clientContext + 0x3b6c0) == '\x01') {
+      /* The 3 DrawSprite() calls below (through LAB_0040855d) all have
+       * the same dropped-arg/missing-prerequisite-fix shape as the pair
+       * above: objdump (0x408491/0x40851b/0x40856c) shows each needs
+       * `PeekChecksumStateUnderLock(...)`'s return value + 0xbd, which
+       * this decompiled source discards every time. See DrawSprite.c's
+       * header comment. */
       if ((*(int *)(param_1 + 0x3c) % 0x14 < 10) ||
          (cVar1 = PacketChecksumNotEquals(&DAT_0067e3d0 + g_clientContext,1), cVar1 != '\0')) {
         PeekChecksumStateUnderLock(&DAT_0067e3d0 + g_clientContext);
-        DrawSprite();
+        DrawSprite(0);
       }
       if ((*(int *)(param_1 + 0x3c) % 0x14 < 10) ||
          (cVar1 = PacketChecksumNotEquals(&DAT_0067e5f4 + g_clientContext,1), cVar1 != '\0')) {
         PeekChecksumStateUnderLock(&DAT_0067e5f4 + g_clientContext);
 LAB_0040855d:
-        DrawSprite();
+        DrawSprite(0);
       }
     }
     else {
       if ((*(int *)(param_1 + 0x3c) % 0x14 < 10) ||
          (cVar1 = PacketChecksumNotEquals(&DAT_0067e3d0 + g_clientContext,1), cVar1 != '\0')) {
         PeekChecksumStateUnderLock(&DAT_0067e3d0 + g_clientContext);
-        DrawSprite();
+        DrawSprite(0);
       }
       if ((*(int *)(param_1 + 0x3c) % 0x14 < 10) ||
          (cVar1 = PacketChecksumNotEquals(&DAT_0067e5f4 + g_clientContext,1), cVar1 != '\0')) {
@@ -662,7 +674,7 @@ LAB_004094da:
 LAB_00409561:
   iVar2 = local_1018[0] + 3;
   DrawFontString(iVar2,0);
-  BlitRLESprite(iVar2,(-(uint)bVar15 & 0x517) + 0xfae8);
+  BlitRLESprite(0,iVar2,(-(uint)bVar15 & 0x517) + 0xfae8,(byte *)0);
   local_1018[0] = local_1018[0] + -0xf;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_101c = PeekPacketChecksumState();

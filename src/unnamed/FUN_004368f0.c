@@ -40,7 +40,7 @@ void FUN_004368f0(undefined4 param_1,undefined4 param_2,undefined4 param_3)
     puVar2[0xf] = param_2;
     puVar2[0xe] = param_1;
     puVar2[0x11] = param_3;
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   return;
 }

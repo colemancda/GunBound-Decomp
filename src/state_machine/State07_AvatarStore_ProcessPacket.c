@@ -68,7 +68,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
       *(undefined2 *)(iVar4 + 0x4d4) = 0x6000;
       *(undefined1 *)(iVar4 + 0x4d6) = 0;
       *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 1;
-      SendOutgoingPacket();
+      SendOutgoingPacket(iVar4);
       return;
     }
     if (opcode < 0x6003) {
@@ -266,7 +266,7 @@ LAB_0044469b:
             *(undefined2 *)(iVar4 + 0x4d4) = 0x2000;
             *(undefined2 *)(iVar4 + 0x4d6) = 0xffff;
             *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 2;
-            SendOutgoingPacket();
+            SendOutgoingPacket(iVar4);
           }
         }
         else {
@@ -354,7 +354,7 @@ LAB_0044469b:
         *(undefined2 *)(iVar20 + 0x4d4) = 0x6000;
         *(bool *)(iVar20 + 0x4d6) = *(char *)(iVar4 + 0x44bf8) == '\0';
         *(int *)(iVar20 + 0x44d0) = *(int *)(iVar20 + 0x44d0) + 1;
-        SendOutgoingPacket();
+        SendOutgoingPacket(iVar20);
       }
     }
     else {

@@ -12,6 +12,15 @@
  * g_fullnessGaugeThresholds -> gauge sprite, the F/E dial). Reads the SoA
  * (serverId +0x3f81a, onlineFlag +0x3f809, players +0x410ca, capacity +0x410ea).
  *
+ * Dropped-argument fix (confirmed via objdump -Mintel on the .gme at the
+ * call site 0x50dc61-0x50dc65): the caller (WorldListPanel_Draw,
+ * 0x50dc40) does `mov eax,esi` / `mov ecx,edi` / `call 0x50dc80` per
+ * loop iteration - i.e. this function is __fastcall(this=ECX,
+ * index=EAX), with the row index passed as a non-standard extra
+ * argument in EAX rather than a real parameter. Ghidra's decompile
+ * missed this and emitted it as an uninitialized read of `in_EAX`;
+ * promoted to a real second parameter here.
+ *
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
@@ -19,14 +28,13 @@
 #include "ghidra_types.h"
 
 
-void __fastcall RenderWorldListRow(int param_1)
+void __fastcall RenderWorldListRow(int param_1, uint in_EAX)
 
 {
   int iVar1;
   int iVar2;
   char cVar3;
   uint uVar4;
-  uint in_EAX;
   uint uVar5;
   int iVar6;
   char *pcVar7;
@@ -75,11 +83,11 @@ void __fastcall RenderWorldListRow(int param_1)
     cVar3 = *pcVar7;
     pcVar7 = pcVar7 + 1;
   } while (cVar3 != '\0');
-  BlitRLESprite(iVar2 + 9,0xffff);
+  BlitRLESprite(0,iVar2 + 9,0xffff,(byte *)0);
   iVar6 = iVar2 + 0x1e;
   local_84 = 2;
   do {
-    BlitRLESprite(iVar6,0xb77f);
+    BlitRLESprite(0,iVar6,0xb77f,(byte *)0);
     iVar6 = iVar6 + 0xe;
     local_84 = local_84 + -1;
   } while (local_84 != 0);

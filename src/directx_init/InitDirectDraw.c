@@ -138,12 +138,13 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
   }
   else {
     /* windowed: create a separate off-screen back buffer sized to the client.
-     * FloatToInt64 is an ftol-style helper the original fed via the x87 stack
-     * (flds DAT_00588f50/DAT_00588f54); the register/FPU arg is a Ghidra
-     * artifact left as-is - windowed mode is not the bring-up path. */
+     * Ghidra emitted this as argless `FloatToInt64()` calls; the original fed
+     * ftol via the x87 stack (flds DAT_00588f50/DAT_00588f54 at 0x4efc50/
+     * 0x4efc63, same dropped-arg pattern already fixed for the fullscreen
+     * SetDisplayMode call above and the D3DVIEWPORT7 fill below). */
     ddsd.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;  /* 0x7 */
-    ddsd.dwWidth = (DWORD)FloatToInt64();
-    ddsd.dwHeight = (DWORD)FloatToInt64();
+    ddsd.dwWidth = (DWORD)DAT_00588f50;
+    ddsd.dwHeight = (DWORD)DAT_00588f54;
     ddsd.ddsCaps.dwCaps = 0x2040;                     /* 3DDEVICE|OFFSCREENPLAIN */
     iVar4 = ((CreateSurfaceFn)VTBL(g_pDirectDraw7, 6))
                       (g_pDirectDraw7, &ddsd, (void **)&g_pBackBufferSurface, 0);

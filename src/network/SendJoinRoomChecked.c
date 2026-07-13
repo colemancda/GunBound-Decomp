@@ -50,7 +50,7 @@ void SendJoinRoomChecked(void)
     *(undefined4 *)(iVar3 + 0x4d2 + iVar1) = _DAT_00551cb1;
     *(int *)(iVar1 + 0x44d0) = *(int *)(iVar1 + 0x44d0) + 4;
     *(undefined1 *)(in_EAX + 0x8f) = 0;
-    SendOutgoingPacket();
+    SendOutgoingPacket(iVar1);
     return;
   }
   FUN_00508910();

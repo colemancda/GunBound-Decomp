@@ -251,7 +251,7 @@ void FUN_004337f0(undefined4 param_1,int param_2)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   *unaff_FS_OFFSET = local_c;
   return;

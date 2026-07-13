@@ -66,7 +66,7 @@ void FUN_00436fd0(int param_1,int param_2,int param_3,int param_4,int param_5)
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = _rand();
           puVar4[0x11] = iVar6 % iVar5;
-          RegisterActiveObject();
+          RegisterActiveObject(0, 0, (undefined4 *)0);
         }
         param_3 = param_3 + (param_2 - param_5);
         local_8 = local_8 + (param_1 - param_4);

@@ -252,7 +252,7 @@ LAB_00468f4e:
       local_aec[0xfe8] = iVar5 * param_1[0xfe5];
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
-        RegisterActiveObject();
+        RegisterActiveObject(0, 0, (undefined4 *)0);
       }
       else {
         (**(code **)*local_aec)(1);

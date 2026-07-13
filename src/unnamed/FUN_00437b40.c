@@ -90,7 +90,7 @@ void FUN_00437b40(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   piVar7[0xfeb] = iVar3;
-  RegisterActiveObject();
+  RegisterActiveObject(0, 0, (undefined4 *)0);
   return;
 }
 

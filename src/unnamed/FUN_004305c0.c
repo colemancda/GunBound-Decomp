@@ -496,7 +496,7 @@ void FUN_004305c0(void)
       TreeLowerBound();
     }
   }
-  RegisterActiveObject();
+  RegisterActiveObject(0, 0, (undefined4 *)0);
   *unaff_FS_OFFSET = uStack_90;
   return;
 }

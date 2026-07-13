@@ -122,7 +122,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
         DrawFontString(*piVar8 + 5,
                      -(uint)(*(char *)(g_clientContext + 0x4590c + iStack_8c) !=
                             *(char *)(g_clientContext + 0x3b6c0)) & 0xfae8);
-        BlitRLESprite(*piVar8 + 5,0xffff);
+        BlitRLESprite(0,*piVar8 + 5,0xffff,(byte *)0);
       }
       iStack_88 = iStack_88 + 0xd;
       iStack_8c = iStack_8c + 1;
@@ -365,11 +365,11 @@ LAB_004da2f4:
     DrawHLine(0xf800);
     DrawVLine();
     DrawVLine();
-    BlitRLESprite(0x170,0);
-    BlitRLESprite(0x16f,0xffe0);
+    BlitRLESprite(0,0x170,0,(byte *)0);
+    BlitRLESprite(0,0x16f,0xffe0,(byte *)0);
   }
   else {
-    BlitRLESprite(0x16f,0xffff);
+    BlitRLESprite(0,0x16f,0xffff,(byte *)0);
   }
   FUN_00450860();
   return;

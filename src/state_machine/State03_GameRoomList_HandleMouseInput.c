@@ -47,7 +47,7 @@ void __thiscall State03_GameRoomList_HandleMouseInput(int param_1,uint param_2,u
       *(undefined2 *)(iVar1 + 0x4d4) = 0x2104;
       *(undefined2 *)(iVar1 + 0x4d6) = *(undefined2 *)(iVar3 + 0x44664 + iVar4 * 4);
       *(int *)(iVar1 + 0x44d0) = *(int *)(iVar1 + 0x44d0) + 2;
-      SendOutgoingPacket();
+      SendOutgoingPacket(iVar1);
       *(int *)(param_1 + 0x124) = iVar4;
       puVar5 = (undefined4 *)(param_1 + 0x220);
       for (iVar3 = 0x12; iVar3 != 0; iVar3 = iVar3 + -1) {

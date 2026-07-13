@@ -113,7 +113,7 @@ void __thiscall RenderRoomCard(int param_1,int param_2)
   _sprintf(local_80,(char *)&PTR_DAT_00551ecc,*(int *)(g_clientContext + 0x44664 + param_2 * 4) + 1);
   BlitSpriteText(0x14,local_80,3,0xb);
   SetClipRect();
-  BlitRLESprite(iVar6 + 0x44,0xffff);
+  BlitRLESprite(0,iVar6 + 0x44,0xffff,(byte *)0);
   SetClipRect();
   uVar3 = *(uint *)(g_clientContext + 0x44984 + param_2 * 4);
   if ((DAT_0079352c != 0) && (iVar8 = FindSpriteFrame(), iVar8 != 0)) {

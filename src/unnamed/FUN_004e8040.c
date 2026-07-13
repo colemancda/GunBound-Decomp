@@ -40,7 +40,7 @@ void FUN_004e8040(int param_1)
     puVar5 = (undefined4 *)((int)puVar5 + 1);
   }
   *(uint *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + (uint)uVar1;
-  SendOutgoingPacket();
+  SendOutgoingPacket(iVar3);
   return;
 }
 

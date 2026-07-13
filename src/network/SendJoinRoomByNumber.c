@@ -78,7 +78,7 @@ LAB_00429e3e:
   *(int *)(iVar4 + 0x44d0) = iVar2 + 1;
   *(short *)(iVar2 + 0x4d1 + iVar4) = (short)(local_84 / 6);
   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 2;
-  SendOutgoingPacket();
+  SendOutgoingPacket(iVar4);
   iVar4 = DAT_007934e8;
   *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
   *(undefined2 *)(iVar4 + 0x4d4) = 0x2110;
@@ -87,7 +87,7 @@ LAB_00429e3e:
   *(int *)(iVar4 + 0x44d0) = iVar2 + 2;
   *(undefined4 *)(iVar2 + 0x4d2 + iVar4) = *(undefined4 *)(param_1 + 0x8f);
   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 4;
-  SendOutgoingPacket();
+  SendOutgoingPacket(iVar4);
   *(undefined1 *)(param_1 + 0x115) = 1;
   *(undefined1 *)(param_1 + 0x116) = 0;
   *(int *)(param_1 + 0x11c) = local_84 / 6;

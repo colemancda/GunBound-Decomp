@@ -29,7 +29,7 @@ void FUN_004382d0(void)
       FUN_0044fd00();
     }
     FUN_00450600();
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   return;
 }

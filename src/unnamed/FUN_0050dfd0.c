@@ -17,7 +17,7 @@ void __fastcall FUN_0050dfd0(int param_1)
     iVar1 = 0;
     do {
       if (*(int *)(param_1 + 0x2c) < iVar1) break;
-      BlitRLESprite(iVar1 + *(int *)(param_1 + 0x2c),*(undefined2 *)(param_1 + 0x38));
+      BlitRLESprite(0,iVar1 + *(int *)(param_1 + 0x2c),*(undefined2 *)(param_1 + 0x38),(byte *)0);
       iVar1 = iVar1 + 0xe;
     } while (iVar1 < 0x8c);
     if (*(char *)(param_1 + 0x1e) == '\0') {

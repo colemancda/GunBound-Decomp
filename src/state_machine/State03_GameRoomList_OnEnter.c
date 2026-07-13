@@ -115,7 +115,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
     *(short *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = (short)param_1[0x47];
   }
   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 2;
-  SendOutgoingPacket();
+  SendOutgoingPacket(iVar4);
   puVar1 = (undefined4 *)(DAT_007934e4 + 4);
   *(undefined1 *)(DAT_007934e4 + 8) = 1;
   SetWindowTextA((HWND)*puVar1,&DAT_00551cb1);

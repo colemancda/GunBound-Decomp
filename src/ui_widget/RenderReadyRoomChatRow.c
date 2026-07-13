@@ -25,7 +25,7 @@ void __fastcall RenderReadyRoomChatRow(int param_1)
   int local_10;
   
   if (*(char *)(param_1 + 0x1e) == '\0') {
-    Widget_DrawSelf();
+    Widget_DrawSelf(param_1);
     iVar7 = *(int *)(param_1 + 0x2c) + 0x14;
     local_10 = 0;
     iVar8 = param_1;
@@ -115,7 +115,7 @@ LAB_0050d3e9:
       }
       pcVar6 = (char *)(iVar10 * 9 + 0x3b984 + g_clientContext);
       DrawFontString(iVar7,local_14);
-      BlitRLESprite(iVar7,iVar8);
+      BlitRLESprite(0,iVar7,iVar8,(byte *)0);
       do {
         cVar1 = *pcVar6;
         pcVar6 = pcVar6 + 1;
@@ -123,19 +123,19 @@ LAB_0050d3e9:
       bVar2 = *(byte *)(g_clientContext + 0x3c4d8 + iVar10);
       if ((bVar2 < 2) || (bVar2 == 7)) {
         pcVar6 = (char *)(g_clientContext + (iVar10 * 5 + 0xef42) * 4);
-        BlitRLESprite(iVar7,0);
-        BlitRLESprite(iVar7,iVar8);
+        BlitRLESprite(0,iVar7,0,(byte *)0);
+        BlitRLESprite(0,iVar7,iVar8,(byte *)0);
         do {
           cVar1 = *pcVar6;
           pcVar6 = pcVar6 + 1;
         } while (cVar1 != '\0');
-        BlitRLESprite(iVar7,0);
+        BlitRLESprite(0,iVar7,0,(byte *)0);
         iVar10 = iVar8;
       }
       else {
         pcVar6 = (char *)(g_clientContext + (iVar10 * 5 + 0xef42) * 4);
         DrawFontString(iVar7,iVar8);
-        BlitRLESprite(iVar7,local_1c);
+        BlitRLESprite(0,iVar7,local_1c,(byte *)0);
         do {
           cVar1 = *pcVar6;
           pcVar6 = pcVar6 + 1;
@@ -143,7 +143,7 @@ LAB_0050d3e9:
         DrawFontString(iVar7,iVar8);
         iVar10 = local_1c;
       }
-      BlitRLESprite(iVar7,iVar10);
+      BlitRLESprite(0,iVar7,iVar10,(byte *)0);
       iVar7 = iVar7 + 0xe;
       local_10 = local_10 + 1;
     } while (local_10 < 9);

@@ -98,7 +98,7 @@ LAB_004d67e1:
         *(int *)(iVar6 + 0x44d0) = iVar5 + 1;
         *(undefined1 *)(iVar5 + 0x4d1 + iVar6) = *(undefined1 *)((int)param_1 + 0x25a);
         *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 1;
-        SendOutgoingPacket();
+        SendOutgoingPacket(iVar6);
       }
       if (((0x16c < param_4) && (param_4 < 0x18b)) && ((char)param_1[0x133] == '\0')) {
         iVar5 = 0x20b;
@@ -221,7 +221,7 @@ LAB_004d6626:
       *(undefined4 *)(iVar5 + 0x4d6) = *(undefined4 *)((int)param_1 + 0x25d);
       *(undefined4 *)(iVar5 + 0x4da) = *(undefined4 *)((int)param_1 + 0x261);
       *(int *)(iVar5 + 0x44d0) = *(int *)(iVar5 + 0x44d0) + 8;
-      SendOutgoingPacket();
+      SendOutgoingPacket(iVar5);
       param_1[0x18a] = 100;
       return;
     }

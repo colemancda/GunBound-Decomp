@@ -100,7 +100,7 @@ void FUN_00404410(int param_1)
               puVar1[2] = local_150;
               puVar1[3] = local_14c;
               *(int *)(iVar9 + 0x44d0) = *(int *)(iVar9 + 0x44d0) + 0x10;
-              SendOutgoingPacket();
+              SendOutgoingPacket(iVar9);
             }
             local_120 = 0x69;
             iVar9 = -(int)pcVar12;

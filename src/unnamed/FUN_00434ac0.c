@@ -139,7 +139,7 @@ void FUN_00434ac0(undefined4 param_1,int param_2)
     *(undefined4 *)((int)piVar2 + 0x3817) = SUBFIELD(s_caseblast_xes_00553c68,4,undefined4);
     *(undefined4 *)((int)piVar2 + 0x381b) = SUBFIELD(s_caseblast_xes_00553c68,8,undefined4);
     *(undefined2 *)((int)piVar2 + 0x381f) = SUBFIELD(s_caseblast_xes_00553c68,12,undefined2);
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   *unaff_FS_OFFSET = local_c;
   return;

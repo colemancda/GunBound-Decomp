@@ -67,7 +67,7 @@ void __fastcall FUN_004ad230(int param_1)
     iVar3 = FindPreloadedTextureByName(s_ssflame4_00555170);
     piVar6[7] = iVar3;
     (**(code **)(*piVar6 + 4))(s_flame_00553d2c);
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   *unaff_FS_OFFSET = uStack_14;
   return;

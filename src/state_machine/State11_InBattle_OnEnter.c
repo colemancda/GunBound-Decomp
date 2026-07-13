@@ -282,7 +282,7 @@ LAB_004bbe6b:
         *(undefined2 *)(iVar8 + 0x4d4) = 0x2000;
         *(undefined2 *)(iVar8 + 0x4d6) = 0xffff;
         *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 2;
-        SendOutgoingPacket();
+        SendOutgoingPacket(iVar8);
         iVar6 = g_clientContext;
       }
       uVar7 = DAT_005b3480 * 0xda003 + 0x5703b11;

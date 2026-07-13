@@ -91,7 +91,7 @@ void FUN_00435da0(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(param_4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    RegisterActiveObject();
+    RegisterActiveObject(0, 0, (undefined4 *)0);
   }
 LAB_0043604a:
   *unaff_FS_OFFSET = local_c;

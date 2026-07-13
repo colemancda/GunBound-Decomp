@@ -103,7 +103,7 @@ LAB_004379f7:
   iVar2 = PeekPacketChecksumState();
   (*pcVar8)(&DAT_005a9068);
   piVar7[0xfeb] = iVar2;
-  RegisterActiveObject();
+  RegisterActiveObject(0, 0, (undefined4 *)0);
 LAB_00437acb:
   return;
 }

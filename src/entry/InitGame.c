@@ -14,6 +14,18 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
+/* Calling-convention cast mismatch (see file header pattern #2): the two
+ * vtable calls below on DAT_00793554[]'s channel objects (slot +0xc) were
+ * decompiled by Ghidra as bare no-arg `code()` calls, silently dropping the
+ * channel object pointer that the original passes as `this` in ECX with no
+ * stack args at all (confirmed via objdump -d -Mintel
+ * --start-address=0x40eaa0 --stop-address=0x40ec90 orig/GunBound.gme:
+ * `mov ecx,[eax]` / `mov edx,[ecx]` / `call DWORD PTR [edx+0xc]` at 0x40ec2c-
+ * 0x40ec30, and `mov ecx,[ecx+esi*4]` / `mov edx,[ecx]` / `call [edx+0xc]`
+ * at 0x40ec72-0x40ec77 - no push before either call). Same idiom as
+ * ChangeGameState.c's GameStateVirtualFn. */
+typedef void (__fastcall *ChannelVtableFn)(void *thisPtr);
+
 int InitGame(undefined4 param_1,undefined4 param_2)
 
 {
@@ -70,7 +82,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
         FUN_004eae60();
         if ((*(int *)(&DAT_005f2f4c + g_clientContext) == 0) &&
            (DAT_0079354a = 0, DAT_00793549 != '\0')) {
-          (**(code **)(*(int *)*DAT_00793554 + 0xc))();
+          (*(ChannelVtableFn *)(*(int *)*DAT_00793554 + 0xc))(*DAT_00793554);
           DAT_00793568 = 0;
         }
         if (*(int *)(&DAT_005f2f50 + g_clientContext) == 0) {
@@ -80,7 +92,8 @@ int InitGame(undefined4 param_1,undefined4 param_2)
             do {
               if (DAT_00793549 != '\0') {
                 if (uVar3 != 0xffffffff) {
-                  (**(code **)(*(int *)DAT_00793554[uVar3] + 0xc))();
+                  (*(ChannelVtableFn *)(*(int *)DAT_00793554[uVar3] + 0xc))
+                            (DAT_00793554[uVar3]);
                 }
                 if (uVar3 == 0) {
                   DAT_00793568 = 0;

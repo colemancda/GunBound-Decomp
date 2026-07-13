@@ -199,7 +199,7 @@ void __fastcall FUN_00491b40(int param_1)
       iVar5 = FindPreloadedTextureByName(s_ssflame7_00554e94);
       piVar7[7] = iVar5;
       (**(code **)(*piVar7 + 4))(s_flame_00553d2c);
-      RegisterActiveObject();
+      RegisterActiveObject(0, 0, (undefined4 *)0);
     }
     iVar5 = g_clientContext;
     *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;

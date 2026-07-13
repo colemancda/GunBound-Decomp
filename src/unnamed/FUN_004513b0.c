@@ -750,7 +750,7 @@ LAB_00451d02:
       puStack_b54[0xfe8] = iVar4 * param_1[0xfe5];
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        RegisterActiveObject();
+        RegisterActiveObject(0, 0, (undefined4 *)0);
       }
       else {
         (**(code **)*puStack_b54)(1);

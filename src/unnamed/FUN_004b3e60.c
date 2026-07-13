@@ -35,12 +35,12 @@ void FUN_004b3e60(undefined2 *param_1)
       }
     }
     DrawFontString(0x18b,0x1f);
-    BlitRLESprite(0x18b,0xffff);
-    BlitRLESprite(0x199,0xffff);
+    BlitRLESprite(0,0x18b,0xffff,(byte *)0);
+    BlitRLESprite(0,0x199,0xffff,(byte *)0);
     iVar2 = 0x1b0;
     iVar3 = 6;
     do {
-      BlitRLESprite(iVar2,0xffff);
+      BlitRLESprite(0,iVar2,0xffff,(byte *)0);
       iVar2 = iVar2 + 0xf;
       iVar3 = iVar3 + -1;
     } while (iVar3 != 0);

@@ -443,7 +443,7 @@ LAB_0049a57d:
       puStack_af0[0xfe8] = iVar3 * param_1[0xfe5];
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
-        RegisterActiveObject();
+        RegisterActiveObject(0, 0, (undefined4 *)0);
       }
       else {
         (**(code **)*puStack_af0)(1);

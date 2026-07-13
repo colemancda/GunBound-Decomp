@@ -52,7 +52,7 @@ void __thiscall FUN_00436980(undefined4 param_1,int param_2,int param_3,int para
       iVar3 = _rand();
       puVar5[0x11] = iVar3 % 10 + 10;
       *(undefined2 *)(puVar5 + 0x12) = param_4;
-      RegisterActiveObject();
+      RegisterActiveObject(0, 0, (undefined4 *)0);
       iVar6 = iVar6 + 1;
     } while (iVar6 < (int)((uint)(byte)(&DAT_005f2f54)[g_clientContext] * 2));
   }

@@ -191,7 +191,7 @@ LAB_00438814:
       FUN_004382d0();
     }
   }
-  RegisterActiveObject();
+  RegisterActiveObject(0, 0, (undefined4 *)0);
 LAB_004388b4:
   *unaff_FS_OFFSET = local_c;
   return;

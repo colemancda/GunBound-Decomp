@@ -72,7 +72,7 @@ int FUN_004f18c0(undefined4 param_1,undefined4 param_2,int param_3,char *imgName
         iVar1 = FUN_004f1520();
         pvVar2 = local_8;
         if (iVar1 == -1) break;
-        RegisterActiveObject();
+        RegisterActiveObject(0, 0, (undefined4 *)0);
         pvVar2 = local_8;
         iVar1 = local_c;
       }

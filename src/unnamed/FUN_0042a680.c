@@ -107,7 +107,7 @@ void FUN_0042a680(int param_1)
            *(int *)(g_clientContext + 0x44664 + *(int *)(param_1 + 0x124) * 4) + 1);
   BlitSpriteText(0x14,local_80,3,0xb);
   SetClipRect();
-  BlitRLESprite(iVar6 + 0x44,0xffff);
+  BlitRLESprite(0,iVar6 + 0x44,0xffff,(byte *)0);
   SetClipRect();
   uVar3 = *(uint *)(g_clientContext + 0x44984 + *(int *)(param_1 + 0x124) * 4);
   if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
@@ -123,8 +123,8 @@ void FUN_0042a680(int param_1)
     do {
       iVar4 = (iVar7 / 2) * 0x1f + 0x3d + iVar6 + 0x3a;
       DrawFontString(iVar4 + -1,0x1f);
-      BlitRLESprite(iVar4 + -1,0xffff);
-      BlitRLESprite(iVar4 + 0xf,0xffff);
+      BlitRLESprite(0,iVar4 + -1,0xffff,(byte *)0);
+      BlitRLESprite(0,iVar4 + 0xf,0xffff,(byte *)0);
       iVar7 = iVar7 + 1;
     } while (iVar7 < (int)(uint)*(byte *)(param_1 + 0x1b4));
   }
