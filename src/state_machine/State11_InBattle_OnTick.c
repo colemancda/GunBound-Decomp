@@ -153,7 +153,7 @@ void __fastcall State11_InBattle_OnTick(int *param_1)
      && (iVar5 = param_1[0x475] + 1, param_1[0x475] = iVar5, piVar15 = (int *)&stack0xfffffffc,
         300 < iVar5)) {
     param_1[0x475] = -1;
-    InvokeWidget();
+    InvokeWidget(16,0);
     iVar6 = DAT_007934e8;
     *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
     *(undefined4 *)(iVar6 + 0x44d0) = 6;

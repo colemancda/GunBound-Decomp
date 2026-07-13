@@ -91,7 +91,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
               QueueBroadcastEvent(0x8405);
               BroadcastQueuedEvent();
             }
-            InvokeWidget(0);
+            InvokeWidget(17,0);
             return;
           }
           return;
@@ -288,7 +288,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     else {
       uVar8 = CONCAT31((int3)(uVar8 >> 8),1);
     }
-    InvokeWidget(uVar8);
+    InvokeWidget(18,uVar8);
     QueueBroadcastEvent(0x4005);
     iVar7 = g_clientContext;
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
@@ -320,7 +320,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     else {
       uVar10 = 1;
     }
-    InvokeWidget(uVar10);
+    InvokeWidget(18,uVar10);
     QueueBroadcastEvent(0x4005);
     iVar7 = g_clientContext;
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
@@ -338,7 +338,7 @@ LAB_004b8aeb:
     if ((((*(int *)(&DAT_005f3768 + g_clientContext) != 1) &&
          (*(int *)(&DAT_005f3768 + g_clientContext) != 2)) && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0'))
        && ((cVar3 = PeekPacketChecksumBool(), cVar3 != '\0' && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0')))) {
-      InvokeWidget(0);
+      InvokeWidget(3,0);
       SetGuardedBool(0);
       QueueBroadcastEvent(0x8402);
       uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
@@ -489,7 +489,7 @@ LAB_004b8aeb:
     RemoveWidget();
     return;
   case 0x10:
-    InvokeWidget(0);
+    InvokeWidget(16,0);
     iVar7 = DAT_007934e8;
     *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
     *(undefined4 *)(iVar7 + 0x44d0) = 6;
@@ -504,7 +504,7 @@ LAB_004b8aeb:
         QueueBroadcastEvent(0x8405);
         BroadcastQueuedEvent();
       }
-      InvokeWidget(0);
+      InvokeWidget(17,0);
       return;
     }
     break;

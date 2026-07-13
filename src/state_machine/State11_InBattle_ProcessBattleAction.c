@@ -438,20 +438,20 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
         else {
           uVar21 = 1;
         }
-        InvokeWidget(uVar21);
+        InvokeWidget(18,uVar21);
       }
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
         cVar2 = PeekPacketChecksumBool();
         if (cVar2 == '\x01') {
-          InvokeWidget(1);
+          InvokeWidget(1,1);
           RemoveWidget();
           CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0
                             );
           *unaff_FS_OFFSET = local_14;
           return;
         }
-        InvokeWidget(1);
+        InvokeWidget(2,1);
         RemoveWidget();
         CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,
                            0);

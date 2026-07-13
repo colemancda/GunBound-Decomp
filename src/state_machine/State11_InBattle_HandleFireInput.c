@@ -835,7 +835,7 @@ LAB_004613b2:
         local_4 = 0xffffffff;
         ScrubChecksumGuard();
       }
-      InvokeWidget(0);
+      InvokeWidget(3,0);
       iVar18 = DAT_007934e4;
       *(undefined1 *)(DAT_007934e4 + 8) = 0;
       SetWindowTextA(*(HWND *)(iVar18 + 4),&DAT_00551cb1);
