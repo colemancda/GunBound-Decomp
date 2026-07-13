@@ -21,9 +21,10 @@
  * dtor-generated vptr writes. With SEH also stripped it would score ~0
  * (cf. CProjectile's equivalent dtor at worse-than-max), so it's 97 lines
  * of unfaithful bulk with no reconstruction insight - skipped on purpose.
- * Promoted so far: v5 ComputeMobileGroundY, v3 RenderMobile, and
- * v2 SimulateMobileFrame (all below). The remaining base method with real
- * logic (slot 6 HandleFireInput 0x45f910) is a larger follow-up unit.
+ * All four base-vtable methods with real logic are now promoted (below):
+ * v2 SimulateMobileFrame, v3 RenderMobile, v5 ComputeMobileGroundY, and
+ * slot 6 HandleFireInput. The CMobile base class is complete apart from the
+ * deliberately-skipped destructor.
  *
  * The guard-cell ABI used throughout is the one confirmed for CProjectile
  * (see src/cxx/PLAN.md's "Encode family" note and Projectile.cpp): the
@@ -129,6 +130,37 @@ extern unsigned char g_abBroadcastEventBuffer;
 extern unsigned int  g_dwBroadcastEventCursor;
 extern const char s_normal_00552230[], s_wnormal_00553618[], s_wmove_00555ca0[];
 extern unsigned char DAT_00553f90, DAT_00555c90;
+
+/* HandleFireInput's additional dependencies. */
+void EncodeOutgoingPacketField(unsigned int v);
+char CompareChecksumExceeds(void *cell, unsigned int other);
+void FUN_004eeae0(void);
+void FUN_0040b030(void);
+char FUN_0040b450(void *cell, unsigned int v);
+void FUN_0043c860(void *base, int *self);
+char FUN_0041eaa0(int a, short b);
+char FUN_0045ec30(void);
+void FUN_0043d6d0(void);
+void FUN_00464060(void);
+void ClampCursorToRect(void);
+void InvokeWidget(int a);
+int  _rand(void);
+unsigned long timeGetTime2(void);   /* winmm timeGetTime; renamed to dodge the <mmsystem.h> proto */
+
+extern char DAT_007933b8;
+extern int  DAT_00e52838, DAT_00e5283c;   /* fire-gesture state (-1000 / 0 / 1000) */
+extern char DAT_007934c4;
+extern unsigned char DAT_006a6481;         /* ctx-indexed */
+extern unsigned char DAT_006a64a4, DAT_006a64a8, DAT_006a64ac; /* ctx bases */
+extern unsigned char DAT_005f2f40;         /* ctx-indexed */
+extern int  DAT_005b3438;                  /* _DAT_005b3438 */
+extern unsigned char DAT_00e52868;         /* indexed by DAT_00e52e68 */
+extern int  DAT_00e52e68;
+extern unsigned char DAT_00794bf0, DAT_00e9ba40; /* guard cells (address taken) */
+extern unsigned char DAT_00553bcc, DAT_00551cb1;
+extern unsigned char DAT_00e9aacd, DAT_00e9aace;
+extern unsigned char DAT_006a7f70;         /* ctx base */
+extern const char s_unmove_00555c98[];
 }
 
 /* 0x45c6e0 ComputeMobileGroundY, vtable slot 5 (shared; type 13 overrides
@@ -884,5 +916,783 @@ LAB_004622cf:
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x228);
     *reinterpret_cast<unsigned int *>(this->m_padbff4 + 0x2b4) = uVar9;
 LAB_004628db:
+    return;
+}
+
+/* 0x45f910 HandleFireInput, vtable slot 6 (shared). The local input-side
+ * fire handler: decides the outcome of a fire attempt and emits the
+ * corresponding battle-action broadcast (0x8403 Fire / 0xc400 no-op /
+ * 0xc409 confirm), plus the aim-adjust (0x8402), power-charge (0x4006),
+ * cancel (0x8006) and overcharge (0x8005) events. It selects between
+ * pre-existing outcome codes from the fire angle/power guard cells (this
+ * +0x243/+0x2cc int-index = byte 0x90c/0xb30) and the terrain scan; it does
+ * NOT integrate a trajectory. Also scans the shared overlay EDIT control's
+ * text for a chat-vs-fire gesture. See ARCHITECTURE.md.
+ *
+ * This is by far the largest CMobile method (0x2104 bytes). To minimise
+ * transcription risk at this scale it is translated VERBATIM from a fresh
+ * Ghidra decompile keeping `param_1 = (int*)this` and its exact `param_1[N]`
+ * / `param_1 + N` offsets (no field-name remapping), with only the standard
+ * transforms applied: SEH frame stripped, vtable slots dispatched via the
+ * __fastcall+dummy-EDX trick, guard-cell buffers typed as CValueGuard-sized
+ * arrays, and the exact control flow (all goto labels) preserved. Same known
+ * gaps as the other CMobile methods.
+ *
+ * score.sh: 653120/207500 - ~3.1x over max, the least byte-faithful method
+ * in this file (compiled 1752 instrs vs the original's 0x2104 bytes). At
+ * this scale the score carries NO correctness signal: the divergence is the
+ * unavoidable compounding of a 22-state stripped SEH machine, ~15 dummy-EDX
+ * vtable dispatches, and ~40 dropped-register-arg external calls across a
+ * function 2.6x the size of SimulateMobileFrame. HONEST CAVEAT: this is a
+ * faithful line-by-line transcription of the fresh decompile (param_1 kept
+ * verbatim so the object offsets cannot drift, the main error class at this
+ * size), but it is too large to byte-verify - treat it as a readable
+ * reconstruction of the fire-input logic, not a proven-correct port. The
+ * raw src/battle port (via State11_InBattle_HandleFireInput.c) remains the
+ * live version until this is validated. */
+void CMobile::HandleFireInput()
+{
+    typedef void (__fastcall *VtStr)(void *, int, const void *);
+    typedef unsigned int (__fastcall *VtRet)(void *);
+
+    int *param_1 = reinterpret_cast<int *>(this);
+    unsigned short *puVar1;
+    unsigned char *puVar2;
+    bool bVar4 = false, bVar5 = false, bVar6 = false, bVar7 = false, bVar8 = false;
+    bool bVar3;
+    char cVar9;
+    unsigned char bVar10;
+    unsigned short uVar11;
+    short sVar12, sVar13;
+    unsigned short uVar14;
+    unsigned int uVar15, uVar16, uVar17;
+    int iVar18, iVar21, iVar22, iVar25;
+    int *piVar19, *piVar20;
+    char *pcVar23;
+    unsigned long DVar24;
+    unsigned char local_b40[0x224];
+    char CStack_91c;
+    char acStack_91b[127];
+    unsigned char local_89c[0x224];
+    unsigned char local_678[0x224];
+    unsigned char local_454[0x224];
+    unsigned char auStack_230[0x224];
+
+    cVar9 = PeekPacketChecksumBool();
+    if (cVar9 != '\0' || (cVar9 = PeekPacketChecksumBool(), cVar9 == '\0') || DAT_007933b8 == '\0')
+        goto LAB_004619ff;
+    bVar8 = false;
+    if (DAT_00e52838 == -1000) {
+        if (DAT_007934c4 == '\0') {
+            cVar9 = PeekPacketChecksumBool();
+            if (cVar9 == '\0') goto LAB_0045fdd7;
+            cVar9 = PacketChecksumNotEquals(param_1 + 0x715, 0);
+            if (cVar9 == '\0') {
+                cVar9 = PeekPacketChecksumBool();
+                if (cVar9 == '\x01' && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+                    (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+                    (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+                    (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+                    (&DAT_006a6481)[g_clientContext] == '\0' && param_1[9] != 0xd) {
+                    cVar9 = CompareChecksumPair(param_1 + 0x12db, reinterpret_cast<unsigned int>(param_1 + 0x203d));
+                    if (cVar9 == '\0' ||
+                        (cVar9 = PacketChecksumGreaterThan(param_1 + 0x214f, 0), cVar9 == '\0')) {
+                    LAB_0045fb8c:
+                        bVar3 = false;
+                    } else {
+                        uVar17 = EncodeChecksumDeltaSub(param_1 + 0x2cc, local_b40, 0x1e);
+                        uVar15 = EncodeChecksumDeltaDiv(param_1 + 0x355, local_89c, 2);
+                        uVar15 = EncodeChecksumPairDiff(param_1 + 0x243, local_454, uVar15);
+                        uVar16 = EncodeChecksumDeltaSub(param_1 + 0x2cc, local_678, 0x1e);
+                        bVar4 = true; bVar7 = true; bVar6 = true; bVar5 = true;
+                        PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar17));
+                        PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar15));
+                        iVar18 = FindGroundHeightAtColumn();
+                        iVar25 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar16));
+                        if (iVar18 <= iVar25 ||
+                            (cVar9 = PacketChecksumGreaterThan(param_1 + 0x243, 0), cVar9 == '\0'))
+                            goto LAB_0045fb8c;
+                        bVar3 = true;
+                    }
+                    if (bVar6) ScrubChecksumGuard(local_678);
+                    if (bVar7) ScrubChecksumGuard(local_454);
+                    if (bVar4) ScrubChecksumGuard(local_89c);
+                    if (bVar5) ScrubChecksumGuard(local_b40);
+                    if (bVar3) {
+                        if (param_1[9] != 1 && param_1[9] != 3) {
+                            uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x19d1, local_b40, 3);
+                            cVar9 = CompareChecksumPair(param_1 + 0x1a5a, uVar17);
+                            ScrubChecksumGuard(local_b40);
+                            if (cVar9 == '\0') (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, &DAT_00553f90);
+                            else (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, s_wmove_00555ca0);
+                        }
+                        EncodeDecrementedChecksum();
+                        uVar17 = EncodeChecksumDeltaMul(param_1 + 0x12db, local_b40, 2);
+                        iVar18 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar17));
+                        AddToPacketChecksum(0x96 - iVar18);
+                        ScrubChecksumGuard(local_b40);
+                        uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
+                        uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x21d8, local_b40, uVar17);
+                        EmitChecksumDiff(reinterpret_cast<void *>(uVar17));
+                        ScrubChecksumGuard(local_b40);
+                        uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
+                        EmitChecksumMod(reinterpret_cast<void *>(uVar17));
+                        param_1[0x2b84] = param_1[0x2b84] + 1;
+                        param_1[0x2c2c] = 3;
+                        bVar8 = true;
+                        *reinterpret_cast<unsigned char *>(param_1 + 0x2c2b) = *reinterpret_cast<unsigned char *>(param_1 + 2) & 7;
+                    } else {
+                        if (param_1[9] != 4) {
+                            if (param_1[0x2c29] != -1) {
+                                FUN_004eeae0();
+                                param_1[0x2c29] = -1;
+                            }
+                            (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, s_unmove_00555c98);
+                        }
+                        QueueOutgoingPacketField(0);
+                    }
+                }
+            } else {
+                QueueOutgoingPacketField(0);
+                QueueOutgoingPacketField(0);
+                QueueBroadcastEvent(0x4001);
+                (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+                BroadcastQueuedEvent();
+            }
+            if ((&DAT_006a64a4)[g_clientContext] == '\0' &&
+                (cVar9 = PeekPacketChecksumBool(), iVar18 = g_clientContext, cVar9 != '\0')) {
+                (&DAT_006a64a4)[g_clientContext] = 1;
+                *reinterpret_cast<unsigned int *>(&DAT_006a64a8 + iVar18) = 1;
+                *reinterpret_cast<unsigned int *>(&DAT_006a64ac + iVar18) = 0;
+            }
+            goto LAB_0045fdd7;
+        }
+    } else {
+    LAB_0045fdd7:
+        bVar7 = false; bVar6 = false; bVar5 = false;
+        if (DAT_00e52838 == 1000 && DAT_007934c4 == '\0' &&
+            (cVar9 = PeekPacketChecksumBool(), cVar9 != '\0')) {
+            cVar9 = PacketChecksumNotEquals(param_1 + 0x715, 1);
+            if (cVar9 == '\0') {
+                cVar9 = PeekPacketChecksumBool();
+                if (cVar9 == '\x01' && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+                    (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+                    (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+                    (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+                    (&DAT_006a6481)[g_clientContext] == '\0' && param_1[9] != 0xd) {
+                    cVar9 = CompareChecksumPair(param_1 + 0x12db, reinterpret_cast<unsigned int>(param_1 + 0x203d));
+                    if (cVar9 == '\0' ||
+                        (cVar9 = PacketChecksumGreaterThan(param_1 + 0x214f, 0), cVar9 == '\0')) {
+                    LAB_0046000e:
+                        bVar4 = false;
+                    } else {
+                        uVar17 = EncodeChecksumDeltaSub(param_1 + 0x2cc, local_678, 0x1e);
+                        uVar15 = EncodeChecksumDeltaDiv(param_1 + 0x355, local_454, 2);
+                        uVar15 = EncodeChecksumPairSum(param_1 + 0x243, local_89c, reinterpret_cast<void *>(uVar15));
+                        uVar16 = EncodeChecksumDeltaSub(param_1 + 0x2cc, local_b40, 0x1e);
+                        bVar7 = true; bVar6 = true; bVar5 = true;
+                        PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar17));
+                        PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar15));
+                        iVar18 = FindGroundHeightAtColumn();
+                        iVar25 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar16));
+                        if (iVar18 <= iVar25 ||
+                            (cVar9 = PacketChecksumLessThan(param_1 + 0x243,
+                                *reinterpret_cast<int *>(&g_nCameraBoundX + g_clientContext) - 2), cVar9 == '\0'))
+                            goto LAB_0046000e;
+                        bVar4 = true;
+                    }
+                    if (bVar5) ScrubChecksumGuard(local_89c);
+                    if (bVar6) ScrubChecksumGuard(local_454);
+                    if (bVar7) ScrubChecksumGuard(local_678);
+                    if (bVar4) {
+                        if (param_1[9] != 1 && param_1[9] != 3) {
+                            uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x19d1, local_b40, 3);
+                            cVar9 = CompareChecksumPair(param_1 + 0x1a5a, uVar17);
+                            ScrubChecksumGuard(local_b40);
+                            if (cVar9 == '\0') (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, &DAT_00553f90);
+                            else (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, s_wmove_00555ca0);
+                        }
+                        EncodeDecrementedChecksum();
+                        uVar17 = EncodeChecksumDeltaMul(param_1 + 0x12db, local_b40, 2);
+                        iVar18 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar17));
+                        AddToPacketChecksum(0x96 - iVar18);
+                        ScrubChecksumGuard(local_b40);
+                        uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
+                        uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x21d8, local_b40, uVar17);
+                        EmitChecksumSum(reinterpret_cast<void *>(uVar17));
+                        ScrubChecksumGuard(local_b40);
+                        uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
+                        EmitChecksumMod(reinterpret_cast<void *>(uVar17));
+                        param_1[0x2b84] = param_1[0x2b84] + 1;
+                        param_1[0x2c2c] = 3;
+                        bVar8 = true;
+                        *reinterpret_cast<unsigned char *>(param_1 + 0x2c2b) = *reinterpret_cast<unsigned char *>(param_1 + 2) & 7;
+                    } else {
+                        if (param_1[9] != 4) {
+                            if (param_1[0x2c29] != -1) {
+                                FUN_004eeae0();
+                                param_1[0x2c29] = -1;
+                            }
+                            (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, s_unmove_00555c98);
+                        }
+                        QueueOutgoingPacketField(0);
+                    }
+                }
+            } else {
+                QueueOutgoingPacketField(1);
+                QueueOutgoingPacketField(0);
+                QueueBroadcastEvent(0x4001);
+                (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+                BroadcastQueuedEvent();
+            }
+            if ((&DAT_006a64a4)[g_clientContext] == '\0' &&
+                (cVar9 = PeekPacketChecksumBool(), iVar18 = g_clientContext, cVar9 != '\0')) {
+                (&DAT_006a64a4)[g_clientContext] = 1;
+                *reinterpret_cast<unsigned int *>(&DAT_006a64a8 + iVar18) = 1;
+                *reinterpret_cast<unsigned int *>(&DAT_006a64ac + iVar18) = 0;
+            }
+        }
+    }
+    iVar18 = param_1[9];
+    if (iVar18 != 0xd &&
+        (iVar18 == 1 || iVar18 == 3 || iVar18 == 4 || iVar18 == 0 || iVar18 == 2) && bVar8) {
+        uVar17 = (*reinterpret_cast<VtRet *>(*param_1 + 0x14))(param_1);
+        uVar17 = EncodeChecksumDeltaSub(param_1 + 0x2cc, local_b40, uVar17);
+        iVar18 = PeekChecksumStateUnderLock(&DAT_00794bf0);
+        cVar9 = PacketChecksumLessThan(reinterpret_cast<void *>(uVar17), -iVar18);
+        ScrubChecksumGuard(local_b40);
+        if (cVar9 != '\0') {
+            (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, &DAT_00553bcc);
+            *reinterpret_cast<unsigned char *>(param_1 + 0x240) = 1;
+            QueueOutgoingPacketField(0);
+            cVar9 = PeekPacketChecksumBool();
+            if (cVar9 == '\x01' && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01')) {
+                QueueBroadcastEvent(0x8402);
+                uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x243);
+                *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x2cc);
+                *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                bVar10 = (unsigned char)PacketChecksumEquals(param_1 + 0x715, 1);
+                (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = bVar10;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+                BroadcastQueuedEvent();
+            }
+        }
+    }
+    if (DAT_00e52838 == 0 && DAT_007934c4 == '\0') {
+        iVar18 = param_1[9];
+        if (iVar18 == 1 || iVar18 == 3 || iVar18 == 4) {
+            uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x19d1, local_b40, 3);
+            cVar9 = CompareChecksumPair(param_1 + 0x1a5a, uVar17);
+            ScrubChecksumGuard(local_b40);
+            if (cVar9 == '\0') (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, s_normal_00552230);
+            else (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, s_wnormal_00553618);
+        }
+        QueueOutgoingPacketField(0);
+        if ((&DAT_006a64a4)[g_clientContext] == '\x01' &&
+            (cVar9 = PeekPacketChecksumBool(), iVar18 = g_clientContext, cVar9 != '\0')) {
+            (&DAT_006a64a4)[g_clientContext] = 0;
+            *reinterpret_cast<unsigned int *>(&DAT_006a64a8 + iVar18) = 0xffffffff;
+            *reinterpret_cast<unsigned int *>(&DAT_006a64ac + iVar18) = 1;
+        }
+    }
+    bVar5 = false;
+    cVar9 = PeekPacketChecksumBool();
+    if (cVar9 == '\x01' && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+        (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+        (&DAT_006a6481)[g_clientContext] == '\0') {
+        if (DAT_00e5283c == -1000) {
+            if (DAT_007934c4 != '\0') goto LAB_00460553;
+            cVar9 = PacketChecksumGreaterThan(param_1 + 0x939, 0x5a);
+            if (cVar9 == '\0') FUN_0040b030();
+            else EncodeDecrementedChecksum();
+            bVar5 = true;
+        }
+        if (DAT_00e5283c == 1000 && DAT_007934c4 == '\0') {
+            cVar9 = PacketChecksumGreaterThan(param_1 + 0x939, 0x5a);
+            if (cVar9 == '\0') EncodeDecrementedChecksum();
+            else FUN_0040b030();
+            bVar5 = true;
+        }
+    }
+LAB_00460553:
+    cVar9 = PeekPacketChecksumBool();
+    if (cVar9 == '\x01') {
+        piVar19 = param_1 + 0xf1c;
+    } else {
+        cVar9 = PeekPacketChecksumBool();
+        piVar19 = param_1 + 0xbe6;
+        if (cVar9 != '\x01') piVar19 = param_1 + 0x8b0;
+    }
+    uVar17 = PeekChecksumStateUnderLock(piVar19);
+    piVar19 = param_1 + 0x1252;
+    cVar9 = PacketChecksumGreaterThan(piVar19, uVar17);
+    if (cVar9 != '\0') QueueOutgoingPacketField(uVar17);
+    cVar9 = PeekPacketChecksumBool();
+    if (cVar9 == '\x01') {
+        piVar20 = param_1 + 0xfa5;
+    } else {
+        cVar9 = PeekPacketChecksumBool();
+        piVar20 = param_1 + 0xc6f;
+        if (cVar9 != '\x01') piVar20 = param_1 + 0x939;
+    }
+    uVar17 = PeekChecksumStateUnderLock(piVar20);
+    cVar9 = PacketChecksumLessThan(piVar19, uVar17);
+    if (cVar9 != '\0') QueueOutgoingPacketField(uVar17);
+    if (bVar5) {
+        QueueBroadcastEvent(0x4006);
+        uVar11 = (unsigned short)PeekChecksumStateUnderLock(piVar19);
+        *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        BroadcastQueuedEvent();
+    }
+    piVar19 = param_1 + 0x1d90;
+    uVar17 = EncodeChecksumDeltaMul(piVar19, local_b40, 10);
+    cVar9 = FUN_0040b450(param_1 + 0x1e19, uVar17);
+    if (cVar9 == '\0' || (cVar9 = PacketChecksumNotEquals(param_1 + 0x1e19, 0), cVar9 == '\0') ||
+        (cVar9 = PeekPacketChecksumBool(), cVar9 != '\x01') ||
+        (cVar9 = PeekPacketChecksumBool(), cVar9 != '\x01') ||
+        (cVar9 = PeekPacketChecksumBool(), cVar9 != '\x01') ||
+        (&DAT_006a6481)[g_clientContext] != '\0' ||
+        (cVar9 = PacketChecksumGreaterThan(param_1 + 0x22f1, 0), cVar9 == '\0')) {
+    LAB_004606d5:
+        bVar5 = false;
+    } else {
+        cVar9 = PeekPacketChecksumBool();
+        bVar5 = true;
+        if (cVar9 != '\x01') goto LAB_004606d5;
+    }
+    ScrubChecksumGuard(local_b40);
+    if (bVar5) {
+        uVar17 = EncodeChecksumDeltaMul(piVar19, local_89c, 10);
+        EncodeChecksumState(reinterpret_cast<void *>(uVar17));
+        ScrubChecksumGuard(local_89c);
+        FUN_0043c860(&DAT_006a7f70 + g_clientContext, param_1);
+        cVar9 = PeekPacketChecksumBool();
+        if (cVar9 == '\x01') {
+            uVar17 = 0xc409;
+        } else {
+            cVar9 = FUN_0041eaa0(g_clientContext, (short)param_1[0x2fef]);
+            uVar17 = (cVar9 == '\0') ? 0xc400u : 0x8403u;
+        }
+        QueueBroadcastEvent(uVar17);
+        uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x243);
+        *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x2cc);
+        *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        piVar20 = param_1 + 0x715;
+        bVar10 = (unsigned char)PacketChecksumEquals(piVar20, 1);
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = bVar10;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+        bVar10 = (unsigned char)PeekPacketChecksumBool();
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = bVar10;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+        uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x1364);
+        *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        sVar12 = (short)PeekChecksumStateUnderLock(&DAT_00e9ba40);
+        sVar13 = (short)PeekChecksumStateUnderLock(piVar19);
+        *reinterpret_cast<short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = sVar12 * sVar13;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        cVar9 = FUN_0045ec30();
+        (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = cVar9 != '\0';
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+        cVar9 = PacketChecksumEquals(piVar20, 0);
+        if (cVar9 == '\0') {
+            PeekChecksumStateUnderLock(param_1 + 0x273c);
+            PeekChecksumStateUnderLock(param_1 + 0x1476);
+        } else {
+            PeekChecksumStateUnderLock(param_1 + 0x1476);
+            PeekChecksumStateUnderLock(param_1 + 0x273c);
+        }
+        PeekChecksumStateUnderLock(param_1 + 0x27c5);
+        uVar11 = (unsigned short)FloatToInt64();
+        PeekChecksumStateUnderLock(param_1 + 0x27c5);
+        uVar14 = (unsigned short)FloatToInt64();
+        *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aace + g_dwBroadcastEventCursor);
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        *puVar1 = uVar14;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        cVar9 = PacketChecksumEquals(piVar20, 0);
+        if (cVar9 == '\0') {
+            PeekChecksumStateUnderLock(param_1 + 0x284e);
+            PeekChecksumStateUnderLock(param_1 + 0x1476);
+        } else {
+            PeekChecksumStateUnderLock(param_1 + 0x284e);
+            PeekChecksumStateUnderLock(param_1 + 0x1476);
+        }
+        PeekChecksumStateUnderLock(param_1 + 0x28d7);
+        uVar11 = (unsigned short)FloatToInt64();
+        PeekChecksumStateUnderLock(param_1 + 0x28d7);
+        uVar14 = (unsigned short)FloatToInt64();
+        *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aace + g_dwBroadcastEventCursor);
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        *puVar1 = uVar14;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        cVar9 = PacketChecksumEquals(piVar20, 0);
+        if (cVar9 == '\0') {
+            PeekChecksumStateUnderLock(param_1 + 0x2a72);
+            PeekChecksumStateUnderLock(param_1 + 0x1476);
+        } else {
+            PeekChecksumStateUnderLock(param_1 + 0x1476);
+            PeekChecksumStateUnderLock(param_1 + 0x2a72);
+        }
+        PeekChecksumStateUnderLock(param_1 + 0x2afb);
+        uVar11 = (unsigned short)FloatToInt64();
+        PeekChecksumStateUnderLock(param_1 + 0x2afb);
+        uVar14 = (unsigned short)FloatToInt64();
+        *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aace + g_dwBroadcastEventCursor);
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        *puVar1 = uVar14;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        uVar11 = (unsigned short)PeekChecksumStateUnderLock(reinterpret_cast<void *>(g_clientContext + 0x5af88));
+        iVar18 = g_clientContext;
+        *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        uVar11 = (unsigned short)PeekChecksumStateUnderLock(reinterpret_cast<void *>(iVar18 + 0x5b1ac));
+        *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        puVar2 = &DAT_00e9aace + g_dwBroadcastEventCursor;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        *puVar2 = 0;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+        FUN_0043d6d0();
+        BroadcastQueuedEvent();
+        SetGuardedBool(0);
+        SetGuardedBool(0);
+        iVar18 = g_clientContext;
+        *reinterpret_cast<unsigned char *>(param_1 + 0x2ffa) = 0;
+        if ((&DAT_005f2f40)[iVar18] == '\x02') {
+            ResolveNamedState(reinterpret_cast<int *>(&DAT_007a7644));
+            PeekChecksumStateUnderLock(param_1 + 0x1e19);
+            ClampCursorToRect();
+        }
+        *reinterpret_cast<unsigned char *>(DAT_007934e4 + 8) = 1;
+    }
+    if (-1 < (char)(&DAT_00e52868)[DAT_00e52e68] ||
+        (cVar9 = PacketChecksumNotEquals(reinterpret_cast<void *>(g_clientContext + 0x593b4), 0xffffffff), cVar9 != '\0')) {
+        piVar19 = param_1 + 0x1e19;
+        cVar9 = PacketChecksumNotEquals(piVar19, 0);
+        if (cVar9 != '\0' &&
+            (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+            (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+            (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+            (&DAT_006a6481)[g_clientContext] == '\0' && (&DAT_005f2f40)[g_clientContext] != '\x02' &&
+            (cVar9 = PacketChecksumGreaterThan(param_1 + 0x22f1, 0), cVar9 != '\0') &&
+            (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01')) {
+            cVar9 = PacketChecksumEquals(reinterpret_cast<void *>(g_clientContext + 0x59190), 0xffffffff);
+            if (cVar9 == '\0') {
+                cVar9 = PacketChecksumEquals(reinterpret_cast<void *>(g_clientContext + 0x593b4), 0xffffffff);
+                if (cVar9 == '\0') {
+                    DVar24 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(g_clientContext + 0x593b4));
+                } else {
+                    DVar24 = timeGetTime2();
+                }
+                iVar18 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(g_clientContext + 0x59190));
+                iVar18 = DVar24 - iVar18;
+                if (iVar18 < 0) iVar18 = 1;
+                if ((&DAT_005f2f40)[g_clientContext] == '\x01') {
+                    iVar25 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+                    iVar21 = PeekChecksumStateUnderLock(param_1 + 0x1d90);
+                    iVar22 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+                    QueueOutgoingPacketField((unsigned int)(iVar25 * iVar21 * iVar18) / 3000 + iVar22);
+                }
+                uVar17 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+                uVar17 = EncodeChecksumDeltaMul(param_1 + 0x1d90, local_b40, uVar17);
+                cVar9 = CompareChecksumExceeds(piVar19, uVar17);
+                ScrubChecksumGuard(local_b40);
+                if (cVar9 != '\0') {
+                    uVar17 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
+                    uVar17 = EncodeChecksumDeltaMul(param_1 + 0x1d90, local_89c, uVar17);
+                    EncodeChecksumState(reinterpret_cast<void *>(uVar17));
+                    ScrubChecksumGuard(local_89c);
+                }
+                FUN_0043c860(&DAT_006a7f70 + g_clientContext, param_1);
+                cVar9 = PeekPacketChecksumBool();
+                if (cVar9 == '\x01') {
+                    uVar17 = 0xc409;
+                } else {
+                    cVar9 = FUN_0041eaa0(g_clientContext, (short)param_1[0x2fef]);
+                    uVar17 = (cVar9 == '\0') ? 0xc400u : 0x8403u;
+                }
+                QueueBroadcastEvent(uVar17);
+                uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x243);
+                *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x2cc);
+                *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                piVar20 = param_1 + 0x715;
+                bVar10 = (unsigned char)PacketChecksumEquals(piVar20, 1);
+                (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = bVar10;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+                bVar10 = (unsigned char)PeekPacketChecksumBool();
+                (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = bVar10;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+                uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x1364);
+                *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                uVar11 = (unsigned short)PeekChecksumStateUnderLock(piVar19);
+                *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                cVar9 = FUN_0045ec30();
+                (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = cVar9 != '\0';
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+                cVar9 = PacketChecksumEquals(piVar20, 0);
+                if (cVar9 == '\0') {
+                    PeekChecksumStateUnderLock(param_1 + 0x273c);
+                    PeekChecksumStateUnderLock(param_1 + 0x1476);
+                } else {
+                    PeekChecksumStateUnderLock(param_1 + 0x1476);
+                    PeekChecksumStateUnderLock(param_1 + 0x273c);
+                }
+                PeekChecksumStateUnderLock(param_1 + 0x27c5);
+                FUN_004ead90();
+                uVar11 = (unsigned short)FloatToInt64();
+                PeekChecksumStateUnderLock(param_1 + 0x27c5);
+                FUN_004ead70();
+                uVar14 = (unsigned short)FloatToInt64();
+                *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+                puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aace + g_dwBroadcastEventCursor);
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                *puVar1 = uVar14;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                cVar9 = PacketChecksumEquals(piVar20, 0);
+                if (cVar9 == '\0') {
+                    PeekChecksumStateUnderLock(param_1 + 0x284e);
+                    PeekChecksumStateUnderLock(param_1 + 0x1476);
+                } else {
+                    PeekChecksumStateUnderLock(param_1 + 0x284e);
+                    PeekChecksumStateUnderLock(param_1 + 0x1476);
+                }
+                PeekChecksumStateUnderLock(param_1 + 0x28d7);
+                FUN_004ead90();
+                uVar11 = (unsigned short)FloatToInt64();
+                PeekChecksumStateUnderLock(param_1 + 0x28d7);
+                FUN_004ead70();
+                uVar14 = (unsigned short)FloatToInt64();
+                *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+                puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aace + g_dwBroadcastEventCursor);
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                *puVar1 = uVar14;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                cVar9 = PacketChecksumEquals(piVar20, 0);
+                if (cVar9 == '\0') {
+                    PeekChecksumStateUnderLock(param_1 + 0x2a72);
+                    PeekChecksumStateUnderLock(param_1 + 0x1476);
+                } else {
+                    PeekChecksumStateUnderLock(param_1 + 0x1476);
+                    PeekChecksumStateUnderLock(param_1 + 0x2a72);
+                }
+                PeekChecksumStateUnderLock(param_1 + 0x2afb);
+                FUN_004ead90();
+                uVar11 = (unsigned short)FloatToInt64();
+                PeekChecksumStateUnderLock(param_1 + 0x2afb);
+                FUN_004ead70();
+                uVar14 = (unsigned short)FloatToInt64();
+                iVar18 = g_clientContext;
+                *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+                puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aace + g_dwBroadcastEventCursor);
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                *puVar1 = uVar14;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                uVar11 = (unsigned short)PeekChecksumStateUnderLock(reinterpret_cast<void *>(iVar18 + 0x5af88));
+                iVar18 = g_clientContext;
+                *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                uVar11 = (unsigned short)PeekChecksumStateUnderLock(reinterpret_cast<void *>(iVar18 + 0x5b1ac));
+                *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+                puVar2 = &DAT_00e9aace + g_dwBroadcastEventCursor;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+                *puVar2 = 0;
+                g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+                FUN_0043d6d0();
+                BroadcastQueuedEvent();
+                SetGuardedBool(0);
+                SetGuardedBool(0);
+                *reinterpret_cast<unsigned char *>(param_1 + 0x2ffa) = 0;
+                QueueOutgoingPacketField(0xffffffff);
+                QueueOutgoingPacketField(0xffffffff);
+                *reinterpret_cast<unsigned char *>(DAT_007934e4 + 8) = 1;
+            } else {
+                QueueOutgoingPacketField(0xffffffff);
+            }
+        }
+    }
+    bVar5 = true;
+    if (*reinterpret_cast<char *>(DAT_007934e4 + 8) == '\0' ||
+        (iVar18 = GetWindowTextA(*reinterpret_cast<HWND *>(DAT_007934e4 + 4), &CStack_91c, 0x80), iVar18 == 0)) {
+        CStack_91c = '\0';
+    }
+    pcVar23 = &CStack_91c;
+    do {
+        cVar9 = *pcVar23;
+        pcVar23 = pcVar23 + 1;
+    } while (cVar9 != '\0');
+    iVar18 = 0;
+    if (0 < (int)pcVar23 - (int)acStack_91b) {
+        do {
+            if ((&CStack_91c)[iVar18] != ' ') {
+                if (DAT_005b3438 != 2) {
+                    bVar5 = false;
+                    goto LAB_004613ad;
+                }
+                if ((&CStack_91c)[iVar18] != -0x7f || acStack_91b[iVar18] != '@') {
+                    bVar5 = false;
+                    goto LAB_004613b2;
+                }
+                iVar18 = iVar18 + 1;
+            }
+            iVar18 = iVar18 + 1;
+        } while (iVar18 < (int)pcVar23 - (int)acStack_91b);
+    }
+    SetWindowTextA(*reinterpret_cast<HWND *>(DAT_007934e4 + 4), reinterpret_cast<LPCSTR>(&DAT_00551cb1));
+LAB_004613ad:
+    if (DAT_005b3438 == 2) {
+    LAB_004613b2:
+        if (DAT_007934c4 != '\0') {
+            (&DAT_00e52868)[DAT_00e52e68] = 0;
+            EnterCriticalSection(&DAT_005a9068);
+            EncodeOutgoingPacketField(0xffffffff);
+            LeaveCriticalSection(&DAT_005a9068);
+            EnterCriticalSection(&DAT_005a9068);
+            EncodeOutgoingPacketField(0xffffffff);
+            LeaveCriticalSection(&DAT_005a9068);
+            EnterCriticalSection(&DAT_005a9068);
+            EncodeOutgoingPacketField(0);
+            LeaveCriticalSection(&DAT_005a9068);
+        }
+    }
+    cVar9 = PeekPacketChecksumBool();
+    if (cVar9 == '\x01' && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+        (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') &&
+        (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01') && param_1[9] != 0xd &&
+        (&DAT_005f2f40)[g_clientContext] != '\x02' &&
+        *reinterpret_cast<int *>(&DAT_005f3768 + g_clientContext) != 1 &&
+        *reinterpret_cast<int *>(&DAT_005f3768 + g_clientContext) != 2 &&
+        bVar5 && DAT_007934c4 == '\0' &&
+        ((char)(&DAT_00e52868)[DAT_00e52e68] < '\0' ||
+         ((cVar9 = PacketChecksumNotEquals(reinterpret_cast<void *>(g_clientContext + 0x59190), 0xffffffff), cVar9 != '\0') &&
+          DAT_007934c4 == '\0'))) {
+        QueueOutgoingPacketField(0xffffffff);
+        cVar9 = PacketChecksumEquals(param_1 + 0x1e19, 0);
+        if (cVar9 == '\0') {
+            if ((&DAT_005f2f40)[g_clientContext] == '\0') {
+                uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x1d90, auStack_230, 6);
+                EmitChecksumSum(reinterpret_cast<void *>(uVar17));
+                ScrubChecksumGuard(auStack_230);
+            } else {
+                iVar18 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(g_clientContext + 0x59190));
+                DVar24 = timeGetTime2();
+                iVar25 = PeekChecksumStateUnderLock(param_1 + 0x1d90);
+                if ((int)((DVar24 - iVar18) * iVar25 * 10) / 3000 < 1) {
+                    iVar18 = 1;
+                } else {
+                    iVar18 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(g_clientContext + 0x59190));
+                    DVar24 = timeGetTime2();
+                    iVar25 = PeekChecksumStateUnderLock(param_1 + 0x1d90);
+                    iVar18 = (int)((DVar24 - iVar18) * iVar25 * 10) / 3000;
+                }
+                QueueOutgoingPacketField(iVar18);
+            }
+        } else {
+            DVar24 = timeGetTime2();
+            cVar9 = PacketChecksumEquals(reinterpret_cast<void *>(g_clientContext + 0x59190), 0xffffffff);
+            if (cVar9 != '\0') QueueOutgoingPacketField(DVar24 + 0x32);
+            iVar18 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(g_clientContext + 0x59190));
+            if ((&DAT_005f2f40)[g_clientContext] == '\x01') {
+                iVar18 = (int)(DVar24 - iVar18) / 5;
+                if (iVar18 < 1) iVar18 = 1;
+                QueueOutgoingPacketField(iVar18);
+            } else {
+                uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x1d90, local_b40, 6);
+                EncodeChecksumState(reinterpret_cast<void *>(uVar17));
+                ScrubChecksumGuard(local_b40);
+            }
+            InvokeWidget(0);
+            iVar18 = DAT_007934e4;
+            *reinterpret_cast<unsigned char *>(DAT_007934e4 + 8) = 0;
+            SetWindowTextA(*reinterpret_cast<HWND *>(iVar18 + 4), reinterpret_cast<LPCSTR>(&DAT_00551cb1));
+            QueueBroadcastEvent(0x8006);
+            uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x243);
+            *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+            uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x2cc);
+            *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+            cVar9 = PeekPacketChecksumBool();
+            if (cVar9 == '\0') {
+                cVar9 = PeekPacketChecksumBool();
+                bVar10 = cVar9 != '\0';
+            } else {
+                bVar10 = 2;
+            }
+            (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = bVar10;
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+            bVar10 = (unsigned char)PacketChecksumEquals(param_1 + 0x715, 1);
+            (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = bVar10;
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+            BroadcastQueuedEvent();
+        }
+    }
+    if ((param_1[9] == 1 || param_1[9] == 3) && (cVar9 = PeekPacketChecksumBool(), cVar9 != '\0') &&
+        0x14 < param_1[0x2b84]) {
+        QueueBroadcastEvent(0x8005);
+        uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x243);
+        *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x2cc);
+        *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar11;
+        g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+        BroadcastQueuedEvent();
+        param_1[0x2b84] = 0;
+    }
+    iVar18 = *reinterpret_cast<int *>(&g_nCameraBoundY + g_clientContext);
+    EnterCriticalSection(&DAT_005a9068);
+    iVar25 = PeekPacketChecksumState();
+    LeaveCriticalSection(&DAT_005a9068);
+    if (iVar18 <= iVar25 && param_1[0x2b8b] != 0xff && (char)param_1[0x2b85] == '\0') {
+        EnterCriticalSection(&DAT_005a9068);
+        iVar18 = _rand();
+        *reinterpret_cast<char *>(reinterpret_cast<int>(param_1) + 0xbff7) = (char)iVar18;
+        iVar18 = _rand();
+        *reinterpret_cast<unsigned char *>(param_1 + 0x2ffe) = (unsigned char)iVar18;
+        bVar10 = (unsigned char)(1 << (*reinterpret_cast<unsigned char *>(reinterpret_cast<int>(param_1) + 0xbff7) & 7));
+        bVar10 = (~bVar10 & (unsigned char)iVar18) | bVar10;
+        *reinterpret_cast<unsigned char *>(param_1 + 0x2ffe) = bVar10;
+        *reinterpret_cast<unsigned char *>(reinterpret_cast<int>(param_1) + 0xbff9) =
+            *reinterpret_cast<unsigned char *>(reinterpret_cast<int>(param_1) + 0xbff7) + bVar10 - 0x34;
+        LeaveCriticalSection(&DAT_005a9068);
+        cVar9 = PeekPacketChecksumBool();
+        cVar9 = CheckGuardedBoolAnd('\x01' - (cVar9 != '\0'));
+        if (cVar9 != '\0' && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\0')) {
+            FUN_00464060();
+        }
+        uVar17 = DecodeGuardedBool();
+        cVar9 = CheckGuardedBoolAnd(uVar17);
+        if (cVar9 != '\0' && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01')) {
+            SetGuardedBool(0);
+            SetGuardedBool(0);
+            SetGuardedBool(1);
+            QueueBroadcastEvent(0xc301);
+            (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
+            puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aacd + g_dwBroadcastEventCursor);
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
+            *puVar1 = 0xffff;
+            g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
+            FUN_0041f200(0);
+            BroadcastQueuedEvent();
+        }
+        *reinterpret_cast<unsigned char *>(param_1 + 0x2b85) = 1;
+    }
+LAB_004619ff:
     return;
 }
