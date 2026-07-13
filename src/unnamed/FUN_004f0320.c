@@ -20,13 +20,33 @@
  * wrote/read garbage where Wine's ddraw.dll then asserted
  * (iface->lpVtbl == &ddraw_clipper_vtbl) on the bad pointer.
  *
+ * CALLING-CONVENTION CAST MISMATCH: all four calls below (SetClipper x2,
+ * CreateClipper, SetHWnd, Release) are real COM vtable methods -
+ * __stdcall, self-cleaning via `ret N`. The generic `code()` cast used
+ * here defaults to __cdecl, so the compiler emits a redundant
+ * caller-side `add esp, N` after each call - confirmed via the compiled
+ * object (`add esp,0x8` immediately after the first SetClipper call),
+ * which corrupts the stack by N bytes too many (the exact bug already
+ * documented/fixed in InitDirectDraw.c/SetupZBuffer.c/GameTick.c). This
+ * silently clobbered the return address ChangeGameState's call to this
+ * function relies on, crashing on return with eip pointing at garbage
+ * instead of back into ChangeGameState - confirmed via debugger.
+ * Fixed with explicit WINAPI typedefs matching InitDirectDraw.c's
+ * established idiom.
+ *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
+#include <windows.h>
 
+#define VTBL(iface, n) (*(void ***)(iface))[n]
+typedef HRESULT (WINAPI *SetClipperFn)(void *, void *);
+typedef HRESULT (WINAPI *CreateClipperFn)(void *, DWORD, void **, IUnknown *);
+typedef HRESULT (WINAPI *SetHWndFn)(void *, DWORD, HWND);
+typedef ULONG (WINAPI *ReleaseFn)(void *);
 
 void FUN_004f0320(void)
 
@@ -34,13 +54,13 @@ void FUN_004f0320(void)
   int iVar1;
   void *pClipper;
 
-  (**(code **)(*g_pPrimarySurface + 0x70))(g_pPrimarySurface,0);
+  ((SetClipperFn)VTBL(g_pPrimarySurface, 0x1c))(g_pPrimarySurface,0);
   if (DAT_00588f4c != '\0') {
-    iVar1 = (**(code **)(*g_pDirectDraw7 + 0x10))(g_pDirectDraw7,0,&pClipper,0);
+    iVar1 = ((CreateClipperFn)VTBL(g_pDirectDraw7, 4))(g_pDirectDraw7,0,&pClipper,0);
     if (-1 < iVar1) {
-      (**(code **)(*(int *)pClipper + 0x20))(pClipper,0,DAT_007935ec);
-      (**(code **)(*g_pPrimarySurface + 0x70))(g_pPrimarySurface,pClipper);
-      (**(code **)(*(int *)pClipper + 8))(pClipper);
+      ((SetHWndFn)VTBL(pClipper, 8))(pClipper,0,DAT_007935ec);
+      ((SetClipperFn)VTBL(g_pPrimarySurface, 0x1c))(g_pPrimarySurface,pClipper);
+      ((ReleaseFn)VTBL(pClipper, 2))(pClipper);
     }
   }
   return;
