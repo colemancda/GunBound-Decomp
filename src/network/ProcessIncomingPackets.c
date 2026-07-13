@@ -3,6 +3,20 @@
  * The main received-packet pump: first resolves the async connect result into the conn+0x84e5 (connected) flag, then drains the received-frame ring and dispatches each packet - routing to a window (SendMessageA) or surfacing errors via ShowErrorDialog / a native MessageBoxA (localized strings via GetLocalizedString). Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * Dropped-argument fix: the shared LAB_004d2a90 tail called
+ * DecodePacketBlocks() with only 4 of its 5 declared arguments
+ * (uVar7,uVar2,puVar16,0x2000), silently leaving DecodePacketBlocks's
+ * output-buffer parameter (its param_1, written 12 bytes/block in a
+ * loop) unfilled. Confirmed via objdump of the two LAB_004d2a44/
+ * LAB_004d2a70 call sites at 0x4d2a44-0x4d2a99 in orig/GunBound.gme:
+ * ECX is loaded from the local scratch buffer (`lea ecx,[esp+0x4fc]`)
+ * immediately before `call 0x4f7150`, and the 4 stack pushes match
+ * uVar7/uVar2/puVar16/0x2000 exactly - i.e. the call is missing its
+ * leading buffer argument, not any of the trailing ones. That buffer
+ * is local_200c (read right after the call via `puVar15 = local_200c`
+ * to copy the decoded blocks out), so it's now passed explicitly as
+ * the first argument.
  */
 #include "ghidra_types.h"
 
@@ -124,7 +138,7 @@ LAB_004d2a70:
     iVar6 = local_24e4 + -4;
     puVar16 = lParam;
 LAB_004d2a90:
-    DecodePacketBlocks(uVar7,uVar2,puVar16,0x2000);
+    DecodePacketBlocks(local_200c,uVar7,uVar2,puVar16,0x2000);
     iVar6 = (int)(iVar6 + (iVar6 >> 0x1f & 0xfU)) >> 4;
     uVar13 = iVar6 * 0xc;
     puVar15 = local_200c;
@@ -166,7 +180,7 @@ LAB_004d2adb:
       *(undefined2 *)(param_1 + 0x4d4) = 0x2000;
       *(undefined2 *)(param_1 + 0x4d6) = 0xffff;
       *(int *)(param_1 + 0x44d0) = *(int *)(param_1 + 0x44d0) + 2;
-      SendOutgoingPacket();
+      SendOutgoingPacket(param_1);
     }
     else if ((uVar13 == 0x6017) || (uVar13 == 0x6037)) goto LAB_004d2d5c;
     goto switchD_004d2d94_caseD_5;
