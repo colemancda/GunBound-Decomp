@@ -4,9 +4,29 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED REGISTER ARGUMENT: Ghidra emitted the server-index argument as
+ * an uninitialized read of `unaff_EDI` instead of resolving it as a real
+ * parameter. Confirmed at all 4 call sites in the original binary
+ * (0x4e104e, 0x4e11b8, 0x4e14a2, 0x50d781 via objdump) - every one of
+ * them sets EDI immediately before `call 0x4e1bf0` and separately
+ * pushes param_1 on the stack (the callee's `ret 0x4` pops that one
+ * stack slot). Promoted to a second formal parameter `serverIndex`;
+ * all 4 call sites across src/ updated to pass it explicitly.
+ *
+ * CALLING-CONVENTION CAST MISMATCH: both `(**(code **)(*piVar1 + 4))
+ * (s_disable_00551e68)` calls target the same widget mode-name-setter
+ * vtable slot (`*piVar1 + 4`) already identified and fixed as
+ * `__fastcall(thisPtr, modeName)` in State02_ServerSelect_ProcessPacket.c
+ * (see that file's WidgetSetModeNameFn typedef/header comment). The raw
+ * `code**` cdecl cast here was dropping `piVar1` (this) entirely instead
+ * of passing it in ECX. Confirmed at the original 0x4e1ca6-0x4e1caf
+ * (`mov edx,[eax]` / `push 0x551e68` / `mov ecx,eax` / `call [edx+4]`)
+ * via objdump. Fixed using the same WidgetSetModeNameFn idiom.
  */
 #include "ghidra_types.h"
 
+typedef void (__fastcall *WidgetSetModeNameFn)(void *thisPtr, const char *modeName);
 
 /* WARNING: Removing unreachable block (ram,0x004e1c9a) */
 /* WARNING: Removing unreachable block (ram,0x004e1ca4) */
@@ -15,36 +35,35 @@
 /* WARNING: Removing unreachable block (ram,0x004e1cc3) */
 /* WARNING: Removing unreachable block (ram,0x004e1ccd) */
 
-void ConnectToSelectedServer(int param_1)
+void ConnectToSelectedServer(int param_1, int serverIndex)
 
 {
   int *piVar1;
   uint uVar2;
   int iVar3;
   int iVar4;
-  int unaff_EDI;
   char local_80 [128];
-  
-  if ((unaff_EDI < 0x10) && (-2 < unaff_EDI)) {
-    if (*(int *)(param_1 + 0x28 + unaff_EDI * 4) != 0) {
+
+  if ((serverIndex < 0x10) && (-2 < serverIndex)) {
+    if (*(int *)(param_1 + 0x28 + serverIndex * 4) != 0) {
       ShowErrorDialog(0);
       return;
     }
-    _sprintf(local_80,s__d__d__d__d_00557138,(uint)*(byte *)(g_clientContext + 0x4104a + unaff_EDI * 4)
-             ,(uint)*(byte *)(g_clientContext + 0x4104b + unaff_EDI * 4),
-             (uint)*(byte *)(g_clientContext + 0x4104c + unaff_EDI * 4),
-             (uint)*(byte *)(g_clientContext + 0x4104d + unaff_EDI * 4));
+    _sprintf(local_80,s__d__d__d__d_00557138,(uint)*(byte *)(g_clientContext + 0x4104a + serverIndex * 4)
+             ,(uint)*(byte *)(g_clientContext + 0x4104b + serverIndex * 4),
+             (uint)*(byte *)(g_clientContext + 0x4104c + serverIndex * 4),
+             (uint)*(byte *)(g_clientContext + 0x4104d + serverIndex * 4));
     DAT_0056d118 = 0;
     if ((*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) &&
        (piVar1 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar1[2] == 0)) {
-      (**(code **)(*piVar1 + 4))(s_disable_00551e68);
+      (*(WidgetSetModeNameFn *)(*piVar1 + 4))(piVar1, s_disable_00551e68);
     }
     if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
       piVar1 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10);
       uVar2 = piVar1[2];
       while (uVar2 < 2) {
         if (uVar2 == 1) {
-          (**(code **)(*piVar1 + 4))(s_disable_00551e68);
+          (*(WidgetSetModeNameFn *)(*piVar1 + 4))(piVar1, s_disable_00551e68);
           break;
         }
         piVar1 = (int *)piVar1[4];
@@ -61,9 +80,9 @@ void ConnectToSelectedServer(int param_1)
      * above, matching the +0x84e0/+0x84e4 family's offsets on that same
      * base pointer. Not traced against original disassembly for this
      * specific call site; not on the current bring-up path. */
-    BeginServerConnect(local_80,*(undefined2 *)(iVar3 + 0x4108a + unaff_EDI * 2),DAT_007934ec);
+    BeginServerConnect(local_80,*(undefined2 *)(iVar3 + 0x4108a + serverIndex * 2),DAT_007934ec);
     *(undefined1 *)(param_1 + 4) = 1;
-    *(int *)(param_1 + 0x68) = unaff_EDI;
+    *(int *)(param_1 + 0x68) = serverIndex;
   }
   return;
 }
