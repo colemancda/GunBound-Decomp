@@ -3,6 +3,13 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * PARTIALLY FIXED (2026-07-13): InvokeWidget's own dropped widgetId
+ * fixed at its 2 call sites here (ids 52, 53 per an angr CFG backward-
+ * scan). This file's own `extraout_AH` (same declared-but-never-
+ * assigned pattern already fixed in State02_ServerSelect_
+ * ProcessPacket.c) is a separate, still-unfixed issue - not attempted
+ * here to keep this pass scoped to InvokeWidget.
  */
 #include "ghidra_types.h"
 
@@ -882,8 +889,8 @@ LAB_00446f6d:
         EncodePacketBody(0,iVar3);
         SendOutgoingPacket(iVar3);
         *(undefined1 *)(param_1 + 0x32f90) = 0;
-        InvokeWidget(0);
-        InvokeWidget(0);
+        InvokeWidget(52,0);
+        InvokeWidget(53,0);
         FUN_0040cf30(0);
         FUN_0040cf30(0);
         break;

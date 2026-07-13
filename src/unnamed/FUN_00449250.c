@@ -4,6 +4,20 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * PARTIALLY FIXED (2026-07-13): InvokeWidget's own dropped widgetId
+ * fixed at all 9 call sites here (angr-derived: 0, 0xa, 0xb, 0xc, 0xd,
+ * 0x11, 0x12, 0x10, 0xf in program order). One site (line ~81, id 0x12)
+ * used to do `uVar5 = InvokeWidget(cVar3)`, treating InvokeWidget's
+ * "return value" as meaningful - but InvokeWidget genuinely has no
+ * return value on any path (every branch is a bare `return`/a tail
+ * call into an unrelated widget vtable slot; see InvokeWidget.c). This
+ * isn't a regression from making it `void` here - Ghidra's own
+ * decompile of the ORIGINAL binary already shows this same "leftover
+ * EAX treated as a return" pattern, so `uVar5`'s use just below (as
+ * `uVar7 = uVar5 >> 8`) was already reading undefined data in the
+ * shipped binary. Left as-is (now genuinely uninitialized) rather than
+ * inventing a value.
  */
 #include "ghidra_types.h"
 
@@ -60,11 +74,11 @@ LAB_00449285:
     }
   }
   if (param_3 == '\0') {
-    InvokeWidget(cVar3);
-    InvokeWidget(cVar3);
-    InvokeWidget(cVar3);
-    InvokeWidget(cVar3);
-    InvokeWidget(cVar3);
+    InvokeWidget(0,cVar3);
+    InvokeWidget(10,cVar3);
+    InvokeWidget(11,cVar3);
+    InvokeWidget(12,cVar3);
+    InvokeWidget(13,cVar3);
     if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
       piVar1 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10);
       uVar2 = piVar1[2];
@@ -77,8 +91,8 @@ LAB_00449285:
         uVar2 = piVar1[2];
       }
     }
-    InvokeWidget(cVar3);
-    uVar5 = InvokeWidget(cVar3);
+    InvokeWidget(17,cVar3);
+    InvokeWidget(18,cVar3);
     uVar7 = (uint3)((uint)uVar5 >> 8);
     if (cVar3 == '\0') {
 LAB_004493f8:
@@ -92,7 +106,7 @@ LAB_004493f8:
       if (iVar6 == -1) goto LAB_004493f8;
       iVar6 = CONCAT31(extraout_var,1);
     }
-    InvokeWidget(iVar6);
+    InvokeWidget(16,iVar6);
   }
   bVar8 = false;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -134,7 +148,7 @@ LAB_004493f8:
   }
   iVar6 = (uint)uVar7 << 8;
 LAB_0044951d:
-  InvokeWidget(iVar6);
+  InvokeWidget(15,iVar6);
   return;
 }
 
