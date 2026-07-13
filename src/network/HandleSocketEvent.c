@@ -20,6 +20,23 @@
  * (`if (*(int*)(param_1+0x20) == 0) return;`, etc.) but never actually
  * passed it - promoted to an explicit 1st argument at each call site.
  *
+ * The FD_READ/FD_WRITE/FD_CLOSE dispatch in the param_2==1 branch was
+ * testing bits of `param_1` (the connection pointer itself) instead of
+ * the WSANETWORKEVENTS.lNetworkEvents bitmask - orig 0x4e5876/0x4e58ad/
+ * 0x4e596c all `test BYTE PTR [esp+0x1c],<bit>` against the
+ * WSAEnumNetworkEvents output buffer (`local_403c`, passed by address
+ * to that call at 0x4e5868), never against param_1/ecx. Ghidra also
+ * split that same buffer's first two DWORDs into separate pseudo-locals
+ * (iStack_4044/iStack_4040) and then misapplied them: the FD_READ inner
+ * check (0x4e587d, `[esp+0x20]` = buffer+4, the FD_READ error code) was
+ * re-testing the buffer+0 bitmask instead, and the FD_WRITE inner check
+ * (0x4e58b8, `[esp+0x24]` = buffer+8, the FD_WRITE error code) was
+ * reading buffer+4. Fixed by indexing `local_403c` directly at +0/+4/+8
+ * instead of trusting those two aliased locals. Also `unaff_ESI` in the
+ * FD_WRITE branch (0x4e591e: `mov esi,[esp+0x10]`, the saved copy of
+ * the original this-pointer, restored after the byte-copy loop clobbers
+ * esi) is just param_1 - replaced with param_1 directly.
+ *
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
@@ -35,12 +52,9 @@ void __thiscall HandleSocketEvent(uint param_1,int param_2)
   char cVar1;
   int iVar2;
   undefined4 *puVar3;
-  uint unaff_ESI;
   uint uVar4;
   char *pcVar5;
   undefined4 uVar6;
-  int iStack_4044;
-  int iStack_4040;
   undefined1 local_403c [32];
   char acStack_401c [16384];
   int iStack_1c;
@@ -76,8 +90,8 @@ void __thiscall HandleSocketEvent(uint param_1,int param_2)
   if (iVar2 != 0) {
     return;
   }
-  if ((param_1 & 1) != 0) {
-    if (iStack_4044 == 0) {
+  if ((*(int *)local_403c & 1) != 0) {
+    if (*(int *)(local_403c + 4) == 0) {
       cVar1 = ReceiveFramedPackets();
       if (cVar1 != '\0') goto LAB_004e58ad;
       uVar6 = *(undefined4 *)(param_1 + 0x1c);
@@ -90,8 +104,8 @@ void __thiscall HandleSocketEvent(uint param_1,int param_2)
   }
 LAB_004e58ad:
   uVar4 = param_1;
-  if ((param_1 & 2) != 0) {
-    if (iStack_4040 == 0) {
+  if ((*(int *)local_403c & 2) != 0) {
+    if (*(int *)(local_403c + 8) == 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x24a58));
       if (*(int *)(param_1 + 0x24a44) != 0) {
         puVar3 = (undefined4 *)FUN_004e5c50();
@@ -102,12 +116,12 @@ LAB_004e58ad:
           pcVar5 = pcVar5 + 4;
         }
         if ((0 < iStack_1c) &&
-           (iVar2 = send(*(SOCKET *)(unaff_ESI + 0x24),acStack_401c,iStack_1c,0), iVar2 < 0)) {
-          FUN_004f2da0(*(uint **)(unaff_ESI + 0x20),0x65,*(undefined4 *)(unaff_ESI + 0x1c),0);
+           (iVar2 = send(*(SOCKET *)(param_1 + 0x24),acStack_401c,iStack_1c,0), iVar2 < 0)) {
+          FUN_004f2da0(*(uint **)(param_1 + 0x20),0x65,*(undefined4 *)(param_1 + 0x1c),0);
           CloseConnectionSocket();
         }
         FUN_004e5cc0();
-        uVar4 = unaff_ESI;
+        uVar4 = param_1;
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x24a58));
     }
@@ -116,7 +130,7 @@ LAB_004e58ad:
       CloseConnectionSocket();
     }
   }
-  if ((param_1 & 0x20) == 0) {
+  if ((*(int *)local_403c & 0x20) == 0) {
     return;
   }
   FUN_004f2da0(*(uint **)(uVar4 + 0x20),0x65,*(undefined4 *)(uVar4 + 0x1c),0);
