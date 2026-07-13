@@ -28,6 +28,14 @@
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * PARTIALLY FIXED (2026-07-13): InvokeWidget's own dropped widgetId
+ * fixed at all 3 call sites here (id=8 at every one, per an angr CFG
+ * backward-scan). One site did `uVar3 = InvokeWidget(1)` and returned
+ * that value - InvokeWidget genuinely has no return value on any path
+ * (see InvokeWidget.c's own header); dropped the capture rather than
+ * invent one, matching the same already-established pattern in
+ * FUN_00449250.c.
  */
 #include "ghidra_types.h"
 
@@ -316,15 +324,18 @@ LAB_004d588d:
       AppendPacketBytes((char *)(param_1 + 0x62d));
       SendOutgoingPacket(iVar10);
       PanelManager_Unregister(&g_uiPanelManager);
-      uVar3 = InvokeWidget(1);
-      return uVar3;
+      InvokeWidget(8,1);
+      /* was `return uVar3` reading InvokeWidget's nonexistent return
+       * value (see this file's own header) - return 0 instead of
+       * inventing one, matching the InvokeWidget.c convention. */
+      return 0;
     }
     *(undefined1 *)(param_1 + 0x62c) = 1;
-    InvokeWidget(0);
+    InvokeWidget(8,0);
     uVar3 = FUN_00508a50(&g_uiPanelManager,g_clientContext + 0x44e64);
     return uVar3;
   case 9:
-    InvokeWidget(1);
+    InvokeWidget(8,1);
     uVar3 = PanelManager_Unregister(&g_uiPanelManager);
     return uVar3;
   case 10:
