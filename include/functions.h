@@ -89,6 +89,7 @@ void CGameState_NoOpVirtual_B();
 void * __thiscall CGameState_ScalarDeletingDestructor();
 void __fastcall State01_Title_OnEnter(int);
 void State01_Title_OnExit();
+void __fastcall State01_Title_HandleKeyInput(int,int,unsigned int,unsigned int,unsigned int); /* State01 vtable slot 6 */
 void __fastcall State02_ServerSelect_OnEnter(int);
 void State02_ServerSelect_OnExit();
 void __thiscall State02_ServerSelect_ProcessPacket(void *,int,unsigned short,short *);
@@ -102,6 +103,7 @@ void __fastcall State05_Logo1_OnEnter(int);
 void State05_Logo1_OnExit();
 void __fastcall State06_Logo2_OnEnter(int);
 void State06_Logo2_OnExit();
+void __fastcall State06_Logo2_HandleKeyInput(int,int,unsigned int,unsigned int,unsigned int); /* State06 vtable slot 6 */
 void __fastcall State07_AvatarStore_OnEnter();
 void State07_AvatarStore_OnExit();
 void __thiscall State09_ReadyRoom_HandleChatInput();

@@ -1218,7 +1218,7 @@ void *vtable_State01_Title[32] = {
   (void *)CGameState_NoOpVirtual_A, (void *)CGameState_NoOpVirtual_B,
   (void *)CGameState_NoOpVirtual_B, (void *)CGameState_NoOpVirtual_B,
   (void *)CGameState_NoOpVirtual_A,
-  (void *)NoOpMethod, /* slot 6 mouse dispatch: 0x4e5340, not yet ported */
+  (void *)State01_Title_HandleKeyInput, /* slot 6 mouse/key dispatch: 0x4e5340 */
   (void *)State01_Title_OnEnter, (void *)State01_Title_OnExit,
   (void *)State01_Title_OnTick,
 };
@@ -1247,7 +1247,7 @@ void *vtable_State06_Logo2[32] = {
   (void *)CGameState_NoOpVirtual_A, (void *)CGameState_NoOpVirtual_B,
   (void *)CGameState_NoOpVirtual_B, (void *)CGameState_NoOpVirtual_B,
   (void *)CGameState_NoOpVirtual_A,
-  (void *)NoOpMethod, /* slot 6 mouse dispatch: 0x4433c0, not yet ported */
+  (void *)State06_Logo2_HandleKeyInput, /* slot 6 mouse/key dispatch: 0x4433c0 */
   (void *)State06_Logo2_OnEnter, (void *)State06_Logo2_OnExit,
   (void *)State06_Logo2_OnTick,
 };
