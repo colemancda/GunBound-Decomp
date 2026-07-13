@@ -46,7 +46,7 @@ void __fastcall FUN_004921e0(int *param_1)
   *unaff_FS_OFFSET = &uStack_14;
   local_ae0 = param_1;
   FUN_004986a0(param_1);
-  AdvanceSpriteAnimation();
+  AdvanceSpriteAnimation((int)param_1);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -3,6 +3,12 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * Both AdvanceSpriteAnimation() calls were argless in the raw port despite
+ * that function reading a dropped EAX object pointer - confirmed via
+ * `mov eax,ebp` / `call 0x450730` immediately before each call at orig
+ * 0x461cf0-0x461cf2 and 0x461e47-0x461e49 (ebp holds this function's own
+ * param_1 throughout). Passed through explicitly.
  */
 #include "ghidra_types.h"
 
@@ -41,7 +47,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
   if (cVar5 == '\x01') goto LAB_004628db;
   cVar5 = PeekPacketChecksumBool();
   if (cVar5 == '\0') {
-    AdvanceSpriteAnimation();
+    AdvanceSpriteAnimation((int)param_1);
     *unaff_FS_OFFSET = uStack_c;
     return;
   }
@@ -85,7 +91,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
     (**(code **)(*param_1 + 0x18))();
   }
   FUN_0045ba50(param_1);
-  AdvanceSpriteAnimation();
+  AdvanceSpriteAnimation((int)param_1);
   if ((char)param_1[0xd] != '\0') {
     FUN_0045ed80();
   }

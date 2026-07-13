@@ -12,7 +12,7 @@ void __fastcall FUN_0044fcb0(int *param_1)
 {
   int iVar1;
   
-  AdvanceSpriteAnimation();
+  AdvanceSpriteAnimation((int)param_1);
   if ((char)param_1[0xd] != '\0') {
     iVar1 = _rand();
     if ((iVar1 % 10 != 0) && ((char)param_1[0x232] == '\0')) {

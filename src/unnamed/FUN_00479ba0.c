@@ -223,7 +223,7 @@ LAB_00479e75:
     }
   }
   FUN_004785f0(param_1);
-  AdvanceSpriteAnimation();
+  AdvanceSpriteAnimation((int)param_1);
   if ((char)param_1[0xd] != '\0') {
     (**(code **)(*param_1 + 4))(s_normal_00552230);
   }
@@ -352,8 +352,8 @@ LAB_0047a634:
             *(undefined1 *)(DAT_007934e8 + 0x4d0 + *(int *)(DAT_007934e8 + 0x44d0)) = 1;
           }
           *(int *)(iVar5 + 0x44d0) = *(int *)(iVar5 + 0x44d0) + 1;
-          EncodePacketBody();
-          SendOutgoingPacket();
+          EncodePacketBody(0,iVar5);
+          SendOutgoingPacket(iVar5);
           g_gameStateVTableArray[0xb][0x2382] = 1;
           local_4 = 3;
           ScrubChecksumGuard();

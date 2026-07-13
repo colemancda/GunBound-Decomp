@@ -1,14 +1,22 @@
 /* AdvanceSpriteAnimation - 0x00450730 in the original binary.
  *
  * Generic per-tick keyframe-animation advance for a sprite-animation-player
- * object (the object pointer arrives in EAX; Ghidra shows it arg-less).
- * Called once per elapsed frame from GameTick's update loop (and ~10 other
- * sites). Fields: +0x1c = anim descriptor (tables at +8 loop-flag, +0xc
- * step-count, +0x10 step->frame, +0x14 step-duration), +0x20 enabled,
- * +0x24 current animation/state, +0x28 sub-timer, +0x2c current step,
- * +0x30 the resolved sprite frame to draw. Each tick it ticks the sub-timer,
- * advances the step when the step's duration elapses, loops at the end, and
- * writes step->frame into +0x30. **This is the routine that animates the
+ * object. Ghidra shows the object pointer as a read of unaff/in_EAX with no
+ * parameter - a dropped register argument. Every call site loads the object
+ * pointer into EAX immediately before `call 0x450730` with no intervening
+ * push (e.g. SimulateMobileFrame.c's `mov eax,ebp` / `call 0x450730` at
+ * orig 0x461cf0-0x461cf2 and 0x461e47-0x461e49; GameTick.c's
+ * `mov eax,0x7a7644` / `call 0x450730` at orig 0x413354-0x413359 for the
+ * cursor singleton; TickButtonAnimation.c's `mov eax,ecx` / `jmp 0x450730`
+ * at orig 0x405e90). Promoted to an explicit parameter; all ~19 call sites
+ * across src/ updated to pass their own object pointer explicitly.
+ *
+ * Fields: +0x1c = anim descriptor (tables at +8 loop-flag, +0xc step-count,
+ * +0x10 step->frame, +0x14 step-duration), +0x20 enabled, +0x24 current
+ * animation/state, +0x28 sub-timer, +0x2c current step, +0x30 the resolved
+ * sprite frame to draw. Each tick it ticks the sub-timer, advances the step
+ * when the step's duration elapses, loops at the end, and writes
+ * step->frame into +0x30. **This is the routine that animates the
  * software cursor** (the cursor object is the singleton at 0x7a7644, whose
  * +0x30 is g_cursorFrame) - see ARCHITECTURE.md "custom cursor".
  * Confirmed against a live-client debugger probe (g_cursorFrame cycles
@@ -17,15 +25,15 @@
 #include "ghidra_types.h"
 
 
-void AdvanceSpriteAnimation(void)
+void AdvanceSpriteAnimation(int animObj)
 
 {
   char cVar1;
   int *piVar2;
   int iVar3;
-  int in_EAX;
+  int in_EAX = animObj;
   int iVar4;
-  
+
   if (((*(char *)(in_EAX + 0x20) != '\0') &&
       (piVar2 = *(int **)(in_EAX + 0x1c), piVar2 != (int *)0x0)) &&
      (iVar3 = *(int *)(in_EAX + 0x24), -1 < iVar3)) {

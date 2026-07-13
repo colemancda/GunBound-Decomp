@@ -14,7 +14,7 @@ void __fastcall FUN_0046b610(int *param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  AdvanceSpriteAnimation();
+  AdvanceSpriteAnimation((int)param_1);
   return;
 }
 
