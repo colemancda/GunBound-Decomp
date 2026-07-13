@@ -1,0 +1,2838 @@
+[
+  {
+    "caller_block": "0x41389f",
+    "call_addr": "0x4138ab",
+    "func_name": "sub_413130",
+    "func_addr": "0x413130",
+    "eax": "0xea0e18",
+    "eax_src": "0x4138a6: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x41389f: xor esi, esi",
+    "insns": [
+      "0x41389f: xor esi, esi",
+      "0x4138a1: mov edx, 0x384",
+      "0x4138a6: mov eax, 0xea0e18",
+      "0x4138ab: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ed6c0",
+    "call_addr": "0x4ed6c5",
+    "func_name": "sub_4ed6a0",
+    "func_addr": "0x4ed6a0",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ed6c0: mov eax, 0xea0e18",
+    "esi": "eax",
+    "esi_src": "0x4ed6a9: mov esi,eax",
+    "insns": [
+      "0x4ed6c0: mov eax, 0xea0e18",
+      "0x4ed6c5: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4eb9e1",
+    "call_addr": "0x4eb9e6",
+    "func_name": "sub_4eb9c0",
+    "func_addr": "0x4eb9c0",
+    "eax": "0xea0e18",
+    "eax_src": "0x4eb9e1: mov eax, 0xea0e18",
+    "esi": "dword ptr [esp + 0x10]",
+    "esi_src": "0x4eb9c3: mov esi,dword ptr [esp + 0x10]",
+    "insns": [
+      "0x4eb9e1: mov eax, 0xea0e18",
+      "0x4eb9e6: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x41397d",
+    "call_addr": "0x413989",
+    "func_name": "sub_413130",
+    "func_addr": "0x413130",
+    "eax": "0xea0e18",
+    "eax_src": "0x413984: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x41397d: xor esi, esi",
+    "insns": [
+      "0x41397d: xor esi, esi",
+      "0x41397f: mov edx, 0x190",
+      "0x413984: mov eax, 0xea0e18",
+      "0x413989: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4139d0",
+    "call_addr": "0x4139d7",
+    "func_name": "sub_413130",
+    "func_addr": "0x413130",
+    "eax": "0xea0e18",
+    "eax_src": "0x4139d2: mov eax, 0xea0e18",
+    "esi": "dword ptr [0x7a7674]",
+    "esi_src": "0x4139c6: mov esi,dword ptr [0x7a7674]",
+    "insns": [
+      "0x4139d0: xor edx, edx",
+      "0x4139d2: mov eax, 0xea0e18",
+      "0x4139d7: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4b3e85",
+    "call_addr": "0x4b3e91",
+    "func_name": "sub_4b3e60",
+    "func_addr": "0x4b3e60",
+    "eax": "0xea0e18",
+    "eax_src": "0x4b3e8c: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x4b3e85: xor esi, esi",
+    "insns": [
+      "0x4b3e85: xor esi, esi",
+      "0x4b3e87: mov edx, 0x38e",
+      "0x4b3e8c: mov eax, 0xea0e18",
+      "0x4b3e91: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4b3edb",
+    "call_addr": "0x4b3ee5",
+    "func_name": "sub_4b3e60",
+    "func_addr": "0x4b3e60",
+    "eax": "0xea0e18",
+    "eax_src": "0x4b3ee0: mov eax, 0xea0e18",
+    "esi": "<clobbered:movzx esi,word ptr [ebp]>",
+    "esi_src": "0x4b3eca: movzx esi,word ptr [ebp]",
+    "insns": [
+      "0x4b3edb: mov edx, 0x64",
+      "0x4b3ee0: mov eax, 0xea0e18",
+      "0x4b3ee5: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4eb8a0",
+    "call_addr": "0x4eb8a5",
+    "func_name": "sub_4eb890",
+    "func_addr": "0x4eb890",
+    "eax": "0xea0e18",
+    "eax_src": "0x4eb8a0: mov eax, 0xea0e18",
+    "esi": "eax",
+    "esi_src": "0x4eb891: mov esi,eax",
+    "insns": [
+      "0x4eb8a0: mov eax, 0xea0e18",
+      "0x4eb8a5: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x405ebc",
+    "call_addr": "0x405ec1",
+    "func_name": "sub_405ea0",
+    "func_addr": "0x405ea0",
+    "eax": "0xea0e18",
+    "eax_src": "0x405ebc: mov eax, 0xea0e18",
+    "esi": "dword ptr [ecx + 0x30]",
+    "esi_src": "0x405eaf: mov esi,dword ptr [ecx + 0x30]",
+    "insns": [
+      "0x405ebc: mov eax, 0xea0e18",
+      "0x405ec1: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ed88e",
+    "call_addr": "0x4ed893",
+    "func_name": "sub_4ed870",
+    "func_addr": "0x4ed870",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ed88e: mov eax, 0xea0e18",
+    "esi": "ecx",
+    "esi_src": "0x4ed87e: mov esi,ecx",
+    "insns": [
+      "0x4ed88e: mov eax, 0xea0e18",
+      "0x4ed893: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x408601",
+    "call_addr": "0x40860b",
+    "func_name": "sub_40819f",
+    "func_addr": "0x40819f",
+    "eax": "0xea0e18",
+    "eax_src": "0x408606: mov eax, 0xea0e18",
+    "esi": "<clobbered:add esi,0x8d>",
+    "esi_src": "0x4085f3: add esi,0x8d",
+    "insns": [
+      "0x408601: mov edx, 0x1f4",
+      "0x408606: mov eax, 0xea0e18",
+      "0x40860b: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x40869e",
+    "call_addr": "0x4086ad",
+    "func_name": "sub_40819f",
+    "func_addr": "0x40819f",
+    "eax": "0xea0e18",
+    "eax_src": "0x4086a8: mov eax, 0xea0e18",
+    "esi": "0xc7",
+    "esi_src": "0x40869e: mov esi, 0xc7",
+    "insns": [
+      "0x40869e: mov esi, 0xc7",
+      "0x4086a3: mov edx, 0x1f4",
+      "0x4086a8: mov eax, 0xea0e18",
+      "0x4086ad: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4088e5",
+    "call_addr": "0x4088ef",
+    "func_name": "sub_40819f",
+    "func_addr": "0x40819f",
+    "eax": "0xea0e18",
+    "eax_src": "0x4088ea: mov eax, 0xea0e18",
+    "esi": "<clobbered:add esi,0x8d>",
+    "esi_src": "0x4088d7: add esi,0x8d",
+    "insns": [
+      "0x4088e5: mov edx, 0x1f4",
+      "0x4088ea: mov eax, 0xea0e18",
+      "0x4088ef: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x408982",
+    "call_addr": "0x408991",
+    "func_name": "sub_40819f",
+    "func_addr": "0x40819f",
+    "eax": "0xea0e18",
+    "eax_src": "0x40898c: mov eax, 0xea0e18",
+    "esi": "0xc7",
+    "esi_src": "0x408982: mov esi, 0xc7",
+    "insns": [
+      "0x408982: mov esi, 0xc7",
+      "0x408987: mov edx, 0x1f4",
+      "0x40898c: mov eax, 0xea0e18",
+      "0x408991: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x40824b",
+    "call_addr": "0x40825a",
+    "func_name": "sub_40819f",
+    "func_addr": "0x40819f",
+    "eax": "0xea0e18",
+    "eax_src": "0x408255: mov eax, 0xea0e18",
+    "esi": "0xe2",
+    "esi_src": "0x40824b: mov esi, 0xe2",
+    "insns": [
+      "0x40824b: mov esi, 0xe2",
+      "0x408250: mov edx, 0x1f4",
+      "0x408255: mov eax, 0xea0e18",
+      "0x40825a: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x40d0fe",
+    "call_addr": "0x40d105",
+    "func_name": "sub_40d020",
+    "func_addr": "0x40d020",
+    "eax": "ebp",
+    "eax_src": "0x40d103: mov eax, ebp",
+    "esi": "ecx",
+    "esi_src": "0x40d101: mov esi, ecx",
+    "insns": [
+      "0x40d0fe: mov edx, dword ptr [eax + 4]",
+      "0x40d101: mov esi, ecx",
+      "0x40d103: mov eax, ebp",
+      "0x40d105: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x40d0a7",
+    "call_addr": "0x40d0ac",
+    "func_name": "sub_40d020",
+    "func_addr": "0x40d020",
+    "eax": "ebp",
+    "eax_src": "0x40d0aa: mov eax, ebp",
+    "esi": "dword ptr [eax + 8]",
+    "esi_src": "0x40d079: mov esi,dword ptr [eax + 8]",
+    "insns": [
+      "0x40d0a7: mov edx, dword ptr [eax + 4]",
+      "0x40d0aa: mov eax, ebp",
+      "0x40d0ac: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x429829",
+    "call_addr": "0x429835",
+    "func_name": "sub_429810",
+    "func_addr": "0x429810",
+    "eax": "0xea0e18",
+    "eax_src": "0x429830: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x429829: xor esi, esi",
+    "insns": [
+      "0x429829: xor esi, esi",
+      "0x42982b: mov edx, 0x2710",
+      "0x429830: mov eax, 0xea0e18",
+      "0x429835: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x429877",
+    "call_addr": "0x429881",
+    "func_name": "sub_429810",
+    "func_addr": "0x429810",
+    "eax": "0xea0e18",
+    "eax_src": "0x42987c: mov eax, 0xea0e18",
+    "esi": "<clobbered:movzx esi,word ptr [ebp + 0x23344]>",
+    "esi_src": "0x42986a: movzx esi,word ptr [ebp + 0x23344]",
+    "insns": [
+      "0x429877: mov edx, 0x64",
+      "0x42987c: mov eax, 0xea0e18",
+      "0x429881: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a280",
+    "call_addr": "0x42a28a",
+    "func_name": "sub_42a220",
+    "func_addr": "0x42a220",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a285: mov eax, 0xea0e18",
+    "esi": "<clobbered:add esi,2>",
+    "esi_src": "0x42a268: add esi,2",
+    "insns": [
+      "0x42a280: mov edx, 0x2710",
+      "0x42a285: mov eax, 0xea0e18",
+      "0x42a28a: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a2d0",
+    "call_addr": "0x42a2df",
+    "func_name": "sub_42a220",
+    "func_addr": "0x42a220",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a2da: mov eax, 0xea0e18",
+    "esi": "0xe",
+    "esi_src": "0x42a2d0: mov esi, 0xe",
+    "insns": [
+      "0x42a2d0: mov esi, 0xe",
+      "0x42a2d5: mov edx, 0x2710",
+      "0x42a2da: mov eax, 0xea0e18",
+      "0x42a2df: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a347",
+    "call_addr": "0x42a351",
+    "func_name": "sub_42a220",
+    "func_addr": "0x42a220",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a34c: mov eax, 0xea0e18",
+    "esi": "<clobbered:add esi,0xa>",
+    "esi_src": "0x42a339: add esi,0xa",
+    "insns": [
+      "0x42a347: mov edx, 0x1f4",
+      "0x42a34c: mov eax, 0xea0e18",
+      "0x42a351: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a3b4",
+    "call_addr": "0x42a3be",
+    "func_name": "sub_42a220",
+    "func_addr": "0x42a220",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a3b9: mov eax, 0xea0e18",
+    "esi": "<clobbered:add esi,0xa>",
+    "esi_src": "0x42a3a9: add esi,0xa",
+    "insns": [
+      "0x42a3b4: mov edx, 0x1f4",
+      "0x42a3b9: mov eax, 0xea0e18",
+      "0x42a3be: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a42d",
+    "call_addr": "0x42a437",
+    "func_name": "sub_42a220",
+    "func_addr": "0x42a220",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a432: mov eax, 0xea0e18",
+    "esi": "edx",
+    "esi_src": "0x42a425: mov esi,edx",
+    "insns": [
+      "0x42a42d: mov edx, 0x2716",
+      "0x42a432: mov eax, 0xea0e18",
+      "0x42a437: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a4ac",
+    "call_addr": "0x42a4b6",
+    "func_name": "sub_42a220",
+    "func_addr": "0x42a220",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a4b1: mov eax, 0xea0e18",
+    "esi": "8",
+    "esi_src": "0x42a497: mov esi,8",
+    "insns": [
+      "0x42a4ac: mov edx, 0x2710",
+      "0x42a4b1: mov eax, 0xea0e18",
+      "0x42a4b6: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a51f",
+    "call_addr": "0x42a52e",
+    "func_name": "sub_42a220",
+    "func_addr": "0x42a220",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a529: mov eax, 0xea0e18",
+    "esi": "0xf",
+    "esi_src": "0x42a51f: mov esi, 0xf",
+    "insns": [
+      "0x42a51f: mov esi, 0xf",
+      "0x42a524: mov edx, 0x2710",
+      "0x42a529: mov eax, 0xea0e18",
+      "0x42a52e: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a625",
+    "call_addr": "0x42a62f",
+    "func_name": "sub_42a220",
+    "func_addr": "0x42a220",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a62a: mov eax, 0xea0e18",
+    "esi": "<clobbered:add esi,0xa>",
+    "esi_src": "0x42a61a: add esi,0xa",
+    "insns": [
+      "0x42a625: mov edx, 0x2710",
+      "0x42a62a: mov eax, 0xea0e18",
+      "0x42a62f: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a6dd",
+    "call_addr": "0x42a6e7",
+    "func_name": "sub_42a680",
+    "func_addr": "0x42a680",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a6e2: mov eax, 0xea0e18",
+    "esi": "0x11",
+    "esi_src": "0x42a6bf: mov esi,0x11",
+    "insns": [
+      "0x42a6dd: mov edx, 0x2710",
+      "0x42a6e2: mov eax, 0xea0e18",
+      "0x42a6e7: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a733",
+    "call_addr": "0x42a742",
+    "func_name": "sub_42a680",
+    "func_addr": "0x42a680",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a73d: mov eax, 0xea0e18",
+    "esi": "0xe",
+    "esi_src": "0x42a733: mov esi, 0xe",
+    "insns": [
+      "0x42a733: mov esi, 0xe",
+      "0x42a738: mov edx, 0x2710",
+      "0x42a73d: mov eax, 0xea0e18",
+      "0x42a742: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a7aa",
+    "call_addr": "0x42a7b4",
+    "func_name": "sub_42a680",
+    "func_addr": "0x42a680",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a7af: mov eax, 0xea0e18",
+    "esi": "<clobbered:add esi,0xa>",
+    "esi_src": "0x42a799: add esi,0xa",
+    "insns": [
+      "0x42a7aa: mov edx, 0x1f4",
+      "0x42a7af: mov eax, 0xea0e18",
+      "0x42a7b4: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a80e",
+    "call_addr": "0x42a818",
+    "func_name": "sub_42a680",
+    "func_addr": "0x42a680",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a813: mov eax, 0xea0e18",
+    "esi": "<clobbered:add esi,0xa>",
+    "esi_src": "0x42a7fd: add esi,0xa",
+    "insns": [
+      "0x42a80e: mov edx, 0x1f4",
+      "0x42a813: mov eax, 0xea0e18",
+      "0x42a818: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a873",
+    "call_addr": "0x42a87d",
+    "func_name": "sub_42a680",
+    "func_addr": "0x42a680",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a878: mov eax, 0xea0e18",
+    "esi": "<clobbered:movzx esi,byte ptr [eax + edx + 0x4497c]>",
+    "esi_src": "0x42a858: movzx esi,byte ptr [eax + edx + 0x4497c]",
+    "insns": [
+      "0x42a873: mov edx, 0x2716",
+      "0x42a878: mov eax, 0xea0e18",
+      "0x42a87d: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a903",
+    "call_addr": "0x42a90d",
+    "func_name": "sub_42a680",
+    "func_addr": "0x42a680",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a908: mov eax, 0xea0e18",
+    "esi": "8",
+    "esi_src": "0x42a8e7: mov esi,8",
+    "insns": [
+      "0x42a903: mov edx, 0x2710",
+      "0x42a908: mov eax, 0xea0e18",
+      "0x42a90d: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42a987",
+    "call_addr": "0x42a996",
+    "func_name": "sub_42a680",
+    "func_addr": "0x42a680",
+    "eax": "0xea0e18",
+    "eax_src": "0x42a991: mov eax, 0xea0e18",
+    "esi": "0xf",
+    "esi_src": "0x42a987: mov esi, 0xf",
+    "insns": [
+      "0x42a987: mov esi, 0xf",
+      "0x42a98c: mov edx, 0x2710",
+      "0x42a991: mov eax, 0xea0e18",
+      "0x42a996: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x42aa96",
+    "call_addr": "0x42aaa0",
+    "func_name": "sub_42a680",
+    "func_addr": "0x42a680",
+    "eax": "0xea0e18",
+    "eax_src": "0x42aa9b: mov eax, 0xea0e18",
+    "esi": "<clobbered:add esi,0xa>",
+    "esi_src": "0x42aa85: add esi,0xa",
+    "insns": [
+      "0x42aa96: mov edx, 0x2710",
+      "0x42aa9b: mov eax, 0xea0e18",
+      "0x42aaa0: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x43254a",
+    "call_addr": "0x43255b",
+    "func_name": "sub_432320",
+    "func_addr": "0x432320",
+    "eax": "dword ptr [0x5b3484]",
+    "eax_src": "0x43254a: mov eax, dword ptr [0x5b3484]",
+    "esi": "0",
+    "esi_src": "0x432554: xor esi, esi",
+    "insns": [
+      "0x43254a: mov eax, dword ptr [0x5b3484]",
+      "0x43254f: add eax, 0x6a7f88",
+      "0x432554: xor esi, esi",
+      "0x432556: mov edx, 0x186aa",
+      "0x43255b: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4382e3",
+    "call_addr": "0x4382f2",
+    "func_name": "sub_4382d0",
+    "func_addr": "0x4382d0",
+    "eax": "dword ptr [0x5b3484]",
+    "eax_src": "0x4382e3: mov eax, dword ptr [0x5b3484]",
+    "esi": "ecx",
+    "esi_src": "0x4382d4: mov esi,ecx",
+    "insns": [
+      "0x4382e3: mov eax, dword ptr [0x5b3484]",
+      "0x4382e8: add eax, 0x6a7f88",
+      "0x4382ed: mov edx, 0x7a120",
+      "0x4382f2: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44229a",
+    "call_addr": "0x4422a6",
+    "func_name": "sub_442280",
+    "func_addr": "0x442280",
+    "eax": "0xea0e18",
+    "eax_src": "0x4422a1: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x44229a: xor esi, esi",
+    "insns": [
+      "0x44229a: xor esi, esi",
+      "0x44229c: mov edx, 0x2710",
+      "0x4422a1: mov eax, 0xea0e18",
+      "0x4422a6: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4422e0",
+    "call_addr": "0x4422ef",
+    "func_name": "sub_442280",
+    "func_addr": "0x442280",
+    "eax": "0xea0e18",
+    "eax_src": "0x4422ea: mov eax, 0xea0e18",
+    "esi": "0x17",
+    "esi_src": "0x4422e0: mov esi, 0x17",
+    "insns": [
+      "0x4422e0: mov esi, 0x17",
+      "0x4422e5: mov edx, 0x2710",
+      "0x4422ea: mov eax, 0xea0e18",
+      "0x4422ef: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x442e77",
+    "call_addr": "0x442e81",
+    "func_name": "sub_442e00",
+    "func_addr": "0x442e00",
+    "eax": "0xea0e18",
+    "eax_src": "0x442e7c: mov eax, 0xea0e18",
+    "esi": "<clobbered:movzx esi,byte ptr [edx + 0x3b6c0]>",
+    "esi_src": "0x442e62: movzx esi,byte ptr [edx + 0x3b6c0]",
+    "insns": [
+      "0x442e77: mov edx, 0x2710",
+      "0x442e7c: mov eax, 0xea0e18",
+      "0x442e81: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x442ee7",
+    "call_addr": "0x442ef6",
+    "func_name": "sub_442e00",
+    "func_addr": "0x442e00",
+    "eax": "0xea0e18",
+    "eax_src": "0x442ef1: mov eax, 0xea0e18",
+    "esi": "3",
+    "esi_src": "0x442ee7: mov esi, 3",
+    "insns": [
+      "0x442ee7: mov esi, 3",
+      "0x442eec: mov edx, 0x2710",
+      "0x442ef1: mov eax, 0xea0e18",
+      "0x442ef6: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x442f69",
+    "call_addr": "0x442f73",
+    "func_name": "sub_442e00",
+    "func_addr": "0x442e00",
+    "eax": "0xea0e18",
+    "eax_src": "0x442f6e: mov eax, 0xea0e18",
+    "esi": "<clobbered:add esi,7>",
+    "esi_src": "0x442f5e: add esi,7",
+    "insns": [
+      "0x442f69: mov edx, 0x2710",
+      "0x442f6e: mov eax, 0xea0e18",
+      "0x442f73: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x442fbf",
+    "call_addr": "0x442fc9",
+    "func_name": "sub_442e00",
+    "func_addr": "0x442e00",
+    "eax": "0xea0e18",
+    "eax_src": "0x442fc4: mov eax, 0xea0e18",
+    "esi": "<clobbered:movzx esi,word ptr [ebx + edi*2 + 0x50116]>",
+    "esi_src": "0x442fb1: movzx esi,word ptr [ebx + edi*2 + 0x50116]",
+    "insns": [
+      "0x442fbf: mov edx, 0x64",
+      "0x442fc4: mov eax, 0xea0e18",
+      "0x442fc9: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x443073",
+    "call_addr": "0x44307d",
+    "func_name": "sub_442e00",
+    "func_addr": "0x442e00",
+    "eax": "0xea0e18",
+    "eax_src": "0x443078: mov eax, 0xea0e18",
+    "esi": "edx",
+    "esi_src": "0x44306b: mov esi,edx",
+    "insns": [
+      "0x443073: mov edx, 0x2710",
+      "0x443078: mov eax, 0xea0e18",
+      "0x44307d: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x442370",
+    "call_addr": "0x44237f",
+    "func_name": "sub_442280",
+    "func_addr": "0x442280",
+    "eax": "0xea0e18",
+    "eax_src": "0x44237a: mov eax, 0xea0e18",
+    "esi": "0x16",
+    "esi_src": "0x442370: mov esi, 0x16",
+    "insns": [
+      "0x442370: mov esi, 0x16",
+      "0x442375: mov edx, 0x2710",
+      "0x44237a: mov eax, 0xea0e18",
+      "0x44237f: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4423e3",
+    "call_addr": "0x4423ed",
+    "func_name": "sub_442280",
+    "func_addr": "0x442280",
+    "eax": "0xea0e18",
+    "eax_src": "0x4423e8: mov eax, 0xea0e18",
+    "esi": "<clobbered:shl esi,1>",
+    "esi_src": "0x4423d9: shl esi,1",
+    "insns": [
+      "0x4423e3: mov edx, 0x2711",
+      "0x4423e8: mov eax, 0xea0e18",
+      "0x4423ed: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44337b",
+    "call_addr": "0x443385",
+    "func_name": "sub_443360",
+    "func_addr": "0x443360",
+    "eax": "0xea0e18",
+    "eax_src": "0x443380: mov eax, 0xea0e18",
+    "esi": "eax",
+    "esi_src": "0x44336c: mov esi,eax",
+    "insns": [
+      "0x44337b: mov edx, 0x2710",
+      "0x443380: mov eax, 0xea0e18",
+      "0x443385: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x448455",
+    "call_addr": "0x448461",
+    "func_name": "sub_448440",
+    "func_addr": "0x448440",
+    "eax": "0xea0e18",
+    "eax_src": "0x44845c: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x448455: xor esi, esi",
+    "insns": [
+      "0x448455: xor esi, esi",
+      "0x448457: mov edx, 0x2710",
+      "0x44845c: mov eax, 0xea0e18",
+      "0x448461: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4484a4",
+    "call_addr": "0x4484ae",
+    "func_name": "sub_448440",
+    "func_addr": "0x448440",
+    "eax": "0xea0e18",
+    "eax_src": "0x4484a9: mov eax, 0xea0e18",
+    "esi": "<clobbered:movzx esi,word ptr [edi + 0x23344]>",
+    "esi_src": "0x448497: movzx esi,word ptr [edi + 0x23344]",
+    "insns": [
+      "0x4484a4: mov edx, 0x64",
+      "0x4484a9: mov eax, 0xea0e18",
+      "0x4484ae: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a072",
+    "call_addr": "0x44a07c",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a077: mov eax, 0xea0e18",
+    "esi": "edx",
+    "esi_src": "0x44a06a: mov esi,edx",
+    "insns": [
+      "0x44a072: mov edx, 0x2711",
+      "0x44a077: mov eax, 0xea0e18",
+      "0x44a07c: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a0de",
+    "call_addr": "0x44a0e8",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a0e3: mov eax, 0xea0e18",
+    "esi": "<clobbered:shl esi,1>",
+    "esi_src": "0x44a0b3: shl esi,1",
+    "insns": [
+      "0x44a0de: mov edx, 0x2713",
+      "0x44a0e3: mov eax, 0xea0e18",
+      "0x44a0e8: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a150",
+    "call_addr": "0x44a15f",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a15a: mov eax, 0xea0e18",
+    "esi": "2",
+    "esi_src": "0x44a150: mov esi, 2",
+    "insns": [
+      "0x44a150: mov esi, 2",
+      "0x44a155: mov edx, 0x2711",
+      "0x44a15a: mov eax, 0xea0e18",
+      "0x44a15f: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a184",
+    "call_addr": "0x44a193",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a18e: mov eax, 0xea0e18",
+    "esi": "3",
+    "esi_src": "0x44a184: mov esi, 3",
+    "insns": [
+      "0x44a184: mov esi, 3",
+      "0x44a189: mov edx, 0x2711",
+      "0x44a18e: mov eax, 0xea0e18",
+      "0x44a193: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a2d7",
+    "call_addr": "0x44a2de",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a2d9: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x44a2d7: xor esi, esi",
+    "insns": [
+      "0x44a2d7: xor esi, esi",
+      "0x44a2d9: mov eax, 0xea0e18",
+      "0x44a2de: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a242",
+    "call_addr": "0x44a251",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a24c: mov eax, 0xea0e18",
+    "esi": "8",
+    "esi_src": "0x44a242: mov esi, 8",
+    "insns": [
+      "0x44a242: mov esi, 8",
+      "0x44a247: mov edx, 0x2711",
+      "0x44a24c: mov eax, 0xea0e18",
+      "0x44a251: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a3e8",
+    "call_addr": "0x44a3f7",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a3f2: mov eax, 0xea0e18",
+    "esi": "8",
+    "esi_src": "0x44a3e8: mov esi, 8",
+    "insns": [
+      "0x44a3e8: mov esi, 8",
+      "0x44a3ed: mov edx, 0x2713",
+      "0x44a3f2: mov eax, 0xea0e18",
+      "0x44a3f7: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a387",
+    "call_addr": "0x44a396",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a391: mov eax, 0xea0e18",
+    "esi": "9",
+    "esi_src": "0x44a387: mov esi, 9",
+    "insns": [
+      "0x44a387: mov esi, 9",
+      "0x44a38c: mov edx, 0x2713",
+      "0x44a391: mov eax, 0xea0e18",
+      "0x44a396: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a552",
+    "call_addr": "0x44a561",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a55c: mov eax, 0xea0e18",
+    "esi": "0xb",
+    "esi_src": "0x44a552: mov esi, 0xb",
+    "insns": [
+      "0x44a552: mov esi, 0xb",
+      "0x44a557: mov edx, 0x2713",
+      "0x44a55c: mov eax, 0xea0e18",
+      "0x44a561: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a4e7",
+    "call_addr": "0x44a4f6",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a4f1: mov eax, 0xea0e18",
+    "esi": "0xa",
+    "esi_src": "0x44a4e7: mov esi, 0xa",
+    "insns": [
+      "0x44a4e7: mov esi, 0xa",
+      "0x44a4ec: mov edx, 0x2713",
+      "0x44a4f1: mov eax, 0xea0e18",
+      "0x44a4f6: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a6b9",
+    "call_addr": "0x44a6c8",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a6c3: mov eax, 0xea0e18",
+    "esi": "0xd",
+    "esi_src": "0x44a6b9: mov esi, 0xd",
+    "insns": [
+      "0x44a6b9: mov esi, 0xd",
+      "0x44a6be: mov edx, 0x2713",
+      "0x44a6c3: mov eax, 0xea0e18",
+      "0x44a6c8: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a64e",
+    "call_addr": "0x44a65d",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a658: mov eax, 0xea0e18",
+    "esi": "0xc",
+    "esi_src": "0x44a64e: mov esi, 0xc",
+    "insns": [
+      "0x44a64e: mov esi, 0xc",
+      "0x44a653: mov edx, 0x2713",
+      "0x44a658: mov eax, 0xea0e18",
+      "0x44a65d: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a820",
+    "call_addr": "0x44a82f",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a82a: mov eax, 0xea0e18",
+    "esi": "0xf",
+    "esi_src": "0x44a820: mov esi, 0xf",
+    "insns": [
+      "0x44a820: mov esi, 0xf",
+      "0x44a825: mov edx, 0x2713",
+      "0x44a82a: mov eax, 0xea0e18",
+      "0x44a82f: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a7b5",
+    "call_addr": "0x44a7c4",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a7bf: mov eax, 0xea0e18",
+    "esi": "0xe",
+    "esi_src": "0x44a7b5: mov esi, 0xe",
+    "insns": [
+      "0x44a7b5: mov esi, 0xe",
+      "0x44a7ba: mov edx, 0x2713",
+      "0x44a7bf: mov eax, 0xea0e18",
+      "0x44a7c4: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a987",
+    "call_addr": "0x44a996",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a991: mov eax, 0xea0e18",
+    "esi": "0x11",
+    "esi_src": "0x44a987: mov esi, 0x11",
+    "insns": [
+      "0x44a987: mov esi, 0x11",
+      "0x44a98c: mov edx, 0x2713",
+      "0x44a991: mov eax, 0xea0e18",
+      "0x44a996: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44a91c",
+    "call_addr": "0x44a92b",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44a926: mov eax, 0xea0e18",
+    "esi": "0x10",
+    "esi_src": "0x44a91c: mov esi, 0x10",
+    "insns": [
+      "0x44a91c: mov esi, 0x10",
+      "0x44a921: mov edx, 0x2713",
+      "0x44a926: mov eax, 0xea0e18",
+      "0x44a92b: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44aaee",
+    "call_addr": "0x44aafd",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44aaf8: mov eax, 0xea0e18",
+    "esi": "0x13",
+    "esi_src": "0x44aaee: mov esi, 0x13",
+    "insns": [
+      "0x44aaee: mov esi, 0x13",
+      "0x44aaf3: mov edx, 0x2713",
+      "0x44aaf8: mov eax, 0xea0e18",
+      "0x44aafd: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44aa83",
+    "call_addr": "0x44aa92",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44aa8d: mov eax, 0xea0e18",
+    "esi": "0x12",
+    "esi_src": "0x44aa83: mov esi, 0x12",
+    "insns": [
+      "0x44aa83: mov esi, 0x12",
+      "0x44aa88: mov edx, 0x2713",
+      "0x44aa8d: mov eax, 0xea0e18",
+      "0x44aa92: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44ac55",
+    "call_addr": "0x44ac64",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44ac5f: mov eax, 0xea0e18",
+    "esi": "0x15",
+    "esi_src": "0x44ac55: mov esi, 0x15",
+    "insns": [
+      "0x44ac55: mov esi, 0x15",
+      "0x44ac5a: mov edx, 0x2713",
+      "0x44ac5f: mov eax, 0xea0e18",
+      "0x44ac64: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44abea",
+    "call_addr": "0x44abf9",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44abf4: mov eax, 0xea0e18",
+    "esi": "0x14",
+    "esi_src": "0x44abea: mov esi, 0x14",
+    "insns": [
+      "0x44abea: mov esi, 0x14",
+      "0x44abef: mov edx, 0x2713",
+      "0x44abf4: mov eax, 0xea0e18",
+      "0x44abf9: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44adc1",
+    "call_addr": "0x44add0",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44adcb: mov eax, 0xea0e18",
+    "esi": "0x17",
+    "esi_src": "0x44adc1: mov esi, 0x17",
+    "insns": [
+      "0x44adc1: mov esi, 0x17",
+      "0x44adc6: mov edx, 0x2713",
+      "0x44adcb: mov eax, 0xea0e18",
+      "0x44add0: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44ad54",
+    "call_addr": "0x44ad63",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44ad5e: mov eax, 0xea0e18",
+    "esi": "0x16",
+    "esi_src": "0x44ad54: mov esi, 0x16",
+    "insns": [
+      "0x44ad54: mov esi, 0x16",
+      "0x44ad59: mov edx, 0x2713",
+      "0x44ad5e: mov eax, 0xea0e18",
+      "0x44ad63: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44af25",
+    "call_addr": "0x44af34",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44af2f: mov eax, 0xea0e18",
+    "esi": "6",
+    "esi_src": "0x44af25: mov esi, 6",
+    "insns": [
+      "0x44af25: mov esi, 6",
+      "0x44af2a: mov edx, 0x2711",
+      "0x44af2f: mov eax, 0xea0e18",
+      "0x44af34: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44b04f",
+    "call_addr": "0x44b05e",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44b059: mov eax, 0xea0e18",
+    "esi": "7",
+    "esi_src": "0x44b04f: mov esi, 7",
+    "insns": [
+      "0x44b04f: mov esi, 7",
+      "0x44b054: mov edx, 0x2711",
+      "0x44b059: mov eax, 0xea0e18",
+      "0x44b05e: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44c4b5",
+    "call_addr": "0x44c4bc",
+    "func_name": "sub_44c48a",
+    "func_addr": "0x44c48a",
+    "eax": "0xea0e18",
+    "eax_src": "0x44c4b7: mov eax, 0xea0e18",
+    "esi": null,
+    "esi_src": null,
+    "insns": [
+      "0x44c4b5: mov edx, edi",
+      "0x44c4b7: mov eax, 0xea0e18",
+      "0x44c4bc: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44afff",
+    "call_addr": "0x44b00e",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44b009: mov eax, 0xea0e18",
+    "esi": "4",
+    "esi_src": "0x44afff: mov esi, 4",
+    "insns": [
+      "0x44afff: mov esi, 4",
+      "0x44b004: mov edx, 0x2711",
+      "0x44b009: mov eax, 0xea0e18",
+      "0x44b00e: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44aede",
+    "call_addr": "0x44aeed",
+    "func_name": "sub_44a000",
+    "func_addr": "0x44a000",
+    "eax": "0xea0e18",
+    "eax_src": "0x44aee8: mov eax, 0xea0e18",
+    "esi": "5",
+    "esi_src": "0x44aede: mov esi, 5",
+    "insns": [
+      "0x44aede: mov esi, 5",
+      "0x44aee3: mov edx, 0x2711",
+      "0x44aee8: mov eax, 0xea0e18",
+      "0x44aeed: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44fe6b",
+    "call_addr": "0x44fe7c",
+    "func_name": "sub_44fd70",
+    "func_addr": "0x44fd70",
+    "eax": "[edi + 0x6a7f88]",
+    "eax_src": "0x44fe71: lea eax, [edi + 0x6a7f88] (lea)",
+    "esi": "<clobbered:add esi,0x480>",
+    "esi_src": "0x44fe19: add esi,0x480",
+    "insns": [
+      "0x44fe6b: mov edi, dword ptr [0x5b3484]",
+      "0x44fe71: lea eax, [edi + 0x6a7f88]",
+      "0x44fe77: mov edx, 0x186a7",
+      "0x44fe7c: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x44fde9",
+    "call_addr": "0x44fdfb",
+    "func_name": "sub_44fd70",
+    "func_addr": "0x44fd70",
+    "eax": "dword ptr [0x5b3484]",
+    "eax_src": "0x44fde9: mov eax, dword ptr [0x5b3484]",
+    "esi": "<clobbered:add esi,-8>",
+    "esi_src": "0x44fdee: add esi,-8",
+    "insns": [
+      "0x44fde9: mov eax, dword ptr [0x5b3484]",
+      "0x44fdee: add esi, -8",
+      "0x44fdf1: add eax, 0x6a7f88",
+      "0x44fdf6: mov edx, 0x186a6",
+      "0x44fdfb: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4e4c11",
+    "call_addr": "0x4e4c22",
+    "func_name": "sub_4e4bc0",
+    "func_addr": "0x4e4bc0",
+    "eax": "0xea0e18",
+    "eax_src": "0x4e4c1d: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x4e4c16: xor esi, esi",
+    "insns": [
+      "0x4e4c11: push esi",
+      "0x4e4c12: mov byte ptr [edi + ecx + 0x51], al",
+      "0x4e4c16: xor esi, esi",
+      "0x4e4c18: mov edx, 0xea60",
+      "0x4e4c1d: mov eax, 0xea0e18",
+      "0x4e4c22: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x436877",
+    "call_addr": "0x436886",
+    "func_name": "sub_436860",
+    "func_addr": "0x436860",
+    "eax": "dword ptr [0x5b3484]",
+    "eax_src": "0x436877: mov eax, dword ptr [0x5b3484]",
+    "esi": "ecx",
+    "esi_src": "0x436865: mov esi,ecx",
+    "insns": [
+      "0x436877: mov eax, dword ptr [0x5b3484]",
+      "0x43687c: add eax, 0x6a7f88",
+      "0x436881: mov edx, 0x30d54",
+      "0x436886: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4798b8",
+    "call_addr": "0x4798c9",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "eax": "dword ptr [0x5b3484]",
+    "eax_src": "0x4798b8: mov eax, dword ptr [0x5b3484]",
+    "esi": "0",
+    "esi_src": "0x4798c2: xor esi, esi",
+    "insns": [
+      "0x4798b8: mov eax, dword ptr [0x5b3484]",
+      "0x4798bd: add eax, 0x6a7f88",
+      "0x4798c2: xor esi, esi",
+      "0x4798c4: mov edx, 0x186aa",
+      "0x4798c9: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x45e9f6",
+    "call_addr": "0x45ea07",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "eax": "dword ptr [0x5b3484]",
+    "eax_src": "0x45e9f6: mov eax, dword ptr [0x5b3484]",
+    "esi": "0",
+    "esi_src": "0x45ea00: xor esi, esi",
+    "insns": [
+      "0x45e9f6: mov eax, dword ptr [0x5b3484]",
+      "0x45e9fb: add eax, 0x6a7f88",
+      "0x45ea00: xor esi, esi",
+      "0x45ea02: mov edx, 0x186aa",
+      "0x45ea07: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x477a3f",
+    "call_addr": "0x477a49",
+    "func_name": "sub_477930",
+    "func_addr": "0x477930",
+    "eax": "0xea0e18",
+    "eax_src": "0x477a44: mov eax, 0xea0e18",
+    "esi": "dword ptr [esi + 0x30]",
+    "esi_src": "0x477a36: mov esi,dword ptr [esi + 0x30]",
+    "insns": [
+      "0x477a3f: mov edx, 0x1900",
+      "0x477a44: mov eax, 0xea0e18",
+      "0x477a49: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x48dc7a",
+    "call_addr": "0x48dc84",
+    "func_name": "sub_48dc40",
+    "func_addr": "0x48dc40",
+    "eax": "0xea0e18",
+    "eax_src": "0x48dc7f: mov eax, 0xea0e18",
+    "esi": "dword ptr [ecx + 0x30]",
+    "esi_src": "0x48dc61: mov esi,dword ptr [ecx + 0x30]",
+    "insns": [
+      "0x48dc7a: mov edx, 0x1e14",
+      "0x48dc7f: mov eax, 0xea0e18",
+      "0x48dc84: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ac08e",
+    "call_addr": "0x4ac09d",
+    "func_name": "sub_4abf60",
+    "func_addr": "0x4abf60",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ac098: mov eax, 0xea0e18",
+    "esi": "0x11f",
+    "esi_src": "0x4ac08e: mov esi, 0x11f",
+    "insns": [
+      "0x4ac08e: mov esi, 0x11f",
+      "0x4ac093: mov edx, 0x1f4",
+      "0x4ac098: mov eax, 0xea0e18",
+      "0x4ac09d: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4b5730",
+    "call_addr": "0x4b573f",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "eax": "dword ptr [0x5b3484]",
+    "eax_src": "0x4b5730: mov eax, dword ptr [0x5b3484]",
+    "esi": null,
+    "esi_src": null,
+    "insns": [
+      "0x4b5730: mov eax, dword ptr [0x5b3484]",
+      "0x4b5735: add eax, 0x6a7f88",
+      "0x4b573a: mov edx, 0x186a6",
+      "0x4b573f: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4cef93",
+    "call_addr": "0x4cef98",
+    "func_name": "sub_4cee30",
+    "func_addr": "0x4cee30",
+    "eax": "<clobbered:add eax,0x6a7f88>",
+    "eax_src": "0x4cef93: add eax,0x6a7f88",
+    "esi": "<clobbered:add esi,0x28>",
+    "esi_src": "0x4cef75: add esi,0x28",
+    "insns": [
+      "0x4cef93: add eax, 0x6a7f88",
+      "0x4cef98: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4cef64",
+    "call_addr": "0x4cef69",
+    "func_name": "sub_4cee30",
+    "func_addr": "0x4cee30",
+    "eax": "<clobbered:add eax,0x6a7f88>",
+    "eax_src": "0x4cef64: add eax,0x6a7f88",
+    "esi": "0",
+    "esi_src": "0x4cef54: xor esi,esi",
+    "insns": [
+      "0x4cef64: add eax, 0x6a7f88",
+      "0x4cef69: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ce4fb",
+    "call_addr": "0x4ce50d",
+    "func_name": "sub_4ce3d0",
+    "func_addr": "0x4ce3d0",
+    "eax": "dword ptr [0x5b3484]",
+    "eax_src": "0x4ce4fb: mov eax, dword ptr [0x5b3484]",
+    "esi": "dword ptr [edi + 8]",
+    "esi_src": "0x4ce500: mov esi, dword ptr [edi + 8]",
+    "insns": [
+      "0x4ce4fb: mov eax, dword ptr [0x5b3484]",
+      "0x4ce500: mov esi, dword ptr [edi + 8]",
+      "0x4ce503: add eax, 0x6a7f88",
+      "0x4ce508: mov edx, 0x186a7",
+      "0x4ce50d: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d02ad",
+    "call_addr": "0x4d02b7",
+    "func_name": "sub_4d0260",
+    "func_addr": "0x4d0260",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d02b2: mov eax, 0xea0e18",
+    "esi": "eax",
+    "esi_src": "0x4d029e: mov esi,eax",
+    "insns": [
+      "0x4d02ad: mov edx, 0x2329",
+      "0x4d02b2: mov eax, 0xea0e18",
+      "0x4d02b7: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d0306",
+    "call_addr": "0x4d0310",
+    "func_name": "sub_4d0260",
+    "func_addr": "0x4d0260",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d030b: mov eax, 0xea0e18",
+    "esi": "<clobbered:movzx esi,word ptr [edi + ebp*2 + 0x50116]>",
+    "esi_src": "0x4d02f3: movzx esi,word ptr [edi + ebp*2 + 0x50116]",
+    "insns": [
+      "0x4d0306: mov edx, 0x64",
+      "0x4d030b: mov eax, 0xea0e18",
+      "0x4d0310: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4e2b87",
+    "call_addr": "0x4e2b91",
+    "func_name": "sub_4e2b20",
+    "func_addr": "0x4e2b20",
+    "eax": "0xea0e18",
+    "eax_src": "0x4e2b8c: mov eax, 0xea0e18",
+    "esi": "dword ptr [edi + 0xf04]",
+    "esi_src": "0x4e2b7b: mov esi,dword ptr [edi + 0xf04]",
+    "insns": [
+      "0x4e2b87: mov edx, 0x2328",
+      "0x4e2b8c: mov eax, 0xea0e18",
+      "0x4e2b91: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4e2e87",
+    "call_addr": "0x4e2e91",
+    "func_name": "sub_4e2b20",
+    "func_addr": "0x4e2b20",
+    "eax": "0xea0e18",
+    "eax_src": "0x4e2e8c: mov eax, 0xea0e18",
+    "esi": "dword ptr [esp + 0x24]",
+    "esi_src": "0x4e2e7f: mov esi,dword ptr [esp + 0x24]",
+    "insns": [
+      "0x4e2e87: mov edx, 0x2328",
+      "0x4e2e8c: mov eax, 0xea0e18",
+      "0x4e2e91: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4e318a",
+    "call_addr": "0x4e3194",
+    "func_name": "sub_4e2b20",
+    "func_addr": "0x4e2b20",
+    "eax": "0xea0e18",
+    "eax_src": "0x4e318f: mov eax, 0xea0e18",
+    "esi": "dword ptr [esp + 0x24]",
+    "esi_src": "0x4e3182: mov esi,dword ptr [esp + 0x24]",
+    "insns": [
+      "0x4e318a: mov edx, 0x2328",
+      "0x4e318f: mov eax, 0xea0e18",
+      "0x4e3194: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4e3486",
+    "call_addr": "0x4e3490",
+    "func_name": "sub_4e2b20",
+    "func_addr": "0x4e2b20",
+    "eax": "0xea0e18",
+    "eax_src": "0x4e348b: mov eax, 0xea0e18",
+    "esi": "dword ptr [esp + 0x24]",
+    "esi_src": "0x4e3474: mov esi,dword ptr [esp + 0x24]",
+    "insns": [
+      "0x4e3486: mov edx, 0x2328",
+      "0x4e348b: mov eax, 0xea0e18",
+      "0x4e3490: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca430",
+    "call_addr": "0x4ca43c",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca437: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca430: mov esi, ebx",
+    "insns": [
+      "0x4ca430: mov esi, ebx",
+      "0x4ca432: mov edx, 0x3f3",
+      "0x4ca437: mov eax, 0xea0e18",
+      "0x4ca43c: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca517",
+    "call_addr": "0x4ca523",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca51e: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca517: mov esi, ebx",
+    "insns": [
+      "0x4ca517: mov esi, ebx",
+      "0x4ca519: mov edx, 0x3f3",
+      "0x4ca51e: mov eax, 0xea0e18",
+      "0x4ca523: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca47b",
+    "call_addr": "0x4ca487",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca482: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca47b: mov esi, ebx",
+    "insns": [
+      "0x4ca47b: mov esi, ebx",
+      "0x4ca47d: mov edx, 0x3f3",
+      "0x4ca482: mov eax, 0xea0e18",
+      "0x4ca487: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca557",
+    "call_addr": "0x4ca563",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca55e: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca557: mov esi, ebx",
+    "insns": [
+      "0x4ca557: mov esi, ebx",
+      "0x4ca559: mov edx, 0x3f3",
+      "0x4ca55e: mov eax, 0xea0e18",
+      "0x4ca563: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca3e5",
+    "call_addr": "0x4ca3f1",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca3ec: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca3e5: mov esi, ebx",
+    "insns": [
+      "0x4ca3e5: mov esi, ebx",
+      "0x4ca3e7: mov edx, 0x3f3",
+      "0x4ca3ec: mov eax, 0xea0e18",
+      "0x4ca3f1: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca4c9",
+    "call_addr": "0x4ca4d5",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca4d0: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca4c9: mov esi, ebx",
+    "insns": [
+      "0x4ca4c9: mov esi, ebx",
+      "0x4ca4cb: mov edx, 0x3f3",
+      "0x4ca4d0: mov eax, 0xea0e18",
+      "0x4ca4d5: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca251",
+    "call_addr": "0x4ca25d",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca258: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca251: mov esi, ebx",
+    "insns": [
+      "0x4ca251: mov esi, ebx",
+      "0x4ca253: mov edx, 0x3f3",
+      "0x4ca258: mov eax, 0xea0e18",
+      "0x4ca25d: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca338",
+    "call_addr": "0x4ca344",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca33f: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca338: mov esi, ebx",
+    "insns": [
+      "0x4ca338: mov esi, ebx",
+      "0x4ca33a: mov edx, 0x3f3",
+      "0x4ca33f: mov eax, 0xea0e18",
+      "0x4ca344: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca29c",
+    "call_addr": "0x4ca2a8",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca2a3: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca29c: mov esi, ebx",
+    "insns": [
+      "0x4ca29c: mov esi, ebx",
+      "0x4ca29e: mov edx, 0x3f3",
+      "0x4ca2a3: mov eax, 0xea0e18",
+      "0x4ca2a8: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca378",
+    "call_addr": "0x4ca384",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca37f: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca378: mov esi, ebx",
+    "insns": [
+      "0x4ca378: mov esi, ebx",
+      "0x4ca37a: mov edx, 0x3f3",
+      "0x4ca37f: mov eax, 0xea0e18",
+      "0x4ca384: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca206",
+    "call_addr": "0x4ca212",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca20d: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca206: mov esi, ebx",
+    "insns": [
+      "0x4ca206: mov esi, ebx",
+      "0x4ca208: mov edx, 0x3f3",
+      "0x4ca20d: mov eax, 0xea0e18",
+      "0x4ca212: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca2ea",
+    "call_addr": "0x4ca2f6",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca2f1: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca2ea: mov esi, ebx",
+    "insns": [
+      "0x4ca2ea: mov esi, ebx",
+      "0x4ca2ec: mov edx, 0x3f3",
+      "0x4ca2f1: mov eax, 0xea0e18",
+      "0x4ca2f6: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d7dfe",
+    "call_addr": "0x4d7e0a",
+    "func_name": "sub_4d7db0",
+    "func_addr": "0x4d7db0",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d7e05: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x4d7dfe: xor esi, esi",
+    "insns": [
+      "0x4d7dfe: xor esi, esi",
+      "0x4d7e00: mov edx, 0x2710",
+      "0x4d7e05: mov eax, 0xea0e18",
+      "0x4d7e0a: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d8271",
+    "call_addr": "0x4d8280",
+    "func_name": "sub_4d8198",
+    "func_addr": "0x4d8198",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d827b: mov eax, 0xea0e18",
+    "esi": "0xa",
+    "esi_src": "0x4d8271: mov esi, 0xa",
+    "insns": [
+      "0x4d8271: mov esi, 0xa",
+      "0x4d8276: mov edx, 0x1f4",
+      "0x4d827b: mov eax, 0xea0e18",
+      "0x4d8280: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4dbbce",
+    "call_addr": "0x4dbbdd",
+    "func_name": "sub_4dba80",
+    "func_addr": "0x4dba80",
+    "eax": "0xea0e18",
+    "eax_src": "0x4dbbd8: mov eax, 0xea0e18",
+    "esi": "7",
+    "esi_src": "0x4dbbce: mov esi, 7",
+    "insns": [
+      "0x4dbbce: mov esi, 7",
+      "0x4dbbd3: mov edx, 0x2710",
+      "0x4dbbd8: mov eax, 0xea0e18",
+      "0x4dbbdd: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4dbcd9",
+    "call_addr": "0x4dbce8",
+    "func_name": "sub_4dba80",
+    "func_addr": "0x4dba80",
+    "eax": "0xea0e18",
+    "eax_src": "0x4dbce3: mov eax, 0xea0e18",
+    "esi": "6",
+    "esi_src": "0x4dbcd9: mov esi, 6",
+    "insns": [
+      "0x4dbcd9: mov esi, 6",
+      "0x4dbcde: mov edx, 0x2710",
+      "0x4dbce3: mov eax, 0xea0e18",
+      "0x4dbce8: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d8023",
+    "call_addr": "0x4d8032",
+    "func_name": "sub_4d7f28",
+    "func_addr": "0x4d7f28",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d802d: mov eax, 0xea0e18",
+    "esi": "0xa",
+    "esi_src": "0x4d8023: mov esi, 0xa",
+    "insns": [
+      "0x4d8023: mov esi, 0xa",
+      "0x4d8028: mov edx, 0x1f4",
+      "0x4d802d: mov eax, 0xea0e18",
+      "0x4d8032: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d80de",
+    "call_addr": "0x4d80e8",
+    "func_name": "sub_4d7f28",
+    "func_addr": "0x4d7f28",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d80e3: mov eax, 0xea0e18",
+    "esi": null,
+    "esi_src": null,
+    "insns": [
+      "0x4d80de: mov edx, 0x1f4",
+      "0x4d80e3: mov eax, 0xea0e18",
+      "0x4d80e8: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d8363",
+    "call_addr": "0x4d8372",
+    "func_name": "sub_4d8198",
+    "func_addr": "0x4d8198",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d836d: mov eax, 0xea0e18",
+    "esi": "0xa",
+    "esi_src": "0x4d8363: mov esi, 0xa",
+    "insns": [
+      "0x4d8363: mov esi, 0xa",
+      "0x4d8368: mov edx, 0x1f4",
+      "0x4d836d: mov eax, 0xea0e18",
+      "0x4d8372: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d8416",
+    "call_addr": "0x4d8420",
+    "func_name": "sub_4d8198",
+    "func_addr": "0x4d8198",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d841b: mov eax, 0xea0e18",
+    "esi": "dword ptr [esp + 0x14]",
+    "esi_src": "0x4d81a0: mov esi,dword ptr [esp + 0x14]",
+    "insns": [
+      "0x4d8416: mov edx, 0x1f4",
+      "0x4d841b: mov eax, 0xea0e18",
+      "0x4d8420: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d9b23",
+    "call_addr": "0x4d9b32",
+    "func_name": "sub_4d9ae0",
+    "func_addr": "0x4d9ae0",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d9b2d: mov eax, 0xea0e18",
+    "esi": "9",
+    "esi_src": "0x4d9b23: mov esi, 9",
+    "insns": [
+      "0x4d9b23: mov esi, 9",
+      "0x4d9b28: mov edx, 0x2710",
+      "0x4d9b2d: mov eax, 0xea0e18",
+      "0x4d9b32: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d9b9f",
+    "call_addr": "0x4d9bae",
+    "func_name": "sub_4d9ae0",
+    "func_addr": "0x4d9ae0",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d9ba9: mov eax, 0xea0e18",
+    "esi": "9",
+    "esi_src": "0x4d9b9f: mov esi, 9",
+    "insns": [
+      "0x4d9b9f: mov esi, 9",
+      "0x4d9ba4: mov edx, 0x2710",
+      "0x4d9ba9: mov eax, 0xea0e18",
+      "0x4d9bae: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d9c10",
+    "call_addr": "0x4d9c1c",
+    "func_name": "sub_4d9ae0",
+    "func_addr": "0x4d9ae0",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d9c17: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x4d9c10: xor esi, esi",
+    "insns": [
+      "0x4d9c10: xor esi, esi",
+      "0x4d9c12: mov edx, 0x2717",
+      "0x4d9c17: mov eax, 0xea0e18",
+      "0x4d9c1c: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d9c98",
+    "call_addr": "0x4d9ca7",
+    "func_name": "sub_4d9ae0",
+    "func_addr": "0x4d9ae0",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d9ca2: mov eax, 0xea0e18",
+    "esi": "1",
+    "esi_src": "0x4d9c98: mov esi, 1",
+    "insns": [
+      "0x4d9c98: mov esi, 1",
+      "0x4d9c9d: mov edx, 0x2717",
+      "0x4d9ca2: mov eax, 0xea0e18",
+      "0x4d9ca7: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d9cfc",
+    "call_addr": "0x4d9d08",
+    "func_name": "sub_4d9ae0",
+    "func_addr": "0x4d9ae0",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d9d03: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x4d9cfc: xor esi, esi",
+    "insns": [
+      "0x4d9cfc: xor esi, esi",
+      "0x4d9cfe: mov edx, 0x2718",
+      "0x4d9d03: mov eax, 0xea0e18",
+      "0x4d9d08: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4d9e28",
+    "call_addr": "0x4d9e32",
+    "func_name": "sub_4d9d75",
+    "func_addr": "0x4d9d75",
+    "eax": "0xea0e18",
+    "eax_src": "0x4d9e2d: mov eax, 0xea0e18",
+    "esi": null,
+    "esi_src": null,
+    "insns": [
+      "0x4d9e28: mov edx, 0x2717",
+      "0x4d9e2d: mov eax, 0xea0e18",
+      "0x4d9e32: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4da2b6",
+    "call_addr": "0x4da2c2",
+    "func_name": "sub_4d9d75",
+    "func_addr": "0x4d9d75",
+    "eax": "0xea0e18",
+    "eax_src": "0x4da2bd: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x4da2b6: xor esi, esi",
+    "insns": [
+      "0x4da2b6: xor esi, esi",
+      "0x4da2b8: mov edx, 0x271a",
+      "0x4da2bd: mov eax, 0xea0e18",
+      "0x4da2c2: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x5053dc",
+    "call_addr": "0x5053e1",
+    "func_name": "sub_505380",
+    "func_addr": "0x505380",
+    "eax": "0xea0e18",
+    "eax_src": "0x5053dc: mov eax, 0xea0e18",
+    "esi": "2",
+    "esi_src": "0x5053c1: mov esi,2",
+    "insns": [
+      "0x5053dc: mov eax, 0xea0e18",
+      "0x5053e1: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x5054d6",
+    "call_addr": "0x5054db",
+    "func_name": "sub_5054b0",
+    "func_addr": "0x5054b0",
+    "eax": "0xea0e18",
+    "eax_src": "0x5054d6: mov eax, 0xea0e18",
+    "esi": "dword ptr [edi + 0x48]",
+    "esi_src": "0x5054cd: mov esi,dword ptr [edi + 0x48]",
+    "insns": [
+      "0x5054d6: mov eax, 0xea0e18",
+      "0x5054db: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x505f4d",
+    "call_addr": "0x505f57",
+    "func_name": "sub_505f10",
+    "func_addr": "0x505f10",
+    "eax": "0xea0e18",
+    "eax_src": "0x505f52: mov eax, 0xea0e18",
+    "esi": "1",
+    "esi_src": "0x505f4d: mov esi, 1",
+    "insns": [
+      "0x505f4d: mov esi, 1",
+      "0x505f52: mov eax, 0xea0e18",
+      "0x505f57: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x505f9e",
+    "call_addr": "0x505fa8",
+    "func_name": "sub_505f10",
+    "func_addr": "0x505f10",
+    "eax": "0xea0e18",
+    "eax_src": "0x505fa3: mov eax, 0xea0e18",
+    "esi": "<clobbered:movzx esi,word ptr [ebx + 0x2e]>",
+    "esi_src": "0x505f94: movzx esi,word ptr [ebx + 0x2e]",
+    "insns": [
+      "0x505f9e: mov edx, 0x64",
+      "0x505fa3: mov eax, 0xea0e18",
+      "0x505fa8: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x506012",
+    "call_addr": "0x506021",
+    "func_name": "sub_505f10",
+    "func_addr": "0x505f10",
+    "eax": "0xea0e18",
+    "eax_src": "0x50601c: mov eax, 0xea0e18",
+    "esi": "4",
+    "esi_src": "0x506012: mov esi, 4",
+    "insns": [
+      "0x506012: mov esi, 4",
+      "0x506017: mov edx, 0x2bc",
+      "0x50601c: mov eax, 0xea0e18",
+      "0x506021: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50613e",
+    "call_addr": "0x50614d",
+    "func_name": "sub_505f10",
+    "func_addr": "0x505f10",
+    "eax": "0xea0e18",
+    "eax_src": "0x506148: mov eax, 0xea0e18",
+    "esi": "5",
+    "esi_src": "0x50613e: mov esi, 5",
+    "insns": [
+      "0x50613e: mov esi, 5",
+      "0x506143: mov edx, 0x2bc",
+      "0x506148: mov eax, 0xea0e18",
+      "0x50614d: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x506185",
+    "call_addr": "0x506194",
+    "func_name": "sub_505f10",
+    "func_addr": "0x505f10",
+    "eax": "0xea0e18",
+    "eax_src": "0x50618f: mov eax, 0xea0e18",
+    "esi": "6",
+    "esi_src": "0x506185: mov esi, 6",
+    "insns": [
+      "0x506185: mov esi, 6",
+      "0x50618a: mov edx, 0x2bc",
+      "0x50618f: mov eax, 0xea0e18",
+      "0x506194: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x506910",
+    "call_addr": "0x50691a",
+    "func_name": "sub_5068e0",
+    "func_addr": "0x5068e0",
+    "eax": "0xea0e18",
+    "eax_src": "0x506915: mov eax, 0xea0e18",
+    "esi": "dword ptr [esi + 0x90]",
+    "esi_src": "0x5068fc: mov esi,dword ptr [esi + 0x90]",
+    "insns": [
+      "0x506910: mov edx, 0x2713",
+      "0x506915: mov eax, 0xea0e18",
+      "0x50691a: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x507549",
+    "call_addr": "0x507558",
+    "func_name": "sub_5074a0",
+    "func_addr": "0x5074a0",
+    "eax": "0xea0e18",
+    "eax_src": "0x507553: mov eax, 0xea0e18",
+    "esi": "2",
+    "esi_src": "0x507549: mov esi, 2",
+    "insns": [
+      "0x507549: mov esi, 2",
+      "0x50754e: mov edx, 0x12c",
+      "0x507553: mov eax, 0xea0e18",
+      "0x507558: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x507515",
+    "call_addr": "0x507524",
+    "func_name": "sub_5074a0",
+    "func_addr": "0x5074a0",
+    "eax": "0xea0e18",
+    "eax_src": "0x50751f: mov eax, 0xea0e18",
+    "esi": "1",
+    "esi_src": "0x507515: mov esi, 1",
+    "insns": [
+      "0x507515: mov esi, 1",
+      "0x50751a: mov edx, 0x12c",
+      "0x50751f: mov eax, 0xea0e18",
+      "0x507524: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50ac5a",
+    "call_addr": "0x50ac64",
+    "func_name": "sub_50aa10",
+    "func_addr": "0x50aa10",
+    "eax": "0xea0e18",
+    "eax_src": "0x50ac5f: mov eax, 0xea0e18",
+    "esi": "dword ptr [esp + edi*4 + 0x1c]",
+    "esi_src": "0x50ac45: mov esi,dword ptr [esp + edi*4 + 0x1c]",
+    "insns": [
+      "0x50ac5a: mov edx, 0x2713",
+      "0x50ac5f: mov eax, 0xea0e18",
+      "0x50ac64: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50aea2",
+    "call_addr": "0x50aeb1",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50aeac: mov eax, 0xea0e18",
+    "esi": "1",
+    "esi_src": "0x50aea2: mov esi, 1",
+    "insns": [
+      "0x50aea2: mov esi, 1",
+      "0x50aea7: mov edx, 0x2712",
+      "0x50aeac: mov eax, 0xea0e18",
+      "0x50aeb1: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50be4a",
+    "call_addr": "0x50be59",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50be54: mov eax, 0xea0e18",
+    "esi": "1",
+    "esi_src": "0x50be4a: mov esi, 1",
+    "insns": [
+      "0x50be4a: mov esi, 1",
+      "0x50be4f: mov edx, 0x2712",
+      "0x50be54: mov eax, 0xea0e18",
+      "0x50be59: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50ccf9",
+    "call_addr": "0x50cd08",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50cd03: mov eax, 0xea0e18",
+    "esi": "0x17",
+    "esi_src": "0x50ccf9: mov esi, 0x17",
+    "insns": [
+      "0x50ccf9: mov esi, 0x17",
+      "0x50ccfe: mov edx, 0x2713",
+      "0x50cd03: mov eax, 0xea0e18",
+      "0x50cd08: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50cc8f",
+    "call_addr": "0x50cc9e",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50cc99: mov eax, 0xea0e18",
+    "esi": "0x16",
+    "esi_src": "0x50cc8f: mov esi, 0x16",
+    "insns": [
+      "0x50cc8f: mov esi, 0x16",
+      "0x50cc94: mov edx, 0x2713",
+      "0x50cc99: mov eax, 0xea0e18",
+      "0x50cc9e: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50cb6f",
+    "call_addr": "0x50cb7e",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50cb79: mov eax, 0xea0e18",
+    "esi": "0x15",
+    "esi_src": "0x50cb6f: mov esi, 0x15",
+    "insns": [
+      "0x50cb6f: mov esi, 0x15",
+      "0x50cb74: mov edx, 0x2713",
+      "0x50cb79: mov eax, 0xea0e18",
+      "0x50cb7e: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50cb05",
+    "call_addr": "0x50cb14",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50cb0f: mov eax, 0xea0e18",
+    "esi": "0x14",
+    "esi_src": "0x50cb05: mov esi, 0x14",
+    "insns": [
+      "0x50cb05: mov esi, 0x14",
+      "0x50cb0a: mov edx, 0x2713",
+      "0x50cb0f: mov eax, 0xea0e18",
+      "0x50cb14: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50c9e5",
+    "call_addr": "0x50c9f4",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50c9ef: mov eax, 0xea0e18",
+    "esi": "0x13",
+    "esi_src": "0x50c9e5: mov esi, 0x13",
+    "insns": [
+      "0x50c9e5: mov esi, 0x13",
+      "0x50c9ea: mov edx, 0x2713",
+      "0x50c9ef: mov eax, 0xea0e18",
+      "0x50c9f4: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50c97b",
+    "call_addr": "0x50c98a",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50c985: mov eax, 0xea0e18",
+    "esi": "0x12",
+    "esi_src": "0x50c97b: mov esi, 0x12",
+    "insns": [
+      "0x50c97b: mov esi, 0x12",
+      "0x50c980: mov edx, 0x2713",
+      "0x50c985: mov eax, 0xea0e18",
+      "0x50c98a: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50c85b",
+    "call_addr": "0x50c86a",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50c865: mov eax, 0xea0e18",
+    "esi": "0x11",
+    "esi_src": "0x50c85b: mov esi, 0x11",
+    "insns": [
+      "0x50c85b: mov esi, 0x11",
+      "0x50c860: mov edx, 0x2713",
+      "0x50c865: mov eax, 0xea0e18",
+      "0x50c86a: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50c7f1",
+    "call_addr": "0x50c800",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50c7fb: mov eax, 0xea0e18",
+    "esi": "0x10",
+    "esi_src": "0x50c7f1: mov esi, 0x10",
+    "insns": [
+      "0x50c7f1: mov esi, 0x10",
+      "0x50c7f6: mov edx, 0x2713",
+      "0x50c7fb: mov eax, 0xea0e18",
+      "0x50c800: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50c6d1",
+    "call_addr": "0x50c6e0",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50c6db: mov eax, 0xea0e18",
+    "esi": "0xf",
+    "esi_src": "0x50c6d1: mov esi, 0xf",
+    "insns": [
+      "0x50c6d1: mov esi, 0xf",
+      "0x50c6d6: mov edx, 0x2713",
+      "0x50c6db: mov eax, 0xea0e18",
+      "0x50c6e0: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50c667",
+    "call_addr": "0x50c676",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50c671: mov eax, 0xea0e18",
+    "esi": "0xe",
+    "esi_src": "0x50c667: mov esi, 0xe",
+    "insns": [
+      "0x50c667: mov esi, 0xe",
+      "0x50c66c: mov edx, 0x2713",
+      "0x50c671: mov eax, 0xea0e18",
+      "0x50c676: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50c547",
+    "call_addr": "0x50c556",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50c551: mov eax, 0xea0e18",
+    "esi": "0xd",
+    "esi_src": "0x50c547: mov esi, 0xd",
+    "insns": [
+      "0x50c547: mov esi, 0xd",
+      "0x50c54c: mov edx, 0x2713",
+      "0x50c551: mov eax, 0xea0e18",
+      "0x50c556: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50c4dd",
+    "call_addr": "0x50c4ec",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50c4e7: mov eax, 0xea0e18",
+    "esi": "0xc",
+    "esi_src": "0x50c4dd: mov esi, 0xc",
+    "insns": [
+      "0x50c4dd: mov esi, 0xc",
+      "0x50c4e2: mov edx, 0x2713",
+      "0x50c4e7: mov eax, 0xea0e18",
+      "0x50c4ec: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50c3bd",
+    "call_addr": "0x50c3cc",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50c3c7: mov eax, 0xea0e18",
+    "esi": "0xb",
+    "esi_src": "0x50c3bd: mov esi, 0xb",
+    "insns": [
+      "0x50c3bd: mov esi, 0xb",
+      "0x50c3c2: mov edx, 0x2713",
+      "0x50c3c7: mov eax, 0xea0e18",
+      "0x50c3cc: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50c353",
+    "call_addr": "0x50c362",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50c35d: mov eax, 0xea0e18",
+    "esi": "0xa",
+    "esi_src": "0x50c353: mov esi, 0xa",
+    "insns": [
+      "0x50c353: mov esi, 0xa",
+      "0x50c358: mov edx, 0x2713",
+      "0x50c35d: mov eax, 0xea0e18",
+      "0x50c362: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50c22e",
+    "call_addr": "0x50c23d",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50c238: mov eax, 0xea0e18",
+    "esi": "8",
+    "esi_src": "0x50c22e: mov esi, 8",
+    "insns": [
+      "0x50c22e: mov esi, 8",
+      "0x50c233: mov edx, 0x2713",
+      "0x50c238: mov eax, 0xea0e18",
+      "0x50c23d: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50c1b6",
+    "call_addr": "0x50c1c5",
+    "func_name": "sub_50be20",
+    "func_addr": "0x50be20",
+    "eax": "0xea0e18",
+    "eax_src": "0x50c1c0: mov eax, 0xea0e18",
+    "esi": "9",
+    "esi_src": "0x50c1b6: mov esi, 9",
+    "insns": [
+      "0x50c1b6: mov esi, 9",
+      "0x50c1bb: mov edx, 0x2713",
+      "0x50c1c0: mov eax, 0xea0e18",
+      "0x50c1c5: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50bd76",
+    "call_addr": "0x50bd85",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50bd80: mov eax, 0xea0e18",
+    "esi": "0x17",
+    "esi_src": "0x50bd76: mov esi, 0x17",
+    "insns": [
+      "0x50bd76: mov esi, 0x17",
+      "0x50bd7b: mov edx, 0x2713",
+      "0x50bd80: mov eax, 0xea0e18",
+      "0x50bd85: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50bcfc",
+    "call_addr": "0x50bd0b",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50bd06: mov eax, 0xea0e18",
+    "esi": "0x16",
+    "esi_src": "0x50bcfc: mov esi, 0x16",
+    "insns": [
+      "0x50bcfc: mov esi, 0x16",
+      "0x50bd01: mov edx, 0x2713",
+      "0x50bd06: mov eax, 0xea0e18",
+      "0x50bd0b: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50bbed",
+    "call_addr": "0x50bbfc",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50bbf7: mov eax, 0xea0e18",
+    "esi": "0x15",
+    "esi_src": "0x50bbed: mov esi, 0x15",
+    "insns": [
+      "0x50bbed: mov esi, 0x15",
+      "0x50bbf2: mov edx, 0x2713",
+      "0x50bbf7: mov eax, 0xea0e18",
+      "0x50bbfc: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50bb6e",
+    "call_addr": "0x50bb7d",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50bb78: mov eax, 0xea0e18",
+    "esi": "0x14",
+    "esi_src": "0x50bb6e: mov esi, 0x14",
+    "insns": [
+      "0x50bb6e: mov esi, 0x14",
+      "0x50bb73: mov edx, 0x2713",
+      "0x50bb78: mov eax, 0xea0e18",
+      "0x50bb7d: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50ba5b",
+    "call_addr": "0x50ba6a",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50ba65: mov eax, 0xea0e18",
+    "esi": "0x13",
+    "esi_src": "0x50ba5b: mov esi, 0x13",
+    "insns": [
+      "0x50ba5b: mov esi, 0x13",
+      "0x50ba60: mov edx, 0x2713",
+      "0x50ba65: mov eax, 0xea0e18",
+      "0x50ba6a: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50b9dc",
+    "call_addr": "0x50b9eb",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50b9e6: mov eax, 0xea0e18",
+    "esi": "0x12",
+    "esi_src": "0x50b9dc: mov esi, 0x12",
+    "insns": [
+      "0x50b9dc: mov esi, 0x12",
+      "0x50b9e1: mov edx, 0x2713",
+      "0x50b9e6: mov eax, 0xea0e18",
+      "0x50b9eb: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50b8c9",
+    "call_addr": "0x50b8d8",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50b8d3: mov eax, 0xea0e18",
+    "esi": "0x11",
+    "esi_src": "0x50b8c9: mov esi, 0x11",
+    "insns": [
+      "0x50b8c9: mov esi, 0x11",
+      "0x50b8ce: mov edx, 0x2713",
+      "0x50b8d3: mov eax, 0xea0e18",
+      "0x50b8d8: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50b84f",
+    "call_addr": "0x50b85e",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50b859: mov eax, 0xea0e18",
+    "esi": "0x10",
+    "esi_src": "0x50b84f: mov esi, 0x10",
+    "insns": [
+      "0x50b84f: mov esi, 0x10",
+      "0x50b854: mov edx, 0x2713",
+      "0x50b859: mov eax, 0xea0e18",
+      "0x50b85e: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50b740",
+    "call_addr": "0x50b74f",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50b74a: mov eax, 0xea0e18",
+    "esi": "0xf",
+    "esi_src": "0x50b740: mov esi, 0xf",
+    "insns": [
+      "0x50b740: mov esi, 0xf",
+      "0x50b745: mov edx, 0x2713",
+      "0x50b74a: mov eax, 0xea0e18",
+      "0x50b74f: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50b6c1",
+    "call_addr": "0x50b6d0",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50b6cb: mov eax, 0xea0e18",
+    "esi": "0xe",
+    "esi_src": "0x50b6c1: mov esi, 0xe",
+    "insns": [
+      "0x50b6c1: mov esi, 0xe",
+      "0x50b6c6: mov edx, 0x2713",
+      "0x50b6cb: mov eax, 0xea0e18",
+      "0x50b6d0: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50b5ae",
+    "call_addr": "0x50b5bd",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50b5b8: mov eax, 0xea0e18",
+    "esi": "0xd",
+    "esi_src": "0x50b5ae: mov esi, 0xd",
+    "insns": [
+      "0x50b5ae: mov esi, 0xd",
+      "0x50b5b3: mov edx, 0x2713",
+      "0x50b5b8: mov eax, 0xea0e18",
+      "0x50b5bd: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50b52f",
+    "call_addr": "0x50b53e",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50b539: mov eax, 0xea0e18",
+    "esi": "0xc",
+    "esi_src": "0x50b52f: mov esi, 0xc",
+    "insns": [
+      "0x50b52f: mov esi, 0xc",
+      "0x50b534: mov edx, 0x2713",
+      "0x50b539: mov eax, 0xea0e18",
+      "0x50b53e: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50b418",
+    "call_addr": "0x50b427",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50b422: mov eax, 0xea0e18",
+    "esi": "0xb",
+    "esi_src": "0x50b418: mov esi, 0xb",
+    "insns": [
+      "0x50b418: mov esi, 0xb",
+      "0x50b41d: mov edx, 0x2713",
+      "0x50b422: mov eax, 0xea0e18",
+      "0x50b427: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50b3b4",
+    "call_addr": "0x50b3c3",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50b3be: mov eax, 0xea0e18",
+    "esi": "0xa",
+    "esi_src": "0x50b3b4: mov esi, 0xa",
+    "insns": [
+      "0x50b3b4: mov esi, 0xa",
+      "0x50b3b9: mov edx, 0x2713",
+      "0x50b3be: mov eax, 0xea0e18",
+      "0x50b3c3: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50b29c",
+    "call_addr": "0x50b2ab",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50b2a6: mov eax, 0xea0e18",
+    "esi": "8",
+    "esi_src": "0x50b29c: mov esi, 8",
+    "insns": [
+      "0x50b29c: mov esi, 8",
+      "0x50b2a1: mov edx, 0x2713",
+      "0x50b2a6: mov eax, 0xea0e18",
+      "0x50b2ab: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50b227",
+    "call_addr": "0x50b236",
+    "func_name": "sub_50ae40",
+    "func_addr": "0x50ae40",
+    "eax": "0xea0e18",
+    "eax_src": "0x50b231: mov eax, 0xea0e18",
+    "esi": "9",
+    "esi_src": "0x50b227: mov esi, 9",
+    "insns": [
+      "0x50b227: mov esi, 9",
+      "0x50b22c: mov edx, 0x2713",
+      "0x50b231: mov eax, 0xea0e18",
+      "0x50b236: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50abe0",
+    "call_addr": "0x50abef",
+    "func_name": "sub_50aa10",
+    "func_addr": "0x50aa10",
+    "eax": "0xea0e18",
+    "eax_src": "0x50abea: mov eax, 0xea0e18",
+    "esi": "8",
+    "esi_src": "0x50abe0: mov esi, 8",
+    "insns": [
+      "0x50abe0: mov esi, 8",
+      "0x50abe5: mov edx, 0x2713",
+      "0x50abea: mov eax, 0xea0e18",
+      "0x50abef: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50ab9e",
+    "call_addr": "0x50abad",
+    "func_name": "sub_50aa10",
+    "func_addr": "0x50aa10",
+    "eax": "0xea0e18",
+    "eax_src": "0x50aba8: mov eax, 0xea0e18",
+    "esi": "9",
+    "esi_src": "0x50ab9e: mov esi, 9",
+    "insns": [
+      "0x50ab9e: mov esi, 9",
+      "0x50aba3: mov edx, 0x2713",
+      "0x50aba8: mov eax, 0xea0e18",
+      "0x50abad: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50d2a8",
+    "call_addr": "0x50d2ad",
+    "func_name": "sub_50d237",
+    "func_addr": "0x50d237",
+    "eax": "0xea0e18",
+    "eax_src": "0x50d2a8: mov eax, 0xea0e18",
+    "esi": null,
+    "esi_src": null,
+    "insns": [
+      "0x50d2a8: mov eax, 0xea0e18",
+      "0x50d2ad: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50dd0b",
+    "call_addr": "0x50dd15",
+    "func_name": "sub_50dc80",
+    "func_addr": "0x50dc80",
+    "eax": "0xea0e18",
+    "eax_src": "0x50dd10: mov eax, 0xea0e18",
+    "esi": "dword ptr [esp + 0x10]",
+    "esi_src": "0x50dcfa: mov esi,dword ptr [esp + 0x10]",
+    "insns": [
+      "0x50dd0b: mov edx, 0x2711",
+      "0x50dd10: mov eax, 0xea0e18",
+      "0x50dd15: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50e0e5",
+    "call_addr": "0x50e0ec",
+    "func_name": "sub_50e090",
+    "func_addr": "0x50e090",
+    "eax": "0xea0e18",
+    "eax_src": "0x50e0e7: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x50e0e5: xor esi, esi",
+    "insns": [
+      "0x50e0e5: xor esi, esi",
+      "0x50e0e7: mov eax, 0xea0e18",
+      "0x50e0ec: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50e1b1",
+    "call_addr": "0x50e1bb",
+    "func_name": "sub_50e090",
+    "func_addr": "0x50e090",
+    "eax": "0xea0e18",
+    "eax_src": "0x50e1b6: mov eax, 0xea0e18",
+    "esi": "2",
+    "esi_src": "0x50e1b1: mov esi, 2",
+    "insns": [
+      "0x50e1b1: mov esi, 2",
+      "0x50e1b6: mov eax, 0xea0e18",
+      "0x50e1bb: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x50e14f",
+    "call_addr": "0x50e159",
+    "func_name": "sub_50e090",
+    "func_addr": "0x50e090",
+    "eax": "0xea0e18",
+    "eax_src": "0x50e154: mov eax, 0xea0e18",
+    "esi": "1",
+    "esi_src": "0x50e14f: mov esi, 1",
+    "insns": [
+      "0x50e14f: mov esi, 1",
+      "0x50e154: mov eax, 0xea0e18",
+      "0x50e159: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x443579",
+    "call_addr": "0x443586",
+    "func_name": "sub_443570",
+    "func_addr": "0x443570",
+    "eax": "0xea0e18",
+    "eax_src": "0x443581: mov eax, 0xea0e18",
+    "esi": "0",
+    "esi_src": "0x44357a: xor esi, esi",
+    "insns": [
+      "0x443579: push esi",
+      "0x44357a: xor esi, esi",
+      "0x44357c: mov edx, 0x2710",
+      "0x443581: mov eax, 0xea0e18",
+      "0x443586: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4c9f2f",
+    "call_addr": "0x4c9f3b",
+    "func_name": "sub_4c9f22",
+    "func_addr": "0x4c9f22",
+    "eax": "0xea0e18",
+    "eax_src": "0x4c9f36: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4c9f2f: mov esi, ebx",
+    "insns": [
+      "0x4c9f2f: mov esi, ebx",
+      "0x4c9f31: mov edx, 0x3f3",
+      "0x4c9f36: mov eax, 0xea0e18",
+      "0x4c9f3b: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4c9f7a",
+    "call_addr": "0x4c9f86",
+    "func_name": "sub_4c9f6d",
+    "func_addr": "0x4c9f6d",
+    "eax": "0xea0e18",
+    "eax_src": "0x4c9f81: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4c9f7a: mov esi, ebx",
+    "insns": [
+      "0x4c9f7a: mov esi, ebx",
+      "0x4c9f7c: mov edx, 0x3f3",
+      "0x4c9f81: mov eax, 0xea0e18",
+      "0x4c9f86: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4c9fc5",
+    "call_addr": "0x4c9fd1",
+    "func_name": "sub_4c9fb8",
+    "func_addr": "0x4c9fb8",
+    "eax": "0xea0e18",
+    "eax_src": "0x4c9fcc: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4c9fc5: mov esi, ebx",
+    "insns": [
+      "0x4c9fc5: mov esi, ebx",
+      "0x4c9fc7: mov edx, 0x3f3",
+      "0x4c9fcc: mov eax, 0xea0e18",
+      "0x4c9fd1: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca010",
+    "call_addr": "0x4ca01c",
+    "func_name": "sub_4ca003",
+    "func_addr": "0x4ca003",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca017: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca010: mov esi, ebx",
+    "insns": [
+      "0x4ca010: mov esi, ebx",
+      "0x4ca012: mov edx, 0x3f3",
+      "0x4ca017: mov eax, 0xea0e18",
+      "0x4ca01c: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca05e",
+    "call_addr": "0x4ca06a",
+    "func_name": "sub_4ca051",
+    "func_addr": "0x4ca051",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca065: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca05e: mov esi, ebx",
+    "insns": [
+      "0x4ca05e: mov esi, ebx",
+      "0x4ca060: mov edx, 0x3f3",
+      "0x4ca065: mov eax, 0xea0e18",
+      "0x4ca06a: call 0x4f30c0"
+    ]
+  },
+  {
+    "caller_block": "0x4ca09e",
+    "call_addr": "0x4ca0aa",
+    "func_name": "sub_4ca095",
+    "func_addr": "0x4ca095",
+    "eax": "0xea0e18",
+    "eax_src": "0x4ca0a5: mov eax, 0xea0e18",
+    "esi": "ebx",
+    "esi_src": "0x4ca09e: mov esi, ebx",
+    "insns": [
+      "0x4ca09e: mov esi, ebx",
+      "0x4ca0a0: mov edx, 0x3f3",
+      "0x4ca0a5: mov eax, 0xea0e18",
+      "0x4ca0aa: call 0x4f30c0"
+    ]
+  }
+]
