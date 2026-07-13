@@ -107,7 +107,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     cVar1 = FUN_0050f020(uVar4,uVar3);
     cVar1 = cVar1 == '\0';
     if ((bool)cVar1) {
-      FUN_004061e0();
+      FUN_004061e0(&DAT_00e9be90, uVar4, uVar3);
     }
     DAT_00e536c0 = DAT_00e536c0 + (uVar4 - g_cursorAnchorX);
     DAT_00e536c4 = DAT_00e536c4 + (uVar3 - g_cursorAnchorY);
@@ -121,17 +121,17 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     cVar1 = FUN_00507ea0(param_4 & 0xffff,param_4 >> 0x10);
     if (cVar1 != '\0') {
       DAT_00e9bea4 = 1;
-      FUN_00406120();
+      FUN_00406120(&DAT_00e9be90, param_4 & 0xffff, param_4 >> 0x10);
       DAT_00e9bea4 = 0;
       goto LAB_004103ac;
     }
-    FUN_00406120();
-    FUN_0040ce50(&DAT_00e9c0fc);
+    FUN_00406120(&DAT_00e9be90, param_4 & 0xffff, param_4 >> 0x10);
+    FUN_0040ce50(&DAT_00e9c0fc, param_4 & 0xffff, param_4 >> 0x10);
     break;
   case 0x202:
     DAT_00e9bea4 = FUN_0050f1b0(param_4 & 0xffff,param_4 >> 0x10);
     cVar1 = DAT_00e9bea4 != '\x01';
-    FUN_00406170();
+    FUN_00406170(&DAT_00e9be90, param_4 & 0xffff, param_4 >> 0x10);
     DAT_00e9bea4 = 0;
     uVar4 = g_cursorAnchorX;
     uVar3 = g_cursorAnchorY;

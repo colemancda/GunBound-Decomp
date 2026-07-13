@@ -5,33 +5,25 @@
  * eax,0xe9be90[widget root]; call 0x4061e0`), tracking which widget the
  * mouse is currently over for enter/leave callbacks.
  *
- * DROPPED REGISTER ARGUMENTS (pattern #1) - investigated, NOT fixed here:
- * this function reads `in_EAX` (should be the fixed widget-root
- * DAT_00e9be90, confirmed at the caller above) but ALSO silently drops its
- * own incoming ECX/EDX (mouseX/mouseY - Ghidra's decompile missed these
- * registers entirely, there's no `in_ECX`/`in_EDX` placeholder at all).
- * Both are threaded straight through, unmodified, into the
- * `FUN_0040cea0()` call (currently invoked with zero args) - which is
- * ITSELF a raw/unfixed dropped-register function (own header: `in_EAX`,
- * `unaff_ESI`) with 4 callers (FUN_00406120, FUN_00406170, FUN_004061e0,
- * FUN_0040ce50), each supplying its EAX/ECX/EDX/ESI inputs via a different
- * partial register-passthrough chain from ITS OWN caller. Fixing any one
- * of these 5 functions correctly requires fixing all of them together in
- * the same pass (same class of undertaking as FindSpriteFrame.c's/
- * BlitSpriteText.c's documented caller fan-out) - not attempted here.
+ * FIXED (2026-07-13): part of the 5-function mouse-hit-test family (see
+ * FUN_0040cea0.c's header for the full trace of all 5). `in_EAX`
+ * (widgetRoot) was already correctly identified but unpromoted; ECX/EDX
+ * (mouseX/mouseY) were dropped entirely with no placeholder at all -
+ * both are threaded straight through, unmodified, into the
+ * `FUN_0040cea0()` call. Promoted all three to explicit parameters.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004061e0(void)
+undefined4 FUN_004061e0(void *widgetRoot,int mouseX,int mouseY)
 
 {
   int *piVar1;
   int iVar2;
-  int in_EAX;
+  int in_EAX = (int)widgetRoot;
   int *piVar3;
-  
-  piVar3 = (int *)FUN_0040cea0();
+
+  piVar3 = (int *)FUN_0040cea0(widgetRoot,mouseX,mouseY);
   piVar1 = *(int **)(in_EAX + 8);
   if (piVar1 != piVar3) {
     if ((((piVar1 != (int *)0x0) && (iVar2 = piVar1[9], iVar2 != 3)) && (iVar2 != 4)) &&
