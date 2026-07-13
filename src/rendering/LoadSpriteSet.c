@@ -13,6 +13,25 @@
  * that arrived in EAX. The read cursor is a 0x1024-byte scratch buffer
  * (operator_new); the archive's file handle and LZHUF state live inside
  * g_graphicsArchive at +0x1040 / +0x1048. */
+
+/* On error the per-entry sprite object's slot-0 vtable pointer
+ * (PTR_FUN_00557524 -> FUN_004f14c0, see globals.c) is a scalar
+ * deleting destructor declared `void * __thiscall(void *this,int)`
+ * (this in ECX, the free-flag on the stack, callee-cleaned - see
+ * FUN_004f14c0.c and the same-shaped CGameState_ScalarDeletingDestructor).
+ * The call below used to go through the generic cdecl `code()` cast,
+ * which drops `puVar3` (this) entirely and mis-cleans the stack. */
+typedef void *(__thiscall *ScalarDeletingDtorFn)(void *thisPtr,int freeFlag);
+
+/* RegisterActiveObject was called argless (`RegisterActiveObject();`)
+ * despite the callee reading unaff_EDI/param_2 as real arguments (see
+ * RegisterActiveObject.c's header). Confirmed via
+ *   objdump -d -Mintel --start-address=0x4f1790 --stop-address=0x4f1880 \
+ *     orig/GunBound.gme
+ * at the call site (0x4f1872-0x4f1878): `mov edx,[esp+0x20]` is this
+ * function's own forwarded `param_2`, and `mov edi,esi` is `puVar3`,
+ * the sprite object just built this iteration. */
+
 int LoadSpriteSet(undefined4 param_1,undefined4 param_2,char *imgName)
 
 {
@@ -73,11 +92,11 @@ int LoadSpriteSet(undefined4 param_1,undefined4 param_2,char *imgName)
       iVar4 = FUN_004f1520(readState,(int)puVar3);
       if (iVar4 == -1) {
         if (puVar3 != (undefined4 *)0x0) {
-          (**(code **)*puVar3)(1);
+          (*(ScalarDeletingDtorFn *)*puVar3)(puVar3,1);
         }
         return -1;
       }
-      RegisterActiveObject();
+      RegisterActiveObject(0, param_2, puVar3);
       iVar1 = iVar1 + 1;
     } while (iVar1 < local_c);
   }
