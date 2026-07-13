@@ -113,12 +113,24 @@ void FUN_00408180(int param_1)
       local_1018[0] = (int)pcVar4 - (int)local_1007;
     }
     FUN_004eb7a0(iVar3 * 6 + 0xca,local_1018[0] * 6 + iVar3 * -6 + 2,0xc);
-    BlitRLESprite(0,0x21c,0,(byte *)0);
-    BlitRLESprite(0,0x21b,0xffe0,(byte *)0);
+    /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the raw
+     * port - objdump at this call site (0x4083ac/0x4083a8) shows
+     * ECX=0xcb (constant x-cursor) and EAX=&local_1008 (the edit-box
+     * text buffer filled by GetWindowTextA above). */
+    BlitRLESprite(0xcb,0x21c,0,(byte *)&local_1008);
+    /* Same site, second call (0x4083c0/0x4083bc): ECX=0xca, EAX is still
+     * the unclobbered &local_1008 pointer from the call above. */
+    BlitRLESprite(0xca,0x21b,0xffe0,(byte *)&local_1008);
   }
   else {
-    BlitRLESprite(0,0x21c,0,(byte *)0);
-    BlitRLESprite(0,0x21b,0xffff,(byte *)0);
+    /* objdump at 0x4083df/0x4083da shows ECX=0xcb, EAX=&DAT_007933c0 -
+     * the same chat-input text buffer used by GetWindowTextA/
+     * SetWindowTextA elsewhere (FUN_00506e70.c/FUN_00507e30.c/
+     * FUN_00507dc0.c). */
+    BlitRLESprite(0xcb,0x21c,0,(byte *)&DAT_007933c0);
+    /* Same site, second call (0x4083f8/0x4083f3): ECX=0xca, EAX still
+     * &DAT_007933c0 (unclobbered). */
+    BlitRLESprite(0xca,0x21b,0xffff,(byte *)&DAT_007933c0);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
@@ -674,7 +686,17 @@ LAB_004094da:
 LAB_00409561:
   iVar2 = local_1018[0] + 3;
   DrawFontString(iVar2,0);
-  BlitRLESprite(0,iVar2,(-(uint)bVar15 & 0x517) + 0xfae8,(byte *)0);
+  /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the raw
+   * port - objdump at this call site (0x40959b/0x409589-0x409577) shows
+   * ECX=0x2f (constant x-cursor, same as the just-preceding, also-
+   * unfixed DrawFontString call's own dropped this) and EAX=esi,
+   * unclobbered since the DrawFontString call above computed it as
+   * (byte *)(g_clientContext + iVar13*0xd + 0x457f1) - the per-slot
+   * player-name table entry (iVar13 is this function's running slot
+   * index, see the *(ushort*)(g_clientContext+0x50116+iVar13*2) lookup
+   * just above). */
+  BlitRLESprite(0x2f,iVar2,(-(uint)bVar15 & 0x517) + 0xfae8,
+                (byte *)(g_clientContext + iVar13 * 0xd + 0x457f1));
   local_1018[0] = local_1018[0] + -0xf;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_101c = PeekPacketChecksumState();

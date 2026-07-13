@@ -83,11 +83,29 @@ void __fastcall RenderWorldListRow(int param_1, uint in_EAX)
     cVar3 = *pcVar7;
     pcVar7 = pcVar7 + 1;
   } while (cVar3 != '\0');
-  BlitRLESprite(0,iVar2 + 9,0xffff,(byte *)0);
+  /* BlitRLESprite's dropped args (confirmed via objdump -Mintel at this
+   * call site, 0x50dde7): ECX (this) = ebp+eax*8+0x11, i.e.
+   * iVar1 + strlen(local_80)*8 + 0x11 (the just-computed server-number
+   * string length feeds the x-cursor offset); EAX (rleData) = esi =
+   * g_clientContext + 0x3f84a + in_EAX*0x80, the per-row world NAME
+   * field (ClientContext.h's `name[16][128]`) - NOT local_80, which is
+   * only reused here to size the cursor advance. */
+  BlitRLESprite(iVar1 + ((int)pcVar7 - (int)(local_80 + 1)) * 8 + 0x11,iVar2 + 9,0xffff,
+                (byte *)(g_clientContext + 0x3f84a + in_EAX * 0x80));
   iVar6 = iVar2 + 0x1e;
   local_84 = 2;
   do {
-    BlitRLESprite(0,iVar6,0xb77f,(byte *)0);
+    /* BlitRLESprite's dropped args (confirmed via objdump -Mintel at this
+     * call site, 0x50de1b, looped): ECX (this) = ebp+0x10, i.e.
+     * iVar1 + 0x10, constant across both loop iterations (unlike the
+     * advancing x-cursor iVar6, which is only the stack x arg here);
+     * EAX (rleData) = esi = g_clientContext + 0x4004a + in_EAX*0x100 +
+     * (loop iteration)*0x40, the per-row description-line field
+     * (ClientContext.h's `desc[16][256]`, one 0x40-byte line per
+     * iteration - the "two description lines" from this file's header
+     * comment). */
+    BlitRLESprite(iVar1 + 0x10,iVar6,0xb77f,
+                  (byte *)(g_clientContext + 0x4004a + in_EAX * 0x100 + (2 - local_84) * 0x40));
     iVar6 = iVar6 + 0xe;
     local_84 = local_84 + -1;
   } while (local_84 != 0);

@@ -39,8 +39,19 @@ void __thiscall FUN_00505f10(int param_1,int param_2)
       BlitSpriteClipped(uVar2);
     }
   }
-  BlitRLESprite(0,iVar1,0xfd0f,(byte *)0);
-  BlitRLESprite(0,iVar1 + 0xd,0xffff,(byte *)0);
+  /* BlitRLESprite's 1st arg (this/x-cursor) and 4th arg (rleData) were
+   * dropped - objdump at this call site (0x505fde/0x505fe0) shows
+   * ECX = iVar4 + 0x24 (ebp+0x10, where ebp already tracks iVar4 plus a
+   * running offset - see the `add ebp,0x14` right after ebp is loaded
+   * from *(in_EAX+0x28), matching this file's other iVar4+<offset>
+   * call sites like BlitSprite16bpp(iVar4 + 0x77,...)) and EAX =
+   * param_2 + 0x18 (ebx+0x18, ebx being this function's own param_2). */
+  BlitRLESprite(iVar4 + 0x24,iVar1,0xfd0f,(byte *)(param_2 + 0x18));
+  /* Same call shape (objdump 0x505ff1/0x505ff3): ECX = iVar4 + 0x24
+   * (same running x-cursor, unchanged since the call above) and EAX =
+   * param_2 + 0x21 (ebx+0x21), a second name/label field on the same
+   * struct as the +0x18 field used above. */
+  BlitRLESprite(iVar4 + 0x24,iVar1 + 0xd,0xffff,(byte *)(param_2 + 0x21));
   if (*(char *)(param_2 + 0x30) == '\0') {
     if (DAT_0079352c == 0) {
       return;

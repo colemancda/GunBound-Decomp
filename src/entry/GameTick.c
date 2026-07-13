@@ -314,11 +314,21 @@ LAB_004137a9:
           BlitSpriteClipped(0);
         }
       }
-      BlitRLESprite(0,0xcf,0xffff,(byte *)0);
+      /* BlitRLESprite's 1st/4th args (this/rleData) were dropped -
+       * objdump at this call site (0x4138f7) shows ECX = 0x11d (this)
+       * and EAX = &DAT_005b1d70 (rleData), the same text-scratch buffer
+       * used by RenderWrappedText/ShowErrorDialogFmt elsewhere in this
+       * codebase - not any locally computed cursor. */
+      BlitRLESprite(0x11d,0xcf,0xffff,(byte *)&DAT_005b1d70);
       iVar5 = 0xec;
       puVar9 = &DAT_005b1da2;
       do {
-        BlitRLESprite(0,iVar5,0xffff,(byte *)0);
+        /* BlitRLESprite's 1st/4th args (this/rleData) were dropped -
+         * objdump at this call site (0x41391d) shows ECX = 0x115 (this,
+         * a FIXED constant reloaded every iteration - NOT an advancing
+         * cursor derived from puVar9/iVar5) and EAX = esi (this file's
+         * own puVar9, advanced by 0x32 each loop iteration). */
+        BlitRLESprite(0x115,iVar5,0xffff,(byte *)puVar9);
         puVar9 = puVar9 + 0x32;
         iVar5 = iVar5 + 0xe;
       } while ((int)puVar9 < 0x5b1ece);

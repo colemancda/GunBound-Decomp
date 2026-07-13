@@ -152,7 +152,13 @@ LAB_0050b11f:
     uVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_84 = local_84 + param_1 * 0x17e4;
-    BlitRLESprite(0,local_94 + 3,(-(uint)((uVar5 & 0x20000000) != 0x20000000) & 0x480d) + 0xb7f2,(byte *)0);
+    /* BlitRLESprite's dropped args recovered via objdump at 0x50b1a8/0x50b1af
+     * (orig 0x50b1b6 call): ECX = local_88+0x18 (this), EAX = local_84+0xdd80
+     * (rleData) - local_84 here is already the UPDATED value from the line
+     * above (edi held param_1*0x17e4 + local_84 at the call site). */
+    BlitRLESprite(local_88 + 0x18,local_94 + 3,
+                  (-(uint)((uVar5 & 0x20000000) != 0x20000000) & 0x480d) + 0xb7f2,
+                  local_84 + 0xdd80);
     local_90 = 2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState();

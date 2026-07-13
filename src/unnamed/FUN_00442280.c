@@ -173,7 +173,14 @@ code_r0x00442607:
     cVar3 = *pcVar8;
     pcVar8 = pcVar8 + 1;
   } while (cVar3 != '\0');
-  BlitRLESprite(0,0x27,0xffff,(byte *)0);
+  /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the raw
+   * port - objdump at this call site (0x44265e) shows EAX = pcVar8's base
+   * (the same (iStack_a4+8) name string re-walked just above) and
+   * ECX = 0x2fc - strlen(name)*6, a right-justified x-cursor recomputed
+   * from the string's own length (same formula the preceding
+   * DrawFontString(0x442631) call already uses for its own this/ECX). */
+  BlitRLESprite(0x2fc - ((int)pcVar7 - (int)(iStack_a4 + 8) - 1) * 6,0x27,0xffff,
+                (byte *)(iStack_a4 + 8));
   iVar9 = g_clientContext;
   if (0xd < *(int *)(iVar5 + 4)) {
     iStack_b0 = 0;
@@ -231,9 +238,16 @@ LAB_00442907:
       cVar3 = *pcVar8;
       pcVar8 = pcVar8 + 1;
     } while (cVar3 != '\0');
-    BlitRLESprite(0,0x118,0xffff,(byte *)0);
+    /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the raw
+     * port - objdump at this call site (0x442938) shows ECX = iStack_ac*8
+     * + 0x2d (iStack_ac already holds this same string's length, set at
+     * the sprintf/strlen above) and EAX = g_clientContext + 0x44e64. */
+    BlitRLESprite(iStack_ac * 8 + 0x2d,0x118,0xffff,(byte *)(iVar9 + 0x44e64));
     if (*(char *)(iVar9 + 0x44ee4) != '\0') {
-      BlitRLESprite(0,0x117,0xffff,(byte *)0);
+      /* Same site, second call (0x44295f): ECX is a fixed constant 0x1ec;
+       * EAX = g_clientContext + 0x44ee4 (the just-tested flag field's own
+       * address, reused as the string pointer). */
+      BlitRLESprite(0x1ec,0x117,0xffff,(byte *)(iVar9 + 0x44ee4));
     }
     FUN_0041bce0(iVar9);
     if (DAT_007933b8 == '\x01') {
@@ -350,13 +364,28 @@ LAB_00442907:
           } while (iVar9 != 0);
         }
       }
-      BlitRLESprite(0,0x21c,0,(byte *)0);
-      iVar12 = BlitRLESprite(0,0x21b,0xffe0,(byte *)0);
+      /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the
+       * raw port - objdump at this call site (0x442c41) shows ECX=0xcb
+       * (fixed x-cursor) and EAX=acStack_80 (the edit-box text buffer
+       * just filled by GetWindowTextA above). Matches the identical
+       * ECX=0xcb/EAX=text-buffer shape already recovered in
+       * FUN_00408180.c's own if-branch (0xcb/0x21c/0,&local_1008). */
+      BlitRLESprite(0xcb,0x21c,0,(byte *)acStack_80);
+      /* Same site, second call (0x442c59): ECX=0xca, EAX is still the
+       * unclobbered acStack_80 pointer from the call above - same shape
+       * as FUN_00408180.c's (0xca,0x21b,0xffe0,&local_1008). */
+      iVar12 = BlitRLESprite(0xca,0x21b,0xffe0,(byte *)acStack_80);
       iVar5 = iStack_a4;
       iVar9 = g_clientContext;
     }
     else {
-      iVar12 = BlitRLESprite(0,0x208,0xffff,(byte *)0);
+      /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the
+       * raw port - objdump at this call site (0x442c81) shows ECX=0x24
+       * (fixed x-cursor) and EAX=&DAT_007933c0, the chat-input text
+       * buffer used by GetWindowTextA/SetWindowTextA elsewhere
+       * (FUN_00506e70.c/FUN_00507e30.c/FUN_00507dc0.c) - the same global
+       * FUN_00408180.c's else-branch also passes at this same x/color. */
+      iVar12 = BlitRLESprite(0x24,0x208,0xffff,(byte *)&DAT_007933c0);
     }
     if (((*(short *)(&DAT_006aa660 + iVar9) != -1) &&
         (iVar12 = *(int *)(iVar5 + 4) / 0x14, *(int *)(iVar5 + 4) % 0x14 < 10)) &&
@@ -435,7 +464,17 @@ LAB_00442790:
   DrawFontString(*piVar17 + 5,
                -(uint)(*(char *)(g_clientContext + 0x4590c + iStack_b0) !=
                       *(char *)(g_clientContext + 0x3b6c0)) & 0xfae8);
-  BlitRLESprite(0,*piVar17 + 5,0xffff,(byte *)0);
+  /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the raw
+   * port - objdump at this call site (0x4427fd) shows EAX = the same
+   * (iStack_ac+0x457f1+g_clientContext) name string re-walked just above,
+   * and ECX = piVar17[-8] - strlen(name)*3 + 0x1a (a centered x-cursor
+   * recomputed from that string's own length), matching the shape the
+   * preceding DrawFontString(0x4427e9) call already uses for its own
+   * this/ECX. */
+  BlitRLESprite(piVar17[-8] -
+                 ((int)pcVar8 - (int)(iStack_ac + 0x457f1 + g_clientContext) - 1) * 3 + 0x1a,
+                 *piVar17 + 5,0xffff,
+                 (byte *)(iStack_ac + 0x457f1 + g_clientContext));
 LAB_00442805:
   iStack_ac = iStack_ac + 0xd;
   iStack_b0 = iStack_b0 + 1;

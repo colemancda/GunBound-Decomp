@@ -95,10 +95,23 @@ LAB_004dbb40:
       _sprintf(local_80,s__s__3d__3d__005536b8,pcVar1,
                *(undefined4 *)(g_clientContext + 0x4597c + param_1 * 4),
                *(undefined4 *)(g_clientContext + 0x4599c + param_1 * 4));
-      BlitRLESprite(0,iVar5 + 0x13,0xf800,(byte *)0);
+      /* BlitRLESprite's 1st arg (this/x-cursor) and 4th arg (rleData) were
+       * dropped - objdump at this call site (0x4dbc6f) shows ECX =
+       * iVar2 + 0x16 (the same running x-cursor `esi` holds at the
+       * BlitSprite16bpp/BlitSpriteClipped calls above, offset by 0x16)
+       * and EAX = the same `local_80` buffer just sprintf'd above
+       * (esp-relative address matches exactly). */
+      BlitRLESprite(iVar2 + 0x16,iVar5 + 0x13,0xf800,(byte *)local_80);
     }
     iVar4 = g_clientContext;
-    BlitRLESprite(0,iVar5 + 0x21,0,(byte *)0);
+    /* BlitRLESprite's 1st arg (this/x-cursor) and 4th arg (rleData) were
+     * dropped - objdump at this call site (0x4dbc96) shows ECX =
+     * iVar2 + 0x16 (same x-cursor as the call above; unchanged between
+     * the two sites) and EAX = g_clientContext + param_1*0xd + 0x457f1,
+     * the room-slot name field (see ClientContext.h's Ctx_roomSlotName -
+     * a per-slot name string distinct from the `pcVar1` field used above). */
+    BlitRLESprite(iVar2 + 0x16,iVar5 + 0x21,0,
+                  (byte *)(g_clientContext + param_1 * 0xd + 0x457f1));
     if ((g_bBattleSessionActive == '\0') && (*(char *)(iVar4 + 0x45914 + param_1) == '\x04')) {
       if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
         if (*(char *)(iVar4 + 0x18) != '\x01') {

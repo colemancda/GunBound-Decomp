@@ -17,6 +17,7 @@ void FUN_0042a680(int param_1)
   int iVar5;
   int iVar6;
   int iVar7;
+  int iVar9;
   undefined4 uVar8;
   char local_80 [128];
   
@@ -107,7 +108,14 @@ void FUN_0042a680(int param_1)
            *(int *)(g_clientContext + 0x44664 + *(int *)(param_1 + 0x124) * 4) + 1);
   BlitSpriteText(0x14,local_80,3,0xb);
   SetClipRect();
-  BlitRLESprite(0,iVar6 + 0x44,0xffff,(byte *)0);
+  /* BlitRLESprite's dropped args (objdump @0x42aa45): ECX (this) carries
+   * over unchanged from the SetClipRect call just above, whose own ECX
+   * arg was `lea ecx,[ebp+0x37]` with ebp==iVar7 - so this = iVar7+0x37.
+   * EAX (rleData) is `lea eax,[eax+edx+0x4467c]` with eax =
+   * *(param_1+0x124)<<7 and edx = g_clientContext, computed fresh right
+   * before this call with nothing in between to clobber it. */
+  BlitRLESprite(iVar7 + 0x37,iVar6 + 0x44,0xffff,
+                (byte *)(g_clientContext + *(int *)(param_1 + 0x124) * 0x80 + 0x4467c));
   SetClipRect();
   uVar3 = *(uint *)(g_clientContext + 0x44984 + *(int *)(param_1 + 0x124) * 4);
   if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
@@ -118,13 +126,38 @@ void FUN_0042a680(int param_1)
       BlitSpriteClipped((uVar3 >> 0x12 & 3) + 10);
     }
   }
+  /* Ghidra reused the `iVar7` name for two unrelated SSA values: the
+   * "row group" constant set at the top of this function (0x18/0x144,
+   * still live in real ECX/ebp up to this point) is about to be
+   * clobbered by the loop counter below, but objdump shows the register
+   * it lived in (ebp) still feeding the loop body's `this` computation
+   * (see iVar9 below) - preserved here under a new name before the
+   * overwrite so that value isn't lost. */
+  iVar9 = iVar7;
   iVar7 = 0;
   if (*(char *)(param_1 + 0x1b4) != '\0') {
     do {
       iVar4 = (iVar7 / 2) * 0x1f + 0x3d + iVar6 + 0x3a;
       DrawFontString(iVar4 + -1,0x1f);
-      BlitRLESprite(0,iVar4 + -1,0xffff,(byte *)0);
-      BlitRLESprite(0,iVar4 + 0xf,0xffff,(byte *)0);
+      /* BlitRLESprite's dropped args (objdump @0x42ab47): ECX (this) =
+       * edi = (iVar7/2)*0x6a + iVar9 + 0x21 - the SAME loop-counter
+       * halving as iVar4's own `(iVar7/2)*0x1f` term, just scaled by
+       * 0x6a instead of 0x1f and offset by the preserved outer iVar9
+       * (see above) instead of iVar6. EAX (rleData) = ebx, which starts
+       * at param_1+0x1b8+0x220 before the loop and advances by 9 each
+       * iteration -> param_1+0x3d8+9*iVar7 on this iteration. */
+      BlitRLESprite((iVar7 / 2) * 0x6a + iVar9 + 0x21,iVar4 + -1,0xffff,
+                    (byte *)(param_1 + 0x3d8 + iVar7 * 9));
+      /* BlitRLESprite's dropped args (objdump @0x42ab5d): ECX (this) is
+       * the SAME `edi` as the call just above (unchanged in between).
+       * EAX (rleData) here is NOT expressible from this function's
+       * existing decompiled locals - it's a separate loop-carried
+       * cursor kept only in a spilled stack slot (init'd to
+       * param_1+0x1b8 before the loop, then advanced by the PREVIOUS
+       * iteration's `iVar4+0x1c` each time around), with no surviving
+       * named variable in Ghidra's output. Left as a placeholder
+       * (genuine ambiguity - see report). */
+      BlitRLESprite((iVar7 / 2) * 0x6a + iVar9 + 0x21,iVar4 + 0xf,0xffff,(byte *)0);
       iVar7 = iVar7 + 1;
     } while (iVar7 < (int)(uint)*(byte *)(param_1 + 0x1b4));
   }

@@ -370,7 +370,22 @@ LAB_00450599:
         cVar1 = *pcVar9;
         pcVar9 = pcVar9 + 1;
       } while (cVar1 != '\0');
-      BlitRLESprite(0,iVar10,0,(byte *)0);
+      /* BlitRLESprite's 1st arg (this/param_1) and 4th arg (rleData) were
+       * dropped placeholders. objdump at this call site (0x4505d6) shows:
+       *   mov ecx,[esp+0x18]      ; ecx = local_10 (this function's centered
+       *                           ;   x-cursor, held in that stack slot
+       *                           ;   throughout the function post-prologue)
+       *   sub eax,edx             ; eax = strlen("pcVar3's field") * 6
+       *   sar eax,1               ; eax = strlen * 3 (half-width)
+       *   push 0x0                ; param_3 = color
+       *   sub ecx,eax             ; ecx -= half-width  -> centered this
+       *   push edi                ; param_2 = iVar10
+       *   mov eax,esi             ; rleData = esi = pcVar3 (name field ptr)
+       * i.e. this = local_10 - ((pcVar9 - (pcVar3 + 1)) * 6) / 2, matching
+       * the same centering idiom already used earlier in this function
+       * (iVar7 = local_10 - iVar11/2). */
+      BlitRLESprite(local_10 - ((((int)pcVar9 - (int)(pcVar3 + 1)) * 6) / 2),iVar10,0,
+                    (byte *)pcVar3);
       iVar8 = iVar8 + 1;
       pcVar9 = pcVar3 + 0x14;
       iVar10 = iVar10 + 0xe;

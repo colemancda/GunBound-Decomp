@@ -76,13 +76,25 @@ void __fastcall State09_ReadyRoom_RenderRosterAndItems(int param_1)
   BlitSpriteText(0x46,local_928,3,0xb);
   SetClipRect();
   iVar3 = g_clientContext;
-  BlitRLESprite(0,0xf,0xffff,(byte *)0);
+  /* BlitRLESprite's this/param_1 and rleData (4th arg) were dropped in the
+   * raw port - objdump at this call site (0x4d7e9d) shows ECX = 0x5c (the
+   * x-cursor constant carried over unclobbered through the preceding
+   * SetClipRect() call, which never writes ECX - see SetClipRect.c's own
+   * body) and EAX = (char *)(g_clientContext + 0x44e64), the ready-room
+   * chat/name text field (see State09_ReadyRoom_ProcessBattleAction.c and
+   * State09_ReadyRoom_OnCommand.c's use of the same offset). */
+  BlitRLESprite(0x5c,0xf,0xffff,(byte *)(iVar3 + 0x44e64));
   SetClipRect();
   if (*(char *)(iVar3 + 0x44ee4) != '\0') {
-    BlitRLESprite(0,0xf,0xffff,(byte *)0);
+    /* Same call shape as the previous site (0x4d7ecd): ECX = 0x12e,
+     * EAX = (char *)(g_clientContext + 0x44e64), reused from the same
+     * lea just above the branch. */
+    BlitRLESprite(0x12e,0xf,0xffff,(byte *)(iVar3 + 0x44e64));
   }
   _sprintf(local_928,s__d__s_00556ae8,*(int *)(iVar3 + 0x3f804) + 1,iVar3 + 0x3b8e8);
-  BlitRLESprite(0,0xf,0xffff,(byte *)0);
+  /* objdump at this call site (0x4d7f09) shows ECX = 0x238 and
+   * EAX = &local_928 (the buffer just sprintf'd above). */
+  BlitRLESprite(0x238,0xf,0xffff,(byte *)local_928);
   local_a4c = 0;
   if (g_bBattleSessionActive == '\0') {
 LAB_004d81a0:

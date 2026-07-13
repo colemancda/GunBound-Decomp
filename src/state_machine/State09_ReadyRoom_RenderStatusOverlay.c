@@ -122,7 +122,17 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
         DrawFontString(*piVar8 + 5,
                      -(uint)(*(char *)(g_clientContext + 0x4590c + iStack_8c) !=
                             *(char *)(g_clientContext + 0x3b6c0)) & 0xfae8);
-        BlitRLESprite(0,*piVar8 + 5,0xffff,(byte *)0);
+        /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the
+         * raw port - objdump at this call site (0x4d9ec6/0x4d9ec2) shows
+         * ECX = iVar7 + 0x1a (the same x-cursor value just used for
+         * DrawFontString's call above and for BlitSprite16bpp(iVar7+0x1a,
+         * ...) higher up) and EAX = the unmutated start of the name-row
+         * string buffer computed at line ~117 (iStack_88 + 0x457f1 +
+         * g_clientContext) - pcVar5 itself gets walked/advanced by the
+         * strlen loop right after, so the original expression is
+         * recomputed here rather than reusing the now-advanced pcVar5. */
+        BlitRLESprite(iVar7 + 0x1a,*piVar8 + 5,0xffff,
+                      (byte *)(iStack_88 + 0x457f1 + g_clientContext));
       }
       iStack_88 = iStack_88 + 0xd;
       iStack_8c = iStack_8c + 1;
@@ -365,11 +375,24 @@ LAB_004da2f4:
     DrawHLine(0xf800);
     DrawVLine();
     DrawVLine();
-    BlitRLESprite(0,0x170,0,(byte *)0);
-    BlitRLESprite(0,0x16f,0xffe0,(byte *)0);
+    /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the raw
+     * port - objdump at this call site (0x4da3f7/0x4da3f2-0x4da3ee) shows
+     * ECX=0x52 (constant x-cursor) and EAX=&aCStack_80 (the edit-box text
+     * buffer filled by GetWindowTextA above, same buffer/pattern as the
+     * sibling function FUN_00408180.c's `if` branch). */
+    BlitRLESprite(0x52,0x170,0,(byte *)aCStack_80);
+    /* Same site, second call (0x4da40f/0x4da40a-0x4da406): ECX=0x51,
+     * EAX still the unclobbered &aCStack_80 pointer from the call above. */
+    BlitRLESprite(0x51,0x16f,0xffe0,(byte *)aCStack_80);
   }
   else {
-    BlitRLESprite(0,0x16f,0xffff,(byte *)0);
+    /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the raw
+     * port - objdump at this call site (0x4da42d/0x4da428-0x4da423) shows
+     * ECX=0x51 and EAX=&DAT_007933c0 (absolute load, not a stack lea) -
+     * the same chat-input text buffer used elsewhere (FUN_00506e70.c/
+     * FUN_00507e30.c/FUN_00507dc0.c), matching the sibling function
+     * FUN_00408180.c's analogous `else` branch. */
+    BlitRLESprite(0x51,0x16f,0xffff,(byte *)&DAT_007933c0);
   }
   FUN_00450860();
   return;

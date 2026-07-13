@@ -52,9 +52,20 @@ void FUN_004d0260(int param_1,int param_2,int param_3,int param_4,int param_5)
     _sprintf(local_80,s__s__3d__3d__005536b8,iVar5 + 0x457a9 + iVar4,
              *(undefined4 *)(iVar4 + 0x4597c + param_5 * 4),
              *(undefined4 *)(iVar4 + 0x4599c + param_5 * 4));
-    BlitRLESprite(0,param_4 + 0x10,0xf800,(byte *)0);
+    /* BlitRLESprite's 1st arg (this) and 4th arg (rleData) were dropped
+     * in the raw port - objdump at this call site (0x4d03a1) shows
+     * ECX = iVar5 + 0x3a (this file's own running x-cursor for this
+     * slot) and EAX = &local_80 (the buffer just sprintf'd above). */
+    BlitRLESprite(iVar5 + 0x3a,param_4 + 0x10,0xf800,(byte *)local_80);
   }
-  BlitRLESprite(0,param_4 + 0x1e,0,(byte *)0);
+  /* BlitRLESprite's 1st arg (this) and 4th arg (rleData) were dropped -
+   * objdump at this call site (0x4d03d5) shows ECX = uVar10 + 0x1e9
+   * (uVar10 + 0x1af, the same base other BlitSprite16bpp calls in this
+   * function use, plus 0x3a like the call above) and EAX =
+   * (char *)(g_clientContext + 0x50196 + param_5 * 0xd), the same
+   * field/stride later sprintf'd into local_100 below (line ~282). */
+  BlitRLESprite(uVar10 + 0x1e9,param_4 + 0x1e,0,
+                (byte *)(g_clientContext + 0x50196 + param_5 * 0xd));
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

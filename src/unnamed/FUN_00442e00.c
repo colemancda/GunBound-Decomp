@@ -69,9 +69,22 @@ void FUN_00442e00(void)
     }
   }
   DrawFontString(iVar7 + 1,0x1f);
-  BlitRLESprite(0,iVar7 + 1,0xffff,(byte *)0);
+  /* BlitRLESprite's 4th arg (rleData) was dropped as `in_EAX` in the raw
+   * port - objdump at this call site (0x44301c) shows ECX=0x2a1 (this)
+   * and EAX = g_clientContext + unaff_EDI*9 + 0x5012e, the same per-slot
+   * short-name field pointer just used (also dropped) as DrawFontString's
+   * own EAX arg immediately above; corroborated by the identical
+   * `iVar*9+0x5012e+g_clientContext` pattern in
+   * State11_InBattle_ProcessBattleAction.c and FUN_004d0260.c. */
+  BlitRLESprite(0x2a1,iVar7 + 1,0xffff,(byte *)(g_clientContext + 0x5012e + unaff_EDI * 9));
   iVar5 = g_clientContext;
-  BlitRLESprite(0,iVar7 + 0xe,0xffff,(byte *)0);
+  /* BlitRLESprite's 4th arg (rleData) was dropped as `in_EAX` - objdump
+   * at this call site (0x443048) shows ECX=0x2a1 (this) and EAX =
+   * g_clientContext + unaff_EDI*0xd + 0x50196, a per-slot longer-name
+   * field; corroborated by the identical `*0xd+0x50196+g_clientContext`
+   * pattern in State11_InBattle_RenderHud.c / State11_InBattle_
+   * ProcessBattleAction.c / State09_ReadyRoom_ProcessPacket.c. */
+  BlitRLESprite(0x2a1,iVar7 + 0xe,0xffff,(byte *)(g_clientContext + 0x50196 + unaff_EDI * 0xd));
   cVar2 = *(char *)(iVar5 + 0x449ba + unaff_EDI);
   if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {

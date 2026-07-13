@@ -85,7 +85,17 @@ LAB_0044a1b2:
   }
   local_104 = param_2 * 0x17e4 + param_1;
   DrawFontString();
-  BlitRLESprite(0,0,0,(byte *)0);
+  /* BlitRLESprite's args were dropped entirely (Ghidra emitted a bare
+   * BlitRLESprite() here) - objdump at this call site (0x44a1ff) shows
+   * ECX = ebp+0x18 (this file's own iVar4, tracked via the ebp register
+   * throughout - see its other uses at iVar4+0x7d etc.), EAX = esi =
+   * local_104+0x67c (the pointer computed for the DrawFontString call
+   * immediately above, which shares the same ECX/EAX with this call),
+   * and the color stack arg = 0xffff. The 2nd stack arg (x) reads
+   * [esp+0x18], a local stack slot this function never writes -
+   * genuinely uninitialized/leftover caller-stack data with no
+   * corresponding named local, so it's left as a placeholder. */
+  BlitRLESprite(iVar4 + 0x18,0,0xffff,(byte *)(local_104 + 0x67c));
   if ((*(int *)(param_1 + 0x34790) < 0x15) || (*(int *)(param_1 + 0x3478c) != param_2)) {
     if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
       if (*(char *)(iVar1 + 0x18) == '\x01') {
@@ -427,7 +437,22 @@ LAB_0044a1b2:
     }
     iVar1 = 3;
     do {
-      BlitRLESprite(0,0,0,(byte *)0);
+      /* BlitRLESprite's args were dropped entirely here too - objdump at
+       * this call site (0x44a2ab) shows ECX = ebp+0xb (this file's own
+       * iVar4, recomputed fresh via `lea` each of the 3 loop passes from
+       * an unchanged ebp - it does not advance across iterations here),
+       * and EAX = esi = param_2*0x78 + param_1 + 0x2d114 (a struct field
+       * table indexed by param_2, matching this loop's later
+       * `iVar3 + g_clientContext`-style indexing pattern elsewhere in
+       * this file). Per real disassembly the rleData/x stack arg do
+       * advance by 0x18/0xe each of the 3 passes, but the raw decompile
+       * collapsed the loop to a single call-site text with no per-
+       * iteration locals to carry that - using the first iteration's
+       * values here, which is the most faithful recovery obtainable
+       * without inventing new loop state. The 2nd stack arg (x) reads
+       * the same uninitialized [esp+0x18]-based local as the other call
+       * site, so it's left as a placeholder; color = 0xffff. */
+      BlitRLESprite(iVar4 + 0xb,0,0xffff,(byte *)(param_2 * 0x78 + param_1 + 0x2d114));
       iVar1 = iVar1 + -1;
       pcVar5 = (code *)LeaveCriticalSection;
       pcVar6 = (code *)EnterCriticalSection;

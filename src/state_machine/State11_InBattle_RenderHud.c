@@ -17,6 +17,8 @@ void __fastcall State11_InBattle_RenderHud(int param_1)
   uint uVar2;
   char *pcVar3;
   char *pcVar4;
+  int iLen94;
+  int iLen9c;
   int iVar5;
   int iVar6;
   int iVar7;
@@ -167,34 +169,69 @@ LAB_004c8a87:
   }
   pcVar4 = pcStack_9c + iVar7;
   DrawFontString(pcVar4,uVar8);
-  BlitRLESprite(0,pcVar4,uStack_b0,(byte *)0);
+  /* BlitRLESprite's dropped args (objdump @ 0x4c8ab0): this/param_1 is a
+   * fixed left-margin x-cursor of 0x20 for every HUD row (re-set to 0x20
+   * each loop iteration just above, at LAB_004c89b9's `mov edi,0x20`);
+   * rleData/EAX is pcStack_94 - the very string this call draws the
+   * background strip for, confirmed by the strlen loop immediately below
+   * walking that same pointer. */
+  BlitRLESprite(0x20,pcVar4,uStack_b0,(byte *)pcStack_94);
   pcVar3 = pcStack_94;
   do {
     cVar1 = *pcVar3;
     pcVar3 = pcVar3 + 1;
   } while (cVar1 != '\0');
+  /* strlen(pcStack_94), consumed by the x-cursor math below (objdump
+   * @0x4c8ac7-0x4c8ad2: (pcVar3-pcStack_94-1)*6, Ghidra dropped this
+   * register-only computation from the decompiled C entirely). */
+  iLen94 = (int)(pcVar3 - pcStack_94) - 1;
   if ((*pbStack_90 < 2) || (*pbStack_90 == 7)) {
-    BlitRLESprite(0,pcStack_9c + iVar6,0,(byte *)0);
-    BlitRLESprite(0,pcVar4,uStack_b0,(byte *)0);
+    /* objdump @0x4c8b69: this = 0x20 + iLen94*6 + 1, rleData = pcStack_9c
+     * (loaded at 0x4c8b4e and never clobbered before this call). */
+    BlitRLESprite(0x21 + iLen94 * 6,pcStack_9c + iVar6,0,(byte *)pcStack_9c);
+    /* objdump @0x4c8b76: this = 0x20 + iLen94*6 (no +1 this time),
+     * rleData = pcStack_9c (reloaded @0x4c8b6e). */
+    BlitRLESprite(0x20 + iLen94 * 6,pcVar4,uStack_b0,(byte *)pcStack_9c);
     pcVar3 = pcStack_9c;
     do {
       cVar1 = *pcVar3;
       pcVar3 = pcVar3 + 1;
     } while (cVar1 != '\0');
-    BlitRLESprite(0,pcStack_9c + iVar6,0,(byte *)0);
-    BlitRLESprite(0,pcVar4,uStack_b0,(byte *)0);
+    /* strlen(pcStack_9c), same pattern as iLen94 above. */
+    iLen9c = (int)(pcVar3 - pcStack_9c) - 1;
+    /* objdump @0x4c8baa/0x4c8bb5: this = 0x20 + iLen94*6 + iLen9c*6 (+1 on
+     * the first of this pair, matching the earlier +1/no-+1 alternation);
+     * rleData = (char *)(g_clientContext + 0x58c54) for BOTH calls -
+     * loaded once at 0x4c8b96 and held in ebp across both, a fixed field
+     * also referenced the same way by FUN_0041ee10.c/State11_InBattle_
+     * OnEnter.c. This call's 2nd arg (pcStack_9c + iVar6) is read from an
+     * unresolved stack slot in the original disassembly (objdump
+     * @0x4c8b90: `mov edx,[esp+0x10]`, a slot never written anywhere in
+     * this function) - out of scope here since only param_1/rleData are
+     * being recovered, but noted for anyone revisiting arg2. */
+    BlitRLESprite(0x21 + iLen94 * 6 + iLen9c * 6,pcStack_9c + iVar6,0,
+                  (byte *)(g_clientContext + 0x58c54));
+    BlitRLESprite(0x20 + iLen94 * 6 + iLen9c * 6,pcVar4,uStack_b0,
+                  (byte *)(g_clientContext + 0x58c54));
     uVar14 = uStack_ac;
   }
   else {
     DrawFontString(pcVar4,uStack_b0);
-    BlitRLESprite(0,pcVar4,uVar14,(byte *)0);
+    /* objdump @0x4c8afc: this = 0x20 + iLen94*6, rleData = pcStack_9c
+     * (loaded @0x4c8af3, right before this call, no push - dropped EAX). */
+    BlitRLESprite(0x20 + iLen94 * 6,pcVar4,uVar14,(byte *)pcStack_9c);
     pcVar4 = pcStack_9c;
     do {
       cVar1 = *pcVar4;
       pcVar4 = pcVar4 + 1;
     } while (cVar1 != '\0');
+    /* strlen(pcStack_9c) in this branch's own pcVar4-based loop. */
+    iLen9c = (int)(pcVar4 - pcStack_9c) - 1;
     DrawFontString(pcStack_9c + iVar6,uStack_b0);
-    BlitRLESprite(0,pcStack_9c + iVar6,uVar14,(byte *)0);
+    /* objdump @0x4c8b47: this = 0x20 + iLen94*6 + iLen9c*6 + 1, rleData =
+     * (char *)(g_clientContext + 0x58c54) (loaded @0x4c8b3f). */
+    BlitRLESprite(0x21 + iLen94 * 6 + iLen9c * 6,pcStack_9c + iVar6,uVar14,
+                  (byte *)(g_clientContext + 0x58c54));
   }
   puStack_8c = puStack_8c + 1;
   pcStack_94 = pcStack_94 + 9;
@@ -505,13 +542,24 @@ LAB_004c8df4:
     }
   }
 LAB_004c8e28:
-  pcVar4 = (char *)(*piVar12 * 0xd + 0x50196 + g_clientContext);
+  pcVar3 = (char *)(*piVar12 * 0xd + 0x50196 + g_clientContext);
+  pcVar4 = pcVar3;
   do {
     cVar1 = *pcVar4;
     pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
-  BlitRLESprite(0,0x2d,(-(uint)(*(char *)(*piVar12 + 0x50126 + g_clientContext) !=
-                             *(char *)(g_clientContext + 0x3b6c0)) & 0xfffffae9) + 0xffff,(byte *)0);
+  /* strlen(pcVar3), consumed by the x-cursor math below. */
+  iLen9c = (int)(pcVar4 - pcVar3) - 1;
+  /* BlitRLESprite's dropped args (objdump @ 0x4c8e98): this/param_1 is
+   * this player's nametag x position, centered by half the name's pixel
+   * width and camera-adjusted - piVar12[-0x80] - (strlen(pcVar3)*6)/2 -
+   * g_nCameraX + 400 (objdump @0x4c8e4b-0x4c8e7d; piVar12[-0x80] matches
+   * the sibling BlitSprite16bpp call just above using the same offset).
+   * rleData/EAX is pcVar3, the name string just sprintf'd/strlen'd above
+   * (loaded @0x4c8e77, held from 0x4c8e3d, untouched through the call). */
+  BlitRLESprite(piVar12[-0x80] - iLen9c * 3 - *(int *)(&g_nCameraX + g_clientContext) + 400,
+                0x2d,(-(uint)(*(char *)(*piVar12 + 0x50126 + g_clientContext) !=
+                             *(char *)(g_clientContext + 0x3b6c0)) & 0xfffffae9) + 0xffff,(byte *)pcVar3);
   DrawFontString(0x2d,0);
   iStack_a0 = iStack_a0 + 1;
   piVar12 = piVar12 + 1;
@@ -534,17 +582,29 @@ LAB_004c9ad7:
     }
   }
 LAB_004c9b12:
-  pcVar4 = (char *)GetLocalizedString(&g_localizedStringTable,0x33e);
+  pcVar3 = (char *)GetLocalizedString(&g_localizedStringTable,0x33e);
+  pcVar4 = pcVar3;
   do {
     cVar1 = *pcVar4;
     pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
+  /* strlen(pcVar3), consumed by the x-cursor math below (objdump
+   * @0x4c9b21-0x4c9b43: (strlen*6)/2, same centering idiom as the
+   * FUN_004d0260/BlitSprite16bpp sibling calls in this function). */
+  iLen9c = (int)(pcVar4 - pcVar3) - 1;
   uVar14 = 0;
   GetLocalizedString(&g_localizedStringTable,0x33e);
   DrawFontString(0x28,uVar14);
   uVar14 = 0xffff;
-  GetLocalizedString(&g_localizedStringTable,0x33e);
-  BlitRLESprite(0,0x28,uVar14,(byte *)0);
+  /* BlitRLESprite's dropped args (objdump @ 0x4c9b9a): this/param_1 is
+   * (uVar10 % uStack_a4 + iVar6) - g_nCameraX - (strlen(pcVar3)*6)/2 + 400
+   * - the same "esi" x-position expression already used by the sibling
+   * BlitSprite16bpp call just above (uVar10 % uStack_a4 + iVar6). rleData
+   * /EAX is the return value of this exact GetLocalizedString(0x33e) call
+   * (loaded @0x4c9b7b, held in EAX, untouched through the call). */
+  BlitRLESprite((int)(uVar10 % uStack_a4 + iVar6) - *(int *)(&g_nCameraX + g_clientContext) -
+                iLen9c * 3 + 400,
+                0x28,uVar14,(byte *)GetLocalizedString(&g_localizedStringTable,0x33e));
   goto LAB_004c9ba8;
   while( true ) {
     iVar7 = *(int *)(iVar7 + 0x10);
@@ -563,17 +623,26 @@ LAB_004c96d9:
     }
   }
 LAB_004c9714:
-  pcVar4 = (char *)GetLocalizedString(&g_localizedStringTable,0x33f);
+  pcVar3 = (char *)GetLocalizedString(&g_localizedStringTable,0x33f);
+  pcVar4 = pcVar3;
   do {
     cVar1 = *pcVar4;
     pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
+  /* strlen(pcVar3), consumed by the x-cursor math below - same pattern as
+   * LAB_004c9b12 above (objdump @ 0x4c9714). */
+  iLen9c = (int)(pcVar4 - pcVar3) - 1;
   uVar14 = 0;
   GetLocalizedString(&g_localizedStringTable,0x33f);
   DrawFontString(0x28,uVar14);
   uVar14 = 0xffff;
-  GetLocalizedString(&g_localizedStringTable,0x33f);
-  BlitRLESprite(0,0x28,uVar14,(byte *)0);
+  /* BlitRLESprite's dropped args (objdump @ 0x4c979c) - same recovered
+   * shape as LAB_004c9b12 above: this = (uVar10 % uStack_a4 + iVar6) -
+   * g_nCameraX - (strlen(pcVar3)*6)/2 + 400; rleData = the return value
+   * of this exact GetLocalizedString(0x33f) call. */
+  BlitRLESprite((int)(uVar10 % uStack_a4 + iVar6) - *(int *)(&g_nCameraX + g_clientContext) -
+                iLen9c * 3 + 400,
+                0x28,uVar14,(byte *)GetLocalizedString(&g_localizedStringTable,0x33f));
   goto LAB_004c9ba8;
   while( true ) {
     iVar7 = *(int *)(iVar7 + 0x10);
@@ -592,17 +661,26 @@ LAB_004c92db:
     }
   }
 LAB_004c9316:
-  pcVar4 = (char *)GetLocalizedString(&g_localizedStringTable,0x340);
+  pcVar3 = (char *)GetLocalizedString(&g_localizedStringTable,0x340);
+  pcVar4 = pcVar3;
   do {
     cVar1 = *pcVar4;
     pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
+  /* strlen(pcVar3), consumed by the x-cursor math below - same pattern as
+   * LAB_004c9b12 above (objdump @ 0x4c9316). */
+  iLen9c = (int)(pcVar4 - pcVar3) - 1;
   uVar14 = 0;
   GetLocalizedString(&g_localizedStringTable,0x340);
   DrawFontString(0x28,uVar14);
   uVar14 = 0xffff;
-  GetLocalizedString(&g_localizedStringTable,0x340);
-  BlitRLESprite(0,0x28,uVar14,(byte *)0);
+  /* BlitRLESprite's dropped args (objdump @ 0x4c939e) - same recovered
+   * shape as LAB_004c9b12 above: this = (uVar10 % uStack_a4 + iVar6) -
+   * g_nCameraX - (strlen(pcVar3)*6)/2 + 400; rleData = the return value
+   * of this exact GetLocalizedString(0x340) call. */
+  BlitRLESprite((int)(uVar10 % uStack_a4 + iVar6) - *(int *)(&g_nCameraX + g_clientContext) -
+                iLen9c * 3 + 400,
+                0x28,uVar14,(byte *)GetLocalizedString(&g_localizedStringTable,0x340));
 LAB_004c9ba8:
   if ((*(int *)(param_1 + 0x10cc) != -1) && (*(int *)(param_1 + 0x10d0) != -1)) {
     FUN_004cfd20();

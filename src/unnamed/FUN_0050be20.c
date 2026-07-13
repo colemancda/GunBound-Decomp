@@ -144,7 +144,24 @@ LAB_0050c0b2:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    BlitRLESprite(0,param_3 + 3,(-(uint)((uVar3 & 0x20000000) != 0x20000000) & 0x480d) + 0xb7f2,(byte *)0);
+    /* BlitRLESprite's `this` (1st arg) recovered via objdump at this call
+     * site (orig 0x50c142): ECX is loaded from [esp+0xa4] (this file's own
+     * param_2) then `add ecx,0x18` right before the call - so `this` is
+     * param_2+0x18, matching the surrounding code's x-cursor-offset style
+     * (BlitSprite16bpp calls just above/below use param_2+/-offsets too).
+     * The 4th arg (rleData) could NOT be recovered with confidence: EAX is
+     * loaded from `[esp+0x18]` at 0x50c10d, but tracing every write to the
+     * stack frame in this function (objdump 0x50be20-0x50c220) shows that
+     * exact slot (ESP0+0x8, ESP0 = esp right after the prologue's
+     * `sub esp,0x8c`) is never written anywhere - it's left as whatever
+     * was on the stack before this function's own prologue ran (a true
+     * uninitialized/leftover value, not a resolvable local or stack arg;
+     * confirmed by cross-checking sibling reads at the same call site -
+     * ECX/EDX at [esp+0xa4]/[esp+0xa8] cleanly resolve to param_2/param_3,
+     * but nothing in this disassembly window ever targets [esp+0x18]).
+     * Left as a placeholder per the recovery methodology's "genuine
+     * ambiguity" exception. */
+    BlitRLESprite(param_2 + 0x18,param_3 + 3,(-(uint)((uVar3 & 0x20000000) != 0x20000000) & 0x480d) + 0xb7f2,(byte *)0);
     local_8c = 2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar1 = PeekPacketChecksumState();

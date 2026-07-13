@@ -26,6 +26,8 @@ void __fastcall RenderMobile(int param_1)
   char *pcVar12;
   uint uVar13;
   int iVar14;
+  int iVar15;
+  int iVar16;
   undefined4 *unaff_FS_OFFSET;
   bool bVar15;
   uint local_930;
@@ -190,6 +192,15 @@ void __fastcall RenderMobile(int param_1)
       uVar7 = EncodeChecksumDeltaSub(uVar7,local_89c,0x29);
       local_4 = 8;
       iVar5 = PeekChecksumStateUnderLock(uVar7);
+      /* BlitRLESprite's dropped param_1/rleData (below, ~line 353-362)
+       * are recovered from this on-screen X position before it gets
+       * reused/reassigned for other purposes later in this function
+       * (e.g. `iVar5 = param_1 + 0x6db0` at line ~238) - objdump shows
+       * the register holding this exact value (stashed at [esp+0x20])
+       * still live and unclobbered at every BlitRLESprite call site
+       * below. Captured here into iVar15 since Ghidra's `iVar5` name
+       * gets recycled for unrelated values before those calls. */
+      iVar15 = iVar5;
       local_4 = 7;
       ScrubChecksumGuard();
       local_4 = 6;
@@ -310,14 +321,31 @@ void __fastcall RenderMobile(int param_1)
            * source never names anywhere else. See DrawSprite.c's
            * header comment. */
           DrawSprite(0);
-          BlitRLESprite(0,iVar10 + 10,0,(byte *)0);
-          BlitRLESprite(0,iVar10 + 9,(-(uint)bVar15 & 0x517) + 0xfae8,(byte *)0);
+          /* BlitRLESprite's dropped param_1 (x-cursor) and rleData were
+           * recovered via objdump at this call site (0x4635ea): ECX =
+           * iVar15+0x1c, EAX = param_1+0xae15 (a string field distinct
+           * from the +0xae22 label - see BlitRLESprite.c's header
+           * comment for the recovery method). */
+          BlitRLESprite(iVar15 + 0x1c,iVar10 + 10,0,(byte *)(param_1 + 0xae15));
+          /* Same recovery as above, at 0x463608: ECX = iVar15+0x1b,
+           * EAX = param_1+0xae15 (unchanged from the call above). */
+          BlitRLESprite(iVar15 + 0x1b,iVar10 + 9,(-(uint)bVar15 & 0x517) + 0xfae8,
+                        (byte *)(param_1 + 0xae15));
         }
         else {
           do {
             cVar3 = *pcVar12;
             pcVar12 = pcVar12 + 1;
           } while (cVar3 != '\0');
+          /* BlitRLESprite's dropped param_1 (x-cursor) at the two calls
+           * below (0x4635a3/0x4635b4) is this label's on-screen width
+           * folded into the base x-position: objdump shows
+           * ECX = iVar15 + 2*(3*(strlen-1)+9) = iVar15 + 6*strlen + 12,
+           * where strlen = pcVar12-(param_1+0xae22)-1 is the length of
+           * the label string just scanned above. Captured into iVar16
+           * here before pcVar12 gets reused for the digit buffer below
+           * (see BlitRLESprite.c's header comment for the method). */
+          iVar16 = iVar15 + (int)pcVar12 * 6 - (param_1 + 0xae22) * 6 + 6;
           iVar5 = *(int *)(param_1 + 0xae34);
           if (0x3e6 < iVar5) {
             iVar5 = 999;
@@ -350,16 +378,30 @@ void __fastcall RenderMobile(int param_1)
               } while (cVar3 != '\0');
             } while (local_930 < (uint)((int)pcVar12 - (int)(local_91c + 1)));
           }
-          BlitRLESprite(0,iVar10 + 8,0,(byte *)0);
+          /* BlitRLESprite's dropped param_1 (x-cursor) and rleData were
+           * recovered via objdump at this call site (0x46354b): ECX =
+           * iVar15+0x12, EAX = param_1+0xae22 (the label field just
+           * scanned by the strlen loop above - see BlitRLESprite.c's
+           * header comment for the recovery method). */
+          BlitRLESprite(iVar15 + 0x12,iVar10 + 8,0,(byte *)(param_1 + 0xae22));
           iVar5 = (-(uint)bVar15 & 0x517) + 0xfae8;
-          BlitRLESprite(0,iVar10 + 7,iVar5,(byte *)0);
+          /* Same recovery as above, at 0x463578: ECX = iVar15+0x11,
+           * EAX = param_1+0xae22 (unchanged from the call above). */
+          BlitRLESprite(iVar15 + 0x11,iVar10 + 7,iVar5,(byte *)(param_1 + 0xae22));
           /* DrawSprite's arg was dropped as `in_EAX`, left unfixed:
            * objdump at this call site (0x4635cd) shows it needs the
            * same `*(int *)(param_1 + 0xae38)` field as the call above
            * (line ~307). See DrawSprite.c's header comment. */
           DrawSprite(0);
-          BlitRLESprite(0,iVar10 + 0x15,0,(byte *)0);
-          BlitRLESprite(0,iVar10 + 0x14,iVar5,(byte *)0);
+          /* BlitRLESprite's dropped param_1 (x-cursor) and rleData were
+           * recovered via objdump at this call site (0x4635a3): ECX =
+           * iVar16 (label-width-adjusted x-cursor computed above), EAX
+           * = param_1+0xae15 (a string field distinct from the +0xae22
+           * label - see BlitRLESprite.c's header comment). */
+          BlitRLESprite(iVar16,iVar10 + 0x15,0,(byte *)(param_1 + 0xae15));
+          /* Same recovery as above, at 0x4635b4: ECX = iVar16, EAX =
+           * param_1+0xae15 (both unchanged from the call above). */
+          BlitRLESprite(iVar16,iVar10 + 0x14,iVar5,(byte *)(param_1 + 0xae15));
         }
       }
     }
