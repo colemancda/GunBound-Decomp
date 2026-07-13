@@ -31,7 +31,7 @@ void __thiscall State03_GameRoomList_HandleMouseInput(int param_1,uint param_2,u
       iVar3 = RoomCardHitTest(param_4 >> 0x10,0);
       if (iVar3 != -1) {
         *(int *)(param_1 + 4) = iVar3;
-        InvokeWidget(1);
+        InvokeWidget(5,1);
       }
       *(undefined4 *)(param_1 + 0x124) = 0xffffffff;
       FUN_00507d50();
