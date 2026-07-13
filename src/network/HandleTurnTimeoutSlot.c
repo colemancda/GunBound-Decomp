@@ -82,7 +82,7 @@ void HandleTurnTimeoutSlot(int param_1)
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26
                            ,0,0);
-        InvokeWidget(0);
+        InvokeWidget(18,0);
       }
       else {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -97,10 +97,10 @@ void HandleTurnTimeoutSlot(int param_1)
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26
                            ,0,0);
-        InvokeWidget(0);
+        InvokeWidget(18,0);
         cVar4 = PeekPacketChecksumBool();
         if (cVar4 == '\x01') {
-          InvokeWidget(1);
+          InvokeWidget(1,1);
           RemoveWidget();
           uVar13 = 6;
           pcVar12 = s_b_play_weapon1_00554164;
@@ -108,7 +108,7 @@ void HandleTurnTimeoutSlot(int param_1)
           uVar7 = 1;
         }
         else {
-          InvokeWidget(1);
+          InvokeWidget(2,1);
           RemoveWidget();
           uVar13 = 0x2e;
           pcVar12 = s_b_play_weapon2_00554154;
