@@ -103,6 +103,16 @@ public:
      * named so far. */
     virtual void MainAction();
 
+    /* Per-type slot-7 overrides. Each of the 16 mobile types installs its
+     * own weapon-fire dispatcher in vtable slot 7; the base MainAction above
+     * is the no-op every type replaces. These are NOT extra virtuals on the
+     * base class - they're the concrete slot-7 implementations, declared as
+     * plain members here (the 16 subclasses share CMobile's layout, so no
+     * subclass type is needed - see the class-header note). Only type 0 is
+     * reconstructed so far; the other 15 remain raw. Signature is
+     * (this, animEvent, subType). */
+    void Mobile00_MainAction(int animEvent, int subType);  /* 0x44e920 */
+
     /* ---- data members (confirmed offsets; interior gaps are unmapped) ---- */
     u32  m_idBase;             /* +0x4: InitMobile seeds 0x186a1 (100001) - id/health base */
     u32  m_owner;              /* +0x8: InitMobile arg (owner/slot index passed to the ctor) */
