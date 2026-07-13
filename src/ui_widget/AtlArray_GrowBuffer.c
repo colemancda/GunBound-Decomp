@@ -4,6 +4,27 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NEWLY DISCOVERED, NOT YET FIXED (2026-07-13): `in_EAX` (the requested
+ * size) and `unaff_ESI` (the array `this`) are both live incoming
+ * arguments, custom-register family (`this` in ESI, arg in EAX) -
+ * already independently confirmed in src/cxx/AtlArray.h's
+ * `CAtlArray::GrowBuffer`, which this raw port duplicates for the 3
+ * remaining raw callers that haven't migrated to that C++ template
+ * (`FUN_00415bc0.c`, `FUN_004d2130.c`, `State11_InBattle_OnTick.c` -
+ * `Widget_AddChild.c` already has, hence only 3 callers remain here).
+ * Fixing this function alone isn't enough - its signature change must
+ * land atomically with all 3 callers or the build breaks. Confirmed
+ * via objdump that `FUN_00415bc0.c`'s call site is clean (`this` =
+ * its own already-named `param_1`, size = `param_1[1] + 1`), but the
+ * other two callers have their OWN dropped-register `this` on top:
+ * `FUN_004d2130.c`'s `in_EAX` (its own array `this`, confirmed via
+ * objdump - same "this in EAX" family) has only 2 callers, one of which
+ * (`State11_InBattle_ProcessPacket.c`, ~500 lines) would need its own
+ * dedicated trace through a large, unrelated battle-packet handler to
+ * find what array `FUN_004d2130(iVar6)`'s call site actually targets.
+ * Deferred as its own pass rather than guessing at battle-state array
+ * identity to unblock an unrelated ui_widget bug-hunting pass.
  */
 #include "ghidra_types.h"
 
