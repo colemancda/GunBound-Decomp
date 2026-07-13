@@ -18,6 +18,21 @@
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * POSSIBLE BUG, NOT VERIFIED (2026-07-13): `FUN_004e5480()` is called
+ * here with 0 args, but it's a real 2-param __fastcall function
+ * (param_1/ECX unused in its body, param_2/EDX used as a null-
+ * terminated hostname string - see that file). Objdump at this call
+ * site (0x4e59dd, `mov edx,[esp+0x14]`) traces EDX back to this
+ * function's OWN single stdcall argument - i.e. the connection object's
+ * base address itself (`unaff_ESI`/`conn`), not `conn+0x28` where
+ * SignalConnectRequest.c copies the hostname string. Either the
+ * hostname really does start at `conn+0`, or this is a genuine
+ * off-by-offset bug in the original - not confirmed either way without
+ * a fuller field map of the ~0x24a70-byte connection object than is
+ * currently documented (ARCHITECTURE.md doesn't pin down offset 0).
+ * Left as `FUN_004e5480()` with no args (matching prior behavior)
+ * rather than guessing the fix.
  */
 #include "ghidra_types.h"
 

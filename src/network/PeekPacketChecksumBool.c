@@ -7,6 +7,16 @@
  * g_valueGuardTamperFlag and returns 0 - then returns bit (a & 7) of b as
  * a bool. Used pervasively to read guarded flags (e.g. the replay-playback
  * mode flag). See ARCHITECTURE.md "Packet-checksum utility family".
+ *
+ * NOT A QUICK FIX (2026-07-13): `in_EAX` is part of the same large,
+ * already-acknowledged CValueGuard migration flagged in
+ * PeekPacketChecksumState.c's own header (300+ callers there) - this
+ * function has 190+ callers of its own (every Mobile*_MainAction,
+ * SimulateMobileFrame/ProjectileFrame, most ProcessPacket handlers,
+ * etc.), each passing a different guard cell address per call site.
+ * Recovering the real cell for even a handful would need per-caller
+ * tracing at this scale; this belongs to the CValueGuard/ValueGuard.cpp
+ * migration effort, not a one-file bug-hunt pass.
  */
 #include "ghidra_types.h"
 
