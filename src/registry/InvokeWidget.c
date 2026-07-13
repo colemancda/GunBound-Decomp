@@ -4,6 +4,31 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NEWLY DISCOVERED, NOT YET FIXED (2026-07-13): `in_EAX` and
+ * `unaff_ESI` are dropped-register arguments; this is a 2-real-argument
+ * function, not the current 3-`param` `__fastcall` shape. Confirmed via
+ * objdump at 19 call sites (`grep -rn "InvokeWidget" src/` for the
+ * full list) that EVERY caller does `xor edx,edx` (param_2/EDX is
+ * always a literal 0) and pushes a bool on the stack (param_3, the
+ * "enabled" flag) - those two are already modeled correctly. But EAX
+ * and ESI are BOTH also live incoming values, not garbage: at
+ * State02_ServerSelect_ProcessPacket's call site (0x4e0998) `mov
+ * eax,0xe9be90` / `mov esi,0x2`; at State03_GameRoomList_OnCommand's
+ * (0x428ac1) `mov eax,0xe9be90` / `mov esi,0xd`. EAX (`DAT_00e9be90`,
+ * the flat-ButtonWidget registry root) looks invariant across the
+ * sites checked - safe to hardcode. ESI does NOT - it's the target
+ * widget's id within that registry (2 for the ServerSelect connect
+ * button, 0xd for whatever GameRoomList control this is) and genuinely
+ * varies per caller. Fixing this needs each of the 19 call sites
+ * individually traced for its real widget id, INCLUDING the 4 sites
+ * already "promoted" to C++ (Panel.cpp x3, State02_ServerSelect.cpp,
+ * Mobile.cpp) which currently call `InvokeWidget(enabled)` with only
+ * the bool and are just as affected - every one of them is silently
+ * looking up whatever garbage id happens to be in ESI at the call,
+ * not the intended widget. Deferred as its own pass; not attempted
+ * here given the number of sites and the risk of guessing wrong on
+ * which id each site actually means.
  */
 #include "ghidra_types.h"
 
