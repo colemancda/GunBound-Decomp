@@ -143,7 +143,7 @@ char FUN_0045ec30(void);
 void FUN_0043d6d0(void);
 void FUN_00464060(void);
 void ClampCursorToRect(void);
-void InvokeWidget(int a);
+void InvokeWidget(int widgetId, int a);
 int  _rand(void);
 unsigned long timeGetTime2(void);   /* winmm timeGetTime; renamed to dodge the <mmsystem.h> proto */
 
@@ -1637,7 +1637,7 @@ LAB_004613ad:
                 EncodeChecksumState(reinterpret_cast<void *>(uVar17));
                 ScrubChecksumGuard(local_b40);
             }
-            InvokeWidget(0);
+            InvokeWidget(3, 0);
             iVar18 = DAT_007934e4;
             *reinterpret_cast<unsigned char *>(DAT_007934e4 + 8) = 0;
             SetWindowTextA(*reinterpret_cast<HWND *>(iVar18 + 4), reinterpret_cast<LPCSTR>(&DAT_00551cb1));

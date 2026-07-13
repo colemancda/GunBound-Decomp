@@ -222,7 +222,7 @@ void FUN_00406170();
 undefined4 FUN_004061e0();
 void FUN_00406280();
 void FUN_004062b0();
-undefined4 __fastcall InvokeWidget();
+void InvokeWidget(int widgetId,int enabled);
 undefined4 __fastcall SetWidgetReadyState();
 uint __fastcall FUN_00406400();
 byte * __fastcall InitGuardedBool();

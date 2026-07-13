@@ -87,7 +87,7 @@ void __thiscall FUN_004e1200(int param_1,int param_2,int param_3)
         uVar4 = piVar3[2];
       }
     }
-    InvokeWidget(*(int *)(param_1 + 8) != -1);
+    InvokeWidget(2,*(int *)(param_1 + 8) != -1);
     ShowErrorDialog(0);
     *(undefined1 *)(param_1 + 6) = 1;
     cVar6 = PeekPacketChecksumBool();

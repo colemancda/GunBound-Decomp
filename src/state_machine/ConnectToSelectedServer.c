@@ -70,7 +70,7 @@ void ConnectToSelectedServer(int param_1, int serverIndex)
         uVar2 = piVar1[2];
       }
     }
-    InvokeWidget(0);
+    InvokeWidget(2,0);
     iVar4 = DAT_007934ec;
     iVar3 = g_clientContext;
     *(undefined1 *)(param_1 + 0x24) = 0;

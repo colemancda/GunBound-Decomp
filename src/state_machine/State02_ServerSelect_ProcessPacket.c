@@ -436,7 +436,7 @@ LAB_004e0d7f:
         uVar6 = piVar10[2];
       }
     }
-    InvokeWidget(*(int *)((int)this + 8) != -1);
+    InvokeWidget(2,*(int *)((int)this + 8) != -1);
     *(undefined1 *)((int)this + 0x24) = 1;
     *(undefined1 *)((int)this + 6) = 1;
     return;
@@ -607,7 +607,7 @@ LAB_004e0d3c:
   }
   iVar20 = *(int *)((int)this + 8);
 LAB_004e1121:
-  InvokeWidget(iVar20 != -1);
+  InvokeWidget(2,iVar20 != -1);
   return;
 }
 
