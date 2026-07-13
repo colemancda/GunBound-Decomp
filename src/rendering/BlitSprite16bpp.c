@@ -7,6 +7,18 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
+ *
+ * DROPPED REGISTER ARGUMENT (pattern #1) - investigated, NOT fixed here:
+ * `in_EAX` is read as a sign-checked gate (`-1 < in_EAX`) before the
+ * blit proceeds - almost certainly the y-coordinate/frame-valid check
+ * companion to param_1/param_2, dropped by Ghidra with no parameter.
+ * BlitSprite16bpp has ~30+ call sites across the render pipeline
+ * (BlitSpriteText.c, DrawButtonWidget.c, DrawSprite.c, GameTick.c,
+ * Widget_DrawSelf.c, and a dozen+ render/State* files - see
+ * get_function_callers) - same large caller fan-out as FindSpriteFrame.c/
+ * BlitSpriteText.c/DrawFontString.c, deferred for the same reason (fixing
+ * it requires per-site disassembly recovery across all callers in one
+ * pass, not attempted here).
  */
 #include "ghidra_types.h"
 #include <windows.h>

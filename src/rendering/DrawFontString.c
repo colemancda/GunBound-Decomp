@@ -4,6 +4,20 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED REGISTER ARGUMENT (pattern #1) - investigated, NOT fixed here:
+ * `in_EAX` is the RLE glyph-stream/string pointer, dropped by Ghidra with
+ * no corresponding parameter - identical bug shape to the sibling
+ * BlitRLESprite.c (0x4eb450, see that file's header for the full
+ * disassembly proof: EAX is loaded right before the call by every real
+ * caller, immediately followed by a `do { c = *p; p++; } while (c != 0)`
+ * strlen scan on return, with nothing in between that could clobber it).
+ * DrawFontString has ~30+ call sites across ~15 files (BlitSpriteText.c,
+ * DrawButtonWidget.c, DrawSprite.c, GameTick.c, and a dozen+ render/
+ * State* files) - fixing this correctly requires the same per-site
+ * disassembly recovery as BlitRLESprite's remaining call sites, deferred
+ * as the same class of undertaking (see BlitRLESprite.c's and
+ * FindSpriteFrame.c's own header comments).
  */
 #include "ghidra_types.h"
 
