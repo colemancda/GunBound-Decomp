@@ -4,6 +4,15 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * `in_EAX` here is the SAME dropped manager pointer already documented
+ * (not yet fixed) on this function's only caller, PanelManager_Register
+ * - confirmed via objdump that Register's own call site does `mov
+ * eax,esi` (its own unresolved `in_EAX`, offset +4) right before
+ * `call PanelManager_PrependNode`, i.e. this is one bug split across
+ * two functions, not a separate one. See PanelManager_Register.c's
+ * header for the full trace and why it's deferred pending a manager-
+ * class reconstruction.
  */
 #include "ghidra_types.h"
 
