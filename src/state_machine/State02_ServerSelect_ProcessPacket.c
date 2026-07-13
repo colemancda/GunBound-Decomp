@@ -27,6 +27,25 @@
  * this vtable slot actually takes. */
 typedef void (__fastcall *WidgetSetModeNameFn)(void *thisPtr, const char *modeName);
 
+/* FIXED (2026-07-13), opcode 0x1012's `*payload == 0` branch: the 4
+ * `PeekChecksumStateUnderLock(...)` calls here were each followed by a
+ * `TEST AH,AH` in the original - Ghidra represented that as a
+ * `char extraout_AH*` local, declared but never actually assigned
+ * anywhere in the decompiled source (same "declared-but-never-written"
+ * bug class as `unaff_ESI`/`in_EAX` found elsewhere this session - a
+ * real MSVC recompile would read uninitialized stack garbage here
+ * instead of the intended value). Confirmed via objdump at
+ * 0x4e043b-0x4e04c6: AH is simply the high byte of EAX, i.e. bits 8-15
+ * of PeekChecksumStateUnderLock's own `undefined4` return value - not a
+ * separate/secondary output. Fixed by capturing each call's return into
+ * `uVar5` and testing `(char)((uint)uVar5 >> 8) < 0` in its place
+ * (equivalent to the original's `TEST AH,AH` + `JS`/`JNS`). Note this
+ * predicate is currently always false: PeekPacketChecksumState.c's own
+ * header documents that it unconditionally returns 0 as a deliberate
+ * CValueGuard-migration bring-up stub, so this fix only removes
+ * undefined behavior - it doesn't change observable output until that
+ * separate, larger migration lands. */
+
 /* WARNING: Removing unreachable block (ram,0x004e0fc9) */
 /* WARNING: Removing unreachable block (ram,0x004e08de) */
 /* WARNING: Removing unreachable block (ram,0x004e08e8) */
@@ -52,10 +71,6 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
   short sVar1;
   char cVar2;
   u_short uVar3;
-  char extraout_AH;
-  char extraout_AH_00;
-  char extraout_AH_01;
-  char extraout_AH_02;
   undefined2 *puVar4;
   undefined4 uVar5;
   uint uVar6;
@@ -449,20 +464,20 @@ LAB_004e0d7f:
   QueueOutgoingPacketField(uStack_ec >> 0x10);
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
-    PeekChecksumStateUnderLock(g_clientContext + 0x3ae2c);
-    if (extraout_AH_01 < '\0') {
+    uVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3ae2c);
+    if ((char)((uint)uVar5 >> 8) < 0) {
       QueueOutgoingPacketField(0);
     }
-    PeekChecksumStateUnderLock(g_clientContext + 0x3b050);
-    if (extraout_AH_02 < '\0') goto LAB_004e04b5;
+    uVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3b050);
+    if ((char)((uint)uVar5 >> 8) < 0) goto LAB_004e04b5;
   }
   else {
-    PeekChecksumStateUnderLock(g_clientContext + 0x3ae2c);
-    if (-1 < extraout_AH) {
+    uVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3ae2c);
+    if (-1 < (char)((uint)uVar5 >> 8)) {
       QueueOutgoingPacketField(0);
     }
-    PeekChecksumStateUnderLock(g_clientContext + 0x3b050);
-    if (-1 < extraout_AH_00) {
+    uVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3b050);
+    if (-1 < (char)((uint)uVar5 >> 8)) {
 LAB_004e04b5:
       QueueOutgoingPacketField(0);
     }

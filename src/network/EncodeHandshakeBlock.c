@@ -4,6 +4,17 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * NEWLY DISCOVERED, NOT YET FIXED (2026-07-13): `unaff_ESI` and `in_EAX`
+ * below are dropped-register arguments, not real Ghidra artifacts -
+ * confirmed via objdump that the sole caller (AppendEncodedBlock,
+ * 0x4d2570) has two of its own genuine stack parameters loaded into
+ * ESI and EAX respectively and forwarded here unclobbered. See
+ * AppendEncodedBlock.c's header for the full call-site trace and why
+ * this is deferred as its own pass (likely the login handshake's
+ * credential strings - `unaff_ESI` is scanned as a <=16-byte string and
+ * strncpy'd, `in_EAX` as a null-terminated string, both SHA1-absorbed
+ * before EncodeCipherBlock).
  */
 #include "ghidra_types.h"
 
