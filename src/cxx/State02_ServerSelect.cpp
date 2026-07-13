@@ -14,7 +14,12 @@ class CWorldListPanel;
 CWorldListPanel *BuildWorldListPanel(void *manager);
 
 extern "C" {
-int PlayMusicTrack(int trackId);
+/* PlayMusicTrack's real signature - see State01_Title.cpp's header for
+ * the full fix note (2026-07-13): the old `int PlayMusicTrack(int
+ * trackId)` declaration here mismatched the real 2-argument cdecl
+ * function at 0x4eea30 and would have silently read garbage for the
+ * missing trackName argument. */
+unsigned int PlayMusicTrack(unsigned int status, const char *trackName);
 int __stdcall LoadSpriteSet(void *container, int key);
 extern unsigned char DAT_00ea0e18;
 extern int g_clientContext;
@@ -133,7 +138,7 @@ void CState02ServerSelect::OnEnter()
         }
     }
     m_tickCounter = 0;
-    PlayMusicTrack(1);
+    PlayMusicTrack(1, "channel.mp3");
     bool haveBuffer = DAT_007934f4 != 0;
     m_inputEnabled = 0;
     *(int *)(ctx + 0x3f804) = -1;

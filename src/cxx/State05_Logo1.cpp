@@ -4,7 +4,12 @@
 #include "GameState.h"
 
 extern "C" {
-int PlayMusicTrack(int trackId);
+/* PlayMusicTrack's real signature - see State01_Title.cpp's header for
+ * the full fix note (2026-07-13): the old `int PlayMusicTrack(int
+ * trackId)` declaration here mismatched the real 2-argument cdecl
+ * function at 0x4eea30 and would have silently read garbage for the
+ * missing trackName argument. */
+unsigned int PlayMusicTrack(unsigned int status, const char *trackName);
 /* Promoted to cdecl with an explicit name (was .img name in EAX). The
  * old __stdcall decl decorated to _LoadSpriteSet@8 and never bound to
  * the real cdecl definition - the call hit a bring-up stub, so sprites
@@ -31,7 +36,7 @@ void CState05Logo1::OnEnter()
 {
     LoadSpriteSet(&DAT_00ea0e18, 10000, "logomode.img");
     m_frameCounter = 0;
-    PlayMusicTrack(0);
+    PlayMusicTrack(0, "logo.mp3");
 }
 
 /* 0x443430 - destroy container bucket 10000 (the same walk as Title's
