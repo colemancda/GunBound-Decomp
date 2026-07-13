@@ -67,8 +67,8 @@ void FUN_00402e60(int param_1,undefined4 param_2)
       *(int *)(iVar5 + 0x44d0) = iVar4 + 0xc;
       *(undefined1 *)(iVar4 + 0x4dc + iVar5) = 0;
       *(int *)(iVar5 + 0x44d0) = *(int *)(iVar5 + 0x44d0) + 1;
-      EncodePacketBody();
-      SendOutgoingPacket();
+      EncodePacketBody(0,iVar5);
+      SendOutgoingPacket(iVar5);
     }
     FUN_004026a0(((char)param_2 != '\x01') + 0x2002,&DAT_0054b460,0);
   }

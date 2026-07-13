@@ -38,7 +38,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
       *(undefined2 *)(iVar2 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar2 + 0x4d6) = (undefined2)param_3;
       *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 2;
-      SendOutgoingPacket();
+      SendOutgoingPacket(iVar2);
     }
   }
   else if (param_2 == 0x1000) {
@@ -69,8 +69,8 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
               *(char *)(iVar2 + 0x4d6) = (char)puVar4[1];
               *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
               AppendPacketBytes(puVar5);
-              EncodePacketBody();
-              SendOutgoingPacket();
+              EncodePacketBody(0,iVar2);
+              SendOutgoingPacket(iVar2);
               FUN_00425700();
             }
             else {

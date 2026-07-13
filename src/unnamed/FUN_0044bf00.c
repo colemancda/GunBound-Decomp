@@ -143,8 +143,8 @@ void FUN_0044bf00(int param_1)
   *(undefined2 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = 0;
   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 2;
 LAB_0044c2d6:
-  EncodePacketBody();
-  SendOutgoingPacket();
+  EncodePacketBody(0,iVar4);
+  SendOutgoingPacket(iVar4);
   FUN_00449250(param_1,0,0);
   return;
 }

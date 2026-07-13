@@ -212,8 +212,8 @@ void FUN_004ccd10(int *param_1)
         *(undefined1 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = 1;
       }
       *(int *)(iVar7 + 0x44d0) = *(int *)(iVar7 + 0x44d0) + 1;
-      EncodePacketBody();
-      SendOutgoingPacket();
+      EncodePacketBody(0,iVar7);
+      SendOutgoingPacket(iVar7);
       *(undefined1 *)((int)param_1 + 0x2382) = 1;
       pcVar18 = (code *)LeaveCriticalSection;
     }
@@ -340,8 +340,8 @@ void FUN_004ccd10(int *param_1)
             pcVar17 = pcVar17 + 1;
           }
           *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + uVar8;
-          EncodePacketBody();
-          SendOutgoingPacket();
+          EncodePacketBody(0,iVar6);
+          SendOutgoingPacket(iVar6);
         }
         puVar3 = local_664;
         local_4 = 0xffffffff;

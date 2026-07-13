@@ -480,7 +480,7 @@ LAB_004457e7:
             iVar3 = FUN_0040c980(0xf2,0x112,0x49,0xc,0xc,0);
           }
           *(undefined4 *)(iVar3 + 0x448) = 0;
-          RegisterActiveObject();
+          RegisterActiveObject(0, 0, (undefined4 *)0);
           pvVar5 = operator_new(0x458);
           if (pvVar5 == (void *)0x0) {
             iVar3 = 0;
@@ -489,7 +489,7 @@ LAB_004457e7:
             iVar3 = FUN_0040c980(0xf2,0x139,0xa5,0xc,0x32,0);
           }
           *(undefined4 *)(iVar3 + 0x448) = 0;
-          RegisterActiveObject();
+          RegisterActiveObject(0, 0, (undefined4 *)0);
           FUN_0040cf80(&DAT_00e9c0fc);
           local_4 = local_4 & 0xffffff00;
           FUN_004254a0();
@@ -592,8 +592,8 @@ LAB_00446d18:
       local_4 = local_4 & 0xffffff00;
       ScrubChecksumGuard();
 LAB_00446d2b:
-      EncodePacketBody();
-      SendOutgoingPacket();
+      EncodePacketBody(0,iVar3);
+      SendOutgoingPacket(iVar3);
       *(undefined1 *)(param_1 + 0x32f90) = 0;
     }
     else {
@@ -879,8 +879,8 @@ LAB_00446f6d:
         *(int *)(iVar3 + 0x44d0) = iVar9 + 0xc;
         *(undefined1 *)(iVar9 + 0x4dc + iVar3) = 1;
         *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 1;
-        EncodePacketBody();
-        SendOutgoingPacket();
+        EncodePacketBody(0,iVar3);
+        SendOutgoingPacket(iVar3);
         *(undefined1 *)(param_1 + 0x32f90) = 0;
         InvokeWidget(0);
         InvokeWidget(0);
@@ -918,8 +918,8 @@ LAB_00446f6d:
     *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     ScrubChecksumGuard();
-    EncodePacketBody();
-    SendOutgoingPacket();
+    EncodePacketBody(0,iVar3);
+    SendOutgoingPacket(iVar3);
     *(undefined1 *)(param_1 + 0x32f90) = 0;
     QueueOutgoingPacketField(0);
     RemoveWidget();

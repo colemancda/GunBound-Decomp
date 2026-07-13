@@ -1101,7 +1101,7 @@ LAB_004b7fb2:
         *(undefined1 *)(iVar4 + 0x4d4 + iVar6) =
              *(undefined1 *)(*(int *)(iVar10 + 0x621e0) + 0xb0ac);
         *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 1;
-        SendOutgoingPacket();
+        SendOutgoingPacket(iVar6);
         QueueBroadcastEvent(0xc304);
         iVar4 = g_clientContext;
         *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) =
@@ -1241,8 +1241,8 @@ LAB_004b7fb2:
                 pcVar5 = pcVar5 + 1;
               } while (cVar2 != '\0');
               AppendPacketBytes(local_26d8);
-              EncodePacketBody();
-              SendOutgoingPacket();
+              EncodePacketBody(0,iVar4);
+              SendOutgoingPacket(iVar4);
             }
             local_c = 0xffffffff;
             ScrubChecksumGuard();

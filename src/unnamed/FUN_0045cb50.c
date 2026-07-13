@@ -102,8 +102,8 @@ LAB_0045cdb1:
           *(undefined4 *)(iVar5 + 0x44d0) = 6;
           *(char *)(iVar5 + 0x4d6) = (char)param_1[2];
           *(int *)(iVar5 + 0x44d0) = *(int *)(iVar5 + 0x44d0) + 1;
-          EncodePacketBody();
-          SendOutgoingPacket();
+          EncodePacketBody(0,iVar5);
+          SendOutgoingPacket(iVar5);
         }
         SetGuardedBool(0);
         SetGuardedBool(1);

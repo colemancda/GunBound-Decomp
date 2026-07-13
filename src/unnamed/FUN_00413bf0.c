@@ -86,9 +86,9 @@ void FUN_00413bf0(void)
     local_8 = local_8 + 1;
     iVar10 = iVar10 + 0x224;
   } while (iVar10 < 0x1120);
-  EncodePacketBody();
+  EncodePacketBody(0,iVar8);
   if (g_valueGuardTamperFlag == '\0') {
-    SendOutgoingPacket();
+    SendOutgoingPacket(iVar8);
   }
   iVar8 = g_clientContext;
   pbVar9 = (byte *)(g_clientContext + 0x62152);

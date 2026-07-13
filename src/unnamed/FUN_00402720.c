@@ -91,8 +91,8 @@ void FUN_00402720(int param_1,char *param_2,char *param_3)
       *(int *)(iVar9 + 0x44d0) = iVar3 + 0xc;
       *(undefined1 *)(iVar3 + 0x4dc + iVar9) = 0;
       *(int *)(iVar9 + 0x44d0) = *(int *)(iVar9 + 0x44d0) + 1;
-      EncodePacketBody();
-      SendOutgoingPacket();
+      EncodePacketBody(0,iVar9);
+      SendOutgoingPacket(iVar9);
     }
     pcVar4 = param_3;
     do {
