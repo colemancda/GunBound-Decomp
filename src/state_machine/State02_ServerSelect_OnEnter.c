@@ -1,5 +1,15 @@
 /* State02_ServerSelect_OnEnter - 0x004e14b0 in the original binary.
  *
+ * This call site pre-dates LoadSpriteSet's and AppendPersistentButtonName's
+ * imgName/name-string promotions (both dropped-EAX-register args) and
+ * still passed the old, argument-short call shape. Recovered the 7
+ * LoadSpriteSet name strings and the 3 AppendPersistentButtonName name
+ * strings from orig 0x4e14bf-0x4e1581 (each `mov eax,<addr>` immediately
+ * before its `call`); the AppendPersistentButtonName strings match globals
+ * already declared for this file's own CreateButtonWidget calls just below
+ * (s_b_server_buddygame_00557170/s_b_server_choiceserver_00557158/
+ * s_b_server_exitgame_00557144).
+ *
  * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
  * verified against documented behavior beyond what's already in
  * ARCHITECTURE.md/PROTOCOL.md/FILEFORMATS.md. Calls to unnamed
@@ -21,16 +31,16 @@ void __fastcall State02_ServerSelect_OnEnter(int param_1)
   undefined4 *puVar4;
   bool bVar5;
   
-  LoadSpriteSet(&DAT_00ea0e18,10000);
-  LoadSpriteSet(&DAT_00ea0e18,0x2711);
-  LoadSpriteSet(&DAT_00ea0e18,1000);
-  LoadSpriteSet(&DAT_00ea0e18,0x3e9);
-  LoadSpriteSet(&DAT_00ea0e18,0x3ea);
-  LoadSpriteSet(&DAT_00ea0e18,0x44c);
-  LoadSpriteSet(&DAT_00ea0e18,0x44d);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  LoadSpriteSet(&DAT_00ea0e18,10000,"server_back.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x2711,"server_list.img");
+  LoadSpriteSet(&DAT_00ea0e18,1000,"b_server_exitgame.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x3e9,"b_server_buddygame.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x3ea,"b_server_choiceserver.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x44c,"b_server_all.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x44d,"b_server_friend.img");
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_server_buddygame_00557170);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_server_choiceserver_00557158);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_server_exitgame_00557144);
   CreateButtonWidget(&DAT_00e9be90,0,0,1000,s_b_server_exitgame_00557144,0x28,0x227,0x6b,0x2d,1,0);
   CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_server_buddygame_00557170,0xa3,0x227,0x6b,0x2d,1,0)
   ;
