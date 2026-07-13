@@ -17,7 +17,23 @@
  * stack arg via `ret 4` at 0x40a43a). Recovered from the real binary - every
  * caller is `mov edi,<obj>; call 0x40a380`. Made an explicit leading parameter
  * so callers can pass it; other (not-yet-swept) 1-arg call sites still compile
- * against the K&R decl in functions.h and simply don't run pre-logo. */
+ * against the K&R decl in functions.h.
+ *
+ * 2026-07-13 scope correction: this is NOT a small pre-logo-only residue -
+ * confirmed via `grep -rn "EncodeOutgoingPacketField()"` that 171 zero-arg
+ * call sites remain across 13 files (FUN_0041da80.c, FUN_004af7a0.c,
+ * FUN_0042f4b0.c, FUN_004513b0.c, FUN_00432850.c, FUN_004305c0.c,
+ * FUN_004a4950.c, FUN_00452cc0.c, FUN_00495e80.c, FUN_004388e0.c,
+ * FUN_004a2ce0.c, State11_InBattle_OnTick.c) - all of them battle/combat
+ * checksum-encoding call sites, not boot-path code. Each currently reads
+ * `self` as whatever garbage is in EDI at the call (a real uninitialized-
+ * pointer bug, same severity class as this session's other unswept-caller
+ * fixes) since functions.h's K&R-empty declaration lets the call compile
+ * with zero arguments. Fixing this requires per-call-site disassembly to
+ * recover the real checksum-state object at each of the 171 sites (likely
+ * a small number of distinct objects reused across many call sites, same
+ * pattern as InvokeWidget's fix) - out of scope for this pass, tracked as
+ * a dedicated follow-up. */
 void EncodeOutgoingPacketField(void *self, uint param_1)
 
 {
