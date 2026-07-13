@@ -4,6 +4,13 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-07-13): `unaff_ESI` is a dropped register, not garbage -
+ * same twin-function pattern as FUN_0041b6f0.c. Confirmed via objdump
+ * that it arrives unchanged (no MOV to ESI in the function body). Sole
+ * caller is GameTick at 0x4132be: `mov esi,[0x5b3484]` - the
+ * already-declared `g_clientContext` global - hardcoded here rather
+ * than threading a parameter through.
  */
 #include "ghidra_types.h"
 
@@ -15,8 +22,7 @@ void FUN_0041c0a0(void)
   int iVar2;
   int iVar3;
   int iVar4;
-  int unaff_ESI;
-  
+
   iVar2 = *(int *)(DAT_00e9be94 + 0x1c);
   uVar1 = *(uint *)(iVar2 + 4);
   while (uVar1 < 1000000) {
@@ -37,8 +43,8 @@ void FUN_0041c0a0(void)
 LAB_0041c0d8:
     if (uVar1 == 0xf4245) {
       if ((iVar2 != 0) && (*(int *)(iVar2 + 0x24) == 1)) {
-        uVar1 = *(int *)(unaff_ESI + 0x3b97c) - 1;
-        *(uint *)(unaff_ESI + 0x3b97c) = uVar1 & ((int)uVar1 < 0) - 1;
+        uVar1 = *(int *)((char *)g_clientContext + 0x3b97c) - 1;
+        *(uint *)((char *)g_clientContext + 0x3b97c) = uVar1 & ((int)uVar1 < 0) - 1;
       }
       break;
     }
@@ -65,23 +71,22 @@ LAB_0041c10a:
         }
       }
       if ((iVar2 != 0) && (*(int *)(iVar2 + 0x24) == 1)) {
-        iVar2 = *(int *)(unaff_ESI + 0x3b980) + -0xd;
-        iVar3 = *(int *)(unaff_ESI + 0x3b97c) + 1;
+        iVar2 = *(int *)((char *)g_clientContext + 0x3b980) + -0xd;
+        iVar3 = *(int *)((char *)g_clientContext + 0x3b97c) + 1;
         iVar4 = iVar3;
         if (iVar2 <= iVar3) {
           iVar4 = iVar2;
         }
         if (iVar4 < 0) {
-          *(undefined4 *)(unaff_ESI + 0x3b97c) = 0;
+          *(undefined4 *)((char *)g_clientContext + 0x3b97c) = 0;
           return;
         }
         if (iVar3 < iVar2) {
           iVar2 = iVar3;
         }
-        *(int *)(unaff_ESI + 0x3b97c) = iVar2;
+        *(int *)((char *)g_clientContext + 0x3b97c) = iVar2;
       }
     }
   }
   return;
 }
-
