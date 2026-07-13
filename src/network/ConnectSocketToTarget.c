@@ -19,20 +19,31 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * POSSIBLE BUG, NOT VERIFIED (2026-07-13): `FUN_004e5480()` is called
+ * POSSIBLE BUG, NOT YET FIXED (2026-07-13): `FUN_004e5480()` is called
  * here with 0 args, but it's a real 2-param __fastcall function
  * (param_1/ECX unused in its body, param_2/EDX used as a null-
  * terminated hostname string - see that file). Objdump at this call
  * site (0x4e59dd, `mov edx,[esp+0x14]`) traces EDX back to this
  * function's OWN single stdcall argument - i.e. the connection object's
  * base address itself (`unaff_ESI`/`conn`), not `conn+0x28` where
- * SignalConnectRequest.c copies the hostname string. Either the
- * hostname really does start at `conn+0`, or this is a genuine
- * off-by-offset bug in the original - not confirmed either way without
- * a fuller field map of the ~0x24a70-byte connection object than is
- * currently documented (ARCHITECTURE.md doesn't pin down offset 0).
- * Left as `FUN_004e5480()` with no args (matching prior behavior)
- * rather than guessing the fix.
+ * SignalConnectRequest.c copies the hostname string. CONFIRMED via
+ * angr symbolic execution (not just manual stack arithmetic): stepping
+ * the real instruction sequence from this function's entry with a
+ * sentinel value planted as the incoming stdcall argument shows EDX
+ * holds that exact sentinel at the call to 0x4e5480 - so this is
+ * mechanically certain, not a decompiler artifact (for what it's
+ * worth, angr's own AIL decompiler misreads this call as reading from
+ * the local sockaddr buffer instead - a known angr weakness around
+ * stdcall stack-slot reuse, contradicted by both objdump and the
+ * concrete trace). What's NOT yet confirmed is whether this is a real
+ * bug: either the hostname really does start at `conn+0` (unlikely -
+ * SignalConnectRequest.c copies it to +0x28, and offset 0 is far more
+ * likely a vtable/list-node pointer in a C++ object), or this is a
+ * genuine off-by-offset defect in the shipped binary. Needs a fuller
+ * field map of the ~0x24a70-byte connection object (not currently
+ * documented at offset 0) before committing to a fix - left as
+ * `FUN_004e5480()` with no args (matching prior behavior) rather than
+ * guessing.
  */
 #include "ghidra_types.h"
 
