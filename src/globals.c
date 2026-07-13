@@ -1124,9 +1124,47 @@ void *PTR_LAB_00553ff8;
 void *PTR_LAB_00554000;
 void *PTR_LAB_005572e0;
 void *PTR_LAB_00557434;
-void *PTR_LAB_005574cc;
-void *PTR_LAB_005574e0;
-void *PTR_LAB_005574e8;
+/* Real 7-slot vtable (was a bare scalar) - the DirectSound streaming
+ * object's runtime vtable, installed via `*unaff_ESI = &PTR_LAB_005574cc`
+ * at the end of FUN_004eebe0/FUN_004ef3a0 (see those files' header
+ * comments). Slots recovered from orig .data at 0x5574cc-0x5574e8:
+ * 0=NoOpMethodStdcall1 (0x4038b0), 1=PollSoundBufferPosition ("tick",
+ * currently bring-up-bypassed to a no-op - see its own header), 2 is
+ * un-cross-referenced address 0x4eed10, not yet wired to a real ported
+ * function since nothing on the confirmed bring-up path calls it,
+ * 3=FUN_004eef00 (0x4eef00, "stop/release channel" - called from
+ * InitGame.c), 4=DecodeSoundBufferChunk (0x4eef80), 5=NoOpMethodStdcall1,
+ * 6=NoOpMethod (0x429800, shared plain-ret no-op stub). */
+void *PTR_LAB_005574cc[7] = {
+  (void *)NoOpMethodStdcall1, (void *)PollSoundBufferPosition,
+  (void *)0, (void *)FUN_004eef00, (void *)DecodeSoundBufferChunk,
+  (void *)NoOpMethodStdcall1, (void *)NoOpMethod,
+};
+/* Same shape as PTR_LAB_005574cc but the FUN_004ef7e0-installed
+ * bring-up vtable (set briefly during construction, before
+ * FUN_004eebe0/FUN_004ef3a0 swap in PTR_LAB_005574e8 then
+ * PTR_LAB_005574cc) - recovered from orig .data at 0x5574e0-0x5574ec:
+ * 0/2=NoOpMethodStdcall1 (0x4038b0), 1=NoOpMethod (0x429800),
+ * 3=PollSoundBufferPosition (0x4ef450). */
+void *PTR_LAB_005574e0[4] = {
+  (void *)NoOpMethodStdcall1, (void *)NoOpMethod,
+  (void *)NoOpMethodStdcall1, (void *)PollSoundBufferPosition,
+};
+/* The runtime vtable for FUN_004ef3a0-constructed secondary-channel
+ * objects (FUN_004ef3a0 itself keeps this vtable permanently, unlike
+ * FUN_004eebe0's primary-channel object which swaps to
+ * PTR_LAB_005574cc at the end of construction) - recovered from orig
+ * .data at 0x5574e8-0x5574f8: 0=NoOpMethodStdcall1,
+ * 1=PollSoundBufferPosition (currently bring-up-bypassed to a no-op),
+ * 2 is un-cross-referenced address 0x4ef4c0, not yet wired to a real
+ * ported function, 3=FUN_004ef5b0 (0x4ef5b0, "stop/release channel" -
+ * called from InitGame.c, same role as PTR_LAB_005574cc's
+ * FUN_004eef00 but for this object's own field layout), 4 is
+ * un-cross-referenced address 0x4ef610. */
+void *PTR_LAB_005574e8[5] = {
+  (void *)NoOpMethodStdcall1, (void *)PollSoundBufferPosition,
+  (void *)0, (void *)FUN_004ef5b0, (void *)0,
+};
 void *PTR_LAB_0055752c;
 void *PTR_LAB_0055755c;
 void *PTR_LAB_00557594;

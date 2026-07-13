@@ -460,6 +460,7 @@ void __thiscall State03_GameRoomList_OnCommand();
 void __thiscall State03_GameRoomList_HandleMouseInput();
 void __fastcall FUN_00429730();
 void NoOpMethod();
+void __fastcall NoOpMethodStdcall1();
 void SendJoinRoomChecked();
 void __fastcall OpenCreateRoomDialog();
 void SendCreateRoom();
@@ -1222,11 +1223,12 @@ void FUN_004eeae0();
 void __fastcall FUN_004eeb10();
 void __fastcall FUN_004eeb30();
 void FUN_004eeb70();
-undefined4 FUN_004eebe0(); /* __thiscall ctor: call sites use the returned this-pointer */
+undefined4 *FUN_004eebe0(); /* __thiscall ctor: call sites use the returned this-pointer */
 undefined4 FUN_004eec70();
 void __fastcall FUN_004eef00();
 void __thiscall DecodeSoundBufferChunk();
-undefined4 FUN_004ef3a0(); /* __thiscall ctor: call sites use the returned this-pointer */
+void __thiscall PollSoundBufferPosition();
+undefined4 *FUN_004ef3a0(); /* __thiscall ctor: call sites use the returned this-pointer */
 void FUN_004ef3f0();
 void __fastcall FUN_004ef5b0();
 void __thiscall FUN_004ef610();

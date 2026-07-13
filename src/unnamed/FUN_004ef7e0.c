@@ -1,5 +1,12 @@
 /* FUN_004ef7e0 - 0x004ef7e0 in the original binary.
  *
+ * DROPPED REGISTER ARGUMENT (unaff_EBX): Ghidra read the object being
+ * initialized as an uninitialized unaff_EBX local instead of a real
+ * parameter. Both real callers (FUN_004ef3a0/FUN_004eebe0) confirm via
+ * objdump at 0x4ef3a0-0x4ef3a3 (`mov ebx,esi` immediately before `call
+ * 0x4ef7e0`) that EBX is simply their own object pointer forwarded
+ * through - promoted to a real parameter here and at both call sites.
+ *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -8,14 +15,13 @@
 #include "ghidra_types.h"
 
 
-void FUN_004ef7e0(void)
+void FUN_004ef7e0(undefined4 *unaff_EBX)
 
 {
   HANDLE pvVar1;
-  undefined4 *unaff_EBX;
   undefined4 *puVar2;
   int iVar3;
-  
+
   *unaff_EBX = &PTR_LAB_005574e0;
   unaff_EBX[1] = 0;
   puVar2 = unaff_EBX + 2;

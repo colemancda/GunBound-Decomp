@@ -29,3 +29,21 @@ src_fileformat_LoadChooseEventConfig.obj
 # startup/logo/server-select path. Drop for bring-up until the class
 # migration lands its virtual bodies.
 src_cxx_ButtonWidget.obj
+# In-progress C++ class migrations with unimplemented virtuals
+# (C++-mangled, gen_bringup_stubs.py can't auto-stub them). Each has a
+# working raw-C equivalent already exercised on the bring-up path
+# (State02_ServerSelect_On*.c, WorldListPanel_Draw.c/PanelManager_*.c,
+# etc.) - drop the promoted C++ object for bring-up until its class
+# migration lands full virtual bodies.
+src_cxx_Projectile.obj
+src_cxx_State02_ServerSelect.obj
+src_cxx_State03_GameRoomList.obj
+src_cxx_State10_Loading.obj
+src_cxx_Panel.obj
+src_cxx_ValueGuard.obj
+# ConstructGameStates() (the C++ state-object construction path) has no
+# callers anywhere in src/ - InitGame.c's raw C path constructs
+# g_gameStateVTableArray directly and is what's actually exercised.
+# Dropping avoids pulling in every not-yet-fully-migrated CState*
+# class's unresolved virtuals transitively.
+src_cxx_GameStateMachine.obj
