@@ -10,6 +10,19 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
+/* CGameState's +0x8 (buffer,len replay-action handler) and +0xc
+ * (event-code,value) virtuals both take `this` via ECX (__fastcall) -
+ * orig 0x412ad5-0x412aec, 0x412dc8-0x412ddb, and 0x412be5-0x412c01
+ * all show `mov ecx, [.. *4+0x5b33f8]` (the state object) loaded well
+ * before `call [edx+0x8]`/`call [edx+0xc]` with no other load of ecx in
+ * between - ecx (this) is live across the intervening arg pushes,
+ * confirming __fastcall. The generic `code()` cast this file used for
+ * these calls dropped `this` entirely and pushed only the explicit
+ * args, leaving every callee reading garbage/null off its own object
+ * pointer. */
+typedef void (__fastcall *GameStateVirtualFn2)(void *thisPtr, void *buf, size_t len);
+typedef void (__fastcall *GameStateVirtualFn2i)(void *thisPtr, int a1, int a2);
+
 void PumpBattleActions(int param_1)
 
 {
@@ -42,7 +55,8 @@ void PumpBattleActions(int param_1)
     }
     ApplyBattleActionToContext(g_clientContext,local_400,local_40c);
     if ((int *)g_gameStateVTableArray[g_currentGameState] != (int *)0x0) {
-      (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 8))(local_400,local_40c);
+      (*(GameStateVirtualFn2 *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 8))
+                (g_gameStateVTableArray[g_currentGameState],local_400,local_40c);
     }
     cVar2 = FUN_004e7b60(&DAT_00e55ce0,local_400,&local_40c);
   }
@@ -74,7 +88,8 @@ LAB_00412baa:
   while (cVar2 != '\0') {
     ApplyBattleActionToContext(g_clientContext,local_400,local_40c);
     if ((int *)g_gameStateVTableArray[g_currentGameState] != (int *)0x0) {
-      (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 8))(local_400,local_40c);
+      (*(GameStateVirtualFn2 *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 8))
+                (g_gameStateVTableArray[g_currentGameState],local_400,local_40c);
     }
     cVar2 = FUN_004e80d0(&DAT_00e55ce0,local_400,&local_40c);
   }
@@ -119,14 +134,14 @@ LAB_00412cb3:
         *(undefined2 *)(iVar3 + 0x4d4) = 0x2000;
         *(undefined2 *)(iVar3 + 0x4d6) = 0xffff;
         *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 2;
-        SendOutgoingPacket();
+        SendOutgoingPacket(iVar3);
       }
       else {
         *(undefined2 *)(iVar3 + 0x4d4) = 0x4000;
         *(char *)(iVar3 + 0x4d6) = (char)iVar4;
         *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 1;
-        EncodePacketBody();
-        SendOutgoingPacket();
+        EncodePacketBody(0,iVar3);
+        SendOutgoingPacket(iVar3);
         QueueBroadcastEvent(0xf007);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (undefined1)iStack_404;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -135,7 +150,8 @@ LAB_00412cb3:
       }
     }
     if ((int *)g_gameStateVTableArray[g_currentGameState] != (int *)0x0) {
-      (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0xc))(iVar1,iVar4);
+      (*(GameStateVirtualFn2i *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0xc))
+                (g_gameStateVTableArray[g_currentGameState],iVar1,iVar4);
     }
   }
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9084);
