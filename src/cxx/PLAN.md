@@ -466,3 +466,36 @@ promoted method" case above.
 (`Build*Panel` factories etc.) - their raw C files are all still intact
 and working, nothing broken, just not yet deduplicated. Follow the same
 process above.
+
+## RTTI-based class recovery: not viable for this binary (2026-07-12)
+
+Tried Ghidra's built-in `RecoverClassesFromRTTIScript.java` (the
+`RTTIWindowsClassRecoverer`/`RTTIGccClassRecoverer` machinery under
+`Decompiler/ghidra_scripts/classrecovery/` - the modern, in-tree
+replacement for the archived, EOL, version-incompatible third-party
+`Ghidra-Cpp-Class-Analyzer` extension) against `GunBound.gme`, hoping it
+would auto-recover the `CWidget`/`CPanel`/`CLabel`/`CEditBox`/
+`CButtonWidget`/`CScrollBar` hierarchy from RTTI structures the way it
+already had `CMobile`/`CProjectile`/`CState01..11`/`CWin32Heap`.
+
+**Result: no-op.** The script's own console output: `"This program does
+not contain RTTI."` Ghidra's `RTTIAnalyzer` scanned the whole binary and
+found no RTTI type-info structures anywhere - not just for the widget
+classes, for *anything* game-specific. This VC++ 2003 (MSVC 7.1) build was
+compiled with RTTI disabled (`/GR-`, the common release-build default at
+the time, since the game code never uses `dynamic_cast`/`typeid`), so the
+compiler never emitted `type_info` descriptors or the vtable RTTI-offset
+column the recovery script depends on. The `type_info`/`exception`/
+`_com_error` classes that DO show up in the Symbol Tree are just imported
+ATL/CRT data-type definitions from Ghidra's archives, not evidence of
+real RTTI in the binary.
+
+**Conclusion**: there is no automated shortcut for class/vtable recovery
+on this target. The manual approach already used all session - read the
+vtable slot layout by hand from the disassembly, cross-reference call
+sites, byte-verify the reconstructed C++ against the original via
+`score.sh`/asm-differ - remains the only viable method. Don't re-attempt
+RTTI-based recovery (Ghidra's built-in script or any third-party
+extension, including the archived `Ghidra-Cpp-Class-Analyzer`) on this
+binary; it will always report "does not contain RTTI" since that's a
+property of how the original was compiled, not a tooling limitation.
