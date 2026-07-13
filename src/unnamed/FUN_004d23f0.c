@@ -1,21 +1,30 @@
 /* FUN_004d23f0 - 0x004d23f0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Resolves the local hostname's IP address list into a connection
+ * object's address array (gethostname + gethostbyname), used to populate
+ * the client's own address info for one of the 3 connection objects
+ * WinMain constructs at startup.
+ *
+ * FIXED (2026-07-13): `unaff_EDI` is a dropped register, not garbage -
+ * confirmed via objdump that it's used with no prior write (`mov
+ * [edi+4],esi` etc, no `mov edi,...` anywhere in the function body). All
+ * 3 call sites (src/entry/WinMain.c) set EDI to that connection's own
+ * object pointer (`DAT_005b2b58`/`DAT_005b2b5c`/`DAT_005b2b60`)
+ * immediately before the call - a genuinely varying per-call argument,
+ * not a fixed global. Promoted to an explicit parameter; all 3 callers
+ * updated.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004d23f0(void)
+void FUN_004d23f0(int *conn)
 
 {
   int iVar1;
   hostent *phVar2;
   char *pcVar3;
   int iVar4;
-  int *unaff_EDI;
+  int *unaff_EDI = conn;
   char local_80 [128];
   
   iVar4 = 0;

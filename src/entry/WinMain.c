@@ -141,7 +141,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     DAT_005b2b58 = FUN_004d2170(pvVar4,0,&DAT_00795070);
   }
   DAT_007934ec = DAT_005b2b58;
-  FUN_004d23f0();
+  FUN_004d23f0((int *)DAT_005b2b58);
   pvVar4 = operator_new(0x84f0);
   if (pvVar4 == (void *)0x0) {
     DAT_005b2b5c = 0;
@@ -150,7 +150,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     DAT_005b2b5c = FUN_004d2170(pvVar4,1,&DAT_00795070);
   }
   DAT_007934e8 = DAT_005b2b5c;
-  FUN_004d23f0();
+  FUN_004d23f0((int *)DAT_005b2b5c);
   pvVar4 = operator_new(0x84f0);
   if (pvVar4 == (void *)0x0) {
     DAT_005b2b60 = 0;
@@ -159,7 +159,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     DAT_005b2b60 = FUN_004d2170(pvVar4,2,&DAT_00795070);
   }
   DAT_007934f0 = DAT_005b2b60;
-  FUN_004d23f0();
+  FUN_004d23f0((int *)DAT_005b2b60);
   LoadClientSettingsFromRegistry();
   pvVar4 = operator_new(0x200c);
   if (pvVar4 == (void *)0x0) {
