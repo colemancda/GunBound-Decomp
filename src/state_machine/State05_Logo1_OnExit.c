@@ -21,19 +21,22 @@ void State05_Logo1_OnExit(void)
   undefined2 *puVar4;
   undefined4 *puVar5;
   int iVar6;
-  undefined4 uStack_2c;
-  undefined4 uStack_28;
-  undefined4 uStack_24;
-  undefined4 uStack_20;
-  undefined4 uStack_18;
-  undefined4 uStack_14;
-  undefined4 uStack_10;
-  undefined4 uStack_c;
-  undefined4 uStack_8;
-  /* BuildSystemInfoBlob's 2nd output (orig ESI, dropped) - NOT verified
-   * against this call site's original disassembly; added only to satisfy
-   * the now-2-parameter signature (see BuildSystemInfoBlob.c). Revisit if
-   * this code path is ever exercised. */
+  /* FIXED (2026-07-13): BOTH of BuildSystemInfoBlob's output blobs need to
+   * be real arrays, not groups of individually-declared uStack_XX locals
+   * written via pointer aliasing (`param_1[1] = ...`) - MSVC does not
+   * guarantee such locals land contiguously in memory (confirmed by its
+   * own C4700 "used without having been initialized" warnings on the very
+   * locals this function's read-back code depends on), so the compiler is
+   * free to place them anywhere, silently breaking the aliasing this raw
+   * port relied on. The 2nd blob was additionally routed through a
+   * completely SEPARATE, never-read-back local (systemInfoBlob2) while the
+   * read-back site referenced 5 different, never-written uStack_XX locals -
+   * a genuine uninitialized-stack-read bug: garbage was being copied into
+   * the outgoing packet and sent over the network via SendSocketData
+   * below. Fixed by making both blobs real 4-dword arrays that the
+   * BuildSystemInfoBlob call and the read-back code both reference
+   * consistently. */
+  undefined4 systemInfoBlob1[4];
   undefined4 systemInfoBlob2[6];
 
   puVar5 = *(undefined4 **)(DAT_00ea0e1c + 0x1c);
@@ -53,7 +56,7 @@ void State05_Logo1_OnExit(void)
   puVar5[3] = puVar5;
   puVar5[4] = puVar5;
 LAB_00443475:
-  BuildSystemInfoBlob(&uStack_2c, systemInfoBlob2);
+  BuildSystemInfoBlob(systemInfoBlob1, systemInfoBlob2);
   puVar4 = DAT_007934f4;
   if (DAT_007934f4 != (undefined2 *)0x0) {
     /* DAT_007934f4[1] in the original: rewritten through puVar4 (same
@@ -67,18 +70,18 @@ LAB_00443475:
     iVar6 = *(int *)(puVar4 + 0x1000);
     *(int *)(puVar4 + 0x1000) = iVar6 + 4;
     puVar5 = (undefined4 *)(iVar6 + 4 + (int)puVar4);
-    *puVar5 = uStack_2c;
-    puVar5[1] = uStack_28;
-    puVar5[2] = uStack_24;
-    puVar5[3] = uStack_20;
+    *puVar5 = systemInfoBlob1[0];
+    puVar5[1] = systemInfoBlob1[1];
+    puVar5[2] = systemInfoBlob1[2];
+    puVar5[3] = systemInfoBlob1[3];
     iVar6 = *(int *)(puVar4 + 0x1000);
     *(int *)(puVar4 + 0x1000) = iVar6 + 0x10;
     puVar5 = (undefined4 *)(iVar6 + 0x10 + (int)puVar4);
-    *puVar5 = uStack_18;
-    puVar5[1] = uStack_14;
-    puVar5[2] = uStack_10;
-    puVar5[3] = uStack_c;
-    puVar5[4] = uStack_8;
+    *puVar5 = systemInfoBlob2[0];
+    puVar5[1] = systemInfoBlob2[1];
+    puVar5[2] = systemInfoBlob2[2];
+    puVar5[3] = systemInfoBlob2[3];
+    puVar5[4] = systemInfoBlob2[4];
     iVar6 = *(int *)(puVar4 + 0x1000) + 0x14;
     *(int *)(puVar4 + 0x1000) = iVar6;
     *puVar4 = (short)iVar6;
