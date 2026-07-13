@@ -3,9 +3,9 @@
  * Music-track control: given a track name (passed in a register, invisible
  * to the C signature), compares it against the currently-playing track
  * (DAT_00793568) and returns early if unchanged, otherwise switches to it
- * via the sound object's vtable+0xc. Called from most screens' OnEnter
- * (title.mp3, channel.mp3, logo.mp3, stage%d.mp3). See ARCHITECTURE.md
- * audio section.
+ * via the sound channel object's vtable+0xc ("stop current") and
+ * vtable+0x8 ("start new"). Called from most screens' OnEnter (title.mp3,
+ * channel.mp3, logo.mp3, stage%d.mp3). See ARCHITECTURE.md audio section.
  *
  * unaff_EDI (the track name) arrives via a dropped EDI register - orig
  * 0x44329a (State06_Logo2_OnEnter's call site): `mov edi, 0x555570` ->
@@ -13,12 +13,26 @@
  * decompiled body but still a real stack argument affecting caller-side
  * cleanup) - promoted both to explicit parameters.
  *
+ * Both vtable calls were also CALLING-CONVENTION CAST MISMATCHES (raw
+ * `code**` cdecl cast on what's actually a __fastcall(this) callee) -
+ * confirmed by disassembling 0x4eea9e-0x4eead2:
+ *   +0xc slot: `mov ecx,[*DAT_00793554]; mov edx,[ecx]; call [edx+0xc]`
+ *     with NO stack push at all - __fastcall(this) taking zero other
+ *     args, same vtable slot/shape as InitGame.c's ChannelVtableFn.
+ *   +0x8 slot: `mov ecx,[*DAT_00793554]; ...; push param_1; push edi;
+ *     push 0x0; call [edx+8]` - __fastcall(this) plus 3 cdecl-style
+ *     stack args (0, track-name pointer, param_1), this in ECX. The old
+ *     code passed the this pointer nowhere and only pushed a literal 0,
+ *     silently dropping both the updated track-name pointer and param_1.
+ *
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
+typedef void (__fastcall *ChannelStopFn)(void *thisPtr);
+typedef uint (__fastcall *ChannelStartFn)(void *thisPtr, int a1, byte *trackName, int a2);
 
 uint PlayMusicTrack(undefined4 param_1, byte *unaff_EDI)
 
@@ -31,7 +45,6 @@ uint PlayMusicTrack(undefined4 param_1, byte *unaff_EDI)
   uint uVar5;
   byte *pbVar6;
   bool bVar7;
-  (void)param_1;
 
   if ((unaff_EDI != (byte *)0x0) &&
      (in_EAX = CONCAT31((int3)(in_EAX >> 8),DAT_0079354a), DAT_0079354a != '\0')) {
@@ -64,14 +77,16 @@ LAB_004eea94:
       if (iVar4 == 0) {
         return 1;
       }
-      (**(code **)(*(int *)*DAT_00793554 + 0xc))((int)pbVar2 - (int)(unaff_EDI + 1));
+      (*(ChannelStopFn *)(*(int *)*DAT_00793554 + 0xc))(*DAT_00793554);
       iVar4 = (int)&DAT_00793568 - (int)unaff_EDI;
+      pbVar3 = unaff_EDI;
       do {
-        bVar1 = *unaff_EDI;
-        unaff_EDI[iVar4] = bVar1;
-        unaff_EDI = unaff_EDI + 1;
+        bVar1 = *pbVar3;
+        pbVar3[iVar4] = bVar1;
+        pbVar3 = pbVar3 + 1;
       } while (bVar1 != 0);
-      uVar5 = (**(code **)(*(int *)*DAT_00793554 + 8))(0);
+      uVar5 = (*(ChannelStartFn *)(*(int *)*DAT_00793554 + 8))
+                        (*DAT_00793554, 0, unaff_EDI, (int)param_1);
       return uVar5;
     }
   }
