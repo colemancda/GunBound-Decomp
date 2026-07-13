@@ -49,31 +49,38 @@
  *    above, not a structural-shape problem. SEH also stripped, same
  *    tradeoff as the destructor.
  *
- * KNOWN BUG (2026-07-12, found while attempting SimulateProjectileFrame,
- * not yet fixed here): `iStack_ab0` in DetonateProjectile below is read
- * (guarding two `ScrambleChecksumGuardBytes`/`TreeLowerBound` calls)
- * before it's ever written - a genuine uninitialized read, faithfully
- * carried over from the raw C port's own identical shape. Root cause
- * found via a fresh Ghidra decompile of SimulateProjectileFrame: its
- * local stack layout shows the SAME `<20-byte encode buffer>` followed
- * immediately by a `<4-byte int>` pattern repeated for every guard-cell
- * call (e.g. `local_1574[20]` then `local_1560` at offset 0x1574-0x14),
- * exactly matching CValueGuard's own shape (20 bytes of unk00/enc0-3,
- * then a 4-byte tableHandle) - strongly suggesting EncodeChecksumDeltaShr/
- * EncodeChecksumPairDiff/etc. actually write a full 24-byte encoded cell
- * into `out`, not just the 20 bytes this file assumes, with the trailing
- * 4 bytes being the "did this get a live handle" flag these guard checks
- * read. NOT fixed here: confirming this requires disassembling
- * EncodeChecksumDeltaShr itself to verify it really writes those trailing
- * 4 bytes, which wasn't done. If confirmed, the fix is to size these
- * `out` buffers 24 bytes and read the trailer instead of a disconnected
- * local (auStack_ac4[20]+iStack_ab0 here; the same shape recurs in any
- * future SimulateProjectileFrame port attempt). */
+ * FIXED (2026-07-13): the `iStack_ab0` uninitialized-read bug noted below
+ * is now resolved. Root cause CONFIRMED (not just suspected) by reading
+ * src/network/EncodeChecksumDeltaShr.c and its siblings' own raw C: each
+ * writes `*(byte*)(out+0x220) = 0; *(u32*)(out+0x14) = 0;` into its own
+ * `out` parameter - exactly CValueGuard's `activeFlag` (+0x220) and
+ * `tableHandle` (+0x14) offsets. So `out` is a full 0x224-byte
+ * `CValueGuard`-shaped LOCAL scratch cell, not a 20-byte buffer - and
+ * Ghidra's `iStack_ab0`/`uStack_8a4` (etc.) locals this file used to
+ * declare separately are just that same local's `.tableHandle`/
+ * `.activeFlag` fields, split off because only those sub-fields get read
+ * back later. Confirmed identically across EncodeChecksumDeltaShr,
+ * EncodeChecksumPairDiff, EncodeChecksumDeltaAdd, EncodeChecksumPairSum,
+ * EncodeChecksumNegate - all five raw C files show the same two writes.
+ * Fix applied below: `auStack_ac4`/`auStack_8a0` are now real
+ * `CValueGuard` locals (matching `auStack_67c`/`auStack_458`/
+ * `auStack_234`, which were ALREADY correctly declared as 548 = 0x224
+ * bytes by Ghidra) instead of undersized byte arrays + disconnected
+ * trailer locals - the guard checks now read `.tableHandle` off the
+ * SAME object the Encode* call already wrote into, no longer
+ * uninitialized. This also unblocks a future SimulateProjectileFrame
+ * retry (previously abandoned over this exact ambiguity, see git log).
+ * score.sh after this fix: 156085/129800 - essentially unchanged from
+ * 155950/129800 before, as expected: this was a correctness fix (real
+ * UB removed), not a byte-match fix - the score gap is still dominated
+ * by the ~45 unresolved cell-target calls and stripped SEH documented
+ * above, unrelated to this bug. */
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include <windows.h>
 #include "Projectile.h"
+#include "ValueGuard.h"
 
 extern "C" {
 void ScrambleChecksumGuardBytes(void);
@@ -278,16 +285,13 @@ void CProjectile::DetonateProjectile()
     void *punk = 0;
     unsigned int *apuStack_ad0[2];
     void *puStack_af4;
-    unsigned char auStack_ac4[20], auStack_8a0[20];
-    int iStack_ab0;
-    unsigned char auStack_67c[548], auStack_458[548], auStack_234[548];
-    unsigned char uStack_8a4, uStack_680;
-    unsigned int uStack_88c;
+    CValueGuard auStack_ac4, auStack_8a0;
+    CValueGuard auStack_67c, auStack_458, auStack_234;
     unsigned int local_ae8;
     unsigned int uStack_adc, uVar21, uVar22, uVar23, uVar24;
     void *local_ad4;
     CProjectile *pCStack_ac8, *pCStack_ad8;
-    unsigned char *puVar15;
+    CValueGuard *puVar15;
 
     EnterCriticalSection(&DAT_005a9068);
     iVar5 = PeekPacketChecksumState();
@@ -308,23 +312,23 @@ void CProjectile::DetonateProjectile()
     SimulateFrame(0);
     cVar4 = PeekPacketChecksumBool();
     if (cVar4 == '\0') {
-        EncodeChecksumDeltaShr(self->m_pad3d + 3, auStack_ac4, 8);
+        EncodeChecksumDeltaShr(self->m_pad3d + 3, &auStack_ac4, 8);
         EnterCriticalSection(&DAT_005a9068);
         uVar8 = PeekPacketChecksumState();
         EncodeOutgoingPacketField(uVar8);
         LeaveCriticalSection(&DAT_005a9068);
-        if (iStack_ab0 != 0) {
+        if (auStack_ac4.tableHandle != 0) {
             ScrambleChecksumGuardBytes();
             TreeLowerBound(apuStack_ad0);
             self = pCStack_ad8;
         }
-        EncodeChecksumDeltaShr(self->m_pad3d + 0x227, auStack_ac4, 8);
+        EncodeChecksumDeltaShr(self->m_pad3d + 0x227, &auStack_ac4, 8);
         EnterCriticalSection(&DAT_005a9068);
         uVar8 = PeekPacketChecksumState();
         EncodeOutgoingPacketField(uVar8);
         LeaveCriticalSection(&DAT_005a9068);
         pCVar9 = self;
-        if (iStack_ab0 != 0) {
+        if (auStack_ac4.tableHandle != 0) {
             ScrambleChecksumGuardBytes();
             TreeLowerBound(apuStack_ad0);
             pCVar9 = pCStack_ad8;
@@ -343,17 +347,17 @@ void CProjectile::DetonateProjectile()
                 QueueOutgoingPacketField(uVar8);
             }
             uVar8 = EncodeChecksumDeltaDiv(*reinterpret_cast<int *>(pCVar9->m_pad3d + 0xf0b) + 0x25c,
-                                            auStack_67c, 4);
+                                            &auStack_67c, 4);
             uVar8 = EncodeChecksumPairDiff(*reinterpret_cast<int *>(pCVar9->m_pad3d + 0xf0b) + 0x38,
-                                            auStack_458, uVar8);
+                                            &auStack_458, uVar8);
             bVar2 = false;
             bVar20 = false;
             cVar4 = CompareChecksumPair(pCVar9->m_pad3d + 0xf17, uVar8);
             if (cVar4 == '\0') {
                 uVar8 = EncodeChecksumDeltaDiv(*reinterpret_cast<int *>(pCVar9->m_pad3d + 0xf0b) + 0x25c,
-                                                auStack_8a0, 4);
+                                                &auStack_8a0, 4);
                 uVar8 = EncodeChecksumPairSum(*reinterpret_cast<int *>(pCVar9->m_pad3d + 0xf0b) + 0x38,
-                                               auStack_ac4, uVar8);
+                                               &auStack_ac4, uVar8);
                 bVar2 = true;
                 bVar20 = true;
                 cVar4 = CompareChecksumPair(reinterpret_cast<void *>(uVar8), *reinterpret_cast<unsigned int *>(pCVar9->m_pad3d + 0xf17));
@@ -361,17 +365,17 @@ void CProjectile::DetonateProjectile()
             } else {
                 bVar3 = true;
             }
-            if (bVar20) ScrubChecksumGuard(auStack_ac4);
-            if (bVar2) ScrubChecksumGuard(auStack_8a0);
-            ScrubChecksumGuard(auStack_458);
-            ScrubChecksumGuard(auStack_67c);
+            if (bVar20) ScrubChecksumGuard(&auStack_ac4);
+            if (bVar2) ScrubChecksumGuard(&auStack_8a0);
+            ScrubChecksumGuard(&auStack_458);
+            ScrubChecksumGuard(&auStack_67c);
             if (bVar3) {
                 iVar5 = *reinterpret_cast<int *>(pCVar9->m_pad3d + 0xf13) + 1;
                 *reinterpret_cast<int *>(pCVar9->m_pad3d + 0xf13) = iVar5;
                 if (iVar5 < 3) {
-                    uVar8 = EncodeChecksumNegate(pCVar9->m_pad3d + 0x44b, auStack_234);
+                    uVar8 = EncodeChecksumNegate(pCVar9->m_pad3d + 0x44b, &auStack_234);
                     EncodeChecksumState(uVar8);
-                    ScrubChecksumGuard(auStack_234);
+                    ScrubChecksumGuard(&auStack_234);
                 } else {
                     SetGuardedBool(0);
                 }
@@ -563,13 +567,13 @@ void CProjectile::DetonateProjectile()
             apuStack_ad0[0] = reinterpret_cast<unsigned int *>(&DAT_006a7f74 + iVar5);
             cVar4 = PeekPacketChecksumBool();
             if (cVar4 == '\0') {
-                uStack_680 = 0;
-                uStack_88c = 0;
+                auStack_8a0.activeFlag = 0;
+                auStack_8a0.tableHandle = 0;
                 EncodeOutgoingPacketField(0);
-                uStack_8a4 = 0;
-                iStack_ab0 = 0;
+                auStack_ac4.activeFlag = 0;
+                auStack_ac4.tableHandle = 0;
                 EncodeOutgoingPacketField(0);
-                SyncOutgoingChecksumField((int)pCStack_ac8->m_pad0c + 4, auStack_ac4);
+                SyncOutgoingChecksumField((int)pCStack_ac8->m_pad0c + 4, &auStack_ac4);
                 EnterCriticalSection(&DAT_005a9068);
                 PeekPacketChecksumState();
                 LeaveCriticalSection(&DAT_005a9068);
@@ -583,32 +587,32 @@ void CProjectile::DetonateProjectile()
                 uVar24 = 0;
                 PeekPacketChecksumBool_5(uVar8, 0, 100, 0xff, iVar5, 0);
                 FUN_00432320(self->m_flags, 1, 1, uVar8, uVar21, uVar23, uVar22, iVar5, uVar24);
-                ScrubChecksumGuard(auStack_ac4);
-                puVar15 = auStack_8a0;
+                ScrubChecksumGuard(&auStack_ac4);
+                puVar15 = &auStack_8a0;
                 goto LAB_0045793d;
             } else {
                 cVar4 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext, &uStack_adc, &local_ad4, 2, 1, 1);
                 if (cVar4 != '\0') {
-                    uStack_8a4 = 0;
-                    iStack_ab0 = 0;
+                    auStack_ac4.activeFlag = 0;
+                    auStack_ac4.tableHandle = 0;
                     EncodeOutgoingPacketField(0);
-                    uStack_680 = 0;
-                    uStack_88c = 0;
+                    auStack_8a0.activeFlag = 0;
+                    auStack_8a0.tableHandle = 0;
                     EncodeOutgoingPacketField(0);
                     QueueOutgoingPacketField(uStack_adc);
                     QueueOutgoingPacketField(reinterpret_cast<unsigned int>(local_ad4));
-                    SyncOutgoingChecksumField((int)pCStack_ac8->m_pad0c + 4, auStack_8a0);
+                    SyncOutgoingChecksumField((int)pCStack_ac8->m_pad0c + 4, &auStack_8a0);
                     iVar5 = self->m_field3f94;
                     uVar21 = 0;
                     uVar22 = 0xff;
                     uVar23 = 100;
                     uVar24 = 0;
-                    PeekChecksumStateUnderLock(auStack_8a0);
-                    uVar8 = PeekChecksumStateUnderLock(auStack_ac4);
+                    PeekChecksumStateUnderLock(&auStack_8a0);
+                    uVar8 = PeekChecksumStateUnderLock(&auStack_ac4);
                     PeekPacketChecksumBool_5(uVar8, uVar21, uVar23, uVar22, iVar5, uVar24);
                     FUN_00432320(self->m_flags, 1, 1, uVar8, uVar21, uVar23, uVar22, iVar5, uVar24);
-                    ScrubChecksumGuard(auStack_8a0);
-                    puVar15 = auStack_ac4;
+                    ScrubChecksumGuard(&auStack_8a0);
+                    puVar15 = &auStack_ac4;
                 LAB_0045793d:
                     ScrubChecksumGuard(puVar15);
                     goto LAB_00457940;

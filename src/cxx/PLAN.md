@@ -467,6 +467,26 @@ promoted method" case above.
 and working, nothing broken, just not yet deduplicated. Follow the same
 process above.
 
+## Checksum-guard "Encode" family: `out` param is a full CValueGuard cell (2026-07-13)
+
+Resolved a real ambiguity that stopped `CProjectile::SimulateProjectileFrame`
+mid-port and left a latent UB bug in the already-committed
+`CProjectile::DetonateProjectile` (see `src/cxx/Projectile.cpp`'s own
+header comment for the full writeup). Short version: `EncodeChecksumDeltaShr`/
+`EncodeChecksumPairDiff`/`EncodeChecksumDeltaAdd`/`EncodeChecksumPairSum`/
+`EncodeChecksumNegate` (`src/network/EncodeChecksum*.c`) all write
+`*(byte*)(out+0x220)=0; *(u32*)(out+0x14)=0;` into their `out` parameter -
+exactly `CValueGuard`'s `activeFlag`/`tableHandle` offsets. So every `out`
+in this family is a full 0x224-byte `CValueGuard`-shaped LOCAL scratch
+cell, not a small buffer - and wherever a caller's decompile shows a
+small `<N-byte buffer>` local immediately followed by a separately-named
+int/byte local, that's Ghidra splitting the SAME `CValueGuard` local into
+pieces because only some of its fields get read back. Fixed in
+`DetonateProjectile`; unblocks a `SimulateProjectileFrame` retry and
+likely applies to `CMobile`'s guard-cell-heavy methods and State07/09/11
+too (all noted as blocked on this exact question - see the "any code we
+can promote to C++" survey, 2026-07-13).
+
 ## RTTI-based class recovery: not viable for this binary (2026-07-12)
 
 Tried Ghidra's built-in `RecoverClassesFromRTTIScript.java` (the
