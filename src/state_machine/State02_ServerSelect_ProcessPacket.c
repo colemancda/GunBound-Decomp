@@ -12,6 +12,21 @@
 #include <windows.h>
 
 
+/* This function's five `(**(code **)(*piVar10 + 4))(s_active_00551e58 /
+ * s_ready_00551e80)` calls target a widget virtual (mode-name setter) whose
+ * `this` lives in ECX across the whole lookup chain, never reloaded or
+ * pushed before the call - confirmed at the original 0x4e0cf7-0x4e0d0a
+ * (`mov edx,[ecx]` / `push 0x551e58` / `call [edx+4]`, and the s_ready_...
+ * sibling right after) via:
+ *   objdump -d -Mintel --start-address=0x4e0cc1 --stop-address=0x4e0d10 \
+ *     orig/GunBound.gme
+ * The generic `code()` cast this file used defaults to __cdecl, which would
+ * push `this` on the stack instead of leaving it in ECX - silently
+ * corrupting the call. Matches the GameStateVirtualFn idiom in
+ * src/entry/ChangeGameState.c/GameTick.c, extended with the one stack arg
+ * this vtable slot actually takes. */
+typedef void (__fastcall *WidgetSetModeNameFn)(void *thisPtr, const char *modeName);
+
 /* WARNING: Removing unreachable block (ram,0x004e0fc9) */
 /* WARNING: Removing unreachable block (ram,0x004e08de) */
 /* WARNING: Removing unreachable block (ram,0x004e08e8) */
@@ -191,7 +206,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
         }
         else {
           *(uint *)((int)pvStack_e4 + 8) = uVar6;
-          ConnectToSelectedServer(pvStack_e4);
+          ConnectToSelectedServer(pvStack_e4,uVar6);
         }
       }
       DAT_0056d118 = 0xffffffff;
@@ -199,10 +214,10 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           (piVar10 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar10[2] == 0)) &&
          ((piVar10[9] == 3 || (piVar10[9] == -1)))) {
         if ((char)piVar10[0x13] == '\x01') {
-          (**(code **)(*piVar10 + 4))(s_active_00551e58);
+          (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_active_00551e58);
         }
         else {
-          (**(code **)(*piVar10 + 4))(s_ready_00551e80);
+          (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_ready_00551e80);
         }
       }
       if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
@@ -212,10 +227,10 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           if (uVar6 == 1) {
             if ((piVar10[9] == 3) || (piVar10[9] == -1)) {
               if ((char)piVar10[0x13] == '\x01') {
-                (**(code **)(*piVar10 + 4))(s_active_00551e58);
+                (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_active_00551e58);
               }
               else {
-                (**(code **)(*piVar10 + 4))(s_ready_00551e80);
+                (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_ready_00551e80);
               }
             }
             break;
@@ -279,10 +294,10 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           (piVar10 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar10[2] == 0)) &&
          ((piVar10[9] == 3 || (piVar10[9] == -1)))) {
         if ((char)piVar10[0x13] == '\x01') {
-          (**(code **)(*piVar10 + 4))(s_active_00551e58);
+          (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_active_00551e58);
         }
         else {
-          (**(code **)(*piVar10 + 4))(s_ready_00551e80);
+          (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_ready_00551e80);
         }
       }
       iVar20 = *(int *)(DAT_00e9be94 + 0x1c);
@@ -320,7 +335,10 @@ LAB_004e0d7f:
     iVar20 = DAT_007934ec;
     *(undefined2 *)(DAT_007934ec + 0x4d4) = 0x1010;
     *(undefined4 *)(iVar20 + 0x44d0) = 6;
-    AppendEncodedBlock(auStack_a0,&uStack_c0);
+    /* AppendEncodedBlock's unaff_EBX (2nd param) is DAT_007934ec here -
+     * confirmed at orig 0x4e09cd (`mov ebx, ds:0x7934ec` right before this
+     * call). See src/network/AppendEncodedBlock.c's header comment. */
+    AppendEncodedBlock(auStack_a0,&uStack_c0,DAT_007934ec);
     iVar20 = DAT_007934ec;
     puVar21 = (undefined4 *)(*(int *)(DAT_007934ec + 0x44d0) + 0x4d0 + DAT_007934ec);
     *puVar21 = uStack_c0;
@@ -348,8 +366,8 @@ LAB_004e0d7f:
     *(undefined2 *)(*(int *)(DAT_007934ec + 0x44d0) + 0x4d0 + DAT_007934ec) =
          SUBFIELD(sStack_d0.sa_data,0,undefined2);
     *(int *)(iVar20 + 0x44d0) = *(int *)(iVar20 + 0x44d0) + 2;
-    EncodePacketBody();
-    SendOutgoingPacket();
+    EncodePacketBody(0,iVar20);
+    SendOutgoingPacket(iVar20);
     return;
   }
   if (opcode != 0x1012) {
@@ -378,10 +396,10 @@ LAB_004e0d7f:
         (piVar10 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar10[2] == 0)) &&
        ((piVar10[9] == 3 || (piVar10[9] == -1)))) {
       if ((char)piVar10[0x13] == '\x01') {
-        (**(code **)(*piVar10 + 4))(s_active_00551e58);
+        (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_active_00551e58);
       }
       else {
-        (**(code **)(*piVar10 + 4))(s_ready_00551e80);
+        (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_ready_00551e80);
       }
     }
     if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
@@ -391,10 +409,10 @@ LAB_004e0d7f:
         if (uVar6 == 1) {
           if ((piVar10[9] == 3) || (piVar10[9] == -1)) {
             if ((char)piVar10[0x13] == '\x01') {
-              (**(code **)(*piVar10 + 4))(s_active_00551e58);
+              (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_active_00551e58);
             }
             else {
-              (**(code **)(*piVar10 + 4))(s_ready_00551e80);
+              (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_ready_00551e80);
             }
           }
           break;
@@ -564,11 +582,11 @@ LAB_004e0d3c:
     if (uVar6 == 1) {
       if ((piVar10[9] != 3) && (piVar10[9] != -1)) goto LAB_004e0d7f;
       if ((char)piVar10[0x13] == '\x01') {
-        (**(code **)(*piVar10 + 4))(s_active_00551e58);
+        (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_active_00551e58);
         iVar20 = *(int *)((int)this + 8);
         goto LAB_004e1121;
       }
-      (**(code **)(*piVar10 + 4))(s_ready_00551e80);
+      (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_ready_00551e80);
       goto LAB_004e0d7f;
     }
   }
