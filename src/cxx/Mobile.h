@@ -43,6 +43,18 @@
  *     3  0x5566a0   7  0x5561ec  11  0x556640   15  0x555d54
  *   default (out-of-range) -> type 0's vtable (0x555af8).
  *
+ * Per-type slot-7 MainAction function addresses (dumped from each vtable+0x1c,
+ * 2026-07; all 16 named Mobile00..15_MainAction in Ghidra):
+ *     0  0x44e920   4  0x489580   8  0x466890   12  0x471fd0
+ *     1  0x488ac0   5  0x4542a0   9  0x47f2d0   13  0x46d070
+ *     2  0x48d1f0   6  0x49c120  10  0x475e40   14  0x47ab90
+ *     3  0x4b31f0   7  0x484ff0  11  0x4aed30   15  0x466fd0
+ * They are all the same weapon-fire dispatcher shape (switch on animEvent,
+ * spawn primary/item/super shot at the fire frame); they differ in the
+ * per-weapon guard-cell offsets, the subType gate, and whether a frame fires
+ * one shot or several (e.g. type 1's case 6 is a double-shot). Only type 0 is
+ * reconstructed in C++ so far (Mobile00_MainAction below).
+ *
  * The 16 subclasses carry NO extra data members (all 0xd1d4 bytes, identical
  * layout); they exist purely to swap the vtable, so they are represented here
  * by this table rather than 16 redundant empty subclass declarations. */
