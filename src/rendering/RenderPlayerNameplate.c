@@ -53,10 +53,19 @@ void RenderPlayerNameplate(int param_1)
 LAB_004dbb40:
   if (iVar3 < (int)(uint)*(byte *)(iVar4 + 0x45124)) {
     if (*(char *)(iVar4 + 0x45914 + param_1) == '\0') {
-      DrawSprite();
+      /* DrawSprite's arg was dropped as `in_EAX` - objdump at this call
+       * site (0x4dbb6a) shows EAX = ((int)(signed char)raw byte at
+       * [in_EAX + param_1 + 0x4a0] > 3) + 1, i.e. the same raw byte
+       * read into `iVar5` above (line 24) before it's overwritten by
+       * the local_c0[] lookups - reusing `in_EAX`/`param_1` as they
+       * already appear in this file rather than inventing new names. */
+      DrawSprite((*(char *)(in_EAX + 0x4a0 + param_1) > 3) + 1);
       return;
     }
-    DrawSprite();
+    /* DrawSprite's arg was dropped as `in_EAX` - objdump at this call
+     * site (0x4dbb87) shows EAX = (byte)*(byte *)(iVar4 + 0x4590c +
+     * param_1) + 1. */
+    DrawSprite((int)(uint)(byte)*(char *)(iVar4 + 0x4590c + param_1) + 1);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -66,24 +75,39 @@ LAB_004dbb40:
           BlitSprite16bpp(iVar2 + 99,iVar5 + 0x20);
         }
         else {
-          BlitSpriteClipped(7);
+          /* BlitSpriteClipped's x/y args were dropped (ECX/EAX) - this
+           * site's own disassembly (0x4dbc00) shows the same x/y pair
+           * passed to the BlitSprite16bpp() sibling call just above:
+           * ECX=iVar2+99, EAX=iVar5+0x20. See BlitSpriteClipped.c's
+           * header comment for the full recovery. */
+          BlitSpriteClipped(7,iVar2 + 99,iVar5 + 0x20);
         }
       }
     }
-    DrawSprite();
+    /* DrawSprite's arg was dropped as `in_EAX` - objdump at this call
+     * site (0x4dbc28) shows EAX = (ushort)*(ushort *)(g_clientContext +
+     * param_1*2 + 0x4591c) (freshly reloads g_clientContext here rather
+     * than reusing `iVar4`, which may have been clobbered by the
+     * FindSpriteFrame() call just above). */
+    DrawSprite((int)(uint)*(ushort *)(g_clientContext + param_1 * 2 + 0x4591c));
     pcVar1 = (char *)(g_clientContext + param_1 * 9 + 0x457a9);
     if (*pcVar1 != '\0') {
       _sprintf(local_80,s__s__3d__3d__005536b8,pcVar1,
                *(undefined4 *)(g_clientContext + 0x4597c + param_1 * 4),
                *(undefined4 *)(g_clientContext + 0x4599c + param_1 * 4));
-      BlitRLESprite(iVar5 + 0x13,0xf800);
+      BlitRLESprite(0,iVar5 + 0x13,0xf800,(byte *)0);
     }
     iVar4 = g_clientContext;
-    BlitRLESprite(iVar5 + 0x21,0);
+    BlitRLESprite(0,iVar5 + 0x21,0,(byte *)0);
     if ((g_bBattleSessionActive == '\0') && (*(char *)(iVar4 + 0x45914 + param_1) == '\x04')) {
       if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
         if (*(char *)(iVar4 + 0x18) != '\x01') {
-          BlitSpriteClipped(6);
+          /* BlitSpriteClipped's x/y args were dropped (ECX/EAX) - this
+           * site's own disassembly (0x4dbd10) shows ECX=iVar2+0x69,
+           * EAX=iVar5-0x1e, the same pair passed to the BlitSprite16bpp()
+           * sibling call a few lines below. See BlitSpriteClipped.c's
+           * header comment for the full recovery. */
+          BlitSpriteClipped(6,iVar2 + 0x69,iVar5 + -0x1e);
           return;
         }
         BlitSprite16bpp(iVar2 + 0x69,iVar5 + -0x1e);
@@ -91,7 +115,13 @@ LAB_004dbb40:
       }
     }
     else {
-      DrawSprite();
+      /* DrawSprite's arg is dropped here too (`in_EAX`), but left
+       * unfixed: objdump at this call site (0x4dbd39) shows the two
+       * paths reaching it use *different* struct fields (+0x449ba vs
+       * +0x45914) than the single combined `if` condition above - this
+       * `if`/`else` needs its own control-flow fix first. See
+       * DrawSprite.c's header comment. */
+      DrawSprite(0);
     }
   }
   return;
