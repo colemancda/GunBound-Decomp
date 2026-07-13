@@ -575,6 +575,7 @@ uint32_t DAT_00e53c44;
 uint32_t DAT_00e53c48;
 uint8_t DAT_00e53e88;
 uint8_t DAT_00e55a45;
+uint8_t DAT_00e55a46;
 int *DAT_00e55a64;
 uint8_t DAT_00e55ab8;
 uint8_t DAT_00e55ce0;
@@ -1225,12 +1226,10 @@ void *vtable_State02_ServerSelect[32] = {
   (void *)NoOpMethod, /* dtor: shared 0x4e5320, not yet ported */
   (void *)State02_ServerSelect_ProcessPacket,
   (void *)CGameState_NoOpVirtual_B,
-  (void *)NoOpMethod, /* slot 3: 0x4e1200, not yet ported */
+  (void *)FUN_004e1200, /* slot 3: 0x4e1200 - top-button click dispatcher */
   (void *)CGameState_NoOpVirtual_B,
-  (void *)NoOpMethod, /* slot 5: 0x4e1170, not yet ported */
-  (void *)NoOpMethod, /* slot 6 mouse dispatch: 0x4e1430 - the "missing
-                        * bridge" function flagged during the WinMain-to-
-                        * ServerSelect path trace; not yet ported */
+  (void *)FUN_004e1170, /* slot 5: 0x4e1170 - click/action handler (server connect) */
+  (void *)FUN_004e1430, /* slot 6 keydown: 0x4e1430 - Enter = connect */
   (void *)State02_ServerSelect_OnEnter, (void *)State02_ServerSelect_OnExit,
   (void *)State02_ServerSelect_OnTick,
 };

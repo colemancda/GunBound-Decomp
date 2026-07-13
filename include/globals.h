@@ -718,6 +718,7 @@ extern uint32_t DAT_00e53c44;
 extern uint32_t DAT_00e53c48;
 extern uint8_t DAT_00e53e88;
 extern uint8_t DAT_00e55a45;
+extern uint8_t DAT_00e55a46;
 extern int *DAT_00e55a64; /* used dereferenced as a vtable-bearing ptr at call sites */
 extern uint8_t DAT_00e55ab8;
 extern uint8_t DAT_00e55ce0;

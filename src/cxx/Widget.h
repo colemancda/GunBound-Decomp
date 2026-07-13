@@ -169,6 +169,7 @@ public:
         m_typeId = 4;
     }
 
+    virtual bool OnMouseMove(int x, int y);  /* 0x50f460 - promoted, ScrollBar.cpp */
     virtual bool OnMouseDown(int x, int y);  /* 0x50f500 - promoted, ScrollBar.cpp */
     virtual bool OnMouseUp(int x, int y);    /* 0x50f5f0 - promoted, ScrollBar.cpp */
     virtual void OnCommand(int evt, int id, int arg); /* 0x50f7c0 - promoted, ScrollBar.cpp: the +/-1

@@ -92,6 +92,9 @@ void State01_Title_OnExit();
 void __fastcall State02_ServerSelect_OnEnter(int);
 void State02_ServerSelect_OnExit();
 void __thiscall State02_ServerSelect_ProcessPacket(void *,int,unsigned short,short *);
+void __thiscall FUN_004e1200(int,int);          /* State02 vtable slot 3 */
+void __thiscall FUN_004e1170(int,int,undefined4,int); /* State02 vtable slot 5 */
+void __thiscall FUN_004e1430(int,int,int);       /* State02 vtable slot 6 */
 void __fastcall State03_GameRoomList_OnEnter();
 void State03_GameRoomList_OnExit();
 void __fastcall State03_GameRoomList_RenderRoomLabel();
@@ -1629,7 +1632,7 @@ undefined1 __thiscall FUN_0050f260();
 void __fastcall FUN_0050f290();
 undefined4 PanelManager_PrependNode();
 void PanelManager_GrowNodePool();
-uint FUN_0050f3f0();
+uint FUN_0050f3f0(int,int);
 void __fastcall FUN_0050f840();
 undefined8 FUN_0050f890(); /* 64-bit result used from EDX:EAX at call sites */
 undefined8 DecodeMpegLayerIISamples();

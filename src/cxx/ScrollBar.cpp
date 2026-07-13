@@ -201,6 +201,34 @@ void CScrollBar::OnCommand(int evt, int id, int arg)
     }
 }
 
+extern "C" unsigned int FUN_0050f3f0(int thisPtr, int grabAdjustedY);
+
+/* 0x50f460, vtable slot 1. Record the position, then: if still dragging
+ * the thumb, feed (m_grabOffset + y) into the drag-position solver
+ * (FUN_0050f3f0 - see that file's own header for the register-drop fix
+ * this relies on) and, if the resulting scroll position changed,
+ * broadcast cmd 0x2000 to the parent. Reports consumption via the
+ * bounds test OR the children's own consumption, same shape as the
+ * other handlers. */
+bool CScrollBar::OnMouseMove(int x, int y)
+{
+    m_lastX = x;
+    m_lastY = y;
+    bool inside = !m_hidden &&
+                  m_x < x && x < m_x + m_width &&
+                  m_y < y && y < m_y + m_height;
+    if (m_dragging) {
+        unsigned int newPos = FUN_0050f3f0((int)this, m_grabOffset + y);
+        if (newPos != (unsigned int)m_scrollPos) {
+            m_scrollPos = (int)newPos;
+            if (m_parent != 0) {
+                m_parent->OnCommand(0x2000, m_id, (int)newPos);
+            }
+        }
+    }
+    return MouseMoveChildren(x, y) || inside;
+}
+
 /* 0x50f500, vtable slot 2. Record the click, then decide between the
  * two press modes: a hit on the thumb itself arms dragging (+grab
  * offset so the thumb doesn't jump under the cursor); any other press
