@@ -9,6 +9,22 @@
  * 0x429800), and slot 7 (base MainAction = the no-op 0x4fdef0 every
  * subclass overrides).
  *
+ * The base destructor (slot 0 body, 0x45a560) is DELIBERATELY not promoted
+ * here. It's 89 near-identical unrolled guard-cell scrubs (`if
+ * (this[idx] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(); }`)
+ * plus two things that cannot be faithfully reproduced from C++ source:
+ * (1) an `_eh_vector_destructor_iterator_(this+0xb728, 0x224, 4,
+ * ScrubChecksumGuard)` CRT array-destruct helper - MSVC only emits that
+ * for a real `CValueGuard[4]` member with a destructor, not from a hand
+ * loop; and (2) explicit vtable-pointer writes (base vtable 0x555c68 on
+ * entry, a poison vtable 0x55752c on exit) that fight the compiler's own
+ * dtor-generated vptr writes. With SEH also stripped it would score ~0
+ * (cf. CProjectile's equivalent dtor at worse-than-max), so it's 97 lines
+ * of unfaithful bulk with no reconstruction insight - skipped on purpose.
+ * The remaining base methods with real logic (v2 SimulateMobileFrame
+ * 0x461ca0, v3 RenderMobile 0x462900, slot 6 HandleFireInput 0x45f910)
+ * are larger follow-up units, each its own careful pass.
+ *
  * The guard-cell ABI used throughout is the one confirmed for CProjectile
  * (see src/cxx/PLAN.md's "Encode family" note and Projectile.cpp): the
  * checksum "Encode*" functions' `out` parameter is a full 0x224-byte
