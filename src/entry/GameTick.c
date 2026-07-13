@@ -24,6 +24,23 @@
 typedef void (__fastcall *GameStateVirtualFn)(void *thisPtr);
 typedef void (__fastcall *GameStateVirtualFn3)(void *thisPtr, undefined4 a1, undefined4 a2, undefined4 a3);
 
+/* IDirect3DDevice7/IDirectDrawSurface7 vtable calls below (g_pD3DDevice7,
+ * g_pBackBufferSurface) were also cast through the generic `code()`/
+ * `int(**)()` type (implicit __cdecl), not the COM methods' real
+ * __stdcall. Ghidra's disassembly at these call sites (e.g. the Clear()
+ * call at 0x413438) shows no caller-side `add esp, N` after the `call`,
+ * confirming the callee already pops its own args - i.e. it's really
+ * __stdcall, and a cdecl-typed call site here would add a redundant
+ * caller-side cleanup once compiled, corrupting the frame (see
+ * InitDirectDraw.c's identical fix/writeup). Given real prototypes here
+ * too, matching InitDirectDraw.c's QueryInterfaceFn/etc. idiom. */
+typedef HRESULT (WINAPI *D3DBeginSceneFn)(void *thisPtr);
+typedef HRESULT (WINAPI *D3DEndSceneFn)(void *thisPtr);
+typedef HRESULT (WINAPI *D3DClearFn)(void *thisPtr, DWORD count, void *rects, DWORD flags, DWORD color, undefined4 z, DWORD stencil);
+typedef HRESULT (WINAPI *D3DSetRenderStateFn)(void *thisPtr, DWORD state, DWORD value);
+typedef HRESULT (WINAPI *D3DSetTextureFn)(void *thisPtr, DWORD stage, void *texture);
+typedef HRESULT (WINAPI *SurfaceUnlockFn)(void *thisPtr, void *rect);
+
 void GameTick(void)
 
 {
@@ -99,7 +116,7 @@ void GameTick(void)
     for (uVar8 = uVar10; uVar8 != 0; uVar8 = uVar8 - 1) {
       (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x24))
                 (g_gameStateVTableArray[g_currentGameState]);
-      FUN_004b3e00();
+      FUN_004b3e00(&DAT_00e9b4e8);
       if (DAT_0056d118 != -1) {
         DAT_0056d118 = DAT_0056d118 + 1;
       }
@@ -111,9 +128,22 @@ void GameTick(void)
   }
   DAT_00793517 = 0;
   for (; uVar10 != 0; uVar10 = uVar10 - 1) {
-    FUN_004ee540();
-    FUN_004ee0d0();
-    AdvanceSpriteAnimation();
+    /* Ghidra dropped both calls' real argument: the disassembly at
+     * 0x413340/0x41334a loads ECX with fixed global struct addresses
+     * (0xe53698, 0xe52810) immediately before each call, not any value
+     * derived from this function's own locals. These are the same two
+     * DirectInput device-object addresses already identified in
+     * FUN_004ee270.c (mouse, 0xe53698) and FUN_004edd70.c (keyboard,
+     * 0xe52810) - FUN_004ee540 decrements that struct's input-timer
+     * fields at +0x68..+0x84 once per elapsed tick, and FUN_004ee0d0
+     * decrements another set of that struct's fields at +0x25c-0x4
+     * through +0x25c+0x8, repeated over 0x40 stride-0x10 entries.
+     * AdvanceSpriteAnimation's own argument is likewise dropped: orig
+     * 0x413354/0x413359 loads EAX with the cursor singleton 0x7a7644
+     * immediately before the call - this is the software-cursor tick. */
+    FUN_004ee540((int)0xe53698);
+    FUN_004ee0d0((int)0xe52810);
+    AdvanceSpriteAnimation(0x7a7644);
   }
   if (5 < *(int *)(&DAT_0067e3c8 + g_clientContext)) {
     if (DAT_00793515 == '\0') {
@@ -130,13 +160,13 @@ void GameTick(void)
       *(undefined4 *)(&DAT_0067e3c8 + g_clientContext) = 0;
     }
   }
-  FUN_00425770();
+  FUN_00425770(g_clientContext);
   FUN_00422f70(g_clientContext);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9084);
   if (DAT_007934cc == '\0') goto LAB_00413a44;
   g_frameTriangleCounter = 0;
   if (g_pD3DDevice7 != (int *)0x0) {
-    (**(code **)(*g_pD3DDevice7 + 0x28))(g_pD3DDevice7,0,0,3,DAT_00793634,0x3f800000,0);
+    (*(D3DClearFn *)(*g_pD3DDevice7 + 0x28))(g_pD3DDevice7,0,0,3,DAT_00793634,0x3f800000,0);
   }
   FUN_004e9070();
   _DAT_00793618 = 0;
@@ -150,19 +180,19 @@ void GameTick(void)
       (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x2c))
                 (g_gameStateVTableArray[g_currentGameState]);
       DAT_0079352c = 0;
-      (**(code **)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
+      (*(SurfaceUnlockFn *)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
     }
-    iVar5 = (**(int (**)())(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
+    iVar5 = (*(D3DBeginSceneFn *)(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
     if (iVar5 == 0) {
       FUN_004f3ea0();
       (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x30))
                 (g_gameStateVTableArray[g_currentGameState]);
       if (DAT_00793610 != '\0') {
-        (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,7,0);
+        (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,7,0);
       }
       DAT_00793610 = '\0';
       FUN_004f3ee0();
-      (**(code **)(*g_pD3DDevice7 + 0x18))(g_pD3DDevice7);
+      (*(D3DEndSceneFn *)(*g_pD3DDevice7 + 0x18))(g_pD3DDevice7);
     }
 LAB_00413510:
     cVar2 = LockBackBuffer(&DAT_0079352c,&DAT_005b3620);
@@ -174,19 +204,19 @@ LAB_00413510:
       (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x34))
                 (g_gameStateVTableArray[g_currentGameState]);
       DAT_0079352c = 0;
-      (**(code **)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
+      (*(SurfaceUnlockFn *)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
     }
-    iVar5 = (**(int (**)())(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
+    iVar5 = (*(D3DBeginSceneFn *)(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
     if (iVar5 == 0) {
       FUN_004f3ea0();
       (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x38))
                 (g_gameStateVTableArray[g_currentGameState]);
       if (DAT_00793610 != '\0') {
-        (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,7,0);
+        (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,7,0);
       }
       DAT_00793610 = '\0';
       FUN_004f3ee0();
-      (**(code **)(*g_pD3DDevice7 + 0x18))(g_pD3DDevice7);
+      (*(D3DEndSceneFn *)(*g_pD3DDevice7 + 0x18))(g_pD3DDevice7);
     }
   }
   else if ((g_currentGameState == 9) || (g_currentGameState == 7)) goto LAB_00413510;
@@ -208,17 +238,21 @@ LAB_00413510:
       (*(GameStateVirtualFn *)(*(int *)*puVar1 + 0x24))((void *)*puVar1);
     }
     if ((g_stateChangeInProgress == 0) && (0x28 < DAT_0056d118)) {
-      DrawSprite();
+      /* DrawSprite's arg was dropped as `in_EAX` - recovered from
+       * objdump at this call site (0x413664): EAX is built as
+       * `(DAT_0056d118 / 2) % 4` via cdq/sar/and-normalize, the usual
+       * MSVC signed div-then-mod idiom for a power-of-2 divisor. */
+      DrawSprite((DAT_0056d118 / 2) % 4);
     }
     DAT_0079352c = 0;
-    (**(code **)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
+    (*(SurfaceUnlockFn *)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
   }
-  iVar5 = (**(int (**)())(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
+  iVar5 = (*(D3DBeginSceneFn *)(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
   if (iVar5 == 0) {
     *(undefined4 *)(DAT_00792190 + 0x7c) = 0;
     DAT_00793660 = 1;
     if (DAT_00793611 != '\0') {
-      (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x1b,0);
+      (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x1b,0);
     }
     DAT_00793611 = '\0';
     (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x40))
@@ -233,10 +267,10 @@ LAB_00413791:
         if (g_currentBlendMode != 1) {
           g_currentBlendMode = 1;
           _DAT_00792194 = 1;
-          (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
-          (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
+          (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
+          (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
         }
-        (**(code **)(*g_pD3DDevice7 + 0x8c))(g_pD3DDevice7,0,0);
+        (*(D3DSetTextureFn *)(*g_pD3DDevice7 + 0x8c))(g_pD3DDevice7,0,0);
         FUN_004edaa0(0xffffffff,0xffffffff,800,0xffffffff,0xffffffff,
                      *(undefined4 *)(DAT_0056d108 * 4 + 0x56d11c));
         FUN_004edaa0(800,600 - *(int *)(DAT_0056d108 * 4 + 0x56d11c),800,600,0xffffffff,600);
@@ -246,17 +280,17 @@ LAB_004137a9:
       if (g_currentBlendMode != 1) {
         g_currentBlendMode = 1;
         _DAT_00792194 = 1;
-        (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
-        (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
+        (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
+        (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
       }
       BuildColorQuad(0,0,799,0,799,599,0,599,0,0,0,0,0x80000000,0x80000000);
     }
     if (DAT_00793610 != '\0') {
-      (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,7,0);
+      (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,7,0);
     }
     DAT_00793610 = '\0';
     FUN_004f3ee0();
-    (**(code **)(*g_pD3DDevice7 + 0x18))(g_pD3DDevice7);
+    (*(D3DEndSceneFn *)(*g_pD3DDevice7 + 0x18))(g_pD3DDevice7);
   }
   cVar2 = LockBackBuffer(&DAT_0079352c,&DAT_005b3620);
   if (cVar2 == '\0') {
@@ -280,11 +314,11 @@ LAB_004137a9:
           BlitSpriteClipped(0);
         }
       }
-      BlitRLESprite(0xcf,0xffff);
+      BlitRLESprite(0,0xcf,0xffff,(byte *)0);
       iVar5 = 0xec;
       puVar9 = &DAT_005b1da2;
       do {
-        BlitRLESprite(iVar5,0xffff);
+        BlitRLESprite(0,iVar5,0xffff,(byte *)0);
         puVar9 = puVar9 + 0x32;
         iVar5 = iVar5 + 0xe;
       } while ((int)puVar9 < 0x5b1ece);
@@ -324,7 +358,7 @@ LAB_004139be:
       FUN_00412e50();
     }
     DAT_0079352c = 0;
-    (**(code **)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
+    (*(SurfaceUnlockFn *)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
   }
   PresentFrame();
 LAB_00413a44:
