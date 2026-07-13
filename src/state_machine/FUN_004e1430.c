@@ -12,11 +12,20 @@
  * ConnectToSelectedServer takes an explicit `serverIndex` 2nd parameter
  * (see that file's own header - a dropped-register-argument fix from
  * earlier this session); passes the highlighted slot (`iVar2`) here.
+ *
+ * FIXED (2026-07-13): `RET 0xc` at 0x4e1430 (3 stack dwords beyond
+ * `this`, confirmed via objdump) but Ghidra's decompile only showed 2
+ * (`param_2`, `param_3` - the WM_KEYDOWN message and VK code). This is
+ * WndProc's slot-6 keydown dispatch, called as (this, msg, wParam,
+ * lParam) - `lParam` is pushed/popped by every caller but genuinely
+ * never read here. Added as `param_4` (unused) so the generated `ret N`
+ * matches what WndProc actually pushes (see WndProc.c's own header for
+ * the matching fix at that call site).
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004e1430(int param_1,int param_2,int param_3)
+void __thiscall FUN_004e1430(int param_1,int param_2,int param_3,int param_4)
 
 {
   int iVar1;

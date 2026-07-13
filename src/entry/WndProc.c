@@ -14,6 +14,15 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
+/* CGameState vtable slot 6 (+0x18) - keydown/mouse-message dispatch,
+ * called as (this, msg, wParam, lParam). MSVC 7.1 forbids explicit
+ * __thiscall on a function-pointer typedef (C4234), so this is declared
+ * __fastcall with a literal-0 dummy EDX slot in place of the (unused,
+ * since the real args are all stack-passed here) 2nd fastcall register -
+ * same idiom as ChangeGameState.c's GameStateVirtualFn. */
+typedef void (__fastcall *StateSlot6DispatchFn)(void *thisPtr,int dummyEDX,uint msg,uint wParam,
+                                                 uint lParam);
+
 LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
 
 {
@@ -144,8 +153,16 @@ LAB_0041038c:
 switchD_004101d3_caseD_113:
   if ((g_currentGameState != 0) && ((int *)g_gameStateVTableArray[g_currentGameState] != (int *)0x0)
      ) {
-    (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x18))
-              (param_2,param_3,param_4);
+    /* FIXED (2026-07-13): dropped `this` - confirmed via objdump at
+     * 0x410399-0x4103a9: `mov ecx,[eax*4+0x5b33f8]` (the current state
+     * object) stays live in ECX all the way to `call [edx+0x18]`, with
+     * (lParam, wParam, msg) pushed on top - this call was invoking the
+     * vtable slot with only the 3 message args and no `this` at all,
+     * reading every field off garbage/null. Also see FUN_004e1430.c
+     * (State02's slot-6 target) for the matching RET-size fix this
+     * needed on the callee side. */
+    (*(StateSlot6DispatchFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x18))
+              (g_gameStateVTableArray[g_currentGameState],0,param_2,param_3,param_4);
   }
 LAB_004103ac:
   if ((0x200 < param_2) && (param_2 < 0x203)) {
