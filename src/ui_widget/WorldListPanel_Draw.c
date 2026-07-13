@@ -8,6 +8,18 @@
  * (g_clientContext+0x3f808) calling RenderWorldListRow (0x50dc80) once per
  * server.
  *
+ * Dropped-argument fix (confirmed via objdump -Mintel on the .gme at
+ * 0x50dc40): Ghidra's decompile called `Widget_DrawSelf()` and
+ * `RenderWorldListRow(i)` with no `this`. The disassembly shows ECX (=
+ * `this`, cached in EDI) is still live and unclobbered going into
+ * `call 0x5054b0` (Widget_DrawSelf), and the loop body does
+ * `mov eax,esi` / `mov ecx,edi` / `call 0x50dc80` (RenderWorldListRow) -
+ * i.e. RenderWorldListRow is __fastcall(this=ECX, index=EAX), a
+ * non-standard extra argument passed in EAX beyond the ECX/EDX pair.
+ * Both callees already declare/read `this`-relative fields and (for
+ * RenderWorldListRow) `in_EAX`, so this fixes the caller side and
+ * promotes RenderWorldListRow's dropped `in_EAX` to a real parameter.
+ *
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
@@ -22,10 +34,10 @@ void __thiscall WorldListPanel_Draw(void *this)
   int i;
 
   if (*(char *)((int)this + 0x1e) == '\0') {
-    Widget_DrawSelf();
+    Widget_DrawSelf((int)this);
     count = *(unsigned char *)(g_clientContext + 0x3f808);
     for (i = 0; i < count; i++) {
-      RenderWorldListRow(i);
+      RenderWorldListRow((int)this, i);
     }
   }
   return;
