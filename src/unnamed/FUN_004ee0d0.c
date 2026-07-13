@@ -4,7 +4,16 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
- */
+ *
+ * DROPPED REGISTER ARGUMENT: GameTick.c's call site (0x41334f) called
+ * this with zero args, and include/functions.h declared it as
+ * `void __fastcall FUN_004ee0d0();` - but this function reads a real
+ * ECX-passed argument (param_1, a struct base pointer decremented at
+ * offsets -0x4/0/0x4/0x8 relative to +0x25c). The original disassembly
+ * at 0x41334a-0x41334f shows `mov ecx, 0xe52810` immediately before the
+ * `call 0x4ee0d0` - a fixed global struct address, same one used by
+ * FUN_004edd70's ECX (see that file's header comment). Fixed the
+ * prototype and GameTick.c's call site to pass it explicitly. */
 #include "ghidra_types.h"
 
 
