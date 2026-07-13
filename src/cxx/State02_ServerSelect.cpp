@@ -52,7 +52,7 @@ char PeekPacketChecksumBool(void);                /* mode check gating the page-
 void SetGuardedBool(int a);
 void FUN_004d24f0(void);
 unsigned char FUN_00402020(void);       /* per-slot blink randomizer */
-void FUN_00401650(void);                /* flat-ButtonWidget per-slot destroy (index in regs) */
+void FUN_00401650(int *slot);            /* flat-ButtonWidget per-slot destroy */
 extern unsigned char DAT_0067ec74;      /* persistent button-name arena */
 extern unsigned char DAT_0069ec74;
 void FUN_00404410(void *arg);
@@ -159,7 +159,11 @@ void CState02ServerSelect::OnExit()
     }
     int *buttonCount = (int *)((unsigned char *)&DAT_0067ec70 + g_clientContext);
     for (int i = 0; i < *buttonCount; ++i) {
-        FUN_00401650();
+        /* FIXED (2026-07-13): FUN_00401650 takes the per-slot record
+         * pointer explicitly now - was silently dropped here (see that
+         * file's own header for the objdump evidence). Slot i lives at
+         * buttonCount+0x20004+i*0x18. */
+        FUN_00401650((int *)((unsigned char *)buttonCount + 0x20004 + i * 0x18));
     }
     *buttonCount = 0;
     memset((unsigned char *)&DAT_0067ec74 + g_clientContext, 0, 0x20000);

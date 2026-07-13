@@ -677,7 +677,7 @@ LAB_004bd75c:
   iVar11 = 0;
   if (0 < *(int *)(&DAT_0067ec70 + g_clientContext)) {
     do {
-      FUN_00401650();
+      FUN_00401650((int *)((char *)piVar9 + 0x20004 + iVar11 * 0x18));
       iVar11 = iVar11 + 1;
     } while (iVar11 < *piVar9);
   }
