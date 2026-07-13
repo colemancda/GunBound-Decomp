@@ -1,9 +1,24 @@
 /* FUN_004061e0 - 0x004061e0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Mouse-hit-test dispatcher: sole caller is WndProc's WM_MOUSEMOVE handler
+ * (0x41023a-0x41023f: `mov edx,esi[mouseY]; mov ecx,edi[mouseX]; mov
+ * eax,0xe9be90[widget root]; call 0x4061e0`), tracking which widget the
+ * mouse is currently over for enter/leave callbacks.
+ *
+ * DROPPED REGISTER ARGUMENTS (pattern #1) - investigated, NOT fixed here:
+ * this function reads `in_EAX` (should be the fixed widget-root
+ * DAT_00e9be90, confirmed at the caller above) but ALSO silently drops its
+ * own incoming ECX/EDX (mouseX/mouseY - Ghidra's decompile missed these
+ * registers entirely, there's no `in_ECX`/`in_EDX` placeholder at all).
+ * Both are threaded straight through, unmodified, into the
+ * `FUN_0040cea0()` call (currently invoked with zero args) - which is
+ * ITSELF a raw/unfixed dropped-register function (own header: `in_EAX`,
+ * `unaff_ESI`) with 4 callers (FUN_00406120, FUN_00406170, FUN_004061e0,
+ * FUN_0040ce50), each supplying its EAX/ECX/EDX/ESI inputs via a different
+ * partial register-passthrough chain from ITS OWN caller. Fixing any one
+ * of these 5 functions correctly requires fixing all of them together in
+ * the same pass (same class of undertaking as FindSpriteFrame.c's/
+ * BlitSpriteText.c's documented caller fan-out) - not attempted here.
  */
 #include "ghidra_types.h"
 
