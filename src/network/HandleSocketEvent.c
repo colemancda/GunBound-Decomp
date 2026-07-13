@@ -92,7 +92,7 @@ void __thiscall HandleSocketEvent(uint param_1,int param_2)
   }
   if ((*(int *)local_403c & 1) != 0) {
     if (*(int *)(local_403c + 4) == 0) {
-      cVar1 = ReceiveFramedPackets();
+      cVar1 = ReceiveFramedPackets(param_1);
       if (cVar1 != '\0') goto LAB_004e58ad;
       uVar6 = *(undefined4 *)(param_1 + 0x1c);
     }
@@ -100,7 +100,7 @@ void __thiscall HandleSocketEvent(uint param_1,int param_2)
       uVar6 = *(undefined4 *)(param_1 + 0x1c);
     }
     FUN_004f2da0(*(uint **)(param_1 + 0x20),0x65,uVar6,0);
-    CloseConnectionSocket();
+    CloseConnectionSocket(param_1);
   }
 LAB_004e58ad:
   uVar4 = param_1;
@@ -118,7 +118,7 @@ LAB_004e58ad:
         if ((0 < iStack_1c) &&
            (iVar2 = send(*(SOCKET *)(param_1 + 0x24),acStack_401c,iStack_1c,0), iVar2 < 0)) {
           FUN_004f2da0(*(uint **)(param_1 + 0x20),0x65,*(undefined4 *)(param_1 + 0x1c),0);
-          CloseConnectionSocket();
+          CloseConnectionSocket(param_1);
         }
         FUN_004e5cc0();
         uVar4 = param_1;
@@ -127,14 +127,14 @@ LAB_004e58ad:
     }
     else {
       FUN_004f2da0(*(uint **)(param_1 + 0x20),0x65,*(undefined4 *)(param_1 + 0x1c),0);
-      CloseConnectionSocket();
+      CloseConnectionSocket(param_1);
     }
   }
   if ((*(int *)local_403c & 0x20) == 0) {
     return;
   }
   FUN_004f2da0(*(uint **)(uVar4 + 0x20),0x65,*(undefined4 *)(uVar4 + 0x1c),0);
-  CloseConnectionSocket();
+  CloseConnectionSocket(uVar4);
   return;
 }
 
