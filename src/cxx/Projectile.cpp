@@ -37,17 +37,19 @@
  *    (compiled here: 0x340 bytes vs. the original's 0x5e8) on top of the
  *    already-known cell-pointer gap. Reproducing real `__try`/`__finally`
  *    to close this is unstarted follow-up work, not attempted here.
- *  - DetonateProjectile: 155950/129800 (also worse than max). Built from a
+ *  - DetonateProjectile: 158095/129800 (also worse than max). Built from a
  *    FRESH Ghidra decompile rather than the stale src/battle/
  *    DetonateProjectile.c raw port - see that method's own header comment
- *    for the two concrete bugs this fixed (RegisterActiveObject's dropped
- *    4 args, InitProjectile's call-site argument order). Compiled size
- *    (0xf04) is proportionally close to the original (0x1322, ~78%),
- *    unlike the destructor's structural mismatch - this poor score is
+ *    for the concrete bugs this fixed (RegisterActiveObject's dropped 4
+ *    args, InitProjectile's call-site argument order, and - added
+ *    2026-07-13 - the camera/terrain-state globals' dropped ctx-relativity;
+ *    see the g_nCamera* declaration comment below). Compiled size is
+ *    proportionally close to the original (0x1322) - this poor score is
  *    accumulated noise from ~45 unresolved guard-cell call targets across
  *    a function this size, the same category of gap already documented
- *    above, not a structural-shape problem. SEH also stripped, same
- *    tradeoff as the destructor.
+ *    above, not a structural-shape problem (score barely moved across all
+ *    three correctness fixes, confirming they weren't the score driver).
+ *    SEH also stripped, same tradeoff as the destructor.
  *
  * FIXED (2026-07-13): the `iStack_ab0` uninitialized-read bug noted below
  * is now resolved. Root cause CONFIRMED (not just suspected) by reading
@@ -149,10 +151,19 @@ extern unsigned char DAT_006a7758;      /* declared as 1-byte so that arithmetic
 extern unsigned char DAT_006a7f70;      /* on them matches the raw port exactly. */
 extern unsigned char DAT_006a7f8c;
 extern unsigned char DAT_006a7f74;
-extern int g_nCameraBoundX, g_nCameraBoundY, g_nCameraX, g_nCameraY;
-extern int g_nCameraScrollX, g_nCameraScrollY;
+/* The camera/terrain-state globals below are ALSO used only as
+ * "&sym + g_clientContext" ctx-relative bases (each is really a field in
+ * the per-connection client-context arena, its link-time address serving
+ * as the arena offset) - so they too are declared 1-byte, exactly like
+ * the DAT_ anchors above, and every access byte-offsets by g_clientContext
+ * and reinterpret_casts to the real field type. Declaring them `int` (as
+ * an earlier revision of this file did) made `&g_nCameraX + g_clientContext`
+ * scale by 4 AND several sites dropped the `+ g_clientContext` entirely,
+ * reading the wrong link-time global - a real bug, now fixed. */
+extern unsigned char g_nCameraBoundX, g_nCameraBoundY, g_nCameraX, g_nCameraY;
+extern unsigned char g_nCameraScrollX, g_nCameraScrollY;
 extern unsigned char DAT_006a7734, DAT_006a7736, DAT_006a7f6c;
-extern int DAT_006a770c, DAT_006a772c, DAT_006a7730, DAT_006a7750, DAT_006a7754;
+extern unsigned char DAT_006a770c, DAT_006a772c, DAT_006a7730, DAT_006a7750, DAT_006a7754;
 extern unsigned char DAT_005f3768, DAT_005f376c;
 extern void *PTR_FUN_0055658c;
 }
@@ -422,40 +433,41 @@ void CProjectile::DetonateProjectile()
             cVar4 = PeekPacketChecksumBool();
             if (cVar4 == '\0' && (&DAT_006a7758)[iVar5] != 0) {
                 if ((&DAT_006a7736)[iVar5] == 1 &&
-                    ((uVar13 = iVar6 - g_nCameraY, uVar16 = (int)uVar13 >> 0x1f,
+                    ((uVar13 = iVar6 - *reinterpret_cast<int *>(&g_nCameraY + iVar5), uVar16 = (int)uVar13 >> 0x1f,
                       200 < (int)((uVar13 ^ uVar16) - uVar16)) ||
-                     (uVar13 = iVar10 - g_nCameraX, uVar16 = (int)uVar13 >> 0x1f,
+                     (uVar13 = iVar10 - *reinterpret_cast<int *>(&g_nCameraX + iVar5), uVar16 = (int)uVar13 >> 0x1f,
                       300 < (int)((uVar13 ^ uVar16) - uVar16)))) {
                     (&DAT_006a7736)[iVar5] = 0;
                 }
                 iVar11 = (399 < iVar10) ? iVar10 : 400;
-                iVar12 = g_nCameraBoundX - 400;
+                iVar12 = *reinterpret_cast<int *>(&g_nCameraBoundX + iVar5) - 400;
                 if (iVar11 <= iVar12 && iVar10 < 400) iVar12 = 400;
                 else if (iVar11 <= iVar12) iVar12 = iVar10;
                 iVar10 = (-0x15 < iVar6) ? iVar6 : -0x14;
-                iVar11 = g_nCameraBoundY - 0x104;
+                iVar11 = *reinterpret_cast<int *>(&g_nCameraBoundY + iVar5) - 0x104;
                 if (iVar10 <= iVar11 && -0x15 < iVar6) iVar11 = iVar6;
                 else if (iVar10 <= iVar11) iVar11 = -0x14;
                 iVar6 = *piVar18 - iVar12;
-                g_nCameraScrollY = iVar11;
-                if ((DAT_006a770c - iVar11) * (DAT_006a770c - iVar11) + iVar6 * iVar6 < 40000 &&
-                    (DAT_006a7734 == 1 || DAT_006a7f6c == 0)) {
-                    g_nCameraX = iVar12;
+                *reinterpret_cast<int *>(&g_nCameraScrollY + iVar5) = iVar11;
+                if ((*reinterpret_cast<int *>(&DAT_006a770c + iVar5) - iVar11) *
+                        (*reinterpret_cast<int *>(&DAT_006a770c + iVar5) - iVar11) + iVar6 * iVar6 < 40000 &&
+                    ((&DAT_006a7734)[iVar5] == 1 || (&DAT_006a7f6c)[iVar5] == 0)) {
+                    *reinterpret_cast<int *>(&g_nCameraX + iVar5) = iVar12;
                     *piVar18 = iVar12;
-                    g_nCameraY = iVar11;
-                    DAT_006a770c = iVar11;
+                    *reinterpret_cast<int *>(&g_nCameraY + iVar5) = iVar11;
+                    *reinterpret_cast<int *>(&DAT_006a770c + iVar5) = iVar11;
                 }
-                if (DAT_006a7734 == 0 && DAT_006a7f6c == 1 && DAT_006a7736 == 0) {
-                    iVar6 = DAT_006a7730;
+                if ((&DAT_006a7734)[iVar5] == 0 && (&DAT_006a7f6c)[iVar5] == 1 && (&DAT_006a7736)[iVar5] == 0) {
+                    iVar6 = *reinterpret_cast<int *>(&DAT_006a7730 + iVar5);
                     iVar10 = (iVar12 <= iVar6) ? iVar12 : iVar6;
-                    iVar14 = DAT_006a772c;
+                    iVar14 = *reinterpret_cast<int *>(&DAT_006a772c + iVar5);
                     if (iVar14 <= iVar10 && iVar12 <= iVar6) iVar14 = iVar12;
                     else if (iVar14 <= iVar10) iVar14 = iVar6;
-                    g_nCameraScrollX = iVar14;
+                    *reinterpret_cast<int *>(&g_nCameraScrollX + iVar5) = iVar14;
                 }
-                if (DAT_006a7734 == 1) {
-                    g_nCameraScrollX = iVar12;
-                    g_nCameraScrollY = iVar11;
+                if ((&DAT_006a7734)[iVar5] == 1) {
+                    *reinterpret_cast<int *>(&g_nCameraScrollX + iVar5) = iVar12;
+                    *reinterpret_cast<int *>(&g_nCameraScrollY + iVar5) = iVar11;
                 }
             }
         }
@@ -707,12 +719,12 @@ LAB_004579de:
     iVar5 = g_clientContext;
     cVar4 = PeekPacketChecksumBool();
     if (cVar4 != '\x01') {
-        iVar6 = DAT_006a7750;
+        iVar6 = *reinterpret_cast<int *>(&DAT_006a7750 + iVar5);
         if (iVar6 < 0x10) iVar6 = 0xf;
-        DAT_006a7750 = iVar6;
-        iVar6 = DAT_006a7754;
+        *reinterpret_cast<int *>(&DAT_006a7750 + iVar5) = iVar6;
+        iVar6 = *reinterpret_cast<int *>(&DAT_006a7754 + iVar5);
         if (iVar6 < 0xb) iVar6 = 10;
-        DAT_006a7754 = iVar6;
+        *reinterpret_cast<int *>(&DAT_006a7754 + iVar5) = iVar6;
     }
     cVar4 = PeekPacketChecksumBool();
     if (cVar4 == '\0') AcquireSoundChannel(0);
