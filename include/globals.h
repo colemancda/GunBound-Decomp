@@ -874,7 +874,7 @@ extern uint8_t DAT_00f11de0;
 extern uint8_t DAT_00f12e14;
 extern uint8_t DAT_00f12e18;
 extern GUID DAT_00f22504; /* IID_IDirect3DHALDevice - see globals.c */
-extern uint32_t DAT_00f22650[0x400];
+extern uint32_t DAT_00f22650[0x803]; /* sprite-draw batch pool, 0x200c bytes - see globals.c */
 extern uint8_t DAT_00f23650;
 #define _DAT_00f23650 DAT_00f23650
 extern uint8_t DAT_00f23654;
