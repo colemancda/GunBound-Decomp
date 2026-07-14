@@ -170,6 +170,28 @@ extern unsigned int DAT_00e9be94;
 extern unsigned int DAT_00ea0e1c;
 extern unsigned int DAT_005b1444;
 
+/* BlitSprite16bpp/BlitSpriteClipped's clip bounds. Confirmed via exhaustive
+ * whole-binary disassembly search that ALL FOUR of these addresses are
+ * written ONLY inside SetClipRect (0x4eadb0) - no other instruction in the
+ * entire original .text writes them, and none of SetClipRect's ~25 real
+ * call sites (all inside later UI: wind gauge, ready-room roster/status,
+ * in-battle HUD, room list) are reachable during the logo screen (states
+ * 5/6) or anywhere in InitGame/WinMain's startup path. Left at their BSS
+ * zero-init default, State06_Logo2_Render's blit clips to a single visible
+ * row (empirically confirmed live: DAT_0056df34=0 makes
+ * `local_4 = (DAT_0056df34 - y) + 1` evaluate to 1 for y=0) instead of the
+ * full 600-row logo image - the actual root cause of the black window
+ * surviving even after LockBackBuffer/FindSpriteFrame/the blit call chain
+ * and the present-frame RECT (see g_presentDstRect) were all confirmed
+ * correct. The real original call site that establishes these before the
+ * first logo render was NOT found (plausibly something in the .NET
+ * Launcher-driven startup path this bring-up doesn't reproduce) - these are
+ * empirically the right full-screen values (0,799 / 0,599), matching both
+ * the 800x600 canvas everywhere else in this codebase (e.g. InitGame.c's
+ * DAT_00e53c24 family) and SetClipRect's own >=800/>=600 fallback constants
+ * (0x31f=799, 0x257=599). */
+extern unsigned int DAT_00793530, DAT_0056df30, DAT_00793534, DAT_0056df34;
+
 /* ATL::CAtlStringMgr reconstruction (real, documented VS2003 ATL library
  * object - see globals.c's DAT_005b1444 comment; Ghidra function-signature-
  * matched src/unnamed/msvc_crt_atl/FUN_00520037.c/FUN_0052009c.c against the
@@ -253,6 +275,10 @@ static void gb_startup_init(void)
     gb_init_widget_registry(DAT_00ea0e18);   /* global sprite registry - same container */
     DAT_00e9be94 = (unsigned int)DAT_00e9be90;
     DAT_00ea0e1c = (unsigned int)DAT_00ea0e18;
+    DAT_00793530 = 0;
+    DAT_0056df30 = 799;
+    DAT_00793534 = 0;
+    DAT_0056df34 = 599;
 }
 /* data_seg, NOT #pragma section(...,read): VC7.1's linker keeps a
  * read-only .CRT$XCU out of the read-write .CRT group libcmt walks in
