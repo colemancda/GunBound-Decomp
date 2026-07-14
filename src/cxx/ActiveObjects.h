@@ -15,8 +15,9 @@
 #include "gb_common.h"
 
 extern "C" {
-extern unsigned char DAT_00ea0e18;  /* container storage */
-extern unsigned int  DAT_00ea0e1c;  /* container header (bucket list at +0x1c) */
+extern unsigned char DAT_00ea0e18[0x20];  /* container storage - sized, see globals.c */
+extern unsigned int  DAT_00ea0e1c;  /* container header (bucket list at +0x1c) - aliased to
+                                        &DAT_00ea0e18 at startup, see crt_shims_msvc.c */
 }
 
 /* Walk the sorted bucket list to `key`; if present, run every
