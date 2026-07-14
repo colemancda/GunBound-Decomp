@@ -273,12 +273,21 @@ int InitGame(undefined4 param_1,undefined4 param_2)
           DAT_007934e4 = 0;
         }
         else {
-          /* Same class of call-site/definition mismatch as
-           * FUN_004058c0 in WinMain.c: FUN_0040c670's own definition
-           * (src/unnamed/FUN_0040c670.c) is void and takes a param this
-           * call site doesn't pass. Left as a bare call rather than
-           * guessing what DAT_007934e4 should become. */
-          FUN_0040c670();
+          /* FIXED (2026-07-14): FUN_0040c670 needs the freshly-allocated
+           * block and the main window handle explicitly (both were
+           * dropped registers - see that file's own header), AND
+           * DAT_007934e4 itself was never actually assigned on this
+           * success path (only ever zeroed on the allocation-failure
+           * branch above) - confirmed via objdump at InitGame's own
+           * call site (orig 0x40f373: `mov esi,eax` right after
+           * operator_new, left untouched all the way to the call - a
+           * pure passthrough, i.e. this block itself is what
+           * DAT_007934e4 is meant to hold). State02_ServerSelect_OnEnter
+           * dereferences DAT_007934e4 unconditionally on entry - left
+           * NULL, this was a real, live-reproduced NULL+8 write crash
+           * the instant the game reached server select. */
+          DAT_007934e4 = (uint32_t)pvVar2;
+          FUN_0040c670((HINSTANCE)param_2,(undefined4 *)pvVar2,(HWND)param_1);
         }
         /* Both take a fixed global control-block pointer via a dropped ESI
          * register in the original (0x40f38e/0x40f39d); see their own .c
