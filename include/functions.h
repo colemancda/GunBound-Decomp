@@ -1574,7 +1574,7 @@ void __fastcall FUN_00507d50();
 undefined4 * __fastcall FUN_00507dc0();
 void * __thiscall FUN_00507e10();
 void FUN_00507e30();
-char FUN_00507ea0();
+char FUN_00507ea0(int uiPanelManager,undefined4 param_1,undefined4 param_2);
 void BuildCreateRoomDialog();
 void __fastcall BuildEnterRoomNumberDialog();
 void FUN_00508910();

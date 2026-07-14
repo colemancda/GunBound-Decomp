@@ -23,9 +23,20 @@
  * sites in the original loads `mov ecx,0xe53c40` (g_uiPanelManager, the
  * global UI panel/dialog container) immediately before its `call` -
  * 0x410190 (f230), 0x41022d (f020), 0x41032b (f1b0), 0x410369 (f1f0),
- * 0x41037f (f150). Passed explicitly now. (FUN_00507ea0, the 0x201 handler,
- * genuinely takes 2 stack args and no `this` - its entry reads [esp+4]/[esp+8]
- * and never touches ECX - so it is left as-is.)
+ * 0x41037f (f150). Passed explicitly now.
+ *
+ * FIXED (2026-07-14): FUN_00507ea0 (the 0x201/WM_LBUTTONDOWN handler) was
+ * NOT actually an exception to the above - the previous note ("genuinely
+ * takes 2 stack args and no `this`") only checked FUN_00507ea0's OWN entry,
+ * which is correct as far as it goes, but missed that FUN_00507ea0 itself
+ * calls the __thiscall FUN_0050f060 and silently forwards whatever's in ECX
+ * as ITS `this`. The original sets `mov ecx,0xe53c40` (g_uiPanelManager)
+ * right before `call 0x507ea0` too (confirmed via objdump at 0x4102c9), and
+ * that value survives untouched all the way into FUN_0050f060's own call in
+ * the original's straight-line asm - but a recompiled C call gives no such
+ * register-survival guarantee (ECX is caller-saved), so this was a real
+ * near-null `this` crash (NULL+4 deref) reproduced live under wine 7.
+ * FUN_00507ea0 now takes and forwards the panel-manager pointer explicitly.
  */
 
 /* CGameState vtable slot 6 (+0x18) - keydown/mouse-message dispatch,
@@ -138,7 +149,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     }
     goto LAB_0041038c;
   case 0x201:
-    cVar1 = FUN_00507ea0(param_4 & 0xffff,param_4 >> 0x10);
+    cVar1 = FUN_00507ea0((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
     if (cVar1 != '\0') {
       DAT_00e9bea4 = 1;
       HandleActiveObjectMouseDown(&DAT_00e9be90, param_4 & 0xffff, param_4 >> 0x10);
