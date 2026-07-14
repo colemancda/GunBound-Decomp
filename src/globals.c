@@ -1356,6 +1356,18 @@ void *vtable_State01_Title[32] = {
   (void *)State01_Title_HandleKeyInput, /* slot 6 mouse/key dispatch: 0x4e5340 */
   (void *)State01_Title_OnEnter, (void *)State01_Title_OnExit,
   (void *)State01_Title_OnTick,
+  /* Slots 10-17, recovered from the original's real vtable in .data at
+   * 0x557278 (found by scanning .data for this state's own OnEnter/OnExit/
+   * OnTick addresses - same reconstruction gap and technique as
+   * vtable_State06_Logo2 below). Slot 15 is the only real one here (shared
+   * with State05_Logo1 - see RenderScreenBackdrop.c); without it GameTick's
+   * render call through slot 15 (+0x3c) hit a null pointer once the game
+   * actually reached Title, exactly like State06 did before its own fix. */
+  (void *)CGameState_NoOpVirtual_A,                        /* 10 +0x28: 0x448430 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                  /* 11-12 +0x2c/+0x30 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                  /* 13-14 +0x34/+0x38 */
+  (void *)RenderScreenBackdrop,                            /* 15 +0x3c: 0x443570 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                  /* 16-17 +0x40/+0x44 */
 };
 void *vtable_State02_ServerSelect[32] = {
   (void *)NoOpMethod, /* dtor: shared 0x4e5320, not yet ported */
@@ -1376,6 +1388,16 @@ void *vtable_State05_Logo1[32] = {
   (void *)NoOpMethod, /* slot 6 mouse dispatch: 0x4433c0, not yet ported */
   (void *)State05_Logo1_OnEnter, (void *)State05_Logo1_OnExit,
   (void *)FUN_00443540,
+  /* Slots 10-17, recovered from the original's real vtable in .data at
+   * 0x555590 - same reconstruction gap/technique as vtable_State06_Logo2
+   * below and vtable_State01_Title above (slot 15 shared with it, see
+   * RenderScreenBackdrop.c). State05 isn't reached by WinMain's bring-up
+   * path (which jumps straight to state 6), but fixed for consistency. */
+  (void *)CGameState_NoOpVirtual_A,                        /* 10 +0x28: 0x448430 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                  /* 11-12 +0x2c/+0x30 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                  /* 13-14 +0x34/+0x38 */
+  (void *)RenderScreenBackdrop,                            /* 15 +0x3c: 0x443570 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                  /* 16-17 +0x40/+0x44 */
 };
 void *vtable_State06_Logo2[32] = {
   (void *)NoOpMethod, /* dtor: shared 0x4e5320, not yet ported */
