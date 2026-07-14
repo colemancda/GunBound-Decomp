@@ -377,10 +377,18 @@ uint8_t DAT_005f4894;
 uint8_t DAT_00666d73;
 uint8_t DAT_00673628;
 int *DAT_00674f68;
-uint8_t DAT_006773b4;
-uint8_t DAT_006773b8;
-uint8_t DAT_006773bc;
-uint8_t DAT_006773c0;
+/* Was 4 separate uint8_t globals (DAT_006773b4/b8/bc/c0, 4 bytes apart in
+ * the original binary) treated at every call site as one contiguous RECT
+ * via (LPRECT)&DAT_006773b4 - but as 4 independent linker-placed symbols
+ * they had no guaranteed relative layout, AND each 1-byte store silently
+ * truncated the real LONG values being written (e.g. `_DAT_006773bc = 800`
+ * really wrote 800 & 0xff = 32 into a single byte). This made PresentFrame's
+ * Blt() source/dest rect garbage, which explains a real-hardware-confirmed
+ * rendering pipeline (LockBackBuffer succeeds, sprite data found, blit
+ * reached) never actually showing anything - the final present blt used a
+ * corrupt rect. Unified into one real RECT-shaped array; see
+ * InitDirectDraw.c/PresentFrame.c for the call sites. */
+int32_t g_presentDstRect[4];
 /* Two DDPIXELFORMAT slots (0x20 bytes = 8 dwords each): the 16-bit RGB and
  * DXT/FourCC texture formats matched by EnumTextureFormatsCallback and read
  * back by FUN_004f0230. Were lone uint32_t, so the 8-dword copy overflowed

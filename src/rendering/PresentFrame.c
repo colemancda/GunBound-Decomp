@@ -16,6 +16,15 @@
  * pointer, matching that file's established idiom. No argument values or
  * call order changed; confirmed against orig 0x4f0070-0x4f00f5, which
  * matches this file's existing arguments/branch structure exactly.
+ *
+ * FIXED (2026-07-14): the Blt's source/dest RECT (`(LPRECT)&DAT_006773b4`)
+ * was backed by 4 SEPARATE 1-byte globals (DAT_006773b4/b8/bc/c0) with no
+ * guaranteed contiguous layout in the recompiled binary, and each store to
+ * them (see InitDirectDraw.c) silently truncated its real LONG value to a
+ * single byte. This made the final present-blt's rect garbage - the actual
+ * root cause of a black window even after LockBackBuffer/FindSpriteFrame/
+ * the blit itself were all confirmed live-working (see g_presentDstRect in
+ * globals.c for the full writeup). Unified into one real RECT-shaped array.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -33,7 +42,7 @@ bool PresentFrame(void)
 
   ((SetClipperFn)(*(void ***)g_pPrimarySurface)[0x1c])(g_pPrimarySurface,g_pClipper);
   iVar1 = ((BltFn)(*(void ***)g_pPrimarySurface)[5])
-                    (g_pPrimarySurface,(LPRECT)&DAT_006773b4,g_pBackBufferSurface,0,0x1000000,0);
+                    (g_pPrimarySurface,(LPRECT)g_presentDstRect,g_pBackBufferSurface,0,0x1000000,0);
   if (iVar1 == -0x7789fe3e) {
     ((RestoreFn)(*(void ***)g_pPrimarySurface)[0x1b])(g_pPrimarySurface);
     ((RestoreFn)(*(void ***)g_pBackBufferSurface)[0x1b])(g_pBackBufferSurface);

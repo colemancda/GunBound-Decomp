@@ -439,14 +439,10 @@ extern uint8_t DAT_005f4894;
 extern uint8_t DAT_00666d73;
 extern uint8_t DAT_00673628;
 extern int *DAT_00674f68; /* used dereferenced as a vtable-bearing ptr at call sites */
-extern uint8_t DAT_006773b4;
-#define _DAT_006773b4 DAT_006773b4
-extern uint8_t DAT_006773b8;
-#define _DAT_006773b8 DAT_006773b8
-extern uint8_t DAT_006773bc;
-#define _DAT_006773bc DAT_006773bc
-extern uint8_t DAT_006773c0;
-#define _DAT_006773c0 DAT_006773c0
+/* RECT{left,top,right,bottom} for PresentFrame's Blt - was 4 separate
+ * uint8_t globals (DAT_006773b4/b8/bc/c0) with no guaranteed contiguous
+ * layout; unified 2026-07-14, see globals.c/InitDirectDraw.c/PresentFrame.c */
+extern int32_t g_presentDstRect[4];
 extern uint32_t DAT_00677544[8]; /* DDPIXELFORMAT - see globals.c */
 extern uint32_t DAT_006777e8[8]; /* DDPIXELFORMAT - see globals.c */
 extern uint32_t DAT_006790c0[0x8000];

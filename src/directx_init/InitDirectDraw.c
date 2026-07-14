@@ -105,19 +105,19 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
   ddsd.dwSize = sizeof(ddsd);                         /* 0x7c */
   if (DAT_00588f4c == '\0') {
     /* fullscreen: complex flip chain, primary surface + one back buffer */
-    _DAT_006773b4 = 0;
-    _DAT_006773bc = 800;
-    _DAT_006773b8 = 0;
-    _DAT_006773c0 = 600;
+    g_presentDstRect[0] = 0;
+    g_presentDstRect[2] = 800;
+    g_presentDstRect[1] = 0;
+    g_presentDstRect[3] = 600;
     ddsd.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;   /* 0x21 */
     ddsd.dwBackBufferCount = 1;
     /* PRIMARYSURFACE|FLIP|COMPLEX|3DDEVICE|VIDEOMEMORY */
     ddsd.ddsCaps.dwCaps = 0x6218;
   }
   else {
-    GetClientRect(DAT_007935ec,(LPRECT)&DAT_006773b4);
-    ClientToScreen(DAT_007935ec,(LPPOINT)&DAT_006773b4);
-    ClientToScreen(DAT_007935ec,(LPPOINT)&DAT_006773bc);
+    GetClientRect(DAT_007935ec,(LPRECT)g_presentDstRect);
+    ClientToScreen(DAT_007935ec,(LPPOINT)g_presentDstRect);
+    ClientToScreen(DAT_007935ec,(LPPOINT)&g_presentDstRect[2]);
     ddsd.dwFlags = DDSD_CAPS;                          /* 0x1 */
     ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;      /* 0x200 */
   }
