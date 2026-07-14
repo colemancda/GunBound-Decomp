@@ -160,17 +160,99 @@ extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20], DAT_00ea0e18[0x20];
  * remaining split globals (DAT_00e9be98/9c/a0/a4 bytes, DAT_00e9c104/08) are
  * flag/focus fields, not node pointers, and correctly stay zero. */
 extern unsigned int DAT_00e9be94;
+/* Same KNOWN DIVERGENCE alias as DAT_00e9be94, for the global sprite
+ * registry (DAT_00ea0e18): DAT_00ea0e1c is Ghidra's split-out copy of its +4
+ * head pointer. ~40 raw-ported files (LoadAvatarSprites, ComposeAvatarSprites,
+ * every State*_OnExit/ActiveObjects_DestroyBucket, DrawWindGauge, State11's
+ * RenderHud, etc.) read `*(int *)(DAT_00ea0e1c + 0x1c)` directly, entering the
+ * list from this global rather than the array base - left NULL, every one of
+ * those would deref NULL+0x1c the first time any of them ran. */
+extern unsigned int DAT_00ea0e1c;
+extern unsigned int DAT_005b1444;
+
+/* ATL::CAtlStringMgr reconstruction (real, documented VS2003 ATL library
+ * object - see globals.c's DAT_005b1444 comment; Ghidra function-signature-
+ * matched src/unnamed/msvc_crt_atl/FUN_00520037.c/FUN_0052009c.c against the
+ * real library). Every raw-ported call site invokes vtable slot 0xc
+ * (GetNilString()) with zero pushed arguments and no ECX/"this" setup (a
+ * dropped-register artifact shared by all ~8 call sites), so these
+ * implementations are written to be self-sufficient - they operate on the
+ * single hardcoded g_atlNilStringData singleton below rather than reading an
+ * implicit "this", exactly reproducing GetNilString()'s real behavior
+ * (AddRef the nil string, return it). Allocate/Reallocate/Clone match the
+ * real ATL signatures for correctness if a future fix un-drops
+ * LoadLocalizedStrings and real lookups start allocating; nothing in the
+ * bring-up path reaches them today - the string table stays empty
+ * (LoadLocalizedStrings is dropped for bring-up, see bringup_drop.txt), so
+ * every GetLocalizedString() lookup takes the nil-string fallback. CStringData
+ * layout (confirmed against FUN_0052009c.c's field writes): pStringMgr@+0,
+ * nDataLength@+4, nAllocLength@+8, nRefs@+0xc, character data at +0x10. */
+static unsigned int g_atlNilStringData[4 + 2];  /* header + 2 zeroed WCHARs */
+static void *PTR_Allocate_00544b38[5];
+
+static void *gb_atl_allocate(int nAllocLength, int nCharSize)
+{
+    unsigned int total = (unsigned int)(nAllocLength + 1) * (unsigned int)nCharSize;
+    unsigned int *data = (unsigned int *)malloc(0x10 + total);
+    if (data == NULL) return NULL;
+    data[0] = (unsigned int)(void *)g_atlNilStringData;   /* pStringMgr - informational only */
+    data[1] = 0;                          /* nDataLength */
+    data[2] = (unsigned int)nAllocLength; /* nAllocLength */
+    data[3] = 1;                          /* nRefs */
+    return data;
+}
+
+static void gb_atl_free(void *pData)
+{
+    if (pData == g_atlNilStringData) return;   /* never free the immortal nil string */
+    free(pData);
+}
+
+static void *gb_atl_reallocate(void *pData, int nAllocLength, int nCharSize)
+{
+    unsigned int total = (unsigned int)(nAllocLength + 1) * (unsigned int)nCharSize;
+    unsigned int *data = (unsigned int *)realloc(pData, 0x10 + total);
+    if (data == NULL) return NULL;
+    data[2] = (unsigned int)nAllocLength;
+    return data;
+}
+
+static void *gb_atl_get_nil_string(void)
+{
+    InterlockedIncrement((LONG *)&g_atlNilStringData[3]);
+    return g_atlNilStringData;
+}
+
+static void *gb_atl_clone(void)
+{
+    return PTR_Allocate_00544b38;   /* single shared instance */
+}
+
+static void gb_init_atl_string_mgr(void)
+{
+    PTR_Allocate_00544b38[0] = (void *)gb_atl_allocate;
+    PTR_Allocate_00544b38[1] = (void *)gb_atl_free;
+    PTR_Allocate_00544b38[2] = (void *)gb_atl_reallocate;
+    PTR_Allocate_00544b38[3] = (void *)gb_atl_get_nil_string;
+    PTR_Allocate_00544b38[4] = (void *)gb_atl_clone;
+    g_atlNilStringData[0] = (unsigned int)(void *)g_atlNilStringData;
+    g_atlNilStringData[3] = 2;   /* nRefs starts at 2, matching real ATL - see globals.c */
+    DAT_005b1444 = (unsigned int)(void *)PTR_Allocate_00544b38;
+}
+
 static void gb_startup_init(void)
 {
     InitializeCriticalSection((LPCRITICAL_SECTION)DAT_005a9068);
     InitializeCriticalSection((LPCRITICAL_SECTION)DAT_005a9084);
     InitializeCriticalSection((LPCRITICAL_SECTION)DAT_00e9af44);
+    gb_init_atl_string_mgr();
     *(int *)(g_graphicsArchive + 0x1040) = (int)0xffffffff;
     *(int *)(g_xfsScratch     + 0x1040) = (int)0xffffffff;
     gb_init_widget_registry(DAT_00e9be90);
     gb_init_widget_registry(DAT_00e9c0fc);
     gb_init_widget_registry(DAT_00ea0e18);   /* global sprite registry - same container */
     DAT_00e9be94 = (unsigned int)DAT_00e9be90;
+    DAT_00ea0e1c = (unsigned int)DAT_00ea0e18;
 }
 /* data_seg, NOT #pragma section(...,read): VC7.1's linker keeps a
  * read-only .CRT$XCU out of the read-write .CRT group libcmt walks in
