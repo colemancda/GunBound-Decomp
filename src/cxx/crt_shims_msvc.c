@@ -192,6 +192,49 @@ extern unsigned int DAT_005b1444;
  * (0x31f=799, 0x257=599). */
 extern unsigned int DAT_00793530, DAT_0056df30, DAT_00793534, DAT_0056df34;
 
+/* g_clientContext - see globals.h's own comment: a ~1MB+ arena built by
+ * FUN_00415d40, whose only real caller (orig 0x540d30) is a tiny wrapper
+ * with no other callers in the whole binary - almost certainly a hidden
+ * CRT-level global-object static initializer (the same role this file's
+ * own gb_init_cs_entry/.CRT$XCU hook plays), never reached by anything
+ * Ghidra decompiled as regular WinMain/InitGame flow, so g_clientContext
+ * stayed NULL for the entire bring-up. Confirmed live: GameTick's own
+ * PeekPacketChecksumBool call sites (g_clientContext+0x6aa678,
+ * +0x23310) crashed reading off a NULL-based address.
+ *
+ * NOT calling the real FUN_00415d40 here (484 lines, several more
+ * unverified helper calls, C++ array-construction reflection
+ * (_eh_vector_constructor_iterator_) - too much new untested surface for
+ * a bring-up scaffold fix). Instead: give g_clientContext a real, safely
+ * zeroed buffer sized past every offset referenced anywhere in the
+ * ported tree (max seen: 0x6aa678), so every `g_clientContext + offset`
+ * site across the whole codebase reads/writes real memory instead of
+ * faulting. Additionally pre-seed the 2 GuardedBool cells GameTick
+ * reads unconditionally every tick (see PeekPacketChecksumBool.c) with a
+ * valid all-false encoding (checksum = byte0+byte1-0x34; {0,0x34,0}
+ * satisfies that with bit0 of byte1 clear) so those two specific reads
+ * don't spuriously trip g_valueGuardTamperFlag - this is exactly what
+ * FUN_00415d40 itself does for the 0x23310 cell (see its own body,
+ * lines ~444-450), just without running the rest of that function.
+ * Real per-player CValueGuard cells (g_clientContext+0xebef4, see
+ * ValueGuard.h) and everything else in the arena stay zeroed - not
+ * needed for the bring-up's logo/title/server-select path. */
+extern unsigned int g_clientContext;
+#define GB_CLIENT_CONTEXT_ARENA_SIZE 0x700000u
+
+static void gb_init_client_context(void)
+{
+    unsigned char *arena = (unsigned char *)calloc(1, GB_CLIENT_CONTEXT_ARENA_SIZE);
+    if (arena == NULL) return;
+    g_clientContext = (unsigned int)(void *)arena;
+    arena[0x6aa678] = 0;
+    arena[0x6aa679] = 0x34;
+    arena[0x6aa67a] = 0;
+    arena[0x23310] = 0;
+    arena[0x23311] = 0x34;
+    arena[0x23312] = 0;
+}
+
 /* ATL::CAtlStringMgr reconstruction (real, documented VS2003 ATL library
  * object - see globals.c's DAT_005b1444 comment; Ghidra function-signature-
  * matched src/unnamed/msvc_crt_atl/FUN_00520037.c/FUN_0052009c.c against the
@@ -279,6 +322,7 @@ static void gb_startup_init(void)
     DAT_0056df30 = 799;
     DAT_00793534 = 0;
     DAT_0056df34 = 599;
+    gb_init_client_context();
 }
 /* data_seg, NOT #pragma section(...,read): VC7.1's linker keeps a
  * read-only .CRT$XCU out of the read-write .CRT group libcmt walks in
