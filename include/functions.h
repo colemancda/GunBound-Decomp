@@ -1210,7 +1210,7 @@ undefined4 __thiscall QueueSpriteFrameSpans();
 void __thiscall BlitSpriteText();
 void FUN_004edaa0();
 void __fastcall FUN_004edb50();
-void FUN_004edce0();
+void UpdateDeviceAcquisition(int deviceObj, char wasActive);
 undefined4 * __fastcall FUN_004edd10();
 undefined4 __fastcall FUN_004edd70();
 void __fastcall FUN_004ede20();

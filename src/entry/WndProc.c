@@ -68,9 +68,15 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
         }
       }
       else if (param_2 == 0x1c) {
-        InterlockedExchange((LONG *)&DAT_00e9c348,param_3);
-        FUN_004edce0();
-        FUN_004edce0();
+        LONG lVar1 = InterlockedExchange((LONG *)&DAT_00e9c348,param_3);
+        /* orig 0x4100a8 `setne bl` off the exchange's (pre-update) return
+         * value; 0x4100ab/0x4100b5 load the keyboard/mouse device addresses -
+         * UpdateDeviceAcquisition's args were dropped by Ghidra as
+         * unaff_ESI/unaff_BL. Both devices are unconstructed in bring-up, so
+         * point at the same zeroed backing GameTick.c uses for them - see
+         * that file's own comment. */
+        UpdateDeviceAcquisition((int)g_keyboardDeviceTimerBlock, lVar1 != 0);
+        UpdateDeviceAcquisition((int)g_mouseDeviceTimerBlock, lVar1 != 0);
         if (DAT_007934f4 != 0) {
           if (param_3 == 1) {
             FUN_00405b20();
