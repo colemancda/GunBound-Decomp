@@ -104,6 +104,7 @@ void State05_Logo1_OnExit();
 void __fastcall State06_Logo2_OnEnter(int);
 void State06_Logo2_OnExit();
 void __fastcall State06_Logo2_HandleKeyInput(int,int,unsigned int,unsigned int,unsigned int); /* State06 vtable slot 6 */
+void __fastcall State06_Logo2_Render(int,int); /* State06 vtable slot 15 (+0x3c) */
 void __fastcall State07_AvatarStore_OnEnter();
 void State07_AvatarStore_OnExit();
 void __thiscall State09_ReadyRoom_HandleChatInput();
@@ -1300,7 +1301,9 @@ undefined4 * FUN_004f2f00();
 int __fastcall FUN_004f2f90();
 void FUN_004f3020(int);
 void FUN_004f3060();
-int __fastcall FindSpriteFrame();
+int FindSpriteFrame(); /* real args (container, outerKey, innerKey); K&R-empty
+                        * so the ~175 not-yet-recovered argless call sites still
+                        * compile - see FindSpriteFrame.c's header */
 void FUN_004f3100();
 undefined4 * __fastcall FUN_004f3150();
 void * __thiscall FUN_004f3390();

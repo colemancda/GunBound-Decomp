@@ -713,7 +713,7 @@ extern uint8_t DAT_00e53c3c;
  * the Create Room dialog BuildCreateRoomDialog, PanelManager_Unregister close, etc.). Typed
  * uint8_t by Ghidra but is really a container object; kept as-is until the
  * class is modeled. */
-extern uint8_t g_uiPanelManager;
+extern uint8_t g_uiPanelManager[16]; /* sized to real storage - see globals.c */
 extern uint32_t DAT_00e53c44;
 extern uint32_t DAT_00e53c48;
 extern uint8_t DAT_00e53e88;
@@ -799,7 +799,7 @@ extern uint8_t DAT_00e9b810;
 #define _DAT_00e9b810 DAT_00e9b810
 extern uint8_t DAT_00e9b818;
 extern uint8_t DAT_00e9ba40;
-extern uint8_t DAT_00e9be90;
+extern uint8_t DAT_00e9be90[0x20]; /* sized to real storage - see globals.c */
 extern uint32_t DAT_00e9be94;
 extern uint8_t DAT_00e9be98;
 #define _DAT_00e9be98 DAT_00e9be98
@@ -810,7 +810,7 @@ extern uint8_t DAT_00e9bea0;
 extern uint8_t DAT_00e9bea4;
 extern uint32_t DAT_00e9bea8;
 extern uint8_t DAT_00e9bed8;
-extern uint8_t DAT_00e9c0fc;
+extern uint8_t DAT_00e9c0fc[0x20]; /* sized to real storage - see globals.c */
 extern uint32_t DAT_00e9c104;
 extern uint8_t DAT_00e9c108;
 #define _DAT_00e9c108 DAT_00e9c108

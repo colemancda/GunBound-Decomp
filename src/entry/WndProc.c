@@ -14,6 +14,20 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
+/* FIXED (2026-07-13): the five __thiscall mouse/key handlers below
+ * (FUN_0050f230/f020/f1b0/f1f0/f150) were all called WITHOUT their `this`
+ * pointer - Ghidra dropped the ECX register argument, so each received the
+ * mouse X coordinate in its `this` slot and dereferenced it as an object
+ * (crashing on `*(this+4)` with a near-null address like 0x2de = 734, a
+ * plausible mouse X). Confirmed via objdump: every one of the five call
+ * sites in the original loads `mov ecx,0xe53c40` (g_uiPanelManager, the
+ * global UI panel/dialog container) immediately before its `call` -
+ * 0x410190 (f230), 0x41022d (f020), 0x41032b (f1b0), 0x410369 (f1f0),
+ * 0x41037f (f150). Passed explicitly now. (FUN_00507ea0, the 0x201 handler,
+ * genuinely takes 2 stack args and no `this` - its entry reads [esp+4]/[esp+8]
+ * and never touches ECX - so it is left as-is.)
+ */
+
 /* CGameState vtable slot 6 (+0x18) - keydown/mouse-message dispatch,
  * called as (this, msg, wParam, lParam). MSVC 7.1 forbids explicit
  * __thiscall on a function-pointer typedef (C4234), so this is declared
@@ -71,7 +85,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     }
     else if (param_2 == 0x100) {
       if (DAT_007934c4 == '\0') {
-        cVar1 = FUN_0050f230(param_3);
+        cVar1 = FUN_0050f230((int)&g_uiPanelManager,param_3);
         goto LAB_00410384;
       }
     }
@@ -104,7 +118,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
   case 0x200:
     uVar4 = param_4 & 0xffff;
     uVar3 = param_4 >> 0x10;
-    cVar1 = FUN_0050f020(uVar4,uVar3);
+    cVar1 = FUN_0050f020((int)&g_uiPanelManager,uVar4,uVar3);
     cVar1 = cVar1 == '\0';
     if ((bool)cVar1) {
       FUN_004061e0(&DAT_00e9be90, uVar4, uVar3);
@@ -129,7 +143,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     FUN_0040ce50(&DAT_00e9c0fc, param_4 & 0xffff, param_4 >> 0x10);
     break;
   case 0x202:
-    DAT_00e9bea4 = FUN_0050f1b0(param_4 & 0xffff,param_4 >> 0x10);
+    DAT_00e9bea4 = FUN_0050f1b0((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
     cVar1 = DAT_00e9bea4 != '\x01';
     FUN_00406170(&DAT_00e9be90, param_4 & 0xffff, param_4 >> 0x10);
     DAT_00e9bea4 = 0;
@@ -137,10 +151,10 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     uVar3 = g_cursorAnchorY;
     goto LAB_0041038c;
   case 0x203:
-    cVar1 = FUN_0050f1f0(param_4 & 0xffff,param_4 >> 0x10);
+    cVar1 = FUN_0050f1f0((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
     goto LAB_00410384;
   case 0x204:
-    cVar1 = FUN_0050f150(param_4 & 0xffff,param_4 >> 0x10);
+    cVar1 = FUN_0050f150((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
 LAB_00410384:
     cVar1 = '\x01' - (cVar1 != '\0');
     uVar4 = g_cursorAnchorX;

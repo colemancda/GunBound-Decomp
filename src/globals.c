@@ -570,7 +570,23 @@ uint8_t DAT_00e53c28;
 uint8_t DAT_00e53c2c;
 uint8_t DAT_00e53c30;
 uint8_t DAT_00e53c3c;
-uint8_t g_uiPanelManager;
+/* g_uiPanelManager was a 1-byte placeholder, but the code dereferences it as
+ * a container object: FUN_0050f020/f1b0/f1f0/f150/f230 (WndProc's mouse/key
+ * handlers) read its list head at +4, and PanelManager_* touch +4/+5/+8. With
+ * only 1 byte of storage, those reads ran off the end into whatever global the
+ * linker happened to place next and walked a garbage "widget list", jumping to
+ * a junk vtable pointer (crash at eip=0xfff0e483 on the first WM_MOUSEMOVE).
+ * Sized to 16 bytes of real zeroed storage so the list head reads as a genuine
+ * NULL (= "no panels registered", which is correct during logo/title).
+ *
+ * KNOWN DIVERGENCE: in the original, this object's +4/+8 fields ARE
+ * DAT_00e53c44/DAT_00e53c48 (0xe53c40 + 4/8) - Ghidra split one struct into
+ * separate scalars, and ~10 files use those two names standalone. Those keep
+ * their own storage here rather than aliasing into this block, so writes
+ * through one name are not visible through the other. Harmless while the panel
+ * list is empty; must be unified when the PanelManager class is properly
+ * modeled. */
+uint8_t g_uiPanelManager[16];
 uint32_t DAT_00e53c44;
 uint32_t DAT_00e53c48;
 uint8_t DAT_00e53e88;
@@ -1250,6 +1266,17 @@ void *vtable_State06_Logo2[32] = {
   (void *)State06_Logo2_HandleKeyInput, /* slot 6 mouse/key dispatch: 0x4433c0 */
   (void *)State06_Logo2_OnEnter, (void *)State06_Logo2_OnExit,
   (void *)State06_Logo2_OnTick,
+  /* Slots 10-17, recovered from the original's real vtable in .data at
+   * 0x555528 (the reconstruction above only ever populated slots 0-9, so
+   * GameTick's render call through slot 15 (+0x3c) hit a null pointer and
+   * nothing ever drew). Slot 15 is the only real one here; the rest are the
+   * two shared no-op stubs (0x448430 = CGameState_NoOpVirtual_A,
+   * 0x429800 = NoOpMethod). */
+  (void *)CGameState_NoOpVirtual_A,                        /* 10 +0x28: 0x448430 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                  /* 11-12 +0x2c/+0x30 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                  /* 13-14 +0x34/+0x38 */
+  (void *)State06_Logo2_Render,                            /* 15 +0x3c: 0x443360 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                  /* 16-17 +0x40/+0x44 */
 };
 void *vtable_State07_AvatarStore[32];
 void *vtable_State09_ReadyRoom[32];

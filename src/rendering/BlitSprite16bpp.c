@@ -19,18 +19,29 @@
  * BlitSpriteText.c/DrawFontString.c, deferred for the same reason (fixing
  * it requires per-site disassembly recovery across all callers in one
  * pass, not attempted here).
+ *
+ * FIXED (2026-07-13): the frame/sprite record arrived via a dropped EAX
+ * (read as an uninitialized `in_EAX`) with only (x, y) as real stack args -
+ * confirmed via objdump at State06_Logo2_Render's call site (orig 0x443398:
+ * `mov eax,esi` immediately before `call 0x4ed6a0`, with two pushed zeros).
+ * Promoted to a leading explicit `frame` parameter. functions.h keeps the
+ * K&R-empty declaration so the ~240 not-yet-recovered call sites (which pass
+ * 0-2 args today) still compile - they under-supply and read stack garbage
+ * exactly as they already read register garbage, so this is strictly no worse
+ * for them, and it unblocks the render paths being brought up. Recover each
+ * remaining caller's real frame value per-site as its screen is brought up.
  */
 #include "ghidra_types.h"
 #include <windows.h>
 
 
-undefined4 BlitSprite16bpp(int param_1,int param_2)
+undefined4 BlitSprite16bpp(int frame,int param_1,int param_2)
 
 {
   ushort uVar1;
   int iVar2;
   int iVar3;
-  int in_EAX;
+  int in_EAX = frame;
   int iVar4;
   ushort *puVar5;
   ushort *puVar6;

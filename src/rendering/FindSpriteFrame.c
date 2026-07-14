@@ -1,7 +1,7 @@
 /* FindSpriteFrame - 0x004f30c0 in the original binary.
  *
  * Loaded-sprite/frame resolver for the software blitter (the project's
- * hottest render primitive - ~179 call sites across 43 files, and the thing
+ * hottest render primitive - ~181 call sites across 43 files, and the thing
  * loosely called "the texture-cache lookup" elsewhere in the docs). It is a
  * two-level keyed lookup over a nested linked-list resource container:
  *   - outer list: nodes chained via +0x1c, keyed at +4 (the resource/image
@@ -30,18 +30,15 @@
  * EDX/ESI from their own locals immediately before `call 0x4f30c0` - matching
  * this function's in_EAX/param_2/unaff_ESI reads exactly.
  *
- * Left unfixed: this is the project's hottest render primitive, ~181 call
- * sites across 57 caller functions in ~43 files. Every single call site
- * currently invokes FindSpriteFrame() with zero arguments and is itself an
- * independent, unfixed dropped-register-argument stub (e.g. DrawSprite.c/
- * BlitSprite16bpp.c read their own in_EAX/unaff_ESI locals with no real
- * parameters of their own yet) - promoting this function's signature would
- * require its own disassembly-based register recovery in all 43 callers to
- * keep behavior correct, which is a separate, much larger undertaking
- * outside this pass's scope.
+ * Caller fan-out: this is the project's hottest render primitive, ~181 call
+ * sites across 57 caller functions in ~43 files. Every call site still
+ * invokes FindSpriteFrame() with zero arguments and is itself an independent,
+ * unfixed dropped-register-argument stub (e.g. DrawSprite.c/BlitSprite16bpp.c
+ * read their own in_EAX/unaff_ESI locals with no real parameters of their own
+ * yet), so each one still needs its own disassembly-based register recovery.
  *
- * 2026-07-13 angr batch-scan update: ran an angr CFG backward-scan +
- * whole-function backward register-taint (tools/scan_findspriteframe.py,
+ * 2026-07-13 angr batch-scan: ran an angr CFG backward-scan + whole-function
+ * backward register-taint (tools/scan_findspriteframe.py,
  * tools/scan_findspriteframe2.py) over all 181 call sites; results cached
  * in tools/findspriteframe_sites.json. Findings:
  *   - EAX (container) fully resolved at 179/181 sites: 168 use the fixed
@@ -55,19 +52,33 @@
  *     (e.g. `movzx esi,word ptr [ebp+0x23344]`, `add esi,0xa` off an
  *     existing loop index) - these map directly onto locals the ported C
  *     already declares. 28 sites remain genuinely per-call-site work.
- *   - Crucially, decompiling several of the larger caller functions (e.g.
+ *   - Decompiling several of the larger caller functions (e.g.
  *     State09_ReadyRoom_RenderRosterAndItems, State09_ReadyRoom_
  *     RenderStatusOverlay - each 100-250+ lines with a dozen+ FindSpriteFrame
  *     call sites) confirms the SAME callers independently drop arguments to
  *     BlitSprite16bpp/BlitSpriteClipped/DrawFontString/BlitRLESprite too -
  *     this is not a single-function fix, it's a whole render-call-chain
  *     family fix, same class as this file's own header already flagged for
- *     BlitSpriteText.c/DrawFontString.c/BlitSprite16bpp.c. Promoting
- *     FindSpriteFrame's signature is all-or-nothing across every caller (a
- *     partial promotion breaks every not-yet-fixed call site's compile) -
- *     not attempted in this pass. The cached JSON is the expensive part
- *     (CFG construction + backward taint over a ~1.3MB binary) and should
- *     let a dedicated follow-up skip straight to the file-by-file fixes.
+ *     BlitSpriteText.c/DrawFontString.c/BlitSprite16bpp.c. The cached JSON is
+ *     the expensive part (CFG construction + backward taint over a ~1.3MB
+ *     binary) and should let a dedicated follow-up skip straight to the
+ *     file-by-file fixes.
+ *
+ * FIXED (2026-07-13): promoted to real explicit parameters
+ * (container, outerKey, innerKey) so the render path can actually call it.
+ * Declared plain __cdecl (all args stack-passed) rather than __fastcall,
+ * deliberately: __fastcall's symbol decoration counts STACK-passed bytes
+ * (@FindSpriteFrame@N), so adding params would rename the symbol and break
+ * every not-yet-fixed caller at link time. __cdecl keeps the symbol as
+ * _FindSpriteFrame and, with functions.h's K&R-empty declaration, lets the
+ * ~175 still-argless call sites keep compiling unchanged - they read garbage
+ * off the stack exactly as they already read garbage off registers today,
+ * so this is strictly no worse for them and unblocks the callers that ARE
+ * fixed. This is why the promotion is NOT all-or-nothing across the caller
+ * fan-out: a partial promotion is safe, so callers can be recovered
+ * incrementally as each render path is brought up. This also matches
+ * src/cxx/State03_GameRoomList.cpp's own existing `extern int
+ * FindSpriteFrame(void)` (plain cdecl) declaration.
  *
  * Not renamed in-tree yet: a rename would touch all 43 caller files.
  * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified.
@@ -76,13 +87,14 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FindSpriteFrame(undefined4 param_1,uint param_2)
+int FindSpriteFrame(int container,uint outerKey,uint innerKey)
 
 {
   uint uVar1;
-  int in_EAX;
+  int in_EAX = container;
+  uint param_2 = outerKey;
   int iVar2;
-  uint unaff_ESI;
+  uint unaff_ESI = innerKey;
 
   iVar2 = *(int *)(*(int *)(in_EAX + 4) + 0x1c);
   uVar1 = *(uint *)(iVar2 + 4);
