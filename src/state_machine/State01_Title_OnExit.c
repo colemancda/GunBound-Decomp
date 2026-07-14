@@ -12,19 +12,30 @@
 #include <windows.h>
 
 
-/* The list-walk below calls each node's vtable slot 0 with the node
- * itself as `this` and a literal 1 as a second argument. Ghidra emitted
- * this as (*(code *)*puVar3)(1), a plain-cdecl call that only pushes the
+/* TWO bugs in the list-walk below, found together (2026-07-14, see
+ * sibling State06_Logo2_OnExit.c for the full writeup):
+ *
+ * (1) The vtable call dropped the node/this pointer entirely. Ghidra
+ * emitted (*(code *)*puVar3)(1), a plain-cdecl call that only pushes the
  * literal 1 and never passes puVar3 - dropping the object pointer
  * entirely. Disassembly at 0x4e53e0-0x4e53e7 confirms the real call:
- *   mov edx,[ecx]      ; edx = vtable ptr (ecx = puVar3, the node/this)
+ *   mov edx,[ecx]      ; edx = vtable ptr (ecx = the node/this)
  *   mov edi,[ecx+0x10]
  *   push 0x1
  *   call [edx]
- * ecx (puVar3) is left untouched to serve as `this`, matching this
- * codebase's established __fastcall-with-thisPtr idiom for these
- * implicit-this virtual calls (see ChangeGameState.c's
- * GameStateVirtualFn / GameTick.c's GameStateVirtualFn3). */
+ * matching this codebase's established __fastcall-with-thisPtr idiom
+ * for these implicit-this virtual calls (see ChangeGameState.c's
+ * GameStateVirtualFn / GameTick.c's GameStateVirtualFn3).
+ *
+ * (2) This file's OWN earlier fix (still) used `puVar3 = *puVar2`,
+ * reading puVar2's vtable-pointer VALUE instead of using puVar2 (the
+ * real node) as `this` - the disassembly says `ecx = the node`, not
+ * `ecx = the node's vtable value`. Live-confirmed: without this fix,
+ * the "destructor" (FUN_004f14c0, which does `_free(this)`) frees the
+ * ADDRESS OF A GLOBAL (e.g. &PTR_FUN_00557524 - see LoadSpriteSet.c)
+ * instead of the real heap node - undefined behavior that corrupts the
+ * heap allocator's internal state, surfacing later as garbage
+ * code-segment pointers in unrelated heap reads. */
 typedef void (__fastcall *ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
 
 void State01_Title_OnExit(void)
@@ -47,7 +58,7 @@ void State01_Title_OnExit(void)
     }
     puVar2 = (undefined4 *)puVar4[4];
     while (puVar2 != puVar4) {
-      puVar3 = (undefined4 *)*puVar2;
+      puVar3 = puVar2;
       puVar2 = (undefined4 *)puVar2[4];
       (*(ListNodeVirtualFn *)*puVar3)(puVar3, 1);
     }

@@ -7,10 +7,42 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
- */
+ *
+ * FIXED (2026-07-14), TWO bugs in the list-walk below, found together:
+ *
+ * (1) The vtable call dropped the node/this pointer entirely. Ghidra
+ * emitted `(*(code *)*puVar3)(1)`, a plain-cdecl call that only pushes
+ * the literal 1 and never passes puVar3. Disassembly at 0x4432f0-0x4432f7
+ * confirms the real call:
+ *   mov edx,[ecx]      ; edx = vtable ptr (ecx = the node/this)
+ *   mov edi,[ecx+0x10]
+ *   push 0x1
+ *   call [edx]
+ * matching this codebase's established __fastcall-with-thisPtr idiom
+ * for these implicit-this virtual calls (see ChangeGameState.c's
+ * GameStateVirtualFn / GameTick.c's GameStateVirtualFn3).
+ *
+ * (2) A SEPARATE, more subtle bug in what gets used as `this`: the
+ * decompiled `puVar3 = *puVar2;` reads puVar2's own vtable-pointer
+ * VALUE (e.g. `&PTR_FUN_00557524`, a GLOBAL slot - see LoadSpriteSet.c)
+ * instead of using puVar2 (the real node) itself. The disassembly
+ * above says `ecx = the node`, not `ecx = the node's vtable value` -
+ * `this` must be the node (puVar2), with `*puVar2` used only to fetch
+ * the vtable pointer for the CALL, not reassigned into what gets
+ * passed as `this`. Live-confirmed: without this fix, the "destructor"
+ * (FUN_004f14c0, which does `_free(this)`) frees the ADDRESS OF A
+ * GLOBAL instead of the real heap node - undefined behavior that
+ * corrupts the heap allocator's internal state, surfacing later as
+ * garbage code-segment pointers appearing in unrelated heap reads
+ * (reached via State01_Title_OnExit, which inherits sprite-set 10000's
+ * layer from whatever this function's own corruption left behind).
+ * This exact two-bug pattern (dropped-this AND wrong-this-value)
+ * likely recurs at the ~150+ other call sites across this codebase
+ * using the same `(*(code *)*puVarN)(1)` shape - not audited here. */
 #include "ghidra_types.h"
 #include <windows.h>
 
+typedef void (__fastcall *ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
 
 void State06_Logo2_OnExit(void)
 
@@ -39,9 +71,9 @@ void State06_Logo2_OnExit(void)
     }
     puVar2 = (undefined4 *)puVar4[4];
     while (puVar2 != puVar4) {
-      puVar3 = (undefined4 *)*puVar2;
+      puVar3 = puVar2;
       puVar2 = (undefined4 *)puVar2[4];
-      (*(code *)*puVar3)(1);
+      (*(ListNodeVirtualFn *)*puVar3)(puVar3, 1);
     }
     puVar4[3] = puVar4;
     puVar4[4] = puVar4;
