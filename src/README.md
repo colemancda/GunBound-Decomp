@@ -155,9 +155,55 @@ rather than through one clean entry point.
   against the Python decoder on three real archive entries pulled
   straight from `orig/graphics.xfs` (`ChooseEvent.txt`, `bullet1n.img`,
   `avataimsi.img`).
+
+  **This validated module sat disconnected from the game for a full
+  session (2026-07-14 bring-up).** Every raw-ported caller (`OpenXFSArchive.c`
+  / `LoadGameDataFiles.c` / `DecodeXFSEntryBlock.c`, 7 call sites) invokes a
+  *different* symbol, `DecodeLZHUFBlock(state, output, compressedInput,
+  compressedSize, outputSize)` - the original's real 5-argument calling
+  convention (confirmed against the original disassembly at `0x4eaba0`: the
+  callers were always correct). That symbol was never defined anywhere in
+  the tree, so every caller silently linked against the bring-up harness's
+  auto-generated no-op stub instead of failing to link - every archive's
+  decoded header/entry data read back as all-zero, with no compile or link
+  error to surface it. `lzhuf_api.c` now provides that wrapper
+  (`DecodeLZHUFBlock`, thin glue over `lzhuf_decode()`), closing the gap.
+  Byte-for-byte Python parity alone couldn't have caught this - the bug was
+  in *wiring*, not decode logic - only running the actual bring-up exe
+  against real game data did.
 - **`test_lzhuf.c`** — standalone CLI test driver, not part of the
   eventual game build; exists purely to validate `lzhuf_decode()` against
   real data without needing the rest of the game to compile.
+
+### Bring-up-only startup reconstruction: `src/cxx/crt_shims_msvc.c`
+
+Beyond CRT symbol forwarding (its original purpose, see the file's own
+header), `crt_shims_msvc.c` has grown a `gb_startup_init` hook (wired in via
+a `.CRT$XCU` static-initializer section, the same mechanism MSVC uses for
+real C++ global constructors) that reconstructs several pieces of runtime
+state the original binary builds via C++ static initializers this project
+doesn't have raw decompiled ports of - things Ghidra's per-function
+decompile can't see because they're not inside any one function's body.
+Confirmed via `ghidra_scripts/ListXrefs.java` that nothing in `.text` ever
+writes these globals directly, so leaving them zero-initialized faults the
+first real reader. Current contents: the two active-object/widget registry
+roots' sentinel-list self-references, the global sprite registry
+(`DAT_00ea0e18`) and its own split-scalar alias (`DAT_00ea0e1c`), and a
+faithful reconstruction of the real `ATL::CAtlStringMgr` vtable + nil-string
+singleton `GetLocalizedString` depends on (see ARCHITECTURE.md's "Text
+localization" section) - not game logic, so kept as a C-level shim here
+rather than promoted to a `src/cxx/` class (that directory's convention is
+GunBound's own classes, not third-party MSVC/ATL runtime internals).
+
+**This only exists in the MSVC build path.** `crt_shims_msvc.c` compiles
+only under `_MSC_VER` (the toolchain that currently produces the actual
+runnable `gunbound_bringup.exe`/`gunbound.exe`, run under Wine); the
+separate winegcc/Winelib path (`crt_shims_c.c`/`crt_shims.cpp`, see
+"Winelib" above) has no equivalent hook. If that path is ever used to
+actually *run* the game rather than just syntax-check it, it will hit the
+same class of startup-order crashes this session's bring-up work chased
+down one at a time - `gb_startup_init`'s contents are the known list of
+what's needed so far, not necessarily complete.
 
 ### Raw/verbatim ports — every function in the game binary, 1,780 of them
 
