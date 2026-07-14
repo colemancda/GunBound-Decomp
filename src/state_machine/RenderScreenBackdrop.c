@@ -37,6 +37,17 @@
  * `call 0x4f30c0`. Recovered while wiring up State01_Title/State05_Logo1's
  * real vtable render slot (both point here, slot 15 = 0x443570 in each's
  * own real vtable in .data).
+ *
+ * FIXED (2026-07-14): the BlitSprite16bpp() call above was missing its
+ * 3rd (y) argument, despite this file's own header already documenting
+ * the real value as 0 (`push eax` twice, EAX held 0 the whole time) -
+ * the call site was just never updated to actually pass it. Under
+ * BlitSprite16bpp's real (frame,x,y) signature this left `y` reading
+ * uninitialized stack garbage, live-reproduced as a black ServerSelect
+ * screen (this function's vtable slot is shared by Title/Logo1/
+ * ServerSelect - unlike Logo2, which uses its own State06_Logo2_Render
+ * and was never exercised by this bug). Compare State06_Logo2_Render.c's
+ * own (already-correct) `BlitSprite16bpp(frameIndex,0,0)` call.
  */
 #include "ghidra_types.h"
 
@@ -50,7 +61,7 @@ void RenderScreenBackdrop(void)
     iVar1 = FindSpriteFrame((int)&DAT_00ea0e18,10000,0);
     if (iVar1 != 0) {
       if (*(char *)(iVar1 + 0x18) == '\x01') {
-        BlitSprite16bpp(0, 0);
+        BlitSprite16bpp(0, 0, 0);
         return;
       }
       BlitSpriteClipped(0, 0, 0);
