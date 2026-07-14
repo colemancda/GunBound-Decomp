@@ -565,6 +565,26 @@ uint32_t DAT_00e536c0;
 uint32_t DAT_00e536c4;
 uint8_t DAT_00e536e4;
 uint8_t DAT_00e536ec;
+/* Zeroed backing for the three per-tick input/cursor timer blocks GameTick
+ * updates every elapsed tick. In the original these are static singletons at
+ * fixed addresses - the mouse DirectInput device (0xe53698), the keyboard
+ * device (0xe52810), and the software-cursor animation object (0x7a7644) -
+ * constructed by FUN_004ee270 / FUN_004edd70 / the cursor init. Those
+ * constructors are bring-up-stubbed (they skip DirectInput acquisition, see
+ * FUN_004ee270.c), so the singletons never exist and GameTick's literal-address
+ * timer calls dereferenced unbacked memory and faulted. Each consumer only
+ * decrements already-nonzero timer fields (FUN_004ee540 at +0x68..+0x84,
+ * FUN_004ee0d0 at +0x258..+0x654) or is gated on an enable flag
+ * (AdvanceSpriteAnimation on +0x20), so zeroed backing is a correct no-op for
+ * the input-less logo path. Sized to cover each function's highest field read.
+ *
+ * KNOWN DIVERGENCE: the original devices' other fields are modelled as the
+ * scattered separate globals around here (DAT_00e5369c, DAT_00e536c0, the
+ * g_cursor* set, etc.); those do NOT alias into these arrays. Harmless while
+ * no real input device is acquired. */
+uint8_t g_mouseDeviceTimerBlock[0x88];
+uint8_t g_keyboardDeviceTimerBlock[0x658];
+uint8_t g_softwareCursorAnimBlock[0x38];
 uint8_t DAT_00e53c24;
 uint8_t DAT_00e53c28;
 uint8_t DAT_00e53c2c;
