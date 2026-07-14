@@ -551,7 +551,15 @@ extern uint32_t DAT_007933c0;
 extern uint8_t DAT_007934c4;
 extern uint32_t DAT_007934c8;
 extern uint8_t DAT_007934cc;
-extern uint8_t DAT_007934d8;
+/* GameTick's per-tick transition-timer delta, added to DAT_0056d108 each
+ * tick (+1 counting up to 11, or -1 counting down from 10 - see
+ * ChangeGameState.c). Was uint8_t, silently truncating every -1 (0xffffffff)
+ * assignment to 0xff=255 - the timer counted UP by 255/tick instead of DOWN
+ * by 1, blowing DAT_0056d108 (and the array index derived from it in
+ * GameTick.c) far out of bounds within a handful of ticks. The C++-promoted
+ * sibling (GameStateMachine.cpp) already correctly declares this
+ * `unsigned int` - the raw C port was simply never resized to match. */
+extern uint32_t DAT_007934d8;
 #define _DAT_007934d8 DAT_007934d8
 extern uint32_t DAT_007934e0;
 extern uint32_t DAT_007934e4;

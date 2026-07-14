@@ -512,7 +512,7 @@ uint32_t DAT_007933c0;
 uint8_t DAT_007934c4;
 uint32_t DAT_007934c8;
 uint8_t DAT_007934cc;
-uint8_t DAT_007934d8;
+uint32_t DAT_007934d8;
 uint32_t DAT_007934e0;
 uint32_t DAT_007934e4;
 uint32_t DAT_007934e8;
