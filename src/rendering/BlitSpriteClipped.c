@@ -57,17 +57,23 @@
  * esi,[esp+0x10]` (ESI = this function's own `frame` stack arg, left
  * untouched through the call), then immediately before `call 0x4f30c0` sets
  * `mov eax,0xea0e18` (container = &DAT_00ea0e18) with no EDX write in
- * between - EDX (outer key) is inherited live from the caller, matching
- * State06_Logo2_Render's already-fixed `FindSpriteFrame((int)&DAT_00ea0e18,
- * 10000,frameIndex)` call, which leaves EDX=10000 live across its
- * subsequent BlitSpriteClipped() call. Passed explicitly here rather than
- * relying on register survival across the intervening C code.
+ * between - EDX (outer key) is inherited live from the caller. An EARLIER
+ * fix hardcoded EDX=10000 here, verified only against State06_Logo2_Render's
+ * specific call site - WRONG in general, since EDX is a genuine per-caller
+ * pass-through, not a constant (live-reproduced: ServerSelect's world-list
+ * panel's own outer key is 0x2711, and this hardcoded 10000 silently made
+ * its background sprite fail to draw even though the panel's own, separate,
+ * correctly-keyed FindSpriteFrame lookup succeeded). Promoted to a real
+ * trailing `outerKey` parameter; every currently-3-arg (already frame/x/y-
+ * migrated) call site updated to pass its real key - see each site's own
+ * recovery. functions.h stays K&R-empty so the ~290 still-2-arg
+ * (frame not yet even recovered) call sites keep compiling unchanged.
  */
 #include "ghidra_types.h"
 #include <windows.h>
 
 
-undefined4 BlitSpriteClipped(int frame,int x,int y)
+undefined4 BlitSpriteClipped(int frame,int x,int y,int outerKey)
 
 {
   int iVar1;
@@ -77,7 +83,7 @@ undefined4 BlitSpriteClipped(int frame,int x,int y)
   undefined4 *puPixelRow;
 
   if (((DAT_0079352c != 0) && (-1 < frame)) &&
-     (iVar1 = FindSpriteFrame((int)&DAT_00ea0e18,10000,frame), iVar1 != 0)) {
+     (iVar1 = FindSpriteFrame((int)&DAT_00ea0e18,outerKey,frame), iVar1 != 0)) {
     iVar2 = y + *(int *)(iVar1 + 0x2c);
     x = x + *(int *)(iVar1 + 0x28);
     iRowStride = *(int *)(iVar1 + 0x20);

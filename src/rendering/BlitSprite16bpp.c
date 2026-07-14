@@ -38,17 +38,20 @@
  * `frame` param, left untouched through the call), then immediately before
  * `call 0x4f30c0` sets `mov eax,0xea0e18` (container = &DAT_00ea0e18) with
  * no EDX write in between - EDX (outer key) is inherited live from the
- * caller, exactly like State06_Logo2_Render's own already-fixed
- * `FindSpriteFrame((int)&DAT_00ea0e18,10000,frameIndex)` call, which leaves
- * EDX=10000 live across its subsequent BlitSprite16bpp() call. Passed
- * explicitly here rather than relying on register survival across the
- * intervening C code.
+ * caller. An EARLIER fix hardcoded EDX=10000 here, verified only against
+ * State06_Logo2_Render's specific call site - WRONG in general, since EDX
+ * is a genuine per-caller pass-through, not a constant (same bug, same
+ * live-reproduction, as BlitSpriteClipped.c's sibling fix - see its header).
+ * Promoted to a real trailing `outerKey` parameter; every currently-3-arg
+ * (already frame/x/y-migrated) call site updated to pass its real key.
+ * functions.h stays K&R-empty so the ~290 still-2-arg call sites keep
+ * compiling unchanged.
  */
 #include "ghidra_types.h"
 #include <windows.h>
 
 
-undefined4 BlitSprite16bpp(int frame,int param_1,int param_2)
+undefined4 BlitSprite16bpp(int frame,int param_1,int param_2,int outerKey)
 
 {
   ushort uVar1;
@@ -67,7 +70,7 @@ undefined4 BlitSprite16bpp(int frame,int param_1,int param_2)
   int local_8;
   
   if (((DAT_0079352c != 0) && (-1 < in_EAX)) &&
-     (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,10000,frame), iVar3 = DAT_00793530, iVar4 != 0)) {
+     (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,outerKey,frame), iVar3 = DAT_00793530, iVar4 != 0)) {
     iVar2 = *(int *)(iVar4 + 0x28);
     param_2 = param_2 + *(int *)(iVar4 + 0x2c);
     puVar6 = *(ushort **)(iVar4 + 0x34);

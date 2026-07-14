@@ -37,20 +37,20 @@ void FUN_004b3e60(undefined2 *param_1)
     if ((DAT_0079352c != 0) &&
         (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x38e,0), iVar2 != 0)) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        BlitSprite16bpp(0,iVar3,0x17d);
+        BlitSprite16bpp(0,iVar3,0x17d,0x38e);
       }
       else {
-        BlitSpriteClipped(0,iVar3,0x17d);
+        BlitSpriteClipped(0,iVar3,0x17d,0x38e);
       }
     }
     uVar1 = *param_1;
     if ((DAT_0079352c != 0) &&
         (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x64,uVar1), iVar2 != 0)) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        BlitSprite16bpp(uVar1,iVar3 + 0x13,0x18c);
+        BlitSprite16bpp(uVar1,iVar3 + 0x13,0x18c,0x64);
       }
       else {
-        BlitSpriteClipped(uVar1,iVar3 + 0x13,0x18c);
+        BlitSpriteClipped(uVar1,iVar3 + 0x13,0x18c,0x64);
       }
     }
     DrawFontString(0x18b,0x1f);

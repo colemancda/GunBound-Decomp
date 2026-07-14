@@ -61,10 +61,10 @@ void __fastcall State06_Logo2_Render(int param_1,int dummyEDX)
     return;
   }
   if (*(char *)(frameRecord + 0x18) == '\x01') {
-    BlitSprite16bpp(frameIndex,0,0);
+    BlitSprite16bpp(frameIndex,0,0,10000);
   }
   else {
-    BlitSpriteClipped(frameIndex,0,0);
+    BlitSpriteClipped(frameIndex,0,0,10000);
   }
   return;
 }

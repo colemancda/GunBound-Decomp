@@ -75,10 +75,10 @@ void __fastcall RenderWorldListRow(int param_1, uint in_EAX)
   if ((DAT_0079352c != 0) &&
       (iVar6 = FindSpriteFrame((int)&DAT_00ea0e18,0x2711,cVar8), iVar6 != 0)) {
     if (*(char *)(iVar6 + 0x18) == '\x01') {
-      BlitSprite16bpp(cVar8,iVar1,iVar2);
+      BlitSprite16bpp(cVar8,iVar1,iVar2,0x2711);
     }
     else {
-      BlitSpriteClipped(cVar8,iVar1,iVar2);
+      BlitSpriteClipped(cVar8,iVar1,iVar2,0x2711);
     }
   }
   _sprintf(local_80,&DAT_00551ed4,*(ushort *)(g_clientContext + 0x3f81a + in_EAX * 2) + 1);
@@ -164,10 +164,10 @@ void __fastcall RenderWorldListRow(int param_1, uint in_EAX)
           }
         }
         if (*(char *)(iVar6 + 0x18) == '\x01') {
-          BlitSprite16bpp(uVar5,iVar1 + 0xb5,iVar2);
+          BlitSprite16bpp(uVar5,iVar1 + 0xb5,iVar2,0x2711);
           return;
         }
-        BlitSpriteClipped(uVar5,iVar1 + 0xb5,iVar2);
+        BlitSpriteClipped(uVar5,iVar1 + 0xb5,iVar2,0x2711);
       }
     }
   }

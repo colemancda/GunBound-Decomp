@@ -61,10 +61,10 @@ void RenderScreenBackdrop(void)
     iVar1 = FindSpriteFrame((int)&DAT_00ea0e18,10000,0);
     if (iVar1 != 0) {
       if (*(char *)(iVar1 + 0x18) == '\x01') {
-        BlitSprite16bpp(0, 0, 0);
+        BlitSprite16bpp(0, 0, 0, 10000);
         return;
       }
-      BlitSpriteClipped(0, 0, 0);
+      BlitSpriteClipped(0, 0, 0, 10000);
     }
   }
   return;

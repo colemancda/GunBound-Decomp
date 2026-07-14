@@ -54,8 +54,8 @@ extern int g_clientContext;
 extern unsigned int DAT_0079352c;
 extern unsigned char DAT_00ea0e18[0x20];
 int FindSpriteFrame(int container, unsigned int outerKey, unsigned int innerKey);
-int BlitSprite16bpp(int frame, int x, int y);
-int BlitSpriteClipped(int frame, int x, int y);
+int BlitSprite16bpp(int frame, int x, int y, int outerKey);
+int BlitSpriteClipped(int frame, int x, int y, int outerKey);
 void __fastcall RenderWorldListRow(int panel, unsigned int index);
 }
 
@@ -122,23 +122,15 @@ CWorldListPanel::CWorldListPanel()
  * ->Update() on children too, matching that real behavior even though no
  * current child class (CLabel/CScrollBar) overrides it yet.
  *
- * KNOWN REMAINING GAP (2026-07-14, live-verified via probes - the panel
- * registers/updates/finds its sprite record correctly (FindSpriteFrame
- * here returns a real, populated record: rowStride/pixel-data-pointer
- * all look like genuine loaded texture data), but the background still
- * doesn't visibly render): BOTH BlitSprite16bpp AND BlitSpriteClipped do
- * their OWN internal FindSpriteFrame() re-lookup with a HARDCODED
- * outerKey=10000 (confirmed in both files' own source/headers), correct
- * ONLY for State06_Logo2_Render's specific sprite set - for this panel
- * the real outerKey is m_unk44=0x2711 ("server_list.img"), so their
- * internal re-lookup silently finds the WRONG (or no) record and draws
- * nothing, even though the call above with the CORRECT record succeeds.
- * This is the same class of "hot function baked to one caller's context,
- * ~300 combined call sites project-wide" gap FindSpriteFrame.c's own
- * header already documents for its 181 sites - not a one-file fix;
- * needs its own dedicated per-caller register-inheritance sweep across
- * both functions before this panel (and any other non-10000 sprite set)
- * can actually render pixels. */
+ * FIXED (2026-07-14): BlitSprite16bpp/BlitSpriteClipped both did their OWN
+ * internal FindSpriteFrame() re-lookup with a HARDCODED outerKey=10000,
+ * correct only for State06_Logo2_Render's specific sprite set - live-
+ * reproduced here: this panel's real outerKey is m_unk44=0x2711
+ * ("server_list.img"), so their internal re-lookup silently found the
+ * wrong (or no) record and drew nothing even though the outer
+ * FindSpriteFrame call right above (with the correct key) succeeded and
+ * returned a fully populated record. Both functions promoted to take a
+ * real `outerKey` parameter - see their own headers. */
 void CWorldListPanel::Update()
 {
     if (m_hidden) {
@@ -148,9 +140,9 @@ void CWorldListPanel::Update()
         int rec = FindSpriteFrame((int)DAT_00ea0e18, (unsigned int)m_unk44, (unsigned int)m_unk48);
         if (rec != 0) {
             if (*(unsigned char *)(rec + 0x18) == 1) {
-                BlitSprite16bpp(m_unk48, m_x, m_y);
+                BlitSprite16bpp(m_unk48, m_x, m_y, m_unk44);
             } else {
-                BlitSpriteClipped(m_unk48, m_x, m_y);
+                BlitSpriteClipped(m_unk48, m_x, m_y, m_unk44);
             }
         }
     }

@@ -53,11 +53,11 @@ void __fastcall Widget_DrawSelf(int param_1)
     iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,*(int *)(param_1 + 0x44),iVar3);
     if (iVar4 != 0) {
       if (*(char *)(iVar4 + 0x18) == '\x01') {
-        BlitSprite16bpp(iVar3,uVar2,uVar1);
+        BlitSprite16bpp(iVar3,uVar2,uVar1,*(int *)(param_1 + 0x44));
         Widget_DrawChildrenDeep(param_1);
         return;
       }
-      BlitSpriteClipped(iVar3,uVar2,uVar1);
+      BlitSpriteClipped(iVar3,uVar2,uVar1,*(int *)(param_1 + 0x44));
     }
   }
   Widget_DrawChildrenDeep(param_1);
