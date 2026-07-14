@@ -54,7 +54,6 @@ void ProcessIncomingPackets(int param_1,HWND param_2)
   int iVar14;
   undefined4 *puVar15;
   ushort *puVar16;
-  undefined4 *unaff_FS_OFFSET;
   bool bVar17;
   UINT UVar18;
   int local_24e4;
@@ -65,16 +64,24 @@ void ProcessIncomingPackets(int param_1,HWND param_2)
   undefined1 local_2230 [20];
   int local_221c;
   undefined4 local_200c [2047];
-  undefined4 uStack_10;
-  undefined4 local_c;
-  undefined1 *puStack_8;
   int local_4;
-  
-  local_c = *unaff_FS_OFFSET;
+
+  /* Windows SEH __try/__except frame setup (local_c/puStack_8/uStack_10/
+   * unaff_FS_OFFSET, FS-register manipulation) stripped: the handler body
+   * (LAB_0053df96) was never included in this function's own decompilation,
+   * so there's no exact recovery behavior to preserve. Same rationale as
+   * entry/InitGame.c's fix - see src/README.md.
+   *
+   * Stripping it here is a CRASH FIX, not just cleanup. Ghidra renders the
+   * prologue's `mov eax, fs:[0]` as a read through `unaff_FS_OFFSET`, which
+   * the raw port declared as an UNINITIALIZED local - it compiled to
+   * `mov (%esp),%eax; mov (%eax),%ecx` (ProcessIncomingPackets+0xa/+0xd),
+   * i.e. it dereferenced whatever __chkstk happened to leave at [esp]. That
+   * only ever survived by luck; any change to stack layout turned it into a
+   * wild-pointer page fault. Restoring the frame properly is not an option
+   * either - `puStack_8 = &LAB_0053df96` would install an SEH record whose
+   * handler field points at a label that does not exist in this build. */
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053df96;
-  *unaff_FS_OFFSET = &local_c;
-  uStack_10 = 0x4d27ff;
   if ((*(char *)(param_1 + 0x84e4) != '\0') && (*(int *)(*(int *)(param_1 + 0x84e0) + 0x22c) != 3))
   {
     *(undefined1 *)(param_1 + 0x84e4) = 0;
@@ -86,7 +93,6 @@ LAB_004d2840:
     iVar14 = *(int *)(iVar6 + 0x24238);
     if (iVar14 == *(int *)(iVar6 + 0x24234)) {
 LAB_004d33f1:
-      *unaff_FS_OFFSET = local_c;
       return;
     }
     local_24e4 = *(int *)(iVar6 + 0x24640 + iVar14 * 4);
