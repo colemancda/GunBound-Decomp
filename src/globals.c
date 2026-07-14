@@ -1379,6 +1379,17 @@ void *vtable_State02_ServerSelect[32] = {
   (void *)FUN_004e1430, /* slot 6 keydown: 0x4e1430 - Enter = connect */
   (void *)State02_ServerSelect_OnEnter, (void *)State02_ServerSelect_OnExit,
   (void *)State02_ServerSelect_OnTick,
+  /* Slots 10-17, recovered from the original's real vtable in .data at
+   * 0x5570f0 (found by scanning for this state's own OnEnter address,
+   * 0x4e14b0 - same reconstruction gap/technique as vtable_State06_Logo2/
+   * State01_Title/State05_Logo1 above). Slot 15 is the shared
+   * RenderScreenBackdrop again - without it GameTick's render call
+   * crashed the instant the game actually reached server select. */
+  (void *)CGameState_NoOpVirtual_A,                        /* 10 +0x28: 0x448430 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                  /* 11-12 +0x2c/+0x30 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                  /* 13-14 +0x34/+0x38 */
+  (void *)RenderScreenBackdrop,                            /* 15 +0x3c: 0x443570 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                  /* 16-17 +0x40/+0x44 */
 };
 void *vtable_State05_Logo1[32] = {
   (void *)NoOpMethod, /* dtor: shared 0x4e5320, not yet ported */
