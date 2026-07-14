@@ -1688,6 +1688,18 @@ both keyed on numeric ids:
   calls `GetLocalizedString(&g_localizedStringTable, id)` to resolve a
   string by id. (`DAT_005b1444` in its body is the ATL allocator vtable
   used to marshal the returned string object — *not* the string table.)
+  It's a **real, documented Microsoft ATL library object**
+  (`ATL::CAtlStringMgr`/`IAtlStringMgr`, VS2003 headers — confirmed via
+  Ghidra's own function-signature matching on
+  `src/unnamed/msvc_crt_atl/FUN_00520037.c`/`FUN_0052009c.c` against the
+  real library), not game-specific code. When the id lookup misses (e.g.
+  in the bring-up build, where `LoadLocalizedStrings` is skipped and the
+  table is always empty), `GetLocalizedString` falls back to ATL's shared
+  "nil string" singleton via the vtable's `GetNilString()` slot — a
+  faithful reconstruction of that vtable + singleton lives in
+  `src/cxx/crt_shims_msvc.c`'s `gb_init_atl_string_mgr` (MSVC-syntax-check
+  build only; see that file's header for why `state`/`this` can be
+  ignored in the reconstruction).
 
 **How ids are chosen.** Error dialogs go through the shared
 `ShowErrorDialog(closeSockets)`, which maps a per-screen error/reason code
