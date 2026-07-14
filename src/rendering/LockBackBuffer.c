@@ -20,30 +20,38 @@
  */
 #include "ghidra_types.h"
 #include <windows.h>
+#include <string.h>
 
 typedef HRESULT (WINAPI *LockFn)(void *, LPRECT, LPDDSURFACEDESC2, DWORD, HANDLE);
+
+/* STACK-OVERFLOW FIX: Ghidra recovered only three of this frame's locals
+ * (uStack_8c / local_88[4] / uStack_78 = 0x18 bytes), but the zero-fill loop
+ * writes 0x1f dwords = 0x7c bytes - the size of the DDSURFACEDESC2 that
+ * IDirectDrawSurface7::Lock fills. The original reserves a 0x84-byte frame
+ * for it (orig 0x4f02c6 `sub esp,0x84`); the under-sized port buffer let the
+ * fill and Lock clobber the return address and this function's own incoming
+ * param_1/param_2, so the success-path `*param_1 = ...` faulted writing
+ * through a smashed (NULL) pointer. Replaced with a correctly-sized desc
+ * buffer. Field offsets read back are taken verbatim from the original's tail
+ * (orig 0x4f0303/0x4f030a): param_1 <- desc+0x24 (lpSurface), param_2 <-
+ * desc+0x10 (lPitch) - GameTick consumes them as the locked surface pointer
+ * (checked != 0) and its pitch (halved to 16bpp pixels). */
 
 undefined4 LockBackBuffer(undefined4 *param_1,undefined4 *param_2)
 
 {
   int iVar1;
-  undefined4 *puVar2;
-  undefined4 uStack_8c;
-  undefined4 local_88 [4];
-  undefined4 uStack_78;
+  undefined1 descBuf [0x7c];   /* DDSURFACEDESC2 */
 
-  puVar2 = local_88;
-  for (iVar1 = 0x1f; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = 0;
-    puVar2 = puVar2 + 1;
-  }
-  local_88[0] = 0x7c;
-  iVar1 = (*(LockFn *)(*g_pBackBufferSurface + 100))(g_pBackBufferSurface,0,(LPDDSURFACEDESC2)local_88,0,0);
+  memset(descBuf, 0, sizeof(descBuf));
+  *(undefined4 *)descBuf = 0x7c;   /* dwSize */
+  iVar1 = (*(LockFn *)(*g_pBackBufferSurface + 100))
+            (g_pBackBufferSurface,0,(LPDDSURFACEDESC2)descBuf,0,0);
   if (iVar1 < 0) {
     return 0;
   }
-  *param_1 = uStack_78;
-  *param_2 = uStack_8c;
+  *param_1 = *(undefined4 *)(descBuf + 0x24);   /* lpSurface */
+  *param_2 = *(undefined4 *)(descBuf + 0x10);   /* lPitch */
   return 1;
 }
 
