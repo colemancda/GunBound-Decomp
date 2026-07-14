@@ -72,7 +72,7 @@ void ShowErrorDialogFmt(int param_1,undefined4 param_2)
       *(undefined1 *)(iVar1 + 0x84e5) = 0;
     }
     if (DAT_007934f4 != 0) {
-      FUN_004059a0();
+      CloseDirectLinkSocket((int)DAT_007934f4);
     }
     SetEvent(DAT_00e55ce8);
   }

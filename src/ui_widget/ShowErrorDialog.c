@@ -115,7 +115,7 @@ void ShowErrorDialog(int param_1)
     }
     DAT_00e55a64 = (int *)0x0;
     if (DAT_007934f4 != 0) {
-      FUN_004059a0();
+      CloseDirectLinkSocket((int)DAT_007934f4);
     }
     SetEvent(DAT_00e55ce8);
   }

@@ -204,7 +204,7 @@ void FUN_00405890();
 void FUN_004058b0();
 void FUN_004058c0(void *, undefined4, undefined4);
 void FUN_00405930();
-void FUN_004059a0();
+void CloseDirectLinkSocket(int param_1);
 void __fastcall FUN_004059e0();
 void __fastcall FUN_00405a20();
 void FUN_00405a40();

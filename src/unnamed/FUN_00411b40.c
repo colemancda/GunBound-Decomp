@@ -75,7 +75,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
       }
       if (in_AX == 0x1fff) {
         if (DAT_007934f4 != 0) {
-          FUN_004059a0();
+          CloseDirectLinkSocket((int)DAT_007934f4);
           return;
         }
       }
