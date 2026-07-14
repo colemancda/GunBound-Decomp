@@ -30,6 +30,19 @@
  * exactly as they already read register garbage, so this is strictly no worse
  * for them, and it unblocks the render paths being brought up. Recover each
  * remaining caller's real frame value per-site as its screen is brought up.
+ *
+ * FIXED (2026-07-14): the internal FindSpriteFrame() re-lookup was ALSO
+ * a zero-arg dropped-register-argument stub, separate from this function's
+ * own now-fixed `frame` parameter. Confirmed via objdump at 0x4ed6a0: entry
+ * does `mov esi,eax` (ESI = the caller's frame value, this function's own
+ * `frame` param, left untouched through the call), then immediately before
+ * `call 0x4f30c0` sets `mov eax,0xea0e18` (container = &DAT_00ea0e18) with
+ * no EDX write in between - EDX (outer key) is inherited live from the
+ * caller, exactly like State06_Logo2_Render's own already-fixed
+ * `FindSpriteFrame((int)&DAT_00ea0e18,10000,frameIndex)` call, which leaves
+ * EDX=10000 live across its subsequent BlitSprite16bpp() call. Passed
+ * explicitly here rather than relying on register survival across the
+ * intervening C code.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -54,7 +67,7 @@ undefined4 BlitSprite16bpp(int frame,int param_1,int param_2)
   int local_8;
   
   if (((DAT_0079352c != 0) && (-1 < in_EAX)) &&
-     (iVar4 = FindSpriteFrame(), iVar3 = DAT_00793530, iVar4 != 0)) {
+     (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,10000,frame), iVar3 = DAT_00793530, iVar4 != 0)) {
     iVar2 = *(int *)(iVar4 + 0x28);
     param_2 = param_2 + *(int *)(iVar4 + 0x2c);
     puVar6 = *(ushort **)(iVar4 + 0x34);
