@@ -828,7 +828,7 @@ extern uint32_t DAT_00e9c9cc;
 extern uint8_t DAT_00e9c9d0;
 extern uint32_t DAT_00e9c9dc;
 extern uint32_t DAT_00e9c9e0;
-extern uint8_t DAT_00ea0e18;
+extern uint8_t DAT_00ea0e18[0x20]; /* global sprite registry - sentinel-list container, see globals.c */
 extern uint32_t DAT_00ea0e1c;
 extern uint32_t DAT_00ea0e28;
 extern uint32_t DAT_00ea0e2c;
