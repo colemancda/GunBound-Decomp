@@ -698,6 +698,12 @@ extern uint32_t DAT_00e536c4;
 extern uint8_t DAT_00e536e4;
 #define _DAT_00e536e4 DAT_00e536e4
 extern uint8_t DAT_00e536ec;
+/* Zeroed backing for GameTick's per-tick input/cursor timer blocks (mouse
+ * 0xe53698, keyboard 0xe52810, cursor-anim 0x7a7644) - the DirectInput device
+ * singletons are bring-up-stubbed and never constructed; see globals.c. */
+extern uint8_t g_mouseDeviceTimerBlock[0x88];
+extern uint8_t g_keyboardDeviceTimerBlock[0x658];
+extern uint8_t g_softwareCursorAnimBlock[0x38];
 extern uint8_t DAT_00e53c24;
 #define _DAT_00e53c24 DAT_00e53c24
 extern uint8_t DAT_00e53c28;
