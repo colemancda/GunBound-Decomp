@@ -24,11 +24,12 @@ extern unsigned char DAT_00e55a45;
 extern unsigned int DAT_00e9be98, DAT_00e9be9c, DAT_00e9c104;
 extern unsigned int DAT_0056d108, DAT_007934d8;
 extern unsigned char DAT_0067ec70;
+extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20]; /* the two active-object registries */
 extern void *g_cursorTexture;
 extern const char s_cursor_005524e8[];
 extern const char s_normal_00552230[];
 
-void FUN_004f3020(void);                  /* active-object sweep (called twice) */
+void SweepActiveObjectRegistry(void *registry);        /* active-object sweep (called twice, once per registry) */
 void FUN_005098e0(int key);               /* destroy the UI panels registered under key */
 void AppendPersistentButtonName(void *slot); /* per-slot register-arg index dropped by Ghidra */
 void *FindPreloadedTextureByName(const char *name);
@@ -91,11 +92,11 @@ void ChangeGameState(int newStateId)
     }
     DAT_00e55a45 = 0;
     g_gameStateVTableArray[g_currentGameState]->OnExit();
-    FUN_004f3020();
+    SweepActiveObjectRegistry(DAT_00e9be90);
     DAT_00e9be98 = 0;
     DAT_00e9be9c = 0;
     DAT_00e9c104 = 0;
-    FUN_004f3020();
+    SweepActiveObjectRegistry(DAT_00e9c0fc);
     FUN_005098e0(10000);
     if (newStateId == 0xf) {
         PostQuitMessage(0);
