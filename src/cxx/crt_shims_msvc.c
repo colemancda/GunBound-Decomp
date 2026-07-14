@@ -150,6 +150,16 @@ static void gb_init_widget_registry(unsigned char *registry)
     *(int *)(registry + 0x1c) = (int)registry;
 }
 extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20];
+/* KNOWN DIVERGENCE alias (src/globals.c): Ghidra split registry1's +4 head
+ * pointer into its own uint32_t global instead of aliasing DAT_00e9be90+4, so
+ * gb_init_widget_registry's write to the array never reaches it. Readers that
+ * begin their list walk from this global rather than from the array base -
+ * FUN_0041b6f0 does exactly that, `*(DAT_00e9be94 + 0x1c)` every tick - would
+ * deref NULL. Point it at the registry base, the same value the +4 sentinel
+ * field holds, so the walk enters the (empty, self-terminating) list. The
+ * remaining split globals (DAT_00e9be98/9c/a0/a4 bytes, DAT_00e9c104/08) are
+ * flag/focus fields, not node pointers, and correctly stay zero. */
+extern unsigned int DAT_00e9be94;
 static void gb_startup_init(void)
 {
     InitializeCriticalSection((LPCRITICAL_SECTION)DAT_005a9068);
@@ -159,6 +169,7 @@ static void gb_startup_init(void)
     *(int *)(g_xfsScratch     + 0x1040) = (int)0xffffffff;
     gb_init_widget_registry(DAT_00e9be90);
     gb_init_widget_registry(DAT_00e9c0fc);
+    DAT_00e9be94 = (unsigned int)DAT_00e9be90;
 }
 /* data_seg, NOT #pragma section(...,read): VC7.1's linker keeps a
  * read-only .CRT$XCU out of the read-write .CRT group libcmt walks in
