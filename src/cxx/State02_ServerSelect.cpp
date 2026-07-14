@@ -21,7 +21,7 @@ extern "C" {
  * missing trackName argument. */
 unsigned int PlayMusicTrack(unsigned int status, const char *trackName);
 int __stdcall LoadSpriteSet(void *container, int key);
-extern unsigned char DAT_00ea0e18;
+extern unsigned char DAT_00ea0e18[0x20];
 extern int g_clientContext;
 extern unsigned char DAT_0067ec70;
 extern unsigned char g_uiPanelManager;
