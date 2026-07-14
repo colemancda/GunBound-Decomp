@@ -113,7 +113,10 @@ int LoadSpriteSet(undefined4 param_1,undefined4 param_2,char *imgName)
       iVar1 = iVar1 + 1;
     } while (iVar1 < local_c);
   }
-  FUN_004f1460();
+  /* orig 0x4f188a/0x4f188c loads EAX=readState, EDI=&g_graphicsArchive
+   * (literal 0xf11dd0) immediately before this call - CloseSpriteReadState's
+   * args were dropped by Ghidra as in_EAX/unaff_EDI - see that file. */
+  CloseSpriteReadState(readState, (int)&g_graphicsArchive);
   return local_c;
 }
 

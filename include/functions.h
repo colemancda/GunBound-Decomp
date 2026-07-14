@@ -1268,7 +1268,10 @@ int __fastcall FUN_004f1020();
 uint FUN_004f11a0();
 uint FUN_004f1220();
 undefined4 __thiscall FUN_004f1390();
-undefined4 FUN_004f1460();
+/* K&R-empty deliberately (like FindSpriteFrame): only LoadSpriteSet.c's
+ * call site passes the real 2 args (readState, archive) - ~13 other
+ * callers still use the old 0-arg form. See CloseSpriteReadState.c. */
+undefined4 CloseSpriteReadState();
 void * __thiscall FUN_004f14c0();
 void FUN_004f14e0();
 undefined4 ReadSpriteFrameRecord(void *readState, int frame);

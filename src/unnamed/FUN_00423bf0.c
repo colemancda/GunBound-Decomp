@@ -22,7 +22,7 @@ undefined4 FUN_00423bf0(void)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField(uVar1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004f1460();
+    CloseSpriteReadState();
     iVar2 = FUN_004f1390(0);
     if (iVar2 != 0) {
       ReadXFSEntryByte(iVar2,&local_4);
@@ -30,12 +30,12 @@ undefined4 FUN_00423bf0(void)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeOutgoingPacketField(uVar1);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_004f1460();
+      CloseSpriteReadState();
       iVar2 = FUN_004f1390(0);
       if (iVar2 != 0) {
         ReadXFSEntryByte(iVar2,&local_4);
         QueueOutgoingPacketField(local_4);
-        FUN_004f1460();
+        CloseSpriteReadState();
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EncodeOutgoingPacketField(0);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -43,22 +43,22 @@ undefined4 FUN_00423bf0(void)
         if (iVar2 != 0) {
           ReadXFSEntryByte(iVar2,&local_4);
           QueueOutgoingPacketField(local_4);
-          FUN_004f1460();
+          CloseSpriteReadState();
           iVar2 = FUN_004f1390(0);
           if (iVar2 != 0) {
             ReadXFSEntryByte(iVar2,&local_4);
             QueueOutgoingPacketField(local_4);
-            FUN_004f1460();
+            CloseSpriteReadState();
             iVar2 = FUN_004f1390(0);
             if (iVar2 != 0) {
               ReadXFSEntryByte(iVar2,&local_4);
               QueueOutgoingPacketField(local_4);
-              FUN_004f1460();
+              CloseSpriteReadState();
               iVar2 = FUN_004f1390(0);
               if (iVar2 != 0) {
                 ReadXFSEntryByte(iVar2,&local_4);
                 QueueOutgoingPacketField(local_4);
-                FUN_004f1460();
+                CloseSpriteReadState();
                 return 1;
               }
             }

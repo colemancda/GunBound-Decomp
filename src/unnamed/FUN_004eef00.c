@@ -22,7 +22,7 @@ void __fastcall FUN_004eef00(int param_1)
     *(undefined4 *)(param_1 + 0xa4) = 0;
     *(undefined4 *)(param_1 + 0xa8) = 0;
     *(undefined4 *)(param_1 + 0xac) = 0;
-    FUN_004f1460();
+    CloseSpriteReadState();
     *(undefined4 *)(param_1 + 0x50) = 0;
     *(undefined1 *)(param_1 + 0x4c) = 0;
   }

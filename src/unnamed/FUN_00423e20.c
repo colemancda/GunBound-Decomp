@@ -93,7 +93,7 @@ uint FUN_00423e20(undefined4 param_1,int param_2)
       uVar2 = FUN_004f08a0();
       if ((char)uVar2 != '\0') {
         ReadXFSEntryByte(iVar4,&local_104);
-        FUN_004f1460();
+        CloseSpriteReadState();
         uVar2 = local_104;
         if (local_104 == (in_EAX & 0x7fff)) {
           QueueOutgoingPacketField(local_104);
@@ -135,7 +135,7 @@ uint FUN_00423e20(undefined4 param_1,int param_2)
       }
     }
     else {
-      uVar2 = FUN_004f1460();
+      uVar2 = CloseSpriteReadState();
     }
   }
   return uVar2 & 0xffffff00;

@@ -112,7 +112,7 @@ undefined4 LoadLocalizedStrings(undefined4 param_1)
   iVar4 = uStack_10f54;
   do {
     if (iVar3 == 0) {
-      FUN_004f1460();
+      CloseSpriteReadState();
       if (local_f710 != -1) {
         FUN_004f0d70(&g_xfsScratch);
       }

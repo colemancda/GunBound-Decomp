@@ -75,7 +75,7 @@ LAB_004e3ca5:
     ReadXFSEntryByte(iVar7,param_1 + 0x18);
     ReadXFSEntryByte(iVar7,param_1 + 0x1c);
     ReadXFSEntryByte(iVar7,*(undefined4 *)(param_1 + 0x34));
-    FUN_004f1460();
+    CloseSpriteReadState();
   }
   return;
 }

@@ -62,7 +62,7 @@ undefined4 PreloadTexture(int param_1,char *param_2)
   }
   ReadXFSEntryByte(iVar4,param_1 + 0x401f8);
   FUN_004f41d0(param_1 + 0x401f8,iVar6);
-  FUN_004f1460();
+  CloseSpriteReadState();
   pvVar7 = operator_new(0x9c);
   pcVar5 = param_2;
   do {

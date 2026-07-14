@@ -72,7 +72,7 @@ undefined4 FUN_00415900(void)
   iVar3 = ReadXFSEntryByte(iVar4,&cStack_10f51);
   do {
     if (iVar3 == 0) {
-      FUN_004f1460();
+      CloseSpriteReadState();
       if (local_f710 != -1) {
         FUN_004f0d70();
       }

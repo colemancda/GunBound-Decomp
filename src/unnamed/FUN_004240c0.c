@@ -91,7 +91,7 @@ uint FUN_004240c0(undefined4 param_1,int param_2,int param_3,int param_4)
     if ((int)(uint)param_4 < local_108) {
       FUN_004f08a0();
       ReadXFSEntryByte(iVar4,&local_104);
-      FUN_004f1460();
+      CloseSpriteReadState();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeOutgoingPacketField(local_104);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -150,7 +150,7 @@ uint FUN_004240c0(undefined4 param_1,int param_2,int param_3,int param_4)
       *(undefined1 *)(unaff_ESI + 0x17cc) = 0;
       return CONCAT31((int3)((uint)iVar4 >> 8),1);
     }
-    uVar2 = FUN_004f1460();
+    uVar2 = CloseSpriteReadState();
   }
   return uVar2 & 0xffffff00;
 }
