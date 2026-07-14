@@ -149,7 +149,7 @@ static void gb_init_widget_registry(unsigned char *registry)
     *(int *)(registry + 0x18) = (int)registry;
     *(int *)(registry + 0x1c) = (int)registry;
 }
-extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20];
+extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20], DAT_00ea0e18[0x20];
 /* KNOWN DIVERGENCE alias (src/globals.c): Ghidra split registry1's +4 head
  * pointer into its own uint32_t global instead of aliasing DAT_00e9be90+4, so
  * gb_init_widget_registry's write to the array never reaches it. Readers that
@@ -169,6 +169,7 @@ static void gb_startup_init(void)
     *(int *)(g_xfsScratch     + 0x1040) = (int)0xffffffff;
     gb_init_widget_registry(DAT_00e9be90);
     gb_init_widget_registry(DAT_00e9c0fc);
+    gb_init_widget_registry(DAT_00ea0e18);   /* global sprite registry - same container */
     DAT_00e9be94 = (unsigned int)DAT_00e9be90;
 }
 /* data_seg, NOT #pragma section(...,read): VC7.1's linker keeps a
