@@ -63,7 +63,7 @@ void ShowErrorDialog(int param_1)
   uVar8 = 1;
   uVar7 = 0x15e;
   uVar6 = 0x2b;
-  puVar4 = &DAT_005b1d70;
+  puVar4 = (undefined4 *)DAT_005b1d70;
   for (iVar3 = 0x57; iVar3 != 0; iVar3 = iVar3 + -1) {
     *puVar4 = 0;
     puVar4 = puVar4 + 1;
@@ -75,7 +75,7 @@ void ShowErrorDialog(int param_1)
   _DAT_00e53c30 = 0x171;
   *(undefined2 *)puVar4 = 0;
   uVar2 = GetLocalizedString(&g_localizedStringTable,in_EAX + 199);
-  RenderWrappedText(&DAT_005b1d70,uVar2,uVar5,uVar6,uVar7,uVar8);
+  RenderWrappedText(DAT_005b1d70,uVar2,uVar5,uVar6,uVar7,uVar8);
   iVar3 = DAT_005b2b58;
   if (param_1 != '\0') {
     iVar1 = *(int *)(DAT_005b2b58 + 0x84e0);

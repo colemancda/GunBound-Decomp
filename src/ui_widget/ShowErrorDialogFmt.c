@@ -30,13 +30,13 @@ void ShowErrorDialogFmt(int param_1,undefined4 param_2)
   _DAT_00e53c30 = 0x171;
   _Format = (char *)GetLocalizedString(&g_localizedStringTable,in_EAX + 199);
   _sprintf(local_200,_Format,param_2);
-  puVar3 = &DAT_005b1d70;
+  puVar3 = (undefined4 *)DAT_005b1d70;
   for (iVar2 = 0x57; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar3 = 0;
     puVar3 = puVar3 + 1;
   }
   *(undefined2 *)puVar3 = 0;
-  RenderWrappedText(&DAT_005b1d70,local_200,0x32,0x2b,0x15e,1);
+  RenderWrappedText(DAT_005b1d70,local_200,0x32,0x2b,0x15e,1);
   iVar2 = DAT_005b2b58;
   if (param_1 != '\0') {
     iVar1 = *(int *)(DAT_005b2b58 + 0x84e0);

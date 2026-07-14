@@ -21,7 +21,7 @@ void ShowMessageDialog(undefined4 param_1,int param_2)
   CreateButtonWidget(&DAT_00e9be90,1000000,1000000,0x385,s_b_error_confirm_00552238,0x1c6,0x14b,0x4a
                      ,0x1a,1,0);
   ClampCursorToRect();
-  puVar3 = &DAT_005b1d70;
+  puVar3 = (undefined4 *)DAT_005b1d70;
   for (iVar2 = 0x57; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar3 = 0;
     puVar3 = puVar3 + 1;
@@ -31,7 +31,7 @@ void ShowMessageDialog(undefined4 param_1,int param_2)
   _DAT_00e53c2c = 0xc1;
   _DAT_00e53c30 = 0x171;
   *(undefined2 *)puVar3 = 0;
-  RenderWrappedText(&DAT_005b1d70,param_1,0x32,0x2b,0x15e,1);
+  RenderWrappedText(DAT_005b1d70,param_1,0x32,0x2b,0x15e,1);
   iVar2 = DAT_005b2b58;
   if (param_2 != '\0') {
     iVar1 = *(int *)(DAT_005b2b58 + 0x84e0);
