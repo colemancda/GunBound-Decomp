@@ -6,9 +6,24 @@
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
-
+#include <windows.h>
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+/* STACK-CORRUPTING CALLING-CONVENTION BUG, same class as InitDirectDraw.c/
+ * SetupZBuffer.c/GameTick.c: every vtable call below (IDirect3DDevice7::
+ * SetRenderState/SetTexture/DrawPrimitive, all __stdcall COM methods) used
+ * the generic `code()` cast, which MSVC treats as __cdecl - emitting a
+ * redundant caller-side stack cleanup after each call since the callee
+ * already popped its own args. This function calls into these several times
+ * per invocation (once per sprite-batch flush inside its main loop), so the
+ * drift compounds across iterations and corrupts whatever runs afterward in
+ * GameTick's render tail. Fixed via explicit WINAPI-typed function pointers,
+ * matching the established idiom (same typedefs as GameTick.c's own
+ * D3DSetRenderStateFn/D3DSetTextureFn). */
+typedef HRESULT (WINAPI *D3DSetRenderStateFn)(void *thisPtr, DWORD state, DWORD value);
+typedef HRESULT (WINAPI *D3DSetTextureFn)(void *thisPtr, DWORD stage, void *texture);
+typedef HRESULT (WINAPI *D3DDrawPrimitiveFn)(void *thisPtr, DWORD primType, DWORD vertexTypeDesc, LPVOID vertices, DWORD vertexCount, DWORD flags);
 
 void FUN_004f3ee0(void)
 
@@ -28,7 +43,7 @@ void FUN_004f3ee0(void)
   local_4 = 0;
   local_5 = 0xff;
   if (DAT_00793611 != '\x01') {
-    (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x1b,1);
+    (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x1b,1);
   }
   DAT_00793611 = 1;
   if (pbVar4 != (byte *)0x0) {
@@ -37,10 +52,10 @@ void FUN_004f3ee0(void)
          (*pbVar4 != local_5)) {
         if (local_5 != 0xff) {
           if (iVar3 == 0) {
-            (**(code **)(*g_pD3DDevice7 + 0x8c))(g_pD3DDevice7,0,0);
+            (*(D3DSetTextureFn *)(*g_pD3DDevice7 + 0x8c))(g_pD3DDevice7,0,0);
           }
           else {
-            (**(code **)(*g_pD3DDevice7 + 0x8c))
+            (*(D3DSetTextureFn *)(*g_pD3DDevice7 + 0x8c))
                       (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar3 + 0x94) + 0x110));
           }
           uVar1 = (uint)local_5;
@@ -48,20 +63,20 @@ void FUN_004f3ee0(void)
             _DAT_00792194 = uVar1;
             g_currentBlendMode = uVar1;
             if ((uVar1 == 0) || (uVar1 == 1)) {
-              (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
+              (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
               uVar7 = 6;
             }
             else {
               if (uVar1 != 2) goto LAB_004f3fcd;
-              (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
+              (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
               uVar7 = 2;
             }
-            (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,uVar7);
+            (*(D3DSetRenderStateFn *)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,uVar7);
           }
 LAB_004f3fcd:
           if (g_spriteVertexCount != 0) {
             g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
-            (**(code **)(*g_pD3DDevice7 + 100))
+            (*(D3DDrawPrimitiveFn *)(*g_pD3DDevice7 + 100))
                       (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
             g_spriteVertexCount = 0;
           }
@@ -73,7 +88,7 @@ LAB_004f3fcd:
       }
       if (g_spriteVertexCount == 0x2000) {
         g_frameTriangleCounter = g_frameTriangleCounter + 0x2000;
-        (**(code **)(*g_pD3DDevice7 + 100))(g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,0x6000,1);
+        (*(D3DDrawPrimitiveFn *)(*g_pD3DDevice7 + 100))(g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,0x6000,1);
         g_spriteVertexCount = 0;
       }
       puVar6 = &g_spriteVertexBuffer + g_spriteVertexCount * 0x1b;
@@ -86,17 +101,17 @@ LAB_004f3fcd:
       g_spriteVertexCount = g_spriteVertexCount + 1;
     } while (pbVar4 != (byte *)0x0);
     if (iVar3 != 0) {
-      (**(code **)(*g_pD3DDevice7 + 0x8c))
+      (*(D3DSetTextureFn *)(*g_pD3DDevice7 + 0x8c))
                 (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar3 + 0x94) + 0x110));
       goto LAB_004f40b2;
     }
   }
-  (**(code **)(*g_pD3DDevice7 + 0x8c))(g_pD3DDevice7,0,0);
+  (*(D3DSetTextureFn *)(*g_pD3DDevice7 + 0x8c))(g_pD3DDevice7,0,0);
 LAB_004f40b2:
   FUN_004f01d0();
   if (g_spriteVertexCount != 0) {
     g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
-    (**(code **)(*g_pD3DDevice7 + 100))
+    (*(D3DDrawPrimitiveFn *)(*g_pD3DDevice7 + 100))
               (g_pD3DDevice7,4,0x244,&g_spriteVertexBuffer,g_spriteVertexCount * 3,1);
     g_spriteVertexCount = 0;
   }
