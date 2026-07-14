@@ -128,8 +128,8 @@ extern uint8_t DAT_00552728;
 extern uint8_t DAT_0055275c;
 extern void * DAT_00552788;
 #define _DAT_00552788 DAT_00552788
-extern uint8_t DAT_00552890;
-extern uint8_t DAT_00552898;
+extern const char s_Port_00552890[];
+extern const char s_IP_00552898[];
 extern uint32_t DAT_00552c70;
 extern uint8_t DAT_00552c74;
 extern uint16_t DAT_00552c78;
@@ -385,23 +385,23 @@ extern int *DAT_005b1c48; /* used dereferenced/indexed at call sites (FUN_0040c6
  * WM_SETCURSOR (WndProc) and per-tick in-battle (the edge-scroll logic in
  * State11 slot 9). Loaded in an as-yet-unported cursor init. */
 extern uint32_t g_edgeCursors[9];
-extern uint8_t DAT_005b1c70;
-extern uint8_t DAT_005b1cf0;
+extern uint8_t DAT_005b1c70[0x80]; /* BuddyIP - sized, see globals.c */
+extern uint8_t DAT_005b1cf0[0x80]; /* ChannelName - sized, see globals.c */
 extern uint8_t DAT_005b1d70[0x160]; /* text-render/RLE scratch buffer - sized, see globals.c */
-extern uint8_t DAT_005b1ed0;
+extern uint8_t DAT_005b1ed0[0x400]; /* Location - sized, see globals.c */
 extern uint8_t DAT_005b22d0;
-extern uint8_t DAT_005b26d0;
-extern uint8_t DAT_005b2ad0;
-extern uint8_t DAT_005b2b50;
+extern uint8_t DAT_005b26d0[0x400]; /* GameBuddy Executable - sized, see globals.c */
+extern uint8_t DAT_005b2ad0[0x80]; /* broker IP - sized, see globals.c */
+extern uint32_t DAT_005b2b50; /* GameBuddy port - sized, see globals.c */
 extern uint32_t DAT_005b2b54;
 extern uint32_t DAT_005b2b58;
 extern uint32_t DAT_005b2b5c;
 extern uint32_t DAT_005b2b60;
 extern uint32_t DAT_005b2b64;
-extern uint32_t DAT_005b2b68;
-extern uint8_t DAT_005b2f68;
-extern uint8_t DAT_005b3368;
-extern uint16_t DAT_005b33e8;
+extern uint8_t DAT_005b2b68[0x80]; /* ShopURL - sized, see globals.c */
+extern uint8_t DAT_005b2f68[0x400]; /* Screen - sized, see globals.c */
+extern uint8_t DAT_005b3368[0x80]; /* GameName - sized, see globals.c */
+extern uint32_t DAT_005b33e8; /* broker Port - sized, see globals.c */
 extern uint32_t DAT_005b33f0;
 extern uint16_t DAT_005b33f4;
 extern uint32_t DAT_005b3438;

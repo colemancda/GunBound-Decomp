@@ -49,20 +49,20 @@ void LoadClientSettingsFromRegistry(void)
                        );
   if (LVar2 == 0) {
     local_14 = 0x80;
-    RegQueryValueExA(local_10,&DAT_00552898,(LPDWORD)0x0,&local_c,&DAT_005b2ad0,&local_14);
+    RegQueryValueExA(local_10,s_IP_00552898,(LPDWORD)0x0,&local_c,DAT_005b2ad0,&local_14);
     local_14 = 4;
-    RegQueryValueExA(local_10,&DAT_00552890,(LPDWORD)0x0,&local_c,(LPBYTE)&DAT_005b33e8,&local_14);
+    RegQueryValueExA(local_10,s_Port_00552890,(LPDWORD)0x0,&local_c,(LPBYTE)&DAT_005b33e8,&local_14);
     RegQueryValueExA(local_10,s_LastServer_00552884,(LPDWORD)0x0,&local_c,(LPBYTE)&DAT_005b2b64,
                      &local_14);
     local_14 = 0x400;
-    RegQueryValueExA(local_10,s_Location_00552878,(LPDWORD)0x0,&local_c,&DAT_005b1ed0,&local_14);
-    LVar2 = RegQueryValueExA(local_10,s_Screen_00552870,(LPDWORD)0x0,&local_c,&DAT_005b2f68,
+    RegQueryValueExA(local_10,s_Location_00552878,(LPDWORD)0x0,&local_c,DAT_005b1ed0,&local_14);
+    LVar2 = RegQueryValueExA(local_10,s_Screen_00552870,(LPDWORD)0x0,&local_c,DAT_005b2f68,
                              &local_14);
     if (LVar2 != 0) {
       iVar3 = 0;
       do {
-        pcVar4 = &DAT_005b1ed0 + iVar3;
-        (&DAT_005b2f68)[iVar3] = *pcVar4;
+        pcVar4 = DAT_005b1ed0 + iVar3;
+        DAT_005b2f68[iVar3] = *pcVar4;
         iVar3 = iVar3 + 1;
       } while (*pcVar4 != '\0');
     }
@@ -99,14 +99,14 @@ void LoadClientSettingsFromRegistry(void)
     RegQueryValueExA(local_10,s_Effect3D_0055280c,(LPDWORD)0x0,&local_c,&DAT_00d9aa34,&local_14);
     RegQueryValueExA(local_10,s_Background_00552800,(LPDWORD)0x0,&local_c,&DAT_00d9aa35,&local_14);
     local_14 = 0x80;
-    RegQueryValueExA(local_10,s_GameName_005527f4,(LPDWORD)0x0,&local_c,&DAT_005b3368,&local_14);
-    RegQueryValueExA(local_10,s_ChannelName_005527e8,(LPDWORD)0x0,&local_c,&DAT_005b1cf0,&local_14);
+    RegQueryValueExA(local_10,s_GameName_005527f4,(LPDWORD)0x0,&local_c,DAT_005b3368,&local_14);
+    RegQueryValueExA(local_10,s_ChannelName_005527e8,(LPDWORD)0x0,&local_c,DAT_005b1cf0,&local_14);
     local_14 = 4;
     RegQueryValueExA(local_10,s_Language_005527dc,(LPDWORD)0x0,&local_c,(LPBYTE)&DAT_005b3438,
                      &local_14);
     DAT_005b3438 = 1;
     local_14 = 0x80;
-    RegQueryValueExA(local_10,s_BuddyIP_005527d4,(LPDWORD)0x0,&local_c,&DAT_005b1c70,&local_14);
+    RegQueryValueExA(local_10,s_BuddyIP_005527d4,(LPDWORD)0x0,&local_c,DAT_005b1c70,&local_14);
     local_14 = 4;
     LVar2 = RegQueryValueExA(local_10,s_BuddyPort_005527c8,(LPDWORD)0x0,&local_c,(LPBYTE)&local_4,
                              &local_14);
@@ -117,11 +117,11 @@ void LoadClientSettingsFromRegistry(void)
       DAT_005b33f4 = 0x20a0;
     }
     local_14 = 0x80;
-    LVar2 = RegQueryValueExA(local_10,s_ShopURL_005527c0,(LPDWORD)0x0,&local_c,(LPBYTE)&DAT_005b2b68
+    LVar2 = RegQueryValueExA(local_10,s_ShopURL_005527c0,(LPDWORD)0x0,&local_c,DAT_005b2b68
                              ,&local_14);
     if (LVar2 != 0) {
       pcVar4 = s_http___shop_gunbound_com_avatar__00552798;
-      puVar5 = &DAT_005b2b68;
+      puVar5 = (undefined4 *)DAT_005b2b68;
       for (iVar3 = 10; iVar3 != 0; iVar3 = iVar3 + -1) {
         *puVar5 = *(undefined4 *)pcVar4;
         pcVar4 = pcVar4 + 4;
@@ -134,10 +134,10 @@ void LoadClientSettingsFromRegistry(void)
                        );
   if (LVar2 == 0) {
     local_14 = 0x400;
-    RegQueryValueExA(local_8,s_Executable_0055278c,(LPDWORD)0x0,&local_c,&DAT_005b26d0,&local_14);
+    RegQueryValueExA(local_8,s_Executable_0055278c,(LPDWORD)0x0,&local_c,DAT_005b26d0,&local_14);
     local_14 = 4;
-    RegQueryValueExA(local_8,(LPCSTR)&PTR_DAT_00552788,(LPDWORD)0x0,&local_c,&DAT_005b2b50,&local_14
-                    );
+    RegQueryValueExA(local_8,(LPCSTR)&PTR_DAT_00552788,(LPDWORD)0x0,&local_c,(LPBYTE)&DAT_005b2b50,
+                     &local_14);
     RegCloseKey(local_8);
   }
   return;

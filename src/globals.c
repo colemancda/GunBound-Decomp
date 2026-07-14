@@ -62,8 +62,21 @@ uint8_t DAT_00552218;
 uint8_t DAT_00552728;
 uint8_t DAT_0055275c;
 void * DAT_00552788;
-uint8_t DAT_00552890;
-uint8_t DAT_00552898;
+/* Registry value-name strings for the broker "IP"/"Port" settings
+ * (HKCU\Software\Softnyx\GunBound) - were 1-byte placeholders (Ghidra
+ * failed to recognize these two specifically as string literals, unlike
+ * this same file's ~18 sibling s_*-prefixed registry value/key-name
+ * strings, e.g. s_LastServer_00552884 a few lines below). With only 1
+ * byte of storage, RegQueryValueExA's lpValueName read past the end into
+ * whatever the linker placed next, never matching the real "IP"/"Port"
+ * value names - so LoadClientSettingsFromRegistry.c's queries always
+ * failed and DAT_005b2ad0/DAT_005b33e8 (the broker host/port
+ * ServerSelect connects to) stayed at their zero-init default, live-
+ * reproduced as BeginServerConnect always getting ip="" port=0 even with
+ * the real registry values present. Recovered byte-for-byte from
+ * orig/GunBound.gme's .data (file offset 0x151690-0x15169c). */
+const char s_IP_00552898[] = "IP";
+const char s_Port_00552890[] = "Port";
 uint32_t DAT_00552c70;
 uint8_t DAT_00552c74;
 uint16_t DAT_00552c78;
@@ -315,8 +328,16 @@ uint32_t DAT_005b1444;
 uint32_t DAT_005b15ac;
 int *DAT_005b1c48;
 uint32_t g_edgeCursors[9];
-uint8_t DAT_005b1c70;
-uint8_t DAT_005b1cf0;
+/* DAT_005b1c70 (BuddyIP)/DAT_005b1cf0 (ChannelName): LoadClientSettings-
+ * FromRegistry.c's own RegQueryValueExA calls tell these both 0x80 (128)
+ * bytes of real capacity (`local_14 = 0x80;`), matching the real gap to
+ * the next symbol in each case (0x1cf0-0x1c70=0x80, 0x1d70-0x1cf0=0x80) -
+ * were 1-byte placeholders, so any real registry value longer than 1
+ * byte overflowed into whatever the linker placed next. See
+ * DAT_005b2ad0's comment below for the live-reproduced sibling bug this
+ * matches exactly. */
+uint8_t DAT_005b1c70[0x80];
+uint8_t DAT_005b1cf0[0x80];
 /* The shared text-render/RLE-sprite scratch buffer (ShowErrorDialog/
  * ShowMessageDialog/ShowErrorDialogFmt's word-wrap target, GameTick's HUD RLE
  * blits - see those files' own comments). Was a lone uint32_t, so
@@ -332,20 +353,66 @@ uint8_t DAT_005b1cf0;
  * symbol for this buffer's own +0x32 offset, used by GameTick's RLE blit
  * loop) is folded into this array - see GameTick.c. */
 uint8_t DAT_005b1d70[0x160];
-uint8_t DAT_005b1ed0;
+/* DAT_005b1ed0 (Location)/DAT_005b2f68 (Screen, copy-fallback target for
+ * the same value - see the copy loop right after both RegQueryValueExA
+ * calls in LoadClientSettingsFromRegistry.c): both told 0x400 (1024)
+ * bytes of real capacity (`local_14 = 0x400;`, unchanged across both
+ * calls), matching the real gap to each one's next symbol exactly
+ * (0x22d0-0x1ed0=0x400, 0x3368-0x2f68=0x400). Were 1-byte placeholders -
+ * see DAT_005b2ad0's comment below for the live-reproduced sibling bug. */
+uint8_t DAT_005b1ed0[0x400];
 uint8_t DAT_005b22d0;
-uint8_t DAT_005b26d0;
-uint8_t DAT_005b2ad0;
-uint8_t DAT_005b2b50;
+/* DAT_005b26d0 (GameBuddy Executable path): told 0x400 bytes
+ * (`local_14 = 0x400;`), matching the real gap to the next symbol
+ * (0x2ad0-0x26d0=0x400). Was a 1-byte placeholder. */
+uint8_t DAT_005b26d0[0x400];
+/* DAT_005b2ad0 (the broker "IP" registry value, the actual host
+ * State02_ServerSelect_OnEnter's BeginServerConnect connects to) was a
+ * 1-byte placeholder despite LoadClientSettingsFromRegistry.c telling
+ * RegQueryValueExA it has 0x80 (128) bytes of real capacity
+ * (`local_14 = 0x80;`) - matching the real gap to the next symbol
+ * exactly (0x2b50-0x2ad0=0x80). LIVE-REPRODUCED: with a real "IP"
+ * registry value present (e.g. "127.0.0.1"), the write overflowed this
+ * 1-byte allocation into DAT_005b2b50/2b54 (the adjacent GameBuddy-port
+ * and connection-object globals), corrupting them and hanging the very
+ * first GameTick call (0 CPU usage - a genuine block, not a busy loop -
+ * consistent with a corrupted synchronization/connection object).
+ * Reproducing this needed a REAL non-empty registry value - previous
+ * bring-up sessions never had HKCU\Software\Softnyx\GunBound populated
+ * at all, so RegQueryValueExA always failed cleanly and this 1-byte
+ * buffer was simply never written. */
+uint8_t DAT_005b2ad0[0x80];
+/* DAT_005b2b50 (GameBuddy's own port, read via PTR_DAT_00552788): told
+ * 4 bytes (`local_14 = 4;`, a DWORD), matching the real gap to the next
+ * symbol (0x2b54-0x2b50=4). Was a 1-byte placeholder - same overflow
+ * class as DAT_005b2ad0 above. */
+uint32_t DAT_005b2b50;
 uint32_t DAT_005b2b54;
 uint32_t DAT_005b2b58;
 uint32_t DAT_005b2b5c;
 uint32_t DAT_005b2b60;
 uint32_t DAT_005b2b64;
-uint32_t DAT_005b2b68;
-uint8_t DAT_005b2f68;
-uint8_t DAT_005b3368;
-uint16_t DAT_005b33e8;
+/* DAT_005b2b68 (ShopURL): registry read told 0x80 (128) bytes
+ * (`local_14 = 0x80;`); its OWN fallback path (when no registry value
+ * exists - the default "http://shop.gunbound.com/avatar/" case, which
+ * is what every bring-up run without an explicit ShopURL value hits)
+ * unconditionally copies 10 dwords = 40 bytes via `*puVar5 =
+ * *(undefined4*)pcVar4; puVar5 = puVar5 + 1;`. Was declared `uint32_t`
+ * (4 bytes) - the 40-byte fallback write alone already overflowed it on
+ * every prior bring-up run, independent of any registry state; widened
+ * to array form matching the registry read's own larger size hint. */
+uint8_t DAT_005b2b68[0x80];
+uint8_t DAT_005b2f68[0x400];
+/* DAT_005b3368 (GameName): told 0x80 bytes (`local_14 = 0x80;`),
+ * matching the real gap to the next symbol (0x33e8-0x3368=0x80). Was a
+ * 1-byte placeholder. */
+uint8_t DAT_005b3368[0x80];
+/* DAT_005b33e8 (the broker "Port" registry value, paired with
+ * DAT_005b2ad0 above): RegQueryValueExA reads it with `local_14 = 4;`
+ * (a DWORD) but it was declared uint16_t (2 bytes) - a second, smaller
+ * overflow in the exact same live-reproduced hang (see DAT_005b2ad0's
+ * comment). Widened to match the real DWORD size. */
+uint32_t DAT_005b33e8;
 uint32_t DAT_005b33f0;
 uint16_t DAT_005b33f4;
 uint32_t DAT_005b3438;

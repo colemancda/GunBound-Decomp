@@ -37,8 +37,8 @@ extern const char s_b_server_exitgame_00557144[];
 extern const char s_b_server_buddygame_00557170[];
 extern const char s_b_server_choiceserver_00557158[];
 void BeginServerConnect(void *target, int a, int connCtxBase);
-extern unsigned char DAT_005b2ad0;      /* broker connect target record */
-extern int DAT_005b33e8;
+extern unsigned char DAT_005b2ad0[0x80]; /* broker IP - sized, see globals.c */
+extern unsigned int DAT_005b33e8;        /* broker Port - sized, see globals.c */
 extern int DAT_005b2b64;                /* server count hint for the scroll seed */
 extern unsigned int DAT_007934e4;       /* shared EDIT-control singleton (+8 = live flag) */
 extern unsigned int DAT_007934e8;       /* double-buffered connection context */
