@@ -246,6 +246,10 @@ public:
     virtual bool OnMouseDown(int x, int y);           /* WorldListPanel_OnMouseDown - port pending on the
                                                        * CPanel mouse-down default chain (0x505430) */
     virtual void OnCommand(int evt, int id, int arg); /* 0x50d810 WorldListPanel_OnCommand - port pending */
+    virtual void Update();  /* 0x50dc40 - promoted, Panel.cpp: draws the panel's own
+                             * background sprite (m_unk44/m_unk48 as FindSpriteFrame's
+                             * outer/inner key), then one row per online server via
+                             * RenderWorldListRow. */
 
     int RowHitTest(int x, int y);   /* WorldListRowHitTest - promoted, Panel.cpp. NOTE: this in
                                      * EAX, x in EDI in the original (custom-register family). */

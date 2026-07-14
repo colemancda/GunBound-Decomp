@@ -24,6 +24,21 @@
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-07-14): four dropped-argument bugs recovered via objdump
+ * (orig 0x50dc80-0x50df31):
+ *   - The first FindSpriteFrame() (row-background lookup) was zero-arg;
+ *     real args are (container=&DAT_00ea0e18, outerKey=0x2711, cVar8)
+ *     (`mov edx,0x2711` / `mov eax,0xea0e18` immediately before
+ *     `call 0x4f30c0`, ESI=cVar8 already live).
+ *   - Its two blit calls (row background) were stale pre-migration
+ *     shapes missing the leading `frame`=cVar8 arg.
+ *   - The gauge-sprite blit calls at the end were missing their leading
+ *     `frame`=uVar5 arg (EAX stays live as uVar5 across the manually-
+ *     inlined list-walk that immediately precedes each).
+ * The second "FindSpriteFrame"-shaped list-walk (the gauge-sprite lookup
+ * over the 0x2711 sprite set) is already a correct manual inline in both
+ * the original and this port - not a dropped call, no fix needed there.
  */
 #include "ghidra_types.h"
 
@@ -57,12 +72,13 @@ void __fastcall RenderWorldListRow(int param_1, uint in_EAX)
   if (*(uint *)(g_gameStateVTableArray[2] + 8) == in_EAX) {
     cVar8 = '\x03';
   }
-  if ((DAT_0079352c != 0) && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
+  if ((DAT_0079352c != 0) &&
+      (iVar6 = FindSpriteFrame((int)&DAT_00ea0e18,0x2711,cVar8), iVar6 != 0)) {
     if (*(char *)(iVar6 + 0x18) == '\x01') {
-      BlitSprite16bpp(iVar1,iVar2);
+      BlitSprite16bpp(cVar8,iVar1,iVar2);
     }
     else {
-      BlitSpriteClipped(cVar8);
+      BlitSpriteClipped(cVar8,iVar1,iVar2);
     }
   }
   _sprintf(local_80,&DAT_00551ed4,*(ushort *)(g_clientContext + 0x3f81a + in_EAX * 2) + 1);
@@ -148,10 +164,10 @@ void __fastcall RenderWorldListRow(int param_1, uint in_EAX)
           }
         }
         if (*(char *)(iVar6 + 0x18) == '\x01') {
-          BlitSprite16bpp(iVar1 + 0xb5,iVar2);
+          BlitSprite16bpp(uVar5,iVar1 + 0xb5,iVar2);
           return;
         }
-        BlitSpriteClipped(uVar5);
+        BlitSpriteClipped(uVar5,iVar1 + 0xb5,iVar2);
       }
     }
   }

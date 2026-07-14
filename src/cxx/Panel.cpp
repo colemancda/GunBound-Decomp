@@ -46,6 +46,15 @@ void TextEntry_SetControlText(void);
 /* The global UI panel manager (0xe53c40): +4 list head, +8 tail. */
 extern unsigned char g_uiPanelManager;
 extern int g_clientContext;
+/* Sprite-lookup/blit primitives - see Widget_DrawSelf.c/FindSpriteFrame.c
+ * for the recovered (container,outerKey,innerKey)/(frame,x,y) shapes
+ * used by CWorldListPanel::Update() below. */
+extern unsigned int DAT_0079352c;
+extern unsigned char DAT_00ea0e18[0x20];
+int FindSpriteFrame(int container, unsigned int outerKey, unsigned int innerKey);
+int BlitSprite16bpp(int frame, int x, int y);
+int BlitSpriteClipped(int frame, int x, int y);
+void __fastcall RenderWorldListRow(int panel, unsigned int index);
 }
 
 static CPanelListNode *PanelListHead()
@@ -94,6 +103,45 @@ CWorldListPanel::CWorldListPanel()
     m_unk90 = -1;
     m_pinned = 1;
     m_unk05[0] = 0;
+}
+
+/* 0x50dc40 - CWorldListPanel::Update, vtable slot 9 (CWidget.h's
+ * "per-class secondary render/refresh hook"). Ported from the raw C
+ * WorldListPanel_Draw.c (never wired into the C++ vtable - this class
+ * only ever inherited CWidget::Update()'s base no-op, which is why the
+ * panel rendered as a solid black rectangle: its background sprite
+ * (m_unk44="server_list.img"'s key 0x2711, m_unk48 as the frame/state)
+ * was never drawn). Skips entirely while hidden, matching the original's
+ * own `if (*(char*)(this+0x1e) == 0)` guard.
+ *
+ * The original's Widget_DrawSelf (0x5054b0) tail-calls Widget_DrawChildren-
+ * Deep (0x50ecf0), which walks the child array calling each child's OWN
+ * vtable +0x24 slot - i.e. Update(), not Draw() - so this recurses via
+ * ->Update() on children too, matching that real behavior even though no
+ * current child class (CLabel/CScrollBar) overrides it yet. */
+void CWorldListPanel::Update()
+{
+    if (m_hidden) {
+        return;
+    }
+    if (DAT_0079352c != 0 && m_unk48 >= 0) {
+        int rec = FindSpriteFrame((int)DAT_00ea0e18, (unsigned int)m_unk44, (unsigned int)m_unk48);
+        if (rec != 0) {
+            if (*(unsigned char *)(rec + 0x18) == 1) {
+                BlitSprite16bpp(m_unk48, m_x, m_y);
+            } else {
+                BlitSpriteClipped(m_unk48, m_x, m_y);
+            }
+        }
+    }
+    unsigned int childCount = m_children.GetCount();
+    for (unsigned int i = 0; i < childCount; ++i) {
+        m_children[i]->Update();
+    }
+    int count = *(unsigned char *)(g_clientContext + 0x3f808);
+    for (int i = 0; i < count; ++i) {
+        RenderWorldListRow((int)this, (unsigned int)i);
+    }
 }
 
 /* Construction state from the 0x509d80 builder's guarded section. */
