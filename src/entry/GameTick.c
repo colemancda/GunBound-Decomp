@@ -333,9 +333,12 @@ LAB_004137a9:
        * and EAX = &DAT_005b1d70 (rleData), the same text-scratch buffer
        * used by RenderWrappedText/ShowErrorDialogFmt elsewhere in this
        * codebase - not any locally computed cursor. */
-      BlitRLESprite(0x11d,0xcf,0xffff,(byte *)&DAT_005b1d70);
+      BlitRLESprite(0x11d,0xcf,0xffff,(byte *)DAT_005b1d70);
       iVar5 = 0xec;
-      puVar9 = &DAT_005b1da2;
+      /* orig DAT_005b1da2 was DAT_005b1d70+0x32 in the original's fixed
+       * address space (Ghidra split it into its own symbol) - now folded
+       * into the sized DAT_005b1d70 array, see globals.c. */
+      puVar9 = DAT_005b1d70 + 0x32;
       do {
         /* BlitRLESprite's 1st/4th args (this/rleData) were dropped -
          * objdump at this call site (0x41391d) shows ECX = 0x115 (this,
@@ -345,7 +348,12 @@ LAB_004137a9:
         BlitRLESprite(0x115,iVar5,0xffff,(byte *)puVar9);
         puVar9 = puVar9 + 0x32;
         iVar5 = iVar5 + 0xe;
-      } while ((int)puVar9 < 0x5b1ece);
+      /* orig loop bound was the literal address DAT_005b1d70+0x15e
+       * (0x5b1ece in the original's fixed address space) - a raw stack/data
+       * offset that only made sense there; rewritten relative to our own
+       * relinked DAT_005b1d70 so the loop terminates at the buffer's real
+       * end regardless of where the linker places it. */
+      } while (puVar9 < DAT_005b1d70 + 0x15e);
 LAB_00413933:
       DrawActiveObjectRegistry(&DAT_00e9be90);
       DrawActiveObjectRegistry(&DAT_00e9c0fc);
