@@ -147,9 +147,14 @@ void GameTick(void)
      * AdvanceSpriteAnimation's own argument is likewise dropped: orig
      * 0x413354/0x413359 loads EAX with the cursor singleton 0x7a7644
      * immediately before the call - this is the software-cursor tick. */
-    FUN_004ee540((int)0xe53698);
-    FUN_004ee0d0((int)0xe52810);
-    AdvanceSpriteAnimation(0x7a7644);
+    /* Orig passes the fixed device/cursor singleton addresses 0xe53698 (mouse),
+     * 0xe52810 (keyboard), 0x7a7644 (cursor) as literals. Those singletons are
+     * never constructed in bring-up (their DirectInput constructors are
+     * stubbed), so point the timer updates at zeroed backing blocks - a correct
+     * no-op for the input-less logo path. See globals.c. */
+    FUN_004ee540((int)g_mouseDeviceTimerBlock);
+    FUN_004ee0d0((int)g_keyboardDeviceTimerBlock);
+    AdvanceSpriteAnimation((int)g_softwareCursorAnimBlock);
   }
   if (5 < *(int *)(&DAT_0067e3c8 + g_clientContext)) {
     if (DAT_00793515 == '\0') {
