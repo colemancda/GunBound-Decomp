@@ -46,6 +46,18 @@
  * those call sites) - recovering all of them is out of scope for this
  * pass; see DrawSprite.c's header comment for the established precedent
  * of only fixing call sites with an unambiguous recoverable value.
+ *
+ * FIXED (2026-07-14): the internal FindSpriteFrame() re-lookup was ALSO a
+ * zero-arg dropped-register-argument stub, same class as BlitSprite16bpp.c's
+ * sibling bug. Confirmed via objdump at 0x4eb9c0: entry does `mov
+ * esi,[esp+0x10]` (ESI = this function's own `frame` stack arg, left
+ * untouched through the call), then immediately before `call 0x4f30c0` sets
+ * `mov eax,0xea0e18` (container = &DAT_00ea0e18) with no EDX write in
+ * between - EDX (outer key) is inherited live from the caller, matching
+ * State06_Logo2_Render's already-fixed `FindSpriteFrame((int)&DAT_00ea0e18,
+ * 10000,frameIndex)` call, which leaves EDX=10000 live across its
+ * subsequent BlitSpriteClipped() call. Passed explicitly here rather than
+ * relying on register survival across the intervening C code.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -60,7 +72,8 @@ undefined4 BlitSpriteClipped(int frame,int x,int y)
   int iRowStride;
   undefined4 *puPixelRow;
 
-  if (((DAT_0079352c != 0) && (-1 < frame)) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
+  if (((DAT_0079352c != 0) && (-1 < frame)) &&
+     (iVar1 = FindSpriteFrame((int)&DAT_00ea0e18,10000,frame), iVar1 != 0)) {
     iVar2 = y + *(int *)(iVar1 + 0x2c);
     x = x + *(int *)(iVar1 + 0x28);
     iRowStride = *(int *)(iVar1 + 0x20);
