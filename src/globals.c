@@ -651,7 +651,29 @@ uint8_t DAT_00e9b80c;
 uint8_t DAT_00e9b810;
 uint8_t DAT_00e9b818;
 uint8_t DAT_00e9ba40;
-uint8_t DAT_00e9be90;
+/* DAT_00e9be90/DAT_00e9c0fc were 1-byte placeholders, but SweepActiveObjectRegistry's
+ * header (and InvokeWidget.c's already-fixed traversal) established these
+ * are two independent 32-byte "8-word" flat-ButtonWidget registry roots -
+ * each doubling as its own embedded circular-list sentinel node (self-
+ * referencing link fields, same design FUN_004f2f00's real node ctor uses
+ * for every OTHER node it allocates). With only 1 byte of storage, every
+ * reader (FindActiveObjectAt/HandleActiveObjectMouseMove/HandleActiveObjectMouseDown/HandleActiveObjectMouseUp/
+ * HandleBackgroundActiveObjectMouseDown/SweepActiveObjectRegistry/DrawActiveObjectRegistry/FUN_004f2fb0/InvokeWidget - all
+ * of which read `*(registryRoot+4)` unconditionally, no null-check) ran
+ * off the end into whatever followed and dereferenced garbage, crashing
+ * on the very first WM_MOUSEMOVE. Sized to 0x20 bytes; gb_startup_init
+ * (crt_shims_msvc.c) self-references the link fields so an empty registry
+ * reads as a valid, correctly-terminating circular list - see its comment
+ * for which fields and why (this mirrors the g_uiPanelManager fix above).
+ *
+ * KNOWN DIVERGENCE (same pattern as g_uiPanelManager/DAT_00e53c44 above):
+ * DAT_00e9be94/98/9c/DAT_00e9bea0/a4/a8 and DAT_00e9c104/08 are separately-
+ * declared globals with their OWN storage, read directly by ~15 other
+ * already-ported files - they do NOT alias into this array. Harmless
+ * while these registries are never actually populated with real widgets
+ * (bring-up doesn't reach button creation yet); must be unified when the
+ * real 32-byte struct is properly modeled. */
+uint8_t DAT_00e9be90[0x20];
 uint32_t DAT_00e9be94;
 uint8_t DAT_00e9be98;
 uint8_t DAT_00e9be9c;
@@ -659,7 +681,7 @@ uint8_t DAT_00e9bea0;
 uint8_t DAT_00e9bea4;
 uint32_t DAT_00e9bea8;
 uint8_t DAT_00e9bed8;
-uint8_t DAT_00e9c0fc;
+uint8_t DAT_00e9c0fc[0x20];
 uint32_t DAT_00e9c104;
 uint8_t DAT_00e9c108;
 /* Worker-thread control block for FUN_00415500/FUN_004156b0/FUN_004157b0:
