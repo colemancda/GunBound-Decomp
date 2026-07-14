@@ -17,21 +17,36 @@
  * Recovering the real cell for even a handful would need per-caller
  * tracing at this scale; this belongs to the CValueGuard/ValueGuard.cpp
  * migration effort, not a one-file bug-hunt pass.
+ *
+ * STARTED (2026-07-14): promoted to take the guard cell as an explicit
+ * `cell` parameter - the uninitialized `in_EAX` read was the true root
+ * cause of the bring-up getting stuck on the logo screen forever (see
+ * ShowErrorDialog.c's header): this function is called unconditionally
+ * every GameTick, and reading 3 essentially-random bytes off garbage
+ * `in_EAX` fails the checksum almost immediately, setting
+ * g_valueGuardTamperFlag, which pops a modal error dialog that can never
+ * be dismissed without real mouse input, which permanently blocks every
+ * future ChangeGameState call. GameTick.c's own 2 call sites are fixed
+ * (recovered via objdump: g_clientContext+0x6aa678 and
+ * g_clientContext+0x23310). functions.h keeps the K&R-empty declaration
+ * so the ~188 other not-yet-recovered call sites keep compiling
+ * unchanged (same partial-promotion pattern as FindSpriteFrame.c) -
+ * recover each remaining caller's real cell address per-site as its own
+ * code path is brought up, not attempted here.
  */
 #include "ghidra_types.h"
 
 
-char PeekPacketChecksumBool(void)
+char PeekPacketChecksumBool(byte *cell)
 
 {
   byte bVar1;
   byte bVar2;
-  byte *in_EAX;
-  
+
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  bVar1 = *in_EAX;
-  bVar2 = in_EAX[1];
-  if ((byte)((bVar1 + bVar2) - 0x34) != in_EAX[2]) {
+  bVar1 = *cell;
+  bVar2 = cell[1];
+  if ((byte)((bVar1 + bVar2) - 0x34) != cell[2]) {
     g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

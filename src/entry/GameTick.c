@@ -97,7 +97,9 @@ void GameTick(void)
     DAT_00793500 = DAT_00793500 + -1 + uVar10;
   }
   g_frameCounter = g_frameCounter + uVar10;
-  cVar2 = PeekPacketChecksumBool();
+  /* orig 0x413239-0x413246: `mov eax,ds:0x5b3484` (g_clientContext) /
+   * `add eax,0x6aa678` immediately before `call 0x4065a0`. */
+  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6aa678));
   if (cVar2 == '\x01') {
     SubFromPacketChecksum(uVar10);
     cVar2 = PacketChecksumLessEqual(&DAT_006aa67c + g_clientContext,0);
@@ -362,7 +364,9 @@ LAB_00413933:
       DrawActiveObjectRegistry(&DAT_00e9be90);
       DrawActiveObjectRegistry(&DAT_00e9c0fc);
     }
-    cVar2 = PeekPacketChecksumBool();
+    /* orig 0x41394b-0x413950: `mov eax,ds:0x5b3484` (g_clientContext) /
+     * `add eax,0x23310` immediately before `call 0x4065a0`. */
+    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x23310));
     if ((cVar2 == '\x01') && (g_frameCounter % 0x14 < 10)) {
       if (DAT_0079352c != 0) {
         /* orig 0x41397f-0x413989 loads EAX=&DAT_00ea0e18, EDX=0x190, ESI=0. */
