@@ -318,7 +318,7 @@ void FUN_0040cd80();
 void __fastcall FUN_0040cdf0();
 undefined4 HandleBackgroundActiveObjectMouseDown(int param_1,int mouseX,int mouseY);
 int FindActiveObjectAt(void *widgetRoot,int mouseX,int mouseY);
-void FUN_0040cf00();
+void SyncActiveTextInput(int param_1);
 void __fastcall FUN_0040cf30();
 void __fastcall FUN_0040cf80();
 int __fastcall FUN_0040cfe0();
