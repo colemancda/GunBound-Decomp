@@ -665,11 +665,12 @@ uint32_t DAT_00e53c48;
  * fix confirms a hard lower bound: it walks a `+4`-rooted sentinel list
  * and writes an int count to `+0xf24`, so real storage must cover at
  * least 0xf28 bytes - sized to that confirmed minimum, matching the same
- * incremental-resize idiom used for DAT_00e9be90/DAT_00f22650. NOTE: unlike
- * those two, this object's sentinel-list head (`+4`) is NOT yet confirmed
- * initialized anywhere in this port's startup path - the other ~25 callers'
- * own offset requirements, and whether a real constructor exists, are not
- * traced here; this may still need a sentinel-init fix once found. */
+ * incremental-resize idiom used for DAT_00e9be90/DAT_00f22650. Its `+4`
+ * sentinel-list head is self-referencing-initialized in crt_shims_msvc.c's
+ * gb_startup_init (same treatment as those two registries) - the other
+ * ~25 callers' own offset requirements beyond this confirmed 0xf28-byte
+ * lower bound are still untraced, so the struct may need to grow further
+ * once those call sites are individually recovered. */
 uint8_t DAT_00e53e88[0xf28];
 uint8_t DAT_00e55a45;
 uint8_t DAT_00e55a46;
