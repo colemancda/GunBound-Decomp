@@ -42,6 +42,11 @@ void Shutdown();
  * CreateWindowExA fail (NULL hWnd), collapsing all of DirectDraw init. */
 LRESULT __stdcall WndProc(HWND, UINT, WPARAM, LPARAM);
 bool DecodeXFSEntryBlock();
+/* Real signature confirmed against orig 0x4eaba0's disassembly - see
+ * src/lzhuf/lzhuf_api.c's own header. `state` is unused (accepted only to
+ * match every raw-port call site's argument list unchanged). */
+void DecodeLZHUFBlock(void *state, void *output, const void *compressedInput,
+                       size_t compressedSize, size_t outputSize);
 int FindXFSEntry();
 undefined4 LoadChooseEventConfig(void *param_1);
 byte LoadGameDataFiles();
