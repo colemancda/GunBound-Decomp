@@ -11,7 +11,7 @@ extern "C" {
  * missing trackName argument. */
 unsigned int PlayMusicTrack(unsigned int status, const char *trackName);
 int __stdcall LoadSpriteSet(void *container, int key);
-extern unsigned char DAT_00ea0e18;
+extern unsigned char DAT_00ea0e18[0x20];
 extern unsigned int  DAT_00ea0e1c;
 /* Takes 2 outputs, not 1 - the original's second output arrives via a
  * dropped ESI register (see src/network/BuildSystemInfoBlob.c). This
