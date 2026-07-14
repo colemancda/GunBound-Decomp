@@ -37,6 +37,28 @@
  * the original this-pointer, restored after the byte-copy loop clobbers
  * esi) is just param_1 - replaced with param_1 directly.
  *
+ * FIXED (2026-07-14): the op-2 call site was passing `param_1 + 0x28` to
+ * ConnectSocketToTarget, matching the real disassembly's `lea eax,
+ * [esi+0x28]; push eax` at the call site (orig 0x4e57ef-0x4e57f3). But
+ * angr-disassembling ConnectSocketToTarget's full body (0x4e59b0-
+ * 0x4e5a17) shows that pushed argument is read back only ONCE there
+ * (`mov edx,[esp+0x14]` at 0x4e59dd), and only to feed its
+ * FUN_004e5480(hostname) sub-call - every OTHER field access in that
+ * function (`[esi+0x24]` socket, `[esi+0x228]` port, `[esi+0x22a]`
+ * connected-flag) instead uses `esi` directly, inherited unchanged
+ * across the `call` from THIS caller's own `param_1` (the true,
+ * unshifted connection base) - matching every other field access in
+ * this file and in SignalConnectRequest.c. In other words the original
+ * compiler emitted the same `esi+0x28` value twice: once as an explicit
+ * stack argument (for the sub-call only) and once implicitly via the
+ * preserved this-pointer register (for everything else). Passing the
+ * plain unshifted `param_1` here and having ConnectSocketToTarget
+ * re-derive `+0x28` internally for its own sub-call (see that file's
+ * header) reproduces the original bit-for-bit with one consistent base
+ * pointer instead of two forms of the same offset. Fixed to pass
+ * `param_1` directly; see ConnectSocketToTarget.c's own header for the
+ * matching fix on that side (this was a two-function, one-bug pair).
+ *
  * Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
@@ -69,7 +91,7 @@ void __thiscall HandleSocketEvent(uint param_1,int param_2)
     if (param_2 != 2) {
       return;
     }
-    cVar1 = ConnectSocketToTarget(param_1 + 0x28);
+    cVar1 = ConnectSocketToTarget(param_1);
     if (cVar1 == '\0') {
       *(undefined4 *)(param_1 + 0x22c) = 0;
       if (*(int *)(param_1 + 0x20) == 0) {
