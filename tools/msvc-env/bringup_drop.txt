@@ -39,25 +39,15 @@ src_cxx_Projectile.obj
 src_cxx_State02_ServerSelect.obj
 src_cxx_State03_GameRoomList.obj
 src_cxx_State10_Loading.obj
-# 2026-07-14: CWorldListPanel::Update() is now real (wired in Panel.cpp,
-# draws the panel background + row loop, all vtable virtuals implemented
-# - the "unimplemented virtuals" reason above no longer applies to this
-# object specifically). Still dropped for a DIFFERENT reason found while
-# testing it live: g_uiPanelManager (globals.c, 16 bytes) is undersized
-# for the real CPanelManager object - PanelManager_PrependNode/
-# GrowNodePool (both real callees Update()'s registration path reaches)
-# read a "grow count" field at manager+0x18 (2 bytes past the current
-# 16-byte allocation) to decide whether to populate their free-list; on
-# fresh zeroed/adjacent memory this reads 0, so the free-list never
-# grows and the very first PrependNode call unconditionally dereferences
-# its NULL head (`mov ecx,[eax]` at orig 0x50f35d, no null branch before
-# it - confirmed real original behavior via objdump, not a porting bug)
-# - live-reproduced as a NULL-deref crash the instant ServerSelect's
-# world-list panel registers. Needs a real CPanelManager reconstruction
-# (correct object size + a real, disassembly-recovered initial grow-
-# count value) before this object is safe to include in bring-up -
-# see PanelManager_PrependNode.c's own header for the full trace.
-src_cxx_Panel.obj
+# 2026-07-14: src_cxx_Panel.obj was dropped here twice this same day for
+# two DIFFERENT reasons, both now resolved - see globals.c's
+# g_uiPanelManager comment and PanelManager_PrependNode.c's header for
+# the full recovery. (1) CWorldListPanel::Update() is now real (wired in
+# Panel.cpp). (2) g_uiPanelManager is now correctly sized (0x1c bytes,
+# up from 16) and sentinel/grow-count-initialized (gb_init_panel_manager
+# in crt_shims_msvc.c), matching its real decompiled constructor
+# (FUN_00507dc0) exactly - the free-list NULL-deref this object's
+# undersizing caused is fixed at the root, not stubbed around.
 src_cxx_ValueGuard.obj
 # ConstructGameStates() (the C++ state-object construction path) has no
 # callers anywhere in src/ - InitGame.c's raw C path constructs

@@ -646,17 +646,33 @@ uint8_t DAT_00e53c3c;
  * only 1 byte of storage, those reads ran off the end into whatever global the
  * linker happened to place next and walked a garbage "widget list", jumping to
  * a junk vtable pointer (crash at eip=0xfff0e483 on the first WM_MOUSEMOVE).
- * Sized to 16 bytes of real zeroed storage so the list head reads as a genuine
- * NULL (= "no panels registered", which is correct during logo/title).
  *
- * KNOWN DIVERGENCE: in the original, this object's +4/+8 fields ARE
- * DAT_00e53c44/DAT_00e53c48 (0xe53c40 + 4/8) - Ghidra split one struct into
- * separate scalars, and ~10 files use those two names standalone. Those keep
- * their own storage here rather than aliasing into this block, so writes
- * through one name are not visible through the other. Harmless while the panel
- * list is empty; must be unified when the PanelManager class is properly
- * modeled. */
-uint8_t g_uiPanelManager[16];
+ * 2026-07-14: found + decompiled the REAL constructor (FUN_00507dc0,
+ * .CRT$XCU-registered via FUN_00540dc0 - same hidden-static-initializer
+ * pattern as g_clientContext's own FUN_00415d40). Confirms the true
+ * object layout and size:
+ *   +0x00: vtable pointer (&PTR_FUN_00557cfc) - zero live callers ever
+ *          dereference it (checked via a full-binary xref search), left
+ *          zeroed rather than reconstructing an unused vtable.
+ *   +0x04: list head (=0)      - PanelManager_Register's own "piVar1"
+ *   +0x08: list tail (=0)      - PanelManager_Register's "in_EAX+8"
+ *   +0x0c: (=0), unused by any currently-ported reader
+ *   +0x10: chunk-list head (=0)   - PanelManager_GrowNodePool's "+0xc"
+ *          (GrowNodePool/PrependNode's own "manager" param is this
+ *          object's base+4, so their internal +0xc/+0x10/+0x14 map to
+ *          this object's absolute +0x10/+0x14/+0x18)
+ *   +0x14: free-list head (=0)    - GrowNodePool/PrependNode's "+0x10"
+ *   +0x18: grow-count seed (=10)  - GrowNodePool/PrependNode's "+0x14";
+ *          this is the field that was missing entirely before (object
+ *          only sized to 16 bytes) - GrowNodePool only populates the
+ *          free-list when this is nonzero, so on unsized/zeroed memory
+ *          the free-list never grew and the first real PrependNode call
+ *          unconditionally NULL-deref'd its head.
+ * Real size 0x1c (28) bytes, sentinel/grow-count init in crt_shims_msvc.c's
+ * gb_startup_init (gb_init_panel_manager). The KNOWN DIVERGENCE below
+ * (Ghidra's split-out DAT_00e53c44/DAT_00e53c48 aliases) is unaffected by
+ * this resize - still separate storage, not unified. */
+uint8_t g_uiPanelManager[0x1c];
 uint32_t DAT_00e53c44;
 uint32_t DAT_00e53c48;
 /* DAT_00e53e88 was a 1-byte placeholder despite ~25 callers (chat log,

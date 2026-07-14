@@ -44,8 +44,9 @@ void __fastcall PanelManager_BringToFront(void *manager, CPanel *panel);
  * CEditBox (SetWindowTextA; empty string when passed null). Receiver
  * and text arrive in EDI/ESI - unresolved custom regs. */
 void TextEntry_SetControlText(void);
-/* The global UI panel manager (0xe53c40): +4 list head, +8 tail. */
-extern unsigned char g_uiPanelManager;
+/* The global UI panel manager (0xe53c40): +4 list head, +8 tail - real
+ * layout recovered from its own constructor, see globals.c's comment. */
+extern unsigned char g_uiPanelManager[0x1c];
 extern int g_clientContext;
 /* Sprite-lookup/blit primitives - see Widget_DrawSelf.c/FindSpriteFrame.c
  * for the recovered (container,outerKey,innerKey)/(frame,x,y) shapes
@@ -119,7 +120,25 @@ CWorldListPanel::CWorldListPanel()
  * Deep (0x50ecf0), which walks the child array calling each child's OWN
  * vtable +0x24 slot - i.e. Update(), not Draw() - so this recurses via
  * ->Update() on children too, matching that real behavior even though no
- * current child class (CLabel/CScrollBar) overrides it yet. */
+ * current child class (CLabel/CScrollBar) overrides it yet.
+ *
+ * KNOWN REMAINING GAP (2026-07-14, live-verified via probes - the panel
+ * registers/updates/finds its sprite record correctly (FindSpriteFrame
+ * here returns a real, populated record: rowStride/pixel-data-pointer
+ * all look like genuine loaded texture data), but the background still
+ * doesn't visibly render): BOTH BlitSprite16bpp AND BlitSpriteClipped do
+ * their OWN internal FindSpriteFrame() re-lookup with a HARDCODED
+ * outerKey=10000 (confirmed in both files' own source/headers), correct
+ * ONLY for State06_Logo2_Render's specific sprite set - for this panel
+ * the real outerKey is m_unk44=0x2711 ("server_list.img"), so their
+ * internal re-lookup silently finds the WRONG (or no) record and draws
+ * nothing, even though the call above with the CORRECT record succeeds.
+ * This is the same class of "hot function baked to one caller's context,
+ * ~300 combined call sites project-wide" gap FindSpriteFrame.c's own
+ * header already documents for its 181 sites - not a one-file fix;
+ * needs its own dedicated per-caller register-inheritance sweep across
+ * both functions before this panel (and any other non-10000 sprite set)
+ * can actually render pixels. */
 void CWorldListPanel::Update()
 {
     if (m_hidden) {

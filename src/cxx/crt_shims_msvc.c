@@ -150,6 +150,18 @@ static void gb_init_widget_registry(unsigned char *registry)
     *(int *)(registry + 0x1c) = (int)registry;
 }
 extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20], DAT_00ea0e18[0x20];
+/* g_uiPanelManager (0xe53c40) - a genuine CPanelManager object, unlike
+ * the three registries above (its list head/tail are meant to start
+ * NULL, not self-referencing). Real field layout decompiled from its
+ * own constructor (FUN_00507dc0, .CRT$XCU-registered) - see globals.c's
+ * comment for the full breakdown. Only the grow-count seed at +0x18
+ * needs an explicit non-zero init (=10, the constructor's own literal);
+ * every other field the constructor sets is already 0, matching BSS. */
+extern unsigned char g_uiPanelManager[0x1c];
+static void gb_init_panel_manager(unsigned char *manager)
+{
+    *(int *)(manager + 0x18) = 10;
+}
 /* DAT_00e53e88 (chat-log/replay object, ~25 raw-ported callers - see
  * globals.c) uses the identical +4 head/+0x1c outer-next embedded-
  * sentinel-list shape as the three registries above: FUN_004022b0.c's
@@ -325,6 +337,7 @@ static void gb_startup_init(void)
     gb_init_widget_registry(DAT_00e9c0fc);
     gb_init_widget_registry(DAT_00ea0e18);   /* global sprite registry - same container */
     gb_init_widget_registry(DAT_00e53e88);   /* chat-log/replay object - same container */
+    gb_init_panel_manager(g_uiPanelManager);
     DAT_00e9be94 = (unsigned int)DAT_00e9be90;
     DAT_00ea0e1c = (unsigned int)DAT_00ea0e18;
     DAT_00793530 = 0;

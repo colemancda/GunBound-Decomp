@@ -39,10 +39,16 @@ undefined4 PanelManager_PrependNode(void *manager,undefined4 *param_1,undefined4
   puVar1[1] = param_2;
   *puVar1 = param_3;
   *(int *)(in_EAX + 8) = *(int *)(in_EAX + 8) + 1;
-  /* Ghidra emitted a bare `return;` in a value-returning function;
-   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
-   * (-Wreturn-mismatch). This path's result is unused by callers -
-   * return 0 to satisfy both toolchains without inventing a value. */
-  return 0;
+  /* FIXED (2026-07-14): Ghidra emitted a bare `return;` in a value-
+   * returning function; an EARLIER guess here returned a hardcoded 0,
+   * which broke every caller silently (PanelManager_Register writes
+   * this return value straight into the list head/tail, so a constant 0
+   * meant every registration looked like an empty list forever - live-
+   * reproduced as the panel staying invisible even after PrependNode
+   * itself stopped crashing). Confirmed via objdump the real return
+   * value is `puVar1` (the popped free-list node) - EAX is set to it at
+   * entry+8 (`mov eax,[esi+0x10]`) and never touched again before
+   * `ret 0xc`. */
+  return (undefined4)puVar1;
 }
 

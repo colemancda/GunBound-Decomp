@@ -726,10 +726,11 @@ extern uint8_t DAT_00e53c3c;
 /* g_uiPanelManager (was DAT_00e53c40) - the global UI panel/dialog container
  * that screens attach dynamic panels to. Passed by address to the panel
  * builders/closers (BuildWorldListPanel, the lobby buddy panel BuildBuddyPanel,
- * the Create Room dialog BuildCreateRoomDialog, PanelManager_Unregister close, etc.). Typed
- * uint8_t by Ghidra but is really a container object; kept as-is until the
- * class is modeled. */
-extern uint8_t g_uiPanelManager[16]; /* sized to real storage - see globals.c */
+ * the Create Room dialog BuildCreateRoomDialog, PanelManager_Unregister close, etc.).
+ * Real object layout recovered from its own constructor (FUN_00507dc0) -
+ * see globals.c's comment for the full field breakdown and gb_init_panel_manager
+ * (crt_shims_msvc.c) for the matching sentinel/grow-count init. */
+extern uint8_t g_uiPanelManager[0x1c]; /* sized to real storage - see globals.c */
 extern uint32_t DAT_00e53c44;
 extern uint32_t DAT_00e53c48;
 extern uint8_t DAT_00e53e88[0xf28]; /* sized to FUN_004022b0's confirmed access; see globals.c */
