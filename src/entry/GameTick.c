@@ -317,7 +317,10 @@ LAB_004137a9:
       if (DAT_0079350d != '\0') goto LAB_00413933;
     }
     else {
-      if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
+      /* FindSpriteFrame's (container,outerKey,innerKey) were dropped; orig
+       * 0x4138a6-0x4138ab loads EAX=&DAT_00ea0e18, EDX=0x384, ESI=0. */
+      if ((DAT_0079352c != 0) &&
+          (iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x384,0), iVar5 != 0)) {
         if (*(char *)(iVar5 + 0x18) == '\x01') {
           BlitSprite16bpp(0xf9,0xc1);
         }
@@ -350,7 +353,8 @@ LAB_00413933:
     cVar2 = PeekPacketChecksumBool();
     if ((cVar2 == '\x01') && (g_frameCounter % 0x14 < 10)) {
       if (DAT_0079352c != 0) {
-        iVar5 = FindSpriteFrame();
+        /* orig 0x41397f-0x413989 loads EAX=&DAT_00ea0e18, EDX=0x190, ESI=0. */
+        iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x190,0);
         if (iVar5 != 0) {
           if (*(char *)(iVar5 + 0x18) == '\x01') {
             BlitSprite16bpp(0x2fc,8);
@@ -365,7 +369,10 @@ LAB_00413933:
     else {
 LAB_004139be:
       iVar5 = g_cursorFrame;
-      if (((DAT_0079352c != 0) && (-1 < g_cursorFrame)) && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
+      /* orig 0x4139c6-0x4139d7 loads EAX=&DAT_00ea0e18, EDX=0, ESI=g_cursorFrame
+       * (the software-cursor sprite lookup). */
+      if (((DAT_0079352c != 0) && (-1 < g_cursorFrame)) &&
+          (iVar6 = FindSpriteFrame((int)&DAT_00ea0e18,0,g_cursorFrame), iVar6 != 0)) {
         if (*(char *)(iVar6 + 0x18) == '\x01') {
           BlitSprite16bpp(g_cursorAnchorX,g_cursorAnchorY);
         }
