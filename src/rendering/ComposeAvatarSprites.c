@@ -233,7 +233,7 @@ LAB_004d18a6:
     iVar5 = *(int *)(iVar5 + 0x1c);
     uVar10 = *(uint *)(iVar5 + 4);
   }
-  iVar5 = FUN_004f2f00(&DAT_00ea0e18);
+  iVar5 = CreateActiveObjectLayer((int)&DAT_00ea0e18);
 LAB_004d19cc:
   uVar10 = puVar12[2];
   if (uVar10 != 0xffffffff) {
@@ -517,7 +517,7 @@ LAB_004d1ea2:
     iVar5 = *(int *)(iVar5 + 0x1c);
     uVar13 = *(uint *)(iVar5 + 4);
   }
-  iVar5 = FUN_004f2f00(&DAT_00ea0e18);
+  iVar5 = CreateActiveObjectLayer((int)&DAT_00ea0e18);
 LAB_004d1fca:
   uVar13 = puVar12[2];
   if (uVar13 != 0xffffffff) {

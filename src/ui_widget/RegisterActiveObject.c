@@ -70,7 +70,7 @@ undefined4 __fastcall RegisterActiveObject(undefined4 param_1,int param_2,undefi
     iVar2 = *(int *)(iVar2 + 0x1c);
     uVar1 = *(uint *)(iVar2 + 4);
   }
-  iVar2 = FUN_004f2f00(param_2);
+  iVar2 = (int)CreateActiveObjectLayer(param_2, node[1]);
 LAB_004f2fd3:
   uVar1 = node[2];
   if (uVar1 != 0xffffffff) {

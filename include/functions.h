@@ -1302,7 +1302,11 @@ void * __thiscall FUN_004f2e20();
 void FUN_004f2e40();
 undefined4 * __thiscall FUN_004f2ea0();
 void __fastcall FUN_004f2ee0();
-undefined4 * FUN_004f2f00();
+/* K&R-empty deliberately (like FindSpriteFrame): only RegisterActiveObject.c's
+ * call site passes the real 2nd arg (layerKey) - the other 2 callers
+ * (LoadAvatarSprites.c/ComposeAvatarSprites.c) still use the old 1-arg form
+ * and need their own per-site fix. See CreateActiveObjectLayer.c. */
+undefined4 * CreateActiveObjectLayer();
 int __fastcall FUN_004f2f90();
 void SweepActiveObjectRegistry(int);
 void FUN_004f3060();
