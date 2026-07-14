@@ -1271,7 +1271,7 @@ undefined4 __thiscall FUN_004f1390();
 undefined4 FUN_004f1460();
 void * __thiscall FUN_004f14c0();
 void FUN_004f14e0();
-undefined4 FUN_004f1520();
+undefined4 ReadSpriteFrameRecord(void *readState, int frame);
 void FUN_004f16c0();
 void FUN_004f1750();
 void FUN_004f1770();
