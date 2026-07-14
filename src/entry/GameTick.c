@@ -289,8 +289,8 @@ LAB_00413791:
         }
         (*(D3DSetTextureFn *)(*g_pD3DDevice7 + 0x8c))(g_pD3DDevice7,0,0);
         FUN_004edaa0(0xffffffff,0xffffffff,800,0xffffffff,0xffffffff,
-                     *(undefined4 *)(DAT_0056d108 * 4 + 0x56d11c));
-        FUN_004edaa0(800,600 - *(int *)(DAT_0056d108 * 4 + 0x56d11c),800,600,0xffffffff,600);
+                     DAT_0056d11c[DAT_0056d108],0xff000000);
+        FUN_004edaa0(800,600 - DAT_0056d11c[DAT_0056d108],800,600,0xffffffff,600,0xff000000);
         goto LAB_00413791;
       }
 LAB_004137a9:

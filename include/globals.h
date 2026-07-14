@@ -317,6 +317,13 @@ extern uint32_t DAT_0056d108;
 extern uint32_t g_cursorAnchorX;
 extern uint32_t g_cursorAnchorY;
 extern uint32_t DAT_0056d118;
+/* GameTick's state-transition wipe-bar width table, indexed by the
+ * transition timer DAT_0056d108 (0-10). Compile-time-constant data in the
+ * original binary (VMA 0x56d11c, file offset 0x16b31c) - Ghidra left it as
+ * a raw literal-address array access (`*(int*)(DAT_0056d108*4+0x56d11c)`)
+ * rather than a named global, which in this port would dereference
+ * unbacked memory. Recovered via a direct read of orig/GunBound.gme. */
+extern const uint32_t DAT_0056d11c[11];
 extern uint8_t DAT_0056d350;
 extern uint32_t DAT_0056d3d8;
 extern uint32_t DAT_0056d3dc;

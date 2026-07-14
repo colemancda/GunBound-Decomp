@@ -1215,7 +1215,7 @@ void BuildSizedSpriteQuad();
 void __thiscall FUN_004ecee0();
 undefined4 __thiscall QueueSpriteFrameSpans();
 void __thiscall BlitSpriteText();
-void FUN_004edaa0();
+void FUN_004edaa0(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,undefined4 color);
 void __fastcall FUN_004edb50();
 void UpdateDeviceAcquisition(int deviceObj, char wasActive);
 undefined4 * __fastcall FUN_004edd10();
