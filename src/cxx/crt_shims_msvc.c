@@ -120,6 +120,36 @@ extern unsigned char DAT_005a9068[24], DAT_005a9084[24], DAT_00e9af44[24];
  * bring-up build sets it here so OpenXFSArchive will open them instead
  * of early-returning "already open". Offset 0x1040 = XFS_OFF_HFILE. */
 extern unsigned char g_graphicsArchive[], g_xfsScratch[];
+/* Flat-ButtonWidget registry roots (src/globals.c) - each is its own
+ * embedded circular-list sentinel node. Every reader (FindActiveObjectAt's
+ * mouse-hit-test family, SweepActiveObjectRegistry, DrawActiveObjectRegistry, FUN_004f2fb0's
+ * insert, InvokeWidget - see globals.c's comment for the full list)
+ * dereferences `*(registryRoot+4)` unconditionally with no null-check,
+ * so an all-zero registry faults on the very first WM_MOUSEMOVE/
+ * ChangeGameState before a single widget is ever created. The original
+ * binary never writes these fields anywhere in .text either (confirmed
+ * exhaustively via Ghidra's own cross-reference table - every direct
+ * reference to this memory is a READ), so construction must happen via
+ * a real C++ static initializer we don't have a raw port of; this hook
+ * reproduces its necessary effect. Self-referencing every link field
+ * (+4 key/head, +0xc/+0x10 inner prev/next, +0x18/+0x1c outer prev/
+ * next) to the registry's own address makes an empty registry behave
+ * exactly like Windows' LIST_ENTRY InitializeListHead: pointer-equality
+ * termination (FindActiveObjectAt/SweepActiveObjectRegistry) sees next==head immediately,
+ * and sorted-key termination (InvokeWidget, FUN_004f2f00's insert
+ * search) sees the registry's own address read back as a node "key" -
+ * a huge value versus any real widget id, so it always compares
+ * greater and the search stops there too. Confirmed analytically
+ * against InvokeWidget.c's already-fixed traversal (same idiom). */
+static void gb_init_widget_registry(unsigned char *registry)
+{
+    *(int *)(registry + 0x04) = (int)registry;
+    *(int *)(registry + 0x0c) = (int)registry;
+    *(int *)(registry + 0x10) = (int)registry;
+    *(int *)(registry + 0x18) = (int)registry;
+    *(int *)(registry + 0x1c) = (int)registry;
+}
+extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20];
 static void gb_startup_init(void)
 {
     InitializeCriticalSection((LPCRITICAL_SECTION)DAT_005a9068);
@@ -127,6 +157,8 @@ static void gb_startup_init(void)
     InitializeCriticalSection((LPCRITICAL_SECTION)DAT_00e9af44);
     *(int *)(g_graphicsArchive + 0x1040) = (int)0xffffffff;
     *(int *)(g_xfsScratch     + 0x1040) = (int)0xffffffff;
+    gb_init_widget_registry(DAT_00e9be90);
+    gb_init_widget_registry(DAT_00e9c0fc);
 }
 /* data_seg, NOT #pragma section(...,read): VC7.1's linker keeps a
  * read-only .CRT$XCU out of the read-write .CRT group libcmt walks in
