@@ -35,7 +35,11 @@ Discovered via `OpenXFSArchive` (`0x4f0a50`, was `FUN_004f0a50`):
    `DecodeLZHUFBlock` (`0x4eaba0`) with the decoded output re-validated
    against the `XFS2` magic — i.e. decompression success is checked by
    re-reading the magic from the decompressed output, not a separate
-   checksum field.
+   checksum field. (Implementation note, not a format detail: this raw
+   port's `DecodeLZHUFBlock` call sites went uncalled for a full session
+   because the real decoder had been reconstructed under a different
+   symbol name - see `src/README.md`'s `lzhuf/` section for the fix. The
+   format described here was never in question, only the wiring.)
 4. After the initial TOC chunk, the loader **loops reading additional 4-byte
    length-prefixed chunks**, each triggering a further `operator_new(0x20000)`
    (128 KB) allocation — consistent with the TOC being split across multiple
