@@ -380,8 +380,7 @@ extern int *DAT_005b1c48; /* used dereferenced/indexed at call sites (FUN_0040c6
 extern uint32_t g_edgeCursors[9];
 extern uint8_t DAT_005b1c70;
 extern uint8_t DAT_005b1cf0;
-extern uint32_t DAT_005b1d70;
-extern uint8_t DAT_005b1da2;
+extern uint8_t DAT_005b1d70[0x160]; /* text-render/RLE scratch buffer - sized, see globals.c */
 extern uint8_t DAT_005b1ed0;
 extern uint8_t DAT_005b22d0;
 extern uint8_t DAT_005b26d0;

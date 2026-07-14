@@ -305,8 +305,21 @@ int *DAT_005b1c48;
 uint32_t g_edgeCursors[9];
 uint8_t DAT_005b1c70;
 uint8_t DAT_005b1cf0;
-uint32_t DAT_005b1d70;
-uint8_t DAT_005b1da2;
+/* The shared text-render/RLE-sprite scratch buffer (ShowErrorDialog/
+ * ShowMessageDialog/ShowErrorDialogFmt's word-wrap target, GameTick's HUD RLE
+ * blits - see those files' own comments). Was a lone uint32_t, so
+ * ShowErrorDialog's own 0x160-byte zero-fill loop (0x57 dwords + a trailing
+ * word) overran into whatever <common> global the linker placed next -
+ * confirmed to corrupt DAT_005b1444 (the ATL string-manager vtable pointer)
+ * in this build, causing GetLocalizedString to crash calling through a
+ * zeroed vtable slot the very first time any of these dialogs fire. Sized to
+ * 0x160 bytes: the real extent is independently confirmed three ways - the
+ * 0x15e (350) zero-fill target, RenderWrappedText's own wrapWidth=0x15e
+ * argument at every call site, and the original binary's next symbol
+ * DAT_005b1ed0 sitting at exactly +0x160. DAT_005b1da2 (the old split-out
+ * symbol for this buffer's own +0x32 offset, used by GameTick's RLE blit
+ * loop) is folded into this array - see GameTick.c. */
+uint8_t DAT_005b1d70[0x160];
 uint8_t DAT_005b1ed0;
 uint8_t DAT_005b22d0;
 uint8_t DAT_005b26d0;
