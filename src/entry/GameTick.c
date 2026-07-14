@@ -109,7 +109,10 @@ void GameTick(void)
    * (0x4132a9); TickActiveObjectRegistry's argument was dropped by Ghidra as
    * unaff_EBX - see that file. */
   TickActiveObjectRegistry((int)&DAT_00e9be90);
-  FUN_0040cf00();
+  /* orig 0x4132ae loads EAX = &DAT_00e9c0fc immediately before this call
+   * (0x4132b3); SyncActiveTextInput's registry argument was dropped by Ghidra
+   * as in_EAX - see that file. */
+  SyncActiveTextInput((int)&DAT_00e9c0fc);
   FUN_0041b6f0();
   FUN_0041c0a0();
   FUN_004022b0();
