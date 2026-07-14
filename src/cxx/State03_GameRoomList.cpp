@@ -248,7 +248,7 @@ void CState03GameRoomList::RenderRoomLabel()
 
 /* --- CreateButtons (0x42aba0) --------------------------------------- */
 extern "C" {
-extern unsigned char DAT_00e9be90;          /* the button-widget registry */
+extern unsigned char DAT_00e9be90[0x20];    /* the button-widget registry - sized, see globals.c */
 void CreateButtonWidget(void *registry, int a, int id, int spriteBase,
                         const char *name, int x, int y, int w, int h,
                         int enabled, int b);
