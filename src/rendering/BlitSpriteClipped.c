@@ -27,11 +27,15 @@
  *   push edi             ; 3rd/stack arg = current row index (iVar2)
  *   mov edx,ebp          ; 2nd arg (EDX) = pixel-row pointer, advanced by
  *                           `ebp += frame->rowStride*2` after each call
- *   mov eax,ebx          ; 1st arg (EAX) = x
+ *   mov eax,ebx          ; 4th arg (EAX) = x
  *   call FUN_004eb940
- * i.e. FUN_004eb940() is a 3-argument call (x, pixelRowPtr, rowIndex),
- * not the 1-argument `FUN_004eb940(iVar2)` Ghidra emitted here - it
- * matches FUN_004eb940's own already-declared 3-param signature.
+ * FIXED (2026-07-14): the call above is 4 real args, not 3 - `ecx` (the
+ * 1st/width slot) holds `frame->rowStride` the whole time (loaded once at
+ * 0x4eb9fd, never touched again before the loop), NOT `x`. The earlier
+ * recovery here mis-mapped EAX's role onto FUN_004eb940's declared param_1
+ * (its real width slot) and never passed x through any parameter at all -
+ * see FUN_004eb940.c's own header for the fix on that side. Now passes
+ * (iRowStride, puPixelRow, iVar2, x) matching the real 4-arg signature.
  *
  * The call site in RenderPlayerNameplate.c confirms the x/y recovery
  * independently: `BlitSpriteClipped(7)` there sits right next to its
@@ -89,7 +93,7 @@ undefined4 BlitSpriteClipped(int frame,int x,int y)
     }
     if (0 < local_4) {
       do {
-        FUN_004eb940(x,puPixelRow,iVar2);
+        FUN_004eb940(iRowStride,puPixelRow,iVar2,x);
         puPixelRow = (undefined4 *)((int)puPixelRow + iRowStride * 2);
         iVar2 = iVar2 + 1;
         local_4 = local_4 + -1;

@@ -1201,7 +1201,7 @@ void FUN_004eb7a0();
 void __fastcall FillScreenRect();
 void DrawSprite(int param_1);
 void __thiscall QueueSpriteSpansByContentId();
-void __fastcall FUN_004eb940();
+void __fastcall FUN_004eb940(int width,undefined4 *param_2,int param_3,int x);
 void __fastcall QueueTextureRowSpan();
 undefined4 __fastcall QueueTextureRegionSpans();
 void BuildSpriteQuad();
