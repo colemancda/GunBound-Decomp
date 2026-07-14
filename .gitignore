@@ -80,7 +80,6 @@ __pycache__/
 tools/msvc_syntax_check_results.csv
 tools/msvc_compile_check_results.csv
 gamedir/
-ghidra/GunBound.rep/idata/
 
 #. VS Code
 .vscode/
