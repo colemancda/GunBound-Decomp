@@ -68,7 +68,9 @@ void GameTick(void)
   }
   if (g_valueGuardTamperFlag == '\x01') {
     g_valueGuardTamperFlag = '\0';
-    ShowErrorDialog(1);
+    /* messageId=9 - orig 0x41316a: `mov eax,0x9` immediately before
+     * `call 0x4124a0` - see ShowErrorDialog.c's header. */
+    ShowErrorDialog(1,9);
   }
   if ((DAT_00793640 != 0) && (DAT_00793516 == '\0')) {
     g_pendingGameState = 0xf;
@@ -167,7 +169,9 @@ void GameTick(void)
       *(undefined4 *)(&DAT_0067e3c8 + g_clientContext) = 0;
     }
     else {
-      ShowErrorDialog(1);
+      /* messageId=0x1a - orig 0x413387: `mov eax,0x1a` immediately before
+       * `call 0x4124a0` - see ShowErrorDialog.c's header. */
+      ShowErrorDialog(1,0x1a);
       *(undefined4 *)(&DAT_0067e3c8 + g_clientContext) = 0;
     }
   }

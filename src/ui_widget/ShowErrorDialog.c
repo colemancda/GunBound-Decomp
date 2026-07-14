@@ -5,6 +5,23 @@
  *
  * Signature is `(char closeSockets)` in C, but the message id also arrives in
  * a register (EAX, invisible to Ghidra) -> stored into g_stateChangeInProgress.
+ *
+ * FIXED (2026-07-14) at GameTick.c's 2 call sites: `messageId` was read as
+ * an uninitialized `in_EAX` local, so `g_stateChangeInProgress` (meant to
+ * hold the active dialog's message id, cleared back to 0 only once the
+ * dialog's own OK button gets clicked - see FUN_00412130.c) got set to
+ * whatever garbage happened to be on the stack instead. Since bring-up has
+ * no real mouse interaction with this modal dialog, `g_stateChangeInProgress`
+ * then stayed permanently nonzero, silently blocking EVERY future
+ * `ChangeGameState` call (its own guard is `g_stateChangeInProgress == 0`) -
+ * this is why the game got stuck forever after the Logo2->Title timer fired,
+ * with no crash and no visible dialog. Recovered both call sites' real
+ * message ids via objdump: GameTick's first call (orig 0x41316a) sets
+ * `mov eax,0x9` immediately before `call 0x4124a0`; its second call (orig
+ * 0x413387) sets `mov eax,0x1a`. Promoted to an explicit `messageId`
+ * parameter; K&R-empty declaration in functions.h keeps the other ~38
+ * unfixed call sites compiling (they under-supply and read stack garbage
+ * exactly as before, so this is no worse for them).
  * Steps:
  *   1. Records the dialog as modal: DAT_0079350c = closeSockets, and
  *      g_stateChangeInProgress = message id. GameTick gates input/updates on
@@ -42,11 +59,10 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void ShowErrorDialog(int param_1)
+void ShowErrorDialog(int param_1,int messageId)
 
 {
   int iVar1;
-  int in_EAX;
   undefined4 uVar2;
   int iVar3;
   undefined4 *puVar4;
@@ -54,9 +70,9 @@ void ShowErrorDialog(int param_1)
   undefined4 uVar6;
   undefined4 uVar7;
   undefined4 uVar8;
-  
+
   DAT_0079350c = param_1;
-  g_stateChangeInProgress = in_EAX;
+  g_stateChangeInProgress = messageId;
   CreateButtonWidget(&DAT_00e9be90,1000000,1000000,0x385,s_b_error_confirm_00552238,0x1c6,0x14b,0x4a
                      ,0x1a,1,0);
   ClampCursorToRect();
@@ -74,7 +90,7 @@ void ShowErrorDialog(int param_1)
   _DAT_00e53c2c = 0xc1;
   _DAT_00e53c30 = 0x171;
   *(undefined2 *)puVar4 = 0;
-  uVar2 = GetLocalizedString(&g_localizedStringTable,in_EAX + 199);
+  uVar2 = GetLocalizedString(&g_localizedStringTable,messageId + 199);
   RenderWrappedText(DAT_005b1d70,uVar2,uVar5,uVar6,uVar7,uVar8);
   iVar3 = DAT_005b2b58;
   if (param_1 != '\0') {
