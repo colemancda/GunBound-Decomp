@@ -172,7 +172,18 @@ uint8_t DAT_0055725c;
  * DAT_00674f68 NULL. Decoded byte-for-byte from orig .data 0x5573c8-0x5573d7
  * - same bug/fix class as DAT_00f22504 (IID_IDirect3DHALDevice) earlier. */
 GUID DAT_005573c8 = {0xbf798030, 0x483a, 0x4da2, {0xaa, 0x99, 0x5d, 0x64, 0xed, 0x36, 0x97, 0x00}};
-uint16_t DAT_0055751c;
+/* OpenXFSArchive's expected header magic ("XF", matching the "XF"/"S2"
+ * pair it itself writes at offsets 0/2 when creating a fresh empty
+ * archive). Was zero-init BSS - nothing in .text ever writes it - but the
+ * original binary's own .data has this as a compile-time constant (raw
+ * bytes at the real address are 0x4658), not a runtime-constructed value,
+ * same class as PTR_DAT_0056d460. Left at 0, every real archive's decoded
+ * header magic (0x4658) failed to match, so OpenXFSArchive always fell
+ * through to its "not found" cleanup path for every archive that
+ * genuinely existed on disk - which for graphics.xfs silently left the
+ * sprite registry (DAT_00ea0e18) permanently empty (LoadSpriteSet always
+ * returns 0), so nothing ever rendered - the black bring-up window. */
+uint16_t DAT_0055751c = 0x4658;
 uint32_t DAT_00557554;
 uint8_t DAT_00557558;
 uint32_t DAT_00557850;
