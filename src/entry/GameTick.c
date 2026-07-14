@@ -105,7 +105,10 @@ void GameTick(void)
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9084);
   FUN_0050f290();
-  FUN_00406280();
+  /* orig 0x4132a4 loads EBX = &DAT_00e9be90 immediately before this call
+   * (0x4132a9); TickActiveObjectRegistry's argument was dropped by Ghidra as
+   * unaff_EBX - see that file. */
+  TickActiveObjectRegistry((int)&DAT_00e9be90);
   FUN_0040cf00();
   FUN_0041b6f0();
   FUN_0041c0a0();
@@ -229,8 +232,8 @@ LAB_00413510:
     (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x3c))
               (g_gameStateVTableArray[g_currentGameState]);
     FUN_004b3e60(&DAT_00e9b4e8);
-    FUN_004062b0(&DAT_00e9be90);
-    FUN_004062b0(&DAT_00e9c0fc);
+    DrawActiveObjectRegistry(&DAT_00e9be90);
+    DrawActiveObjectRegistry(&DAT_00e9c0fc);
     iVar5 = DAT_00e53c48;
     while (iVar5 != 0) {
       puVar1 = (undefined4 *)(iVar5 + 8);
@@ -333,8 +336,8 @@ LAB_004137a9:
         iVar5 = iVar5 + 0xe;
       } while ((int)puVar9 < 0x5b1ece);
 LAB_00413933:
-      FUN_004062b0(&DAT_00e9be90);
-      FUN_004062b0(&DAT_00e9c0fc);
+      DrawActiveObjectRegistry(&DAT_00e9be90);
+      DrawActiveObjectRegistry(&DAT_00e9c0fc);
     }
     cVar2 = PeekPacketChecksumBool();
     if ((cVar2 == '\x01') && (g_frameCounter % 0x14 < 10)) {
