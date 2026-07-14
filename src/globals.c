@@ -282,6 +282,23 @@ uint8_t DAT_0058b8d6;
 uint8_t DAT_0058bb04;
 /* DAT_005a9068, DAT_005a9084: moved to globals_sized.c - both are
  * CRITICAL_SECTIONs, a one-byte cell under-sizes them */
+/* DAT_005b1444 holds a pointer to the ATL::CAtlStringMgr vtable (real,
+ * documented VS2003 ATL library object - see src/unnamed/msvc_crt_atl/
+ * FUN_00520037.c's "public: __thiscall ATL::CAtlStringMgr::CAtlStringMgr
+ * (IAtlMemMgr*)" and FUN_0052009c.c's "...CAtlStringMgr::Allocate(int,int)",
+ * both Ghidra function-signature-matched against the real library).
+ * GetLocalizedString.c and ~7 other files call its vtable slot 0xc
+ * (GetNilString()) unconditionally on every lookup, computed as
+ * `DAT_005b1444 + 0xc` directly - i.e. these raw ports treat DAT_005b1444's
+ * VALUE as the vtable pointer itself (matching the original disassembly's
+ * `mov eax,[0x5b1444]; call [eax+0xc]`), not as the CAtlStringMgr object's
+ * own address (that's a SEPARATE register, ECX/"this", which every one of
+ * these call sites also drops - harmless here since the real vtable methods
+ * below don't need it, see crt_shims_msvc.c). Was always zero (nothing in
+ * .text ever writes it - matches FUN_005439b1.c's own untouched
+ * `DAT_005b1444 = &PTR_Allocate_00544b38;`, never called), so every
+ * GetNilString() call faulted at NULL+0xc. Populated by
+ * crt_shims_msvc.c's gb_init_atl_string_mgr, wired into gb_startup_init. */
 uint32_t DAT_005b1444;
 uint32_t DAT_005b15ac;
 int *DAT_005b1c48;
