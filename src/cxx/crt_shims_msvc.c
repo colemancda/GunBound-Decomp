@@ -150,6 +150,14 @@ static void gb_init_widget_registry(unsigned char *registry)
     *(int *)(registry + 0x1c) = (int)registry;
 }
 extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20], DAT_00ea0e18[0x20];
+/* DAT_00e53e88 (chat-log/replay object, ~25 raw-ported callers - see
+ * globals.c) uses the identical +4 head/+0x1c outer-next embedded-
+ * sentinel-list shape as the three registries above: FUN_004022b0.c's
+ * own recovered list-walk (`*(objBase+4)`, `iVar2+0x1c`) matches this
+ * function's offsets exactly. Same treatment - self-referencing sentinel
+ * init makes an empty list terminate immediately instead of dereferencing
+ * zeroed BSS (`*(int*)(0+0x1c)`) the first time GameTick runs it. */
+extern unsigned char DAT_00e53e88[0xf28];
 /* KNOWN DIVERGENCE alias (src/globals.c): Ghidra split registry1's +4 head
  * pointer into its own uint32_t global instead of aliasing DAT_00e9be90+4, so
  * gb_init_widget_registry's write to the array never reaches it. Readers that
@@ -316,6 +324,7 @@ static void gb_startup_init(void)
     gb_init_widget_registry(DAT_00e9be90);
     gb_init_widget_registry(DAT_00e9c0fc);
     gb_init_widget_registry(DAT_00ea0e18);   /* global sprite registry - same container */
+    gb_init_widget_registry(DAT_00e53e88);   /* chat-log/replay object - same container */
     DAT_00e9be94 = (unsigned int)DAT_00e9be90;
     DAT_00ea0e1c = (unsigned int)DAT_00ea0e18;
     DAT_00793530 = 0;
