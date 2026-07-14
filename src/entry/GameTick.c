@@ -119,7 +119,7 @@ void GameTick(void)
   SyncActiveTextInput((int)&DAT_00e9c0fc);
   FUN_0041b6f0();
   FUN_0041c0a0();
-  FUN_004022b0();
+  FUN_004022b0(&DAT_00e53e88);
   FUN_00412130();
   if ((g_bBattleSessionActive == '\0') && (DAT_00793517 == '\0')) {
     DAT_00793517 = 0;

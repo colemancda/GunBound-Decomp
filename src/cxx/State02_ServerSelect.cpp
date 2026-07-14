@@ -61,7 +61,7 @@ void FUN_00401650(int *slot);            /* flat-ButtonWidget per-slot destroy *
 extern unsigned char DAT_0067ec74;      /* persistent button-name arena */
 extern unsigned char DAT_0069ec74;
 void FUN_00404410(void *arg);
-extern unsigned char DAT_00e53e88;
+extern unsigned char DAT_00e53e88[0xf28]; /* sized, see globals.c */
 }
 
 /* 0x4e14b0. Load the screen's sprite sets (10000/10001 + button faces

@@ -659,7 +659,18 @@ uint8_t DAT_00e53c3c;
 uint8_t g_uiPanelManager[16];
 uint32_t DAT_00e53c44;
 uint32_t DAT_00e53c48;
-uint8_t DAT_00e53e88;
+/* DAT_00e53e88 was a 1-byte placeholder despite ~25 callers (chat log,
+ * replay recording, ProcessPacket handlers across several states) passing
+ * its address opaquely to helper functions. FUN_004022b0.c's own recovered
+ * fix confirms a hard lower bound: it walks a `+4`-rooted sentinel list
+ * and writes an int count to `+0xf24`, so real storage must cover at
+ * least 0xf28 bytes - sized to that confirmed minimum, matching the same
+ * incremental-resize idiom used for DAT_00e9be90/DAT_00f22650. NOTE: unlike
+ * those two, this object's sentinel-list head (`+4`) is NOT yet confirmed
+ * initialized anywhere in this port's startup path - the other ~25 callers'
+ * own offset requirements, and whether a real constructor exists, are not
+ * traced here; this may still need a sentinel-init fix once found. */
+uint8_t DAT_00e53e88[0xf28];
 uint8_t DAT_00e55a45;
 uint8_t DAT_00e55a46;
 int *DAT_00e55a64;

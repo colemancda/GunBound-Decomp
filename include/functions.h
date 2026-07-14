@@ -158,7 +158,7 @@ int __fastcall FUN_00402020();
 void __fastcall FUN_00402060();
 int __thiscall FUN_00402160();
 void __fastcall FindBuddyRoomsForServer();
-void FUN_004022b0();
+void FUN_004022b0(void *objBase);
 void __thiscall FUN_00402300();
 int FUN_004023b0();
 void FUN_00402400();
