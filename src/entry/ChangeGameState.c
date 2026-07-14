@@ -31,11 +31,11 @@ void ChangeGameState(int newStateId)
     DAT_00e55a45 = 0;
     ((GameStateVirtualFn)(*(void ***)g_gameStateVTableArray[g_currentGameState])[8])
               (g_gameStateVTableArray[g_currentGameState]);
-    FUN_004f3020((int)&DAT_00e9be90);
+    SweepActiveObjectRegistry((int)&DAT_00e9be90);
     _DAT_00e9be98 = 0;
     _DAT_00e9be9c = 0;
     DAT_00e9c104 = 0;
-    FUN_004f3020((int)&DAT_00e9c0fc);
+    SweepActiveObjectRegistry((int)&DAT_00e9c0fc);
     FUN_005098e0((int)&g_uiPanelManager, 10000);
     if (newStateId == 0xf) {
       PostQuitMessage(0);
