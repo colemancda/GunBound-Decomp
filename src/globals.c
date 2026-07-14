@@ -758,11 +758,22 @@ uint8_t DAT_00f12e18;
  * memory as part of the "GUID" and (since nothing ever wrote the real
  * value) actually passed an all-zero CLSID. */
 GUID DAT_00f22504 = {0x84e63de0, 0x46aa, 0x11cf, {0x81, 0x6f, 0x00, 0x00, 0xc0, 0x20, 0x15, 0x6e}};
-/* 0x400-entry pointer table cleared at the end of InitDirectDraw and freed by
- * ShutdownDirectDraw/FUN_00543970. Was a lone uint32_t, so the 0x1000-byte
- * clear ran off the end and zeroed g_pD3DDevice7 (which sits just above it),
- * breaking SetupZBuffer. */
-uint32_t DAT_00f22650[0x400];
+/* The sprite-draw batch pool. Its first 0x400 entries are the page-pointer
+ * table cleared at the end of InitDirectDraw and freed by ShutdownDirectDraw/
+ * FUN_00543970 (both loop 0..0xfff). But FUN_004e9070 (the per-frame pool
+ * reset, called from GameTick) also accesses this same base register-relative
+ * well past 0x1000: +0x1000 write index, +0x1004 u16, +0x1008 entry count, and
+ * a 0x400-entry output-pointer array at +0x100c..+0x200b (piVar5). Those live
+ * in the original as one contiguous 0x200c-byte structure (next symbol is at
+ * 0xf2465c = base+0x200c); Ghidra mislabelled the control words and the output
+ * array's head as the separate globals DAT_00f23650/54/58 and g_nCompositorLayer
+ * just below, which do NOT alias into a [0x400] array. Sized to the real 0x803
+ * words so every base-relative access lands in backed, zeroed storage: the
+ * count reads 0 until FUN_004e93e0 queues a batch, so FUN_004e9070's loop is a
+ * clean no-op on the logo path instead of reading an out-of-bounds garbage
+ * count and running the output writes off the end. (Was a lone uint32_t, then
+ * [0x400] - each prior size still ran the code's higher accesses off the end.) */
+uint32_t DAT_00f22650[0x803];
 uint8_t DAT_00f23650;
 uint8_t DAT_00f23654;
 uint8_t DAT_00f23658;
