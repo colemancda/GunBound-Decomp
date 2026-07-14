@@ -59,8 +59,11 @@ dkms.conf
 orig/
 # Proprietary MSVC 7.10 tree the user supplies
 tools/msvc-env/msvc7/
-# Ghidra project database (28MB, regenerable) and python venvs
-ghidra_proj/
+# Ghidra project database - tracked (holds this project's accumulated
+# renames/comments/labels); only the transient per-host lock files are
+# excluded.
+ghidra_proj/*.lock
+ghidra_proj/*.lock~
 tools/.venv/
 tools/.venv-win/
 tools/.venv-angr/
