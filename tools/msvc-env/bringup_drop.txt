@@ -39,6 +39,24 @@ src_cxx_Projectile.obj
 src_cxx_State02_ServerSelect.obj
 src_cxx_State03_GameRoomList.obj
 src_cxx_State10_Loading.obj
+# 2026-07-14: CWorldListPanel::Update() is now real (wired in Panel.cpp,
+# draws the panel background + row loop, all vtable virtuals implemented
+# - the "unimplemented virtuals" reason above no longer applies to this
+# object specifically). Still dropped for a DIFFERENT reason found while
+# testing it live: g_uiPanelManager (globals.c, 16 bytes) is undersized
+# for the real CPanelManager object - PanelManager_PrependNode/
+# GrowNodePool (both real callees Update()'s registration path reaches)
+# read a "grow count" field at manager+0x18 (2 bytes past the current
+# 16-byte allocation) to decide whether to populate their free-list; on
+# fresh zeroed/adjacent memory this reads 0, so the free-list never
+# grows and the very first PrependNode call unconditionally dereferences
+# its NULL head (`mov ecx,[eax]` at orig 0x50f35d, no null branch before
+# it - confirmed real original behavior via objdump, not a porting bug)
+# - live-reproduced as a NULL-deref crash the instant ServerSelect's
+# world-list panel registers. Needs a real CPanelManager reconstruction
+# (correct object size + a real, disassembly-recovered initial grow-
+# count value) before this object is safe to include in bring-up -
+# see PanelManager_PrependNode.c's own header for the full trace.
 src_cxx_Panel.obj
 src_cxx_ValueGuard.obj
 # ConstructGameStates() (the C++ state-object construction path) has no
