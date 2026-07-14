@@ -37,7 +37,7 @@ void ResolveNamedState(const char *cursorName);/* select the named cursor */
 void FUN_005099b0(void);
 void FUN_004f0320(void);
 int __stdcall LoadSpriteSet(void *container, int key); /* .img name in EAX, .mp3 in EDI */
-extern unsigned char DAT_00ea0e18;
+extern unsigned char DAT_00ea0e18[0x20];
 /* the three out-of-line state constructors (Ghidra-flattened
  * __thiscall: storage in as first arg, object out) */
 void *FUN_00443c20(void *storage);  /* CState07AvatarStore ctor */
