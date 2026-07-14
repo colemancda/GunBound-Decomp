@@ -32,7 +32,7 @@ void AppendPersistentButtonName(void *slot);
 void CreateButtonWidget(void *registry, int a, int id, int spriteBase,
                         const char *name, int x, int y, int w, int h,
                         int enabled, int b);
-extern unsigned char DAT_00e9be90;      /* flat-ButtonWidget registry */
+extern unsigned char DAT_00e9be90[0x20]; /* flat-ButtonWidget registry - sized, see globals.c */
 extern const char s_b_server_exitgame_00557144[];
 extern const char s_b_server_buddygame_00557170[];
 extern const char s_b_server_choiceserver_00557158[];
