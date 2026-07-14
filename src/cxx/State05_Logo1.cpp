@@ -15,7 +15,7 @@ unsigned int PlayMusicTrack(unsigned int status, const char *trackName);
  * the real cdecl definition - the call hit a bring-up stub, so sprites
  * never loaded. */
 int LoadSpriteSet(void *container, int key, const char *imgName);
-extern unsigned char DAT_00ea0e18;
+extern unsigned char DAT_00ea0e18[0x20];
 extern unsigned int  DAT_00ea0e1c;
 /* Takes 2 outputs, not 1 - the original's second output arrives via a
  * dropped ESI register (see src/network/BuildSystemInfoBlob.c). This
