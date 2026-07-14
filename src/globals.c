@@ -1051,7 +1051,16 @@ char *PTR_DAT_00563b40;
 void *PTR_DAT_00568180;
 void *PTR_DAT_00568800;
 void *PTR_DAT_00568810;
-void *PTR_DAT_0056d460;
+/* GetLocalizedString's not-found fallback return value. Was zero-init
+ * (BSS), but the original binary's own .data has this as a COMPILE-TIME
+ * CONSTANT (not runtime-constructed): raw bytes at the original address
+ * 0x54b460 are `20 00 00 00 ...` - the single-space C string " " (strlen
+ * stops at the first NUL, byte 1) - so no static initializer is missing
+ * here, just a literal init. Was NULL, so RenderWrappedText's strlen scan
+ * over GetLocalizedString's returned pointer faulted on every not-found
+ * lookup (always, since LoadLocalizedStrings - and hence the string table -
+ * never populates in bring-up). */
+void *PTR_DAT_0056d460 = " ";
 /* 100 x 0x9bc (2492) item records; itemdata.dat loaded here. See FindItemRecordByIcon. */
 uint8_t g_abItemRecords[2492];  /* one record; array is up to 100 x 0x9bc, see FindItemRecordByIcon */
 void *PTR_FUN_00544b5c;
