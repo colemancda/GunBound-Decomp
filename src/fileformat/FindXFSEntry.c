@@ -44,7 +44,7 @@ int FindXFSEntry(void *param_1_,char *name)
     else {
       iVar8 = (uVar7 & 0x3ff) * 0x80 + iVar8;
     }
-    iVar3 = FUN_004f0990(name,(char *)iVar8);
+    iVar3 = CompareXFSEntryName(name,(char *)iVar8);
     if (iVar3 == 0) break;
     if (iVar3 < 0) {
       uVar5 = uVar7;

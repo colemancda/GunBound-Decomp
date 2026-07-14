@@ -1264,14 +1264,18 @@ uint FUN_004f0530();
 uint FUN_004f0650();
 undefined4 __fastcall FUN_004f08a0();
 void __fastcall FUN_004f0960();
-int FUN_004f0990();
+int CompareXFSEntryName();
 void FUN_004f09d0();
 void FUN_004f0a20();
 undefined4 FUN_004f0d70();
 int __fastcall FUN_004f1020();
-uint FUN_004f11a0();
-uint FUN_004f1220();
-undefined4 __thiscall FUN_004f1390();
+uint FindXFSEntryIndex();
+uint FindOrInsertXFSEntry();
+/* K&R-empty deliberately: only the recovered live call sites pass the real
+ * 4 args (archive, name, findExisting, insertFlag); the ~13 other callers
+ * still invoke it as OpenXFSEntryStream(0) (dropped-register recovery
+ * pending per-caller) and rely on this unchecked prototype to compile. */
+undefined4 OpenXFSEntryStream();
 /* K&R-empty deliberately (like FindSpriteFrame): only LoadSpriteSet.c's
  * call site passes the real 2 args (readState, archive) - ~13 other
  * callers still use the old 0-arg form. See CloseSpriteReadState.c. */

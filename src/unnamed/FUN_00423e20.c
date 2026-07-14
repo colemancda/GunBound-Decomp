@@ -85,7 +85,7 @@ uint FUN_00423e20(undefined4 param_1,int param_2)
   } while (*(char *)((int)puVar7 + 1) != '\0');
   *(undefined4 *)((int)puVar7 + 1) = DAT_00552c70;
   *(undefined1 *)((int)puVar7 + 5) = DAT_00552c74;
-  iVar4 = FUN_004f1390(0);
+  iVar4 = OpenXFSEntryStream(0);
   uVar2 = 0;
   if (iVar4 != 0) {
     ReadXFSEntryByte(iVar4,&local_108);

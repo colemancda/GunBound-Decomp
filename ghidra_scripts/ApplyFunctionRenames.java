@@ -32,6 +32,13 @@ public class ApplyFunctionRenames extends GhidraScript {
         {"004f1520", "ReadSpriteFrameRecord", "src/fileformat/ReadSpriteFrameRecord.c"},
         {"004f2f00", "CreateActiveObjectLayer", "src/ui_widget/CreateActiveObjectLayer.c"},
         {"004f1460", "CloseSpriteReadState", "src/rendering/CloseSpriteReadState.c"},
+        // 2026-07-14 session 11: XFS entry lookup/insert chain - fixed the
+        // FUN_004f0990 NULL-deref crash past ServerSelect (dropped archive/
+        // name/flag registers recovered from disassembly, confirmed via angr)
+        {"004f0990", "CompareXFSEntryName", "src/fileformat/CompareXFSEntryName.c"},
+        {"004f11a0", "FindXFSEntryIndex", "src/fileformat/FindXFSEntryIndex.c"},
+        {"004f1220", "FindOrInsertXFSEntry", "src/fileformat/FindOrInsertXFSEntry.c"},
+        {"004f1390", "OpenXFSEntryStream", "src/fileformat/OpenXFSEntryStream.c"},
     };
 
     public void run() throws Exception {

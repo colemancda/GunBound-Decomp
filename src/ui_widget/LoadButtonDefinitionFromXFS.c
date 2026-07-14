@@ -19,7 +19,7 @@ void LoadButtonDefinitionFromXFS(void)
 {
   /* BRING-UP WORKAROUND: skip button-definition loading entirely.
    *
-   * Two dropped-register issues, neither with a quick fix: FUN_004f1390(0)
+   * Two dropped-register issues, neither with a quick fix: OpenXFSEntryStream(0)
    * needs an XFSArchive* and a name string via implicit EDI/EAX registers
    * inherited from the caller's own context (see FUN_004eae60.c for the
    * same situation), and this function's OWN output buffer (unaff_EBX) is

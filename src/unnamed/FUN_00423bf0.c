@@ -15,7 +15,7 @@ undefined4 FUN_00423bf0(void)
   int iVar2;
   undefined4 local_4;
   
-  iVar2 = FUN_004f1390(0);
+  iVar2 = OpenXFSEntryStream(0);
   if (iVar2 != 0) {
     ReadXFSEntryByte(iVar2,&local_4);
     uVar1 = local_4;
@@ -23,7 +23,7 @@ undefined4 FUN_00423bf0(void)
     EncodeOutgoingPacketField(uVar1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     CloseSpriteReadState();
-    iVar2 = FUN_004f1390(0);
+    iVar2 = OpenXFSEntryStream(0);
     if (iVar2 != 0) {
       ReadXFSEntryByte(iVar2,&local_4);
       uVar1 = local_4;
@@ -31,7 +31,7 @@ undefined4 FUN_00423bf0(void)
       EncodeOutgoingPacketField(uVar1);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       CloseSpriteReadState();
-      iVar2 = FUN_004f1390(0);
+      iVar2 = OpenXFSEntryStream(0);
       if (iVar2 != 0) {
         ReadXFSEntryByte(iVar2,&local_4);
         QueueOutgoingPacketField(local_4);
@@ -39,22 +39,22 @@ undefined4 FUN_00423bf0(void)
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EncodeOutgoingPacketField(0);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar2 = FUN_004f1390(0);
+        iVar2 = OpenXFSEntryStream(0);
         if (iVar2 != 0) {
           ReadXFSEntryByte(iVar2,&local_4);
           QueueOutgoingPacketField(local_4);
           CloseSpriteReadState();
-          iVar2 = FUN_004f1390(0);
+          iVar2 = OpenXFSEntryStream(0);
           if (iVar2 != 0) {
             ReadXFSEntryByte(iVar2,&local_4);
             QueueOutgoingPacketField(local_4);
             CloseSpriteReadState();
-            iVar2 = FUN_004f1390(0);
+            iVar2 = OpenXFSEntryStream(0);
             if (iVar2 != 0) {
               ReadXFSEntryByte(iVar2,&local_4);
               QueueOutgoingPacketField(local_4);
               CloseSpriteReadState();
-              iVar2 = FUN_004f1390(0);
+              iVar2 = OpenXFSEntryStream(0);
               if (iVar2 != 0) {
                 ReadXFSEntryByte(iVar2,&local_4);
                 QueueOutgoingPacketField(local_4);

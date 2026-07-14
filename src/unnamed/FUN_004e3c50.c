@@ -70,7 +70,7 @@ LAB_004e3ca5:
   *(void **)(param_1 + 0x34) = pvVar6;
   pvVar6 = operator_new(*(int *)(iVar7 + 0x24) * *(int *)(iVar7 + 0x20));
   *(void **)(param_1 + 0x38) = pvVar6;
-  iVar7 = FUN_004f1390(0);
+  iVar7 = OpenXFSEntryStream(0);
   if (iVar7 != 0) {
     ReadXFSEntryByte(iVar7,param_1 + 0x18);
     ReadXFSEntryByte(iVar7,param_1 + 0x1c);
