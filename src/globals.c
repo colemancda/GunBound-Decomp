@@ -718,7 +718,15 @@ uint32_t DAT_00e9c9cc;
 uint8_t DAT_00e9c9d0;
 uint32_t DAT_00e9c9dc;
 uint32_t DAT_00e9c9e0;
-uint8_t DAT_00ea0e18;
+/* The global sprite registry - the same 0x20-byte sentinel-node circular-list
+ * container as the two active-object registries (DAT_00e9be90/DAT_00e9c0fc):
+ * LoadSpriteSet/RegisterTankSprite/LoadAvatarSprites all populate it through
+ * FUN_004f2f00 (the shared node allocator) and FindSpriteFrame walks it via the
+ * same *(root+4) head / +0x1c outer-next idiom. Was a 1-byte placeholder, so
+ * FindSpriteFrame ran off the end; sized to 0x20 and sentinel-initialised by
+ * gb_startup_init (crt_shims_msvc.c) so an empty registry terminates cleanly
+ * and inserts link correctly. See [[bringup-frontier-mouse-hittest]]. */
+uint8_t DAT_00ea0e18[0x20];
 uint32_t DAT_00ea0e1c;
 uint32_t DAT_00ea0e28;
 uint32_t DAT_00ea0e2c;
