@@ -4,6 +4,21 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * Both FindSpriteFrame() calls were dropped to zero args, and both
+ * BlitSprite16bpp/BlitSpriteClipped calls were stale pre-migration
+ * (2-arg/1-arg) forms left over from before those two functions were
+ * promoted to their real (frame,x,y)-shaped signatures elsewhere in the
+ * project. Recovered via objdump (orig 0x4b3e85-0x4b3f13):
+ *   call 1: `xor esi,esi / mov edx,0x38e / mov eax,0xea0e18` before
+ *     `call 0x4f30c0` -> FindSpriteFrame(&DAT_00ea0e18, 0x38e, 0).
+ *   call 2: `mov edx,0x64 / mov eax,0xea0e18` before `call 0x4f30c0`,
+ *     with ESI (=uVar1, loaded via `movzx esi,word ptr [ebp]` beforehand)
+ *     as the innerKey -> FindSpriteFrame(&DAT_00ea0e18, 0x64, uVar1).
+ * Both BlitSprite16bpp/BlitSpriteClipped calls' real (frame,x,y) triples
+ * recovered from the same disassembly window (frame passed via EAX for
+ * BlitSprite16bpp, via the one stack push for BlitSpriteClipped, per
+ * those files' own established conventions).
  */
 #include "ghidra_types.h"
 
@@ -19,21 +34,23 @@ void FUN_004b3e60(undefined2 *param_1)
 
   if (*(char *)(param_1 + 0x191) != '\0') {
     iVar3 = *(int *)(param_1 + 0x194);
-    if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+    if ((DAT_0079352c != 0) &&
+        (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x38e,0), iVar2 != 0)) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        BlitSprite16bpp(iVar3,0x17d);
+        BlitSprite16bpp(0,iVar3,0x17d);
       }
       else {
-        BlitSpriteClipped(0);
+        BlitSpriteClipped(0,iVar3,0x17d);
       }
     }
     uVar1 = *param_1;
-    if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+    if ((DAT_0079352c != 0) &&
+        (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x64,uVar1), iVar2 != 0)) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        BlitSprite16bpp(iVar3 + 0x13,0x18c);
+        BlitSprite16bpp(uVar1,iVar3 + 0x13,0x18c);
       }
       else {
-        BlitSpriteClipped(uVar1);
+        BlitSpriteClipped(uVar1,iVar3 + 0x13,0x18c);
       }
     }
     DrawFontString(0x18b,0x1f);
