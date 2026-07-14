@@ -5,27 +5,34 @@
  * declaration here would default to __cdecl and leave a caller-side
  * stack-cleanup mismatch.
  *
- * in_EAX is a genuinely separate dropped register from param_1 (orig
- * 0x50eeaa: `leal 0x4(%eax), %esi` uses a DIFFERENT %eax than the one
- * holding param_1), not yet recovered - deferred since 17+ call sites
- * across src/ui_widget/ and the actively-migrating src/cxx/Panel.cpp
- * would each need tracing to confirm what object is in EAX at the call.
- *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * FIXED (2026-07-14): `in_EAX` (the manager object) recovered for the
+ * Panel.cpp call sites - confirmed via objdump at BuildWorldListPanel's
+ * real call (orig 0x509ac4-0x509ac6: `mov eax,ebp` where ebp was loaded
+ * from that function's OWN incoming `manager` argument at entry,
+ * `mov ebp,[esp+0x18]`) - i.e. every C++ panel builder simply forwards
+ * its own manager parameter through. Since this codebase has exactly one
+ * panel-manager singleton (g_uiPanelManager), Panel.cpp's other 8 call
+ * sites (whose own builder signatures don't currently thread a manager
+ * parameter through - BuildChannelUserListPanel etc.) were updated to
+ * pass `&g_uiPanelManager` directly rather than re-deriving it via each
+ * builder's own params. The 8 separate raw-C callers under
+ * src/ui_widget/ and src/unnamed/ (BuildItemTooltipPanel.c and
+ * siblings) are NOT part of this g_uiPanelManager system and are left
+ * unfixed/deferred - functions.h's K&R-empty declaration means they
+ * keep under-supplying this new parameter exactly as they already did
+ * for the object itself.
  */
 #include "ghidra_types.h"
 
 
-void __stdcall PanelManager_Register(int param_1)
+void __stdcall PanelManager_Register(void *manager,int param_1)
 
 {
   int *piVar1;
   int in_EAX;
   int iVar2;
-  
+
+  in_EAX = (int)manager;
   piVar1 = (int *)(in_EAX + 4);
   if (*(char *)(param_1 + 5) == '\0') {
     iVar2 = PanelManager_PrependNode(&param_1,*(undefined4 *)(in_EAX + 8),0);

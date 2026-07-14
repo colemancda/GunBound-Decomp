@@ -248,7 +248,14 @@ LAB_00413510:
     FUN_004b3e60(&DAT_00e9b4e8);
     DrawActiveObjectRegistry(&DAT_00e9be90);
     DrawActiveObjectRegistry(&DAT_00e9c0fc);
-    iVar5 = DAT_00e53c48;
+    /* KNOWN DIVERGENCE fix: DAT_00e53c48 is a separate, never-written
+     * global (Ghidra split it out of g_uiPanelManager+8 - see globals.c's
+     * own comment on this exact split). PanelManager_Register writes the
+     * real tail pointer through g_uiPanelManager itself, so reading the
+     * diverged scalar here always saw an empty list and no registered
+     * panel (e.g. ServerSelect's CWorldListPanel) ever got its Update()
+     * called. Read the real field directly instead. */
+    iVar5 = *(int *)(g_uiPanelManager + 8);
     while (iVar5 != 0) {
       puVar1 = (undefined4 *)(iVar5 + 8);
       iVar5 = *(int *)(iVar5 + 4);
