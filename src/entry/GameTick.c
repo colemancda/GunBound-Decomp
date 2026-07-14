@@ -255,11 +255,14 @@ LAB_00413510:
       (*(GameStateVirtualFn *)(*(int *)*puVar1 + 0x24))((void *)*puVar1);
     }
     if ((g_stateChangeInProgress == 0) && (0x28 < DAT_0056d118)) {
-      /* DrawSprite's arg was dropped as `in_EAX` - recovered from
-       * objdump at this call site (0x413664): EAX is built as
-       * `(DAT_0056d118 / 2) % 4` via cdq/sar/and-normalize, the usual
-       * MSVC signed div-then-mod idiom for a power-of-2 divisor. */
-      DrawSprite((DAT_0056d118 / 2) % 4);
+      /* DrawSprite's real args recovered from objdump at this call site
+       * (orig 0x413655-0x413664): param_1 = `(DAT_0056d118 / 2) % 4` (the
+       * usual MSVC signed div-then-mod idiom for a power-of-2 divisor,
+       * already correct); y=0x12c, x=0x190, outerKey=0x398 all loaded as
+       * literals immediately before the call; innerKey=0, left over from
+       * an unrelated registry-walk loop earlier in this same function
+       * (see DrawSprite.c's header for the full recovery). */
+      DrawSprite((DAT_0056d118 / 2) % 4,0x12c,0x190,0x398,0);
     }
     DAT_0079352c = 0;
     (*(SurfaceUnlockFn *)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);

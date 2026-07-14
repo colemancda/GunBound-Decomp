@@ -1201,7 +1201,9 @@ void __fastcall DrawVLine();
 void __fastcall FUN_004eb720();
 void FUN_004eb7a0();
 void __fastcall FillScreenRect();
-void DrawSprite(int param_1);
+void DrawSprite(); /* K&R-empty deliberately (like FindSpriteFrame): real args
+                     * are (param_1,y,x,outerKey,innerKey); only GameTick.c's
+                     * call site is fully recovered - see DrawSprite.c's header */
 void __thiscall QueueSpriteSpansByContentId();
 void __fastcall FUN_004eb940(int width,undefined4 *param_2,int param_3,int x);
 void __fastcall QueueTextureRowSpan();

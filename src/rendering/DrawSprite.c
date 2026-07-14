@@ -44,23 +44,39 @@
  *   - A 16th call (0x4ac113) is inside a function that isn't ported to
  *     src/ yet at all (only reachable via a shared field offset match
  *     in State11_InBattle_Render.c), so there is no call site to fix.
+ *
+ * 2026-07-14: recovered the FULL real signature - `y`/`x` (EDI/EBX) and
+ * FindSpriteFrame's outerKey/innerKey (EDX/ESI) are ALL genuine pass-
+ * through parameters from DrawSprite's own caller, not internal locals -
+ * confirmed via objdump at 0x4eb890 (this function never writes EDX/ESI
+ * itself before the FindSpriteFrame call) cross-referenced against
+ * GameTick.c's own call site (orig 0x413655-0x413664: `mov edi,0x12c /
+ * mov ebx,0x190 / mov edx,0x398` immediately before `call 0x4eb890`, ESI
+ * left at 0 by an unrelated loop earlier in GameTick). functions.h keeps
+ * the K&R-empty declaration (matching FindSpriteFrame/BlitSprite16bpp's
+ * own precedent for hot multi-call-site functions) so the other 11
+ * not-yet-recovered call sites in this port still compile - they under-
+ * supply 4 args and read stack garbage for y/x/outerKey/innerKey, exactly
+ * as they already read register garbage today, so this is strictly no
+ * worse for them. Only GameTick.c's call site (the one blocking bring-up
+ * progress) was updated to pass the real recovered values.
  */
 #include "ghidra_types.h"
 
 
-void DrawSprite(int param_1)
+void DrawSprite(int param_1,int y,int x,int outerKey,int innerKey)
 
 {
   int iVar1;
 
   if ((DAT_0079352c != 0) && (-1 < param_1)) {
-    iVar1 = FindSpriteFrame();
+    iVar1 = FindSpriteFrame((int)&DAT_00ea0e18,outerKey,innerKey);
     if (iVar1 != 0) {
       if (*(char *)(iVar1 + 0x18) == '\x01') {
-        BlitSprite16bpp();
+        BlitSprite16bpp(param_1,x,y);
         return;
       }
-      BlitSpriteClipped();
+      BlitSpriteClipped(param_1,x,y);
     }
   }
   return;
