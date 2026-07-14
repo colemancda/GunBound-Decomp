@@ -13,8 +13,11 @@
  *   - 0x40610c: edi already holds the caller's `this` / `mov edx,[esp+8]`
  *   - 0x42baa8: `mov edx,[0x5b3484]+0x6a7f88` (global ctx) / `mov edi,ebp`
  *   - 0x4f1878 (inside LoadSpriteSet, 0x4f1790): `mov edx,[esp+0x20]`
- *     (LoadSpriteSet's own forwarded param_2) / `mov edi,esi` where esi
- *     is the sprite object just built - i.e. this function's node arg.
+ *     (LoadSpriteSet's own forwarded param_1, the registry container -
+ *     see that file's corrected 2026-07-14 header comment, NOT param_2
+ *     the sprite-set key as originally guessed here) / `mov edi,esi`
+ *     where esi is the sprite object just built - i.e. this function's
+ *     node arg.
  * In every case EDX is the container/context (this file's existing
  * `param_2`) and EDI is a distinct third value - the node being linked
  * into the sorted list. Promoted here to a real `node` parameter; ECX

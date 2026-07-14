@@ -28,9 +28,22 @@ typedef void *(__thiscall *ScalarDeletingDtorFn)(void *thisPtr,int freeFlag);
  * RegisterActiveObject.c's header). Confirmed via
  *   objdump -d -Mintel --start-address=0x4f1790 --stop-address=0x4f1880 \
  *     orig/GunBound.gme
- * at the call site (0x4f1872-0x4f1878): `mov edx,[esp+0x20]` is this
- * function's own forwarded `param_2`, and `mov edi,esi` is `puVar3`,
- * the sprite object just built this iteration. */
+ * at the call site (0x4f1872-0x4f1878): `mov edx,[esp+0x20]` and
+ * `mov edi,esi` (`puVar3`, the sprite object just built this iteration).
+ *
+ * CORRECTED (2026-07-14): [esp+0x20] is this function's own `param_1`
+ * (the registry container, e.g. &DAT_00ea0e18), NOT param_2 (the
+ * sprite-set key) - this file previously passed param_2, matching
+ * RegisterActiveObject's real body (`*(int*)(param_2+4)`, a registry
+ * `+4` head-pointer dereference identical to the widget registries'
+ * own idiom) against an INTEGER key instead of a pointer. Confirmed via
+ * the crash it caused: with key=10000=0x2710, RegisterActiveObject
+ * faulted reading *(int*)(0x2710+4) = *(int*)0x2714 - an exact match
+ * to the observed fault address. Stack-offset arithmetic independently
+ * confirms it: this function's prologue (`sub esp,0xc; push ebx,esi,
+ * edi,eax`) consumes 0x1c bytes before the body runs, shifting the
+ * caller-pushed param_1 (originally at [esp_entry+4]) to [esp+0x20]
+ * with no net ESP change from the intervening (self-cleaning) calls. */
 
 int LoadSpriteSet(undefined4 param_1,undefined4 param_2,char *imgName)
 
@@ -96,7 +109,7 @@ int LoadSpriteSet(undefined4 param_1,undefined4 param_2,char *imgName)
         }
         return -1;
       }
-      RegisterActiveObject(0, param_2, puVar3);
+      RegisterActiveObject(0, param_1, puVar3);
       iVar1 = iVar1 + 1;
     } while (iVar1 < local_c);
   }
