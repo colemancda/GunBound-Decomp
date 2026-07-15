@@ -56,7 +56,15 @@ void __fastcall FUN_00479910(int *param_1)
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(iVar4 + iVar3);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x479a4c (`lea edi,[esi+0x8c8]`, esi = param_1 per `mov esi,ecx` at
+     * function entry, confirmed by objdump of orig/GunBound.gme). This
+     * file's own established idiom for param_1 (`int *`) byte offsets is
+     * scaled-index arithmetic (see `param_1 + 0x459` above, confirmed
+     * against the disassembly to be byte offset 0x1164 = 0x459*4); 0x8c8
+     * is likewise exactly 0x232*4, so the cell is `param_1 + 0x232`. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(param_1 + 0x232, iVar4 + iVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeChecksumDeltaSub(param_1 + 0x120,auStack_230,0xf);
     uStack_4 = 1;

@@ -39,6 +39,11 @@ void __fastcall FUN_0044f050(int *param_1)
   byte *pbVar19;
   undefined4 *unaff_FS_OFFSET;
   char cVar20;
+  /* New local (2026-07-15): captures the previously-discarded return of
+   * the `PeekPacketChecksumState();` call below (line ~301) so it can be
+   * forwarded as EncodeOutgoingPacketField's dropped `self` arg further
+   * down - see the FIXED comment at that call. */
+  uint uVar19;
   int *local_ad0;
   undefined4 uStack_acc;
   int local_ac8;
@@ -65,16 +70,27 @@ void __fastcall FUN_0044f050(int *param_1)
   *unaff_FS_OFFSET = &uStack_c;
   pcVar18 = (code *)EnterCriticalSection;
   local_ad0 = (int *)0x0;
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x44f0a0
+   * (`lea edi,[ebp+0x40]` at 0x44f084, ebp = this file's own param_1,
+   * per `mov ebp,ecx` at 0x44f06f) the cell is param_1+0x10 (scaled
+   * int* units, byte offset 0x40) - the same cell
+   * EncodeChecksumDeltaShr(param_1 + 0x10, ...) below already addresses.
+   * See tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar8 = PeekPacketChecksumState();
   iVar9 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar9 + iVar8);
+  EncodeOutgoingPacketField(param_1 + 0x10, iVar9 + iVar8);
   pcVar17 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x44f0dc
+   * (`lea edi,[ebp+0x264]` at 0x44f0b7) the cell is param_1+0x99
+   * (scaled), the same cell EncodeChecksumDeltaShr(param_1 + 0x99, ...)
+   * below already addresses. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_ac8 = PeekPacketChecksumState();
   iVar8 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar8 + local_ac8);
+  EncodeOutgoingPacketField(param_1 + 0x99, iVar8 + local_ac8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar8 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar12 = *(uint *)(iVar8 + 4);
@@ -95,9 +111,18 @@ LAB_0044f258:
   if (cVar5 == '\0') {
     EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac4,8);
     puStack_8 = (undefined1 *)0x2;
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x44f580 (`lea edi,[ebp+0xf54]` at 0x44f57a) the cell is
+     * param_1+0x3d5 (scaled). This is the 3rd EncodeOutgoingPacketField
+     * call in program/address order (the JSON's "site3" entry with
+     * call_addr 0x44f363 actually corresponds textually to the LAST
+     * EncodeOutgoingPacketField call further below, near
+     * CheckGuardedBoolAnd(unaff_EBP) - confirmed via a fresh Ghidra
+     * decompile with per-line address markup; see
+     * tools/encodeoutgoingpacketfield_sites.json). */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar10 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar10);
+    EncodeOutgoingPacketField(param_1 + 0x3d5, uVar10);
     (*pcVar17)(&DAT_005a9068);
     uStack_c = 0xffffffff;
     if (iStack_ab4 != 0) {
@@ -108,9 +133,15 @@ LAB_0044f258:
     EncodeChecksumDeltaShr(param_1 + 0x99,&local_ac8,8);
     local_ad0 = param_1 + 0x45e;
     uStack_c = 3;
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x44f605 (`mov edi,dword ptr [esp+0x20]`, that stack slot was
+     * spilled from `lea ecx,[ebp+0x1178]` = param_1+0x1178 a few
+     * instructions earlier) the cell is param_1+0x45e (scaled), same as
+     * local_ad0 = param_1 + 0x45e immediately above. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar10 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar10);
+    EncodeOutgoingPacketField(param_1 + 0x45e, uVar10);
     cVar5 = '\0';
     (*pcVar17)();
     uStack_10 = 0xffffffff;
@@ -298,7 +329,13 @@ LAB_0044f946:
     pcVar18 = (code *)EnterCriticalSection;
   }
   (*pcVar18)(&DAT_005a9068);
-  PeekPacketChecksumState();
+  /* This PeekPacketChecksumState()'s return (self-cell =
+   * g_clientContext + 0x5b85c, per 0x44f2f1's `mov edi,[g_clientContext];
+   * add edi,0x5b85c`) was previously discarded by the decompile; it
+   * survives in a stack spill ([esp+0x14]) that is later reloaded as
+   * EncodeOutgoingPacketField's dropped `self` arg below - captured here
+   * as uVar19 so that value isn't lost. */
+  uVar19 = PeekPacketChecksumState();
   PeekPacketChecksumState();
   cVar20 = '\0';
   (*pcVar17)();
@@ -306,7 +343,15 @@ LAB_0044f946:
   if (cVar5 != '\0') {
     (*pcVar18)(&DAT_005a9068);
     uVar10 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar10);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x44f363 (`mov edi,dword ptr [esp+0x14]`) that stack slot holds
+     * the value peeked above into uVar19 (self-cell g_clientContext +
+     * 0x5b85c - the same base FUN_004ae3a0.c's
+     * `CompareChecksumPair(iVar7 + 0x5b85c, param_1 + 0xe48)` uses),
+     * NOT a fixed param_1 offset like the other sites in this function -
+     * angr's backward scan resolved it to this spilled stack value. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(uVar19, uVar10);
     (*pcVar17)(&DAT_005a9068);
   }
   (*pcVar18)();

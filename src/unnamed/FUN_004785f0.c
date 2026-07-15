@@ -41,7 +41,14 @@ void FUN_004785f0(int param_1)
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\x01') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x478636
+     * (`lea edi,[ebx + 0xaf0]`, ebx = this file's own param_1 -
+     * `mov ebx,dword ptr [esp+0x8bc]` at function entry reloads the
+     * incoming param_1 stack arg into ebx, kept live/callee-saved for the
+     * whole function): cell is param_1+0xaf0. `param_1` is plain `int`,
+     * so byte offsets are natural. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(param_1 + 0xaf0, 0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     goto LAB_00478a67;
   }
@@ -150,7 +157,13 @@ LAB_004789f7:
   }
   sVar1 = *(short *)(&DAT_00598e7e + (iVar8 * 0x100 + iVar4) * 2);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField((int)sVar1);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x478a59
+   * (`lea edi,[ebx + 0xaf0]`, ebx = param_1, still live/unchanged since
+   * function entry - see the comment on this function's other
+   * EncodeOutgoingPacketField call above): cell is param_1+0xaf0 (the
+   * same cell as the other call in this function). See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField(param_1 + 0xaf0, (int)sVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
 LAB_00478a67:
   *unaff_FS_OFFSET = local_c;

@@ -46,15 +46,26 @@ void __fastcall FUN_004765d0(int *param_1)
    * same rationale as entry/InitGame.c - see src/README.md). puStack_8
    * is a real, separate local reused elsewhere in this function
    * despite the SEH-typical name - kept as-is. */
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x476620
+   * (`mov edi,ebx`, ebx = `lea ebx,[esi+0x40]` at 0x4765fe, esi = this
+   * file's own param_1) the cell is param_1+0x10 (scaled int* units,
+   * byte offset 0x40) - the same cell EncodeChecksumDeltaShr(param_1 +
+   * 0x10, ...) below (line ~138) already addresses, confirming the
+   * mapping. See tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = PeekPacketChecksumState();
   iVar8 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar8 + iVar7);
+  EncodeOutgoingPacketField(param_1 + 0x10, iVar8 + iVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x47665a
+   * (`mov edi,ebp`, ebp = `lea ebp,[esi+0x264]` at 0x476635) the cell is
+   * param_1+0x99 (scaled), the same cell EncodeChecksumDeltaShr(param_1
+   * + 0x99, ...) below (line ~149) already addresses. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = PeekPacketChecksumState();
   iVar8 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar8 + iVar7);
+  EncodeOutgoingPacketField(param_1 + 0x99, iVar8 + iVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
   cVar6 = PeekPacketChecksumBool();
@@ -137,9 +148,15 @@ void __fastcall FUN_004765d0(int *param_1)
   }
   EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac4,8);
   puStack_8 = (undefined1 *)0x3;
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x476961
+   * (`lea edi,[esi+0xf54]` at 0x47694d, esi = param_1) the cell is
+   * param_1+0x3d5 (scaled), the same cell reused throughout this
+   * function (PeekChecksumStateUnderLock/EncodeChecksumState/
+   * EncodeChecksumDeltaSub(param_1 + 0x3d5, ...) above). See
+   * tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar10 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar10);
+  EncodeOutgoingPacketField(param_1 + 0x3d5, uVar10);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_ab0 != 0) {
@@ -149,9 +166,15 @@ void __fastcall FUN_004765d0(int *param_1)
   EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac4,8);
   pcVar17 = (code *)EnterCriticalSection;
   puStack_8 = (undefined1 *)0x4;
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4769de
+   * (`mov edi,ebx`, ebx = `lea ebx,[esi+0x1178]` at 0x4769cc) the cell
+   * is param_1+0x45e (scaled), the same cell used elsewhere in this
+   * function (piVar2 = param_1 + 0x45e above; PacketChecksumGreaterEqual/
+   * PacketChecksumLessThan(param_1 + 0x45e, ...) below). See
+   * tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar10 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar10);
+  EncodeOutgoingPacketField(param_1 + 0x45e, uVar10);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_ab0 != 0) {

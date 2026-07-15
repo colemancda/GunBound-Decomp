@@ -74,7 +74,15 @@ void __fastcall FUN_0044fd70(int param_1)
       puVar5 = local_678;
       local_458 = 0;
       local_664 = 0;
-      EncodeOutgoingPacketField(*(undefined4 *)(&g_nCameraBoundY + g_clientContext));
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x44ff2e (`lea edi,[esp+0x18]`). Objdump of orig/GunBound.gme
+       * traces the absolute stack address at that instruction back to
+       * this file's own local_678 buffer (the same &local_678 used two
+       * lines up via `puVar5 = local_678;`); tableHandle(+0x14) =
+       * local_664 and activeFlag(+0x220) = local_458 - both zero-written
+       * on the two lines immediately above, confirming this is the cell.
+       * See tools/encodeoutgoingpacketfield_sites.json. */
+      EncodeOutgoingPacketField(local_678, *(undefined4 *)(&g_nCameraBoundY + g_clientContext));
       local_4 = 3;
     }
     else {

@@ -150,11 +150,18 @@ void FUN_0045ba50(int param_1)
   iVar3 = iVar3 / *(int *)(param_1 + 0xbff0);
   local_ad4 = -iVar3;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(local_ad4);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45bf9a
+   * (`lea edi,[ebx+0x1e78]`, ebx = this file's own param_1) the cell is
+   * param_1+0x1e78. See tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField(param_1 + 0x1e78, local_ad4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar2);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45bfbf
+   * (`lea edi,[ebx+0x62f8]`) the cell is param_1+0x62f8 - a fresh cell,
+   * distinct from the param_1+0x1e78 one just peeked above. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField(param_1 + 0x62f8, uVar2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeChecksumPairDiff(param_1 + 0x209c,local_ac0,param_1 + 0x1e78);
   local_4 = 10;
@@ -169,7 +176,12 @@ void FUN_0045ba50(int param_1)
   if (3 < (int)((uVar4 ^ (int)uVar4 >> 0x1f) - ((int)uVar4 >> 0x1f))) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar2);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45c07c
+     * (`lea eax,[ebx+0x1e78]` feeding the Peek just above, edi left
+     * unchanged since) the cell is param_1+0x1e78 - re-peeked/re-encoded
+     * (round-trips the value written at the first call above). See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(param_1 + 0x1e78, uVar2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -179,13 +191,19 @@ void FUN_0045ba50(int param_1)
     local_ad4 = iVar3;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(local_ad4);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45c0cd
+   * (`lea edi,[ebx+0x51d8]`) the cell is param_1+0x51d8. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField(param_1 + 0x51d8, local_ad4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeChecksumDeltaAdd(param_1 + 0x4948,local_ac0,local_ad4);
   local_4 = 0xb;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar2);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45c115
+   * (`lea edi,[ebx+0x4fb4]`) the cell is param_1+0x4fb4. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField(param_1 + 0x4fb4, uVar2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if (local_aac != 0) {
@@ -202,7 +220,12 @@ void FUN_0045ba50(int param_1)
     SUBFIELD(local_4,0,undefined1) = 0xd;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar2);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45c1d6
+     * (edi left unchanged since `lea edi,[ebx+0x4fb4]` above) the cell is
+     * param_1+0x4fb4 - the same cell as the previous Peek/Encode pair
+     * (EncodeChecksumNegate's cell arg just above). See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(param_1 + 0x4fb4, uVar2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xc);
     if (local_aac != 0) {
@@ -221,7 +244,10 @@ void FUN_0045ba50(int param_1)
     local_4 = 0xe;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar2);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45c2a7
+     * (`lea edi,[ebx+0x60d4]`) the cell is param_1+0x60d4. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(param_1 + 0x60d4, uVar2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (local_aac != 0) {
@@ -234,7 +260,10 @@ void FUN_0045ba50(int param_1)
       local_4 = 0xf;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar2);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x45c33f (`lea edi,[ebx+0x4d90]`) the cell is param_1+0x4d90.
+       * See tools/encodeoutgoingpacketfield_sites.json. */
+      EncodeOutgoingPacketField(param_1 + 0x4d90, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if (local_aac != 0) {
@@ -266,7 +295,12 @@ void FUN_0045ba50(int param_1)
       SUBFIELD(local_4,0,undefined1) = 0x13;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar2);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x45c48e (edi left unchanged since `lea edi,[ebx+0x60d4]` at
+       * 0x45c41e) the cell is param_1+0x60d4 - reused from the
+       * PeekPacketChecksumState()/EncodeChecksumNegate pair above. See
+       * tools/encodeoutgoingpacketfield_sites.json. */
+      EncodeOutgoingPacketField(param_1 + 0x60d4, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x12);
       if (local_aac != 0) {
@@ -289,7 +323,12 @@ void FUN_0045ba50(int param_1)
       iVar3 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(0x5a - iVar3);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x45c58d (edi left unchanged since `lea edi,[ebx+0x60d4]` at
+       * 0x45c51b) the cell is param_1+0x60d4 - reused from the
+       * PeekPacketChecksumState()/EncodeChecksumDeltaSub pair above.
+       * See tools/encodeoutgoingpacketfield_sites.json. */
+      EncodeOutgoingPacketField(param_1 + 0x60d4, 0x5a - iVar3);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if (local_aac != 0) {
@@ -307,7 +346,12 @@ void FUN_0045ba50(int param_1)
       iVar3 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(-0x5a - iVar3);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x45c652 (edi left unchanged since `lea edi,[ebx+0x60d4]` at
+       * 0x45c5dd) the cell is param_1+0x60d4 - reused from the
+       * PeekPacketChecksumState()/EncodeChecksumDeltaAdd pair above.
+       * See tools/encodeoutgoingpacketfield_sites.json. */
+      EncodeOutgoingPacketField(param_1 + 0x60d4, -0x5a - iVar3);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if (local_21c != 0) {
@@ -317,7 +361,10 @@ void FUN_0045ba50(int param_1)
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(local_ad4);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45c6b0
+   * (`lea edi,[ebx+0x4b6c]`) the cell is param_1+0x4b6c. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField(param_1 + 0x4b6c, local_ad4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *unaff_FS_OFFSET = local_c;
   return;

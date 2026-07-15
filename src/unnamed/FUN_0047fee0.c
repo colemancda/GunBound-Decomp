@@ -125,7 +125,15 @@ void FUN_0047fee0(int param_1)
     iVar3 = iVar3 + iVar2;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(iVar3);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x480250
+   * (`lea edi,[esi+0x139c]`, esi = this file's own unaff_ESI, confirmed
+   * by objdump of orig/GunBound.gme: esi is never reassigned anywhere in
+   * this function, so it's the same register-carried cell base already
+   * used throughout as unaff_ESI). unaff_ESI is `int *` (scales by 4), so
+   * the byte offset is taken via `(int)unaff_ESI + 0x139c` (same twin-cell
+   * offset as FUN_0047c040.c's identical call site). See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)unaff_ESI + 0x139c, iVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   fptan((float10)_DAT_00558070);
   iVar2 = FloatToInt64();

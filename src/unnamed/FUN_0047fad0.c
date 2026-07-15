@@ -50,7 +50,14 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar4);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x47fb8d
+     * (`lea edi,[esi + 0x40]`, esi = unaff_ESI, the function's own "this"
+     * projectile object, e.g. unaff_ESI[0xfef]=... above): unaff_ESI+0x40
+     * matches InitProjectile.c's own cell #1 (param_2+0x40, tableHandle
+     * (+0x14)=param_2[0x15], activeFlag(+0x220) both zeroed together
+     * there), confirming the same CProjectile cell layout. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField((int)unaff_ESI + 0x40, uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState();
@@ -86,7 +93,11 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(iVar3);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x47fce2
+     * (`lea edi,[esi + 0x264]`, esi = unaff_ESI): matches InitProjectile.c's
+     * cell #2 (param_2+0x264). See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField((int)unaff_ESI + 0x264, iVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState();
@@ -141,7 +152,12 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
     iVar2 = iVar2 + iVar3;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(iVar2);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x47fea5
+   * (`lea edi,[esi + 0x139c]`, esi = unaff_ESI): a later cell on the same
+   * projectile object, already initialized during the object's
+   * InitProjectile-style construction and reused here for the final
+   * damage value. See tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)unaff_ESI + 0x139c, iVar2);
   (*pcVar5)(&DAT_005a9068);
   RescrambleGuardedBool();
   *unaff_FS_OFFSET = uStack_18;

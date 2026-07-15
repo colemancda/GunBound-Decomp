@@ -46,7 +46,18 @@ void FUN_00461a20(int param_1)
         iVar8 = _rand();
         uVar2 = local_14[iVar8 % 5];
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EncodeOutgoingPacketField(uVar2);
+        /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+         * 0x461b2d (`lea edi,[eax+edx+0x39f30]`). Objdump of
+         * orig/GunBound.gme traces eax back to this file's own
+         * `local_1c * 0x224` (the loop-count register, reloaded into edi
+         * right after the do-while loop and never touched again before
+         * this point - matches `if (local_1c != 6) {`) and edx back to a
+         * fresh read of g_clientContext: the cell is
+         * g_clientContext+0x39f30+local_1c*0x224, a per-slot array of
+         * CValueGuard-sized (0x224) cells matching src/cxx/ValueGuard.h's
+         * documented per-player array stride. See
+         * tools/encodeoutgoingpacketfield_sites.json. */
+        EncodeOutgoingPacketField(g_clientContext + 0x39f30 + local_1c * 0x224, uVar2);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         QueueBroadcastEvent(0x8406);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

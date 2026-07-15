@@ -39,15 +39,29 @@ undefined4 * FUN_00471320(undefined4 *param_1)
   InitGuardedBool();
   *(undefined1 *)(param_1 + 0x97) = 0;
   param_1[0x14] = 0;
-  EncodeOutgoingPacketField(0);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x47138b
+   * (`lea edi,[esi + 0x3c]`, esi = this file's own param_1): the cell is
+   * param_1+0x3c; tableHandle(+0x14)=param_1+0x50 (== param_1[0x14],
+   * `undefined4 *` scales by 4) is zeroed immediately above. `param_1` is
+   * `undefined4 *`, so byte offsets use `(int)param_1 + N`. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)param_1 + 0x3c, 0);
   SUBFIELD(local_4,0,undefined1) = 1;
   *(undefined1 *)(param_1 + 0x120) = 0;
   param_1[0x9d] = 0;
-  EncodeOutgoingPacketField(0);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4713a5
+   * (`lea edi,[esi + 0x260]`, esi = param_1): cell is param_1+0x260;
+   * tableHandle(+0x14)=param_1+0x274 (== param_1[0x9d]) is zeroed just
+   * above. See tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)param_1 + 0x260, 0);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
   *(undefined1 *)(param_1 + 0x1aa) = 0;
   param_1[0x127] = 0;
-  EncodeOutgoingPacketField(0);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4713bf
+   * (`lea edi,[esi + 0x488]`, esi = param_1): cell is param_1+0x488;
+   * tableHandle(+0x14)=param_1+0x49c (== param_1[0x127]) is zeroed just
+   * above. See tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)param_1 + 0x488, 0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = _rand();
   *(byte *)(param_1 + 0xe) = (byte)iVar2;

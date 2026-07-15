@@ -20,7 +20,13 @@ void __fastcall FUN_00452bf0(int *param_1)
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(iVar2 + 1);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x452c33
+     * (`lea edi,[esi + 0x3920]`, esi = this file's own param_1, preserved
+     * across the earlier vtable/AdvanceSpriteAnimation/checksum calls as
+     * the fastcall this-pointer): cell is param_1+0x3920. `param_1` is
+     * `int *`, so byte offsets use `(int)param_1 + N`. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField((int)param_1 + 0x3920, iVar2 + 1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   iVar2 = param_1[0xed1];
@@ -28,7 +34,12 @@ void __fastcall FUN_00452bf0(int *param_1)
   if (iVar2 + 1 == 5) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar3);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x452c6c
+     * (`lea edi,[esi + 0x3d6c]`, esi = param_1): cell is param_1+0x3d6c -
+     * the same offset used as a CValueGuard cell (with
+     * CompareChecksumPair/CompareChecksumExceeds) in FUN_004acd10.c. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField((int)param_1 + 0x3d6c, uVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   return;

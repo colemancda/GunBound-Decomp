@@ -90,14 +90,23 @@ void FUN_00477140(void)
   RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar3);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477342
+   * (`lea edi,[esi + 0xf54]`, esi = this file's own `unaff_ESI`,
+   * already used as a base pointer throughout, e.g. `unaff_ESI + 0x264`
+   * above): cell is unaff_ESI+0xf54. `unaff_ESI` is plain `int`, so byte
+   * offsets add directly. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField(unaff_ESI + 0xf54, uVar3);
   pcVar6 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeChecksumDeltaSub(unaff_ESI + 0x264,local_454,10);
   local_4 = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar3);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477389
+   * (`lea edi,[esi + 0x1178]`, esi = unaff_ESI): cell is
+   * unaff_ESI+0x1178. See tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField(unaff_ESI + 0x1178, uVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if (local_440 != 0) {

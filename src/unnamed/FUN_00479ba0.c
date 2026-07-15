@@ -95,11 +95,20 @@ LAB_00479d44:
       if (param_1[9] == 1) {
         (**(code **)(*param_1 + 4))(s_normal_00552230);
       }
+      /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+       * 0x479dec/0x479e07 (edi loaded from ebx+0x19f4/ebx+0x17d0). ebx is
+       * this function's own `param_1` (__fastcall's implicit ecx->ebx
+       * copy): 0x17d0/4 == 0x5f4 and 0x19f4/4 == 0x67d, which are exactly
+       * the `param_1 + 0x5f4` and `param_1 + 0x67d` cells this file
+       * already threads through EncodeChecksumDeltaDiv/EncodeChecksumPairSum/
+       * PeekChecksumStateUnderLock elsewhere below - so these byte offsets
+       * are just those same scaled `int *` cells. See
+       * tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(0);
+      EncodeOutgoingPacketField(param_1 + 0x67d, 0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(0);
+      EncodeOutgoingPacketField(param_1 + 0x5f4, 0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\x01') {
@@ -119,11 +128,14 @@ LAB_00479e75:
     else {
       iVar6 = PeekChecksumStateUnderLock(param_1 + 0x67d);
       QueueOutgoingPacketField(iVar5 - iVar6);
+      /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+       * 0x479ecf/0x479eea, same ebx+0x17d0 cell as above (== param_1 +
+       * 0x5f4). See tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(1);
+      EncodeOutgoingPacketField(param_1 + 0x5f4, 1);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(0);
+      EncodeOutgoingPacketField(param_1 + 0x5f4, 0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       cVar3 = PeekPacketChecksumBool();
       if ((cVar3 == '\x01') && (iVar5 < *(int *)(&g_nCameraBoundY + g_clientContext))) goto LAB_00479e75;
@@ -134,9 +146,14 @@ LAB_00479e75:
       (**(code **)(*param_1 + 4))(&DAT_00553bcc);
       EncodeChecksumState(g_clientContext + 0x62630);
     }
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x479f66
+     * (edi loaded from ebx+0x19f4 == param_1 + 0x67d, same cell as the
+     * first call above - confirmed again by the very next line reusing
+     * `param_1 + 0x67d` via EmitChecksumSum). See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(iVar5 + 1);
+    EncodeOutgoingPacketField(param_1 + 0x67d, iVar5 + 1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EmitChecksumSum(param_1 + 0x67d);
     cVar3 = PeekPacketChecksumBool();
@@ -238,13 +255,24 @@ LAB_00479e75:
       QueueOutgoingPacketField(uVar4);
     }
     else if (g_gameStateVTableArray[0xb][0x2382] == '\0') {
+      /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+       * 0x47a2ce/0x47a2f5 (edi loaded from esp+0xb0/esp+0x2d4, stack-
+       * relative). The zero-write pairs just above each call match
+       * tableHandle(+0x14)/activeFlag(+0x220): uStack_67c/local_888 are
+       * 0x20c bytes apart, pinning the first cell's base at local_888-0x14
+       * == `local_89c` (this file's own scratch CValueGuard buffer, reused
+       * a few lines above via EncodeChecksumDeltaSub/EncodeChecksumPairSum);
+       * likewise uStack_458/uStack_664 pin the second cell's base at
+       * uStack_664-0x14 == `auStack_678` (also reused below via
+       * PeekChecksumStateUnderLock/EmitChecksumSum). See
+       * tools/encodeoutgoingpacketfield_sites.json. */
       uStack_67c = 0;
       local_888 = 0;
-      EncodeOutgoingPacketField(0);
+      EncodeOutgoingPacketField(local_89c, 0);
       local_4 = 3;
       uStack_458 = 0;
       uStack_664 = 0;
-      EncodeOutgoingPacketField(0);
+      EncodeOutgoingPacketField(auStack_678, 0);
       piVar1 = param_1 + 0xe;
       local_4 = 4;
       uVar4 = PeekChecksumStateUnderLock(piVar1);

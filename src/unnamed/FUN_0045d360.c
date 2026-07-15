@@ -92,7 +92,12 @@ LAB_0045d527:
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(iVar5 + iVar2);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45d555
+     * (`lea edi,[esi+0xae6c]`). Objdump of orig/GunBound.gme confirms
+     * esi = eax at function entry (`mov esi,eax` at 0x45d372), i.e. esi is
+     * this file's own `in_EAX`; the cell is in_EAX+0xae6c. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(in_EAX + 0xae6c, iVar5 + iVar2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

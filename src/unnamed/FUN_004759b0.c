@@ -65,8 +65,17 @@ void __fastcall FUN_004759b0(int param_1)
             local_10 = PeekPacketChecksumState();
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
+          /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+           * 0x475c2b (`lea edi,[ebp+0xb94c]`, ebp = this file's own
+           * piVar5, per `mov ebp,eax` right after the FUN_00425ac0 call
+           * above) a CValueGuard cell at piVar5+0xb94c; +0x224 past the
+           * cell used at the previous call (0xb728), matching
+           * sizeof(CValueGuard)=0x224 - these 4 calls step through a
+           * 4-element guard-cell array. `piVar5` is `int *` (scales by
+           * 4), so the byte offset is taken via `(int)piVar5 + N`. See
+           * tools/encodeoutgoingpacketfield_sites.json. */
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          EncodeOutgoingPacketField(local_10);
+          EncodeOutgoingPacketField((int)piVar5 + 0xb728, local_10);
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = PeekPacketChecksumState();
@@ -86,7 +95,7 @@ void __fastcall FUN_004759b0(int param_1)
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          EncodeOutgoingPacketField(local_10);
+          EncodeOutgoingPacketField((int)piVar5 + 0xb94c, local_10);
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = PeekPacketChecksumState();
@@ -106,7 +115,7 @@ void __fastcall FUN_004759b0(int param_1)
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          EncodeOutgoingPacketField(local_10);
+          EncodeOutgoingPacketField((int)piVar5 + 0xbb70, local_10);
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = PeekPacketChecksumState();
@@ -126,7 +135,7 @@ void __fastcall FUN_004759b0(int param_1)
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          EncodeOutgoingPacketField(local_10);
+          EncodeOutgoingPacketField((int)piVar5 + 0xbd94, local_10);
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           uVar2 = PeekPacketChecksumState();
