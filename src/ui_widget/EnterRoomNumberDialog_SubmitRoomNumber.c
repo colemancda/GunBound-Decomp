@@ -1,13 +1,21 @@
-/* FUN_00506950 - 0x00506950 in the original binary.
+/* EnterRoomNumberDialog_SubmitRoomNumber - 0x00506950 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Called from EnterRoomNumberDialog_OnCommand's evt==0x1000/id==1 path.
+ * Copies the dialog's two text-entry children, parses the first as a
+ * decimal room number (clamped 0-499), and checks it against a
+ * per-channel in-use room list at g_clientContext+... (piVar8 walk over
+ * &DAT_005f3058+g_clientContext) - if the number is already taken or the
+ * field is empty, flashes/refocuses the field (LAB_00506add) and
+ * returns 1 (blocked); otherwise pushes a queued input event
+ * (msg=0, param1=this, param2=0x21) for later processing and returns 0.
+ * Raw/near-verbatim port of Ghidra's decompiler output otherwise, not
+ * hand-verified. See src/README.md's "Raw/verbatim ports" section for
+ * status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00506950(undefined4 *param_1)
+undefined4 EnterRoomNumberDialog_SubmitRoomNumber(undefined4 *param_1)
 
 {
   char cVar1;

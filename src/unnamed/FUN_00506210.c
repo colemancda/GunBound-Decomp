@@ -1,7 +1,11 @@
 /* FUN_00506210 - 0x00506210 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
+ * NOT YET NAMED - the "submit" push-helper called by FUN_00506310
+ * (that file's own header has the full vtable-family derivation for
+ * their shared unnamed dialog class, vtable 0x557c0c). If the single
+ * text-entry child is empty, pushes a queued event with param2=9;
+ * otherwise param2=8. Raw/near-verbatim port of Ghidra's decompiler
+ * output otherwise, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"

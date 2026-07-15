@@ -1,13 +1,24 @@
-/* FUN_00506480 - 0x00506480 in the original binary.
+/* CreateRoomDialog_SubmitCreateRoom - 0x00506480 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Called from CCreateRoomDialog's (src/cxx/Widget.h, vtable 0x557c34)
+ * own OnCommand override (sub_5065c0 in the original - not yet a
+ * ported file; angr confirms it calls this address on the same
+ * evt==0x1000/id==1 shape as EnterRoomNumberDialog_OnCommand, itself
+ * at vtable slot 7/+0x1c, the CWidget::OnCommand slot - see that
+ * file's header for the vtable-family derivation). Copies BOTH of
+ * CCreateRoomDialog's text-entry children (room name at +0x14, room
+ * password at +0x15 - matching its constructor's 2 CreateTextEntryWidget
+ * calls at 0x60,0x2c "name" and 0x60,0x46 "password"). If the name
+ * field is empty, flashes/refocuses it; otherwise pushes a queued input
+ * event (msg=0, param1=this, param2=0x29) for later processing.
+ * Raw/near-verbatim port of Ghidra's decompiler output otherwise, not
+ * hand-verified. See src/README.md's "Raw/verbatim ports" section for
+ * status.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00506480(undefined4 *param_1)
+undefined4 CreateRoomDialog_SubmitCreateRoom(undefined4 *param_1)
 
 {
   char cVar1;

@@ -1,8 +1,19 @@
 /* FUN_00506cf0 - 0x00506cf0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NOT YET NAMED - CWidget::OnCommand override (vtable slot 7, +0x1c)
+ * for an UNNAMED single-text-field dialog class (constructor at
+ * 0x508910, `this->vtable = &PTR_LAB_00557dc8`, object size 0x90,
+ * sprite outer/inner key 0x2714/0, labels string IDs 0x5dc/0x5dd -
+ * unresolved without the localized string table). Confirmed via the
+ * same Ghidra xref/PTR_LAB vtable-family derivation documented in
+ * src/ui_widget/EnterRoomNumberDialog_OnCommand.c's header. This
+ * class's PanelManager dedup "type id" (constructor's puVar5[9]) is a
+ * fixed literal 2, sequential with CCreateRoomDialog(0)/
+ * CEnterRoomNumberDialog(1) - plausibly another room-list-family
+ * dialog (e.g. an enter-password prompt) but NOT confirmed, don't
+ * assume. Calls FUN_00506bf0 on evt==0x1000/id==1. Raw/near-verbatim
+ * port of Ghidra's decompiler output otherwise, not hand-verified.
+ * See src/README.md's "Raw/verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 
