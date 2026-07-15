@@ -179,9 +179,13 @@ LAB_004399d4:
       puVar5[0xfed] = param_4;
       puVar5[0xfec] = param_3;
       puVar5[0xfee] = iVar6;
-      uVar10 = FUN_004ac4d0();
+      /* FUN_004ac4d0/FUN_004ac400 dropped their self-cell arg (param_1,
+       * already correctly declared/used in both real definitions) -
+       * angr-confirmed at 0x439d27/0x439d34: self=ESI=iVar12 (the same
+       * cell already used a few lines below via iVar12+0x3f94). */
+      uVar10 = FUN_004ac4d0(iVar12);
       puVar5[0xfe9] = uVar10;
-      iVar4 = FUN_004ac400();
+      iVar4 = FUN_004ac400(iVar12);
       puVar5[0xfe8] = iVar4 * *(int *)(iVar12 + 0x3f94);
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {

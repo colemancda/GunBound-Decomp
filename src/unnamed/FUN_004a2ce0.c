@@ -633,9 +633,15 @@ LAB_004a38be:
       puVar8[0xfec] = puVar31;
       puVar8[0xfed] = puVar35;
       puVar8[0xfee] = iVar14;
-      uVar5 = FUN_004ac4d0();
+      /* FIXED (2026-07-15): dropped `self` args - angr-confirmed EDI at
+       * 0x4a390a/0x4a3917. Disasm reload (`mov 0x30(%esp),%edi`) traces
+       * back to the `piVar22 = (int *)piVar22[4];` list-walk above; note
+       * this is NOT the file's other `unaff_EDI` (a distinct cell used
+       * only for the earlier EncodeOutgoingPacketField calls). piVar22
+       * is never reassigned in between. */
+      uVar5 = FUN_004ac4d0(piVar22);
       puVar8[0xfe9] = uVar5;
-      iVar4 = FUN_004ac400();
+      iVar4 = FUN_004ac400(piVar22);
       puVar8[0xfe8] = iVar4 * param_1[0xfe5];
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {

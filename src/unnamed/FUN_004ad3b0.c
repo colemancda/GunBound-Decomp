@@ -440,9 +440,11 @@ LAB_004ada51:
       puStack_af0[0xfed] = uStack_adc;
       puStack_af0[0xfec] = uStack_ad8;
       puStack_af0[0xfee] = iVar3;
-      uVar5 = FUN_004ac4d0();
+      /* angr-confirmed: self is EDI at both real call sites, spilled to
+       * piStack_ad4 by the 0x186aa list-walk above. */
+      uVar5 = FUN_004ac4d0(piStack_ad4);
       puStack_af0[0xfe9] = uVar5;
-      iVar2 = FUN_004ac400();
+      iVar2 = FUN_004ac400(piStack_ad4);
       puStack_af0[0xfe8] = iVar2 * param_1[0xfe5];
       cVar1 = PeekPacketChecksumBool();
       if (cVar1 != '\0') {

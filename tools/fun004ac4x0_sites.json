@@ -1,0 +1,406 @@
+{
+  "FUN_004ac4d0": [
+    {
+      "caller_block": "0x439ced",
+      "call_addr": "0x439d27",
+      "func_name": "sub_4398e0",
+      "func_addr": "0x4398e0",
+      "self_ecx": "esi",
+      "self_src": "0x439d19: mov ecx,esi"
+    },
+    {
+      "caller_block": "0x44cff1",
+      "call_addr": "0x44d029",
+      "func_name": "sub_44c950",
+      "func_addr": "0x44c950",
+      "self_ecx": "edi",
+      "self_src": "0x44d021: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x451d16",
+      "call_addr": "0x451d4e",
+      "func_name": "sub_4513b0",
+      "func_addr": "0x4513b0",
+      "self_ecx": "edi",
+      "self_src": "0x451d46: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x457951",
+      "call_addr": "0x457989",
+      "func_name": "sub_4572b0",
+      "func_addr": "0x4572b0",
+      "self_ecx": "edi",
+      "self_src": "0x457981: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x465ba1",
+      "call_addr": "0x465bd9",
+      "func_name": "sub_465500",
+      "func_addr": "0x465500",
+      "self_ecx": "edi",
+      "self_src": "0x465bd1: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x468f62",
+      "call_addr": "0x468f9a",
+      "func_name": "sub_4689ed",
+      "func_addr": "0x4689ed",
+      "self_ecx": "edi",
+      "self_src": "0x468f92: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x46bd21",
+      "call_addr": "0x46bd59",
+      "func_name": "sub_46b680",
+      "func_addr": "0x46b680",
+      "self_ecx": "edi",
+      "self_src": "0x46bd51: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x46ec41",
+      "call_addr": "0x46ec79",
+      "func_name": "sub_46e5a0",
+      "func_addr": "0x46e5a0",
+      "self_ecx": "edi",
+      "self_src": "0x46ec71: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x474cf1",
+      "call_addr": "0x474d29",
+      "func_name": "sub_474650",
+      "func_addr": "0x474650",
+      "self_ecx": "edi",
+      "self_src": "0x474d21: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x482e52",
+      "call_addr": "0x482e8a",
+      "func_name": "sub_482550",
+      "func_addr": "0x482550",
+      "self_ecx": "edi",
+      "self_src": "0x482e82: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x484691",
+      "call_addr": "0x4846c9",
+      "func_name": "sub_48411a",
+      "func_addr": "0x48411a",
+      "self_ecx": "edi",
+      "self_src": "0x4846c1: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x487d53",
+      "call_addr": "0x487d8b",
+      "func_name": "sub_486ea0",
+      "func_addr": "0x486ea0",
+      "self_ecx": "edi",
+      "self_src": "0x487d7d: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x48e871",
+      "call_addr": "0x48e8a9",
+      "func_name": "sub_48e2fa",
+      "func_addr": "0x48e2fa",
+      "self_ecx": "edi",
+      "self_src": "0x48e8a1: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x490eb6",
+      "call_addr": "0x490eee",
+      "func_name": "sub_49094a",
+      "func_addr": "0x49094a",
+      "self_ecx": "edi",
+      "self_src": "0x490ee0: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x494fb1",
+      "call_addr": "0x494fe9",
+      "func_name": "sub_494910",
+      "func_addr": "0x494910",
+      "self_ecx": "edi",
+      "self_src": "0x494fe1: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x496a3c",
+      "call_addr": "0x496a74",
+      "func_name": "sub_4964ca",
+      "func_addr": "0x4964ca",
+      "self_ecx": "edi",
+      "self_src": "0x496a66: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x49a591",
+      "call_addr": "0x49a5c9",
+      "func_name": "sub_49a01a",
+      "func_addr": "0x49a01a",
+      "self_ecx": "edi",
+      "self_src": "0x49a5c1: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x49d911",
+      "call_addr": "0x49d949",
+      "func_name": "sub_49d270",
+      "func_addr": "0x49d270",
+      "self_ecx": "edi",
+      "self_src": "0x49d941: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4a0f9c",
+      "call_addr": "0x4a0fd4",
+      "func_name": "sub_49fd40",
+      "func_addr": "0x49fd40",
+      "self_ecx": "edi",
+      "self_src": "0x4a0fc6: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4a38d2",
+      "call_addr": "0x4a390a",
+      "func_name": "sub_4a2ce0",
+      "func_addr": "0x4a2ce0",
+      "self_ecx": "edi",
+      "self_src": "0x4a38fc: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4a550c",
+      "call_addr": "0x4a5544",
+      "func_name": "sub_4a4f9a",
+      "func_addr": "0x4a4f9a",
+      "self_ecx": "edi",
+      "self_src": "0x4a5536: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4a9a1f",
+      "call_addr": "0x4a9a59",
+      "func_name": "sub_4a8360",
+      "func_addr": "0x4a8360",
+      "self_ecx": "dword ptr [esp + 0x40]",
+      "self_src": "0x4a9a49: mov ecx,dword ptr [esp + 0x40]"
+    },
+    {
+      "caller_block": "0x4ada65",
+      "call_addr": "0x4ada9d",
+      "func_name": "sub_4ad4ea",
+      "func_addr": "0x4ad4ea",
+      "self_ecx": "edi",
+      "self_src": "0x4ada8f: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4b03af",
+      "call_addr": "0x4b03e7",
+      "func_name": "sub_4af7a0",
+      "func_addr": "0x4af7a0",
+      "self_ecx": "edi",
+      "self_src": "0x4b03d9: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4b1eb1",
+      "call_addr": "0x4b1ee9",
+      "func_name": "sub_4b1810",
+      "func_addr": "0x4b1810",
+      "self_ecx": "edi",
+      "self_src": "0x4b1ee1: mov ecx,edi"
+    }
+  ],
+  "FUN_004ac400": [
+    {
+      "caller_block": "0x439d2c",
+      "call_addr": "0x439d34",
+      "func_name": "sub_4398e0",
+      "func_addr": "0x4398e0",
+      "self_ecx": "esi",
+      "self_src": "0x439d2c: mov ecx,esi"
+    },
+    {
+      "caller_block": "0x44d02e",
+      "call_addr": "0x44d03a",
+      "func_name": "sub_44c950",
+      "func_addr": "0x44c950",
+      "self_ecx": "edi",
+      "self_src": "0x44d038: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x451d53",
+      "call_addr": "0x451d5f",
+      "func_name": "sub_4513b0",
+      "func_addr": "0x4513b0",
+      "self_ecx": "edi",
+      "self_src": "0x451d5d: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x45798e",
+      "call_addr": "0x45799a",
+      "func_name": "sub_4572b0",
+      "func_addr": "0x4572b0",
+      "self_ecx": "edi",
+      "self_src": "0x457998: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x465bde",
+      "call_addr": "0x465bea",
+      "func_name": "sub_465500",
+      "func_addr": "0x465500",
+      "self_ecx": "edi",
+      "self_src": "0x465be8: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x468f9f",
+      "call_addr": "0x468fab",
+      "func_name": "sub_4689ed",
+      "func_addr": "0x4689ed",
+      "self_ecx": "edi",
+      "self_src": "0x468fa9: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x46bd5e",
+      "call_addr": "0x46bd6a",
+      "func_name": "sub_46b680",
+      "func_addr": "0x46b680",
+      "self_ecx": "edi",
+      "self_src": "0x46bd68: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x46ec7e",
+      "call_addr": "0x46ec8a",
+      "func_name": "sub_46e5a0",
+      "func_addr": "0x46e5a0",
+      "self_ecx": "edi",
+      "self_src": "0x46ec88: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x474d2e",
+      "call_addr": "0x474d3a",
+      "func_name": "sub_474650",
+      "func_addr": "0x474650",
+      "self_ecx": "edi",
+      "self_src": "0x474d38: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x482e8f",
+      "call_addr": "0x482e9b",
+      "func_name": "sub_482550",
+      "func_addr": "0x482550",
+      "self_ecx": "edi",
+      "self_src": "0x482e99: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4846ce",
+      "call_addr": "0x4846da",
+      "func_name": "sub_48411a",
+      "func_addr": "0x48411a",
+      "self_ecx": "edi",
+      "self_src": "0x4846d8: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x487d90",
+      "call_addr": "0x487d98",
+      "func_name": "sub_486ea0",
+      "func_addr": "0x486ea0",
+      "self_ecx": "edi",
+      "self_src": "0x487d90: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x48e8ae",
+      "call_addr": "0x48e8ba",
+      "func_name": "sub_48e2fa",
+      "func_addr": "0x48e2fa",
+      "self_ecx": "edi",
+      "self_src": "0x48e8b8: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x490ef3",
+      "call_addr": "0x490efb",
+      "func_name": "sub_49094a",
+      "func_addr": "0x49094a",
+      "self_ecx": "edi",
+      "self_src": "0x490ef3: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x494fee",
+      "call_addr": "0x494ffa",
+      "func_name": "sub_494910",
+      "func_addr": "0x494910",
+      "self_ecx": "edi",
+      "self_src": "0x494ff8: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x496a79",
+      "call_addr": "0x496a81",
+      "func_name": "sub_4964ca",
+      "func_addr": "0x4964ca",
+      "self_ecx": "edi",
+      "self_src": "0x496a79: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x49a5ce",
+      "call_addr": "0x49a5da",
+      "func_name": "sub_49a01a",
+      "func_addr": "0x49a01a",
+      "self_ecx": "edi",
+      "self_src": "0x49a5d8: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x49d94e",
+      "call_addr": "0x49d95a",
+      "func_name": "sub_49d270",
+      "func_addr": "0x49d270",
+      "self_ecx": "edi",
+      "self_src": "0x49d958: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4a0fd9",
+      "call_addr": "0x4a0fe1",
+      "func_name": "sub_49fd40",
+      "func_addr": "0x49fd40",
+      "self_ecx": "edi",
+      "self_src": "0x4a0fd9: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4a390f",
+      "call_addr": "0x4a3917",
+      "func_name": "sub_4a2ce0",
+      "func_addr": "0x4a2ce0",
+      "self_ecx": "edi",
+      "self_src": "0x4a390f: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4a5549",
+      "call_addr": "0x4a5551",
+      "func_name": "sub_4a4f9a",
+      "func_addr": "0x4a4f9a",
+      "self_ecx": "edi",
+      "self_src": "0x4a5549: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4a9a5e",
+      "call_addr": "0x4a9a68",
+      "func_name": "sub_4a8360",
+      "func_addr": "0x4a8360",
+      "self_ecx": "dword ptr [esp + 0x40]",
+      "self_src": "0x4a9a5e: mov ecx,dword ptr [esp + 0x40]"
+    },
+    {
+      "caller_block": "0x4adaa2",
+      "call_addr": "0x4adaaa",
+      "func_name": "sub_4ad4ea",
+      "func_addr": "0x4ad4ea",
+      "self_ecx": "edi",
+      "self_src": "0x4adaa2: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4b03ec",
+      "call_addr": "0x4b03f4",
+      "func_name": "sub_4af7a0",
+      "func_addr": "0x4af7a0",
+      "self_ecx": "edi",
+      "self_src": "0x4b03ec: mov ecx,edi"
+    },
+    {
+      "caller_block": "0x4b1eee",
+      "call_addr": "0x4b1efa",
+      "func_name": "sub_4b1810",
+      "func_addr": "0x4b1810",
+      "self_ecx": "edi",
+      "self_src": "0x4b1ef8: mov ecx,edi"
+    }
+  ]
+}

@@ -609,9 +609,13 @@ LAB_004a0f88:
       local_af8[0xfec] = iStack_adc;
       local_af8[0xfed] = (int)piStack_ad8;
       local_af8[0xfee] = (int)local_af4;
-      iVar3 = FUN_004ac4d0();
+      /* FIXED (2026-07-15): dropped `self` args - angr-confirmed EDI at
+       * 0x4a0fd4/0x4a0fe1. Disasm reload (`mov 0x48(%esp),%edi`) traces
+       * back to the `piStack_ac8 = piVar15;` list-walk assignments above,
+       * never reassigned in between. */
+      iVar3 = FUN_004ac4d0(piStack_ac8);
       local_af8[0xfe9] = iVar3;
-      iVar3 = FUN_004ac400();
+      iVar3 = FUN_004ac400(piStack_ac8);
       local_af8[0xfe8] = iVar3 * param_1[0xfe5];
       cVar1 = PeekPacketChecksumBool();
       if (cVar1 == '\0') {

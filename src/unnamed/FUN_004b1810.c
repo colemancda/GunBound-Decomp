@@ -426,9 +426,12 @@ LAB_004b1e9d:
       puStack_af0[0xfec] = uStack_adc;
       puStack_af0[0xfed] = local_ad4;
       puStack_af0[0xfee] = iVar10;
-      uVar8 = FUN_004ac4d0();
+      /* angr-confirmed: self is EDI at both real call sites; Ghidra kept
+       * that value only in register form as piVar9 here (no stack spill
+       * shown), set by the 0x186aa list-walk above. */
+      uVar8 = FUN_004ac4d0(piVar9);
       puStack_af0[0xfe9] = uVar8;
-      iVar5 = FUN_004ac400();
+      iVar5 = FUN_004ac400(piVar9);
       puStack_af0[0xfe8] = iVar5 * param_1[0xfe5];
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {

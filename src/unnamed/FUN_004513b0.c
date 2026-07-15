@@ -744,9 +744,15 @@ LAB_00451d02:
       puStack_b54[0xfec] = puStack_b34;
       puStack_b54[0xfed] = ppuStack_b38;
       puStack_b54[0xfee] = puStack_b4c;
-      uVar8 = FUN_004ac4d0();
+      /* FIXED (2026-07-15): dropped `self` args - angr-confirmed EDI at
+       * 0x451d4e/0x451d5f. Disasm traces EDI to a `mov 0x30(%esp),%edi`
+       * reload whose only prior writer is the list-node found by the
+       * traversal loop above (LAB_00451a3a), i.e. the same value already
+       * held in `piVar18` here (piVar18 is not reassigned between that
+       * loop and this point). */
+      uVar8 = FUN_004ac4d0(piVar18);
       puStack_b54[0xfe9] = uVar8;
-      iVar4 = FUN_004ac400();
+      iVar4 = FUN_004ac400(piVar18);
       puStack_b54[0xfe8] = iVar4 * param_1[0xfe5];
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {

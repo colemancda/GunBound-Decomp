@@ -1079,9 +1079,11 @@ LAB_004a9a04:
   *(byte **)(pbStack_b08 + 0x3fb4) = pbStack_afc;
   *(int **)(pbStack_b08 + 0x3fb0) = piStack_ae8;
   *(int *)(pbStack_b08 + 0x3fb8) = iVar6;
-  uVar8 = FUN_004ac4d0();
+  /* angr-confirmed: self lives in dword ptr [esp+0x40] at both real call
+   * sites here, which is piStack_aec (set from the 0x186aa list-walk above). */
+  uVar8 = FUN_004ac4d0(piStack_aec);
   *(undefined4 *)(pbVar9 + 0x3fa4) = uVar8;
-  iVar6 = FUN_004ac400();
+  iVar6 = FUN_004ac400(piStack_aec);
   *(int *)(pbVar9 + 0x3fa0) = iVar6 * param_1[0xfe5];
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((byte)((local_b10[4] + local_b10[5]) - 0x34) == local_b10[6]) {

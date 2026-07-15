@@ -437,9 +437,11 @@ LAB_0048467d:
       puStack_af0[0xfec] = uStack_ad8;
       puStack_af0[0xfed] = uStack_adc;
       puStack_af0[0xfee] = iVar7;
-      uVar6 = FUN_004ac4d0();
+      /* angr-confirmed: self ptr lives in EDI here, reloaded from the
+       * spilled projectile object (puStack_af0) allocated/inited above. */
+      uVar6 = FUN_004ac4d0(puStack_af0);
       puStack_af0[0xfe9] = uVar6;
-      iVar3 = FUN_004ac400();
+      iVar3 = FUN_004ac400(puStack_af0);
       puStack_af0[0xfe8] = iVar3 * param_1[0xfe5];
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {

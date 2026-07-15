@@ -437,9 +437,12 @@ LAB_0048e85d:
       puStack_af0[0xfec] = uStack_ad8;
       puStack_af0[0xfed] = uStack_adc;
       puStack_af0[0xfee] = iVar7;
-      uVar6 = FUN_004ac4d0();
+      /* FIXED (2026-07-15): dropped self arg - angr-confirmed EDI==piVar15
+       * (the traversal pointer set by piVar15=piVar15[4] above and never
+       * reassigned before this point) at the real 0x48e8a9/0x48e8ba calls. */
+      uVar6 = FUN_004ac4d0(piVar15);
       puStack_af0[0xfe9] = uVar6;
-      iVar3 = FUN_004ac400();
+      iVar3 = FUN_004ac400(piVar15);
       puStack_af0[0xfe8] = iVar3 * param_1[0xfe5];
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {

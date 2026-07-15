@@ -624,9 +624,13 @@ LAB_004a54f8:
       puVar27[0xfed] = uVar5;
       puVar27[0xfee] = iVar8;
       puVar26 = puVar27;
-      uVar5 = FUN_004ac4d0();
+      /* FIXED (2026-07-15): dropped `self` args - angr-confirmed EDI at
+       * 0x4a5544/0x4a5551. Disasm reload (`mov 0x28(%esp),%edi`) traces
+       * back to the `piVar29 = (int *)piVar29[4];` list-walk above;
+       * piVar29 is never reassigned in between. */
+      uVar5 = FUN_004ac4d0(piVar29);
       puVar27[0xfe9] = uVar5;
-      iVar4 = FUN_004ac400();
+      iVar4 = FUN_004ac400(piVar29);
       puVar27[0xfe8] = iVar4 * param_1[0xfe5];
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {

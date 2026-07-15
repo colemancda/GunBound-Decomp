@@ -442,9 +442,12 @@ LAB_00490ea2:
       puStack_aec[0xfec] = uStack_ad0;
       puStack_aec[0xfed] = uStack_ad4;
       puStack_aec[0xfee] = iVar6;
-      uVar8 = FUN_004ac4d0();
+      /* FIXED (2026-07-15): dropped self arg - angr-confirmed EDI==piVar17
+       * (the traversal pointer set by piVar17=piVar17[4] above and never
+       * reassigned before this point) at the real 0x490eee/0x490efb calls. */
+      uVar8 = FUN_004ac4d0(piVar17);
       puStack_aec[0xfe9] = uVar8;
-      iVar5 = FUN_004ac400();
+      iVar5 = FUN_004ac400(piVar17);
       puStack_aec[0xfe8] = iVar5 * param_1[0xfe5];
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {

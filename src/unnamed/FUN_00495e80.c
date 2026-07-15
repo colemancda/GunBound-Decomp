@@ -624,9 +624,12 @@ LAB_00496a28:
       puVar27[0xfed] = uVar5;
       puVar27[0xfee] = iVar8;
       puVar26 = puVar27;
-      uVar5 = FUN_004ac4d0();
+      /* FIXED (2026-07-15): dropped self arg - angr-confirmed EDI==piVar29
+       * (the traversal pointer set by piVar29=piVar29[4] above and never
+       * reassigned before this point) at the real 0x496a74/0x496a81 calls. */
+      uVar5 = FUN_004ac4d0(piVar29);
       puVar27[0xfe9] = uVar5;
-      iVar4 = FUN_004ac400();
+      iVar4 = FUN_004ac400(piVar29);
       puVar27[0xfe8] = iVar4 * param_1[0xfe5];
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {

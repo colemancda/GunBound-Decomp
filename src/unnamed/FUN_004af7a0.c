@@ -632,9 +632,11 @@ LAB_004b039b:
       puVar8[0xfec] = unaff_EDI;
       puVar8[0xfed] = puVar33;
       puVar8[0xfee] = iVar9;
-      uVar5 = FUN_004ac4d0();
+      /* angr-confirmed: self is EDI at both real call sites, same
+       * unaff_EDI already used just above for puVar8[0xfec]. */
+      uVar5 = FUN_004ac4d0(unaff_EDI);
       puVar8[0xfe9] = uVar5;
-      iVar4 = FUN_004ac400();
+      iVar4 = FUN_004ac400(unaff_EDI);
       puVar8[0xfe8] = iVar4 * param_1[0xfe5];
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {

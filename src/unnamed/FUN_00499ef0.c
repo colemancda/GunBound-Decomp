@@ -437,9 +437,13 @@ LAB_0049a57d:
       puStack_af0[0xfec] = uStack_ad8;
       puStack_af0[0xfed] = uStack_adc;
       puStack_af0[0xfee] = iVar7;
-      uVar6 = FUN_004ac4d0();
+      /* FIXED (2026-07-15): dropped `self` args - angr-confirmed EDI at
+       * 0x49a5c9/0x49a5da. Disasm reload (`mov 0x30(%esp),%edi`) traces
+       * back to the `piStack_ad4 = piVar15;` list-walk assignments above,
+       * never reassigned in between. */
+      uVar6 = FUN_004ac4d0(piStack_ad4);
       puStack_af0[0xfe9] = uVar6;
-      iVar3 = FUN_004ac400();
+      iVar3 = FUN_004ac400(piStack_ad4);
       puStack_af0[0xfe8] = iVar3 * param_1[0xfe5];
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {

@@ -480,9 +480,14 @@ LAB_0044cfdd:
       puStack_ae4[0xfec] = uStack_ad0;
       puStack_ae4[0xfed] = uStack_ad4;
       puStack_ae4[0xfee] = iVar5;
-      uVar7 = FUN_004ac4d0();
+      /* FIXED (2026-07-15): dropped `self` args - angr-confirmed EDI at
+       * 0x44d029/0x44d03a. Disasm reload (`mov 0x3c(%esp),%edi`) feeds the
+       * same physical value already named `unaff_EDI` elsewhere in this
+       * function (see PeekPacketChecksumBool/FUN_004375f0 calls below),
+       * which is never reassigned in between. */
+      uVar7 = FUN_004ac4d0(unaff_EDI);
       puStack_ae4[0xfe9] = uVar7;
-      iVar4 = FUN_004ac400();
+      iVar4 = FUN_004ac400(unaff_EDI);
       puStack_ae4[0xfe8] = iVar4 * param_1[0xfe5];
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
