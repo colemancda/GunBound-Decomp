@@ -4,6 +4,14 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-07-14): the trailing SendSocketData call only passed 2 of
+ * its 3 real args and dropped the buffer ("this") entirely. Confirmed via
+ * angr disassembly at 0x4d3709-0x4d371b: `lea ecx,[ebp+0x44d4]` (buffer,
+ * this - the field right after SendOutgoingPacket's own +0x44d0 length-
+ * cursor) / `push edx` where edx=[ebp+0x84e0] (connection object, param_2)
+ * / `push ecx` where ecx=[esp+0x10] (length, param_3 - already computed
+ * here as local_5464).
  */
 #include "ghidra_types.h"
 
@@ -85,7 +93,7 @@ void FlushEncodedSocketBuffer(int param_1)
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_545c);
   }
-  SendSocketData(*(undefined4 *)(param_1 + 0x84e0),local_5464);
+  SendSocketData((char *)(param_1 + 0x44d4),*(undefined4 *)(param_1 + 0x84e0),local_5464);
   *(undefined4 *)(param_1 + 0x84ec) = 0;
   *unaff_FS_OFFSET = local_c;
   return;

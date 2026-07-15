@@ -24,7 +24,22 @@ extern unsigned int  DAT_00ea0e1c;
  * (blob[0..3] for param_1, blob[4..8] for param_2), matching how the
  * two halves get concatenated into the outgoing packet just below. */
 void BuildSystemInfoBlob(void *outBlob, void *outBlob2);        /* fills the 36-byte system-info blob */
-unsigned int SendSocketData(int handle, int len); /* channel send */
+/* FIXED (2026-07-14): this declaration dropped SendSocketData's real
+ * "this"/buffer arg AND its real __thiscall convention (matching the
+ * definition in src/network/SendSocketData.c) - since extern "C" only
+ * guarantees the LINK NAME matches (confirmed: `_SendSocketData`, no
+ * decoration either way), not the calling convention, the mismatch meant
+ * this call site never loaded the buffer pointer into ECX at all, so the
+ * real callee read a garbage "this" - the same bug as the raw C sibling
+ * call sites fixed in src/unnamed/FUN_00402900.c and friends.
+ *
+ * MSVC 7.1 forbids explicit __thiscall on a free-function declaration
+ * (C4234 - see Mobile.cpp's own note on the same restriction), so this
+ * takes only the address here (any non-thiscall declared type works for
+ * that) and the real call goes through the __fastcall+dummy-EDX cast at
+ * the call site below - the established project idiom for reproducing
+ * __thiscall (this in ECX, rest on the stack) from C++. */
+unsigned int SendSocketData(char *buf, int connObj, unsigned int len); /* channel send - address only, see call site */
 extern unsigned int DAT_007934f4;        /* outgoing packet buffer base (declared uint in the C
                                           * tree; used as a pointer here, cast locally) */
 }
@@ -97,6 +112,7 @@ send_info:
         int len = *(int *)((unsigned char *)buf + 0x2000) + 0x14;
         *(int *)((unsigned char *)buf + 0x2000) = len;
         buf[0] = (unsigned short)len;
-        SendSocketData(*(int *)((unsigned char *)buf + 0x2004), len);
+        typedef unsigned int (__fastcall *SendSocketDataFn)(char *, int, int, unsigned int);
+        ((SendSocketDataFn)&SendSocketData)((char *)buf, 0, *(int *)((unsigned char *)buf + 0x2004), len);
     }
 }

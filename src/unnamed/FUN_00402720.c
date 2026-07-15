@@ -4,6 +4,15 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-07-14): the trailing SendSocketData call only passed 2 of
+ * its 3 real args and dropped the buffer ("this") entirely - same bug as
+ * FUN_00405ba0.c's own already-fixed SendSocketData call, which shares
+ * this exact object shape (DAT_007934f4, connObj at +0x2004, write
+ * cursor at +0x2000). Confirmed via angr disassembly at 0x4027d0-0x4027e8:
+ * `mov ecx,eax` (buffer, this) / `push ecx` where ecx=[eax+0x2004]
+ * (connection object, param_2) / `push ecx` where ecx=the just-computed
+ * new cursor (length, param_3 - already held in iVar9).
  */
 #include "ghidra_types.h"
 
@@ -61,7 +70,7 @@ void FUN_00402720(int param_1,char *param_2,char *param_3)
       iVar9 = *(int *)(puVar1 + 0x1000) + uVar5;
       *(int *)(puVar1 + 0x1000) = iVar9;
       *puVar1 = (short)iVar9;
-      SendSocketData(*(undefined4 *)(puVar1 + 0x1002),iVar9);
+      SendSocketData((char *)puVar1,*(undefined4 *)((char *)puVar1 + 0x2004),iVar9);
       FUN_004024f0(param_1,param_3);
       return;
     }

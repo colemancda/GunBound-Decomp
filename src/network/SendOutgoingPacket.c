@@ -19,6 +19,14 @@
  * updated call sites still compile. Every real call site under src/ has
  * been updated to pass the context pointer that was live at that point
  * (almost always DAT_007934e8 or a local copy of it taken shortly before).
+ *
+ * FIXED (2026-07-14): the trailing SendSocketData call only passed 2 of
+ * its 3 real args and dropped the buffer ("this") entirely. Confirmed via
+ * angr disassembly at 0x4d27a3-0x4d27b7: `lea ecx,[esi+0x4d0]` (buffer,
+ * this) / `push eax` where eax=[esi+0x84e0] (connection object, param_2) /
+ * `push edx` where edx=[esi+0x44d0] (length, param_3) - the outgoing
+ * packet buffer lives at context+0x4d0 (the length-cursor at +0x44d0 is a
+ * separate field, matching this file's own header comment above).
  */
 #include "ghidra_types.h"
 
@@ -68,7 +76,8 @@ undefined4 SendOutgoingPacket(int param_1)
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_45c);
   }
-  SendSocketData(*(undefined4 *)(param_1 + 0x84e0),*(undefined4 *)(param_1 + 0x44d0));
+  SendSocketData((char *)(param_1 + 0x4d0),*(undefined4 *)(param_1 + 0x84e0),
+                 *(undefined4 *)(param_1 + 0x44d0));
   *(undefined4 *)(param_1 + 0x84ec) = 0;
   *unaff_FS_OFFSET = local_c;
   /* Ghidra emitted a bare `return;` in a value-returning function;

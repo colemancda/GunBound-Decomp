@@ -38,6 +38,15 @@ void State05_Logo1_OnExit(void)
    * consistently. */
   undefined4 systemInfoBlob1[4];
   undefined4 systemInfoBlob2[6];
+  /* FIXED (2026-07-14): the trailing SendSocketData call only passed 2 of
+   * its 3 real args and dropped the buffer ("this") entirely - same bug
+   * as FUN_00405ba0.c's own already-fixed SendSocketData call, which
+   * shares this exact object shape (DAT_007934f4, connObj at +0x2004,
+   * write cursor at +0x2000). Confirmed via angr disassembly at
+   * 0x443515-0x44352b. NOTE: this raw C port is superseded at runtime by
+   * the C++ CState05Logo1::OnExit (src/cxx/State05_Logo1.cpp,
+   * g_gameStateVTableArray[5]) - fixed here too for consistency, but the
+   * live bug is the one in that file. */
 
   puVar5 = *(undefined4 **)(DAT_00ea0e1c + 0x1c);
   uVar1 = puVar5[1];
@@ -85,7 +94,7 @@ LAB_00443475:
     iVar6 = *(int *)(puVar4 + 0x1000) + 0x14;
     *(int *)(puVar4 + 0x1000) = iVar6;
     *puVar4 = (short)iVar6;
-    SendSocketData(*(undefined4 *)(puVar4 + 0x1002),iVar6);
+    SendSocketData((char *)puVar4,*(undefined4 *)((char *)puVar4 + 0x2004),iVar6);
   }
   return;
 }
