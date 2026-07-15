@@ -1,9 +1,17 @@
 /* DecodeCipherBlock - 0x004f5e10 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * AES-shaped block decryption (the S-box/round-table layout and 4-word
+ * block size are unmistakable): decrypts one 16-byte block from
+ * `param_2` into `param_3` using the round-key schedule/context object
+ * `param_4` (`+0x208` bit 1 = "ready" flag, `+4` = round count 10/12/14,
+ * `+0x108...` = expanded round keys). Real ABI confirmed via direct
+ * disassembly of this function's own body at 0x4f5e10 and, independently,
+ * DecodePacketBlocks.c's own header comment (already fixed in a prior
+ * session, describing the identical ABI): __fastcall(ECX unused,
+ * EDX=param_2/cipherBlock, 1st stack arg=param_3/output, 2nd stack
+ * arg=param_4/ctx). `param_1` is genuinely dead (never read). Raw/
+ * near-verbatim port of Ghidra's decompiler output otherwise, not hand-
+ * verified. See src/README.md's "Raw/verbatim ports" section for status.
  */
 #include "ghidra_types.h"
 

@@ -1,0 +1,98 @@
+[
+  {
+    "caller_block": "0x40d2db",
+    "call_addr": "0x40d2e8",
+    "func_name": "sub_40d260",
+    "func_addr": "0x40d260",
+    "edx_input_hint": "0x5b3440",
+    "edx_src": "0x40d2e3: mov edx,0x5b3440",
+    "last_two_pushes": [
+      "0x40d2dd: push eax",
+      "0x40d2e2: push ecx"
+    ]
+  },
+  {
+    "caller_block": "0x40d2ed",
+    "call_addr": "0x40d2fa",
+    "func_name": "sub_40d260",
+    "func_addr": "0x40d260",
+    "edx_input_hint": "0x5b3450",
+    "edx_src": "0x40d2f5: mov edx,0x5b3450",
+    "last_two_pushes": [
+      "0x40d2ef: push edx",
+      "0x40d2f4: push eax"
+    ]
+  },
+  {
+    "caller_block": "0x40d2ff",
+    "call_addr": "0x40d30c",
+    "func_name": "sub_40d260",
+    "func_addr": "0x40d260",
+    "edx_input_hint": "0x5b3460",
+    "edx_src": "0x40d307: mov edx,0x5b3460",
+    "last_two_pushes": [
+      "0x40d301: push ecx",
+      "0x40d306: push edx"
+    ]
+  },
+  {
+    "caller_block": "0x4e6f70",
+    "call_addr": "0x4e6f77",
+    "func_name": "sub_4e6f6d",
+    "func_addr": "0x4e6f6d",
+    "edx_input_hint": "esi",
+    "edx_src": "0x4e6f75: mov edx,esi",
+    "last_two_pushes": [
+      "0x4e6f73: push edi",
+      "0x4e6f74: push eax"
+    ]
+  },
+  {
+    "caller_block": "0x4f71a0",
+    "call_addr": "0x4f71ac",
+    "func_name": "sub_4f7150",
+    "func_addr": "0x4f7150",
+    "edx_input_hint": "ebp",
+    "edx_src": "0x4f71aa: mov edx,ebp",
+    "last_two_pushes": [
+      "0x4f71a4: push eax",
+      "0x4f71a9: push ecx"
+    ]
+  },
+  {
+    "caller_block": "0x4f7300",
+    "call_addr": "0x4f730c",
+    "func_name": "sub_4f72b0",
+    "func_addr": "0x4f72b0",
+    "edx_input_hint": "ebp",
+    "edx_src": "0x4f730a: mov edx,ebp",
+    "last_two_pushes": [
+      "0x4f7304: push eax",
+      "0x4f7309: push ecx"
+    ]
+  },
+  {
+    "caller_block": "0x4fcd62",
+    "call_addr": "0x4fcd66",
+    "func_name": "sub_4fcd50",
+    "func_addr": "0x4fcd50",
+    "edx_input_hint": "esi",
+    "edx_src": "0x4fcd64: mov edx,esi",
+    "last_two_pushes": [
+      "0x4fcd62: push ebp",
+      "0x4fcd63: push edi"
+    ]
+  },
+  {
+    "caller_block": "0x4fce70",
+    "call_addr": "0x4fce7d",
+    "func_name": "sub_4fce60",
+    "func_addr": "0x4fce60",
+    "edx_input_hint": "<clobbered:add edx,esi>",
+    "edx_src": "0x4fce7a: add edx,esi",
+    "last_two_pushes": [
+      "0x4fce79: push edi",
+      "0x4fce7c: push ecx"
+    ]
+  }
+]
