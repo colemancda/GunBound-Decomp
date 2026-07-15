@@ -41,9 +41,90 @@
 extern "C" int FindPreloadedTextureByName(const char *name);
 extern "C" void RegisterActiveObject(void *registry, CButtonWidget *button);
 
+/* FIXED (2026-07-15): these 3 were declared without extern "C" - the real
+ * definitions in globals.c have plain C linkage (`_s_active_00551e58`
+ * etc), which a C++-mangled declaration never matches at link time
+ * (confirmed via a real link test: unresolved `?s_active_00551e58@@3QBDB`
+ * and siblings). */
+extern "C" {
 extern const char s_disable_00551e68[];  /* "disable" */
 extern const char s_active_00551e58[];   /* "active" */
 extern const char s_ready_00551e80[];    /* "ready" */
+}
+
+extern "C" {
+/* Real signatures recovered this pass - see each .c file's own header for
+ * the angr-disassembly derivation. DeletePoisonedBaseObject is genuinely
+ * __thiscall (this in ECX, rest on the stack) - MSVC 7.1 forbids explicit
+ * __thiscall on a free-function declaration (C4234, same restriction
+ * documented in Mobile.cpp), so it's declared address-only here and
+ * called through the established __fastcall+dummy-EDX cast (this
+ * project's idiom for reproducing __thiscall from C++ - see
+ * State05_Logo1.cpp). Tick/Draw are real __fastcall(1 arg), safe to
+ * declare directly. FindStringNoCase is an ordinary __cdecl helper, safe
+ * to call directly with no cast trick needed. */
+void *DeletePoisonedBaseObject(void *thisPtr, int shouldFree);
+int FindStringNoCase(int *table, char *needle);
+void TickButtonAnimation(int thisPtr);
+void DrawButtonWidget(int thisPtr);
+void NoOpMethod(void);
+}
+
+void *CButtonWidget::Delete(int shouldFree)
+{
+    typedef void *(__fastcall *DeleteFn)(void *, int, int);
+    return ((DeleteFn)&DeletePoisonedBaseObject)(this, 0, shouldFree);
+}
+
+/* SetState is vtable slot 1, shared with unrelated classes as the generic
+ * ResolveNamedState (src/registry/ResolveNamedState.c documents the
+ * original address 0x461c60 and its 15+ other callers). That shared
+ * symbol can't be called directly here: its other callers still pass a
+ * single dropped argument under the OLD __fastcall(this) signature
+ * (confirmed via a real runtime crash inside FindStringNoCase when it was
+ * briefly promoted to a real 2-arg __thiscall - reverted), so
+ * ResolveNamedState.c stays a no-op stub. Inlined here instead, using the
+ * confirmed-safe FindStringNoCase directly against a real CButtonWidget
+ * object (angr-verified at 0x461c60: table = *(this+0x1c), no-op if
+ * null, then FindStringNoCase(table, needle) sets state = result and the
+ * found/inverse flags). this+0x1c is m_texture: CreateButtonWidget
+ * (0x4060ad-0x4060b2) stores FindPreloadedTextureByName's return value
+ * there, so the texture resource's own layout doubles as the named-state
+ * table (its FindStringNoCase-searchable name array), despite the
+ * generic "m_texture" field name. */
+void CButtonWidget::SetState(const char *name)
+{
+    int *table = (int *)m_texture;
+    if (table == 0) {
+        return;
+    }
+    int result = FindStringNoCase(table, (char *)name);
+    m_state = result;
+    if (result != -1) {
+        m_unk20 = 1;
+        m_unk34 = 0;
+        m_unk2c = 0;
+        m_unk28 = 0;
+    } else {
+        m_unk20 = 0;
+        m_unk34 = 1;
+    }
+}
+
+void CButtonWidget::Tick()
+{
+    TickButtonAnimation((int)this);
+}
+
+void CButtonWidget::Draw()
+{
+    DrawButtonWidget((int)this);
+}
+
+void CButtonWidget::NoOp()
+{
+    NoOpMethod();
+}
 
 /* 0x406020 - __stdcall (the original ret-cleans its stack args). Allocates
  * the 80-byte object, stores position/size/id, resolves the texture via
@@ -77,7 +158,15 @@ extern "C" CButtonWidget *CreateButtonWidget(void *registry, int layer, int id, 
         if (p->m_state != 3 && p->m_state != -1) {
             goto setReady;
         }
-        if (p->m_unk20 == 1) {
+        /* FIXED (2026-07-15): was reading p->m_unk20 (+0x20) - confirmed via
+         * angr disassembly (0x4060d2: `cmp byte ptr [edi+0x4c], 1`) that the
+         * original checks +0x4c, not +0x20. +0x4c is never written by this
+         * factory (m_unk4c is genuinely read-only-garbage from `operator
+         * new`/left as documented "opaque, untraced" in ButtonWidget.h),
+         * matching the original's own dependence on whatever `operator new`
+         * happens to return there - reproduced as-is rather than guessing a
+         * real meaning for the field. */
+        if (p->m_unk4c[0] == 1) {
             p->SetState(s_active_00551e58);
             goto setReady;
         }

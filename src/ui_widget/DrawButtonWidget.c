@@ -7,6 +7,18 @@
  * clip flag (+0x18). Was previously untracked in PROGRESS.csv - added back
  * this pass, same as WorldListPanel_Draw earlier.
  *
+ * FIXED (2026-07-15): FindSpriteFrame/BlitSprite16bpp/BlitSpriteClipped
+ * were all called with dropped args here (this file predates their
+ * project-wide promotion). Confirmed via angr disassembly at
+ * 0x405ea0-0x405eea: container=&DAT_00ea0e18 (the standard sprite
+ * registry, matching every other FindSpriteFrame call site),
+ * outerKey=*(this+0x18) (m_spriteBase, loaded once into EDX and never
+ * touched again - still live at both the BlitSprite16bpp and
+ * BlitSpriteClipped calls below, matching the established "outerKey
+ * inherited via EDX" convention), innerKey=frame (this+0x30, ESI).
+ * BlitSprite16bpp/BlitSpriteClipped both then take (frame,x,y,outerKey)
+ * with the same inherited outerKey.
+ *
  * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified.
  * See src/README.md's "Raw/verbatim ports" section for status.
  */
@@ -15,22 +27,24 @@
 void __fastcall DrawButtonWidget(int this)
 
 {
-  undefined4 uVar1;
-  int iVar2;
-  undefined4 uVar3;
-  int iVar4;
+  int x;
+  int frame;
+  int y;
+  int outerKey;
+  int record;
 
-  uVar1 = *(undefined4 *)(this + 0x38);
-  iVar2 = *(int *)(this + 0x30);
-  uVar3 = *(undefined4 *)(this + 0x3c);
-  if ((DAT_0079352c != 0) && (-1 < iVar2)) {
-    iVar4 = FindSpriteFrame();
-    if (iVar4 != 0) {
-      if (*(char *)(iVar4 + 0x18) == '\x01') {
-        BlitSprite16bpp(uVar1,uVar3);
+  x = *(int *)(this + 0x38);
+  frame = *(int *)(this + 0x30);
+  y = *(int *)(this + 0x3c);
+  outerKey = *(int *)(this + 0x18);
+  if ((DAT_0079352c != 0) && (-1 < frame)) {
+    record = FindSpriteFrame((int)&DAT_00ea0e18,outerKey,frame);
+    if (record != 0) {
+      if (*(char *)(record + 0x18) == '\x01') {
+        BlitSprite16bpp(frame,x,y,outerKey);
         return;
       }
-      BlitSpriteClipped(iVar2);
+      BlitSpriteClipped(frame,x,y,outerKey);
     }
   }
   return;
