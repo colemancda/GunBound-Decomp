@@ -21,6 +21,7 @@ void __fastcall FUN_0044c950(int *param_1)
   int iVar9;
   int iVar10;
   int iVar11;
+  int iVar20;
   uint uVar12;
   uint unaff_EBX;
   code *pcVar13;
@@ -497,7 +498,7 @@ LAB_0044d07e:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar7 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeChecksumDeltaSub(param_1 + 0x45e,auStack_ac4,uVar7);
+  iVar20 = EncodeChecksumDeltaSub(param_1 + 0x45e,auStack_ac4,uVar7);
   puStack_8 = (undefined1 *)0x5;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
@@ -508,7 +509,12 @@ LAB_0044d07e:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = FindGroundHeightAtColumn();
+  /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed at
+   * 0x44d11e. y=EAX came from EncodeChecksumDeltaSub()'s return just
+   * above (dropped by Ghidra, captured here as iVar20); x=EDI came from
+   * apuStack_adc[0], which Ghidra already captured a few lines up. */
+  iVar5 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),
+                                   (int)apuStack_adc[0],iVar20);
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_ab0 != 0) {
     ScrambleChecksumGuardBytes();

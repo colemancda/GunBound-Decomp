@@ -26,6 +26,8 @@ undefined4 FUN_004a1740(int param_1)
   int iVar11;
   int iVar12;
   int iVar13;
+  int iVar14;
+  int iVar15;
   undefined4 *unaff_FS_OFFSET;
   undefined1 local_1574 [548];
   undefined1 local_1350 [548];
@@ -77,9 +79,14 @@ LAB_004a2741:
       if (cVar6 == '\0') {
         uVar9 = EncodeChecksumDeltaSub(param_1,local_112c,6);
         local_4 = 0;
-        PeekChecksumStateUnderLock(uVar9);
-        PeekChecksumStateUnderLock(iVar13);
-        iVar7 = FindGroundHeightAtColumn();
+        iVar14 = PeekChecksumStateUnderLock(uVar9);
+        iVar15 = PeekChecksumStateUnderLock(iVar13);
+        /* FindGroundHeightAtColumn args recovered via angr taint scan @0x4a18a2:
+         * EDI/x = return of the PeekChecksumStateUnderLock(iVar13) call just
+         * above (iVar15), EAX/y = return of the PeekChecksumStateUnderLock(uVar9)
+         * call before it (iVar14) - both discarded by Ghidra since it
+         * mis-modeled this call's real ECX/EDX/EDI/EAX convention. */
+        iVar7 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar15,iVar14);
         local_4 = 0xffffffff;
         ScrubChecksumGuard();
         uVar9 = EncodeChecksumDeltaSub(param_1,local_f08,6);
@@ -87,8 +94,12 @@ LAB_004a2741:
         uVar10 = EncodeChecksumDeltaSub(iVar13,local_112c,4);
         SUBFIELD(local_4,0,undefined1) = 2;
         PeekChecksumStateUnderLock(uVar9);
-        PeekChecksumStateUnderLock(uVar10);
-        iVar8 = FindGroundHeightAtColumn();
+        iVar14 = PeekChecksumStateUnderLock(uVar10);
+        /* FindGroundHeightAtColumn args recovered via angr taint scan @0x4a191f:
+         * EDI/x = return of the PeekChecksumStateUnderLock(uVar10) call just
+         * above (iVar14, discarded by Ghidra); EAX/y = uVar10 itself, reloaded
+         * from its stack spill in the real disassembly (not a Peek return). */
+        iVar8 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar14,uVar10);
         local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
         ScrubChecksumGuard();
         local_4 = 0xffffffff;
@@ -98,8 +109,12 @@ LAB_004a2741:
         uVar10 = EncodeChecksumDeltaAdd(iVar13,local_f08,4);
         SUBFIELD(local_4,0,undefined1) = 4;
         PeekChecksumStateUnderLock(uVar9);
-        PeekChecksumStateUnderLock(uVar10);
-        iVar11 = FindGroundHeightAtColumn();
+        iVar14 = PeekChecksumStateUnderLock(uVar10);
+        /* FindGroundHeightAtColumn args recovered via angr taint scan @0x4a19b2:
+         * EDI/x = return of the PeekChecksumStateUnderLock(uVar10) call just
+         * above (iVar14, discarded by Ghidra); EAX/y = uVar10 itself, reloaded
+         * from its stack spill in the real disassembly (not a Peek return). */
+        iVar11 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar14,uVar10);
         local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
         ScrubChecksumGuard();
         local_4 = 0xffffffff;

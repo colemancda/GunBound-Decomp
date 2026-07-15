@@ -37,6 +37,10 @@ void __fastcall FUN_00486ea0(int *param_1)
   undefined4 uVar21;
   undefined4 uVar22;
   uint uVar23;
+  undefined4 uVar24;
+  undefined4 uVar25;
+  undefined4 uVar26;
+  undefined4 uVar27;
   undefined4 *local_ae4;
   float fStack_ae0;
   int *piStack_adc;
@@ -239,15 +243,27 @@ LAB_0048780a:
         EncodeChecksumState(uVar5);
         puStack_8 = (undefined1 *)0xffffffff;
         ScrubChecksumGuard();
-        PeekChecksumStateUnderLock(param_1 + 0x45e);
-        PeekChecksumStateUnderLock(piVar17);
-        iVar3 = FindGroundHeightAtColumn();
+        uVar24 = PeekChecksumStateUnderLock(param_1 + 0x45e);
+        uVar25 = PeekChecksumStateUnderLock(piVar17);
+        /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x487213.
+         * x=EDI<-EAX (uVar25, the PeekChecksumStateUnderLock(piVar17) return
+         * just above), y=EAX loaded from [esp+0x18] (uVar24, the
+         * PeekChecksumStateUnderLock(param_1 + 0x45e) return 2 lines up);
+         * both were previously dropped/uncaptured by the decompiler.
+         * See fghac_batch3.json. */
+        iVar3 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar25,(int)uVar24);
         if (iVar3 != 10000) {
           uVar5 = EncodeChecksumDeltaSub(param_1 + 0x45e,auStack_ac4,8);
           puStack_8 = (undefined1 *)0x5;
-          PeekChecksumStateUnderLock(uVar5);
-          PeekChecksumStateUnderLock(piVar17);
-          iVar3 = FindGroundHeightAtColumn();
+          uVar26 = PeekChecksumStateUnderLock(uVar5);
+          uVar27 = PeekChecksumStateUnderLock(piVar17);
+          /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x487263.
+           * x=EDI<-EAX (uVar27, the PeekChecksumStateUnderLock(piVar17)
+           * return just above), y=EAX loaded from [esp+0x18] (uVar26, the
+           * PeekChecksumStateUnderLock(uVar5) return 2 lines up); both were
+           * previously dropped/uncaptured by the decompiler.
+           * See fghac_batch3.json. */
+          iVar3 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar27,(int)uVar26);
           puStack_8 = (undefined1 *)0xffffffff;
           ScrubChecksumGuard();
           uVar5 = EncodeChecksumDeltaSub(param_1 + 0x45e,auStack_ac4,8);

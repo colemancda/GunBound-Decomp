@@ -26,6 +26,8 @@ int __fastcall FUN_00479ba0(int *param_1)
   char *pcVar14;
   int *unaff_FS_OFFSET;
   undefined4 uVar15;
+  undefined4 uVar16;
+  undefined4 uVar17;
   int local_924 [2];
   char acStack_91c [128];
   undefined1 local_89c [20];
@@ -52,12 +54,17 @@ int __fastcall FUN_00479ba0(int *param_1)
   EncodeChecksumDeltaSub(param_1 + 0x120,local_89c,uVar4);
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  uVar16 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  uVar17 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = FindGroundHeightAtColumn();
+  /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x479c65.
+   * x=EDI loaded from [esp+0x14] (uVar17, the 2nd PeekPacketChecksumState
+   * return just above), y=EAX<-EDI (uVar16, the 1st PeekPacketChecksumState
+   * return); both were previously dropped/uncaptured by the decompiler.
+   * See fghac_batch3.json. */
+  iVar5 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar17,(int)uVar16);
   local_4 = 0xffffffff;
   if (local_888 != 0) {
     ScrambleChecksumGuardBytes();

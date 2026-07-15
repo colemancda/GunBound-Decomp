@@ -33,6 +33,8 @@ void __fastcall FUN_0049fd40(int *param_1)
   undefined4 uVar19;
   undefined4 uVar20;
   undefined4 uVar21;
+  undefined4 uVar22;
+  undefined4 uVar23;
   int *local_af8;
   int *local_af4;
   int *piStack_af0;
@@ -237,15 +239,25 @@ LAB_004a0a52:
         EncodeChecksumState(uVar5);
         puStack_8 = (undefined1 *)0xffffffff;
         ScrubChecksumGuard();
-        PeekChecksumStateUnderLock(param_1 + 0x45e);
-        PeekChecksumStateUnderLock(piVar15);
-        iVar3 = FindGroundHeightAtColumn();
+        uVar22 = PeekChecksumStateUnderLock(param_1 + 0x45e);
+        uVar23 = PeekChecksumStateUnderLock(piVar15);
+        /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed
+         * at 0x4a0093 (y=EAX from PeekChecksumStateUnderLock(param_1 +
+         * 0x45e) just above, captured as uVar22; x=EDI from
+         * PeekChecksumStateUnderLock(piVar15), captured as uVar23;
+         * both previously discarded). */
+        iVar3 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar23,(int)uVar22);
         if (iVar3 != 10000) {
           uVar5 = EncodeChecksumDeltaSub(param_1 + 0x45e,auStack_ac4,8);
           puStack_8 = (undefined1 *)0x5;
-          PeekChecksumStateUnderLock(uVar5);
-          PeekChecksumStateUnderLock(piVar15);
-          iVar3 = FindGroundHeightAtColumn();
+          uVar22 = PeekChecksumStateUnderLock(uVar5);
+          uVar23 = PeekChecksumStateUnderLock(piVar15);
+          /* FIXED (2026-07-15): dropped terrain/x/y args - angr-
+           * confirmed at 0x4a00e3, same pattern as the call above
+           * (y=EAX from PeekChecksumStateUnderLock(uVar5), captured
+           * as uVar22; x=EDI from PeekChecksumStateUnderLock(piVar15),
+           * captured as uVar23). */
+          iVar3 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar23,(int)uVar22);
           puStack_8 = (undefined1 *)0xffffffff;
           ScrubChecksumGuard();
           uVar5 = EncodeChecksumDeltaSub(param_1 + 0x45e,auStack_ac4,8);

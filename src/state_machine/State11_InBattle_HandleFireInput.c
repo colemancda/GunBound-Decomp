@@ -52,6 +52,11 @@ void __fastcall State11_InBattle_HandleFireInput(int *param_1)
   char *pcVar23;
   DWORD DVar24;
   int iVar25;
+  /* New local (2026-07-15): captures the previously-discarded return of
+   * the `PeekChecksumStateUnderLock(uVar15);` call so it can be forwarded
+   * as FindGroundHeightAtColumn's dropped x arg (used at both call sites
+   * below - see the FIXED comments at each). */
+  int iVar27;
   byte bVar26;
   undefined1 local_b40 [548];
   CHAR CStack_91c;
@@ -106,8 +111,14 @@ LAB_0045fb8c:
             bVar6 = true;
             bVar5 = true;
             PeekChecksumStateUnderLock(uVar17);
-            PeekChecksumStateUnderLock(uVar15);
-            iVar18 = FindGroundHeightAtColumn();
+            /* FIXED (2026-07-15): FindGroundHeightAtColumn's dropped
+             * param_2/x/y args - angr-confirmed at 0x45fb6b: EDX=
+             * &DAT_006a7708+g_clientContext (param_2, terrain-obj idiom),
+             * EDI=return of the PeekChecksumStateUnderLock(uVar15) call
+             * just below (x, previously discarded), EAX=uVar15 itself
+             * loaded straight from its spilled slot (y, not peeked). */
+            iVar27 = PeekChecksumStateUnderLock(uVar15);
+            iVar18 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar27,uVar15);
             iVar25 = PeekChecksumStateUnderLock(uVar16);
             if ((iVar18 <= iVar25) || (cVar9 = PacketChecksumGreaterThan(param_1 + 0x243,0), cVar9 == '\0'))
             goto LAB_0045fb8c;
@@ -224,8 +235,14 @@ LAB_0046000e:
             bVar6 = true;
             bVar5 = true;
             PeekChecksumStateUnderLock(uVar17);
-            PeekChecksumStateUnderLock(uVar15);
-            iVar18 = FindGroundHeightAtColumn();
+            /* FIXED (2026-07-15): FindGroundHeightAtColumn's dropped
+             * param_2/x/y args - angr-confirmed at 0x45ffe0, same pattern
+             * as the earlier call site in this function: EDX=
+             * &DAT_006a7708+g_clientContext (param_2), EDI=return of the
+             * PeekChecksumStateUnderLock(uVar15) call just below (x,
+             * previously discarded), EAX=uVar15 itself (y, not peeked). */
+            iVar27 = PeekChecksumStateUnderLock(uVar15);
+            iVar18 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar27,uVar15);
             iVar25 = PeekChecksumStateUnderLock(uVar16);
             if ((iVar18 <= iVar25) ||
                (cVar9 = PacketChecksumLessThan(param_1 + 0x243,*(int *)(&g_nCameraBoundX + g_clientContext) + -2),

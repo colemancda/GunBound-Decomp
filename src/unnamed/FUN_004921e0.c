@@ -20,6 +20,9 @@ void __fastcall FUN_004921e0(int *param_1)
   int *piVar8;
   undefined4 *unaff_FS_OFFSET;
   bool bVar9;
+  int iVar10;
+  int iVar11;
+  int iVar12;
   int local_aec [2];
   uint local_ae4;
   int *local_ae0;
@@ -53,12 +56,17 @@ void __fastcall FUN_004921e0(int *param_1)
   EncodeChecksumDeltaSub(param_1 + 0x99,local_acc,uVar3);
   local_c = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  iVar10 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_aec[0] = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_ae4 = FindGroundHeightAtColumn();
+  /* FindGroundHeightAtColumn args recovered via angr taint scan @0x4922a0:
+   * EDI/x = local_aec[0] (the PeekPacketChecksumState() return captured just
+   * above); EAX/y = return of the PREVIOUS PeekPacketChecksumState() call
+   * (iVar10, discarded by Ghidra since it mis-modeled this call's real
+   * ECX/EDX/EDI/EAX convention). */
+  local_ae4 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),local_aec[0],iVar10);
   iVar4 = local_ab8;
   local_c = 0xffffffff;
   if (local_ab8 != 0) {
@@ -120,12 +128,16 @@ void __fastcall FUN_004921e0(int *param_1)
       EncodeChecksumDeltaSub(param_1 + 0x99,local_acc,0x1e);
       local_c = 3;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      iVar11 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_aec[0] = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      local_ad0 = FindGroundHeightAtColumn();
+      /* FindGroundHeightAtColumn args recovered via angr taint scan @0x4924e9:
+       * EDI/x = local_aec[0] (the PeekPacketChecksumState() return captured
+       * just above); EAX/y = return of the PREVIOUS PeekPacketChecksumState()
+       * call (iVar11, discarded by Ghidra). */
+      local_ad0 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),local_aec[0],iVar11);
       iVar4 = local_ab8;
       local_c = 0xffffffff;
       if (local_ab8 != 0) {
@@ -152,8 +164,13 @@ void __fastcall FUN_004921e0(int *param_1)
         uVar3 = EncodeChecksumDeltaAdd(param_1 + 0x99,local_acc,1);
         local_c = 5;
         local_aec[0] = PeekChecksumStateUnderLock(uVar3);
-        PeekChecksumStateUnderLock(param_1 + 0x10);
-        iVar4 = FindGroundHeightAtColumn();
+        iVar12 = PeekChecksumStateUnderLock(param_1 + 0x10);
+        /* FindGroundHeightAtColumn args recovered via angr taint scan @0x4925f5:
+         * EDI/x = return of the PeekChecksumStateUnderLock(param_1 + 0x10)
+         * call just above (iVar12, discarded by Ghidra); EAX/y = local_aec[0]
+         * (the PeekChecksumStateUnderLock(uVar3) return captured on the line
+         * before that). */
+        iVar4 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar12,local_aec[0]);
         local_c = 0xffffffff;
         local_ae4 = iVar4;
         ScrubChecksumGuard();

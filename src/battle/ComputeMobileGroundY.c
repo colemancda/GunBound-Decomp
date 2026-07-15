@@ -15,6 +15,8 @@ int __fastcall ComputeMobileGroundY(int param_1)
   int iVar3;
   int iVar4;
   int iVar5;
+  int iVar6;
+  int iVar7;
   undefined4 *unaff_FS_OFFSET;
   bool bVar6;
   undefined1 local_688 [8];
@@ -41,13 +43,17 @@ int __fastcall ComputeMobileGroundY(int param_1)
   EncodeChecksumPairDiff(iVar1,local_454,uVar2);
   local_4 = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  iVar6 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_67c = param_1 + 0x90c;
-  PeekPacketChecksumState();
+  iVar7 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_680 = FindGroundHeightAtColumn();
+  /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed at
+   * 0x45c798. y=EAX came from the PeekPacketChecksumState() return just
+   * above (dropped by Ghidra, captured here as iVar6); x=EDI came from
+   * the second Peek's return just above that (captured as iVar7). */
+  local_680 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar7,iVar6);
   local_4 = 0;
   if (local_440 != 0) {
     ScrambleChecksumGuardBytes();
@@ -81,12 +87,16 @@ int __fastcall ComputeMobileGroundY(int param_1)
     EncodeChecksumPairDiff(iVar1,local_678,iVar5);
     local_4 = 4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iVar7 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = FindGroundHeightAtColumn();
+    /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed at
+     * 0x45c93d. y=EAX came from the PeekPacketChecksumState() return just
+     * above (dropped by Ghidra, captured here as iVar6); x=EDI came from
+     * the second Peek's return just above that (captured as iVar7). */
+    iVar4 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar7,iVar6);
     local_4 = 0xffffffff;
     if (local_664 != 0) {
       ScrambleChecksumGuardBytes();
@@ -107,12 +117,17 @@ int __fastcall ComputeMobileGroundY(int param_1)
       EncodeChecksumDeltaAdd(iVar1,local_678,1);
       local_4 = 6;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      iVar6 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      iVar7 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = FindGroundHeightAtColumn();
+      /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed at
+       * 0x45ca5d. y=EAX came from the PeekPacketChecksumState() return
+       * just above (dropped by Ghidra, captured here as iVar6); x=EDI
+       * came from the second Peek's return just above that (captured as
+       * iVar7). */
+      iVar3 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar7,iVar6);
       local_4 = 0xffffffff;
       if (local_664 != 0) {
         ScrambleChecksumGuardBytes();

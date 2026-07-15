@@ -18,6 +18,11 @@ void __fastcall FUN_004765d0(int *param_1)
   char cVar6;
   int iVar7;
   int iVar8;
+  /* New local (2026-07-15): captures the previously-discarded return of
+   * the `PeekChecksumStateUnderLock(param_1 + 0x3d5);` call below so it
+   * can be forwarded as FindGroundHeightAtColumn's dropped x arg - see
+   * the FIXED comment at that call. */
+  int iVar9;
   int *piVar9;
   undefined4 uVar10;
   undefined4 uVar11;
@@ -91,8 +96,16 @@ void __fastcall FUN_004765d0(int *param_1)
       uVar10 = EncodeChecksumDeltaSub(piVar2,auStack_67c,uVar10);
       puStack_8 = (undefined1 *)0x0;
       PeekChecksumStateUnderLock(uVar10);
-      PeekChecksumStateUnderLock(param_1 + 0x3d5);
-      iVar7 = FindGroundHeightAtColumn();
+      /* FIXED (2026-07-15): FindGroundHeightAtColumn's dropped param_2/x/y
+       * args - angr-confirmed at 0x476781: EDX=&DAT_006a7708+g_clientContext
+       * (param_2, terrain-obj idiom), EDI=return of the
+       * PeekChecksumStateUnderLock(param_1 + 0x3d5) call just below (x,
+       * previously discarded), EAX=puStack_8 (y - this scratch/EH-index
+       * local, not a real pointer here, was last set to 0 two lines above
+       * and is read back unmodified; see this function's own "puStack_8 is
+       * a real, separate local reused elsewhere" note above). */
+      iVar9 = PeekChecksumStateUnderLock(param_1 + 0x3d5);
+      iVar7 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar9,(int)puStack_8);
       iVar8 = PeekChecksumStateUnderLock(piVar2);
       puStack_8 = (undefined1 *)0xffffffff;
       ScrubChecksumGuard();

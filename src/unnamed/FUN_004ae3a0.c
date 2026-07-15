@@ -261,8 +261,14 @@ LAB_004ae9a8:
   SyncOutgoingChecksumField(param_1[2],param_1 + 0x45e);
   cVar6 = PeekPacketChecksumBool();
   if (cVar6 != '\0') {
-    PeekChecksumStateUnderLock(piVar2);
-    uVar9 = FindGroundHeightAtColumn();
+    uVar12 = PeekChecksumStateUnderLock(piVar2);
+    /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed at
+     * 0x4ae505 (x=EDI from PeekChecksumStateUnderLock(piVar2) just
+     * above, captured here as uVar12 - previously discarded; y=EAX was
+     * `xor eax,eax`, i.e. a literal 0). uVar12 is otherwise free here
+     * (next real use is the reassignment at the PeekChecksumStateUnderLock
+     * call further below). */
+    uVar9 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar12,0);
     uVar11 = uVar9;
     uVar10 = PeekChecksumStateUnderLock(piVar2);
     FUN_00436070(&DAT_006a7f70 + g_clientContext,uVar10,uVar11);

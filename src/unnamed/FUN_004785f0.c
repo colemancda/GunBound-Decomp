@@ -18,6 +18,12 @@ void FUN_004785f0(int param_1)
   int iVar6;
   int iVar7;
   int iVar8;
+  int iVar9;
+  undefined4 uVar10;
+  undefined4 uVar11;
+  undefined4 uVar12;
+  undefined4 uVar13;
+  undefined4 uVar14;
   undefined4 *unaff_FS_OFFSET;
   int local_8b0 [2];
   undefined1 local_8a8 [8];
@@ -58,12 +64,17 @@ void FUN_004785f0(int param_1)
   EncodeChecksumDeltaSub(param_1 + 0x480,local_89c,uVar3);
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  uVar10 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  uVar11 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_8a0 = FindGroundHeightAtColumn();
+  /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x4786d8.
+   * x=EDI loaded from [esp+0x10] (uVar11, the 2nd PeekPacketChecksumState
+   * return just above), y=EAX<-EDI (uVar10, the 1st PeekPacketChecksumState
+   * return); both were previously dropped/uncaptured by the decompiler.
+   * See fghac_batch3.json. */
+  local_8a0 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar11,(int)uVar10);
   local_4 = 0xffffffff;
   if (local_888 != 0) {
     ScrambleChecksumGuardBytes();
@@ -80,12 +91,17 @@ void FUN_004785f0(int param_1)
   EncodeChecksumDeltaSub(param_1 + 0x25c,local_89c,uVar3);
   SUBFIELD(local_4,0,undefined1) = 2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  uVar12 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  uVar13 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = FindGroundHeightAtColumn();
+  /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x4787dc.
+   * x=EDI loaded from [esp+0x10] (uVar13, the 2nd PeekPacketChecksumState
+   * return just above), y=EAX<-EDI (uVar12, the 1st PeekPacketChecksumState
+   * return); both were previously dropped/uncaptured by the decompiler.
+   * See fghac_batch3.json. */
+  iVar4 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar13,(int)uVar12);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
   if (local_888 != 0) {
     ScrambleChecksumGuardBytes();
@@ -106,15 +122,27 @@ void FUN_004785f0(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_8b0[0] = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_8b0[0] = EncodeChecksumDeltaAdd(param_1 + 0x25c,local_454,local_8b0[0]);
+  /* iVar9 mirrors the local_8b0[0] assignment below (side effect-free
+   * capture) so its value survives the local_8b0[0] = PeekPacketChecksumState()
+   * reassignment 2 statements down - the real x arg to FindGroundHeightAtColumn
+   * (see 0x478920 fix below) is loaded from a compiler spill slot holding
+   * this EncodeChecksumDeltaAdd() return, not the later-clobbered local_8b0[0]. */
+  iVar9 = EncodeChecksumDeltaAdd(param_1 + 0x25c,local_454,local_8b0[0]);
+  local_8b0[0] = iVar9;
   SUBFIELD(local_4,0,undefined1) = 4;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  uVar14 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_8b0[0] = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = FindGroundHeightAtColumn();
+  /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x478920.
+   * x=EDI loaded from [esp+0x14], the compiler spill slot still holding
+   * iVar9 (EncodeChecksumDeltaAdd's return just above, from before
+   * local_8b0[0] got reassigned by the PeekPacketChecksumState() call
+   * right above this one). y=EAX<-EDI (uVar14, the PeekPacketChecksumState
+   * return captured 2 statements up). See fghac_batch3.json. */
+  iVar5 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar9,(int)uVar14);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
   local_8b0[0] = local_440;
   if (local_440 != 0) {
