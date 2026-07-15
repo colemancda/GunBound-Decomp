@@ -21,9 +21,22 @@
  *
  * Raw/near-verbatim port of Ghidra's decompiler output, not hand-
  * verified. See src/README.md's "Raw/verbatim ports" section for status.
- */
+ *
+ * FIXED (2026-07-14): the per-node Draw() dispatch (`(**(code**)(*piVar1
+ * + 0xc))()`) dropped "this" entirely - zero args, callee reads garbage
+ * off its own object. Confirmed via angr disassembly at 0x4062e0-0x4062e4:
+ * `mov eax,[esi]; mov ecx,esi; call [eax+0xc]` - esi (the node, piVar1
+ * here) is loaded into ECX immediately before the call, a genuine
+ * __thiscall dispatch. Live-reproduced: a jump-to-NULL crash (EIP=0x0,
+ * ECX=<node>, *(int*)node==0) once real Button widgets started existing
+ * in the active-object registry for the first time this session (past
+ * ServerSelect, once the broker handshake and SendSocketData fixes let
+ * the client reach further UI). `unaff_BL` is a SEPARATE, still-
+ * unresolved dropped register (see the KNOWN BUG note above) - not
+ * touched here. */
 #include "ghidra_types.h"
 
+typedef void (__thiscall *DrawWidgetFn)(void *thisPtr);
 
 void DrawActiveObjectRegistry(int param_1)
 
@@ -31,7 +44,7 @@ void DrawActiveObjectRegistry(int param_1)
   int *piVar1;
   char unaff_BL;
   int *piVar2;
-  
+
   piVar2 = (int *)(*(int **)(param_1 + 4))[7];
   if (piVar2 != *(int **)(param_1 + 4)) {
     do {
@@ -42,7 +55,7 @@ void DrawActiveObjectRegistry(int param_1)
         }
 joined_r0x004062dd:
         for (; piVar1 != piVar2; piVar1 = (int *)piVar1[4]) {
-          (**(code **)(*piVar1 + 0xc))();
+          ((DrawWidgetFn)(*(void ***)piVar1)[3])(piVar1);
         }
       }
       else if (999999 < (uint)piVar1[1]) goto joined_r0x004062dd;

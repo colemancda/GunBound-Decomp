@@ -4,9 +4,25 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
- */
+ *
+ * FIXED (2026-07-14): the CGameState::OnKeyInput dispatch (vtable slot 5,
+ * +0x14 - see src/cxx/GameState.h) dropped its "this" argument entirely,
+ * calling through the generic K&R `code()` cast with only the 3 real
+ * stack args. Confirmed via angr disassembly at 0x412193-0x4121a4: `mov
+ * ecx,[eax*4+0x5b33f8]` loads the current state object into ECX and it's
+ * never touched again before `call [edx+0x14]` - a genuine __thiscall
+ * dispatch (this in ECX), matching ChangeGameState.c's own already-fixed
+ * OnEnter/OnExit slots. `push ebp; push esi; push edi` (right-to-left)
+ * confirms the existing arg order (iVar1,uVar2,iVar3) was already correct
+ * - only "this" was missing. Live-reproduced: a jump-to-NULL crash
+ * (EIP=0x0) once this dispatch actually started firing (state 5's
+ * SendSocketData fix let the client reach live per-tick UI event
+ * processing for the first time) - with ECX holding whatever was last in
+ * it rather than the real state object, the vtable read at an unrelated
+ * address happened to be exactly 0. */
 #include "ghidra_types.h"
 
+typedef void (__thiscall *OnKeyInputFn)(void *thisPtr,int msg,int a,int b);
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
@@ -17,7 +33,8 @@ void FUN_00412130(void)
   uint uVar2;
   int iVar3;
   void *pvVar4;
-  
+  void *stateObj;
+
 LAB_00412140:
   do {
     while( true ) {
@@ -32,7 +49,8 @@ LAB_00412140:
         DAT_00795074 = (DAT_00795074 - 1 | 0xfffffe00) + 1;
       }
       if (((g_stateChangeInProgress == 0) || (999999 < uVar2)) && (DAT_0056d108 == -1)) {
-        (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x14))(iVar1,uVar2,iVar3);
+        stateObj = g_gameStateVTableArray[g_currentGameState];
+        ((OnKeyInputFn)(*(void ***)stateObj)[5])(stateObj,iVar1,uVar2,iVar3);
       }
       pvVar4 = DAT_007934f4;
       if (iVar1 == 0) goto LAB_004122c7;
