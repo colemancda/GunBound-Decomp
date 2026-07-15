@@ -73,7 +73,13 @@ void FlushEncodedSocketBuffer(int param_1)
   *(short *)(param_1 + 0x44d4) = (short)local_5464;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar5 + local_5464);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4d3623
+   * (`lea edi,[ebp+0x84]`, ebp = this file's own param_1) the cell is
+   * param_1+0x84, the SAME cell already passed explicitly to
+   * EncodeChecksumDeltaMul 2 lines below (same pattern as
+   * SendOutgoingPacket.c's identical fix) - see
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField(param_1 + 0x84, iVar5 + local_5464);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = EncodeChecksumDeltaMul(param_1 + 0x84,local_5454,0x343fd);
   local_4 = 0;

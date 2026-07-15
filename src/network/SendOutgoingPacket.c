@@ -56,7 +56,12 @@ undefined4 SendOutgoingPacket(int param_1)
   *(undefined2 *)(param_1 + 0x4d0) = *(undefined2 *)(param_1 + 0x44d0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar3 + iVar1);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4d26bd
+   * (`lea edi,[esi+0x84]`, esi = this file's own param_1) the cell is
+   * param_1+0x84, the SAME cell already passed explicitly to
+   * EncodeChecksumDeltaMul 2 lines below - see
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField(param_1 + 0x84, iVar3 + iVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar4 = EncodeChecksumDeltaMul(param_1 + 0x84,local_230,0x343fd);
   local_4 = 0;

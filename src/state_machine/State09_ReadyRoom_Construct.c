@@ -25,11 +25,19 @@ undefined4 * State09_ReadyRoom_Construct(undefined4 *param_1)
   *param_1 = &vtable_State09_ReadyRoom;
   *(undefined1 *)(param_1 + 0x8b) = 0;
   param_1[8] = 0;
-  EncodeOutgoingPacketField(0);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4d3792
+   * (`lea edi,[esi+0xc]`, esi = this file's own param_1) the cell is
+   * param_1+0xc (a CValueGuard cell - its own activeFlag(+0x220)/
+   * tableHandle(+0x14) zero-init immediately precedes this call). See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)param_1 + 0xc, 0);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
   *(undefined1 *)(param_1 + 0x123) = 0;
   param_1[0xa0] = 0;
-  EncodeOutgoingPacketField(0);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4d37aa
+   * (`lea edi,[esi+0x26c]`) a second CValueGuard cell at param_1+0x26c,
+   * same evidence as above. */
+  EncodeOutgoingPacketField((int)param_1 + 0x26c, 0);
   puVar2 = param_1 + 0x1bf;
   for (iVar1 = 0x10; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;

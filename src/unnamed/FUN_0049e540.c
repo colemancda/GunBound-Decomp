@@ -22,7 +22,12 @@ undefined4 * FUN_0049e540(undefined4 *param_1)
   *param_1 = &PTR_FUN_0055649c;
   *(undefined1 *)(param_1 + 0x1071) = 0;
   param_1[0xfee] = 0;
-  EncodeOutgoingPacketField(0);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x49e56d
+   * (`lea edi,[esi+0x3fa4]`, esi = this file's own param_1) a CValueGuard
+   * cell at param_1+0x3fa4; tableHandle(+0x14) = param_1+0x3fb8 =
+   * param_1[0xfee] (undefined4 units), matching the zero-write above. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)param_1 + 0x3fa4, 0);
   *(undefined1 *)(param_1 + 0xfe8) = 0;
   param_1[0xfe7] = 0xffffffff;
   return param_1;

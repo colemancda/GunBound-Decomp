@@ -32,15 +32,25 @@ undefined4 * InitConnectionObject(undefined4 *param_1,int param_2,undefined4 par
 
   *(undefined1 *)(param_1 + 0xa9) = 0;
   param_1[0x26] = 0;
-  EncodeOutgoingPacketField(0);
+  /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+   * 0x4d218d/0x4d21ab (`lea esi,[ebp+0x84]` / `lea ebx,[ebp+0x2a8]`,
+   * ebp = this file's own param_1): two distinct CValueGuard cells at
+   * param_1+0x84 and param_1+0x2a8 (both show the same activeFlag(+0x220)/
+   * tableHandle(+0x14) zero-init immediately before their own call here),
+   * alternating cell1/cell2/cell1/cell2 across these 4 calls. `param_1` is
+   * `undefined4 *` (scales by 4), so byte offsets are taken via `(int)
+   * param_1 + N`, matching this file's own existing idiom (see the
+   * +0x84e5/+0x84e6 pokes below). See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)param_1 + 0x84, 0);
   *(undefined1 *)(param_1 + 0x132) = 0;
   param_1[0xaf] = 0;
-  EncodeOutgoingPacketField(0);
+  EncodeOutgoingPacketField((int)param_1 + 0x2a8, 0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0);
+  EncodeOutgoingPacketField((int)param_1 + 0x84, 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0);
+  EncodeOutgoingPacketField((int)param_1 + 0x2a8, 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   param_1[0x133] = param_2;
   uVar1 = DAT_0056dc30[param_2];

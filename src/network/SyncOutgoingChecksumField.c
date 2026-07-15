@@ -39,20 +39,27 @@ void SyncOutgoingChecksumField(int param_1,undefined4 param_2)
       return;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField((uint)local_8[0]);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4263ae/
+     * 0x4263cc/0x4263e9 all 3 calls in this function use the same cell,
+     * param_2 (already used as a cell pointer at this function's
+     * PeekChecksumStateUnderLock(param_2) call above; register-resident
+     * as EAX for the first two, stack-spilled to [esp+0x24] for the third
+     * after the intervening critical-section calls). See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(param_2, (uint)local_8[0]);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = (uint)param_1;
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0xffffff9c);
+    EncodeOutgoingPacketField(param_2, 0xffffff9c);
     pcVar5 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = 0xffffff9c;
   }
-  EncodeOutgoingPacketField(uVar4);
+  EncodeOutgoingPacketField(param_2, uVar4);
   (*pcVar5)(&DAT_005a9068);
   return;
 }
