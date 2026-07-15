@@ -999,7 +999,7 @@ void FUN_004b9cd2();
 void __fastcall State11_InBattle_OnTick();
 void __thiscall FUN_004c1b90();
 void __fastcall RenderWindGaugeTick();
-void FUN_004c1d10();
+void State11_InBattle_RenderWeatherHazards();
 void State11_InBattle_ClearEffectTextures();
 void __fastcall State11_InBattle_RenderHud();
 void FUN_004cb280();
