@@ -39,6 +39,10 @@ public class ApplyFunctionRenames extends GhidraScript {
         {"004f11a0", "FindXFSEntryIndex", "src/fileformat/FindXFSEntryIndex.c"},
         {"004f1220", "FindOrInsertXFSEntry", "src/fileformat/FindOrInsertXFSEntry.c"},
         {"004f1390", "OpenXFSEntryStream", "src/fileformat/OpenXFSEntryStream.c"},
+        // 2026-07-14 session 11: connection constructor un-dropped so the
+        // broker socket worker thread spawns (first real server connection)
+        {"004d2170", "InitConnectionObject", "src/network/InitConnectionObject.c"},
+        {"00405dc0", "SocketWorkerThreadProc", "src/network/SocketWorkerThreadProc.c"},
     };
 
     public void run() throws Exception {

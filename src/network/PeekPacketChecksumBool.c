@@ -43,7 +43,7 @@ char PeekPacketChecksumBool(byte *cell)
   /* BRING-UP NEUTER (2026-07-14): return the benign "false" default instead
    * of decoding the guard cell, mirroring the sibling PeekPacketChecksumState's
    * own `return 0` bring-up workaround. Once the broker connection opened
-   * (FUN_004d2170 un-drop) and ProcessIncomingPackets began running on a real
+   * (InitConnectionObject un-drop) and ProcessIncomingPackets began running on a real
    * receive ring, this got called from an unmigrated packet-handler call site
    * with a dropped-register `cell` = garbage (live-reproduced: page fault
    * reading 0x1), and even a valid-but-wrong cell would fail the checksum and

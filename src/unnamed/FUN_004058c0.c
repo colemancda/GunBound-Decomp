@@ -31,7 +31,7 @@ void FUN_004058c0(void *unaff_EDI, undefined4 param_1,undefined4 param_2)
   }
   *(void **)((int)unaff_EDI + 0x2004) = pvVar1;
   *(undefined1 *)((int)pvVar1 + 0x18) = 1;
-  uVar2 = __beginthread(FUN_00405dc0,0,pvVar1);
+  uVar2 = __beginthread(SocketWorkerThreadProc,0,pvVar1);
   *(uintptr_t *)((int)pvVar1 + 4) = uVar2;
   if (uVar2 == 0) {
     *(undefined1 *)((int)pvVar1 + 0x18) = 0;

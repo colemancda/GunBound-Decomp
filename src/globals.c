@@ -254,7 +254,7 @@ void * DAT_0056d460;
 uint32_t DAT_0056dbe8;
 uint8_t DAT_0056dbf0;
 /* DAT_0056dc30: per-connection-type magic/key table (0x56dc30), indexed
- * [0..2] by FUN_004d2170's connection index. Was a 1-byte placeholder;
+ * [0..2] by InitConnectionObject's connection index. Was a 1-byte placeholder;
  * the ctor reads a full uint32 at [param_2*4], so an undersized global
  * fed garbage into each connection's +0x20c field. Recovered the real
  * 4 dwords verbatim from orig/GunBound.gme (0x56dc30-0x56dc3f); the next

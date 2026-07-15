@@ -216,7 +216,7 @@ void FUN_00405a40();
 void __fastcall FUN_00405b20();
 void __fastcall FUN_00405b60();
 void FUN_00405ba0();
-void FUN_00405dc0(void *);
+void SocketWorkerThreadProc(void *);
 void FUN_00405dd0(int *);
 void __fastcall FUN_00405e30();
 void __fastcall TickButtonAnimation(int thisPtr);
@@ -1025,7 +1025,7 @@ void FUN_004d0e90();
 void FUN_004d0fd0();
 void ComposeAvatarSprites(); /* 0x4d1500 - in-battle avatar compositor (action 0xf00b): {gender}{cat}%05d.img part sprites */
 uint FUN_004d2130();
-undefined4 * FUN_004d2170();
+undefined4 * InitConnectionObject();
 void FUN_004d22d0();
 void FUN_004d23f0();
 void BeginServerConnect(undefined4, undefined4, int);
