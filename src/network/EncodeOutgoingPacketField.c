@@ -57,18 +57,28 @@
  * Not attempted here; the cached JSON should let a dedicated follow-up
  * skip the expensive CFG/taint step and go straight to per-file
  * reconstruction, file by file, verifying each via disassembly before
- * editing. */
+ * editing.
+ *
+ * FIXED (2026-07-15): the `if ((int *)*puVar3 != DAT_00793774)` guard
+ * after FUN_0040b8c0() dereferenced `puVar3`, a local NEVER assigned
+ * anywhere in this function - a genuine uninitialized-pointer read that
+ * could crash unpredictably any time DAT_00793778 != 0 took this branch
+ * (live-reproduced: a jump-to-NULL crash once SendOutgoingPacket's first
+ * real call started exercising this path). Per this file's own prior
+ * note, FUN_0040b8c0 is void-returning and this comparison was always a
+ * Ghidra decompilation artifact, not real original behavior - removed
+ * the same way entry/WinMain.c's FUN_004058c0 call site was fixed
+ * (call kept for its side effects, the bogus post-call check dropped). */
 void EncodeOutgoingPacketField(void *self, uint param_1)
 
 {
   uint uVar1;
   uint uVar2;
-  undefined4 *puVar3;
   int iVar4;
   uint *puVar5;
   int unaff_EDI = (int)self;
   undefined1 local_8 [8];
-  
+
   uVar2 = param_1;
   uVar1 = *(uint *)(unaff_EDI + 0x14);
   if (uVar1 != 0) {
@@ -86,15 +96,7 @@ void EncodeOutgoingPacketField(void *self, uint param_1)
   *(int *)(unaff_EDI + 0x14) = iVar4;
   if (iVar4 != 0) {
     param_1 = iVar4;
-    /* FUN_0040b8c0 is void-returning (see its own definition) - this
-     * call site's return-value use is a Ghidra per-call-site
-     * decompilation inconsistency, same class as entry/WinMain.c's
-     * FUN_004058c0 fix. puVar3 is left uninitialized here as a
-     * result. */
     FUN_0040b8c0();
-    if ((int *)*puVar3 != DAT_00793774) {
-      g_valueGuardTamperFlag = 1;
-    }
   }
   puVar5 = (uint *)(iVar4 * 0x10 + DAT_0079376c);
   *(uint *)(unaff_EDI + 4) = *puVar5 ^ uVar2;
