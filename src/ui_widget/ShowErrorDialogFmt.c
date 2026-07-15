@@ -23,7 +23,11 @@ void ShowErrorDialogFmt(int param_1,undefined4 param_2)
   g_stateChangeInProgress = in_EAX;
   CreateButtonWidget(&DAT_00e9be90,1000000,1000000,0x385,s_b_error_confirm_00552238,0x1c6,0x14b,0x4a
                      ,0x1a,1,0);
-  ClampCursorToRect();
+  /* self/x/y dropped as ECX/EBX/EDI - confirmed via disassembly at
+   * 0x4126ac: self is the DirectInput mouse device singleton
+   * (g_mouseDeviceTimerBlock, 0xe53698), x/y are the literal constants
+   * 0x1eb/0x158 (same 3 values for every dialog-open call site). */
+  ClampCursorToRect((int)g_mouseDeviceTimerBlock,0x1eb,0x158);
   _DAT_00e53c24 = 0xf9;
   _DAT_00e53c28 = 0x229;
   _DAT_00e53c2c = 0xc1;

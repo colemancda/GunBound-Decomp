@@ -897,8 +897,17 @@ LAB_004bafd2:
   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
   FUN_0043d6d0();
   BroadcastQueuedEvent();
-  PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x7864);
-  ClampCursorToRect();
+  /* self/x/y dropped as ECX/EBX/EDI - confirmed via disassembly at
+   * 0x4bb4f0: self is the DirectInput mouse device singleton
+   * (g_mouseDeviceTimerBlock, 0xe53698); the PeekChecksumStateUnderLock
+   * result (previously discarded here) plus g_cursorAnchorX is x, and
+   * g_cursorAnchorY (read directly, un-guarded) is y - matches the
+   * "FPS-style relative mouse" snap-back anchor documented on
+   * g_cursorAnchorX/Y in globals.h. */
+  ClampCursorToRect((int)g_mouseDeviceTimerBlock,
+                     PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x7864) +
+                     g_cursorAnchorX,
+                     g_cursorAnchorY);
   SetGuardedBool(0);
   SetGuardedBool(0);
   QueueOutgoingPacketField(0xffffffff);
