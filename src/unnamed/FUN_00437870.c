@@ -49,10 +49,20 @@ void FUN_00437870(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   piVar7[0xe] = 0x17cb;
   piVar7[0xe25] = 0x200e;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(param_2);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x43792d
+   * (`lea edi,[ebp + 0x40]`, ebp = the constructed projectile object
+   * piVar7): piVar7+0x40 matches InitProjectile.c's own cell #1
+   * (param_2+0x40, tableHandle(+0x14)=param_2[0x15], activeFlag(+0x220)
+   * both zeroed together there), confirming the same CProjectile cell
+   * layout here. See tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar7 + 0x40, param_2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(param_3);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x437951
+   * (`lea edi,[ebp + 0x264]`, ebp = piVar7): matches InitProjectile.c's
+   * cell #2 (param_2+0x264). See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar7 + 0x264, param_3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined1 *)(piVar7 + 0xfed) = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -86,7 +96,12 @@ LAB_004379f7:
   uVar4 = PeekPacketChecksumState();
   (*pcVar8)(&DAT_005a9068);
   (*pcVar6)(&DAT_005a9068);
-  EncodeOutgoingPacketField(uVar4);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x437a46
+   * (`lea edi,[ebp + 0x17e4]`, ebp = piVar7): a later cell on the same
+   * projectile object, already initialized during InitProjectile-style
+   * construction above and reused here for the checksum-state value.
+   * See tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar7 + 0x17e4, uVar4);
   (*pcVar8)(&DAT_005a9068);
   piVar7[0xe26] = SUBFIELD(s_flame73_00553c04,0,undefined4);
   piVar7[0xe27] = SUBFIELD(s_flame73_00553c04,4,undefined4);

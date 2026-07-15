@@ -134,14 +134,24 @@ LAB_0043b008:
               *(byte *)((int)piVar11 + 0xb0b6) = bVar3;
               *(byte *)((int)piVar11 + 0xb0b7) = bVar4 + bVar3 + -0x34;
               (*pcVar9)(&DAT_005a9068);
+              /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+               * 0x43b29b/0x43b2bc/0x43b2dd (edi loaded from esi+0xb0bc/
+               * esi+0xb2e0/esi+0xb504). esi is the object pointer this file
+               * already tracks as `piVar11` (the same base used just above
+               * for the GuardedBool bytes at piVar11+0xb0b5..0xb0b7); the
+               * three offsets are an array of 3 CValueGuard cells (stride
+               * 0x224 = sizeof(CValueGuard)) at piVar11+0xb0bc. `piVar11`
+               * is `int *`, so byte offsets are taken via `(int)piVar11 +
+               * N`, matching this file's own idiom just above. See
+               * tools/encodeoutgoingpacketfield_sites.json. */
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-              EncodeOutgoingPacketField(param_5);
+              EncodeOutgoingPacketField((int)piVar11 + 0xb0bc, param_5);
               (*pcVar9)(&DAT_005a9068);
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-              EncodeOutgoingPacketField(param_6);
+              EncodeOutgoingPacketField((int)piVar11 + 0xb2e0, param_6);
               (*pcVar9)(&DAT_005a9068);
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-              EncodeOutgoingPacketField(param_4);
+              EncodeOutgoingPacketField((int)piVar11 + 0xb504, param_4);
               (*pcVar9)(&DAT_005a9068);
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
               iVar5 = _rand();
@@ -245,14 +255,22 @@ LAB_0043b408:
                 *(byte *)((int)piVar11 + 0xf39) = bVar4;
                 *(byte *)((int)piVar11 + 0xf3a) = *(byte *)(piVar11 + 0x3ce) + bVar4 + -0x34;
                 (*pcVar9)();
+                /* FIXED (2026-07-15): dropped `self` args - angr-confirmed
+                 * at 0x43b674/0x43b695/0x43b6b6 (edi loaded from esi+0xf40/
+                 * esi+0x1164/esi+0x1388). Same `piVar11` object pointer as
+                 * the block above (the GuardedBool bytes just above this
+                 * block live at piVar11+0xf38..0xf3d); another array of 3
+                 * CValueGuard cells (stride 0x224) at piVar11+0xf40. Byte
+                 * offsets via `(int)piVar11 + N`. See
+                 * tools/encodeoutgoingpacketfield_sites.json. */
                 (*pcVar12)(&DAT_005a9068);
-                EncodeOutgoingPacketField(param_5);
+                EncodeOutgoingPacketField((int)piVar11 + 0xf40, param_5);
                 (*pcVar9)(&DAT_005a9068);
                 EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-                EncodeOutgoingPacketField(param_6);
+                EncodeOutgoingPacketField((int)piVar11 + 0x1164, param_6);
                 (*pcVar9)(&DAT_005a9068);
                 EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-                EncodeOutgoingPacketField(param_4);
+                EncodeOutgoingPacketField((int)piVar11 + 0x1388, param_4);
                 (*pcVar9)(&DAT_005a9068);
                 EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                 iVar5 = _rand();

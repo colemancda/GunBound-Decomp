@@ -89,11 +89,26 @@ LAB_004399d4:
       if (cVar3 == '\0') {
         uStack_234 = 0;
         uStack_440 = 0;
-        EncodeOutgoingPacketField(0);
+        /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+         * 0x439ad8 (`lea edi,[esp + 0x250]`): the stack-scratch cell
+         * whose tail dword (uStack_440, zeroed just above) is adjacent
+         * to auStack_454, and which this same file later passes as a
+         * cell pointer to both SyncOutgoingChecksumField (the ELSE
+         * branch's mirror-image call below) and
+         * PeekChecksumStateUnderLock(auStack_454). See
+         * tools/encodeoutgoingpacketfield_sites.json. */
+        EncodeOutgoingPacketField(auStack_454, 0);
         local_4 = 3;
         uStack_10 = 0;
         uStack_21c = 0;
-        EncodeOutgoingPacketField(0);
+        /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+         * 0x439afe (`lea edi,[esp + 0x2c]`): the stack-scratch cell
+         * whose tail dword (uStack_21c, zeroed just above) is adjacent
+         * to auStack_230, which is passed as the SyncOutgoingChecksumField
+         * cell two lines below and reused as a cell pointer via
+         * PeekChecksumStateUnderLock(auStack_230) in the ELSE branch.
+         * See tools/encodeoutgoingpacketfield_sites.json. */
+        EncodeOutgoingPacketField(auStack_230, 0);
         SUBFIELD(local_4,0,undefined1) = 4;
         SyncOutgoingChecksumField(param_2 + 0x10,auStack_230);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -122,11 +137,23 @@ LAB_004399d4:
         if (cVar3 != '\0') {
           uStack_10 = 0;
           uStack_21c = 0;
-          EncodeOutgoingPacketField(0);
+          /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+           * 0x439be2 (`lea edi,[esp + 0x2c]`): same esp offset/zero-init
+           * pattern (uStack_21c above) as the IF branch's call to
+           * auStack_230 above - the same stack-scratch cell, also passed
+           * to PeekChecksumStateUnderLock(auStack_230) below. See
+           * tools/encodeoutgoingpacketfield_sites.json. */
+          EncodeOutgoingPacketField(auStack_230, 0);
           local_4 = 1;
           uStack_234 = 0;
           uStack_440 = 0;
-          EncodeOutgoingPacketField(0);
+          /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+           * 0x439c0e (`lea edi,[esp + 0x250]`): same esp offset/zero-init
+           * pattern (uStack_440 above) as the IF branch's call to
+           * auStack_454 above; this branch's own SyncOutgoingChecksumField
+           * call below passes auStack_454 as the cell pointer directly.
+           * See tools/encodeoutgoingpacketfield_sites.json. */
+          EncodeOutgoingPacketField(auStack_454, 0);
           SUBFIELD(local_4,0,undefined1) = 2;
           QueueOutgoingPacketField(param_3);
           QueueOutgoingPacketField(param_4);

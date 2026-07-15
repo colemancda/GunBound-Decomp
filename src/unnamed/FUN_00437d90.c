@@ -45,10 +45,21 @@ void FUN_00437d90(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
     piVar7[0xe] = 0x17d1;
     piVar7[0xe25] = 0x1f4d;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(param_2);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x437e3a
+     * (`lea edi,[ebp + 0x40]`, ebp = the constructed projectile object
+     * piVar7, built here via InitProjectile(piVar2,0x186a4)): piVar7+0x40
+     * matches InitProjectile.c's own cell #1 (param_2+0x40, tableHandle
+     * (+0x14)=param_2[0x15], activeFlag(+0x220) both zeroed together
+     * there), confirming the same CProjectile cell layout. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField((int)piVar7 + 0x40, param_2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(param_3);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x437e5e
+     * (`lea edi,[ebp + 0x264]`, ebp = piVar7): matches InitProjectile.c's
+     * cell #2 (param_2+0x264). See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField((int)piVar7 + 0x264, param_3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     param_4 = param_4 & 0x80000007;
     if ((int)param_4 < 0) {
@@ -65,7 +76,12 @@ void FUN_00437d90(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
     uVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(uVar4);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x437ef6
+     * (`lea edi,[ebp + 0x17e4]`, ebp = piVar7): a later cell on the same
+     * projectile object, already initialized during InitProjectile above
+     * and reused here for the checksum-state value. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField((int)piVar7 + 0x17e4, uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     piVar7[0xe26] = DAT_00553bf4;
     piVar7[0xe27] = DAT_00553bf8;

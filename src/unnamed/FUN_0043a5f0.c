@@ -29,7 +29,12 @@ void FUN_0043a5f0(void)
     for (piVar2 = (int *)piVar4[4]; piVar4 != piVar2; piVar2 = (int *)piVar2[4]) {
       (**(code **)(*piVar2 + 0x14))();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(uVar3);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x43a647
+       * (`lea edi,[esi+0xb30]`, esi = this file's own loop variable piVar2,
+       * confirmed by objdump of orig/GunBound.gme). piVar2 is `int *`
+       * (scales by 4), so the byte offset is taken via `(int)piVar2 +
+       * 0xb30`. See tools/encodeoutgoingpacketfield_sites.json. */
+      EncodeOutgoingPacketField((int)piVar2 + 0xb30, uVar3);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
   }

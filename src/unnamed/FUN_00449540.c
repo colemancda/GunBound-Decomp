@@ -53,7 +53,12 @@ void FUN_00449540(int param_1,undefined4 param_2)
     puVar15 = puVar15 + 1;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0xffffffff);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x44958b
+   * (`lea edi,[esi+4]`, esi = this file's own param_1, confirmed by
+   * objdump of orig/GunBound.gme matching this file's own `param_1 +
+   * 0x2d114`-style offsets): the cell is param_1+4. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField(param_1 + 4, 0xffffffff);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined4 *)(param_1 + 0x44c) = param_2;
   *(undefined4 *)(param_1 + 0x450) = 0;

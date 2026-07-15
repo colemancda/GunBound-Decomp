@@ -92,7 +92,14 @@ void __fastcall FUN_0044d9b0(int *param_1)
       puStack_8 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar7);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x44da80 (edi set by `lea edi,[esi+0x1e54]` at the
+       * InitGuardedChecksumSlot call above, unchanged since) the cell is
+       * param_1+0x795 (== esi+0x1e54), the same cell just passed to
+       * InitGuardedChecksumSlot/EncodeChecksumDeltaDiv above. Same
+       * evidence pattern for all 6 InitGuardedChecksumSlot-guarded cells
+       * below. See tools/encodeoutgoingpacketfield_sites.json. */
+      EncodeOutgoingPacketField(param_1 + 0x795, uVar7);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       puStack_8 = (undefined1 *)0;
       if (iStack_88c != 0) {
@@ -112,7 +119,7 @@ void __fastcall FUN_0044d9b0(int *param_1)
       puStack_8 = (undefined1 *)3;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar7);
+      EncodeOutgoingPacketField(param_1 + 0x81e, uVar7);
       (*pcVar16)(&DAT_005a9068);
       uStack_c = 2;
       if (iStack_ab4 != 0) {
@@ -132,7 +139,7 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uStack_c = 5;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar7);
+      EncodeOutgoingPacketField(param_1 + 0x8a7, uVar7);
       (*pcVar16)(&DAT_005a9068);
       uStack_10 = 4;
       if (iStack_ab8 != 0) {
@@ -152,7 +159,7 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uStack_10 = 7;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar7);
+      EncodeOutgoingPacketField(param_1 + 0x930, uVar7);
       (*pcVar16)(&DAT_005a9068);
       uStack_14 = 6;
       if (iStack_abc != 0) {
@@ -172,7 +179,7 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uStack_14 = 9;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar7);
+      EncodeOutgoingPacketField(param_1 + 0x9b9, uVar7);
       (*pcVar16)(&DAT_005a9068);
       uStack_18 = 8;
       if (iStack_ac0 != 0) {
@@ -192,7 +199,7 @@ void __fastcall FUN_0044d9b0(int *param_1)
       uStack_18 = 0xb;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar7);
+      EncodeOutgoingPacketField(param_1 + 0xa42, uVar7);
       (*pcVar16)(&DAT_005a9068);
       uStack_4 = 10;
       if (iStack_aac != 0) {
@@ -218,12 +225,17 @@ LAB_0044df28:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iStack_ae0 = PeekPacketChecksumState();
   iVar6 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar6 + iStack_ae0);
+  /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+   * 0x44df59/0x44df8f (`lea edi,[esi+0x40]` / `lea edi,[esi+0x264]`,
+   * esi = this file's own param_1) two distinct CValueGuard cells at
+   * (int)param_1+0x40 and (int)param_1+0x264. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)param_1 + 0x40, iVar6 + iStack_ae0);
   (*pcVar16)(&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = PeekPacketChecksumState();
   iVar8 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar8 + iVar6);
+  EncodeOutgoingPacketField((int)param_1 + 0x264, iVar8 + iVar6);
   (*pcVar16)(&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
   cVar5 = PeekPacketChecksumBool();
@@ -232,7 +244,10 @@ LAB_0044df28:
     uStack_10 = 0xc;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar7);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x44e38c (`lea edi,[esi+0xf54]`) the cell is (int)param_1+0xf54.
+     * See tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField((int)param_1 + 0xf54, uVar7);
     (*pcVar16)(&DAT_005a9068);
     uStack_14 = 0xffffffff;
     if (iStack_abc != 0) {
@@ -244,7 +259,13 @@ LAB_0044df28:
     uStack_14 = 0xd;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar7);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x44e411 (`mov edi,dword ptr [esp+0x10]`) - traced back to
+     * `lea edx,[esi+0x1178]; mov [esp+0x14],edx` a few instructions
+     * earlier (same physical stack slot once the pending-push offset is
+     * accounted for): the cell is (int)param_1+0x1178. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField((int)param_1 + 0x1178, uVar7);
     (*pcVar16)(&DAT_005a9068);
     uStack_18 = 0xffffffff;
     if (iStack_ac0 != 0) {

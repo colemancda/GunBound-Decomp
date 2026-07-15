@@ -30,10 +30,23 @@ void FUN_00436150(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
     }
     local_4 = 0xffffffff;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(param_2);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x4361bd (`lea edi,[esi + 0x38]`, esi = the object just
+     * constructed above via FUN_004a6920(pvVar2), returned/kept in
+     * `iVar3`, not this function's own (unused) param_1): cell is
+     * iVar3+0x38, the same checksum-cell offset FUN_004a6920.c zero-
+     * inits for its own `this`. `iVar3` is plain `int`, so byte offsets
+     * add directly. Confirmed by the later `*(undefined1 *)(iVar3 +
+     * 0x4a8)` use of the same `iVar3` as this object's base. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(iVar3 + 0x38, param_2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(param_3);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x4361e1 (`lea edi,[esi + 0x25c]`, esi = iVar3, same object as
+     * above): cell is iVar3+0x25c, matching FUN_004a6920.c's second
+     * cell offset. See tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(iVar3 + 0x25c, param_3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined1 *)(iVar3 + 0x4a8) = param_4;
     RegisterActiveObject(0, 0, (undefined4 *)0);

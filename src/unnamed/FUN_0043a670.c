@@ -178,14 +178,19 @@ LAB_0043a6e0:
       }
       piVar2[0x2c2a] = 0;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(0);
+      /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+       * 0x43ac42/0x43ac5d/0x43ac80 (`lea edi,[esi+0xb0bc]` /
+       * `lea edi,[esi+0xb2e0]` / `lea edi,[esi+0xb30]`, esi = this loop's
+       * own piVar2) three distinct CValueGuard cells at (int)piVar2+0xb0bc,
+       * +0xb2e0 and +0xb30. See tools/encodeoutgoingpacketfield_sites.json. */
+      EncodeOutgoingPacketField((int)piVar2 + 0xb0bc, 0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(0);
+      EncodeOutgoingPacketField((int)piVar2 + 0xb2e0, 0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = (**(code **)(*piVar2 + 0x14))();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(uVar7);
+      EncodeOutgoingPacketField((int)piVar2 + 0xb30, uVar7);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       pcVar13 = pcVar4;
     }
@@ -201,23 +206,31 @@ LAB_0043a6b7:
   }
   for (iVar3 = *(int *)(iVar6 + 0x10); iVar6 != iVar3; iVar3 = *(int *)(iVar3 + 0x10)) {
     (*pcVar13)(&DAT_005a9068);
-    EncodeOutgoingPacketField(0);
+    /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+     * 0x43acdf/0x43ad04/0x43ad1f/0x43ad3a/0x43ad5c (`lea edi,[esi+0x8c8]`
+     * / `lea edi,[esi+0xf40]` / `lea edi,[esi+0x1164]` /
+     * `lea edi,[esi+0x15ac]` / `lea edi,[esi+0x1c1c]`, esi = this loop's
+     * own iVar3) five distinct CValueGuard cells at iVar3+0x8c8/0xf40/
+     * 0x1164/0x15ac/0x1c1c; the last is confirmed re-used by the
+     * PeekPacketChecksumState() just below (same edi). See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(iVar3 + 0x8c8, 0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puVar18 = &DAT_005a9068;
     *(undefined4 *)(iVar3 + 0xaec) = 0;
     (*pcVar13)();
-    EncodeOutgoingPacketField(0);
+    EncodeOutgoingPacketField(iVar3 + 0xf40, 0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (*pcVar13)();
-    EncodeOutgoingPacketField(0);
+    EncodeOutgoingPacketField(iVar3 + 0x1164, 0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puVar17 = &DAT_005a9068;
     (*pcVar13)();
-    EncodeOutgoingPacketField(0);
+    EncodeOutgoingPacketField(iVar3 + 0x15ac, 0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (*pcVar13)(&DAT_005a9068);
     iVar8 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(iVar8 + 1);
+    EncodeOutgoingPacketField(iVar3 + 0x1c1c, iVar8 + 1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (*pcVar13)(&DAT_005a9068);
     PeekPacketChecksumState();
@@ -233,7 +246,12 @@ LAB_0043a6b7:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (cVar16 != '\0') {
         (*pcVar13)(&DAT_005a9068);
-        EncodeOutgoingPacketField(2);
+        /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+         * 0x43addb (`lea edi,[esi+0x38]`, esi = this loop's own iVar3)
+         * the cell is iVar3+0x38 - the same cell whose
+         * PeekPacketChecksumState() was just compared against 3 above.
+         * See tools/encodeoutgoingpacketfield_sites.json. */
+        EncodeOutgoingPacketField(iVar3 + 0x38, 2);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
     }
@@ -258,7 +276,10 @@ LAB_0043a6b7:
     puVar17 = (undefined *)0x2710;
 LAB_0043ae95:
     (*pcVar13)(&DAT_005a9068);
-    EncodeOutgoingPacketField(puVar17);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x43aea3
+     * (`lea edi,[esi+0x480]`, esi = this loop's own iVar3) the cell is
+     * iVar3+0x480. See tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(iVar3 + 0x480, puVar17);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (local_21c != 0) {

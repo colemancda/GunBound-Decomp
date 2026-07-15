@@ -62,16 +62,22 @@ void __fastcall FUN_0044c950(int *param_1)
   puStack_8 = &LAB_00540762;
   uStack_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_c;
+  /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at 0x44c9a0/
+   * 0x44c9dc (edi loaded from esi+0x40/esi+0x264). esi == param_1 here:
+   * 0x40/4 == 0x10 and 0x264/4 == 0x99, which are exactly the
+   * `param_1 + 0x10` and `param_1 + 0x99` cells this file threads through
+   * EncodeChecksumDeltaShr a few lines below. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   iVar5 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar5 + iVar4);
+  EncodeOutgoingPacketField(param_1 + 0x10, iVar5 + iVar4);
   pcVar13 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   iVar5 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar5 + iVar4);
+  EncodeOutgoingPacketField(param_1 + 0x99, iVar5 + iVar4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar20 = '\0';
   (**(code **)(*param_1 + 0x14))();
@@ -81,7 +87,12 @@ void __fastcall FUN_0044c950(int *param_1)
     puStack_8 = (undefined1 *)0x8;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar7);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x44ce1d
+     * (edi loaded from esp+0x48). This is the `auStack_ac4` scratch cell
+     * EncodeChecksumDeltaShr just wrote its delta-encoded result into
+     * above (the Peek immediately before this call reads that same
+     * cell). See tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(auStack_ac4, uVar7);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
@@ -93,7 +104,11 @@ void __fastcall FUN_0044c950(int *param_1)
     puStack_8 = (undefined1 *)0x9;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar7);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x44ce49
+     * (edi loaded from esp+0x26c); same `auStack_ac4` scratch cell as the
+     * call above, reused after the second EncodeChecksumDeltaShr. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(auStack_ac4, uVar7);
     (*pcVar13)(&DAT_005a9068);
     uStack_c = 0xffffffff;
     if (uStack_ab4 != 0) {
@@ -379,13 +394,28 @@ LAB_0044cd15:
       apuStack_adc[0] = (undefined4 *)(&DAT_006a7f74 + iVar4);
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
+        /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+         * 0x44cf0b/0x44cf31 (edi loaded from esp+0x26c/esp+0x48). The
+         * zero-write pairs above each call match tableHandle(+0x14)/
+         * activeFlag(+0x220): auStack_680[0]/uStack_88c pin a cell base at
+         * uStack_88c-0x14 == `auStack_8a0`; auStack_8a4[0]/iStack_ab0 pin
+         * a second cell base at iStack_ab0-0x14 == `auStack_ac4` (this
+         * file's own scratch cell, reused right below by
+         * SyncOutgoingChecksumField). Ghidra fragmented these two
+         * adjacent 0x224-byte CValueGuard cells into several smaller
+         * named locals (auStack_ac4[16]/uStack_ab4/iStack_ab0/
+         * auStack_8a4[4] span exactly 0x220 bytes ending at auStack_8a4,
+         * i.e. tableHandle..activeFlag of one cell, with auStack_8a0
+         * starting exactly 0x224 bytes after auStack_ac4 as the next
+         * cell) - only the directly-touched bytes got names. See
+         * tools/encodeoutgoingpacketfield_sites.json. */
         auStack_680[0] = 0;
         uStack_88c = 0;
-        EncodeOutgoingPacketField(0);
+        EncodeOutgoingPacketField(auStack_8a0, 0);
         puStack_8 = (undefined1 *)0x3;
         auStack_8a4[0] = 0;
         iStack_ab0 = 0;
-        EncodeOutgoingPacketField(0);
+        EncodeOutgoingPacketField(auStack_ac4, 0);
         SUBFIELD(puStack_8,0,undefined1) = 4;
         SyncOutgoingChecksumField(iStack_ac8 + 0x10,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -410,13 +440,22 @@ LAB_0044cfdd:
       else {
         cVar3 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&uStack_ad0,&uStack_ad4,2,1,1);
         if (cVar3 != '\0') {
+          /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+           * 0x44d3c6/0x44d44b (edi loaded from esi+0xf54 / dword ptr
+           * [esp+0x20] - stack-spilled reloads of the same two lea'd
+           * cells at different points, matching the same zero-write-pair
+           * derivation as the mirror branch above): auStack_8a4[0]/
+           * iStack_ab0 pin `auStack_ac4`; auStack_680[0]/uStack_88c pin
+           * `auStack_8a0` (confirmed again by SyncOutgoingChecksumField
+           * reusing auStack_8a0 right below). See
+           * tools/encodeoutgoingpacketfield_sites.json. */
           auStack_8a4[0] = 0;
           iStack_ab0 = 0;
-          EncodeOutgoingPacketField(0);
+          EncodeOutgoingPacketField(auStack_ac4, 0);
           puStack_8 = (undefined1 *)0x1;
           auStack_680[0] = 0;
           uStack_88c = 0;
-          EncodeOutgoingPacketField(0);
+          EncodeOutgoingPacketField(auStack_8a0, 0);
           SUBFIELD(puStack_8,0,undefined1) = 2;
           QueueOutgoingPacketField(uStack_ad0);
           QueueOutgoingPacketField(uStack_ad4);
