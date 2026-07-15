@@ -95,7 +95,7 @@ FUN_0041ef90(int param_1,undefined1 param_2,byte param_3,undefined4 param_4,int 
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = FUN_0041b410();
+  iVar4 = WrapChatLineText();
   *(undefined4 *)(param_1 + 0x59154 + *(int *)(param_1 + 0x58b60) * 4) = param_6;
   *(undefined1 *)(*(int *)(param_1 + 0x58b60) + 0x58c4a + param_1) = param_2;
   *(undefined2 *)(param_1 + 0x5917c + *(int *)(param_1 + 0x58b60) * 2) = param_7;
@@ -105,7 +105,7 @@ FUN_0041ef90(int param_1,undefined1 param_2,byte param_3,undefined4 param_4,int 
     if (8 < iVar6) {
       FUN_0041ee10();
     }
-    FUN_0041b410();
+    WrapChatLineText();
     *(undefined4 *)(param_1 + 0x59154 + *(int *)(param_1 + 0x58b60) * 4) = param_6;
     *(undefined1 *)(*(int *)(param_1 + 0x58b60) + 0x58c4a + param_1) = param_2;
     *(undefined2 *)(param_1 + 0x5917c + *(int *)(param_1 + 0x58b60) * 2) = 0;

@@ -165,7 +165,7 @@ LAB_0041bac3:
   } while (cVar1 != '\0');
   cVar1 = (param_7 == '\0') * '\b' + 'H';
   local_98 = (undefined4)((uint)(param_7 == '\0') * 4 + 9);
-  iVar6 = FUN_0041b410(pcVar4 + (int)(pcVar5 + ((2 - (int)pcVar11) - (int)pcVar3)),in_EAX,cVar1);
+  iVar6 = WrapChatLineText(pcVar4 + (int)(pcVar5 + ((2 - (int)pcVar11) - (int)pcVar3)),in_EAX,cVar1);
   iVar9 = *(int *)(param_1 + 0x3b980) + 1;
   *(int *)(param_1 + 0x3b980) = iVar9;
   if (0 < iVar6) {
@@ -177,7 +177,7 @@ LAB_0041bac3:
     *(undefined1 *)(param_1 + (*(int *)(param_1 + 0x3b980) + 0x2fda) * 0x14) = 0;
     *(undefined2 *)(param_1 + 0x3f73c + *(int *)(param_1 + 0x3b980) * 2) = 0;
     *(char *)(*(int *)(param_1 + 0x3b980) + 0x3c4d8 + param_1) = param_2;
-    FUN_0041b410(pcVar4 + (int)(pcVar5 + ((2 - (int)pcVar11) - (int)pcVar3)),in_EAX - iVar6,cVar1);
+    WrapChatLineText(pcVar4 + (int)(pcVar5 + ((2 - (int)pcVar11) - (int)pcVar3)),in_EAX - iVar6,cVar1);
     if (*(int *)(param_1 + 0x3b97c) == *(int *)(param_1 + 0x3b980) - (int)local_98) {
       *(int *)(param_1 + 0x3b97c) = *(int *)(param_1 + 0x3b97c) + 1;
     }
