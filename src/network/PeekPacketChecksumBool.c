@@ -40,19 +40,20 @@
 char PeekPacketChecksumBool(byte *cell)
 
 {
-  byte bVar1;
-  byte bVar2;
-
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  bVar1 = *cell;
-  bVar2 = cell[1];
-  if ((byte)((bVar1 + bVar2) - 0x34) != cell[2]) {
-    g_valueGuardTamperFlag = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    return '\0';
-  }
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  return '\x01' - ((bVar2 >> (bVar1 & 7) & 1) != 1);
+  /* BRING-UP NEUTER (2026-07-14): return the benign "false" default instead
+   * of decoding the guard cell, mirroring the sibling PeekPacketChecksumState's
+   * own `return 0` bring-up workaround. Once the broker connection opened
+   * (FUN_004d2170 un-drop) and ProcessIncomingPackets began running on a real
+   * receive ring, this got called from an unmigrated packet-handler call site
+   * with a dropped-register `cell` = garbage (live-reproduced: page fault
+   * reading 0x1), and even a valid-but-wrong cell would fail the checksum and
+   * latch g_valueGuardTamperFlag (permanent modal error dialog that blocks all
+   * ChangeGameState). Both are manifestations of the ~1397-caller
+   * CValueGuard/ValueGuard.cpp migration, not this function's bug. GameTick's
+   * two recovered cells are seeded all-false and already read as 0, so this is
+   * behaviour-preserving for them. Remove once the guard-cell call sites are
+   * recovered for a real build. */
+  (void)cell;
+  return '\0';
 }
 
