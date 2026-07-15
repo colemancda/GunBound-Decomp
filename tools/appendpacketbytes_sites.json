@@ -1,0 +1,92 @@
+[
+  {
+    "caller_block": "0x422db7",
+    "call_addr": "0x422dbc",
+    "func_name": "sub_421d39",
+    "func_addr": "0x421d39",
+    "eax": null,
+    "eax_src": null,
+    "edx": "ecx",
+    "edx_src": "0x422dba: mov edx,ecx"
+  },
+  {
+    "caller_block": "0x4289ed",
+    "call_addr": "0x4289fb",
+    "func_name": "sub_4285c0",
+    "func_addr": "0x4285c0",
+    "eax": "dword ptr [0x7934e8]",
+    "eax_src": "0x4289a7: mov eax,dword ptr [0x7934e8]",
+    "edx": "&([esi + esi])",
+    "edx_src": "0x4289f7: lea edx,[esi + esi]"
+  },
+  {
+    "caller_block": "0x428a87",
+    "call_addr": "0x428a8f",
+    "func_name": "sub_4285c0",
+    "func_addr": "0x4285c0",
+    "eax": "dword ptr [0x7934e8]",
+    "eax_src": "0x428a53: mov eax,dword ptr [0x7934e8]",
+    "edx": "&([ecx + ecx])",
+    "edx_src": "0x428a87: lea edx,[ecx + ecx]"
+  },
+  {
+    "caller_block": "0x44714b",
+    "call_addr": "0x447158",
+    "func_name": "sub_446e3d",
+    "func_addr": "0x446e3d",
+    "eax": "ecx",
+    "eax_src": "0x447156: mov eax,ecx",
+    "edx": "edi",
+    "edx_src": "0x447154: mov edx,edi"
+  },
+  {
+    "caller_block": "0x4b7f37",
+    "call_addr": "0x4b7f45",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "eax": "esi",
+    "eax_src": "0x4b7f43: mov eax,esi",
+    "edx": "eax",
+    "edx_src": "0x4b7f41: mov edx,eax"
+  },
+  {
+    "caller_block": "0x4d55a9",
+    "call_addr": "0x4d55ac",
+    "func_name": "sub_4d55a9",
+    "func_addr": "0x4d55a9",
+    "eax": null,
+    "eax_src": null,
+    "edx": "ecx",
+    "edx_src": "0x4d55aa: mov edx,ecx"
+  },
+  {
+    "caller_block": "0x4d5987",
+    "call_addr": "0x4d598c",
+    "func_name": "sub_4d55f7",
+    "func_addr": "0x4d55f7",
+    "eax": "dword ptr [0x7934e8]",
+    "eax_src": "0x4d595b: mov eax,dword ptr [0x7934e8]",
+    "edx": "ecx",
+    "edx_src": "0x4d598a: mov edx,ecx"
+  },
+  {
+    "caller_block": "0x5077ba",
+    "call_addr": "0x5077e8",
+    "func_name": "sub_507660",
+    "func_addr": "0x507660",
+    "eax": "esi",
+    "eax_src": "0x5077e6: mov eax,esi",
+    "edx": "dword ptr [ebx - 0xc]",
+    "edx_src": "0x5077e2: mov edx,dword ptr [ebx - 0xc]"
+  },
+  {
+    "caller_block": "0x50d98d",
+    "call_addr": "0x50d995",
+    "func_name": "sub_50d810",
+    "func_addr": "0x50d810",
+    "eax": "dword ptr [0x7934f0]",
+    "eax_src": "0x50d95f: mov eax,dword ptr [0x7934f0]",
+    "edx": "&([ecx + ecx])",
+    "edx_src": "0x50d98d: lea edx,[ecx + ecx]"
+  }
+]

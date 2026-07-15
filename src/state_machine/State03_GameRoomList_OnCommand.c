@@ -15,7 +15,8 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
   char cVar3;
   int iVar4;
   undefined4 uVar5;
-  
+  int iVar6;
+
   iVar2 = DAT_007934e8;
   iVar4 = g_clientContext;
   if (param_2 != 0) {
@@ -173,7 +174,21 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
       *(undefined4 *)(iVar2 + 0x44d0) = 6;
       iVar4 = *(int *)(param_1 + 0x118) + 1;
       *(int *)(param_1 + 0x11c) = iVar4;
-      AppendPacketBytes(g_serverSelectRecords + iVar4 * 0xc);
+      /* 0x4289a7-0x4289fb: this whole bounded-count computation was
+       * entirely dropped by Ghidra. Real disasm: iVar6 starts as
+       * g_serverSelectRecordCount (0xe54ca4); if iVar4*6+6 <= iVar6,
+       * iVar6 becomes the remaining-record count (iVar6-iVar4*6),
+       * otherwise it's clamped to 6; the byte count passed to
+       * AppendPacketBytes is iVar6*2. self=iVar2 (DAT_007934e8, still
+       * live from the top of this function). */
+      iVar6 = g_serverSelectRecordCount;
+      if (iVar4 * 6 + 6 <= iVar6) {
+        iVar6 = iVar6 - iVar4 * 6;
+      }
+      else {
+        iVar6 = 6;
+      }
+      AppendPacketBytes(0,iVar2,(uint)(iVar6 * 2),g_serverSelectRecords + iVar4 * 0xc);
       goto LAB_004287a5;
     }
     *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
@@ -203,7 +218,15 @@ LAB_004287a5:
       *(undefined4 *)(iVar2 + 0x44d0) = 6;
       *(undefined4 *)(param_1 + 0x118) = 0;
       *(undefined4 *)(param_1 + 0x11c) = 0;
-      AppendPacketBytes(g_serverSelectRecords);
+      /* 0x428a53-0x428a8f: another dropped bounded-count computation.
+       * Real disasm: iVar6 = min(g_serverSelectRecordCount, 6); the byte
+       * count passed to AppendPacketBytes is iVar6*2. self=iVar2
+       * (DAT_007934e8, reloaded just above at the top of this case). */
+      iVar6 = g_serverSelectRecordCount;
+      if (6 <= iVar6) {
+        iVar6 = 6;
+      }
+      AppendPacketBytes(0,iVar2,(uint)(iVar6 * 2),g_serverSelectRecords);
       SendOutgoingPacket(iVar2);
       RefreshGameRoomListControls();
       *(undefined4 *)(param_1 + 4) = 0xffffffff;

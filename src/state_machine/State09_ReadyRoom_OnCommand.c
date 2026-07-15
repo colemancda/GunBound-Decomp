@@ -79,7 +79,14 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
           cVar2 = *pcVar12;
           pcVar12 = pcVar12 + 1;
         } while (cVar2 != '\0');
-        AppendPacketBytes(pcVar13);
+        /* FIXED (2026-07-15): dropped `self`/`count` args - disasm-
+         * confirmed at 0x4d55ac. self=EAX=DAT_007934e8, loaded at 0x4d5583
+         * and never clobbered before the call - same as iVar10 above (the
+         * automated scan's null hint missed this because of the distance).
+         * count=EDX=ECX, the strlen of pcVar13 computed by the do-while
+         * loop just above (0x4d559d-0x4d55a7: `sub ecx,edi`) = pcVar12 -
+         * pcVar13 - 1. */
+        AppendPacketBytes(0,iVar10,(uint)(pcVar12 - pcVar13 - 1),pcVar13);
         uVar3 = SendOutgoingPacket(iVar10);
         return uVar3;
       }
@@ -321,7 +328,14 @@ LAB_004d588d:
         cVar2 = *pcVar13;
         pcVar13 = pcVar13 + 1;
       } while (cVar2 != '\0');
-      AppendPacketBytes((char *)(param_1 + 0x62d));
+      /* FIXED (2026-07-15): dropped `self`/`count` args - disasm-confirmed
+       * at 0x4d598c. self=EAX=DAT_007934e8 (=iVar10 above). count=EDX=ECX,
+       * the strlen of (param_1+0x62d) computed by the do-while loop just
+       * above (0x4d597b-0x4d5987: `sub ecx,edi`) = pcVar13 -
+       * (param_1+0x62d) - 1 (pcVar13 is itself the loop cursor here, left
+       * pointing 1 past the terminator). */
+      AppendPacketBytes(0,iVar10,(uint)(pcVar13 - (char *)(param_1 + 0x62d) - 1),
+                         (char *)(param_1 + 0x62d));
       SendOutgoingPacket(iVar10);
       PanelManager_Unregister(&g_uiPanelManager);
       InvokeWidget(8,1);

@@ -546,7 +546,11 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
                 cVar1 = *pcVar2;
                 pcVar2 = pcVar2 + 1;
               } while (cVar1 != '\0');
-              AppendPacketBytes(param_2);
+              /* 0x422d8c-0x422dbc: eax=DAT_007934e8 (self, ==iVar4 here,
+               * unmodified since it was loaded above), edx=strlen(param_2)
+               * (pcVar2 already walked to one past the NUL from the loop
+               * above), pushed param_2 unchanged as the source pointer. */
+              AppendPacketBytes(0,iVar4,(uint)(pcVar2 - param_2 - 1),param_2);
               SendOutgoingPacket(iVar4);
               return 1;
             }

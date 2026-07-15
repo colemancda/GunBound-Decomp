@@ -856,7 +856,12 @@ LAB_00446f6d:
           cVar1 = *pcVar13;
           pcVar13 = pcVar13 + 1;
         } while (cVar1 != '\0');
-        AppendPacketBytes(param_1 + 0x32d63);
+        /* 0x4470ec-0x447158: ecx=DAT_007934e8 (self, ==iVar9, unmodified
+         * since it was loaded well above) moved into eax right before the
+         * call; edx=strlen(param_1+0x32d63) from the loop directly above
+         * (pcVar13 walked to one past the NUL); pushed param_1+0x32d63
+         * unchanged as the source pointer. */
+        AppendPacketBytes(0,iVar9,(uint)(pcVar13 - (char *)(param_1 + 0x32d63) - 1),param_1 + 0x32d63);
         PeekChecksumStateUnderLock(iVar3);
         FUN_00426570();
         cVar1 = PeekPacketChecksumBool();

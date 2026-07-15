@@ -1240,7 +1240,13 @@ LAB_004b7fb2:
                 cVar2 = *pcVar5;
                 pcVar5 = pcVar5 + 1;
               } while (cVar2 != '\0');
-              AppendPacketBytes(local_26d8);
+              /* FIXED (2026-07-15): dropped `self`/`count` args - disasm-
+               * confirmed at 0x4b7f45 (`0x4b7ecd: mov esi,[0x7934e8]` ->
+               * self=iVar4/esi; count is the *second* do-while strlen scan
+               * just above (0x4b7f26-0x507f37: `sub eax,edx`), whose result
+               * was computed but never captured in C - equals
+               * pcVar5-local_26d8-1 after that loop). */
+              AppendPacketBytes(0,iVar4,(uint)(pcVar5 - local_26d8 - 1),local_26d8);
               EncodePacketBody(0,iVar4);
               SendOutgoingPacket(iVar4);
             }
