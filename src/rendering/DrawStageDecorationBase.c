@@ -41,7 +41,13 @@ int __fastcall DrawStageDecorationBase(int param_1)
         iVar3 = QueueSpriteFrameSpans();
         return iVar3;
       }
-      iVar2 = QueueTextureRegionSpans(400 - *(int *)(param_1 + 8));
+      /* QueueTextureRegionSpans dropped param_1(region index)/param_2
+       * (registry group) entirely, and in_EAX(y) was already the only
+       * visible arg - confirmed via objdump at 0x4e3c44: ECX=0(index),
+       * EDX=0xea60(group, same constant as the uVar1<0xea61/60000 tree
+       * search just above), ESI(y)=400-*(param_1+8) (pushed directly,
+       * matches this line's pre-existing expression exactly). */
+      iVar2 = QueueTextureRegionSpans(0,0xea60,400 - *(int *)(param_1 + 8));
     }
   }
   return iVar2;

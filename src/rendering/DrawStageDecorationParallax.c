@@ -54,7 +54,16 @@ LAB_004e3af8:
         QueueSpriteFrameSpans();
       }
       else {
-        QueueTextureRegionSpans(-(((*(int *)(iVar3 + 0x20) + -800) * (*(int *)(param_1 + 8) + -400)) /
+        /* QueueTextureRegionSpans dropped param_1(region index)/param_2
+         * (registry group) entirely, and in_EAX(y) was already the only
+         * visible arg - confirmed via objdump at 0x4e3bac: ECX=1(index,
+         * set once at function entry, matches the SECOND tree search's
+         * `cmp ecx,edx` throughout), EDX=0xea60(group, same constant as
+         * the uVar1<0xea61/60000 tree searches above), EAX(y)=the neg'd
+         * division result pushed at 0x4e3b9b before the branch - matches
+         * this line's pre-existing expression exactly. */
+        QueueTextureRegionSpans(1,0xea60,
+                      -(((*(int *)(iVar3 + 0x20) + -800) * (*(int *)(param_1 + 8) + -400)) /
                       (*(int *)(param_1 + 0x18) + -800)));
       }
     }
