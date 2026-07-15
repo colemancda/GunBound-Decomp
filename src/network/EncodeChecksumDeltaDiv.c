@@ -4,6 +4,14 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-07-15): all 3 EncodeOutgoingPacketField calls dropped
+ * `self` - same idiom/derivation as EncodeChecksumDeltaAdd.c (angr
+ * func_addr 0x40a8c0; the first call's cell shows as esp+0x24 instead
+ * of +0x20 there due to the intervening `if (param_3==0)` branch
+ * shifting the stack at that instruction, still the same local_21c
+ * cell): first two calls' self is local_21c's address minus 0x14,
+ * third call's self is param_2.
  */
 #include "ghidra_types.h"
 
@@ -28,18 +36,18 @@ int EncodeChecksumDeltaDiv(undefined4 param_1,int param_2,int param_3)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_10 = 0;
   local_21c = 0;
-  EncodeOutgoingPacketField(0);
+  EncodeOutgoingPacketField((char *)&local_21c - 0x14, 0);
   local_4 = 1;
   iVar1 = PeekPacketChecksumState();
   if (param_3 == 0) {
     param_3 = 1;
   }
-  EncodeOutgoingPacketField(iVar1 / param_3);
+  EncodeOutgoingPacketField((char *)&local_21c - 0x14, iVar1 / param_3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined1 *)(param_2 + 0x220) = 0;
   *(undefined4 *)(param_2 + 0x14) = 0;
   uVar2 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar2);
+  EncodeOutgoingPacketField((void *)param_2, uVar2);
   local_4 = local_4 & 0xffffff00;
   if (local_21c != 0) {
     ScrambleChecksumGuardBytes();
