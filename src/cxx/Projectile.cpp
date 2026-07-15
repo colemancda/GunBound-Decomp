@@ -144,6 +144,20 @@ char CompareChecksumExceeds(void *cellA, void *cellB);
 void AcquireSoundChannel(int a);
 int _rand(void);
 
+/* v1_SetState/v9_SetState/v8_Delete/v4_NoOp/v12_NoOp's dependencies - same
+ * shared functions ButtonWidget.cpp declares for CButtonWidget's identical
+ * vtable slots (0x461c60/0x40ca00/0x429800). See ButtonWidget.cpp's header
+ * comment for why v8_Delete uses the __fastcall+dummy-EDX cast (MSVC 7.1
+ * C4234: no explicit __thiscall on a free-function declaration) and why
+ * v1/v9's SetState logic is inlined here rather than calling the shared
+ * ResolveNamedState symbol (which stays a no-op stub - its other 15+
+ * callers still pass a single dropped argument under the old
+ * __fastcall(this) signature; promoting it for real crashed one of them at
+ * runtime). */
+void *DeletePoisonedBaseObject(void *thisPtr, int shouldFree);
+int FindStringNoCase(int *table, char *needle);
+void NoOpMethod(void);
+
 extern int g_clientContext;             /* _DAT_005b3484 */
 extern unsigned char DAT_006a7708;      /* address anchors: only ever used as    */
 extern unsigned char DAT_006a773c;      /* "&DAT_xxx + g_clientContext" bases -  */
@@ -1297,4 +1311,53 @@ void CProjectile::SimulateFrame(int stepDelta)
     }
 LAB_00457294:
     return;
+}
+
+/* Shared vtable-slot-1/9 implementation (0x461c60) - see this file's own
+ * extern "C" block above and ButtonWidget.cpp's CButtonWidget::SetState for
+ * the full derivation. Factored into one helper since CProjectile hooks the
+ * SAME underlying function to two different vtable slots (1 and 9). */
+static void ResolveProjectileState(CProjectile *self, const char *name)
+{
+    int *table = reinterpret_cast<int *>(self->m_texture);
+    if (table == 0) {
+        return;
+    }
+    int result = FindStringNoCase(table, const_cast<char *>(name));
+    self->m_state = result;
+    if (result != -1) {
+        self->m_unk20 = 1;
+        self->m_unk34 = 0;
+        self->m_unk2c = 0;
+        self->m_unk28 = 0;
+    } else {
+        self->m_unk20 = 0;
+        self->m_unk34 = 1;
+    }
+}
+
+void CProjectile::v1_SetState(const char *name)
+{
+    ResolveProjectileState(this, name);
+}
+
+void CProjectile::v9_SetState(const char *name)
+{
+    ResolveProjectileState(this, name);
+}
+
+void *CProjectile::v8_Delete(int shouldFree)
+{
+    typedef void *(__fastcall *DeleteFn)(void *, int, int);
+    return ((DeleteFn)&DeletePoisonedBaseObject)(this, 0, shouldFree);
+}
+
+void CProjectile::v4_NoOp()
+{
+    NoOpMethod();
+}
+
+void CProjectile::v12_NoOp()
+{
+    NoOpMethod();
 }

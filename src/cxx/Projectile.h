@@ -38,9 +38,17 @@ public:
     /* slot 0 +0x00: scalar-deleting destructor 0x455550 (-> real dtor 0x455570,
      * then conditional operator_delete). */
     virtual ~CProjectile();
-    /* slot 1 +0x04: 0x461c60 (shared) - acquire-handle; the same implementation
-     * used by CMobile's slot 1 (reads +0x1c, resolves via FindStringNoCase). */
-    virtual void v1_AcquireHandle();
+    /* slot 1 +0x04: 0x461c60 (shared) - RENAMED from v1_AcquireHandle
+     * (2026-07-15): angr-confirmed (see ButtonWidget.cpp's SetState, the
+     * same underlying function at the same address) this is the generic
+     * named-state string resolver, not a handle-acquire op - `this` (ECX)
+     * and a needle string (stack arg) were BOTH dropped from the original
+     * 0-arg declaration. Looks up `name` in the table at this+0x1c
+     * (m_texture) via FindStringNoCase, records the match in
+     * m_state/m_unk20/m_unk28/m_unk2c/m_unk34. See Projectile.cpp for the
+     * inlined implementation (same "don't call the shared ResolveNamedState
+     * symbol" reasoning as CButtonWidget::SetState). */
+    virtual void v1_SetState(const char *name);
     /* slot 2 +0x08: 0x48f1c0 = AnimateProjectileTick - per-frame animate tick:
      * dispatches slot 6 (Detonate), then advances the sprite animation
      * (AdvanceSpriteAnimation), bumping a small frame counter (+0x3b44) and
@@ -70,10 +78,15 @@ public:
     virtual void DetonateProjectile();
     /* slot 7 +0x1c: 0x458850 (vtable-only). */
     virtual void v7();
-    /* slot 8 +0x20: 0x40ca00 (a 32-byte thunk). */
-    virtual void v8();
-    /* slot 9 +0x24: 0x461c60 (shared acquire-handle again). */
-    virtual void v9_AcquireHandle();
+    /* slot 8 +0x20: 0x40ca00 - RENAMED from v8 (2026-07-15): confirmed the
+     * same address as CButtonWidget's slot 0 (Delete -
+     * DeletePoisonedBaseObject, see ButtonWidget.h/.cpp), a shared
+     * scalar-deleting destructor thunk reused across unrelated classes.
+     * Real signature drops `shouldFree` (this + 1 stack arg, __thiscall) -
+     * was declared 0-arg. */
+    virtual void *v8_Delete(int shouldFree);
+    /* slot 9 +0x24: 0x461c60 (shared, same rename/arg-fix as slot 1 above). */
+    virtual void v9_SetState(const char *name);
     /* slot 10 +0x28: 0x458ae0 (vtable-only). */
     virtual void v10();
     /* slot 11 +0x2c: 0x458b00 (vtable-only). */
@@ -88,7 +101,18 @@ public:
     u8  m_pad0c[0xc];    /* +0x0c */
     u32 m_spriteId;      /* +0x18: primary sprite/animation set id (spawners set 6000+shot) */
     u32 m_texture;       /* +0x1c: projectile texture handle (FindPreloadedTextureByName) */
-    u8  m_pad20[0x18];   /* +0x20 */
+    /* +0x20..0x37 (was one opaque m_pad20[0x18] blob): split 2026-07-15,
+     * confirmed via the v1_SetState/v9_SetState angr trace (0x461c60) -
+     * these are the same found-flag/state/inverse-flag fields
+     * CButtonWidget documents at the same offsets (ButtonWidget.h). +0x30
+     * remains an unmapped gap (untouched by 0x461c60). */
+    u8  m_unk20;         /* +0x20: found flag, set by v1/v9 SetState */
+    u8  m_unk21[3];      /* +0x21 padding */
+    u32 m_state;         /* +0x24: matched index, set by v1/v9 SetState */
+    u32 m_unk28;         /* +0x28: reset to 0 on a successful SetState match */
+    u32 m_unk2c;         /* +0x2c: reset to 0 on a successful SetState match */
+    u8  m_unk30[4];       /* +0x30: untouched by SetState - unmapped */
+    u32 m_unk34;         /* +0x34: inverse-found flag, set by v1/v9 SetState */
     u32 m_lifetime;      /* +0x38: spawner sets m_spriteId + 100 */
     u8  m_flags;         /* +0x3c: low 3 bits = a per-shot tag (retaddr & 7) */
     /* +0x3d..0x3f8f: mostly ~29 CValueGuard cells (0x224 stride from +0x54) and
