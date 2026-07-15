@@ -10,6 +10,10 @@
  * texture-cache family. Raw/near-verbatim port of Ghidra's decompiler output
  * otherwise, not hand-verified line-by-line. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-07-15): all 3 SetClipRect calls dropped their 4 corner
+ * args - real literal values recovered via angr at
+ * 0x4d7df0/0x4d7e85/0x4d7eac.
  */
 #include "ghidra_types.h"
 
@@ -62,7 +66,7 @@ void __fastcall State09_ReadyRoom_RenderRosterAndItems(int param_1)
   uStack_14 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_14;
   if (g_bBattleSessionActive != '\0') {
-    SetClipRect();
+    SetClipRect(0, 0x31f, 0x164, 0);
   }
   if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
@@ -74,7 +78,7 @@ void __fastcall State09_ReadyRoom_RenderRosterAndItems(int param_1)
   }
   _sprintf(local_928,(char *)&PTR_DAT_00551ecc,*(int *)(g_clientContext + 0x44e60) + 1);
   BlitSpriteText(0x46,local_928,3,0xb);
-  SetClipRect();
+  SetClipRect(0x5c, 0x112, 0x257, 0);
   iVar3 = g_clientContext;
   /* BlitRLESprite's this/param_1 and rleData (4th arg) were dropped in the
    * raw port - objdump at this call site (0x4d7e9d) shows ECX = 0x5c (the
@@ -84,7 +88,7 @@ void __fastcall State09_ReadyRoom_RenderRosterAndItems(int param_1)
    * chat/name text field (see State09_ReadyRoom_ProcessBattleAction.c and
    * State09_ReadyRoom_OnCommand.c's use of the same offset). */
   BlitRLESprite(0x5c,0xf,0xffff,(byte *)(iVar3 + 0x44e64));
-  SetClipRect();
+  SetClipRect(0, 0x31f, 0x257, 0);
   if (*(char *)(iVar3 + 0x44ee4) != '\0') {
     /* Same call shape as the previous site (0x4d7ecd): ECX = 0x12e,
      * EAX = (char *)(g_clientContext + 0x44e64), reused from the same

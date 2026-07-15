@@ -28,7 +28,7 @@ void BlitSpriteClipped(int frame);        /* software blit */
 void BlitRLESprite(int x, int color);
 int  _sprintf(char *buf, const char *fmt, ...);
 void BlitSpriteText(int x, const char *text, int a, int b); /* text prep */
-void SetClipRect(void);                  /* text draw step */
+void SetClipRect(int x1, int x2, int y1, int y2); /* text draw step */
 int  PeekPacketChecksumState(void);       /* decode one value-guarded field */
 void *GetLocalizedString(void *table, int id);
 
@@ -153,9 +153,17 @@ void CState03GameRoomList::RenderRoomCard(int slot)
     /* room number text (local room-card id + 1) */
     _sprintf(numText, (const char *)&PTR_DAT_00551ecc, Ctx_roomCardIds(ctx)[slot * 2] + 1);
     BlitSpriteText(0x14, numText, 3, 0xb);
-    SetClipRect();
+    /* FIXED (2026-07-15): both SetClipRect calls were dropping their 4
+     * corner args - see the raw-C sibling RenderRoomCard.c's own
+     * recovery comments for the full derivation (xBand/yBand here =
+     * that file's iVar7/iVar6). NOTE: the BlitRLESprite call between
+     * them is ALSO under-supplied (2 of its real 4 args) - matching this
+     * file's stale 2-arg `void BlitRLESprite(int x, int color)`
+     * declaration, shared with 6 other still-2-arg call sites below -
+     * out of scope for this pass, left as-is. */
+    SetClipRect(xBand + 0x37, xBand + 0xc1, yBand + 0x50, yBand + 0x44);
     BlitRLESprite(yBand + 0x44, 0xffff);
-    SetClipRect();
+    SetClipRect(0, 0x31f, 0x257, 0);
 
     /* fullness bar: info bits 18-19 (+0x44984) */
     u32 info = Ctx_roomInfo(ctx)[slot];

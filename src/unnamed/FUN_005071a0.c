@@ -13,6 +13,14 @@
  * i.e. `this` = *(param_1+0x28) - *(param_1+0x13c), and `rleData` =
  * (byte *)(param_1+0x38) - the same string field this function's own
  * strlen loops (local_8/local_4 computations above) already walk.
+ *
+ * FIXED (2026-07-15): both SetClipRect calls dropped their 4 corner
+ * args. Confirmed via angr: `ebx` at the first call is this function's
+ * own `param_1` (mov ebx,ecx at entry, __fastcall's this, never
+ * reassigned), so x1/x2/y1/y2 = *(param_1+0x28)/+0x30/+0x34/+0x2c - the
+ * +0x34 field isn't otherwise referenced in this file but is a real
+ * struct field (angr: mov esi,[ebx+0x34]). The second call is the
+ * standard full-screen reset (0,0x31f,0x257,0).
  */
 #include "ghidra_types.h"
 
@@ -32,7 +40,8 @@ void __fastcall FUN_005071a0(int param_1)
   if (*(char *)(param_1 + 0x1e) != '\0') {
     return;
   }
-  SetClipRect();
+  SetClipRect(*(int *)(param_1 + 0x28), *(int *)(param_1 + 0x30),
+              *(int *)(param_1 + 0x34), *(int *)(param_1 + 0x2c));
   if (*(char *)(param_1 + 0x1c) == '\0') {
     uVar5 = *(undefined4 *)(param_1 + 0x2c);
     uVar6 = 0x7bef;
@@ -86,7 +95,7 @@ void __fastcall FUN_005071a0(int param_1)
   BlitRLESprite(*(int *)(param_1 + 0x28) - *(int *)(param_1 + 0x13c),uVar5,uVar6,
                 (byte *)(param_1 + 0x38));
 LAB_005072f6:
-  SetClipRect();
+  SetClipRect(0, 0x31f, 0x257, 0);
   return;
 }
 

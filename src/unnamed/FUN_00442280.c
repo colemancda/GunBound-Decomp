@@ -3,6 +3,9 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-07-15): both SetClipRect calls dropped their 4 corner
+ * args - real literal values recovered via angr at 0x442363/0x4423c3.
  */
 #include "ghidra_types.h"
 
@@ -58,7 +61,7 @@ int __fastcall FUN_00442280(int param_1)
     }
     FUN_00442d50(param_1);
   }
-  SetClipRect();
+  SetClipRect(0x6b, 0x1b8, 0x257, 0);
   if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(0x6b,0x237);
@@ -67,7 +70,7 @@ int __fastcall FUN_00442280(int param_1)
       BlitSpriteClipped(0x16);
     }
   }
-  SetClipRect();
+  SetClipRect(0, 0x31f, 0x257, 0);
   bVar2 = *(byte *)(g_clientContext + 0x475c4);
   if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {

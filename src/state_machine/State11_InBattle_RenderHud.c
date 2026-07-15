@@ -688,7 +688,9 @@ LAB_004c9ba8:
   if ((*(int *)(param_1 + 0x10c4) != -1) && (*(int *)(param_1 + 0x10c8) != -1)) {
     FUN_004cfb20();
   }
-  SetClipRect();
+  /* FIXED (2026-07-15): dropped all 4 corner args - real literal values
+   * (full-screen reset) recovered via angr at 0x4c9be9. */
+  SetClipRect(0, 0x31f, 0x257, 0);
   FlushCompositorLayer(3);
   FUN_00408180(&DAT_006a647c + g_clientContext);
   iVar6 = g_clientContext;

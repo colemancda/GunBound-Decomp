@@ -107,7 +107,16 @@ void FUN_0042a680(int param_1)
   _sprintf(local_80,(char *)&PTR_DAT_00551ecc,
            *(int *)(g_clientContext + 0x44664 + *(int *)(param_1 + 0x124) * 4) + 1);
   BlitSpriteText(0x14,local_80,3,0xb);
-  SetClipRect();
+  /* FIXED (2026-07-15): SetClipRect's 4 corner args were all dropped.
+   * x1/x2 confirmed via the pre-existing comment below (ecx=iVar7+0x37,
+   * eax=iVar7+0xc1). y1/y2 needed a manual ESP-offset trace (angr's
+   * symbolic engine timed out on this function): the base register at
+   * the call (`mov ebx,[esp+0x2c]`) is a spilled copy of `iVar6+0x3a`
+   * (`add edx,0x3a; mov edi,edx; mov [esp+0x10],edi` right after iVar6's
+   * own `imul edx,edx,0x3c` computation) - so y2=ebx+0xa=iVar6+0x44
+   * (cross-validated: matches this file's own BlitRLESprite call 2 lines
+   * below exactly) and y1=ebx+0x16=iVar6+0x50. */
+  SetClipRect(iVar7 + 0x37, iVar7 + 0xc1, iVar6 + 0x50, iVar6 + 0x44);
   /* BlitRLESprite's dropped args (objdump @0x42aa45): ECX (this) carries
    * over unchanged from the SetClipRect call just above, whose own ECX
    * arg was `lea ecx,[ebp+0x37]` with ebp==iVar7 - so this = iVar7+0x37.
@@ -116,7 +125,7 @@ void FUN_0042a680(int param_1)
    * before this call with nothing in between to clobber it. */
   BlitRLESprite(iVar7 + 0x37,iVar6 + 0x44,0xffff,
                 (byte *)(g_clientContext + *(int *)(param_1 + 0x124) * 0x80 + 0x4467c));
-  SetClipRect();
+  SetClipRect(0, 0x31f, 0x257, 0);
   uVar3 = *(uint *)(g_clientContext + 0x44984 + *(int *)(param_1 + 0x124) * 4);
   if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {

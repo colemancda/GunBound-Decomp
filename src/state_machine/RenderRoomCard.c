@@ -112,7 +112,16 @@ void __thiscall RenderRoomCard(int param_1,int param_2)
   }
   _sprintf(local_80,(char *)&PTR_DAT_00551ecc,*(int *)(g_clientContext + 0x44664 + param_2 * 4) + 1);
   BlitSpriteText(0x14,local_80,3,0xb);
-  SetClipRect();
+  /* FIXED (2026-07-15): SetClipRect's 4 corner args were dropped. x1/x2
+   * confirmed by this file's own already-existing comment below
+   * (ecx=iVar7+0x37, eax=iVar7+0xc1 - NOT the BlitRLESprite args quoted
+   * there, which are for the DIFFERENT following call). y1/y2 traced via
+   * angr: `imul edx,edx,0x3c; add edx,0x3a; mov edi,edx` at 0x42a25c-
+   * 0x42a264 confirms old-edi = iVar6+0x3a (matching iVar6's own
+   * computation just above), so y2=old_edi+0xa=iVar6+0x44 and
+   * y1=old_edi+0x16=iVar6+0x50 - identical formula to FUN_0042a680.c's
+   * sibling call, cross-validated. */
+  SetClipRect(iVar7 + 0x37, iVar7 + 0xc1, iVar6 + 0x50, iVar6 + 0x44);
   /* BlitRLESprite's 1st arg (this/x-cursor, dropped to a bare `0` when the
    * raw port's call-site text wasn't updated for the promoted signature)
    * and 4th arg (rleData, dropped as `in_EAX`) recovered via objdump at
@@ -125,7 +134,7 @@ void __thiscall RenderRoomCard(int param_1,int param_2)
    * the room-card's player/host name buffer - see src/cxx/ClientContext.h
    * and ARCHITECTURE.md's 0x2105 packet handler). */
   BlitRLESprite(iVar7 + 0x37,iVar6 + 0x44,0xffff,(byte *)(g_clientContext + 0x4467c + param_2 * 0x80));
-  SetClipRect();
+  SetClipRect(0, 0x31f, 0x257, 0);
   uVar3 = *(uint *)(g_clientContext + 0x44984 + param_2 * 4);
   if ((DAT_0079352c != 0) && (iVar8 = FindSpriteFrame(), iVar8 != 0)) {
     if (*(char *)(iVar8 + 0x18) == '\x01') {

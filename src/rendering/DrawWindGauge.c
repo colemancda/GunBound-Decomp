@@ -3,6 +3,16 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-07-15): all 6 SetClipRect calls dropped their 4 corner
+ * args (see that file's own header for the recovery method). Two of the
+ * six also had their real x2 argument's SOURCE dropped by Ghidra
+ * entirely - not just the SetClipRect call, but the whole PeekPacket-
+ * ChecksumState() return value the arg depends on (one direct, one via
+ * a 3-call arithmetic expression `third*400/divisor+244` that never made
+ * it into this decompile at all) - both reconstructed from angr
+ * disassembly at their real call sites (iVar13/iVar14 locals added for
+ * this).
  */
 #include "ghidra_types.h"
 
@@ -23,6 +33,8 @@ void DrawWindGauge(int *param_1)
   uint uVar11;
   code *pcVar12;
   bool bVar13;
+  int iVar13;
+  int iVar14;
   int local_fa0;
   int local_f9c [2];
   uint local_f94;
@@ -129,9 +141,11 @@ LAB_00408159:
   EncodeChecksumDeltaAdd(uVar9,local_ce4,0xf4);
   local_4 = 2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  /* FIXED (2026-07-15): return value was discarded, but it's SetClipRect's
+   * real x2 arg (edi at orig 0x406c13-0x406c25, confirmed via angr). */
+  iVar13 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  SetClipRect();
+  SetClipRect(0, iVar13, 0x257, 0);
   local_4 = 1;
   if (local_cd0 != 0) {
     ScrambleChecksumGuardBytes();
@@ -160,7 +174,7 @@ LAB_00408159:
     uVar11 = *(uint *)(iVar2 + 4);
   }
 LAB_00406d42:
-  SetClipRect();
+  SetClipRect(0, 0x31f, 0x257, 0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -445,17 +459,25 @@ LAB_00407859:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    iVar13 = 1;
     if (0 < iVar2) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      /* FIXED (2026-07-15): Ghidra decompiled this call's return value as
+       * discarded, but it's the divisor SetClipRect's x2 arg needs below
+       * (edi at orig 0x4078e8-0x4078f2) - confirmed via angr, the whole
+       * `x2 = third*400/divisor + 244` expression was missing from this
+       * decompile entirely, not just the SetClipRect args. */
+      iVar13 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    /* FIXED (2026-07-15): same as above - real value (esi/eax at orig
+     * 0x407919-0x40792b), feeds the same missing expression. */
+    iVar14 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    SetClipRect();
+    SetClipRect(0, iVar14 * 0x190 / iVar13 + 0xf4, 0x257, 0);
     QueueSpriteSpansByContentId(7000);
-    SetClipRect();
+    SetClipRect(0, 0x31f, 0x257, 0);
     pcVar12 = (code *)EnterCriticalSection;
   }
   (*pcVar12)(&DAT_005a9068);
@@ -847,7 +869,7 @@ LAB_00407d9e:
     TreeLowerBound(local_f9c);
   }
 LAB_00407df7:
-  SetClipRect();
+  SetClipRect(0x7a, 0x129, 0x1e, 5);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -968,7 +990,7 @@ LAB_00408127:
   if (local_fa0 == 0) goto code_r0x00408142;
   goto LAB_00407fd0;
 code_r0x00408142:
-  SetClipRect();
+  SetClipRect(0, 0x31f, 0x257, 0);
   goto LAB_00408159;
 }
 

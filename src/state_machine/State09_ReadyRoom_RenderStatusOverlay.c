@@ -3,6 +3,10 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-07-15): all 3 SetClipRect calls dropped their 4 corner
+ * args - real literal values recovered via angr at
+ * 0x4d9c02/0x4d9c8a/0x4d9cee.
  */
 #include "ghidra_types.h"
 
@@ -54,7 +58,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
     }
   }
   if (g_bBattleSessionActive == '\0') goto LAB_004da2f4;
-  SetClipRect();
+  SetClipRect(0, 0x31f, 0x257, 0);
   if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0,0x164);
@@ -63,7 +67,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
       BlitSpriteClipped(0);
     }
   }
-  SetClipRect();
+  SetClipRect(0x261, 0x9c, 0x257, 0);
   if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0x261,0x16d);
@@ -72,7 +76,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
       BlitSpriteClipped(1);
     }
   }
-  SetClipRect();
+  SetClipRect(0, 0x31f, 0x257, 0);
   if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0x1a,0x17f);
