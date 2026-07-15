@@ -73,18 +73,32 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
       RescrambleGuardedBool();
       RescrambleGuardedBool();
       RescrambleGuardedBool();
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x4d123e (`lea edi,[ebx+0x8bc4]` at 0x4d122a, ebx = this file's
+       * own iVar4 per `mov ebx,eax` right after the second
+       * GetPlayerRecordBySlot call above) the cell is iVar4+0x8bc4. See
+       * tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar2);
+      EncodeOutgoingPacketField(iVar4 + 0x8bc4, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x4d1267 (`lea edi,[ebx+0x1c54]` at 0x4d1253) the cell is
+       * iVar4+0x1c54. See tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar2);
+      EncodeOutgoingPacketField(iVar4 + 0x1c54, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       CompareChecksumPair(iVar4 + 0x8318,iVar1 + 0x853c);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x4d12b5 (`lea edi,[ebx+0x853c]` at 0x4d12a3, AFTER the
+       * CompareChecksumPair call above reuses ebx/edi for its own
+       * ternary - the final `lea edi,[ebx+0x853c]` right before this
+       * call is what feeds it) the cell is iVar4+0x853c. See
+       * tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar2);
+      EncodeOutgoingPacketField(iVar4 + 0x853c, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       RescrambleGuardedBool();
       *(undefined2 *)(iVar4 + 0xbfbc) = *(undefined2 *)(iVar1 + 0xbfbc);
@@ -93,9 +107,12 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
       *(undefined4 *)(iVar4 + 0xb098) = *(undefined4 *)(iVar1 + 0xb098);
       *(undefined4 *)(iVar4 + 0xb09c) = *(undefined4 *)(iVar1 + 0xb09c);
       *(undefined4 *)(iVar4 + 0xb0a0) = *(undefined4 *)(iVar1 + 0xb0a0);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x4d1339 (`lea edi,[ebx+0xc080]` at 0x4d1325) the cell is
+       * iVar4+0xc080. See tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar2);
+      EncodeOutgoingPacketField(iVar4 + 0xc080, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       *(undefined4 *)(iVar1 + 0xbfe4) = 200;
       *(undefined4 *)(iVar4 + 0xbfe0) = 200;
@@ -107,9 +124,15 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
       SUBFIELD(local_4,0,undefined1) = 2;
       FUN_0040aea0(uVar3,local_89c,uVar2);
       SUBFIELD(local_4,0,undefined1) = 3;
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x4d13ef (`mov edi,ebx`, ebx was bumped from iVar4 to
+       * iVar4+0x6968 via `add ebx,0x6968` at 0x4d13dd, right after the
+       * FUN_0040aea0 call above) the cell is iVar4+0x6968 - not
+       * expressed as a named variable in the existing C, so written
+       * directly. See tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar2);
+      EncodeOutgoingPacketField(iVar4 + 0x6968, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       SUBFIELD(local_4,0,undefined1) = 2;
       if (local_888 != 0) {

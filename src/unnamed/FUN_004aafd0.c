@@ -53,25 +53,43 @@ void __fastcall FUN_004aafd0(int *param_1)
    * (LAB_0053e5d9) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
   local_ad4 = (int *)0x0;
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4ab020
+   * (`lea edi,[esi+0x40]` at 0x4ab004, esi = this file's own param_1)
+   * the cell is param_1+0x10 (scaled int* units, byte offset 0x40) -
+   * the same cell EncodeChecksumDeltaShr(param_1 + 0x10, ...) below
+   * already addresses. See tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = PeekPacketChecksumState();
   iVar8 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar8 + iVar7);
+  EncodeOutgoingPacketField(param_1 + 0x10, iVar8 + iVar7);
   pcVar18 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4ab05c
+   * (`lea edi,[esi+0x264]` at 0x4ab037) the cell is param_1+0x99
+   * (scaled), the same cell EncodeChecksumDeltaShr(param_1 + 0x99, ...)
+   * below already addresses. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_ad0[0] = PeekPacketChecksumState();
   iVar7 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar7 + local_ad0[0]);
+  EncodeOutgoingPacketField(param_1 + 0x99, iVar7 + local_ad0[0]);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
   cVar6 = PeekPacketChecksumBool();
   if (cVar6 == '\0') {
     EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac4,8);
     puStack_8 = (undefined1 *)0x0;
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x4ab5a5 (`lea edi,[esi+0xf54]` at 0x4ab59f) the cell is
+     * param_1+0x3d5 (scaled). Note: per JSON this is listed as "site3"
+     * in address order (call_addr 0x4ab398, edi = dword ptr [esp+0x14])
+     * but that particular entry actually corresponds textually to the
+     * LAST EncodeOutgoingPacketField call further below, near
+     * CheckGuardedBoolAnd(iVar7 < iVar8) - see that call's own comment.
+     * See tools/encodeoutgoingpacketfield_sites.json. */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar10 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar10);
+    EncodeOutgoingPacketField(param_1 + 0x3d5, uVar10);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
@@ -82,9 +100,14 @@ void __fastcall FUN_004aafd0(int *param_1)
     EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac4,8);
     local_ad4 = param_1 + 0x45e;
     puStack_8 = (undefined1 *)0x1;
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x4ab62a (`mov edi,dword ptr [esp+0x1c]`, that stack slot holds
+     * local_ad4) the cell is local_ad4 (= param_1 + 0x45e, assigned
+     * immediately above). See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar10 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar10);
+    EncodeOutgoingPacketField(local_ad4, uVar10);
     (*pcVar18)(&DAT_005a9068);
     uStack_c = 0xffffffff;
     if (uStack_ab4 != 0) {
@@ -341,9 +364,18 @@ LAB_004ab0f1:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar6 = CheckGuardedBoolAnd(iVar7 < iVar8);
   if (cVar6 != '\0') {
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x4ab398 (`mov edi,dword ptr [esp+0x14]`) that stack slot holds
+     * iVar7 (the first PeekPacketChecksumState() result captured just
+     * above, self-cell g_clientContext + 0x5b85c per
+     * `mov ecx,[g_clientContext]; add ecx,0x5b85c` a few instructions
+     * before this point) - NOT a fixed param_1 offset like the other
+     * sites in this function; angr's backward scan resolved it to this
+     * spilled stack value, which is simply iVar7 in already-existing C
+     * source. See tools/encodeoutgoingpacketfield_sites.json. */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar10 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar10);
+    EncodeOutgoingPacketField(iVar7, uVar10);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

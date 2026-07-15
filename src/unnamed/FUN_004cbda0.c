@@ -52,7 +52,15 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
       puVar1 = (ushort *)(iVar7 + 0xbfbc);
       *puVar1 = *puVar1 | uVar5;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(0);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x4cbf1f (`mov edi,esi` at 0x4cbf1d; real disasm at 0x4cbf12
+       * shows `esi = [old esi(=param_2*0x224) + eax(=g_clientContext) +
+       * 0x39f30]`, i.e. esi is recomputed from the SAME expression used
+       * one line above as the argument to
+       * `PeekChecksumStateUnderLock(param_2 * 0x224 + 0x39f30 +
+       * g_clientContext)`): cell is that identical expression. See
+       * tools/encodeoutgoingpacketfield_sites.json. */
+      EncodeOutgoingPacketField(param_2 * 0x224 + 0x39f30 + g_clientContext, 0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
       iVar7 = g_clientContext;

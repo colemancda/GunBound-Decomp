@@ -131,23 +131,38 @@ void __fastcall FUN_00498b60(int *param_1)
       }
     }
 LAB_00498f85:
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x498f93 (`lea edi,[ebx+0x264]` at 0x498f8d, ebx = this file's own
+     * param_1 per `mov ebx,ecx` in the prologue) the cell is
+     * param_1+0x99 (scaled int* units, byte offset 0x264) - the same
+     * cell EncodeChecksumDeltaSub(param_1 + 0x99, ...) throughout this
+     * function already addresses. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(local_8c4);
+    EncodeOutgoingPacketField(param_1 + 0x99, local_8c4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 != '\0') {
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x498fc8 (`lea edi,[ebx+0x3920]` at 0x498fb7) the cell is
+     * param_1+0xe48 (scaled). See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(iVar4 + 1);
+    EncodeOutgoingPacketField(param_1 + 0xe48, iVar4 + 1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   iVar4 = param_1[0xfe8];
   param_1[0xfe8] = iVar4 + 1;
   if (iVar4 + 1 == 5) {
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x499005 (`lea edi,[ebx+0x3d6c]` at 0x498ff1) the cell is
+     * param_1+0xf5b (scaled). See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar3);
+    EncodeOutgoingPacketField(param_1 + 0xf5b, uVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   if ((char)param_1[0xfed] != '\0') {
@@ -164,9 +179,14 @@ LAB_00498f85:
     if (iVar4 < (int)local_8c4) {
       iVar4 = param_1[0xfee];
       param_1[0xfee] = iVar4 + 1;
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x499122 (`lea edi,[ebx+0x264]` at 0x49910e) the cell is
+       * param_1+0x99 (scaled) - same cell as the FIXED call near the
+       * top of this function. See
+       * tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(iVar5 + iVar4 + 1);
+      EncodeOutgoingPacketField(param_1 + 0x99, iVar5 + iVar4 + 1);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     else if (param_1[0xfee] < 5) {
@@ -182,9 +202,13 @@ LAB_00498f85:
   if ((char)param_1[0xff1] != '\0') {
     iVar4 = param_1[0xff2];
     param_1[0xff2] = iVar4 + 1;
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x499162 (`lea edi,[ebx+0x264]` at 0x499150) the cell is
+     * param_1+0x99 (scaled) - same cell as the other FIXED calls in
+     * this function. See tools/encodeoutgoingpacketfield_sites.json. */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(iVar5 - (iVar4 + 1));
+    EncodeOutgoingPacketField(param_1 + 0x99, iVar5 - (iVar4 + 1));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

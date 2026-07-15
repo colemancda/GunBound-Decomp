@@ -57,15 +57,26 @@ void __fastcall FUN_004ae3a0(int *param_1)
     }
   }
   else if (param_1[9] == 1) goto LAB_004aece0;
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4ae458
+   * (`mov edi,ebp`, ebp = `lea ebp,[esi+0x40]` at 0x4ae436, esi = this
+   * file's own param_1) the cell is param_1+0x10 (scaled int* units,
+   * byte offset 0x40) - the same cell EncodeChecksumDeltaShr(param_1 +
+   * 0x10, ...) below already addresses, confirming the mapping. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = PeekPacketChecksumState();
   iVar8 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar8 + iVar7);
+  EncodeOutgoingPacketField(param_1 + 0x10, iVar8 + iVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4ae492
+   * (`mov edi,ebx`, ebx = `lea ebx,[esi+0x264]` at 0x4ae46d) the cell is
+   * param_1+0x99 (scaled), the same cell EncodeChecksumDeltaShr(param_1
+   * + 0x99, ...) below already addresses. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar7 = PeekPacketChecksumState();
   iVar8 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar8 + iVar7);
+  EncodeOutgoingPacketField(param_1 + 0x99, iVar8 + iVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
   cVar6 = PeekPacketChecksumBool();
@@ -73,18 +84,28 @@ void __fastcall FUN_004ae3a0(int *param_1)
     EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac0,8);
     uStack_4 = 0;
     piVar2 = param_1 + 0x3d5;
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x4ae806 (`mov edi,ebp`, ebp = `lea ebp,[esi+0xf54]` at 0x4ae7f0)
+     * the cell is param_1+0x3d5 (scaled), same as piVar2 = param_1 +
+     * 0x3d5 immediately above. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar11 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar11);
+    EncodeOutgoingPacketField(param_1 + 0x3d5, uVar11);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_4 = 0xffffffff;
     ScrubChecksumGuard();
     EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac0,8);
     piVar1 = param_1 + 0x45e;
     uStack_4 = 1;
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x4ae863 (`mov edi,ebx`, ebx = `lea ebx,[esi+0x1178]` at
+     * 0x4ae839) the cell is param_1+0x45e (scaled), same as piVar1 =
+     * param_1 + 0x45e immediately above. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar11 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar11);
+    EncodeOutgoingPacketField(param_1 + 0x45e, uVar11);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_4 = 0xffffffff;
     ScrubChecksumGuard();

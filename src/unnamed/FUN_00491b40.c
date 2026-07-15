@@ -90,7 +90,14 @@ void __fastcall FUN_00491b40(int param_1)
     RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar2);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x491d94
+     * (`mov edi,dword ptr [esp + 0x20]`): esp+0x20 is a spilled reload of
+     * `local_478`, set above to `param_1 + 0xf54` (never reassigned
+     * since). This mirrors the structurally-identical FUN_00497ad0.c,
+     * whose corresponding first EncodeOutgoingPacketField call in the
+     * same position resolves via direct register trace to param_1+0xf54.
+     * See tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(local_478, uVar2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
@@ -99,7 +106,12 @@ void __fastcall FUN_00491b40(int param_1)
     local_4 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar2);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x491dec
+     * (`mov edi,dword ptr [esp + 0x24]`): esp+0x24 is a spilled reload of
+     * `local_474`, set above to `param_1 + 0x1178` (never reassigned
+     * since). Mirrors FUN_00497ad0.c's second call resolving to
+     * param_1+0x1178. See tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(local_474, uVar2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (local_440 != 0) {

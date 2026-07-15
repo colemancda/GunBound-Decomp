@@ -82,7 +82,14 @@ LAB_004ce86c:
   cVar4 = FUN_0043c820();
   if (cVar4 == '\x01') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(1);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x4ce683 (`lea edi,[esi + 0x6240c]` at 0x4ce679; real disasm
+     * shows esi == g_clientContext throughout this function, e.g. the
+     * `lea edi,[esi+0x6a7f70]` right before matches this file's own
+     * `&DAT_006a7f70 + g_clientContext` idiom used a few lines below):
+     * cell is g_clientContext+0x6240c, same cell as FUN_004ce3d0.c's
+     * fix. See tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(g_clientContext + 0x6240c, 1);
                     /* WARNING: Could not recover jumptable at 0x004ce694. Too many branches */
                     /* WARNING: Treating indirect jump as call */
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

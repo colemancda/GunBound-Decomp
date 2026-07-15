@@ -80,7 +80,11 @@ void __fastcall FUN_00497ad0(int param_1)
     RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar3);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x497cfc
+     * (`lea edi,[ebx + 0xf54]`, ebx = this file's own param_1): cell is
+     * param_1+0xf54. `param_1` is plain `int`, so byte offsets are
+     * natural. See tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(param_1 + 0xf54, uVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
@@ -89,7 +93,10 @@ void __fastcall FUN_00497ad0(int param_1)
     local_4 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar3);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x497d56
+     * (`lea edi,[ebx + 0x1178]`, ebx = param_1): cell is param_1+0x1178.
+     * See tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField(param_1 + 0x1178, uVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (local_440 != 0) {

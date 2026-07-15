@@ -25,7 +25,17 @@ void FUN_004ce3d0(int param_1)
       cVar1 = FUN_0043c820();
       if (cVar1 != '\0') {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EncodeOutgoingPacketField(1);
+        /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+         * 0x4ce441 (`mov edi,esi` at 0x4ce43f; real disasm at 0x4ce42a
+         * shows `esi = g_clientContext (ds:0x5b3484); add esi,0x6240c`
+         * just above the mov, i.e. esi is NOT this file's own param_1,
+         * it's a fresh cell computed off the global client-context base):
+         * cell is g_clientContext+0x6240c, the same expression already
+         * used as a cell-pointer arg elsewhere in this codebase (see
+         * ApplyBattleActionToContext.c's
+         * `PacketChecksumEquals(g_clientContext + 0x6240c, ...)`). See
+         * tools/encodeoutgoingpacketfield_sites.json. */
+        EncodeOutgoingPacketField(g_clientContext + 0x6240c, 1);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         return;
       }

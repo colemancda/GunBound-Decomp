@@ -174,9 +174,14 @@ void __fastcall FUN_00480310(int *param_1)
       }
       iVar5 = iVar5 / 2;
     }
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x48075a
+     * (edi loaded from esi+0x264). esi == param_1 here: 0x264/4 == 0x99,
+     * exactly the `param_1 + 0x99` cell this file threads through
+     * PeekChecksumStateUnderLock elsewhere below. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     (*pcVar15)(&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(iVar6 + iVar5);
+    EncodeOutgoingPacketField(param_1 + 0x99, iVar6 + iVar5);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     pcVar14 = (code *)LeaveCriticalSection;
   }
@@ -206,9 +211,14 @@ void __fastcall FUN_00480310(int *param_1)
       }
       iVar6 = iVar6 / 2;
     }
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x48080b
+     * (edi loaded from esi+0x40). esi == param_1 here: 0x40/4 == 0x10,
+     * exactly the `param_1 + 0x10` cell this file threads through
+     * PeekChecksumStateUnderLock elsewhere below. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     (*pcVar15)(&DAT_005a9068);
     iVar7 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(iVar7 + iVar6);
+    EncodeOutgoingPacketField(param_1 + 0x10, iVar7 + iVar6);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     pcVar14 = (code *)LeaveCriticalSection;
   }
@@ -240,9 +250,13 @@ void __fastcall FUN_00480310(int *param_1)
     if ((char)param_1[0xff1] != '\0') {
       EncodeChecksumDeltaSub(iVar5 + 0xb30,auStack_464,400);
       uStack_14 = 4;
+      /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+       * 0x480902/0x480989 (edi loaded from esi+0x264/esi+0x40), same
+       * `param_1 + 0x99` / `param_1 + 0x10` cells as above. See
+       * tools/encodeoutgoingpacketfield_sites.json. */
       (*pcVar15)(&DAT_005a9068);
       uVar8 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar8);
+      EncodeOutgoingPacketField(param_1 + 0x99, uVar8);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       (*pcVar15)(&DAT_005a9068);
       iVar6 = PeekPacketChecksumState();
@@ -252,7 +266,7 @@ void __fastcall FUN_00480310(int *param_1)
       ScrubChecksumGuard();
       iVar6 = param_1[0xff4];
       (*pcVar15)(&DAT_005a9068);
-      EncodeOutgoingPacketField(iVar6);
+      EncodeOutgoingPacketField(param_1 + 0x10, iVar6);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       (*pcVar15)(&DAT_005a9068);
       iVar6 = PeekPacketChecksumState();
@@ -321,9 +335,13 @@ void __fastcall FUN_00480310(int *param_1)
     }
     EncodeChecksumDeltaSub(iVar5 + 0xb30,auStack_240,200);
     uStack_14 = 5;
+    /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+     * 0x480c49/0x480ca4 (edi loaded from esi+0x264/esi+0x40), same
+     * `param_1 + 0x99` / `param_1 + 0x10` cells as above. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     (*pcVar15)(&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar8);
+    EncodeOutgoingPacketField(param_1 + 0x99, uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (*pcVar15)(&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
@@ -333,7 +351,7 @@ void __fastcall FUN_00480310(int *param_1)
     ScrubChecksumGuard();
     (*pcVar15)(&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar8);
+    EncodeOutgoingPacketField(param_1 + 0x10, uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (*pcVar15)(&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
@@ -365,9 +383,15 @@ void __fastcall FUN_00480310(int *param_1)
     if (param_1[9] != 2) goto LAB_0048108e;
     EncodeChecksumDeltaSub(iVar5 + 0xb30,auStack_688,0x226);
     uStack_14 = 6;
+    /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+     * 0x480ef1/0x480f54 (edi loaded from esi+0x264/esi+0x40), same
+     * `param_1 + 0x99` / `param_1 + 0x10` cells as above (the second call
+     * even has `piVar1 = param_1 + 0x10;` assigned on the very same
+     * line, confirming the cell independently). See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     (*pcVar15)(&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar8);
+    EncodeOutgoingPacketField(param_1 + 0x99, uVar8);
     pcVar14 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (*pcVar15)(&DAT_005a9068);
@@ -383,7 +407,7 @@ void __fastcall FUN_00480310(int *param_1)
     (*pcVar15)(&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
     piVar1 = param_1 + 0x10;
-    EncodeOutgoingPacketField(uVar8);
+    EncodeOutgoingPacketField(param_1 + 0x10, uVar8);
     (*pcVar14)(&DAT_005a9068);
     (*pcVar15)(&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
