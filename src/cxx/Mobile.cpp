@@ -99,10 +99,21 @@ void QueueOutgoingPacketField(unsigned int v);
 void AddToPacketChecksum(int v);
 void SubFromPacketChecksum(int v);
 void AdvanceSpriteAnimation(void);
-void FUN_0045cb50(void);
+/* FIXED (2026-07-15): same calling-convention mismatch as FUN_0045ed80
+ * above (real signature `void __fastcall FUN_0045cb50(int *param_1)`). */
+void __fastcall FUN_0045cb50(int *param_1);
 char FUN_0043c820(void);
 void FUN_0045ba50(CMobile *self);
-void FUN_0045ed80(void);
+/* FIXED (2026-07-15): was declared void(void) with no explicit calling
+ * convention (defaults to __cdecl in a C++ TU) - real signature is
+ * `void __fastcall FUN_0045ed80(int *param_1)` (functions.h already has
+ * this right; this file's own local declaration didn't, a genuine
+ * calling-convention/decorated-symbol mismatch - confirmed via the real
+ * bring-up stub list, this function only linked because the mismatch
+ * left it unresolved and auto-stubbed). __fastcall is fine to state
+ * explicitly on a free-function declaration (unlike __thiscall, no
+ * C4234 restriction). */
+void __fastcall FUN_0045ed80(int *param_1);
 void FUN_00436cd0(unsigned int a, unsigned int b);
 unsigned short FUN_0045d360(int a);
 void FUN_0041f200(int a);
@@ -654,7 +665,7 @@ void CMobile::v2_SimulateFrame()
             QueueOutgoingPacketField(*reinterpret_cast<int *>(&g_nCameraBoundX + g_clientContext) - 1);
         }
     }
-    FUN_0045cb50();
+    FUN_0045cb50(reinterpret_cast<int *>(this));
     if (this->m_padbff4[6] != 0 && (cVar5 = FUN_0043c820(), cVar5 == '\0')) {
         (*reinterpret_cast<VtStr *>(*reinterpret_cast<int *>(this) + 4))(this, 0, this->m_padbff4 + 6);
         iVar11 = *reinterpret_cast<int *>(DAT_005b3424 + 0x10a0);
@@ -684,7 +695,7 @@ void CMobile::v2_SimulateFrame()
     FUN_0045ba50(this);
     AdvanceSpriteAnimation();
     if (this->m_pad20[0x14] != 0) {
-        FUN_0045ed80();
+        FUN_0045ed80(reinterpret_cast<int *>(this));
     }
     (*reinterpret_cast<VtAb *>(*reinterpret_cast<int *>(this) + 0x1c))(
         this, 0, *reinterpret_cast<unsigned int *>(this->m_pad20 + 4), *reinterpret_cast<unsigned int *>(this->m_pad20 + 0xc));

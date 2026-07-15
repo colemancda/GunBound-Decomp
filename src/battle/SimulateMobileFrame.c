@@ -62,7 +62,11 @@ void __fastcall SimulateMobileFrame(int *param_1)
       QueueOutgoingPacketField(*(int *)(&g_nCameraBoundX + g_clientContext) + -1);
     }
   }
-  FUN_0045cb50();
+  /* FIXED (2026-07-15): dropped `self` arg - real signature is
+   * `void __fastcall FUN_0045cb50(int *param_1)` (see its own file);
+   * this file's own param_1 is the same CMobile-shaped object passed
+   * throughout this function. */
+  FUN_0045cb50(param_1);
   if ((*(char *)((int)param_1 + 0xbffa) != '\0') && (cVar5 = FUN_0043c820(), cVar5 == '\0')) {
     (**(code **)(*param_1 + 4))((undefined4 *)((int)param_1 + 0xbffa));
     iVar12 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a0);
@@ -93,7 +97,11 @@ void __fastcall SimulateMobileFrame(int *param_1)
   FUN_0045ba50(param_1);
   AdvanceSpriteAnimation((int)param_1);
   if ((char)param_1[0xd] != '\0') {
-    FUN_0045ed80();
+    /* FIXED (2026-07-15): dropped `self` arg - real signature is
+     * `void __fastcall FUN_0045ed80(int *param_1)` (see its own file);
+     * this file's own param_1 is the same CMobile-shaped object already
+     * passed to the sibling call FUN_0045ba50(param_1) one line above. */
+    FUN_0045ed80(param_1);
   }
   (**(code **)(*param_1 + 0x1c))(param_1[9],param_1[0xb]);
   cVar5 = PeekPacketChecksumBool();
