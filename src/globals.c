@@ -1534,7 +1534,29 @@ void *vtable_State06_Logo2[32] = {
 };
 void *vtable_State07_AvatarStore[32];
 void *vtable_State09_ReadyRoom[32];
-void *vtable_State10_Loading[32];
+/* Real 18-slot vtable - dumped directly from orig .rdata at 0x554018
+ * (see ARCHITECTURE.md's "State10_Loading's render slot" section for
+ * the slot-10/15 writeup; the rest confirmed this pass via the same
+ * whole-binary vtable dump technique used for State11's table below).
+ * Slots 18-31 are unused padding beyond the object's real vtable
+ * (18 confirmed real entries, same as every other state's table). */
+void *vtable_State10_Loading[32] = {
+  (void *)CGameState_ScalarDeletingDestructor,             /* 0  0x4e5320 */
+  (void *)State10_Loading_ProcessPacket,                   /* 1  0x43e280 */
+  (void *)State10_Loading_ProcessBattleAction,              /* 2  0x43e440 */
+  (void *)FUN_0043e700,                                     /* 3  0x43e700 */
+  (void *)CGameState_NoOpVirtual_B,                         /* 4  0x4fdef0 */
+  (void *)CGameState_NoOpVirtual_A,                         /* 5  0x448430 */
+  (void *)State10_Loading_HandleChatInput,                  /* 6  0x43e720 */
+  (void *)State10_Loading_OnEnter,                          /* 7  0x43e840 */
+  (void *)State10_Loading_OnExit,                           /* 8  0x43eff0 */
+  (void *)State10_Loading_PreloadAssets,                    /* 9  0x43f0e0 */
+  (void *)State10_Loading_AppendChatLine,                   /* 10 0x442240 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                   /* 11-12 0x429800 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                   /* 13-14 0x429800 */
+  (void *)State10_Loading_Render,                           /* 15 0x442280 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                   /* 16-17 0x429800 */
+};
 void *vtable_State11_InBattle[32];
 void *vtable_State3_NetworkSession[32];
 
