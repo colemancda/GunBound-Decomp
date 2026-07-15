@@ -95,6 +95,23 @@ void CValueGuard::EncodeOutgoingPacketField(u32 value)
     enc3 = key[3] ^ v;
 }
 
+/* C-callable wrapper for the ~2070 raw-C call sites across src/ that
+ * still call the free-function form `EncodeOutgoingPacketField(self,
+ * value)` (functions.h's K&R declaration - most of these call sites were
+ * fixed this session to pass the correct `self` cell, see
+ * tools/encodeoutgoingpacketfield_sites.json and the commit series
+ * starting at 84294f2). Delegates to the real, single-source-of-truth
+ * CValueGuard method above instead of duplicating its logic in
+ * src/network/EncodeOutgoingPacketField.c's raw port (confirmed
+ * field-for-field identical this session) - that file stays excluded
+ * from bring-up (tools/msvc-env/bringup_drop.txt) so this is the only
+ * definition that actually links. `self` is byte-layout compatible with
+ * CValueGuard (that's the whole premise of this promotion effort). */
+extern "C" void EncodeOutgoingPacketField(void *self, unsigned int value)
+{
+    reinterpret_cast<CValueGuard *>(self)->EncodeOutgoingPacketField(value);
+}
+
 /* 0x40a4a0 EncodeChecksumState - push the current value to the wire. */
 void CValueGuard::Encode()
 {

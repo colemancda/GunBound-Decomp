@@ -54,6 +54,27 @@ src_cxx_State10_Loading.obj
 # in crt_shims_msvc.c), matching its real decompiled constructor
 # (FUN_00507dc0) exactly - the free-list NULL-deref this object's
 # undersizing caused is fixed at the root, not stubbed around.
+# src_cxx_ValueGuard.obj: re-added here 2026-07-15. It DOES link clean on
+# its own (0 unresolved/0 duplicates, CValueGuard isn't polymorphic so
+# there's no virtual-body blocker like the other entries in this
+# section) - ValueGuard.cpp now has a real C-linkage
+# `EncodeOutgoingPacketField(self, value)` wrapper delegating to
+# CValueGuard::EncodeOutgoingPacketField, ready to replace the
+# auto-stub the ~2070 raw-C call sites across src/ currently link
+# against. BUT un-dropping it un-stubs EncodeOutgoingPacketField for
+# real, and only 107 of those ~2070 call sites have been fixed to pass
+# a real `self` so far - every one of the ~1963 still-unfixed sites
+# (1-arg calls, self left as uninitialized/garbage stack data) becomes
+# a live NULL/garbage-deref crash risk instead of a harmless no-op.
+# Confirmed via a real runtime test: un-dropping moved the bring-up
+# crash EARLIER (a NULL `this` inside CValueGuard::EncodeOutgoingPacket
+# Field itself, called from an as-yet-unidentified unfixed site) instead
+# of the known State10_Loading vtable gap. Re-dropped to restore the
+# safe no-op until enough of the remaining call sites are fixed that
+# this is a net improvement, not a regression - same "ready but
+# deliberately deferred" treatment as LoadChooseEventConfig.obj/
+# LoadLocalizedStrings.obj below. The wrapper itself is correct and
+# ready; only the bring-up activation is deferred.
 src_cxx_ValueGuard.obj
 # ConstructGameStates() (the C++ state-object construction path) has no
 # callers anywhere in src/ - InitGame.c's raw C path constructs
