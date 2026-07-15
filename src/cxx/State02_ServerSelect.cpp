@@ -11,7 +11,6 @@
 #include "ActiveObjects.h"
 
 class CWorldListPanel;
-CWorldListPanel *BuildWorldListPanel(void *manager);
 
 extern "C" {
 /* PlayMusicTrack's real signature - see State01_Title.cpp's header for
@@ -20,11 +19,22 @@ extern "C" {
  * function at 0x4eea30 and would have silently read garbage for the
  * missing trackName argument. */
 unsigned int PlayMusicTrack(unsigned int status, const char *trackName);
-int __stdcall LoadSpriteSet(void *container, int key);
+/* FIXED (2026-07-15): was declared without extern "C" - Panel.cpp's real
+ * definition IS extern "C" (`extern "C" CWorldListPanel *
+ * BuildWorldListPanel(void *manager)`), so this mismatched C++-mangled
+ * declaration never resolved to it at link time. Also LoadSpriteSet was
+ * declared __stdcall/2-arg (stale, pre-dating its cdecl/3-arg fix
+ * elsewhere - see State05_Logo1.cpp's own header) and FUN_00402020 was
+ * declared zero-arg/non-fastcall (real: __fastcall, 1 arg via ECX,
+ * confirmed via angr disassembly of this file's own OnTick call site:
+ * `mov ecx,0xe53e88; call 0x402020` - the literal is &DAT_00e53e88,
+ * already declared correctly below). */
+CWorldListPanel *BuildWorldListPanel(void *manager);
+int LoadSpriteSet(void *container, int key, const char *imgName);
 extern unsigned char DAT_00ea0e18[0x20];
 extern int g_clientContext;
 extern unsigned char DAT_0067ec70;
-extern unsigned char g_uiPanelManager;
+extern unsigned char g_uiPanelManager[0x1c];
 void AppendPersistentButtonName(void *slot);
 /* the flat 80-byte ButtonWidget factory (separate system, PLAN.md
  * Phase 1.6): (registry, ?, id, spriteBase, name, x, y, w, h,
@@ -56,7 +66,7 @@ void SendOutgoingPacket(int channelCtx);  /* flush/send the pending channel-1 pa
 char PeekPacketChecksumBool(void);                /* mode check gating the page-offset source */
 void SetGuardedBool(int a);
 void FUN_004d24f0(void);
-unsigned char FUN_00402020(void);       /* per-slot blink randomizer */
+int __fastcall FUN_00402020(int param_1); /* per-slot blink randomizer */
 void FUN_00401650(int *slot);            /* flat-ButtonWidget per-slot destroy */
 extern unsigned char DAT_0067ec74;      /* persistent button-name arena */
 extern unsigned char DAT_0069ec74;
@@ -78,13 +88,16 @@ extern unsigned char DAT_00e53e88[0xf28]; /* sized, see globals.c */
  * until the arena becomes a real struct. */
 void CState02ServerSelect::OnEnter()
 {
-    LoadSpriteSet(&DAT_00ea0e18, 10000);
-    LoadSpriteSet(&DAT_00ea0e18, 0x2711);
-    LoadSpriteSet(&DAT_00ea0e18, 1000);
-    LoadSpriteSet(&DAT_00ea0e18, 0x3e9);
-    LoadSpriteSet(&DAT_00ea0e18, 0x3ea);
-    LoadSpriteSet(&DAT_00ea0e18, 0x44c);
-    LoadSpriteSet(&DAT_00ea0e18, 0x44d);
+    /* image names recovered from the raw-C sibling
+     * State02_ServerSelect_OnEnter.c, already verified/exercised on the
+     * bring-up path. */
+    LoadSpriteSet(&DAT_00ea0e18, 10000, "server_back.img");
+    LoadSpriteSet(&DAT_00ea0e18, 0x2711, "server_list.img");
+    LoadSpriteSet(&DAT_00ea0e18, 1000, "b_server_exitgame.img");
+    LoadSpriteSet(&DAT_00ea0e18, 0x3e9, "b_server_buddygame.img");
+    LoadSpriteSet(&DAT_00ea0e18, 0x3ea, "b_server_choiceserver.img");
+    LoadSpriteSet(&DAT_00ea0e18, 0x44c, "b_server_all.img");
+    LoadSpriteSet(&DAT_00ea0e18, 0x44d, "b_server_friend.img");
     for (int i = 0; i < 3; ++i) {
         AppendPersistentButtonName((unsigned char *)&DAT_0067ec70 + g_clientContext);
     }
@@ -276,6 +289,6 @@ void CState02ServerSelect::OnTick()
     unsigned char *gctx = (unsigned char *)g_clientContext;
     int count = (int)gctx[0x3f808];
     for (int i = 0; i < count; ++i) {
-        gctx[0x4110a + i] = FUN_00402020();
+        gctx[0x4110a + i] = (unsigned char)FUN_00402020((int)&DAT_00e53e88);
     }
 }

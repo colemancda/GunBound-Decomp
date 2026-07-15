@@ -19,6 +19,20 @@
  * `&DAT_00e9bea8` - a global also passed the same way elsewhere
  * (ui_widget/ParseChatSlashCommand.c's `FUN_00409c70(&DAT_00e9bea8)`) -
  * so it was being silently dropped on every call before this fix.
+ *
+ * FIXED (2026-07-15): the same class of XFS dropped-args already fixed
+ * in LoadLocalizedStrings.c (this file's near-identical sibling), never
+ * propagated here:
+ *   - FindXFSEntry's real first arg is &g_xfsScratch, not auStack_10750
+ *     (FindXFSEntry's own scratch result buffer).
+ *   - ReadXFSEntry is 5-arg (readState, handle, flag, entry, lzhuf); only
+ *     2 were supplied. handle/lzhuf come from g_xfsScratch+0x1040/+0x1048,
+ *     matching every other ReadXFSEntry call site in the tree.
+ *   - ReadXFSEntryByte's 3rd arg (count) was dropped at both call sites -
+ *     count=1 (read one byte at a time), matching LoadLocalizedStrings.c.
+ *   - FUN_004f0d70 (CloseXFSArchive) takes the archive `this` explicitly;
+ *     both call sites here passed zero args - &g_xfsScratch, matching
+ *     every other CloseXFSArchive call site.
  * Confirmed via:
  *   objdump -d -Mintel --start-address=0x409a10 --stop-address=0x409c40 \
  *     orig/GunBound.gme
@@ -73,16 +87,12 @@ undefined4 LoadChooseEventConfig(void *param_1)
   local_c = 0;
   BuildAssetPath(auStack_10b50,&DAT_005b1ed0,s_graphics_xfs_00551fdc,0);
   OpenXFSArchive(&g_xfsScratch,auStack_10b50,1,0);
-  iVar4 = FindXFSEntry(auStack_10750,s_ChooseEvent_txt_00551fcc);
-  /* ReadXFSEntry is void-returning (see its own definition) - this
-   * call site's return-value use is a Ghidra per-call-site
-   * decompilation inconsistency, same class as entry/WinMain.c's
-   * FUN_004058c0 fix. uStack_10f54 is left uninitialized here as a
-   * result. */
+  iVar4 = FindXFSEntry(&g_xfsScratch,s_ChooseEvent_txt_00551fcc);
   if (((iVar4 == 0) || (pvVar2 = operator_new(0x1024), pvVar2 == (void *)0x0)) ||
-     (ReadXFSEntry(iVar4,local_f708), uStack_10f54 == 0)) {
+     (uStack_10f54 = ReadXFSEntry(pvVar2,*(HANDLE *)(g_xfsScratch.bytes + 0x1040),1,iVar4,
+                                   g_xfsScratch.bytes + 0x1048), uStack_10f54 == 0)) {
     if (local_f710 != -1) {
-      FUN_004f0d70();
+      FUN_004f0d70(&g_xfsScratch);
     }
     local_3c = &PTR_FUN_005572dc;
     DeleteCriticalSection(&local_38);
@@ -90,12 +100,12 @@ undefined4 LoadChooseEventConfig(void *param_1)
   }
   iVar4 = 0;
   bVar1 = false;
-  iVar3 = ReadXFSEntryByte(uStack_10f54,&cStack_10f55);
+  iVar3 = ReadXFSEntryByte(uStack_10f54,&cStack_10f55,1);
   do {
     if (iVar3 == 0) {
       CloseSpriteReadState();
       if (local_f710 != -1) {
-        FUN_004f0d70();
+        FUN_004f0d70(&g_xfsScratch);
       }
       local_3c = &PTR_FUN_005572dc;
       DeleteCriticalSection(&local_38);
@@ -132,7 +142,7 @@ LAB_00409b81:
         acStack_10f50[iVar4 + -1] = '\n';
       }
     }
-    iVar3 = ReadXFSEntryByte(uStack_10f54,&cStack_10f55);
+    iVar3 = ReadXFSEntryByte(uStack_10f54,&cStack_10f55,1);
   } while( true );
 }
 

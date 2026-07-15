@@ -17,6 +17,21 @@ src_network_EncodeOutgoingPacketField.obj
 # the logo doesn't need. Drop for bring-up until promoted.
 src_fileformat_LoadLocalizedStrings.obj
 src_fileformat_LoadGameDataFiles.obj
+# 2026-07-15: LoadLocalizedStrings/LoadChooseEventConfig's OWN XFS-read
+# args are now fixed (both files), and LoadChooseEventConfig's parser
+# dependency chain (ParseChooseEventLine -> FUN_00426780) was fully
+# recovered (angr-confirmed: table/key were dropped registers, both
+# ParseChooseEventLine's own live params). BOTH still crash live,
+# though, on a DEEPER, unrelated bug: both depend on an unrecovered
+# STL-style container constructor reached via a hidden CRT static
+# initializer (LoadLocalizedStrings -> FUN_0043dd40/FUN_0043de70's
+# red-black-tree map-insert; LoadChooseEventConfig -> FUN_00426780's
+# hash table, whose bucket-count field is 0 because its OWN
+# constructor chain FUN_00540f20->FUN_0040d180->FUN_004fe420 has at
+# least 3 more layers of dropped this/args, live-reproduced as a
+# divide-by-zero at 0x426780's `div [table+8]`). Same class of
+# recovery as g_uiPanelManager/g_clientContext's hidden-constructor
+# work earlier this project, just deeper - not attempted here.
 src_fileformat_LoadChooseEventConfig.obj
 # CButtonWidget C++ migration in progress: declares 5 virtuals
 # (NoOp/Draw/Tick/SetState/Delete) with no bodies yet, C++-mangled so
@@ -34,7 +49,6 @@ src_cxx_ButtonWidget.obj
 # etc.) - drop the promoted C++ object for bring-up until its class
 # migration lands full virtual bodies.
 src_cxx_Projectile.obj
-src_cxx_State02_ServerSelect.obj
 src_cxx_State03_GameRoomList.obj
 src_cxx_State10_Loading.obj
 # 2026-07-14: src_cxx_Panel.obj was dropped here twice this same day for

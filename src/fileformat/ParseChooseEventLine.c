@@ -17,6 +17,13 @@
  * unaff_EDI` store below). Promoted to real parameters and the one call
  * site updated to match; see LoadChooseEventConfig.c's header comment
  * for how this was recovered.
+ *
+ * FIXED (2026-07-15): the FUN_00426780 hash-lookup call also dropped its
+ * own 2 trailing args (table, key) - confirmed via angr that they are
+ * this function's own param_1 (registry/table) and param_2 (line being
+ * parsed, the lookup key), still live in EAX/EBX at the call (`mov
+ * ebx,eax` at this function's own entry, never touched before `mov
+ * eax,esi; call 0x426780`). See FUN_00426780.c's own header.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -31,7 +38,7 @@ void ParseChooseEventLine(int *param_1,undefined4 param_2,undefined4 param_3)
   undefined1 local_8 [4];
   undefined1 local_4 [4];
 
-  iVar2 = FUN_00426780(local_8,&local_c,local_4);
+  iVar2 = (int)FUN_00426780(local_8,&local_c,local_4,param_1,(uchar *)param_2);
   if (iVar2 == 0) {
     if (*param_1 == 0) {
       cVar1 = FUN_00500c00(param_1,param_1[2],1);
