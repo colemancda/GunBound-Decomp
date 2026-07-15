@@ -1,4 +1,4 @@
-/* FUN_00412130 - 0x00412130 in the original binary.
+/* ProcessInputEventQueue - 0x00412130 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -21,10 +21,11 @@
  * it rather than the real state object, the vtable read at an unrelated
  * address happened to be exactly 0.
  *
- * FIXED (2026-07-15): DAT_00795078/DAT_00795878/DAT_00796078 (the
- * msg/param1/param2 parallel arrays this loop reads via `&DAT_x +
- * DAT_00795074*4`) were each declared as a single uint8_t in globals.c -
- * see globals.h's updated comment. With only 1 byte reserved per array,
+ * FIXED (2026-07-15): g_inputEventMsgQueue/g_inputEventParam1Queue/
+ * g_inputEventParam2Queue (the msg/param1/param2 parallel arrays this
+ * loop reads via `queue + DAT_00795074*4`) were each declared as a
+ * single uint8_t in globals.c - see globals.h's updated comment. With
+ * only 1 byte reserved per array,
  * every read/write past index 0 landed on whatever unrelated global
  * happened to sit next in memory, so this queue could appear non-empty
  * (DAT_00795074 != DAT_00795070) from unrelated memory traffic alone,
@@ -37,7 +38,7 @@ typedef void (__thiscall *OnKeyInputFn)(void *thisPtr,int msg,int a,int b);
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_00412130(void)
+void ProcessInputEventQueue(void)
 
 {
   int iVar1;
@@ -52,9 +53,9 @@ LAB_00412140:
       if (DAT_00795074 == DAT_00795070) {
         return;
       }
-      iVar1 = *(int *)(DAT_00795078 + DAT_00795074 * 4);
-      uVar2 = *(uint *)(DAT_00795878 + DAT_00795074 * 4);
-      iVar3 = *(int *)(DAT_00796078 + DAT_00795074 * 4);
+      iVar1 = *(int *)(g_inputEventMsgQueue + DAT_00795074 * 4);
+      uVar2 = *(uint *)(g_inputEventParam1Queue + DAT_00795074 * 4);
+      iVar3 = *(int *)(g_inputEventParam2Queue + DAT_00795074 * 4);
       DAT_00795074 = DAT_00795074 + 1 & 0x800001ff;
       if ((int)DAT_00795074 < 0) {
         DAT_00795074 = (DAT_00795074 - 1 | 0xfffffe00) + 1;

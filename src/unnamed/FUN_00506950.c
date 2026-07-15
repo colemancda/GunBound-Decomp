@@ -94,9 +94,9 @@ LAB_00506add:
     uVar3 = (uVar3 - 1 | 0xfffffe00) + 1;
   }
   if (uVar3 != DAT_00795074) {
-    *(undefined4 *)(DAT_00795078 + DAT_00795070 * 4) = 0;
-    *(undefined4 *)(DAT_00795878 + DAT_00795070 * 4) = uVar2;
-    *(undefined4 *)(DAT_00796078 + DAT_00795070 * 4) = 0x21;
+    *(undefined4 *)(g_inputEventMsgQueue + DAT_00795070 * 4) = 0;
+    *(undefined4 *)(g_inputEventParam1Queue + DAT_00795070 * 4) = uVar2;
+    *(undefined4 *)(g_inputEventParam2Queue + DAT_00795070 * 4) = 0x21;
     DAT_00795070 = uVar3;
   }
   return 0;

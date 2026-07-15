@@ -339,7 +339,7 @@ void BuildSystemInfoBlob(undefined4 *, undefined4 *);
 void LoadClientSettingsFromRegistry();
 void FUN_0040d760();
 void __fastcall FUN_00411b40();
-void FUN_00412130();
+void ProcessInputEventQueue();
 void ShowErrorDialog(); /* real args (closeSockets, messageId); K&R-empty so
                           * the ~38 other call sites still passing only 1 arg
                           * keep compiling - see ShowErrorDialog.c's header */

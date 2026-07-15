@@ -9,7 +9,7 @@
  * FIXED (2026-07-14) at GameTick.c's 2 call sites: `messageId` was read as
  * an uninitialized `in_EAX` local, so `g_stateChangeInProgress` (meant to
  * hold the active dialog's message id, cleared back to 0 only once the
- * dialog's own OK button gets clicked - see FUN_00412130.c) got set to
+ * dialog's own OK button gets clicked - see ProcessInputEventQueue.c) got set to
  * whatever garbage happened to be on the stack instead. Since bring-up has
  * no real mouse interaction with this modal dialog, `g_stateChangeInProgress`
  * then stayed permanently nonzero, silently blocking EVERY future

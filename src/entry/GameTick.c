@@ -120,7 +120,7 @@ void GameTick(void)
   FUN_0041b6f0();
   FUN_0041c0a0();
   FUN_004022b0(&DAT_00e53e88);
-  FUN_00412130();
+  ProcessInputEventQueue();
   if ((g_bBattleSessionActive == '\0') && (DAT_00793517 == '\0')) {
     DAT_00793517 = 0;
     for (uVar8 = uVar10; uVar8 != 0; uVar8 = uVar8 - 1) {
