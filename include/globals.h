@@ -334,7 +334,7 @@ extern void * DAT_0056d460;
 #define _DAT_0056d460 DAT_0056d460
 extern uint32_t DAT_0056dbe8;
 extern uint8_t DAT_0056dbf0;
-extern uint8_t DAT_0056dc30;
+extern uint32_t DAT_0056dc30[4];
 extern uint16_t g_awItemIconTable[40];
 extern uint8_t DAT_0056dc90;
 #define _DAT_0056dc90 DAT_0056dc90

@@ -253,7 +253,13 @@ uint8_t DAT_0056d440;
 void * DAT_0056d460;
 uint32_t DAT_0056dbe8;
 uint8_t DAT_0056dbf0;
-uint8_t DAT_0056dc30;
+/* DAT_0056dc30: per-connection-type magic/key table (0x56dc30), indexed
+ * [0..2] by FUN_004d2170's connection index. Was a 1-byte placeholder;
+ * the ctor reads a full uint32 at [param_2*4], so an undersized global
+ * fed garbage into each connection's +0x20c field. Recovered the real
+ * 4 dwords verbatim from orig/GunBound.gme (0x56dc30-0x56dc3f); the next
+ * symbol, the item shelf-icon table, starts right after at 0x56dc40. */
+uint32_t DAT_0056dc30[4] = {0x8631607e, 0x8631607e, 0xa8c2f5d3, 0x8631607e};
 /* Item shelf-icon table (0x56dc40) - 40 packed uint16 entries extracted verbatim
  * from the binary. Each entry: low byte = icon-pair index (frame = low*2, then -2
  * enabled / -1 disabled), high byte = 0x00/0xff selecting icon-sheet texture

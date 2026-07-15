@@ -1,9 +1,24 @@
 /* FUN_004d2170 - 0x004d2170 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The network-connection constructor: builds one of WinMain's three
+ * connection objects (index 0/1/2 = direct-link / game-server / broker),
+ * allocates its 0x24a70 session sub-object at conn+0x84e0, constructs it
+ * via FUN_004e54e0, and spawns the per-connection socket worker thread
+ * (FUN_00405dc0). This is the same construction FUN_004058c0 does for the
+ * 0x200c auto-connect object at +0x2004 - without the worker thread here,
+ * SignalConnectRequest's SetEvent(session+0x10) has nothing to wake and
+ * the broker connect() never fires.
+ *
+ * UN-DROPPED from the bring-up (2026-07-14): previously in bringup_drop.txt
+ * with a hand-written MANUAL_STUB that allocated a zeroed session but
+ * started no thread, so ServerSelect could reach BeginServerConnect but no
+ * TCP connect to the broker ever happened. The stub was needed only
+ * because this raw port carried a Ghidra SEH-prologue artifact
+ * (unaff_FS_OFFSET, an uninitialized register the exception-frame
+ * setup/teardown read+wrote) - stripped here per the entry/InitGame.c
+ * idiom, leaving the real object construction + thread spawn intact.
+ * EncodeOutgoingPacketField is itself bring-up-stubbed to a no-op, so its
+ * four calls here are harmless (BeginServerConnect already calls it too).
  */
 #include "ghidra_types.h"
 
@@ -14,23 +29,13 @@ undefined4 * FUN_004d2170(undefined4 *param_1,int param_2,undefined4 param_3)
   undefined4 uVar1;
   void *pvVar2;
   uintptr_t uVar3;
-  undefined4 *unaff_FS_OFFSET;
-  undefined4 local_c;
-  undefined1 *puStack_8;
-  undefined4 local_4;
-  
-  local_c = *unaff_FS_OFFSET;
-  local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053910c;
-  *unaff_FS_OFFSET = &local_c;
+
   *(undefined1 *)(param_1 + 0xa9) = 0;
   param_1[0x26] = 0;
   EncodeOutgoingPacketField(0);
-  local_4 = 0;
   *(undefined1 *)(param_1 + 0x132) = 0;
   param_1[0xaf] = 0;
   EncodeOutgoingPacketField(0);
-  local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -38,7 +43,7 @@ undefined4 * FUN_004d2170(undefined4 *param_1,int param_2,undefined4 param_3)
   EncodeOutgoingPacketField(0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   param_1[0x133] = param_2;
-  uVar1 = *(undefined4 *)(&DAT_0056dc30 + param_2 * 4);
+  uVar1 = DAT_0056dc30[param_2];
   pvVar2 = operator_new(0x210);
   if (pvVar2 == (void *)0x0) {
     pvVar2 = (void *)0x0;
@@ -70,7 +75,6 @@ undefined4 * FUN_004d2170(undefined4 *param_1,int param_2,undefined4 param_3)
     *(undefined1 *)((int)pvVar2 + 0x18) = 0;
   }
   param_1[0x213b] = 0;
-  *unaff_FS_OFFSET = local_c;
   return param_1;
 }
 

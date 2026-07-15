@@ -30,74 +30,7 @@ from collections import defaultdict
 log_path, outdir = sys.argv[1], sys.argv[2]
 
 # Decorated symbol -> hand-written definition. See the module docstring.
-MANUAL_STUBS = {
-    "_FUN_004d2170": r"""
-/* FUN_004d2170 (0x004d2170) - the network-connection constructor, dropped
- * from the bring-up link (see bringup_drop.txt) because its raw port spawns
- * the real socket thread. The auto-generated `return 0` stub could not stand
- * in for it: WinMain does
- *
- *     pvVar4 = operator_new(0x84f0);
- *     DAT_005b2b58 = FUN_004d2170(pvVar4, 0, &DAT_00795070);   // 5c / 60 too
- *
- * so a 0 return leaves all three connection globals NULL - and the raw ports
- * that consume them do NOT null-check the outer object. ProcessIncomingPackets
- * (called every tick from PumpBattleActions, ungated by game state) does:
- *
- *     if (*(char *)(param_1 + 0x84e4) != '\0') ...      // page fault at 0x84e4
- *     iVar6 = *(int *)(param_1 + 0x84e0);               // inner session object
- *     iVar14 = *(int *)(iVar6 + 0x24238);               // ...also unchecked
- *     if (iVar14 == *(int *)(iVar6 + 0x24234)) return;  // empty ring -> return
- *
- * ShowErrorDialog / ShowMessageDialog / ShowErrorDialogFmt / Shutdown all read
- * `*(int *)(conn + 0x84e0)` unguarded too, then null-check that INNER pointer.
- * So the invariant the ports rely on is: outer connection object non-NULL,
- * inner +0x84e0 session object non-NULL, inner socket nullable.
- *
- * This stub reproduces exactly that much of the real constructor - the field
- * writes below are its offsets, minus the socket thread and the value-guard
- * encode calls (both dropped for bring-up anyway):
- *   +0x4cc   = connection index (real: param_1[0x133] = param_2)
- *   +0x84e0  = zeroed 0x24a70 session object (real: operator_new + FUN_004e54e0)
- *   +0x84e4  = 0, no connect pending  (real: *(undefined1 *)(param_1 + 0x2139))
- *   +0x84e5/+0x84e6 = 0
- *   +0x84e8  = zeroed 0x210 object    (real: param_1[0x213a])
- * The zeroed session object's receive ring has head == tail == 0, so
- * ProcessIncomingPackets sees an empty ring and returns immediately - which is
- * what we want with no server to talk to. The inner socket (+0x24) is set to
- * INVALID_SOCKET so the Shutdown / ShowErrorDialog teardown paths skip
- * closesocket() instead of closing fd 0. No thread is started.
- */
-#include <stdlib.h>
-#include <string.h>
-
-void *FUN_004d2170(void *self, int index, void *cfg)
-{
-    unsigned char *conn = (unsigned char *)self;
-    unsigned char *session;
-
-    (void)cfg;
-    if (conn == 0) {
-        return 0;                       /* mirrors WinMain's own alloc check */
-    }
-    memset(conn, 0, 0x84f0);
-
-    /* A NULL session would just move the fault from +0x84e4 to +0x24238, so
-     * fail the whole construction the way WinMain's operator_new check does -
-     * the callers' outer null-checks (Shutdown) then take the absent path. */
-    session = (unsigned char *)calloc(1, 0x24a70);
-    if (session == 0) {
-        return 0;
-    }
-    *(unsigned int *)(session + 0x24) = 0xffffffff;   /* INVALID_SOCKET */
-
-    *(int *)(conn + 0x4cc) = index;
-    *(void **)(conn + 0x84e0) = session;
-    *(void **)(conn + 0x84e8) = calloc(1, 0x210);
-    return conn;
-}
-""",
-}
+MANUAL_STUBS = {}
 
 syms = set()
 with open(log_path, errors="replace") as f:
