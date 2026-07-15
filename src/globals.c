@@ -649,9 +649,9 @@ uint8_t DAT_00794bf0;
 uint8_t DAT_00794e14;
 uint32_t DAT_00795070;
 uint32_t DAT_00795074;
-uint8_t DAT_00795078;
-uint8_t DAT_00795878;
-uint8_t DAT_00796078;
+uint8_t DAT_00795078[0x800];
+uint8_t DAT_00795878[0x800];
+uint8_t DAT_00796078[0x800];
 uint8_t DAT_00796878;
 uint8_t DAT_00796aa0;
 /* g_localizedStringTable: moved to globals_sized.c - the whole string

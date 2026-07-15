@@ -33,9 +33,9 @@ LAB_00506d7f:
         uVar2 = (uVar2 - 1 | 0xfffffe00) + 1;
       }
       if (uVar2 != DAT_00795074) {
-        *(undefined4 *)(&DAT_00795078 + DAT_00795070 * 4) = 0;
-        *(undefined4 *)(&DAT_00795878 + DAT_00795070 * 4) = uVar1;
-        *(undefined4 *)(&DAT_00796078 + DAT_00795070 * 4) = 0x1e;
+        *(undefined4 *)(DAT_00795078 + DAT_00795070 * 4) = 0;
+        *(undefined4 *)(DAT_00795878 + DAT_00795070 * 4) = uVar1;
+        *(undefined4 *)(DAT_00796078 + DAT_00795070 * 4) = 0x1e;
         DAT_00795070 = uVar2;
         Widget_OnCommandDefault(0x1001,param_3,param_4);
         return;

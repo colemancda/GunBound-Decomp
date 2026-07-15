@@ -19,7 +19,18 @@
  * SendSocketData fix let the client reach live per-tick UI event
  * processing for the first time) - with ECX holding whatever was last in
  * it rather than the real state object, the vtable read at an unrelated
- * address happened to be exactly 0. */
+ * address happened to be exactly 0.
+ *
+ * FIXED (2026-07-15): DAT_00795078/DAT_00795878/DAT_00796078 (the
+ * msg/param1/param2 parallel arrays this loop reads via `&DAT_x +
+ * DAT_00795074*4`) were each declared as a single uint8_t in globals.c -
+ * see globals.h's updated comment. With only 1 byte reserved per array,
+ * every read/write past index 0 landed on whatever unrelated global
+ * happened to sit next in memory, so this queue could appear non-empty
+ * (DAT_00795074 != DAT_00795070) from unrelated memory traffic alone,
+ * and any event actually read back was garbage - independent of the
+ * `this`-pointer fix above, and likely why that fix alone didn't fully
+ * resolve live crashes once this dispatch started firing. */
 #include "ghidra_types.h"
 
 typedef void (__thiscall *OnKeyInputFn)(void *thisPtr,int msg,int a,int b);
@@ -41,9 +52,9 @@ LAB_00412140:
       if (DAT_00795074 == DAT_00795070) {
         return;
       }
-      iVar1 = *(int *)(&DAT_00795078 + DAT_00795074 * 4);
-      uVar2 = *(uint *)(&DAT_00795878 + DAT_00795074 * 4);
-      iVar3 = *(int *)(&DAT_00796078 + DAT_00795074 * 4);
+      iVar1 = *(int *)(DAT_00795078 + DAT_00795074 * 4);
+      uVar2 = *(uint *)(DAT_00795878 + DAT_00795074 * 4);
+      iVar3 = *(int *)(DAT_00796078 + DAT_00795074 * 4);
       DAT_00795074 = DAT_00795074 + 1 & 0x800001ff;
       if ((int)DAT_00795074 < 0) {
         DAT_00795074 = (DAT_00795074 - 1 | 0xfffffe00) + 1;

@@ -652,9 +652,16 @@ extern uint8_t DAT_00794bf0;
 extern uint8_t DAT_00794e14;
 extern uint32_t DAT_00795070;
 extern uint32_t DAT_00795074;
-extern uint8_t DAT_00795078;
-extern uint8_t DAT_00795878;
-extern uint8_t DAT_00796078;
+/* Input-event ring buffer, 0x200 entries x 4 bytes each (msg/param1/param2
+ * parallel arrays) - was declared as a single uint8_t; FUN_00412130.c
+ * (consumer) and FUN_00506210/00506480/00506b20/00506bf0/00506310/
+ * 00506cf0/00506950.c (producers) all index `&DAT_x + readOrWriteIdx*4`
+ * with the index masked to 0x1ff, and the next DAT_ symbol after each of
+ * these 3 sits exactly 0x800 bytes later in globals.c - confirming the
+ * real array size. See FUN_00412130.c's 2026-07-15 header note. */
+extern uint8_t DAT_00795078[0x800];
+extern uint8_t DAT_00795878[0x800];
+extern uint8_t DAT_00796078[0x800];
 extern uint8_t DAT_00796878;
 extern uint8_t DAT_00796aa0;
 /* g_localizedStringTable (was DAT_00796eec) - the localized UI-string map,
