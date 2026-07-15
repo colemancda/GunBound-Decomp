@@ -35,13 +35,14 @@ src_fileformat_LoadGameDataFiles.obj
 src_fileformat_LoadChooseEventConfig.obj
 # CButtonWidget's 5 virtuals (NoOp/Draw/Tick/SetState/Delete) are now
 # implemented (2026-07-15) - ButtonWidget.obj is no longer dropped here.
+# CProjectile's 9 remaining virtuals are now implemented (2026-07-15) -
+# Projectile.obj is no longer dropped here.
 # In-progress C++ class migrations with unimplemented virtuals
 # (C++-mangled, gen_bringup_stubs.py can't auto-stub them). Each has a
 # working raw-C equivalent already exercised on the bring-up path
 # (State02_ServerSelect_On*.c, WorldListPanel_Draw.c/PanelManager_*.c,
 # etc.) - drop the promoted C++ object for bring-up until its class
 # migration lands full virtual bodies.
-src_cxx_Projectile.obj
 src_cxx_State03_GameRoomList.obj
 src_cxx_State10_Loading.obj
 # 2026-07-14: src_cxx_Panel.obj was dropped here twice this same day for

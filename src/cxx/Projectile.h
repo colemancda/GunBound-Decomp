@@ -54,7 +54,19 @@ public:
      * (AdvanceSpriteAnimation), bumping a small frame counter (+0x3b44) and
      * firing a replay event when it reaches 5. */
     virtual void AnimateProjectileTick();
-    /* slot 3 +0x0c: 0x458690 (vtable-only; Ghidra has not defined it). */
+    /* slot 3 +0x0c: 0x458690 - fresh angr disassembly (2026-07-15, no prior
+     * decompile existed). 0-arg __thiscall, void return (confirmed - real
+     * signature, no fix needed). Publishes several guard-cell values into a
+     * g_clientContext-relative per-slot tracking array indexed by
+     * m_ctorArg1, gated on a global table pointer at g_clientContext+0x20b94
+     * (whole function is a no-op if that's null); does 2 BST lookups via
+     * 0x455b60 (unnamed - a tree walk against the same sprite/frame
+     * registry root FindSpriteFrame/DrawButtonWidget use) keyed on
+     * m_spriteId/m_lifetime and a newly-discovered field at this+0x30
+     * (inside what was m_unk30 - likely a per-shot sprite/frame cache key,
+     * unconfirmed). GUESSED name/role - the specific purpose of the
+     * per-slot tracking array isn't confirmed, only its shape. See
+     * Projectile.cpp for the full derivation and the exact global offsets. */
     virtual void v3();
     /* slot 4 +0x10: 0x429800 (shared) - no-op (`return;`). */
     virtual void v4_NoOp();
@@ -76,8 +88,22 @@ public:
      * the crater (FloatToInt64), spawns damage particles (FUN_00432320),
      * RegisterActiveObject + AcquireSoundChannel, then rescrambles a guard. */
     virtual void DetonateProjectile();
-    /* slot 7 +0x1c: 0x458850 (vtable-only). */
-    virtual void v7();
+    /* slot 7 +0x1c: 0x458850 - fresh angr disassembly (2026-07-15, no prior
+     * decompile existed). FIXED: was declared void-returning; the real
+     * function has two distinct exits (`mov al,1; ret` / `xor al,al; ret`)
+     * - a bool return. 0-arg __thiscall otherwise (confirmed). A 3-part
+     * guarded window check, short-circuit ANDed: two PeekPacketChecksumState
+     * range comparisons (cell targets not resolvable - same "~45 unresolved
+     * guard-cell target" gap DetonateProjectile already documents), then
+     * this->m_pad3d+0xf17 vs g_clientContext+0x6aa1e4, then
+     * this->m_pad3d+0x113b vs the fixed constant 0xfffffc18 via
+     * PacketChecksumLessThan. Both cell offsets (0xf17, 0x113b) are already
+     * used by DetonateProjectile (self->m_pad3d + 0xf17 /
+     * self->m_pad3d + 0x113b) - strong cross-confirmation these are the
+     * right cells. GUESSED name/role - the structural shape (an ANDed
+     * guard-window check) is solid, the semantic meaning ("can this
+     * projectile still act/detonate"?) is not confirmed. */
+    virtual bool v7();
     /* slot 8 +0x20: 0x40ca00 - RENAMED from v8 (2026-07-15): confirmed the
      * same address as CButtonWidget's slot 0 (Delete -
      * DeletePoisonedBaseObject, see ButtonWidget.h/.cpp), a shared
@@ -87,9 +113,41 @@ public:
     virtual void *v8_Delete(int shouldFree);
     /* slot 9 +0x24: 0x461c60 (shared, same rename/arg-fix as slot 1 above). */
     virtual void v9_SetState(const char *name);
-    /* slot 10 +0x28: 0x458ae0 (vtable-only). */
-    virtual void v10();
-    /* slot 11 +0x2c: 0x458b00 (vtable-only). */
+    /* slot 10 +0x28: 0x458ae0 - RENAMED from v10 (2026-07-15, fresh angr
+     * disassembly, no prior decompile existed - confident rename, not just
+     * a guess): a max-lifetime auto-expiry tick. Confirmed via cross-
+     * reference against DetonateProjectile's already-committed
+     * `pCVar9->m_pad0c[8] = '\x01'` writes (the same this+0x14 field this
+     * function force-sets once a counter at this+0x40 exceeds a limit at
+     * this+0x44 - both currently inside the unmapped m_pad3d guard-cell
+     * region). 0-arg __thiscall, void return - matches the prior
+     * declaration exactly, no signature fix needed.
+     * KNOWN CONFLICT (flagged, not resolved): this also accumulates the
+     * counter into this+0x3c - the SAME offset Projectile.h documents as
+     * m_flags (u8, "low 3 bits = a per-shot tag", set once by InitProjectile
+     * and read as a small tag value by DetonateProjectile's
+     * FUN_00432320/FUN_0043af40 calls), but reads/writes it here as a full
+     * accumulating DWORD. Both behaviors are real and angr-confirmed at the
+     * same address; not reconciled here - see Projectile.cpp for how this
+     * is written (raw offset arithmetic, not through the m_flags member, to
+     * stay honest about the ambiguity). */
+    virtual void TickLifetimeExpiry();
+    /* slot 11 +0x2c: 0x458b00 - fresh angr disassembly (2026-07-15, no prior
+     * decompile existed). 0-arg __thiscall, void return (confirmed - real
+     * signature, no fix needed). Computes a camera-relative screen position
+     * twice with constants differing by exactly +/-1 (298/399 vs 297/400 -
+     * a classic drop-shadow/outline double-draw offset pattern) from
+     * m_lifetime (+0x38) and the this+0x3c field (see slot 10's comment -
+     * same conflicted offset), against two not-yet-named camera globals in
+     * the g_clientContext+0x6a7710/+0x6a7714 family (same cluster as the
+     * g_nCameraX/g_nCameraScrollX globals already named in
+     * DetonateProjectile, just not these two specific ones), then issues 2
+     * draw-style calls (0x4eb640/0x4eb720, not identified anywhere else in
+     * the tree) passing a constant mode/color index and a new 16-bit field
+     * at this+0x48 (inside what was m_pad3d) whose content (value? string
+     * pointer? sprite index?) is unconfirmed. GUESSED name/role - the
+     * "draw twice at adjacent camera-relative offsets" shape is solid, the
+     * exact content being drawn is not confirmed. */
     virtual void v11();
     /* slot 12 +0x30: 0x429800 (shared) - no-op. */
     virtual void v12_NoOp();

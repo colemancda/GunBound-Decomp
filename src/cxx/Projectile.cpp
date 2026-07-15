@@ -144,6 +144,28 @@ char CompareChecksumExceeds(void *cellA, void *cellB);
 void AcquireSoundChannel(int a);
 int _rand(void);
 
+/* v3/v7/v11's additional dependencies (fresh angr disassembly, 2026-07-15,
+ * no prior decompile existed for any of these 4 slots - see Projectile.h's
+ * slot 3/7/10/11 comments). */
+char CompareChecksumPairGreaterEqual(void *cellA, void *cellB); /* 0x40b450 */
+/* 0x455b60 - an unnamed BST/tree-walk helper (v3 only) against the same
+ * sprite/frame registry root FindSpriteFrame/DrawButtonWidget use. The
+ * original call site's convention is genuinely mixed (2 args via EDX/EAX,
+ * 2 more via the stack, callee-cleans) and doesn't map to any normal C
+ * signature; this helper has no independent decompile of its own yet, so
+ * it's declared as a plain extern for bring-up auto-stubbing rather than
+ * guessed at via inline asm to an address that wouldn't even exist in this
+ * rebuild. Argument order below is a best-effort mapping of the observed
+ * register/stack values (rowAddr, stride, spriteOrLifetimeKey,
+ * this+0x30 key) - NOT verified against 0x455b60's own prologue. */
+int LookupProjectileTrackingRow(void *rowAddr, int stride, int keyA, int keyB);
+/* 0x4eb640 / 0x4eb720 (v11 only) - unidentified draw-style calls, not
+ * found anywhere else in the tree. Declared for bring-up auto-stubbing;
+ * argument order is a best-effort reading of the observed per-call-site
+ * register state, not independently verified. */
+void FUN_004eb640(int mode, int x, int y, unsigned short label);
+void FUN_004eb720(int mode, int x, int y, unsigned short label);
+
 /* v1_SetState/v9_SetState/v8_Delete/v4_NoOp/v12_NoOp's dependencies - same
  * shared functions ButtonWidget.cpp declares for CButtonWidget's identical
  * vtable slots (0x461c60/0x40ca00/0x429800). See ButtonWidget.cpp's header
@@ -1360,4 +1382,162 @@ void CProjectile::v4_NoOp()
 void CProjectile::v12_NoOp()
 {
     NoOpMethod();
+}
+
+/* slot 3 +0x0c: 0x458690 - see Projectile.h's slot-3 comment for the
+ * overview; this is the full derivation, from a direct angr disassembly
+ * (2026-07-15, no prior decompile existed).
+ *
+ * All the 0x20bXX/0x20cXX offsets below are literal byte offsets INTO the
+ * g_clientContext arena itself (`*(T*)((char*)g_clientContext + offset)`),
+ * NOT separate link-time DAT_ symbols - confirmed via the real disassembly
+ * (`mov eax,[0x5b3484]` then `mov ecx,[eax+0x20b94]`, a direct offset add
+ * on the loaded g_clientContext value, unlike the rest of this file's
+ * "&DAT_xxx + g_clientContext" globals, which are separate link-time
+ * symbols whose own address serves as the ctx-relative offset).
+ *
+ * PeekPacketChecksumBool/PeekPacketChecksumState are called bare here too
+ * (matching this file's established convention, and this file's own
+ * extern declarations) even though this disassembly clearly shows their
+ * real cell argument (confirmed: PeekPacketChecksumState's real "this"
+ * arrives via EAX, not the stack - see ValueGuard.cpp's CValueGuard::Peek,
+ * same address 0x40a2e0) - noted per-call in comments instead, to stay
+ * consistent with every other call site in this file rather than
+ * introduce a differently-shaped declaration only this method could use. */
+void CProjectile::v3()
+{
+    char *ctx = reinterpret_cast<char *>(g_clientContext);
+    void *table1 = *reinterpret_cast<void **>(ctx + 0x20b94);
+    if (table1 == 0) {
+        return;
+    }
+
+    if (PeekPacketChecksumBool() != 0) { /* cell: this->m_pad3d + 0x37d3 (this+0x3810) */
+        *reinterpret_cast<unsigned char *>(ctx + m_ctorArg1 + 0x20bb4) = 0;
+    }
+
+    EnterCriticalSection(&DAT_005a9068);
+    int peek1 = PeekPacketChecksumState(); /* cell: this->m_pad3d + 0x44b (this+0x488) */
+    LeaveCriticalSection(&DAT_005a9068);
+    int negative = (peek1 < 0) ? 1 : 0;
+
+    char guarded = CheckGuardedBoolAnd(negative); /* cell: this->m_pad3d + 0xf0f (this+0xf4c) */
+    *reinterpret_cast<unsigned char *>(ctx + m_ctorArg1 + 0x20ba4) = (guarded != 0) ? 0 : 1;
+
+    EnterCriticalSection(&DAT_005a9068);
+    int stateA = PeekPacketChecksumState(); /* cell: this->m_pad3d + 0xf17 (this+0xf54) */
+    LeaveCriticalSection(&DAT_005a9068);
+    *reinterpret_cast<int *>(ctx + (static_cast<int>(m_ctorArg1) + 0x1a35) * 5 * 4) = stateA;
+
+    EnterCriticalSection(&DAT_005a9068);
+    int stateB = PeekPacketChecksumState(); /* cell: this->m_pad3d + 0x113b (this+0x1178) */
+    LeaveCriticalSection(&DAT_005a9068);
+    *reinterpret_cast<int *>(ctx + m_ctorArg1 * 5 * 4 + 0x20c28) = stateB;
+
+    EnterCriticalSection(&DAT_005a9068);
+    int stateC = PeekPacketChecksumState(); /* cell: this->m_pad3d + 0x1bef (this+0x1c2c) */
+    LeaveCriticalSection(&DAT_005a9068);
+    *reinterpret_cast<int *>(ctx + m_ctorArg1 * 5 * 4 + 0x20c2c) = stateC;
+    *reinterpret_cast<int *>(ctx + m_ctorArg1 * 5 * 4 + 0x20c34) = 0;
+
+    int trackKey = *reinterpret_cast<int *>(m_unk30); /* this+0x30, unconfirmed role */
+
+    int stride1 = *reinterpret_cast<int *>(ctx + 0x20b98);
+    int row1 = (static_cast<int>(m_ctorArg1) >> 2) * stride1 + (m_ctorArg1 & 3) * 2;
+    void *rowAddr1 = reinterpret_cast<char *>(table1) + (row1 << 6);
+    if (rowAddr1 != 0) {
+        LookupProjectileTrackingRow(rowAddr1, stride1, static_cast<int>(m_spriteId), trackKey);
+    }
+
+    void *table2 = *reinterpret_cast<void **>(ctx + 0x20b9c);
+    if (table2 != 0) {
+        int stride2 = *reinterpret_cast<int *>(ctx + 0x20ba0);
+        int row2 = (static_cast<int>(m_ctorArg1) >> 2) * stride2 + (m_ctorArg1 & 3) * 2;
+        void *rowAddr2 = reinterpret_cast<char *>(table2) + (row2 << 6);
+        int lookup2 = LookupProjectileTrackingRow(rowAddr2, stride2, static_cast<int>(m_lifetime), trackKey) & 0xff;
+        *reinterpret_cast<int *>(ctx + m_ctorArg1 * 5 * 4 + 0x20c30) = lookup2;
+        *reinterpret_cast<int *>(ctx + m_ctorArg1 * 5 * 4 + 0x20c34) = 0;
+    }
+}
+
+/* slot 7 +0x1c: 0x458850 - see Projectile.h's slot-7 comment. A 3-part
+ * guarded window check, short-circuit ANDed; PeekPacketChecksumState calls
+ * stay bare per this file's established convention (see slot 3's comment
+ * above for why), cell targets noted per-call. */
+bool CProjectile::v7()
+{
+    EnterCriticalSection(&DAT_005a9068);
+    int a = PeekPacketChecksumState(); /* cell: this->m_pad3d + 0xf17 (this+0xf54) */
+    int b = PeekPacketChecksumState(); /* cell: g_clientContext + 0x6a9b78 */
+    LeaveCriticalSection(&DAT_005a9068);
+    if (!(a < b)) {
+        return false;
+    }
+
+    EnterCriticalSection(&DAT_005a9068);
+    a = PeekPacketChecksumState(); /* cell: this->m_pad3d + 0xf17 (this+0xf54), re-peeked */
+    b = PeekPacketChecksumState(); /* cell: g_clientContext + 0x6a9d9c */
+    LeaveCriticalSection(&DAT_005a9068);
+    if (!(a >= b)) {
+        return false;
+    }
+
+    if (CompareChecksumPairGreaterEqual(reinterpret_cast<void *>(g_clientContext + 0x6aa1e4),
+                                         m_pad3d + 0x113b) != 0) {
+        return false;
+    }
+    if (PacketChecksumLessThan(m_pad3d + 0x113b, static_cast<int>(0xfffffc18)) != 0) {
+        return false;
+    }
+    return true;
+}
+
+void CProjectile::TickLifetimeExpiry()
+{
+    /* this+0x40 (counter) and this+0x44 (limit) are inside the m_pad3d
+     * guard-cell region (m_pad3d+3 / m_pad3d+7 respectively - both were
+     * previously unmapped/opaque). this+0x3c is NOT inside m_pad3d (it's
+     * the byte immediately before it, documented as m_flags) - see this
+     * method's header comment in Projectile.h for the known field-role
+     * conflict; written via raw offset arithmetic here rather than through
+     * the m_flags member, to stay honest about the ambiguity. */
+    unsigned int *counter = reinterpret_cast<unsigned int *>(m_pad3d + 3);
+    unsigned int *limit   = reinterpret_cast<unsigned int *>(m_pad3d + 7);
+    unsigned int *accum   = reinterpret_cast<unsigned int *>(reinterpret_cast<char *>(this) + 0x3c);
+
+    unsigned int next = *counter + 1;
+    *accum += next;
+    *counter = next;
+    if (next > *limit) {
+        m_pad0c[8] = 1; /* == this+0x14 - same "impact/expired" flag DetonateProjectile sets */
+    }
+}
+
+/* slot 11 +0x2c: 0x458b00 - see Projectile.h's slot-11 comment. Draws
+ * twice at adjacent camera-relative offsets (a drop-shadow/outline
+ * double-draw pattern). g_camY/g_camX are the still-unnamed camera
+ * globals at g_clientContext+0x6a7714/+0x6a7710 (same family as the
+ * already-named g_nCameraX/g_nCameraScrollX cluster DetonateProjectile
+ * uses, just not these two specific fields). this+0x48 (m_pad3d+0xb) is a
+ * newly-discovered field of unconfirmed content (value? string? sprite
+ * index?) forwarded to both draw calls. */
+void CProjectile::v11()
+{
+    char *ctx = reinterpret_cast<char *>(g_clientContext);
+    int camY = *reinterpret_cast<int *>(ctx + 0x6a7714);
+    int camX = *reinterpret_cast<int *>(ctx + 0x6a7710);
+    unsigned short label = *reinterpret_cast<unsigned short *>(m_pad3d + 0xb); /* this+0x48 */
+
+    /* this+0x3c: same field TickLifetimeExpiry (slot 10) conflicts over -
+     * see that method's header comment in Projectile.h. */
+    int rawY = *reinterpret_cast<int *>(reinterpret_cast<char *>(this) + 0x3c);
+    int rawX = static_cast<int>(m_lifetime);
+
+    int y1 = (rawY - camY) + 0x12a;
+    int x1 = (rawX - camX) + 0x18f;
+    FUN_004eb640(3, x1, y1, label);
+
+    int y2 = (rawY - camY) + 0x129;
+    int x2 = (rawX - camX) + 0x190;
+    FUN_004eb720(3, x2, y2, label);
 }
