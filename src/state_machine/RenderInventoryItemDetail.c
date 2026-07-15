@@ -82,7 +82,11 @@ void RenderInventoryItemDetail(int param_1)
     (*pcVar11)(&DAT_005a9068);
     if (local_190d != '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(0);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x44ba6e (`lea edi,[ebp+0x325b0]`, ebp = this file's own param_1,
+       * confirmed by objdump of orig/GunBound.gme): the cell is
+       * param_1+0x325b0. See tools/encodeoutgoingpacketfield_sites.json. */
+      EncodeOutgoingPacketField(param_1 + 0x325b0, 0);
       (*pcVar11)(&DAT_005a9068);
       RemoveWidget();
       RemoveWidget();

@@ -216,25 +216,32 @@ LAB_0042b5ad:
   local_4 = 0xffffffff;
 LAB_0042b60a:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(param_3);
+  /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+   * 0x42b61e/0x42b645/0x42b666/0x42b687/0x42b6ab/0x42b6cc/0x42b795 (a
+   * run of `lea edi,[ebp+N]`, ebp = this function's own piVar3 - the
+   * freshly-allocated mobile object) 6 distinct CValueGuard cells at
+   * (int)piVar3+0x1a2c/0x90c/0x15e4/0xb30/0x1808/0x1c54 (0xb30 is
+   * reused for both the param_5 encode and the following vtable-call
+   * result encode). See tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar3 + 0x1a2c, param_3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(param_4);
+  EncodeOutgoingPacketField((int)piVar3 + 0x90c, param_4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar4 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar4);
+  EncodeOutgoingPacketField((int)piVar3 + 0x15e4, uVar4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(param_5);
+  EncodeOutgoingPacketField((int)piVar3 + 0xb30, param_5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar4 = (**(code **)(*piVar3 + 0x14))();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(uVar4);
+  EncodeOutgoingPacketField((int)piVar3 + 0xb30, uVar4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar4 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar4);
+  EncodeOutgoingPacketField((int)piVar3 + 0x1808, uVar4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   piVar3[6] = param_3 + 5000;
   piVar3[0x241] = param_3 + 0x13ec;
@@ -250,7 +257,10 @@ LAB_0042b60a:
   EncodeGuardedBool(param_12);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(1);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42b795
+   * (`lea edi,[ebp+0x1c54]`, ebp = piVar3) the cell is
+   * (int)piVar3+0x1c54. See tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar3 + 0x1c54, 1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = PeekPacketChecksumState();
@@ -285,7 +295,15 @@ LAB_0042b60a:
     local_4 = 0x11;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar4);
+    /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+     * 0x42b8da/0x42b95b (`lea edi,[ebp+0x6968]` / `lea edi,[ebp+0x6fd4]`,
+     * ebp = piVar3) two FRESH CValueGuard cells distinct from the
+     * EncodeChecksumDeltaDiv source cell just above (piVar3+0x19d1 /
+     * +0x1b6c) - Peek() here reads back EncodeChecksumDeltaDiv's own
+     * return value, not the LEA'd cell, so the LEA only supplies self for
+     * this EncodeOutgoingPacketField. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField((int)piVar3 + 0x6968, uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
@@ -296,7 +314,7 @@ LAB_0042b60a:
     local_4 = 0x12;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar4);
+    EncodeOutgoingPacketField((int)piVar3 + 0x6fd4, uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
@@ -307,7 +325,13 @@ LAB_0042b60a:
     local_4 = 0x13;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar4);
+    /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+     * 0x42b9d6/0x42ba51 (`lea edi,[ebp+0x6b8c]` / `lea edi,[ebp+0x71f8]`,
+     * ebp = piVar3) - here the LEA'd address IS the same cell passed as
+     * EncodeChecksumDeltaDiv's own source arg just above (piVar3+0x1ae3 /
+     * +0x1c7e), reused as self since nothing overwrites EDI in between.
+     * See tools/encodeoutgoingpacketfield_sites.json. */
+    EncodeOutgoingPacketField((int)piVar3 + 0x6b8c, uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
@@ -318,7 +342,7 @@ LAB_0042b60a:
     local_4 = 0x14;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar4);
+    EncodeOutgoingPacketField((int)piVar3 + 0x71f8, uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (iStack_21c != 0) {

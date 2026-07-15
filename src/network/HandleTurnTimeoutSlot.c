@@ -42,25 +42,48 @@ void HandleTurnTimeoutSlot(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (param_1 != uVar6) {
       uVar3 = *(undefined2 *)(in_EAX + 3);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x4cc290 (`lea edi,[ebx+0x15e4]` at 0x4cc283, ebx = piVar5 per
+       * `mov ebx,eax` right after the GetPlayerRecordBySlot call above)
+       * the cell is (int)piVar5+0x15e4. `piVar5` is `int *` (scales by
+       * 4), so the byte offset is taken via `(int)piVar5 + N`, matching
+       * this file's own existing idiom (see the +0x8bba/+0x8bbb pokes
+       * below). See tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(uVar3);
+      EncodeOutgoingPacketField((int)piVar5 + 0x15e4, uVar3);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x4cc2b5 (`lea edi,[ebx+0x90c]` at 0x4cc2af) the cell is
+       * (int)piVar5+0x90c. See
+       * tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar7);
+      EncodeOutgoingPacketField((int)piVar5 + 0x90c, uVar7);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       unaff_EBX = (uint)*(ushort *)(in_EAX + 5);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x4cc2e2 (`lea edi,[ebx+0x1808]` at 0x4cc2d5) the cell is
+       * (int)piVar5+0x1808. See
+       * tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(unaff_EBX);
+      EncodeOutgoingPacketField((int)piVar5 + 0x1808, unaff_EBX);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+       * 0x4cc307 (`lea edi,[ebx+0xb30]` at 0x4cc301) the cell is
+       * (int)piVar5+0xb30. See
+       * tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar7);
+      EncodeOutgoingPacketField((int)piVar5 + 0xb30, uVar7);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     cVar4 = *(char *)(in_EAX + 7);
+    /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
+     * 0x4cc338 (`lea edi,[ebx+0x1c54]` at 0x4cc332) the cell is
+     * (int)piVar5+0x1c54. See
+     * tools/encodeoutgoingpacketfield_sites.json. */
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(cVar4 == '\x01');
+    EncodeOutgoingPacketField((int)piVar5 + 0x1c54, cVar4 == '\x01');
     pcVar10 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

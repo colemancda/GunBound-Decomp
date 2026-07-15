@@ -46,41 +46,56 @@ void SpawnItemProjectile(undefined4 param_1,int param_2,int param_3)
   *(byte *)(piVar6 + 0xf) = unaff_retaddr & 7;
   piVar6[0xe] = 0x1965;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(param_2);
+  /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
+   * 0x43187c/0x4318a3/0x4318c1/0x4318df/0x431900 (a run of
+   * `lea edi,[ebp+N]`, ebp = this function's own piVar6 - the freshly-
+   * allocated item-projectile object) 5 distinct CValueGuard cells at
+   * (int)piVar6+0xf54/0x3b48/0x1178/0x40/0x264. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar6 + 0xf54, param_2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar3);
+  EncodeOutgoingPacketField((int)piVar6 + 0x3b48, uVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(param_3);
+  EncodeOutgoingPacketField((int)piVar6 + 0x1178, param_3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(param_2 << 8);
+  EncodeOutgoingPacketField((int)piVar6 + 0x40, param_2 << 8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(param_3 << 8);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = FloatToInt64();
-  EncodeOutgoingPacketField((iVar4 << 8) / iVar2);
+  EncodeOutgoingPacketField((int)piVar6 + 0x264, param_3 << 8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = FloatToInt64();
-  EncodeOutgoingPacketField((iVar4 << 8) / iVar2);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x431971
+   * (`lea edi,[ebp+0x488]`) the cell is (int)piVar6+0x488. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar6 + 0x488, (iVar4 << 8) / iVar2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = FloatToInt64();
-  EncodeOutgoingPacketField(-((iVar4 << 8) / iVar2));
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4319d0
+   * (`lea edi,[ebp+0x8d0]`) the cell is (int)piVar6+0x8d0. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar6 + 0x8d0, (iVar4 << 8) / iVar2);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  iVar2 = PeekPacketChecksumState();
+  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  iVar4 = FloatToInt64();
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x431a36
+   * (`lea edi,[ebp+0x6ac]`) the cell is (int)piVar6+0x6ac. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar6 + 0x6ac, -((iVar4 << 8) / iVar2));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
@@ -93,7 +108,10 @@ void SpawnItemProjectile(undefined4 param_1,int param_2,int param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = FloatToInt64();
-  EncodeOutgoingPacketField((iVar4 << 8) / iVar2);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x431ae1
+   * (`lea edi,[ebp+0xaf4]`) the cell is (int)piVar6+0xaf4. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar6 + 0xaf4, (iVar4 << 8) / iVar2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
@@ -106,7 +124,10 @@ void SpawnItemProjectile(undefined4 param_1,int param_2,int param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = FloatToInt64();
-  EncodeOutgoingPacketField(((0x62 - iVar4) * 0x100) / iVar2);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x431b94
+   * (`lea edi,[ebp+0xd18]`) the cell is (int)piVar6+0xd18. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar6 + 0xd18, ((0x62 - iVar4) * 0x100) / iVar2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = _rand();
@@ -122,11 +143,19 @@ void SpawnItemProjectile(undefined4 param_1,int param_2,int param_3)
   uVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(uVar3);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x431c40
+   * (`lea edi,[ebp+0x17e4]`) the cell is (int)piVar6+0x17e4. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar6 + 0x17e4, uVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar3);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x431c61
+   * (`lea edi,[ebp+0x1a08]`) - this Peek re-read the +0x17e4 cell from
+   * above (edi unchanged at Peek time), but the Encode targets a fresh
+   * cell at (int)piVar6+0x1a08. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar6 + 0x1a08, uVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = _rand();
@@ -139,7 +168,10 @@ void SpawnItemProjectile(undefined4 param_1,int param_2,int param_3)
   *(byte *)((int)piVar6 + 0x391d) = bVar5 + *(char *)((int)piVar6 + 0x391b) + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0);
+  /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x431cf0
+   * (`lea edi,[ebp+0x3920]`) the cell is (int)piVar6+0x3920. See
+   * tools/encodeoutgoingpacketfield_sites.json. */
+  EncodeOutgoingPacketField((int)piVar6 + 0x3920, 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   piVar6[0xfe8] = -1;
   *(undefined2 *)(piVar6 + 0xfe9) = 0xffff;
