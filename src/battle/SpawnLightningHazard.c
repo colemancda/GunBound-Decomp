@@ -7,7 +7,7 @@
  * SpawnWeatherHazards for the lightning descriptor slot. Identity
  * CONFIRMED: RenderWeatherHazards maps layer 0x1f6 -> s_LightningTexture.
  * (A second lightning layer 0x1f7 -> s_Lightning is spawned by a
- * separate path, FUN_004a6920/FUN_00436150, left FUN_* pending its own
+ * separate path, InitProjectileLightningHazard/SpawnProjectileLightningHazard, left FUN_* pending its own
  * determination.) Raw/near-verbatim Ghidra body - see src/README.md.
  */
 #include "ghidra_types.h"

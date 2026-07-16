@@ -1,12 +1,18 @@
-/* FUN_004af7a0 - 0x004af7a0 in the original binary.
+/* DetonatePrimaryShot_Bullet12 - 0x004af7a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_004af7a0): the DetonateProjectile
+ * (CProjectile virtual slot 6) override for mobile TYPE 11's primary-shot
+ * projectile. Type/role CONFIRMED via vtable geometry (its pointer
+ * appears once, at slot 6 of projectile vtable 0x556660, whose ctor
+ * FUN_004af530 is reached only through SpawnPrimaryShot's case 0xb - the
+ * bullet-12 case) - same MIRV/cluster shape as the near-twin
+ * DetonatePrimaryShot_Bullet4. The "_Bullet12" suffix is the confirmed
+ * bullet/mobile-type; the specific mobile NAME is not confirmable. Raw/
+ * near-verbatim Ghidra body - see src/README.md.
  *
  * FIXED (2026-07-16): 23 of this function's 24 EncodeOutgoingPacketField
  * call sites dropped `self` (unaff_EDI) - same angr disassembly
- * reconstruction as the near-twin src/unnamed/FUN_004a2ce0.c (backward
+ * reconstruction as the near-twin src/unnamed/DetonatePrimaryShot_Bullet4.c (backward
  * register/stack-slot tracing from each call site, cross-checked
  * against calls to sibling anchor functions whose real addresses are
  * known). This function has its own distinct stack-cached self values
@@ -30,7 +36,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004af7a0(int *param_1)
+void __fastcall DetonatePrimaryShot_Bullet12(int *param_1)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -757,7 +763,7 @@ LAB_004b0432:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();
     /* NOT FIXED (2026-07-16): self intentionally left off, same as the
-     * twin FUN_004a2ce0.c's analogous site (0x4b07fd here). angr-traced
+     * twin DetonatePrimaryShot_Bullet4.c's analogous site (0x4b07fd here). angr-traced
      * disasm shows edi reloaded from a stack slot whose last write
      * before this call is a `cmp`, not a `mov`/`lea` - not a stable
      * object-pointer expression. Moot in the current bring-up build

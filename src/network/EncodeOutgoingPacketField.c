@@ -50,7 +50,7 @@
  * would leave the function just as wrong, in a different way - the same
  * "confirm via disassembly, don't patch on suspicion" standard used
  * throughout this project applies here. Several of the 13 files are 800-
- * 2000+ lines each (FUN_004513b0.c 977, FUN_004a2ce0.c 822, FUN_004af7a0.c
+ * 2000+ lines each (FUN_004513b0.c 977, DetonatePrimaryShot_Bullet4.c 822, DetonatePrimaryShot_Bullet12.c
  * 807, FUN_004a4950.c 806, FUN_00495e80.c 806, State11_InBattle_OnTick.c
  * 2039) - fixing all of them properly is multiple sessions' worth of
  * FUN_00405ba0.c-style full reconstruction, not a single mechanical pass.

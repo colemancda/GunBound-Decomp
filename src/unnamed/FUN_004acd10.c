@@ -115,7 +115,7 @@ void __fastcall FUN_004acd10(int param_1)
      * slot that holds THIS SAME PeekPacketChecksumState() call's own
      * return value (self=0 on the traced/stubbed path), not a stable
      * object-pointer expression - same shape as the unresolved sites
-     * documented in src/unnamed/FUN_004a2ce0.c/FUN_004af7a0.c. Moot in
+     * documented in src/unnamed/DetonatePrimaryShot_Bullet4.c/DetonatePrimaryShot_Bullet12.c. Moot in
      * the current bring-up build regardless: this whole if-block is
      * gated on CheckGuardedBoolAnd(local_45c[0]) where local_45c[0] is
      * itself derived from two PeekPacketChecksumState() calls (see

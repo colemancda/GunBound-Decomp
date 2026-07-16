@@ -1,13 +1,20 @@
-/* FUN_004388e0 - 0x004388e0 in the original binary.
+/* SpawnShot_Type13 - 0x004388e0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_004388e0): projectile-shot spawner for
+ * mobile TYPE 13 (structural sibling of SpawnKnightFlameShot /
+ * SpawnPrimaryShot / SpawnSuperShot / SpawnShot_Type9). Mobile type
+ * CONFIRMED via vtable geometry - its sole caller FUN_0046ca60 is a
+ * projectile method clustered with type-13's code; the effect it fires
+ * is 142blast. The "_Type13" suffix is the confirmed mobile type; the
+ * mobile NAME is not confirmable (the "normal" string is a red-herring
+ * default anim-state, and the repo has no mobile-type->name map).
+ * NOTE: still a raw port with its own dropped params / SEH plumbing to
+ * finish - see src/README.md. Raw/near-verbatim Ghidra body.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004388e0(void)
+void SpawnShot_Type13(void)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -105,7 +112,7 @@ void FUN_004388e0(void)
    * object pointer `piVar2`): the offsets/order (0xf54, 0x3b48, 0x1178,
    * 0x40, 0x264, 0x488, 0x8d0, 0x6ac, 0xaf4, 0xd18) exactly match the
    * same field family already established for the sibling functions in
-   * this batch (src/battle/SpawnSuperShot.c, src/unnamed/FUN_0042f4b0.c)
+   * this batch (src/battle/SpawnSuperShot.c, src/unnamed/SpawnShot_Type9.c)
    * which explicitly confirm several of these same cells via nearby
    * EncodeChecksumDeltaMul/FUN_0040b090 calls. See
    * tools/encodeoutgoingpacketfield_sites.json. */
@@ -241,7 +248,7 @@ void FUN_004388e0(void)
      * (`lea edi,[ebp + 0x24c0]`): cell is piVar2+0x930 (== piVar2+0x24c0
      * bytes) - the same cell the EncodeChecksumDeltaMul call above this
      * block operates on (matching the identical, explicitly-confirmed
-     * pattern in the sibling src/unnamed/FUN_0042f4b0.c). See
+     * pattern in the sibling src/unnamed/SpawnShot_Type9.c). See
      * tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField(piVar2 + 0x930);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

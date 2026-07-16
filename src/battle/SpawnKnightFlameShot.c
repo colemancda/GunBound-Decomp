@@ -12,7 +12,7 @@
  *       14 + 1, one of the 3/3 corroborations of the vtable geometry).
  * Fired in an 8x loop from a secondary action state (not the primary
  * bullet path handled by SpawnPrimaryShot). Sibling spawners
- * FUN_0042f4b0 (mobile type 9) and FUN_004388e0 (likely type 13) are
+ * SpawnShot_Type9 (mobile type 9) and SpawnShot_Type13 (likely type 13) are
  * pinned to their mobile but have no name-bearing asset, so they stay
  * FUN_* for now. Raw/near-verbatim Ghidra body, not hand-verified
  * beyond the param/self fixes below - see src/README.md.
@@ -181,8 +181,8 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
    * object pointer `piVar3`): the offsets/order (0xf54, 0x3b48, 0x1178,
    * 0x40, 0x264, 0x488, 0x8d0, 0x6ac, 0xaf4, 0xd18) exactly match the
    * same field family already established for the sibling functions in
-   * this batch (src/battle/SpawnSuperShot.c, src/unnamed/FUN_0042f4b0.c,
-   * src/unnamed/FUN_004388e0.c). See
+   * this batch (src/battle/SpawnSuperShot.c, src/unnamed/SpawnShot_Type9.c,
+   * src/unnamed/SpawnShot_Type13.c). See
    * tools/encodeoutgoingpacketfield_sites.json. */
   (*pcVar9)();
   EncodeOutgoingPacketField(piVar3 + 0x3d5, param_5);
@@ -402,8 +402,8 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x431184
      * (`lea edi,[ebp + 0x24c0]`): cell is piVar3+0x930 (== piVar3+0x24c0
      * bytes) - matches the identical, explicitly-confirmed pattern in
-     * the sibling functions in this batch (src/unnamed/FUN_0042f4b0.c,
-     * .../FUN_004388e0.c). See tools/encodeoutgoingpacketfield_sites.json.
+     * the sibling functions in this batch (src/unnamed/SpawnShot_Type9.c,
+     * .../SpawnShot_Type13.c). See tools/encodeoutgoingpacketfield_sites.json.
      * FIXED (2026-07-16): also merged the value arg (sum of the two
      * adjacent PeekPacketChecksumState() calls, matching the disasm's
      * `add eax,ecx` between them). */

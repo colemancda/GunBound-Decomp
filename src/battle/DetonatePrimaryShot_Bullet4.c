@@ -1,8 +1,15 @@
-/* FUN_004a2ce0 - 0x004a2ce0 in the original binary.
+/* DetonatePrimaryShot_Bullet4 - 0x004a2ce0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_004a2ce0): the DetonateProjectile
+ * (CProjectile virtual slot 6) override for mobile TYPE 3's primary-shot
+ * projectile. Type/role CONFIRMED via vtable geometry (its pointer
+ * appears once, at slot 6 of projectile vtable 0x5564d0, whose ctor
+ * FUN_004a2a70 is reached only through SpawnPrimaryShot's case 3 - the
+ * s_bullet4n/s_bullet4s case) - a MIRV/cluster detonation that
+ * operator_new's a sub-projectile with the base vtable 0x55658c. The
+ * "_Bullet4" suffix is the confirmed bullet/mobile-type; the specific
+ * mobile NAME is not confirmable (repo has no mobile-type->name map).
+ * Raw/near-verbatim Ghidra body - see src/README.md.
  *
  * FIXED (2026-07-16): 24 of this function's 25 EncodeOutgoingPacketField
  * call sites dropped `self` (unaff_EDI) - full angr disassembly
@@ -32,7 +39,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004a2ce0(int *param_1)
+void __fastcall DetonatePrimaryShot_Bullet4(int *param_1)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not

@@ -402,7 +402,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0042bb10,155,FUN_0042bb10,false,5,5,RAW-src
 0042bbb0,8819,SpawnPrimaryShot,false,61,46,RAW-src
 0042de70,5627,SpawnSuperShot,false,25,38,RAW-src
-0042f4b0,4357,FUN_0042f4b0,false,5,24,RAW-src
+0042f4b0,4357,SpawnShot_Type9,false,5,24,RAW-src
 004305c0,4583,SpawnKnightFlameShot,false,8,24,RAW-src
 004317b0,1491,SpawnItemProjectile,false,16,11,RAW-src
 00431d90,1421,FUN_00431d90,false,36,15,RAW-src
@@ -416,7 +416,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00435ad0,705,SpawnFirewallHazard,false,1,13,RAW-src
 00435da0,705,SpawnLightningHazard,false,1,13,RAW-src
 00436070,215,FUN_00436070,false,34,7,RAW-src
-00436150,207,FUN_00436150,false,4,7,RAW-src
+00436150,207,SpawnProjectileLightningHazard,false,4,7,RAW-src
 00436220,1594,FUN_00436220,false,1,11,RAW-src
 00436860,133,FUN_00436860,false,6,5,RAW-src
 004368f0,132,FUN_004368f0,false,15,3,RAW-src
@@ -443,7 +443,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004382d0,131,FUN_004382d0,false,8,6,RAW-src
 00438360,175,FUN_00438360,false,7,4,RAW-src
 00438410,1211,FUN_00438410,false,2,13,RAW-src
-004388e0,3351,FUN_004388e0,false,1,22,RAW-src
+004388e0,3351,SpawnShot_Type13,false,1,22,RAW-src
 00439600,727,SpawnCraterDebris,false,3,10,RAW-src
 004398e0,1196,FUN_004398e0,false,5,19,RAW-src
 00439d90,168,FUN_00439d90,false,1,5,RAW-src
@@ -865,13 +865,13 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004a2a70,292,FUN_004a2a70,false,1,5,RAW-src
 004a2ba0,31,FUN_004a2ba0,false,1,2,RAW-src
 004a2bc0,274,FUN_004a2bc0,false,1,3,RAW-src
-004a2ce0,6434,FUN_004a2ce0,false,1,49,RAW-src
+004a2ce0,6434,DetonatePrimaryShot_Bullet4,false,1,49,RAW-src
 004a4610,223,FUN_004a4610,false,1,6,RAW-src
 004a46f0,278,FUN_004a46f0,false,1,5,RAW-src
 004a4810,31,FUN_004a4810,false,1,2,RAW-src
 004a4830,280,FUN_004a4830,false,1,3,RAW-src
 004a4950,6307,FUN_004a4950,false,1,49,RAW-src
-004a6920,165,FUN_004a6920,false,1,1,RAW-src
+004a6920,165,InitProjectileLightningHazard,false,1,1,RAW-src
 004a69d0,31,FUN_004a69d0,false,1,2,RAW-src
 004a69f0,163,FUN_004a69f0,false,1,2,RAW-src
 004a6b10,1259,FUN_004a6b10,false,1,8,RAW-src
@@ -919,7 +919,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004af530,300,FUN_004af530,false,1,5,RAW-src
 004af660,31,FUN_004af660,false,1,2,RAW-src
 004af680,274,FUN_004af680,false,1,3,RAW-src
-004af7a0,6313,FUN_004af7a0,false,1,48,RAW-src
+004af7a0,6313,DetonatePrimaryShot_Bullet12,false,1,48,RAW-src
 004b17b0,34,FUN_004b17b0,false,1,1,RAW-src
 004b17e0,32,FUN_004b17e0,false,1,2,RAW-src
 004b1800,13,FUN_004b1800,false,1,1,RAW-src

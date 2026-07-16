@@ -1,8 +1,13 @@
-/* FUN_0042f4b0 - 0x0042f4b0 in the original binary.
+/* SpawnShot_Type9 - 0x0042f4b0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_0042f4b0): projectile-shot spawner for
+ * mobile TYPE 9 (structural sibling of the confirmed SpawnKnightFlameShot
+ * and of SpawnPrimaryShot/SpawnSuperShot). Mobile type CONFIRMED via
+ * vtable geometry - its sole caller FUN_00480310 is a type-9 mobile
+ * method; the effect it fires is flame10/101blast. The "_Type9" suffix
+ * is the confirmed mobile type; the mobile NAME is not confirmable (no
+ * name-bearing asset, and the repo has no mobile-type->name map). Raw/
+ * near-verbatim Ghidra body - see src/README.md.
  *
  * FIXED (2026-07-16): this function's 5 real call sites (all in
  * FUN_00480310.c) already pass 12 cdecl arguments each, but only the
@@ -25,7 +30,7 @@
 
 /* WARNING: Removing unreachable block (ram,0x0042f6d4) */
 
-void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3,int param_4,int param_5,
+void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param_4,int param_5,
                    int param_6,int param_7,int param_8,int param_9,int param_10,int param_11,
                    int param_12)
 

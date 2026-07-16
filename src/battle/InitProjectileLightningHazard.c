@@ -1,13 +1,20 @@
-/* FUN_004a6920 - 0x004a6920 in the original binary.
+/* InitProjectileLightningHazard - 0x004a6920 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_004a6920): constructor for the
+ * projectile-spawned Lightning hazard object (the SECOND lightning
+ * variant, layer key 0x1f7, distinct from the turn-descriptor
+ * InitLightningHazard at layer 0x1f6). Sets the vtable (PTR_FUN_00556510)
+ * and param_1[1] = 0x1f7. Identity CONFIRMED: RenderWeatherHazards maps
+ * layer 0x1f7 -> s_Lightning. Spawned by SpawnProjectileLightningHazard,
+ * itself called from a projectile/detonation path (FUN_004a8360, which
+ * uses the base projectile vtable 0x55658c) rather than the terrain-
+ * hazard turn dispatcher - hence "Projectile" in the name. Raw/near-
+ * verbatim Ghidra body - see src/README.md.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_004a6920(undefined4 *param_1)
+undefined4 * InitProjectileLightningHazard(undefined4 *param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;

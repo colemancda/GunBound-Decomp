@@ -1,13 +1,20 @@
-/* FUN_00436150 - 0x00436150 in the original binary.
+/* SpawnProjectileLightningHazard - 0x00436150 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_00436150): spawns the projectile
+ * Lightning hazard (layer 0x1f7). operator_new(0x4ac) +
+ * InitProjectileLightningHazard + RegisterActiveObject into the
+ * g_clientContext+0x6a7f88 active-object list (the same list
+ * RenderWeatherHazards walks). Called from a projectile/detonation path
+ * (FUN_004a8360), distinct from the turn-descriptor SpawnWeatherHazards
+ * path that spawns the layer-0x1f6 SpawnLightningHazard. Identity
+ * CONFIRMED transitively via its InitProjectileLightningHazard callee's
+ * layer 0x1f7 -> s_Lightning mapping in RenderWeatherHazards. Raw/near-
+ * verbatim Ghidra body - see src/README.md.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00436150(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
+void SpawnProjectileLightningHazard(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
 
 {
   char cVar1;
@@ -26,15 +33,15 @@ void FUN_00436150(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
     iVar3 = 0;
     local_4 = 0;
     if (pvVar2 != (void *)0x0) {
-      iVar3 = FUN_004a6920(pvVar2);
+      iVar3 = InitProjectileLightningHazard(pvVar2);
     }
     local_4 = 0xffffffff;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
      * 0x4361bd (`lea edi,[esi + 0x38]`, esi = the object just
-     * constructed above via FUN_004a6920(pvVar2), returned/kept in
+     * constructed above via InitProjectileLightningHazard(pvVar2), returned/kept in
      * `iVar3`, not this function's own (unused) param_1): cell is
-     * iVar3+0x38, the same checksum-cell offset FUN_004a6920.c zero-
+     * iVar3+0x38, the same checksum-cell offset InitProjectileLightningHazard.c zero-
      * inits for its own `this`. `iVar3` is plain `int`, so byte offsets
      * add directly. Confirmed by the later `*(undefined1 *)(iVar3 +
      * 0x4a8)` use of the same `iVar3` as this object's base. See
@@ -44,7 +51,7 @@ void FUN_00436150(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
      * 0x4361e1 (`lea edi,[esi + 0x25c]`, esi = iVar3, same object as
-     * above): cell is iVar3+0x25c, matching FUN_004a6920.c's second
+     * above): cell is iVar3+0x25c, matching InitProjectileLightningHazard.c's second
      * cell offset. See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField(iVar3 + 0x25c, param_3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

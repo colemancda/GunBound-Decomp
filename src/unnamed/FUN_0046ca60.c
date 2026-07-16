@@ -32,7 +32,7 @@ void __fastcall FUN_0046ca60(undefined4 param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004388e0(iVar6,uVar4,uVar3,iVar1,uVar2,5,param_1);
+    SpawnShot_Type13(iVar6,uVar4,uVar3,iVar1,uVar2,5,param_1);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

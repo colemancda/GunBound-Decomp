@@ -294,7 +294,7 @@ LAB_004aa2ed:
           ((iVar7 < *(int *)(&g_nCameraBoundY + g_clientContext) &&
            (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * iVar7 +
                       *(int *)(&DAT_006a773c + g_clientContext) + iVar6) != '\0')))))) {
-        FUN_00436150(&DAT_006a7f70 + g_clientContext,iVar6,iVar7,0);
+        SpawnProjectileLightningHazard(&DAT_006a7f70 + g_clientContext,iVar6,iVar7,0);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_b10 = (byte *)PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -416,7 +416,7 @@ LAB_004aa2ed:
       iStack_b14 = iVar7;
     } while (iVar7 < *(int *)(&g_nCameraBoundY + g_clientContext));
   }
-  FUN_00436150(&DAT_006a7f70 + g_clientContext,iVar6,iStack_b14,0);
+  SpawnProjectileLightningHazard(&DAT_006a7f70 + g_clientContext,iVar6,iStack_b14,0);
   pbStack_afc = (byte *)(param_1 + 0xc66);
   uVar8 = EncodeChecksumNegate(pbStack_afc,auStack_8b4);
   puStack_10 = (undefined1 *)0x4;
@@ -499,7 +499,7 @@ LAB_004a87b1:
         ((*(int *)(&g_nCameraBoundY + g_clientContext) <= iVar6 ||
          (pbVar9[*(int *)(&g_nCameraBoundX + g_clientContext) * iVar6 +
                  *(int *)(&DAT_006a773c + g_clientContext)] == 0)))))) goto LAB_004a87de;
-    FUN_00436150(&DAT_006a7f70 + g_clientContext,pbVar9,iVar6,1);
+    SpawnProjectileLightningHazard(&DAT_006a7f70 + g_clientContext,pbVar9,iVar6,1);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_b10 = (byte *)PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -636,7 +636,7 @@ LAB_004a87b1:
     goto LAB_004a89b5;
   }
 LAB_004a87ec:
-  FUN_00436150(&DAT_006a7f70 + g_clientContext,pbVar9,iStack_b14,0);
+  SpawnProjectileLightningHazard(&DAT_006a7f70 + g_clientContext,pbVar9,iStack_b14,0);
   pbStack_af8 = (byte *)EncodeChecksumDeltaMul(pbStack_afc,auStack_adc,7);
   puStack_10 = (undefined1 *)0xa;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
