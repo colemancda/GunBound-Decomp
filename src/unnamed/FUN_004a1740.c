@@ -56,7 +56,14 @@ undefined4 FUN_004a1740(int param_1)
   if (iVar7 == 0) {
 LAB_004a2741:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0x5a);
+    /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x4a2757:
+     * self is edi+0x3fa4 where edi is the ORIGINAL param_1 (reloaded
+     * from its stack slot [esp+0x159c]). Every path reaching this label
+     * (the iVar7==0 check and the `goto LAB_004a2741` above) happens
+     * BEFORE the `param_1 = param_1 + 0x1178` reassignment below, so
+     * param_1 is still original here - self is param_1+0x3fa4. Value
+     * (0x5a) was already correct. */
+    EncodeOutgoingPacketField((void *)(param_1 + 0x3fa4), 0x5a);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   else {
@@ -71,7 +78,15 @@ LAB_004a2741:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar7 == -0x113) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(0xb4);
+      /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at
+       * 0x4a182a: self is edi+0x3fa4 where edi holds the ORIGINAL
+       * param_1 (loaded before the `param_1 = param_1 + 0x1178`
+       * reassignment above went into a different register). This call
+       * is AFTER that reassignment, so the C `param_1` here already
+       * equals original+0x1178 - to reach original+0x3fa4 the offset
+       * is 0x3fa4-0x1178 = 0x2e2c relative to the reassigned param_1.
+       * Value (0xb4) was already correct. */
+      EncodeOutgoingPacketField((void *)(param_1 + 0x2e2c), 0xb4);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     else {
