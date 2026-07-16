@@ -117,10 +117,10 @@ int InitGame(undefined4 param_1,undefined4 param_2)
         DAT_00e5285b = 0xcd;
         DAT_00e52e68 = 0x39;
         FUN_004f0100();
-        _DAT_00e9bea0 = &DAT_00795070;
-        _DAT_00e9c108 = &DAT_00795070;
-        _DAT_00e536e4 = &DAT_00795070;
-        _DAT_00e5285c = &DAT_00795070;
+        _DAT_00e9bea0 = &g_inputEventQueueWriteIndex;
+        _DAT_00e9c108 = &g_inputEventQueueWriteIndex;
+        _DAT_00e536e4 = &g_inputEventQueueWriteIndex;
+        _DAT_00e5285c = &g_inputEventQueueWriteIndex;
         g_gameStateVTableArray[0] = operator_new(4);
         if ((undefined4 *)g_gameStateVTableArray[0] == (undefined4 *)0x0) {
           g_gameStateVTableArray[0] = (undefined *)0x0;

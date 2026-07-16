@@ -138,7 +138,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     DAT_005b2b58 = 0;
   }
   else {
-    DAT_005b2b58 = InitConnectionObject(pvVar4,0,&DAT_00795070);
+    DAT_005b2b58 = InitConnectionObject(pvVar4,0,&g_inputEventQueueWriteIndex);
   }
   DAT_007934ec = DAT_005b2b58;
   FUN_004d23f0((int *)DAT_005b2b58);
@@ -147,7 +147,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     DAT_005b2b5c = 0;
   }
   else {
-    DAT_005b2b5c = InitConnectionObject(pvVar4,1,&DAT_00795070);
+    DAT_005b2b5c = InitConnectionObject(pvVar4,1,&g_inputEventQueueWriteIndex);
   }
   DAT_007934e8 = DAT_005b2b5c;
   FUN_004d23f0((int *)DAT_005b2b5c);
@@ -156,7 +156,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     DAT_005b2b60 = 0;
   }
   else {
-    DAT_005b2b60 = InitConnectionObject(pvVar4,2,&DAT_00795070);
+    DAT_005b2b60 = InitConnectionObject(pvVar4,2,&g_inputEventQueueWriteIndex);
   }
   DAT_007934f0 = DAT_005b2b60;
   FUN_004d23f0((int *)DAT_005b2b60);
@@ -175,7 +175,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
      * 0x24a70-byte connection object) - called for its side effects, not
      * its (nonexistent) return value. */
     DAT_007934f4 = pvVar4;
-    FUN_004058c0(pvVar4,3,&DAT_00795070);
+    FUN_004058c0(pvVar4,3,&g_inputEventQueueWriteIndex);
   }
   DVar3 = timeGetTime();
   FUN_00525c42(DVar3);

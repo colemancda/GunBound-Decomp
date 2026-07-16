@@ -37,15 +37,15 @@ LAB_00506baf:
     }
     if (param_2 == 0x1001) {
       uVar1 = *param_1;
-      uVar2 = DAT_00795070 + 1 & 0x800001ff;
+      uVar2 = g_inputEventQueueWriteIndex + 1 & 0x800001ff;
       if ((int)uVar2 < 0) {
         uVar2 = (uVar2 - 1 | 0xfffffe00) + 1;
       }
-      if (uVar2 != DAT_00795074) {
-        *(undefined4 *)(g_inputEventMsgQueue + DAT_00795070 * 4) = 0;
-        *(undefined4 *)(g_inputEventParam1Queue + DAT_00795070 * 4) = uVar1;
-        *(undefined4 *)(g_inputEventParam2Queue + DAT_00795070 * 4) = 0x20;
-        DAT_00795070 = uVar2;
+      if (uVar2 != g_inputEventQueueReadIndex) {
+        *(undefined4 *)(g_inputEventMsgQueue + g_inputEventQueueWriteIndex * 4) = 0;
+        *(undefined4 *)(g_inputEventParam1Queue + g_inputEventQueueWriteIndex * 4) = uVar1;
+        *(undefined4 *)(g_inputEventParam2Queue + g_inputEventQueueWriteIndex * 4) = 0x20;
+        g_inputEventQueueWriteIndex = uVar2;
         Widget_OnCommandDefault(0x1001,param_3,param_4);
         return;
       }

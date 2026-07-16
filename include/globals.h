@@ -650,8 +650,8 @@ extern uint8_t DAT_007937a0;
 extern uint8_t DAT_00793fa0;
 extern uint8_t DAT_00794bf0;
 extern uint8_t DAT_00794e14;
-extern uint32_t DAT_00795070;
-extern uint32_t DAT_00795074;
+extern uint32_t g_inputEventQueueWriteIndex;
+extern uint32_t g_inputEventQueueReadIndex;
 /* Input-event ring buffer, 0x200 entries x 4 bytes each (msg/param1/param2
  * parallel arrays) - was declared as a single uint8_t; ProcessInputEventQueue.c
  * (consumer) and FUN_00506210/00506480/00506b20/00506bf0/00506310/

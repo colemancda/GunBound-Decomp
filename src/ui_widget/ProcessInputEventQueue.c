@@ -23,12 +23,12 @@
  *
  * FIXED (2026-07-15): g_inputEventMsgQueue/g_inputEventParam1Queue/
  * g_inputEventParam2Queue (the msg/param1/param2 parallel arrays this
- * loop reads via `queue + DAT_00795074*4`) were each declared as a
+ * loop reads via `queue + g_inputEventQueueReadIndex*4`) were each declared as a
  * single uint8_t in globals.c - see globals.h's updated comment. With
  * only 1 byte reserved per array,
  * every read/write past index 0 landed on whatever unrelated global
  * happened to sit next in memory, so this queue could appear non-empty
- * (DAT_00795074 != DAT_00795070) from unrelated memory traffic alone,
+ * (g_inputEventQueueReadIndex != g_inputEventQueueWriteIndex) from unrelated memory traffic alone,
  * and any event actually read back was garbage - independent of the
  * `this`-pointer fix above, and likely why that fix alone didn't fully
  * resolve live crashes once this dispatch started firing. */
@@ -50,15 +50,15 @@ void ProcessInputEventQueue(void)
 LAB_00412140:
   do {
     while( true ) {
-      if (DAT_00795074 == DAT_00795070) {
+      if (g_inputEventQueueReadIndex == g_inputEventQueueWriteIndex) {
         return;
       }
-      iVar1 = *(int *)(g_inputEventMsgQueue + DAT_00795074 * 4);
-      uVar2 = *(uint *)(g_inputEventParam1Queue + DAT_00795074 * 4);
-      iVar3 = *(int *)(g_inputEventParam2Queue + DAT_00795074 * 4);
-      DAT_00795074 = DAT_00795074 + 1 & 0x800001ff;
-      if ((int)DAT_00795074 < 0) {
-        DAT_00795074 = (DAT_00795074 - 1 | 0xfffffe00) + 1;
+      iVar1 = *(int *)(g_inputEventMsgQueue + g_inputEventQueueReadIndex * 4);
+      uVar2 = *(uint *)(g_inputEventParam1Queue + g_inputEventQueueReadIndex * 4);
+      iVar3 = *(int *)(g_inputEventParam2Queue + g_inputEventQueueReadIndex * 4);
+      g_inputEventQueueReadIndex = g_inputEventQueueReadIndex + 1 & 0x800001ff;
+      if ((int)g_inputEventQueueReadIndex < 0) {
+        g_inputEventQueueReadIndex = (g_inputEventQueueReadIndex - 1 | 0xfffffe00) + 1;
       }
       if (((g_stateChangeInProgress == 0) || (999999 < uVar2)) && (DAT_0056d108 == -1)) {
         stateObj = g_gameStateVTableArray[g_currentGameState];

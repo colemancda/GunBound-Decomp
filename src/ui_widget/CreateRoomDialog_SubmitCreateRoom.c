@@ -71,15 +71,15 @@ undefined4 CreateRoomDialog_SubmitCreateRoom(undefined4 *param_1)
   }
   else {
     uVar2 = *param_1;
-    uVar3 = DAT_00795070 + 1 & 0x800001ff;
+    uVar3 = g_inputEventQueueWriteIndex + 1 & 0x800001ff;
     if ((int)uVar3 < 0) {
       uVar3 = (uVar3 - 1 | 0xfffffe00) + 1;
     }
-    if (uVar3 != DAT_00795074) {
-      *(undefined4 *)(g_inputEventMsgQueue + DAT_00795070 * 4) = 0;
-      *(undefined4 *)(g_inputEventParam1Queue + DAT_00795070 * 4) = uVar2;
-      *(undefined4 *)(g_inputEventParam2Queue + DAT_00795070 * 4) = 0x29;
-      DAT_00795070 = uVar3;
+    if (uVar3 != g_inputEventQueueReadIndex) {
+      *(undefined4 *)(g_inputEventMsgQueue + g_inputEventQueueWriteIndex * 4) = 0;
+      *(undefined4 *)(g_inputEventParam1Queue + g_inputEventQueueWriteIndex * 4) = uVar2;
+      *(undefined4 *)(g_inputEventParam2Queue + g_inputEventQueueWriteIndex * 4) = 0x29;
+      g_inputEventQueueWriteIndex = uVar3;
       return 1;
     }
   }
