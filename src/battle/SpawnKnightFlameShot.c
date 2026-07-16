@@ -1,8 +1,21 @@
-/* FUN_004305c0 - 0x004305c0 in the original binary.
+/* SpawnKnightFlameShot - 0x004305c0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_004305c0): Knight's flame-projectile
+ * spawner. Identity CONFIRMED via two independent lines of evidence:
+ *   (1) it `sprintf`s the literal texture key "knightflame" (s_flame_
+ *       00553d2c / s_knightflame_00553d20 + "%d") - a member of Knight's
+ *       dedicated knightbullet/knightflame/knightion asset family, so
+ *       unambiguously the Knight mobile; and
+ *   (2) its sole caller FUN_0047ca40 sits at slot 18 of mobile TYPE 14's
+ *       vtable (0x556038), and type 14 == Knight (internal type; the
+ *       151blast.xes effect it fires = sound-file mobile-id 151 = type
+ *       14 + 1, one of the 3/3 corroborations of the vtable geometry).
+ * Fired in an 8x loop from a secondary action state (not the primary
+ * bullet path handled by SpawnPrimaryShot). Sibling spawners
+ * FUN_0042f4b0 (mobile type 9) and FUN_004388e0 (likely type 13) are
+ * pinned to their mobile but have no name-bearing asset, so they stay
+ * FUN_* for now. Raw/near-verbatim Ghidra body, not hand-verified
+ * beyond the param/self fixes below - see src/README.md.
  *
  * FIXED (2026-07-16): this function's own 13 incoming cdecl stack
  * parameters were entirely dropped (declared `void FUN_004305c0(void)`,
@@ -28,7 +41,7 @@
 /* WARNING: Removing unreachable block (ram,0x00430a35) */
 /* WARNING: Removing unreachable block (ram,0x00430a76) */
 
-void FUN_004305c0(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,
+void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,
                    int param_7,int param_8,int param_9,int param_10,int param_11,int param_12,
                    int param_13)
 

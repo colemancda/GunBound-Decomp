@@ -317,7 +317,7 @@ Concretely, that means:
     references `uRam00001e50` - a Ghidra "unknown RAM region"
     pseudo-symbol, not a normal global, that needs real investigation
     before it can be declared)
-  - `unnamed/FUN_0042f4b0.c`, `unnamed/FUN_004305c0.c`,
+  - `unnamed/FUN_0042f4b0.c`, `battle/SpawnKnightFlameShot.c`,
     `unnamed/FUN_00432850.c`, `unnamed/FUN_00437870.c`,
     `unnamed/FUN_004388e0.c`, `unnamed/FUN_00408180.c` (sub-byte-field
     access, `._0_4_`/`._1_3_`/etc. - same weapon-effect-function
