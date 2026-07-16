@@ -108,7 +108,12 @@ void __fastcall FUN_004aa8f0(int param_1)
       uVar3 = PeekPacketChecksumState();
       (*pcVar12)(&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeOutgoingPacketField(uVar3);
+      /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at
+       * 0x4aac3e: self is g_clientContext+0x621e8 (`mov edi,[0x5b3484];
+       * add edi,0x621e8`), a different cell from the immediately
+       * preceding peek's own self (a fixed global, 0x7949c8) - value
+       * (uVar3) was already correct. */
+      EncodeOutgoingPacketField((void *)(g_clientContext + 0x621e8), uVar3);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar1 = g_clientContext;
       if (*(int *)(&DAT_005f3768 + g_clientContext) != 0) {

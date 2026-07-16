@@ -110,6 +110,20 @@ void __fastcall FUN_004acd10(int param_1)
     local_45c[0] = g_clientContext + 0x5b85c;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
+    /* NOT FIXED (2026-07-16): self intentionally left off here. angr-
+     * traced disasm at 0x4ace29 shows self (edi) reloaded from a stack
+     * slot that holds THIS SAME PeekPacketChecksumState() call's own
+     * return value (self=0 on the traced/stubbed path), not a stable
+     * object-pointer expression - same shape as the unresolved sites
+     * documented in src/unnamed/FUN_004a2ce0.c/FUN_004af7a0.c. Moot in
+     * the current bring-up build regardless: this whole if-block is
+     * gated on CheckGuardedBoolAnd(local_45c[0]) where local_45c[0] is
+     * itself derived from two PeekPacketChecksumState() calls (see
+     * above) - since that peek is a stubbed no-op, local_45c[0] is
+     * always 0, and CheckGuardedBoolAnd(0) always returns 0 (its own
+     * `param_1 != '\0'` check fails), so this block never executes
+     * until PeekPacketChecksumState/CheckGuardedBoolAnd get real
+     * bodies. */
     EncodeOutgoingPacketField(uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
