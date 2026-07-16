@@ -1,8 +1,23 @@
 /* RenderWeatherHazards - 0x004508a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Draw side of the terrain/weather-hazard system (spawn side =
+ * SpawnWeatherHazards / Spawn*Hazard / Init*Hazard). Walks the shared
+ * active-object render list passed as param_1 (= &DAT_006a7f88 +
+ * g_clientContext) layer by layer; for each layer it switches on the
+ * layer key at node+4 and binds the matching texture, then walks that
+ * layer's child list (node+0x10) and calls each child's OWN render
+ * method = the hazard object's vtable slot 3 (+0xc):
+ *   key 100    - a water/terrain effect (FUN_004f01d0 + a cached texture)
+ *   key 0x1f4  (500)   -> s_TornadoTexture   ; child render 0x4ac760
+ *   key 0x1f5  (501)   -> s_FirewallTexture  ; child render 0x471550
+ *   key 0x1f6  (502)   -> s_LightningTexture ; child render 0x46e020
+ *   key 0x1f7  (503)   -> s_Lightning        ; (projectile-lightning)
+ *   key > 1000 -> stop.
+ * Each child render method reads the hazard's own position/width/frame
+ * cells and emits the vertices - see InitTornadoHazard.c for the full
+ * object field map (world-X position, width, lifetime-ticks, animation
+ * frame counter). Raw/near-verbatim Ghidra port, not hand-verified -
+ * see src/README.md.
  */
 #include "ghidra_types.h"
 

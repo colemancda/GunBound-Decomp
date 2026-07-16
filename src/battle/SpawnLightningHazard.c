@@ -9,6 +9,14 @@
  * (A second lightning layer 0x1f7 -> s_Lightning is spawned by a
  * separate path, InitProjectileLightningHazard/SpawnProjectileLightningHazard, left FUN_* pending its own
  * determination.) Raw/near-verbatim Ghidra body - see src/README.md.
+ *
+ * PARAM/FIELD MAP: same as SpawnTornadoHazard.c (see its header for the
+ * full decode) - param_2 = world-X position, param_3 = width (not
+ * damage), param_4 = 10000 = lifetime countdown in ticks. Object cell
+ * offsets are +4 vs the Tornado (extra InitGuardedBool field): position
+ * +0x3c, width +0x260, lifetime +0x488, frame counter +0x484. Render =
+ * InitLightningHazard's vtable slot 3 (0x46e020), animation stride
+ * frame*0x6c.
  */
 #include "ghidra_types.h"
 

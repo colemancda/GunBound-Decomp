@@ -6,6 +6,12 @@
  * links. Called only by SpawnLightningHazard. Identity CONFIRMED:
  * RenderWeatherHazards maps layer 0x1f6 -> s_LightningTexture. Raw/near-
  * verbatim Ghidra body - see src/README.md.
+ *
+ * OBJECT LAYOUT: same template as InitTornadoHazard.c (see its header
+ * for the full field/vtable decode), but every guard-cell offset is +4
+ * because this ctor calls an extra InitGuardedBool: position +0x3c,
+ * width +0x260, frame counter +0x484, lifetime +0x488. Render = vtable
+ * slot 3 (+0xc) = 0x46e020; animation stride frame*0x6c.
  */
 #include "ghidra_types.h"
 

@@ -6,6 +6,30 @@
  * links. Called only by SpawnTornadoHazard. Identity CONFIRMED:
  * RenderWeatherHazards maps layer 500 -> s_TornadoTexture. Raw/near-
  * verbatim Ghidra body - see src/README.md.
+ *
+ * OBJECT LAYOUT & vtable (decoded 2026-07-16, angr; object = 0x6a8 bytes):
+ *   +0x00  vtable ptr (PTR_FUN_005565e4)
+ *   +0x04  active-object layer key = 0x1f4 (500) -> RenderWeatherHazards
+ *   +0x08..+0x2c  node header (list links / status; +0x14/+0x15 = the
+ *          dead/finished flags the list checks)
+ *   +0x38  guard cell: WORLD-X position (spawn param_2)
+ *   +0x25c guard cell: WIDTH/strength (spawn param_3)
+ *   +0x480 animation frame counter (zeroed by spawner; inc'd per tick)
+ *   +0x484 guard cell: LIFETIME countdown ticks (spawn param_4=10000)
+ * This ctor only zero-inits the three guard cells (+0x38/+0x25c/+0x484)
+ * and the node header; it creates NO sub-sprite list (+0x10 = 0). All
+ * visible geometry is produced per-frame by the vtable methods:
+ *   slot2 (+0x08) 0x4ac750 = tick: `inc [this+0x480]; ret`
+ *   slot3 (+0x0c) 0x4ac760 = RENDER: screenX = pos(+0x38) - cameraX
+ *          (g_clientContext+0x6a7710) + 400; width from strength(+0x25c);
+ *          reads frame(+0x480) -> swirl rotation (frame%64)*-6 deg and
+ *          sprite index frame%8; draws s_TornadoTexture, clamped to
+ *          screen bounds 0x793530/0x56df30.
+ *   slot4 (+0x10) 0x4acc90 = lifetime tick: dec +0x484; if <0 set +0x14=1.
+ * Firewall (InitFirewallHazard) / Lightning (InitLightningHazard) are the
+ * same template with every cell offset +4 (extra InitGuardedBool field),
+ * so their frame counter is at +0x484 and lifetime at +0x488; their
+ * render methods 0x471550 / 0x46e020 use animation stride frame*0x6c.
  */
 #include "ghidra_types.h"
 

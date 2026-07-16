@@ -7,6 +7,14 @@
  * SpawnWeatherHazards for the firewall descriptor slot. Identity
  * CONFIRMED: RenderWeatherHazards maps layer 0x1f5 -> s_FirewallTexture.
  * Raw/near-verbatim Ghidra body, not hand-verified - see src/README.md.
+ *
+ * PARAM/FIELD MAP: same as SpawnTornadoHazard.c (see its header for the
+ * full decode) - param_2 = world-X position, param_3 = width (not
+ * damage), param_4 = 10000 = lifetime countdown in ticks. Object cell
+ * offsets are +4 vs the Tornado (extra InitGuardedBool field): position
+ * +0x3c, width +0x260, lifetime +0x488, frame counter +0x484. Render =
+ * InitFirewallHazard's vtable slot 3 (0x471550), animation stride
+ * frame*0x6c (flame cycling).
  */
 #include "ghidra_types.h"
 
