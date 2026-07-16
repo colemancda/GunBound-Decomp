@@ -393,7 +393,7 @@ Concretely, that means:
     `FUN_004cb280.c`, `FUN_004ccd10.c`, `FUN_00504c10.c`, `FUN_00525c42.c`,
     `FUN_0053753c.c` (the last two are CRT-internal thread/FPU-state
     helpers, not game logic - likely not worth porting at all rather
-    than fixing), `FUN_0046dde0.c`, `FUN_00471320.c`, `FUN_004ac5a0.c`
+    than fixing), `InitLightningHazard.c`, `InitFirewallHazard.c`, `InitTornadoHazard.c`
     (sub-byte-field access), `FUN_00405760.c`
     (vtable-call return value used as non-void)
 

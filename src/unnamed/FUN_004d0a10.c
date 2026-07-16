@@ -55,7 +55,7 @@ void FUN_004d0a10(int *param_1,undefined2 *param_2)
       (**(code **)(*param_1 + 0x28))(local_80,2,6);
     }
   }
-  FUN_0041ebf0(g_clientContext);
+  SpawnWeatherHazards(g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

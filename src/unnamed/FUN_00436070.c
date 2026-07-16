@@ -35,7 +35,7 @@ void FUN_00436070(undefined4 param_1,undefined4 param_2,int param_3)
      * 0x4360dd (`lea edi,[esi + 0x38]`, esi = the object just
      * constructed above via FUN_00481fb0(pvVar2), not this function's
      * own (unused) param_1): cell is pvVar2+0x38, the same checksum-cell
-     * offset FUN_00481fb0.c/FUN_004ac5a0.c zero-init/use for their own
+     * offset FUN_00481fb0.c/InitTornadoHazard.c zero-init/use for their own
      * `this`. `pvVar2` is `void *`, so byte offsets use
      * `(int)pvVar2 + N`. See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)pvVar2 + 0x38, param_2);

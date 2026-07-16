@@ -1,14 +1,26 @@
-/* FUN_0041ebf0 - 0x0041ebf0 in the original binary.
+/* SpawnWeatherHazards - 0x0041ebf0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_0041ebf0): the per-turn terrain-hazard
+ * spawn dispatcher. Reads a hazard-descriptor record (Ghidra dropped
+ * its EAX pointer arg; the caller State11_InBattle_ProcessBattleAction
+ * passes packet+0x22) with three slots - Firewall, Tornado, Lightning,
+ * each (marker byte, position short, strength) - and spawns each whose
+ * marker != -1 via SpawnFirewallHazard/SpawnTornadoHazard/
+ * SpawnLightningHazard. Counterpart of RenderWeatherHazards (the draw
+ * side that walks the same g_clientContext+0x6a7f88 active-object list).
+ *
+ * Identity CONFIRMED transitively: the three spawn callees construct
+ * objects whose layer key (node+4) is 0x1f5/500/0x1f6, which
+ * RenderWeatherHazards maps 1:1 to s_FirewallTexture/s_TornadoTexture/
+ * s_LightningTexture. Hazard spawns are packet-driven (server emits the
+ * descriptor), which is why the client's own decoded stage.dat hazard
+ * fields (FILEFORMATS.md 회오리/증폭/전기) are never consumed here.
+ * Raw/near-verbatim Ghidra body, not hand-verified - see src/README.md.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0041ebf0(int param_1)
+void SpawnWeatherHazards(int param_1)
 
 {
   char cVar1;
@@ -43,19 +55,19 @@ void FUN_0041ebf0(int param_1)
   if (in_EAX[6] != -1) {
     cVar1 = *pcVar8;
     pcVar8 = in_EAX + 10;
-    FUN_00435ad0(&DAT_006a7f70 + param_1,*(undefined2 *)(in_EAX + 8),cVar1,10000);
+    SpawnFirewallHazard(&DAT_006a7f70 + param_1,*(undefined2 *)(in_EAX + 8),cVar1,10000);
   }
   pcVar9 = pcVar8 + 1;
   if (*pcVar8 != -1) {
     cVar1 = *pcVar9;
     pcVar9 = pcVar8 + 4;
-    FUN_00435800(&DAT_006a7f70 + param_1,*(undefined2 *)(pcVar8 + 2),cVar1,10000);
+    SpawnTornadoHazard(&DAT_006a7f70 + param_1,*(undefined2 *)(pcVar8 + 2),cVar1,10000);
   }
   pcVar8 = pcVar9 + 1;
   if (*pcVar9 != -1) {
     cVar1 = *pcVar8;
     pcVar8 = pcVar9 + 4;
-    FUN_00435da0(&DAT_006a7f70 + param_1,*(undefined2 *)(pcVar9 + 2),cVar1,10000);
+    SpawnLightningHazard(&DAT_006a7f70 + param_1,*(undefined2 *)(pcVar9 + 2),cVar1,10000);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = PeekPacketChecksumState();

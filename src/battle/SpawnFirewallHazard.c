@@ -1,14 +1,17 @@
-/* FUN_00435da0 - 0x00435da0 in the original binary.
+/* SpawnFirewallHazard - 0x00435ad0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_00435ad0): spawns a Firewall terrain
+ * hazard. operator_new(0x6a8) + InitFirewallHazard (the ctor, which
+ * stamps layer key 0x1f5) + fields + RegisterActiveObject into the
+ * g_clientContext+0x6a7f88 active-object list. Called by
+ * SpawnWeatherHazards for the firewall descriptor slot. Identity
+ * CONFIRMED: RenderWeatherHazards maps layer 0x1f5 -> s_FirewallTexture.
+ * Raw/near-verbatim Ghidra body, not hand-verified - see src/README.md.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00435da0(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
+void SpawnFirewallHazard(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
 
 {
   char cVar1;
@@ -35,7 +38,7 @@ void FUN_00435da0(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
   if (cVar1 == '\0') {
     iVar2 = (int)(param_3 + (param_3 >> 0x1f & 3U)) >> 2;
     for (iVar6 = (param_2 - iVar2) + -5; iVar6 <= iVar2 + 5 + param_2; iVar6 = iVar6 + 1) {
-      iVar3 = FUN_004511b0(iVar6);
+      iVar3 = FUN_004510f0(iVar6);
       if (iVar3 != 0) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EncodeOutgoingPacketField(param_4);
@@ -69,7 +72,7 @@ void FUN_00435da0(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
           ScrambleChecksumGuardBytes();
           TreeLowerBound(local_45c);
         }
-        goto LAB_0043604a;
+        goto LAB_00435d7a;
       }
     }
     pvVar4 = operator_new(0x6ac);
@@ -78,7 +81,7 @@ void FUN_00435da0(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
       iVar6 = 0;
     }
     else {
-      iVar6 = FUN_0046dde0(pvVar4);
+      iVar6 = InitFirewallHazard(pvVar4);
     }
     local_4 = 0xffffffff;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -93,7 +96,7 @@ void FUN_00435da0(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     RegisterActiveObject(0, 0, (undefined4 *)0);
   }
-LAB_0043604a:
+LAB_00435d7a:
   *unaff_FS_OFFSET = local_c;
   return;
 }

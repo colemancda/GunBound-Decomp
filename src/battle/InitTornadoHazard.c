@@ -1,14 +1,16 @@
-/* FUN_004ac5a0 - 0x004ac5a0 in the original binary.
+/* InitTornadoHazard - 0x004ac5a0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_004ac5a0): constructor for the Tornado
+ * terrain-hazard object. Sets the vtable (PTR_FUN_005565e4), the
+ * active-object layer key (param_1[1] = 500), and the standard node
+ * links. Called only by SpawnTornadoHazard. Identity CONFIRMED:
+ * RenderWeatherHazards maps layer 500 -> s_TornadoTexture. Raw/near-
+ * verbatim Ghidra body - see src/README.md.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_004ac5a0(undefined4 *param_1)
+undefined4 * InitTornadoHazard(undefined4 *param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;
@@ -40,7 +42,7 @@ undefined4 * FUN_004ac5a0(undefined4 *param_1)
    * param_1+0x38; tableHandle(+0x14)=param_1+0x4c (== param_1[0x13],
    * `undefined4 *` scales by 4) is zeroed immediately above. `param_1` is
    * `undefined4 *`, so byte offsets use `(int)param_1 + N`. Matches the
-   * identical constructor idiom in FUN_00471320.c. See
+   * identical constructor idiom in InitFirewallHazard.c. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)param_1 + 0x38, 0);
   SUBFIELD(local_4,0,undefined1) = 1;

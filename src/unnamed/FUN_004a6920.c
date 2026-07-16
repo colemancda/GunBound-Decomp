@@ -39,7 +39,7 @@ undefined4 * FUN_004a6920(undefined4 *param_1)
    * param_1+0x38; tableHandle(+0x14)=param_1+0x4c (== param_1[0x13],
    * `undefined4 *` scales by 4) is zeroed just above. `param_1` is
    * `undefined4 *`, so byte offsets use `(int)param_1 + N`. Matches the
-   * identical constructor idiom in FUN_004ac5a0.c/FUN_00481fb0.c. See
+   * identical constructor idiom in InitTornadoHazard.c/FUN_00481fb0.c. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)param_1 + 0x38, 0);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
