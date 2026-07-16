@@ -33,3 +33,16 @@ XFSArchive g_xfsScratch;
  * &g_localizedStringTable as the map base. 64 KB is generous - the
  * original segment gap is smaller. */
 unsigned char g_localizedStringTable[0x10000];
+
+/* The turn-event/replay-buffer context struct (was the 1-byte
+ * DAT_00e55ce0). 0x454f9 bytes; established by cross-referencing every
+ * offset dereferenced by FUN_004e84c0/FUN_004e7b60/FUN_004e80d0/
+ * FUN_004e77e0/FUN_004e7de0/FUN_004e6050 (all take &DAT_00e55ce0 as
+ * their context arg) plus the ~42 other DAT_00e5.../DAT_00e9... globals
+ * that fell inside this range and are now offset-macros into this array
+ * (see globals.h) instead of independent symbols, so param_N-relative
+ * access and direct DAT_ access observe the same memory. Does NOT cover
+ * the CRITICAL_SECTION at +0x45264 (DAT_00e9af44), which stays
+ * independently declared/sized above - a real but pre-existing gap for
+ * FUN_004e7de0's own use of that offset, not addressed by this change. */
+unsigned char DAT_00e55ce0[0x454f9];
