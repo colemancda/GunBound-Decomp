@@ -24,7 +24,9 @@ undefined4 FUN_00439e40(int param_1)
   byte bVar11;
   
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(0xffffffff);
+  /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x439e60:
+   * self is g_clientContext+0x621e8. Value (0xffffffff) already correct. */
+  EncodeOutgoingPacketField((void *)(g_clientContext + 0x621e8), 0xffffffff);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = *(int *)(g_clientContext + 0x621e4);
   if (iVar4 != 0) {
@@ -76,7 +78,11 @@ undefined4 FUN_00439e40(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(iVar4 + 1);
+    /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x43a076:
+     * self is *(int *)(g_clientContext+0x621e4) + 0xc080 (the record
+     * ptr at +0x621e4, the same one iVar4 was loaded from above). Value
+     * (iVar4 + 1) was already correct. */
+    EncodeOutgoingPacketField((void *)(*(int *)(g_clientContext + 0x621e4) + 0xc080), iVar4 + 1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
@@ -84,7 +90,10 @@ undefined4 FUN_00439e40(int param_1)
     if (iVar4 != 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar5 = PeekPacketChecksumState();
-      EncodeOutgoingPacketField(uVar5);
+      /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at
+       * 0x43a0de: self is *(int *)(g_clientContext+0x621e4) + 0x7a88.
+       * Value (uVar5) was already correct. */
+      EncodeOutgoingPacketField((void *)(*(int *)(g_clientContext + 0x621e4) + 0x7a88), uVar5);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
   }

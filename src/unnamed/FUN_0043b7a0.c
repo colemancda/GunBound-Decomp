@@ -142,13 +142,19 @@ LAB_0043ba8e:
               *(byte *)((int)piVar1 + 0xf3a) = bVar8 + *(byte *)(piVar1 + 0x3ce) + -0x34;
               LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-              EncodeOutgoingPacketField(param_5);
+              /* FIXED (2026-07-16): dropped `self` args on all 3 calls -
+               * angr-confirmed at 0x43bc96/0x43bcbd/0x43bcde: self is
+               * esi+0xf40/+0x1164/+0x1388 where esi = piVar1 (the loop
+               * object; `int *`, so byte offsets /4 give the int cells
+               * 0x3d0/0x459/0x4e2). Values (param_5/param_6/param_4)
+               * were already correct. */
+              EncodeOutgoingPacketField((void *)(piVar1 + 0x3d0), param_5);
               LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-              EncodeOutgoingPacketField(param_6);
+              EncodeOutgoingPacketField((void *)(piVar1 + 0x459), param_6);
               LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-              EncodeOutgoingPacketField(param_4);
+              EncodeOutgoingPacketField((void *)(piVar1 + 0x4e2), param_4);
               LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
               iVar5 = _rand();
