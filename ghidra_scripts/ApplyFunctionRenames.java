@@ -43,6 +43,24 @@ public class ApplyFunctionRenames extends GhidraScript {
         // broker socket worker thread spawns (first real server connection)
         {"004d2170", "InitConnectionObject", "src/network/InitConnectionObject.c"},
         {"00405dc0", "SocketWorkerThreadProc", "src/network/SocketWorkerThreadProc.c"},
+        // 2026-07-15 session 12: chat-line wrap helper, DirectInput device
+        // destructor pair, State11 weather-hazard render slot, State10
+        // vtable population
+        {"0041b410", "WrapChatLineText", "src/ui_widget/WrapChatLineText.c"},
+        {"004ee1f0", "CInputDevice_BaseDestructor", "src/directx_init/CInputDevice_BaseDestructor.c"},
+        {"004ee1d0", "CInputDevice_ScalarDeletingDestructor", "src/directx_init/CInputDevice_ScalarDeletingDestructor.c"},
+        {"004c1d10", "State11_InBattle_RenderWeatherHazards", "src/state_machine/State11_InBattle_RenderWeatherHazards.c"},
+        {"0043e280", "State10_Loading_ProcessPacket", "src/state_machine/State10_Loading_ProcessPacket.c"},
+        {"00442240", "State10_Loading_AppendChatLine", "src/state_machine/State10_Loading_AppendChatLine.c"},
+        {"00442280", "State10_Loading_Render", "src/state_machine/State10_Loading_Render.c"},
+        // 2026-07-15 session 13: input-event queue consumer + 3 of 7
+        // widget-command-handler push functions (see
+        // src/ui_widget/EnterRoomNumberDialog_OnCommand.c's header for the
+        // Ghidra xref/PTR_LAB vtable-family derivation used to find these)
+        {"00412130", "ProcessInputEventQueue", "src/ui_widget/ProcessInputEventQueue.c"},
+        {"00506b20", "EnterRoomNumberDialog_OnCommand", "src/ui_widget/EnterRoomNumberDialog_OnCommand.c"},
+        {"00506950", "EnterRoomNumberDialog_SubmitRoomNumber", "src/ui_widget/EnterRoomNumberDialog_SubmitRoomNumber.c"},
+        {"00506480", "CreateRoomDialog_SubmitCreateRoom", "src/ui_widget/CreateRoomDialog_SubmitCreateRoom.c"},
     };
 
     public void run() throws Exception {
