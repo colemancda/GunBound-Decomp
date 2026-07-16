@@ -3,7 +3,25 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
- */
+ *
+ * FIXED (2026-07-16): the 9 EncodeOutgoingPacketField calls dropped self -
+ * confirmed via angr (tools/encodeoutgoingpacketfield_sites.json, func_addr
+ * 0x00482550) plus manual disassembly of each site (orig/GunBound.gme,
+ * 0x4825a0-0x4832a1) to resolve the esp-relative cells against this file's
+ * own declared locals: the two calls right after entry are
+ * param_1+0x10/param_1+0x99 (the same field cells EncodeChecksumDeltaShr
+ * writes into a few lines earlier/later); the two calls inside the
+ * `if (cVar2=='\0')` true-branch tail are param_1+0x3d5/param_1+0x45e (same
+ * fields CompareChecksumPair/PacketChecksumGreaterEqual read back further
+ * down); the four calls inside the nested iVar5==4 projectile-alloc block
+ * are auStack_8a0/auStack_ac4 (confirmed by matching each call's
+ * self+0x14 flag-zero against iStack_ab0/uStack_88c immediately preceding
+ * it, and by the SyncOutgoingChecksumField(...,auStack_ac4/auStack_8a0)
+ * call right after each pair that syncs the same cell); the last call
+ * (CheckGuardedBoolAnd(iVar4<iVar5) block) is g_clientContext+0x5b85c, the
+ * same client-context checksum cell already established by sibling files
+ * (e.g. FUN_00415d40.c's `EncodeOutgoingPacketField(param_1 + 0x5b85c, 0)`
+ * where param_1 there is itself g_clientContext-derived). */
 #include "ghidra_types.h"
 
 
@@ -62,13 +80,13 @@ void __fastcall FUN_00482550(int *param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   iVar5 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar5 + iVar4);
+  EncodeOutgoingPacketField(param_1 + 0x10,iVar5 + iVar4);
   pcVar18 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState();
   iVar5 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar5 + iVar4);
+  EncodeOutgoingPacketField(param_1 + 0x99,iVar5 + iVar4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(3);
   cVar2 = PeekPacketChecksumBool();
@@ -77,7 +95,7 @@ void __fastcall FUN_00482550(int *param_1)
     puStack_8 = (undefined1 *)0x5;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar7);
+    EncodeOutgoingPacketField(param_1 + 0x3d5,uVar7);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
@@ -89,7 +107,7 @@ void __fastcall FUN_00482550(int *param_1)
     puStack_8 = (undefined1 *)0x6;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar7);
+    EncodeOutgoingPacketField(param_1 + 0x45e,uVar7);
     (*pcVar18)(&DAT_005a9068);
     uStack_c = 0xffffffff;
     if (iStack_ab4 != 0) {
@@ -456,11 +474,11 @@ LAB_00482b76:
       if (cVar2 == '\0') {
         auStack_680[0] = 0;
         uStack_88c = 0;
-        EncodeOutgoingPacketField(0);
+        EncodeOutgoingPacketField(auStack_8a0,0);
         puStack_8 = (undefined1 *)0x3;
         auStack_8a4[0] = 0;
         iStack_ab0 = 0;
-        EncodeOutgoingPacketField(0);
+        EncodeOutgoingPacketField(auStack_ac4,0);
         SUBFIELD(puStack_8,0,undefined1) = 4;
         SyncOutgoingChecksumField(iStack_ac8 + 0x10,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -487,11 +505,11 @@ LAB_00482e3e:
         if (cVar2 != '\0') {
           auStack_8a4[0] = 0;
           iStack_ab0 = 0;
-          EncodeOutgoingPacketField(0);
+          EncodeOutgoingPacketField(auStack_ac4,0);
           puStack_8 = (undefined1 *)0x1;
           auStack_680[0] = 0;
           uStack_88c = 0;
-          EncodeOutgoingPacketField(0);
+          EncodeOutgoingPacketField(auStack_8a0,0);
           SUBFIELD(puStack_8,0,undefined1) = 2;
           QueueOutgoingPacketField(piStack_ad4);
           QueueOutgoingPacketField(uStack_ad8);
@@ -559,7 +577,7 @@ LAB_00482edf:
   if (cVar2 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar7);
+    EncodeOutgoingPacketField(g_clientContext + 0x5b85c,uVar7);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -4,7 +4,18 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
- */
+ *
+ * FIXED (2026-07-16): the 2 EncodeOutgoingPacketField calls dropped self -
+ * confirmed via angr (tools/encodeoutgoingpacketfield_sites.json, func_addr
+ * 0x004cf310) plus manual disassembly of each site (orig/GunBound.gme,
+ * 0x4cf6ce and 0x4cf781). Both are the same signed-mod array-cell index
+ * pattern already visible in this file's own EncodeChecksumPairSum call a
+ * few lines above (`(*(byte *)(param_1 + 0x10a8) & 0x80000007) * 0x224 +
+ * 0xebef4 + g_clientContext`): the first call's self recomputes that same
+ * index but into a parallel table at +0xee134 instead of +0xebef4 (a
+ * distinct field Ghidra's decompile never assigned to a local); the second
+ * call's self is the exact same +0xebef4 cell that EncodeChecksumPairSum
+ * already uses. */
 #include "ghidra_types.h"
 
 
@@ -131,7 +142,8 @@ void __fastcall FUN_004cf310(int param_1)
     puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar6);
+    EncodeOutgoingPacketField((*(byte *)(param_1 + 0x10a8) & 0x80000007) * 0x224 + 0xee134 + g_clientContext,
+                              uVar6);
     (*pcVar9)(&DAT_005a9068);
     local_c = local_c & 0xffffff00;
     if (iStack_448 != 0) {
@@ -148,7 +160,8 @@ void __fastcall FUN_004cf310(int param_1)
       unaff_EBX = iStack_224;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0xffffffff);
+    EncodeOutgoingPacketField((*(byte *)(param_1 + 0x10a8) & 0x80000007) * 0x224 + 0xebef4 + g_clientContext,
+                              0xffffffff);
     (*pcVar9)(&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState();

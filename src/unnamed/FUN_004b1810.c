@@ -3,7 +3,23 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
- */
+ *
+ * FIXED (2026-07-16): the 9 EncodeOutgoingPacketField calls dropped self -
+ * confirmed via angr (tools/encodeoutgoingpacketfield_sites.json, func_addr
+ * 0x004b1810) plus manual disassembly of each site (orig/GunBound.gme,
+ * 0x4b1864-0x4b2587). This function is a near-twin of FUN_00482550.c
+ * (same layout, same offsets, same branch structure) and the same
+ * technique/cross-checks used there apply here: the first two calls are
+ * param_1+0x10/param_1+0x99 (the fields EncodeChecksumDeltaShr writes
+ * next to); the two calls in the `if (cVar4=='\0')` true-branch tail are
+ * param_1+0x3d5/param_1+0x45e; the four calls inside the nested
+ * iVar6==4 projectile-alloc block are auStack_8a0/auStack_ac4 (confirmed
+ * by matching each call's self+0x14 flag-zero against
+ * iStack_ab0/uStack_88c immediately preceding it, and by the
+ * SyncOutgoingChecksumField(...,auStack_ac4/auStack_8a0) call right after
+ * each pair); the last call (CheckGuardedBoolAnd(iVar5<iVar6) block) is
+ * g_clientContext+0x5b85c, the same client-context checksum cell used by
+ * sibling files (e.g. FUN_00415d40.c). */
 #include "ghidra_types.h"
 
 
@@ -61,12 +77,12 @@ void __fastcall FUN_004b1810(int *param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = PeekPacketChecksumState();
   iVar6 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar6 + iVar5);
+  EncodeOutgoingPacketField(param_1 + 0x10,iVar6 + iVar5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = PeekPacketChecksumState();
   iVar6 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar6 + iVar5);
+  EncodeOutgoingPacketField(param_1 + 0x99,iVar6 + iVar5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
   cVar4 = PeekPacketChecksumBool();
@@ -75,7 +91,7 @@ void __fastcall FUN_004b1810(int *param_1)
     puStack_8 = (undefined1 *)0x5;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar8);
+    EncodeOutgoingPacketField(param_1 + 0x3d5,uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
@@ -87,7 +103,7 @@ void __fastcall FUN_004b1810(int *param_1)
     puStack_8 = (undefined1 *)0x6;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar8);
+    EncodeOutgoingPacketField(param_1 + 0x45e,uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0xffffffff;
     piVar9 = param_1;
@@ -367,11 +383,11 @@ LAB_004b1bd5:
       if (cVar4 == '\0') {
         uStack_680 = 0;
         uStack_88c = 0;
-        EncodeOutgoingPacketField(0);
+        EncodeOutgoingPacketField(auStack_8a0,0);
         puStack_8 = (undefined1 *)0x3;
         uStack_8a4 = 0;
         iStack_ab0 = 0;
-        EncodeOutgoingPacketField(0);
+        EncodeOutgoingPacketField(auStack_ac4,0);
         SUBFIELD(puStack_8,0,undefined1) = 4;
         SyncOutgoingChecksumField(iStack_ac8 + 0x10,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -398,11 +414,11 @@ LAB_004b1e9d:
         if (cVar4 != '\0') {
           uStack_8a4 = 0;
           iStack_ab0 = 0;
-          EncodeOutgoingPacketField(0);
+          EncodeOutgoingPacketField(auStack_ac4,0);
           puStack_8 = (undefined1 *)0x1;
           uStack_680 = 0;
           uStack_88c = 0;
-          EncodeOutgoingPacketField(0);
+          EncodeOutgoingPacketField(auStack_8a0,0);
           SUBFIELD(puStack_8,0,undefined1) = 2;
           QueueOutgoingPacketField(uStack_adc);
           QueueOutgoingPacketField(local_ad4);
@@ -535,7 +551,7 @@ LAB_004b1f3e:
   if (cVar4 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar8);
+    EncodeOutgoingPacketField(g_clientContext + 0x5b85c,uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
