@@ -680,7 +680,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0046dde0,290,InitLightningHazard,false,1,5,RAW-src
 0046df10,31,FUN_0046df10,false,1,2,RAW-src
 0046df30,213,FUN_0046df30,false,1,2,RAW-src
-0046e010,7,TickWeatherHazardFrame,false,2,1,RAW-src
+0046e010,7,TickWeatherHazardFrame,false,2,0,RAW-src
 0046e020,1314,RenderLightningHazard,false,1,9,RAW-src
 0046e550,20,FUN_0046e550,false,2,1,RAW-src
 0046e570,32,FUN_0046e570,false,1,2,RAW-src
@@ -906,7 +906,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ac5a0,175,InitTornadoHazard,false,1,1,RAW-src
 004ac650,31,FUN_004ac650,false,1,2,RAW-src
 004ac670,213,FUN_004ac670,false,1,2,RAW-src
-004ac750,7,TickTornadoHazardFrame,false,1,1,RAW-src
+004ac750,7,TickTornadoHazardFrame,false,1,0,RAW-src
 004ac760,1313,RenderTornadoHazard,false,1,9,RAW-src
 004acc90,91,TickTornadoHazardLifetime,false,1,4,RAW-src
 004accf0,30,FUN_004accf0,false,1,1,RAW-src

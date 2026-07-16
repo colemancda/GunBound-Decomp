@@ -61,6 +61,34 @@ public class ApplyFunctionRenames extends GhidraScript {
         {"00506b20", "EnterRoomNumberDialog_OnCommand", "src/ui_widget/EnterRoomNumberDialog_OnCommand.c"},
         {"00506950", "EnterRoomNumberDialog_SubmitRoomNumber", "src/ui_widget/EnterRoomNumberDialog_SubmitRoomNumber.c"},
         {"00506480", "CreateRoomDialog_SubmitCreateRoom", "src/ui_widget/CreateRoomDialog_SubmitCreateRoom.c"},
+        // 2026-07-16 session 14: confirmed Knight shot spawner; the full
+        // weather/terrain-hazard family (spawn dispatcher, per-hazard spawn
+        // factories, constructors, render methods, tick methods - see
+        // src/battle/SpawnTornadoHazard.c / InitTornadoHazard.c headers for
+        // the decoded field map); plus type-suffixed projectile-shot
+        // spawners and DetonateProjectile overrides (confirmed mobile TYPE
+        // via vtable geometry, mobile NAME not confirmable).
+        {"004305c0", "SpawnKnightFlameShot", "src/battle/SpawnKnightFlameShot.c"},
+        {"0041ebf0", "SpawnWeatherHazards", "src/battle/SpawnWeatherHazards.c"},
+        {"00435800", "SpawnTornadoHazard", "src/battle/SpawnTornadoHazard.c"},
+        {"00435ad0", "SpawnFirewallHazard", "src/battle/SpawnFirewallHazard.c"},
+        {"00435da0", "SpawnLightningHazard", "src/battle/SpawnLightningHazard.c"},
+        {"004ac5a0", "InitTornadoHazard", "src/battle/InitTornadoHazard.c"},
+        {"00471320", "InitFirewallHazard", "src/battle/InitFirewallHazard.c"},
+        {"0046dde0", "InitLightningHazard", "src/battle/InitLightningHazard.c"},
+        {"004ac760", "RenderTornadoHazard", "src/battle/RenderTornadoHazard.c"},
+        {"00471550", "RenderFirewallHazard", "src/battle/RenderFirewallHazard.c"},
+        {"0046e020", "RenderLightningHazard", "src/battle/RenderLightningHazard.c"},
+        {"004ac750", "TickTornadoHazardFrame", "src/battle/TickTornadoHazardFrame.c"},
+        {"0046e010", "TickWeatherHazardFrame", "src/battle/TickWeatherHazardFrame.c"},
+        {"004acc90", "TickTornadoHazardLifetime", "src/battle/TickTornadoHazardLifetime.c"},
+        {"00471a90", "TickWeatherHazardLifetime", "src/battle/TickWeatherHazardLifetime.c"},
+        {"004a6920", "InitProjectileLightningHazard", "src/battle/InitProjectileLightningHazard.c"},
+        {"00436150", "SpawnProjectileLightningHazard", "src/battle/SpawnProjectileLightningHazard.c"},
+        {"0042f4b0", "SpawnShot_Type9", "src/battle/SpawnShot_Type9.c"},
+        {"004388e0", "SpawnShot_Type13", "src/battle/SpawnShot_Type13.c"},
+        {"004a2ce0", "DetonatePrimaryShot_Bullet4", "src/battle/DetonatePrimaryShot_Bullet4.c"},
+        {"004af7a0", "DetonatePrimaryShot_Bullet12", "src/battle/DetonatePrimaryShot_Bullet12.c"},
     };
 
     public void run() throws Exception {
@@ -70,8 +98,20 @@ public class ApplyFunctionRenames extends GhidraScript {
             Address addr = currentProgram.getAddressFactory().getAddress(addrStr);
             Function fn = getFunctionAt(addr);
             if (fn == null) {
-                println("NOT FOUND: no function at " + addrStr + " (wanted " + newName + ")");
-                notFound++;
+                // No function yet (e.g. a tiny vtable-only method Ghidra's
+                // auto-analysis never bounded). Disassemble + create one so
+                // newly-ported functions still land in the project.
+                disassemble(addr);
+                fn = createFunction(addr, newName);
+                if (fn == null) {
+                    println("NOT FOUND: no function at " + addrStr
+                            + " and createFunction failed (wanted " + newName + ")");
+                    notFound++;
+                    continue;
+                }
+                fn.setComment("Created + named " + newName + ". Real port: " + srcFile);
+                println("CREATED+NAMED: " + addrStr + " -> " + newName);
+                renamed++;
                 continue;
             }
             String current = fn.getName();
