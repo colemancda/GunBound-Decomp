@@ -38,7 +38,14 @@ void __fastcall FUN_0045cb50(int *param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((iVar5 + 500 < iVar4) || (cVar3 = PeekPacketChecksumBool(), cVar3 == '\x01')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0);
+    /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at
+     * 0x45d11c: self is edi+0x8984, and edi is param_1 (`mov edi,ecx`
+     * in this function's own prologue, stable for the whole function) -
+     * so self is param_1+0x2261 (0x8984 bytes = 0x2261 ints), the exact
+     * same cell later named `piVar1` at line "piVar1 = param_1 + 0x2261"
+     * below (this early-return path never reaches that assignment, so
+     * the offset is spelled out directly here instead). */
+    EncodeOutgoingPacketField(param_1 + 0x2261, 0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     goto LAB_0045d128;
   }
