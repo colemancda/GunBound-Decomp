@@ -104,7 +104,14 @@ LAB_004d33f1:
     *(uint *)(iVar6 + 0x24238) = uVar13;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(iVar6 + 2 + local_24e4);
+    /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x4d28b2:
+     * edi (self) is loaded from [esp+0x24fc] (this function's own
+     * param_1) at the top of the loop, then `add edi,0x2a8` right
+     * before this call - the same cell EncodeChecksumDeltaMul uses two
+     * lines below (`param_1 + 0x2a8`). The existing value expression
+     * (iVar6 + 2 + local_24e4) was already correct - only self was
+     * missing. */
+    EncodeOutgoingPacketField((void *)(param_1 + 0x2a8), iVar6 + 2 + local_24e4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = EncodeChecksumDeltaMul(param_1 + 0x2a8,local_2230,0x343fd);
     local_4 = 0;
