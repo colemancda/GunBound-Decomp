@@ -95,7 +95,6 @@ void __fastcall FUN_00452cc0(int *param_1)
       EncodeChecksumDeltaDiv();
       puStack_8 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x452d90
        * (`lea edi,[esi + 0x1e54]`, esi = this file's own param_1): cell is
        * param_1+0x795 (== param_1+0x1e54 bytes). Confirmed by the
@@ -103,8 +102,11 @@ void __fastcall FUN_00452cc0(int *param_1)
        * cells in this same block (0x8a7, 0x930, 0x9b9, 0xa42 - each +0x89
        * ints / +0x224 bytes) and by the identical twin function
        * src/unnamed/FUN_0044d9b0.c. See
-       * tools/encodeoutgoingpacketfield_sites.json. */
-      EncodeOutgoingPacketField(param_1 + 0x795);
+       * tools/encodeoutgoingpacketfield_sites.json.
+       * FIXED (2026-07-16): also merged the value arg - the adjacent
+       * PeekPacketChecksumState() was left as a bare/discarded statement
+       * by the earlier fix; its return value is what was actually pushed. */
+      EncodeOutgoingPacketField(param_1 + 0x795, PeekPacketChecksumState());
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       puStack_8 = (undefined1 *)0;
       if (iStack_88c != 0) {
@@ -123,12 +125,13 @@ void __fastcall FUN_00452cc0(int *param_1)
       EncodeChecksumDeltaDiv();
       puStack_8 = (undefined1 *)3;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x452e64
        * (`lea edi,[esi + 0x2078]`, esi = param_1): cell is param_1+0x81e
        * (== param_1+0x2078 bytes). See derivation note above and
-       * tools/encodeoutgoingpacketfield_sites.json. */
-      EncodeOutgoingPacketField(param_1 + 0x81e);
+       * tools/encodeoutgoingpacketfield_sites.json.
+       * FIXED (2026-07-16): also merged the value arg - see param_1+0x795's
+       * note above. */
+      EncodeOutgoingPacketField(param_1 + 0x81e, PeekPacketChecksumState());
       (*pcVar15)();
       uStack_c = 2;
       if (iStack_ab4 != 0) {
@@ -147,13 +150,14 @@ void __fastcall FUN_00452cc0(int *param_1)
       EncodeChecksumDeltaDiv(uVar6);
       uStack_c = 5;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x452f38
        * (`lea edi,[esi + 0x229c]`, esi = param_1): cell is param_1+0x8a7
        * (== param_1+0x229c bytes) - the same cell just passed to
        * InitGuardedChecksumSlot two lines above. See
-       * tools/encodeoutgoingpacketfield_sites.json. */
-      EncodeOutgoingPacketField(param_1 + 0x8a7);
+       * tools/encodeoutgoingpacketfield_sites.json.
+       * FIXED (2026-07-16): also merged the value arg - see param_1+0x795's
+       * note above. */
+      EncodeOutgoingPacketField(param_1 + 0x8a7, PeekPacketChecksumState());
       (*pcVar15)();
       uStack_10 = 4;
       if (iStack_ab8 != 0) {
@@ -172,13 +176,14 @@ void __fastcall FUN_00452cc0(int *param_1)
       EncodeChecksumDeltaDiv(uVar6,auStack_acc);
       uStack_10 = 7;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45300c
        * (`lea edi,[esi + 0x24c0]`, esi = param_1): cell is param_1+0x930
        * (== param_1+0x24c0 bytes) - the same cell just passed to
        * InitGuardedChecksumSlot two lines above. See
-       * tools/encodeoutgoingpacketfield_sites.json. */
-      EncodeOutgoingPacketField(param_1 + 0x930);
+       * tools/encodeoutgoingpacketfield_sites.json.
+       * FIXED (2026-07-16): also merged the value arg - see param_1+0x795's
+       * note above. */
+      EncodeOutgoingPacketField(param_1 + 0x930, PeekPacketChecksumState());
       (*pcVar15)();
       uStack_14 = 6;
       if (iStack_abc != 0) {
@@ -258,8 +263,12 @@ LAB_00453238:
      * (`lea edi,[esi + 0x1c2c]`, esi = param_1): cell is param_1+0x70b
      * (== param_1+0x1c2c bytes) - `param_1 + 0x70b` is already used
      * elsewhere in this file (PacketChecksumGreaterEqual/LessEqual calls
-     * below). See tools/encodeoutgoingpacketfield_sites.json. */
-    EncodeOutgoingPacketField(param_1 + 0x70b);
+     * below). See tools/encodeoutgoingpacketfield_sites.json.
+     * FIXED (2026-07-16): also confirmed the value arg - angr-traced at
+     * the same address, `push 0` immediately precedes the call (a literal
+     * 0, not a peeked value - no PeekPacketChecksumState call is adjacent
+     * in the source here, unlike the other 4 sites in this file). */
+    EncodeOutgoingPacketField(param_1 + 0x70b, 0);
     (*pcVar15)();
   }
   else {
