@@ -3,13 +3,31 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-07-16): this function's 5 real call sites (all in
+ * FUN_00480310.c) already pass 12 cdecl arguments each, but only the
+ * first 3 were ever surfaced as real parameters (param_1/param_2/
+ * param_3 - param_2 itself unused) - the other 9 were silently
+ * dropped, most visibly the value half of most of this function's 19
+ * EncodeOutgoingPacketField calls (see those fixes below). angr-
+ * confirmed the frame layout (param_1's own read, `movzx eax,byte ptr
+ * [esp+0x8c4]` at 0x42f6b7, occurs only after all 4 prologue register
+ * pushes complete, unlike param_3's read which happens mid-prologue
+ * after only one push - the two reads are at different effective
+ * stack depths despite the small numeric difference between their
+ * offsets, an easy trap when computing this by hand) - param_1..12
+ * sit at consecutive +4 stack slots once that's accounted for, so
+ * param_1/param_2/param_3's existing bindings were already correct;
+ * only param_4..param_12 needed adding.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Removing unreachable block (ram,0x0042f6d4) */
 
-void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
+void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3,int param_4,int param_5,
+                   int param_6,int param_7,int param_8,int param_9,int param_10,int param_11,
+                   int param_12)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -159,7 +177,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
    * batch (e.g. src/battle/SpawnSuperShot.c). See
    * tools/encodeoutgoingpacketfield_sites.json. */
   (*pcVar10)();
-  EncodeOutgoingPacketField(piVar3 + 0x3d5);
+  EncodeOutgoingPacketField(piVar3 + 0x3d5, param_5);
   (*pcVar11)();
   puStack_8d0 = (undefined *)0x42f704;
   (*pcVar10)();
@@ -169,7 +187,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42f712
    * (`lea edi,[ebp + 0x3b48]`): cell is piVar3+0xed2 (== piVar3+0x3b48
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField(piVar3 + 0xed2);
+  EncodeOutgoingPacketField(piVar3 + 0xed2, PeekPacketChecksumState());
   puStack_8d0 = &DAT_005a9068;
   puStack_8d4 = (undefined *)0x42f71e;
   (*pcVar11)();
@@ -181,7 +199,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42f733
    * (`lea edi,[ebp + 0x1178]`): cell is piVar3+0x45e (== piVar3+0x1178
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField(piVar3 + 0x45e);
+  EncodeOutgoingPacketField(piVar3 + 0x45e, param_6);
   puStack_8d8 = &DAT_005a9068;
   puStack_8dc = (undefined *)0x42f73f;
   (*pcVar11)();
@@ -193,7 +211,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42f754
    * (`lea edi,[ebp + 0x40]`): cell is piVar3+0x10 (== piVar3+0x40 bytes).
    * See tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField(piVar3 + 0x10);
+  EncodeOutgoingPacketField(piVar3 + 0x10, param_5 << 8);
   puStack_8e0 = &DAT_005a9068;
   puStack_8e4 = (undefined *)0x42f760;
   (*pcVar11)();
@@ -205,7 +223,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42f778
    * (`lea edi,[ebp + 0x264]`): cell is piVar3+0x99 (== piVar3+0x264
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField(piVar3 + 0x99);
+  EncodeOutgoingPacketField(piVar3 + 0x99, param_6 << 8);
   puStack_8e8 = &DAT_005a9068;
   puStack_8ec = (undefined *)0x42f784;
   (*pcVar11)();
@@ -218,7 +236,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42f7ca
    * (`lea edi,[ebp + 0x488]`): cell is piVar3+0x122 (== piVar3+0x488
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField(piVar3 + 0x122);
+  EncodeOutgoingPacketField(piVar3 + 0x122, (unsigned int)puStack_8f0);
   puStack_8f0 = &DAT_005a9068;
   puStack_8f4 = (undefined *)0x42f7d6;
   (*pcVar11)();
@@ -236,7 +254,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42f80b
    * (`lea edi,[ebp + 0x8d0]`): cell is piVar3+0x234 (== piVar3+0x8d0
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField(piVar3 + 0x234);
+  EncodeOutgoingPacketField(piVar3 + 0x234, (unsigned int)puStack_8f8);
   puStack_8f8 = &DAT_005a9068;
   puStack_8fc = (undefined *)0x42f817;
   (*pcVar11)();
@@ -255,7 +273,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42f85a
    * (`lea edi,[ebp + 0x6ac]`): cell is piVar3+0x1ab (== piVar3+0x6ac
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField(piVar3 + 0x1ab);
+  EncodeOutgoingPacketField(piVar3 + 0x1ab, (unsigned int)puStack_900);
   puStack_900 = &DAT_005a9068;
   puStack_904 = (undefined *)0x42f866;
   (*pcVar11)();
@@ -273,7 +291,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42f89b
    * (`lea edi,[ebp + 0xaf4]`): cell is piVar3+0x2bd (== piVar3+0xaf4
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField(piVar3 + 0x2bd);
+  EncodeOutgoingPacketField(piVar3 + 0x2bd, (unsigned int)puStack_908);
   puStack_908 = &DAT_005a9068;
   puStack_90c = (undefined *)0x42f8a7;
   (*pcVar11)();
@@ -290,7 +308,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42f8dc
    * (`lea edi,[ebp + 0xd18]`): cell is piVar3+0x346 (== piVar3+0xd18
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField(piVar3 + 0x346);
+  EncodeOutgoingPacketField(piVar3 + 0x346, (unsigned int)puStack_910);
   puStack_910 = &DAT_005a9068;
   puStack_914 = (undefined *)0x42f8e8;
   (*pcVar11)();
@@ -336,7 +354,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
   EncodeGuardedBool();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (*pcVar10)();
-  EncodeOutgoingPacketField(piVar3 + 0x5f9);
+  EncodeOutgoingPacketField(piVar3 + 0x5f9, param_8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (*pcVar10)();
   EncodeGuardedBool();
@@ -346,7 +364,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
    * (`lea edi,[ebp + 0x1a08]`): cell is piVar3+0x682 (== piVar3+0x1a08
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
   (*pcVar10)();
-  EncodeOutgoingPacketField(piVar3 + 0x682);
+  EncodeOutgoingPacketField(piVar3 + 0x682, param_10);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (*pcVar10)();
   iVar4 = _rand();
@@ -362,7 +380,7 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
    * (`lea edi,[ebp + 0x3920]`): cell is piVar3+0xe48 (== piVar3+0x3920
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
   (*pcVar10)();
-  EncodeOutgoingPacketField(piVar3 + 0xe48);
+  EncodeOutgoingPacketField(piVar3 + 0xe48, 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pcVar6 = (&PTR_s_101blast_xes_0056d2b4)[(uStack_6c & 0xff) * 0x10];
   pcVar12 = (char *)((int)piVar3 + 0x3813);
@@ -480,13 +498,14 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
     EncodeChecksumDeltaDiv(puStack_924,&puStack_914);
     SUBFIELD(uStack_7c,0,undefined1) = 6;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    puStack_924 = (undefined *)PeekPacketChecksumState();
-    PeekPacketChecksumState();
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42ff92
      * (`lea edi,[ebp + 0x24c0]`): cell is piVar3+0x930 (== piVar3+0x24c0
      * bytes) - the same cell explicitly passed to EncodeChecksumDeltaMul
-     * above. See tools/encodeoutgoingpacketfield_sites.json. */
-    EncodeOutgoingPacketField(piVar3 + 0x930);
+     * above. See tools/encodeoutgoingpacketfield_sites.json.
+     * FIXED (2026-07-16): also merged the value arg (sum of the two
+     * adjacent PeekPacketChecksumState() calls, matching the disasm's
+     * `add eax,ecx` between them). */
+    EncodeOutgoingPacketField(piVar3 + 0x930, PeekPacketChecksumState() + PeekPacketChecksumState());
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_7c = CONCAT31(SUBFIELD(uStack_7c,1,undefined3),5);
     if (puStack_900 != (undefined *)0x0) {
@@ -508,13 +527,13 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
     EncodeChecksumDeltaDiv(puStack_924,auStack_6f0);
     SUBFIELD(uStack_7c,0,undefined1) = 8;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    puStack_924 = (undefined *)PeekPacketChecksumState();
-    PeekPacketChecksumState();
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x430099
      * (`lea edi,[ebp + 0x26e4]`): cell is piVar3+0x9b9 (== piVar3+0x26e4
      * bytes) - the same cell explicitly passed to EncodeChecksumDeltaMul
-     * above. See tools/encodeoutgoingpacketfield_sites.json. */
-    EncodeOutgoingPacketField(piVar3 + 0x9b9);
+     * above. See tools/encodeoutgoingpacketfield_sites.json.
+     * FIXED (2026-07-16): also merged the value arg - see piVar3+0x930's
+     * note above. */
+    EncodeOutgoingPacketField(piVar3 + 0x9b9, PeekPacketChecksumState() + PeekPacketChecksumState());
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_7c = CONCAT31(SUBFIELD(uStack_7c,1,undefined3),7);
     if (iStack_6dc != 0) {
@@ -536,13 +555,13 @@ void FUN_0042f4b0(undefined4 param_1,undefined4 param_2,int param_3)
     EncodeChecksumDeltaDiv(puStack_924,auStack_6f0);
     SUBFIELD(uStack_7c,0,undefined1) = 10;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    puStack_924 = (undefined *)PeekPacketChecksumState();
-    PeekPacketChecksumState();
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4301a0
      * (`lea edi,[ebp + 0x2908]`): cell is piVar3+0xa42 (== piVar3+0x2908
      * bytes) - the same cell explicitly passed to EncodeChecksumDeltaMul
-     * above. See tools/encodeoutgoingpacketfield_sites.json. */
-    EncodeOutgoingPacketField(piVar3 + 0xa42);
+     * above. See tools/encodeoutgoingpacketfield_sites.json.
+     * FIXED (2026-07-16): also merged the value arg - see piVar3+0x930's
+     * note above. */
+    EncodeOutgoingPacketField(piVar3 + 0xa42, PeekPacketChecksumState() + PeekPacketChecksumState());
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_7c = CONCAT31(SUBFIELD(uStack_7c,1,undefined3),9);
     if (iStack_6dc != 0) {
