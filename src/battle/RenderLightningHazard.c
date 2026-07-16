@@ -1,15 +1,21 @@
-/* FUN_0046e020 - 0x0046e020 in the original binary.
+/* RenderLightningHazard - 0x0046e020 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_0046e020): the Lightning hazard's per-frame
+ * render method - vtable slot 3 (+0xc) of PTR_FUN_00555e74, invoked once
+ * per frame by RenderWeatherHazards for each lightning in layer 0x1f6.
+ * param_1 = the lightning object (this). Same structure as
+ * RenderTornadoHazard but with cell offsets +4 (position +0x3c, width
+ * +0x260, frame counter +0x484): screenX = pos - cameraX + 400, binds
+ * s_LightningTexture (0x555b9c), animation stride frame*0x6c. See
+ * InitTornadoHazard.c / InitLightningHazard.c for the field map. Raw/
+ * near-verbatim Ghidra body - see src/README.md.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __fastcall FUN_0046e020(int param_1)
+void __fastcall RenderLightningHazard(int param_1)
 
 {
   bool bVar1;

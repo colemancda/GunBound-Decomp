@@ -680,7 +680,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0046dde0,290,InitLightningHazard,false,1,5,RAW-src
 0046df10,31,FUN_0046df10,false,1,2,RAW-src
 0046df30,213,FUN_0046df30,false,1,2,RAW-src
-0046e020,1314,FUN_0046e020,false,1,9,RAW-src
+0046e020,1314,RenderLightningHazard,false,1,9,RAW-src
 0046e550,20,FUN_0046e550,false,2,1,RAW-src
 0046e570,32,FUN_0046e570,false,1,2,RAW-src
 0046e590,13,FUN_0046e590,false,1,1,RAW-src
@@ -694,7 +694,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00471320,290,InitFirewallHazard,false,1,5,RAW-src
 00471450,31,FUN_00471450,false,1,2,RAW-src
 00471470,213,FUN_00471470,false,1,2,RAW-src
-00471550,1332,FUN_00471550,false,1,9,RAW-src
+00471550,1332,RenderFirewallHazard,false,1,9,RAW-src
 00471af0,72,FUN_00471af0,false,1,0,RAW-src
 00471b40,301,FUN_00471b40,false,1,0,RAW-src
 00471c70,130,FUN_00471c70,false,2,4,RAW-src
@@ -904,7 +904,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ac5a0,175,InitTornadoHazard,false,1,1,RAW-src
 004ac650,31,FUN_004ac650,false,1,2,RAW-src
 004ac670,213,FUN_004ac670,false,1,2,RAW-src
-004ac760,1313,FUN_004ac760,false,1,9,RAW-src
+004ac760,1313,RenderTornadoHazard,false,1,9,RAW-src
 004accf0,30,FUN_004accf0,false,1,1,RAW-src
 004acd10,1275,FUN_004acd10,false,1,16,RAW-src
 004ad230,384,FUN_004ad230,false,1,11,RAW-src

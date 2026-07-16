@@ -1,15 +1,22 @@
-/* FUN_004ac760 - 0x004ac760 in the original binary.
+/* RenderTornadoHazard - 0x004ac760 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_004ac760): the Tornado hazard's per-frame
+ * render method - vtable slot 3 (+0xc) of PTR_FUN_005565e4, invoked once
+ * per frame by RenderWeatherHazards for each tornado in layer 500.
+ * param_1 = the tornado object (this). Reads its own cells: screenX =
+ * position(+0x38) - cameraX(g_clientContext+0x6a7710) + 400, width from
+ * strength(+0x25c)*2, and the animation frame counter(+0x480) -> swirl
+ * rotation (frame%64)*-6 deg + sprite frame%8; binds s_TornadoTexture
+ * (0x555bc0), clamps to screen bounds 0x793530/0x56df30, emits vertices.
+ * See InitTornadoHazard.c for the full object field/vtable map. Raw/near-
+ * verbatim Ghidra body, not hand-verified - see src/README.md.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __fastcall FUN_004ac760(int param_1)
+void __fastcall RenderTornadoHazard(int param_1)
 
 {
   bool bVar1;

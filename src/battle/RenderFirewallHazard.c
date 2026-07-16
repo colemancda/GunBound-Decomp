@@ -1,15 +1,21 @@
-/* FUN_00471550 - 0x00471550 in the original binary.
+/* RenderFirewallHazard - 0x00471550 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-16, from FUN_00471550): the Firewall hazard's per-frame
+ * render method - vtable slot 3 (+0xc) of PTR_FUN_00555edc, invoked once
+ * per frame by RenderWeatherHazards for each firewall in layer 0x1f5.
+ * param_1 = the firewall object (this). Same structure as
+ * RenderTornadoHazard but with cell offsets +4 (position +0x3c, width
+ * +0x260, frame counter +0x484): screenX = pos - cameraX + 400, binds
+ * s_FirewallTexture (0x555bb0), animation stride frame*0x6c (flame
+ * cycling). See InitTornadoHazard.c / InitFirewallHazard.c for the field
+ * map. Raw/near-verbatim Ghidra body - see src/README.md.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __fastcall FUN_00471550(int param_1)
+void __fastcall RenderFirewallHazard(int param_1)
 
 {
   bool bVar1;
