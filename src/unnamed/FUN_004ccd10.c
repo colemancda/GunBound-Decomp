@@ -671,7 +671,7 @@ LAB_004ce0c7:
     if (!bVar20) break;
 LAB_004ce1a4:
     if (bVar20) {
-      FUN_004ac180();
+      FUN_004ac180(iVar7);
       break;
     }
   }
