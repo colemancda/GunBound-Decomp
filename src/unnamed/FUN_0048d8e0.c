@@ -86,7 +86,11 @@ void __fastcall FUN_0048d8e0(int param_1)
               }
             }
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            EncodeOutgoingPacketField(0);
+            /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at
+             * 0x48db78: self is esi+0x6fd4 (0x1bf5 ints) - esi is
+             * piVar6, the same cell already used at piVar6+0x1bf5
+             * elsewhere in this function (e.g. line 60/66/76/82). */
+            EncodeOutgoingPacketField(piVar6 + 0x1bf5, 0);
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             piVar6[0x30ab] = 4;
             (**(code **)(*piVar6 + 4))(s_shield_005562ec);

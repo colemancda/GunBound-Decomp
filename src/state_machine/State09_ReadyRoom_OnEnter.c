@@ -292,7 +292,11 @@ LAB_004d722d:
   uVar7 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(uVar7);
+  /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x4d7431:
+   * self is ebp+0xc, and ebp is param_1 (`mov ebp,ecx` in this
+   * function's own prologue, stable for the whole function). Value
+   * (uVar7) was already correct. */
+  EncodeOutgoingPacketField((void *)(param_1 + 0xc), uVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = g_clientContext;
   *(undefined4 *)(param_1 + 0x25d) = *(undefined4 *)(g_clientContext + 0x457a1);
