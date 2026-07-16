@@ -3,6 +3,31 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * FIXED (2026-07-16): 24 of this function's 25 EncodeOutgoingPacketField
+ * call sites dropped `self` (unaff_EDI) - full angr disassembly
+ * reconstruction (backward register/stack-slot tracing from each call
+ * site at 0x4a2d8b..0x4a402d, cross-checked against calls to sibling
+ * anchor functions - EncodeChecksumPairDiff/EncodeChecksumDeltaShr/
+ * CheckGuardedBoolAnd/etc - whose real addresses are known, to recover
+ * disassembly-order-vs-source-order correspondence since Ghidra lays
+ * this function's blocks out non-linearly). Most sites resolve to
+ * `param_1 + N` (param_1 is `int *`, so N is already in int-index units
+ * - confirmed against this file's own pre-existing `param_1 + 0x1073`/
+ * `param_1 + 0xfea` idioms at local_cf8[0]/local_d10). Four sites (the
+ * zero-arg `EncodeOutgoingPacketField(0)` calls guarding the two raw
+ * scratch-buffer unions) use the established `(char *)&X - 0x14`
+ * idiom from the EncodeChecksumDelta family. Also merged the adjacent
+ * argless `PeekPacketChecksumState()` call(s) into each site's value
+ * argument (2 calls -> summed, matching the disasm's `add eax,edi`)
+ * where the source hadn't already captured a value.
+ *
+ * One site (line ~760, call at disasm 0x4a3da3) is NOT fixed - see its
+ * own comment. Its self traces to a stack slot last written by an
+ * unrelated earlier peek's return value, not a stable pointer
+ * expression, and the surrounding if-block is unreachable in the
+ * current bring-up build regardless (gated by CheckGuardedBoolAnd on a
+ * value sourced from the stubbed PeekPacketChecksumState).
  */
 #include "ghidra_types.h"
 
@@ -108,8 +133,7 @@ void __fastcall FUN_004a2ce0(int *param_1)
   if (local_d15 == '\0') {
 LAB_004a2df0:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
-    EncodeOutgoingPacketField();
+    EncodeOutgoingPacketField((void *)(param_1 + 0x10), PeekPacketChecksumState());
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_cf8[0] = param_1 + 0x1073;
@@ -122,41 +146,31 @@ LAB_004a2df0:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (local_d15 == '\0') goto LAB_004a2df0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
-    EncodeOutgoingPacketField();
+    EncodeOutgoingPacketField((void *)local_d10, PeekPacketChecksumState());
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
-    EncodeOutgoingPacketField();
+    EncodeOutgoingPacketField((void *)(param_1 + 0x10fc), PeekPacketChecksumState());
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
-    EncodeOutgoingPacketField();
+    EncodeOutgoingPacketField((void *)local_cf8[0], PeekPacketChecksumState());
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
-  PeekPacketChecksumState();
-  EncodeOutgoingPacketField();
+  EncodeOutgoingPacketField((void *)(param_1 + 0x99), PeekPacketChecksumState());
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
-  PeekPacketChecksumState();
-  EncodeOutgoingPacketField();
+  EncodeOutgoingPacketField((void *)local_d10, PeekPacketChecksumState() + PeekPacketChecksumState());
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
-  PeekPacketChecksumState();
-  EncodeOutgoingPacketField();
+  EncodeOutgoingPacketField((void *)local_cf8[0], PeekPacketChecksumState() + PeekPacketChecksumState());
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_d14 = PeekPacketChecksumState();
-  PeekPacketChecksumState();
-  EncodeOutgoingPacketField();
+  EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_d14 + PeekPacketChecksumState());
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_d14 = PeekPacketChecksumState();
-  PeekPacketChecksumState();
-  EncodeOutgoingPacketField();
+  EncodeOutgoingPacketField((void *)(param_1 + 0x99), local_d14 + PeekPacketChecksumState());
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_004585e0();
   EncodeChecksumDeltaAdd();
@@ -189,13 +203,11 @@ LAB_004a2df0:
   local_d14 = FloatToInt64();
   local_cfc = FloatToInt64();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
-  EncodeOutgoingPacketField();
+  EncodeOutgoingPacketField((void *)(param_1 + 0x10), PeekPacketChecksumState());
   puVar35 = &DAT_005a9068;
   (*pcVar20)();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
-  EncodeOutgoingPacketField();
+  EncodeOutgoingPacketField((void *)(param_1 + 0x99), PeekPacketChecksumState());
   puVar34 = &DAT_005a9068;
   (*pcVar20)();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -209,8 +221,7 @@ LAB_004a2df0:
   EncodeChecksumPairDiff(param_1 + 0x10);
   uStack_14 = 2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
-  EncodeOutgoingPacketField();
+  EncodeOutgoingPacketField((void *)(param_1 + 0x122), PeekPacketChecksumState());
   puVar31 = &DAT_005a9068;
   (*pcVar20)();
   uStack_18 = 0xffffffff;
@@ -223,8 +234,7 @@ LAB_004a2df0:
   EncodeChecksumPairDiff(param_1 + 0x99,local_cf8);
   uStack_18 = 3;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
-  EncodeOutgoingPacketField();
+  EncodeOutgoingPacketField((void *)(param_1 + 0x1ab), PeekPacketChecksumState());
   (*pcVar20)();
   uStack_1c = 0xffffffff;
   if (puStack_ce8 != (undefined *)0x0) {
@@ -235,28 +245,28 @@ LAB_004a2df0:
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar5);
+  EncodeOutgoingPacketField((void *)(param_1 + 0x10fc), uVar5);
   puVar30 = &DAT_005a9068;
   (*pcVar20)(&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar5);
+  EncodeOutgoingPacketField((void *)(param_1 + 0x1185), uVar5);
   (*pcVar20)(&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = PeekPacketChecksumState();
   (*pcVar20)(&DAT_005a9068);
   iVar4 = param_1[0xfe7];
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField((iVar4 + 0x5a) % iVar6);
+  EncodeOutgoingPacketField((void *)(param_1 + 0x70b), (iVar4 + 0x5a) % iVar6);
   puVar29 = &DAT_005a9068;
   (*pcVar20)(&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(unaff_EDI);
+  EncodeOutgoingPacketField((void *)(param_1 + 0x122), unaff_EDI);
   cVar3 = '\0';
   (*pcVar20)();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(puVar34);
+  EncodeOutgoingPacketField((void *)(param_1 + 0x1ab), puVar34);
   puVar34 = &DAT_005a9068;
   (*pcVar20)(&DAT_005a9068);
   cVar2 = PeekPacketChecksumBool();
@@ -265,7 +275,7 @@ LAB_004a2df0:
     uStack_38 = 9;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar5);
+    EncodeOutgoingPacketField((void *)(param_1 + 0x3d5), uVar5);
     (*pcVar20)(&DAT_005a9068);
     uStack_3c = 0xffffffff;
     if (puStack_d08 != (undefined *)0x0) {
@@ -278,7 +288,7 @@ LAB_004a2df0:
     uStack_3c = 10;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(uVar5);
+    EncodeOutgoingPacketField((void *)(param_1 + 0x45e), uVar5);
     cVar2 = '\0';
     (*pcVar20)();
     uStack_40 = 0xffffffff;
@@ -574,11 +584,11 @@ LAB_004a3601:
       if (cVar3 == '\0') {
         uStack_8e0 = 0;
         uStack_aec = 0;
-        EncodeOutgoingPacketField(0);
+        EncodeOutgoingPacketField((char *)&uStack_aec - 0x14, 0);
         uStack_44 = 7;
         uStack_b04 = 0;
         local_d10 = (int *)0x0;
-        EncodeOutgoingPacketField(0);
+        EncodeOutgoingPacketField((char *)&local_d10 - 0x14, 0);
         SUBFIELD(uStack_44,0,undefined1) = 8;
         SyncOutgoingChecksumField(puVar30 + 0x10,&stack0xfffff2dc);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -605,11 +615,11 @@ LAB_004a38be:
         if (cVar3 != '\0') {
           uStack_b04 = 0;
           local_d10 = (int *)0x0;
-          EncodeOutgoingPacketField(0);
+          EncodeOutgoingPacketField((char *)&local_d10 - 0x14, 0);
           uStack_44 = 5;
           uStack_8e0 = 0;
           uStack_aec = 0;
-          EncodeOutgoingPacketField(0);
+          EncodeOutgoingPacketField((char *)&uStack_aec - 0x14, 0);
           SUBFIELD(uStack_44,0,undefined1) = 6;
           QueueOutgoingPacketField(puVar31);
           QueueOutgoingPacketField(puVar35);
@@ -761,6 +771,17 @@ LAB_004a3955:
   if (cVar3 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar5 = PeekPacketChecksumState();
+    /* NOT FIXED (2026-07-16): self intentionally left off here. angr-
+     * traced disasm at 0x4a3da3 shows edi reloaded from the same
+     * [esp+0x1c] stack slot that held an earlier, unrelated
+     * PeekPacketChecksumState() return value (self=0 on that traced
+     * path) - not a stable object-pointer expression, so recovering
+     * the *intended* self isn't possible from this path alone. Moot
+     * in the current bring-up build regardless: uVar13 (this block's
+     * own guard) is itself sourced from a stubbed PeekPacketChecksumState
+     * call (see its assignment above), so CheckGuardedBoolAnd(uVar13)
+     * always returns 0 and this whole if-block is unreachable until
+     * PeekPacketChecksumState/CheckGuardedBoolAnd get real bodies. */
     EncodeOutgoingPacketField(uVar5);
     (*pcVar20)(&DAT_005a9068);
   }
