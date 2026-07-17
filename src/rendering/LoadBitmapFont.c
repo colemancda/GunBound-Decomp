@@ -14,13 +14,15 @@
  *   call OpenXFSEntryStream; read 0x600 -> DAT_00673628;
  *   read 0xc0000 -> DAT_005b3628; call CloseSpriteReadState.
  *
- * UN-STUBBED (2026-07-17) for the ASCII font only - this is what renders
- * the ServerSelect world-list server names/numbers (previously blank
- * because this loader was a no-op stub). The full-width read (0xc0000
- * into DAT_005b3628) is skipped: DAT_005b3628 is still a 1-byte global and
- * sizing it to 0xc0000 needs a ~32-global offset-macro reconciliation
- * (like DAT_00e55ce0's) - only needed for CJK text, not the ASCII server
- * list. Do that when CJK rendering is needed.
+ * FULLY UN-STUBBED (2026-07-17): both reads are live. The ASCII read
+ * (0x600 into DAT_00673628) renders the ServerSelect world-list names; the
+ * full-width read (0xc0000 into DAT_005b3628) populates the double-byte/CJK
+ * glyph table BlitRLESprite indexes for wide text. DAT_005b3628 is now
+ * sized to 0xc0000 in globals_sized.c. The earlier worry that this needed a
+ * multi-global offset-macro reconciliation was mistaken: the DAT_005f3xxx
+ * "globals" whose addresses fall in this buffer's range are actually
+ * client-context arena offsets (base = g_clientContext), a separate
+ * subsystem that never aliases this buffer's storage (see globals_sized.c).
  */
 #include "ghidra_types.h"
 #include "xfs.h"
@@ -34,8 +36,7 @@ void LoadBitmapFont(void)
   stream = OpenXFSEntryStream((int)&g_graphicsArchive, "font.fnt", 1, 0);
   if (stream != 0) {
     ReadXFSEntryByte((undefined4 *)stream, (undefined4 *)&DAT_00673628, 0x600);
-    /* Full-width font: ReadXFSEntryByte(stream, &DAT_005b3628, 0xc0000) -
-     * skipped until DAT_005b3628 is sized (see header). */
+    ReadXFSEntryByte((undefined4 *)stream, (undefined4 *)&DAT_005b3628, 0xc0000);
     CloseSpriteReadState((void *)stream, (int)&g_graphicsArchive);
   }
   return;

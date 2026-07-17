@@ -428,7 +428,8 @@ uint32_t DAT_005b3480;
 uint32_t g_clientContext;
 uint32_t DAT_005b3488;
 uint32_t DAT_005b3620;
-uint8_t DAT_005b3628;
+/* DAT_005b3628 (the full-width/CJK bitmap-font glyph table) is sized to
+ * 0xc0000 in globals_sized.c - see the comment there. */
 uint8_t DAT_005f2f38;
 uint8_t DAT_005f2f3c;
 uint8_t DAT_005f2f40;
