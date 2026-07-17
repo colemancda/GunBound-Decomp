@@ -108,7 +108,11 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     }
     else if (param_2 == 0x101) {
       if (DAT_007934c4 == '\0') {
-        cVar1 = FUN_0050f260(param_3);
+        /* Dropped the manager `this` (2026-07-17): the original passes
+         * &g_uiPanelManager in ECX like the WM_KEYDOWN FUN_0050f230 call
+         * above; this site only passed the VK, so FUN_0050f260 read its
+         * panel list off *(VK+4). See FUN_0050f260.c. */
+        cVar1 = FUN_0050f260((int)&g_uiPanelManager,param_3);
         cVar1 = '\x01' - (cVar1 != '\0');
       }
       uVar4 = g_cursorAnchorX;
