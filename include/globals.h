@@ -28,6 +28,29 @@
 
 #include <stdint.h>
 
+/* --- Client-context arena offsets (the arena-offset note) ---
+ *
+ * Some `DAT_<hex>` (and a few mis-named `g_*`) symbols below are NOT real
+ * standalone globals: they are FIELD OFFSETS into the ~7 MB client-context
+ * arena whose base address lives in g_clientContext. Ghidra renders an
+ * access `[g_clientContext + 0xOFF]` as `&DAT_0xOFF + g_clientContext` -
+ * i.e. it invents a phantom symbol whose *name hex equals the offset*. If
+ * such a symbol is a real linker-placed global, `&DAT_0xOFF + g_clientContext`
+ * computes (linker_addr + arena_base) - a WILD pointer - instead of
+ * arena_base + 0xOFF. That silently corrupted memory and crashed
+ * non-deterministically on every arena access of this shape once
+ * g_clientContext became a real heap allocation.
+ *
+ * Fix: define each such symbol as a fixed-address byte cell
+ * `#define SYM (*(uint8_t *)0xOFF)`, so `&SYM` == 0xOFF (a `uint8_t *`, so
+ * `+ g_clientContext` scales by 1 = a correct byte offset) and every
+ * `&SYM + <arena base>` site resolves to arena_base + 0xOFF as intended -
+ * fixing all call sites with no per-site edits. Each was verified
+ * pure-offset (every use is `&SYM + <base>`; 0xOFF is never dereferenced).
+ * Same technique as g_replayContext's field offset-macros. Do NOT add a
+ * symbol here unless it is confirmed pure-offset - a value-use would
+ * dereference the low fixed address 0xOFF and fault. */
+
 /* --- Named, documented globals (ARCHITECTURE.md) ---
  *
  * DirectDraw7/Direct3D7 COM interface pointers are declared `void *`
@@ -72,7 +95,7 @@ extern char **g_pPrimarySurface;
 extern char **g_pZBufferSurface;
 extern uint8_t g_abBroadcastEventBuffer;
 extern uint32_t g_dwBroadcastEventCursor;
-extern uint8_t g_replayFileHandle;
+#define g_replayFileHandle (*(uint8_t *)(0x6a9b68))  /* client-context arena offset 0x6a9b68; see the arena-offset note */
 extern float g_sineTable360[360];
 extern uint8_t g_spriteVertexBuffer[0x10000];
 extern uint32_t g_spriteVertexCount;
@@ -425,24 +448,24 @@ extern uint32_t DAT_005b3488;
 extern uint32_t DAT_005b3620;
 extern uint8_t g_fullWidthFontGlyphs;
 extern uint8_t DAT_005f2f38;
-extern uint8_t DAT_005f2f3c;
+#define DAT_005f2f3c (*(uint8_t *)(0x005f2f3c))  /* client-context arena offset 0x005f2f3c; see the arena-offset note */
 extern uint8_t DAT_005f2f40;
-extern uint8_t DAT_005f2f4c;
-extern uint8_t DAT_005f2f50;
+#define DAT_005f2f4c (*(uint8_t *)(0x005f2f4c))  /* client-context arena offset 0x005f2f4c; see the arena-offset note */
+#define DAT_005f2f50 (*(uint8_t *)(0x005f2f50))  /* client-context arena offset 0x005f2f50; see the arena-offset note */
 extern uint8_t DAT_005f2f58;
-extern uint8_t DAT_005f3058;
+#define DAT_005f3058 (*(uint8_t *)(0x005f3058))  /* client-context arena offset 0x005f3058; see the arena-offset note */
 extern uint8_t DAT_005f3158;
-extern uint8_t DAT_005f3258;
+#define DAT_005f3258 (*(uint8_t *)(0x005f3258))  /* client-context arena offset 0x005f3258; see the arena-offset note */
 extern uint8_t DAT_005f325c;
 extern uint8_t DAT_005f32dc;
 extern uint8_t DAT_005f375c;
 extern uint8_t DAT_005f3760;
-extern uint8_t DAT_005f3768;
+#define DAT_005f3768 (*(uint8_t *)(0x005f3768))  /* client-context arena offset 0x005f3768; see the arena-offset note */
 extern uint8_t DAT_005f376c;
 extern uint8_t DAT_005f3770;
 extern uint8_t DAT_005f3771;
 extern uint8_t DAT_005f3772;
-extern uint8_t DAT_005f4894;
+#define DAT_005f4894 (*(uint8_t *)(0x005f4894))  /* client-context arena offset 0x005f4894; see the arena-offset note */
 extern uint8_t DAT_00666d73;
 extern uint8_t DAT_00673628;
 extern int *DAT_00674f68; /* used dereferenced as a vtable-bearing ptr at call sites */
@@ -454,12 +477,12 @@ extern uint32_t DAT_00677544[8]; /* DDPIXELFORMAT - see globals.c */
 extern uint32_t DAT_006777e8[8]; /* DDPIXELFORMAT - see globals.c */
 extern uint32_t DAT_006790c0[0x8000];
 extern uint8_t DAT_0067e348;
-extern uint8_t DAT_0067e3c8;
-extern uint8_t DAT_0067e3cc;
+#define DAT_0067e3c8 (*(uint8_t *)(0x0067e3c8))  /* client-context arena offset 0x0067e3c8; see the arena-offset note */
+#define DAT_0067e3cc (*(uint8_t *)(0x0067e3cc))  /* client-context arena offset 0x0067e3cc; see the arena-offset note */
 extern uint8_t DAT_0067e3cd;
 extern uint8_t DAT_0067e3ce;
-extern uint8_t DAT_0067e3d0;
-extern uint8_t DAT_0067e5f4;
+#define DAT_0067e3d0 (*(uint8_t *)(0x0067e3d0))  /* client-context arena offset 0x0067e3d0; see the arena-offset note */
+#define DAT_0067e5f4 (*(uint8_t *)(0x0067e5f4))  /* client-context arena offset 0x0067e5f4; see the arena-offset note */
 extern uint8_t DAT_0067ec60;
 extern uint8_t DAT_0067ec64;
 extern uint8_t DAT_0067ec68;
@@ -475,82 +498,82 @@ extern uint8_t DAT_0067ec68;
  * offset-macro technique as g_replayContext's fields. The `&` in every use
  * means 0x67ec70 is never actually dereferenced (verified: pure-offset). */
 #define DAT_0067ec70 (*(uint8_t *)0x67ec70)
-extern uint8_t DAT_0067ec74;
+#define DAT_0067ec74 (*(uint8_t *)(0x0067ec74))  /* client-context arena offset 0x0067ec74; see the arena-offset note */
 extern uint32_t DAT_006990c0[0x8000];
 extern uint8_t DAT_0069ec74;
-extern uint8_t DAT_006a647c;
+#define DAT_006a647c (*(uint8_t *)(0x006a647c))  /* client-context arena offset 0x006a647c; see the arena-offset note */
 extern uint8_t DAT_006a6481;
 extern uint8_t DAT_006a64a4;
 extern uint8_t DAT_006a64a8;
 extern uint8_t DAT_006a64ac;
-extern uint8_t DAT_006a64b0;
-extern uint8_t DAT_006a64b4;
-extern uint8_t DAT_006a64b8;
+#define DAT_006a64b0 (*(uint8_t *)(0x006a64b0))  /* client-context arena offset 0x006a64b0; see the arena-offset note */
+#define DAT_006a64b4 (*(uint8_t *)(0x006a64b4))  /* client-context arena offset 0x006a64b4; see the arena-offset note */
+#define DAT_006a64b8 (*(uint8_t *)(0x006a64b8))  /* client-context arena offset 0x006a64b8; see the arena-offset note */
 extern uint8_t DAT_006a64bc;
 extern uint8_t DAT_006a64c0;
-extern uint8_t DAT_006a73c0;
-extern uint8_t DAT_006a73c8;
-extern uint8_t DAT_006a7670;
-extern uint8_t DAT_006a76f4;
-extern uint8_t DAT_006a76f8;
+#define DAT_006a73c0 (*(uint8_t *)(0x006a73c0))  /* client-context arena offset 0x006a73c0; see the arena-offset note */
+#define DAT_006a73c8 (*(uint8_t *)(0x006a73c8))  /* client-context arena offset 0x006a73c8; see the arena-offset note */
+#define DAT_006a7670 (*(uint8_t *)(0x006a7670))  /* client-context arena offset 0x006a7670; see the arena-offset note */
+#define DAT_006a76f4 (*(uint8_t *)(0x006a76f4))  /* client-context arena offset 0x006a76f4; see the arena-offset note */
+#define DAT_006a76f8 (*(uint8_t *)(0x006a76f8))  /* client-context arena offset 0x006a76f8; see the arena-offset note */
 extern uint8_t DAT_006a76fc;
-extern uint8_t DAT_006a7704;
-extern uint8_t DAT_006a7708;
-extern int32_t g_nCameraX;
-extern int32_t g_nCameraY;
+#define DAT_006a7704 (*(uint8_t *)(0x006a7704))  /* client-context arena offset 0x006a7704; see the arena-offset note */
+#define DAT_006a7708 (*(uint8_t *)(0x006a7708))  /* client-context arena offset 0x006a7708; see the arena-offset note */
+#define g_nCameraX (*(uint8_t *)(0x6a7710))  /* client-context arena offset 0x6a7710; see the arena-offset note */
+#define g_nCameraY (*(uint8_t *)(0x6a7714))  /* client-context arena offset 0x6a7714; see the arena-offset note */
 extern int32_t g_nCameraScrollX;
 extern int32_t g_nCameraScrollY;
-extern int32_t g_nCameraBoundX;
-extern int32_t g_nCameraBoundY;
-extern uint8_t DAT_006a773c;
-extern uint8_t DAT_006a7740;
+#define g_nCameraBoundX (*(uint8_t *)(0x6a7720))  /* client-context arena offset 0x6a7720; see the arena-offset note */
+#define g_nCameraBoundY (*(uint8_t *)(0x6a7724))  /* client-context arena offset 0x6a7724; see the arena-offset note */
+#define DAT_006a773c (*(uint8_t *)(0x006a773c))  /* client-context arena offset 0x006a773c; see the arena-offset note */
+#define DAT_006a7740 (*(uint8_t *)(0x006a7740))  /* client-context arena offset 0x006a7740; see the arena-offset note */
 extern uint8_t DAT_006a7758;
-extern uint8_t DAT_006a7f70;
-extern uint8_t DAT_006a7f88;
-extern uint8_t DAT_006a7f8c;
-extern uint8_t DAT_006a7f90;
+#define DAT_006a7f70 (*(uint8_t *)(0x006a7f70))  /* client-context arena offset 0x006a7f70; see the arena-offset note */
+#define DAT_006a7f88 (*(uint8_t *)(0x006a7f88))  /* client-context arena offset 0x006a7f88; see the arena-offset note */
+#define DAT_006a7f8c (*(uint8_t *)(0x006a7f8c))  /* client-context arena offset 0x006a7f8c; see the arena-offset note */
+#define DAT_006a7f90 (*(uint8_t *)(0x006a7f90))  /* client-context arena offset 0x006a7f90; see the arena-offset note */
 extern uint8_t DAT_006a7f91;
 extern uint8_t DAT_006a7f92;
-extern uint8_t DAT_006a81b8;
-extern uint8_t DAT_006a8e90;
-extern uint8_t DAT_006a9b6c;
+#define DAT_006a81b8 (*(uint8_t *)(0x006a81b8))  /* client-context arena offset 0x006a81b8; see the arena-offset note */
+#define DAT_006a8e90 (*(uint8_t *)(0x006a8e90))  /* client-context arena offset 0x006a8e90; see the arena-offset note */
+#define DAT_006a9b6c (*(uint8_t *)(0x006a9b6c))  /* client-context arena offset 0x006a9b6c; see the arena-offset note */
 extern uint8_t DAT_006a9b6d;
 extern uint8_t DAT_006a9b6e;
-extern uint8_t DAT_006a9b6f;
+#define DAT_006a9b6f (*(uint8_t *)(0x006a9b6f))  /* client-context arena offset 0x006a9b6f; see the arena-offset note */
 extern uint8_t DAT_006a9b70;
 extern uint8_t DAT_006a9b71;
-extern uint8_t DAT_006a9b72;
+#define DAT_006a9b72 (*(uint8_t *)(0x006a9b72))  /* client-context arena offset 0x006a9b72; see the arena-offset note */
 extern uint8_t DAT_006a9b73;
 extern uint8_t DAT_006a9b74;
-extern uint8_t DAT_006aa408;
-extern uint8_t DAT_006aa41c;
+#define DAT_006aa408 (*(uint8_t *)(0x006aa408))  /* client-context arena offset 0x006aa408; see the arena-offset note */
+#define DAT_006aa41c (*(uint8_t *)(0x006aa41c))  /* client-context arena offset 0x006aa41c; see the arena-offset note */
 extern uint8_t DAT_006aa424;
 extern uint8_t DAT_006aa44c;
 extern uint8_t DAT_006aa47b;
 extern uint8_t DAT_006aa47c;
 extern uint8_t DAT_006aa5fc;
-extern uint8_t DAT_006aa600;
+#define DAT_006aa600 (*(uint8_t *)(0x006aa600))  /* client-context arena offset 0x006aa600; see the arena-offset note */
 extern uint8_t DAT_006aa624;
-extern uint8_t DAT_006aa625;
+#define DAT_006aa625 (*(uint8_t *)(0x006aa625))  /* client-context arena offset 0x006aa625; see the arena-offset note */
 extern uint8_t DAT_006aa626;
 extern uint8_t DAT_006aa627;
-extern uint8_t DAT_006aa628;
+#define DAT_006aa628 (*(uint8_t *)(0x006aa628))  /* client-context arena offset 0x006aa628; see the arena-offset note */
 extern uint8_t DAT_006aa629;
 extern uint8_t DAT_006aa62a;
 extern uint8_t DAT_006aa62b;
 extern uint8_t DAT_006aa62c;
 extern uint8_t DAT_006aa62d;
-extern uint8_t DAT_006aa658;
-extern uint8_t DAT_006aa660;
-extern uint8_t DAT_006aa662;
+#define DAT_006aa658 (*(uint8_t *)(0x006aa658))  /* client-context arena offset 0x006aa658; see the arena-offset note */
+#define DAT_006aa660 (*(uint8_t *)(0x006aa660))  /* client-context arena offset 0x006aa660; see the arena-offset note */
+#define DAT_006aa662 (*(uint8_t *)(0x006aa662))  /* client-context arena offset 0x006aa662; see the arena-offset note */
 extern uint8_t DAT_006aa664;
 extern uint8_t DAT_006aa666;
 extern uint8_t DAT_006aa668;
 extern uint8_t DAT_006aa66a;
 extern uint8_t DAT_006aa66e;
 extern uint8_t DAT_006aa674;
-extern uint8_t DAT_006aa67c;
-extern uint8_t DAT_006aab04;
+#define DAT_006aa67c (*(uint8_t *)(0x006aa67c))  /* client-context arena offset 0x006aa67c; see the arena-offset note */
+#define DAT_006aab04 (*(uint8_t *)(0x006aab04))  /* client-context arena offset 0x006aab04; see the arena-offset note */
 extern uint32_t DAT_006b90f8;
 #define _DAT_006b90f8 DAT_006b90f8
 extern uint32_t DAT_006b9100[0x400];
@@ -1902,27 +1925,27 @@ extern uint32_t DAT_005b12fc;
 extern uint32_t DAT_005b137c;
 extern uint32_t DAT_005b13fc;
 extern uint32_t DAT_005c7fb8;
-extern uint32_t DAT_005f2f44;
+#define DAT_005f2f44 (*(uint8_t *)(0x005f2f44))  /* client-context arena offset 0x005f2f44; see the arena-offset note */
 extern uint32_t DAT_005f2f48;
 extern uint32_t DAT_005f2f54;
 extern uint32_t DAT_005f2f55;
 extern uint32_t DAT_005f3774;
 extern uint32_t DAT_005f48a8;
 extern uint32_t DAT_005f4ab4;
-extern uint32_t DAT_005f4ab8;
-extern uint32_t DAT_005f4cdc;
-extern uint32_t DAT_005f4f00;
-extern uint32_t DAT_005f5124;
+#define DAT_005f4ab8 (*(uint8_t *)(0x005f4ab8))  /* client-context arena offset 0x005f4ab8; see the arena-offset note */
+#define DAT_005f4cdc (*(uint8_t *)(0x005f4cdc))  /* client-context arena offset 0x005f4cdc; see the arena-offset note */
+#define DAT_005f4f00 (*(uint8_t *)(0x005f4f00))  /* client-context arena offset 0x005f4f00; see the arena-offset note */
+#define DAT_005f5124 (*(uint8_t *)(0x005f5124))  /* client-context arena offset 0x005f5124; see the arena-offset note */
 extern uint32_t DAT_005f5348;
 extern uint32_t DAT_00656369;
 extern uint32_t DAT_0067e3e4;
 extern uint32_t DAT_0067e5f0;
 extern uint32_t DAT_0067e608;
 extern uint32_t DAT_0067e814;
-extern uint32_t DAT_0067e818;
+#define DAT_0067e818 (*(uint8_t *)(0x0067e818))  /* client-context arena offset 0x0067e818; see the arena-offset note */
 extern uint32_t DAT_0067e82c;
 extern uint32_t DAT_0067ea38;
-extern uint32_t DAT_0067ea3c;
+#define DAT_0067ea3c (*(uint8_t *)(0x0067ea3c))  /* client-context arena offset 0x0067ea3c; see the arena-offset note */
 extern uint32_t DAT_0067ea50;
 extern uint32_t DAT_0067ec5c;
 extern uint32_t DAT_0067ec6c;
@@ -1939,10 +1962,10 @@ extern uint32_t DAT_006a6498;
 extern uint32_t DAT_006a6499;
 extern uint32_t DAT_006a649c;
 extern uint32_t DAT_006a64a0;
-extern uint32_t DAT_006a64c4;
+#define DAT_006a64c4 (*(uint8_t *)(0x006a64c4))  /* client-context arena offset 0x006a64c4; see the arena-offset note */
 extern uint32_t DAT_006a76e0;
 extern uint32_t DAT_006a76e4;
-extern uint32_t DAT_006a76e8;
+#define DAT_006a76e8 (*(uint8_t *)(0x006a76e8))  /* client-context arena offset 0x006a76e8; see the arena-offset note */
 extern uint32_t DAT_006a76ec;
 extern uint32_t DAT_006a7700;
 extern uint32_t DAT_006a770c;
@@ -1953,11 +1976,11 @@ extern uint32_t DAT_006a7736;
 extern uint32_t DAT_006a7750;
 extern uint32_t DAT_006a7754;
 extern uint32_t DAT_006a7f6c;
-extern uint32_t DAT_006a7f74;
+#define DAT_006a7f74 (*(uint8_t *)(0x006a7f74))  /* client-context arena offset 0x006a7f74; see the arena-offset note */
 extern uint32_t DAT_006a7f75;
 extern uint32_t DAT_006a7f76;
-extern uint32_t DAT_006a7f78;
-extern uint32_t DAT_006a7f7c;
+#define DAT_006a7f78 (*(uint8_t *)(0x006a7f78))  /* client-context arena offset 0x006a7f78; see the arena-offset note */
+#define DAT_006a7f7c (*(uint8_t *)(0x006a7f7c))  /* client-context arena offset 0x006a7f7c; see the arena-offset note */
 extern uint32_t DAT_006a7fa8;
 extern uint32_t DAT_006a81b4;
 extern uint32_t DAT_006a9b8c;
@@ -1979,8 +2002,8 @@ extern uint32_t DAT_006aa89c;
 extern uint32_t DAT_006aa8b4;
 extern uint32_t DAT_006aaac0;
 extern uint32_t DAT_006aaac4;
-extern uint32_t DAT_006aaafc;
-extern uint32_t DAT_006aab00;
+#define DAT_006aaafc (*(uint8_t *)(0x006aaafc))  /* client-context arena offset 0x006aaafc; see the arena-offset note */
+#define DAT_006aab00 (*(uint8_t *)(0x006aab00))  /* client-context arena offset 0x006aab00; see the arena-offset note */
 extern uint32_t DAT_007934c5;
 extern uint32_t DAT_00793668;
 extern uint32_t DAT_0079366c;
