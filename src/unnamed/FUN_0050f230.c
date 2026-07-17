@@ -17,11 +17,17 @@
  * *(0x0000000d + field) - the write-to-0x0000000D / wild-jump crash the
  * moment a key was pressed at ServerSelect. Pass the panel object as
  * the explicit leading `this` (ghidra_types.h erases __thiscall to
- * cdecl-with-explicit-this) and capture the return.
+ * and capture the return. The panel's slot-5 target is a real C++
+ * __thiscall method (CWidget::DispatchKey, `this` in ECX, one stack arg,
+ * `ret 4`), NOT a cdecl-with-explicit-this C port, so it must be called
+ * with the __fastcall + literal-0 dummy-EDX idiom (ghidra_types.h keeps
+ * __fastcall real under MSVC but erases __thiscall) - same pattern as
+ * WndProc.c's StateSlot6DispatchFn. `this` -> ECX, dummy -> EDX, VK ->
+ * the single stack slot the callee cleans.
  */
 #include "ghidra_types.h"
 
-typedef undefined1 (__thiscall *PanelKeyHandlerFn)(void *thisPtr, undefined4 key);
+typedef undefined1 (__fastcall *PanelKeyHandlerFn)(void *thisPtr, int dummyEDX, undefined4 key);
 
 undefined1 __thiscall FUN_0050f230(int param_1,undefined4 param_2)
 
@@ -36,7 +42,7 @@ undefined1 __thiscall FUN_0050f230(int param_1,undefined4 param_2)
   while (puVar2 != (undefined4 *)0x0) {
     puVar1 = puVar2 + 2;
     puVar2 = (undefined4 *)*puVar2;
-    cVar3 = (*(PanelKeyHandlerFn *)(*(int *)*puVar1 + 0x14))((void *)*puVar1,param_2);
+    cVar3 = (*(PanelKeyHandlerFn *)(*(int *)*puVar1 + 0x14))((void *)*puVar1,0,param_2);
     if (cVar3 == '\x01') {
       uVar4 = 1;
     }

@@ -10,7 +10,9 @@
  */
 #include "ghidra_types.h"
 
-typedef undefined1 (__thiscall *PanelKeyHandlerFn)(void *thisPtr, undefined4 key);
+/* Real C++ __thiscall callee (CWidget::DispatchMouse), so __fastcall +
+ * dummy-EDX idiom - see FUN_0050f230.c. */
+typedef undefined1 (__fastcall *PanelKeyHandlerFn)(void *thisPtr, int dummyEDX, undefined4 key);
 
 undefined1 __thiscall FUN_0050f260(int param_1,undefined4 param_2)
 
@@ -25,7 +27,7 @@ undefined1 __thiscall FUN_0050f260(int param_1,undefined4 param_2)
   while (puVar2 != (undefined4 *)0x0) {
     puVar1 = puVar2 + 2;
     puVar2 = (undefined4 *)*puVar2;
-    cVar3 = (*(PanelKeyHandlerFn *)(*(int *)*puVar1 + 0x18))((void *)*puVar1,param_2);
+    cVar3 = (*(PanelKeyHandlerFn *)(*(int *)*puVar1 + 0x18))((void *)*puVar1,0,param_2);
     if (cVar3 == '\x01') {
       uVar4 = 1;
     }
