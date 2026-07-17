@@ -48,12 +48,12 @@ void FUN_004ccd10(int *param_1)
   int local_704;
   undefined1 local_700 [8];
   char local_6f8 [128];
-  undefined1 local_678 [20];
+  undefined1 local_678 [548];
   undefined *local_664;
   undefined1 local_458;
-  undefined1 local_454 [20];
+  undefined1 local_454 [548];
   undefined *local_440;
-  undefined1 local_230 [20];
+  undefined1 local_230 [548];
   undefined *local_21c;
   undefined4 local_c;
   undefined1 *puStack_8;

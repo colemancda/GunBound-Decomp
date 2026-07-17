@@ -34,7 +34,7 @@ void __thiscall FUN_0047f2d0(int param_1,undefined4 param_2,int param_3)
   undefined1 local_89c [548];
   undefined1 local_678 [548];
   undefined1 local_454 [548];
-  undefined1 local_230 [544];
+  undefined1 local_230 [548];
   undefined4 uStack_10;
   undefined4 local_c;
   undefined1 *puStack_8;

@@ -13,8 +13,7 @@ undefined4 __fastcall FUN_004ac260(int param_1)
   undefined4 uVar1;
   undefined4 *unaff_FS_OFFSET;
   undefined1 local_238 [8];
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_230 [548];
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
@@ -32,7 +31,7 @@ undefined4 __fastcall FUN_004ac260(int param_1)
   uVar1 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
-  if (local_21c != 0) {
+  if ((*(int *)(local_230 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_238);
   }

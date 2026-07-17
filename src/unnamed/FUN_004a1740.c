@@ -38,7 +38,7 @@ undefined4 FUN_004a1740(int param_1)
   undefined1 local_89c [548];
   undefined1 local_678 [548];
   undefined1 local_454 [548];
-  undefined1 local_230 [544];
+  undefined1 local_230 [548];
   undefined4 uStack_10;
   undefined4 local_c;
   undefined1 *puStack_8;

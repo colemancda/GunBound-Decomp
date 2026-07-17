@@ -47,25 +47,23 @@ void __thiscall FUN_004a7050(int param_1,int param_2)
   int local_1584;
   int local_1580;
   int local_157c [2];
-  undefined1 local_1574 [20];
-  int local_1560;
-  undefined1 local_1350 [20];
-  int local_133c;
-  undefined1 local_112c [20];
+  undefined1 local_1574 [548];
+  undefined1 local_1350 [548];
+  undefined1 local_112c [548];
   byte *local_1118;
-  undefined1 local_f08 [20];
+  undefined1 local_f08 [548];
   byte *local_ef4;
-  undefined1 local_ce4 [20];
+  undefined1 local_ce4 [548];
   byte *local_cd0;
-  undefined1 local_ac0 [20];
+  undefined1 local_ac0 [548];
   byte *local_aac;
-  undefined1 local_89c [20];
+  undefined1 local_89c [548];
   byte *local_888;
-  undefined1 local_678 [20];
+  undefined1 local_678 [548];
   byte *local_664;
-  undefined1 local_454 [20];
+  undefined1 local_454 [548];
   byte *local_440;
-  undefined1 local_230 [20];
+  undefined1 local_230 [548];
   byte *local_21c;
   undefined4 uStack_10;
   undefined4 local_c;
@@ -92,7 +90,7 @@ void __thiscall FUN_004a7050(int param_1,int param_2)
   local_1594 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
-  if (local_1560 != 0) {
+  if ((*(int *)(local_1574 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_158c);
   }
@@ -103,7 +101,7 @@ void __thiscall FUN_004a7050(int param_1,int param_2)
   local_1598 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
-  if (local_1560 != 0) {
+  if ((*(int *)(local_1574 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_158c);
   }
@@ -115,12 +113,12 @@ void __thiscall FUN_004a7050(int param_1,int param_2)
   local_157c[0] = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
-  if (local_1560 != 0) {
+  if ((*(int *)(local_1574 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_158c);
   }
   local_4 = 0xffffffff;
-  if (local_133c != 0) {
+  if ((*(int *)(local_1350 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_158c);
   }
@@ -133,12 +131,12 @@ void __thiscall FUN_004a7050(int param_1,int param_2)
   local_158c[0] = local_15c4;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),4);
-  if (local_133c != 0) {
+  if ((*(int *)(local_1350 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_15bc);
   }
   local_4 = 0xffffffff;
-  if (local_1560 != 0) {
+  if ((*(int *)(local_1574 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_15bc);
   }

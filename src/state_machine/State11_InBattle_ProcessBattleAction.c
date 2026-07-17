@@ -81,7 +81,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
   undefined1 local_8a8 [548];
   undefined1 local_684 [548];
   undefined1 local_460 [548];
-  undefined1 local_23c [540];
+  undefined1 local_23c [548];
   undefined4 uStack_20;
   undefined4 uStack_1c;
   int *piStack_18;

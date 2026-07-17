@@ -32,7 +32,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
   undefined1 local_89c [548];
   undefined1 local_678 [548];
   undefined1 local_454 [548];
-  undefined1 local_230 [544];
+  undefined1 local_230 [548];
   undefined4 uStack_10;
   undefined4 local_c;
   undefined1 *puStack_8;

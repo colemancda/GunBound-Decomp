@@ -28,10 +28,8 @@ void __fastcall FUN_00491b40(int param_1)
   undefined4 local_460;
   undefined4 local_45c;
   undefined4 local_458;
-  undefined1 local_454 [20];
-  int local_440;
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_454 [548];
+  undefined1 local_230 [548];
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
@@ -83,7 +81,7 @@ void __fastcall FUN_00491b40(int param_1)
     ApplyCraterExcavation(local_480[0],local_46c,local_458,local_464,local_470,local_460,local_468,local_45c)
     ;
     local_4 = 0xffffffff;
-    if (local_440 != 0) {
+    if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_480);
     }
@@ -114,7 +112,7 @@ void __fastcall FUN_00491b40(int param_1)
     EncodeOutgoingPacketField(local_474, uVar2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
-    if (local_440 != 0) {
+    if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_480);
     }
@@ -131,7 +129,7 @@ void __fastcall FUN_00491b40(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_00450eb0(uVar3,uVar2,param_1,1,0,0);
     local_4 = 0xffffffff;
-    if (local_440 != 0) {
+    if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_480);
     }
@@ -148,7 +146,7 @@ void __fastcall FUN_00491b40(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_00436ac0(uVar3,uVar2);
     local_4 = 0xffffffff;
-    if (local_440 != 0) {
+    if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_480);
     }
@@ -166,7 +164,7 @@ void __fastcall FUN_00491b40(int param_1)
     FUN_004372f0(*(uint *)(param_1 + 8) & 0xf,uVar3,uVar2,*(undefined4 *)(param_1 + 0x3894),
                  param_1 + 0x3898);
     local_4 = 0xffffffff;
-    if (local_21c != 0) {
+    if ((*(int *)(local_230 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_480);
     }

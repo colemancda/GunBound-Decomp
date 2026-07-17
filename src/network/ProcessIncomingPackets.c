@@ -59,10 +59,8 @@ void ProcessIncomingPackets(int param_1,HWND param_2)
   int local_24e4;
   undefined1 local_24dc [8];
   char local_24d4 [128];
-  undefined1 local_2454 [20];
-  int local_2440;
-  undefined1 local_2230 [20];
-  int local_221c;
+  undefined1 local_2454 [548];
+  undefined1 local_2230 [548];
   undefined4 local_200c [2047];
   int local_4;
 
@@ -121,9 +119,9 @@ LAB_004d33f1:
     sVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
-    if (local_2440 != 0) {
+    if ((*(int *)(local_2454 + 0x14)) != 0) {
       iVar14 = 0;
-      iVar6 = local_2440 * 0x10;
+      iVar6 = (*(int *)(local_2454 + 0x14)) * 0x10;
       do {
         iVar8 = _rand();
         *(char *)(iVar6 + DAT_0079376c + iVar14) = (char)iVar8;
@@ -132,9 +130,9 @@ LAB_004d33f1:
       TreeLowerBound(local_24dc);
     }
     local_4 = 0xffffffff;
-    if (local_221c != 0) {
+    if ((*(int *)(local_2230 + 0x14)) != 0) {
       iVar14 = 0;
-      iVar6 = local_221c * 0x10;
+      iVar6 = (*(int *)(local_2230 + 0x14)) * 0x10;
       do {
         iVar8 = _rand();
         *(char *)(iVar6 + DAT_0079376c + iVar14) = (char)iVar8;

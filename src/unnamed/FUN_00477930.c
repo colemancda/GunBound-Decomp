@@ -16,16 +16,11 @@ void __fastcall FUN_00477930(int param_1)
   int iVar4;
   undefined4 *unaff_FS_OFFSET;
   undefined1 local_ac8 [8];
-  undefined1 local_ac0 [20];
-  int local_aac;
-  undefined1 local_89c [20];
-  int local_888;
-  undefined1 local_678 [20];
-  int local_664;
-  undefined1 local_454 [20];
-  int local_440;
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_ac0 [548];
+  undefined1 local_89c [548];
+  undefined1 local_678 [548];
+  undefined1 local_454 [548];
+  undefined1 local_230 [548];
   undefined4 local_c;
   undefined1 *puStack_8;
   int local_4;
@@ -63,27 +58,27 @@ void __fastcall FUN_00477930(int param_1)
     }
   }
   local_4 = 3;
-  if (local_440 != 0) {
+  if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_ac8);
   }
   local_4 = 2;
-  if (local_aac != 0) {
+  if ((*(int *)(local_ac0 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_ac8);
   }
   local_4 = 1;
-  if (local_888 != 0) {
+  if ((*(int *)(local_89c + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_ac8);
   }
   local_4 = 0;
-  if (local_664 != 0) {
+  if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_ac8);
   }
   local_4 = 0xffffffff;
-  if (local_21c != 0) {
+  if ((*(int *)(local_230 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_ac8);
   }

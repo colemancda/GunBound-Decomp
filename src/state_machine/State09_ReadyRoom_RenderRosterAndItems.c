@@ -49,14 +49,10 @@ void __fastcall State09_ReadyRoom_RenderRosterAndItems(int param_1)
   undefined4 uStack_998;
   undefined4 uStack_984;
   char local_928 [128];
-  undefined1 local_8a8 [20];
-  int local_894;
-  undefined1 local_684 [20];
-  int local_670;
-  undefined1 local_460 [20];
-  int local_44c;
-  undefined1 local_23c [20];
-  int local_228;
+  undefined1 local_8a8 [548];
+  undefined1 local_684 [548];
+  undefined1 local_460 [548];
+  undefined1 local_23c [548];
   undefined4 uStack_14;
   undefined1 *puStack_10;
   uint local_c;
@@ -449,8 +445,8 @@ LAB_004d892f:
   }
 LAB_004d896a:
   local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),2);
-  if (local_670 != 0) {
-    iVar13 = local_670 << 4;
+  if ((*(int *)(local_684 + 0x14)) != 0) {
+    iVar13 = (*(int *)(local_684 + 0x14)) << 4;
     iVar5 = 0x10;
     do {
       iVar6 = _rand();
@@ -461,8 +457,8 @@ LAB_004d896a:
     TreeLowerBound(&local_a38);
   }
   local_c = 0xffffffff;
-  if (local_228 != 0) {
-    iVar13 = local_228 << 4;
+  if ((*(int *)(local_23c + 0x14)) != 0) {
+    iVar13 = (*(int *)(local_23c + 0x14)) << 4;
     iVar5 = 0x10;
     do {
       iVar6 = _rand();
@@ -490,8 +486,8 @@ LAB_004d8794:
   }
 LAB_004d87cf:
   local_c = local_c & 0xffffff00;
-  if (local_894 != 0) {
-    iVar13 = local_894 << 4;
+  if ((*(int *)(local_8a8 + 0x14)) != 0) {
+    iVar13 = (*(int *)(local_8a8 + 0x14)) << 4;
     iVar5 = 0x10;
     do {
       iVar6 = _rand();
@@ -502,8 +498,8 @@ LAB_004d87cf:
     TreeLowerBound(&local_a38);
   }
   local_c = 0xffffffff;
-  if (local_44c != 0) {
-    iVar13 = local_44c << 4;
+  if ((*(int *)(local_460 + 0x14)) != 0) {
+    iVar13 = (*(int *)(local_460 + 0x14)) << 4;
     iVar5 = 0x10;
     do {
       iVar6 = _rand();

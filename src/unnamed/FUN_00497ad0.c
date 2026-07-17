@@ -22,10 +22,8 @@ void __fastcall FUN_00497ad0(int param_1)
   undefined4 local_460;
   undefined4 local_45c;
   undefined4 local_458;
-  undefined1 local_454 [20];
-  int local_440;
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_454 [548];
+  undefined1 local_230 [548];
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
@@ -73,7 +71,7 @@ void __fastcall FUN_00497ad0(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     ApplyCraterExcavation(uVar3,local_474[0],local_45c,local_46c,local_464,local_460,local_468,local_458);
     local_4 = 0xffffffff;
-    if (local_440 != 0) {
+    if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_474);
     }
@@ -99,7 +97,7 @@ void __fastcall FUN_00497ad0(int param_1)
     EncodeOutgoingPacketField(param_1 + 0x1178, uVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
-    if (local_440 != 0) {
+    if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_474);
     }
@@ -116,7 +114,7 @@ void __fastcall FUN_00497ad0(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_00450eb0(uVar4,uVar3,param_1,0,0,0);
     local_4 = 0xffffffff;
-    if (local_440 != 0) {
+    if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_474);
     }
@@ -133,7 +131,7 @@ void __fastcall FUN_00497ad0(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_00436ac0(uVar4,uVar3);
     local_4 = 0xffffffff;
-    if (local_440 != 0) {
+    if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_474);
     }
@@ -151,7 +149,7 @@ void __fastcall FUN_00497ad0(int param_1)
     FUN_004372f0(*(uint *)(param_1 + 8) & 0xf,uVar4,uVar3,*(undefined4 *)(param_1 + 0x3894),
                  param_1 + 0x3898);
     local_4 = 0xffffffff;
-    if (local_21c != 0) {
+    if ((*(int *)(local_230 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_474);
     }

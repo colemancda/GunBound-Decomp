@@ -48,13 +48,11 @@ void __fastcall FUN_0047de50(int *param_1)
   undefined4 uStack_acc;
   int local_ac8;
   undefined1 auStack_ac4 [4];
-  undefined1 local_ac0 [8];
+  undefined1 local_ac0 [548];
   int iStack_ab8;
   int iStack_ab4;
-  int local_aac;
   undefined1 auStack_8a8 [12];
-  undefined1 local_89c [20];
-  int local_888;
+  undefined1 local_89c [548];
   undefined1 auStack_684 [548];
   undefined1 auStack_460 [548];
   undefined1 auStack_23c [532];
@@ -430,14 +428,14 @@ joined_r0x0047df31:
       *(int **)(iVar8 + 0x3fac) = local_ad0;
     }
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
-    if (local_888 != 0) {
+    if ((*(int *)(local_89c + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(&local_ad0);
       pcVar17 = (code *)LeaveCriticalSection;
     }
     local_4 = 0xffffffff;
     iVar8 = local_ac8;
-    if (local_aac != 0) {
+    if ((*(int *)(local_ac0 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(&local_ad0);
       pcVar17 = (code *)LeaveCriticalSection;

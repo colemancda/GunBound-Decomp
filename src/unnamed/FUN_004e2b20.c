@@ -18,14 +18,10 @@ void __fastcall FUN_004e2b20(int param_1)
   char local_8a9;
   int local_8a8 [2];
   int local_8a0;
-  undefined1 local_89c [20];
-  int local_888;
-  undefined1 local_678 [20];
-  int local_664;
-  undefined1 local_454 [20];
-  int local_440;
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_89c [548];
+  undefined1 local_678 [548];
+  undefined1 local_454 [548];
+  undefined1 local_230 [548];
   undefined4 local_c;
   undefined1 *puStack_8;
   int local_4;
@@ -58,20 +54,20 @@ void __fastcall FUN_004e2b20(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     SUBFIELD(local_4,0,undefined1) = 1;
     local_8a0 = iVar1 + 0x11;
-    local_8a8[0] = local_440;
-    if (local_440 != 0) {
+    local_8a8[0] = (*(int *)(local_454 + 0x14));
+    if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8b4);
     }
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
-    local_8a8[0] = local_664;
-    if (local_664 != 0) {
+    local_8a8[0] = (*(int *)(local_678 + 0x14));
+    if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8b4);
     }
     local_4 = 0xffffffff;
-    local_8a8[0] = local_888;
-    if (local_888 != 0) {
+    local_8a8[0] = (*(int *)(local_89c + 0x14));
+    if ((*(int *)(local_89c + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8b4);
     }
@@ -87,14 +83,14 @@ void __fastcall FUN_004e2b20(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
     local_8a9 = (iVar1 - local_8b4[0]) + 0x8c <= *(int *)(param_1 + 0xefc);
-    local_8b4[0] = local_888;
-    if (local_888 != 0) {
+    local_8b4[0] = (*(int *)(local_89c + 0x14));
+    if ((*(int *)(local_89c + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8a8);
     }
     local_4 = 0xffffffff;
-    local_8b4[0] = local_664;
-    if (local_664 != 0) {
+    local_8b4[0] = (*(int *)(local_678 + 0x14));
+    if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8a8);
     }
@@ -104,10 +100,10 @@ void __fastcall FUN_004e2b20(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar2 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar1 = local_888;
+      iVar1 = (*(int *)(local_89c + 0x14));
       local_8a0 = iVar2 + 0x11;
       local_4 = 0xffffffff;
-      if (local_888 != 0) {
+      if ((*(int *)(local_89c + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         local_8b4[0] = iVar1;
         TreeLowerBound(local_8a8);
@@ -132,20 +128,20 @@ void __fastcall FUN_004e2b20(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     SUBFIELD(local_4,0,undefined1) = 7;
     local_8a0 = iVar1 + 0x11;
-    local_8b4[0] = local_888;
-    if (local_888 != 0) {
+    local_8b4[0] = (*(int *)(local_89c + 0x14));
+    if ((*(int *)(local_89c + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8a8);
     }
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),6);
-    local_8b4[0] = local_664;
-    if (local_664 != 0) {
+    local_8b4[0] = (*(int *)(local_678 + 0x14));
+    if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8a8);
     }
     local_4 = 0xffffffff;
-    local_8b4[0] = local_440;
-    if (local_440 != 0) {
+    local_8b4[0] = (*(int *)(local_454 + 0x14));
+    if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8a8);
     }
@@ -161,14 +157,14 @@ void __fastcall FUN_004e2b20(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),9);
     local_8a9 = (iVar1 - local_8a8[0]) + 0xb4 <= *(int *)(param_1 + 0xefc);
-    local_8b4[0] = local_888;
-    if (local_888 != 0) {
+    local_8b4[0] = (*(int *)(local_89c + 0x14));
+    if ((*(int *)(local_89c + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8a8);
     }
     local_4 = 0xffffffff;
-    local_8b4[0] = local_664;
-    if (local_664 != 0) {
+    local_8b4[0] = (*(int *)(local_678 + 0x14));
+    if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8a8);
     }
@@ -178,10 +174,10 @@ void __fastcall FUN_004e2b20(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar2 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar1 = local_888;
+      iVar1 = (*(int *)(local_89c + 0x14));
       local_8a0 = iVar2 + 0x11;
       local_4 = 0xffffffff;
-      if (local_888 != 0) {
+      if ((*(int *)(local_89c + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         local_8b4[0] = iVar1;
         TreeLowerBound(local_8a8);
@@ -206,20 +202,20 @@ void __fastcall FUN_004e2b20(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     SUBFIELD(local_4,0,undefined1) = 0xd;
     local_8a0 = iVar1 + 0x11;
-    local_8b4[0] = local_888;
-    if (local_888 != 0) {
+    local_8b4[0] = (*(int *)(local_89c + 0x14));
+    if ((*(int *)(local_89c + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8a8);
     }
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xc);
-    local_8b4[0] = local_664;
-    if (local_664 != 0) {
+    local_8b4[0] = (*(int *)(local_678 + 0x14));
+    if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8a8);
     }
     local_4 = 0xffffffff;
-    local_8b4[0] = local_440;
-    if (local_440 != 0) {
+    local_8b4[0] = (*(int *)(local_454 + 0x14));
+    if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_8a8);
     }
@@ -235,15 +231,15 @@ void __fastcall FUN_004e2b20(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xf);
     local_8a9 = (iVar1 - local_8a8[0]) + 0xdc <= *(int *)(param_1 + 0xefc);
-    if (local_888 != 0) {
+    if ((*(int *)(local_89c + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
-      local_8b4[0] = local_888;
+      local_8b4[0] = (*(int *)(local_89c + 0x14));
       TreeLowerBound(local_8a8);
     }
     local_4 = 0xffffffff;
-    if (local_664 != 0) {
+    if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
-      local_8b4[0] = local_664;
+      local_8b4[0] = (*(int *)(local_678 + 0x14));
       TreeLowerBound(local_8a8);
     }
     iVar1 = local_8a0;
@@ -255,9 +251,9 @@ void __fastcall FUN_004e2b20(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       iVar1 = iVar1 + 0x11;
-      if (local_21c != 0) {
+      if ((*(int *)(local_230 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
-        local_8b4[0] = local_21c;
+        local_8b4[0] = (*(int *)(local_230 + 0x14));
         TreeLowerBound(local_8a8);
       }
     }

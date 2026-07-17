@@ -33,9 +33,9 @@ void FUN_0043af40(int param_1,int param_2,int param_3,int param_4,int param_5,in
   undefined1 local_8b0 [4];
   undefined1 auStack_8ac [24];
   int local_894;
-  undefined1 local_684 [12];
+  undefined1 local_684 [548];
   int iStack_678;
-  undefined1 local_460 [16];
+  undefined1 local_460 [548];
   int iStack_450;
   undefined1 auStack_244 [28];
   int local_228;

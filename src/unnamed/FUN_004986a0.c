@@ -23,14 +23,10 @@ int FUN_004986a0(int param_1)
   int local_8b0 [2];
   undefined1 local_8a8 [8];
   int local_8a0;
-  undefined1 local_89c [20];
-  int local_888;
-  undefined1 local_678 [20];
-  int local_664;
-  undefined1 local_454 [20];
-  int local_440;
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_89c [548];
+  undefined1 local_678 [548];
+  undefined1 local_454 [548];
+  undefined1 local_230 [548];
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
@@ -70,7 +66,7 @@ int FUN_004986a0(int param_1)
    * mis-modeled this call's real ECX/EDX/EDI/EAX convention. */
   local_8a0 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar8,iVar7);
   local_4 = 0xffffffff;
-  if (local_888 != 0) {
+  if ((*(int *)(local_89c + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_8b0);
   }
@@ -96,15 +92,15 @@ int FUN_004986a0(int param_1)
    * mismatch as the call above. */
   iVar3 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar8,iVar7);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
-  if (local_888 != 0) {
+  if ((*(int *)(local_89c + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
-    local_8b0[0] = local_888;
+    local_8b0[0] = (*(int *)(local_89c + 0x14));
     TreeLowerBound(local_8a8);
   }
   local_4 = 0xffffffff;
-  if (local_664 != 0) {
+  if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
-    local_8b0[0] = local_664;
+    local_8b0[0] = (*(int *)(local_678 + 0x14));
     TreeLowerBound(local_8a8);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -129,14 +125,14 @@ int FUN_004986a0(int param_1)
    * (iVar9, discarded by Ghidra). */
   iVar2 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),local_8b0[0],iVar9);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
-  local_8b0[0] = local_440;
-  if (local_440 != 0) {
+  local_8b0[0] = (*(int *)(local_454 + 0x14));
+  if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_8a8);
   }
   local_4 = 0xffffffff;
-  local_8b0[0] = local_21c;
-  if (local_21c != 0) {
+  local_8b0[0] = (*(int *)(local_230 + 0x14));
+  if ((*(int *)(local_230 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_8a8);
   }

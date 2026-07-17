@@ -25,20 +25,15 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   int local_2d10;
   int local_2d0c;
   undefined1 local_2d08 [8];
-  undefined1 local_2d00 [20];
-  int local_2cec;
+  undefined1 local_2d00 [548];
   undefined1 local_2adc [548];
-  undefined1 local_28b8 [20];
-  int local_28a4;
+  undefined1 local_28b8 [548];
   undefined1 local_2694 [548];
-  undefined1 local_2470 [20];
-  int local_245c;
+  undefined1 local_2470 [548];
   undefined1 local_224c [548];
-  undefined1 local_2028 [20];
-  int local_2014;
+  undefined1 local_2028 [548];
   undefined1 local_1e04 [548];
-  undefined1 local_1be0 [20];
-  int local_1bcc;
+  undefined1 local_1be0 [548];
   undefined1 local_19bc [548];
   undefined1 local_1798 [548];
   undefined1 local_1574 [548];
@@ -50,7 +45,7 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   undefined1 local_89c [548];
   undefined1 local_678 [548];
   undefined1 local_454 [548];
-  undefined1 local_230 [544];
+  undefined1 local_230 [548];
   undefined4 uStack_10;
   undefined4 local_c;
   undefined1 *puStack_8;
@@ -71,9 +66,9 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   local_2d10 = param_2;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
-  SUBFIELD(local_2d18,0,undefined4) = local_2014;
-  SUBFIELD(local_2d18,0,undefined4) = local_2014;
-  if (local_2014 != 0) {
+  SUBFIELD(local_2d18,0,undefined4) = (*(int *)(local_2028 + 0x14));
+  SUBFIELD(local_2d18,0,undefined4) = (*(int *)(local_2028 + 0x14));
+  if ((*(int *)(local_2028 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_2d20);
   }
@@ -162,14 +157,14 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   local_2d20[0] = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),7);
-  if (local_245c != 0) {
+  if ((*(int *)(local_2470 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_2d08);
     iVar2 = local_2d10;
   }
   local_4 = 0xffffffff;
-  local_2d18 = (double)CONCAT44(SUBFIELD(local_2d18,4,undefined4),local_28a4);
-  if (local_28a4 != 0) {
+  local_2d18 = (double)CONCAT44(SUBFIELD(local_2d18,4,undefined4),(*(int *)(local_28b8 + 0x14)));
+  if ((*(int *)(local_28b8 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_2d08);
     iVar2 = local_2d10;
@@ -288,14 +283,14 @@ LAB_00479655:
   local_2d10 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x1b);
-  local_2d20[0] = local_2cec;
-  if (local_2cec != 0) {
+  local_2d20[0] = (*(int *)(local_2d00 + 0x14));
+  if ((*(int *)(local_2d00 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_2d08);
   }
   local_4 = 0xffffffff;
-  local_2d20[0] = local_1bcc;
-  if (local_1bcc != 0) {
+  local_2d20[0] = (*(int *)(local_1be0 + 0x14));
+  if ((*(int *)(local_1be0 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_2d08);
   }
@@ -317,9 +312,9 @@ LAB_00479655:
   iVar5 = ((iVar2 + local_2d20[0] + SUBFIELD(local_2d18,0,undefined4)) * local_2d10) / iVar5;
   local_4 = 0xffffffff;
   local_2d0c = iVar5;
-  if (local_2cec != 0) {
+  if ((*(int *)(local_2d00 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
-    local_2d20[0] = local_2cec;
+    local_2d20[0] = (*(int *)(local_2d00 + 0x14));
     TreeLowerBound(local_2d08);
   }
   if (0 < iVar5) {

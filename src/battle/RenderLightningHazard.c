@@ -31,12 +31,9 @@ void __fastcall RenderLightningHazard(int param_1)
   undefined4 *unaff_FS_OFFSET;
   uint local_688 [2];
   undefined1 local_680 [8];
-  undefined1 local_678 [20];
-  int local_664;
-  undefined1 local_454 [20];
-  int local_440;
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_678 [548];
+  undefined1 local_454 [548];
+  undefined1 local_230 [548];
   undefined4 local_c;
   undefined1 *puStack_8;
   int local_4;
@@ -54,12 +51,12 @@ void __fastcall RenderLightningHazard(int param_1)
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0;
-  if (local_440 != 0) {
+  if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_688);
   }
   local_4 = 0xffffffff;
-  if (local_664 != 0) {
+  if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_688);
   }
@@ -85,13 +82,13 @@ LAB_0046e1bb:
   local_4 = 2;
   if ((local_688[0] & 2) != 0) {
     local_688[0] = local_688[0] & 0xfffffffd;
-    if (local_664 != 0) {
+    if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_680);
     }
   }
   local_4 = 0xffffffff;
-  if (((local_688[0] & 1) != 0) && (local_440 != 0)) {
+  if (((local_688[0] & 1) != 0) && ((*(int *)(local_454 + 0x14)) != 0)) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_680);
   }
@@ -115,7 +112,7 @@ LAB_0046e1bb:
       DAT_00ea0e28 = (float)(iVar3 - iVar5);
       local_4 = 0xffffffff;
       _DAT_00ea0e94 = DAT_00ea0e28;
-      if (local_664 != 0) {
+      if ((*(int *)(local_678 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_680);
       }
@@ -127,7 +124,7 @@ LAB_0046e1bb:
       _DAT_00ea0e4c = (float)(iVar6 + -1 + iVar3);
       local_4 = 0xffffffff;
       DAT_00ea0e70 = _DAT_00ea0e4c;
-      if (local_21c != 0) {
+      if ((*(int *)(local_230 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_680);
       }

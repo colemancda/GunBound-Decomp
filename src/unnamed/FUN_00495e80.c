@@ -55,7 +55,7 @@ void __fastcall FUN_00495e80(int *param_1)
   undefined1 auStack_d18 [3];
   char local_d15;
   int local_d14;
-  undefined4 local_d10 [2];
+  undefined4 local_d10 [0x89]; /* CValueGuard cell: 0x89*4 = 0x224 bytes */
   undefined4 uStack_d08;
   int local_d04;
   int *local_d00;

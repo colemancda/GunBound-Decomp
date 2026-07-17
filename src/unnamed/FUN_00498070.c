@@ -26,14 +26,10 @@ void FUN_00498070(int *param_1)
   int local_8ac;
   int local_8a8 [2];
   int local_8a0;
-  undefined1 local_89c [20];
-  int local_888;
-  undefined1 local_678 [20];
-  int local_664;
-  undefined1 local_454 [20];
-  int local_440;
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_89c [548];
+  undefined1 local_678 [548];
+  undefined1 local_454 [548];
+  undefined1 local_230 [548];
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
@@ -67,7 +63,7 @@ void FUN_00498070(int *param_1)
       local_8c4[0] = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
-      if (local_664 != 0) {
+      if ((*(int *)(local_678 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_8a8);
       }
@@ -77,7 +73,7 @@ void FUN_00498070(int *param_1)
       iVar3 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
-      if (local_440 != 0) {
+      if ((*(int *)(local_454 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_8a8);
       }
@@ -92,7 +88,7 @@ void FUN_00498070(int *param_1)
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_4 = 0xffffffff;
         local_8a0 = iVar3;
-        if (local_888 != 0) {
+        if ((*(int *)(local_89c + 0x14)) != 0) {
           ScrambleChecksumGuardBytes();
           TreeLowerBound(local_8a8);
         }
@@ -147,10 +143,10 @@ LAB_00498381:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_8a8[0] = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = local_888;
+  iVar4 = (*(int *)(local_89c + 0x14));
   local_4 = 0xffffffff;
-  if (local_888 != 0) {
-    local_8bc[0] = local_888 << 4;
+  if ((*(int *)(local_89c + 0x14)) != 0) {
+    local_8bc[0] = (*(int *)(local_89c + 0x14)) << 4;
     local_8c4[0] = 0x10;
     do {
       iVar6 = _rand();
@@ -167,9 +163,9 @@ LAB_00498381:
   iVar4 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
-  local_8bc[0] = local_664;
-  if (local_664 != 0) {
-    iVar6 = local_664 << 4;
+  local_8bc[0] = (*(int *)(local_678 + 0x14));
+  if ((*(int *)(local_678 + 0x14)) != 0) {
+    iVar6 = (*(int *)(local_678 + 0x14)) << 4;
     local_8c4[0] = 0x10;
     do {
       iVar7 = _rand();
@@ -189,11 +185,11 @@ LAB_00498381:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = local_21c;
+    iVar3 = (*(int *)(local_230 + 0x14));
     local_4 = 0xffffffff;
     local_8a0 = iVar4;
-    if (local_21c != 0) {
-      iVar4 = local_21c << 4;
+    if ((*(int *)(local_230 + 0x14)) != 0) {
+      iVar4 = (*(int *)(local_230 + 0x14)) << 4;
       local_8c4[0] = 0x10;
       do {
         iVar6 = _rand();

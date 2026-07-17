@@ -32,10 +32,8 @@ void FlushEncodedSocketBuffer(int param_1)
   undefined4 *unaff_FS_OFFSET;
   int local_5464;
   undefined1 local_545c [8];
-  undefined1 local_5454 [20];
-  int local_5440;
-  undefined1 local_5230 [20];
-  int local_521c;
+  undefined1 local_5454 [548];
+  undefined1 local_5230 [548];
   undefined4 local_500c [5119];
   undefined4 uStack_10;
   undefined4 local_c;
@@ -90,12 +88,12 @@ void FlushEncodedSocketBuffer(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   *(undefined2 *)(param_1 + 0x44d6) = uVar1;
-  if (local_521c != 0) {
+  if ((*(int *)(local_5230 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_545c);
   }
   local_4 = 0xffffffff;
-  if (local_5440 != 0) {
+  if ((*(int *)(local_5454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_545c);
   }

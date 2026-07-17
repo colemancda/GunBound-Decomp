@@ -29,14 +29,11 @@ void __fastcall FUN_004921e0(int *param_1)
   int local_adc;
   int local_ad8 [2];
   int local_ad0;
-  undefined1 local_acc [20];
-  int local_ab8;
-  undefined1 local_8a8 [20];
-  int local_894;
+  undefined1 local_acc [548];
+  undefined1 local_8a8 [548];
   undefined1 auStack_684 [20];
   int iStack_670;
-  undefined1 local_460 [20];
-  int local_44c;
+  undefined1 local_460 [548];
   undefined1 auStack_23c [20];
   int iStack_228;
   undefined4 uStack_14;
@@ -67,9 +64,9 @@ void __fastcall FUN_004921e0(int *param_1)
    * (iVar10, discarded by Ghidra since it mis-modeled this call's real
    * ECX/EDX/EDI/EAX convention). */
   local_ae4 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),local_aec[0],iVar10);
-  iVar4 = local_ab8;
+  iVar4 = (*(int *)(local_acc + 0x14));
   local_c = 0xffffffff;
-  if (local_ab8 != 0) {
+  if ((*(int *)(local_acc + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     local_aec[0] = iVar4;
     TreeLowerBound(local_ad8);
@@ -88,9 +85,9 @@ void __fastcall FUN_004921e0(int *param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = local_ab8;
+    iVar4 = (*(int *)(local_acc + 0x14));
     local_c = 0xffffffff;
-    if (local_ab8 != 0) {
+    if ((*(int *)(local_acc + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       local_aec[0] = iVar4;
       TreeLowerBound(local_ad8);
@@ -115,10 +112,10 @@ void __fastcall FUN_004921e0(int *param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = local_ab8;
+    iVar4 = (*(int *)(local_acc + 0x14));
     bVar9 = local_ae4 == iVar5;
     local_c = 0xffffffff;
-    if (local_ab8 != 0) {
+    if ((*(int *)(local_acc + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       local_aec[0] = iVar4;
       TreeLowerBound(local_ad8);
@@ -138,9 +135,9 @@ void __fastcall FUN_004921e0(int *param_1)
        * just above); EAX/y = return of the PREVIOUS PeekPacketChecksumState()
        * call (iVar11, discarded by Ghidra). */
       local_ad0 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),local_aec[0],iVar11);
-      iVar4 = local_ab8;
+      iVar4 = (*(int *)(local_acc + 0x14));
       local_c = 0xffffffff;
-      if (local_ab8 != 0) {
+      if ((*(int *)(local_acc + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         local_aec[0] = iVar4;
         TreeLowerBound(local_ad8);
@@ -151,10 +148,10 @@ void __fastcall FUN_004921e0(int *param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar4 = local_ab8;
+      iVar4 = (*(int *)(local_acc + 0x14));
       bVar9 = local_ad0 == iVar5;
       local_c = 0xffffffff;
-      if (local_ab8 != 0) {
+      if ((*(int *)(local_acc + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         local_aec[0] = iVar4;
         TreeLowerBound(local_ad8);
@@ -226,9 +223,9 @@ LAB_00492677:
     iVar4 = PeekPacketChecksumState();
     bVar9 = iVar4 < (int)local_ae4;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = local_ab8;
+    iVar4 = (*(int *)(local_acc + 0x14));
     local_c = 0xffffffff;
-    if (local_ab8 != 0) {
+    if ((*(int *)(local_acc + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       local_aec[0] = iVar4;
       TreeLowerBound(local_ad8);
@@ -299,9 +296,9 @@ LAB_00492912:
   local_ad0 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_c = 0xffffffff;
-  if (local_ab8 != 0) {
+  if ((*(int *)(local_acc + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
-    local_aec[0] = local_ab8;
+    local_aec[0] = (*(int *)(local_acc + 0x14));
     TreeLowerBound(local_ad8);
   }
   local_ae4 = 0;
@@ -314,8 +311,8 @@ LAB_00492912:
       local_adc = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_c = 0xffffffff;
-      local_aec[0] = local_894;
-      if (local_894 != 0) {
+      local_aec[0] = (*(int *)(local_8a8 + 0x14));
+      if ((*(int *)(local_8a8 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_ad8);
       }
@@ -325,8 +322,8 @@ LAB_00492912:
       iVar4 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_c = 0xffffffff;
-      local_aec[0] = local_44c;
-      if (local_44c != 0) {
+      local_aec[0] = (*(int *)(local_460 + 0x14));
+      if ((*(int *)(local_460 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_ad8);
       }
@@ -377,9 +374,9 @@ LAB_00492b46:
   local_ad8[0] = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_c = 0xffffffff;
-  local_adc = local_894;
-  if (local_894 != 0) {
-    iVar5 = local_894 << 4;
+  local_adc = (*(int *)(local_8a8 + 0x14));
+  if ((*(int *)(local_8a8 + 0x14)) != 0) {
+    iVar5 = (*(int *)(local_8a8 + 0x14)) << 4;
     local_aec[0] = 0x10;
     do {
       iVar6 = _rand();
@@ -431,9 +428,9 @@ LAB_00492d35:
         local_adc = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_c = 0xffffffff;
-        local_ad8[0] = local_894;
-        if (local_894 != 0) {
-          iVar4 = local_894 << 4;
+        local_ad8[0] = (*(int *)(local_8a8 + 0x14));
+        if ((*(int *)(local_8a8 + 0x14)) != 0) {
+          iVar4 = (*(int *)(local_8a8 + 0x14)) << 4;
           local_aec[0] = 0x10;
           do {
             iVar5 = _rand();

@@ -18,7 +18,7 @@ void __fastcall FUN_0044fd70(int param_1)
   int iVar6;
   undefined4 *unaff_FS_OFFSET;
   bool bVar7;
-  undefined1 local_678 [20];
+  undefined1 local_678 [548];
   undefined4 local_664;
   undefined1 local_458;
   undefined1 local_454 [548];

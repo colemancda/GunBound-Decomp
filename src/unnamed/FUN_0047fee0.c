@@ -21,7 +21,7 @@ void FUN_0047fee0(int param_1)
   int unaff_retaddr;
   int aiStack_688 [2];
   uint uStack_680;
-  undefined4 local_67c [5];
+  undefined4 local_67c [0x89]; /* CValueGuard cell: 0x89*4 = 0x224 bytes */
   int iStack_668;
   undefined1 auStack_458 [20];
   int iStack_444;

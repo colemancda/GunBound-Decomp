@@ -40,19 +40,13 @@ void DrawWindGauge(int *param_1)
   uint local_f94;
   undefined1 local_f90 [8];
   char local_f88 [128];
-  undefined1 local_f08 [20];
-  int local_ef4;
-  undefined1 local_ce4 [20];
-  int local_cd0;
-  undefined1 local_ac0 [20];
-  int local_aac;
-  undefined1 local_89c [20];
-  int local_888;
-  undefined1 local_678 [20];
-  int local_664;
+  undefined1 local_f08 [548];
+  undefined1 local_ce4 [548];
+  undefined1 local_ac0 [548];
+  undefined1 local_89c [548];
+  undefined1 local_678 [548];
   undefined1 local_454 [548];
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_230 [548];
   int local_4;
   
   iVar2 = DAT_00ea0e1c;
@@ -147,17 +141,17 @@ LAB_00408159:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   SetClipRect(0, iVar13, 0x257, 0);
   local_4 = 1;
-  if (local_cd0 != 0) {
+  if ((*(int *)(local_ce4 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_f9c);
   }
   local_4 = 0;
-  if (local_664 != 0) {
+  if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_f9c);
   }
   local_4 = 0xffffffff;
-  if (local_888 != 0) {
+  if ((*(int *)(local_89c + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_f9c);
   }
@@ -209,17 +203,17 @@ LAB_00406d42:
   }
 LAB_00406e95:
   local_4 = 4;
-  if (local_888 != 0) {
+  if ((*(int *)(local_89c + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_f9c);
   }
   local_4 = 3;
-  if (local_664 != 0) {
+  if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_f9c);
   }
   local_4 = 0xffffffff;
-  if (local_cd0 != 0) {
+  if ((*(int *)(local_ce4 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_f9c);
   }
@@ -297,7 +291,7 @@ LAB_00406f80:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     QueueSpriteSpansByContentId(500);
     local_4 = 0xffffffff;
-    if (local_ef4 != 0) {
+    if ((*(int *)(local_f08 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_f9c);
     }
@@ -310,12 +304,12 @@ LAB_00406f80:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     QueueSpriteSpansByContentId(500);
     local_4 = 0xd;
-    if (local_ef4 != 0) {
+    if ((*(int *)(local_f08 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_f9c);
     }
     local_4 = 0xffffffff;
-    if (local_aac != 0) {
+    if ((*(int *)(local_ac0 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_f9c);
     }
@@ -341,12 +335,12 @@ LAB_00407429:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     QueueSpriteSpansByContentId(500);
     local_4 = 0xf;
-    if (local_ef4 != 0) {
+    if ((*(int *)(local_f08 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_f9c);
     }
     local_4 = 0xffffffff;
-    if (local_aac != 0) {
+    if ((*(int *)(local_ac0 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_f9c);
     }
@@ -857,8 +851,8 @@ LAB_00407d6b:
   }
 LAB_00407d9e:
   local_4 = 0xffffffff;
-  if (local_ef4 != 0) {
-    iVar2 = local_ef4 << 4;
+  if ((*(int *)(local_f08 + 0x14)) != 0) {
+    iVar2 = (*(int *)(local_f08 + 0x14)) << 4;
     iVar10 = 0x10;
     do {
       iVar5 = _rand();
@@ -969,10 +963,10 @@ LAB_0040809a:
     }
   }
 LAB_004080ce:
-  iVar10 = local_21c;
+  iVar10 = (*(int *)(local_230 + 0x14));
   local_4 = 0xffffffff;
-  if (local_21c != 0) {
-    iVar5 = local_21c << 4;
+  if ((*(int *)(local_230 + 0x14)) != 0) {
+    iVar5 = (*(int *)(local_230 + 0x14)) << 4;
     iVar6 = 0x10;
     do {
       iVar7 = _rand();

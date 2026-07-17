@@ -19,8 +19,7 @@ void __fastcall FUN_004ad230(int param_1)
   code *pcVar7;
   undefined4 *unaff_FS_OFFSET;
   undefined1 local_238 [8];
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_230 [548];
   undefined4 uStack_14;
   undefined4 local_c;
   undefined1 *puStack_8;
@@ -39,7 +38,7 @@ void __fastcall FUN_004ad230(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   *(undefined4 *)(param_1 + 0x3f9c) = uVar2;
-  if (local_21c != 0) {
+  if ((*(int *)(local_230 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_238);
     pcVar7 = (code *)EnterCriticalSection;

@@ -24,8 +24,7 @@ void ProcessBattleFrame(int param_1)
   undefined4 uStack_331;
   undefined1 local_32c [124];
   char local_2b0 [128];
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_230 [548];
   undefined4 local_c;
   undefined1 *puStack_8;
   undefined4 local_4;
@@ -43,7 +42,7 @@ void ProcessBattleFrame(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   bVar1 = *(byte *)(g_clientContext + 0x475c4);
   local_4 = 0xffffffff;
-  if (local_21c != 0) {
+  if ((*(int *)(local_230 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_338);
   }

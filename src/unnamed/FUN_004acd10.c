@@ -24,10 +24,8 @@ void __fastcall FUN_004acd10(int param_1)
   undefined4 uVar11;
   undefined4 uVar12;
   int local_45c [2];
-  undefined1 local_454 [20];
-  int local_440;
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_454 [548];
+  undefined1 local_230 [548];
   undefined4 local_c;
   undefined1 *puStack_8;
   int local_4;
@@ -77,12 +75,12 @@ void __fastcall FUN_004acd10(int param_1)
       PeekPacketChecksumBool(0,local_45c[0],0xff,2,1);
       FUN_00431d90(*(undefined1 *)(param_1 + 0x3c),3,0,uVar4,iVar7,uVar10,uVar11,uVar12);
       local_4 = 0;
-      if (local_440 != 0) {
+      if ((*(int *)(local_454 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_45c);
       }
       local_4 = 0xffffffff;
-      if (local_21c != 0) {
+      if ((*(int *)(local_230 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_45c);
       }

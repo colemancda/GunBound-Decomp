@@ -47,7 +47,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
   int local_9a4 [2];
   char local_99c [128];
   char local_91c [128];
-  undefined1 local_89c [20];
+  undefined1 local_89c [548];
   int *local_888;
   undefined1 local_67c;
   int *local_664;

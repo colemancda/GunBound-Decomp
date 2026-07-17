@@ -21,11 +21,9 @@ void FUN_0043b7a0(undefined4 param_1,int param_2,int param_3,int param_4,int par
   byte bVar8;
   int *piVar9;
   undefined1 local_680 [8];
-  undefined1 local_678 [20];
-  int local_664;
+  undefined1 local_678 [548];
   undefined1 local_454 [548];
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_230 [548];
   undefined4 local_4;
 
   iVar5 = g_clientContext;
@@ -116,7 +114,7 @@ LAB_0043ba8e:
             iVar5 = PeekPacketChecksumState();
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             local_4 = 0xffffffff;
-            if (local_664 != 0) {
+            if ((*(int *)(local_678 + 0x14)) != 0) {
               ScrambleChecksumGuardBytes();
               TreeLowerBound(local_680);
             }
@@ -126,7 +124,7 @@ LAB_0043ba8e:
             iVar6 = PeekPacketChecksumState();
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             local_4 = 0xffffffff;
-            if (local_21c != 0) {
+            if ((*(int *)(local_230 + 0x14)) != 0) {
               ScrambleChecksumGuardBytes();
               TreeLowerBound(local_680);
             }

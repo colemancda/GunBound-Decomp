@@ -22,12 +22,9 @@ int __fastcall ComputeMobileGroundY(int param_1)
   undefined1 local_688 [8];
   int local_680;
   int local_67c;
-  undefined1 local_678 [20];
-  int local_664;
-  undefined1 local_454 [20];
-  int local_440;
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_678 [548];
+  undefined1 local_454 [548];
+  undefined1 local_230 [548];
   undefined4 local_c;
   undefined1 *puStack_8;
   int local_4;
@@ -55,12 +52,12 @@ int __fastcall ComputeMobileGroundY(int param_1)
    * the second Peek's return just above that (captured as iVar7). */
   local_680 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar7,iVar6);
   local_4 = 0;
-  if (local_440 != 0) {
+  if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_688);
   }
   local_4 = 0xffffffff;
-  if (local_664 != 0) {
+  if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_688);
   }
@@ -73,12 +70,12 @@ int __fastcall ComputeMobileGroundY(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   bVar6 = local_680 == iVar3;
   local_4 = 2;
-  if (local_664 != 0) {
+  if ((*(int *)(local_678 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_688);
   }
   local_4 = 0xffffffff;
-  if (local_440 != 0) {
+  if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_688);
   }
@@ -98,7 +95,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
      * the second Peek's return just above that (captured as iVar7). */
     iVar4 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar7,iVar6);
     local_4 = 0xffffffff;
-    if (local_664 != 0) {
+    if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_688);
     }
@@ -108,7 +105,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
     iVar5 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
-    if (local_664 != 0) {
+    if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_688);
     }
@@ -129,7 +126,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
        * iVar7). */
       iVar3 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar7,iVar6);
       local_4 = 0xffffffff;
-      if (local_664 != 0) {
+      if ((*(int *)(local_678 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_688);
       }
@@ -139,7 +136,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
-      if (local_21c != 0) {
+      if ((*(int *)(local_230 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_688);
       }

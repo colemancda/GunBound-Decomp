@@ -20,7 +20,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
   int unaff_retaddr;
   int aiStack_464 [2];
   uint uStack_45c;
-  undefined4 local_458 [5];
+  undefined4 local_458 [0x89]; /* CValueGuard cell: 0x89*4 = 0x224 bytes (see src/network/SendOutgoingPacket.c) */
   int iStack_444;
   undefined1 auStack_234 [20];
   int iStack_220;

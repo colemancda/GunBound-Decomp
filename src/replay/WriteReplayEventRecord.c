@@ -69,7 +69,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
   char local_708 [132];
   undefined1 local_684 [548];
   undefined1 local_460 [548];
-  undefined1 local_23c [540];
+  undefined1 local_23c [548];
   undefined4 uStack_20;
   undefined4 uStack_14;
   undefined1 *puStack_10;

@@ -14,8 +14,7 @@ char FUN_00478a80(int param_1,int param_2,int param_3)
   undefined4 uVar2;
   int iVar3;
   undefined1 local_45c [8];
-  undefined1 local_454 [20];
-  int local_440;
+  undefined1 local_454 [548];
   undefined1 local_230 [548];
   uint local_c;
   undefined1 *puStack_8;
@@ -36,7 +35,7 @@ char FUN_00478a80(int param_1,int param_2,int param_3)
   iVar3 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
-  if (local_440 != 0) {
+  if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_45c);
   }
@@ -50,7 +49,7 @@ char FUN_00478a80(int param_1,int param_2,int param_3)
     iVar3 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
-    if (local_440 != 0) {
+    if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_45c);
     }

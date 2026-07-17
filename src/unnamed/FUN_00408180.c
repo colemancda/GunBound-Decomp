@@ -38,20 +38,14 @@ void FUN_00408180(int param_1)
   CHAR local_1008;
   char local_1007 [127];
   char local_f88 [128];
-  undefined1 local_f08 [20];
-  int local_ef4;
-  undefined1 local_ce4 [20];
-  int local_cd0;
-  undefined1 local_ac0 [20];
-  int local_aac;
+  undefined1 local_f08 [548];
+  undefined1 local_ce4 [548];
+  undefined1 local_ac0 [548];
   undefined1 local_89c [20];
   uint local_888;
-  undefined1 local_678 [20];
-  uint local_664;
-  undefined1 local_454 [20];
-  int local_440;
-  undefined1 local_230 [20];
-  uint local_21c;
+  undefined1 local_678 [548];
+  undefined1 local_454 [548];
+  undefined1 local_230 [548];
   undefined4 uStack_10;
   undefined4 local_c;
   undefined1 *puStack_8;
@@ -464,8 +458,8 @@ LAB_00408b80:
     local_1010[0] = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 2;
-    if (local_aac != 0) {
-      local_1024[0] = local_aac << 4;
+    if ((*(int *)(local_ac0 + 0x14)) != 0) {
+      local_1024[0] = (*(int *)(local_ac0 + 0x14)) << 4;
       local_1018[0] = 0x10;
       do {
         iVar6 = _rand();
@@ -473,13 +467,13 @@ LAB_00408b80:
         local_1024[0] = local_1024[0] + 1;
         local_1018[0] = local_1018[0] + -1;
       } while (local_1018[0] != 0);
-      local_1024[0] = local_aac;
+      local_1024[0] = (*(int *)(local_ac0 + 0x14));
       TreeLowerBound(local_1018);
     }
     local_4 = 1;
-    local_1018[0] = local_440;
-    if (local_440 != 0) {
-      iVar6 = local_440 << 4;
+    local_1018[0] = (*(int *)(local_454 + 0x14));
+    if ((*(int *)(local_454 + 0x14)) != 0) {
+      iVar6 = (*(int *)(local_454 + 0x14)) << 4;
       local_1024[0] = 0x10;
       do {
         iVar9 = _rand();
@@ -491,14 +485,14 @@ LAB_00408b80:
       TreeLowerBound(local_1018);
     }
     local_4 = 0;
-    if ((0 < iVar2) && (local_cd0 != 0)) {
+    if ((0 < iVar2) && ((*(int *)(local_ce4 + 0x14)) != 0)) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_1024);
     }
     local_4 = 0xffffffff;
-    local_1024[0] = local_ef4;
-    if (local_ef4 != 0) {
-      iVar2 = local_ef4 << 4;
+    local_1024[0] = (*(int *)(local_f08 + 0x14));
+    if ((*(int *)(local_f08 + 0x14)) != 0) {
+      iVar2 = (*(int *)(local_f08 + 0x14)) << 4;
       local_1028 = 0x10;
       do {
         iVar6 = _rand();
@@ -517,8 +511,8 @@ LAB_00408b80:
     iVar6 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 4;
-    if (local_ef4 != 0) {
-      local_1028 = local_ef4 << 4;
+    if ((*(int *)(local_f08 + 0x14)) != 0) {
+      local_1028 = (*(int *)(local_f08 + 0x14)) << 4;
       local_1024[0] = 0x10;
       do {
         iVar9 = _rand();
@@ -529,9 +523,9 @@ LAB_00408b80:
       TreeLowerBound(local_1024);
     }
     local_4 = 0xffffffff;
-    local_1024[0] = local_cd0;
-    if (local_cd0 != 0) {
-      iVar9 = local_cd0 << 4;
+    local_1024[0] = (*(int *)(local_ce4 + 0x14));
+    if ((*(int *)(local_ce4 + 0x14)) != 0) {
+      iVar9 = (*(int *)(local_ce4 + 0x14)) << 4;
       local_1028 = 0x10;
       do {
         iVar10 = _rand();
@@ -566,8 +560,8 @@ LAB_00408b80:
       TreeLowerBound(local_1010);
     }
     local_4 = 6;
-    if (local_664 != 0) {
-      iVar3 = local_664 << 4;
+    if ((*(int *)(local_678 + 0x14)) != 0) {
+      iVar3 = (*(int *)(local_678 + 0x14)) << 4;
       iVar13 = 0x10;
       do {
         iVar2 = _rand();
@@ -575,12 +569,12 @@ LAB_00408b80:
         iVar3 = iVar3 + 1;
         iVar13 = iVar13 + -1;
       } while (iVar13 != 0);
-      local_101c = local_664;
+      local_101c = (*(int *)(local_678 + 0x14));
       TreeLowerBound(local_1010);
     }
     local_4 = 0xffffffff;
-    if (local_21c != 0) {
-      iVar3 = local_21c << 4;
+    if ((*(int *)(local_230 + 0x14)) != 0) {
+      iVar3 = (*(int *)(local_230 + 0x14)) << 4;
       iVar13 = 0x10;
       do {
         iVar2 = _rand();
@@ -588,7 +582,7 @@ LAB_00408b80:
         iVar3 = iVar3 + 1;
         iVar13 = iVar13 + -1;
       } while (iVar13 != 0);
-      local_101c = local_21c;
+      local_101c = (*(int *)(local_230 + 0x14));
       TreeLowerBound(local_1010);
     }
   }

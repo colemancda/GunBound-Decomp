@@ -20,12 +20,10 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
   undefined1 local_8a4 [8];
   undefined1 local_89c [20];
   int local_888;
-  undefined1 local_678 [20];
-  int local_664;
+  undefined1 local_678 [548];
   undefined1 local_454 [20];
   int local_440;
-  undefined1 local_230 [20];
-  int local_21c;
+  undefined1 local_230 [548];
   undefined4 local_c;
   undefined1 *puStack_8;
   int local_4;
@@ -145,12 +143,12 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
         TreeLowerBound(local_8a4);
       }
       local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
-      if (local_664 != 0) {
+      if ((*(int *)(local_678 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_8a4);
       }
       local_4 = 0xffffffff;
-      if (local_21c != 0) {
+      if ((*(int *)(local_230 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_8a4);
       }

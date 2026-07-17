@@ -32,10 +32,9 @@ void FUN_00477140(void)
   undefined4 local_460;
   undefined4 local_45c;
   undefined4 local_458;
-  undefined1 local_454 [4];
+  undefined1 local_454 [548];
   int iStack_450;
   int iStack_448;
-  int local_440;
   undefined1 auStack_240 [20];
   int iStack_22c;
   undefined4 uStack_1c;
@@ -83,7 +82,7 @@ void FUN_00477140(void)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   ApplyCraterExcavation(local_478[0],local_46c,local_470,local_464,local_45c,local_460,local_468,local_458);
   local_4 = 0xffffffff;
-  if (local_440 != 0) {
+  if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_478);
   }
@@ -109,7 +108,7 @@ void FUN_00477140(void)
   EncodeOutgoingPacketField(unaff_ESI + 0x1178, uVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
-  if (local_440 != 0) {
+  if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_478);
     pcVar6 = (code *)LeaveCriticalSection;

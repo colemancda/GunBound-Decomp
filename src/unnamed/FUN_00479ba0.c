@@ -30,8 +30,7 @@ int __fastcall FUN_00479ba0(int *param_1)
   undefined4 uVar17;
   int local_924 [2];
   char acStack_91c [128];
-  undefined1 local_89c [20];
-  int local_888;
+  undefined1 local_89c [548];
   undefined1 uStack_67c;
   undefined1 auStack_678 [20];
   undefined4 uStack_664;
@@ -66,7 +65,7 @@ int __fastcall FUN_00479ba0(int *param_1)
    * See fghac_batch3.json. */
   iVar5 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar17,(int)uVar16);
   local_4 = 0xffffffff;
-  if (local_888 != 0) {
+  if ((*(int *)(local_89c + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_924);
   }
@@ -89,7 +88,7 @@ LAB_00479d44:
     if (cVar3 == '\0') goto LAB_00479d44;
   }
   local_4 = 0xffffffff;
-  if (local_888 != 0) {
+  if ((*(int *)(local_89c + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_924);
   }
@@ -265,8 +264,8 @@ LAB_00479e75:
       /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
        * 0x47a2ce/0x47a2f5 (edi loaded from esp+0xb0/esp+0x2d4, stack-
        * relative). The zero-write pairs just above each call match
-       * tableHandle(+0x14)/activeFlag(+0x220): uStack_67c/local_888 are
-       * 0x20c bytes apart, pinning the first cell's base at local_888-0x14
+       * tableHandle(+0x14)/activeFlag(+0x220): uStack_67c/(*(int *)(local_89c + 0x14)) are
+       * 0x20c bytes apart, pinning the first cell's base at (*(int *)(local_89c + 0x14))-0x14
        * == `local_89c` (this file's own scratch CValueGuard buffer, reused
        * a few lines above via EncodeChecksumDeltaSub/EncodeChecksumPairSum);
        * likewise uStack_458/uStack_664 pin the second cell's base at
@@ -274,7 +273,7 @@ LAB_00479e75:
        * PeekChecksumStateUnderLock/EmitChecksumSum). See
        * tools/encodeoutgoingpacketfield_sites.json. */
       uStack_67c = 0;
-      local_888 = 0;
+      (*(int *)(local_89c + 0x14)) = 0;
       EncodeOutgoingPacketField(local_89c, 0);
       local_4 = 3;
       uStack_458 = 0;

@@ -27,12 +27,9 @@ undefined1 FUN_004644e0(int param_1)
   uint auStack_cf8 [2];
   uint local_cf0;
   int aiStack_cec [2];
-  undefined1 local_ce4 [20];
-  uint local_cd0;
-  undefined1 local_ac0 [20];
-  uint local_aac;
-  undefined1 local_89c [20];
-  uint local_888;
+  undefined1 local_ce4 [548];
+  undefined1 local_ac0 [548];
+  undefined1 local_89c [548];
   undefined1 auStack_678 [20];
   uint uStack_664;
   undefined1 auStack_454 [20];
@@ -70,8 +67,8 @@ undefined1 FUN_004644e0(int param_1)
       iVar5 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
-      local_d08[0] = local_888;
-      if (local_888 != 0) {
+      local_d08[0] = (*(int *)(local_89c + 0x14));
+      if ((*(int *)(local_89c + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_d00);
       }
@@ -81,8 +78,8 @@ undefined1 FUN_004644e0(int param_1)
       iVar6 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
-      local_d08[0] = local_aac;
-      if (local_aac != 0) {
+      local_d08[0] = (*(int *)(local_ac0 + 0x14));
+      if ((*(int *)(local_ac0 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_d00);
       }
@@ -93,7 +90,7 @@ undefined1 FUN_004644e0(int param_1)
         uVar4 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_4 = 0xffffffff;
-        if (local_cd0 != 0) {
+        if ((*(int *)(local_ce4 + 0x14)) != 0) {
           ScrambleChecksumGuardBytes();
           TreeLowerBound(local_d00);
         }
@@ -161,8 +158,8 @@ LAB_004647f7:
       local_d00[0] = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
-      if (local_cd0 != 0) {
-        iVar5 = local_cd0 << 4;
+      if ((*(int *)(local_ce4 + 0x14)) != 0) {
+        iVar5 = (*(int *)(local_ce4 + 0x14)) << 4;
         local_d10 = 0x10;
         do {
           iVar6 = _rand();
@@ -237,8 +234,8 @@ LAB_00464a63:
   aiStack_cec[0] = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
-  if (local_aac != 0) {
-    iVar6 = local_aac << 4;
+  if ((*(int *)(local_ac0 + 0x14)) != 0) {
+    iVar6 = (*(int *)(local_ac0 + 0x14)) << 4;
     local_d08[0] = 0x10;
     do {
       iVar10 = _rand();
@@ -254,8 +251,8 @@ LAB_00464a63:
   auStack_cf8[0] = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
-  if (local_888 != 0) {
-    iVar6 = local_888 << 4;
+  if ((*(int *)(local_89c + 0x14)) != 0) {
+    iVar6 = (*(int *)(local_89c + 0x14)) << 4;
     local_d08[0] = 0x10;
     do {
       iVar10 = _rand();
@@ -361,9 +358,9 @@ LAB_00464fc1:
   aiStack_cec[0] = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
-  local_d00[0] = local_cd0;
-  if (local_cd0 != 0) {
-    iVar10 = local_cd0 << 4;
+  local_d00[0] = (*(int *)(local_ce4 + 0x14));
+  if ((*(int *)(local_ce4 + 0x14)) != 0) {
+    iVar10 = (*(int *)(local_ce4 + 0x14)) << 4;
     local_d08[0] = 0x10;
     do {
       iVar7 = _rand();
@@ -380,9 +377,9 @@ LAB_00464fc1:
   auStack_cf8[0] = uVar4;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
-  local_d00[0] = local_aac;
-  if (local_aac != 0) {
-    iVar10 = local_aac << 4;
+  local_d00[0] = (*(int *)(local_ac0 + 0x14));
+  if ((*(int *)(local_ac0 + 0x14)) != 0) {
+    iVar10 = (*(int *)(local_ac0 + 0x14)) << 4;
     local_d08[0] = 0x10;
     do {
       iVar7 = _rand();
@@ -400,9 +397,9 @@ LAB_00464fc1:
     uVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
-    local_d00[0] = local_888;
-    if (local_888 != 0) {
-      iVar10 = local_888 << 4;
+    local_d00[0] = (*(int *)(local_89c + 0x14));
+    if ((*(int *)(local_89c + 0x14)) != 0) {
+      iVar10 = (*(int *)(local_89c + 0x14)) << 4;
       local_d08[0] = 0x10;
       do {
         iVar7 = _rand();
