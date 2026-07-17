@@ -168,7 +168,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
       goto switchD_004105f7_caseD_1022;
     }
     if (uVar6 == 0x4501) {
-      FUN_004e7de0(&DAT_00e55ce0,*pbVar22,pbVar22 + 1);
+      FUN_004e7de0(&g_replayContext,*pbVar22,pbVar22 + 1);
       goto switchD_004105f7_caseD_1022;
     }
     if (uVar6 < 0x3401) {
@@ -244,7 +244,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
             QueueOutgoingPacketField(0xffffffff);
           }
           FUN_004e7560();
-          FUN_004e77e0(&DAT_00e55ce0);
+          FUN_004e77e0(&g_replayContext);
           pbVar22 = param_3;
           if ((*(int *)(&DAT_006a76f8 + g_clientContext) != 0) &&
              (local_d78 = 0, *(int *)(&DAT_006a76f8 + g_clientContext) != 0)) {
@@ -273,7 +273,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                 FUN_00415470();
                 local_d78 = local_d78 - 1;
                 if (*(int *)(&DAT_006a76f8 + g_clientContext) == 0) {
-                  PostTurnEvent(&DAT_00e55ce0,0xc302);
+                  PostTurnEvent(&g_replayContext,0xc302);
                 }
               }
               local_d78 = local_d78 + 1;

@@ -37,7 +37,7 @@ unsigned char g_localizedStringTable[0x10000];
 /* The turn-event/replay-buffer context struct (was the 1-byte
  * DAT_00e55ce0). 0x454f9 bytes; established by cross-referencing every
  * offset dereferenced by FUN_004e84c0/FUN_004e7b60/FUN_004e80d0/
- * FUN_004e77e0/FUN_004e7de0/FUN_004e6050 (all take &DAT_00e55ce0 as
+ * FUN_004e77e0/FUN_004e7de0/FUN_004e6050 (all take &g_replayContext as
  * their context arg) plus the ~42 other DAT_00e5.../DAT_00e9... globals
  * that fell inside this range and are now offset-macros into this array
  * (see globals.h) instead of independent symbols, so param_N-relative
@@ -45,7 +45,7 @@ unsigned char g_localizedStringTable[0x10000];
  * the CRITICAL_SECTION at +0x45264 (DAT_00e9af44), which stays
  * independently declared/sized above - a real but pre-existing gap for
  * FUN_004e7de0's own use of that offset, not addressed by this change. */
-unsigned char DAT_00e55ce0[0x454f9];
+unsigned char g_replayContext[0x454f9];
 
 /* The named-texture-cache singleton (was the 1-byte DAT_00eb1bd8).
  * Constructed by InitTextureCache from the CRT static-initializer
@@ -68,7 +68,7 @@ unsigned char g_textureCache[0x40200];
  * 0x8000 double-byte codepoints x 0x18 bytes (12x16 1bpp cell) = 0xc0000
  * bytes; LoadBitmapFont reads exactly 0xc0000 from graphics.xfs's
  * "font.fnt" entry into it (orig 0x4eae91 `mov eax,0xc0000`), and
- * BlitRLESprite indexes it as &DAT_005b3628 + ((hi & 0x7f)<<8 | lo) * 0x18
+ * BlitRLESprite indexes it as &g_fullWidthFontGlyphs + ((hi & 0x7f)<<8 | lo) * 0x18
  * (max index 0x7fff -> last glyph at 0xbfff8, extent 0xc0000). This is the
  * companion of the ASCII table below; the two font reads are sequential.
  *
@@ -77,8 +77,8 @@ unsigned char g_textureCache[0x40200];
  * rendering of client-context arena OFFSETS (e.g. `mov [eax+0x5f3768],5`
  * with eax = g_clientContext becomes `*(&DAT_005f3768 + g_clientContext)`),
  * a distinct subsystem that never touches this symbol's storage. So unlike
- * DAT_00e55ce0 this sizing needs no offset-macro reconciliation. */
-unsigned char DAT_005b3628[0xc0000];
+ * g_replayContext this sizing needs no offset-macro reconciliation. */
+unsigned char g_fullWidthFontGlyphs[0xc0000];
 
 /* The ASCII bitmap-font glyph table (was the 1-byte DAT_00673628).
  * 256 glyphs x 12 bytes (6x12 1bpp cells) = 0xc00 bytes; BlitRLESprite

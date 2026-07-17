@@ -74,7 +74,7 @@ undefined4 __thiscall BlitRLESprite(int param_1,undefined4 param_2,undefined4 pa
         bVar2 = *pbVar4;
         pbVar4 = in_EAX + 2;
         if (DAT_00793530 <= iVar3) {
-          FUN_004eaeb0(param_1,param_3,&DAT_005b3628 + ((bVar1 & 0x7f) << 8 | (uint)bVar2) * 0x18);
+          FUN_004eaeb0(param_1,param_3,&g_fullWidthFontGlyphs + ((bVar1 & 0x7f) << 8 | (uint)bVar2) * 0x18);
         }
         param_1 = param_1 + 0xc;
         iVar3 = iVar3 + 0xc;

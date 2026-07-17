@@ -550,9 +550,9 @@ LAB_004b7c01:
           if ((char)param_1[0x474] == '\0') {
             FUN_004d0a10(param_1,param_2 + 0x22);
           }
-          PostTurnEvent(&DAT_00e55ce0,0xc300);
-          PostTurnEvent(&DAT_00e55ce0,0xc306);
-          PostTurnEvent(&DAT_00e55ce0,0xc40b);
+          PostTurnEvent(&g_replayContext,0xc300);
+          PostTurnEvent(&g_replayContext,0xc306);
+          PostTurnEvent(&g_replayContext,0xc40b);
           *unaff_FS_OFFSET = local_14;
           return;
         case 0xc301:
@@ -673,14 +673,14 @@ LAB_004b7c01:
               if (local_27e4 != DAT_00e9af14) {
                 FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
               }
-              PostTurnEvent(&DAT_00e55ce0,0x8005);
-              PostTurnEvent(&DAT_00e55ce0,0x8006);
-              PostTurnEvent(&DAT_00e55ce0,0xc306);
-              PostTurnEvent(&DAT_00e55ce0,0xc400);
-              PostTurnEvent(&DAT_00e55ce0,0xc401);
-              PostTurnEvent(&DAT_00e55ce0,0x8403);
-              PostTurnEvent(&DAT_00e55ce0,0x8405);
-              PostTurnEvent(&DAT_00e55ce0,0xc409);
+              PostTurnEvent(&g_replayContext,0x8005);
+              PostTurnEvent(&g_replayContext,0x8006);
+              PostTurnEvent(&g_replayContext,0xc306);
+              PostTurnEvent(&g_replayContext,0xc400);
+              PostTurnEvent(&g_replayContext,0xc401);
+              PostTurnEvent(&g_replayContext,0x8403);
+              PostTurnEvent(&g_replayContext,0x8405);
+              PostTurnEvent(&g_replayContext,0xc409);
               FUN_004cb280(piVar7);
               *unaff_FS_OFFSET = local_14;
               return;
@@ -708,14 +708,14 @@ LAB_004b7c01:
               if (local_27e4 != DAT_00e9af14) {
                 FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
               }
-              PostTurnEvent(&DAT_00e55ce0,0x8005);
-              PostTurnEvent(&DAT_00e55ce0,0x8006);
-              PostTurnEvent(&DAT_00e55ce0,0xc306);
-              PostTurnEvent(&DAT_00e55ce0,0xc400);
-              PostTurnEvent(&DAT_00e55ce0,0xc401);
-              PostTurnEvent(&DAT_00e55ce0,0x8403);
-              PostTurnEvent(&DAT_00e55ce0,0x8405);
-              PostTurnEvent(&DAT_00e55ce0,0xc409);
+              PostTurnEvent(&g_replayContext,0x8005);
+              PostTurnEvent(&g_replayContext,0x8006);
+              PostTurnEvent(&g_replayContext,0xc306);
+              PostTurnEvent(&g_replayContext,0xc400);
+              PostTurnEvent(&g_replayContext,0xc401);
+              PostTurnEvent(&g_replayContext,0x8403);
+              PostTurnEvent(&g_replayContext,0x8405);
+              PostTurnEvent(&g_replayContext,0xc409);
               FUN_004cb280(param_1);
               *unaff_FS_OFFSET = local_14;
               return;

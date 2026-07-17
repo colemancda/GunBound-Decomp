@@ -14,15 +14,15 @@ void FUN_004e6b50(void)
   /* BRING-UP WORKAROUND: skip starting this worker thread.
    *
    * Same dropped-ESI situation as FUN_00415500/FUN_00415530 (orig
-   * 0x40f3b4 loads ESI=&DAT_00e55ce0 before calling this), but that global
+   * 0x40f3b4 loads ESI=&g_replayContext before calling this), but that global
    * is ALREADY a large, widely-referenced struct throughout battle/replay
    * code (PostTurnEvent, FUN_004e7b60/004e80d0/004e84c0, WriteReplayEventRecord,
-   * etc. all take &DAT_00e55ce0 as their own context arg) with other globals
+   * etc. all take &g_replayContext as their own context arg) with other globals
    * declared close behind it (DAT_00e55cf4 only 0x14 bytes later) - this
    * function needs to write as far as +0x3bc, which would require resizing
-   * DAT_00e55ce0 far beyond what's safe without auditing every one of those
+   * g_replayContext far beyond what's safe without auditing every one of those
    * other call sites. Not required to reach the logo/menu render loop;
-   * revisit alongside a proper pass over the whole DAT_00e55ce0 struct. */
+   * revisit alongside a proper pass over the whole g_replayContext struct. */
   return;
 }
 

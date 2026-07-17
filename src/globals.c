@@ -428,8 +428,8 @@ uint32_t DAT_005b3480;
 uint32_t g_clientContext;
 uint32_t DAT_005b3488;
 uint32_t DAT_005b3620;
-/* DAT_005b3628 (the full-width/CJK bitmap-font glyph table) is sized to
- * 0xc0000 in globals_sized.c - see the comment there. */
+/* g_fullWidthFontGlyphs (was DAT_005b3628, the full-width/CJK bitmap-font
+ * glyph table) is sized to 0xc0000 in globals_sized.c - see the comment there. */
 uint8_t DAT_005f2f38;
 uint8_t DAT_005f2f3c;
 uint8_t DAT_005f2f40;
@@ -767,7 +767,7 @@ uint8_t DAT_00e55a45;
 uint8_t DAT_00e55a46;
 int *DAT_00e55a64;
 uint8_t DAT_00e55ab8;
-/* DAT_00e55ce0: moved to globals_sized.c (0x454f9-byte struct - battle/replay turn-event buffer; real extent established via FUN_004e84c0/FUN_004e7b60/FUN_004e80d0/FUN_004e77e0/FUN_004e7de0/FUN_004e6050, all of which take &DAT_00e55ce0 as their context arg; the ~42 other DAT_00e5.../DAT_00e9... globals formerly declared here in this offset range are now offset-macros into that storage - see globals.h). The CRITICAL_SECTION at +0x45264 (DAT_00e9af44) stays separately declared/sized; this array does not cover it. */
+/* g_replayContext (was DAT_00e55ce0): moved to globals_sized.c (0x454f9-byte struct - battle/replay turn-event buffer; real extent established via FUN_004e84c0/FUN_004e7b60/FUN_004e80d0/FUN_004e77e0/FUN_004e7de0/FUN_004e6050, all of which take &g_replayContext as their context arg; the ~42 other DAT_00e5.../DAT_00e9... globals formerly declared here in this offset range are now offset-macros into that storage - see globals.h). The CRITICAL_SECTION at +0x45264 (DAT_00e9af44) stays separately declared/sized; this array does not cover it. */
 /* DAT_00e9af44: moved to globals_sized.c (CRITICAL_SECTION) */
 uint8_t DAT_00e9b4e8;
 uint8_t DAT_00e9b4ea;

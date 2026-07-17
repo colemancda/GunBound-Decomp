@@ -10,7 +10,7 @@
 void FUN_005432a0(void)
 
 {
-  FUN_004e6050(&DAT_00e55ce0);
+  FUN_004e6050(&g_replayContext);
   return;
 }
 

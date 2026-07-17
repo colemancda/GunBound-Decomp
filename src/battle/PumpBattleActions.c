@@ -45,8 +45,8 @@ void PumpBattleActions(int param_1)
     FUN_00405a40(DAT_007934f4);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_00e9af44);
-  FUN_004e84c0(&DAT_00e55ce0);
-  cVar2 = FUN_004e7b60(&DAT_00e55ce0,local_400,&local_40c);
+  FUN_004e84c0(&g_replayContext);
+  cVar2 = FUN_004e7b60(&g_replayContext,local_400,&local_40c);
   while (cVar2 != '\0') {
     if (*(FILE **)(&g_replayFileHandle + g_clientContext) != (FILE *)0x0) {
       local_405 = 1;
@@ -60,7 +60,7 @@ void PumpBattleActions(int param_1)
       (*(GameStateVirtualFn2 *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 8))
                 (g_gameStateVTableArray[g_currentGameState],local_400,local_40c);
     }
-    cVar2 = FUN_004e7b60(&DAT_00e55ce0,local_400,&local_40c);
+    cVar2 = FUN_004e7b60(&g_replayContext,local_400,&local_40c);
   }
   if (DAT_00e9b188 == 0) {
 LAB_00412baa:
@@ -86,14 +86,14 @@ LAB_00412baa:
       }
     }
   }
-  cVar2 = FUN_004e80d0(&DAT_00e55ce0,local_400,&local_40c);
+  cVar2 = FUN_004e80d0(&g_replayContext,local_400,&local_40c);
   while (cVar2 != '\0') {
     ApplyBattleActionToContext(g_clientContext,local_400,local_40c);
     if ((int *)g_gameStateVTableArray[g_currentGameState] != (int *)0x0) {
       (*(GameStateVirtualFn2 *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 8))
                 (g_gameStateVTableArray[g_currentGameState],local_400,local_40c);
     }
-    cVar2 = FUN_004e80d0(&DAT_00e55ce0,local_400,&local_40c);
+    cVar2 = FUN_004e80d0(&g_replayContext,local_400,&local_40c);
   }
   if (DAT_00e9b198 != 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
