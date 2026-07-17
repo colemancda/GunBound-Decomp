@@ -1169,7 +1169,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004eadb0,165,SetClipRect,false,25,0,RAW-src
 004eae60,69,FUN_004eae60,false,1,3,RAW-src
 004eaeb0,234,FUN_004eaeb0,false,1,0,RAW-src
-004eafa0,126,FUN_004eafa0,false,1,0,RAW-src
+004eafa0,126,BlitFontGlyphClipped,false,1,0,RAW-src
 004eb020,622,DrawWideGlyph,false,1,0,RAW-src
 004eb290,439,DrawNarrowGlyph,false,1,0,RAW-src
 004eb450,186,BlitRLESprite,false,127,2,RAW-src
@@ -1330,13 +1330,13 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f4110,64,FlushSpriteBatch,false,3,0,RAW-src
 004f4170,94,FUN_004f4170,false,1,1,RAW-src
 004f41d0,213,FUN_004f41d0,false,1,0,RAW-src
-004f42b0,52,FUN_004f42b0,false,1,0,RAW-src
-004f42f0,91,FUN_004f42f0,false,1,1,RAW-src
+004f42b0,52,InitTextureCache,false,1,0,RAW-src
+004f42f0,91,DestroyTextureCache,false,1,1,RAW-src
 004f4350,79,FUN_004f4350,false,1,1,RAW-src
 004f43a0,549,PreloadTexture,false,43,10,RAW-src
 004f45d0,126,FUN_004f45d0,false,1,1,RAW-src
 004f4650,90,FindTextureCacheEntryByName,false,88,0,RAW-src
-004f46b0,141,FUN_004f46b0,false,5,1,RAW-src
+004f46b0,141,FlushTextureCache,false,5,1,RAW-src
 004f4750,81,FUN_004f4750,false,1,0,RAW-src
 004f47e0,40,FUN_004f47e0,false,1,1,RAW-src
 004f4810,149,FUN_004f4810,false,1,0,RAW-src
