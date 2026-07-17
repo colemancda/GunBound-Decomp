@@ -487,7 +487,8 @@ uint8_t DAT_0067e5f4;
 uint8_t DAT_0067ec60;
 uint8_t DAT_0067ec64;
 uint8_t DAT_0067ec68;
-uint8_t DAT_0067ec70;
+/* DAT_0067ec70 is not a real global - it is arena offset 0x67ec70, now a
+ * fixed-address offset-macro in globals.h (see the comment there). */
 uint8_t DAT_0067ec74;
 /* 0x8000-entry sqrt lookup table, sibling of DAT_006790c0 above - see its
  * comment. */

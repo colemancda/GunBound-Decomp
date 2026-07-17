@@ -463,7 +463,18 @@ extern uint8_t DAT_0067e5f4;
 extern uint8_t DAT_0067ec60;
 extern uint8_t DAT_0067ec64;
 extern uint8_t DAT_0067ec68;
-extern uint8_t DAT_0067ec70;
+/* DAT_0067ec70 is NOT a standalone global - it is the client-context arena
+ * OFFSET 0x67ec70 (the persistent-button / preloaded-texture registry).
+ * Ghidra renders every `[g_clientContext + 0x67ec70]` access as
+ * `&DAT_0067ec70 + g_clientContext`; with a real linker-placed global that
+ * computes a wild pointer (linker_addr + arena_base). Defining it as a
+ * fixed-address cell makes `&DAT_0067ec70` == 0x67ec70, so `&DAT_0067ec70 +
+ * g_clientContext` == arena_base + 0x67ec70 as intended - fixing all ~440
+ * call sites (button registration in ChangeGameState/State*_OnEnter, the
+ * FindPreloadedTextureByName lookups, etc.) with no per-site edits. Same
+ * offset-macro technique as g_replayContext's fields. The `&` in every use
+ * means 0x67ec70 is never actually dereferenced (verified: pure-offset). */
+#define DAT_0067ec70 (*(uint8_t *)0x67ec70)
 extern uint8_t DAT_0067ec74;
 extern uint32_t DAT_006990c0[0x8000];
 extern uint8_t DAT_0069ec74;
