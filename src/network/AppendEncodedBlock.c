@@ -17,36 +17,32 @@
  * since fixing that is out of scope for this function's own pass; only
  * the newly-added unaff_EBX arg is supplied at that call site.
  *
- * NEWLY DISCOVERED, NOT YET FIXED (2026-07-13): this signature is still
- * incomplete. Confirmed via objdump at 0x4d2570-0x4d259a that this
- * function actually takes TWO MORE genuine stack parameters beyond
- * `param_1`/`unaff_EBX` (`RET 0x8` pops 2 stack dwords; `mov esi,
- * [esp+0x28]` and `mov eax,[esp+0x40]` read them) - call them `arg1`
- * (loaded into ESI, still live/unclobbered) and `arg2` (loaded into EAX
- * right before the EncodeHandshakeBlock call). Both are forwarded into
- * EncodeHandshakeBlock, which independently shows the exact same gap as
- * `unaff_ESI` and `in_EAX` (see that file's own header) - `arg1` is
- * scanned there as a <=16-byte string and strncpy'd, `arg2` as a
- * null-terminated string, both hashed via Sha1Absorb before
- * EncodeCipherBlock - almost certainly the account credential strings
- * for the login handshake. The caller (State02_ServerSelect_
- * ProcessPacket.c, opcode 0x1001 branch) currently passes a 3rd,
- * unrelated argument (`&uStack_c0`) that doesn't correspond to anything
- * in this function's real signature, and its post-call code re-reads
- * `uStack_c0/bc/b8/b4/b0` as if THIS function wrote an output block
- * there - it doesn't; this function writes its own 8-dword result
- * directly into the connection's outgoing-packet buffer internally.
- * That caller-side block is dead/wrong once this is fixed properly.
- * Deferred: fixing this needs a dedicated pass across all three files
- * (this one, EncodeHandshakeBlock.c, and the ProcessPacket.c call site)
- * with confidence on what arg1/arg2 actually are before threading them
- * through - not a quick register-promotion like most of this session's
- * other fixes.
+ * DROPPED-REGISTER FIX (2026-07-17): this function takes TWO MORE genuine
+ * stack parameters beyond `param_1`/`unaff_EBX`, confirmed via disassembly
+ * at 0x4d2570-0x4d259a (`RET 0x8` pops 2 stack dwords; `mov esi,[esp+0x28]`
+ * reads the first at entry, `mov eax,[esp+0x40]` the second right before
+ * the call). Both are forwarded UNCHANGED into EncodeHandshakeBlock via the
+ * ESI/EAX registers it reads (see that file's header) - `credKey` (ESI) is
+ * scanned there as a <=16-byte string and strncpy'd, `credStr` (EAX) as a
+ * null-terminated string, both SHA1-absorbed - the account credential/
+ * system-info buffers for the login handshake. Promoted to explicit
+ * trailing parameters here and threaded from the caller.
+ *
+ * The sole caller is State02_ServerSelect_ProcessPacket's opcode-0x1001
+ * branch. Its argument mapping (from orig 0x4e09b7-0x4e09fa):
+ *   ECX/param_1  = *(int *)payload            (the server's 4-byte nonce;
+ *                  becomes EncodeHandshakeBlock's hashed param_3)
+ *   EBX/unaff_EBX= DAT_007934ec               (the connection context)
+ *   ESI/credKey  = systemInfoBlob2            (BuildSystemInfoBlob output 2)
+ *   EAX/credStr  = auStack_a0                  (BuildSystemInfoBlob output 1)
+ * The post-call block the caller copies into the packet is auStack_a0's
+ * first 0x14 bytes (orig reads [esp+0x40..0x50] = auStack_a0), NOT the
+ * uStack_c0 slot Ghidra split off - fixed at that call site.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall AppendEncodedBlock(undefined4 param_1,int unaff_EBX)
+void __fastcall AppendEncodedBlock(undefined4 param_1,int unaff_EBX,char *credKey,char *credStr)
 
 {
   int iVar1;
@@ -55,7 +51,8 @@ void __fastcall AppendEncodedBlock(undefined4 param_1,int unaff_EBX)
   undefined4 local_20 [8];
 
   EncodeHandshakeBlock(*(undefined4 *)(unaff_EBX + 0x84e8),
-               &DAT_0056dbf0 + *(int *)(unaff_EBX + 0x4cc) * 0x10,param_1,local_20);
+               &DAT_0056dbf0 + *(int *)(unaff_EBX + 0x4cc) * 0x10,param_1,(int)local_20,
+               credKey,credStr);
   puVar2 = local_20;
   puVar3 = (undefined4 *)(*(int *)(unaff_EBX + 0x44d0) + 0x4d0 + unaff_EBX);
   for (iVar1 = 8; iVar1 != 0; iVar1 = iVar1 + -1) {

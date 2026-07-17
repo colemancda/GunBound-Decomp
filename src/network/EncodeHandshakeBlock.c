@@ -5,21 +5,29 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * NEWLY DISCOVERED, NOT YET FIXED (2026-07-13): `unaff_ESI` and `in_EAX`
- * below are dropped-register arguments, not real Ghidra artifacts -
- * confirmed via objdump that the sole caller (AppendEncodedBlock,
- * 0x4d2570) has two of its own genuine stack parameters loaded into
- * ESI and EAX respectively and forwarded here unclobbered. See
- * AppendEncodedBlock.c's header for the full call-site trace and why
- * this is deferred as its own pass (likely the login handshake's
- * credential strings - `unaff_ESI` is scanned as a <=16-byte string and
- * strncpy'd, `in_EAX` as a null-terminated string, both SHA1-absorbed
- * before EncodeCipherBlock).
+ * DROPPED-REGISTER FIX (2026-07-17): `unaff_ESI` and `in_EAX` were
+ * dropped-register arguments, not real Ghidra artifacts - confirmed via
+ * disassembly that the sole caller (AppendEncodedBlock, 0x4d2570) loads
+ * two of its own genuine stack parameters into ESI and EAX and forwards
+ * them here unclobbered (orig 0x4d257a `mov esi,[esp+0x28]`, 0x4d2596
+ * `mov eax,[esp+0x40]`, both live at the 0x4d259a call). They are the
+ * login handshake's credential buffers: `credKey` (ESI) is scanned as a
+ * <=16-byte string and strncpy'd into the cipher block, `credStr` (EAX)
+ * as a null-terminated string; both are SHA1-absorbed before
+ * EncodeCipherBlock. Promoted to explicit trailing parameters and
+ * threaded through AppendEncodedBlock from the 0x1001 handler in
+ * State02_ServerSelect_ProcessPacket (which fills them via
+ * BuildSystemInfoBlob). Before this fix the recompiled binary read ESI/
+ * EAX uninitialised and faulted at +0x15 scanning a garbage pointer.
+ *
+ * param_1/param_2 remain unused by this function (the disassembly never
+ * references them); the caller still supplies them for ABI fidelity.
  */
 #include "ghidra_types.h"
 
 
-uint EncodeHandshakeBlock(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
+uint EncodeHandshakeBlock(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4,
+                         char *credKey,char *credStr)
 
 {
   char cVar1;
@@ -42,6 +50,8 @@ uint EncodeHandshakeBlock(undefined4 param_1,undefined4 param_2,undefined4 param
   undefined1 local_20c [520];
   undefined1 local_4;
   
+  unaff_ESI = credKey;
+  in_EAX = credStr;
   iVar2 = param_4;
   local_28c = 0x67452301;
   local_288 = 0xefcdab89;

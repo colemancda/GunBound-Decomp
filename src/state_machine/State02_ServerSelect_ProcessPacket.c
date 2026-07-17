@@ -360,17 +360,27 @@ LAB_004e0d7f:
     iVar20 = DAT_007934ec;
     *(undefined2 *)(DAT_007934ec + 0x4d4) = 0x1010;
     *(undefined4 *)(iVar20 + 0x44d0) = 6;
-    /* AppendEncodedBlock's unaff_EBX (2nd param) is DAT_007934ec here -
-     * confirmed at orig 0x4e09cd (`mov ebx, ds:0x7934ec` right before this
-     * call). See src/network/AppendEncodedBlock.c's header comment. */
-    AppendEncodedBlock(auStack_a0,&uStack_c0,DAT_007934ec);
+    /* Login handshake block. Arg mapping recovered from orig 0x4e09b7-
+     * 0x4e09fa (see AppendEncodedBlock.c's header): param_1 = the server's
+     * 4-byte nonce *(int *)payload (hashed inside EncodeHandshakeBlock),
+     * unaff_EBX = the connection context DAT_007934ec, and the two
+     * credential/system-info buffers BuildSystemInfoBlob just filled -
+     * systemInfoBlob2 (credKey/ESI, strncpy'd) and auStack_a0 (credStr/EAX,
+     * null-terminated). Previously this dropped both credential args (ESI/
+     * EAX read uninitialised -> fault at EncodeHandshakeBlock+0x15) and put
+     * the stack buffer &uStack_c0 where the context belonged. */
+    AppendEncodedBlock(*(undefined4 *)payload,DAT_007934ec,(char *)systemInfoBlob2,
+                       (char *)auStack_a0);
     iVar20 = DAT_007934ec;
     puVar21 = (undefined4 *)(*(int *)(DAT_007934ec + 0x44d0) + 0x4d0 + DAT_007934ec);
-    *puVar21 = uStack_c0;
-    puVar21[1] = uStack_bc;
-    puVar21[2] = uStack_b8;
-    puVar21[3] = uStack_b4;
-    puVar21[4] = uStack_b0;
+    /* The block copied into the outgoing packet is auStack_a0's first 0x14
+     * bytes (orig post-call reads [esp+0x40..0x50] = auStack_a0), not the
+     * uStack_c0 slot Ghidra split off. */
+    *puVar21 = *(undefined4 *)auStack_a0;
+    puVar21[1] = *(undefined4 *)(auStack_a0 + 4);
+    puVar21[2] = *(undefined4 *)(auStack_a0 + 8);
+    puVar21[3] = *(undefined4 *)(auStack_a0 + 0xc);
+    puVar21[4] = *(undefined4 *)(auStack_a0 + 0x10);
     *(int *)(iVar20 + 0x44d0) = *(int *)(iVar20 + 0x44d0) + 0x14;
     uVar5 = PeekChecksumStateUnderLock(&DAT_00796878);
     iVar8 = DAT_007934ec;
