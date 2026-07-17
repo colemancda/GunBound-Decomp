@@ -98,6 +98,11 @@ public class ApplyFunctionRenames extends GhidraScript {
         {"004f42b0", "InitTextureCache", "src/rendering/InitTextureCache.c"},
         {"004f42f0", "DestroyTextureCache", "src/rendering/DestroyTextureCache.c"},
         {"004f46b0", "FlushTextureCache", "src/rendering/FlushTextureCache.c"},
+        // 2026-07-17 session 15: the low-level monochrome bitmap-font glyph
+        // plotter reached while getting the world-list server rows to render
+        // (6x12 1bpp glyph, solid colour, rect-clipped; bitmap in EAX) - see
+        // src/rendering/BlitFontGlyphClipped.c's header.
+        {"004eafa0", "BlitFontGlyphClipped", "src/rendering/BlitFontGlyphClipped.c"},
     };
 
     public void run() throws Exception {

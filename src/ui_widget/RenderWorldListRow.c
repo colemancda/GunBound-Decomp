@@ -87,7 +87,12 @@ void __fastcall RenderWorldListRow(int param_1, uint in_EAX)
     cVar3 = *pcVar7;
     pcVar7 = pcVar7 + 1;
   } while (cVar3 != '\0');
-  BlitSpriteText(0xf8,local_80,(int)pcVar7 - (int)(local_80 + 1),8);
+  /* BlitSpriteText's real args (recovered from orig 0x50dd68-0x50dd89):
+   * x=iVar1+0xe (ecx), glyphBase=0xf8, string=local_80, count=strlen,
+   * advance=8, y=iVar2+8 (ebx+8), charsetKey=0x32 (esi). The prior call
+   * passed strlen where the string pointer belongs, faulting inside
+   * BlitSpriteText - see that file's header. */
+  BlitSpriteText(iVar1 + 0xe,0xf8,(int)local_80,(int)pcVar7 - (int)(local_80 + 1),8,iVar2 + 8,0x32);
   pcVar7 = local_80;
   do {
     cVar3 = *pcVar7;

@@ -43,22 +43,27 @@
  * RenderWorldListRow.c's @0x50dd89 - confirming it is a genuine,
  * varying caller-supplied argument, not a function-local constant.
  *
- * Left unfixed: recovering all three dropped arguments would require
- * disassembly-based recovery at all 35 call sites across 9 files (one
- * of which, FUN_0044a000.c, has its own unrelated, deeper corruption -
- * BlitSprite16bpp()/BlitSpriteClipped()/BlitSpriteText() called with
- * zero args and stray unaff_EBP reads) to keep behavior correct - a
- * separate, much larger undertaking outside this pass's scope, the same
- * call as FindSpriteFrame.c's own header comment makes for its 179-call-
- * site fan-out. The unaff_ESI/EBX reads and the dropped param_1 below
- * are confirmed correct against the disassembly, so behavior is
- * preserved as-is; only promote the signature once the caller fan-out
- * can be fixed in the same pass.
+ * SIGNATURE PROMOTED (2026-07-17): the two dropped register args are now
+ * explicit trailing parameters - `y` (was EBX) and `charsetKey` (was
+ * unaff_ESI). Recovered from the full disassembly at 0x4ed9f0: the args
+ * are (param_1=x/ECX running x, param_2=glyphBase, param_3=string ptr,
+ * param_4=char count, param_5=x advance, y=EBX, charsetKey=ESI), and the
+ * per-glyph blit is `BlitSprite16bpp/Clipped(frame=glyph, x, y,
+ * outerKey=charsetKey)` (the original passes glyph in EAX, x=EDI, y=EBX,
+ * key=ESI; the ports take these as cdecl (frame,x,y,outerKey), so the
+ * calls below are rewritten to that form - they previously passed a
+ * single wrong arg). functions.h keeps this K&R so the ~34 other call
+ * sites (still unrecovered - see this header's list) compile unchanged;
+ * only the server-list path (RenderWorldListRow) is fixed to pass all
+ * seven args. Left it faulting before this: RenderWorldListRow passed
+ * the string LENGTH where param_3 (the string pointer) belongs, so the
+ * `*(char*)(param_3+i)` read hit a near-null address.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall BlitSpriteText(int param_1,int param_2,int param_3,int param_4,int param_5)
+void __thiscall BlitSpriteText(int param_1,int param_2,int param_3,int param_4,int param_5,
+                               int y,int charsetKey)
 
 {
   uint uVar1;
@@ -66,7 +71,8 @@ void __thiscall BlitSpriteText(int param_1,int param_2,int param_3,int param_4,i
   int iVar3;
   int iVar4;
   uint unaff_ESI;
-  
+
+  unaff_ESI = (uint)charsetKey;
   iVar4 = 0;
   if (param_4 < 1) {
     return;
@@ -96,10 +102,10 @@ LAB_004eda02:
 LAB_004eda4e:
     if (uVar2 == uVar1) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        BlitSprite16bpp(param_1);
+        BlitSprite16bpp(uVar1,param_1,y,charsetKey);
       }
       else {
-        BlitSpriteClipped(uVar1);
+        BlitSpriteClipped(uVar1,param_1,y,charsetKey);
       }
       break;
     }

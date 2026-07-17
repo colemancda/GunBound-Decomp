@@ -82,7 +82,7 @@ undefined4 __thiscall BlitRLESprite(int param_1,undefined4 param_2,undefined4 pa
       }
       else {
         if ((bVar1 != 0x20) && (DAT_00793530 <= local_4)) {
-          FUN_004eafa0(param_1,param_3);
+          BlitFontGlyphClipped(param_1,param_3);
         }
         param_1 = param_1 + 6;
         iVar3 = iVar3 + 6;

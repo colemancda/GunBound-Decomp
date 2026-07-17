@@ -1207,7 +1207,7 @@ int FUN_004ead90();
 void __fastcall SetClipRect();
 void FUN_004eae60();
 void FUN_004eaeb0();
-void __thiscall FUN_004eafa0();
+void __thiscall BlitFontGlyphClipped();
 void __thiscall DrawWideGlyph();
 void DrawNarrowGlyph();
 void __thiscall DrawFontString();
