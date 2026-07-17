@@ -1,0 +1,6762 @@
+[
+  {
+    "caller_block": "0x4118f6",
+    "call_addr": "0x411902",
+    "func_name": "sub_4117d6",
+    "func_addr": "0x4117d6",
+    "self_ecx": "&([esp + 0x58])",
+    "self_src": "0x4118f6: lea ecx,[esp + 0x58]"
+  },
+  {
+    "caller_block": "0x411907",
+    "call_addr": "0x411919",
+    "func_name": "sub_4117d6",
+    "func_addr": "0x4117d6",
+    "self_ecx": "&([esp + 0x280])",
+    "self_src": "0x411907: lea ecx,[esp + 0x280]"
+  },
+  {
+    "caller_block": "0x41187e",
+    "call_addr": "0x41188d",
+    "func_name": "sub_4117d6",
+    "func_addr": "0x4117d6",
+    "self_ecx": "&([esp + 0x704])",
+    "self_src": "0x41187e: lea ecx,[esp + 0x704]"
+  },
+  {
+    "caller_block": "0x411892",
+    "call_addr": "0x4118a1",
+    "func_name": "sub_4117d6",
+    "func_addr": "0x4117d6",
+    "self_ecx": "&([esp + 0x928])",
+    "self_src": "0x411892: lea ecx,[esp + 0x928]"
+  },
+  {
+    "caller_block": "0x4118a6",
+    "call_addr": "0x4118b5",
+    "func_name": "sub_4117d6",
+    "func_addr": "0x4117d6",
+    "self_ecx": "&([esp + 0xb4c])",
+    "self_src": "0x4118a6: lea ecx,[esp + 0xb4c]"
+  },
+  {
+    "caller_block": "0x407292",
+    "call_addr": "0x4072a4",
+    "func_name": "sub_406990",
+    "func_addr": "0x406990",
+    "self_ecx": "&([esp + 0x714])",
+    "self_src": "0x407295: lea ecx,[esp + 0x714]"
+  },
+  {
+    "caller_block": "0x4072a9",
+    "call_addr": "0x4072b8",
+    "func_name": "sub_406990",
+    "func_addr": "0x406990",
+    "self_ecx": "&([esp + 0x938])",
+    "self_src": "0x4072a9: lea ecx,[esp + 0x938]"
+  },
+  {
+    "caller_block": "0x4072bd",
+    "call_addr": "0x4072cf",
+    "func_name": "sub_406990",
+    "func_addr": "0x406990",
+    "self_ecx": "&([esp + 0x2cc])",
+    "self_src": "0x4072bd: lea ecx,[esp + 0x2cc]"
+  },
+  {
+    "caller_block": "0x407383",
+    "call_addr": "0x407395",
+    "func_name": "sub_406990",
+    "func_addr": "0x406990",
+    "self_ecx": "&([esp + 0xb5c])",
+    "self_src": "0x407386: lea ecx,[esp + 0xb5c]"
+  },
+  {
+    "caller_block": "0x40739a",
+    "call_addr": "0x4073a9",
+    "func_name": "sub_406990",
+    "func_addr": "0x406990",
+    "self_ecx": "&([esp + 0x4f0])",
+    "self_src": "0x40739a: lea ecx,[esp + 0x4f0]"
+  },
+  {
+    "caller_block": "0x4073ae",
+    "call_addr": "0x4073c0",
+    "func_name": "sub_406990",
+    "func_addr": "0x406990",
+    "self_ecx": "&([esp + 0xa8])",
+    "self_src": "0x4073ae: lea ecx,[esp + 0xa8]"
+  },
+  {
+    "caller_block": "0x420d82",
+    "call_addr": "0x420d91",
+    "func_name": "sub_4207c0",
+    "func_addr": "0x4207c0",
+    "self_ecx": "&([esp + 0x30])",
+    "self_src": "0x420d82: lea ecx,[esp + 0x30]"
+  },
+  {
+    "caller_block": "0x420e29",
+    "call_addr": "0x420e38",
+    "func_name": "sub_4207c0",
+    "func_addr": "0x4207c0",
+    "self_ecx": "&([esp + 0x30])",
+    "self_src": "0x420e29: lea ecx,[esp + 0x30]"
+  },
+  {
+    "caller_block": "0x432188",
+    "call_addr": "0x432194",
+    "func_name": "sub_431d90",
+    "func_addr": "0x431d90",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x432188: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x432199",
+    "call_addr": "0x4321a7",
+    "func_name": "sub_431d90",
+    "func_addr": "0x431d90",
+    "self_ecx": "&([esp + 0x238])",
+    "self_src": "0x432199: lea ecx,[esp + 0x238]"
+  },
+  {
+    "caller_block": "0x4321fe",
+    "call_addr": "0x43220a",
+    "func_name": "sub_431d90",
+    "func_addr": "0x431d90",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x4321fe: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x43220f",
+    "call_addr": "0x43221d",
+    "func_name": "sub_431d90",
+    "func_addr": "0x431d90",
+    "self_ecx": "&([esp + 0x238])",
+    "self_src": "0x43220f: lea ecx,[esp + 0x238]"
+  },
+  {
+    "caller_block": "0x432277",
+    "call_addr": "0x432286",
+    "func_name": "sub_431d90",
+    "func_addr": "0x431d90",
+    "self_ecx": "&([esp + 0x45c])",
+    "self_src": "0x432277: lea ecx,[esp + 0x45c]"
+  },
+  {
+    "caller_block": "0x43228b",
+    "call_addr": "0x432299",
+    "func_name": "sub_431d90",
+    "func_addr": "0x431d90",
+    "self_ecx": "&([esp + 0x680])",
+    "self_src": "0x43228b: lea ecx,[esp + 0x680]"
+  },
+  {
+    "caller_block": "0x432016",
+    "call_addr": "0x432025",
+    "func_name": "sub_431d90",
+    "func_addr": "0x431d90",
+    "self_ecx": "&([esp + 0x238])",
+    "self_src": "0x432016: lea ecx,[esp + 0x238]"
+  },
+  {
+    "caller_block": "0x43202a",
+    "call_addr": "0x432035",
+    "func_name": "sub_431d90",
+    "func_addr": "0x431d90",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x43202a: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x432083",
+    "call_addr": "0x43208f",
+    "func_name": "sub_431d90",
+    "func_addr": "0x431d90",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x432083: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x432094",
+    "call_addr": "0x4320a2",
+    "func_name": "sub_431d90",
+    "func_addr": "0x431d90",
+    "self_ecx": "&([esp + 0x238])",
+    "self_src": "0x432094: lea ecx,[esp + 0x238]"
+  },
+  {
+    "caller_block": "0x4320f0",
+    "call_addr": "0x4320fc",
+    "func_name": "sub_431d90",
+    "func_addr": "0x431d90",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x4320f0: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x432101",
+    "call_addr": "0x43210f",
+    "func_name": "sub_431d90",
+    "func_addr": "0x431d90",
+    "self_ecx": "&([esp + 0x238])",
+    "self_src": "0x432101: lea ecx,[esp + 0x238]"
+  },
+  {
+    "caller_block": "0x4326d9",
+    "call_addr": "0x4326e8",
+    "func_name": "sub_432320",
+    "func_addr": "0x432320",
+    "self_ecx": "&([esp + 0x238])",
+    "self_src": "0x4326d9: lea ecx,[esp + 0x238]"
+  },
+  {
+    "caller_block": "0x4326ed",
+    "call_addr": "0x4326fb",
+    "func_name": "sub_432320",
+    "func_addr": "0x432320",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x4326f0: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x432752",
+    "call_addr": "0x43275e",
+    "func_name": "sub_432320",
+    "func_addr": "0x432320",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x432752: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x432763",
+    "call_addr": "0x432771",
+    "func_name": "sub_432320",
+    "func_addr": "0x432320",
+    "self_ecx": "&([esp + 0x238])",
+    "self_src": "0x432763: lea ecx,[esp + 0x238]"
+  },
+  {
+    "caller_block": "0x4327cb",
+    "call_addr": "0x4327da",
+    "func_name": "sub_432320",
+    "func_addr": "0x432320",
+    "self_ecx": "&([esp + 0x45c])",
+    "self_src": "0x4327cb: lea ecx,[esp + 0x45c]"
+  },
+  {
+    "caller_block": "0x4327df",
+    "call_addr": "0x4327ed",
+    "func_name": "sub_432320",
+    "func_addr": "0x432320",
+    "self_ecx": "&([esp + 0x680])",
+    "self_src": "0x4327df: lea ecx,[esp + 0x680]"
+  },
+  {
+    "caller_block": "0x45d83b",
+    "call_addr": "0x45d84c",
+    "func_name": "sub_45d640",
+    "func_addr": "0x45d640",
+    "self_ecx": "&([esp + 0x240])",
+    "self_src": "0x45d83b: lea ecx,[esp + 0x240]"
+  },
+  {
+    "caller_block": "0x45d851",
+    "call_addr": "0x45d860",
+    "func_name": "sub_45d640",
+    "func_addr": "0x45d640",
+    "self_ecx": "&([esp + 0x464])",
+    "self_src": "0x45d851: lea ecx,[esp + 0x464]"
+  },
+  {
+    "caller_block": "0x45d865",
+    "call_addr": "0x45d874",
+    "func_name": "sub_45d640",
+    "func_addr": "0x45d640",
+    "self_ecx": "&([esp + 0x1c])",
+    "self_src": "0x45d865: lea ecx,[esp + 0x1c]"
+  },
+  {
+    "caller_block": "0x45d8e7",
+    "call_addr": "0x45d900",
+    "func_name": "sub_45d640",
+    "func_addr": "0x45d640",
+    "self_ecx": "&([esp + 0x240])",
+    "self_src": "0x45d8ee: lea ecx,[esp + 0x240]"
+  },
+  {
+    "caller_block": "0x45d905",
+    "call_addr": "0x45d914",
+    "func_name": "sub_45d640",
+    "func_addr": "0x45d640",
+    "self_ecx": "&([esp + 0x464])",
+    "self_src": "0x45d905: lea ecx,[esp + 0x464]"
+  },
+  {
+    "caller_block": "0x45d919",
+    "call_addr": "0x45d928",
+    "func_name": "sub_45d640",
+    "func_addr": "0x45d640",
+    "self_ecx": "&([esp + 0x1c])",
+    "self_src": "0x45d919: lea ecx,[esp + 0x1c]"
+  },
+  {
+    "caller_block": "0x45d97d",
+    "call_addr": "0x45d98e",
+    "func_name": "sub_45d640",
+    "func_addr": "0x45d640",
+    "self_ecx": "&([esp + 0x688])",
+    "self_src": "0x45d97d: lea ecx,[esp + 0x688]"
+  },
+  {
+    "caller_block": "0x45d993",
+    "call_addr": "0x45d9a5",
+    "func_name": "sub_45d640",
+    "func_addr": "0x45d640",
+    "self_ecx": "&([esp + 0x8ac])",
+    "self_src": "0x45d993: lea ecx,[esp + 0x8ac]"
+  },
+  {
+    "caller_block": "0x478c56",
+    "call_addr": "0x478c74",
+    "func_name": "sub_478a80",
+    "func_addr": "0x478a80",
+    "self_ecx": "&([esp + 0x244])",
+    "self_src": "0x478c5f: lea ecx,[esp + 0x244]"
+  },
+  {
+    "caller_block": "0x439cbe",
+    "call_addr": "0x439ccd",
+    "func_name": "sub_4398e0",
+    "func_addr": "0x4398e0",
+    "self_ecx": "&([esp + 0x24c])",
+    "self_src": "0x439cbe: lea ecx,[esp + 0x24c]"
+  },
+  {
+    "caller_block": "0x439cd2",
+    "call_addr": "0x439ce1",
+    "func_name": "sub_4398e0",
+    "func_addr": "0x4398e0",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x439cd2: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x439b9f",
+    "call_addr": "0x439bab",
+    "func_name": "sub_4398e0",
+    "func_addr": "0x4398e0",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x439b9f: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x439bb0",
+    "call_addr": "0x439bc2",
+    "func_name": "sub_4398e0",
+    "func_addr": "0x4398e0",
+    "self_ecx": "&([esp + 0x24c])",
+    "self_src": "0x439bb0: lea ecx,[esp + 0x24c]"
+  },
+  {
+    "caller_block": "0x43b918",
+    "call_addr": "0x43b92a",
+    "func_name": "sub_43b7a0",
+    "func_addr": "0x43b7a0",
+    "self_ecx": "&([esp + 0x24c])",
+    "self_src": "0x43b918: lea ecx,[esp + 0x24c]"
+  },
+  {
+    "caller_block": "0x43b970",
+    "call_addr": "0x43b97f",
+    "func_name": "sub_43b7a0",
+    "func_addr": "0x43b7a0",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x43b970: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x43c22a",
+    "call_addr": "0x43c23e",
+    "func_name": "sub_43bdc7",
+    "func_addr": "0x43bdc7",
+    "self_ecx": "&([esp + 0x250])",
+    "self_src": "0x43c22a: lea ecx,[esp + 0x250]"
+  },
+  {
+    "caller_block": "0x43c269",
+    "call_addr": "0x43c27d",
+    "func_name": "sub_43bdc7",
+    "func_addr": "0x43bdc7",
+    "self_ecx": "&([esp + 0x474])",
+    "self_src": "0x43c269: lea ecx,[esp + 0x474]"
+  },
+  {
+    "caller_block": "0x43c7c0",
+    "call_addr": "0x43c7ce",
+    "func_name": "sub_43c6a0",
+    "func_addr": "0x43c6a0",
+    "self_ecx": "&([esp + 0x234])",
+    "self_src": "0x43c7c0: lea ecx,[esp + 0x234]"
+  },
+  {
+    "caller_block": "0x43c75a",
+    "call_addr": "0x43c768",
+    "func_name": "sub_43c6a0",
+    "func_addr": "0x43c6a0",
+    "self_ecx": "&([esp + 0x458])",
+    "self_src": "0x43c75a: lea ecx,[esp + 0x458]"
+  },
+  {
+    "caller_block": "0x43c7da",
+    "call_addr": "0x43c7e5",
+    "func_name": "sub_43c6a0",
+    "func_addr": "0x43c6a0",
+    "self_ecx": "&([esp + 0x67c])",
+    "self_src": "0x43c7d3: lea ecx,[esp + 0x67c]"
+  },
+  {
+    "caller_block": "0x45c3ef",
+    "call_addr": "0x45c3fb",
+    "func_name": "sub_45ba50",
+    "func_addr": "0x45ba50",
+    "self_ecx": "&([esp + 0x2c])",
+    "self_src": "0x45c3ef: lea ecx,[esp + 0x2c]"
+  },
+  {
+    "caller_block": "0x45c400",
+    "call_addr": "0x45c412",
+    "func_name": "sub_45ba50",
+    "func_addr": "0x45ba50",
+    "self_ecx": "&([esp + 0x250])",
+    "self_src": "0x45c400: lea ecx,[esp + 0x250]"
+  },
+  {
+    "caller_block": "0x43e52d",
+    "call_addr": "0x43e53e",
+    "func_name": "sub_43e440",
+    "func_addr": "0x43e440",
+    "self_ecx": "&([esp + 0x94])",
+    "self_src": "0x43e52d: lea ecx,[esp + 0x94]"
+  },
+  {
+    "caller_block": "0x43e543",
+    "call_addr": "0x43e555",
+    "func_name": "sub_43e440",
+    "func_addr": "0x43e440",
+    "self_ecx": "&([esp + 0x2b8])",
+    "self_src": "0x43e543: lea ecx,[esp + 0x2b8]"
+  },
+  {
+    "caller_block": "0x44697f",
+    "call_addr": "0x44698d",
+    "func_name": "sub_44546f",
+    "func_addr": "0x44546f",
+    "self_ecx": "&([esp + 0x26d0])",
+    "self_src": "0x44697f: lea ecx,[esp + 0x26d0]"
+  },
+  {
+    "caller_block": "0x446992",
+    "call_addr": "0x4469a1",
+    "func_name": "sub_44546f",
+    "func_addr": "0x44546f",
+    "self_ecx": "&([esp + 0x28f4])",
+    "self_src": "0x446992: lea ecx,[esp + 0x28f4]"
+  },
+  {
+    "caller_block": "0x446baa",
+    "call_addr": "0x446bd2",
+    "func_name": "sub_44546f",
+    "func_addr": "0x44546f",
+    "self_ecx": "&([esp + 0x2288])",
+    "self_src": "0x446bc3: lea ecx,[esp + 0x2288]"
+  },
+  {
+    "caller_block": "0x446d18",
+    "call_addr": "0x446d20",
+    "func_name": "sub_44546f",
+    "func_addr": "0x44546f",
+    "self_ecx": "&([esp + 0x2064])",
+    "self_src": "0x446d11: lea ecx,[esp + 0x2064]"
+  },
+  {
+    "caller_block": "0x446a98",
+    "call_addr": "0x446ac0",
+    "func_name": "sub_44546f",
+    "func_addr": "0x44546f",
+    "self_ecx": "&([esp + 0x1e40])",
+    "self_src": "0x446ab1: lea ecx,[esp + 0x1e40]"
+  },
+  {
+    "caller_block": "0x446c82",
+    "call_addr": "0x446c91",
+    "func_name": "sub_44546f",
+    "func_addr": "0x44546f",
+    "self_ecx": "&([esp + 0x1c1c])",
+    "self_src": "0x446c82: lea ecx,[esp + 0x1c1c]"
+  },
+  {
+    "caller_block": "0x447349",
+    "call_addr": "0x447371",
+    "func_name": "sub_446e3d",
+    "func_addr": "0x446e3d",
+    "self_ecx": "&([esp + 0x24ac])",
+    "self_src": "0x447362: lea ecx,[esp + 0x24ac]"
+  },
+  {
+    "caller_block": "0x44ced2",
+    "call_addr": "0x44cee1",
+    "func_name": "sub_44c950",
+    "func_addr": "0x44c950",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x44ced2: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x44cfdd",
+    "call_addr": "0x44cfe8",
+    "func_name": "sub_44c950",
+    "func_addr": "0x44c950",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x44cfd6: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x44cfc5",
+    "call_addr": "0x44cfd1",
+    "func_name": "sub_44c950",
+    "func_addr": "0x44c950",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x44cfc5: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x44d287",
+    "call_addr": "0x44d296",
+    "func_name": "sub_44c950",
+    "func_addr": "0x44c950",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x44d28e: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x44d2b1",
+    "call_addr": "0x44d2b8",
+    "func_name": "sub_44c950",
+    "func_addr": "0x44c950",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x44d2b1: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x44d5e9",
+    "call_addr": "0x44d5f8",
+    "func_name": "sub_44c950",
+    "func_addr": "0x44c950",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x44d5f0: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x44d60f",
+    "call_addr": "0x44d621",
+    "func_name": "sub_44c950",
+    "func_addr": "0x44c950",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x44d616: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x44d638",
+    "call_addr": "0x44d64a",
+    "func_name": "sub_44c950",
+    "func_addr": "0x44c950",
+    "self_ecx": "&([esp + 0x6b0])",
+    "self_src": "0x44d63f: lea ecx,[esp + 0x6b0]"
+  },
+  {
+    "caller_block": "0x44d661",
+    "call_addr": "0x44d668",
+    "func_name": "sub_44c950",
+    "func_addr": "0x44c950",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x44d661: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x44d6c3",
+    "call_addr": "0x44d6d5",
+    "func_name": "sub_44c950",
+    "func_addr": "0x44c950",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x44d6c3: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x44e597",
+    "call_addr": "0x44e5a6",
+    "func_name": "sub_44d9b0",
+    "func_addr": "0x44d9b0",
+    "self_ecx": "&([esp + 0x30])",
+    "self_src": "0x44e59e: lea ecx,[esp + 0x30]"
+  },
+  {
+    "caller_block": "0x44e5bd",
+    "call_addr": "0x44e5cf",
+    "func_name": "sub_44d9b0",
+    "func_addr": "0x44d9b0",
+    "self_ecx": "&([esp + 0x254])",
+    "self_src": "0x44e5c4: lea ecx,[esp + 0x254]"
+  },
+  {
+    "caller_block": "0x44e5e6",
+    "call_addr": "0x44e5f8",
+    "func_name": "sub_44d9b0",
+    "func_addr": "0x44d9b0",
+    "self_ecx": "&([esp + 0x478])",
+    "self_src": "0x44e5ed: lea ecx,[esp + 0x478]"
+  },
+  {
+    "caller_block": "0x44e60f",
+    "call_addr": "0x44e616",
+    "func_name": "sub_44d9b0",
+    "func_addr": "0x44d9b0",
+    "self_ecx": "&([esp + 0x69c])",
+    "self_src": "0x44e60f: lea ecx,[esp + 0x69c]"
+  },
+  {
+    "caller_block": "0x44e671",
+    "call_addr": "0x44e683",
+    "func_name": "sub_44d9b0",
+    "func_addr": "0x44d9b0",
+    "self_ecx": "&([esp + 0x8c0])",
+    "self_src": "0x44e671: lea ecx,[esp + 0x8c0]"
+  },
+  {
+    "caller_block": "0x44ed6f",
+    "call_addr": "0x44ed7e",
+    "func_name": "sub_44e93f",
+    "func_addr": "0x44e93f",
+    "self_ecx": "&([esp + 0x23c])",
+    "self_src": "0x44ed6f: lea ecx,[esp + 0x23c]"
+  },
+  {
+    "caller_block": "0x44ed83",
+    "call_addr": "0x44ed95",
+    "func_name": "sub_44e93f",
+    "func_addr": "0x44e93f",
+    "self_ecx": "&([esp + 0x684])",
+    "self_src": "0x44ed83: lea ecx,[esp + 0x684]"
+  },
+  {
+    "caller_block": "0x44eaca",
+    "call_addr": "0x44ead9",
+    "func_name": "sub_44e93f",
+    "func_addr": "0x44e93f",
+    "self_ecx": "&([esp + 0xcf0])",
+    "self_src": "0x44eaca: lea ecx,[esp + 0xcf0]"
+  },
+  {
+    "caller_block": "0x44eade",
+    "call_addr": "0x44eaf0",
+    "func_name": "sub_44e93f",
+    "func_addr": "0x44e93f",
+    "self_ecx": "&([esp + 0x460])",
+    "self_src": "0x44eade: lea ecx,[esp + 0x460]"
+  },
+  {
+    "caller_block": "0x44ec28",
+    "call_addr": "0x44ec34",
+    "func_name": "sub_44e93f",
+    "func_addr": "0x44e93f",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x44ec28: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x44ec39",
+    "call_addr": "0x44ec4b",
+    "func_name": "sub_44e93f",
+    "func_addr": "0x44e93f",
+    "self_ecx": "&([esp + 0x8a8])",
+    "self_src": "0x44ec39: lea ecx,[esp + 0x8a8]"
+  },
+  {
+    "caller_block": "0x44eed7",
+    "call_addr": "0x44eee6",
+    "func_name": "sub_44e93f",
+    "func_addr": "0x44e93f",
+    "self_ecx": "&([esp + 0xacc])",
+    "self_src": "0x44eed7: lea ecx,[esp + 0xacc]"
+  },
+  {
+    "caller_block": "0x44eeeb",
+    "call_addr": "0x44eefd",
+    "func_name": "sub_44e93f",
+    "func_addr": "0x44e93f",
+    "self_ecx": "&([esp + 0xf14])",
+    "self_src": "0x44eeeb: lea ecx,[esp + 0xf14]"
+  },
+  {
+    "caller_block": "0x44f7a2",
+    "call_addr": "0x44f7b1",
+    "func_name": "sub_44f050",
+    "func_addr": "0x44f050",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x44f7a9: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x44f7c8",
+    "call_addr": "0x44f7da",
+    "func_name": "sub_44f050",
+    "func_addr": "0x44f050",
+    "self_ecx": "&([esp + 0x24c])",
+    "self_src": "0x44f7cf: lea ecx,[esp + 0x24c]"
+  },
+  {
+    "caller_block": "0x44f7f1",
+    "call_addr": "0x44f803",
+    "func_name": "sub_44f050",
+    "func_addr": "0x44f050",
+    "self_ecx": "&([esp + 0x694])",
+    "self_src": "0x44f7f8: lea ecx,[esp + 0x694]"
+  },
+  {
+    "caller_block": "0x44f81a",
+    "call_addr": "0x44f821",
+    "func_name": "sub_44f050",
+    "func_addr": "0x44f050",
+    "self_ecx": "&([esp + 0x470])",
+    "self_src": "0x44f81a: lea ecx,[esp + 0x470]"
+  },
+  {
+    "caller_block": "0x44f87c",
+    "call_addr": "0x44f88e",
+    "func_name": "sub_44f050",
+    "func_addr": "0x44f050",
+    "self_ecx": "&([esp + 0x8b8])",
+    "self_src": "0x44f87c: lea ecx,[esp + 0x8b8]"
+  },
+  {
+    "caller_block": "0x44ff62",
+    "call_addr": "0x44ff6d",
+    "func_name": "sub_44fd70",
+    "func_addr": "0x44fd70",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x44ff65: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x44ff7e",
+    "call_addr": "0x44ff85",
+    "func_name": "sub_44fd70",
+    "func_addr": "0x44fd70",
+    "self_ecx": "&([esp + 0x238])",
+    "self_src": "0x44ff7e: lea ecx,[esp + 0x238]"
+  },
+  {
+    "caller_block": "0x44fe47",
+    "call_addr": "0x44fe47",
+    "func_name": "sub_44fd70",
+    "func_addr": "0x44fd70",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x44fe43: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x479290",
+    "call_addr": "0x4792a1",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0xae0])",
+    "self_src": "0x479290: lea ecx,[esp + 0xae0]"
+  },
+  {
+    "caller_block": "0x4792a6",
+    "call_addr": "0x4792b5",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0xf28])",
+    "self_src": "0x4792a6: lea ecx,[esp + 0xf28]"
+  },
+  {
+    "caller_block": "0x4792ba",
+    "call_addr": "0x4792c9",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x698])",
+    "self_src": "0x4792ba: lea ecx,[esp + 0x698]"
+  },
+  {
+    "caller_block": "0x4792ce",
+    "call_addr": "0x4792e0",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x250])",
+    "self_src": "0x4792ce: lea ecx,[esp + 0x250]"
+  },
+  {
+    "caller_block": "0x479327",
+    "call_addr": "0x479339",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0xd04])",
+    "self_src": "0x479327: lea ecx,[esp + 0xd04]"
+  },
+  {
+    "caller_block": "0x479645",
+    "call_addr": "0x479650",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x2c])",
+    "self_src": "0x479641: lea ecx,[esp + 0x2c]"
+  },
+  {
+    "caller_block": "0x479413",
+    "call_addr": "0x479424",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x226c])",
+    "self_src": "0x479413: lea ecx,[esp + 0x226c]"
+  },
+  {
+    "caller_block": "0x479429",
+    "call_addr": "0x479438",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x26b4])",
+    "self_src": "0x479429: lea ecx,[esp + 0x26b4]"
+  },
+  {
+    "caller_block": "0x47943d",
+    "call_addr": "0x47944c",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x17b8])",
+    "self_src": "0x47943d: lea ecx,[esp + 0x17b8]"
+  },
+  {
+    "caller_block": "0x479451",
+    "call_addr": "0x479463",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x28d8])",
+    "self_src": "0x479451: lea ecx,[esp + 0x28d8]"
+  },
+  {
+    "caller_block": "0x4794aa",
+    "call_addr": "0x4794bc",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x1c00])",
+    "self_src": "0x4794aa: lea ecx,[esp + 0x1c00]"
+  },
+  {
+    "caller_block": "0x479596",
+    "call_addr": "0x4795a7",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x2048])",
+    "self_src": "0x479596: lea ecx,[esp + 0x2048]"
+  },
+  {
+    "caller_block": "0x4795ac",
+    "call_addr": "0x4795bb",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x1594])",
+    "self_src": "0x4795ac: lea ecx,[esp + 0x1594]"
+  },
+  {
+    "caller_block": "0x4795c0",
+    "call_addr": "0x4795cf",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x19dc])",
+    "self_src": "0x4795c0: lea ecx,[esp + 0x19dc]"
+  },
+  {
+    "caller_block": "0x4795d4",
+    "call_addr": "0x4795e6",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x1e24])",
+    "self_src": "0x4795d4: lea ecx,[esp + 0x1e24]"
+  },
+  {
+    "caller_block": "0x47962a",
+    "call_addr": "0x47963c",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x114c])",
+    "self_src": "0x47962a: lea ecx,[esp + 0x114c]"
+  },
+  {
+    "caller_block": "0x479886",
+    "call_addr": "0x479898",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x2afc])",
+    "self_src": "0x479886: lea ecx,[esp + 0x2afc]"
+  },
+  {
+    "caller_block": "0x478e4c",
+    "call_addr": "0x478e5d",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x250])",
+    "self_src": "0x478e4c: lea ecx,[esp + 0x250]"
+  },
+  {
+    "caller_block": "0x478e62",
+    "call_addr": "0x478e74",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x698])",
+    "self_src": "0x478e62: lea ecx,[esp + 0x698]"
+  },
+  {
+    "caller_block": "0x478f0e",
+    "call_addr": "0x478f1f",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0xf28])",
+    "self_src": "0x478f0e: lea ecx,[esp + 0xf28]"
+  },
+  {
+    "caller_block": "0x478f24",
+    "call_addr": "0x478f36",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0xae0])",
+    "self_src": "0x478f24: lea ecx,[esp + 0xae0]"
+  },
+  {
+    "caller_block": "0x478fd0",
+    "call_addr": "0x478fe1",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x474])",
+    "self_src": "0x478fd0: lea ecx,[esp + 0x474]"
+  },
+  {
+    "caller_block": "0x478fe6",
+    "call_addr": "0x478ff8",
+    "func_name": "sub_478cb0",
+    "func_addr": "0x478cb0",
+    "self_ecx": "&([esp + 0x8bc])",
+    "self_src": "0x478fe6: lea ecx,[esp + 0x8bc]"
+  },
+  {
+    "caller_block": "0x45dbe5",
+    "call_addr": "0x45dbfa",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0xd78])",
+    "self_src": "0x45dbe5: lea ecx,[esp + 0xd78]"
+  },
+  {
+    "caller_block": "0x45dbff",
+    "call_addr": "0x45dc11",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0xf9c])",
+    "self_src": "0x45dbff: lea ecx,[esp + 0xf9c]"
+  },
+  {
+    "caller_block": "0x45defc",
+    "call_addr": "0x45df0d",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0xb54])",
+    "self_src": "0x45defc: lea ecx,[esp + 0xb54]"
+  },
+  {
+    "caller_block": "0x45df12",
+    "call_addr": "0x45df21",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x70c])",
+    "self_src": "0x45df12: lea ecx,[esp + 0x70c]"
+  },
+  {
+    "caller_block": "0x45df26",
+    "call_addr": "0x45df35",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x4e8])",
+    "self_src": "0x45df26: lea ecx,[esp + 0x4e8]"
+  },
+  {
+    "caller_block": "0x45df3a",
+    "call_addr": "0x45df4c",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x11c0])",
+    "self_src": "0x45df3a: lea ecx,[esp + 0x11c0]"
+  },
+  {
+    "caller_block": "0x45e07d",
+    "call_addr": "0x45e08e",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x930])",
+    "self_src": "0x45e07d: lea ecx,[esp + 0x930]"
+  },
+  {
+    "caller_block": "0x45e093",
+    "call_addr": "0x45e0a2",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x2c4])",
+    "self_src": "0x45e093: lea ecx,[esp + 0x2c4]"
+  },
+  {
+    "caller_block": "0x45e0a7",
+    "call_addr": "0x45e0b6",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0xf9c])",
+    "self_src": "0x45e0a7: lea ecx,[esp + 0xf9c]"
+  },
+  {
+    "caller_block": "0x45e0bb",
+    "call_addr": "0x45e0cd",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0xd78])",
+    "self_src": "0x45e0bb: lea ecx,[esp + 0xd78]"
+  },
+  {
+    "caller_block": "0x45e114",
+    "call_addr": "0x45e124",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x2728])",
+    "self_src": "0x45e114: lea ecx,[esp + 0x2728]"
+  },
+  {
+    "caller_block": "0x45e129",
+    "call_addr": "0x45e13b",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x1608])",
+    "self_src": "0x45e129: lea ecx,[esp + 0x1608]"
+  },
+  {
+    "caller_block": "0x45e202",
+    "call_addr": "0x45e213",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x2b70])",
+    "self_src": "0x45e202: lea ecx,[esp + 0x2b70]"
+  },
+  {
+    "caller_block": "0x45e218",
+    "call_addr": "0x45e227",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x2504])",
+    "self_src": "0x45e218: lea ecx,[esp + 0x2504]"
+  },
+  {
+    "caller_block": "0x45e22c",
+    "call_addr": "0x45e23b",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x1c74])",
+    "self_src": "0x45e22c: lea ecx,[esp + 0x1c74]"
+  },
+  {
+    "caller_block": "0x45e240",
+    "call_addr": "0x45e251",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x2d94])",
+    "self_src": "0x45e243: lea ecx,[esp + 0x2d94]"
+  },
+  {
+    "caller_block": "0x45e297",
+    "call_addr": "0x45e2a8",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x20bc])",
+    "self_src": "0x45e297: lea ecx,[esp + 0x20bc]"
+  },
+  {
+    "caller_block": "0x45e2ad",
+    "call_addr": "0x45e2bb",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x294c])",
+    "self_src": "0x45e2ad: lea ecx,[esp + 0x294c]"
+  },
+  {
+    "caller_block": "0x45e382",
+    "call_addr": "0x45e393",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x182c])",
+    "self_src": "0x45e382: lea ecx,[esp + 0x182c]"
+  },
+  {
+    "caller_block": "0x45e398",
+    "call_addr": "0x45e3a7",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x1a50])",
+    "self_src": "0x45e398: lea ecx,[esp + 0x1a50]"
+  },
+  {
+    "caller_block": "0x45e3ac",
+    "call_addr": "0x45e3bb",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x1e98])",
+    "self_src": "0x45e3ac: lea ecx,[esp + 0x1e98]"
+  },
+  {
+    "caller_block": "0x45e3c0",
+    "call_addr": "0x45e3d1",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x22e0])",
+    "self_src": "0x45e3c3: lea ecx,[esp + 0x22e0]"
+  },
+  {
+    "caller_block": "0x45e417",
+    "call_addr": "0x45e428",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x13e4])",
+    "self_src": "0x45e417: lea ecx,[esp + 0x13e4]"
+  },
+  {
+    "caller_block": "0x45e42d",
+    "call_addr": "0x45e43b",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0xa0])",
+    "self_src": "0x45e42d: lea ecx,[esp + 0xa0]"
+  },
+  {
+    "caller_block": "0x45e490",
+    "call_addr": "0x45e4a0",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0xa0])",
+    "self_src": "0x45e490: lea ecx,[esp + 0xa0]"
+  },
+  {
+    "caller_block": "0x45e4a5",
+    "call_addr": "0x45e4b7",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x13e4])",
+    "self_src": "0x45e4a5: lea ecx,[esp + 0x13e4]"
+  },
+  {
+    "caller_block": "0x45e514",
+    "call_addr": "0x45e52f",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0xa0])",
+    "self_src": "0x45e51b: lea ecx,[esp + 0xa0]"
+  },
+  {
+    "caller_block": "0x45e80e",
+    "call_addr": "0x45e822",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0xa0])",
+    "self_src": "0x45e80e: lea ecx,[esp + 0xa0]"
+  },
+  {
+    "caller_block": "0x45e8e9",
+    "call_addr": "0x45e8fd",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0xa0])",
+    "self_src": "0x45e8e9: lea ecx,[esp + 0xa0]"
+  },
+  {
+    "caller_block": "0x45e976",
+    "call_addr": "0x45e988",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x2fb8])",
+    "self_src": "0x45e976: lea ecx,[esp + 0x2fb8]"
+  },
+  {
+    "caller_block": "0x45e580",
+    "call_addr": "0x45e594",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0xa0])",
+    "self_src": "0x45e580: lea ecx,[esp + 0xa0]"
+  },
+  {
+    "caller_block": "0x45dcb1",
+    "call_addr": "0x45dcc2",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x2c4])",
+    "self_src": "0x45dcb1: lea ecx,[esp + 0x2c4]"
+  },
+  {
+    "caller_block": "0x45dcc7",
+    "call_addr": "0x45dcd9",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x930])",
+    "self_src": "0x45dcc7: lea ecx,[esp + 0x930]"
+  },
+  {
+    "caller_block": "0x45dd43",
+    "call_addr": "0x45dd53",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x11c0])",
+    "self_src": "0x45dd43: lea ecx,[esp + 0x11c0]"
+  },
+  {
+    "caller_block": "0x45dd58",
+    "call_addr": "0x45dd6a",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x4e8])",
+    "self_src": "0x45dd58: lea ecx,[esp + 0x4e8]"
+  },
+  {
+    "caller_block": "0x45ddd8",
+    "call_addr": "0x45dde9",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0x70c])",
+    "self_src": "0x45ddd8: lea ecx,[esp + 0x70c]"
+  },
+  {
+    "caller_block": "0x45ddee",
+    "call_addr": "0x45de00",
+    "func_name": "sub_45db20",
+    "func_addr": "0x45db20",
+    "self_ecx": "&([esp + 0xb54])",
+    "self_src": "0x45ddee: lea ecx,[esp + 0xb54]"
+  },
+  {
+    "caller_block": "0x4527b1",
+    "call_addr": "0x4527c0",
+    "func_name": "sub_4513b0",
+    "func_addr": "0x4513b0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x4527b8: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x4527d7",
+    "call_addr": "0x4527e9",
+    "func_name": "sub_4513b0",
+    "func_addr": "0x4513b0",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x4527de: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x452800",
+    "call_addr": "0x452812",
+    "func_name": "sub_4513b0",
+    "func_addr": "0x4513b0",
+    "self_ecx": "&([esp + 0x488])",
+    "self_src": "0x452807: lea ecx,[esp + 0x488]"
+  },
+  {
+    "caller_block": "0x452829",
+    "call_addr": "0x452830",
+    "func_name": "sub_4513b0",
+    "func_addr": "0x4513b0",
+    "self_ecx": "&([esp + 0x6ac])",
+    "self_src": "0x452829: lea ecx,[esp + 0x6ac]"
+  },
+  {
+    "caller_block": "0x45288e",
+    "call_addr": "0x4528a0",
+    "func_name": "sub_4513b0",
+    "func_addr": "0x4513b0",
+    "self_ecx": "&([esp + 0x8d0])",
+    "self_src": "0x45288e: lea ecx,[esp + 0x8d0]"
+  },
+  {
+    "caller_block": "0x451bf7",
+    "call_addr": "0x451c06",
+    "func_name": "sub_4513b0",
+    "func_addr": "0x4513b0",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x451bf7: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x451d02",
+    "call_addr": "0x451d0d",
+    "func_name": "sub_4513b0",
+    "func_addr": "0x4513b0",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x451cfb: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x451cea",
+    "call_addr": "0x451cf6",
+    "func_name": "sub_4513b0",
+    "func_addr": "0x4513b0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x451cea: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x453b53",
+    "call_addr": "0x453b62",
+    "func_name": "sub_452cc0",
+    "func_addr": "0x452cc0",
+    "self_ecx": "&([esp + 0x30])",
+    "self_src": "0x453b5a: lea ecx,[esp + 0x30]"
+  },
+  {
+    "caller_block": "0x453b79",
+    "call_addr": "0x453b8b",
+    "func_name": "sub_452cc0",
+    "func_addr": "0x452cc0",
+    "self_ecx": "&([esp + 0x254])",
+    "self_src": "0x453b80: lea ecx,[esp + 0x254]"
+  },
+  {
+    "caller_block": "0x453ba2",
+    "call_addr": "0x453bb4",
+    "func_name": "sub_452cc0",
+    "func_addr": "0x452cc0",
+    "self_ecx": "&([esp + 0x478])",
+    "self_src": "0x453ba9: lea ecx,[esp + 0x478]"
+  },
+  {
+    "caller_block": "0x453bcb",
+    "call_addr": "0x453bd2",
+    "func_name": "sub_452cc0",
+    "func_addr": "0x452cc0",
+    "self_ecx": "&([esp + 0x69c])",
+    "self_src": "0x453bcb: lea ecx,[esp + 0x69c]"
+  },
+  {
+    "caller_block": "0x453c30",
+    "call_addr": "0x453c42",
+    "func_name": "sub_452cc0",
+    "func_addr": "0x452cc0",
+    "self_ecx": "&([esp + 0x8c0])",
+    "self_src": "0x453c30: lea ecx,[esp + 0x8c0]"
+  },
+  {
+    "caller_block": "0x45413a",
+    "call_addr": "0x454148",
+    "func_name": "sub_453f30",
+    "func_addr": "0x453f30",
+    "self_ecx": "&([esp + 0x10])",
+    "self_src": "0x45413d: lea ecx,[esp + 0x10]"
+  },
+  {
+    "caller_block": "0x454173",
+    "call_addr": "0x45417e",
+    "func_name": "sub_453f30",
+    "func_addr": "0x453f30",
+    "self_ecx": "&([esp + 0x10])",
+    "self_src": "0x454173: lea ecx,[esp + 0x10]"
+  },
+  {
+    "caller_block": "0x4541ac",
+    "call_addr": "0x4541ba",
+    "func_name": "sub_453f30",
+    "func_addr": "0x453f30",
+    "self_ecx": "&([esp + 0x234])",
+    "self_src": "0x4541ac: lea ecx,[esp + 0x234]"
+  },
+  {
+    "caller_block": "0x454c7b",
+    "call_addr": "0x454c8a",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0x17a4])",
+    "self_src": "0x454c7b: lea ecx,[esp + 0x17a4]"
+  },
+  {
+    "caller_block": "0x454c8f",
+    "call_addr": "0x454ca1",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0x1bec])",
+    "self_src": "0x454c8f: lea ecx,[esp + 0x1bec]"
+  },
+  {
+    "caller_block": "0x45444c",
+    "call_addr": "0x45445b",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0xcf0])",
+    "self_src": "0x45444c: lea ecx,[esp + 0xcf0]"
+  },
+  {
+    "caller_block": "0x454460",
+    "call_addr": "0x454472",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0x460])",
+    "self_src": "0x454460: lea ecx,[esp + 0x460]"
+  },
+  {
+    "caller_block": "0x454b13",
+    "call_addr": "0x454b22",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0xf14])",
+    "self_src": "0x454b13: lea ecx,[esp + 0xf14]"
+  },
+  {
+    "caller_block": "0x454b27",
+    "call_addr": "0x454b39",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0x135c])",
+    "self_src": "0x454b27: lea ecx,[esp + 0x135c]"
+  },
+  {
+    "caller_block": "0x4545b9",
+    "call_addr": "0x4545c8",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0x1138])",
+    "self_src": "0x4545b9: lea ecx,[esp + 0x1138]"
+  },
+  {
+    "caller_block": "0x4545cd",
+    "call_addr": "0x4545df",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0x8a8])",
+    "self_src": "0x4545cd: lea ecx,[esp + 0x8a8]"
+  },
+  {
+    "caller_block": "0x454713",
+    "call_addr": "0x454722",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0x19c8])",
+    "self_src": "0x454713: lea ecx,[esp + 0x19c8]"
+  },
+  {
+    "caller_block": "0x454727",
+    "call_addr": "0x454736",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x454727: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x45486d",
+    "call_addr": "0x45487c",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0x1580])",
+    "self_src": "0x45486d: lea ecx,[esp + 0x1580]"
+  },
+  {
+    "caller_block": "0x454881",
+    "call_addr": "0x454893",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0x23c])",
+    "self_src": "0x454881: lea ecx,[esp + 0x23c]"
+  },
+  {
+    "caller_block": "0x4549ca",
+    "call_addr": "0x4549d9",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0x684])",
+    "self_src": "0x4549ca: lea ecx,[esp + 0x684]"
+  },
+  {
+    "caller_block": "0x4549de",
+    "call_addr": "0x4549f0",
+    "func_name": "sub_4542bf",
+    "func_addr": "0x4542bf",
+    "self_ecx": "&([esp + 0xacc])",
+    "self_src": "0x4549de: lea ecx,[esp + 0xacc]"
+  },
+  {
+    "caller_block": "0x457832",
+    "call_addr": "0x457841",
+    "func_name": "sub_4572b0",
+    "func_addr": "0x4572b0",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x457832: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x45793d",
+    "call_addr": "0x457948",
+    "func_name": "sub_4572b0",
+    "func_addr": "0x4572b0",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x457936: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x457925",
+    "call_addr": "0x457931",
+    "func_name": "sub_4572b0",
+    "func_addr": "0x4572b0",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x457925: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x458235",
+    "call_addr": "0x458244",
+    "func_name": "sub_4572b0",
+    "func_addr": "0x4572b0",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x45823c: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x45825b",
+    "call_addr": "0x45826d",
+    "func_name": "sub_4572b0",
+    "func_addr": "0x4572b0",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x458262: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x458284",
+    "call_addr": "0x458296",
+    "func_name": "sub_4572b0",
+    "func_addr": "0x4572b0",
+    "self_ecx": "&([esp + 0x6b0])",
+    "self_src": "0x45828b: lea ecx,[esp + 0x6b0]"
+  },
+  {
+    "caller_block": "0x4582ad",
+    "call_addr": "0x4582b4",
+    "func_name": "sub_4572b0",
+    "func_addr": "0x4572b0",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x4582ad: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x45830f",
+    "call_addr": "0x458321",
+    "func_name": "sub_4572b0",
+    "func_addr": "0x4572b0",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x45830f: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x45cc68",
+    "call_addr": "0x45cc77",
+    "func_name": "sub_45cb50",
+    "func_addr": "0x45cb50",
+    "self_ecx": "&([esp + 0x1c])",
+    "self_src": "0x45cc68: lea ecx,[esp + 0x1c]"
+  },
+  {
+    "caller_block": "0x45ccd4",
+    "call_addr": "0x45cce8",
+    "func_name": "sub_45cb50",
+    "func_addr": "0x45cb50",
+    "self_ecx": "&([esp + 0x240])",
+    "self_src": "0x45ccd4: lea ecx,[esp + 0x240]"
+  },
+  {
+    "caller_block": "0x45eb12",
+    "call_addr": "0x45eb23",
+    "func_name": "sub_45ea40",
+    "func_addr": "0x45ea40",
+    "self_ecx": "&([esp + 4])",
+    "self_src": "0x45eb12: lea ecx,[esp + 4]"
+  },
+  {
+    "caller_block": "0x45eb74",
+    "call_addr": "0x45eb85",
+    "func_name": "sub_45ea40",
+    "func_addr": "0x45ea40",
+    "self_ecx": "&([esp + 0xc])",
+    "self_src": "0x45eb74: lea ecx,[esp + 0xc]"
+  },
+  {
+    "caller_block": "0x45ebf8",
+    "call_addr": "0x45ec0a",
+    "func_name": "sub_45ea40",
+    "func_addr": "0x45ea40",
+    "self_ecx": "&([esp + 0x230])",
+    "self_src": "0x45ebf8: lea ecx,[esp + 0x230]"
+  },
+  {
+    "caller_block": "0x45ee88",
+    "call_addr": "0x45ee98",
+    "func_name": "sub_45ed80",
+    "func_addr": "0x45ed80",
+    "self_ecx": "&([esp + 0x4e8])",
+    "self_src": "0x45ee88: lea ecx,[esp + 0x4e8]"
+  },
+  {
+    "caller_block": "0x45efa4",
+    "call_addr": "0x45efb4",
+    "func_name": "sub_45ed80",
+    "func_addr": "0x45ed80",
+    "self_ecx": "&([esp + 0xa0])",
+    "self_src": "0x45efa4: lea ecx,[esp + 0xa0]"
+  },
+  {
+    "caller_block": "0x45f090",
+    "call_addr": "0x45f0a0",
+    "func_name": "sub_45ed80",
+    "func_addr": "0x45ed80",
+    "self_ecx": "&([esp + 0x2c4])",
+    "self_src": "0x45f090: lea ecx,[esp + 0x2c4]"
+  },
+  {
+    "caller_block": "0x46040a",
+    "call_addr": "0x46041b",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x46040a: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x4602ca",
+    "call_addr": "0x4602db",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x4602ca: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x4606ee",
+    "call_addr": "0x4606f2",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x4606ee: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x460726",
+    "call_addr": "0x460738",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x2c4])",
+    "self_src": "0x460726: lea ecx,[esp + 0x2c4]"
+  },
+  {
+    "caller_block": "0x46170f",
+    "call_addr": "0x46171d",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x930])",
+    "self_src": "0x46170f: lea ecx,[esp + 0x930]"
+  },
+  {
+    "caller_block": "0x4615ce",
+    "call_addr": "0x4615d9",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x4615ce: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x460e21",
+    "call_addr": "0x460e32",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x460e21: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x460e67",
+    "call_addr": "0x460e79",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x2c4])",
+    "self_src": "0x460e67: lea ecx,[esp + 0x2c4]"
+  },
+  {
+    "caller_block": "0x460023",
+    "call_addr": "0x460034",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x46002c: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x46004b",
+    "call_addr": "0x46005d",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x2c4])",
+    "self_src": "0x460052: lea ecx,[esp + 0x2c4]"
+  },
+  {
+    "caller_block": "0x460074",
+    "call_addr": "0x460086",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x70c])",
+    "self_src": "0x46007b: lea ecx,[esp + 0x70c]"
+  },
+  {
+    "caller_block": "0x46009c",
+    "call_addr": "0x4600ae",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x4e8])",
+    "self_src": "0x4600a3: lea ecx,[esp + 0x4e8]"
+  },
+  {
+    "caller_block": "0x4600f3",
+    "call_addr": "0x460100",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x4600f3: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x460167",
+    "call_addr": "0x460172",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x460167: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x4601a4",
+    "call_addr": "0x4601af",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x4601a4: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x45fba0",
+    "call_addr": "0x45fbb2",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x4e8])",
+    "self_src": "0x45fba7: lea ecx,[esp + 0x4e8]"
+  },
+  {
+    "caller_block": "0x45fbc9",
+    "call_addr": "0x45fbdb",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x70c])",
+    "self_src": "0x45fbd0: lea ecx,[esp + 0x70c]"
+  },
+  {
+    "caller_block": "0x45fbf2",
+    "call_addr": "0x45fc04",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x2c4])",
+    "self_src": "0x45fbf9: lea ecx,[esp + 0x2c4]"
+  },
+  {
+    "caller_block": "0x45fc1a",
+    "call_addr": "0x45fc29",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x45fc21: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x45fc6e",
+    "call_addr": "0x45fc7b",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x45fc6e: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x45fce2",
+    "call_addr": "0x45fced",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x45fce2: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x45fd1f",
+    "call_addr": "0x45fd2a",
+    "func_name": "sub_45f910",
+    "func_addr": "0x45f910",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x45fd1f: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x46228e",
+    "call_addr": "0x46229f",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x46228e: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x461f33",
+    "call_addr": "0x461f4a",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x461f3e: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x461fb6",
+    "call_addr": "0x461fc7",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x461fb6: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x462023",
+    "call_addr": "0x462031",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x462026: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x46213a",
+    "call_addr": "0x46214b",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x46213a: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x46205f",
+    "call_addr": "0x46206a",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x46205f: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x4620e7",
+    "call_addr": "0x4620fe",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x4620f2: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x4621a8",
+    "call_addr": "0x4621b9",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x4621a8: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x462215",
+    "call_addr": "0x462223",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x462218: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x462449",
+    "call_addr": "0x462460",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x462454: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x462756",
+    "call_addr": "0x46275a",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x462756: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x4627b4",
+    "call_addr": "0x4627c4",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x14])",
+    "self_src": "0x4627b7: lea ecx,[esp + 0x14]"
+  },
+  {
+    "caller_block": "0x462814",
+    "call_addr": "0x462824",
+    "func_name": "sub_461ca0",
+    "func_addr": "0x461ca0",
+    "self_ecx": "&([esp + 0x238])",
+    "self_src": "0x462814: lea ecx,[esp + 0x238]"
+  },
+  {
+    "caller_block": "0x462f24",
+    "call_addr": "0x462f39",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0xa8])",
+    "self_src": "0x462f26: lea ecx,[esp + 0xa8]"
+  },
+  {
+    "caller_block": "0x462f3e",
+    "call_addr": "0x462f4d",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x2cc])",
+    "self_src": "0x462f3e: lea ecx,[esp + 0x2cc]"
+  },
+  {
+    "caller_block": "0x462f52",
+    "call_addr": "0x462f64",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x4f0])",
+    "self_src": "0x462f52: lea ecx,[esp + 0x4f0]"
+  },
+  {
+    "caller_block": "0x462fce",
+    "call_addr": "0x462fe3",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0xa8])",
+    "self_src": "0x462fd0: lea ecx,[esp + 0xa8]"
+  },
+  {
+    "caller_block": "0x462fe8",
+    "call_addr": "0x462ff7",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x2cc])",
+    "self_src": "0x462fe8: lea ecx,[esp + 0x2cc]"
+  },
+  {
+    "caller_block": "0x462ffc",
+    "call_addr": "0x46300e",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x4f0])",
+    "self_src": "0x462ffc: lea ecx,[esp + 0x4f0]"
+  },
+  {
+    "caller_block": "0x4630ab",
+    "call_addr": "0x4630ba",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0xa8])",
+    "self_src": "0x4630ab: lea ecx,[esp + 0xa8]"
+  },
+  {
+    "caller_block": "0x4630bf",
+    "call_addr": "0x4630d1",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x2cc])",
+    "self_src": "0x4630bf: lea ecx,[esp + 0x2cc]"
+  },
+  {
+    "caller_block": "0x463208",
+    "call_addr": "0x46321b",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0xa8])",
+    "self_src": "0x463208: lea ecx,[esp + 0xa8]"
+  },
+  {
+    "caller_block": "0x463220",
+    "call_addr": "0x46322f",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x2cc])",
+    "self_src": "0x463220: lea ecx,[esp + 0x2cc]"
+  },
+  {
+    "caller_block": "0x46325d",
+    "call_addr": "0x46326f",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x714])",
+    "self_src": "0x46325d: lea ecx,[esp + 0x714]"
+  },
+  {
+    "caller_block": "0x463246",
+    "call_addr": "0x463258",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x4f0])",
+    "self_src": "0x46324d: lea ecx,[esp + 0x4f0]"
+  },
+  {
+    "caller_block": "0x4632b3",
+    "call_addr": "0x4632d4",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x714])",
+    "self_src": "0x4632b5: lea ecx,[esp + 0x714]"
+  },
+  {
+    "caller_block": "0x4632d9",
+    "call_addr": "0x4632eb",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0xa8])",
+    "self_src": "0x4632d9: lea ecx,[esp + 0xa8]"
+  },
+  {
+    "caller_block": "0x4633c2",
+    "call_addr": "0x4633d4",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x714])",
+    "self_src": "0x4633c5: lea ecx,[esp + 0x714]"
+  },
+  {
+    "caller_block": "0x4633d9",
+    "call_addr": "0x4633e8",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0xa8])",
+    "self_src": "0x4633d9: lea ecx,[esp + 0xa8]"
+  },
+  {
+    "caller_block": "0x46340b",
+    "call_addr": "0x46341d",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x4f0])",
+    "self_src": "0x46340b: lea ecx,[esp + 0x4f0]"
+  },
+  {
+    "caller_block": "0x4633ff",
+    "call_addr": "0x463406",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x2cc])",
+    "self_src": "0x4633ff: lea ecx,[esp + 0x2cc]"
+  },
+  {
+    "caller_block": "0x462d98",
+    "call_addr": "0x462db3",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x4f0])",
+    "self_src": "0x462da4: lea ecx,[esp + 0x4f0]"
+  },
+  {
+    "caller_block": "0x462db8",
+    "call_addr": "0x462dc7",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x2cc])",
+    "self_src": "0x462db8: lea ecx,[esp + 0x2cc]"
+  },
+  {
+    "caller_block": "0x462dcc",
+    "call_addr": "0x462dde",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0xa8])",
+    "self_src": "0x462dcc: lea ecx,[esp + 0xa8]"
+  },
+  {
+    "caller_block": "0x462e4e",
+    "call_addr": "0x462e68",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0xa8])",
+    "self_src": "0x462e5a: lea ecx,[esp + 0xa8]"
+  },
+  {
+    "caller_block": "0x462e6d",
+    "call_addr": "0x462e7c",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x2cc])",
+    "self_src": "0x462e6d: lea ecx,[esp + 0x2cc]"
+  },
+  {
+    "caller_block": "0x462e81",
+    "call_addr": "0x462e93",
+    "func_name": "sub_462900",
+    "func_addr": "0x462900",
+    "self_ecx": "&([esp + 0x4f0])",
+    "self_src": "0x462e81: lea ecx,[esp + 0x4f0]"
+  },
+  {
+    "caller_block": "0x463a54",
+    "call_addr": "0x463a64",
+    "func_name": "sub_46364f",
+    "func_addr": "0x46364f",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x463a54: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x463a69",
+    "call_addr": "0x463a78",
+    "func_name": "sub_46364f",
+    "func_addr": "0x46364f",
+    "self_ecx": "&([esp + 0x24c])",
+    "self_src": "0x463a69: lea ecx,[esp + 0x24c]"
+  },
+  {
+    "caller_block": "0x463aa6",
+    "call_addr": "0x463ab8",
+    "func_name": "sub_46364f",
+    "func_addr": "0x46364f",
+    "self_ecx": "&([esp + 0x694])",
+    "self_src": "0x463aa6: lea ecx,[esp + 0x694]"
+  },
+  {
+    "caller_block": "0x463a8f",
+    "call_addr": "0x463aa1",
+    "func_name": "sub_46364f",
+    "func_addr": "0x46364f",
+    "self_ecx": "&([esp + 0x470])",
+    "self_src": "0x463a96: lea ecx,[esp + 0x470]"
+  },
+  {
+    "caller_block": "0x463af9",
+    "call_addr": "0x463b1a",
+    "func_name": "sub_46364f",
+    "func_addr": "0x46364f",
+    "self_ecx": "&([esp + 0x694])",
+    "self_src": "0x463afb: lea ecx,[esp + 0x694]"
+  },
+  {
+    "caller_block": "0x463b1f",
+    "call_addr": "0x463b2e",
+    "func_name": "sub_46364f",
+    "func_addr": "0x46364f",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x463b1f: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x463c02",
+    "call_addr": "0x463c14",
+    "func_name": "sub_46364f",
+    "func_addr": "0x46364f",
+    "self_ecx": "&([esp + 0x8b8])",
+    "self_src": "0x463c05: lea ecx,[esp + 0x8b8]"
+  },
+  {
+    "caller_block": "0x463c19",
+    "call_addr": "0x463c28",
+    "func_name": "sub_46364f",
+    "func_addr": "0x46364f",
+    "self_ecx": "&([esp + 0xd00])",
+    "self_src": "0x463c19: lea ecx,[esp + 0xd00]"
+  },
+  {
+    "caller_block": "0x463c4b",
+    "call_addr": "0x463c5d",
+    "func_name": "sub_46364f",
+    "func_addr": "0x46364f",
+    "self_ecx": "&([esp + 0xf24])",
+    "self_src": "0x463c4b: lea ecx,[esp + 0xf24]"
+  },
+  {
+    "caller_block": "0x463c3f",
+    "call_addr": "0x463c46",
+    "func_name": "sub_46364f",
+    "func_addr": "0x46364f",
+    "self_ecx": "&([esp + 0xadc])",
+    "self_src": "0x463c3f: lea ecx,[esp + 0xadc]"
+  },
+  {
+    "caller_block": "0x465a82",
+    "call_addr": "0x465a91",
+    "func_name": "sub_465500",
+    "func_addr": "0x465500",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x465a82: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x465b8d",
+    "call_addr": "0x465b98",
+    "func_name": "sub_465500",
+    "func_addr": "0x465500",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x465b86: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x465b75",
+    "call_addr": "0x465b81",
+    "func_name": "sub_465500",
+    "func_addr": "0x465500",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x465b75: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x4664e0",
+    "call_addr": "0x4664ef",
+    "func_name": "sub_465500",
+    "func_addr": "0x465500",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x4664e7: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x466506",
+    "call_addr": "0x466518",
+    "func_name": "sub_465500",
+    "func_addr": "0x465500",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x46650d: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x46652f",
+    "call_addr": "0x466541",
+    "func_name": "sub_465500",
+    "func_addr": "0x465500",
+    "self_ecx": "&([esp + 0x6b0])",
+    "self_src": "0x466536: lea ecx,[esp + 0x6b0]"
+  },
+  {
+    "caller_block": "0x466558",
+    "call_addr": "0x46655f",
+    "func_name": "sub_465500",
+    "func_addr": "0x465500",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x466558: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x4665ba",
+    "call_addr": "0x4665cc",
+    "func_name": "sub_465500",
+    "func_addr": "0x465500",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x4665ba: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x466d0e",
+    "call_addr": "0x466d1d",
+    "func_name": "sub_4668af",
+    "func_addr": "0x4668af",
+    "self_ecx": "&([esp + 0x23c])",
+    "self_src": "0x466d0e: lea ecx,[esp + 0x23c]"
+  },
+  {
+    "caller_block": "0x466d22",
+    "call_addr": "0x466d34",
+    "func_name": "sub_4668af",
+    "func_addr": "0x4668af",
+    "self_ecx": "&([esp + 0x684])",
+    "self_src": "0x466d22: lea ecx,[esp + 0x684]"
+  },
+  {
+    "caller_block": "0x466e74",
+    "call_addr": "0x466e83",
+    "func_name": "sub_4668af",
+    "func_addr": "0x4668af",
+    "self_ecx": "&([esp + 0xacc])",
+    "self_src": "0x466e74: lea ecx,[esp + 0xacc]"
+  },
+  {
+    "caller_block": "0x466e88",
+    "call_addr": "0x466e9a",
+    "func_name": "sub_4668af",
+    "func_addr": "0x4668af",
+    "self_ecx": "&([esp + 0xf14])",
+    "self_src": "0x466e88: lea ecx,[esp + 0xf14]"
+  },
+  {
+    "caller_block": "0x466bb8",
+    "call_addr": "0x466bc4",
+    "func_name": "sub_4668af",
+    "func_addr": "0x4668af",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x466bb8: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x466bc9",
+    "call_addr": "0x466bdb",
+    "func_name": "sub_4668af",
+    "func_addr": "0x4668af",
+    "self_ecx": "&([esp + 0x8a8])",
+    "self_src": "0x466bc9: lea ecx,[esp + 0x8a8]"
+  },
+  {
+    "caller_block": "0x466a35",
+    "call_addr": "0x466a44",
+    "func_name": "sub_4668af",
+    "func_addr": "0x4668af",
+    "self_ecx": "&([esp + 0xcf0])",
+    "self_src": "0x466a35: lea ecx,[esp + 0xcf0]"
+  },
+  {
+    "caller_block": "0x466a49",
+    "call_addr": "0x466a5b",
+    "func_name": "sub_4668af",
+    "func_addr": "0x4668af",
+    "self_ecx": "&([esp + 0x460])",
+    "self_src": "0x466a49: lea ecx,[esp + 0x460]"
+  },
+  {
+    "caller_block": "0x467707",
+    "call_addr": "0x467716",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0x684])",
+    "self_src": "0x467707: lea ecx,[esp + 0x684]"
+  },
+  {
+    "caller_block": "0x46771b",
+    "call_addr": "0x46772d",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0xacc])",
+    "self_src": "0x46771b: lea ecx,[esp + 0xacc]"
+  },
+  {
+    "caller_block": "0x46788b",
+    "call_addr": "0x46789a",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0xf14])",
+    "self_src": "0x46788b: lea ecx,[esp + 0xf14]"
+  },
+  {
+    "caller_block": "0x467999",
+    "call_addr": "0x4679a4",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0x1bec])",
+    "self_src": "0x467992: lea ecx,[esp + 0x1bec]"
+  },
+  {
+    "caller_block": "0x4672e6",
+    "call_addr": "0x4672f5",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0x1138])",
+    "self_src": "0x4672e6: lea ecx,[esp + 0x1138]"
+  },
+  {
+    "caller_block": "0x4672fa",
+    "call_addr": "0x46730c",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0x8a8])",
+    "self_src": "0x4672fa: lea ecx,[esp + 0x8a8]"
+  },
+  {
+    "caller_block": "0x46797e",
+    "call_addr": "0x46798d",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0x17a4])",
+    "self_src": "0x46797e: lea ecx,[esp + 0x17a4]"
+  },
+  {
+    "caller_block": "0x4675bb",
+    "call_addr": "0x4675ca",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0x1580])",
+    "self_src": "0x4675bb: lea ecx,[esp + 0x1580]"
+  },
+  {
+    "caller_block": "0x4675cf",
+    "call_addr": "0x4675e1",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0x23c])",
+    "self_src": "0x4675cf: lea ecx,[esp + 0x23c]"
+  },
+  {
+    "caller_block": "0x467496",
+    "call_addr": "0x4674a5",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0x19c8])",
+    "self_src": "0x467496: lea ecx,[esp + 0x19c8]"
+  },
+  {
+    "caller_block": "0x4674aa",
+    "call_addr": "0x4674b9",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x4674aa: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x46717a",
+    "call_addr": "0x467189",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0xcf0])",
+    "self_src": "0x46717a: lea ecx,[esp + 0xcf0]"
+  },
+  {
+    "caller_block": "0x46718e",
+    "call_addr": "0x4671a0",
+    "func_name": "sub_466fef",
+    "func_addr": "0x466fef",
+    "self_ecx": "&([esp + 0x460])",
+    "self_src": "0x46718e: lea ecx,[esp + 0x460]"
+  },
+  {
+    "caller_block": "0x468217",
+    "call_addr": "0x468226",
+    "func_name": "sub_467b9a",
+    "func_addr": "0x467b9a",
+    "self_ecx": "&([esp + 0x30])",
+    "self_src": "0x46821e: lea ecx,[esp + 0x30]"
+  },
+  {
+    "caller_block": "0x46823d",
+    "call_addr": "0x46824f",
+    "func_name": "sub_467b9a",
+    "func_addr": "0x467b9a",
+    "self_ecx": "&([esp + 0x254])",
+    "self_src": "0x468244: lea ecx,[esp + 0x254]"
+  },
+  {
+    "caller_block": "0x468267",
+    "call_addr": "0x468279",
+    "func_name": "sub_467b9a",
+    "func_addr": "0x467b9a",
+    "self_ecx": "&([esp + 0x69c])",
+    "self_src": "0x46826e: lea ecx,[esp + 0x69c]"
+  },
+  {
+    "caller_block": "0x468290",
+    "call_addr": "0x468297",
+    "func_name": "sub_467b9a",
+    "func_addr": "0x467b9a",
+    "self_ecx": "&([esp + 0x478])",
+    "self_src": "0x468290: lea ecx,[esp + 0x478]"
+  },
+  {
+    "caller_block": "0x4682f1",
+    "call_addr": "0x468303",
+    "func_name": "sub_467b9a",
+    "func_addr": "0x467b9a",
+    "self_ecx": "&([esp + 0x8c0])",
+    "self_src": "0x4682f1: lea ecx,[esp + 0x8c0]"
+  },
+  {
+    "caller_block": "0x468e43",
+    "call_addr": "0x468e52",
+    "func_name": "sub_4689ed",
+    "func_addr": "0x4689ed",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x468e43: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x468f4e",
+    "call_addr": "0x468f59",
+    "func_name": "sub_4689ed",
+    "func_addr": "0x4689ed",
+    "self_ecx": "&([ecx])",
+    "self_src": "0x4689ed: lea ecx,[ecx]"
+  },
+  {
+    "caller_block": "0x468f36",
+    "call_addr": "0x468f42",
+    "func_name": "sub_4689ed",
+    "func_addr": "0x4689ed",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x468f36: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x46a0a0",
+    "call_addr": "0x46a0af",
+    "func_name": "sub_4689ed",
+    "func_addr": "0x4689ed",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x46a0a7: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x46a0c6",
+    "call_addr": "0x46a0d8",
+    "func_name": "sub_4689ed",
+    "func_addr": "0x4689ed",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x46a0cd: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x46a0ef",
+    "call_addr": "0x46a101",
+    "func_name": "sub_4689ed",
+    "func_addr": "0x4689ed",
+    "self_ecx": "&([esp + 0x6b0])",
+    "self_src": "0x46a0f6: lea ecx,[esp + 0x6b0]"
+  },
+  {
+    "caller_block": "0x46a118",
+    "call_addr": "0x46a11f",
+    "func_name": "sub_4689ed",
+    "func_addr": "0x4689ed",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x46a118: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x46a17d",
+    "call_addr": "0x46a18f",
+    "func_name": "sub_4689ed",
+    "func_addr": "0x4689ed",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x46a17d: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x46ab65",
+    "call_addr": "0x46ab74",
+    "func_name": "sub_46a4d0",
+    "func_addr": "0x46a4d0",
+    "self_ecx": "&([esp + 0x3c])",
+    "self_src": "0x46ab6c: lea ecx,[esp + 0x3c]"
+  },
+  {
+    "caller_block": "0x46ab8b",
+    "call_addr": "0x46ab9d",
+    "func_name": "sub_46a4d0",
+    "func_addr": "0x46a4d0",
+    "self_ecx": "&([esp + 0x6a8])",
+    "self_src": "0x46ab92: lea ecx,[esp + 0x6a8]"
+  },
+  {
+    "caller_block": "0x46abb5",
+    "call_addr": "0x46abc7",
+    "func_name": "sub_46a4d0",
+    "func_addr": "0x46a4d0",
+    "self_ecx": "&([esp + 0x260])",
+    "self_src": "0x46abbc: lea ecx,[esp + 0x260]"
+  },
+  {
+    "caller_block": "0x46abde",
+    "call_addr": "0x46abe5",
+    "func_name": "sub_46a4d0",
+    "func_addr": "0x46a4d0",
+    "self_ecx": "&([esp + 0x484])",
+    "self_src": "0x46abde: lea ecx,[esp + 0x484]"
+  },
+  {
+    "caller_block": "0x46ac3f",
+    "call_addr": "0x46ac51",
+    "func_name": "sub_46a4d0",
+    "func_addr": "0x46a4d0",
+    "self_ecx": "&([esp + 0x8cc])",
+    "self_src": "0x46ac3f: lea ecx,[esp + 0x8cc]"
+  },
+  {
+    "caller_block": "0x46b28c",
+    "call_addr": "0x46b29b",
+    "func_name": "sub_46af10",
+    "func_addr": "0x46af10",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x46b293: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x46b2b2",
+    "call_addr": "0x46b2c4",
+    "func_name": "sub_46af10",
+    "func_addr": "0x46af10",
+    "self_ecx": "&([esp + 0x690])",
+    "self_src": "0x46b2b9: lea ecx,[esp + 0x690]"
+  },
+  {
+    "caller_block": "0x46b2dc",
+    "call_addr": "0x46b2ee",
+    "func_name": "sub_46af10",
+    "func_addr": "0x46af10",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x46b2e3: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x46b305",
+    "call_addr": "0x46b30c",
+    "func_name": "sub_46af10",
+    "func_addr": "0x46af10",
+    "self_ecx": "&([esp + 0x46c])",
+    "self_src": "0x46b305: lea ecx,[esp + 0x46c]"
+  },
+  {
+    "caller_block": "0x46b366",
+    "call_addr": "0x46b378",
+    "func_name": "sub_46af10",
+    "func_addr": "0x46af10",
+    "self_ecx": "&([esp + 0x8b4])",
+    "self_src": "0x46b366: lea ecx,[esp + 0x8b4]"
+  },
+  {
+    "caller_block": "0x46bc02",
+    "call_addr": "0x46bc11",
+    "func_name": "sub_46b680",
+    "func_addr": "0x46b680",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x46bc02: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x46bd0d",
+    "call_addr": "0x46bd18",
+    "func_name": "sub_46b680",
+    "func_addr": "0x46b680",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x46bd06: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x46bcf5",
+    "call_addr": "0x46bd01",
+    "func_name": "sub_46b680",
+    "func_addr": "0x46b680",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x46bcf5: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x46c5fb",
+    "call_addr": "0x46c60a",
+    "func_name": "sub_46b680",
+    "func_addr": "0x46b680",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x46c602: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x46c621",
+    "call_addr": "0x46c633",
+    "func_name": "sub_46b680",
+    "func_addr": "0x46b680",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x46c628: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x46c64a",
+    "call_addr": "0x46c65c",
+    "func_name": "sub_46b680",
+    "func_addr": "0x46b680",
+    "self_ecx": "&([esp + 0x6b0])",
+    "self_src": "0x46c651: lea ecx,[esp + 0x6b0]"
+  },
+  {
+    "caller_block": "0x46c673",
+    "call_addr": "0x46c67a",
+    "func_name": "sub_46b680",
+    "func_addr": "0x46b680",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x46c673: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x46c6d5",
+    "call_addr": "0x46c6e7",
+    "func_name": "sub_46b680",
+    "func_addr": "0x46b680",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x46c6d5: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x46dc8d",
+    "call_addr": "0x46dc9c",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x2d14])",
+    "self_src": "0x46dc8d: lea ecx,[esp + 0x2d14]"
+  },
+  {
+    "caller_block": "0x46dca1",
+    "call_addr": "0x46dcb3",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x315c])",
+    "self_src": "0x46dca1: lea ecx,[esp + 0x315c]"
+  },
+  {
+    "caller_block": "0x46db21",
+    "call_addr": "0x46db30",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x203c])",
+    "self_src": "0x46db21: lea ecx,[esp + 0x203c]"
+  },
+  {
+    "caller_block": "0x46db35",
+    "call_addr": "0x46db44",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x2484])",
+    "self_src": "0x46db35: lea ecx,[esp + 0x2484]"
+  },
+  {
+    "caller_block": "0x46db49",
+    "call_addr": "0x46db5b",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x28cc])",
+    "self_src": "0x46db49: lea ecx,[esp + 0x28cc]"
+  },
+  {
+    "caller_block": "0x46d243",
+    "call_addr": "0x46d252",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x1588])",
+    "self_src": "0x46d243: lea ecx,[esp + 0x1588]"
+  },
+  {
+    "caller_block": "0x46d257",
+    "call_addr": "0x46d266",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x468])",
+    "self_src": "0x46d257: lea ecx,[esp + 0x468]"
+  },
+  {
+    "caller_block": "0x46d26b",
+    "call_addr": "0x46d27d",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x26a8])",
+    "self_src": "0x46d26b: lea ecx,[esp + 0x26a8]"
+  },
+  {
+    "caller_block": "0x46d7a8",
+    "call_addr": "0x46d7b7",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x19d0])",
+    "self_src": "0x46d7a8: lea ecx,[esp + 0x19d0]"
+  },
+  {
+    "caller_block": "0x46d7bc",
+    "call_addr": "0x46d7cb",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x244])",
+    "self_src": "0x46d7bc: lea ecx,[esp + 0x244]"
+  },
+  {
+    "caller_block": "0x46d7d0",
+    "call_addr": "0x46d7df",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x68c])",
+    "self_src": "0x46d7d8: lea ecx,[esp + 0x68c]"
+  },
+  {
+    "caller_block": "0x46d7e4",
+    "call_addr": "0x46d7f6",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0xad4])",
+    "self_src": "0x46d7e4: lea ecx,[esp + 0xad4]"
+  },
+  {
+    "caller_block": "0x46d5dd",
+    "call_addr": "0x46d5ec",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x1140])",
+    "self_src": "0x46d5dd: lea ecx,[esp + 0x1140]"
+  },
+  {
+    "caller_block": "0x46d5f1",
+    "call_addr": "0x46d600",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x2260])",
+    "self_src": "0x46d5f1: lea ecx,[esp + 0x2260]"
+  },
+  {
+    "caller_block": "0x46d605",
+    "call_addr": "0x46d611",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x20])",
+    "self_src": "0x46d60d: lea ecx,[esp + 0x20]"
+  },
+  {
+    "caller_block": "0x46d616",
+    "call_addr": "0x46d628",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x2af0])",
+    "self_src": "0x46d616: lea ecx,[esp + 0x2af0]"
+  },
+  {
+    "caller_block": "0x46d976",
+    "call_addr": "0x46d985",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0xf1c])",
+    "self_src": "0x46d976: lea ecx,[esp + 0xf1c]"
+  },
+  {
+    "caller_block": "0x46d98a",
+    "call_addr": "0x46d999",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x1364])",
+    "self_src": "0x46d98a: lea ecx,[esp + 0x1364]"
+  },
+  {
+    "caller_block": "0x46d99e",
+    "call_addr": "0x46d9ad",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x17ac])",
+    "self_src": "0x46d9a6: lea ecx,[esp + 0x17ac]"
+  },
+  {
+    "caller_block": "0x46d9b2",
+    "call_addr": "0x46d9c4",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x1bf4])",
+    "self_src": "0x46d9b2: lea ecx,[esp + 0x1bf4]"
+  },
+  {
+    "caller_block": "0x46d412",
+    "call_addr": "0x46d421",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x8b0])",
+    "self_src": "0x46d412: lea ecx,[esp + 0x8b0]"
+  },
+  {
+    "caller_block": "0x46d426",
+    "call_addr": "0x46d435",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x1e18])",
+    "self_src": "0x46d426: lea ecx,[esp + 0x1e18]"
+  },
+  {
+    "caller_block": "0x46d43a",
+    "call_addr": "0x46d449",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0xcf8])",
+    "self_src": "0x46d442: lea ecx,[esp + 0xcf8]"
+  },
+  {
+    "caller_block": "0x46d44e",
+    "call_addr": "0x46d460",
+    "func_name": "sub_46d08f",
+    "func_addr": "0x46d08f",
+    "self_ecx": "&([esp + 0x2f38])",
+    "self_src": "0x46d44e: lea ecx,[esp + 0x2f38]"
+  },
+  {
+    "caller_block": "0x46eb22",
+    "call_addr": "0x46eb31",
+    "func_name": "sub_46e5a0",
+    "func_addr": "0x46e5a0",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x46eb22: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x46ec2d",
+    "call_addr": "0x46ec38",
+    "func_name": "sub_46e5a0",
+    "func_addr": "0x46e5a0",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x46ec26: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x46ec15",
+    "call_addr": "0x46ec21",
+    "func_name": "sub_46e5a0",
+    "func_addr": "0x46e5a0",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x46ec15: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x46f755",
+    "call_addr": "0x46f764",
+    "func_name": "sub_46e5a0",
+    "func_addr": "0x46e5a0",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x46f75c: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x46f77b",
+    "call_addr": "0x46f78d",
+    "func_name": "sub_46e5a0",
+    "func_addr": "0x46e5a0",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x46f782: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x46f7a4",
+    "call_addr": "0x46f7b6",
+    "func_name": "sub_46e5a0",
+    "func_addr": "0x46e5a0",
+    "self_ecx": "&([esp + 0x6b0])",
+    "self_src": "0x46f7ab: lea ecx,[esp + 0x6b0]"
+  },
+  {
+    "caller_block": "0x46f7cd",
+    "call_addr": "0x46f7d4",
+    "func_name": "sub_46e5a0",
+    "func_addr": "0x46e5a0",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x46f7cd: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x46f82f",
+    "call_addr": "0x46f841",
+    "func_name": "sub_46e5a0",
+    "func_addr": "0x46e5a0",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x46f82f: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x47236c",
+    "call_addr": "0x47237b",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x8b8])",
+    "self_src": "0x47236c: lea ecx,[esp + 0x8b8]"
+  },
+  {
+    "caller_block": "0x472380",
+    "call_addr": "0x47238f",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x2af8])",
+    "self_src": "0x472380: lea ecx,[esp + 0x2af8]"
+  },
+  {
+    "caller_block": "0x472394",
+    "call_addr": "0x4723a3",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0xd00])",
+    "self_src": "0x472394: lea ecx,[esp + 0xd00]"
+  },
+  {
+    "caller_block": "0x4723a8",
+    "call_addr": "0x4723ba",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x3c18])",
+    "self_src": "0x4723a8: lea ecx,[esp + 0x3c18]"
+  },
+  {
+    "caller_block": "0x4724b4",
+    "call_addr": "0x4724c3",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x1148])",
+    "self_src": "0x4724b4: lea ecx,[esp + 0x1148]"
+  },
+  {
+    "caller_block": "0x4724c8",
+    "call_addr": "0x4724da",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x2f40])",
+    "self_src": "0x4724c8: lea ecx,[esp + 0x2f40]"
+  },
+  {
+    "caller_block": "0x472614",
+    "call_addr": "0x472623",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x1590])",
+    "self_src": "0x472614: lea ecx,[esp + 0x1590]"
+  },
+  {
+    "caller_block": "0x472628",
+    "call_addr": "0x472637",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x44a8])",
+    "self_src": "0x472628: lea ecx,[esp + 0x44a8]"
+  },
+  {
+    "caller_block": "0x47263c",
+    "call_addr": "0x47264b",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x19d8])",
+    "self_src": "0x47263c: lea ecx,[esp + 0x19d8]"
+  },
+  {
+    "caller_block": "0x472650",
+    "call_addr": "0x472662",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x3388])",
+    "self_src": "0x47265b: lea ecx,[esp + 0x3388]"
+  },
+  {
+    "caller_block": "0x47278d",
+    "call_addr": "0x47279c",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x1e20])",
+    "self_src": "0x47278d: lea ecx,[esp + 0x1e20]"
+  },
+  {
+    "caller_block": "0x4727a1",
+    "call_addr": "0x4727ad",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x4727a1: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x4727b2",
+    "call_addr": "0x4727c1",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x2268])",
+    "self_src": "0x4727b2: lea ecx,[esp + 0x2268]"
+  },
+  {
+    "caller_block": "0x472d6f",
+    "call_addr": "0x472d7a",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x35ac])",
+    "self_src": "0x472d68: lea ecx,[esp + 0x35ac]"
+  },
+  {
+    "caller_block": "0x472908",
+    "call_addr": "0x472917",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x26b0])",
+    "self_src": "0x472908: lea ecx,[esp + 0x26b0]"
+  },
+  {
+    "caller_block": "0x47291c",
+    "call_addr": "0x47292b",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x24c])",
+    "self_src": "0x47291c: lea ecx,[esp + 0x24c]"
+  },
+  {
+    "caller_block": "0x472930",
+    "call_addr": "0x47293f",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x694])",
+    "self_src": "0x472930: lea ecx,[esp + 0x694]"
+  },
+  {
+    "caller_block": "0x472944",
+    "call_addr": "0x472956",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0xadc])",
+    "self_src": "0x472944: lea ecx,[esp + 0xadc]"
+  },
+  {
+    "caller_block": "0x472a50",
+    "call_addr": "0x472a5f",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0xf24])",
+    "self_src": "0x472a50: lea ecx,[esp + 0xf24]"
+  },
+  {
+    "caller_block": "0x472a64",
+    "call_addr": "0x472a76",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x136c])",
+    "self_src": "0x472a64: lea ecx,[esp + 0x136c]"
+  },
+  {
+    "caller_block": "0x472bb0",
+    "call_addr": "0x472bbf",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x17b4])",
+    "self_src": "0x472bb0: lea ecx,[esp + 0x17b4]"
+  },
+  {
+    "caller_block": "0x472bc4",
+    "call_addr": "0x472bd3",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x1bfc])",
+    "self_src": "0x472bc4: lea ecx,[esp + 0x1bfc]"
+  },
+  {
+    "caller_block": "0x472bd8",
+    "call_addr": "0x472be7",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x2044])",
+    "self_src": "0x472bd8: lea ecx,[esp + 0x2044]"
+  },
+  {
+    "caller_block": "0x472bec",
+    "call_addr": "0x472bfe",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x248c])",
+    "self_src": "0x472bf7: lea ecx,[esp + 0x248c]"
+  },
+  {
+    "caller_block": "0x472d2c",
+    "call_addr": "0x472d3b",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x28d4])",
+    "self_src": "0x472d2c: lea ecx,[esp + 0x28d4]"
+  },
+  {
+    "caller_block": "0x472d40",
+    "call_addr": "0x472d4f",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x2d1c])",
+    "self_src": "0x472d40: lea ecx,[esp + 0x2d1c]"
+  },
+  {
+    "caller_block": "0x472d54",
+    "call_addr": "0x472d63",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x3164])",
+    "self_src": "0x472d54: lea ecx,[esp + 0x3164]"
+  },
+  {
+    "caller_block": "0x472e9e",
+    "call_addr": "0x472ead",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x39f4])",
+    "self_src": "0x472e9e: lea ecx,[esp + 0x39f4]"
+  },
+  {
+    "caller_block": "0x472eb2",
+    "call_addr": "0x472ec4",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x3e3c])",
+    "self_src": "0x472eb2: lea ecx,[esp + 0x3e3c]"
+  },
+  {
+    "caller_block": "0x473026",
+    "call_addr": "0x473035",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x4284])",
+    "self_src": "0x473026: lea ecx,[esp + 0x4284]"
+  },
+  {
+    "caller_block": "0x47303a",
+    "call_addr": "0x473049",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x46cc])",
+    "self_src": "0x47303a: lea ecx,[esp + 0x46cc]"
+  },
+  {
+    "caller_block": "0x47304e",
+    "call_addr": "0x473060",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x4b14])",
+    "self_src": "0x47304e: lea ecx,[esp + 0x4b14]"
+  },
+  {
+    "caller_block": "0x47219a",
+    "call_addr": "0x4721a9",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x4060])",
+    "self_src": "0x47219a: lea ecx,[esp + 0x4060]"
+  },
+  {
+    "caller_block": "0x4721ae",
+    "call_addr": "0x4721bd",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x470])",
+    "self_src": "0x4721ae: lea ecx,[esp + 0x470]"
+  },
+  {
+    "caller_block": "0x4721c2",
+    "call_addr": "0x4721d4",
+    "func_name": "sub_471fef",
+    "func_addr": "0x471fef",
+    "self_ecx": "&([esp + 0x48f0])",
+    "self_src": "0x4721c2: lea ecx,[esp + 0x48f0]"
+  },
+  {
+    "caller_block": "0x474bd2",
+    "call_addr": "0x474be1",
+    "func_name": "sub_474650",
+    "func_addr": "0x474650",
+    "self_ecx": "&([esp + 0x278])",
+    "self_src": "0x474bd2: lea ecx,[esp + 0x278]"
+  },
+  {
+    "caller_block": "0x474cdd",
+    "call_addr": "0x474ce8",
+    "func_name": "sub_474650",
+    "func_addr": "0x474650",
+    "self_ecx": "&([esp + 0x278])",
+    "self_src": "0x474cd6: lea ecx,[esp + 0x278]"
+  },
+  {
+    "caller_block": "0x474cc5",
+    "call_addr": "0x474cd1",
+    "func_name": "sub_474650",
+    "func_addr": "0x474650",
+    "self_ecx": "&([esp + 0x54])",
+    "self_src": "0x474cc5: lea ecx,[esp + 0x54]"
+  },
+  {
+    "caller_block": "0x475612",
+    "call_addr": "0x475621",
+    "func_name": "sub_474650",
+    "func_addr": "0x474650",
+    "self_ecx": "&([esp + 0x54])",
+    "self_src": "0x475619: lea ecx,[esp + 0x54]"
+  },
+  {
+    "caller_block": "0x475638",
+    "call_addr": "0x47564a",
+    "func_name": "sub_474650",
+    "func_addr": "0x474650",
+    "self_ecx": "&([esp + 0x278])",
+    "self_src": "0x47563f: lea ecx,[esp + 0x278]"
+  },
+  {
+    "caller_block": "0x475661",
+    "call_addr": "0x475673",
+    "func_name": "sub_474650",
+    "func_addr": "0x474650",
+    "self_ecx": "&([esp + 0x49c])",
+    "self_src": "0x475668: lea ecx,[esp + 0x49c]"
+  },
+  {
+    "caller_block": "0x47568a",
+    "call_addr": "0x475691",
+    "func_name": "sub_474650",
+    "func_addr": "0x474650",
+    "self_ecx": "&([esp + 0x6c0])",
+    "self_src": "0x47568a: lea ecx,[esp + 0x6c0]"
+  },
+  {
+    "caller_block": "0x4756ec",
+    "call_addr": "0x4756fe",
+    "func_name": "sub_474650",
+    "func_addr": "0x474650",
+    "self_ecx": "&([esp + 0x8e4])",
+    "self_src": "0x4756ec: lea ecx,[esp + 0x8e4]"
+  },
+  {
+    "caller_block": "0x47628f",
+    "call_addr": "0x47629e",
+    "func_name": "sub_475e5f",
+    "func_addr": "0x475e5f",
+    "self_ecx": "&([esp + 0x23c])",
+    "self_src": "0x47628f: lea ecx,[esp + 0x23c]"
+  },
+  {
+    "caller_block": "0x4762a3",
+    "call_addr": "0x4762b5",
+    "func_name": "sub_475e5f",
+    "func_addr": "0x475e5f",
+    "self_ecx": "&([esp + 0x684])",
+    "self_src": "0x4762a3: lea ecx,[esp + 0x684]"
+  },
+  {
+    "caller_block": "0x4763f7",
+    "call_addr": "0x476406",
+    "func_name": "sub_475e5f",
+    "func_addr": "0x475e5f",
+    "self_ecx": "&([esp + 0xacc])",
+    "self_src": "0x4763f7: lea ecx,[esp + 0xacc]"
+  },
+  {
+    "caller_block": "0x47640b",
+    "call_addr": "0x47641d",
+    "func_name": "sub_475e5f",
+    "func_addr": "0x475e5f",
+    "self_ecx": "&([esp + 0xf14])",
+    "self_src": "0x47640b: lea ecx,[esp + 0xf14]"
+  },
+  {
+    "caller_block": "0x476148",
+    "call_addr": "0x476154",
+    "func_name": "sub_475e5f",
+    "func_addr": "0x475e5f",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x476148: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x476159",
+    "call_addr": "0x47616b",
+    "func_name": "sub_475e5f",
+    "func_addr": "0x475e5f",
+    "self_ecx": "&([esp + 0x8a8])",
+    "self_src": "0x476159: lea ecx,[esp + 0x8a8]"
+  },
+  {
+    "caller_block": "0x475fea",
+    "call_addr": "0x475ff9",
+    "func_name": "sub_475e5f",
+    "func_addr": "0x475e5f",
+    "self_ecx": "&([esp + 0xcf0])",
+    "self_src": "0x475fea: lea ecx,[esp + 0xcf0]"
+  },
+  {
+    "caller_block": "0x475ffe",
+    "call_addr": "0x476010",
+    "func_name": "sub_475e5f",
+    "func_addr": "0x475e5f",
+    "self_ecx": "&([esp + 0x460])",
+    "self_src": "0x475ffe: lea ecx,[esp + 0x460]"
+  },
+  {
+    "caller_block": "0x47678e",
+    "call_addr": "0x4767a7",
+    "func_name": "sub_4765d0",
+    "func_addr": "0x4765d0",
+    "self_ecx": "&([esp + 0x470])",
+    "self_src": "0x476790: lea ecx,[esp + 0x470]"
+  },
+  {
+    "caller_block": "0x476827",
+    "call_addr": "0x476839",
+    "func_name": "sub_4765d0",
+    "func_addr": "0x4765d0",
+    "self_ecx": "&([esp + 0x24c])",
+    "self_src": "0x47682e: lea ecx,[esp + 0x24c]"
+  },
+  {
+    "caller_block": "0x476850",
+    "call_addr": "0x476854",
+    "func_name": "sub_4765d0",
+    "func_addr": "0x4765d0",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x476850: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x476b7a",
+    "call_addr": "0x476b85",
+    "func_name": "sub_4765d0",
+    "func_addr": "0x4765d0",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x476b7d: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x476b9a",
+    "call_addr": "0x476ba8",
+    "func_name": "sub_4765d0",
+    "func_addr": "0x4765d0",
+    "self_ecx": "&([esp + 0x24c])",
+    "self_src": "0x476b9d: lea ecx,[esp + 0x24c]"
+  },
+  {
+    "caller_block": "0x476bbd",
+    "call_addr": "0x476bcb",
+    "func_name": "sub_4765d0",
+    "func_addr": "0x4765d0",
+    "self_ecx": "&([esp + 0x470])",
+    "self_src": "0x476bc0: lea ecx,[esp + 0x470]"
+  },
+  {
+    "caller_block": "0x476bdf",
+    "call_addr": "0x476be6",
+    "func_name": "sub_4765d0",
+    "func_addr": "0x4765d0",
+    "self_ecx": "&([esp + 0x694])",
+    "self_src": "0x476bdf: lea ecx,[esp + 0x694]"
+  },
+  {
+    "caller_block": "0x476c41",
+    "call_addr": "0x476c4f",
+    "func_name": "sub_4765d0",
+    "func_addr": "0x4765d0",
+    "self_ecx": "&([esp + 0x8b8])",
+    "self_src": "0x476c41: lea ecx,[esp + 0x8b8]"
+  },
+  {
+    "caller_block": "0x47a03d",
+    "call_addr": "0x47a04f",
+    "func_name": "sub_479ba0",
+    "func_addr": "0x479ba0",
+    "self_ecx": "&([esp + 0xac])",
+    "self_src": "0x47a03d: lea ecx,[esp + 0xac]"
+  },
+  {
+    "caller_block": "0x47a6d9",
+    "call_addr": "0x47a6f5",
+    "func_name": "sub_479ba0",
+    "func_addr": "0x479ba0",
+    "self_ecx": "&([esp + 0x2d0])",
+    "self_src": "0x47a6e6: lea ecx,[esp + 0x2d0]"
+  },
+  {
+    "caller_block": "0x47a6fa",
+    "call_addr": "0x47a70c",
+    "func_name": "sub_479ba0",
+    "func_addr": "0x479ba0",
+    "self_ecx": "&([esp + 0xac])",
+    "self_src": "0x47a6fa: lea ecx,[esp + 0xac]"
+  },
+  {
+    "caller_block": "0x47a734",
+    "call_addr": "0x47a743",
+    "func_name": "sub_479ba0",
+    "func_addr": "0x479ba0",
+    "self_ecx": "&([esp + 0x2d0])",
+    "self_src": "0x47a734: lea ecx,[esp + 0x2d0]"
+  },
+  {
+    "caller_block": "0x47a748",
+    "call_addr": "0x47a75a",
+    "func_name": "sub_479ba0",
+    "func_addr": "0x479ba0",
+    "self_ecx": "&([esp + 0xac])",
+    "self_src": "0x47a748: lea ecx,[esp + 0xac]"
+  },
+  {
+    "caller_block": "0x47a439",
+    "call_addr": "0x47a44a",
+    "func_name": "sub_479ba0",
+    "func_addr": "0x479ba0",
+    "self_ecx": "&([esp + 0x4f4])",
+    "self_src": "0x47a439: lea ecx,[esp + 0x4f4]"
+  },
+  {
+    "caller_block": "0x47a44f",
+    "call_addr": "0x47a45e",
+    "func_name": "sub_479ba0",
+    "func_addr": "0x479ba0",
+    "self_ecx": "&([esp + 0x718])",
+    "self_src": "0x47a44f: lea ecx,[esp + 0x718]"
+  },
+  {
+    "caller_block": "0x47b16e",
+    "call_addr": "0x47b17d",
+    "func_name": "sub_47abaf",
+    "func_addr": "0x47abaf",
+    "self_ecx": "&([esp + 0xacc])",
+    "self_src": "0x47b16e: lea ecx,[esp + 0xacc]"
+  },
+  {
+    "caller_block": "0x47b182",
+    "call_addr": "0x47b194",
+    "func_name": "sub_47abaf",
+    "func_addr": "0x47abaf",
+    "self_ecx": "&([esp + 0xf14])",
+    "self_src": "0x47b182: lea ecx,[esp + 0xf14]"
+  },
+  {
+    "caller_block": "0x47b016",
+    "call_addr": "0x47b025",
+    "func_name": "sub_47abaf",
+    "func_addr": "0x47abaf",
+    "self_ecx": "&([esp + 0x23c])",
+    "self_src": "0x47b016: lea ecx,[esp + 0x23c]"
+  },
+  {
+    "caller_block": "0x47b02a",
+    "call_addr": "0x47b03c",
+    "func_name": "sub_47abaf",
+    "func_addr": "0x47abaf",
+    "self_ecx": "&([esp + 0x684])",
+    "self_src": "0x47b02a: lea ecx,[esp + 0x684]"
+  },
+  {
+    "caller_block": "0x47ae98",
+    "call_addr": "0x47aea4",
+    "func_name": "sub_47abaf",
+    "func_addr": "0x47abaf",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x47ae98: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x47aea9",
+    "call_addr": "0x47aebb",
+    "func_name": "sub_47abaf",
+    "func_addr": "0x47abaf",
+    "self_ecx": "&([esp + 0x8a8])",
+    "self_src": "0x47aea9: lea ecx,[esp + 0x8a8]"
+  },
+  {
+    "caller_block": "0x47ad3a",
+    "call_addr": "0x47ad49",
+    "func_name": "sub_47abaf",
+    "func_addr": "0x47abaf",
+    "self_ecx": "&([esp + 0xcf0])",
+    "self_src": "0x47ad3a: lea ecx,[esp + 0xcf0]"
+  },
+  {
+    "caller_block": "0x47ad4e",
+    "call_addr": "0x47ad60",
+    "func_name": "sub_47abaf",
+    "func_addr": "0x47abaf",
+    "self_ecx": "&([esp + 0x460])",
+    "self_src": "0x47ad4e: lea ecx,[esp + 0x460]"
+  },
+  {
+    "caller_block": "0x47ba34",
+    "call_addr": "0x47ba43",
+    "func_name": "sub_47b2f0",
+    "func_addr": "0x47b2f0",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x47ba3b: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x47ba5a",
+    "call_addr": "0x47ba6c",
+    "func_name": "sub_47b2f0",
+    "func_addr": "0x47b2f0",
+    "self_ecx": "&([esp + 0x24c])",
+    "self_src": "0x47ba61: lea ecx,[esp + 0x24c]"
+  },
+  {
+    "caller_block": "0x47ba83",
+    "call_addr": "0x47ba95",
+    "func_name": "sub_47b2f0",
+    "func_addr": "0x47b2f0",
+    "self_ecx": "&([esp + 0x694])",
+    "self_src": "0x47ba8a: lea ecx,[esp + 0x694]"
+  },
+  {
+    "caller_block": "0x47baac",
+    "call_addr": "0x47bab3",
+    "func_name": "sub_47b2f0",
+    "func_addr": "0x47b2f0",
+    "self_ecx": "&([esp + 0x470])",
+    "self_src": "0x47baac: lea ecx,[esp + 0x470]"
+  },
+  {
+    "caller_block": "0x47bb0e",
+    "call_addr": "0x47bb20",
+    "func_name": "sub_47b2f0",
+    "func_addr": "0x47b2f0",
+    "self_ecx": "&([esp + 0x8b8])",
+    "self_src": "0x47bb0e: lea ecx,[esp + 0x8b8]"
+  },
+  {
+    "caller_block": "0x47d81b",
+    "call_addr": "0x47d833",
+    "func_name": "sub_47d629",
+    "func_addr": "0x47d629",
+    "self_ecx": "&([esp + 0x8b8])",
+    "self_src": "0x47d81b: lea ecx,[esp + 0x8b8]"
+  },
+  {
+    "caller_block": "0x47d5fe",
+    "call_addr": "0x47d616",
+    "func_name": "sub_47ca40",
+    "func_addr": "0x47ca40",
+    "self_ecx": "&([esp + 0x470])",
+    "self_src": "0x47d5fe: lea ecx,[esp + 0x470]"
+  },
+  {
+    "caller_block": "0x47e5a2",
+    "call_addr": "0x47e5b1",
+    "func_name": "sub_47de50",
+    "func_addr": "0x47de50",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x47e5a9: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x47e5c8",
+    "call_addr": "0x47e5da",
+    "func_name": "sub_47de50",
+    "func_addr": "0x47de50",
+    "self_ecx": "&([esp + 0x24c])",
+    "self_src": "0x47e5cf: lea ecx,[esp + 0x24c]"
+  },
+  {
+    "caller_block": "0x47e5f1",
+    "call_addr": "0x47e603",
+    "func_name": "sub_47de50",
+    "func_addr": "0x47de50",
+    "self_ecx": "&([esp + 0x694])",
+    "self_src": "0x47e5f8: lea ecx,[esp + 0x694]"
+  },
+  {
+    "caller_block": "0x47e61a",
+    "call_addr": "0x47e621",
+    "func_name": "sub_47de50",
+    "func_addr": "0x47de50",
+    "self_ecx": "&([esp + 0x470])",
+    "self_src": "0x47e61a: lea ecx,[esp + 0x470]"
+  },
+  {
+    "caller_block": "0x47e67c",
+    "call_addr": "0x47e68e",
+    "func_name": "sub_47de50",
+    "func_addr": "0x47de50",
+    "self_ecx": "&([esp + 0x8b8])",
+    "self_src": "0x47e67c: lea ecx,[esp + 0x8b8]"
+  },
+  {
+    "caller_block": "0x47f746",
+    "call_addr": "0x47f755",
+    "func_name": "sub_47f2ef",
+    "func_addr": "0x47f2ef",
+    "self_ecx": "&([esp + 0x23c])",
+    "self_src": "0x47f746: lea ecx,[esp + 0x23c]"
+  },
+  {
+    "caller_block": "0x47f75a",
+    "call_addr": "0x47f76c",
+    "func_name": "sub_47f2ef",
+    "func_addr": "0x47f2ef",
+    "self_ecx": "&([esp + 0x684])",
+    "self_src": "0x47f75a: lea ecx,[esp + 0x684]"
+  },
+  {
+    "caller_block": "0x47f8ae",
+    "call_addr": "0x47f8bd",
+    "func_name": "sub_47f2ef",
+    "func_addr": "0x47f2ef",
+    "self_ecx": "&([esp + 0xacc])",
+    "self_src": "0x47f8ae: lea ecx,[esp + 0xacc]"
+  },
+  {
+    "caller_block": "0x47f8c2",
+    "call_addr": "0x47f8d4",
+    "func_name": "sub_47f2ef",
+    "func_addr": "0x47f2ef",
+    "self_ecx": "&([esp + 0xf14])",
+    "self_src": "0x47f8c2: lea ecx,[esp + 0xf14]"
+  },
+  {
+    "caller_block": "0x47f5d8",
+    "call_addr": "0x47f5e4",
+    "func_name": "sub_47f2ef",
+    "func_addr": "0x47f2ef",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x47f5d8: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x47f5e9",
+    "call_addr": "0x47f5fb",
+    "func_name": "sub_47f2ef",
+    "func_addr": "0x47f2ef",
+    "self_ecx": "&([esp + 0x8a8])",
+    "self_src": "0x47f5e9: lea ecx,[esp + 0x8a8]"
+  },
+  {
+    "caller_block": "0x47f47a",
+    "call_addr": "0x47f489",
+    "func_name": "sub_47f2ef",
+    "func_addr": "0x47f2ef",
+    "self_ecx": "&([esp + 0xcf0])",
+    "self_src": "0x47f47a: lea ecx,[esp + 0xcf0]"
+  },
+  {
+    "caller_block": "0x47f48e",
+    "call_addr": "0x47f4a0",
+    "func_name": "sub_47f2ef",
+    "func_addr": "0x47f2ef",
+    "self_ecx": "&([esp + 0x460])",
+    "self_src": "0x47f48e: lea ecx,[esp + 0x460]"
+  },
+  {
+    "caller_block": "0x4804ea",
+    "call_addr": "0x4804ee",
+    "func_name": "sub_480310",
+    "func_addr": "0x480310",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4804ea: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x480f1e",
+    "call_addr": "0x480f36",
+    "func_name": "sub_480310",
+    "func_addr": "0x480310",
+    "self_ecx": "&([esp + 0x8b4])",
+    "self_src": "0x480f1e: lea ecx,[esp + 0x8b4]"
+  },
+  {
+    "caller_block": "0x480c76",
+    "call_addr": "0x480c8e",
+    "func_name": "sub_480310",
+    "func_addr": "0x480310",
+    "self_ecx": "&([esp + 0x690])",
+    "self_src": "0x480c76: lea ecx,[esp + 0x690]"
+  },
+  {
+    "caller_block": "0x480671",
+    "call_addr": "0x480678",
+    "func_name": "sub_480310",
+    "func_addr": "0x480310",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x480671: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x481a64",
+    "call_addr": "0x481a73",
+    "func_name": "sub_481320",
+    "func_addr": "0x481320",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x481a6b: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x481a8a",
+    "call_addr": "0x481a9c",
+    "func_name": "sub_481320",
+    "func_addr": "0x481320",
+    "self_ecx": "&([esp + 0x24c])",
+    "self_src": "0x481a91: lea ecx,[esp + 0x24c]"
+  },
+  {
+    "caller_block": "0x481ab3",
+    "call_addr": "0x481ac5",
+    "func_name": "sub_481320",
+    "func_addr": "0x481320",
+    "self_ecx": "&([esp + 0x694])",
+    "self_src": "0x481aba: lea ecx,[esp + 0x694]"
+  },
+  {
+    "caller_block": "0x481adc",
+    "call_addr": "0x481ae3",
+    "func_name": "sub_481320",
+    "func_addr": "0x481320",
+    "self_ecx": "&([esp + 0x470])",
+    "self_src": "0x481adc: lea ecx,[esp + 0x470]"
+  },
+  {
+    "caller_block": "0x481b3e",
+    "call_addr": "0x481b50",
+    "func_name": "sub_481320",
+    "func_addr": "0x481320",
+    "self_ecx": "&([esp + 0x8b8])",
+    "self_src": "0x481b3e: lea ecx,[esp + 0x8b8]"
+  },
+  {
+    "caller_block": "0x482d33",
+    "call_addr": "0x482d42",
+    "func_name": "sub_482550",
+    "func_addr": "0x482550",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x482d33: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x482e3e",
+    "call_addr": "0x482e49",
+    "func_name": "sub_482550",
+    "func_addr": "0x482550",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x482e37: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x482e26",
+    "call_addr": "0x482e32",
+    "func_name": "sub_482550",
+    "func_addr": "0x482550",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x482e26: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x48343e",
+    "call_addr": "0x48344d",
+    "func_name": "sub_482550",
+    "func_addr": "0x482550",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x483445: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x483464",
+    "call_addr": "0x483476",
+    "func_name": "sub_482550",
+    "func_addr": "0x482550",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x48346b: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x48348d",
+    "call_addr": "0x48349f",
+    "func_name": "sub_482550",
+    "func_addr": "0x482550",
+    "self_ecx": "&([esp + 0x6b0])",
+    "self_src": "0x483494: lea ecx,[esp + 0x6b0]"
+  },
+  {
+    "caller_block": "0x4834b6",
+    "call_addr": "0x4834bd",
+    "func_name": "sub_482550",
+    "func_addr": "0x482550",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x4834b6: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x483518",
+    "call_addr": "0x48352a",
+    "func_name": "sub_482550",
+    "func_addr": "0x482550",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x483518: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x484572",
+    "call_addr": "0x484581",
+    "func_name": "sub_48411a",
+    "func_addr": "0x48411a",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x484572: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x48467d",
+    "call_addr": "0x484688",
+    "func_name": "sub_48411a",
+    "func_addr": "0x48411a",
+    "self_ecx": null,
+    "self_src": null
+  },
+  {
+    "caller_block": "0x484665",
+    "call_addr": "0x484671",
+    "func_name": "sub_48411a",
+    "func_addr": "0x48411a",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x484665: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x484c28",
+    "call_addr": "0x484c37",
+    "func_name": "sub_48411a",
+    "func_addr": "0x48411a",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x484c2f: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x484c4e",
+    "call_addr": "0x484c60",
+    "func_name": "sub_48411a",
+    "func_addr": "0x48411a",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x484c55: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x484c77",
+    "call_addr": "0x484c89",
+    "func_name": "sub_48411a",
+    "func_addr": "0x48411a",
+    "self_ecx": "&([esp + 0x6ac])",
+    "self_src": "0x484c7e: lea ecx,[esp + 0x6ac]"
+  },
+  {
+    "caller_block": "0x484ca0",
+    "call_addr": "0x484ca7",
+    "func_name": "sub_48411a",
+    "func_addr": "0x48411a",
+    "self_ecx": "&([esp + 0x488])",
+    "self_src": "0x484ca0: lea ecx,[esp + 0x488]"
+  },
+  {
+    "caller_block": "0x484d02",
+    "call_addr": "0x484d14",
+    "func_name": "sub_48411a",
+    "func_addr": "0x48411a",
+    "self_ecx": "&([esp + 0x8d0])",
+    "self_src": "0x484d02: lea ecx,[esp + 0x8d0]"
+  },
+  {
+    "caller_block": "0x48543f",
+    "call_addr": "0x48544e",
+    "func_name": "sub_48500f",
+    "func_addr": "0x48500f",
+    "self_ecx": "&([esp + 0x23c])",
+    "self_src": "0x48543f: lea ecx,[esp + 0x23c]"
+  },
+  {
+    "caller_block": "0x485453",
+    "call_addr": "0x485465",
+    "func_name": "sub_48500f",
+    "func_addr": "0x48500f",
+    "self_ecx": "&([esp + 0x684])",
+    "self_src": "0x485453: lea ecx,[esp + 0x684]"
+  },
+  {
+    "caller_block": "0x4855a7",
+    "call_addr": "0x4855b6",
+    "func_name": "sub_48500f",
+    "func_addr": "0x48500f",
+    "self_ecx": "&([esp + 0xacc])",
+    "self_src": "0x4855a7: lea ecx,[esp + 0xacc]"
+  },
+  {
+    "caller_block": "0x4855bb",
+    "call_addr": "0x4855cd",
+    "func_name": "sub_48500f",
+    "func_addr": "0x48500f",
+    "self_ecx": "&([esp + 0xf14])",
+    "self_src": "0x4855bb: lea ecx,[esp + 0xf14]"
+  },
+  {
+    "caller_block": "0x4852f8",
+    "call_addr": "0x485304",
+    "func_name": "sub_48500f",
+    "func_addr": "0x48500f",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x4852f8: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x485309",
+    "call_addr": "0x48531b",
+    "func_name": "sub_48500f",
+    "func_addr": "0x48500f",
+    "self_ecx": "&([esp + 0x8a8])",
+    "self_src": "0x485309: lea ecx,[esp + 0x8a8]"
+  },
+  {
+    "caller_block": "0x48519a",
+    "call_addr": "0x4851a9",
+    "func_name": "sub_48500f",
+    "func_addr": "0x48500f",
+    "self_ecx": "&([esp + 0xcf0])",
+    "self_src": "0x48519a: lea ecx,[esp + 0xcf0]"
+  },
+  {
+    "caller_block": "0x4851ae",
+    "call_addr": "0x4851c0",
+    "func_name": "sub_48500f",
+    "func_addr": "0x48500f",
+    "self_ecx": "&([esp + 0x460])",
+    "self_src": "0x4851ae: lea ecx,[esp + 0x460]"
+  },
+  {
+    "caller_block": "0x487d27",
+    "call_addr": "0x487d33",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x487d27: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x487c40",
+    "call_addr": "0x487c49",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "edi",
+    "self_src": "0x487c40: mov ecx,edi"
+  },
+  {
+    "caller_block": "0x487d3f",
+    "call_addr": "0x487d4a",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x487d38: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x487086",
+    "call_addr": "0x487097",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x487086: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x4870d5",
+    "call_addr": "0x4870e4",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x4870d5: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x48713f",
+    "call_addr": "0x487150",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x48713f: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x487191",
+    "call_addr": "0x4871a0",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x487191: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x4871d7",
+    "call_addr": "0x4871e6",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x4871d7: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x487268",
+    "call_addr": "0x487278",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x48726b: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x4872bf",
+    "call_addr": "0x4872ca",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x4872bf: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x48732f",
+    "call_addr": "0x487340",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x48732f: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x487383",
+    "call_addr": "0x487391",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x487386: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x4873d5",
+    "call_addr": "0x4873e0",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x4873d5: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x4a18a7",
+    "call_addr": "0x4a18bb",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x46c])",
+    "self_src": "0x4a18a7: lea ecx,[esp + 0x46c]"
+  },
+  {
+    "caller_block": "0x4a1924",
+    "call_addr": "0x4a1937",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x46c])",
+    "self_src": "0x4a1924: lea ecx,[esp + 0x46c]"
+  },
+  {
+    "caller_block": "0x4a193c",
+    "call_addr": "0x4a194e",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x690])",
+    "self_src": "0x4a193c: lea ecx,[esp + 0x690]"
+  },
+  {
+    "caller_block": "0x4a19b7",
+    "call_addr": "0x4a19c8",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x690])",
+    "self_src": "0x4a19b7: lea ecx,[esp + 0x690]"
+  },
+  {
+    "caller_block": "0x4a19cd",
+    "call_addr": "0x4a19df",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x46c])",
+    "self_src": "0x4a19cd: lea ecx,[esp + 0x46c]"
+  },
+  {
+    "caller_block": "0x4a1aed",
+    "call_addr": "0x4a1aff",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x690])",
+    "self_src": "0x4a1af4: lea ecx,[esp + 0x690]"
+  },
+  {
+    "caller_block": "0x4a1b16",
+    "call_addr": "0x4a1b28",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x46c])",
+    "self_src": "0x4a1b1d: lea ecx,[esp + 0x46c]"
+  },
+  {
+    "caller_block": "0x4a1b3f",
+    "call_addr": "0x4a1b51",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x8b4])",
+    "self_src": "0x4a1b46: lea ecx,[esp + 0x8b4]"
+  },
+  {
+    "caller_block": "0x4a1b68",
+    "call_addr": "0x4a1b7a",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x4a1b6f: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x4a1b91",
+    "call_addr": "0x4a1ba0",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4a1b98: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4a1bf0",
+    "call_addr": "0x4a1c03",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4a1bf0: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4a1c63",
+    "call_addr": "0x4a1c73",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4a1c63: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4a1c78",
+    "call_addr": "0x4a1c8a",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x4a1c78: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x4a1cea",
+    "call_addr": "0x4a1cf8",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4a1cec: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4a1cfd",
+    "call_addr": "0x4a1d0f",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x4a1cfd: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x4a1e32",
+    "call_addr": "0x4a1e3f",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4a1e37: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4a1e58",
+    "call_addr": "0x4a1e68",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x4a1e5d: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x4a1e80",
+    "call_addr": "0x4a1e94",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x8b4])",
+    "self_src": "0x4a1e89: lea ecx,[esp + 0x8b4]"
+  },
+  {
+    "caller_block": "0x4a1eab",
+    "call_addr": "0x4a1ebd",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x690])",
+    "self_src": "0x4a1eb2: lea ecx,[esp + 0x690]"
+  },
+  {
+    "caller_block": "0x4a1ed3",
+    "call_addr": "0x4a1ee5",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x46c])",
+    "self_src": "0x4a1eda: lea ecx,[esp + 0x46c]"
+  },
+  {
+    "caller_block": "0x4a1f35",
+    "call_addr": "0x4a1f42",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4a1f35: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4a1fa2",
+    "call_addr": "0x4a1fb2",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4a1fa2: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4a1fb7",
+    "call_addr": "0x4a1fc9",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x4a1fb7: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x4a2029",
+    "call_addr": "0x4a2037",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4a202b: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4a203c",
+    "call_addr": "0x4a204e",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x4a203c: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x4a217f",
+    "call_addr": "0x4a218c",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4a2184: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4a21a5",
+    "call_addr": "0x4a21b5",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x4a21aa: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x4a21ce",
+    "call_addr": "0x4a21de",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x8b4])",
+    "self_src": "0x4a21d3: lea ecx,[esp + 0x8b4]"
+  },
+  {
+    "caller_block": "0x4a21f7",
+    "call_addr": "0x4a2207",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x690])",
+    "self_src": "0x4a21fc: lea ecx,[esp + 0x690]"
+  },
+  {
+    "caller_block": "0x4a2220",
+    "call_addr": "0x4a2230",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x46c])",
+    "self_src": "0x4a2225: lea ecx,[esp + 0x46c]"
+  },
+  {
+    "caller_block": "0x4a227e",
+    "call_addr": "0x4a228f",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4a227e: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4a22f1",
+    "call_addr": "0x4a2301",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4a22f1: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4a2306",
+    "call_addr": "0x4a2318",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x4a2306: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x4a2374",
+    "call_addr": "0x4a2382",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4a2374: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4a2387",
+    "call_addr": "0x4a2399",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x4a2387: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x4a24bc",
+    "call_addr": "0x4a24cd",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0xcfc])",
+    "self_src": "0x4a24c2: lea ecx,[esp + 0xcfc]"
+  },
+  {
+    "caller_block": "0x4a24e5",
+    "call_addr": "0x4a24f6",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x1144])",
+    "self_src": "0x4a24eb: lea ecx,[esp + 0x1144]"
+  },
+  {
+    "caller_block": "0x4a250e",
+    "call_addr": "0x4a251f",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0xad8])",
+    "self_src": "0x4a2514: lea ecx,[esp + 0xad8]"
+  },
+  {
+    "caller_block": "0x4a2537",
+    "call_addr": "0x4a2548",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0xf20])",
+    "self_src": "0x4a253d: lea ecx,[esp + 0xf20]"
+  },
+  {
+    "caller_block": "0x4a2560",
+    "call_addr": "0x4a2567",
+    "func_name": "sub_4a1740",
+    "func_addr": "0x4a1740",
+    "self_ecx": "&([esp + 0x1368])",
+    "self_src": "0x4a2560: lea ecx,[esp + 0x1368]"
+  },
+  {
+    "caller_block": "0x48744f",
+    "call_addr": "0x48745e",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x48744f: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x487487",
+    "call_addr": "0x487496",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x487487: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x488379",
+    "call_addr": "0x48838a",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x488382: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x4883a1",
+    "call_addr": "0x4883b3",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x4883a8: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x4883ca",
+    "call_addr": "0x4883dc",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x6ac])",
+    "self_src": "0x4883d1: lea ecx,[esp + 0x6ac]"
+  },
+  {
+    "caller_block": "0x4883f3",
+    "call_addr": "0x4883fa",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x488])",
+    "self_src": "0x4883f3: lea ecx,[esp + 0x488]"
+  },
+  {
+    "caller_block": "0x488458",
+    "call_addr": "0x48846a",
+    "func_name": "sub_486ea0",
+    "func_addr": "0x486ea0",
+    "self_ecx": "&([esp + 0x8d0])",
+    "self_src": "0x488458: lea ecx,[esp + 0x8d0]"
+  },
+  {
+    "caller_block": "0x48902c",
+    "call_addr": "0x48903b",
+    "func_name": "sub_488adf",
+    "func_addr": "0x488adf",
+    "self_ecx": "&([esp + 0x690])",
+    "self_src": "0x48902c: lea ecx,[esp + 0x690]"
+  },
+  {
+    "caller_block": "0x489040",
+    "call_addr": "0x489052",
+    "func_name": "sub_488adf",
+    "func_addr": "0x488adf",
+    "self_ecx": "&([esp + 0xad8])",
+    "self_src": "0x489040: lea ecx,[esp + 0xad8]"
+  },
+  {
+    "caller_block": "0x488c65",
+    "call_addr": "0x488c74",
+    "func_name": "sub_488adf",
+    "func_addr": "0x488adf",
+    "self_ecx": "&([esp + 0xcfc])",
+    "self_src": "0x488c65: lea ecx,[esp + 0xcfc]"
+  },
+  {
+    "caller_block": "0x488c79",
+    "call_addr": "0x488c8b",
+    "func_name": "sub_488adf",
+    "func_addr": "0x488adf",
+    "self_ecx": "&([esp + 0x46c])",
+    "self_src": "0x488c79: lea ecx,[esp + 0x46c]"
+  },
+  {
+    "caller_block": "0x489192",
+    "call_addr": "0x4891a1",
+    "func_name": "sub_488adf",
+    "func_addr": "0x488adf",
+    "self_ecx": "&([esp + 0xf20])",
+    "self_src": "0x489192: lea ecx,[esp + 0xf20]"
+  },
+  {
+    "caller_block": "0x4891a6",
+    "call_addr": "0x4891b8",
+    "func_name": "sub_488adf",
+    "func_addr": "0x488adf",
+    "self_ecx": "&([esp + 0x1368])",
+    "self_src": "0x4891a6: lea ecx,[esp + 0x1368]"
+  },
+  {
+    "caller_block": "0x488dd3",
+    "call_addr": "0x488ddf",
+    "func_name": "sub_488adf",
+    "func_addr": "0x488adf",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x488dd3: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x488de4",
+    "call_addr": "0x488df6",
+    "func_name": "sub_488adf",
+    "func_addr": "0x488adf",
+    "self_ecx": "&([esp + 0x8b4])",
+    "self_src": "0x488de4: lea ecx,[esp + 0x8b4]"
+  },
+  {
+    "caller_block": "0x488ee2",
+    "call_addr": "0x488ef1",
+    "func_name": "sub_488adf",
+    "func_addr": "0x488adf",
+    "self_ecx": "&([esp + 0x1144])",
+    "self_src": "0x488ee2: lea ecx,[esp + 0x1144]"
+  },
+  {
+    "caller_block": "0x488ef6",
+    "call_addr": "0x488f08",
+    "func_name": "sub_488adf",
+    "func_addr": "0x488adf",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x488ef6: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x489dc0",
+    "call_addr": "0x489dcf",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x1bfc])",
+    "self_src": "0x489dc0: lea ecx,[esp + 0x1bfc]"
+  },
+  {
+    "caller_block": "0x489dd4",
+    "call_addr": "0x489de2",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x64c4])",
+    "self_src": "0x489dd4: lea ecx,[esp + 0x64c4]"
+  },
+  {
+    "caller_block": "0x489f22",
+    "call_addr": "0x489f31",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x2044])",
+    "self_src": "0x489f22: lea ecx,[esp + 0x2044]"
+  },
+  {
+    "caller_block": "0x489f36",
+    "call_addr": "0x489f45",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x4f5c])",
+    "self_src": "0x489f36: lea ecx,[esp + 0x4f5c]"
+  },
+  {
+    "caller_block": "0x489f4a",
+    "call_addr": "0x489f59",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x248c])",
+    "self_src": "0x489f4a: lea ecx,[esp + 0x248c]"
+  },
+  {
+    "caller_block": "0x489f5e",
+    "call_addr": "0x489f6c",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x719c])",
+    "self_src": "0x489f5e: lea ecx,[esp + 0x719c]"
+  },
+  {
+    "caller_block": "0x48a0a6",
+    "call_addr": "0x48a0b5",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x28d4])",
+    "self_src": "0x48a0a6: lea ecx,[esp + 0x28d4]"
+  },
+  {
+    "caller_block": "0x48a0ba",
+    "call_addr": "0x48a0c9",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x53a4])",
+    "self_src": "0x48a0ba: lea ecx,[esp + 0x53a4]"
+  },
+  {
+    "caller_block": "0x48a0ce",
+    "call_addr": "0x48a0dd",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x2d1c])",
+    "self_src": "0x48a0ce: lea ecx,[esp + 0x2d1c]"
+  },
+  {
+    "caller_block": "0x48a0e2",
+    "call_addr": "0x48a0f0",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x690c])",
+    "self_src": "0x48a0e9: lea ecx,[esp + 0x690c]"
+  },
+  {
+    "caller_block": "0x48a6f8",
+    "call_addr": "0x48a707",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x1148])",
+    "self_src": "0x48a6f8: lea ecx,[esp + 0x1148]"
+  },
+  {
+    "caller_block": "0x48a70c",
+    "call_addr": "0x48a71a",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x1590])",
+    "self_src": "0x48a70c: lea ecx,[esp + 0x1590]"
+  },
+  {
+    "caller_block": "0x48a2ab",
+    "call_addr": "0x48a2ba",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x3164])",
+    "self_src": "0x48a2ab: lea ecx,[esp + 0x3164]"
+  },
+  {
+    "caller_block": "0x48a2bf",
+    "call_addr": "0x48a2ce",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x57ec])",
+    "self_src": "0x48a2bf: lea ecx,[esp + 0x57ec]"
+  },
+  {
+    "caller_block": "0x48a2d3",
+    "call_addr": "0x48a2e1",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x35ac])",
+    "self_src": "0x48a2d3: lea ecx,[esp + 0x35ac]"
+  },
+  {
+    "caller_block": "0x48a41e",
+    "call_addr": "0x48a42d",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x7a2c])",
+    "self_src": "0x48a41e: lea ecx,[esp + 0x7a2c]"
+  },
+  {
+    "caller_block": "0x48a432",
+    "call_addr": "0x48a43e",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x28])",
+    "self_src": "0x48a432: lea ecx,[esp + 0x28]"
+  },
+  {
+    "caller_block": "0x48a443",
+    "call_addr": "0x48a452",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x5c34])",
+    "self_src": "0x48a443: lea ecx,[esp + 0x5c34]"
+  },
+  {
+    "caller_block": "0x48a457",
+    "call_addr": "0x48a465",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x3e3c])",
+    "self_src": "0x48a457: lea ecx,[esp + 0x3e3c]"
+  },
+  {
+    "caller_block": "0x48a59f",
+    "call_addr": "0x48a5ae",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x24c])",
+    "self_src": "0x48a59f: lea ecx,[esp + 0x24c]"
+  },
+  {
+    "caller_block": "0x48a5b3",
+    "call_addr": "0x48a5c2",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x470])",
+    "self_src": "0x48a5b3: lea ecx,[esp + 0x470]"
+  },
+  {
+    "caller_block": "0x48a5c7",
+    "call_addr": "0x48a5d6",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x8b8])",
+    "self_src": "0x48a5c7: lea ecx,[esp + 0x8b8]"
+  },
+  {
+    "caller_block": "0x48a5db",
+    "call_addr": "0x48a5e9",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0xd00])",
+    "self_src": "0x48a5e2: lea ecx,[esp + 0xd00]"
+  },
+  {
+    "caller_block": "0x48b257",
+    "call_addr": "0x48b266",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x73c0])",
+    "self_src": "0x48b257: lea ecx,[esp + 0x73c0]"
+  },
+  {
+    "caller_block": "0x48b26b",
+    "call_addr": "0x48b27a",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x7808])",
+    "self_src": "0x48b26b: lea ecx,[esp + 0x7808]"
+  },
+  {
+    "caller_block": "0x48b27f",
+    "call_addr": "0x48b28d",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x7c50])",
+    "self_src": "0x48b27f: lea ecx,[esp + 0x7c50]"
+  },
+  {
+    "caller_block": "0x48b0f5",
+    "call_addr": "0x48b104",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x66e8])",
+    "self_src": "0x48b0f5: lea ecx,[esp + 0x66e8]"
+  },
+  {
+    "caller_block": "0x48b109",
+    "call_addr": "0x48b118",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x6b30])",
+    "self_src": "0x48b109: lea ecx,[esp + 0x6b30]"
+  },
+  {
+    "caller_block": "0x48b11d",
+    "call_addr": "0x48b12b",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x6f78])",
+    "self_src": "0x48b11d: lea ecx,[esp + 0x6f78]"
+  },
+  {
+    "caller_block": "0x48a9db",
+    "call_addr": "0x48a9ea",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x26b0])",
+    "self_src": "0x48a9db: lea ecx,[esp + 0x26b0]"
+  },
+  {
+    "caller_block": "0x48a9ef",
+    "call_addr": "0x48a9fe",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x2af8])",
+    "self_src": "0x48a9ef: lea ecx,[esp + 0x2af8]"
+  },
+  {
+    "caller_block": "0x48aa03",
+    "call_addr": "0x48aa11",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x2f40])",
+    "self_src": "0x48aa03: lea ecx,[esp + 0x2f40]"
+  },
+  {
+    "caller_block": "0x48a870",
+    "call_addr": "0x48a87f",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x19d8])",
+    "self_src": "0x48a870: lea ecx,[esp + 0x19d8]"
+  },
+  {
+    "caller_block": "0x48a884",
+    "call_addr": "0x48a893",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x1e20])",
+    "self_src": "0x48a884: lea ecx,[esp + 0x1e20]"
+  },
+  {
+    "caller_block": "0x48a898",
+    "call_addr": "0x48a8a6",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x2268])",
+    "self_src": "0x48a898: lea ecx,[esp + 0x2268]"
+  },
+  {
+    "caller_block": "0x48ae19",
+    "call_addr": "0x48ae28",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x4d38])",
+    "self_src": "0x48ae19: lea ecx,[esp + 0x4d38]"
+  },
+  {
+    "caller_block": "0x48ae2d",
+    "call_addr": "0x48ae3c",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x5180])",
+    "self_src": "0x48ae2d: lea ecx,[esp + 0x5180]"
+  },
+  {
+    "caller_block": "0x48ae41",
+    "call_addr": "0x48ae4f",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x55c8])",
+    "self_src": "0x48ae41: lea ecx,[esp + 0x55c8]"
+  },
+  {
+    "caller_block": "0x48ac9f",
+    "call_addr": "0x48acae",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x4060])",
+    "self_src": "0x48ac9f: lea ecx,[esp + 0x4060]"
+  },
+  {
+    "caller_block": "0x48acb3",
+    "call_addr": "0x48acc2",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x44a8])",
+    "self_src": "0x48acb3: lea ecx,[esp + 0x44a8]"
+  },
+  {
+    "caller_block": "0x48acc7",
+    "call_addr": "0x48acd5",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x48f0])",
+    "self_src": "0x48acc7: lea ecx,[esp + 0x48f0]"
+  },
+  {
+    "caller_block": "0x48ab3d",
+    "call_addr": "0x48ab4c",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x3388])",
+    "self_src": "0x48ab3d: lea ecx,[esp + 0x3388]"
+  },
+  {
+    "caller_block": "0x48ab51",
+    "call_addr": "0x48ab60",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x37d0])",
+    "self_src": "0x48ab51: lea ecx,[esp + 0x37d0]"
+  },
+  {
+    "caller_block": "0x48ab65",
+    "call_addr": "0x48ab73",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x3c18])",
+    "self_src": "0x48ab65: lea ecx,[esp + 0x3c18]"
+  },
+  {
+    "caller_block": "0x48af93",
+    "call_addr": "0x48afa2",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x5a10])",
+    "self_src": "0x48af93: lea ecx,[esp + 0x5a10]"
+  },
+  {
+    "caller_block": "0x48afa7",
+    "call_addr": "0x48afb6",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x5e58])",
+    "self_src": "0x48afa7: lea ecx,[esp + 0x5e58]"
+  },
+  {
+    "caller_block": "0x48afbb",
+    "call_addr": "0x48afc9",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x62a0])",
+    "self_src": "0x48afbb: lea ecx,[esp + 0x62a0]"
+  },
+  {
+    "caller_block": "0x48976e",
+    "call_addr": "0x48977d",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x39f4])",
+    "self_src": "0x48976e: lea ecx,[esp + 0x39f4]"
+  },
+  {
+    "caller_block": "0x489782",
+    "call_addr": "0x489791",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x6d54])",
+    "self_src": "0x489782: lea ecx,[esp + 0x6d54]"
+  },
+  {
+    "caller_block": "0x489796",
+    "call_addr": "0x4897a4",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x694])",
+    "self_src": "0x489796: lea ecx,[esp + 0x694]"
+  },
+  {
+    "caller_block": "0x48990c",
+    "call_addr": "0x48991b",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x4284])",
+    "self_src": "0x48990c: lea ecx,[esp + 0x4284]"
+  },
+  {
+    "caller_block": "0x489920",
+    "call_addr": "0x48992f",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0xadc])",
+    "self_src": "0x489920: lea ecx,[esp + 0xadc]"
+  },
+  {
+    "caller_block": "0x489934",
+    "call_addr": "0x489942",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x607c])",
+    "self_src": "0x489934: lea ecx,[esp + 0x607c]"
+  },
+  {
+    "caller_block": "0x489aa1",
+    "call_addr": "0x489ab0",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0xf24])",
+    "self_src": "0x489aa1: lea ecx,[esp + 0xf24]"
+  },
+  {
+    "caller_block": "0x489ab5",
+    "call_addr": "0x489ac4",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x46cc])",
+    "self_src": "0x489ab5: lea ecx,[esp + 0x46cc]"
+  },
+  {
+    "caller_block": "0x489ac9",
+    "call_addr": "0x489ad7",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x136c])",
+    "self_src": "0x489ac9: lea ecx,[esp + 0x136c]"
+  },
+  {
+    "caller_block": "0x489c36",
+    "call_addr": "0x489c45",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x75e4])",
+    "self_src": "0x489c36: lea ecx,[esp + 0x75e4]"
+  },
+  {
+    "caller_block": "0x489c4a",
+    "call_addr": "0x489c59",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x17b4])",
+    "self_src": "0x489c4a: lea ecx,[esp + 0x17b4]"
+  },
+  {
+    "caller_block": "0x489c5e",
+    "call_addr": "0x489c6c",
+    "func_name": "sub_48959f",
+    "func_addr": "0x48959f",
+    "self_ecx": "&([esp + 0x4b14])",
+    "self_src": "0x489c5e: lea ecx,[esp + 0x4b14]"
+  },
+  {
+    "caller_block": "0x48d63f",
+    "call_addr": "0x48d64e",
+    "func_name": "sub_48d20f",
+    "func_addr": "0x48d20f",
+    "self_ecx": "&([esp + 0x23c])",
+    "self_src": "0x48d63f: lea ecx,[esp + 0x23c]"
+  },
+  {
+    "caller_block": "0x48d653",
+    "call_addr": "0x48d665",
+    "func_name": "sub_48d20f",
+    "func_addr": "0x48d20f",
+    "self_ecx": "&([esp + 0x684])",
+    "self_src": "0x48d653: lea ecx,[esp + 0x684]"
+  },
+  {
+    "caller_block": "0x48d7a7",
+    "call_addr": "0x48d7b6",
+    "func_name": "sub_48d20f",
+    "func_addr": "0x48d20f",
+    "self_ecx": "&([esp + 0xacc])",
+    "self_src": "0x48d7a7: lea ecx,[esp + 0xacc]"
+  },
+  {
+    "caller_block": "0x48d7bb",
+    "call_addr": "0x48d7cd",
+    "func_name": "sub_48d20f",
+    "func_addr": "0x48d20f",
+    "self_ecx": "&([esp + 0xf14])",
+    "self_src": "0x48d7bb: lea ecx,[esp + 0xf14]"
+  },
+  {
+    "caller_block": "0x48d4f8",
+    "call_addr": "0x48d504",
+    "func_name": "sub_48d20f",
+    "func_addr": "0x48d20f",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x48d4f8: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x48d509",
+    "call_addr": "0x48d51b",
+    "func_name": "sub_48d20f",
+    "func_addr": "0x48d20f",
+    "self_ecx": "&([esp + 0x8a8])",
+    "self_src": "0x48d509: lea ecx,[esp + 0x8a8]"
+  },
+  {
+    "caller_block": "0x48d39a",
+    "call_addr": "0x48d3a9",
+    "func_name": "sub_48d20f",
+    "func_addr": "0x48d20f",
+    "self_ecx": "&([esp + 0xcf0])",
+    "self_src": "0x48d39a: lea ecx,[esp + 0xcf0]"
+  },
+  {
+    "caller_block": "0x48d3ae",
+    "call_addr": "0x48d3c0",
+    "func_name": "sub_48d20f",
+    "func_addr": "0x48d20f",
+    "self_ecx": "&([esp + 0x460])",
+    "self_src": "0x48d3ae: lea ecx,[esp + 0x460]"
+  },
+  {
+    "caller_block": "0x48daf1",
+    "call_addr": "0x48db00",
+    "func_name": "sub_48d98d",
+    "func_addr": "0x48d98d",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x48daf1: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x48e752",
+    "call_addr": "0x48e761",
+    "func_name": "sub_48e2fa",
+    "func_addr": "0x48e2fa",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x48e752: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x48e85d",
+    "call_addr": "0x48e868",
+    "func_name": "sub_48e2fa",
+    "func_addr": "0x48e2fa",
+    "self_ecx": null,
+    "self_src": null
+  },
+  {
+    "caller_block": "0x48e845",
+    "call_addr": "0x48e851",
+    "func_name": "sub_48e2fa",
+    "func_addr": "0x48e2fa",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x48e845: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x48ee2b",
+    "call_addr": "0x48ee3a",
+    "func_name": "sub_48e2fa",
+    "func_addr": "0x48e2fa",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x48ee32: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x48ee51",
+    "call_addr": "0x48ee63",
+    "func_name": "sub_48e2fa",
+    "func_addr": "0x48e2fa",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x48ee58: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x48ee7a",
+    "call_addr": "0x48ee8c",
+    "func_name": "sub_48e2fa",
+    "func_addr": "0x48e2fa",
+    "self_ecx": "&([esp + 0x6ac])",
+    "self_src": "0x48ee81: lea ecx,[esp + 0x6ac]"
+  },
+  {
+    "caller_block": "0x48eea3",
+    "call_addr": "0x48eeaa",
+    "func_name": "sub_48e2fa",
+    "func_addr": "0x48e2fa",
+    "self_ecx": "&([esp + 0x488])",
+    "self_src": "0x48eea3: lea ecx,[esp + 0x488]"
+  },
+  {
+    "caller_block": "0x48ef05",
+    "call_addr": "0x48ef17",
+    "func_name": "sub_48e2fa",
+    "func_addr": "0x48e2fa",
+    "self_ecx": "&([esp + 0x8d0])",
+    "self_src": "0x48ef05: lea ecx,[esp + 0x8d0]"
+  },
+  {
+    "caller_block": "0x48f821",
+    "call_addr": "0x48f837",
+    "func_name": "sub_48f31f",
+    "func_addr": "0x48f31f",
+    "self_ecx": "&([esp + 0x19f0])",
+    "self_src": "0x48f821: lea ecx,[esp + 0x19f0]"
+  },
+  {
+    "caller_block": "0x48f8eb",
+    "call_addr": "0x48f8fd",
+    "func_name": "sub_48f31f",
+    "func_addr": "0x48f31f",
+    "self_ecx": "&([esp + 0x1e38])",
+    "self_src": "0x48f8eb: lea ecx,[esp + 0x1e38]"
+  },
+  {
+    "caller_block": "0x48facd",
+    "call_addr": "0x48fae1",
+    "func_name": "sub_48f31f",
+    "func_addr": "0x48f31f",
+    "self_ecx": "&([esp + 0xf3c])",
+    "self_src": "0x48facf: lea ecx,[esp + 0xf3c]"
+  },
+  {
+    "caller_block": "0x48fae6",
+    "call_addr": "0x48faf5",
+    "func_name": "sub_48f31f",
+    "func_addr": "0x48f31f",
+    "self_ecx": "&([esp + 0x205c])",
+    "self_src": "0x48fae6: lea ecx,[esp + 0x205c]"
+  },
+  {
+    "caller_block": "0x48fafa",
+    "call_addr": "0x48fb09",
+    "func_name": "sub_48f31f",
+    "func_addr": "0x48f31f",
+    "self_ecx": "&([esp + 0x1384])",
+    "self_src": "0x48fafa: lea ecx,[esp + 0x1384]"
+  },
+  {
+    "caller_block": "0x48fb0e",
+    "call_addr": "0x48fb20",
+    "func_name": "sub_48f31f",
+    "func_addr": "0x48f31f",
+    "self_ecx": "&([esp + 0x1c14])",
+    "self_src": "0x48fb0e: lea ecx,[esp + 0x1c14]"
+  },
+  {
+    "caller_block": "0x48fc6c",
+    "call_addr": "0x48fc82",
+    "func_name": "sub_48f31f",
+    "func_addr": "0x48f31f",
+    "self_ecx": "&([esp + 0x8d0])",
+    "self_src": "0x48fc6e: lea ecx,[esp + 0x8d0]"
+  },
+  {
+    "caller_block": "0x48fc87",
+    "call_addr": "0x48fc96",
+    "func_name": "sub_48f31f",
+    "func_addr": "0x48f31f",
+    "self_ecx": "&([esp + 0x6ac])",
+    "self_src": "0x48fc87: lea ecx,[esp + 0x6ac]"
+  },
+  {
+    "caller_block": "0x48fc9b",
+    "call_addr": "0x48fcaa",
+    "func_name": "sub_48f31f",
+    "func_addr": "0x48f31f",
+    "self_ecx": "&([esp + 0x488])",
+    "self_src": "0x48fc9b: lea ecx,[esp + 0x488]"
+  },
+  {
+    "caller_block": "0x48fcaf",
+    "call_addr": "0x48fcc1",
+    "func_name": "sub_48f31f",
+    "func_addr": "0x48f31f",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x48fcaf: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x48fd0b",
+    "call_addr": "0x48fd1f",
+    "func_name": "sub_48f31f",
+    "func_addr": "0x48f31f",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x48fd0d: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x48fb73",
+    "call_addr": "0x48fb8a",
+    "func_name": "sub_48f31f",
+    "func_addr": "0x48f31f",
+    "self_ecx": "&([esp + 0x17cc])",
+    "self_src": "0x48fb75: lea ecx,[esp + 0x17cc]"
+  },
+  {
+    "caller_block": "0x490d97",
+    "call_addr": "0x490da6",
+    "func_name": "sub_49094a",
+    "func_addr": "0x49094a",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x490d97: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x490ea2",
+    "call_addr": "0x490ead",
+    "func_name": "sub_49094a",
+    "func_addr": "0x49094a",
+    "self_ecx": null,
+    "self_src": null
+  },
+  {
+    "caller_block": "0x490e8a",
+    "call_addr": "0x490e96",
+    "func_name": "sub_49094a",
+    "func_addr": "0x49094a",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x490e8a: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x4916a6",
+    "call_addr": "0x4916b5",
+    "func_name": "sub_49094a",
+    "func_addr": "0x49094a",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x4916ad: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x4916cc",
+    "call_addr": "0x4916de",
+    "func_name": "sub_49094a",
+    "func_addr": "0x49094a",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x4916d3: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x4916f5",
+    "call_addr": "0x491707",
+    "func_name": "sub_49094a",
+    "func_addr": "0x49094a",
+    "self_ecx": "&([esp + 0x6ac])",
+    "self_src": "0x4916fc: lea ecx,[esp + 0x6ac]"
+  },
+  {
+    "caller_block": "0x49171e",
+    "call_addr": "0x491725",
+    "func_name": "sub_49094a",
+    "func_addr": "0x49094a",
+    "self_ecx": "&([esp + 0x488])",
+    "self_src": "0x49171e: lea ecx,[esp + 0x488]"
+  },
+  {
+    "caller_block": "0x491780",
+    "call_addr": "0x491792",
+    "func_name": "sub_49094a",
+    "func_addr": "0x49094a",
+    "self_ecx": "&([esp + 0x8d0])",
+    "self_src": "0x491780: lea ecx,[esp + 0x8d0]"
+  },
+  {
+    "caller_block": "0x4925fa",
+    "call_addr": "0x49260f",
+    "func_name": "sub_4921e0",
+    "func_addr": "0x4921e0",
+    "self_ecx": "&([esp + 0x34])",
+    "self_src": "0x4925fc: lea ecx,[esp + 0x34]"
+  },
+  {
+    "caller_block": "0x492638",
+    "call_addr": "0x49264e",
+    "func_name": "sub_4921e0",
+    "func_addr": "0x4921e0",
+    "self_ecx": "&([esp + 0x34])",
+    "self_src": "0x49263a: lea ecx,[esp + 0x34]"
+  },
+  {
+    "caller_block": "0x4930df",
+    "call_addr": "0x4930f3",
+    "func_name": "sub_492f50",
+    "func_addr": "0x492f50",
+    "self_ecx": "&([esp + 0x460])",
+    "self_src": "0x4930e1: lea ecx,[esp + 0x460]"
+  },
+  {
+    "caller_block": "0x4930f8",
+    "call_addr": "0x493104",
+    "func_name": "sub_492f50",
+    "func_addr": "0x492f50",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x4930f8: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x493109",
+    "call_addr": "0x49311b",
+    "func_name": "sub_492f50",
+    "func_addr": "0x492f50",
+    "self_ecx": "&([esp + 0x8a8])",
+    "self_src": "0x493109: lea ecx,[esp + 0x8a8]"
+  },
+  {
+    "caller_block": "0x493266",
+    "call_addr": "0x49327a",
+    "func_name": "sub_492f50",
+    "func_addr": "0x492f50",
+    "self_ecx": "&([esp + 0x23c])",
+    "self_src": "0x493268: lea ecx,[esp + 0x23c]"
+  },
+  {
+    "caller_block": "0x49327f",
+    "call_addr": "0x49328e",
+    "func_name": "sub_492f50",
+    "func_addr": "0x492f50",
+    "self_ecx": "&([esp + 0x684])",
+    "self_src": "0x49327f: lea ecx,[esp + 0x684]"
+  },
+  {
+    "caller_block": "0x493293",
+    "call_addr": "0x4932a5",
+    "func_name": "sub_492f50",
+    "func_addr": "0x492f50",
+    "self_ecx": "&([esp + 0xacc])",
+    "self_src": "0x493293: lea ecx,[esp + 0xacc]"
+  },
+  {
+    "caller_block": "0x494e92",
+    "call_addr": "0x494ea1",
+    "func_name": "sub_494910",
+    "func_addr": "0x494910",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x494e92: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x494f9d",
+    "call_addr": "0x494fa8",
+    "func_name": "sub_494910",
+    "func_addr": "0x494910",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x494f96: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x494f85",
+    "call_addr": "0x494f91",
+    "func_name": "sub_494910",
+    "func_addr": "0x494910",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x494f85: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x495871",
+    "call_addr": "0x495880",
+    "func_name": "sub_494910",
+    "func_addr": "0x494910",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x495878: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x495897",
+    "call_addr": "0x4958a9",
+    "func_name": "sub_494910",
+    "func_addr": "0x494910",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x49589e: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x4958c0",
+    "call_addr": "0x4958d2",
+    "func_name": "sub_494910",
+    "func_addr": "0x494910",
+    "self_ecx": "&([esp + 0x6b0])",
+    "self_src": "0x4958c7: lea ecx,[esp + 0x6b0]"
+  },
+  {
+    "caller_block": "0x4958e9",
+    "call_addr": "0x4958f0",
+    "func_name": "sub_494910",
+    "func_addr": "0x494910",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x4958e9: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x49594e",
+    "call_addr": "0x495960",
+    "func_name": "sub_494910",
+    "func_addr": "0x494910",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x49594e: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x497306",
+    "call_addr": "0x497315",
+    "func_name": "sub_4964ca",
+    "func_addr": "0x4964ca",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x49730d: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x49732c",
+    "call_addr": "0x49733e",
+    "func_name": "sub_4964ca",
+    "func_addr": "0x4964ca",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x497333: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x497355",
+    "call_addr": "0x497367",
+    "func_name": "sub_4964ca",
+    "func_addr": "0x4964ca",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x49735c: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x49737e",
+    "call_addr": "0x497385",
+    "func_name": "sub_4964ca",
+    "func_addr": "0x4964ca",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x49737e: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x4973e0",
+    "call_addr": "0x4973f2",
+    "func_name": "sub_4964ca",
+    "func_addr": "0x4964ca",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x4973e0: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x49691d",
+    "call_addr": "0x49692c",
+    "func_name": "sub_4964ca",
+    "func_addr": "0x4964ca",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x49691d: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x496a28",
+    "call_addr": "0x496a33",
+    "func_name": "sub_4964ca",
+    "func_addr": "0x4964ca",
+    "self_ecx": null,
+    "self_src": null
+  },
+  {
+    "caller_block": "0x496a10",
+    "call_addr": "0x496a1c",
+    "func_name": "sub_4964ca",
+    "func_addr": "0x4964ca",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x496a10: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x498f10",
+    "call_addr": "0x498f25",
+    "func_name": "sub_498b60",
+    "func_addr": "0x498b60",
+    "self_ecx": "&([esp + 0x38])",
+    "self_src": "0x498f12: lea ecx,[esp + 0x38]"
+  },
+  {
+    "caller_block": "0x498f4e",
+    "call_addr": "0x498f64",
+    "func_name": "sub_498b60",
+    "func_addr": "0x498b60",
+    "self_ecx": "&([esp + 0x38])",
+    "self_src": "0x498f50: lea ecx,[esp + 0x38]"
+  },
+  {
+    "caller_block": "0x4999b7",
+    "call_addr": "0x4999d0",
+    "func_name": "sub_499930",
+    "func_addr": "0x499930",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x4999c5: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x499aea",
+    "call_addr": "0x499afb",
+    "func_name": "sub_499930",
+    "func_addr": "0x499930",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x499aec: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x499b00",
+    "call_addr": "0x499b0f",
+    "func_name": "sub_499930",
+    "func_addr": "0x499930",
+    "self_ecx": "&([esp + 0x23c])",
+    "self_src": "0x499b00: lea ecx,[esp + 0x23c]"
+  },
+  {
+    "caller_block": "0x499b14",
+    "call_addr": "0x499b25",
+    "func_name": "sub_499930",
+    "func_addr": "0x499930",
+    "self_ecx": "&([esp + 0x8a8])",
+    "self_src": "0x499b17: lea ecx,[esp + 0x8a8]"
+  },
+  {
+    "caller_block": "0x499c10",
+    "call_addr": "0x499c24",
+    "func_name": "sub_499930",
+    "func_addr": "0x499930",
+    "self_ecx": "&([esp + 0x460])",
+    "self_src": "0x499c12: lea ecx,[esp + 0x460]"
+  },
+  {
+    "caller_block": "0x499c29",
+    "call_addr": "0x499c38",
+    "func_name": "sub_499930",
+    "func_addr": "0x499930",
+    "self_ecx": "&([esp + 0x684])",
+    "self_src": "0x499c29: lea ecx,[esp + 0x684]"
+  },
+  {
+    "caller_block": "0x499c3d",
+    "call_addr": "0x499c4e",
+    "func_name": "sub_499930",
+    "func_addr": "0x499930",
+    "self_ecx": "&([esp + 0xacc])",
+    "self_src": "0x499c40: lea ecx,[esp + 0xacc]"
+  },
+  {
+    "caller_block": "0x49a472",
+    "call_addr": "0x49a481",
+    "func_name": "sub_49a01a",
+    "func_addr": "0x49a01a",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x49a472: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x49a57d",
+    "call_addr": "0x49a588",
+    "func_name": "sub_49a01a",
+    "func_addr": "0x49a01a",
+    "self_ecx": null,
+    "self_src": null
+  },
+  {
+    "caller_block": "0x49a565",
+    "call_addr": "0x49a571",
+    "func_name": "sub_49a01a",
+    "func_addr": "0x49a01a",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x49a565: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x49ab0e",
+    "call_addr": "0x49ab1d",
+    "func_name": "sub_49a01a",
+    "func_addr": "0x49a01a",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x49ab15: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x49ab34",
+    "call_addr": "0x49ab46",
+    "func_name": "sub_49a01a",
+    "func_addr": "0x49a01a",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x49ab3b: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x49ab5d",
+    "call_addr": "0x49ab6f",
+    "func_name": "sub_49a01a",
+    "func_addr": "0x49a01a",
+    "self_ecx": "&([esp + 0x6ac])",
+    "self_src": "0x49ab64: lea ecx,[esp + 0x6ac]"
+  },
+  {
+    "caller_block": "0x49ab86",
+    "call_addr": "0x49ab8d",
+    "func_name": "sub_49a01a",
+    "func_addr": "0x49a01a",
+    "self_ecx": "&([esp + 0x488])",
+    "self_src": "0x49ab86: lea ecx,[esp + 0x488]"
+  },
+  {
+    "caller_block": "0x49abe8",
+    "call_addr": "0x49abfa",
+    "func_name": "sub_49a01a",
+    "func_addr": "0x49a01a",
+    "self_ecx": "&([esp + 0x8d0])",
+    "self_src": "0x49abe8: lea ecx,[esp + 0x8d0]"
+  },
+  {
+    "caller_block": "0x49c6b0",
+    "call_addr": "0x49c6bf",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0xf20])",
+    "self_src": "0x49c6b0: lea ecx,[esp + 0xf20]"
+  },
+  {
+    "caller_block": "0x49c6c4",
+    "call_addr": "0x49c6d3",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x2040])",
+    "self_src": "0x49c6c4: lea ecx,[esp + 0x2040]"
+  },
+  {
+    "caller_block": "0x49c6d8",
+    "call_addr": "0x49c6ea",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x49c6d8: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x49c801",
+    "call_addr": "0x49c810",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x46c])",
+    "self_src": "0x49c801: lea ecx,[esp + 0x46c]"
+  },
+  {
+    "caller_block": "0x49c815",
+    "call_addr": "0x49c824",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x8b4])",
+    "self_src": "0x49c815: lea ecx,[esp + 0x8b4]"
+  },
+  {
+    "caller_block": "0x49c829",
+    "call_addr": "0x49c83b",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0xcfc])",
+    "self_src": "0x49c829: lea ecx,[esp + 0xcfc]"
+  },
+  {
+    "caller_block": "0x49c2e1",
+    "call_addr": "0x49c2f0",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x17b0])",
+    "self_src": "0x49c2e1: lea ecx,[esp + 0x17b0]"
+  },
+  {
+    "caller_block": "0x49c2f5",
+    "call_addr": "0x49c307",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x1368])",
+    "self_src": "0x49c2f5: lea ecx,[esp + 0x1368]"
+  },
+  {
+    "caller_block": "0x49c401",
+    "call_addr": "0x49c410",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x690])",
+    "self_src": "0x49c401: lea ecx,[esp + 0x690]"
+  },
+  {
+    "caller_block": "0x49c415",
+    "call_addr": "0x49c427",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x1bf8])",
+    "self_src": "0x49c415: lea ecx,[esp + 0x1bf8]"
+  },
+  {
+    "caller_block": "0x49c512",
+    "call_addr": "0x49c521",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0xad8])",
+    "self_src": "0x49c512: lea ecx,[esp + 0xad8]"
+  },
+  {
+    "caller_block": "0x49c526",
+    "call_addr": "0x49c535",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x49c526: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x49c95f",
+    "call_addr": "0x49c96e",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x1144])",
+    "self_src": "0x49c95f: lea ecx,[esp + 0x1144]"
+  },
+  {
+    "caller_block": "0x49c973",
+    "call_addr": "0x49c985",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x158c])",
+    "self_src": "0x49c973: lea ecx,[esp + 0x158c]"
+  },
+  {
+    "caller_block": "0x49cafb",
+    "call_addr": "0x49cb0a",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x19d4])",
+    "self_src": "0x49cafb: lea ecx,[esp + 0x19d4]"
+  },
+  {
+    "caller_block": "0x49cb0f",
+    "call_addr": "0x49cb1e",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x1e1c])",
+    "self_src": "0x49cb0f: lea ecx,[esp + 0x1e1c]"
+  },
+  {
+    "caller_block": "0x49cb23",
+    "call_addr": "0x49cb35",
+    "func_name": "sub_49c13f",
+    "func_addr": "0x49c13f",
+    "self_ecx": "&([esp + 0x2264])",
+    "self_src": "0x49cb23: lea ecx,[esp + 0x2264]"
+  },
+  {
+    "caller_block": "0x49d7f2",
+    "call_addr": "0x49d801",
+    "func_name": "sub_49d270",
+    "func_addr": "0x49d270",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x49d7f2: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x49d8fd",
+    "call_addr": "0x49d908",
+    "func_name": "sub_49d270",
+    "func_addr": "0x49d270",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x49d8f6: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x49d8e5",
+    "call_addr": "0x49d8f1",
+    "func_name": "sub_49d270",
+    "func_addr": "0x49d270",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x49d8e5: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x49e1ef",
+    "call_addr": "0x49e1fe",
+    "func_name": "sub_49d270",
+    "func_addr": "0x49d270",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x49e1f6: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x49e215",
+    "call_addr": "0x49e227",
+    "func_name": "sub_49d270",
+    "func_addr": "0x49d270",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x49e21c: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x49e23e",
+    "call_addr": "0x49e250",
+    "func_name": "sub_49d270",
+    "func_addr": "0x49d270",
+    "self_ecx": "&([esp + 0x6b0])",
+    "self_src": "0x49e245: lea ecx,[esp + 0x6b0]"
+  },
+  {
+    "caller_block": "0x49e267",
+    "call_addr": "0x49e26e",
+    "func_name": "sub_49d270",
+    "func_addr": "0x49d270",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x49e267: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x49e2c9",
+    "call_addr": "0x49e2db",
+    "func_name": "sub_49d270",
+    "func_addr": "0x49d270",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x49e2c9: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x4a0657",
+    "call_addr": "0x4a0668",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x4a0660: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x4a067f",
+    "call_addr": "0x4a0691",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x270])",
+    "self_src": "0x4a0686: lea ecx,[esp + 0x270]"
+  },
+  {
+    "caller_block": "0x4a06a8",
+    "call_addr": "0x4a06ba",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x6b8])",
+    "self_src": "0x4a06af: lea ecx,[esp + 0x6b8]"
+  },
+  {
+    "caller_block": "0x4a06d1",
+    "call_addr": "0x4a06d8",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x494])",
+    "self_src": "0x4a06d1: lea ecx,[esp + 0x494]"
+  },
+  {
+    "caller_block": "0x4a0733",
+    "call_addr": "0x4a0745",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x8dc])",
+    "self_src": "0x4a0733: lea ecx,[esp + 0x8dc]"
+  },
+  {
+    "caller_block": "0x4a0f70",
+    "call_addr": "0x4a0f7c",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x4a0f70: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x4a0e82",
+    "call_addr": "0x4a0e8c",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "edi",
+    "self_src": "0x4a0e82: mov ecx,edi"
+  },
+  {
+    "caller_block": "0x4a0f88",
+    "call_addr": "0x4a0f93",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x270])",
+    "self_src": "0x4a0f81: lea ecx,[esp + 0x270]"
+  },
+  {
+    "caller_block": "0x49ff06",
+    "call_addr": "0x49ff17",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x49ff06: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x49ff55",
+    "call_addr": "0x49ff64",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x49ff55: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x49ffbf",
+    "call_addr": "0x49ffd0",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x49ffbf: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x4a0011",
+    "call_addr": "0x4a0020",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x4a0011: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x4a0057",
+    "call_addr": "0x4a0066",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x4a0057: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x4a00e8",
+    "call_addr": "0x4a00f8",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x4a00eb: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x4a013f",
+    "call_addr": "0x4a014a",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x4a013f: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x4a01af",
+    "call_addr": "0x4a01c0",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x4a01af: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x4a0203",
+    "call_addr": "0x4a0211",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x4a0206: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x4a0255",
+    "call_addr": "0x4a0260",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x4a0255: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x4a02cf",
+    "call_addr": "0x4a02de",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x4a02cf: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x4a0307",
+    "call_addr": "0x4a0316",
+    "func_name": "sub_49fd40",
+    "func_addr": "0x49fd40",
+    "self_ecx": "&([esp + 0x4c])",
+    "self_src": "0x4a0307: lea ecx,[esp + 0x4c]"
+  },
+  {
+    "caller_block": "0x4a41df",
+    "call_addr": "0x4a41ee",
+    "func_name": "sub_4a2ce0",
+    "func_addr": "0x4a2ce0",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x4a41e6: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x4a4205",
+    "call_addr": "0x4a4217",
+    "func_name": "sub_4a2ce0",
+    "func_addr": "0x4a2ce0",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x4a420c: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x4a422e",
+    "call_addr": "0x4a4240",
+    "func_name": "sub_4a2ce0",
+    "func_addr": "0x4a2ce0",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x4a4235: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x4a4257",
+    "call_addr": "0x4a425e",
+    "func_name": "sub_4a2ce0",
+    "func_addr": "0x4a2ce0",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x4a4257: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x4a42b9",
+    "call_addr": "0x4a42cb",
+    "func_name": "sub_4a2ce0",
+    "func_addr": "0x4a2ce0",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x4a42b9: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x4a37b3",
+    "call_addr": "0x4a37c2",
+    "func_name": "sub_4a2ce0",
+    "func_addr": "0x4a2ce0",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x4a37b3: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x4a38be",
+    "call_addr": "0x4a38c9",
+    "func_name": "sub_4a2ce0",
+    "func_addr": "0x4a2ce0",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x4a38b7: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x4a38a6",
+    "call_addr": "0x4a38b2",
+    "func_name": "sub_4a2ce0",
+    "func_addr": "0x4a2ce0",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x4a38a6: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x4a5dd6",
+    "call_addr": "0x4a5de5",
+    "func_name": "sub_4a4f9a",
+    "func_addr": "0x4a4f9a",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x4a5ddd: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x4a5dfc",
+    "call_addr": "0x4a5e0e",
+    "func_name": "sub_4a4f9a",
+    "func_addr": "0x4a4f9a",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x4a5e03: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x4a5e25",
+    "call_addr": "0x4a5e37",
+    "func_name": "sub_4a4f9a",
+    "func_addr": "0x4a4f9a",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x4a5e2c: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x4a5e4e",
+    "call_addr": "0x4a5e55",
+    "func_name": "sub_4a4f9a",
+    "func_addr": "0x4a4f9a",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x4a5e4e: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x4a5eb0",
+    "call_addr": "0x4a5ec2",
+    "func_name": "sub_4a4f9a",
+    "func_addr": "0x4a4f9a",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x4a5eb0: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x4a53ed",
+    "call_addr": "0x4a53fc",
+    "func_name": "sub_4a4f9a",
+    "func_addr": "0x4a4f9a",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x4a53ed: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x4a54f8",
+    "call_addr": "0x4a5503",
+    "func_name": "sub_4a4f9a",
+    "func_addr": "0x4a4f9a",
+    "self_ecx": null,
+    "self_src": null
+  },
+  {
+    "caller_block": "0x4a54e0",
+    "call_addr": "0x4a54ec",
+    "func_name": "sub_4a4f9a",
+    "func_addr": "0x4a4f9a",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x4a54e0: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x4aa149",
+    "call_addr": "0x4aa15b",
+    "func_name": "sub_4a8360",
+    "func_addr": "0x4a8360",
+    "self_ecx": "&([esp + 0x4a4])",
+    "self_src": "0x4aa150: lea ecx,[esp + 0x4a4]"
+  },
+  {
+    "caller_block": "0x4aa172",
+    "call_addr": "0x4aa181",
+    "func_name": "sub_4a8360",
+    "func_addr": "0x4a8360",
+    "self_ecx": "&([esp + 0x50])",
+    "self_src": "0x4aa179: lea ecx,[esp + 0x50]"
+  },
+  {
+    "caller_block": "0x4aa198",
+    "call_addr": "0x4aa1aa",
+    "func_name": "sub_4a8360",
+    "func_addr": "0x4a8360",
+    "self_ecx": "&([esp + 0x278])",
+    "self_src": "0x4aa19f: lea ecx,[esp + 0x278]"
+  },
+  {
+    "caller_block": "0x4aa1c1",
+    "call_addr": "0x4aa1c8",
+    "func_name": "sub_4a8360",
+    "func_addr": "0x4a8360",
+    "self_ecx": "&([esp + 0x6c8])",
+    "self_src": "0x4aa1c1: lea ecx,[esp + 0x6c8]"
+  },
+  {
+    "caller_block": "0x4aa223",
+    "call_addr": "0x4aa235",
+    "func_name": "sub_4a8360",
+    "func_addr": "0x4a8360",
+    "self_ecx": "&([esp + 0x8ec])",
+    "self_src": "0x4aa223: lea ecx,[esp + 0x8ec]"
+  },
+  {
+    "caller_block": "0x4ab7c4",
+    "call_addr": "0x4ab7d3",
+    "func_name": "sub_4aafd0",
+    "func_addr": "0x4aafd0",
+    "self_ecx": "&([esp + 0x2c])",
+    "self_src": "0x4ab7cb: lea ecx,[esp + 0x2c]"
+  },
+  {
+    "caller_block": "0x4ab7ea",
+    "call_addr": "0x4ab7fc",
+    "func_name": "sub_4aafd0",
+    "func_addr": "0x4aafd0",
+    "self_ecx": "&([esp + 0x698])",
+    "self_src": "0x4ab7f1: lea ecx,[esp + 0x698]"
+  },
+  {
+    "caller_block": "0x4ab814",
+    "call_addr": "0x4ab826",
+    "func_name": "sub_4aafd0",
+    "func_addr": "0x4aafd0",
+    "self_ecx": "&([esp + 0x250])",
+    "self_src": "0x4ab81b: lea ecx,[esp + 0x250]"
+  },
+  {
+    "caller_block": "0x4ab83d",
+    "call_addr": "0x4ab844",
+    "func_name": "sub_4aafd0",
+    "func_addr": "0x4aafd0",
+    "self_ecx": "&([esp + 0x474])",
+    "self_src": "0x4ab83d: lea ecx,[esp + 0x474]"
+  },
+  {
+    "caller_block": "0x4ab89e",
+    "call_addr": "0x4ab8b0",
+    "func_name": "sub_4aafd0",
+    "func_addr": "0x4aafd0",
+    "self_ecx": "&([esp + 0x8bc])",
+    "self_src": "0x4ab89e: lea ecx,[esp + 0x8bc]"
+  },
+  {
+    "caller_block": "0x4ad94c",
+    "call_addr": "0x4ad95b",
+    "func_name": "sub_4ad4ea",
+    "func_addr": "0x4ad4ea",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x4ad94c: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x4ada51",
+    "call_addr": "0x4ada5c",
+    "func_name": "sub_4ad4ea",
+    "func_addr": "0x4ad4ea",
+    "self_ecx": null,
+    "self_src": null
+  },
+  {
+    "caller_block": "0x4ada39",
+    "call_addr": "0x4ada45",
+    "func_name": "sub_4ad4ea",
+    "func_addr": "0x4ad4ea",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x4ada39: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x4add53",
+    "call_addr": "0x4add62",
+    "func_name": "sub_4ad4ea",
+    "func_addr": "0x4ad4ea",
+    "self_ecx": "&([esp + 0x40])",
+    "self_src": "0x4add5a: lea ecx,[esp + 0x40]"
+  },
+  {
+    "caller_block": "0x4add79",
+    "call_addr": "0x4add8b",
+    "func_name": "sub_4ad4ea",
+    "func_addr": "0x4ad4ea",
+    "self_ecx": "&([esp + 0x264])",
+    "self_src": "0x4add80: lea ecx,[esp + 0x264]"
+  },
+  {
+    "caller_block": "0x4adda2",
+    "call_addr": "0x4addb4",
+    "func_name": "sub_4ad4ea",
+    "func_addr": "0x4ad4ea",
+    "self_ecx": "&([esp + 0x6ac])",
+    "self_src": "0x4adda9: lea ecx,[esp + 0x6ac]"
+  },
+  {
+    "caller_block": "0x4addcb",
+    "call_addr": "0x4addd2",
+    "func_name": "sub_4ad4ea",
+    "func_addr": "0x4ad4ea",
+    "self_ecx": "&([esp + 0x488])",
+    "self_src": "0x4addcb: lea ecx,[esp + 0x488]"
+  },
+  {
+    "caller_block": "0x4ade2d",
+    "call_addr": "0x4ade3f",
+    "func_name": "sub_4ad4ea",
+    "func_addr": "0x4ad4ea",
+    "self_ecx": "&([esp + 0x8d0])",
+    "self_src": "0x4ade2d: lea ecx,[esp + 0x8d0]"
+  },
+  {
+    "caller_block": "0x4ae816",
+    "call_addr": "0x4ae825",
+    "func_name": "sub_4ae3a0",
+    "func_addr": "0x4ae3a0",
+    "self_ecx": "&([esp + 0x1c])",
+    "self_src": "0x4ae816: lea ecx,[esp + 0x1c]"
+  },
+  {
+    "caller_block": "0x4ae873",
+    "call_addr": "0x4ae882",
+    "func_name": "sub_4ae3a0",
+    "func_addr": "0x4ae3a0",
+    "self_ecx": "&([esp + 0x1c])",
+    "self_src": "0x4ae873: lea ecx,[esp + 0x1c]"
+  },
+  {
+    "caller_block": "0x4ae9bd",
+    "call_addr": "0x4ae9c8",
+    "func_name": "sub_4ae3a0",
+    "func_addr": "0x4ae3a0",
+    "self_ecx": "&([esp + 0x1c])",
+    "self_src": "0x4ae9c0: lea ecx,[esp + 0x1c]"
+  },
+  {
+    "caller_block": "0x4ae9dd",
+    "call_addr": "0x4ae9eb",
+    "func_name": "sub_4ae3a0",
+    "func_addr": "0x4ae3a0",
+    "self_ecx": "&([esp + 0x688])",
+    "self_src": "0x4ae9e0: lea ecx,[esp + 0x688]"
+  },
+  {
+    "caller_block": "0x4aea00",
+    "call_addr": "0x4aea0e",
+    "func_name": "sub_4ae3a0",
+    "func_addr": "0x4ae3a0",
+    "self_ecx": "&([esp + 0x240])",
+    "self_src": "0x4aea03: lea ecx,[esp + 0x240]"
+  },
+  {
+    "caller_block": "0x4aea23",
+    "call_addr": "0x4aea2a",
+    "func_name": "sub_4ae3a0",
+    "func_addr": "0x4ae3a0",
+    "self_ecx": "&([esp + 0x464])",
+    "self_src": "0x4aea23: lea ecx,[esp + 0x464]"
+  },
+  {
+    "caller_block": "0x4aea81",
+    "call_addr": "0x4aea93",
+    "func_name": "sub_4ae3a0",
+    "func_addr": "0x4ae3a0",
+    "self_ecx": "&([esp + 0x8ac])",
+    "self_src": "0x4aea81: lea ecx,[esp + 0x8ac]"
+  },
+  {
+    "caller_block": "0x4af29e",
+    "call_addr": "0x4af2ad",
+    "func_name": "sub_4aed4f",
+    "func_addr": "0x4aed4f",
+    "self_ecx": "&([esp + 0x690])",
+    "self_src": "0x4af29e: lea ecx,[esp + 0x690]"
+  },
+  {
+    "caller_block": "0x4af2b2",
+    "call_addr": "0x4af2c4",
+    "func_name": "sub_4aed4f",
+    "func_addr": "0x4aed4f",
+    "self_ecx": "&([esp + 0xad8])",
+    "self_src": "0x4af2b2: lea ecx,[esp + 0xad8]"
+  },
+  {
+    "caller_block": "0x4aeed5",
+    "call_addr": "0x4aeee4",
+    "func_name": "sub_4aed4f",
+    "func_addr": "0x4aed4f",
+    "self_ecx": "&([esp + 0xcfc])",
+    "self_src": "0x4aeed5: lea ecx,[esp + 0xcfc]"
+  },
+  {
+    "caller_block": "0x4aeee9",
+    "call_addr": "0x4aeefb",
+    "func_name": "sub_4aed4f",
+    "func_addr": "0x4aed4f",
+    "self_ecx": "&([esp + 0x46c])",
+    "self_src": "0x4aeee9: lea ecx,[esp + 0x46c]"
+  },
+  {
+    "caller_block": "0x4af404",
+    "call_addr": "0x4af413",
+    "func_name": "sub_4aed4f",
+    "func_addr": "0x4aed4f",
+    "self_ecx": "&([esp + 0xf20])",
+    "self_src": "0x4af404: lea ecx,[esp + 0xf20]"
+  },
+  {
+    "caller_block": "0x4af418",
+    "call_addr": "0x4af42a",
+    "func_name": "sub_4aed4f",
+    "func_addr": "0x4aed4f",
+    "self_ecx": "&([esp + 0x1368])",
+    "self_src": "0x4af418: lea ecx,[esp + 0x1368]"
+  },
+  {
+    "caller_block": "0x4af043",
+    "call_addr": "0x4af04f",
+    "func_name": "sub_4aed4f",
+    "func_addr": "0x4aed4f",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4af043: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4af054",
+    "call_addr": "0x4af066",
+    "func_name": "sub_4aed4f",
+    "func_addr": "0x4aed4f",
+    "self_ecx": "&([esp + 0x8b4])",
+    "self_src": "0x4af054: lea ecx,[esp + 0x8b4]"
+  },
+  {
+    "caller_block": "0x4af152",
+    "call_addr": "0x4af161",
+    "func_name": "sub_4aed4f",
+    "func_addr": "0x4aed4f",
+    "self_ecx": "&([esp + 0x1144])",
+    "self_src": "0x4af152: lea ecx,[esp + 0x1144]"
+  },
+  {
+    "caller_block": "0x4af166",
+    "call_addr": "0x4af178",
+    "func_name": "sub_4aed4f",
+    "func_addr": "0x4aed4f",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x4af166: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x4b0c25",
+    "call_addr": "0x4b0c34",
+    "func_name": "sub_4af7a0",
+    "func_addr": "0x4af7a0",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x4b0c2c: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x4b0c4b",
+    "call_addr": "0x4b0c5d",
+    "func_name": "sub_4af7a0",
+    "func_addr": "0x4af7a0",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x4b0c52: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x4b0c74",
+    "call_addr": "0x4b0c86",
+    "func_name": "sub_4af7a0",
+    "func_addr": "0x4af7a0",
+    "self_ecx": "&([esp + 0x6b0])",
+    "self_src": "0x4b0c7b: lea ecx,[esp + 0x6b0]"
+  },
+  {
+    "caller_block": "0x4b0c9d",
+    "call_addr": "0x4b0ca4",
+    "func_name": "sub_4af7a0",
+    "func_addr": "0x4af7a0",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x4b0c9d: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x4b0cff",
+    "call_addr": "0x4b0d11",
+    "func_name": "sub_4af7a0",
+    "func_addr": "0x4af7a0",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x4b0cff: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x4b0290",
+    "call_addr": "0x4b029f",
+    "func_name": "sub_4af7a0",
+    "func_addr": "0x4af7a0",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x4b0290: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x4b039b",
+    "call_addr": "0x4b03a6",
+    "func_name": "sub_4af7a0",
+    "func_addr": "0x4af7a0",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x4b0394: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x4b0383",
+    "call_addr": "0x4b038f",
+    "func_name": "sub_4af7a0",
+    "func_addr": "0x4af7a0",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x4b0383: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x4b1d92",
+    "call_addr": "0x4b1da1",
+    "func_name": "sub_4b1810",
+    "func_addr": "0x4b1810",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x4b1d92: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x4b1e9d",
+    "call_addr": "0x4b1ea8",
+    "func_name": "sub_4b1810",
+    "func_addr": "0x4b1810",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x4b1e96: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x4b1e85",
+    "call_addr": "0x4b1e91",
+    "func_name": "sub_4b1810",
+    "func_addr": "0x4b1810",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x4b1e85: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x4b2722",
+    "call_addr": "0x4b2731",
+    "func_name": "sub_4b1810",
+    "func_addr": "0x4b1810",
+    "self_ecx": "&([esp + 0x44])",
+    "self_src": "0x4b2729: lea ecx,[esp + 0x44]"
+  },
+  {
+    "caller_block": "0x4b2748",
+    "call_addr": "0x4b275a",
+    "func_name": "sub_4b1810",
+    "func_addr": "0x4b1810",
+    "self_ecx": "&([esp + 0x268])",
+    "self_src": "0x4b274f: lea ecx,[esp + 0x268]"
+  },
+  {
+    "caller_block": "0x4b2771",
+    "call_addr": "0x4b2783",
+    "func_name": "sub_4b1810",
+    "func_addr": "0x4b1810",
+    "self_ecx": "&([esp + 0x6b0])",
+    "self_src": "0x4b2778: lea ecx,[esp + 0x6b0]"
+  },
+  {
+    "caller_block": "0x4b279a",
+    "call_addr": "0x4b27a1",
+    "func_name": "sub_4b1810",
+    "func_addr": "0x4b1810",
+    "self_ecx": "&([esp + 0x48c])",
+    "self_src": "0x4b279a: lea ecx,[esp + 0x48c]"
+  },
+  {
+    "caller_block": "0x4b27fc",
+    "call_addr": "0x4b280e",
+    "func_name": "sub_4b1810",
+    "func_addr": "0x4b1810",
+    "self_ecx": "&([esp + 0x8d4])",
+    "self_src": "0x4b27fc: lea ecx,[esp + 0x8d4]"
+  },
+  {
+    "caller_block": "0x4b387a",
+    "call_addr": "0x4b3889",
+    "func_name": "sub_4b320f",
+    "func_addr": "0x4b320f",
+    "self_ecx": "&([esp + 0xad8])",
+    "self_src": "0x4b387a: lea ecx,[esp + 0xad8]"
+  },
+  {
+    "caller_block": "0x4b388e",
+    "call_addr": "0x4b38a0",
+    "func_name": "sub_4b320f",
+    "func_addr": "0x4b320f",
+    "self_ecx": "&([esp + 0xf20])",
+    "self_src": "0x4b388e: lea ecx,[esp + 0xf20]"
+  },
+  {
+    "caller_block": "0x4b3395",
+    "call_addr": "0x4b33a4",
+    "func_name": "sub_4b320f",
+    "func_addr": "0x4b320f",
+    "self_ecx": "&([esp + 0x8b4])",
+    "self_src": "0x4b3395: lea ecx,[esp + 0x8b4]"
+  },
+  {
+    "caller_block": "0x4b33a9",
+    "call_addr": "0x4b33bb",
+    "func_name": "sub_4b320f",
+    "func_addr": "0x4b320f",
+    "self_ecx": "&([esp + 0x46c])",
+    "self_src": "0x4b33a9: lea ecx,[esp + 0x46c]"
+  },
+  {
+    "caller_block": "0x4b3503",
+    "call_addr": "0x4b3512",
+    "func_name": "sub_4b320f",
+    "func_addr": "0x4b320f",
+    "self_ecx": "&([esp + 0x158c])",
+    "self_src": "0x4b3503: lea ecx,[esp + 0x158c]"
+  },
+  {
+    "caller_block": "0x4b3517",
+    "call_addr": "0x4b3526",
+    "func_name": "sub_4b320f",
+    "func_addr": "0x4b320f",
+    "self_ecx": "&([esp + 0x24])",
+    "self_src": "0x4b3517: lea ecx,[esp + 0x24]"
+  },
+  {
+    "caller_block": "0x4b361e",
+    "call_addr": "0x4b362d",
+    "func_name": "sub_4b320f",
+    "func_addr": "0x4b320f",
+    "self_ecx": "&([esp + 0x1144])",
+    "self_src": "0x4b361e: lea ecx,[esp + 0x1144]"
+  },
+  {
+    "caller_block": "0x4b3632",
+    "call_addr": "0x4b3644",
+    "func_name": "sub_4b320f",
+    "func_addr": "0x4b320f",
+    "self_ecx": "&([esp + 0xcfc])",
+    "self_src": "0x4b3632: lea ecx,[esp + 0xcfc]"
+  },
+  {
+    "caller_block": "0x4b3730",
+    "call_addr": "0x4b373f",
+    "func_name": "sub_4b320f",
+    "func_addr": "0x4b320f",
+    "self_ecx": "&([esp + 0x248])",
+    "self_src": "0x4b3730: lea ecx,[esp + 0x248]"
+  },
+  {
+    "caller_block": "0x4b3744",
+    "call_addr": "0x4b3756",
+    "func_name": "sub_4b320f",
+    "func_addr": "0x4b320f",
+    "self_ecx": "&([esp + 0x690])",
+    "self_src": "0x4b3744: lea ecx,[esp + 0x690]"
+  },
+  {
+    "caller_block": "0x4b39e0",
+    "call_addr": "0x4b39ef",
+    "func_name": "sub_4b320f",
+    "func_addr": "0x4b320f",
+    "self_ecx": "&([esp + 0x1368])",
+    "self_src": "0x4b39e0: lea ecx,[esp + 0x1368]"
+  },
+  {
+    "caller_block": "0x4b39f4",
+    "call_addr": "0x4b3a06",
+    "func_name": "sub_4b320f",
+    "func_addr": "0x4b320f",
+    "self_ecx": "&([esp + 0x17b0])",
+    "self_src": "0x4b39f4: lea ecx,[esp + 0x17b0]"
+  },
+  {
+    "caller_block": "0x4b50a3",
+    "call_addr": "0x4b50b5",
+    "func_name": "sub_4b4de9",
+    "func_addr": "0x4b4de9",
+    "self_ecx": "&([esp + 0x574])",
+    "self_src": "0x4b50a6: lea ecx,[esp + 0x574]"
+  },
+  {
+    "caller_block": "0x4b50ba",
+    "call_addr": "0x4b50c9",
+    "func_name": "sub_4b4de9",
+    "func_addr": "0x4b4de9",
+    "self_ecx": "&([esp + 0x798])",
+    "self_src": "0x4b50ba: lea ecx,[esp + 0x798]"
+  },
+  {
+    "caller_block": "0x4b7dbb",
+    "call_addr": "0x4b7dca",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x217c])",
+    "self_src": "0x4b7dbb: lea ecx,[esp + 0x217c]"
+  },
+  {
+    "caller_block": "0x4b7dcf",
+    "call_addr": "0x4b7dde",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x25c4])",
+    "self_src": "0x4b7dcf: lea ecx,[esp + 0x25c4]"
+  },
+  {
+    "caller_block": "0x4b7f58",
+    "call_addr": "0x4b7f6a",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x1a8])",
+    "self_src": "0x4b7f58: lea ecx,[esp + 0x1a8]"
+  },
+  {
+    "caller_block": "0x4b757a",
+    "call_addr": "0x4b758c",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x1a8])",
+    "self_src": "0x4b757a: lea ecx,[esp + 0x1a8]"
+  },
+  {
+    "caller_block": "0x4b6f33",
+    "call_addr": "0x4b6f41",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x1b10])",
+    "self_src": "0x4b6f33: lea ecx,[esp + 0x1b10]"
+  },
+  {
+    "caller_block": "0x4b6f46",
+    "call_addr": "0x4b6f55",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x1280])",
+    "self_src": "0x4b6f46: lea ecx,[esp + 0x1280]"
+  },
+  {
+    "caller_block": "0x4b7088",
+    "call_addr": "0x4b7097",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x23a0])",
+    "self_src": "0x4b7088: lea ecx,[esp + 0x23a0]"
+  },
+  {
+    "caller_block": "0x4b709c",
+    "call_addr": "0x4b70ab",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x16c8])",
+    "self_src": "0x4b709c: lea ecx,[esp + 0x16c8]"
+  },
+  {
+    "caller_block": "0x4b7366",
+    "call_addr": "0x4b7375",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x105c])",
+    "self_src": "0x4b7366: lea ecx,[esp + 0x105c]"
+  },
+  {
+    "caller_block": "0x4b737a",
+    "call_addr": "0x4b7389",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x14a4])",
+    "self_src": "0x4b737a: lea ecx,[esp + 0x14a4]"
+  },
+  {
+    "caller_block": "0x4b71d9",
+    "call_addr": "0x4b71e8",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x7cc])",
+    "self_src": "0x4b71d9: lea ecx,[esp + 0x7cc]"
+  },
+  {
+    "caller_block": "0x4b71ed",
+    "call_addr": "0x4b71fc",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0xc14])",
+    "self_src": "0x4b71ed: lea ecx,[esp + 0xc14]"
+  },
+  {
+    "caller_block": "0x4b74b7",
+    "call_addr": "0x4b74c6",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x18ec])",
+    "self_src": "0x4b74b7: lea ecx,[esp + 0x18ec]"
+  },
+  {
+    "caller_block": "0x4b74cb",
+    "call_addr": "0x4b74da",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x1d34])",
+    "self_src": "0x4b74cb: lea ecx,[esp + 0x1d34]"
+  },
+  {
+    "caller_block": "0x4b6afb",
+    "call_addr": "0x4b6b0e",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x1f58])",
+    "self_src": "0x4b6afb: lea ecx,[esp + 0x1f58]"
+  },
+  {
+    "caller_block": "0x4b6b13",
+    "call_addr": "0x4b6b25",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x5a8])",
+    "self_src": "0x4b6b13: lea ecx,[esp + 0x5a8]"
+  },
+  {
+    "caller_block": "0x4cc980",
+    "call_addr": "0x4cc98b",
+    "func_name": "sub_4cc5c0",
+    "func_addr": "0x4cc5c0",
+    "self_ecx": "&([esp + 0x18])",
+    "self_src": "0x4cc980: lea ecx,[esp + 0x18]"
+  },
+  {
+    "caller_block": "0x4cc990",
+    "call_addr": "0x4cc9a2",
+    "func_name": "sub_4cc5c0",
+    "func_addr": "0x4cc5c0",
+    "self_ecx": "&([esp + 0x23c])",
+    "self_src": "0x4cc990: lea ecx,[esp + 0x23c]"
+  },
+  {
+    "caller_block": "0x4cca39",
+    "call_addr": "0x4cca47",
+    "func_name": "sub_4cc5c0",
+    "func_addr": "0x4cc5c0",
+    "self_ecx": "&([esp + 0x460])",
+    "self_src": "0x4cca39: lea ecx,[esp + 0x460]"
+  },
+  {
+    "caller_block": "0x4ccac5",
+    "call_addr": "0x4ccad0",
+    "func_name": "sub_4cc5c0",
+    "func_addr": "0x4cc5c0",
+    "self_ecx": "&([esp + 0x1138])",
+    "self_src": "0x4ccabe: lea ecx,[esp + 0x1138]"
+  },
+  {
+    "caller_block": "0x4ccaab",
+    "call_addr": "0x4ccab9",
+    "func_name": "sub_4cc5c0",
+    "func_addr": "0x4cc5c0",
+    "self_ecx": "&([esp + 0xcf0])",
+    "self_src": "0x4ccaab: lea ecx,[esp + 0xcf0]"
+  },
+  {
+    "caller_block": "0x4cc6d8",
+    "call_addr": "0x4cc6e6",
+    "func_name": "sub_4cc5c0",
+    "func_addr": "0x4cc5c0",
+    "self_ecx": "&([esp + 0xf14])",
+    "self_src": "0x4cc6d8: lea ecx,[esp + 0xf14]"
+  },
+  {
+    "caller_block": "0x4cc724",
+    "call_addr": "0x4cc72f",
+    "func_name": "sub_4cc5c0",
+    "func_addr": "0x4cc5c0",
+    "self_ecx": "&([esp + 0x684])",
+    "self_src": "0x4cc71d: lea ecx,[esp + 0x684]"
+  },
+  {
+    "caller_block": "0x4b66c8",
+    "call_addr": "0x4b66db",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0xe38])",
+    "self_src": "0x4b66c8: lea ecx,[esp + 0xe38]"
+  },
+  {
+    "caller_block": "0x4b66e0",
+    "call_addr": "0x4b66f2",
+    "func_name": "sub_4b5726",
+    "func_addr": "0x4b5726",
+    "self_ecx": "&([esp + 0x9f0])",
+    "self_src": "0x4b66e0: lea ecx,[esp + 0x9f0]"
+  }
+]
