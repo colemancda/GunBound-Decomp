@@ -53,7 +53,9 @@ void FUN_004e4220(int param_1)
   puVar6[4] = puVar6;
 LAB_004e42b5:
   FUN_004f3060(&DAT_00eb168c);
-  FUN_004f46b0();
+  /* Container passed in EBX by the original (`mov ebx,0xeb1bd8` immediately
+   * before the call) - see src/unnamed/FUN_004f46b0.c's header. */
+  FUN_004f46b0((int)&DAT_00eb1bd8);
   uVar5 = 60000;
   param_1 = 1000;
   while( true ) {

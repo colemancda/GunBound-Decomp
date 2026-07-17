@@ -1358,7 +1358,7 @@ void FUN_004f42f0();
 undefined4 FUN_004f4350();
 undefined4 PreloadTexture();
 void FUN_004f45d0();
-void FUN_004f46b0();
+void FUN_004f46b0(int param_1);
 int FUN_004f4750();
 void FUN_004f47e0();
 undefined * __fastcall FUN_004f4810();
