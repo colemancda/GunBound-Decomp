@@ -13,26 +13,34 @@
  * (see that file's own header - a dropped-register-argument fix from
  * earlier this session); passes the highlighted slot (`iVar2`) here.
  *
- * FIXED (2026-07-13): `RET 0xc` at 0x4e1430 (3 stack dwords beyond
- * `this`, confirmed via objdump) but Ghidra's decompile only showed 2
- * (`param_2`, `param_3` - the WM_KEYDOWN message and VK code). This is
- * WndProc's slot-6 keydown dispatch, called as (this, msg, wParam,
- * lParam) - `lParam` is pushed/popped by every caller but genuinely
- * never read here. Added as `param_4` (unused) so the generated `ret N`
- * matches what WndProc actually pushes (see WndProc.c's own header for
- * the matching fix at that call site).
+ * CALLING-CONVENTION FIX (2026-07-17): WndProc dispatches this vtable
+ * slot 6 via StateSlot6DispatchFn, a __fastcall(this, dummyEDX, msg,
+ * wParam, lParam) - `this` in ECX, a dead EDX slot, then the three
+ * message dwords on the stack, callee-cleaned (`ret 0xc`). This port was
+ * declared __thiscall, which ghidra_types.h erases to plain cdecl under
+ * MSVC (`this` read off the stack, caller-cleaned, `ret 0`) - the wrong
+ * convention AND the wrong cleanup. The result was a live crash: a
+ * keypress at ServerSelect dispatched here with `this`=msg (0x100) and a
+ * 0xc-byte stack-cleanup mismatch that smashed EBP/the return address
+ * and jumped to garbage (EIP landed on the stack, frame 0x3f3f3f3f).
+ * Declared __fastcall + dummy-EDX to match, exactly like the working
+ * State01_Title_HandleKeyInput / State06_Logo2_HandleKeyInput. The
+ * original's `ret 0xc` now matches (3 stack args, callee-cleaned).
  */
 #include "ghidra_types.h"
 
 
-void __thiscall State02_ServerSelect_HandleKeyInput(int param_1,int param_2,int param_3,int param_4)
+void __fastcall State02_ServerSelect_HandleKeyInput(int param_1,int dummyEDX,uint msg,uint wParam,
+                                                    uint lParam)
 
 {
   int iVar1;
   int iVar2;
 
+  (void)dummyEDX;
+  (void)lParam;
   iVar1 = g_clientContext;
-  if ((param_2 == 0x100) && (param_3 == 0xd)) {
+  if ((msg == 0x100) && (wParam == 0xd)) {
     if ((*(int *)(param_1 + 8) == -1) && (DAT_007933b8 == '\x01')) {
       iVar2 = 0;
       do {

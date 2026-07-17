@@ -100,7 +100,7 @@ void State02_ServerSelect_OnExit();
 void __thiscall State02_ServerSelect_ProcessPacket(void *,int,unsigned short,short *);
 void __thiscall State02_ServerSelect_OnTopButton(int,int,int);       /* State02 vtable slot 3 */
 void __thiscall State02_ServerSelect_OnCommand(int,int,undefined4,int); /* State02 vtable slot 5 */
-void __thiscall State02_ServerSelect_HandleKeyInput(int,int,int,int);   /* State02 vtable slot 6 */
+void __fastcall State02_ServerSelect_HandleKeyInput(int,int,unsigned int,unsigned int,unsigned int); /* State02 vtable slot 6 (fastcall+dummyEDX) */
 void __fastcall State03_GameRoomList_OnEnter();
 void State03_GameRoomList_OnExit();
 void __fastcall State03_GameRoomList_RenderRoomLabel();
