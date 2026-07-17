@@ -148,7 +148,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
           g_gameStateVTableArray[3] = (undefined *)0x0;
         }
         else {
-          *(undefined ***)g_gameStateVTableArray[3] = &vtable_State3_NetworkSession;
+          *(undefined ***)g_gameStateVTableArray[3] = &vtable_State03_GameRoomList;
           *(undefined4 *)((int)g_gameStateVTableArray[3] + 0x11c) = 0;
           *(undefined1 *)((int)g_gameStateVTableArray[3] + 0x288) = 1;
         }

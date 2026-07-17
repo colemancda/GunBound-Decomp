@@ -12,6 +12,18 @@
 #   g_gameStateObjects  ptr[16] @ 0x5b33f8   (per-state object pointers)
 #   g_clientContext     int32   @ 0x5b3484   (holds the base ADDRESS of the arena)
 #
+# REBUILT BINARY: these anchors are ORIGINAL GunBound.gme addresses. To dump
+# the reconstructed gunbound_bringup.exe instead, re-resolve each one from
+# build/link_attempt/gunbound_bringup.map (MSVC places data independently;
+# COMMON symbols shift between relinks, so never hardcode rebuilt addrs here):
+#   grep -E '_g_currentGameState|_g_gameStateVTableArray|_g_clientContext\b|_g_uiPanelManager' \
+#     build/link_attempt/gunbound_bringup.map
+# then sed a scratch copy of this file (G_STATE_OBJECTS <- _g_gameStateVTableArray).
+# Verified working 2026-07-16 against the rebuilt exe under the lutris-7.2-2
+# runner + WINEPREFIX=~/.wine-gunbound-test (launch the game, find the wpid via
+# `echo "info process" | winedbg`, `winedbg --gdb --no-start --port N 0xWPID`,
+# then the usual gdb -batch flow from dump-view-hierarchy.sh).
+#
 # Works standalone or alongside netcap.py. Read-only; never modifies the target.
 
 import gdb

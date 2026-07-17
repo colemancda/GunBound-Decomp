@@ -103,8 +103,9 @@ public:
 };
 
 class CState03GameRoomList : public CGameState {/* size 0x294; ProcessPacket 0x426ad0.
-                                                 * The Ghidra project names its vtable
-                                                 * vtable_State3_NetworkSession. */
+                                                 * C-side vtable: vtable_State03_GameRoomList
+                                                 * (renamed from the wrong
+                                                 * vtable_State3_NetworkSession guess). */
 public:
     CState03GameRoomList() : m_unk11c(0), m_unk288(1) {} /* InitGame's inline inits */
 

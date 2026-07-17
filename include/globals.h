@@ -1334,7 +1334,7 @@ extern void *vtable_State07_AvatarStore[32];
 extern void *vtable_State09_ReadyRoom[32];
 extern void *vtable_State10_Loading[32];
 extern void *vtable_State11_InBattle[32];
-extern void *vtable_State3_NetworkSession[32];
+extern void *vtable_State03_GameRoomList[32]; /* was vtable_State3_NetworkSession - the vtable dump proved state 3 is the game-room-list state */
 
 
 /* --- Code labels referenced by address --- 

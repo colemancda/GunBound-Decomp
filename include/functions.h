@@ -562,6 +562,14 @@ int * __fastcall FUN_0043e060();
 void __fastcall FUN_0043e0f0();
 undefined4 * FUN_0043e150();
 void State10_Loading_ProcessPacket();
+/* The other per-state ProcessPacket virtuals (vtable slot 1) - full
+ * prototypes (winegcc rejects K&R decls against ushort-param
+ * definitions) for the vtable initializers in globals.c (__thiscall is
+ * macro-erased, see ghidra_types.h). */
+void __thiscall State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort *payload);
+void __thiscall State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort *payload);
+void __thiscall State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *payload);
+void __thiscall State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *payload);
 void __thiscall FUN_0043e700();
 void State10_Loading_AppendChatLine();
 int __fastcall State10_Loading_Render(int param_1);
@@ -590,8 +598,12 @@ undefined4 * FUN_00443c20();
 void * __thiscall FUN_00443da0();
 void FUN_00443dc0();
 void __fastcall FUN_00443ed0();
+void FUN_004452c0();  /* State07 vtable slot 4 - not yet ported, bring-up auto-stub */
 void __thiscall FUN_00445450();
+void FUN_004475c0();  /* State07 vtable slot 6 - not yet ported, bring-up auto-stub */
 void __fastcall FUN_00448370();
+void FUN_00448440();  /* State07 vtable slot 13 - not yet ported, bring-up auto-stub */
+void FUN_00449050();  /* State07 vtable slot 14 - not yet ported, bring-up auto-stub */
 void FUN_00449250();
 void FUN_00449540();
 void FUN_00449b60();

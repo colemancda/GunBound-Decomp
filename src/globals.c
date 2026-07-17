@@ -1399,6 +1399,32 @@ void *PTR_LAB_00557f30;
 void *PTR_LAB_00557f58;
 void *PTR_LAB_00563ddc;
 void *vtable_ButtonWidget[32];
+/* Full-prototype redeclarations for the vtable initializers below.
+ * functions.h deliberately declares these K&R-empty (so unmigrated
+ * callers keep compiling), but a K&R __fastcall reference decorates as
+ * @Name@0 while the real definitions export @Name@4 - taking the
+ * address through the K&R decl silently binds the vtable slot to a
+ * bring-up auto-stub instead of the real function (caught 2026-07-16
+ * via a stub-list diff: 17 real, already-ported methods showed up as
+ * NEW stubs). A prototype composes fine with the earlier K&R decl and
+ * makes the reference decorate correctly. */
+void __fastcall FUN_00429730(int param_1);
+void __fastcall FUN_00448370(int param_1);
+void __fastcall RenderWindGaugeTick(int param_1);
+void __fastcall State03_GameRoomList_OnEnter(int *param_1);
+void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1);
+void __fastcall State07_AvatarStore_OnEnter(int param_1);
+void __fastcall State09_ReadyRoom_OnEnter(int param_1);
+void __fastcall State09_ReadyRoom_OnExit(int param_1);
+void __fastcall State09_ReadyRoom_OnTick(int param_1);
+void __fastcall State09_ReadyRoom_RenderCharacterPreview(int param_1);
+void __fastcall State09_ReadyRoom_RenderRosterAndItems(int param_1);
+void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1);
+void __fastcall State11_InBattle_OnEnter(int param_1);
+void __fastcall State11_InBattle_OnExit(int param_1);
+void __fastcall State11_InBattle_OnTick(int *param_1);
+void __fastcall State11_InBattle_RenderHud(int param_1);
+void __fastcall State11_InBattle_RenderModeIcons(int param_1);
 /* Per-state CGameState vtables (see ARCHITECTURE.md's "CGameState base
  * class and virtual dispatch" table for the slot layout: 0=dtor,
  * 1=ProcessPacket, 2-4=other no-op virtuals, 5=keyboard dispatch,
@@ -1493,8 +1519,50 @@ void *vtable_State06_Logo2[32] = {
   (void *)State06_Logo2_Render,                            /* 15 +0x3c: 0x443360 */
   (void *)NoOpMethod, (void *)NoOpMethod,                  /* 16-17 +0x40/+0x44 */
 };
-void *vtable_State07_AvatarStore[32];
-void *vtable_State09_ReadyRoom[32];
+/* Real 18-slot vtable - dumped from orig .rdata at 0x5555f8 (the
+ * address FUN_00443c20, this state's constructor, stores at *param_1;
+ * same whole-table dump technique as vtable_State10_Loading below).
+ * Populated 2026-07-16 session 15: Shutdown's per-state destructor loop
+ * (`(**(code**)*g_gameStateVTableArray[N])(1)`) crashed at EIP=0 on the
+ * first state whose vtable was still an all-NULL placeholder array.
+ * Slots 4/5/6/9/13/14 target not-yet-ported functions - declared as
+ * externs so the bring-up link auto-stubs them (session-12 precedent). */
+void *vtable_State07_AvatarStore[32] = {
+  (void *)FUN_00443da0,                                     /* 0  dtor 0x443da0 */
+  (void *)State07_AvatarStore_ProcessPacket,                /* 1  0x4440c0 */
+  (void *)CGameState_NoOpVirtual_B, (void *)CGameState_NoOpVirtual_B, /* 2-3 */
+  (void *)FUN_004452c0,                                     /* 4  0x4452c0 (stub) */
+  (void *)FUN_00445450,                                     /* 5  0x445450 - store window builder */
+  (void *)FUN_004475c0,                                     /* 6  0x4475c0 (stub) */
+  (void *)State07_AvatarStore_OnEnter,                      /* 7  0x447760 */
+  (void *)State07_AvatarStore_OnExit,                       /* 8  0x448050 */
+  (void *)FUN_00448370,                                     /* 9  0x448370 */
+  (void *)CGameState_NoOpVirtual_A,                         /* 10 0x448430 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                   /* 11-12 0x429800 */
+  (void *)FUN_00448440,                                     /* 13 0x448440 (stub) */
+  (void *)FUN_00449050,                                     /* 14 0x449050 (stub) */
+  (void *)NoOpMethod, (void *)NoOpMethod, (void *)NoOpMethod, /* 15-17 0x429800 */
+};
+/* Real 18-slot vtable - dumped from orig .rdata at 0x5569f8 (stored by
+ * State09_ReadyRoom_Construct at *param_1). Every slot already ported. */
+void *vtable_State09_ReadyRoom[32] = {
+  (void *)State09_ReadyRoom_Delete,                         /* 0  0x4d37f0 */
+  (void *)State09_ReadyRoom_ProcessPacket,                  /* 1  0x4d38c0 */
+  (void *)State09_ReadyRoom_ProcessBattleAction,            /* 2  0x4d4ea0 */
+  (void *)State09_ReadyRoom_OnActivate,                     /* 3  0x4d54c0 */
+  (void *)CGameState_NoOpVirtual_B,                         /* 4  0x4fdef0 */
+  (void *)State09_ReadyRoom_OnCommand,                      /* 5  0x4d54e0 */
+  (void *)State09_ReadyRoom_HandleChatInput,                /* 6  0x4d6210 */
+  (void *)State09_ReadyRoom_OnEnter,                        /* 7  0x4d6810 */
+  (void *)State09_ReadyRoom_OnExit,                         /* 8  0x4d7630 */
+  (void *)State09_ReadyRoom_OnTick,                         /* 9  0x4d7b20 */
+  (void *)AppendReadyRoomStatusMessage,                     /* 10 0x4d7d70 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                   /* 11-12 0x429800 */
+  (void *)State09_ReadyRoom_RenderRosterAndItems,           /* 13 0x4d7db0 */
+  (void *)State09_ReadyRoom_RenderCharacterPreview,         /* 14 0x4d90c0 */
+  (void *)State09_ReadyRoom_RenderStatusOverlay,            /* 15 0x4d9ae0 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                   /* 16-17 0x429800 */
+};
 /* Real 18-slot vtable - dumped directly from orig .rdata at 0x554018
  * (see ARCHITECTURE.md's "State10_Loading's render slot" section for
  * the slot-10/15 writeup; the rest confirmed this pass via the same
@@ -1518,8 +1586,53 @@ void *vtable_State10_Loading[32] = {
   (void *)State10_Loading_Render,                           /* 15 0x442280 */
   (void *)NoOpMethod, (void *)NoOpMethod,                   /* 16-17 0x429800 */
 };
-void *vtable_State11_InBattle[32];
-void *vtable_State3_NetworkSession[32];
+/* Real 18-slot vtable - dumped from orig .rdata at 0x5566d8 (stored by
+ * FUN_004b3f90, this state's constructor, at *param_1). Every slot
+ * already ported; slot 12 is the weather-hazard render documented in
+ * State11_InBattle_RenderWeatherHazards.c (that file's "unpopulated
+ * bring-up placeholder" caveat is resolved by this initializer). */
+void *vtable_State11_InBattle[32] = {
+  (void *)State11_InBattle_Delete,                          /* 0  0x4b4060 */
+  (void *)State11_InBattle_ProcessPacket,                   /* 1  0x4b4100 */
+  (void *)State11_InBattle_ProcessBattleAction,             /* 2  0x4b5460 */
+  (void *)CGameState_NoOpVirtual_B, (void *)CGameState_NoOpVirtual_B, /* 3-4 */
+  (void *)State11_InBattle_HandleKeyInput,                  /* 5  0x4b82b0 */
+  (void *)State11_InBattle_HandleMouseInput,                /* 6  0x4b97d0 */
+  (void *)State11_InBattle_OnEnter,                         /* 7  0x4bb730 */
+  (void *)State11_InBattle_OnExit,                          /* 8  0x4bcd00 */
+  (void *)State11_InBattle_OnTick,                          /* 9  0x4bd8b0 */
+  (void *)FUN_004c1b90,                                     /* 10 0x4c1b90 */
+  (void *)RenderWindGaugeTick,                              /* 11 0x4c1c90 */
+  (void *)State11_InBattle_RenderWeatherHazards,            /* 12 0x4c1d10 */
+  (void *)State11_InBattle_ClearEffectTextures,             /* 13 0x4c1d30 */
+  (void *)State11_InBattle_Render,                          /* 14 0x4c3020 */
+  (void *)State11_InBattle_RenderHud,                       /* 15 0x4c8890 */
+  (void *)State11_InBattle_RenderModeIcons,                 /* 16 0x4caed0 */
+  (void *)NoOpMethod,                                       /* 17 0x429800 */
+};
+/* Real 18-slot vtable - dumped from orig .rdata at 0x553670 (the
+ * address the original InitGame stores into the state-3 object at
+ * 0x40ed93). The dump proves state 3 is the GAME ROOM LIST state - the
+ * slots point straight at the State03_GameRoomList_* methods - so the
+ * old "NetworkSession" guess name was wrong (renamed 2026-07-16;
+ * vtable_State3_NetworkSession was this same array). Slot 10 is the
+ * shared chat-line appender first named in State10's table. */
+void *vtable_State03_GameRoomList[32] = {
+  (void *)CGameState_ScalarDeletingDestructor,              /* 0  0x4e5320 */
+  (void *)State03_GameRoomList_ProcessPacket,               /* 1  0x426ad0 */
+  (void *)CGameState_NoOpVirtual_B, (void *)CGameState_NoOpVirtual_B,
+  (void *)CGameState_NoOpVirtual_B,                         /* 2-4 0x4fdef0 */
+  (void *)State03_GameRoomList_OnCommand,                   /* 5  0x4285c0 */
+  (void *)State03_GameRoomList_HandleMouseInput,            /* 6  0x428b90 */
+  (void *)State03_GameRoomList_OnEnter,                     /* 7  0x428d00 */
+  (void *)State03_GameRoomList_OnExit,                      /* 8  0x429480 */
+  (void *)FUN_00429730,                                     /* 9  0x429730 */
+  (void *)State10_Loading_AppendChatLine,                   /* 10 0x442240 (shared) */
+  (void *)NoOpMethod, (void *)NoOpMethod,                   /* 11-12 0x429800 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                   /* 13-14 0x429800 */
+  (void *)State03_GameRoomList_RenderRoomLabel,             /* 15 0x429810 */
+  (void *)NoOpMethod, (void *)NoOpMethod,                   /* 16-17 0x429800 */
+};
 
 uint32_t DAT_00000006;
 uint32_t DAT_00007f00;
