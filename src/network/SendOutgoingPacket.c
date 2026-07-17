@@ -40,10 +40,24 @@ undefined4 SendOutgoingPacket(int param_1)
   undefined4 uVar4;
   undefined4 *unaff_FS_OFFSET;
   undefined1 local_45c [8];
-  undefined1 local_454 [20];
-  int local_440;
-  undefined1 local_230 [20];
-  int local_21c;
+  /* UNDER-SIZED STACK BUFFER FIX (2026-07-16): these two are CValueGuard
+   * cells (0x224 bytes each, = GB_VG_OBJ_SIZE in winmain_bringup.h), NOT
+   * the 20-byte arrays Ghidra emitted. Ghidra split each cell into a small
+   * array plus a separate int for the field at its +0x14, which the real
+   * callees then overran: EncodeChecksumDeltaAdd (0x410010+0x4a/+0x51) and
+   * EncodeChecksumDeltaMul (0x410210+0x5a) both do
+   * `movb $0,0x220(%esi); movl $0,0x14(%esi)` on the cell handed to them -
+   * i.e. they write 0x220 bytes past a 20-byte local, smashing this
+   * function's own return address to 0. That made GameTick's OnTick call
+   * chain `ret` to 0 (EIP=0) as soon as State02_ServerSelect_OnTick sent
+   * the server-directory request, which is why the broker's reply was
+   * never read. The original frame proves the real size: Ghidra's own
+   * offsets put local_454 at -0x454 and local_230 at -0x230 (0x224 apart),
+   * local_230 to local_c is another 0x224, and local_440/local_21c sit
+   * exactly at cell+0x14 (-0x454+0x14 = -0x440). Both former ints are now
+   * read through their cell, so the zero-writes above are observed. */
+  undefined1 local_454 [0x224];
+  undefined1 local_230 [0x224];
   undefined4 local_c;
   undefined1 *puStack_8;
   int local_4;
@@ -72,12 +86,12 @@ undefined4 SendOutgoingPacket(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   *(undefined2 *)(param_1 + 0x4d2) = uVar2;
-  if (local_440 != 0) {
+  if (*(int *)(local_454 + 0x14) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_45c);
   }
   local_4 = 0xffffffff;
-  if (local_21c != 0) {
+  if (*(int *)(local_230 + 0x14) != 0) {
     ScrambleChecksumGuardBytes();
     TreeLowerBound(local_45c);
   }
