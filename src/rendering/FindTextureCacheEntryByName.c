@@ -1,12 +1,18 @@
 /* FindTextureCacheEntryByName - 0x004f4650 in the original binary.
  *
- * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
- * verified against documented behavior beyond what's already in
- * ARCHITECTURE.md/PROTOCOL.md/FILEFORMATS.md. Calls to unnamed
- * FUN_<address> helpers and DAT_<address>/_DAT_<address> globals are
- * left as-is (undeclared) - this file won't link standalone yet. See
- * src/README.md's "Raw/verbatim ports" section for status and how
- * these get promoted to verified.
+ * Walks the texture cache's name-record list (+0x1b4, next at +0x98)
+ * doing an inline strcmp of param_1 against each record's name at +0,
+ * returning the matching record or NULL.
+ *
+ * DROPPED-`this` FIX (2026-07-16): the cache pointer arrives in EAX (a
+ * custom register convention Ghidra dropped as an uninitialised
+ * `int in_EAX`). Every original call site loads `mov eax, 0xeb1bd8` (or
+ * forwards a param that is itself the same singleton - PreloadTexture's
+ * `mov eax, ebp`) immediately before the call, so the value is always
+ * &g_textureCache - the process-wide singleton constructed by the CRT
+ * static-initializer 0x5429b0. Bound directly to the singleton rather
+ * than adding a parameter, so the ~25 existing 1-arg callers stay
+ * correct as-is. See FlushTextureCache.c for the family evidence.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -17,13 +23,12 @@ byte * FindTextureCacheEntryByName(byte *param_1)
 {
   byte bVar1;
   byte *pbVar2;
-  int in_EAX;
   byte *pbVar3;
   int iVar4;
   byte *pbVar5;
   bool bVar6;
-  
-  pbVar2 = *(byte **)(in_EAX + 0x1b4);
+
+  pbVar2 = *(byte **)(&g_textureCache[0] + 0x1b4);
   do {
     pbVar3 = param_1;
     pbVar5 = pbVar2;

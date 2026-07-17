@@ -47,16 +47,19 @@ unsigned char g_localizedStringTable[0x10000];
  * FUN_004e7de0's own use of that offset, not addressed by this change. */
 unsigned char DAT_00e55ce0[0x454f9];
 
-/* A sprite/frame-cache container singleton (was the 1-byte DAT_00eb1bd8).
- * FUN_004f46b0 (the container's free/reset method, whose `this` Ghidra
- * dropped as an uninitialised EBX - see src/unnamed/FUN_004f46b0.c) walks
- * two heap lists off +0x114 and +0x1b4, then zeroes an inline 15-entry
- * table at +0x401bc and a count at +0x401b8 - so the object extends to at
- * least 0x401fc bytes. 0x40200 covers every offset it touches. Distinct
- * from the small [0x20] sentinel-list container DAT_00ea0e18. Four call
- * sites (ShutdownDirectDraw, FUN_004e4220, State07_AvatarStore_OnExit x2)
- * pass &DAT_00eb1bd8; FUN_004f42f0 passes its own container argument.
- * Before this sizing, &DAT_00eb1bd8+0x401bc landed on whatever global the
- * linker placed next, and under the stricter (Lutris) wine the dropped
- * EBX was garbage and faulted outright. */
-unsigned char DAT_00eb1bd8[0x40200];
+/* The named-texture-cache singleton (was the 1-byte DAT_00eb1bd8).
+ * Constructed by InitTextureCache from the CRT static-initializer
+ * 0x5429b0, destroyed via the atexit thunk FUN_00543950 ->
+ * DestroyTextureCache. PreloadTexture registers textures by name
+ * ("CharacterTexture1", "TagTexture", "TornadoTexture", ...),
+ * FindTextureCacheEntryByName looks them up, FlushTextureCache
+ * COM-Releases and frees everything. FlushTextureCache (whose `this`
+ * Ghidra dropped as an uninitialised EBX - see its header) walks two
+ * heap lists off +0x114 and +0x1b4, then zeroes an inline 15-entry
+ * table at +0x401bc and a count at +0x401b8 - so the object extends to
+ * at least 0x401fc bytes. 0x40200 covers every offset it touches.
+ * Distinct from the small [0x20] sentinel-list container DAT_00ea0e18.
+ * Before this sizing, &g_textureCache+0x401bc landed on whatever global
+ * the linker placed next, and under the stricter (Lutris) wine the
+ * dropped EBX was garbage and faulted outright. */
+unsigned char g_textureCache[0x40200];

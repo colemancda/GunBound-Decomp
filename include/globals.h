@@ -884,7 +884,11 @@ extern uint8_t DAT_00ea0eac;
 #define _DAT_00ea0eac DAT_00ea0eac
 extern uint32_t DAT_00ea0f54;
 extern uint8_t DAT_00eb168c;
-extern uint8_t DAT_00eb1bd8;
+/* The named-texture-cache singleton (was DAT_00eb1bd8) - real 0x40200-byte
+ * storage in globals_sized.c. InitTextureCache/DestroyTextureCache ctor/
+ * dtor pair; PreloadTexture/FindTextureCacheEntryByName/FlushTextureCache
+ * operate on it. */
+extern uint8_t g_textureCache[0x40200];
 /* DAT_00f11dd0 promoted to XFSArchive g_graphicsArchive - see xfs.h */
 extern uint32_t DAT_00f11dd4;
 extern uint8_t DAT_00f11de0;

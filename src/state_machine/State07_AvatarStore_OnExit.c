@@ -206,8 +206,8 @@ LAB_0044830d:
       uVar5 = puVar8[1];
       if (300000 < uVar5) {
         /* Container passed in EBX by the original (`mov ebx,0xeb1bd8`
-         * immediately before the call) - see src/unnamed/FUN_004f46b0.c. */
-        FUN_004f46b0((int)&DAT_00eb1bd8);
+         * immediately before the call) - see src/rendering/FlushTextureCache.c. */
+        FlushTextureCache((int)&g_textureCache);
         return;
       }
     }
@@ -221,8 +221,8 @@ LAB_0044830d:
     puVar8[4] = puVar8;
   }
   /* Container passed in EBX by the original (`mov ebx,0xeb1bd8` immediately
-   * before the call) - see src/unnamed/FUN_004f46b0.c's header. */
-  FUN_004f46b0((int)&DAT_00eb1bd8);
+   * before the call) - see src/rendering/FlushTextureCache.c's header. */
+  FlushTextureCache((int)&g_textureCache);
   return;
 code_r0x00448077:
   puVar8 = (undefined4 *)puVar8[7];

@@ -89,6 +89,15 @@ public class ApplyFunctionRenames extends GhidraScript {
         {"004388e0", "SpawnShot_Type13", "src/battle/SpawnShot_Type13.c"},
         {"004a2ce0", "DetonatePrimaryShot_Bullet4", "src/battle/DetonatePrimaryShot_Bullet4.c"},
         {"004af7a0", "DetonatePrimaryShot_Bullet12", "src/battle/DetonatePrimaryShot_Bullet12.c"},
+        // 2026-07-16 session 15: the named-texture-cache family (singleton
+        // g_textureCache, was DAT_00eb1bd8) - identity established via the
+        // CRT static-init ctor at 0x5429b0 and the texture-name string
+        // literals ("CharacterTexture1"/"TornadoTexture"/...) pushed into
+        // the already-named PreloadTexture/FindTextureCacheEntryByName -
+        // see src/rendering/FlushTextureCache.c's header.
+        {"004f42b0", "InitTextureCache", "src/rendering/InitTextureCache.c"},
+        {"004f42f0", "DestroyTextureCache", "src/rendering/DestroyTextureCache.c"},
+        {"004f46b0", "FlushTextureCache", "src/rendering/FlushTextureCache.c"},
     };
 
     public void run() throws Exception {

@@ -81,7 +81,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  PreloadTexture(&DAT_00eb1bd8,s_AvataTexture1_0055565c);
+  PreloadTexture(&g_textureCache,s_AvataTexture1_0055565c);
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   uVar5 = FindPreloadedTextureByName(s_avata_00553fa8);
   *(undefined4 *)(param_1 + 0x30bd8) = uVar5;

@@ -32,8 +32,8 @@ void ShutdownDirectDraw(void)
   FUN_004f3e70();
   FUN_004f3a30();
   /* Container passed in EBX by the original (`mov ebx,0xeb1bd8` immediately
-   * before the call) - see src/unnamed/FUN_004f46b0.c's header. */
-  FUN_004f46b0((int)&DAT_00eb1bd8);
+   * before the call) - see src/rendering/FlushTextureCache.c's header. */
+  FlushTextureCache((int)&g_textureCache);
   if (g_pD3DDevice7 != (int *)0x0) {
     (**(code **)(*g_pD3DDevice7 + 8))(g_pD3DDevice7);
     g_pD3DDevice7 = (int *)0x0;

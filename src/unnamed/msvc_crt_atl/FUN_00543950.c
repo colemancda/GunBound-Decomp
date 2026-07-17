@@ -10,7 +10,7 @@
 void FUN_00543950(void)
 
 {
-  FUN_004f42f0(&DAT_00eb1bd8);
+  DestroyTextureCache((int)&g_textureCache);
   return;
 }
 
