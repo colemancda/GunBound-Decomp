@@ -1,4 +1,4 @@
-/* FUN_004e1170 - 0x004e1170 in the original binary.
+/* State02_ServerSelect_OnCommand - 0x004e1170 in the original binary.
  *
  * State02_ServerSelect vtable slot 5 - click/action handler. On
  * param_2==0 dispatches by param_4: 0 = quit-game request, 1 = open the
@@ -16,7 +16,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004e1170(int param_1,int param_2,undefined4 param_3,int param_4)
+void __thiscall State02_ServerSelect_OnCommand(int param_1,int param_2,undefined4 param_3,int param_4)
 
 {
   int iVar1;

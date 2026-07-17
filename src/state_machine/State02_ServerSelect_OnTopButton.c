@@ -1,4 +1,4 @@
-/* FUN_004e1200 - 0x004e1200 in the original binary.
+/* State02_ServerSelect_OnTopButton - 0x004e1200 in the original binary.
  *
  * State02_ServerSelect vtable slot 3 - click dispatcher for the top-level
  * button IDs (param_2 == 3: buddy-list-related request; param_2 == 4: some
@@ -13,7 +13,7 @@
  * showed 1 stack parameter (`param_2`) - a 3rd parameter is pushed by
  * every caller and popped on return but genuinely never read inside
  * this function's body (same "unused-but-ABI-real" shape as
- * FUN_004e1430's 3rd parameter). Added as `param_3` (unused) so the
+ * State02_ServerSelect_HandleKeyInput's 3rd parameter). Added as `param_3` (unused) so the
  * generated `ret N` matches what vtable slot-3 callers actually push.
  */
 #include "ghidra_types.h"
@@ -26,7 +26,7 @@
 /* WARNING: Removing unreachable block (ram,0x004e124a) */
 /* WARNING: Removing unreachable block (ram,0x004e1254) */
 
-void __thiscall FUN_004e1200(int param_1,int param_2,int param_3)
+void __thiscall State02_ServerSelect_OnTopButton(int param_1,int param_2,int param_3)
 
 {
   byte bVar1;

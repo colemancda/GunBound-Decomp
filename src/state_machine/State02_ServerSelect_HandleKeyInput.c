@@ -1,9 +1,9 @@
-/* FUN_004e1430 - 0x004e1430 in the original binary.
+/* State02_ServerSelect_HandleKeyInput - 0x004e1430 in the original binary.
  *
  * State02_ServerSelect vtable slot 6 - keydown handler. On Enter
  * (param_2==0x100, param_3==0xd/VK_RETURN): if nothing is highlighted yet,
  * auto-selects the first online server slot; then, same validation as
- * FUN_004e1170's connect path (online, SERVER button enabled, slot not
+ * State02_ServerSelect_OnCommand's connect path (online, SERVER button enabled, slot not
  * full), calls ConnectToSelectedServer. No confirmed real name/purpose
  * beyond that. Raw/near-verbatim port of Ghidra's decompiler output, not
  * hand-verified. See src/README.md's "Raw/verbatim ports" section for
@@ -25,7 +25,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004e1430(int param_1,int param_2,int param_3,int param_4)
+void __thiscall State02_ServerSelect_HandleKeyInput(int param_1,int param_2,int param_3,int param_4)
 
 {
   int iVar1;

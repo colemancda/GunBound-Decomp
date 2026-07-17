@@ -189,7 +189,7 @@ switchD_004101d3_caseD_113:
      * object) stays live in ECX all the way to `call [edx+0x18]`, with
      * (lParam, wParam, msg) pushed on top - this call was invoking the
      * vtable slot with only the 3 message args and no `this` at all,
-     * reading every field off garbage/null. Also see FUN_004e1430.c
+     * reading every field off garbage/null. Also see State02_ServerSelect_HandleKeyInput.c
      * (State02's slot-6 target) for the matching RET-size fix this
      * needed on the callee side. */
     (*(StateSlot6DispatchFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x18))

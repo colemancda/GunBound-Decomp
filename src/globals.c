@@ -1463,10 +1463,10 @@ void *vtable_State02_ServerSelect[32] = {
   (void *)NoOpMethod, /* dtor: shared 0x4e5320, not yet ported */
   (void *)State02_ServerSelect_ProcessPacket,
   (void *)CGameState_NoOpVirtual_B,
-  (void *)FUN_004e1200, /* slot 3: 0x4e1200 - top-button click dispatcher */
+  (void *)State02_ServerSelect_OnTopButton, /* slot 3: 0x4e1200 - top-button click dispatcher */
   (void *)CGameState_NoOpVirtual_B,
-  (void *)FUN_004e1170, /* slot 5: 0x4e1170 - click/action handler (server connect) */
-  (void *)FUN_004e1430, /* slot 6 keydown: 0x4e1430 - Enter = connect */
+  (void *)State02_ServerSelect_OnCommand, /* slot 5: 0x4e1170 - click/action handler (server connect) */
+  (void *)State02_ServerSelect_HandleKeyInput, /* slot 6 keydown: 0x4e1430 - Enter = connect */
   (void *)State02_ServerSelect_OnEnter, (void *)State02_ServerSelect_OnExit,
   (void *)State02_ServerSelect_OnTick,
   /* Slots 10-17, recovered from the original's real vtable in .data at

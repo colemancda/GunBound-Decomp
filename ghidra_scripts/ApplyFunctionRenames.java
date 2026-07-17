@@ -103,6 +103,14 @@ public class ApplyFunctionRenames extends GhidraScript {
         // (6x12 1bpp glyph, solid colour, rect-clipped; bitmap in EAX) - see
         // src/rendering/BlitFontGlyphClipped.c's header.
         {"004eafa0", "BlitFontGlyphClipped", "src/rendering/BlitFontGlyphClipped.c"},
+        // 2026-07-17 session 15: ServerSelect (state 2) input/command vtable
+        // handlers, identified while tracing the server-join path - slot 5
+        // dispatches the exit-game/buddy-panel/join-server commands, slot 6
+        // is the WM_KEYDOWN handler (Enter = ConnectToSelectedServer), slot 3
+        // dispatches the top-nav buttons.
+        {"004e1170", "State02_ServerSelect_OnCommand", "src/state_machine/State02_ServerSelect_OnCommand.c"},
+        {"004e1430", "State02_ServerSelect_HandleKeyInput", "src/state_machine/State02_ServerSelect_HandleKeyInput.c"},
+        {"004e1200", "State02_ServerSelect_OnTopButton", "src/state_machine/State02_ServerSelect_OnTopButton.c"},
     };
 
     public void run() throws Exception {
