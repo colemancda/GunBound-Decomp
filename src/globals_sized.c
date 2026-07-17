@@ -67,9 +67,8 @@ unsigned char g_textureCache[0x40200];
 /* The ASCII bitmap-font glyph table (was the 1-byte DAT_00673628).
  * 256 glyphs x 12 bytes (6x12 1bpp cells) = 0xc00 bytes; BlitRLESprite
  * indexes it as &DAT_00673628 + char*0xc and BlitFontGlyphClipped reads
- * the 12 row-bytes. Zero-filled at rest - the loader FUN_004eae60 (which
- * would populate it from an XFS entry) is stubbed out in bring-up, so
- * glyphs render blank until that load is un-stubbed; the original's .data
- * is also zero here (runtime-populated). A one-byte cell under-sized it,
- * so char*0xc walked off the end into adjacent globals. */
+ * the 12 row-bytes. Populated at startup by LoadBitmapFont, which reads
+ * 0x600 bytes (128 glyphs) from graphics.xfs's "font.fnt" entry. A
+ * one-byte cell under-sized it, so char*0xc walked off the end into
+ * adjacent globals. */
 unsigned char DAT_00673628[0xc00];

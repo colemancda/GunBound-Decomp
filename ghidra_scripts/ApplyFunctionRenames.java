@@ -103,6 +103,10 @@ public class ApplyFunctionRenames extends GhidraScript {
         // (6x12 1bpp glyph, solid colour, rect-clipped; bitmap in EAX) - see
         // src/rendering/BlitFontGlyphClipped.c's header.
         {"004eafa0", "BlitFontGlyphClipped", "src/rendering/BlitFontGlyphClipped.c"},
+        // 2026-07-17: the bitmap-font loader - reads graphics.xfs's "font.fnt"
+        // into the ASCII glyph table DAT_00673628; un-stubbed so ServerSelect
+        // world-list server names render.
+        {"004eae60", "LoadBitmapFont", "src/rendering/LoadBitmapFont.c"},
         // 2026-07-17 session 15: ServerSelect (state 2) input/command vtable
         // handlers, identified while tracing the server-join path - slot 5
         // dispatches the exit-game/buddy-panel/join-server commands, slot 6

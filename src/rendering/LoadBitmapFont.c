@@ -1,4 +1,4 @@
-/* FUN_004eae60 - 0x004eae60 in the original binary.
+/* LoadBitmapFont - 0x004eae60 in the original binary.
  *
  * LoadBitmapFont: loads the game's bitmap font from the "font.fnt" entry
  * of the graphics.xfs archive into the two glyph tables read by
@@ -26,7 +26,7 @@
 #include "xfs.h"
 
 
-void FUN_004eae60(void)
+void LoadBitmapFont(void)
 
 {
   int stream;

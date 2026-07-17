@@ -21,7 +21,7 @@ void LoadButtonDefinitionFromXFS(void)
    *
    * Two dropped-register issues, neither with a quick fix: OpenXFSEntryStream(0)
    * needs an XFSArchive* and a name string via implicit EDI/EAX registers
-   * inherited from the caller's own context (see FUN_004eae60.c for the
+   * inherited from the caller's own context (see LoadBitmapFont.c for the
    * same situation), and this function's OWN output buffer (unaff_EBX) is
    * ALSO a dropped register never assigned anywhere in the decompiled body -
    * it's used as a 6-int header (count + 5 allocated array pointers) that

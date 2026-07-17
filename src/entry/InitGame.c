@@ -79,7 +79,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (DAT_007934c8 == iVar1) {
         InitDirectInput(param_2);
-        FUN_004eae60();
+        LoadBitmapFont();
         if ((*(int *)(&DAT_005f2f4c + g_clientContext) == 0) &&
            (DAT_0079354a = 0, DAT_00793549 != '\0')) {
           (*(ChannelVtableFn *)(*(int *)*DAT_00793554 + 0xc))(*DAT_00793554);
