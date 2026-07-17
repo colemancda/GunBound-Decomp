@@ -140,7 +140,22 @@ LAB_004d33f1:
       } while (iVar14 < 0x10);
       TreeLowerBound(local_24dc);
     }
-  } while (*psVar1 != sVar5);
+    /* BRING-UP (2026-07-17): the original condition is `while (*psVar1 !=
+     * sVar5)` - a per-packet sequence-checksum sync that spins until the
+     * packet's leading word *psVar1 (the sequence id, e.g. 0x2349) matches
+     * the rolling CValueGuard checksum sVar5 read back from
+     * PeekPacketChecksumState. That function is a deliberate bring-up stub
+     * that always returns 0 (see PeekPacketChecksumState.c), so sVar5 never
+     * advances to meet *psVar1 and the loop never terminates: the received
+     * packet was dequeued (read cursor already advanced above) but the loop
+     * hung before dispatch, so ProcessPacket was never reached and the
+     * server list stayed empty. The loop body only mutates the (also-
+     * stubbed) guard cells, never the packet itself, so a single pass is a
+     * no-op on real state and the server's packets are already plaintext.
+     * Run exactly once and proceed. RESTORE `while (*psVar1 != sVar5)` when
+     * the CValueGuard migration makes PeekPacketChecksumState real. */
+  } while (0);
+  (void)sVar5;
   uVar2 = psVar1[1];
   lParam = (ushort *)(psVar1 + 2);
   if (uVar2 < 0x4103) {

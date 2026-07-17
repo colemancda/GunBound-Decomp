@@ -11,6 +11,18 @@
 #include "ghidra_types.h"
 #include <windows.h>
 
+/* The current game state's ProcessPacket virtual (vtable slot 1, +4).
+ * The original dispatches it __thiscall - `mov ecx,g_gameStateVTableArray
+ * [state]` (this) then `push payload; push opcode; push payloadLen; call
+ * [vtable+4]` (confirmed at orig 0x410caa-0x410cc5). Since ghidra_types.h
+ * erases __thiscall to nothing (all these methods compile __cdecl with an
+ * explicit leading `this`), the caller must pass the state object as the
+ * first argument - the same idiom GameTick uses for GameStateVirtualFn3.
+ * The pre-existing `(**(code**)(...))(param_1,param_2,pbVar22)` call
+ * dropped that leading `this` entirely, so State02_ServerSelect_Process
+ * Packet saw this=payloadLen, payloadLen=opcode, ... - garbage. */
+typedef void (__thiscall *StatePacketDispatchFn)(void *thisPtr, size_t payloadLen, uint opcode, byte *payload);
+
 
 /* WARNING: Type propagation algorithm not settling */
 
@@ -76,9 +88,17 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
   uint local_c;
   
   local_c = 0xffffffff;
-  puStack_10 = &LAB_0053df47;
-  uStack_14 = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &uStack_14;
+  /* Windows SEH __try/__except frame setup stripped (2026-07-17), same as
+   * src/network/ProcessIncomingPackets.c: Ghidra rendered the prologue's
+   * `mov eax, fs:[0]` as a read through `unaff_FS_OFFSET`, a local that is
+   * declared but never assigned - it compiled to `mov [esp+0x1c],-1; mov
+   * eax,[esp+0x1c]; mov ecx,[eax]`, i.e. a read of *(0xFFFFFFFF) that
+   * faulted (rebuilt WriteReplayEventRecord+0x1c = 0x41d00c) the instant
+   * this dispatcher was first reached with a real incoming packet.
+   * Restoring the frame isn't possible either: the handler label
+   * LAB_0053df47 doesn't exist in this build. The matching epilogue
+   * `*unaff_FS_OFFSET = uStack_20` at the tail is removed for the same
+   * reason. */
   pbVar22 = param_3;
   if (*(FILE **)(&g_replayFileHandle + g_clientContext) != (FILE *)0x0) {
     local_d71 = 0;
@@ -959,8 +979,9 @@ LAB_00410792:
     }
   }
 switchD_004105f7_caseD_1022:
-  (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 4))(param_1,param_2,pbVar22);
-  *unaff_FS_OFFSET = uStack_20;
+  (*(StatePacketDispatchFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 4))
+      (g_gameStateVTableArray[g_currentGameState],param_1,param_2,pbVar22);
+  /* SEH epilogue `*unaff_FS_OFFSET = uStack_20` stripped - see prologue. */
   return;
 }
 
