@@ -12,21 +12,27 @@
  * (full-width) between glyphs.
  *
  * Args: param_1 = y (top row, walked down one per bitmap byte),
- * param_2 = x (left column), param_3 = 16bpp colour. The glyph bitmap
- * pointer arrives in EAX (a dropped register argument Ghidra emitted as
- * an uninitialised `byte *in_EAX`) - NOT fixed here: BlitRLESprite's own
- * call site drops both it and param_2 (calls `FUN_004eafa0(param_1,
- * param_3)`), part of the same still-unrecovered bitmap-font/sprite
- * fan-out FindSpriteFrame.c's header describes. Clip rect: x in
- * [DAT_00793530, DAT_0056df30], y in [DAT_00793534, DAT_0056df34].
+ * param_2 = x (left column), param_3 = 16bpp colour, glyphBitmap = the
+ * 12-byte 1bpp glyph.
+ *
+ * DROPPED-EAX FIX (2026-07-17): the glyph bitmap arrived in EAX, which
+ * Ghidra emitted as an uninitialised `byte *in_EAX`. Recovered from
+ * BlitRLESprite's own disassembly at 0x4eb4ca-0x4eb4d9: `movzx eax,al;
+ * lea eax,[eax+eax*2]; lea eax,[eax*4+0x673628]` = &DAT_00673628 +
+ * char*0xc (the ASCII font table). Promoted to an explicit trailing
+ * `glyphBitmap` parameter and the sole caller (BlitRLESprite) fixed to
+ * pass it - it previously passed only (param_1,param_3), leaving in_EAX
+ * garbage (a charsetKey 0x32 leaked in and `*in_EAX` faulted). Clip
+ * rect: x in [DAT_00793530, DAT_0056df30], y in [DAT_00793534,
+ * DAT_0056df34].
  */
 #include "ghidra_types.h"
 
 
-void __thiscall BlitFontGlyphClipped(int param_1,int param_2,int param_3)
+void __thiscall BlitFontGlyphClipped(int param_1,int param_2,int param_3,byte *glyphBitmap)
 
 {
-  byte *in_EAX;
+  byte *in_EAX = glyphBitmap;
   int iVar1;
   int iVar2;
   int local_4;

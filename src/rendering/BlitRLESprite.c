@@ -82,7 +82,12 @@ undefined4 __thiscall BlitRLESprite(int param_1,undefined4 param_2,undefined4 pa
       }
       else {
         if ((bVar1 != 0x20) && (DAT_00793530 <= local_4)) {
-          BlitFontGlyphClipped(param_1,param_3);
+          /* Real args recovered from orig 0x4eb4c6-0x4eb4d9: y=param_2
+           * (ECX=[esp+0x18]), x=param_1 (ESI, the advancing cursor),
+           * colour=param_3 (EBP), glyph bitmap = &DAT_00673628 + char*0xc
+           * (EAX). The prior call passed only (param_1,param_3) and left
+           * the bitmap (EAX) dropped - see BlitFontGlyphClipped.c. */
+          BlitFontGlyphClipped(param_2,param_1,param_3,&DAT_00673628 + (uint)bVar1 * 0xc);
         }
         param_1 = param_1 + 6;
         iVar3 = iVar3 + 6;

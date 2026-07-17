@@ -449,7 +449,8 @@ uint8_t DAT_005f3771;
 uint8_t DAT_005f3772;
 uint8_t DAT_005f4894;
 uint8_t DAT_00666d73;
-uint8_t DAT_00673628;
+/* DAT_00673628: the ASCII bitmap-font glyph table - promoted to the real
+ * 0xc00-byte array in globals_sized.c (256 glyphs x 12 bytes). */
 int *DAT_00674f68;
 /* Was 4 separate uint8_t globals (DAT_006773b4/b8/bc/c0, 4 bytes apart in
  * the original binary) treated at every call site as one contiguous RECT
