@@ -684,18 +684,33 @@ extern uint8_t DAT_007937a0;
 extern uint8_t DAT_00793fa0;
 extern uint8_t DAT_00794bf0;
 extern uint8_t DAT_00794e14;
-extern uint32_t g_inputEventQueueWriteIndex;
-extern uint32_t g_inputEventQueueReadIndex;
-/* Input-event ring buffer, 0x200 entries x 4 bytes each (msg/param1/param2
- * parallel arrays) - was declared as a single uint8_t; ProcessInputEventQueue.c
- * (consumer) and FUN_00506210/00506480/00506b20/00506bf0/00506310/
- * 00506cf0/00506950.c (producers) all index `&DAT_x + readOrWriteIdx*4`
- * with the index masked to 0x1ff, and the next DAT_ symbol after each of
- * these 3 sits exactly 0x800 bytes later in globals.c - confirming the
- * real array size. See ProcessInputEventQueue.c's 2026-07-15 header note. */
-extern uint8_t g_inputEventMsgQueue[0x800];
-extern uint8_t g_inputEventParam1Queue[0x800];
-extern uint8_t g_inputEventParam2Queue[0x800];
+/* Input-event ring buffer - ONE contiguous 0x1808-byte object (orig
+ * 0x795070): write cursor at +0, read cursor at +4, then three 0x200-entry
+ * x 4-byte field arrays (msg/param1/param2) at +8 / +0x808 / +0x1008.
+ * Original addresses (contiguous, from the renames): writeIndex 0x795070,
+ * readIndex 0x795074, msg 0x795078, param1 0x795878, param2 0x796078.
+ *
+ * FUN_004f2da0 (the ring push, called from the socket-receive path via
+ * conn+0x20 = &this ring) accesses the WHOLE object through the write
+ * cursor's ADDRESS as a base pointer - queueObj[0]=writeCursor,
+ * queueObj[1]=readCursor, data at queueObj[cursor+2 / +0x202 / +0x402].
+ * So the five field symbols MUST be contiguous. Declaring them as five
+ * separate globals let the linker scatter them across unrelated <common>
+ * addresses, so the pusher bumped the write cursor + wrote the event data
+ * next to it while the consumer (ProcessInputEventQueue) read the far-away
+ * MsgQueue symbol -> the write index advanced but the data read back as 0
+ * -> phantom (0,0,0) events, which State02_ServerSelect_OnCommand mis-read
+ * as the exit-game command (param_2==0 && param_4==0) -> a spurious quit a
+ * few seconds into ServerSelect. Consolidated into one g_inputEventRing
+ * (defined in globals_sized.c); the field names are fixed offsets into it.
+ * Verified no site takes &MsgQueue or sizeof(), so the base-pointer form is
+ * safe. */
+extern unsigned char g_inputEventRing[0x1808];
+#define g_inputEventQueueWriteIndex (*(uint32_t *)(g_inputEventRing + 0))
+#define g_inputEventQueueReadIndex  (*(uint32_t *)(g_inputEventRing + 4))
+#define g_inputEventMsgQueue        (g_inputEventRing + 8)
+#define g_inputEventParam1Queue     (g_inputEventRing + 0x808)
+#define g_inputEventParam2Queue     (g_inputEventRing + 0x1008)
 extern uint8_t DAT_00796878;
 extern uint8_t DAT_00796aa0;
 /* g_localizedStringTable (was DAT_00796eec) - the localized UI-string map,

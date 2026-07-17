@@ -601,11 +601,11 @@ uint8_t DAT_007937a0;
 uint8_t DAT_00793fa0;
 uint8_t DAT_00794bf0;
 uint8_t DAT_00794e14;
-uint32_t g_inputEventQueueWriteIndex;
-uint32_t g_inputEventQueueReadIndex;
-uint8_t g_inputEventMsgQueue[0x800];
-uint8_t g_inputEventParam1Queue[0x800];
-uint8_t g_inputEventParam2Queue[0x800];
+/* The input-event ring buffer (write/read cursors + 3 field arrays) is now
+ * ONE contiguous object g_inputEventRing in globals_sized.c, reached through
+ * the offset-macros in globals.h - see the comment there. The five fields
+ * MUST be contiguous because FUN_004f2da0 walks the whole ring off the write
+ * cursor's address. */
 uint8_t DAT_00796878;
 uint8_t DAT_00796aa0;
 /* g_localizedStringTable: moved to globals_sized.c - the whole string

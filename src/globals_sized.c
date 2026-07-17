@@ -64,6 +64,19 @@ unsigned char g_replayContext[0x454f9];
  * dropped EBX was garbage and faulted outright. */
 unsigned char g_textureCache[0x40200];
 
+/* The input-event ring buffer (orig 0x795070), ONE contiguous 0x1808-byte
+ * object: write cursor +0, read cursor +4, then three 0x200-entry x4 field
+ * arrays at +8 / +0x808 / +0x1008 (msg / param1 / param2). The field names
+ * g_inputEventQueueWriteIndex/ReadIndex/g_inputEventMsgQueue/Param1Queue/
+ * Param2Queue are offset-macros into this in globals.h. Must be contiguous:
+ * FUN_004f2da0 (the ring push, fed &this ring via conn+0x20 from the socket
+ * receive path) accesses the whole object off the write cursor's address as
+ * a base pointer. When the five were separate scattered globals, the pusher
+ * wrote the event data next to the write cursor while the consumer read the
+ * far-away MsgQueue symbol -> phantom (0,0,0) events -> spurious ServerSelect
+ * quit. See globals.h's comment. */
+unsigned char g_inputEventRing[0x1808];
+
 /* The full-width/CJK bitmap-font glyph table (was the 1-byte DAT_005b3628).
  * 0x8000 double-byte codepoints x 0x18 bytes (12x16 1bpp cell) = 0xc0000
  * bytes; LoadBitmapFont reads exactly 0xc0000 from graphics.xfs's
