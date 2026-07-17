@@ -1,14 +1,27 @@
 /* FUN_00405a40 - 0x00405a40 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Drains the pending battle-action/packet ring on the direct-link
+ * connection context (DAT_007934f4): walks the queue between the read
+ * cursor at +0x24238 and the write cursor at +0x24234, dispatching each
+ * entry by its opcode word.
+ *
+ * DROPPED-`this` FIX (2026-07-16): the context pointer arrives in EDI (a
+ * custom register convention Ghidra dropped as an uninitialised
+ * `int unaff_EDI`). Recovered from disassembly: the prologue reads
+ * [edi+0x2008] without ever setting EDI, and the function's single call
+ * site (PumpBattleActions / FUN_004129c0 at 0x412a0a) does
+ * `mov edi,[0x7934f4]` immediately before the call - i.e. EDI is
+ * DAT_007934f4, exactly the object Shutdown.c already drives through the
+ * same +0x2004 -> +0x22c connection-object field. That call site already
+ * guards on `DAT_007934f4 != 0`; it simply never passed the pointer.
+ * Left unfixed this read a garbage EDI, so [garbage+0x2004] yielded NULL
+ * and the `+0x22c` deref faulted (read of 0x22d at rebuilt 0x44b086)
+ * under the stricter (Lutris) wine.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00405a40(void)
+void FUN_00405a40(int param_1)
 
 {
   ushort *puVar1;
@@ -16,17 +29,16 @@ void FUN_00405a40(void)
   int iVar3;
   int iVar4;
   uint uVar5;
-  int unaff_EDI;
   bool bVar6;
-  
-  if ((*(char *)(unaff_EDI + 0x2008) != '\0') &&
-     (*(int *)(*(int *)(unaff_EDI + 0x2004) + 0x22c) != 3)) {
-    *(undefined1 *)(unaff_EDI + 0x2008) = 0;
-    *(bool *)(unaff_EDI + 0x2009) = *(int *)(*(int *)(unaff_EDI + 0x2004) + 0x22c) == 2;
+
+  if ((*(char *)(param_1 + 0x2008) != '\0') &&
+     (*(int *)(*(int *)(param_1 + 0x2004) + 0x22c) != 3)) {
+    *(undefined1 *)(param_1 + 0x2008) = 0;
+    *(bool *)(param_1 + 0x2009) = *(int *)(*(int *)(param_1 + 0x2004) + 0x22c) == 2;
   }
   do {
     while( true ) {
-      iVar3 = *(int *)(unaff_EDI + 0x2004);
+      iVar3 = *(int *)(param_1 + 0x2004);
       iVar4 = *(int *)(iVar3 + 0x24238);
       if (iVar4 == *(int *)(iVar3 + 0x24234)) {
         return;

@@ -40,7 +40,9 @@ void PumpBattleActions(int param_1)
   ProcessIncomingPackets(DAT_005b2b5c,0);
   ProcessIncomingPackets(DAT_005b2b60,0);
   if (DAT_007934f4 != 0) {
-    FUN_00405a40();
+    /* Context passed in EDI by the original (`mov edi,[0x7934f4]`
+     * immediately before the call) - see FUN_00405a40.c's header. */
+    FUN_00405a40(DAT_007934f4);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_00e9af44);
   FUN_004e84c0(&DAT_00e55ce0);

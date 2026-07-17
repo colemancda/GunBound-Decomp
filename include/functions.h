@@ -212,7 +212,7 @@ void FUN_00405930();
 void CloseDirectLinkSocket(int param_1);
 void __fastcall FUN_004059e0();
 void __fastcall FUN_00405a20();
-void FUN_00405a40();
+void FUN_00405a40(int param_1);
 void __fastcall FUN_00405b20();
 void __fastcall FUN_00405b60();
 void FUN_00405ba0();
