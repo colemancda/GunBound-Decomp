@@ -469,7 +469,7 @@ int *DAT_00674f68;
 int32_t g_presentDstRect[4];
 /* Two DDPIXELFORMAT slots (0x20 bytes = 8 dwords each): the 16-bit RGB and
  * DXT/FourCC texture formats matched by EnumTextureFormatsCallback and read
- * back by FUN_004f0230. Were lone uint32_t, so the 8-dword copy overflowed
+ * back by CreateTextureAtlasSurface. Were lone uint32_t, so the 8-dword copy overflowed
  * 28 bytes into adjacent globals. */
 uint32_t DAT_00677544[8];
 uint32_t DAT_006777e8[8];

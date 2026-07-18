@@ -59,7 +59,7 @@ LAB_004f0fac:
   DVar2 = SetFilePointer(*(HANDLE *)(unaff_ESI + 0x1040),*(LONG *)(unaff_ESI + 0x10),(PLONG)0x0,0);
   if (DVar2 != 0xffffffff) {
     iVar5 = unaff_ESI + 0x1048;
-    DStack_40008 = FUN_004ea760(iVar5,auStack_40000,unaff_ESI,0x40);
+    DStack_40008 = EncodeLZHUFBlock(iVar5,auStack_40000,unaff_ESI,0x40);
     BVar3 = WriteFile(*(HANDLE *)(unaff_ESI + 0x1040),&DStack_40008,4,&DStack_4000c,
                       (LPOVERLAPPED)0x0);
     if ((((BVar3 == 1) && (DStack_4000c == 4)) &&
@@ -69,7 +69,7 @@ LAB_004f0fac:
       if ((*(uint *)(unaff_ESI + 8) & 0xfffffc00) != 0) {
         puVar4 = (undefined4 *)(unaff_ESI + 0x40);
         do {
-          DStack_40008 = FUN_004ea760(iVar5,auStack_40000,*puVar4,0x20000);
+          DStack_40008 = EncodeLZHUFBlock(iVar5,auStack_40000,*puVar4,0x20000);
           BVar3 = WriteFile(*(HANDLE *)(unaff_ESI + 0x1040),&DStack_40008,4,&DStack_4000c,
                             (LPOVERLAPPED)0x0);
           if (((BVar3 != 1) || (DStack_4000c != 4)) ||
@@ -81,7 +81,7 @@ LAB_004f0fac:
         } while (uStack_40004 < *(uint *)(unaff_ESI + 8) >> 10);
       }
       if ((*(uint *)(unaff_ESI + 8) & 0x3ff) != 0) {
-        DStack_40008 = FUN_004ea760(iVar5,auStack_40000,
+        DStack_40008 = EncodeLZHUFBlock(iVar5,auStack_40000,
                                     *(undefined4 *)(unaff_ESI + 0x40 + uStack_40004 * 4),0x20000);
         BVar3 = WriteFile(*(HANDLE *)(unaff_ESI + 0x1040),&DStack_40008,4,&DStack_4000c,
                           (LPOVERLAPPED)0x0);

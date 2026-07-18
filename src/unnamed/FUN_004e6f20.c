@@ -17,7 +17,7 @@ void FUN_004e6f20(undefined4 *param_1,uint param_2)
   undefined4 *puVar3;
   undefined4 local_400 [256];
   
-  FUN_004f48b0(2);
+  RijndaelSetKey(2);
   iVar1 = (int)(param_2 + ((int)param_2 >> 0x1f & 0xfU)) >> 4;
   if (0 < iVar1) {
     puVar3 = param_1;

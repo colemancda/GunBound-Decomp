@@ -34,7 +34,7 @@ void EncryptEventBroadcast(void)
   }
   *(char *)(unaff_EBX + 0x44df0) = cVar1;
   *(undefined1 *)(unaff_EBX + 0x44ff4) = 1;
-  FUN_004f48b0(1);
+  RijndaelSetKey(1);
   iVar3 = *(int *)(unaff_EBX + 0x44fec) + -0x12;
   iVar5 = 0;
   if (0 < (int)(iVar3 + (iVar3 >> 0x1f & 0xfU)) >> 4) {

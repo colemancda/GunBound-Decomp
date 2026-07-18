@@ -127,7 +127,34 @@ public class ApplyFunctionRenames extends GhidraScript {
         {"004e1170", "State02_ServerSelect_OnCommand", "src/state_machine/State02_ServerSelect_OnCommand.c"},
         {"004e1430", "State02_ServerSelect_HandleKeyInput", "src/state_machine/State02_ServerSelect_HandleKeyInput.c"},
         {"004e1200", "State02_ServerSelect_OnTopButton", "src/state_machine/State02_ServerSelect_OnTopButton.c"},
+        // 2026-07-18 session 17: the texture-atlas cluster behind PreloadTexture
+        // (0x4f43a0) - page alloc/init, DirectDraw surface creation, free-tile
+        // scan, pixel upload, and the sorted name-record insert that mirrors
+        // FindTextureCacheEntryByName.
+        {"004f0230", "CreateTextureAtlasSurface", "src/rendering/CreateTextureAtlasSurface.c"},
+        {"004f4350", "AllocTextureAtlasPage", "src/rendering/AllocTextureAtlasPage.c"},
+        {"004f4170", "InitTextureAtlasPage", "src/rendering/InitTextureAtlasPage.c"},
+        {"004f4750", "FindFreeAtlasTileSlot", "src/rendering/FindFreeAtlasTileSlot.c"},
+        {"004f41d0", "UploadTileToAtlasSurface", "src/rendering/UploadTileToAtlasSurface.c"},
+        {"004f45d0", "InsertTextureCacheRecord", "src/rendering/InsertTextureCacheRecord.c"},
+        // 2026-07-18 session 17: the LZHUF COMPRESS side (the decode side was
+        // already named) + the XFS write-back that drives it, and the AES key
+        // schedule of the network cipher family.
+        {"004ea760", "EncodeLZHUFBlock", "src/lzhuf/EncodeLZHUFBlock.c"},
+        {"004ea580", "LZHUFUpdate", "src/lzhuf/LZHUFUpdate.c"},
+        {"004ea230", "LZHUFPutCode", "src/lzhuf/LZHUFPutCode.c"},
+        {"004ea010", "LZHUFDeleteNode", "src/lzhuf/LZHUFDeleteNode.c"},
+        {"004f0530", "FlushXFSWriteBlock", "src/fileformat/FlushXFSWriteBlock.c"},
+        {"004f48b0", "RijndaelSetKey", "src/network/RijndaelSetKey.c"},
     };
+
+    /* Addresses where a RENAMES entry is INTENTIONALLY allowed to replace an
+     * existing non-FUN_ name (normally left alone). Use only when the current
+     * Ghidra name is a low-confidence auto-guess the new name strictly improves
+     * on. 004ea580: Ghidra's generic "Update" guess -> the specific
+     * "LZHUFUpdate" (the classic LZHUF update() - see LZHUFUpdate.c). */
+    static final java.util.Set<String> OVERRIDE_NONDEFAULT =
+        new java.util.HashSet<>(java.util.Arrays.asList("004ea580"));
 
     public void run() throws Exception {
         int renamed = 0, skippedAlready = 0, skippedConflict = 0, notFound = 0;
@@ -158,7 +185,7 @@ public class ApplyFunctionRenames extends GhidraScript {
                 continue;
             }
             boolean isDefaultName = current.startsWith("FUN_");
-            if (!isDefaultName) {
+            if (!isDefaultName && !OVERRIDE_NONDEFAULT.contains(addrStr)) {
                 println("CONFLICT: " + addrStr + " already named '" + current
                         + "' (not FUN_-default), wanted '" + newName + "' - skipped, not overwriting");
                 skippedConflict++;

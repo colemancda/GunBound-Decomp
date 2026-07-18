@@ -75,10 +75,10 @@ uint EncodeHandshakeBlock(undefined4 param_1,undefined4 param_2,undefined4 param
   Sha1Absorb(&local_28c);
   Sha1Absorb(&local_28c,&param_3);
   Sha1Final();
-  uVar5 = FUN_004f48b0(3);
+  uVar5 = RijndaelSetKey(3);
   if ((short)uVar5 == 1) {
     local_4 = 0;
-    FUN_004f48b0(1);
+    RijndaelSetKey(1);
     _strncpy(local_22c,unaff_ESI,0x10);
     local_21c = param_3;
     sVar4 = EncodeCipherBlock(iVar2,local_20c);

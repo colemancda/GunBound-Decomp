@@ -28,7 +28,7 @@ int FUN_004ea670(void)
       *(short *)(unaff_ESI + 0xf6b0) = *(short *)(unaff_ESI + 0xf6b0) * 2;
     }
   }
-  FUN_004ea580(uVar2 - 0x273);
+  LZHUFUpdate(uVar2 - 0x273);
   return uVar2 - 0x273;
 }
 

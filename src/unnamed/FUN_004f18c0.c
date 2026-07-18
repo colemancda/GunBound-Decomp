@@ -88,7 +88,7 @@ int FUN_004f18c0(undefined4 param_1,undefined4 param_2,int param_3,char *imgName
   if (*(char *)((int)pvVar2 + 0x1018) == '\0') {
     if ((*(int *)((int)pvVar2 + 0x100c) != 0) &&
        (*(int *)(*(int *)((int)pvVar2 + 0x1004) + 0x70) == 0)) {
-      FUN_004f0530();
+      FlushXFSWriteBlock();
     }
     iVar1 = *(int *)((int)pvVar2 + 0x1004);
     if (*(int *)(iVar1 + 0x70) == 1) {

@@ -25,7 +25,7 @@ void __fastcall FUN_005051e0(int param_1,int param_2)
     *(undefined4 *)(local_10 + uVar4 * 4) = uVar1;
     uVar4 = uVar4 + 1;
   } while (uVar4 < 4);
-  FUN_004f48b0(3);
+  RijndaelSetKey(3);
   iVar5 = (int)(param_1 + 0x10 + (param_1 + 0x10 >> 0x1f & 0xfU)) >> 4;
   pvVar2 = _realloc(*(void **)(param_2 + 0x27c),iVar5 << 4);
   iVar3 = 0;

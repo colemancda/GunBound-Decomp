@@ -143,7 +143,7 @@ void FUN_004ff770(int *param_1,int param_2)
             Sha1Absorb(local_3128,local_2eaa);
             Sha1Absorb(local_3128,local_2e9a);
             Sha1Final();
-            FUN_004f48b0(2);
+            RijndaelSetKey(2);
             FUN_004fcd50(local_30c8);
             if ((uint)local_173e <= local_2ebc - 0x36) {
               GetSystemTimeAsFileTime(&local_3158);

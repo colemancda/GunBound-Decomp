@@ -62,7 +62,7 @@ FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 
   Sha1Absorb(&local_19dc,param_1);
   Sha1Absorb(&local_19dc,&param_5);
   Sha1Final();
-  FUN_004f48b0(1);
+  RijndaelSetKey(1);
   FUN_004fcd20(local_197c);
   uVar4 = iVar3 + 0x26;
   local_1770 = (undefined2)uVar4;

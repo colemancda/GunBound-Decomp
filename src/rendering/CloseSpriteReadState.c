@@ -25,7 +25,7 @@
  * sources - those still use the old 0-arg form and need the same
  * per-site disassembly treatment (same partial-fix precedent as
  * RegisterActiveObject.c/CreateActiveObjectLayer.c). The conditionally-
- * called FUN_004f0530() (its own dropped-arg helper, invoked when the
+ * called FlushXFSWriteBlock() (its own dropped-arg helper, invoked when the
  * session object's +0x100c count is nonzero and +0x70 accounting field
  * is still zero) is also untouched - out of scope here, unreached on the
  * bring-up path since that combination doesn't occur while the archive's
@@ -46,7 +46,7 @@ undefined4 CloseSpriteReadState(void *readState, int archive)
     if (*(char *)((int)readState + 0x1018) == '\0') {
       if ((*(int *)((int)readState + 0x100c) != 0) &&
          (*(int *)(*(int *)((int)readState + 0x1004) + 0x70) == 0)) {
-        FUN_004f0530();
+        FlushXFSWriteBlock();
       }
       iVar1 = *(int *)((int)readState + 0x1004);
       if (*(int *)(iVar1 + 0x70) == 1) {

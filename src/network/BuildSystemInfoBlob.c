@@ -30,7 +30,7 @@ void BuildSystemInfoBlob(undefined4 *param_1, undefined4 *param_2)
   undefined1 local_4;
   
   local_4 = 0;
-  FUN_004f48b0(2);
+  RijndaelSetKey(2);
   /* DecodeCipherBlock's 3 calls were missing param_2 (the ciphertext
    * source) entirely, and had their other 2 (now-visible) arguments
    * mispositioned relative to the real ABI (see DecodeCipherBlock.c's

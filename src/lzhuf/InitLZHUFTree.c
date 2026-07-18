@@ -33,7 +33,7 @@
  * setup (InitLZHUFTree + this fill) from the decode loop itself in a
  * way the original binary doesn't, and moving it would only matter for
  * exact per-function matching, not behavior (see src/README.md's
- * scope note). InitLZHUFTree's *other* caller, FUN_004ea760 (the LZHUF
+ * scope note). InitLZHUFTree's *other* caller, EncodeLZHUFBlock (the LZHUF
  * encoder/compressor - out of scope for this project, which only ever
  * needs to decompress), independently repeats this exact same fill
  * inline after its own call to InitLZHUFTree() - so this pattern isn't
