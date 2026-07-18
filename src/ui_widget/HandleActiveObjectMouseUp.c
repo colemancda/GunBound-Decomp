@@ -18,6 +18,11 @@
  */
 #include "ghidra_types.h"
 
+/* The released object's vtable slot 1 (CButtonWidget::SetState) is a real
+ * C++ __thiscall (orig 0x4061be: `mov ecx,esi`(this=object) / `push
+ * 0x551e70`(name) / `call [edx+4]`) - fix its dropped `this` with the
+ * __fastcall + dummy-EDX idiom. */
+typedef void (__fastcall *WidgetSetStateFn)(void *thisPtr, int dummyEDX, void *name);
 
 void HandleActiveObjectMouseUp(void *registry,int mouseX,int mouseY)
 
@@ -29,8 +34,14 @@ void HandleActiveObjectMouseUp(void *registry,int mouseX,int mouseY)
   *(undefined4 *)(in_EAX + 0xc) = 0;
   if (((piVar1 != (int *)0x0) && ((*(char *)(in_EAX + 0x14) == '\0' || (piVar1[1] == 1000000)))) &&
      ((piVar1[9] == 1 || (piVar1[9] == 5)))) {
-    EnqueueInputEvent(0,piVar1[1],piVar1[2]);
-    (**(code **)(*piVar1 + 4))(s_mouse_00551e70);
+    /* FIXED (2026-07-18): the click fire had TWO dropped args (orig
+     * 0x4061a5-0x4061c0). (1) EnqueueInputEvent's queue object arrives in
+     * EAX = *(registry+0x10) (the input-event ring) - the port passed 0,
+     * corrupting the ring push; recovered it. (2) the slot-1 SetState
+     * dispatch dropped `this` (see the typedef above). Both are what made a
+     * real BUDDY/EXIT/SERVER release crash instead of firing OnCommand. */
+    EnqueueInputEvent(*(uint **)(in_EAX + 0x10),0,piVar1[1],piVar1[2]);
+    (*(WidgetSetStateFn *)(*piVar1 + 4))(piVar1,0,(void *)s_mouse_00551e70);
     AcquireSoundChannel(0);
   }
   return;

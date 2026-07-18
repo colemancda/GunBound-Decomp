@@ -7,6 +7,17 @@
  */
 #include "ghidra_types.h"
 
+/* The per-panel WM_LBUTTONDOWN hit-test/dispatch: vtable slot 2
+ * (CWidget::OnMouseDown, this in ECX, x/y on the stack, returns char).
+ * Ghidra rendered it as the generic `(**(code**)(*piVar1+8))(x,y)` cdecl
+ * cast, which DROPS `this` (the widget) - so the C++ widget method ran with
+ * `this` == its own vtable pointer and faulted writing m_focused (this+4)
+ * into rdata on the first BUDDY/EXIT/SERVER-button click. Same erased-
+ * __thiscall class as PanelManager_DispatchMouseMove's WidgetHitTestFn;
+ * fixed with the __fastcall + dummy-EDX idiom, and the dropped char return
+ * (orig 0x50f0c4 `test al,al`) is captured too. */
+typedef char (__fastcall *WidgetMouseDownFn)(void *thisPtr, int dummyEDX,
+                                             undefined4 x, undefined4 y);
 
 char __thiscall FUN_0050f060(int param_1,undefined4 param_2,undefined4 param_3)
 
@@ -41,7 +52,7 @@ char __thiscall FUN_0050f060(int param_1,undefined4 param_2,undefined4 param_3)
             } while (uVar6 < (uint)piVar1[4]);
           }
         }
-        (**(code **)(*piVar1 + 8))(param_2,param_3);
+        cVar4 = (*(WidgetMouseDownFn *)(*piVar1 + 8))((void *)piVar1,0,param_2,param_3);
         if (cVar4 == '\0') break;
         if ((*(char *)((int)piVar1 + 5) != '\0') && (piVar3 != *(int **)(param_1 + 4))) {
           if (*piVar3 == 0) {

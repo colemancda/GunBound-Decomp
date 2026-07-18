@@ -19,6 +19,15 @@
  */
 #include "ghidra_types.h"
 
+/* The pressed active object's vtable slot 1 (CButtonWidget::SetState) is a
+ * genuine C++ __thiscall (orig 0x40615a: `mov ecx,eax`(this=object) / `push
+ * 0x551e78`(state name) / `call [edx+4]`). Ghidra's `(**(code**)(*piVar2+4))
+ * (&DAT_00551e78)` cdecl cast DROPPED `this`, so on a BUDDY/EXIT/SERVER
+ * button click SetState ran with a bogus `this`. Fixed with the __fastcall +
+ * dummy-EDX idiom (same as WidgetSetModeNameFn in
+ * State02_ServerSelect_ProcessPacket.c). */
+typedef void (__fastcall *WidgetSetStateFn)(void *thisPtr, int dummyEDX, void *name);
+
 
 undefined4 HandleActiveObjectMouseDown(void *registry,int mouseX,int mouseY)
 
@@ -32,7 +41,7 @@ undefined4 HandleActiveObjectMouseDown(void *registry,int mouseX,int mouseY)
     iVar1 = piVar2[9];
     if ((iVar1 != 3) && ((iVar1 != 4 && (iVar1 != 5)))) {
       *(int **)(unaff_EDI + 0xc) = piVar2;
-      (**(code **)(*piVar2 + 4))(&DAT_00551e78);
+      (*(WidgetSetStateFn *)(*piVar2 + 4))(piVar2,0,&DAT_00551e78);
     }
     return 1;
   }
