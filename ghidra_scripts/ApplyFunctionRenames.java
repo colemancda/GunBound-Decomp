@@ -146,6 +146,17 @@ public class ApplyFunctionRenames extends GhidraScript {
         {"004ea010", "LZHUFDeleteNode", "src/lzhuf/LZHUFDeleteNode.c"},
         {"004f0530", "FlushXFSWriteBlock", "src/fileformat/FlushXFSWriteBlock.c"},
         {"004f48b0", "RijndaelSetKey", "src/network/RijndaelSetKey.c"},
+        // 2026-07-18 session 17: the CUIPanelManager input dispatchers - each
+        // walks the panel list at manager+4 and forwards a widget virtual;
+        // WndProc routes one window message to each (0x200/0x201/0x202/0x203/
+        // 0x204/WM_KEYDOWN/WM_KEYUP).
+        {"0050f020", "PanelManager_DispatchMouseMove", "src/ui_widget/PanelManager_DispatchMouseMove.c"},
+        {"00507ea0", "PanelManager_DispatchMouseDown", "src/ui_widget/PanelManager_DispatchMouseDown.c"},
+        {"0050f1b0", "PanelManager_DispatchMouseUp", "src/ui_widget/PanelManager_DispatchMouseUp.c"},
+        {"0050f1f0", "PanelManager_DispatchRightMouseDown", "src/ui_widget/PanelManager_DispatchRightMouseDown.c"},
+        {"0050f150", "PanelManager_DispatchRightMouseUp", "src/ui_widget/PanelManager_DispatchRightMouseUp.c"},
+        {"0050f230", "PanelManager_DispatchKeyDown", "src/ui_widget/PanelManager_DispatchKeyDown.c"},
+        {"0050f260", "PanelManager_DispatchKeyUp", "src/ui_widget/PanelManager_DispatchKeyUp.c"},
     };
 
     /* Addresses where a RENAMES entry is INTENTIONALLY allowed to replace an

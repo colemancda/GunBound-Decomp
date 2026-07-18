@@ -15,7 +15,7 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 /* FIXED (2026-07-13): the five __thiscall mouse/key handlers below
- * (FUN_0050f230/f020/f1b0/f1f0/f150) were all called WITHOUT their `this`
+ * (PanelManager_DispatchKeyDown/f020/f1b0/f1f0/f150) were all called WITHOUT their `this`
  * pointer - Ghidra dropped the ECX register argument, so each received the
  * mouse X coordinate in its `this` slot and dereferenced it as an object
  * (crashing on `*(this+4)` with a near-null address like 0x2de = 734, a
@@ -25,10 +25,10 @@
  * 0x410190 (f230), 0x41022d (f020), 0x41032b (f1b0), 0x410369 (f1f0),
  * 0x41037f (f150). Passed explicitly now.
  *
- * FIXED (2026-07-14): FUN_00507ea0 (the 0x201/WM_LBUTTONDOWN handler) was
+ * FIXED (2026-07-14): PanelManager_DispatchMouseDown (the 0x201/WM_LBUTTONDOWN handler) was
  * NOT actually an exception to the above - the previous note ("genuinely
- * takes 2 stack args and no `this`") only checked FUN_00507ea0's OWN entry,
- * which is correct as far as it goes, but missed that FUN_00507ea0 itself
+ * takes 2 stack args and no `this`") only checked PanelManager_DispatchMouseDown's OWN entry,
+ * which is correct as far as it goes, but missed that PanelManager_DispatchMouseDown itself
  * calls the __thiscall FUN_0050f060 and silently forwards whatever's in ECX
  * as ITS `this`. The original sets `mov ecx,0xe53c40` (g_uiPanelManager)
  * right before `call 0x507ea0` too (confirmed via objdump at 0x4102c9), and
@@ -36,7 +36,7 @@
  * the original's straight-line asm - but a recompiled C call gives no such
  * register-survival guarantee (ECX is caller-saved), so this was a real
  * near-null `this` crash (NULL+4 deref) reproduced live under wine 7.
- * FUN_00507ea0 now takes and forwards the panel-manager pointer explicitly.
+ * PanelManager_DispatchMouseDown now takes and forwards the panel-manager pointer explicitly.
  */
 
 /* CGameState vtable slot 6 (+0x18) - keydown/mouse-message dispatch,
@@ -114,17 +114,17 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     }
     else if (param_2 == 0x100) {
       if (DAT_007934c4 == '\0') {
-        cVar1 = FUN_0050f230((int)&g_uiPanelManager,param_3);
+        cVar1 = PanelManager_DispatchKeyDown((int)&g_uiPanelManager,param_3);
         goto LAB_00410384;
       }
     }
     else if (param_2 == 0x101) {
       if (DAT_007934c4 == '\0') {
         /* Dropped the manager `this` (2026-07-17): the original passes
-         * &g_uiPanelManager in ECX like the WM_KEYDOWN FUN_0050f230 call
-         * above; this site only passed the VK, so FUN_0050f260 read its
-         * panel list off *(VK+4). See FUN_0050f260.c. */
-        cVar1 = FUN_0050f260((int)&g_uiPanelManager,param_3);
+         * &g_uiPanelManager in ECX like the WM_KEYDOWN PanelManager_DispatchKeyDown call
+         * above; this site only passed the VK, so PanelManager_DispatchKeyUp read its
+         * panel list off *(VK+4). See PanelManager_DispatchKeyUp.c. */
+        cVar1 = PanelManager_DispatchKeyUp((int)&g_uiPanelManager,param_3);
         cVar1 = '\x01' - (cVar1 != '\0');
       }
       uVar4 = g_cursorAnchorX;
@@ -151,7 +151,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
   case 0x200:
     uVar4 = param_4 & 0xffff;
     uVar3 = param_4 >> 0x10;
-    cVar1 = FUN_0050f020((int)&g_uiPanelManager,uVar4,uVar3);
+    cVar1 = PanelManager_DispatchMouseMove((int)&g_uiPanelManager,uVar4,uVar3);
     cVar1 = cVar1 == '\0';
     if ((bool)cVar1) {
       HandleActiveObjectMouseMove(&DAT_00e9be90, uVar4, uVar3);
@@ -165,7 +165,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     }
     goto LAB_0041038c;
   case 0x201:
-    cVar1 = FUN_00507ea0((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
+    cVar1 = PanelManager_DispatchMouseDown((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
     if (cVar1 != '\0') {
       DAT_00e9bea4 = 1;
       HandleActiveObjectMouseDown(&DAT_00e9be90, param_4 & 0xffff, param_4 >> 0x10);
@@ -176,7 +176,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     HandleBackgroundActiveObjectMouseDown(&DAT_00e9c0fc, param_4 & 0xffff, param_4 >> 0x10);
     break;
   case 0x202:
-    DAT_00e9bea4 = FUN_0050f1b0((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
+    DAT_00e9bea4 = PanelManager_DispatchMouseUp((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
     cVar1 = DAT_00e9bea4 != '\x01';
     HandleActiveObjectMouseUp(&DAT_00e9be90, param_4 & 0xffff, param_4 >> 0x10);
     DAT_00e9bea4 = 0;
@@ -184,10 +184,10 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     uVar3 = g_cursorAnchorY;
     goto LAB_0041038c;
   case 0x203:
-    cVar1 = FUN_0050f1f0((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
+    cVar1 = PanelManager_DispatchRightMouseDown((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
     goto LAB_00410384;
   case 0x204:
-    cVar1 = FUN_0050f150((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
+    cVar1 = PanelManager_DispatchRightMouseUp((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
 LAB_00410384:
     cVar1 = '\x01' - (cVar1 != '\0');
     uVar4 = g_cursorAnchorX;

@@ -685,7 +685,7 @@ uint8_t DAT_00e53c30;
  * menu/free value 1 so the cursor tracks outside battle. (2026-07-18) */
 uint8_t g_cursorFreeMode = 1;
 /* g_uiPanelManager was a 1-byte placeholder, but the code dereferences it as
- * a container object: FUN_0050f020/f1b0/f1f0/f150/f230 (WndProc's mouse/key
+ * a container object: PanelManager_DispatchMouseMove/f1b0/f1f0/f150/f230 (WndProc's mouse/key
  * handlers) read its list head at +4, and PanelManager_* touch +4/+5/+8. With
  * only 1 byte of storage, those reads ran off the end into whatever global the
  * linker happened to place next and walked a garbage "widget list", jumping to
