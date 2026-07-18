@@ -24,7 +24,6 @@
  * references them); the caller still supplies them for ABI fidelity.
  */
 #include "ghidra_types.h"
-#include <stdio.h>
 
 
 uint EncodeHandshakeBlock(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4,
