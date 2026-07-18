@@ -58,7 +58,7 @@ uint8_t DAT_00551cb1;
 uint8_t DAT_00551e24;
 uint16_t DAT_00551e34;
 uint8_t DAT_00551e36;
-uint8_t DAT_00551e78;
+const char DAT_00551e78[] = "push"; /* mouse-press state name; was a zeroed 1-byte global (orig .data 0x551e78) */
 void * DAT_00551ecc;
 uint8_t DAT_0055207c;
 uint8_t DAT_00552084;

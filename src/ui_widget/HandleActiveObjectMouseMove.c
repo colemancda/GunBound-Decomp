@@ -16,6 +16,10 @@
  */
 #include "ghidra_types.h"
 
+/* slot 1 (CButtonWidget::SetState), a real C++ __thiscall - fix the dropped
+ * `this` with the __fastcall + dummy-EDX idiom (2026-07-18). */
+typedef void (__fastcall *WidgetSetStateFn)(void *thisPtr, int dummyEDX, void *name);
+
 
 undefined4 HandleActiveObjectMouseMove(void *registry,int mouseX,int mouseY)
 
@@ -36,11 +40,11 @@ undefined4 HandleActiveObjectMouseMove(void *registry,int mouseX,int mouseY)
     if (piVar3 != (int *)0x0) {
       *(int **)(in_EAX + 8) = piVar3;
       if (((*(int **)(in_EAX + 0xc) == piVar3) && (piVar3[9] != 3)) && (piVar3[9] != 5)) {
-        (**(code **)(*piVar3 + 4))(&DAT_00551e78);
+        (*(WidgetSetStateFn *)(*piVar3 + 4))(piVar3,0,&DAT_00551e78);
       }
       if (((*(int *)(in_EAX + 0xc) == 0) && (iVar2 = piVar3[9], iVar2 != 3)) &&
          ((iVar2 != 4 && (iVar2 != 5)))) {
-        (**(code **)(*piVar3 + 4))(s_mouse_00551e70);
+        (*(WidgetSetStateFn *)(*piVar3 + 4))(piVar3,0,(void *)s_mouse_00551e70);
         AcquireSoundChannel(0);
       }
       return 1;

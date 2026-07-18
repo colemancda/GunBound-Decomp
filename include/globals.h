@@ -141,7 +141,7 @@ extern uint8_t DAT_00551cb1;
 extern uint8_t DAT_00551e24;
 extern uint16_t DAT_00551e34;
 extern uint8_t DAT_00551e36;
-extern uint8_t DAT_00551e78;
+extern const char DAT_00551e78[];  /* "push" - mouse-press state name */
 extern void * DAT_00551ecc;
 #define _DAT_00551ecc DAT_00551ecc
 extern uint8_t DAT_0055207c;

@@ -150,6 +150,10 @@ static void gb_init_widget_registry(unsigned char *registry)
     *(int *)(registry + 0x1c) = (int)registry;
 }
 extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20], DAT_00ea0e18[0x20];
+/* input-event ring (globals_sized.c) - the registries' +0x10 slot points here
+ * so a button release can EnqueueInputEvent onto the queue ProcessInputEventQueue
+ * drains; see the gb_startup_init wiring below. */
+extern unsigned char g_inputEventRing[0x1808];
 /* g_uiPanelManager (0xe53c40) - a genuine CPanelManager object, unlike
  * the three registries above (its list head/tail are meant to start
  * NULL, not self-referencing). Real field layout decompiled from its
@@ -337,6 +341,19 @@ static void gb_startup_init(void)
     gb_init_widget_registry(DAT_00e9c0fc);
     gb_init_widget_registry(DAT_00ea0e18);   /* global sprite registry - same container */
     gb_init_widget_registry(DAT_00e53e88);   /* chat-log/replay object - same container */
+    /* FIXED (2026-07-18): the two hit-test registries' +0x10 slot is the
+     * input-event RING POINTER (read by HandleActiveObjectMouseUp as the
+     * EnqueueInputEvent queue object), NOT a list link - only *layer* nodes use
+     * +0x10 as inner-next; the container never walks its own +0x10. The
+     * original set it via InitGame (`registry+0x10 = 0x795070`, the ring), but
+     * gb_init_widget_registry's generic self-init clobbered it, and our
+     * InitGame port writes the ring to `_DAT_00e9bea0` - a split-out global
+     * that is NOT the same memory as DAT_00e9be90[0x10] in this build. Point
+     * +0x10 at the real g_inputEventRing so a button release actually reaches
+     * ProcessInputEventQueue -> State OnCommand (this is what made a BUDDY/EXIT
+     * click a silent no-op even after the state gate started passing). */
+    *(void **)(DAT_00e9be90 + 0x10) = g_inputEventRing;
+    *(void **)(DAT_00e9c0fc + 0x10) = g_inputEventRing;
     gb_init_panel_manager(g_uiPanelManager);
     DAT_00e9be94 = (unsigned int)DAT_00e9be90;
     DAT_00ea0e1c = (unsigned int)DAT_00ea0e18;

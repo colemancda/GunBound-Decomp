@@ -155,10 +155,17 @@ extern "C" CButtonWidget *CreateButtonWidget(void *registry, int layer, int id, 
     CButtonWidget *p = new CButtonWidget(layer, id);
 
     p->m_spriteBase = spriteBase;
-    p->m_unk40      = h;
+    /* FIXED (2026-07-18): +0x40 is the WIDTH and +0x44 the HEIGHT, not the
+     * reverse - the original CreateButtonWidget stores [E+0x20]=w into +0x40
+     * and [E+0x24]=h into +0x44 (0x40608b/0x4060a7), and FindActiveObjectAt's
+     * hit-test reads +0x40 as the X-extent (`x + [+0x40]`). With them swapped
+     * every button's clickable box was only `h` wide, so a click near the
+     * button's true right half (e.g. BUDDY's center) missed and never fired
+     * OnCommand. */
+    p->m_unk40      = w;
     p->m_x          = x;
     p->m_y          = y;
-    p->m_unk44      = w;
+    p->m_unk44      = h;
     p->m_unk48      = arg11;
     p->m_texture    = FindPreloadedTextureByName(textureName);
 
