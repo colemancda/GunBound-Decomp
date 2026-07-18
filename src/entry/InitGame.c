@@ -7,7 +7,21 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
- */
+ *
+ * RECOVERED (2026-07-18): all 60 LoadSpriteSet calls in the common-UI
+ * preload block had their name string DROPPED - LoadSpriteSet (0x4f1790)
+ * takes the ".img" entry name in EAX (see LoadSpriteSet.c), and every call
+ * site here loads a distinct .data string literal into EAX immediately
+ * before `call 0x4f1790` (0x40eebf-0x40f4xx: `push <id>; push 0xea0e18;
+ * mov eax,<str>; call`). Ghidra dropped all 60, so the ports called the
+ * 3-arg LoadSpriteSet through the K&R decl with a garbage name -> every
+ * common-UI sprite set (scrollbar arrows b_scroll_up/down.img 0x259/0x25a,
+ * error dialogs, buddy list, report, cursor.img, number fonts...) failed to
+ * load. Names extracted programmatically from the original .data via the PE
+ * section table, ids cross-verified against each call site's `push` (the
+ * one register-push site, `push ebx`=0 at 0x40f0b8, is cursor.img).
+ * AppendPersistentButtonName's own dropped EAX here is "cursor"
+ * (0x40f0d5: mov eax,0x5524e8) - the software cursor's .epa states. */
 #include "ghidra_types.h"
 #include <windows.h>
 
@@ -207,67 +221,67 @@ int InitGame(undefined4 param_1,undefined4 param_2)
         else {
           *(undefined ***)g_gameStateVTableArray[0xf] = &PTR_LAB_00553fb0;
         }
-        LoadSpriteSet(&DAT_00ea0e18,500);
-        LoadSpriteSet(&DAT_00ea0e18,600);
-        LoadSpriteSet(&DAT_00ea0e18,0x259);
-        LoadSpriteSet(&DAT_00ea0e18,0x25a);
-        LoadSpriteSet(&DAT_00ea0e18,0x262);
-        LoadSpriteSet(&DAT_00ea0e18,0x263);
-        LoadSpriteSet(&DAT_00ea0e18,0x264);
-        LoadSpriteSet(&DAT_00ea0e18,700);
-        LoadSpriteSet(&DAT_00ea0e18,0x2bd);
-        LoadSpriteSet(&DAT_00ea0e18,0x2be);
-        LoadSpriteSet(&DAT_00ea0e18,0x2bf);
-        LoadSpriteSet(&DAT_00ea0e18,0x2c6);
-        LoadSpriteSet(&DAT_00ea0e18,0x2c7);
-        LoadSpriteSet(&DAT_00ea0e18,0x2c8);
-        LoadSpriteSet(&DAT_00ea0e18,0x2c9);
-        LoadSpriteSet(&DAT_00ea0e18,0x2ca);
-        LoadSpriteSet(&DAT_00ea0e18,0x2cb);
-        LoadSpriteSet(&DAT_00ea0e18,800);
-        LoadSpriteSet(&DAT_00ea0e18,0x321);
-        LoadSpriteSet(&DAT_00ea0e18,0x322);
-        LoadSpriteSet(&DAT_00ea0e18,0x323);
-        LoadSpriteSet(&DAT_00ea0e18,900);
-        LoadSpriteSet(&DAT_00ea0e18,0x385);
-        LoadSpriteSet(&DAT_00ea0e18,0x38e);
-        LoadSpriteSet(&DAT_00ea0e18,0x398);
-        LoadSpriteSet(&DAT_00ea0e18,0);
-        AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-        LoadSpriteSet(&DAT_00ea0e18,1);
-        LoadSpriteSet(&DAT_00ea0e18,2);
-        LoadSpriteSet(&DAT_00ea0e18,3);
-        LoadSpriteSet(&DAT_00ea0e18,0x32);
-        LoadSpriteSet(&DAT_00ea0e18,0x33);
-        LoadSpriteSet(&DAT_00ea0e18,0x34);
-        LoadSpriteSet(&DAT_00ea0e18,100);
-        LoadSpriteSet(&DAT_00ea0e18,0x65);
-        LoadSpriteSet(&DAT_00ea0e18,0x6e);
-        LoadSpriteSet(&DAT_00ea0e18,200);
-        LoadSpriteSet(&DAT_00ea0e18,0xc9);
-        LoadSpriteSet(&DAT_00ea0e18,0xca);
-        LoadSpriteSet(&DAT_00ea0e18,0xcb);
-        LoadSpriteSet(&DAT_00ea0e18,0xcc);
-        LoadSpriteSet(&DAT_00ea0e18,0xcd);
-        LoadSpriteSet(&DAT_00ea0e18,0xce);
-        LoadSpriteSet(&DAT_00ea0e18,300);
-        LoadSpriteSet(&DAT_00ea0e18,400);
-        LoadSpriteSet(&DAT_00ea0e18,1000000);
-        LoadSpriteSet(&DAT_00ea0e18,2000000);
-        LoadSpriteSet(&DAT_00ea0e18,0x1e8483);
-        LoadSpriteSet(&DAT_00ea0e18,0x1e8484);
-        LoadSpriteSet(&DAT_00ea0e18,0x1e8485);
-        LoadSpriteSet(&DAT_00ea0e18,0x1e8486);
-        LoadSpriteSet(&DAT_00ea0e18,0x1e8487);
-        LoadSpriteSet(&DAT_00ea0e18,0x1e8488);
-        LoadSpriteSet(&DAT_00ea0e18,0x1e8489);
-        LoadSpriteSet(&DAT_00ea0e18,0x1e848a);
-        LoadSpriteSet(&DAT_00ea0e18,0x1e848b);
-        LoadSpriteSet(&DAT_00ea0e18,1100000);
-        LoadSpriteSet(&DAT_00ea0e18,2100000);
-        LoadSpriteSet(&DAT_00ea0e18,0x200b21);
-        LoadSpriteSet(&DAT_00ea0e18,0x200b22);
-        LoadSpriteSet(&DAT_00ea0e18,0x200b23);
+        LoadSpriteSet(&DAT_00ea0e18,500,"numfont.img");
+        LoadSpriteSet(&DAT_00ea0e18,600,"b_scroll_bar.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x259,"b_scroll_up.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x25a,"b_scroll_down.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x262,"b_scroll_bar2.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x263,"b_scroll_up2.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x264,"b_scroll_down2.img");
+        LoadSpriteSet(&DAT_00ea0e18,700,"buddy_back.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x2bd,"b_buddy_plus.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x2be,"b_buddy_del.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x2bf,"b_buddy_exit.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x2c6,"buddy_window_back.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x2c7,"b_buddywindow_exittalk.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x2c8,"b_buddywindow_friendplus.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x2c9,"b_buddywindow_friendclose.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x2ca,"b_buddywindow_delyes.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x2cb,"b_buddywindow_delno.img");
+        LoadSpriteSet(&DAT_00ea0e18,800,"report_back.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x321,"b_report_confirm.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x322,"b_report_exit.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x323,"b_report_close.img");
+        LoadSpriteSet(&DAT_00ea0e18,900,"error_back.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x385,"b_error_confirm.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x38e,"info.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x398,"waitmessage.img");
+        LoadSpriteSet(&DAT_00ea0e18,0,"cursor.img");
+        AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)"cursor");
+        LoadSpriteSet(&DAT_00ea0e18,1,"errordialog.img");
+        LoadSpriteSet(&DAT_00ea0e18,2,"b_error_confirm.img");
+        LoadSpriteSet(&DAT_00ea0e18,3,"waitmessage.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x32,"numberfont.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x33,"buddymode.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x34,"icon.img");
+        LoadSpriteSet(&DAT_00ea0e18,100,"rank1.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x65,"rank2.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x6e,"info.img");
+        LoadSpriteSet(&DAT_00ea0e18,200,"b_gamelist_buddyup.img");
+        LoadSpriteSet(&DAT_00ea0e18,0xc9,"b_gamelist_buddydown.img");
+        LoadSpriteSet(&DAT_00ea0e18,0xca,"b_gamelist_channelup.img");
+        LoadSpriteSet(&DAT_00ea0e18,0xcb,"b_gamelist_channeldown.img");
+        LoadSpriteSet(&DAT_00ea0e18,0xcc,"b_buddy_up.img");
+        LoadSpriteSet(&DAT_00ea0e18,0xcd,"b_buddy_down.img");
+        LoadSpriteSet(&DAT_00ea0e18,0xce,"b_buddy_exit.img");
+        LoadSpriteSet(&DAT_00ea0e18,300,"avataimsi.img");
+        LoadSpriteSet(&DAT_00ea0e18,400,"presentmode.img");
+        LoadSpriteSet(&DAT_00ea0e18,1000000,"buddy2.img");
+        LoadSpriteSet(&DAT_00ea0e18,2000000,"b_buddy2_addfriend1.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x1e8483,"b_buddy2_close.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x1e8484,"b_buddy2_yes.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x1e8485,"b_buddy2_no.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x1e8486,"b_buddy2_exit.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x1e8487,"b_buddy2_up.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x1e8488,"b_buddy2_down.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x1e8489,"b_buddy2_addfriend2.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x1e848a,"b_buddy2_deletefriend.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x1e848b,"b_buddy2_exit2.img");
+        LoadSpriteSet(&DAT_00ea0e18,1100000,"reportmode.img");
+        LoadSpriteSet(&DAT_00ea0e18,2100000,"b_report_exit.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x200b21,"b_report_report.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x200b22,"b_report_cancel.img");
+        LoadSpriteSet(&DAT_00ea0e18,0x200b23,"b_report_close.img");
         pvVar2 = operator_new(0x10);
         if (pvVar2 == (void *)0x0) {
           DAT_007934e4 = 0;

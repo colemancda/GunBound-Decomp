@@ -2,6 +2,17 @@
  * src/ui_widget/Label_OnMouseDown.c (0x5052e0). See src/cxx/README.md. */
 #include "Widget.h"
 
+/* Sprite-lookup/blit primitives - the same recovered shapes Panel.cpp
+ * uses for CWorldListPanel::Update (see Widget_DrawSelf.c /
+ * FindSpriteFrame.c for the derivations). */
+extern "C" {
+extern unsigned int DAT_0079352c;
+extern unsigned char DAT_00ea0e18[0x20];
+int FindSpriteFrame(int container, unsigned int outerKey, unsigned int innerKey);
+int BlitSprite16bpp(int frame, int x, int y, int outerKey);
+int BlitSpriteClipped(int frame, int x, int y, int outerKey);
+}
+
 /* 0x507ee0 - the label factory (docs/widgets.md's CreateLabelWidget),
  * __stdcall (the original ret-cleans 0x18 bytes). Its exact shape is
  * `new CLabel()` (default ctor inlined under the null guard) followed
@@ -44,6 +55,47 @@ void CLabel::Draw()
             ++i;
         } while (i < (unsigned int)m_children.GetCount());
     }
+}
+
+/* 0x505380, vtable slot 9 (RECOVERED 2026-07-18 via the 0x557da0 vtable
+ * dump + angr/capstone of the body - this function was never ported at
+ * all, which is why every CLabel-sprite widget, most visibly the
+ * scrollbar arrows, drew nothing). THE label sprite draw: picks the
+ * 5-way visual state
+ *     0 normal / 1 hover (+0x39) / 2 pressed (+0x39 && +0x38)
+ *     / 3 disabled (!+0x1c) / 4 tab-selected (+0x3a == 1)
+ * (matching the 5 states each .epa button definition carries), then
+ * blits frame=state of sprite set m_spriteId at (m_x, m_y) - the exact
+ * FindSpriteFrame/BlitSprite16bpp/BlitSpriteClipped sequence at
+ * 0x5053c6-0x505414: EAX=&DAT_00ea0e18, EDX=[this+0x3c], ESI=state,
+ * gated on the locked surface DAT_0079352c. Hidden (+0x1e) returns
+ * WITHOUT the child broadcast (orig 0x50541f: ret before the 0x50ecf0
+ * tail); otherwise falls into the base broadcast (CWidget::Update ==
+ * 0x50ecf0). */
+void CLabel::Update()
+{
+    if (m_hidden) {
+        return;
+    }
+    int state = 0;
+    if (m_enabled == 0) {
+        state = 3;
+    } else if (m_tabSelected == 1) {
+        state = 4;
+    } else if (m_unk39 != 0) {
+        state = (m_unk38 != 0) ? 2 : 1;
+    }
+    if (DAT_0079352c != 0 && state >= 0) {
+        int rec = FindSpriteFrame((int)DAT_00ea0e18, (unsigned int)m_spriteId, (unsigned int)state);
+        if (rec != 0) {
+            if (*(unsigned char *)(rec + 0x18) == 1) {
+                BlitSprite16bpp(state, m_x, m_y, m_spriteId);
+            } else {
+                BlitSpriteClipped(state, m_x, m_y, m_spriteId);
+            }
+        }
+    }
+    CWidget::Update();
 }
 
 /* 0x5052e0, vtable slot 2. If the point lands in the rect and both

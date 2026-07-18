@@ -418,10 +418,25 @@ bool CWidget::OnMouseUp(int x, int y)
 }
 
 /* Slot 9, the per-class secondary render/refresh hook (panel row-loop
- * 0x50dc40, text-entry TextEntry_SyncFromControl). No base behavior
- * observed anywhere - the base entry is a no-op. */
+ * 0x50dc40, text-entry TextEntry_SyncFromControl).
+ *
+ * CORRECTED (2026-07-18): the base entry is NOT a no-op - it is the child
+ * Update broadcast at 0x50ecf0 (`if (!hidden) for each child: call
+ * child->vtable[+0x24]`), the same shared tail every Update override
+ * (CLabel 0x505380, CScrollBar 0x50e090, CWorldListPanel 0x50dc40)
+ * jmp's to on exit. With the base modeled as a no-op the Update chain
+ * was severed at any widget that didn't override it - concretely the
+ * scrollbar (before its own 0x50e090 was recovered) never forwarded
+ * Update to its arrow CLabel children, so the arrows never drew. */
 void CWidget::Update()
 {
+    if (m_hidden) {
+        return;
+    }
+    unsigned int count = m_children.GetCount();
+    for (unsigned int i = 0; i < count; ++i) {
+        m_children[i]->Update();
+    }
 }
 
 /* Slot 10 - 0x50e860, byte-identical to SetFocus (identical-code

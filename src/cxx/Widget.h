@@ -121,6 +121,11 @@ public:
     virtual bool OnMouseDown(int x, int y);  /* 0x5052e0 - promoted, Label.cpp */
     virtual void Draw();                     /* 0x50e350 - promoted, Label.cpp: reports evt 1 upward
                                               * (the parent panel blits for it), then child broadcast */
+    virtual void Update();                   /* 0x505380 - promoted, Label.cpp: THE label sprite draw -
+                                              * picks the 5-way visual state (0 normal / 1 hover /
+                                              * 2 pressed / 3 disabled / 4 tab-selected) and blits
+                                              * frame=state of sprite set m_spriteId at (m_x,m_y),
+                                              * then child Update broadcast (orig tail-jmp 0x50ecf0) */
 
     u8  m_unk38;                     /* +0x38: armed/held flag - gates click AND the per-frame
                                       * evt-1 reports from Draw (the scrollbar arrows' auto-
@@ -174,11 +179,14 @@ public:
     virtual bool OnMouseUp(int x, int y);    /* 0x50f5f0 - promoted, ScrollBar.cpp */
     virtual void OnCommand(int evt, int id, int arg); /* 0x50f7c0 - promoted, ScrollBar.cpp: the +/-1
                                               * arrow stepper (exported via Ghidra DecompileAt) */
-    virtual void Draw();                     /* 0x50f660 - promoted, ScrollBar.cpp. Bound to slot 8
-                                              * from its shape (ends in the child +0x20 draw
-                                              * broadcast, same as the other Draw overrides);
-                                              * dumping vtable 0x557e90 to pin slot 8 vs 9 is
-                                              * still open. */
+    virtual void Draw();                     /* 0x50f660 - promoted, ScrollBar.cpp. CONFIRMED slot 8
+                                              * by dumping vtable 0x557e90 (2026-07-18):
+                                              * slot 8 = 0x50f660, slot 9 = 0x50e090. */
+    virtual void Update();                   /* 0x50e090 - promoted, ScrollBar.cpp: draws the THUMB
+                                              * from sprite set m_thumbSpriteKey (frame 0 top cap at
+                                              * thumbTop, frame 1 body segments every 5px, frame 2
+                                              * bottom cap), then child Update broadcast - this is
+                                              * what makes the arrows' own Update run. */
 
     bool IsOverThumb(int x, int y);  /* 0x50f770 - promoted, ScrollBar.cpp. NOTE: Ghidra shows y
                                       * arriving in EBX (custom register use); see ThumbHeight. */
@@ -195,8 +203,9 @@ public:
     int m_grabOffset;                /* +0x48: thumbTop - mouseY at grab time */
     int m_lastX;                     /* +0x4c: last mouse x (stored by both handlers) */
     int m_lastY;                     /* +0x50: last mouse y */
-    int m_unk54;                     /* +0x54: (spriteBase*5 + 300)*2, set by the factory -
-                                      * role not yet pinned */
+    int m_thumbSpriteKey;            /* +0x54: (spriteBase*5 + 300)*2, set by the factory - the
+                                      * thumb's sprite-set key (600 = "b_scroll_bar.img" for
+                                      * spriteBase 0), consumed by Update (0x50e090) */
 };
 
 /* Container/dialog base - each concrete panel is its own class (own

@@ -33,6 +33,59 @@ int CScrollBar::ThumbHeight()
 
 extern "C" CLabel *CreateLabelWidget(int id, int spriteId, int x, int y, int w, int h);
 
+/* Sprite-lookup/blit primitives (same recovered shapes as Panel.cpp /
+ * Label.cpp), for CScrollBar::Update's thumb draw below. */
+extern "C" {
+extern unsigned int DAT_0079352c;
+extern unsigned char DAT_00ea0e18[0x20];
+int FindSpriteFrame(int container, unsigned int outerKey, unsigned int innerKey);
+int BlitSprite16bpp(int frame, int x, int y, int outerKey);
+int BlitSpriteClipped(int frame, int x, int y, int outerKey);
+}
+
+/* Shared helper for the three thumb-piece blits in Update - the exact
+ * per-site sequence at 0x50e0e5/0x50e14f/0x50e1b1. */
+static void BlitScrollThumbPiece(int key, int frame, int x, int y)
+{
+    int rec = FindSpriteFrame((int)DAT_00ea0e18, (unsigned int)key, (unsigned int)frame);
+    if (rec != 0) {
+        if (*(unsigned char *)(rec + 0x18) == 1) {
+            BlitSprite16bpp(frame, x, y, key);
+        } else {
+            BlitSpriteClipped(frame, x, y, key);
+        }
+    }
+}
+
+/* 0x50e090, vtable slot 9 (RECOVERED 2026-07-18 by dumping vtable
+ * 0x557e90: slot 8 = 0x50f660 Draw, slot 9 = 0x50e090 - this function
+ * was never ported, so the thumb never drew). Draws the scrollbar THUMB
+ * from sprite set m_thumbSpriteKey ((spriteBase*5+300)*2 - 600 =
+ * "b_scroll_bar.img" for the ubiquitous spriteBase 0):
+ *   frame 0 - top cap at (m_x, thumbTop)
+ *   frame 1 - body segment every 5px, (ThumbHeight()-10)/5 of them
+ *   frame 2 - bottom cap at (m_x, thumbTop + (segments+1)*5)
+ * where thumbTop = m_y + m_scrollPos*m_height/m_total, gated on
+ * !hidden, 0 < m_total, and m_pageSize <= m_total (orig 0x50e097-
+ * 0x50e0b0), then the child Update broadcast (the arrows' own
+ * CLabel::Update runs from here). */
+void CScrollBar::Update()
+{
+    if (!m_hidden && 0 < m_total && m_pageSize <= m_total) {
+        int th = ThumbHeight();
+        int thumbTop = m_y + (m_scrollPos * m_height) / m_total;
+        BlitScrollThumbPiece(m_thumbSpriteKey, 0, m_x, thumbTop);
+        int segments = (th - 10) / 5;
+        int y = thumbTop + 5;
+        for (int i = 0; i < segments; ++i) {
+            BlitScrollThumbPiece(m_thumbSpriteKey, 1, m_x, y);
+            y += 5;
+        }
+        BlitScrollThumbPiece(m_thumbSpriteKey, 2, m_x, thumbTop + (segments + 1) * 5);
+    }
+    CWidget::Update();
+}
+
 /* 0x5080a0 - the scrollbar factory (docs' CreateScrollListWidget).
  * Same guarded-default-ctor + unguarded-pokes split as the other
  * factories, plus construction of the two 18x18 arrow children (id 0
@@ -60,7 +113,7 @@ CScrollBar * __stdcall CreateScrollListWidget(int spriteBase, int total,
     p->m_width = w;
     p->m_id = 0;
     p->m_height = h;
-    p->m_unk54 = (spriteBase * 5 + 300) * 2;
+    p->m_thumbSpriteKey = (spriteBase * 5 + 300) * 2;
     p->AddChild(CreateLabelWidget(0, spriteBase * 10 + 0x259, 0, -0x1c, 0x12, 0x12));
     p->AddChild(CreateLabelWidget(1, spriteBase * 10 + 0x25a, 0, h + 10, 0x12, 0x12));
     p->m_pageSize = pageSize;
