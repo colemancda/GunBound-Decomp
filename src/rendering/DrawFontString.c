@@ -30,7 +30,27 @@ void __thiscall DrawFontString(int param_1,undefined4 param_2,undefined4 param_3
   int iVar2;
   char *pcVar3;
   int local_4;
-  
+
+  /* SAFE NO-OP (2026-07-18): this is the bitmap-font *shadow* pass over a
+   * string (RenderWorldListRow uses it for the world-list name shadow; the
+   * main glyphs come from BlitRLESprite / the "1" row index from
+   * BlitSpriteText). Two problems make it a large deferred reconstruction,
+   * not a quick fix:
+   *   1. its string arrives in EAX (`in_EAX`) - a dropped register that is
+   *      UNRELIABLE at all 31 call sites (relied on register luck); a real
+   *      value flowing in (e.g. once the row index "%d" formats to "1")
+   *      faults `*in_EAX` here.
+   *   2. even given a valid string, the glyph blit itself is missing: the
+   *      per-pixel write in DrawNarrowGlyph (0x4eb290) is an EMPTY
+   *      `if(...){}` block - Ghidra dropped the actual screen store - so
+   *      this pass produces NO visible output today regardless.
+   * Because it draws nothing now anyway, returning immediately is visually
+   * identical AND removes the fault, unblocking the "1" prefix
+   * (DAT_00551ed4="%d" + BlitSpriteText). Reconstructing the real shadow
+   * (DrawFontString this=X/string=EAX + the DrawNarrowGlyph/DrawWideGlyph
+   * pixel-write loops) is the deferred bitmap-font fan-out (session-15 notes). */
+  return;
+
   cVar1 = *in_EAX;
   if (cVar1 != '\0') {
     local_4 = param_1 + 6;
