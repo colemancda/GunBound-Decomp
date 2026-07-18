@@ -445,7 +445,18 @@ LAB_004e0d7f:
     *(undefined2 *)(*(int *)(DAT_007934ec + 0x44d0) + 0x4d0 + DAT_007934ec) =
          SUBFIELD(sStack_d0.sa_data,0,undefined2);
     *(int *)(iVar20 + 0x44d0) = *(int *)(iVar20 + 0x44d0) + 2;
-    EncodePacketBody(0,iVar20);
+    /* RECOVERED (2026-07-18), orig 0x4e0b07 `mov ecx,0x20`: this call site
+     * passes param_1 = 0x20, NOT 0 - EncodePacketBody's param_1 is the OFFSET
+     * within the packet body at which the opcode-checksummed encoding starts
+     * (it encodes `cursor - param_1` bytes from body+param_1). The
+     * authenticationRequest's first 0x20 bytes must stay RAW: bytes 0..15 are
+     * `encryptedUsername`, a single AES block encrypted directly with the fixed
+     * login key, and 16..31 the `unknown` field; only `encryptedData` from
+     * +0x20 on is packet-encoded with the session key. EncodePacketBody.c's
+     * header generalised "ECX is always literal 0" from the OTHER four call
+     * sites - it does not hold here, and wrapping the username block was why
+     * the world server could not decrypt it (badUsername). */
+    EncodePacketBody(0x20,iVar20);
     SendOutgoingPacket(iVar20);
     return;
   }
