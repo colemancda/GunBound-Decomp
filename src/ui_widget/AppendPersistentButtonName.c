@@ -68,7 +68,14 @@ void AppendPersistentButtonName(int *param_1, char *in_EAX)
   } while (pcVar6[1] != '\0');
   *(undefined4 *)(pcVar6 + 1) = DAT_00551cac;
   *(undefined1 *)(pcVar6 + 5) = DAT_00551cb0;
-  LoadButtonDefinitionFromXFS();
+  /* RECOVERED (2026-07-18): LoadButtonDefinitionFromXFS's two dropped
+   * register args (orig 0x40179e/0x4017a5, immediately before the call):
+   * EBX = the descriptor output entry for the slot being appended,
+   * `param_1 + *param_1*6 + 0x8001` (== FindPreloadedTextureByName's return
+   * for this index); EAX = the assembled "<name>.<ext>" buffer. Without
+   * these the loader ran on garbage registers and populated nothing, so
+   * every button's named-state descriptor stayed all-zero. */
+  LoadButtonDefinitionFromXFS(param_1 + *param_1 * 6 + 0x8001, nameBuf);
   *param_1 = *param_1 + 1;
   return;
 }

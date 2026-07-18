@@ -47,8 +47,13 @@ uint8_t DAT_00550b78;
 uint8_t DAT_00550f78;
 uint8_t DAT_00551378;
 uint8_t DAT_00551778;
-uint32_t DAT_00551cac;
-uint8_t DAT_00551cb0;
+/* Button-definition XFS extension ".epa" appended by AppendPersistentButtonName
+ * (orig .data 0x551cac = bytes 2e 65 70 61 00). Our extraction left these
+ * zero, so button-def filenames had no extension and OpenXFSEntryStream
+ * failed for every button (empty named-state descriptors, invisible buttons).
+ * Recovered from the original .data section (2026-07-18). */
+uint32_t DAT_00551cac = 0x6170652e; /* ".epa" little-endian */
+uint8_t DAT_00551cb0 = 0x00;        /* trailing NUL */
 uint8_t DAT_00551cb1;
 uint8_t DAT_00551e24;
 uint16_t DAT_00551e34;
