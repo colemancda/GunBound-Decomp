@@ -17,14 +17,10 @@ FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 
   char *pcVar2;
   int iVar3;
   uint uVar4;
-  undefined4 local_19dc;
-  undefined4 local_19d8;
-  undefined4 local_19d4;
-  undefined4 local_19d0;
-  undefined4 local_19cc;
-  undefined4 local_19c8;
-  undefined4 local_19c4;
-  undefined4 local_1980;
+  /* COALESCED (2026-07-18): same scattered-SHA-context fix as
+   * EncodeHandshakeBlock - the context must be one contiguous 0x60 bytes
+   * (local_19dc..local_1980 = offsets 0..0x5c). See Sha1Absorb.c. */
+  uint shaCtx[0x18];
   undefined1 local_197c [520];
   undefined1 local_1774;
   undefined2 local_1770;
@@ -45,29 +41,29 @@ FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 
   if (0x173a < iVar3 - 0x10U) {
     return false;
   }
-  local_19dc = 0x67452301;
-  local_19d8 = 0xefcdab89;
-  local_19d4 = 0x98badcfe;
-  local_19d0 = 0x10325476;
-  local_19cc = 0xc3d2e1f0;
-  local_19c8 = 0;
-  local_19c4 = 0;
-  local_1980 = 0;
+  shaCtx[0] = 0x67452301;
+  shaCtx[1] = 0xefcdab89;
+  shaCtx[2] = 0x98badcfe;
+  shaCtx[3] = 0x10325476;
+  shaCtx[4] = 0xc3d2e1f0;
+  shaCtx[5] = 0;            /* +0x14 bit count lo */
+  shaCtx[6] = 0;            /* +0x18 bit count hi */
+  shaCtx[0x17] = 0;         /* +0x5c partial byte count */
   /* DROPPED length arg (2026-07-18), same class as EncodeHandshakeBlock -
    * see Sha1Absorb.c. This is a P2P/UDP handshake path NOT exercised by the
    * ServerSelect->world-login route, so the lengths are best-effort from the
    * buffer semantics: (1) the 16-byte nonce in local_176e (FUN_004fcd80(..,
    * 0x10)); (2) strlen(param_1) - the key string this loop scans; (3) the
    * 4-byte &param_5 trailer. */
-  Sha1Absorb((int)&local_19dc,(byte *)local_176e,0x10);
+  Sha1Absorb((int)shaCtx,(byte *)local_176e,0x10);
   pcVar2 = param_1;
   do {
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
-  Sha1Absorb((int)&local_19dc,(byte *)param_1,(uint)(pcVar2 - param_1) - 1);
-  Sha1Absorb((int)&local_19dc,(byte *)&param_5,4);
-  Sha1Final();
+  Sha1Absorb((int)shaCtx,(byte *)param_1,(uint)(pcVar2 - param_1) - 1);
+  Sha1Absorb((int)shaCtx,(byte *)&param_5,4);
+  Sha1Final((int)shaCtx);
   RijndaelSetKey(1);
   FUN_004fcd20(local_197c);
   uVar4 = iVar3 + 0x26;

@@ -8,22 +8,21 @@
 #include "ghidra_types.h"
 
 
-void Sha1Final(void)
+void Sha1Final(int ctx)
 
 {
   int iVar1;
   int iVar2;
   uint uVar3;
   int iVar4;
-  int unaff_EBX;
   byte *pbVar5;
   uint uVar6;
   undefined4 *puVar7;
   
-  iVar2 = (int)*(uint *)(unaff_EBX + 0x5c) >> 2;
-  uVar3 = *(uint *)(unaff_EBX + 0x5c) & 3;
+  iVar2 = (int)*(uint *)(ctx + 0x5c) >> 2;
+  uVar3 = *(uint *)(ctx + 0x5c) & 3;
   pbVar5 = &DAT_00551b78;
-  iVar1 = unaff_EBX + 0x1c;
+  iVar1 = ctx + 0x1c;
   if (uVar3 == 0) {
     uVar6 = 0;
 switchD_004f7624_switchD:
@@ -54,7 +53,7 @@ switchD_004f7624_switchD:
     if (iVar2 < 0x10) {
       *(undefined4 *)(iVar1 + iVar2 * 4) = 0;
     }
-    Sha1TransformBuffer(1);
+    Sha1TransformBuffer(0,(uint *)iVar1,1,(uint *)ctx);
     iVar2 = 0;
   }
   puVar7 = (undefined4 *)(iVar1 + iVar2 * 4);
@@ -63,10 +62,10 @@ switchD_004f7624_switchD:
     puVar7 = puVar7 + 1;
   }
 LAB_004f7684:
-  *(undefined4 *)(unaff_EBX + 0x54) = *(undefined4 *)(unaff_EBX + 0x18);
-  *(undefined4 *)(unaff_EBX + 0x58) = *(undefined4 *)(unaff_EBX + 0x14);
-  Sha1TransformBuffer(1);
-  *(undefined4 *)(unaff_EBX + 0x5c) = 0;
+  *(undefined4 *)(ctx + 0x54) = *(undefined4 *)(ctx + 0x18);
+  *(undefined4 *)(ctx + 0x58) = *(undefined4 *)(ctx + 0x14);
+  Sha1TransformBuffer(0,(uint *)iVar1,1,(uint *)ctx);
+  *(undefined4 *)(ctx + 0x5c) = 0;
   return;
 }
 

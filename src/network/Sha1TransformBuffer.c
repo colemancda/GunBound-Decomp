@@ -8,12 +8,11 @@
 #include "ghidra_types.h"
 
 
-void __fastcall Sha1TransformBuffer(undefined4 param_1,uint *param_2,int param_3)
+void __fastcall Sha1TransformBuffer(undefined4 param_1,uint *param_2,int param_3,uint *ctx)
 
 {
   uint uVar1;
   uint uVar2;
-  uint *in_EAX;
   uint uVar3;
   uint uVar4;
   uint uVar5;
@@ -44,18 +43,18 @@ void __fastcall Sha1TransformBuffer(undefined4 param_1,uint *param_2,int param_3
   uint uVar30;
   int local_8;
   
-  uVar15 = *in_EAX;
-  uVar2 = in_EAX[2];
-  uVar1 = ((in_EAX[3] ^ uVar2) & in_EAX[1] ^ in_EAX[3]) + (uVar15 << 5 | uVar15 >> 0x1b) + in_EAX[4]
+  uVar15 = *ctx;
+  uVar2 = ctx[2];
+  uVar1 = ((ctx[3] ^ uVar2) & ctx[1] ^ ctx[3]) + (uVar15 << 5 | uVar15 >> 0x1b) + ctx[4]
           + 0x5a827999 + *param_2;
-  uVar3 = in_EAX[1] << 0x1e | in_EAX[1] >> 2;
-  uVar2 = in_EAX[3] + 0x5a827999 +
+  uVar3 = ctx[1] << 0x1e | ctx[1] >> 2;
+  uVar2 = ctx[3] + 0x5a827999 +
           ((uVar2 ^ uVar3) & uVar15 ^ uVar2) + (uVar1 * 0x20 | uVar1 >> 0x1b) + param_2[1];
   uVar8 = uVar15 << 0x1e | uVar15 >> 2;
   puVar7 = param_2 + 2;
   uVar13 = *puVar7;
   uVar15 = ((uVar3 ^ uVar8) & uVar1 ^ uVar3) + (uVar2 * 0x20 | uVar2 >> 0x1b) + uVar13 + 0x5a827999
-           + in_EAX[2];
+           + ctx[2];
   uVar16 = uVar1 * 0x40000000 | uVar1 >> 2;
   uVar14 = param_2[3];
   uVar25 = param_2[4];
@@ -339,27 +338,27 @@ void __fastcall Sha1TransformBuffer(undefined4 param_1,uint *param_2,int param_3
   uVar2 = (uVar19 ^ uVar11 ^ uVar4 ^ uVar12) + (uVar14 ^ uVar25 ^ uVar15) + -0x359d3e2a +
           (uVar1 * 0x20 | uVar1 >> 0x1b) + uVar8;
   uVar15 = uVar15 * 0x40000000 | uVar15 >> 2;
-  *in_EAX = (uVar25 ^ uVar15 ^ uVar1) + (uVar5 ^ uVar24 ^ uVar9 ^ uVar23) + *in_EAX + -0x359d3e2a +
+  *ctx = (uVar25 ^ uVar15 ^ uVar1) + (uVar5 ^ uVar24 ^ uVar9 ^ uVar23) + *ctx + -0x359d3e2a +
             (uVar2 * 0x20 | uVar2 >> 0x1b) + uVar14;
-  in_EAX[1] = in_EAX[1] + uVar2;
-  in_EAX[3] = in_EAX[3] + uVar15;
+  ctx[1] = ctx[1] + uVar2;
+  ctx[3] = ctx[3] + uVar15;
   local_8 = param_3 + -1;
-  in_EAX[2] = (uVar1 * 0x40000000 | uVar1 >> 2) + in_EAX[2];
-  in_EAX[4] = in_EAX[4] + uVar25;
+  ctx[2] = (uVar1 * 0x40000000 | uVar1 >> 2) + ctx[2];
+  ctx[4] = ctx[4] + uVar25;
   if (0 < local_8) {
     do {
-      uVar15 = *in_EAX;
-      uVar2 = in_EAX[1];
-      uVar1 = ((in_EAX[3] ^ in_EAX[2]) & uVar2 ^ in_EAX[3]) +
-              (uVar15 << 5 | uVar15 >> 0x1b) + puVar7[0xe] + 0x5a827999 + in_EAX[4];
+      uVar15 = *ctx;
+      uVar2 = ctx[1];
+      uVar1 = ((ctx[3] ^ ctx[2]) & uVar2 ^ ctx[3]) +
+              (uVar15 << 5 | uVar15 >> 0x1b) + puVar7[0xe] + 0x5a827999 + ctx[4];
       uVar8 = uVar2 << 0x1e | uVar2 >> 2;
       uVar14 = puVar7[0x10];
-      uVar2 = in_EAX[3] + 0x5a827999 +
-              ((in_EAX[2] ^ uVar8) & uVar15 ^ in_EAX[2]) +
+      uVar2 = ctx[3] + 0x5a827999 +
+              ((ctx[2] ^ uVar8) & uVar15 ^ ctx[2]) +
               (uVar1 * 0x20 | uVar1 >> 0x1b) + puVar7[0xf];
       uVar13 = uVar15 << 0x1e | uVar15 >> 2;
       uVar25 = puVar7[0x11];
-      uVar15 = in_EAX[2] + 0x5a827999 +
+      uVar15 = ctx[2] + 0x5a827999 +
                ((uVar8 ^ uVar13) & uVar1 ^ uVar8) + (uVar2 * 0x20 | uVar2 >> 0x1b) + uVar14;
       uVar17 = uVar1 * 0x40000000 | uVar1 >> 2;
       uVar3 = puVar7[0x12];
@@ -663,13 +662,13 @@ void __fastcall Sha1TransformBuffer(undefined4 param_1,uint *param_2,int param_3
       uVar2 = (uVar22 ^ uVar24 ^ uVar8 ^ uVar21) + (uVar13 ^ uVar25 ^ uVar15) + -0x359d3e2a +
               (uVar1 * 0x20 | uVar1 >> 0x1b) + uVar18;
       uVar15 = uVar15 * 0x40000000 | uVar15 >> 2;
-      *in_EAX = *in_EAX + (uVar16 ^ uVar12 ^ uVar3 ^ uVar11) + (uVar25 ^ uVar15 ^ uVar1) +
+      *ctx = *ctx + (uVar16 ^ uVar12 ^ uVar3 ^ uVar11) + (uVar25 ^ uVar15 ^ uVar1) +
                           -0x359d3e2a + (uVar2 * 0x20 | uVar2 >> 0x1b) + uVar13;
-      in_EAX[1] = in_EAX[1] + uVar2;
-      in_EAX[2] = in_EAX[2] + (uVar1 * 0x40000000 | uVar1 >> 2);
-      in_EAX[3] = in_EAX[3] + uVar15;
+      ctx[1] = ctx[1] + uVar2;
+      ctx[2] = ctx[2] + (uVar1 * 0x40000000 | uVar1 >> 2);
+      ctx[3] = ctx[3] + uVar15;
       local_8 = local_8 + -1;
-      in_EAX[4] = in_EAX[4] + uVar25;
+      ctx[4] = ctx[4] + uVar25;
       puVar7 = puVar7 + 0x10;
     } while (local_8 != 0);
   }

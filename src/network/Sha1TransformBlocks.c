@@ -8,10 +8,9 @@
 #include "ghidra_types.h"
 
 
-void __thiscall Sha1TransformBlocks(uint *param_1,int param_2)
+void __thiscall Sha1TransformBlocks(uint *param_1,int param_2,byte *msg)
 
 {
-  byte *in_EAX;
   uint uVar1;
   uint uVar2;
   uint uVar3;
@@ -40,80 +39,80 @@ void __thiscall Sha1TransformBlocks(uint *param_1,int param_2)
   
   uVar10 = param_1[2];
   uVar2 = param_1[1];
-  uVar8 = (uint)*in_EAX << 0x18 | (uint)in_EAX[1] << 0x10 | (uint)in_EAX[2] << 8 | (uint)in_EAX[3];
-  uVar20 = (uint)in_EAX[4] << 0x18 | (uint)in_EAX[5] << 0x10 | (uint)in_EAX[6] << 8 |
-           (uint)in_EAX[7];
+  uVar8 = (uint)*msg << 0x18 | (uint)msg[1] << 0x10 | (uint)msg[2] << 8 | (uint)msg[3];
+  uVar20 = (uint)msg[4] << 0x18 | (uint)msg[5] << 0x10 | (uint)msg[6] << 8 |
+           (uint)msg[7];
   uVar1 = ((param_1[3] ^ uVar10) & uVar2 ^ param_1[3]) +
           (*param_1 << 5 | *param_1 >> 0x1b) + param_1[4] + 0x5a827999 + uVar8;
   uVar9 = uVar2 << 0x1e | uVar2 >> 2;
-  uVar3 = (uint)in_EAX[8] << 0x18 | (uint)in_EAX[9] << 0x10 | (uint)in_EAX[10] << 8 |
-          (uint)in_EAX[0xb];
+  uVar3 = (uint)msg[8] << 0x18 | (uint)msg[9] << 0x10 | (uint)msg[10] << 8 |
+          (uint)msg[0xb];
   uVar2 = *param_1;
   uVar10 = param_1[3] + 0x5a827999 +
            ((uVar10 ^ uVar9) & uVar2 ^ uVar10) + (uVar1 * 0x20 | uVar1 >> 0x1b) + uVar20;
   uVar21 = uVar2 << 0x1e | uVar2 >> 2;
-  uVar4 = (uint)in_EAX[0xc] << 0x18 | (uint)in_EAX[0xd] << 0x10 | (uint)in_EAX[0xe] << 8 |
-          (uint)in_EAX[0xf];
+  uVar4 = (uint)msg[0xc] << 0x18 | (uint)msg[0xd] << 0x10 | (uint)msg[0xe] << 8 |
+          (uint)msg[0xf];
   uVar2 = ((uVar9 ^ uVar21) & uVar1 ^ uVar9) + (uVar10 * 0x20 | uVar10 >> 0x1b) + uVar3 + 0x5a827999
           + param_1[2];
   uVar1 = uVar1 * 0x40000000 | uVar1 >> 2;
-  uVar5 = (uint)in_EAX[0x10] << 0x18 | (uint)in_EAX[0x11] << 0x10 | (uint)in_EAX[0x12] << 8 |
-          (uint)in_EAX[0x13];
+  uVar5 = (uint)msg[0x10] << 0x18 | (uint)msg[0x11] << 0x10 | (uint)msg[0x12] << 8 |
+          (uint)msg[0x13];
   uVar9 = ((uVar1 ^ uVar21) & uVar10 ^ uVar21) + (uVar2 * 0x20 | uVar2 >> 0x1b) + uVar4 + 0x5a827999
           + uVar9;
   uVar10 = uVar10 * 0x40000000 | uVar10 >> 2;
-  uVar6 = (uint)in_EAX[0x14] << 0x18 | (uint)in_EAX[0x15] << 0x10 | (uint)in_EAX[0x16] << 8 |
-          (uint)in_EAX[0x17];
+  uVar6 = (uint)msg[0x14] << 0x18 | (uint)msg[0x15] << 0x10 | (uint)msg[0x16] << 8 |
+          (uint)msg[0x17];
   uVar11 = uVar2 * 0x40000000 | uVar2 >> 2;
   uVar21 = ((uVar1 ^ uVar10) & uVar2 ^ uVar1) + (uVar9 * 0x20 | uVar9 >> 0x1b) + uVar5 + 0x5a827999
            + uVar21;
-  uVar12 = (uint)in_EAX[0x18] << 0x18 | (uint)in_EAX[0x19] << 0x10 | (uint)in_EAX[0x1a] << 8 |
-           (uint)in_EAX[0x1b];
+  uVar12 = (uint)msg[0x18] << 0x18 | (uint)msg[0x19] << 0x10 | (uint)msg[0x1a] << 8 |
+           (uint)msg[0x1b];
   uVar2 = uVar9 * 0x40000000 | uVar9 >> 2;
   uVar1 = ((uVar10 ^ uVar11) & uVar9 ^ uVar10) + (uVar21 * 0x20 | uVar21 >> 0x1b) + uVar6 +
           0x5a827999 + uVar1;
-  uVar7 = (uint)in_EAX[0x1c] << 0x18 | (uint)in_EAX[0x1d] << 0x10 | (uint)in_EAX[0x1e] << 8 |
-          (uint)in_EAX[0x1f];
+  uVar7 = (uint)msg[0x1c] << 0x18 | (uint)msg[0x1d] << 0x10 | (uint)msg[0x1e] << 8 |
+          (uint)msg[0x1f];
   uVar10 = ((uVar11 ^ uVar2) & uVar21 ^ uVar11) + (uVar1 * 0x20 | uVar1 >> 0x1b) + uVar12 +
            0x5a827999 + uVar10;
   uVar21 = uVar21 * 0x40000000 | uVar21 >> 2;
-  uVar13 = (uint)in_EAX[0x20] << 0x18 | (uint)in_EAX[0x21] << 0x10 | (uint)in_EAX[0x22] << 8 |
-           (uint)in_EAX[0x23];
+  uVar13 = (uint)msg[0x20] << 0x18 | (uint)msg[0x21] << 0x10 | (uint)msg[0x22] << 8 |
+           (uint)msg[0x23];
   uVar11 = ((uVar2 ^ uVar21) & uVar1 ^ uVar2) + (uVar10 * 0x20 | uVar10 >> 0x1b) + uVar7 +
            0x5a827999 + uVar11;
   uVar9 = uVar1 * 0x40000000 | uVar1 >> 2;
-  uVar22 = (uint)in_EAX[0x24] << 0x18 | (uint)in_EAX[0x25] << 0x10 | (uint)in_EAX[0x26] << 8 |
-           (uint)in_EAX[0x27];
+  uVar22 = (uint)msg[0x24] << 0x18 | (uint)msg[0x25] << 0x10 | (uint)msg[0x26] << 8 |
+           (uint)msg[0x27];
   uVar2 = ((uVar21 ^ uVar9) & uVar10 ^ uVar21) + (uVar11 * 0x20 | uVar11 >> 0x1b) + uVar13 +
           0x5a827999 + uVar2;
   uVar10 = uVar10 * 0x40000000 | uVar10 >> 2;
-  uVar14 = (uint)in_EAX[0x28] << 0x18 | (uint)in_EAX[0x29] << 0x10 | (uint)in_EAX[0x2a] << 8 |
-           (uint)in_EAX[0x2b];
+  uVar14 = (uint)msg[0x28] << 0x18 | (uint)msg[0x29] << 0x10 | (uint)msg[0x2a] << 8 |
+           (uint)msg[0x2b];
   uVar1 = uVar21 + 0x5a827999 +
           ((uVar10 ^ uVar9) & uVar11 ^ uVar9) + (uVar2 * 0x20 | uVar2 >> 0x1b) + uVar22;
   uVar21 = uVar11 * 0x40000000 | uVar11 >> 2;
-  uVar23 = (uint)in_EAX[0x2c] << 0x18 | (uint)in_EAX[0x2d] << 0x10 | (uint)in_EAX[0x2e] << 8 |
-           (uint)in_EAX[0x2f];
+  uVar23 = (uint)msg[0x2c] << 0x18 | (uint)msg[0x2d] << 0x10 | (uint)msg[0x2e] << 8 |
+           (uint)msg[0x2f];
   uVar11 = uVar2 * 0x40000000 | uVar2 >> 2;
   uVar9 = ((uVar10 ^ uVar21) & uVar2 ^ uVar10) + (uVar1 * 0x20 | uVar1 >> 0x1b) + uVar14 +
           0x5a827999 + uVar9;
-  uVar15 = (uint)in_EAX[0x30] << 0x18 | (uint)in_EAX[0x31] << 0x10 | (uint)in_EAX[0x32] << 8 |
-           (uint)in_EAX[0x33];
+  uVar15 = (uint)msg[0x30] << 0x18 | (uint)msg[0x31] << 0x10 | (uint)msg[0x32] << 8 |
+           (uint)msg[0x33];
   uVar10 = ((uVar21 ^ uVar11) & uVar1 ^ uVar21) + (uVar9 * 0x20 | uVar9 >> 0x1b) + uVar23 +
            0x5a827999 + uVar10;
   uVar1 = uVar1 * 0x40000000 | uVar1 >> 2;
-  uVar24 = (uint)in_EAX[0x34] << 0x18 | (uint)in_EAX[0x35] << 0x10 | (uint)in_EAX[0x36] << 8 |
-           (uint)in_EAX[0x37];
+  uVar24 = (uint)msg[0x34] << 0x18 | (uint)msg[0x35] << 0x10 | (uint)msg[0x36] << 8 |
+           (uint)msg[0x37];
   uVar21 = ((uVar11 ^ uVar1) & uVar9 ^ uVar11) + (uVar10 * 0x20 | uVar10 >> 0x1b) + uVar15 +
            0x5a827999 + uVar21;
   uVar2 = uVar9 * 0x40000000 | uVar9 >> 2;
-  uVar16 = (uint)in_EAX[0x38] << 0x18 | (uint)in_EAX[0x39] << 0x10 | (uint)in_EAX[0x3a] << 8 |
-           (uint)in_EAX[0x3b];
+  uVar16 = (uint)msg[0x38] << 0x18 | (uint)msg[0x39] << 0x10 | (uint)msg[0x3a] << 8 |
+           (uint)msg[0x3b];
   uVar9 = uVar10 * 0x40000000 | uVar10 >> 2;
   uVar11 = ((uVar1 ^ uVar2) & uVar10 ^ uVar1) + (uVar21 * 0x20 | uVar21 >> 0x1b) + uVar24 +
            0x5a827999 + uVar11;
-  uVar17 = (uint)in_EAX[0x3c] << 0x18 | (uint)in_EAX[0x3d] << 0x10 | (uint)in_EAX[0x3e] << 8 |
-           (uint)in_EAX[0x3f];
+  uVar17 = (uint)msg[0x3c] << 0x18 | (uint)msg[0x3d] << 0x10 | (uint)msg[0x3e] << 8 |
+           (uint)msg[0x3f];
   uVar1 = uVar1 + 0x5a827999 +
           ((uVar2 ^ uVar9) & uVar21 ^ uVar2) + (uVar11 * 0x20 | uVar11 >> 0x1b) + uVar16;
   uVar21 = uVar21 * 0x40000000 | uVar21 >> 2;
@@ -360,80 +359,80 @@ void __thiscall Sha1TransformBlocks(uint *param_1,int param_2)
     do {
       uVar2 = *param_1;
       uVar10 = param_1[1];
-      uVar8 = (uint)in_EAX[0x40] << 0x18 | (uint)in_EAX[0x41] << 0x10 | (uint)in_EAX[0x42] << 8 |
-              (uint)in_EAX[0x43];
-      uVar20 = (uint)in_EAX[0x44] << 0x18 | (uint)in_EAX[0x45] << 0x10 | (uint)in_EAX[0x46] << 8 |
-               (uint)in_EAX[0x47];
+      uVar8 = (uint)msg[0x40] << 0x18 | (uint)msg[0x41] << 0x10 | (uint)msg[0x42] << 8 |
+              (uint)msg[0x43];
+      uVar20 = (uint)msg[0x44] << 0x18 | (uint)msg[0x45] << 0x10 | (uint)msg[0x46] << 8 |
+               (uint)msg[0x47];
       uVar1 = (uVar2 << 5 | uVar2 >> 0x1b) + ((param_1[3] ^ param_1[2]) & uVar10 ^ param_1[3]) +
               param_1[4] + 0x5a827999 + uVar8;
       uVar9 = uVar10 << 0x1e | uVar10 >> 2;
-      uVar4 = (uint)in_EAX[0x48] << 0x18 | (uint)in_EAX[0x49] << 0x10 | (uint)in_EAX[0x4a] << 8 |
-              (uint)in_EAX[0x4b];
+      uVar4 = (uint)msg[0x48] << 0x18 | (uint)msg[0x49] << 0x10 | (uint)msg[0x4a] << 8 |
+              (uint)msg[0x4b];
       uVar10 = ((param_1[2] ^ uVar9) & uVar2 ^ param_1[2]) + (uVar1 * 0x20 | uVar1 >> 0x1b) + uVar20
                + 0x5a827999 + param_1[3];
       uVar21 = uVar2 << 0x1e | uVar2 >> 2;
-      uVar6 = (uint)in_EAX[0x4c] << 0x18 | (uint)in_EAX[0x4d] << 0x10 | (uint)in_EAX[0x4e] << 8 |
-              (uint)in_EAX[0x4f];
+      uVar6 = (uint)msg[0x4c] << 0x18 | (uint)msg[0x4d] << 0x10 | (uint)msg[0x4e] << 8 |
+              (uint)msg[0x4f];
       uVar2 = ((uVar9 ^ uVar21) & uVar1 ^ uVar9) + (uVar10 * 0x20 | uVar10 >> 0x1b) + uVar4 +
               0x5a827999 + param_1[2];
       uVar1 = uVar1 * 0x40000000 | uVar1 >> 2;
-      uVar5 = (uint)in_EAX[0x50] << 0x18 | (uint)in_EAX[0x51] << 0x10 | (uint)in_EAX[0x52] << 8 |
-              (uint)in_EAX[0x53];
+      uVar5 = (uint)msg[0x50] << 0x18 | (uint)msg[0x51] << 0x10 | (uint)msg[0x52] << 8 |
+              (uint)msg[0x53];
       uVar11 = uVar10 * 0x40000000 | uVar10 >> 2;
       uVar9 = ((uVar1 ^ uVar21) & uVar10 ^ uVar21) + (uVar2 * 0x20 | uVar2 >> 0x1b) + uVar6 +
               0x5a827999 + uVar9;
-      uVar7 = (uint)in_EAX[0x54] << 0x18 | (uint)in_EAX[0x55] << 0x10 | (uint)in_EAX[0x56] << 8 |
-              (uint)in_EAX[0x57];
+      uVar7 = (uint)msg[0x54] << 0x18 | (uint)msg[0x55] << 0x10 | (uint)msg[0x56] << 8 |
+              (uint)msg[0x57];
       uVar21 = ((uVar1 ^ uVar11) & uVar2 ^ uVar1) + (uVar9 * 0x20 | uVar9 >> 0x1b) + uVar5 +
                0x5a827999 + uVar21;
       uVar10 = uVar2 * 0x40000000 | uVar2 >> 2;
-      uVar12 = (uint)in_EAX[0x58] << 0x18 | (uint)in_EAX[0x59] << 0x10 | (uint)in_EAX[0x5a] << 8 |
-               (uint)in_EAX[0x5b];
+      uVar12 = (uint)msg[0x58] << 0x18 | (uint)msg[0x59] << 0x10 | (uint)msg[0x5a] << 8 |
+               (uint)msg[0x5b];
       uVar1 = ((uVar11 ^ uVar10) & uVar9 ^ uVar11) + (uVar21 * 0x20 | uVar21 >> 0x1b) + uVar7 +
               0x5a827999 + uVar1;
       uVar2 = uVar9 * 0x40000000 | uVar9 >> 2;
-      uVar22 = (uint)in_EAX[0x5c] << 0x18 | (uint)in_EAX[0x5d] << 0x10 | (uint)in_EAX[0x5e] << 8 |
-               (uint)in_EAX[0x5f];
+      uVar22 = (uint)msg[0x5c] << 0x18 | (uint)msg[0x5d] << 0x10 | (uint)msg[0x5e] << 8 |
+               (uint)msg[0x5f];
       uVar9 = uVar21 * 0x40000000 | uVar21 >> 2;
       uVar11 = ((uVar10 ^ uVar2) & uVar21 ^ uVar10) + (uVar1 * 0x20 | uVar1 >> 0x1b) + uVar12 +
                0x5a827999 + uVar11;
-      uVar13 = (uint)in_EAX[0x60] << 0x18 | (uint)in_EAX[0x61] << 0x10 | (uint)in_EAX[0x62] << 8 |
-               (uint)in_EAX[99];
+      uVar13 = (uint)msg[0x60] << 0x18 | (uint)msg[0x61] << 0x10 | (uint)msg[0x62] << 8 |
+               (uint)msg[99];
       uVar10 = ((uVar2 ^ uVar9) & uVar1 ^ uVar2) + (uVar11 * 0x20 | uVar11 >> 0x1b) + uVar22 +
                0x5a827999 + uVar10;
       uVar1 = uVar1 * 0x40000000 | uVar1 >> 2;
-      uVar23 = (uint)in_EAX[100] << 0x18 | (uint)in_EAX[0x65] << 0x10 | (uint)in_EAX[0x66] << 8 |
-               (uint)in_EAX[0x67];
+      uVar23 = (uint)msg[100] << 0x18 | (uint)msg[0x65] << 0x10 | (uint)msg[0x66] << 8 |
+               (uint)msg[0x67];
       uVar2 = ((uVar9 ^ uVar1) & uVar11 ^ uVar9) + (uVar10 * 0x20 | uVar10 >> 0x1b) + uVar13 +
               0x5a827999 + uVar2;
       uVar21 = uVar11 * 0x40000000 | uVar11 >> 2;
-      uVar14 = (uint)in_EAX[0x68] << 0x18 | (uint)in_EAX[0x69] << 0x10 | (uint)in_EAX[0x6a] << 8 |
-               (uint)in_EAX[0x6b];
+      uVar14 = (uint)msg[0x68] << 0x18 | (uint)msg[0x69] << 0x10 | (uint)msg[0x6a] << 8 |
+               (uint)msg[0x6b];
       uVar11 = uVar10 * 0x40000000 | uVar10 >> 2;
       uVar9 = ((uVar21 ^ uVar1) & uVar10 ^ uVar1) + (uVar2 * 0x20 | uVar2 >> 0x1b) + uVar23 +
               0x5a827999 + uVar9;
-      uVar24 = (uint)in_EAX[0x6c] << 0x18 | (uint)in_EAX[0x6d] << 0x10 | (uint)in_EAX[0x6e] << 8 |
-               (uint)in_EAX[0x6f];
+      uVar24 = (uint)msg[0x6c] << 0x18 | (uint)msg[0x6d] << 0x10 | (uint)msg[0x6e] << 8 |
+               (uint)msg[0x6f];
       uVar1 = ((uVar21 ^ uVar11) & uVar2 ^ uVar21) + (uVar9 * 0x20 | uVar9 >> 0x1b) + uVar14 +
               0x5a827999 + uVar1;
       uVar10 = uVar2 * 0x40000000 | uVar2 >> 2;
-      uVar15 = (uint)in_EAX[0x70] << 0x18 | (uint)in_EAX[0x71] << 0x10 | (uint)in_EAX[0x72] << 8 |
-               (uint)in_EAX[0x73];
+      uVar15 = (uint)msg[0x70] << 0x18 | (uint)msg[0x71] << 0x10 | (uint)msg[0x72] << 8 |
+               (uint)msg[0x73];
       uVar21 = ((uVar11 ^ uVar10) & uVar9 ^ uVar11) + (uVar1 * 0x20 | uVar1 >> 0x1b) + uVar24 +
                0x5a827999 + uVar21;
       uVar2 = uVar9 * 0x40000000 | uVar9 >> 2;
-      uVar18 = (uint)in_EAX[0x74] << 0x18 | (uint)in_EAX[0x75] << 0x10 | (uint)in_EAX[0x76] << 8 |
-               (uint)in_EAX[0x77];
+      uVar18 = (uint)msg[0x74] << 0x18 | (uint)msg[0x75] << 0x10 | (uint)msg[0x76] << 8 |
+               (uint)msg[0x77];
       uVar11 = ((uVar10 ^ uVar2) & uVar1 ^ uVar10) + (uVar21 * 0x20 | uVar21 >> 0x1b) + uVar15 +
                0x5a827999 + uVar11;
       uVar1 = uVar1 * 0x40000000 | uVar1 >> 2;
-      uVar16 = (uint)in_EAX[0x78] << 0x18 | (uint)in_EAX[0x79] << 0x10 | (uint)in_EAX[0x7a] << 8 |
-               (uint)in_EAX[0x7b];
+      uVar16 = (uint)msg[0x78] << 0x18 | (uint)msg[0x79] << 0x10 | (uint)msg[0x7a] << 8 |
+               (uint)msg[0x7b];
       uVar10 = ((uVar2 ^ uVar1) & uVar21 ^ uVar2) + (uVar11 * 0x20 | uVar11 >> 0x1b) + uVar18 +
                0x5a827999 + uVar10;
       uVar3 = uVar21 * 0x40000000 | uVar21 >> 2;
-      uVar17 = (uint)in_EAX[0x7c] << 0x18 | (uint)in_EAX[0x7d] << 0x10 | (uint)in_EAX[0x7e] << 8 |
-               (uint)in_EAX[0x7f];
+      uVar17 = (uint)msg[0x7c] << 0x18 | (uint)msg[0x7d] << 0x10 | (uint)msg[0x7e] << 8 |
+               (uint)msg[0x7f];
       uVar2 = ((uVar1 ^ uVar3) & uVar11 ^ uVar1) + (uVar10 * 0x20 | uVar10 >> 0x1b) + uVar16 +
               0x5a827999 + uVar2;
       uVar9 = uVar11 * 0x40000000 | uVar11 >> 2;
@@ -698,7 +697,7 @@ void __thiscall Sha1TransformBlocks(uint *param_1,int param_2)
       param_1[3] = param_1[3] + uVar10;
       param_2 = param_2 + -1;
       param_1[4] = param_1[4] + uVar21;
-      in_EAX = in_EAX + 0x40;
+      msg = msg + 0x40;
     } while (param_2 != 0);
   }
   return;

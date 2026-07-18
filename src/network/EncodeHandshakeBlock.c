@@ -37,14 +37,16 @@ uint EncodeHandshakeBlock(undefined4 param_1,undefined4 param_2,undefined4 param
   char *in_EAX;
   uint uVar5;
   char *unaff_ESI;
-  undefined4 local_28c;
-  undefined4 local_288;
-  undefined4 local_284;
-  undefined4 local_280;
-  undefined4 local_27c;
-  undefined4 local_278;
-  undefined4 local_274;
-  undefined4 local_230;
+  /* COALESCED (2026-07-18): the SHA-1 context MUST be ONE contiguous 0x60-byte
+   * block - Sha1Absorb/Sha1Final index it at +0x14/+0x18 (bit count), +0x1c
+   * (the 0x40-byte block buffer) and +0x5c (partial byte count). Ghidra split
+   * the original's single stack context into separate named locals
+   * (local_28c..local_230 - the names ARE the real stack offsets, and
+   * 0x28c-0x230 = 0x5c exactly), but MSVC scatters separate locals, so
+   * &local_28c+0x5c was NOT the zeroed partial count - it was uninitialised
+   * stack. That made Sha1Absorb's block index explode (eax=0x1f7d7432) into a
+   * wild write, faulting right after the dropped-length fix. */
+  uint shaCtx[0x18];
   char local_22c [16];
   undefined4 local_21c;
   undefined1 local_20c [520];
@@ -53,14 +55,14 @@ uint EncodeHandshakeBlock(undefined4 param_1,undefined4 param_2,undefined4 param
   unaff_ESI = credKey;
   in_EAX = credStr;
   iVar2 = param_4;
-  local_28c = 0x67452301;
-  local_288 = 0xefcdab89;
-  local_284 = 0x98badcfe;
-  local_280 = 0x10325476;
-  local_27c = 0xc3d2e1f0;
-  local_278 = 0;
-  local_274 = 0;
-  local_230 = 0;
+  shaCtx[0] = 0x67452301;   /* +0x00 H0 */
+  shaCtx[1] = 0xefcdab89;   /* +0x04 H1 */
+  shaCtx[2] = 0x98badcfe;   /* +0x08 H2 */
+  shaCtx[3] = 0x10325476;   /* +0x0c H3 */
+  shaCtx[4] = 0xc3d2e1f0;   /* +0x10 H4 */
+  shaCtx[5] = 0;            /* +0x14 bit count lo */
+  shaCtx[6] = 0;            /* +0x18 bit count hi */
+  shaCtx[0x17] = 0;         /* +0x5c partial byte count */
   uVar5 = 0;
   do {
     if (unaff_ESI[uVar5] == '\0') break;
@@ -72,17 +74,17 @@ uint EncodeHandshakeBlock(undefined4 param_1,undefined4 param_2,undefined4 param
    * first two calls and the length on the third. Recovered from orig
    * 0x4f6fa0-0x4f6fdc: (1) credKey, its capped-16 length uVar5; (2) credStr,
    * its strlen; (3) &param_3 (the 4-byte trailer), length 4. See Sha1Absorb.c. */
-  Sha1Absorb((int)&local_28c,(byte *)unaff_ESI,uVar5);
+  Sha1Absorb((int)shaCtx,(byte *)unaff_ESI,uVar5);
   {
     char *credStrStart = in_EAX;
     do {
       cVar1 = *in_EAX;
       in_EAX = in_EAX + 1;
     } while (cVar1 != '\0');
-    Sha1Absorb((int)&local_28c,(byte *)credStrStart,(uint)(in_EAX - credStrStart) - 1);
+    Sha1Absorb((int)shaCtx,(byte *)credStrStart,(uint)(in_EAX - credStrStart) - 1);
   }
-  Sha1Absorb((int)&local_28c,(byte *)&param_3,4);
-  Sha1Final();
+  Sha1Absorb((int)shaCtx,(byte *)&param_3,4);
+  Sha1Final((int)shaCtx);
   uVar5 = RijndaelSetKey(3);
   if ((short)uVar5 == 1) {
     local_4 = 0;

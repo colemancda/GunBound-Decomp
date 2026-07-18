@@ -146,14 +146,14 @@ LAB_004f7529:
         *(uint *)(iVar1 + iVar7 * 4) =
              (uint)bVar5 << 0x18 | (uint)*pbVar2 << 0x10 | (uint)*pbVar3 << 8 | (uint)*pbVar4;
       }
-      Sha1TransformBuffer(1);
+      Sha1TransformBuffer(0,(uint *)iVar1,1,(uint *)param_1);
       length = (length - 0x40) + *(int *)(param_1 + 0x5c);
       *(undefined4 *)(param_1 + 0x5c) = 0;
     }
   }
   uVar8 = length >> 6;
   if (uVar8 != 0) {
-    Sha1TransformBlocks(uVar8);
+    Sha1TransformBlocks((uint *)param_1,uVar8,param_2);
     param_2 = param_2 + uVar8 * 0x40;
     length = length + uVar8 * -0x40;
   }

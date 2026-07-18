@@ -154,7 +154,7 @@ void FUN_004ff770(int *param_1,int param_2)
             Sha1Absorb((int)local_3128,(byte *)&local_2eba,gb_capped16_len((char *)&local_2eba));
             Sha1Absorb((int)local_3128,(byte *)local_2eaa,gb_capped16_len((char *)local_2eaa));
             Sha1Absorb((int)local_3128,(byte *)local_2e9a,4);
-            Sha1Final();
+            Sha1Final((int)local_3128);
             RijndaelSetKey(2);
             FUN_004fcd50(local_30c8);
             if ((uint)local_173e <= local_2ebc - 0x36) {
