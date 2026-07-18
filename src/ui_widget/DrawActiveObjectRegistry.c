@@ -9,15 +9,12 @@
  * tick from GameTick.c (once per registry), both unconditionally and
  * again inside a state-specific branch at LAB_00413933.
  *
- * KNOWN BUG, NOT FIXED HERE: `unaff_BL` is a genuinely dropped register
- * (Ghidra never resolved a source for it) that selects between "draw
- * normal (<=999999) layers" and "draw only system (>999999) layers" -
- * every known call site (GameTick.c's four) calls this with zero
- * explicit arguments, so BL is READ UNINITIALIZED here; behavior is
- * whatever garbage happens to sit in BL at call time. Needs the same
- * per-call-site disassembly trace already done for
- * HandleActiveObjectMouseDown/Up's shared 1000000 threshold before this
- * can be promoted further - out of scope for this rename pass.
+ * FIXED (2026-07-17): the dropped `unaff_BL` register - which selects
+ * "draw normal (<999999) layers" vs "draw only system (>=999999) layers"
+ * - is now the explicit `drawHighPriority` parameter (see the recovery in
+ * the function-body comment below). This was the last thing keeping the
+ * ServerSelect buttons (and every normal widget) off-screen: GameTick's
+ * main draw pass ran with garbage BL and skipped the whole normal band.
  *
  * Raw/near-verbatim port of Ghidra's decompiler output, not hand-
  * verified. See src/README.md's "Raw/verbatim ports" section for status.
@@ -38,18 +35,26 @@
 
 typedef void (__thiscall *DrawWidgetFn)(void *thisPtr);
 
-void DrawActiveObjectRegistry(int param_1)
+/* DROPPED-REGISTER FIX (2026-07-17): `drawHighPriority` (BL in the
+ * original) was read as an uninitialised `unaff_BL` - it selects which
+ * priority band to draw. BL=0 draws NORMAL widgets (node priority
+ * [node+4] < 999999 = 0xf4240) - this is where every Button lives; BL=1
+ * draws the high-priority overlay band (>= 999999). GameTick calls it
+ * `xor bl,bl` for the main pass (0x413604) and `mov bl,1` for the overlay
+ * pass (0x413938). With BL uninitialised the main pass ran with garbage
+ * and skipped the whole normal band, so no button (or any normal widget)
+ * ever drew. Promoted to an explicit parameter. */
+void DrawActiveObjectRegistry(int param_1, int drawHighPriority)
 
 {
   int *piVar1;
-  char unaff_BL;
   int *piVar2;
 
   piVar2 = (int *)(*(int **)(param_1 + 4))[7];
   if (piVar2 != *(int **)(param_1 + 4)) {
     do {
       piVar1 = (int *)piVar2[4];
-      if (unaff_BL == '\0') {
+      if (drawHighPriority == 0) {
         if (999999 < (uint)piVar1[1]) {
           return;
         }

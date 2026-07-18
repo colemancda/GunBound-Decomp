@@ -246,8 +246,8 @@ LAB_00413510:
     (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x3c))
               (g_gameStateVTableArray[g_currentGameState]);
     FUN_004b3e60(&DAT_00e9b4e8);
-    DrawActiveObjectRegistry(&DAT_00e9be90);
-    DrawActiveObjectRegistry(&DAT_00e9c0fc);
+    DrawActiveObjectRegistry(&DAT_00e9be90, 0);
+    DrawActiveObjectRegistry(&DAT_00e9c0fc, 0);
     /* KNOWN DIVERGENCE fix: DAT_00e53c48 is a separate, never-written
      * global (Ghidra split it out of g_uiPanelManager+8 - see globals.c's
      * own comment on this exact split). PanelManager_Register writes the
@@ -371,8 +371,8 @@ LAB_004137a9:
        * end regardless of where the linker places it. */
       } while (puVar9 < DAT_005b1d70 + 0x15e);
 LAB_00413933:
-      DrawActiveObjectRegistry(&DAT_00e9be90);
-      DrawActiveObjectRegistry(&DAT_00e9c0fc);
+      DrawActiveObjectRegistry(&DAT_00e9be90, 1);
+      DrawActiveObjectRegistry(&DAT_00e9c0fc, 1);
     }
     /* orig 0x41394b-0x413950: `mov eax,ds:0x5b3484` (g_clientContext) /
      * `add eax,0x23310` immediately before `call 0x4065a0`. */

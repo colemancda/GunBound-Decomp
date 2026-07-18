@@ -229,7 +229,7 @@ undefined4 HandleActiveObjectMouseDown(void *widgetRoot,int mouseX,int mouseY);
 void HandleActiveObjectMouseUp(void *widgetRoot,int mouseX,int mouseY);
 undefined4 HandleActiveObjectMouseMove(void *widgetRoot,int mouseX,int mouseY);
 void TickActiveObjectRegistry(int param_1);
-void DrawActiveObjectRegistry();
+void DrawActiveObjectRegistry(int, int);
 void InvokeWidget(int widgetId,int enabled);
 undefined4 __fastcall SetWidgetReadyState();
 uint __fastcall FUN_00406400();
