@@ -8,10 +8,17 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e5590(void)
+/* DROPPED-REGISTER FIX (2026-07-17): `unaff_ESI` (the connection
+ * sub-object this destructor tears down) arrives in ESI - confirmed at both
+ * call sites (orig 0x405979 `mov esi,[edi+0x2004]`, 0x4d2351 `mov esi,
+ * [edi+0x84e0]` right before `call 0x4e5590`). The port read uninitialised
+ * ESI and did wild SetEvent/DeleteCriticalSection/free - this hung the main
+ * thread on the first socket-error teardown (PIEQ msg 0x65). Promoted to an
+ * explicit parameter. */
+void FUN_004e5590(undefined4 *conn)
 
 {
-  undefined4 *unaff_ESI;
+  undefined4 *unaff_ESI = conn;
   
   *unaff_ESI = &PTR_FUN_005572e8;
   unaff_ESI[0x8b] = 1;

@@ -253,8 +253,18 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
     SetFocus(hWnd);
     local_db4 = DAT_007934f4;
     /* Recovered args: connection sub-object at *(DAT_007934f4+0x2004),
-     * hostname "localhost" (orig 0x551e38) - see SignalConnectRequest.c. */
-    SignalConnectRequest(*(int *)((char *)DAT_007934f4 + 0x2004), "localhost", 0x20a3);
+     * hostname "localhost" (orig 0x551e38) - see SignalConnectRequest.c.
+     *
+     * BRING-UP HACK (2026-07-17): SKIPPED. This is an auxiliary localhost:8355
+     * service connect (P2P/update side-channel) with no bring-up counterpart -
+     * it always fails, which posts a socket-error event (0x65, ch 3) whose
+     * teardown path (FUN_00405930 -> FUN_004e5590 -> ShutdownConnectionThread)
+     * still has unfixed dropped-register layers and kills the process on the
+     * first full GameTick. Not needed for the broker/world-server flow.
+     * RE-ENABLE once the teardown chain is fully recovered or a local 8355
+     * service exists:
+     * SignalConnectRequest(*(int *)((char *)DAT_007934f4 + 0x2004), "localhost", 0x20a3);
+     */
     *(undefined1 *)&local_db4[0x802].unused = 1;
     DAT_007934e0 = timeGetTime();
     ChangeGameState(6);

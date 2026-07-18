@@ -642,7 +642,8 @@ LAB_0040fd35:
       *(undefined1 *)(iVar7 + 0x22a) = 0;
       *(undefined1 *)((int)pvVar5 + 0x2009) = 0;
       if (_Memory != (void *)0x0) {
-        FUN_00405930();
+        /* orig 0x40fe86: EDI = DAT_007934f4 (=_Memory here). */
+        FUN_00405930((int)_Memory);
         _free(_Memory);
       }
     }

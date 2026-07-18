@@ -38,7 +38,6 @@ undefined4 SendOutgoingPacket(int param_1)
   undefined2 uVar2;
   int iVar3;
   undefined4 uVar4;
-  undefined4 *unaff_FS_OFFSET;
   undefined1 local_45c [8];
   /* UNDER-SIZED STACK BUFFER FIX (2026-07-16): these two are CValueGuard
    * cells (0x224 bytes each, = GB_VG_OBJ_SIZE in winmain_bringup.h), NOT
@@ -62,10 +61,16 @@ undefined4 SendOutgoingPacket(int param_1)
   undefined1 *puStack_8;
   int local_4;
 
+  /* DROPPED-SEH-FRAME FIX (2026-07-17): Ghidra decompiled the original's
+   * Windows SEH (__except) frame push (FS:[0] chain, handler LAB_00540806)
+   * as reads/writes through an UNINITIALISED `unaff_FS_OFFSET` pointer -
+   * the recompiled code wrote through garbage and faulted at +0x1a
+   * (`mov [ebx],ecx` with wild EBX) as soon as ServerSelect's OnTick sent
+   * the first broker request under the virtual desktop. Stripped entirely,
+   * same as ProcessIncomingPackets'/WriteReplayEventRecord's identical fix.
+   * local_4/local_c/puStack_8 kept only where reused as real locals. */
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_00540806;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
+  (void)local_c; (void)puStack_8;
   iVar1 = *(int *)(param_1 + 0x44d0);
   *(undefined2 *)(param_1 + 0x4d0) = *(undefined2 *)(param_1 + 0x44d0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -98,7 +103,6 @@ undefined4 SendOutgoingPacket(int param_1)
   SendSocketData((char *)(param_1 + 0x4d0),*(undefined4 *)(param_1 + 0x84e0),
                  *(undefined4 *)(param_1 + 0x44d0));
   *(undefined4 *)(param_1 + 0x84ec) = 0;
-  *unaff_FS_OFFSET = local_c;
   /* Ghidra emitted a bare `return;` in a value-returning function;
    * MSVC falls through with whatever's in EAX, gcc 14 rejects it
    * (-Wreturn-mismatch). This path's result is unused by callers -

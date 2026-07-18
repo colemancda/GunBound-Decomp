@@ -70,7 +70,8 @@ LAB_00412140:
       if (iVar1 == 0x65) {
         if (uVar2 == 3) {
           if (DAT_007934f4 != (void *)0x0) {
-            FUN_00405930();
+            /* orig 0x4121cc: EDI = DAT_007934f4 (=pvVar4 here). */
+            FUN_00405930((int)pvVar4);
             _free(pvVar4);
           }
           DAT_007934f4 = (void *)0x0;
