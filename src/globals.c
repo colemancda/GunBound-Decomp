@@ -676,7 +676,14 @@ uint8_t DAT_00e53c24;
 uint8_t DAT_00e53c28;
 uint8_t DAT_00e53c2c;
 uint8_t DAT_00e53c30;
-uint8_t DAT_00e53c3c;
+/* Cursor mode flag: 1 = free/absolute (the software cursor's anchor tracks
+ * the mouse), 0 = locked/relative (WndProc WM_MOUSEMOVE re-centers via
+ * SetCursorPos and holds the anchor - battle aim mode). Only State11 (battle)
+ * writes it (1=free, 0=aim; OnExit restores 1); it's a runtime-set BSS global
+ * that nothing in the reconstruction initializes for the menus, so it
+ * defaulted to 0 and the menu cursor was locked at (0,0). Default it to the
+ * menu/free value 1 so the cursor tracks outside battle. (2026-07-18) */
+uint8_t DAT_00e53c3c = 1;
 /* g_uiPanelManager was a 1-byte placeholder, but the code dereferences it as
  * a container object: FUN_0050f020/f1b0/f1f0/f150/f230 (WndProc's mouse/key
  * handlers) read its list head at +4, and PanelManager_* touch +4/+5/+8. With

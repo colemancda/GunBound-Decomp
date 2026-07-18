@@ -397,13 +397,26 @@ LAB_004139be:
       iVar5 = g_cursorFrame;
       /* orig 0x4139c6-0x4139d7 loads EAX=&DAT_00ea0e18, EDX=0, ESI=g_cursorFrame
        * (the software-cursor sprite lookup). */
-      if (((DAT_0079352c != 0) && (-1 < g_cursorFrame)) &&
+      /* NOTE: g_cursorFrame is uint32_t, so the original's signed `-1 < esi`
+       * frame-valid test must go through the signed `iVar5` (= g_cursorFrame)
+       * - `-1 < g_cursorFrame` would promote -1 to 0xFFFFFFFF and be ALWAYS
+       * FALSE, which is why the software cursor never drew. */
+      if (((DAT_0079352c != 0) && (-1 < iVar5)) &&
           (iVar6 = FindSpriteFrame((int)&DAT_00ea0e18,0,g_cursorFrame), iVar6 != 0)) {
+        /* FIXED (2026-07-18): the cursor blit dropped its `frame` and
+         * `outerKey` args - Ghidra rendered BlitSprite16bpp(x,y) with frame
+         * (ESI=g_cursorFrame=EAX) and outerKey (EDX=0) dropped, so the
+         * software cursor blitted a screen coordinate as the frame index and
+         * never drew. Recovered from orig 0x4139e6-0x4139fc:
+         * `mov edx,[0x56d110](Y); mov eax,[0x56d10c](X); push edx; push eax;
+         * mov eax,esi(frame); xor edx,edx(outerKey); call` -> the same
+         * (frame,x,y,outerKey) shape DrawButtonWidget already uses. cursor.img
+         * is sprite set 0 (InitGame LoadSpriteSet(&DAT_00ea0e18,0,"cursor.img")). */
         if (*(char *)(iVar6 + 0x18) == '\x01') {
-          BlitSprite16bpp(g_cursorAnchorX,g_cursorAnchorY);
+          BlitSprite16bpp(iVar5,g_cursorAnchorX,g_cursorAnchorY,0);
         }
         else {
-          BlitSpriteClipped(iVar5);
+          BlitSpriteClipped(iVar5,g_cursorAnchorX,g_cursorAnchorY,0);
         }
       }
     }
