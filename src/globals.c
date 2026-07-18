@@ -1623,6 +1623,17 @@ uint32_t DAT_00551b7c;
 uint32_t DAT_00551e2c;
 uint32_t DAT_00551e30;
 uint32_t DAT_00551ec4;
+/* DAT_00551ed4 = "%d" (orig .data 0x551ed4 = 25 64 00 00) - the row-index
+ * sprintf format in RenderWorldListRow, the world list's missing per-row
+ * number prefix. DELIBERATELY LEFT ZERO for now (2026-07-18): restoring it
+ * makes _sprintf produce "1", which then flows into RenderWorldListRow's
+ * DrawFontString(0x4eb510) call - and DrawFontString is a __thiscall with
+ * BOTH its `this`(X coord, ECX) and its string(EAX) dropped, cascading into
+ * DrawNarrowGlyph/DrawWideGlyph which ALSO have dropped-EAX glyph args (the
+ * deferred bitmap-font-glyph fan-out; see the session-15 BlitSpriteText/
+ * BlitFontGlyphClipped notes). With the format zero the number renders empty
+ * and DrawFontString harmlessly early-returns; restore this value only once
+ * that DrawFontString->DrawNarrowGlyph/DrawWideGlyph chain is reconstructed. */
 uint32_t DAT_00551ed4;
 uint32_t DAT_00552c68;
 uint32_t DAT_00553b90;
