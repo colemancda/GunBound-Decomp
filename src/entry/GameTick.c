@@ -127,8 +127,8 @@ void GameTick(void)
       (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x24))
                 (g_gameStateVTableArray[g_currentGameState]);
       FUN_004b3e00(&DAT_00e9b4e8);
-      if (DAT_0056d118 != -1) {
-        DAT_0056d118 = DAT_0056d118 + 1;
+      if (g_serverWaitTicks != -1) {
+        g_serverWaitTicks = g_serverWaitTicks + 1;
       }
     }
   }
@@ -262,25 +262,25 @@ LAB_00413510:
       (*(GameStateVirtualFn *)(*(int *)*puVar1 + 0x24))((void *)*puVar1);
     }
     /* FIXED (2026-07-18): the wait-spinner gate must be a SIGNED compare.
-     * DAT_0056d118 is the "waiting for a server reply" counter: -1 = idle
+     * g_serverWaitTicks is the "waiting for a server reply" counter: -1 = idle
      * (set every tick by State02_ServerSelect_OnTick etc.), 0 = a request was
      * just fired (then incremented each tick above), and the animated
      * "waitmessage.img" PLEASE WAIT overlay is meant to appear only once the
      * count passes 40. The original is `cmp eax,0x28; jle skip` (0x41363f) -
      * SIGNED, so the -1 idle sentinel reads as <= 40 and the overlay stays
-     * hidden. The port declared DAT_0056d118 as uint32_t, making `0x28 <
-     * DAT_0056d118` an UNSIGNED compare, so idle -1 (0xffffffff) read as a
+     * hidden. The port declared g_serverWaitTicks as uint32_t, making `0x28 <
+     * g_serverWaitTicks` an UNSIGNED compare, so idle -1 (0xffffffff) read as a
      * huge positive and the overlay showed PERMANENTLY on the WORLD LIST.
      * Cast to signed to restore the transient show-while-waiting behavior. */
-    if ((g_stateChangeInProgress == 0) && (0x28 < (int)DAT_0056d118)) {
+    if ((g_stateChangeInProgress == 0) && (0x28 < (int)g_serverWaitTicks)) {
       /* DrawSprite's real args recovered from objdump at this call site
-       * (orig 0x413655-0x413664): param_1 = `(DAT_0056d118 / 2) % 4` (the
+       * (orig 0x413655-0x413664): param_1 = `(g_serverWaitTicks / 2) % 4` (the
        * usual MSVC signed div-then-mod idiom for a power-of-2 divisor,
        * already correct); y=0x12c, x=0x190, outerKey=0x398 all loaded as
        * literals immediately before the call; innerKey=0, left over from
        * an unrelated registry-walk loop earlier in this same function
        * (see DrawSprite.c's header for the full recovery). */
-      DrawSprite((DAT_0056d118 / 2) % 4,0x12c,0x190,0x398,0);
+      DrawSprite((g_serverWaitTicks / 2) % 4,0x12c,0x190,0x398,0);
     }
     DAT_0079352c = 0;
     (*(SurfaceUnlockFn *)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);

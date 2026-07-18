@@ -251,7 +251,7 @@ uint8_t DAT_00569e68;
 uint32_t DAT_0056d108;
 uint32_t g_cursorAnchorX;
 uint32_t g_cursorAnchorY;
-uint32_t DAT_0056d118;
+uint32_t g_serverWaitTicks;   /* was DAT_0056d118 - server-reply wait counter (PLEASE WAIT overlay); see globals.h */
 const uint32_t DAT_0056d11c[11] = {2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 1024};
 uint8_t DAT_0056d350;
 uint32_t DAT_0056d3d8;

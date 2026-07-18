@@ -29,7 +29,7 @@ void __fastcall State02_ServerSelect_OnTick(int param_1)
   *(int *)(param_1 + 0x20) = *(int *)(param_1 + 0x20) + 1;
   if ((*(char *)(param_1 + 4) != '\0') && (*(char *)(iVar6 + 0x84e4) == '\0')) {
     if (*(char *)(iVar6 + 0x84e5) == '\0') {
-      DAT_0056d118 = 0xffffffff;
+      g_serverWaitTicks = 0xffffffff;
       if (((*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) &&
           (piVar1 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar1[2] == 0)) &&
          ((piVar1[9] == 3 || (piVar1[9] == -1)))) {

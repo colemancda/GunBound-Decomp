@@ -625,7 +625,7 @@ void AppendPacketBytes(void *record);    /* append a selector record to the pend
 void SendOutgoingPacket(int channelCtx);  /* flush/send the pending channel-1 packet */
 void FUN_00402060(void);            /* buddy-list refresh */
 extern const char s_disable_00551e68[];
-extern unsigned int DAT_0056d118;
+extern unsigned int g_serverWaitTicks;
 extern unsigned int DAT_00e9be94;   /* flat-ButtonWidget registry header */
 extern const char s_active_00551e58[];
 extern const char s_ready_00551e80[];
@@ -659,7 +659,7 @@ bool CWorldListPanel::OnMouseDown(int x, int y)
     if (st->m_uiDirty == 1) {
         st->m_highlightedSlot = slot;
         st->m_inputEnabled = (u8)(slot != -1);
-        DAT_0056d118 = 0xffffffff;
+        g_serverWaitTicks = 0xffffffff;
         int *rec;
         if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0 &&
             (rec = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), rec[2] == 0) &&
@@ -753,7 +753,7 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
         *(int *)(ctx + 0x44d0) += 2;
         SendOutgoingPacket((int)ctx);
         st->m_highlightedSlot = -1;
-        DAT_0056d118 = 0;
+        g_serverWaitTicks = 0;
         SetRegistryButtonState(s_disable_00551e68);
         InvokeWidget(2, 0);
         int t = FindChildIndex(1, 0);
@@ -773,7 +773,7 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
         if (DAT_00e54a9c == 0) {
             *(unsigned char *)(g_clientContext + 0x3f808) = 0;
             st->m_unk1c = (int)(st->m_unk1c & ~0xff); /* byte +0x1c cleared */
-            DAT_0056d118 = 0xffffffff;
+            g_serverWaitTicks = 0xffffffff;
             int *rec;
             enable = st->m_highlightedSlot != -1;
             if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0 &&
@@ -804,7 +804,7 @@ void CWorldListPanel::OnCommand(int evt, int id, int arg)
             st->m_scrollOffset = 0;
             AppendPacketBytes(&DAT_00e54aa0);
             SendOutgoingPacket((int)ctx);
-            DAT_0056d118 = 0;
+            g_serverWaitTicks = 0;
             SetRegistryButtonState(s_disable_00551e68);
             enable = false;
         }

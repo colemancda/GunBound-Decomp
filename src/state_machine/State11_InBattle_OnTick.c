@@ -145,7 +145,7 @@ void __fastcall State11_InBattle_OnTick(int *param_1)
   iVar6 = g_clientContext;
   uStack_1c = 0x4bd8d6;
   *(int *)(&DAT_006a64b8 + g_clientContext) = *(int *)(&DAT_006a64b8 + g_clientContext) + 1;
-  DAT_0056d118 = 0xffffffff;
+  g_serverWaitTicks = 0xffffffff;
   piVar15 = (int *)&stack0xfffffffc;
   local_3d58 = param_1;
   piStack_18 = param_1;

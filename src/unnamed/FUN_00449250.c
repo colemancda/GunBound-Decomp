@@ -43,13 +43,13 @@ void FUN_00449250(int param_1,int param_2,int param_3)
   bool bVar8;
   
   if (param_2 == '\x01') {
-    DAT_0056d118 = 0xffffffff;
+    g_serverWaitTicks = 0xffffffff;
 LAB_00449272:
     cVar3 = '\x01';
     if (*(char *)(param_1 + 0x32f90) == '\0') goto LAB_00449285;
   }
   else {
-    DAT_0056d118 = 0;
+    g_serverWaitTicks = 0;
     if (param_2 != '\0') goto LAB_00449272;
 LAB_00449285:
     cVar3 = '\0';

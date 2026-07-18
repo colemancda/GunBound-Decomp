@@ -257,7 +257,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           ConnectToSelectedServer(pvStack_e4,uVar6);
         }
       }
-      DAT_0056d118 = 0xffffffff;
+      g_serverWaitTicks = 0xffffffff;
       if (((*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) &&
           (piVar10 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar10[2] == 0)) &&
          ((piVar10[9] == 3 || (piVar10[9] == -1)))) {
@@ -337,7 +337,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
       }
       *(undefined1 *)((int)this + 6) = 1;
       *(undefined1 *)((int)this + 0x24) = 1;
-      DAT_0056d118 = 0xffffffff;
+      g_serverWaitTicks = 0xffffffff;
       if (((*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) &&
           (piVar10 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar10[2] == 0)) &&
          ((piVar10[9] == 3 || (piVar10[9] == -1)))) {
@@ -449,7 +449,7 @@ LAB_004e0d7f:
     if (cVar2 != '\0') {
       SetGuardedBool(0);
     }
-    DAT_0056d118 = 0xffffffff;
+    g_serverWaitTicks = 0xffffffff;
     if (((*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) &&
         (piVar10 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar10[2] == 0)) &&
        ((piVar10[9] == 3 || (piVar10[9] == -1)))) {

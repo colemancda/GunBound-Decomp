@@ -37,7 +37,7 @@ void RefreshGameRoomListControls(void)
   int unaff_EDI;
 
   cVar7 = (char)unaff_EBX;
-  DAT_0056d118 = (cVar7 != '\x01') - 1;
+  g_serverWaitTicks = (cVar7 != '\x01') - 1;
   InvokeWidget(0,unaff_EBX);
   InvokeWidget(1,unaff_EBX);
   if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {

@@ -57,7 +57,7 @@ void __thiscall State02_ServerSelect_OnTopButton(int param_1,int param_2,int par
     FUN_0041c1e0();
   }
   else if (param_2 == 4) {
-    DAT_0056d118 = 0xffffffff;
+    g_serverWaitTicks = 0xffffffff;
     if (((*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) &&
         (piVar3 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar3[2] == 0)) &&
        ((piVar3[9] == 3 || (piVar3[9] == -1)))) {

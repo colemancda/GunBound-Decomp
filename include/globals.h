@@ -339,7 +339,14 @@ extern uint32_t DAT_0056d108;
  * WndProc mouse handling. See ARCHITECTURE.md "custom cursor". */
 extern uint32_t g_cursorAnchorX;
 extern uint32_t g_cursorAnchorY;
-extern uint32_t DAT_0056d118;
+/* g_serverWaitTicks (was DAT_0056d118) - the "waiting for a server reply"
+ * tick counter that drives the animated PLEASE WAIT (waitmessage.img) overlay
+ * in GameTick. -1 = idle (hidden); 0 = a request was just fired (connect,
+ * room-list/ready-room refresh, avatar-store), then incremented once per tick;
+ * the overlay shows once it passes 40. Each ProcessPacket handler resets it to
+ * -1 when its reply arrives. NOTE: the GameTick gate must read it SIGNED (it's
+ * uint32_t but uses -1 as its idle sentinel) - see GameTick.c. */
+extern uint32_t g_serverWaitTicks;
 /* GameTick's state-transition wipe-bar width table, indexed by the
  * transition timer DAT_0056d108 (0-10). Compile-time-constant data in the
  * original binary (VMA 0x56d11c, file offset 0x16b31c) - Ghidra left it as

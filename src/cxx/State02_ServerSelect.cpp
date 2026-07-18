@@ -56,7 +56,7 @@ extern unsigned int DAT_007934f4;       /* outgoing packet buffer base */
 extern unsigned int DAT_007934f0;       /* per-connection context base */
 void FUN_00405ba0(void);
 extern unsigned int DAT_007934ec;       /* the other half of the double-buffered context */
-extern unsigned int DAT_0056d118;
+extern unsigned int g_serverWaitTicks;
 extern unsigned int DAT_00e9be94;
 extern const char s_active_00551e58[];
 extern const char s_ready_00551e80[];
@@ -242,7 +242,7 @@ void CState02ServerSelect::OnTick()
     ++m_tickCounter;
     if (m_connecting != 0 && *(char *)(cfg + 0x84e4) == 0) {
         if (*(char *)(cfg + 0x84e5) == 0) {
-            DAT_0056d118 = 0xffffffff;
+            g_serverWaitTicks = 0xffffffff;
             ConnectButtonFromPlayerRecord();
             InvokeWidget(2, m_highlightedSlot != -1);
             ShowErrorDialog(0);
