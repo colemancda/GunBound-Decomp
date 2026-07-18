@@ -233,7 +233,7 @@ LAB_00442690:
     goto LAB_00442805;
   }
 LAB_00442831:
-  _sprintf(acStack_80,&DAT_00551ed4,*(int *)(iVar9 + 0x44e60) + 1);
+  _sprintf(acStack_80,&g_rowIndexFormat,*(int *)(iVar9 + 0x44e60) + 1);
   pcVar8 = acStack_80;
   do {
     cVar3 = *pcVar8;

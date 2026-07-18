@@ -416,10 +416,10 @@ LAB_004bdf96:
   param_1[3] = param_1[3] + 1;
   if ((*(char *)((int)param_1 + 0x91) != '\0') && ((char)param_1[4] == '\0')) {
     *(int *)(&g_nCameraScrollX + iVar5) =
-         *(int *)(&g_nCameraScrollX + iVar5) + (DAT_00e536c0 * *(int *)(&DAT_005f2f44 + iVar5)) / 10;
+         *(int *)(&g_nCameraScrollX + iVar5) + (g_cursorDeltaX * *(int *)(&DAT_005f2f44 + iVar5)) / 10;
     iVar6 = *(int *)(&g_nCameraScrollX + iVar5);
     *(int *)(&g_nCameraScrollY + iVar5) =
-         *(int *)(&g_nCameraScrollY + iVar5) + (DAT_00e536c4 * *(int *)(&DAT_005f2f44 + iVar5)) / 10;
+         *(int *)(&g_nCameraScrollY + iVar5) + (g_cursorDeltaY * *(int *)(&DAT_005f2f44 + iVar5)) / 10;
     iVar14 = 400;
     if (399 < iVar6) {
       iVar14 = iVar6;
@@ -1943,7 +1943,7 @@ LAB_004c1730:
       piVar15[0x46a] = 0;
     }
     else {
-      iVar6 = DAT_00e536c0 / 2;
+      iVar6 = g_cursorDeltaX / 2;
       if (iVar6 == 0) {
         iVar6 = 1;
         if (0 < piVar15[0x46a] * 2) {

@@ -349,7 +349,7 @@ LAB_00407429:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar9 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  _sprintf(local_f88,&DAT_00551ed4,uVar9);
+  _sprintf(local_f88,&g_rowIndexFormat,uVar9);
   pcVar4 = local_f88;
   do {
     cVar1 = *pcVar4;

@@ -66,8 +66,8 @@ void AppendPersistentButtonName(int *param_1, char *in_EAX)
   do {
     pcVar6 = pcVar6 + 1;
   } while (pcVar6[1] != '\0');
-  *(undefined4 *)(pcVar6 + 1) = DAT_00551cac;
-  *(undefined1 *)(pcVar6 + 5) = DAT_00551cb0;
+  *(undefined4 *)(pcVar6 + 1) = g_buttonDefExt;
+  *(undefined1 *)(pcVar6 + 5) = g_buttonDefExtNul;
   /* RECOVERED (2026-07-18): LoadButtonDefinitionFromXFS's two dropped
    * register args (orig 0x40179e/0x4017a5, immediately before the call):
    * EBX = the descriptor output entry for the slot being appended,

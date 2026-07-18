@@ -46,7 +46,7 @@ void __thiscall DrawFontString(int param_1,undefined4 param_2,undefined4 param_3
    *      this pass produces NO visible output today regardless.
    * Because it draws nothing now anyway, returning immediately is visually
    * identical AND removes the fault, unblocking the "1" prefix
-   * (DAT_00551ed4="%d" + BlitSpriteText). Reconstructing the real shadow
+   * (g_rowIndexFormat="%d" + BlitSpriteText). Reconstructing the real shadow
    * (DrawFontString this=X/string=EAX + the DrawNarrowGlyph/DrawWideGlyph
    * pixel-write loops) is the deferred bitmap-font fan-out (session-15 notes). */
   return;

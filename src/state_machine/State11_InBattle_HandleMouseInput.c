@@ -42,8 +42,8 @@ void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int 
   if (0x202 < param_2) {
     if (param_2 == 0x204) {
       *(undefined1 *)((int)param_1 + 0x91) = 1;
-      if (DAT_00e53c3c != '\0') {
-        DAT_00e53c3c = '\0';
+      if (g_cursorFreeMode != '\0') {
+        g_cursorFreeMode = '\0';
       }
       (&DAT_006a7758)[g_clientContext] = 0;
       ResolveNamedState(&DAT_00553f90);
@@ -79,16 +79,16 @@ void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int 
         *(int *)(&g_nCameraScrollY + iVar13) = iVar15;
       }
       *(undefined1 *)((int)param_1 + 0x91) = 1;
-      if (DAT_00e53c3c != '\0') {
-        DAT_00e53c3c = '\0';
+      if (g_cursorFreeMode != '\0') {
+        g_cursorFreeMode = '\0';
       }
       (&DAT_006a7758)[g_clientContext] = 0;
       return;
     }
     uVar5 = 0;
     *(undefined1 *)((int)param_1 + 0x91) = 0;
-    if (DAT_00e53c3c != '\x01') {
-      DAT_00e53c3c = '\x01';
+    if (g_cursorFreeMode != '\x01') {
+      g_cursorFreeMode = '\x01';
     }
     if ((*(char *)((int)param_1 + 0x92) == '\0') && (*(char *)((int)param_1 + 0x93) == '\0')) {
       uVar5 = 1;
@@ -533,8 +533,8 @@ void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int 
       *(undefined1 *)(param_1 + 0x468) = 1;
       param_1[0x469] = 0;
       param_1[0x46a] = 0;
-      if (DAT_00e53c3c != '\0') {
-        DAT_00e53c3c = '\0';
+      if (g_cursorFreeMode != '\0') {
+        g_cursorFreeMode = '\0';
       }
       ResolveNamedState(&DAT_00556980);
       InvokeWidget(16,0);
@@ -918,10 +918,10 @@ LAB_004bafd2:
 LAB_004bb56e:
   _DAT_00e9b80c = 10;
   (&DAT_006a7758)[iVar13] = 1;
-  if (DAT_00e53c3c == '\x01') {
+  if (g_cursorFreeMode == '\x01') {
     return;
   }
-  DAT_00e53c3c = 1;
+  g_cursorFreeMode = 1;
   return;
 }
 

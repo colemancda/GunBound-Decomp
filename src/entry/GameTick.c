@@ -442,8 +442,8 @@ LAB_00413a44:
   if (g_stateChangeRequested != '\0') {
     ChangeGameState(g_pendingGameState);
   }
-  DAT_00e536c4 = 0;
-  DAT_00e536c0 = 0;
+  g_cursorDeltaY = 0;
+  g_cursorDeltaX = 0;
   return;
 }
 

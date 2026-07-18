@@ -52,8 +52,8 @@ uint8_t DAT_00551778;
  * zero, so button-def filenames had no extension and OpenXFSEntryStream
  * failed for every button (empty named-state descriptors, invisible buttons).
  * Recovered from the original .data section (2026-07-18). */
-uint32_t DAT_00551cac = 0x6170652e; /* ".epa" little-endian */
-uint8_t DAT_00551cb0 = 0x00;        /* trailing NUL */
+uint32_t g_buttonDefExt = 0x6170652e; /* ".epa" little-endian */
+uint8_t g_buttonDefExtNul = 0x00;        /* trailing NUL */
 uint8_t DAT_00551cb1;
 uint8_t DAT_00551e24;
 uint16_t DAT_00551e34;
@@ -203,11 +203,11 @@ GUID DAT_005573c8 = {0xbf798030, 0x483a, 0x4da2, {0xaa, 0x99, 0x5d, 0x64, 0xed, 
 uint16_t DAT_0055751c = 0x4658;
 /* Texture XFS extension ".xtf" appended by PreloadTexture (orig .data
  * 0x557554 = bytes 2e 78 74 66 00). Same zeroed-extraction trap as the
- * ".epa" button-def extension (DAT_00551cac): without it PreloadTexture's
+ * ".epa" button-def extension (g_buttonDefExt): without it PreloadTexture's
  * filenames had no extension and OpenXFSEntryStream failed for every
  * texture. Recovered from the original .data section (2026-07-18). */
-uint32_t DAT_00557554 = 0x6674782e; /* ".xtf" little-endian */
-uint8_t DAT_00557558 = 0x00;        /* trailing NUL */
+uint32_t g_textureExt = 0x6674782e; /* ".xtf" little-endian */
+uint8_t g_textureExtNul = 0x00;        /* trailing NUL */
 uint32_t DAT_00557850;
 uint32_t DAT_00557854;
 uint8_t DAT_00557fb0;
@@ -648,8 +648,8 @@ uint8_t DAT_00e52864;
 uint8_t DAT_00e52868;
 uint8_t DAT_00e52e68;
 int *DAT_00e5369c;
-uint32_t DAT_00e536c0;
-uint32_t DAT_00e536c4;
+uint32_t g_cursorDeltaX;
+uint32_t g_cursorDeltaY;
 uint8_t DAT_00e536e4;
 uint8_t DAT_00e536ec;
 /* Zeroed backing for the three per-tick input/cursor timer blocks GameTick
@@ -666,7 +666,7 @@ uint8_t DAT_00e536ec;
  * the input-less logo path. Sized to cover each function's highest field read.
  *
  * KNOWN DIVERGENCE: the original devices' other fields are modelled as the
- * scattered separate globals around here (DAT_00e5369c, DAT_00e536c0, the
+ * scattered separate globals around here (DAT_00e5369c, g_cursorDeltaX, the
  * g_cursor* set, etc.); those do NOT alias into these arrays. Harmless while
  * no real input device is acquired. */
 uint8_t g_mouseDeviceTimerBlock[0x88];
@@ -683,7 +683,7 @@ uint8_t DAT_00e53c30;
  * that nothing in the reconstruction initializes for the menus, so it
  * defaulted to 0 and the menu cursor was locked at (0,0). Default it to the
  * menu/free value 1 so the cursor tracks outside battle. (2026-07-18) */
-uint8_t DAT_00e53c3c = 1;
+uint8_t g_cursorFreeMode = 1;
 /* g_uiPanelManager was a 1-byte placeholder, but the code dereferences it as
  * a container object: FUN_0050f020/f1b0/f1f0/f150/f230 (WndProc's mouse/key
  * handlers) read its list head at +4, and PanelManager_* touch +4/+5/+8. With
@@ -1637,7 +1637,7 @@ uint32_t DAT_00551ec4;
  * 25 64 00 00). Safe now that DrawFontString (the row's name-shadow pass,
  * which this "1" used to fault into) is a documented no-op - see
  * DrawFontString.c. (2026-07-18) */
-uint32_t DAT_00551ed4 = 0x00006425; /* "%d" little-endian */
+uint32_t g_rowIndexFormat = 0x00006425; /* "%d" little-endian */
 uint32_t DAT_00552c68;
 uint32_t DAT_00553b90;
 uint32_t DAT_00553bb4;

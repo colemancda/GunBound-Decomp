@@ -81,7 +81,7 @@ void __fastcall RenderWorldListRow(int param_1, uint in_EAX)
       BlitSpriteClipped(cVar8,iVar1,iVar2,0x2711);
     }
   }
-  _sprintf(local_80,&DAT_00551ed4,*(ushort *)(g_clientContext + 0x3f81a + in_EAX * 2) + 1);
+  _sprintf(local_80,&g_rowIndexFormat,*(ushort *)(g_clientContext + 0x3f81a + in_EAX * 2) + 1);
   pcVar7 = local_80;
   do {
     cVar3 = *pcVar7;

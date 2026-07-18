@@ -45,8 +45,8 @@ undefined4 PreloadTexture(int param_1,char *param_2)
     puVar8 = puVar3;
     puVar3 = (undefined4 *)((int)puVar8 + 1);
   } while (*(char *)((int)puVar8 + 1) != '\0');
-  *(undefined4 *)((int)puVar8 + 1) = DAT_00557554;
-  *(undefined1 *)((int)puVar8 + 5) = DAT_00557558;
+  *(undefined4 *)((int)puVar8 + 1) = g_textureExt;
+  *(undefined1 *)((int)puVar8 + 5) = g_textureExtNul;
   /* Recovered from disassembly (angr): archive=&g_graphicsArchive (EDI),
    * name=the assembled "<name>.<ext>" buffer at &uStack_81+1 (EAX),
    * findExisting=1 (CL), insertFlag=0 (stack). The raw port's

@@ -256,8 +256,8 @@ LAB_004bd0a7:
     puVar10[4] = puVar10;
   }
 LAB_004bd0d5:
-  if (DAT_00e53c3c != '\x01') {
-    DAT_00e53c3c = '\x01';
+  if (g_cursorFreeMode != '\x01') {
+    g_cursorFreeMode = '\x01';
   }
   uVar8 = 1000;
   do {

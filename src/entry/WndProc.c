@@ -156,9 +156,9 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     if ((bool)cVar1) {
       HandleActiveObjectMouseMove(&DAT_00e9be90, uVar4, uVar3);
     }
-    DAT_00e536c0 = DAT_00e536c0 + (uVar4 - g_cursorAnchorX);
-    DAT_00e536c4 = DAT_00e536c4 + (uVar3 - g_cursorAnchorY);
-    if ((DAT_00e53c3c == '\0') && ((g_cursorAnchorX != uVar4 || (g_cursorAnchorY != uVar3)))) {
+    g_cursorDeltaX = g_cursorDeltaX + (uVar4 - g_cursorAnchorX);
+    g_cursorDeltaY = g_cursorDeltaY + (uVar3 - g_cursorAnchorY);
+    if ((g_cursorFreeMode == '\0') && ((g_cursorAnchorX != uVar4 || (g_cursorAnchorY != uVar3)))) {
       SetCursorPos(g_cursorAnchorX,g_cursorAnchorY);
       uVar4 = g_cursorAnchorX;
       uVar3 = g_cursorAnchorY;

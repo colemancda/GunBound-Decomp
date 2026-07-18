@@ -134,8 +134,8 @@ extern uint8_t DAT_00550b78;
 extern uint8_t DAT_00550f78;
 extern uint8_t DAT_00551378;
 extern uint8_t DAT_00551778;
-extern uint32_t DAT_00551cac;
-extern uint8_t DAT_00551cb0;
+extern uint32_t g_buttonDefExt;      /* was DAT_00551cac - ".epa" button-def XFS ext */
+extern uint8_t g_buttonDefExtNul;    /* was DAT_00551cb0 - its trailing NUL */
 extern uint8_t DAT_00551cb1;
 #define _DAT_00551cb1 DAT_00551cb1
 extern uint8_t DAT_00551e24;
@@ -259,8 +259,8 @@ extern uint32_t DAT_00557258;
 extern uint8_t DAT_0055725c;
 extern GUID DAT_005573c8; /* IID_IDirectInput8A - see globals.c */
 extern uint16_t DAT_0055751c;
-extern uint32_t DAT_00557554;
-extern uint8_t DAT_00557558;
+extern uint32_t g_textureExt;        /* was DAT_00557554 - ".xtf" texture XFS ext */
+extern uint8_t g_textureExtNul;      /* was DAT_00557558 - its trailing NUL */
 extern uint32_t DAT_00557850;
 extern uint32_t DAT_00557854;
 extern uint8_t DAT_00557fb0;
@@ -759,8 +759,8 @@ extern uint8_t DAT_00e52864;
 extern uint8_t DAT_00e52868;
 extern uint8_t DAT_00e52e68;
 extern int *DAT_00e5369c; /* used dereferenced as a vtable-bearing ptr at call sites */
-extern uint32_t DAT_00e536c0;
-extern uint32_t DAT_00e536c4;
+extern uint32_t g_cursorDeltaX;      /* was DAT_00e536c0 - accumulated mouse dX (battle camera scroll) */
+extern uint32_t g_cursorDeltaY;      /* was DAT_00e536c4 - accumulated mouse dY */
 extern uint8_t DAT_00e536e4;
 #define _DAT_00e536e4 DAT_00e536e4
 extern uint8_t DAT_00e536ec;
@@ -778,7 +778,7 @@ extern uint8_t DAT_00e53c2c;
 #define _DAT_00e53c2c DAT_00e53c2c
 extern uint8_t DAT_00e53c30;
 #define _DAT_00e53c30 DAT_00e53c30
-extern uint8_t DAT_00e53c3c;
+extern uint8_t g_cursorFreeMode;     /* was DAT_00e53c3c - 1=cursor tracks mouse (menu), 0=locked/aim (battle) */
 /* g_uiPanelManager (was DAT_00e53c40) - the global UI panel/dialog container
  * that screens attach dynamic panels to. Passed by address to the panel
  * builders/closers (BuildWorldListPanel, the lobby buddy panel BuildBuddyPanel,
@@ -1660,7 +1660,7 @@ extern uint32_t DAT_00551b7c;
 extern uint32_t DAT_00551e2c;
 extern uint32_t DAT_00551e30;
 extern uint32_t DAT_00551ec4;
-extern uint32_t DAT_00551ed4;
+extern uint32_t g_rowIndexFormat;    /* was DAT_00551ed4 - "%d" world-list row index format */
 extern uint32_t DAT_00552c68;
 extern uint32_t DAT_00553b90;
 extern uint32_t DAT_00553bb4;
