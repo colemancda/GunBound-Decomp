@@ -261,7 +261,18 @@ LAB_00413510:
       iVar5 = *(int *)(iVar5 + 4);
       (*(GameStateVirtualFn *)(*(int *)*puVar1 + 0x24))((void *)*puVar1);
     }
-    if ((g_stateChangeInProgress == 0) && (0x28 < DAT_0056d118)) {
+    /* FIXED (2026-07-18): the wait-spinner gate must be a SIGNED compare.
+     * DAT_0056d118 is the "waiting for a server reply" counter: -1 = idle
+     * (set every tick by State02_ServerSelect_OnTick etc.), 0 = a request was
+     * just fired (then incremented each tick above), and the animated
+     * "waitmessage.img" PLEASE WAIT overlay is meant to appear only once the
+     * count passes 40. The original is `cmp eax,0x28; jle skip` (0x41363f) -
+     * SIGNED, so the -1 idle sentinel reads as <= 40 and the overlay stays
+     * hidden. The port declared DAT_0056d118 as uint32_t, making `0x28 <
+     * DAT_0056d118` an UNSIGNED compare, so idle -1 (0xffffffff) read as a
+     * huge positive and the overlay showed PERMANENTLY on the WORLD LIST.
+     * Cast to signed to restore the transient show-while-waiting behavior. */
+    if ((g_stateChangeInProgress == 0) && (0x28 < (int)DAT_0056d118)) {
       /* DrawSprite's real args recovered from objdump at this call site
        * (orig 0x413655-0x413664): param_1 = `(DAT_0056d118 / 2) % 4` (the
        * usual MSVC signed div-then-mod idiom for a power-of-2 divisor,
