@@ -25,6 +25,19 @@
  */
 #include "ghidra_types.h"
 
+/* VTABLE-DISPATCH CONVENTION (fixed 2026-07-18): slot 2 is the widget's
+ * 0-argument per-frame Tick(). The raw `(**(code**)(*piVar1+8))()` cast is
+ * __cdecl with NO args - it drops `this` entirely, so a real C++ widget's
+ * Tick (e.g. CButtonWidget::Tick -> AdvanceSpriteAnimation) ran on whatever
+ * was left in ECX instead of the node, and never advanced the button's own
+ * sprite-frame index (+0x30) - leaving it uninitialised garbage so
+ * DrawButtonWidget's `frame >= 0` / FindSpriteFrame gates failed and the
+ * flat ServerSelect buttons (EXIT/BUDDY/SERVER) drew nothing. The original
+ * (0x406299) is `mov ecx,esi` / `call [eax+8]` - `this` in ECX. Since the
+ * callee is a genuine C++ method, dispatch via __fastcall(this) (ABI-
+ * identical to __thiscall for a 0-arg method; __fastcall is honored under
+ * real MSVC, __thiscall would be erased - see DrawActiveObjectRegistry.c). */
+typedef void (__fastcall *TickWidgetFn)(void *thisPtr);
 
 void TickActiveObjectRegistry(int param_1)
 
@@ -36,7 +49,7 @@ void TickActiveObjectRegistry(int param_1)
   if (piVar2 != *(int **)(param_1 + 4)) {
     do {
       for (piVar1 = (int *)piVar2[4]; piVar1 != piVar2; piVar1 = (int *)piVar1[4]) {
-        (**(code **)(*piVar1 + 8))();
+        ((TickWidgetFn)(*(void ***)piVar1)[2])(piVar1);
       }
       piVar2 = (int *)piVar2[7];
     } while (piVar2 != *(int **)(param_1 + 4));
