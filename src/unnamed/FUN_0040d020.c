@@ -42,7 +42,7 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
         }
       }
       if (((iVar2 == iVar3) || (*(int *)(iVar2 + 8) == -1)) &&
-         (FUN_004f2da0(10,0,0), *(int *)(param_2 + 8) != 0)) {
+         (EnqueueInputEvent(10,0,0), *(int *)(param_2 + 8) != 0)) {
         FUN_0040ccf0();
         *(undefined4 *)(param_2 + 8) = 0;
       }
@@ -73,7 +73,7 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
         }
         uVar4 = 0xb;
       }
-      FUN_004f2da0(uVar4,0,0);
+      EnqueueInputEvent(uVar4,0,0);
       if (*(int *)(param_2 + 8) != 0) {
         FUN_0040ccf0();
         *(undefined4 *)(param_2 + 8) = 0;

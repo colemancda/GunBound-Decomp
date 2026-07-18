@@ -1,4 +1,4 @@
-/* FUN_004f2da0 - 0x004f2da0 in the original binary.
+/* EnqueueInputEvent - 0x004f2da0 in the original binary.
  *
  * Pushes a 3-field event record onto a ring buffer (queueObj[0]=write
  * cursor, queueObj[1]=read cursor, then 3 parallel 0x200-entry arrays at
@@ -25,7 +25,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004f2da0(uint *queueObj, uint param_1,uint param_2,uint param_3)
+void EnqueueInputEvent(uint *queueObj, uint param_1,uint param_2,uint param_3)
 
 {
   uint *in_EAX = queueObj;

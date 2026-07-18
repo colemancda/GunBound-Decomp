@@ -1,4 +1,4 @@
-/* FUN_00405930 - 0x00405930 in the original binary.
+/* CloseAndFreeConnection - 0x00405930 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -14,8 +14,8 @@
  * right before `call 0x405930`). The port read uninitialised EDI ->
  * *(garbage+0x2004) wild derefs; the first socket-error event (PIEQ 0x65)
  * hung the main thread here. Promoted to a parameter; the inner
- * FUN_004e5590 call gets the conn sub-object per orig 0x405979. */
-void FUN_00405930(int connOwner)
+ * DestroyConnectionObject call gets the conn sub-object per orig 0x405979. */
+void CloseAndFreeConnection(int connOwner)
 
 {
   int iVar1;
@@ -35,7 +35,7 @@ void FUN_00405930(int connOwner)
   SetEvent(*(HANDLE *)(iVar1 + 8));
   _Memory = *(void **)(unaff_EDI + 0x2004);
   if (_Memory != (void *)0x0) {
-    FUN_004e5590((undefined4 *)_Memory);
+    DestroyConnectionObject((undefined4 *)_Memory);
     _free(_Memory);
   }
   return;

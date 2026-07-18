@@ -29,7 +29,7 @@ void __thiscall FUN_0050a980(undefined4 *param_1,int param_2,int param_3,undefin
       uVar2 = *param_1;
       uVar3 = 0x1a;
     }
-    FUN_004f2da0(0,uVar2,uVar3);
+    EnqueueInputEvent(0,uVar2,uVar3);
   }
   else if ((param_2 == 0x2000) && (param_3 == 0)) {
     *(undefined4 *)(g_gameStateVTableArray[7] + 0x454) = param_4;

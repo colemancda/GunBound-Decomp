@@ -107,6 +107,18 @@ public class ApplyFunctionRenames extends GhidraScript {
         // into the ASCII glyph table DAT_00673628; un-stubbed so ServerSelect
         // world-list server names render.
         {"004eae60", "LoadBitmapFont", "src/rendering/LoadBitmapFont.c"},
+        // 2026-07-17 session 16: functions recovered while driving the client to
+        // ServerSelect under the wine virtual desktop and fixing the connection
+        // teardown chain that hung the first full GameTick.
+        // - the generic 3-field ring-buffer push (write/read cursors + msg/
+        //   param1/param2 arrays off the queue-object base pointer); it is the
+        //   input-event enqueue, fed &g_inputEventRing from the socket path.
+        {"004f2da0", "EnqueueInputEvent", "src/ui_widget/EnqueueInputEvent.c"},
+        // - the connection destructor (sets the vtable, closes the socket, joins
+        //   the worker thread, deletes the CS, frees the recv buffer) and the
+        //   owner-side teardown that calls it - both had dropped ESI/EDI `this`.
+        {"004e5590", "DestroyConnectionObject", "src/network/DestroyConnectionObject.c"},
+        {"00405930", "CloseAndFreeConnection", "src/network/CloseAndFreeConnection.c"},
         // 2026-07-17 session 15: ServerSelect (state 2) input/command vtable
         // handlers, identified while tracing the server-join path - slot 5
         // dispatches the exit-game/buddy-panel/join-server commands, slot 6

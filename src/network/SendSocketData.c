@@ -53,7 +53,7 @@ LAB_004e5b94:
         return param_3;
       }
       if ((*(int *)(param_2 + 0x22c) != 1) && (*(int *)(param_2 + 0x20) != 0)) {
-        FUN_004f2da0(0x65,*(undefined4 *)(param_2 + 0x1c),0);
+        EnqueueInputEvent(0x65,*(undefined4 *)(param_2 + 0x1c),0);
       }
       goto LAB_004e5b94;
     }

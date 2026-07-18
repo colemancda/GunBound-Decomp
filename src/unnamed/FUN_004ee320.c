@@ -75,19 +75,19 @@ void __fastcall FUN_004ee320(int param_1)
           if ((-1 < iVar4) && (iVar4 < 8)) {
             if (*pcVar6 < '\0') {
               if (*(int *)(param_1 + 0x68 + iVar4 * 4) == 0) {
-                FUN_004f2da0(iVar2 + 8,*(undefined4 *)(param_1 + 0x59c),
+                EnqueueInputEvent(iVar2 + 8,*(undefined4 *)(param_1 + 0x59c),
                              *(undefined4 *)(param_1 + 0x5a0));
                 *(undefined4 *)(param_1 + 0x68 + iVar4 * 4) = *(undefined4 *)(param_1 + 0x50);
                 *(undefined1 *)(iVar2 + 0x54 + param_1) = 1;
               }
               else {
-                FUN_004f2da0(iVar2 + 0x1c,*(undefined4 *)(param_1 + 0x59c),
+                EnqueueInputEvent(iVar2 + 0x1c,*(undefined4 *)(param_1 + 0x59c),
                              *(undefined4 *)(param_1 + 0x5a0));
                 *(undefined1 *)(iVar2 + 0x54 + param_1) = 1;
               }
             }
             else {
-              FUN_004f2da0(iVar2 + 0x12,*(undefined4 *)(param_1 + 0x59c),
+              EnqueueInputEvent(iVar2 + 0x12,*(undefined4 *)(param_1 + 0x59c),
                            *(undefined4 *)(param_1 + 0x5a0));
             }
           }

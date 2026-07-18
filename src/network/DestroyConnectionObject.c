@@ -1,4 +1,4 @@
-/* FUN_004e5590 - 0x004e5590 in the original binary.
+/* DestroyConnectionObject - 0x004e5590 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -15,7 +15,7 @@
  * ESI and did wild SetEvent/DeleteCriticalSection/free - this hung the main
  * thread on the first socket-error teardown (PIEQ msg 0x65). Promoted to an
  * explicit parameter. */
-void FUN_004e5590(undefined4 *conn)
+void DestroyConnectionObject(undefined4 *conn)
 
 {
   undefined4 *unaff_ESI = conn;

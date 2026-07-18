@@ -134,7 +134,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     }
     cVar3 = FUN_00406400();
     if (cVar3 == '\x01') {
-      FUN_004f2da0(0,0,3);
+      EnqueueInputEvent(0,0,3);
       return;
     }
     return;

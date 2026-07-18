@@ -258,7 +258,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
      * BRING-UP HACK (2026-07-17): SKIPPED. This is an auxiliary localhost:8355
      * service connect (P2P/update side-channel) with no bring-up counterpart -
      * it always fails, which posts a socket-error event (0x65, ch 3) whose
-     * teardown path (FUN_00405930 -> FUN_004e5590 -> ShutdownConnectionThread)
+     * teardown path (CloseAndFreeConnection -> DestroyConnectionObject -> ShutdownConnectionThread)
      * still has unfixed dropped-register layers and kills the process on the
      * first full GameTick. Not needed for the broker/world-server flow.
      * RE-ENABLE once the teardown chain is fully recovered or a local 8355

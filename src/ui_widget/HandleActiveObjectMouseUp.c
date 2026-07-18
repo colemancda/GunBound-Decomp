@@ -4,7 +4,7 @@
  * WM_LBUTTONUP handler (case 0x202, 0x410344), preceded by `mov
  * edx,esi[mouseY]; mov ecx,edi[mouseX]; mov eax,0xe9be90[registry]`. On
  * a genuine release-over-the-pressed-object (state 1 "ready" or 5),
- * fires the click via FUN_004f2da0(0, layer, id) - piVar1[1]/[2] are
+ * fires the click via EnqueueInputEvent(0, layer, id) - piVar1[1]/[2] are
  * the hit object's own +4/+8 fields, ButtonWidget.h's m_layer/m_id -
  * then plays the click sound and updates the object's visual state.
  *
@@ -29,7 +29,7 @@ void HandleActiveObjectMouseUp(void *registry,int mouseX,int mouseY)
   *(undefined4 *)(in_EAX + 0xc) = 0;
   if (((piVar1 != (int *)0x0) && ((*(char *)(in_EAX + 0x14) == '\0' || (piVar1[1] == 1000000)))) &&
      ((piVar1[9] == 1 || (piVar1[9] == 5)))) {
-    FUN_004f2da0(0,piVar1[1],piVar1[2]);
+    EnqueueInputEvent(0,piVar1[1],piVar1[2]);
     (**(code **)(*piVar1 + 4))(s_mouse_00551e70);
     AcquireSoundChannel(0);
   }

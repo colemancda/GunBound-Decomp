@@ -53,7 +53,7 @@ bool ReceiveFramedPackets(int conn)
         if ((*(int *)(conn + 0x24240 + *(int *)(conn + 0x24238) * 4) <= (int)uVar2) &&
            (*(int *)(conn + 0x24234) != *(int *)(conn + 0x24238))) {
           if ((*(int *)(conn + 0x22c) != 1) && (*(int *)(conn + 0x20) != 0)) {
-            FUN_004f2da0(*(undefined4 *)(conn + 0x20),0x65,*(undefined4 *)(conn + 0x1c),0);
+            EnqueueInputEvent(*(undefined4 *)(conn + 0x20),0x65,*(undefined4 *)(conn + 0x1c),0);
           }
           *(undefined4 *)(conn + 0x22c) = 0;
           return false;
@@ -66,7 +66,7 @@ bool ReceiveFramedPackets(int conn)
       }
       if (uVar4 == *(uint *)(conn + 0x24238)) {
         if ((*(int *)(conn + 0x22c) != 1) && (*(int *)(conn + 0x20) != 0)) {
-          FUN_004f2da0(*(undefined4 *)(conn + 0x20),0x65,*(undefined4 *)(conn + 0x1c),0);
+          EnqueueInputEvent(*(undefined4 *)(conn + 0x20),0x65,*(undefined4 *)(conn + 0x1c),0);
         }
         *(undefined4 *)(conn + 0x22c) = 0;
         return false;

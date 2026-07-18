@@ -22,7 +22,7 @@ void __thiscall State03_GameRoomList_HandleMouseInput(int param_1,uint param_2,u
       if (iVar3 != -1) {
         cVar2 = FUN_00406400();
         if (cVar2 == '\x01') {
-          FUN_004f2da0();
+          EnqueueInputEvent();
           return;
         }
       }

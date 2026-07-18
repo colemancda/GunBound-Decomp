@@ -69,7 +69,7 @@ unsigned char g_textureCache[0x40200];
  * arrays at +8 / +0x808 / +0x1008 (msg / param1 / param2). The field names
  * g_inputEventQueueWriteIndex/ReadIndex/g_inputEventMsgQueue/Param1Queue/
  * Param2Queue are offset-macros into this in globals.h. Must be contiguous:
- * FUN_004f2da0 (the ring push, fed &this ring via conn+0x20 from the socket
+ * EnqueueInputEvent (the ring push, fed &this ring via conn+0x20 from the socket
  * receive path) accesses the whole object off the write cursor's address as
  * a base pointer. When the five were separate scattered globals, the pusher
  * wrote the event data next to the write cursor while the consumer read the

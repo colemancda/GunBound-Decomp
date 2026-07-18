@@ -669,7 +669,7 @@ LAB_004b9bb0:
           FUN_00409990(&DAT_006a647c + g_clientContext,0);
           return;
         }
-        FUN_004f2da0(0,0,0);
+        EnqueueInputEvent(0,0,0);
         return;
       }
       if (param_3 != 0x24) {

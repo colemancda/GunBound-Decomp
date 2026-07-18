@@ -604,7 +604,7 @@ uint8_t DAT_00794e14;
 /* The input-event ring buffer (write/read cursors + 3 field arrays) is now
  * ONE contiguous object g_inputEventRing in globals_sized.c, reached through
  * the offset-macros in globals.h - see the comment there. The five fields
- * MUST be contiguous because FUN_004f2da0 walks the whole ring off the write
+ * MUST be contiguous because EnqueueInputEvent walks the whole ring off the write
  * cursor's address. */
 uint8_t DAT_00796878;
 uint8_t DAT_00796aa0;
@@ -1209,7 +1209,7 @@ void *PTR_FUN_005572dc;
 /* Connection object's 2-entry vtable {HandleSocketEvent, NoOpMethod} -
  * decoded byte-for-byte from orig .data 0x5572e8-0x5572ef (values
  * 0x4e57c0, 0x429800). Only referenced by the connection-object family
- * (FUN_004e54e0.c/FUN_004e5590.c), unlike the widely-shared
+ * (FUN_004e54e0.c/DestroyConnectionObject.c), unlike the widely-shared
  * PTR_FUN_005572dc immediately before it, so safe to type as a real
  * function-pointer array instead of a lone null placeholder. */
 void *PTR_FUN_005572e8[2] = { (void *)HandleSocketEvent, (void *)NoOpMethod };

@@ -41,7 +41,7 @@ void FUN_004d22d0(int param_1)
     _Memory = *(void **)(param_1 + 0x84e0);
     if (_Memory != (void *)0x0) {
       /* orig 0x4d2351: ESI = *(param_1+0x84e0) (=_Memory here). */
-      FUN_004e5590((undefined4 *)_Memory);
+      DestroyConnectionObject((undefined4 *)_Memory);
       _free(_Memory);
     }
     *(undefined4 *)(param_1 + 0x84e0) = 0;

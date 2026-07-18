@@ -690,7 +690,7 @@ extern uint8_t DAT_00794e14;
  * Original addresses (contiguous, from the renames): writeIndex 0x795070,
  * readIndex 0x795074, msg 0x795078, param1 0x795878, param2 0x796078.
  *
- * FUN_004f2da0 (the ring push, called from the socket-receive path via
+ * EnqueueInputEvent (the ring push, called from the socket-receive path via
  * conn+0x20 = &this ring) accesses the WHOLE object through the write
  * cursor's ADDRESS as a base pointer - queueObj[0]=writeCursor,
  * queueObj[1]=readCursor, data at queueObj[cursor+2 / +0x202 / +0x402].

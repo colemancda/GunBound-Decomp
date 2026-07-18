@@ -31,7 +31,7 @@
  * different unverified/raw-ported function with its own distinct
  * call-site registers (per-function EDX/EDI contents aren't recoverable
  * from this file alone) - those still use the old argless form and need
- * the same per-site disassembly treatment, same as FUN_004f2da0's call
+ * the same per-site disassembly treatment, same as EnqueueInputEvent's call
  * sites were split across commits.
  *
  * CALLING-CONVENTION CAST MISMATCH: the duplicate-node early-out at
