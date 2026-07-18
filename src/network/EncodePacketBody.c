@@ -36,7 +36,13 @@ void __fastcall EncodePacketBody(int param_1,int connObj)
 
   uStack_4 = 0x4d25ea;
   iVar3 = *(int *)(connObj + 0x44d0) - param_1;
-  EncodePacketBlocks(*(undefined4 *)(connObj + 0x84e8),*(undefined2 *)(connObj + 0x4d4),local_5000,
+  /* RECOVERED (2026-07-18), orig 0x4d2633 `mov ecx,edi` / 0x4d262c-0x4d262f
+   * `lea eax,[esi+esi*2]; shl eax,2`: ECX is the INPUT payload (the packet body
+   * being encoded, in place at connObj+0x4d6+param_1) and EAX its length,
+   * rounded up to a whole number of 12-byte blocks. Both were dropped, so this
+   * encoded uninitialised scratch over the real payload. */
+  EncodePacketBlocks((byte *)(param_1 + 0x4d6 + connObj),((iVar3 + 5) / 0xc) * 0xc,
+               *(int *)(connObj + 0x84e8),*(undefined2 *)(connObj + 0x4d4),(int)local_5000,
                0x5000);
   uVar4 = ((iVar3 + 5) / 0xc) * 0x10;
   puVar5 = local_5000;
