@@ -261,7 +261,7 @@ uint8_t DAT_0056d400;
 uint8_t DAT_0056d440;
 void * DAT_0056d460;
 uint32_t DAT_0056dbe8;
-uint8_t DAT_0056dbf0;
+/* DAT_0056dbf0 -> moved to globals_sized.c (the real 0xa0-byte AES login-key table) */
 /* DAT_0056dc30: per-connection-type magic/key table (0x56dc30), indexed
  * [0..2] by InitConnectionObject's connection index. Was a 1-byte placeholder;
  * the ctor reads a full uint32 at [param_2*4], so an undersized global

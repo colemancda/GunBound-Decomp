@@ -25,7 +25,10 @@ void __fastcall FUN_005051e0(int param_1,int param_2)
     *(undefined4 *)(local_10 + uVar4 * 4) = uVar1;
     uVar4 = uVar4 + 1;
   } while (uVar4 < 4);
-  RijndaelSetKey(3);
+  /* RECOVERED, orig 0x5051e7-0x505211: key = ECX = local_10 (the 16 bytes
+   * just built above), EDX=0x10, EDI = EDX-at-entry = param_2 - the same
+   * crypto context the EncodeCipherBlock calls below use. */
+  RijndaelSetKey((uint *)local_10,0x10,3,(uint *)param_2);
   iVar5 = (int)(param_1 + 0x10 + (param_1 + 0x10 >> 0x1f & 0xfU)) >> 4;
   pvVar2 = _realloc(*(void **)(param_2 + 0x27c),iVar5 << 4);
   iVar3 = 0;

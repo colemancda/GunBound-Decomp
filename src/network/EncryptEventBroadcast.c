@@ -34,7 +34,19 @@ void EncryptEventBroadcast(void)
   }
   *(char *)(unaff_EBX + 0x44df0) = cVar1;
   *(undefined1 *)(unaff_EBX + 0x44ff4) = 1;
-  RijndaelSetKey(1);
+  /* RECOVERED (2026-07-18), orig 0x4e6e4e-0x4e6e6d: key = ECX = the 16 bytes
+   * at 0x56dc90, EDX=0x10, EDI = ebx+0x44ff8 (the schedule inside the event/
+   * replay context). NOTE that key region is split into per-byte DAT_ globals
+   * in this port, so only its first byte is guaranteed contiguous - not on the
+   * login/lobby path, flagged for the same coalescing treatment if exercised. */
+  /* NOT ENABLED: the schedule context is `unaff_EBX + 0x44ff8`, and unaff_EBX
+   * is itself a still-unrecovered dropped register here - with real args
+   * RijndaelSetKey now EXPANDS a ~0x210-byte schedule into that pointer, which
+   * on a garbage base corrupts memory (observed: a wild write killing the
+   * Logo2->Title transition). Before the arg recovery this call always failed
+   * the length check and wrote nothing, so skipping it preserves exactly the
+   * previous behaviour without the corruption. Re-enable once unaff_EBX is
+   * recovered from this function's callers. */
   iVar3 = *(int *)(unaff_EBX + 0x44fec) + -0x12;
   iVar5 = 0;
   if (0 < (int)(iVar3 + (iVar3 >> 0x1f & 0xfU)) >> 4) {

@@ -9,6 +9,7 @@
  * these get promoted to verified.
  */
 #include "ghidra_types.h"
+#include <stdio.h>
 #include <windows.h>
 
 
@@ -380,6 +381,26 @@ LAB_004e0d7f:
   if (opcode == 0x1001) {
     *(undefined1 *)((int)this + 5) = 0;
     BuildSystemInfoBlob(auStack_a0, systemInfoBlob2);
+    /* BRING-UP HACK (2026-07-18): the login credentials normally arrive as the
+     * launcher's 96-hex session token - WinMain sscanfs it into DAT_005b3440
+     * and BuildSystemInfoBlob AES-decrypts those 3 blocks into credKey (the
+     * username, strncpy'd 16 bytes and encrypted with the fixed login key =
+     * the server's `encryptedUsername`) and credStr (the password, SHA1'd into
+     * the session key). Launching gunbound_bringup.exe directly leaves that
+     * blob ALL-ZERO, so the decrypt yields garbage and the world server
+     * answers 0x1012 status 0x0010 (badUsername) - confirmed in its own log,
+     * which showed an all-zero authenticationRequest body. Inject a known
+     * login so the auth -> join-channel -> lobby path can be exercised.
+     * The test server auto-registers any valid username with password "1234".
+     * REMOVE once a real launcher token is supplied. */
+    {
+      static const char kUser[] = "test";
+      static const char kPass[] = "1234";
+      int ci;
+      for (ci = 0; ci < 0x14; ci++) { ((char *)systemInfoBlob2)[ci] = '\0'; }
+      for (ci = 0; ci < (int)sizeof(kUser); ci++) { ((char *)systemInfoBlob2)[ci] = kUser[ci]; }
+      for (ci = 0; ci < (int)sizeof(kPass); ci++) { ((char *)auStack_a0)[ci] = kPass[ci]; }
+    }
     iVar20 = DAT_007934ec;
     *(undefined2 *)(DAT_007934ec + 0x4d4) = 0x1010;
     *(undefined4 *)(iVar20 + 0x44d0) = 6;

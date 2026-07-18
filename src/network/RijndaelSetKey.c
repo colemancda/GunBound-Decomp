@@ -12,7 +12,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3)
+int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3,uint *ctx)
 
 {
   uint *puVar1;
@@ -22,23 +22,22 @@ int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3)
   uint uVar5;
   uint *puVar6;
   uint uVar7;
-  uint *unaff_EDI;
   uint *local_8;
   
   if (((((param_2 & 7) == 0) && (0xf < param_2)) && (param_2 < 0x21)) && ((param_3 & 3) != 0)) {
     param_2 = param_2 >> 2;
-    *(byte *)(unaff_EDI + 0x82) = (byte)unaff_EDI[0x82] ^ ((byte)unaff_EDI[0x82] ^ param_3) & 3;
-    *unaff_EDI = param_2;
+    *(byte *)(ctx + 0x82) = (byte)ctx[0x82] ^ ((byte)ctx[0x82] ^ param_3) & 3;
+    *ctx = param_2;
     uVar5 = param_2;
     if (param_2 < 5) {
       uVar5 = 4;
     }
-    unaff_EDI[1] = uVar5 + 6;
-    puVar1 = unaff_EDI + 2;
+    ctx[1] = uVar5 + 6;
+    puVar1 = ctx + 2;
     *puVar1 = *param_1;
-    unaff_EDI[3] = param_1[1];
-    unaff_EDI[4] = param_1[2];
-    unaff_EDI[5] = param_1[3];
+    ctx[3] = param_1[1];
+    ctx[4] = param_1[2];
+    ctx[5] = param_1[3];
     puVar3 = puVar1 + (((uVar5 + 6) * 4 + 4) - param_2);
     if (param_2 == 4) {
       puVar6 = &DAT_0054cb00;
@@ -59,8 +58,8 @@ int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3)
       } while (puVar1 < puVar3);
     }
     else if (param_2 == 6) {
-      unaff_EDI[6] = param_1[4];
-      unaff_EDI[7] = param_1[5];
+      ctx[6] = param_1[4];
+      ctx[7] = param_1[5];
       local_8 = &DAT_0054cb00;
       do {
         uVar5 = puVar1[5];
@@ -84,10 +83,10 @@ int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3)
       } while (puVar1 < puVar3);
     }
     else if (param_2 == 8) {
-      unaff_EDI[6] = param_1[4];
-      unaff_EDI[7] = param_1[5];
-      unaff_EDI[8] = param_1[6];
-      unaff_EDI[9] = param_1[7];
+      ctx[6] = param_1[4];
+      ctx[7] = param_1[5];
+      ctx[8] = param_1[6];
+      ctx[9] = param_1[7];
       puVar6 = &DAT_0054cb00;
       do {
         uVar5 = puVar1[7];
@@ -116,16 +115,16 @@ int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3)
         puVar1 = puVar1 + 8;
       } while (puVar1 < puVar3);
     }
-    if ((unaff_EDI[0x82] & 3) != 1) {
-      puVar3 = unaff_EDI + unaff_EDI[1] * 4 + 0x42;
-      *puVar3 = unaff_EDI[2];
-      puVar3[1] = unaff_EDI[3];
-      puVar3[2] = unaff_EDI[4];
-      puVar3[3] = unaff_EDI[5];
+    if ((ctx[0x82] & 3) != 1) {
+      puVar3 = ctx + ctx[1] * 4 + 0x42;
+      *puVar3 = ctx[2];
+      puVar3[1] = ctx[3];
+      puVar3[2] = ctx[4];
+      puVar3[3] = ctx[5];
       uVar5 = 1;
-      puVar1 = unaff_EDI + 6;
+      puVar1 = ctx + 6;
       puVar3 = puVar3 + -4;
-      if (1 < unaff_EDI[1]) {
+      if (1 < ctx[1]) {
         do {
           uVar2 = *puVar1;
           *puVar3 = *(uint *)(&DAT_00551778 + (uVar2 >> 0x18) * 4) ^
@@ -150,7 +149,7 @@ int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3)
           puVar1 = puVar1 + 4;
           puVar3 = puVar3 + -4;
           uVar5 = uVar5 + 1;
-        } while (uVar5 < unaff_EDI[1]);
+        } while (uVar5 < ctx[1]);
       }
       *puVar3 = *puVar1;
       puVar3[1] = puVar1[1];
@@ -161,9 +160,9 @@ int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3)
     return CONCAT22((short)((uint)puVar1 >> 0x10),1);
   }
   if (param_2 == 0) {
-    return (int)(short)((short)*unaff_EDI << 2);
+    return (int)(short)((short)*ctx << 2);
   }
-  *(byte *)(unaff_EDI + 0x82) = (byte)unaff_EDI[0x82] & 0xfc;
+  *(byte *)(ctx + 0x82) = (byte)ctx[0x82] & 0xfc;
   return 0;
 }
 

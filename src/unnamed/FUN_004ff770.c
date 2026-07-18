@@ -46,7 +46,7 @@ void FUN_004ff770(int *param_1,int param_2)
   undefined4 local_3132;
   undefined4 local_312e;
   undefined1 local_3128 [96];
-  undefined1 local_30c8 [520];
+  undefined1 local_30c8 [0x20c];  /* schedule is 0x20c - see BuildSystemInfoBlob */
   char local_2ec0;
   ushort local_2ebc;
   undefined4 local_2eba;
@@ -155,7 +155,9 @@ void FUN_004ff770(int *param_1,int param_2)
             Sha1Absorb((int)local_3128,(byte *)local_2eaa,gb_capped16_len((char *)local_2eaa));
             Sha1Absorb((int)local_3128,(byte *)local_2e9a,4);
             Sha1Final((int)local_3128);
-            RijndaelSetKey(2);
+            /* RECOVERED, orig 0x4ffaca-0x4ffada: key = ECX = the SHA-1
+             * digest (local_3128), EDX=0x10, EDI=[esp+0xf4] = local_30c8. */
+            RijndaelSetKey((uint *)local_3128,0x10,2,(uint *)local_30c8);
             FUN_004fcd50(local_30c8);
             if ((uint)local_173e <= local_2ebc - 0x36) {
               GetSystemTimeAsFileTime(&local_3158);

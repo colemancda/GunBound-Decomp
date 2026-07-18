@@ -363,7 +363,7 @@ extern uint8_t DAT_0056d440;
 extern void * DAT_0056d460;
 #define _DAT_0056d460 DAT_0056d460
 extern uint32_t DAT_0056dbe8;
-extern uint8_t DAT_0056dbf0;
+extern const unsigned char DAT_0056dbf0[0xa0];  /* AES login-key table - see globals_sized.c */
 extern uint32_t DAT_0056dc30[4];
 extern uint16_t g_awItemIconTable[40];
 extern uint8_t DAT_0056dc90;

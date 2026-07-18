@@ -21,7 +21,7 @@ FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 
    * EncodeHandshakeBlock - the context must be one contiguous 0x60 bytes
    * (local_19dc..local_1980 = offsets 0..0x5c). See Sha1Absorb.c. */
   uint shaCtx[0x18];
-  undefined1 local_197c [520];
+  undefined1 local_197c [0x20c];  /* schedule is 0x20c - see BuildSystemInfoBlob */
   undefined1 local_1774;
   undefined2 local_1770;
   undefined1 local_176e [16];
@@ -64,7 +64,9 @@ FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 
   Sha1Absorb((int)shaCtx,(byte *)param_1,(uint)(pcVar2 - param_1) - 1);
   Sha1Absorb((int)shaCtx,(byte *)&param_5,4);
   Sha1Final((int)shaCtx);
-  RijndaelSetKey(1);
+  /* RECOVERED, orig 0x4fec29-0x4fec39: key = ECX = the SHA-1 digest (shaCtx),
+   * EDX=0x10, EDI=[esp+0x84] = local_197c (the schedule FUN_004fcd20 uses). */
+  RijndaelSetKey((uint *)shaCtx,0x10,1,(uint *)local_197c);
   FUN_004fcd20(local_197c);
   uVar4 = iVar3 + 0x26;
   local_1770 = (undefined2)uVar4;

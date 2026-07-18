@@ -17,7 +17,12 @@ void FUN_004e6f20(undefined4 *param_1,uint param_2)
   undefined4 *puVar3;
   undefined4 local_400 [256];
   
-  RijndaelSetKey(2);
+  /* RECOVERED, orig 0x4e6f2a-0x4e6f3c: key = ECX = 0x56dca0, EDX=0x10,
+   * EDI = in_EAX+0x44ff8 (same schedule slot as EncryptEventBroadcast). */
+  /* NOT ENABLED - same reason as EncryptEventBroadcast: the schedule context
+   * is `in_EAX + 0x44ff8` and in_EAX is a still-unrecovered dropped register,
+   * so expanding a real key schedule through it corrupts memory. Skipping
+   * matches the pre-recovery behaviour (the call always failed). */
   iVar1 = (int)(param_2 + ((int)param_2 >> 0x1f & 0xfU)) >> 4;
   if (0 < iVar1) {
     puVar3 = param_1;
