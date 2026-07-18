@@ -355,7 +355,24 @@ static void (*gb_init_cs_entry)(void) = gb_startup_init;
 
 /* --- Win32 calls a raw port declares without the stdcall prototype
  *     (so the object references the cdecl symbol) --- */
-unsigned long timeGetTime(void) { return GetTickCount(); }
+/* Forward to winmm's REAL timeGetTime (stdcall _timeGetTime@0), resolved once
+ * via GetProcAddress since this cdecl shim can't link against the decorated
+ * import directly. GetTickCount() is NOT a substitute: it has coarser
+ * resolution and under some wine prefixes barely advances, freezing the
+ * GameTick 50 ms timer - the game stalled forever at Logo2 (uVar10 stayed 0,
+ * confirmed by probe: 6 ms of GetTickCount over 320 ticks). winmm's own
+ * timer advances correctly there. */
+unsigned long timeGetTime(void)
+{
+    typedef unsigned long (__stdcall *fn_t)(void);
+    static fn_t real;
+    if (real == 0) {
+        HMODULE h = LoadLibraryA("winmm.dll");
+        if (h) real = (fn_t)GetProcAddress(h, "timeGetTime");
+        if (real == 0) return GetTickCount();
+    }
+    return real();
+}
 void *ShellExecuteA(void *hwnd, const char *op, const char *file,
                     const char *params, const char *dir, int show)
 {

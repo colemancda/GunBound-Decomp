@@ -74,8 +74,20 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
         return 0;
       }
       if (param_2 == 7) {
+        /* WM_SETFOCUS -> forward focus to the comm notify window. In bring-up
+         * that window may not exist yet (*(DAT_007934e4+4) NULL/garbage), and
+         * under a wine virtual desktop SetFocus(NULL/self) makes the focus
+         * bounce straight back as another WM_SETFOCUS -> WndProc re-entered
+         * until the stack overflows (confirmed from a core dump: the
+         * overflowed stack is a WndProc+0x69/WndProc+0x2f1 cycle, then a wild
+         * jump into .data at DAT_00588f54+2). Only forward to a real, other
+         * window. */
         if (DAT_007934e4 != 0) {
-          SetFocus(*(HWND *)(DAT_007934e4 + 4));
+          HWND focusTarget = *(HWND *)(DAT_007934e4 + 4);
+          if (focusTarget != (HWND)0x0 && focusTarget != param_1 &&
+              IsWindow(focusTarget)) {
+            SetFocus(focusTarget);
+          }
         }
       }
       else if (param_2 == 0x1c) {
