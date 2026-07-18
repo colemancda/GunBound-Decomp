@@ -201,8 +201,13 @@ GUID DAT_005573c8 = {0xbf798030, 0x483a, 0x4da2, {0xaa, 0x99, 0x5d, 0x64, 0xed, 
  * sprite registry (DAT_00ea0e18) permanently empty (LoadSpriteSet always
  * returns 0), so nothing ever rendered - the black bring-up window. */
 uint16_t DAT_0055751c = 0x4658;
-uint32_t DAT_00557554;
-uint8_t DAT_00557558;
+/* Texture XFS extension ".xtf" appended by PreloadTexture (orig .data
+ * 0x557554 = bytes 2e 78 74 66 00). Same zeroed-extraction trap as the
+ * ".epa" button-def extension (DAT_00551cac): without it PreloadTexture's
+ * filenames had no extension and OpenXFSEntryStream failed for every
+ * texture. Recovered from the original .data section (2026-07-18). */
+uint32_t DAT_00557554 = 0x6674782e; /* ".xtf" little-endian */
+uint8_t DAT_00557558 = 0x00;        /* trailing NUL */
 uint32_t DAT_00557850;
 uint32_t DAT_00557854;
 uint8_t DAT_00557fb0;
