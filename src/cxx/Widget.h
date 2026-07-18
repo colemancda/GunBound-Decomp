@@ -330,6 +330,11 @@ public:
 class CBuddyPanel : public CPanel {            /* vtable 0x557be4; builder 0x509110 */
 public:
     CBuddyPanel() { m_unk90 = -1; }            /* base defaults + the +0x90 slot */
+    virtual void Update();                     /* 0x505df0 - Panel.cpp: draws the panel's own
+                                                * background frame (via Widget_DrawSelf), then the
+                                                * buddy-count text and rows. Slot 9; without this
+                                                * override the panel inherited CWidget::Update's
+                                                * child-broadcast-only no-op and drew no frame. */
     int m_unk90;                               /* +0x90 */
 };
 

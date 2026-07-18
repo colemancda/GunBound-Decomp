@@ -57,6 +57,10 @@ int FindSpriteFrame(int container, unsigned int outerKey, unsigned int innerKey)
 int BlitSprite16bpp(int frame, int x, int y, int outerKey);
 int BlitSpriteClipped(int frame, int x, int y, int outerKey);
 void __fastcall RenderWorldListRow(int panel, unsigned int index);
+/* 0x5054b0 - the base CPanel frame draw (blits m_unk44/m_unk48's background
+ * sprite at (m_x,m_y), then deep-broadcasts Update to children). Already
+ * fixed for the dropped BlitSprite outerKey - see Widget_DrawSelf.c. */
+void __fastcall Widget_DrawSelf(int this_);
 }
 
 static CPanelListNode *PanelListHead()
@@ -432,6 +436,31 @@ extern "C" void BuildCreateRoomDialog(void *manager, int arg2, int arg3)
         p->AddChild(l);
     }
     PanelManager_Register(&g_uiPanelManager, p);
+}
+
+/* 0x505df0 - CBuddyPanel::Update, vtable slot 9. The SAME "never wired into
+ * the C++ vtable" gap as CWorldListPanel::Update above: the port's
+ * CBuddyPanel inherited CWidget::Update (child-broadcast only), so the
+ * panel's own background frame (m_unk44=700 "buddy list.img" key, m_unk48=0
+ * frame) was never blitted - only its Add/Del/close-X child labels and the
+ * scrollbar showed, floating over the game background. The original first
+ * draws the frame via Widget_DrawSelf (0x5054b0, which also deep-broadcasts
+ * child Update), then two buddy-count numbers and up to 7 buddy rows.
+ *
+ * DEFERRED (both empty offline, so not drawn here): the count text (two
+ * "%3d"-formatted values - DAT_00551ecc, another zeroed .data format string
+ * - at (m_x+31, m_y+13) and (m_x+31, m_y+63)) and the 7-row buddy loop
+ * (FindBuddyNode 0x401c10 -> RenderBuddyRow 0x505f10) both route through
+ * BlitSpriteText (0x4ed9f0), whose own header documents unrecovered dropped
+ * register arguments (x in ECX, y in EBX, charset key in ESI). Wiring those
+ * safely is its own unit of work; with no server buddy data the counts read
+ * 0 and the row list is empty, so only the confirmed-safe frame draw runs. */
+void CBuddyPanel::Update()
+{
+    if (m_hidden) {
+        return;
+    }
+    Widget_DrawSelf((int)this);
 }
 
 /* 0x509110 - BuildBuddyPanel (docs/widgets.md: the shared buddy list).
