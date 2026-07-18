@@ -33,7 +33,17 @@
  * touched here. */
 #include "ghidra_types.h"
 
-typedef void (__thiscall *DrawWidgetFn)(void *thisPtr);
+/* VTABLE-DISPATCH CONVENTION (fixed 2026-07-18): slot 3 is the widget's
+ * 0-argument Draw(). It MUST be __fastcall, not __thiscall: ghidra_types.h
+ * erases __thiscall unconditionally (it's a C++-only keyword and this tree
+ * compiles as C), so a __thiscall pointer here silently became __cdecl -
+ * the node got pushed on the stack and ECX was left holding the call-target
+ * base (the vtable). Draw()/DrawButtonWidget then ran with `this` == &vtable
+ * and read sprite fields out of rdata (no crash, but nothing drew, which is
+ * why registered buttons stayed invisible). For a 0-stack-arg method,
+ * __fastcall(this) is ABI-identical to __thiscall(this): `this` in ECX,
+ * `ret 0`. __fastcall IS honored under real MSVC (see ghidra_types.h). */
+typedef void (__fastcall *DrawWidgetFn)(void *thisPtr);
 
 /* DROPPED-REGISTER FIX (2026-07-17): `drawHighPriority` (BL in the
  * original) was read as an uninitialised `unaff_BL` - it selects which

@@ -30,7 +30,8 @@
  */
 #include "ghidra_types.h"
 
-typedef void (__fastcall *WidgetSetModeNameFn)(void *thisPtr, const char *modeName);
+/* __thiscall callee via __fastcall+dummy-EDX (see State02_ServerSelect_ProcessPacket.c): __thiscall is erased by ghidra_types.h, and a plain 2-arg __fastcall(this,name) puts name in EDX while the thiscall callee reads it off the stack and ret 4s - drifting ESP until a later ret jumps into heap garbage. The dummy EDX slot restores the ABI. */
+typedef void (__fastcall *WidgetSetModeNameFn)(void *thisPtr, int edxDummy, const char *modeName);
 
 void InvokeWidget(int widgetId, int enabled)
 
@@ -66,12 +67,12 @@ void InvokeWidget(int widgetId, int enabled)
       return;
     }
     if ((char)piVar3[0x13] == '\x01') {
-      (*(WidgetSetModeNameFn *)(*piVar3 + 4))(piVar3, s_active_00551e58);
+      (*(WidgetSetModeNameFn *)(*piVar3 + 4))(piVar3, 0, s_active_00551e58);
       return;
     }
-    (*(WidgetSetModeNameFn *)(*piVar3 + 4))(piVar3, s_ready_00551e80);
+    (*(WidgetSetModeNameFn *)(*piVar3 + 4))(piVar3, 0, s_ready_00551e80);
     return;
   }
-  (*(WidgetSetModeNameFn *)(*piVar3 + 4))(piVar3, s_disable_00551e68);
+  (*(WidgetSetModeNameFn *)(*piVar3 + 4))(piVar3, 0, s_disable_00551e68);
   return;
 }

@@ -54,7 +54,13 @@
 #include "ghidra_types.h"
 #include <windows.h>
 
-typedef void *(__thiscall *ScalarDeletingDtorFn)(void *thisPtr,int freeFlag);
+/* __thiscall is erased to nothing by ghidra_types.h (C++-only keyword under
+ * MSVC's C mode), so a __thiscall pointer compiles as __cdecl - `this` on the
+ * stack, ECX undefined. Use the __fastcall + dummy-EDX idiom instead: for a
+ * __thiscall(this, flag) that means __fastcall(this, edxDummy, flag) - ECX=this,
+ * EDX=dummy, flag pushed, `ret 4` - ABI-identical, and __fastcall IS honored
+ * under real MSVC. Call it as (node, 0, 1). */
+typedef void *(__fastcall *ScalarDeletingDtorFn)(void *thisPtr,int edxDummy,int freeFlag);
 
 undefined4 __fastcall RegisterActiveObject(undefined4 param_1,int param_2,undefined4 *node)
 
@@ -79,7 +85,7 @@ LAB_004f2fd3:
     if (uVar3 <= uVar1) {
       do {
         if (uVar3 == uVar1) {
-          (*(ScalarDeletingDtorFn *)*node)(node,1);
+          (*(ScalarDeletingDtorFn *)*node)(node,0,1);
           return 0;
         }
         iVar2 = *(int *)(iVar2 + 0x10);

@@ -39,7 +39,18 @@
 #include "ButtonWidget.h"
 
 extern "C" int FindPreloadedTextureByName(const char *name);
-extern "C" void RegisterActiveObject(void *registry, CButtonWidget *button);
+/* RECOVERED (2026-07-18): RegisterActiveObject (0x4f2fb0) is genuinely
+ * __fastcall with a dropped-EDI node arg - ECX (param_1) is a dead ABI
+ * slot, EDX is the registry, and the node is the third (stack) argument.
+ * See src/ui_widget/RegisterActiveObject.c's header for the full
+ * derivation. The previous plain-cdecl decl bound `_RegisterActiveObject`,
+ * which the stub generator resolves to a no-op (bringup_stubs_cdecl.obj)
+ * because the real symbol is the __fastcall-decorated
+ * `@RegisterActiveObject@12` - so buttons never actually registered.
+ * Declaring it __fastcall(unused, registry, node) binds the real function
+ * and matches CreateButtonWidget's original tail (0x40610c: EDX=registry
+ * from [esp+8], EDI=the freshly built button, then `call 0x4f2fb0`). */
+extern "C" int __fastcall RegisterActiveObject(int unused, void *registry, void *node);
 
 /* FIXED (2026-07-15): these 3 were declared without extern "C" - the real
  * definitions in globals.c have plain C linkage (`_s_active_00551e58`
@@ -65,8 +76,8 @@ extern "C" {
  * to call directly with no cast trick needed. */
 void *DeletePoisonedBaseObject(void *thisPtr, int shouldFree);
 int FindStringNoCase(int *table, char *needle);
-void TickButtonAnimation(int thisPtr);
-void DrawButtonWidget(int thisPtr);
+void __fastcall TickButtonAnimation(int thisPtr);
+void __fastcall DrawButtonWidget(int thisPtr);
 void NoOpMethod(void);
 }
 
@@ -178,6 +189,6 @@ setReady:
     if (p->m_state != 3) {
         p->SetState(s_ready_00551e80);
     }
-    RegisterActiveObject(registry, p);
+    RegisterActiveObject(0, registry, p);
     return p;
 }

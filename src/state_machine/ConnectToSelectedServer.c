@@ -26,7 +26,8 @@
  */
 #include "ghidra_types.h"
 
-typedef void (__fastcall *WidgetSetModeNameFn)(void *thisPtr, const char *modeName);
+/* __thiscall callee via __fastcall+dummy-EDX (see State02_ServerSelect_ProcessPacket.c): __thiscall is erased by ghidra_types.h, and a plain 2-arg __fastcall(this,name) puts name in EDX while the thiscall callee reads it off the stack and ret 4s - drifting ESP until a later ret jumps into heap garbage. The dummy EDX slot restores the ABI. */
+typedef void (__fastcall *WidgetSetModeNameFn)(void *thisPtr, int edxDummy, const char *modeName);
 
 /* WARNING: Removing unreachable block (ram,0x004e1c9a) */
 /* WARNING: Removing unreachable block (ram,0x004e1ca4) */
@@ -56,14 +57,14 @@ void ConnectToSelectedServer(int param_1, int serverIndex)
     DAT_0056d118 = 0;
     if ((*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) &&
        (piVar1 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar1[2] == 0)) {
-      (*(WidgetSetModeNameFn *)(*piVar1 + 4))(piVar1, s_disable_00551e68);
+      (*(WidgetSetModeNameFn *)(*piVar1 + 4))(piVar1, 0, s_disable_00551e68);
     }
     if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
       piVar1 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10);
       uVar2 = piVar1[2];
       while (uVar2 < 2) {
         if (uVar2 == 1) {
-          (*(WidgetSetModeNameFn *)(*piVar1 + 4))(piVar1, s_disable_00551e68);
+          (*(WidgetSetModeNameFn *)(*piVar1 + 4))(piVar1, 0, s_disable_00551e68);
           break;
         }
         piVar1 = (int *)piVar1[4];

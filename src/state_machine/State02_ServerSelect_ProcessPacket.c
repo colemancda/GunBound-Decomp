@@ -25,7 +25,30 @@
  * corrupting the call. Matches the GameStateVirtualFn idiom in
  * src/entry/ChangeGameState.c/GameTick.c, extended with the one stack arg
  * this vtable slot actually takes. */
-typedef void (__fastcall *WidgetSetModeNameFn)(void *thisPtr, const char *modeName);
+/* VTABLE-DISPATCH CONVENTION (fixed 2026-07-18): slot 1 of a registered
+ * active object is its named-state setter. In the ORIGINAL binary this
+ * slot is the hand-written __fastcall ResolveNamedState (0x461c60). Our
+ * reconstruction instead registers real C++ CButtonWidget objects, whose
+ * slot 1 is the C++ virtual CButtonWidget::SetState - a __thiscall method
+ * (this in ECX, `name` PUSHED on the stack, `ret 4`).
+ *
+ * Two dead ends were tried first and BOTH miscompiled:
+ *   - __fastcall(this, name): pushed nothing but the __thiscall callee
+ *     `ret 4`'d anyway, drifting ESP +4 per call until the pvStack_e4
+ *     (== `this`) reload read the opcode local (0x1102) as a pointer.
+ *   - __thiscall(this, name) on a *free function pointer*: MSVC 7.1
+ *     silently ignores __thiscall on a non-member pointer and emits a
+ *     __cdecl call - both args pushed, `this` NOT put in ECX. ECX was
+ *     left holding the call-target base (`mov ecx,[eax]` == the vtable),
+ *     so SetState ran with this==&vtable and faulted writing m_state at
+ *     vtable+0x24 (0x47c288). Confirmed in the rebuilt disassembly.
+ *
+ * Correct idiom (the project's established __thiscall-from-C emulation):
+ * __fastcall with a dummy EDX slot. __fastcall puts arg0 in ECX, arg1 in
+ * EDX, arg2+ on the stack, and `ret 4`s the one stack arg - identical ABI
+ * to __thiscall(this, name). The EDX dummy is ignored by the thiscall
+ * callee. Every object reaching these walks is a C++ widget. */
+typedef void (__fastcall *WidgetSetModeNameFn)(void *thisPtr, int edxDummy, const char *modeName);
 
 /* FIXED (2026-07-13), opcode 0x1012's `*payload == 0` branch: the 4
  * `PeekChecksumStateUnderLock(...)` calls here were each followed by a
@@ -239,10 +262,10 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           (piVar10 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar10[2] == 0)) &&
          ((piVar10[9] == 3 || (piVar10[9] == -1)))) {
         if ((char)piVar10[0x13] == '\x01') {
-          (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_active_00551e58);
+          (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, 0, s_active_00551e58);
         }
         else {
-          (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_ready_00551e80);
+          (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, 0, s_ready_00551e80);
         }
       }
       if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
@@ -252,10 +275,10 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           if (uVar6 == 1) {
             if ((piVar10[9] == 3) || (piVar10[9] == -1)) {
               if ((char)piVar10[0x13] == '\x01') {
-                (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_active_00551e58);
+                (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, 0, s_active_00551e58);
               }
               else {
-                (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_ready_00551e80);
+                (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, 0, s_ready_00551e80);
               }
             }
             break;
@@ -319,10 +342,10 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           (piVar10 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar10[2] == 0)) &&
          ((piVar10[9] == 3 || (piVar10[9] == -1)))) {
         if ((char)piVar10[0x13] == '\x01') {
-          (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_active_00551e58);
+          (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, 0, s_active_00551e58);
         }
         else {
-          (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_ready_00551e80);
+          (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, 0, s_ready_00551e80);
         }
       }
       iVar20 = *(int *)(DAT_00e9be94 + 0x1c);
@@ -431,10 +454,10 @@ LAB_004e0d7f:
         (piVar10 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10), piVar10[2] == 0)) &&
        ((piVar10[9] == 3 || (piVar10[9] == -1)))) {
       if ((char)piVar10[0x13] == '\x01') {
-        (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_active_00551e58);
+        (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, 0, s_active_00551e58);
       }
       else {
-        (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_ready_00551e80);
+        (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, 0, s_ready_00551e80);
       }
     }
     if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
@@ -444,10 +467,10 @@ LAB_004e0d7f:
         if (uVar6 == 1) {
           if ((piVar10[9] == 3) || (piVar10[9] == -1)) {
             if ((char)piVar10[0x13] == '\x01') {
-              (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_active_00551e58);
+              (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, 0, s_active_00551e58);
             }
             else {
-              (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_ready_00551e80);
+              (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, 0, s_ready_00551e80);
             }
           }
           break;
@@ -617,11 +640,11 @@ LAB_004e0d3c:
     if (uVar6 == 1) {
       if ((piVar10[9] != 3) && (piVar10[9] != -1)) goto LAB_004e0d7f;
       if ((char)piVar10[0x13] == '\x01') {
-        (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_active_00551e58);
+        (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, 0, s_active_00551e58);
         iVar20 = *(int *)((int)this + 8);
         goto LAB_004e1121;
       }
-      (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, s_ready_00551e80);
+      (*(WidgetSetModeNameFn *)(*piVar10 + 4))(piVar10, 0, s_ready_00551e80);
       goto LAB_004e0d7f;
     }
   }
