@@ -53,14 +53,20 @@ FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 
   local_19c8 = 0;
   local_19c4 = 0;
   local_1980 = 0;
-  Sha1Absorb(&local_19dc,local_176e);
+  /* DROPPED length arg (2026-07-18), same class as EncodeHandshakeBlock -
+   * see Sha1Absorb.c. This is a P2P/UDP handshake path NOT exercised by the
+   * ServerSelect->world-login route, so the lengths are best-effort from the
+   * buffer semantics: (1) the 16-byte nonce in local_176e (FUN_004fcd80(..,
+   * 0x10)); (2) strlen(param_1) - the key string this loop scans; (3) the
+   * 4-byte &param_5 trailer. */
+  Sha1Absorb((int)&local_19dc,(byte *)local_176e,0x10);
   pcVar2 = param_1;
   do {
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
-  Sha1Absorb(&local_19dc,param_1);
-  Sha1Absorb(&local_19dc,&param_5);
+  Sha1Absorb((int)&local_19dc,(byte *)param_1,(uint)(pcVar2 - param_1) - 1);
+  Sha1Absorb((int)&local_19dc,(byte *)&param_5,4);
   Sha1Final();
   RijndaelSetKey(1);
   FUN_004fcd20(local_197c);

@@ -67,13 +67,21 @@ uint EncodeHandshakeBlock(undefined4 param_1,undefined4 param_2,undefined4 param
     bVar3 = (char)uVar5 + 1;
     uVar5 = (uint)bVar3;
   } while (bVar3 < 0x10);
-  Sha1Absorb(&local_28c);
-  do {
-    cVar1 = *in_EAX;
-    in_EAX = in_EAX + 1;
-  } while (cVar1 != '\0');
-  Sha1Absorb(&local_28c);
-  Sha1Absorb(&local_28c,&param_3);
+  /* DROPPED ARGS (2026-07-18): the original passes each Sha1Absorb its
+   * buffer (ESI/stack) and byte count (EAX); Ghidra dropped both on the
+   * first two calls and the length on the third. Recovered from orig
+   * 0x4f6fa0-0x4f6fdc: (1) credKey, its capped-16 length uVar5; (2) credStr,
+   * its strlen; (3) &param_3 (the 4-byte trailer), length 4. See Sha1Absorb.c. */
+  Sha1Absorb((int)&local_28c,(byte *)unaff_ESI,uVar5);
+  {
+    char *credStrStart = in_EAX;
+    do {
+      cVar1 = *in_EAX;
+      in_EAX = in_EAX + 1;
+    } while (cVar1 != '\0');
+    Sha1Absorb((int)&local_28c,(byte *)credStrStart,(uint)(in_EAX - credStrStart) - 1);
+  }
+  Sha1Absorb((int)&local_28c,(byte *)&param_3,4);
   Sha1Final();
   uVar5 = RijndaelSetKey(3);
   if ((short)uVar5 == 1) {

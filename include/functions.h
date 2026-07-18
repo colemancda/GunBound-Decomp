@@ -1383,7 +1383,7 @@ undefined4 EncodePacketBlocks();
 undefined4 FUN_004f7210();
 undefined4 __thiscall FUN_004f72b0();
 byte __fastcall FUN_004f7360();
-void Sha1Absorb();
+void Sha1Absorb(int param_1, unsigned char *param_2, unsigned int length);
 void Sha1Final();
 void FUN_004f76c0();
 void __fastcall Sha1TransformBuffer();

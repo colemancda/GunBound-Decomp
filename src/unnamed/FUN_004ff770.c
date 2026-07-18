@@ -6,6 +6,15 @@
  */
 #include "ghidra_types.h"
 
+/* capped-16 string length - the inlined equivalent of FUN_004f7360 (orig
+ * 0x4f7360: scan for NUL, cap at 0x10), whose AL return Ghidra dropped at
+ * the Sha1Absorb call sites below (their length arg). See Sha1Absorb.c. */
+static uint gb_capped16_len(const char *s) {
+  uint n = 0;
+  while (n < 0x10 && s[n] != '\0') { n = n + 1; }
+  return n;
+}
+
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
@@ -136,12 +145,15 @@ void FUN_004ff770(int *param_1,int param_2)
             bVar5 = (uVar3 - 1 | 0xfffffff0) == 0xffffffff;
           }
           if ((bVar5) && (local_318c != 0)) {
+            /* DROPPED length arg (2026-07-18), see Sha1Absorb.c. P2P/UDP
+             * path, not on the ServerSelect->world-login route. The two
+             * dead FUN_004f7360() calls were the dropped-return length
+             * computations - folded into gb_capped16_len; call 3 is the
+             * fixed 4-byte trailer. */
             FUN_004f76c0();
-            FUN_004f7360();
-            Sha1Absorb(local_3128,&local_2eba);
-            FUN_004f7360();
-            Sha1Absorb(local_3128,local_2eaa);
-            Sha1Absorb(local_3128,local_2e9a);
+            Sha1Absorb((int)local_3128,(byte *)&local_2eba,gb_capped16_len((char *)&local_2eba));
+            Sha1Absorb((int)local_3128,(byte *)local_2eaa,gb_capped16_len((char *)local_2eaa));
+            Sha1Absorb((int)local_3128,(byte *)local_2e9a,4);
             Sha1Final();
             RijndaelSetKey(2);
             FUN_004fcd50(local_30c8);
