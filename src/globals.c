@@ -27,26 +27,7 @@ uint8_t IMAGE_DOS_HEADER_00400000;
 
 uint8_t DAT_0054b420;
 uint8_t DAT_0054b438;
-uint32_t DAT_0054cb00;
-uint8_t DAT_0054cb78;
-uint8_t DAT_0054cf78;
-uint8_t DAT_0054d378;
-uint8_t DAT_0054d778;
-uint8_t DAT_0054db78;
-uint8_t DAT_0054df78;
-uint8_t DAT_0054e378;
-uint8_t DAT_0054e778;
-uint8_t DAT_0054eb78;
-uint8_t DAT_0054ef78;
 void * DAT_0054f378;
-uint8_t DAT_0054f778;
-uint8_t DAT_0054fb78;
-uint8_t DAT_0054ff78;
-uint8_t DAT_00550778;
-uint8_t DAT_00550b78;
-uint8_t DAT_00550f78;
-uint8_t DAT_00551378;
-uint8_t DAT_00551778;
 /* Button-definition XFS extension ".epa" appended by AppendPersistentButtonName
  * (orig .data 0x551cac = bytes 2e 65 70 61 00). Our extraction left these
  * zero, so button-def filenames had no extension and OpenXFSEntryStream
@@ -1089,7 +1070,6 @@ const char s_wnormal_00553618[] = "wnormal";
 const char s_yaong2_00553318[] = "yaong2";
 const char s_yesoori_005533c8[] = "yesoori";
 
-void *PTR_DAT_0054f378;
 void *PTR_DAT_00551ecc;
 void *PTR_DAT_00551ed0;
 void *PTR_DAT_00552788;
