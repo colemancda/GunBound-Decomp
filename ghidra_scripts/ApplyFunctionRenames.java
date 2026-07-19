@@ -15,6 +15,8 @@ import ghidra.program.model.symbol.SourceType;
 public class ApplyFunctionRenames extends GhidraScript {
     // {original address, new name, source .c file (for the plate comment)}
     static final String[][] RENAMES = {
+        // 2026-07-18 session: packet-cipher context allocator
+        {"004f6f10", "AllocCipherSchedule", "src/network/AllocCipherSchedule.c"},
         // 2026-07-13 session: widget/active-object registry mouse-hit-test family
         {"0040cea0", "FindActiveObjectAt", "src/ui_widget/FindActiveObjectAt.c"},
         {"004061e0", "HandleActiveObjectMouseMove", "src/ui_widget/HandleActiveObjectMouseMove.c"},

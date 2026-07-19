@@ -254,7 +254,10 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
         if (*(void **)(param_1 + 0x1784) != (void *)0x0) {
           _free(*(void **)(param_1 + 0x1784));
         }
-        uVar9 = FUN_004f6f10();
+        /* RECOVERED (2026-07-18), orig 0x501b4c `mov esi,0x2dbabe65` /
+         * 0x501b5f `mov [edi+0x1784],eax`: the checksum base was a dropped
+         * ESI argument and the schedule pointer a dropped return value. */
+        uVar9 = (undefined4)AllocCipherSchedule(0x2dbabe65);
         *(undefined4 *)(param_1 + 0x1784) = uVar9;
         cVar4 = FUN_004fcd80(local_4914,0x11);
         if (((cVar4 != '\0') && (cVar4 = FUN_004fcd80(&local_4944,0x15), cVar4 != '\0')) &&

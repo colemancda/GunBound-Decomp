@@ -1377,7 +1377,7 @@ undefined * __fastcall FUN_004f4810();
 int __fastcall RijndaelSetKey(unsigned int *param_1, unsigned int param_2, int param_3, unsigned int *ctx);
 uint __fastcall EncodeCipherBlock(unsigned int param_1, unsigned int *param_2, unsigned int *param_3, int param_4);
 undefined4 __fastcall DecodeCipherBlock(unsigned int param_1, unsigned int *param_2, unsigned int *param_3, int param_4);
-undefined4 FUN_004f6f10();
+void * AllocCipherSchedule(undefined4 checksumBase);
 uint EncodeHandshakeBlock(undefined4, undefined4, undefined4, int, char *, char *);
 undefined4 EncodePacketBlocks(unsigned char *input, int inputLen, int schedule, unsigned short opcode, int output, int capacity);
 undefined4 FUN_004f7210();
