@@ -12,6 +12,24 @@
  * cursor) / `push edx` where edx=[ebp+0x84e0] (connection object, param_2)
  * / `push ecx` where ecx=[esp+0x10] (length, param_3 - already computed
  * here as local_5464).
+ *
+ * RECOVERED (2026-07-19): the EncodePacketBlocks call dropped BOTH of that
+ * function's register args (input=ECX, inputLen=EAX) - the same bug already
+ * fixed in EncodePacketBody.c, and the reason this file stopped compiling
+ * once EncodePacketBlocks got its full prototype. Confirmed at orig
+ * 0x4d35a8-0x4d35ca (the call is 0x4d35ca):
+ *   0x4d35a8 push 0x5000                    ; capacity
+ *   0x4d35ad lea eax,[esp+0x46c] / push eax ; output  = local_500c
+ *   0x4d35c2 push edx                       ; opcode  = [ebp+0x44d8]
+ *   0x4d35c9 push edx (=[ebp+0x84e8])       ; schedule
+ *   0x4d35bb lea ecx,[ecx+ebp+0x44da]       ; ECX = INPUT, ebp = param_1 and
+ *                                           ;   ecx = *(param_1+0x84dc)
+ *   0x4d35b5 lea eax,[esi+esi*2] / shl eax,2; EAX = INPUTLEN = blocks*0xc,
+ *                                           ;   esi = (iVar5+5)/0xc (from
+ *                                           ;   0x4d358c-0x4d359d)
+ * The input pointer is the very same address the copy-back loop below already
+ * computes into puVar8, so the encode was writing over a buffer it had never
+ * read - every flushed packet body was encrypted uninitialised scratch.
  */
 #include "ghidra_types.h"
 
@@ -51,8 +69,9 @@ void FlushEncodedSocketBuffer(int param_1)
   }
   if (*(int *)(param_1 + 0x84dc) != -1) {
     iVar5 = local_5464 - *(int *)(param_1 + 0x84dc);
-    EncodePacketBlocks(*(undefined4 *)(param_1 + 0x84e8),*(undefined2 *)(param_1 + 0x44d8),local_500c,
-                 0x5000);
+    EncodePacketBlocks((byte *)(*(int *)(param_1 + 0x84dc) + 0x44da + param_1),
+                 ((iVar5 + 5) / 0xc) * 0xc,*(int *)(param_1 + 0x84e8),
+                 *(ushort *)(param_1 + 0x44d8),(int)local_500c,0x5000);
     uVar6 = ((iVar5 + 5) / 0xc) * 0x10;
     puVar7 = local_500c;
     puVar8 = (undefined4 *)(*(int *)(param_1 + 0x84dc) + 0x44da + param_1);

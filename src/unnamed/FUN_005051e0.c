@@ -4,13 +4,18 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
+/* DROPPED-REGISTER FIX (2026-07-19): EAX (the source plaintext pointer) is
+ * an incoming register argument - orig 0x5051eb `mov [esp+0x10],eax` stashes
+ * it at entry and both cipher calls read it back. Promoted to an explicit
+ * trailing parameter. Both EncodeCipherBlock calls were also passing 2 of 4
+ * arguments with the source omitted; recovered below. */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_005051e0(int param_1,int param_2)
+void __fastcall FUN_005051e0(int param_1,int param_2,char *src)
 
 {
-  char *in_EAX;
+  char *in_EAX = src;
   undefined4 uVar1;
   void *pvVar2;
   int iVar3;
@@ -39,10 +44,15 @@ void __fastcall FUN_005051e0(int param_1,int param_2)
     do {
       if (iVar3 == iVar5 + -1) {
         _strncpy(local_10,local_14,0x10);
-        EncodeCipherBlock(pvVar2,param_2);
+        /* RECOVERED, orig 0x50526a-0x50526e: `lea edx,[esp+0x28]` (EDX = the
+         * strncpy'd 16-byte tail block) / `push edi` (schedule) / `push ebx`
+         * (output). The port dropped the source entirely. */
+        EncodeCipherBlock(0,(uint *)local_10,(uint *)pvVar2,param_2);
       }
       else {
-        EncodeCipherBlock(pvVar2,param_2);
+        /* RECOVERED, orig 0x505278-0x50527e: `mov edx,[esp+0x10]` (EDX = the
+         * current source block) / `push edi` (schedule) / `push ebx` (output). */
+        EncodeCipherBlock(0,(uint *)local_14,(uint *)pvVar2,param_2);
       }
       iVar3 = iVar3 + 1;
       local_14 = local_14 + 0x10;

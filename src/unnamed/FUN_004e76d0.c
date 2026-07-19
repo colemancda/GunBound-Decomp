@@ -27,7 +27,8 @@ void __fastcall FUN_004e76d0(undefined4 param_1,int param_2,undefined4 *param_3)
   } while (cVar1 != '\0');
   *(undefined4 *)(unaff_ESI + 0x45208) = 7;
   EnterCriticalSection((LPCRITICAL_SECTION)(unaff_ESI + 0x17c));
-  SendUdpDatagram((undefined4 *)(unaff_ESI + 0x45212),4);
+  SendUdpDatagram(*(int *)(unaff_ESI + 0x4520c),(int)*(short *)(unaff_ESI + 0x45210),
+                  (char *)(unaff_ESI + 0x45212),4,unaff_ESI);
   LeaveCriticalSection((LPCRITICAL_SECTION)(unaff_ESI + 0x17c));
   return;
 }

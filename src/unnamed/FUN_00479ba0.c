@@ -455,7 +455,8 @@ LAB_0047a634:
       puVar13 = (undefined4 *)FUN_00415450();
       uVar4 = *puVar13;
     }
-    AppendBroadcastString(uVar4);
+    AppendBroadcastString(0,(int)pcVar14 - (int)uVar4 - 1,(undefined4 *)uVar4,
+                          (int)&g_replayContext);
     iVar5 = BroadcastQueuedEvent();
   }
 LAB_0047a932:

@@ -158,7 +158,16 @@ void FUN_004ff770(int *param_1,int param_2)
             /* RECOVERED, orig 0x4ffaca-0x4ffada: key = ECX = the SHA-1
              * digest (local_3128), EDX=0x10, EDI=[esp+0xf4] = local_30c8. */
             RijndaelSetKey((uint *)local_3128,0x10,2,(uint *)local_30c8);
-            FUN_004fcd50(local_30c8);
+            /* RECOVERED (2026-07-19), orig 0x4ffae3-0x4ffaf9 (frame base =
+             * esp_b+0x3190, anchored on `lea edi,[esp+0xf4]` = local_30c8):
+             *   lea ecx,[esp+0xf4] / push ecx ; arg1 = SCHEDULE = local_30c8
+             *   mov eax,[esp+0x30]            ; EAX = COUNT  = local_318c
+             *   lea ecx,[esp+0x1a74]          ; ECX = DEST   = local_174c
+             *   lea edx,[esp+0x32a]           ; EDX = SOURCE = local_2e9a + 4
+             *                                 ;   (past the 4-byte nonce that
+             *                                 ;    was SHA-absorbed above) */
+            FUN_004fcd50((int)local_174c,(int)local_30c8,
+                         (uint *)((char *)local_2e9a + 4),local_318c);
             if ((uint)local_173e <= local_2ebc - 0x36) {
               GetSystemTimeAsFileTime(&local_3158);
               FUN_00500940(puVar1 + 8,&local_3158);

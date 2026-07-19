@@ -266,16 +266,32 @@ uint16_t g_awItemIconTable[40] = {
     0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017,
     0x0018, 0x0019, 0x001a, 0x001b, 0x001c, 0xff0a, 0x001d, 0x0005,
 };
-uint8_t DAT_0056dc90;
-uint8_t DAT_0056dc95;
-uint8_t DAT_0056dc97;
-uint8_t DAT_0056dc98;
-uint8_t DAT_0056dc9a;
-uint8_t DAT_0056dca0;
-uint8_t DAT_0056dca5;
-uint8_t DAT_0056dca7;
-uint8_t DAT_0056dca8;
-uint8_t DAT_0056dcaa;
+/* g_eventKeyBlock (was DAT_0056dc90..DAT_0056dcaa): the two 16-byte AES keys
+ * for the UDP battle/replay event channel, at 0x56dc90 and 0x56dca0.
+ *
+ * COALESCED + INITIALISED (2026-07-19). Ghidra split these two blocks into ten
+ * separate one-byte DAT_ globals - only the bytes any function happens to poke
+ * individually - which broke them TWICE:
+ *   1. MSVC gives separate globals no guaranteed layout, but the original
+ *      passes the block base to RijndaelSetKey with EDX=0x10, i.e. it reads a
+ *      CONTIGUOUS 16 bytes (orig 0x4e6e56/0x4e6e5b: `mov edx,0x10` /
+ *      `mov ecx,0x56dc90`, and 0x4e6f32/0x4e6f37 for 0x56dca0).
+ *   2. The blocks are INITIALISED DATA in the original, not .bss - the port's
+ *      zero-init byte globals lost the key material entirely. Bytes dumped
+ *      straight from orig/GunBound.gme at 0x56dc90 (both blocks are identical):
+ *        00 00 63 6f 6d 73 69 6b 00 00 d2 22 ea fa ee 3a   ("..comsik......:")
+ * Backed by one 0x20-byte array here; the old DAT_ names are offset-macros in
+ * globals.h (same technique as g_replayContext's fields), so every existing
+ * per-byte read/write keeps working unchanged. The per-packet fields at +0,
+ * +5, +7 and +0xa are overwritten per event by EncryptEventBroadcast /
+ * FUN_004e7de0 / FUN_004e6160 before each key expansion; the rest is the
+ * constant key. */
+uint8_t g_eventKeyBlock[0x20] = {
+    0x00, 0x00, 0x63, 0x6f, 0x6d, 0x73, 0x69, 0x6b,
+    0x00, 0x00, 0xd2, 0x22, 0xea, 0xfa, 0xee, 0x3a,
+    0x00, 0x00, 0x63, 0x6f, 0x6d, 0x73, 0x69, 0x6b,
+    0x00, 0x00, 0xd2, 0x22, 0xea, 0xfa, 0xee, 0x3a,
+};
 uint8_t DAT_0056dd30;
 uint8_t DAT_0056de30;
 uint32_t DAT_0056df30;

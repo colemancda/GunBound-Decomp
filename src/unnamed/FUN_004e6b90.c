@@ -46,9 +46,11 @@ void FUN_004e6b90(void)
         uVar2 = *(undefined1 *)((int)psVar7 + 7);
         *(short *)(iVar5 + 0x4522c) = psVar7[1];
         *(undefined1 *)(unaff_ESI + 0x45294 + uVar6) = uVar2;
-        SendUdpDatagram(psVar7,*psVar7);
+        SendUdpDatagram(*(int *)(unaff_ESI + 0x18 + uVar6 * 4),(int)*(short *)iVar5,(char *)psVar7,
+                        (int)*psVar7,unaff_ESI);
         if (*local_8 != -1) {
-          SendUdpDatagram(psVar7,*psVar7);
+          SendUdpDatagram(*local_8,(int)*(short *)(iVar5 + 0x10),(char *)psVar7,(int)*psVar7,
+                          unaff_ESI);
         }
       }
     }

@@ -19,7 +19,9 @@ undefined4 * FUN_004fd0f0(undefined4 *param_1,undefined4 param_2)
    * Same rationale as entry/InitGame.c - see src/README.md. */
   *param_1 = &PTR_LAB_00557610;
   FUN_004fdc80();
-  InitCommP2PNotifyWindow();
+  /* orig 0x4fd11c `lea edi, [ebp + 0x2c]` (EBP = param_1) -
+   * InitCommP2PNotifyWindow's recovered EDI `self` argument. */
+  InitCommP2PNotifyWindow(param_1 + 0xb);
   param_1[0xbd] = &PTR_LAB_00557594;
   param_1[1] = &PTR_LAB_005575b8;
   *param_1 = &PTR_LAB_005575c8;

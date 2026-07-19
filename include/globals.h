@@ -366,20 +366,28 @@ extern uint32_t DAT_0056dbe8;
 extern const unsigned char DAT_0056dbf0[0xa0];  /* AES login-key table - see globals_sized.c */
 extern uint32_t DAT_0056dc30[4];
 extern uint16_t g_awItemIconTable[40];
-extern uint8_t DAT_0056dc90;
-#define _DAT_0056dc90 DAT_0056dc90
-extern uint8_t DAT_0056dc95;
-extern uint8_t DAT_0056dc97;
-extern uint8_t DAT_0056dc98;
-#define _DAT_0056dc98 DAT_0056dc98
-extern uint8_t DAT_0056dc9a;
-extern uint8_t DAT_0056dca0;
-#define _DAT_0056dca0 DAT_0056dca0
-extern uint8_t DAT_0056dca5;
-extern uint8_t DAT_0056dca7;
-extern uint8_t DAT_0056dca8;
-#define _DAT_0056dca8 DAT_0056dca8
-extern uint8_t DAT_0056dcaa;
+/* g_eventKeyBlock: the two 16-byte UDP event-channel AES keys at 0x56dc90 and
+ * 0x56dca0, coalesced out of ten separate one-byte DAT_ globals - the original
+ * hands each block's base to RijndaelSetKey with a length of 0x10, so the 16
+ * bytes MUST be contiguous, and they carry real initialised key material (see
+ * globals.c). The old DAT_ names below are offset-macros into it, so every
+ * existing per-byte access compiles unchanged. The `_DAT_` spellings are the
+ * 2-byte-wide accesses Ghidra emitted at those same offsets. */
+extern uint8_t g_eventKeyBlock[0x20];
+#define DAT_0056dc90 (*(uint8_t*)(g_eventKeyBlock+0x00))
+#define _DAT_0056dc90 (*(uint16_t*)(g_eventKeyBlock+0x00))
+#define DAT_0056dc95 (*(uint8_t*)(g_eventKeyBlock+0x05))
+#define DAT_0056dc97 (*(uint8_t*)(g_eventKeyBlock+0x07))
+#define DAT_0056dc98 (*(uint8_t*)(g_eventKeyBlock+0x08))
+#define _DAT_0056dc98 (*(uint16_t*)(g_eventKeyBlock+0x08))
+#define DAT_0056dc9a (*(uint8_t*)(g_eventKeyBlock+0x0a))
+#define DAT_0056dca0 (*(uint8_t*)(g_eventKeyBlock+0x10))
+#define _DAT_0056dca0 (*(uint16_t*)(g_eventKeyBlock+0x10))
+#define DAT_0056dca5 (*(uint8_t*)(g_eventKeyBlock+0x15))
+#define DAT_0056dca7 (*(uint8_t*)(g_eventKeyBlock+0x17))
+#define DAT_0056dca8 (*(uint8_t*)(g_eventKeyBlock+0x18))
+#define _DAT_0056dca8 (*(uint16_t*)(g_eventKeyBlock+0x18))
+#define DAT_0056dcaa (*(uint8_t*)(g_eventKeyBlock+0x1a))
 extern uint8_t DAT_0056dd30;
 extern uint8_t DAT_0056de30;
 extern uint32_t DAT_0056df30;

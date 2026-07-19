@@ -49,7 +49,8 @@ void __thiscall State10_Loading_HandleChatInput(int *param_1,int param_2,int par
             cVar2 = *pcVar3;
             pcVar3 = pcVar3 + 1;
           } while (cVar2 != '\0');
-          AppendBroadcastString(acStack_80);
+          AppendBroadcastString(0,(int)pcVar3 - (int)acStack_80 - 1,(undefined4 *)acStack_80,
+                                (int)&g_replayContext);
           BroadcastQueuedEvent();
           goto LAB_0043e820;
         }

@@ -58,7 +58,9 @@ void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3)
   DAT_0056dca7 = *(undefined1 *)(param_1 + 0x452a9);
   DAT_0056dca5 = *(undefined1 *)(param_1 + 0x452a3);
   DAT_0056dcaa = *(undefined1 *)(param_1 + 0x452a4);
-  FUN_004e6f20(param_1 + 0x452c2,unaff_EBX);
+  /* orig 0x4e7e9b `mov eax, ebp` (EBP = this function's param_1) -
+   * FUN_004e6f20's recovered EAX context argument. */
+  FUN_004e6f20((undefined4 *)(param_1 + 0x452c2),unaff_EBX,param_1);
   iVar8 = 0x21;
   cVar4 = *(char *)(param_1 + 0x452a9) + *(char *)(param_1 + 0x452a3) + *(char *)(param_1 + 0x452a4)
           + -0x34;

@@ -41,7 +41,17 @@ FUN_00502590(ushort param_1,int param_2,char *param_3,undefined2 param_4,undefin
     puVar3 = (undefined4 *)((int)puVar3 + 1);
   }
   local_2ed6 = param_1;
-  cVar1 = FUN_004f7210(*(undefined4 *)(param_2 + 0x1a78),local_1778,6000);
+  /* RECOVERED (2026-07-19), orig 0x502602-0x50261c (frame base anchored on the
+   * strncpy dest `lea ecx,[esp+0x18]` at 0x5025b9 = local_2ee8):
+   *   push 0x1770 / lea eax,[esp+0x1790] / push eax ; capacity, output=local_1778
+   *   push ecx (=[ebx+0x1a78])                      ; schedule
+   *   lea ecx,[esp+0x28]                            ; ECX = INPUT = local_2ee8
+   *   lea ecx,[eax+0x1f] / imul 0x2aaaaaab / ...    ; EAX = INPUTLEN =
+   *                                                 ;   ((param_1+0x1f)/0xc)*0xc
+   * 0x1f = the 0x14-byte header (16-byte name + param_4 + param_1) plus the
+   * 0xb round-up to a whole 12-byte block. */
+  cVar1 = (char)FUN_004f7210(*(undefined4 *)(param_2 + 0x1a78),(int)local_1778,6000,
+                             (byte *)local_2ee8,(((int)param_1 + 0x1f) / 0xc) * 0xc);
   if (cVar1 == '\0') {
     return;
   }

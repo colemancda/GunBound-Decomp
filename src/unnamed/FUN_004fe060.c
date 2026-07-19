@@ -17,11 +17,17 @@ undefined4 FUN_004fe060(void)
   int unaff_ESI;
   sockaddr local_10;
   
-  do {
-    cVar1 = *in_EAX;
-    in_EAX = in_EAX + 1;
-  } while (cVar1 != '\0');
-  FUN_005051e0();
+  {
+    char *startStr = in_EAX;
+    do {
+      cVar1 = *in_EAX;
+      in_EAX = in_EAX + 1;
+    } while (cVar1 != '\0');
+    /* RECOVERED (2026-07-19), orig 0x4fe077-0x4fe07c: `sub ecx,edi` (ECX =
+     * the strlen), `lea edx,[esi+4]` (EDX = the crypto context), EAX = the
+     * string base. All three were dropped. */
+    FUN_005051e0((int)(in_EAX - startStr) - 1,unaff_ESI + 4,startStr);
+  }
   if (*(int *)(unaff_ESI + 0x288) != -1) {
     return 1;
   }

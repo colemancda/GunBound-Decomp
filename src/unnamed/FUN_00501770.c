@@ -99,8 +99,18 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
   iStack_18 = param_1;
   if (uVar6 < 0x2011) {
     if (uVar6 == 0x2010) {
+      /* RECOVERED (2026-07-19), orig 0x501ea0-0x501eb4 (frame base =
+       * esp_b+0x4990, from `mov [esp+0x14],edi` = local_497c at 0x5017b4):
+       *   mov ecx,[edi+0x1784] / push 0x1770 / push ebx / push ecx
+       *                              ; capacity=6000, input=ebx=puVar1, schedule
+       *   lea ecx,[esp+0x3214]       ; ECX = OUTPUT = &local_1788 (esp_b+0x3208)
+       *   EAX = param_3              ; INPUTLEN (guarded by `cmp eax,0x10`)
+       * The port dropped ECX entirely and shifted every remaining argument
+       * left by one, so the schedule landed in the output slot. */
       if ((0xf < param_3) &&
-         (cVar4 = FUN_004f72b0(*(undefined4 *)(param_1 + 0x1784),puVar1,6000), cVar4 != '\0')) {
+         (cVar4 = (char)FUN_004f72b0((undefined4 *)&local_1788,
+                                     *(int *)(param_1 + 0x1784),(int)puVar1,6000,(uint)param_3),
+          cVar4 != '\0')) {
         local_4970 = local_2ef6;
         puVar15 = local_1786;
         local_2ef8 = local_1788;
@@ -287,7 +297,16 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
             local_4658 = uStack_4938;
             local_4668 = 0x13;
             local_464c[0] = CONCAT22(SUBFIELD(local_464c[0],2,undefined2),SUBFIELD(local_496c.sa_data,0,undefined2));
-            cVar4 = FUN_004f7210(*(undefined4 *)(param_1 + 0x1784),local_2ed8,0x1750);
+            /* RECOVERED (2026-07-19), orig 0x501c52-0x501c86:
+             *   lea eax,[esp+0x1abc] / push eax ; output = local_2ed8
+             *   push ecx (=[edi+0x1784])        ; schedule
+             *   mov eax,0x24                    ; EAX = INPUTLEN = 0x24
+             *   lea ecx,[esp+0x334]             ; ECX = INPUT = &local_4668,
+             *                                   ;   the 0x24-byte block whose
+             *                                   ;   first dword is the 0x13 set
+             *                                   ;   at 0x501c73 */
+            cVar4 = (char)FUN_004f7210(*(undefined4 *)(param_1 + 0x1784),(int)local_2ed8,0x1750,
+                                       (byte *)&local_4668,0x24);
             if (cVar4 != '\0') {
               FUN_00502500(0x1010);
             }
@@ -423,8 +442,13 @@ LAB_00501b17:
       }
     }
     else if (uVar6 == 0x2021) {
+      /* RECOVERED (2026-07-19), orig 0x502161-0x502175 - identical shape to the
+       * 0x2010 site above except `lea ecx,[esp+0x334]` (= esp_b+0x328 =
+       * local_4668) is the OUTPUT buffer, and the guard is `cmp eax,0x30`. */
       if ((0x2f < param_3) &&
-         (cVar4 = FUN_004f72b0(*(undefined4 *)(param_1 + 0x1784),puVar1,6000), cVar4 != '\0')) {
+         (cVar4 = (char)FUN_004f72b0(&local_4668,*(int *)(param_1 + 0x1784),(int)puVar1,6000,
+                                     (uint)param_3),
+          cVar4 != '\0')) {
         FUN_004fe5d0();
         FUN_00503e10();
         iVar7 = local_497c;

@@ -733,7 +733,8 @@ LAB_004b9bb0:
               cVar4 = *pcVar22;
               pcVar22 = pcVar22 + 1;
             } while (cVar4 != '\0');
-            AppendBroadcastString(acStack_80);
+            AppendBroadcastString(0,(int)pcVar22 - (int)acStack_80 - 1,(undefined4 *)acStack_80,
+                                  (int)&g_replayContext);
             BroadcastQueuedEvent();
             goto LAB_004b9e3e;
           }

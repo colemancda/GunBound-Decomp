@@ -62,7 +62,7 @@ void EncodeChecksumStateXored();
 void EncodeOutgoingPacketField();
 int GetPlayerRecordBySlot();
 void HandleTurnTimeoutSlot();
-void InitCommP2PNotifyWindow();
+void InitCommP2PNotifyWindow(undefined4 *self);   /* self = EDI (recovered) */
 bool PacketChecksumEquals();
 bool PacketChecksumNotEquals();
 uint PeekPacketChecksumState();
@@ -85,7 +85,10 @@ undefined4 LockBackBuffer();
 bool PresentFrame();
 bool SetupZBuffer();
 void QueueBroadcastEvent();
-void __fastcall AppendBroadcastString();
+/* ECX unused (callee opens `xor ecx,ecx`); EDX = len, stack = src,
+ * EAX = context (recovered). */
+void __fastcall AppendBroadcastString(undefined4 param_1, uint param_2, undefined4 *param_3,
+                                     int context);
 undefined4 BroadcastQueuedEvent();
 void WriteReplayEventRecord();
 void __fastcall CGameState_BaseDestructor();
@@ -1053,7 +1056,7 @@ undefined4 SendOutgoingPacket();
 void ProcessIncomingPackets();
 void FUN_004d34a0();
 undefined4 __fastcall FUN_004d34f0();
-void FlushEncodedSocketBuffer();
+void FlushEncodedSocketBuffer(int param_1);
 undefined4 * State09_ReadyRoom_Construct();
 void * __thiscall State09_ReadyRoom_Delete();
 void __fastcall State09_ReadyRoom_Destroy();
@@ -1121,7 +1124,7 @@ undefined4 * __thiscall FUN_004e5430();
 ulong __fastcall FUN_004e5480();
 undefined4 FUN_004e54e0(undefined4 *, undefined4, undefined4);
 void DestroyConnectionObject(undefined4 *conn);
-bool ReceiveFramedPackets();
+bool ReceiveFramedPackets(int conn);
 void __thiscall HandleSocketEvent();
 undefined1 __stdcall ConnectSocketToTarget(int);
 void CloseConnectionSocket();
@@ -1142,10 +1145,13 @@ void __fastcall FUN_004e6770();
 void FUN_004e6b50();
 void FUN_004e6b90();
 void __fastcall FUN_004e6d10();
-void EncryptEventBroadcast();
-void FUN_004e6f20();
+void EncryptEventBroadcast(int ctx);
+void FUN_004e6f20(undefined4 *param_1, uint param_2, int ctx);
 void FUN_004e7140();
-undefined4 __fastcall SendUdpDatagram();
+/* ECX = dest address, EDX = dest port, stack = buf/len, EAX = the
+ * connection object (recovered). */
+undefined4 __fastcall SendUdpDatagram(int param_1, int param_2, char *param_3, int param_4,
+                                     int connection);
 void __fastcall FUN_004e7340();
 void FUN_004e73e0();
 void FUN_004e7430();
@@ -1380,19 +1386,30 @@ undefined4 __fastcall DecodeCipherBlock(unsigned int param_1, unsigned int *para
 void * AllocCipherSchedule(undefined4 checksumBase);
 uint EncodeHandshakeBlock(undefined4, undefined4, undefined4, int, char *, char *);
 undefined4 EncodePacketBlocks(unsigned char *input, int inputLen, int schedule, unsigned short opcode, int output, int capacity);
-undefined4 FUN_004f7210();
-undefined4 __thiscall FUN_004f72b0();
+/* DecodePacketBlocks had NO declaration in any header - ProcessIncomingPackets.c
+ * was calling it implicitly, so nothing checked its 6 arguments (including the
+ * recovered EAX `byteLen`; see that function's own header comment). */
+undefined4 __thiscall DecodePacketBlocks(undefined4 *param_1, int param_2, unsigned short param_3, unsigned int *param_4, int param_5, unsigned int byteLen);
+/* RECOVERED (2026-07-19): both take dropped ECX/EAX register args - see the
+ * .c files' headers for the disassembly. FUN_004f7210 is EncodePacketBlocks
+ * without the opcode addend; FUN_004f72b0 is its decode twin. */
+undefined4 FUN_004f7210(undefined4 param_1, int param_2, int param_3, unsigned char *input,
+                        int inputLen);
+undefined4 __thiscall FUN_004f72b0(undefined4 *param_1, int param_2, int param_3, int param_4,
+                        unsigned int inputLen);
 byte __fastcall FUN_004f7360();
 void Sha1Absorb(int param_1, unsigned char *param_2, unsigned int length);
 void Sha1Final(int ctx);
 void FUN_004f76c0();
 void __fastcall Sha1TransformBuffer(unsigned int param_1, unsigned int *param_2, int param_3, unsigned int *ctx);
 void __thiscall Sha1TransformBlocks(unsigned int *param_1, int param_2, unsigned char *msg);
-void __thiscall FUN_004fcd20();
-void __thiscall FUN_004fcd50();
+/* RECOVERED (2026-07-19): EAX = block count, EDX = SOURCE, ECX = DEST. The
+ * port had collapsed source and dest onto one pointer. See the .c headers. */
+void __thiscall FUN_004fcd20(int param_1, int schedule, unsigned int *source, int count);
+void __thiscall FUN_004fcd50(int param_1, int schedule, unsigned int *source, int count);
 undefined4 FUN_004fcd80();
 int FUN_004fcdf0();
-undefined4 FUN_004fce60();
+undefined4 FUN_004fce60(int outBase,int ctx);
 void FUN_004fceb0();
 void FUN_004fcee0();
 undefined4 FUN_004fcf10();
@@ -1554,7 +1571,7 @@ bool FUN_00504bb0();
 void FUN_00504c10();
 uint __fastcall FUN_00504d80();
 uint FUN_00504e90();
-void __fastcall FUN_005051e0();
+void __fastcall FUN_005051e0(int param_1,int param_2,char *src);
 undefined1 __fastcall FUN_005052b0();
 void __fastcall Widget_DrawSelf(int param_1);
 void Widget_SetChildRange();

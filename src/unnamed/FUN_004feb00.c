@@ -67,7 +67,16 @@ FUN_004feb00(char *param_1,int param_2,int param_3,sockaddr *param_4,undefined4 
   /* RECOVERED, orig 0x4fec29-0x4fec39: key = ECX = the SHA-1 digest (shaCtx),
    * EDX=0x10, EDI=[esp+0x84] = local_197c (the schedule FUN_004fcd20 uses). */
   RijndaelSetKey((uint *)shaCtx,0x10,1,(uint *)local_197c);
-  FUN_004fcd20(local_197c);
+  /* RECOVERED (2026-07-19), orig 0x4fec3e-0x4fec56 (frame base = esp_b+0x19e4,
+   * anchored on `lea edi,[esp+0x84]` = local_197c at 0x4fec2b):
+   *   lea edx,[esp+0x84] / push edx      ; arg1 = SCHEDULE = local_197c
+   *   mov edx,[esp+0x1a0c]               ; EDX = SOURCE = param_3 (entry+8)
+   *   mov eax,esi                        ; EAX = COUNT  = iVar3 >> 4
+   *   lea ecx,[esp+0x2ba]                ; ECX = DEST   = local_174e + 4, i.e.
+   *                                      ;   just past the 0x26-byte header
+   *                                      ;   that starts at local_1770
+   * The source pointer and the count were both dropped entirely. */
+  FUN_004fcd20((int)&local_174e + 4,(int)local_197c,(uint *)param_3,iVar3 >> 4);
   uVar4 = iVar3 + 0x26;
   local_1770 = (undefined2)uVar4;
   iVar3 = sendto(*(SOCKET *)(param_2 + 0x288),(char *)&local_1770,uVar4 & 0xffff,0,param_4,0x10);

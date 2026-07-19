@@ -6,6 +6,7 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include <windows.h>
+#include <string.h>
 #include "GameState.h"
 #include "ActiveObjects.h"
 
@@ -21,7 +22,12 @@ char ParseChatSlashCommand(int ctx, char *text); /* slash-command handler (true 
 char CheckChatWordFilter(char *text);          /* "message too long" check */
 char FUN_00415230(void);                /* "not allowed right now" check */
 void QueueBroadcastEvent(int type);
-void AppendBroadcastString(const char *s);
+/* ECX is a dead incoming register (0x4e6db0 opens `xor ecx,ecx`); EDX is
+ * the byte count and the stack arg the source. The context base arrives
+ * in EAX - recovered as the trailing param, see
+ * src/network/AppendBroadcastString.c. */
+void __fastcall AppendBroadcastString(int unused, unsigned int len, const void *src, int context);
+extern unsigned char g_replayContext;
 void BroadcastQueuedEvent(void);
 void FUN_00426230(void);                /* playback-mode chat path */
 void *GetLocalizedString(void *table, int id);
@@ -64,7 +70,7 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
                 msgId = 0x202;
             } else if (FUN_00415230() == 0) {
                 QueueBroadcastEvent(1);
-                AppendBroadcastString(text);
+                AppendBroadcastString(0, strlen(text), text, (int)&g_replayContext);
                 BroadcastQueuedEvent();
                 goto reset;
             } else {

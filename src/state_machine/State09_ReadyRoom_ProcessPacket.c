@@ -107,7 +107,8 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
             cVar10 = *pcVar12;
             pcVar12 = pcVar12 + 1;
           } while (cVar10 != '\0');
-          AppendBroadcastString(pcVar13);
+          AppendBroadcastString(0,(int)pcVar12 - (int)pcVar13 - 1,(undefined4 *)pcVar13,
+                                (int)&g_replayContext);
           BroadcastQueuedEvent();
           RefreshReadyRoomControls(this,1,1);
           iVar17 = g_clientContext - (int)pcVar13;
@@ -123,7 +124,8 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
             cVar10 = *pcVar12;
             pcVar12 = pcVar12 + 1;
           } while (cVar10 != '\0');
-          AppendBroadcastString(pcVar13);
+          AppendBroadcastString(0,(int)pcVar12 - (int)pcVar13 - 1,(undefined4 *)pcVar13,
+                                (int)&g_replayContext);
           BroadcastQueuedEvent();
           return;
         }

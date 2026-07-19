@@ -51,7 +51,20 @@ uint FUN_00502650(int param_1,int param_2,int param_3,undefined4 *param_4,uint p
         iVar4 = iVar4 + 1;
       } while (iVar4 < param_2);
     }
-    param_5 = FUN_004f7210(*(undefined4 *)(param_1 + 0x1a78),local_1778,6000);
+    /* RECOVERED (2026-07-19), orig 0x5026da-0x502714. The staged packet starts
+     * at [esp+0x10] (frame anchored on `lea edi,[esp+0x15]` at 0x5026a1 =
+     * &local_2ee3, so the struct base is &local_2ee3 - 5 - the port's Ghidra
+     * locals do not name the 5 header bytes at [esp+0x10..0x14]):
+     *   push 0x1770 / lea eax,[esp+0x1784] / push eax ; capacity, output=local_1778
+     *   push ecx (=[ebx+0x1a78])                      ; schedule
+     *   lea ecx,[esp+0x1c]                            ; ECX = INPUT = struct base
+     *   lea edx,[esp+0x10] / sub esi,edx / add esi,0xb / imul 0x2aaaaaab
+     *                                                 ; EAX = INPUTLEN =
+     *                                                 ;   ((esi-base+0xb)/0xc)*0xc
+     * where esi is the running write cursor - the port's `_Dest`. */
+    param_5 = FUN_004f7210(*(undefined4 *)(param_1 + 0x1a78),(int)local_1778,6000,
+                           (byte *)&local_2ee3 - 5,
+                           (((int)(_Dest - ((char *)&local_2ee3 - 5)) + 0xb) / 0xc) * 0xc);
     if ((char)param_5 != '\0') {
       uVar1 = FUN_00502500(0x2020);
       return uVar1;

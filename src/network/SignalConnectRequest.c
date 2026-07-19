@@ -15,17 +15,30 @@
 #include "ghidra_types.h"
 
 
-/* unaff_ESI (the connection object) and unaff_EDI (the hostname string to
- * copy in) both arrive via dropped registers in the original (orig
- * 0x40de77-0x40de82: `mov esi, [eax+0x2004]` where eax=DAT_007934f4, and
- * `mov edi, 0x551e38` -> the string "localhost", a hardcoded loopback
- * default). Promoted to explicit parameters; the sole caller (WinMain.c)
- * passes both directly. */
-void SignalConnectRequest(int unaff_ESI, char *unaff_EDI, int param_1)
+/* DROPPED-REGISTER FIX: `conn` (the connection object, ESI) and `hostName`
+ * (the hostname string to copy in, EDI) both arrive via dropped registers,
+ * which Ghidra emitted as uninitialised `unaff_ESI`/`unaff_EDI`. Both are
+ * genuinely read-before-written in the callee: ESI at 0x4e5a50
+ * (`mov eax,[esi+0x24]`, the very first instruction) and EDI at 0x4e5a86
+ * (`mov eax,edi`). Promoted to explicit parameters.
+ *
+ * Re-verified (2026-07-19) by angr CFG sweep - 100% agreement across both
+ * call sites:
+ *   ESI: 0x40de77 (WinMain)             `mov esi, [eax+0x2004]`, eax=DAT_007934f4
+ *        0x4d24cd (BeginServerConnect)  `mov esi, [ebx+0x84e0]`
+ *   EDI: 0x40de82 (WinMain)             `mov edi, 0x551e38` -> "localhost"
+ *        0x4d24c9 (BeginServerConnect)  `mov edi, [esp+0x10]` -> its host arg
+ * Both reach `call 0x4e5a50` at 0x40de8b / 0x4d24d4 respectively.
+ *
+ * NOTE: BeginServerConnect is the live caller; WinMain's call is currently
+ * commented out as a bring-up hack (see src/entry/WinMain.c). */
+void SignalConnectRequest(int conn, char *hostName, int param_1)
 
 {
   char cVar1;
   int iVar2;
+  int unaff_ESI = conn;
+  char *unaff_EDI = hostName;
 
   *(undefined4 *)(unaff_ESI + 0x22c) = 1;
   if (*(SOCKET *)(unaff_ESI + 0x24) != 0xffffffff) {

@@ -17,7 +17,22 @@ void FUN_004e7140(uint param_1)
   byte bVar4;
   int in_EAX;
   
-  EncryptEventBroadcast();
+  /* orig 0x4e7144 `mov ebx, esi` (ESI = this function's own dropped-EAX
+   * context, set at 0x4e7142) - EncryptEventBroadcast's recovered EBX arg. */
+  /* RECOVERED (2026-07-19): `in_EAX` is the broadcast/replay CONTEXT base,
+   * a dropped register argument - and an uninitialised one here, which is a
+   * live wild-write hazard now that EncryptEventBroadcast's RijndaelSetKey
+   * calls are enabled (it is used as the base for stores at +0x44dec.. and
+   * as the key-schedule context). Every resolvable call site in the original
+   * passes the SAME global, &DAT_00e55ce0 = g_replayContext: of this
+   * function's 8 direct call sites, 4 load it as an immediate
+   * (`mov eax, 0xe55ce0`) and 2 more via `mov eax, esi` where ESI was itself
+   * just set from that immediate - with NO call site contradicting it.
+   * Promoting it to a real parameter would mean touching all of those call
+   * sites for no behavioural difference, so it is bound to the global here
+   * instead, with the evidence recorded. See tools/sweep_corroborate.py. */
+  in_EAX = (int)&g_replayContext;
+  EncryptEventBroadcast(in_EAX);
   if ((int)param_1 < 8) {
     bVar4 = (byte)param_1;
     if (param_1 != 0xffffffff) {
@@ -43,9 +58,13 @@ void FUN_004e7140(uint param_1)
     }
     EnterCriticalSection((LPCRITICAL_SECTION)(in_EAX + 0x17c));
     if (*(char *)(param_1 + 0x454e4 + in_EAX) == '\0') {
-      SendUdpDatagram(puVar1,*puVar1);
+      SendUdpDatagram(*(int *)(in_EAX + 0x18 + param_1 * 4),
+                      (int)*(short *)(in_EAX + 0x58 + param_1 * 2),(char *)puVar1,(int)*puVar1,
+                      in_EAX);
       if (*(int *)(in_EAX + 0x38 + param_1 * 4) != -1) {
-        SendUdpDatagram(puVar1,*puVar1);
+        SendUdpDatagram(*(int *)(in_EAX + 0x38 + param_1 * 4),
+                        (int)*(short *)(in_EAX + 0x68 + param_1 * 2),(char *)puVar1,(int)*puVar1,
+                        in_EAX);
       }
     }
     else {

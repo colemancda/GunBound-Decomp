@@ -118,7 +118,9 @@ undefined4 FUN_004e6160(int param_1)
     DAT_0056dca5 = (undefined1)sStack_246;
     DAT_0056dcaa = (undefined1)((ushort)sStack_246 >> 8);
     DAT_0056dca7 = cStack_240;
-    FUN_004e6f20(&local_227,uVar4 - 0x21);
+    /* orig 0x4e6373 `mov eax, ebx` (EBX = this function's param_1) -
+     * FUN_004e6f20's recovered EAX context argument. */
+    FUN_004e6f20(&local_227,uVar4 - 0x21,param_1);
   }
   sVar2 = local_268;
   iVar6 = 0x21;
@@ -154,9 +156,13 @@ undefined4 FUN_004e6160(int param_1)
       FUN_004e6d10(CONCAT13(local_243,CONCAT12(local_244,sStack_246)),
                    CONCAT22(uStack_23f,CONCAT11(cStack_240,local_241)));
       EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x17c));
-      SendUdpDatagram(local_48,0x24);
+      SendUdpDatagram(*(int *)(param_1 + 0x18 + (uint)local_243 * 4),
+                      (int)*(short *)(param_1 + 0x58 + (uint)local_243 * 2),(char *)local_48,0x24,
+                      param_1);
       if (*(int *)(param_1 + 0x38 + (uint)local_243 * 4) != -1) {
-        SendUdpDatagram(local_48,0x24);
+        SendUdpDatagram(*(int *)(param_1 + 0x38 + (uint)local_243 * 4),
+                        (int)*(short *)(param_1 + 0x68 + (uint)local_243 * 2),(char *)local_48,0x24,
+                        param_1);
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x17c));
       return 1;
@@ -194,9 +200,13 @@ LAB_004e64e4:
         EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x17c));
         FUN_004e6d10(CONCAT13(local_243,CONCAT12(local_244,sStack_246)),
                      CONCAT22(uStack_23f,CONCAT11(cStack_240,local_241)));
-        SendUdpDatagram(extraout_EDX,0x24);
+        SendUdpDatagram(*(int *)(param_1 + 0x18 + (uint)local_243 * 4),
+                        (int)*(short *)(param_1 + 0x58 + (uint)local_243 * 2),(char *)extraout_EDX,
+                        0x24,param_1);
         if (*(int *)(param_1 + 0x38 + (uint)local_243 * 4) != -1) {
-          SendUdpDatagram(local_48,0x24);
+          SendUdpDatagram(*(int *)(param_1 + 0x38 + (uint)local_243 * 4),
+                          (int)*(short *)(param_1 + 0x68 + (uint)local_243 * 2),(char *)local_48,
+                          0x24,param_1);
         }
         puVar8 = &local_248;
         puVar10 = (undefined4 *)((uint)local_243 * 0x200 + 0x41bd8 + param_1);

@@ -82,9 +82,12 @@ void FUN_004e77e0(int param_1)
         local_1e3 = local_204[2];
         local_1fa = bVar3;
         if (*(char *)(uVar8 + 0x454e4 + param_1) == '\0') {
-          SendUdpDatagram(&local_200,(undefined2)local_200);
+          SendUdpDatagram(*(int *)(param_1 + 0x18 + uVar8 * 4),
+                          (int)*(short *)(param_1 + 0x58 + uVar8 * 2),(char *)&local_200,
+                          (int)(undefined2)local_200,param_1);
           if (*piVar4 != -1) {
-            SendUdpDatagram(&local_200,(undefined2)local_200);
+            SendUdpDatagram(*piVar4,(int)*(short *)(param_1 + 0x68 + uVar8 * 2),(char *)&local_200,
+                            (int)(undefined2)local_200,param_1);
           }
         }
         else {
@@ -145,9 +148,13 @@ LAB_004e79e6:
     local_1e3 = puVar10[2];
     local_1fa = bVar3;
     if (*(char *)(uVar8 + 0x454e4 + param_1) == '\0') {
-      SendUdpDatagram(&local_200,(undefined2)local_200);
+      SendUdpDatagram(*(int *)(param_1 + 0x18 + uVar8 * 4),
+                      (int)*(short *)(param_1 + 0x58 + uVar8 * 2),(char *)&local_200,
+                      (int)(undefined2)local_200,param_1);
       if (*(int *)(param_1 + 0x38 + uVar8 * 4) != -1) {
-        SendUdpDatagram(&local_200,(undefined2)local_200);
+        SendUdpDatagram(*(int *)(param_1 + 0x38 + uVar8 * 4),
+                        (int)*(short *)(param_1 + 0x68 + uVar8 * 2),(char *)&local_200,
+                        (int)(undefined2)local_200,param_1);
       }
     }
     else {

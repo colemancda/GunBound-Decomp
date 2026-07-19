@@ -1,24 +1,45 @@
 /* InitCommP2PNotifyWindow - 0x004fdf00 in the original binary.
  *
- * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
- * verified against documented behavior beyond what's already in
- * ARCHITECTURE.md/PROTOCOL.md/FILEFORMATS.md. Calls to unnamed
- * FUN_<address> helpers and DAT_<address>/_DAT_<address> globals are
- * left as-is (undeclared) - this file won't link standalone yet. See
- * src/README.md's "Raw/verbatim ports" section for status and how
- * these get promoted to verified.
+ * Constructs the CCommP2P sub-object: stamps its vtable, zeroes the
+ * peer/socket fields, starts Winsock and creates the hidden STATIC
+ * "CCommP2P Notify Window" whose WndProc (0x4fecb0, installed via
+ * SetWindowLongA GWL_WNDPROC) receives the async socket notifications.
+ * The object pointer is stashed in GWL_USERDATA so that WndProc can
+ * find it.
+ *
+ * RECOVERED (2026-07-19), verified with angr/capstone against the
+ * original: the object pointer arrives in EDI. It is read before any
+ * write - the third instruction of the function is
+ *   0x4fdf08  mov dword ptr [edi], 0x557654    ; = &PTR_LAB_00557654
+ * followed by 0x4fdf10 `lea esi,[edi+0x210]` and 0x4fdf16
+ * `mov byte ptr [edi+0x20c], bl`, all before EDI is ever assigned.
+ * Ghidra emitted it as an uninitialised `unaff_EDI`, so the port wrote
+ * the vtable and the created HWND through a garbage pointer.
+ * Promoted to the trailing `self` parameter (the repo's established
+ * idiom - see src/network/AllocCipherSchedule.c).
+ *
+ * The sole call site is the CCommP2P owner's constructor at 0x4fd0f0
+ * (ported as FUN_004fd0f0), which sets up EDI immediately before the
+ * call:
+ *   0x4fd107  mov ebp, dword ptr [esp + 0x18]   ; = param_1, the owner
+ *   0x4fd11c  lea edi, [ebp + 0x2c]             ; the CCommP2P sub-object
+ *   0x4fd11f  call 0x4fdf00
+ * i.e. the sub-object lives at owner+0x2c == &param_1[0xb], which is
+ * consistent with that constructor's own `param_1[0xb] =
+ * &PTR_LAB_005575ac` vtable store just after the call.
  */
 #include "ghidra_types.h"
 #include <windows.h>
 
 
-void InitCommP2PNotifyWindow(void)
+void InitCommP2PNotifyWindow(undefined4 *self)
 
 {
   HWND hWnd;
   undefined4 *unaff_EDI;
   WSADATA local_190;
-  
+
+  unaff_EDI = self;
   *unaff_EDI = &PTR_LAB_00557654;
   *(undefined1 *)(unaff_EDI + 0x83) = 0;
   FUN_00504c10();
