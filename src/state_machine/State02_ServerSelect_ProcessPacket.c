@@ -669,6 +669,22 @@ LAB_004e071c:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(uVar5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  {
+    /* BRING-UP EXPERIMENT (2026-07-19): the original sends joinChannelRequest
+     * (0x2000) here after auth success; our client's normal trigger for that
+     * is not yet found. Fire it once directly to validate the join->0x2001->
+     * lobby path. Replicates State02_ServerSelect_OnTopButton's param_2==3. */
+    static int joinedOnce = 0;
+    if (!joinedOnce) {
+      int cj = DAT_007934ec;
+      joinedOnce = 1;
+      *(undefined2 *)(cj + 0x4d4) = 0x2000;
+      *(undefined4 *)(cj + 0x44d0) = 6;
+      *(undefined2 *)(*(int *)(cj + 0x44d0) + 0x4d0 + cj) = 0xffff;
+      *(int *)(cj + 0x44d0) = *(int *)(cj + 0x44d0) + 2;
+      SendOutgoingPacket(cj);
+    }
+  }
   *(undefined1 *)(g_clientContext + 0xebee4) = 0;
   if (payloadLen < 0x1c) {
     return;

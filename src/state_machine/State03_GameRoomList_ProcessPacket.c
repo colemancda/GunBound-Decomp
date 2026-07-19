@@ -480,7 +480,7 @@ switchD_00428058_default:
       }
       if (*payload == 0) {
         FUN_00415ca0();
-        FUN_004e7430();
+        FUN_004e7430((int)&g_replayContext);
         FUN_0041b7e0();
         *(undefined1 *)(extraout_EDX + 0x3b6c0) = 0;
         /* QueueOutgoingPacketField is void-returning (see its own
@@ -757,7 +757,7 @@ switchD_00428058_default:
       FUN_00429f90();
     }
     if (*payload == 0) {
-      FUN_004e7430();
+      FUN_004e7430((int)&g_replayContext);
       FUN_0041b7e0();
       FUN_00415ca0();
       *(undefined4 *)(extraout_EDX_00 + 0x45914) = 0;

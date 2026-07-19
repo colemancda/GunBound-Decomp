@@ -1153,8 +1153,8 @@ void FUN_004e7140();
 undefined4 __fastcall SendUdpDatagram(int param_1, int param_2, char *param_3, int param_4,
                                      int connection);
 void __fastcall FUN_004e7340();
-void FUN_004e73e0();
-void FUN_004e7430();
+void FUN_004e73e0(int param_1,int ctx,char *nameRec);
+void FUN_004e7430(int ctx);
 void __fastcall FUN_004e74c0();
 void __fastcall FUN_004e7560();
 undefined4 __thiscall FUN_004e75e0();

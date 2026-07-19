@@ -5,17 +5,26 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
+/* DROPPED-REGISTER FIX (2026-07-19): TWO dropped register args - ESI (the
+ * context object, all writes are ESI-relative) and EDI (the source name
+ * string copied to ESI+0x15d). The port read both uninitialised and faulted
+ * writing ESI+0x150 on the join->lobby path. From the sole caller
+ * (WriteReplayEventRecord/0x4104f0 at 0x410e46/0x410f42): ESI = &g_replayContext
+ * (`mov esi,0xe55ce0`), and EDI = the processed slot's 13-byte name record
+ * inside it, `lea ecx,[edx+esi+0x41445]` with edx = slot*0xd (so
+ * &g_replayContext + slot*0xd + 0x41445). Sets up the local player's own P2P
+ * address (127.0.0.1:0x20ab) + name. Promoted to explicit parameters. */
 #include "ghidra_types.h"
 
 
-void FUN_004e73e0(int param_1)
+void FUN_004e73e0(int param_1,int ctx,char *nameRec)
 
 {
   char cVar1;
   u_short uVar2;
   int iVar3;
-  int unaff_ESI;
-  char *unaff_EDI;
+  int unaff_ESI = ctx;
+  char *unaff_EDI = nameRec;
   
   *(undefined4 *)(unaff_ESI + 0x150) = 0x100007f;
   uVar2 = htons(0x20ab);

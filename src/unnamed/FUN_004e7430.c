@@ -5,14 +5,21 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
+/* DROPPED-REGISTER FIX (2026-07-19): the object this clears is addressed by
+ * ESI, an incoming register arg Ghidra emitted as an uninitialised
+ * `unaff_ESI` - so the port wrote through a null base and faulted on the
+ * write to 0x48 the moment the join->lobby path first exercised it. All 3
+ * call sites load `mov esi, 0xe55ce0` = &g_replayContext (the 0x454f9-byte
+ * broadcast/replay context; this clears fields up to +0x454e0, inside it).
+ * Promoted to an explicit parameter. */
 #include "ghidra_types.h"
 
 
-void FUN_004e7430(void)
+void FUN_004e7430(int ctx)
 
 {
   int iVar1;
-  int unaff_ESI;
+  int unaff_ESI = ctx;
   undefined4 *puVar2;
   
   puVar2 = (undefined4 *)(unaff_ESI + 0x18);
