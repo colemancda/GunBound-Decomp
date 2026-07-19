@@ -64,6 +64,7 @@
  * verbatim ports" section for status.
  */
 #include "ghidra_types.h"
+extern void gb_log_conn0(const char *where);
 
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
@@ -78,9 +79,20 @@ void __thiscall HandleSocketEvent(uint param_1,int param_2)
   char *pcVar5;
   undefined4 uVar6;
   undefined1 local_403c [32];
-  char acStack_401c [16384];
-  int iStack_1c;
+  /* COALESCED (2026-07-19): the original copies 0x1001 dwords = 0x4004 bytes
+   * (orig 0x4e590c `mov ecx,0x1001` / 0x4e5911 `rep movsd`) - 16384 bytes of
+   * outgoing packet data PLUS a trailing length dword. That extra dword lands
+   * exactly on Ghidra's `iStack_1c`, which the send() call below then uses as
+   * its length: acStack_401c ends at frame offset 0x1c, and iStack_1c IS 0x1c.
+   * They are one contiguous object in the original, but MSVC gives separate
+   * locals no guaranteed adjacency - so the copy would overflow acStack_401c
+   * by 4 bytes into whatever MSVC placed there while iStack_1c stayed
+   * uninitialised, sending a garbage length. Same split-struct class as the
+   * SHA-1 context. Coalesced here, with iStack_1c as its trailing dword. */
+  char acStack_401c [16384 + 4];
+#define iStack_1c (*(int *)(acStack_401c + 16384))
   undefined4 uStack_c;
+  gb_log_conn0("HandleSocketEvent");
   
   uStack_c = 0x4e57d0;
   if (param_2 == 0) {
