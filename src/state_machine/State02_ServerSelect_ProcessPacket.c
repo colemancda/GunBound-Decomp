@@ -399,6 +399,12 @@ LAB_004e0d7f:
       int ci;
       for (ci = 0; ci < 0x14; ci++) { ((char *)systemInfoBlob2)[ci] = '\0'; }
       for (ci = 0; ci < (int)sizeof(kUser); ci++) { ((char *)systemInfoBlob2)[ci] = kUser[ci]; }
+      /* auStack_a0's first 0x14 bytes are copied VERBATIM into the packet as
+       * the password field (see the copy below), so the whole 0x14 must be
+       * cleared - zeroing only the 5 bytes of kPass left BuildSystemInfoBlob's
+       * decrypted-garbage tail in the packet, and the server compared
+       * "1234\0\xe7\x85\x88..." against "1234" and answered badPassword. */
+      for (ci = 0; ci < 0x14; ci++) { ((char *)auStack_a0)[ci] = '\0'; }
       for (ci = 0; ci < (int)sizeof(kPass); ci++) { ((char *)auStack_a0)[ci] = kPass[ci]; }
     }
     iVar20 = DAT_007934ec;

@@ -10,7 +10,34 @@
 #ifndef GB_GHIDRA_TYPES_H
 #define GB_GHIDRA_TYPES_H
 
-#include <stdbool.h>
+/* Ghidra's `bool` is a ONE-BYTE type, and its decompiler output relies on
+ * that: patterns like `*(bool *)(conn + 0x84e5) = <int comparison>` are
+ * byte stores in the original binary. MSVC 7.1's <stdbool.h> makes `bool`
+ * FOUR bytes, which silently turns every such store into a 4-byte write
+ * that smears over the following three bytes.
+ *
+ * That was a live memory-corruption bug, not a theoretical one: in
+ * ProcessIncomingPackets the store at conn+0x84e5 ran over conn+0x84e8 and
+ * zeroed the low byte of the connection's cipher-schedule pointer
+ * (013810b0 -> 01381000), so the schedule's packet-checksum base at +0x20c
+ * was read from an unstamped block and every outgoing packet carried a
+ * garbage block tag - which is why the world server rejected the login with
+ * a checksum mismatch. 27 such stores exist across 20 files.
+ *
+ * Defining bool as a 1-byte type here fixes all of them at once and matches
+ * Ghidra's type model. C++ already has a 1-byte bool, so leave it alone
+ * there (src/cxx/*.cpp include this header too). */
+#ifdef __cplusplus
+/* C++ bool is already 1 byte */
+#else
+typedef unsigned char bool;
+#ifndef true
+#define true 1
+#endif
+#ifndef false
+#define false 0
+#endif
+#endif
 #include <stdint.h>
 #include <stdio.h>
 #include <time.h>
