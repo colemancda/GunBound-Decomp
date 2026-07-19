@@ -261,8 +261,19 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
         *(undefined4 *)(param_1 + 0x1784) = uVar9;
         cVar4 = FUN_004fcd80(local_4914,0x11);
         if (((cVar4 != '\0') && (cVar4 = FUN_004fcd80(&local_4944,0x15), cVar4 != '\0')) &&
+           /* RECOVERED (2026-07-19), orig 0x501baa-0x501bb5: EncodeHandshakeBlock's
+            * credKey/credStr arrive in ESI/EAX (`lea esi,[esp+0x8c]` /
+            * `lea eax,[esp+0x5c]`), and those two stack slots are exactly the
+            * buffers the preceding pair of FUN_004fcd80 calls fills - the 0x11-byte
+            * one is credKey (a 16-char name + NUL) and the 0x15-byte one is credStr
+            * (20 bytes + NUL), matching BuildSystemInfoBlob's two outputs on the
+            * other login path. This call site had been passing only 4 of the 6
+            * arguments ever since EncodeHandshakeBlock's signature was corrected,
+            * so this whole translation unit silently failed to compile and the
+            * linker kept reusing a stale object file. */
            (cVar4 = EncodeHandshakeBlock(*(undefined4 *)(param_1 + 0x1784),&DAT_00551b7c,
-                                 *(undefined4 *)puVar1,&local_2ef8), cVar4 != '\0')) {
+                                 *(undefined4 *)puVar1,&local_2ef8,
+                                 (char *)local_4914,(char *)&local_4944), cVar4 != '\0')) {
           local_4978 = 0x10;
           cVar4 = FUN_00503930(&local_4984,&local_497c);
           if ((cVar4 != '\0') &&
