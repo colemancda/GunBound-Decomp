@@ -16,6 +16,19 @@
  * which faulted inside CompareXFSEntryName the moment the join->lobby path
  * first reached this OnEnter. Names extracted from the original's .data at
  * 0x5537ac-0x553b4c and matched to each call by its sprite-set id. */
+/* RECOVERED (2026-07-19): the 12 AppendPersistentButtonName calls below all
+ * dropped their second argument - the button NAME, which the original passes
+ * in EAX (`mov eax,<string>` before each `call 0x401740`). That call is what
+ * enters a button into the texture/descriptor table at g_clientContext+0x67ec70
+ * (it allocates the entry and fills it via LoadButtonDefinitionFromXFS), so
+ * with the names dropped NONE of the lobby's buttons were registered:
+ * FindPreloadedTextureByName then returned NULL for every b_gamelist_* texture
+ * inside CreateButtonWidget (probed live: State02's b_server_exitgame resolved
+ * to a real descriptor, State03's b_gamelist_exit resolved to 0), which is what
+ * derailed State03_GameRoomList_CreateButtons. State02's equivalent calls were
+ * already recovered; these are the same class. Names extracted from the
+ * original's .data and matched to the existing s_b_gamelist_* string globals
+ * (same pointers CreateButtons uses). */
 #include "ghidra_types.h"
 #include <windows.h>
 
@@ -77,18 +90,18 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   LoadSpriteSet(&DAT_00ea0e18,0x5dd,"b_directgo_cancel.img");
   LoadSpriteSet(&DAT_00ea0e18,0x640,"b_gamelist_yes.img");
   LoadSpriteSet(&DAT_00ea0e18,0x641,"b_gamelist_no.img");
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_exit_0055379c);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_buddy_00553788);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_ranking_00553774);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_avatar_00553760);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_create_0055374c);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_join_0055373c);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_viewall_00553728);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_wait_00553718);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_prev_00553708);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_next_005536f8);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_friend_005536e4);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_gamelist_directgo_005536d0);
   State03_GameRoomList_CreateButtons();
   iVar4 = BuildLobbyChatPanel(&g_uiPanelManager,*(undefined4 *)(g_clientContext + 0x41340));
   param_1[0xa3] = iVar4;
