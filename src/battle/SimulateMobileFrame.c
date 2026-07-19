@@ -305,8 +305,8 @@ LAB_004622cf:
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar6;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       BroadcastQueuedEvent();
-      SetGuardedBool(0);
-      SetGuardedBool(0);
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       QueueBroadcastEvent(0xc301);
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -330,8 +330,8 @@ LAB_004622cf:
       (&DAT_006a7758)[iVar12] = 0;
     }
     *(undefined1 *)(param_1 + 0x2b85) = 1;
-    SetGuardedBool(0);
-    SetGuardedBool(1);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+    SetGuardedBool(1,GB_GUARD_UNRECOVERED);
   }
   cVar5 = CheckGuardedBoolAnd(param_1[9] != 0xe);
   if (cVar5 == '\0') {
@@ -391,7 +391,7 @@ LAB_00462742:
   cVar5 = PacketChecksumNotEquals(param_1 + 0x243,param_1[0x30a9]);
   if ((cVar5 != '\0') ||
      (cVar5 = PacketChecksumNotEquals(param_1 + 0x2cc,param_1[0x30aa]), cVar5 != '\0')) {
-    SetGuardedBool(1);
+    SetGuardedBool(1,GB_GUARD_UNRECOVERED);
   }
   iVar12 = PeekChecksumStateUnderLock(param_1 + 0x243);
   param_1[0x30a9] = iVar12;

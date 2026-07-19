@@ -127,8 +127,8 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
         if (cVar2 == '\x01') {
           QueueOutgoingPacketField(0xffffffff);
           FUN_004cf050(this);
-          SetGuardedBool(0);
-          SetGuardedBool(1);
+          SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+          SetGuardedBool(1,GB_GUARD_UNRECOVERED);
         }
         else {
           local_9b5 = *payload;
@@ -450,7 +450,7 @@ LAB_004b4324:
   }
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 != '\0') goto LAB_004b541a;
-  SetGuardedBool(1);
+  SetGuardedBool(1,GB_GUARD_UNRECOVERED);
   local_67c = 0;
   local_888 = (int *)0x0;
   EncodeOutgoingPacketField(0);

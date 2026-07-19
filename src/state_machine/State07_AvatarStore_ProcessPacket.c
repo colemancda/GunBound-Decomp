@@ -213,7 +213,7 @@ LAB_0044469b:
                 FUN_00428550(&local_468);
                 local_c = 4;
                 local_464 = iVar20;
-                SetGuardedBool(0);
+                SetGuardedBool(0,GB_GUARD_UNRECOVERED);
                 QueueOutgoingPacketField(0x80000000);
                 QueueOutgoingPacketField(*(undefined4 *)puVar13);
                 FUN_0042ae30(&local_468);
@@ -298,7 +298,7 @@ LAB_0044469b:
         FUN_00428550(&local_468);
         local_c = 0;
         local_464 = FUN_0044c310();
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         QueueOutgoingPacketField(0x80000000);
         uVar9 = PeekChecksumStateUnderLock((int)this + 0x3054c);
         QueueOutgoingPacketField(uVar9);

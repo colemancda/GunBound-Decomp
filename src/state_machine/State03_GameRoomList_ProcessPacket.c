@@ -427,12 +427,12 @@ switchD_00428058_default:
            ((*(char *)(iVar24 + 0x449a8 + iVar10) == '\0' &&
             (*(char *)(iVar24 + 0x4499c + iVar10) != *(char *)(iVar24 + 0x449a2 + iVar10))))) {
           if (*(char *)(iVar24 + 0x449ae + iVar10) != '\0') {
-            SetGuardedBool(0);
+            SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           }
           SendJoinRoomChecked();
           return;
         }
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         RefreshGameRoomListControls();
         return;
       }
@@ -883,7 +883,7 @@ switchD_00428058_default:
       }
       cVar7 = PeekPacketChecksumBool();
       if (cVar7 != '\0') {
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       }
       iVar24 = payloadLen + (((uint)*(byte *)(g_clientContext + 0x45125) * -0x31 + -0x16) - uVar23);
       local_668 = 0;
@@ -938,7 +938,7 @@ switchD_00428058_default:
   }
   cVar7 = PeekPacketChecksumBool();
   if (cVar7 != '\0') {
-    SetGuardedBool(0);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
   }
 LAB_00426d84:
   RefreshGameRoomListControls();

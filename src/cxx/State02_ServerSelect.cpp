@@ -64,7 +64,7 @@ void InvokeWidget(int widgetId, int enabled);
 void ShowErrorDialog(int mode);
 void SendOutgoingPacket(int channelCtx);  /* flush/send the pending channel-1 packet */
 char PeekPacketChecksumBool(void);                /* mode check gating the page-offset source */
-void SetGuardedBool(int a);
+int SetGuardedBool(int value, int guardPtr);
 void FUN_004d24f0(void);
 int __fastcall FUN_00402020(int param_1); /* per-slot blink randomizer */
 void FUN_00401650(int *slot);            /* flat-ButtonWidget per-slot destroy */
@@ -248,7 +248,7 @@ void CState02ServerSelect::OnTick()
             ShowErrorDialog(0);
             m_uiDirty = 1;
             if (PeekPacketChecksumBool() != 0) {
-                SetGuardedBool(0);
+                SetGuardedBool(0,GB_GUARD_UNRECOVERED);
             }
             FUN_004d24f0();
             cfg = (unsigned char *)DAT_007934ec;

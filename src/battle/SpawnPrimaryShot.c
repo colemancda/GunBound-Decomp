@@ -127,7 +127,7 @@ LAB_0042c334:
       local_4 = 0xffffffff;
       local_8b8[0x1029] = 0xf80ffff;
       if (*(char *)(iVar6 + 0x45578) != '\0') {
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       }
       local_8b8[0xfe4] = 6;
     }
@@ -150,7 +150,7 @@ LAB_0042c334:
       local_8b8[0x1029] = (-(uint)(uVar7 != 0) & 0x7e8100) + 0xf80ffff;
       local_8b8[0x102b] = 10;
       if (*(char *)(iVar6 + 0x45578) != '\0') {
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       }
       local_8b8[0xfe4] = 7;
     }
@@ -289,7 +289,7 @@ LAB_0042c334:
       local_8b8[0xfe4] = 1;
     }
     local_8b8[7] = iVar6;
-    SetGuardedBool(0);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     break;
   case 6:
     if ((char)param_4 != '\0') {
@@ -337,7 +337,7 @@ LAB_0042c334:
     local_4 = 0xffffffff;
     iVar6 = FindPreloadedTextureByName(s_bullet7n_00553f08);
     local_8b8[7] = iVar6;
-    SetGuardedBool(0);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     local_8b8[0xfe4] = 0xff;
     break;
   case 7:
@@ -477,7 +477,7 @@ LAB_0042c334:
       local_4 = 0xffffffff;
       local_8b8[0x1029] = 0xfffffff;
       if (*(char *)(iVar6 + 0x45578) != '\0') {
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       }
       local_8b8[0xfe4] = 0;
     }
@@ -500,7 +500,7 @@ LAB_0042c334:
       local_8b8[0x1029] = 0xfffffff;
       local_8b8[0x102d] = 10;
       if (*(char *)(iVar6 + 0x45578) != '\0') {
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       }
       local_8b8[0xfe4] = 1;
     }
@@ -783,13 +783,13 @@ LAB_0042c334:
   *(byte *)((int)local_8bc + 0xf47) = bVar12 + *(char *)((int)local_8bc + 0xf45) + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeGuardedBool(param_10);
+  EncodeGuardedBool(param_10,(byte *)GB_GUARD_UNRECOVERED);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(param_9);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeGuardedBool(param_4);
+  EncodeGuardedBool(param_4,(byte *)GB_GUARD_UNRECOVERED);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(param_11);
@@ -804,7 +804,7 @@ LAB_0042d20d:
     if (0x6e < param_7) goto LAB_0042d20d;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeGuardedBool(fStack_8ac);
+  EncodeGuardedBool(fStack_8ac,(byte *)GB_GUARD_UNRECOVERED);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(0);
@@ -914,7 +914,7 @@ LAB_0042d5ba:
     uStack_8b0 = uStack_8b0 & 0xffffff00;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeGuardedBool(uStack_8b0);
+  EncodeGuardedBool(uStack_8b0,(byte *)GB_GUARD_UNRECOVERED);
   (*pcVar15)(&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = PeekPacketChecksumState();

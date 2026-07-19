@@ -526,7 +526,7 @@ LAB_004cd6de:
     if (param_1[0x428] == iVar7) {
       local_71c = (undefined *)CONCAT31(SUBFIELD(local_71c,1,undefined3),*(int *)(g_clientContext + 0xebef0) == -0x18);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeGuardedBool(local_71c);
+      EncodeGuardedBool(local_71c,(byte *)GB_GUARD_UNRECOVERED);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       pcVar18 = (code *)LeaveCriticalSection;
     }

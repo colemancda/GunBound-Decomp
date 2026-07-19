@@ -1640,6 +1640,15 @@ extern uint32_t uRamfffffff8;
  * integers. */
 extern uint8_t *switchD_0050fe76__switchdataD_0051008c;
 extern uint8_t *switchD_0051392e__switchdataD_00514460;
+
+/* Shared scratch cell for guarded-bool call sites whose real cell pointer is
+ * still unrecovered (see src/network/SetGuardedBool.c). Writing here keeps
+ * those sites from faulting through an uninitialised pointer; it does NOT
+ * make them correct - every site using it aliases the same 3 bytes. Grep for
+ * GB_GUARD_UNRECOVERED to find the remaining work. */
+extern unsigned char g_guardScratchUnrecovered[4];
+#define GB_GUARD_UNRECOVERED ((int)g_guardScratchUnrecovered)
+
 #endif
 
 /* Second pass: ~800 addresses missing from the original scan (see

@@ -148,7 +148,7 @@ LAB_0049c9ad:
         PeekChecksumStateUnderLock();
         QueueOutgoingPacketField();
       }
-      SetGuardedBool();
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED) /* value+ptr both dropped; unrecovered */;
     }
     break;
   case 8:
@@ -201,10 +201,10 @@ LAB_0049c9ad:
         iVar1 = g_clientContext;
         *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;
         *(undefined4 *)(&DAT_005f376c + iVar1) = 0;
-        SetGuardedBool();
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED) /* value+ptr both dropped; unrecovered */;
       }
       else {
-        SetGuardedBool();
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED) /* value+ptr both dropped; unrecovered */;
       }
     }
   }

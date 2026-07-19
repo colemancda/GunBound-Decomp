@@ -105,11 +105,11 @@ undefined4 FUN_00439e40(int param_1)
      ((uVar6 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c), param_1 != uVar6 ||
       ((cVar2 = PacketChecksumLessEqual(*(int *)(g_clientContext + 0x621e0) + 0x6968,0), cVar2 == '\0' &&
        (iVar4 = (**(code **)(**(int **)(g_clientContext + 0x621e0) + 0x14))(), iVar4 < 9000)))))) {
-    SetGuardedBool(1);
-    SetGuardedBool(0);
-    SetGuardedBool(1);
-    SetGuardedBool(1);
-    SetGuardedBool(0);
+    SetGuardedBool(1,GB_GUARD_UNRECOVERED);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+    SetGuardedBool(1,GB_GUARD_UNRECOVERED);
+    SetGuardedBool(1,GB_GUARD_UNRECOVERED);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     *(undefined4 *)(*(int *)(g_clientContext + 0x621e4) + 0xae10) = 0;
     QueueOutgoingPacketField(0);
     QueueOutgoingPacketField(400);
@@ -142,7 +142,7 @@ undefined4 FUN_00439e40(int param_1)
     QueueOutgoingPacketField(2);
     cVar2 = CheckGuardedBoolAnd(*(char *)(g_clientContext + 0x45127) == '\x01');
     if (cVar2 != '\0') {
-      SetGuardedBool(1);
+      SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }
     cVar2 = PeekPacketChecksumBool();
     if ((cVar2 != '\0') && (iVar4 = FUN_004f2f90(), iVar4 != 0)) {

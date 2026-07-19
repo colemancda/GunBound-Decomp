@@ -230,7 +230,7 @@ LAB_004b38c8:
         uVar5 = PeekChecksumStateUnderLock(&DAT_007949c8);
         QueueOutgoingPacketField(uVar5);
       }
-      SetGuardedBool(1);
+      SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }
     break;
   case 8:
@@ -299,10 +299,10 @@ LAB_004b38c8:
         iVar3 = g_clientContext;
         *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;
         *(undefined4 *)(&DAT_005f376c + iVar3) = 0;
-        SetGuardedBool(1);
+        SetGuardedBool(1,GB_GUARD_UNRECOVERED);
       }
       else {
-        SetGuardedBool(1);
+        SetGuardedBool(1,GB_GUARD_UNRECOVERED);
       }
     }
   }

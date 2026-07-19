@@ -112,12 +112,12 @@ LAB_0045cdb1:
           EncodePacketBody(0,iVar5);
           SendOutgoingPacket(iVar5);
         }
-        SetGuardedBool(0);
-        SetGuardedBool(1);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+        SetGuardedBool(1,GB_GUARD_UNRECOVERED);
         EncodeChecksumState(param_1 + 0x243);
         iVar5 = FUN_004257b0();
         QueueOutgoingPacketField(iVar5 + param_1[0x2fee]);
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       }
     }
   }

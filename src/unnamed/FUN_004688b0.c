@@ -367,7 +367,7 @@ LAB_00468fef:
 LAB_0046942b:
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
-        SetGuardedBool(1);
+        SetGuardedBool(1,GB_GUARD_UNRECOVERED);
       }
     }
     else {
@@ -383,7 +383,7 @@ LAB_0046942b:
        ((cVar4 = CompareChecksumExceeds(piStack_ae8 + 0x3d5,piVar15), cVar4 != '\0' &&
         ((cVar4 = CompareChecksumExceeds(piVar15,piStack_ae8 + 0xf5b), cVar4 != '\0' &&
          (5 < piStack_ae8[0xed1])))))) {
-      SetGuardedBool(1);
+      SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }
     goto LAB_0046a47c;
   }
@@ -719,7 +719,7 @@ LAB_0046a089:
         ScrubChecksumGuard();
       }
       else {
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       }
     }
   }

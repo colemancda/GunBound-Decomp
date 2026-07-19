@@ -92,11 +92,11 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
       if (cVar3 != '\0') {
         cVar3 = PeekPacketChecksumBool();
         if (cVar3 == '\0') {
-          SetGuardedBool(0);
-          SetGuardedBool(0);
+          SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+          SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           cVar3 = PeekPacketChecksumBool();
           if (cVar3 == '\0') {
-            SetGuardedBool(1);
+            SetGuardedBool(1,GB_GUARD_UNRECOVERED);
             QueueBroadcastEvent(0xc301);
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -107,8 +107,8 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
             BroadcastQueuedEvent();
           }
         }
-        SetGuardedBool(0);
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         QueueOutgoingPacketField(0xffffffff);
         QueueOutgoingPacketField(0xffffffff);
         *(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe8) = 0;

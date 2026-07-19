@@ -50,7 +50,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
     g_pendingGameState = 2;
     g_stateChangeRequested = 1;
     ChangeGameState(2);
-    SetGuardedBool(0);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     *(undefined4 *)(param_1 + 0x11c) = 0;
     return;
   case 1:

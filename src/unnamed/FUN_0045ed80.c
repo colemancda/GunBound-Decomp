@@ -102,8 +102,8 @@ LAB_0045f2b4:
       }
 LAB_0045ef56:
       (**(code **)(*param_1 + 4))(puVar3);
-      SetGuardedBool(0);
-      SetGuardedBool(0);
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       goto LAB_0045f2bb;
     }
     uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x19d1,auStack_454,3);

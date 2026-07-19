@@ -64,9 +64,9 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
     uVar4 = EncodeChecksumState(uVar4);
     uVar4 = EncodeChecksumState(uVar4);
     EncodeChecksumState(uVar4);
-    SetGuardedBool(param_6);
+    SetGuardedBool(param_6,GB_GUARD_UNRECOVERED);
     QueueOutgoingPacketField(param_7);
-    SetGuardedBool(0);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     QueueOutgoingPacketField(0);
     piVar8[0xfe4] = (uint)param_8;
     if (param_10 == '\0') {

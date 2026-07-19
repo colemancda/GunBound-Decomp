@@ -603,8 +603,8 @@ LAB_004b9bb0:
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\x01') {
         *(undefined4 *)(g_clientContext + 0xebef0) = 0xfffffffd;
-        SetGuardedBool(0);
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         RemoveWidget();
         CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,
                            0);
@@ -623,7 +623,7 @@ LAB_004b9bb0:
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
         *(undefined4 *)(g_clientContext + 0xebef0) = 0xffffffe8;
-        SetGuardedBool(1);
+        SetGuardedBool(1,GB_GUARD_UNRECOVERED);
         RemoveWidget();
         uVar23 = 6;
         pcVar22 = s_b_play_weapon1_00554164;
@@ -637,11 +637,11 @@ LAB_004b9bb0:
              (*(char *)(g_clientContext + 0x45127) != '\x03')))) ||
            (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
           *(undefined4 *)(g_clientContext + 0xebef0) = 0xfffffffd;
-          SetGuardedBool(0);
+          SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           RemoveWidget();
         }
         else {
-          SetGuardedBool(1);
+          SetGuardedBool(1,GB_GUARD_UNRECOVERED);
           RemoveWidget();
           CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0
                             );
@@ -909,8 +909,8 @@ LAB_004bafd2:
                      PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x7864) +
                      g_cursorAnchorX,
                      g_cursorAnchorY);
-  SetGuardedBool(0);
-  SetGuardedBool(0);
+  SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+  SetGuardedBool(0,GB_GUARD_UNRECOVERED);
   QueueOutgoingPacketField(0xffffffff);
   QueueOutgoingPacketField(0xffffffff);
   *(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfe8) = 0;

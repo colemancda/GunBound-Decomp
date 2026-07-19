@@ -35,7 +35,7 @@ struct GbFirePayload {            /* wire offset = 0x21 + member offset */
     u16 lead;         /* +0x21: queued first, relayed verbatim */
     u16 angle;        /* +0x23: angle-like; fed to EncodeChecksumState */
     u8  flag25;       /* +0x25 */
-    u8  flag26;       /* +0x26: drives SetGuardedBool(x == 1) */
+    u8  flag26;       /* +0x26: drives SetGuardedBool(x == 1,GB_GUARD_UNRECOVERED) */
     u16 num27;        /* +0x27 */
     u16 num29;        /* +0x29 */
     u8  firedByte;    /* +0x2b: copied into the firer's record, not relayed */

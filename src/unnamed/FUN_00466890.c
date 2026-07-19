@@ -187,7 +187,7 @@ LAB_00466d70:
       QueueOutgoingPacketField(uVar3);
     }
 LAB_00466d7f:
-    SetGuardedBool(1);
+    SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     break;
   case 10:
     if (param_3 == 1) {
@@ -226,10 +226,10 @@ LAB_00466d7f:
         iVar1 = g_clientContext;
         *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;
         *(undefined4 *)(&DAT_005f376c + iVar1) = 0;
-        SetGuardedBool(1);
+        SetGuardedBool(1,GB_GUARD_UNRECOVERED);
       }
       else {
-        SetGuardedBool(1);
+        SetGuardedBool(1,GB_GUARD_UNRECOVERED);
       }
     }
   }

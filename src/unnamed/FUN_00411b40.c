@@ -81,7 +81,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
       }
       else if (in_AX == 0xa001) {
         FUN_00405b20();
-        SetGuardedBool(*(char *)((int)param_1 + 2) == '\x01');
+        SetGuardedBool(*(char *)((int)param_1 + 2) == '\x01',GB_GUARD_UNRECOVERED);
         iVar7 = g_clientContext;
         *(undefined4 *)(g_clientContext + 0x3b96b) = *(undefined4 *)((int)param_1 + 3);
         *(undefined4 *)(iVar7 + 0x3b96f) = *(undefined4 *)((int)param_1 + 7);

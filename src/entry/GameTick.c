@@ -104,7 +104,7 @@ void GameTick(void)
     SubFromPacketChecksum(uVar10);
     cVar2 = PacketChecksumLessEqual(&DAT_006aa67c + g_clientContext,0);
     if (cVar2 != '\0') {
-      SetGuardedBool(0);
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9084);

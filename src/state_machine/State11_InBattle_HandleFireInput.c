@@ -573,8 +573,8 @@ LAB_004606d5:
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     FUN_0043d6d0();
     BroadcastQueuedEvent();
-    SetGuardedBool(0);
-    SetGuardedBool(0);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     iVar18 = g_clientContext;
     *(undefined1 *)(param_1 + 0x2ffa) = 0;
     if ((&DAT_005f2f40)[iVar18] == '\x02') {
@@ -738,8 +738,8 @@ LAB_004606d5:
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         FUN_0043d6d0();
         BroadcastQueuedEvent();
-        SetGuardedBool(0);
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         *(undefined1 *)(param_1 + 0x2ffa) = 0;
         QueueOutgoingPacketField(0xffffffff);
         QueueOutgoingPacketField(0xffffffff);
@@ -914,9 +914,9 @@ LAB_004613b2:
     uVar17 = DecodeGuardedBool();
     cVar9 = CheckGuardedBoolAnd(uVar17);
     if ((cVar9 != '\0') && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01')) {
-      SetGuardedBool(0);
-      SetGuardedBool(0);
-      SetGuardedBool(1);
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+      SetGuardedBool(1,GB_GUARD_UNRECOVERED);
       QueueBroadcastEvent(0xc301);
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
       puVar1 = (undefined2 *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);

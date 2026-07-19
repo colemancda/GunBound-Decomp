@@ -1730,7 +1730,7 @@ LAB_004c0f5c:
         if (iVar6 != 0xf) goto LAB_004c13d9;
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeGuardedBool(1);
+      EncodeGuardedBool(1,(byte *)GB_GUARD_UNRECOVERED);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       QueueBroadcastEvent(0xc40a);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -1788,7 +1788,7 @@ LAB_004c0f5c:
       }
       pcVar16 = (code *)EnterCriticalSection;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EncodeGuardedBool(1);
+      EncodeGuardedBool(1,(byte *)GB_GUARD_UNRECOVERED);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeOutgoingPacketField(0xffffffff);

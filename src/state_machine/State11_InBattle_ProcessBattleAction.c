@@ -127,10 +127,10 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
           EncodeChecksumState(uVar21);
           cVar2 = *(char *)(param_2 + 0x25);
           QueueOutgoingPacketField(*(char *)(param_2 + 0x26) == '\x01');
-          SetGuardedBool(cVar2 == '\x02');
+          SetGuardedBool(cVar2 == '\x02',GB_GUARD_UNRECOVERED);
           cVar3 = PeekPacketChecksumBool();
           if (cVar3 == '\0') {
-            SetGuardedBool(cVar2 == '\x01');
+            SetGuardedBool(cVar2 == '\x01',GB_GUARD_UNRECOVERED);
           }
           cVar3 = FUN_0041eaa0(g_clientContext,(short)piVar7[0x2fef]);
           if (cVar3 != '\0') {
@@ -339,7 +339,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
           iVar4 = *(int *)(iVar4 + 0x24);
           if ((((iVar4 != 5) && (iVar4 != 6)) && (iVar4 != 8)) && (iVar4 != 10)) {
             QueueOutgoingPacketField(*(char *)(param_2 + 0x22) == '\x01');
-            SetGuardedBool(bVar16 == 1);
+            SetGuardedBool(bVar16 == 1,GB_GUARD_UNRECOVERED);
             *unaff_FS_OFFSET = local_14;
             return;
           }
@@ -417,7 +417,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       local_27f0 = &DAT_006a7f70 + g_clientContext;
       FUN_0043c4a0();
       FUN_0043c4f0();
-      SetGuardedBool(0);
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       FUN_004207c0(g_clientContext,bVar16);
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
@@ -499,7 +499,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
     uVar21 = QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x23));
     EncodeChecksumState(uVar21);
     QueueOutgoingPacketField(*(char *)(param_2 + 0x25) == '\x01');
-    SetGuardedBool(*(char *)(param_2 + 0x26) == '\x01');
+    SetGuardedBool(*(char *)(param_2 + 0x26) == '\x01',GB_GUARD_UNRECOVERED);
     QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x27));
     QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x29));
     *(undefined1 *)(piVar7 + 0x1947) = *(undefined1 *)(param_2 + 0x2b);
@@ -511,7 +511,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
     QueueOutgoingPacketField((int)*(short *)(param_2 + 0x36));
     QueueOutgoingPacketField((int)*(short *)(param_2 + 0x38));
     QueueOutgoingPacketField((int)*(short *)(param_2 + 0x3a));
-    SetGuardedBool(*(char *)(param_2 + 0x3c) == '\x01');
+    SetGuardedBool(*(char *)(param_2 + 0x3c) == '\x01',GB_GUARD_UNRECOVERED);
     FUN_0043d780(param_2 + 0x3d);
     cVar2 = FUN_0043c820();
     if (cVar2 == '\x01') {
@@ -545,7 +545,7 @@ LAB_004b7c01:
       if (uVar1 != 0xc400) {
         switch(uVar1) {
         case 0xc300:
-          SetGuardedBool(0);
+          SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           param_1[0x8f3] = -1;
           if ((char)param_1[0x474] == '\0') {
             FUN_004d0a10(param_1,param_2 + 0x22);
@@ -580,8 +580,8 @@ LAB_004b7c01:
               FUN_004eeae0();
               piVar7[0x2c29] = -1;
             }
-            SetGuardedBool(0);
-            SetGuardedBool(0);
+            SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+            SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           }
           iVar4 = PeekChecksumStateUnderLock((uint)bVar16 * 0x224 + 0xebef4 + g_clientContext);
           if (((iVar4 != -1) && (iVar4 = local_27ec[0x429], iVar4 != 60000)) && (iVar4 != 0xffff)) {
@@ -594,13 +594,13 @@ LAB_004b7c01:
             puVar15 = puVar15 + 1;
             puVar18 = puVar18 + 1;
           }
-          SetGuardedBool(1);
+          SetGuardedBool(1,GB_GUARD_UNRECOVERED);
           *(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 0xae68) = 1;
           *unaff_FS_OFFSET = local_14;
           return;
         case 0xc303:
           *(undefined4 *)(&DAT_006a7704 + g_clientContext) = 0xffffffff;
-          SetGuardedBool(0);
+          SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           iVar4 = g_clientContext;
           switch(*(byte *)puVar12) {
           case 0:
@@ -934,7 +934,7 @@ LAB_004b7fb2:
           break;
         case 0xc305:
           *(undefined1 *)(param_1 + 0x42f) = 0;
-          SetGuardedBool(1);
+          SetGuardedBool(1,GB_GUARD_UNRECOVERED);
           cVar2 = *(char *)(g_clientContext + 0x45127);
           if (cVar2 == '\x01') {
             *(undefined4 *)(&DAT_006a647c + g_clientContext) = 0x11;
@@ -955,7 +955,7 @@ LAB_004b7fb2:
           *unaff_FS_OFFSET = uStack_20;
           return;
         case 0xc306:
-          SetGuardedBool(0);
+          SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           iVar4 = g_clientContext;
           local_27ec[0x8f3] = -1;
           iVar4 = GetPlayerRecordBySlot(iVar4);
@@ -990,9 +990,9 @@ LAB_004b7fb2:
             pbVar14 = pbVar14 + 4;
             puVar15 = puVar15 + 1;
           }
-          SetGuardedBool(1);
-          SetGuardedBool(1);
-          SetGuardedBool(0);
+          SetGuardedBool(1,GB_GUARD_UNRECOVERED);
+          SetGuardedBool(1,GB_GUARD_UNRECOVERED);
+          SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           *unaff_FS_OFFSET = local_14;
           return;
         case 0xc308:
@@ -1016,8 +1016,8 @@ LAB_004b7fb2:
       uVar21 = QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x23));
       EncodeChecksumState(uVar21);
       QueueOutgoingPacketField(*(char *)(param_2 + 0x25) == '\x01');
-      SetGuardedBool(*(char *)(param_2 + 0x26) == '\x01');
-      SetGuardedBool(0);
+      SetGuardedBool(*(char *)(param_2 + 0x26) == '\x01',GB_GUARD_UNRECOVERED);
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       QueueOutgoingPacketField((int)*(short *)(param_2 + 0x27));
       QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x29));
       *(undefined1 *)(piVar7 + 0x1947) = *(undefined1 *)(param_2 + 0x2b);
@@ -1029,10 +1029,10 @@ LAB_004b7fb2:
       QueueOutgoingPacketField((int)*(short *)(param_2 + 0x36));
       QueueOutgoingPacketField((int)*(short *)(param_2 + 0x38));
       QueueOutgoingPacketField((int)*(short *)(param_2 + 0x3a));
-      SetGuardedBool(*(char *)(param_2 + 0x3c) == '\x01');
+      SetGuardedBool(*(char *)(param_2 + 0x3c) == '\x01',GB_GUARD_UNRECOVERED);
       FUN_0043d780(param_2 + 0x3d);
       *(undefined1 *)(piVar7 + 0x2ffa) = 0;
-      SetGuardedBool(0);
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       cVar2 = FUN_0043c820();
       if (cVar2 == '\x01') {
         cVar2 = PeekPacketChecksumBool();
@@ -1090,7 +1090,7 @@ LAB_004b7fb2:
       uVar11 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
       if (((uVar11 == bVar16) && (*(int *)(g_clientContext + 0x621e0) != 0)) &&
          (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
-        SetGuardedBool(1);
+        SetGuardedBool(1,GB_GUARD_UNRECOVERED);
         iVar6 = DAT_007934e8;
         iVar10 = g_clientContext;
         *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
@@ -1132,7 +1132,7 @@ LAB_004b7fb2:
       uVar21 = QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x23));
       EncodeChecksumState(uVar21);
       QueueOutgoingPacketField(*(char *)(param_2 + 0x25) == '\x01');
-      SetGuardedBool(1);
+      SetGuardedBool(1,GB_GUARD_UNRECOVERED);
       QueueOutgoingPacketField(0);
       QueueOutgoingPacketField((int)*(short *)(param_2 + 0x27));
       QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x29));
@@ -1148,10 +1148,10 @@ LAB_004b7fb2:
       *(undefined4 *)(&DAT_005f376c + iVar4) = 0;
       QueueOutgoingPacketField((int)*(short *)(param_2 + 0x38));
       QueueOutgoingPacketField((int)*(short *)(param_2 + 0x3a));
-      SetGuardedBool(*(char *)(param_2 + 0x3c) == '\x01');
+      SetGuardedBool(*(char *)(param_2 + 0x3c) == '\x01',GB_GUARD_UNRECOVERED);
       FUN_0043d780(param_2 + 0x3d);
       *(undefined1 *)(piVar7 + 0x2ffa) = 0;
-      SetGuardedBool(0);
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       cVar2 = FUN_0043c820();
       if (cVar2 == '\x01') {
         *(undefined4 *)((int)piVar7 + 0xbffa) = SUBFIELD(s_sfire_00553b78,0,undefined4);

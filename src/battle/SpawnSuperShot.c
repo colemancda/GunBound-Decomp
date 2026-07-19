@@ -101,7 +101,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
     iVar6 = FindPreloadedTextureByName(s_bullet3p_00553e08);
     piVar5[7] = iVar6;
     piVar5[0xfe4] = 1;
-    SetGuardedBool(0);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     break;
   case 3:
     local_8b4 = operator_new(0x3fa4);
@@ -147,7 +147,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
     iVar6 = FindPreloadedTextureByName(s_bullet6p_00553de4);
     piVar5[7] = iVar6;
     piVar5[0xfe4] = 1;
-    SetGuardedBool(0);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     break;
   case 6:
     local_8b4 = operator_new(0x3f9c);
@@ -516,7 +516,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
   *(byte *)((int)piVar5 + 0xf47) = bVar3 + bVar11 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeGuardedBool(param_9);
+  EncodeGuardedBool(param_9,(byte *)GB_GUARD_UNRECOVERED);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42ebfb
    * (`lea edi,[ebx + 0x17e4]`): cell is piVar5+0x5f9 (== piVar5+0x17e4
@@ -525,7 +525,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
   EncodeOutgoingPacketField(piVar5 + 0x5f9,param_8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeGuardedBool(param_3);
+  EncodeGuardedBool(param_3,(byte *)GB_GUARD_UNRECOVERED);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42ec43
    * (`lea edi,[ebx + 0x1a08]`): cell is piVar5+0x682 (== piVar5+0x1a08
@@ -543,7 +543,7 @@ LAB_0042ec76:
     if (0x6e < param_6) goto LAB_0042ec76;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeGuardedBool(fStack_8a4);
+  EncodeGuardedBool(fStack_8a4,(byte *)GB_GUARD_UNRECOVERED);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42ecac
    * (`lea edi,[ebx + 0x3920]`): cell is piVar5+0xe48 (== piVar5+0x3920
@@ -659,7 +659,7 @@ LAB_0042f012:
     uStack_8a8 = uStack_8a8 & 0xffffff00;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeGuardedBool(uStack_8a8);
+  EncodeGuardedBool(uStack_8a8,(byte *)GB_GUARD_UNRECOVERED);
   (*pcVar13)(&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = PeekPacketChecksumState();

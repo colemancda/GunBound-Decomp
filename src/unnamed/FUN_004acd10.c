@@ -136,7 +136,7 @@ void __fastcall FUN_004acd10(int param_1)
 LAB_004aced3:
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\0') {
-      SetGuardedBool(1);
+      SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }
   }
   else {

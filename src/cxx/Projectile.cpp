@@ -115,7 +115,7 @@ char CompareChecksumPair(void *cellA, unsigned int cellB);
 void ScrubChecksumGuard(void *cell);
 unsigned int EncodeChecksumNegate(void *cell, void *out);
 void EncodeChecksumState(unsigned int value);
-void SetGuardedBool(int value);
+int SetGuardedBool(int value, int guardPtr);
 char PacketChecksumGreaterEqual(void *cell, unsigned int value);
 char CheckBothGuardedBools(void);
 void SyncOutgoingChecksumField(int arg1, void *cell);
@@ -443,7 +443,7 @@ void CProjectile::DetonateProjectile()
                     EncodeChecksumState(uVar8);
                     ScrubChecksumGuard(&auStack_234);
                 } else {
-                    SetGuardedBool(0);
+                    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
                 }
             }
         }
@@ -816,7 +816,7 @@ LAB_004579de:
         if (iVar5 < 1) goto LAB_00457e68;
     LAB_00457eb4:
         cVar4 = PeekPacketChecksumBool();
-        if (cVar4 == '\0') SetGuardedBool(1);
+        if (cVar4 == '\0') SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     } else {
     LAB_00457e68:
         EnterCriticalSection(&DAT_005a9068);

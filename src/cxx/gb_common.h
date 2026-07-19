@@ -21,4 +21,10 @@ typedef signed int     s32;
  * evaluates it as a constant. */
 #define GB_OFFSETOF(T, m) ((unsigned)&(((T *)0)->m))
 
+/* Shared scratch for guarded-bool call sites whose real cell pointer is
+ * still unrecovered - see src/network/SetGuardedBool.c. The C side declares
+ * this in include/globals.h; mirror it here for the C++ TUs. */
+extern "C" unsigned char g_guardScratchUnrecovered[4];
+#define GB_GUARD_UNRECOVERED ((int)g_guardScratchUnrecovered)
+
 #endif /* GB_CXX_COMMON_H */

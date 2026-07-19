@@ -127,7 +127,7 @@ void EncodeDecrementedChecksum(void);
 unsigned int AcquireSoundChannel(int a);   /* returns the acquired channel handle */
 void ResolveNamedState(int *arg);
 int  DecodeGuardedBool(void);
-void SetGuardedBool(int v);
+int SetGuardedBool(int value, int guardPtr);
 void QueueBroadcastEvent(unsigned int event);
 void BroadcastQueuedEvent(void);
 
@@ -873,8 +873,8 @@ LAB_004622cf:
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = bVar6;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
             BroadcastQueuedEvent();
-            SetGuardedBool(0);
-            SetGuardedBool(0);
+            SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+            SetGuardedBool(0,GB_GUARD_UNRECOVERED);
             QueueBroadcastEvent(0xc301);
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -899,8 +899,8 @@ LAB_004622cf:
             (&DAT_006a7758)[iVar11] = 0;
         }
         this->m_pad908[0xa50c] = 1;
-        SetGuardedBool(0);
-        SetGuardedBool(1);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+        SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }
     cVar5 = CheckGuardedBoolAnd(*reinterpret_cast<int *>(this->m_pad20 + 4) != 0xe);
     if (cVar5 == '\0') {
@@ -940,7 +940,7 @@ LAB_004622cf:
     if (cVar5 != '\0' ||
         (cVar5 = PacketChecksumNotEquals(this->m_pad908 + 0x228, *reinterpret_cast<unsigned int *>(this->m_padbff4 + 0x2b4)),
          cVar5 != '\0')) {
-        SetGuardedBool(1);
+        SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 4);
     *reinterpret_cast<unsigned int *>(this->m_padbff4 + 0x2b0) = uVar9;
@@ -1397,8 +1397,8 @@ LAB_00460553:
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         FUN_0043d6d0();
         BroadcastQueuedEvent();
-        SetGuardedBool(0);
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         iVar18 = g_clientContext;
         *reinterpret_cast<unsigned char *>(param_1 + 0x2ffa) = 0;
         if ((&DAT_005f2f40)[iVar18] == '\x02') {
@@ -1547,8 +1547,8 @@ LAB_00460553:
                 g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
                 FUN_0043d6d0();
                 BroadcastQueuedEvent();
-                SetGuardedBool(0);
-                SetGuardedBool(0);
+                SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+                SetGuardedBool(0,GB_GUARD_UNRECOVERED);
                 *reinterpret_cast<unsigned char *>(param_1 + 0x2ffa) = 0;
                 QueueOutgoingPacketField(0xffffffff);
                 QueueOutgoingPacketField(0xffffffff);
@@ -1710,9 +1710,9 @@ LAB_004613ad:
         uVar17 = DecodeGuardedBool();
         cVar9 = CheckGuardedBoolAnd(uVar17);
         if (cVar9 != '\0' && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01')) {
-            SetGuardedBool(0);
-            SetGuardedBool(0);
-            SetGuardedBool(1);
+            SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+            SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+            SetGuardedBool(1,GB_GUARD_UNRECOVERED);
             QueueBroadcastEvent(0xc301);
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
             puVar1 = reinterpret_cast<unsigned short *>(&DAT_00e9aacd + g_dwBroadcastEventCursor);
@@ -1857,7 +1857,7 @@ void CMobile::Mobile00_MainAction(int animEvent, int subType)
                 uVar3 = PeekChecksumStateUnderLock(&DAT_007949c8);
                 QueueOutgoingPacketField(uVar3);
             }
-            SetGuardedBool(1);
+            SetGuardedBool(1,GB_GUARD_UNRECOVERED);
         }
         break;
     case 8:
@@ -1912,9 +1912,9 @@ void CMobile::Mobile00_MainAction(int animEvent, int subType)
                 iVar1 = g_clientContext;
                 *reinterpret_cast<unsigned int *>(&DAT_005f3768 + g_clientContext) = 5;
                 *reinterpret_cast<unsigned int *>(&DAT_005f376c + iVar1) = 0;
-                SetGuardedBool(1);
+                SetGuardedBool(1,GB_GUARD_UNRECOVERED);
             } else {
-                SetGuardedBool(1);
+                SetGuardedBool(1,GB_GUARD_UNRECOVERED);
             }
         }
     }

@@ -356,13 +356,13 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
    * sibling functions in this batch (e.g. src/battle/SpawnSuperShot.c).
    * See tools/encodeoutgoingpacketfield_sites.json. */
   (*pcVar10)();
-  EncodeGuardedBool();
+  EncodeGuardedBool(0,(byte *)GB_GUARD_UNRECOVERED) /* value+ptr both dropped by Ghidra; battle path, unrecovered */;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (*pcVar10)();
   EncodeOutgoingPacketField(piVar3 + 0x5f9, param_8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (*pcVar10)();
-  EncodeGuardedBool();
+  EncodeGuardedBool(0,(byte *)GB_GUARD_UNRECOVERED) /* value+ptr both dropped by Ghidra; battle path, unrecovered */;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   piVar3[0xfe5] = iStack_40;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42fa5f

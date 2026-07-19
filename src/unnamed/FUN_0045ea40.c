@@ -38,7 +38,7 @@ void FUN_0045ea40(void)
         if ((((iVar3 != 5) && (iVar3 != 6)) && (iVar3 != 8)) && (iVar3 != 10)) {
           (**(code **)(*unaff_ESI + 4))(s_shock_00553b80);
         }
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         cVar1 = PacketChecksumEquals(g_clientContext + 0x45354,3);
         if (cVar1 == '\0') {
           uVar2 = EncodeChecksumPairSum(unaff_ESI + 0x2cb8,auStack_454,unaff_ESI + 0x2c2f);

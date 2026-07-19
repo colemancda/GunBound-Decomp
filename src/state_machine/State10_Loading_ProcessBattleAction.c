@@ -75,8 +75,8 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
           FUN_004eeae0();
           piVar3[0x2c29] = -1;
         }
-        SetGuardedBool(0);
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       }
       iVar5 = PeekChecksumStateUnderLock((uint)bVar1 * 0x224 + 0xebef4 + g_clientContext);
       if (((iVar5 != -1) && (iVar5 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a4), iVar5 != 60000)

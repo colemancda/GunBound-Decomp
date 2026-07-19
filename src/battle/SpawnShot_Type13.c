@@ -151,7 +151,7 @@ void SpawnShot_Type13(void)
   EncodeOutgoingPacketField(piVar2 + 0x346);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeGuardedBool();
+  EncodeGuardedBool(0,(byte *)GB_GUARD_UNRECOVERED) /* value+ptr both dropped by Ghidra; battle path, unrecovered */;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = _rand();

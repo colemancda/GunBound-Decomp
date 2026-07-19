@@ -242,7 +242,7 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
    * functions in this batch. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   (*pcVar9)();
-  EncodeGuardedBool();
+  EncodeGuardedBool(0,(byte *)GB_GUARD_UNRECOVERED) /* value+ptr both dropped by Ghidra; battle path, unrecovered */;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (*pcVar9)();
   EncodeOutgoingPacketField(piVar3 + 0x5f9, param_8);
@@ -253,7 +253,7 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
    * this batch (e.g. src/unnamed/FUN_00452cc0.c, .../FUN_004513b0.c). See
    * tools/encodeoutgoingpacketfield_sites.json. */
   (*pcVar9)();
-  EncodeGuardedBool();
+  EncodeGuardedBool(0,(byte *)GB_GUARD_UNRECOVERED) /* value+ptr both dropped by Ghidra; battle path, unrecovered */;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (*pcVar9)();
   EncodeOutgoingPacketField(piVar3 + 0x70b, param_7);

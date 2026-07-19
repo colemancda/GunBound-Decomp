@@ -117,7 +117,7 @@ void __fastcall FUN_004cf310(int param_1)
         param_1 = local_460;
       }
       else {
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         param_1 = local_460;
       }
     }
@@ -207,14 +207,14 @@ void __fastcall FUN_004cf310(int param_1)
   if (*(char *)(param_1 + 0x11d0) == '\0') {
     switch(*(undefined4 *)(param_1 + 0x10b8)) {
     case 0:
-      SetGuardedBool(0);
+      SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       FUN_004ccd10(param_1);
       *unaff_FS_OFFSET = local_c;
       return;
     case 1:
       cVar1 = PacketChecksumEquals(g_clientContext + 0x45354,3);
       if ((cVar1 != '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01')) {
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         *(undefined1 *)(param_1 + 0x94) = 1;
         uVar6 = PeekChecksumStateUnderLock(&DAT_00794bf0);
         cVar1 = PacketChecksumLessThan(&DAT_006a8e90 + g_clientContext,uVar6);

@@ -74,7 +74,7 @@ LAB_0042b5ad:
       *piVar3 = (int)&PTR_FUN_00556230;
     }
     local_4 = 0xffffffff;
-    SetGuardedBool(0);
+    SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     goto LAB_0042b60a;
   case 2:
     piVar3 = operator_new(0xd1d4);
@@ -254,7 +254,7 @@ LAB_0042b60a:
   piVar3[0x15] = iVar5;
   (**(code **)(piVar3[0xe] + 4))(s_normal_00552230);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeGuardedBool(param_12);
+  EncodeGuardedBool(param_12,(byte *)GB_GUARD_UNRECOVERED);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42b795
@@ -266,7 +266,7 @@ LAB_0042b60a:
   iVar5 = PeekPacketChecksumState();
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeGuardedBool(iVar5 == unaff_retaddr);
+  EncodeGuardedBool(iVar5 == unaff_retaddr,(byte *)GB_GUARD_UNRECOVERED);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = 0xae15 - (int)param_8;
   do {

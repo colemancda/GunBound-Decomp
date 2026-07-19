@@ -72,11 +72,11 @@ LAB_0043b830:
             ScrubChecksumGuard();
             iVar5 = g_clientContext;
             if (iVar4 * iVar4 + iVar3 * iVar3 < iVar6 * iVar6) {
-              SetGuardedBool(1);
+              SetGuardedBool(1,GB_GUARD_UNRECOVERED);
               QueueOutgoingPacketField(param_5);
               QueueOutgoingPacketField(param_6);
               QueueOutgoingPacketField(param_4);
-              SetGuardedBool(0);
+              SetGuardedBool(0,GB_GUARD_UNRECOVERED);
               iVar5 = piVar1[9];
               if (((iVar5 != 0xe) && (iVar5 != 5)) &&
                  ((iVar5 != 6 && ((iVar5 != 8 && (iVar5 != 10)))))) {

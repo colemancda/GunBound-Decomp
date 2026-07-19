@@ -334,7 +334,9 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
       }
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 != '\0') {
-        SetGuardedBool(0);
+        /* RECOVERED (2026-07-19), orig 0x4e08b2-0x4e08be:
+         * `mov eax,[0x5b3484]` / `push 0` / `add eax,0x3b968`. */
+        SetGuardedBool(0,g_clientContext + 0x3b968);
       }
       *(undefined1 *)((int)this + 6) = 1;
       *(undefined1 *)((int)this + 0x24) = 1;
@@ -485,7 +487,9 @@ LAB_004e0d7f:
     }
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 != '\0') {
-      SetGuardedBool(0);
+      /* RECOVERED (2026-07-19), orig 0x4e0c8d-0x4e0c99: same cell,
+       * `mov eax,[0x5b3484]` / `push 0` / `add eax,0x3b968`. */
+      SetGuardedBool(0,g_clientContext + 0x3b968);
     }
     g_serverWaitTicks = 0xffffffff;
     if (((*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) &&
@@ -539,7 +543,11 @@ LAB_004e0d7f:
   uStack_ec = *(uint *)(payload + 0xb);
   uStack_f0 = uVar6;
   QueueOutgoingPacketField(uVar6 & 0xffff);
-  SetGuardedBool((uVar6 & 0x8000) != 0);
+  /* RECOVERED (2026-07-19), orig 0x4e03cc-0x4e03e4: `mov eax,[0x5b3484]`
+   * (= g_clientContext) / `add eax,0x3b498` / `test edi,0x8000` / push 1|0 /
+   * `call 0x406500`. This is the site that faulted right after the world
+   * server accepted the login. */
+  SetGuardedBool((uVar6 & 0x8000) != 0,g_clientContext + 0x3b498);
   QueueOutgoingPacketField(uStack_f0 >> 0x10);
   QueueOutgoingPacketField(uStack_ec & 0xffff);
   QueueOutgoingPacketField(uStack_ec >> 0x10);

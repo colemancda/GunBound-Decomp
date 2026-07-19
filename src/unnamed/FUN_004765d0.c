@@ -258,7 +258,7 @@ LAB_00476b65:
         ScrubChecksumGuard();
       }
       else {
-        SetGuardedBool(0);
+        SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       }
     }
   }

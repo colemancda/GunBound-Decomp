@@ -2617,3 +2617,6 @@ uint32_t uRamfffffff8;
 /* Jumptable markers - see globals.h. */
 uint8_t *switchD_0050fe76__switchdataD_0051008c;
 uint8_t *switchD_0051392e__switchdataD_00514460;
+
+/* see include/globals.h - shared scratch for unrecovered guarded-bool sites */
+unsigned char g_guardScratchUnrecovered[4];

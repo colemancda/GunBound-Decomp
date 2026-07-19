@@ -213,7 +213,7 @@ LAB_00481a4d:
           ScrubChecksumGuard();
         }
         else {
-          SetGuardedBool(0);
+          SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         }
       }
     }
@@ -242,7 +242,7 @@ LAB_00481c0c:
         }
         QueueOutgoingPacketField(uVar10);
         uVar10 = PacketChecksumEquals(g_clientContext + 0x621e8,2);
-        SetGuardedBool(uVar10);
+        SetGuardedBool(uVar10,GB_GUARD_UNRECOVERED);
         iVar8 = g_clientContext;
         if (*(int *)(&DAT_005f3768 + g_clientContext) != 0) {
           *(undefined4 *)(&DAT_005f3768 + g_clientContext) = 5;
@@ -377,7 +377,7 @@ LAB_00481683:
 LAB_004816cf:
     cVar5 = PeekPacketChecksumBool();
     if (cVar5 == '\0') {
-      SetGuardedBool(1);
+      SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }
   }
   (*pcVar18)(&DAT_005a9068);

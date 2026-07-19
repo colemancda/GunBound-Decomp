@@ -160,7 +160,7 @@ LAB_0045821e:
           ScrubChecksumGuard();
         }
         else {
-          SetGuardedBool(0);
+          SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         }
       }
     }
@@ -569,7 +569,7 @@ LAB_004579de:
 LAB_00457eb4:
     cVar4 = PeekPacketChecksumBool();
     if (cVar4 == '\0') {
-      SetGuardedBool(1);
+      SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }
   }
   else {

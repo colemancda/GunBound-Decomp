@@ -23,7 +23,7 @@ undefined4 __fastcall RescrambleGuardedBool(undefined4 param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     cVar1 = '\0';
   }
-  EncodeGuardedBool(cVar1);
+  EncodeGuardedBool(cVar1,(byte *)GB_GUARD_UNRECOVERED);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   return param_1;
 }
