@@ -233,8 +233,19 @@ CLobbyChatPanel::CLobbyChatPanel()
  * original - then EIGHT channel-tab labels (ids 0-7, sprites 0x4b0+i,
  * 22x22 at y 9, x from 0x108 stepping 0x20; the original inlines the
  * label factory in the loop) with the selected one marked, then the
- * page-13 scrollbar. selectedTab is the builder's argument. */
-extern "C" CLobbyChatPanel * BuildLobbyChatPanel(int selectedTab)
+ * page-13 scrollbar.
+ *
+ * FIXED (2026-07-20): this took only `selectedTab`, but the original takes
+ * TWO stack args (it ends `ret 8`) and its sole caller pushes them as
+ * `push <selectedTab>` / `push 0xe53c40` (= g_uiPanelManager) at orig
+ * 0x429180-0x429186 - so in cdecl arg1 is the PANEL MANAGER and arg2 is
+ * selectedTab. Our State03 OnEnter caller already passed both; only this
+ * definition was short, so the callee read &g_uiPanelManager as selectedTab
+ * and the manager receiver below stayed hardcoded 0. That NULL is what
+ * faulted in PanelManager_ClearAllFocus (`param_1[1]` on a null param_1),
+ * reached as soon as the registry/sweep fixes let State03's OnEnter run
+ * this far. */
+extern "C" CLobbyChatPanel * BuildLobbyChatPanel(int *panelManager, int selectedTab)
 {
     CLobbyChatPanel *p = new CLobbyChatPanel();
     p->m_id = 0x2329;
@@ -247,7 +258,7 @@ extern "C" CLobbyChatPanel * BuildLobbyChatPanel(int selectedTab)
     p->m_height = 0x103;
     CEditBox *input = CreateTextEntryWidget(0, 0x1a, 0xeb, 0x1e4, 0xc, 0x50);
     p->AddChild(input);
-    PanelManager_ClearAllFocus(0 /* g_uiPanelManager; receiver convention unresolved */);
+    PanelManager_ClearAllFocus(panelManager);
     input->SetFocus(true);
     int i = 0;
     for (int x = 0x108; x < 0x208; x += 0x20, ++i) {

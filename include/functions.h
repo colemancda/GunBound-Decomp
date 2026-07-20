@@ -1638,7 +1638,7 @@ void __fastcall PanelManager_BringToFront();
 void FUN_005099b0();
 undefined4 * BuildWorldListPanel();
 undefined4 *CreateScrollListWidget(); /* returns the new widget object */
-undefined4 * BuildLobbyChatPanel();
+undefined4 * BuildLobbyChatPanel(int *panelManager,int selectedTab);
 undefined4 * BuildChannelUserListPanel();
 undefined4 * BuildAvatarStorePanel();
 void __fastcall PanelManager_ReleasePool();
