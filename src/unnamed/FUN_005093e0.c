@@ -5,14 +5,20 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  */
+/* DROPPED-REGISTER FIX (2026-07-20): the object walked here arrives in EAX -
+ * `piVar2 = *(int **)(in_EAX + 4)` is the first thing it does, and Ghidra
+ * emitted EAX as an uninitialised `in_EAX`, so it faulted reading 0x4. The
+ * sole call site loads it explicitly: orig 0x42931d `mov eax, 0xe53c40`
+ * (= &g_uiPanelManager) immediately before `call 0x5093e0` at 0x42932c.
+ * Promoted to an explicit parameter. */
 #include "ghidra_types.h"
 
 
-void FUN_005093e0(void)
+void FUN_005093e0(int panelManager)
 
 {
   int iVar1;
-  int in_EAX;
+  int in_EAX = panelManager;
   int *piVar2;
   
   piVar2 = *(int **)(in_EAX + 4);

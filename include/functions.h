@@ -1626,7 +1626,7 @@ void FUN_00508ea0();
 void BuildItemTooltipPanel();
 undefined4 BuildBuddyPanel();
 void BuildChatLogPanel();
-void FUN_005093e0();
+void FUN_005093e0(int panelManager);
 void FUN_00509410();
 undefined4 * BuildReadyRoomChatPanel();
 void BuildItemDescriptionTooltip();

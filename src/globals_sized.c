@@ -139,3 +139,43 @@ const unsigned char DAT_0056dbf0[0xa0] = {
  * orig 0x507dc0 - `mov ecx,0x40 / mov edi,0x7933c0 / rep stosd`) clears 0x40
  * dwords starting here; globals.c had it as a single uint32_t. */
 unsigned char DAT_007933c0[0x100];
+
+/* CPanelManager's vtable (orig 0x557cfc, stored at +0 by its constructor
+ * FUN_00507dc0). globals.c had it as a single zero-initialised `void *`, so
+ * any dispatch past slot 0 read adjacent zeroed globals - PanelManager_
+ * ClearAllFocus ends with `(**(code **)(*this + 0x18))()`, i.e. SLOT 6, which
+ * therefore jumped to null as soon as State03's OnEnter reached
+ * BuildLobbyChatPanel.
+ *
+ * Slot -> original address -> ported symbol:
+ *   0  0x507e10  FUN_00507e10
+ *   1  0x50f020  PanelManager_DispatchMouseMove
+ *   2  0x507ea0  PanelManager_DispatchMouseDown
+ *   3  0x50f1b0  PanelManager_DispatchMouseUp
+ *   4  0x50f1f0  PanelManager_DispatchRightMouseDown
+ *   5  0x50f150  PanelManager_DispatchRightMouseUp
+ *   6  0x507ed0  -> FUN_00507e30   (0x507ed0 is a stack-neutral thunk that
+ *                 just `jmp 0x507e30`; that target uses only globals, no
+ *                 `this`, so the existing no-argument dispatch is correct)
+ *   7  0x50f230  PanelManager_DispatchKeyDown
+ * Declared here with minimal prototypes and cast to void * - this TU
+ * deliberately does not include globals.h/functions.h. */
+extern void *FUN_00507e10();
+extern void  PanelManager_DispatchMouseMove();
+extern void  PanelManager_DispatchMouseDown();
+extern void  PanelManager_DispatchMouseUp();
+extern void  PanelManager_DispatchRightMouseDown();
+extern void  PanelManager_DispatchRightMouseUp();
+extern void  FUN_00507e30();
+extern void  PanelManager_DispatchKeyDown();
+
+void *PTR_FUN_00557cfc[8] = {
+    (void *)&FUN_00507e10,
+    (void *)&PanelManager_DispatchMouseMove,
+    (void *)&PanelManager_DispatchMouseDown,
+    (void *)&PanelManager_DispatchMouseUp,
+    (void *)&PanelManager_DispatchRightMouseDown,
+    (void *)&PanelManager_DispatchRightMouseUp,
+    (void *)&FUN_00507e30,
+    (void *)&PanelManager_DispatchKeyDown,
+};

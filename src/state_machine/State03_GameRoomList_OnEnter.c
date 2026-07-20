@@ -154,7 +154,9 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
     *(undefined4 *)(&g_replayFileHandle + g_clientContext) = 0;
   }
   param_1[0x49] = -1;
-  FUN_005093e0();
+  /* RECOVERED (2026-07-20), orig 0x42931d: `mov eax,0xe53c40` (&g_uiPanelManager)
+   * immediately before the call - EAX was a dropped register argument. */
+  FUN_005093e0((int)&g_uiPanelManager);
   FUN_0050f290();
   BuildBuddyPanel();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

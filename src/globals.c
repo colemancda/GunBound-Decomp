@@ -1246,7 +1246,8 @@ void *PTR_FUN_00557534;
 void *PTR_FUN_00557538;
 void *PTR_FUN_00557550;
 void *PTR_FUN_005575a8;
-void *PTR_FUN_00557cfc;
+/* PTR_FUN_00557cfc: moved to src/globals_sized.c - it is the CPanelManager
+ * VTABLE (8 slots), not a lone pointer. See that file. */
 void *PTR_FUN_00557f80;
 void *PTR_FUN_005637cc;
 void *PTR_FUN_005637d0;
