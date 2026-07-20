@@ -1,12 +1,12 @@
 /* CloseDirectLinkSocket - 0x004059a0 in the original binary.
  *
  * PROMOTED (2026-07-14): closes the whisper/direct-link connection's socket
- * and marks it disconnected - param_1 is DAT_007934f4 (the direct-link
+ * and marks it disconnected - param_1 is g_directLinkConnection (the direct-link
  * object), whose +0x2004 sub-object holds the socket/session state (same
  * "connection sub-object at +0x2004" idiom documented in WinMain.c/
  * Shutdown.c/SignalConnectRequest.c for this same global). Called from
  * ShowErrorDialog/ShowMessageDialog/ShowErrorDialogFmt/FUN_00411b40, every
- * site already gated on `DAT_007934f4 != 0` - only the call itself dropped
+ * site already gated on `g_directLinkConnection != 0` - only the call itself dropped
  * the argument.
  *
  * DROPPED-ARGUMENT FIX: Ghidra typed this function void() and read the

@@ -239,7 +239,7 @@ LAB_0044469b:
         g_pendingGameState = 3;
         g_stateChangeRequested = 1;
         ChangeGameState(3);
-        if (DAT_007934f4 != 0) {
+        if (g_directLinkConnection != 0) {
           FUN_00405ba0();
           return;
         }

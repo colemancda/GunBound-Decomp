@@ -629,27 +629,27 @@ LAB_0040fd35:
       (**(code **)(*DAT_00e5369c + 8))(DAT_00e5369c);
       DAT_00e5369c = (int *)0x0;
     }
-    pvVar5 = DAT_007934f4;
-    if (DAT_007934f4 != (void *)0x0) {
-      iVar7 = *(int *)((int)DAT_007934f4 + 0x2004);
+    pvVar5 = g_directLinkConnection;
+    if (g_directLinkConnection != (void *)0x0) {
+      iVar7 = *(int *)((int)g_directLinkConnection + 0x2004);
       *(undefined4 *)(iVar7 + 0x22c) = 1;
       _Memory = pvVar5;
       if (*(SOCKET *)(iVar7 + 0x24) != 0xffffffff) {
         closesocket(*(SOCKET *)(iVar7 + 0x24));
-        _Memory = DAT_007934f4;
+        _Memory = g_directLinkConnection;
       }
       *(undefined4 *)(iVar7 + 0x24) = 0xffffffff;
       *(undefined1 *)(iVar7 + 0x22a) = 0;
       *(undefined1 *)((int)pvVar5 + 0x2009) = 0;
       if (_Memory != (void *)0x0) {
-        /* orig 0x40fe86: EDI = DAT_007934f4 (=_Memory here). */
+        /* orig 0x40fe86: EDI = g_directLinkConnection (=_Memory here). */
         CloseAndFreeConnection((int)_Memory);
         _free(_Memory);
       }
     }
     pvVar5 = DAT_005b2b58;
     iVar7 = *(int *)((int)DAT_005b2b58 + 0x84e0);
-    DAT_007934f4 = (void *)0x0;
+    g_directLinkConnection = (void *)0x0;
     DAT_007934e8 = 0;
     if (iVar7 != 0) {
       *(undefined4 *)(iVar7 + 0x22c) = 1;

@@ -1,9 +1,12 @@
-/* FUN_004e73e0 - 0x004e73e0 in the original binary.
+/* SetLocalPeerEndpoint - 0x004e73e0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-19) from FUN_004e73e0. Fills in the LOCAL player's peer
+ * endpoint inside the broadcast/replay context: the loopback address
+ * 127.0.0.1 at ctx+0x150 (stored as the network-order dword 0x0100007f), the
+ * UDP port htons(0x20ab) at +0x158, `slot` at +0x15a, a -1 handle at +0x154,
+ * and the player's display name copied to +0x15d. This is the entry the
+ * peer-to-peer battle transport later sends to; the loopback address is what
+ * the original writes for the local player specifically.
  */
 /* DROPPED-REGISTER FIX (2026-07-19): TWO dropped register args - ESI (the
  * context object, all writes are ESI-relative) and EDI (the source name
@@ -17,7 +20,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e73e0(int param_1,int ctx,char *nameRec)
+void SetLocalPeerEndpoint(int slot,int ctx,char *nameRec)
 
 {
   char cVar1;
@@ -29,7 +32,7 @@ void FUN_004e73e0(int param_1,int ctx,char *nameRec)
   *(undefined4 *)(unaff_ESI + 0x150) = 0x100007f;
   uVar2 = htons(0x20ab);
   *(u_short *)(unaff_ESI + 0x158) = uVar2;
-  *(undefined2 *)(unaff_ESI + 0x15a) = param_1;
+  *(undefined2 *)(unaff_ESI + 0x15a) = slot;
   *(undefined4 *)(unaff_ESI + 0x154) = 0xffffffff;
   iVar3 = (unaff_ESI + 0x15d) - (int)unaff_EDI;
   do {

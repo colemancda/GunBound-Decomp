@@ -38,7 +38,7 @@ void State10_Loading_ProcessPacket(undefined4 param_1,int param_2,short *param_3
         g_stateChangeRequested = 0;
         DAT_0056d108 = 0;
         _DAT_007934d8 = 1;
-        if (DAT_007934f4 == 0) {
+        if (g_directLinkConnection == 0) {
           FUN_00404410(&DAT_00e53e88);
           return;
         }

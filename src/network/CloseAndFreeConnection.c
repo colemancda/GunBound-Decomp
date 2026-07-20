@@ -9,7 +9,7 @@
 
 
 /* DROPPED-REGISTER FIX (2026-07-17): `unaff_EDI` (the connection OWNER
- * object, e.g. DAT_007934f4) arrives in EDI - confirmed at both call sites
+ * object, e.g. g_directLinkConnection) arrives in EDI - confirmed at both call sites
  * (orig 0x4121cc `mov edi,esi`(=[0x7934f4]), 0x40fe86 `mov edi,[0x7934f4]`
  * right before `call 0x405930`). The port read uninitialised EDI ->
  * *(garbage+0x2004) wild derefs; the first socket-error event (PIEQ 0x65)

@@ -1,9 +1,15 @@
-/* FUN_004e7430 - 0x004e7430 in the original binary.
+/* ResetReplayContext - 0x004e7430 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-19) from FUN_004e7430. Resets the broadcast/replay
+ * context (g_replayContext, the 0x454f9-byte object at DAT_00e55ce0) back to
+ * its idle state: zeroes the 0x40-byte header block at +0x18, the cursor
+ * trio at +0x138/+0x13c/+0x140, the 0x1000-byte table at +0x42de0, the pair
+ * at +0x40bd0/+0x40bd4 and the event counters at +0x44de4/+0x44de8,
+ * InterlockedExchange-clears the lock word at +0x44de0, and sets the eight
+ * per-slot handles at +0x454c4..+0x454e0 to -1 (the family's "no peer"
+ * sentinel). All 3 call sites pass &g_replayContext (`mov esi,0xe55ce0`).
+ * Called on channel entry (State03_GameRoomList_ProcessPacket) and from the
+ * replay writer.
  */
 /* DROPPED-REGISTER FIX (2026-07-19): the object this clears is addressed by
  * ESI, an incoming register arg Ghidra emitted as an uninitialised
@@ -15,7 +21,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e7430(int ctx)
+void ResetReplayContext(int ctx)
 
 {
   int iVar1;

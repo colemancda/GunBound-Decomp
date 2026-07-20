@@ -70,8 +70,8 @@ void ShowMessageDialog(undefined4 param_1,int param_2)
       *(undefined1 *)(iVar2 + 0x22a) = 0;
       *(undefined1 *)(iVar1 + 0x84e5) = 0;
     }
-    if (DAT_007934f4 != 0) {
-      CloseDirectLinkSocket((int)DAT_007934f4);
+    if (g_directLinkConnection != 0) {
+      CloseDirectLinkSocket((int)g_directLinkConnection);
     }
     SetEvent(DAT_00e55ce8);
   }

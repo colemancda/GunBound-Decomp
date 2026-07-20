@@ -1,7 +1,7 @@
 /* FUN_00405a40 - 0x00405a40 in the original binary.
  *
  * Drains the pending battle-action/packet ring on the direct-link
- * connection context (DAT_007934f4): walks the queue between the read
+ * connection context (g_directLinkConnection): walks the queue between the read
  * cursor at +0x24238 and the write cursor at +0x24234, dispatching each
  * entry by its opcode word.
  *
@@ -11,9 +11,9 @@
  * [edi+0x2008] without ever setting EDI, and the function's single call
  * site (PumpBattleActions / FUN_004129c0 at 0x412a0a) does
  * `mov edi,[0x7934f4]` immediately before the call - i.e. EDI is
- * DAT_007934f4, exactly the object Shutdown.c already drives through the
+ * g_directLinkConnection, exactly the object Shutdown.c already drives through the
  * same +0x2004 -> +0x22c connection-object field. That call site already
- * guards on `DAT_007934f4 != 0`; it simply never passed the pointer.
+ * guards on `g_directLinkConnection != 0`; it simply never passed the pointer.
  * Left unfixed this read a garbage EDI, so [garbage+0x2004] yielded NULL
  * and the `+0x22c` deref faulted (read of 0x22d at rebuilt 0x44b086)
  * under the stricter (Lutris) wine.

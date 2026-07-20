@@ -24,7 +24,7 @@
  *
  * Re-verified (2026-07-19) by angr CFG sweep - 100% agreement across both
  * call sites:
- *   ESI: 0x40de77 (WinMain)             `mov esi, [eax+0x2004]`, eax=DAT_007934f4
+ *   ESI: 0x40de77 (WinMain)             `mov esi, [eax+0x2004]`, eax=g_directLinkConnection
  *        0x4d24cd (BeginServerConnect)  `mov esi, [ebx+0x84e0]`
  *   EDI: 0x40de82 (WinMain)             `mov edi, 0x551e38` -> "localhost"
  *        0x4d24c9 (BeginServerConnect)  `mov edi, [esp+0x10]` -> its host arg

@@ -19,6 +19,17 @@ public class RenameDataSymbols extends GhidraScript {
         // 2026-07-18 session: server-reply wait counter driving the PLEASE WAIT
         // (waitmessage.img) overlay; -1 idle, 0 on request, +1/tick, shows >40.
         {"0056d118", "g_serverWaitTicks", "src/globals.c - PLEASE WAIT wait counter"},
+        // 2026-07-19 session: the game-event ring PumpBattleActions drains
+        // (type 5/data -1 -> joinChannelRequest 0x2000; every entry also goes
+        // to the current state's vtable slot 3). Inert as ported: nothing in
+        // .text writes the write index.
+        {"00793798", "g_gameEventRingWriteIndex", "drained by PumpBattleActions (0x412bca)"},
+        {"0079379c", "g_gameEventRingReadIndex",  "drained by PumpBattleActions (0x412bca)"},
+        {"007937a0", "g_gameEventTypeRing",       "512 dwords of event type"},
+        {"00793fa0", "g_gameEventDataRing",       "512 dwords of event data"},
+        // WinMain's peer-to-peer auto-connect object (operator_new(0x200c));
+        // session sub-object at +0x2004; non-NULL from startup.
+        {"007934f4", "g_directLinkConnection",    "src/entry/WinMain.c"},
     };
 
     public void run() throws Exception {

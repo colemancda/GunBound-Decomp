@@ -110,7 +110,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
           g_stateChangeRequested = 0;
           DAT_0056d108 = 0;
           _DAT_007934d8 = 1;
-          if (DAT_007934f4 == 0) {
+          if (g_directLinkConnection == 0) {
             FUN_00404410(&DAT_00e53e88);
           }
           else {

@@ -11,7 +11,7 @@
  *    objdump that it arrives unchanged in EBX with no stack argument
  *    (`ret` with no operand) at entry (0x405ba0: `mov al,[ebx+0x2009]`
  *    is the very first instruction). All 8 call sites across src/
- *    (each gated on `DAT_007934f4 != 0`) pass that same global, never
+ *    (each gated on `g_directLinkConnection != 0`) pass that same global, never
  *    anything else - hardcoded here rather than threading a parameter
  *    through 8 call sites for an invariant value, same approach as
  *    InvokeWidget's registry base.
@@ -60,7 +60,7 @@ void FUN_00405ba0(void)
   undefined4 *puVar17;
   char msgBuf [128];
 
-  pktBuf = (undefined2 *)DAT_007934f4;
+  pktBuf = (undefined2 *)g_directLinkConnection;
   iVar14 = g_clientContext;
   if (*(char *)((int)pktBuf + 0x2009) == '\0') {
     return;

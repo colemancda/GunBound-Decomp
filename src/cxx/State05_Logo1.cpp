@@ -40,7 +40,7 @@ void BuildSystemInfoBlob(void *outBlob, void *outBlob2);        /* fills the 36-
  * the call site below - the established project idiom for reproducing
  * __thiscall (this in ECX, rest on the stack) from C++. */
 unsigned int SendSocketData(char *buf, int connObj, unsigned int len); /* channel send - address only, see call site */
-extern unsigned int DAT_007934f4;        /* outgoing packet buffer base (declared uint in the C
+extern unsigned int g_directLinkConnection;        /* outgoing packet buffer base (declared uint in the C
                                           * tree; used as a pointer here, cast locally) */
 }
 
@@ -89,7 +89,7 @@ void CState05Logo1::OnExit()
 send_info:
     unsigned int blob[9];
     BuildSystemInfoBlob(blob, blob + 4);
-    unsigned short *buf = (unsigned short *)DAT_007934f4;
+    unsigned short *buf = (unsigned short *)g_directLinkConnection;
     if (buf != 0) {
         buf[1] = 0xa000;
         *(int *)((unsigned char *)buf + 0x2000) = 4;

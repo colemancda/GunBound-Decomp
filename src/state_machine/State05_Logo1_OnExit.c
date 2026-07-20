@@ -41,7 +41,7 @@ void State05_Logo1_OnExit(void)
   /* FIXED (2026-07-14): the trailing SendSocketData call only passed 2 of
    * its 3 real args and dropped the buffer ("this") entirely - same bug
    * as FUN_00405ba0.c's own already-fixed SendSocketData call, which
-   * shares this exact object shape (DAT_007934f4, connObj at +0x2004,
+   * shares this exact object shape (g_directLinkConnection, connObj at +0x2004,
    * write cursor at +0x2000). Confirmed via angr disassembly at
    * 0x443515-0x44352b. NOTE: this raw C port is superseded at runtime by
    * the C++ CState05Logo1::OnExit (src/cxx/State05_Logo1.cpp,
@@ -66,9 +66,9 @@ void State05_Logo1_OnExit(void)
   puVar5[4] = puVar5;
 LAB_00443475:
   BuildSystemInfoBlob(systemInfoBlob1, systemInfoBlob2);
-  puVar4 = DAT_007934f4;
-  if (DAT_007934f4 != (undefined2 *)0x0) {
-    /* DAT_007934f4[1] in the original: rewritten through puVar4 (same
+  puVar4 = g_directLinkConnection;
+  if (g_directLinkConnection != (undefined2 *)0x0) {
+    /* g_directLinkConnection[1] in the original: rewritten through puVar4 (same
      * value, cast to undefined2* two lines up) since the global itself
      * is declared uint32_t - it's used as a plain integer/address in
      * ~30 other files, so retyping it as a pointer isn't worth the

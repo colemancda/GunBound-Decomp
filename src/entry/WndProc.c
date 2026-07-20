@@ -100,7 +100,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
          * that file's own comment. */
         UpdateDeviceAcquisition((int)g_keyboardDeviceTimerBlock, lVar1 != 0);
         UpdateDeviceAcquisition((int)g_mouseDeviceTimerBlock, lVar1 != 0);
-        if (DAT_007934f4 != 0) {
+        if (g_directLinkConnection != 0) {
           if (param_3 == 1) {
             FUN_00405b20();
           }

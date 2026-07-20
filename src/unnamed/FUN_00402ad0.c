@@ -7,7 +7,7 @@
  * FIXED (2026-07-14): the trailing SendSocketData call only passed 2 of
  * its 3 real args and dropped the buffer ("this") entirely - same bug as
  * FUN_00405ba0.c's own already-fixed SendSocketData call, which shares
- * this exact object shape (DAT_007934f4, connObj at +0x2004, write
+ * this exact object shape (g_directLinkConnection, connObj at +0x2004, write
  * cursor at +0x2000). Confirmed via angr disassembly at 0x402b96-0x402bac:
  * `mov ecx,eax` where eax was previously the object base (buffer, this) /
  * `push eax` where eax=[obj+0x2004] (connection object, param_2) / `push
@@ -41,12 +41,12 @@ void FUN_00402ad0(int param_1,char *param_2)
   char acStack_8c [140];
   
   cVar2 = FUN_00426030(&local_a0);
-  puVar1 = DAT_007934f4;
+  puVar1 = g_directLinkConnection;
   if (cVar2 == '\x01') {
-    if (DAT_007934f4 != (undefined2 *)0x0) {
+    if (g_directLinkConnection != (undefined2 *)0x0) {
       uStack_b4 = 0;
       uStack_b0 = 0;
-      *(undefined4 *)(DAT_007934f4 + 0x1000) = 4;
+      *(undefined4 *)(g_directLinkConnection + 0x1000) = 4;
       uStack_ac = 0;
       uStack_a8 = 0;
       local_a7 = 0;

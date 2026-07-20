@@ -39,10 +39,10 @@ void PumpBattleActions(int param_1)
   ProcessIncomingPackets(DAT_005b2b58,0);
   ProcessIncomingPackets(DAT_005b2b5c,0);
   ProcessIncomingPackets(DAT_005b2b60,0);
-  if (DAT_007934f4 != 0) {
+  if (g_directLinkConnection != 0) {
     /* Context passed in EDI by the original (`mov edi,[0x7934f4]`
      * immediately before the call) - see FUN_00405a40.c's header. */
-    FUN_00405a40(DAT_007934f4);
+    FUN_00405a40(g_directLinkConnection);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_00e9af44);
   FUN_004e84c0(&g_replayContext);
@@ -116,12 +116,12 @@ LAB_00412baa:
   DAT_0056d3d8 = -1;
 LAB_00412cb3:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_00e9af44);
-  while (iVar3 = DAT_007934e8, DAT_0079379c != DAT_00793798) {
-    iVar4 = *(int *)(&DAT_00793fa0 + DAT_0079379c * 4);
-    iVar1 = *(int *)(&DAT_007937a0 + DAT_0079379c * 4);
-    DAT_0079379c = DAT_0079379c + 1 & 0x800001ff;
-    if ((int)DAT_0079379c < 0) {
-      DAT_0079379c = (DAT_0079379c - 1 | 0xfffffe00) + 1;
+  while (iVar3 = DAT_007934e8, g_gameEventRingReadIndex != g_gameEventRingWriteIndex) {
+    iVar4 = *(int *)(&g_gameEventDataRing + g_gameEventRingReadIndex * 4);
+    iVar1 = *(int *)(&g_gameEventTypeRing + g_gameEventRingReadIndex * 4);
+    g_gameEventRingReadIndex = g_gameEventRingReadIndex + 1 & 0x800001ff;
+    if ((int)g_gameEventRingReadIndex < 0) {
+      g_gameEventRingReadIndex = (g_gameEventRingReadIndex - 1 | 0xfffffe00) + 1;
     }
     iStack_404 = iVar4;
     if (iVar1 == 2) {

@@ -25,7 +25,7 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
   char local_10c [264];
   undefined4 uStack_4;
   
-  iVar4 = DAT_007934f4;
+  iVar4 = g_directLinkConnection;
   uVar2 = *(uint *)(param_1 + 4);
   if (uVar2 < 0x1005) {
     if (uVar2 == 0x1004) {
@@ -48,14 +48,14 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
         return;
       }
       if (uVar2 == 0) {
-        if (DAT_007934f4 == 0) {
+        if (g_directLinkConnection == 0) {
           if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
             (**(code **)(**(int **)(param_2 + 0x1bdc) + 0x10))();
           }
           FUN_004024f0(param_2,param_1 + 8);
           return;
         }
-        *(undefined4 *)(DAT_007934f4 + 0x2000) = 4;
+        *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
         *(undefined2 *)(iVar4 + 2) = 0xa110;
         *(undefined4 *)(iVar4 + 4) = *in_EAX;
         *(undefined4 *)(iVar4 + 8) = in_EAX[1];
@@ -73,8 +73,8 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
         return;
       }
       if (uVar2 == 1) {
-        if (DAT_007934f4 != 0) {
-          *(undefined4 *)(DAT_007934f4 + 0x2000) = 4;
+        if (g_directLinkConnection != 0) {
+          *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
           *(undefined2 *)(iVar4 + 2) = 0xa200;
           *(undefined4 *)(iVar4 + 4) = *in_EAX;
           *(undefined4 *)(iVar4 + 8) = in_EAX[1];
@@ -100,8 +100,8 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
           return;
         }
       }
-      else if ((uVar2 == 2) && (DAT_007934f4 != 0)) {
-        *(undefined4 *)(DAT_007934f4 + 0x2000) = 4;
+      else if ((uVar2 == 2) && (g_directLinkConnection != 0)) {
+        *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
         *(undefined2 *)(iVar4 + 2) = 0xa112;
         *(undefined4 *)(iVar4 + 4) = *in_EAX;
         *(undefined4 *)(iVar4 + 8) = in_EAX[1];
@@ -158,8 +158,8 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
       BuildItemTooltipPanel(&g_uiPanelManager,local_10c + 0xc);
       return;
     case 0x2002:
-      if (DAT_007934f4 != 0) {
-        *(undefined4 *)(DAT_007934f4 + 0x2000) = 4;
+      if (g_directLinkConnection != 0) {
+        *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
         *(undefined2 *)(iVar4 + 2) = 0xa251;
         *(undefined4 *)(iVar4 + 4) = *in_EAX;
         *(undefined4 *)(iVar4 + 8) = in_EAX[1];
@@ -179,8 +179,8 @@ LAB_0040377c:
       }
       break;
     case 0x2003:
-      if (DAT_007934f4 != 0) {
-        *(undefined4 *)(DAT_007934f4 + 0x2000) = 4;
+      if (g_directLinkConnection != 0) {
+        *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
         *(undefined2 *)(iVar4 + 2) = 0xa251;
         *(undefined4 *)(iVar4 + 4) = *in_EAX;
         *(undefined4 *)(iVar4 + 8) = in_EAX[1];
@@ -197,14 +197,14 @@ LAB_0040377c:
       }
       break;
     case 0x2004:
-      if (DAT_007934f4 == 0) {
+      if (g_directLinkConnection == 0) {
         if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
           (**(code **)(**(int **)(param_2 + 0x1bdc) + 0x28))();
         }
         FUN_00401ee0(param_2);
         return;
       }
-      *(undefined4 *)(DAT_007934f4 + 0x2000) = 4;
+      *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
       *(undefined2 *)(iVar4 + 2) = 0xa210;
       *(undefined4 *)(iVar4 + 4) = *in_EAX;
       *(undefined4 *)(iVar4 + 8) = in_EAX[1];

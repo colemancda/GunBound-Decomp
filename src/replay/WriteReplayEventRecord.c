@@ -404,7 +404,7 @@ LAB_004111c0:
           *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
           FUN_0041c230();
           FUN_0041b7e0();
-          FUN_004e7430((int)&g_replayContext);
+          ResetReplayContext((int)&g_replayContext);
           iVar19 = g_clientContext;
           *(uint *)(g_clientContext + 0x41340) = (uint)*(ushort *)(param_3 + 2);
           local_d71 = param_3[4];
@@ -446,7 +446,7 @@ LAB_004111c0:
                 *(undefined2 *)(iVar19 + 0x44048 + uVar6 * 2) = 0x17;
               }
               if (local_d61 == local_d71) {
-                FUN_004e73e0(0,(int)&g_replayContext,
+                SetLocalPeerEndpoint(0,(int)&g_replayContext,
                              (char *)((int)&g_replayContext + (uint)local_d61 * 0xd + 0x41445));
                 iVar19 = g_clientContext;
               }

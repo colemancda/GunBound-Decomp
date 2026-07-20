@@ -64,24 +64,24 @@ LAB_00412140:
         stateObj = g_gameStateVTableArray[g_currentGameState];
         ((OnKeyInputFn)(*(void ***)stateObj)[5])(stateObj,iVar1,uVar2,iVar3);
       }
-      pvVar4 = DAT_007934f4;
+      pvVar4 = g_directLinkConnection;
       if (iVar1 == 0) goto LAB_004122c7;
       if (iVar1 == 0x32) break;
       if (iVar1 == 0x65) {
         if (uVar2 == 3) {
-          if (DAT_007934f4 != (void *)0x0) {
-            /* orig 0x4121cc: EDI = DAT_007934f4 (=pvVar4 here). */
+          if (g_directLinkConnection != (void *)0x0) {
+            /* orig 0x4121cc: EDI = g_directLinkConnection (=pvVar4 here). */
             CloseAndFreeConnection((int)pvVar4);
             _free(pvVar4);
           }
-          DAT_007934f4 = (void *)0x0;
+          g_directLinkConnection = (void *)0x0;
           DAT_00793529 = 1;
         }
         else {
           ShowErrorDialog(1);
-          pvVar4 = DAT_007934f4;
-          if (DAT_007934f4 != (void *)0x0) {
-            iVar1 = *(int *)((int)DAT_007934f4 + 0x2004);
+          pvVar4 = g_directLinkConnection;
+          if (g_directLinkConnection != (void *)0x0) {
+            iVar1 = *(int *)((int)g_directLinkConnection + 0x2004);
             *(undefined4 *)(iVar1 + 0x22c) = 1;
             if (*(SOCKET *)(iVar1 + 0x24) != 0xffffffff) {
               closesocket(*(SOCKET *)(iVar1 + 0x24));

@@ -52,7 +52,7 @@ extern unsigned int DAT_005b33e8;        /* broker Port - sized, see globals.c *
 extern int DAT_005b2b64;                /* server count hint for the scroll seed */
 extern unsigned int DAT_007934e4;       /* shared EDIT-control singleton (+8 = live flag) */
 extern unsigned int DAT_007934e8;       /* double-buffered connection context */
-extern unsigned int DAT_007934f4;       /* outgoing packet buffer base */
+extern unsigned int g_directLinkConnection;       /* outgoing packet buffer base */
 extern unsigned int DAT_007934f0;       /* per-connection context base */
 void FUN_00405ba0(void);
 extern unsigned int DAT_007934ec;       /* the other half of the double-buffered context */
@@ -152,7 +152,7 @@ void CState02ServerSelect::OnEnter()
     }
     m_tickCounter = 0;
     PlayMusicTrack(1, "channel.mp3");
-    bool haveBuffer = DAT_007934f4 != 0;
+    bool haveBuffer = g_directLinkConnection != 0;
     m_inputEnabled = 0;
     *(int *)(ctx + 0x3f804) = -1;
     if (haveBuffer) {

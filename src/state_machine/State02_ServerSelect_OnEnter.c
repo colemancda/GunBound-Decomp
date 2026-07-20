@@ -154,7 +154,7 @@ void __fastcall State02_ServerSelect_OnEnter(int param_1)
   *(undefined4 *)(param_1 + 0x20) = 0;
   PlayMusicTrack(1,(byte *)"channel.mp3");
   iVar1 = g_clientContext;
-  bVar5 = DAT_007934f4 != 0;
+  bVar5 = g_directLinkConnection != 0;
   *(undefined1 *)(param_1 + 0x24) = 0;
   *(undefined4 *)(iVar1 + 0x3f804) = 0xffffffff;
   if (bVar5) {

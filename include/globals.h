@@ -622,7 +622,12 @@ extern uint32_t DAT_007934e4;
 extern uint32_t DAT_007934e8;
 extern uint32_t DAT_007934ec;
 extern uint32_t DAT_007934f0;
-extern uint32_t DAT_007934f4;
+/* The direct-link / peer-to-peer auto-connect object WinMain allocates at
+ * startup (operator_new(0x200c), then FUN_004058c0(obj,3,...)); its session
+ * sub-object lives at +0x2004. Non-NULL from startup, which is why the
+ * 0x1012 auth-success handler's `if (g_directLinkConnection != 0) return;`
+ * is the normal path there. Torn down via CloseDirectLinkSocket. */
+extern uint32_t g_directLinkConnection;
 extern uint8_t DAT_007934f8;
 extern uint32_t DAT_007934fc;
 extern uint32_t DAT_00793500;
@@ -693,10 +698,21 @@ extern uint32_t DAT_0079376c;
 extern uint8_t DAT_00793770;
 extern int *DAT_00793774; /* used dereferenced as a pointer at call sites */
 extern uint32_t DAT_00793778;
-extern uint32_t DAT_00793798;
-extern uint32_t DAT_0079379c;
-extern uint8_t DAT_007937a0;
-extern uint8_t DAT_00793fa0;
+/* Game-event ring drained by PumpBattleActions (orig 0x412bca): parallel
+ * 512-entry dword arrays of event TYPE and DATA with separate write/read
+ * indices (mask 0x1ff). Type 5 with data -1 sends joinChannelRequest(0x2000);
+ * every entry is also dispatched to the current state's vtable slot 3
+ * (State02_ServerSelect_OnTopButton). NOTE the type/data arrays are declared
+ * uint8_t but indexed as `*(int *)(&sym + idx*4)` - 0x7937a0..0x793fa0 is
+ * exactly 512*4 - so they are UNDER-SIZED here (same class as the other
+ * arena-offset placeholders); size them before relying on this ring.
+ * NOTE ALSO (2026-07-19): nothing in the binary ever WRITES the write index -
+ * a raw byte-scan of .text finds refs to these four symbols only in InitGame
+ * (setup) and PumpBattleActions (drain), so the ring is inert as ported. */
+extern uint32_t g_gameEventRingWriteIndex;
+extern uint32_t g_gameEventRingReadIndex;
+extern uint8_t g_gameEventTypeRing;
+extern uint8_t g_gameEventDataRing;
 extern uint8_t DAT_00794bf0;
 extern uint8_t DAT_00794e14;
 /* Input-event ring buffer - ONE contiguous 0x1808-byte object (orig

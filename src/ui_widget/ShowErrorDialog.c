@@ -39,7 +39,7 @@
  *      (DAT_005b2b58 / DAT_005b2b5c / DAT_005b2b60 -> mark state 1, closesocket
  *      +0x24, clear connected flags +0x22a/+0x84e5), releases the COM object
  *      DAT_00e55a64 (vtable +4 = Release), closes the whisper/direct link if
- *      active (DAT_007934f4 -> FUN_004059a0), and SetEvent(DAT_00e55ce8).
+ *      active (g_directLinkConnection -> FUN_004059a0), and SetEvent(DAT_00e55ce8).
  *
  * One of a three-overload family that differ only in the message source:
  *   ShowErrorDialog(closeSockets)          - localized string by id, verbatim.
@@ -134,8 +134,8 @@ void ShowErrorDialog(int param_1,int messageId)
       (**(code **)(*DAT_00e55a64 + 4))();
     }
     DAT_00e55a64 = (int *)0x0;
-    if (DAT_007934f4 != 0) {
-      CloseDirectLinkSocket((int)DAT_007934f4);
+    if (g_directLinkConnection != 0) {
+      CloseDirectLinkSocket((int)g_directLinkConnection);
     }
     SetEvent(DAT_00e55ce8);
   }

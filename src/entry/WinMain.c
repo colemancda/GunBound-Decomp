@@ -163,18 +163,18 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   LoadClientSettingsFromRegistry();
   pvVar4 = operator_new(0x200c);
   if (pvVar4 == (void *)0x0) {
-    DAT_007934f4 = (HDC)0x0;
+    g_directLinkConnection = (HDC)0x0;
   }
   else {
-    /* DAT_007934f4 = pvVar4 recovered from orig 0x40dc17-0x40dc24: the
+    /* g_directLinkConnection = pvVar4 recovered from orig 0x40dc17-0x40dc24: the
      * original stores eax (pvVar4) into edi BEFORE calling FUN_004058c0
      * (which takes it as a dropped-EDI context arg - see that file), and
-     * SignalConnectRequest later reads *(DAT_007934f4+0x2004) expecting
+     * SignalConnectRequest later reads *(g_directLinkConnection+0x2004) expecting
      * this same object. FUN_004058c0 itself is still a raw, unverified
      * port of a deep constructor chain (FUN_004e54e0 and beyond build a
      * 0x24a70-byte connection object) - called for its side effects, not
      * its (nonexistent) return value. */
-    DAT_007934f4 = pvVar4;
+    g_directLinkConnection = pvVar4;
     FUN_004058c0(pvVar4,3,&g_inputEventQueueWriteIndex);
   }
   DVar3 = timeGetTime();
@@ -251,8 +251,8 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   if (local_dac == 0) {
     BuildSystemInfoBlob(g_clientContext + 0x2331c, systemInfoBlob2);
     SetFocus(hWnd);
-    local_db4 = DAT_007934f4;
-    /* Recovered args: connection sub-object at *(DAT_007934f4+0x2004),
+    local_db4 = g_directLinkConnection;
+    /* Recovered args: connection sub-object at *(g_directLinkConnection+0x2004),
      * hostname "localhost" (orig 0x551e38) - see SignalConnectRequest.c.
      *
      * BRING-UP HACK (2026-07-17): SKIPPED. This is an auxiliary localhost:8355
@@ -263,7 +263,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
      * first full GameTick. Not needed for the broker/world-server flow.
      * RE-ENABLE once the teardown chain is fully recovered or a local 8355
      * service exists:
-     * SignalConnectRequest(*(int *)((char *)DAT_007934f4 + 0x2004), "localhost", 0x20a3);
+     * SignalConnectRequest(*(int *)((char *)g_directLinkConnection + 0x2004), "localhost", 0x20a3);
      */
     *(undefined1 *)&local_db4[0x802].unused = 1;
     DAT_007934e0 = timeGetTime();

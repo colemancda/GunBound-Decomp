@@ -134,7 +134,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
           g_pendingGameState = 7;
           g_stateChangeRequested = 1;
           ChangeGameState(7);
-          bVar30 = DAT_007934f4 != 0;
+          bVar30 = g_directLinkConnection != 0;
           *(undefined4 *)(g_clientContext + 0x41340) = 0xfffffffe;
           if (bVar30) {
             FUN_00405ba0();
@@ -336,7 +336,7 @@ switchD_00428058_default:
     }
     if (opcode == 0x2001) {
       if (*payload == 0) {
-        if (DAT_007934f4 == 0) {
+        if (g_directLinkConnection == 0) {
           FUN_00404410(&DAT_00e53e88);
         }
         else {
@@ -480,7 +480,7 @@ switchD_00428058_default:
       }
       if (*payload == 0) {
         FUN_00415ca0();
-        FUN_004e7430((int)&g_replayContext);
+        ResetReplayContext((int)&g_replayContext);
         FUN_0041b7e0();
         *(undefined1 *)(extraout_EDX + 0x3b6c0) = 0;
         /* QueueOutgoingPacketField is void-returning (see its own
@@ -696,7 +696,7 @@ switchD_00428058_default:
         g_stateChangeRequested = 1;
         ChangeGameState(9);
         *(undefined4 *)(g_clientContext + 0x41340) = 0xffffffff;
-        if (DAT_007934f4 == 0) {
+        if (g_directLinkConnection == 0) {
           FUN_00404410(&DAT_00e53e88);
         }
         else {
@@ -757,7 +757,7 @@ switchD_00428058_default:
       FUN_00429f90();
     }
     if (*payload == 0) {
-      FUN_004e7430((int)&g_replayContext);
+      ResetReplayContext((int)&g_replayContext);
       FUN_0041b7e0();
       FUN_00415ca0();
       *(undefined4 *)(extraout_EDX_00 + 0x45914) = 0;
@@ -875,7 +875,7 @@ switchD_00428058_default:
       g_stateChangeRequested = 1;
       ChangeGameState(9);
       *(undefined4 *)(g_clientContext + 0x41340) = 0xffffffff;
-      if (DAT_007934f4 == 0) {
+      if (g_directLinkConnection == 0) {
         FUN_00404410(&DAT_00e53e88);
       }
       else {

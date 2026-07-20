@@ -321,7 +321,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           }
           DAT_00793529 = '\0';
         }
-        if (DAT_007934f4 == 0) {
+        if (g_directLinkConnection == 0) {
           FUN_00404410(&DAT_00e53e88);
         }
         else {
@@ -689,7 +689,7 @@ LAB_004e071c:
   if (payloadLen < 0x1c) {
     return;
   }
-  if (DAT_007934f4 != 0) {
+  if (g_directLinkConnection != 0) {
     return;
   }
   DAT_00793529 = 1;

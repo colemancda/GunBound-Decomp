@@ -153,7 +153,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
         g_pendingGameState = 3;
         g_stateChangeRequested = 0;
         DAT_0056d108 = 0;
-        if (DAT_007934f4 == 0) {
+        if (g_directLinkConnection == 0) {
           FUN_00404410(&DAT_00e53e88);
           return;
         }
