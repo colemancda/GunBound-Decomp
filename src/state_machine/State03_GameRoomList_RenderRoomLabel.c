@@ -24,7 +24,16 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
   char *pcVar7;
   char acStack_80 [128];
   
-  if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
+  /* RECOVERED (2026-07-20), orig 0x429829-0x429835:
+   *   xor esi,esi / mov edx,0x2710 / mov eax,0xea0e18 / call 0x4f30c0
+   * FindSpriteFrame takes (container=EAX, outerKey=EDX, innerKey=ESI); this
+   * site passed none of them and read garbage off the stack, faulting on the
+   * container deref (`*(int *)(container + 4)`) as soon as the lobby's render
+   * path first ran. Per FindSpriteFrame.c's header the promotion is
+   * deliberately incremental - fixing a call site is safe while others stay
+   * unmigrated. Cached scan: tools/findspriteframe_sites.json. */
+  if ((DAT_0079352c != 0) &&
+      (iVar3 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,0), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0);
     }
@@ -34,7 +43,12 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
   }
   iVar3 = g_clientContext;
   uVar2 = *(undefined2 *)(g_clientContext + 0x23344);
-  if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
+  /* RECOVERED (2026-07-20), orig 0x429871-0x429881: `movzx esi,word ptr
+   * [ebp+0x23344]` / mov edx,0x64 / mov eax,0xea0e18 - the inner key is the
+   * same g_clientContext+0x23344 word this function already loads into uVar2
+   * two lines above. */
+  if ((DAT_0079352c != 0) &&
+      (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x64,(uint)(unsigned short)uVar2), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(0xac,9);
     }
