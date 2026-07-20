@@ -141,15 +141,42 @@ extern unsigned char g_graphicsArchive[], g_xfsScratch[];
  * a huge value versus any real widget id, so it always compares
  * greater and the search stops there too. Confirmed analytically
  * against InvokeWidget.c's already-fixed traversal (same idiom). */
-static void gb_init_widget_registry(unsigned char *registry)
+extern void *PTR_FUN_00557530;   /* the layer vtable (src/globals.c) */
+
+/* REWORKED (2026-07-19): give each registry root a REAL SENTINEL NODE
+ * instead of making the container act as its own sentinel.
+ *
+ * The container CANNOT be its own sentinel: in the original, registry+0x10
+ * holds the input-event ring pointer (InitGame at orig 0x40ed16,
+ * `mov [0xe9bea0],eax` with eax=0x795070 = the ring), while a SENTINEL, being
+ * layer-shaped, needs +0xc/+0x10 as its inner-list links. The previous
+ * self-init used the same +0x10 for both, and the ring write below then
+ * clobbered the link - so once SweepActiveObjectRegistry was restored it
+ * walked out of the layer list, treated the container itself as a layer, and
+ * read g_inputEventRing as a button node (observed live: `sweep
+ * layer=<DAT_00e9be90> node=<g_inputEventRing> vtbl=00000003`).
+ *
+ * The sentinel is shaped exactly like a layer built by CreateActiveObjectLayer
+ * (0x4f2f00): +0 vtable, +4 sort key, +0xc/+0x10 inner list, +0x18/+0x1c outer
+ * list. Its key is 0xFFFFFFFF so every real layer key compares below it and
+ * the sorted insert search (`while ([edx+4] <= key)`) always terminates on it;
+ * all four link fields point at itself, which is the empty-list state both the
+ * insert (0x4f2f55-0x4f2f6a) and the sweep (0x4f3020) expect. */
+static void gb_init_widget_registry(unsigned char *registry, unsigned char *sentinel)
 {
-    *(int *)(registry + 0x04) = (int)registry;
-    *(int *)(registry + 0x0c) = (int)registry;
-    *(int *)(registry + 0x10) = (int)registry;
-    *(int *)(registry + 0x18) = (int)registry;
-    *(int *)(registry + 0x1c) = (int)registry;
+    *(void **)(sentinel + 0x00) = &PTR_FUN_00557530;   /* layer vtable */
+    *(unsigned int *)(sentinel + 0x04) = 0xffffffffu;  /* sorts after every real key */
+    *(int *)(sentinel + 0x0c) = (int)sentinel;         /* inner list: empty */
+    *(int *)(sentinel + 0x10) = (int)sentinel;
+    *(int *)(sentinel + 0x18) = (int)sentinel;         /* outer list: empty */
+    *(int *)(sentinel + 0x1c) = (int)sentinel;
+    *(int *)(registry + 0x04) = (int)sentinel;
+    /* registry+0x0c/+0x10/+0x18/+0x1c are left alone - +0x10 is the input-ring
+     * pointer, written below. */
 }
 extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20], DAT_00ea0e18[0x20];
+/* One list sentinel per registry root - see gb_init_widget_registry. */
+static unsigned char gb_registrySentinel[4][0x20];
 /* input-event ring (globals_sized.c) - the registries' +0x10 slot points here
  * so a button release can EnqueueInputEvent onto the queue ProcessInputEventQueue
  * drains; see the gb_startup_init wiring below. */
@@ -337,10 +364,10 @@ static void gb_startup_init(void)
     gb_init_atl_string_mgr();
     *(int *)(g_graphicsArchive + 0x1040) = (int)0xffffffff;
     *(int *)(g_xfsScratch     + 0x1040) = (int)0xffffffff;
-    gb_init_widget_registry(DAT_00e9be90);
-    gb_init_widget_registry(DAT_00e9c0fc);
-    gb_init_widget_registry(DAT_00ea0e18);   /* global sprite registry - same container */
-    gb_init_widget_registry(DAT_00e53e88);   /* chat-log/replay object - same container */
+    gb_init_widget_registry(DAT_00e9be90, gb_registrySentinel[0]);
+    gb_init_widget_registry(DAT_00e9c0fc, gb_registrySentinel[1]);
+    gb_init_widget_registry(DAT_00ea0e18, gb_registrySentinel[2]);   /* global sprite registry */
+    gb_init_widget_registry(DAT_00e53e88, gb_registrySentinel[3]);   /* chat-log/replay object */
     /* FIXED (2026-07-18): the two hit-test registries' +0x10 slot is the
      * input-event RING POINTER (read by HandleActiveObjectMouseUp as the
      * EnqueueInputEvent queue object), NOT a list link - only *layer* nodes use
@@ -355,8 +382,10 @@ static void gb_startup_init(void)
     *(void **)(DAT_00e9be90 + 0x10) = g_inputEventRing;
     *(void **)(DAT_00e9c0fc + 0x10) = g_inputEventRing;
     gb_init_panel_manager(g_uiPanelManager);
-    DAT_00e9be94 = (unsigned int)DAT_00e9be90;
-    DAT_00ea0e1c = (unsigned int)DAT_00ea0e18;
+    /* DAT_00e9be94 / DAT_00ea0e1c are Ghidra's split-out aliases of
+     * registry+4, i.e. the SENTINEL pointer - not the container address. */
+    DAT_00e9be94 = (unsigned int)gb_registrySentinel[0];
+    DAT_00ea0e1c = (unsigned int)gb_registrySentinel[2];
     DAT_00793530 = 0;
     DAT_0056df30 = 799;
     DAT_00793534 = 0;

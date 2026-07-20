@@ -66,12 +66,11 @@ extern const char s_ready_00551e80[];    /* "ready" */
 extern "C" {
 /* Real signatures recovered this pass - see each .c file's own header for
  * the angr-disassembly derivation. DeletePoisonedBaseObject is genuinely
- * __thiscall (this in ECX, rest on the stack) - MSVC 7.1 forbids explicit
- * __thiscall on a free-function declaration (C4234, same restriction
- * documented in Mobile.cpp), so it's declared address-only here and
- * called through the established __fastcall+dummy-EDX cast (this
- * project's idiom for reproducing __thiscall from C++ - see
- * State05_Logo1.cpp). Tick/Draw are real __fastcall(1 arg), safe to
+ * __thiscall IN THE ORIGINAL, but our port of it is a raw C file and
+ * ghidra_types.h erases __thiscall, so the ported symbol is __cdecl with
+ * both arguments on the stack - call it directly, NOT through the
+ * __fastcall+dummy-EDX cast (that idiom is only for genuine C++ callees
+ * whose `this` really is in ECX). Tick/Draw are real __fastcall(1 arg), safe to
  * declare directly. FindStringNoCase is an ordinary __cdecl helper, safe
  * to call directly with no cast trick needed. */
 void *DeletePoisonedBaseObject(void *thisPtr, int shouldFree);
@@ -83,8 +82,19 @@ void NoOpMethod(void);
 
 void *CButtonWidget::Delete(int shouldFree)
 {
-    typedef void *(__fastcall *DeleteFn)(void *, int, int);
-    return ((DeleteFn)&DeletePoisonedBaseObject)(this, 0, shouldFree);
+    /* FIXED (2026-07-19): this used the __fastcall+dummy-EDX cast on the
+     * belief that DeletePoisonedBaseObject "is genuinely __thiscall". The
+     * ORIGINAL is - but our PORT of it is a raw C file, and ghidra_types.h
+     * erases __thiscall unconditionally (see its own comment at line 181),
+     * so the ported callee actually compiles as __cdecl with BOTH arguments
+     * on the stack. Calling it __fastcall put `this` in ECX and pushed only
+     * `shouldFree`, so the callee read param_1 = shouldFree (1) and param_2 =
+     * garbage - i.e. `_free((void *)1)`. That is the project's documented
+     * rule: the __fastcall+dummy idiom is ONLY for genuine C++ callees;
+     * erased-__thiscall == __cdecl is correct for raw-C-port callees.
+     * Surfaced the moment SweepActiveObjectRegistry was restored and started
+     * actually invoking this vtable slot. */
+    return DeletePoisonedBaseObject(this, shouldFree);
 }
 
 /* SetState is vtable slot 1, shared with unrelated classes as the generic

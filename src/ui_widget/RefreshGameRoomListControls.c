@@ -19,6 +19,15 @@
  */
 #include "ghidra_types.h"
 
+/* Vtable slot 1 of the real C++ CButtonWidget is SetState(const char*), a
+ * genuine __thiscall (this in ECX). ghidra_types.h erases __thiscall, so the
+ * raw dispatch below compiled as __cdecl - `this` went on the stack and ECX
+ * held garbage, and SetState faulted reading this+0x1c (observed live with
+ * ECX=2). Reproduce __thiscall with the project's __fastcall+dummy-EDX idiom,
+ * exactly as State02_ServerSelect_ProcessPacket.c / ConnectToSelectedServer.c
+ * already do for the same slot. */
+typedef void (__fastcall *WidgetSetModeNameFn)(void *thisPtr, int edxDummy, const char *modeName);
+
 
 /* WARNING: Removing unreachable block (ram,0x0042a0d2) */
 /* WARNING: Removing unreachable block (ram,0x0042a0dc) */
@@ -45,7 +54,7 @@ void RefreshGameRoomListControls(void)
     uVar2 = piVar1[2];
     while (uVar2 < 3) {
       if (uVar2 == 2) {
-        (**(code **)(*piVar1 + 4))(s_disable_00551e68);
+        (*(WidgetSetModeNameFn *)(*piVar1 + 4))(piVar1, 0, s_disable_00551e68);
         break;
       }
       piVar1 = (int *)piVar1[4];

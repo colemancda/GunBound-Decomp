@@ -12,7 +12,20 @@
  * ChangeGameState.c/GameStateMachine.cpp), matching that file's own
  * "active-object sweeps" comment.
  *
- * STILL BRING-UP BYPASSED (stubbed to a no-op): `registry` (orig
+ * RESTORED (2026-07-19): this was a bring-up no-op stub, bypassed because
+ * "nothing yet populates either registry with real buttons". That stopped
+ * holding once State02's buttons started registering: with no sweep they
+ * survived the state change and State03's lobby buttons - which reuse the
+ * same (layer,id) keys (0,0),(0,1),... - collided in RegisterActiveObject,
+ * whose duplicate-id branch DESTROYS the newly created node, handing
+ * CreateButtonWidget back a freed object. Body verified instruction by
+ * instruction against orig 0x4f3020-0x4f3056 AND emulated in angr (walks a
+ * synthetic 1-layer/2-node list, calls both dtors in order with ECX=this,
+ * resets the layer links to self, returns cleanly).
+ * Restoring it also required fixing the registry ROOT init: the container
+ * cannot be its own sentinel because registry+0x10 is the input-event ring
+ * pointer - see gb_init_widget_registry in src/cxx/crt_shims_msvc.c.
+ * (historical note) `registry` (orig
  * unaff_EBX, a dropped register whose value differs per call site -
  * orig 0x41231f: `mov ebx,0xe9be90` before ChangeGameState's first
  * call, orig 0x41232b: `mov ebx,0xe9c0fc` before its second) is kept as
@@ -51,10 +64,33 @@
 #include "ghidra_types.h"
 
 
+/* Nodes are destroyed through vtable slot 0, which is __thiscall(this,
+ * freeFlag) = __fastcall(this, edxDummy, freeFlag): orig 0x4f3037-0x4f303e
+ * (`mov eax,[ecx]` / `push 1` / `call dword ptr [eax]` with ECX still holding
+ * the node). Same typedef/call form as RegisterActiveObject.c. */
+typedef void *(__fastcall *ScalarDeletingDtorFn)(void *thisPtr,int edxDummy,int freeFlag);
+
 void SweepActiveObjectRegistry(int registry)
 
 {
-  (void)registry;
+  undefined4 *puVar1;
+  undefined4 *puVar3;
+  undefined4 *next;
+
+  puVar3 = (undefined4 *)(*(undefined4 **)(registry + 4))[7];
+  if (puVar3 != *(undefined4 **)(registry + 4)) {
+    do {
+      puVar1 = (undefined4 *)puVar3[4];
+      while (puVar1 != puVar3) {
+        next = (undefined4 *)puVar1[4];
+        (*(ScalarDeletingDtorFn *)*puVar1)(puVar1,0,1);   /* vtable[0] Delete(1) */
+        puVar1 = next;
+      }
+      puVar3[3] = (undefined4)puVar3;
+      puVar3[4] = (undefined4)puVar3;
+      puVar3 = (undefined4 *)puVar3[7];
+    } while (puVar3 != *(undefined4 **)(registry + 4));
+  }
   return;
 }
 
