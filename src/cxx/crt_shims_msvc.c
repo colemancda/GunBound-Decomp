@@ -189,9 +189,23 @@ extern unsigned char g_inputEventRing[0x1808];
  * needs an explicit non-zero init (=10, the constructor's own literal);
  * every other field the constructor sets is already 0, matching BSS. */
 extern unsigned char g_uiPanelManager[0x1c];
+/* The real CPanelManager constructor (orig 0x507dc0, .CRT$XCU-registered so
+ * it runs as a static initializer in the original; we don't run CRT static
+ * init, hence this hook). __fastcall: ECX unused, EDX = this. */
+extern void * __fastcall FUN_00507dc0(unsigned int unused, void *thisPtr);
+
+/* REWORKED (2026-07-20): call the REAL constructor instead of hand-setting a
+ * single field. The old body set only +0x18 = 10 and left the object's VTABLE
+ * POINTER at +0 NULL; PanelManager_ClearAllFocus dispatches
+ * `(**(code **)(*this + 0x18))()` - vtable slot 6 - and faulted on that null
+ * the moment State03's OnEnter got as far as BuildLobbyChatPanel. The ctor
+ * stores &PTR_FUN_00557cfc at +0, zeroes +4..+0x14, sets +0x18 = 10, clears
+ * the 0x100-byte table at DAT_007933c0 and sets DAT_007933b8/bc - i.e. exactly
+ * what the original's static initializer does. Same class of fix as the
+ * registry roots' sentinel above. */
 static void gb_init_panel_manager(unsigned char *manager)
 {
-    *(int *)(manager + 0x18) = 10;
+    FUN_00507dc0(0, manager);
 }
 /* DAT_00e53e88 (chat-log/replay object, ~25 raw-ported callers - see
  * globals.c) uses the identical +4 head/+0x1c outer-next embedded-

@@ -543,7 +543,9 @@ uint32_t DAT_007921b0[0x400];
 uint16_t DAT_00793228;
 uint8_t DAT_007933b8;
 uint32_t DAT_007933bc;
-uint32_t DAT_007933c0;
+/* DAT_007933c0: moved to src/globals_sized.c - the CPanelManager ctor
+ * (FUN_00507dc0, orig 0x507dc0) zeroes 0x40 DWORDS (0x100 bytes) from
+ * here, so a one-dword cell would clobber ~0xfc bytes of neighbours. */
 uint8_t DAT_007934c4;
 uint32_t DAT_007934c8;
 uint8_t DAT_007934cc;
