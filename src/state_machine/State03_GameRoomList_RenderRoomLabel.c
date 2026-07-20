@@ -34,11 +34,24 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
    * unmigrated. Cached scan: tools/findspriteframe_sites.json. */
   if ((DAT_0079352c != 0) &&
       (iVar3 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,0), iVar3 != 0)) {
+    /* RECOVERED (2026-07-20), orig 0x429841-0x42985a - this is the LOBBY's
+     * full-screen backdrop (outerKey 0x2710, the same static backdrop
+     * RenderScreenBackdrop.c draws for Title/Logo1/ServerSelect; State03 has
+     * its own copy inlined here rather than calling that function). Both
+     * blits were still passing only their first argument, so x/y/outerKey
+     * read stack garbage and the lobby drew no background at all.
+     *   0x429841 xor eax,eax / 0x429845 push eax / 0x429848 push eax
+     *   0x429849 call 0x4ed6a0 / 0x42984e add esp,8
+     * -> BlitSprite16bpp(frame=EAX=0, x=0, y=0) - `add esp,8` confirms both
+     * stack args were pushed; cdecl's LAST push is the first argument.
+     *   0x429853 xor ecx,ecx / 0x429855 call 0x4eb9c0 / add esp,4
+     * -> BlitSpriteClipped(frame=stack=0 (the 0x429845 push), x=ECX=0,
+     * y=EAX=0) - `add esp,4` confirms the single stack arg. */
     if (*(char *)(iVar3 + 0x18) == '\x01') {
-      BlitSprite16bpp(0);
+      BlitSprite16bpp(0,0,0,0x2710);
     }
     else {
-      BlitSpriteClipped(0);
+      BlitSpriteClipped(0,0,0,0x2710);
     }
   }
   iVar3 = g_clientContext;
@@ -49,11 +62,23 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
    * two lines above. */
   if ((DAT_0079352c != 0) &&
       (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x64,(uint)(unsigned short)uVar2), iVar4 != 0)) {
+    /* RECOVERED (2026-07-20), orig 0x42988f-0x4298ad. Both blits here draw
+     * the channel/room-list header sprite (outerKey 0x64) whose frame index
+     * is the same g_clientContext+0x23344 word the FindSpriteFrame call
+     * above uses - it arrives in ESI (`movzx esi,word ptr [ebp+0x23344]` at
+     * 0x42986a) and both call sites were dropping it.
+     *   0x42988f push 9 / 0x429891 push 0xac / 0x429896 mov eax,esi
+     *   0x429898 call 0x4ed6a0 / add esp,8
+     * -> BlitSprite16bpp(frame=ESI, x=0xac, y=9). The port had (0xac,9),
+     * i.e. the frame dropped and x/y slid one place left.
+     *   0x4298a2 push esi / 0x4298a3 mov eax,9 / 0x4298a8 mov ecx,0xac
+     *   0x4298ad call 0x4eb9c0 / add esp,4
+     * -> BlitSpriteClipped(frame=ESI (stack), x=ECX=0xac, y=EAX=9). */
     if (*(char *)(iVar4 + 0x18) == '\x01') {
-      BlitSprite16bpp(0xac,9);
+      BlitSprite16bpp((uint)(unsigned short)uVar2,0xac,9,0x64);
     }
     else {
-      BlitSpriteClipped(uVar2);
+      BlitSpriteClipped((uint)(unsigned short)uVar2,0xac,9,0x64);
     }
   }
   if (*(char *)(iVar3 + 0x23313) != '\0') {
