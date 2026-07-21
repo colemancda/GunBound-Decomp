@@ -485,7 +485,7 @@ void SendJoinRoomByNumber();
 void FUN_00429f90();
 void FUN_00429fb0();
 void SendJoinRoomSelected();
-void RefreshGameRoomListControls();
+void RefreshGameRoomListControls(undefined4 controlsEnabled, int stateObj);
 void __thiscall RenderRoomCard();
 void FUN_0042a680();
 void State03_GameRoomList_CreateButtons();

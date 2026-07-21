@@ -66,7 +66,7 @@ LAB_00429e3e:
       local_84 = 1000;
     }
   }
-  RefreshGameRoomListControls();
+  RefreshGameRoomListControls(0,(int)g_gameStateVTableArray[3]);
   iVar4 = DAT_007934e8;
   *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
   *(undefined2 *)(iVar4 + 0x4d4) = 0x2100;

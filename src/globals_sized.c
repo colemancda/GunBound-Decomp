@@ -179,3 +179,15 @@ void *PTR_FUN_00557cfc[8] = {
     (void *)&FUN_00507e30,
     (void *)&PanelManager_DispatchKeyDown,
 };
+
+/* The launcher session blob (was the 1-byte DAT_005b3440 in globals.c).
+ * WinMain sscanfs the launcher's 96-char hex token into it as 0x30 (48)
+ * separate bytes - `_sscanf(_Src,"%02x",&DAT_005b3440 + iVar13)` for
+ * iVar13 = 0..0x2f - and BuildSystemInfoBlob then reads it as three cipher
+ * blocks at +0, +0x10 and +0x20. At one byte every launcher-driven run
+ * overflowed it into whatever the linker placed next.
+ * Sized 0x40: the next global in the original's address space is 0x5b3480,
+ * and a scan of globals.h found no declared global inside
+ * [0x5b3440, 0x5b3480), so unlike g_replayContext this needs no
+ * offset-macro reconciliation. */
+unsigned char DAT_005b3440[0x40];

@@ -433,7 +433,7 @@ switchD_00428058_default:
           return;
         }
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
-        RefreshGameRoomListControls();
+        RefreshGameRoomListControls(1,(int)g_gameStateVTableArray[3]);
         return;
       }
       goto LAB_00426d84;
@@ -941,7 +941,7 @@ switchD_00428058_default:
     SetGuardedBool(0,GB_GUARD_UNRECOVERED);
   }
 LAB_00426d84:
-  RefreshGameRoomListControls();
+  RefreshGameRoomListControls(1,(int)g_gameStateVTableArray[3]);
   return;
 }
 

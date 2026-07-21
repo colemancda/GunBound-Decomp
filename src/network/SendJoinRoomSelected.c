@@ -41,7 +41,7 @@ void SendJoinRoomSelected(void)
     pcVar6 = pcVar6 + 1;
   } while (cVar1 != '\0');
 LAB_0042a00d:
-  RefreshGameRoomListControls();
+  RefreshGameRoomListControls(0,(int)g_gameStateVTableArray[3]);
   iVar4 = DAT_007934e8;
   iVar2 = g_clientContext;
   *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;

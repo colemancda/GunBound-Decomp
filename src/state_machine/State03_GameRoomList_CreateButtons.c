@@ -28,7 +28,7 @@ void State03_GameRoomList_CreateButtons(void)
                     );
   CreateButtonWidget(&DAT_00e9be90,0,0xf,0x451,s_b_gamelist_directgo_005536d0,0x1cc,0xf6,0x51,0x21,0
                      ,0);
-  RefreshGameRoomListControls();
+  RefreshGameRoomListControls(1,(int)g_gameStateVTableArray[3]);
   return;
 }
 

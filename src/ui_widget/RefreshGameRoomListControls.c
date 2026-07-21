@@ -8,14 +8,32 @@
  * PARTIALLY FIXED (2026-07-13): InvokeWidget's own dropped widgetId
  * argument fixed at all 11 call sites here (an angr CFG backward-scan
  * gave the exact per-site id: 0, 1, 3, 4, 5, 0xa, 0xb, 0xc, 0xd, 0xe,
- * 0xf in program order). `unaff_EBX`/`unaff_EDI` (this function's OWN
- * incoming arguments, driving the "enabled" bool passed to every one
- * of those InvokeWidget calls) are a SEPARATE, still-unfixed bug -
- * confirmed via angr that this function has 14 callers across 7 files
- * with inconsistent EBX/EDI setup (some inherit unchanged, some
- * recompute EDI=EBP, at least one doesn't touch either register at
- * all before the call) - resolving that is its own investigation, not
- * attempted here so it doesn't block the InvokeWidget threading pass.
+ * 0xf in program order).
+ *
+ * FIXED (2026-07-20): the remaining `unaff_EBX`/`unaff_EDI` - this
+ * function's own two incoming register arguments - are now real
+ * parameters. Both were uninitialised local reads; `unaff_EDI` was the
+ * worse of the two, since it was DEREFERENCED at +4, +0x118 and +0x120.
+ *
+ * EBX = a 0/1 "controls enabled" flag. A byte-scan of the original for
+ * `call 0x42a090` found 14 call sites, and every one sets BL immediately
+ * before the call: `mov bl,1` at 0x426d44, 0x426d8a, 0x428a41, 0x42ad95;
+ * `xor bl,bl` at 0x4286c7, 0x4287b3, 0x42884b, 0x428929, 0x428a9d,
+ * 0x428af4, 0x429bb7, 0x429c6c, 0x429ea2, 0x42a00f.
+ *
+ * EDI = the State03/GameRoomList state object (g_gameStateVTableArray[3]),
+ * threaded through the call chain as a C++ `this`. Traced back: the two
+ * callers of 0x429fd0 both do `mov eax,edi` (0x428623, 0x428ade) and it
+ * does `mov edi,eax`; the chain terminates at 0x4285ca `mov edi,ecx` in
+ * the method at 0x4285c0, which is slot 4 of the class vtable at
+ * 0x553674-0x5536b4 (all slots land in the 0x428xxx-0x429xxx lobby
+ * range). That is the same pointer FUN_0042a680 receives as param_1 via
+ * `FUN_0042a680(g_gameStateVTableArray[3])` (src/unnamed/FUN_005078f0.c),
+ * and it is allocated `operator_new(0x294)` in InitGame.c, so the +0x124
+ * accesses are well inside the object - no sizing issue.
+ *
+ * Symptom this fixes: garbage EBX made `g_serverWaitTicks` come out
+ * nonzero, leaving the lobby's PLEASE WAIT spinner up forever.
  */
 #include "ghidra_types.h"
 
@@ -32,7 +50,7 @@ typedef void (__fastcall *WidgetSetModeNameFn)(void *thisPtr, int edxDummy, cons
 /* WARNING: Removing unreachable block (ram,0x0042a0d2) */
 /* WARNING: Removing unreachable block (ram,0x0042a0dc) */
 
-void RefreshGameRoomListControls(void)
+void RefreshGameRoomListControls(undefined4 controlsEnabled,int stateObj)
 
 {
   int *piVar1;
@@ -42,8 +60,8 @@ void RefreshGameRoomListControls(void)
   undefined4 uVar5;
   uint3 uVar6;
   char cVar7;
-  undefined4 unaff_EBX;
-  int unaff_EDI;
+  undefined4 unaff_EBX = controlsEnabled;
+  int unaff_EDI = stateObj;
 
   cVar7 = (char)unaff_EBX;
   g_serverWaitTicks = (cVar7 != '\x01') - 1;

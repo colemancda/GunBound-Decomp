@@ -85,7 +85,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
   case 3:
     cVar3 = PacketChecksumEquals(g_clientContext + 0x449c4,2);
     if (cVar3 == '\0') {
-      RefreshGameRoomListControls();
+      RefreshGameRoomListControls(0,(int)g_gameStateVTableArray[3]);
       iVar2 = DAT_007934e8;
       iVar4 = g_clientContext;
       *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
@@ -135,7 +135,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
     *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 2;
     SendOutgoingPacket(iVar2);
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
-    RefreshGameRoomListControls();
+    RefreshGameRoomListControls(0,(int)g_gameStateVTableArray[3]);
     return;
   case 0xc:
     cVar3 = *(char *)(param_1 + 0x115);
@@ -166,7 +166,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
     *(int *)(iVar2 + 0x44d0) = iVar4;
     SendOutgoingPacket(iVar2);
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
-    RefreshGameRoomListControls();
+    RefreshGameRoomListControls(0,(int)g_gameStateVTableArray[3]);
     return;
   case 0xd:
     if (*(char *)(param_1 + 0x115) == '\x06') {
@@ -206,7 +206,7 @@ LAB_0042879e:
 LAB_004287a5:
     SendOutgoingPacket(iVar2);
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
-    RefreshGameRoomListControls();
+    RefreshGameRoomListControls(0,(int)g_gameStateVTableArray[3]);
     return;
   case 0xe:
     *(undefined1 *)(param_1 + 0x115) = 6;
@@ -228,13 +228,13 @@ LAB_004287a5:
       }
       AppendPacketBytes(0,iVar2,(uint)(iVar6 * 2),g_serverSelectRecords);
       SendOutgoingPacket(iVar2);
-      RefreshGameRoomListControls();
+      RefreshGameRoomListControls(0,(int)g_gameStateVTableArray[3]);
       *(undefined4 *)(param_1 + 4) = 0xffffffff;
       return;
     }
     *(undefined1 *)(iVar4 + 0x44648) = 0;
     *(undefined1 *)(param_1 + 0x120) = 0;
-    RefreshGameRoomListControls();
+    RefreshGameRoomListControls(0,(int)g_gameStateVTableArray[3]);
     *(undefined4 *)(param_1 + 4) = 0xffffffff;
     return;
   case 0xf:
@@ -252,7 +252,7 @@ LAB_004287a5:
     uVar5 = 1;
     break;
   case 0x21:
-    RefreshGameRoomListControls();
+    RefreshGameRoomListControls(0,(int)g_gameStateVTableArray[3]);
     SendJoinRoomByNumber(param_1);
     uVar5 = 1;
     break;

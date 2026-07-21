@@ -429,7 +429,10 @@ uint32_t DAT_005b33f0;
 uint16_t DAT_005b33f4;
 uint32_t DAT_005b3438;
 uint16_t DAT_005b343c;
-uint8_t DAT_005b3440;
+/* DAT_005b3440 (the launcher session blob) moved to globals_sized.c - it is
+ * written as 0x30 bytes and read at +0x10/+0x20, so it cannot stay a 1-byte
+ * scalar here. The extern in globals.h deliberately stays `uint8_t` (the
+ * established sized-global idiom); see globals_sized.c for the derivation. */
 uint32_t DAT_005b3480;
 uint32_t g_clientContext;
 uint32_t DAT_005b3488;
