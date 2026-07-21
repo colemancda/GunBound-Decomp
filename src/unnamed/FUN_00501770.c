@@ -390,7 +390,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
           *(HWND *)(param_1 + 0x17c0) = hWnd;
           if (hWnd != (HWND)0x0) {
             SetWindowLongA(hWnd,-0x15,param_1 + -0x2f4);
-            SetWindowLongA(*(HWND *)(param_1 + 0x17c0),-4,0x4fdaa0);
+            SetWindowLongA(*(HWND *)(param_1 + 0x17c0),-4,(LONG)FUN_004fdaa0);
           }
         }
         if ((*(HWND *)(param_1 + 0x17c0) != (HWND)0x0) && (*(int *)(param_1 + 0x17c4) == 0)) {

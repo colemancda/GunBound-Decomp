@@ -9,7 +9,12 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-LRESULT FUN_004fdaa0(HWND param_1,UINT param_2,WPARAM param_3,LPARAM param_4)
+/* FIXED (2026-07-20): a WNDPROC installed via SetWindowLongA(GWL_WNDPROC);
+ * __stdcall, confirmed by `ret 0x10` at every return in the original.
+ * Ghidra emitted __cdecl, and the install site passed the literal
+ * original-binary address instead of this symbol. Same bug class as
+ * FUN_004fecb0. */
+LRESULT __stdcall FUN_004fdaa0(HWND param_1,UINT param_2,WPARAM param_3,LPARAM param_4)
 
 {
   double dVar1;

@@ -27,7 +27,7 @@ void FUN_004fdc80(void)
   unaff_ESI[8] = hWnd;
   if (hWnd != (HWND)0x0) {
     SetWindowLongA(hWnd,-0x15,(LONG)unaff_ESI);
-    SetWindowLongA((HWND)unaff_ESI[8],-4,0x4fe6f0);
+    SetWindowLongA((HWND)unaff_ESI[8],-4,(LONG)FUN_004fe6f0);
   }
   return;
 }

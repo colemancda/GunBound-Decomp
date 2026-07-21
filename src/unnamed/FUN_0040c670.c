@@ -33,7 +33,7 @@ void __fastcall FUN_0040c670(HINSTANCE param_1,undefined4 *block,HWND hWndParent
   block[1] = (undefined4)hWnd;
   LVar1 = GetWindowLongA(hWnd,-4);
   block[3] = LVar1;
-  SetWindowLongA((HWND)block[1],-4,0x40c6f0);
+  SetWindowLongA((HWND)block[1],-4,(LONG)FUN_0040c6f0);
   SetFocus((HWND)block[1]);
   *(undefined1 *)(block + 2) = 1;
   if (DAT_005b3438 == 1) {

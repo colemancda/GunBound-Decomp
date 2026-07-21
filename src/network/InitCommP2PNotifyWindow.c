@@ -56,7 +56,11 @@ void InitCommP2PNotifyWindow(undefined4 *self)
   unaff_EDI[0xa3] = hWnd;
   if (hWnd != (HWND)0x0) {
     SetWindowLongA(hWnd,-0x15,(LONG)unaff_EDI);
-    SetWindowLongA((HWND)unaff_EDI[0xa3],-4,0x4fecb0);
+    /* FIXED (2026-07-20): was the literal original-binary address 0x4fecb0,
+     * which is meaningless in our relinked image - user32 jumped into
+     * whatever the linker placed there (observed as an access violation at
+     * eip=0x0000000e on the audio/message thread). Use the real symbol. */
+    SetWindowLongA((HWND)unaff_EDI[0xa3],-4,(LONG)FUN_004fecb0);
   }
   return;
 }

@@ -7,7 +7,15 @@
 #include "ghidra_types.h"
 
 
-LRESULT FUN_004fecb0(HWND param_1,UINT param_2,WPARAM param_3,uint param_4)
+/* FIXED (2026-07-20): this is the "CCommP2P Notify Window" window procedure,
+ * installed via SetWindowLongA(hWnd, GWL_WNDPROC) in
+ * InitCommP2PNotifyWindow.c. A WNDPROC is __stdcall (callee-cleans), and the
+ * original confirms it: every return in 0x4fecb0 is `ret 0x10` (4 args x 4
+ * bytes; the tail helper at 0x4fedaf is the `ret 8` one). Ghidra emitted it as
+ * __cdecl, so when user32 called it the stack was never cleaned - and the call
+ * site passed the literal original-binary address 0x4fecb0 rather than this
+ * symbol, so wine jumped into whatever our relink put there. */
+LRESULT __stdcall FUN_004fecb0(HWND param_1,UINT param_2,WPARAM param_3,uint param_4)
 
 {
   LONG LVar1;
