@@ -272,6 +272,13 @@ public:
 class CChannelUserListPanel : public CPanel {  /* vtable 0x557cac; builder 0x509d80 */
 public:
     CChannelUserListPanel();                   /* inlined in the builder */
+    virtual void Update();                     /* 0x5074a0 - ported as the C
+                                                * RenderChannelUserRow; without this
+                                                * override the port inherited
+                                                * CWidget::Update's child-broadcast
+                                                * no-op and the panel never drew.
+                                                * Same gap as CBuddyPanel::Update
+                                                * (Panel.cpp). */
 };
 
 /* State 9's Ready Room chat log (rows drawn by RenderReadyRoomChatRow,
@@ -289,6 +296,13 @@ public:
 class CLobbyChatPanel : public CPanel {        /* vtable 0x557cd4; builder 0x509af0 */
 public:
     CLobbyChatPanel();                         /* inlined in the builder */
+    virtual void Update();                     /* 0x5078f0 - ported as the C
+                                                * FUN_005078f0 (frame + chat rows +
+                                                * the selected-room detail via
+                                                * FUN_0042a680); never wired, so the
+                                                * inherited child-broadcast no-op ran
+                                                * instead. Same gap as
+                                                * CBuddyPanel::Update (Panel.cpp). */
     int m_unk90;                               /* +0x90: builder inits to -1 (same slot as
                                                 * CWorldListPanel's) */
 };

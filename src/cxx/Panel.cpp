@@ -474,6 +474,33 @@ void CBuddyPanel::Update()
     Widget_DrawSelf((int)this);
 }
 
+/* 0x5078f0 / 0x5074a0 - CLobbyChatPanel::Update and
+ * CChannelUserListPanel::Update, vtable slot 9. The SAME never-wired gap as
+ * CBuddyPanel::Update above, found by diffing the original's vtables at
+ * 0x557cd4/0x557cac against the port's virtuals: both slot-9 functions were
+ * already fully ported as C (FUN_005078f0.c / RenderChannelUserRow.c - each
+ * does the m_hidden check, Widget_DrawSelf, then its rows), but with no C++
+ * override declared the compiled vtable fell through to CWidget::Update's
+ * child-broadcast no-op. Net effect in the lobby: no CHATTING frame, no
+ * CHANNEL panel at all, and the panels' CHILD widgets (tabs, scrollbar
+ * arrows, filter buttons) still drew via the broadcast - scattered over
+ * whatever background was left - which is exactly the "garbled tiles +
+ * missing panels" screen the live original-vs-port comparison showed
+ * (build/shots/). Forward to the ported C bodies; both are __fastcall with
+ * `this` as their only argument, same as Widget_DrawSelf. */
+extern "C" void __fastcall FUN_005078f0(int this_);
+extern "C" void __fastcall RenderChannelUserRow(int this_);
+
+void CLobbyChatPanel::Update()
+{
+    FUN_005078f0((int)this);
+}
+
+void CChannelUserListPanel::Update()
+{
+    RenderChannelUserRow((int)this);
+}
+
 /* 0x509110 - BuildBuddyPanel (docs/widgets.md: the shared buddy list).
  * SINGLETON keyed 20000: if already registered, just set the existing
  * panel's +0x1d reshow flag. Otherwise: (568,11) 211x267 with the
