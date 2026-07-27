@@ -30,6 +30,22 @@ void __fastcall FUN_005078f0(int param_1)
    * the ORIGINAL row index (esi, unclobbered), not the reassigned
    * value. Recovered by snapshotting it here under a new name. */
   int iVar9RowIndex;
+  /* RECOVERED (2026-07-27): the row's glyph x-cursor. It lives in the stack
+   * local [esp+0x14] (base frame), written on BOTH paths through the
+   * sprite-lookup block below (0x507969: m_x+0x1a when the room has no icon;
+   * 0x507984: m_x+0x28 when it does) and reloaded before every DrawFontString/
+   * BlitRLESprite below (0x507b05/0x507b19/0x507b54/0x507b74/0x507ba6/
+   * 0x507bc9/0x507be7/0x507c18). Ghidra dropped both the assignments and the
+   * uses, which is why every text call in this function was missing its
+   * leading `this`/x argument. */
+  int xCursor;
+  /* RECOVERED (2026-07-27): the running glyph-width advance, EBP. Each strlen
+   * scan below is followed by `lea r,[len+len*2] / shl r,1` (0x507b37-0x507b48,
+   * 0x507b97-0x507ba2, 0x507c09-0x507c14) - i.e. 6 pixels per character,
+   * accumulated across the two strings so the second/third draws land after the
+   * first. Ghidra kept the strlen loops but discarded their results. */
+  int xAdvance;
+  char *pcStart;
 
   if (*(char *)(param_1 + 0x1e) != '\0') {
     return;
@@ -44,8 +60,17 @@ LAB_00507930:
           local_8;
   iVar9RowIndex = iVar9;
   uVar3 = *(ushort *)(g_clientContext + 0x3f73c + iVar9 * 2);
-  if (uVar3 != 0) {
+  if (uVar3 == 0) {
+    /* 0x507963: mov ebp,[ebp+0x28] / add ebp,0x1a / mov [esp+0x14],ebp */
+    xCursor = *(int *)(param_1 + 0x28) + 0x1a;
+  }
+  else {
     uVar5 = uVar3 - 1;
+    /* 0x50796f-0x507984: mov ecx,[ebp+0x28] / lea edx,[ecx+0x28] /
+     * lea ebp,[ecx+0x1a] / mov [esp+0x14],edx - the cursor is m_x+0x28 here
+     * (the icon column shifts the text right), while EBP (m_x+0x1a) is the
+     * icon's own x used by the two blits below. */
+    xCursor = *(int *)(param_1 + 0x28) + 0x28;
     if ((DAT_0079352c != 0) && (-1 < (int)uVar5)) {
       iVar7 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar4 = *(uint *)(iVar7 + 4);
@@ -68,11 +93,21 @@ LAB_00507930:
     if (uVar5 < uVar4) break;
 LAB_005079b8:
     if (uVar4 == uVar5) {
+      /* RECOVERED (2026-07-27), orig 0x5079c6-0x5079e2. FindSpriteFrame is
+       * INLINED here (the tree walk above), so the outer key is visible as the
+       * literal the walk compares against and as `mov edx,0x34` at 0x5079ca -
+       * outerKey = 0x34, innerKey/frame = EAX = uVar5. x is EBP = m_x+0x1a
+       * (0x507978), y is EBX = iVar8.
+       *   16bpp:   push ebx / push ebp / mov eax(=uVar5) -> (frame,x,y,key)
+       *   clipped: push eax / mov eax,ebx / mov ecx,ebp  -> frame on stack,
+       *            x=ECX, y=EAX
+       * The raw port's args had slid LEFT: the frame (EAX) and the key were
+       * dropped, so the x was being passed as the frame handle. */
       if (*(char *)(iVar7 + 0x18) == '\x01') {
-        BlitSprite16bpp(*(int *)(param_1 + 0x28) + 0x1a,iVar8);
+        BlitSprite16bpp(uVar5,*(int *)(param_1 + 0x28) + 0x1a,iVar8,0x34);
       }
       else {
-        BlitSpriteClipped(uVar5);
+        BlitSpriteClipped(uVar5,*(int *)(param_1 + 0x28) + 0x1a,iVar8,0x34);
       }
       break;
     }
@@ -146,69 +181,88 @@ LAB_00507af6:
     local_14 = 0xffff;
   }
   pcVar6 = (char *)(iVar9 * 9 + 0x3b984 + g_clientContext);
-  DrawFontString(iVar8,local_c);
-  /* BlitRLESprite's dropped 4th arg (rleData) recovered via objdump at
-   * this function's own address (0x5078f0): EAX = pcVar6, the row-label
-   * string just computed above (matches this call's position - before
-   * the strlen loop below consumes it). The 1st arg (this/param_1, the
-   * running glyph x-cursor) is a SEPARATE dropped argument at every
-   * BlitRLESprite/DrawFontString call in this function - objdump traces
-   * it to a stack slot fed by *(int *)(param_1 + 0x28) + 0x1a (or +0x28
-   * on an alternate path), computed in the uVar3/sprite-frame-lookup
-   * block above (same idiom as this file's own line-78
-   * BlitSprite16bpp(*(int *)(param_1 + 0x28) + 0x1a, ...) call) - but
-   * Ghidra dropped the assignment(s) themselves from the visible C on
-   * both paths through that block (there's no matching `= ...+0x1a`/
-   * `+0x28` statement above to reference), so recovering param_1 here
-   * would mean inventing new statements/control-flow this pass didn't
-   * verify, not just filling in an argument - left as a placeholder. */
-  BlitRLESprite(0,iVar8,iVar10,(byte *)pcVar6);
+  /* RECOVERED (2026-07-27), orig 0x507afe-0x507b21. The x-cursor (the dropped
+   * ECX `this`) is the [esp+0x14] local recovered above:
+   *   mov eax,[esp+0x18](local_c) / mov ecx,[esp+0x14](xCursor) / push eax /
+   *   lea ebp,[esi+edx+0x3b984](pcVar6) / push ebx(y) / mov eax,ebp / call
+   *     DrawFontString                  -> (x=ECX, y=EBX, color=local_c)
+   *   mov ecx,[esp+0x1c](xCursor) / push edi(color) / push ebx(y) /
+   *   mov eax,ebp(rleData) / call BlitRLESprite -> (x, y, color, rleData)
+   * Both draw at the bare cursor (no advance yet). DrawFontString's own EAX
+   * (the same pcVar6 string) stays dropped - the port's 3-arg __thiscall
+   * signature has no such parameter, and it is a deliberate no-op today. */
+  DrawFontString(xCursor,iVar8,local_c);
+  BlitRLESprite(xCursor,iVar8,iVar10,(byte *)pcVar6);
+  pcStart = pcVar6;
   do {
     cVar1 = *pcVar6;
     pcVar6 = pcVar6 + 1;
   } while (cVar1 != '\0');
+  /* 0x507b37-0x507b48: sub eax,ebp / lea ebp,[eax+eax*2] / shl ebp,1 */
+  xAdvance = ((int)pcVar6 - (int)pcStart + -1) * 6;
   bVar2 = *(byte *)(g_clientContext + 0x3c4d8 + iVar9);
   if ((bVar2 < 2) || (bVar2 == 7)) {
     pcVar6 = (char *)(g_clientContext + (iVar9 * 5 + 0xef42) * 4);
-    /* rleData recovered the same way: objdump shows EAX = pcVar6 (just
-     * computed above) at BOTH this call and the next one - the value
-     * isn't reloaded/advanced between them, since the strlen loop that
-     * walks it runs only after the second call. param_1 placeholder -
-     * see the comment above line 142. */
-    BlitRLESprite(0,iVar8,0,(byte *)pcVar6);
-    BlitRLESprite(0,iVar8,iVar10,(byte *)pcVar6);
+    /* RECOVERED (2026-07-27), orig 0x507bc9-0x507bf3. rleData = EAX = pcVar6
+     * (spilled to [esp+0x20] at 0x507bde and reloaded at 0x507beb, so both
+     * calls take the same, unadvanced string). x is the cursor PLUS the label's
+     * width: `mov edx,[esp+0x14] / lea ecx,[edx+ebp]` with EBP = xAdvance, and
+     * `inc ecx` on the first call - i.e. the usual +1 black shadow pass
+     * (color 0, pushed as `push 0`) followed by the real glyphs at the true x
+     * with color EDI. */
+    BlitRLESprite(xCursor + xAdvance + 1,iVar8,0,(byte *)pcVar6);
+    BlitRLESprite(xCursor + xAdvance,iVar8,iVar10,(byte *)pcVar6);
+    pcStart = pcVar6;
     do {
       cVar1 = *pcVar6;
       pcVar6 = pcVar6 + 1;
     } while (cVar1 != '\0');
-    /* objdump: EAX here is g_clientContext + 0x3c53c + (iVar9RowIndex <<
-     * 7) - a per-row 128-byte-strided field this file's C never
-     * materializes as a named pointer anywhere else (Ghidra dropped the
-     * computation entirely, not just the argument). Recovered directly
-     * from the disassembly; param_1 still a placeholder - see line
-     * 142's note. */
-    BlitRLESprite(0,iVar8,0,(byte *)(g_clientContext + 0x3c53c + (iVar9RowIndex << 7)));
+    /* 0x507c09-0x507c14: the second string's width is ADDED to the first's
+     * (`lea eax,[ebp+edx*2]`, ebp = the running advance). */
+    xAdvance = xAdvance + ((int)pcVar6 - (int)pcStart + -1) * 6;
+    /* RECOVERED (2026-07-27), orig 0x507c18-0x507c31: `mov edx,[esp+0x14] /
+     * shl esi,7 / lea esi,[esi+ecx+0x3c53c] / lea ebp,[eax+edx] / push 0 /
+     * push ebx / lea ecx,[ebp+1] / mov eax,esi` - EAX is the per-row
+     * 128-byte-strided field (Ghidra dropped the computation entirely, not
+     * just the argument), x = xCursor + xAdvance + 1 (the shadow pass again),
+     * color 0. NOTE `shl esi,7` clobbers the row index here, hence
+     * iVar9RowIndex. */
+    BlitRLESprite(xCursor + xAdvance + 1,iVar8,0,
+                  (byte *)(g_clientContext + 0x3c53c + (iVar9RowIndex << 7)));
     iVar9 = iVar10;
   }
   else {
     pcVar6 = (char *)(g_clientContext + (iVar9 * 5 + 0xef42) * 4);
-    DrawFontString(iVar8,iVar10);
-    /* rleData = pcVar6 (just computed above) - objdump confirms EAX
-     * still holds it here, unadvanced. param_1 placeholder - see line
-     * 142's note. */
-    BlitRLESprite(0,iVar8,local_14,(byte *)pcVar6);
+    /* RECOVERED (2026-07-27), orig 0x507b54-0x507b80: `mov edx,[esp+0x14] /
+     * lea ecx,[edx+ebp]` -> x = xCursor + xAdvance for the DrawFontString
+     * shadow (color EDI, y EBX); then `mov eax,[esp+0x18](local_14) /
+     * mov ecx,[esp+0x1c](xCursor) / push eax / mov eax,[esp+0x24](pcVar6) /
+     * push ebx / add ecx,ebp` -> the glyph pass at the same x with color
+     * local_14. rleData = pcVar6 via the spill `mov [esp+0x20],eax` at
+     * 0x507b67, reloaded as `mov eax,[esp+0x24]` at 0x507b79. */
+    DrawFontString(xCursor + xAdvance,iVar8,iVar10);
+    BlitRLESprite(xCursor + xAdvance,iVar8,local_14,(byte *)pcVar6);
+    pcStart = pcVar6;
     do {
       cVar1 = *pcVar6;
       pcVar6 = pcVar6 + 1;
     } while (cVar1 != '\0');
-    DrawFontString(iVar8,iVar10);
+    /* 0x507b97-0x507ba2: same cumulative 6-px-per-char advance. */
+    xAdvance = xAdvance + ((int)pcVar6 - (int)pcStart + -1) * 6;
+    /* orig 0x507ba6-0x507bbd: `mov edx,[esp+0x14] / lea ebp,[eax+edx] /
+     * push edi / push ebx / mov ecx,ebp` -> x = xCursor + xAdvance. (EAX here
+     * is the same per-row field the merge call below draws - dropped, since
+     * DrawFontString's port has no string parameter.) */
+    DrawFontString(xCursor + xAdvance,iVar8,iVar10);
     iVar9 = local_14;
   }
-  /* Same per-row field as the if-branch's last BlitRLESprite above
-   * (g_clientContext + 0x3c53c + (iVar9RowIndex << 7)) - objdump shows
-   * EAX unchanged across both branches into this merge point. param_1
-   * placeholder - see line 142's note. */
-  BlitRLESprite(0,iVar8,iVar9,(byte *)(g_clientContext + 0x3c53c + (iVar9RowIndex << 7)));
+  /* Merge point, orig 0x507c37: `mov ecx,ebp / mov eax,esi / push ebx` with the
+   * color pushed by each branch just before the jump (0x507c36 push edi /
+   * 0x507bc6 push local_14 - what the port models as iVar9). EBP is
+   * xCursor + xAdvance and ESI the same per-row field as the if-branch's last
+   * call, both computed identically in the two branches. */
+  BlitRLESprite(xCursor + xAdvance,iVar8,iVar9,
+                (byte *)(g_clientContext + 0x3c53c + (iVar9RowIndex << 7)));
   iVar8 = iVar8 + 0xe;
   local_8 = local_8 + 1;
   if (0xc < local_8) {
