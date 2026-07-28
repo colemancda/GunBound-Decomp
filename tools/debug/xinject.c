@@ -1,6 +1,7 @@
 /* Minimal XTest input injector (stands in for xdotool, which isn't installed).
  * Usage: xinject click <x> <y>      - move pointer to absolute (x,y) and click
  *        xinject key <keysym-hex>   - press+release a key (e.g. ff0d = Return)
+ *        xinject focus <winid-hex>  - raise + give input focus to a window
  * XTest prototypes are declared here because XTest.h isn't installed. */
 #include <X11/Xlib.h>
 #include <stdio.h>
@@ -14,7 +15,20 @@ int main(int argc, char **argv)
 {
     Display *d = XOpenDisplay(NULL);
     if (!d) { fprintf(stderr, "cannot open display\n"); return 1; }
-    if (argc >= 4 && !strcmp(argv[1], "click")) {
+    if (argc >= 3 && !strcmp(argv[1], "focus")) {
+        /* No wmctrl/xdotool on this box, and neither is needed for XTest
+         * button/motion injection itself - but a click-to-focus WM (mutter)
+         * swallows the FIRST synthetic click on an unfocused window as a
+         * focus-grab instead of delivering it to the app, which is exactly
+         * why clicks into an unraised/unfocused wine desktop window were
+         * unreliable. Raise + focus explicitly before clicking. */
+        Window w = (Window)strtoul(argv[2], NULL, 16);
+        XRaiseWindow(d, w);
+        XSetInputFocus(d, w, RevertToParent, CurrentTime);
+        XFlush(d);
+        usleep(150000);
+        printf("focused %lx\n", (unsigned long)w);
+    } else if (argc >= 4 && !strcmp(argv[1], "click")) {
         int x = atoi(argv[2]), y = atoi(argv[3]);
         XTestFakeMotionEvent(d, -1, x, y, 0); XFlush(d); usleep(120000);
         XTestFakeButtonEvent(d, 1, 1, 0); XFlush(d); usleep(80000);
