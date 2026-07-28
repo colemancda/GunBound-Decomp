@@ -81,18 +81,42 @@ undefined4 BlitSpriteClipped(int frame,int x,int y,int outerKey)
   int local_4;
   int iRowStride;
   undefined4 *puPixelRow;
+  int clipTop;
+  int topSkip;
 
   if (((DAT_0079352c != 0) && (-1 < frame)) &&
      (iVar1 = FindSpriteFrame((int)&DAT_00ea0e18,outerKey,frame), iVar1 != 0)) {
     iVar2 = y + *(int *)(iVar1 + 0x2c);
     x = x + *(int *)(iVar1 + 0x28);
     iRowStride = *(int *)(iVar1 + 0x20);
-    local_4 = *(int *)(iVar1 + 0x24) - ((DAT_00793534 - iVar2 < 0) - 1 & DAT_00793534 - iVar2);
+    /* FIXED (2026-07-20): `(clipTop - iVar2 < 0) - 1 & clipTop - iVar2` is a
+     * branchless "max(0, clipTop-iVar2)" idiom, matching the original's
+     * `test eax,eax`/`sets dl`/`dec edx`/`and edx,eax` sign-check sequence -
+     * it needs SIGNED subtraction. DAT_00793534 is declared uint32_t, so
+     * without going through a signed local first, `DAT_00793534 - iVar2` is
+     * computed as UNSIGNED and wraps instead of going negative (e.g.
+     * clipTop=0, iVar2=18 -> wraps to 0xffffffee, not -18), making `< 0`
+     * permanently false. That silently inflates local_4 (rows-to-draw) by
+     * iVar2's magnitude - e.g. a 22-row frame at y=18 computed local_4=40
+     * instead of 22 - so the per-row loop in FUN_004eb940 read 18 rows of
+     * heap memory past the sprite's pixel buffer and blitted it to screen,
+     * and puPixelRow's own start offset was equally wrong. This was the
+     * root cause of the lobby's sprite-sheet garbage: every frame drawn
+     * through this (the +0x18==0/"clipped") path was affected, while the
+     * +0x18==1 path (BlitSprite16bpp, a plain `if` branch, no masking
+     * trick) was unaffected - explaining why sibling buttons at the
+     * identical position (e.g. the buddy panel's Del) render clean while
+     * others (Add, close-X) render as noise. Verified live: a probe on
+     * this exact call for the buddy Add button (frame h=22, y=18,
+     * clipTop=0) printed local_4=40 before this fix. */
+    clipTop = (int)DAT_00793534;
+    topSkip = (clipTop - iVar2 < 0) ? 0 : clipTop - iVar2;
+    local_4 = *(int *)(iVar1 + 0x24) - topSkip;
     puPixelRow = (undefined4 *)
                  (*(int *)(iVar1 + 0x34) +
-                  iRowStride * ((DAT_00793534 - iVar2 < 0) - 1 & DAT_00793534 - iVar2) * 2);
-    if (iVar2 < DAT_00793534) {
-      iVar2 = DAT_00793534;
+                  iRowStride * topSkip * 2);
+    if (iVar2 < clipTop) {
+      iVar2 = clipTop;
     }
     if (DAT_0056df34 < local_4 + iVar2) {
       local_4 = (DAT_0056df34 - iVar2) + 1;
