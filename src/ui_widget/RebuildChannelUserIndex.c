@@ -29,23 +29,23 @@
 void RebuildChannelUserIndex(int clientContext)
 
 {
-  int iVar1;
-  int *piVar2;
-  int *piVar3;
+  int i;
+  int *writeCursor;
+  int *fillCursor;
 
-  piVar2 = (int *)(clientContext + 0x44248);
-  piVar3 = piVar2;
-  for (iVar1 = 0x100; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *piVar3 = -1;
-    piVar3 = piVar3 + 1;
+  writeCursor = (int *)(clientContext + 0x44248);
+  fillCursor = writeCursor;
+  for (i = 0x100; i != 0; i = i + -1) {
+    *fillCursor = -1;
+    fillCursor = fillCursor + 1;
   }
-  iVar1 = 0;
+  i = 0;
   do {
-    if (*(char *)(clientContext + 0x41345 + iVar1) != '\0') {
-      *piVar2 = iVar1;
-      piVar2 = piVar2 + 1;
+    if (*(char *)(clientContext + 0x41345 + i) != '\0') {
+      *writeCursor = i;
+      writeCursor = writeCursor + 1;
     }
-    iVar1 = iVar1 + 1;
-  } while (iVar1 < 0x100);
+    i = i + 1;
+  } while (i < 0x100);
   return;
 }

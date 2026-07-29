@@ -11,7 +11,30 @@
  * __stdcall, confirmed by `ret 0x10` at every return in the original.
  * Ghidra emitted __cdecl, and the install site passed the literal
  * original-binary address instead of this symbol. Same bug class as
- * FUN_004fecb0. */
+ * FUN_004fecb0.
+ *
+ * SPLIT-STACK-BUFFER FIX (2026-07-29): `local_88` (1 byte) and `local_87`
+ * (4 bytes) are Ghidra's fragmentary view of ONE contiguous 0x7f-byte IME
+ * composition-string buffer - the same split-struct bug class as the SHA-1
+ * context (see session notes: "when `&local_XXX` is passed as a context,
+ * subtract the Ghidra local names - if they form a struct, coalesce"). The
+ * zeroing loop below writes 0x1f*4+2 = 126 bytes starting one byte past
+ * `local_88`, and `ImmGetCompositionStringA` is then told the buffer at
+ * `&local_88` is dwBufLen=0x7f (127) bytes long - together they cover
+ * exactly a 127-byte region from `local_88`'s address. Left split, MSVC
+ * allocates `local_88`/`local_87` as two tiny, non-contiguous stack slots
+ * (5 bytes total), so both the zeroing loop and (far worse)
+ * ImmGetCompositionStringA's real write - which runs on EVERY WM_KEYDOWN/
+ * WM_CHAR/WM_IME_* this subclassed edit control receives, i.e. on ordinary
+ * typing, IME composition or not - blow straight through this function's
+ * own frame into whatever called it, smashing the saved return address.
+ * This was the crash reproduced live: press any key while the lobby's
+ * chat edit box has real Win32 focus (it's SetFocus'd once at InitGame and
+ * nothing takes focus back), and the game dies ~1s later on an unrelated
+ * function's `ret` - the classic delayed stack-smash signature (EIP lands
+ * on raw stack bytes at a constant ESP-relative offset). Coalesced into a
+ * single properly-sized buffer; the emptiness check against `&local_87`
+ * becomes the equivalent `imeCompBuf+1`. */
 LRESULT __stdcall FUN_0040c6f0(HWND param_1,uint param_2,WPARAM param_3,LPARAM param_4)
 
 {
@@ -25,11 +48,10 @@ LRESULT __stdcall FUN_0040c6f0(HWND param_1,uint param_2,WPARAM param_3,LPARAM p
   undefined4 *puVar8;
   DWORD DVar9;
   DWORD dwBufLen;
-  char local_88;
-  undefined4 local_87;
-  
-  local_88 = '\0';
-  puVar8 = &local_87;
+  char imeCompBuf[0x80];
+
+  imeCompBuf[0] = '\0';
+  puVar8 = (undefined4 *)(imeCompBuf + 1);
   for (iVar7 = 0x1f; iVar7 != 0; iVar7 = iVar7 + -1) {
     *puVar8 = 0;
     puVar8 = puVar8 + 1;
@@ -37,7 +59,7 @@ LRESULT __stdcall FUN_0040c6f0(HWND param_1,uint param_2,WPARAM param_3,LPARAM p
   *(undefined2 *)puVar8 = 0;
   dwBufLen = 0x7f;
   *(undefined1 *)((int)puVar8 + 2) = 0;
-  pcVar4 = &local_88;
+  pcVar4 = imeCompBuf;
   DVar9 = 8;
   pHVar2 = ImmGetContext(param_1);
   LVar3 = ImmGetCompositionStringA(pHVar2,DVar9,pcVar4,dwBufLen);
@@ -45,12 +67,12 @@ LRESULT __stdcall FUN_0040c6f0(HWND param_1,uint param_2,WPARAM param_3,LPARAM p
     DAT_007934c4 = false;
   }
   else {
-    pcVar4 = &local_88;
+    pcVar4 = imeCompBuf;
     do {
       cVar1 = *pcVar4;
       pcVar4 = pcVar4 + 1;
     } while (cVar1 != '\0');
-    DAT_007934c4 = pcVar4 != (char *)&local_87;
+    DAT_007934c4 = pcVar4 != (char *)(imeCompBuf + 1);
   }
   pHVar2 = ImmGetContext(param_1);
   BVar5 = ImmGetOpenStatus(pHVar2);
