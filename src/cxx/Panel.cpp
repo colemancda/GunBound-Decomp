@@ -173,7 +173,7 @@ CChannelUserListPanel::CChannelUserListPanel()
  * register args as BuildWorldListPanel - the builder's argument is
  * forwarded as the factory's never-read stack slot and presumably
  * doubles as the EDI total. */
-extern "C" CChannelUserListPanel * BuildChannelUserListPanel(int total)
+extern "C" CChannelUserListPanel * BuildChannelUserListPanel(int panelManagerArg)
 {
     CChannelUserListPanel *p = new CChannelUserListPanel();
     p->m_id = 0x232a;
@@ -184,7 +184,23 @@ extern "C" CChannelUserListPanel * BuildChannelUserListPanel(int total)
     p->m_y = 0x11f;
     p->m_width = 0xd1;
     p->m_height = 0x103;
-    p->AddChild(CreateScrollListWidget(0, total, 0xb3, 0x3f, 0x12, 0x9a, 7));
+    /* FIXED (2026-07-29): this function's OWN incoming parameter is NOT a
+     * user count - orig 0x429181 `push 0xe53c40` (g_uiPanelManager) is its
+     * sole stack arg, and per CreateScrollListWidget's own header
+     * ("the original takes spriteBase in EAX and total in EDI ... the
+     * first stack argument of the original is never read (id is
+     * hardcoded 0)") that value is dead here too - our old code was
+     * mistakenly forwarding it into `total`, so every render showed a
+     * garbage/huge count truncated to the 7-row page instead of the real
+     * channel roster size.
+     * The REAL count is computed fresh inside this function: orig 0x509e19
+     * `movzx edi,byte ptr [eax+0x41344]` (eax = g_clientContext) right
+     * before the CreateScrollListWidget call - the same field
+     * WriteReplayEventRecord.c/FUN_0041b6f0.c already treat as the live
+     * channel-user byte count. That EDI value is CreateScrollListWidget's
+     * real (register-passed, C++-inexpressible) `total` per its header. */
+    p->AddChild(CreateScrollListWidget(0, *(unsigned char *)(g_clientContext + 0x41344),
+                                        0xb3, 0x3f, 0x12, 0x9a, 7));
     PanelManager_Register(&g_uiPanelManager, p);
     return p;
 }
