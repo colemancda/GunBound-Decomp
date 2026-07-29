@@ -15,6 +15,23 @@
 /* WARNING: Removing unreachable block (ram,0x00447efc) */
 /* WARNING: Removing unreachable block (ram,0x00447f06) */
 
+/* DROPPED-`this` FIX (2026-07-29): two vtable slot-1 calls below had their
+ * `this` dropped by Ghidra (bare `(**(code**)(*obj+4))(arg)`, no leading
+ * this), confirmed via objdump at 0x447c11-0x447c28 and 0x447f2b-0x447f34:
+ *   - orig 0x447c17 `lea ecx,[ebp+0x30bbc]` - this = &(param_1+0x30bbc),
+ *     the ADDRESS of that embedded sub-object (not the vtable-pointer
+ *     value read from it into edx for the call target).
+ *   - orig 0x447f32 `mov ecx,edi` - this = edi = piVar1, the walked list
+ *     node already in scope at the call site.
+ * Both are genuine C++ __thiscall dispatches (this in ECX), so both use
+ * the established __fastcall + literal-0 dummy-EDX idiom for an erased
+ * __thiscall vtable slot (ghidra_types.h keeps __fastcall real under MSVC
+ * but erases __thiscall - same pattern as WndProc.c's StateSlot6DispatchFn).
+ * Left dropped, `this` came through as whatever ECX last held, so this
+ * crashed (wild vtable-slot-1 call through garbage) reproduced live the
+ * moment the AVATAR button opened this state. */
+typedef void (__fastcall *VtableSlot1StrFn)(void *thisPtr, int dummyEDX, const char *str);
+
 void __fastcall State07_AvatarStore_OnEnter(int param_1)
 
 {
@@ -85,7 +102,8 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   uVar5 = FindPreloadedTextureByName(s_avata_00553fa8);
   *(undefined4 *)(param_1 + 0x30bd8) = uVar5;
-  (**(code **)(*(int *)(param_1 + 0x30bbc) + 4))(s_normal_00552230);
+  (*(VtableSlot1StrFn *)(*(int *)(param_1 + 0x30bbc) + 4))
+            ((void *)(param_1 + 0x30bbc),0,s_normal_00552230);
   PlayMusicTrack(1,(byte *)"channel.mp3");
   *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
   *(undefined1 *)(param_1 + 0x32f91) = 0;
@@ -94,7 +112,9 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   if (cVar3 == '\0') {
     ShowErrorDialog(1);
   }
-  FUN_00423bf0();
+  /* archive = g_clientContext + 0xf6e8, orig 0x447c6e `mov ebx,[0x5b3484]`
+   * immediately before `call 0x423bf0` - see FUN_00423bf0.c's header. */
+  FUN_00423bf0((int)(g_clientContext + 0xf6e8));
   FUN_00449540(param_1,1);
   *(undefined4 *)(param_1 + 0x454) = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -159,7 +179,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
       if (uVar2 == 10) {
         *(undefined1 *)(piVar1 + 0x13) = 0;
         if (piVar1[9] != 3) {
-          (**(code **)(*piVar1 + 4))(s_active_00551e58);
+          (*(VtableSlot1StrFn *)(*piVar1 + 4))(piVar1,0,s_active_00551e58);
           *(undefined1 *)(piVar1 + 0x13) = 1;
         }
         break;

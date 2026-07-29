@@ -11,6 +11,22 @@
 #include "ghidra_types.h"
 #include <windows.h>
 
+/* DROPPED-`this` FIX (2026-07-29): all eight timer-bucket destructor calls
+ * below (`(*(code*)*puVar4)(1)`) dropped their `this`, confirmed via objdump
+ * at 0x4294c0-0x4294c7: `mov edx,[ecx]` (edx = the node's own vtable
+ * pointer - our `puVar4`) / `mov edi,[ecx+0x10]` (edi = next node - our
+ * `puVar3` gets reassigned to this) / `push 1` / `call [edx]` with ECX
+ * STILL the CURRENT node (unchanged since the previous iteration's
+ * `mov ecx,edi`). The raw port advances `puVar3` to the next node BEFORE
+ * the call, so the current node - `this` - has no name left by the time of
+ * the call; a genuine C++ __thiscall destructor(this,flag=1) dispatch, so
+ * it needs the established __fastcall + literal-0 dummy-EDX idiom, and the
+ * current node must be captured into a fresh local before `puVar3` is
+ * overwritten with the next-node pointer. Left dropped, `this` came
+ * through as whatever ECX last held - the wild-destructor-call crash
+ * reproduced live the moment the AVATAR button (or any other lobby-exit
+ * transition) triggered this cleanup. */
+typedef void (__fastcall *VtableDtorFn)(void *thisPtr, int dummyEDX, int flag);
 
 void State03_GameRoomList_OnExit(void)
 
@@ -19,12 +35,13 @@ void State03_GameRoomList_OnExit(void)
   uint uVar2;
   undefined4 *puVar3;
   undefined4 *puVar4;
+  undefined4 *thisNode;
   int iVar5;
   uint uVar6;
   int *piVar7;
   int iVar8;
   undefined4 *puVar9;
-  
+
   uVar6 = 1000;
   iVar8 = 10;
   do {
@@ -36,9 +53,10 @@ LAB_004294a5:
       if (uVar2 != uVar1) break;
       puVar3 = (undefined4 *)puVar9[4];
       while (puVar3 != puVar9) {
+        thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -51,9 +69,10 @@ LAB_004294e4:
       if (uVar1 != uVar6) goto code_r0x004294e6;
       puVar3 = (undefined4 *)puVar9[4];
       while (puVar3 != puVar9) {
+        thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -67,9 +86,10 @@ LAB_00429527:
       if (uVar2 != uVar1) goto code_r0x00429529;
       puVar3 = (undefined4 *)puVar9[4];
       while (puVar3 != puVar9) {
+        thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -83,9 +103,10 @@ LAB_0042956a:
       if (uVar2 != uVar1) goto code_r0x0042956c;
       puVar3 = (undefined4 *)puVar9[4];
       while (puVar3 != puVar9) {
+        thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -99,9 +120,10 @@ LAB_004295aa:
       if (uVar2 != uVar1) goto code_r0x004295ac;
       puVar3 = (undefined4 *)puVar9[4];
       while (puVar3 != puVar9) {
+        thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -115,9 +137,10 @@ LAB_004295ea:
       if (uVar2 != uVar1) goto code_r0x004295ec;
       puVar3 = (undefined4 *)puVar9[4];
       while (puVar3 != puVar9) {
+        thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -131,9 +154,10 @@ LAB_0042962a:
       if (uVar2 != uVar1) goto code_r0x0042962c;
       puVar3 = (undefined4 *)puVar9[4];
       while (puVar3 != puVar9) {
+        thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -147,9 +171,10 @@ LAB_0042966a:
       if (uVar2 != uVar1) goto code_r0x0042966c;
       puVar3 = (undefined4 *)puVar9[4];
       while (puVar3 != puVar9) {
+        thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(code *)*puVar4)(1);
+        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;

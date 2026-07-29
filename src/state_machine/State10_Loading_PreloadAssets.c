@@ -55,7 +55,12 @@ void __fastcall State10_Loading_PreloadAssets(int param_1)
     FUN_004e4010((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1ec8 + g_clientContext);
     break;
   case 0xe:
-    FUN_004e3c50(&DAT_006a7708 + g_clientContext);
+    /* name arg recovered from objdump (orig 0x43f21a-0x43f23b): identical
+     * shape to case 0xd's FUN_004e4010 call just above - see
+     * FUN_004e3c50.c's header for the dropped-EAX fix itself. */
+    FUN_004e3c50(&DAT_006a7708 + g_clientContext,
+                 (char *)((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1ec8 +
+                          g_clientContext));
     if (*(ushort *)(&DAT_006aa660 + g_clientContext) != 0xffff) {
       _sprintf(acStack_80,s_event14__d_img_005554e8,*(ushort *)(&DAT_006aa660 + g_clientContext) + 1);
       LoadSpriteSet(&DAT_00ea0e18,0x2712);

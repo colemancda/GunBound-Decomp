@@ -70,7 +70,12 @@ void ProcessBattleFrame(int param_1)
     FUN_004e4010((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1ec8 + g_clientContext);
     break;
   case 4:
-    FUN_004e3c50(&DAT_006a7708 + g_clientContext);
+    /* name arg recovered from objdump (orig 0x4dcdb0-0x4dcdc4): identical
+     * shape to case 3's FUN_004e4010 call just above, via ESI instead of
+     * EDI - see FUN_004e3c50.c's header for the dropped-EAX fix itself. */
+    FUN_004e3c50(&DAT_006a7708 + g_clientContext,
+                 (char *)((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1ec8 +
+                          g_clientContext));
     if (*(ushort *)(&DAT_006aa660 + g_clientContext) != 0xffff) {
       _sprintf(local_2b0,s_event14__d_img_005554e8,*(ushort *)(&DAT_006aa660 + g_clientContext) + 1);
       LoadSpriteSet(&DAT_00ea0e18,0x271a);

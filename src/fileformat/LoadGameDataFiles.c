@@ -49,7 +49,21 @@ byte LoadGameDataFiles(int param_1)
   
   uStack_c = 0x419da0;
   BuildAssetPath(auStack_181b8,&DAT_005b1ed0,s_Avatar_xfs_00553660,0);
-  cVar4 = OpenXFSArchive(&g_xfsScratch,auStack_181b8,1,0);
+  /* WRONG-TARGET FIX (2026-07-29): the raw port opened Avatar.xfs into the
+   * shared one-shot &g_xfsScratch buffer, but objdump (0x419dc3-0x419dce)
+   * shows the real target is `param_1 + 0xf6e8` - a PERSISTENT per-client
+   * archive slot: `lea ecx,[esp+0x38]` (path) / `add esi,0xf6e8` (esi =
+   * [ebp+8] = this function's own param_1) / `call 0x4f0a50`
+   * (OpenXFSArchive). This is the same archive FUN_00423bf0.c/
+   * FUN_00423e20.c/FUN_004240c0.c/FUN_004e3c50.c read from at
+   * g_clientContext + 0xf6e8 (this function is called with param_1 =
+   * g_clientContext, matching those callers). Using g_xfsScratch left that
+   * slot permanently unopened (all-garbage), so every one of those avatar
+   * asset lookups fed CompareXFSEntryName a NULL/garbage record pointer -
+   * the persistent page-fault chasing this whole session, reproduced even
+   * on pure idle since FindOrInsertXFSEntry's insertion-scan sees whatever
+   * garbage this arena slot's "entry count" field happened to hold. */
+  cVar4 = OpenXFSArchive((XFSArchive *)(param_1 + 0xf6e8),auStack_181b8,1,0);
   if (cVar4 == '\0') {
     return 7;
   }

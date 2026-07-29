@@ -1,34 +1,44 @@
-/* FUN_00509780 - 0x00509780 in the original binary.
+/* FUN_00509780 - 0x00509780 in the original binary. Reached from
+ * State03_GameRoomList_OnCommand's AVATAR button case when the inventory-
+ * loaded checksum is already set: finds (or builds) a small "please wait /
+ * loading" style panel (key 50000) and registers it.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * DROPPED-`ESI` FIX (2026-07-29): `unaff_ESI` was an uninitialised
+ * register - confirmed via objdump at the sole call site
+ * (State03_GameRoomList_OnCommand.c's case 3, orig 0x4286b5: `mov
+ * esi,0xe53c40` = &g_uiPanelManager immediately before `call 0x509780`).
+ * Promoted to an explicit parameter.
+ *
+ * SEH-PROLOGUE ARTIFACT FIX: same bug class as WidgetChildArray_Destroy.c/
+ * FUN_00443c20.c - `unaff_FS_OFFSET` was an uninitialised pointer the body
+ * wrote through (`*unaff_FS_OFFSET = &local_c;`), faulting on the very
+ * first real statement after the dropped-ESI read - this was the crash
+ * reproduced live the moment the AVATAR button's "already loaded" path
+ * fired. Stripped per the entry/InitGame.c idiom (no __try/__except
+ * frames), along with the (write-only, SEH-unwind-only) `local_4` marker.
+ *
+ * DROPPED-ARGUMENT FIX: `PanelManager_Register(puVar2)` only forwarded the
+ * panel, dropping the manager. Orig 0x5098c5-0x5098c8: `push ebx` (=
+ * puVar2, the panel) / `mov eax,esi` (= the same &g_uiPanelManager this
+ * function's own now-recovered parameter holds) / `call 0x50eea0` -
+ * manager and panel, matching PanelManager_Register's real two-parameter
+ * signature (see that file's own header for the EAX/stack recovery).
  */
 #include "ghidra_types.h"
 
 
-void FUN_00509780(void)
+void FUN_00509780(int esiArg)
 
 {
   int *piVar1;
   undefined4 *puVar2;
   undefined4 uVar3;
-  int unaff_ESI;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 uVar4;
-  undefined4 local_c;
-  undefined1 *puStack_8;
-  undefined4 local_4;
-  
-  local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053795b;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
-  puVar2 = *(undefined4 **)(unaff_ESI + 4);
+
+  puVar2 = *(undefined4 **)(esiArg + 4);
   do {
     if (puVar2 == (undefined4 *)0x0) {
       puVar2 = operator_new(0x90);
-      local_4 = 0;
       if (puVar2 == (undefined4 *)0x0) {
         puVar2 = (undefined4 *)0x0;
       }
@@ -36,7 +46,6 @@ void FUN_00509780(void)
         Panel_BaseConstructor(puVar2);
         *puVar2 = &PTR_LAB_00557d78;
       }
-      local_4 = 0xffffffff;
       uVar4 = 0xffff;
       puVar2[9] = 50000;
       puVar2[0x13] = 0;
@@ -57,13 +66,12 @@ void FUN_00509780(void)
       Widget_AddChild(uVar3);
       uVar3 = CreateLabelWidget(1,0x641,0x9d,0xd0,0x51,0x21);
       Widget_AddChild(uVar3);
-      PanelManager_Register(puVar2);
+      PanelManager_Register((void *)esiArg, (int)puVar2);
       break;
     }
     piVar1 = puVar2 + 2;
     puVar2 = (undefined4 *)*puVar2;
   } while ((*(int *)(*piVar1 + 0x20) != 0) || (*(int *)(*piVar1 + 0x24) != 50000));
-  *unaff_FS_OFFSET = local_c;
   return;
 }
 

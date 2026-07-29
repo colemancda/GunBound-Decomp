@@ -4,6 +4,15 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-07-29): the stale `OpenXFSEntryStream(0)` (see
+ * functions.h's "K&R-empty deliberately" note) resolves via objdump
+ * (0x423eff-0x423f17): `mov edi,[esp+0x118]` (= this function's own
+ * param_1) / `add edi,0xf6e8` (archive = param_1 + 0xf6e8, the same
+ * per-session archive FUN_00423bf0.c resolves at g_clientContext + 0xf6e8 -
+ * every caller here already passes g_clientContext as param_1) / `push 0x0`
+ * (insertFlag) / `mov cl,0x1` (findExisting) / `lea eax,[esp+0x98]` (name =
+ * the just-built auStack_81 string) / `call 0x4f1390`.
  */
 #include "ghidra_types.h"
 
@@ -85,7 +94,7 @@ uint FUN_00423e20(undefined4 param_1,int param_2)
   } while (*(char *)((int)puVar7 + 1) != '\0');
   *(undefined4 *)((int)puVar7 + 1) = DAT_00552c70;
   *(undefined1 *)((int)puVar7 + 5) = DAT_00552c74;
-  iVar4 = OpenXFSEntryStream(0);
+  iVar4 = OpenXFSEntryStream((int)param_1 + 0xf6e8, (char *)auStack_81, 1, 0);
   uVar2 = 0;
   if (iVar4 != 0) {
     ReadXFSEntryByte(iVar4,&local_108);

@@ -434,9 +434,9 @@ void FUN_00422f70();
 void FUN_00423050();
 void ApplyBattleActionToContext();
 void __fastcall FUN_00423a20();
-undefined4 FUN_00423bf0();
-uint FUN_00423e20();
-uint FUN_004240c0();
+undefined4 FUN_00423bf0(int archiveBase);
+uint FUN_00423e20(undefined4 param_1, int param_2);
+uint FUN_004240c0(undefined4 param_1, int param_2, int param_3, int param_4);
 void FUN_00424400();
 void FUN_00424ac0();
 int __fastcall FUN_00425350();
@@ -1106,7 +1106,7 @@ void FUN_004e38f0();
 void FUN_004e39b0();
 void DrawStageDecorationParallax();
 int __fastcall DrawStageDecorationBase();
-void FUN_004e3c50();
+void FUN_004e3c50(int param_1, char *name);
 void LoadStageDecorationSet();
 void FUN_004e4010();
 void FUN_004e4220();
@@ -1293,11 +1293,11 @@ undefined4 FUN_004f0d70();
 int __fastcall FUN_004f1020();
 uint FindXFSEntryIndex();
 uint FindOrInsertXFSEntry();
-/* K&R-empty deliberately: only the recovered live call sites pass the real
- * 4 args (archive, name, findExisting, insertFlag); the ~13 other callers
- * still invoke it as OpenXFSEntryStream(0) (dropped-register recovery
- * pending per-caller) and rely on this unchecked prototype to compile. */
-undefined4 OpenXFSEntryStream();
+/* All callers now pass the real 4 args (archive, name, findExisting,
+ * insertFlag) - the last stale OpenXFSEntryStream(0) sites (FUN_00423e20.c,
+ * FUN_004240c0.c, FUN_004e3c50.c, FUN_00423bf0.c x6) were fixed 2026-07-29.
+ * See OpenXFSEntryStream.c's header for the original recovery. */
+undefined4 OpenXFSEntryStream(int archive, char *name, char findExisting, undefined4 insertFlag);
 /* K&R-empty deliberately (like FindSpriteFrame): only LoadSpriteSet.c's
  * call site passes the real 2 args (readState, archive) - ~13 other
  * callers still use the old 0-arg form. See CloseSpriteReadState.c. */
@@ -1632,7 +1632,7 @@ undefined4 * BuildReadyRoomChatPanel();
 void BuildItemDescriptionTooltip();
 void HideStoreItemTooltipPanel();
 int PanelManager_FindByName();
-void FUN_00509780();
+void FUN_00509780(int esiArg);
 void FUN_005098e0(int, int);
 void __fastcall PanelManager_BringToFront();
 void FUN_005099b0();

@@ -308,8 +308,20 @@ CAvatarStorePanel::CAvatarStorePanel()
  * item panel). Key 0x232b at (552,5) 240x541 with the page-14
  * scrollbar; registers with the manager BEFORE adding the three
  * category tab labels (msgs 0x4b0-0x4b2, 64x23 at y 508), each of
- * which starts DISABLED via SetEnabled(false). */
-extern "C" CAvatarStorePanel * BuildAvatarStorePanel(int total)
+ * which starts DISABLED via SetEnabled(false).
+ *
+ * FIXED (2026-07-29): this function's OWN incoming parameter is NOT the
+ * scroll list's total - orig 0x447f3b `push 0xe53c40` (g_uiPanelManager)
+ * is its sole stack arg (read into EBP, used only for the already-
+ * hardcoded PanelManager_Register call below), and CreateScrollListWidget's
+ * real (register-passed) total comes from a value read fresh inside this
+ * function: orig 0x509f13 `mov edi,[eax+0x44e24]` with eax=g_clientContext
+ * loaded immediately before - the same "total owned avatar items" bound
+ * EquipAvatarPart.c/UnequipAvatarSlot.c/etc. already read at this exact
+ * offset. Our old code forwarded the incoming (unrelated) parameter into
+ * `total` instead, so the scroll list's item count was a huge bogus
+ * pointer value - same bug class as BuildChannelUserListPanel's fix. */
+extern "C" CAvatarStorePanel * BuildAvatarStorePanel(int panelManagerArg)
 {
     CAvatarStorePanel *p = new CAvatarStorePanel();
     p->m_id = 0x232b;
@@ -320,7 +332,8 @@ extern "C" CAvatarStorePanel * BuildAvatarStorePanel(int total)
     p->m_y = 5;
     p->m_width = 0xf0;
     p->m_height = 0x21d;
-    p->AddChild(CreateScrollListWidget(0, total, 0xcf, 0x8c, 0x12, 0xab, 0xe));
+    p->AddChild(CreateScrollListWidget(0, *(unsigned int *)(g_clientContext + 0x44e24),
+                                        0xcf, 0x8c, 0x12, 0xab, 0xe));
     PanelManager_Register(&g_uiPanelManager, p);
     CLabel *tab;
     tab = CreateLabelWidget(0, 0x4b0, 0xe, 0x1fc, 0x40, 0x17);

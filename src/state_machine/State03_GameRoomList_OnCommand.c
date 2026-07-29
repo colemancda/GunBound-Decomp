@@ -95,7 +95,10 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
       SendOutgoingPacket(iVar2);
       return;
     }
-    FUN_00509780();
+    /* DROPPED-ESI FIX (2026-07-29): orig 0x4286b5 `mov esi,0xe53c40`
+     * (= &g_uiPanelManager) immediately before `call 0x509780` - see
+     * FUN_00509780.c's own header for the full recovery. */
+    FUN_00509780((int)&g_uiPanelManager);
     return;
   case 4:
     OpenCreateRoomDialog();

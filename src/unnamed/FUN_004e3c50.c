@@ -4,11 +4,26 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARGUMENT FIX (2026-07-29): confirmed via objdump. Entry
+ * `mov edi,eax` (0x4e3c60) - the function's own name-string argument
+ * arrives in EAX and is immediately stashed in EDI for the local_80 copy
+ * loop; Ghidra rendered the read (not the missing parameter) as `in_EAX`.
+ * Promoted to an explicit `name` parameter.
+ *
+ * The stale `OpenXFSEntryStream(0)` (see functions.h's "K&R-empty
+ * deliberately" note) resolves to archive=&g_graphicsArchive,
+ * name=local_80, findExisting=1, insertFlag=0: orig 0x4e3cfc-0x4e3d09
+ * `push 0x0` / `mov cl,0x1` / `lea eax,[esp+0x10]` (= the same buffer
+ * local_80 was just built into) / `mov edi,0xf11dd0` (= &g_graphicsArchive,
+ * same literal as CloseSpriteReadState.c/LoadSpriteSet.c) / `call
+ * 0x4f1390`.
  */
 #include "ghidra_types.h"
+#include "xfs.h"
 
 
-void FUN_004e3c50(int param_1)
+void FUN_004e3c50(int param_1, char *name)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -26,6 +41,8 @@ void FUN_004e3c50(int param_1)
   bool bVar9;
   char local_80 [4];
   undefined1 local_7c [124];
+
+  in_EAX = name;
   
   iVar7 = *(int *)(DAT_00ea0e1c + 0x1c);
   uVar2 = *(uint *)(iVar7 + 4);
@@ -70,7 +87,7 @@ LAB_004e3ca5:
   *(void **)(param_1 + 0x34) = pvVar6;
   pvVar6 = operator_new(*(int *)(iVar7 + 0x24) * *(int *)(iVar7 + 0x20));
   *(void **)(param_1 + 0x38) = pvVar6;
-  iVar7 = OpenXFSEntryStream(0);
+  iVar7 = OpenXFSEntryStream((int)&g_graphicsArchive, local_80, 1, 0);
   if (iVar7 != 0) {
     ReadXFSEntryByte(iVar7,param_1 + 0x18);
     ReadXFSEntryByte(iVar7,param_1 + 0x1c);
