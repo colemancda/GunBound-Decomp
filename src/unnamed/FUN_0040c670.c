@@ -16,7 +16,19 @@
  * hInstance param) / `mov eax,ebp` (InitGame's own hWnd param, kept live
  * in EBP) / `call 0x40c670`. Promoted `block`/`hWndParent` to explicit
  * parameters; this is the ONLY call site.
- */
+ *
+ * UNDER-SIZED GLOBAL FIX (2026-07-29): DAT_00552084 (the CreateWindowExA
+ * class-name arg) was a zeroed 1-byte placeholder - the real orig .rdata
+ * bytes are "edit\0", the Win32 EDIT-control class name. Passing an empty
+ * string as the class name makes CreateWindowExA fail
+ * (ERROR_CANNOT_FIND_WND_CLASS -> NULL HWND), so this control never
+ * actually existed: every call below (GetWindowLongA/SetWindowLongA/
+ * SetFocus) silently no-ops or fails on the NULL block[1], `*(block+2)=1`
+ * still marks the block "ready" regardless, and keyboard focus never
+ * leaves the main window - this is why the lobby's chat edit box never
+ * received real keystrokes (confirmed live: GetFocus() at WM_KEYDOWN time
+ * returns the main window's own HWND, and block[1] reads 0 throughout).
+ * See globals.c's own comment on DAT_00552084. */
 #include "ghidra_types.h"
 
 
@@ -28,7 +40,7 @@ void __fastcall FUN_0040c670(HINSTANCE param_1,undefined4 *block,HWND hWndParent
 
   DAT_005b1c48 = block;
   *block = (undefined4)hWndParent;
-  hWnd = CreateWindowExA(0,&DAT_00552084,(LPCSTR)0x0,0x40800000,0,0,800,0x18,hWndParent,(HMENU)0x0,
+  hWnd = CreateWindowExA(0,DAT_00552084,(LPCSTR)0x0,0x40800000,0,0,800,0x18,hWndParent,(HMENU)0x0,
                          param_1,(LPVOID)0x0);
   block[1] = (undefined4)hWnd;
   LVar1 = GetWindowLongA(hWnd,-4);

@@ -42,7 +42,7 @@ uint8_t DAT_00551e36;
 const char DAT_00551e78[] = "push"; /* mouse-press state name; was a zeroed 1-byte global (orig .data 0x551e78) */
 void * DAT_00551ecc;
 uint8_t DAT_0055207c;
-uint8_t DAT_00552084;
+const char DAT_00552084[] = "edit"; /* Win32 EDIT-control class name for the hidden global chat-input control (FUN_0040c670's CreateWindowExA) - was a zeroed 1-byte global (orig .rdata 0x552084), same class of bug as DAT_00551e78 above. With the class name reading as an empty string, CreateWindowExA silently failed (ERROR_CANNOT_FIND_WND_CLASS -> NULL HWND), so the control never existed: SetFocus/SetWindowLongA/ImmDisableIME in FUN_0040c670 all silently no-op'd on a NULL HWND, keyboard focus stayed on the main window instead of the (nonexistent) edit control, and chat typing never worked. */
 uint8_t DAT_00552218;
 uint8_t DAT_00552728;
 uint8_t DAT_0055275c;
