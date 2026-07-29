@@ -64,7 +64,7 @@ void __fastcall RenderChannelUserRow(int param_1)
   }
   Widget_DrawSelf(param_1);
   iVar4 = g_clientContext;
-  FUN_0041b6b0(g_clientContext);
+  RebuildChannelUserIndex(g_clientContext);
   iVar1 = *(int *)(param_1 + 0x28);
   local_4 = 0;
   iVar7 = *(int *)(param_1 + 0x2c) + 0x25;

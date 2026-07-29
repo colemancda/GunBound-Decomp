@@ -162,6 +162,10 @@ public class ApplyFunctionRenames extends GhidraScript {
         {"0050f150", "PanelManager_DispatchRightMouseUp", "src/ui_widget/PanelManager_DispatchRightMouseUp.c"},
         {"0050f230", "PanelManager_DispatchKeyDown", "src/ui_widget/PanelManager_DispatchKeyDown.c"},
         {"0050f260", "PanelManager_DispatchKeyUp", "src/ui_widget/PanelManager_DispatchKeyUp.c"},
+        // 2026-07-29: channel roster fix - unaff_ESI was a dropped clientContext
+        // arg, corrupting the compact user-index table RenderChannelUserRow.c
+        // walks (see that file's header for the duplicate-row symptom this fixed).
+        {"0041b6b0", "RebuildChannelUserIndex", "src/ui_widget/RebuildChannelUserIndex.c"},
     };
 
     /* Addresses where a RENAMES entry is INTENTIONALLY allowed to replace an

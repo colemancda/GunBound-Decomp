@@ -399,7 +399,7 @@ void FUN_00418dc0();
 int FUN_00419d30();
 uint __fastcall WrapChatLineText();
 int RenderWrappedText();
-void FUN_0041b6b0(int clientContext);
+void RebuildChannelUserIndex(int clientContext);
 void FUN_0041b6f0();
 void __fastcall FUN_0041b7e0();
 void FUN_0041b840();

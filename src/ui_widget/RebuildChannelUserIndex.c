@@ -1,4 +1,4 @@
-/* FUN_0041b6b0 - 0x0041b6b0 in the original binary.
+/* RebuildChannelUserIndex - 0x0041b6b0 in the original binary.
  *
  * Rebuilds the channel user-list panel's compact index table
  * (g_clientContext+0x44248, walked by RenderChannelUserRow.c): fills all
@@ -26,7 +26,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0041b6b0(int clientContext)
+void RebuildChannelUserIndex(int clientContext)
 
 {
   int iVar1;
@@ -49,4 +49,3 @@ void FUN_0041b6b0(int clientContext)
   } while (iVar1 < 0x100);
   return;
 }
-
