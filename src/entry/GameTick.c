@@ -108,7 +108,15 @@ void GameTick(void)
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9084);
-  FUN_0050f290();
+  /* DROPPED-ARGUMENT FIX (2026-07-29): orig 0x41329a `mov ecx,0xe53c40`
+   * (= &g_uiPanelManager) immediately before `call 0x50f290` - see
+   * FUN_0050f290.c's own header for the full recovery (this call site was
+   * the root cause of a lobby-wide keyboard-input crash: with param_1
+   * dropped, FUN_0050f290 walked whatever widget pointer happened to be
+   * left in ECX by the immediately-prior PanelManager_DispatchKeyDown
+   * call as if it were g_uiPanelManager, eventually indirect-calling
+   * through garbage). */
+  FUN_0050f290((int *)&g_uiPanelManager);
   /* orig 0x4132a4 loads EBX = &DAT_00e9be90 immediately before this call
    * (0x4132a9); TickActiveObjectRegistry's argument was dropped by Ghidra as
    * unaff_EBX - see that file. */
