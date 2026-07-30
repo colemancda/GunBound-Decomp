@@ -1,18 +1,18 @@
-/* FUN_004e3500 - 0x004e3500 in the original binary.
+/* LoadSoundConfig - 0x004e3500 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * WRONG-ARCHIVE FIX (2026-07-29): same bug as the identical FUN_00415900.c
+ * WRONG-ARCHIVE FIX (2026-07-29): same bug as the identical LoadFourWordList.c
  * - FindXFSEntry was called with `auStack_10750` (an 8-byte local buffer,
  * never written) instead of `&g_xfsScratch`, the archive OpenXFSArchive
  * was just opened into two lines above. See that file's header for the
  * full objdump-confirmed detail.
  *
  * ReadXFSEntry/ReadXFSEntryByte DROPPED-ARGS FIX (2026-07-30): same bug,
- * same fix as the identical FUN_00415900.c - see that file's header for
+ * same fix as the identical LoadFourWordList.c - see that file's header for
  * the full writeup. `ReadXFSEntry(iVar6,local_f708)` (2-arg, treated as
  * void) was wrong on both counts: the entry record was passed as the
  * readState and a 63180-byte dead local as nothing in particular.
@@ -24,13 +24,13 @@
  * those two files) and dropped rather than kept as inert stack padding.
  *
  * CloseSpriteReadState/FUN_004f0d70 CALL-SITE FIX (2026-07-30): same bug,
- * same fix as the identical FUN_00415900.c - see that file's header.
+ * same fix as the identical LoadFourWordList.c - see that file's header.
  */
 #include "xfs.h"
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004e3500(undefined4 param_1)
+undefined4 LoadSoundConfig(undefined4 param_1)
 
 {
   char *pcVar1;

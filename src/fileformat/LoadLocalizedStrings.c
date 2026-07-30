@@ -44,7 +44,7 @@
  * CloseSpriteReadState CALL-SITE FIX (2026-07-30): this file's own
  * `CloseSpriteReadState()` was still 0-arg, matching that function's own
  * header ("NOT FIXED HERE" list). readState=uStack_10f54, archive=
- * &g_xfsScratch - same fix as FUN_00415900.c/LoadChooseEventConfig.c.
+ * &g_xfsScratch - same fix as LoadFourWordList.c/LoadChooseEventConfig.c.
  */
 #include "xfs.h"
 #include "ghidra_types.h"

@@ -17,7 +17,7 @@
  * `mov edi,0xf11dd0` - the literal &g_graphicsArchive - immediately
  * before `call 0x4f1460`).
  *
- * FIXED (2026-07-30): FUN_00415900.c, FUN_004e3500.c,
+ * FIXED (2026-07-30): LoadFourWordList.c, LoadSoundConfig.c,
  * LoadChooseEventConfig.c, LoadLocalizedStrings.c - all four share the
  * same g_xfsScratch archive and their own already-established readState
  * variable (see each file's own header for its objdump confirmation).

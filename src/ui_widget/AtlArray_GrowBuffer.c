@@ -10,11 +10,11 @@
  * custom-register family (`this` in ESI, arg in EAX) - already
  * independently confirmed in src/cxx/AtlArray.h's `CAtlArray::GrowBuffer`,
  * which this raw port duplicates for the 3 remaining raw callers that
- * haven't migrated to that C++ template (`FUN_00415bc0.c`,
+ * haven't migrated to that C++ template (`AppendWordFilterEntry.c`,
  * `FUN_004d2130.c`, `State11_InBattle_OnTick.c` - `Widget_AddChild.c`
  * already has, hence only 3 callers remain here). Promoted to explicit
  * params; functions.h stays K&R-empty (matching the OpenXFSEntryStream-
- * style incremental-migration idiom) since only `FUN_00415bc0.c`'s call
+ * style incremental-migration idiom) since only `AppendWordFilterEntry.c`'s call
  * site is fixed so far - confirmed via objdump that it's clean (`this` =
  * its own already-named `param_1`, size = `param_1[1] + 1`; that call
  * site's own `unaff_FS_OFFSET` SEH-prologue-artifact bug, corrupting

@@ -13,7 +13,7 @@
  * just computed by an inline strlen loop) - this is a CStringT-style
  * assign-from-buffer helper: `(dest, srcBuffer, length)`. Only the one
  * call site actually reachable in current live testing is fixed here
- * (FUN_00405510.c, itself reached via FUN_00415bc0/FUN_00415900's
+ * (FUN_00405510.c, itself reached via AppendWordFilterEntry/LoadFourWordList's
  * FourWord.txt/Sound.txt word-list loading); the ~17 other call sites
  * across src/ui_widget and src/unnamed keep their existing (pre-existing,
  * not worsened by this fix) 2-arg calls against the K&R-empty decl -

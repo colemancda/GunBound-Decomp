@@ -64,9 +64,9 @@ int InitGame(undefined4 param_1,undefined4 param_2)
    * flagged here so it's not lost history. If __except's specific
    * fault-recovery behavior for a failed init step ever turns out to
    * matter, this is the place to revisit. */
-  FUN_00415900();
+  LoadFourWordList();
   LoadLocalizedStrings(&g_localizedStringTable);
-  FUN_004e3500(&DAT_00794e14);
+  LoadSoundConfig(&DAT_00794e14);
   LoadChooseEventConfig(&DAT_00e9bea8);
   CoInitialize((LPVOID)0x0);
   DAT_00588f4c = 0;

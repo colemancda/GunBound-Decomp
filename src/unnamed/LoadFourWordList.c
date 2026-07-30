@@ -1,4 +1,4 @@
-/* FUN_00415900 - 0x00415900 in the original binary.
+/* LoadFourWordList - 0x00415900 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -12,7 +12,7 @@
  * uses the SAME register (esi) for both the OpenXFSArchive and
  * FindXFSEntry calls (0x415912-0x41592c region); LoadChooseEventConfig.c
  * and LoadLocalizedStrings.c already get this right (both calls use
- * &g_xfsScratch), this file and the identical FUN_004e3500.c did not.
+ * &g_xfsScratch), this file and the identical LoadSoundConfig.c did not.
  * With the wrong pointer, FindXFSEntry read `*(int*)(auStack_10750+8)` as
  * a garbage-nonzero "entry count" off uninitialised stack, entered its
  * binary search, and fed CompareXFSEntryName a NULL record pointer -
@@ -49,11 +49,11 @@
  * also removes the multi-page `__chkstk` prologue this function used to
  * need, which is a nice side effect but not why the crash is fixed.
  *
- * FUN_00415bc0 CALL-SITE FIX (2026-07-30): `FUN_00415bc0(acStack_10f50)`
+ * AppendWordFilterEntry CALL-SITE FIX (2026-07-30): `AppendWordFilterEntry(acStack_10f50)`
  * dropped that function's real `this` (the word-filter AtlArray header at
  * g_wordFilterArrayHeader, was DAT_00e9c9dc/DAT_00e9c9e0 - see
  * globals_sized.c) and passed the parsed line as if it were `this` instead
- * of the actual 2nd argument. See FUN_00415bc0.c's own header for the full
+ * of the actual 2nd argument. See AppendWordFilterEntry.c's own header for the full
  * objdump-confirmed detail.
  *
  * CloseSpriteReadState/FUN_004f0d70 CALL-SITE FIX (2026-07-30): both were
@@ -71,7 +71,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00415900(void)
+undefined4 LoadFourWordList(void)
 
 {
   bool bVar1;
@@ -154,7 +154,7 @@ LAB_00415a5e:
       }
       else {
         acStack_10f50[iVar5] = '\0';
-        FUN_00415bc0((int *)&g_wordFilterArrayHeader,acStack_10f50);
+        AppendWordFilterEntry((int *)&g_wordFilterArrayHeader,acStack_10f50);
         iVar5 = 0;
       }
     }

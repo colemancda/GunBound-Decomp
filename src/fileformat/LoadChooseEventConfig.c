@@ -40,7 +40,7 @@
  * CloseSpriteReadState CALL-SITE FIX (2026-07-30): this file's own
  * `CloseSpriteReadState()` was still 0-arg, matching that function's own
  * header ("NOT FIXED HERE" list). readState=uStack_10f54, archive=
- * &g_xfsScratch - same fix as FUN_00415900.c, see that file's header for
+ * &g_xfsScratch - same fix as LoadFourWordList.c, see that file's header for
  * the objdump detail (edi is reused as CloseXFSArchive's own archive arg
  * right after, and every CloseXFSArchive call site in the tree already
  * uses &g_xfsScratch).

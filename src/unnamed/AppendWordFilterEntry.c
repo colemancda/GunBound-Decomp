@@ -1,4 +1,4 @@
-/* FUN_00415bc0 - 0x00415bc0 in the original binary.
+/* AppendWordFilterEntry - 0x00415bc0 in the original binary.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -14,7 +14,7 @@
  *
  * DROPPED `this`/2ND-ARG FIX (2026-07-30): Ghidra's decompile lost BOTH of
  * this function's real arguments - it took no parameters and read a
- * dropped `unaff_ESI`. Confirmed via objdump (FUN_00415900's call site,
+ * dropped `unaff_ESI`. Confirmed via objdump (LoadFourWordList's call site,
  * orig 0x415ad9-0x415ae8): `mov ecx,0xe9c9dc` sets the real thiscall
  * `this` to the word-filter AtlArray header (see globals_sized.c's
  * g_wordFilterArrayHeader), and a `push ecx` just before that (while ecx
@@ -31,7 +31,7 @@
  * called with only 1 of its real 2 args.
  *
  * functions.h stays K&R-empty (incremental-migration idiom, same as
- * AtlArray_GrowBuffer.c) - FUN_00415900.c's call site (the only one this
+ * AtlArray_GrowBuffer.c) - LoadFourWordList.c's call site (the only one this
  * fix touches) is correct now, but two other real callers still pass only
  * 1 arg and haven't been traced: FUN_00425840.c (a chat word-filter
  * function, plausibly the SAME g_wordFilterArrayHeader, but that
@@ -46,7 +46,7 @@
 #include "ghidra_types.h"
 
 
-uint __fastcall FUN_00415bc0(int *thisArray,char *lineText)
+uint __fastcall AppendWordFilterEntry(int *thisArray,char *lineText)
 
 {
   int iVar1;

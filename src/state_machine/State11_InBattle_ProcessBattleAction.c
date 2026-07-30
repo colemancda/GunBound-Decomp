@@ -242,7 +242,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
                       iVar10 = PeekChecksumStateUnderLock(iVar10 + 0x25c);
                       uVar11 = iVar10 - iVar6 >> 0x1f;
                       if ((int)((iVar10 - iVar6 ^ uVar11) - uVar11) < 0x96) {
-                        FUN_00415bc0(local_27d8);
+                        AppendWordFilterEntry(local_27d8);
                       }
                     }
                     local_27f0 = local_27f0 + 1;

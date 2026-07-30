@@ -6,11 +6,11 @@
  * verbatim ports" section for status.
  *
  * SEH-PROLOGUE ARTIFACT FIX (2026-07-30): same class as
- * FUN_00415bc0.c/WidgetChildArray_Destroy.c/FUN_00443c20.c/
+ * AppendWordFilterEntry.c/WidgetChildArray_Destroy.c/FUN_00443c20.c/
  * FUN_00509780.c - `unaff_FS_OFFSET` was an uninitialised pointer the body
  * wrote through (`*unaff_FS_OFFSET = &uStack_c;`) on every call. Stripped
- * per that idiom. Reached live for the first time once FUN_00415bc0.c's
- * dropped-args bug was fixed (this function is FUN_00415bc0's own
+ * per that idiom. Reached live for the first time once AppendWordFilterEntry.c's
+ * dropped-args bug was fixed (this function is AppendWordFilterEntry's own
  * `FUN_00405510(lineText, arraySlot)` call, constructing one CStringT-style
  * element per word parsed from FourWord.txt/Sound.txt) - the garbage
  * FS_OFFSET write was corrupting memory on every single word appended.
