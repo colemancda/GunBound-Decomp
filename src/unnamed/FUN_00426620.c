@@ -60,7 +60,7 @@ int __thiscall FUN_00426620(undefined4 param_1,int *param_2,char *param_3)
       } while (cVar1 != '\0');
     }
   }
-  FUN_004056c0(iVar4,param_3);
+  AssignStringBuffer(iVar4,param_3);
   *unaff_FS_OFFSET = local_10;
   return iVar2;
 }

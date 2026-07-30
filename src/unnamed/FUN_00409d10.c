@@ -45,7 +45,7 @@ int __thiscall FUN_00409d10(int param_1,int *param_2,undefined4 param_3,undefine
   iVar3 = param_2[0xb];
   param_2[0xb] = *(int *)(iVar3 + 8);
   local_8 = 1;
-  FUN_00405510(iVar3);
+  ConstructStringFromText(iVar3);
   local_8 = 0xffffffff;
   *(undefined4 *)(iVar3 + 0xc) = param_4;
   param_2[1] = param_2[1] + 1;

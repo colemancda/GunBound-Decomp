@@ -42,7 +42,7 @@ undefined4 EnterRoomNumberDialog_SubmitRoomNumber(undefined4 *param_1)
         pcVar4 = pcVar4 + 1;
       } while (cVar1 != '\0');
     }
-    FUN_004056c0(param_1 + 0x14,pcVar7);
+    AssignStringBuffer(param_1 + 0x14,pcVar7);
   }
   uVar3 = Widget_FindChildIndex();
   if (uVar3 != 0xffffffff) {
@@ -58,7 +58,7 @@ undefined4 EnterRoomNumberDialog_SubmitRoomNumber(undefined4 *param_1)
         pcVar4 = pcVar4 + 1;
       } while (cVar1 != '\0');
     }
-    FUN_004056c0(param_1 + 0x15,pcVar7);
+    AssignStringBuffer(param_1 + 0x15,pcVar7);
   }
   lVar5 = _atol((char *)param_1[0x14]);
   if ((lVar5 + -1 < 499) && (lVar5 = _atol((char *)param_1[0x14]), lVar5 + -1 < 0)) {

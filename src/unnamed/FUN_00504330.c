@@ -28,7 +28,7 @@ int * FUN_00504330(int param_1,int param_2,int *param_3)
     if (piVar1 != piVar7) {
       piVar2 = (int *)(iVar3 + -4);
       if ((*(int *)(iVar3 + -4) < 0) || (*piVar1 != *piVar7)) {
-        FUN_004056c0(piVar6,*(int *)(param_2 + -8));
+        AssignStringBuffer(piVar6,*(int *)(param_2 + -8));
       }
       else {
         iVar4 = FUN_0043de10();
@@ -51,7 +51,7 @@ int * FUN_00504330(int param_1,int param_2,int *param_3)
     param_3 = piVar6;
     if (piVar2 != piVar8) {
       if ((*(int *)(iVar3 + -4) < 0) || (*piVar2 != *piVar8)) {
-        FUN_004056c0(piVar7,*piVar1);
+        AssignStringBuffer(piVar7,*piVar1);
       }
       else {
         iVar5 = FUN_0043de10();

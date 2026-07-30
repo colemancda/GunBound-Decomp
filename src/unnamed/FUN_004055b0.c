@@ -20,10 +20,10 @@ void __fastcall FUN_004055b0(undefined4 param_1,char *param_2)
       cVar1 = *pcVar2;
       pcVar2 = pcVar2 + 1;
     } while (cVar1 != '\0');
-    FUN_004056c0(unaff_EDI,param_2);
+    AssignStringBuffer(unaff_EDI,param_2);
     return;
   }
-  FUN_004056c0(unaff_EDI,0);
+  AssignStringBuffer(unaff_EDI,0);
   return;
 }
 

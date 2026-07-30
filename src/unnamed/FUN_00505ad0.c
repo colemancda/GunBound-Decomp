@@ -33,7 +33,7 @@ void FUN_00505ad0(int param_1)
         pcVar3 = pcVar3 + 1;
       } while (cVar1 != '\0');
     }
-    FUN_004056c0(param_1 + 0x50,pcVar5);
+    AssignStringBuffer(param_1 + 0x50,pcVar5);
   }
   if (*(int *)(*(int *)(param_1 + 0x50) + -0xc) != 0) {
     cVar1 = CheckChatWordFilter(*(int *)(param_1 + 0x50));

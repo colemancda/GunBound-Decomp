@@ -59,7 +59,7 @@ joined_r0x00508ec8:
         puVar5 = puVar5 + 1;
       } while (uVar1 != '\0');
     }
-    FUN_004056c0(puVar3 + 0x14,unaff_EDI);
+    AssignStringBuffer(puVar3 + 0x14,unaff_EDI);
     _Format = (char *)GetLocalizedString(&g_localizedStringTable,0xfa5);
     _sprintf(local_8c,_Format);
     uVar4 = CreateStaticTextWidget(0x17,0x2b,0x9a,0x33,local_8c,0xffff);

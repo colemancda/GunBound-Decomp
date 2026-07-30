@@ -1,9 +1,13 @@
-/* FUN_004056c0 - 0x004056c0 in the original binary.
+/* AssignStringBuffer - 0x004056c0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-30): a CStringT-style `(dest, srcBuffer, length)`
+ * assign helper - grows/reuses `dest`'s backing buffer (bounds fields at
+ * dest[-4]/dest[-8]/dest[-0xc], same CStringT internal layout as the
+ * rest of this family), copies `length` bytes in from `srcBuffer` (or
+ * memmoves if src/dest overlap), and NUL-terminates. `length == 0` goes
+ * through the separate FUN_00405760 "clear" path instead. Raw/near-
+ * verbatim port of Ghidra's decompiler output otherwise, not hand-
+ * verified. See src/README.md's "Raw/verbatim ports" section for status.
  *
  * DROPPED-LENGTH FIX (2026-07-30): `unaff_EBX` is a real 3rd argument -
  * the byte count to copy/assign - dropped by Ghidra at EVERY one of this
@@ -13,7 +17,7 @@
  * just computed by an inline strlen loop) - this is a CStringT-style
  * assign-from-buffer helper: `(dest, srcBuffer, length)`. Only the one
  * call site actually reachable in current live testing is fixed here
- * (FUN_00405510.c, itself reached via AppendWordFilterEntry/LoadFourWordList's
+ * (ConstructStringFromText.c, itself reached via AppendWordFilterEntry/LoadFourWordList's
  * FourWord.txt/Sound.txt word-list loading); the ~17 other call sites
  * across src/ui_widget and src/unnamed keep their existing (pre-existing,
  * not worsened by this fix) 2-arg calls against the K&R-empty decl -
@@ -23,7 +27,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004056c0(int *param_1,undefined4 *param_2,uint length)
+void AssignStringBuffer(int *param_1,undefined4 *param_2,uint length)
 
 {
   int iVar1;

@@ -41,10 +41,10 @@ int FUN_0043dd40(int id,undefined4 param_1,char *message)
       cVar1 = *pcVar3;
       pcVar3 = pcVar3 + 1;
     } while (cVar1 != '\0');
-    FUN_004056c0(iVar2 + 4,message);
+    AssignStringBuffer(iVar2 + 4,message);
     return iVar2;
   }
-  FUN_004056c0(iVar2 + 4,0);
+  AssignStringBuffer(iVar2 + 4,0);
   return iVar2;
 }
 

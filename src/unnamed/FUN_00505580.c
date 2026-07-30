@@ -34,7 +34,7 @@ void FUN_00505580(int param_1)
         pcVar4 = pcVar4 + 1;
       } while (cVar1 != '\0');
     }
-    FUN_004056c0(param_1 + 0x50,pcVar5);
+    AssignStringBuffer(param_1 + 0x50,pcVar5);
   }
   if (*(int *)(*(int *)(param_1 + 0x50) + -0xc) != 0) {
     iVar3 = FUN_00401bb0(&DAT_00e53e88);

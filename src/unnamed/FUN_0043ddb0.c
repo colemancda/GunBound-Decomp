@@ -36,7 +36,7 @@ void FUN_0043ddb0(void)
       *unaff_EDI = iVar4 + 0x10;
       return;
     }
-    FUN_004056c0(unaff_EDI,*in_EAX);
+    AssignStringBuffer(unaff_EDI,*in_EAX);
   }
   return;
 }

@@ -22,12 +22,12 @@
  * supplies a second, stack-passed argument - the text to append. Body
  * confirms both: `[esi+4]`/`[esi+8]` are the array's count/capacity
  * (matching AtlArray_GrowBuffer's `this[1]`/`this[2]`), and the saved
- * text pointer is reloaded right before the `FUN_00405510` call as that
+ * text pointer is reloaded right before the `ConstructStringFromText` call as that
  * callee's own first argument (source text to construct the new element
  * from). `this` was previously taken as this function's own `param_1`
  * (a bug this file's own earlier fix pass introduced by assuming the
  * caller's line-buffer WAS the array header) - actually two distinct
- * objects. Also wires the `FUN_00405510` call, which this file always
+ * objects. Also wires the `ConstructStringFromText` call, which this file always
  * called with only 1 of its real 2 args.
  *
  * functions.h stays K&R-empty (incremental-migration idiom, same as
@@ -63,7 +63,7 @@ uint __fastcall AppendWordFilterEntry(int *thisArray,char *lineText)
   }
   iVar1 = *thisArray + uVar2 * 4;
   if (iVar1 != 0) {
-    FUN_00405510(lineText, iVar1);
+    ConstructStringFromText(lineText, iVar1);
   }
   thisArray[1] = thisArray[1] + 1;
   return uVar2;

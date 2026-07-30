@@ -59,7 +59,7 @@ LAB_004053a0:
   puVar1 = (undefined4 *)unaff_EBX[2];
   local_4 = 0;
   if (puVar1 != (undefined4 *)0x0) {
-    FUN_00405510(puVar1);
+    ConstructStringFromText(puVar1);
     puVar3 = puVar1;
     for (iVar2 = 0x40; puVar3 = puVar3 + 1, iVar2 != 0; iVar2 = iVar2 + -1) {
       *puVar3 = *param_2;

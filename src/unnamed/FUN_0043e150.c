@@ -63,7 +63,7 @@ LAB_0043e189:
   local_4 = 0;
   if (puVar1 != (undefined4 *)0x0) {
     *puVar1 = param_1;
-    FUN_00405510(puVar1 + 1);
+    ConstructStringFromText(puVar1 + 1);
     puVar1[2] = 1;
     puVar1[5] = 0;
   }

@@ -34,7 +34,7 @@ undefined4 FUN_00506210(undefined4 *param_1)
         pcVar4 = pcVar4 + 1;
       } while (cVar1 != '\0');
     }
-    FUN_004056c0(param_1 + 0x14,pcVar5);
+    AssignStringBuffer(param_1 + 0x14,pcVar5);
   }
   uVar2 = *param_1;
   if (*(int *)(param_1[0x14] + -0xc) == 0) {

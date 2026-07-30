@@ -21,7 +21,7 @@ int FUN_00426a60(int param_1,undefined4 param_2)
   local_4 = 0xffffffff;
   puStack_8 = &LAB_00537a58;
   *unaff_FS_OFFSET = &uStack_c;
-  FUN_00405510(param_1);
+  ConstructStringFromText(param_1);
   local_4 = 0;
   iVar1 = (**(code **)(DAT_005b1444 + 0xc))();
   *(int *)(param_1 + 4) = iVar1 + 0x10;
