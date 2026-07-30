@@ -5,19 +5,23 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * NEWLY DISCOVERED, NOT YET FIXED (2026-07-13): `in_EAX` (the requested
- * size) and `unaff_ESI` (the array `this`) are both live incoming
- * arguments, custom-register family (`this` in ESI, arg in EAX) -
- * already independently confirmed in src/cxx/AtlArray.h's
- * `CAtlArray::GrowBuffer`, which this raw port duplicates for the 3
- * remaining raw callers that haven't migrated to that C++ template
- * (`FUN_00415bc0.c`, `FUN_004d2130.c`, `State11_InBattle_OnTick.c` -
- * `Widget_AddChild.c` already has, hence only 3 callers remain here).
- * Fixing this function alone isn't enough - its signature change must
- * land atomically with all 3 callers or the build breaks. Confirmed
- * via objdump that `FUN_00415bc0.c`'s call site is clean (`this` =
- * its own already-named `param_1`, size = `param_1[1] + 1`), but the
- * other two callers have their OWN dropped-register `this` on top:
+ * PARTIALLY FIXED (2026-07-30): `in_EAX` (the requested size) and
+ * `unaff_ESI` (the array `this`) are both live incoming arguments,
+ * custom-register family (`this` in ESI, arg in EAX) - already
+ * independently confirmed in src/cxx/AtlArray.h's `CAtlArray::GrowBuffer`,
+ * which this raw port duplicates for the 3 remaining raw callers that
+ * haven't migrated to that C++ template (`FUN_00415bc0.c`,
+ * `FUN_004d2130.c`, `State11_InBattle_OnTick.c` - `Widget_AddChild.c`
+ * already has, hence only 3 callers remain here). Promoted to explicit
+ * params; functions.h stays K&R-empty (matching the OpenXFSEntryStream-
+ * style incremental-migration idiom) since only `FUN_00415bc0.c`'s call
+ * site is fixed so far - confirmed via objdump that it's clean (`this` =
+ * its own already-named `param_1`, size = `param_1[1] + 1`; that call
+ * site's own `unaff_FS_OFFSET` SEH-prologue-artifact bug, corrupting
+ * memory on every single call before this fix, was very likely the real
+ * cause of the runaway multi-megabyte stack corruption reproduced live
+ * while loading FourWord.txt). The other two callers still call this
+ * with zero args and keep reading garbage - not yet fixed:
  * `FUN_004d2130.c`'s `in_EAX` (its own array `this`, confirmed via
  * objdump - same "this in EAX" family) has only 2 callers, one of which
  * (`State11_InBattle_ProcessPacket.c`, ~500 lines) would need its own
@@ -29,14 +33,14 @@
 #include "ghidra_types.h"
 
 
-undefined4 AtlArray_GrowBuffer(void)
+undefined4 AtlArray_GrowBuffer(int *thisArray, uint size)
 
 {
-  uint in_EAX;
+  uint in_EAX = size;
   void *pvVar1;
   uint uVar2;
-  int *unaff_ESI;
-  
+  int *unaff_ESI = thisArray;
+
   if (in_EAX <= (uint)unaff_ESI[2]) {
     return 1;
   }
