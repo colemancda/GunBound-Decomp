@@ -57,7 +57,7 @@ undefined4 ReadXFSEntry();
 uint ReadXFSEntryByte();
 void AddToPacketChecksum();
 void BuildAssetPath(char *param_1, const char *param_2, ...);
-undefined4 EncodeChecksumState();
+undefined4 EncodeChecksumState(int param_1);
 void EncodeChecksumStateXored();
 void EncodeOutgoingPacketField();
 int GetPlayerRecordBySlot();

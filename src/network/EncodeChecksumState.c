@@ -7,19 +7,41 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
+ *
+ * DROPPED-PARAMETER FIX (2026-07-30): this function itself takes one
+ * argument (the guard cell), not zero - confirmed via objdump
+ * (0x40a4a0-0x40a4cb): `mov edi,eax` at entry (before any stack access)
+ * loads the incoming arg into EDI, `mov eax,[esp+8]` later reloads the
+ * SAME value (the saved EDI, after 2 pushes) to pass to
+ * PeekPacketChecksumState, and `ret 4` cleans up one caller-pushed slot.
+ * Every one of this function's 100+ real call sites across the tree
+ * already passes exactly 1 argument (uVar1/piVar1/param_1+offset/etc.),
+ * and src/cxx/Mobile.cpp/Projectile.cpp both carry their own local
+ * 1-param forward declarations for it (`void *cell` / `unsigned int
+ * value`) - this file's own `(void)` signature was the only holdout,
+ * silently reading garbage for a value every one of those callers
+ * already provides correctly.
+ *
+ * EncodeOutgoingPacketField's `self` is this same cell (EDI is reused
+ * unmodified as its dropped self arg - same call-site shape as every
+ * other EncodeOutgoingPacketField caller in this family). Does NOT wire
+ * the cell into PeekPacketChecksumState - that function is a deliberate
+ * bring-up stub (always returns 0, ignores its own dropped-EAX cell arg)
+ * per its own header; wiring it here would have no effect until the
+ * larger CValueGuard migration that file already defers to lands.
  */
 #include "ghidra_types.h"
 #include <windows.h>
 
 
-undefined4 EncodeChecksumState(void)
+undefined4 EncodeChecksumState(int param_1)
 
 {
   undefined4 uVar1;
-  
+
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar1 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(uVar1);
+  EncodeOutgoingPacketField((void *)param_1,uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* bare `return;` in a value-returning function - MSVC falls through
    * with whatever's in EAX (here, uVar1, still live from the call
@@ -28,4 +50,3 @@ undefined4 EncodeChecksumState(void)
    * src/cxx/ValueGuard.cpp, which returns the peeked value. */
   return uVar1;
 }
-
