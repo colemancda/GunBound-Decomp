@@ -1264,9 +1264,10 @@ loader code). Traced two more call sites of `OpenXFSArchive`/`FindXFSEntry`:
   server ships a different-language file at the same ids (the prior Brazilian
   build defined 200–240 in Portuguese). Full table (checksum-verified):
   [docs/localized-strings.md](docs/localized-strings.md).
-- `FUN_004e3500`: identical pattern, opens `graphics.xfs`, then
-  `FindXFSEntry(handle, "Sound.txt")` — confirms **`Sound.txt`** likewise
-  lives inside `graphics.xfs`, not on disk as its own file.
+- `LoadSoundConfig` (was `FUN_004e3500`): identical pattern, opens
+  `graphics.xfs`, then `FindXFSEntry(handle, "Sound.txt")` — confirms
+  **`Sound.txt`** likewise lives inside `graphics.xfs`, not on disk as its
+  own file.
 
 Both functions open `graphics.xfs` fresh (rather than reusing an
 already-open handle), consistent with each config file being loaded through

@@ -71,10 +71,10 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00405320,29,FUN_00405320,false,10,0,RAW-src
 00405360,352,FUN_00405360,false,1,3,RAW-src
 004054c0,72,FUN_004054c0,false,4,2,RAW-src
-00405510,149,FUN_00405510,false,5,3,RAW-src
+00405510,149,ConstructStringFromText,false,5,3,RAW-src
 004055b0,56,FUN_004055b0,false,3,1,RAW-src
 004055f0,201,FUN_004055f0,false,1,6,RAW-src
-004056c0,152,FUN_004056c0,false,21,4,RAW-src
+004056c0,152,AssignStringBuffer,false,21,4,RAW-src
 00405760,92,FUN_00405760,false,1,1,RAW-src
 004057c0,73,FUN_004057c0,false,2,2,RAW-src
 00405810,122,FUN_00405810,false,1,1,RAW-src
@@ -273,9 +273,9 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004158a0,63,FUN_004158a0,false,4,2,RAW-src
 004158e0,5,thunk_FUN_004158f0,true,2,0,RAW-src
 004158f0,8,FUN_004158f0,false,1,1,RAW-src
-00415900,500,FUN_00415900,false,1,12,RAW-src
+00415900,500,LoadFourWordList,false,1,12,RAW-src
 00415b00,184,CheckChatWordFilter,false,6,2,RAW-src
-00415bc0,112,FUN_00415bc0,false,3,3,RAW-src
+00415bc0,112,AppendWordFilterEntry,false,3,3,RAW-src
 00415c60,52,FUN_00415c60,false,5,0,RAW-src
 00415ca0,63,FUN_00415ca0,false,2,0,RAW-src
 00415ce0,84,FUN_00415ce0,false,5,0,RAW-src
@@ -1045,7 +1045,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e1e90,212,FUN_004e1e90,false,1,3,RAW-src
 004e1f70,2985,FUN_004e1f70,false,7,5,RAW-src
 004e2b20,2518,FUN_004e2b20,false,1,11,RAW-src
-004e3500,574,FUN_004e3500,false,1,12,RAW-src
+004e3500,574,LoadSoundConfig,false,1,12,RAW-src
 004e3740,207,FUN_004e3740,false,3,2,RAW-src
 004e3810,223,FUN_004e3810,false,1,3,RAW-src
 004e38f0,183,FUN_004e38f0,false,1,2,RAW-src
