@@ -36,6 +36,14 @@
  * Confirmed via:
  *   objdump -d -Mintel --start-address=0x409a10 --stop-address=0x409c40 \
  *     orig/GunBound.gme
+ *
+ * CloseSpriteReadState CALL-SITE FIX (2026-07-30): this file's own
+ * `CloseSpriteReadState()` was still 0-arg, matching that function's own
+ * header ("NOT FIXED HERE" list). readState=uStack_10f54, archive=
+ * &g_xfsScratch - same fix as FUN_00415900.c, see that file's header for
+ * the objdump detail (edi is reused as CloseXFSArchive's own archive arg
+ * right after, and every CloseXFSArchive call site in the tree already
+ * uses &g_xfsScratch).
  */
 #include "xfs.h"
 #include "ghidra_types.h"
@@ -103,7 +111,7 @@ undefined4 LoadChooseEventConfig(void *param_1)
   iVar3 = ReadXFSEntryByte(uStack_10f54,&cStack_10f55,1);
   do {
     if (iVar3 == 0) {
-      CloseSpriteReadState();
+      CloseSpriteReadState(uStack_10f54,(int)&g_xfsScratch);
       if (local_f710 != -1) {
         FUN_004f0d70(&g_xfsScratch);
       }

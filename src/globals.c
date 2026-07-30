@@ -799,8 +799,9 @@ uint8_t DAT_00e9c348;
 uint32_t DAT_00e9c9c8;
 uint32_t DAT_00e9c9cc;
 uint8_t DAT_00e9c9d0;
-uint32_t DAT_00e9c9dc;
-uint32_t DAT_00e9c9e0;
+/* DAT_00e9c9dc/DAT_00e9c9e0: the word-filter AtlArray header's data-ptr and
+ * count fields - now offset-macros into g_wordFilterArrayHeader in
+ * globals_sized.c (see that file's comment), not independent storage. */
 /* The global sprite registry - the same 0x20-byte sentinel-node circular-list
  * container as the two active-object registries (DAT_00e9be90/DAT_00e9c0fc):
  * LoadSpriteSet/RegisterTankSprite/LoadAvatarSprites all populate it through

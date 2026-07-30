@@ -40,6 +40,11 @@
  *     before `call 0x43dd40`, with param_1 pushed on the stack just above.
  *     FUN_0043dd40 itself promoted to match (its own `in_EAX` read for the
  *     message pointer was the same dropped-arg pattern).
+ *
+ * CloseSpriteReadState CALL-SITE FIX (2026-07-30): this file's own
+ * `CloseSpriteReadState()` was still 0-arg, matching that function's own
+ * header ("NOT FIXED HERE" list). readState=uStack_10f54, archive=
+ * &g_xfsScratch - same fix as FUN_00415900.c/LoadChooseEventConfig.c.
  */
 #include "xfs.h"
 #include "ghidra_types.h"
@@ -112,7 +117,7 @@ undefined4 LoadLocalizedStrings(undefined4 param_1)
   iVar4 = uStack_10f54;
   do {
     if (iVar3 == 0) {
-      CloseSpriteReadState();
+      CloseSpriteReadState(uStack_10f54,(int)&g_xfsScratch);
       if (local_f710 != -1) {
         FUN_004f0d70(&g_xfsScratch);
       }

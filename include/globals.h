@@ -924,8 +924,9 @@ extern uint8_t DAT_00e9c348;
 extern uint32_t DAT_00e9c9c8;
 extern uint32_t DAT_00e9c9cc;
 extern uint8_t DAT_00e9c9d0;
-extern uint32_t DAT_00e9c9dc;
-extern uint32_t DAT_00e9c9e0;
+extern unsigned char g_wordFilterArrayHeader[0x10]; /* word-filter AtlArray header - see globals_sized.c */
+#define DAT_00e9c9dc SUBFIELD(g_wordFilterArrayHeader, 0, uint32_t)
+#define DAT_00e9c9e0 SUBFIELD(g_wordFilterArrayHeader, 4, uint32_t)
 extern uint8_t DAT_00ea0e18[0x20]; /* global sprite registry - sentinel-list container, see globals.c */
 extern uint32_t DAT_00ea0e1c;
 extern uint32_t DAT_00ea0e28;

@@ -191,3 +191,22 @@ void *PTR_FUN_00557cfc[8] = {
  * [0x5b3440, 0x5b3480), so unlike g_replayContext this needs no
  * offset-macro reconciliation. */
 unsigned char DAT_005b3440[0x40];
+
+/* The word-filter AtlArray header at 0xe9c9dc (was two independent scalars,
+ * DAT_00e9c9dc and DAT_00e9c9e0). FUN_00415bc0 (called once per parsed line
+ * while FUN_00415900/FUN_004e3500 load FourWord.txt/Sound.txt) takes this
+ * object's address as a genuine `this` (ECX under the original's thiscall,
+ * confirmed via objdump: `mov ecx,0xe9c9dc; call 0x415bc0`, then inside
+ * that function `mov esi,ecx; ... [esi+0]` = data ptr, `[esi+4]` = count,
+ * `[esi+8]` = capacity (checked against AtlArray_GrowBuffer's `this[2]`),
+ * `[esi+0xc]` = the growth-hint AtlArray_GrowBuffer reads as `this[3]`) and
+ * uses fixed byte offsets into it - so all four 4-byte fields need to be
+ * genuinely contiguous, which plain top-level C globals don't guarantee.
+ * +0 (DAT_00e9c9dc) and +4 (DAT_00e9c9e0) already had their own symbols -
+ * CheckChatWordFilter.c/FUN_00543870.c read/free them directly as a data
+ * pointer and a count - so they're kept as offset-macros into this blob
+ * (see globals.h) rather than renamed; +8/+0xc were never referenced
+ * anywhere in the port before FUN_00415bc0's call site got fixed, so they
+ * never got their own DAT_ symbols from Ghidra. Sized 0x10 - the whole
+ * header, nothing more is read/written by any known caller. */
+unsigned char g_wordFilterArrayHeader[0x10];

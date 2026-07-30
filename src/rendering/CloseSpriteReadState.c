@@ -17,14 +17,18 @@
  * `mov edi,0xf11dd0` - the literal &g_graphicsArchive - immediately
  * before `call 0x4f1460`).
  *
- * NOT FIXED HERE: this function has ~13 other call sites (PreloadTexture.c,
- * FUN_00415900.c, FUN_00423e20.c, FUN_004ef5b0.c, FUN_004e3c50.c,
- * FUN_004e3500.c, FUN_004240c0.c, FUN_00423bf0.c, FUN_004eef00.c,
- * LoadChooseEventConfig.c, LoadLocalizedStrings.c), each in its own
- * not-yet-verified caller with its own distinct readState/archive
- * sources - those still use the old 0-arg form and need the same
- * per-site disassembly treatment (same partial-fix precedent as
- * RegisterActiveObject.c/CreateActiveObjectLayer.c). The conditionally-
+ * FIXED (2026-07-30): FUN_00415900.c, FUN_004e3500.c,
+ * LoadChooseEventConfig.c, LoadLocalizedStrings.c - all four share the
+ * same g_xfsScratch archive and their own already-established readState
+ * variable (see each file's own header for its objdump confirmation).
+ *
+ * NOT FIXED HERE: ~9 other call sites remain (PreloadTexture.c,
+ * FUN_00423e20.c, FUN_004ef5b0.c, FUN_004e3c50.c, FUN_004240c0.c,
+ * FUN_00423bf0.c, FUN_004eef00.c), each in its own not-yet-verified caller
+ * with its own distinct readState/archive sources - those still use the
+ * old 0-arg form and need the same per-site disassembly treatment (same
+ * partial-fix precedent as RegisterActiveObject.c/CreateActiveObjectLayer.c).
+ * The conditionally-
  * called FlushXFSWriteBlock() (its own dropped-arg helper, invoked when the
  * session object's +0x100c count is nonzero and +0x70 accounting field
  * is still zero) is also untouched - out of scope here, unreached on the

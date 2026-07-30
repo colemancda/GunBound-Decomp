@@ -10,12 +10,25 @@
  * never written) instead of `&g_xfsScratch`, the archive OpenXFSArchive
  * was just opened into two lines above. See that file's header for the
  * full objdump-confirmed detail.
+ *
+ * ReadXFSEntry/ReadXFSEntryByte DROPPED-ARGS FIX (2026-07-30): same bug,
+ * same fix as the identical FUN_00415900.c - see that file's header for
+ * the full writeup. `ReadXFSEntry(iVar6,local_f708)` (2-arg, treated as
+ * void) was wrong on both counts: the entry record was passed as the
+ * readState and a 63180-byte dead local as nothing in particular.
+ * `ReadXFSEntryByte(iVar6,&cStack_11351)` was reading raw entry-record
+ * bytes as if they were file content instead of streaming through
+ * `pvVar4` (the already-allocated-but-never-used 0x1024-byte readState).
+ * Fixed to match LoadChooseEventConfig.c/LoadLocalizedStrings.c's already-
+ * objdump-verified pattern. `local_f708` is unused once fixed (same as
+ * those two files) and dropped rather than kept as inert stack padding.
+ *
+ * CloseSpriteReadState/FUN_004f0d70 CALL-SITE FIX (2026-07-30): same bug,
+ * same fix as the identical FUN_00415900.c - see that file's header.
  */
 #include "xfs.h"
 #include "ghidra_types.h"
 
-
-/* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
 undefined4 FUN_004e3500(undefined4 param_1)
 
@@ -28,6 +41,7 @@ undefined4 FUN_004e3500(undefined4 param_1)
   int iVar6;
   int iVar7;
   undefined4 *puVar8;
+  undefined4 readState;
   char cStack_11351;
   char acStack_11350 [1024];
   char acStack_10f50 [1024];
@@ -38,14 +52,13 @@ undefined4 FUN_004e3500(undefined4 param_1)
   int local_f710;
   undefined1 local_f70c;
   undefined1 local_f70b;
-  undefined1 local_f708 [63180];
   undefined **local_3c;
   _RTL_CRITICAL_SECTION local_38;
   undefined4 uStack_1c;
   undefined4 local_14;
   undefined1 *puStack_10;
   undefined4 local_c;
-  
+
   local_c = 0xffffffff;
   /* Windows SEH __try/__except frame setup stripped - handler body
    * (LAB_00537bfb) wasn't included in this function's own decompile.
@@ -67,10 +80,10 @@ undefined4 FUN_004e3500(undefined4 param_1)
   OpenXFSArchive(&g_xfsScratch,auStack_10b50,1,0);
   iVar6 = FindXFSEntry(&g_xfsScratch,s_Sound_txt_00557218);
   if (((iVar6 == 0) || (pvVar4 = operator_new(0x1024), pvVar4 == (void *)0x0)) ||
-  /* ReadXFSEntry is void-returning - see src/fileformat/LoadChooseEventConfig.c's fix. */
-     (ReadXFSEntry(iVar6,local_f708), iVar6 == 0)) {
+     (readState = ReadXFSEntry(pvVar4,*(HANDLE *)(g_xfsScratch.bytes + 0x1040),1,iVar6,
+                                g_xfsScratch.bytes + 0x1048), readState == 0)) {
     if (local_f710 != -1) {
-      FUN_004f0d70();
+      FUN_004f0d70(&g_xfsScratch);
     }
     local_3c = &PTR_FUN_005572dc;
     DeleteCriticalSection(&local_38);
@@ -79,12 +92,12 @@ undefined4 FUN_004e3500(undefined4 param_1)
   bVar2 = false;
   iVar7 = 0;
   bVar3 = false;
-  iVar5 = ReadXFSEntryByte(iVar6,&cStack_11351);
+  iVar5 = ReadXFSEntryByte(readState,&cStack_11351,1);
   do {
     if (iVar5 == 0) {
-      CloseSpriteReadState();
+      CloseSpriteReadState(readState,(int)&g_xfsScratch);
       if (local_f710 != -1) {
-        FUN_004f0d70();
+        FUN_004f0d70(&g_xfsScratch);
       }
       local_3c = &PTR_FUN_005572dc;
       DeleteCriticalSection(&local_38);
@@ -125,7 +138,6 @@ LAB_004e3667:
         }
       }
     }
-    iVar5 = ReadXFSEntryByte(iVar6,&cStack_11351);
+    iVar5 = ReadXFSEntryByte(readState,&cStack_11351,1);
   } while( true );
 }
-
