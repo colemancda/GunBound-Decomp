@@ -4,6 +4,12 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * WRONG-ARCHIVE FIX (2026-07-29): same bug as the identical FUN_00415900.c
+ * - FindXFSEntry was called with `auStack_10750` (an 8-byte local buffer,
+ * never written) instead of `&g_xfsScratch`, the archive OpenXFSArchive
+ * was just opened into two lines above. See that file's header for the
+ * full objdump-confirmed detail.
  */
 #include "xfs.h"
 #include "ghidra_types.h"
@@ -59,7 +65,7 @@ undefined4 FUN_004e3500(undefined4 param_1)
   local_c = 0;
   BuildAssetPath(auStack_10b50,&DAT_005b1ed0,s_graphics_xfs_00551fdc,0);
   OpenXFSArchive(&g_xfsScratch,auStack_10b50,1,0);
-  iVar6 = FindXFSEntry(auStack_10750,s_Sound_txt_00557218);
+  iVar6 = FindXFSEntry(&g_xfsScratch,s_Sound_txt_00557218);
   if (((iVar6 == 0) || (pvVar4 = operator_new(0x1024), pvVar4 == (void *)0x0)) ||
   /* ReadXFSEntry is void-returning - see src/fileformat/LoadChooseEventConfig.c's fix. */
      (ReadXFSEntry(iVar6,local_f708), iVar6 == 0)) {

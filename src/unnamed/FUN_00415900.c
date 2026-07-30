@@ -4,6 +4,20 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * WRONG-ARCHIVE FIX (2026-07-29): FindXFSEntry was called with
+ * `auStack_10750` - an 8-byte local buffer that's never written before
+ * this call - instead of `&g_xfsScratch`, the archive OpenXFSArchive was
+ * just opened into two lines above. Confirmed via objdump: the original
+ * uses the SAME register (esi) for both the OpenXFSArchive and
+ * FindXFSEntry calls (0x415912-0x41592c region); LoadChooseEventConfig.c
+ * and LoadLocalizedStrings.c already get this right (both calls use
+ * &g_xfsScratch), this file and the identical FUN_004e3500.c did not.
+ * With the wrong pointer, FindXFSEntry read `*(int*)(auStack_10750+8)` as
+ * a garbage-nonzero "entry count" off uninitialised stack, entered its
+ * binary search, and fed CompareXFSEntryName a NULL record pointer -
+ * reproduced live as a page fault in CompareXFSEntryName on the main
+ * thread during InitGame, independent of any user interaction.
  */
 #include "xfs.h"
 #include "ghidra_types.h"
@@ -56,7 +70,7 @@ undefined4 FUN_00415900(void)
   local_c = 0;
   BuildAssetPath(auStack_10b50,&DAT_005b1ed0,s_graphics_xfs_00551fdc,0);
   OpenXFSArchive(&g_xfsScratch,auStack_10b50,1,0);
-  iVar4 = FindXFSEntry(auStack_10750,s_FourWord_txt_00552c3c);
+  iVar4 = FindXFSEntry(&g_xfsScratch,s_FourWord_txt_00552c3c);
   if (((iVar4 == 0) || (pvVar2 = operator_new(0x1024), pvVar2 == (void *)0x0)) ||
   /* ReadXFSEntry is void-returning - see src/fileformat/LoadChooseEventConfig.c's fix. */
      (ReadXFSEntry(iVar4,local_f708), iVar4 == 0)) {
