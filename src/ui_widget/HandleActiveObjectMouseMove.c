@@ -22,7 +22,41 @@
  * the dropped `this` (reading garbage, then dereferencing it as a
  * vtable pointer) crashed live the first time any button's hover state
  * actually got exercised in this bring-up - reproduced via the AVATAR
- * button, but not specific to it. See FUN_00405e30.c's own header.
+ * button, but not specific to it. See FUN_00405e30.c's own header. This
+ * ALONE did not fix the crash - see the next entry for the real cause.
+ *
+ * AcquireSoundChannel CALL-SITE FIX (2026-07-30): the hover-IN dispatch's
+ * `AcquireSoundChannel(0)` was dropping that function's own real 1st
+ * argument (a `.xes` sound-name string). Confirmed via objdump (orig
+ * 0x406267-0x406273): `mov eax,[esi+0x48]` (esi=piVar3, +0x48=
+ * CButtonWidget::m_unk48), `mov edi,[eax*8+0x56d0f8]` - a 2-entry
+ * {selectSound,pushSound} table (see globals.c's DAT_0056d0f8) - then
+ * `push 0x0; call AcquireSoundChannel`. Diagnostic instrumentation this
+ * session confirmed the vtable dispatch above (SetState) and its whole
+ * string table were already 100% correct and uncorrupted - the crash
+ * only appeared AFTER that, inside AcquireSoundChannel, once it walked
+ * `unaff_EDI` as a string: with no real argument supplied, EDI held
+ * whatever WndProc's own prologue had left in it (0x200/WM_MOUSEMOVE,
+ * the message code itself - explains why every crash dump this session
+ * showed EDI=0x200 no matter which button was hovered), and walking
+ * that as a "string" then feeding the resulting garbage into a nested
+ * vtable dispatch (see AcquireSoundChannel.c's own header) is what
+ * actually jumped into unrelated stack memory. `piVar3[18]` is m_unk48;
+ * every State03_GameRoomList button passes CreateButtonWidget's arg11=0,
+ * so this always resolves to DAT_0056d0f8[0] = "bselect1.xes".
+ *
+ * NOTE: this fix is real and independently confirmed (temporary
+ * diagnostic instrumentation showed AcquireSoundChannel now returning
+ * cleanly, string table 100% intact) but it did NOT resolve the live
+ * AVATAR/BUDDY hover crash - re-tested after this fix, byte-identical
+ * crash still reproduces (EIP=0x76fb0c, EDI=0x200). Also ruled out this
+ * session: WndProc's OTHER WM_MOUSEMOVE dispatch, PanelManager_
+ * DispatchMouseMove (walked its whole panel list with the same kind of
+ * instrumentation - every panel's OnMouseMove returns cleanly, 0). The
+ * real crash site is somewhere else entirely - not proven to even be
+ * WM_MOUSEMOVE-triggered at all, despite EDI=0x200 in every crash dump
+ * (that may just be stale/leftover, not causal). See
+ * bringup-frontier-mouse-hittest.md memory for the full ruled-out list.
  */
 #include "ghidra_types.h"
 
@@ -55,11 +89,10 @@ undefined4 HandleActiveObjectMouseMove(void *registry,int mouseX,int mouseY)
       if (((*(int *)(in_EAX + 0xc) == 0) && (iVar2 = piVar3[9], iVar2 != 3)) &&
          ((iVar2 != 4 && (iVar2 != 5)))) {
         (*(WidgetSetStateFn *)(*piVar3 + 4))(piVar3,0,(void *)s_mouse_00551e70);
-        AcquireSoundChannel(0);
+        AcquireSoundChannel((char *)DAT_0056d0f8[piVar3[18] * 2],0);
       }
       return 1;
     }
   }
   return 0;
 }
-

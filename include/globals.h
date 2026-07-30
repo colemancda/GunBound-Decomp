@@ -2488,6 +2488,11 @@ extern const char s_b_storewindow_gold_00555a5c[];
 extern const char s_b_storewindow_yes_00555a1c[];
 extern const char s_bombblast_xes_00553cb8[];
 extern const char s_bombflame_00553cc8[];
+extern const char s_bselect1_xes_00551eb4[];
+extern const char s_bpush1_xes_00551ea8[];
+extern const char s_bselect2_xes_00551e98[];
+extern const char s_bpush2_xes_00551e8c[];
+extern const char *DAT_0056d0f8[4]; /* button hover/push sound-name table - see globals.c */
 extern const char s_bullet10n_00553ec0[];
 extern const char s_bullet10p_00553db4[];
 extern const char s_bullet10s_00553eb4[];
