@@ -1,17 +1,19 @@
-/* FUN_00405e30 - 0x00405e30 in the original binary.
+/* SetButtonStateByIndex - 0x00405e30 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-30): given a CButtonWidget and a 0-5 state-table
+ * index, resolves the matching state name ("ready"/"push"/"mouse"/
+ * "disable"/"select"/"active") and dispatches it through the widget's
+ * own CButtonWidget::SetState vtable slot - the index-based counterpart
+ * to calling SetState(name) directly with a string. Raw/near-verbatim
+ * port of Ghidra's decompiler output otherwise, not hand-verified. See
+ * src/README.md's "Raw/verbatim ports" section for status.
  *
- * DROPPED-ARGS + SPLIT-ARRAY FIX (2026-07-30): its own header already
- * said "referenced by at least one already-ported function" - that
- * caller is HandleActiveObjectMouseMove.c's `xor eax,eax; call
+ * DROPPED-ARGS + SPLIT-ARRAY FIX (2026-07-30): caller is
+ * HandleActiveObjectMouseMove.c's `xor eax,eax; call
  * 0x405e30`, confirmed via objdump (orig 0x40620a-0x40620c): ECX (still
  * holding `piVar1`, the widget losing hover) is this function's real
  * `this`/param_1, EAX=0 is a state-table index, and the call site was
- * dropping BOTH - `FUN_00405e30();` with zero args, live-reproduced as
+ * dropping BOTH - `SetButtonStateByIndex();` with zero args, live-reproduced as
  * a crash on the AVATAR button's hover-out (any mouse move off ANY
  * previously-hovered widget takes this path, so this bug fires
  * constantly, not just for AVATAR - AVATAR was just the first widget
@@ -31,7 +33,7 @@
 typedef void (__fastcall *WidgetSetStateFn)(void *thisPtr, int dummyEDX, void *name);
 
 
-void __fastcall FUN_00405e30(int *param_1,int stateIndex)
+void __fastcall SetButtonStateByIndex(int *param_1,int stateIndex)
 
 {
   char *stateNames[6];

@@ -2299,9 +2299,9 @@ const char s_b_storewindow_yes_00555a1c[] = "b_storewindow_yes";
 const char s_bombblast_xes_00553cb8[] = "bombblast.xes";
 const char s_bombflame_00553cc8[] = "bombflame";
 
-/* The button hover/push sound-name table (was undeclared DAT_0056d0f8).
+/* The button hover/push sound-name table (was undeclared g_buttonSoundNameTable).
  * AcquireSoundChannel's dropped-EDI arg (see that file's own header)
- * reads `*(char**)(DAT_0056d0f8 + m_unk48*8)` - a flat array of 2
+ * reads `*(char**)(g_buttonSoundNameTable + m_unk48*8)` - a flat array of 2
  * {selectSound, pushSound} string-pointer pairs, recovered from the
  * original's real .data (orig VA 0x56d0f8-0x56d10f): index 0 =
  * {"bselect1.xes","bpush1.xes"}, index 1 = {"bselect2.xes","bpush2.xes"}.
@@ -2312,7 +2312,7 @@ const char s_bselect1_xes_00551eb4[] = "bselect1.xes";
 const char s_bpush1_xes_00551ea8[] = "bpush1.xes";
 const char s_bselect2_xes_00551e98[] = "bselect2.xes";
 const char s_bpush2_xes_00551e8c[] = "bpush2.xes";
-const char *DAT_0056d0f8[4] = {
+const char *g_buttonSoundNameTable[4] = {
     s_bselect1_xes_00551eb4, s_bpush1_xes_00551ea8,
     s_bselect2_xes_00551e98, s_bpush2_xes_00551e8c,
 };

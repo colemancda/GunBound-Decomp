@@ -13,7 +13,7 @@
  * actually reachable in current live testing (HandleActiveObjectMouseMove.c,
  * orig 0x406267-0x406273): `mov eax,[esi+0x48]` (esi=the hovered
  * CButtonWidget, +0x48=m_unk48), `mov edi,[eax*8+0x56d0f8]` (a 2-entry
- * {selectSound,pushSound} table - see globals.c's DAT_0056d0f8), then
+ * {selectSound,pushSound} table - see globals.c's g_buttonSoundNameTable), then
  * `push 0x0; call 0x4ee9b0` - i.e. `(soundName, flag)`. Every
  * State03_GameRoomList button passes CreateButtonWidget's arg11=0, so
  * m_unk48 is always 0 for lobby buttons, and this always resolves to

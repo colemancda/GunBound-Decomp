@@ -221,7 +221,7 @@ void __fastcall FUN_00405b60();
 void FUN_00405ba0();
 void SocketWorkerThreadProc(void *);
 void FUN_00405dd0(int *);
-void __fastcall FUN_00405e30(int *param_1,int stateIndex);
+void __fastcall SetButtonStateByIndex(int *param_1,int stateIndex);
 void __fastcall TickButtonAnimation(int thisPtr);
 void __fastcall DrawButtonWidget();
 void FUN_00405f00();
