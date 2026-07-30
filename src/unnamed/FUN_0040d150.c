@@ -3,6 +3,12 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * `thunk_FUN_0050ee00` - confirmed via objdump this is a PURE
+ * `jmp 0x50ee00` tail-jump (no logic of its own at all), so it's byte-
+ * for-byte the same function as FUN_0050ee00. See that file's own
+ * header for the CI COMPILE-ERR FIX (2026-07-30) applied identically
+ * here.
  */
 #include "ghidra_types.h"
 
@@ -41,15 +47,15 @@ void __fastcall thunk_FUN_0050ee00(undefined4 *param_1)
       piVar1 = param_1 + 3;
       *piVar1 = *piVar1 + -1;
       if (*piVar1 == 0) {
-        PanelManager_ReleasePool();
+        PanelManager_ReleasePool(param_1 + 1);
       }
       if (_Memory != (void *)0x0) {
-        WidgetChildArray_Destroy();
+        WidgetChildArray_Destroy((undefined4 *)_Memory);
         _free(_Memory);
       }
     } while (param_1[3] != 0);
   }
-  PanelManager_ReleasePool();
+  PanelManager_ReleasePool(param_1 + 1);
   *unaff_FS_OFFSET = uStack_c;
   return;
 }

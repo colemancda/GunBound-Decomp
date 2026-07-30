@@ -4,6 +4,19 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * CI COMPILE-ERR FIX (2026-07-30): PanelManager_ReleasePool/
+ * WidgetChildArray_Destroy were given real 1-param prototypes in an
+ * earlier pass (see FUN_0050f290.c's header) but this file's own two
+ * call sites were never updated, breaking the build once MSVC started
+ * enforcing the real prototypes (C2198 "too few arguments for call
+ * through pointer-to-function" - __fastcall arg-count mismatches route
+ * through that error even for direct calls). Confirmed via objdump
+ * (orig 0x50ef76 and 0x50ef85): `this`=`piVar1` (ecx stays `ebp+4`,
+ * unmodified since function entry) for PanelManager_ReleasePool, and
+ * `this`=`_Memory` (esi, set from `piVar4[2]` earlier in this same
+ * function) for WidgetChildArray_Destroy - same shape as FUN_0050f290's
+ * own already-fixed calls to these two functions.
  */
 #include "ghidra_types.h"
 
@@ -53,10 +66,10 @@ undefined4 PanelManager_Unregister(int *param_1)
     param_1[5] = (int)piVar4;
     param_1[3] = iVar3 + -1;
     if (iVar3 + -1 == 0) {
-      PanelManager_ReleasePool();
+      PanelManager_ReleasePool((undefined4 *)piVar1);
     }
     (**(code **)(*param_1 + 0x18))();
-    WidgetChildArray_Destroy();
+    WidgetChildArray_Destroy((undefined4 *)_Memory);
     _free(_Memory);
   }
   /* Ghidra emitted a bare `return;` in a value-returning function;

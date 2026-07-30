@@ -3,6 +3,15 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * CI COMPILE-ERR FIX (2026-07-30): both `Widget_RemoveChild()` calls
+ * dropped its now-real 2 args (see that file's own header for the full
+ * derivation). Confirmed via objdump (orig 0x50cf3d-0x50cf45 and
+ * 0x50cfa7-0x50cfaf, both call sites the same shape): `this`=param_1,
+ * `child`=`*(void**)(param_1[3] + index*4)` where index is the same
+ * `uVar3` this file's own (still not itself fixed - separate,
+ * pre-existing dropped-arg gap in Widget_FindChildIndex, out of scope
+ * here) call just computed.
  */
 #include "ghidra_types.h"
 
@@ -37,7 +46,8 @@ void RefreshConnectionStatusLabel(int param_1)
                     /* WARNING: Subroutine does not return */
           ThrowCxxException(0x80070057);
         }
-        Widget_RemoveChild();
+        Widget_RemoveChild((int *)param_1,
+                           *(void **)(*(int *)(param_1 + 0xc) + uVar3 * 4));
       }
       iVar2 = Widget_FindChildIndex();
       if (iVar2 == -1) {
@@ -52,7 +62,8 @@ void RefreshConnectionStatusLabel(int param_1)
                     /* WARNING: Subroutine does not return */
           ThrowCxxException(0x80070057);
         }
-        Widget_RemoveChild();
+        Widget_RemoveChild((int *)param_1,
+                           *(void **)(*(int *)(param_1 + 0xc) + uVar3 * 4));
       }
       iVar2 = Widget_FindChildIndex();
       if (iVar2 == -1) {

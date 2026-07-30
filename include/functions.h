@@ -1666,7 +1666,7 @@ undefined4 __thiscall Widget_OnMouseUp();
 void __fastcall WidgetChildArray_Destroy(undefined4 *param_1);
 uint __fastcall Widget_FindChildIndex();
 void Widget_AddChild();
-void Widget_RemoveChild();
+void Widget_RemoveChild(int *thisArray,void *child);
 void __thiscall Widget_MoveBy();
 void __fastcall Widget_ClearPressedRecursive();
 void __thiscall Widget_SetEnabled();
