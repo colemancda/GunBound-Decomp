@@ -22,6 +22,12 @@
  * through, unmodified, into the `FindActiveObjectAt()` call. Promoted both to
  * explicit trailing parameters (param_1's own position/meaning is
  * unchanged).
+ *
+ * CommitActiveTextInput CALL-SITE FIX (2026-07-30): dropped its own real 1st
+ * argument - `this` is the OLD focused object being replaced, already
+ * available here as `*(int*)(param_1+8)` (the same field this function
+ * writes the NEW `iVar1` into two lines later). See CommitActiveTextInput.c's own
+ * header for the objdump-confirmed derivation.
  */
 #include "ghidra_types.h"
 
@@ -37,7 +43,7 @@ undefined4 HandleBackgroundActiveObjectMouseDown(int param_1,int mouseX,int mous
   }
   if (*(int *)(iVar1 + 0x448) != 1) {
     if (*(int *)(param_1 + 8) != 0) {
-      FUN_0040ccf0();
+      CommitActiveTextInput(*(int *)(param_1 + 8));
     }
     *(int *)(param_1 + 8) = iVar1;
     FUN_0040cc50();

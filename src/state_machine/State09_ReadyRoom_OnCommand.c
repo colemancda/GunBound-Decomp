@@ -91,7 +91,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
         return uVar3;
       }
       if (DAT_00e9c104 != 0) {
-        FUN_0040ccf0();
+        CommitActiveTextInput();
       }
       DAT_00e9c104 = 0;
       FUN_004f3060(&DAT_00e9c0fc);
@@ -102,7 +102,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
         return param_2 - 0xbU;
       }
       if (DAT_00e9c104 != 0) {
-        FUN_0040ccf0();
+        CommitActiveTextInput();
       }
       DAT_00e9c104 = 0;
       FUN_004f3060(&DAT_00e9c0fc);

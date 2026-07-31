@@ -319,7 +319,7 @@ void __fastcall FUN_0040c8d0();
 void FUN_0040c8f0();
 void * __thiscall DeletePoisonedBaseObject();
 void FUN_0040cc50();
-void FUN_0040ccf0();
+void CommitActiveTextInput();
 void FUN_0040cd40();
 void * __thiscall FUN_0040cd60();
 void FUN_0040cd80();

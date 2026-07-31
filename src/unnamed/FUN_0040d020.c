@@ -43,11 +43,11 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
       }
       if (((iVar2 == iVar3) || (*(int *)(iVar2 + 8) == -1)) &&
          (EnqueueInputEvent(10,0,0), *(int *)(param_2 + 8) != 0)) {
-        FUN_0040ccf0();
+        CommitActiveTextInput();
         *(undefined4 *)(param_2 + 8) = 0;
       }
       if ((*(int *)(param_2 + 8) != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
-        FUN_0040ccf0();
+        CommitActiveTextInput();
         *(int *)(param_2 + 8) = iVar3;
         FUN_0040cc50();
         return;
@@ -60,7 +60,7 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
           if (iVar3 == 0) {
             return;
           }
-          FUN_0040ccf0();
+          CommitActiveTextInput();
           *(int *)(param_2 + 8) = iVar3;
           FUN_0040cc50();
           return;
@@ -75,7 +75,7 @@ void __thiscall FUN_0040d020(int param_1,int param_2,int message)
       }
       EnqueueInputEvent(uVar4,0,0);
       if (*(int *)(param_2 + 8) != 0) {
-        FUN_0040ccf0();
+        CommitActiveTextInput();
         *(undefined4 *)(param_2 + 8) = 0;
       }
     }

@@ -77,7 +77,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
       if (opcode < 0x3106) {
         if (opcode == 0x3105) {
           if (DAT_00e9c104 != 0) {
-            FUN_0040ccf0();
+            CommitActiveTextInput();
           }
           DAT_00e9c104 = 0;
           FUN_004f3060(&DAT_00e9c0fc);

@@ -35,7 +35,7 @@ void __fastcall FUN_0040cf80(undefined4 param_1,uint param_2,int param_3)
         }
       }
       if (*(int *)(param_3 + 8) != 0) {
-        FUN_0040ccf0();
+        CommitActiveTextInput();
       }
       *(int *)(param_3 + 8) = iVar2;
       FUN_0040cc50();
