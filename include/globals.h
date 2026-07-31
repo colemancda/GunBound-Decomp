@@ -515,7 +515,20 @@ extern uint8_t DAT_0067ec68;
 #define DAT_0067ec70 (*(uint8_t *)0x67ec70)
 #define DAT_0067ec74 (*(uint8_t *)(0x0067ec74))  /* client-context arena offset 0x0067ec74; see the arena-offset note */
 extern uint32_t DAT_006990c0[0x8000];
-extern uint8_t DAT_0069ec74;
+/* FIXED (2026-07-31): DAT_0069ec74 was a real 1-byte linked global, the
+ * ONE exception among its siblings in this exact address range (0x67ec74
+ * and 0x6a647c right next to it are both correctly macro'd already) -
+ * every use is `&DAT_0069ec74 + <arena base>` (State02/State03/State07/
+ * State09/State11's OnExit/OnEnter/ProcessPacket cleanup code, all
+ * verified pure-offset per this section's own rule), so being a real
+ * linker-placed symbol computed (linker_addr + arena_base) instead of
+ * (arena_base + 0x69ec74) - exactly the wild-pointer bug this whole
+ * section exists to prevent. Live-reproduced via winedbg: clicking
+ * AVATAR from the lobby crashed with `EIP=1` after this exact code's
+ * `memset`-style zero-loop (0x1800 dwords = 24KB) ran against the wild
+ * address, corrupting something read shortly after as a near-null
+ * function pointer. */
+#define DAT_0069ec74 (*(uint8_t *)(0x0069ec74))  /* client-context arena offset 0x0069ec74; see the arena-offset note */
 #define DAT_006a647c (*(uint8_t *)(0x006a647c))  /* client-context arena offset 0x006a647c; see the arena-offset note */
 extern uint8_t DAT_006a6481;
 extern uint8_t DAT_006a64a4;

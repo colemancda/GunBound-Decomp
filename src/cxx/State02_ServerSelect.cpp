@@ -68,11 +68,21 @@ int SetGuardedBool(int value, int guardPtr);
 void FUN_004d24f0(void);
 int __fastcall FUN_00402020(int param_1); /* per-slot blink randomizer */
 void FUN_00401650(int *slot);            /* flat-ButtonWidget per-slot destroy */
-extern unsigned char DAT_0067ec74;      /* persistent button-name arena */
-extern unsigned char DAT_0069ec74;
 void FUN_00404410(void *arg);
 extern unsigned char DAT_00e53e88[0xf28]; /* sized, see globals.c */
 }
+
+/* DAT_0067ec74/DAT_0069ec74 are client-context ARENA OFFSETS (field
+ * offsets into g_clientContext), not real standalone globals - see
+ * include/globals.h's "arena-offset note". This file predates that
+ * convention and declared them as plain `extern unsigned char`, which
+ * (with no real backing definition anywhere, confirmed 2026-07-31) meant
+ * `&DAT_00xxxxxx + g_clientContext` computed (some linker/FORCE-filled
+ * address + arena_base) - a wild pointer - instead of arena_base +
+ * 0x0xxxxxx. Fixed to the same fixed-address macro pattern globals.h
+ * uses for every other arena-offset symbol. */
+#define DAT_0067ec74 (*(unsigned char *)0x0067ec74)      /* persistent button-name arena */
+#define DAT_0069ec74 (*(unsigned char *)0x0069ec74)
 
 /* 0x4e14b0. Load the screen's sprite sets (10000/10001 + button faces
  * 1000-0x3ea and the 0x44c/0x44d tab faces), reset three persistent

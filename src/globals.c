@@ -490,7 +490,10 @@ uint8_t DAT_0067ec68;
 /* 0x8000-entry sqrt lookup table, sibling of DAT_006790c0 above - see its
  * comment. */
 uint32_t DAT_006990c0[0x8000];
-uint8_t DAT_0069ec74;
+/* DAT_0069ec74 is not a real global - it is arena offset 0x69ec74, now a
+ * fixed-address offset-macro in globals.h (see the arena-offset note and
+ * that macro's own 2026-07-31 comment - was a real global, the wild-
+ * pointer bug behind the AVATAR-transition crash). */
 uint8_t DAT_006a6481;
 uint8_t DAT_006a64a4;
 uint8_t DAT_006a64a8;
