@@ -207,7 +207,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040c980,124,FUN_0040c980,false,2,0,RAW-src
 0040ca00,32,DeletePoisonedBaseObject,false,24,2,RAW-src
 0040cc50,145,FUN_0040cc50,false,4,2,RAW-src
-0040ccf0,72,FUN_0040ccf0,false,9,2,RAW-src
+0040ccf0,72,CommitActiveTextInput,false,9,2,RAW-src
 0040cd40,25,FUN_0040cd40,false,1,1,RAW-src
 0040cd60,31,FUN_0040cd60,false,1,2,RAW-src
 0040cd80,97,FUN_0040cd80,false,2,1,RAW-src
