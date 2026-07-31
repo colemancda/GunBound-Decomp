@@ -330,7 +330,7 @@ void SyncActiveTextInput(int param_1);
 void __fastcall FUN_0040cf30();
 void __fastcall FUN_0040cf80();
 int __fastcall FUN_0040cfe0();
-void __thiscall FUN_0040d020();
+void __thiscall FUN_0040d020(int param_1, int param_2, int message);
 void __fastcall thunk_FUN_0050ee00();
 void FUN_0040d160();
 void thunk_FUN_004154e0();
@@ -473,7 +473,7 @@ int __thiscall FUN_00426960();
 int FUN_00426a60();
 int FUN_00428550();
 void __thiscall State03_GameRoomList_OnCommand();
-void __thiscall State03_GameRoomList_HandleMouseInput();
+void __fastcall State03_GameRoomList_HandleMouseInput(int,int,unsigned int,unsigned int,unsigned int); /* State03 vtable slot 6 */
 void __fastcall FUN_00429730();
 void NoOpMethod();
 void __fastcall NoOpMethodStdcall1();
@@ -1013,7 +1013,7 @@ undefined4 * FUN_004b3f90();
 void * __thiscall State11_InBattle_Delete();
 void __fastcall State11_InBattle_Destroy();
 void __thiscall State11_InBattle_HandleKeyInput();
-void __thiscall State11_InBattle_HandleMouseInput();
+void __fastcall State11_InBattle_HandleMouseInput(int*,int,unsigned int,int,unsigned int); /* State11 vtable slot 6 */
 void FUN_004b9cd2();
 void __fastcall State11_InBattle_OnTick();
 void __thiscall FUN_004c1b90();

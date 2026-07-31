@@ -3,13 +3,26 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * CALLING-CONVENTION FIX (2026-07-31): same bug and same fix as
+ * State02_ServerSelect_HandleKeyInput.c / State03_GameRoomList_
+ * HandleMouseInput.c's own "CALLING-CONVENTION FIX" (see either file's
+ * header for the full writeup) - this vtable slot 6 target was declared
+ * __thiscall, which ghidra_types.h erases to plain cdecl under MSVC,
+ * mismatching WndProc's __fastcall(this,dummyEDX,msg,wParam,lParam)
+ * dispatch and permanently corrupting WndProc's own stack (12 un-popped
+ * bytes) whenever this slot is reached with the mouse message unclaimed
+ * by the panel tree/active-object registry. Not independently live-
+ * verified for State11 specifically (no in-battle repro run this
+ * session), but it's the identical shape confirmed for State03 -fixed
+ * proactively rather than left as a known latent duplicate.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int param_3,uint param_4)
+void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint param_2,int param_3,uint param_4)
 
 {
   short *psVar1;
@@ -37,7 +50,8 @@ void __thiscall State11_InBattle_HandleMouseInput(int *param_1,uint param_2,int 
   char *pcVar22;
   undefined4 uVar23;
   char acStack_80 [128];
-  
+
+  (void)dummyEDX;
   iVar13 = g_clientContext;
   if (0x202 < param_2) {
     if (param_2 == 0x204) {
