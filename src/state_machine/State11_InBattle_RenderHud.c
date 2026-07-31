@@ -692,7 +692,7 @@ LAB_004c9ba8:
    * (full-screen reset) recovered via angr at 0x4c9be9. */
   SetClipRect(0, 0x31f, 0x257, 0);
   FlushCompositorLayer(3);
-  FUN_00408180(&DAT_006a647c + g_clientContext);
+  State11_InBattle_RenderPlayerRoster(&DAT_006a647c + g_clientContext);
   iVar6 = g_clientContext;
   if ((*(char *)(param_1 + 0x11ac) != '\0') && (*(char *)(param_1 + 0x11d0) == '\0')) {
     if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {

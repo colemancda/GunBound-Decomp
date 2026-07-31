@@ -40,7 +40,7 @@ void __thiscall State09_ReadyRoom_HandleChatInput(int *param_1,int param_2,int p
     if ((param_3 == 0xd) && (DAT_007933b8 == '\x01')) {
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
-        FUN_0040c880();
+        FetchActiveTextInputText(DAT_007934e4,acStack_80);
         if ((acStack_80[0] != '\0') &&
            (cVar4 = ParseChatSlashCommand(g_clientContext,acStack_80), cVar4 == '\0')) {
           cVar4 = CheckChatWordFilter(acStack_80);
@@ -141,7 +141,7 @@ LAB_004d67e1:
         iVar5 = iVar5 + 1;
         if (7 < iVar5) goto LAB_004d6626;
       }
-      FUN_0040c880();
+      FetchActiveTextInputText(DAT_007934e4,acStack_80);
       pcVar8 = (char *)(iVar5 * 0xd + 0x457f1 + g_clientContext);
       pcVar7 = pcVar8;
       do {

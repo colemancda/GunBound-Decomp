@@ -17,7 +17,7 @@ extern unsigned int DAT_007934e4;       /* shared overlay EDIT control (+4 = HWN
 extern unsigned char DAT_00551cb1;      /* the empty string the EDIT is reset to */
 extern unsigned char g_localizedStringTable;      /* localized-string table base */
 char PeekPacketChecksumBool(void);                /* replay-playback mode check */
-void FUN_0040c880(char *out);           /* read the EDIT control's text into out[128] */
+void FetchActiveTextInputText(int editState, char *out); /* read the EDIT control's text into out[128] */
 char ParseChatSlashCommand(int ctx, char *text); /* slash-command handler (true = consumed) */
 char CheckChatWordFilter(char *text);          /* "message too long" check */
 char FUN_00415230(void);                /* "not allowed right now" check */
@@ -63,7 +63,7 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
         return;
     }
     if (PeekPacketChecksumBool() == 0) {
-        FUN_0040c880(text);
+        FetchActiveTextInputText(DAT_007934e4, text);
         if (text[0] != '\0' && ParseChatSlashCommand(g_clientContext, text) == 0) {
             int msgId;
             if (CheckChatWordFilter(text) == 1) {

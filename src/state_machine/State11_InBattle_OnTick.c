@@ -2031,7 +2031,7 @@ LAB_004c1acb:
       iVar6 = g_clientContext;
     }
   }
-  FUN_00409990(&DAT_006a647c + iVar6,1);
+  SyncChatTypingState(&DAT_006a647c + iVar6,1);
   FUN_004e39b0();
   *unaff_FS_OFFSET = uStack_20;
   return;

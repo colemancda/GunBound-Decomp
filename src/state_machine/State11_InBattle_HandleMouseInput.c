@@ -666,7 +666,7 @@ LAB_004b9bb0:
           return;
         }
         if ((&DAT_006a6481)[g_clientContext] != '\0') {
-          FUN_00409990(&DAT_006a647c + g_clientContext,0);
+          SyncChatTypingState(&DAT_006a647c + g_clientContext,0);
           return;
         }
         EnqueueInputEvent(0,0,0);
@@ -717,7 +717,7 @@ LAB_004b9bb0:
     if (DAT_007933b8 != '\x01') goto LAB_004b9e53;
     cVar4 = PeekPacketChecksumBool();
     if (cVar4 == '\0') {
-      FUN_0040c880();
+      FetchActiveTextInputText(DAT_007934e4,acStack_80);
       if ((acStack_80[0] != '\0') && (cVar4 = ParseChatSlashCommand(g_clientContext,acStack_80), cVar4 == '\0'))
       {
         cVar4 = CheckChatWordFilter(acStack_80);
@@ -753,7 +753,7 @@ LAB_004b9bb0:
 LAB_004b9e3e:
     SetWindowTextA(*(HWND *)(DAT_007934e4 + 4),&DAT_00551cb1);
 LAB_004b9e53:
-    FUN_00409990(&DAT_006a647c + g_clientContext,1);
+    SyncChatTypingState(&DAT_006a647c + g_clientContext,1);
     return;
   }
   uVar9 = param_4 & 0xffff;

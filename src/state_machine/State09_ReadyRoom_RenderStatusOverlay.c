@@ -383,7 +383,7 @@ LAB_004da2f4:
      * port - objdump at this call site (0x4da3f7/0x4da3f2-0x4da3ee) shows
      * ECX=0x52 (constant x-cursor) and EAX=&aCStack_80 (the edit-box text
      * buffer filled by GetWindowTextA above, same buffer/pattern as the
-     * sibling function FUN_00408180.c's `if` branch). */
+     * sibling function State11_InBattle_RenderPlayerRoster.c's `if` branch). */
     BlitRLESprite(0x52,0x170,0,(byte *)aCStack_80);
     /* Same site, second call (0x4da40f/0x4da40a-0x4da406): ECX=0x51,
      * EAX still the unclobbered &aCStack_80 pointer from the call above. */
@@ -393,9 +393,9 @@ LAB_004da2f4:
     /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the raw
      * port - objdump at this call site (0x4da42d/0x4da428-0x4da423) shows
      * ECX=0x51 and EAX=&DAT_007933c0 (absolute load, not a stack lea) -
-     * the same chat-input text buffer used elsewhere (FUN_00506e70.c/
+     * the same chat-input text buffer used elsewhere (ActivateLegacyTextInputField.c/
      * FUN_00507e30.c/FUN_00507dc0.c), matching the sibling function
-     * FUN_00408180.c's analogous `else` branch. */
+     * State11_InBattle_RenderPlayerRoster.c's analogous `else` branch. */
     BlitRLESprite(0x51,0x16f,0xffff,(byte *)&DAT_007933c0);
   }
   FUN_00450860();

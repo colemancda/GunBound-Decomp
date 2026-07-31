@@ -379,11 +379,11 @@ LAB_00442907:
        * (fixed x-cursor) and EAX=acStack_80 (the edit-box text buffer
        * just filled by GetWindowTextA above). Matches the identical
        * ECX=0xcb/EAX=text-buffer shape already recovered in
-       * FUN_00408180.c's own if-branch (0xcb/0x21c/0,&local_1008). */
+       * State11_InBattle_RenderPlayerRoster.c's own if-branch (0xcb/0x21c/0,&local_1008). */
       BlitRLESprite(0xcb,0x21c,0,(byte *)acStack_80);
       /* Same site, second call (0x442c59): ECX=0xca, EAX is still the
        * unclobbered acStack_80 pointer from the call above - same shape
-       * as FUN_00408180.c's (0xca,0x21b,0xffe0,&local_1008). */
+       * as State11_InBattle_RenderPlayerRoster.c's (0xca,0x21b,0xffe0,&local_1008). */
       iVar12 = BlitRLESprite(0xca,0x21b,0xffe0,(byte *)acStack_80);
       iVar5 = iStack_a4;
       iVar9 = g_clientContext;
@@ -393,8 +393,8 @@ LAB_00442907:
        * raw port - objdump at this call site (0x442c81) shows ECX=0x24
        * (fixed x-cursor) and EAX=&DAT_007933c0, the chat-input text
        * buffer used by GetWindowTextA/SetWindowTextA elsewhere
-       * (FUN_00506e70.c/FUN_00507e30.c/FUN_00507dc0.c) - the same global
-       * FUN_00408180.c's else-branch also passes at this same x/color. */
+       * (ActivateLegacyTextInputField.c/FUN_00507e30.c/FUN_00507dc0.c) - the same global
+       * State11_InBattle_RenderPlayerRoster.c's else-branch also passes at this same x/color. */
       iVar12 = BlitRLESprite(0x24,0x208,0xffff,(byte *)&DAT_007933c0);
     }
     if (((*(short *)(&DAT_006aa660 + iVar9) != -1) &&

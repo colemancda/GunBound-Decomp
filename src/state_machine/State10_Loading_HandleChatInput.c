@@ -34,7 +34,7 @@ void __thiscall State10_Loading_HandleChatInput(int *param_1,int param_2,int par
   }
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
-    FUN_0040c880();
+    FetchActiveTextInputText(DAT_007934e4,acStack_80);
     if ((acStack_80[0] != '\0') && (cVar2 = ParseChatSlashCommand(g_clientContext,acStack_80), cVar2 == '\0')) {
       cVar2 = CheckChatWordFilter(acStack_80);
       if (cVar2 == '\x01') {

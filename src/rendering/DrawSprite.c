@@ -32,7 +32,7 @@
  *     (+0x449ba vs +0x45914) than the single `if` condition Ghidra
  *     emitted in the decompiled C - the C control flow itself needs
  *     correcting first.
- *   - FUN_00408180.c's 5 calls (0x4082c6/0x4082e2/0x408491/0x40851b/
+ *   - State11_InBattle_RenderPlayerRoster.c's 5 calls (0x4082c6/0x4082e2/0x408491/0x40851b/
  *     0x40856c): the two at 0x4082c6/0x4082e2 need the return value of
  *     that file's own PeekChecksumStateUnderLock() call, which the
  *     current decompiled source discards.

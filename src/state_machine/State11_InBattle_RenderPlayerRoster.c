@@ -1,8 +1,25 @@
-/* FUN_00408180 - 0x00408180 in the original binary.
+/* State11_InBattle_RenderPlayerRoster - 0x00408180 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-07-30): best-effort descriptive name, not fully verified -
+ * this is a huge (900+ line), heavily-branching raw port with several of
+ * its own already-documented dropped-arg gaps left unfixed (see the
+ * DrawSprite/BlitRLESprite comments inline). Sole caller is
+ * `State11_InBattle_RenderHud.c` (`State11_InBattle_RenderPlayerRoster(
+ * &DAT_006a647c + g_clientContext)`, right after the frame's final
+ * `FlushCompositorLayer`) with the per-client battle-roster struct as its
+ * only real argument (already an explicit `param_1` in the raw port - no
+ * dropped-register bug on THIS function's own entry). Body evidence for
+ * the name: iterates player slots drawing name text (`g_clientContext +
+ * slot*0xd + 0x457f1`, the same per-slot player-name table this
+ * function's siblings reference)
+ * and per-slot digit/score sprites, plus - when the LOCAL player is
+ * actively typing (`DAT_007933b8`) - a live chat-input preview fetched via
+ * `GetWindowTextA` and blitted as a bubble above the roster row (else
+ * falls back to the shared `DAT_007933c0` legacy chat buffer). The
+ * `PeekPacketChecksumState`/`EncodeChecksum*` calls threaded throughout
+ * are the SAME functions used elsewhere in confirmed non-checksum roles
+ * (timer/animation-state encoding) - their names are themselves suspect
+ * project-wide, not re-litigated here.
  */
 #include "ghidra_types.h"
 
@@ -10,7 +27,7 @@
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 /* WARNING: Type propagation algorithm not settling */
 
-void FUN_00408180(int param_1)
+void State11_InBattle_RenderPlayerRoster(int param_1)
 
 {
   char cVar1;
@@ -119,8 +136,8 @@ void FUN_00408180(int param_1)
   else {
     /* objdump at 0x4083df/0x4083da shows ECX=0xcb, EAX=&DAT_007933c0 -
      * the same chat-input text buffer used by GetWindowTextA/
-     * SetWindowTextA elsewhere (FUN_00506e70.c/FUN_00507e30.c/
-     * FUN_00507dc0.c). */
+     * SetWindowTextA elsewhere (ActivateLegacyTextInputField.c/
+     * FUN_00507e30.c/FUN_00507dc0.c). */
     BlitRLESprite(0xcb,0x21c,0,(byte *)&DAT_007933c0);
     /* Same site, second call (0x4083f8/0x4083f3): ECX=0xca, EAX still
      * &DAT_007933c0 (unclobbered). */
