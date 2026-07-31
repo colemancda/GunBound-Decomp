@@ -25,7 +25,28 @@
  * overwritten with the next-node pointer. Left dropped, `this` came
  * through as whatever ECX last held - the wild-destructor-call crash
  * reproduced live the moment the AVATAR button (or any other lobby-exit
- * transition) triggered this cleanup. */
+ * transition) triggered this cleanup.
+ *
+ * EXTRA-DEREFERENCE FIX (2026-07-31): the `this`/fastcall fix above never
+ * got a live re-test after landing (the AVATAR-hover crash blocked
+ * reaching this code path at all until that separate bug was fixed this
+ * session), so a SECOND, independent bug in these same 8 call sites went
+ * uncaught: `(*(VtableDtorFn *)*puVar4)(thisNode,0,1)` casts the raw
+ * destructor-address VALUE to `VtableDtorFn *` (pointer-TO-a-function-
+ * pointer) and then dereferences it AGAIN before calling - one
+ * indirection too many. The original's own disassembly (quoted in the
+ * comment above) is unambiguous: `mov edx,[ecx]` (this -> vtable ptr,
+ * ONE deref) then `call [edx]` (vtable ptr -> slot-0 function ptr, then
+ * jump - the read IS the second and final deref, `call` itself does not
+ * read a third time). `*puVar4` alone already yields that same value;
+ * casting it directly to `VtableDtorFn` (not `VtableDtorFn *`) and
+ * dropping the outer `*` matches the original's 2-deref shape. Confirmed
+ * live via winedbg disassembly of the compiled (buggy) call site
+ * (`mov eax,[esi]; mov eax,[eax]; call dword ptr [eax]` - that `call
+ * dword ptr [eax]` is the extra, wrong, third read) after clicking
+ * AVATAR from the lobby crashed with `EIP=0x2be8, "no code accessible"`
+ * - a call through whatever garbage 4 bytes happened to sit at the real
+ * destructor's own entry address. */
 typedef void (__fastcall *VtableDtorFn)(void *thisPtr, int dummyEDX, int flag);
 
 void State03_GameRoomList_OnExit(void)
@@ -56,7 +77,7 @@ LAB_004294a5:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -72,7 +93,7 @@ LAB_004294e4:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -89,7 +110,7 @@ LAB_00429527:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -106,7 +127,7 @@ LAB_0042956a:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -123,7 +144,7 @@ LAB_004295aa:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -140,7 +161,7 @@ LAB_004295ea:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -157,7 +178,7 @@ LAB_0042962a:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -174,7 +195,7 @@ LAB_0042966a:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        (*(VtableDtorFn *)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,0,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
