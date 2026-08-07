@@ -1,14 +1,21 @@
 /* FUN_00413ee0 - 0x00413ee0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
- */
+ * Per-pixel ARGB4444 alpha blend of one source texel over one canvas
+ * texel (used by FUN_00414070's avatar-part compositing loop): alpha 0
+ * = skip, alpha 0xf = copy, else channel-wise (src*a + dst*(15-a))/15,
+ * preserving the destination's alpha nibble when it is non-zero.
+ *
+ * DROPPED-EAX FIX (2026-08-06): the SOURCE texel pointer arrives in EAX
+ * (orig 0x414160-0x414163: `push ebx (dest); mov eax,edi (src); call`,
+ * caller-cleaned) - Ghidra kept it as an unassigned `in_EAX` artifact
+ * and the sole caller passed only the destination, so every blend read
+ * its source through a garbage register. Recovered as an explicit
+ * second parameter; the sole caller (FUN_00414070) is our own code, so
+ * plain cdecl on both sides is self-consistent. */
 #include "ghidra_types.h"
 
 
-void FUN_00413ee0(ushort *param_1)
+void FUN_00413ee0(ushort *param_1,ushort *src)
 
 {
   ushort uVar1;
@@ -16,7 +23,7 @@ void FUN_00413ee0(ushort *param_1)
   ushort uVar3;
   ushort uVar4;
   ushort uVar5;
-  ushort *in_EAX;
+  ushort *in_EAX = src;
   ushort uVar6;
   uint uVar8;
   uint uVar9;

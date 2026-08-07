@@ -353,8 +353,8 @@ uint FUN_00412e00();
 void FUN_00412e50();
 void FUN_00413af0();
 void FUN_00413bf0();
-void FUN_00413ee0();
-void __fastcall FUN_00414070();
+void FUN_00413ee0(ushort *dest,ushort *src);
+void __fastcall FUN_00414070(uint frameIdx,uint key,int canvas);
 void LoadAvatarSprites(); /* 0x4141b0 - resolve avatar equip codes (head/body/glasses/flag) to {gender}{cat}%05d.img sprites */
 undefined4 FUN_00415230();
 undefined1 FUN_004152d0();

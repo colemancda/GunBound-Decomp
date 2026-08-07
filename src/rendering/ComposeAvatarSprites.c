@@ -18,6 +18,16 @@
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
+
+/* DROPPED-`this` FIX (2026-08-06): every sprite-set teardown loop below
+ * dispatched the node's slot-0 destructor as `(*(code *)*puVarN)(1)` -
+ * plain cdecl, pushing only the flag and never the node. The callee is
+ * FUN_004f14c0 (via PTR_FUN_00557524), a raw C port whose erased
+ * __thiscall reads BOTH `this` and the flag off the stack - so it read
+ * `this` = 1. Same bug + same fix as the State01/02/03/06 OnExit walks:
+ * plain cdecl with both args explicit, capturing the node before the
+ * loop advances it. */
+typedef void (*VtableDtorFn)(void *thisPtr, int flag);
 #include <windows.h>
 
 
@@ -42,6 +52,7 @@ void ComposeAvatarSprites
   undefined4 *puVar12;
   uint uVar13;
   undefined4 *puVar14;
+  undefined4 *thisNode;
   int local_80b0;
   undefined4 *local_80ac;
   int local_80a8;
@@ -49,26 +60,37 @@ void ComposeAvatarSprites
   int local_809c;
   int local_808c;
   char local_8088 [128];
-  undefined4 local_8008 [63];
-  undefined1 local_7f0a [32258];
-  undefined1 local_108 [252];
+  /* RECOVERED (2026-08-06): the four per-part frame counts - the
+   * original stores each LoadSpriteSet return into a stack slot
+   * ([esp+0x30]/[esp+0x28]/[esp+0x1c]/[esp+0x2c] = flag/body/glasses/
+   * head) for the frame-index ladders below; Ghidra dead-code-
+   * eliminated the stores along with the (dropped-register) ladders. */
+  int flagCount;
+  int bodyCount;
+  int glassesCount;
+  int headCount;
+  /* SPLIT-BUFFER FIX (2026-08-06): same coalesce as
+   * LoadAvatarSprites.c - the three Ghidra locals are one 0x8000-byte
+   * 128x128x16bpp canvas (base / base+0xfe / base+0x7f00), and the
+   * 0x2000-dword zero loop through the first zeroed the active stack. */
+  undefined1 avatarCanvas [0x8000];
   undefined4 uStack_c;
   
   uStack_c = 0x4d1510;
   _sprintf(local_8088,s_mf_05d_img_0055220c,param_5);
-  LoadSpriteSet(&DAT_00ea0e18,100000);
+  flagCount = LoadSpriteSet(&DAT_00ea0e18,100000,local_8088);
   _sprintf(local_8088,s__cb_05d_img_00552200,
            (int)(char)((-((*(ushort *)(g_clientContext + 0x501fe + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_2);
-  LoadSpriteSet(&DAT_00ea0e18,0x186a1);
+  bodyCount = LoadSpriteSet(&DAT_00ea0e18,0x186a1,local_8088);
   _sprintf(local_8088,s__cg_05d_img_005521f4,
            (int)(char)((-((*(ushort *)(g_clientContext + 0x50202 + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_4);
-  LoadSpriteSet(&DAT_00ea0e18,0x186a2);
+  glassesCount = LoadSpriteSet(&DAT_00ea0e18,0x186a2,local_8088);
   _sprintf(local_8088,s__ch_05d_img_005521e8,
            (int)(char)((-((*(ushort *)(g_clientContext + 0x50200 + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_3);
-  LoadSpriteSet(&DAT_00ea0e18,0x186a3);
+  headCount = LoadSpriteSet(&DAT_00ea0e18,0x186a3,local_8088);
   uVar10 = param_1 + 200000;
   puVar12 = *(undefined4 **)(DAT_00ea0e1c + 0x1c);
   uVar13 = puVar12[1];
@@ -77,9 +99,10 @@ LAB_004d1648:
     if (uVar13 != uVar10) goto code_r0x004d164a;
     puVar6 = (undefined4 *)puVar12[4];
     while (puVar6 != puVar12) {
+      thisNode = puVar6;
       puVar14 = (undefined4 *)*puVar6;
       puVar6 = (undefined4 *)puVar6[4];
-      (*(code *)*puVar14)(1);
+      ((VtableDtorFn)*puVar14)(thisNode,1);
     }
     puVar12[3] = puVar12;
     puVar12[4] = puVar12;
@@ -87,24 +110,43 @@ LAB_004d1648:
 LAB_004d1675:
   local_80b0 = 0;
 LAB_004d1680:
-  puVar12 = local_8008;
+  puVar12 = (undefined4 *)avatarCanvas;
   for (iVar5 = 0x2000; iVar5 != 0; iVar5 = iVar5 + -1) {
     *puVar12 = 0;
     puVar12 = puVar12 + 1;
   }
-  FUN_00414070(local_8008);
-  FUN_00414070(local_8008);
-  FUN_00414070(local_8008);
-  FUN_00414070(local_8008);
+  /* RECOVERED (2026-08-06): frame-index ladders + FUN_00414070's real
+   * arguments, from orig 0x4d1690-0x4d17bf / 0x4d1cf0-0x4d1dbd - same
+   * shape as LoadAvatarSprites.c (see there for the derivation). */
+  {
+    int c = local_80b0;
+    int bodyFrame, flagFrame, headFrame, glassesFrame;
+    if (bodyCount == 0x16) { bodyFrame = c % 0x16; }
+    else { bodyFrame = (c < 0x16) ? ((c < 0xb) ? c : 0x15 - c)
+                                  : ((c < 0x21) ? c - 0x16 : 0x2b - c); }
+    if (flagCount == 0x16) { flagFrame = c % 0x16; }
+    else { flagFrame = (c < 0x16) ? ((c < 0xb) ? c : 0x15 - c)
+                                  : ((c < 0x21) ? c - 0x16 : 0x2b - c); }
+    if (headCount == 0x2c) { headFrame = c; }
+    else { headFrame = (c < 0x16) ? ((c < 0xb) ? c : 0x15 - c)
+                                  : ((c < 0x21) ? c - 0xb : 0x36 - c); }
+    if (glassesCount == 0x2c) { glassesFrame = c; }
+    else { glassesFrame = (c < 0x16) ? ((c < 0xb) ? c : 0x15 - c)
+                                     : ((c < 0x21) ? c - 0xb : 0x36 - c); }
+    FUN_00414070(flagFrame,0x186a0,(int)avatarCanvas);
+    FUN_00414070(headFrame,0x186a3,(int)avatarCanvas);
+    FUN_00414070(glassesFrame,0x186a2,(int)avatarCanvas);
+    FUN_00414070(bodyFrame,0x186a1,(int)avatarCanvas);
+  }
   iVar5 = 0;
-  puVar12 = local_8008;
+  puVar12 = (undefined4 *)avatarCanvas;
   do {
     iVar2 = 0;
     puVar6 = puVar12;
     do {
       if ((*(byte *)((int)puVar6 + 1) & 0xf0) != 0) {
         iVar2 = 0x7f;
-        puVar11 = local_108;
+        puVar11 = avatarCanvas + 0x7f00;   /* last row (bottom-up scan) */
         goto LAB_004d1810;
       }
       iVar2 = iVar2 + 1;
@@ -136,7 +178,7 @@ LAB_004d1810:
 LAB_004d1836:
   local_809c = iVar1;
   iVar2 = 0;
-  puVar12 = local_8008;
+  puVar12 = (undefined4 *)avatarCanvas;
   do {
     iVar3 = 0;
     puVar6 = puVar12;
@@ -153,7 +195,7 @@ LAB_004d1836:
 LAB_004d1870:
   local_80a8 = iVar1;
   iVar2 = 0x7f;
-  puVar11 = local_7f0a;
+  puVar11 = avatarCanvas + 0xfe;    /* last column (right-left scan) */
   do {
     iVar3 = 0;
     puVar7 = puVar11;
@@ -206,7 +248,7 @@ LAB_004d18a6:
   puVar12[0xd] = pvVar4;
   uVar10 = 0;
   if (puVar12[9] != 0) {
-    local_80ac = (undefined4 *)((int)local_8008 + (iVar5 * 0x80 + local_80a8) * 2);
+    local_80ac = (undefined4 *)((int)avatarCanvas + (iVar5 * 0x80 + local_80a8) * 2);
     do {
       uVar13 = puVar12[8] * 2;
       uVar13 = ((int)uVar13 < 0) - 1 & uVar13;
@@ -242,7 +284,7 @@ LAB_004d19cc:
     if (uVar13 <= uVar10) {
       do {
         if (uVar13 == uVar10) {
-          (**(code **)*puVar12)(1);
+          ((VtableDtorFn)*(void **)*puVar12)((void *)puVar12,1);
           goto LAB_004d1a01;
         }
         iVar5 = *(int *)(iVar5 + 0x10);
@@ -266,9 +308,10 @@ LAB_004d1a25:
     if (uVar10 != 100000) goto code_r0x004d1a27;
     puVar6 = (undefined4 *)puVar12[4];
     while (puVar6 != puVar12) {
+      thisNode = puVar6;
       puVar14 = (undefined4 *)*puVar6;
       puVar6 = (undefined4 *)puVar6[4];
-      (*(code *)*puVar14)(1);
+      ((VtableDtorFn)*puVar14)(thisNode,1);
     }
     puVar12[3] = puVar12;
     puVar12[4] = puVar12;
@@ -281,9 +324,10 @@ LAB_004d1a6e:
     if (uVar10 != 0x186a1) goto code_r0x004d1a70;
     puVar6 = (undefined4 *)puVar12[4];
     while (puVar6 != puVar12) {
+      thisNode = puVar6;
       puVar14 = (undefined4 *)*puVar6;
       puVar6 = (undefined4 *)puVar6[4];
-      (*(code *)*puVar14)(1);
+      ((VtableDtorFn)*puVar14)(thisNode,1);
     }
     puVar12[3] = puVar12;
     puVar12[4] = puVar12;
@@ -296,9 +340,10 @@ LAB_004d1aad:
     if (uVar10 != 0x186a2) goto code_r0x004d1aaf;
     puVar6 = (undefined4 *)puVar12[4];
     while (puVar6 != puVar12) {
+      thisNode = puVar6;
       puVar14 = (undefined4 *)*puVar6;
       puVar6 = (undefined4 *)puVar6[4];
-      (*(code *)*puVar14)(1);
+      ((VtableDtorFn)*puVar14)(thisNode,1);
     }
     puVar12[3] = puVar12;
     puVar12[4] = puVar12;
@@ -311,28 +356,29 @@ LAB_004d1aec:
     if (uVar10 != 0x186a3) goto code_r0x004d1aee;
     puVar6 = (undefined4 *)puVar12[4];
     while (puVar6 != puVar12) {
+      thisNode = puVar6;
       puVar14 = (undefined4 *)*puVar6;
       puVar6 = (undefined4 *)puVar6[4];
-      (*(code *)*puVar14)(1);
+      ((VtableDtorFn)*puVar14)(thisNode,1);
     }
     puVar12[3] = puVar12;
     puVar12[4] = puVar12;
   }
 LAB_004d1b19:
   _sprintf(local_8088,s_mf_05dl_img_005521dc,param_5);
-  LoadSpriteSet(&DAT_00ea0e18,100000);
+  flagCount = LoadSpriteSet(&DAT_00ea0e18,100000,local_8088);
   _sprintf(local_8088,s__cb_05dl_img_005521cc,
            (int)(char)((-((*(ushort *)(g_clientContext + 0x501fe + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_2);
-  LoadSpriteSet(&DAT_00ea0e18,0x186a1);
+  bodyCount = LoadSpriteSet(&DAT_00ea0e18,0x186a1,local_8088);
   _sprintf(local_8088,s__cg_05dl_img_005521bc,
            (int)(char)((-((*(ushort *)(g_clientContext + 0x50202 + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_4);
-  LoadSpriteSet(&DAT_00ea0e18,0x186a2);
+  glassesCount = LoadSpriteSet(&DAT_00ea0e18,0x186a2,local_8088);
   _sprintf(local_8088,s__ch_05dl_img_005521ac,
            (int)(char)((-((*(ushort *)(g_clientContext + 0x50200 + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_3);
-  LoadSpriteSet(&DAT_00ea0e18,0x186a3);
+  headCount = LoadSpriteSet(&DAT_00ea0e18,0x186a3,local_8088);
   uVar10 = param_1 + 300000;
   puVar12 = *(undefined4 **)(DAT_00ea0e1c + 0x1c);
   uVar13 = puVar12[1];
@@ -341,9 +387,10 @@ LAB_004d1c52:
     if (uVar13 != uVar10) goto code_r0x004d1c54;
     puVar6 = (undefined4 *)puVar12[4];
     while (puVar6 != puVar12) {
+      thisNode = puVar6;
       puVar14 = (undefined4 *)*puVar6;
       puVar6 = (undefined4 *)puVar6[4];
-      (*(code *)*puVar14)(1);
+      ((VtableDtorFn)*puVar14)(thisNode,1);
     }
     puVar12[3] = puVar12;
     puVar12[4] = puVar12;
@@ -351,24 +398,43 @@ LAB_004d1c52:
 LAB_004d1c7c:
   local_80b0 = 0;
 LAB_004d1c82:
-  puVar12 = local_8008;
+  puVar12 = (undefined4 *)avatarCanvas;
   for (iVar5 = 0x2000; iVar5 != 0; iVar5 = iVar5 + -1) {
     *puVar12 = 0;
     puVar12 = puVar12 + 1;
   }
-  FUN_00414070(local_8008);
-  FUN_00414070(local_8008);
-  FUN_00414070(local_8008);
-  FUN_00414070(local_8008);
+  /* RECOVERED (2026-08-06): frame-index ladders + FUN_00414070's real
+   * arguments, from orig 0x4d1690-0x4d17bf / 0x4d1cf0-0x4d1dbd - same
+   * shape as LoadAvatarSprites.c (see there for the derivation). */
+  {
+    int c = local_80b0;
+    int bodyFrame, flagFrame, headFrame, glassesFrame;
+    if (bodyCount == 0x16) { bodyFrame = c % 0x16; }
+    else { bodyFrame = (c < 0x16) ? ((c < 0xb) ? c : 0x15 - c)
+                                  : ((c < 0x21) ? c - 0x16 : 0x2b - c); }
+    if (flagCount == 0x16) { flagFrame = c % 0x16; }
+    else { flagFrame = (c < 0x16) ? ((c < 0xb) ? c : 0x15 - c)
+                                  : ((c < 0x21) ? c - 0x16 : 0x2b - c); }
+    if (headCount == 0x2c) { headFrame = c; }
+    else { headFrame = (c < 0x16) ? ((c < 0xb) ? c : 0x15 - c)
+                                  : ((c < 0x21) ? c - 0xb : 0x36 - c); }
+    if (glassesCount == 0x2c) { glassesFrame = c; }
+    else { glassesFrame = (c < 0x16) ? ((c < 0xb) ? c : 0x15 - c)
+                                     : ((c < 0x21) ? c - 0xb : 0x36 - c); }
+    FUN_00414070(flagFrame,0x186a0,(int)avatarCanvas);
+    FUN_00414070(headFrame,0x186a3,(int)avatarCanvas);
+    FUN_00414070(glassesFrame,0x186a2,(int)avatarCanvas);
+    FUN_00414070(bodyFrame,0x186a1,(int)avatarCanvas);
+  }
   iVar5 = 0;
-  puVar12 = local_8008;
+  puVar12 = (undefined4 *)avatarCanvas;
   do {
     iVar2 = 0;
     puVar6 = puVar12;
     do {
       if ((*(byte *)((int)puVar6 + 1) & 0xf0) != 0) {
         iVar2 = 0x7f;
-        puVar11 = local_108;
+        puVar11 = avatarCanvas + 0x7f00;   /* last row (bottom-up scan) */
         goto LAB_004d1e07;
       }
       iVar2 = iVar2 + 1;
@@ -420,7 +486,7 @@ LAB_004d1e07:
 LAB_004d1e32:
   local_808c = iVar1;
   iVar2 = 0;
-  puVar12 = local_8008;
+  puVar12 = (undefined4 *)avatarCanvas;
   do {
     iVar3 = 0;
     puVar6 = puVar12;
@@ -437,7 +503,7 @@ LAB_004d1e32:
 LAB_004d1e6a:
   local_80a8 = iVar1;
   iVar2 = 0x7f;
-  puVar11 = local_7f0a;
+  puVar11 = avatarCanvas + 0xfe;    /* last column (right-left scan) */
   do {
     iVar3 = 0;
     puVar7 = puVar11;
@@ -490,7 +556,7 @@ LAB_004d1ea2:
   puVar12[0xd] = pvVar4;
   uVar13 = 0;
   if (puVar12[9] != 0) {
-    local_80ac = (undefined4 *)((int)local_8008 + (iVar5 * 0x80 + local_80a8) * 2);
+    local_80ac = (undefined4 *)((int)avatarCanvas + (iVar5 * 0x80 + local_80a8) * 2);
     do {
       uVar8 = puVar12[8] * 2;
       uVar8 = ((int)uVar8 < 0) - 1 & uVar8;
@@ -526,7 +592,7 @@ LAB_004d1fca:
     if (uVar8 <= uVar13) {
       do {
         if (uVar8 == uVar13) {
-          (**(code **)*puVar12)(1);
+          ((VtableDtorFn)*(void **)*puVar12)((void *)puVar12,1);
           goto LAB_004d2005;
         }
         iVar5 = *(int *)(iVar5 + 0x10);
@@ -560,9 +626,10 @@ LAB_004d2025:
     if (uVar10 != 100000) goto code_r0x004d2027;
     puVar6 = (undefined4 *)puVar12[4];
     while (puVar6 != puVar12) {
+      thisNode = puVar6;
       puVar14 = (undefined4 *)*puVar6;
       puVar6 = (undefined4 *)puVar6[4];
-      (*(code *)*puVar14)(1);
+      ((VtableDtorFn)*puVar14)(thisNode,1);
     }
     puVar12[3] = puVar12;
     puVar12[4] = puVar12;
@@ -575,9 +642,10 @@ LAB_004d206e:
     if (uVar10 != 0x186a1) goto code_r0x004d2070;
     puVar6 = (undefined4 *)puVar12[4];
     while (puVar6 != puVar12) {
+      thisNode = puVar6;
       puVar14 = (undefined4 *)*puVar6;
       puVar6 = (undefined4 *)puVar6[4];
-      (*(code *)*puVar14)(1);
+      ((VtableDtorFn)*puVar14)(thisNode,1);
     }
     puVar12[3] = puVar12;
     puVar12[4] = puVar12;
@@ -593,9 +661,10 @@ LAB_004d209b:
   }
   puVar6 = (undefined4 *)puVar12[4];
   while (puVar6 != puVar12) {
+    thisNode = puVar6;
     puVar14 = (undefined4 *)*puVar6;
     puVar6 = (undefined4 *)puVar6[4];
-    (*(code *)*puVar14)(1);
+    ((VtableDtorFn)*puVar14)(thisNode,1);
   }
   puVar12[3] = puVar12;
   puVar12[4] = puVar12;
@@ -612,9 +681,10 @@ LAB_004d20da:
     }
     puVar6 = (undefined4 *)puVar12[4];
     while (puVar6 != puVar12) {
+      thisNode = puVar6;
       puVar14 = (undefined4 *)*puVar6;
       puVar6 = (undefined4 *)puVar6[4];
-      (*(code *)*puVar14)(1);
+      ((VtableDtorFn)*puVar14)(thisNode,1);
     }
     puVar12[3] = puVar12;
     puVar12[4] = puVar12;
