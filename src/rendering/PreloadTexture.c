@@ -55,19 +55,43 @@ undefined4 PreloadTexture(int param_1,char *param_2)
   if (iVar4 == 0) {
     return 0;
   }
-  ReadXFSEntryByte(iVar4,&local_8c);
-  ReadXFSEntryByte(iVar4,local_88);
-  ReadXFSEntryByte(iVar4,&local_91);
-  ReadXFSEntryByte(iVar4,local_84);
+  /* DROPPED-COUNT FIX (2026-08-06): these four calls passed only 2 of
+   * ReadXFSEntryByte's 3 arguments - the byte count arrives in EAX in the
+   * original and Ghidra dropped it, while functions.h declares the
+   * function K&R-empty so the short calls compiled silently. `count` then
+   * came through as whatever sat above the two pushed args in THIS
+   * function's frame, and the reader wrote that many bytes into a 4-byte
+   * stack local - smashing the frame, which is what zeroed the saved
+   * param_1 slot and made the FindFreeAtlasTileSlot call below receive a
+   * NULL cache. Counts recovered from orig 0x4f4426-0x4f4461 (`mov eax,N`
+   * before each `call 0x4f06c0`): 4, 4, 1, 4 - and the buffer each call
+   * targets matches these locals exactly, since ReadXFSEntryByte is
+   * callee-clean there (`ret 8`) so all four offsets share one esp. */
+  ReadXFSEntryByte(iVar4,(undefined4 *)&local_8c,4);
+  ReadXFSEntryByte(iVar4,(undefined4 *)local_88,4);
+  ReadXFSEntryByte(iVar4,(undefined4 *)&local_91,1);
+  ReadXFSEntryByte(iVar4,(undefined4 *)local_84,4);
   /* cache/pageTag/formatId arrive in EAX/ESI/BL at orig 0x4f4466-0x4f4475
    * and were dropped by Ghidra - see FindFreeAtlasTileSlot.c. */
   iVar6 = FindFreeAtlasTileSlot((undefined4 *)&local_90,param_1,local_8c,local_91);
   if (iVar6 == -1) {
-    local_90 = AllocTextureAtlasPage();
-    InitTextureAtlasPage(local_8c);
+    /* AllocTextureAtlasPage takes the cache in ESI and RETURNS the new
+     * page in EAX; InitTextureAtlasPage then takes that page in ESI and
+     * the format id in BL, with only the tile size on the stack (orig
+     * 0x4f4481-0x4f4497). All of those were dropped. */
+    local_90 = (int)AllocTextureAtlasPage(param_1);
+    InitTextureAtlasPage(local_8c,(undefined1 *)local_90,local_91);
     iVar6 = 0;
   }
-  ReadXFSEntryByte(iVar4,param_1 + 0x401f8);
+  /* The pixel payload's count is COMPUTED, not a literal (orig
+   * 0x4f449e-0x4f44c1): tileDim squared, then doubled for the normal
+   * 16-bit format or halved when the format id is 2 - i.e. bytes, not
+   * pixels. Same dropped-EAX bug as the four header reads above; left
+   * unfixed this would write a garbage-sized block straight into the
+   * cache object at +0x401f8. */
+  ReadXFSEntryByte(iVar4,(undefined4 *)(param_1 + 0x401f8),
+                   (uint)(local_91 == '\x02' ? local_8c * local_8c / 2
+                                              : local_8c * local_8c * 2));
   UploadTileToAtlasSurface(param_1 + 0x401f8,iVar6);
   CloseSpriteReadState();
   pvVar7 = operator_new(0x9c);
