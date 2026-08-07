@@ -52,7 +52,7 @@
  * the __fastcall typedef it received neither (ecx/edx ignored, zero
  * stack args) and read whatever the caller's frame happened to hold:
  * live crash, `this` = 1, page fault at [1+0x34] reading 0x35 inside
- * FUN_004f14e0. Fixed to plain cdecl, matching the project rule that
+ * DestroySpriteFrame. Fixed to plain cdecl, matching the project rule that
  * erased-__thiscall = cdecl is correct for raw-C-port callees (the
  * `__fastcall`+dummy-EDX idiom is only for genuine C++ vtable methods,
  * where `this` really does arrive in ECX). Same fix as the sibling

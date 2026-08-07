@@ -1303,7 +1303,7 @@ undefined4 OpenXFSEntryStream(int archive, char *name, char findExisting, undefi
  * callers still use the old 0-arg form. See CloseSpriteReadState.c. */
 undefined4 CloseSpriteReadState();
 void * __thiscall FUN_004f14c0(void *param_1, int param_2);
-void FUN_004f14e0(void *param_1);
+void DestroySpriteFrame(void *param_1);
 undefined4 ReadSpriteFrameRecord(void *readState, int frame);
 void FUN_004f16c0();
 void FUN_004f1750();

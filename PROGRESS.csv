@@ -1267,7 +1267,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f1390,193,OpenXFSEntryStream,false,15,4,RAW-src
 004f1460,86,CloseSpriteReadState,false,23,2,RAW-src
 004f14c0,30,FUN_004f14c0,false,8,2,RAW-src
-004f14e0,59,FUN_004f14e0,false,1,1,RAW-src
+004f14e0,59,DestroySpriteFrame,false,1,1,RAW-src
 004f1520,405,ReadSpriteFrameRecord,false,3,2,RAW-src
 004f16c0,136,FUN_004f16c0,false,2,2,RAW-src
 004f1750,18,FUN_004f1750,false,1,1,RAW-src

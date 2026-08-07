@@ -76,7 +76,7 @@
  * C++ vtable methods, where `this` really does arrive in ECX). The same
  * bug was found and fixed in the siblings State01_Title_OnExit.c,
  * State02_ServerSelect_OnExit.c and State06_Logo2_OnExit.c, and the same
- * destructor had a dropped-ESI `this` of its own - see FUN_004f14e0.c.
+ * destructor had a dropped-ESI `this` of its own - see DestroySpriteFrame.c.
  * Live-verified 2026-08-06: clicking AVATAR from the lobby now runs the
  * whole dtor chain and reaches State07_AvatarStore_OnEnter. */
 typedef void (*VtableDtorFn)(void *thisPtr, int flag);
