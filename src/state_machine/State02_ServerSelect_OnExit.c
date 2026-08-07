@@ -15,11 +15,20 @@
  * decompiled `puVar4 = *puVar3` read the node's own vtable-pointer VALUE
  * instead of using puVar3 (the real node) as `this` - freeing the wrong
  * address and corrupting the heap allocator's state. Fixed all 3.
+ *
+ * CALLING-CONVENTION FIX (2026-08-06): the typedef below was
+ * `__fastcall(thisPtr, a1)`, which passes the flag in EDX and pushes
+ * nothing. That matches neither the original (a plain __thiscall -
+ * `this` in ECX, flag PUSHED) nor our callee: the target is
+ * FUN_004f14c0, a raw C port, and ghidra_types.h erases `__thiscall`
+ * to cdecl for those, so the ported destructor reads BOTH `this` and
+ * the flag off the stack and got neither. Fixed to plain cdecl - see
+ * the sibling State06_Logo2_OnExit.c for the live-crash evidence.
  */
 #include "ghidra_types.h"
 #include <windows.h>
 
-typedef void (__fastcall *ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
+typedef void (*ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
 
 void State02_ServerSelect_OnExit(void)
 

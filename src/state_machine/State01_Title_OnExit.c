@@ -35,8 +35,17 @@
  * ADDRESS OF A GLOBAL (e.g. &PTR_FUN_00557524 - see LoadSpriteSet.c)
  * instead of the real heap node - undefined behavior that corrupts the
  * heap allocator's internal state, surfacing later as garbage
- * code-segment pointers in unrelated heap reads. */
-typedef void (__fastcall *ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
+ * code-segment pointers in unrelated heap reads.
+ *
+ * CALLING-CONVENTION FIX (2026-08-06): the typedef below was
+ * `__fastcall(thisPtr, a1)`, which passes the flag in EDX and pushes
+ * nothing. That matches neither the original (a plain __thiscall -
+ * `this` in ECX, flag PUSHED) nor our callee: the target is
+ * FUN_004f14c0, a raw C port, and ghidra_types.h erases `__thiscall`
+ * to cdecl for those, so the ported destructor reads BOTH `this` and
+ * the flag off the stack and got neither. Fixed to plain cdecl - see
+ * the sibling State06_Logo2_OnExit.c for the live-crash evidence. */
+typedef void (*ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
 
 void State01_Title_OnExit(void)
 

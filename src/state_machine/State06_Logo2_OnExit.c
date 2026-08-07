@@ -38,11 +38,29 @@
  * layer from whatever this function's own corruption left behind).
  * This exact two-bug pattern (dropped-this AND wrong-this-value)
  * likely recurs at the ~150+ other call sites across this codebase
- * using the same `(*(code *)*puVarN)(1)` shape - not audited here. */
+ * using the same `(*(code *)*puVarN)(1)` shape - not audited here.
+ *
+ * CALLING-CONVENTION FIX (2026-08-06): the `__fastcall(thisPtr, a1)`
+ * typedef above was wrong in BOTH directions and crashed live. The
+ * ORIGINAL is a plain __thiscall - `this` in ECX and the flag PUSHED
+ * (see the 0x4432f0 disassembly quoted above: `push 0x1; call [edx]`) -
+ * so a 2-arg __fastcall, which passes the flag in EDX and pushes
+ * nothing, does not match the original either. More decisively, it does
+ * not match OUR CALLEE: the target here is FUN_004f14c0, a raw C port,
+ * and ghidra_types.h erases `__thiscall` to cdecl for those - so the
+ * ported destructor reads BOTH `this` and the flag off the stack. With
+ * the __fastcall typedef it received neither (ecx/edx ignored, zero
+ * stack args) and read whatever the caller's frame happened to hold:
+ * live crash, `this` = 1, page fault at [1+0x34] reading 0x35 inside
+ * FUN_004f14e0. Fixed to plain cdecl, matching the project rule that
+ * erased-__thiscall = cdecl is correct for raw-C-port callees (the
+ * `__fastcall`+dummy-EDX idiom is only for genuine C++ vtable methods,
+ * where `this` really does arrive in ECX). Same fix as the sibling
+ * State03_GameRoomList_OnExit.c. */
 #include "ghidra_types.h"
 #include <windows.h>
 
-typedef void (__fastcall *ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
+typedef void (*ListNodeVirtualFn)(void *thisPtr, undefined4 a1);
 
 void State06_Logo2_OnExit(void)
 

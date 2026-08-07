@@ -46,8 +46,40 @@
  * dword ptr [eax]` is the extra, wrong, third read) after clicking
  * AVATAR from the lobby crashed with `EIP=0x2be8, "no code accessible"`
  * - a call through whatever garbage 4 bytes happened to sit at the real
- * destructor's own entry address. */
-typedef void (__fastcall *VtableDtorFn)(void *thisPtr, int dummyEDX, int flag);
+ * destructor's own entry address.
+ *
+ * CALLING-CONVENTION FIX (2026-07-31, reasoning corrected 2026-08-06):
+ * with the extra-deref fix above landed, the destructor calls stopped
+ * crashing outright but still silently corrupted memory on every call.
+ * The destructor these 8 buckets dispatch to is FUN_004f14c0 (verified
+ * live: a breakpoint at the `call dword ptr [ecx]` below showed the same
+ * target for every one of the 49 nodes this session's repro walks).
+ *
+ * The convention that matters here is OUR CALLEE'S, not the original's.
+ * In the ORIGINAL, 0x4f14c0 is a plain __thiscall - `this` in ECX and
+ * the flag PUSHED (`push esi / mov esi,ecx ... test byte ptr [esp+8],1
+ * ... ret 4`). But FUN_004f14c0 is a raw C port, and ghidra_types.h
+ * erases `__thiscall` to cdecl for those - so the PORTED destructor
+ * reads BOTH `this` and the flag off the stack, and nothing from ECX.
+ * (An earlier revision of this comment read `test byte ptr [esp+8],1`
+ * off the REBUILT binary and concluded the original was a 2-arg cdecl
+ * helper. That was a misreading - in the rebuilt, erased-to-cdecl build
+ * [esp+8] is simply the second stack parameter. The conclusion below
+ * happens to be right; the stated reason was not.)
+ *
+ * The `__fastcall+dummy-EDX` idiom put `this` in ECX (which the erased
+ * callee never reads) and pushed only `flag` - so the callee read its
+ * `this` from the flag slot and its flag from whatever sat above it in
+ * THIS function's frame. Changed to plain cdecl with both args explicit,
+ * matching the project rule that erased-__thiscall = cdecl is correct
+ * for raw-C-port callees (the __fastcall+dummy idiom is only for genuine
+ * C++ vtable methods, where `this` really does arrive in ECX). The same
+ * bug was found and fixed in the siblings State01_Title_OnExit.c,
+ * State02_ServerSelect_OnExit.c and State06_Logo2_OnExit.c, and the same
+ * destructor had a dropped-ESI `this` of its own - see FUN_004f14e0.c.
+ * Live-verified 2026-08-06: clicking AVATAR from the lobby now runs the
+ * whole dtor chain and reaches State07_AvatarStore_OnEnter. */
+typedef void (*VtableDtorFn)(void *thisPtr, int flag);
 
 void State03_GameRoomList_OnExit(void)
 
@@ -77,7 +109,7 @@ LAB_004294a5:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        ((VtableDtorFn)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -93,7 +125,7 @@ LAB_004294e4:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        ((VtableDtorFn)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -110,7 +142,7 @@ LAB_00429527:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        ((VtableDtorFn)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -127,7 +159,7 @@ LAB_0042956a:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        ((VtableDtorFn)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -144,7 +176,7 @@ LAB_004295aa:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        ((VtableDtorFn)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -161,7 +193,7 @@ LAB_004295ea:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        ((VtableDtorFn)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -178,7 +210,7 @@ LAB_0042962a:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        ((VtableDtorFn)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
@@ -195,7 +227,7 @@ LAB_0042966a:
         thisNode = puVar3;
         puVar4 = (undefined4 *)*puVar3;
         puVar3 = (undefined4 *)puVar3[4];
-        ((VtableDtorFn)*puVar4)(thisNode,0,1);
+        ((VtableDtorFn)*puVar4)(thisNode,1);
       }
       puVar9[3] = puVar9;
       puVar9[4] = puVar9;
