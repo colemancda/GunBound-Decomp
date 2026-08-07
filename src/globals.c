@@ -1140,7 +1140,20 @@ void *PTR_FUN_00555aa4;
 void *PTR_FUN_00555ac4;
 void *PTR_FUN_00555af8;
 void *PTR_FUN_00555b18;
-void *PTR_FUN_00555b38;
+/* The State07-embedded avatar-preview widget's vtable (orig .data
+ * 0x555b38, 5 slots; the constructor FUN_0044fb40 stamps it and
+ * State07_AvatarStore_OnEnter dispatches slot 1 with a state name).
+ * Was a lone NULL `void *`, so every slot read 0 - the AVATAR click
+ * crashed calling NULL out of slot 1 (live 2026-08-06). Slots decoded
+ * byte-for-byte from the original: 0x44fc90 (scalar deleting dtor),
+ * 0x461c60 (ResolveNamedState - adapter below keeps the bring-up
+ * bypass), 0x44fcb0 (per-frame update), 0x429800 x2 (no-ops). */
+void *PTR_FUN_00555b38[5] = {
+  (void *)FUN_0044fc90,
+  (void *)AvatarWidget_SetNamedState,   /* 0x461c60, see functions.h */
+  (void *)FUN_0044fcb0,
+  (void *)NoOpMethod, (void *)NoOpMethod,
+};
 void *PTR_FUN_00555b54;
 void *PTR_FUN_00555b68;
 void *PTR_FUN_00555b7c;
@@ -1666,7 +1679,11 @@ uint32_t DAT_00553c98;
 uint32_t DAT_00553ca0;
 uint32_t DAT_00553ca4;
 uint32_t DAT_00555654;
-uint32_t DAT_00555b4c;
+/* "look" - the avatar-preview widget's blink/idle state name (orig .data
+ * 0x555b4c; sat immediately after the 0x555b38 vtable). Was a bare
+ * 4-byte uint32_t: as a string, "look" needs 5 bytes - the NUL was
+ * whatever the linker placed next. */
+char DAT_00555b4c[8] = "look";
 uint32_t DAT_00556980;
 uint32_t DAT_00557318;
 uint32_t DAT_0055731c;

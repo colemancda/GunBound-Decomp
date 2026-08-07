@@ -1,24 +1,29 @@
 /* FUN_0044fb40 - 0x0044fb40 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
- */
+ * Constructor of the widget embedded in CState07AvatarStore at +0x30bbc
+ * (called only by FUN_00443c20, the state-7 ctor, as
+ * `FUN_0044fb40(param_1 + 0xc2ef)`): zero-fills the fields, sets the
+ * vtable to &PTR_FUN_00555b38 and initialises 4 CValueGuard cells. No
+ * confirmed real class name yet.
+ *
+ * SEH-PROLOGUE ARTIFACT FIX (2026-08-06): same bug class already fixed
+ * in WidgetChildArray_Destroy.c and FUN_00443c20.c - Ghidra's
+ * `unaff_FS_OFFSET` was an UNINITIALISED pointer that the very first
+ * statement READ through (`local_c = *unaff_FS_OFFSET`), faulting
+ * before the vtable was ever assigned. The fault is swallowed during
+ * InitGame, so the embedded object silently stayed vtable-NULL, and
+ * State07_AvatarStore_OnEnter's slot-1 dispatch on it crashed reading
+ * [0+4] the moment the AVATAR click reached it (live-reproduced).
+ * The original's `push -1 / push <handler> / mov fs:[0],esp` is a
+ * standard MSVC exception frame; per the established idiom we don't
+ * reproduce __try/__except frames in a bring-up port - stripped along
+ * with the (write-only, SEH-unwind-only) `local_4` state marker. */
 #include "ghidra_types.h"
 
 
 undefined4 * FUN_0044fb40(undefined4 *param_1)
 
 {
-  undefined4 *unaff_FS_OFFSET;
-  undefined4 local_c;
-  undefined1 *puStack_8;
-  undefined4 local_4;
-  
-  local_c = *unaff_FS_OFFSET;
-  puStack_8 = &LAB_0053ac2d;
-  *unaff_FS_OFFSET = &local_c;
   param_1[1] = 0;
   param_1[2] = 0;
   param_1[3] = 0;
@@ -31,7 +36,6 @@ undefined4 * FUN_0044fb40(undefined4 *param_1)
   param_1[10] = 0;
   param_1[0xb] = 0;
   param_1[9] = 0xffffffff;
-  local_4 = 0;
   *param_1 = &PTR_FUN_00555b38;
   /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at 0x44fb9f/
    * 0x44fbb9/0x44fbd3/0x44fbed/0x44fc05/0x44fc29/0x44fc47/0x44fc65 (edi
@@ -47,19 +51,15 @@ undefined4 * FUN_0044fb40(undefined4 *param_1)
   *(undefined1 *)(param_1 + 0x96) = 0;
   param_1[0x13] = 0;
   EncodeOutgoingPacketField((int)param_1 + 0x38, 0);
-  local_4 = 1;
   *(undefined1 *)(param_1 + 0x11f) = 0;
   param_1[0x9c] = 0;
   EncodeOutgoingPacketField((int)param_1 + 0x25c, 0);
-  local_4 = 2;
   *(undefined1 *)(param_1 + 0x1a8) = 0;
   param_1[0x125] = 0;
   EncodeOutgoingPacketField((int)param_1 + 0x480, 0);
-  local_4 = 3;
   *(undefined1 *)(param_1 + 0x231) = 0;
   param_1[0x1ae] = 0;
   EncodeOutgoingPacketField((int)param_1 + 0x6a4, 0);
-  local_4 = 4;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField((int)param_1 + 0x38, 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -73,7 +73,6 @@ undefined4 * FUN_0044fb40(undefined4 *param_1)
   EncodeOutgoingPacketField((int)param_1 + 0x6a4, 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined1 *)(param_1 + 0x232) = 0;
-  *unaff_FS_OFFSET = local_c;
   return param_1;
 }
 

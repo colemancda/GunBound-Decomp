@@ -4,7 +4,17 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
- */
+ *
+ * SEH-PROLOGUE ARTIFACT FIX (2026-08-06): same bug class already fixed
+ * in WidgetChildArray_Destroy.c / FUN_00443c20.c / FUN_0044fb40.c -
+ * Ghidra's `unaff_FS_OFFSET` was an UNINITIALISED pointer the prologue
+ * read and wrote through, faulting at entry (live: the next crash on
+ * the AVATAR-click chain once the widget vtable was wired). The
+ * original's `push -1 / push 0x53d8bb / mov fs:[0],esp` is a standard
+ * MSVC exception frame; per the established idiom we don't reproduce
+ * __try/__except frames in a bring-up port - stripped along with the
+ * (write-only, SEH-unwind-only) `uStack_4` state marker and the
+ * `uStack_10` return-address artifact. */
 #include "ghidra_types.h"
 
 
@@ -31,22 +41,12 @@ void FUN_00449540(int param_1,undefined4 param_2)
   byte *pbVar16;
   uint uVar17;
   undefined2 *puVar18;
-  undefined4 *unaff_FS_OFFSET;
   bool bVar19;
   int local_1878;
   undefined4 auStack_1874; /* Ghidra register slot; was undefined1 [4] */
   undefined4 uStack_1870;
   char cStack_15b5;
-  undefined4 uStack_10;
-  undefined4 uStack_c;
-  undefined1 *puStack_8;
-  undefined4 uStack_4;
-  
-  uStack_4 = 0xffffffff;
-  uStack_c = *unaff_FS_OFFSET;
-  puStack_8 = &LAB_0053d8bb;
-  *unaff_FS_OFFSET = &uStack_c;
-  uStack_10 = 0x44955f;
+
   puVar15 = (undefined4 *)(param_1 + 0x2d114);
   for (iVar11 = 0x10e; iVar11 != 0; iVar11 = iVar11 + -1) {
     *puVar15 = 0;
@@ -86,7 +86,6 @@ LAB_004495fa:
   FUN_00425350();
   iVar11 = g_clientContext;
   iVar14 = 0;
-  uStack_4 = 0;
   local_1878 = 0;
   pbVar16 = (byte *)(g_clientContext + 0x3b498);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -230,9 +229,7 @@ LAB_004495fa:
     local_1878 = local_1878 + 0x78;
     puVar13 = puVar13 + 1;
   } while (iVar11 < 9);
-  uStack_4 = 0xffffffff;
   FUN_004254a0();
-  *unaff_FS_OFFSET = uStack_c;
   return;
 code_r0x004495d2:
   puVar15 = (undefined4 *)puVar15[7];

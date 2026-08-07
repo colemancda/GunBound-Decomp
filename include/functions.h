@@ -476,6 +476,9 @@ void __thiscall State03_GameRoomList_OnCommand();
 void __fastcall State03_GameRoomList_HandleMouseInput(int,int,unsigned int,unsigned int,unsigned int); /* State03 vtable slot 6 */
 void __fastcall FUN_00429730();
 void NoOpMethod();
+/* State07 avatar-widget vtable slot 1 adapter (no-op; the real target
+ * ResolveNamedState stays a bring-up bypass) - see the .c's header. */
+void __fastcall AvatarWidget_SetNamedState(void *thisPtr, int dummyEDX, const char *name);
 void __fastcall NoOpMethodStdcall1();
 void SendJoinRoomChecked();
 void __fastcall OpenCreateRoomDialog();
@@ -648,7 +651,7 @@ void FUN_0044f040();
 void __fastcall FUN_0044f050();
 undefined4 * FUN_0044fb40();
 void * __thiscall FUN_0044fc90();
-void __fastcall FUN_0044fcb0();
+void __fastcall FUN_0044fcb0(int *param_1);
 undefined4 * __fastcall FUN_0044fd00();
 void __fastcall FUN_0044fd70();
 void __fastcall FUN_0044fff0();
@@ -1280,7 +1283,7 @@ void AudioStreamThreadProc();
 undefined4 __stdcall FUN_004ef970(undefined4 *, undefined4 *);
 void FUN_004f0100();
 void FUN_004f01d0();
-bool __fastcall CreateTextureAtlasSurface();
+bool __fastcall CreateTextureAtlasSurface(undefined4 param_1,undefined4 param_2,int param_3);
 void FUN_004f0320();
 uint FlushXFSWriteBlock();
 uint FUN_004f0650();
@@ -1370,7 +1373,7 @@ void FUN_004f3ea0();
 void FUN_004f3ee0();
 void FlushSpriteBatch();
 uint InitTextureAtlasPage(int param_1,undefined1 *page,undefined1 formatId);
-void UploadTileToAtlasSurface();
+void UploadTileToAtlasSurface(undefined4 *param_1,int param_2,undefined1 *page);
 undefined1 * __fastcall InitTextureCache();
 void DestroyTextureCache();
 undefined4 AllocTextureAtlasPage(int cache);

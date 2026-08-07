@@ -1260,7 +1260,7 @@ extern void *PTR_FUN_00555aa4;
 extern void *PTR_FUN_00555ac4;
 extern void *PTR_FUN_00555af8;
 extern void *PTR_FUN_00555b18;
-extern void *PTR_FUN_00555b38;
+extern void *PTR_FUN_00555b38[5]; /* State07 avatar-widget vtable - see globals.c */
 extern void *PTR_FUN_00555b54;
 extern void *PTR_FUN_00555b68;
 extern void *PTR_FUN_00555b7c;
@@ -1737,7 +1737,7 @@ extern uint32_t DAT_00553c98;
 extern uint32_t DAT_00553ca0;
 extern uint32_t DAT_00553ca4;
 extern uint32_t DAT_00555654;
-extern uint32_t DAT_00555b4c;
+extern char DAT_00555b4c[8];     /* "look" state name - see globals.c */
 extern uint32_t DAT_00556980;
 extern uint32_t DAT_00557318;
 extern uint32_t DAT_0055731c;
