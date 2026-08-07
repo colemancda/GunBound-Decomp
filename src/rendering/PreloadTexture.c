@@ -59,7 +59,9 @@ undefined4 PreloadTexture(int param_1,char *param_2)
   ReadXFSEntryByte(iVar4,local_88);
   ReadXFSEntryByte(iVar4,&local_91);
   ReadXFSEntryByte(iVar4,local_84);
-  iVar6 = FindFreeAtlasTileSlot(&local_90);
+  /* cache/pageTag/formatId arrive in EAX/ESI/BL at orig 0x4f4466-0x4f4475
+   * and were dropped by Ghidra - see FindFreeAtlasTileSlot.c. */
+  iVar6 = FindFreeAtlasTileSlot((undefined4 *)&local_90,param_1,local_8c,local_91);
   if (iVar6 == -1) {
     local_90 = AllocTextureAtlasPage();
     InitTextureAtlasPage(local_8c);

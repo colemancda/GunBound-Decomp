@@ -7,19 +7,45 @@
  *
  * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-REGISTER FIX (2026-08-06): all THREE of this function's inputs
+ * other than the out-param were dropped - it read an uninitialised
+ * `in_EAX` (the texture cache), `unaff_ESI` (the page tag) and
+ * `unaff_BL` (the format id). With `in_EAX` garbage, the very first
+ * statement walked a wild page list and faulted at `[page+4]` - live
+ * crash reached the moment State07_AvatarStore_OnEnter's texture
+ * preload became reachable (the fault is swallowed by SEH, so it does
+ * not kill the process; it aborts the state transition instead, which
+ * is why AVATAR silently bounced back to the lobby).
+ *
+ * All three recovered from the sole call site, PreloadTexture at orig
+ * 0x4f4466-0x4f4475:
+ *   mov bl, byte ptr [esp+0x13]   ; formatId  = PreloadTexture's local_91
+ *   mov esi, dword ptr [esp+0x18] ; pageTag   = PreloadTexture's local_8c
+ *   lea eax, [esp+0x14]           ; outPage   = &local_90 (already passed)
+ *   mov eax, ebp                  ; cache     = PreloadTexture's param_1
+ *   call 0x4f4750
+ * `ebp` is param_1 by the prologue (`sub esp,0x94; push ebp;
+ * mov ebp,[esp+0x9c]` - i.e. the first stack argument). The [esp]
+ * offsets pin the other two exactly: with the out-param at [esp+0x14]
+ * == &local_90, the Ghidra local names (which ARE the frame offsets)
+ * give local_8c at [esp+0x18] and local_91 at [esp+0x13] - and those
+ * are two of the four values ReadXFSEntryByte fills in immediately
+ * before the call, which is what a page tag / format id read out of a
+ * texture header should be.
  */
 #include "ghidra_types.h"
 
 
-int FindFreeAtlasTileSlot(undefined4 *param_1)
+int FindFreeAtlasTileSlot(undefined4 *param_1,int cache,int pageTag,char formatId)
 
 {
   char *pcVar1;
-  int in_EAX;
+  int in_EAX = cache;
   int iVar2;
-  char unaff_BL;
-  int unaff_ESI;
-  
+  char unaff_BL = formatId;
+  int unaff_ESI = pageTag;
+
   pcVar1 = *(char **)(in_EAX + 0x114);
   do {
     if (pcVar1 == (char *)0x0) {

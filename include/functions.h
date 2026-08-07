@@ -1377,7 +1377,7 @@ undefined4 AllocTextureAtlasPage();
 undefined4 PreloadTexture();
 void InsertTextureCacheRecord();
 void FlushTextureCache(int param_1);
-int FindFreeAtlasTileSlot();
+int FindFreeAtlasTileSlot(undefined4 *param_1,int cache,int pageTag,char formatId);
 void FUN_004f47e0();
 undefined * __fastcall FUN_004f4810();
 int __fastcall RijndaelSetKey(unsigned int *param_1, unsigned int param_2, int param_3, unsigned int *ctx);
