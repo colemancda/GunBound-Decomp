@@ -29,7 +29,33 @@
  * but erases __thiscall - same pattern as WndProc.c's StateSlot6DispatchFn).
  * Left dropped, `this` came through as whatever ECX last held, so this
  * crashed (wild vtable-slot-1 call through garbage) reproduced live the
- * moment the AVATAR button opened this state. */
+ * moment the AVATAR button opened this state.
+ *
+ * DROPPED-EAX .img NAMES FIX (2026-08-06): all 30 LoadSpriteSet calls
+ * below were missing their third argument. LoadSpriteSet takes the
+ * sprite-set name in EAX (`LoadSpriteSet(container, key, imgName)` -
+ * see LoadSpriteSet.c), Ghidra dropped it, and functions.h declares
+ * LoadSpriteSet K&R-empty so the 2-arg calls compiled silently. The
+ * name pointer then came through as stale garbage and FindXFSEntry ->
+ * CompareXFSEntryName faulted dereferencing it - live-reproduced as the
+ * first crash reached once the destructor-chain bugs were fixed and
+ * this state actually became reachable. Recovered all 30 names from the
+ * original's own call sites (0x447776-0x4479ba, `mov eax,<.rdata addr>`
+ * before each `call 0x4f1790`); every recovered key was asserted equal
+ * to the key already in this file, so the names line up positionally by
+ * construction. Same bug class as InitGame's 60 LoadSpriteSet calls.
+ *
+ * DROPPED-EAX BUTTON NAMES FIX (2026-08-06): the same bug, one call
+ * deeper. All 25 AppendPersistentButtonName calls below were missing
+ * their name argument too (it also arrives in EAX - see that file's
+ * header, and ChangeGameState.c's already-recovered call sites), and
+ * again functions.h declares it K&R-empty so the 1-arg calls compiled.
+ * Once the LoadSpriteSet names above were restored this became the next
+ * live crash, faulting on the stale name pointer inside the function's
+ * first string-copy loop. Recovered all 25 from the original's own call
+ * sites (0x4479cf-0x447bf6, `mov eax,<.rdata addr>` before each
+ * `call 0x401740`); 7 of the strings had no symbol yet and were added to
+ * globals.c/globals.h following the existing s_<name>_<addr> naming. */
 typedef void (__fastcall *VtableSlot1StrFn)(void *thisPtr, int dummyEDX, const char *str);
 
 void __fastcall State07_AvatarStore_OnEnter(int param_1)
@@ -44,62 +70,62 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   undefined2 *puVar7;
   int iVar8;
   
-  LoadSpriteSet(&DAT_00ea0e18,10000);
-  LoadSpriteSet(&DAT_00ea0e18,0x2711);
-  LoadSpriteSet(&DAT_00ea0e18,0x2712);
-  LoadSpriteSet(&DAT_00ea0e18,0x2713);
-  LoadSpriteSet(&DAT_00ea0e18,0x2714);
-  LoadSpriteSet(&DAT_00ea0e18,1000);
-  LoadSpriteSet(&DAT_00ea0e18,0x3e9);
-  LoadSpriteSet(&DAT_00ea0e18,0x44c);
-  LoadSpriteSet(&DAT_00ea0e18,0x44d);
-  LoadSpriteSet(&DAT_00ea0e18,0x44e);
-  LoadSpriteSet(&DAT_00ea0e18,0x44f);
-  LoadSpriteSet(&DAT_00ea0e18,0x450);
-  LoadSpriteSet(&DAT_00ea0e18,0x451);
-  LoadSpriteSet(&DAT_00ea0e18,0x452);
-  LoadSpriteSet(&DAT_00ea0e18,0x453);
-  LoadSpriteSet(&DAT_00ea0e18,0x454);
-  LoadSpriteSet(&DAT_00ea0e18,0x455);
-  LoadSpriteSet(&DAT_00ea0e18,0x456);
-  LoadSpriteSet(&DAT_00ea0e18,0x457);
-  LoadSpriteSet(&DAT_00ea0e18,0x4b0);
-  LoadSpriteSet(&DAT_00ea0e18,0x4b1);
-  LoadSpriteSet(&DAT_00ea0e18,0x4b2);
-  LoadSpriteSet(&DAT_00ea0e18,0x4b3);
-  LoadSpriteSet(&DAT_00ea0e18,0x514);
-  LoadSpriteSet(&DAT_00ea0e18,0x515);
-  LoadSpriteSet(&DAT_00ea0e18,0x516);
-  LoadSpriteSet(&DAT_00ea0e18,0x517);
-  LoadSpriteSet(&DAT_00ea0e18,0x518);
-  LoadSpriteSet(&DAT_00ea0e18,0x519);
-  LoadSpriteSet(&DAT_00ea0e18,0x51a);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  LoadSpriteSet(&DAT_00ea0e18,10000,"store_back.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x2711,"store_avatar.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x2712,"store_myavatar.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x2713,"store_icon.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x2714,"store_window_back.img");
+  LoadSpriteSet(&DAT_00ea0e18,1000,"b_store_exit.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x3e9,"b_store_buddygame.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x44c,"b_store_cap.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x44d,"b_store_cloth.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x44e,"b_store_glasse.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x44f,"b_store_flag.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x450,"b_store_exitem.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x451,"b_store_puton.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x452,"b_store_buy.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x453,"b_store_up.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x454,"b_store_down.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x455,"b_store_cashcharge.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x456,"b_store_event01.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x457,"b_store_event02.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x4b0,"b_myavatar_sell.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x4b1,"b_myavatar_dry.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x4b2,"b_myavatar_gift.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x4b3,"b_myavatar_leave.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x514,"b_storewindow_yes.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x515,"b_storewindow_no.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x516,"b_storewindow_confirm.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x517,"b_storewindow_cancel.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x518,"b_storewindow_cashcharge.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x519,"b_storewindow_gold.img");
+  LoadSpriteSet(&DAT_00ea0e18,0x51a,"b_storewindow_cash.img");
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_exit_00555778);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_buddygame_00555764);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_cap_00555758);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_cloth_00555748);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_glasse_00555738);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_flag_00555728);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_exitem_00555718);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_puton_00555708);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_buy_005556fc);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_up_005556f0);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_down_005556e0);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_cashcharge_005556cc);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_event01_005556bc);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_event02_005556ac);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_sell_0055569c);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_dry_00555690);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_store_gift_00555680);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_storewindow_yes_00555a1c);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_storewindow_no_0055566c);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_storewindow_confirm_00555a8c);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_storewindow_cancel_00555a30);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_storewindow_cashcharge_00555a70);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_storewindow_gold_00555a5c);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_storewindow_cash_00555a48);
   PreloadTexture(&g_textureCache,s_AvataTexture1_0055565c);
-  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
+  AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_avata_00553fa8);
   uVar5 = FindPreloadedTextureByName(s_avata_00553fa8);
   *(undefined4 *)(param_1 + 0x30bd8) = uVar5;
   (*(VtableSlot1StrFn *)(*(int *)(param_1 + 0x30bbc) + 4))
