@@ -606,7 +606,7 @@ void FUN_00443dc0();
 void __fastcall FUN_00443ed0();
 void FUN_004452c0();  /* State07 vtable slot 4 - not yet ported, bring-up auto-stub */
 void __thiscall FUN_00445450();
-void FUN_004475c0();  /* State07 vtable slot 6 - not yet ported, bring-up auto-stub */
+void __fastcall FUN_004475c0(void *thisPtr, int dummyEDX, uint msg, uint wParam, uint lParam); /* State07 vtable slot 6 - convention-correct stub, see FUN_004475c0.c */
 void __fastcall FUN_00448370();
 void FUN_00448440();  /* State07 vtable slot 13 - not yet ported, bring-up auto-stub */
 void FUN_00449050();  /* State07 vtable slot 14 - not yet ported, bring-up auto-stub */
