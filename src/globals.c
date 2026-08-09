@@ -1537,13 +1537,7 @@ void *vtable_State07_AvatarStore[32] = {
   (void *)CGameState_NoOpVirtual_A,                         /* 10 0x448430 */
   (void *)NoOpMethod, (void *)NoOpMethod,                   /* 11-12 0x429800 */
   (void *)State07_AvatarStore_RenderStoreContent,           /* 13 0x448440 */
-  /* 14 0x449050 - State07_AvatarStore_RenderAvatarPreview is ported (see that
-   * file) but temporarily left as NoOpMethod: its D3D vertex-batch path
-   * (BuildSizedSpriteQuad + DrawPrimitiveVB @ device vtbl+0x64) faults with a
-   * wild call in the store context (the batch/vertex-buffer state the battle
-   * renderers rely on is not set up here yet). Slot 13 (the background) is
-   * live-verified independent of this. Re-point once that path is fixed. */
-  (void *)NoOpMethod,
+  (void *)State07_AvatarStore_RenderAvatarPreview,          /* 14 0x449050 */
   (void *)NoOpMethod, (void *)NoOpMethod, (void *)NoOpMethod, /* 15-17 0x429800 */
 };
 /* Real 18-slot vtable - dumped from orig .rdata at 0x5569f8 (stored by
