@@ -491,8 +491,16 @@ LAB_004d438d:
           puVar22 = (undefined4 *)puVar22[7];
         } while (puVar22 != (undefined4 *)DAT_00e9be94);
       }
-      _DAT_00e9be98 = 0;
-      _DAT_00e9be9c = 0;
+      /* SPLIT-STRUCT FIX (2026-08-09): same registry1 hovered(+8)/clicked(+0xc)
+       * clear as ChangeGameState.c - the inline sweep just above frees registry1's
+       * nodes, so these must zero the real pointers INSIDE the DAT_00e9be90 block,
+       * not the write-only split globals _DAT_00e9be98/_DAT_00e9be9c that
+       * HandleActiveObjectMouseMove never reads. Left unfixed, a widget hovered
+       * before entering battle would dangle in registry1+8 (freed, sentinel
+       * vtable) and the next mouse-move would dispatch slot 1 through it. See
+       * ChangeGameState.c's header for the full root-cause writeup. */
+      *(undefined4 *)(DAT_00e9be90 + 8) = 0;
+      *(undefined4 *)(DAT_00e9be90 + 0xc) = 0;
       g_bBattleSessionActive = 1;
       puVar22 = DAT_00e53c44;
       do {

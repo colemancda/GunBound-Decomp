@@ -32,8 +32,25 @@ void ChangeGameState(int newStateId)
     ((GameStateVirtualFn)(*(void ***)g_gameStateVTableArray[g_currentGameState])[8])
               (g_gameStateVTableArray[g_currentGameState]);
     SweepActiveObjectRegistry((int)&DAT_00e9be90);
-    _DAT_00e9be98 = 0;
-    _DAT_00e9be9c = 0;
+    /* SPLIT-STRUCT FIX (2026-08-09): these clears zero the active-object
+     * registries' hovered(+8)/clicked(+0xc) pointers between the two sweeps
+     * (orig 0x412330-0x41233a: `mov [0xe9be98],eax` / `[0xe9be9c]` /
+     * `[0xe9c104]`, eax=0). In the original those addresses live INSIDE the
+     * registry blocks (0xe9be90 / 0xe9c0fc); this port split registry1's
+     * +8/+0xc out into standalone write-only globals _DAT_00e9be98/_DAT_00e9be9c,
+     * but HandleActiveObjectMouseMove reads/writes the hovered pointer at
+     * DAT_00e9be90+8 INSIDE the sized block - so the clear missed the real
+     * pointer. A lobby button hovered before this transition therefore stayed
+     * in registry1+8 as a DANGLING pointer after SweepActiveObjectRegistry freed
+     * it (its base dtor leaves the shared sentinel vtable &PTR_LAB_0055752c),
+     * and the first mouse-move in the next state dispatched vtable slot 1
+     * (SetButtonStateByIndex) through that freed object -> NULL slot -> crash
+     * (live-repro'd: entering the AVATAR store, obj 0x0b874a30 vtable=sentinel).
+     * Redirect registry1's two clears into the block. registry2's +8 stays the
+     * separate DAT_00e9c104: State09_ReadyRoom / SyncActiveTextInput track it as
+     * a standalone flag, self-consistent, and must not be rerouted here. */
+    *(undefined4 *)(DAT_00e9be90 + 8) = 0;
+    *(undefined4 *)(DAT_00e9be90 + 0xc) = 0;
     DAT_00e9c104 = 0;
     SweepActiveObjectRegistry((int)&DAT_00e9c0fc);
     FUN_005098e0((int)&g_uiPanelManager, 10000);
