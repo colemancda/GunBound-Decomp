@@ -619,7 +619,11 @@ void FUN_0044b0b0();
 void EquipAvatarPart(int param_1);
 void UnequipAvatarSlot(int param_1);
 void PreviewAvatarPart(void);
-void __fastcall FUN_0044b5d0();
+/* 0x44b5d0 - copies one composed avatar sprite frame (outer keys 200000/
+ * 300000) into the locked AvataTexture1 preview surface. frameKey was the
+ * original's EAX (dropped by Ghidra); ECX (param_1) is a true dead arg. */
+void __fastcall BlitAvatarFrameToPreviewTexture(undefined4 param_1,uint outerKey,int dest,
+                                                int pitch,uint frameKey);
 void FUN_0044b720();
 void RenderInventoryItemDetail();
 undefined4 FUN_0044be40();

@@ -6,7 +6,7 @@
  * frame key 0x64), the packet/guard debug label overlays (only when the
  * +0x23313 debug flag is set), the 9-cell item grid (FUN_0044a000), the
  * off-screen avatar-preview composite (DirectDraw surface Lock/clear/two
- * FUN_0044b5d0 body-part blits/Unlock), and the item-detail / category
+ * BlitAvatarFrameToPreviewTexture blits/Unlock), and the item-detail / category
  * tab labels. Was an unported bring-up auto-stub, so the whole store main
  * area rendered BLACK - only the panel-manager widgets (buddy frame,
  * bottom buttons, scrollbars) drew. Sibling slot 14
@@ -38,12 +38,11 @@
  *     (its EAX cell arg is ignored) - so the label values read 0 and the
  *     large iVar-dispatched category-tab region below is skipped in this
  *     build; it is ported faithfully for when that stub is replaced.
- * KNOWN LIMITATION: the two FUN_0044b5d0 body-part composites take their
- * source frame key in EAX (*(param_1+0x30bec)) which portable C cannot
- * set, so that arg arrives as whatever EAX held; FUN_0044b5d0's list walk
- * is range-guarded (returns without drawing on a miss) so this cannot
- * crash - the avatar body part may simply not composite until
- * FUN_0044b5d0 gets a real 5th-parameter signature. See that file.
+ * The two avatar-frame composites' source frame key rides in EAX
+ * (*(param_1+0x30bec), `mov eax,[ebx+0x30bec]` at orig 0x4487eb/0x4487fd)
+ * - recovered as BlitAvatarFrameToPreviewTexture's explicit 5th
+ * parameter (2026-08-09, was FUN_0044b5d0's dropped in_EAX; see that
+ * file's header).
  *
  * Not hand-verified beyond the above. See src/README.md's "Raw/verbatim
  * ports" section.
@@ -175,8 +174,10 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
     }
     /* two body-part composites (frame key rides in EAX = *(param_1+0x30bec);
      * see KNOWN LIMITATION in the header). */
-    FUN_0044b5d0(0,0x30d40,(int)pcBits,uPitch);
-    FUN_0044b5d0(0,0x493e0,(int)pcBits + (uPitch >> 1),uPitch);
+    BlitAvatarFrameToPreviewTexture(0,0x30d40,(int)pcBits,uPitch,
+                                    *(uint *)(param_1 + 0x30bec));
+    BlitAvatarFrameToPreviewTexture(0,0x493e0,(int)pcBits + (uPitch >> 1),uPitch,
+                                    *(uint *)(param_1 + 0x30bec));
     piSurface = *(int **)(*(int *)(iCache + 0x94) + 0x110);
     (*(SurfaceUnlockFn *)(*piSurface + 0x80))(piSurface,(LPRECT)0x0);
   }

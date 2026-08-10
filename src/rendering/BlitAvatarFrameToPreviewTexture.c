@@ -1,17 +1,37 @@
-/* FUN_0044b5d0 - 0x0044b5d0 in the original binary.
+/* BlitAvatarFrameToPreviewTexture - 0x0044b5d0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-08-09, was FUN_0044b5d0): copies one composed avatar
+ * sprite frame into the locked AvataTexture1 preview surface. Walks the
+ * sprite registry (DAT_00ea0e1c, the same nested outer+0x1c/inner+0x10
+ * list FindSpriteFrame walks) for outerKey/frameKey, then row-copies the
+ * frame's 16bpp pixels (max 128x128, clipped against the frame's own
+ * x/y/w/h at +0x20..+0x2c and its pixel base at +0x34) into dest at the
+ * given byte pitch. Sole callers: State07_AvatarStore_RenderStoreContent's
+ * avatar-composite block, once per half - outerKey 200000 (0x30d40) into
+ * the left half and 300000 (0x493e0) into the right half - exactly the
+ * two sprite-set keys State07_AvatarStore_OnEnter passes to
+ * LoadAvatarSprites, tying this to the avatar-part compositor family
+ * (LoadAvatarSprites/ComposeAvatarSprites).
+ *
+ * DROPPED-EAX FIX (2026-08-09): the frame key arrives in EAX - the
+ * original's prologue does `mov esi,eax` with no prior write (custom
+ * EAX+EDX+2-stack, ECX-dead, ret 8 convention), and both call sites do
+ * `mov eax,[ebx+0x30bec]` immediately before the call. Ghidra dropped it
+ * as an uninitialised `in_EAX` local; promoted to the explicit `frameKey`
+ * parameter (both call sites updated in the same change - the __fastcall
+ * decoration changes @16 -> @20, so a partial promotion cannot link).
+ * param_1 (ECX) stays a true dead argument, matching the original ABI
+ * slot. Raw/near-verbatim port of Ghidra's decompiler output otherwise.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0044b5d0(undefined4 param_1,uint param_2,int param_3,int param_4)
+void __fastcall BlitAvatarFrameToPreviewTexture(undefined4 param_1,uint param_2,int param_3,
+                                                int param_4,uint frameKey)
 
 {
   int iVar1;
-  uint in_EAX;
+  uint in_EAX = frameKey;
   int iVar2;
   undefined4 *puVar3;
   int iVar4;
