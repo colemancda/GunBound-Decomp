@@ -1,9 +1,21 @@
 /* FUN_00425350 - 0x00425350 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The 11-cell CValueGuard workspace constructor: zeroes each cell's
+ * activeFlag/tableHandle pair and registers it via
+ * EncodeOutgoingPacketField(cell, 0), for cells 0x23c apart at
+ * +0/0x23c/.../0x1580 (object extent 0x17a4 bytes). `this` arrives in
+ * ECX; sole callers are FUN_00445450's five `lea ecx,[esp+0x2d3c]` /
+ * `call 0x425350` sites (the state-7 OnCommand's stack workspace - see
+ * that file's guardWorkspace local).
+ *
+ * SEH-PROLOGUE ARTIFACT STRIPPED (2026-08-10): same class/fix as
+ * FUN_0044fb40.c/FUN_00449540.c and this function's caller - Ghidra
+ * emitted the original's fs:[0] exception-frame setup/teardown as
+ * literal reads/writes through an uninitialised `unaff_FS_OFFSET`
+ * local, which MSVC compiled into a garbage-pointer dereference. The
+ * `local_4` SEH-state cookie writes (the SUBFIELD/CONCAT31 ladder) are
+ * kept - they are dead stores here but document the original's
+ * per-cell unwind states. Raw/near-verbatim port otherwise.
  */
 #include "ghidra_types.h"
 
@@ -11,15 +23,9 @@
 int __fastcall FUN_00425350(int param_1)
 
 {
-  undefined4 *unaff_FS_OFFSET;
-  undefined4 local_c;
-  undefined1 *puStack_8;
   undefined4 local_4;
-  
+
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_005381d6;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
   *(undefined1 *)(param_1 + 0x220) = 0;
   *(undefined4 *)(param_1 + 0x14) = 0;
   /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
@@ -70,7 +76,6 @@ int __fastcall FUN_00425350(int param_1)
   *(undefined1 *)(param_1 + 0x17a0) = 0;
   *(undefined4 *)(param_1 + 0x1594) = 0;
   EncodeOutgoingPacketField(param_1 + 0x1580, 0);
-  *unaff_FS_OFFSET = local_c;
   return param_1;
 }
 

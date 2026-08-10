@@ -36,7 +36,6 @@ void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefine
   char *pcVar13;
   byte bVar14;
   undefined2 *puVar15;
-  undefined4 *unaff_FS_OFFSET;
   undefined4 local_451c; /* Ghidra register slot; was undefined1 [4] */
   undefined4 local_4518;
   char local_4418 [256];
@@ -55,22 +54,33 @@ void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefine
   undefined1 local_1a14 [1120];
   undefined1 local_15b4 [548];
   undefined1 local_1390 [4992];
-  undefined4 uStack_10;
-  undefined4 local_c;
-  undefined1 *puStack_8;
   uint local_4;
+  /* The CValueGuard workspace FUN_00425350 constructs/reconstructs (orig
+   * `lea ecx,[esp+0x2d3c]` before each of the 5 `call 0x425350` sites -
+   * Ghidra dropped the `this` at every one and carved only the unused
+   * local_1a14[1120] out of its extent). 11 cells at +0/0x23c/.../0x1580,
+   * each 0x23c apart with flag/handle writes up to +0x17a0 -> 0x17a4
+   * bytes (see FUN_00425350.c's header). */
+  undefined1 guardWorkspace [0x17a4];
   /* BuildSystemInfoBlob's 2nd output (orig ESI, dropped) - NOT verified
    * against this call site's original disassembly; added only to satisfy
    * the now-2-parameter signature (see BuildSystemInfoBlob.c). Revisit if
    * this code path is ever exercised. */
   undefined4 systemInfoBlob2 [6];
 
+  /* SEH-PROLOGUE ARTIFACT STRIPPED (2026-08-10): the original opens a
+   * real MSVC SEH frame (push -1 / push 0x53d96a / mov eax,fs:[0] /
+   * mov fs:[0],esp at 0x445450-0x44546a) which Ghidra decompiled into
+   * explicit reads/writes through an uninitialised `unaff_FS_OFFSET`
+   * local. MSVC 7.1 compiled those literally, dereferencing garbage -
+   * live crash at +0xe (NULL read) the first time state 7's OnCommand
+   * fired (the store's modal OK button). Same class/fix as
+   * FUN_0044fb40.c/FUN_00449540.c (commit 58627a8): drop the emulated
+   * frame, keep the real body. `local_4` was the SEH state cookie but is
+   * ALSO reused by the body as a genuine case-progress flag (the
+   * CONCAT31/SUBFIELD writes below), so it stays. */
   local_4 = 0xffffffff;
-  puStack_8 = &LAB_0053d96a;
-  local_c = *unaff_FS_OFFSET;
-  *unaff_FS_OFFSET = &local_c;
-  uStack_10 = 0x44546f;
-  FUN_00425350();
+  FUN_00425350((int)guardWorkspace);
   local_4 = 0;
   if (param_2 != 0) {
     if ((param_2 != 0xb) || (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) goto switchD_00445591_caseD_2;
@@ -165,7 +175,7 @@ LAB_004457e7:
     if (((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
        ((cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01' && (g_stateChangeInProgress == 0)))) {
       if (*(uint *)(g_clientContext + 0x44e24) < 100) {
-        FUN_00425350();
+        FUN_00425350((int)guardWorkspace);
         iVar3 = param_1 + 4;
         local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
         iVar9 = PeekChecksumStateUnderLock(iVar3);
@@ -313,7 +323,7 @@ LAB_004457e7:
         if ((uVar4 & 8) == 0) {
           if ((uVar4 & 4) == 0) {
             if ((uVar4 & 2) == 0) {
-              FUN_00425350();
+              FUN_00425350((int)guardWorkspace);
               SUBFIELD(local_4,0,undefined1) = 2;
               PeekChecksumStateUnderLock(iVar3);
               iVar9 = FUN_00426570();
@@ -390,7 +400,7 @@ LAB_004457e7:
         iVar9 = FUN_00426570();
         iVar9 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
         if ((iVar9 >> 0x1c & 2U) == 0) {
-          FUN_00425350();
+          FUN_00425350((int)guardWorkspace);
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
           PeekChecksumStateUnderLock(iVar3);
           iVar9 = FUN_00426570();
@@ -511,7 +521,7 @@ LAB_004457e7:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
     if ((((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
         (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) && (g_stateChangeInProgress == 0)) {
-      FUN_00425350();
+      FUN_00425350((int)guardWorkspace);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),4);
       iVar3 = param_1 + 0x3054c;
       iVar9 = PeekChecksumStateUnderLock(param_1 + 0x228);
@@ -967,7 +977,7 @@ LAB_00446f6d:
 switchD_00445591_caseD_2:
   local_4 = 0xffffffff;
   FUN_004254a0();
-  *unaff_FS_OFFSET = local_c;
+  /* (SEH frame teardown stripped - see the header note at the top) */
   return;
 }
 
