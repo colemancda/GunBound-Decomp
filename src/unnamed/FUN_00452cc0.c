@@ -3,6 +3,17 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARG FIX (2026-08-11): the 2 argless PeekChecksumStateUnderLock()
+ * calls (orig 0x453dd6/0x453dde, the CheckBothGuardedBools-gated pair)
+ * now pass their guarded-cell pointers, recovered from
+ * tools/underlock_push_sites.json + disasm back-track: the first pushes
+ * the frame slot [esp+0x10], last written at 0x4539bb with
+ * `lea edx,[esi+0x1178]` -> param_1 + 0x45e (int-scaled); the second
+ * pushes ebp, last written at 0x453cf0 `lea ebp,[esi+0xf54]` ->
+ * param_1 + 0x3d5. Matches the same X/Y cell pair this file already
+ * passes with args at the 0x45e/0x3d5 sites further down, and the
+ * iVar8-vs-g_nCameraY / iVar9-vs-g_nCameraX uses right after.
  */
 #include "ghidra_types.h"
 
@@ -519,8 +530,8 @@ LAB_00453b3c:
     }
     cVar3 = CheckBothGuardedBools();
     if (cVar3 != '\0') {
-      iVar8 = PeekChecksumStateUnderLock();
-      iVar9 = PeekChecksumStateUnderLock();
+      iVar8 = PeekChecksumStateUnderLock(param_1 + 0x45e);
+      iVar9 = PeekChecksumStateUnderLock(param_1 + 0x3d5);
       iVar5 = g_clientContext;
       piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
       cVar3 = PeekPacketChecksumBool();

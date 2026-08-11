@@ -3,6 +3,21 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARG FIX (2026-08-11): the 6 argless PeekChecksumStateUnderLock()
+ * calls now pass their guarded-cell pointer, recovered from
+ * tools/underlock_push_sites.json + per-site disasm. Every one of this
+ * function's 16 Peek sites pushes the frame slot [esp+0x14], which each
+ * block refills with base + a per-block offset, where base = the slot
+ * [esp+0x1c] = param_2*0x17e4 + param_1 = `local_104` (written once at
+ * 0x44a1d9 = the line-86 assignment). Pair 1 (0x44a3c6/0x44a427) passes
+ * `local_10c` - the C's own slot copy (`local_10c = local_104 + 0xadc`).
+ * Pair 2 (0x44a52b/0x44a596) is base+0x19d8 (0x44a479-0x44a482); note
+ * Ghidra's nearby `uStack_110 = local_108 + 0x19d8` mis-aliases the
+ * base slot [esp+0x1c] as local_108 (the [esp+0x18] x-coordinate), so
+ * these pass `local_104 + 0x19d8` directly. The last pair
+ * (0x44ad97/0x44ae04) is base+0x17b4 (0x44ace3-0x44acec), a slot store
+ * Ghidra dropped entirely, passed as `local_104 + 0x17b4`.
  */
 #include "ghidra_types.h"
 
@@ -127,7 +142,7 @@ LAB_0044a1b2:
             BlitSpriteClipped();
           }
         }
-        PeekChecksumStateUnderLock();
+        PeekChecksumStateUnderLock(local_10c);
       }
       else {
         if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
@@ -138,7 +153,7 @@ LAB_0044a1b2:
             BlitSpriteClipped();
           }
         }
-        PeekChecksumStateUnderLock();
+        PeekChecksumStateUnderLock(local_10c);
       }
       _sprintf(local_100,&DAT_00555654);
       BlitSpriteText();
@@ -166,7 +181,7 @@ LAB_0044a1b2:
             BlitSpriteClipped();
           }
         }
-        PeekChecksumStateUnderLock();
+        PeekChecksumStateUnderLock(local_104 + 0x19d8);
       }
       else {
         if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
@@ -177,7 +192,7 @@ LAB_0044a1b2:
             BlitSpriteClipped();
           }
         }
-        PeekChecksumStateUnderLock();
+        PeekChecksumStateUnderLock(local_104 + 0x19d8);
       }
       _sprintf((char *)&local_108,&DAT_00555654);
       BlitSpriteText(0x28,&local_108);
@@ -407,7 +422,7 @@ LAB_0044a1b2:
             BlitSpriteClipped();
           }
         }
-        PeekChecksumStateUnderLock();
+        PeekChecksumStateUnderLock(local_104 + 0x17b4);
       }
       else {
         if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
@@ -418,7 +433,7 @@ LAB_0044a1b2:
             BlitSpriteClipped();
           }
         }
-        PeekChecksumStateUnderLock();
+        PeekChecksumStateUnderLock(local_104 + 0x17b4);
       }
       _sprintf(local_100,&DAT_00555654);
       BlitSpriteText();

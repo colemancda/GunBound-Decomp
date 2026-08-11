@@ -3,6 +3,19 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARG FIX (2026-08-11): all 24 argless PeekChecksumStateUnderLock()
+ * calls now pass their guarded-cell pointer, recovered from
+ * tools/underlock_push_sites.json + per-site disasm. The `= 0x4xxxxx`
+ * stack artifacts before each call are the call's return-address push;
+ * the store to the adjacent slot is the pushed cell, so each call now
+ * passes that slot (mostly puStack_7e84, whose preceding store holds
+ * &DAT_00794e48/&DAT_00e9ba40/&DAT_007949c8 per site). The pair at
+ * orig 0x48a6c7/0x48a6d4 passes puStack_7e88/iStack_7e8c
+ * (param_1+0x7864 / param_1+0x4d90 per the preceding stores; the
+ * second call's retaddr artifact was elided by Ghidra but the arg
+ * store `iStack_7e8c = param_1 + 0x4d90` matches `lea eax,[esi+0x4d90];
+ * push eax` at 0x48a6cd-0x48a6d3).
  */
 #include "ghidra_types.h"
 
@@ -144,7 +157,7 @@ void __thiscall FUN_00489580(int param_1,undefined4 param_2,int param_3)
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x489664;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = (undefined *)0x489673;
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\x01') {
@@ -159,7 +172,7 @@ LAB_0048968e:
       }
       puStack_7e84 = &DAT_00e9ba40;
       puStack_7e88 = (undefined1 *)0x4896a0;
-      puStack_7e84 = (undefined *)PeekChecksumStateUnderLock();
+      puStack_7e84 = (undefined *)PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e88 = local_77ec;
       iStack_7e8c = param_1 + 0x7864;
       uVar4 = EncodeChecksumDeltaAdd();
@@ -213,7 +226,7 @@ LAB_0048968e:
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x489802;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = (undefined *)0x489811;
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\x01') {
@@ -228,7 +241,7 @@ LAB_0048982c:
       }
       puStack_7e84 = &DAT_00e9ba40;
       puStack_7e88 = (undefined1 *)0x48983e;
-      puStack_7e84 = (undefined *)PeekChecksumStateUnderLock();
+      puStack_7e84 = (undefined *)PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e88 = local_1e04;
       iStack_7e8c = param_1 + 0x7864;
       uVar4 = EncodeChecksumDeltaSub();
@@ -281,7 +294,7 @@ LAB_0048982c:
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x4899a0;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = (undefined *)0x4899af;
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\x01') {
@@ -347,7 +360,7 @@ LAB_004899ca:
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x489b35;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = (undefined *)0x489b44;
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\x01') {
@@ -410,7 +423,7 @@ LAB_00489b5f:
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x48a1a4;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = (undefined *)0x48a1b3;
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\x01') {
@@ -563,7 +576,7 @@ LAB_0048a4ae:
       puStack_7e84 = &DAT_00794e48;
     }
     puStack_7e88 = (undefined1 *)0x489cd9;
-    uVar10 = PeekChecksumStateUnderLock();
+    uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
     puStack_7e84 = (undefined *)0x489ce8;
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\x01') {
@@ -709,7 +722,7 @@ LAB_0048a13e:
         if (cVar2 == '\0') {
           puStack_7e84 = &DAT_007949c8;
           puStack_7e88 = (undefined1 *)0x48a151;
-          puStack_7e84 = (undefined *)PeekChecksumStateUnderLock();
+          puStack_7e84 = (undefined *)PeekChecksumStateUnderLock(puStack_7e84);
           puStack_7e88 = (undefined1 *)0x48a161;
           QueueOutgoingPacketField();
         }
@@ -749,9 +762,9 @@ LAB_0048a661:
     puStack_7e84 = (undefined *)(uint)*(ushort *)(param_1 + 0xbfbc);
     puStack_7e88 = (undefined1 *)(param_1 + 0x7864);
     iStack_7e8c = 0x48a6cc;
-    puStack_7e88 = (undefined1 *)PeekChecksumStateUnderLock();
+    puStack_7e88 = (undefined1 *)PeekChecksumStateUnderLock(puStack_7e88);
     iStack_7e8c = param_1 + 0x4d90;
-    iStack_7e8c = PeekChecksumStateUnderLock();
+    iStack_7e8c = PeekChecksumStateUnderLock(iStack_7e8c);
     uVar3 = PeekChecksumStateUnderLock(uVar3);
     uVar10 = PeekChecksumStateUnderLock(uVar10);
     SpawnItemProjectile(*(undefined1 *)(param_1 + 8),local_7e70,uVar10,uVar3);
@@ -782,10 +795,10 @@ LAB_0048a661:
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x48a799;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = &DAT_00e9ba40;
       puStack_7e88 = (undefined1 *)0x48a7a7;
-      puStack_7e84 = (undefined *)PeekChecksumStateUnderLock();
+      puStack_7e84 = (undefined *)PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e88 = local_5c18;
       iStack_7e8c = param_1 + 0x7864;
       uVar4 = EncodeChecksumDeltaAdd();
@@ -839,10 +852,10 @@ LAB_0048a661:
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x48a904;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = &DAT_00e9ba40;
       puStack_7e88 = (undefined1 *)0x48a912;
-      puStack_7e84 = (undefined *)PeekChecksumStateUnderLock();
+      puStack_7e84 = (undefined *)PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e88 = local_4f40;
       iStack_7e8c = param_1 + 0x7864;
       uVar4 = EncodeChecksumDeltaSub();
@@ -895,7 +908,7 @@ LAB_0048a661:
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x48aa6f;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = (undefined *)0x1;
       puStack_7e88 = local_4268;
       iStack_7e8c = param_1 + 0x4d90;
@@ -949,7 +962,7 @@ LAB_0048a661:
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x48abd1;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = (undefined *)0x1;
       puStack_7e88 = local_3590;
       iStack_7e8c = param_1 + 0x4d90;
@@ -1004,10 +1017,10 @@ LAB_0048a661:
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x48ad33;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = &DAT_00e9ba40;
       puStack_7e88 = (undefined1 *)0x48ad41;
-      puStack_7e84 = (undefined *)PeekChecksumStateUnderLock();
+      puStack_7e84 = (undefined *)PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e88 = local_28b8;
       iStack_7e8c = param_1 + 0x7864;
       uVar4 = EncodeChecksumDeltaAdd();
@@ -1062,10 +1075,10 @@ LAB_0048a661:
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x48aead;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = &DAT_00e9ba40;
       puStack_7e88 = (undefined1 *)0x48aebb;
-      puStack_7e84 = (undefined *)PeekChecksumStateUnderLock();
+      puStack_7e84 = (undefined *)PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e88 = local_1be0;
       iStack_7e8c = param_1 + 0x7864;
       uVar4 = EncodeChecksumDeltaSub();
@@ -1120,7 +1133,7 @@ LAB_0048a661:
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x48b027;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = (undefined *)0x1;
       puStack_7e88 = local_f08;
       iStack_7e8c = param_1 + 0x4d90;
@@ -1174,7 +1187,7 @@ LAB_0048a661:
         puStack_7e84 = &DAT_00794e48;
       }
       puStack_7e88 = (undefined1 *)0x48b189;
-      uVar10 = PeekChecksumStateUnderLock();
+      uVar10 = PeekChecksumStateUnderLock(puStack_7e84);
       puStack_7e84 = (undefined *)0x1;
       puStack_7e88 = local_230;
       iStack_7e8c = param_1 + 0x4d90;
@@ -1221,7 +1234,7 @@ LAB_0048a661:
       if (cVar2 == '\0') {
         puStack_7e84 = &DAT_007949c8;
         puStack_7e88 = (undefined1 *)0x48b2c8;
-        puStack_7e84 = (undefined *)PeekChecksumStateUnderLock();
+        puStack_7e84 = (undefined *)PeekChecksumStateUnderLock(puStack_7e84);
         puStack_7e88 = (undefined1 *)0x48b2d8;
         QueueOutgoingPacketField();
         iVar1 = g_clientContext;

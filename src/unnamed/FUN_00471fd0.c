@@ -3,6 +3,18 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-ARG FIX (2026-08-11): all 38 argless PeekChecksumStateUnderLock()
+ * calls now pass their guarded-cell pointer, recovered from
+ * tools/underlock_push_sites.json + per-site disasm of the original. In
+ * this degraded decompile Ghidra modeled each original `push` as a raw
+ * stack-slot store: the `puStack_/uStack_/iStack_ = 0x4xxxxx` artifact
+ * right before each call is the call's own return-address push
+ * (value = call site + 5), and the store to the adjacent slot (retaddr
+ * slot + 4) just before it is the pushed cell itself. Every site was
+ * matched to its original call address that way and now passes that
+ * slot variable (mirroring the file's pre-existing with-arg idiom, e.g.
+ * `uVar9 = PeekChecksumStateUnderLock(uVar9)`).
  */
 #include "ghidra_types.h"
 
@@ -148,7 +160,7 @@ void __thiscall FUN_00471fd0(int param_1,undefined4 param_2,int param_3)
       puStack_4d48 = &DAT_00794e48;
     }
     puStack_4d4c = (undefined1 *)0x47209f;
-    uVar7 = PeekChecksumStateUnderLock();
+    uVar7 = PeekChecksumStateUnderLock(puStack_4d48);
     puStack_4d48 = (undefined *)0x4720ae;
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\x01') {
@@ -186,16 +198,16 @@ LAB_004720c9:
     iStack_4d58 = param_1 + 0x7864;
     uStack_4d5c = 0x472160;
     uStack_4d54 = uVar4;
-    iStack_4d58 = PeekChecksumStateUnderLock();
+    iStack_4d58 = PeekChecksumStateUnderLock(iStack_4d58);
     uStack_4d60 = 0x472167;
     uStack_4d5c = uVar8;
-    uStack_4d5c = PeekChecksumStateUnderLock();
+    uStack_4d5c = PeekChecksumStateUnderLock(uStack_4d5c);
     uStack_4d64 = 0x47216e;
     uStack_4d60 = uVar9;
-    uStack_4d60 = PeekChecksumStateUnderLock();
+    uStack_4d60 = PeekChecksumStateUnderLock(uStack_4d60);
     uStack_4d68 = 0x472179;
     uStack_4d64 = uVar10;
-    uVar11 = PeekChecksumStateUnderLock();
+    uVar11 = PeekChecksumStateUnderLock(uStack_4d64);
     uStack_4d64 = (undefined4)uVar11;
     uStack_4d68 = CONCAT31((int3)((ulonglong)uVar11 >> 0x28),*(int *)(param_1 + 0xae2c) != 0);
     uStack_4d78 = (uint)*(byte *)(param_1 + 8);
@@ -234,7 +246,7 @@ LAB_004720c9:
         puStack_4d48 = &DAT_00794e48;
       }
       puStack_4d4c = (undefined1 *)0x4727e7;
-      uVar7 = PeekChecksumStateUnderLock();
+      uVar7 = PeekChecksumStateUnderLock(puStack_4d48);
       puStack_4d48 = (undefined *)0x4727f6;
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\x01') {
@@ -279,16 +291,16 @@ LAB_00472811:
       uStack_4d5c = 0x4728c6;
       iStack_4d58 = uVar8;
       uStack_4d54 = uVar4;
-      iStack_4d58 = PeekChecksumStateUnderLock();
+      iStack_4d58 = PeekChecksumStateUnderLock(iStack_4d58);
       uStack_4d60 = 0x4728d1;
       uStack_4d5c = uVar9;
-      uStack_4d5c = PeekChecksumStateUnderLock();
+      uStack_4d5c = PeekChecksumStateUnderLock(uStack_4d5c);
       uStack_4d64 = 0x4728dc;
       uStack_4d60 = uVar10;
-      uStack_4d60 = PeekChecksumStateUnderLock();
+      uStack_4d60 = PeekChecksumStateUnderLock(uStack_4d60);
       uStack_4d68 = 0x4728e7;
       uStack_4d64 = uVar5;
-      uStack_4d64 = PeekChecksumStateUnderLock();
+      uStack_4d64 = PeekChecksumStateUnderLock(uStack_4d64);
       uStack_4d68 = CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                              *(int *)(param_1 + 0xae2c) != 0);
       uStack_4d78 = (uint)*(byte *)(param_1 + 8);
@@ -316,7 +328,7 @@ LAB_00472811:
         puStack_4d7c = &DAT_00794e48;
       }
       puStack_4d80 = (undefined1 *)0x472975;
-      uStack_4d68 = PeekChecksumStateUnderLock();
+      uStack_4d68 = PeekChecksumStateUnderLock(puStack_4d7c);
       puStack_4d7c = (undefined *)0x472984;
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\x01') {
@@ -348,16 +360,16 @@ LAB_0047299f:
       iStack_4d90 = 0x472a12;
       iStack_4d8c = iVar1;
       uStack_4d88 = uVar4;
-      iStack_4d8c = PeekChecksumStateUnderLock();
+      iStack_4d8c = PeekChecksumStateUnderLock(iStack_4d8c);
       uStack_4d94 = 0x472a19;
       iStack_4d90 = iVar2;
-      iStack_4d90 = PeekChecksumStateUnderLock();
+      iStack_4d90 = PeekChecksumStateUnderLock(iStack_4d90);
       uStack_4d94 = uStack_4d60;
       uStack_4d98 = 0x472a24;
-      uStack_4d94 = PeekChecksumStateUnderLock();
+      uStack_4d94 = PeekChecksumStateUnderLock(uStack_4d94);
       uStack_4d98 = uStack_4d5c;
       uStack_4d9c = 0x472a2f;
-      uStack_4d98 = PeekChecksumStateUnderLock();
+      uStack_4d98 = PeekChecksumStateUnderLock(uStack_4d98);
       uStack_4d9c = CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                              *(int *)(param_1 + 0xae2c) != 0);
       uStack_4dac = (uint)*(byte *)(param_1 + 8);
@@ -379,7 +391,7 @@ LAB_0047299f:
         puStack_4db0 = &DAT_00794e48;
       }
       puStack_4db4 = (undefined1 *)0x472a95;
-      uStack_4d9c = PeekChecksumStateUnderLock();
+      uStack_4d9c = PeekChecksumStateUnderLock(puStack_4db0);
       puStack_4db0 = (undefined *)0x472aa4;
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\x01') {
@@ -483,7 +495,7 @@ LAB_00472c47:
         puStack_4d48 = &DAT_00794e48;
       }
       puStack_4d4c = (undefined1 *)0x47224b;
-      uVar7 = PeekChecksumStateUnderLock();
+      uVar7 = PeekChecksumStateUnderLock(puStack_4d48);
       puStack_4d48 = (undefined *)0x47225a;
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\x01') {
@@ -528,16 +540,16 @@ LAB_00472275:
       uStack_4d5c = 0x47232a;
       iStack_4d58 = uVar8;
       uStack_4d54 = uVar4;
-      iStack_4d58 = PeekChecksumStateUnderLock();
+      iStack_4d58 = PeekChecksumStateUnderLock(iStack_4d58);
       uStack_4d60 = 0x472335;
       uStack_4d5c = uVar9;
-      uStack_4d5c = PeekChecksumStateUnderLock();
+      uStack_4d5c = PeekChecksumStateUnderLock(uStack_4d5c);
       uStack_4d64 = 0x472340;
       uStack_4d60 = uVar10;
-      uStack_4d60 = PeekChecksumStateUnderLock();
+      uStack_4d60 = PeekChecksumStateUnderLock(uStack_4d60);
       uStack_4d68 = 0x47234b;
       uStack_4d64 = uVar5;
-      uStack_4d64 = PeekChecksumStateUnderLock();
+      uStack_4d64 = PeekChecksumStateUnderLock(uStack_4d64);
       uStack_4d68 = CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                              *(int *)(param_1 + 0xae2c) != 0);
       uStack_4d78 = (uint)*(byte *)(param_1 + 8);
@@ -565,7 +577,7 @@ LAB_00472275:
         puStack_4d7c = &DAT_00794e48;
       }
       puStack_4d80 = (undefined1 *)0x4723d9;
-      uStack_4d68 = PeekChecksumStateUnderLock();
+      uStack_4d68 = PeekChecksumStateUnderLock(puStack_4d7c);
       puStack_4d7c = (undefined *)0x4723e8;
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\x01') {
@@ -597,16 +609,16 @@ LAB_00472403:
       iStack_4d90 = 0x472476;
       iStack_4d8c = iVar1;
       uStack_4d88 = uVar4;
-      iStack_4d8c = PeekChecksumStateUnderLock();
+      iStack_4d8c = PeekChecksumStateUnderLock(iStack_4d8c);
       uStack_4d94 = 0x47247d;
       iStack_4d90 = iVar2;
-      iStack_4d90 = PeekChecksumStateUnderLock();
+      iStack_4d90 = PeekChecksumStateUnderLock(iStack_4d90);
       uStack_4d94 = uStack_4d60;
       uStack_4d98 = 0x472488;
-      uStack_4d94 = PeekChecksumStateUnderLock();
+      uStack_4d94 = PeekChecksumStateUnderLock(uStack_4d94);
       uStack_4d98 = uStack_4d5c;
       uStack_4d9c = 0x472493;
-      uStack_4d98 = PeekChecksumStateUnderLock();
+      uStack_4d98 = PeekChecksumStateUnderLock(uStack_4d98);
       uStack_4d9c = CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                              *(int *)(param_1 + 0xae2c) != 0);
       uStack_4dac = (uint)*(byte *)(param_1 + 8);
@@ -628,7 +640,7 @@ LAB_00472403:
         puStack_4db0 = &DAT_00794e48;
       }
       puStack_4db4 = (undefined1 *)0x4724f9;
-      uStack_4d9c = PeekChecksumStateUnderLock();
+      uStack_4d9c = PeekChecksumStateUnderLock(puStack_4db0);
       puStack_4db0 = (undefined *)0x472508;
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\x01') {
@@ -747,7 +759,7 @@ LAB_00472eec:
         if (cVar3 == '\0') {
           puStack_4d48 = &DAT_007949c8;
           puStack_4d4c = (undefined1 *)0x472eff;
-          puStack_4d48 = (undefined *)PeekChecksumStateUnderLock();
+          puStack_4d48 = (undefined *)PeekChecksumStateUnderLock(puStack_4d48);
           puStack_4d4c = (undefined1 *)0x472f0f;
           QueueOutgoingPacketField();
         }
@@ -789,16 +801,16 @@ LAB_00472e11:
     puStack_4d48 = (undefined *)(uint)*(ushort *)(param_1 + 0xbfbc);
     puStack_4d4c = (undefined1 *)(param_1 + 0x7864);
     iStack_4d50 = 0x472e76;
-    puStack_4d4c = (undefined1 *)PeekChecksumStateUnderLock();
+    puStack_4d4c = (undefined1 *)PeekChecksumStateUnderLock(puStack_4d4c);
     iStack_4d50 = param_1 + 0x4d90;
     uStack_4d54 = 0x472e83;
-    iStack_4d50 = PeekChecksumStateUnderLock();
+    iStack_4d50 = PeekChecksumStateUnderLock(iStack_4d50);
     iStack_4d58 = 0x472e8a;
     uStack_4d54 = uVar7;
-    uStack_4d54 = PeekChecksumStateUnderLock();
+    uStack_4d54 = PeekChecksumStateUnderLock(uStack_4d54);
     uStack_4d5c = 0x472e91;
     iStack_4d58 = uVar8;
-    iStack_4d58 = PeekChecksumStateUnderLock();
+    iStack_4d58 = PeekChecksumStateUnderLock(iStack_4d58);
     uStack_4d60 = (uint)*(byte *)(param_1 + 8);
     uStack_4d64 = 0x472e9e;
     uStack_4d5c = uVar4;
@@ -829,7 +841,7 @@ LAB_00472e11:
         puStack_4d48 = &DAT_00794e48;
       }
       puStack_4d4c = (undefined1 *)0x472f5e;
-      uVar7 = PeekChecksumStateUnderLock();
+      uVar7 = PeekChecksumStateUnderLock(puStack_4d48);
       puStack_4d48 = (undefined *)0x2;
       puStack_4d4c = local_230;
       iStack_4d50 = param_1 + 0x4d90;
@@ -855,16 +867,16 @@ LAB_00472e11:
       iStack_4d58 = param_1 + 0x7864;
       uStack_4d5c = 0x472ff1;
       uStack_4d54 = uVar4;
-      iStack_4d58 = PeekChecksumStateUnderLock();
+      iStack_4d58 = PeekChecksumStateUnderLock(iStack_4d58);
       uStack_4d60 = 0x472ff8;
       uStack_4d5c = uVar8;
-      uStack_4d5c = PeekChecksumStateUnderLock();
+      uStack_4d5c = PeekChecksumStateUnderLock(uStack_4d5c);
       uStack_4d64 = 0x472fff;
       uStack_4d60 = uVar9;
-      uStack_4d60 = PeekChecksumStateUnderLock();
+      uStack_4d60 = PeekChecksumStateUnderLock(uStack_4d60);
       uStack_4d68 = 0x47300a;
       uStack_4d64 = uVar10;
-      uStack_4d64 = PeekChecksumStateUnderLock();
+      uStack_4d64 = PeekChecksumStateUnderLock(uStack_4d64);
       uStack_4d68 = CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
                              *(int *)(param_1 + 0xae2c) != 0);
       uStack_4d74 = (uint)*(byte *)(param_1 + 8);
@@ -893,7 +905,7 @@ LAB_00472e11:
       if (cVar3 == '\0') {
         puStack_4d48 = &DAT_007949c8;
         puStack_4d4c = (undefined1 *)0x47309b;
-        puStack_4d48 = (undefined *)PeekChecksumStateUnderLock();
+        puStack_4d48 = (undefined *)PeekChecksumStateUnderLock(puStack_4d48);
         puStack_4d4c = (undefined1 *)0x4730ab;
         QueueOutgoingPacketField();
         iVar2 = g_clientContext;
