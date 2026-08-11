@@ -24,7 +24,11 @@ void FUN_0044b0b0(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar1 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004240c0(g_clientContext,(uVar1 & 0x8000) == 0x8000,uVar1 >> 0x10,uVar1 & 0x7fff);
+    /* FIXED (2026-08-11): dropped outRecord (ESI) - orig 0x44b0b9-0x44b0c0
+     * `mov esi,[esp+0x10]` (= param_1) / `add esi,0xdb5c`, loop-invariant
+     * up to the call at 0x44b146. */
+    FUN_004240c0(g_clientContext,(uVar1 & 0x8000) == 0x8000,uVar1 >> 0x10,uVar1 & 0x7fff,
+                 param_1 + 0xdb5c);
     iVar2 = iVar2 + 1;
     if (0x14 < iVar2) {
       return;

@@ -4,16 +4,26 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-REGISTER FIX (2026-08-11): this is the XFS stream seek (skip
+ * param_2 bytes of the open entry stream). The stream context arrives
+ * in EAX - Ghidra emitted it as an uninitialised `int in_EAX` artifact
+ * (read at +0x1018/+0x1014/+0x1004/+0x100c). Promoted to a real 3rd
+ * __fastcall parameter (param_1 = ECX stays as unused garbage, param_2
+ * = EDX is the byte count). Caller evidence: FUN_004240c0 0x4241de
+ * `mov eax,ebx` (ebx = open stream) / 0x4241f4 `imul edx,edx,0x84`;
+ * FUN_00423e20 0x423f3e `mov eax,ebp` / 0x423f55 `imul edx,ebx,0x84`;
+ * FUN_004f16c0's five sites all `mov eax,esi` (its own stream).
  */
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall FUN_004f08a0(undefined4 param_1,int param_2)
+undefined4 __fastcall FUN_004f08a0(undefined4 param_1,int param_2,int stream)
 
 {
   uint uVar1;
   char cVar2;
-  int in_EAX;
+  int in_EAX = stream;
   uint uVar3;
   
   if (*(char *)(in_EAX + 0x1018) == '\0') {

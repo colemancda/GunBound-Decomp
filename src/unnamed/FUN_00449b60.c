@@ -96,10 +96,14 @@ LAB_00449be9:
           uStack_80 = &DAT_00666d73;
         }
         uVar8 = *(undefined2 *)(param_1 + 0x2e54c + iVar2 * 2);
+        /* FIXED (2026-08-11): dropped outRecord (ESI) - orig 0x449c27
+         * `lea esi,[ebp+0x458]` (ebp = param_1), advanced 0x17e4 per row
+         * at 0x449d7d = this C's iVar9 (the object's per-slot record;
+         * RenderWrappedText below draws its +0x17a4 text field). */
         FUN_004240c0(g_clientContext,
                      CONCAT11((char)((ushort)uVar8 >> 8),
                               *(char *)(iVar2 + 0x2d54c + param_1) == '\x01'),
-                     *(undefined1 *)(param_1 + 0x44c),uVar8);
+                     *(undefined1 *)(param_1 + 0x44c),uVar8,iVar9);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar7 = PeekPacketChecksumState();
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

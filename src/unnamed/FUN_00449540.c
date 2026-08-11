@@ -14,7 +14,38 @@
  * MSVC exception frame; per the established idiom we don't reproduce
  * __try/__except frames in a bring-up port - stripped along with the
  * (write-only, SEH-unwind-only) `uStack_4` state marker and the
- * `uStack_10` return-address artifact. */
+ * `uStack_10` return-address artifact.
+ *
+ * STORE-CATALOG RECOVERY (2026-08-11): this is the avatar-store catalog
+ * loader - it scans the per-gender part tables via FUN_004240c0 (the
+ * part-record loader) and fills the store's 9-slot item grid. All the
+ * dropped-register holes recovered against the original disasm
+ * (0x449540-0x449b40):
+ *   - `partRecord[0x17d0]` is the frame-local part record at the
+ *     original's frame+0x9c (`lea ecx,[esp+0x9c]` at 0x449606 feeds
+ *     FUN_00425350, the record's 11-guard-cell ctor whose `this` Ghidra
+ *     dropped; `lea esi,[esp+0xac]` right before the `call 0x4240c0`s
+ *     at 0x4496e8/0x4497b9/0x4498e9 - esp+0xac at call time = the same
+ *     frame+0x9c - and `lea esi,[esp+0x9c]` at 0x449a53 for the fourth).
+ *     FUN_004254a0 at the end is the matching guard dtor on the same
+ *     cell (0x449b11 `lea ecx,[esp+0x9c]`) - still argless here, out of
+ *     this pass's scope.
+ *   - The FIFTH FUN_004240c0 site (0x449adb) does NOT use the stack
+ *     record: `mov edi,[esp+0x20]` (the auStack_1874 row cursor) /
+ *     `lea esi,[edi-0x17a4]` - it reloads the part into the object's
+ *     per-slot record (stride 0x17e4, text field at +0x17a4, matching
+ *     FUN_00449b60/FUN_00449db0's per-slot layout at param_1+0x458).
+ *   - `cStack_15b5` was the record's store-visibility flag: the orig
+ *     reads `[esp+0x2d7]` = frame+0x9c+0x23b = partRecord[0x23b] (the
+ *     byte FUN_004240c0 stores at outRecord+0x23b).
+ *   - The 7 argless PeekPacketChecksumState() calls dropped their cells
+ *     (EAX): the two per-gender per-category count-cell arrays at
+ *     g_clientContext + param_2*0x224 + 0x5f4004 (female pass; lea at
+ *     0x449699/0x44972a/0x44988f/0x44992b) and + 0x5f3774 (male pass;
+ *     lea at 0x449764/0x4497fb), plus the record's own cell 0
+ *     (0x449a6e `lea eax,[esp+0x9c]`) feeding the `%05d.img` icon-name
+ *     sprintf. PeekPacketChecksumState's bring-up stub ignores args -
+ *     behavior-neutral sweep pattern. */
 #include "ghidra_types.h"
 
 
@@ -45,7 +76,10 @@ void FUN_00449540(int param_1,undefined4 param_2)
   int local_1878;
   undefined4 auStack_1874; /* Ghidra register slot; was undefined1 [4] */
   undefined4 uStack_1870;
-  char cStack_15b5;
+  /* The frame-local part record (orig frame+0x9c, extent: name at
+   * +0x224..0x237, flag +0x23b, guard cells to +0x1580, desc at
+   * +0x17a4..+0x17cc) - see the 2026-08-11 header note. */
+  undefined1 partRecord [0x17d0];
 
   puVar15 = (undefined4 *)(param_1 + 0x2d114);
   for (iVar11 = 0x10e; iVar11 != 0; iVar11 = iVar11 + -1) {
@@ -83,7 +117,7 @@ LAB_004495fa:
     uVar17 = uVar17 + 1;
     local_1878 = local_1878 + -1;
   } while (local_1878 != 0);
-  FUN_00425350();
+  FUN_00425350((int)partRecord);
   iVar11 = g_clientContext;
   iVar14 = 0;
   local_1878 = 0;
@@ -99,13 +133,13 @@ LAB_004495fa:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (bVar19 && (bVar3 >> (bVar2 & 7) & 1) == 1) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar11 = PeekPacketChecksumState();
+    iVar11 = PeekPacketChecksumState((void *)(g_clientContext + (int)param_2 * 0x224 + 0x5f4004));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (0 < iVar11) {
       auStack_1874 = (undefined4)(param_1 + 0x2e54c);
       do {
-        FUN_004240c0(g_clientContext,1,param_2,iVar14);
-        if (cStack_15b5 != '\0') {
+        FUN_004240c0(g_clientContext,1,param_2,iVar14,(int)partRecord);
+        if (partRecord[0x23b] != '\0') {
           *(undefined1 *)(local_1878 + 0x2d54c + param_1) = 1;
           local_1878 = local_1878 + 1;
           *(short *)auStack_1874 = (short)iVar14;
@@ -113,20 +147,20 @@ LAB_004495fa:
         }
         iVar14 = iVar14 + 1;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar11 = PeekPacketChecksumState();
+        iVar11 = PeekPacketChecksumState((void *)(g_clientContext + (int)param_2 * 0x224 + 0x5f4004));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       } while (iVar14 < iVar11);
     }
   }
   iVar14 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar11 = PeekPacketChecksumState();
+  iVar11 = PeekPacketChecksumState((void *)(g_clientContext + (int)param_2 * 0x224 + 0x5f3774));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (0 < iVar11) {
     auStack_1874 = (undefined4)(param_1 + 0x2e54c + local_1878 * 2);
     do {
-      FUN_004240c0(g_clientContext,0,param_2,iVar14);
-      if (cStack_15b5 != '\0') {
+      FUN_004240c0(g_clientContext,0,param_2,iVar14,(int)partRecord);
+      if (partRecord[0x23b] != '\0') {
         *(undefined1 *)(local_1878 + 0x2d54c + param_1) = 0;
         local_1878 = local_1878 + 1;
         *(short *)auStack_1874 = (short)iVar14;
@@ -134,7 +168,7 @@ LAB_004495fa:
       }
       iVar14 = iVar14 + 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar11 = PeekPacketChecksumState();
+      iVar11 = PeekPacketChecksumState((void *)(g_clientContext + (int)param_2 * 0x224 + 0x5f3774));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     } while (iVar14 < iVar11);
   }
@@ -152,13 +186,13 @@ LAB_004495fa:
   if (bVar19 || (bVar3 >> (bVar2 & 7) & 1) != 1) {
     iVar14 = 0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar11 = PeekPacketChecksumState();
+    iVar11 = PeekPacketChecksumState((void *)(g_clientContext + (int)param_2 * 0x224 + 0x5f4004));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (0 < iVar11) {
       auStack_1874 = (undefined4)(param_1 + 0x2e54c + local_1878 * 2);
       do {
-        FUN_004240c0(g_clientContext,1,param_2,iVar14);
-        if (cStack_15b5 != '\0') {
+        FUN_004240c0(g_clientContext,1,param_2,iVar14,(int)partRecord);
+        if (partRecord[0x23b] != '\0') {
           *(undefined1 *)(local_1878 + 0x2d54c + param_1) = 1;
           local_1878 = local_1878 + 1;
           *(short *)auStack_1874 = (short)iVar14;
@@ -166,7 +200,7 @@ LAB_004495fa:
         }
         iVar14 = iVar14 + 1;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar11 = PeekPacketChecksumState();
+        iVar11 = PeekPacketChecksumState((void *)(g_clientContext + (int)param_2 * 0x224 + 0x5f4004));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       } while (iVar14 < iVar11);
     }
@@ -215,14 +249,19 @@ LAB_004495fa:
     case 3:
       uStack_1870 = &DAT_00666d73;
     }
-    FUN_004240c0(g_clientContext,CONCAT31((int3)((uint)iVar14 >> 8),cVar4 == '\x01'),param_2,*puVar13);
+    FUN_004240c0(g_clientContext,CONCAT31((int3)((uint)iVar14 >> 8),cVar4 == '\x01'),param_2,*puVar13,
+                 (int)partRecord);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar9 = PeekPacketChecksumState();
+    uVar9 = PeekPacketChecksumState((void *)partRecord);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     _sprintf((char *)((int)&uStack_1870 + 3),s__05d_img_00555a08,uVar9);
     LoadSpriteSet(&DAT_00ea0e18,iVar11 + 20000);
     auVar8 = auStack_1874;
-    FUN_004240c0(g_clientContext,*(char *)(param_1 + 0x2d54c + iVar11) == '\x01',param_2,*puVar13);
+    /* Fifth part-load reloads into the OBJECT's per-slot record, not the
+     * stack one: orig 0x449acf-0x449ad4 `mov edi,[esp+0x20]` (= this row's
+     * auStack_1874 text cursor) / `lea esi,[edi-0x17a4]`. */
+    FUN_004240c0(g_clientContext,*(char *)(param_1 + 0x2d54c + iVar11) == '\x01',param_2,*puVar13,
+                 (int)auVar8 - 0x17a4);
     RenderWrappedText(local_1878,auVar8,0x18,0x15,0x78,1);
     iVar11 = iVar11 + 1;
     auStack_1874 = (undefined4)((int)auVar8 + 0x17e4);

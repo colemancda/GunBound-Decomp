@@ -10,7 +10,26 @@
  * assigned pattern already fixed in State02_ServerSelect_
  * ProcessPacket.c) is a separate, still-unfixed issue - not attempted
  * here to keep this pass scoped to InvokeWidget.
- */
+ *
+ * STORE-CATALOG RECOVERY (2026-08-11): there are TWO CValueGuard part
+ * workspaces in this frame, not one. Of the five `call 0x425350`
+ * sites, only the prologue's (0x44547c) uses `lea ecx,[esp+0x2d3c]`
+ * (= guardWorkspace); the other four (0x445903/0x445edb/0x4461b2/
+ * 0x44658e) use `lea ecx,[esp+0x214]` = entry-0x4318, a SECOND record
+ * Ghidra carved into local_4318[548]/local_40f4[24]/local_40dc[548]/
+ * local_3eb8[4996] - coalesced into `partWorkspace` per the
+ * split-struct rule (its named views: +0 the guarded part id, +0x224
+ * the part name string, +0x23c/+0x460 the gold/cash price guard
+ * cells). The three FUN_004240c0 calls got their dropped outRecord
+ * (ESI) back: case 0x10's (0x445967) does `lea esi,[esp+0x21c]` with 2
+ * args already pushed = the SAME entry-0x4318 partWorkspace; cases
+ * 0x32/0x37 (0x446c3c/0x4472ca) do `lea esi,[esp+0x2d44]` at the same
+ * push depth = guardWorkspace (entry-0x17f0). Push-depth math is
+ * anchored on PeekChecksumStateUnderLock (0x40a4d0) being
+ * callee-cleanup (`ret 4` at 0x40a4f5). NOTE: the FUN_00423e20 calls
+ * in cases 0x14/0x16/0x1a fill the same partWorkspace through a
+ * still-dropped ESI of their own (FUN_00423e20's `unaff_ESI`) - same
+ * bug class, not fixed in this pass. */
 #include "ghidra_types.h"
 
 
@@ -39,10 +58,13 @@ void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefine
   undefined4 local_451c; /* Ghidra register slot; was undefined1 [4] */
   undefined4 local_4518;
   char local_4418 [256];
-  undefined1 local_4318 [548];
-  char local_40f4 [24];
-  undefined1 local_40dc [548];
-  undefined1 local_3eb8 [4996];
+  /* The second CValueGuard part record (orig entry-0x4318, base+0x214;
+   * see the 2026-08-11 header note). Replaces Ghidra's split carve
+   * local_4318[548] (+0 part-id cell) / local_40f4[24] (+0x224 name) /
+   * local_40dc[548] (+0x23c cell) / local_3eb8[4996] (+0x460 cell) -
+   * FUN_004240c0/FUN_00425350 treat it as one 0x17a4-byte object with
+   * writes up to +0x17cc, so it must be contiguous. */
+  undefined1 partWorkspace [0x17d0];
   undefined1 local_2b34 [548];
   undefined1 local_2910 [548];
   undefined1 local_26ec [548];
@@ -175,7 +197,10 @@ LAB_004457e7:
     if (((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
        ((cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01' && (g_stateChangeInProgress == 0)))) {
       if (*(uint *)(g_clientContext + 0x44e24) < 100) {
-        FUN_00425350((int)guardWorkspace);
+        /* This case's ctor + loader both use the SECOND workspace: orig
+         * 0x4458fc `lea ecx,[esp+0x214]` and 0x44595e `lea esi,[esp+0x21c]`
+         * (2 args pushed) = the same entry-0x4318 cell. */
+        FUN_00425350((int)partWorkspace);
         iVar3 = param_1 + 4;
         local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
         iVar9 = PeekChecksumStateUnderLock(iVar3);
@@ -184,13 +209,13 @@ LAB_004457e7:
         iVar9 = PeekChecksumStateUnderLock(iVar3);
         FUN_004240c0(g_clientContext,
                      *(char *)(*(int *)(param_1 + 0x450) * 9 + 0x2d54c + iVar9 + param_1) == '\x01',
-                     uVar6,uVar4);
+                     uVar6,uVar4,(int)partWorkspace);
         QueueOutgoingPacketField(1);
         iVar9 = PeekChecksumStateUnderLock(iVar3);
         local_451c = (undefined4)
                      ((*(char *)(*(int *)(param_1 + 0x450) * 9 + 0x2d54c + iVar9 + param_1) !=
                       '\x01') - 1 & 0x8000);
-        uVar4 = PeekChecksumStateUnderLock(local_4318);
+        uVar4 = PeekChecksumStateUnderLock(partWorkspace);
         QueueOutgoingPacketField
                   ((uint)local_451c | uVar4 | (*(uint *)(param_1 + 0x44c) & 0xf) << 0x10);
         pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,700);
@@ -201,37 +226,37 @@ LAB_004457e7:
           *pcVar13 = cVar1;
           pcVar13 = pcVar13 + 1;
         } while (cVar1 != '\0');
-        pcVar13 = local_40f4;
+        pcVar13 = (char *)(partWorkspace + 0x224);
         pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,60000);
         _sprintf((char *)(param_1 + 0x32854),pcVar8,pcVar13);
-        pcVar13 = local_40f4;
+        pcVar13 = (char *)(partWorkspace + 0x224);
         iVar9 = param_1 - (int)pcVar13;
         do {
           cVar1 = *pcVar13;
           pcVar13[iVar9 + 0x34794] = cVar1;
           pcVar13 = pcVar13 + 1;
         } while (cVar1 != '\0');
-        iVar9 = PeekChecksumStateUnderLock(local_40dc);
+        iVar9 = PeekChecksumStateUnderLock(partWorkspace + 0x23c);
         if (iVar9 == 0) {
           pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea62);
           _sprintf((char *)(param_1 + 0x32954),pcVar13);
         }
         else {
-          uVar12 = PeekChecksumStateUnderLock(local_40dc);
+          uVar12 = PeekChecksumStateUnderLock(partWorkspace + 0x23c);
           pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea61);
           _sprintf((char *)(param_1 + 0x32954),pcVar13,uVar12);
         }
-        iVar9 = PeekChecksumStateUnderLock(local_3eb8);
+        iVar9 = PeekChecksumStateUnderLock(partWorkspace + 0x460);
         if (iVar9 == 0) {
           pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea64);
           _sprintf((char *)(param_1 + 0x329d4),pcVar13);
         }
         else {
-          uVar12 = PeekChecksumStateUnderLock(local_3eb8);
+          uVar12 = PeekChecksumStateUnderLock(partWorkspace + 0x460);
           pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea63);
           _sprintf((char *)(param_1 + 0x329d4),pcVar13,uVar12);
         }
-        iVar9 = PeekChecksumStateUnderLock(local_40dc);
+        iVar9 = PeekChecksumStateUnderLock(partWorkspace + 0x23c);
         iVar9 = (iVar9 * 6) / 10;
         pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0xea65);
         _sprintf((char *)(param_1 + 0x32a54),pcVar13,iVar9);
@@ -255,14 +280,14 @@ LAB_004457e7:
         *(undefined1 *)(param_1 + 0x32ad4) = 0;
         *(undefined1 *)(param_1 + 0x328d4) = 0;
         uVar12 = PeekChecksumStateUnderLock(iVar9);
-        cVar1 = PacketChecksumGreaterThan(local_3eb8,uVar12);
+        cVar1 = PacketChecksumGreaterThan(partWorkspace + 0x460,uVar12);
         if (cVar1 != '\0') {
           CreateButtonWidget(&DAT_00e9be90,0,0x3c,0x518,s_b_storewindow_cashcharge_00555a70,0xd0,
                              0x146,0x88,0x28,1,0);
         }
         uVar12 = PeekChecksumStateUnderLock(g_clientContext + 0x396a0);
-        cVar1 = PacketChecksumLessEqual(local_40dc,uVar12);
-        if ((cVar1 == '\0') || (cVar1 = PacketChecksumNotEquals(local_40dc,0), cVar1 == '\0')) {
+        cVar1 = PacketChecksumLessEqual(partWorkspace + 0x23c,uVar12);
+        if ((cVar1 == '\0') || (cVar1 = PacketChecksumNotEquals(partWorkspace + 0x23c,0), cVar1 == '\0')) {
           uVar12 = 0;
         }
         else {
@@ -271,8 +296,8 @@ LAB_004457e7:
         CreateButtonWidget(&DAT_00e9be90,0,0x32,0x519,s_b_storewindow_gold_00555a5c,0xea,0x178,0x55,
                            0x24,uVar12,0);
         uVar12 = PeekChecksumStateUnderLock(g_clientContext + 0x398c4);
-        cVar1 = PacketChecksumLessEqual(local_3eb8,uVar12);
-        if ((cVar1 == '\0') || (cVar1 = PacketChecksumNotEquals(local_3eb8,0), cVar1 == '\0')) {
+        cVar1 = PacketChecksumLessEqual(partWorkspace + 0x460,uVar12);
+        if ((cVar1 == '\0') || (cVar1 = PacketChecksumNotEquals(partWorkspace + 0x460,0), cVar1 == '\0')) {
           uVar12 = 0;
         }
         else {
@@ -323,7 +348,8 @@ LAB_004457e7:
         if ((uVar4 & 8) == 0) {
           if ((uVar4 & 4) == 0) {
             if ((uVar4 & 2) == 0) {
-              FUN_00425350((int)guardWorkspace);
+              /* orig 0x445edb `lea ecx,[esp+0x214]` - the second workspace. */
+              FUN_00425350((int)partWorkspace);
               SUBFIELD(local_4,0,undefined1) = 2;
               PeekChecksumStateUnderLock(iVar3);
               iVar9 = FUN_00426570();
@@ -341,15 +367,15 @@ LAB_004457e7:
                 *pcVar13 = cVar1;
                 pcVar13 = pcVar13 + 1;
               } while (cVar1 != '\0');
-              pcVar13 = local_40f4;
+              pcVar13 = (char *)(partWorkspace + 0x224);
               pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c4);
               _sprintf((char *)(param_1 + 0x32854),pcVar8,pcVar13);
-              iVar3 = PeekChecksumStateUnderLock(local_40dc);
+              iVar3 = PeekChecksumStateUnderLock(partWorkspace + 0x23c);
               iVar9 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
               iVar9 = (iVar3 * 6) / iVar9;
               pcVar13 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c5);
               _sprintf((char *)(param_1 + 0x328d4),pcVar13,iVar9);
-              iVar3 = PeekChecksumStateUnderLock(local_40dc);
+              iVar3 = PeekChecksumStateUnderLock(partWorkspace + 0x23c);
               iVar9 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
               iVar10 = PeekChecksumStateUnderLock(g_clientContext + 0x396a0);
               iVar10 = (iVar3 * 6) / iVar9 + iVar10;
@@ -400,7 +426,8 @@ LAB_004457e7:
         iVar9 = FUN_00426570();
         iVar9 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
         if ((iVar9 >> 0x1c & 2U) == 0) {
-          FUN_00425350((int)guardWorkspace);
+          /* orig 0x4461b2 `lea ecx,[esp+0x214]` - the second workspace. */
+          FUN_00425350((int)partWorkspace);
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
           PeekChecksumStateUnderLock(iVar3);
           iVar9 = FUN_00426570();
@@ -414,7 +441,7 @@ LAB_004457e7:
           iVar9 = FUN_00426570();
           iVar9 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
           *(uint *)(param_1 + 0x32c58) = (iVar9 >> 0x10 & 0xfU) << 1;
-          pcVar13 = local_40f4;
+          pcVar13 = (char *)(partWorkspace + 0x224);
           iVar9 = param_1 - (int)pcVar13;
           do {
             cVar1 = *pcVar13;
@@ -521,7 +548,8 @@ LAB_004457e7:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
     if ((((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
         (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) && (g_stateChangeInProgress == 0)) {
-      FUN_00425350((int)guardWorkspace);
+      /* orig 0x44658e `lea ecx,[esp+0x214]` - the second workspace. */
+      FUN_00425350((int)partWorkspace);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),4);
       iVar3 = param_1 + 0x3054c;
       iVar9 = PeekChecksumStateUnderLock(param_1 + 0x228);
@@ -545,7 +573,7 @@ LAB_004457e7:
           *pcVar13 = cVar1;
           pcVar13 = pcVar13 + 1;
         } while (cVar1 != '\0');
-        pcVar13 = local_40f4;
+        pcVar13 = (char *)(partWorkspace + 0x224);
         pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c9);
         _sprintf((char *)(param_1 + 0x32854),pcVar8,pcVar13);
         *(undefined1 *)(param_1 + 0x328d4) = 0;
@@ -583,9 +611,11 @@ LAB_004457e7:
       uVar4 = (uint)*(ushort *)(param_1 + 0x2e54c + (iVar3 + *(int *)(param_1 + 0x450) * 9) * 2);
       uVar6 = (uint)*(byte *)(param_1 + 0x44c);
       iVar3 = PeekChecksumStateUnderLock(param_1 + 4);
+      /* orig 0x446c33 `lea esi,[esp+0x2d44]` (2 args pushed) =
+       * base+0x2d3c = the prologue guardWorkspace. */
       FUN_004240c0(g_clientContext,
                    *(char *)(*(int *)(param_1 + 0x450) * 9 + 0x2d54c + iVar3 + param_1) == '\x01',
-                   uVar6,uVar4);
+                   uVar6,uVar4,(int)guardWorkspace);
       iVar3 = DAT_007934e8;
       *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x6010;
       *(undefined4 *)(iVar3 + 0x44d0) = 6;
@@ -921,9 +951,11 @@ LAB_00446f6d:
     uVar4 = (uint)*(ushort *)(param_1 + 0x2e54c + (iVar3 + *(int *)(param_1 + 0x450) * 9) * 2);
     uVar6 = (uint)*(byte *)(param_1 + 0x44c);
     iVar3 = PeekChecksumStateUnderLock(param_1 + 4);
+    /* orig 0x4472c1 `lea esi,[esp+0x2d44]` (2 args pushed) =
+     * base+0x2d3c = the prologue guardWorkspace. */
     FUN_004240c0(g_clientContext,
                  *(char *)(*(int *)(param_1 + 0x450) * 9 + 0x2d54c + iVar3 + param_1) == '\x01',
-                 uVar6,uVar4);
+                 uVar6,uVar4,(int)guardWorkspace);
     iVar3 = DAT_007934e8;
     *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x6011;
     *(undefined4 *)(iVar3 + 0x44d0) = 6;

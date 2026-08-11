@@ -99,7 +99,11 @@ uint FUN_00423e20(undefined4 param_1,int param_2)
   if (iVar4 != 0) {
     ReadXFSEntryByte(iVar4,&local_108);
     if ((int)(in_EAX & 0x7fff) < local_108) {
-      uVar2 = FUN_004f08a0();
+      /* FIXED (2026-08-11): dropped seek args - orig 0x423f55 `mov edx,ebx`
+       * (ebx = in_EAX & 0x7fff, the part index, per the `and ebx,0x7fff` at
+       * 0x423f36 feeding the compare above) / `imul edx,edx,0x84` /
+       * 0x423f3e `mov eax,ebp` (ebp = the open stream, this C's iVar4). */
+      uVar2 = FUN_004f08a0(0,(int)(in_EAX & 0x7fff) * 0x84,iVar4);
       if ((char)uVar2 != '\0') {
         ReadXFSEntryByte(iVar4,&local_104);
         CloseSpriteReadState();

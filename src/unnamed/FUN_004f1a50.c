@@ -73,7 +73,11 @@ int FUN_004f1a50(undefined4 param_1,undefined4 param_2,int param_3,int param_4,c
             iVar1 = local_c;
           }
           else {
-            FUN_004f16c0();
+            /* FIXED (2026-08-11): dropped stream (ESI) - at the orig call
+             * 0x4f1b77 ESI still holds the open read stream (only the
+             * taken-match branch at 0x4f1b4b clobbers it and restores
+             * from [esp+0x1c] right after). local_8 is that stream. */
+            FUN_004f16c0((int)local_8);
             if (puVar3 != (undefined4 *)0x0) {
               (**(code **)*puVar3)(1);
             }

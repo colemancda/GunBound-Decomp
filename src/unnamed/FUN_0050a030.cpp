@@ -28,7 +28,7 @@ unsigned int PeekPacketChecksumState();
 void EncodeOutgoingPacketField(unsigned int field);
 void RadioGroup_RefreshEnableStates(void *this_);
 void ThrowCxxException(long hr);
-unsigned int FUN_004240c0(unsigned int ctx, int a, int b, unsigned int c);
+unsigned int FUN_004240c0(unsigned int ctx, int a, int b, unsigned int c, int outRecord);
 }
 
 extern "C" int FUN_0050a030(CWidget *this_, int x, int y)
@@ -59,7 +59,11 @@ extern "C" int FUN_0050a030(CWidget *this_, int x, int y)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState();
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004240c0(g_clientContext, (uVar4 & 0x8000) == 0x8000, (int)uVar4 >> 0x10, uVar4 & 0x7fff);
+    /* FIXED (2026-08-11): dropped outRecord (ESI) - orig 0x50a13a-0x50a149
+     * `mov esi,[esp+0x14]` (the state-7 object saved from EBX =
+     * [0x5b3414] at 0x50a047, this C's puVar1) / `add esi,0x32fa0`. */
+    FUN_004240c0(g_clientContext, (uVar4 & 0x8000) == 0x8000, (int)uVar4 >> 0x10, uVar4 & 0x7fff,
+                 (int)(puVar1 + 0x32fa0));
   }
   bool consumed = this_->MouseMoveChildren(x, y);
   if (!consumed &&

@@ -434,9 +434,12 @@ void FUN_00422f70();
 void FUN_00423050();
 void ApplyBattleActionToContext();
 void __fastcall FUN_00423a20();
-undefined4 FUN_00423bf0(int archiveBase);
+undefined4 FUN_00423bf0(int ctx); /* avatar part-table counter; derives archive=ctx+0xf6e8, encodes count cells ctx+0x5f3774.. (2026-08-11) */
 uint FUN_00423e20(undefined4 param_1, int param_2);
-uint FUN_004240c0(undefined4 param_1, int param_2, int param_3, int param_4);
+/* outRecord = the dropped ESI (orig call sites do `lea esi,...` before
+ * `call 0x4240c0`) - the 0x17a4-byte guarded part record the loader
+ * fills. Recovered 2026-08-11; all 12 call sites pass it. */
+uint FUN_004240c0(undefined4 param_1, int param_2, int param_3, int param_4, int outRecord);
 void FUN_00424400();
 void FUN_00424ac0();
 int __fastcall FUN_00425350();
@@ -1291,7 +1294,10 @@ bool __fastcall CreateTextureAtlasSurface(undefined4 param_1,undefined4 param_2,
 void FUN_004f0320();
 uint FlushXFSWriteBlock();
 uint FUN_004f0650();
-undefined4 __fastcall FUN_004f08a0();
+/* XFS stream seek (skip param_2 bytes). stream = the dropped EAX
+ * (orig callers set EAX to the open stream, EDX to the byte count;
+ * ECX/param_1 is garbage). Recovered 2026-08-11. */
+undefined4 __fastcall FUN_004f08a0(undefined4 param_1, int param_2, int stream);
 void __fastcall FUN_004f0960();
 int CompareXFSEntryName();
 void FUN_004f09d0();
@@ -1312,7 +1318,9 @@ undefined4 CloseSpriteReadState();
 void * __thiscall FUN_004f14c0(void *param_1, int param_2);
 void DestroySpriteFrame(void *param_1);
 undefined4 ReadSpriteFrameRecord(void *readState, int frame);
-void FUN_004f16c0();
+/* Skip-frame-fields helper: stream = the dropped ESI (orig 0x4f16c8
+ * `mov eax,esi` before each seek). Recovered 2026-08-11. */
+void FUN_004f16c0(int stream);
 void FUN_004f1750();
 void FUN_004f1770();
 int LoadSpriteSet();
