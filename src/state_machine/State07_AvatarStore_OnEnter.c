@@ -138,9 +138,12 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   if (cVar3 == '\0') {
     ShowErrorDialog(1);
   }
-  /* archive = g_clientContext + 0xf6e8, orig 0x447c6e `mov ebx,[0x5b3484]`
-   * immediately before `call 0x423bf0` - see FUN_00423bf0.c's header. */
-  FUN_00423bf0((int)(g_clientContext + 0xf6e8));
+  /* orig 0x447c6e `mov ebx,[0x5b3484]` immediately before `call 0x423bf0`
+   * - the inbound EBX is g_clientContext ITSELF (the callee derives the
+   * avatar archive as ctx+0xf6e8 and encodes the per-category part-count
+   * guard cells at ctx+0x5f3774..; see FUN_00423bf0.c's 2026-08-11
+   * header). Was passed pre-offset (ctx+0xf6e8) before that fix. */
+  FUN_00423bf0((int)g_clientContext);
   FUN_00449540(param_1,1);
   *(undefined4 *)(param_1 + 0x454) = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

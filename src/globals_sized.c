@@ -47,6 +47,16 @@ unsigned char g_localizedStringTable[0x10000];
  * FUN_004e7de0's own use of that offset, not addressed by this change. */
 unsigned char g_replayContext[0x454f9];
 
+/* WinMain value-guard slot 18 (orig 0xe9c350, opcode 0x100 in
+ * winmain_bringup.c's address->slot map): a full 0x224-byte CValueGuard
+ * cell, peeked by FUN_004513b0 (0x45154e/0x4515f6). No symbol existed at
+ * this address before 2026-08-11; sized correctly from the start unlike
+ * the 1-byte siblings (DAT_00e9ba40/DAT_00e9bed8 - see the CValueGuard
+ * flip checklist: ALL 20 WinMain slot cells need 0x224 sizing before the
+ * guard flip). Range 0xe9c350..0xe9c574 verified clear of other symbols
+ * (next: DAT_00e9c578). */
+unsigned char DAT_00e9c350[0x224];
+
 /* The named-texture-cache singleton (was the 1-byte DAT_00eb1bd8).
  * Constructed by InitTextureCache from the CRT static-initializer
  * 0x5429b0, destroyed via the atexit thunk FUN_00543950 ->

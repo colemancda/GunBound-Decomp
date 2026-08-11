@@ -2101,6 +2101,8 @@ extern uint32_t DAT_00e55a34;
 extern uint32_t DAT_00e55a54;
 extern uint32_t DAT_00e55a58;
 #define DAT_00e9af60 (*(uint32_t*)(&g_replayContext+0x45280))
+/* WinMain value-guard slot 18 - full 0x224-byte cell in globals_sized.c */
+extern unsigned char DAT_00e9c350[0x224];
 extern uint32_t DAT_00e9c578;
 extern uint32_t DAT_00e9cd30;
 extern uint32_t DAT_00f25840;
