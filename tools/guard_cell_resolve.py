@@ -89,10 +89,26 @@ def esp_depth(insns):
     would have named a slot ~0x480 bytes away.
     """
     depths, d, seen_call = [], None, False
-    for addr, mnem, ops in insns:
+    for i, (addr, mnem, ops) in enumerate(insns):
         depths.append(d)
         if mnem == "call":
+            # Callee-cleanup (__stdcall/__thiscall) is the common case, and
+            # there d is 0 the instant the call returns.  A __cdecl callee is
+            # not: its arguments stay on the stack until the caller's own
+            # `add esp,N`, so anything reading [esp+X] in that gap is one
+            # argument-block deep.  Detect that by looking ahead for the
+            # cleanup before the next push/call.  FUN_0048b420 0x48b78c
+            # reads a cell between `call 0x4ee9b0` and its `add esp,4`.
             d, seen_call = 0, True
+            for _, m2, o2 in insns[i + 1:i + 6]:
+                if m2 == "add" and o2.startswith("esp,"):
+                    try:
+                        d = int(o2.split(",", 1)[1].strip(), 0)
+                    except ValueError:
+                        pass
+                    break
+                if m2 in ("push", "call") or m2.startswith("j"):
+                    break
             continue
         if not seen_call:
             continue

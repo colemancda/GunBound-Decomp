@@ -50,9 +50,26 @@ known hazards with `!!`: `<clobbered by call ...>` (the chained-return
 pattern - the cell is that helper's discarded return value) and
 CROSSES-BRANCH-TARGET (a branch target lies between the write and the use,
 so the value may arrive from elsewhere).  Read every `!!` site by hand, and
-spot-check the unflagged ones as usual.  esp-relative results are left
-unresolved on purpose: converting `[esp + X]` to a Ghidra local needs the
-per-function frame base (see the frame-math note below).
+spot-check the unflagged ones as usual.  esp-relative results are normalised to
+settled-frame slots (see below), but naming the slot still needs the
+per-function frame base.
+
+FRAME-SLOT ARITHMETIC - the thing that most often produces a wrong cell
+that still *looks* plausible.  `[esp + X]` is only the slot named by X
+when esp is at its settled depth.  Three ways it is not, all of which
+have bitten this sweep:
+  1. inside a `push .. / call ..` argument block (the critical-section
+     pairs around nearly every guard call);
+  2. anywhere in the PROLOGUE, before the callee-saved pushes finish -
+     FUN_00491b40's `mov [esp+0xc],edi` and FUN_00497ad0's
+     `mov [esp+8],ebx` both really write frame[0x14];
+  3. between a __cdecl `call` and the caller's `add esp,N` that cleans
+     up after it - FUN_0048b420 0x48b78c reads frame[0x14] as
+     `[esp+0x18]`, and reading it naively picks up a stale Peek RESULT
+     and passes a value as a pointer.
+guard_cell_resolve.py handles (1) and (3) and refuses to guess at (2).
+When you name a slot yourself, find its writers with the same depth
+model, and check none of them is a Peek RESULT rather than a cell.
 
 The file's header comment states its function's original address.
 
