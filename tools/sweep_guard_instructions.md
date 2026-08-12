@@ -34,6 +34,26 @@ Disassembler for verification and register back-tracking:
 
     tools/.venv-angr/bin/python3 tools/disasm_capstone.py orig/GunBound.gme 0x<start> 0x<end>
 
+Cell resolver - does the mechanical register back-tracking for EVERY guard
+call site in a function in one shot (all families, not just Peek):
+
+    tools/.venv-angr/bin/python3 tools/guard_cell_resolve.py 0x<start> 0x<end>
+
+It prints, per site, the resolved cell expression plus the exact mov/lea/add
+chain it followed, so you can check its work without re-deriving it.  Use it
+to get the whole function's cell list up front, then spend your attention on
+the two things it cannot do: naming the C local/global each expression maps
+to, and checking landmarks.  It is a HINT GENERATOR with the same standing
+caveat as the json hints - it walks the function LINEARLY, so a site whose
+register was set on another control-flow path is wrong.  It self-marks the
+known hazards with `!!`: `<clobbered by call ...>` (the chained-return
+pattern - the cell is that helper's discarded return value) and
+CROSSES-BRANCH-TARGET (a branch target lies between the write and the use,
+so the value may arrive from elsewhere).  Read every `!!` site by hand, and
+spot-check the unflagged ones as usual.  esp-relative results are left
+unresolved on purpose: converting `[esp + X]` to a Ghidra local needs the
+per-function frame base (see the frame-math note below).
+
 The file's header comment states its function's original address.
 
 ## Mapping C lines to original sites
