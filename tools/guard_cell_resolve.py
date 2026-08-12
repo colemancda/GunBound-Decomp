@@ -50,6 +50,11 @@ FAMILY = {
 
 REGS = ("eax", "ebx", "ecx", "edx", "esi", "edi", "ebp")
 
+# `test ebp, ebp` / `cmp esi, esi` / `push edi` all start with "<reg>," but
+# leave the register alone.  Treating one as a write silently truncates the
+# back-track and reports the flag-setting instruction as the cell's source.
+NONWRITING = ("test", "cmp", "push")
+
 
 def disasm(start, end):
     out = subprocess.run(
@@ -130,7 +135,7 @@ def resolve(insns, depths, i, reg, depth=0):
     entry_ok = reg in ("ecx", "esi")  # the usual __thiscall `this` carriers
     for j in range(i - 1, -1, -1):
         addr, mnem, ops = insns[j]
-        if not ops.startswith(reg + ","):
+        if mnem in NONWRITING or not ops.startswith(reg + ","):
             # a call clobbers eax/ecx/edx; stop guessing past one for those
             if mnem == "call" and reg in ("eax", "ecx", "edx"):
                 return "<clobbered by call at 0x%x>" % addr, [], False

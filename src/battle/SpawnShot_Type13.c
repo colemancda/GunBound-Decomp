@@ -10,6 +10,33 @@
  * default anim-state, and the repo has no mobile-type->name map).
  * NOTE: still a raw port with its own dropped params / SEH plumbing to
  * finish - see src/README.md. Raw/near-verbatim Ghidra body.
+ *
+ * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
+ * cell at all 22 argless PeekPacketChecksumState() calls (peek status
+ * "clean", 22 C : 22 orig).  Cells from tools/guard_cell_resolve.py over
+ * 0x4388e0-0x43958e; no gotos, so the sites order-zip, and each round's
+ * cell is corroborated by the neighbouring Encode/DeltaMul cell the
+ * 2026-07-15/16 sweeps already fixed (0x24c0 / 0x26e4 / 0x2908).
+ *
+ * The object base is EBP, the operator_new(0x3fa4) result at 0x438909 -
+ * i.e. the C's piVar2.  guard_cell_resolve.py cannot see that: it
+ * back-tracks EBP to `xor ebp,ebp` at 0x438940 and flags the site.  That
+ * xor is the ALLOCATION-FAILED path; both paths merge at 0x438942 and
+ * every later [ebp+N] access assumes the object, which is what the C
+ * models with piVar2.
+ *
+ * Six cells are chained returns of EncodeChecksumDeltaDiv (0x40a8c0):
+ * the helper returns its dest cell in EAX, the code spills it to
+ * frame[0x10], and the paired Peek re-reads it.  Four of the six calls
+ * discard the return in the decompile and now capture it in a new
+ * iVar13; the other two already assign it (iVar3 at ~line 353 and
+ * puStack_8d4 at ~line 397), so those Peeks use the existing variable
+ * and the statements are left untouched.
+ *
+ * NOTE the ten `EncodeOutgoingPacketField(piVar2 + N)` calls are NOT
+ * unfixed one-arg sites: the 2026-07-16 sweep put the CELL there and it
+ * is the VALUE that Ghidra dropped.  A one-argument Encode in this tree
+ * can be either, so read the file's own notes before "fixing" one.
  */
 #include "ghidra_types.h"
 
@@ -23,6 +50,7 @@ void SpawnShot_Type13(void)
   char cVar1;
   int *piVar2;
   int iVar3;
+  int iVar13;
   char *pcVar4;
   undefined4 uVar5;
   undefined1 *puVar6;
@@ -120,7 +148,7 @@ void SpawnShot_Type13(void)
   EncodeOutgoingPacketField(piVar2 + 0x3d5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(piVar2 + 0x3d5));
   EncodeOutgoingPacketField(piVar2 + 0xed2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -170,7 +198,7 @@ void SpawnShot_Type13(void)
    * tools/encodeoutgoingpacketfield_sites.json. */
   RescrambleGuardedBool();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(piVar2 + 0x5f9));
   EncodeOutgoingPacketField(piVar2 + 0x5f9);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at 0x438d77
@@ -179,7 +207,7 @@ void SpawnShot_Type13(void)
   RescrambleGuardedBool();
   piVar2[0xfe5] = in_stack_00000014;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(piVar2 + 0x682));
   EncodeOutgoingPacketField(piVar2 + 0x682);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at 0x438db1
@@ -187,7 +215,7 @@ void SpawnShot_Type13(void)
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
   RescrambleGuardedBool();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(piVar2 + 0xe48));
   EncodeOutgoingPacketField(piVar2 + 0xe48);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pcVar7 = (char *)((int)piVar2 + 0x3813);
@@ -236,14 +264,14 @@ void SpawnShot_Type13(void)
     pcVar10 = (code *)EnterCriticalSection;
     puStack_8 = (undefined1 *)0x4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)&DAT_00e55ab8);
     pcVar9 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumDeltaDiv();
+    iVar13 = EncodeChecksumDeltaDiv();
     SUBFIELD(puStack_8,0,undefined1) = 5;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(piVar2 + 0x930));
+    PeekPacketChecksumState((void *)iVar13);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x438fd4
      * (`lea edi,[ebp + 0x24c0]`): cell is piVar2+0x930 (== piVar2+0x24c0
      * bytes) - the same cell the EncodeChecksumDeltaMul call above this
@@ -267,14 +295,14 @@ void SpawnShot_Type13(void)
     EncodeChecksumDeltaMul();
     puStack_8 = (undefined1 *)0x6;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)&DAT_00e55ab8);
     (*pcVar9)();
     piStack_8d0 = (int *)0x4390ad;
-    EncodeChecksumDeltaDiv();
+    iVar13 = EncodeChecksumDeltaDiv();
     uStack_c = CONCAT31(SUBFIELD(uStack_c,1,undefined3),7);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(piVar2 + 0x9b9));
+    PeekPacketChecksumState((void *)iVar13);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4390db
      * (`lea edi,[ebp + 0x26e4]`): cell is piVar2+0x9b9 (== piVar2+0x26e4
      * bytes), the same field/offset as the EncodeChecksumDeltaMul call
@@ -298,17 +326,17 @@ void SpawnShot_Type13(void)
     EncodeChecksumDeltaMul();
     uStack_10 = 8;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar5 = PeekPacketChecksumState();
+    uVar5 = PeekPacketChecksumState((void *)&DAT_00e55ab8);
     (*pcVar9)();
     piStack_8d0 = (int *)auStack_688;
     puStack_8d8 = (undefined *)0x4391b4;
     puStack_8d4 = (undefined1 *)uVar5;
-    EncodeChecksumDeltaDiv();
+    iVar13 = EncodeChecksumDeltaDiv();
     uStack_14 = 9;
     piStack_8d0 = (int *)0x4391c7;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(piVar2 + 0xa42));
+    PeekPacketChecksumState((void *)iVar13);
     piStack_8d0 = (int *)0x4391e7;
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4391e2
      * (`lea edi,[ebp + 0x2908]`): cell is piVar2+0xa42 (== piVar2+0x2908
@@ -336,14 +364,14 @@ void SpawnShot_Type13(void)
   cVar1 = CheckGuardedBoolAnd();
   if (cVar1 != '\0') {
     (*pcVar10)();
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)&DAT_00e9c578);
     (*pcVar9)();
     piStack_8d0 = piVar2 + 0x930;
     puStack_8d4 = (undefined1 *)0x4392c2;
     EncodeChecksumDeltaMul();
     uStack_10 = 10;
     (*pcVar10)();
-    puVar6 = (undefined1 *)PeekPacketChecksumState();
+    puVar6 = (undefined1 *)PeekPacketChecksumState((void *)&DAT_00796aa0);
     puVar12 = &DAT_005a9068;
     piStack_8d0 = (int *)0x4392ed;
     (*pcVar9)();
@@ -356,7 +384,7 @@ void SpawnShot_Type13(void)
     puStack_8d4 = (undefined1 *)0x439317;
     (*pcVar10)();
     puStack_8d4 = (undefined1 *)0x439320;
-    puStack_8d4 = (undefined1 *)PeekPacketChecksumState();
+    puStack_8d4 = (undefined1 *)PeekPacketChecksumState((void *)iVar3);
     puStack_8d8 = (undefined1 *)0x439326;
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x439321
      * (`lea edi,[ebp + 0x24c0]`): cell is piVar2+0x930 (== piVar2+0x24c0
@@ -386,12 +414,12 @@ void SpawnShot_Type13(void)
     }
     puStack_8d8 = &DAT_005a9068;
     (*pcVar10)();
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)&DAT_00e9c578);
     (*pcVar9)(&DAT_005a9068);
     EncodeChecksumDeltaMul(piVar2 + 0x9b9,&stack0xfffff740,puVar12);
     uStack_28 = 0xc;
     (*pcVar10)(&DAT_005a9068);
-    piStack_8d0 = (int *)PeekPacketChecksumState();
+    piStack_8d0 = (int *)PeekPacketChecksumState((void *)&DAT_00796aa0);
     puVar11 = &DAT_005a9068;
     (*pcVar9)(&DAT_005a9068);
     puStack_8d4 = (undefined1 *)EncodeChecksumDeltaDiv(piStack_8d0,auStack_6a4,puStack_8d4);
@@ -401,7 +429,7 @@ void SpawnShot_Type13(void)
      * bytes) - the same cell explicitly passed to EncodeChecksumDeltaMul
      * above. See tools/encodeoutgoingpacketfield_sites.json. */
     (*pcVar10)(&DAT_005a9068);
-    uVar5 = PeekPacketChecksumState();
+    uVar5 = PeekPacketChecksumState((void *)puStack_8d4);
     EncodeOutgoingPacketField(piVar2 + 0x9b9,uVar5);
     puVar12 = &DAT_005a9068;
     (*pcVar9)(&DAT_005a9068);
@@ -418,21 +446,21 @@ void SpawnShot_Type13(void)
       pcVar9 = (code *)LeaveCriticalSection;
     }
     (*pcVar10)(&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)&DAT_00e9c578);
     (*pcVar9)(&DAT_005a9068);
     EncodeChecksumDeltaMul(piVar2 + 0xa42,auStack_26c,puVar11);
     uStack_40 = 0xe;
     (*pcVar10)(&DAT_005a9068);
-    uVar5 = PeekPacketChecksumState();
+    uVar5 = PeekPacketChecksumState((void *)&DAT_00796aa0);
     (*pcVar9)(&DAT_005a9068);
-    EncodeChecksumDeltaDiv(uVar5,auStack_498,puVar12);
+    iVar13 = EncodeChecksumDeltaDiv(uVar5,auStack_498,puVar12);
     uStack_48 = 0xf;
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x43954e
      * (`lea edi,[ebp + 0x2908]`): cell is piVar2+0xa42 (== piVar2+0x2908
      * bytes) - the same cell explicitly passed to EncodeChecksumDeltaMul
      * above. See tools/encodeoutgoingpacketfield_sites.json. */
     (*pcVar10)(&DAT_005a9068);
-    uVar5 = PeekPacketChecksumState();
+    uVar5 = PeekPacketChecksumState((void *)iVar13);
     EncodeOutgoingPacketField(piVar2 + 0xa42,uVar5);
     (*pcVar9)(&DAT_005a9068);
     puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xe);

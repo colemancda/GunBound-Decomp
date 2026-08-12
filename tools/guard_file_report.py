@@ -60,8 +60,17 @@ def main():
             continue
         hit = "PeekPacketChecksumState()" in s
         if not hit and "EncodeOutgoingPacketField(" in s:
-            arg = s.split("EncodeOutgoingPacketField(", 1)[1]
-            hit = "," not in arg.split(")")[0]
+            # count a comma at paren depth 0 - splitting on the first ")"
+            # misreads a cast, e.g. `Encode((int)piVar5 + 0xb728, local_10)`
+            arg, depth = s.split("EncodeOutgoingPacketField(", 1)[1], 1
+            hit = True
+            for ch in arg:
+                depth += "([".count(ch) - ")]".count(ch)
+                if depth == 0:
+                    break
+                if ch == "," and depth == 1:
+                    hit = False
+                    break
         if hit:
             n += 1
             print("%3d  %5d: %s" % (n, i, s.strip()))
