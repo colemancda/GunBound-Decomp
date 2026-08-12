@@ -65,10 +65,51 @@ def disasm(start, end):
     return insns
 
 
-def resolve(insns, i, reg, depth=0):
+def esp_depth(insns):
+    """Push-depth of each instruction relative to the settled frame esp.
+
+    Guard call sites are dense with `push 0x5a9068 / call esi` critical-section
+    pairs, so an `[esp + X]` written one push deep names a DIFFERENT slot than
+    the same text written at the settled depth - a silent way to pick the wrong
+    cell.  Every callee in this code cleans its own arguments (__stdcall /
+    __thiscall, or cdecl followed by an explicit `add esp,N`), so depth resets
+    to 0 at each call; pushes in between accumulate.
+    """
+    depths, d = [], 0
+    for addr, mnem, ops in insns:
+        depths.append(d)
+        if mnem == "push":
+            d += 4
+        elif mnem == "pop":
+            d -= 4
+        elif mnem == "call":
+            d = 0
+        elif mnem in ("add", "sub") and ops.startswith("esp,"):
+            n = ops.split(",", 1)[1].strip()
+            try:
+                d += (-int(n, 0) if mnem == "add" else int(n, 0))
+            except ValueError:
+                pass
+        if d < 0:
+            d = 0
+    return depths
+
+
+def norm_esp(text, d):
+    """Rewrite an `[esp + X]` operand to the settled-frame slot it names."""
+    if not d:
+        return text
+    m = re.search(r"\[esp \+ (0x[0-9a-f]+)\]", text)
+    if not m:
+        return text
+    return text[:m.start()] + "[esp + 0x%x]" % (int(m.group(1), 16) - d) + text[m.end():]
+
+
+def resolve(insns, depths, i, reg, depth=0):
     """Walk backwards from insns[i] for the last write to `reg`.
 
-    Returns (expression, chain, confident).
+    Returns (expression, chain, confident).  All `[esp + X]` operands are
+    normalised to settled-frame slots via depths[] before being reported.
     """
     if depth > 6:
         return reg, [], False
@@ -80,17 +121,24 @@ def resolve(insns, i, reg, depth=0):
             if mnem == "call" and reg in ("eax", "ecx", "edx"):
                 return "<clobbered by call at 0x%x>" % addr, [], False
             continue
-        src = ops[len(reg) + 1:].strip()
+        src = norm_esp(ops[len(reg) + 1:].strip(), depths[j])
         step = "0x%x: %s %s" % (addr, mnem, ops)
+        if depths[j]:
+            step += "   [esp %+d here -> %s]" % (depths[j], src)
         if mnem == "lea":
             m = re.match(r"^\[(\w+) \+ (0x[0-9a-f]+)\]$", src)
+            if m and m.group(1) == "esp":
+                # a frame slot, already normalised - naming it needs the
+                # per-function frame base, so stop here rather than
+                # back-tracking esp itself through the prologue
+                return "frame [esp + %s]" % m.group(2), [step], True
             if m and m.group(1) != reg:
-                base, chain, ok = resolve(insns, j, m.group(1), depth + 1)
+                base, chain, ok = resolve(insns, depths, j, m.group(1), depth + 1)
                 return "%s + %s" % (base, m.group(2)), [step] + chain, ok
             return "&(%s)" % src, [step], True
         if mnem == "mov":
             if src in REGS:
-                base, chain, ok = resolve(insns, j, src, depth + 1)
+                base, chain, ok = resolve(insns, depths, j, src, depth + 1)
                 return base, [step] + chain, ok
             if src.startswith("dword ptr ["):
                 # a spill slot / arg slot / global load: a definite location,
@@ -100,7 +148,7 @@ def resolve(insns, i, reg, depth=0):
         if mnem == "add":
             m = re.match(r"^(0x[0-9a-f]+)$", src)
             if m:
-                base, chain, ok = resolve(insns, j, reg, depth + 1)
+                base, chain, ok = resolve(insns, depths, j, reg, depth + 1)
                 return "%s + %s" % (base, m.group(1)), [step] + chain, ok
         return "<%s %s>" % (mnem, ops), [step], False
     return "<%s live-in at entry>" % reg, [], entry_ok
@@ -109,6 +157,7 @@ def resolve(insns, i, reg, depth=0):
 def main():
     start, end = int(sys.argv[1], 16), int(sys.argv[2], 16)
     insns = disasm(start, end)
+    depths = esp_depth(insns)
     # a register written between two sites on a *different* path is the main
     # hazard; flag any site whose chain crosses a branch target
     targets = set()
@@ -128,7 +177,7 @@ def main():
         if not fam:
             continue
         name, reg = fam
-        expr, chain, ok = resolve(insns, i, reg)
+        expr, chain, ok = resolve(insns, depths, i, reg)
         src_addr = int(chain[0].split(":")[0], 16) if chain else addr
         crosses = any(src_addr < t <= addr for t in targets)
         flag = "  " if (ok and not crosses) else "!!"
