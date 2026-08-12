@@ -3,6 +3,31 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
+ * cell at all 25 argless PeekPacketChecksumState() calls (peek status
+ * "clean", 25 C : 25 orig).  Cells from tools/guard_cell_resolve.py over
+ * 0x491b40-0x492140.  This decompile has NO gotos and is straight-line,
+ * so the sites order-zip; landmarks spot-checked at the crater block,
+ * both spill reloads and the tail pair.
+ *
+ * Five of the cells are chained returns the decompile discarded: each
+ * EncodeChecksumDeltaSub (0x40a6e0, at 0x491bcc/0x491dc7/0x491e58/
+ * 0x491f24/0x491fe8) returns its dest cell in EAX, is stashed in EBX,
+ * and the following Peek re-reads it.  Captured in a new uVar8.  The
+ * first of the five spans the whole 8-cell crater block - EBX survives
+ * it untouched from 0x491bd1 to 0x491ccd, checked instruction by
+ * instruction.
+ *
+ * Frame-slot cells: [esp+0x14] is param_1, stored by the PROLOGUE at
+ * 0x491b66 as `mov [esp+0xc],edi` - that is 8 bytes above the settled
+ * esp (two callee-saved pushes still to come), so the operand text is
+ * NOT the frame slot it names.  [esp+0x24] and [esp+0x20] are
+ * local_474 (param_1+0x1178) and local_478 (param_1+0xf54), stored one
+ * and two pushes deep at 0x491b79/0x491b8d, which agrees with the
+ * 2026-07-15 Encode sweep's independent reading of the same two slots.
+ * Note `add edi,0x40` at 0x491ce4 retargets EDI permanently, so a bare
+ * EDI after that point is param_1+0x40, not param_1.
  */
 #include "ghidra_types.h"
 
@@ -13,6 +38,7 @@ void __fastcall FUN_00491b40(int param_1)
   char cVar1;
   undefined4 uVar2;
   undefined4 uVar3;
+  undefined4 uVar8;
   int iVar4;
   int iVar5;
   void *pvVar6;
@@ -44,39 +70,39 @@ void __fastcall FUN_00491b40(int param_1)
     SyncOutgoingChecksumField(*(undefined4 *)(param_1 + 8),local_474);
     *(undefined1 *)(param_1 + 0x14) = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumDeltaSub(param_1 + 0x264,local_454,uVar2);
+    uVar8 = EncodeChecksumDeltaSub(param_1 + 0x264,local_454,uVar2);
     local_4 = 0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_45c = PeekPacketChecksumState();
+    local_45c = PeekPacketChecksumState((void *)(param_1 + 0x6ac));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_468 = PeekPacketChecksumState();
+    local_468 = PeekPacketChecksumState((void *)(param_1 + 0x488));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_460 = PeekPacketChecksumState();
+    local_460 = PeekPacketChecksumState((void *)(param_1 + 0x2f74));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_470 = PeekPacketChecksumState();
+    local_470 = PeekPacketChecksumState((void *)(param_1 + 0x2d50));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_464 = PeekPacketChecksumState();
+    local_464 = PeekPacketChecksumState((void *)(param_1 + 0x2b2c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_458 = PeekPacketChecksumState();
+    local_458 = PeekPacketChecksumState((void *)(param_1 + 0x2908));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_46c = PeekPacketChecksumState();
+    local_46c = PeekPacketChecksumState((void *)(param_1 + 0x26e4));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_480[0] = PeekPacketChecksumState();
+    local_480[0] = PeekPacketChecksumState((void *)(param_1 + 0x24c0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(param_1 + 0x40));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     ApplyCraterExcavation(local_480[0],local_46c,local_458,local_464,local_470,local_460,local_468,local_45c)
     ;
@@ -87,7 +113,7 @@ void __fastcall FUN_00491b40(int param_1)
     }
     RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(param_1 + 0x40));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x491d94
      * (`mov edi,dword ptr [esp + 0x20]`): esp+0x20 is a spilled reload of
      * `local_478`, set above to `param_1 + 0xf54` (never reassigned
@@ -98,12 +124,12 @@ void __fastcall FUN_00491b40(int param_1)
     EncodeOutgoingPacketField(local_478, uVar2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumDeltaSub(param_1 + 0x264,local_454,uVar2);
+    uVar8 = EncodeChecksumDeltaSub(param_1 + 0x264,local_454,uVar2);
     local_4 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)uVar8);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x491dec
      * (`mov edi,dword ptr [esp + 0x24]`): esp+0x24 is a spilled reload of
      * `local_474`, set above to `param_1 + 0x1178` (never reassigned
@@ -117,15 +143,15 @@ void __fastcall FUN_00491b40(int param_1)
       TreeLowerBound(local_480);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumDeltaSub(param_1 + 0x264,local_454,uVar2);
+    uVar8 = EncodeChecksumDeltaSub(param_1 + 0x264,local_454,uVar2);
     local_4 = 2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x40));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_00450eb0(uVar3,uVar2,param_1,1,0,0);
     local_4 = 0xffffffff;
@@ -134,15 +160,15 @@ void __fastcall FUN_00491b40(int param_1)
       TreeLowerBound(local_480);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumDeltaSub(param_1 + 0x264,local_454,uVar2);
+    uVar8 = EncodeChecksumDeltaSub(param_1 + 0x264,local_454,uVar2);
     local_4 = 3;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x40));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_00436ac0(uVar3,uVar2);
     local_4 = 0xffffffff;
@@ -151,15 +177,15 @@ void __fastcall FUN_00491b40(int param_1)
       TreeLowerBound(local_480);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumDeltaSub(param_1 + 0x264,local_230,uVar2);
+    uVar8 = EncodeChecksumDeltaSub(param_1 + 0x264,local_230,uVar2);
     local_4 = 4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x40));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_004372f0(*(uint *)(param_1 + 8) & 0xf,uVar3,uVar2,*(undefined4 *)(param_1 + 0x3894),
                  param_1 + 0x3898);
@@ -187,10 +213,10 @@ void __fastcall FUN_00491b40(int param_1)
       AcquireSoundChannel(0);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = PeekPacketChecksumState();
+    iVar5 = PeekPacketChecksumState((void *)local_474);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)local_478);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\0') {

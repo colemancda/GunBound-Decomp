@@ -74,16 +74,27 @@ def esp_depth(insns):
     cell.  Every callee in this code cleans its own arguments (__stdcall /
     __thiscall, or cdecl followed by an explicit `add esp,N`), so depth resets
     to 0 at each call; pushes in between accumulate.
+
+    Depth is None until the function's first call: the prologue's `sub esp,N`
+    and its callee-saved pushes are not a settled frame, and how much of what
+    sits above esp there belongs to the first call's arguments is not knowable
+    locally.  Those `[esp + X]` operands are reported unnormalised and flagged
+    rather than guessed - in FUN_00491b40 the prologue store `mov [esp+0xc],edi`
+    is really frame[0x14], and normalising it with a prologue-inflated depth
+    would have named a slot ~0x480 bytes away.
     """
-    depths, d = [], 0
+    depths, d, seen_call = [], None, False
     for addr, mnem, ops in insns:
         depths.append(d)
+        if mnem == "call":
+            d, seen_call = 0, True
+            continue
+        if not seen_call:
+            continue
         if mnem == "push":
             d += 4
         elif mnem == "pop":
             d -= 4
-        elif mnem == "call":
-            d = 0
         elif mnem in ("add", "sub") and ops.startswith("esp,"):
             n = ops.split(",", 1)[1].strip()
             try:
@@ -97,6 +108,9 @@ def esp_depth(insns):
 
 def norm_esp(text, d):
     """Rewrite an `[esp + X]` operand to the settled-frame slot it names."""
+    if d is None:
+        return (text + "  !!PRE-SETTLE, depth unknown - resolve by hand"
+                if "[esp" in text else text)
     if not d:
         return text
     m = re.search(r"\[esp \+ (0x[0-9a-f]+)\]", text)
@@ -124,9 +138,12 @@ def resolve(insns, depths, i, reg, depth=0):
         src = norm_esp(ops[len(reg) + 1:].strip(), depths[j])
         step = "0x%x: %s %s" % (addr, mnem, ops)
         if depths[j]:
-            step += "   [esp %+d here -> %s]" % (depths[j], src)
+            step += "   [esp %s here -> %s]" % (
+                "depth unknown" if depths[j] is None else "%+d" % depths[j], src)
         if mnem == "lea":
             m = re.match(r"^\[(\w+) \+ (0x[0-9a-f]+)\]$", src)
+            if "!!PRE-SETTLE" in src:
+                return src, [step], False
             if m and m.group(1) == "esp":
                 # a frame slot, already normalised - naming it needs the
                 # per-function frame base, so stop here rather than
@@ -140,6 +157,8 @@ def resolve(insns, depths, i, reg, depth=0):
             if src in REGS:
                 base, chain, ok = resolve(insns, depths, j, src, depth + 1)
                 return base, [step] + chain, ok
+            if "!!PRE-SETTLE" in src:
+                return src, [step], False
             if src.startswith("dword ptr ["):
                 # a spill slot / arg slot / global load: a definite location,
                 # but one the sweep still has to give a C name
