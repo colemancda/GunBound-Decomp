@@ -4,6 +4,15 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 8 argless PeekPacketChecksumState() calls (8 C : 8 orig,
+ * goto-free zip), from tools/guard_cell_resolve.py over
+ * 0x434ac0-0x434fa0.  Another allocate-then-populate spawner in the
+ * FUN_004337f0/FUN_00436220 family: the +0xf54 cell sits beside the
+ * already-fixed Encode at the same offset, and the rest are the usual
+ * globals - two rounds of g_clientContext+0x5b1ac / +0x5af88 /
+ * &DAT_00796aa0 plus one &DAT_00e9ba40.
  */
 #include "ghidra_types.h"
 
@@ -58,7 +67,7 @@ void FUN_00434ac0(undefined4 param_1,int param_2)
     EncodeOutgoingPacketField((int)piVar2 + 0xf54, param_2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)((int)piVar2 + 0xf54));
     EncodeOutgoingPacketField((int)piVar2 + 0x3b48, uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -77,7 +86,7 @@ void FUN_00434ac0(undefined4 param_1,int param_2)
     EncodeOutgoingPacketField((int)piVar2 + 0x8d0, 0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
@@ -86,13 +95,13 @@ void FUN_00434ac0(undefined4 param_1,int param_2)
     EncodeOutgoingPacketField((int)piVar2 + 0x6ac, uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(g_clientContext + 0x5af88));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = FloatToInt64();
@@ -102,13 +111,13 @@ void FUN_00434ac0(undefined4 param_1,int param_2)
     EncodeOutgoingPacketField((int)piVar2 + 0xaf4, (iVar5 << 8) / iVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(g_clientContext + 0x5af88));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = FloatToInt64();

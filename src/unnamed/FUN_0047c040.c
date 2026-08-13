@@ -3,6 +3,21 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 8 argless PeekPacketChecksumState() calls (8 C : 8 orig,
+ * goto-free zip), from tools/guard_cell_resolve.py over
+ * 0x47c040-0x47c3f0.  Twin of FUN_0047fad0, cell for cell.
+ *
+ * Two chained EncodeChecksumDeltaAdd returns: the if-branch one is
+ * ALREADY captured into aiStack_464[0] (the disasm also spills it to
+ * frame[0x14] at 0x47c136), so the Peek at line ~63 just uses that
+ * variable - the assignment on the same line overwrites it, but the
+ * argument is evaluated first.  The else-branch one is discarded and
+ * now caught in a new uVar9.  The rest are the record's +0x90c cell,
+ * g_clientContext+0x45354, and the &DAT_00796aa0/&DAT_00794e48/
+ * &DAT_00e55ab8 globals (the two CROSSES-BRANCH-TARGET flags are
+ * immediates - path-independent).
  */
 #include "ghidra_types.h"
 
@@ -13,6 +28,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
   char cVar1;
   int iVar2;
   int iVar3;
+  undefined4 uVar9;
   int unaff_EBX;
   code *pcVar4;
   int *unaff_ESI;
@@ -39,7 +55,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
   iVar2 = GetPlayerRecordBySlot(g_clientContext);
   if (iVar2 == 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
     pcVar4 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar3 != 1) {
@@ -48,7 +64,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)(iVar2 + 0x90c));
     pcVar4 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     unaff_ESI[0xfed] = iVar3;
@@ -57,24 +73,24 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
                       (-(uint)((char)unaff_ESI[0xfe8] != '\0') & 0xffffff38) - 200);
     puStack_8 = (undefined1 *)0x0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    aiStack_464[0] = PeekPacketChecksumState();
+    aiStack_464[0] = PeekPacketChecksumState((void *)aiStack_464[0]);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (*(int *)(&g_nCameraBoundY + g_clientContext) + iVar3 < aiStack_464[0]) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = PeekPacketChecksumState();
+      iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar3 = *(int *)(&g_nCameraBoundY + g_clientContext) + iVar3;
     }
     else {
-      EncodeChecksumDeltaAdd(iVar2 + 0xb30,local_458,
+      uVar9 = EncodeChecksumDeltaAdd(iVar2 + 0xb30,local_458,
                    (-(uint)((char)unaff_ESI[0xfe8] != '\0') & 0xffffff38) - 200);
       puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
       uStack_45c = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = PeekPacketChecksumState();
+      iVar3 = PeekPacketChecksumState((void *)uVar9);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     unaff_ESI[0xfee] = iVar3;
@@ -101,7 +117,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
-  iVar2 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)&DAT_00794e48);
   (*pcVar4)(&DAT_005a9068);
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
@@ -119,7 +135,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)&DAT_00e55ab8);
     (*pcVar4)(&DAT_005a9068);
     iVar2 = iVar2 + iVar3;
   }
