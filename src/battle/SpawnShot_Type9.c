@@ -24,6 +24,30 @@
  * sit at consecutive +4 stack slots once that's accounted for, so
  * param_1/param_2/param_3's existing bindings were already correct;
  * only param_4..param_12 needed adding.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 26 textual argless PeekPacketChecksumState() calls.  The
+ * worklist marks this file's peek list MISMATCH (25 orig : 26 C); the
+ * discrepancy is exactly one Ghidra DOUBLE-EMIT - the single Peek at
+ * 0x42f706 appears twice in the C, once as the dead
+ * `puStack_8d0 = Peek()` artifact assignment and once inline in the
+ * piVar3+0xed2 Encode.  Both carry the same cell (piVar3+0x3d5); a
+ * doubled read of a guard cell is behaviour-neutral.
+ *
+ * Same structure as SpawnShot_Type13: the object is EBP (= ESI, the
+ * allocation result); cells confirmed against the already-fixed
+ * Encode/DeltaMul cells beside each site.  Six cells are chained
+ * returns of EncodeChecksumDeltaDiv whose returns the decompile
+ * discarded (0x42ff5f, 0x4302bd, 0x4303d2, 0x4304ea and the two
+ * mid-file sites) - captured in a new uVar15.  In the three
+ * `Encode(cell, Peek() + Peek())` value pairs the FIRST call reads the
+ * object cell (0x24c0/0x26e4/0x2908) and the SECOND reads the DeltaDiv
+ * dest - order verified against the disasm's spill pattern
+ * (frame[0x14] then frame[0x10], summed at 0x42ff8f).
+ *
+ * Out of scope, flagged: several helper VALUE args are still dropped
+ * (the bare Peeks at ~500/530/558/649 feed DeltaDiv/DeltaMul values
+ * Ghidra dropped) - helper-family sweep, not this pass.
  */
 #include "ghidra_types.h"
 
@@ -46,6 +70,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
   undefined *puVar5;
   char *pcVar6;
   undefined4 uVar7;
+  undefined4 uVar15;
   undefined4 uVar8;
   byte bVar9;
   code *pcVar10;
@@ -187,12 +212,12 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
   puStack_8d0 = (undefined *)0x42f704;
   (*pcVar10)();
   puStack_8d0 = (undefined *)0x42f70b;
-  puStack_8d0 = (undefined *)PeekPacketChecksumState();
+  puStack_8d0 = (undefined *)PeekPacketChecksumState((void *)(piVar3 + 0x3d5));
   puStack_8d4 = (undefined *)0x42f717;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42f712
    * (`lea edi,[ebp + 0x3b48]`): cell is piVar3+0xed2 (== piVar3+0x3b48
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField(piVar3 + 0xed2, PeekPacketChecksumState());
+  EncodeOutgoingPacketField(piVar3 + 0xed2, PeekPacketChecksumState((void *)(piVar3 + 0x3d5)));
   puStack_8d0 = &DAT_005a9068;
   puStack_8d4 = (undefined *)0x42f71e;
   (*pcVar11)();
@@ -430,32 +455,32 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     *puVar5 = 0xff;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     (*pcVar10)();
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
     (*pcVar10)(&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x5af88));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
     (*pcVar10)(&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)(piVar3 + 0x122));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
     (*pcVar10)(&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)(piVar3 + 0x1ab));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
     (*pcVar10)(&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)(piVar3 + 0x2bd));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
     (*pcVar10)(&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)(piVar3 + 0x346));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
@@ -497,10 +522,10 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     pcVar10 = (code *)EnterCriticalSection;
     uStack_7c = 5;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)&DAT_00e55ab8);
     pcVar11 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumDeltaDiv(puStack_924,&puStack_914);
+    uVar15 = EncodeChecksumDeltaDiv(puStack_924,&puStack_914);
     SUBFIELD(uStack_7c,0,undefined1) = 6;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42ff92
@@ -510,7 +535,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
      * FIXED (2026-07-16): also merged the value arg (sum of the two
      * adjacent PeekPacketChecksumState() calls, matching the disasm's
      * `add eax,ecx` between them). */
-    EncodeOutgoingPacketField(piVar3 + 0x930, PeekPacketChecksumState() + PeekPacketChecksumState());
+    EncodeOutgoingPacketField(piVar3 + 0x930, PeekPacketChecksumState((void *)(piVar3 + 0x930)) + PeekPacketChecksumState((void *)uVar15));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_7c = CONCAT31(SUBFIELD(uStack_7c,1,undefined3),5);
     if (puStack_900 != (undefined *)0x0) {
@@ -527,9 +552,9 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     puStack_924 = (undefined *)EncodeChecksumDeltaMul(piVar3 + 0x9b9,&puStack_914);
     uStack_7c = 7;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)&DAT_00e55ab8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumDeltaDiv(puStack_924,auStack_6f0);
+    uVar15 = EncodeChecksumDeltaDiv(puStack_924,auStack_6f0);
     SUBFIELD(uStack_7c,0,undefined1) = 8;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x430099
@@ -538,7 +563,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
      * above. See tools/encodeoutgoingpacketfield_sites.json.
      * FIXED (2026-07-16): also merged the value arg - see piVar3+0x930's
      * note above. */
-    EncodeOutgoingPacketField(piVar3 + 0x9b9, PeekPacketChecksumState() + PeekPacketChecksumState());
+    EncodeOutgoingPacketField(piVar3 + 0x9b9, PeekPacketChecksumState((void *)(piVar3 + 0x9b9)) + PeekPacketChecksumState((void *)uVar15));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_7c = CONCAT31(SUBFIELD(uStack_7c,1,undefined3),7);
     if (iStack_6dc != 0) {
@@ -555,9 +580,9 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     puStack_924 = (undefined *)EncodeChecksumDeltaMul(piVar3 + 0xa42,&puStack_914);
     uStack_7c = 9;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)&DAT_00e55ab8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumDeltaDiv(puStack_924,auStack_6f0);
+    uVar15 = EncodeChecksumDeltaDiv(puStack_924,auStack_6f0);
     SUBFIELD(uStack_7c,0,undefined1) = 10;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4301a0
@@ -566,7 +591,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
      * above. See tools/encodeoutgoingpacketfield_sites.json.
      * FIXED (2026-07-16): also merged the value arg - see piVar3+0x930's
      * note above. */
-    EncodeOutgoingPacketField(piVar3 + 0xa42, PeekPacketChecksumState() + PeekPacketChecksumState());
+    EncodeOutgoingPacketField(piVar3 + 0xa42, PeekPacketChecksumState((void *)(piVar3 + 0xa42)) + PeekPacketChecksumState((void *)uVar15));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_7c = CONCAT31(SUBFIELD(uStack_7c,1,undefined3),9);
     if (iStack_6dc != 0) {
@@ -584,21 +609,21 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
   cVar2 = CheckGuardedBoolAnd();
   if (cVar2 != '\0') {
     (*pcVar10)();
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)&DAT_00e9c578);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeChecksumDeltaMul(piVar3 + 0x930,&puStack_918,uVar7);
     uStack_80 = 0xb;
     (*pcVar10)(&DAT_005a9068);
-    uVar8 = PeekPacketChecksumState();
+    uVar8 = PeekPacketChecksumState((void *)&DAT_00796aa0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumDeltaDiv(uVar7,auStack_6f8,uVar8);
+    uVar15 = EncodeChecksumDeltaDiv(uVar7,auStack_6f8,uVar8);
     iStack_84 = CONCAT31(SUBFIELD(iStack_84,1,undefined3),0xc);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4302df
      * (`lea edi,[ebp + 0x24c0]`): cell is piVar3+0x930 (== piVar3+0x24c0
      * bytes) - the same cell explicitly passed to EncodeChecksumDeltaMul
      * above. See tools/encodeoutgoingpacketfield_sites.json. */
     (*pcVar10)(&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)uVar15);
     EncodeOutgoingPacketField(piVar3 + 0x930,uVar7);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_88 = CONCAT31(SUBFIELD(uStack_88,1,undefined3),0xb);
@@ -615,14 +640,14 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     }
     puVar13 = &DAT_005a9068;
     (*pcVar10)(&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)&DAT_00e9c578);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeChecksumDeltaMul(piVar3 + 0x9b9,&puStack_924,uVar7);
     uStack_8c = 0xd;
     (*pcVar10)(&DAT_005a9068);
-    uVar8 = PeekPacketChecksumState();
+    uVar8 = PeekPacketChecksumState((void *)&DAT_00796aa0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumDeltaDiv(uVar7,auStack_704,uVar8);
+    uVar15 = EncodeChecksumDeltaDiv(uVar7,auStack_704,uVar8);
     puVar5 = &DAT_005a9068;
     uStack_90 = 0xe;
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4303f4
@@ -630,7 +655,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
      * bytes) - the same cell explicitly passed to EncodeChecksumDeltaMul
      * above. See tools/encodeoutgoingpacketfield_sites.json. */
     (*pcVar10)(&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)uVar15);
     EncodeOutgoingPacketField(piVar3 + 0x9b9,uVar7);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_94 = CONCAT31(SUBFIELD(uStack_94,1,undefined3),0xd);
@@ -646,21 +671,21 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
       pcVar11 = (code *)LeaveCriticalSection;
     }
     (*pcVar10)(&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)&DAT_00e9c578);
     (*pcVar11)(&DAT_005a9068);
     EncodeChecksumDeltaMul(piVar3 + 0xa42,auStack_2c8,puVar13);
     uStack_9c = 0xf;
     (*pcVar10)(&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)&DAT_00796aa0);
     (*pcVar11)(&DAT_005a9068);
-    EncodeChecksumDeltaDiv(uVar7,auStack_4f4,puVar5);
+    uVar15 = EncodeChecksumDeltaDiv(uVar7,auStack_4f4,puVar5);
     uStack_a4 = 0x10;
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x43050c
      * (`lea edi,[ebp + 0x2908]`): cell is piVar3+0xa42 (== piVar3+0x2908
      * bytes) - the same cell explicitly passed to EncodeChecksumDeltaMul
      * above. See tools/encodeoutgoingpacketfield_sites.json. */
     (*pcVar10)(&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)uVar15);
     EncodeOutgoingPacketField(piVar3 + 0xa42,uVar7);
     (*pcVar11)(&DAT_005a9068);
     uStack_7c = CONCAT31(SUBFIELD(uStack_7c,1,undefined3),0xf);
