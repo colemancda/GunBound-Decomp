@@ -3,6 +3,16 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 6 argless PeekPacketChecksumState() calls (6 C : 6 orig,
+ * goto-free zip), from tools/guard_cell_resolve.py over
+ * 0x48d8e0-0x48db90.  Five cells hang off the live-in ECX object
+ * (param_1): the +0x1178/+0xf54 pair feeding FUN_004373c0 (the
+ * "ssflame2" registration), then +0x33c8/+0x1178/+0xf54 feeding the
+ * FUN_00425ac0 lookup - the same three-cell argument pattern
+ * FUN_004759b0 uses for the same callee.  The sixth is
+ * g_clientContext+0x45354 (the battle-mode cell).
  */
 #include "ghidra_types.h"
 
@@ -30,22 +40,22 @@ void __fastcall FUN_0048d8e0(int param_1)
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x1178));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_004373c0(uVar4,uVar3,0x206d,s_ssflame2_00555320);
     local_240 = 0;
     do {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar3 = PeekPacketChecksumState();
+      uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x33c8));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar4 = PeekPacketChecksumState();
+      uVar4 = PeekPacketChecksumState((void *)(param_1 + 0x1178));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar5 = PeekPacketChecksumState();
+      uVar5 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       piVar6 = (int *)FUN_00425ac0(g_clientContext,uVar5,uVar4,uVar3);
       if (piVar6 != (int *)0x0) {
@@ -54,7 +64,7 @@ void __fastcall FUN_0048d8e0(int param_1)
           cVar2 = PeekPacketChecksumBool();
           if ((cVar2 != '\x01') && (piVar6[9] != 0xe)) {
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar7 = PeekPacketChecksumState();
+            iVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             if (iVar7 != 3) {
               cVar2 = PacketChecksumNotEquals(piVar6 + 0x1bf5,0);
