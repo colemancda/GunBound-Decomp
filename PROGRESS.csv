@@ -318,7 +318,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0041f200,2887,FUN_0041f200,false,9,6,RAW-src
 0041fd50,1311,FUN_0041fd50,false,1,4,RAW-src
 00420280,294,FUN_00420280,false,2,3,RAW-src
-004203b0,583,FUN_004203b0,false,1,6,RAW-src
+004203b0,583,SortTurnOrderByDelay,false,1,6,RAW-src
 00420600,77,FUN_00420600,false,4,3,RAW-src
 00420650,152,FUN_00420650,false,3,3,RAW-src
 004206f0,197,GetPlayerRecordBySlot,false,72,1,RAW-src
@@ -618,7 +618,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0045ba50,3207,FUN_0045ba50,false,2,17,RAW-src
 0045c6e0,1133,ComputeMobileGroundY,false,17,10,RAW-src
 0045cb50,1521,FUN_0045cb50,false,1,24,RAW-src
-0045d150,523,FUN_0045d150,false,3,5,RAW-src
+0045d150,523,ComputeTurnDelay,false,3,5,RAW-src
 0045d360,725,FUN_0045d360,false,9,8,RAW-src
 0045d640,82,FUN_0045d640,false,2,1,RAW-src
 0045d692,1154,FUN_0045d692,false,1,16,RAW-src
@@ -969,7 +969,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004cedc0,97,FUN_004cedc0,false,1,0,RAW-src
 004cee30,535,FUN_004cee30,false,2,9,RAW-src
 004cf050,690,FUN_004cf050,false,3,7,RAW-src
-004cf310,2038,FUN_004cf310,false,6,28,RAW-src
+004cf310,2038,AdvanceTurnQueue,false,6,28,RAW-src
 004cfb20,504,FUN_004cfb20,false,1,4,RAW-src
 004cfd20,1341,FUN_004cfd20,false,1,8,RAW-src
 004d0260,1874,FUN_004d0260,false,2,9,RAW-src

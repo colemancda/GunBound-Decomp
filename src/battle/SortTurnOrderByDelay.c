@@ -1,8 +1,33 @@
-/* FUN_004203b0 - 0x004203b0 in the original binary.
+/* SortTurnOrderByDelay - 0x004203b0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-08-13, from FUN_004203b0). Sorts the battle turn order
+ * by each player's accumulated delay, once per tick from
+ * State11_InBattle_OnTick.
+ *
+ * Two parallel guard arrays in the client context, both 8 entries of
+ * stride 0x224, drive this:
+ *   g_clientContext + 0xebef4  per-player DELAY cells
+ *   g_clientContext + 0xef254  the ORDER array - each entry holds a
+ *                              player slot number
+ * The nested loop is a plain selection sort: it reads two order entries,
+ * uses them to index the delay array, and swaps the ORDER entries (not
+ * the delays) when the inner player's delay is the smaller - i.e. it
+ * sorts the order array ascending by delay, which is turn order.
+ *
+ * Around the sort it biases the local player: it Peeks the current-slot
+ * index at g_clientContext+0x3b49c, ADDS ComputeTurnDelay's result to
+ * that player's delay cell before sorting and SUBTRACTS it after, so the
+ * ordering previews where the pending shot would place them.  That bias
+ * is skipped unless the room object at g_clientContext+0x621e0 exists
+ * and both of its guarded bools are set.
+ *
+ * The delay array and the +0x3b49c current-slot index are corroborated
+ * by AdvanceTurnQueue, which writes 0xffffffff into the same
+ * +0xebef4 + slot*0x224 cell when a turn is consumed and compares the
+ * queue head against the same +0x3b49c value.
+ *
+ * Body is a raw/near-verbatim Ghidra port, not hand-verified. See
+ * src/README.md's "Raw/verbatim ports" section for status.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 10 argless PeekPacketChecksumState() and all 4 one-arg
@@ -46,7 +71,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004203b0(int param_1)
+void SortTurnOrderByDelay(int param_1)
 
 {
   char cVar1;
@@ -65,7 +90,7 @@ void FUN_004203b0(int param_1)
   local_14 = 0;
   if (((*(int *)(param_1 + 0x621e0) != 0) && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) &&
      (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) {
-    local_14 = FUN_0045d150();
+    local_14 = ComputeTurnDelay();
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x3b49c));

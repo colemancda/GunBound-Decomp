@@ -499,7 +499,7 @@ LAB_004bdf96:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_004507d0();
   FUN_004f3100();
-  FUN_004203b0();
+  SortTurnOrderByDelay();
   iVar5 = g_clientContext;
   FUN_004068d0();
   iVar6 = *(int *)(iVar5 + 0xf0380);
@@ -1693,7 +1693,7 @@ LAB_004c0f5c:
         *piVar15 = *piVar15 + -1;
         if (*piVar15 == 0) {
           piStack_3d5c[0x42d] = -1;
-          FUN_004cf310();
+          AdvanceTurnQueue();
         }
       }
     }

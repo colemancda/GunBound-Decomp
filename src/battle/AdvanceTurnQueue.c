@@ -1,9 +1,27 @@
-/* FUN_004cf310 - 0x004cf310 in the original binary.
+/* AdvanceTurnQueue - 0x004cf310 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-08-13, from FUN_004cf310). Consumes the head of the
+ * battle turn queue and advances to the next player.
+ *
+ * The queue is a byte array at param_1+0x10a8 with its length at
+ * param_1+0x10b0.  The function returns immediately when that length is
+ * zero; otherwise it retires the head slot and then shifts the array
+ * down by one, stores 0xff into the vacated tail entry, and decrements
+ * the length - a plain pop-front.
+ *
+ * Retiring the head means writing 0xffffffff into that player's cell in
+ * the per-player delay array, g_clientContext + 0xebef4 + slot*0x224 -
+ * the same array SortTurnOrderByDelay orders the turn list by, which is
+ * what ties these two together.  It also compares the head slot against
+ * the current-slot index at g_clientContext+0x3b49c (again shared with
+ * SortTurnOrderByDelay) and, when they match, either tears down the
+ * aiming widgets or marks the local player done depending on the battle
+ * mode at g_clientContext+0x45354.
+ *
+ * Call sites match that role: State11_InBattle_OnTick calls it when the
+ * per-turn countdown at [0x42d] reaches zero, and
+ * State11_InBattle_ProcessBattleAction calls it from three of the
+ * turn-end cases after setting the next battle phase in [0x42e].
  *
  * FIXED (2026-07-16): the 2 EncodeOutgoingPacketField calls dropped self -
  * confirmed via angr (tools/encodeoutgoingpacketfield_sites.json, func_addr
@@ -16,6 +34,9 @@
  * distinct field Ghidra's decompile never assigned to a local); the second
  * call's self is the exact same +0xebef4 cell that EncodeChecksumPairSum
  * already uses.
+ *
+ * Body is a raw/near-verbatim Ghidra port, not hand-verified. See
+ * src/README.md's "Raw/verbatim ports" section for status.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 11 argless PeekPacketChecksumState() calls (peek status
@@ -47,7 +68,7 @@
 /* WARNING: Removing unreachable block (ram,0x004cf761) */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __fastcall FUN_004cf310(int param_1)
+void __fastcall AdvanceTurnQueue(int param_1)
 
 {
   char cVar1;

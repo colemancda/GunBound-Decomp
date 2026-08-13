@@ -605,17 +605,17 @@ LAB_004b7c01:
           switch(*(byte *)puVar12) {
           case 0:
             param_1[0x42e] = 3;
-            FUN_004cf310();
+            AdvanceTurnQueue();
             *unaff_FS_OFFSET = local_14;
             return;
           case 1:
             param_1[0x42e] = 4;
-            FUN_004cf310();
+            AdvanceTurnQueue();
             *unaff_FS_OFFSET = local_14;
             return;
           case 2:
             param_1[0x42e] = 0;
-            FUN_004cf310();
+            AdvanceTurnQueue();
             *unaff_FS_OFFSET = local_14;
             return;
           case 0xe:

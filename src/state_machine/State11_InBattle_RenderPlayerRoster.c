@@ -727,7 +727,7 @@ LAB_00409561:
       iVar13 = PeekPacketChecksumState();
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (*(char *)(*(int *)(g_clientContext + 0x621e0) + 0xae68) == '\0') {
-        iVar13 = FUN_0045d150();
+        iVar13 = ComputeTurnDelay();
         iVar13 = iVar13 / 10;
       }
       _Format = &PTR_DAT_00551ed0;
@@ -736,7 +736,7 @@ LAB_00409561:
       uVar11 = (uint)((ulonglong)uVar7 * 0xcccccccd >> 0x20);
       uVar14 = local_101c / 10;
       if (*(char *)(*(int *)(g_clientContext + 0x621e0) + 0xae68) == '\0') {
-        iVar13 = FUN_0045d150();
+        iVar13 = ComputeTurnDelay();
         uVar11 = (uint)((ulonglong)(iVar13 + uVar7) * 0xcccccccd >> 0x20);
       }
       iVar13 = uVar14 - (uVar11 >> 3);

@@ -1,8 +1,28 @@
-/* FUN_0045d150 - 0x0045d150 in the original binary.
+/* ComputeTurnDelay - 0x0045d150 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-08-13, from FUN_0045d150). Computes a player's turn
+ * delay from the mobile's guarded stats and its item loadout.  The
+ * mobile object arrives in EAX (modelled here as `in_EAX`).
+ *
+ * Identified from its two callers, which agree:
+ *   - SortTurnOrderByDelay adds this value to the local player's cell in
+ *     the per-player delay array at g_clientContext+0xebef4 before
+ *     sorting the turn order by that array, and subtracts it after.
+ *   - State11_InBattle_RenderPlayerRoster divides it by 10 and sprintf's
+ *     it into the roster row: "%5d" (0x551ed0) for the row that matches
+ *     the current slot and "%+5d" (0x551ec4) for the others - the
+ *     absolute-then-relative pair GunBound's player list shows for
+ *     delay.  Both call sites gate it on the room object's flag at
+ *     +0xae68.
+ *
+ * The item term is what makes it a loadout-sensitive value: it calls
+ * GetItemQuantityByIcon with the icon id at in_EAX+0xbfbc and folds the
+ * count against a cell drawn from the per-slot BLOCK at
+ * g_clientContext + 0x50cf4 + slot*0x1120 (0x1120 == 8*0x224, eight
+ * guard cells per slot).
+ *
+ * Body is a raw/near-verbatim Ghidra port, not hand-verified. See
+ * src/README.md's "Raw/verbatim ports" section for status.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 9 argless PeekPacketChecksumState() calls (peek status
@@ -24,7 +44,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_0045d150(void)
+int ComputeTurnDelay(void)
 
 {
   char cVar1;

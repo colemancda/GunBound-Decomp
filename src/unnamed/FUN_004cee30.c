@@ -76,7 +76,7 @@ LAB_004cefef:
     FUN_0043c6a0();
   }
   *(undefined4 *)(param_1 + 0x10b8) = 0;
-  FUN_004cf310();
+  AdvanceTurnQueue();
   return;
 }
 

@@ -120,7 +120,7 @@ void FUN_004d0a10(int *param_1,undefined2 *param_2)
   EncodeOutgoingPacketField((void *)(g_clientContext + 0x5b1ac), (int)sVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   param_1[0x42e] = 1;
-  FUN_004cf310();
+  AdvanceTurnQueue();
   return;
 }
 
