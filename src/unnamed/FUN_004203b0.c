@@ -3,6 +3,45 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
+ * cell at all 10 argless PeekPacketChecksumState() and all 4 one-arg
+ * EncodeOutgoingPacketField() calls (both lists "clean"), from
+ * tools/guard_cell_resolve.py plus a full read of 0x4203b0-0x4205f4.
+ *
+ * The function is a selection sort over the per-player CValueGuard
+ * array at param_1+0xebef4, stride 0x224, and NOTHING here is a plain
+ * cell address - every cell is either indexed by another cell's VALUE
+ * or is a loop-carried pointer, and Ghidra dropped both.
+ *
+ * (1) Indexed cells.  Four Peeks read a slot number and the next access
+ * uses it: `imul <result>,0x224 / lea [<result> + ebx + 0xebef4]` at
+ * 0x420425, 0x4204cb, 0x4204e1 and 0x4205c1.  Those four results are
+ * discarded by the decompile and are now captured into iVar6/iVar7/
+ * iVar8.  Note the crossover at 0x4204cb/0x4204e1: the INNER cursor's
+ * value indexes the first slot and the OUTER cursor's value the second,
+ * matching `if (iVar2 < iVar3)` against 0x4204f9's `cmp ebx,eax`.
+ *
+ * (2) Loop-carried cursors.  frame[0x10] and frame[0x14] hold two
+ * walking cell pointers that Ghidra folded away entirely (no local was
+ * emitted for either).  frame[0x10] starts at param_1+0xef254 when
+ * local_c is 1 and advances 0x224 per outer iteration, so it is
+ * param_1 + 0xef254 + (local_c - 1)*0x224.  frame[0x14] is reloaded to
+ * frame[0x10]+0x224 at each inner-loop entry and advances 0x224 per
+ * inner iteration while local_10 counts down from 8-local_c, so it is
+ * param_1 + 0xef254 + (8 - local_10)*0x224.  Both are written as
+ * expressions over the C's existing locals rather than by adding
+ * cursor variables and their updates.
+ *
+ * The 0x420509-0x420558 block is a SWAP: the inner cell is written with
+ * the outer cell's value and vice versa, so the two Encode cells there
+ * are crossed relative to the Peeks directly above them.
+ *
+ * ebx is param_1 for most of the function (loaded at 0x4203b4; this is
+ * __stdcall, `ret 4`), but the inner loop clobbers it at 0x4204c0 and
+ * 0x42052d and restores it from frame[0x30] at 0x42057c - so the two
+ * param_1+0x3b49c cells at the head and tail are the same address
+ * despite reaching it by different routes.
  */
 #include "ghidra_types.h"
 
@@ -15,6 +54,9 @@ void FUN_004203b0(int param_1)
   int iVar3;
   undefined4 uVar4;
   undefined4 uVar5;
+  int iVar6;
+  int iVar7;
+  int iVar8;
   int local_14;
   int local_10;
   int local_c;
@@ -26,11 +68,11 @@ void FUN_004203b0(int param_1)
     local_14 = FUN_0045d150();
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x3b49c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar2 + local_14);
+  iVar2 = PeekPacketChecksumState((void *)(param_1 + 0xebef4 + iVar6 * 0x224));
+  EncodeOutgoingPacketField((void *)(param_1 + 0xebef4 + iVar6 * 0x224), iVar2 + local_14);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_c = 1;
   local_8 = 7;
@@ -39,25 +81,25 @@ void FUN_004203b0(int param_1)
       local_10 = 8 - local_c;
       do {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        PeekPacketChecksumState();
+        iVar7 = PeekPacketChecksumState((void *)(param_1 + 0xef254 + (local_c + -1) * 0x224));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        PeekPacketChecksumState();
+        iVar8 = PeekPacketChecksumState((void *)(param_1 + 0xef254 + (8 - local_10) * 0x224));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar2 = PeekPacketChecksumState();
-        iVar3 = PeekPacketChecksumState();
+        iVar2 = PeekPacketChecksumState((void *)(param_1 + 0xebef4 + iVar8 * 0x224));
+        iVar3 = PeekPacketChecksumState((void *)(param_1 + 0xebef4 + iVar7 * 0x224));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (iVar2 < iVar3) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          uVar4 = PeekPacketChecksumState();
+          uVar4 = PeekPacketChecksumState((void *)(param_1 + 0xef254 + (8 - local_10) * 0x224));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          uVar5 = PeekPacketChecksumState();
-          EncodeOutgoingPacketField(uVar5);
+          uVar5 = PeekPacketChecksumState((void *)(param_1 + 0xef254 + (local_c + -1) * 0x224));
+          EncodeOutgoingPacketField((void *)(param_1 + 0xef254 + (8 - local_10) * 0x224), uVar5);
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          EncodeOutgoingPacketField(uVar4);
+          EncodeOutgoingPacketField((void *)(param_1 + 0xef254 + (local_c + -1) * 0x224), uVar4);
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         }
         local_10 = local_10 + -1;
@@ -67,11 +109,11 @@ void FUN_004203b0(int param_1)
     local_8 = local_8 + -1;
   } while (local_8 != 0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x3b49c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
-  EncodeOutgoingPacketField(iVar2 - local_14);
+  iVar2 = PeekPacketChecksumState((void *)(param_1 + 0xebef4 + iVar6 * 0x224));
+  EncodeOutgoingPacketField((void *)(param_1 + 0xebef4 + iVar6 * 0x224), iVar2 - local_14);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   return;
 }
