@@ -336,7 +336,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00423e20,647,FUN_00423e20,false,9,5,RAW-src
 004240c0,801,FUN_004240c0,false,12,7,RAW-src
 00424400,1692,FUN_00424400,false,3,6,RAW-src
-00424ac0,2189,FUN_00424ac0,false,2,8,RAW-src
+00424ac0,2189,ApplyAvatarStatBonuses,false,2,8,RAW-src
 00425350,329,FUN_00425350,false,11,1,RAW-src
 004254a0,604,FUN_004254a0,false,13,2,RAW-src
 00425700,98,FUN_00425700,false,1,2,RAW-src
@@ -974,7 +974,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004cfd20,1341,FUN_004cfd20,false,1,8,RAW-src
 004d0260,1874,FUN_004d0260,false,2,9,RAW-src
 004d09c0,67,FUN_004d09c0,false,4,3,RAW-src
-004d0a10,950,FUN_004d0a10,false,1,9,RAW-src
+004d0a10,950,BeginNewTurn,false,1,9,RAW-src
 004d0dd0,179,FUN_004d0dd0,false,1,3,RAW-src
 004d0e90,313,FUN_004d0e90,false,3,5,RAW-src
 004d0fd0,1314,FUN_004d0fd0,false,1,13,RAW-src

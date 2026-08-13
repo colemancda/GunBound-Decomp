@@ -441,7 +441,7 @@ uint FUN_00423e20(undefined4 param_1, int param_2);
  * fills. Recovered 2026-08-11; all 12 call sites pass it. */
 uint FUN_004240c0(undefined4 param_1, int param_2, int param_3, int param_4, int outRecord);
 void FUN_00424400();
-void FUN_00424ac0();
+void ApplyAvatarStatBonuses();
 int __fastcall FUN_00425350();
 void __fastcall FUN_004254a0();
 void FUN_00425700();
@@ -1048,7 +1048,7 @@ void FUN_004cfb20();
 void FUN_004cfd20();
 void FUN_004d0260();
 void FUN_004d09c0();
-void FUN_004d0a10();
+void BeginNewTurn();
 undefined4 FUN_004d0dd0();
 void FUN_004d0e90();
 void FUN_004d0fd0();

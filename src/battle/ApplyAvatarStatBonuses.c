@@ -1,9 +1,36 @@
-/* FUN_00424ac0 - 0x00424ac0 in the original binary.
+/* ApplyAvatarStatBonuses - 0x00424ac0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-08-13, from FUN_00424ac0). Builds a player's eight
+ * avatar stat cells from their equipped parts, clamps each to +/-0x32,
+ * and writes them into the caller's cell block.
+ *
+ * Signature is (context, partRecord, destCells, applyModeMask).  Both
+ * callers pass g_clientContext first and an 8-element CValueGuard array
+ * as destCells:
+ *   State09_ReadyRoom_ProcessPacket -> g_clientContext + 0x50240 +
+ *       slot*0x1120  (0x1120 == 8*0x224, eight cells per player)
+ *   LoadAvatarSprites -> its own param_5
+ *
+ * The four unrolled rounds each call FUN_00423e20 - the XFS entry
+ * opener the avatar-part chain already uses (FUN_004240c0,
+ * FUN_00445450, RenderInventoryItemDetail) - with selector 0..3, then
+ * copy the eight LOCAL cells into destCells.  The first round assigns,
+ * the next three accumulate, which is what makes this a sum over the
+ * equipped parts rather than a plain copy.
+ *
+ * The do-while that follows clamps each of the eight cells to the range
+ * [-0x32, +0x32] against the 0x32 defaults it just seeded, and the final
+ * conditional loop zeroes cells 0..6 when bit 4 of the mode word at
+ * context+0x4111c is clear and applyModeMask is 1 - i.e. only the last
+ * stat survives outside that mode.
+ *
+ * Filed under src/battle because that block is the per-player battle
+ * stat array: ComputeTurnDelay reads cell 3 of the very same
+ * g_clientContext + 0x50cf4 + slot*0x1120 (0x50cf4 - 0x50240 == 3*0x224)
+ * when it computes a player's turn delay.
+ *
+ * Body is a raw/near-verbatim Ghidra port, not hand-verified. See
+ * src/README.md's "Raw/verbatim ports" section for status.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the
  * guard-cell pointer Ghidra dropped from all 61 argless
@@ -43,7 +70,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void FUN_00424ac0(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
+void ApplyAvatarStatBonuses(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
 
 {
   undefined4 uVar1;

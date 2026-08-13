@@ -1,9 +1,33 @@
-/* FUN_004d0a10 - 0x004d0a10 in the original binary.
+/* BeginNewTurn - 0x004d0a10 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * RENAMED (2026-08-13, from FUN_004d0a10). Handles the battle's
+ * turn-transition packet and starts the next turn.
+ *
+ * Sole caller is State11_InBattle_ProcessBattleAction's `case 0xc300`,
+ * which passes the battle object and `param_2 + 0x22` - the packet
+ * payload - and follows it with three PostTurnEvent replay records
+ * (0xc300 / 0xc306 / 0xc40b).
+ *
+ * What it does, in order: stamps the acting slot into param_1[0x428];
+ * seeds the turn counter at g_clientContext+0xeba98 from the packet's
+ * leading u16; on counter 0 runs the first-turn path; raises a
+ * localized notice (string 0x261) when the counter is 10 from the limit
+ * at +0x4512c; calls SpawnWeatherHazards; bumps +0xeb854 by 3 on every
+ * +0x473a0-th turn; increments the turn counter; seeds two per-turn
+ * values from packet bytes 1 and 3 into g_clientContext+0x5af88 and
+ * +0x5b1ac; sets the battle phase in param_1[0x42e] to 1; and finally
+ * calls AdvanceTurnQueue to retire the head of the turn queue.
+ *
+ * The two per-turn values it seeds are the ones every projectile
+ * spawner reads back (SpawnPrimaryShot, SpawnItemProjectile,
+ * FUN_004337f0, FUN_004aa520) and that the shot broadcast re-sends as a
+ * u16 pair (Mobile.cpp, State11_InBattle_HandleFireInput) - i.e. they
+ * are per-turn shot parameters assigned by the server, not client
+ * state.  Their exact meaning is NOT confirmed here, so they are left
+ * as raw g_clientContext offsets.
+ *
+ * Body is a raw/near-verbatim Ghidra port, not hand-verified. See
+ * src/README.md's "Raw/verbatim ports" section for status.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 13 argless PeekPacketChecksumState() and all 6 one-arg
@@ -31,7 +55,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004d0a10(int *param_1,undefined2 *param_2)
+void BeginNewTurn(int *param_1,undefined2 *param_2)
 
 {
   undefined1 uVar1;

@@ -400,7 +400,7 @@ LAB_004d438d:
           puVar22 = (undefined4 *)(iVar17 + 0x501fe + uVar18 * 8);
           *puVar22 = uVar11;
           puVar22[1] = *(undefined4 *)(iVar17 + 0x458c0 + uVar18 * 8);
-          FUN_00424ac0(iVar17,puVar22,uVar18 * 0x1120 + 0x50240 + iVar17,1);
+          ApplyAvatarStatBonuses(iVar17,puVar22,uVar18 * 0x1120 + 0x50240 + iVar17,1);
           iVar17 = (uVar18 - 0x7482) * 0xb - g_clientContext;
           pcVar13 = (char *)(iStack_98c + 0x50196 + g_clientContext);
           do {

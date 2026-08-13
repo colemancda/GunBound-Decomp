@@ -548,7 +548,7 @@ LAB_004b7c01:
           SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           param_1[0x8f3] = -1;
           if ((char)param_1[0x474] == '\0') {
-            FUN_004d0a10(param_1,param_2 + 0x22);
+            BeginNewTurn(param_1,param_2 + 0x22);
           }
           PostTurnEvent(&g_replayContext,0xc300);
           PostTurnEvent(&g_replayContext,0xc306);
