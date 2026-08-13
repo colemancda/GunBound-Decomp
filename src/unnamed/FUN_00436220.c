@@ -3,6 +3,18 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
+ * cell at all 9 argless PeekPacketChecksumState() calls (peek status
+ * "clean", 9 C : 9 orig), from tools/guard_cell_resolve.py over
+ * 0x436220-0x436866.
+ *
+ * Another allocate-then-populate spawner, structurally the same as
+ * FUN_004337f0: the object is ESI (the resolver stalls on `xor esi,esi`
+ * at the allocation-FAILED path, which merges before every later use),
+ * and six of the nine cells sit directly beside Encode sites the
+ * 2026-07-15 sweep already fixed at the same offsets off piVar2.  The
+ * other three are the &DAT_00796aa0 / &DAT_00794e48 globals.
  */
 #include "ghidra_types.h"
 
@@ -52,7 +64,7 @@ void FUN_00436220(undefined4 param_1,undefined4 param_2,undefined4 param_3)
     EncodeOutgoingPacketField((void *)((int)piVar2 + 0xf54),param_2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)((int)piVar2 + 0xf54));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x43631f
      * (`0x436319: lea edi,[esi + 0x3b48]`) the cell is piVar2 + 0x3b48.
      * See tools/encodeoutgoingpacketfield_sites.json. */
@@ -83,28 +95,28 @@ void FUN_00436220(undefined4 param_1,undefined4 param_2,undefined4 param_3)
     EncodeOutgoingPacketField((void *)((int)piVar2 + 0xd18),0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)((int)piVar2 + 0xd18));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4363b2
      * (`0x4363ac: lea edi,[esi + 0xaf4]`) the cell is piVar2 + 0xaf4.
      * See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((void *)((int)piVar2 + 0xaf4),uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)((int)piVar2 + 0xaf4));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4363d7
      * (`0x4363c3: lea edi,[esi + 0x6ac]`) the cell is piVar2 + 0x6ac.
      * See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((void *)((int)piVar2 + 0x6ac),uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)((int)piVar2 + 0x6ac));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4363f8
      * (`0x4363f2: lea edi,[esi + 0x488]`) the cell is piVar2 + 0x488.
      * See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((void *)((int)piVar2 + 0x488),uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)((int)piVar2 + 0x488));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x43641d
      * (`0x436417: lea edi,[esi + 0x8d0]`) the cell is piVar2 + 0x8d0.
      * See tools/encodeoutgoingpacketfield_sites.json. */
@@ -121,7 +133,7 @@ void FUN_00436220(undefined4 param_1,undefined4 param_2,undefined4 param_3)
     *(byte *)((int)piVar2 + 0xf41) = bVar5 + *(char *)((int)piVar2 + 0xf3f) + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)&DAT_00796aa0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4364c9
@@ -130,14 +142,14 @@ void FUN_00436220(undefined4 param_1,undefined4 param_2,undefined4 param_3)
     EncodeOutgoingPacketField((void *)((int)piVar2 + 0x17e4),uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)((int)piVar2 + 0x17e4));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4364ea
      * (`0x4364e4: lea edi,[esi + 0x1a08]`) the cell is piVar2 + 0x1a08.
      * See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((void *)((int)piVar2 + 0x1a08),uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)&DAT_00794e48);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x43651e
@@ -194,7 +206,7 @@ void FUN_00436220(undefined4 param_1,undefined4 param_2,undefined4 param_3)
     EncodeOutgoingPacketField((void *)((int)piVar2 + 0x2f74),0x6e);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)&DAT_00796aa0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x43662a

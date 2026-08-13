@@ -4,6 +4,19 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
+ * cell at all 9 argless PeekPacketChecksumState() calls (peek status
+ * "clean", 9 C : 9 orig), from tools/guard_cell_resolve.py over
+ * 0x463e50-0x46408a.  Straight-line, so the sites order-zip.
+ *
+ * The function is a pure copy loop: each Peek reads a cell high in the
+ * object (+0xc2b0 / +0xc4d4 / +0xc6f8 / +0xc944 / +0xcb68 / +0xcd8c /
+ * +0xcfb0, plus +0x90c and +0xb30) and the Encode on the next line
+ * writes it to a low one.  All of them share the base unaff_ESI, which
+ * the 2026-07-15 Encode sweep already established for the write side -
+ * so every Peek here sits directly beside an Encode whose base was
+ * derived independently.
  */
 #include "ghidra_types.h"
 
@@ -23,23 +36,23 @@ void FUN_00463e50(void)
    * `int`, so `unaff_ESI + N` is already byte-precise. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xc2b0));
   EncodeOutgoingPacketField(unaff_ESI + 0x90c, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0x90c));
   EncodeOutgoingPacketField(unaff_ESI + 0x15e4, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xc4d4));
   EncodeOutgoingPacketField(unaff_ESI + 0xb30, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xb30));
   EncodeOutgoingPacketField(unaff_ESI + 0x1808, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xc6f8));
   EncodeOutgoingPacketField(unaff_ESI + 0x1c54, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined4 *)(unaff_ESI + 0x24) = *(undefined4 *)(unaff_ESI + 0xc91c);
@@ -55,20 +68,20 @@ void FUN_00463e50(void)
   RescrambleGuardedBool();
   RescrambleGuardedBool();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xc944));
   EncodeOutgoingPacketField(unaff_ESI + 0x6fd4, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_0045ba50(unaff_ESI);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xcb68));
   EncodeOutgoingPacketField(unaff_ESI + 0x4d90, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xcd8c));
   EncodeOutgoingPacketField(unaff_ESI + 0x51d8, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xcfb0));
   EncodeOutgoingPacketField(unaff_ESI + 0x4948, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   return;
