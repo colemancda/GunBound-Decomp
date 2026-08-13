@@ -4,6 +4,29 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 8 argless PeekPacketChecksumState() calls (8 C : 8 orig,
+ * goto-free zip), from tools/guard_cell_resolve.py over
+ * 0x4d0fd0-0x4d1430.
+ *
+ * The function migrates a player's guarded state from the OLD record
+ * (iVar1, the first GetPlayerRecordBySlot return) into the NEW one
+ * (iVar4, the second): each Peek reads iVar1+N and the Encode beside it
+ * writes iVar4+N at the SAME offset (0x8bc4 / 0x1c54 / 0xc080) - the
+ * two-object-copier shape, where mixing the bases up would not look
+ * wrong.  The plain-copy block below the guard sites does the same for
+ * a dozen unguarded fields, corroborating the direction.
+ *
+ * One cell is PATH-DEPENDENT and was folded away entirely by Ghidra:
+ * at 0x4d128c the source for the +0x853c copy is chosen by
+ * CompareChecksumPair(iVar4+0x8318, iVar1+0x853c) - taken branch reads
+ * iVar4+0x8318, fall-through reads iVar1+0x853c - but the C discarded
+ * the compare's result.  Now captured (cVar6) and the cell written as
+ * the ternary the disasm actually implements.  One more cell is the
+ * chained return of FUN_0040aea0 (captured in uVar7), and the
+ * +0x3b49c read is the current-slot index cell spilled one push deep
+ * at 0x4d10e6.
  */
 #include "ghidra_types.h"
 
@@ -16,6 +39,8 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
   undefined4 uVar3;
   int iVar4;
   uint uVar5;
+  char cVar6;
+  undefined4 uVar7;
   undefined4 *unaff_FS_OFFSET;
   undefined1 local_8a4 [8];
   undefined1 local_89c [20];
@@ -38,10 +63,10 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
     *(undefined4 *)(*(int *)(iVar1 + 0xc) + 0x10) = *(undefined4 *)(iVar1 + 0x10);
     *(undefined4 *)(*(int *)(iVar1 + 0x10) + 0xc) = *(undefined4 *)(iVar1 + 0xc);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(iVar1 + 0xb30));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)(iVar1 + 0x90c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     CreateMobile((uint)param_1,param_2,uVar3,uVar2,*(undefined4 *)(iVar1 + 0xae2c),
                  *(undefined4 *)(iVar1 + 0xae38),*(undefined4 *)(iVar1 + 0xae3c),iVar1 + 0xae15,
@@ -50,7 +75,7 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
     if (iVar4 != 0) {
       *(int *)(g_clientContext + 0x621e4) = iVar4;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar5 = PeekPacketChecksumState();
+      uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (param_1 == uVar5) {
         *(int *)(g_clientContext + 0x621e0) = iVar4;
@@ -77,17 +102,17 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
        * GetPlayerRecordBySlot call above) the cell is iVar4+0x8bc4. See
        * tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar2 = PeekPacketChecksumState();
+      uVar2 = PeekPacketChecksumState((void *)(iVar1 + 0x8bc4));
       EncodeOutgoingPacketField(iVar4 + 0x8bc4, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x4d1267 (`lea edi,[ebx+0x1c54]` at 0x4d1253) the cell is
        * iVar4+0x1c54. See tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar2 = PeekPacketChecksumState();
+      uVar2 = PeekPacketChecksumState((void *)(iVar1 + 0x1c54));
       EncodeOutgoingPacketField(iVar4 + 0x1c54, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      CompareChecksumPair(iVar4 + 0x8318,iVar1 + 0x853c);
+      cVar6 = CompareChecksumPair(iVar4 + 0x8318,iVar1 + 0x853c);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x4d12b5 (`lea edi,[ebx+0x853c]` at 0x4d12a3, AFTER the
        * CompareChecksumPair call above reuses ebx/edi for its own
@@ -95,7 +120,7 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
        * call is what feeds it) the cell is iVar4+0x853c. See
        * tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar2 = PeekPacketChecksumState();
+      uVar2 = PeekPacketChecksumState((void *)(cVar6 != 0 ? iVar4 + 0x8318 : iVar1 + 0x853c));
       EncodeOutgoingPacketField(iVar4 + 0x853c, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       RescrambleGuardedBool();
@@ -109,7 +134,7 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
        * 0x4d1339 (`lea edi,[ebx+0xc080]` at 0x4d1325) the cell is
        * iVar4+0xc080. See tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar2 = PeekPacketChecksumState();
+      uVar2 = PeekPacketChecksumState((void *)(iVar1 + 0xc080));
       EncodeOutgoingPacketField(iVar4 + 0xc080, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       *(undefined4 *)(iVar1 + 0xbfe4) = 200;
@@ -120,7 +145,7 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
       SUBFIELD(local_4,0,undefined1) = 1;
       uVar3 = InitGuardedChecksumSlot(iVar4 + 0x6744,local_454,uVar3);
       SUBFIELD(local_4,0,undefined1) = 2;
-      FUN_0040aea0(uVar3,local_89c,uVar2);
+      uVar7 = FUN_0040aea0(uVar3,local_89c,uVar2);
       SUBFIELD(local_4,0,undefined1) = 3;
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x4d13ef (`mov edi,ebx`, ebx was bumped from iVar4 to
@@ -129,7 +154,7 @@ void FUN_004d0fd0(int param_1,undefined4 param_2)
        * expressed as a named variable in the existing C, so written
        * directly. See tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar2 = PeekPacketChecksumState();
+      uVar2 = PeekPacketChecksumState((void *)uVar7);
       EncodeOutgoingPacketField(iVar4 + 0x6968, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       SUBFIELD(local_4,0,undefined1) = 2;
