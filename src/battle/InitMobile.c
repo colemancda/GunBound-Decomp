@@ -12,6 +12,24 @@
  * Function IDENTITY is confirmed (mobile base ctor); the BODY is a raw/near-
  * verbatim Ghidra port, not hand-verified. See src/README.md's "Raw/verbatim
  * ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
+ * cell at all 8 argless PeekPacketChecksumState() calls (peek status
+ * "clean", 8 C : 8 orig), from tools/guard_cell_resolve.py over
+ * 0x458b80-0x45a551.
+ *
+ * Seven of the eight are a SHIFT REGISTER: read cell N, write it to
+ * cell N-1 (0x2cc->0x243, 0x467->0x3de, 0x3de->0x355, 0x214f->0x20c6,
+ * 0x2f65->0x2edc, 0x2edc->0x2e53, 0x2e53->0x2dca).  Each Peek's cell is
+ * therefore the Encode cell of the statement one step up the chain, and
+ * all 111 of this file's Encode cells were already fixed in 2026-07-15
+ * - so every mapping here is checked against a base and an offset that
+ * were derived independently.  The eighth cell is &DAT_00796aa0.
+ *
+ * guard_cell_resolve.py cannot name the base: param_1 is spilled in the
+ * PROLOGUE, so it reports every cell as `[esp+0x1c] !!PRE-SETTLE` and
+ * refuses to normalise the slot.  Its offsets are still good - only the
+ * base needed the file's own Encode idiom to name.
  */
 #include "ghidra_types.h"
 
@@ -467,18 +485,18 @@ undefined4 * InitMobile(undefined4 *param_1,undefined4 param_2)
   EncodeOutgoingPacketField(param_1 + 0x2cc, 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(param_1 + 0x2cc));
   EncodeOutgoingPacketField(param_1 + 0x243, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(param_1 + 0x467, 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(param_1 + 0x467));
   EncodeOutgoingPacketField(param_1 + 0x3de, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(param_1 + 0x3de));
   EncodeOutgoingPacketField(param_1 + 0x355, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -501,13 +519,13 @@ undefined4 * InitMobile(undefined4 *param_1,undefined4 param_2)
   EncodeOutgoingPacketField(param_1 + 0x21d8, 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)&DAT_00796aa0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField(param_1 + 0x214f, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(param_1 + 0x214f));
   EncodeOutgoingPacketField(param_1 + 0x20c6, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -767,15 +785,15 @@ undefined4 * InitMobile(undefined4 *param_1,undefined4 param_2)
   EncodeOutgoingPacketField(param_1 + 0x2f65, 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(param_1 + 0x2f65));
   EncodeOutgoingPacketField(param_1 + 0x2edc, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(param_1 + 0x2edc));
   EncodeOutgoingPacketField(param_1 + 0x2e53, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(param_1 + 0x2e53));
   EncodeOutgoingPacketField(param_1 + 0x2dca, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   param_1[0x2ff8] = 0x60;
