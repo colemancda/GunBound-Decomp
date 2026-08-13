@@ -4,6 +4,21 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 7 argless PeekPacketChecksumState() calls (7 C : 7 orig,
+ * goto-free zip), from tools/guard_cell_resolve.py over
+ * 0x4cf050-0x4cf310.
+ *
+ * The loop cell walks the per-player delay array: `lea esi,[edx + esi +
+ * 0xebef4]` at 0x4cf0b9, where edx is frame[0x14] - the C's own local_c
+ * byte cursor (steps 0x224 per iteration, bound 0x1120, i.e. all 8
+ * player cells) - so the cell is g_clientContext + 0xebef4 + local_c.
+ * The `iVar3 != -1` check right after is the retired-turn sentinel that
+ * AdvanceTurnQueue writes (0xffffffff), and param_2+0x10a8/+0x10b0 are
+ * the same turn queue it pops - this function is the queue's feeder,
+ * scanning for players not yet queued.  The other six cells are fixed
+ * g_clientContext offsets.
  */
 #include "ghidra_types.h"
 
@@ -31,7 +46,7 @@ void __thiscall FUN_004cf050(int param_1,int param_2)
     local_c = 0;
     do {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = PeekPacketChecksumState();
+      iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0xebef4 + local_c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar3 != -1) {
         iVar3 = 0;
@@ -56,17 +71,17 @@ void __thiscall FUN_004cf050(int param_1,int param_2)
     } while (local_c < 0x1120);
     if ((local_8 != 0) && (local_4 != 0)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = PeekPacketChecksumState();
+      iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar3 != 1) {
         return;
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = PeekPacketChecksumState();
+      iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x67e3d0));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar3 != 0) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar3 = PeekPacketChecksumState();
+        iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x67e5f4));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (iVar3 != 0) {
           return;
@@ -89,12 +104,12 @@ void __thiscall FUN_004cf050(int param_1,int param_2)
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\x01') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = PeekPacketChecksumState();
-      iVar4 = PeekPacketChecksumState();
+      iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
+      iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar3 == iVar4) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar3 = PeekPacketChecksumState();
+        iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if ((((iVar3 == 3) || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) &&
             (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) && (cVar2 = DecodeGuardedBool(), cVar2 == '\0')) {

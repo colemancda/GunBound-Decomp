@@ -3,6 +3,13 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 6 argless PeekPacketChecksumState() calls (6 C : 6 orig,
+ * goto-free zip), from tools/guard_cell_resolve.py over
+ * 0x4e4460-0x4e4940.  All six read the SAME cell, &DAT_00796aa0 -
+ * loaded as an immediate at every site, so there is nothing
+ * path-dependent here despite the branching around them.
  */
 #include "ghidra_types.h"
 
@@ -39,7 +46,7 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3)
   local_34 = 0;
   local_2c = 3;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_18 = iVar8 * param_3;
   uVar5 = (local_18 / iVar3) * 2;
@@ -88,7 +95,7 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3)
       local_2c = local_2c + 2;
       iVar9 = iVar4 + 2;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = PeekPacketChecksumState();
+      iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar5 = (local_20 / iVar3) * 2;
       iVar3 = param_1 - local_20 / iVar3;
@@ -133,7 +140,7 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3)
         }
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = PeekPacketChecksumState();
+      iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar5 = (local_18 / iVar3) * 2;
       iVar3 = param_1 - local_18 / iVar3;
@@ -187,7 +194,7 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3)
     iVar8 = local_30 * -2 + 5;
     local_2c = 3;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_10 = local_30 * param_3;
     DarkenTerrainScorchRow((local_10 / iVar3) * 2);
@@ -208,13 +215,13 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3)
         local_2c = local_2c + 2;
         iVar8 = iVar4 + 2;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar9 = PeekPacketChecksumState();
+        iVar9 = PeekPacketChecksumState((void *)&DAT_00796aa0);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar9 = (iVar3 / iVar9) * 2;
         DarkenTerrainScorchRow(iVar9);
         DarkenTerrainScorchRow(iVar9);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar9 = PeekPacketChecksumState();
+        iVar9 = PeekPacketChecksumState((void *)&DAT_00796aa0);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar9 = (local_10 / iVar9) * 2;
         DarkenTerrainScorchRow(iVar9);
