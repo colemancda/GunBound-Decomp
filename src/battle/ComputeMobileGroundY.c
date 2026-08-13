@@ -3,6 +3,20 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 9 argless PeekPacketChecksumState() calls.  The worklist's
+ * MISMATCH is stale - the tree today has exactly 9 argless sites and the
+ * zip holds 1:1 (goto-free).
+ *
+ * Same skeleton as FUN_0046cbb0: rounds of "combine two cells, read the
+ * result back, pair it with param_1+0x90c for FindGroundHeightAtColumn".
+ * Six cells are the chained returns of each round's opening
+ * EncodeChecksumPairDiff / EncodeChecksumDeltaAdd (0x45c737, 0x45c837,
+ * 0x45c8ed, 0x45c98f, 0x45ca0d, 0x45caaf), all discarded by the
+ * decompile and captured in a new uVar8.  The other three read
+ * param_1+0x90c, which the C already names local_67c - the frame spill
+ * at 0x45c778 stores exactly that lea.
  */
 #include "ghidra_types.h"
 
@@ -12,6 +26,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
 {
   int iVar1;
   undefined4 uVar2;
+  undefined4 uVar8;
   int iVar3;
   int iVar4;
   int iVar5;
@@ -37,14 +52,14 @@ int __fastcall ComputeMobileGroundY(int param_1)
   uVar2 = EncodeChecksumDeltaDiv(iVar5,local_678,2);
   iVar1 = param_1 + 0xb30;
   local_4 = 0;
-  EncodeChecksumPairDiff(iVar1,local_454,uVar2);
+  uVar8 = EncodeChecksumPairDiff(iVar1,local_454,uVar2);
   local_4 = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar6 = PeekPacketChecksumState();
+  iVar6 = PeekPacketChecksumState((void *)uVar8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_67c = param_1 + 0x90c;
-  iVar7 = PeekPacketChecksumState();
+  iVar7 = PeekPacketChecksumState((void *)local_67c);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed at
    * 0x45c798. y=EAX came from the PeekPacketChecksumState() return just
@@ -63,10 +78,10 @@ int __fastcall ComputeMobileGroundY(int param_1)
   }
   uVar2 = EncodeChecksumDeltaDiv(iVar5,local_454,2);
   local_4 = 2;
-  EncodeChecksumPairDiff(iVar1,local_678,uVar2);
+  uVar8 = EncodeChecksumPairDiff(iVar1,local_678,uVar2);
   local_4 = 3;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)uVar8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   bVar6 = local_680 == iVar3;
   local_4 = 2;
@@ -81,13 +96,13 @@ int __fastcall ComputeMobileGroundY(int param_1)
   }
   iVar3 = local_680;
   if (bVar6) {
-    EncodeChecksumPairDiff(iVar1,local_678,iVar5);
+    uVar8 = EncodeChecksumPairDiff(iVar1,local_678,iVar5);
     local_4 = 4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar6 = PeekPacketChecksumState();
+    iVar6 = PeekPacketChecksumState((void *)uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar7 = PeekPacketChecksumState();
+    iVar7 = PeekPacketChecksumState((void *)local_67c);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed at
      * 0x45c93d. y=EAX came from the PeekPacketChecksumState() return just
@@ -99,10 +114,10 @@ int __fastcall ComputeMobileGroundY(int param_1)
       ScrambleChecksumGuardBytes();
       TreeLowerBound(local_688);
     }
-    EncodeChecksumPairDiff(iVar1,local_678,iVar5);
+    uVar8 = EncodeChecksumPairDiff(iVar1,local_678,iVar5);
     local_4 = 5;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = PeekPacketChecksumState();
+    iVar5 = PeekPacketChecksumState((void *)uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if ((*(int *)(local_678 + 0x14)) != 0) {
@@ -111,13 +126,13 @@ int __fastcall ComputeMobileGroundY(int param_1)
     }
     iVar3 = local_680;
     if (iVar4 == iVar5) {
-      EncodeChecksumDeltaAdd(iVar1,local_678,1);
+      uVar8 = EncodeChecksumDeltaAdd(iVar1,local_678,1);
       local_4 = 6;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar6 = PeekPacketChecksumState();
+      iVar6 = PeekPacketChecksumState((void *)uVar8);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar7 = PeekPacketChecksumState();
+      iVar7 = PeekPacketChecksumState((void *)local_67c);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed at
        * 0x45ca5d. y=EAX came from the PeekPacketChecksumState() return
@@ -130,10 +145,10 @@ int __fastcall ComputeMobileGroundY(int param_1)
         ScrambleChecksumGuardBytes();
         TreeLowerBound(local_688);
       }
-      EncodeChecksumDeltaAdd(iVar1,local_230,1);
+      uVar8 = EncodeChecksumDeltaAdd(iVar1,local_230,1);
       local_4 = 7;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar5 = PeekPacketChecksumState();
+      iVar5 = PeekPacketChecksumState((void *)uVar8);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
