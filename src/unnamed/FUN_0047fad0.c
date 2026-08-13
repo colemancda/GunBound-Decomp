@@ -3,6 +3,28 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
+ * cell at all 10 argless PeekPacketChecksumState() calls (peek status
+ * "clean", 10 C : 10 orig).  Cells from tools/guard_cell_resolve.py over
+ * 0x47fad0-0x47fee5.
+ *
+ * Bases: unaff_ESI is the object (ESI is live-in here, and the +0x264
+ * cell sits next to the Encode site the 2026-07-15 sweep already fixed
+ * at that offset); frame[0x10] is iVar2, the GetPlayerRecordBySlot
+ * return spilled at 0x47fb2f, which the PeekBool cells at +0xbfc4/
+ * +0xbfc7/+0xbfd3 corroborate; the rest are globals.
+ *
+ * Two cells are EncodeChecksumDeltaAdd returns.  The one at 0x47fbee is
+ * ALREADY captured by the decompile into aiStack_464[0], so the Peek at
+ * 0x47fc29 just uses that variable and its statement is untouched - the
+ * assignment on that same line overwrites it, but the argument is
+ * evaluated first.  The one at 0x47fca6 is discarded and is now caught
+ * in a new uVar9.
+ *
+ * guard_cell_resolve.py flags the &DAT_00794e48 and &DAT_00e55ab8 reads
+ * CROSSES-BRANCH-TARGET; harmless here, since both cells are loaded as
+ * immediates and so cannot depend on which path reached them.
  */
 #include "ghidra_types.h"
 
@@ -14,6 +36,7 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
   int iVar2;
   int iVar3;
   undefined4 uVar4;
+  undefined4 uVar9;
   int unaff_EBX;
   code *pcVar5;
   int *unaff_ESI;
@@ -40,7 +63,7 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
   iVar2 = GetPlayerRecordBySlot(g_clientContext);
   if (iVar2 == 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
     pcVar5 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar3 != 1) {
@@ -49,7 +72,7 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)(iVar2 + 0x90c));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x47fb8d
      * (`lea edi,[esi + 0x40]`, esi = unaff_ESI, the function's own "this"
      * projectile object, e.g. unaff_ESI[0xfef]=... above): unaff_ESI+0x40
@@ -60,7 +83,7 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
     EncodeOutgoingPacketField((int)unaff_ESI + 0x40, uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)((int)unaff_ESI + 0x40));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     unaff_ESI[0xfed] = iVar3;
     if (((char)unaff_ESI[0xfe8] != '\0') || (uVar4 = 0xffffff38, (char)unaff_ESI[0xff1] != '\0')) {
@@ -69,14 +92,14 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
     aiStack_464[0] = EncodeChecksumDeltaAdd(iVar2 + 0xb30,auStack_234,uVar4);
     puStack_8 = (undefined1 *)0x0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    unaff_EBX = PeekPacketChecksumState();
+    unaff_EBX = PeekPacketChecksumState((void *)&DAT_00796aa0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    aiStack_464[0] = PeekPacketChecksumState();
+    aiStack_464[0] = PeekPacketChecksumState((void *)aiStack_464[0]);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (*(int *)(&g_nCameraBoundY + g_clientContext) + unaff_EBX < aiStack_464[0]) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      unaff_EBX = PeekPacketChecksumState();
+      unaff_EBX = PeekPacketChecksumState((void *)&DAT_00796aa0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar3 = *(int *)(&g_nCameraBoundY + g_clientContext) + unaff_EBX;
     }
@@ -85,11 +108,11 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
       {
         uVar4 = 0xfffffdda;
       }
-      EncodeChecksumDeltaAdd(iVar2 + 0xb30,local_458,uVar4);
+      uVar9 = EncodeChecksumDeltaAdd(iVar2 + 0xb30,local_458,uVar4);
       puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
       uStack_45c = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = PeekPacketChecksumState();
+      iVar3 = PeekPacketChecksumState((void *)uVar9);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -100,7 +123,7 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
     EncodeOutgoingPacketField((int)unaff_ESI + 0x264, iVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)((int)unaff_ESI + 0x264));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0x0;
     unaff_ESI[0xfee] = iVar3;
@@ -129,7 +152,7 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
-  iVar2 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)&DAT_00794e48);
   (*pcVar5)(&DAT_005a9068);
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
@@ -147,7 +170,7 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)&DAT_00e55ab8);
     (*pcVar5)(&DAT_005a9068);
     iVar2 = iVar2 + iVar3;
   }

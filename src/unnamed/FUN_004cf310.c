@@ -15,7 +15,28 @@
  * index but into a parallel table at +0xee134 instead of +0xebef4 (a
  * distinct field Ghidra's decompile never assigned to a local); the second
  * call's self is the exact same +0xebef4 cell that EncodeChecksumPairSum
- * already uses. */
+ * already uses.
+ *
+ * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
+ * cell at all 11 argless PeekPacketChecksumState() calls (peek status
+ * "clean", 11 C : 11 orig).  Cells from tools/guard_cell_resolve.py over
+ * 0x4cf310-0x4cf8fb.
+ *
+ * Four hang off piVar2, the GetPlayerRecordBySlot return at 0x4cf354
+ * (+0xb30 and +0x90c, read twice each); the resolver stops at
+ * `<clobbered by call>` there.  Five are g_clientContext globals, two of
+ * which the C itself corroborates: the +0x45354 reads sit immediately
+ * beside the existing PacketChecksumNotEquals(g_clientContext + 0x45354,
+ * 3) and PacketChecksumEquals(g_clientContext + 0x45354, 3) calls.  The
+ * 0x4cf59d/0x4cf5d4 pair reads frame[0x14], loaded with that same
+ * +0x45354 address one push deep at 0x4cf593/0x4cf5ca.
+ *
+ * One cell is a chained return: EncodeChecksumPairSum (0x4cf682)
+ * returns its dest cell in EAX, the decompile discarded it, and the
+ * Peek at 0x4cf6c4 re-reads it - captured in a new uVar10.  Its Encode
+ * partner at 0x4cf6ce targets a DIFFERENT cell (the +0xee134 table the
+ * 2026-07-16 note above describes), so the read and the write are not
+ * the same address at that site. */
 #include "ghidra_types.h"
 
 
@@ -39,6 +60,7 @@ void __fastcall FUN_004cf310(int param_1)
   byte bVar8;
   int unaff_EBX;
   code *pcVar9;
+  undefined4 uVar10;
   uint *unaff_FS_OFFSET;
   int local_464;
   int local_460;
@@ -62,11 +84,11 @@ void __fastcall FUN_004cf310(int param_1)
     pcVar9 = (code *)LeaveCriticalSection;
     if (piVar2 != (int *)0x0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = PeekPacketChecksumState();
+      iVar3 = PeekPacketChecksumState((void *)(piVar2 + 0x2cc));
       pcVar9 = (code *)LeaveCriticalSection;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      local_464 = PeekPacketChecksumState();
+      local_464 = PeekPacketChecksumState((void *)(piVar2 + 0x243));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_45c = &DAT_006a7708 + g_clientContext;
       cVar1 = PeekPacketChecksumBool();
@@ -92,15 +114,15 @@ void __fastcall FUN_004cf310(int param_1)
         *(int *)(local_45c + 0x14) = iVar4;
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      PeekPacketChecksumState((void *)(piVar2 + 0x2cc));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      local_45c = (undefined *)PeekPacketChecksumState();
+      local_45c = (undefined *)PeekPacketChecksumState((void *)(piVar2 + 0x243));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       FUN_0042bb10(*(undefined1 *)(param_1 + 0x10a8),1000);
       (**(code **)(*piVar2 + 4))(&DAT_00555c90);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar5 = PeekPacketChecksumState();
+      iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if ((iVar5 == 1) || (cVar1 = PacketChecksumNotEquals(g_clientContext + 0x45354,3), cVar1 == '\0')
          ) {
@@ -122,11 +144,11 @@ void __fastcall FUN_004cf310(int param_1)
       }
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
     (*pcVar9)(&DAT_005a9068);
     if ((char)((uint)unaff_EBX >> 0x18) != '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar5 = PeekPacketChecksumState();
+      iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
       unaff_EBX = CONCAT13(iVar5 != 3,(int3)unaff_EBX);
       (*pcVar9)(&DAT_005a9068);
       if (iVar5 != 3) {
@@ -137,11 +159,11 @@ void __fastcall FUN_004cf310(int param_1)
     }
     uVar6 = EncodeChecksumDeltaMul(piVar2 + 0x237a,auStack_234,2);
     puStack_8 = (undefined1 *)0x0;
-    EncodeChecksumPairSum((*(byte *)(param_1 + 0x10a8) & 0x80000007) * 0x224 + 0xebef4 + g_clientContext,
+    uVar10 = EncodeChecksumPairSum((*(byte *)(param_1 + 0x10a8) & 0x80000007) * 0x224 + 0xebef4 + g_clientContext,
                  auStack_458,uVar6);
     puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)uVar10);
     EncodeOutgoingPacketField((*(byte *)(param_1 + 0x10a8) & 0x80000007) * 0x224 + 0xee134 + g_clientContext,
                               uVar6);
     (*pcVar9)(&DAT_005a9068);
@@ -164,11 +186,11 @@ void __fastcall FUN_004cf310(int param_1)
                               0xffffffff);
     (*pcVar9)(&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
     (*pcVar9)(&DAT_005a9068);
     if (*(byte *)(param_1 + 0x10a8) == uVar7) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar5 = PeekPacketChecksumState();
+      iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
       cVar1 = '\x01' - (iVar5 != 1);
       (*pcVar9)(&DAT_005a9068);
       if ((cVar1 == '\0') && (cVar1 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar1 == '\0')
@@ -198,7 +220,7 @@ void __fastcall FUN_004cf310(int param_1)
     *(undefined1 *)(iVar5 + 0x10a8 + param_1) = 0xff;
     *(int *)(param_1 + 0x10b0) = *(int *)(param_1 + 0x10b0) + -1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
     (*pcVar9)(&DAT_005a9068);
     *(undefined4 *)(param_1 + 0x10b4) = uVar6;
     *unaff_FS_OFFSET = uStack_20;
