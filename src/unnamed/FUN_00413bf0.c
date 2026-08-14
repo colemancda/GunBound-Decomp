@@ -4,6 +4,17 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 5 argless PeekPacketChecksumState() calls (5 C : 5 orig,
+ * goto-free zip).  The four loop cells walk four parallel per-slot
+ * arrays at g_clientContext + 0x5ba80/0x5cba0/0x61020/0x5dcc0, indexed
+ * by the C's own byte cursor iVar10 (+0x224 per slot, bound 0x1120) -
+ * 0x5dcc0 is the same array the State11_OnTick sweep already confirmed
+ * at its 0x4be9f3 site.  The head cell is g_clientContext+0x473a0.
+ * This function serializes those cells into the outgoing packet at
+ * DAT_007934e8 (opcode 0x4412 at +0x4d4) and sends it - a per-slot
+ * guarded-state report.
  */
 #include "ghidra_types.h"
 
@@ -27,7 +38,7 @@ void FUN_00413bf0(void)
   *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x4412;
   *(undefined4 *)(iVar8 + 0x44d0) = 6;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x473a0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar8 = DAT_007934e8;
   *(undefined2 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar5;
@@ -39,7 +50,7 @@ void FUN_00413bf0(void)
       *(char *)(*(int *)(iVar8 + 0x44d0) + 0x4d0 + iVar8) = (char)local_8;
       *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar6 = PeekPacketChecksumState();
+      uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x5ba80 + iVar10));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar3 = DAT_007934e8;
       *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar6;
@@ -55,19 +66,19 @@ void FUN_00413bf0(void)
       }
       *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 2;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar5 = PeekPacketChecksumState();
+      uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x5cba0 + iVar10));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar8 = DAT_007934e8;
       *(undefined2 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar5;
       *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 2;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar6 = PeekPacketChecksumState();
+      uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x61020 + iVar10));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar8 = DAT_007934e8;
       *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar6;
       *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 4;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar6 = PeekPacketChecksumState();
+      uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x5dcc0 + iVar10));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar8 = DAT_007934e8;
       *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar6;

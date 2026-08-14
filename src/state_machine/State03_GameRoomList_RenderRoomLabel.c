@@ -6,7 +6,12 @@
  * FUN_<address> helpers and DAT_<address>/_DAT_<address> globals are
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
- * these get promoted to verified.
+ * these get promoted to verified. *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 6 argless PeekPacketChecksumState() calls (6 C : 6 orig,
+ * goto-free zip).  All six are fixed g_clientContext offsets - the
+ * +0x239b4/+0x23790/+0x23348 group BroadcastBattleSnapshot also reads,
+ * plus three room-list cells at +0x39ae8/+0x396a0/+0x398c4.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -83,10 +88,10 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
   }
   if (*(char *)(iVar3 + 0x23313) != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar5 = PeekPacketChecksumState();
+    uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x239b4));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x23790));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     _sprintf(acStack_80,s__s__3d__3d__005536b8,g_clientContext + 0x23313,uVar6,uVar5);
     /* BlitRLESprite's 4th arg (rleData) was dropped as `in_EAX` in the
@@ -109,7 +114,7 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
    * Same dropped-ECX shift as above: (ECX=0xbe, arg1=0x17, arg2=0xffff). */
   BlitRLESprite(0xbe,0x17,0xffff,(byte *)(g_clientContext + 0x23330));
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x23348));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,20000);
   _sprintf(acStack_80,pcVar7,uVar5);
@@ -127,7 +132,7 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
    * just above is exactly that length. */
   BlitRLESprite((0x19b - (((int)(pcVar7 - acStack_80) - 1) * 6)),9,0xffff,(byte *)acStack_80);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x39ae8));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e21);
   _sprintf(acStack_80,pcVar7,uVar5);
@@ -145,7 +150,7 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
    * just above is exactly that length. */
   BlitRLESprite((0x19b - (((int)(pcVar7 - acStack_80) - 1) * 6)),0x16,0xffff,(byte *)acStack_80);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x396a0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e22);
   _sprintf(acStack_80,pcVar7,uVar5);
@@ -154,7 +159,7 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
    * (literal ECX, and no strlen loop precedes it), unlike its neighbours. */
   BlitRLESprite(0xad,0x27,0x1f3b,(byte *)acStack_80);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x398c4));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e23);
   _sprintf(acStack_80,pcVar7,uVar5);

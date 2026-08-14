@@ -6,7 +6,15 @@
  * FUN_<address> helpers and DAT_<address>/_DAT_<address> globals are
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
- * these get promoted to verified.
+ * these get promoted to verified. *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 5 argless PeekPacketChecksumState() calls (5 C : 5 orig,
+ * goto-free zip).  Three are the current-slot index cell at
+ * g_clientContext+0x3b49c, compared against param_1 - the same
+ * param-vs-slot check every turn-system member uses.  The other two
+ * read back the piVar5 record cells the Encodes beside them write
+ * (+0x15e4, +0x1808), whose bases the 2026-07-15 notes above already
+ * derive.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -38,7 +46,7 @@ void HandleTurnTimeoutSlot(int param_1)
     bVar2 = *(byte *)(in_EAX + 2);
     *(ushort *)(piVar5 + 0x2fef) = -(ushort)(*(char *)(in_EAX + 1) == -1) & 0xff00 | (ushort)bVar2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (param_1 != uVar6) {
       uVar3 = *(undefined2 *)(in_EAX + 3);
@@ -57,7 +65,7 @@ void HandleTurnTimeoutSlot(int param_1)
        * (int)piVar5+0x90c. See
        * tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar7 = PeekPacketChecksumState();
+      uVar7 = PeekPacketChecksumState((void *)((int)piVar5 + 0x15e4));
       EncodeOutgoingPacketField((int)piVar5 + 0x90c, uVar7);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       unaff_EBX = (uint)*(ushort *)(in_EAX + 5);
@@ -73,7 +81,7 @@ void HandleTurnTimeoutSlot(int param_1)
        * (int)piVar5+0xb30. See
        * tools/encodeoutgoingpacketfield_sites.json. */
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar7 = PeekPacketChecksumState();
+      uVar7 = PeekPacketChecksumState((void *)((int)piVar5 + 0x1808));
       EncodeOutgoingPacketField((int)piVar5 + 0xb30, uVar7);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
@@ -87,7 +95,7 @@ void HandleTurnTimeoutSlot(int param_1)
     pcVar10 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (param_1 == uVar6) {
       pbVar1 = (byte *)((int)piVar5 + 0x8bba);
@@ -143,7 +151,7 @@ void HandleTurnTimeoutSlot(int param_1)
       }
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
     (*pcVar10)(&DAT_005a9068);
     if ((unaff_retaddr & 0xff) != uVar6) {
       FUN_004cc5c0(unaff_retaddr,bVar2,unaff_EBX);
