@@ -4,6 +4,12 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls (4 C : 4 orig,
+ * goto-free zip).  All four hang off the live-in EAX object, which the
+ * decompile already models as in_EAX and whose +0x4948/+0x292c cells
+ * the existing CompareChecksumAtMost calls use.
  */
 #include "ghidra_types.h"
 
@@ -49,15 +55,15 @@ undefined4 FUN_0045ec30(void)
     return 1;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
-  iVar3 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)(in_EAX + 0x42dc));
+  iVar3 = PeekPacketChecksumState((void *)(in_EAX + 0x4948));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((iVar2 <= iVar3) && (cVar1 = CompareChecksumAtMost(in_EAX + 0x4948,in_EAX + 0x40b8), cVar1 != '\0')) {
     return 1;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
-  iVar3 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)(in_EAX + 0x4724));
+  iVar3 = PeekPacketChecksumState((void *)(in_EAX + 0x4948));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((iVar2 <= iVar3) && (cVar1 = CompareChecksumAtMost(in_EAX + 0x4948,in_EAX + 0x4500), cVar1 != '\0')) {
     return 1;

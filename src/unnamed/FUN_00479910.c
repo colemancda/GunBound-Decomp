@@ -3,6 +3,13 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls (4 C : 4 orig,
+ * goto-free zip).  Two are chained returns (the PairSum at ~47 and the
+ * DeltaSub at ~69, both discarded, captured in a new uVar9); the other
+ * two are param_1 cells - +0x232 is the same cell the existing Encode
+ * note below derives at byte offset 0x8c8, and +0x97 is byte 0x25c.
  */
 #include "ghidra_types.h"
 
@@ -15,6 +22,7 @@ void __fastcall FUN_00479910(int *param_1)
   int iVar3;
   int iVar4;
   undefined4 uVar5;
+  undefined4 uVar9;
   undefined4 uVar6;
   undefined4 *puVar7;
   byte bVar8;
@@ -44,10 +52,10 @@ void __fastcall FUN_00479910(int *param_1)
     *(byte *)((int)param_1 + 0xf39) = bVar8;
     *(byte *)((int)param_1 + 0xf3a) = bVar8 + bVar1 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumPairSum(param_1 + 0x459,auStack_454,param_1 + 0x3d0);
+    uVar9 = EncodeChecksumPairSum(param_1 + 0x459,auStack_454,param_1 + 0x3d0);
     uStack_4 = 0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)uVar9);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_4 = 0xffffffff;
     if (iStack_440 != 0) {
@@ -55,7 +63,7 @@ void __fastcall FUN_00479910(int *param_1)
       TreeLowerBound(auStack_45c);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x232));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
      * 0x479a4c (`lea edi,[esi+0x8c8]`, esi = param_1 per `mov esi,ecx` at
      * function entry, confirmed by objdump of orig/GunBound.gme). This
@@ -66,13 +74,13 @@ void __fastcall FUN_00479910(int *param_1)
      * tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField(param_1 + 0x232, iVar4 + iVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeChecksumDeltaSub(param_1 + 0x120,auStack_230,0xf);
+    uVar9 = EncodeChecksumDeltaSub(param_1 + 0x120,auStack_230,0xf);
     uStack_4 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar5 = PeekPacketChecksumState();
+    uVar5 = PeekPacketChecksumState((void *)uVar9);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)(param_1 + 0x97));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\0') {

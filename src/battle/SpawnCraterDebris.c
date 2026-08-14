@@ -3,6 +3,11 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls (4 C : 4 orig,
+ * goto-free zip) - two rounds of the per-turn shot-parameter pair
+ * g_clientContext+0x5b1ac / +0x5af88 that BeginNewTurn seeds.
  */
 #include "ghidra_types.h"
 
@@ -34,17 +39,17 @@ uint SpawnCraterDebris(int *param_1,int param_2,int param_3,int param_4,int para
         local_94 = (int)(in_EAX + (in_EAX >> 0x1f & 3U)) >> 2;
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      PeekPacketChecksumState((void *)(g_clientContext + 0x5af88));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar4 = FloatToInt64();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      PeekPacketChecksumState((void *)(g_clientContext + 0x5af88));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = FloatToInt64();
       uVar3 = param_4 * -0x55555554;

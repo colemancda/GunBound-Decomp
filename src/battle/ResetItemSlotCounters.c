@@ -4,6 +4,18 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls.  Each Peek
+ * reads the same per-slot cell its branch's Encode (fixed 2026-07-15,
+ * notes below) zeroes: the item array at g_clientContext+0x39f30 and
+ * its parallel partner at +0x3a154, both indexed by local_c*0x224.
+ * PER-BRANCH ASYMMETRY, verified against the disasm rather than assumed:
+ * the 0xff00 branch peeks +0x39f30 then +0x3a154 (0x4dbf9e/0x4dbfce),
+ * but the other branch peeks +0x39f30 TWICE (0x4dc04f for the -1 empty
+ * check, then 0x4dc088 re-reading the SAME cell to match the item id) -
+ * a first-draft mapping put +0x3a154 at the second site by analogy with
+ * the sibling branch and was wrong.
  */
 #include "ghidra_types.h"
 
@@ -24,11 +36,11 @@ void ResetItemSlotCounters(uint param_1)
     do {
       if (bVar4) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        cVar1 = PeekPacketChecksumState();
+        cVar1 = PeekPacketChecksumState((void *)(g_clientContext + local_c * 0x224 + 0x39f30));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (cVar1 == -1) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          cVar1 = PeekPacketChecksumState();
+          cVar1 = PeekPacketChecksumState((void *)(g_clientContext + local_c * 0x224 + 0x3a154));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (cVar1 == (char)param_1) {
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -61,14 +73,14 @@ void ResetItemSlotCounters(uint param_1)
       }
       else {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        cVar1 = PeekPacketChecksumState();
+        cVar1 = PeekPacketChecksumState((void *)(g_clientContext + local_c * 0x224 + 0x39f30));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (cVar1 == -1) {
           local_c = local_c + 1;
         }
         else {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          uVar2 = PeekPacketChecksumState();
+          uVar2 = PeekPacketChecksumState((void *)(g_clientContext + local_c * 0x224 + 0x39f30));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (uVar2 == (param_1 & 0xff)) {
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

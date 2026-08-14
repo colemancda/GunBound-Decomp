@@ -6,7 +6,11 @@
  * FUN_<address> helpers and DAT_<address>/_DAT_<address> globals are
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
- * these get promoted to verified.
+ * these get promoted to verified. *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls (4 C : 4 orig,
+ * goto-free zip) - four reads of the same game-mode word at
+ * g_clientContext+0x4111c that ApplyAvatarStatBonuses also tests.
  */
 /* RECOVERED (2026-07-19): all 43 LoadSpriteSet calls here dropped their
  * third argument - the ".img" sprite-set NAME, which the original passes in
@@ -166,7 +170,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   FUN_0050f290((int *)&g_uiPanelManager);
   BuildBuddyPanel();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((uVar5 & 0x100000) != 0) {
     iVar4 = *param_1;
@@ -176,7 +180,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
     (**(code **)(iVar4 + 0x28))(uVar6,uVar7,uVar8);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((uVar5 & 0x200000) != 0) {
     iVar4 = *param_1;
@@ -186,7 +190,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
     (**(code **)(iVar4 + 0x28))(uVar6,uVar7,uVar8);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((uVar5 & 0x400000) != 0) {
     iVar4 = *param_1;
@@ -196,7 +200,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
     (**(code **)(iVar4 + 0x28))(uVar6,uVar7,uVar8);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((uVar5 & 0x800000) != 0) {
     iVar4 = *param_1;

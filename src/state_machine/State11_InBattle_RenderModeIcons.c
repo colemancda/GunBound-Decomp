@@ -6,7 +6,12 @@
  * FUN_<address> helpers and DAT_<address>/_DAT_<address> globals are
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
- * these get promoted to verified.
+ * these get promoted to verified. *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls (4 C : 4 orig,
+ * goto-free zip) - the per-turn shot parameter at +0x5b1ac, the
+ * battle-mode cell at +0x45354, and two reads of the current-slot
+ * index at +0x3b49c.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -42,14 +47,14 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       *(undefined4 *)(iVar1 + 0x80) = 0x3f4147ae;
       *(undefined4 *)(iVar1 + 0x84) = 0x3ba3d70a;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       BuildSizedSpriteQuad(400,0x47,0,0x40,0x40,0xffffffff);
       FlushSpriteBatch();
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar1 == 2) {
     iVar1 = FindTextureCacheEntryByName(s_TagTexture_005568b8);
@@ -60,7 +65,7 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       *(undefined4 *)(iVar1 + 0x80) = 0;
       *(undefined4 *)(iVar1 + 0x84) = 0;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar2 = PeekPacketChecksumState();
+      iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       BuildScaledSpriteQuad(0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar2 * 0x18) == 1,0xff,0xffffff);
       FlushSpriteBatch();
@@ -72,7 +77,7 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       }
       *(undefined4 *)(iVar1 + 0x80) = 0x3f000000;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar1 = PeekPacketChecksumState();
+      iVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       BuildScaledSpriteQuad(0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar1 * 0x18) == 1,0xff,0xffffff);
       FlushSpriteBatch();
