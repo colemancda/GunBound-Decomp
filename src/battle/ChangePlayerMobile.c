@@ -1,4 +1,15 @@
-/* FUN_004d0fd0 - 0x004d0fd0 in the original binary.
+/* ChangePlayerMobile - 0x004d0fd0 in the original binary.
+ *
+ * RENAMED (2026-08-13, from FUN_004d0fd0). The mobile-change handler:
+ * sole caller is State11_InBattle_ProcessBattleAction's `case 0xf009`,
+ * passing (slot, newTypeByte) from the packet.  It unlinks the old
+ * player record from its list, calls CreateMobile with the new type and
+ * the old record's position/state fields, re-resolves the record and -
+ * when the slot equals the current-slot cell at g_clientContext+0x3b49c
+ * - re-points the local-player record at g_clientContext+0x621e0.  The
+ * guarded-state migration that follows (see the DROPPED-CELL note
+ * below) copies old-record cells into the new record at the same
+ * offsets.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -31,7 +42,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004d0fd0(int param_1,undefined4 param_2)
+void ChangePlayerMobile(int param_1,undefined4 param_2)
 
 {
   int iVar1;

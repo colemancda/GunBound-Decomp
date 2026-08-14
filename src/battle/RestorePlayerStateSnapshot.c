@@ -1,4 +1,12 @@
-/* FUN_00463e50 - 0x00463e50 in the original binary.
+/* RestorePlayerStateSnapshot - 0x00463e50 in the original binary.
+ *
+ * RENAMED (2026-08-13, from FUN_00463e50). Restores the seven guarded
+ * state cells SavePlayerStateSnapshot saved (snapshot block
+ * +0xc2b0..+0xcfb0 back into +0x90c/+0xb30/+0x1c54/+0x6fd4/+0x4d90/
+ * +0x51d8/+0x4948), then re-derives dependent state: it re-scrambles
+ * the GuardedBool block and calls AlignMobileToTerrain so the tilt
+ * matches the restored position.  Run for all 8 slots by FUN_0043c860
+ * after its simulation pass.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -21,7 +29,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00463e50(void)
+void RestorePlayerStateSnapshot(void)
 
 {
   undefined4 uVar1;
@@ -71,7 +79,7 @@ void FUN_00463e50(void)
   uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xc944));
   EncodeOutgoingPacketField(unaff_ESI + 0x6fd4, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_0045ba50(unaff_ESI);
+  AlignMobileToTerrain(unaff_ESI);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xcb68));
   EncodeOutgoingPacketField(unaff_ESI + 0x4d90, uVar1);

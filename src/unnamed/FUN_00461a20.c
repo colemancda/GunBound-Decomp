@@ -16,7 +16,7 @@
  * never written in the body, so it is param_1 itself.  The first is
  * the current-slot index at g_clientContext+0x3b49c, checked against
  * this object's slot bits - consistent with every other user of that
- * cell (AdvanceTurnQueue, SortTurnOrderByDelay, FUN_004d0fd0).
+ * cell (AdvanceTurnQueue, SortTurnOrderByDelay, ChangePlayerMobile).
  */
 #include "ghidra_types.h"
 

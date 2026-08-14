@@ -615,7 +615,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0045a560,4559,FUN_0045a560,false,17,4,RAW-src
 0045b730,453,BlitSpriteAttached,false,4,0,RAW-src
 0045b900,336,BlitSpriteDirect,false,4,0,RAW-src
-0045ba50,3207,FUN_0045ba50,false,2,17,RAW-src
+0045ba50,3207,AlignMobileToTerrain,false,2,17,RAW-src
 0045c6e0,1133,ComputeMobileGroundY,false,17,10,RAW-src
 0045cb50,1521,FUN_0045cb50,false,1,24,RAW-src
 0045d150,523,ComputeTurnDelay,false,3,5,RAW-src
@@ -635,8 +635,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00461ca0,3153,SimulateMobileFrame,false,17,38,RAW-src
 00462900,3369,RenderMobile,false,17,26,RAW-src
 00463630,1613,FUN_00463630,false,1,17,RAW-src
-00463c80,450,FUN_00463c80,false,1,5,RAW-src
-00463e50,522,FUN_00463e50,false,1,6,RAW-src
+00463c80,450,SavePlayerStateSnapshot,false,1,5,RAW-src
+00463e50,522,RestorePlayerStateSnapshot,false,1,6,RAW-src
 00464060,402,FUN_00464060,false,2,8,RAW-src
 00464200,69,FUN_00464200,false,1,0,RAW-src
 00464320,107,FUN_00464320,false,1,3,RAW-src
@@ -968,7 +968,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004cea70,836,FUN_004cea70,false,4,10,RAW-src
 004cedc0,97,FUN_004cedc0,false,1,0,RAW-src
 004cee30,535,FUN_004cee30,false,2,9,RAW-src
-004cf050,690,FUN_004cf050,false,3,7,RAW-src
+004cf050,690,EnqueueTurnSlot,false,3,7,RAW-src
 004cf310,2038,AdvanceTurnQueue,false,6,28,RAW-src
 004cfb20,504,FUN_004cfb20,false,1,4,RAW-src
 004cfd20,1341,FUN_004cfd20,false,1,8,RAW-src
@@ -977,7 +977,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d0a10,950,BeginNewTurn,false,1,9,RAW-src
 004d0dd0,179,FUN_004d0dd0,false,1,3,RAW-src
 004d0e90,313,FUN_004d0e90,false,3,5,RAW-src
-004d0fd0,1314,FUN_004d0fd0,false,1,13,RAW-src
+004d0fd0,1314,ChangePlayerMobile,false,1,13,RAW-src
 004d1500,3109,ComposeAvatarSprites,false,1,8,RAW-src
 004d2130,61,FUN_004d2130,false,2,2,RAW-src
 004d2170,341,InitConnectionObject,false,3,6,RAW-src

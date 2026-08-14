@@ -893,7 +893,7 @@ LAB_004b7c01:
             ScrubChecksumGuard();
             piVar7 = local_27ec;
           }
-          FUN_004cf050(piVar7);
+          EnqueueTurnSlot(piVar7);
           cVar2 = PacketChecksumEquals(g_clientContext + 0x45354,1);
           if (cVar2 != '\0') {
             cVar2 = *(char *)((int)local_27e0 + g_clientContext + 0x50126);
@@ -1065,7 +1065,7 @@ LAB_004b7fb2:
         _DAT_007934d8 = 1;
         break;
       case 0xf009:
-        FUN_004d0fd0(local_27e4,*(byte *)puVar12);
+        ChangePlayerMobile(local_27e4,*(byte *)puVar12);
         *unaff_FS_OFFSET = local_14;
         return;
       case 0xf00a:

@@ -126,7 +126,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
         cVar2 = PeekPacketChecksumBool();
         if (cVar2 == '\x01') {
           QueueOutgoingPacketField(0xffffffff);
-          FUN_004cf050(this);
+          EnqueueTurnSlot(this);
           SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           SetGuardedBool(1,GB_GUARD_UNRECOVERED);
         }
@@ -198,7 +198,7 @@ LAB_004b4324:
             }
           }
           else {
-            FUN_004cf050(this);
+            EnqueueTurnSlot(this);
             iVar6 = PeekChecksumStateUnderLock(g_clientContext + 0x473a0);
             iVar8 = PeekChecksumStateUnderLock(&DAT_00796aa0);
             SubFromPacketChecksum((iVar6 / 2 + -1) * iVar8);

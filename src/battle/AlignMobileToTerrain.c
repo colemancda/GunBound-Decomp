@@ -1,4 +1,15 @@
-/* FUN_0045ba50 - 0x0045ba50 in the original binary.
+/* AlignMobileToTerrain - 0x0045ba50 in the original binary.
+ *
+ * RENAMED (2026-08-13, from FUN_0045ba50). Aligns a mobile to the
+ * terrain under it, once per physics tick (called by SimulateMobileFrame
+ * and CMobile's tick in Mobile.cpp, and by RestorePlayerStateSnapshot
+ * after a position restore).  It probes ground height at offset columns
+ * around the mobile (the three FindGroundHeightAtColumn rounds),
+ * derives the slope with CalculateAngleFromDelta - the constants are
+ * DEGREES: results wrap at 0x10e/0x168 (270/360) and later cells clamp
+ * to +/-0xb4 (180) and +/-0x5a (90) - divides by the per-mobile step at
+ * +0xbff0, and writes the tilt cells (+0x1e78, +0x51d8, +0x4fb4,
+ * +0x60d4, +0x4d90), turning the facing flag at +0x1c54.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -32,7 +43,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0045ba50(int param_1)
+void AlignMobileToTerrain(int param_1)
 
 {
   char cVar1;

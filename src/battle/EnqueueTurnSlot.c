@@ -1,4 +1,14 @@
-/* FUN_004cf050 - 0x004cf050 in the original binary.
+/* EnqueueTurnSlot - 0x004cf050 in the original binary.
+ *
+ * RENAMED (2026-08-13, from FUN_004cf050). Appends a slot to the battle
+ * turn queue (the byte array at battle+0x10a8, length at +0x10b0, cap
+ * 8) - the same queue AdvanceTurnQueue pops.  After appending it scans
+ * the per-player delay array at g_clientContext+0xebef4 for players
+ * whose cell is not the retired-turn sentinel (-1, which
+ * AdvanceTurnQueue writes) and who are not yet queued, counting
+ * survivors per team - the all-queued / one-team-left checks that end a
+ * round.  Called from the 0x3020 packet handler and two battle-action
+ * paths.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -23,7 +33,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004cf050(int param_1,int param_2)
+void __thiscall EnqueueTurnSlot(int param_1,int param_2)
 
 {
   byte bVar1;

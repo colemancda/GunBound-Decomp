@@ -1,4 +1,11 @@
-/* FUN_00463c80 - 0x00463c80 in the original binary.
+/* SavePlayerStateSnapshot - 0x00463c80 in the original binary.
+ *
+ * RENAMED (2026-08-13, from FUN_00463c80). Saves seven guarded state
+ * cells of one player record (+0x90c/+0xb30/+0x1c54/+0x6fd4/+0x4d90/
+ * +0x51d8/+0x4948) into the record's snapshot block (+0xc2b0..+0xcfb0).
+ * Inverse of RestorePlayerStateSnapshot, which copies the same seven
+ * cells back.  Its caller FUN_0043c860 runs it for all 8 slots before
+ * a simulation pass and restores afterwards.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +15,7 @@
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at all 7 argless PeekPacketChecksumState() calls (7 C : 7 orig,
  * goto-free zip), from tools/guard_cell_resolve.py over
- * 0x463c80-0x463e50.  This is FUN_00463e50's INVERSE: that function
+ * 0x463c80-0x463e50.  This is RestorePlayerStateSnapshot's INVERSE: that function
  * reads the high cells (+0xc2b0..+0xcfb0) and writes the low ones; this
  * one reads the low cells (+0x90c/+0xb30/+0x1c54/+0x6fd4/+0x4d90/
  * +0x51d8/+0x4948) and writes the same high ones - a save/restore pair
@@ -18,7 +25,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00463c80(void)
+void SavePlayerStateSnapshot(void)
 
 {
   undefined4 uVar1;

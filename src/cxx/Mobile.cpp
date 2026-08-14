@@ -103,7 +103,7 @@ void AdvanceSpriteAnimation(void);
  * above (real signature `void __fastcall FUN_0045cb50(int *param_1)`). */
 void __fastcall FUN_0045cb50(int *param_1);
 char FUN_0043c820(void);
-void FUN_0045ba50(CMobile *self);
+void AlignMobileToTerrain(CMobile *self);
 /* FIXED (2026-07-15): was declared void(void) with no explicit calling
  * convention (defaults to __cdecl in a C++ TU) - real signature is
  * `void __fastcall FUN_0045ed80(int *param_1)` (functions.h already has
@@ -692,7 +692,7 @@ void CMobile::v2_SimulateFrame()
     if (cVar5 != '\0') {
         (*reinterpret_cast<VtVoid *>(*reinterpret_cast<int *>(this) + 0x18))(this);
     }
-    FUN_0045ba50(this);
+    AlignMobileToTerrain(this);
     AdvanceSpriteAnimation();
     if (this->m_pad20[0x14] != 0) {
         FUN_0045ed80(reinterpret_cast<int *>(this));

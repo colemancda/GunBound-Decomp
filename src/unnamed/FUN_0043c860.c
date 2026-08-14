@@ -62,7 +62,7 @@ void FUN_0043c860(int param_1,int param_2)
   do {
     iVar2 = GetPlayerRecordBySlot(iVar3);
     if (iVar2 != 0) {
-      FUN_00463c80();
+      SavePlayerStateSnapshot();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar4 = _rand();
       *(char *)(iVar2 + 0x8bb1) = (char)iVar4;
@@ -414,7 +414,7 @@ code_r0x0043cb21:
   do {
     iVar2 = GetPlayerRecordBySlot(iVar4);
     if (iVar2 != 0) {
-      FUN_00463e50();
+      RestorePlayerStateSnapshot();
     }
     iVar6 = iVar6 + 1;
     iVar4 = g_clientContext;
