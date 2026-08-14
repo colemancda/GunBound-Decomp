@@ -11,6 +11,15 @@
  * Function IDENTITY is confirmed (Avatar-Store try-on preview, local only); the
  * BODY is a raw/near-verbatim Ghidra port, not hand-verified. See src/README.md's
  * "Raw/verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls, from a full
+ * disasm of 0x44b460-0x44b53a.  Three read the panel's selected-row
+ * cell at unaff_ESI+4; the second one's result is the INDEX for the
+ * third site - `imul eax,eax,0x17e4 / lea eax,[eax+esi+0x458]` at
+ * 0x44b4ac - i.e. the row's preview record in the 0x17e4-stride array
+ * at panel+0x458.  The decompile had discarded that result; captured
+ * in a new iVar5.
  */
 #include "ghidra_types.h"
 
@@ -23,18 +32,19 @@ void PreviewAvatarPart(void)
   uint uVar3;
   uint uVar4;
   int unaff_ESI;
+  int iVar5;
   
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(unaff_ESI + 4));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  iVar5 = PeekPacketChecksumState((void *)(unaff_ESI + 4));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0x458 + iVar5 * 0x17e4));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)(unaff_ESI + 4));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar4 = (*(char *)(iVar2 + *(int *)(unaff_ESI + 0x450) * 9 + 0x2d54c + unaff_ESI) != '\x01') - 1 &
           0x8000;
