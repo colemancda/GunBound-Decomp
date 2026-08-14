@@ -3,6 +3,12 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 3 argless Peeks: the current-slot index at +0x3b49c, the
+ * +0x3b6c4 cell, and one entry of the 0x448-stride table at +0x477ec
+ * (the same table FUN_004cfd20 indexes), here indexed by the live-in
+ * EDI the decompile already models as unaff_EDI.
  */
 #include "ghidra_types.h"
 
@@ -26,7 +32,7 @@ void FUN_00442e00(void)
   }
   iVar7 = ((3 < (int)in_EAX) - 1 & 0xffffff5a) + 0x1d2 + uVar4 * 0x1d;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = PeekPacketChecksumState();
+  iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (((unaff_EDI == iVar5) && (bVar1 = *(byte *)(g_clientContext + 0x3b6c0), DAT_0079352c != 0)) &&
      (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
@@ -38,7 +44,7 @@ void FUN_00442e00(void)
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = PeekPacketChecksumState();
+  iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (((unaff_EDI == iVar5) && (DAT_0079352c != 0)) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
@@ -49,7 +55,7 @@ void FUN_00442e00(void)
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = PeekPacketChecksumState();
+  iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x477ec + unaff_EDI * 0x448));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (((DAT_0079352c != 0) && (-1 < iVar5 + 7)) && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
     if (*(char *)(iVar6 + 0x18) == '\x01') {

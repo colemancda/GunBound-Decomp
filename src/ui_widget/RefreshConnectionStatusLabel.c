@@ -12,6 +12,16 @@
  * `uVar3` this file's own (still not itself fixed - separate,
  * pre-existing dropped-arg gap in Widget_FindChildIndex, out of scope
  * here) call just computed.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 3 argless Peeks.  This is ANOTHER store-catalog reader:
+ * puVar1 = g_gameStateVTableArray[7] is the State07 avatar-store panel,
+ * the first two Peeks read its selected-row cell at +0x228 (-1 = no
+ * selection), and the third reads the selected catalog record's
+ * guarded part-code field - *(ctx+0x44e20) + (row + pageBase)*0x450 +
+ * 0x22c, the exact expression Equip/UnequipAvatarSlot use - then tests
+ * its high bits (& 0xe0000000).  The file name predates this
+ * understanding and looks wrong for what it does; not renamed here.
  */
 #include "ghidra_types.h"
 
@@ -26,18 +36,18 @@ void RefreshConnectionStatusLabel(int param_1)
   
   puVar1 = g_gameStateVTableArray[7];
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)(puVar1 + 0x228));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar2 != -1) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar2 = PeekPacketChecksumState();
+    iVar2 = PeekPacketChecksumState((void *)(puVar1 + 0x228));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar2)) {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x80070057);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(puVar1 + 0x454) + iVar2) * 0x450 + 0x22c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((uVar3 & 0xe0000000) == 0) {
       uVar3 = Widget_FindChildIndex();

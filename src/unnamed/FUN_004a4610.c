@@ -3,6 +3,12 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 3 argless Peeks: &DAT_00e9bed8 (the modulus for the
+ * animation-frame wrap), the param_1+0x3920 counter the Encode beside
+ * it increments, and param_1+0xf54 feeding the +0x3d6c Encode - both
+ * bases already established by the 2026-07-15 notes below.
  */
 #include "ghidra_types.h"
 
@@ -23,13 +29,13 @@ void __fastcall FUN_004a4610(int *param_1)
   }
   param_1[0xfe9] = iVar3;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)&DAT_00e9bed8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   param_1[0xfe7] = (param_1[0xfe8] + param_1[0xfe7]) % iVar3;
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)((int)param_1 + 0x3920));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4a46a5
      * (`lea edi,[esi + 0x3920]`, esi = this file's own param_1, preserved
      * across the earlier vtable/AdvanceSpriteAnimation/checksum calls as
@@ -43,7 +49,7 @@ void __fastcall FUN_004a4610(int *param_1)
   param_1[0xed1] = iVar3 + 1;
   if (iVar3 + 1 == 5) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)((int)param_1 + 0xf54));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4a46de
      * (`lea edi,[esi + 0x3d6c]`, esi = param_1): cell is param_1+0x3d6c -
      * the same offset used as a CValueGuard cell (with
