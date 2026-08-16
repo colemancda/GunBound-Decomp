@@ -143,9 +143,9 @@ LAB_0045cdb1:
       iVar5 = FloatToInt64();
       param_1[0x2ffb] = param_1[0x2ffb] + iVar5 * 3;
       iVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-      AddToPacketChecksum(param_1[0x2ffb] / iVar5);
+      AddToPacketChecksum(param_1 + 0x243, param_1[0x2ffb] / iVar5);
       iVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-      AddToPacketChecksum(param_1[0x2ffb] / iVar5);
+      AddToPacketChecksum(param_1 + 0x579, param_1[0x2ffb] / iVar5);
       iVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
       param_1[0x2ffb] = param_1[0x2ffb] % iVar5;
     }

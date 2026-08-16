@@ -202,7 +202,7 @@ LAB_004b4324:
             if ((cVar2 != '\0') && (*(char *)((int)this + 0x11d0) == '\0')) {
               iVar6 = PeekChecksumStateUnderLock(g_clientContext + 0x473a0);
               iVar8 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-              SubFromPacketChecksum((iVar6 / 2) * iVar8);
+              SubFromPacketChecksum((void *)(g_clientContext + local_9b0 + 0x5ba80), (iVar6 / 2) * iVar8);
               uVar14 = 0;
               iVar8 = 0;
               iVar18 = 0;
@@ -212,7 +212,7 @@ LAB_004b4324:
                     (*(char *)(iVar6 + 0x50126 + uVar14) == *(char *)(local_9b4 + 0x50126 + iVar6)))
                    && (uVar14 != local_9b4)) {
                   uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-                  AddToPacketChecksum(uVar9);
+                  AddToPacketChecksum((void *)(g_clientContext + iVar18 + 0x5ba80), uVar9);
                   uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                   iVar6 = iVar8 + 0x50196 + g_clientContext;
                   pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x281);
@@ -231,7 +231,7 @@ LAB_004b4324:
             EnqueueTurnSlot(this);
             iVar6 = PeekChecksumStateUnderLock(g_clientContext + 0x473a0);
             iVar8 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-            SubFromPacketChecksum((iVar6 / 2 + -1) * iVar8);
+            SubFromPacketChecksum((void *)(g_clientContext + local_9b0 + 0x5ba80), (iVar6 / 2 + -1) * iVar8);
             if (*(char *)((int)this + 0x11d0) == '\0') {
               uVar14 = 0;
               iVar8 = 0;
@@ -242,7 +242,7 @@ LAB_004b4324:
                     (*(char *)(iVar6 + 0x50126 + uVar14) == *(char *)(local_9b4 + 0x50126 + iVar6)))
                    && (uVar14 != local_9b4)) {
                   uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-                  AddToPacketChecksum(uVar9);
+                  AddToPacketChecksum((void *)(g_clientContext + iVar18 + 0x5ba80), uVar9);
                   uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                   iVar6 = iVar8 + 0x50196 + g_clientContext;
                   pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x281);

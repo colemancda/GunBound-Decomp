@@ -16,6 +16,13 @@
  * g_clientContext (0x478db4-0x478dd0) - the exact index expression this
  * file already spells out at its PeekChecksumStateUnderLock a few lines
  * below, so the two now match.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): both
+ * AddToPacketChecksum calls dropped their EAX cell.  0x479831 reads
+ * [esp+0x2d30] + 0x8c8: with the 0x2d14 frame plus the SEH triple and one push
+ * that slot is the first stack argument, so param_1 + 0x8c8 = param_1 + 0x232
+ * ints; 0x4798dc is `add eax,0x270` on the `mov edx,0x186aa; call 0x4f30c0`
+ * sprite lookup the C names iVar2 on the line above (FindSpriteFrame).
  */
 #include "ghidra_types.h"
 
@@ -332,7 +339,7 @@ LAB_00479655:
     TreeLowerBound(local_2d08);
   }
   if (0 < iVar5) {
-    AddToPacketChecksum(iVar5);
+    AddToPacketChecksum(param_1 + 0x232, iVar5);
     uVar3 = EncodeChecksumDeltaSub(param_1 + 0x120,local_230,0xf);
     local_4 = 0x1e;
     uVar3 = PeekChecksumStateUnderLock(uVar3);
@@ -343,7 +350,7 @@ LAB_00479655:
     (**(code **)(*param_1 + 4))(s_damage_00555cc0);
     cVar1 = PeekPacketChecksumBool();
     if ((cVar1 == '\x01') && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
-      AddToPacketChecksum(local_2d0c);
+      AddToPacketChecksum((void *)(iVar2 + 0x270), local_2d0c);
     }
     QueueOutgoingPacketField(*(undefined1 *)(unaff_EDI + 0x3c));
   }

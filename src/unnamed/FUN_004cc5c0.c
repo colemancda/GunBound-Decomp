@@ -103,12 +103,12 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         }
         break;
       case 0xf:
-        AddToPacketChecksum(0xb4);
+        AddToPacketChecksum((void *)(g_clientContext + 0x5b1ac), 0xb4);
         uVar6 = PeekChecksumStateUnderLock(&DAT_00e9bed8);
         cVar1 = PacketChecksumGreaterThan(g_clientContext + 0x5b1ac,uVar6);
         if (cVar1 != '\0') {
           uVar6 = PeekChecksumStateUnderLock(&DAT_00e9bed8);
-          SubFromPacketChecksum(uVar6);
+          SubFromPacketChecksum((void *)(g_clientContext + 0x5b1ac), uVar6);
         }
       }
     }

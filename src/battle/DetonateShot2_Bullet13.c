@@ -353,7 +353,7 @@ LAB_004a0a52:
       PeekChecksumStateUnderLock(param_1 + 0x70b);
     }
     else {
-      AddToPacketChecksum(0x5a);
+      AddToPacketChecksum(param_1 + 0xfe9, 0x5a);
       PeekChecksumStateUnderLock(param_1 + 0x70b);
       PeekChecksumStateUnderLock(param_1 + 0xfe9);
       PeekChecksumStateUnderLock(param_1 + 0xfe9);

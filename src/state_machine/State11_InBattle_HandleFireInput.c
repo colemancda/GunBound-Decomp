@@ -161,7 +161,7 @@ LAB_0045fb8c:
             uVar17 = EncodeChecksumDeltaMul(param_1 + 0x12db,local_b40,2);
             local_4 = 5;
             iVar18 = PeekChecksumStateUnderLock(uVar17);
-            AddToPacketChecksum(0x96 - iVar18);
+            AddToPacketChecksum(param_1 + 0x21d8, 0x96 - iVar18);
             local_4 = 0xffffffff;
             ScrubChecksumGuard();
             uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
@@ -282,7 +282,7 @@ LAB_0046000e:
             uVar17 = EncodeChecksumDeltaMul(param_1 + 0x12db,local_b40,2);
             local_4 = 0xc;
             iVar18 = PeekChecksumStateUnderLock(uVar17);
-            AddToPacketChecksum(0x96 - iVar18);
+            AddToPacketChecksum(param_1 + 0x21d8, 0x96 - iVar18);
             local_4 = 0xffffffff;
             ScrubChecksumGuard();
             uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);

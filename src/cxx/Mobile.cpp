@@ -127,8 +127,8 @@ char PacketChecksumGreaterEqual(void *cell, unsigned int v);
 char PacketChecksumLessEqual(void *cell, int v);
 char PacketChecksumGreaterThan(void *cell, int v);
 void QueueOutgoingPacketField(unsigned int v);
-void AddToPacketChecksum(int v);
-void SubFromPacketChecksum(int v);
+void AddToPacketChecksum(void *self, int v);
+void SubFromPacketChecksum(void *self, int v);
 void AdvanceSpriteAnimation(void);
 /* FIXED (2026-07-15): same calling-convention mismatch as FUN_0045ed80
  * above (real signature `void __fastcall FUN_0045cb50(int *param_1)`). */
@@ -776,7 +776,7 @@ void CMobile::v2_SimulateFrame()
                     }
                     uVar9 = EncodeChecksumDeltaMul(this->m_pad908 + 0x4264, auStack_454, 2);
                     iVar11 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar9));
-                    AddToPacketChecksum(0x96 - iVar11);
+                    AddToPacketChecksum(this->m_pad908 + 0x7e58, 0x96 - iVar11);
                     ScrubChecksumGuard(auStack_454);
                     uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                     uVar9 = EncodeChecksumDeltaDiv(this->m_pad908 + 0x7e58, auStack_454, uVar9);
@@ -810,7 +810,7 @@ void CMobile::v2_SimulateFrame()
                     }
                     uVar9 = EncodeChecksumDeltaMul(this->m_pad908 + 0x4264, auStack_454, 2);
                     iVar11 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar9));
-                    AddToPacketChecksum(0x96 - iVar11);
+                    AddToPacketChecksum(this->m_pad908 + 0x7e58, 0x96 - iVar11);
                     ScrubChecksumGuard(auStack_454);
                     uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                     uVar9 = EncodeChecksumDeltaDiv(this->m_pad908 + 0x7e58, auStack_454, uVar9);
@@ -957,12 +957,12 @@ LAB_004622cf:
     iVar11 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar9));
     ScrubChecksumGuard(auStack_454);
     iVar11 = (iVar11 < 0) ? iVar11 - 7 : iVar11 + 7;
-    SubFromPacketChecksum((int)(iVar11 + (iVar11 >> 0x1f & 7U)) >> 3);
+    SubFromPacketChecksum(this->m_pad908 + 0x6284, (int)(iVar11 + (iVar11 >> 0x1f & 7U)) >> 3);
     uVar9 = EncodeChecksumPairDiff(this->m_pad908 + 0x68f0, auStack_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x66cc));
     iVar11 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar9));
     ScrubChecksumGuard(auStack_230);
     iVar11 = (iVar11 < 0) ? iVar11 - 7 : iVar11 + 7;
-    SubFromPacketChecksum((int)(iVar11 + (iVar11 >> 0x1f & 7U)) >> 3);
+    SubFromPacketChecksum(this->m_pad908 + 0x6284, (int)(iVar11 + (iVar11 >> 0x1f & 7U)) >> 3);
     iVar11 = *reinterpret_cast<int *>(this->m_padae22 + 0x11c2) - *reinterpret_cast<int *>(this->m_padae22 + 0x11be);
     iVar11 = (iVar11 < 0) ? iVar11 - 9 : iVar11 + 9;
     uVar9 = *reinterpret_cast<unsigned int *>(this->m_padbff4 + 0x2b0);
@@ -1091,7 +1091,7 @@ void CMobile::HandleFireInput()
                         EncodeDecrementedChecksum(param_1 + 0x214f);
                         uVar17 = EncodeChecksumDeltaMul(param_1 + 0x12db, local_b40, 2);
                         iVar18 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar17));
-                        AddToPacketChecksum(0x96 - iVar18);
+                        AddToPacketChecksum(param_1 + 0x21d8, 0x96 - iVar18);
                         ScrubChecksumGuard(local_b40);
                         uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                         uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x21d8, local_b40, uVar17);
@@ -1178,7 +1178,7 @@ void CMobile::HandleFireInput()
                         EncodeDecrementedChecksum(param_1 + 0x214f);
                         uVar17 = EncodeChecksumDeltaMul(param_1 + 0x12db, local_b40, 2);
                         iVar18 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar17));
-                        AddToPacketChecksum(0x96 - iVar18);
+                        AddToPacketChecksum(param_1 + 0x21d8, 0x96 - iVar18);
                         ScrubChecksumGuard(local_b40);
                         uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                         uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x21d8, local_b40, uVar17);

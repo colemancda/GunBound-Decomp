@@ -122,12 +122,12 @@ LAB_004ce86c:
     FUN_00434fc0(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c),0);
     break;
   case 6:
-    AddToPacketChecksum(0xb4);
+    AddToPacketChecksum((void *)(g_clientContext + 0x5b1ac), 0xb4);
     uVar6 = PeekChecksumStateUnderLock(&DAT_00e9bed8);
     cVar4 = PacketChecksumGreaterThan(g_clientContext + 0x5b1ac,uVar6);
     if (cVar4 != '\0') {
       uVar6 = PeekChecksumStateUnderLock(&DAT_00e9bed8);
-      SubFromPacketChecksum(uVar6);
+      SubFromPacketChecksum((void *)(g_clientContext + 0x5b1ac), uVar6);
     }
   default:
 switchD_004ce6ac_default:

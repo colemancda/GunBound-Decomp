@@ -128,7 +128,7 @@ void __fastcall DetonateShot2_Bullet3(int *param_1)
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar5 = PeekPacketChecksumState((void *)&DAT_00796aa0);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        SubFromPacketChecksum((int)(0xc400 / (longlong)iVar5));
+        SubFromPacketChecksum(piVar9 + 0x1ab, (int)(0xc400 / (longlong)iVar5));
       }
     }
     else {

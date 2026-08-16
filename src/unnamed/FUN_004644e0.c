@@ -171,11 +171,11 @@ LAB_004647f7:
               cVar2 = CompareChecksumExceeds(param_1 + 0x40,piVar3 + 0x243);
               if (cVar2 == '\0') {
                 iVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-                SubFromPacketChecksum(piVar3[0x2ff7] / iVar5);
+                SubFromPacketChecksum(piVar3 + 0x243, piVar3[0x2ff7] / iVar5);
               }
               else {
                 iVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-                AddToPacketChecksum(piVar3[0x2ff7] / iVar5);
+                AddToPacketChecksum(piVar3 + 0x243, piVar3[0x2ff7] / iVar5);
               }
               iVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
               piVar3[0x2ff7] = piVar3[0x2ff7] % iVar5;

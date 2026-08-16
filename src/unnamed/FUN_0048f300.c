@@ -224,7 +224,7 @@ LAB_0048f583:
             QueueOutgoingPacketField(iVar7);
             iVar7 = 0;
           }
-          AddToPacketChecksum(iVar7);
+          AddToPacketChecksum(piVar5 + 0x1a5a, iVar7);
           iVar7 = piVar5[0x2c2a];
           piVar5[0x2c2a] = iVar7 + 1;
           uVar9 = EncodeChecksumDeltaSub(piVar5 + 0x2cc,local_678,iVar7 * 0xf);
@@ -289,7 +289,7 @@ LAB_0048f583:
               local_4 = 0xffffffff;
               ScrubChecksumGuard();
               if (iVar10 < iVar7) {
-                AddToPacketChecksum(iVar6);
+                AddToPacketChecksum(piVar5 + 0x243, iVar6);
               }
               uVar8 = EncodeChecksumDeltaAdd(piVar5 + 0x2cc,local_2470,0x14);
               local_4 = 0xf;
@@ -298,7 +298,7 @@ LAB_0048f583:
               local_4 = 0xffffffff;
               ScrubChecksumGuard();
               if (iVar10 < iVar7) {
-                SubFromPacketChecksum(iVar6);
+                SubFromPacketChecksum(piVar5 + 0x243, iVar6);
               }
             }
             else {
@@ -323,7 +323,7 @@ LAB_0048f583:
               local_4 = 0xffffffff;
               ScrubChecksumGuard();
               if (iVar10 < iVar7) {
-                SubFromPacketChecksum(iVar6);
+                SubFromPacketChecksum(piVar5 + 0x243, iVar6);
                 uVar8 = EncodeChecksumDeltaAdd(piVar5 + 0x2cc,local_ce4,0x14);
                 local_4 = 10;
                 iVar7 = (**(code **)(*piVar5 + 0x14))();
@@ -331,7 +331,7 @@ LAB_0048f583:
                 local_4 = 0xffffffff;
                 ScrubChecksumGuard();
                 if (iVar10 < iVar7) {
-                  AddToPacketChecksum(iVar6);
+                  AddToPacketChecksum(piVar5 + 0x243, iVar6);
                 }
               }
             }

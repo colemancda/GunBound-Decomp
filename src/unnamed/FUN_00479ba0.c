@@ -186,7 +186,7 @@ LAB_00479e75:
       PeekChecksumStateUnderLock(g_clientContext + 0x5b1ac);
       PeekChecksumStateUnderLock(g_clientContext + 0x5af88);
       iVar5 = FloatToInt64();
-      AddToPacketChecksum(iVar5 * 3);
+      AddToPacketChecksum(param_1 + 0x5f4, iVar5 * 3);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar4 = PeekPacketChecksumState((void *)&DAT_00796aa0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -333,7 +333,7 @@ LAB_00479e75:
         ScrubChecksumGuard();
         local_4 = 4;
         ScrubChecksumGuard();
-        AddToPacketChecksum(uVar4);
+        AddToPacketChecksum((void *)(g_clientContext + iVar5 * 0x224 + 0x5ba80), uVar4);
         uVar12 = PeekChecksumStateUnderLock(auStack_678);
         iVar8 = iVar6 + 0xae15;
         iVar10 = PeekChecksumStateUnderLock(piVar1);
@@ -365,7 +365,7 @@ LAB_00479e75:
           FUN_004368f0(uVar12,uVar4,uVar15);
           uVar4 = 1;
         }
-        AddToPacketChecksum(uVar4);
+        AddToPacketChecksum((void *)(g_clientContext + iVar5 * 0x224 + 0x5cba0), uVar4);
       }
 LAB_0047a564:
       cVar3 = *(char *)(g_clientContext + 0x50126 + iVar5);

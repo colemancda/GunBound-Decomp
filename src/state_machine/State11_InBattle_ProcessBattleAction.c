@@ -393,19 +393,19 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
         bVar16 = *(byte *)puVar12;
         if (bVar16 == 1) {
           uVar21 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
-          AddToPacketChecksum(uVar21);
+          AddToPacketChecksum((void *)(g_clientContext + (uint)bVar16 * 0x224 + 0x5ba80), uVar21);
           *unaff_FS_OFFSET = local_14;
           return;
         }
         if (bVar16 == 2) {
           uVar21 = PeekChecksumStateUnderLock(&DAT_00e9b818);
-          AddToPacketChecksum(uVar21);
+          AddToPacketChecksum((void *)(g_clientContext + (uint)bVar16 * 0x224 + 0x5ba80), uVar21);
           *unaff_FS_OFFSET = local_14;
           return;
         }
         if (bVar16 == 3) {
           uVar21 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-          AddToPacketChecksum(uVar21);
+          AddToPacketChecksum((void *)(g_clientContext + (uint)bVar16 * 0x224 + 0x5ba80), uVar21);
           *unaff_FS_OFFSET = local_14;
           return;
         }
@@ -595,7 +595,7 @@ LAB_004b7c01:
           }
           iVar4 = PeekChecksumStateUnderLock((uint)bVar16 * 0x224 + 0xebef4 + g_clientContext);
           if (((iVar4 != -1) && (iVar4 = local_27ec[0x429], iVar4 != 60000)) && (iVar4 != 0xffff)) {
-            AddToPacketChecksum(iVar4);
+            AddToPacketChecksum((void *)(g_clientContext + (uint)bVar16 * 0x224 + 0xebef4), iVar4);
           }
           puVar15 = (undefined4 *)(param_2 + 0x24);
           puVar18 = (undefined4 *)((int)local_27ec + 0x2302);
@@ -655,7 +655,7 @@ LAB_004b7c01:
               }
             }
             piVar7 = local_27ec;
-            AddToPacketChecksum(local_27ec[0x429]);
+            AddToPacketChecksum((void *)(g_clientContext + (uint)bVar16 * 0x224 + 0xebef4), local_27ec[0x429]);
             iVar10 = g_clientContext + 0x621e8;
             puVar15 = (undefined4 *)(param_2 + 0x24);
             puVar18 = (undefined4 *)((int)piVar7 + 0x2302);
@@ -754,7 +754,7 @@ LAB_004b7c01:
             if ((local_27e5 & 0x10) == 0) {
               if (bVar16 == 1) {
                 local_27dc = uVar11 * 0x224;
-                AddToPacketChecksum(1);
+                AddToPacketChecksum((void *)(g_clientContext + (uint)bVar16 * 0x224 + 0xebef4), 1);
                 EncodeChecksumStateXored();
                 iVar10 = PeekChecksumStateUnderLock(uVar11 * 0x1120 + 0x5113c + g_clientContext);
                 iVar6 = PeekChecksumStateUnderLock(&DAT_00796aa0);
@@ -782,7 +782,7 @@ LAB_004b7c01:
               }
               else if (bVar16 == 2) {
                 local_27dc = uVar11 * 0x224;
-                SubFromPacketChecksum(2);
+                SubFromPacketChecksum((void *)(g_clientContext + local_27dc + 0x5cba0), 2);
                 EncodeChecksumStateXored();
                 iVar10 = PeekChecksumStateUnderLock(uVar11 * 0x1120 + 0x5113c + g_clientContext);
                 iVar6 = PeekChecksumStateUnderLock(&DAT_00796aa0);
@@ -811,7 +811,7 @@ LAB_004b7c01:
             else {
               if (bVar16 == 1) {
                 local_27dc = uVar11 * 0x224;
-                AddToPacketChecksum(1);
+                AddToPacketChecksum((void *)(g_clientContext + local_27dc + 0x5cba0), 1);
                 EncodeChecksumStateXored();
                 iVar10 = PeekChecksumStateUnderLock(uVar11 * 0x1120 + 0x5113c + g_clientContext);
                 iVar6 = PeekChecksumStateUnderLock(&DAT_00796aa0);
@@ -840,7 +840,7 @@ LAB_004b7c01:
               }
               else if (bVar16 == 2) {
                 local_27dc = uVar11 * 0x224;
-                SubFromPacketChecksum(2);
+                SubFromPacketChecksum((void *)(g_clientContext + local_27dc + 0x5cba0), 2);
                 EncodeChecksumStateXored();
                 iVar10 = PeekChecksumStateUnderLock(uVar11 * 0x1120 + 0x5113c + g_clientContext);
                 iVar6 = PeekChecksumStateUnderLock(&DAT_00796aa0);
@@ -869,7 +869,7 @@ LAB_004b7c01:
               else {
                 puVar8 = local_27f0;
                 if (bVar16 == 3) {
-                  SubFromPacketChecksum(1);
+                  SubFromPacketChecksum((void *)(g_clientContext + local_27dc + 0x5cba0), 1);
                   EncodeChecksumStateXored();
                   iVar4 = PeekChecksumStateUnderLock((int)piVar7 * 0x1120 + 0x5113c + g_clientContext);
                   iVar10 = PeekChecksumStateUnderLock(&DAT_00796aa0);
@@ -991,7 +991,7 @@ LAB_004b7fb2:
           }
           iVar4 = PeekChecksumStateUnderLock((uint)bVar16 * 0x224 + 0xebef4 + g_clientContext);
           if ((iVar4 != -1) && (local_27ec[0x429] != 60000)) {
-            AddToPacketChecksum(local_27ec[0x429]);
+            AddToPacketChecksum((void *)(g_clientContext + local_27dc + 0x5cba0), local_27ec[0x429]);
           }
           pbVar14 = (byte *)((int)puVar12 + 3);
           puVar15 = (undefined4 *)((int)local_27ec + 0x2302);
@@ -1006,7 +1006,7 @@ LAB_004b7fb2:
           *unaff_FS_OFFSET = local_14;
           return;
         case GB_ACT_WIND_UPDATE:
-          AddToPacketChecksum(3);
+          AddToPacketChecksum((void *)(g_clientContext + 0xeb854), 3);
           puVar15 = (undefined4 *)((int)local_27ec + 0x2302);
           for (iVar4 = 8; iVar4 != 0; iVar4 = iVar4 + -1) {
             *puVar15 = *(undefined4 *)puVar12;
@@ -1199,7 +1199,7 @@ LAB_004b7fb2:
           if (cVar2 != '\0') {
             QueueOutgoingPacketField(0);
             iVar4 = GetPlayerRecordBySlot(g_clientContext);
-            AddToPacketChecksum(4);
+            AddToPacketChecksum((void *)(g_clientContext + local_27dc + 0x5cba0), 4);
             InitGuardSlot();
             local_c = 0xf;
             EncodeChecksumStateXored();

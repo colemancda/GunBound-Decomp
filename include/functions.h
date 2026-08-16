@@ -55,7 +55,7 @@ undefined4 OpenXFSArchive(struct XFSArchive *archive, LPCSTR path, int writeFlag
 void ParseChooseEventLine(int *param_1,undefined4 param_2,undefined4 param_3);
 undefined4 ReadXFSEntry();
 uint ReadXFSEntryByte();
-void AddToPacketChecksum();
+void AddToPacketChecksum(void *self,int param_1);
 void BuildAssetPath(char *param_1, const char *param_2, ...);
 undefined4 EncodeChecksumState(int param_1);
 void EncodeChecksumStateXored();
@@ -68,7 +68,7 @@ bool PacketChecksumNotEquals();
 uint PeekPacketChecksumState();
 void PostTurnEvent();
 undefined4 QueueOutgoingPacketField();
-void SubFromPacketChecksum();
+void SubFromPacketChecksum(void *self,int param_1);
 undefined4 GetDisplayConfigFromRegistry();
 undefined4 __fastcall ReadRegistryDword(); /* returns the _atol result (EAX) */
 void __fastcall WriteRegistryDword();

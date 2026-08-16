@@ -81,7 +81,7 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
       iVar5 = PeekChecksumStateUnderLock((uint)bVar1 * 0x224 + 0xebef4 + g_clientContext);
       if (((iVar5 != -1) && (iVar5 = *(int *)(g_gameStateVTableArray[0xb] + 0x10a4), iVar5 != 60000)
           ) && (iVar5 != 0xffff)) {
-        AddToPacketChecksum(iVar5);
+        AddToPacketChecksum((void *)(g_clientContext + (uint)bVar1 * 0x224 + 0xebef4), iVar5);
       }
       puVar7 = (undefined4 *)(packetBuf + 0x24);
       puVar9 = (undefined4 *)(g_gameStateVTableArray[0xb] + 0x2302);

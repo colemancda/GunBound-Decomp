@@ -3,6 +3,14 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): both
+ * AddToPacketChecksum calls dropped their EAX cell.  0x45e924 is
+ * `lea eax,[ebp + 0x6968]` with EBP = the first stack argument (loaded at
+ * 0x45db45), i.e. param_1 + 0x6968; 0x45ea16 is `add eax,0x270` on the
+ * return value of the `mov edx,0x186aa; call 0x4f30c0` sprite lookup that
+ * the C already captures as iVar6 on the line above (FindSpriteFrame), so the
+ * cell is the sprite record's own guard at + 0x270.
  */
 #include "ghidra_types.h"
 
@@ -438,7 +446,7 @@ LAB_0045e442:
           QueueOutgoingPacketField(iVar6);
           iVar6 = 0;
         }
-        AddToPacketChecksum(iVar6);
+        AddToPacketChecksum((void *)(param_1 + 0x6968), iVar6);
         uVar4 = EncodeChecksumDeltaSub(param_2 + 0x2cc,auStack_230,0xf);
         local_4 = 0x24;
         uVar4 = PeekChecksumStateUnderLock(uVar4);
@@ -461,7 +469,7 @@ LAB_0045e442:
         }
         cVar3 = PeekPacketChecksumBool();
         if ((cVar3 == '\x01') && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
-          AddToPacketChecksum(iVar7);
+          AddToPacketChecksum((void *)(iVar6 + 0x270), iVar7);
         }
       }
     }

@@ -1979,7 +1979,7 @@ LAB_004c1730:
         iVar5 = _rand();
         iVar6 = iVar5 % iVar6 - piVar15[0x46a];
       }
-      AddToPacketChecksum(iVar6);
+      AddToPacketChecksum((void *)(*(int *)(g_clientContext + 0x621e0) + 0x7864), iVar6);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar6 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x7864));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -530,7 +530,7 @@ LAB_00453b3c:
     }
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 != '\0') {
-      AddToPacketChecksum(param_1[0xfea]);
+      AddToPacketChecksum(param_1 + 0x70b, param_1[0xfea]);
       if (((param_1[0xfea] == 1) && (cVar3 = PacketChecksumGreaterEqual(param_1 + 0x70b,0x5a), cVar3 != '\0')) ||
          ((param_1[0xfea] == -1 && (cVar3 = PacketChecksumLessEqual(param_1 + 0x70b,0x5a), cVar3 != '\0')))) {
         param_1[0xfea] = 0;

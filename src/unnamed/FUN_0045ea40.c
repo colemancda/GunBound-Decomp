@@ -4,6 +4,13 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): AddToPacketChecksum's
+ * EAX cell (0x45eba8) is `lea eax,[esi + 0x6968]`, and ESI here is the
+ * function's own undeclared object register - the same unaff_ESI the C already
+ * dereferences (`unaff_ESI[9]`, the vtable call through *unaff_ESI).  So the
+ * cell is unaff_ESI + 0x1a5a (0x6968 / 4).  The object itself is still an
+ * unrecovered register parameter of this function (a separate defect).
  */
 #include "ghidra_types.h"
 
@@ -63,7 +70,7 @@ void FUN_0045ea40(void)
             QueueOutgoingPacketField(iVar3);
             iVar3 = 0;
           }
-          AddToPacketChecksum(iVar3);
+          AddToPacketChecksum(unaff_ESI + 0x1a5a, iVar3);
           uVar2 = EncodeChecksumDeltaSub(unaff_ESI + 0x2cc,auStack_230,0xf);
           uStack_4 = 2;
           uVar2 = PeekChecksumStateUnderLock(uVar2);

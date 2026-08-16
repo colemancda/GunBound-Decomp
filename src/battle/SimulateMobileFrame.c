@@ -158,7 +158,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
           uVar9 = EncodeChecksumDeltaMul(param_1 + 0x12db,auStack_454,2);
           uStack_4 = 8;
           iVar12 = PeekChecksumStateUnderLock(uVar9);
-          AddToPacketChecksum(0x96 - iVar12);
+          AddToPacketChecksum(param_1 + 0x21d8, 0x96 - iVar12);
           uStack_4 = 0xffffffff;
           ScrubChecksumGuard();
           uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
@@ -203,7 +203,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
           uVar9 = EncodeChecksumDeltaMul(param_1 + 0x12db,auStack_454,2);
           uStack_4 = 3;
           iVar12 = PeekChecksumStateUnderLock(uVar9);
-          AddToPacketChecksum(0x96 - iVar12);
+          AddToPacketChecksum(param_1 + 0x21d8, 0x96 - iVar12);
           uStack_4 = 0xffffffff;
           ScrubChecksumGuard();
           uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
@@ -367,7 +367,7 @@ LAB_00462742:
   else {
     iVar12 = iVar12 + 7;
   }
-  SubFromPacketChecksum((int)(iVar12 + (iVar12 >> 0x1f & 7U)) >> 3);
+  SubFromPacketChecksum(param_1 + 0x1ae3, (int)(iVar12 + (iVar12 >> 0x1f & 7U)) >> 3);
   uVar9 = EncodeChecksumPairDiff(param_1 + 0x1c7e,auStack_230,param_1 + 0x1bf5);
   uStack_4 = 0xe;
   iVar12 = PeekChecksumStateUnderLock(uVar9);
@@ -379,7 +379,7 @@ LAB_00462742:
   else {
     iVar12 = iVar12 + 7;
   }
-  SubFromPacketChecksum((int)(iVar12 + (iVar12 >> 0x1f & 7U)) >> 3);
+  SubFromPacketChecksum(param_1 + 0x1ae3, (int)(iVar12 + (iVar12 >> 0x1f & 7U)) >> 3);
   iVar12 = param_1[0x2ff9] - param_1[0x2ff8];
   if (iVar12 < 0) {
     iVar12 = iVar12 + -9;

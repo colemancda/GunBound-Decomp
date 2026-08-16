@@ -101,7 +101,7 @@ void GameTick(void)
    * `add eax,0x6aa678` immediately before `call 0x4065a0`. */
   cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6aa678));
   if (cVar2 == '\x01') {
-    SubFromPacketChecksum(uVar10);
+    SubFromPacketChecksum((void *)(g_clientContext + 0x6aa67c), uVar10);
     cVar2 = PacketChecksumLessEqual(&DAT_006aa67c + g_clientContext,0);
     if (cVar2 != '\0') {
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
