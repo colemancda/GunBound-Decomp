@@ -394,7 +394,7 @@ LAB_00481683:
     (*pcVar17)(&DAT_005a9068);
     if (cVar7 == '\0') goto LAB_00481683;
 LAB_004816cf:
-    cVar5 = PeekPacketChecksumBool();
+    cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar5 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

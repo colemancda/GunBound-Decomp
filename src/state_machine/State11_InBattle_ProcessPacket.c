@@ -306,10 +306,10 @@ LAB_004b4324:
             (&DAT_006a9b71)[iVar6] = bVar13 + bVar12 + -0x34;
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
-          cVar2 = PeekPacketChecksumBool();
+          cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62149));
           if ((((cVar2 == '\x01') &&
                (cVar2 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4), cVar2 != '\0'))
-              && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) &&
+              && (cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62152)), cVar2 == '\0')) &&
              ((g_currentGameState != 0xb || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')))) {
             SendPlayResult();
           }

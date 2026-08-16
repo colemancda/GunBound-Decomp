@@ -114,7 +114,7 @@ void __fastcall FUN_0049c13f(int param_1)
     SpawnPrimaryShot();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     goto joined_r0x0049c851;
   case 6:
     if (in_stack_0000248c != 0xb) break;
@@ -156,7 +156,7 @@ void __fastcall FUN_0049c13f(int param_1)
     ScrubChecksumGuard();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
 joined_r0x0049c851:
     if (cVar2 == '\0') {
       AcquireSoundChannel();
@@ -188,7 +188,7 @@ LAB_0049c9ad:
     SpawnItemProjectile();
     ScrubChecksumGuard();
     ScrubChecksumGuard();
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar2 == '\0') {
       AcquireSoundChannel();
     }
@@ -211,7 +211,7 @@ LAB_0049c9ad:
       ScrubChecksumGuard();
       ScrubChecksumGuard();
       ScrubChecksumGuard();
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         AcquireSoundChannel();
       }

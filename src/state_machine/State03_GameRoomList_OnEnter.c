@@ -111,7 +111,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   param_1[0xa3] = iVar4;
   iVar4 = BuildChannelUserListPanel(&g_uiPanelManager);
   param_1[0xa4] = iVar4;
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b968));
   if ((cVar3 == '\x01') && (*(short *)(g_clientContext + 0x3b96f) != -1)) {
     *(undefined1 *)((int)param_1 + 0x115) = 1;
   }

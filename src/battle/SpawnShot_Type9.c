@@ -523,7 +523,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
       TreeLowerBound();
     }
   }
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x5b818));
   pcVar11 = (code *)LeaveCriticalSection;
   pcVar10 = (code *)EnterCriticalSection;
   if (cVar2 == '\x01') {

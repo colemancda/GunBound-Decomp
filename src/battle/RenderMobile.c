@@ -52,7 +52,7 @@ void __fastcall RenderMobile(int param_1)
   uVar4 = uVar6 >> 2 & 1;
   iVar5 = *(int *)(g_clientContext + 0x1fe1c + uVar4 * 4);
   iVar10 = *(int *)(g_clientContext + 0x1fe24 + uVar4 * 4);
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)(param_1 + 0x908));
   iVar8 = g_clientContext;
   if (cVar3 == '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

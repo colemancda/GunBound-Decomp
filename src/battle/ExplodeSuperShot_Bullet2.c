@@ -46,7 +46,7 @@ void __fastcall ExplodeSuperShot_Bullet2(int param_1)
   /* Windows SEH __try/__except frame setup stripped - handler body
    * (LAB_0053df6b) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar2 == '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x1178));

@@ -284,7 +284,7 @@ LAB_004cb8d4:
   uVar8 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
   (*pcVar14)(&DAT_005a9068);
   if (local_718 != uVar8) goto LAB_004cbd7a;
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62149));
   if (cVar1 == '\x01') {
 LAB_004cbb03:
     QueueBroadcastEvent(0xc40b);
@@ -382,7 +382,7 @@ LAB_004cbad9:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState((void *)(g_clientContext + 0x4512c));
     (*pcVar14)(&DAT_005a9068);
-    if ((((int)local_718 <= iVar3) && (cVar1 = PeekPacketChecksumBool(), cVar1 == '\0')) &&
+    if ((((int)local_718 <= iVar3) && (cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x67e3cc)), cVar1 == '\0')) &&
        (*(char *)(g_clientContext + 0x45127) != '\0')) {
       QueueBroadcastEvent(0xc305);
       BroadcastQueuedEvent();

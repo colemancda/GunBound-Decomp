@@ -423,7 +423,7 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
       TreeLowerBound();
     }
   }
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x5b818));
   pcVar10 = (code *)LeaveCriticalSection;
   pcVar9 = (code *)EnterCriticalSection;
   if (cVar2 == '\x01') {

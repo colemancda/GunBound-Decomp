@@ -76,7 +76,7 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   puStack_8 = &LAB_00539d55;
   *unaff_FS_OFFSET = &local_c;
   uStack_10 = 0x478ccf;
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if ((cVar1 != '\0') || ((char)param_1[5] == '\x01')) goto LAB_004798f4;
   local_2d0c = 0;
   EncodeChecksumDeltaSub(param_1 + 0x97,local_2028,param_2);

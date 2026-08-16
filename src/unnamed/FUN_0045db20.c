@@ -78,7 +78,7 @@ FUN_0045db20(int param_1,int *param_2,int param_3,undefined4 param_4,char param_
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
   uStack_10 = 0x45db3f;
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if ((((cVar3 != '\0') || (param_2[9] == 0xe)) || (cVar3 = PeekPacketChecksumBool(), cVar3 == '\0')) ||
      (cVar3 = PeekPacketChecksumBool(), cVar3 == '\x01')) goto LAB_0045ea1c;
   local_31cc = param_3;

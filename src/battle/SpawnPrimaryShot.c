@@ -991,7 +991,7 @@ LAB_0042d667:
       uVar7 = uVar4;
     }
   }
-  cVar5 = PeekPacketChecksumBool();
+  cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x5b818));
   pcVar15 = (code *)LeaveCriticalSection;
   if (cVar5 == '\x01') {
     uVar8 = EncodeChecksumDeltaMul(local_8bc + 0x930,auStack_67c,3);

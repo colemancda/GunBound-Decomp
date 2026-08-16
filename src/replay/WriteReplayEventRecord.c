@@ -267,7 +267,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                 (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)iVar19;
                 g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
                 if (iVar19 == 0xe) {
-                  cVar4 = PeekPacketChecksumBool();
+                  cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bab));
                   if (cVar4 == '\0') {
                     SetGuardedBool(1,GB_GUARD_UNRECOVERED);
                   }
@@ -375,8 +375,8 @@ LAB_00411727:
       pbVar22 = param_3;
       if ((cVar4 != '\0') &&
          ((((cVar4 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar4 != '\0' ||
-            (cVar4 = PeekPacketChecksumBool(), pbVar22 = param_3, cVar4 == '\x01')) &&
-           (cVar4 = PeekPacketChecksumBool(), pbVar22 = param_3, cVar4 == '\0')) &&
+            (cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6214c)), pbVar22 = param_3, cVar4 == '\x01')) &&
+           (cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62152)), pbVar22 = param_3, cVar4 == '\0')) &&
           ((g_currentGameState != 0xb ||
            (cVar4 = PeekPacketChecksumBool(), pbVar22 = param_3, cVar4 != '\x01')))))) {
         SendPlayResult();

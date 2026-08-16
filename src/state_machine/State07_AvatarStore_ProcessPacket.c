@@ -411,15 +411,15 @@ LAB_0044469b:
               if (iVar20 == iVar6) {
                 switch(local_520) {
                 case 0:
-                  cVar2 = PeekPacketChecksumBool();
+                  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b498));
                   uVar11 = -(uint)(cVar2 != '\0') & 0x8000;
                   break;
                 case 1:
-                  cVar2 = PeekPacketChecksumBool();
+                  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b498));
                   uVar11 = -(uint)(cVar2 != '\0') & 0x8000;
                   break;
                 case 2:
-                  cVar2 = PeekPacketChecksumBool();
+                  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b498));
                   uVar11 = -(uint)(cVar2 != '\0') & 0x8000;
                   break;
                 case 3:
@@ -524,15 +524,15 @@ LAB_00444d76:
           if (iVar4 == iVar20) {
             switch(local_514) {
             case 0:
-              cVar2 = PeekPacketChecksumBool();
+              cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b498));
               uVar11 = -(uint)(cVar2 != '\0') & 0x8000;
               break;
             case 1:
-              cVar2 = PeekPacketChecksumBool();
+              cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b498));
               uVar11 = -(uint)(cVar2 != '\0') & 0x8000;
               break;
             case 2:
-              cVar2 = PeekPacketChecksumBool();
+              cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b498));
               uVar11 = -(uint)(cVar2 != '\0') & 0x8000;
               break;
             case 3:

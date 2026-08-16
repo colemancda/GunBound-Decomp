@@ -201,7 +201,7 @@ LAB_00479e75:
       EmitChecksumMod(param_1 + 0x5f4, uVar4);
     }
   }
-  iVar5 = PeekPacketChecksumBool();
+  iVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if ((char)iVar5 != '\0') goto LAB_0047a932;
   cVar3 = PeekPacketChecksumBool();
   if (cVar3 == '\x01') {
@@ -209,7 +209,7 @@ LAB_00479e75:
     iVar8 = PeekChecksumStateUnderLock(param_1 + 0x97);
     iVar5 = g_clientContext;
     piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if ((cVar3 == '\0') && ((&DAT_006a7758)[iVar5] != '\0')) {
       if (((&DAT_006a7736)[iVar5] == '\x01') &&
          ((uVar7 = iVar6 - *(int *)(&g_nCameraY + iVar5) >> 0x1f,

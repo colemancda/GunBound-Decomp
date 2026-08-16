@@ -45,7 +45,7 @@ void __fastcall FUN_0045cb50(int *param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x2cc));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if ((iVar5 + 500 < iVar4) || (cVar3 = PeekPacketChecksumBool(), cVar3 == '\x01')) {
+  if ((iVar5 + 500 < iVar4) || (cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xbff7), cVar3 == '\x01')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at
      * 0x45d11c: self is edi+0x8984, and edi is param_1 (`mov edi,ecx`
@@ -158,7 +158,7 @@ LAB_0045cdb1:
     iVar7 = PeekChecksumStateUnderLock(param_1 + 0x243);
     iVar5 = g_clientContext;
     piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if ((cVar3 == '\0') && ((&DAT_006a7758)[iVar5] != '\0')) {
       if (((&DAT_006a7736)[iVar5] == '\x01') &&
          ((uVar11 = iVar4 - *(int *)(&g_nCameraY + iVar5) >> 0x1f,

@@ -89,10 +89,10 @@ void __fastcall DetonateItemShot(int *param_1)
   EncodeOutgoingPacketField(param_1 + 0x99, iVar8 + iVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
-  cVar6 = PeekPacketChecksumBool();
+  cVar6 = PeekPacketChecksumBool((byte *)param_1 + 0xf45);
   if (cVar6 != '\0') {
     *(undefined1 *)(param_1 + 5) = 1;
-    cVar6 = PeekPacketChecksumBool();
+    cVar6 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar6 == '\0') {
       AcquireSoundChannel(0);
     }
@@ -313,7 +313,7 @@ LAB_00476d03:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar7 = g_clientContext;
     piVar9 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar6 = PeekPacketChecksumBool();
+    cVar6 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if ((cVar6 == '\0') && ((&DAT_006a7758)[iVar7] != '\0')) {
       if (((&DAT_006a7736)[iVar7] == '\x01') &&
          ((uVar12 = iVar8 - *(int *)(&g_nCameraY + iVar7) >> 0x1f,
