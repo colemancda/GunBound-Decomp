@@ -3,6 +3,15 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 3 argless PeekPacketChecksumState() calls.  The first reads
+ * param_1 + 0x62f8 directly (0x45f625 `add esi,0x62f8`, ESI = param_1 -
+ * the resolver mis-reports this one because its backward walk runs off the
+ * top of the function into the previous function's `ret` at 0x45f614).
+ * The other two read the scratch the EncodeChecksumDeltaDiv above returned
+ * (local_89c, then local_454) - those helpers return their arg2, see
+ * tools/sweep_guard_instructions.md.
  */
 #include "ghidra_types.h"
 
@@ -34,7 +43,7 @@ undefined4 __fastcall FUN_0045f5d0(int param_1)
     return 0;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x62f8));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar2 < 1) {
     uVar3 = EncodeChecksumNegate(param_1 + 0x62f8,local_230);
@@ -44,7 +53,7 @@ undefined4 __fastcall FUN_0045f5d0(int param_1)
     EncodeChecksumDeltaDiv(uVar3,local_89c,10);
     SUBFIELD(local_4,0,undefined1) = 4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar2 = PeekPacketChecksumState();
+    iVar2 = PeekPacketChecksumState((void *)(local_89c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     SUBFIELD(local_4,0,undefined1) = 3;
     if ((*(int *)(local_89c + 0x14)) != 0) {
@@ -66,7 +75,7 @@ undefined4 __fastcall FUN_0045f5d0(int param_1)
     EncodeChecksumDeltaDiv(uVar3,local_454,10);
     SUBFIELD(local_4,0,undefined1) = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar2 = PeekPacketChecksumState();
+    iVar2 = PeekPacketChecksumState((void *)(local_454));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     if ((*(int *)(local_454 + 0x14)) != 0) {
