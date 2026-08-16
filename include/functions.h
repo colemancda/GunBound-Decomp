@@ -1031,7 +1031,7 @@ void __fastcall RenderWindGaugeTick();
 void State11_InBattle_RenderWeatherHazards();
 void State11_InBattle_ClearEffectTextures();
 void __fastcall State11_InBattle_RenderHud();
-void FUN_004cb280();
+void FinishTurnAndSelectNext();
 void FUN_004cbda0();
 void FUN_004cc5c0();
 void FUN_004ccbb0();

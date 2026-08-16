@@ -1,4 +1,20 @@
-/* FUN_004cb280 - 0x004cb280 in the original binary.
+/* FinishTurnAndSelectNext - 0x004cb280 in the original binary.
+ *
+ * RENAMED (2026-08-16, from FUN_004cb280): the host-side end-of-turn
+ * step.  Called only after a turn's replay burst has been posted
+ * (State11_InBattle_ProcessBattleAction x2 and _OnTick right after the
+ * PostTurnEvent 0x8005..0xc409 sequence, and from _ProcessPacket after
+ * a 0x307 broadcast).  Pass 1 walks the eight player slots (cursor
+ * param_1+0x11dc+k*0x224, k*0x1120 for the per-slot arrays): every slot
+ * whose counter is > 1 gets it reset, a delta-scaled amount applied to
+ * the record via FUN_004368f0 and the localized notice 0x274 (5000 when
+ * it hits the acting slot).  Pass 2 picks the slot with the smallest
+ * value in the turn-delay array g_clientContext+0xebef4 (< 9000, live
+ * record required), then queues 0xc40b/0xc801/0xc308/0xc305 as needed
+ * and finally broadcasts 0xc300 with [slot, u16 turn counter] - the very
+ * packet BeginNewTurn consumes on every client.  So: finish the turn,
+ * select the next slot, announce it.  Sibling of FUN_004ccd10
+ * (AdvanceTurnQueue's state-0 handler), which shares pass 1 verbatim.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -29,7 +45,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004cb280(int param_1)
+void FinishTurnAndSelectNext(int param_1)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not

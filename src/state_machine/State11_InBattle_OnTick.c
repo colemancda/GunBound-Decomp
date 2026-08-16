@@ -1674,7 +1674,7 @@ LAB_004c08c8:
     local_3d60 = (int *)0xc409;
     FUN_004e86f0();
     DAT_0056dbe8 = -1;
-    FUN_004cb280();
+    FinishTurnAndSelectNext();
     pcVar16 = (code *)EnterCriticalSection;
   }
 LAB_004c0ea4:

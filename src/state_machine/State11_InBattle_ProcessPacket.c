@@ -142,7 +142,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0xff;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
             BroadcastQueuedEvent();
-            FUN_004cb280(this);
+            FinishTurnAndSelectNext(this);
           }
           cVar2 = PacketChecksumEquals(g_clientContext + 0x45354,1);
           if ((cVar2 != '\0') ||

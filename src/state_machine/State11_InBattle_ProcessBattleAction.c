@@ -682,7 +682,7 @@ LAB_004b7c01:
               PostTurnEvent(&g_replayContext,0x8403);
               PostTurnEvent(&g_replayContext,0x8405);
               PostTurnEvent(&g_replayContext,0xc409);
-              FUN_004cb280(piVar7);
+              FinishTurnAndSelectNext(piVar7);
               *unaff_FS_OFFSET = local_14;
               return;
             }
@@ -717,7 +717,7 @@ LAB_004b7c01:
               PostTurnEvent(&g_replayContext,0x8403);
               PostTurnEvent(&g_replayContext,0x8405);
               PostTurnEvent(&g_replayContext,0xc409);
-              FUN_004cb280(param_1);
+              FinishTurnAndSelectNext(param_1);
               *unaff_FS_OFFSET = local_14;
               return;
             }
