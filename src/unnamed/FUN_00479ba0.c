@@ -198,7 +198,7 @@ LAB_00479e75:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar4 = PeekPacketChecksumState((void *)&DAT_00796aa0);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EmitChecksumMod(uVar4);
+      EmitChecksumMod(param_1 + 0x5f4, uVar4);
     }
   }
   iVar5 = PeekPacketChecksumBool();

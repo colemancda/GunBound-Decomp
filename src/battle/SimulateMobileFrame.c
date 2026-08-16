@@ -209,12 +209,12 @@ void __fastcall SimulateMobileFrame(int *param_1)
           uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar9 = EncodeChecksumDeltaDiv(param_1 + 0x21d8,auStack_454,uVar9);
           uStack_4 = 4;
-          EmitChecksumDiff(uVar9);
+          EmitChecksumDiff(param_1 + 0x243, (void *)uVar9);
 LAB_0046205f:
           uStack_4 = 0xffffffff;
           ScrubChecksumGuard();
           uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-          EmitChecksumMod(uVar9);
+          EmitChecksumMod(param_1 + 0x21d8, uVar9);
           goto LAB_004622cf;
         }
         EncodeChecksumState(piVar1);

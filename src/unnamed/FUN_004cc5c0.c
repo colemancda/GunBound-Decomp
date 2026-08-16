@@ -59,7 +59,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         uVar4 = PeekChecksumStateUnderLock(&DAT_00796aa0);
         uVar6 = EncodeChecksumDeltaDiv(uVar6,local_1350,uVar4);
         local_4 = 4;
-        EmitChecksumDiff(uVar6);
+        EmitChecksumDiff((void *)(iVar2 + 0x6968), (void *)uVar6);
         local_4 = 3;
         ScrubChecksumGuard();
         local_4 = 0xffffffff;

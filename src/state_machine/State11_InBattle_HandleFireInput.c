@@ -167,11 +167,11 @@ LAB_0045fb8c:
             uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
             uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x21d8,local_b40,uVar17);
             local_4 = 6;
-            EmitChecksumDiff(uVar17);
+            EmitChecksumDiff(param_1 + 0x243, (void *)uVar17);
             local_4 = 0xffffffff;
             ScrubChecksumGuard();
             uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-            EmitChecksumMod(uVar17);
+            EmitChecksumMod(param_1 + 0x21d8, uVar17);
             param_1[0x2b84] = param_1[0x2b84] + 1;
             param_1[0x2c2c] = 3;
             bVar8 = true;
@@ -292,7 +292,7 @@ LAB_0046000e:
             local_4 = 0xffffffff;
             ScrubChecksumGuard();
             uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
-            EmitChecksumMod(uVar17);
+            EmitChecksumMod(param_1 + 0x21d8, uVar17);
             param_1[0x2b84] = param_1[0x2b84] + 1;
             param_1[0x2c2c] = 3;
             bVar8 = true;
