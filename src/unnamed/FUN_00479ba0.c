@@ -180,7 +180,7 @@ LAB_00479e75:
     iVar5 = PeekPacketChecksumState((void *)(param_1 + 0x67d));
     EncodeOutgoingPacketField(param_1 + 0x67d, iVar5 + 1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EmitChecksumSum(param_1 + 0x67d);
+    EmitChecksumSum(param_1 + 0x120, param_1 + 0x67d);
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 != '\0') {
       PeekChecksumStateUnderLock(g_clientContext + 0x5b1ac);
@@ -192,7 +192,7 @@ LAB_00479e75:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x5f4,local_89c,uVar4);
       local_4 = 2;
-      EmitChecksumSum(uVar4);
+      EmitChecksumSum(param_1 + 0x97, (void *)uVar4);
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -370,7 +370,7 @@ LAB_00479e75:
 LAB_0047a564:
       cVar3 = *(char *)(g_clientContext + 0x50126 + iVar5);
       if (cVar3 == '\0') {
-        EmitChecksumSum(auStack_678);
+        EmitChecksumSum((void *)(g_clientContext + 0x67e3d0), (void *)auStack_678);
         cVar3 = PacketChecksumLessThan(&DAT_0067e3d0 + g_clientContext,0);
 joined_r0x0047a5db:
         if (cVar3 != '\0') {
@@ -378,7 +378,7 @@ joined_r0x0047a5db:
         }
       }
       else if (cVar3 == '\x01') {
-        EmitChecksumSum(auStack_678);
+        EmitChecksumSum((void *)(g_clientContext + 0x67e5f4), (void *)auStack_678);
         cVar3 = PacketChecksumLessThan(&DAT_0067e5f4 + g_clientContext,0);
         goto joined_r0x0047a5db;
       }

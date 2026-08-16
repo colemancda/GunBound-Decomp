@@ -318,7 +318,7 @@ LAB_0044469b:
   else {
     if (opcode == GB_OP_BUY_RESPONSE) {
       if (*payload == 0) {
-        EmitChecksumSum((void *)(g_clientContext + 0x396a0), (int)this + 0x30770);
+        EmitChecksumSum((void *)(g_clientContext + 0x396a0), (void *)((int)this + 0x30770));
         QueueOutgoingPacketField(0);
         QueueOutgoingPacketField(0);
         cVar2 = PacketChecksumLessThan(g_clientContext + 0x396a0,0);
@@ -490,7 +490,7 @@ switchD_004449fc_default:
         goto LAB_00445282;
       }
       if (*payload == 0) {
-        EmitChecksumSum((void *)(g_clientContext + 0x396a0), (int)this + 0x30770);
+        EmitChecksumSum((void *)(g_clientContext + 0x396a0), (void *)((int)this + 0x30770));
         QueueOutgoingPacketField(0);
         cVar2 = PacketChecksumLessThan(g_clientContext + 0x396a0,0);
         if (cVar2 != '\0') {

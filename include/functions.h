@@ -275,7 +275,7 @@ int EncodeChecksumPairSum();
 int EncodeChecksumPairDiff();
 int InitGuardedChecksumSlot();
 int FUN_0040aea0();
-void EmitChecksumSum();
+void EmitChecksumSum(void *self,void *other);
 void EmitChecksumDiff(void *self,void *other);
 void FUN_0040b030();
 void EncodeDecrementedChecksum(void *self);

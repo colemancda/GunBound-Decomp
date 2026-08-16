@@ -7,6 +7,13 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): both EmitChecksumSum
+ * calls dropped their first cell (EAX).  The original builds it as
+ * `lea eax,[esi + <ctx> + 0x5ba80]` / `+ 0x5cba0` (0x411872 / 0x4118c4) where
+ * ESI is a THIRD loop counter Ghidra folded away entirely: it is zeroed at
+ * 0x4117cc alongside local_d78/iVar12 and stepped by 0x224 at 0x4118e0 while
+ * local_d78 steps by 1, so ESI == local_d78 * 0x224.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -347,14 +354,14 @@ LAB_00411727:
           uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar15 = EncodeChecksumDeltaDiv(uVar15,local_684,uVar17);
           SUBFIELD(local_c,0,undefined1) = 4;
-          EmitChecksumSum(uVar15);
+          EmitChecksumSum((void *)(g_clientContext + local_d78 * 0x224 + 0x5ba80), (void *)uVar15);
           SUBFIELD(local_c,0,undefined1) = 3;
           ScrubChecksumGuard();
           SUBFIELD(local_c,0,undefined1) = 2;
           ScrubChecksumGuard();
           local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),1);
           ScrubChecksumGuard();
-          EmitChecksumSum(local_d30);
+          EmitChecksumSum((void *)(g_clientContext + local_d78 * 0x224 + 0x5cba0), (void *)local_d30);
           iVar19 = g_clientContext;
         }
         local_d78 = local_d78 + 1;

@@ -164,7 +164,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
           uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar9 = EncodeChecksumDeltaDiv(param_1 + 0x21d8,auStack_454,uVar9);
           uStack_4 = 9;
-          EmitChecksumSum(param_1 + 0x243, uVar9);
+          EmitChecksumSum(param_1 + 0x243, (void *)uVar9);
           goto LAB_0046205f;
         }
         EncodeChecksumState(piVar1);

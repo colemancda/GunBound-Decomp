@@ -962,7 +962,7 @@ LAB_0042d667:
   if ((iVar6 != 0) && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) {
     uVar8 = EncodeChecksumDeltaDiv(local_8bc + 0x930,auStack_8a0,4);
     puStack_8 = (undefined1 *)0x25;
-    EmitChecksumSum(uVar8);
+    EmitChecksumSum(local_8bc + 0x930, (void *)uVar8);
     uVar4 = uStack_88c;
     puStack_8 = (undefined1 *)0xffffffff;
     if (uStack_88c != 0) {
@@ -972,7 +972,7 @@ LAB_0042d667:
     }
     uVar8 = EncodeChecksumDeltaDiv(local_8bc + 0x9b9,auStack_8a0,4);
     puStack_8 = (undefined1 *)0x26;
-    EmitChecksumSum(uVar8);
+    EmitChecksumSum(local_8bc + 0x9b9, (void *)uVar8);
     uVar4 = uStack_88c;
     puStack_8 = (undefined1 *)0xffffffff;
     if (uStack_88c != 0) {
@@ -982,7 +982,7 @@ LAB_0042d667:
     }
     uVar8 = EncodeChecksumDeltaDiv(local_8bc + 0xa42,auStack_8a0,4);
     puStack_8 = (undefined1 *)0x27;
-    EmitChecksumSum(uVar8);
+    EmitChecksumSum(local_8bc + 0xa42, (void *)uVar8);
     uVar4 = uStack_88c;
     puStack_8 = (undefined1 *)0xffffffff;
     if (uStack_88c != 0) {

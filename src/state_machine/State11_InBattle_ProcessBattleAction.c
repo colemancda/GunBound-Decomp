@@ -7,6 +7,15 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): EmitChecksumSum's
+ * FIRST cell arrives in EAX and was dropped at all six sites; the &local_2658
+ * the C already passes is its second.  The original builds the first as
+ * `mov esi,ebx; imul esi,esi,0x224; lea eax,[esi + <ctx> + 0x5ba80]`
+ * (0x4b6e96-0x4b6f68 and the five siblings), i.e. the per-slot guard array
+ * indexed by the ALREADY-SCALED counter this C spells local_27dc - assigned
+ * `uVar11 * 0x224` a dozen lines above four of the six, and stepped from 0 by
+ * 0x224 in the loop at C1184/C1261 that contains the sixth.
  */
 #include "ghidra_types.h"
 #include "opcodes.h"
@@ -759,7 +768,7 @@ LAB_004b7c01:
                 ScrubChecksumGuard();
                 local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                 ScrubChecksumGuard();
-                EmitChecksumSum(&local_2658);
+                EmitChecksumSum((void *)(g_clientContext + local_27dc + 0x5ba80), &local_2658);
                 uVar22 = 1;
                 uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
                 uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
@@ -787,7 +796,7 @@ LAB_004b7c01:
                 ScrubChecksumGuard();
                 local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                 ScrubChecksumGuard();
-                EmitChecksumSum(&local_2658);
+                EmitChecksumSum((void *)(g_clientContext + local_27dc + 0x5ba80), &local_2658);
                 uVar22 = 0xfffffffc;
                 uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
                 uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
@@ -816,7 +825,7 @@ LAB_004b7c01:
                 ScrubChecksumGuard();
                 local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                 ScrubChecksumGuard();
-                EmitChecksumSum(&local_2658);
+                EmitChecksumSum((void *)(g_clientContext + local_27dc + 0x5ba80), &local_2658);
                 uVar22 = 1;
                 uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
                 uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
@@ -845,7 +854,7 @@ LAB_004b7c01:
                 ScrubChecksumGuard();
                 local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                 ScrubChecksumGuard();
-                EmitChecksumSum(&local_2658);
+                EmitChecksumSum((void *)(g_clientContext + local_27dc + 0x5ba80), &local_2658);
                 uVar22 = 0xfffffffc;
                 uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
                 uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);
@@ -874,7 +883,7 @@ LAB_004b7c01:
                   ScrubChecksumGuard();
                   local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),4);
                   ScrubChecksumGuard();
-                  EmitChecksumSum(&local_2658);
+                  EmitChecksumSum((void *)(g_clientContext + local_27dc + 0x5ba80), &local_2658);
                   puVar8 = local_27f0;
                   uVar22 = 0xffffffff;
                   uVar21 = PeekChecksumStateUnderLock(local_27f0 + 0xb30);
@@ -1206,7 +1215,7 @@ LAB_004b7fb2:
             ScrubChecksumGuard();
             local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),0xf);
             ScrubChecksumGuard();
-            EmitChecksumSum(&local_2658);
+            EmitChecksumSum((void *)(g_clientContext + local_27dc + 0x5ba80), &local_2658);
             uVar22 = 4;
             uVar21 = PeekChecksumStateUnderLock(iVar4 + 0xb30);
             uVar20 = PeekChecksumStateUnderLock(iVar4 + 0x90c);

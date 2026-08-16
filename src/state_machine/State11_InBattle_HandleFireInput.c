@@ -288,7 +288,7 @@ LAB_0046000e:
             uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
             uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x21d8,local_b40,uVar17);
             local_4 = 0xd;
-            EmitChecksumSum(param_1 + 0x243, uVar17);
+            EmitChecksumSum(param_1 + 0x243, (void *)uVar17);
             local_4 = 0xffffffff;
             ScrubChecksumGuard();
             uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
@@ -814,7 +814,7 @@ LAB_004613b2:
       if ((&DAT_005f2f40)[g_clientContext] == '\0') {
         uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x1d90,auStack_230,6);
         local_4 = 0x15;
-        EmitChecksumSum(param_1 + 0x1e19, uVar17);
+        EmitChecksumSum(param_1 + 0x1e19, (void *)uVar17);
         local_4 = 0xffffffff;
         ScrubChecksumGuard();
       }

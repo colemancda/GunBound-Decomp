@@ -37,6 +37,23 @@
  * unfixed one-arg sites: the 2026-07-16 sweep put the CELL there and it
  * is the VALUE that Ghidra dropped.  A one-argument Encode in this tree
  * can be either, so read the file's own notes before "fixing" one.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): the three
+ * EncodeChecksumDeltaDiv/EmitChecksumSum pairs here had ALL their arguments
+ * dropped.  The original shape at each (verified at 0x430fda / 0x438e2a /
+ * 0x42fde8) is
+ *     lea esi,[<obj> + 0x24c0]; push esi;
+ *     call DeltaDiv(esi, <stack scratch>, 4);
+ *     push eax; mov eax,esi; call EmitSum
+ * so the cell is <obj> + 0x930 / 0x9b9 / 0xa42 (0x24c0 / 0x26e4 / 0x2908
+ * bytes) and EmitChecksumSum's second cell is the delta helper's return -
+ * which IS its second argument, the stack scratch.  Ghidra never named that
+ * scratch slot in this file (the sibling SpawnShot_Type9 does name it,
+ * &puStack_914, and SpawnPrimaryShot names it auStack_8a0), so it is declared
+ * here as auStackEmitScratch: a real 0x224-byte guard cell serving exactly the
+ * role the original stack slot serves.  Its ADDRESS differs from the
+ * original's - this is a raw port, not a byte-match - but the behaviour (one
+ * distinct scratch cell reused by all three pairs) is the original's.
  */
 #include "ghidra_types.h"
 
@@ -71,6 +88,7 @@ void SpawnShot_Type13(void)
   int iStack_894;
   int iStack_88c;
   undefined1 auStack_6a4 [12];
+  undefined1 auStackEmitScratch [0x224];
   int iStack_698;
   undefined1 auStack_68c [4];
   undefined1 auStack_688 [8];
@@ -231,25 +249,25 @@ void SpawnShot_Type13(void)
   FUN_0041da80();
   iVar3 = GetPlayerRecordBySlot();
   if ((iVar3 != 0) && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) {
-    EncodeChecksumDeltaDiv();
+    EncodeChecksumDeltaDiv(piVar2 + 0x930,auStackEmitScratch,4);
     puStack_8 = (undefined1 *)0x1;
-    EmitChecksumSum();
+    EmitChecksumSum(piVar2 + 0x930, (void *)auStackEmitScratch);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_88c != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound();
     }
-    EncodeChecksumDeltaDiv();
+    EncodeChecksumDeltaDiv(piVar2 + 0x9b9,auStackEmitScratch,4);
     puStack_8 = (undefined1 *)0x2;
-    EmitChecksumSum();
+    EmitChecksumSum(piVar2 + 0x9b9, (void *)auStackEmitScratch);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_88c != 0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound();
     }
-    EncodeChecksumDeltaDiv();
+    EncodeChecksumDeltaDiv(piVar2 + 0xa42,auStackEmitScratch,4);
     puStack_8 = (undefined1 *)0x3;
-    EmitChecksumSum();
+    EmitChecksumSum(piVar2 + 0xa42, (void *)auStackEmitScratch);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_88c != 0) {
       ScrambleChecksumGuardBytes();

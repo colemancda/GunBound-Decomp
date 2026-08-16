@@ -48,6 +48,15 @@
  * Out of scope, flagged: several helper VALUE args are still dropped
  * (the bare Peeks at ~500/530/558/649 feed DeltaDiv/DeltaMul values
  * Ghidra dropped) - helper-family sweep, not this pass.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): the three
+ * EmitChecksumSum calls had both arguments dropped and the DeltaDiv above each
+ * had its divisor dropped.  The original (0x42fde8 onward) does
+ * `lea esi,[ebp+0x24c0]; push esi; call DeltaDiv(esi,<scratch>,4); push eax;
+ * mov eax,esi; call EmitSum`, so EmitChecksumSum's first cell is the same
+ * piVar3 + 0x930 / 0x9b9 / 0xa42 the DeltaDiv already names here and its
+ * second is the delta helper's return -- i.e. the scratch &puStack_914, which
+ * Ghidra did keep in this file.
  */
 #include "ghidra_types.h"
 
@@ -489,25 +498,25 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
   FUN_0041da80(g_clientContext,piVar3,uStack_6c,uStack_4c);
   iVar4 = GetPlayerRecordBySlot();
   if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) {
-    EncodeChecksumDeltaDiv(piVar3 + 0x930,&puStack_914);
+    EncodeChecksumDeltaDiv(piVar3 + 0x930,&puStack_914,4);
     uStack_7c = 2;
-    EmitChecksumSum();
+    EmitChecksumSum(piVar3 + 0x930, &puStack_914);
     uStack_7c = 0xffffffff;
     if (puStack_900 != (undefined *)0x0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound();
     }
-    EncodeChecksumDeltaDiv(piVar3 + 0x9b9,&puStack_914);
+    EncodeChecksumDeltaDiv(piVar3 + 0x9b9,&puStack_914,4);
     uStack_7c = 3;
-    EmitChecksumSum();
+    EmitChecksumSum(piVar3 + 0x9b9, &puStack_914);
     uStack_7c = 0xffffffff;
     if (puStack_900 != (undefined *)0x0) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound();
     }
-    EncodeChecksumDeltaDiv(piVar3 + 0xa42,&puStack_914);
+    EncodeChecksumDeltaDiv(piVar3 + 0xa42,&puStack_914,4);
     uStack_7c = 4;
-    EmitChecksumSum();
+    EmitChecksumSum(piVar3 + 0xa42, &puStack_914);
     uStack_7c = 0xffffffff;
     if (puStack_900 != (undefined *)0x0) {
       ScrambleChecksumGuardBytes();

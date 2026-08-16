@@ -132,7 +132,7 @@ LAB_0045cdb1:
   }
   else {
     FUN_0040b030();
-    EmitChecksumSum(piVar1);
+    EmitChecksumSum(param_1 + 0x2ffd, (void *)piVar1);
     cVar3 = PeekPacketChecksumBool();
     if ((cVar3 == '\x01') &&
        ((cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,1), cVar3 != '\0' ||

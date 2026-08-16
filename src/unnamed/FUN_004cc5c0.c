@@ -80,7 +80,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
           uVar4 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar6 = EncodeChecksumDeltaDiv(uVar6,local_678,uVar4);
           local_4 = 8;
-          EmitChecksumSum(uVar6);
+          EmitChecksumSum((void *)(iVar2 + 0x6968), (void *)uVar6);
           local_4 = 7;
           ScrubChecksumGuard();
         }
@@ -91,7 +91,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
           uVar4 = PeekChecksumStateUnderLock(&DAT_00796aa0);
           uVar6 = EncodeChecksumDeltaDiv(uVar6,local_f08,uVar4);
           local_4 = 6;
-          EmitChecksumSum(uVar6);
+          EmitChecksumSum((void *)(iVar2 + 0x6968), (void *)uVar6);
           local_4 = 5;
           ScrubChecksumGuard();
         }
@@ -131,7 +131,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
         if (cVar1 == '\0') {
           uVar6 = EncodeChecksumDeltaDiv(iVar7,local_ce4,4);
           local_4 = 2;
-          EmitChecksumSum(uVar6);
+          EmitChecksumSum((void *)(iVar2 + 0x6968), (void *)uVar6);
         }
         else {
           uVar6 = EncodeChecksumDeltaMul(iVar7,local_89c,3);
@@ -139,7 +139,7 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
           uVar4 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
           uVar6 = EncodeChecksumDeltaDiv(uVar6,local_454,uVar4);
           local_4 = 1;
-          EmitChecksumSum(uVar6);
+          EmitChecksumSum((void *)(iVar2 + 0x6968), (void *)uVar6);
           local_4 = 0;
           ScrubChecksumGuard();
         }
