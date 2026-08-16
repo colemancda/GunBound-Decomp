@@ -4,6 +4,26 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 8 argless PeekPacketChecksumState() calls and all 13 1-arg
+ * EncodeOutgoingPacketField() calls.  unaff_ESI is g_clientContext for the
+ * whole function (the C's own `*(int *)(unaff_ESI + 0x44e24)` catalog-count
+ * reads are the give-away, and every cell is `lea ...,[esi + 0x...]`).
+ *
+ * The head loop clears FOUR consecutive equipped-slot cells: EDI starts at
+ * esi+0x5f4ab8 and advances 0x224 per pass while local_8 counts 4->1, so
+ * the cell is + (4 - local_8) * 0x224 (0x424412/0x424439).
+ *
+ * The body is then the same block four times, once per equipped-part
+ * category, each pairing one part cell with one slot cell:
+ *   +0x3ac08 / +0x5f4ab8, +0x3ae2c / +0x5f4cdc,
+ *   +0x3b050 / +0x5f4f00, +0x3b274 / +0x5f5124
+ * (0x2c and 0x224 apart respectively - the four category strides).  Each
+ * block also peeks the store-catalog record's part-code cell
+ * *(ctx+0x44e20) + local_10*0x450 + 0x22c, guarded by the C's own
+ * ctx+0x44e24 bounds check on the line above (0x424490/0x424670/
+ * 0x424850/0x4249c0, all identical).
  */
 #include "ghidra_types.h"
 
@@ -22,7 +42,7 @@ void FUN_00424400(void)
   local_8 = 4;
   do {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0xffffffff);
+    EncodeOutgoingPacketField((void *)(unaff_ESI + (4 - local_8) * 0x224 + 0x5f4ab8), 0xffffffff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_8 = local_8 + -1;
   } while (local_8 != 0);
@@ -32,14 +52,14 @@ void FUN_00424400(void)
     do {
       if (*(uint *)(unaff_ESI + 0x44e24) <= local_10) goto LAB_00424a44;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar2 = PeekPacketChecksumState();
+      uVar2 = PeekPacketChecksumState((void *)(*(int *)(unaff_ESI + 0x44e20) + local_10 * 0x450 + 0x22c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar3 = PeekPacketChecksumState();
+      uVar3 = PeekPacketChecksumState((void *)(unaff_ESI + 0x3ac08));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if ((uVar2 & 0x3ffff) == (uVar3 & 0x7fff | -(uint)(cVar1 != '\0') & 0x8000)) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EncodeOutgoingPacketField(local_10);
+        EncodeOutgoingPacketField((void *)(unaff_ESI + 0x5f4ab8), local_10);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         break;
       }
@@ -60,10 +80,10 @@ void FUN_00424400(void)
     }
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(-(uint)(local_11 != '\0') & 0x8000);
+    EncodeOutgoingPacketField((void *)(unaff_ESI + 0x3ac08), -(uint)(local_11 != '\0') & 0x8000);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0xffffffff);
+    EncodeOutgoingPacketField((void *)(unaff_ESI + 0x5f4ab8), 0xffffffff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -83,14 +103,14 @@ void FUN_00424400(void)
     do {
       if (*(uint *)(unaff_ESI + 0x44e24) <= local_10) goto LAB_00424a44;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar2 = PeekPacketChecksumState();
+      uVar2 = PeekPacketChecksumState((void *)(*(int *)(unaff_ESI + 0x44e20) + local_10 * 0x450 + 0x22c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar3 = PeekPacketChecksumState();
+      uVar3 = PeekPacketChecksumState((void *)(unaff_ESI + 0x3ae2c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if ((uVar2 & 0x3ffff) == (uVar3 & 0x7fff | (-(uint)(local_11 != '\0') & 0x8000) + 0x10000)) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EncodeOutgoingPacketField(local_10);
+        EncodeOutgoingPacketField((void *)(unaff_ESI + 0x5f4cdc), local_10);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         break;
       }
@@ -111,10 +131,10 @@ void FUN_00424400(void)
     }
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(-(uint)(local_11 != '\0') & 0x8000);
+    EncodeOutgoingPacketField((void *)(unaff_ESI + 0x3ae2c), -(uint)(local_11 != '\0') & 0x8000);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0xffffffff);
+    EncodeOutgoingPacketField((void *)(unaff_ESI + 0x5f4cdc), 0xffffffff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -134,14 +154,14 @@ void FUN_00424400(void)
     do {
       if (*(uint *)(unaff_ESI + 0x44e24) <= local_10) goto LAB_00424a44;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar2 = PeekPacketChecksumState();
+      uVar2 = PeekPacketChecksumState((void *)(*(int *)(unaff_ESI + 0x44e20) + local_10 * 0x450 + 0x22c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar3 = PeekPacketChecksumState();
+      uVar3 = PeekPacketChecksumState((void *)(unaff_ESI + 0x3b050));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if ((uVar2 & 0x3ffff) == (uVar3 & 0x7fff | (-(uint)(local_11 != '\0') & 0x8000) + 0x20000)) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EncodeOutgoingPacketField(local_10);
+        EncodeOutgoingPacketField((void *)(unaff_ESI + 0x5f4f00), local_10);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         break;
       }
@@ -162,10 +182,10 @@ void FUN_00424400(void)
     }
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(-(uint)(local_11 != '\0') & 0x8000);
+    EncodeOutgoingPacketField((void *)(unaff_ESI + 0x3b050), -(uint)(local_11 != '\0') & 0x8000);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0xffffffff);
+    EncodeOutgoingPacketField((void *)(unaff_ESI + 0x5f4f00), 0xffffffff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   local_10 = 0;
@@ -177,14 +197,14 @@ LAB_00424a44:
         ThrowCxxException(0x80070057);
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar2 = PeekPacketChecksumState();
+      uVar2 = PeekPacketChecksumState((void *)(*(int *)(unaff_ESI + 0x44e20) + local_10 * 0x450 + 0x22c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar3 = PeekPacketChecksumState();
+      uVar3 = PeekPacketChecksumState((void *)(unaff_ESI + 0x3b274));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if ((uVar2 & 0x3ffff) == (uVar3 & 0x7fff | 0x38000)) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EncodeOutgoingPacketField(local_10);
+        EncodeOutgoingPacketField((void *)(unaff_ESI + 0x5f5124), local_10);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         break;
       }
@@ -193,10 +213,10 @@ LAB_00424a44:
   }
   if (local_10 == *(uint *)(unaff_ESI + 0x44e24)) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0x8000);
+    EncodeOutgoingPacketField((void *)(unaff_ESI + 0x3b274), 0x8000);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0xffffffff);
+    EncodeOutgoingPacketField((void *)(unaff_ESI + 0x5f5124), 0xffffffff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   return;
