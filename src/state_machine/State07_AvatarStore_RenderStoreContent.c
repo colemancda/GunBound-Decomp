@@ -46,6 +46,18 @@
  *
  * Not hand-verified beyond the above. See src/README.md's "Raw/verbatim
  * ports" section.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 7 argless PeekPacketChecksumState() calls, in address order.
+ * The first six are the same six header/banner counters CState03's
+ * RenderRoomLabel reads, off g_clientContext (EDI is loaded from
+ * [0x5b3484] at 0x448491 and is still live at 0x44850a): + 0x239b4 (C106),
+ * + 0x23790 (C109), + 0x23348 (C117), + 0x39ae8 (C126), + 0x396a0 (C135)
+ * and + 0x398c4 (C142).  C189 (0x44884b) is `lea eax,[edi + 0x325b0]` with
+ * EDI reloaded from [esp + 0x10]; that slot is where the prologue spilled
+ * ECX at 0x44844f (as [esp + 8], before the later push ebx / push ebp), so
+ * it is the __fastcall `this` -- param_1 + 0x325b0.  Same cell FUN_0050a1b0
+ * reads off g_gameStateVTableArray[7], which is this very object.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -103,10 +115,10 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
   /* --- guard/checksum debug labels (only when the +0x23313 flag set) --- */
   if (*(char *)(param_1 + 0x23313) != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x239b4));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x23790));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     _sprintf(acStack_fc,s__s__3d__3d__005536b8,param_1 + 0x23313,uVar7,uVar6);
     BlitRLESprite(0xbe,9,0xfd0f,(byte *)acStack_fc);
@@ -114,7 +126,7 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
   BlitRLESprite(0xbe,0x17,0xffff,(byte *)(param_1 + 0x23330));
 
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar6 = PeekPacketChecksumState();
+  uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x23348));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e20);
   _sprintf(acStack_fc,pcVar8,uVar6);
@@ -123,7 +135,7 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
   BlitRLESprite(0x19b - (int)(pcVar8 - acStack_fc) * 6,9,0xffff,(byte *)acStack_fc);
 
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar6 = PeekPacketChecksumState();
+  uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x39ae8));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e21);
   _sprintf(acStack_fc,pcVar8,uVar6);
@@ -132,14 +144,14 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
   BlitRLESprite(0x19b - (int)(pcVar8 - acStack_fc) * 6,0x16,0xffff,(byte *)acStack_fc);
 
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar6 = PeekPacketChecksumState();
+  uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x396a0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e22);
   _sprintf(acStack_fc,pcVar8,uVar6);
   BlitRLESprite(0xad,0x27,0x1f3b,(byte *)acStack_fc);
 
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar6 = PeekPacketChecksumState();
+  uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x398c4));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e23);
   _sprintf(acStack_fc,pcVar8,uVar6);
@@ -186,7 +198,7 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
    *     the stub returns 0 so iVar4==0 falls straight through to the tab
    *     block below in this build) --- */
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x325b0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar4 != 0) {
     if (iVar4 == 1) {
