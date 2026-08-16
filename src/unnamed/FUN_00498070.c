@@ -4,6 +4,23 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): the two sites this file
+ * left argless are now closed, so the sweep has no open sites anywhere.
+ * Both read a frame slot that the resolver could not see written because
+ * the store happens with pushes live, so the raw offset does not match the
+ * normalised one:
+ *   - C107 (0x49830a, slot esp+0x20) is filled at 0x49815a by
+ *     `mov [esp+0x24],ecx` with ONE push live (0x49814e), and ECX is
+ *     `lea ecx,[edi + 0x90c]` -- the very value the C already passes as
+ *     EncodeChecksumPairDiff's third argument on the line above,
+ *     local_8bc[0].
+ *   - C215 (0x49860a, slot esp+0x10) is filled at 0x4983d3 by
+ *     `mov [esp+0x1c],ecx` with THREE pushes live (0x4983c9/0x4983d1/
+ *     0x4983d2), and ECX is `lea ecx,[edi + 0x25c]` -- the mirror site's
+ *     third argument, `iVar3 + 0x25c`.  The C overwrites iVar3 with a
+ *     tableHandle read before the peek, so that address is captured into a
+ *     new local iCellB first.
+ *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at 8 of the 10 argless PeekPacketChecksumState() calls.  Two peeks
  * read the object at param_1 + 0xcf2 (0x33c8 bytes; frame[0x8e0] is this
@@ -24,6 +41,7 @@ void FUN_00498070(int *param_1)
   uint uVar1;
   char cVar2;
   int iVar3;
+  int iCellB;
   int iVar4;
   undefined *puVar5;
   int iVar6;
@@ -104,7 +122,7 @@ void FUN_00498070(int *param_1)
           TreeLowerBound(local_8a8);
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar3 = PeekPacketChecksumState();  /* NOT FIXED: cell is frame[0x20] / frame[0x10], a slot never written on this path in 0x498070-0x49860a - needs a per-path trace */
+        iVar3 = PeekPacketChecksumState((void *)(local_8bc[0]));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         param_1[0xff0] = iVar3;
       }
@@ -191,6 +209,7 @@ LAB_00498381:
   if (((int)puVar5 < local_8ac) && ((int)puVar5 < (int)local_8b4)) {
     local_8b0 = local_8c8;
     local_8b4 = puVar5;
+    iCellB = iVar3 + 0x25c;
     EncodeChecksumPairDiff(param_1 + 0x10,local_230,iVar3 + 0x25c);
     local_4 = 5;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -212,7 +231,7 @@ LAB_00498381:
       TreeLowerBound(local_8c4);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();  /* NOT FIXED: cell is frame[0x20] / frame[0x10], a slot never written on this path in 0x498070-0x49860a - needs a per-path trace */
+    iVar3 = PeekPacketChecksumState((void *)(iCellB));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     param_1[0xff0] = iVar3;
   }
