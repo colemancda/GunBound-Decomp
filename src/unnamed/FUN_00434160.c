@@ -4,6 +4,16 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 11 argless PeekPacketChecksumState() calls.  ESI is the
+ * freshly built projectile piVar3 for the whole function (the file's
+ * Encodes already spell it that way), so the two object peeks are
+ * piVar3+0xf54 (0x4342c6, read back by the +0x3b48 Encode on the next
+ * line) and piVar3+0x17e4 (0x43462a, read back by the +0x1a08 Encode).
+ * The rest are globals: g_clientContext+0x5b1ac / +0x5af88 (the two
+ * per-turn shot parameters BeginNewTurn seeds - peeked twice, once per
+ * axis) and 0x796aa0 / 0xe9ba40.
  */
 #include "ghidra_types.h"
 
@@ -73,7 +83,7 @@ LAB_0043428c:
   EncodeOutgoingPacketField((void *)((int)piVar3 + 0xf54),param_2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)((int)piVar3 + 0xf54));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4342d2
    * (`0x4342cc: lea edi,[esi + 0x3b48]`) the cell is piVar3 (the newly-
    * allocated object from operator_new/InitProjectile above) plus byte offset
@@ -116,7 +126,7 @@ LAB_0043428c:
   EncodeOutgoingPacketField((void *)((int)piVar3 + 0x8d0),0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x434390
@@ -126,13 +136,13 @@ LAB_0043428c:
   EncodeOutgoingPacketField((void *)((int)piVar3 + 0x6ac),uVar5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(g_clientContext + 0x5af88));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = FloatToInt64();
@@ -143,13 +153,13 @@ LAB_0043428c:
   EncodeOutgoingPacketField((void *)((int)piVar3 + 0xaf4),(iVar6 << 8) / iVar4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(g_clientContext + 0x5af88));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = FloatToInt64();
@@ -180,7 +190,7 @@ LAB_0043428c:
   *(byte *)((int)piVar3 + 0xf47) = *(byte *)((int)piVar3 + 0xf45) + bVar2 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x434615
@@ -190,7 +200,7 @@ LAB_0043428c:
   EncodeOutgoingPacketField((void *)((int)piVar3 + 0x17e4),uVar5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)((int)piVar3 + 0x17e4));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x434636
    * (`0x434630: lea edi,[esi + 0x1a08]`) the cell is piVar3 (the newly-
    * allocated object from operator_new/InitProjectile above) plus byte offset
@@ -292,7 +302,7 @@ LAB_0043428c:
   EncodeOutgoingPacketField((void *)((int)piVar3 + 0x2f74),0x78);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x434885
