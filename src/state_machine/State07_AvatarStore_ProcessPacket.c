@@ -7,6 +7,35 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 14 remaining argless sites.  The frame was calibrated off
+ * `lea eax,[esp + 0xc8]` = &local_468 at 0x44425f (cross-checked by
+ * [esp + 0x28] = local_508[0] and [esp + 0x40] = local_4f0, the two values
+ * pushed at 0x4444dd / 0x444500), which puts the Ghidra local at
+ * esp + (0x530 - N).  From that:
+ *
+ *   - C125 / C128 (0x4444e9, 0x44450c) write the two 0x224-stride guard
+ *     cells embedded in the stack record at &local_468, at + 8 and + 0x22c
+ *     (esp + 0xd0 / esp + 0x2f4).  Ghidra never named them.
+ *   - C142 (0x444584) is `lea eax,[edi + 8]` where EDI is the catalog
+ *     record pointer built at 0x44456e/0x44457d as
+ *     *(ctx + 0x44e20) + <byte offset>, and that offset slot (esp + 0x14
+ *     here) starts at 0 and steps 0x450 in lockstep with local_514
+ *     (esp + 0x1c).  C143 (0x444592) re-reads &local_468 + 8.
+ *   - The two 0x224-stride catalog loops resolve to
+ *     g_clientContext + <counter> + 0x5f4ab8: the counter is iVar4 in the
+ *     first loop (C377 at 0x44499c, C405 at 0x444aa1) and local_520 in the
+ *     second (C490 at 0x444e1a, C518 at 0x444f22) -- exactly the variables
+ *     the C already steps by 0x224 up to 0x890 in each loop.
+ *   - C380 / C417 / C493 / C530 all read a spill slot that each branch
+ *     fills with `this + 0x3054c` right before its
+ *     PeekChecksumStateUnderLock call (0x444916-0x44491d and
+ *     0x444d58-0x444d5f, both with a push live so the raw esp + 0x18
+ *     normalises to esp + 0x14).
+ *   - C421 / C533 (0x444b22, 0x444f9e) are esp + 0xc + 0x228, and
+ *     esp + 0xc is where the prologue spilled ECX at 0x4440ef -- the
+ *     `this` pointer.
  */
 #include "ghidra_types.h"
 #include "opcodes.h"
@@ -122,10 +151,10 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
             local_466 = local_467 + local_468 + -0x34;
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            EncodeOutgoingPacketField(local_508[0]);
+            EncodeOutgoingPacketField((void *)((char *)&local_468 + 8), local_508[0]);
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            EncodeOutgoingPacketField(local_4f0);
+            EncodeOutgoingPacketField((void *)((char *)&local_468 + 0x22c), local_4f0);
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             if (local_508[0] < *(int *)((int)this + 0x32f98)) {
               *(int *)((int)this + 0x32f98) = local_508[0];
@@ -139,8 +168,8 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
               if (*(int *)(g_clientContext + 0x44e24) == 0) goto LAB_00444d76;
               do {
                 EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-                iVar4 = PeekPacketChecksumState();
-                iVar20 = PeekPacketChecksumState();
+                iVar4 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + local_514 * 0x450 + 8));
+                iVar20 = PeekPacketChecksumState((void *)((char *)&local_468 + 8));
                 LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                 if (iVar4 == iVar20) goto LAB_0044469b;
                 local_514 = local_514 + 1;
@@ -374,10 +403,10 @@ LAB_0044469b:
             local_520 = 0;
             do {
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-              iVar20 = PeekPacketChecksumState();
+              iVar20 = PeekPacketChecksumState((void *)(g_clientContext + iVar4 + 0x5f4ab8));
               LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-              iVar6 = PeekPacketChecksumState();
+              iVar6 = PeekPacketChecksumState((void *)((int)this + 0x3054c));
               LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
               if (iVar20 == iVar6) {
                 switch(local_520) {
@@ -402,7 +431,7 @@ LAB_0044469b:
                 QueueOutgoingPacketField(uVar11);
 switchD_004449fc_default:
                 EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-                EncodeOutgoingPacketField(0xffffffff);
+                EncodeOutgoingPacketField((void *)(g_clientContext + iVar4 + 0x5f4ab8), 0xffffffff);
                 LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                 LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                              300000);
@@ -414,11 +443,11 @@ switchD_004449fc_default:
             FUN_0044b0b0(this);
             FUN_00424400();
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            EncodeOutgoingPacketField(0xffffffff);
+            EncodeOutgoingPacketField((void *)((int)this + 0x3054c), 0xffffffff);
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             *(undefined1 *)((int)this + 0x32f91) = 1;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            EncodeOutgoingPacketField(0xffffffff);
+            EncodeOutgoingPacketField((void *)((int)this + 0x228), 0xffffffff);
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             ShowErrorDialog(0);
             iVar4 = g_clientContext + 0x23330;
@@ -487,10 +516,10 @@ LAB_00444d76:
         local_520 = 0;
         do {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar4 = PeekPacketChecksumState();
+          iVar4 = PeekPacketChecksumState((void *)(g_clientContext + local_520 + 0x5f4ab8));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar20 = PeekPacketChecksumState();
+          iVar20 = PeekPacketChecksumState((void *)((int)this + 0x3054c));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (iVar4 == iVar20) {
             switch(local_514) {
@@ -515,7 +544,7 @@ LAB_00444d76:
             QueueOutgoingPacketField(uVar11);
 switchD_00444e7c_default:
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            EncodeOutgoingPacketField(0xffffffff);
+            EncodeOutgoingPacketField((void *)(g_clientContext + local_520 + 0x5f4ab8), 0xffffffff);
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,(int)this + 0x31488,200000,
                          300000);
@@ -527,10 +556,10 @@ switchD_00444e7c_default:
         FUN_0044b0b0(this);
         FUN_00424400();
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EncodeOutgoingPacketField(0xffffffff);
+        EncodeOutgoingPacketField((void *)((int)this + 0x3054c), 0xffffffff);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EncodeOutgoingPacketField(0xffffffff);
+        EncodeOutgoingPacketField((void *)((int)this + 0x228), 0xffffffff);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
       }
