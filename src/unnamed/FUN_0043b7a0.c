@@ -3,6 +3,15 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 5 argless PeekPacketChecksumState() calls: the global
+ * 0xe9ba40 (0x43b7eb `mov eax,0xe9ba40`), and four reads of the scratch
+ * cell the EncodeChecksumDeltaSub on the line above returned - local_454 /
+ * local_678 / local_678 / local_230.  Those helpers return their arg2, the
+ * caller's stack scratch, not their destination (see
+ * tools/sweep_guard_instructions.md), which is why the resolver reports
+ * these four as "clobbered by call".
  */
 #include "ghidra_types.h"
 
@@ -34,7 +43,7 @@ void FUN_0043b7a0(undefined4 param_1,int param_2,int param_3,int param_4,int par
   if (param_2 <= *(int *)(&g_nCameraBoundY + iVar5)) {
     if (param_3 != 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      PeekPacketChecksumState((void *)(&DAT_00e9ba40));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = g_clientContext;
     }
@@ -59,14 +68,14 @@ LAB_0043b830:
             EncodeChecksumDeltaSub(piVar1 + 0x243,local_454,param_1);
             local_4 = 0;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar3 = PeekPacketChecksumState();
+            iVar3 = PeekPacketChecksumState((void *)(local_454));
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             local_4 = 0xffffffff;
             ScrubChecksumGuard();
             EncodeChecksumDeltaSub(piVar1 + 0x2cc,local_678,param_2);
             local_4 = 1;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar4 = PeekPacketChecksumState();
+            iVar4 = PeekPacketChecksumState((void *)(local_678));
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             local_4 = 0xffffffff;
             ScrubChecksumGuard();
@@ -111,7 +120,7 @@ LAB_0043ba8e:
             EncodeChecksumDeltaSub(piVar1 + 0x97,local_678,param_1);
             local_4 = 2;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar5 = PeekPacketChecksumState();
+            iVar5 = PeekPacketChecksumState((void *)(local_678));
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             local_4 = 0xffffffff;
             if ((*(int *)(local_678 + 0x14)) != 0) {
@@ -121,7 +130,7 @@ LAB_0043ba8e:
             EncodeChecksumDeltaSub(piVar1 + 0x120,local_230,param_2);
             local_4 = 3;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar6 = PeekPacketChecksumState();
+            iVar6 = PeekPacketChecksumState((void *)(local_230));
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             local_4 = 0xffffffff;
             if ((*(int *)(local_230 + 0x14)) != 0) {
