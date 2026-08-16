@@ -40,6 +40,16 @@
  * guard cells per slot, and the index is *(int *)(in_EAX + 8) & 7 -
  * recomputed identically at both sites, so it is written inline rather
  * than captured.
+ *
+ * CORRECTION (2026-08-13, same day): the site at 0x45d22d is a THREE-WAY
+ * folded select, not a single cell.  Ghidra rendered two nested
+ * PeekPacketChecksumBool tests as an if/else tree whose three arms all
+ * just call EnterCriticalSection, followed by one shared Peek - but each
+ * arm loads a DIFFERENT cell first: +0x9678 (first bool set), +0x9454
+ * (second set), +0x9230 (neither).  The first pass passed only the
+ * fall-through +0x9230.  Now each arm sets pvVar7 and the shared Peek
+ * reads it.  Found by grepping for the if/else-EnterCriticalSection
+ * idiom after the same bug surfaced in FUN_0047c040/FUN_0047fad0.
  */
 #include "ghidra_types.h"
 
@@ -54,6 +64,7 @@ int ComputeTurnDelay(void)
   int iVar4;
   int iVar5;
   int iVar6;
+  void *pvVar7;
   
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState((void *)(in_EAX + 0x8de8));
@@ -72,15 +83,18 @@ int ComputeTurnDelay(void)
     cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      pvVar7 = (void *)(in_EAX + 0x9230);
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      pvVar7 = (void *)(in_EAX + 0x9454);
     }
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    pvVar7 = (void *)(in_EAX + 0x9678);
   }
-  iVar6 = PeekPacketChecksumState((void *)(in_EAX + 0x9230));
+  iVar6 = PeekPacketChecksumState(pvVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = ((400 - iVar3) / iVar4) * iVar5 + iVar6;
   cVar1 = PeekPacketChecksumBool();

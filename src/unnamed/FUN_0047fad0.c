@@ -22,9 +22,15 @@
  * evaluated first.  The one at 0x47fca6 is discarded and is now caught
  * in a new uVar9.
  *
- * guard_cell_resolve.py flags the &DAT_00794e48 and &DAT_00e55ab8 reads
- * CROSSES-BRANCH-TARGET; harmless here, since both cells are loaded as
- * immediates and so cannot depend on which path reached them.
+ * CORRECTION (2026-08-13, same day): the resolver's CROSSES-BRANCH-TARGET
+ * flags on the &DAT_00794e48 and &DAT_00e55ab8 reads were NOT harmless.
+ * Ghidra rendered `cmp byte [rec+0x651c],1 / jne` as an if/else whose
+ * arms both call EnterCriticalSection and then one shared Peek - but
+ * each arm loads a DIFFERENT cell first (equal -> &DAT_00796aa0 /
+ * &DAT_007949c8, not-equal -> &DAT_00794e48 / &DAT_00e55ab8).  The
+ * first pass passed only the fall-through cell; now written as the
+ * ternary on the real `== 1` test.  Caught while sweeping FUN_0045f840,
+ * which has the identical idiom.
  */
 #include "ghidra_types.h"
 
@@ -152,7 +158,7 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
-  iVar2 = PeekPacketChecksumState((void *)&DAT_00794e48);
+  iVar2 = PeekPacketChecksumState((void *)(*(char *)(iVar2 + 0x651c) == '\x01' ? (void *)&DAT_00796aa0 : (void *)&DAT_00794e48));
   (*pcVar5)(&DAT_005a9068);
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
@@ -170,7 +176,7 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
-    iVar3 = PeekPacketChecksumState((void *)&DAT_00e55ab8);
+    iVar3 = PeekPacketChecksumState((void *)(*(char *)(unaff_EBX + 0x651c) == '\x01' ? (void *)&DAT_007949c8 : (void *)&DAT_00e55ab8));
     (*pcVar5)(&DAT_005a9068);
     iVar2 = iVar2 + iVar3;
   }

@@ -3,6 +3,17 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls - and both are
+ * FOLDED TERNARIES.  Ghidra rendered each `cmp byte [rec+0x651c],1 /
+ * jne` as an if/else whose two arms both call EnterCriticalSection and
+ * then a single Peek, but in the binary each arm loads a DIFFERENT
+ * cell into EAX before the shared call: equal -> &DAT_00796aa0 (first)
+ * / &DAT_007949c8 (second), not-equal -> &DAT_00794e48 / &DAT_00e55ab8
+ * (0x45f855-0x45f867, 0x45f8e0-0x45f8f8).  Written as the ternary on
+ * the real `== 1` test.  Same idiom, same four cells, as the
+ * FUN_0047c040/FUN_0047fad0 twins.
  */
 #include "ghidra_types.h"
 
@@ -21,7 +32,7 @@ int FUN_0045f840(void)
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
-  iVar2 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)(*(char *)(unaff_EBX + 0x651c) == '\x01' ? (void *)&DAT_00796aa0 : (void *)&DAT_00794e48));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
@@ -39,7 +50,7 @@ int FUN_0045f840(void)
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)(*(char *)(unaff_EBX + 0x651c) == '\x01' ? (void *)&DAT_007949c8 : (void *)&DAT_00e55ab8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = iVar2 + iVar3;
   }

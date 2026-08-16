@@ -16,8 +16,16 @@
  * argument is evaluated first.  The else-branch one is discarded and
  * now caught in a new uVar9.  The rest are the record's +0x90c cell,
  * g_clientContext+0x45354, and the &DAT_00796aa0/&DAT_00794e48/
- * &DAT_00e55ab8 globals (the two CROSSES-BRANCH-TARGET flags are
- * immediates - path-independent).
+ * &DAT_00e55ab8 globals.
+ *
+ * CORRECTION (2026-08-13, same day): the two CROSSES-BRANCH-TARGET
+ * flags were NOT harmless.  Ghidra rendered `cmp byte [rec+0x651c],1 /
+ * jne` as an if/else whose arms both call EnterCriticalSection and then
+ * one shared Peek - but each arm loads a DIFFERENT cell first (equal ->
+ * &DAT_00796aa0 / &DAT_007949c8, not-equal -> &DAT_00794e48 /
+ * &DAT_00e55ab8).  The first pass passed only the fall-through cell;
+ * now written as the ternary on the real `== 1` test.  Caught while
+ * sweeping FUN_0045f840, which has the identical idiom.
  */
 #include "ghidra_types.h"
 
@@ -117,7 +125,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
-  iVar2 = PeekPacketChecksumState((void *)&DAT_00794e48);
+  iVar2 = PeekPacketChecksumState((void *)(*(char *)(iVar2 + 0x651c) == '\x01' ? (void *)&DAT_00796aa0 : (void *)&DAT_00794e48));
   (*pcVar4)(&DAT_005a9068);
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
@@ -135,7 +143,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
-    iVar3 = PeekPacketChecksumState((void *)&DAT_00e55ab8);
+    iVar3 = PeekPacketChecksumState((void *)(*(char *)(unaff_EBX + 0x651c) == '\x01' ? (void *)&DAT_007949c8 : (void *)&DAT_00e55ab8));
     (*pcVar4)(&DAT_005a9068);
     iVar2 = iVar2 + iVar3;
   }
