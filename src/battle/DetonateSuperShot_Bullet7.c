@@ -10,6 +10,19 @@
  * Body is a raw/near-verbatim Ghidra port, not hand-verified. See
  * src/README.md's "Raw/verbatim ports" section for status.
  *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the cell at
+ * all 9 remaining 1-arg EncodeOutgoingPacketField() calls (the peeks were
+ * done in an earlier pass).  this=ESI: param_1 + 0x10 / 0x99 / 0x3d5 /
+ * 0x45e / 0xe48.  The four `Encode(...,0)` initialisers target the two
+ * stack cells frame[0x40] = auStack_ac4 and frame[0x264] = auStack_8a0;
+ * block order was matched by the SyncOutgoingChecksumField landmarks the
+ * C keeps (the block that syncs auStack_ac4 owns the pair whose second
+ * Encode is auStack_ac4), not by C order - the same shape already
+ * documented in DetonateSuperShot_Bullet4.c.
+ *
+ * STILL NOT FIXED (inline marker, deferred to the guard flip): the peek at
+ * C 506 reads the UNDECLARED global cell 0x7a7690.
+ *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at 35 of the 36 argless PeekPacketChecksumState() calls (36 C : 36 orig).
  * Cells from tools/guard_cell_resolve.py over the function plus a full
@@ -102,13 +115,13 @@ void __fastcall DetonateSuperShot_Bullet7(int *param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState((void *)(param_1 + 0x10));
   iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x122));
-  EncodeOutgoingPacketField(iVar4 + iVar3);
+  EncodeOutgoingPacketField((void *)(param_1 + 0x10), iVar4 + iVar3);
   pcVar13 = (code *)LeaveCriticalSection;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState((void *)(param_1 + 0x99));
   iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x1ab));
-  EncodeOutgoingPacketField(iVar4 + iVar3);
+  EncodeOutgoingPacketField((void *)(param_1 + 0x99), iVar4 + iVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
   cVar2 = PeekPacketChecksumBool();
@@ -117,7 +130,7 @@ void __fastcall DetonateSuperShot_Bullet7(int *param_1)
     puStack_8 = (undefined1 *)0x5;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState((void *)uVar21);
-    EncodeOutgoingPacketField(uVar6);
+    EncodeOutgoingPacketField((void *)(param_1 + 0x3d5), uVar6);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
@@ -129,7 +142,7 @@ void __fastcall DetonateSuperShot_Bullet7(int *param_1)
     puStack_8 = (undefined1 *)0x6;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState((void *)uVar21);
-    EncodeOutgoingPacketField(uVar6);
+    EncodeOutgoingPacketField((void *)(param_1 + 0x45e), uVar6);
     (*pcVar13)(&DAT_005a9068);
     uStack_c = 0xffffffff;
     if (iStack_ab4 != 0) {
@@ -420,11 +433,11 @@ LAB_0049a2b5:
       if (cVar2 == '\0') {
         auStack_680[0] = 0;
         uStack_88c = 0;
-        EncodeOutgoingPacketField(0);
+        EncodeOutgoingPacketField((void *)(auStack_8a0), 0);
         puStack_8 = (undefined1 *)0x3;
         auStack_8a4[0] = 0;
         iStack_ab0 = 0;
-        EncodeOutgoingPacketField(0);
+        EncodeOutgoingPacketField((void *)(auStack_ac4), 0);
         SUBFIELD(puStack_8,0,undefined1) = 4;
         SyncOutgoingChecksumField(iStack_ac8 + 0x10,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -451,11 +464,11 @@ LAB_0049a57d:
         if (cVar2 != '\0') {
           auStack_8a4[0] = 0;
           iStack_ab0 = 0;
-          EncodeOutgoingPacketField(0);
+          EncodeOutgoingPacketField((void *)(auStack_ac4), 0);
           puStack_8 = (undefined1 *)0x1;
           auStack_680[0] = 0;
           uStack_88c = 0;
-          EncodeOutgoingPacketField(0);
+          EncodeOutgoingPacketField((void *)(auStack_8a0), 0);
           SUBFIELD(puStack_8,0,undefined1) = 2;
           QueueOutgoingPacketField(uStack_ad8);
           QueueOutgoingPacketField(uStack_adc);
@@ -515,7 +528,7 @@ LAB_0049a61e:
   if (cVar2 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState((void *)(param_1 + 0xe48));
-    EncodeOutgoingPacketField(uVar6);
+    EncodeOutgoingPacketField((void *)(param_1 + 0xe48), uVar6);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
