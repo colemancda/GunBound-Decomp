@@ -4,6 +4,15 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls; every one is an
+ * offset off g_clientContext, in address order.  The resolver lost two of
+ * them across block boundaries, so they were traced by hand: at 0x4d9dc3
+ * (C98) EDI comes from `mov edi,[0x5b3484]` at 0x4d9d55 and is biased
+ * + 0x3b49c at 0x4d9db0, and at 0x4da147 (C311) ESI comes from the same
+ * global at 0x4d9f98 and is biased + 0x4512c at 0x4da13d.  The other two
+ * are direct: C147 = 0x4d9f09 (+ 0x45354) and C330 = 0x4da1f7 (+ 0x4557c).
+ *
  * FIXED (2026-07-15): all 3 SetClipRect calls dropped their 4 corner
  * args - real literal values recovered via angr at
  * 0x4d9c02/0x4d9c8a/0x4d9cee.
@@ -95,7 +104,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
          (cVar6 = *(char *)(iVar3 + 0x4590c + iStack_8c), cVar6 != -1)) {
         cVar6 = (cVar6 != *(char *)(iVar3 + 0x3b6c0)) + '\x02';
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar3 = PeekPacketChecksumState();
+        iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (iVar3 == iStack_8c) {
           uVar2 = *(int *)(param_1 + 0x740) / 10 & 0x80000001;
@@ -144,7 +153,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
     } while (iStack_88 < 0x68);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = iVar3 + 7;
   if ((DAT_0079352c != 0) && (-1 < (int)uVar2)) {
@@ -308,7 +317,7 @@ LAB_004da0b0:
   }
 LAB_004da138:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x4512c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = ((int)(iVar3 + -0x28 + (iVar3 + -0x28 >> 0x1f & 0xfU)) >> 4) + 0x14;
   if ((DAT_0079352c != 0) && (-1 < (int)uVar2)) {
@@ -327,7 +336,7 @@ LAB_004da138:
   }
 LAB_004da1e2:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x4557c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = iVar3 + 0x1b;
   if ((DAT_0079352c != 0) && (-1 < (int)uVar2)) {
