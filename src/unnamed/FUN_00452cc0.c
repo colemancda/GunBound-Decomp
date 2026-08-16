@@ -4,6 +4,21 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 30 argless PeekPacketChecksumState() calls.  (The worklist's
+ * 34 counts four sites past this function's `ret` at 0x453f0d - the
+ * 0x453f25+ tail belongs to the next function; MISMATCH flavour (d).)
+ * this=ESI: cells param_1+0x10/0x99/0x122/0x1ab/0x234/0x3d5/0x45e/0x70b/
+ * 0xc66 (byte 0x40/0x264/0x488/0x6ac/0x8d0/0xf54/0x1178/0x1c2c/0x3198)
+ * and globals 0xe9c350/0x796aa0/0xe55ab8/0x7949c8.  Chained returns: the
+ * six EncodeChecksumDeltaDiv results the decompile discarded (0x452d6e...
+ * 0x453190, each -> frame[0x10] -> `mov eax,[esp+0x10]; call Peek`) are
+ * captured in iDelta (the C's own DeltaDiv calls are argless/partial -
+ * Ghidra dropped their args - and the header proto is unprototyped, so
+ * only the return is threaded here); the two EncodeChecksumDeltaShr
+ * results (0x453921/0x45399e) in pvDelta.  Twin family: FUN_0044c950 /
+ * FUN_004aafd0 / FUN_00467a70 (same tail), FUN_0044d9b0 (same head).
+ *
  * DROPPED-ARG FIX (2026-08-11): the 2 argless PeekChecksumStateUnderLock()
  * calls (orig 0x453dd6/0x453dde, the CheckBothGuardedBools-gated pair)
  * now pass their guarded-cell pointers, recovered from
@@ -34,6 +49,8 @@ void __fastcall FUN_00452cc0(int *param_1)
   byte bVar2;
   char cVar3;
   byte bVar4;
+  void *pvDelta;
+  int iDelta;
   int iVar5;
   undefined4 uVar6;
   uint uVar7;
@@ -103,7 +120,7 @@ void __fastcall FUN_00452cc0(int *param_1)
       (**(code **)(*param_1 + 4))();
       InitGuardedChecksumSlot();
       puStack_8 = (undefined1 *)0x0;
-      EncodeChecksumDeltaDiv();
+      iDelta = EncodeChecksumDeltaDiv();
       puStack_8 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x452d90
@@ -117,7 +134,7 @@ void __fastcall FUN_00452cc0(int *param_1)
        * FIXED (2026-07-16): also merged the value arg - the adjacent
        * PeekPacketChecksumState() was left as a bare/discarded statement
        * by the earlier fix; its return value is what was actually pushed. */
-      EncodeOutgoingPacketField(param_1 + 0x795, PeekPacketChecksumState());
+      EncodeOutgoingPacketField(param_1 + 0x795, PeekPacketChecksumState((void *)(iDelta)));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       puStack_8 = (undefined1 *)0;
       if (iStack_88c != 0) {
@@ -133,7 +150,7 @@ void __fastcall FUN_00452cc0(int *param_1)
       }
       InitGuardedChecksumSlot();
       puStack_8 = (undefined1 *)0x2;
-      EncodeChecksumDeltaDiv();
+      iDelta = EncodeChecksumDeltaDiv();
       puStack_8 = (undefined1 *)3;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x452e64
@@ -142,7 +159,7 @@ void __fastcall FUN_00452cc0(int *param_1)
        * tools/encodeoutgoingpacketfield_sites.json.
        * FIXED (2026-07-16): also merged the value arg - see param_1+0x795's
        * note above. */
-      EncodeOutgoingPacketField(param_1 + 0x81e, PeekPacketChecksumState());
+      EncodeOutgoingPacketField(param_1 + 0x81e, PeekPacketChecksumState((void *)(iDelta)));
       (*pcVar15)();
       uStack_c = 2;
       if (iStack_ab4 != 0) {
@@ -158,7 +175,7 @@ void __fastcall FUN_00452cc0(int *param_1)
       }
       uVar6 = InitGuardedChecksumSlot(param_1 + 0x8a7);
       uStack_c = 4;
-      EncodeChecksumDeltaDiv(uVar6);
+      iDelta = EncodeChecksumDeltaDiv(uVar6);
       uStack_c = 5;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x452f38
@@ -168,7 +185,7 @@ void __fastcall FUN_00452cc0(int *param_1)
        * tools/encodeoutgoingpacketfield_sites.json.
        * FIXED (2026-07-16): also merged the value arg - see param_1+0x795's
        * note above. */
-      EncodeOutgoingPacketField(param_1 + 0x8a7, PeekPacketChecksumState());
+      EncodeOutgoingPacketField(param_1 + 0x8a7, PeekPacketChecksumState((void *)(iDelta)));
       (*pcVar15)();
       uStack_10 = 4;
       if (iStack_ab8 != 0) {
@@ -184,7 +201,7 @@ void __fastcall FUN_00452cc0(int *param_1)
       }
       uVar6 = InitGuardedChecksumSlot(param_1 + 0x930,auStack_8a8);
       uStack_10 = 6;
-      EncodeChecksumDeltaDiv(uVar6,auStack_acc);
+      iDelta = EncodeChecksumDeltaDiv(uVar6,auStack_acc);
       uStack_10 = 7;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45300c
@@ -194,7 +211,7 @@ void __fastcall FUN_00452cc0(int *param_1)
        * tools/encodeoutgoingpacketfield_sites.json.
        * FIXED (2026-07-16): also merged the value arg - see param_1+0x795's
        * note above. */
-      EncodeOutgoingPacketField(param_1 + 0x930, PeekPacketChecksumState());
+      EncodeOutgoingPacketField(param_1 + 0x930, PeekPacketChecksumState((void *)(iDelta)));
       (*pcVar15)();
       uStack_14 = 6;
       if (iStack_abc != 0) {
@@ -210,10 +227,10 @@ void __fastcall FUN_00452cc0(int *param_1)
       }
       uVar6 = InitGuardedChecksumSlot(param_1 + 0x9b9,auStack_8ac,param_1 + 0xd7b);
       uStack_14 = 8;
-      EncodeChecksumDeltaDiv(uVar6,auStack_ad0,100);
+      iDelta = EncodeChecksumDeltaDiv(uVar6,auStack_ad0,100);
       uStack_14 = 9;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar6 = PeekPacketChecksumState();
+      uVar6 = PeekPacketChecksumState((void *)(iDelta));
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4530e0
        * (`lea edi,[esi + 0x26e4]`, esi = param_1): cell is param_1+0x9b9
        * (== param_1+0x26e4 bytes) - the same cell just passed to
@@ -235,10 +252,10 @@ void __fastcall FUN_00452cc0(int *param_1)
       }
       uVar6 = InitGuardedChecksumSlot(param_1 + 0xa42,auStack_8b0,param_1 + 0xd7b);
       uStack_18 = 10;
-      EncodeChecksumDeltaDiv(uVar6,auStack_ad4,100);
+      iDelta = EncodeChecksumDeltaDiv(uVar6,auStack_ad4,100);
       uStack_18 = 0xb;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar6 = PeekPacketChecksumState();
+      uVar6 = PeekPacketChecksumState((void *)(iDelta));
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4531b4
        * (`lea edi,[esi + 0x2908]`, esi = param_1): cell is param_1+0xa42
        * (== param_1+0x2908 bytes) - the same cell just passed to
@@ -309,7 +326,7 @@ LAB_00453238:
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = PeekPacketChecksumState();
+  iVar5 = PeekPacketChecksumState((void *)(param_1 + 0x70b));
   (*pcVar15)();
   iVar5 = (iVar5 + 0xb4) % 0x168;
   if (iVar5 < 0) {
@@ -317,29 +334,29 @@ LAB_00453238:
   }
   uStack_ac8 = *(undefined4 *)(&g_sineTable360 + iVar5 * 4);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(param_1 + 0xc66));
   puVar22 = &DAT_005a9068;
   (*pcVar15)();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(&DAT_00e9c350));
   (*pcVar15)();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(&DAT_00796aa0));
   (*pcVar15)();
   FloatToInt64();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar8 = PeekPacketChecksumState();
+  iVar8 = PeekPacketChecksumState((void *)(param_1 + 0x70b));
   puVar21 = &DAT_005a9068;
   (*pcVar15)(&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(param_1 + 0xc66));
   puVar20 = &DAT_005a9068;
   (*pcVar15)(&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(&DAT_00e9c350));
   (*pcVar15)(&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar9 = PeekPacketChecksumState();
+  iVar9 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
   (*pcVar15)(&DAT_005a9068);
   iVar10 = FloatToInt64();
   iVar5 = -(iVar10 / iVar9);
@@ -350,7 +367,7 @@ LAB_00453238:
   cVar3 = DecodeGuardedBool();
   if (cVar3 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar9 = PeekPacketChecksumState();
+    iVar9 = PeekPacketChecksumState((void *)(param_1 + 0x122));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4534af
      * (`lea edi,[esi + 0x488]`, esi = param_1): cell is param_1+0x122
      * (== param_1+0x488 bytes) - `param_1 + 0x122` is already used
@@ -359,7 +376,7 @@ LAB_00453238:
     EncodeOutgoingPacketField(param_1 + 0x122,puVar22 + iVar9);
     (*pcVar15)(&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar9 = PeekPacketChecksumState();
+    iVar9 = PeekPacketChecksumState((void *)(param_1 + 0x1ab));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4534d6
      * (`lea edi,[esi + 0x6ac]`, esi = param_1): cell is param_1+0x1ab
      * (== param_1+0x6ac bytes) - `param_1 + 0x1ab` is already used
@@ -369,8 +386,8 @@ LAB_00453238:
     (*pcVar15)(&DAT_005a9068);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar9 = PeekPacketChecksumState();
-  iVar10 = PeekPacketChecksumState();
+  iVar9 = PeekPacketChecksumState((void *)(param_1 + 0x10));
+  iVar10 = PeekPacketChecksumState((void *)(param_1 + 0x122));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x453509
    * (`lea edi,[esi + 0x40]`, esi = param_1): cell is param_1+0x10
    * (== param_1+0x40 bytes) - `param_1 + 0x10` is used just below in the
@@ -379,8 +396,8 @@ LAB_00453238:
   EncodeOutgoingPacketField(param_1 + 0x10,iVar10 + iVar9);
   (*pcVar15)(&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar10 = PeekPacketChecksumState();
-  iVar9 = PeekPacketChecksumState();
+  iVar10 = PeekPacketChecksumState((void *)(param_1 + 0x99));
+  iVar9 = PeekPacketChecksumState((void *)(param_1 + 0x1ab));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45353f
    * (`lea edi,[esi + 0x264]`, esi = param_1): cell is param_1+0x99
    * (== param_1+0x264 bytes) - `param_1 + 0x99` is used just below in the
@@ -392,10 +409,10 @@ LAB_00453238:
   cVar3 = PeekPacketChecksumBool();
   cStack_ad9 = (char)((uint)iVar8 >> 0x18);
   if (cVar3 == '\0') {
-    EncodeChecksumDeltaShr(param_1 + 0x10,&stack0xfffff514,8);
+    pvDelta = EncodeChecksumDeltaShr(param_1 + 0x10,&stack0xfffff514,8);
     uStack_30 = 0xc;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)(pvDelta));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x453948
      * (`lea edi,[esi + 0xf54]`, esi = param_1): cell is param_1+0x3d5
      * (== param_1+0xf54 bytes); `param_1 + 0x3d5` is already used
@@ -410,10 +427,10 @@ LAB_00453238:
       TreeLowerBound(&stack0xfffff504);
       pcVar15 = (code *)LeaveCriticalSection;
     }
-    EncodeChecksumDeltaShr(param_1 + 0x99,&stack0xfffff510,8);
+    pvDelta = EncodeChecksumDeltaShr(param_1 + 0x99,&stack0xfffff510,8);
     uStack_34 = 0xd;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)(pvDelta));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4539cd
      * (`mov edi,dword ptr [esp+0x10]`) - the identical twin function
      * src/unnamed/FUN_0044d9b0.c traces this exact same spilled-slot
@@ -515,7 +532,7 @@ LAB_00453b3c:
       }
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     (*pcVar15)(&DAT_005a9068);
     if ((((cStack_ad9 != '\0') || (cVar3 = PacketChecksumGreaterEqual(), cVar3 != '\0')) ||
         (cVar3 = PacketChecksumGreaterEqual(), cVar3 != '\0')) || (cVar3 = PacketChecksumLessThan(), cVar3 != '\0')) {
@@ -616,13 +633,13 @@ LAB_004535de:
       iVar8 = param_1[0xfe5];
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)(&DAT_00e55ab8));
     (*pcVar15)(&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(&DAT_00e55ab8));
     (*pcVar15)(&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    puVar20 = (undefined *)PeekPacketChecksumState();
+    puVar20 = (undefined *)PeekPacketChecksumState((void *)(&DAT_007949c8));
     (*pcVar15)(&DAT_005a9068);
     uVar7 = (uint)*(byte *)(param_1 + 0xf);
     iVar10 = iVar10 / iVar8;
@@ -639,10 +656,10 @@ LAB_004535de:
     FUN_00431d90((char)param_1[0xf],7,0,uVar11,uVar6,uVar16,uVar17,uVar18);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar6 = PeekPacketChecksumState();
+  uVar6 = PeekPacketChecksumState((void *)(param_1 + 0x45e));
   (*pcVar15)(&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   (*pcVar15)(&DAT_005a9068);
   FUN_004398e0(&DAT_006a7f70 + g_clientContext,param_1[2],uVar6,puVar20,param_1,0);
   (**(code **)(*param_1 + 0x20))();
@@ -672,11 +689,11 @@ LAB_004535de:
     EncodeChecksumState(param_1 + 0xe48);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(param_1 + 0x234));
   (*pcVar15)(&DAT_005a9068);
   if ((cStack_ad9 == '\0') || (cVar3 = PacketChecksumGreaterThan(), cVar3 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = PeekPacketChecksumState();
+    iVar5 = PeekPacketChecksumState((void *)(param_1 + 0x234));
     (*pcVar15)();
     if ((0 < iVar5) && (cVar3 = PacketChecksumLessThan(), cVar3 != '\0')) goto LAB_00453887;
   }
