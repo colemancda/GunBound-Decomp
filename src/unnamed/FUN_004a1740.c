@@ -3,6 +3,14 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 3 argless PeekPacketChecksumState() calls (0x4a1787 /
+ * 0x4a17c1 / 0x4a17f6), all off the incoming param_1 reloaded from its
+ * stack slot [esp + 0x159c].  C54 and C72 read param_1 + 0xf54 -- the very
+ * bias the line above C54 already computes into iVar13 -- and C77 reads
+ * param_1 + 0x1178, which is exactly the value param_1 was reassigned to
+ * on the line immediately above it, so it is spelled as plain `param_1`.
  */
 #include "ghidra_types.h"
 
@@ -51,7 +59,7 @@ undefined4 FUN_004a1740(int param_1)
   uStack_10 = 0x4a175f;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar13 = param_1 + 0xf54;
-  iVar7 = PeekPacketChecksumState();
+  iVar7 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar7 == 0) {
 LAB_004a2741:
@@ -69,12 +77,12 @@ LAB_004a2741:
   else {
     iVar7 = *(int *)(&g_nCameraBoundX + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar8 = PeekPacketChecksumState();
+    iVar8 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar8 == iVar7 + -1) goto LAB_004a2741;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     param_1 = param_1 + 0x1178;
-    iVar7 = PeekPacketChecksumState();
+    iVar7 = PeekPacketChecksumState((void *)(param_1));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar7 == -0x113) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
