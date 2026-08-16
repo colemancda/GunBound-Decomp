@@ -3,6 +3,15 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 3 argless PeekPacketChecksumState() calls: the turn-counter
+ * cell g_clientContext + 0xebcbc, then the two stack cells this block
+ * already Encodes by name - frame[0x24c] = auStack_454 and frame[0x28] =
+ * auStack_230 (0x439abe `lea edi,[esp+0x250]` and 0x439aea `lea edi,
+ * [esp+0x2c]`, both one push deep; the C's own
+ * `SyncOutgoingChecksumField(param_2 + 0x10, auStack_230)` landmark
+ * confirms which is which).
  */
 #include "ghidra_types.h"
 
@@ -44,7 +53,7 @@ void FUN_004398e0(undefined4 param_1,int param_2,undefined4 param_3,undefined4 p
   puStack_8 = &LAB_0053d9ba;
   *unaff_FS_OFFSET = &local_c;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0xebcbc));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((iVar4 == 4) || (param_6 != '\0')) {
     puVar5 = operator_new(0x3fbc);
@@ -112,10 +121,10 @@ LAB_004399d4:
         SUBFIELD(local_4,0,undefined1) = 4;
         SyncOutgoingChecksumField(param_2 + 0x10,auStack_230);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        PeekPacketChecksumState();
+        PeekPacketChecksumState((void *)(auStack_454));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        uVar9 = PeekPacketChecksumState();
+        uVar9 = PeekPacketChecksumState((void *)(auStack_230));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar12 = param_5;
         uVar10 = *(undefined4 *)(param_5 + 0x3f94);
