@@ -5,6 +5,13 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 5 argless PeekPacketChecksumState() calls - the turn-slot
+ * pair g_clientContext+0x3b49c / +0x3b6c4 (the same two CompareChecksumMatch
+ * compares elsewhere in this screen use) and three reads of the game-mode
+ * cell +0x45354.  Sites zip 1:1 with the original in address order
+ * (0x4da6e9..0x4da991).
+ *
  * FIXED (2026-07-13): InvokeWidget's own dropped widgetId argument
  * fixed at all 43 call sites here (an angr CFG backward-scan gave the
  * exact per-site id; confirmed strictly linear/sequential, no branch
@@ -123,8 +130,8 @@ LAB_004da4f7:
   InvokeWidget(4,cVar2);
   InvokeWidget(5,cVar2);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
-  iVar5 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
+  iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
   param_3 = iVar4 == iVar5;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   InvokeWidget(8,param_3);
@@ -171,7 +178,7 @@ LAB_004da4f7:
   uVar7 = extraout_var_02;
   if (bVar10) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = (uint3)((uint)extraout_EAX >> 8);
     if ((iVar4 == 1) ||
@@ -187,7 +194,7 @@ LAB_004da901:
   uVar7 = extraout_var_04;
   if (bVar10) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = (uint3)((uint)extraout_EAX_00 >> 8);
     if ((iVar4 == 1) ||
@@ -203,7 +210,7 @@ LAB_004da964:
   cVar11 = '\0';
   if (bVar10) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     cVar11 = cVar2;
     if ((iVar4 == 1) || (cVar2 = PacketChecksumNotEquals(g_clientContext + 0x45354,3), cVar2 == '\0'))
