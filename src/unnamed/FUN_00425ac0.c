@@ -3,6 +3,11 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls: both are chained returns of the DeltaSub immediately above them
+ * (0x425b0e, 0x425bac), discarded by the decompile and captured in a
+ * new uVar8.
  */
 #include "ghidra_types.h"
 
@@ -11,6 +16,7 @@ uint FUN_00425ac0(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
 
 {
   uint uVar1;
+  undefined4 uVar8;
   int iVar2;
   undefined4 uVar3;
   int iVar4;
@@ -31,10 +37,10 @@ uint FUN_00425ac0(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
   uVar1 = GetPlayerRecordBySlot(param_1);
   uVar5 = 0;
   if (uVar1 != 0) {
-    EncodeChecksumDeltaSub(uVar1 + 0x90c,local_454,param_2);
+    uVar8 = EncodeChecksumDeltaSub(uVar1 + 0x90c,local_454,param_2);
     local_4 = 0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar2 = PeekPacketChecksumState();
+    iVar2 = PeekPacketChecksumState((void *)uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
@@ -43,10 +49,10 @@ uint FUN_00425ac0(undefined4 param_1,undefined4 param_2,undefined4 param_3,int p
     }
     uVar3 = EncodeChecksumDeltaSub(uVar1 + 0xb30,local_230,10);
     local_4 = 1;
-    EncodeChecksumDeltaSub(uVar3,local_678,param_3);
+    uVar8 = EncodeChecksumDeltaSub(uVar3,local_678,param_3);
     SUBFIELD(local_4,0,undefined1) = 2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
     if ((*(int *)(local_678 + 0x14)) != 0) {

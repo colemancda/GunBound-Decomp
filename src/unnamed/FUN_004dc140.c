@@ -4,6 +4,11 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls: the item array at g_clientContext+0x39f30 and its parallel
+ * partner at +0x3a154 (the ResetItemSlotCounters pair), indexed by the
+ * C's own byte cursor iVar2 (0x224 per slot, six slots).
  */
 #include "ghidra_types.h"
 
@@ -22,14 +27,14 @@ int FUN_004dc140(int param_1)
       return -1;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar1 = PeekPacketChecksumState();
+    iVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0x39f30 + iVar2));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar1 == 0) {
       if (param_1 == 1) {
         return local_4;
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar1 = PeekPacketChecksumState();
+      iVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0x3a154 + iVar2));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar1 == 0) {
         return local_4;
