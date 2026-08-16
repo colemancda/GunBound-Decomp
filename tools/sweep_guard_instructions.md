@@ -131,7 +131,14 @@ far, but verify them too when anything looks off.
   translates to `ctx + idx*0x224 + base`.
 - Chained-return cells: the guard-family lock wrappers (0x40a470 Queue,
   0x40a4a0 EncodeChecksumState, 0x40a5f0/0x40a6e0/0x40a7d0/0x40a8c0/
-  0x40aba0 delta/pair helpers) RETURN their cell pointer in EAX. A
+  0x40aba0/0x40b180/0x40aca0/0x40ada0 delta/pair helpers) RETURN their
+  cell pointer in EAX.  WHICH cell: it is their SECOND argument - the
+  caller's stack SCRATCH guard object - not their destination
+  (0x40a5f0's epilogue is `mov eax,esi` with ESI = arg2, the object
+  whose +0x14/+0x220 fields the caller then tests; verified 2026-08-16
+  in SimulateSuperShot_Bullet13).  So when the decompile kept the arg
+  list, the cell can be spelled with the C's own scratch local
+  (`Peek((void *)local_1574)`) instead of capturing the return. A
   pattern like `call 0x40aba0; mov edi,eax; ... mov eax,edi; call
   0x40a2e0` means the Peek cell is that helper's return value — which
   the decompile usually DISCARDED. Capture it in a local (reuse an
