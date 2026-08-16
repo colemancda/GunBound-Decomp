@@ -4,6 +4,17 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 9 argless sites.  Ghidra emitted the blocks in address
+ * order here, so the 9 C sites line up 1:1 with the 9 guard calls between
+ * 0x4daa7e and 0x4db2e5.  C24 (0x4daa7e) is the only one not off the
+ * client context: EDI is loaded from [esp + 0x14] at 0x4daa73 -- with the
+ * four prologue pushes live that is the first stack argument, param_1 --
+ * and biased by 0x26c, i.e. param_1 + 0x9b ints.  The rest are the room
+ * setting cells g_clientContext + 0x45354 (C37 encode, C52 peek),
+ * + 0x4557c (C40 encode, C207 peek, C211 encode, C214 peek) and
+ * + 0x4512c (C117, C181).
  */
 #include "ghidra_types.h"
 
@@ -21,7 +32,7 @@ void ApplyRoomSettings(int *param_1,int param_2)
   undefined4 uVar7;
   
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(in_EAX);
+  EncodeOutgoingPacketField((void *)(param_1 + 0x9b), in_EAX);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = g_clientContext;
   *(undefined1 *)(g_clientContext + 0x45124) = param_2;
@@ -34,10 +45,10 @@ void ApplyRoomSettings(int *param_1,int param_2)
   *(byte *)(iVar1 + 0x45128) = (byte)(in_EAX >> 0xc) & 3;
   *(byte *)(iVar1 + 0x45126) = (byte)(in_EAX >> 0xe) & 3;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(in_EAX >> 0x12 & 3);
+  EncodeOutgoingPacketField((void *)(g_clientContext + 0x45354), in_EAX >> 0x12 & 3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(in_EAX >> 0x10 & 3);
+  EncodeOutgoingPacketField((void *)(g_clientContext + 0x4557c), in_EAX >> 0x10 & 3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar5 = (char)(in_EAX >> 0x18);
   if (cVar5 != *(char *)(g_clientContext + 0x45578)) {
@@ -49,7 +60,7 @@ void ApplyRoomSettings(int *param_1,int param_2)
     (**(code **)(iVar1 + 0x28))(uVar2,uVar6,uVar7);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar2 = PeekPacketChecksumState();
+  uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   switch(uVar2) {
   case 0:
@@ -114,7 +125,7 @@ LAB_004dadd5:
     RemoveWidget();
     RemoveWidget();
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0xffffffff);
+    EncodeOutgoingPacketField((void *)(g_clientContext + 0x4512c), 0xffffffff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     break;
   case 1:
@@ -178,7 +189,7 @@ LAB_004daf59:
   default:
     goto switchD_004dafd1_default;
   }
-  EncodeOutgoingPacketField(uVar2);
+  EncodeOutgoingPacketField((void *)(g_clientContext + 0x4512c), uVar2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
 switchD_004dafd1_default:
   cVar5 = *(char *)(g_clientContext + 0x45126);
@@ -204,14 +215,14 @@ LAB_004db263:
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x4557c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = *(int *)(&DAT_0056d350 + *(char *)(g_clientContext + 0x44ef8) * 4);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(iVar3 % iVar1);
+  EncodeOutgoingPacketField((void *)(g_clientContext + 0x4557c), iVar3 % iVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar2 = PeekPacketChecksumState();
+  uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x4557c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   switch(uVar2) {
   case 0:
