@@ -4,6 +4,16 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 7 argless PeekPacketChecksumState() calls.  iVar3 is the
+ * list node the loop walks (the C's own Encode calls already spell it as
+ * `iVar3 + 0x8c8` / `+ 0xf40` / `+ 0x15ac` / `+ 0x1c1c` / `+ 0x38`), and
+ * the resolver sees the same base as `dword ptr [ecx + 0x10] + N`.  Cells:
+ * g_clientContext+0xebcbc, iVar3 + 0x1c1c / 0x38 / 0x25c, and the global
+ * 0xe9ba40.  The peek at 0x43ae10 reads the EncodeChecksumDeltaSub scratch
+ * the line above hands it (&stack0xfffffdb4) - those helpers return their
+ * arg2, see tools/sweep_guard_instructions.md.
  */
 #include "ghidra_types.h"
 
@@ -152,7 +162,7 @@ LAB_0043a6e0:
       *(undefined1 *)(piVar2 + 0x2ffa) = 1;
       piVar2[0x2ff7] = 0;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar6 = PeekPacketChecksumState();
+      iVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0xebcbc));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar6 == 6) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -229,19 +239,19 @@ LAB_0043a6b7:
     EncodeOutgoingPacketField(iVar3 + 0x15ac, 0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (*pcVar13)(&DAT_005a9068);
-    iVar8 = PeekPacketChecksumState();
+    iVar8 = PeekPacketChecksumState((void *)(iVar3 + 0x1c1c));
     EncodeOutgoingPacketField(iVar3 + 0x1c1c, iVar8 + 1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (*pcVar13)(&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(&DAT_00e9ba40));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (*pcVar13)(&DAT_005a9068);
-    iVar8 = PeekPacketChecksumState();
+    iVar8 = PeekPacketChecksumState((void *)(iVar3 + 0x1c1c));
     cVar16 = (int)puVar18 < iVar8;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (cVar16 != '\0') {
       (*pcVar13)(&DAT_005a9068);
-      iVar8 = PeekPacketChecksumState();
+      iVar8 = PeekPacketChecksumState((void *)(iVar3 + 0x38));
       cVar16 = iVar8 == 3;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (cVar16 != '\0') {
@@ -258,10 +268,10 @@ LAB_0043a6b7:
     EncodeChecksumDeltaSub(iVar3 + 0x480,&stack0xfffffdb4,10);
     uStack_20 = 0;
     (*pcVar13)(&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)((char *)&stack0xfffffdb4));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (*pcVar13)(&DAT_005a9068);
-    iVar8 = PeekPacketChecksumState();
+    iVar8 = PeekPacketChecksumState((void *)(iVar3 + 0x25c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((-1 < iVar8) && (iVar14 = *(int *)(&g_nCameraBoundX + g_clientContext), iVar8 < iVar14)) {
       if ((int)puVar17 < 0) {
