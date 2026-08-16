@@ -7,6 +7,11 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls (0x4420df /
+ * 0x4420e8), the usual adjacent tick-clock pair
+ * g_clientContext + 0x3b6c4 and + 0x3b49c.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -840,8 +845,8 @@ LAB_00442056:
     DAT_0056d108 = 0;
     _DAT_007934d8 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
-    iVar5 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
+    iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar4 == iVar5) {
       QueueBroadcastEvent(0x8600);
