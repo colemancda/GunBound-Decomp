@@ -26,6 +26,13 @@
  * matching `iVar6`, which this file ALREADY computes at both call sites
  * (`local_24e4 + -4` / `local_24e4 + -6`, lines just above LAB_004d2a90)
  * but never passed. Now passed explicitly as the 6th argument.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): both internal
+ * PeekPacketChecksumState() calls now name their cell.  The first reads the
+ * connection's own guard cell -- the very cell the EncodeOutgoingPacketField
+ * on the next line already names -- and the second reads back the scratch that
+ * the EncodeChecksumDeltaAdd two lines above staged the LCG step into, because
+ * the delta helpers RETURN THEIR SECOND ARGUMENT.
  */
 #include "ghidra_types.h"
 
@@ -101,7 +108,7 @@ LAB_004d33f1:
     }
     *(uint *)(iVar6 + 0x24238) = uVar13;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar6 = PeekPacketChecksumState();
+    iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x2a8));
     /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x4d28b2:
      * edi (self) is loaded from [esp+0x24fc] (this function's own
      * param_1) at the top of the loop, then `add edi,0x2a8` right
@@ -116,7 +123,7 @@ LAB_004d33f1:
     EncodeChecksumDeltaAdd(uVar7,local_2454,0x29ac03);
     SUBFIELD(local_4,0,undefined1) = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    sVar5 = PeekPacketChecksumState();
+    sVar5 = PeekPacketChecksumState((void *)(local_2454));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     if ((*(int *)(local_2454 + 0x14)) != 0) {

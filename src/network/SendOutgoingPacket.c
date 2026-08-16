@@ -27,6 +27,13 @@
  * `push edx` where edx=[esi+0x44d0] (length, param_3) - the outgoing
  * packet buffer lives at context+0x4d0 (the length-cursor at +0x44d0 is a
  * separate field, matching this file's own header comment above).
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): both internal
+ * PeekPacketChecksumState() calls now name their cell.  The first reads the
+ * connection's own guard cell -- the very cell the EncodeOutgoingPacketField
+ * on the next line already names -- and the second reads back the scratch that
+ * the EncodeChecksumDeltaAdd two lines above staged the LCG step into, because
+ * the delta helpers RETURN THEIR SECOND ARGUMENT.
  */
 #include "ghidra_types.h"
 
@@ -74,7 +81,7 @@ undefined4 SendOutgoingPacket(int param_1)
   iVar1 = *(int *)(param_1 + 0x44d0);
   *(undefined2 *)(param_1 + 0x4d0) = *(undefined2 *)(param_1 + 0x44d0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)(param_1 + 0x84));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4d26bd
    * (`lea edi,[esi+0x84]`, esi = this file's own param_1) the cell is
    * param_1+0x84, the SAME cell already passed explicitly to
@@ -87,7 +94,7 @@ undefined4 SendOutgoingPacket(int param_1)
   EncodeChecksumDeltaAdd(uVar4,local_454,0x269ec3);
   SUBFIELD(local_4,0,undefined1) = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar2 = PeekPacketChecksumState();
+  uVar2 = PeekPacketChecksumState((void *)(local_454));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   *(undefined2 *)(param_1 + 0x4d2) = uVar2;
