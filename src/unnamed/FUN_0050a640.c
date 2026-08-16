@@ -3,6 +3,16 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 5 argless PeekPacketChecksumState() calls.  Same store-screen
+ * shape as FUN_0050ae40/FUN_0050be20: the selected-index cell
+ * puVar1+0x228 (0x50a6cf), the equipped array g_clientContext + iVar3 +
+ * 0x5f4ab8 (0x50a713, iVar3 being the 0x224-stride cursor the C already
+ * carries), and three reads of the catalog record's part-code cell
+ * *(ctx+0x44e20) + (*(puVar1+0x454) + iVar9)*0x450 + 0x22c (0x50a7b2,
+ * 0x50a829 and its sibling) - the same `imul 0x450` + `+0x44e20` pair the
+ * C's own ctx+0x44e24 bounds checks guard on the lines just above.
  */
 #include "ghidra_types.h"
 
@@ -32,7 +42,7 @@ undefined4 __thiscall FUN_0050a640(int param_1,int param_2,int param_3)
            ((uint)(*(int *)(g_gameStateVTableArray[7] + 0x454) + iVar9) <
             *(uint *)(g_clientContext + 0x44e24))) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar3 = PeekPacketChecksumState();
+          iVar3 = PeekPacketChecksumState((void *)(puVar1 + 0x228));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (iVar9 == iVar3) {
             iVar3 = 0;
@@ -55,7 +65,7 @@ undefined4 __thiscall FUN_0050a640(int param_1,int param_2,int param_3)
 LAB_0050a700:
     iVar8 = *(int *)(puVar1 + 0x454);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(g_clientContext + iVar3 + 0x5f4ab8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar4 == iVar8 + iVar9) break;
   }
@@ -68,7 +78,7 @@ LAB_0050a700:
     ThrowCxxException(0x80070057);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar5 = PeekPacketChecksumState();
+  uVar5 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(puVar1 + 0x454) + iVar9) * 0x450 + 0x22c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\0') {
@@ -77,7 +87,7 @@ LAB_0050a700:
       ThrowCxxException(0x80070057);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(puVar1 + 0x454) + iVar9) * 0x450 + 0x22c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((uVar6 & 0x8000) != 0) goto LAB_0050a89a;
   }
@@ -87,7 +97,7 @@ LAB_0050a700:
       ThrowCxxException(0x80070057);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(puVar1 + 0x454) + iVar9) * 0x450 + 0x22c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((uVar6 & 0x8000) == 0) {
 LAB_0050a89a:
