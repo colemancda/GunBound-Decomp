@@ -3,6 +3,10 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call
+ * ((void *)(g_clientContext + 0x3b6c4)), from tools/guard_cell_resolve.py.
  */
 #include "ghidra_types.h"
 
@@ -33,7 +37,7 @@ uint __fastcall CheckAllPlayersReady(int param_1)
       cVar1 = *(char *)(iVar4 + 0x45914 + iVar5);
       if ((cVar1 != '\0') && (cVar1 != '\x03')) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar2 = PeekPacketChecksumState();
+        iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar4 = g_clientContext;
         uVar3 = extraout_var;

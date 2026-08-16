@@ -4,6 +4,10 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call
+ * ((void *)&DAT_00796878), from tools/guard_cell_resolve.py.
  */
 #include "ghidra_types.h"
 
@@ -19,7 +23,7 @@ int FUN_00419d30(void)
   
   iVar2 = *(int *)(unaff_EBX + 0xf6ec);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)&DAT_00796878);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = extraout_var;
   if (iVar2 == iVar1) {

@@ -3,6 +3,10 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call
+ * ((void *)(g_clientContext + 0x3b6c4)), from tools/guard_cell_resolve.py.
  */
 #include "ghidra_types.h"
 
@@ -67,7 +71,7 @@ LAB_004dbb40:
      * param_1) + 1. */
     DrawSprite((int)(uint)(byte)*(char *)(iVar4 + 0x4590c + param_1) + 1);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (param_1 == iVar4) {
       if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {

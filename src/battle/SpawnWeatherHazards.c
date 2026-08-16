@@ -15,7 +15,10 @@
  * s_LightningTexture. Hazard spawns are packet-driven (server emits the
  * descriptor), which is why the client's own decoded stage.dat hazard
  * fields (FILEFORMATS.md 회오리/증폭/전기) are never consumed here.
- * Raw/near-verbatim Ghidra body, not hand-verified - see src/README.md.
+ * Raw/near-verbatim Ghidra body, not hand-verified - see src/README.md. *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call
+ * ((void *)(g_clientContext + 0x45354)), from tools/guard_cell_resolve.py.
  */
 #include "ghidra_types.h"
 
@@ -70,7 +73,7 @@ void SpawnWeatherHazards(int param_1)
     SpawnLightningHazard(&DAT_006a7f70 + param_1,*(undefined2 *)(pcVar9 + 2),cVar1,10000);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar6 = PeekPacketChecksumState();
+  iVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = g_clientContext;
   if ((iVar6 == 3) && (*pcVar8 != -1)) {

@@ -6,7 +6,10 @@
  * FUN_<address> helpers and DAT_<address>/_DAT_<address> globals are
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
- * these get promoted to verified.
+ * these get promoted to verified. *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call
+ * ((void *)(g_clientContext + 0x45354)), from tools/guard_cell_resolve.py.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -83,7 +86,7 @@ LAB_004d67e1:
       uVar10 = param_4 & 0xffff;
       param_4 = param_4 >> 0x10;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar5 = PeekPacketChecksumState();
+      iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if ((((iVar5 == 2) && (0x17a < uVar10)) && (uVar10 < 0x1ea)) &&
          (((0x186 < param_4 && (param_4 < 0x218)) && ((char)param_1[0x133] == '\0')))) {

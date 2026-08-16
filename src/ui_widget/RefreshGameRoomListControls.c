@@ -5,6 +5,10 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call
+ * ((void *)(g_clientContext + 0x449c4)), from tools/guard_cell_resolve.py.
+ *
  * PARTIALLY FIXED (2026-07-13): InvokeWidget's own dropped widgetId
  * argument fixed at all 11 call sites here (an angr CFG backward-scan
  * gave the exact per-site id: 0, 1, 3, 4, 5, 0xa, 0xb, 0xc, 0xd, 0xe,
@@ -81,7 +85,7 @@ void RefreshGameRoomListControls(undefined4 controlsEnabled,int stateObj)
   }
   if (cVar7 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x449c4));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar4 != 1) {
       uVar5 = 1;
