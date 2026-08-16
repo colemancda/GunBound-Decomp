@@ -4,6 +4,16 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 3 argless PeekPacketChecksumState() calls.  Ghidra emitted
+ * the blocks OUT OF ADDRESS ORDER, so the sites were matched by landmark,
+ * not position: the `iVar6 < 1` test at C75 is the `setle bl` right after
+ * the peek at 0x4ceb42, whose cell is the local player record
+ * *(g_clientContext + 0x621e0) + 0x6968; the C39/C42 pair is the later
+ * 0x4cecfc / 0x4ced1a pair, reading param_1 + 0x264 and + 0x40 (ESI is
+ * reloaded from the same frame slot that the `FUN_004cee30(param_1)` call
+ * on the line above uses, 0x4cecc2/0x4cecd4).
  */
 #include "ghidra_types.h"
 
@@ -36,10 +46,10 @@ LAB_004ceb04:
       if (uVar12 != 0x40) {
         if (uVar12 != *(uint *)(param_1 + 0x10c0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar7 = PeekPacketChecksumState();
+          iVar7 = PeekPacketChecksumState((void *)(param_1 + 0x264));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar8 = PeekPacketChecksumState();
+          iVar8 = PeekPacketChecksumState((void *)(param_1 + 0x40));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = g_clientContext;
           cVar5 = PeekPacketChecksumBool();
@@ -72,7 +82,7 @@ LAB_004ceb04:
       FUN_0043c3c0();
       if (*(int *)(g_clientContext + 0x621e0) != 0) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar6 = PeekPacketChecksumState();
+        iVar6 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x6968));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (((iVar6 < 1) && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) &&
            (cVar5 = PeekPacketChecksumBool(), cVar5 == '\0')) {
