@@ -6,13 +6,16 @@
 # Runs inside a Debian container (not the Ubuntu runner directly) because the
 # winegcc package names / behaviour were validated on Debian 13; see
 # .devcontainer/Dockerfile.
+#
+# Not run per-push or per-PR: it runs on a DAILY schedule (05:30 UTC, just
+# ahead of msvc-build's 06:00 so the cheap check reports first) plus manual
+# dispatch only.
 name: winelib-syntax-check
 
 on:
-  push:
-    branches: [main]
-  pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: '30 5 * * *'  # daily, 05:30 UTC (ahead of msvc-build's 06:00)
 
 jobs:
   winelib-syntax-check:

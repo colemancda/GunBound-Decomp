@@ -13,8 +13,8 @@
 # etc. at its root, so it unpacks straight into tools/msvc-env/). The tree is
 # cached between runs so the ~91 MB download only happens on a cache miss.
 #
-# Not run per-PR: ~1800 cl.exe invocations under Wine take >1h, so it's gated
-# to main pushes, manual dispatch, and a weekly schedule.
+# Not run per-push or per-PR: ~1800 cl.exe invocations under Wine take >1h, so
+# it runs on a DAILY schedule (06:00 UTC) plus manual dispatch only.
 #
 # Also renders tools/gen_diff_report.py's instruction-level diff (original
 # binary vs. this run's recompiled .obj files) for the WinMain-to-server-list
@@ -25,11 +25,9 @@
 name: msvc-build
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
   schedule:
-    - cron: '0 6 * * 1'  # Mondays 06:00 UTC
+    - cron: '0 6 * * *'  # daily, 06:00 UTC
 
 env:
   MSVC7_URL: https://github.com/colemancda/GunBound-Decomp/releases/download/0.1.0/msvc7.zip
