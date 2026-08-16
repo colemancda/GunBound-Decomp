@@ -696,7 +696,7 @@ LAB_0042f012:
   }
 LAB_0042f0e2:
   FUN_0041da80(g_clientContext,piVar5,1,param_11,1);
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x5b818));
   if (cVar4 == '\x01') {
     local_8ac = (int *)EncodeChecksumDeltaMul(piVar5 + 0x930,auStack_8a0,3);
     puStack_8 = (undefined1 *)0x14;

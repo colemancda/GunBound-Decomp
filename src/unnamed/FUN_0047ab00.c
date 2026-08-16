@@ -20,7 +20,7 @@ void __fastcall FUN_0047ab00(int param_1)
     return;
   }
   if (iVar2 == *(int *)(param_1 + 0x3f9c)) {
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar1 == '\0') {
       AcquireSoundChannel(0);
     }

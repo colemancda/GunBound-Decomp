@@ -475,7 +475,7 @@ LAB_004cd6de:
     local_715 = 4 < iVar7;
     (*pcVar18)(&DAT_005a9068);
     if (((local_715 == '\0') &&
-        ((cVar4 = PeekPacketChecksumBool(), cVar4 != '\x01' || (*(char *)(g_clientContext + 0x45127) != '\x03')))
+        ((cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x67e3cc)), cVar4 != '\x01' || (*(char *)(g_clientContext + 0x45127) != '\x03')))
         ) || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
       CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26,0
                          ,0);
@@ -491,7 +491,7 @@ LAB_004cd6de:
           uVar8 = piVar2[2];
         }
       }
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba));
       if (cVar4 == '\x01') {
         iVar7 = *(int *)(g_clientContext + 0x621e0);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -505,7 +505,7 @@ LAB_004cd6de:
         *(byte *)(iVar7 + 0x8bbb) = bVar16;
         *(byte *)(iVar7 + 0x8bbc) = bVar15 + bVar16 + -0x34;
         (*pcVar18)(&DAT_005a9068);
-        cVar4 = PeekPacketChecksumBool();
+        cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba));
         if (cVar4 == '\x01') {
           InvokeWidget(1,1);
           RemoveWidget();
@@ -527,7 +527,7 @@ LAB_004cd6de:
       }
     }
     else {
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb7));
       if (cVar4 == '\0') {
         CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26
                            ,1,0);

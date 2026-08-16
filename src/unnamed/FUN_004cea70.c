@@ -52,7 +52,7 @@ LAB_004ceb04:
           iVar8 = PeekPacketChecksumState((void *)(param_1 + 0x40));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = g_clientContext;
-          cVar5 = PeekPacketChecksumBool();
+          cVar5 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bbd));
           if ((cVar5 == '\0') && ((&DAT_006a7758)[iVar6] != '\0')) {
             iVar10 = 400;
             if (399 < iVar8) {
@@ -84,8 +84,8 @@ LAB_004ceb04:
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar6 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x6968));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        if (((iVar6 < 1) && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) &&
-           (cVar5 = PeekPacketChecksumBool(), cVar5 == '\0')) {
+        if (((iVar6 < 1) && (cVar5 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bc0)), cVar5 != '\0')) &&
+           (cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74)), cVar5 == '\0')) {
           iVar6 = *(int *)(g_clientContext + 0x621e0);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar7 = _rand();

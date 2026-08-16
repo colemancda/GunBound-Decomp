@@ -25,7 +25,7 @@ void __fastcall FUN_0046c990(int *param_1)
   if ((char)param_1[0xd] == '\x01') {
     (**(code **)(*param_1 + 4))(&PTR_DAT_00555e2c);
   }
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0x391b);
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState((void *)((int)param_1 + 0x3920));

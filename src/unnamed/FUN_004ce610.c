@@ -45,8 +45,8 @@ LAB_004ce86c:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x6968));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      if (((iVar5 < 1) && (cVar4 = PeekPacketChecksumBool(), cVar4 != '\0')) &&
-         (cVar4 = PeekPacketChecksumBool(), cVar4 == '\0')) {
+      if (((iVar5 < 1) && (cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bbd)), cVar4 != '\0')) &&
+         (cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bc0)), cVar4 == '\0')) {
         iVar5 = *(int *)(g_clientContext + 0x621e0);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar8 = _rand();

@@ -70,7 +70,7 @@ void EquipAvatarPart(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + uVar4 * 0x450 + 0x22c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b498));
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField((void *)(g_clientContext + 0x3ac08 + (uVar5 >> 0x10 & 0xf) * 0x224), -(uint)(cVar1 != '\0') & 0x8000 | uVar3 & 0x7fff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

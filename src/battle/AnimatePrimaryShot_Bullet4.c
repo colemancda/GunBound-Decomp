@@ -39,7 +39,7 @@ void __fastcall AnimatePrimaryShot_Bullet4(int *param_1)
   iVar3 = PeekPacketChecksumState((void *)&DAT_00e9bed8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   param_1[0xfe7] = (param_1[0xfe8] + param_1[0xfe7]) % iVar3;
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0x391b);
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState((void *)((int)param_1 + 0x3920));

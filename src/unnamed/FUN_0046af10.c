@@ -68,7 +68,7 @@ void __fastcall FUN_0046af10(int *param_1)
   EncodeOutgoingPacketField((void *)(param_1 + 0x99), iVar4 + local_acc);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xf45);
   if (cVar3 != '\0') {
     *(undefined1 *)(param_1 + 5) = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -219,7 +219,7 @@ LAB_0046b430:
     (*pcVar13)(&DAT_005a9068);
     iVar4 = g_clientContext;
     piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if ((cVar3 == '\0') && ((&DAT_006a7758)[iVar4] != '\0')) {
       if (((&DAT_006a7736)[iVar4] == '\x01') &&
          ((uVar8 = iVar5 - *(int *)(&g_nCameraY + iVar4) >> 0x1f,

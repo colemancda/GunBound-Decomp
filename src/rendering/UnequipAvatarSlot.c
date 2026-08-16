@@ -44,7 +44,7 @@ void UnequipAvatarSlot(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(param_1 + 0x454) + iVar2) * 0x450 + 0x22c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b498));
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField((void *)(g_clientContext + 0x3ac08 + (uVar3 >> 0x10 & 0xf) * 0x224), -(uint)(cVar1 != '\0') & 0x8000);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

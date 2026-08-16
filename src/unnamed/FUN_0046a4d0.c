@@ -78,7 +78,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
   EncodeOutgoingPacketField((void *)(param_1 + 0x99), iVar5 + (int)piVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf45);
   if (cVar4 != '\0') {
     *(undefined1 *)(param_1 + 5) = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -145,7 +145,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     FUN_00437150(local_adc[0],uVar9,0x3c,uVar8);
     iVar5 = g_clientContext;
-    cVar4 = PeekPacketChecksumBool();
+    cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar4 != '\x01') {
       iVar6 = *(int *)(&DAT_006a7750 + iVar5);
       if (iVar6 < 0x10) {
@@ -158,7 +158,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
       }
       *(int *)(&DAT_006a7754 + iVar5) = iVar6;
     }
-    cVar4 = PeekPacketChecksumBool();
+    cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar4 == '\0') {
       AcquireSoundChannel(0);
     }
@@ -296,7 +296,7 @@ LAB_0046ad0a:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = g_clientContext;
     piVar7 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar4 = PeekPacketChecksumBool();
+    cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if ((cVar4 == '\0') && ((&DAT_006a7758)[iVar5] != '\0')) {
       if (((&DAT_006a7736)[iVar5] == '\x01') &&
          ((uVar11 = iVar6 - *(int *)(&g_nCameraY + iVar5) >> 0x1f,

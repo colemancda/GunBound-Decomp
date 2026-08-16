@@ -30,7 +30,7 @@ void __fastcall AnimateShot2_Bullet13(int *param_1)
     param_1[0xfe7] = param_1[0xfe7] + 1;
   }
   AdvanceSpriteAnimation((int)param_1);
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0x391b);
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = PeekPacketChecksumState((void *)((int)param_1 + 0x3920));

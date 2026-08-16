@@ -43,7 +43,7 @@ void __thiscall State02_ServerSelect_OnTopButton(int param_1,int param_2,int par
   if (param_2 == 3) {
     *(undefined2 *)(DAT_007934ec + 0x4d4) = 0x2000;
     *(undefined4 *)(iVar5 + 0x44d0) = 6;
-    cVar6 = PeekPacketChecksumBool();
+    cVar6 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b968));
     iVar5 = DAT_007934ec;
     if (((cVar6 == '\x01') && (sVar2 = *(short *)(g_clientContext + 0x3b96d), sVar2 != -1)) &&
        (sVar2 != -2)) {
@@ -90,7 +90,7 @@ void __thiscall State02_ServerSelect_OnTopButton(int param_1,int param_2,int par
     InvokeWidget(2,*(int *)(param_1 + 8) != -1);
     ShowErrorDialog(0);
     *(undefined1 *)(param_1 + 6) = 1;
-    cVar6 = PeekPacketChecksumBool();
+    cVar6 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b968));
     iVar5 = g_clientContext;
     if (cVar6 != '\0') {
       pbVar9 = (byte *)(g_clientContext + 0x3b968);

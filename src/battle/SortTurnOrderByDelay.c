@@ -88,8 +88,8 @@ void SortTurnOrderByDelay(int param_1)
   int local_8;
   
   local_14 = 0;
-  if (((*(int *)(param_1 + 0x621e0) != 0) && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) &&
-     (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) {
+  if (((*(int *)(param_1 + 0x621e0) != 0) && (cVar1 = PeekPacketChecksumBool((byte *)(*(int *)(param_1 + 0x621e0) + 0x8bbd)), cVar1 != '\0')) &&
+     (cVar1 = PeekPacketChecksumBool((byte *)(*(int *)(param_1 + 0x621e0) + 0x8ba8)), cVar1 != '\0')) {
     local_14 = ComputeTurnDelay();
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

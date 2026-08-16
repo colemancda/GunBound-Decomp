@@ -36,7 +36,7 @@ void RebuildTerrainColumnCache(int param_1)
   short local_c;
   int local_4;
   
-  cVar5 = PeekPacketChecksumBool();
+  cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar5 != '\x01') {
     iVar6 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar15 = *(uint *)(iVar6 + 4);

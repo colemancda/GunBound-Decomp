@@ -24,7 +24,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
   int iVar8;
   byte bVar9;
   
-  if ((*(int *)(g_clientContext + 0x621e0) != 0) && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0')) {
+  if ((*(int *)(g_clientContext + 0x621e0) != 0) && (cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8)), cVar3 != '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x39f30 + param_2 * 0x224));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -93,11 +93,11 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       cVar3 = FUN_0041ea30(g_clientContext,*(undefined2 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc));
       if (cVar3 != '\0') {
-        cVar3 = PeekPacketChecksumBool();
+        cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bab));
         if (cVar3 == '\0') {
           SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           SetGuardedBool(0,GB_GUARD_UNRECOVERED);
-          cVar3 = PeekPacketChecksumBool();
+          cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bab));
           if (cVar3 == '\0') {
             SetGuardedBool(1,GB_GUARD_UNRECOVERED);
             QueueBroadcastEvent(0xc301);

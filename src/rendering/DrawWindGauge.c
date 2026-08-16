@@ -311,7 +311,7 @@ LAB_00406e95:
 LAB_00406f80:
     QueueSpriteSpansByContentId(7000);
   }
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8));
   if (cVar1 != '\0') {
     EncodeChecksumDeltaDiv(*(int *)(g_clientContext + 0x621e0) + 0x8bc4,local_f08,200);
     local_4 = 0xc;

@@ -85,7 +85,7 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       pcVar7 = pcVar7 + 1;
     } while (cVar1 != '\0');
     FUN_0041da80(g_clientContext,piVar8,param_5,param_10,1);
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x5b818));
     if (cVar1 == '\x01') {
       uVar4 = EncodeChecksumDeltaMul(piVar8 + 0x930,local_89c,3);
       local_4 = 1;

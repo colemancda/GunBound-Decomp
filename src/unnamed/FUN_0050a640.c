@@ -80,7 +80,7 @@ LAB_0050a700:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(puVar1 + 0x454) + iVar9) * 0x450 + 0x22c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b498));
   if (cVar2 == '\0') {
     if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar9)) {
                     /* WARNING: Subroutine does not return */

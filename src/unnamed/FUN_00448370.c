@@ -22,9 +22,9 @@ void __fastcall FUN_00448370(int param_1)
   iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x325b0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar2 == 0) {
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32c54));
     if (cVar1 != '\x01') {
-      cVar1 = PeekPacketChecksumBool();
+      cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63));
       if ((cVar1 != '\x01') && (g_stateChangeInProgress == 0)) {
         iVar2 = FUN_0044c3d0(param_1,g_cursorAnchorX,g_cursorAnchorY);
         if (iVar2 != -1) {

@@ -51,8 +51,16 @@ def main():
     src = open(os.path.join(ROOT, path), errors='ignore').read().split('\n')
 
     for line in out.split('\n'):
+        # two shapes carry a base the resolver could not name:
+        #   !!  N 0xADDR FAM  cell = <reg crosses block end at 0x..> + 0xOFF
+        #       N 0xADDR FAM  cell = dword ptr [esp + 0xN] + 0xOFF
+        # the second is a spilled object pointer - just as unnamed, and just
+        # as likely to be spelled elsewhere in the file.
         m = re.match(r'!!\s+(\d+) (0x[0-9a-f]+) (%s)\s+cell = <([^>]+)> \+ (0x[0-9a-f]+)'
                      % fam, line)
+        if not m:
+            m = re.match(r'\s+(\d+) (0x[0-9a-f]+) (%s)\s+cell = '
+                         r'(dword ptr \[esp \+ 0x[0-9a-f]+\]) \+ (0x[0-9a-f]+)' % fam, line)
         if not m:
             continue
         idx, addr, family, why, off = m.groups()

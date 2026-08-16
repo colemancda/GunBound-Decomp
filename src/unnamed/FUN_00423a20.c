@@ -31,7 +31,7 @@ void __fastcall FUN_00423a20(int param_1)
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = in_AL;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     if (in_AL == 0xe) {
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bab));
       if (cVar4 == '\0') {
         iVar7 = *(int *)(g_clientContext + 0x621e0);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

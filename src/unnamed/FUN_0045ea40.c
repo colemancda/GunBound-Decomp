@@ -35,11 +35,11 @@ void FUN_0045ea40(void)
   uStack_4 = 0xffffffff;
   puStack_8 = &LAB_0053ab71;
   *unaff_FS_OFFSET = &local_c;
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)unaff_ESI + 0xb0b5);
   if ((cVar1 != '\0') && (unaff_ESI[9] != 0xe)) {
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)unaff_ESI + 0x908);
     if (cVar1 != '\0') {
-      cVar1 = PeekPacketChecksumBool();
+      cVar1 = PeekPacketChecksumBool((byte *)unaff_ESI + 0xbff7);
       if (cVar1 != '\x01') {
         iVar3 = unaff_ESI[9];
         if ((((iVar3 != 5) && (iVar3 != 6)) && (iVar3 != 8)) && (iVar3 != 10)) {
@@ -53,7 +53,7 @@ void FUN_0045ea40(void)
           iVar3 = PeekChecksumStateUnderLock(uVar2);
           uStack_4 = 0xffffffff;
           ScrubChecksumGuard();
-          cVar1 = PeekPacketChecksumBool();
+          cVar1 = PeekPacketChecksumBool((byte *)unaff_ESI + 0x9ce4);
           if (cVar1 == '\x01') {
             iVar4 = PeekChecksumStateUnderLock(&DAT_00796aa0);
             iVar3 = iVar3 + (iVar3 * 8) / iVar4;

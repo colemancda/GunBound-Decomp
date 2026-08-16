@@ -236,7 +236,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           uStack_f0 = uStack_f0 + 0x80;
         } while (iStack_d4 < (int)(uint)*(byte *)(iVar20 + 0x3f808));
       }
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b498));
       iVar20 = g_clientContext;
       if (cVar2 != '\0') {
         uVar6 = *(ushort *)(g_clientContext + 0x3b96b) & 0x8000000f;
@@ -333,7 +333,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
         ChangeGameState(3);
         return;
       }
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b968));
       if (cVar2 != '\0') {
         /* RECOVERED (2026-07-19), orig 0x4e08b2-0x4e08be:
          * `mov eax,[0x5b3484]` / `push 0` / `add eax,0x3b968`. */
@@ -486,7 +486,7 @@ LAB_004e0d7f:
     case 0x5013:
       *(undefined4 *)((int)this + *(int *)((int)this + 0x68) * 4 + 0x28) = 0x20;
     }
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b968));
     if (cVar2 != '\0') {
       /* RECOVERED (2026-07-19), orig 0x4e0c8d-0x4e0c99: same cell,
        * `mov eax,[0x5b3484]` / `push 0` / `add eax,0x3b968`. */
@@ -552,7 +552,7 @@ LAB_004e0d7f:
   QueueOutgoingPacketField(uStack_f0 >> 0x10);
   QueueOutgoingPacketField(uStack_ec & 0xffff);
   QueueOutgoingPacketField(uStack_ec >> 0x10);
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b968));
   if (cVar2 == '\0') {
     uVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3ae2c);
     if ((char)((uint)uVar5 >> 8) < 0) {

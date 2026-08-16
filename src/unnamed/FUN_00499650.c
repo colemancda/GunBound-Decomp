@@ -48,7 +48,7 @@ void FUN_00499650(int *param_1,undefined4 param_2,undefined4 param_3,int param_4
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053d23c;
   *unaff_FS_OFFSET = &local_c;
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if ((cVar1 == '\0') && ((char)param_1[5] == '\0')) {
     uVar2 = EncodeChecksumDeltaDiv(param_4 + 0x2908,local_678,2);
     local_4 = 0;

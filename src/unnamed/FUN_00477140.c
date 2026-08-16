@@ -176,7 +176,7 @@ void FUN_00477140(void)
     TreeLowerBound(&stack0xfffffb78);
   }
   iVar1 = g_clientContext;
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar2 != '\x01') {
     iVar5 = *(int *)(&DAT_006a7750 + iVar1);
     if (iVar5 < 0x10) {
@@ -189,7 +189,7 @@ void FUN_00477140(void)
     }
     *(int *)(&DAT_006a7754 + iVar1) = iVar5;
   }
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar2 == '\0') {
     AcquireSoundChannel(0);
   }
