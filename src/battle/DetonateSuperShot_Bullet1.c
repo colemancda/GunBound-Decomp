@@ -440,7 +440,7 @@ LAB_0044e580:
     }
     goto LAB_0044e8d1;
   }
-  SyncOutgoingChecksumField(param_1[2],param_1 + 0x45e);
+  SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
   cVar5 = PeekPacketChecksumBool();
   if (cVar5 != '\0') {
     iVar6 = PeekChecksumStateUnderLock(param_1 + 0x3d5);

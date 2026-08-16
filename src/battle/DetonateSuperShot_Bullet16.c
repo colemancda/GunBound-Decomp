@@ -284,7 +284,7 @@ LAB_004683bc:
     }
     goto LAB_00468593;
   }
-  SyncOutgoingChecksumField(param_1[2],param_1 + 0x45e);
+  SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
   cVar6 = PeekPacketChecksumBool();
   if (cVar6 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

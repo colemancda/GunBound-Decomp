@@ -293,7 +293,7 @@ LAB_004b28c6:
     }
     goto LAB_004b2a84;
   }
-  SyncOutgoingChecksumField(param_1[2],param_1 + 0x45e);
+  SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
   cVar4 = PeekPacketChecksumBool();
   if (cVar4 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -411,7 +411,7 @@ LAB_004b1bd5:
         iStack_ab0 = 0;
         EncodeOutgoingPacketField(auStack_ac4,0);
         SUBFIELD(puStack_8,0,undefined1) = 4;
-        SyncOutgoingChecksumField(iStack_ac8 + 0x10,auStack_ac4);
+        SyncOutgoingChecksumField(auStack_8a0, iStack_ac8 + 0x10,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState((void *)auStack_ac4);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -444,7 +444,7 @@ LAB_004b1e9d:
           SUBFIELD(puStack_8,0,undefined1) = 2;
           QueueOutgoingPacketField(uStack_adc);
           QueueOutgoingPacketField(local_ad4);
-          SyncOutgoingChecksumField(iStack_ac8 + 0x10,auStack_8a0);
+          SyncOutgoingChecksumField(auStack_ac4, iStack_ac8 + 0x10,auStack_8a0);
           iVar5 = param_1[0xfe5];
           uVar21 = 0;
           uVar20 = 0xff;

@@ -170,7 +170,7 @@ void EncodeChecksumState(unsigned int value);
 int SetGuardedBool(int value, int guardPtr);
 char PacketChecksumGreaterEqual(void *cell, unsigned int value);
 char CheckBothGuardedBools(void);
-void SyncOutgoingChecksumField(int arg1, void *cell);
+void SyncOutgoingChecksumField(void *self, int arg1, void *cell);
 void FUN_00436070(void *base, unsigned int a, void *b);
 void FUN_0043af40(unsigned int a, void *b, int c, void *d, int e, unsigned int f, unsigned char g);
 void FUN_00431d90(unsigned char a, int b, int c, unsigned int d, unsigned int e, unsigned int f,
@@ -580,7 +580,7 @@ void CProjectile::DetonateProjectile()
         }
         goto LAB_004585ba;
     }
-    SyncOutgoingChecksumField(self->m_ctorArg1, self->m_pad3d + 0x113b);
+    SyncOutgoingChecksumField(self->m_pad3d + 0xf17, self->m_ctorArg1, self->m_pad3d + 0x113b);
     cVar4 = PeekPacketChecksumBool();
     if (cVar4 != '\0') {
         char *pcVar7;
@@ -692,7 +692,7 @@ void CProjectile::DetonateProjectile()
                 auStack_ac4.activeFlag = 0;
                 auStack_ac4.tableHandle = 0;
                 EncodeOutgoingPacketField((void *)(&auStack_ac4), 0);
-                SyncOutgoingChecksumField((int)pCStack_ac8->m_pad0c + 4, &auStack_ac4);
+                SyncOutgoingChecksumField(&auStack_8a0, (int)pCStack_ac8->m_pad0c + 4, &auStack_ac4);
                 EnterCriticalSection(&DAT_005a9068);
                 PeekPacketChecksumState((void *)(&auStack_ac4));
                 LeaveCriticalSection(&DAT_005a9068);
@@ -720,7 +720,7 @@ void CProjectile::DetonateProjectile()
                     EncodeOutgoingPacketField((void *)(&auStack_8a0), 0);
                     QueueOutgoingPacketField(uStack_adc);
                     QueueOutgoingPacketField(reinterpret_cast<unsigned int>(local_ad4));
-                    SyncOutgoingChecksumField((int)pCStack_ac8->m_pad0c + 4, &auStack_8a0);
+                    SyncOutgoingChecksumField(&auStack_ac4, (int)pCStack_ac8->m_pad0c + 4, &auStack_8a0);
                     iVar5 = self->m_field3f94;
                     uVar21 = 0;
                     uVar22 = 0xff;

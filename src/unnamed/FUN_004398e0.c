@@ -119,7 +119,7 @@ LAB_004399d4:
          * See tools/encodeoutgoingpacketfield_sites.json. */
         EncodeOutgoingPacketField(auStack_230, 0);
         SUBFIELD(local_4,0,undefined1) = 4;
-        SyncOutgoingChecksumField(param_2 + 0x10,auStack_230);
+        SyncOutgoingChecksumField(auStack_454, param_2 + 0x10,auStack_230);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState((void *)(auStack_454));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -166,7 +166,7 @@ LAB_004399d4:
           SUBFIELD(local_4,0,undefined1) = 2;
           QueueOutgoingPacketField(param_3);
           QueueOutgoingPacketField(param_4);
-          SyncOutgoingChecksumField(param_2 + 0x10,auStack_454);
+          SyncOutgoingChecksumField(auStack_230, param_2 + 0x10,auStack_454);
           iVar12 = param_5;
           uVar10 = *(undefined4 *)(param_5 + 0x3f94);
           uVar17 = 0;

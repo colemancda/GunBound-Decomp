@@ -67,7 +67,7 @@ void __fastcall FUN_00491b40(int param_1)
   if (*(char *)(param_1 + 0x14) != '\x01') {
     local_474 = param_1 + 0x1178;
     local_478 = param_1 + 0xf54;
-    SyncOutgoingChecksumField(*(undefined4 *)(param_1 + 8),local_474);
+    SyncOutgoingChecksumField((void *)(param_1 + 0xf54), *(undefined4 *)(param_1 + 8),local_474);
     *(undefined1 *)(param_1 + 0x14) = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState((void *)&DAT_00e9ba40);

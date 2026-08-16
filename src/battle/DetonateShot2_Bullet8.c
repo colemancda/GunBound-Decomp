@@ -298,7 +298,7 @@ LAB_004aa2ed:
     goto LAB_004aa4ab;
   }
   piStack_aec = param_1 + 0x45e;
-  SyncOutgoingChecksumField(param_1[2],piStack_aec);
+  SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],piStack_aec);
   *(undefined1 *)(param_1 + 5) = 1;
   uVar8 = EncodeChecksumPairDiff(param_1 + 0x3d5,auStack_adc,piStack_aec);
   puStack_10 = (undefined1 *)0x0;
@@ -991,7 +991,7 @@ LAB_004a9552:
     pbStack_8a0 = (byte *)0x0;
     EncodeOutgoingPacketField((void *)auStack_8b4,0);
     puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),0x10);
-    SyncOutgoingChecksumField(apiStack_ae4[0] + 4,auStack_8b4);
+    SyncOutgoingChecksumField(auStack_adc, apiStack_ae4[0] + 4,auStack_8b4);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState((void *)auStack_8b4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -1052,7 +1052,7 @@ LAB_004a9552:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeOutgoingPacketField((void *)auStack_adc,pbStack_afc);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      SyncOutgoingChecksumField(apiStack_ae4[0] + 4,auStack_adc);
+      SyncOutgoingChecksumField(auStack_8b4, apiStack_ae4[0] + 4,auStack_adc);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState((void *)auStack_adc);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -92,7 +92,7 @@ void __fastcall DetonateSuperShot_Bullet4(int *param_1)
   (**(code **)(*param_1 + 0x14))(8);
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
-    SyncOutgoingChecksumField(param_1[2],param_1 + 0x45e);
+    SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
     cVar1 = PeekPacketChecksumBool();
     if (cVar1 != '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -410,7 +410,7 @@ LAB_004ad793:
         iStack_ab0 = 0;
         EncodeOutgoingPacketField((void *)(auStack_ac4), 0);
         SUBFIELD(puStack_8,0,undefined1) = 4;
-        SyncOutgoingChecksumField(piStack_ad0 + 4,auStack_ac4);
+        SyncOutgoingChecksumField(auStack_8a0, piStack_ad0 + 4,auStack_ac4);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         PeekPacketChecksumState((void *)(auStack_ac4));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -443,7 +443,7 @@ LAB_004ada51:
           SUBFIELD(puStack_8,0,undefined1) = 2;
           QueueOutgoingPacketField(uStack_ad8);
           QueueOutgoingPacketField(uStack_adc);
-          SyncOutgoingChecksumField(piStack_ad0 + 4,auStack_8a0);
+          SyncOutgoingChecksumField(auStack_ac4, piStack_ad0 + 4,auStack_8a0);
           iVar9 = param_1[0xfe5];
           uVar17 = 0;
           uVar16 = 0xff;

@@ -65,6 +65,8 @@ FAMILY = {
     0x40ab60: ("EmitMod", "eax"),
     0x40b060: ("EncodeDec", "eax"),
     0x40ab20: ("EncodeDiv", "ecx"),
+    #   Sync             cell EAX, context ECX, plus two stack args
+    0x4262d0: ("Sync", "eax"),
 }
 
 REGS = ("eax", "ebx", "ecx", "edx", "esi", "edi", "ebp")

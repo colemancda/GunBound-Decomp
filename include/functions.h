@@ -460,7 +460,7 @@ void FUN_00426120();
 void FUN_004261d0();
 void FUN_00426210();
 void FUN_00426230();
-void SyncOutgoingChecksumField();
+void SyncOutgoingChecksumField(void *self,int param_1,undefined4 param_2);
 int * __fastcall FUN_00426410();
 undefined4 __fastcall FUN_00426430();
 void FUN_00426460();

@@ -273,7 +273,7 @@ LAB_004ae9a8:
     goto LAB_004aece0;
   }
   piVar2 = param_1 + 0x3d5;
-  SyncOutgoingChecksumField(param_1[2],param_1 + 0x45e);
+  SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
   cVar6 = PeekPacketChecksumBool();
   if (cVar6 != '\0') {
     uVar12 = PeekChecksumStateUnderLock(piVar2);

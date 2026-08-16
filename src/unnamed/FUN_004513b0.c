@@ -556,7 +556,7 @@ LAB_00452a0a:
   uStack_b5c = (undefined **)param_1[2];
   uStack_b58 = param_1 + 0x45e;
   uStack_b60 = (undefined **)0x45174e;
-  SyncOutgoingChecksumField();
+  SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2], param_1 + 0x45e);
   uStack_b58 = (int *)0x451759;
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 != '\0') {
@@ -716,7 +716,7 @@ LAB_00451a3a:
         puStack_b18 = (undefined *)0x0;
         EncodeOutgoingPacketField((void *)&puStack_b2c, 0);
         uStack_70 = 4;
-        SyncOutgoingChecksumField(puStack_b30 + 4,&puStack_b2c);
+        SyncOutgoingChecksumField(auStack_908, puStack_b30 + 4,&puStack_b2c);
         (*pcVar17)(&DAT_005a9068);
         PeekPacketChecksumState((void *)&puStack_b2c);
         (*pcVar16)(&DAT_005a9068);
@@ -749,7 +749,7 @@ LAB_00451d02:
           uStack_70 = 2;
           QueueOutgoingPacketField(puStack_b34);
           QueueOutgoingPacketField(ppuStack_b38);
-          SyncOutgoingChecksumField(puStack_b30 + 4,auStack_908);
+          SyncOutgoingChecksumField(&puStack_b2c, puStack_b30 + 4,auStack_908);
           iVar4 = param_1[0xfe5];
           uVar29 = 0;
           uVar27 = 0xff;
