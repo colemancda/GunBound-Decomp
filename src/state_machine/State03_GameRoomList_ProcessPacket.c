@@ -7,6 +7,19 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at the last 4 argless sites in this file.  The two peeks (C101 =
+ * 0x428340, C129 = 0x42849c) are the room-count cell
+ * g_clientContext + 0x5f4894.  The two encodes write into the room record
+ * built on the stack at &local_468: 0x428409 uses `lea edi,[esp+0x24c]`
+ * and 0x428429 uses `lea edi,[esp+0x470]`, which normalise (one push live
+ * at each) to esp+0x248 / esp+0x46c.  Calibrating off `lea eax,[esp+0x240]`
+ * = &local_468 at 0x428360 (and cross-checked against [esp+0x69c] =
+ * local_c at 0x428371 and [esp+0x18] = local_690 at 0x42836d), those are
+ * local_468 + 8 and local_468 + 0x22c -- the two 0x224-stride guard cells
+ * embedded in that record.  Ghidra never named them, so they are spelled
+ * relative to &local_468.
  */
 #include "ghidra_types.h"
 #include "opcodes.h"
@@ -98,7 +111,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             payload = payload + 8;
             local_690 = (undefined1 *)0x0;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar10 = PeekPacketChecksumState();
+            iVar10 = PeekPacketChecksumState((void *)(g_clientContext + 0x5f4894));
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             if (0 < iVar10) {
               do {
@@ -113,11 +126,11 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
                 local_466 = local_467 + local_468 + -0x34;
                 LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                 EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-                EncodeOutgoingPacketField(0x80000000);
+                EncodeOutgoingPacketField((void *)((char *)&local_468 + 8), 0x80000000);
                 LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                 uVar13 = *(undefined4 *)payload;
                 EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-                EncodeOutgoingPacketField(uVar13);
+                EncodeOutgoingPacketField((void *)((char *)&local_468 + 0x22c), uVar13);
                 LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                 FUN_0042ae30(&local_468);
                 FUN_0042ae30(&local_468);
@@ -126,7 +139,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
                 FUN_00426810(&local_468);
                 local_690 = (undefined1 *)((int)local_690 + 1);
                 EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-                iVar10 = PeekPacketChecksumState();
+                iVar10 = PeekPacketChecksumState((void *)(g_clientContext + 0x5f4894));
                 LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
               } while ((int)local_690 < iVar10);
             }
