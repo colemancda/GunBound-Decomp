@@ -3,6 +3,21 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 8 argless PeekPacketChecksumState() calls.  Cells:
+ * g_clientContext+0x45354, the global 0x796aa0, and the delta helpers'
+ * arg2 scratch cells - aiStack_688[0] (the DeltaSub at C55 whose return
+ * the C already captures), auStack_458 (C70) and local_67c (C77); those
+ * helpers return their arg2, see tools/sweep_guard_instructions.md.
+ *
+ * TWO FOLDED SELECTS: the peeks at 0x480194 and 0x48022c each sit after a
+ * `*(iVar2+0x651c)` test whose two arms load DIFFERENT globals into EAX
+ * (0x796aa0/0x794e48 at 0x480186/0x48018f, and 0x7949c8/0xe55ab8 at
+ * 0x48021e/0x480227) before falling into one shared call.  Ghidra emitted
+ * both as empty if/else blocks and dropped the loads entirely, so each
+ * cell is written here as the ternary the branch really is - the same
+ * shape already documented in FUN_0047c3f0.c.
  */
 #include "ghidra_types.h"
 
@@ -42,7 +57,7 @@ void FUN_0047fee0(int param_1)
   iVar2 = GetPlayerRecordBySlot(g_clientContext);
   if (iVar2 == 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar3 != 1) {
       *(undefined1 *)(unaff_ESI + 5) = 1;
@@ -55,14 +70,14 @@ void FUN_0047fee0(int param_1)
   aiStack_688[0] = EncodeChecksumDeltaSub(iVar3,auStack_234,400);
   puStack_8 = (undefined1 *)0x0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  aiStack_688[0] = PeekPacketChecksumState();
+  aiStack_688[0] = PeekPacketChecksumState((void *)(aiStack_688[0]));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (*(int *)(&g_nCameraBoundY + g_clientContext) + iVar4 < aiStack_688[0]) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = *(int *)(&g_nCameraBoundY + g_clientContext) + iVar4;
   }
@@ -71,13 +86,13 @@ void FUN_0047fee0(int param_1)
     puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
     uStack_680 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(auStack_458));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   EncodeChecksumDeltaSub(iVar3,local_67c,iVar4);
   puStack_8 = (undefined1 *)0x2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)(local_67c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
   unaff_ESI[0xff2] = iVar3;
@@ -102,7 +117,7 @@ void FUN_0047fee0(int param_1)
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)(*(char *)(iVar2 + 0x651c) == '\0' ? &DAT_00796aa0 : &DAT_00794e48));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
@@ -120,7 +135,7 @@ void FUN_0047fee0(int param_1)
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
-    iVar2 = PeekPacketChecksumState();
+    iVar2 = PeekPacketChecksumState((void *)(*(char *)(iVar2 + 0x651c) == '\x01' ? &DAT_007949c8 : &DAT_00e55ab8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = iVar3 + iVar2;
   }
