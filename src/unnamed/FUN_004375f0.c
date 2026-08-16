@@ -3,6 +3,14 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 3 argless PeekPacketChecksumState() calls: the turn counter
+ * g_clientContext + 0xeba98, the global 0x796aa0, and the freshly built
+ * object's own cell (int)piVar7 + 0x35ec.  EBP holds that object for the
+ * whole body (it comes straight out of the operator_new/ctor pair), which
+ * is the same base the file's already-fixed Encodes spell as
+ * `(int)piVar7 + 0x264` / `+ 0x17e4`.
  */
 #include "ghidra_types.h"
 
@@ -67,7 +75,7 @@ void FUN_004375f0(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined1 *)(piVar7 + 0xfed) = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   param_4 = param_4 & 0x80000007;
   piVar7[0xfe7] = iVar2;
@@ -94,7 +102,7 @@ LAB_00437779:
   }
   (**(code **)(*piVar7 + 4))(s_normal_00552230);
   (*pcVar6)(&DAT_005a9068);
-  uVar4 = PeekPacketChecksumState();
+  uVar4 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
   (*pcVar8)(&DAT_005a9068);
   (*pcVar6)(&DAT_005a9068);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4377c8
@@ -116,7 +124,7 @@ LAB_00437779:
   } while (cVar1 != '\0');
   FUN_0041da80(g_clientContext,piVar7,1,2,0);
   (*pcVar6)(&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)((int)piVar7 + 0x35ec));
   (*pcVar8)(&DAT_005a9068);
   piVar7[0xfeb] = iVar2;
   RegisterActiveObject(0, 0, (undefined4 *)0);
