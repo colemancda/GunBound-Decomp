@@ -4,6 +4,9 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: param_1+0x480, the cell the Encode immediately above zeroes (its 2026-07-15 note names the base), re-read into the +0x25c Encode.
  */
 #include "ghidra_types.h"
 
@@ -204,7 +207,7 @@ undefined4 * FUN_00477bb0(undefined4 *param_1,undefined4 param_2)
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x480),0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)((int)param_1 + 0x480));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477e37
    * (`0x477e31: lea edi,[esi + 0x25c]`) the cell is param_1 (this object being
    * constructed) plus byte offset 0x25c - confirmed by the zero-writes to the

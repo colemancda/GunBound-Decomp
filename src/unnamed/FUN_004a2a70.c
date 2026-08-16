@@ -3,6 +3,9 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: param_1+0x41cc, the ctor's just-seeded cell re-read into the following Encode - FUN_00495c20's shape.
  */
 #include "ghidra_types.h"
 
@@ -54,7 +57,7 @@ undefined4 * FUN_004a2a70(undefined4 *param_1)
   EncodeOutgoingPacketField((int)param_1 + 0x41cc, 0xfff0bdc0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)((int)param_1 + 0x41cc));
   EncodeOutgoingPacketField((int)param_1 + 0x3fa8, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   param_1[0xfe9] = 2;

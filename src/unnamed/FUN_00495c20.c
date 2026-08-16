@@ -3,6 +3,9 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: the object cell at param_1+0x41c8 the Encode two lines above just seeded (0xfff0bdc0), re-read into +0x3fa4 - the projectile ctor's shape.  The resolver's PRE-SETTLE flag is param_1's prologue arg read; the disasm keeps it in ESI/EBP.
  */
 #include "ghidra_types.h"
 
@@ -54,7 +57,7 @@ undefined4 * FUN_00495c20(undefined4 *param_1)
   EncodeOutgoingPacketField((int)param_1 + 0x41c8, 0xfff0bdc0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)((int)param_1 + 0x41c8));
   EncodeOutgoingPacketField((int)param_1 + 0x3fa4, uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *unaff_FS_OFFSET = local_c;

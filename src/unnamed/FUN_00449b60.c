@@ -3,6 +3,15 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: it is
+ * the row cursor itself - `mov eax,esi` where ESI is `lea esi,[ebp+
+ * 0x458]` stepped 0x17e4 per row, i.e. the C's own iVar9 (the object's
+ * per-slot 0x17e4-stride record, whose first field is a guard cell) -
+ * the same cursor the FUN_004240c0 call just above passes as its record
+ * argument.  The resolver's PRE-SETTLE flag is param_1's prologue read
+ * into EBP.
  */
 #include "ghidra_types.h"
 
@@ -105,7 +114,7 @@ LAB_00449be9:
                               *(char *)(iVar2 + 0x2d54c + param_1) == '\x01'),
                      *(undefined1 *)(param_1 + 0x44c),uVar8,iVar9);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        uVar7 = PeekPacketChecksumState();
+        uVar7 = PeekPacketChecksumState((void *)iVar9);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         _sprintf((char *)((int)&uStack_80 + 3),s__05d_img_00555a08,uVar7);
         LoadSpriteSet(&DAT_00ea0e18,iVar12 + 20000);
