@@ -3,6 +3,13 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls - each reads the
+ * scratch cell the EncodeChecksumDeltaAdd on the line above returned
+ * (local_ac0, then local_89c).  Those helpers return their arg2, the
+ * caller's stack scratch, not their destination - see
+ * tools/sweep_guard_instructions.md.
  */
 #include "ghidra_types.h"
 
@@ -42,7 +49,7 @@ void __fastcall FUN_004a6b10(int param_1)
   EncodeChecksumDeltaAdd(uVar3,local_ac0,400);
   SUBFIELD(local_4,0,undefined1) = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(local_ac0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
@@ -62,7 +69,7 @@ void __fastcall FUN_004a6b10(int param_1)
     EncodeChecksumDeltaAdd(uVar3,local_89c,0x26);
     SUBFIELD(local_4,0,undefined1) = 4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = PeekPacketChecksumState();
+    iVar5 = PeekPacketChecksumState((void *)(local_89c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     SUBFIELD(local_4,0,undefined1) = 3;
     if ((*(int *)(local_89c + 0x14)) != 0) {
