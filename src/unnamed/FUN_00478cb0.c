@@ -3,6 +3,19 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 11 argless PeekPacketChecksumState() calls.  Cells: the
+ * delta helpers' arg2 scratch buffers - local_2028 (0x478d16),
+ * local_2470 (the DeltaSub chain at C 152/154, read at 0x4790c3 through
+ * frame[0x14]) and local_2d00 (the two EncodeChecksumDeltaDiv results at
+ * 0x4796a2 / 0x479750) - the globals 0x796aa0 / 0xe9ba40,
+ * g_clientContext+0x475c8, the projectile cell unaff_EDI + 0x139c
+ * (0x479785), and the per-arena cell at
+ * (iVar2*0xb + *(byte *)(g_clientContext+0x475c4)) * 0x7d28 + 0x1a1f48 +
+ * g_clientContext (0x478db4-0x478dd0) - the exact index expression this
+ * file already spells out at its PeekChecksumStateUnderLock a few lines
+ * below, so the two now match.
  */
 #include "ghidra_types.h"
 
@@ -62,7 +75,7 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   EncodeChecksumDeltaSub(param_1 + 0x97,local_2028,param_2);
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  param_2 = PeekPacketChecksumState();
+  param_2 = PeekPacketChecksumState((void *)(local_2028));
   local_2d10 = param_2;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
@@ -73,10 +86,11 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
     TreeLowerBound(local_2d20);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)((iVar2 * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4)) * 0x7d28 +
+                                 0x1a1f48 + g_clientContext));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar2 == 0) {
     uVar3 = EncodeChecksumDeltaDiv(unaff_EDI + 0x24c0,local_2470,2);
@@ -147,14 +161,14 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   iVar2 = local_2d10 * local_2d10;
   local_2d10 = iVar2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  SUBFIELD(local_2d18,0,undefined4) = PeekPacketChecksumState();
+  SUBFIELD(local_2d18,0,undefined4) = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = EncodeChecksumDeltaSub(param_1 + 0x120,local_28b8,SUBFIELD(local_2d18,0,undefined4));
   local_4 = 7;
   SUBFIELD(local_2d18,0,undefined4) = EncodeChecksumDeltaSub(uVar3,local_2470,param_3);
   SUBFIELD(local_4,0,undefined1) = 8;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_2d20[0] = PeekPacketChecksumState();
+  local_2d20[0] = PeekPacketChecksumState((void *)(local_2470));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),7);
   if ((*(int *)(local_2470 + 0x14)) != 0) {
@@ -275,12 +289,12 @@ LAB_00479655:
   uVar3 = EncodeChecksumDeltaMul(unaff_EDI + 0x17e4,local_1be0,local_2d0c);
   local_4 = 0x1b;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_2d20[0] = PeekPacketChecksumState();
+  local_2d20[0] = PeekPacketChecksumState((void *)(&DAT_00796aa0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeChecksumDeltaDiv(uVar3,local_2d00,local_2d20[0]);
   SUBFIELD(local_4,0,undefined1) = 0x1c;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_2d10 = PeekPacketChecksumState();
+  local_2d10 = PeekPacketChecksumState((void *)(local_2d00));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x1b);
   local_2d20[0] = (*(int *)(local_2d00 + 0x14));
@@ -297,17 +311,17 @@ LAB_00479655:
   EncodeChecksumDeltaDiv(unaff_EDI + 0x15c0,local_2d00,2);
   local_4 = 0x1d;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar3 = PeekPacketChecksumState();
+  uVar3 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
   local_2d18 = (double)CONCAT44(SUBFIELD(local_2d18,4,undefined4),uVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_2d20[0] = PeekPacketChecksumState();
+  local_2d20[0] = PeekPacketChecksumState((void *)(unaff_EDI + 0x139c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)(local_2d00));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = PeekPacketChecksumState();
+  iVar5 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = ((iVar2 + local_2d20[0] + SUBFIELD(local_2d18,0,undefined4)) * local_2d10) / iVar5;
   local_4 = 0xffffffff;
