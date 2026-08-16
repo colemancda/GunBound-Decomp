@@ -3,6 +3,16 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 12 argless PeekPacketChecksumState() calls.  Same shape as
+ * FUN_004986a0: the globals 0xe9ba40 / 0xe55ab8, the object's own
+ * param_1 + 0x25c (`lea ebx,[...+0x25c]` at 0x4786b6 and the frame-parked
+ * copies read at 0x4787ba / 0x4788fe), and the delta helpers' arg2
+ * scratch cells - EncodeChecksumDeltaSub's local_89c (0x478680 /
+ * 0x478748) and EncodeChecksumDeltaAdd's local_454 (0x478889) - which the
+ * following Peek reads, since those helpers return their arg2 (see
+ * tools/sweep_guard_instructions.md).
  */
 #include "ghidra_types.h"
 
@@ -55,15 +65,15 @@ void FUN_004785f0(int param_1)
     goto LAB_00478a67;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar3 = PeekPacketChecksumState();
+  uVar3 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeChecksumDeltaSub(param_1 + 0x480,local_89c,uVar3);
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar10 = PeekPacketChecksumState();
+  uVar10 = PeekPacketChecksumState((void *)(local_89c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar11 = PeekPacketChecksumState();
+  uVar11 = PeekPacketChecksumState((void *)(param_1 + 0x25c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x4786d8.
    * x=EDI loaded from [esp+0x10] (uVar11, the 2nd PeekPacketChecksumState
@@ -77,20 +87,20 @@ void FUN_004785f0(int param_1)
     TreeLowerBound(local_8b0);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar3 = PeekPacketChecksumState();
+  uVar3 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeChecksumDeltaSub(param_1 + 0x480,local_678,uVar3);
   local_4 = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar3 = PeekPacketChecksumState();
+  uVar3 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeChecksumDeltaSub(param_1 + 0x25c,local_89c,uVar3);
   SUBFIELD(local_4,0,undefined1) = 2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar12 = PeekPacketChecksumState();
+  uVar12 = PeekPacketChecksumState((void *)(local_89c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar13 = PeekPacketChecksumState();
+  uVar13 = PeekPacketChecksumState((void *)(param_1 + 0x25c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x4787dc.
    * x=EDI loaded from [esp+0x10] (uVar13, the 2nd PeekPacketChecksumState
@@ -111,12 +121,12 @@ void FUN_004785f0(int param_1)
     TreeLowerBound(local_8a8);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar3 = PeekPacketChecksumState();
+  uVar3 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeChecksumDeltaSub(param_1 + 0x480,local_230,uVar3);
   local_4 = 3;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_8b0[0] = PeekPacketChecksumState();
+  local_8b0[0] = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* iVar9 mirrors the local_8b0[0] assignment below (side effect-free
    * capture) so its value survives the local_8b0[0] = PeekPacketChecksumState()
@@ -127,10 +137,10 @@ void FUN_004785f0(int param_1)
   local_8b0[0] = iVar9;
   SUBFIELD(local_4,0,undefined1) = 4;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar14 = PeekPacketChecksumState();
+  uVar14 = PeekPacketChecksumState((void *)(local_454));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_8b0[0] = PeekPacketChecksumState();
+  local_8b0[0] = PeekPacketChecksumState((void *)(param_1 + 0x25c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x478920.
    * x=EDI loaded from [esp+0x14], the compiler spill slot still holding
@@ -152,7 +162,7 @@ void FUN_004785f0(int param_1)
     TreeLowerBound(local_8a8);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_8b0[0] = PeekPacketChecksumState();
+  local_8b0[0] = PeekPacketChecksumState((void *)(&DAT_00e55ab8));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = local_8b0[0] + local_8a0;
   if (iVar6 < iVar4) {
