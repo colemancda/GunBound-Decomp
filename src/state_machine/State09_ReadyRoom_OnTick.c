@@ -3,6 +3,11 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls (0x4d7c3a /
+ * 0x4d7c43), the usual adjacent tick-clock pair
+ * g_clientContext + 0x3b6c4 and + 0x3b49c.
  */
 #include "ghidra_types.h"
 
@@ -50,8 +55,8 @@ void __fastcall State09_ReadyRoom_OnTick(int param_1)
     BuildItemDescriptionTooltip(&g_uiPanelManager,*(undefined2 *)(param_1 + 0x6b4));
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
-  iVar4 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
+  iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar3 == iVar4) {
     cVar2 = CheckAllPlayersReady();
