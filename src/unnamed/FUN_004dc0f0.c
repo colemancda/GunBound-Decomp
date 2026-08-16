@@ -4,6 +4,9 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: the per-slot array at ctx+0x39d0c indexed by the live-in EDI slot number the C models as unaff_EDI (`imul eax,edi,0x224` at 0x4dc0ff) - FUN_00420600's twin.
  */
 #include "ghidra_types.h"
 
@@ -19,7 +22,7 @@ int FUN_004dc0f0(void)
     return 0;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0x39d0c + unaff_EDI * 0x224));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = unaff_EDI + -1;
   if (iVar1 != 0xff) {

@@ -4,6 +4,9 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: param_1+0x325b0 (`lea edi,[ebp+0x325b0]`, EBP = param_1 spilled at entry) - the same store-panel cell FUN_00448370 reads.
  */
 #include "ghidra_types.h"
 
@@ -77,7 +80,7 @@ void RenderInventoryItemDetail(int param_1)
   if ((g_stateChangeInProgress == 0) || (DAT_0079350c != '\x01')) {
     g_stateChangeInProgress = 0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = PeekPacketChecksumState();
+    iVar5 = PeekPacketChecksumState((void *)(param_1 + 0x325b0));
     local_190d = iVar5 != 0;
     (*pcVar11)(&DAT_005a9068);
     if (local_190d != '\0') {

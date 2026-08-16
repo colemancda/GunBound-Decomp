@@ -3,6 +3,9 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: one entry of the 0x448-stride per-slot table at g_clientContext+0x477ec (the same table FUN_004cfd20/FUN_00442e00 read).  The index register is a folded-away cursor - frame[0x20], zeroed at entry and stepped 0x448 in the loop tail at 0x4dca46, in lockstep with local_10 - so it is local_10 * 0x448.
  */
 #include "ghidra_types.h"
 
@@ -32,7 +35,7 @@ void __fastcall RenderRoomMobiles(int param_1)
     if ((*(char *)(local_10 + 0x45914 + iVar5) != '\0') && (*(int *)(*local_14 + 0x1c) != 0)) {
       uVar1 = local_10 / 4;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar2 = PeekPacketChecksumState();
+      iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x477ec + local_10 * 0x448));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = g_clientContext;
       if (g_bBattleSessionActive == '\0') {

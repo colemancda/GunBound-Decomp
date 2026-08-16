@@ -4,6 +4,9 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: the +0x35ec cell of the projectile node iVar2 the for-loop above walks (`lea eax,[esi+0x35ec]`, ESI being the current node - the C's iVar2).
  */
 #include "ghidra_types.h"
 
@@ -28,7 +31,7 @@ void FUN_0043c3c0(void)
     }
     for (iVar2 = *(int *)(iVar4 + 0x10); iVar4 != iVar2; iVar2 = *(int *)(iVar2 + 0x10)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar3 = PeekPacketChecksumState();
+      uVar3 = PeekPacketChecksumState((void *)(iVar2 + 0x35ec));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       *(undefined4 *)(iVar2 + 0x3fac) = uVar3;
       *(undefined4 *)(iVar2 + 0x3fd0) = 0;

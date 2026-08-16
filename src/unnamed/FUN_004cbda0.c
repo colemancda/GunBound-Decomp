@@ -4,6 +4,9 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: the item array at ctx+0x39f30 indexed by param_2 (`mov edi,[esp+0x18]` at 0x4cbdd5 = the second stack arg after four pushes; `imul edi,0x224`).
  */
 #include "ghidra_types.h"
 
@@ -23,7 +26,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
   
   if ((*(int *)(g_clientContext + 0x621e0) != 0) && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar7 = PeekPacketChecksumState();
+    iVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x39f30 + param_2 * 0x224));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar7 != 0) {
       QueueBroadcastEvent(0xc401);

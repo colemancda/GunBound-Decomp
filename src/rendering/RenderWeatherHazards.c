@@ -17,7 +17,9 @@
  * cells and emits the vertices - see InitTornadoHazard.c for the full
  * object field map (world-X position, width, lifetime-ticks, animation
  * frame counter). Raw/near-verbatim Ghidra port, not hand-verified -
- * see src/README.md.
+ * see src/README.md. *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: the map's hazard record at ctx + 0x1a216c + mapIndex*0x7d28, mapIndex being the byte at ctx+0x475c4 - the same 0x7d28-stride per-map table FUN_004cfd20 indexes with the same byte.
  */
 #include "ghidra_types.h"
 
@@ -58,7 +60,7 @@ void RenderWeatherHazards(int param_1)
         }
         if (uVar2 == 100) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          PeekPacketChecksumState();
+          PeekPacketChecksumState((void *)(g_clientContext + 0x1a216c + (uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           FUN_004f01d0();
           iVar4 = FindTextureCacheEntryByName

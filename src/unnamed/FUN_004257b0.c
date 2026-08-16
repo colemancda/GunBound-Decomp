@@ -3,6 +3,9 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: the per-player delay array at g_clientContext+0xebef4 walked by the C's own byte cursor iVar4 (0x224 per slot, bound 0x1120) - the first loop snapshots all 8 delays into local_20.
  */
 #include "ghidra_types.h"
 
@@ -21,7 +24,7 @@ undefined4 FUN_004257b0(void)
   puVar2 = local_20;
   do {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar1 = PeekPacketChecksumState();
+    uVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0xebef4 + iVar4));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *puVar2 = uVar1;
     iVar4 = iVar4 + 0x224;
