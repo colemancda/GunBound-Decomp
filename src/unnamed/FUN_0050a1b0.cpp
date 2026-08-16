@@ -4,6 +4,15 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at the one argless PeekPacketChecksumState() call (0x50a1d2): it is
+ * [0x5b3414] + 0x325b0, i.e. puVar1 + 0x325b0 with puVar1 the state-7
+ * object this function already loads on the line above.  Being C++, the
+ * file-local extern declaration had to gain the `void *self` parameter
+ * too -- an empty parameter list means "no arguments" here.  Still
+ * __cdecl, so the extra pushed argument is caller-cleaned and behaviour is
+ * unchanged until the guard-family prototype flip lands.
+ *
  * Ported to C++ (2026-07-11) to call CPanel::OnMouseDown directly instead
  * of through the now-removed RadioGroup_OnMouseDown shim - see
  * src/cxx/PLAN.md's "deduplicate C++-promoted functions" section. Same
@@ -30,7 +39,7 @@ extern char *g_gameStateVTableArray[16];
 extern unsigned int g_clientContext;
 extern unsigned char DAT_005a9068;
 extern unsigned int g_stateChangeInProgress;
-unsigned int PeekPacketChecksumState();
+unsigned int PeekPacketChecksumState(void *self);
 char PeekPacketChecksumBool();
 int FUN_0050cdb0();
 unsigned int QueueOutgoingPacketField(unsigned int field);
@@ -51,7 +60,7 @@ extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y)
 
   puVar1 = (unsigned char *)g_gameStateVTableArray[7];
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(puVar1 + 0x325b0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = iVar4 != 0;
   if (iVar4 == 0) {
