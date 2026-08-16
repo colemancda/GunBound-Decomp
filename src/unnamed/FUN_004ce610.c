@@ -4,6 +4,15 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls, again matched by
+ * landmark rather than address order: C37's `iVar5 < 1` is the `setle bl`
+ * after the peek at 0x4ce8b8 (cell = the local player record
+ * *(g_clientContext + 0x621e0) + 0x6968), and C79's
+ * `iVar5 < *(int *)(param_1 + 0x9c)` is the `cmp [ebp+0x9c],esi; jg`
+ * after the peek at 0x4ce641 (cell = g_clientContext + 0xeba98, the turn
+ * counter).
  */
 #include "ghidra_types.h"
 
@@ -34,7 +43,7 @@ LAB_004ce86c:
     } while (iVar5 < 8);
     if (*(int *)(g_clientContext + 0x621e0) != 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar5 = PeekPacketChecksumState();
+      iVar5 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x6968));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (((iVar5 < 1) && (cVar4 = PeekPacketChecksumBool(), cVar4 != '\0')) &&
          (cVar4 = PeekPacketChecksumBool(), cVar4 == '\0')) {
@@ -76,7 +85,7 @@ LAB_004ce86c:
     return;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = PeekPacketChecksumState();
+  iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar5 < *(int *)(param_1 + 0x9c)) goto LAB_004ce86c;
   cVar4 = FUN_0043c820();
