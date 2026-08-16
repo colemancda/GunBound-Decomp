@@ -3,6 +3,16 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls.  All four index
+ * the same per-slot guard array: EDI/EAX/EDX hold g_clientContext and the
+ * other index register is the frame slot [esp + 0x1c], which 0x4d03dc /
+ * 0x4d03e5 fill with `imul esi, ebp, 0x224` -- EBP is param_5 (the same
+ * register the `param_5 * 0xd` bias above is computed from), so the index
+ * is param_5 * 0x224, one 0x224-byte guard cell per slot.  The two base
+ * offsets are + 0x5cba0 (C70 at 0x4d03fd, C291 at 0x4d0860) and + 0x5ba80
+ * (C181 at 0x4d060e, C288 at 0x4d0836) -- 0x1120 apart, i.e. 8 cells.
  */
 #include "ghidra_types.h"
 
@@ -67,7 +77,7 @@ void FUN_004d0260(int param_1,int param_2,int param_3,int param_4,int param_5)
   BlitRLESprite(uVar10 + 0x1e9,param_4 + 0x1e,0,
                 (byte *)(g_clientContext + 0x50196 + param_5 * 0xd));
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(g_clientContext + param_5 * 0x224 + 0x5cba0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   _sprintf(local_180,(char *)&PTR_DAT_00551ecc,iVar4);
   local_194 = 0;
@@ -178,7 +188,7 @@ LAB_004d05c1:
   }
 LAB_004d05f1:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar7 = PeekPacketChecksumState();
+  uVar7 = PeekPacketChecksumState((void *)(g_clientContext + param_5 * 0x224 + 0x5ba80));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   _sprintf(local_180,(char *)&PTR_DAT_00551ed0,uVar7);
   iVar4 = 0;
@@ -285,10 +295,10 @@ LAB_004d07d1:
 LAB_004d0801:
   if (*(char *)(param_1 + 0x11d8) != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)(g_clientContext + param_5 * 0x224 + 0x5ba80));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar8 = PeekPacketChecksumState();
+    uVar8 = PeekPacketChecksumState((void *)(g_clientContext + param_5 * 0x224 + 0x5cba0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     _sprintf(local_100,s___8s___12s__3dP__6dG_00556720,iVar5 + 0x5012e + g_clientContext,
              param_5 * 0xd + 0x50196 + g_clientContext,uVar8,uVar7);
