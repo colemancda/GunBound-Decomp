@@ -14,6 +14,15 @@
  * Function IDENTITY is confirmed (avatar part-sprite compositor); the BODY is a
  * raw/near-verbatim Ghidra port (register-args), not hand-verified. See
  * src/README.md's "Raw/verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 18 argless PeekPacketChecksumState() calls.  Every one is a
+ * fixed g_clientContext global and the C sites zip 1:1 with the original
+ * in address order (0x41426e..0x414d00, no reordering): the equipped-part
+ * cells +0x3ac08 and +0x3ae2c, and +0x3b050 / +0x3b274 - the same four
+ * cells this file's own sprite-key builders already read through
+ * PeekChecksumStateUnderLock.  +0x3ac08 is the equipped-avatar array the
+ * store catalog writes (see the avatar-store notes in ARCHITECTURE.md).
  */
 #include "ghidra_types.h"
 
@@ -110,11 +119,11 @@ LAB_00414214:
 LAB_00414245:
   if (param_4 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b274));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     _sprintf(local_8088,s_mf_05d_img_0055220c,uVar2 & 0x7fff);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b274));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   else {
@@ -125,15 +134,15 @@ LAB_00414245:
   local_8090 = LoadSpriteSet(&DAT_00ea0e18,100000,local_8088);
   if (param_2 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ac08));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ac08));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     _sprintf(local_8088,s__cb_05d_img_00552200,(int)(char)((-((uVar3 & 0x8000) != 0) & 7U) + 0x66),
              uVar2 & 0x7fff);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ac08));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   else {
@@ -145,15 +154,15 @@ LAB_00414245:
   local_808c = LoadSpriteSet(&DAT_00ea0e18,0x186a1,local_8088);
   if (param_3 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b050));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b050));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     _sprintf(local_8088,s__cg_05d_img_005521f4,(int)(char)((-((uVar3 & 0x8000) != 0) & 7U) + 0x66),
              uVar2 & 0x7fff);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b050));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   else {
@@ -165,15 +174,15 @@ LAB_00414245:
   local_809c = LoadSpriteSet(&DAT_00ea0e18,0x186a2,local_8088);
   if (param_1 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ae2c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ae2c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     _sprintf(local_8088,s__ch_05d_img_005521e8,(int)(char)((-((uVar3 & 0x8000) != 0) & 7U) + 0x66),
              uVar2 & 0x7fff);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ae2c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   else {
@@ -456,7 +465,7 @@ LAB_00414a8c:
 LAB_00414ab9:
   if (param_4 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    param_4 = PeekPacketChecksumState();
+    param_4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b274));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   _sprintf(local_8088,s_mf_05dl_img_005521dc,param_4 & 0x7fff);
@@ -473,10 +482,10 @@ LAB_00414ab9:
    * the real __stdcall import. */
   if (param_2 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ac08));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ac08));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     _sprintf(local_8088,s__cb_05dl_img_005521cc,(int)(char)((-((uVar3 & 0x8000) != 0) & 7U) + 0x66),
              uVar2 & 0x7fff);
@@ -489,10 +498,10 @@ LAB_00414ab9:
   uVar2 = param_3;
   if (param_3 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b050));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    param_3 = PeekPacketChecksumState();
+    param_3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b050));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   _sprintf(local_8088,s__cg_05dl_img_005521bc,(int)(char)((-((param_3 & 0x8000) != 0) & 7U) + 0x66),
@@ -501,10 +510,10 @@ LAB_00414ab9:
   uVar2 = param_1;
   if (param_1 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ae2c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    param_1 = PeekPacketChecksumState();
+    param_1 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ae2c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   _sprintf(local_8088,s__ch_05dl_img_005521ac,(int)(char)((-((param_1 & 0x8000) != 0) & 7U) + 0x66),
