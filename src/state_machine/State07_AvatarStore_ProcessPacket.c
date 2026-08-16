@@ -9,6 +9,7 @@
  * these get promoted to verified.
  */
 #include "ghidra_types.h"
+#include "opcodes.h"
 #include <windows.h>
 
 
@@ -62,7 +63,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
    * is a real, separate local reused elsewhere in this function,
    * kept as-is. */
   iVar4 = DAT_007934e8;
-  if (opcode < 0x6010) {
+  if (opcode < 0x6010 /* switch-ladder split, not a match on GB_OP_BUY_GOLD_REQUEST */) {
     if (opcode == 0x600f) {
       *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
       *(undefined2 *)(iVar4 + 0x4d4) = 0x6000;
@@ -72,7 +73,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
       return;
     }
     if (opcode < 0x6003) {
-      if (opcode == 0x6002) {
+      if (opcode == GB_OP_AVATAR_INVENTORY_RESPONSE) {
         uVar1 = *payload;
         puVar13 = payload + 1;
         local_520 = 0;
@@ -194,8 +195,8 @@ LAB_0044469b:
         FUN_0044b0b0(this);
         return;
       }
-      if (opcode != 0x2001) {
-        if ((opcode == 0x6001) && (*payload == 0)) {
+      if (opcode != GB_OP_JOIN_CHANNEL_RESPONSE) {
+        if ((opcode == GB_OP_GET_AVATAR_RESPONSE) && (*payload == 0)) {
           QueueOutgoingPacketField(payload[1]);
           QueueOutgoingPacketField(payload[2]);
           QueueOutgoingPacketField(payload[3]);
@@ -248,7 +249,7 @@ LAB_0044469b:
       }
     }
     else {
-      if (opcode != 0x6005) goto LAB_00445282;
+      if (opcode != GB_OP_SET_AVATAR_RESPONSE) goto LAB_00445282;
       iVar20 = 0;
       if (*payload == 0) {
         if (*(char *)((int)this + 0x30bb8) == '\0') {
@@ -286,7 +287,7 @@ LAB_0044469b:
     }
   }
   else {
-    if (opcode == 0x6017) {
+    if (opcode == GB_OP_BUY_RESPONSE) {
       if (*payload == 0) {
         EmitChecksumSum((int)this + 0x30770);
         QueueOutgoingPacketField(0);
@@ -358,8 +359,8 @@ LAB_0044469b:
       }
     }
     else {
-      if (opcode != 0x6027) {
-        if (opcode == 0x6037) {
+      if (opcode != GB_OP_SELL_RESPONSE) {
+        if (opcode == GB_OP_GIFT_RESPONSE) {
           if (*payload == 0) {
             uVar11 = PeekChecksumStateUnderLock((int)this + 0x3054c);
             if (*(uint *)(g_clientContext + 0x44e24) <= uVar11) {

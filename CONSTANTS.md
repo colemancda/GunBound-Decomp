@@ -115,6 +115,17 @@ objects).
 
 Full detail and confirmed behavior in PROTOCOL.md; summarized here by state.
 
+**In code these are named.** `include/opcodes.h` defines `GB_OP_<NAME>`
+for every packet opcode and `GB_ACT_<NAME>` for the Channel-2 action codes
+in section 4.  The `GB_OP_` names are GENERATED from the server repo's
+`Sources/GunBoundProtocol/Opcode.swift` by `tools/gen_opcodes_h.py` (Swift
+case name -> UPPER_SNAKE, original `SVC_*` name carried as a comment), so
+the two repos share one vocabulary; the `GB_ACT_` block is hand-maintained
+in that same script from this section.  The dispatchers
+(`State*_ProcessPacket.c`, `State*_ProcessBattleAction.c`) use the macros;
+the compiler-generated `opcode < 0xNNNN` binary-search splits are left as
+literals with a comment, since a macro there would read as a match.
+
 ### State 2 — Server/Channel Select (`0x4e02b0`)
 
 | Opcode | Meaning |

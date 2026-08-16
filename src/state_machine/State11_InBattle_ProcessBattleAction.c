@@ -9,6 +9,7 @@
  * these get promoted to verified.
  */
 #include "ghidra_types.h"
+#include "opcodes.h"
 #include <windows.h>
 
 
@@ -104,7 +105,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
   local_27ec = param_1;
   piStack_18 = param_1;
   if (uVar1 < 0x8501) {
-    if (uVar1 == 0x8500) {
+    if (uVar1 == GB_ACT_POSITION_RELAY) {
       iVar4 = GetPlayerRecordBySlot(g_clientContext);
       if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
         uVar21 = QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x22));
@@ -118,7 +119,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       goto switchD_004b64f9_caseD_c302;
     }
     if (uVar1 < 0x8007) {
-      if (uVar1 == 0x8006) {
+      if (uVar1 == GB_ACT_FIRE_FEEDBACK_SOUND) {
         piVar7 = (int *)GetPlayerRecordBySlot(g_clientContext);
         if (piVar7 != (int *)0x0) {
           uVar21 = QueueOutgoingPacketField(*puVar12);
@@ -354,7 +355,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
           return;
         }
       }
-      else if (((((uVar1 == 0x8005) &&
+      else if (((((uVar1 == GB_ACT_FIELD_RELAY) &&
                  (uVar11 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c), bVar16 != uVar11)) &&
                 ((iVar4 = GetPlayerRecordBySlot(g_clientContext), iVar4 != 0 &&
                  ((cVar2 = PeekPacketChecksumBool(), cVar2 != '\0' && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0'))
@@ -367,7 +368,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       goto switchD_004b64f9_caseD_c302;
     }
     if (0x8405 < uVar1) {
-      if (uVar1 == 0x8406) {
+      if (uVar1 == GB_ACT_AIM_RELAY_ALT) {
         iVar4 = GetPlayerRecordBySlot(g_clientContext);
         if ((iVar4 != 0) && (uVar11 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c), bVar16 != uVar11)) {
           uVar21 = QueueOutgoingPacketField(*puVar12);
@@ -379,7 +380,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
           return;
         }
       }
-      else if (uVar1 == 0x8407) {
+      else if (uVar1 == GB_ACT_CHECKSUM_KEEPALIVE) {
         bVar16 = *(byte *)puVar12;
         if (bVar16 == 1) {
           uVar21 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
@@ -400,7 +401,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
           return;
         }
       }
-      else if (uVar1 == 0x8408) {
+      else if (uVar1 == GB_ACT_PLAYER_SPAWN) {
         param_1[param_1[0x227] + 0x228] = (uint)*puVar12;
         param_1[param_1[0x227] + 0x2a8] = (uint)*(ushort *)(param_2 + 0x23);
         param_1[param_1[0x227] + 0x3a8] = *(int *)(param_2 + 0x25);
@@ -412,7 +413,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       }
       goto switchD_004b64f9_caseD_c302;
     }
-    if (uVar1 == 0x8405) {
+    if (uVar1 == GB_ACT_WEAPON_SELECT_SOUND) {
       FUN_0043c440();
       local_27f0 = &DAT_006a7f70 + g_clientContext;
       FUN_0043c4a0();
@@ -461,7 +462,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       goto switchD_004b64f9_caseD_c302;
     }
     if (0x8403 < uVar1) {
-      if (uVar1 == 0x8404) {
+      if (uVar1 == GB_ACT_HIT_LOG) {
         param_1[param_1[0x26] + 0x27] = (uint)*puVar12;
         param_1[param_1[0x26] + 0xa7] = (uint)*(ushort *)(param_2 + 0x23);
         param_1[param_1[0x26] + 0x127] = (uint)*(byte *)(param_2 + 0x25);
@@ -473,14 +474,14 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       }
       goto switchD_004b64f9_caseD_c302;
     }
-    if (uVar1 != 0x8403) {
-      if (uVar1 == 0x8104) {
+    if (uVar1 != GB_ACT_FIRE) {
+      if (uVar1 == GB_ACT_SHOW_RESULT_CONFIRM) {
         CreateButtonWidget(&DAT_00e9be90,0,0x10,0x3f8,s_b_result_confirm_00554074,0x29f,0x1b9,0x67,
                            0x2d,1,0);
         *unaff_FS_OFFSET = local_14;
         return;
       }
-      if (((uVar1 == 0x8402) && (uVar11 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c), bVar16 != uVar11))
+      if (((uVar1 == GB_ACT_AIM_RELAY) && (uVar11 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c), bVar16 != uVar11))
          && (iVar4 = GetPlayerRecordBySlot(g_clientContext), iVar4 != 0)) {
         uVar21 = QueueOutgoingPacketField(*puVar12);
         EncodeChecksumState(uVar21);
@@ -541,10 +542,10 @@ LAB_004b7c01:
     iVar4 = piVar7[0x428];
   }
   else {
-    if (uVar1 < 0xc401) {
-      if (uVar1 != 0xc400) {
+    if (uVar1 < 0xc401 /* switch-ladder split, not a match on GB_ACT_TIMEOUT_WEAPON_SELECT */) {
+      if (uVar1 != GB_ACT_SCHED_CHECKPOINT) {
         switch(uVar1) {
-        case 0xc300:
+        case GB_ACT_TURN_START:
           SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           param_1[0x8f3] = -1;
           if ((char)param_1[0x474] == '\0') {
@@ -555,7 +556,7 @@ LAB_004b7c01:
           PostTurnEvent(&g_replayContext,0xc40b);
           *unaff_FS_OFFSET = local_14;
           return;
-        case 0xc301:
+        case GB_ACT_TURN_SETUP:
           param_1[0x429] = (uint)*(ushort *)(param_2 + 0x22);
           piVar7 = (int *)GetPlayerRecordBySlot(iVar4);
           if (piVar7 != (int *)0x0) {
@@ -598,7 +599,7 @@ LAB_004b7c01:
           *(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 0xae68) = 1;
           *unaff_FS_OFFSET = local_14;
           return;
-        case 0xc303:
+        case GB_ACT_TURN_PHASE:
           *(undefined4 *)(&DAT_006a7704 + g_clientContext) = 0xffffffff;
           SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           iVar4 = g_clientContext;
@@ -725,7 +726,7 @@ LAB_004b7c01:
             return;
           }
           break;
-        case 0xc304:
+        case GB_ACT_MOVEMENT:
           local_27e5 = *(byte *)puVar12;
           local_27e0 = (int *)(uint)bVar16;
           local_27f0 = (undefined *)GetPlayerRecordBySlot(g_clientContext);
@@ -932,7 +933,7 @@ LAB_004b7fb2:
             return;
           }
           break;
-        case 0xc305:
+        case GB_ACT_TURN_TIMEOUT:
           *(undefined1 *)(param_1 + 0x42f) = 0;
           SetGuardedBool(1,GB_GUARD_UNRECOVERED);
           cVar2 = *(char *)(g_clientContext + 0x45127);
@@ -954,7 +955,7 @@ LAB_004b7fb2:
           (**(code **)(iVar4 + 0x28))(uVar21,uVar20,uVar22);
           *unaff_FS_OFFSET = uStack_20;
           return;
-        case 0xc306:
+        case GB_ACT_AIM_CONFIRM:
           SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           iVar4 = g_clientContext;
           local_27ec[0x8f3] = -1;
@@ -995,7 +996,7 @@ LAB_004b7fb2:
           SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           *unaff_FS_OFFSET = local_14;
           return;
-        case 0xc308:
+        case GB_ACT_WIND_UPDATE:
           AddToPacketChecksum(3);
           puVar15 = (undefined4 *)((int)local_27ec + 0x2302);
           for (iVar4 = 8; iVar4 != 0; iVar4 = iVar4 + -1) {
@@ -1058,17 +1059,17 @@ LAB_004b7fb2:
     }
     if (0xc801 < uVar1) {
       switch(uVar1) {
-      case 0xf008:
+      case GB_ACT_QUIT:
         g_pendingGameState = 0xf;
         g_stateChangeRequested = 0;
         DAT_0056d108 = 0;
         _DAT_007934d8 = 1;
         break;
-      case 0xf009:
+      case GB_ACT_CHANGE_MOBILE:
         ChangePlayerMobile(local_27e4,*(byte *)puVar12);
         *unaff_FS_OFFSET = local_14;
         return;
-      case 0xf00a:
+      case GB_ACT_PLAYER_FIELD_QUERY:
         iVar4 = GetPlayerRecordBySlot(g_clientContext);
         if (iVar4 != 0) {
           EncodeChecksumState(iVar4 + 0x6744);
@@ -1076,7 +1077,7 @@ LAB_004b7fb2:
           return;
         }
         break;
-      case 0xf00b:
+      case GB_ACT_TERRAIN_DEFORM:
         ComposeAvatarSprites
                   (bVar16,*puVar12,*(undefined2 *)(param_2 + 0x23),*(undefined2 *)(param_2 + 0x25),
                    *(undefined2 *)(param_2 + 0x27));
@@ -1085,7 +1086,7 @@ LAB_004b7fb2:
       }
       goto switchD_004b64f9_caseD_c302;
     }
-    if (uVar1 == 0xc801) {
+    if (uVar1 == GB_ACT_PERIODIC_STATUS) {
       bVar16 = *(byte *)puVar12;
       uVar11 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
       if (((uVar11 == bVar16) && (*(int *)(g_clientContext + 0x621e0) != 0)) &&
@@ -1117,13 +1118,13 @@ LAB_004b7fb2:
       goto switchD_004b64f9_caseD_c302;
     }
     switch(uVar1) {
-    case 0xc401:
+    case GB_ACT_TIMEOUT_WEAPON_SELECT:
       HandleTurnTimeoutSlot(param_1,local_27e4);
       *unaff_FS_OFFSET = local_14;
       return;
     default:
       goto switchD_004b64f9_caseD_c302;
-    case 0xc409:
+    case GB_ACT_FIRE_COMMITTED:
       piVar7 = (int *)GetPlayerRecordBySlot(g_clientContext);
       QueueOutgoingPacketField(bVar16);
       if (piVar7 == (int *)0x0) goto switchD_004b64f9_caseD_c302;
@@ -1175,7 +1176,7 @@ LAB_004b7fb2:
       param_1[(uint)bVar16 * 2 + 0x8e2] = *(int *)(param_2 + 0x25);
       *unaff_FS_OFFSET = local_14;
       return;
-    case 0xc40b:
+    case GB_ACT_TIMEOUT_BOOKKEEPING:
       cVar2 = PacketChecksumNotEquals(g_clientContext + 0x45354,3);
       if (cVar2 != '\0') {
         param_1 = param_1 + 0x477;

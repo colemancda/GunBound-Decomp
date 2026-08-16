@@ -9,6 +9,7 @@
  * these get promoted to verified.
  */
 #include "ghidra_types.h"
+#include "opcodes.h"
 #include <stdio.h>
 #include <windows.h>
 
@@ -140,7 +141,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
   iVar20 = g_clientContext;
   pvStack_e4 = this;
   if (0x101f < opcode) {
-    if (opcode == 0x1102) {
+    if (opcode == GB_OP_SERVER_DIRECTORY_RESPONSE) {
       if (*payload != 0) {
         return;
       }
@@ -291,7 +292,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
       iVar20 = *(int *)((int)pvStack_e4 + 8);
     }
     else {
-      if (opcode != 0x2001) {
+      if (opcode != GB_OP_JOIN_CHANNEL_RESPONSE) {
         return;
       }
       if (*payload == 0) {
@@ -373,14 +374,14 @@ LAB_004e0d7f:
     }
     goto LAB_004e1121;
   }
-  if (opcode == 0x101f) {
+  if (opcode == GB_OP_SESSION_HANDOFF_NOTIFICATION) {
     DAT_00e55e3c = 1;
     DAT_007934f8 = 1;
     DAT_005b2b54 = *(undefined4 *)payload;
     DAT_005b343c = payload[2];
     return;
   }
-  if (opcode == 0x1001) {
+  if (opcode == GB_OP_NONCE_RESPONSE) {
     *(undefined1 *)((int)this + 5) = 0;
     BuildSystemInfoBlob(auStack_a0, systemInfoBlob2);
     /* BRING-UP HACK (2026-07-18): the login credentials normally arrive as the
@@ -468,7 +469,7 @@ LAB_004e0d7f:
     SendOutgoingPacket(iVar20);
     return;
   }
-  if (opcode != 0x1012) {
+  if (opcode != GB_OP_AUTHENTICATION_RESPONSE) {
     return;
   }
   if (*payload != 0) {

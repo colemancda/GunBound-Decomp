@@ -9,6 +9,7 @@
  * these get promoted to verified.
  */
 #include "ghidra_types.h"
+#include "opcodes.h"
 #include <windows.h>
 
 
@@ -60,8 +61,8 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
   iVar19 = DAT_007934e8;
   iVar17 = g_clientContext;
   apvStack_988[0] = this;
-  if (opcode < 0x3232) {
-    if (opcode == 0x3231) {
+  if (opcode < 0x3232 /* switch-ladder split, not a match on GB_OP_ROOM_RETURN_RESULT_REQUEST */) {
+    if (opcode == GB_OP_ROOM_USER_READY_RESPONSE) {
       if (*(short *)payload == 0) {
         QueueBroadcastEvent(0x8102);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] =
@@ -75,7 +76,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
     }
     else {
       if (opcode < 0x3106) {
-        if (opcode == 0x3105) {
+        if (opcode == GB_OP_ROOM_UPDATE_NOTIFICATION) {
           if (DAT_00e9c104 != 0) {
             CommitActiveTextInput();
           }
@@ -129,14 +130,14 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
           BroadcastQueuedEvent();
           return;
         }
-        if (opcode != 0x2001) {
-          if (opcode == 0x3010) {
+        if (opcode != GB_OP_JOIN_CHANNEL_RESPONSE) {
+          if (opcode == GB_OP_JOIN_ROOM_NOTIFICATION) {
             ComputeTurnOrder();
             BroadcastBattleSnapshot(*payload);
             LoadRoomSlotAvatar();
             return;
           }
-          if (opcode != 0x3020) {
+          if (opcode != GB_OP_USER_QUIT_NOTIFICATION) {
             return;
           }
           ComputeTurnOrder();
@@ -160,7 +161,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
         FUN_00405ba0();
         return;
       }
-      if (opcode == 0x3151) {
+      if (opcode == GB_OP_ROOM_CHANGE_TEAM_NOTIFICATION) {
         if (*(short *)payload != 0) {
           return;
         }
@@ -172,7 +173,7 @@ LAB_004d3bd3:
         uVar11 = 1;
         goto LAB_004d3bec;
       }
-      if (opcode == 0x3201) {
+      if (opcode == GB_OP_ROOM_SELECT_TANK_RESPONSE) {
         if (*(short *)payload == 0) {
           QueueBroadcastEvent(0x8100);
           (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)((int)this + 0x259);
@@ -183,7 +184,7 @@ LAB_004d3bd3:
         }
       }
       else {
-        if (opcode != 0x3211) {
+        if (opcode != GB_OP_ROOM_SELECT_TEAM_RESPONSE) {
           return;
         }
         if (*(short *)payload == 0) {
@@ -196,7 +197,7 @@ LAB_004d3bd3:
   }
   else {
     if (0x3432 < opcode) {
-      if (opcode == 0x3fff) {
+      if (opcode == GB_OP_CLOSE) {
         RefreshReadyRoomControls(this,0,0);
         if (payloadLen != 0) {
           ShowMessageDialog(payload,0);
@@ -208,7 +209,7 @@ LAB_004d3bd3:
         *(int *)(iVar17 + 0x44d0) = *(int *)(iVar17 + 0x44d0) + 2;
         SendOutgoingPacket(iVar17);
       }
-      else if ((opcode == 0x4410) && (g_pendingGameState != 3)) {
+      else if ((opcode == GB_OP_GAME_END_NOTIFICATION) && (g_pendingGameState != 3)) {
         *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
         *(undefined4 *)(iVar19 + 0x44d0) = 6;
         SendOutgoingPacket(iVar19);
@@ -216,7 +217,7 @@ LAB_004d3bd3:
       }
       return;
     }
-    if (opcode == 0x3432) {
+    if (opcode == GB_OP_START_GAME_NOTIFICATION) {
       *(undefined1 *)(*(int *)((int)this + 0x788) + 0x1e) = 1;
       if (*(FILE **)(&g_replayFileHandle + iVar17) != (FILE *)0x0) {
         _fclose(*(FILE **)(&g_replayFileHandle + iVar17));
@@ -807,7 +808,7 @@ LAB_004d4cc7:
         }
       } while( true );
     }
-    if (opcode == 0x3233) {
+    if (opcode == GB_OP_ROOM_RETURN_RESULT_RESPONSE) {
       if (*(short *)payload != 0) {
         *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
         *(undefined2 *)(iVar19 + 0x4d4) = 0x2000;
@@ -832,7 +833,7 @@ LAB_004d4cc7:
       *(undefined4 *)(&DAT_006a64b4 + g_clientContext) = 0xffffffff;
       return;
     }
-    if (opcode == 0x3400) {
+    if (opcode == GB_OP_HOST_MIGRATION_NOTIFICATION) {
       if (1 < payloadLen) {
         FUN_00425a30(g_clientContext);
         uVar18 = (uint)*(byte *)(g_clientContext + 0x45124);
@@ -863,7 +864,7 @@ LAB_004d4cc7:
       *(undefined1 *)(iVar17 + 0x45914 + g_clientContext) = 1;
       return;
     }
-    if (opcode != 0x3431) {
+    if (opcode != GB_OP_ROOM_READY_CONFIRMATION_NOTIFICATION) {
       return;
     }
   }

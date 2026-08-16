@@ -9,6 +9,7 @@
  * these get promoted to verified.
  */
 #include "ghidra_types.h"
+#include "opcodes.h"
 #include <windows.h>
 
 
@@ -39,8 +40,8 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
   uVar9 = packetLen - 0x21;
   pbVar10 = (byte *)(packetBuf + 0x21);
   if (bVar1 < 8) {
-    if (uVar2 < 0x8101) {
-      if (uVar2 == 0x8100) {
+    if (uVar2 < 0x8101 /* switch-ladder split, not a match on GB_ACT_MAP_SELECTION_SYNC */) {
+      if (uVar2 == GB_ACT_MOBILE_MODEL_SYNC) {
         uVar7 = (uint)bVar1;
         uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (uVar7 == uVar9) {
@@ -62,7 +63,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         (**(code **)(**(int **)((int)this + uVar7 * 8 + 0x700) + 4))(s_normal_00552230);
         return;
       }
-      if (uVar2 < 0x8003) {
+      if (uVar2 < 0x8003 /* switch-ladder split, not a match on GB_ACT_CHAT_BUFFER_UPDATE */) {
         if (0x8000 < uVar2) {
           uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
           if (bVar1 == uVar9) {
@@ -114,7 +115,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
             (**(code **)(*(int *)this + 0x28))(local_488,2,6);
             return;
           }
-          if (uVar2 == 0x8000) {
+          if (uVar2 == GB_ACT_PLAYER_INFO_SYNC) {
             uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
             if (bVar1 == uVar9) {
               RefreshReadyRoomControls(this,1,0);
@@ -144,7 +145,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         }
       }
       else {
-        if (uVar2 == 0x8003) {
+        if (uVar2 == GB_ACT_CHAT_BUFFER_UPDATE) {
           uVar8 = ((int)uVar9 < 0) - 1 & uVar9;
           pbVar11 = (byte *)(g_clientContext + 0x44e64);
           for (uVar7 = uVar8 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
@@ -160,14 +161,14 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
           *(undefined1 *)(iVar4 + 0x44e64 + uVar9) = 0;
           return;
         }
-        if (uVar2 == 0x8004) {
+        if (uVar2 == GB_ACT_UI_REFRESH) {
           BuildItemLoadout(this,1);
           return;
         }
       }
     }
     else if (uVar2 < 0x8201) {
-      if (uVar2 == 0x8200) {
+      if (uVar2 == GB_ACT_KICK_FROM_ROOM) {
         bVar1 = *pbVar10;
         uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (bVar1 == uVar9) {
@@ -186,7 +187,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_488,2,6);
         return;
       }
-      if (uVar2 == 0x8101) {
+      if (uVar2 == GB_ACT_MAP_SELECTION_SYNC) {
         uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (bVar1 == uVar9) {
           *(undefined1 *)(g_clientContext + 0x3b6c0) = *(undefined1 *)((int)this + 0x25b);
@@ -200,7 +201,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         ComputeTurnOrder();
         return;
       }
-      if (uVar2 == 0x8102) {
+      if (uVar2 == GB_ACT_ALL_PLAYERS_READY) {
         uVar9 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         if (bVar1 == uVar9) {
           *(bool *)((int)this + 0x4cc) = *pbVar10 == 3;
@@ -209,7 +210,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         }
       }
     }
-    else if (uVar2 == 0x8400) {
+    else if (uVar2 == GB_ACT_MOBILE_MODEL_SYNC_ALT) {
       uVar9 = (uint)bVar1;
       LoadRoomSlotAvatar();
       cVar3 = *(char *)(g_clientContext + 0x458fc + uVar9 * 2);
@@ -226,7 +227,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
       (**(code **)(**(int **)((int)this + uVar9 * 8 + 0x6fc) + 4))(&DAT_00553f90);
       (**(code **)(**(int **)((int)this + uVar9 * 8 + 0x700) + 4))(s_normal_00552230);
     }
-    else if (((uVar2 == 0x9002) && (*(char *)((int)this + 0x4cc) == '\0')) &&
+    else if (((uVar2 == GB_ACT_GAME_START_COUNTDOWN) && (*(char *)((int)this + 0x4cc) == '\0')) &&
             (*(int *)((int)this + 0x4d4) == -1)) {
       cVar3 = ChecksumPairDiffers(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
       if (cVar3 != '\0') {

@@ -11,6 +11,7 @@
  * src/README.md's "Raw/verbatim ports" section for status.
  */
 #include "ghidra_types.h"
+#include "opcodes.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -21,8 +22,8 @@ void State10_Loading_ProcessPacket(undefined4 param_1,int param_2,short *param_3
   int iVar1;
 
   iVar1 = DAT_007934e8;
-  if (param_2 < 0x4000) {
-    if (param_2 == 0x3fff) {
+  if (param_2 < 0x4000 /* switch-ladder split, not a match on GB_OP_GAME_DROP_USER_COMMAND */) {
+    if (param_2 == GB_OP_CLOSE) {
       *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
       *(undefined2 *)(iVar1 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar1 + 0x4d6) = 0xffff;
@@ -31,7 +32,7 @@ void State10_Loading_ProcessPacket(undefined4 param_1,int param_2,short *param_3
       *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
       return;
     }
-    if (param_2 == 0x2001) {
+    if (param_2 == GB_OP_JOIN_CHANNEL_RESPONSE) {
       if (*param_3 == 0) {
         (**(code **)(*(int *)g_gameStateVTableArray[0xb] + 0x20))();
         g_pendingGameState = 3;
@@ -46,7 +47,7 @@ void State10_Loading_ProcessPacket(undefined4 param_1,int param_2,short *param_3
         return;
       }
     }
-    else if (param_2 == 0x3233) {
+    else if (param_2 == GB_OP_ROOM_RETURN_RESULT_RESPONSE) {
       if (*param_3 != 0) {
         *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
         *(undefined2 *)(iVar1 + 0x4d4) = 0x2000;
@@ -69,7 +70,7 @@ void State10_Loading_ProcessPacket(undefined4 param_1,int param_2,short *param_3
       }
     }
   }
-  else if ((param_2 == 0x4410) && (g_pendingGameState != 3)) {
+  else if ((param_2 == GB_OP_GAME_END_NOTIFICATION) && (g_pendingGameState != 3)) {
     *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
     *(undefined4 *)(iVar1 + 0x44d0) = 6;
     SendOutgoingPacket(iVar1);

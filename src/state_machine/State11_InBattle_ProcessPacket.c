@@ -9,6 +9,7 @@
  * these get promoted to verified.
  */
 #include "ghidra_types.h"
+#include "opcodes.h"
 #include <windows.h>
 
 
@@ -64,8 +65,8 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
   *unaff_FS_OFFSET = &local_c;
   iVar6 = DAT_007934e8;
   local_9ac = this;
-  if (opcode < 0x4000) {
-    if (opcode == 0x3fff) {
+  if (opcode < 0x4000 /* switch-ladder split, not a match on GB_OP_GAME_DROP_USER_COMMAND */) {
+    if (opcode == GB_OP_CLOSE) {
       *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
       *(undefined2 *)(iVar6 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar6 + 0x4d6) = 0xffff;
@@ -74,7 +75,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
       *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
     }
     else if (opcode < 0x3234) {
-      if (opcode == 0x3233) {
+      if (opcode == GB_OP_ROOM_RETURN_RESULT_RESPONSE) {
         if (*(short *)payload == 0) {
           g_pendingGameState = 9;
           g_stateChangeRequested = 0;
@@ -104,7 +105,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
           *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
         }
       }
-      else if (opcode == 0x2001) {
+      else if (opcode == GB_OP_JOIN_CHANNEL_RESPONSE) {
         if (*(short *)payload == 0) {
           g_pendingGameState = 3;
           g_stateChangeRequested = 0;
@@ -118,7 +119,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
           }
         }
       }
-      else if (opcode == 0x3020) {
+      else if (opcode == GB_OP_USER_QUIT_NOTIFICATION) {
         iVar6 = (uint)*payload * 0xd + 0x457f1 + g_clientContext;
         pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x25f);
         _sprintf(local_91c,pcVar5,iVar6);
@@ -286,7 +287,7 @@ LAB_004b4324:
         }
       }
     }
-    else if (opcode == 0x3400) {
+    else if (opcode == GB_OP_HOST_MIGRATION_NOTIFICATION) {
       cVar2 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
       if ((cVar2 != '\0') && (*(char *)((int)this + 0x11d0) != '\0')) {
         SendPlayResult();
@@ -339,7 +340,7 @@ LAB_004b4324:
     }
     goto LAB_004b541a;
   }
-  if (opcode == 0x4102) {
+  if (opcode == GB_OP_PLAYER_DEAD_NOTIFICATION) {
     local_9b5 = *payload;
     piVar16 = *(int **)(payload + 1);
     uVar17 = (uint)local_9b5;
@@ -418,8 +419,8 @@ LAB_004b4324:
     }
     goto LAB_004b541a;
   }
-  if (opcode != 0x4410) {
-    if (opcode == 0x4413) {
+  if (opcode != GB_OP_GAME_END_NOTIFICATION) {
+    if (opcode == GB_OP_PLAY_RESULT_NOTIFICATION) {
       RemoveWidget();
       RemoveWidget();
       RemoveWidget();

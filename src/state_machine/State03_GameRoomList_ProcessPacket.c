@@ -9,6 +9,7 @@
  * these get promoted to verified.
  */
 #include "ghidra_types.h"
+#include "opcodes.h"
 #include <windows.h>
 
 
@@ -82,8 +83,8 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
    * local reused elsewhere in this function, kept as-is. */
   iVar10 = g_clientContext;
   if (0x21f1 < opcode) {
-    if (opcode < 0x6002) {
-      if (opcode == 0x6001) {
+    if (opcode < 0x6002 /* switch-ladder split, not a match on GB_OP_AVATAR_INVENTORY_RESPONSE */) {
+      if (opcode == GB_OP_GET_AVATAR_RESPONSE) {
         if (*payload == 0) {
           uVar23 = *(uint *)(payload + 1);
           uVar21 = *(uint *)(payload + 3);
@@ -145,7 +146,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
       }
       else {
         switch(opcode) {
-        case 0x21f2:
+        case GB_OP_ROOM_PLAYER_DISPLAY_UPDATE_NOTIFICATION:
           iVar10 = FUN_0041c290();
           if (iVar10 != -1) {
             if (*(int *)((int)this + 4) == iVar10) {
@@ -169,7 +170,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             return;
           }
           break;
-        case 0x21f3:
+        case GB_OP_ROOM_PLAYER_FLAG_UPDATE_NOTIFICATION:
           iVar10 = FUN_0041c290();
           if (iVar10 != -1) {
             if (*(int *)((int)this + 4) == iVar10) {
@@ -179,7 +180,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             return;
           }
           break;
-        case 0x21f4:
+        case GB_OP_ROOM_PLAYER_VALUE_UPDATE_NOTIFICATION:
           iVar10 = FUN_0041c290();
           if (iVar10 != -1) {
             if (*(int *)((int)this + 4) == iVar10) {
@@ -189,7 +190,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             return;
           }
           break;
-        case 0x21f5:
+        case GB_OP_JOIN_ROOM_NOTIFICATION_SELF:
           iVar10 = FUN_0041c290();
           if (iVar10 != -1) {
             if (*(int *)((int)this + 4) == iVar10) {
@@ -199,7 +200,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             return;
           }
           break;
-        case 0x21f6:
+        case GB_OP_ROOM_PLAYER_STATUS_UPDATE_NOTIFICATION:
           iVar10 = FUN_0041c290();
           if (iVar10 != -1) {
             if (*(int *)((int)this + 4) == iVar10) {
@@ -209,7 +210,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             return;
           }
           break;
-        case 0x21f7:
+        case GB_OP_ROOM_PLAYER_MODE_UPDATE_NOTIFICATION:
           iVar10 = FUN_0041c290();
           if (iVar10 != -1) {
             if (*(int *)((int)this + 4) == iVar10) {
@@ -224,7 +225,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
 switchD_00428058_default:
     return;
   }
-  if (opcode == 0x21f1) {
+  if (opcode == GB_OP_ROOM_PLAYER_LEFT_NOTIFICATION) {
     iVar24 = 0;
     if (*(char *)(g_clientContext + 0x44648) != '\0') {
       puVar22 = (uint *)(g_clientContext + 0x44664);
@@ -246,7 +247,7 @@ switchD_00428058_default:
     goto switchD_00428058_default;
   }
   if (opcode < 0x2106) {
-    if (opcode == 0x2105) {
+    if (opcode == GB_OP_ROOM_DETAIL_RESPONSE) {
       if (*payload != 0) {
         State03_GameRoomList_CreateButtons();
         *(undefined4 *)((int)this + 0x124) = 0xffffffff;
@@ -334,7 +335,7 @@ switchD_00428058_default:
       }
       goto switchD_00428058_default;
     }
-    if (opcode == 0x2001) {
+    if (opcode == GB_OP_JOIN_CHANNEL_RESPONSE) {
       if (*payload == 0) {
         if (g_directLinkConnection == 0) {
           FUN_00404410(&DAT_00e53e88);
@@ -346,7 +347,7 @@ switchD_00428058_default:
       FUN_00507cc0(1,*(undefined4 *)(g_clientContext + 0x41340));
       return;
     }
-    if (opcode == 0x201f) {
+    if (opcode == GB_OP_CHANNEL_CHAT_BROADCAST) {
       iVar10 = FUN_004259d0((uint)(byte)*payload * 0xd + 0x41445 + g_clientContext);
       if (iVar10 == -1) {
         AppendChatLogEntry(g_clientContext,0,(uint)(byte)*payload * 9 + 0x43548 + g_clientContext,
@@ -355,7 +356,7 @@ switchD_00428058_default:
       }
       goto switchD_00428058_default;
     }
-    if (opcode != 0x2103) goto switchD_00428058_default;
+    if (opcode != GB_OP_ROOM_LIST_RESPONSE) goto switchD_00428058_default;
     if (*payload == 0) {
       uVar6 = payload[1];
       puVar9 = payload + 2;
@@ -440,9 +441,9 @@ switchD_00428058_default:
     }
   }
   else {
-    if (opcode != 0x2111) {
-      if (opcode != 0x2121) {
-        if (opcode == 0x21f0) {
+    if (opcode != GB_OP_JOIN_ROOM_RESPONSE) {
+      if (opcode != GB_OP_CREATE_ROOM_RESPONSE) {
+        if (opcode == GB_OP_ROOM_SELF_DISPLAY_UPDATE_NOTIFICATION) {
           iVar24 = FUN_0041c290();
           if (iVar24 != -1) {
             uVar6 = payload[1];
