@@ -3,6 +3,15 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls.  C37 is 0x45cb9d,
+ * whose EBP was biased to EDI + 0xb30 at 0x45cb95 with EDI = the __fastcall
+ * `this` (`mov edi,ecx`, 0x45cb87) -- i.e. param_1 + 0x2cc ints.  C57 is
+ * 0x45cc10, which reloads [esp + 0x14]; that slot was filled at 0x45cbea
+ * with the return value of the 0x40aba0 pair-sum helper (the
+ * EncodeChecksumPairSum on the line above), and that helper RETURNS ITS
+ * SECOND ARGUMENT -- the caller's stack scratch cell auStack_454.
  */
 #include "ghidra_types.h"
 
@@ -34,7 +43,7 @@ void __fastcall FUN_0045cb50(int *param_1)
   *unaff_FS_OFFSET = &local_c;
   iVar5 = *(int *)(&g_nCameraBoundY + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x2cc));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((iVar5 + 500 < iVar4) || (cVar3 = PeekPacketChecksumBool(), cVar3 == '\x01')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -54,7 +63,7 @@ void __fastcall FUN_0045cb50(int *param_1)
   EncodeChecksumPairSum(param_1 + 0x2cc,auStack_454,piVar1);
   uStack_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(auStack_454));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((iVar4 < iVar5) || (cVar3 = PacketChecksumGreaterEqual(param_1 + 0x243,0), cVar3 == '\0')) {
 LAB_0045cc63:
