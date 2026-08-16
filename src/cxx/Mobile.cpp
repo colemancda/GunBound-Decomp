@@ -154,7 +154,7 @@ void EncodeChecksumState(void *cell);
 void EmitChecksumSum(void *cell);
 void EmitChecksumDiff(void *cell);
 void EmitChecksumMod(void *cell);
-void EncodeDecrementedChecksum(void);
+void EncodeDecrementedChecksum(void *self);
 unsigned int AcquireSoundChannel(int a);   /* returns the acquired channel handle */
 void ResolveNamedState(int *arg);
 int  DecodeGuardedBool(void);
@@ -863,7 +863,7 @@ LAB_004622cf:
         (cVar5 = PeekPacketChecksumBool(), cVar5 == '\x01') &&
         *reinterpret_cast<int *>(&DAT_005f3768 + g_clientContext) != 1 &&
         *reinterpret_cast<int *>(&DAT_005f3768 + g_clientContext) != 2) {
-        EncodeDecrementedChecksum();
+        EncodeDecrementedChecksum(pbVar12);
         uVar9 = EncodeChecksumDeltaMod(pbVar12, auStack_454, 0x14);
         cVar5 = PacketChecksumEquals(reinterpret_cast<void *>(uVar9), 0);
         if (cVar5 == '\0' ||
@@ -1088,7 +1088,7 @@ void CMobile::HandleFireInput()
                             if (cVar9 == '\0') (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, &DAT_00553f90);
                             else (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, s_wmove_00555ca0);
                         }
-                        EncodeDecrementedChecksum();
+                        EncodeDecrementedChecksum(param_1 + 0x214f);
                         uVar17 = EncodeChecksumDeltaMul(param_1 + 0x12db, local_b40, 2);
                         iVar18 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar17));
                         AddToPacketChecksum(0x96 - iVar18);
@@ -1175,7 +1175,7 @@ void CMobile::HandleFireInput()
                             if (cVar9 == '\0') (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, &DAT_00553f90);
                             else (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, s_wmove_00555ca0);
                         }
-                        EncodeDecrementedChecksum();
+                        EncodeDecrementedChecksum(param_1 + 0x214f);
                         uVar17 = EncodeChecksumDeltaMul(param_1 + 0x12db, local_b40, 2);
                         iVar18 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar17));
                         AddToPacketChecksum(0x96 - iVar18);
@@ -1271,12 +1271,12 @@ void CMobile::HandleFireInput()
             if (DAT_007934c4 != '\0') goto LAB_00460553;
             cVar9 = PacketChecksumGreaterThan(param_1 + 0x939, 0x5a);
             if (cVar9 == '\0') FUN_0040b030();
-            else EncodeDecrementedChecksum();
+            else EncodeDecrementedChecksum(param_1 + 0x1252);
             bVar5 = true;
         }
         if (DAT_00e5283c == 1000 && DAT_007934c4 == '\0') {
             cVar9 = PacketChecksumGreaterThan(param_1 + 0x939, 0x5a);
-            if (cVar9 == '\0') EncodeDecrementedChecksum();
+            if (cVar9 == '\0') EncodeDecrementedChecksum(param_1 + 0x1252);
             else FUN_0040b030();
             bVar5 = true;
         }

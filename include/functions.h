@@ -278,7 +278,7 @@ int FUN_0040aea0();
 void EmitChecksumSum();
 void EmitChecksumDiff();
 void FUN_0040b030();
-void EncodeDecrementedChecksum();
+void EncodeDecrementedChecksum(void *self);
 int FUN_0040b090();
 int EncodeChecksumDeltaShr();
 bool PacketChecksumGreaterThan();

@@ -416,7 +416,7 @@ LAB_0047a634:
         }
       }
       AcquireSoundChannel(0);
-      EncodeDecrementedChecksum();
+      EncodeDecrementedChecksum((void *)(g_clientContext + 0x6a7f94));
       local_4 = 3;
       ScrubChecksumGuard();
       local_4 = 0xffffffff;

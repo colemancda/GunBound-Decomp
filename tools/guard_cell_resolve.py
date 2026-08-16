@@ -37,7 +37,12 @@ FAMILY = {
     0x40a2e0: ("Peek", "eax"),
     0x40a380: ("Encode", "edi"),
     0x40a470: ("Queue", "eax"),
-    0x40a440: ("EncodeXored", "eax"),
+    # BUG FIX 2026-08-16: 0x40a440 takes its CELL IN EDI, not EAX - EAX holds
+    # the VALUE (`mov esi,eax; xor esi,0xeeaeaec0; push esi; call 0x40a380`,
+    # EDI never written, i.e. live-in).  The old "eax" entry made every
+    # EncodeXored row report the XOR constant 0xeeaeaec0 as if it were a cell.
+    # No C site was ever fixed from those rows (checked tree-wide).
+    0x40a440: ("EncodeXored", "edi"),
     0x40a2a0: ("Scrub", "ecx"),
     0x4065a0: ("PeekBool", "eax"),
     0x406500: ("SetBool", "eax"),
@@ -46,6 +51,20 @@ FAMILY = {
     0x406610: ("CheckBoolAnd", "eax"),
     0x406710: ("CheckBoolBoth", "eax"),
     0x40afb0: ("EmitSum", "eax"),
+    # Added 2026-08-16 (CValueGuard Peek-flip prep).  Each of these takes its
+    # cell in a register the raw ports dropped; the second operand, where there
+    # is one, is a real stack argument the ports already kept:
+    #   Add/Sub          cell EAX, delta   = arg1 ([esp+8])
+    #   EmitDiff         cell EAX, 2nd cell= arg1 ([esp+0xc])
+    #   EmitMod          cell EAX, divisor = arg1 ([esp+8])
+    #   EncodeDec        cell EAX, no stack args
+    #   EncodeDiv        cell ECX, divisor = EAX  (BOTH dropped)
+    0x40aab0: ("Add", "eax"),
+    0x40aaf0: ("Sub", "eax"),
+    0x40aff0: ("EmitDiff", "eax"),
+    0x40ab60: ("EmitMod", "eax"),
+    0x40b060: ("EncodeDec", "eax"),
+    0x40ab20: ("EncodeDiv", "ecx"),
 }
 
 REGS = ("eax", "ebx", "ecx", "edx", "esi", "edi", "ebp")

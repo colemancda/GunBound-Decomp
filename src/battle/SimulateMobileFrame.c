@@ -262,7 +262,7 @@ LAB_004622cf:
       (cVar5 = PeekPacketChecksumBool(), cVar5 == '\x01')) &&
      ((*(int *)(&DAT_005f3768 + g_clientContext) != 1 && (*(int *)(&DAT_005f3768 + g_clientContext) != 2))
      )) {
-    EncodeDecrementedChecksum();
+    EncodeDecrementedChecksum(param_1 + 0x22f1);
     uVar9 = EncodeChecksumDeltaMod(piVar1,auStack_454,0x14);
     uStack_4 = 0xb;
     cVar5 = PacketChecksumEquals(uVar9,0);

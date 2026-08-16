@@ -904,7 +904,7 @@ LAB_004b7c01:
               uVar20 = 3;
               uVar21 = GetLocalizedString(&g_localizedStringTable,0x25c);
               (**(code **)(iVar4 + 0x28))(uVar21,uVar20,uVar22);
-              EncodeDecrementedChecksum();
+              EncodeDecrementedChecksum((void *)(g_clientContext + 0x67e3d0));
               cVar2 = PacketChecksumLessThan(&DAT_0067e3d0 + g_clientContext,0);
             }
             else {
@@ -914,7 +914,7 @@ LAB_004b7c01:
               uVar20 = 3;
               uVar21 = GetLocalizedString(&g_localizedStringTable,0x25d);
               (**(code **)(iVar4 + 0x28))(uVar21,uVar20,uVar22);
-              EncodeDecrementedChecksum();
+              EncodeDecrementedChecksum((void *)(g_clientContext + 0x67e5f4));
               cVar2 = PacketChecksumLessThan(&DAT_0067e5f4 + g_clientContext,0);
             }
             if (cVar2 != '\0') {
