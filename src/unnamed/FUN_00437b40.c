@@ -3,6 +3,13 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 3 argless PeekPacketChecksumState() calls (3 C : 3 orig,
+ * goto-free zip) - the turn counter at g_clientContext+0xeba98 (BeginNewTurn's),
+ * &DAT_00796aa0, and piVar7+0x35ec on the freshly allocated projectile
+ * (resolver stalls on `xor ebp,ebp`, the failed-alloc path; the base is
+ * the one the 2026-07-15 Encode notes already establish).
  */
 #include "ghidra_types.h"
 
@@ -65,7 +72,7 @@ void FUN_00437b40(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   EncodeOutgoingPacketField((int)piVar7 + 0x264, param_3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   param_4 = param_4 & 0x80000007;
   piVar7[0xfe7] = iVar3;
@@ -81,7 +88,7 @@ void FUN_00437b40(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   piVar7[7] = iVar3;
   (**(code **)(*piVar7 + 4))(s_normal_00552230);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar4 = PeekPacketChecksumState();
+  uVar4 = PeekPacketChecksumState((void *)&DAT_00796aa0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x437ce8
@@ -103,7 +110,7 @@ void FUN_00437b40(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   } while (cVar1 != '\0');
   FUN_0041da80(g_clientContext,piVar7,1,1,0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)((int)piVar7 + 0x35ec));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   piVar7[0xfeb] = iVar3;
   RegisterActiveObject(0, 0, (undefined4 *)0);

@@ -3,6 +3,10 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 3 argless PeekPacketChecksumState() calls (3 C : 3 orig,
+ * goto-free zip) - three plain globals (&DAT_00e9ba40 x2, &DAT_00e9bed8).
  */
 #include "ghidra_types.h"
 
@@ -29,17 +33,17 @@ void FUN_00436bd0(int param_1,int param_2,int param_3)
         iVar2 = FUN_004aa4d0();
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar4 = PeekPacketChecksumState();
+      iVar4 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = _rand();
       *(int *)(iVar2 + 0x38) = (iVar5 % 0x15 - iVar4) + param_1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar4 = PeekPacketChecksumState();
+      iVar4 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = _rand();
       *(int *)(iVar2 + 0x3c) = (iVar5 % 0x15 - iVar4) + param_2;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar4 = PeekPacketChecksumState();
+      iVar4 = PeekPacketChecksumState((void *)&DAT_00e9bed8);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = _rand();
       *(int *)(iVar2 + 0x44) = iVar5 % iVar4;

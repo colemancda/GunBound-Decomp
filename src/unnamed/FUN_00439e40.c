@@ -4,6 +4,13 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at all 3 argless PeekPacketChecksumState() calls (3 C : 3 orig,
+ * goto-free zip) - all three off the current player record at
+ * *(g_clientContext+0x621e4): +0xc080 (the counter the Encode beside it
+ * increments, per the 2026-07-16 note) and +0x7864 twice, feeding the
+ * +0x7a88 Encode.
  */
 #include "ghidra_types.h"
 
@@ -77,7 +84,7 @@ undefined4 FUN_00439e40(int param_1)
     *(byte *)(iVar4 + 0x8bb6) = bVar10 + bVar11 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e4) + 0xc080));
     /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x43a076:
      * self is *(int *)(g_clientContext+0x621e4) + 0xc080 (the record
      * ptr at +0x621e4, the same one iVar4 was loaded from above). Value
@@ -85,11 +92,11 @@ undefined4 FUN_00439e40(int param_1)
     EncodeOutgoingPacketField((void *)(*(int *)(g_clientContext + 0x621e4) + 0xc080), iVar4 + 1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e4) + 0x7864));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar4 != 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar5 = PeekPacketChecksumState();
+      uVar5 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e4) + 0x7864));
       /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at
        * 0x43a0de: self is *(int *)(g_clientContext+0x621e4) + 0x7a88.
        * Value (uVar5) was already correct. */
