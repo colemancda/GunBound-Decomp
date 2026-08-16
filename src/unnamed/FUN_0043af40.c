@@ -4,6 +4,15 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 5 argless PeekPacketChecksumState() calls: the global
+ * 0xe9ba40, and four reads of the scratch cell the EncodeChecksumDeltaSub
+ * on the line above returned - local_460 / auStack_8ac / local_684 /
+ * auStack_244 (those helpers return their arg2, see
+ * tools/sweep_guard_instructions.md; the C already captures one of the
+ * four returns itself, in iVar6).  Same shape as its sibling
+ * FUN_0043b7a0.
  */
 #include "ghidra_types.h"
 
@@ -56,7 +65,7 @@ void FUN_0043af40(int param_1,int param_2,int param_3,int param_4,int param_5,in
   iVar5 = g_clientContext;
   if (param_3 != 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = PeekPacketChecksumState();
+    iVar5 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
     pcVar9 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_8bc = (param_4 * 7) / iVar5;
@@ -99,7 +108,7 @@ LAB_0043b008:
             EncodeChecksumDeltaSub(piVar11 + 0x243,local_460,param_1);
             local_c = 0;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            PeekPacketChecksumState();
+            PeekPacketChecksumState((void *)(local_460));
             (*pcVar9)(&DAT_005a9068);
             puStack_10 = (undefined1 *)0xffffffff;
             if (iStack_450 != 0) {
@@ -110,7 +119,7 @@ LAB_0043b008:
             iVar6 = EncodeChecksumDeltaSub(piVar11 + 0x2cc,auStack_8ac,param_2);
             puStack_10 = (undefined1 *)0x1;
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            local_8bc = PeekPacketChecksumState();
+            local_8bc = PeekPacketChecksumState((void *)(auStack_8ac));
             (*pcVar9)(&DAT_005a9068);
             local_8c8 = local_894;
             local_c = 0xffffffff;
@@ -204,7 +213,7 @@ LAB_0043b408:
               EncodeChecksumDeltaSub(piVar11 + 0x97,local_684,param_1);
               local_c = 2;
               (*pcVar12)(&DAT_005a9068);
-              PeekPacketChecksumState();
+              PeekPacketChecksumState((void *)(local_684));
               (*pcVar9)(&DAT_005a9068);
               local_14 = 0xffffffff;
               if (iStack_678 != 0) {
@@ -223,7 +232,7 @@ LAB_0043b408:
               EncodeChecksumDeltaSub(piVar11 + 0x120,auStack_244,param_2);
               local_14 = 3;
               (*pcVar12)(&DAT_005a9068);
-              piVar7 = (int *)PeekPacketChecksumState();
+              piVar7 = (int *)PeekPacketChecksumState((void *)(auStack_244));
               (*pcVar9)(&DAT_005a9068);
               local_c = 0xffffffff;
               if (local_228 != 0) {
