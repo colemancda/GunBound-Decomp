@@ -4,6 +4,22 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless sites.  EDI is set once before 0x50a073 to
+ * puVar1 + 0x228 (puVar1 = g_gameStateVTableArray[7] = [0x5b3414], loaded
+ * into EBX at 0x50a034) and is still live at 0x50a0a0, so C45 and C49 both
+ * use it; C52 is `lea edi,[ebx + 4]` at 0x50a0b9, i.e. puVar1 + 4.  C60
+ * (0x50a10f) is the store-catalog record idiom built at 0x50a0f2-0x50a0fe:
+ * *(g_clientContext + 0x44e20) + <the selected index at self+0x94> * 0x450,
+ * plus the in-record guard offset 0x22c.
+ *
+ * Because this is C++, the file-local extern declarations of
+ * PeekPacketChecksumState / EncodeOutgoingPacketField had to gain the
+ * `void *self` parameter as well -- an empty parameter list means "no
+ * arguments" here, unlike in the .c ports.  Both remain __cdecl, so the
+ * extra pushed argument is caller-cleaned and the behaviour is unchanged
+ * until the guard-family prototype flip lands.
+ *
  * Ported to C++ (2026-07-11) to call CWidget::MouseMoveChildren directly
  * instead of through the now-removed Widget_MouseMoveChildren shim - see
  * src/cxx/PLAN.md's "deduplicate C++-promoted functions" section. Same
@@ -24,8 +40,8 @@ extern "C" {
 extern char *g_gameStateVTableArray[16];
 extern unsigned int g_clientContext;
 extern unsigned char DAT_005a9068;
-unsigned int PeekPacketChecksumState();
-void EncodeOutgoingPacketField(unsigned int field);
+unsigned int PeekPacketChecksumState(void *self);
+void EncodeOutgoingPacketField(void *self, unsigned int field);
 void RadioGroup_RefreshEnableStates(void *this_);
 void ThrowCxxException(long hr);
 unsigned int FUN_004240c0(unsigned int ctx, int a, int b, unsigned int c, int outRecord);
@@ -42,14 +58,14 @@ extern "C" int FUN_0050a030(CWidget *this_, int x, int y)
   puVar1 = (unsigned char *)g_gameStateVTableArray[7];
   if (*(char *)(self + 0x90) != '\0' && *(int *)(self + 0x94) == -1) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)(puVar1 + 0x228));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(int *)(self + 0x94) = *(int *)(puVar1 + 0x454) + iVar3;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0xffffffff);
+    EncodeOutgoingPacketField((void *)(puVar1 + 0x228), 0xffffffff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0xffffffff);
+    EncodeOutgoingPacketField((void *)(puVar1 + 4), 0xffffffff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     RadioGroup_RefreshEnableStates(this_);
     if (*(unsigned int *)(g_clientContext + 0x44e24) <= *(unsigned int *)(self + 0x94)) {
@@ -57,7 +73,7 @@ extern "C" int FUN_0050a030(CWidget *this_, int x, int y)
       ThrowCxxException(0x80070057);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + *(int *)(self + 0x94) * 0x450 + 0x22c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-08-11): dropped outRecord (ESI) - orig 0x50a13a-0x50a149
      * `mov esi,[esp+0x14]` (the state-7 object saved from EBX =
