@@ -3,6 +3,9 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls: the +0x6ac/+0x488 pair (0x4585f7/0x458618) off the live-in ESI the file already declares as unaff_ESI (int *, so /4), feeding CalculateAngleFromDelta.  The worklist's 10 sites overrun into the neighbouring function; this one owns two.
  */
 #include "ghidra_types.h"
 
@@ -23,10 +26,10 @@ void FUN_004585e0(void)
   int *unaff_ESI;
 
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(unaff_ESI + 0x1ab));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(unaff_ESI + 0x122));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = CalculateAngleFromDelta();
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

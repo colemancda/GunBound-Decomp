@@ -4,6 +4,9 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls: a two-cell COPY CONSTRUCTOR - each Peek reads param_2 (EBP, the source) at the same offset the Encode beside it writes into param_1 (ESI, the dest): +8 and +0x22c.  Two-object copier: same offset, different base.
  */
 #include "ghidra_types.h"
 
@@ -25,7 +28,7 @@ undefined2 * FUN_0042aeb0(undefined2 *param_1,undefined2 *param_2)
   *(undefined4 *)(param_1 + 2) = *(undefined4 *)(param_2 + 2);
   *(undefined1 *)(param_1 + 0x114) = 0;
   *(undefined4 *)(param_1 + 0xe) = 0;
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)((int)param_2 + 8));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42aefe
    * (`lea edi,[esi + 8]`, esi = this file's own param_1): cell is
    * param_1+8; tableHandle(+0x14)=param_1+0x1c (== `param_1 + 0xe` above,
@@ -36,7 +39,7 @@ undefined2 * FUN_0042aeb0(undefined2 *param_1,undefined2 *param_2)
   local_4 = 0;
   *(undefined1 *)(param_1 + 0x226) = 0;
   *(undefined4 *)(param_1 + 0x120) = 0;
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)((int)param_2 + 0x22c));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42af22
    * (`lea edi,[esi + 0x22c]`, esi = param_1): cell is param_1+0x22c;
    * tableHandle(+0x14)=param_1+0x240 (== `param_1 + 0x120` above) is

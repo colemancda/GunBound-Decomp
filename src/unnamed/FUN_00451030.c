@@ -4,6 +4,13 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls: both off iVar4,
+ * the list node found by the 0x1f5-id walk above (`mov esi,[eax+0x10]`
+ * = the C's own `iVar4 = *(int *)(iVar4 + 0x10)`), at +0x38 and +0x25c
+ * - the FUN_004510f0/FUN_004511b0 twins read the same node at
+ * +0x3c/+0x260, i.e. the neighbouring cells.
  */
 #include "ghidra_types.h"
 
@@ -33,10 +40,10 @@ int FUN_00451030(int param_1)
   }
   while( true ) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar2 = PeekPacketChecksumState();
+    iVar2 = PeekPacketChecksumState((void *)(iVar4 + 0x38));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)(iVar4 + 0x25c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = (int)(iVar3 + (iVar3 >> 0x1f & 3U)) >> 2;
     if ((iVar2 - iVar3 < param_1) && (param_1 < iVar2 + iVar3)) break;

@@ -3,6 +3,9 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls: AnimateProjectileTick's shape.  The worklist's 6 sites overrun into the neighbouring function; this one owns 0x4ae13e/0x4ae172 only.
  */
 #include "ghidra_types.h"
 
@@ -21,7 +24,7 @@ void __fastcall FUN_004ae0f0(int *param_1)
     cVar1 = PeekPacketChecksumBool();
     if (cVar1 != '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar2 = PeekPacketChecksumState();
+      iVar2 = PeekPacketChecksumState((void *)((int)param_1 + 0x3920));
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x4ae145 (`lea edi,[esi + 0x3920]`, esi = this file's own
        * param_1, preserved across the earlier vtable/
@@ -36,7 +39,7 @@ void __fastcall FUN_004ae0f0(int *param_1)
     param_1[0xed1] = iVar2 + 1;
     if (iVar2 + 1 == 5) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar3 = PeekPacketChecksumState();
+      uVar3 = PeekPacketChecksumState((void *)((int)param_1 + 0xf54));
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x4ae17e (`lea edi,[esi + 0x3d6c]`, esi = param_1): cell is
        * param_1+0x3d6c - the same offset used as a CValueGuard cell

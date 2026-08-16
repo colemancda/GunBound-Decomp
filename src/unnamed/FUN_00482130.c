@@ -3,6 +3,9 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls: both are the chained return of the DeltaAdd(...,400) / DeltaAdd(...,0x26) that closes each round (0x482184, 0x48229f), discarded, captured in a new uVar8 - FUN_00477930's shape.
  */
 #include "ghidra_types.h"
 
@@ -14,6 +17,7 @@ void __fastcall FUN_00482130(int param_1)
 {
   float fVar1;
   int iVar2;
+  undefined4 uVar8;
   undefined4 uVar3;
   int iVar4;
   int iVar5;
@@ -40,10 +44,10 @@ void __fastcall FUN_00482130(int param_1)
   *unaff_FS_OFFSET = &local_c;
   uVar3 = EncodeChecksumDeltaSub(param_1 + 0x38,local_454,*(undefined4 *)(&g_nCameraX + g_clientContext));
   local_4 = 0;
-  EncodeChecksumDeltaAdd(uVar3,local_ac0,400);
+  uVar8 = EncodeChecksumDeltaAdd(uVar3,local_ac0,400);
   SUBFIELD(local_4,0,undefined1) = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)uVar8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
@@ -61,10 +65,10 @@ void __fastcall FUN_00482130(int param_1)
     local_4 = 2;
     uVar3 = EncodeChecksumDeltaAdd(uVar3,local_678,0x104);
     SUBFIELD(local_4,0,undefined1) = 3;
-    EncodeChecksumDeltaAdd(uVar3,local_89c,0x26);
+    uVar8 = EncodeChecksumDeltaAdd(uVar3,local_89c,0x26);
     SUBFIELD(local_4,0,undefined1) = 4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = PeekPacketChecksumState();
+    iVar5 = PeekPacketChecksumState((void *)uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     SUBFIELD(local_4,0,undefined1) = 3;
     if ((*(int *)(local_89c + 0x14)) != 0) {
