@@ -7,6 +7,24 @@
  * verbatim port of Ghidra's decompiler output, not hand-verified. See
  * src/README.md's "Raw/verbatim ports" section for status.
  *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 7 argless sites in the 0x224-stride loop.  Every one of them
+ * resolves to the same expression, `lea <reg>,[esi + <ctx> + 0x5f4ab8]`,
+ * where <ctx> is [0x5b3484] (g_clientContext) reloaded per block and ESI
+ * is the loop counter the C already spells iVar4 -- the one stepped by
+ * 0x224 (exactly one guard cell) per iteration up to 0x890.  Landmarks
+ * used to confirm the pairing: `cmp eax,edi` after 0x50a496 is the
+ * `iVar5 == iVar6` test (C93); `cmp eax,[esp+0x14]; setg` after 0x50a4df
+ * is `local_468 < iVar6` (C103); `inc eax; push eax` between 0x50a511 and
+ * 0x50a518 is the C107/C108 peek+encode pair; and both predecessors of the
+ * shared LAB_0050a582 encode load the same cell into EDI.
+ *
+ * Being C++, the file-local extern declarations of
+ * PeekPacketChecksumState / EncodeOutgoingPacketField had to gain the
+ * `void *self` parameter -- an empty parameter list means "no arguments"
+ * here.  Both stay __cdecl, so the extra pushed argument is caller-cleaned
+ * and behaviour is unchanged until the guard-family prototype flip lands.
+ *
  * Ported to C++ (2026-07-11) to call CWidget::MouseUpChildren directly
  * instead of through the now-removed Widget_MouseUpChildren shim - see
  * src/cxx/PLAN.md's "deduplicate C++-promoted functions" section. Same
@@ -37,8 +55,8 @@ void FUN_0044c6a0(unsigned int ctx);
 void FUN_0050cff0(unsigned int ctx, unsigned int idx, void *buf, int flag);
 void FUN_0044b0b0(void *state);
 void FUN_00426810(void *buf);
-unsigned int PeekPacketChecksumState();
-void EncodeOutgoingPacketField(unsigned int field);
+unsigned int PeekPacketChecksumState(void *self);
+void EncodeOutgoingPacketField(void *self, unsigned int field);
 void ThrowCxxException(long hr);
 }
 
@@ -90,31 +108,31 @@ extern "C" int FUN_0050a320(CWidget *this_, int x, int y)
       do {
         iVar6 = *(int *)(self + 0x94);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar5 = PeekPacketChecksumState();
+        iVar5 = PeekPacketChecksumState((void *)(g_clientContext + iVar4 + 0x5f4ab8));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (iVar5 == iVar6) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           uVar7 = local_468;
         LAB_0050a582:
-          EncodeOutgoingPacketField(uVar7);
+          EncodeOutgoingPacketField((void *)(g_clientContext + iVar4 + 0x5f4ab8), uVar7);
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         } else {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar6 = PeekPacketChecksumState();
+          iVar6 = PeekPacketChecksumState((void *)(g_clientContext + iVar4 + 0x5f4ab8));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if ((int)local_468 < iVar6) {
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar6 = PeekPacketChecksumState();
-            EncodeOutgoingPacketField(iVar6 + 1);
+            iVar6 = PeekPacketChecksumState((void *)(g_clientContext + iVar4 + 0x5f4ab8));
+            EncodeOutgoingPacketField((void *)(g_clientContext + iVar4 + 0x5f4ab8), iVar6 + 1);
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
           iVar6 = *(int *)(self + 0x94);
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar5 = PeekPacketChecksumState();
+          iVar5 = PeekPacketChecksumState((void *)(g_clientContext + iVar4 + 0x5f4ab8));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (iVar6 < iVar5) {
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar6 = PeekPacketChecksumState();
+            iVar6 = PeekPacketChecksumState((void *)(g_clientContext + iVar4 + 0x5f4ab8));
             uVar7 = iVar6 - 1;
             goto LAB_0050a582;
           }
