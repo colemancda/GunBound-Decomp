@@ -24,6 +24,23 @@
  * slot 0 (dtor), slot 2 (AnimateProjectileTick), slot 5 (SimulateProjectileFrame),
  * slot 6 (DetonateProjectile). Interior fields between the named ones are unmapped
  * (guard cells / padding).
+ *
+ * VTABLE LENGTH (2026-08-16, from dumping every per-weapon projectile vtable
+ * with tools/projectile_class_map.py): the concrete per-weapon classes are
+ * 8-slot vtables (slots 0-7), each immediately followed by the NEXT class's
+ * vtable (e.g. 0x5560d0 is followed at 0x5560f0 by mobile type 9's vtable),
+ * so the "13 slots" read above at 0x555c34 spans into 0x555c54 = [0x40ca00
+ * dtor, 0x461c60, 0x458ae0, 0x458b00, 0x429800], a separate 5-slot class -
+ * slots 8-12 below are therefore that neighbour's, not CProjectile's.  The
+ * sixteen SUPER-SHOT classes (SpawnSuperShot's cases) alone carry a 9th
+ * slot: a post-detonation effect the slot-6 override dispatches after
+ * marking the projectile dead (`param_1[5] = 1; (**(code **)(*param_1 +
+ * 0x20))()`), e.g. 0x4837e0 spawns the eight "ssflame8" flames of bullet 8.
+ * The 49 per-weapon overrides of slots 2/5/6/8 were renamed that day to
+ * <Animate|Simulate|Detonate|Explode><Shot1|Shot2|PrimaryShot|SuperShot|
+ * ItemShot>_Bullet<N> (N = SpawnXxx case + 1 = the bulletN texture number,
+ * Shot1/Shot2 = weapon index 0/1, PrimaryShot = one class for both) and
+ * live under src/battle/.
  */
 #ifndef GB_CXX_PROJECTILE_H
 #define GB_CXX_PROJECTILE_H

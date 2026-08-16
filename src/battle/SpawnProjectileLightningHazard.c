@@ -5,7 +5,7 @@
  * InitProjectileLightningHazard + RegisterActiveObject into the
  * g_clientContext+0x6a7f88 active-object list (the same list
  * RenderWeatherHazards walks). Called from a projectile/detonation path
- * (FUN_004a8360), distinct from the turn-descriptor SpawnWeatherHazards
+ * (DetonateShot2_Bullet8), distinct from the turn-descriptor SpawnWeatherHazards
  * path that spawns the layer-0x1f6 SpawnLightningHazard. Identity
  * CONFIRMED transitively via its InitProjectileLightningHazard callee's
  * layer 0x1f7 -> s_Lightning mapping in RenderWeatherHazards. Raw/near-

@@ -3,7 +3,7 @@
  * RENAMED (2026-07-16, from FUN_004388e0): projectile-shot spawner for
  * mobile TYPE 13 (structural sibling of SpawnKnightFlameShot /
  * SpawnPrimaryShot / SpawnSuperShot / SpawnShot_Type9). Mobile type
- * CONFIRMED via vtable geometry - its sole caller FUN_0046ca60 is a
+ * CONFIRMED via vtable geometry - its sole caller ExplodeSuperShot_Bullet14 is a
  * projectile method clustered with type-13's code; the effect it fires
  * is 142blast. The "_Type13" suffix is the confirmed mobile type; the
  * mobile NAME is not confirmable (the "normal" string is a red-herring

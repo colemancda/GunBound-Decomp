@@ -6,7 +6,7 @@
  * InitLightningHazard at layer 0x1f6). Sets the vtable (PTR_FUN_00556510)
  * and param_1[1] = 0x1f7. Identity CONFIRMED: RenderWeatherHazards maps
  * layer 0x1f7 -> s_Lightning. Spawned by SpawnProjectileLightningHazard,
- * itself called from a projectile/detonation path (FUN_004a8360, which
+ * itself called from a projectile/detonation path (DetonateShot2_Bullet8, which
  * uses the base projectile vtable 0x55658c) rather than the terrain-
  * hazard turn dispatcher - hence "Projectile" in the name. Raw/near-
  * verbatim Ghidra body - see src/README.md.

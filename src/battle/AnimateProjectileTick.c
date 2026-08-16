@@ -6,7 +6,7 @@
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at both argless PeekPacketChecksumState() calls: both off the live-in ECX object, beside the already-fixed
- * +0x3920/+0x3d6c Encodes - same shape as FUN_004a4610.
+ * +0x3920/+0x3d6c Encodes - same shape as AnimatePrimaryShot_Bullet4.
  */
 #include "ghidra_types.h"
 

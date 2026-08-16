@@ -270,7 +270,7 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x430c19
    * (`lea edi,[ebp + 0x1c2c]`): cell is piVar3+0x70b (== piVar3+0x1c2c
    * bytes) - matches the same `+0x1c2c` field established elsewhere in
-   * this batch (e.g. src/unnamed/FUN_00452cc0.c, .../FUN_004513b0.c). See
+   * this batch (e.g. src/unnamed/DetonateSuperShot_Bullet6.c, .../FUN_004513b0.c). See
    * tools/encodeoutgoingpacketfield_sites.json. */
   (*pcVar9)();
   EncodeGuardedBool(0,(byte *)GB_GUARD_UNRECOVERED) /* value+ptr both dropped by Ghidra; battle path, unrecovered */;
