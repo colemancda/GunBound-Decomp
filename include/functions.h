@@ -65,7 +65,9 @@ void HandleTurnTimeoutSlot();
 void InitCommP2PNotifyWindow(undefined4 *self);   /* self = EDI (recovered) */
 bool PacketChecksumEquals();
 bool PacketChecksumNotEquals();
-uint PeekPacketChecksumState();
+/* CValueGuard Peek - the cell is a REAL parameter as of the 2026-08-16 flip;
+ * a call without it is a compile error (that is the point). */
+uint PeekPacketChecksumState(void *self);
 void PostTurnEvent();
 undefined4 QueueOutgoingPacketField();
 void SubFromPacketChecksum(void *self,int param_1);
