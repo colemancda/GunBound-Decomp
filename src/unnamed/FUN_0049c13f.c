@@ -69,14 +69,14 @@ void __fastcall FUN_0049c13f(int param_1)
     if (in_stack_0000248c != 0xb) break;
     QueueOutgoingPacketField();
     PeekChecksumStateUnderLock((*(char *)(param_1 + 0x651c) == '\x01') ? (void *)&DAT_00796aa0 : (void *)&DAT_00794e48);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 != '\x01') {
-      PeekPacketChecksumBool();
+      PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
     }
     uVar4 = EncodeChecksumPairDiff();
     uVar5 = EncodeChecksumPairSum();
-    PeekPacketChecksumBool();
-    PeekPacketChecksumBool();
+    PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
+    PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     PeekChecksumStateUnderLock(param_1 + 0x7864);
     PeekChecksumStateUnderLock(param_1 + 0x4d90);
     PeekChecksumStateUnderLock(uVar4);
@@ -85,13 +85,13 @@ void __fastcall FUN_0049c13f(int param_1)
     ScrubChecksumGuard();
     ScrubChecksumGuard();
     PeekChecksumStateUnderLock((*(char *)(param_1 + 0x651c) == '\x01') ? (void *)&DAT_00796aa0 : (void *)&DAT_00794e48);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 != '\x01') {
-      PeekPacketChecksumBool();
+      PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
     }
     uVar4 = EncodeChecksumPairDiff();
     uVar5 = EncodeChecksumPairSum();
-    PeekPacketChecksumBool();
+    PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
     PeekChecksumStateUnderLock(param_1 + 0x7864);
     PeekChecksumStateUnderLock(param_1 + 0x4d90);
     PeekChecksumStateUnderLock(uVar4);
@@ -100,13 +100,13 @@ void __fastcall FUN_0049c13f(int param_1)
     ScrubChecksumGuard();
     ScrubChecksumGuard();
     PeekChecksumStateUnderLock((*(char *)(param_1 + 0x651c) == '\x01') ? (void *)&DAT_00796aa0 : (void *)&DAT_00794e48);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 != '\x01') {
-      PeekPacketChecksumBool();
+      PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
     }
     uVar4 = EncodeChecksumPairDiff();
     uVar5 = EncodeChecksumPairSum();
-    PeekPacketChecksumBool();
+    PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
     PeekChecksumStateUnderLock(param_1 + 0x7864);
     PeekChecksumStateUnderLock(param_1 + 0x4d90);
     PeekChecksumStateUnderLock(uVar4);
@@ -120,16 +120,16 @@ void __fastcall FUN_0049c13f(int param_1)
     if (in_stack_0000248c != 0xb) break;
     QueueOutgoingPacketField();
     PeekChecksumStateUnderLock((*(char *)(param_1 + 0x651c) == '\x01') ? (void *)&DAT_00796aa0 : (void *)&DAT_00794e48);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 != '\x01') {
-      PeekPacketChecksumBool();
+      PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
     }
     PeekChecksumStateUnderLock(&DAT_00794bf0);
     uVar4 = EncodeChecksumDeltaAdd();
     uVar5 = EncodeChecksumPairDiff();
     uVar6 = EncodeChecksumPairSum();
-    PeekPacketChecksumBool();
-    PeekPacketChecksumBool();
+    PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
+    PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     PeekChecksumStateUnderLock(uVar4);
     PeekChecksumStateUnderLock(param_1 + 0x4d90);
     PeekChecksumStateUnderLock(uVar5);
@@ -139,15 +139,15 @@ void __fastcall FUN_0049c13f(int param_1)
     ScrubChecksumGuard();
     ScrubChecksumGuard();
     PeekChecksumStateUnderLock((*(char *)(param_1 + 0x651c) == '\x01') ? (void *)&DAT_00796aa0 : (void *)&DAT_00794e48);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 != '\x01') {
-      PeekPacketChecksumBool();
+      PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
     }
     PeekChecksumStateUnderLock(&DAT_00794bf0);
     uVar4 = EncodeChecksumDeltaSub();
     uVar5 = EncodeChecksumPairDiff();
     uVar6 = EncodeChecksumPairSum();
-    PeekPacketChecksumBool();
+    PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
     PeekChecksumStateUnderLock(uVar4);
     PeekChecksumStateUnderLock(param_1 + 0x4d90);
     PeekChecksumStateUnderLock(uVar5);
@@ -161,8 +161,8 @@ joined_r0x0049c851:
     if (cVar2 == '\0') {
       AcquireSoundChannel();
     }
-    cVar2 = PeekPacketChecksumBool();
-    if ((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+    if ((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 == '\0')) {
 LAB_0049c9ad:
       cVar2 = InitChecksumSeed();
       if (cVar2 == '\0') {
@@ -175,9 +175,9 @@ LAB_0049c9ad:
   case 8:
     if (in_stack_0000248c != 0xb) break;
     QueueOutgoingPacketField();
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 != '\x01') {
-      PeekPacketChecksumBool();
+      PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
     }
     uVar4 = EncodeChecksumPairDiff();
     uVar5 = EncodeChecksumPairSum();
@@ -201,8 +201,8 @@ LAB_0049c9ad:
       uVar4 = EncodeChecksumDeltaAdd();
       uVar5 = EncodeChecksumPairDiff();
       uVar6 = EncodeChecksumPairSum();
-      PeekPacketChecksumBool();
-      PeekPacketChecksumBool();
+      PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
+      PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
       PeekChecksumStateUnderLock(uVar4);
       PeekChecksumStateUnderLock(param_1 + 0x4d90);
       PeekChecksumStateUnderLock(uVar5);

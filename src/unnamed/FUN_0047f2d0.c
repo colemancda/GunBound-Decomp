@@ -81,13 +81,13 @@ void __thiscall FUN_0047f2d0(int param_1,undefined4 param_2,int param_3)
       puVar11 = &DAT_00794e48;
     }
     uVar5 = PeekChecksumStateUnderLock(puVar11);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 == '\x01') {
 LAB_0047f3c9:
       local_1134 = 0;
     }
     else {
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
       local_1134 = 8;
       if (cVar2 == '\x01') goto LAB_0047f3c9;
     }
@@ -118,13 +118,13 @@ LAB_0047f3c9:
       puVar11 = &DAT_00794e48;
     }
     uVar5 = PeekChecksumStateUnderLock(puVar11);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 == '\x01') {
 LAB_0047f52a:
       local_1130 = 0;
     }
     else {
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
       local_1130 = 8;
       if (cVar2 == '\x01') goto LAB_0047f52a;
     }
@@ -148,8 +148,8 @@ joined_r0x0047f611:
     if (cVar2 == '\0') {
       AcquireSoundChannel(0);
     }
-    cVar2 = PeekPacketChecksumBool();
-    if (((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) &&
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+    if (((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 == '\0')) &&
        (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
       uVar3 = PeekChecksumStateUnderLock(&DAT_007949c8);
       QueueOutgoingPacketField(uVar3);
@@ -158,8 +158,8 @@ joined_r0x0047f611:
   case 8:
     if (param_3 == 1) {
       QueueOutgoingPacketField(0xffffffff);
-      cVar2 = PeekPacketChecksumBool();
-      if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
+      cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+      if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 == '\x01')) {
         uVar3 = 0;
       }
       else {

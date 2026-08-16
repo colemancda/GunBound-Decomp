@@ -75,13 +75,13 @@ void __thiscall FUN_00466fd0(int param_1,undefined4 param_2,int param_3)
       puVar11 = &DAT_00794e48;
     }
     uVar5 = PeekChecksumStateUnderLock(puVar11);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 == '\x01') {
 LAB_004670c9:
       local_1e0c = 0;
     }
     else {
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
       local_1e0c = 8;
       if (cVar2 == '\x01') goto LAB_004670c9;
     }
@@ -112,13 +112,13 @@ LAB_004670c9:
         puVar11 = &DAT_00794e48;
       }
       uVar5 = PeekChecksumStateUnderLock(puVar11);
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
       if (cVar2 == '\x01') {
 LAB_004673e8:
         local_1e08 = 0;
       }
       else {
-        cVar2 = PeekPacketChecksumBool();
+        cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
         local_1e08 = 8;
         if (cVar2 == '\x01') goto LAB_004673e8;
       }
@@ -152,13 +152,13 @@ LAB_004673e8:
       puVar11 = &DAT_00794e48;
     }
     uVar5 = PeekChecksumStateUnderLock(puVar11);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 == '\x01') {
 LAB_00467235:
       local_1e08 = 1;
     }
     else {
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
       local_1e08 = 9;
       if (cVar2 == '\x01') goto LAB_00467235;
     }
@@ -177,12 +177,12 @@ LAB_00467235:
     ScrubChecksumGuard();
     local_4 = 0xffffffff;
     ScrubChecksumGuard();
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
 joined_r0x00467322:
     if (cVar2 == '\0') {
       AcquireSoundChannel(0);
     }
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
     if ((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74)), cVar2 == '\0')) {
 LAB_0046735a:
       cVar2 = InitChecksumSeed();
@@ -196,8 +196,8 @@ LAB_0046735a:
   case 8:
     if (param_3 != 1) break;
     QueueOutgoingPacketField(0xffffffff);
-    cVar2 = PeekPacketChecksumBool();
-    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 == '\x01')) {
       uVar3 = 0;
     }
     else {
@@ -276,7 +276,7 @@ LAB_0046735a:
           ScrubChecksumGuard();
           local_4 = 0xffffffff;
           ScrubChecksumGuard();
-          cVar2 = PeekPacketChecksumBool();
+          cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
           if (cVar2 == '\0') {
             AcquireSoundChannel(0);
           }

@@ -81,13 +81,13 @@ void __thiscall FUN_0047ab90(int param_1,undefined4 param_2,int param_3)
       puVar11 = &DAT_00794e48;
     }
     uVar4 = PeekChecksumStateUnderLock(puVar11);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 == '\x01') {
 LAB_0047ac89:
       local_1134 = 0;
     }
     else {
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
       local_1134 = 8;
       if (cVar2 == '\x01') goto LAB_0047ac89;
     }
@@ -118,13 +118,13 @@ LAB_0047ac89:
       puVar11 = &DAT_00794e48;
     }
     uVar4 = PeekChecksumStateUnderLock(puVar11);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 == '\x01') {
 LAB_0047adea:
       local_1130 = 0;
     }
     else {
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
       local_1130 = 8;
       if (cVar2 == '\x01') goto LAB_0047adea;
     }
@@ -148,8 +148,8 @@ joined_r0x0047aed1:
     if (cVar2 == '\0') {
       AcquireSoundChannel(0);
     }
-    cVar2 = PeekPacketChecksumBool();
-    if (((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) &&
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+    if (((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 == '\0')) &&
        (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
       uVar3 = PeekChecksumStateUnderLock(&DAT_007949c8);
       QueueOutgoingPacketField(uVar3);
@@ -158,7 +158,7 @@ joined_r0x0047aed1:
   case 8:
     if (param_3 == 1) {
       QueueOutgoingPacketField(0xffffffff);
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
       if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74)), cVar2 == '\x01')) {
         uVar3 = 0;
       }
@@ -179,7 +179,7 @@ joined_r0x0047aed1:
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
       if (cVar2 == '\0') {
         AcquireSoundChannel(0);
       }

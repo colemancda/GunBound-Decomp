@@ -83,8 +83,8 @@ void __thiscall FUN_00488ac0(int param_1,undefined4 param_2,int param_3)
       puVar11 = &DAT_00794e48;
     }
     uVar4 = PeekChecksumStateUnderLock(puVar11);
-    cVar2 = PeekPacketChecksumBool();
-    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 == '\x01')) {
       uVar5 = 0;
     }
     else {
@@ -117,13 +117,13 @@ void __thiscall FUN_00488ac0(int param_1,undefined4 param_2,int param_3)
       puVar11 = &DAT_00794e48;
     }
     uVar4 = PeekChecksumStateUnderLock(puVar11);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 == '\x01') {
 LAB_00488d15:
       local_1584 = 0;
     }
     else {
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
       local_1584 = 8;
       if (cVar2 == '\x01') goto LAB_00488d15;
     }
@@ -150,13 +150,13 @@ LAB_00488d15:
       puVar11 = &DAT_00794e48;
     }
     uVar3 = PeekChecksumStateUnderLock(puVar11);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
     if (cVar2 == '\x01') {
 LAB_00488e3f:
       uVar4 = 1;
     }
     else {
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1));
       uVar4 = 9;
       if (cVar2 == '\x01') goto LAB_00488e3f;
     }
@@ -181,8 +181,8 @@ joined_r0x00488f1e:
     if (cVar2 == '\0') {
       AcquireSoundChannel(0);
     }
-    cVar2 = PeekPacketChecksumBool();
-    if ((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+    if ((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 == '\0')) {
 LAB_0048907a:
       cVar2 = InitChecksumSeed();
       if (cVar2 == '\0') {
@@ -195,8 +195,8 @@ LAB_0048907a:
   case 8:
     if (param_3 != 1) break;
     QueueOutgoingPacketField(0xffffffff);
-    cVar2 = PeekPacketChecksumBool();
-    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 == '\x01')) {
       uVar3 = 0;
     }
     else {

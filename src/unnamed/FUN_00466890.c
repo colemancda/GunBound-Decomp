@@ -78,8 +78,8 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
       puVar11 = &DAT_00794e48;
     }
     uVar5 = PeekChecksumStateUnderLock(puVar11);
-    cVar2 = PeekPacketChecksumBool();
-    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 == '\x01')) {
       uVar6 = 0;
     }
     else {
@@ -104,8 +104,8 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     if (cVar2 == '\0') {
       AcquireSoundChannel(0);
     }
-    cVar2 = PeekPacketChecksumBool();
-    if ((cVar2 != '\0') || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) break;
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+    if ((cVar2 != '\0') || (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 != '\0')) break;
     goto LAB_00466d5c;
   case 6:
     if (param_3 != 1) break;
@@ -117,8 +117,8 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
       puVar11 = &DAT_00794e48;
     }
     uVar5 = PeekChecksumStateUnderLock(puVar11);
-    cVar2 = PeekPacketChecksumBool();
-    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 == '\x01')) {
       uVar6 = 0;
     }
     else {
@@ -143,8 +143,8 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
     if (cVar2 == '\0') {
       AcquireSoundChannel(0);
     }
-    cVar2 = PeekPacketChecksumBool();
-    if ((cVar2 != '\0') || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) break;
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+    if ((cVar2 != '\0') || (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 != '\0')) break;
     cVar2 = InitChecksumSeed();
     if (cVar2 == '\0') {
       uVar3 = 0x1e;
@@ -154,8 +154,8 @@ void __thiscall FUN_00466890(int param_1,undefined4 param_2,int param_3)
   case 8:
     if (param_3 != 1) break;
     QueueOutgoingPacketField(0xffffffff);
-    cVar2 = PeekPacketChecksumBool();
-    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
+    cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfbe));
+    if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfc1)), cVar2 == '\x01')) {
       uVar3 = 0;
     }
     else {

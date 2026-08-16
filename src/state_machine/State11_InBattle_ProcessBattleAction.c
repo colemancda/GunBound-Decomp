@@ -367,7 +367,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       else if (((((uVar1 == GB_ACT_FIELD_RELAY) &&
                  (uVar11 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c), bVar16 != uVar11)) &&
                 ((iVar4 = GetPlayerRecordBySlot(g_clientContext), iVar4 != 0 &&
-                 ((cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba)), cVar2 != '\0' && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0'))
+                 ((cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba)), cVar2 != '\0' && (cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba)), cVar2 != '\0'))
                  )))) && (*(int *)(iVar4 + 0x24) != 5)) && (*(int *)(iVar4 + 0x24) != 6)) {
         QueueOutgoingPacketField(*puVar12);
         QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x23));

@@ -51,7 +51,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
     *unaff_FS_OFFSET = uStack_c;
     return;
   }
-  cVar5 = PeekPacketChecksumBool();
+  cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0xbff4);
   if (cVar5 == '\0') {
     cVar5 = PacketChecksumLessThan(param_1 + 0x243,0);
     if (cVar5 != '\0') {
@@ -90,7 +90,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
       puVar13 = puVar13 + 1;
     }
   }
-  cVar5 = PeekPacketChecksumBool();
+  cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x1c50);
   if (cVar5 != '\0') {
     (**(code **)(*param_1 + 0x18))();
   }
@@ -106,8 +106,8 @@ void __fastcall SimulateMobileFrame(int *param_1)
   (**(code **)(*param_1 + 0x1c))(param_1[9],param_1[0xb]);
   cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar5 == '\x01') goto LAB_004628db;
-  cVar5 = PeekPacketChecksumBool();
-  if (((cVar5 == '\0') && (param_1[9] != 0xd)) && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) {
+  cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x1c50);
+  if (((cVar5 == '\0') && (param_1[9] != 0xd)) && (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x8ba8), cVar5 != '\0')) {
     piVar1 = param_1 + 0x579;
     piVar2 = param_1 + 0x243;
     cVar5 = ChecksumPairDiffers(piVar2,piVar1);
@@ -236,7 +236,7 @@ LAB_004622bc:
     QueueOutgoingPacketField(0);
   }
 LAB_004622cf:
-  cVar5 = PeekPacketChecksumBool();
+  cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x8ba8);
   if (cVar5 != '\0') {
     iVar11 = PeekChecksumStateUnderLock(&DAT_00e9bed8);
     iVar12 = param_1[0x2c26];
@@ -258,8 +258,8 @@ LAB_004622cf:
   }
   piVar1 = param_1 + 0x22f1;
   cVar5 = PacketChecksumGreaterThan(piVar1,0);
-  if ((((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool(), cVar5 == '\x01')) &&
-      (cVar5 = PeekPacketChecksumBool(), cVar5 == '\x01')) &&
+  if ((((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x8bae), cVar5 == '\x01')) &&
+      (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x8bb1), cVar5 == '\x01')) &&
      ((*(int *)(&DAT_005f3768 + g_clientContext) != 1 && (*(int *)(&DAT_005f3768 + g_clientContext) != 2))
      )) {
     EncodeDecrementedChecksum(param_1 + 0x22f1);
@@ -267,8 +267,8 @@ LAB_004622cf:
     uStack_4 = 0xb;
     cVar5 = PacketChecksumEquals(uVar9,0);
     if ((((cVar5 == '\0') ||
-         ((cVar5 = PeekPacketChecksumBool(), cVar5 == '\0' || (cVar5 = PeekPacketChecksumBool(), cVar5 == '\0')))) ||
-        (cVar5 = PeekPacketChecksumBool(), cVar5 == '\0')) ||
+         ((cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x1c50), cVar5 == '\0' || (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x8ba8), cVar5 == '\0')))) ||
+        (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x8bb1), cVar5 == '\0')) ||
        (cVar5 = PacketChecksumNotEquals(piVar1,0), cVar5 == '\0')) {
       bVar3 = false;
     }
@@ -283,7 +283,7 @@ LAB_004622cf:
   }
   bVar3 = false;
   cVar5 = PacketChecksumEquals(piVar1,0);
-  if ((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool(), cVar5 == '\x01')) {
+  if ((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x8bae), cVar5 == '\x01')) {
     QueueOutgoingPacketField(0xffffffff);
     cVar5 = PacketChecksumNotEquals(param_1 + 0x1e19,0);
     if (cVar5 != '\0') {
@@ -292,8 +292,8 @@ LAB_004622cf:
     ResolveNamedState(s_normal_00552230);
     uVar9 = DecodeGuardedBool();
     cVar5 = CheckGuardedBoolAnd(uVar9);
-    if (((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) &&
-       (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) {
+    if (((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x8bae), cVar5 != '\0')) &&
+       (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x1c50), cVar5 != '\0')) {
       QueueBroadcastEvent(0x8402);
       uVar7 = PeekChecksumStateUnderLock(param_1 + 0x243);
       *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
@@ -318,7 +318,7 @@ LAB_004622cf:
     }
   }
   cVar5 = PacketChecksumGreaterEqual(param_1 + 0x2cc,*(undefined4 *)(&g_nCameraBoundY + g_clientContext));
-  if (((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool(), cVar5 == '\x01')) &&
+  if (((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0xbff4), cVar5 == '\x01')) &&
      ((cVar5 = PacketChecksumEquals(g_clientContext + 0x45354,1), cVar5 != '\0' ||
       (cVar5 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar5 != '\0')))) {
     (**(code **)(*param_1 + 4))(&DAT_00555c90);
