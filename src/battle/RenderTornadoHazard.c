@@ -10,6 +10,14 @@
  * (0x555bc0), clamps to screen bounds 0x793530/0x56df30, emits vertices.
  * See InitTornadoHazard.c for the full object field/vtable map. Raw/near-
  * verbatim Ghidra body, not hand-verified - see src/README.md.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 5 argless PeekPacketChecksumState() calls.  Every one reads
+ * the scratch cell the delta helper on the line above returned - these
+ * helpers return their SECOND argument, the caller's stack scratch guard
+ * object, not their destination (see tools/sweep_guard_instructions.md).
+ * So each Peek's cell is simply the local_XXX the preceding
+ * EncodeChecksumDeltaAdd / EncodeChecksumDeltaDiv was handed.
  */
 #include "ghidra_types.h"
 
@@ -49,7 +57,7 @@ void __fastcall RenderTornadoHazard(int param_1)
   EncodeChecksumDeltaAdd(uVar2,local_454,400);
   SUBFIELD(local_4,0,undefined1) = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)(local_454));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if ((*(int *)(local_454 + 0x14)) != 0) {
@@ -66,14 +74,14 @@ void __fastcall RenderTornadoHazard(int param_1)
   local_4 = 2;
   local_688[0] = 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(local_454));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (DAT_00793530 <= iVar4 + iVar3) {
     EncodeChecksumDeltaDiv(iVar6,local_678,2);
     local_4 = 3;
     local_688[0] = 3;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(local_678));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     bVar1 = false;
     if (iVar3 - iVar4 <= DAT_0056df30) goto LAB_004ac8fb;
@@ -108,7 +116,7 @@ LAB_004ac8fb:
       EncodeChecksumDeltaDiv(iVar6,local_678,2);
       local_4 = 4;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar5 = PeekPacketChecksumState();
+      iVar5 = PeekPacketChecksumState((void *)(local_678));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       DAT_00ea0e28 = (float)(iVar3 - iVar5);
       local_4 = 0xffffffff;
@@ -120,7 +128,7 @@ LAB_004ac8fb:
       EncodeChecksumDeltaDiv(iVar6,local_230,2);
       local_4 = 5;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar6 = PeekPacketChecksumState();
+      iVar6 = PeekPacketChecksumState((void *)(local_230));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       _DAT_00ea0e4c = (float)(iVar6 + -1 + iVar3);
       local_4 = 0xffffffff;
