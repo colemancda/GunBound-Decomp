@@ -4,6 +4,15 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 3 argless PeekPacketChecksumState() calls.  Two read a list
+ * object's + 0xb30 cell (int index 0x2cc): 0x43bf3b `lea eax,[esi+0xb30]`
+ * on the outer walker piVar16, and 0x43c1bc `lea ebp,[edi+0xb30]` on the
+ * inner walker piVar5 (the C compares `piVar5 != piVar16` right there).
+ * The third reads local_684, the scratch InitGuardedChecksumSlot returned
+ * on the line above (0x43c027; these helpers return their arg2, see
+ * tools/sweep_guard_instructions.md).
  */
 #include "ghidra_types.h"
 
@@ -89,7 +98,7 @@ void FUN_0043bda0(void)
           if (bVar17 && (bVar3 >> (bVar14 & 7) & 1) == 1) {
             iVar9 = *(int *)(&g_nCameraBoundY + g_clientContext);
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-            iVar8 = PeekPacketChecksumState();
+            iVar8 = PeekPacketChecksumState((void *)(piVar16 + 0x2cc));
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             if (iVar8 < iVar9) {
               EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -116,7 +125,7 @@ void FUN_0043bda0(void)
                 InitGuardedChecksumSlot(piVar16 + 0x2d41,local_684,piVar16 + 0x2d41);
                 local_c = 0;
                 EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-                iVar9 = PeekPacketChecksumState();
+                iVar9 = PeekPacketChecksumState((void *)(local_684));
                 LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                 local_c = 0xffffffff;
                 if (local_670 != 0) {
@@ -151,7 +160,7 @@ LAB_0043c0e0:
                        ((piVar5 != piVar16 && (cVar7 = PeekPacketChecksumBool(), cVar7 == '\x01')))) {
                       iVar8 = *(int *)(&g_nCameraBoundY + g_clientContext);
                       (*pcVar15)(&DAT_005a9068);
-                      iVar10 = PeekPacketChecksumState();
+                      iVar10 = PeekPacketChecksumState((void *)(piVar5 + 0x2cc));
                       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
                       pcVar15 = (code *)EnterCriticalSection;
                       if ((iVar10 < iVar8) &&
