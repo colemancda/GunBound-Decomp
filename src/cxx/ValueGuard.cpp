@@ -1,7 +1,7 @@
 /* CValueGuard methods - the "packet-checksum utility family" promoted
  * to real methods of the guarded-value cell. Promoted from the raw C
  * ports under src/network/ (PeekPacketChecksumState 0x40a2e0,
- * EncodeOutgoingPacketField 0x40a470, EncodeChecksumState 0x40a4a0,
+ * EncodeOutgoingPacketField 0x40a380, EncodeChecksumState 0x40a4a0,
  * EncodeChecksumStateXored 0x40a440, AddToPacketChecksum 0x40aab0,
  * SubFromPacketChecksum 0x40aaf0, PacketChecksumEquals 0x40b270,
  * PacketChecksumNotEquals 0x40b2a0). See ValueGuard.h and
@@ -66,7 +66,14 @@ u32 CValueGuard::Peek()
     return decoded[0];
 }
 
-/* 0x40a470. Re-obfuscate the cell with a fresh value AND fold that
+/* ADDRESS CORRECTION (2026-08-16): this method was annotated 0x40a470
+ * throughout.  0x40a470 is NOT the encoder - it is a thin LOCK WRAPPER
+ * (cell in EAX; Enter -> 0x40a380 -> Leave; returns the cell), i.e.
+ * QueueOutgoingPacketField.  The encoder this body actually implements,
+ * field for field, is 0x40a380: cell in EDI, value as one stack argument,
+ * `ret 4`.  Only the comments were wrong; the code was always right.
+ *
+0x40a380. Re-obfuscate the cell with a fresh value AND fold that
  * value into the outgoing packet stream. Advances the cell's key-table
  * handle through the registry, then stores four XOR-encoded copies. */
 void CValueGuard::EncodeOutgoingPacketField(u32 value)

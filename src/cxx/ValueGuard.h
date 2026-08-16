@@ -2,7 +2,7 @@
  * object behind the "packet-checksum" utility family (ARCHITECTURE.md
  * "Packet-checksum utility family"). Reconstructed from
  * PeekPacketChecksumState (0x40a2e0), EncodeOutgoingPacketField
- * (0x40a470) and the Encode/Add/Sub wrappers. See src/cxx/README.md.
+ * (0x40a380) and the Encode/Add/Sub wrappers. See src/cxx/README.md.
  *
  * NOT actually a checksum - it's a value-obfuscation cell (the classic
  * GunBound client-side anti-cheat): the real value is stored FOUR
@@ -54,7 +54,7 @@ struct CValueGuard {
      * ValueGuard.cpp) - each takes the cell in a register in the
      * original, i.e. is really a member of this cell. */
     u32  Peek();                                 /* 0x40a2e0 */
-    void EncodeOutgoingPacketField(u32 value);   /* 0x40a470 */
+    void EncodeOutgoingPacketField(u32 value);   /* 0x40a380 */
     void Encode();                               /* 0x40a4a0 */
     void EncodeXored();                          /* 0x40a440 */
     void Add(int delta);                         /* 0x40aab0 */
