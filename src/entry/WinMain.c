@@ -62,67 +62,75 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   undefined4 uStack_407;
   
   WinMain_BringupInit();   /* init value-guard key table (see winmain_bringup.h) */
+  /* 2026-08-16: the 20 guard cells below were writing into
+   * g_vgWinMainObjects[], a bring-up-only backing array, while the ~250 call
+   * sites elsewhere in the tree read the REAL globals (&DAT_00796aa0 et al)
+   * that the original encodes here.  The two views never met, so every one of
+   * those reads saw a never-encoded cell.  All 20 globals are now sized 0x224
+   * in globals_sized.c, so WinMain writes the cells the rest of the tree
+   * reads - the addresses and opcodes are exactly the map in
+   * winmain_bringup.h. */
   FUN_00525f26(s_test_txt_00552c30);
   FUN_00525f26(s_c__comsik_txt_00552778);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[0], 0x118);
+  EncodeOutgoingPacketField(&DAT_00e525e8, 0x118);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[1], 0);
+  EncodeOutgoingPacketField(&DAT_007947a0, 0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[2], 2);
+  EncodeOutgoingPacketField(&DAT_007a7690, 2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[3], 4);
+  EncodeOutgoingPacketField(&DAT_00e9bc68, 4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[4], 5);
+  EncodeOutgoingPacketField(&DAT_00e53c60, 5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[5], 8);
+  EncodeOutgoingPacketField(&DAT_00796cc8, 8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[6], 10);
+  EncodeOutgoingPacketField(&DAT_00e9ba40, 10);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[7], 0xf);
+  EncodeOutgoingPacketField(&DAT_00794bf0, 0xf);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[8], 0x14);
+  EncodeOutgoingPacketField(&DAT_00e55ab8, 0x14);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[9], 0x19);
+  EncodeOutgoingPacketField(&DAT_007949c8, 0x19);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[10], 0x1e);
+  EncodeOutgoingPacketField(&DAT_00e9c110, 0x1e);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[11], 0x32);
+  EncodeOutgoingPacketField(&DAT_00e9b818, 0x32);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[12], 0x46);
+  EncodeOutgoingPacketField(&DAT_00e53470, 0x46);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[13], 0x50);
+  EncodeOutgoingPacketField(&DAT_00794e48, 0x50);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[14], 0x62);
+  EncodeOutgoingPacketField(&DAT_007a78b8, 0x62);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[15], 100);
+  EncodeOutgoingPacketField(&DAT_00796aa0, 100);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[16], 0xa0);
+  EncodeOutgoingPacketField(&DAT_00e9c578, 0xa0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[17], 200);
+  EncodeOutgoingPacketField(&DAT_00e9c7a0, 200);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[18], 0x100);
+  EncodeOutgoingPacketField(&DAT_00e9c350, 0x100);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(g_vgWinMainObjects[19], 0x168);
+  EncodeOutgoingPacketField(&DAT_00e9bed8, 0x168);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pvVar2 = CreateMutexA((LPSECURITY_ATTRIBUTES)0x0,1,s_SoftnyxGunBound_gme_00552764);
   DVar3 = GetLastError();

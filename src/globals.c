@@ -614,7 +614,7 @@ uint32_t g_gameEventRingWriteIndex;
 uint32_t g_gameEventRingReadIndex;
 uint8_t g_gameEventTypeRing;
 uint8_t g_gameEventDataRing;
-uint8_t DAT_00794bf0;
+/* DAT_00794bf0: moved to globals_sized.c (0x224 CValueGuard cell). */
 uint8_t DAT_00794e14;
 /* The input-event ring buffer (write/read cursors + 3 field arrays) is now
  * ONE contiguous object g_inputEventRing in globals_sized.c, reached through
@@ -622,7 +622,7 @@ uint8_t DAT_00794e14;
  * MUST be contiguous because EnqueueInputEvent walks the whole ring off the write
  * cursor's address. */
 uint8_t DAT_00796878;
-uint8_t DAT_00796aa0;
+/* DAT_00796aa0: moved to globals_sized.c (0x224 CValueGuard cell). */
 /* g_localizedStringTable: moved to globals_sized.c - the whole string
  * map lives at this address, not one byte */
 uint8_t g_cursorTexture;
@@ -634,7 +634,7 @@ uint32_t g_cursorFrame;
 uint8_t DAT_007a767c[0x10];
 uint8_t DAT_007a768c;
 /* Standalone CValueGuard cell - see globals.h. */
-uint8_t DAT_007a7690[0x224];
+/* DAT_007a7690: moved to globals_sized.c (0x224 CValueGuard cell). */
 uint8_t DAT_00d9aa20;
 uint8_t DAT_00d9aa24;
 uint8_t DAT_00d9aa28;
@@ -642,7 +642,7 @@ uint8_t DAT_00d9aa2c;
 uint8_t DAT_00d9aa30;
 uint8_t DAT_00d9aa34;
 uint8_t DAT_00d9aa35;
-uint8_t DAT_00e525e8;
+/* DAT_00e525e8: moved to globals_sized.c (0x224 CValueGuard cell). */
 int *DAT_00e52814;
 uint32_t DAT_00e52838;
 uint32_t DAT_00e5283c;
@@ -742,7 +742,7 @@ uint8_t DAT_00e53e88[0xf28];
 uint8_t DAT_00e55a45;
 uint8_t DAT_00e55a46;
 int *DAT_00e55a64;
-uint8_t DAT_00e55ab8;
+/* DAT_00e55ab8: moved to globals_sized.c (0x224 CValueGuard cell). */
 /* g_replayContext (was DAT_00e55ce0): moved to globals_sized.c (0x454f9-byte struct - battle/replay turn-event buffer; real extent established via FUN_004e84c0/FUN_004e7b60/FUN_004e80d0/FUN_004e77e0/FUN_004e7de0/FUN_004e6050, all of which take &g_replayContext as their context arg; the ~42 other DAT_00e5.../DAT_00e9... globals formerly declared here in this offset range are now offset-macros into that storage - see globals.h). The CRITICAL_SECTION at +0x45264 (DAT_00e9af44) stays separately declared/sized; this array does not cover it. */
 /* DAT_00e9af44: moved to globals_sized.c (CRITICAL_SECTION) */
 uint8_t DAT_00e9b4e8;
@@ -757,8 +757,8 @@ uint8_t DAT_00e9b78a;
 uint8_t DAT_00e9b80a;
 uint8_t DAT_00e9b80c;
 uint8_t DAT_00e9b810;
-uint8_t DAT_00e9b818;
-uint8_t DAT_00e9ba40;
+/* DAT_00e9b818: moved to globals_sized.c (0x224 CValueGuard cell). */
+/* DAT_00e9ba40: moved to globals_sized.c (0x224 CValueGuard cell). */
 /* DAT_00e9be90/DAT_00e9c0fc were 1-byte placeholders, but SweepActiveObjectRegistry's
  * header (and InvokeWidget.c's already-fixed traversal) established these
  * are two independent 32-byte "8-word" flat-ButtonWidget registry roots -
@@ -788,7 +788,7 @@ uint8_t DAT_00e9be9c;
 uint8_t DAT_00e9bea0;
 uint8_t DAT_00e9bea4;
 uint32_t DAT_00e9bea8;
-uint8_t DAT_00e9bed8;
+/* DAT_00e9bed8: moved to globals_sized.c (0x224 CValueGuard cell). */
 uint8_t DAT_00e9c0fc[0x20];
 uint32_t DAT_00e9c104;
 uint8_t DAT_00e9c108;
@@ -2016,8 +2016,8 @@ uint32_t DAT_00793670;
 uint32_t DAT_0079371c;
 uint32_t DAT_00793720;
 uint32_t DAT_00793724;
-uint32_t DAT_007949c8;
-uint32_t DAT_00794e48;
+/* DAT_007949c8: moved to globals_sized.c (0x224 CValueGuard cell). */
+/* DAT_00794e48: moved to globals_sized.c (0x224 CValueGuard cell). */
 uint32_t g_lastCursorDirection;
 uint32_t DAT_00989680;
 uint32_t DAT_00e54a9c;
@@ -2038,7 +2038,7 @@ uint32_t DAT_00e54da8;
 uint32_t DAT_00e55a34;
 uint32_t DAT_00e55a54;
 uint32_t DAT_00e55a58;
-uint32_t DAT_00e9c578;
+/* DAT_00e9c578: moved to globals_sized.c (0x224 CValueGuard cell). */
 uint32_t DAT_00e9cd30;
 uint32_t DAT_00f25840;
 uint32_t DAT_00f25844;

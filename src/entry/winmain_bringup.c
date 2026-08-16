@@ -12,7 +12,12 @@
  *   [12] 0xe53470 (0x46)   [13] 0x794e48 (0x50)  [14] 0x7a78b8 (0x62)
  *   [15] 0x796aa0 (0x64)   [16] 0xe9c578 (0xa0)  [17] 0xe9c7a0 (0xc8)
  *   [18] 0xe9c350 (0x100)  [19] 0xe9bed8 (0x168)                        */
-unsigned char g_vgWinMainObjects[GB_VG_SLOTS][GB_VG_OBJ_SIZE];
+/* RETIRED 2026-08-16: this array used to provide standalone 0x224 backing for
+ * WinMain's 20 guard cells because the real DAT_ globals were 1-byte scalars.
+ * They are now correctly sized in globals_sized.c and WinMain writes them
+ * directly, so the separate backing (and the divergence it created against the
+ * rest of the tree's reads) is gone.  The address->slot map above is kept: it
+ * is the recovered ground truth for which global holds which opcode. */
 
 /* The value-guard XOR key table. EncodeOutgoingPacketField reads 16-byte rows
  * from DAT_0079376c indexed by the (startup-zero) counter DAT_00793778, so only

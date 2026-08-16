@@ -47,15 +47,44 @@ unsigned char g_localizedStringTable[0x10000];
  * FUN_004e7de0's own use of that offset, not addressed by this change. */
 unsigned char g_replayContext[0x454f9];
 
-/* WinMain value-guard slot 18 (orig 0xe9c350, opcode 0x100 in
- * winmain_bringup.c's address->slot map): a full 0x224-byte CValueGuard
- * cell, peeked by FUN_004513b0 (0x45154e/0x4515f6). No symbol existed at
- * this address before 2026-08-11; sized correctly from the start unlike
- * the 1-byte siblings (DAT_00e9ba40/DAT_00e9bed8 - see the CValueGuard
- * flip checklist: ALL 20 WinMain slot cells need 0x224 sizing before the
- * guard flip). Range 0xe9c350..0xe9c574 verified clear of other symbols
- * (next: DAT_00e9c578). */
-unsigned char DAT_00e9c350[0x224];
+/* ---- The 20 WinMain value-guard slot cells, all 0x224 ----------------
+ * WinMain (0x40d8e0) encodes one opcode into each of these 20 cells via
+ * `mov edi,<obj>; call 0x40a380`; the addresses and opcodes are the map in
+ * winmain_bringup.h.  They are ordinary 0x224-byte CValueGuard cells in the
+ * original, but globals.c had them as 1-byte (or 4-byte) scalars, which the
+ * guard flip would turn into out-of-bounds reads AND writes - CValueGuard::Peek
+ * re-encodes the cell it just read, touching bytes 4..0x17.  Sized here so the
+ * externs in globals.h can stay `uint8_t` and every existing `&DAT_...` call
+ * site keeps its `unsigned char *` type (the whole point of this TU).
+ *
+ * Verified 2026-08-16: no other symbol referenced anywhere in the tree falls
+ * inside any of the 20 ranges EXCEPT one at exactly +0x14 in every single
+ * case - that is the cell's own `tableHandle` word, which Ghidra named
+ * separately because some code tests it directly (`if (DAT_00796ab4 != 0)`).
+ * Those 20 alias globals are deliberately left as independent scalars: while
+ * the key table is zeroed (winmain_bringup.c) every handle written is 0 and
+ * the aliases stay 0 too, so the two views agree.  If the key table is ever
+ * made real they must be unified onto <cell>+0x14. */
+unsigned char DAT_00e525e8[0x224];   /* slot  0, opcode 0x118 */
+unsigned char DAT_007947a0[0x224];   /* slot  1, opcode 0x0   */
+unsigned char DAT_007a7690[0x224];   /* slot  2, opcode 0x2   */
+unsigned char DAT_00e9bc68[0x224];   /* slot  3, opcode 0x4   */
+unsigned char DAT_00e53c60[0x224];   /* slot  4, opcode 0x5   */
+unsigned char DAT_00796cc8[0x224];   /* slot  5, opcode 0x8   */
+unsigned char DAT_00e9ba40[0x224];   /* slot  6, opcode 0xa   */
+unsigned char DAT_00794bf0[0x224];   /* slot  7, opcode 0xf   */
+unsigned char DAT_00e55ab8[0x224];   /* slot  8, opcode 0x14  */
+unsigned char DAT_007949c8[0x224];   /* slot  9, opcode 0x19  */
+unsigned char DAT_00e9c110[0x224];   /* slot 10, opcode 0x1e  */
+unsigned char DAT_00e9b818[0x224];   /* slot 11, opcode 0x32  */
+unsigned char DAT_00e53470[0x224];   /* slot 12, opcode 0x46  */
+unsigned char DAT_00794e48[0x224];   /* slot 13, opcode 0x50  */
+unsigned char DAT_007a78b8[0x224];   /* slot 14, opcode 0x62  */
+unsigned char DAT_00796aa0[0x224];   /* slot 15, opcode 0x64  */
+unsigned char DAT_00e9c578[0x224];   /* slot 16, opcode 0xa0  */
+unsigned char DAT_00e9c7a0[0x224];   /* slot 17, opcode 0xc8  */
+unsigned char DAT_00e9c350[0x224];   /* slot 18, opcode 0x100 */
+unsigned char DAT_00e9bed8[0x224];   /* slot 19, opcode 0x168 */
 
 /* The named-texture-cache singleton (was the 1-byte DAT_00eb1bd8).
  * Constructed by InitTextureCache from the CRT static-initializer

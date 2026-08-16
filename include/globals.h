@@ -786,7 +786,7 @@ extern uint8_t DAT_007a768c;
  * DetonateSuperShot_Bullet7 (0x49a627) and DetonateSuperShot_Bullet16
  * (0x467d37) via `mov eax,0x7a7690`.  Declared 2026-08-16 to close the
  * last two sites of the CValueGuard cell sweep. */
-extern uint8_t DAT_007a7690[0x224];
+extern uint8_t DAT_007a7690;
 extern uint8_t DAT_00d9aa20;
 extern uint8_t DAT_00d9aa24;
 extern uint8_t DAT_00d9aa28;
@@ -932,6 +932,20 @@ extern uint8_t DAT_00e9bea0;
 extern uint8_t DAT_00e9bea4;
 extern uint32_t DAT_00e9bea8;
 extern uint8_t DAT_00e9bed8;
+
+/* WinMain value-guard slot cells with no prior declaration - real
+ * 0x224 storage lives in globals_sized.c; these stay uint8_t so every
+ * &DAT_ call site keeps its unsigned char * type (see that file). */
+extern uint8_t DAT_007947a0;   /* WinMain guard slot 1  (opcode 0x0) */
+extern uint8_t DAT_00e9bc68;   /* WinMain guard slot 3  (opcode 0x4) */
+extern uint8_t DAT_00e53c60;   /* WinMain guard slot 4  (opcode 0x5) */
+extern uint8_t DAT_00796cc8;   /* WinMain guard slot 5  (opcode 0x8) */
+extern uint8_t DAT_00e9c110;   /* WinMain guard slot 10 (opcode 0x1e) */
+extern uint8_t DAT_00e53470;   /* WinMain guard slot 12 (opcode 0x46) */
+extern uint8_t DAT_007a78b8;   /* WinMain guard slot 14 (opcode 0x62) */
+extern uint8_t DAT_00e9c7a0;   /* WinMain guard slot 17 (opcode 0xc8) */
+extern uint8_t DAT_00e9c350;   /* WinMain guard slot 18 (opcode 0x100) */
+
 extern uint8_t DAT_00e9c0fc[0x20]; /* sized to real storage - see globals.c */
 extern uint32_t DAT_00e9c104;
 extern uint8_t DAT_00e9c108;
@@ -2106,8 +2120,8 @@ extern uint32_t DAT_00e55a34;
 extern uint32_t DAT_00e55a54;
 extern uint32_t DAT_00e55a58;
 #define DAT_00e9af60 (*(uint32_t*)(&g_replayContext+0x45280))
-/* WinMain value-guard slot 18 - full 0x224-byte cell in globals_sized.c */
-extern unsigned char DAT_00e9c350[0x224];
+/* WinMain value-guard slot 18 - declared with its 19 siblings above; the
+ * full 0x224-byte storage is in globals_sized.c. */
 extern uint32_t DAT_00e9c578;
 extern uint32_t DAT_00e9cd30;
 extern uint32_t DAT_00f25840;

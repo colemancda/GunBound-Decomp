@@ -344,7 +344,7 @@ LAB_00467bba:
   cVar6 = PeekPacketChecksumBool();
   if ((cVar6 != '\0') && (cVar6 = InitChecksumSeed(), cVar6 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar10 = PeekPacketChecksumState((void *)(DAT_007a7690));
+    uVar10 = PeekPacketChecksumState((void *)(&DAT_007a7690));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     QueueOutgoingPacketField(uVar10);
     iVar7 = g_clientContext;

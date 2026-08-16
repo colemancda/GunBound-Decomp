@@ -520,7 +520,7 @@ LAB_0049a61e:
   cVar2 = PeekPacketChecksumBool();
   if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState((void *)(DAT_007a7690));
+    uVar6 = PeekPacketChecksumState((void *)(&DAT_007a7690));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     QueueOutgoingPacketField(uVar6);
   }
