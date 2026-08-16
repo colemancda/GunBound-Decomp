@@ -933,6 +933,16 @@ extern uint8_t DAT_00e9bea4;
 extern uint32_t DAT_00e9bea8;
 extern uint8_t DAT_00e9bed8;
 
+/* Four 6-cell CValueGuard tables (6 * 0x224 = 0xcd8 bytes each), indexed by
+ * FUN_004ac260 / FUN_004ac330 / FUN_004ac400 / FUN_004ac4d0 as
+ * `<index> * 0x224 + <base>`.  Real storage in globals_sized.c; these stay
+ * uint8_t so `&DAT_...` keeps its unsigned char * type. */
+extern uint8_t DAT_00e9da08;   /* guard table, indexed by FUN_004ac260 */
+extern uint8_t DAT_00e9e6e0;   /* guard table, indexed by FUN_004ac330 */
+extern uint8_t DAT_00e9f3b8;   /* guard table, indexed by FUN_004ac400 */
+extern uint8_t DAT_00ea0090;   /* guard table, indexed by FUN_004ac4d0 */
+
+
 /* WinMain value-guard slot cells with no prior declaration - real
  * 0x224 storage lives in globals_sized.c; these stay uint8_t so every
  * &DAT_ call site keeps its unsigned char * type (see that file). */

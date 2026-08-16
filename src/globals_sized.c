@@ -86,6 +86,19 @@ unsigned char DAT_00e9c7a0[0x224];   /* slot 17, opcode 0xc8  */
 unsigned char DAT_00e9c350[0x224];   /* slot 18, opcode 0x100 */
 unsigned char DAT_00e9bed8[0x224];   /* slot 19, opcode 0x168 */
 
+/* ---- Four 6-cell CValueGuard tables ---------------------------------
+ * FUN_004ac260 / FUN_004ac330 / FUN_004ac400 / FUN_004ac4d0 each peek one
+ * cell of their own table at `<index> * 0x224 + <base>`, where <index> is
+ * the result of the peek immediately above (which Ghidra discarded).  The
+ * bases are 0xcd8 = 6 * 0x224 apart, so each table is exactly six cells.
+ * No symbol referenced anywhere in the tree falls inside any of the four
+ * ranges (verified 2026-08-16); nothing declared them before, which is why
+ * those four files were parked on the flip checklist. */
+unsigned char DAT_00e9da08[6 * 0x224];   /* FUN_004ac260's table */
+unsigned char DAT_00e9e6e0[6 * 0x224];   /* FUN_004ac330's table */
+unsigned char DAT_00e9f3b8[6 * 0x224];   /* FUN_004ac400's table */
+unsigned char DAT_00ea0090[6 * 0x224];   /* FUN_004ac4d0's table */
+
 /* The named-texture-cache singleton (was the 1-byte DAT_00eb1bd8).
  * Constructed by InitTextureCache from the CRT static-initializer
  * 0x5429b0, destroyed via the atexit thunk FUN_00543950 ->
