@@ -3,6 +3,16 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls.  C79 is 0x45f244
+ * (`lea eax,[esi + 0x6968]`, ESI = the __fastcall `this` from the prologue
+ * `mov esi,ecx`) -- i.e. param_1 + 0x1a5a ints.  C80 is 0x45f24d, reading
+ * EDI, which was set at 0x45f226 from the return value of the 0x40a8c0
+ * delta-div helper called at 0x45f221 (the EncodeChecksumDeltaDiv three
+ * lines above, whose first arg `lea eax,[esi + 0x6744]` is param_1 +
+ * 0x19d1); that helper RETURNS ITS SECOND ARGUMENT, the caller's stack
+ * scratch cell auStack_230.
  */
 #include "ghidra_types.h"
 
@@ -76,8 +86,8 @@ void __fastcall FUN_0045ed80(int *param_1)
     EncodeChecksumDeltaDiv(param_1 + 0x19d1,auStack_230,3);
     uStack_4 = 3;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar6 = PeekPacketChecksumState();
-    iVar7 = PeekPacketChecksumState();
+    iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x1a5a));
+    iVar7 = PeekPacketChecksumState((void *)(auStack_230));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_4 = 0xffffffff;
     if (iStack_21c != 0) {
