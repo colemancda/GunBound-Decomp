@@ -3,6 +3,17 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at 8 of the 10 argless PeekPacketChecksumState() calls.  Two peeks
+ * read the object at param_1 + 0xcf2 (0x33c8 bytes; frame[0x8e0] is this
+ * function's own param_1), and six read the EncodeChecksumPairDiff arg2
+ * scratch that the immediately preceding call returns - local_678 /
+ * local_454 / local_89c / local_230 (the helpers return arg2, see
+ * tools/sweep_guard_instructions.md).  NOT FIXED (marked inline): the two
+ * `param_1[0xff0] = Peek()` sites at 0x49830e / 0x49860a read frame[0x20]
+ * and frame[0x10], slots with no write on the reaching path inside this
+ * function's extent - they need a per-path trace, not a linear back-walk.
  */
 #include "ghidra_types.h"
 
@@ -45,7 +56,7 @@ void FUN_00498070(int *param_1)
     iVar3 = GetPlayerRecordBySlot(g_clientContext);
     if ((iVar3 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar4 = PeekPacketChecksumState();
+      iVar4 = PeekPacketChecksumState((void *)(param_1 + 0xcf2));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       cVar2 = PeekPacketChecksumBool();
       if (cVar2 != '\0') {
@@ -60,7 +71,7 @@ void FUN_00498070(int *param_1)
       EncodeChecksumPairDiff(param_1 + 0x10,local_678,local_8bc[0]);
       local_4 = 0;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      local_8c4[0] = PeekPacketChecksumState();
+      local_8c4[0] = PeekPacketChecksumState((void *)(local_678));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_678 + 0x14)) != 0) {
@@ -70,7 +81,7 @@ void FUN_00498070(int *param_1)
       EncodeChecksumPairDiff(param_1 + 0x99,local_454,iVar3 + 0xb30);
       local_4 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = PeekPacketChecksumState();
+      iVar3 = PeekPacketChecksumState((void *)(local_454));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_454 + 0x14)) != 0) {
@@ -84,7 +95,7 @@ void FUN_00498070(int *param_1)
         EncodeChecksumPairDiff(param_1 + 0x10,local_89c,local_8bc[0]);
         local_4 = 2;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar3 = PeekPacketChecksumState();
+        iVar3 = PeekPacketChecksumState((void *)(local_89c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_4 = 0xffffffff;
         local_8a0 = iVar3;
@@ -93,7 +104,7 @@ void FUN_00498070(int *param_1)
           TreeLowerBound(local_8a8);
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar3 = PeekPacketChecksumState();
+        iVar3 = PeekPacketChecksumState();  /* NOT FIXED: cell is frame[0x20] / frame[0x10], a slot never written on this path in 0x498070-0x49860a - needs a per-path trace */
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         param_1[0xff0] = iVar3;
       }
@@ -135,13 +146,13 @@ LAB_00498629:
 LAB_00498381:
   if (uVar1 != local_8c8) goto code_r0x00498383;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(param_1 + 0xcf2));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_8ac = iVar4 * iVar4;
   EncodeChecksumPairDiff(param_1 + 0x10,local_89c,iVar3 + 0x25c);
   local_4 = 3;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_8a8[0] = PeekPacketChecksumState();
+  local_8a8[0] = PeekPacketChecksumState((void *)(local_89c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = (*(int *)(local_89c + 0x14));
   local_4 = 0xffffffff;
@@ -160,7 +171,7 @@ LAB_00498381:
   EncodeChecksumPairDiff(param_1 + 0x99,local_678,iVar3 + 0x480);
   local_4 = 4;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(local_678));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   local_8bc[0] = (*(int *)(local_678 + 0x14));
@@ -183,7 +194,7 @@ LAB_00498381:
     EncodeChecksumPairDiff(param_1 + 0x10,local_230,iVar3 + 0x25c);
     local_4 = 5;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(local_230));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = (*(int *)(local_230 + 0x14));
     local_4 = 0xffffffff;
@@ -201,7 +212,7 @@ LAB_00498381:
       TreeLowerBound(local_8c4);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState();  /* NOT FIXED: cell is frame[0x20] / frame[0x10], a slot never written on this path in 0x498070-0x49860a - needs a per-path trace */
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     param_1[0xff0] = iVar3;
   }
