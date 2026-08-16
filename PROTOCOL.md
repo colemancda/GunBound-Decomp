@@ -1393,8 +1393,13 @@ this is a genuine **cross-state data write**, populating battle-setup state
 before the In-Battle state object is even the currently-active game state.
 The written value is checked against the sentinels `60000` and `0xffff`
 (60,000 milliseconds = the classic GunBound 60-second turn time limit).
-Also copies an 8-element array (16 bytes, shorts) into `+0x2302` on the same
-In-Battle object — likely wind direction and/or spawn-position data for the
+Also copies an 8-element array into `+0x2302` on the same In-Battle object
+— **corrected 2026-08-16: the elements are 32-bit words, so the block is 32
+bytes, not the 16 bytes previously stated here.** All three copy loops that
+fill this array (this handler, and State 11's own `0xc301` and `0xc308` arms)
+iterate 8 times over an `undefined4 *` cursor; the `0xc308` loop advances its
+`ushort *` source by 2 elements per iteration, which is the same 4 bytes.
+The block is likely wind direction and/or spawn-position data for the
 upcoming match. Additionally performs a per-player sound-profile selection,
 choosing between `"normal"` and `"wnormal"` (weighted/heavy?) character
 audio profiles based on a lookup.
@@ -2419,7 +2424,7 @@ this document:
 | Player game slot (unresolved) | `0x224` (548 bytes) | Separately seen in a 20-element accumulation loop in the room-list's stat-summing (unlabeled) opcode, and the Avatar Store's 8-element per-avatar array (`FUN_00443c20`'s constructor) — these may or may not be the same struct as the checksum-state one above (same size could be coincidence, or the checksum state could be embedded as a sub-object within a larger per-player struct in these other contexts). Not resolved this pass. Action `0x8408` does **not** populate this — that action writes into four separate 4-byte-per-slot `uint` arrays (`+0x228`/`+0x2a8`/`+0x328`/`+0x3a8`, indexed by active-slot position), a completely different structure (see that action's writeup above). |
 | Room player display slot | `0x80` (128 bytes) | Room-list opcodes `0x2105`/`0x21f0`/`0x21f2` all write into this exact buffer, indexed as `base + slot*0x80`. |
 | Per-**room** grid fields (per room slot, individually syncable) — *corrected from "player stat fields"; they're indexed by room slot and drawn by `RenderRoomCard`* | Six fields: `map` (1B, `+0x4497c`) / `flagA` (1B, `+0x4499c`) / `info` (4B, `+0x44984`, bits 18-19 = fullness) / `flagB` (1B, `+0x449a2`) / `status` (1B, `+0x449a8`) / `lock` (1B, `+0x449ae`), from the room-slot base | Opcode `0x2103` (`payload[0]==0`) bulk-fills all six for every room slot; opcodes `0x21f3`-`0x21f7` update them one field/room at a time (no `0x21fX` for `+0x449ae`/lock, so lock is bulk-only). |
-| In-Battle turn-setup array | 8 shorts (16 bytes) at offset `+0x2302` | Channel 2 actions `0xc301` (initial write, paired with the turn-timer field) and `0xc308` (mid-turn update, standalone) both target this array. |
+| In-Battle turn-setup array | 8 × `u32` (32 bytes) at offset `+0x2302` — *corrected 2026-08-16 from "8 shorts (16 bytes)"; all three copy loops step an `undefined4 *`, and the `0xc308` loop's `ushort *` source advances 2 elements (4 bytes) per iteration* | Channel 2 actions `0xc301` (initial write, paired with the turn-timer field) and `0xc308` (mid-turn update, standalone) both target this array. |
 | Inventory item | `0x9c` (156 bytes) | Avatar Store opcode `0x6002` — four `uint` id fields, a `time_t` expiration timestamp, and a variable-length trailing blob. |
 | Player name/label buffer | `0x1120` (4,384 bytes) | Channel 2's In-Battle movement action (`0xc304`) looks up per-player entries in an array with this stride — a second, much larger parallel array distinct from the 548-byte player-game-slot array. |
 | Hit/damage log entry (tentative) | `0x80` (128 bytes) stride across four parallel arrays at `+0x27`/`+0xa7`/`+0x127`/`+0x1a7` | Channel 2 action `0x8404` — distinct from, and not to be confused with, the primary spawn arrays at `+0x228`/`+0x2a8`/`+0x328`/`+0x3a8` used by action `0x8408`. |

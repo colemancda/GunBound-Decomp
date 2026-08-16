@@ -41,6 +41,16 @@ GB_STATIC_ASSERT(sizeof(CProjectile) == 0x3f9c, projectile_size);
 GB_STATIC_ASSERT(sizeof(GbActionHeader) == 0x21,  actionheader_size);
 GB_STATIC_ASSERT(sizeof(GbFirePayload)  == 0x1c,  firepayload_size);
 GB_STATIC_ASSERT(sizeof(GbInventoryItem)== 0x9c,  invitem_size);
+GB_STATIC_ASSERT(sizeof(GbServerListEntryHead) == 4,  srvhead_size);
+GB_STATIC_ASSERT(sizeof(GbServerListEntryTail) == 13, srvtail_size);
+GB_STATIC_ASSERT(sizeof(GbRoomGridEntryTail)   == 9,  roomtail_size);
+GB_STATIC_ASSERT(sizeof(GbJoinRoomRequest)     == 8,  joinroom_size);
+GB_STATIC_ASSERT(sizeof(GbAimRelayPayload)          == 5,  aimrelay_size);
+GB_STATIC_ASSERT(sizeof(GbFireFeedbackSoundPayload) == 6,  firesnd_size);
+GB_STATIC_ASSERT(sizeof(GbPositionRelayPayload)     == 6,  posrelay_size);
+GB_STATIC_ASSERT(sizeof(GbTurnStartPayload)         == 6,  turnstart_size);
+GB_STATIC_ASSERT(sizeof(GbTurnSetupPayload)         == 0x23, turnsetup_size);
+GB_STATIC_ASSERT(sizeof(GbWindUpdatePayload)        == 0x20, windupd_size);
 
 /* --- CWidget hierarchy: confirmed field offsets and sizes -------------- */
 GB_STATIC_ASSERT(sizeof(CWidget)    == 0x38,  widget_size);
@@ -89,6 +99,25 @@ static void gb_widget_offset_checks()
     GB_STATIC_ASSERT(GB_OFFSETOF(GbInventoryItem, expYear) == 0x12, off_expyear);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbInventoryItem, displayField) == 0x18, off_invdisp);
     GB_STATIC_ASSERT(GB_OFFSETOF(GbInventoryItem, description) == 0x1c, off_invdesc);
+    /* wire offset = 0x21 + member offset, as for GbFirePayload above */
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbAimRelayPayload, power) == 0x23 - 0x21, off_aimpower);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbAimRelayPayload, flag)  == 0x25 - 0x21, off_aimflag);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbFireFeedbackSoundPayload, variant) == 0x25 - 0x21, off_fsndvar);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbFireFeedbackSoundPayload, flag)    == 0x26 - 0x21, off_fsndflag);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbPositionRelayPayload, field22) == 0x22 - 0x21, off_posx);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbPositionRelayPayload, flag)    == 0x26 - 0x21, off_posflag);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbTurnStartPayload, turnCounter) == 0x22 - 0x21, off_turncnt);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbTurnStartPayload, shotParamA)  == 0x24 - 0x21, off_shotpa);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbTurnStartPayload, shotParamB)  == 0x25 - 0x21, off_shotpb);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbTurnSetupPayload, turnTimerMs) == 0x22 - 0x21, off_turntimer);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbTurnSetupPayload, setup)       == 0x24 - 0x21, off_turnsetup);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbServerListEntryTail, portBE)         == 0x04, off_srvport);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbServerListEntryTail, currentPlayers) == 0x08, off_srvcur);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbServerListEntryTail, onlineFlag)     == 0x0c, off_srvonline);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbRoomGridEntryTail, info)   == 0x01, off_roominfo);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbRoomGridEntryTail, status) == 0x07, off_roomstatus);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbRoomGridEntryTail, lock)   == 0x08, off_roomlock);
+    GB_STATIC_ASSERT(GB_OFFSETOF(GbJoinRoomRequest, payload)  == 0x04, off_joinpayload);
     GB_STATIC_ASSERT(GB_OFFSETOF(CState02ServerSelect, m_slotError) == 0x28, off_sloterr);
     GB_STATIC_ASSERT(GB_OFFSETOF(CState02ServerSelect, m_connectingSlot) == 0x68, off_connslot);
     GB_STATIC_ASSERT(GB_OFFSETOF(CWidget, m_parent)     == 0x08, off_parent);

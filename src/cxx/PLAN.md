@@ -332,6 +332,27 @@ the per-opcode payload layouts in PROTOCOL.md's tables. All POD structs with
 size asserts — zero behavioral risk, immediately useful to every
 `ProcessPacket` promotion in Phase 3. Can be done any time, in parallel.
 
+**Status (2026-08-16): second pass done.** `Protocol.h` now also carries the
+channel-1 wire records `GbServerListEntryHead`/`Tail` (0x1102),
+`GbRoomGridEntryTail` (0x2103) and `GbJoinRoomRequest` (0x2110), plus the
+channel-2 payloads `GbAimRelayPayload` (0x8402/0x8406),
+`GbFireFeedbackSoundPayload` (0x8006), `GbPositionRelayPayload` (0x8500),
+`GbTurnStartPayload` (0xc300), `GbTurnSetupPayload` (0xc301) and
+`GbWindUpdatePayload` (0xc308) — 10 new structs, every size and key offset
+asserted in `cxx_selftest.cpp` (compiles clean under real MSVC 7.1).
+
+Every offset was taken from the handler source rather than from PROTOCOL.md's
+prose, which caught one documentation error: the In-Battle turn-setup array at
+`+0x2302` is 8 × `u32` (32 bytes), not the "8 shorts (16 bytes)" the doc
+stated — all three copy loops that fill it step an `undefined4 *`. PROTOCOL.md
+is corrected in both places.
+
+Still open for a third pass: `RoomPlayerSlot` (0x2105's 0x80-byte display
+buffer — the doc describes it as "a string plus several small fields" without
+pinning the field boundaries, so it needs its own decode first), the 0x2120
+Create Room request (two NUL-terminated strings + two fixed fields), and the
+0x8404 hit/damage log entry (still tentative in PROTOCOL.md).
+
 ## Phase 5 — supporting subsystems (evidence: ARCHITECTURE.md sections)
 
 Ordered by how confirmed their docs are:
