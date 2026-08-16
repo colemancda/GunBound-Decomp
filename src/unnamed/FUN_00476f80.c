@@ -3,6 +3,12 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls - each reads the
+ * EncodeChecksumPairDiff scratch from the line above (local_454, then
+ * local_230); those helpers return their arg2, see
+ * tools/sweep_guard_instructions.md.
  */
 #include "ghidra_types.h"
 
@@ -35,7 +41,7 @@ void FUN_00476f80(int param_1)
       EncodeChecksumPairDiff(param_1 + 0x40,local_454,iVar2 + 0x90c);
       local_4 = 0;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = PeekPacketChecksumState();
+      iVar3 = PeekPacketChecksumState((void *)(local_454));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_454 + 0x14)) != 0) {
@@ -45,7 +51,7 @@ void FUN_00476f80(int param_1)
       EncodeChecksumPairDiff(param_1 + 0x264,local_230,iVar2 + 0xb30);
       local_4 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar4 = PeekPacketChecksumState();
+      iVar4 = PeekPacketChecksumState((void *)(local_230));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
