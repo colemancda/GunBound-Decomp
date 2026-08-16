@@ -3,6 +3,16 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 5 argless PeekPacketChecksumState() calls.  Three read
+ * standalone global cells -- 0x478ad8 / 0x478b85 read 0xe9ba40 (C30, C44)
+ * and 0x478c1b reads 0xe55ab8 (C58).  The other two (0x478b14 at C35 and
+ * 0x478bb5 at C49) read EBX, which each time was just set from the return
+ * value of the delta helper called on the line above (0x40a6e0 at
+ * 0x478af9, 0x40a5f0 at 0x478b9a); those helpers RETURN THEIR SECOND
+ * ARGUMENT, the caller's stack scratch cell -- here local_454, which
+ * Ghidra typed as an int holding `lea eax,[esp+0x24]`.
  */
 #include "ghidra_types.h"
 
@@ -27,12 +37,12 @@ char FUN_00478a80(int param_1,int param_2,int param_3)
     return '\0';
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar2 = PeekPacketChecksumState();
+  uVar2 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeChecksumDeltaSub(param_1 + 0x25c,local_454,uVar2);
   local_4 = 0;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar3 = PeekPacketChecksumState();
+  iVar3 = PeekPacketChecksumState((void *)(local_454));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
@@ -41,12 +51,12 @@ char FUN_00478a80(int param_1,int param_2,int param_3)
   }
   if (iVar3 <= param_2) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar2 = PeekPacketChecksumState();
+    uVar2 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeChecksumDeltaAdd(param_1 + 0x25c,local_454,uVar2);
     local_4 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar3 = PeekPacketChecksumState();
+    iVar3 = PeekPacketChecksumState((void *)(local_454));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
@@ -55,7 +65,7 @@ char FUN_00478a80(int param_1,int param_2,int param_3)
     }
     if (param_2 <= iVar3) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar2 = PeekPacketChecksumState();
+      uVar2 = PeekPacketChecksumState((void *)(&DAT_00e55ab8));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = EncodeChecksumDeltaSub(param_1 + 0x480,local_230,uVar2);
       local_4 = 2;
