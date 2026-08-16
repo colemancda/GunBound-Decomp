@@ -782,6 +782,11 @@ extern uint8_t g_cursorTexture;
 extern uint32_t g_cursorFrame;
 extern uint8_t DAT_007a767c[0x10]; /* worker-thread control block - see globals.c */
 extern uint8_t DAT_007a768c;
+/* A standalone 0x224-byte CValueGuard cell, peeked by
+ * DetonateSuperShot_Bullet7 (0x49a627) and DetonateSuperShot_Bullet16
+ * (0x467d37) via `mov eax,0x7a7690`.  Declared 2026-08-16 to close the
+ * last two sites of the CValueGuard cell sweep. */
+extern uint8_t DAT_007a7690[0x224];
 extern uint8_t DAT_00d9aa20;
 extern uint8_t DAT_00d9aa24;
 extern uint8_t DAT_00d9aa28;

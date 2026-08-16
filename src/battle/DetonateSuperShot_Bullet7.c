@@ -20,8 +20,11 @@
  * Encode is auStack_ac4), not by C order - the same shape already
  * documented in DetonateSuperShot_Bullet4.c.
  *
- * STILL NOT FIXED (inline marker, deferred to the guard flip): the peek at
- * C 506 reads the UNDECLARED global cell 0x7a7690.
+ * CLOSED 2026-08-16: the last site (C 506, 0x49a627) read the then-undeclared
+ * global cell 0x7a7690.  That cell is now declared as
+ * `uint8_t DAT_007a7690[0x224]` in globals.h/globals.c (four bytes past
+ * DAT_007a768c, sized as the 0x224-byte CValueGuard it is), so the site
+ * takes its real cell like every other one.  This file is fully swept.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at 35 of the 36 argless PeekPacketChecksumState() calls (36 C : 36 orig).
@@ -52,7 +55,8 @@
  * end>`), and DetonateProjectile's one newly-flagged site (0x458393)
  * was re-verified by hand and stands.
  *
- * NOT FIXED (1 site, ~line 465): its cell is the global at 0x7a7690 -
+ * WAS-NOT-FIXED (now fixed, see above - kept for the reasoning): the cell
+ * is the global at 0x7a7690 -
  * four bytes past DAT_007a768c, in .bss - which has NO GLOBAL DECLARED
  * in the tree (the twins read &DAT_007949c8 at the same site).  Left
  * argless with an inline marker rather than inventing a symbol; the
@@ -516,7 +520,7 @@ LAB_0049a61e:
   cVar2 = PeekPacketChecksumBool();
   if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState(); /* NOT FIXED: cell is the UNDECLARED global 0x7a7690 - see header */
+    uVar6 = PeekPacketChecksumState((void *)(DAT_007a7690));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     QueueOutgoingPacketField(uVar6);
   }

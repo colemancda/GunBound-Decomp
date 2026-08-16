@@ -633,6 +633,8 @@ uint32_t g_cursorFrame;
  * next declared global, is only 0x10 bytes higher (0x7a768c-0x7a767c). */
 uint8_t DAT_007a767c[0x10];
 uint8_t DAT_007a768c;
+/* Standalone CValueGuard cell - see globals.h. */
+uint8_t DAT_007a7690[0x224];
 uint8_t DAT_00d9aa20;
 uint8_t DAT_00d9aa24;
 uint8_t DAT_00d9aa28;

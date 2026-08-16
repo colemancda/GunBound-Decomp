@@ -21,9 +21,10 @@
  * EncodeChecksumDeltaShr results (0x467fd0/0x46804d) are captured in
  * pvDelta; the X/Y cell pointers in frame[0x20]/frame[0x1c] (0x46833d /
  * 0x46806a) feed the tail peeks 0x468440/0x468459.  The remaining site
- * (line ~324, 0x467d37) reads the UNDECLARED global cell 0x7a7690 - the
- * same fifth undeclared guard global FUN_00499ef0 hits - and is left
- * argless with an inline NOT-FIXED marker for the flip task.
+ * (line ~324, 0x467d37) reads the global cell 0x7a7690 - the same fifth
+ * guard global FUN_00499ef0 hits.  CLOSED 2026-08-16: that cell is now
+ * declared as `uint8_t DAT_007a7690[0x224]` in globals.h/globals.c, so
+ * this site takes its real cell too and the file is fully swept.
  */
 #include "ghidra_types.h"
 
@@ -343,7 +344,7 @@ LAB_00467bba:
   cVar6 = PeekPacketChecksumBool();
   if ((cVar6 != '\0') && (cVar6 = InitChecksumSeed(), cVar6 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar10 = PeekPacketChecksumState();  /* NOT FIXED: cell is the UNDECLARED guard global 0x7a7690 (0x467d32 `mov eax,0x7a7690`) - declare it at flip time, see FUN_00499ef0 */
+    uVar10 = PeekPacketChecksumState((void *)(DAT_007a7690));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     QueueOutgoingPacketField(uVar10);
     iVar7 = g_clientContext;
