@@ -8,7 +8,22 @@
  * room-grid accessors - the payoff of the arena reconstruction. The
  * sprite/blit helpers take their arguments in registers (Ghidra shows
  * them arg-less), so those calls stay in the raw external-call shape;
- * this is a renderer, so the value is readability, not byte-matching. */
+ * this is a renderer, so the value is readability, not byte-matching.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): RenderRoomLabel's six
+ * value-guarded reads each load a DIFFERENT guard cell into EAX before the
+ * 0x40a2e0 call, so the shared ReadGuardedField() helper this port
+ * introduced now takes the cell as a parameter.  In address order the
+ * calls are 0x4298da (ctx + 0x239b4, the banner's `a`), 0x4298fd
+ * (+ 0x23790, `b`), then the four column headers 0x42996e (+ 0x23348),
+ * 0x4299de (+ 0x39ae8), 0x429a4e (+ 0x396a0) and 0x429aa4 (+ 0x398c4) --
+ * pinned to their headers by the localized-string ids pushed just after
+ * each one (0x4e20, 0x4e21, 0x4e22, 0x4e23).
+ *
+ * Being C++, the file-local extern declaration of PeekPacketChecksumState
+ * gained the `void *self` parameter too; it stays __cdecl, so the extra
+ * pushed argument is caller-cleaned and behaviour is unchanged until the
+ * guard-family prototype flip lands. */
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
@@ -29,7 +44,7 @@ void BlitRLESprite(int x, int color);
 int  _sprintf(char *buf, const char *fmt, ...);
 void BlitSpriteText(int x, const char *text, int a, int b); /* text prep */
 void SetClipRect(int x1, int x2, int y1, int y2); /* text draw step */
-int  PeekPacketChecksumState(void);       /* decode one value-guarded field */
+int  PeekPacketChecksumState(void *self); /* decode one value-guarded field */
 void *GetLocalizedString(void *table, int id);
 
 /* Extra room-grid bytes RenderRoomCard reads that aren't in the six
@@ -177,11 +192,13 @@ void CState03GameRoomList::RenderRoomCard(int slot)
 }
 
 /* One value-guarded read: the anti-tamper field decode runs under the
- * shared guard lock (0x5a9068). */
-static int ReadGuardedField()
+ * shared guard lock (0x5a9068). Each original call site loads its OWN
+ * 0x224-byte guard cell into EAX first, so the cell is a parameter here -
+ * see the DROPPED-CELL FIX note in the file header for the six addresses. */
+static int ReadGuardedField(void *cell)
 {
     EnterCriticalSection(&DAT_005a9068);
-    int v = PeekPacketChecksumState();
+    int v = PeekPacketChecksumState(cell);
     LeaveCriticalSection(&DAT_005a9068);
     return v;
 }
@@ -213,8 +230,8 @@ void CState03GameRoomList::RenderRoomLabel()
     /* channel banner, only when a channel name is set (ctx+0x23313). Both
      * counters are value-guarded; original arg order is (name, b, a). */
     if (*(char *)(ctx + 0x23313) != 0) {
-        int a = ReadGuardedField();
-        int b = ReadGuardedField();
+        int a = ReadGuardedField((void *)(ctx + 0x239b4));
+        int b = ReadGuardedField((void *)(ctx + 0x23790));
         _sprintf(text, s__s__3d__3d__005536b8, ctx + 0x23313, b, a);
         BlitRLESprite(9, 0xfd0f);
     }
@@ -225,21 +242,21 @@ void CState03GameRoomList::RenderRoomLabel()
      * the RLE text blitter consumes (headers 1/2/4 have it, header 3 does
      * not - preserved from the original). */
     int v;
-    v = ReadGuardedField();
+    v = ReadGuardedField((void *)(ctx + 0x23348));
     _sprintf(text, (const char *)GetLocalizedString(&g_localizedStringTable, 20000), v);
     { char *p = text; while (*p) ++p; }
     BlitRLESprite(9, 0xffff);
 
-    v = ReadGuardedField();
+    v = ReadGuardedField((void *)(ctx + 0x39ae8));
     _sprintf(text, (const char *)GetLocalizedString(&g_localizedStringTable, 0x4e21), v);
     { char *p = text; while (*p) ++p; }
     BlitRLESprite(0x16, 0xffff);
 
-    v = ReadGuardedField();
+    v = ReadGuardedField((void *)(ctx + 0x396a0));
     _sprintf(text, (const char *)GetLocalizedString(&g_localizedStringTable, 0x4e22), v);
     BlitRLESprite(0x27, 0x1f3b);
 
-    v = ReadGuardedField();
+    v = ReadGuardedField((void *)(ctx + 0x398c4));
     _sprintf(text, (const char *)GetLocalizedString(&g_localizedStringTable, 0x4e23), v);
     { char *p = text; while (*p) ++p; }
     BlitRLESprite(0x27, 0xe703);
