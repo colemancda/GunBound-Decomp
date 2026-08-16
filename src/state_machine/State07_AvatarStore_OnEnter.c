@@ -6,7 +6,9 @@
  * FUN_<address> helpers and DAT_<address>/_DAT_<address> globals are
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
- * these get promoted to verified.
+ * these get promoted to verified. *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: the per-category equipped part-code array at ctx+0x3ac08 walked by the C's own byte cursor iVar8 (0x224 per category, bound 0x890 = 4 categories) into the panel's +0x325a8 shorts - the array Equip/UnequipAvatarSlot write.  Its cell-less `EncodeOutgoingPacketField(0xffffffff)`/`(0)` calls remain 1-arg (value-only, cell dropped) - flagged for the encode pass.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -160,7 +162,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   puVar7 = (undefined2 *)(param_1 + 0x325a8);
   do {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ac08 + iVar8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *puVar7 = uVar4;
     iVar8 = iVar8 + 0x224;

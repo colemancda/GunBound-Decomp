@@ -3,6 +3,9 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: the chained return of the EncodeChecksumDeltaAdd three lines above (0x45d6e2), discarded, captured in a new uVar12 - the same DeltaAdd->Peek shape FUN_0045d692 documents at 0x45d6fc (0045d640 and 0045d692 are two decompile fragments of one function).
  */
 #include "ghidra_types.h"
 
@@ -17,6 +20,7 @@ uint FUN_0045d640(int param_1,int param_2)
   undefined4 uVar5;
   undefined4 uVar6;
   int iVar7;
+  undefined4 uVar12;
   uint3 uVar8;
   uint3 extraout_var;
   uint3 extraout_var_00;
@@ -54,10 +58,10 @@ LAB_0045d679:
   uVar5 = EncodeChecksumPairDiff(unaff_EDI + 0x243,auStack_678,uVar5);
   SUBFIELD(iStack_4,0,undefined1) = 1;
   uVar6 = FUN_0045f300(unaff_EDI);
-  EncodeChecksumDeltaAdd(uVar5,auStack_ac0,uVar6);
+  uVar12 = EncodeChecksumDeltaAdd(uVar5,auStack_ac0,uVar6);
   SUBFIELD(iStack_4,0,undefined1) = 2;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar7 = PeekPacketChecksumState();
+  iVar7 = PeekPacketChecksumState((void *)uVar12);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   SUBFIELD(iStack_4,0,undefined1) = 1;
   if (iStack_aac != 0) {

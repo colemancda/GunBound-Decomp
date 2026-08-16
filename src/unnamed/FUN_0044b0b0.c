@@ -4,6 +4,9 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at the file's one argless PeekPacketChecksumState() call: the selected catalog record's part-code field - *(ctx+0x44e20) + (pageBase + i)*0x450 + 0x22c, the exact expression Equip/UnequipAvatarSlot use, here walked over every visible row (uVar1 = param_1+0x454 page base + iVar2).
  */
 #include "ghidra_types.h"
 
@@ -22,7 +25,7 @@ void FUN_0044b0b0(int param_1)
     }
     if (*(uint *)(g_clientContext + 0x44e24) <= uVar1) break;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar1 = PeekPacketChecksumState();
+    uVar1 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + uVar1 * 0x450 + 0x22c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-08-11): dropped outRecord (ESI) - orig 0x44b0b9-0x44b0c0
      * `mov esi,[esp+0x10]` (= param_1) / `add esi,0xdb5c`, loop-invariant
