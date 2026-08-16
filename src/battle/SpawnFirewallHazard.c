@@ -15,6 +15,18 @@
  * +0x3c, width +0x260, lifetime +0x488, frame counter +0x484. Render =
  * InitFirewallHazard's vtable slot 3 (0x471550), animation stride
  * frame*0x6c (flame cycling).
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls and all 5 1-arg
+ * EncodeOutgoingPacketField() calls.  Two objects are involved and the
+ * decompile names both: iVar3, the EXISTING hazard the merge loop found
+ * (ESI/frame[0x10] in the original - confirmed because the C's own
+ * `EncodeChecksumDeltaAdd(iVar3 + 0x3c, ...)` compiles to `mov edi,
+ * [esp+0x10]; add edi,0x3c`), and iVar6, the freshly built one from
+ * Init*Hazard.  Cells are this hazard type's documented layout: +0x3c
+ * world-X, +0x260 width/strength, +0x488 lifetime.  The one remaining peek
+ * reads local_454, the scratch the EncodeChecksumDeltaDiv above returned
+ * (these helpers return their arg2, see tools/sweep_guard_instructions.md).
  */
 #include "ghidra_types.h"
 
@@ -47,26 +59,26 @@ void SpawnFirewallHazard(undefined4 param_1,int param_2,int param_3,undefined4 p
       iVar3 = FUN_004510f0(iVar6);
       if (iVar3 != 0) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EncodeOutgoingPacketField(param_4);
+        EncodeOutgoingPacketField((void *)(iVar3 + 0x488), param_4);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar6 = PeekPacketChecksumState();
+        iVar6 = PeekPacketChecksumState((void *)(iVar3 + 0x260));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (param_3 < iVar6) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          param_3 = PeekPacketChecksumState();
+          param_3 = PeekPacketChecksumState((void *)(iVar3 + 0x260));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EncodeOutgoingPacketField((param_3 * 0xf) / 10);
+        EncodeOutgoingPacketField((void *)(iVar3 + 0x260), (param_3 * 0xf) / 10);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar5 = EncodeChecksumDeltaAdd(iVar3 + 0x3c,local_230,param_2);
         local_4 = 0;
         EncodeChecksumDeltaDiv(uVar5,local_454,2);
         local_4 = 1;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        uVar5 = PeekPacketChecksumState();
-        EncodeOutgoingPacketField(uVar5);
+        uVar5 = PeekPacketChecksumState((void *)(local_454));
+        EncodeOutgoingPacketField((void *)(iVar3 + 0x3c), uVar5);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_4 = 0;
         if ((*(int *)(local_454 + 0x14)) != 0) {
@@ -91,14 +103,14 @@ void SpawnFirewallHazard(undefined4 param_1,int param_2,int param_3,undefined4 p
     }
     local_4 = 0xffffffff;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(param_2);
+    EncodeOutgoingPacketField((void *)(iVar6 + 0x3c), param_2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(param_3);
+    EncodeOutgoingPacketField((void *)(iVar6 + 0x260), param_3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(iVar6 + 0x484) = 0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(param_4);
+    EncodeOutgoingPacketField((void *)(iVar6 + 0x488), param_4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     RegisterActiveObject(0, 0, (undefined4 *)0);
   }
