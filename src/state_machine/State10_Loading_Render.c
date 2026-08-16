@@ -13,6 +13,20 @@
  *
  * FIXED (2026-07-15): both SetClipRect calls dropped their 4 corner
  * args - real literal values recovered via angr at 0x442363/0x4423c3.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls.  C96 (0x44245e)
+ * and C100 (0x44248b) are plain g_clientContext + 0x4111c / + 0x475c8.
+ * C103 (0x4424c6) is the arena-slot index idiom built at 0x442499-0x4424bb:
+ * (<the C100 peek> * 0xb + *(byte *)(ctx + 0x475c4)) * 0x7d28 + [esp+0x14]
+ * + ctx + 0x1a2390.  Ghidra DISCARDED the C100 result (bare call
+ * statement), so it is captured here into a new local `iArenaSel`, and
+ * [esp + 0x14] is iStack_ac -- calibrated off 0x442690's `mov ecx,[esp+0x10]`
+ * feeding `[edi + ecx + 0x45914]`, which the C spells iStack_b0.
+ * C204 (0x4426cc) is EDI + 0x3b49c, and EDI is the same base the line
+ * above spells `iVar9` (`*(char *)(iVar9 + 0x45914 + iStack_b0)`); the
+ * peek overwrites iVar9, but C evaluates the argument first, so
+ * `iVar9 + 0x3b49c` is the value it had going in.
  */
 #include "ghidra_types.h"
 
@@ -42,6 +56,7 @@ int __fastcall State10_Loading_Render(int param_1)
   tagCOMPOSITIONFORM *lpCompForm;
   int iStack_b0;
   int iStack_ac;
+  int iArenaSel;
   char cStack_a5;
   int iStack_a4;
   int iStack_a0;
@@ -93,14 +108,15 @@ int __fastcall State10_Loading_Render(int param_1)
 LAB_00442440:
   uVar18 = 0x2000 << ((byte)iStack_a0 & 0x1f);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar6 = PeekPacketChecksumState();
+  uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((uVar6 & uVar18) == uVar18) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iArenaSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = PeekPacketChecksumState();
+    iVar5 = PeekPacketChecksumState((void *)((iArenaSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 +
+                                                     iStack_ac + g_clientContext + 0x1a2390));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = iVar5 + 0x10c;
     if ((DAT_0079352c != 0) && (-1 < (int)uVar6)) {
@@ -201,7 +217,7 @@ LAB_00442690:
     if (*(char *)(iVar9 + 0x45914 + iStack_b0) != '\0') {
       uVar6 = (uint)(*(char *)(iVar9 + 0x4590c + iStack_b0) == '\0') * 2 + 0x18;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar9 = PeekPacketChecksumState();
+      iVar9 = PeekPacketChecksumState((void *)(iVar9 + 0x3b49c));
       cStack_a5 = iVar9 == iVar5;
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (cStack_a5 != '\0') {
