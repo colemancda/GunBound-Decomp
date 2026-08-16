@@ -7,6 +7,12 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls: C121 is 0x43eaef
+ * (cell g_clientContext + 0x45354) and C322 is 0x43edbc (cell
+ * g_clientContext + 0x4512c -- ESI is loaded from 0x5b3484 at 0x43ed68
+ * and biased at 0x43edb2).
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -118,7 +124,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
     iVar12 = iVar12 + -1;
   } while (iVar12 != 0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar7 = PeekPacketChecksumState();
+  uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   switch(uVar7) {
   case 0:
@@ -319,7 +325,7 @@ LAB_0043ed58:
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x4512c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     pcVar6 = (char *)GetLocalizedString(&g_localizedStringTable,0x32c);
     _sprintf(acStack_80,pcVar6,uVar7);
