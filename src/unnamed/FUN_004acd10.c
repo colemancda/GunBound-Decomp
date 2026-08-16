@@ -3,6 +3,19 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at 16 of the 17 argless PeekPacketChecksumState() calls and the
+ * 1-arg EncodeOutgoingPacketField().  this=ESI: cells param_1+0x122/
+ * 0x234/0x3d5/0x5f9/0xc66/0xe48/0xed2 (byte 0x488/0x8d0/0xf54/0x17e4/
+ * 0x3198/0x3920/0x3b48), the global 0x7949c8, and the guarded cell
+ * POINTER g_clientContext+0x5b85c whose peek result is the following
+ * Encode's cell (0x4acdca -> 0x4ace29 via frame[0x18]).  The last two
+ * peeks read the two EncodeChecksumDeltaAdd scratch cells - local_230
+ * (0x4ad0cf, kept in EBP) and local_454 (0x4ad0ee -> frame[0x14]) -
+ * since those helpers return their arg2 (see
+ * tools/sweep_guard_instructions.md).  All 16 peeks and the one Encode
+ * are now argument-carrying; the file has no argless site left.
  */
 #include "ghidra_types.h"
 
@@ -38,7 +51,7 @@ void __fastcall FUN_004acd10(int param_1)
   *(int *)(param_1 + 0x3fa0) = iVar7;
   if (iVar7 < 0x15) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar6 = PeekPacketChecksumState();
+    uVar6 = PeekPacketChecksumState((void *)(&DAT_007949c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     switch(*(undefined4 *)(param_1 + 0x3fa0)) {
     case 2:
@@ -59,13 +72,13 @@ void __fastcall FUN_004acd10(int param_1)
       EncodeChecksumDeltaAdd(param_1 + 0xf54,local_454,(iVar7 + 0x5809315U) % uVar6 - (int)uVar6 / 2);
       local_4 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      local_45c[0] = PeekPacketChecksumState();
+      local_45c[0] = PeekPacketChecksumState((void *)(g_clientContext + 0x5b85c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      PeekPacketChecksumState((void *)(param_1 + 0xe48));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      PeekPacketChecksumState((void *)(param_1 + 0xe48));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar12 = 1;
       uVar11 = 2;
@@ -91,7 +104,7 @@ void __fastcall FUN_004acd10(int param_1)
   cVar3 = PeekPacketChecksumBool();
   if ((cVar3 != '\0') && (cVar3 = InitChecksumSeed(), cVar3 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)(param_1 + 0x234));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     QueueOutgoingPacketField(uVar4);
     iVar7 = g_clientContext;
@@ -99,15 +112,15 @@ void __fastcall FUN_004acd10(int param_1)
     *(undefined4 *)(&DAT_005f376c + iVar7) = 0;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_45c[0] = PeekPacketChecksumState();
-  iVar7 = PeekPacketChecksumState();
+  local_45c[0] = PeekPacketChecksumState((void *)(param_1 + 0x122));
+  iVar7 = PeekPacketChecksumState((void *)(param_1 + 0x234));
   local_45c[0] = CONCAT31(SUBFIELD(local_45c[0],1,undefined3),local_45c[0] < iVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cVar3 = CheckGuardedBoolAnd(local_45c[0]);
   if (cVar3 != '\0') {
     local_45c[0] = g_clientContext + 0x5b85c;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)(param_1 + 0x122));
     /* NOT FIXED (2026-07-16): self intentionally left off here. angr-
      * traced disasm at 0x4ace29 shows self (edi) reloaded from a stack
      * slot that holds THIS SAME PeekPacketChecksumState() call's own
@@ -122,15 +135,15 @@ void __fastcall FUN_004acd10(int param_1)
      * `param_1 != '\0'` check fails), so this block never executes
      * until PeekPacketChecksumState/CheckGuardedBoolAnd get real
      * bodies. */
-    EncodeOutgoingPacketField(uVar4);
+    EncodeOutgoingPacketField((void *)(g_clientContext + 0x5b85c), uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar7 = PeekPacketChecksumState();
+  iVar7 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar7 < 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar7 = PeekPacketChecksumState();
+    iVar7 = PeekPacketChecksumState((void *)(param_1 + 0xed2));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar7 < 1) goto LAB_004ace87;
 LAB_004aced3:
@@ -142,24 +155,24 @@ LAB_004aced3:
   else {
 LAB_004ace87:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar7 = PeekPacketChecksumState();
+    iVar7 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (0 < iVar7) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar7 = PeekPacketChecksumState();
+      iVar7 = PeekPacketChecksumState((void *)(param_1 + 0xed2));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar7 < 0) goto LAB_004aced3;
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  local_45c[0] = PeekPacketChecksumState();
-  iVar7 = PeekPacketChecksumState();
+  local_45c[0] = PeekPacketChecksumState((void *)(param_1 + 0xc66));
+  iVar7 = PeekPacketChecksumState((void *)(param_1 + 0x5f9));
   bVar2 = iVar7 <= local_45c[0];
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((bVar2) || (cVar3 = CompareChecksumPair(param_1 + 0x3b48,param_1 + 0x3d6c), cVar3 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_45c[0] = PeekPacketChecksumState();
-    iVar7 = PeekPacketChecksumState();
+    local_45c[0] = PeekPacketChecksumState((void *)(local_230));
+    iVar7 = PeekPacketChecksumState((void *)(local_454));
     bVar2 = local_45c[0] <= iVar7;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((bVar2) ||
