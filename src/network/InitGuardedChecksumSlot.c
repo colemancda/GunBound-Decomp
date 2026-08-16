@@ -9,11 +9,22 @@
  * self - same idiom/derivation as EncodeChecksumDeltaAdd.c (angr
  * func_addr 0x40ada0): first two calls' self is local_21c's address
  * minus 0x14, third call's self is param_2.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): this helper really
+ * takes THREE cells - Ghidra kept only two.  The original reads its first
+ * stack argument at `[esp+0x250]` and its THIRD at `[esp+0x258]` (8 bytes
+ * apart = two argument slots), so the recovered signature is
+ * (param_1, param_2, param_3) and the 150+ call sites that already pass three
+ * arguments were right all along.  The three internal peeks are, in order,
+ * param_1, param_3, and the stack scratch the result is staged in
+ * (`(char *)&local_21c - 0x14`, the same cell the encodes above already use).
+ * Net effect: `param_2 = param_1.Peek() OP param_3.Peek()`, returning param_2 -
+ * which is exactly why these helpers return their SECOND argument.
  */
 #include "ghidra_types.h"
 
 
-int InitGuardedChecksumSlot(undefined4 param_1,int param_2)
+int InitGuardedChecksumSlot(undefined4 param_1,int param_2,undefined4 param_3)
 
 {
   int iVar1;
@@ -36,13 +47,13 @@ int InitGuardedChecksumSlot(undefined4 param_1,int param_2)
   local_21c = 0;
   EncodeOutgoingPacketField((char *)&local_21c - 0x14, 0);
   local_4 = 1;
-  iVar1 = PeekPacketChecksumState();
-  iVar2 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)(param_1));
+  iVar2 = PeekPacketChecksumState((void *)(param_3));
   EncodeOutgoingPacketField((char *)&local_21c - 0x14, iVar2 * iVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined1 *)(param_2 + 0x220) = 0;
   *(undefined4 *)(param_2 + 0x14) = 0;
-  uVar3 = PeekPacketChecksumState();
+  uVar3 = PeekPacketChecksumState((void *)((char *)&local_21c - 0x14));
   EncodeOutgoingPacketField((void *)param_2, uVar3);
   local_4 = local_4 & 0xffffff00;
   if (local_21c != 0) {

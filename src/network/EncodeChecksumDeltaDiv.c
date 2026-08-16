@@ -12,6 +12,15 @@
  * shifting the stack at that instruction, still the same local_21c
  * cell): first two calls' self is local_21c's address minus 0x14,
  * third call's self is param_2.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): both internal
+ * PeekPacketChecksumState() calls now name their cell.  The first reads the
+ * SOURCE cell param_1 (orig `mov eax,[esp+0x250]` = the first stack argument);
+ * the second reads back the stack scratch this function stages the result in,
+ * which is the same `(char *)&local_21c - 0x14` the two encodes above it
+ * already use.  That is the shape the whole delta family shares:
+ * `param_2 = param_1.Peek() OP param_3`, staged through the scratch, and the
+ * function returns param_2.
  */
 #include "ghidra_types.h"
 
@@ -38,7 +47,7 @@ int EncodeChecksumDeltaDiv(undefined4 param_1,int param_2,int param_3)
   local_21c = 0;
   EncodeOutgoingPacketField((char *)&local_21c - 0x14, 0);
   local_4 = 1;
-  iVar1 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)(param_1));
   if (param_3 == 0) {
     param_3 = 1;
   }
@@ -46,7 +55,7 @@ int EncodeChecksumDeltaDiv(undefined4 param_1,int param_2,int param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined1 *)(param_2 + 0x220) = 0;
   *(undefined4 *)(param_2 + 0x14) = 0;
-  uVar2 = PeekPacketChecksumState();
+  uVar2 = PeekPacketChecksumState((void *)((char *)&local_21c - 0x14));
   EncodeOutgoingPacketField((void *)param_2, uVar2);
   local_4 = local_4 & 0xffffff00;
   if (local_21c != 0) {

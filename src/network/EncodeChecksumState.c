@@ -29,6 +29,10 @@
  * bring-up stub (always returns 0, ignores its own dropped-EAX cell arg)
  * per its own header; wiring it here would have no effect until the
  * larger CValueGuard migration that file already defers to lands.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): the internal
+ * PeekPacketChecksumState() call reads param_1, the cell the original loads
+ * with `mov eax,[esp+8]`.  All 131 call sites already pass that cell.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -40,7 +44,7 @@ undefined4 EncodeChecksumState(int param_1)
   undefined4 uVar1;
 
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar1 = PeekPacketChecksumState();
+  uVar1 = PeekPacketChecksumState((void *)(param_1));
   EncodeOutgoingPacketField((void *)param_1,uVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* bare `return;` in a value-returning function - MSVC falls through
