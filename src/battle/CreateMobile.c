@@ -16,6 +16,21 @@
  * still a raw/near-verbatim Ghidra port (register-args reconstruction, so the
  * param list is unreliable) and not hand-verified. See src/README.md's
  * "Raw/verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 7 argless PeekPacketChecksumState() calls, in address order.
+ * The first three read cells directly: 0x42b65a is EBP/ESI + 0x90c (EBP is
+ * piVar3, the cell the encode on the line above already names) and
+ * 0x42b6c0 is + 0xb30, likewise matching its neighbouring encode;
+ * 0x42b7b6 is g_clientContext + 0x3b49c.
+ *
+ * The last four (0x42b8d4, 0x42b955, 0x42b9d0, 0x42ba4b) each sit
+ * immediately after an EncodeChecksumDeltaDiv call and read EAX, which is
+ * that helper's return value -- and the delta helpers RETURN THEIR SECOND
+ * ARGUMENT, the caller's stack scratch cell.  That is exactly what the
+ * 2026-07-15 FIXED notes below already observed ("Peek() here reads back
+ * EncodeChecksumDeltaDiv's own return value, not the LEA'd cell"); the
+ * scratch is auStack_454 for the first three and auStack_230 for the last.
  */
 #include "ghidra_types.h"
 
@@ -229,7 +244,7 @@ LAB_0042b60a:
   EncodeOutgoingPacketField((int)piVar3 + 0x90c, param_4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar4 = PeekPacketChecksumState();
+  uVar4 = PeekPacketChecksumState((void *)((int)piVar3 + 0x90c));
   EncodeOutgoingPacketField((int)piVar3 + 0x15e4, uVar4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -240,7 +255,7 @@ LAB_0042b60a:
   EncodeOutgoingPacketField((int)piVar3 + 0xb30, uVar4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar4 = PeekPacketChecksumState();
+  uVar4 = PeekPacketChecksumState((void *)((int)piVar3 + 0xb30));
   EncodeOutgoingPacketField((int)piVar3 + 0x1808, uVar4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   piVar3[6] = param_3 + 5000;
@@ -263,7 +278,7 @@ LAB_0042b60a:
   EncodeOutgoingPacketField((int)piVar3 + 0x1c54, 1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar5 = PeekPacketChecksumState();
+  iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeGuardedBool(iVar5 == unaff_retaddr,(byte *)GB_GUARD_UNRECOVERED);
@@ -294,7 +309,7 @@ LAB_0042b60a:
     EncodeChecksumDeltaDiv(piVar3 + 0x19d1,auStack_454,2);
     local_4 = 0x11;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)(auStack_454));
     /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
      * 0x42b8da/0x42b95b (`lea edi,[ebp+0x6968]` / `lea edi,[ebp+0x6fd4]`,
      * ebp = piVar3) two FRESH CValueGuard cells distinct from the
@@ -313,7 +328,7 @@ LAB_0042b60a:
     EncodeChecksumDeltaDiv(piVar3 + 0x1b6c,auStack_454,2);
     local_4 = 0x12;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)(auStack_454));
     EncodeOutgoingPacketField((int)piVar3 + 0x6fd4, uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
@@ -324,7 +339,7 @@ LAB_0042b60a:
     EncodeChecksumDeltaDiv(piVar3 + 0x1ae3,auStack_454,2);
     local_4 = 0x13;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)(auStack_454));
     /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
      * 0x42b9d6/0x42ba51 (`lea edi,[ebp+0x6b8c]` / `lea edi,[ebp+0x71f8]`,
      * ebp = piVar3) - here the LEA'd address IS the same cell passed as
@@ -341,7 +356,7 @@ LAB_0042b60a:
     EncodeChecksumDeltaDiv(piVar3 + 0x1c7e,auStack_230,2);
     local_4 = 0x14;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar4 = PeekPacketChecksumState();
+    uVar4 = PeekPacketChecksumState((void *)(auStack_230));
     EncodeOutgoingPacketField((int)piVar3 + 0x71f8, uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
