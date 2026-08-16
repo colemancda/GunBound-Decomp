@@ -7,6 +7,31 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 10 remaining argless sites.  The frame was calibrated off
+ * local_4 = [esp + 0x9c4] (0x4b4c8d / 0x4b4cbb), i.e. Ghidra local N sits
+ * at esp + (0x9c8 - N); that lands esp + 0x12c on local_89c, esp + 0x350
+ * on local_678, esp + 0x24 on local_9a4 and esp + 0x18 on local_9b0 --
+ * all four of which the C already uses by name, which is the cross-check.
+ *
+ *   - C232 (0x4b45a8): `lea edi,[esi + eax + 0xebef4]` with EAX =
+ *     g_clientContext and ESI reloaded from local_9b0 at 0x4b4589.
+ *   - C457 / C461 (0x4b4c88, 0x4b4caa): the two scratch cells local_89c
+ *     and local_678 being zero-initialised.
+ *   - C538 (0x4b4f5f) re-reads local_678.
+ *   - C541 / C544 (0x4b4f7a, 0x4b4f97): EBX + 0xb30 / + 0x90c, where EBX
+ *     is the GetPlayerRecordBySlot result at 0x4b4f42 -- the C's iVar8,
+ *     still the record pointer at this point (it only gains the + 0xae15
+ *     text bias further down).
+ *   - C548 / C557 (0x4b4fcd, 0x4b503d): the standalone global cell
+ *     0x796aa0.
+ *   - C552 (0x4b4ffb) reads local_9a4, which 0x4b4fe5/0x4b4ff1 had just
+ *     filled with local_9b0 + g_clientContext + 0x5113c -- exactly the
+ *     assignment on the C line above.
+ *   - C562 (0x4b5073) reads the return value of the 0x40a7d0 delta-div
+ *     helper called at 0x4b505b, and the delta helpers RETURN THEIR SECOND
+ *     ARGUMENT: the scratch cell local_454.
  */
 #include "ghidra_types.h"
 #include "opcodes.h"
@@ -229,7 +254,7 @@ LAB_004b4324:
             }
           }
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          EncodeOutgoingPacketField(0xffffffff);
+          EncodeOutgoingPacketField((void *)(g_clientContext + local_9b0 + 0xebef4), 0xffffffff);
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if ((uVar17 == *(uint *)((int)this + 0x10a0)) ||
              (uVar14 = FUN_004d0dd0(), uVar17 == uVar14)) {
@@ -454,11 +479,11 @@ LAB_004b4324:
   SetGuardedBool(1,GB_GUARD_UNRECOVERED);
   local_67c = 0;
   local_888 = (int *)0x0;
-  EncodeOutgoingPacketField(0);
+  EncodeOutgoingPacketField((void *)(local_89c), 0);
   local_4 = 0;
   local_458 = 0;
   local_664 = (int *)0x0;
-  EncodeOutgoingPacketField(0);
+  EncodeOutgoingPacketField((void *)(local_678), 0);
   local_4 = 1;
   EncodeChecksumStateXored();
   EncodeChecksumStateXored();
@@ -535,31 +560,31 @@ LAB_004b4d38:
         (*(char *)(iVar6 + 0x50126 + local_9b4) == *(char *)(iVar6 + 0x62155))) &&
        (iVar8 = GetPlayerRecordBySlot(iVar6), iVar6 = g_clientContext, iVar8 != 0)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar9 = PeekPacketChecksumState();
+      uVar9 = PeekPacketChecksumState((void *)(local_678));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      local_9a8 = PeekPacketChecksumState();
+      local_9a8 = PeekPacketChecksumState((void *)(iVar8 + 0xb30));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      local_9a4[0] = PeekPacketChecksumState();
+      local_9a4[0] = PeekPacketChecksumState((void *)(iVar8 + 0x90c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       FUN_004368f0(local_9a4[0],local_9a8,uVar9);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar6 = PeekPacketChecksumState();
+      iVar6 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_9a4[0] = local_9b0 + 0x5113c + g_clientContext;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      local_9a4[0] = PeekPacketChecksumState();
+      local_9a4[0] = PeekPacketChecksumState((void *)(local_9a4[0]));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar9 = EncodeChecksumDeltaMul(local_89c,local_230,local_9a4[0] + iVar6);
       local_4 = 2;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      local_9a4[0] = PeekPacketChecksumState();
+      local_9a4[0] = PeekPacketChecksumState((void *)(&DAT_00796aa0));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeChecksumDeltaDiv(uVar9,local_454,local_9a4[0]);
       local_4 = 3;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar9 = PeekPacketChecksumState();
+      uVar9 = PeekPacketChecksumState((void *)(local_454));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar8 = iVar8 + 0xae15;
       pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x25e);
