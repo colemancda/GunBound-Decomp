@@ -3,6 +3,9 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls: the battle-mode cell and the current-slot index.
  */
 #include "ghidra_types.h"
 
@@ -53,11 +56,11 @@ void __fastcall RenderMobile(int param_1)
   iVar8 = g_clientContext;
   if (cVar3 == '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = PeekPacketChecksumState();
+    iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar5 == 2) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar6 = PeekPacketChecksumState();
+      uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if ((*(uint *)(param_1 + 8) & 7) == uVar6) {
         iVar5 = *(int *)(g_clientContext + 0x1fe2c);

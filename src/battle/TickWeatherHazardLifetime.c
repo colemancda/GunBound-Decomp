@@ -11,7 +11,11 @@
  * See InitTornadoHazard.c for the field map.
  *
  * PeekPacketChecksumState()/EncodeOutgoingPacketField(cell, v-1) are the
- * guard-cell (CValueGuard) read/write idiom for the +0x488 cell. Raw port.
+ * guard-cell (CValueGuard) read/write idiom for the +0x488 cell. Raw port. *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls: both read the hazard's +0x488 lifetime cell, which the Encode
+ * between them decrements.  The worklist MISMATCH is stale - 2 C : 2
+ * orig today.
  */
 #include "ghidra_types.h"
 
@@ -22,11 +26,11 @@ void __fastcall TickWeatherHazardLifetime(int param_1)
   int iVar1;
 
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)(param_1 + 0x488));
   EncodeOutgoingPacketField((void *)(param_1 + 0x488), iVar1 + -1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)(param_1 + 0x488));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar1 < 0) {
     *(undefined1 *)(param_1 + 0x14) = 1;

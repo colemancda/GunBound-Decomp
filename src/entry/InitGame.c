@@ -8,6 +8,11 @@
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
  *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls (0x40eb69,
+ * 0x40ebd6): both read &DAT_00796878, compared against DAT_007934c8 as
+ * an integrity check between init phases.
+ *
  * RECOVERED (2026-07-18): all 60 LoadSpriteSet calls in the common-UI
  * preload block had their name string DROPPED - LoadSpriteSet (0x4f1790)
  * takes the ".img" entry name in EAX (see LoadSpriteSet.c), and every call
@@ -81,7 +86,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
     }
     DAT_007934c8 = DAT_00f11dd4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar1 = PeekPacketChecksumState();
+    iVar1 = PeekPacketChecksumState((void *)&DAT_00796878);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (DAT_007934c8 == iVar1) {
       FUN_004f1eb0();
@@ -89,7 +94,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
       InitDirectSound(param_1,0x10,local_40c);
       DAT_007934c8 = DAT_00ea0f54;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar1 = PeekPacketChecksumState();
+      iVar1 = PeekPacketChecksumState((void *)&DAT_00796878);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (DAT_007934c8 == iVar1) {
         InitDirectInput(param_2);

@@ -12,7 +12,11 @@
  * The EnterCriticalSection/PeekPacketChecksumState/EncodeOutgoingPacket
  * Field calls are the guard-cell (CValueGuard) read/write idiom used
  * throughout this family - PeekPacketChecksumState() reads the +0x484
- * cell, EncodeOutgoingPacketField(cell, v-1) writes it back. Raw port.
+ * cell, EncodeOutgoingPacketField(cell, v-1) writes it back. Raw port. *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls: both read the tornado's +0x484 lifetime cell around its decrement
+ * Encode - the tornado object's layout is 4 bytes off the other
+ * hazards' (+0x484 vs +0x488).  Worklist MISMATCH is stale.
  */
 #include "ghidra_types.h"
 
@@ -23,11 +27,11 @@ void __fastcall TickTornadoHazardLifetime(int param_1)
   int iVar1;
 
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)(param_1 + 0x484));
   EncodeOutgoingPacketField((void *)(param_1 + 0x484), iVar1 + -1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)(param_1 + 0x484));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar1 < 0) {
     *(undefined1 *)(param_1 + 0x14) = 1;

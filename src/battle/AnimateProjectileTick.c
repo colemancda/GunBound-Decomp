@@ -3,6 +3,10 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
+ * cell at both argless PeekPacketChecksumState() calls: both off the live-in ECX object, beside the already-fixed
+ * +0x3920/+0x3d6c Encodes - same shape as FUN_004a4610.
  */
 #include "ghidra_types.h"
 
@@ -20,7 +24,7 @@ void __fastcall AnimateProjectileTick(int *param_1)
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar2 = PeekPacketChecksumState();
+    iVar2 = PeekPacketChecksumState((void *)((int)param_1 + 0x3920));
     /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x48f208:
      * self is esi+0x3920 (param_1 is `int *`, so 0x3920 bytes = 0xe48
      * ints); esi = param_1 (`mov esi,ecx` in the prologue). Value
@@ -32,7 +36,7 @@ void __fastcall AnimateProjectileTick(int *param_1)
   param_1[0xed1] = iVar2 + 1;
   if (iVar2 + 1 == 5) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)((int)param_1 + 0xf54));
     /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x48f241:
      * self is esi+0x3d6c (0x3d6c bytes = 0xf5b ints), esi = param_1.
      * Value (uVar3) was already correct. */
