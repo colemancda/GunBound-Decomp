@@ -367,7 +367,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       else if (((((uVar1 == GB_ACT_FIELD_RELAY) &&
                  (uVar11 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c), bVar16 != uVar11)) &&
                 ((iVar4 = GetPlayerRecordBySlot(g_clientContext), iVar4 != 0 &&
-                 ((cVar2 = PeekPacketChecksumBool(), cVar2 != '\0' && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0'))
+                 ((cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba)), cVar2 != '\0' && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0'))
                  )))) && (*(int *)(iVar4 + 0x24) != 5)) && (*(int *)(iVar4 + 0x24) != 6)) {
         QueueOutgoingPacketField(*puVar12);
         QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x23));
@@ -429,7 +429,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       FUN_0043c4f0();
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       FUN_004207c0(g_clientContext,bVar16);
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba));
       if (cVar2 == '\0') {
         uVar11 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
         if (((char)uVar11 == '\0') ||
@@ -450,7 +450,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
         }
         InvokeWidget(18,uVar21);
       }
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb7));
       if (cVar2 == '\0') {
         cVar2 = PeekPacketChecksumBool();
         if (cVar2 == '\x01') {
@@ -931,7 +931,7 @@ LAB_004b7c01:
             }
           }
 LAB_004b7674:
-          cVar2 = PeekPacketChecksumBool();
+          cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62149));
           if (cVar2 != '\x01') break;
 LAB_004b7fb2:
           cVar2 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
@@ -1045,7 +1045,7 @@ LAB_004b7fb2:
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       cVar2 = FUN_0043c820();
       if (cVar2 == '\x01') {
-        cVar2 = PeekPacketChecksumBool();
+        cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62152));
         if (cVar2 != '\0') {
           *(undefined4 *)((int)piVar7 + 0xbffa) = DAT_00553b70;
           *(undefined2 *)((int)piVar7 + 0xbffe) = DAT_00553b74;
@@ -1099,7 +1099,7 @@ LAB_004b7fb2:
       bVar16 = *(byte *)puVar12;
       uVar11 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
       if (((uVar11 == bVar16) && (*(int *)(g_clientContext + 0x621e0) != 0)) &&
-         (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
+         (cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bc0)), cVar2 == '\0')) {
         SetGuardedBool(1,GB_GUARD_UNRECOVERED);
         iVar6 = DAT_007934e8;
         iVar10 = g_clientContext;

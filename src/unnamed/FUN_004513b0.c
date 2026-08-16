@@ -116,7 +116,7 @@ void __fastcall FUN_004513b0(int *param_1)
   puStack_8 = &LAB_005404e4;
   uStack_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_c;
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0x3f9c);
   pcVar17 = (code *)EnterCriticalSection;
   if (cVar2 == '\0') {
     puStack_b08 = (undefined *)0x4514d5;
@@ -128,7 +128,7 @@ void __fastcall FUN_004513b0(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   else {
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0x3f9f);
     pcVar17 = (code *)EnterCriticalSection;
     pcVar16 = (code *)LeaveCriticalSection;
     if (cVar2 == '\0') {
@@ -779,7 +779,7 @@ LAB_00451d02:
       puStack_b54[0xfe9] = uVar8;
       iVar4 = FUN_004ac400(piVar18);
       puStack_b54[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62143));
       if (cVar2 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -826,7 +826,7 @@ LAB_00451e73:
     (*pcVar16)(&DAT_005a9068);
     if (SUBFIELD(uStack_b6c,3,undefined1) == '\0') goto LAB_00451e73;
 LAB_00451ebf:
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar2 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }
@@ -863,7 +863,7 @@ LAB_00451f7a:
     *(byte *)(iVar4 + 0x62145) = bVar3 + bVar1 + -0x34;
     (*pcVar16)(&DAT_005a9068);
   }
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if ((cVar2 == '\x01') ||
      (cVar2 = PeekPacketChecksumBool(), pcVar16 = (code *)LeaveCriticalSection, cVar2 == '\x01')) {
     uVar8 = EncodeChecksumDeltaDiv(param_1 + 0x795,&puStack_b44,10);
@@ -994,7 +994,7 @@ LAB_00451f7a:
   if (cVar2 == '\0') {
     AcquireSoundChannel(0);
   }
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
     (*pcVar17)(&DAT_005a9068);
     uVar8 = PeekPacketChecksumState((void *)&DAT_007949c8);

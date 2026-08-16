@@ -90,7 +90,7 @@ void __fastcall FUN_0046b680(int *param_1)
   EncodeOutgoingPacketField((void *)(param_1 + 0x99),iVar6 + iVar5);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf45);
   if (cVar4 == '\0') {
     iVar5 = EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac4,8);
     puStack_8 = (undefined1 *)0x5;
@@ -191,7 +191,7 @@ LAB_0046c5e4:
     if (iVar5 < 0) {
 LAB_0046c79f:
       *(undefined1 *)(piVar9 + 5) = 1;
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
       if ((cVar4 != '\0') && (cVar4 = InitChecksumSeed(), cVar4 == '\0')) {
         iVar5 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar5 == 5) || (uVar8 = 2, iVar5 == 6)) {
@@ -223,7 +223,7 @@ LAB_0046c79f:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = g_clientContext;
       piVar9 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       if ((cVar4 == '\0') && ((&DAT_006a7758)[iVar5] != '\0')) {
         if (((&DAT_006a7736)[iVar5] == '\x01') &&
            ((uVar13 = iVar6 - *(int *)(&g_nCameraY + iVar5) >> 0x1f,
@@ -456,7 +456,7 @@ LAB_0046bd0d:
       puStack_af4[0xfe9] = uVar8;
       iVar5 = FUN_004ac400(puStack_af4);
       puStack_af4[0xfe8] = iVar5 * param_1[0xfe5];
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar4 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -580,7 +580,7 @@ LAB_0046bdae:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar5 < 1) goto LAB_0046c22e;
 LAB_0046c27a:
-    cVar4 = PeekPacketChecksumBool();
+    cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar4 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

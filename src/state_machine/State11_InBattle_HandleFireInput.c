@@ -80,17 +80,17 @@ void __fastcall State11_InBattle_HandleFireInput(int *param_1)
   bVar7 = false;
   bVar6 = false;
   bVar5 = false;
-  cVar9 = PeekPacketChecksumBool();
-  if (((cVar9 != '\0') || (cVar9 = PeekPacketChecksumBool(), cVar9 == '\0')) || (DAT_007933b8 == '\0'))
+  cVar9 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+  if (((cVar9 != '\0') || (cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x908), cVar9 == '\0')) || (DAT_007933b8 == '\0'))
   goto LAB_004619ff;
   bVar8 = false;
   if (DAT_00e52838 == -1000) {
     if (DAT_007934c4 == '\0') {
-      cVar9 = PeekPacketChecksumBool();
+      cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8bb1);
       if (cVar9 == '\0') goto LAB_0045fdd7;
       cVar9 = PacketChecksumNotEquals(param_1 + 0x715,0);
       if (cVar9 == '\0') {
-        cVar9 = PeekPacketChecksumBool();
+        cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x1c50);
         if ((((cVar9 == '\x01') && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01')) &&
             ((cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01' &&
              ((cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01' && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01'))

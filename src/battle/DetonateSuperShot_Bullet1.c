@@ -256,7 +256,7 @@ LAB_0044df28:
   EncodeOutgoingPacketField((int)param_1 + 0x264, iVar8 + iVar6);
   (*pcVar16)(&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
-  cVar5 = PeekPacketChecksumBool();
+  cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0xf45);
   if (cVar5 == '\0') {
     pvDelta = EncodeChecksumDeltaShr(param_1 + 0x10,auStack_acc,8);
     uStack_10 = 0xc;
@@ -366,7 +366,7 @@ LAB_0044e580:
         (cVar5 = PacketChecksumGreaterEqual(iStack_ae0,*(undefined4 *)(&g_nCameraBoundY + g_clientContext)),
         cVar5 != '\0')) || (cVar5 = PacketChecksumLessThan(iVar6,0xfffffc18), cVar5 != '\0')) {
       *(undefined1 *)(param_1 + 5) = 1;
-      cVar5 = PeekPacketChecksumBool();
+      cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
       if ((cVar5 != '\0') && (cVar5 = InitChecksumSeed(), cVar5 == '\0')) {
         iVar6 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar6 == 5) || (uVar7 = 2, iVar6 == 6)) {
@@ -384,7 +384,7 @@ LAB_0044e580:
       iVar11 = PeekChecksumStateUnderLock(param_1 + 0x3d5);
       iVar6 = g_clientContext;
       piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar5 = PeekPacketChecksumBool();
+      cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       if ((cVar5 == '\0') && ((&DAT_006a7758)[iVar6] != '\0')) {
         if (((&DAT_006a7736)[iVar6] == '\x01') &&
            ((uVar10 = iVar8 - *(int *)(&g_nCameraY + iVar6) >> 0x1f,
@@ -441,7 +441,7 @@ LAB_0044e580:
     goto LAB_0044e8d1;
   }
   SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
-  cVar5 = PeekPacketChecksumBool();
+  cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if (cVar5 != '\0') {
     iVar6 = PeekChecksumStateUnderLock(param_1 + 0x3d5);
     if ((-1 < iVar6) && (iVar6 < *(int *)(&g_nCameraBoundX + g_clientContext))) {
@@ -535,7 +535,7 @@ LAB_0044e02e:
   }
   else {
 LAB_0044e2cb:
-    cVar5 = PeekPacketChecksumBool();
+    cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar5 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

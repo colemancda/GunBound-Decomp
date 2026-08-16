@@ -126,7 +126,7 @@ void __fastcall DetonateSuperShot_Bullet13(int *param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState((void *)&DAT_00e55ab8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    if ((iVar3 * 2 <= param_1[0xfe7]) || (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) {
+    if ((iVar3 * 2 <= param_1[0xfe7]) || (cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c), cVar1 != '\0')) {
       SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
       cVar1 = PeekPacketChecksumBool();
       if (cVar1 != '\0') {
@@ -671,7 +671,7 @@ LAB_00487d3f:
       local_ae4[0xfe9] = uVar5;
       iVar4 = FUN_004ac400(piVar17);
       local_ae4[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar1 = PeekPacketChecksumBool();
+      cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar1 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -775,7 +775,7 @@ LAB_004880ef:
     (*pcVar16)(&DAT_005a9068);
     if (iVar3 < 1) goto LAB_004880ef;
 LAB_0048812f:
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar1 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

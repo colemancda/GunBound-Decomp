@@ -90,10 +90,10 @@ void __fastcall DetonateSuperShot_Bullet4(int *param_1)
   EncodeOutgoingPacketField((void *)(param_1 + 0x99), iVar3 + iVar2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf45);
   if (cVar1 != '\0') {
     SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
     if (cVar1 != '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
@@ -469,7 +469,7 @@ LAB_004ada51:
       puStack_af0[0xfe9] = uVar5;
       iVar2 = FUN_004ac400(piStack_ad4);
       puStack_af0[0xfe8] = iVar2 * param_1[0xfe5];
-      cVar1 = PeekPacketChecksumBool();
+      cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar1 != '\0') {
         (**(code **)*puStack_af0)(1);
         (**(code **)(*param_1 + 0x20))();

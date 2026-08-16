@@ -110,7 +110,7 @@ void __thiscall FUN_004b31f0(int param_1,undefined4 param_2,int param_3)
     ScrubChecksumGuard();
     local_4 = 0xffffffff;
     ScrubChecksumGuard();
-    cVar4 = PeekPacketChecksumBool();
+    cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     goto joined_r0x004b376c;
   case 6:
     if (param_3 != 6) break;
@@ -217,7 +217,7 @@ LAB_004b368d:
     ScrubChecksumGuard();
     local_4 = 0xffffffff;
     ScrubChecksumGuard();
-    cVar4 = PeekPacketChecksumBool();
+    cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
 joined_r0x004b376c:
     if (cVar4 == '\0') {
       AcquireSoundChannel(0);
@@ -257,7 +257,7 @@ LAB_004b38c8:
     ScrubChecksumGuard();
     local_4 = 0xffffffff;
     ScrubChecksumGuard();
-    cVar4 = PeekPacketChecksumBool();
+    cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar4 == '\0') {
       AcquireSoundChannel(0);
     }
@@ -288,7 +288,7 @@ LAB_004b38c8:
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar4 == '\0') {
         AcquireSoundChannel(0);
       }

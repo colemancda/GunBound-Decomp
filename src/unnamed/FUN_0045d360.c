@@ -44,9 +44,9 @@ int FUN_0045d360(int param_1)
   iVar5 = ((400 - iVar3) / iVar4) * iVar5;
   cVar1 = DecodeGuardedBool();
   if (cVar1 != '\0') {
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x8bba));
     if (cVar1 == '\0') {
-      cVar1 = PeekPacketChecksumBool();
+      cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x8bb7));
       if (cVar1 == '\0') {
         iVar3 = in_EAX + 0x9230;
       }

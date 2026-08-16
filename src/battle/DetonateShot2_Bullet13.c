@@ -120,7 +120,7 @@ void __fastcall DetonateShot2_Bullet13(int *param_1)
     piStack_ae4 = (int *)PeekPacketChecksumState((void *)(param_1 + 0xd7b));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((0x2b < param_1[0xfe7]) ||
-       ((cVar1 = PeekPacketChecksumBool(), cVar1 != '\0' || ((char)param_1[0xfe8] != '\0')))) {
+       ((cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c), cVar1 != '\0' || ((char)param_1[0xfe8] != '\0')))) {
       piStack_ae0 = param_1 + 0x45e;
       piStack_af0 = param_1 + 0x3d5;
       SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],piStack_ae0);
@@ -727,7 +727,7 @@ LAB_004a101f:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_00437150(puStack_aec,uVar6,0x3c,uVar5);
   iVar3 = g_clientContext;
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar1 != '\x01') {
     iVar4 = *(int *)(&DAT_006a7750 + iVar3);
     if (iVar4 < 0x10) {
@@ -740,7 +740,7 @@ LAB_004a101f:
     }
     *(int *)(&DAT_006a7754 + iVar3) = iVar4;
   }
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar1 == '\0') {
     AcquireSoundChannel(0);
   }

@@ -54,12 +54,12 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
         if ((&DAT_005f2f40)[g_clientContext] != '\x02') {
           return;
         }
-        cVar3 = PeekPacketChecksumBool();
+        cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8));
         if (cVar3 == '\0') {
           return;
         }
         if (*(char *)(param_1 + 0x11c5) == '\0') {
-          cVar3 = PeekPacketChecksumBool();
+          cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bae));
           if (cVar3 != '\x01') {
             return;
           }
@@ -82,11 +82,11 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
         if (cVar3 != '\0') {
           return;
         }
-        cVar3 = PeekPacketChecksumBool();
+        cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb4));
         if (cVar3 != '\0') {
-          cVar3 = PeekPacketChecksumBool();
+          cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb1));
           if (cVar3 != '\0') {
-            cVar3 = PeekPacketChecksumBool();
+            cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8));
             if (cVar3 != '\0') {
               QueueBroadcastEvent(0x8405);
               BroadcastQueuedEvent();
@@ -202,7 +202,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
       *(undefined1 *)(param_1 + 0x11ac) = 1;
       CreateButtonWidget(&DAT_00e9be90,0,0xc,0x3f4,s_b_option_cancel_005569b0,0xf8,0x35,0x16,0x14,1,
                          0);
-      if ((*(int *)(param_1 + 4) < 0xe11) && (uVar8 = PeekPacketChecksumBool(), (char)uVar8 != '\0')) {
+      if ((*(int *)(param_1 + 4) < 0xe11) && (uVar8 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x5f3770)), (char)uVar8 != '\0')) {
         uVar8 = uVar8 & 0xffffff00;
       }
       else {
@@ -262,7 +262,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     }
     break;
   case 1:
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb1));
     if (cVar3 == '\0') {
       return;
     }
@@ -295,7 +295,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     iVar7 = *(int *)(iVar7 + 0x621e0);
     goto LAB_004b8ad4;
   case 2:
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8));
     if (cVar3 == '\0') {
       return;
     }
@@ -336,8 +336,8 @@ LAB_004b8aeb:
     return;
   case 3:
     if ((((*(int *)(&DAT_005f3768 + g_clientContext) != 1) &&
-         (*(int *)(&DAT_005f3768 + g_clientContext) != 2)) && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0'))
-       && ((cVar3 = PeekPacketChecksumBool(), cVar3 != '\0' && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0')))) {
+         (*(int *)(&DAT_005f3768 + g_clientContext) != 2)) && (cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bbd)), cVar3 != '\0'))
+       && ((cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb1)), cVar3 != '\0' && (cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb1)), cVar3 != '\0')))) {
       InvokeWidget(3,0);
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       QueueBroadcastEvent(0x8402);
@@ -497,9 +497,9 @@ LAB_004b8aeb:
     return;
   case 0x11:
     cVar3 = PacketChecksumNotEquals(g_clientContext + 0x45354,2);
-    if (((cVar3 == '\0') && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0')) &&
-       (cVar3 = PeekPacketChecksumBool(), cVar3 != '\0')) {
-      cVar3 = PeekPacketChecksumBool();
+    if (((cVar3 == '\0') && (cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb1)), cVar3 != '\0')) &&
+       (cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8)), cVar3 != '\0')) {
+      cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bae));
       if (cVar3 != '\0') {
         QueueBroadcastEvent(0x8405);
         BroadcastQueuedEvent();
@@ -509,7 +509,7 @@ LAB_004b8aeb:
     }
     break;
   case 0x12:
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x5f3770));
     if (cVar3 != '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
       RemoveWidget();
@@ -521,12 +521,12 @@ LAB_004b8aeb:
   }
   return;
 switchD_004b83e0_caseD_3b:
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb1));
   cVar3 = CheckGuardedBoolAnd('\x01' - (cVar3 != '\0'));
   if (cVar3 == '\0') {
     return;
   }
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8));
   if (cVar3 != '\x01') {
     return;
   }
@@ -535,7 +535,7 @@ switchD_004b83e0_caseD_3b:
   }
   cVar3 = PacketChecksumNotEquals(g_clientContext + 0xebcbc,6);
   if (cVar3 != '\0') {
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb1));
     if (cVar3 != '\0') {
       uVar10 = FUN_00420600(g_clientContext, param_3 - 0x3b);
       FUN_004cbda0(param_1,uVar10);

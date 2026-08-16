@@ -231,7 +231,7 @@ LAB_00435034:
     RegisterActiveObject(0, 0, (undefined4 *)0);
     iVar11 = g_clientContext;
     piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar11] != '\0')) {
       if (((&DAT_006a7736)[iVar11] == '\x01') &&
          ((uVar13 = iVar9 - *(int *)(&g_nCameraY + iVar11) >> 0x1f,

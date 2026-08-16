@@ -692,7 +692,7 @@ LAB_004b039b:
       puVar8[0xfe9] = uVar5;
       iVar4 = FUN_004ac400(unaff_EDI);
       puVar8[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar3 = PeekPacketChecksumBool();
+      cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar3 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -833,7 +833,7 @@ LAB_004b085b:
     (*pcVar20)(&DAT_005a9068);
     if (cVar24 == '\0') goto LAB_004b085b;
 LAB_004b08a7:
-    cVar24 = PeekPacketChecksumBool();
+    cVar24 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar24 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

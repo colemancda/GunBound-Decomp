@@ -207,7 +207,7 @@ LAB_0048968e:
       puStack_7e84 = (undefined *)0x4897a9;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x4897b8;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x4897cd;
@@ -276,7 +276,7 @@ LAB_0048982c:
       puStack_7e84 = (undefined *)0x489947;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x489956;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48996b;
@@ -342,7 +342,7 @@ LAB_004899ca:
       puStack_7e84 = (undefined *)0x489adc;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x489aeb;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x489b00;
@@ -408,7 +408,7 @@ LAB_00489b5f:
       puStack_7e84 = (undefined *)0x489c71;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x489c80;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     }
     goto joined_r0x0048a106;
   case 6:
@@ -557,7 +557,7 @@ LAB_0048a4ae:
       puStack_7e84 = (undefined *)0x48a5ee;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x48a5fd;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48a612;
@@ -714,7 +714,7 @@ joined_r0x0048a106:
     cVar2 = PeekPacketChecksumBool();
     if (cVar2 == '\0') {
       puStack_7e84 = (undefined *)0x48a136;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
 LAB_0048a13e:
         puStack_7e84 = (undefined *)0x48a143;
@@ -775,7 +775,7 @@ LAB_0048a661:
     puStack_7e84 = (undefined *)0x48a71f;
     ScrubChecksumGuard();
     puStack_7e84 = (undefined *)0x48a72e;
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar2 == '\0') {
       puStack_7e84 = (undefined *)0x0;
       puStack_7e88 = (undefined1 *)0x48a743;
@@ -834,7 +834,7 @@ LAB_0048a661:
       puStack_7e84 = (undefined *)0x48a8ab;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x48a8ba;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48a8cf;
@@ -890,7 +890,7 @@ LAB_0048a661:
       puStack_7e84 = (undefined *)0x48aa16;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x48aa25;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48aa3a;
@@ -944,7 +944,7 @@ LAB_0048a661:
       puStack_7e84 = (undefined *)0x48ab78;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x48ab87;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48ab9c;
@@ -999,7 +999,7 @@ LAB_0048a661:
       puStack_7e84 = (undefined *)0x48acda;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x48ace9;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48acfe;
@@ -1057,7 +1057,7 @@ LAB_0048a661:
       puStack_7e84 = (undefined *)0x48ae54;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x48ae63;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48ae78;
@@ -1115,7 +1115,7 @@ LAB_0048a661:
       puStack_7e84 = (undefined *)0x48afce;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x48afdd;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48aff2;
@@ -1169,7 +1169,7 @@ LAB_0048a661:
       puStack_7e84 = (undefined *)0x48b130;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x48b13f;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48b154;
@@ -1223,7 +1223,7 @@ LAB_0048a661:
       puStack_7e84 = (undefined *)0x48b292;
       ScrubChecksumGuard();
       puStack_7e84 = (undefined *)0x48b2a1;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         puStack_7e84 = (undefined *)0x0;
         puStack_7e88 = (undefined1 *)0x48b2b2;

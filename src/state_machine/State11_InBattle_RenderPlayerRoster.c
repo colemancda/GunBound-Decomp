@@ -110,7 +110,7 @@ void State11_InBattle_RenderPlayerRoster(int param_1)
   if (*(char *)(g_clientContext + 0x3b6c0) == -1) goto LAB_00409972;
   if ((((*(int *)(g_clientContext + 0x227bc) == 0xc0) ||
        (*(int *)(g_clientContext + 0x621e4) != *(int *)(g_clientContext + 0x621e0))) &&
-      (cVar1 = PeekPacketChecksumBool(), cVar1 == '\x01')) && (cVar1 = PeekPacketChecksumBool(), cVar1 == '\0')) {
+      (cVar1 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bbd)), cVar1 == '\x01')) && (cVar1 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0xbff7)), cVar1 == '\0')) {
     cVar1 = PacketChecksumLessThan(*(int *)(g_clientContext + 0x621e0) + 0x60d4,0);
     if (cVar1 != '\0') {
       iVar3 = *(int *)(param_1 + 0x44);

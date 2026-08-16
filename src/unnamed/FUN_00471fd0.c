@@ -226,7 +226,7 @@ LAB_004720c9:
     puStack_4d48 = (undefined *)0x4721d9;
     ScrubChecksumGuard();
     puStack_4d48 = (undefined *)0x4721e8;
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     goto joined_r0x00472d90;
   case 6:
     if (param_3 != 2) break;
@@ -740,7 +740,7 @@ LAB_004726ab:
     puStack_4d48 = (undefined *)0x472d7f;
     ScrubChecksumGuard();
     puStack_4d48 = (undefined *)0x472d8e;
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
 joined_r0x00472d90:
     if (cVar3 == '\0') {
       puStack_4d48 = (undefined *)0x0;
@@ -822,7 +822,7 @@ LAB_00472e11:
     puStack_4d48 = (undefined *)0x472ec9;
     ScrubChecksumGuard();
     puStack_4d48 = (undefined *)0x472ed8;
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar3 == '\0') {
       puStack_4d48 = (undefined *)0x0;
       puStack_4d4c = (undefined1 *)0x472ee9;
@@ -894,7 +894,7 @@ LAB_00472e11:
       puStack_4d48 = (undefined *)0x473065;
       ScrubChecksumGuard();
       puStack_4d48 = (undefined *)0x473074;
-      cVar3 = PeekPacketChecksumBool();
+      cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar3 == '\0') {
         puStack_4d48 = (undefined *)0x0;
         puStack_4d4c = (undefined1 *)0x473085;

@@ -101,7 +101,7 @@ LAB_0048398a:
       uVar3 = 0;
       PeekPacketChecksumBool(0,uVar2,0xff,1,1);
       FUN_00431d90(*(undefined1 *)(param_1 + 0x3c),7,0,uVar3,uVar2,uVar4,uVar8,uVar9);
-      cVar1 = PeekPacketChecksumBool();
+      cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar1 == '\0') {
         AcquireSoundChannel(0);
       }

@@ -45,13 +45,13 @@ uint FUN_0045d640(int param_1,int param_2)
   iStack_4 = 0xffffffff;
   puStack_8 = &LAB_0053c429;
   *unaff_FS_OFFSET = &local_c;
-  uVar4 = PeekPacketChecksumBool();
+  uVar4 = PeekPacketChecksumBool((byte *)(param_1 + 0x908));
   if ((char)uVar4 == '\0') {
 LAB_0045d679:
     *unaff_FS_OFFSET = local_c;
     return uVar4 & 0xffffff00;
   }
-  uVar4 = PeekPacketChecksumBool();
+  uVar4 = PeekPacketChecksumBool((byte *)(param_1 + 0xbff7));
   if ((char)uVar4 == '\x01') goto LAB_0045d679;
   uVar5 = EncodeChecksumDeltaDiv(unaff_EDI + 0x355,auStack_89c,2);
   iStack_4 = 0;

@@ -312,7 +312,7 @@ void __fastcall FUN_00480310(int *param_1)
         uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar7,uVar10,uVar9);
         SpawnShot_Type9(*(byte *)(param_1 + 2) & 7,iVar6,1,uVar13,uVar12,uVar11,iVar7,uVar10,uVar9,
                      uVar8,uVar16,uVar18);
-        cVar4 = PeekPacketChecksumBool();
+        cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
         if (cVar4 == '\0') {
           AcquireSoundChannel(0);
         }
@@ -395,7 +395,7 @@ void __fastcall FUN_00480310(int *param_1)
     uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar5,uVar10,uVar9);
     SpawnShot_Type9(*(byte *)(param_1 + 2) & 7,param_1[0xfe9],0,uVar13,uVar12,uVar11,iVar5,uVar10,uVar9
                  ,uVar8,uVar16,uVar18);
-    cVar4 = PeekPacketChecksumBool();
+    cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   }
   else {
     if (param_1[9] != 2) goto LAB_0048108e;
@@ -452,7 +452,7 @@ void __fastcall FUN_00480310(int *param_1)
       uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar5,uVar10,uVar9);
       SpawnShot_Type9(*(byte *)(param_1 + 2) & 7,param_1[0xfe9],1,uVar13,uVar12,uVar11,iVar5,uVar10,
                    uVar9,uVar8,uVar16,uVar18);
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar4 == '\0') {
         AcquireSoundChannel(0);
       }
@@ -477,7 +477,7 @@ void __fastcall FUN_00480310(int *param_1)
       uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar5,uVar10,uVar9);
       SpawnShot_Type9(*(byte *)(param_1 + 2) & 7,param_1[0xfe9] + 1,1,uVar13,uVar12,uVar11,iVar5,uVar10
                    ,uVar9,uVar8,uVar16,uVar18);
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar4 == '\0') {
         AcquireSoundChannel(0);
       }
@@ -502,7 +502,7 @@ void __fastcall FUN_00480310(int *param_1)
     uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar5,uVar10,uVar9);
     SpawnShot_Type9(*(byte *)(param_1 + 2) & 7,param_1[0xfe9] + 2,1,uVar13,uVar12,uVar11,iVar5,uVar10,
                  uVar9,uVar8,uVar16,uVar18);
-    cVar4 = PeekPacketChecksumBool();
+    cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   }
   if (cVar4 == '\0') {
     AcquireSoundChannel(0);

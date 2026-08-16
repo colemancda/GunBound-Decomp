@@ -343,7 +343,7 @@ LAB_004ae9a8:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((iVar7 < 0) && (cVar6 = PacketChecksumGreaterThan(param_1 + 0x122,0), cVar6 != '\0')) {
 LAB_004ae748:
-    cVar6 = PeekPacketChecksumBool();
+    cVar6 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar6 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

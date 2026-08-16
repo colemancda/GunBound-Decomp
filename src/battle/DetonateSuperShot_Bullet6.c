@@ -299,7 +299,7 @@ void __fastcall DetonateSuperShot_Bullet6(int *param_1)
 LAB_00453238:
     if (param_1[9] == 1) goto LAB_00453f0d;
   }
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0x3fa0);
   if (cVar3 == '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x453314
@@ -315,7 +315,7 @@ LAB_00453238:
     (*pcVar15)();
   }
   else {
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0x3fa3);
     if (cVar3 == '\0') {
       FUN_004585e0();
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -714,7 +714,7 @@ LAB_004535de:
   }
   else {
 LAB_00453887:
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar3 == '\0') {
       SetGuardedBool(0,GB_GUARD_UNRECOVERED) /* value+ptr both dropped; unrecovered */;
     }

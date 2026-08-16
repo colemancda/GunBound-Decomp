@@ -43,9 +43,9 @@ void __fastcall SimulateMobileFrame(int *param_1)
   uStack_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_c;
   (**(code **)(param_1[0xe] + 8))();
-  cVar5 = PeekPacketChecksumBool();
+  cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0xbff7);
   if (cVar5 == '\x01') goto LAB_004628db;
-  cVar5 = PeekPacketChecksumBool();
+  cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x908);
   if (cVar5 == '\0') {
     AdvanceSpriteAnimation((int)param_1);
     *unaff_FS_OFFSET = uStack_c;
@@ -104,7 +104,7 @@ void __fastcall SimulateMobileFrame(int *param_1)
     FUN_0045ed80(param_1);
   }
   (**(code **)(*param_1 + 0x1c))(param_1[9],param_1[0xb]);
-  cVar5 = PeekPacketChecksumBool();
+  cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar5 == '\x01') goto LAB_004628db;
   cVar5 = PeekPacketChecksumBool();
   if (((cVar5 == '\0') && (param_1[9] != 0xd)) && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) {

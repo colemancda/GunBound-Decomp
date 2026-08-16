@@ -109,7 +109,7 @@ void __fastcall DetonateSuperShot_Bullet2_8_11(int *param_1)
   EncodeOutgoingPacketField(iVar4 + iVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf45);
   if (cVar2 == '\0') {
     uVar21 = EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac4,8);
     puStack_8 = (undefined1 *)0x5;
@@ -225,7 +225,7 @@ LAB_00484c11:
     else {
 LAB_00484dcc:
       *(undefined1 *)(param_1 + 5) = 1;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
       if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
         iVar3 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar3 == 5) || (uVar6 = 2, iVar3 == 6)) {
@@ -526,7 +526,7 @@ LAB_0048471e:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar3 < 1) goto LAB_00484857;
 LAB_004848a3:
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar2 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

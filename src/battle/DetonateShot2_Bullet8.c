@@ -104,7 +104,7 @@ void __fastcall DetonateShot2_Bullet8(int *param_1)
   EncodeOutgoingPacketField((void *)(param_1 + 0x99),iVar6 + local_b0c);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (**(code **)(*param_1 + 0x14))(8);
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf45);
   if (cVar4 == '\0') {
     iVar6 = EncodeChecksumDeltaShr(param_1 + 0x10,auStack_688,8);
     puStack_10 = (undefined1 *)0x11;
