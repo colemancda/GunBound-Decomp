@@ -3,6 +3,23 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 5 argless PeekPacketChecksumState() calls.  ESI is loaded
+ * once at 0x45f32c/0x45f333 as param_1 + 0x62f8 and never reassigned, so
+ * C34 (0x45f33b) and the C85/C91 pair (0x45f578 / 0x45f54a) all read that
+ * cell.  C44 and C66 read EDI, which each branch had just set from the
+ * return value of the 0x40a8c0 delta-div helper (the
+ * EncodeChecksumDeltaDiv two lines above each) -- and that helper RETURNS
+ * ITS SECOND ARGUMENT, so they are the branch's own stack scratch cell,
+ * local_89c and local_ac0 respectively.
+ *
+ * NOTE: Ghidra emitted BOTH if/else pairs in the reverse of address order,
+ * so the sites were matched by landmark rather than position: the
+ * `local_4 = 4` store lands at 0x45f455 (just before 0x45f461) and
+ * `local_4 = 1` at 0x45f387 (just before 0x45f393), and the trailing
+ * DAT_005a9624 table load at 0x45f56b follows the 0x45f54a peek, not the
+ * 0x45f578 one.  The pairings above are the landmark-correct ones.
  */
 #include "ghidra_types.h"
 
@@ -31,7 +48,7 @@ int FUN_0045f300(int param_1)
   puStack_8 = &LAB_00539a17;
   *unaff_FS_OFFSET = &local_c;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x62f8));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar2 < 1) {
     uVar3 = EncodeChecksumNegate(param_1 + 0x62f8,local_230);
@@ -41,7 +58,7 @@ int FUN_0045f300(int param_1)
     EncodeChecksumDeltaDiv(uVar3,local_89c,10);
     local_4 = 4;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_acc = PeekPacketChecksumState();
+    local_acc = PeekPacketChecksumState((void *)(local_89c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 3;
     if ((*(int *)(local_89c + 0x14)) != 0) {
@@ -63,7 +80,7 @@ int FUN_0045f300(int param_1)
     EncodeChecksumDeltaDiv(uVar3,local_ac0,10);
     local_4 = 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    local_acc = PeekPacketChecksumState();
+    local_acc = PeekPacketChecksumState((void *)(local_ac0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0;
     if ((*(int *)(local_ac0 + 0x14)) != 0) {
@@ -82,13 +99,13 @@ LAB_0045f51b:
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x62f8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = *(int *)(&DAT_005a9640 + (local_acc % 7) * 4);
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x62f8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar2 = *(int *)(&DAT_005a9624 + (local_acc % 7) * 4);
   }
