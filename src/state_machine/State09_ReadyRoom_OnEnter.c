@@ -7,6 +7,13 @@
  * left as-is (undeclared) - this file won't link standalone yet. See
  * src/README.md's "Raw/verbatim ports" section for status and how
  * these get promoted to verified.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls, all reached
+ * directly off `dword ptr [0x5b3484]` (g_clientContext) in address order:
+ * C130/C131 are the adjacent tick-clock pair 0x4d6e78 / 0x4d6e81
+ * (+ 0x3b6c4 and + 0x3b49c) and C250/C292 are 0x4d72a2 / 0x4d7418, both
+ * the room-slot count + 0x44efc.
  */
 #include "ghidra_types.h"
 #include <windows.h>
@@ -127,8 +134,8 @@ void __fastcall State09_ReadyRoom_OnEnter(int param_1)
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar4 = PeekPacketChecksumState();
-  iVar5 = PeekPacketChecksumState();
+  iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
+  iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar4 == iVar5) {
     CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_ready_startgame_005570d8,0x28f,0x227,0x6b,0x2d,1,
@@ -247,7 +254,7 @@ LAB_004d722d:
   } while (iStack_94 < 0x4590c);
   *(undefined1 *)(g_clientContext + 0x45578) = *(undefined1 *)(g_clientContext + 0x457a0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  PeekPacketChecksumState((void *)(g_clientContext + 0x44efc));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   ApplyRoomSettings(param_1,*(undefined1 *)(g_clientContext + 0x45124));
   *(undefined1 *)(param_1 + 0x4cc) = 0;
@@ -289,7 +296,7 @@ LAB_004d722d:
   }
   *(undefined1 *)(param_1 + 9) = *(undefined1 *)(iVar4 + 0x44ef8);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  uVar7 = PeekPacketChecksumState();
+  uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x44efc));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x4d7431:
