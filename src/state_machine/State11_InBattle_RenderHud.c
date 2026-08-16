@@ -3,6 +3,38 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 48 argless PeekPacketChecksumState() calls.  The C is in
+ * address order here (its own LAB_004c8c40 / LAB_004c8d54 / LAB_004c8edb
+ * labels line up with the guard calls at 0x4c8c55 / 0x4c8d69 / 0x4c8ef0),
+ * so the 48 C sites map 1:1 onto the 48 guard calls between 0x4c8c55 and
+ * 0x4c9a5a.
+ *
+ * The body is three identical 14-call groups (the three HUD gauges),
+ * differing only in their arena base offsets:
+ *   group 1 (C312..C357)  0x1a8a50 / 0x1a7930
+ *   group 2 (C378..C423)  0x1a45d0 / 0x1a34b0
+ *   group 3 (C444..C489)  0x1a6810 / 0x1a56f0
+ * Each group reads a selector from g_clientContext + 0xeb854, uses it
+ * (signed % 0x400, * 0x224) to pick a cell in the + 0x62854 array, and
+ * that cell's value (& 7) is the slot index for five arena reads of the
+ * form
+ *   (<sel> * 0xb + *(byte *)(ctx + 0x475c4)) * 0x7d28 + ctx
+ *       + (slot & 7) * 0x224 + <base>
+ * where <sel> is a fresh peek of g_clientContext + 0x475c8 taken
+ * immediately before each one.  Ghidra DISCARDED every one of those
+ * intermediate results (they were bare call statements), so they are
+ * captured here into two new locals, iGuardSel and iGuardSlot; a third,
+ * iGuardA, holds the g_clientContext + 0x473a0 divisor the head block
+ * needs.
+ *
+ * The head (C297..C308) is the same idea with a different index formula:
+ * 0x4c8efe's `dec ebx; jns` is the `-1 < iVar6 + -1` test, EBP is zeroed
+ * at 0x4c8f01 on the not-taken path and set to <peek> - 1 on the taken
+ * one, and 0x4c8f4c-0x4c8f70 divides it by the 0x473a0 peek, takes the
+ * signed remainder mod 8 twice around a +1, and scales by 0x224 into the
+ * + 0x595d8 array.  Hence the added `iGuardSel = 0;` before the if.
  */
 #include "ghidra_types.h"
 
@@ -21,6 +53,9 @@ void __fastcall State11_InBattle_RenderHud(int param_1)
   int iLen9c;
   int iVar5;
   int iVar6;
+  int iGuardSel;
+  int iGuardSlot;
+  int iGuardA;
   int iVar7;
   undefined4 uVar8;
   int iVar9;
@@ -246,7 +281,7 @@ code_r0x004c8c08:
     piVar12 = (int *)(param_1 + 0x69c);
 LAB_004c8c40:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar6 = PeekPacketChecksumState();
+    iVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar10 = ((-(uint)(*(char *)(*piVar12 + 0x50126 + g_clientContext) !=
                       *(char *)(g_clientContext + 0x3b6c0)) & 6) + 5 + piVar12[-0x180]) - iVar6;
@@ -272,7 +307,7 @@ LAB_004c8d32:
     piVar12 = (int *)(param_1 + 0xca0);
 LAB_004c8d54:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar6 = PeekPacketChecksumState();
+    iVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar10 = ((-(uint)(*(char *)(*piVar12 + 0x50126 + g_clientContext) !=
                       *(char *)(g_clientContext + 0x3b6c0)) & 6) + 5 + piVar12[-0x100]) - iVar6;
@@ -294,67 +329,73 @@ LAB_004c8d54:
   }
 LAB_004c8edb:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar6 = PeekPacketChecksumState();
+  iVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  iGuardSel = 0;
   if (-1 < iVar6 + -1) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = -1 + PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState();
+  iGuardA = PeekPacketChecksumState((void *)(g_clientContext + 0x473a0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar6 = PeekPacketChecksumState();
+  iVar6 = PeekPacketChecksumState((void *)(((iGuardSel / iGuardA) % 8 + 1) % 8 * 0x224 + g_clientContext + 0x595d8));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar6 == 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0xeb854));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSlot = PeekPacketChecksumState((void *)(iGuardSel % 0x400 * 0x224 + g_clientContext + 0x62854));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar6 = PeekPacketChecksumState();
+    iVar6 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a8a50));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar7 = PeekPacketChecksumState();
+    iVar7 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a7930));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar6 - iVar7 < 1) {
       uStack_a4 = 1;
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar6 = PeekPacketChecksumState();
+      iVar6 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a8a50));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar7 = PeekPacketChecksumState();
+      iVar7 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a7930));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uStack_a4 = iVar6 - iVar7;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar6 = PeekPacketChecksumState();
+    iVar6 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a7930));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0xeb854));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar10 = PeekPacketChecksumState();
+    uVar10 = PeekPacketChecksumState((void *)(iGuardSel % 0x400 * 0x224 + g_clientContext + 0x62854));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar11 = *(int *)(param_1 + 8) % 7 + 0x12;
     if ((DAT_0079352c != 0) && (-1 < (int)uVar11)) {
@@ -375,52 +416,57 @@ LAB_004c8edb:
   }
   if (iVar6 == 1) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0xeb854));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSlot = PeekPacketChecksumState((void *)(iGuardSel % 0x400 * 0x224 + g_clientContext + 0x62854));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar6 = PeekPacketChecksumState();
+    iVar6 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a45d0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar7 = PeekPacketChecksumState();
+    iVar7 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a34b0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar6 - iVar7 < 1) {
       uStack_a4 = 1;
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar6 = PeekPacketChecksumState();
+      iVar6 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a45d0));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar7 = PeekPacketChecksumState();
+      iVar7 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a34b0));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uStack_a4 = iVar6 - iVar7;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar6 = PeekPacketChecksumState();
+    iVar6 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a34b0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0xeb854));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar10 = PeekPacketChecksumState();
+    uVar10 = PeekPacketChecksumState((void *)(iGuardSel % 0x400 * 0x224 + g_clientContext + 0x62854));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar11 = *(int *)(param_1 + 8) % 7 + 0x12;
     if ((DAT_0079352c != 0) && (-1 < (int)uVar11)) {
@@ -441,52 +487,57 @@ LAB_004c8edb:
   }
   if (iVar6 == 2) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0xeb854));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSlot = PeekPacketChecksumState((void *)(iGuardSel % 0x400 * 0x224 + g_clientContext + 0x62854));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar6 = PeekPacketChecksumState();
+    iVar6 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a6810));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar7 = PeekPacketChecksumState();
+    iVar7 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a56f0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar6 - iVar7 < 1) {
       uStack_a4 = 1;
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar6 = PeekPacketChecksumState();
+      iVar6 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a6810));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState();
+      iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar7 = PeekPacketChecksumState();
+      iVar7 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a56f0));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uStack_a4 = iVar6 - iVar7;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar6 = PeekPacketChecksumState();
+    iVar6 = PeekPacketChecksumState((void *)((iGuardSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext +
+                                                     (iGuardSlot & 7) * 0x224 + 0x1a56f0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState();
+    iGuardSel = PeekPacketChecksumState((void *)(g_clientContext + 0xeb854));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar10 = PeekPacketChecksumState();
+    uVar10 = PeekPacketChecksumState((void *)(iGuardSel % 0x400 * 0x224 + g_clientContext + 0x62854));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar11 = *(int *)(param_1 + 8) % 7 + 0x12;
     if ((DAT_0079352c != 0) && (-1 < (int)uVar11)) {
