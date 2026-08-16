@@ -151,7 +151,7 @@ void FUN_0041f200(int a);
 char ChecksumPairDiffers(void *a, void *b);
 unsigned int EncodeChecksumDeltaMod(void *cell, void *out, int m);
 void EncodeChecksumState(void *cell);
-void EmitChecksumSum(void *cell);
+void EmitChecksumSum(void *self, void *other);
 void EmitChecksumDiff(void *self, void *other);
 void EmitChecksumMod(void *self, int divisor);
 void EncodeDecrementedChecksum(void *self);
@@ -780,7 +780,7 @@ void CMobile::v2_SimulateFrame()
                     ScrubChecksumGuard(auStack_454);
                     uVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                     uVar9 = EncodeChecksumDeltaDiv(this->m_pad908 + 0x7e58, auStack_454, uVar9);
-                    EmitChecksumSum(reinterpret_cast<void *>(uVar9));
+                    EmitChecksumSum(this->m_pad908 + 4, reinterpret_cast<void *>(uVar9));
                     goto LAB_0046205f;
                 }
                 EncodeChecksumState(pbVar12);
@@ -1182,7 +1182,7 @@ void CMobile::HandleFireInput()
                         ScrubChecksumGuard(local_b40);
                         uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                         uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x21d8, local_b40, uVar17);
-                        EmitChecksumSum(reinterpret_cast<void *>(uVar17));
+                        EmitChecksumSum(param_1 + 0x243, reinterpret_cast<void *>(uVar17));
                         ScrubChecksumGuard(local_b40);
                         uVar17 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                         EmitChecksumMod(param_1 + 0x21d8, static_cast<int>(uVar17));
@@ -1649,7 +1649,7 @@ LAB_004613ad:
         if (cVar9 == '\0') {
             if ((&DAT_005f2f40)[g_clientContext] == '\0') {
                 uVar17 = EncodeChecksumDeltaDiv(param_1 + 0x1d90, auStack_230, 6);
-                EmitChecksumSum(reinterpret_cast<void *>(uVar17));
+                EmitChecksumSum(param_1 + 0x1e19, reinterpret_cast<void *>(uVar17));
                 ScrubChecksumGuard(auStack_230);
             } else {
                 iVar18 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(g_clientContext + 0x59190));

@@ -293,8 +293,8 @@ LAB_0044df28:
     }
     cVar5 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
     if (cVar5 == '\0') {
-      EmitChecksumSum(param_1 + 0x2bd);
-      EmitChecksumSum(param_1 + 0x346);
+      EmitChecksumSum(param_1 + 0x122, param_1 + 0x2bd);
+      EmitChecksumSum(param_1 + 0x1ab, param_1 + 0x346);
     }
     else {
       uVar10 = PeekChecksumStateUnderLock(param_1 + 0x122);

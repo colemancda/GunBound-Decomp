@@ -130,8 +130,8 @@ void __fastcall DetonateShot1_Bullet9_16(int *param_1)
     }
     cVar4 = CheckGuardedBoolAnd(piVar17[0x3d2] != 0);
     if (cVar4 == '\0') {
-      EmitChecksumSum(piVar17 + 0x2bd);
-      EmitChecksumSum(piVar17 + 0x346);
+      EmitChecksumSum(piVar17 + 0x122, piVar17 + 0x2bd);
+      EmitChecksumSum(piVar17 + 0x1ab, piVar17 + 0x346);
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

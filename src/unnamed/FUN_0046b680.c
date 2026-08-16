@@ -119,8 +119,8 @@ void __fastcall FUN_0046b680(int *param_1)
     }
     cVar4 = CheckGuardedBoolAnd(piVar9[0x3d2] != 0);
     if (cVar4 == '\0') {
-      EmitChecksumSum(piVar9 + 0x2bd);
-      EmitChecksumSum(piVar9 + 0x346);
+      EmitChecksumSum(piVar9 + 0x122, piVar9 + 0x2bd);
+      EmitChecksumSum(piVar9 + 0x1ab, piVar9 + 0x346);
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

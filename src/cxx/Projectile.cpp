@@ -156,7 +156,7 @@ char PeekPacketChecksumBool_5(int, unsigned int, int, int, unsigned int, int);
 void *operator_new(unsigned int size);
 void InitProjectile(void *thisArg, int type);
 char CheckGuardedBoolAnd(int cond);
-void EmitChecksumSum(void *cell);
+void EmitChecksumSum(void *self, void *other);
 int EncodeChecksumDeltaShr(void *cell, void *out, int shift);
 char PacketChecksumLessThan(void *cell, int value);
 void QueueOutgoingPacketField(unsigned int value);
@@ -453,8 +453,8 @@ void CProjectile::DetonateProjectile()
         }
         cVar4 = CheckGuardedBoolAnd(*reinterpret_cast<int *>(pCVar9->m_pad3d + 0xf0b) != 0);
         if (cVar4 == '\0') {
-            EmitChecksumSum(pCVar9->m_pad3d + 0xab7);
-            EmitChecksumSum(pCVar9->m_pad3d + 0xcdb);
+            EmitChecksumSum(pCVar9->m_pad3d + 0x44b, pCVar9->m_pad3d + 0xab7);
+            EmitChecksumSum(pCVar9->m_pad3d + 0x66f, pCVar9->m_pad3d + 0xcdb);
         } else {
             EnterCriticalSection(&DAT_005a9068);
             uVar13 = PeekPacketChecksumState((void *)(pCVar9->m_pad3d + 0x44b));

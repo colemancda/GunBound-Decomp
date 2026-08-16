@@ -218,8 +218,8 @@ LAB_004adaf2:
   }
   cVar1 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
   if (cVar1 == '\0') {
-    EmitChecksumSum(param_1 + 0x2bd);
-    EmitChecksumSum(param_1 + 0x346);
+    EmitChecksumSum(param_1 + 0x122, param_1 + 0x2bd);
+    EmitChecksumSum(param_1 + 0x1ab, param_1 + 0x346);
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -358,10 +358,10 @@ void __fastcall FUN_004513b0(int *param_1)
     if (cVar2 == '\0') {
       uStack_b68 = (int **)(param_1 + 0x2bd);
       uStack_b6c = (undefined *)0x4528b9;
-      EmitChecksumSum();
+      EmitChecksumSum(param_1 + 0x122, param_1 + 0x2bd);
       uStack_b68 = (int **)(param_1 + 0x346);
       uStack_b6c = (undefined *)0x4528cd;
-      EmitChecksumSum();
+      EmitChecksumSum(param_1 + 0x1ab, param_1 + 0x346);
       uStack_b68 = (int **)&DAT_005a9068;
       uStack_b6c = (undefined *)0x4528d4;
       (*pcVar17)();
