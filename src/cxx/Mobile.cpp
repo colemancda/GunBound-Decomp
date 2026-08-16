@@ -35,7 +35,38 @@
  * scaffolding is stripped, same documented tradeoff as the rest of this
  * tree - so byte scores here are expected to be dominated by that plus
  * the unresolved register-passed args (e.g. FindGroundHeightAtColumn's
- * column coordinate arrives in a register Ghidra never resolved). */
+ * column coordinate arrives in a register Ghidra never resolved).
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 15 argless PeekPacketChecksumState() /
+ * EncodeOutgoingPacketField() sites in this file.
+ *
+ *   - v5_ComputeGroundY (0x45c6e0): six of the nine peeks read EAX
+ *     straight out of the helper called on the line above -- the
+ *     delta/pair helpers RETURN THEIR SECOND ARGUMENT -- so they are the
+ *     named scratch guards this port already declares: &g454 (0x45c755),
+ *     &g678 (0x45c84f, 0x45c908, 0x45c9aa, 0x45ca28) and &g230
+ *     (0x45caca).  The other three (0x45c77c, 0x45c921, 0x45ca41) all read
+ *     the same spilled pointer [esp + 0x2c], built once at 0x45c770 as
+ *     EDI + 0x90c = this->m_pad908 + 4 -- exactly the value the C already
+ *     names local_67c (which is why the `(void)local_67c` suppression
+ *     further down is now redundant, though harmless).
+ *   - v3_Render (0x462900): 0x462981 and 0x4629b4 read
+ *     g_clientContext + 0x45354 and + 0x3b49c.
+ *   - HandleFireInput (0x45f910): the three encodes at 0x4613de /
+ *     0x4613ff / 0x46141a are g_clientContext + 0x59190,
+ *     g_clientContext + 0x593b4 and EBP + 0x7864, and the peek at
+ *     0x461872 is EBP + 0xb30.  EBP is `param_1` here (confirmed by
+ *     0x461849's `mov [ebp+0xae10],0` = the C's `param_1[0x2b84] = 0`),
+ *     and param_1 is an int *, so the byte offsets become + 0x1e19 and
+ *     + 0x2cc.
+ *
+ * Being C++, the file-local extern declarations of
+ * PeekPacketChecksumState / EncodeOutgoingPacketField had to gain the
+ * `void *self` parameter -- an empty parameter list means "no arguments"
+ * here, unlike in the .c ports.  Both stay __cdecl, so the extra pushed
+ * argument is caller-cleaned and behaviour is unchanged until the
+ * guard-family prototype flip lands. */
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
@@ -47,7 +78,7 @@ extern "C" {
 void ScrambleChecksumGuardBytes(void);
 void ScrubChecksumGuard(void *cell);
 void TreeLowerBound(void *scratch);
-int  PeekPacketChecksumState(void);
+int  PeekPacketChecksumState(void *self);
 int  PeekChecksumStateUnderLock(void *cell);
 char PeekPacketChecksumBool(void);
 unsigned int EncodeChecksumDeltaDiv(void *cell, void *out, int div);
@@ -143,7 +174,7 @@ extern const char s_normal_00552230[], s_wnormal_00553618[], s_wmove_00555ca0[];
 extern unsigned char DAT_00553f90, DAT_00555c90;
 
 /* HandleFireInput's additional dependencies. */
-void EncodeOutgoingPacketField(unsigned int v);
+void EncodeOutgoingPacketField(void *self, unsigned int v);
 char CompareChecksumExceeds(void *cell, unsigned int other);
 void FUN_004eeae0(void);
 void FUN_0040b030(void);
@@ -218,12 +249,12 @@ int CMobile::v5_ComputeGroundY()
     uVar3 = EncodeChecksumDeltaDiv(pbVar1, &g678, 2);
     EncodeChecksumPairDiff(pbVar2, &g454, uVar3);
     EnterCriticalSection(&DAT_005a9068);
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(&g454));
     LeaveCriticalSection(&DAT_005a9068);
     EnterCriticalSection(&DAT_005a9068);
     local_67c = this->m_pad908 + 4;        /* column x - passed to FindGroundHeightAtColumn via register */
     (void)local_67c;
-    PeekPacketChecksumState();
+    PeekPacketChecksumState((void *)(local_67c));
     LeaveCriticalSection(&DAT_005a9068);
     local_680 = FindGroundHeightAtColumn();
     if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
@@ -232,7 +263,7 @@ int CMobile::v5_ComputeGroundY()
     uVar3 = EncodeChecksumDeltaDiv(pbVar1, &g454, 2);
     EncodeChecksumPairDiff(pbVar2, &g678, uVar3);
     EnterCriticalSection(&DAT_005a9068);
-    iVar4 = PeekPacketChecksumState();
+    iVar4 = PeekPacketChecksumState((void *)(&g678));
     LeaveCriticalSection(&DAT_005a9068);
     bool bVar7 = local_680 == iVar4;
     if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
@@ -242,17 +273,17 @@ int CMobile::v5_ComputeGroundY()
     if (bVar7) {
         EncodeChecksumPairDiff(pbVar2, &g678, reinterpret_cast<unsigned int>(pbVar1));
         EnterCriticalSection(&DAT_005a9068);
-        PeekPacketChecksumState();
+        PeekPacketChecksumState((void *)(&g678));
         LeaveCriticalSection(&DAT_005a9068);
         EnterCriticalSection(&DAT_005a9068);
-        PeekPacketChecksumState();
+        PeekPacketChecksumState((void *)(local_67c));
         LeaveCriticalSection(&DAT_005a9068);
         iVar5 = FindGroundHeightAtColumn();
         if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
 
         EncodeChecksumPairDiff(pbVar2, &g678, reinterpret_cast<unsigned int>(pbVar1));
         EnterCriticalSection(&DAT_005a9068);
-        iVar6 = PeekPacketChecksumState();
+        iVar6 = PeekPacketChecksumState((void *)(&g678));
         LeaveCriticalSection(&DAT_005a9068);
         if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
 
@@ -260,17 +291,17 @@ int CMobile::v5_ComputeGroundY()
         if (iVar5 == iVar6) {
             EncodeChecksumDeltaAdd(pbVar2, &g678, 1);
             EnterCriticalSection(&DAT_005a9068);
-            PeekPacketChecksumState();
+            PeekPacketChecksumState((void *)(&g678));
             LeaveCriticalSection(&DAT_005a9068);
             EnterCriticalSection(&DAT_005a9068);
-            PeekPacketChecksumState();
+            PeekPacketChecksumState((void *)(local_67c));
             LeaveCriticalSection(&DAT_005a9068);
             iVar4 = FindGroundHeightAtColumn();
             if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
 
             EncodeChecksumDeltaAdd(pbVar2, &g230, 1);
             EnterCriticalSection(&DAT_005a9068);
-            iVar5 = PeekPacketChecksumState();
+            iVar5 = PeekPacketChecksumState((void *)(&g230));
             LeaveCriticalSection(&DAT_005a9068);
             if (g230.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
 
@@ -340,11 +371,11 @@ void CMobile::v3_Render()
     iVar9 = g_clientContext;
     if (cVar4 == '\0') {
         EnterCriticalSection(&DAT_005a9068);
-        iVar6 = PeekPacketChecksumState();
+        iVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
         LeaveCriticalSection(&DAT_005a9068);
         if (iVar6 == 2) {
             EnterCriticalSection(&DAT_005a9068);
-            uVar7 = PeekPacketChecksumState();
+            uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
             LeaveCriticalSection(&DAT_005a9068);
             if ((this->m_owner & 7) == uVar7) {
                 iVar6 = *reinterpret_cast<int *>(g_clientContext + 0x1fe2c);
@@ -1592,13 +1623,13 @@ LAB_004613ad:
         if (DAT_007934c4 != '\0') {
             (&DAT_00e52868)[DAT_00e52e68] = 0;
             EnterCriticalSection(&DAT_005a9068);
-            EncodeOutgoingPacketField(0xffffffff);
+            EncodeOutgoingPacketField((void *)(g_clientContext + 0x59190), 0xffffffff);
             LeaveCriticalSection(&DAT_005a9068);
             EnterCriticalSection(&DAT_005a9068);
-            EncodeOutgoingPacketField(0xffffffff);
+            EncodeOutgoingPacketField((void *)(g_clientContext + 0x593b4), 0xffffffff);
             LeaveCriticalSection(&DAT_005a9068);
             EnterCriticalSection(&DAT_005a9068);
-            EncodeOutgoingPacketField(0);
+            EncodeOutgoingPacketField((void *)(param_1 + 0x1e19), 0);
             LeaveCriticalSection(&DAT_005a9068);
         }
     }
@@ -1688,7 +1719,7 @@ LAB_004613ad:
     }
     iVar18 = *reinterpret_cast<int *>(&g_nCameraBoundY + g_clientContext);
     EnterCriticalSection(&DAT_005a9068);
-    iVar25 = PeekPacketChecksumState();
+    iVar25 = PeekPacketChecksumState((void *)(param_1 + 0x2cc));
     LeaveCriticalSection(&DAT_005a9068);
     if (iVar18 <= iVar25 && param_1[0x2b8b] != 0xff && (char)param_1[0x2b85] == '\0') {
         EnterCriticalSection(&DAT_005a9068);
