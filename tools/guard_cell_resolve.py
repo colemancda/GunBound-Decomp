@@ -151,6 +151,17 @@ def resolve(insns, depths, i, reg, depth=0):
     entry_ok = reg in ("ecx", "esi")  # the usual __thiscall `this` carriers
     for j in range(i - 1, -1, -1):
         addr, mnem, ops = insns[j]
+        if mnem in ("jmp", "ret") and j != i - 1:
+            # Walking backwards past an unconditional jump / return means
+            # the instruction we are now looking at ends a DIFFERENT basic
+            # block, one that never falls through to the site.  Whatever
+            # it wrote is not what the site sees; the site's block was
+            # entered by a branch from somewhere else, and this walk cannot
+            # see that path.  Report it rather than keep going and hand back
+            # a value from an unrelated block (FUN_00483ff0 0x484b01: the
+            # walk crossed `jmp 0x484fa3` into the rand-scramble block and
+            # said the cell was ctx+0x62143+0x488).
+            return "<%s crosses block end at 0x%x>" % (reg, addr), [], False
         if mnem in NONWRITING or not ops.startswith(reg + ","):
             # a call clobbers eax/ecx/edx; stop guessing past one for those
             if mnem == "call" and reg in ("eax", "ecx", "edx"):
