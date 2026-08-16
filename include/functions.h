@@ -269,7 +269,7 @@ int EncodeChecksumDeltaSub();
 int EncodeChecksumDeltaMul();
 int EncodeChecksumDeltaDiv();
 int EncodeChecksumDeltaMod();
-undefined4 __fastcall EncodeDividedChecksum();
+undefined4 __fastcall EncodeDividedChecksum(undefined4 param_1,int divisor);
 void EmitChecksumMod();
 int EncodeChecksumPairSum();
 int EncodeChecksumPairDiff();

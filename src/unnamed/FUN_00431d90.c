@@ -154,12 +154,12 @@ FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undef
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
     }
-    EncodeDividedChecksum();
-    EncodeDividedChecksum();
-    EncodeDividedChecksum();
-    EncodeDividedChecksum();
-    EncodeDividedChecksum();
-    EncodeDividedChecksum();
+    EncodeDividedChecksum(piVar8 + 0x795, param_10);
+    EncodeDividedChecksum(piVar8 + 0x81e, param_10);
+    EncodeDividedChecksum(piVar8 + 0x8a7, param_10);
+    EncodeDividedChecksum(piVar8 + 0x930, param_10);
+    EncodeDividedChecksum(piVar8 + 0x9b9, param_10);
+    EncodeDividedChecksum(piVar8 + 0xa42, param_10);
     (**(code **)(*piVar8 + 8))();
     (**(code **)*piVar8)(1);
   }
