@@ -3,6 +3,21 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 36 argless PeekPacketChecksumState() calls (worklist 36:36).
+ * Twin of FUN_0050ae40 with the state object's own slot arrays: frame
+ * [esp+0x18] = local_84 = g_gameStateVTableArray[7] (written at 0x50be34,
+ * `mov [esp+0x10],eax` two pushes deep - the older BlitRLESprite note
+ * below that says the slot is never written missed the push depth; its
+ * 4th arg is therefore local_84+0x331c4 (0x50c138) and is now passed).
+ * Cells: g_clientContext + local_88 + 0x5f4ab8 (equipped array,
+ * 0x50beae); the catalog record *(ctx+0x44e20) + *(param_1+0x94)*0x450 at
+ * +0x22c (0x50bfbd/0x50c019/0x50c0f4); then eight 4-peek blocks on
+ * local_84 + 0x33624/0x34520/0x33a6c/0x33c90/0x33eb4/0x340d8/0x33848/
+ * 0x342fc (address order, confirmed by the BlitSpriteClipped ids 8..0x17
+ * the C keeps; each block's follow-up peeks re-read EDI, which holds the
+ * block's cell for the whole block).
  */
 #include "ghidra_types.h"
 
@@ -51,7 +66,7 @@ void FUN_0050be20(int param_1,int param_2,int param_3)
 LAB_0050be92:
   iVar1 = *(int *)(param_1 + 0x94);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar2 = PeekPacketChecksumState();
+  iVar2 = PeekPacketChecksumState((void *)(g_clientContext + local_88 + 0x5f4ab8));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((iVar2 == iVar1) && (DAT_0079352c != 0)) {
     iVar1 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -93,7 +108,7 @@ code_r0x0050bf7b:
     ThrowCxxException(0x80070057);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + *(int *)(param_1 + 0x94) * 0x450 + 0x22c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = iVar1 >> 0x10 & 0xf;
   uVar4 = uVar3 * 2;
@@ -103,7 +118,7 @@ code_r0x0050bf7b:
       ThrowCxxException(0x80070057);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + *(int *)(param_1 + 0x94) * 0x450 + 0x22c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((uVar3 & 0x8000) == 0) {
       uVar4 = uVar4 + 1;
@@ -142,7 +157,7 @@ LAB_0050c076:
 LAB_0050c0b2:
   if (*(uint *)(param_1 + 0x94) < *(uint *)(g_clientContext + 0x44e24)) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar3 = PeekPacketChecksumState();
+    uVar3 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + *(int *)(param_1 + 0x94) * 0x450 + 0x22c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* BlitRLESprite's `this` (1st arg) recovered via objdump at this call
      * site (orig 0x50c142): ECX is loaded from [esp+0xa4] (this file's own
@@ -161,14 +176,14 @@ LAB_0050c0b2:
      * but nothing in this disassembly window ever targets [esp+0x18]).
      * Left as a placeholder per the recovery methodology's "genuine
      * ambiguity" exception. */
-    BlitRLESprite(param_2 + 0x18,param_3 + 3,(-(uint)((uVar3 & 0x20000000) != 0x20000000) & 0x480d) + 0xb7f2,(byte *)0);
+    BlitRLESprite(param_2 + 0x18,param_3 + 3,(-(uint)((uVar3 & 0x20000000) != 0x20000000) & 0x480d) + 0xb7f2,(byte *)(local_84 + 0x331c4));
     local_8c = 2;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar1 = PeekPacketChecksumState();
+    iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33624));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar1 != 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar1 = PeekPacketChecksumState();
+      iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33624));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar1 < 1) {
         if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame(), iVar1 != 0)) {
@@ -180,7 +195,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33624));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar1 = -iVar1;
       }
@@ -194,7 +209,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33624));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf(local_80,&DAT_00555654,iVar1);
@@ -202,12 +217,12 @@ LAB_0050c0b2:
       local_8c = 1;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar1 = PeekPacketChecksumState();
+    iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x34520));
     pcVar5 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((iVar1 != 0) && (local_8c < 3)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar1 = PeekPacketChecksumState();
+      iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x34520));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_88 = local_8c * 0x19 + param_2;
       if (iVar1 < 0) {
@@ -221,7 +236,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x34520));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar1 = -iVar1;
       }
@@ -236,7 +251,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x34520));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf(local_80,&DAT_00555654,iVar1);
@@ -245,12 +260,12 @@ LAB_0050c0b2:
       pcVar5 = (code *)LeaveCriticalSection;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar1 = PeekPacketChecksumState();
+    iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33a6c));
     puVar8 = &DAT_005a9068;
     (*pcVar5)();
     if ((iVar1 != 0) && (unaff_EBX < 3)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar1 = PeekPacketChecksumState();
+      iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33a6c));
       (*pcVar5)(&DAT_005a9068);
       local_8c = unaff_EBX * 0x19 + param_1;
       if (iVar1 < 0) {
@@ -264,7 +279,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33a6c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar1 = -iVar1;
       }
@@ -279,7 +294,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33a6c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf((char *)&local_84,&DAT_00555654,iVar1);
@@ -287,12 +302,12 @@ LAB_0050c0b2:
       pcVar5 = (code *)LeaveCriticalSection;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar1 = PeekPacketChecksumState();
+    iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33c90));
     puVar7 = &DAT_005a9068;
     (*pcVar5)();
     if ((iVar1 != 0) && (unaff_EBP < 3)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar2 = PeekPacketChecksumState();
+      iVar2 = PeekPacketChecksumState((void *)(local_84 + 0x33c90));
       (*pcVar5)(&DAT_005a9068);
       iVar1 = unaff_EBP * 0x19 + unaff_retaddr;
       if (iVar2 < 0) {
@@ -305,7 +320,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33c90));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar1 = -iVar1;
       }
@@ -319,7 +334,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33c90));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf((char *)&local_88,&DAT_00555654,iVar1);
@@ -327,12 +342,12 @@ LAB_0050c0b2:
       pcVar5 = (code *)LeaveCriticalSection;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar1 = PeekPacketChecksumState();
+    iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33eb4));
     puVar6 = &DAT_005a9068;
     (*pcVar5)(&DAT_005a9068);
     if ((iVar1 != 0) && (unaff_ESI < 3)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar2 = PeekPacketChecksumState();
+      iVar2 = PeekPacketChecksumState((void *)(local_84 + 0x33eb4));
       (*pcVar5)(&DAT_005a9068);
       iVar1 = unaff_ESI * 0x19 + iStack_4;
       if (iVar2 < 0) {
@@ -345,7 +360,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33eb4));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar1 = -iVar1;
       }
@@ -359,7 +374,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33eb4));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf((char *)&local_8c,&DAT_00555654,iVar1);
@@ -367,11 +382,11 @@ LAB_0050c0b2:
       pcVar5 = (code *)LeaveCriticalSection;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar1 = PeekPacketChecksumState();
+    iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x340d8));
     (*pcVar5)(&DAT_005a9068);
     if ((iVar1 != 0) && (unaff_EDI < 3)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar2 = PeekPacketChecksumState();
+      iVar2 = PeekPacketChecksumState((void *)(local_84 + 0x340d8));
       (*pcVar5)(&DAT_005a9068);
       iVar1 = unaff_EDI * 0x19 + iStack_8;
       if (iVar2 < 0) {
@@ -384,7 +399,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x340d8));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar1 = -iVar1;
       }
@@ -398,7 +413,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x340d8));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf(&stack0xffffff70,&DAT_00555654,iVar1);
@@ -406,11 +421,11 @@ LAB_0050c0b2:
       pcVar5 = (code *)LeaveCriticalSection;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar1 = PeekPacketChecksumState();
+    iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33848));
     (*pcVar5)(&DAT_005a9068);
     if ((iVar1 != 0) && ((int)puVar8 < 3)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar2 = PeekPacketChecksumState();
+      iVar2 = PeekPacketChecksumState((void *)(local_84 + 0x33848));
       (*pcVar5)(&DAT_005a9068);
       iVar1 = (int)puVar8 * 0x19 + iStack_c;
       if (iVar2 < 0) {
@@ -423,7 +438,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33848));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar1 = -iVar1;
       }
@@ -437,7 +452,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33848));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf(&stack0xffffff6c,&DAT_00555654,iVar1);
@@ -445,11 +460,11 @@ LAB_0050c0b2:
       pcVar5 = (code *)LeaveCriticalSection;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar1 = PeekPacketChecksumState();
+    iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x342fc));
     (*pcVar5)(&DAT_005a9068);
     if ((iVar1 != 0) && ((int)puVar7 < 3)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar2 = PeekPacketChecksumState();
+      iVar2 = PeekPacketChecksumState((void *)(local_84 + 0x342fc));
       (*pcVar5)(&DAT_005a9068);
       iVar1 = (int)puVar6 * 0x19 + iStack_14;
       if (iVar2 < 0) {
@@ -462,7 +477,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x342fc));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar1 = -iVar1;
       }
@@ -476,7 +491,7 @@ LAB_0050c0b2:
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar1 = PeekPacketChecksumState();
+        iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x342fc));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       _sprintf(&stack0xffffff64,&DAT_00555654,iVar1);
