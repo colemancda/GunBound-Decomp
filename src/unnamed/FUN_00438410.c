@@ -4,6 +4,22 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 10 argless sites.  Seven of them are offsets off ESI, which
+ * 0x438514 sets from the freshly constructed object (`mov esi,eax` right
+ * after the FUN_00477bb0 call) -- that is piVar6, and since piVar6 is an
+ * `int *` the byte offsets divide by 4: +0x25c -> +0x97 (C97), +0x38 ->
+ * +0xe (C100), +0x6a4 -> +0x1a9 (C121), +0x480 -> +0x120 (C152, C155,
+ * C179) and +0x19f4 -> +0x67d (C182).  C114 (0x4385ad) reads the standalone
+ * global cell 0x796aa0, and the C162/C163 peek+encode pair (0x43887e /
+ * 0x438885, one `inc eax` apart) both work on g_clientContext + 0x6a7f94.
+ *
+ * The sites do NOT sit in address order: the param_4 != 0 arm (C179/C182)
+ * is emitted FIRST, at 0x438699 / 0x4386b4, ahead of the param_4 == 0 arm
+ * (C152/C155 at 0x438826 / 0x43883b).  They were matched by landmark --
+ * `cmp eax,0x2328` (the `9000 < iVar8` test) follows 0x43883b, and
+ * `push 0x553bcc` (&DAT_00553bcc) follows 0x4386b4.
  */
 #include "ghidra_types.h"
 
@@ -94,10 +110,10 @@ LAB_004384ed:
   }
   local_4 = 0xffffffff;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(param_2);
+  EncodeOutgoingPacketField((void *)(piVar6 + 0x97), param_2);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField(param_3);
+  EncodeOutgoingPacketField((void *)(piVar6 + 0xe), param_3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   switch(param_3) {
   case 0:
@@ -111,14 +127,14 @@ LAB_004384ed:
   case 2:
   case 3:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar7 = PeekPacketChecksumState();
+    uVar7 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     break;
   default:
     goto switchD_0043857e_default;
   }
-  EncodeOutgoingPacketField(uVar7);
+  EncodeOutgoingPacketField((void *)(piVar6 + 0x1a9), uVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
 switchD_0043857e_default:
   _sprintf(local_8c,s_jewel_d_00553bd4,param_3 + 1);
@@ -149,18 +165,18 @@ switchD_0043857e_default:
     local_94 = 10000;
 LAB_00438814:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(local_94);
+    EncodeOutgoingPacketField((void *)(piVar6 + 0x120), local_94);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar8 = PeekPacketChecksumState();
+    iVar8 = PeekPacketChecksumState((void *)(piVar6 + 0x120));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (9000 < iVar8) {
       (**(code **)*piVar6)(1);
       goto LAB_004388b4;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar8 = PeekPacketChecksumState();
-    EncodeOutgoingPacketField(iVar8 + 1);
+    iVar8 = PeekPacketChecksumState((void *)(g_clientContext + 0x6a7f94));
+    EncodeOutgoingPacketField((void *)(g_clientContext + 0x6a7f94), iVar8 + 1);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (**(code **)(*piVar6 + 4))(s_normal_00552230);
   }
@@ -176,10 +192,10 @@ LAB_00438814:
     *(byte *)((int)piVar6 + 0x1c1a) = bVar11 + *(byte *)(piVar6 + 0x706) + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0);
+    EncodeOutgoingPacketField((void *)(piVar6 + 0x120), 0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(0);
+    EncodeOutgoingPacketField((void *)(piVar6 + 0x67d), 0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     (**(code **)(*piVar6 + 4))(&DAT_00553bcc);
     uVar12 = DAT_005b3480 * 0xda003 + 0x5703b11;
