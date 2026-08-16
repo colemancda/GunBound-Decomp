@@ -64,7 +64,7 @@ void __thiscall State10_Loading_HandleChatInput(int *param_1,int param_2,int par
     }
   }
   else {
-    FUN_00426230();
+    FUN_00426230(g_clientContext);
   }
 LAB_0043e820:
   SetWindowTextA(*(HWND *)(DAT_007934e4 + 4),&DAT_00551cb1);

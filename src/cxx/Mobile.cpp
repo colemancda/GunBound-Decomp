@@ -177,7 +177,7 @@ extern unsigned char DAT_00553f90, DAT_00555c90;
 void EncodeOutgoingPacketField(void *self, unsigned int v);
 char CompareChecksumExceeds(void *cell, unsigned int other);
 void FUN_004eeae0(void);
-void FUN_0040b030(void);
+void FUN_0040b030(void *self);
 char FUN_0040b450(void *cell, unsigned int v);
 void FUN_0043c860(void *base, int *self);
 char FUN_0041eaa0(int a, short b);
@@ -1270,14 +1270,14 @@ void CMobile::HandleFireInput()
         if (DAT_00e5283c == -1000) {
             if (DAT_007934c4 != '\0') goto LAB_00460553;
             cVar9 = PacketChecksumGreaterThan(param_1 + 0x939, 0x5a);
-            if (cVar9 == '\0') FUN_0040b030();
+            if (cVar9 == '\0') FUN_0040b030(param_1 + 0x1252);
             else EncodeDecrementedChecksum(param_1 + 0x1252);
             bVar5 = true;
         }
         if (DAT_00e5283c == 1000 && DAT_007934c4 == '\0') {
             cVar9 = PacketChecksumGreaterThan(param_1 + 0x939, 0x5a);
             if (cVar9 == '\0') EncodeDecrementedChecksum(param_1 + 0x1252);
-            else FUN_0040b030();
+            else FUN_0040b030(param_1 + 0x1252);
             bVar5 = true;
         }
     }

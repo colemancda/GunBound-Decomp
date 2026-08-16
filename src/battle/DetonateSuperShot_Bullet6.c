@@ -35,6 +35,15 @@
  * param_1 + 0x3d5. Matches the same X/Y cell pair this file already
  * passes with args at the 0x45e/0x3d5 sites further down, and the
  * iVar8-vs-g_nCameraY / iVar9-vs-g_nCameraX uses right after.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): the four bare
+ * CompareChecksumPair/CompareChecksumExceeds calls near the end (C713-716)
+ * now pass their two cells.  The original pushes them at 0x454092-0x4540c7:
+ * (esi+0xf54, esi+0x3b48), (esi+0x3b48, esi+0x3d6c), then the same two pairs
+ * again for the Exceeds twin, with ESI = ECX = the __fastcall this (the
+ * `cmp [esi+0x3b44],5` right after is this C's `5 < param_1[0xed1]`).  In
+ * int-pointer form: param_1 + 0x3d5 / + 0xed2 / + 0xf5b -- the same three
+ * cells DetonateProjectile's twin sites C636/C642 already spell.
  */
 #include "ghidra_types.h"
 
@@ -710,10 +719,10 @@ LAB_00453887:
       SetGuardedBool(0,GB_GUARD_UNRECOVERED) /* value+ptr both dropped; unrecovered */;
     }
   }
-  cVar3 = CompareChecksumPair();
-  if (((cVar3 != '\0') && (cVar3 = CompareChecksumPair(), cVar3 != '\0')) ||
-     ((cVar3 = CompareChecksumExceeds(), cVar3 != '\0' &&
-      ((cVar3 = CompareChecksumExceeds(), cVar3 != '\0' && (5 < param_1[0xed1])))))) {
+  cVar3 = CompareChecksumPair(param_1 + 0x3d5,param_1 + 0xed2);
+  if (((cVar3 != '\0') && (cVar3 = CompareChecksumPair(param_1 + 0xed2,param_1 + 0xf5b), cVar3 != '\0')) ||
+     ((cVar3 = CompareChecksumExceeds(param_1 + 0x3d5,param_1 + 0xed2), cVar3 != '\0' &&
+      ((cVar3 = CompareChecksumExceeds(param_1 + 0xed2,param_1 + 0xf5b), cVar3 != '\0' && (5 < param_1[0xed1])))))) {
     SetGuardedBool(0,GB_GUARD_UNRECOVERED) /* value+ptr both dropped; unrecovered */;
   }
 LAB_00453f0d:

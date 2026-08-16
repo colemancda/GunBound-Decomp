@@ -14,11 +14,18 @@
  * two calls' self is local_21c's address minus 0x14, third call's
  * self is param_2. Division-style sibling of EncodeChecksumDeltaDiv.c
  * (dividend/divisor operand order differs slightly - not touched here).
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): a PAIR helper -
+ * `param_2 = param_1.Peek() / param_3.Peek()` (divisor forced to 1 if 0),
+ * staged through the stack scratch and returning param_2, exactly like
+ * EncodeChecksumPairSum/PairDiff (its third stack argument is at [esp+0x258],
+ * two slots past the first).  Ghidra dropped param_3; the callers already
+ * pass three arguments except State11_InBattle_OnTick, fixed alongside.
  */
 #include "ghidra_types.h"
 
 
-int FUN_0040aea0(undefined4 param_1,int param_2)
+int FUN_0040aea0(undefined4 param_1,int param_2,undefined4 param_3)
 
 {
   int iVar1;
@@ -41,8 +48,8 @@ int FUN_0040aea0(undefined4 param_1,int param_2)
   local_21c = 0;
   EncodeOutgoingPacketField((char *)&local_21c - 0x14, 0);
   local_4 = 1;
-  iVar1 = PeekPacketChecksumState();
-  iVar2 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)(param_1));
+  iVar2 = PeekPacketChecksumState((void *)(param_3));
   if (iVar2 == 0) {
     iVar2 = 1;
   }
@@ -50,7 +57,7 @@ int FUN_0040aea0(undefined4 param_1,int param_2)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined1 *)(param_2 + 0x220) = 0;
   *(undefined4 *)(param_2 + 0x14) = 0;
-  uVar3 = PeekPacketChecksumState();
+  uVar3 = PeekPacketChecksumState((void *)((char *)&local_21c - 0x14));
   EncodeOutgoingPacketField((void *)param_2, uVar3);
   local_4 = local_4 & 0xffffff00;
   if (local_21c != 0) {

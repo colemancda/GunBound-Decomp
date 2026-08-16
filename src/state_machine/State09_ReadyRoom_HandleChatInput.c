@@ -74,7 +74,7 @@ void __thiscall State09_ReadyRoom_HandleChatInput(int *param_1,int param_2,int p
         }
       }
       else {
-        FUN_00426230();
+        FUN_00426230(g_clientContext);
       }
 LAB_004d67e1:
       SetWindowTextA(*(HWND *)(DAT_007934e4 + 4),&DAT_00551cb1);

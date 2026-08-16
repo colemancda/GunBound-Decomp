@@ -11,6 +11,11 @@
  * left-shift sibling of EncodeChecksumDeltaShr.c (shift amount in
  * param_3, all call sites pass 8) - not renamed here, scope kept to
  * the EncodeOutgoingPacketField fix.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): the delta-SHL member
+ * of the family - `param_2 = param_1.Peek() << param_3`, staged through the
+ * stack scratch, returning param_2.  Peek#1 is the source param_1, Peek#2 the
+ * scratch `(char *)&local_21c - 0x14` the encodes already use.
  */
 #include "ghidra_types.h"
 
@@ -35,12 +40,12 @@ int FUN_0040b090(undefined4 param_1,int param_2,int param_3)
   local_21c = 0;
   EncodeOutgoingPacketField((char *)&local_21c - 0x14, 0);
   local_4 = 1;
-  iVar1 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)(param_1));
   EncodeOutgoingPacketField((char *)&local_21c - 0x14, iVar1 << (param_3 & 0x1f));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined1 *)(param_2 + 0x220) = 0;
   *(undefined4 *)(param_2 + 0x14) = 0;
-  uVar2 = PeekPacketChecksumState();
+  uVar2 = PeekPacketChecksumState((void *)((char *)&local_21c - 0x14));
   EncodeOutgoingPacketField((void *)param_2, uVar2);
   local_4 = local_4 & 0xffffff00;
   if (local_21c != 0) {

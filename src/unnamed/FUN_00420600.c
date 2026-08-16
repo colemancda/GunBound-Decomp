@@ -13,22 +13,27 @@
  * the cell means promoting the prototype and fixing the caller, which
  * is the flip task's def-promotion pass, not a call-site sweep.  Its
  * twin FUN_004dc0f0 loads ctx from [0x5b3484] directly and IS fixed.
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard flip prep): takes the client
+ * context as its one stack argument ([esp+8] after one push, `ret 4`) and a
+ * slot INDEX in ESI - the artifact Ghidra named unaff_ESI and returned
+ * variants of.  The peek is ctx + esi * 0x224 + 0x39d0c (0x42061b-0x420621).
+ * Both are real parameters now; the 5 callers pass (g_clientContext, <slot>).
  */
 #include "ghidra_types.h"
 
 
-int FUN_00420600(void)
+int FUN_00420600(int ctx,int unaff_ESI)
 
 {
   int iVar1;
   int iVar2;
-  int unaff_ESI;
   
   if (unaff_ESI == 0) {
     return 0;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar1 = PeekPacketChecksumState();
+  iVar1 = PeekPacketChecksumState((void *)(ctx + unaff_ESI * 0x224 + 0x39d0c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = unaff_ESI + -1;
   if (iVar1 != 0xff) {

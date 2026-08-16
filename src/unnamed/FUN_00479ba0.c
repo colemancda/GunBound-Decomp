@@ -146,7 +146,7 @@ LAB_00479d44:
 LAB_00479e75:
         uVar4 = PeekChecksumStateUnderLock(&DAT_00e55ab8);
         QueueOutgoingPacketField(uVar4);
-        FUN_0040b030();
+        FUN_0040b030((void *)(g_clientContext + 0x6a7f94));
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       }
     }

@@ -596,7 +596,7 @@ LAB_004be4b1:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = EncodeChecksumDeltaMul(iVar6 + 0x8c8);
       local_c = 0;
-      iVar16 = FUN_0040aea0(uVar7);
+      iVar16 = FUN_0040aea0(uVar7, &local_3d48, iVar6 + 0x6a4);
       SUBFIELD(local_c,0,undefined1) = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar6 = PeekPacketChecksumState((void *)iVar16);

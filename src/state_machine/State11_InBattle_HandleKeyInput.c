@@ -537,11 +537,11 @@ switchD_004b83e0_caseD_3b:
   if (cVar3 != '\0') {
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 != '\0') {
-      uVar10 = FUN_00420600(g_clientContext);
+      uVar10 = FUN_00420600(g_clientContext, param_3 - 0x3b);
       FUN_004cbda0(param_1,uVar10);
       return;
     }
-    iVar7 = FUN_00420600(g_clientContext);
+    iVar7 = FUN_00420600(g_clientContext, param_3 - 0x3b);
     if (*(int *)(g_clientContext + 0xf0374) == iVar7) {
       *(undefined4 *)(g_clientContext + 0xf0374) = 0xffffffff;
       return;

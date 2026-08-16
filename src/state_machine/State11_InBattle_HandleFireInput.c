@@ -388,7 +388,7 @@ LAB_0046000e:
       if (DAT_007934c4 != '\0') goto LAB_00460553;
       cVar9 = PacketChecksumGreaterThan(param_1 + 0x939,0x5a);
       if (cVar9 == '\0') {
-        FUN_0040b030();
+        FUN_0040b030(param_1 + 0x1252);
       }
       else {
         EncodeDecrementedChecksum(param_1 + 0x1252);
@@ -401,7 +401,7 @@ LAB_0046000e:
         EncodeDecrementedChecksum(param_1 + 0x1252);
       }
       else {
-        FUN_0040b030();
+        FUN_0040b030(param_1 + 0x1252);
       }
       bVar5 = true;
     }

@@ -29,7 +29,7 @@ void QueueBroadcastEvent(int type);
 void __fastcall AppendBroadcastString(int unused, unsigned int len, const void *src, int context);
 extern unsigned char g_replayContext;
 void BroadcastQueuedEvent(void);
-void FUN_00426230(void);                /* playback-mode chat path */
+void FUN_00426230(int ctx);                /* playback-mode chat path */
 void *GetLocalizedString(void *table, int id);
 }
 
@@ -81,7 +81,7 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
             ((void (__cdecl *)(void *, int, int))*(void **)(*self + 0x28))(localized, 2, 6);
         }
     } else {
-        FUN_00426230();
+        FUN_00426230(g_clientContext);
     }
 reset:
     SetWindowTextA(*(HWND *)(DAT_007934e4 + 4), (LPCSTR)&DAT_00551cb1);

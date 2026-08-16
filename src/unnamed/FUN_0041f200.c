@@ -174,7 +174,7 @@ void FUN_0041f200(void)
     *puVar2 = 0xff;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     if ((iVar8 != 1) || (bVar16)) goto LAB_0041f7e9;
-    uVar11 = FUN_004217b0(0);
+    uVar11 = FUN_004217b0(in_EAX, 0);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar13 = PeekPacketChecksumState((void *)(in_EAX + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -206,10 +206,10 @@ void FUN_0041f200(void)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     sVar6 = PeekPacketChecksumState((void *)((iVar13 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar8 + 0x1a56f0 + in_EAX));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar11 = FUN_004217b0(1);
+    uVar11 = FUN_004217b0(in_EAX, 1);
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-    bVar5 = FUN_004217b0(2);
+    bVar5 = FUN_004217b0(in_EAX, 2);
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (bVar5 & 0x3f) + 0x40;
     psVar3 = (short *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -221,7 +221,7 @@ LAB_0041fb05:
   }
   else {
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-    uVar11 = FUN_004217b0(0);
+    uVar11 = FUN_004217b0(in_EAX, 0);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar13 = PeekPacketChecksumState((void *)(in_EAX + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -253,10 +253,10 @@ LAB_0041fb05:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     sVar6 = PeekPacketChecksumState((void *)((iVar13 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar9 + 0x1a45d0 + in_EAX));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar11 = FUN_004217b0(1);
+    uVar11 = FUN_004217b0(in_EAX, 1);
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-    bVar5 = FUN_004217b0(2);
+    bVar5 = FUN_004217b0(in_EAX, 2);
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (bVar5 & 0x3f) + 0x40;
     psVar3 = (short *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -266,7 +266,7 @@ LAB_0041f7e9:
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0xff;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     if ((iVar8 != 2) || (bVar16)) goto LAB_0041fb05;
-    uVar11 = FUN_004217b0(0);
+    uVar11 = FUN_004217b0(in_EAX, 0);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar13 = PeekPacketChecksumState((void *)(in_EAX + 0x475c8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -298,10 +298,10 @@ LAB_0041f7e9:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     sVar6 = PeekPacketChecksumState((void *)((iVar13 * 0xb + (uint)*(byte *)(in_EAX + 0x475c4)) * 0x7d28 + iVar8 + 0x1a7930 + in_EAX));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    uVar11 = FUN_004217b0(1);
+    uVar11 = FUN_004217b0(in_EAX, 1);
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-    bVar5 = FUN_004217b0(2);
+    bVar5 = FUN_004217b0(in_EAX, 2);
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (bVar5 & 0x3f) + 0x40;
     psVar3 = (short *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;

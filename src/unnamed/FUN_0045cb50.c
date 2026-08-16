@@ -131,7 +131,7 @@ LAB_0045cdb1:
     }
   }
   else {
-    FUN_0040b030();
+    FUN_0040b030(piVar1);
     EmitChecksumSum(param_1 + 0x2ffd, (void *)piVar1);
     cVar3 = PeekPacketChecksumBool();
     if ((cVar3 == '\x01') &&

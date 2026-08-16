@@ -356,7 +356,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
           if (((cVar4 != '\0') && (iVar11 + -0x23 < (int)uVar17)) && ((int)uVar17 < iVar11)) {
             cVar4 = PeekPacketChecksumBool();
             if (cVar4 == '\0') {
-              iVar10 = FUN_00420600(g_clientContext);
+              iVar10 = FUN_00420600(g_clientContext, iVar10 / 0x224);
               iVar13 = g_clientContext;
               if (*(int *)(g_clientContext + 0xf0374) == iVar10) {
                 *(undefined4 *)(g_clientContext + 0xf0374) = 0xffffffff;
@@ -366,7 +366,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
               }
             }
             else {
-              uVar20 = FUN_00420600(g_clientContext);
+              uVar20 = FUN_00420600(g_clientContext, iVar10 / 0x224);
               FUN_004cbda0(param_1,uVar20);
               iVar13 = g_clientContext;
             }
@@ -762,7 +762,7 @@ LAB_004b9bb0:
       }
     }
     else {
-      FUN_00426230();
+      FUN_00426230(g_clientContext);
     }
 LAB_004b9e3e:
     SetWindowTextA(*(HWND *)(DAT_007934e4 + 4),&DAT_00551cb1);

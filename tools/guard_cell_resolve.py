@@ -67,6 +67,21 @@ FAMILY = {
     0x40ab20: ("EncodeDiv", "ecx"),
     #   Sync             cell EAX, context ECX, plus two stack args
     0x4262d0: ("Sync", "eax"),
+    #   FUN_0040b030     cell EAX (Encode(Peek()+1))
+    #   FUN_004217b0     ctx  EAX (peeks ctx+0xeb854, then a stack-arg cell)
+    #   FUN_00426230     ctx  EAX (peeks ctx+0x6aa67c)
+    #   FUN_00420600     idx  ESI (peeks [esp+4] + esi*0x224 + 0x39d0c)
+    0x40b030: ("EncodeInc", "eax"),
+    0x4217b0: ("PeekCtxSlot", "eax"),
+    0x426230: ("ShowElapsed", "eax"),
+    0x420600: ("SlotIdxCheck", "esi"),
+    #   pair comparators: BOTH cells are stack args (ret 8); listed so the
+    #   report shows the site; the resolver reports [esp+..] for them.
+    0x40b390: ("CmpMatch", "stack"),
+    0x40b490: ("CmpPair", "stack"),
+    0x40b4d0: ("CmpAtMost", "stack"),
+    0x40b410: ("CmpExceeds", "stack"),
+    0x40b3d0: ("PairDiffers", "stack"),
 }
 
 REGS = ("eax", "ebx", "ecx", "edx", "esi", "edi", "ebp")
