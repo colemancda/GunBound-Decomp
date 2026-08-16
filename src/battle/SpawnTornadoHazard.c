@@ -40,6 +40,18 @@
  * The per-frame VISUAL is generated entirely in the hazard's own render
  * method = vtable slot 3 (+0xc) = 0x4ac760 (Tornado) - see InitTornado
  * Hazard.c. The ctor creates no sub-sprite list (node+0x10 = 0).
+ *
+ * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
+ * cell at all 4 argless PeekPacketChecksumState() calls and all 5 1-arg
+ * EncodeOutgoingPacketField() calls.  Two objects are involved and the
+ * decompile names both: iVar3, the EXISTING hazard the merge loop found
+ * (ESI/frame[0x10] in the original - confirmed because the C's own
+ * `EncodeChecksumDeltaAdd(iVar3 + 0x38, ...)` compiles to `mov edi,
+ * [esp+0x10]; add edi,0x38`), and iVar6, the freshly built one from
+ * Init*Hazard.  Cells are this hazard type's documented layout: +0x38
+ * world-X, +0x25c width/strength, +0x484 lifetime.  The one remaining peek
+ * reads local_454, the scratch the EncodeChecksumDeltaDiv above returned
+ * (these helpers return their arg2, see tools/sweep_guard_instructions.md).
  */
 #include "ghidra_types.h"
 
@@ -72,26 +84,26 @@ void SpawnTornadoHazard(undefined4 param_1,int param_2,int param_3,undefined4 pa
       iVar3 = FUN_00451030(iVar6);
       if (iVar3 != 0) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EncodeOutgoingPacketField(param_4);
+        EncodeOutgoingPacketField((void *)(iVar3 + 0x484), param_4);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar6 = PeekPacketChecksumState();
+        iVar6 = PeekPacketChecksumState((void *)(iVar3 + 0x25c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if (param_3 < iVar6) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          param_3 = PeekPacketChecksumState();
+          param_3 = PeekPacketChecksumState((void *)(iVar3 + 0x25c));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EncodeOutgoingPacketField((param_3 * 0xf) / 10);
+        EncodeOutgoingPacketField((void *)(iVar3 + 0x25c), (param_3 * 0xf) / 10);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar5 = EncodeChecksumDeltaAdd(iVar3 + 0x38,local_230,param_2);
         local_4 = 0;
         EncodeChecksumDeltaDiv(uVar5,local_454,2);
         local_4 = 1;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        uVar5 = PeekPacketChecksumState();
-        EncodeOutgoingPacketField(uVar5);
+        uVar5 = PeekPacketChecksumState((void *)(local_454));
+        EncodeOutgoingPacketField((void *)(iVar3 + 0x38), uVar5);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_4 = 0;
         if ((*(int *)(local_454 + 0x14)) != 0) {
@@ -116,14 +128,14 @@ void SpawnTornadoHazard(undefined4 param_1,int param_2,int param_3,undefined4 pa
     }
     local_4 = 0xffffffff;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(param_2);
+    EncodeOutgoingPacketField((void *)(iVar6 + 0x38), param_2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(param_3);
+    EncodeOutgoingPacketField((void *)(iVar6 + 0x25c), param_3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(iVar6 + 0x480) = 0;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EncodeOutgoingPacketField(param_4);
+    EncodeOutgoingPacketField((void *)(iVar6 + 0x484), param_4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     RegisterActiveObject(0, 0, (undefined4 *)0);
   }
