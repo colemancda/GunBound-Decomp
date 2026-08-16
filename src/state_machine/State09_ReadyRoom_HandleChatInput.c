@@ -188,7 +188,7 @@ LAB_004d6626:
       if (*(char *)(param_1[iVar5 + 0x146] + 0x4d8 + (int)param_1) == '\0') {
         return;
       }
-      iVar5 = FUN_004dc140(((uVar3 & 0xff00) != 0) + '\x01');
+      iVar5 = FindFreeItemSlot(((uVar3 & 0xff00) != 0) + '\x01');
       if (iVar5 == -1) {
         return;
       }

@@ -927,7 +927,7 @@ LAB_004b7fb2:
           cVar2 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
           if (((cVar2 != '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) &&
              ((g_currentGameState != 0xb || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')))) {
-            FUN_00413bf0();
+            SendPlayResult();
             *unaff_FS_OFFSET = local_14;
             return;
           }

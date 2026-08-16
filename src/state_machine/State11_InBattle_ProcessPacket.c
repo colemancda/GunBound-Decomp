@@ -281,7 +281,7 @@ LAB_004b4324:
                (cVar2 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4), cVar2 != '\0'))
               && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) &&
              ((g_currentGameState != 0xb || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')))) {
-            FUN_00413bf0();
+            SendPlayResult();
           }
         }
       }
@@ -289,7 +289,7 @@ LAB_004b4324:
     else if (opcode == 0x3400) {
       cVar2 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
       if ((cVar2 != '\0') && (*(char *)((int)this + 0x11d0) != '\0')) {
-        FUN_00413bf0();
+        SendPlayResult();
       }
       if (1 < payloadLen) {
         FUN_00425a30(g_clientContext);

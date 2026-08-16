@@ -352,7 +352,7 @@ void PumpBattleActions();
 uint FUN_00412e00();
 void FUN_00412e50();
 void FUN_00413af0();
-void FUN_00413bf0();
+void SendPlayResult();
 void FUN_00413ee0(ushort *dest,ushort *src);
 void __fastcall FUN_00414070(uint frameIdx,uint key,int canvas);
 void LoadAvatarSprites(); /* 0x4141b0 - resolve avatar equip codes (head/body/glasses/flag) to {gender}{cat}%05d.img sprites */
@@ -1086,7 +1086,7 @@ void RenderPlayerNameplate();
 void BuildItemLoadout();
 void ResetItemSlotCounters();
 int FUN_004dc0f0();
-int FUN_004dc140();
+int FindFreeItemSlot();
 void BroadcastBattleSnapshot();
 int FindItemGridCell();
 void __fastcall LoadRoomSlotAvatar();

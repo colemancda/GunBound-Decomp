@@ -123,7 +123,7 @@ void __thiscall EnqueueTurnSlot(int param_1,int param_2)
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         if ((((iVar3 == 3) || (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) &&
             (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) && (cVar2 = DecodeGuardedBool(), cVar2 == '\0')) {
-          FUN_00413bf0();
+          SendPlayResult();
         }
       }
     }

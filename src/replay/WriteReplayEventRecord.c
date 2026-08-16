@@ -372,7 +372,7 @@ LAB_00411727:
            (cVar4 = PeekPacketChecksumBool(), pbVar22 = param_3, cVar4 == '\0')) &&
           ((g_currentGameState != 0xb ||
            (cVar4 = PeekPacketChecksumBool(), pbVar22 = param_3, cVar4 != '\x01')))))) {
-        FUN_00413bf0();
+        SendPlayResult();
         pbVar22 = param_3;
       }
     }

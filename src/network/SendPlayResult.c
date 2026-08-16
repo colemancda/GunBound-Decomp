@@ -1,4 +1,19 @@
-/* FUN_00413bf0 - 0x00413bf0 in the original binary.
+/* SendPlayResult - 0x00413bf0 in the original binary.
+ *
+ * RENAMED (2026-08-13, from FUN_00413bf0). Builds and sends the
+ * SVC_PLAY_RESULT packet (opcode 0x4412 - the id stored at +0x4d4 of the
+ * outgoing buffer at DAT_007934e8; the server's Opcode.swift names it
+ * playResultCommand).  Payload: one guarded header cell
+ * (ctx+0x473a0), then for every occupied slot (ctx+0x5010d+slot != 0)
+ * the slot number, four guarded per-slot cells from the parallel
+ * arrays at ctx+0x5ba80/0x5cba0/0x61020/0x5dcc0, and a team-match flag
+ * against the local player.  Sent when g_valueGuardTamperFlag is clear.
+ *
+ * Fired at round end from four places: EnqueueTurnSlot (when the scan
+ * finds one team left), two State11_InBattle_ProcessPacket paths (the
+ * 0x3400 handler and a game-over branch), and WriteReplayEventRecord's
+ * replay of the same event - each gated on the local player being the
+ * current slot (CompareChecksumMatch of ctx+0x3b49c vs ctx+0x3b6c4).
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -19,7 +34,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00413bf0(void)
+void SendPlayResult(void)
 
 {
   char cVar1;
