@@ -17,9 +17,13 @@
  *
  *   - C232 (0x4b45a8): `lea edi,[esi + eax + 0xebef4]` with EAX =
  *     g_clientContext and ESI reloaded from local_9b0 at 0x4b4589.
- *   - C457 / C461 (0x4b4c88, 0x4b4caa): the two scratch cells local_89c
- *     and local_678 being zero-initialised.
- *   - C538 (0x4b4f5f) re-reads local_678.
+ *   - C457 / C461 (0x4b4c88, 0x4b4caa): the two scratch guard cells being
+ *     zero-initialised.  The first is local_89c.  Ghidra never named the
+ *     second (esp + 0x350 would be "local_678"), but it named that cell's
+ *     interior fields, so it is spelled &local_664 - 0x14: the +0x14 dword
+ *     is local_664 and the +0x220 byte is local_458, matching local_888 /
+ *     local_67c on local_89c exactly.
+ *   - C538 (0x4b4f5f) re-reads that same second cell.
  *   - C541 / C544 (0x4b4f7a, 0x4b4f97): EBX + 0xb30 / + 0x90c, where EBX
  *     is the GetPlayerRecordBySlot result at 0x4b4f42 -- the C's iVar8,
  *     still the record pointer at this point (it only gains the + 0xae15
@@ -483,7 +487,7 @@ LAB_004b4324:
   local_4 = 0;
   local_458 = 0;
   local_664 = (int *)0x0;
-  EncodeOutgoingPacketField((void *)(local_678), 0);
+  EncodeOutgoingPacketField((void *)((char *)&local_664 - 0x14), 0);
   local_4 = 1;
   EncodeChecksumStateXored();
   EncodeChecksumStateXored();
@@ -560,7 +564,7 @@ LAB_004b4d38:
         (*(char *)(iVar6 + 0x50126 + local_9b4) == *(char *)(iVar6 + 0x62155))) &&
        (iVar8 = GetPlayerRecordBySlot(iVar6), iVar6 = g_clientContext, iVar8 != 0)) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      uVar9 = PeekPacketChecksumState((void *)(local_678));
+      uVar9 = PeekPacketChecksumState((void *)((char *)&local_664 - 0x14));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_9a8 = PeekPacketChecksumState((void *)(iVar8 + 0xb30));
