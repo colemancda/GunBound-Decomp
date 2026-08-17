@@ -52,10 +52,14 @@ for k in range(len(marks) - 1):
     n = 0
     for i in range(a, b):
         l = src[i]
-        if l.lstrip().startswith('*') or 'PeekPacketChecksumBool(' not in l:
+        if l.lstrip().startswith('*') or 'PeekPacketChecksumBool' not in l:
             continue
-        for m in re.finditer(r'PeekPacketChecksumBool\(', l):
-            if l[m.end():m.end() + 1] == ')':
+        # `PeekPacketChecksumBool_2(...)` / `_5(...)` ARE calls to 0x4065a0 -
+        # Ghidra fabricated a signature out of the pushes belonging to the
+        # NEXT call (verified by address, see the Mobile.cpp sweep commit).
+        # They occupy a slot in the row sequence but must not be rewritten.
+        for m in re.finditer(r'PeekPacketChecksumBool(_\d+)?\(', l):
+            if m.group(1) is None and l[m.end():m.end() + 1] == ')':
                 idx.append((n, i))
             n += 1
     if not idx:
