@@ -508,7 +508,7 @@ LAB_0044e02e:
     uVar9 = PeekChecksumStateUnderLock(param_1 + 0x3d5);
     FUN_004373c0(uVar9,uVar7,uVar17,pcVar15);
   }
-  cVar5 = PeekPacketChecksumBool();
+  cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   iVar6 = g_clientContext;
   if ((cVar5 != '\0') && (cVar5 = InitChecksumSeed(), iVar6 = g_clientContext, cVar5 == '\0')) {
     uVar7 = PeekChecksumStateUnderLock(&DAT_007949c8);

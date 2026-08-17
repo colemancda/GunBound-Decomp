@@ -562,7 +562,7 @@ LAB_00482e3e:
       puStack_ae0[0xfe9] = uVar7;
       iVar4 = FUN_004ac400(puStack_ae0);
       puStack_ae0[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
       if (cVar2 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -585,7 +585,7 @@ LAB_00482edf:
   uVar8 = 0;
   PeekPacketChecksumBool(0,uVar7,uVar15,1,0);
   FUN_00431d90((char)param_1[0xf],7,0,uVar8,uVar7,uVar15,uVar9,uVar21);
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState((void *)&DAT_007949c8);

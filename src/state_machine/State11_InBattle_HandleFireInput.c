@@ -93,7 +93,7 @@ void __fastcall State11_InBattle_HandleFireInput(int *param_1)
         cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x1c50);
         if ((((cVar9 == '\x01') && (cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8ba8), cVar9 == '\x01')) &&
             ((cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8bae), cVar9 == '\x01' &&
-             ((cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8bbd), cVar9 == '\x01' && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01'))
+             ((cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8bbd), cVar9 == '\x01' && (cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8bbd), cVar9 == '\x01'))
              )))) && (((&DAT_006a6481)[g_clientContext] == '\0' && (param_1[9] != 0xd)))) {
           cVar9 = CompareChecksumPair(param_1 + 0x12db,param_1 + 0x203d);
           if ((cVar9 == '\0') || (cVar9 = PacketChecksumGreaterThan(param_1 + 0x214f,0), cVar9 == '\0')) {
@@ -218,7 +218,7 @@ LAB_0045fdd7:
         cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x1c50);
         if (((((cVar9 == '\x01') && (cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8ba8), cVar9 == '\x01')) &&
              ((cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8bae), cVar9 == '\x01' &&
-              ((cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8bbd), cVar9 == '\x01' && (cVar9 = PeekPacketChecksumBool(), cVar9 == '\x01')
+              ((cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8bbd), cVar9 == '\x01' && (cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8bbd), cVar9 == '\x01')
                ))))) && ((&DAT_006a6481)[g_clientContext] == '\0')) && (param_1[9] != 0xd)) {
           cVar9 = CompareChecksumPair(param_1 + 0x12db,param_1 + 0x203d);
           if ((cVar9 == '\0') || (cVar9 = PacketChecksumGreaterThan(param_1 + 0x214f,0), cVar9 == '\0')) {

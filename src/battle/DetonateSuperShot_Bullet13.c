@@ -729,7 +729,7 @@ LAB_00487dd6:
   uVar6 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_004373c0(uVar6,uVar5,0x2078,s_ssflame13_005548d8);
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
   if (cVar1 == '\0') {
     AcquireSoundChannel(0);
     pcVar16 = (code *)LeaveCriticalSection;

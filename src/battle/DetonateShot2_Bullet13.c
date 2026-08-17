@@ -776,7 +776,7 @@ LAB_004a101f:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar3 < 1) goto LAB_004a1483;
 LAB_004a14d3:
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
     iVar3 = g_clientContext;
     if (cVar1 == '\0') {
       pbVar16 = (byte *)(g_clientContext + 0x62146);

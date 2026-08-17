@@ -419,7 +419,7 @@ LAB_0044cd15:
       (**(code **)(*piVar14 + 4))(&DAT_00553b90);
       piVar14[0x11] = iVar5;
       apuStack_adc[0] = (undefined4 *)(&DAT_006a7f74 + iVar4);
-      cVar3 = PeekPacketChecksumBool();
+      cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       if (cVar3 == '\0') {
         /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
          * 0x44cf0b/0x44cf31 (edi loaded from esp+0x26c/esp+0x48). The
@@ -515,7 +515,7 @@ LAB_0044cfdd:
       puStack_ae4[0xfe9] = uVar7;
       iVar4 = FUN_004ac400(unaff_EDI);
       puStack_ae4[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar3 = PeekPacketChecksumBool();
+      cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       if (cVar3 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
