@@ -196,7 +196,7 @@ LAB_004664c9:
     if (iVar5 < 0) {
 LAB_00466684:
       *(undefined1 *)(piVar9 + 5) = 1;
-      cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
+      cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
       if ((cVar4 != '\0') && (cVar4 = InitChecksumSeed(), cVar4 == '\0')) {
         iVar5 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar5 == 5) || (uVar8 = 2, iVar5 == 6)) {
@@ -389,7 +389,7 @@ LAB_004658c5:
       (**(code **)(*piVar9 + 4))(&DAT_00553b90);
       piVar9[0x11] = iVar10;
       apuStack_ad0[0] = (undefined4 *)(&DAT_006a7f74 + iVar5);
-      cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
+      cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
         uStack_680 = 0;
         uStack_88c = 0;
@@ -462,7 +462,7 @@ LAB_00465b8d:
       puStack_af4[0xfe9] = uVar8;
       iVar5 = FUN_004ac400(piVar9);
       puStack_af4[0xfe8] = iVar5 * param_1[0xfe5];
-      cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+      cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -539,7 +539,7 @@ LAB_00465c2e:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_00437150(uVar19,uVar18,0x3c,uVar8);
   iVar5 = g_clientContext;
-  cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
+  cVar4 = PeekPacketChecksumBool();
   if (cVar4 != '\x01') {
     iVar6 = *(int *)(&DAT_006a7750 + iVar5);
     if (iVar6 < 0x10) {
@@ -595,7 +595,7 @@ LAB_00465c2e:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar5 < 1) goto LAB_00466113;
 LAB_0046615f:
-    cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+    cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
     if (cVar4 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

@@ -225,7 +225,7 @@ LAB_0048ee14:
     else {
 LAB_0048efcf:
       *(undefined1 *)(param_1 + 5) = 1;
-      cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
+      cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
       if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
         iVar3 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar3 == 5) || (uVar6 = 2, iVar3 == 6)) {
@@ -531,7 +531,7 @@ LAB_0048e8fe:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar3 < 1) goto LAB_0048ea5a;
 LAB_0048eaa6:
-    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+    cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
     if (cVar2 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

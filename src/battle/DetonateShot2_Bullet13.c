@@ -486,7 +486,7 @@ LAB_004a0643:
   else {
 LAB_004a07f1:
     *(undefined1 *)(param_1 + 5) = 1;
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
     if ((cVar1 != '\0') && (cVar1 = InitChecksumSeed(), cVar1 == '\0')) {
       uVar5 = PeekChecksumStateUnderLock(&DAT_007949c8);
       QueueOutgoingPacketField(uVar5);

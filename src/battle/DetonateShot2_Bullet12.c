@@ -427,7 +427,7 @@ LAB_004b0c0e:
     else {
 LAB_004b0dc8:
       *(undefined1 *)(param_1 + 5) = 1;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
       if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
         iVar4 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar4 == 5) || (uVar5 = 2, iVar4 == 6)) {
@@ -692,7 +692,7 @@ LAB_004b039b:
       puVar8[0xfe9] = uVar5;
       iVar4 = FUN_004ac400(unaff_EDI);
       puVar8[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+      cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -778,7 +778,7 @@ LAB_004b0432:
   if (cVar3 == '\0') {
     AcquireSoundChannel(0);
   }
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   pcVar20 = (code *)LeaveCriticalSection;
   if ((cVar3 != '\0') &&
      (cVar3 = InitChecksumSeed(), pcVar20 = (code *)LeaveCriticalSection, cVar3 == '\0')) {
@@ -833,7 +833,7 @@ LAB_004b085b:
     (*pcVar20)(&DAT_005a9068);
     if (cVar24 == '\0') goto LAB_004b085b;
 LAB_004b08a7:
-    cVar24 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+    cVar24 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
     if (cVar24 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

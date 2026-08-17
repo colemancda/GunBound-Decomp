@@ -562,7 +562,7 @@ LAB_00482e3e:
       puStack_ae0[0xfe9] = uVar7;
       iVar4 = FUN_004ac400(puStack_ae0);
       puStack_ae0[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
+      cVar2 = PeekPacketChecksumBool();
       if (cVar2 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -612,7 +612,7 @@ LAB_00482edf:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar4 < 1) goto LAB_0048305d;
 LAB_004830a9:
-    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+    cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
     if (cVar2 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

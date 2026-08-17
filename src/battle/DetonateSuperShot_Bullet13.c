@@ -506,7 +506,7 @@ LAB_00488365:
   else {
 LAB_00488574:
     *(undefined1 *)(param_1 + 5) = 1;
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
     if ((cVar1 != '\0') && (cVar1 = InitChecksumSeed(), cVar1 == '\0')) {
       (*pcVar14)(&DAT_005a9068);
       uVar5 = PeekPacketChecksumState((void *)&DAT_007949c8);
@@ -671,7 +671,7 @@ LAB_00487d3f:
       local_ae4[0xfe9] = uVar5;
       iVar4 = FUN_004ac400(piVar17);
       local_ae4[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+      cVar1 = PeekPacketChecksumBool();
       if (cVar1 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -775,7 +775,7 @@ LAB_004880ef:
     (*pcVar16)(&DAT_005a9068);
     if (iVar3 < 1) goto LAB_004880ef;
 LAB_0048812f:
-    cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+    cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
     if (cVar1 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

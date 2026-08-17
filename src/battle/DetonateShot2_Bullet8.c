@@ -210,7 +210,7 @@ LAB_004aa132:
     if (iVar6 < 0) {
 LAB_004aa2ed:
       *(undefined1 *)(param_1 + 5) = 1;
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
       if ((cVar4 != '\0') && (cVar4 = InitChecksumSeed(), cVar4 == '\0')) {
         iVar6 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar6 == 5) || (uVar8 = 2, iVar6 == 6)) {

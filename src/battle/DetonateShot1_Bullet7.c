@@ -230,7 +230,7 @@ LAB_0044d5d2:
     else {
 LAB_0044d78e:
       *(undefined1 *)(param_1 + 5) = 1;
-      cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
+      cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
       if ((cVar3 != '\0') && (cVar3 = InitChecksumSeed(), cVar3 == '\0')) {
         iVar4 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar4 == 5) || (uVar7 = 2, iVar4 == 6)) {
@@ -515,7 +515,7 @@ LAB_0044cfdd:
       puStack_ae4[0xfe9] = uVar7;
       iVar4 = FUN_004ac400(unaff_EDI);
       puStack_ae4[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
+      cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -598,7 +598,7 @@ LAB_0044d07e:
     uVar16 = PeekPacketChecksumBool(unaff_EDI);
     FUN_004375f0(&DAT_006a7f70 + g_clientContext,iVar4,uVar7,(char)param_1[0xf],uVar16,unaff_EDI);
   }
-  cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+  cVar3 = PeekPacketChecksumBool();
   if ((cVar3 != '\0') && (cVar3 = InitChecksumSeed(), cVar3 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState((void *)(&DAT_007949c8));

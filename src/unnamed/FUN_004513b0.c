@@ -478,7 +478,7 @@ LAB_0045279a:
     else {
 LAB_00452a0a:
       *(undefined1 *)(param_1 + 5) = 1;
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
       if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
         iVar4 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar4 == 5) || (uVar8 = 2, iVar4 == 6)) {
@@ -826,7 +826,7 @@ LAB_00451e73:
     (*pcVar16)(&DAT_005a9068);
     if (SUBFIELD(uStack_b6c,3,undefined1) == '\0') goto LAB_00451e73;
 LAB_00451ebf:
-    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+    cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
     if (cVar2 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }
@@ -994,7 +994,7 @@ LAB_00451f7a:
   if (cVar2 == '\0') {
     AcquireSoundChannel(0);
   }
-  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+  cVar2 = PeekPacketChecksumBool();
   if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
     (*pcVar17)(&DAT_005a9068);
     uVar8 = PeekPacketChecksumState((void *)&DAT_007949c8);

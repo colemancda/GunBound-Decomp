@@ -394,7 +394,7 @@ LAB_00468fef:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((iVar5 < 0) && (cVar4 = PacketChecksumGreaterThan(piStack_ae8 + 0x122,0), cVar4 != '\0')) {
 LAB_0046942b:
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
       if (cVar4 == '\0') {
         SetGuardedBool(1,GB_GUARD_UNRECOVERED);
       }
@@ -758,7 +758,7 @@ LAB_0046a089:
   if (iVar5 < 0) {
 LAB_0046a2a6:
     *(undefined1 *)(piVar15 + 5) = 1;
-    cVar4 = PeekPacketChecksumBool();
+    cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
     if ((cVar4 != '\0') && (cVar4 = InitChecksumSeed(), cVar4 == '\0')) {
       iVar5 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
       if ((iVar5 == 5) || (local_ae4 = 2, iVar5 == 6)) {

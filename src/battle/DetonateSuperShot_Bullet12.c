@@ -343,7 +343,10 @@ LAB_004ae9a8:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if ((iVar7 < 0) && (cVar6 = PacketChecksumGreaterThan(param_1 + 0x122,0), cVar6 != '\0')) {
 LAB_004ae748:
-    cVar6 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+    /* 0x4ae748 is `lea eax,[esi+0xf4c]` - esi is the object (the
+     * [esi+0x488] landmark sits two instructions above), NOT the ctx
+     * global the naive zip once put here. */
+    cVar6 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
     if (cVar6 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

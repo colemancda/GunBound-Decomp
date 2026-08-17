@@ -714,7 +714,7 @@ LAB_004535de:
   }
   else {
 LAB_00453887:
-    cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+    cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
     if (cVar3 == '\0') {
       SetGuardedBool(0,GB_GUARD_UNRECOVERED) /* value+ptr both dropped; unrecovered */;
     }

@@ -202,7 +202,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
       *(undefined1 *)(param_1 + 0x11ac) = 1;
       CreateButtonWidget(&DAT_00e9be90,0,0xc,0x3f4,s_b_option_cancel_005569b0,0xf8,0x35,0x16,0x14,1,
                          0);
-      if ((*(int *)(param_1 + 4) < 0xe11) && (uVar8 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x5f3770)), (char)uVar8 != '\0')) {
+      if ((*(int *)(param_1 + 4) < 0xe11) && (uVar8 = PeekPacketChecksumBool(), (char)uVar8 != '\0')) {
         uVar8 = uVar8 & 0xffffff00;
       }
       else {

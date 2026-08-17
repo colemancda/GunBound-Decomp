@@ -123,7 +123,7 @@ void __fastcall DetonateSuperShot_Bullet10(int *param_1)
 LAB_0044f258:
   cVar7 = '\0';
   (**(code **)(*param_1 + 0x14))();
-  cVar5 = PeekPacketChecksumBool();
+  cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0xf45);
   if (cVar5 == '\0') {
     pvDelta = EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac4,8);
     puStack_8 = (undefined1 *)0x2;
@@ -251,7 +251,7 @@ LAB_0044f78b:
     else {
 LAB_0044f946:
       *(undefined1 *)(param_1 + 5) = 1;
-      cVar5 = PeekPacketChecksumBool();
+      cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
       if ((cVar5 != '\0') && (cVar5 = InitChecksumSeed(), cVar5 == '\0')) {
         iVar8 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar8 == 5) || (uVar10 = 2, iVar8 == 6)) {
@@ -392,7 +392,7 @@ LAB_0044f3c1:
     (*pcVar17)(&DAT_005a9068);
     if (cVar7 == '\0') goto LAB_0044f3c1;
 LAB_0044f40d:
-    cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+    cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
     if (cVar5 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

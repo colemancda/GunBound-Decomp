@@ -66,7 +66,7 @@ void __fastcall ExplodeSuperShot_Bullet4(int param_1)
   (*pcVar7)(&DAT_005a9068);
   iVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+  cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\0') {
     pvVar5 = operator_new(0x54);
     if (pvVar5 == (void *)0x0) {

@@ -366,7 +366,7 @@ LAB_0044e580:
         (cVar5 = PacketChecksumGreaterEqual(iStack_ae0,*(undefined4 *)(&g_nCameraBoundY + g_clientContext)),
         cVar5 != '\0')) || (cVar5 = PacketChecksumLessThan(iVar6,0xfffffc18), cVar5 != '\0')) {
       *(undefined1 *)(param_1 + 5) = 1;
-      cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
+      cVar5 = PeekPacketChecksumBool();
       if ((cVar5 != '\0') && (cVar5 = InitChecksumSeed(), cVar5 == '\0')) {
         iVar6 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
         if ((iVar6 == 5) || (uVar7 = 2, iVar6 == 6)) {
@@ -535,7 +535,7 @@ LAB_0044e02e:
   }
   else {
 LAB_0044e2cb:
-    cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+    cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
     if (cVar5 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

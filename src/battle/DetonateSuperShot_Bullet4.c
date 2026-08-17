@@ -306,7 +306,7 @@ LAB_004add3c:
   else {
 LAB_004adef8:
     *(undefined1 *)(param_1 + 5) = 1;
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
     if ((cVar1 != '\0') && (cVar1 = InitChecksumSeed(), cVar1 == '\0')) {
       iVar2 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
       if ((iVar2 == 5) || (uVar5 = 2, iVar2 == 6)) {
@@ -469,7 +469,7 @@ LAB_004ada51:
       puStack_af0[0xfe9] = uVar5;
       iVar2 = FUN_004ac400(piStack_ad4);
       puStack_af0[0xfe8] = iVar2 * param_1[0xfe5];
-      cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
+      cVar1 = PeekPacketChecksumBool();
       if (cVar1 != '\0') {
         (**(code **)*puStack_af0)(1);
         (**(code **)(*param_1 + 0x20))();
