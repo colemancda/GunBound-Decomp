@@ -506,7 +506,7 @@ LAB_0044e02e:
     uVar17 = 0x206c;
     uVar7 = PeekChecksumStateUnderLock(param_1 + 0x45e);
     uVar9 = PeekChecksumStateUnderLock(param_1 + 0x3d5);
-    FUN_004373c0(uVar9,uVar7,uVar17,pcVar15);
+    SpawnSuperFlameEffect(uVar9,uVar7,uVar17,pcVar15);
   }
   cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   iVar6 = g_clientContext;

@@ -1,4 +1,6 @@
-/* FUN_0042bb10 - 0x0042bb10 in the original binary.
+/* SpawnRiderEffect - 0x0042bb10 in the original binary.
+ *
+ * RENAMED (2026-08-17, from FUN_0042bb10): allocates a 0x48 effect object with the "rider" texture (s_rider_00553f98), clamps its Y to g_nCameraBoundY-0x26 and picks facing from the screen half; gated by the effects flag.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -8,7 +10,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_0042bb10(int param_1,undefined4 param_2,int param_3)
+void __thiscall SpawnRiderEffect(int param_1,undefined4 param_2,int param_3)
 
 {
   char cVar1;

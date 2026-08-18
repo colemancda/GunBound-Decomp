@@ -1,6 +1,9 @@
-/* FUN_004373c0 - 0x004373c0 in the original binary.
+/* SpawnFlameEffect - 0x004372f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * RENAMED (2026-08-17, from FUN_004372f0): allocates a 0x54 effect object, textures it via FindPreloadedTextureByName(param_6), sets animation "flame" (s_flame_00553d2c) and registers it; called from ~27 detonation sites; gated by the global effects flag ctx+0x6a7f74.
+ *
+ * No confirmed real name/purpose - referenced by at least one already-
+ * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
@@ -11,8 +14,8 @@
 #include "ghidra_types.h"
 
 
-void __fastcall
-FUN_004373c0(char param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6)
+void __thiscall
+SpawnFlameEffect(char param_1,undefined4 param_2,int param_3,int param_4,int param_5,undefined4 param_6)
 
 {
   char cVar1;
@@ -26,13 +29,13 @@ FUN_004373c0(char param_1,int param_2,int param_3,int param_4,int param_5,undefi
    * site in the binary was audited 2026-08-17 and passes exactly that
    * value, so the +4 peek is the global flag, not a per-object cell. */
   cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
-  if ((cVar1 == '\0') && (param_2 < 4)) {
+  if (cVar1 == '\0') {
     pvVar2 = operator_new(0x54);
     if (pvVar2 == (void *)0x0) {
       piVar3 = (int *)0x0;
     }
     else {
-      FUN_0047e940();
+      FUN_00471af0();
     }
     piVar3[0xe] = param_3;
     piVar3[0xf] = param_4;

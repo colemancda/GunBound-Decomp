@@ -438,7 +438,7 @@ LAB_0047a634:
       iVar6 = iVar6 + 0xc80;
       uVar4 = PeekChecksumStateUnderLock(param_1 + 0x120);
       uVar12 = PeekChecksumStateUnderLock(param_1 + 0x97);
-      FUN_004372f0(iVar5 - (uVar7 & 3),uVar12,uVar4,iVar6,pcVar14);
+      SpawnFlameEffect(iVar5 - (uVar7 & 3),uVar12,uVar4,iVar6,pcVar14);
       uVar7 = FUN_00415c60();
       GetLocalizedString(&g_localizedStringTable,uVar7 % 10 + 0x7f9);
       FUN_004382d0();

@@ -22,7 +22,7 @@
  * Two bases.  The five sites before the loop body's object lookup use
  * EDI = param_1 (`mov edi,ecx` at 0x4759b7, and the intervening
  * FUN_0048de60 call preserves EDI).  Everything after uses EBP, the
- * FUN_00425ac0 return at 0x475a9d - i.e. the C's own piVar5, which is
+ * HitTestLocalMobile return at 0x475a9d - i.e. the C's own piVar5, which is
  * exactly what the 2026-07-15 Encode sweep independently concluded for
  * the four already-fixed Encode sites here.  NOTE EDI is retargeted by
  * `lea edi,[ebp+0xb728]` at 0x475af0 and again for each later round, so
@@ -64,7 +64,7 @@ void __fastcall ExplodeSuperShot_Bullet11(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004373c0(uVar3,uVar2,0x2076,s_ssflame11_00554ae4);
+  SpawnSuperFlameEffect(uVar3,uVar2,0x2076,s_ssflame11_00554ae4);
   local_c = 0;
   local_14 = 0;
   do {
@@ -77,7 +77,7 @@ void __fastcall ExplodeSuperShot_Bullet11(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    piVar5 = (int *)FUN_00425ac0(g_clientContext,uVar4,uVar3,uVar2);
+    piVar5 = (int *)HitTestLocalMobile(g_clientContext,uVar4,uVar3,uVar2);
     if (piVar5 != (int *)0x0) {
       cVar1 = PeekPacketChecksumBool();
       if (cVar1 != '\0') {
@@ -103,7 +103,7 @@ void __fastcall ExplodeSuperShot_Bullet11(int param_1)
           }
           /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
            * 0x475c2b (`lea edi,[ebp+0xb94c]`, ebp = this file's own
-           * piVar5, per `mov ebp,eax` right after the FUN_00425ac0 call
+           * piVar5, per `mov ebp,eax` right after the HitTestLocalMobile call
            * above) a CValueGuard cell at piVar5+0xb94c; +0x224 past the
            * cell used at the previous call (0xb728), matching
            * sizeof(CValueGuard)=0x224 - these 4 calls step through a
@@ -179,7 +179,7 @@ void __fastcall ExplodeSuperShot_Bullet11(int param_1)
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           uVar3 = PeekPacketChecksumState((void *)((int)piVar5 + 0x90c));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          FUN_004372f0(local_c,uVar3,uVar2,*(undefined4 *)(param_1 + 0x3894),param_1 + 0x3898);
+          SpawnFlameEffect(local_c,uVar3,uVar2,*(undefined4 *)(param_1 + 0x3894),param_1 + 0x3898);
           local_c = local_c + 1;
         }
       }

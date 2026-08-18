@@ -7,7 +7,7 @@
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at both argless PeekPacketChecksumState() calls: both are chained returns of the DeltaSub immediately above them
  * (0x425d36, 0x425db8), discarded and captured in a new uVar8 - the
- * same two-round shape as FUN_00425ac0.
+ * same two-round shape as HitTestLocalMobile.
  */
 #include "ghidra_types.h"
 

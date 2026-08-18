@@ -360,7 +360,7 @@ LAB_0048d0e3:
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           local_15a0 = PeekPacketChecksumState((void *)(local_15b4 + 0xf54));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar5 = FUN_00425ac0(g_clientContext,local_15a0,local_158c,iVar5 / *(int *)(iVar3 + 0x3fa4));
+          iVar5 = HitTestLocalMobile(g_clientContext,local_15a0,local_158c,iVar5 / *(int *)(iVar3 + 0x3fa4));
           if (((iVar5 != 0) && (cVar1 = PeekPacketChecksumBool((byte *)(iVar5 + 0x908)), cVar1 != '\0')) &&
              (cVar1 = PeekPacketChecksumBool((byte *)(iVar5 + 0xbff7)), cVar1 != '\x01')) {
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -654,7 +654,7 @@ LAB_0048d0d0:
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           local_15a0 = PeekPacketChecksumState((void *)(local_15b4 + 0xf54));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar5 = FUN_00425ac0(g_clientContext,local_15a0,local_1580[0],
+          iVar5 = HitTestLocalMobile(g_clientContext,local_15a0,local_1580[0],
                                (int)local_15ac / *(int *)(iVar3 + 0x3fa4));
           if (((iVar5 != 0) && (cVar1 = PeekPacketChecksumBool((byte *)(iVar5 + 0x908)), cVar1 != '\0')) &&
              (cVar1 = PeekPacketChecksumBool((byte *)(iVar5 + 0xbff7)), cVar1 != '\x01')) {

@@ -686,7 +686,7 @@ LAB_004535de:
     uVar16 = 0x2071;
     uVar6 = PeekChecksumStateUnderLock(param_1 + 0x45e);
     uVar11 = PeekChecksumStateUnderLock(param_1 + 0x3d5);
-    FUN_004373c0(uVar11,uVar6,uVar16,pcVar14);
+    SpawnSuperFlameEffect(uVar11,uVar6,uVar16,pcVar14);
     param_1[0xfeb] = 0;
   }
   cVar3 = PeekPacketChecksumBool();

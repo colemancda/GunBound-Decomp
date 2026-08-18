@@ -109,7 +109,7 @@ void __fastcall ExplodeSuperShot_Bullet1_5_6_12_13_15(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004372f0(*(undefined4 *)(param_1 + 8),uVar4,uVar3,*(undefined4 *)(param_1 + 0x3894),
+  SpawnFlameEffect(*(undefined4 *)(param_1 + 8),uVar4,uVar3,*(undefined4 *)(param_1 + 0x3894),
                param_1 + 0x3898);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x15c0));

@@ -104,7 +104,7 @@ void __fastcall DetonateItemShot(int *param_1)
       piVar1 = piVar9 + 0x243;
       uVar10 = PeekChecksumStateUnderLock(apiStack_acc[0]);
       uVar11 = PeekChecksumStateUnderLock(piVar1);
-      FUN_004372f0(0,uVar11,uVar10,uVar18,pcVar19);
+      SpawnFlameEffect(0,uVar11,uVar10,uVar18,pcVar19);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar10 = PeekPacketChecksumState((void *)(&DAT_00794bf0));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -164,7 +164,7 @@ void __fastcall DetonateItemShot(int *param_1)
       uVar18 = 0x14b5;
       uVar10 = PeekChecksumStateUnderLock(apiStack_acc[0]);
       uVar11 = PeekChecksumStateUnderLock(piVar1);
-      FUN_004372f0(1,uVar11,uVar10,uVar18,pcVar19);
+      SpawnFlameEffect(1,uVar11,uVar10,uVar18,pcVar19);
     }
     cVar6 = PeekPacketChecksumBool();
     if ((cVar6 != '\0') && (cVar6 = InitChecksumSeed(), cVar6 == '\0')) {

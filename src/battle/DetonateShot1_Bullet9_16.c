@@ -528,7 +528,7 @@ LAB_0046ecce:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   apuStack_ad0[0] = (undefined4 *)PeekPacketChecksumState((void *)(piStack_ae0 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004372f0(piStack_ae0[2],apuStack_ad0[0],uVar8,piStack_ae0[0xe25],piStack_ae0 + 0xe26);
+  SpawnFlameEffect(piStack_ae0[2],apuStack_ad0[0],uVar8,piStack_ae0[0xe25],piStack_ae0 + 0xe26);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar8 = PeekPacketChecksumState((void *)(piStack_ae0 + 0x570));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

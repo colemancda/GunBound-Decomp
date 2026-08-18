@@ -435,7 +435,7 @@ LAB_00420896:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState(piVar2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004372f0(0,uVar7,uVar6,0x14b5,s_teleport1_005535f8);
+    SpawnFlameEffect(0,uVar7,uVar6,0x14b5,s_teleport1_005535f8);
   }
   *unaff_FS_OFFSET = local_c;
   return;

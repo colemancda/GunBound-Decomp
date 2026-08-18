@@ -189,12 +189,12 @@ void FUN_004cc5c0(undefined4 param_1,int param_2,int param_3)
           uVar8 = 0x14b5;
           uVar6 = PeekChecksumStateUnderLock(iVar7 + 0xb30);
           uVar4 = PeekChecksumStateUnderLock(iVar5);
-          FUN_004372f0(0,uVar4,uVar6,uVar8,pcVar9);
+          SpawnFlameEffect(0,uVar4,uVar6,uVar8,pcVar9);
           pcVar9 = s_teleport1_005535f8;
           uVar8 = 0x14b5;
           uVar6 = PeekChecksumStateUnderLock(iVar2);
           uVar4 = PeekChecksumStateUnderLock(iVar3);
-          FUN_004372f0(1,uVar4,uVar6,uVar8,pcVar9);
+          SpawnFlameEffect(1,uVar4,uVar6,uVar8,pcVar9);
         }
       }
     }

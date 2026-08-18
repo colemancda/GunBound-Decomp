@@ -7,10 +7,10 @@
  * DROPPED-ARG FIX (2026-08-11): all 39 argless PeekChecksumStateUnderLock()
  * calls now pass their guarded-cell pointer, recovered from
  * tools/underlock_push_sites.json + full disasm of the original
- * function (this file and FUN_0049c120.c are two Ghidra decompiles of
+ * function (this file and Mobile06_MainAction.c are two Ghidra decompiles of
  * the SAME split original at 0x49c120/0x49c13f; this one is fully
  * value-stripped, so sites were mapped in cluster order against the
- * disasm, cross-checked against FUN_0049c120.c's artifact-bearing
+ * disasm, cross-checked against Mobile06_MainAction.c's artifact-bearing
  * decompile of the shared paths). Per weapon-case cluster the args are:
  * the mode cell ([esi+0x651c]==1 ? 0x796aa0 : 0x794e48 - the original's
  * two-way push that this decompile dropped entirely, restored as a

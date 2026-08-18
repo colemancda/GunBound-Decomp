@@ -1,4 +1,6 @@
-/* FUN_0049c120 - 0x0049c120 in the original binary.
+/* Mobile06_MainAction - 0x0049c120 in the original binary.
+ *
+ * RENAMED (2026-08-17, from FUN_0049c120): mobile type 6 vtable-slot-7 weapon-fire handler; PROGRESS.csv already carried this name for 0x49c120 (vtable geometry), the source tree kept the FUN_ name.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -19,7 +21,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void __thiscall FUN_0049c120(int param_1,undefined4 param_2,int param_3)
+void __thiscall Mobile06_MainAction(int param_1,undefined4 param_2,int param_3)
 
 {
   int iVar1;

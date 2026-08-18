@@ -701,7 +701,7 @@ LAB_00487dd6:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_acc = (undefined4 *)PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004372f0(param_1[2],puStack_acc,uVar5,param_1[0xe25],param_1 + 0xe26);
+  SpawnFlameEffect(param_1[2],puStack_acc,uVar5,param_1[0xe25],param_1 + 0xe26);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState((void *)(param_1 + 0x570));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -732,7 +732,7 @@ LAB_00487dd6:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar6 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004373c0(uVar6,uVar5,0x2078,s_ssflame13_005548d8);
+  SpawnSuperFlameEffect(uVar6,uVar5,0x2078,s_ssflame13_005548d8);
   cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
   if (cVar1 == '\0') {
     AcquireSoundChannel(0);

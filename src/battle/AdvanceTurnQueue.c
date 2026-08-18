@@ -140,7 +140,7 @@ void __fastcall AdvanceTurnQueue(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_45c = (undefined *)PeekPacketChecksumState((void *)(piVar2 + 0x243));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_0042bb10(*(undefined1 *)(param_1 + 0x10a8),1000);
+      SpawnRiderEffect(*(undefined1 *)(param_1 + 0x10a8),1000);
       (**(code **)(*piVar2 + 4))(&DAT_00555c90);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));

@@ -1,7 +1,8 @@
-/* FUN_004372f0 - 0x004372f0 in the original binary.
+/* SpawnSuperFlameEffect - 0x004373c0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
+ * RENAMED (2026-08-17, from FUN_004373c0): the SuperShot-only twin of SpawnFlameEffect (same s_flame animation, own class ctor 0x47e940, extra param_2<4 intensity cap); every caller is a DetonateSuperShot or ExplodeSuperShot body.
+ *
+ * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
@@ -12,8 +13,8 @@
 #include "ghidra_types.h"
 
 
-void __thiscall
-FUN_004372f0(char param_1,undefined4 param_2,int param_3,int param_4,int param_5,undefined4 param_6)
+void __fastcall
+SpawnSuperFlameEffect(char param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6)
 
 {
   char cVar1;
@@ -27,13 +28,13 @@ FUN_004372f0(char param_1,undefined4 param_2,int param_3,int param_4,int param_5
    * site in the binary was audited 2026-08-17 and passes exactly that
    * value, so the +4 peek is the global flag, not a per-object cell. */
   cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
-  if (cVar1 == '\0') {
+  if ((cVar1 == '\0') && (param_2 < 4)) {
     pvVar2 = operator_new(0x54);
     if (pvVar2 == (void *)0x0) {
       piVar3 = (int *)0x0;
     }
     else {
-      FUN_00471af0();
+      FUN_0047e940();
     }
     piVar3[0xe] = param_3;
     piVar3[0xf] = param_4;

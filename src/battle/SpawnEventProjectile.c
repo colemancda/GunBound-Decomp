@@ -1,4 +1,6 @@
-/* FUN_00434160 - 0x00434160 in the original binary.
+/* SpawnEventProjectile - 0x00434160 in the original binary.
+ *
+ * RENAMED (2026-08-17, from FUN_00434160): allocates a FULL 0x3f9c projectile textured "drophammer" or "bulletevent1" (with the "flameevent1" name stored on the object) - the falling event-weapon projectile.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -18,7 +20,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00434160(undefined4 param_1,int param_2)
+void SpawnEventProjectile(undefined4 param_1,int param_2)
 
 {
   char cVar1;

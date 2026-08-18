@@ -531,7 +531,7 @@ LAB_00490f39:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   apuStack_adc[0] = (undefined4 *)PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004373c0(apuStack_adc[0],uVar8,0x2074,s_ssflame9_00554ce4);
+  SpawnSuperFlameEffect(apuStack_adc[0],uVar8,0x2074,s_ssflame9_00554ce4);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar8 = PeekPacketChecksumState((void *)(param_1 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -545,7 +545,7 @@ LAB_00490f39:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   apuStack_adc[0] = (undefined4 *)PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004372f0(param_1[2],apuStack_adc[0],uVar8,param_1[0xe25],param_1 + 0xe26);
+  SpawnFlameEffect(param_1[2],apuStack_adc[0],uVar8,param_1[0xe25],param_1 + 0xe26);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar8 = PeekPacketChecksumState((void *)(param_1 + 0x570));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

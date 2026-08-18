@@ -168,7 +168,7 @@ void FUN_00477140(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar4 = PeekPacketChecksumState((void *)(unaff_ESI + 0x40));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004372f0(*(uint *)(unaff_ESI + 8) & 0xf,uVar4,uVar3,*(undefined4 *)(unaff_ESI + 0x3894),
+  SpawnFlameEffect(*(uint *)(unaff_ESI + 8) & 0xf,uVar4,uVar3,*(undefined4 *)(unaff_ESI + 0x3894),
                unaff_ESI + 0x3898);
   uStack_14 = 0xffffffff;
   if (iStack_22c != 0) {

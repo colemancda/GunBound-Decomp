@@ -1,4 +1,6 @@
-/* FUN_00434ac0 - 0x00434ac0 in the original binary.
+/* SpawnDropCaseProjectile - 0x00434ac0 in the original binary.
+ *
+ * RENAMED (2026-08-17, from FUN_00434ac0): allocates a FULL 0x3f9c projectile textured "dropcase"/"caseflame"/"caseblast_xes" - the falling supply-case event projectile.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's
@@ -17,7 +19,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00434ac0(undefined4 param_1,int param_2)
+void SpawnDropCaseProjectile(undefined4 param_1,int param_2)
 
 {
   char cVar1;

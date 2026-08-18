@@ -17,9 +17,9 @@
  * cell at all 6 argless PeekPacketChecksumState() calls (6 C : 6 orig,
  * goto-free zip), from tools/guard_cell_resolve.py over
  * 0x48d8e0-0x48db90.  Five cells hang off the live-in ECX object
- * (param_1): the +0x1178/+0xf54 pair feeding FUN_004373c0 (the
+ * (param_1): the +0x1178/+0xf54 pair feeding SpawnSuperFlameEffect (the
  * "ssflame2" registration), then +0x33c8/+0x1178/+0xf54 feeding the
- * FUN_00425ac0 lookup - the same three-cell argument pattern
+ * HitTestLocalMobile lookup - the same three-cell argument pattern
  * ExplodeSuperShot_Bullet11 uses for the same callee.  The sixth is
  * g_clientContext+0x45354 (the battle-mode cell).
  */
@@ -54,7 +54,7 @@ void __fastcall ExplodeSuperShot_Bullet2(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_004373c0(uVar4,uVar3,0x206d,s_ssflame2_00555320);
+    SpawnSuperFlameEffect(uVar4,uVar3,0x206d,s_ssflame2_00555320);
     local_240 = 0;
     do {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -66,7 +66,7 @@ void __fastcall ExplodeSuperShot_Bullet2(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar5 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      piVar6 = (int *)FUN_00425ac0(g_clientContext,uVar5,uVar4,uVar3);
+      piVar6 = (int *)HitTestLocalMobile(g_clientContext,uVar5,uVar4,uVar3);
       if (piVar6 != (int *)0x0) {
         cVar2 = PeekPacketChecksumBool();
         if (cVar2 != '\0') {

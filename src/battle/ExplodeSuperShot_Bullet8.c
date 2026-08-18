@@ -20,7 +20,7 @@
  * +0x3198/+0x35ec/+0x33c8 (the three spawn parameters), +0x17e4.  The
  * three peeks whose cell the resolver saw as clobbered (0x483929,
  * 0x483b28, 0x483dcd) read the object returned by the preceding
- * FUN_00425ac0 / FUN_00425c90 / FUN_00425e60 call (`mov edi,eax` -> `lea
+ * HitTestLocalMobile / FUN_00425c90 / FUN_00425e60 call (`mov edi,eax` -> `lea
  * eax,[edi+N]`): record+0x90c, object+0x25c, object+0x40 - the C's iVar5
  * before its own reassignment on the same line.
  */
@@ -49,7 +49,7 @@ void __fastcall ExplodeSuperShot_Bullet8(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004373c0(uVar3,uVar2,0x2073,s_ssflame8_00554dd0);
+  SpawnSuperFlameEffect(uVar3,uVar2,0x2073,s_ssflame8_00554dd0);
   local_18 = 0;
   do {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -61,7 +61,7 @@ void __fastcall ExplodeSuperShot_Bullet8(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = FUN_00425ac0(g_clientContext,uVar4,uVar3,uVar2);
+    iVar5 = HitTestLocalMobile(g_clientContext,uVar4,uVar3,uVar2);
     if ((((iVar5 != 0) && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) &&
         (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) &&
        (cVar1 = PeekPacketChecksumBool(), (*(int *)(iVar5 + 0xae2c) == 1) != (bool)cVar1)) {

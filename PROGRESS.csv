@@ -347,7 +347,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00425960,107,FUN_00425960,false,1,4,RAW-src
 004259d0,82,FUN_004259d0,false,11,2,RAW-src
 00425a30,133,FUN_00425a30,false,2,3,RAW-src
-00425ac0,450,FUN_00425ac0,false,5,7,RAW-src
+00425ac0,450,HitTestLocalMobile,false,5,7,RAW-src
 00425c90,463,FUN_00425c90,false,3,6,RAW-src
 00425e60,460,FUN_00425e60,false,3,6,RAW-src
 00426030,84,FUN_00426030,false,6,2,RAW-src
@@ -399,7 +399,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0042af40,172,FUN_0042af40,false,2,3,RAW-src
 0042b010,134,FUN_0042b010,false,1,4,RAW-src
 0042b0b0,2584,CreateMobile,false,4,21,RAW-src
-0042bb10,155,FUN_0042bb10,false,5,5,RAW-src
+0042bb10,155,SpawnRiderEffect,false,5,5,RAW-src
 0042bbb0,8819,SpawnPrimaryShot,false,61,46,RAW-src
 0042de70,5627,SpawnSuperShot,false,25,38,RAW-src
 0042f4b0,4357,SpawnShot_Type9,false,5,24,RAW-src
@@ -409,8 +409,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00432320,1322,FUN_00432320,false,50,15,RAW-src
 00432850,3970,FUN_00432850,false,1,20,RAW-src
 004337f0,2403,FUN_004337f0,false,1,12,RAW-src
-00434160,2387,FUN_00434160,false,1,12,RAW-src
-00434ac0,1266,FUN_00434ac0,false,1,12,RAW-src
+00434160,2387,SpawnEventProjectile,false,1,12,RAW-src
+00434ac0,1266,SpawnDropCaseProjectile,false,1,12,RAW-src
 00434fc0,2110,FUN_00434fc0,false,1,11,RAW-src
 00435800,705,SpawnTornadoHazard,false,1,13,RAW-src
 00435ad0,705,SpawnFirewallHazard,false,1,13,RAW-src
@@ -429,8 +429,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00436ec0,268,FUN_00436ec0,false,18,8,RAW-src
 00436fd0,370,FUN_00436fd0,false,2,7,RAW-src
 00437150,408,FUN_00437150,false,21,7,RAW-src
-004372f0,200,FUN_004372f0,false,32,9,RAW-src
-004373c0,196,FUN_004373c0,false,9,9,RAW-src
+004372f0,200,SpawnFlameEffect,false,32,9,RAW-src
+004373c0,196,SpawnSuperFlameEffect,false,9,9,RAW-src
 00437490,94,FUN_00437490,false,4,0,RAW-src
 00437500,225,FUN_00437500,false,2,0,RAW-src
 004375f0,626,FUN_004375f0,false,2,13,RAW-src

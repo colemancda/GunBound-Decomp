@@ -106,19 +106,19 @@ LAB_004ce86c:
   }
   switch(*(undefined4 *)(param_1 + 0x49c)) {
   case 2:
-    FUN_0042bb10(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
-    FUN_00434ac0(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
+    SpawnRiderEffect(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
+    SpawnDropCaseProjectile(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
     break;
   case 3:
-    FUN_0042bb10(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
+    SpawnRiderEffect(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
     FUN_004337f0(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
     break;
   case 4:
-    FUN_0042bb10(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
-    FUN_00434160(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
+    SpawnRiderEffect(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
+    SpawnEventProjectile(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
     break;
   case 5:
-    FUN_0042bb10(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
+    SpawnRiderEffect(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
     FUN_00434fc0(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c),0);
     break;
   case 6:

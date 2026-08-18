@@ -1,4 +1,6 @@
-/* FUN_00425ac0 - 0x00425ac0 in the original binary.
+/* HitTestLocalMobile - 0x00425ac0 in the original binary.
+ *
+ * RENAMED (2026-08-17, from FUN_00425ac0): fetches the local player record and guard-computes (mobileX - x) and (mobileY-10 - y) deltas; returns the record when the point is within range, else 0 - the detonation hit-test every Simulate/Detonate twin calls before the +0x908/+0xbff7 peeks.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -12,7 +14,7 @@
 #include "ghidra_types.h"
 
 
-uint FUN_00425ac0(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
+uint HitTestLocalMobile(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
 
 {
   uint uVar1;

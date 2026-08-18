@@ -90,7 +90,7 @@ void __fastcall FUN_004aa8f0(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_004372f0(*(undefined4 *)(param_1 + 8),uVar4,uVar3,*(undefined4 *)(param_1 + 0x3894),
+  SpawnFlameEffect(*(undefined4 *)(param_1 + 8),uVar4,uVar3,*(undefined4 *)(param_1 + 0x3894),
                param_1 + 0x3898);
   iVar1 = g_clientContext;
   cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
