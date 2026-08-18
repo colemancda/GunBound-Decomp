@@ -27,7 +27,7 @@ void SpawnProjectileLightningHazard(undefined4 param_1,undefined4 param_2,undefi
   /* Windows SEH __try/__except frame setup stripped - handler body
    * (LAB_0053ca9b) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 4));
   if (cVar1 == '\0') {
     pvVar2 = operator_new(0x4ac);
     iVar3 = 0;

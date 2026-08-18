@@ -27,7 +27,7 @@ uint SpawnCraterDebris(int *param_1,int param_2,int param_3,int param_4,int para
   int local_94;
   char local_80 [128];
   
-  uVar3 = PeekPacketChecksumBool();
+  uVar3 = PeekPacketChecksumBool((byte *)param_1 + 4);
   if ((char)uVar3 == '\0') {
     bVar1 = (&DAT_005f2f54)[g_clientContext];
     uVar3 = (uint)bVar1;

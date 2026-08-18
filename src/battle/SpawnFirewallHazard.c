@@ -52,7 +52,7 @@ void SpawnFirewallHazard(undefined4 param_1,int param_2,int param_3,undefined4 p
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053aed4;
   *unaff_FS_OFFSET = &local_c;
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 4));
   if (cVar1 == '\0') {
     iVar2 = (int)(param_3 + (param_3 >> 0x1f & 3U)) >> 2;
     for (iVar6 = (param_2 - iVar2) + -5; iVar6 <= iVar2 + 5 + param_2; iVar6 = iVar6 + 1) {

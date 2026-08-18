@@ -35,7 +35,7 @@ void FUN_004375f0(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   /* Windows SEH __try/__except frame setup stripped - handler
    * body wasn't included in this function's own decompile. Same
    * rationale as entry/InitGame.c - see src/README.md. */
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 4));
   if (cVar1 != '\0') goto LAB_0043784d;
   param_4 = param_4 & 0x80000007;
   if ((int)param_4 < 0) {

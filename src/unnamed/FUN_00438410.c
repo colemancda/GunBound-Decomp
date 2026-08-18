@@ -51,7 +51,7 @@ void FUN_00438410(undefined4 param_1,int param_2,int param_3,int param_4)
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053cf6e;
   *unaff_FS_OFFSET = &local_c;
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)(param_1 + 4));
   if (cVar3 != '\0') goto LAB_004388b4;
   iVar8 = *(int *)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
   uVar12 = 0;
