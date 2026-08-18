@@ -124,6 +124,7 @@ public:
      * reconstructed so far; the other 15 remain raw. Signature is
      * (this, animEvent, subType). */
     void Mobile00_MainAction(int animEvent, int subType);  /* 0x44e920 */
+    void Mobile02_MainAction(int animEvent, int subType);  /* 0x48d1f0 */
     void Mobile01_MainAction(int animEvent, int subType);  /* 0x488ac0 - the
                              * double-shot type (its case 6 fires two
                              * SpawnPrimaryShot volleys); promoted 2026-08-18 */
