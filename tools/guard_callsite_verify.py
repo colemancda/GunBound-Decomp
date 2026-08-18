@@ -112,16 +112,8 @@ def is_guard(addr):
         0x4217b0, 0x420600, 0x426230, 0x4262d0, 0x4dc0f0)
 
 
-def row_anchors(rows, calls, fam_addrs):
-    """nearest direct non-guard call before/after each row address.
-
-    Only RARE targets anchor: a helper called all over the function (buffer
-    appends, float conversions in loops) matches everywhere and manufactures
-    false conflicts - HandleMouseInput's 0x4e6fc0 flagged a correct site that
-    way.  <=2 occurrences keeps the twin-call patterns (FloatToInt64 pairs)
-    while dropping the noise."""
-    from collections import Counter
-    tcount = Counter(ct for _, ct in calls)
+def row_anchors(rows, calls, fam_addrs, eligible):
+    """nearest direct anchor-ELIGIBLE call before/after each row address."""
     for row in rows:
         a = row['addr']
         prev = next_ = None
@@ -133,7 +125,7 @@ def row_anchors(rows, calls, fam_addrs):
             if ct in fam_addrs and ca != a:
                 prev = None          # another same-family row is closer
                 continue
-            if not is_guard(ct) and tcount[ct] <= 2:
+            if ct in eligible:
                 prev = ct
         for ca, ct in calls:
             if ca <= a:
@@ -142,7 +134,7 @@ def row_anchors(rows, calls, fam_addrs):
                 break
             if ct in fam_addrs:
                 break                # next same-family row cuts the window
-            if not is_guard(ct) and tcount[ct] <= 2:
+            if ct in eligible:
                 next_ = ct
                 break
         row['prev'], row['next'] = prev, next_
@@ -152,9 +144,7 @@ CALLNAME = re.compile(r'\b([A-Za-z_]\w*)\s*\(')
 NOT_CALLS = {'if', 'while', 'for', 'switch', 'return', 'sizeof', 'defined'}
 
 
-def site_anchors(src, sites):
-    """nearest named direct-call anchors around each site in the text."""
-    # flatten: [(line, col, kind, value)] of every call-looking token
+def call_tokens(src):
     toks = []
     for i, l in enumerate(src):
         if l.lstrip().startswith('*') or l.lstrip().startswith('/*'):
@@ -164,9 +154,31 @@ def site_anchors(src, sites):
             if n in NOT_CALLS:
                 continue
             toks.append((i, m.start(), n))
-    SPAN = 15                      # text lines, rough twin of WINDOW bytes
+    return toks
+
+
+def eligible_anchors(calls, toks):
+    """Anchor targets must be RARE ON BOTH SIDES (<=2 occurrences in the
+    disasm AND <=2 named occurrences in the C text).  One-sided rarity
+    manufactures conflicts: `operator_new` was rare in the disasm walk but
+    common in the text walk of DetonateProjectile, so the two sides picked
+    different anchors for the SAME position and a correct site got flagged.
+    A target absent from the C text entirely (a call Ghidra folded away) is
+    likewise ineligible - the text side could never produce it."""
     from collections import Counter
-    ncount = Counter(t[2] for t in toks)
+    tcount = Counter(ct for _, ct in calls)
+    ccount = Counter()
+    for _, _, n in toks:
+        a = name2addr.get(n)
+        if a is not None:
+            ccount[a] += 1
+    return {a for a in tcount
+            if not is_guard(a) and tcount[a] <= 2 and 1 <= ccount[a] <= 2}
+
+
+def site_anchors(src, sites, toks, eligible):
+    """nearest anchor-eligible named calls around each site in the text."""
+    SPAN = 15                      # text lines, rough twin of WINDOW bytes
     for s in sites:
         pos = (s['line'], s['col'])
         prev = next_ = None
@@ -178,8 +190,7 @@ def site_anchors(src, sites):
                 prev = None
                 continue
             a = name2addr.get(n)
-            if a is not None and a in byaddr and not is_guard(a) \
-                    and s['line'] - t[0] <= SPAN and ncount[n] <= 2:
+            if a in eligible and s['line'] - t[0] <= SPAN:
                 prev = a
         after = [t for t in toks if (t[0], t[1]) > pos]
         for t in after:
@@ -189,8 +200,7 @@ def site_anchors(src, sites):
             if n in CALLS and CALLS[n] == s['family']:
                 break
             a = name2addr.get(n)
-            if a is not None and a in byaddr and not is_guard(a) \
-                    and ncount[n] <= 2:
+            if a in eligible:
                 next_ = a
                 break
         s['prev'], s['next'] = prev, next_
@@ -347,8 +357,10 @@ def main():
                             if m and not l.lstrip().startswith('*')) < len(rows) - 8:
             pass  # inlined twins etc - anchors still work per-site
         calls = disasm_calls(r[0], r[1])
-        row_anchors(rows, calls, fam_addr)
-        site_anchors(src, sites)
+        toks = call_tokens(src)
+        eligible = eligible_anchors(calls, toks)
+        row_anchors(rows, calls, fam_addr, eligible)
+        site_anchors(src, sites, toks, eligible)
         match(sites, rows)
         label_pin(src, sites, rows)
         param = None
@@ -370,8 +382,25 @@ def main():
                 s['plaus'] = [s['pin']]
             plaus_offs = {cell_offset(r['cell']) for r in s['plaus']}
             if s['arg'] is not None and aoff is not None:
-                if aoff in plaus_offs:
+                # int-pointer bases scale by 4 (`param_1 + 0x122` is byte
+                # 0x488) and the base's C type is not reliably known here,
+                # so accept EITHER scale; flag wrong only when both readings
+                # miss every plausible row.
+                if aoff in plaus_offs or aoff * 4 in plaus_offs:
                     n_ver += 1
+                    continue
+                if None in plaus_offs and family != 'PeekBool':
+                    # an UNRESOLVED row (spill slot, <add eax,4>) is
+                    # plausible for this site - and for Peek/Encode, Ghidra
+                    # itself often kept the argument (it tracks spills the
+                    # resolver cannot), so the applied offset cannot be
+                    # contradicted.  NOT extended to PeekBool: its cell was
+                    # always in dropped EAX, so every applied arg is
+                    # sweep-written and an offset matching no resolved row
+                    # is a misassignment even when unresolved rows are
+                    # nearby (the DetonateProjectile C415/C488 strips were
+                    # exactly that, verified by hand).
+                    n_und += 1
                     continue
                 # no plausible row carries this offset: the site is wrong.
                 # It is REPAIRABLE only if every plausible row agrees.
