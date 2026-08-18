@@ -116,7 +116,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
   if (uVar1 < 0x8501) {
     if (uVar1 == GB_ACT_POSITION_RELAY) {
       iVar4 = GetPlayerRecordBySlot(g_clientContext);
-      if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) {
+      if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool((byte *)(iVar4 + 0x8ba8)), cVar2 == '\0')) {
         uVar21 = QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x22));
         EncodeChecksumState(uVar21);
         uVar21 = QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x24));
@@ -138,7 +138,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
           cVar2 = *(char *)(param_2 + 0x25);
           QueueOutgoingPacketField(*(char *)(param_2 + 0x26) == '\x01');
           SetGuardedBool(cVar2 == '\x02',GB_GUARD_UNRECOVERED);
-          cVar3 = PeekPacketChecksumBool();
+          cVar3 = PeekPacketChecksumBool((byte *)piVar7 + 0x8bba);
           if (cVar3 == '\0') {
             SetGuardedBool(cVar2 == '\x01',GB_GUARD_UNRECOVERED);
           }
@@ -367,7 +367,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       else if (((((uVar1 == GB_ACT_FIELD_RELAY) &&
                  (uVar11 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c), bVar16 != uVar11)) &&
                 ((iVar4 = GetPlayerRecordBySlot(g_clientContext), iVar4 != 0 &&
-                 ((cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba)), cVar2 != '\0' && (cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba)), cVar2 != '\0'))
+                 ((cVar2 = PeekPacketChecksumBool((byte *)(iVar4 + 0x8ba8)), cVar2 != '\0' && (cVar2 = PeekPacketChecksumBool((byte *)(iVar4 + 0x8bb1)), cVar2 != '\0'))
                  )))) && (*(int *)(iVar4 + 0x24) != 5)) && (*(int *)(iVar4 + 0x24) != 6)) {
         QueueOutgoingPacketField(*puVar12);
         QueueOutgoingPacketField(*(undefined2 *)(param_2 + 0x23));
@@ -450,9 +450,9 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
         }
         InvokeWidget(18,uVar21);
       }
-      cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb7));
+      cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba));
       if (cVar2 == '\0') {
-        cVar2 = PeekPacketChecksumBool();
+        cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb7));
         if (cVar2 == '\x01') {
           InvokeWidget(1,1);
           RemoveWidget();
@@ -569,7 +569,7 @@ LAB_004b7c01:
           param_1[0x429] = (uint)*(ushort *)(param_2 + 0x22);
           piVar7 = (int *)GetPlayerRecordBySlot(iVar4);
           if (piVar7 != (int *)0x0) {
-            if ((piVar7[9] != 0xe) && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
+            if ((piVar7[9] != 0xe) && (cVar2 = PeekPacketChecksumBool((byte *)piVar7 + 0x8bbd), cVar2 == '\x01')) {
               uVar21 = EncodeChecksumPairSum(piVar7 + 0x19d1,local_2258,piVar7 + 0x1b6c);
               local_c = 2;
               uVar21 = EncodeChecksumDeltaDiv(uVar21,local_8a8,3);
@@ -632,7 +632,7 @@ LAB_004b7c01:
             local_27ec[0x429] = (uint)*(ushort *)(param_2 + 0x22);
             piVar7 = (int *)GetPlayerRecordBySlot(iVar4);
             if (piVar7 != (int *)0x0) {
-              if ((piVar7[9] != 0xe) && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\x01')) {
+              if ((piVar7[9] != 0xe) && (cVar2 = PeekPacketChecksumBool((byte *)piVar7 + 0x8bbd), cVar2 == '\x01')) {
                 uVar21 = EncodeChecksumPairSum(piVar7 + 0x19d1,local_1e10,piVar7 + 0x1b6c);
                 local_c = 0;
                 uVar21 = EncodeChecksumDeltaDiv(uVar21,local_19c8,3);
@@ -935,8 +935,8 @@ LAB_004b7674:
           if (cVar2 != '\x01') break;
 LAB_004b7fb2:
           cVar2 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
-          if (((cVar2 != '\0') && (cVar2 = PeekPacketChecksumBool(), cVar2 == '\0')) &&
-             ((g_currentGameState != 0xb || (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')))) {
+          if (((cVar2 != '\0') && (cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62152)), cVar2 == '\0')) &&
+             ((g_currentGameState != 0xb || (cVar2 = PeekPacketChecksumBool((byte *)(DAT_005b3424 + 0x11c2)), cVar2 != '\x01')))) {
             SendPlayResult();
             *unaff_FS_OFFSET = local_14;
             return;
@@ -1045,7 +1045,7 @@ LAB_004b7fb2:
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       cVar2 = FUN_0043c820();
       if (cVar2 == '\x01') {
-        cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62152));
+        cVar2 = PeekPacketChecksumBool((byte *)piVar7 + 0x8bb7);
         if (cVar2 != '\0') {
           *(undefined4 *)((int)piVar7 + 0xbffa) = DAT_00553b70;
           *(undefined2 *)((int)piVar7 + 0xbffe) = DAT_00553b74;
@@ -1057,7 +1057,7 @@ LAB_004b7fb2:
         *unaff_FS_OFFSET = local_14;
         return;
       }
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)piVar7 + 0x8bb7);
       if (cVar2 == '\0') {
         iVar4 = *piVar7;
         pcVar5 = (char *)&DAT_00553b68;

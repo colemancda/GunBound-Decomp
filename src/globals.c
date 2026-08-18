@@ -427,6 +427,7 @@ uint8_t DAT_005b3368[0x80];
 uint32_t DAT_005b33e8;
 uint32_t DAT_005b33f0;
 uint16_t DAT_005b33f4;
+uint32_t DAT_005b3424;
 uint32_t DAT_005b3438;
 uint16_t DAT_005b343c;
 /* DAT_005b3440 (the launcher session blob) moved to globals_sized.c - it is

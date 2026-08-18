@@ -442,6 +442,7 @@ extern uint8_t DAT_005b3368[0x80]; /* GameName - sized, see globals.c */
 extern uint32_t DAT_005b33e8; /* broker Port - sized, see globals.c */
 extern uint32_t DAT_005b33f0;
 extern uint16_t DAT_005b33f4;
+extern uint32_t DAT_005b3424;          /* second per-connection base (see Mobile.cpp) */
 extern uint32_t DAT_005b3438;
 extern uint16_t DAT_005b343c;
 extern uint8_t DAT_005b3440;
