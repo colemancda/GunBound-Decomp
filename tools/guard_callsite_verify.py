@@ -440,24 +440,16 @@ def main():
                 continue
             roff = plaus_offs.pop()
             n_ver += 1
-            if True:
-                if fix:
-                    base = None
-                    m = re.match(r'dword ptr \[0x5b3484\] \+', s['plaus'][0]['cell'])
-                    if m:
-                        ex = '(byte *)(g_clientContext + 0x%x)' % roff
-                    else:
-                        mm = re.search(r'PeekPacketChecksumBool\(\(byte \*\)'
-                                       r'([A-Za-z_]\w*) \+ 0x[0-9a-f]+\)', '\n'.join(src))
-                        if not mm:
-                            continue
-                        ex = '(byte *)%s + 0x%x' % (mm.group(1), roff)
-                    l = src[s['line']]
-                    src[s['line']] = (l[:s['col']] +
-                                      l[s['col']:].replace(cname + '()',
-                                                           '%s(%s)' % (cname, ex), 1))
-                    changed = True
-                    n_fixed += 1
+            if fix:
+                ex = row_expr(s['plaus'][0], roff, '\n'.join(src), fctx)
+                if ex is None:
+                    continue
+                l = src[s['line']]
+                src[s['line']] = (l[:s['col']] +
+                                  l[s['col']:].replace(cname + '()',
+                                                       '%s(%s)' % (cname, ex), 1))
+                changed = True
+                n_fixed += 1
         if changed:
             open(path, 'w').write('\n'.join(src))
     print('verified=%d wrong=%d fixed-bare=%d undecided=%d'

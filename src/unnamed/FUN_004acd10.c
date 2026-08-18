@@ -101,7 +101,7 @@ void __fastcall FUN_004acd10(int param_1)
     goto switchD_004ad044_caseD_3;
   }
   *(undefined1 *)(param_1 + 0x14) = 1;
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar3 != '\0') && (cVar3 = InitChecksumSeed(), cVar3 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState((void *)(param_1 + 0x234));
@@ -147,7 +147,7 @@ void __fastcall FUN_004acd10(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar7 < 1) goto LAB_004ace87;
 LAB_004aced3:
-    cVar3 = PeekPacketChecksumBool();
+    cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
     if (cVar3 == '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
     }

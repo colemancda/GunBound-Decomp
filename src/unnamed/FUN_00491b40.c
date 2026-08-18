@@ -218,7 +218,7 @@ void __fastcall FUN_00491b40(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState((void *)local_478);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if (cVar1 == '\0') {
       pvVar6 = operator_new(0x54);
       if (pvVar6 == (void *)0x0) {
