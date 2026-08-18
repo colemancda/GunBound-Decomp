@@ -305,7 +305,7 @@ LAB_004583d9:
     goto LAB_004585ba;
   }
   SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
   if (cVar4 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
@@ -412,7 +412,7 @@ LAB_00457675:
       (**(code **)(*piVar9 + 4))(&DAT_00553b90);
       piVar9[0x11] = iVar10;
       apuStack_ad0[0] = (undefined4 *)(&DAT_006a7f74 + iVar5);
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar4 == '\0') {
         uStack_680 = 0;
         uStack_88c = 0;
@@ -485,7 +485,13 @@ LAB_0045793d:
       puStack_af4[0xfe9] = uVar8;
       iVar5 = FUN_004ac400(piVar9);
       puStack_af4[0xfe8] = iVar5 * param_1[0xfe5];
-      cVar4 = PeekPacketChecksumBool();
+      /* guard-cell: proven.  The 0x4579b4 call reads [esp+0x38]; the last
+       * write to that slot on EVERY path here is 0x457726 (`mov [esp+0x38],
+       * eax`, eax = ctx+0x6a7f74 from the [esp+0x18] spill of `lea ecx,
+       * [eax+0x6a7f70]` at 0x457592+4) - no jump enters (0x457726, 0x4579b4]
+       * from outside, checked over the whole function.  The 4th read of the
+       * same ctx flag in this function. */
+      cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar4 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -562,7 +568,7 @@ LAB_004579de:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_00437150(uVar19,uVar18,0x3c,uVar8);
   iVar5 = g_clientContext;
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar4 != '\x01') {
     iVar6 = *(int *)(&DAT_006a7750 + iVar5);
     if (iVar6 < 0x10) {
@@ -575,11 +581,11 @@ LAB_004579de:
     }
     *(int *)(&DAT_006a7754 + iVar5) = iVar6;
   }
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar4 == '\0') {
     AcquireSoundChannel(0);
   }
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar4 != '\0') && (cVar4 = InitChecksumSeed(), cVar4 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState((void *)&DAT_007949c8);

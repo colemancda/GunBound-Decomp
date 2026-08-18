@@ -212,7 +212,7 @@ LAB_00468c86:
       (**(code **)(*piVar15 + 4))(&DAT_00553b90);
       piVar15[0x11] = iStack_ad8;
       apuStack_ae0[0] = (undefined4 *)(&DAT_006a7f74 + iVar5);
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar4 == '\0') {
         uStack_680 = 0;
         iStack_88c = 0;

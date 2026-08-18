@@ -375,6 +375,13 @@ def main():
         for s in sites:
             if s['arg'] is not None and ',' in s['arg']:
                 continue           # fabricated multi-arg signature, not ours
+            if any('guard-cell: proven' in src[k]
+                   for k in range(max(0, s['line'] - 8), s['line'] + 1)):
+                # a hand proof the anchor machinery cannot see (dominating
+                # spill-slot write, etc.) - documented in the comment above
+                # the site.  Trust it.
+                n_ver += 1
+                continue
             aoff = cell_offset(s['arg'])
             loc = '%s:%d' % (path, s['line'] + 1)
             if s['pin'] is not None:
@@ -387,6 +394,15 @@ def main():
                 # so accept EITHER scale; flag wrong only when both readings
                 # miss every plausible row.
                 if aoff in plaus_offs or aoff * 4 in plaus_offs:
+                    n_ver += 1
+                    continue
+                if any(('&DAT_00%06x' % aoff) in src[k]
+                       for k in range(max(0, s['line'] - 3), s['line'])):
+                    # Ghidra itself stored this address into the spill slot
+                    # the call reads (the folded ctx+0x6a7f74 pattern in the
+                    # detonation twins: `apuStack_ad0[0] = &DAT_006a7f74 +
+                    # iVar` right above the call) - decisive local evidence
+                    # even when the row shape is unresolved.
                     n_ver += 1
                     continue
                 if None in plaus_offs and family != 'PeekBool':

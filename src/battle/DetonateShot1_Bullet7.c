@@ -419,7 +419,7 @@ LAB_0044cd15:
       (**(code **)(*piVar14 + 4))(&DAT_00553b90);
       piVar14[0x11] = iVar5;
       apuStack_adc[0] = (undefined4 *)(&DAT_006a7f74 + iVar4);
-      cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
+      cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar3 == '\0') {
         /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
          * 0x44cf0b/0x44cf31 (edi loaded from esp+0x26c/esp+0x48). The

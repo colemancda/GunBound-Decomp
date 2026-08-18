@@ -438,7 +438,7 @@ LAB_00490be5:
       (**(code **)(*piVar17 + 4))(&DAT_00553b90);
       piVar17[0x11] = iVar6;
       apuStack_adc[0] = (undefined4 *)(&DAT_006a7f74 + iVar5);
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar4 == '\0') {
         auStack_680[0] = 0;
         uStack_88c = 0;
