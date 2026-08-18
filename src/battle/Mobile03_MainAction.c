@@ -1,4 +1,9 @@
-/* FUN_004b31f0 - 0x004b31f0 in the original binary.
+/* Mobile03_MainAction - 0x004b31f0 in the original binary.
+ *
+ * RENAMED (2026-08-18, from FUN_004b31f0): the mobile's vtable-slot-7 weapon-fire
+ * dispatcher; PROGRESS.csv carried the name since the 2026-07 vtable dump
+ * (see src/cxx/Mobile.h's type->MainAction table), the file kept the FUN_
+ * name.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -9,7 +14,7 @@
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void __thiscall FUN_004b31f0(int param_1,undefined4 param_2,int param_3)
+void __thiscall Mobile03_MainAction(int param_1,undefined4 param_2,int param_3)
 
 {
   int iVar1;

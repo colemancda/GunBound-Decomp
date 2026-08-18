@@ -9,7 +9,7 @@
  * DROPPED-ARG FIX (2026-08-11): all 26 argless PeekChecksumStateUnderLock()
  * calls now pass their guarded-cell pointer, recovered from
  * tools/underlock_push_sites.json + per-site disasm. As in
- * FUN_00471fd0.c, the `= 0x4xxxxx` stack artifact before each call is
+ * Mobile12_MainAction.c, the `= 0x4xxxxx` stack artifact before each call is
  * the call's return-address push and the store to the adjacent slot is
  * the pushed cell; each call now passes that slot variable. (This file
  * and FUN_0049c13f.c are two Ghidra decompiles of the SAME original
