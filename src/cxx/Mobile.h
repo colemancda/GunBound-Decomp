@@ -52,8 +52,13 @@
  * They are all the same weapon-fire dispatcher shape (switch on animEvent,
  * spawn primary/item/super shot at the fire frame); they differ in the
  * per-weapon guard-cell offsets, the subType gate, and whether a frame fires
- * one shot or several (e.g. type 1's case 6 is a double-shot). Only type 0 is
- * reconstructed in C++ so far (Mobile00_MainAction below).
+ * one shot or several (e.g. type 1's case 6 is a double-shot).
+ * PROMOTED (2026-08-18): 13 of 16 are now CMobile methods (Mobile.cpp),
+ * translated with the mechanical recipe proven on Mobile01.  The three
+ * still raw - 04, 06, 12 - have artifact-heavy Ghidra decompiles
+ * (return-address stack artifacts / undefined8 spill modeling; Mobile06
+ * is the dual-decompile whose clean twin FUN_0049c13f.c dropped every
+ * spawn argument) and need hand translation.
  *
  * The 16 subclasses carry NO extra data members (all 0xd1d4 bytes, identical
  * layout); they exist purely to swap the vtable, so they are represented here
