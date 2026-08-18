@@ -701,7 +701,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00471a90,91,TickWeatherHazardLifetime,false,2,4,RAW-src
 00471af0,72,FUN_00471af0,false,1,0,RAW-src
 00471b40,301,FUN_00471b40,false,1,0,RAW-src
-00471c70,130,FUN_00471c70,false,2,4,RAW-src
+00471c70,130,TickFlameEffect,false,2,4,RAW-src
 00471fa0,32,FUN_00471fa0,false,1,2,RAW-src
 00471fc0,13,FUN_00471fc0,false,1,1,RAW-src
 00471fd0,4455,Mobile12_MainAction,false,1,17,RAW-src

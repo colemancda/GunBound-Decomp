@@ -1,6 +1,12 @@
-/* FUN_00471c70 - 0x00471c70 in the original binary.
+/* TickFlameEffect - 0x00471c70 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
+ * RENAMED (2026-08-17, from FUN_00471c70): vtable slot 2 (Tick) of BOTH
+ * CFlameEffect (vtable 0x555ef0) and CSuperFlameEffect (0x5560bc) - see
+ * src/cxx/Effects.h.  Advances the sprite animation, marks the object dead
+ * when the animation finishes, steps the anim phase mod the guarded frame
+ * divisor.
+ *
+ * No confirmed real name/purpose beyond the above. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
@@ -10,7 +16,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_00471c70(int param_1)
+int __fastcall TickFlameEffect(int param_1)
 
 {
   int iVar1;

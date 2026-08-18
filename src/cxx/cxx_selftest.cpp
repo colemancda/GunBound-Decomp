@@ -19,6 +19,7 @@
 #include "Mobile.h"
 #include "Projectile.h"
 #include "ButtonWidget.h"
+#include "Effects.h"
 
 /* --- CGameState hierarchy: confirmed allocation sizes ------------------ */
 GB_STATIC_ASSERT(sizeof(CState01Title)       == 8,       state01_size);
@@ -30,6 +31,13 @@ GB_STATIC_ASSERT(sizeof(CState07AvatarStore) == 0x34818, state07_size);
 GB_STATIC_ASSERT(sizeof(CState09ReadyRoom)   == 0x78c,   state09_size);
 GB_STATIC_ASSERT(sizeof(CState10Loading)     == 0x150,   state10_size);
 GB_STATIC_ASSERT(sizeof(CState11InBattle)    == 0x2408,  state11_size);
+
+/* --- Effect objects: confirmed sizes (operator_new in their spawners
+ * SpawnFlameEffect 0x54 / SpawnSuperFlameEffect 0x54 / SpawnRiderEffect
+ * 0x48 - see Effects.h) --- */
+GB_STATIC_ASSERT(sizeof(CFlameEffect) == 0x54, st_flameeffect_size);
+GB_STATIC_ASSERT(sizeof(CSuperFlameEffect) == 0x54, st_superflameeffect_size);
+GB_STATIC_ASSERT(sizeof(CRiderEffect) == 0x48, st_ridereffect_size);
 
 /* --- CMobile: confirmed object size (CreateMobile's operator_new(0xd1d4)) --- */
 GB_STATIC_ASSERT(sizeof(CMobile) == 0xd1d4, mobile_size);

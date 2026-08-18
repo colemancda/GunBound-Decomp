@@ -783,7 +783,7 @@ void FUN_00471470();
 void __fastcall RenderFirewallHazard();
 void __fastcall FUN_00471af0();
 void __fastcall FUN_00471b40();
-int __fastcall FUN_00471c70();
+int __fastcall TickFlameEffect();
 void * __thiscall FUN_00471fa0();
 void FUN_00471fc0();
 void __thiscall FUN_00471fd0();
