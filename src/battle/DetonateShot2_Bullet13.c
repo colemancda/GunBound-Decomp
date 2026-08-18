@@ -124,7 +124,7 @@ void __fastcall DetonateShot2_Bullet13(int *param_1)
       piStack_ae0 = param_1 + 0x45e;
       piStack_af0 = param_1 + 0x3d5;
       SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],piStack_ae0);
-      cVar1 = PeekPacketChecksumBool();
+      cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
       if (cVar1 != '\0') {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_af4 = (int *)PeekPacketChecksumState((void *)(param_1 + 0x3d5));
@@ -649,7 +649,11 @@ LAB_004a0f88:
       local_af8[0xfe9] = iVar3;
       iVar3 = FUN_004ac400(piStack_ac8);
       local_af8[0xfe8] = iVar3 * param_1[0xfe5];
-      cVar1 = PeekPacketChecksumBool();
+      /* guard-cell: proven - the ctx+0x6a7f70 spill/fold chain; see the
+       * fold-dominance proof in commit dc092b4^..'s successor (lea
+       * REG,[ctx+0x6a7f70] -> slot, +4 fold -> slot, this peek reads it
+       * with no interposed writer and no bypass edge). */
+      cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar1 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }

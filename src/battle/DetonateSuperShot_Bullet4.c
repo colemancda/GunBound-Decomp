@@ -328,7 +328,7 @@ LAB_004adef8:
     (*pcVar11)(&DAT_005a9068);
     iVar2 = g_clientContext;
     piVar12 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     if ((cVar1 == '\0') && ((&DAT_006a7758)[iVar2] != '\0')) {
       if (((&DAT_006a7736)[iVar2] == '\x01') &&
          ((uVar8 = iVar3 - *(int *)(&g_nCameraY + iVar2) >> 0x1f,
@@ -400,7 +400,11 @@ LAB_004ad793:
       iVar7 = (int)puStack_acc - iVar7;
       (**(code **)(*piVar12 + 4))(&DAT_00553b90);
       piVar12[0x11] = iVar3;
-      cVar1 = PeekPacketChecksumBool();
+      /* guard-cell: proven - the ctx+0x6a7f70 spill/fold chain; see the
+       * fold-dominance proof in commit dc092b4^..'s successor (lea
+       * REG,[ctx+0x6a7f70] -> slot, +4 fold -> slot, this peek reads it
+       * with no interposed writer and no bypass edge). */
+      cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar1 == '\0') {
         auStack_680[0] = 0;
         uStack_88c = 0;
@@ -465,11 +469,15 @@ LAB_004ada51:
       puStack_af0[0xfee] = iVar3;
       /* angr-confirmed: self is EDI at both real call sites, spilled to
        * piStack_ad4 by the 0x186aa list-walk above. */
+      /* guard-cell: proven - the ctx+0x6a7f70 spill/fold chain; see the
+       * fold-dominance proof in commit dc092b4^..'s successor (lea
+       * REG,[ctx+0x6a7f70] -> slot, +4 fold -> slot, this peek reads it
+       * with no interposed writer and no bypass edge). */
       uVar5 = FUN_004ac4d0(piStack_ad4);
       puStack_af0[0xfe9] = uVar5;
       iVar2 = FUN_004ac400(piStack_ad4);
       puStack_af0[0xfe8] = iVar2 * param_1[0xfe5];
-      cVar1 = PeekPacketChecksumBool();
+      cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar1 != '\0') {
         (**(code **)*puStack_af0)(1);
         (**(code **)(*param_1 + 0x20))();

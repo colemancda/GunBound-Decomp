@@ -623,7 +623,7 @@ LAB_00453b3c:
     goto LAB_00453f0d;
   }
   SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
   if (cVar3 != '\0') {
     iVar8 = PeekChecksumStateUnderLock(param_1 + 0x3d5);
     if ((-1 < iVar8) && (iVar8 < *(int *)(&g_nCameraBoundX + g_clientContext))) {

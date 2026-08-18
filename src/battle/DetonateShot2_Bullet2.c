@@ -436,7 +436,7 @@ LAB_004a5f78:
       (*pcVar18)(&DAT_005a9068);
       iVar4 = g_clientContext;
       piVar29 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar4] != '\0')) {
         if (((&DAT_006a7736)[iVar4] == '\x01') &&
            ((uVar14 = iVar13 - *(int *)(&g_nCameraY + iVar4) >> 0x1f,
@@ -504,7 +504,7 @@ LAB_004a5f78:
     goto LAB_004a61e0;
   }
   SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
   if (cVar2 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
@@ -608,7 +608,7 @@ LAB_004a523b:
       iVar9 = FloatToInt64();
       (**(code **)(*piVar29 + 4))(&DAT_00553b90);
       piVar29[0x11] = iVar8;
-      cVar3 = PeekPacketChecksumBool();
+      cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar3 == '\0') {
         uStack_8d8 = 0;
         uStack_ae4 = 0;
@@ -682,7 +682,11 @@ LAB_004a54f8:
       puVar27[0xfe9] = uVar5;
       iVar4 = FUN_004ac400(piVar29);
       puVar27[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar3 = PeekPacketChecksumBool();
+      /* guard-cell: proven - the ctx+0x6a7f70 spill/fold chain; see the
+       * fold-dominance proof in commit dc092b4^..'s successor (lea
+       * REG,[ctx+0x6a7f70] -> slot, +4 fold -> slot, this peek reads it
+       * with no interposed writer and no bypass edge). */
+      cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar3 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -758,7 +762,7 @@ LAB_004a558f:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_00437150(uVar21,uVar6,0x3c,uVar5);
   iVar4 = g_clientContext;
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar3 != '\x01') {
     iVar13 = *(int *)(&DAT_006a7750 + iVar4);
     if (iVar13 < 0xb) {

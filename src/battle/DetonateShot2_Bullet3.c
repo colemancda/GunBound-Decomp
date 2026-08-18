@@ -284,7 +284,7 @@ LAB_00495a52:
     goto LAB_00495c02;
   }
   SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
   if (cVar4 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
@@ -461,7 +461,11 @@ LAB_00494f9d:
       puStack_af4[0xfe9] = uVar8;
       iVar5 = FUN_004ac400(piVar9);
       puStack_af4[0xfe8] = iVar5 * param_1[0xfe5];
-      cVar4 = PeekPacketChecksumBool();
+      /* guard-cell: proven - the ctx+0x6a7f70 spill/fold chain; see the
+       * fold-dominance proof in commit dc092b4^..'s successor (lea
+       * REG,[ctx+0x6a7f70] -> slot, +4 fold -> slot, this peek reads it
+       * with no interposed writer and no bypass edge). */
+      cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar4 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -538,7 +542,7 @@ LAB_0049503e:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_00437150(uVar19,uVar18,0x3c,uVar8);
   iVar5 = g_clientContext;
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar4 != '\x01') {
     iVar6 = *(int *)(&DAT_006a7750 + iVar5);
     if (iVar6 < 0x10) {

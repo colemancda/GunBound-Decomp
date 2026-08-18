@@ -241,7 +241,7 @@ LAB_004aa2ed:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar6 = g_clientContext;
       piVar13 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar4 = PeekPacketChecksumBool();
+      cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       if ((cVar4 == '\0') && ((&DAT_006a7758)[iVar6] != '\0')) {
         if (((&DAT_006a7736)[iVar6] == '\x01') &&
            ((uVar15 = iVar7 - *(int *)(&g_nCameraY + iVar6) >> 0x1f,

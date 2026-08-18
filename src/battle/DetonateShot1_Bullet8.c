@@ -345,7 +345,7 @@ LAB_0048268a:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = g_clientContext;
     piVar11 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar2 = PeekPacketChecksumBool();
+    cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar4] != '\0')) {
       if (((&DAT_006a7736)[iVar4] == '\x01') &&
          ((uVar15 = iStack_af4 - *(int *)(&g_nCameraY + iVar4) >> 0x1f,
@@ -562,7 +562,7 @@ LAB_00482e3e:
       puStack_ae0[0xfe9] = uVar7;
       iVar4 = FUN_004ac400(puStack_ae0);
       puStack_ae0[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }

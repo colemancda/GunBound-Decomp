@@ -266,7 +266,7 @@ LAB_0049acb2:
       (*pcVar13)(&DAT_005a9068);
       iVar3 = g_clientContext;
       piVar15 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar3] != '\0')) {
         if (((&DAT_006a7736)[iVar3] == '\x01') &&
            ((uVar10 = iVar4 - *(int *)(&g_nCameraY + iVar3) >> 0x1f,
@@ -323,7 +323,7 @@ LAB_0049acb2:
     goto LAB_0049ae89;
   }
   SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
   if (cVar2 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
@@ -504,7 +504,11 @@ LAB_0049a57d:
       puStack_af0[0xfe9] = uVar6;
       iVar3 = FUN_004ac400(piStack_ad4);
       puStack_af0[0xfe8] = iVar3 * param_1[0xfe5];
-      cVar2 = PeekPacketChecksumBool();
+      /* guard-cell: proven - the ctx+0x6a7f70 spill/fold chain; see the
+       * fold-dominance proof in commit dc092b4^..'s successor (lea
+       * REG,[ctx+0x6a7f70] -> slot, +4 fold -> slot, this peek reads it
+       * with no interposed writer and no bypass edge). */
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar2 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }

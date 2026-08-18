@@ -497,7 +497,7 @@ LAB_00452a0a:
       (*pcVar16)(&DAT_005a9068);
       iVar4 = g_clientContext;
       piVar18 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar4] != '\0')) {
         if (((&DAT_006a7736)[iVar4] == '\x01') &&
            ((uVar15 = iVar5 - *(int *)(&g_nCameraY + iVar4) >> 0x1f,

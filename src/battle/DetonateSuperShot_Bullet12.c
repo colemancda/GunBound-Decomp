@@ -216,7 +216,7 @@ LAB_004ae9a8:
       iVar14 = PeekChecksumStateUnderLock(piVar2);
       iVar7 = g_clientContext;
       piVar2 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar6 = PeekPacketChecksumBool();
+      cVar6 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       if ((cVar6 == '\0') && ((&DAT_006a7758)[iVar7] != '\0')) {
         if (((&DAT_006a7736)[iVar7] == '\x01') &&
            ((uVar13 = iVar8 - *(int *)(&g_nCameraY + iVar7) >> 0x1f,
@@ -274,7 +274,7 @@ LAB_004ae9a8:
   }
   piVar2 = param_1 + 0x3d5;
   SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
-  cVar6 = PeekPacketChecksumBool();
+  cVar6 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
   if (cVar6 != '\0') {
     uVar12 = PeekChecksumStateUnderLock(piVar2);
     /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed at

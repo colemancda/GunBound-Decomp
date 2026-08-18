@@ -228,7 +228,7 @@ LAB_004683bc:
       (*pcVar17)(&DAT_005a9068);
       iVar7 = g_clientContext;
       piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar6 = PeekPacketChecksumBool();
+      cVar6 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       if ((cVar6 == '\0') && ((&DAT_006a7758)[iVar7] != '\0')) {
         if (((&DAT_006a7736)[iVar7] == '\x01') &&
            ((uVar16 = iVar8 - *(int *)(&g_nCameraY + iVar7) >> 0x1f,
@@ -285,7 +285,7 @@ LAB_004683bc:
     goto LAB_00468593;
   }
   SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
-  cVar6 = PeekPacketChecksumBool();
+  cVar6 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
   if (cVar6 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar7 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));

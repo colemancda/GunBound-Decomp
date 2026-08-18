@@ -448,7 +448,7 @@ LAB_004a4381:
       (*pcVar20)(&DAT_005a9068);
       iVar4 = g_clientContext;
       piVar22 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar2 = PeekPacketChecksumBool();
+      cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar4] != '\0')) {
         if (((&DAT_006a7736)[iVar4] == '\x01') &&
            ((uVar15 = iVar6 - *(int *)(&g_nCameraY + iVar4) >> 0x1f,
@@ -516,7 +516,7 @@ LAB_004a4381:
     goto LAB_004a45e9;
   }
   SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2],param_1 + 0x45e);
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
   if (cVar2 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
@@ -616,7 +616,7 @@ LAB_004a3601:
       iVar19 = FloatToInt64();
       (**(code **)(*piVar22 + 4))(&DAT_00553b90);
       piVar22[0x11] = iVar14;
-      cVar3 = PeekPacketChecksumBool();
+      cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar3 == '\0') {
         uStack_8e0 = 0;
         uStack_aec = 0;
@@ -689,7 +689,11 @@ LAB_004a38be:
       puVar8[0xfe9] = uVar5;
       iVar4 = FUN_004ac400(piVar22);
       puVar8[0xfe8] = iVar4 * param_1[0xfe5];
-      cVar3 = PeekPacketChecksumBool();
+      /* guard-cell: proven - the ctx+0x6a7f70 spill/fold chain; see the
+       * fold-dominance proof in commit dc092b4^..'s successor (lea
+       * REG,[ctx+0x6a7f70] -> slot, +4 fold -> slot, this peek reads it
+       * with no interposed writer and no bypass edge). */
+      cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar3 == '\0') {
         RegisterActiveObject(0, 0, (undefined4 *)0);
       }
@@ -768,7 +772,7 @@ LAB_004a3955:
   iVar6 = PeekPacketChecksumState(&DAT_00e55ab8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = g_clientContext;
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar3 != '\x01') {
     iVar14 = *(int *)(&DAT_006a7750 + iVar4);
     if (iVar14 < 0xb) {
