@@ -531,7 +531,17 @@ column the recovery script depends on. The `type_info`/`exception`/
 ATL/CRT data-type definitions from Ghidra's archives, not evidence of
 real RTTI in the binary.
 
-**Conclusion**: there is no automated shortcut for class/vtable recovery
+**Working alternative (2026-08-18)**: `tools/vtable_census.py` -- finds
+every vtable WITHOUT RTTI, from the ctor installs (`mov [reg], imm32`
+immediates in .text pointing at code-pointer arrays), with slot walks
+bounded by the next installed vtable (the packed-.rdata overrun trap).
+Validated exact against all five hand-proven vtables; full dump checked in
+at `docs/vtable_census.txt`.  Headline: 160 game-region vtables, and 86
+slot targets with no port/PROGRESS row/reference anywhere in src -
+virtual-dispatch-only code the port has never seen (the class of gap
+behind the never-wired panel Updates and the effect Draw bodies).
+
+**Conclusion**: there is no RTTI shortcut for class/vtable recovery
 on this target. The manual approach already used all session - read the
 vtable slot layout by hand from the disassembly, cross-reference call
 sites, byte-verify the reconstructed C++ against the original via
