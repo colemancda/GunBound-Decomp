@@ -124,6 +124,7 @@ public:
      * reconstructed so far; the other 15 remain raw. Signature is
      * (this, animEvent, subType). */
     void Mobile00_MainAction(int animEvent, int subType);  /* 0x44e920 */
+    void Mobile09_MainAction(int animEvent, int subType);  /* 0x47f2d0 */
     void Mobile08_MainAction(int animEvent, int subType);  /* 0x466890 */
     void Mobile07_MainAction(int animEvent, int subType);  /* 0x484ff0 */
     void Mobile05_MainAction(int animEvent, int subType);  /* 0x4542a0 */
