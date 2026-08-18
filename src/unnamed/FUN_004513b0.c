@@ -293,7 +293,7 @@ void __fastcall FUN_004513b0(int *param_1)
   uStack_b58 = (int *)0x45171d;
   (**(code **)(*param_1 + 0x14))();
   uStack_b58 = (int *)0x451728;
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf45);
   if (cVar2 == '\0') {
     uStack_b58 = (int *)0x8;
     uStack_b5c = &puStack_b14;
@@ -558,7 +558,7 @@ LAB_00452a0a:
   uStack_b60 = (undefined **)0x45174e;
   SyncOutgoingChecksumField(param_1 + 0x3d5, param_1[2], param_1 + 0x45e);
   uStack_b58 = (int *)0x451759;
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
   if (cVar2 != '\0') {
     uStack_b58 = (int *)&DAT_005a9068;
     uStack_b5c = (undefined **)0x451768;
@@ -627,7 +627,7 @@ LAB_004517be:
     ppuStack_b64 = ppuStack_b38;
     uStack_b68 = (int **)0x0;
     uStack_b6c = (undefined *)0x4518f9;
-    PeekPacketChecksumBool();
+    PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     uStack_b6c = (undefined *)0x0;
     FUN_00431d90((char)param_1[0xf],7);
   }
