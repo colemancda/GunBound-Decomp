@@ -1,5 +1,14 @@
 /* SpawnPrimaryShot - 0x0042bbb0 in the original binary.
  *
+ * SIGNATURE FIX (2026-08-18, see memory spawnprimaryshot-13-args): the
+ * original is stdcall ret 0x34 = THIRTEEN stack args; Ghidra recovered 12
+ * and misread the 13th as the return address (the old `byte
+ * unaff_retaddr` local, now param_13 - the SHOT INDEX, consumed as a
+ * byte: stored raw and `& 7`).  Every caller passed 11 until the same-day
+ * caller sweep: the missing (wind, shotIndex) pair had been absorbed into
+ * a fabricated 2-arg PeekPacketChecksumBool whose real cell is
+ * this+0xbfcd.
+ *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
@@ -35,7 +44,7 @@
 
 void SpawnPrimaryShot(undefined1 param_1,uint param_2,uint param_3,uint param_4,int param_5,int param_6,
                  int param_7,int param_8,undefined4 param_9,undefined4 param_10,undefined4 param_11,
-                 int param_12)
+                 int param_12,int param_13)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -61,7 +70,6 @@ void SpawnPrimaryShot(undefined1 param_1,uint param_2,uint param_3,uint param_4,
   int unaff_EDI;
   undefined4 *unaff_FS_OFFSET;
   bool bVar16;
-  byte unaff_retaddr;
   undefined *puVar17;
   undefined *puVar18;
   undefined *puVar19;
@@ -651,8 +659,8 @@ LAB_0042c334:
     local_8b8[0xe28] = SUBFIELD(s_flameevent1_00553e2c,8,undefined4);
   }
   (**(code **)(*local_8b8 + 4))(s_normal_00552230);
-  uVar7 = (uint)unaff_retaddr;
-  *(byte *)(local_8b8 + 0xf) = unaff_retaddr & 7;
+  uVar7 = (uint)(byte)param_13;
+  *(byte *)(local_8b8 + 0xf) = (byte)param_13 & 7;
   local_8b8[0xe] = local_8b8[6] + 100;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EncodeOutgoingPacketField((void *)(local_8b8 + 0x3d5), param_5);
@@ -847,7 +855,7 @@ LAB_0042d20d:
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
     pbVar1 = &DAT_00e9aacd + g_dwBroadcastEventCursor;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-    *pbVar1 = unaff_retaddr;
+    *pbVar1 = (byte)param_13;
     puVar18 = &DAT_00e9aacd + g_dwBroadcastEventCursor;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     *puVar18 = param_1;

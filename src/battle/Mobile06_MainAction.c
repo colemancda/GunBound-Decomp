@@ -35,6 +35,7 @@ void __thiscall Mobile06_MainAction(int param_1,undefined4 param_2,int param_3)
   undefined4 uVar9;
   undefined4 uVar10;
   undefined4 extraout_ECX;
+  undefined4 uVarPB;
   undefined4 *unaff_FS_OFFSET;
   undefined *puVar11;
   undefined4 uStack_24d8;
@@ -257,13 +258,13 @@ LAB_0049c470:
     uStack_6c = 4;
     uVar10 = EncodeChecksumPairSum(param_1 + 0x90c,auStack_1a24,param_1 + 0x53fc);
     uStack_6c = CONCAT31(SUBFIELD(uStack_6c,1,undefined3),5);
-    uVar7 = PeekPacketChecksumBool(uVar7,3);
+    uVarPB = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
     uVar5 = PeekChecksumStateUnderLock(param_1 + 0x7864);
     uVar6 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar9 = PeekChecksumStateUnderLock(uVar9);
     uVar10 = PeekChecksumStateUnderLock(uVar10);
     SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar8,6,0,*(int *)(param_1 + 0xae2c) != 0,uVar10,uVar9
-                 ,uVar6,uVar5,uVar4,uVar7);
+                 ,uVar6,uVar5,uVar4,uVarPB, uVar7, 3);
     uStack_4 = CONCAT31(SUBFIELD(uStack_4,1,undefined3),4);
     puStack_2498 = (undefined *)0x49c526;
     ScrubChecksumGuard();

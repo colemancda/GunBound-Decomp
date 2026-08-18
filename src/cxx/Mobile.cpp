@@ -210,15 +210,17 @@ char InitChecksumSeed(void);
 /* the shot spawners (SpawnPrimaryShot/Item/Super) - many args arrive by
  * register in the original; kept with the exact arg shape the decompile shows. */
 void SpawnPrimaryShot(char owner, int power, int a, int b, int c, unsigned int d, unsigned int e,
-                      unsigned int f, unsigned int g, unsigned int h, unsigned int i);
+                      unsigned int f, unsigned int g, unsigned int h, unsigned int i,
+                      unsigned int wind, int shotIndex);  /* 13 args - ret 0x34; see
+                      src/battle/SpawnPrimaryShot.c's SIGNATURE FIX note */
 void SpawnItemProjectile(char owner, unsigned int a, unsigned int b, unsigned int c, unsigned int d,
                          unsigned int e, unsigned int f);
 void SpawnSuperShot(char owner, int a, int b, int c, unsigned int d, unsigned int e, unsigned int f,
                     unsigned int g, unsigned int h, unsigned int i, unsigned int j, unsigned int k);
-/* the 2-arg (cell, flag) form of the checksum-bool peek that returns a value;
- * suffixed to coexist with the 0-arg char form used elsewhere (same underlying
- * function - the name only affects the external-call reloc, not the score). */
-unsigned int PeekPacketChecksumBool_2(unsigned int cell, int flag);
+/* PeekPacketChecksumBool_2 is GONE (2026-08-18): it was a Ghidra fabrication -
+ * the "2-arg peek" was the real 1-arg peek of this+0xbfcd whose neighbouring
+ * pushes belonged to SpawnPrimaryShot's args 12-13 (wind, shot index).  See
+ * memory spawnprimaryshot-13-args and the caller sweep of the same day. */
 extern char DAT_00793549, DAT_00793568;
 extern int  DAT_00793554;
 extern unsigned char DAT_00794e48, DAT_007949c8;
@@ -1779,6 +1781,7 @@ LAB_004619ff:
 void CMobile::Mobile00_MainAction(int animEvent, int subType)
 {
     int iVar1;
+    unsigned int uVarPB;
     char cVar2;
     unsigned int uVar3, uVar5, uVar6, uVar7, uVar8, uVar9, uVar10, uVar12;
     unsigned int uVar4;
@@ -1839,13 +1842,13 @@ void CMobile::Mobile00_MainAction(int animEvent, int subType)
         }
         uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ce4, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
         uVar7 = EncodeChecksumPairSum(this->m_pad908 + 4, local_454, this->m_pad908 + 0x4af4);
-        uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+        uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
         uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
         uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
         uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
         uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
         SpawnPrimaryShot((char)this->m_owner, local_1134, 0, 0,
-                         *reinterpret_cast<int *>(this->m_padae22 + 10) != 0, uVar7, uVar6, uVar9, uVar8, uVar3, uVar5);
+                         *reinterpret_cast<int *>(this->m_padae22 + 10) != 0, uVar7, uVar6, uVar9, uVar8, uVar3, uVarPB, uVar5, 1);
         ScrubChecksumGuard(local_454);
         ScrubChecksumGuard(local_ce4);
         cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -1866,13 +1869,13 @@ void CMobile::Mobile00_MainAction(int animEvent, int subType)
         }
         uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_89c, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
         uVar7 = EncodeChecksumPairSum(this->m_pad908 + 4, local_112c, this->m_pad908 + 0x4f3c);
-        uVar5 = PeekPacketChecksumBool_2(uVar5, 2);
+        uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
         uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
         uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
         uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
         uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
         SpawnPrimaryShot((char)this->m_owner, local_1130, 0, 1,
-                         *reinterpret_cast<int *>(this->m_padae22 + 10) != 0, uVar7, uVar6, uVar9, uVar8, uVar3, uVar5);
+                         *reinterpret_cast<int *>(this->m_padae22 + 10) != 0, uVar7, uVar6, uVar9, uVar8, uVar3, uVarPB, uVar5, 2);
         ScrubChecksumGuard(local_112c);
         ScrubChecksumGuard(local_89c);
         cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -1923,7 +1926,7 @@ void CMobile::Mobile00_MainAction(int animEvent, int subType)
             uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
             uVar7 = EncodeChecksumPairSum(this->m_pad908 + 4, local_678, this->m_pad908 + 0x5384);
             uVar12 = 1;
-            uVar8 = PeekPacketChecksumBool_2(uVar5, 1);
+            uVar8 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
             uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
             uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
             uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
@@ -1973,6 +1976,7 @@ void CMobile::Mobile00_MainAction(int animEvent, int subType)
 void CMobile::Mobile01_MainAction(int animEvent, int subType)
 {
     int iVar1;
+    unsigned int uVarPB;
     char cVar2;
     unsigned int uVar3, uVar4, uVar5, uVar6, uVar7, uVar8, uVar9, uVar10, uVar12;
     unsigned char *puVar11;
@@ -2028,13 +2032,13 @@ void CMobile::Mobile01_MainAction(int animEvent, int subType)
         }
         uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_112c, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
         uVar7 = EncodeChecksumPairSum(this->m_pad908 + 4, local_89c, this->m_pad908 + 0x4af4);
-        uVar4 = PeekPacketChecksumBool_2(uVar4, 1);
+        uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
         uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
         uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
         uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
         uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
         SpawnPrimaryShot((char)this->m_owner, uVar5, 1, 0,
-                         *reinterpret_cast<int *>(this->m_padae22 + 10) != 0, uVar7, uVar6, uVar9, uVar8, uVar3, uVar4);
+                         *reinterpret_cast<int *>(this->m_padae22 + 10) != 0, uVar7, uVar6, uVar9, uVar8, uVar3, uVarPB, uVar4, 1);
         ScrubChecksumGuard(local_89c);
         ScrubChecksumGuard(local_112c);
         cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -2056,13 +2060,13 @@ void CMobile::Mobile01_MainAction(int animEvent, int subType)
         }
         uVar5 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ce4, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
         uVar6 = EncodeChecksumPairSum(this->m_pad908 + 4, local_1574, this->m_pad908 + 0x4f3c);
-        uVar4 = PeekPacketChecksumBool_2(uVar4, 2);
+        uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
         uVar7 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
         uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
         uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
         uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
         SpawnPrimaryShot((char)this->m_owner, local_1584, 1, 1,
-                         *reinterpret_cast<int *>(this->m_padae22 + 10) != 0, uVar6, uVar5, uVar8, uVar7, uVar3, uVar4);
+                         *reinterpret_cast<int *>(this->m_padae22 + 10) != 0, uVar6, uVar5, uVar8, uVar7, uVar3, uVarPB, uVar4, 2);
         ScrubChecksumGuard(local_1574);
         ScrubChecksumGuard(local_ce4);
         /* volley 2 (the double-shot) */
@@ -2079,14 +2083,14 @@ void CMobile::Mobile01_MainAction(int animEvent, int subType)
         }
         uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, auStack_1384, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
         uVar7 = EncodeChecksumPairSum(this->m_pad908 + 4, auStack_488, this->m_pad908 + 0x4f3c);
-        uVar3 = PeekPacketChecksumBool_2(uVar3, 2);
+        uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
         uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
         uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
         uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
         uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
         SpawnPrimaryShot((char)this->m_owner, uVar4, 1, 1,
                          *reinterpret_cast<int *>(this->m_padae22 + 10) != 0, uVar7, uVar6, uVar9, uVar8,
-                         uVar5 /* sic - see the header note */, uVar3);
+                         uVar5 /* sic - see the header note */, uVarPB, uVar3, 2);
         ScrubChecksumGuard(auStack_488);
         ScrubChecksumGuard(auStack_1384);
         cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -2137,7 +2141,7 @@ void CMobile::Mobile01_MainAction(int animEvent, int subType)
             uVar5 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
             uVar6 = EncodeChecksumPairSum(this->m_pad908 + 4, local_678, this->m_pad908 + 0x5384);
             uVar12 = 1;
-            uVar7 = PeekPacketChecksumBool_2(uVar4, 1);
+            uVar7 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
             uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
             uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
             uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
@@ -2172,6 +2176,7 @@ void CMobile::Mobile01_MainAction(int animEvent, int subType)
  * port (src/battle/Mobile02_MainAction.c) remains the linking reference. */
 void CMobile::Mobile02_MainAction(int animEvent, int subType)
 {
+  unsigned int uVarPB;
   int iVar1;
   char cVar2;
   unsigned int uVar3;
@@ -2231,13 +2236,13 @@ LAB_0048d2e9:
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ce4, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_454,this->m_pad908 + 0x4af4);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,local_1134,2,0,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7,
-                 uVar6,uVar9,uVar8,uVar3,uVar5);
+                 uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_454);
     ScrubChecksumGuard(local_ce4);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -2264,13 +2269,13 @@ LAB_0048d44a:
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_89c, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_112c,this->m_pad908 + 0x4f3c);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,local_1130,2,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7,
-                 uVar6,uVar9,uVar8,uVar3,uVar5);
+                 uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_112c);
     ScrubChecksumGuard(local_89c);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -2327,7 +2332,7 @@ LAB_0048d68d:
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_678,this->m_pad908 + 0x5384);
       uVar12 = 1;
-      uVar8 = PeekPacketChecksumBool_2(uVar5, 1);
+      uVar8 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
@@ -2374,6 +2379,7 @@ LAB_0048d68d:
  * port (src/battle/Mobile03_MainAction.c) remains the linking reference. */
 void CMobile::Mobile03_MainAction(int animEvent, int subType)
 {
+  unsigned int uVarPB;
   int iVar1;
   int iVar2;
   int iVar3;
@@ -2448,13 +2454,13 @@ void CMobile::Mobile03_MainAction(int animEvent, int subType)
     }
     uVar8 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_1574, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
     uVar9 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_112c,this->m_pad908 + 0x4af4);
-    uVar6 = PeekPacketChecksumBool_2(uVar6, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar11 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
     uVar9 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar9));
     SpawnPrimaryShot((char)this->m_owner,uVar7,3,0,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar9,uVar8,
-                 uVar11,uVar10,uVar5,uVar6);
+                 uVar11,uVar10,uVar5,uVarPB, uVar6, 1);
     ScrubChecksumGuard(local_112c);
     ScrubChecksumGuard(local_1574);
     cVar4 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -2484,13 +2490,13 @@ LAB_004b3445:
     uVar7 = EncodeChecksumPairDiff(reinterpret_cast<void *>(iVar1),local_19bc,iVar3);
     iVar2 = reinterpret_cast<int>(this->m_pad908 + 0x4f3c);
     uVar8 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_454,reinterpret_cast<void *>(iVar2));
-    uVar6 = PeekPacketChecksumBool_2(uVar6, 3);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
     SpawnPrimaryShot((char)this->m_owner,local_19cc,3,1,
-                 *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar8,uVar7,uVar10,uVar9,uVar5,uVar6);
+                 *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar8,uVar7,uVar10,uVar9,uVar5,uVarPB, uVar6, 3);
     ScrubChecksumGuard(local_454);
     ScrubChecksumGuard(local_19bc);
     if (this->m_pad908[0x5c14] == '\x01') {
@@ -2512,13 +2518,13 @@ LAB_004b356f:
     }
     uVar8 = EncodeChecksumPairDiff(reinterpret_cast<void *>(iVar1),auStack_d18,iVar3);
     uVar9 = EncodeChecksumPairSum(this->m_pad908 + 0x4,auStack_8d0,reinterpret_cast<void *>(iVar2));
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 3);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar11 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
     uVar9 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar9));
     SpawnPrimaryShot((char)this->m_owner,uVar6,3,1,
-                 *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar9,uVar8,uVar11,uVar10,uVar7,uVar5);
+                 *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar9,uVar8,uVar11,uVar10,uVar7,uVarPB, uVar5, 3);
     ScrubChecksumGuard(auStack_8d0);
     ScrubChecksumGuard(auStack_d18);
     if (this->m_pad908[0x5c14] == '\x01') {
@@ -2540,13 +2546,13 @@ LAB_004b368d:
     }
     uVar7 = EncodeChecksumPairDiff(reinterpret_cast<void *>(iVar1),auStack_13b8,iVar3);
     uVar9 = EncodeChecksumPairSum(this->m_pad908 + 0x4,auStack_1800,reinterpret_cast<void *>(iVar2));
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 3);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar11 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     uVar9 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar9));
     SpawnPrimaryShot((char)this->m_owner,uVar6,3,1,
-                 *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar9,uVar7,uVar11,uVar10,uVar8,uVar5);
+                 *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar9,uVar7,uVar11,uVar10,uVar8,uVarPB, uVar5, 3);
     ScrubChecksumGuard(auStack_1800);
     ScrubChecksumGuard(auStack_13b8);
     cVar4 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -2603,7 +2609,7 @@ LAB_004b38c8:
       uVar7 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
       uVar8 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_678,this->m_pad908 + 0x5384);
       uVar14 = 1;
-      uVar9 = PeekPacketChecksumBool_2(uVar6, 1);
+      uVar9 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar11 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
@@ -2640,6 +2646,7 @@ LAB_004b38c8:
  * port (src/battle/Mobile05_MainAction.c) remains the linking reference. */
 void CMobile::Mobile05_MainAction(int animEvent, int subType)
 {
+  unsigned int uVarPB;
   int iVar1;
   char cVar2;
   unsigned int uVar3;
@@ -2718,13 +2725,13 @@ LAB_0045439b:
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_19bc, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_112c,this->m_pad908 + 0x4af4);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,local_1e0c,5,0,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7,
-                 uVar6,uVar9,uVar8,uVar3,uVar5);
+                 uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_112c);
     ScrubChecksumGuard(local_19bc);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -2752,13 +2759,13 @@ LAB_00454508:
       }
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_1574, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_ce4,this->m_pad908 + 0x4f3c);
-      uVar5 = PeekPacketChecksumBool_2(uVar5, 4);
+      uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
       uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
       SpawnPrimaryShot((char)this->m_owner,local_1e08,5,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7
-                   ,uVar6,uVar9,uVar8,uVar3,uVar5);
+                   ,uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 4);
       ScrubChecksumGuard(local_ce4);
       ScrubChecksumGuard(local_1574);
       cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -2788,13 +2795,13 @@ LAB_00454665:
       }
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_1e04, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_454,this->m_pad908 + 0x4f3c);
-      uVar5 = PeekPacketChecksumBool_2(uVar5, 4);
+      uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
       uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
       SpawnPrimaryShot((char)this->m_owner,local_1e08,5,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7
-                   ,uVar6,uVar9,uVar8,uVar3,uVar5);
+                   ,uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 4);
       ScrubChecksumGuard(local_454);
       ScrubChecksumGuard(local_1e04);
       cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -2823,13 +2830,13 @@ LAB_004547bc:
       }
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_1be0, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_89c,this->m_pad908 + 0x4f3c);
-      uVar5 = PeekPacketChecksumBool_2(uVar5, 4);
+      uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
       uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
       SpawnPrimaryShot((char)this->m_owner,local_1e08,5,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7
-                   ,uVar6,uVar9,uVar8,uVar3,uVar5);
+                   ,uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 4);
       ScrubChecksumGuard(local_89c);
       ScrubChecksumGuard(local_1be0);
       cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -2858,13 +2865,13 @@ LAB_00454919:
       }
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_1350, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_1798,this->m_pad908 + 0x4f3c);
-      uVar5 = PeekPacketChecksumBool_2(uVar5, 4);
+      uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
       uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
       SpawnPrimaryShot((char)this->m_owner,local_1e08,5,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7
-                   ,uVar6,uVar9,uVar8,uVar3,uVar5);
+                   ,uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 4);
       ScrubChecksumGuard(local_1798);
       ScrubChecksumGuard(local_1350);
       cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -2920,7 +2927,7 @@ LAB_00454b61:
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_678,this->m_pad908 + 0x5384);
       uVar12 = 1;
-      uVar8 = PeekPacketChecksumBool_2(uVar5, 1);
+      uVar8 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
@@ -2958,6 +2965,7 @@ switchD_004544ac_caseD_9:
  * port (src/battle/Mobile07_MainAction.c) remains the linking reference. */
 void CMobile::Mobile07_MainAction(int animEvent, int subType)
 {
+  unsigned int uVarPB;
   int iVar1;
   char cVar2;
   unsigned int uVar3;
@@ -3030,13 +3038,13 @@ LAB_004850e9:
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ce4, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_454,this->m_pad908 + 0x4af4);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,local_1134,7,0,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7,
-                 uVar6,uVar9,uVar8,uVar3,uVar5);
+                 uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_454);
     ScrubChecksumGuard(local_ce4);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -3063,13 +3071,13 @@ LAB_0048524a:
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_89c, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_112c,this->m_pad908 + 0x4f3c);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,local_1130,7,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7,
-                 uVar6,uVar9,uVar8,uVar3,uVar5);
+                 uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_112c);
     ScrubChecksumGuard(local_89c);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -3126,7 +3134,7 @@ LAB_0048548d:
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_678,this->m_pad908 + 0x5384);
       uVar12 = 1;
-      uVar8 = PeekPacketChecksumBool_2(uVar5, 1);
+      uVar8 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
@@ -3163,6 +3171,7 @@ LAB_0048548d:
  * port (src/battle/Mobile08_MainAction.c) remains the linking reference. */
 void CMobile::Mobile08_MainAction(int animEvent, int subType)
 {
+  unsigned int uVarPB;
   int iVar1;
   char cVar2;
   unsigned int uVar3;
@@ -3235,13 +3244,13 @@ void CMobile::Mobile08_MainAction(int animEvent, int subType)
     }
     uVar7 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ce4, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
     uVar8 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_454,this->m_pad908 + 0x4af4);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
     SpawnPrimaryShot((char)this->m_owner,uVar6,8,0,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar8,uVar7,
-                 uVar10,uVar9,uVar3,uVar5);
+                 uVar10,uVar9,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_454);
     ScrubChecksumGuard(local_ce4);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -3270,13 +3279,13 @@ void CMobile::Mobile08_MainAction(int animEvent, int subType)
     }
     uVar7 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_89c, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
     uVar8 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_112c,this->m_pad908 + 0x4f3c);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
     SpawnPrimaryShot((char)this->m_owner,uVar6,8,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar8,uVar7,
-                 uVar10,uVar9,uVar3,uVar5);
+                 uVar10,uVar9,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_112c);
     ScrubChecksumGuard(local_89c);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -3338,7 +3347,7 @@ LAB_00466d7f:
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_678,this->m_pad908 + 0x5384);
       uVar12 = 1;
-      uVar8 = PeekPacketChecksumBool_2(uVar5, 1);
+      uVar8 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
@@ -3375,6 +3384,7 @@ LAB_00466d7f:
  * port (src/battle/Mobile09_MainAction.c) remains the linking reference. */
 void CMobile::Mobile09_MainAction(int animEvent, int subType)
 {
+  unsigned int uVarPB;
   int iVar1;
   char cVar2;
   unsigned int uVar3;
@@ -3447,13 +3457,13 @@ LAB_0047f3c9:
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ce4, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_454,this->m_pad908 + 0x4af4);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,local_1134,9,0,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7,
-                 uVar6,uVar9,uVar8,uVar3,uVar5);
+                 uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_454);
     ScrubChecksumGuard(local_ce4);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -3480,13 +3490,13 @@ LAB_0047f52a:
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_89c, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_112c,this->m_pad908 + 0x4f3c);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,local_1130,9,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7,
-                 uVar6,uVar9,uVar8,uVar3,uVar5);
+                 uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_112c);
     ScrubChecksumGuard(local_89c);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -3546,7 +3556,7 @@ joined_r0x0047f611:
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_678,this->m_pad908 + 0x5384);
       uVar12 = 1;
-      uVar8 = PeekPacketChecksumBool_2(uVar5, 1);
+      uVar8 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
@@ -3583,6 +3593,7 @@ joined_r0x0047f611:
  * port (src/battle/Mobile10_MainAction.c) remains the linking reference. */
 void CMobile::Mobile10_MainAction(int animEvent, int subType)
 {
+  unsigned int uVarPB;
   int iVar1;
   char cVar2;
   unsigned int uVar3;
@@ -3642,13 +3653,13 @@ LAB_00475f39:
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ce4, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_454,this->m_pad908 + 0x4af4);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,local_1134,10,0,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7,
-                 uVar6,uVar9,uVar8,uVar3,uVar5);
+                 uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_454);
     ScrubChecksumGuard(local_ce4);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -3675,13 +3686,13 @@ LAB_0047609a:
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_89c, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_112c,this->m_pad908 + 0x4f3c);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,local_1130,10,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7,
-                 uVar6,uVar9,uVar8,uVar3,uVar5);
+                 uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_112c);
     ScrubChecksumGuard(local_89c);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -3738,7 +3749,7 @@ LAB_004762dd:
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_678,this->m_pad908 + 0x5384);
       uVar12 = 1;
-      uVar8 = PeekPacketChecksumBool_2(uVar5, 1);
+      uVar8 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
@@ -3785,6 +3796,7 @@ LAB_004762dd:
  * port (src/battle/Mobile11_MainAction.c) remains the linking reference. */
 void CMobile::Mobile11_MainAction(int animEvent, int subType)
 {
+  unsigned int uVarPB;
   int iVar1;
   char cVar2;
   unsigned int uVar3;
@@ -3855,13 +3867,13 @@ void CMobile::Mobile11_MainAction(int animEvent, int subType)
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_112c, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_89c,this->m_pad908 + 0x4af4);
-    uVar4 = PeekPacketChecksumBool_2(uVar4, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,uVar5,0xb,0,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7,
-                 uVar6,uVar9,uVar8,uVar3,uVar4);
+                 uVar6,uVar9,uVar8,uVar3,uVarPB, uVar4, 1);
     ScrubChecksumGuard(local_89c);
     ScrubChecksumGuard(local_112c);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -3888,13 +3900,13 @@ LAB_004aef85:
     }
     uVar5 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ce4, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
     uVar6 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_1574,this->m_pad908 + 0x4f3c);
-    uVar4 = PeekPacketChecksumBool_2(uVar4, 2);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar7 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     SpawnPrimaryShot((char)this->m_owner,local_1584,0xb,1,
-                 *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar6,uVar5,uVar8,uVar7,uVar3,uVar4);
+                 *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar6,uVar5,uVar8,uVar7,uVar3,uVarPB, uVar4, 2);
     ScrubChecksumGuard(local_1574);
     ScrubChecksumGuard(local_ce4);
     if (this->m_pad908[0x5c14] == '\x01') {
@@ -3916,13 +3928,13 @@ LAB_004af0af:
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, auStack_1384, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,auStack_488,this->m_pad908 + 0x4f3c);
-    uVar3 = PeekPacketChecksumBool_2(uVar3, 2);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,uVar4,0xb,1,
-                 *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7,uVar6,uVar9,uVar8,uVar5,uVar3);
+                 *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7,uVar6,uVar9,uVar8,uVar5,uVarPB, uVar3, 2);
     ScrubChecksumGuard(auStack_488);
     ScrubChecksumGuard(auStack_1384);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -3979,7 +3991,7 @@ LAB_004af2ec:
       uVar5 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
       uVar6 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_678,this->m_pad908 + 0x5384);
       uVar12 = 1;
-      uVar7 = PeekPacketChecksumBool_2(uVar4, 1);
+      uVar7 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
@@ -4016,6 +4028,7 @@ LAB_004af2ec:
  * port (src/battle/Mobile14_MainAction.c) remains the linking reference. */
 void CMobile::Mobile14_MainAction(int animEvent, int subType)
 {
+  unsigned int uVarPB;
   int iVar1;
   char cVar2;
   unsigned int uVar3;
@@ -4088,13 +4101,13 @@ LAB_0047ac89:
     }
     uVar5 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ce4, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
     uVar6 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_454,this->m_pad908 + 0x4af4);
-    uVar4 = PeekPacketChecksumBool_2(uVar4, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar7 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     SpawnPrimaryShot((char)this->m_owner,local_1134,0xe,0,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar6
-                 ,uVar5,uVar8,uVar7,uVar3,uVar4);
+                 ,uVar5,uVar8,uVar7,uVar3,uVarPB, uVar4, 1);
     ScrubChecksumGuard(local_454);
     ScrubChecksumGuard(local_ce4);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -4121,13 +4134,13 @@ LAB_0047adea:
     }
     uVar5 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_89c, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
     uVar6 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_112c,this->m_pad908 + 0x4f3c);
-    uVar4 = PeekPacketChecksumBool_2(uVar4, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar7 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     SpawnPrimaryShot((char)this->m_owner,local_1130,0xe,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar6
-                 ,uVar5,uVar8,uVar7,uVar3,uVar4);
+                 ,uVar5,uVar8,uVar7,uVar3,uVarPB, uVar4, 1);
     ScrubChecksumGuard(local_112c);
     ScrubChecksumGuard(local_89c);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -4193,7 +4206,7 @@ joined_r0x0047aed1:
       uVar5 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ac0, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
       uVar6 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_f08,this->m_pad908 + 0x4af4);
       uVar12 = 1;
-      uVar7 = PeekPacketChecksumBool_2(uVar4, 1);
+      uVar7 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
@@ -4225,6 +4238,7 @@ joined_r0x0047aed1:
  * port (src/battle/Mobile15_MainAction.c) remains the linking reference. */
 void CMobile::Mobile15_MainAction(int animEvent, int subType)
 {
+  unsigned int uVarPB;
   int iVar1;
   char cVar2;
   unsigned int uVar3;
@@ -4290,13 +4304,13 @@ LAB_004670c9:
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_19bc, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_112c,this->m_pad908 + 0x4af4);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,local_1e0c,0xf,0,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7
-                 ,uVar6,uVar9,uVar8,uVar3,uVar5);
+                 ,uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_112c);
     ScrubChecksumGuard(local_19bc);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -4323,13 +4337,13 @@ LAB_004673e8:
       }
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_1e04, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_454,this->m_pad908 + 0x4f3c);
-      uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+      uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
       uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
       SpawnPrimaryShot((char)this->m_owner,local_1e08,0xf,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,
-                   uVar7,uVar6,uVar9,uVar8,uVar3,uVar5);
+                   uVar7,uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
       ScrubChecksumGuard(local_454);
       ScrubChecksumGuard(local_1e04);
       cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
@@ -4359,13 +4373,13 @@ LAB_00467235:
     }
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_1574, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_ce4,this->m_pad908 + 0x4f3c);
-    uVar5 = PeekPacketChecksumBool_2(uVar5, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,local_1e08,0xf,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7
-                 ,uVar6,uVar9,uVar8,uVar3,uVar5);
+                 ,uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
     ScrubChecksumGuard(local_ce4);
     ScrubChecksumGuard(local_1574);
     cVar2 = PeekPacketChecksumBool((unsigned char *)(this->m_padae22 + 0x119f));
@@ -4422,7 +4436,7 @@ LAB_0046735a:
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_678,this->m_pad908 + 0x5384);
       uVar12 = 1;
-      uVar8 = PeekPacketChecksumBool_2(uVar5, 1);
+      uVar8 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
@@ -4445,7 +4459,7 @@ LAB_0046735a:
           uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_1350, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
           uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_1798,this->m_pad908 + 0x5384);
           uVar12 = 1;
-          uVar8 = PeekPacketChecksumBool_2(uVar5, 1);
+          uVar8 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
           uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
           uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
           uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
@@ -4485,7 +4499,7 @@ LAB_0046735a:
       uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ac0, reinterpret_cast<unsigned int>(this->m_pad908 + 0x55a8));
       uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_f08,this->m_pad908 + 0x5384);
       uVar12 = 1;
-      uVar8 = PeekPacketChecksumBool_2(uVar5, 1);
+      uVar8 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
       uVar10 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
@@ -4524,6 +4538,7 @@ switchD_0046700f_caseD_2:
  * port (src/battle/Mobile13_MainAction.c) remains the linking reference. */
 void CMobile::Mobile13_MainAction(int animEvent, int subType)
 {
+  unsigned int uVarPB;
   int iVar1;
   char cVar2;
   unsigned int uVar3;
@@ -4614,13 +4629,13 @@ LAB_0046d169:
     uVar5 = EncodeChecksumDeltaAdd(this->m_pad908 + 0x6f5c,local_ce4,uVar5);
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_2f24, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_1e04,this->m_pad908 + 0x4af4);
-    uVar4 = PeekPacketChecksumBool_2(uVar4, 1);
+    uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
     uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
     uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
     SpawnPrimaryShot((char)this->m_owner,local_337c,0xd,0,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar7
-                 ,uVar6,uVar8,uVar5,uVar3,uVar4);
+                 ,uVar6,uVar8,uVar5,uVar3,uVarPB, uVar4, 1);
     ScrubChecksumGuard(local_1e04);
     ScrubChecksumGuard(local_2f24);
     ScrubChecksumGuard(local_ce4);
@@ -4652,13 +4667,13 @@ LAB_0046d318:
       uVar6 = EncodeChecksumDeltaAdd(this->m_pad908 + 0x4488,local_2694,1);
       uVar7 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_1574, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
       uVar8 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_2adc,this->m_pad908 + 0x4f3c);
-      uVar4 = PeekPacketChecksumBool_2(uVar4, 4);
+      uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
       uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
       uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
       SpawnPrimaryShot((char)this->m_owner,local_3378,0xd,1,
-                   *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar8,uVar7,uVar6,uVar5,uVar3,uVar4);
+                   *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar8,uVar7,uVar6,uVar5,uVar3,uVarPB, uVar4, 4);
       ScrubChecksumGuard(local_2adc);
       ScrubChecksumGuard(local_1574);
       ScrubChecksumGuard(local_2694);
@@ -4693,13 +4708,13 @@ LAB_0046d4e6:
       uVar6 = EncodeChecksumDeltaAdd(this->m_pad908 + 0x4488,local_336c,1);
       uVar7 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_112c, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
       uVar8 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_224c,this->m_pad908 + 0x4f3c);
-      uVar4 = PeekPacketChecksumBool_2(uVar4, 4);
+      uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
       uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
       uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
       SpawnPrimaryShot((char)this->m_owner,local_3378,0xd,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,
-                   uVar8,uVar7,uVar6,uVar5,uVar3,uVar4);
+                   uVar8,uVar7,uVar6,uVar5,uVar3,uVarPB, uVar4, 4);
       ScrubChecksumGuard(local_224c);
       ScrubChecksumGuard(local_112c);
       ScrubChecksumGuard(local_336c);
@@ -4733,13 +4748,13 @@ LAB_0046d6ae:
       uVar6 = EncodeChecksumDeltaSub(this->m_pad908 + 0x4488,local_2d00,1);
       uVar7 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_3148, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
       uVar8 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_19bc,this->m_pad908 + 0x4f3c);
-      uVar4 = PeekPacketChecksumBool_2(uVar4, 4);
+      uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
       uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
       uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
       SpawnPrimaryShot((char)this->m_owner,local_3378,0xd,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,
-                   uVar8,uVar7,uVar6,uVar5,uVar3,uVar4);
+                   uVar8,uVar7,uVar6,uVar5,uVar3,uVarPB, uVar4, 4);
       ScrubChecksumGuard(local_19bc);
       ScrubChecksumGuard(local_3148);
       ScrubChecksumGuard(local_2d00);
@@ -4773,13 +4788,13 @@ LAB_0046d87c:
       uVar6 = EncodeChecksumDeltaSub(this->m_pad908 + 0x4488,local_1be0,1);
       uVar7 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_2028, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
       uVar8 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_2470,this->m_pad908 + 0x4f3c);
-      uVar4 = PeekPacketChecksumBool_2(uVar4, 4);
+      uVarPB = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
       uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
       uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
       uVar7 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar7));
       uVar8 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));
       SpawnPrimaryShot((char)this->m_owner,local_3378,0xd,1,
-                   *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar8,uVar7,uVar6,uVar5,uVar3,uVar4);
+                   *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar8,uVar7,uVar6,uVar5,uVar3,uVarPB, uVar4, 4);
       ScrubChecksumGuard(local_2470);
       ScrubChecksumGuard(local_2028);
       ScrubChecksumGuard(local_1be0);
@@ -4854,7 +4869,7 @@ LAB_0046db83:
     uVar6 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_f08, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
     uVar7 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_1350,this->m_pad908 + 0x4af4);
     uVar12 = 1;
-    uVar8 = PeekPacketChecksumBool_2(uVar4, 1);
+    uVar8 = PeekPacketChecksumBool((unsigned char *)this + 0xbfcd);
     uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
     uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
     uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));

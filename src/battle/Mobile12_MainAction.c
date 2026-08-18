@@ -39,6 +39,7 @@ void __thiscall Mobile12_MainAction(int param_1,undefined4 param_2,int param_3)
   undefined4 uVar8;
   undefined4 uVar9;
   undefined4 uVar10;
+  undefined4 uVarPB;
   undefined4 *unaff_FS_OFFSET;
   undefined8 uVar11;
   undefined *puVar12;
@@ -474,14 +475,14 @@ LAB_00472c47:
       SUBFIELD(uStack_a0,0,undefined1) = 0x1d;
       uVar6 = EncodeChecksumPairSum(param_1 + 0x90c,auStack_250c,param_1 + 0x5844);
       uStack_a0 = CONCAT31(SUBFIELD(uStack_a0,1,undefined3),0x1e);
-      uVar7 = PeekPacketChecksumBool(uVar7,4);
+      uVarPB = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
       uVar9 = PeekChecksumStateUnderLock(uVar9);
       uVar10 = PeekChecksumStateUnderLock(uVar10);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar8,0xc,1,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
-                            *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar10,uVar9,uVar4,uVar7);
+                            *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar10,uVar9,uVar4,uVarPB, uVar7, 4);
       SUBFIELD(local_4,0,undefined1) = 0x1d;
       puStack_4d48 = (undefined *)0x472d40;
       ScrubChecksumGuard();
@@ -723,14 +724,14 @@ LAB_004726ab:
       SUBFIELD(uStack_a0,0,undefined1) = 0xf;
       uVar6 = EncodeChecksumPairSum(param_1 + 0x90c,auStack_2fc0,param_1 + 0x5844);
       uStack_a0 = CONCAT31(SUBFIELD(uStack_a0,1,undefined3),0x10);
-      uVar7 = PeekPacketChecksumBool(uVar7,4);
+      uVarPB = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
       uVar9 = PeekChecksumStateUnderLock(uVar9);
       uVar10 = PeekChecksumStateUnderLock(uVar10);
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar8,0xc,1,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
-                            *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar10,uVar9,uVar4,uVar7);
+                            *(int *)(param_1 + 0xae2c) != 0),uVar6,uVar5,uVar10,uVar9,uVar4,uVarPB, uVar7, 4);
       SUBFIELD(local_4,0,undefined1) = 0xf;
       puStack_4d48 = (undefined *)0x4727a1;
       ScrubChecksumGuard();

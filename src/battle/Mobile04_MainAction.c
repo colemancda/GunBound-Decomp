@@ -40,6 +40,7 @@ void __thiscall Mobile04_MainAction(int param_1,undefined4 param_2,int param_3)
   undefined4 uVar8;
   undefined4 uVar9;
   undefined4 uVar10;
+  undefined4 uVarPB;
   undefined4 *unaff_FS_OFFSET;
   undefined *puVar11;
   int iStack_7e8c;
@@ -500,7 +501,7 @@ LAB_0048a32a:
       SUBFIELD(uStack_38,0,undefined1) = 0x11;
       uVar8 = EncodeChecksumPairSum(param_1 + 0x90c,auStack_488,param_1 + 0x5844);
       uStack_38 = CONCAT31(SUBFIELD(uStack_38,1,undefined3),0x12);
-      uVar9 = PeekPacketChecksumBool(uVar10,6);
+      uVarPB = uVar10; uVar9 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
       uVar10 = uVar3;
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
@@ -508,7 +509,7 @@ LAB_0048a32a:
       uVar8 = PeekChecksumStateUnderLock(uVar8);
       SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar4,4,1,
                    CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
-                            *(int *)(param_1 + 0xae2c) != 0),uVar8,uVar7,uVar6,uVar5,uVar10,uVar9);
+                            *(int *)(param_1 + 0xae2c) != 0),uVar8,uVar7,uVar6,uVar5,uVar10,uVar9, uVarPB, 6);
       SUBFIELD(uStack_6c,0,undefined1) = 0x11;
       ScrubChecksumGuard();
       SUBFIELD(uStack_6c,0,undefined1) = 0x10;
@@ -542,13 +543,13 @@ LAB_0048a4ae:
       SUBFIELD(uStack_6c,0,undefined1) = 0x15;
       uVar8 = EncodeChecksumPairSum(param_1 + 0x90c,auStack_7c9c,param_1 + 0x5844);
       uStack_6c = CONCAT31(SUBFIELD(uStack_6c,1,undefined3),0x16);
-      uVar10 = PeekPacketChecksumBool(uVar10,6);
+      uVarPB = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
       uVar5 = PeekChecksumStateUnderLock(uVar5);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
       uVar8 = PeekChecksumStateUnderLock(uVar8);
       SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar4,4,1,*(int *)(param_1 + 0xae2c) != 0,uVar8,
-                   uVar7,uVar6,uVar5,uVar3,uVar10);
+                   uVar7,uVar6,uVar5,uVar3,uVarPB, uVar10, 6);
       SUBFIELD(local_4,0,undefined1) = 0x15;
       puStack_7e84 = (undefined *)0x48a5b3;
       ScrubChecksumGuard();
@@ -646,7 +647,7 @@ LAB_00489e2b:
     SUBFIELD(uStack_38,0,undefined1) = 0x1b;
     uVar8 = EncodeChecksumPairSum(param_1 + 0x90c,auStack_5e70,param_1 + 0x5844);
     uStack_38 = CONCAT31(SUBFIELD(uStack_38,1,undefined3),0x1c);
-    uVar9 = PeekPacketChecksumBool(uVar10,6);
+    uVarPB = uVar10; uVar9 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
     uVar10 = uVar3;
     uVar5 = PeekChecksumStateUnderLock(uVar5);
     uVar6 = PeekChecksumStateUnderLock(uVar6);
@@ -654,7 +655,7 @@ LAB_00489e2b:
     uVar8 = PeekChecksumStateUnderLock(uVar8);
     SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar4,4,1,
                  CONCAT31((int3)((uint)*(int *)(param_1 + 0xae2c) >> 8),
-                          *(int *)(param_1 + 0xae2c) != 0),uVar8,uVar7,uVar6,uVar5,uVar10,uVar9);
+                          *(int *)(param_1 + 0xae2c) != 0),uVar8,uVar7,uVar6,uVar5,uVar10,uVar9, uVarPB, 6);
     SUBFIELD(uStack_6c,0,undefined1) = 0x1b;
     ScrubChecksumGuard();
     SUBFIELD(uStack_6c,0,undefined1) = 0x1a;
@@ -688,13 +689,13 @@ LAB_00489fb5:
     SUBFIELD(uStack_6c,0,undefined1) = 0x1f;
     uVar8 = EncodeChecksumPairSum(param_1 + 0x90c,auStack_5614,param_1 + 0x5844);
     uStack_6c = CONCAT31(SUBFIELD(uStack_6c,1,undefined3),0x20);
-    uVar10 = PeekPacketChecksumBool(uVar10,6);
+    uVarPB = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
     uVar5 = PeekChecksumStateUnderLock(uVar5);
     uVar6 = PeekChecksumStateUnderLock(uVar6);
     uVar7 = PeekChecksumStateUnderLock(uVar7);
     uVar8 = PeekChecksumStateUnderLock(uVar8);
     SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),uVar4,4,1,*(int *)(param_1 + 0xae2c) != 0,uVar8,uVar7,
-                 uVar6,uVar5,uVar3,uVar10);
+                 uVar6,uVar5,uVar3,uVarPB, uVar10, 6);
     SUBFIELD(local_4,0,undefined1) = 0x1f;
     puStack_7e84 = (undefined *)0x48a0ba;
     ScrubChecksumGuard();

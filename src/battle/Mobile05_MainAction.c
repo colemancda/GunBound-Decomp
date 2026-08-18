@@ -27,6 +27,7 @@ void __thiscall Mobile05_MainAction(int param_1,undefined4 param_2,int param_3)
   undefined4 uVar8;
   undefined4 uVar9;
   undefined4 uVar10;
+  undefined4 uVarPB;
   undefined4 *unaff_FS_OFFSET;
   undefined *puVar11;
   undefined4 uVar12;
@@ -106,13 +107,13 @@ LAB_0045439b:
     local_4 = 0;
     uVar7 = EncodeChecksumPairSum(param_1 + 0x90c,local_112c,param_1 + 0x53fc);
     local_4 = 1;
-    uVar5 = PeekPacketChecksumBool(uVar5,1);
+    uVarPB = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
     uVar8 = PeekChecksumStateUnderLock(param_1 + 0x7864);
     uVar9 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
     uVar6 = PeekChecksumStateUnderLock(uVar6);
     uVar7 = PeekChecksumStateUnderLock(uVar7);
     SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_1e0c,5,0,*(int *)(param_1 + 0xae2c) != 0,uVar7,
-                 uVar6,uVar9,uVar8,uVar3,uVar5);
+                 uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 1);
     local_4 = 0;
     ScrubChecksumGuard();
     local_4 = 0xffffffff;
@@ -144,13 +145,13 @@ LAB_00454508:
       local_4 = 2;
       uVar7 = EncodeChecksumPairSum(param_1 + 0x90c,local_ce4,param_1 + 0x5844);
       local_4 = 3;
-      uVar5 = PeekPacketChecksumBool(uVar5,4);
+      uVarPB = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
       uVar8 = PeekChecksumStateUnderLock(param_1 + 0x7864);
       uVar9 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
       SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_1e08,5,1,*(int *)(param_1 + 0xae2c) != 0,uVar7
-                   ,uVar6,uVar9,uVar8,uVar3,uVar5);
+                   ,uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 4);
       local_4 = 2;
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
@@ -184,13 +185,13 @@ LAB_00454665:
       local_4 = 4;
       uVar7 = EncodeChecksumPairSum(param_1 + 0x90c,local_454,param_1 + 0x5844);
       local_4 = 5;
-      uVar5 = PeekPacketChecksumBool(uVar5,4);
+      uVarPB = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
       uVar8 = PeekChecksumStateUnderLock(param_1 + 0x7864);
       uVar9 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
       SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_1e08,5,1,*(int *)(param_1 + 0xae2c) != 0,uVar7
-                   ,uVar6,uVar9,uVar8,uVar3,uVar5);
+                   ,uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 4);
       local_4 = 4;
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
@@ -223,13 +224,13 @@ LAB_004547bc:
       local_4 = 6;
       uVar7 = EncodeChecksumPairSum(param_1 + 0x90c,local_89c,param_1 + 0x5844);
       local_4 = 7;
-      uVar5 = PeekPacketChecksumBool(uVar5,4);
+      uVarPB = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
       uVar8 = PeekChecksumStateUnderLock(param_1 + 0x7864);
       uVar9 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
       SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_1e08,5,1,*(int *)(param_1 + 0xae2c) != 0,uVar7
-                   ,uVar6,uVar9,uVar8,uVar3,uVar5);
+                   ,uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 4);
       local_4 = 6;
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
@@ -262,13 +263,13 @@ LAB_00454919:
       local_4 = 8;
       uVar7 = EncodeChecksumPairSum(param_1 + 0x90c,local_1798,param_1 + 0x5844);
       local_4 = 9;
-      uVar5 = PeekPacketChecksumBool(uVar5,4);
+      uVarPB = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
       uVar8 = PeekChecksumStateUnderLock(param_1 + 0x7864);
       uVar9 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(uVar7);
       SpawnPrimaryShot(*(undefined1 *)(param_1 + 8),local_1e08,5,1,*(int *)(param_1 + 0xae2c) != 0,uVar7
-                   ,uVar6,uVar9,uVar8,uVar3,uVar5);
+                   ,uVar6,uVar9,uVar8,uVar3,uVarPB, uVar5, 4);
       local_4 = 8;
       ScrubChecksumGuard();
       local_4 = 0xffffffff;
@@ -332,7 +333,7 @@ LAB_00454b61:
       uVar7 = EncodeChecksumPairSum(param_1 + 0x90c,local_678,param_1 + 0x5c8c);
       uVar12 = 1;
       local_4 = 0xd;
-      uVar8 = PeekPacketChecksumBool(uVar5,1);
+      uVar8 = PeekPacketChecksumBool((byte *)(param_1 + 0xbfcd));
       uVar9 = PeekChecksumStateUnderLock(param_1 + 0x7864);
       uVar10 = PeekChecksumStateUnderLock(param_1 + 0x4d90);
       uVar6 = PeekChecksumStateUnderLock(uVar6);
