@@ -17,19 +17,24 @@
  * note on exactly this trap):
  *
  *   CFlameEffect       0x54 bytes  ctor 0x471af0  vtable 0x555ef0
- *     Tick 0x471c70 (ported: TickFlameEffect.c)  Draw 0x471d00 (UNPORTED)
+ *     Tick 0x471c70 (TickFlameEffect.c)  Draw 0x471d00 (DrawFlameEffect.c)
  *     spawner SpawnFlameEffect (0x4372f0), animation "flame"
  *   CSuperFlameEffect  0x54 bytes  ctor 0x47e940  vtable 0x5560bc
- *     Tick 0x471c70 (SHARED with CFlameEffect)  Draw 0x47ead0 (UNPORTED)
+ *     Tick 0x471c70 (SHARED with CFlameEffect)  Draw 0x47ead0
+ *     (DrawSuperFlameEffect.c)
  *     spawner SpawnSuperFlameEffect (0x4373c0), animation "flame"
  *   CRiderEffect       0x48 bytes  ctor 0x4a2780  vtable 0x5564bc
- *     Tick 0x4a2920 (UNPORTED)  Draw 0x4a2a00 (UNPORTED)
+ *     Tick 0x4a2920 (TickRiderEffect.c)  Draw 0x4a2a00
+ *     (DrawRiderEffect.c)
  *     spawner SpawnRiderEffect (0x42bb10), texture "rider"
  *
- * The four UNPORTED slot functions above are code Ghidra never carved as
- * functions (no PROGRESS.csv rows) - they were only reachable through
- * these vtables.  Porting them is the follow-up before the tick/draw
- * dispatch of these objects can work in a rebuilt client.
+ * The four slot bodies Ghidra never carved (they were reachable only
+ * through these vtables) were hand-ported from disassembly 2026-08-18:
+ * src/battle/DrawFlameEffect.c / DrawSuperFlameEffect.c /
+ * TickRiderEffect.c / DrawRiderEffect.c, with PROGRESS.csv rows added.
+ * Their sprite-cache blitters (FUN_00471b40 / FUN_0047e990 /
+ * FUN_004a27d0) had their EAX sprite-key parameter promoted at the same
+ * time - the new Draw ports are their only callers.
  *
  * CONVENTION NOTE: the ctors receive the object in EAX (operator_new's
  * return used directly - Ghidra's in_EAX), not ECX; the spawners call them
@@ -74,8 +79,9 @@ public:
      * byte ctx+0x45578 is set) or 2, modulo the guarded frame divisor
      * DAT_00e9bed8; returns the whole-frames advanced. */
     virtual int Tick();                          /* 0x471c70 - TickFlameEffect.c */
-    /* SLOT 3 +0x0c: draw. UNPORTED (0x471d00 - not carved by Ghidra). */
-    virtual void Draw();                         /* 0x471d00 - unported */
+    /* SLOT 3 +0x0c: draw - publishes {x, y, phase} into the per-slot flame
+     * tables (ctx+0x21644/0x21654) and blits the group sheet cell. */
+    virtual void Draw();                         /* 0x471d00 - DrawFlameEffect.c */
     /* SLOT 4 +0x10: shared no-op. */
     virtual void NoOp();                         /* 0x429800 - NoOpMethod */
 
@@ -119,7 +125,7 @@ public:
     virtual void *Delete(int shouldFree);        /* 0x40ca00 */
     virtual void SetState(const char *name);     /* 0x461c60 */
     virtual int Tick();                          /* 0x471c70 - shared with CFlameEffect */
-    virtual void Draw();                         /* 0x47ead0 - unported */
+    virtual void Draw();                         /* 0x47ead0 - DrawSuperFlameEffect.c */
     virtual void NoOp();                         /* 0x429800 */
 
     u32 m_layer;        /* +0x04: NOT set by the ctor (spawner's job) */
@@ -161,15 +167,15 @@ public:
         : m_layer(0x186a7), m_unk0c(0), m_unk10(0), m_dead(0), m_unk15(0),
           m_spriteBase(-1), m_texture(0), m_unk20(0), m_state(-1),
           m_unk28(0), m_unk2c(0), m_x(0), m_y(0), m_facing(0),
-          m_animPhase(1000)
+          m_targetY(1000)
     {}
 
     virtual void *Delete(int shouldFree);        /* 0x40ca00 */
     virtual void SetState(const char *name);     /* 0x461c60 - called with the
                                                     anim right after the
                                                     "rider" texture lookup */
-    virtual int Tick();                          /* 0x4a2920 - unported */
-    virtual void Draw();                         /* 0x4a2a00 - unported */
+    virtual int Tick();                          /* 0x4a2920 - TickRiderEffect.c */
+    virtual void Draw();                         /* 0x4a2a00 - DrawRiderEffect.c */
     virtual void NoOp();                         /* 0x429800 */
 
     u32 m_layer;        /* +0x04: layer key 0x186a7 (100007 - the projectile
@@ -193,7 +199,9 @@ public:
     int m_y;            /* +0x3c: spawn y, clamped to g_nCameraBoundY-0x26 */
     u8  m_facing;       /* +0x40: g_nCameraBoundX/2 < x */
     u8  m_pad41[3];
-    int m_animPhase;    /* +0x44: ctor 1000; spawner overwrites with param_3 */
+    int m_targetY;      /* +0x44: descent target (ctor 1000; spawner param_3) -
+                           NOT an anim phase: TickRiderEffect falls to it, then
+                           drifts sideways */
 };
 GB_STATIC_ASSERT(sizeof(CRiderEffect) == 0x48, ridereffect_size);
 
