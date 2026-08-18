@@ -638,7 +638,7 @@ LAB_0046ecce:
       }
     }
   }
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar4 != '\0') && (cVar4 = InitChecksumSeed(), cVar4 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState((void *)&DAT_007949c8);

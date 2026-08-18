@@ -734,7 +734,7 @@ LAB_00487dd6:
     AcquireSoundChannel(0);
     pcVar16 = (code *)LeaveCriticalSection;
   }
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar1 != '\0') && (cVar1 = InitChecksumSeed(), cVar1 == '\0')) {
     uVar5 = PeekChecksumStateUnderLock(&DAT_007949c8);
     QueueOutgoingPacketField(uVar5);

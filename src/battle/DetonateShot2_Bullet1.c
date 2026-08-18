@@ -379,7 +379,7 @@ LAB_00468fef:
     if (cVar4 == '\0') {
       AcquireSoundChannel(0);
     }
-    cVar4 = PeekPacketChecksumBool();
+    cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
     if ((cVar4 != '\0') && (cVar4 = InitChecksumSeed(), cVar4 == '\0')) {
       uVar8 = PeekChecksumStateUnderLock(&DAT_007949c8);
       QueueOutgoingPacketField(uVar8);

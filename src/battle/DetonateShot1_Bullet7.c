@@ -598,7 +598,7 @@ LAB_0044d07e:
     uVar16 = PeekPacketChecksumBool(unaff_EDI);
     FUN_004375f0(&DAT_006a7f70 + g_clientContext,iVar4,uVar7,(char)param_1[0xf],uVar16,unaff_EDI);
   }
-  cVar3 = PeekPacketChecksumBool();
+  cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar3 != '\0') && (cVar3 = InitChecksumSeed(), cVar3 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState((void *)(&DAT_007949c8));

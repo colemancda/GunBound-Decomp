@@ -501,7 +501,7 @@ LAB_0048e8fe:
   if (cVar2 == '\0') {
     AcquireSoundChannel(0);
   }
-  cVar2 = PeekPacketChecksumBool();
+  cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar6 = PeekPacketChecksumState((void *)&DAT_007949c8);

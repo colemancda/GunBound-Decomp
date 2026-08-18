@@ -569,7 +569,7 @@ LAB_00465c2e:
   uVar18 = PeekPacketChecksumBool(local_af0);
   FUN_00437b40(&DAT_006a7f70 + g_clientContext,apuStack_ad0[0],uVar8,(char)piStack_ad8[0xf],uVar18,
                local_af0);
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar4 != '\0') && (cVar4 = InitChecksumSeed(), cVar4 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField((void *)(g_clientContext + 0x621e8), 0x1e);

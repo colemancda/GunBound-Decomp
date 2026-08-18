@@ -219,7 +219,7 @@ LAB_0049e1d8:
       goto LAB_0049e3fe;
     }
     *(undefined1 *)(piVar9 + 5) = 1;
-    cVar4 = PeekPacketChecksumBool();
+    cVar4 = PeekPacketChecksumBool((byte *)piVar9 + 0xf3f);
     if ((cVar4 != '\0') && (cVar4 = InitChecksumSeed(), cVar4 == '\0')) {
       iVar5 = *(int *)(*(int *)(g_clientContext + 0x621e4) + 0x24);
       if ((iVar5 == 5) || (uVar8 = 2, iVar5 == 6)) {
@@ -507,7 +507,7 @@ LAB_0049d99e:
   if (cVar4 == '\0') {
     AcquireSoundChannel(0);
   }
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar4 != '\0') && (cVar4 = InitChecksumSeed(), cVar4 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField((void *)(g_clientContext + 0x621e8), 0x1e);

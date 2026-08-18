@@ -584,7 +584,7 @@ LAB_00490f39:
   (*pcVar15)(&DAT_005a9068);
   uVar19 = PeekPacketChecksumBool();
   FUN_00437d90(&DAT_006a7f70 + g_clientContext,unaff_ESI,uVar8,(char)param_1[0xf],uVar19);
-  cVar4 = PeekPacketChecksumBool();
+  cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar4 != '\0') && (cVar4 = InitChecksumSeed(), cVar4 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField((void *)(g_clientContext + 0x621e8), 0x1e);
