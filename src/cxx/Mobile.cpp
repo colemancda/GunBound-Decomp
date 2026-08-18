@@ -4008,3 +4008,212 @@ LAB_004af2ec:
   }
   return;
 }
+
+/* 0x47ab90 Mobile14_MainAction - mobile TYPE 14's vtable-slot-7 weapon-fire
+ * dispatcher, promoted with the Mobile00/Mobile01 mechanical recipe
+ * (43a7ee7): SEH stripped, guard scratch as 0x224 buffers, scrub order =
+ * SEH unwind order, faithful control flow and argument shapes.  The raw
+ * port (src/battle/Mobile14_MainAction.c) remains the linking reference. */
+void CMobile::Mobile14_MainAction(int animEvent, int subType)
+{
+  int iVar1;
+  char cVar2;
+  unsigned int uVar3;
+  unsigned int uVar4;
+  unsigned int uVar5;
+  unsigned int uVar6;
+  unsigned int uVar7;
+  unsigned int uVar8;
+  unsigned int uVar9;
+  unsigned int uVar10;
+  unsigned char *puVar11;
+  unsigned int uVar12;
+  unsigned int local_1134;
+  unsigned int local_1130;
+  unsigned char local_112c[0x224];
+  unsigned char local_f08[0x224];
+  unsigned char local_ce4[0x224];
+  unsigned char local_ac0[0x224];
+  unsigned char local_89c[0x224];
+  unsigned char local_678[0x224];
+  unsigned char local_454[0x224];
+  unsigned char local_230[0x224];
+  
+  uVar3 = FUN_0045f840();
+  switch (animEvent) {
+  case 1:
+    if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
+      uVar3 = AcquireSoundChannel(1);
+      *reinterpret_cast<unsigned int *>(this->m_padae22 + 0x282) = uVar3;
+    }
+    break;
+  default:
+    iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
+    if (DAT_00793549 != '\0') {
+      if (iVar1 != -1) {
+        int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+                (*reinterpret_cast<void (**)()>(*obj + 0xc))();
+      }
+      if (iVar1 == 0) {
+        DAT_00793568 = 0;
+      }
+    }
+    *reinterpret_cast<unsigned int *>(this->m_padae22 + 0x282) = 0xffffffff;
+    break;
+  case 4:
+    if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
+      uVar3 = AcquireSoundChannel(1);
+      *reinterpret_cast<unsigned int *>(this->m_padae22 + 0x282) = uVar3;
+    }
+    break;
+  case 5:
+    if (subType != 1) break;
+    QueueOutgoingPacketField(0xffffffff);
+    if (this->m_pad908[0x5c14] == '\x01') {
+      puVar11 = &DAT_00796aa0;
+    }
+    else {
+      puVar11 = &DAT_00794e48;
+    }
+    uVar4 = PeekChecksumStateUnderLock(puVar11);
+    cVar2 = PeekPacketChecksumBool((unsigned char *)(this->m_padae22 + 0x119c));
+    if (cVar2 == '\x01') {
+LAB_0047ac89:
+      local_1134 = 0;
+    }
+    else {
+      cVar2 = PeekPacketChecksumBool((unsigned char *)(this->m_padae22 + 0x119f));
+      local_1134 = 8;
+      if (cVar2 == '\x01') goto LAB_0047ac89;
+    }
+    uVar5 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ce4, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
+    uVar6 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_454,this->m_pad908 + 0x4af4);
+    uVar4 = PeekPacketChecksumBool_2(uVar4, 1);
+    uVar7 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
+    uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
+    uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
+    uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
+    SpawnPrimaryShot((char)this->m_owner,local_1134,0xe,0,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar6
+                 ,uVar5,uVar8,uVar7,uVar3,uVar4);
+    ScrubChecksumGuard(local_454);
+    ScrubChecksumGuard(local_ce4);
+    cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
+    goto joined_r0x0047aed1;
+  case 6:
+    if (subType != 7) break;
+    QueueOutgoingPacketField(0xffffffff);
+    if (this->m_pad908[0x5c14] == '\x01') {
+      puVar11 = &DAT_00796aa0;
+    }
+    else {
+      puVar11 = &DAT_00794e48;
+    }
+    uVar4 = PeekChecksumStateUnderLock(puVar11);
+    cVar2 = PeekPacketChecksumBool((unsigned char *)(this->m_padae22 + 0x119c));
+    if (cVar2 == '\x01') {
+LAB_0047adea:
+      local_1130 = 0;
+    }
+    else {
+      cVar2 = PeekPacketChecksumBool((unsigned char *)(this->m_padae22 + 0x119f));
+      local_1130 = 8;
+      if (cVar2 == '\x01') goto LAB_0047adea;
+    }
+    uVar5 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_89c, reinterpret_cast<unsigned int>(this->m_pad908 + 0x5160));
+    uVar6 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_112c,this->m_pad908 + 0x4f3c);
+    uVar4 = PeekPacketChecksumBool_2(uVar4, 1);
+    uVar7 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
+    uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
+    uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
+    uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
+    SpawnPrimaryShot((char)this->m_owner,local_1130,0xe,1,*reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar6
+                 ,uVar5,uVar8,uVar7,uVar3,uVar4);
+    ScrubChecksumGuard(local_112c);
+    ScrubChecksumGuard(local_89c);
+    cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
+joined_r0x0047aed1:
+    if (cVar2 == '\0') {
+      AcquireSoundChannel(0);
+    }
+    cVar2 = PeekPacketChecksumBool((unsigned char *)(this->m_padae22 + 0x119c));
+    if (((cVar2 == '\0') && (cVar2 = PeekPacketChecksumBool((unsigned char *)(this->m_padae22 + 0x119f)), cVar2 == '\0')) &&
+       (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
+      uVar3 = PeekChecksumStateUnderLock(&DAT_007949c8);
+      QueueOutgoingPacketField(uVar3);
+    }
+    break;
+  case 8:
+    if (subType == 1) {
+      QueueOutgoingPacketField(0xffffffff);
+      cVar2 = PeekPacketChecksumBool((unsigned char *)(this->m_padae22 + 0x11ab));
+      if ((cVar2 == '\x01') || (cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74)), cVar2 == '\x01')) {
+        uVar3 = 0;
+      }
+      else {
+        uVar3 = 8;
+      }
+      uVar4 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_230, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
+      uVar5 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_678,this->m_pad908 + 0x4af4);
+      uVar10 = (unsigned int)*reinterpret_cast<unsigned short *>(this->m_padae22 + 0x119a);
+      uVar6 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
+      uVar7 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
+      uVar4 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar4));
+      uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
+      SpawnItemProjectile((char)this->m_owner,uVar3,uVar5,uVar4,uVar7,uVar6,uVar10);
+      ScrubChecksumGuard(local_678);
+      ScrubChecksumGuard(local_230);
+      cVar2 = PeekPacketChecksumBool((unsigned char *)(this->m_padae22 + 0x119c));
+      if (cVar2 == '\0') {
+        AcquireSoundChannel(0);
+      }
+      cVar2 = InitChecksumSeed();
+      if (cVar2 == '\0') {
+        uVar3 = PeekChecksumStateUnderLock(&DAT_007949c8);
+        QueueOutgoingPacketField(uVar3);
+        iVar1 = g_clientContext;
+        *reinterpret_cast<unsigned int *>(&DAT_005f3768 + g_clientContext) = 5;
+        *reinterpret_cast<unsigned int *>(&DAT_005f376c + iVar1) = 0;
+        SetGuardedBool(1,GB_GUARD_UNRECOVERED);
+      }
+      else {
+        SetGuardedBool(1,GB_GUARD_UNRECOVERED);
+      }
+    }
+    break;
+  case 10:
+    if (subType == 1) {
+      QueueOutgoingPacketField(0xffffffff);
+      if (this->m_pad908[0x5c14] == '\x01') {
+        puVar11 = &DAT_00796aa0;
+      }
+      else {
+        puVar11 = &DAT_00794e48;
+      }
+      uVar4 = PeekChecksumStateUnderLock(puVar11);
+      uVar5 = EncodeChecksumPairDiff(this->m_pad908 + 0x228, local_ac0, reinterpret_cast<unsigned int>(this->m_pad908 + 0x4d18));
+      uVar6 = EncodeChecksumPairSum(this->m_pad908 + 0x4,local_f08,this->m_pad908 + 0x4af4);
+      uVar12 = 1;
+      uVar7 = PeekPacketChecksumBool_2(uVar4, 1);
+      uVar8 = PeekChecksumStateUnderLock(this->m_pad908 + 0x6f5c);
+      uVar9 = PeekChecksumStateUnderLock(this->m_pad908 + 0x4488);
+      uVar5 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar5));
+      uVar6 = PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar6));
+      SpawnSuperShot((char)this->m_owner,8,0xe,
+                   *reinterpret_cast<int *>(this->m_padae22 + 0xa) != 0,uVar6,uVar5,uVar9,uVar8,uVar3,uVar7,
+                   uVar4,uVar12);
+      ScrubChecksumGuard(local_f08);
+      ScrubChecksumGuard(local_ac0);
+      cVar2 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
+      if (cVar2 == '\0') {
+        AcquireSoundChannel(0);
+      }
+      cVar2 = InitChecksumSeed();
+      if (cVar2 == '\0') {
+        uVar3 = PeekChecksumStateUnderLock(&DAT_007949c8);
+        QueueOutgoingPacketField(uVar3);
+      }
+      SetGuardedBool(1,GB_GUARD_UNRECOVERED);
+    }
+  }
+  return;
+}
