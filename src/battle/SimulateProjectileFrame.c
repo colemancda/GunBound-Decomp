@@ -262,7 +262,7 @@ LAB_004560f2:
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         }
       }
-      cVar8 = PeekPacketChecksumBool();
+      cVar8 = PeekPacketChecksumBool((byte *)(iVar12 + 0x3918));
       if ((cVar8 == '\0') && (iVar13 = FUN_004511b0(local_15a4), iVar13 != 0)) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar13 = _rand();

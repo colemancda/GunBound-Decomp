@@ -276,7 +276,7 @@ LAB_0046ff52:
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
         }
-        cVar8 = PeekPacketChecksumBool();
+        cVar8 = PeekPacketChecksumBool((byte *)(iVar11 + 0x3918));
         if ((cVar8 == '\0') && (iVar15 = FUN_004511b0(local_15b0), iVar15 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar15 = _rand();
@@ -322,7 +322,7 @@ LAB_0046ff52:
             iVar11 = local_159c;
           }
         }
-        cVar8 = PeekPacketChecksumBool();
+        cVar8 = PeekPacketChecksumBool((byte *)(iVar11 + 0x3918));
         if (cVar8 != '\0') {
           FUN_00436ec0(local_15b0,local_15b4);
         }
@@ -594,7 +594,7 @@ LAB_0047090c:
             iVar11 = local_159c;
           }
         }
-        cVar8 = PeekPacketChecksumBool();
+        cVar8 = PeekPacketChecksumBool((byte *)(iVar11 + 0x3918));
         if (cVar8 != '\0') {
           FUN_00436ec0(local_15bc,local_15b0);
         }

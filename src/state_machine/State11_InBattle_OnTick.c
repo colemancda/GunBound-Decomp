@@ -554,7 +554,7 @@ LAB_004bdf96:
         iVar6 = 0;
         do {
           iVar5 = GetPlayerRecordBySlot();
-          if ((iVar5 != 0) && (cVar3 = PeekPacketChecksumBool(), cVar3 != '\x01')) {
+          if ((iVar5 != 0) && (cVar3 = PeekPacketChecksumBool((byte *)(iVar5 + 0xbff7)), cVar3 != '\x01')) {
             FUN_0045ea40();
           }
           iVar6 = iVar6 + 1;

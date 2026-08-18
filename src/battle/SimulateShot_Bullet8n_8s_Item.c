@@ -345,7 +345,7 @@ LAB_004a7499:
           }
         }
         uVar15 = local_15a4;
-        cVar10 = PeekPacketChecksumBool();
+        cVar10 = PeekPacketChecksumBool(local_15ac[0]);
         if (cVar10 != '\0') {
           FUN_00436ec0(local_15c4,uVar15);
         }
@@ -579,7 +579,7 @@ LAB_004a7c59:
           }
         }
         iVar13 = local_15b4;
-        cVar10 = PeekPacketChecksumBool();
+        cVar10 = PeekPacketChecksumBool(local_15ac[0]);
         if (cVar10 != '\0') {
           FUN_00436ec0(iVar13,local_15c4);
         }

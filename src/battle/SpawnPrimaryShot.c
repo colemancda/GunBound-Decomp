@@ -959,7 +959,7 @@ LAB_0042d5ba:
 LAB_0042d667:
   FUN_0041da80(g_clientContext,local_8bc,param_3,param_12,0);
   iVar6 = GetPlayerRecordBySlot(g_clientContext);
-  if ((iVar6 != 0) && (cVar5 = PeekPacketChecksumBool(), cVar5 != '\0')) {
+  if ((iVar6 != 0) && (cVar5 = PeekPacketChecksumBool((byte *)(iVar6 + 0xbfca)), cVar5 != '\0')) {
     uVar8 = EncodeChecksumDeltaDiv(local_8bc + 0x930,auStack_8a0,4);
     puStack_8 = (undefined1 *)0x25;
     EmitChecksumSum(local_8bc + 0x930, (void *)uVar8);

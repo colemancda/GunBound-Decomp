@@ -397,7 +397,7 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
   }
   FUN_0041da80();
   iVar4 = GetPlayerRecordBySlot();
-  if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) {
+  if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool((byte *)(iVar4 + 0xbfca)), cVar2 != '\0')) {
     EncodeChecksumDeltaDiv(piVar3 + 0x930,auStackEmitScratch,4);
     uStack_88 = 1;
     EmitChecksumSum(piVar3 + 0x930, (void *)auStackEmitScratch);

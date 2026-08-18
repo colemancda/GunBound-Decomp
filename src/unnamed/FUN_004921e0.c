@@ -319,7 +319,7 @@ LAB_00492912:
   local_ae4 = 0;
   do {
     iVar4 = GetPlayerRecordBySlot(g_clientContext);
-    if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\x01')) {
+    if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool((byte *)(iVar4 + 0xbff7)), cVar2 != '\x01')) {
       iDelta = EncodeChecksumPairDiff(local_ae0 + 0x10,local_8a8,iVar4 + 0x90c);
       local_c = 9;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

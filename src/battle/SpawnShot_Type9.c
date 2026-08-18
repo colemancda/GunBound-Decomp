@@ -497,7 +497,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
   }
   FUN_0041da80(g_clientContext,piVar3,uStack_6c,uStack_4c);
   iVar4 = GetPlayerRecordBySlot();
-  if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) {
+  if ((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool((byte *)(iVar4 + 0xbfca)), cVar2 != '\0')) {
     EncodeChecksumDeltaDiv(piVar3 + 0x930,&puStack_914,4);
     uStack_7c = 2;
     EmitChecksumSum(piVar3 + 0x930, &puStack_914);

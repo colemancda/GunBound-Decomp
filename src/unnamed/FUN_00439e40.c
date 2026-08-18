@@ -107,7 +107,7 @@ undefined4 FUN_00439e40(int param_1)
   FUN_0043a670();
   iVar4 = GetPlayerRecordBySlot(g_clientContext);
   *(int *)(g_clientContext + 0x621e4) = iVar4;
-  if ((((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool(), cVar2 != '\0')) &&
+  if ((((iVar4 != 0) && (cVar2 = PeekPacketChecksumBool((byte *)(iVar4 + 0x8bbd)), cVar2 != '\0')) &&
       (cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e4) + 0xbff7)), cVar2 != '\x01')) &&
      ((uVar6 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c), param_1 != uVar6 ||
       ((cVar2 = PacketChecksumLessEqual(*(int *)(g_clientContext + 0x621e0) + 0x6968,0), cVar2 == '\0' &&

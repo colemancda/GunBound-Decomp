@@ -248,7 +248,7 @@ void SpawnShot_Type13(void)
   puStack_8d4 = (undefined1 *)0x438df7;
   FUN_0041da80();
   iVar3 = GetPlayerRecordBySlot();
-  if ((iVar3 != 0) && (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) {
+  if ((iVar3 != 0) && (cVar1 = PeekPacketChecksumBool((byte *)(iVar3 + 0xbfca)), cVar1 != '\0')) {
     EncodeChecksumDeltaDiv(piVar2 + 0x930,auStackEmitScratch,4);
     puStack_8 = (undefined1 *)0x1;
     EmitChecksumSum(piVar2 + 0x930, (void *)auStackEmitScratch);

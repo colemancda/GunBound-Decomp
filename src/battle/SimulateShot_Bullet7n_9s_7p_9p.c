@@ -270,7 +270,7 @@ LAB_0049b2e9:
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
         }
-        cVar9 = PeekPacketChecksumBool();
+        cVar9 = PeekPacketChecksumBool((byte *)(param_1 + 0x3918));
         if ((cVar9 == '\0') && (iVar18 = FUN_004511b0(local_15ac), iVar18 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar18 = _rand();
@@ -482,7 +482,7 @@ LAB_0049b9fa:
             LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           }
         }
-        cVar9 = PeekPacketChecksumBool();
+        cVar9 = PeekPacketChecksumBool((byte *)(param_1 + 0x3918));
         if ((cVar9 == '\0') && (iVar14 = FUN_004511b0(local_15b0), iVar14 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar14 = _rand();
