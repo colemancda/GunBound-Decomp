@@ -127,7 +127,81 @@ def walk(vt):
             break
     return slots
 
+# names for the hand-proven vtables; everything else gets a synthesized
+# label from its most distinctive (least-shared) named slot.
+KNOWN = {
+    0x551e44: 'CButtonWidget',
+    0x555c34: 'CProjectile (base)',
+    0x555c68: 'CMobile (base)',
+    0x555ef0: 'CFlameEffect',
+    0x5560bc: 'CSuperFlameEffect',
+    0x5564bc: 'CRiderEffect',
+}
+
+
+def coverage():
+    """--coverage: rank game-region vtables by how much decompiled code
+    their slots resolve to.  'ported bytes' sums the PROGRESS.csv size of
+    every slot whose status is RAW-src or PARITY-* (deduplicated per
+    vtable, since shared no-op/dtor slots repeat); slots that are
+    UNCARVED, TODO, or CRT count zero."""
+    meta = {}
+    for r in csv.reader(open(os.path.join(ROOT, 'PROGRESS.csv'))):
+        try:
+            a = int(r[0], 16)
+        except (ValueError, IndexError):
+            continue
+        if len(r) > 6 and r[1].strip().isdigit():
+            meta[a] = (r[2], int(r[1]), r[6])
+    # slot-sharing census, to pick each vtable's most DISTINCTIVE slot
+    from collections import Counter
+    share = Counter()
+    tables = []
+    for vt in sorted(cands):
+        if not (0x551000 <= vt < 0x558000):
+            continue
+        slots = walk(vt)
+        if len(slots) < 2:
+            continue
+        tables.append((vt, slots))
+        for s2 in set(slots):
+            share[s2] += 1
+    rows = []
+    for vt, slots in tables:
+        uniq = sorted(set(slots))
+        ported = tot = 0
+        n_port = n_unc = 0
+        for s2 in uniq:
+            m = meta.get(s2)
+            if m and (m[2] == 'RAW-src' or m[2].startswith('PARITY')):
+                ported += m[1]
+                n_port += 1
+            elif m is None:
+                n_unc += 1
+            if m:
+                tot += m[1]
+        label = KNOWN.get(vt)
+        if label is None:
+            best = None
+            for s2 in uniq:
+                m = meta.get(s2)
+                if m and not m[0].startswith('FUN_'):
+                    if best is None or share[s2] < share[best[0]]:
+                        best = (s2, m[0])
+            label = ('~' + best[1]) if best else '(all FUN_/uncarved)'
+        rows.append((ported, n_port, len(uniq), n_unc, vt, len(slots), label))
+    rows.sort(reverse=True)
+    print('%-9s %-6s %-11s %-8s %s' % ('ported', 'vtable', 'slots', 'uncarved',
+                                       'class (~ = named from its most distinctive slot)'))
+    for ported, n_port, n_uniq, n_unc, vt, n_slots, label in rows:
+        print('%7db  0x%06x %2d (%2d/%2d) %5d     %s' % (
+            ported, vt, n_slots, n_port, n_uniq, n_unc, label))
+
+
 def main():
+    if '--coverage' in sys.argv:
+        coverage()
+        return
     only_uncarved = '--uncarved' in sys.argv
     rows = []
     for vt in sorted(cands):
