@@ -247,7 +247,7 @@ LAB_0048efcf:
       (*pcVar13)(&DAT_005a9068);
       iVar3 = g_clientContext;
       piVar15 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
+      cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar3] != '\0')) {
         if (((&DAT_006a7736)[iVar3] == '\x01') &&
            ((uVar10 = iVar4 - *(int *)(&g_nCameraY + iVar3) >> 0x1f,
@@ -353,7 +353,7 @@ LAB_0048e31a:
     uVar19 = 2;
     uVar18 = 0xff;
     uVar17 = 0;
-    PeekPacketChecksumBool(0,uVar6,0xff,2,0);
+    PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     FUN_00431d90((char)param_1[0xf],7,0,uVar17,uVar6,uVar18,uVar19,uVar20);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -436,7 +436,7 @@ LAB_0048e595:
         uVar19 = 0xff;
         uVar18 = 100;
         uVar17 = 0;
-        PeekPacketChecksumBool(uVar6,0,100,0xff,iVar3,0);
+        PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
         FUN_00432320((char)param_1[0xf],1,1,uVar6,uVar17,uVar18,uVar19,iVar3,uVar20);
         puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),3);
         ScrubChecksumGuard();
@@ -465,7 +465,7 @@ LAB_0048e85d:
           uVar17 = 0;
           PeekChecksumStateUnderLock(auStack_8a0);
           uVar6 = PeekChecksumStateUnderLock(auStack_ac4);
-          PeekPacketChecksumBool(uVar6,uVar17,uVar18,uVar19,iVar3,uVar20);
+          PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
           FUN_00432320((char)param_1[0xf],1,1,uVar6,uVar17,uVar18,uVar19,iVar3,uVar20);
           puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
           ScrubChecksumGuard();

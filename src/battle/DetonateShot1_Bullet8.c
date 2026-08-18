@@ -345,7 +345,7 @@ LAB_0048268a:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = g_clientContext;
     piVar11 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
+    cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if ((cVar2 == '\0') && ((&DAT_006a7758)[iVar4] != '\0')) {
       if (((&DAT_006a7736)[iVar4] == '\x01') &&
          ((uVar15 = iStack_af4 - *(int *)(&g_nCameraY + iVar4) >> 0x1f,
@@ -435,7 +435,7 @@ LAB_0048268a:
     uVar21 = 2;
     uVar9 = 0xff;
     uVar8 = 0;
-    PeekPacketChecksumBool(0,uVar7,0xff,2,0);
+    PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     FUN_00431d90((char)param_1[0xf],7,0,uVar8,uVar7,uVar9,uVar21,uVar22);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -515,7 +515,7 @@ LAB_00482b76:
         uVar21 = 0xff;
         uVar9 = 100;
         uVar8 = 0;
-        PeekPacketChecksumBool(uVar7,0,100,0xff,iVar4,0);
+        PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
         FUN_00432320((char)param_1[0xf],1,1,uVar7,uVar8,uVar9,uVar21,iVar4,uVar22);
         puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),3);
         ScrubChecksumGuard();
@@ -544,7 +544,7 @@ LAB_00482e3e:
           uVar8 = 0;
           PeekChecksumStateUnderLock(auStack_8a0);
           uVar7 = PeekChecksumStateUnderLock(auStack_ac4);
-          PeekPacketChecksumBool(uVar7,uVar8,uVar9,uVar21,iVar4,uVar22);
+          PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
           FUN_00432320((char)param_1[0xf],1,1,uVar7,uVar8,uVar9,uVar21,iVar4,uVar22);
           puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
           ScrubChecksumGuard();
@@ -583,7 +583,7 @@ LAB_00482edf:
   uVar21 = 0;
   uVar9 = 1;
   uVar8 = 0;
-  PeekPacketChecksumBool(0,uVar7,uVar15,1,0);
+  PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
   FUN_00431d90((char)param_1[0xf],7,0,uVar8,uVar7,uVar15,uVar9,uVar21);
   cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {

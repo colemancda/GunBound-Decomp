@@ -278,7 +278,7 @@ LAB_0047e746:
       (*pcVar17)(&DAT_005a9068);
       iVar8 = g_clientContext;
       piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar5 = PeekPacketChecksumBool();
+      cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if ((cVar5 == '\0') && ((&DAT_006a7758)[iVar8] != '\0')) {
         if (((&DAT_006a7736)[iVar8] == '\x01') &&
            ((uVar12 = iVar9 - *(int *)(&g_nCameraY + iVar8) >> 0x1f,

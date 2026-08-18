@@ -231,7 +231,7 @@ LAB_0046f8f9:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = g_clientContext;
       piVar17 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
+      cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if ((cVar4 == '\0') && ((&DAT_006a7758)[iVar5] != '\0')) {
         if (((&DAT_006a7736)[iVar5] == '\x01') &&
            ((uVar14 = iVar6 - *(int *)(&g_nCameraY + iVar5) >> 0x1f,
@@ -337,7 +337,7 @@ LAB_0046e6ea:
     uVar22 = 2;
     uVar21 = 0xff;
     uVar20 = 0;
-    PeekPacketChecksumBool(0,uVar8,0xff,2,0);
+    PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     FUN_00431d90((char)param_1[0xf],7,0,uVar20,uVar8,uVar21,uVar22,uVar23);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -417,7 +417,7 @@ LAB_0046e965:
         uVar22 = 0xff;
         uVar21 = 100;
         uVar20 = 0;
-        PeekPacketChecksumBool(uVar8,0,100,0xff,iVar5,0);
+        PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
         FUN_00432320((char)param_1[0xf],1,1,uVar8,uVar20,uVar21,uVar22,iVar5,uVar23);
         puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),3);
         ScrubChecksumGuard();
@@ -446,7 +446,7 @@ LAB_0046ec2d:
           uVar20 = 0;
           PeekChecksumStateUnderLock(auStack_8a0);
           uVar8 = PeekChecksumStateUnderLock(auStack_ac4);
-          PeekPacketChecksumBool(uVar8,uVar20,uVar21,uVar22,iVar5,uVar23);
+          PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
           FUN_00432320((char)param_1[0xf],1,1,uVar8,uVar20,uVar21,uVar22,iVar5,uVar23);
           puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
           ScrubChecksumGuard();
@@ -583,7 +583,7 @@ LAB_0046ecce:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = g_clientContext;
     piVar15 = (int *)(&DAT_006a7708 + g_clientContext);
-    cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
+    cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
     if ((cVar4 == '\0') && ((&DAT_006a7758)[iVar5] != '\0')) {
       if (((&DAT_006a7736)[iVar5] == '\x01') &&
          ((uVar14 = iVar6 - *(int *)(&g_nCameraY + iVar5) >> 0x1f,

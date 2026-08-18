@@ -152,7 +152,12 @@ extern CRITICAL_SECTION DAT_005a9068; /* the guard family's shared lock, defined
  * take zero params, matching the raw C's buggy call sites, not the real
  * shape Ghidra's fresh decompile shows) - fixing functions.h globally is
  * out of scope here. */
-char PeekPacketChecksumBool_5(int, unsigned int, int, int, unsigned int, int);
+/* PeekPacketChecksumBool_5 is GONE (2026-08-18): a Ghidra fabrication - the
+ * "arguments" were the neighbouring FUN_00431d90/FUN_00432320 calls' own
+ * stack args (both verified full-count: ret 0x20 = 8 and ret 0x24 = 9);
+ * the real call is a result-discarded 1-arg peek of this+0xf3c (the
+ * re-encode side effect is the point).  See memory spawnprimaryshot-13-args
+ * for the disease class. */
 void *operator_new(unsigned int size);
 void InitProjectile(void *thisArg, int type);
 char CheckGuardedBoolAnd(int cond);
@@ -537,7 +542,7 @@ void CProjectile::DetonateProjectile()
             LeaveCriticalSection(&DAT_005a9068);
             iVar5 = g_clientContext;
             piVar18 = reinterpret_cast<int *>(&DAT_006a7708 + g_clientContext);
-            cVar4 = PeekPacketChecksumBool((unsigned char *)this + 0xf3c);
+            cVar4 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
             if (cVar4 == '\0' && (&DAT_006a7758)[iVar5] != 0) {
                 if ((&DAT_006a7736)[iVar5] == 1 &&
                     ((uVar13 = iVar6 - *reinterpret_cast<int *>(&g_nCameraY + iVar5), uVar16 = (int)uVar13 >> 0x1f,
@@ -629,7 +634,7 @@ void CProjectile::DetonateProjectile()
         uVar23 = 2;
         uVar22 = 0xff;
         uVar21 = 0;
-        PeekPacketChecksumBool_5(0, uVar8, 0xff, 2, 0, 0);
+        PeekPacketChecksumBool((unsigned char *)this + 0xf3c);
         FUN_00431d90(self->m_flags, 7, 0, uVar21, uVar8, uVar22, uVar23, uVar24);
     }
     EnterCriticalSection(&DAT_005a9068);
@@ -704,7 +709,7 @@ void CProjectile::DetonateProjectile()
                 uVar22 = 0xff;
                 uVar23 = 100;
                 uVar24 = 0;
-                PeekPacketChecksumBool_5(uVar8, 0, 100, 0xff, iVar5, 0);
+                PeekPacketChecksumBool((unsigned char *)this + 0xf3c);
                 FUN_00432320(self->m_flags, 1, 1, uVar8, uVar21, uVar23, uVar22, iVar5, uVar24);
                 ScrubChecksumGuard(&auStack_ac4);
                 puVar15 = &auStack_8a0;
@@ -728,7 +733,7 @@ void CProjectile::DetonateProjectile()
                     uVar24 = 0;
                     PeekChecksumStateUnderLock(&auStack_8a0);
                     uVar8 = PeekChecksumStateUnderLock(&auStack_ac4);
-                    PeekPacketChecksumBool_5(uVar8, uVar21, uVar23, uVar22, iVar5, uVar24);
+                    PeekPacketChecksumBool((unsigned char *)this + 0xf3c);
                     FUN_00432320(self->m_flags, 1, 1, uVar8, uVar21, uVar23, uVar22, iVar5, uVar24);
                     ScrubChecksumGuard(&auStack_8a0);
                     puVar15 = &auStack_ac4;

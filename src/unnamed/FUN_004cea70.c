@@ -52,7 +52,7 @@ LAB_004ceb04:
           iVar8 = PeekPacketChecksumState((void *)(param_1 + 0x40));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar6 = g_clientContext;
-          cVar5 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bbd));
+          cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
           if ((cVar5 == '\0') && ((&DAT_006a7758)[iVar6] != '\0')) {
             iVar10 = 400;
             if (399 < iVar8) {

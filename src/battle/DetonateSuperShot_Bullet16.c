@@ -228,7 +228,7 @@ LAB_004683bc:
       (*pcVar17)(&DAT_005a9068);
       iVar7 = g_clientContext;
       piVar1 = (int *)(&DAT_006a7708 + g_clientContext);
-      cVar6 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
+      cVar6 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if ((cVar6 == '\0') && ((&DAT_006a7758)[iVar7] != '\0')) {
         if (((&DAT_006a7736)[iVar7] == '\x01') &&
            ((uVar16 = iVar8 - *(int *)(&g_nCameraY + iVar7) >> 0x1f,
@@ -336,7 +336,7 @@ LAB_00467bba:
     uVar21 = 2;
     uVar20 = 0xff;
     uVar19 = 0;
-    PeekPacketChecksumBool(0,uVar10,0xff,2,0);
+    PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     FUN_00431d90((char)param_1[0xf],7,0,uVar19,uVar10,uVar20,uVar21,uVar22);
   }
   *(undefined1 *)(param_1 + 5) = 1;
