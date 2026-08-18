@@ -20,6 +20,7 @@
 #include "Projectile.h"
 #include "ButtonWidget.h"
 #include "Effects.h"
+#include "Hazards.h"
 
 /* --- CGameState hierarchy: confirmed allocation sizes ------------------ */
 GB_STATIC_ASSERT(sizeof(CState01Title)       == 8,       state01_size);
@@ -38,6 +39,11 @@ GB_STATIC_ASSERT(sizeof(CState11InBattle)    == 0x2408,  state11_size);
 GB_STATIC_ASSERT(sizeof(CFlameEffect) == 0x54, st_flameeffect_size);
 GB_STATIC_ASSERT(sizeof(CSuperFlameEffect) == 0x54, st_superflameeffect_size);
 GB_STATIC_ASSERT(sizeof(CRiderEffect) == 0x48, st_ridereffect_size);
+
+/* --- Weather hazards: confirmed sizes (Spawn*Hazard's operator_new) --- */
+GB_STATIC_ASSERT(sizeof(CTornadoHazard) == 0x6a8, st_tornadohazard_size);
+GB_STATIC_ASSERT(sizeof(CFirewallHazard) == 0x6ac, st_firewallhazard_size);
+GB_STATIC_ASSERT(sizeof(CLightningHazard) == 0x6ac, st_lightninghazard_size);
 
 /* --- CMobile: confirmed object size (CreateMobile's operator_new(0xd1d4)) --- */
 GB_STATIC_ASSERT(sizeof(CMobile) == 0xd1d4, mobile_size);

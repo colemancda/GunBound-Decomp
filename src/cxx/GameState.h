@@ -51,7 +51,26 @@ public:
     virtual void OnEnter();                                 /* slot 7 +0x1c: load .img/.mp3, build widget tree */
     virtual void OnExit();                                  /* slot 8 +0x20 */
     virtual void OnTick();                                  /* slot 9 +0x24: per-frame hook (render/timer) */
-    /* subclasses append their own virtuals from slot 10 up */
+    /* Slots 10-17: NOT per-state extensions - the base ABI is a fixed
+     * 18-slot vtable.  Proven 2026-08-18 by tools/vtable_census.py: the
+     * shared null-object vtable 0x553fb0 (7 installs) and EVERY concrete
+     * state vtable (03/07/09/10/11 dumped in docs/vtable_census.txt) are
+     * 18 slots, with per-slot no-op defaults (slot 10 NoOpVirtual_A
+     * 0x448430, the rest NoOpMethod 0x429800).  CState11InBattle's old
+     * "State11-specific extensions" comment predated this. */
+    virtual void AppendChatLine();                          /* slot 10 +0x28: append to the state's chat/status log.
+                                                             * Shared impl 0x442240 in states 03+10; 0x4d7d70 state 09;
+                                                             * 0x4c1b90 state 11 (remaps @#$%^&* to emoticon codes) */
+    virtual void v11();                                     /* slot 11 +0x2c: no-op everywhere but state 11 (TickCounters) */
+    virtual void v12();                                     /* slot 12 +0x30: no-op everywhere but state 11 */
+    virtual void RenderLayerA();                            /* slot 13 +0x34: first render sublayer (09 roster, 07 store
+                                                             * content; state 11 clears the effect render-targets here) */
+    virtual void RenderLayerB();                            /* slot 14 +0x38: second sublayer (09 character preview,
+                                                             * 07 avatar preview, 11 the full D3D scene) */
+    virtual void RenderOverlay();                           /* slot 15 +0x3c: top overlay (03 room label, 10 render,
+                                                             * 09 status overlay, 11 chat log) */
+    virtual void v16();                                     /* slot 16 +0x40: no-op everywhere but state 11 (mode icons) */
+    virtual void v17();                                     /* slot 17 +0x44: no-op in every dumped vtable */
 };
 
 /* --- Concrete states -----------------------------------------------------
@@ -112,10 +131,11 @@ public:
     void RenderRoomCard(int slot);              /* 0x42a220 - promoted, State03_GameRoomList.cpp
                                                  * (non-virtual helper; +0x04 = selected room,
                                                  * +0x08 = hovered room) */
-    void RenderRoomLabel();                     /* 0x429810 - vtable slot 15, the per-frame
-                                                 * render hook (GameTick calls it). Kept
-                                                 * non-virtual like RenderRoomCard until
-                                                 * State03's slots 10-15 are dumped. */
+    virtual void AppendChatLine();              /* slot 10: 0x442240 - the impl SHARED with state 10 */
+    virtual void RenderOverlay();               /* slot 15: 0x429810 "RenderRoomLabel" - the per-frame
+                                                 * render hook (GameTick calls it).  Promoted to the
+                                                 * virtual now that the vtable is dumped (census
+                                                 * 0x553670); body in State03_GameRoomList.cpp. */
     void CreateButtons();                       /* 0x42aba0 - build the 12 bottom-bar
                                                  * buttons (helper; void(void) in the
                                                  * original, called from OnEnter) */
@@ -151,22 +171,50 @@ public:
                                                  * slot array (placement not yet mapped) */
 };
 
+/* Ready Room: full vtable 0x5569f8 (18 slots; every slot ported - see
+ * docs/vtable_coverage.txt).  Overrides base slots 0-3, 5-10, 13-15;
+ * notably the ONLY state overriding base slot 3 (OnActivate 0x4d54c0 -
+ * the evidence for v3 being an activate/focus hook). */
 class CState09ReadyRoom : public CGameState {   /* size 0x78c; ctor State09_ReadyRoom_Construct */
 public:
+    /* base-slot overrides (census identities):
+     *  slot 0  dtor            0x4d37f0  State09_ReadyRoom_Delete
+     *  slot 1  ProcessPacket   0x4d38c0  State09_ReadyRoom_ProcessPacket
+     *  slot 2  ProcessBattleAction 0x4d4ea0
+     *  slot 3  v3              0x4d54c0  State09_ReadyRoom_OnActivate (the
+     *          only state known to override base slot 3 - evidence for v3
+     *          being an activate/focus hook)
+     *  slot 4  v4              base default (CGameState_NoOpVirtual_B)
+     *  slot 5  OnKeyInput      0x4d54e0  (PROGRESS name ..._OnCommand)
+     *  slot 6  OnMouseInput    0x4d6210  (PROGRESS name ..._HandleChatInput)
+     *  slot 7  OnEnter         0x4d6810
+     *  slot 8  OnExit          0x4d7630
+     *  slot 9  OnTick          0x4d7b20 */
+    virtual void AppendChatLine();              /* slot 10: 0x4d7d70 AppendReadyRoomStatusMessage */
+    virtual void RenderLayerA();                /* slot 13: 0x4d7db0 State09_ReadyRoom_RenderRosterAndItems */
+    virtual void RenderLayerB();                /* slot 14: 0x4d90c0 State09_ReadyRoom_RenderCharacterPreview */
+    virtual void RenderOverlay();               /* slot 15: 0x4d9ae0 State09_ReadyRoom_RenderStatusOverlay */
+    /* slots 11/12/16/17 keep the base no-op defaults (census-confirmed) */
+
     u8 m_raw[0x78c - 4];                        /* field map not yet reconstructed */
 };
 
-class CState10Loading : public CGameState {     /* size 0x150 */
+class CState10Loading : public CGameState {     /* size 0x150; vtable 0x554018 (18 slots) */
 public:
-    virtual void OnKeyInput(int msg, int a, int b); /* 0x43e720 State10_Loading_HandleChatInput - promoted */
+    virtual void OnKeyInput(int msg, int a, int b); /* 0x43e720 State10_Loading_HandleChatInput - promoted.
+                                                 * CENSUS NOTE (2026-08-18): the vtable dump places 0x43e720
+                                                 * at slot 6 (the OnMouseInput slot) with slot 5 = NoOp_A;
+                                                 * this binding predates the dump - re-verify which slot the
+                                                 * dispatcher really calls before relying on it. */
     virtual void OnExit();                      /* 0x43eff0 - promoted, State10_Loading.cpp */
+    virtual void AppendChatLine();              /* slot 10: 0x442240 - the impl SHARED with state 03 */
+    virtual void RenderOverlay();               /* slot 15: 0x442280 State10_Loading_Render */
 
     u8 m_raw[0x150 - 4];                        /* field map not yet reconstructed */
 };
 
-/* In-Battle: the one state whose FULL vtable is confirmed (18 slots,
- * dumped from vtable_State11_InBattle 0x5566d8). Slots 10-17 are
- * State11-specific extensions, appended after the base's 10. */
+/* In-Battle: full vtable 0x5566d8 (18 slots - the shared base ABI, see
+ * the CGameState slot 10-17 note; this state overrides all of 10-16). */
 class CState11InBattle : public CGameState {    /* size 0x2408; ctor 0x4b3f90 */
 public:
     /* base-slot overrides (binding documented in ARCHITECTURE.md):
@@ -178,17 +226,16 @@ public:
      *  slot 7  OnEnter         0x4bb730
      *  slot 8  OnExit          0x4bcd00
      *  slot 9  OnTick          0x4bd8b0  cursor/camera-scroll + per-tick bookkeeping */
-    virtual void ChatInputChar(int ch);         /* slot 10 +0x28: 0x4c1b90 appends to the chat buffers,
-                                                 * remaps '@#$%^&*' to emoticon control codes 0x0a-0x10 */
-    virtual void TickCounters();                /* slot 11 +0x2c: 0x4c1c90 small per-tick helper */
-    virtual void UpdateActiveObjectSlot();      /* slot 12 +0x30: 0x4c1d10 one-line delegate to RenderWeatherHazards */
-    virtual void ClearEffectTextures();         /* slot 13 +0x34: 0x4c1d30 per-frame Lock/zero/Unlock of the
-                                                 * ~24 dynamic effect render-targets */
-    virtual void Render();                      /* slot 14 +0x38: 0x4c3020 State11_InBattle_Render (D3D scene) */
-    virtual void RenderChatLog();               /* slot 15 +0x3c: 0x4c8890 software-blit HUD chat overlay,
-                                                 * color-coded by per-line message-type byte */
-    virtual void RenderModeIcons();             /* slot 16 +0x40: 0x4caed0 */
-    virtual void v17();                         /* slot 17 +0x44: 0x429800 genuine per-state no-op */
+    virtual void AppendChatLine();              /* slot 10: 0x4c1b90 "ChatInputChar" - appends to the chat
+                                                 * buffers, remaps '@#$%^&*' to emoticon codes 0x0a-0x10 */
+    virtual void v11();                         /* slot 11: 0x4c1c90 TickCounters - small per-tick helper */
+    virtual void v12();                         /* slot 12: 0x4c1d10 one-line delegate to RenderWeatherHazards */
+    virtual void RenderLayerA();                /* slot 13: 0x4c1d30 ClearEffectTextures - per-frame Lock/zero/
+                                                 * Unlock of the ~24 dynamic effect render-targets */
+    virtual void RenderLayerB();                /* slot 14: 0x4c3020 State11_InBattle_Render (the D3D scene) */
+    virtual void RenderOverlay();               /* slot 15: 0x4c8890 RenderChatLog - software-blit HUD chat
+                                                 * overlay, color-coded by per-line message-type byte */
+    virtual void v16();                         /* slot 16: 0x4caed0 RenderModeIcons */
 
     u8 m_raw[0x2408 - 4];                       /* chat history buffers live at +0x58b64 (sender, 9-byte
                                                  * stride) / +0x58bbe (text, 14-byte stride) RELATIVE TO

@@ -209,7 +209,7 @@ static int ReadGuardedField(void *cell)
  * occupied room card except the client's own. Blit positions are
  * register-passed (Ghidra shows them arg-less), so like RenderRoomCard
  * this is a readability reconstruction, not byte-matched. */
-void CState03GameRoomList::RenderRoomLabel()
+void CState03GameRoomList::RenderOverlay()   /* slot 15; nee RenderRoomLabel */
 {
     int ctx = g_clientContext;
     char text[128];
