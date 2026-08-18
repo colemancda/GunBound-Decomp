@@ -15,7 +15,11 @@ void __fastcall FUN_00436860(int param_1,int param_2,undefined4 param_3,undefine
   int iVar2;
   void *pvVar3;
   
-  cVar1 = PeekPacketChecksumBool();
+  /* guard-cell: proven.  This helper receives the effects-guard block
+   * ctx+0x6a7f70 in EAX (a register arg Ghidra dropped); every call
+   * site in the binary was audited 2026-08-17 and passes exactly that
+   * value, so the +4 peek is the global flag, not a per-object cell. */
+  cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar1 == '\0') {
     if (param_1 != -1) {
       iVar2 = FindSpriteFrame();

@@ -18,7 +18,11 @@ void __thiscall FUN_0042bb10(int param_1,undefined4 param_2,int param_3)
   int iVar5;
   int unaff_ESI;
   
-  cVar1 = PeekPacketChecksumBool();
+  /* guard-cell: proven.  This helper receives the effects-guard block
+   * ctx+0x6a7f70 in EAX (a register arg Ghidra dropped); every call
+   * site in the binary was audited 2026-08-17 and passes exactly that
+   * value, so the +4 peek is the global flag, not a per-object cell. */
+  cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar1 == '\0') {
     pvVar2 = operator_new(0x48);
     if (pvVar2 == (void *)0x0) {

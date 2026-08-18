@@ -25,7 +25,11 @@ void FUN_00436fd0(int param_1,int param_2,int param_3,int param_4,int param_5)
   int local_4;
   
   iVar1 = param_3;
-  cVar2 = PeekPacketChecksumBool();
+  /* guard-cell: proven.  This helper receives the effects-guard block
+   * ctx+0x6a7f70 in EAX (a register arg Ghidra dropped); every call
+   * site in the binary was audited 2026-08-17 and passes exactly that
+   * value, so the +4 peek is the global flag, not a per-object cell. */
+  cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar2 == '\0') {
     if (0 < param_3) {
       param_3 = 0;

@@ -94,7 +94,11 @@ LAB_004399d4:
       iVar8 = FloatToInt64();
       (**(code **)(*piVar11 + 4))(&DAT_00553b90);
       piVar11[0x11] = iVar6;
-      cVar3 = PeekPacketChecksumBool();
+      /* guard-cell: proven.  This helper receives the effects-guard block
+       * ctx+0x6a7f70 in EAX (a register arg Ghidra dropped); every call
+       * site in the binary was audited 2026-08-17 and passes exactly that
+       * value, so the +4 peek is the global flag, not a per-object cell. */
+      cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar3 == '\0') {
         uStack_234 = 0;
         uStack_440 = 0;
