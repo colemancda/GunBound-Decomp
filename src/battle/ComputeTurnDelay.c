@@ -78,9 +78,9 @@ int ComputeTurnDelay(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = PeekPacketChecksumState((void *)(in_EAX + 0x900c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(in_EAX + 0x8bba));
   if (cVar1 == '\0') {
-    cVar1 = PeekPacketChecksumBool();
+    cVar1 = PeekPacketChecksumBool((byte *)(in_EAX + 0x8bb7));
     if (cVar1 == '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       pvVar7 = (void *)(in_EAX + 0x9230);
@@ -97,7 +97,7 @@ int ComputeTurnDelay(void)
   iVar6 = PeekPacketChecksumState(pvVar7);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = ((400 - iVar3) / iVar4) * iVar5 + iVar6;
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(in_EAX + 0x8bb4));
   if (cVar1 == '\x01') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState((void *)(in_EAX + 0x989c));

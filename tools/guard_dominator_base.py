@@ -105,6 +105,9 @@ def resolve(dis, edges, reg, site_addr, depth=0):
         return None, 'recursion too deep'
     prior = [w for w in writes_to(dis, reg) if w[0] < site_addr]
     if not prior:
+        if reg == 'eax':
+            # a register argument: EAX is live-in (Ghidra spells it in_EAX)
+            return 'in_EAX', 0
         return None, '%s has no write before the site' % reg
     w_addr, w_line = prior[-1]
     if not dominates(edges, w_addr, site_addr):
