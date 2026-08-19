@@ -64,6 +64,7 @@ void __fastcall DetonateShot2_Bullet8(int *param_1)
   byte *local_b10;
   int local_b0c;
   byte *pbStack_b08;
+  int iImpactX;
   byte *apbStack_b04 [2];
   byte *pbStack_afc;
   byte *pbStack_af8;
@@ -331,7 +332,7 @@ LAB_004aa2ed:
         uVar8 = 0;
         pbVar9 = local_b10;
         PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-        FUN_00431d90((char)param_1[0xf],7,1,uVar8,pbVar9,uVar15,uVar19,uVar20);
+        FUN_00431d90(iVar7,iVar6,(char)param_1[0xf],7,1,uVar8,pbVar9,uVar15,uVar19,uVar20);
         pbStack_afc = (byte *)(param_1 + 0xc66);
         uVar8 = EncodeChecksumNegate(pbStack_afc,auStack_688);
         puStack_10 = (undefined1 *)0x1;
@@ -537,7 +538,7 @@ LAB_004a87b1:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_00431d90((char)param_1[0xf],7,1,0,local_b10,(char)param_1[0xfe4],1,0);
+    FUN_00431d90(iVar6,pbVar9,(char)param_1[0xf],7,1,0,local_b10,(char)param_1[0xfe4],1,0);
     pbStack_af8 = (byte *)EncodeChecksumDeltaMul(pbStack_afc,auStack_adc,7);
     puStack_10 = (undefined1 *)0x8;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -766,7 +767,7 @@ LAB_004a9290:
     local_b10 = (byte *)PeekPacketChecksumState((void *)(param_1 + 0x5f9));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)(param_1 + 0x3d5));
+    iImpactX = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if ((char)((char)param_1[0x3cf] + *(char *)((int)param_1 + 0xf3d) + -0x34) !=
@@ -775,7 +776,7 @@ LAB_004a9290:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     }
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_00431d90((char)param_1[0xf],7,0,0,local_b10,0xff,2,0);
+    FUN_00431d90(pbStack_afc,iImpactX,(char)param_1[0xf],7,0,0,local_b10,0xff,2,0);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   pbVar9 = (byte *)PeekPacketChecksumState((void *)piStack_aec);

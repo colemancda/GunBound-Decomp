@@ -3,6 +3,39 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-REGISTER-ARG FIX (2026-08-19, full 37-site caller sweep).
+ * This function is __fastcall: it takes TWO register arguments plus
+ * `ret 0x20` = 8 stack arguments, and the signature below already
+ * modelled all ten.  Every caller in the tree passed only the eight
+ * stack ones, so param_1/param_2 arrived as whatever happened to be in
+ * ECX/EDX - and the tree could not even notice, because
+ * include/functions.h had NO declaration for this function: Ghidra
+ * writes `void __fastcall` on its own line above the name, and the
+ * header's auto-generator only matches single-line signatures.  With no
+ * prototype in scope every call compiled __cdecl, i.e. the register pair
+ * was never passed at all.  (63 other split-line definitions are missing
+ * from functions.h for the same reason - an open audit, not fixed here.)
+ *
+ * SEMANTICS of the register pair (all three lines of evidence agree):
+ *   param_1 = ECX = Y, the terrain ROW.  Bounded `>= -0xc8` and
+ *     `< [ctx+0x6a7724]`; that global is the terrain height (it bounds
+ *     the row loop in every caller's column scan).  Callers feed it the
+ *     scanned ground row, seeded 10000 when the column has no ground -
+ *     and DetonateSuperShot_Bullet12 feeds it FindGroundHeightAtColumn's
+ *     result directly.
+ *   param_2 = EDX = X, the terrain COLUMN.  Bounded `>= 0` and
+ *     `< [ctx+0x6a7720]` = the terrain width.  Callers feed it a peek of
+ *     the projectile's X guard cell (+0xf54 = param_1 + 0x3d5), usually
+ *     the peek whose result Ghidra had discarded immediately above the
+ *     call.
+ * The cross-check that pins the ORDER: every caller pairs this call with
+ * FUN_0043af40 / FUN_00436070 / SpawnProjectileLightningHazard on the
+ * same impact point, and those take (X, Y) - this one takes (Y, X).
+ * Verified per site by push-depth normalisation against a capstone
+ * disassembly of all 36 raw-C call sites (the Ghidra stack-local names
+ * decoded from the normalised slots matched the C variable names the
+ * dataflow independently produced at every site where both existed).
  */
 #include "ghidra_types.h"
 

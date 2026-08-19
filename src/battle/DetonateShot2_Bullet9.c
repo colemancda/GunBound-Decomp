@@ -63,6 +63,7 @@ void __fastcall DetonateShot2_Bullet9(int *param_1)
   undefined4 uStack_adc;
   int *piStack_ad8;
   int *local_ad4;
+  int iImpactX;
   undefined4 *apuStack_ad0 [2];
   int iStack_ac8;
   undefined1 auStack_ac4 [20];
@@ -325,14 +326,14 @@ LAB_0046564a:
     uVar8 = PeekPacketChecksumState((void *)(param_1 + 0x5f9));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)(param_1 + 0x3d5));
+    iImpactX = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar21 = 0;
     uVar20 = 2;
     uVar19 = 0xff;
     uVar18 = 0;
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-    FUN_00431d90((char)param_1[0xf],7,0,uVar18,uVar8,uVar19,uVar20,uVar21);
+    FUN_00431d90(puStack_af4,iImpactX,(char)param_1[0xf],7,0,uVar18,uVar8,uVar19,uVar20,uVar21);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   piVar9 = (int *)PeekPacketChecksumState((void *)(param_1 + 0x45e));

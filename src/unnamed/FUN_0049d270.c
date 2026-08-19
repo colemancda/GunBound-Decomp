@@ -78,6 +78,7 @@ void __fastcall FUN_0049d270(int *param_1)
   undefined4 uStack_adc;
   int *piStack_ad8;
   int *local_ad4;
+  int iImpactX;
   undefined4 *apuStack_ad0 [2];
   int iStack_ac8;
   undefined1 auStack_ac4 [20];
@@ -278,14 +279,14 @@ LAB_0049d3ba:
     uVar8 = PeekPacketChecksumState((void *)(param_1 + 0x5f9));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)(param_1 + 0x3d5));
+    iImpactX = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar20 = 0;
     uVar19 = 2;
     uVar18 = 0xff;
     uVar17 = 0;
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-    FUN_00431d90((char)param_1[0xf],7,0,uVar17,uVar8,uVar18,uVar19,uVar20);
+    FUN_00431d90(puStack_af0,iImpactX,(char)param_1[0xf],7,0,uVar17,uVar8,uVar18,uVar19,uVar20);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   piVar9 = (int *)PeekPacketChecksumState((void *)(param_1 + 0x45e));

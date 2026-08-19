@@ -36,6 +36,10 @@ void __fastcall FUN_004acd10(int param_1)
   undefined4 uVar10;
   undefined4 uVar11;
   undefined4 uVar12;
+  int iImpactX;
+  int iImpactY;
+  int iImpactXCell;
+  int iImpactYCell;
   int local_45c [2];
   undefined1 local_454 [548];
   undefined1 local_230 [548];
@@ -66,19 +70,19 @@ void __fastcall FUN_004acd10(int param_1)
       local_45c[0] = (uint)((iVar7 + 0x5809316) * 0x61) % 0xf4241 + *(int *)(param_1 + 0x3f9c);
       *(uint *)(param_1 + 0x3f9c) =
            (uint)((local_45c[0] * 0x343fd + 0x5809316) * 0x61) % 0xf4241 + local_45c[0];
-      EncodeChecksumDeltaAdd(param_1 + 0x1178,local_230,
+      iImpactYCell = EncodeChecksumDeltaAdd(param_1 + 0x1178,local_230,
                    (local_45c[0] * 0x343fd + 0x5809315U) % uVar6 - (int)uVar6 / 2);
       local_4 = 0;
-      EncodeChecksumDeltaAdd(param_1 + 0xf54,local_454,(iVar7 + 0x5809315U) % uVar6 - (int)uVar6 / 2);
+      iImpactXCell = EncodeChecksumDeltaAdd(param_1 + 0xf54,local_454,(iVar7 + 0x5809315U) % uVar6 - (int)uVar6 / 2);
       local_4 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_45c[0] = PeekPacketChecksumState((void *)(g_clientContext + 0x5b85c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState((void *)(param_1 + 0xe48));
+      iImpactY = PeekPacketChecksumState((void *)iImpactYCell);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState((void *)(param_1 + 0xe48));
+      iImpactX = PeekPacketChecksumState((void *)iImpactXCell);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar12 = 1;
       uVar11 = 2;
@@ -86,7 +90,7 @@ void __fastcall FUN_004acd10(int param_1)
       uVar4 = 0;
       iVar7 = local_45c[0];
       PeekPacketChecksumBool((byte *)(param_1 + 0xf3c));
-      FUN_00431d90(*(undefined1 *)(param_1 + 0x3c),3,0,uVar4,iVar7,uVar10,uVar11,uVar12);
+      FUN_00431d90(iImpactY,iImpactX,*(undefined1 *)(param_1 + 0x3c),3,0,uVar4,iVar7,uVar10,uVar11,uVar12);
       local_4 = 0;
       if ((*(int *)(local_454 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes();

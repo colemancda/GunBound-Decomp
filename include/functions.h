@@ -507,6 +507,13 @@ void __thiscall SpawnRiderEffect();
 void SpawnShot_Type9();
 void SpawnKnightFlameShot();
 void SpawnItemProjectile();
+/* NOT auto-generated: Ghidra puts `void __fastcall` on its own line above
+ * the name, so the generator's single-line signature match misses it (and
+ * 63 other split-line definitions - see the note in
+ * src/unnamed/FUN_00431d90.c).  Without this declaration every caller
+ * compiled the call as __cdecl and the two REGISTER arguments (ECX/EDX)
+ * were never passed at all. */
+void __fastcall FUN_00431d90();
 void FUN_00432850();
 void FUN_004337f0();
 void SpawnEventProjectile();

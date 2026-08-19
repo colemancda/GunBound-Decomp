@@ -118,6 +118,9 @@ void __fastcall DetonateShot2_Bullet12(int *param_1)
   undefined *puVar32;
   undefined *puVar33;
   undefined *puVar34;
+  int iImpactX;
+  int iImpactY;
+  undefined4 uImpactPower;
   undefined1 auStack_d18 [3];
   char local_d15;
   int local_d14;
@@ -526,15 +529,17 @@ LAB_004b0dc8:
     (*pcVar20)(&DAT_005a9068);
     if ((-1 < iVar4) && (iVar4 < *(int *)(&g_nCameraBoundX + g_clientContext))) {
       pcVar7 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + iVar4);
-      iVar4 = 0;
+      iImpactY = 0;
       if (0 < *(int *)(&g_nCameraBoundY + g_clientContext)) {
         do {
-          if (*pcVar7 != '\0') break;
+          if (*pcVar7 != '\0') goto LAB_004afe5d;
           pcVar7 = pcVar7 + *(int *)(&g_nCameraBoundX + g_clientContext);
-          iVar4 = iVar4 + 1;
-        } while (iVar4 < *(int *)(&g_nCameraBoundY + g_clientContext));
+          iImpactY = iImpactY + 1;
+        } while (iImpactY < *(int *)(&g_nCameraBoundY + g_clientContext));
       }
     }
+    iImpactY = 10000;
+LAB_004afe5d:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     (*pcVar20)(&DAT_005a9068);
@@ -557,10 +562,10 @@ LAB_004b0dc8:
     (*pcVar20)(&DAT_005a9068);
     FUN_0043af40(puVar34,puVar32,0,puVar30,iVar4 / (int)puVar27,puVar31,(char)param_1[0xf]);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)(param_1 + 0x5f9));
+    uImpactPower = PeekPacketChecksumState((void *)(param_1 + 0x5f9));
     (*pcVar20)(&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)(param_1 + 0x3d5));
+    iImpactX = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     (*pcVar20)(&DAT_005a9068);
     uVar26 = 0;
     uVar25 = 2;
@@ -568,7 +573,7 @@ LAB_004b0dc8:
     uVar5 = 0;
     puVar29 = puVar28;
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-    FUN_00431d90((char)param_1[0xf],7,0,uVar5,puVar28,uVar6,uVar25,uVar26);
+    FUN_00431d90(iImpactY,iImpactX,(char)param_1[0xf],7,0,uVar5,uImpactPower,uVar6,uVar25,uVar26);
   }
   cVar3 = (char)((uint)puVar27 >> 0x18);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

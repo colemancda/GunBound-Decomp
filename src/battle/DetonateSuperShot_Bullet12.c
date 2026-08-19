@@ -45,6 +45,7 @@ void __fastcall DetonateSuperShot_Bullet12(int *param_1)
   undefined4 *unaff_FS_OFFSET;
   undefined4 uVar18;
   char *pcVar19;
+  int iImpactX;
   undefined1 auStack_ac0 [548];
   undefined1 auStack_89c [548];
   undefined1 auStack_678 [548];
@@ -304,9 +305,9 @@ LAB_004ae9a8:
     uVar10 = 0xff;
     uVar11 = PeekChecksumStateUnderLock(param_1 + 0x5f9);
     uVar9 = 0;
-    PeekChecksumStateUnderLock(piVar2);
+    iImpactX = PeekChecksumStateUnderLock(piVar2);
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-    FUN_00431d90((char)param_1[0xf],7,0,uVar9,uVar11,uVar10,uVar12,uVar18);
+    FUN_00431d90(uVar9,iImpactX,(char)param_1[0xf],7,0,uVar9,uVar11,uVar10,uVar12,uVar18);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar11 = PeekPacketChecksumState((void *)(param_1 + 0x45e));

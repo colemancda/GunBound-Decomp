@@ -178,8 +178,12 @@ char CheckBothGuardedBools(void);
 void SyncOutgoingChecksumField(void *self, int arg1, void *cell);
 void FUN_00436070(void *base, unsigned int a, void *b);
 void FUN_0043af40(unsigned int a, void *b, int c, void *d, int e, unsigned int f, unsigned char g);
-void FUN_00431d90(unsigned char a, int b, int c, unsigned int d, unsigned int e, unsigned int f,
-                   unsigned int g, unsigned int h);
+/* __fastcall, 10 args: the first two are the REGISTER pair the whole tree
+ * used to drop - y = ECX (terrain row), x = EDX (terrain column).  See
+ * src/unnamed/FUN_00431d90.c's header. */
+void __fastcall FUN_00431d90(int y, int x, unsigned char a, int b, unsigned int c,
+                   unsigned int d, unsigned int e, unsigned int f, unsigned int g,
+                   unsigned int h);
 char FUN_004e4fe0(void *base, void *a, void *b, int c, int d, int e);
 int CalculateAngleFromDelta_2(int dx, int dy);
 int FloatToInt64_0(void);
@@ -408,6 +412,7 @@ void CProjectile::DetonateProjectile()
     void *punk = 0;
     unsigned int *apuStack_ad0[2];
     void *puStack_af4;
+    int iImpactX;
     CValueGuard auStack_ac4, auStack_8a0;
     CValueGuard auStack_67c, auStack_458, auStack_234;
     unsigned int local_ae8;
@@ -628,14 +633,15 @@ void CProjectile::DetonateProjectile()
         uVar8 = PeekPacketChecksumState((void *)(this->m_pad3d + 0x17a7));
         LeaveCriticalSection(&DAT_005a9068);
         EnterCriticalSection(&DAT_005a9068);
-        PeekPacketChecksumState((void *)(this->m_pad3d + 0xf17));
+        iImpactX = PeekPacketChecksumState((void *)(this->m_pad3d + 0xf17));
         LeaveCriticalSection(&DAT_005a9068);
         uVar24 = 0;
         uVar23 = 2;
         uVar22 = 0xff;
         uVar21 = 0;
         PeekPacketChecksumBool((unsigned char *)this + 0xf3c);
-        FUN_00431d90(self->m_flags, 7, 0, uVar21, uVar8, uVar22, uVar23, uVar24);
+        FUN_00431d90(reinterpret_cast<int>(puStack_af4), iImpactX,
+                     self->m_flags, 7, 0, uVar21, uVar8, uVar22, uVar23, uVar24);
     }
     EnterCriticalSection(&DAT_005a9068);
     pCVar9 = reinterpret_cast<CProjectile *>(PeekPacketChecksumState((void *)(this->m_pad3d + 0x113b)));

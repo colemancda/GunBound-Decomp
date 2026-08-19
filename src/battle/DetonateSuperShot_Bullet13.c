@@ -179,7 +179,7 @@ LAB_0048780a:
         uVar19 = 0xff;
         uVar6 = 0;
         PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-        FUN_00431d90((char)param_1[0xf],7,0,uVar6,uVar5,uVar19,uVar21,uVar22);
+        FUN_00431d90(local_ae4,piStack_adc,(char)param_1[0xf],7,0,uVar6,uVar5,uVar19,uVar21,uVar22);
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       fStack_ae0 = (float)PeekPacketChecksumState((void *)(param_1 + 0x45e));

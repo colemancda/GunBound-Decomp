@@ -93,6 +93,9 @@ void __fastcall FUN_004513b0(int *param_1)
   undefined *puStack_b10;
   undefined *puStack_b0c;
   undefined *puStack_b08;
+  int iImpactX;
+  int iImpactY;
+  undefined4 uImpactPower;
   undefined1 auStack_908 [20];
   undefined4 uStack_8f4;
   undefined1 uStack_6e8;
@@ -571,16 +574,16 @@ LAB_00452a0a:
     if ((-1 < iVar4) &&
        (puStack_b40 = *(undefined **)(&g_nCameraBoundX + g_clientContext), iVar4 < (int)puStack_b40)) {
       pcVar6 = (char *)(*(int *)(&DAT_006a773c + g_clientContext) + iVar4);
-      puStack_b44 = (undefined4 *)0x0;
+      iImpactY = 0;
       if (0 < *(int *)(&g_nCameraBoundY + g_clientContext)) {
         do {
           if (*pcVar6 != '\0') goto LAB_004517be;
           pcVar6 = pcVar6 + (int)puStack_b40;
-          puStack_b44 = (undefined4 *)((int)puStack_b44 + 1);
-        } while ((int)puStack_b44 < *(int *)(&g_nCameraBoundY + g_clientContext));
+          iImpactY = iImpactY + 1;
+        } while (iImpactY < *(int *)(&g_nCameraBoundY + g_clientContext));
       }
     }
-    puStack_b44 = (undefined4 *)0x2710;
+    iImpactY = 10000;
 LAB_004517be:
     uStack_b60 = (undefined **)&DAT_005a9068;
     ppuStack_b64 = (undefined **)0x4517c5;
@@ -616,10 +619,10 @@ LAB_004517be:
     FUN_0043af40(puStack_b4c,uStack_b6c,0,puStack_b50,(int)uStack_b60 / (int)ppuStack_b64,uStack_b68
                  ,(char)param_1[0xf]);
     (*pcVar17)(&DAT_005a9068);
-    uStack_b6c = (undefined *)PeekPacketChecksumState((void *)(param_1 + 0x5f9));
+    uImpactPower = PeekPacketChecksumState((void *)(param_1 + 0x5f9));
     (*pcVar16)(&DAT_005a9068);
     (*pcVar17)(&DAT_005a9068);
-    uStack_b6c = (undefined *)PeekPacketChecksumState((void *)(param_1 + 0x3d5));
+    iImpactX = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     (*pcVar16)(&DAT_005a9068);
     uStack_b58 = (int *)0x0;
     uStack_b5c = (undefined **)0x2;
@@ -629,7 +632,10 @@ LAB_004517be:
     uStack_b6c = (undefined *)0x4518f9;
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     uStack_b6c = (undefined *)0x0;
-    FUN_00431d90((char)param_1[0xf],7);
+    /* the uStack_b58..uStack_b6c stores just above are Ghidra's model of
+     * this call's outgoing argument slots (0x4518e2-0x451906); with the
+     * real 10-argument __fastcall signature they are dead stores. */
+    FUN_00431d90(iImpactY,iImpactX,(char)param_1[0xf],7,0,0,uImpactPower,0xff,2,0);
   }
   uStack_b58 = (int *)&DAT_005a9068;
   uStack_b5c = (undefined **)0x451917;

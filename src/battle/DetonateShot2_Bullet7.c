@@ -102,6 +102,8 @@ void __fastcall DetonateShot2_Bullet7(int *param_1)
   undefined *puVar31;
   undefined *puVar32;
   undefined *puVar33;
+  int iImpactX;
+  undefined4 uImpactPower;
   undefined1 auStack_d18 [3];
   char local_d15;
   int local_d14;
@@ -545,17 +547,17 @@ LAB_004964ea:
     (*pcVar18)(&DAT_005a9068);
     FUN_0043af40(puVar33,puVar25,0,puVar32,iVar4 / (int)puVar26,puVar28,(char)param_1[0xf]);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)(param_1 + 0x5f9));
+    uImpactPower = PeekPacketChecksumState((void *)(param_1 + 0x5f9));
     (*pcVar18)(&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)(param_1 + 0x3d5));
+    iImpactX = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     (*pcVar18)(&DAT_005a9068);
     uVar23 = 0;
     uVar22 = 2;
     uVar21 = 0xff;
     uVar6 = 0;
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-    FUN_00431d90((char)param_1[0xf],7,0,uVar6,iVar4,uVar21,uVar22,uVar23);
+    FUN_00431d90(iVar4,iImpactX,(char)param_1[0xf],7,0,uVar6,uImpactPower,uVar21,uVar22,uVar23);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x45e));
