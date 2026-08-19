@@ -304,12 +304,12 @@ void __fastcall FUN_00480310(int *param_1)
         }
         uVar18 = 1;
         uVar16 = 8;
-        uVar9 = PeekPacketChecksumBool(uVar8,8,1);
+        uVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
         uVar10 = PeekChecksumStateUnderLock(param_1 + 0x4e7);
         iVar7 = param_1[0xfe7];
         uVar11 = PeekChecksumStateUnderLock(param_1 + 0x99);
         uVar12 = PeekChecksumStateUnderLock(param_1 + 0x10);
-        uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar7,uVar10,uVar9);
+        uVar13 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
         SpawnShot_Type9(*(byte *)(param_1 + 2) & 7,iVar6,1,uVar13,uVar12,uVar11,iVar7,uVar10,uVar9,
                      uVar8,uVar16,uVar18);
         cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
@@ -387,12 +387,12 @@ void __fastcall FUN_00480310(int *param_1)
     uVar8 = PeekChecksumStateUnderLock(puVar17);
     uVar18 = 0;
     uVar16 = 1;
-    uVar9 = PeekPacketChecksumBool(uVar8,1,0);
+    uVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
     uVar10 = PeekChecksumStateUnderLock(param_1 + 0x4e7);
     iVar5 = param_1[0xfe7];
     uVar11 = PeekChecksumStateUnderLock(param_1 + 0x99);
     uVar12 = PeekChecksumStateUnderLock(param_1 + 0x10);
-    uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar5,uVar10,uVar9);
+    uVar13 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     SpawnShot_Type9(*(byte *)(param_1 + 2) & 7,param_1[0xfe9],0,uVar13,uVar12,uVar11,iVar5,uVar10,uVar9
                  ,uVar8,uVar16,uVar18);
     cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
@@ -444,12 +444,12 @@ void __fastcall FUN_00480310(int *param_1)
       uVar8 = PeekChecksumStateUnderLock(puVar17);
       uVar18 = 0;
       uVar16 = 3;
-      uVar9 = PeekPacketChecksumBool(uVar8,3,0);
+      uVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
       uVar10 = PeekChecksumStateUnderLock(param_1 + 0x4e7);
       iVar5 = param_1[0xfe7] + -1;
       uVar11 = PeekChecksumStateUnderLock(param_1 + 0x99);
       uVar12 = PeekChecksumStateUnderLock(piVar1);
-      uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar5,uVar10,uVar9);
+      uVar13 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       SpawnShot_Type9(*(byte *)(param_1 + 2) & 7,param_1[0xfe9],1,uVar13,uVar12,uVar11,iVar5,uVar10,
                    uVar9,uVar8,uVar16,uVar18);
       cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
@@ -469,12 +469,12 @@ void __fastcall FUN_00480310(int *param_1)
       uVar8 = PeekChecksumStateUnderLock(puVar17);
       uVar18 = 0;
       uVar16 = 3;
-      uVar9 = PeekPacketChecksumBool(uVar8,3,0);
+      uVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
       uVar10 = PeekChecksumStateUnderLock(param_1 + 0x4e7);
       iVar5 = param_1[0xfe7];
       uVar11 = PeekChecksumStateUnderLock(param_1 + 0x99);
       uVar12 = PeekChecksumStateUnderLock(piVar1);
-      uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar5,uVar10,uVar9);
+      uVar13 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
       SpawnShot_Type9(*(byte *)(param_1 + 2) & 7,param_1[0xfe9] + 1,1,uVar13,uVar12,uVar11,iVar5,uVar10
                    ,uVar9,uVar8,uVar16,uVar18);
       cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
@@ -494,12 +494,12 @@ void __fastcall FUN_00480310(int *param_1)
     uVar8 = PeekChecksumStateUnderLock(puVar17);
     uVar18 = 0;
     uVar16 = 3;
-    uVar9 = PeekPacketChecksumBool(uVar8,3,0);
+    uVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
     uVar10 = PeekChecksumStateUnderLock(param_1 + 0x4e7);
     iVar5 = param_1[0xfe7] + 1;
     uVar11 = PeekChecksumStateUnderLock(param_1 + 0x99);
     uVar12 = PeekChecksumStateUnderLock(piVar1);
-    uVar13 = PeekPacketChecksumBool(uVar12,uVar11,iVar5,uVar10,uVar9);
+    uVar13 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     SpawnShot_Type9(*(byte *)(param_1 + 2) & 7,param_1[0xfe9] + 2,1,uVar13,uVar12,uVar11,iVar5,uVar10,
                  uVar9,uVar8,uVar16,uVar18);
     cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));

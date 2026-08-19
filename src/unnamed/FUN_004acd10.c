@@ -85,7 +85,7 @@ void __fastcall FUN_004acd10(int param_1)
       uVar10 = 0xff;
       uVar4 = 0;
       iVar7 = local_45c[0];
-      PeekPacketChecksumBool(0,local_45c[0],0xff,2,1);
+      PeekPacketChecksumBool((byte *)(param_1 + 0xf3c));
       FUN_00431d90(*(undefined1 *)(param_1 + 0x3c),3,0,uVar4,iVar7,uVar10,uVar11,uVar12);
       local_4 = 0;
       if ((*(int *)(local_454 + 0x14)) != 0) {

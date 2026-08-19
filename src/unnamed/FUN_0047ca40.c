@@ -32,6 +32,7 @@ void __fastcall FUN_0047ca40(int *param_1)
   byte bVar2;
   undefined1 uVar3;
   char cVar4;
+  int iRecord;
   int iVar5;
   int iVar6;
   int iVar7;
@@ -85,8 +86,10 @@ void __fastcall FUN_0047ca40(int *param_1)
   }
   param_1[0xfec] = (param_1[0xfec] + 1) % 0x16;
   iVar5 = GetPlayerRecordBySlot(g_clientContext);
+  iRecord = iVar5;   /* the record stays spilled at frame[0x18] (0x47cab5) and is
+                      * re-read by the tail 0xbfbe/0xbfc1 peeks (rows 0x47db7a/8c) */
   if (param_1[9] == 0) {
-    uVar3 = PeekPacketChecksumBool();
+    uVar3 = PeekPacketChecksumBool((byte *)(iVar5 + 0x8bb7));
     *(undefined1 *)(param_1 + 0xfe8) = uVar3;
   }
   if (iVar5 == 0) {
@@ -265,11 +268,11 @@ void __fastcall FUN_0047ca40(int *param_1)
           uVar16 = 1;
           uVar15 = 8;
           iVar9 = iVar5 * 2;
-          uVar11 = PeekPacketChecksumBool(iVar9,uVar22,8,1);
+          uVar11 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
           iVar6 = param_1[0xff7];
           iVar7 = param_1[0xff5];
           uVar18 = local_acc;
-          uVar12 = PeekPacketChecksumBool(iVar7,uVar8,iVar6,local_acc,uVar11);
+          uVar12 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
           SpawnKnightFlameShot(*(byte *)(param_1 + 2) & 7,iVar5,0,uVar12,iVar7,uVar8,iVar6,uVar18,uVar11,
                        iVar9,uVar22,uVar15,uVar16);
           if (iVar5 == 3) {
@@ -340,10 +343,10 @@ void __fastcall FUN_0047ca40(int *param_1)
     uVar19 = 3;
     uVar16 = 3;
     piVar1 = param_1 + 0x4e7;
-    uVar11 = PeekPacketChecksumBool(3,uVar8,3,0);
+    uVar11 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
     uVar12 = PeekChecksumStateUnderLock(piVar1);
     iVar7 = param_1[0xfe7];
-    uVar15 = PeekPacketChecksumBool(iVar5,iVar6,iVar7,uVar12,uVar11);
+    uVar15 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     SpawnKnightFlameShot(*(byte *)(param_1 + 2) & 7,param_1[0xfe9] + 1,0,uVar15,iVar5,iVar6,iVar7,uVar12,
                  uVar11,uVar16,uVar8,uVar19,uVar17);
     iVar5 = FloatToInt64();
@@ -360,10 +363,10 @@ void __fastcall FUN_0047ca40(int *param_1)
     uVar17 = 0;
     uVar19 = 3;
     uVar16 = 7;
-    uVar11 = PeekPacketChecksumBool(7,uVar8,3,0);
+    uVar11 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
     uVar12 = PeekChecksumStateUnderLock(piVar1);
     iVar7 = param_1[0xfe7] + 4;
-    uVar15 = PeekPacketChecksumBool(iVar5,iVar6,iVar7,uVar12,uVar11);
+    uVar15 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     SpawnKnightFlameShot(*(byte *)(param_1 + 2) & 7,param_1[0xfe9] + 2,0,uVar15,iVar5,iVar6,iVar7,uVar12,
                  uVar11,uVar16,uVar8,uVar19,uVar17);
     iVar6 = FloatToInt64();
@@ -380,10 +383,10 @@ void __fastcall FUN_0047ca40(int *param_1)
     uVar25 = 0;
     uVar17 = 3;
     uVar19 = 7;
-    uVar12 = PeekPacketChecksumBool(7,uVar8,3,0);
+    uVar12 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
     uVar11 = PeekChecksumStateUnderLock(piVar1);
     iVar7 = param_1[0xfe7] + -4;
-    uVar15 = PeekPacketChecksumBool(iVar6,iVar5,iVar7,uVar11,uVar12);
+    uVar15 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     bVar2 = *(byte *)(param_1 + 2);
     iVar9 = param_1[0xfe9] + 3;
     uVar16 = 0;
@@ -449,9 +452,9 @@ void __fastcall FUN_0047ca40(int *param_1)
     uVar19 = 0;
     uVar16 = 5;
     uVar15 = 3;
-    uVar11 = PeekPacketChecksumBool(3,puVar26,5,0);
+    uVar11 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
     iVar13 = param_1[0xfe7];
-    uVar12 = PeekPacketChecksumBool(uVar8,iVar9,iVar13,iVar7,uVar11);
+    uVar12 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     SpawnKnightFlameShot(*(byte *)(param_1 + 2) & 7,param_1[0xfe9] + 1,1,uVar12,uVar8,iVar9,iVar13,iVar7,
                  uVar11,uVar15,puVar26,uVar16,uVar19);
     iVar7 = FloatToInt64();
@@ -471,9 +474,9 @@ void __fastcall FUN_0047ca40(int *param_1)
     uVar17 = 0;
     uVar19 = 5;
     uVar16 = 7;
-    uVar12 = PeekPacketChecksumBool(7,puVar24,5,0);
+    uVar12 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
     iVar13 = param_1[0xfe7] + 2;
-    uVar15 = PeekPacketChecksumBool(uVar11,iVar10,iVar13,iVar9,uVar12);
+    uVar15 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     SpawnKnightFlameShot(*(byte *)(param_1 + 2) & 7,param_1[0xfe9] + 2,1,uVar15,uVar11,iVar10,iVar13,iVar9,
                  uVar12,uVar16,puVar24,uVar19,uVar17);
     iVar9 = FloatToInt64();
@@ -493,9 +496,9 @@ void __fastcall FUN_0047ca40(int *param_1)
     uVar17 = 0;
     uVar19 = 5;
     uVar16 = 7;
-    uVar12 = PeekPacketChecksumBool(7,puVar23,5,0);
+    uVar12 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
     iVar13 = param_1[0xfe7] + -2;
-    uVar15 = PeekPacketChecksumBool(uVar11,iVar7,iVar13,iVar10,uVar12);
+    uVar15 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     SpawnKnightFlameShot(*(byte *)(param_1 + 2) & 7,param_1[0xfe9] + 3,1,uVar15,uVar11,iVar7,iVar13,iVar10,
                  uVar12,uVar16,puVar23,uVar19,uVar17);
     iVar7 = FloatToInt64();
@@ -515,9 +518,9 @@ void __fastcall FUN_0047ca40(int *param_1)
     uVar17 = 0;
     uVar19 = 5;
     uVar16 = 0xb;
-    uVar12 = PeekPacketChecksumBool(0xb,puVar21,5,0);
+    uVar12 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
     iVar13 = param_1[0xfe7] + 4;
-    uVar15 = PeekPacketChecksumBool(uVar11,iVar9,iVar13,iVar10,uVar12);
+    uVar15 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     SpawnKnightFlameShot(*(byte *)(param_1 + 2) & 7,param_1[0xfe9] + 4,1,uVar15,uVar11,iVar9,iVar13,iVar10,
                  uVar12,uVar16,puVar21,uVar19,uVar17);
     FloatToInt64();
@@ -536,17 +539,17 @@ void __fastcall FUN_0047ca40(int *param_1)
     uVar25 = 0;
     uVar17 = 5;
     uVar19 = 0xb;
-    uVar12 = PeekPacketChecksumBool(0xb,uVar8,5,0,iVar9);
+    uVar12 = PeekPacketChecksumBool((byte *)param_1 + 0x3918);
     iVar7 = param_1[0xfe7] + -4;
-    uVar15 = PeekPacketChecksumBool(iVar6,iVar5,iVar7,uVar11,uVar12);
+    uVar15 = PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
     bVar2 = *(byte *)(param_1 + 2);
     uVar16 = 1;
     iVar9 = param_1[0xfe9] + 5;
   }
   SpawnKnightFlameShot(bVar2 & 7,iVar9,uVar16,uVar15,iVar6,iVar5,iVar7,uVar11,uVar12,uVar19,uVar8,uVar17,
                uVar25);
-  cVar4 = PeekPacketChecksumBool();
-  if ((cVar4 == '\0') && (cVar4 = PeekPacketChecksumBool(), cVar4 == '\0')) {
+  cVar4 = PeekPacketChecksumBool((byte *)(iRecord + 0xbfbe));
+  if ((cVar4 == '\0') && (cVar4 = PeekPacketChecksumBool((byte *)(iRecord + 0xbfc1)), cVar4 == '\0')) {
     cVar4 = InitChecksumSeed();
     if (cVar4 == '\0') {
       uVar8 = PeekChecksumStateUnderLock(&DAT_007949c8);

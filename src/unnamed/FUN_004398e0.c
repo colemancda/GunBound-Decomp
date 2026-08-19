@@ -136,7 +136,7 @@ LAB_004399d4:
         uVar16 = 0xff;
         uVar15 = 100;
         uVar14 = 0;
-        PeekPacketChecksumBool(uVar9,0,100,0xff,uVar10,0);
+        PeekPacketChecksumBool((byte *)(iVar12 + 0xf3c));
         FUN_00432320(*(undefined1 *)(iVar12 + 0x3c),1,1,uVar9,uVar14,uVar15,uVar16,uVar10,uVar17);
         local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
         ScrubChecksumGuard();
@@ -179,7 +179,7 @@ LAB_004399d4:
           uVar14 = 0;
           PeekChecksumStateUnderLock(auStack_454);
           uVar9 = PeekChecksumStateUnderLock(auStack_230);
-          PeekPacketChecksumBool(uVar9,uVar14,uVar15,uVar16,uVar10,uVar17);
+          PeekPacketChecksumBool((byte *)(iVar12 + 0xf3c));
           FUN_00432320(*(undefined1 *)(iVar12 + 0x3c),1,1,uVar9,uVar14,uVar15,uVar16,uVar10,uVar17);
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
           ScrubChecksumGuard();
