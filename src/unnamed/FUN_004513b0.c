@@ -635,7 +635,7 @@ LAB_004517be:
     /* the uStack_b58..uStack_b6c stores just above are Ghidra's model of
      * this call's outgoing argument slots (0x4518e2-0x451906); with the
      * real 10-argument __fastcall signature they are dead stores. */
-    FUN_00431d90(iImpactY,iImpactX,(char)param_1[0xf],7,0,0,uImpactPower,0xff,2,0);
+    SpawnBlastEffect(iImpactY,iImpactX,(char)param_1[0xf],7,0,0,uImpactPower,0xff,2,0);
   }
   uStack_b58 = (int *)&DAT_005a9068;
   uStack_b5c = (undefined **)0x451917;

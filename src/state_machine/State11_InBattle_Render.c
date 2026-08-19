@@ -1869,7 +1869,7 @@ LAB_004c7566:
           PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x4fb4));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar5 = g_clientContext;
-          FUN_004ed0c0(iVar6,pcStack_a28,0,0x40,0x40);
+          BuildRotatedBeamQuad(iVar6,pcStack_a28,0,0x40,0x40);
         }
       }
     }
@@ -2210,7 +2210,7 @@ LAB_004c8498:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e4) + 0x4fb4));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_004ed0c0(iVar19,pcStack_a28,0,0x40,0x40);
+      BuildRotatedBeamQuad(iVar19,pcStack_a28,0,0x40,0x40);
     }
   }
   (**(code **)(*g_pD3DDevice7 + 0x8c))

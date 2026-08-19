@@ -1,8 +1,23 @@
-/* FUN_00431d90 - 0x00431d90 in the original binary.
+/* SpawnBlastEffect - 0x00431d90 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00431d90).  Spawns the terrain BLAST effect at
+ * an impact point.  Direct evidence in the body:
+ *   - operator_new(0x3fa0) - the projectile-family object size - then the
+ *     0x4aa830 constructor, and FUN_0041da80(g_clientContext, obj, ...)
+ *     registers it exactly the way projectiles are registered.
+ *   - sprintf(obj+0x3898, "flame%d%d", param_4 + 1, variant)  (0x553e48)
+ *     builds the animation-state name; `variant` is 3 when param_10 is set,
+ *     else 1 or 2 depending on param_5.
+ *   - the sprite-set name is copied into obj+0x3813 from the string table at
+ *     0x56d290, indexed [ (param_5 & 0xff) * 0x10 + param_4 ]: entries are
+ *     "11blast.xes", "22blast.xes", "31blast.xes" ... "151blast.xes"
+ *     (orig 0x431f7a: movzx ecx,bl / shl ecx,4 / add ecx,edi /
+ *      mov ecx,[ecx*4 + 0x56d290]).
+ *   - it is called from every Detonate / Explode path, always immediately
+ *     after FUN_0043af40 on the same impact point.
+ * param_1/param_2 are the terrain (Y, X) - see the ABI note below.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-REGISTER-ARG FIX (2026-08-19, full 37-site caller sweep).
  * This function is __fastcall: it takes TWO register arguments plus
@@ -43,7 +58,7 @@
 /* WARNING: Removing unreachable block (ram,0x00431e67) */
 
 void __fastcall
-FUN_00431d90(int param_1,int param_2,byte param_3,int param_4,uint param_5,undefined4 param_6,
+SpawnBlastEffect(int param_1,int param_2,byte param_3,int param_4,uint param_5,undefined4 param_6,
             undefined4 param_7,byte param_8,undefined4 param_9,char param_10)
 
 {

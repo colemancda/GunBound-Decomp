@@ -437,7 +437,7 @@ LAB_0048268a:
     uVar9 = 0xff;
     uVar8 = 0;
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-    FUN_00431d90(iStack_af4,iImpactX,(char)param_1[0xf],7,0,uVar8,uVar7,uVar9,uVar21,uVar22);
+    SpawnBlastEffect(iStack_af4,iImpactX,(char)param_1[0xf],7,0,uVar8,uVar7,uVar9,uVar21,uVar22);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar7 = PeekPacketChecksumState((void *)(param_1 + 0x45e));
@@ -585,7 +585,7 @@ LAB_00482edf:
   uVar9 = 1;
   uVar8 = 0;
   PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-  FUN_00431d90(iStack_af4,iImpactX,(char)param_1[0xf],7,0,uVar8,uVar7,uVar15,uVar9,uVar21);
+  SpawnBlastEffect(iStack_af4,iImpactX,(char)param_1[0xf],7,0,uVar8,uVar7,uVar15,uVar9,uVar21);
   cVar2 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar2 != '\0') && (cVar2 = InitChecksumSeed(), cVar2 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

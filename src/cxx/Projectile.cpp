@@ -153,7 +153,7 @@ extern CRITICAL_SECTION DAT_005a9068; /* the guard family's shared lock, defined
  * shape Ghidra's fresh decompile shows) - fixing functions.h globally is
  * out of scope here. */
 /* PeekPacketChecksumBool_5 is GONE (2026-08-18): a Ghidra fabrication - the
- * "arguments" were the neighbouring FUN_00431d90/FUN_00432320 calls' own
+ * "arguments" were the neighbouring SpawnBlastEffect/FUN_00432320 calls' own
  * stack args (both verified full-count: ret 0x20 = 8 and ret 0x24 = 9);
  * the real call is a result-discarded 1-arg peek of this+0xf3c (the
  * re-encode side effect is the point).  See memory spawnprimaryshot-13-args
@@ -180,8 +180,8 @@ void FUN_00436070(void *base, unsigned int a, void *b);
 void FUN_0043af40(unsigned int a, void *b, int c, void *d, int e, unsigned int f, unsigned char g);
 /* __fastcall, 10 args: the first two are the REGISTER pair the whole tree
  * used to drop - y = ECX (terrain row), x = EDX (terrain column).  See
- * src/unnamed/FUN_00431d90.c's header. */
-void __fastcall FUN_00431d90(int y, int x, unsigned char a, int b, unsigned int c,
+ * src/unnamed/SpawnBlastEffect.c's header. */
+void __fastcall SpawnBlastEffect(int y, int x, unsigned char a, int b, unsigned int c,
                    unsigned int d, unsigned int e, unsigned int f, unsigned int g,
                    unsigned int h);
 char FUN_004e4fe0(void *base, void *a, void *b, int c, int d, int e);
@@ -640,7 +640,7 @@ void CProjectile::DetonateProjectile()
         uVar22 = 0xff;
         uVar21 = 0;
         PeekPacketChecksumBool((unsigned char *)this + 0xf3c);
-        FUN_00431d90(reinterpret_cast<int>(puStack_af4), iImpactX,
+        SpawnBlastEffect(reinterpret_cast<int>(puStack_af4), iImpactX,
                      self->m_flags, 7, 0, uVar21, uVar8, uVar22, uVar23, uVar24);
     }
     EnterCriticalSection(&DAT_005a9068);

@@ -669,7 +669,7 @@ LAB_004535de:
     uVar11 = 0;
     iImpactX = PeekChecksumStateUnderLock(piVar1);
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-    FUN_00431d90(iVar9,iImpactX,(char)param_1[0xf],7,0,uVar11,uVar6,uVar16,uVar17,uVar18);
+    SpawnBlastEffect(iVar9,iImpactX,(char)param_1[0xf],7,0,uVar11,uVar6,uVar16,uVar17,uVar18);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar6 = PeekPacketChecksumState((void *)(param_1 + 0x45e));

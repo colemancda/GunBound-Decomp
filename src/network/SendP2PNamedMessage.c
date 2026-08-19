@@ -1,8 +1,26 @@
-/* FUN_00502590 - 0x00502590 in the original binary.
+/* SendP2PNamedMessage - 0x00502590 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00502590).  Composes a named P2P message and
+ * hands it to the P2P encoder.  Evidence:
+ *   - it builds a fixed 0x14-byte header in a local: strncpy(name, param_3,
+ *     0x10) then a 16-bit tag (param_4) and the 16-bit payload length
+ *     (param_1, clamped to 0xff), followed by the payload copied from
+ *     param_5.
+ *   - it then calls FUN_004f7210 - already documented in this tree as
+ *     "EncodePacketBlocks minus the opcode addend, the P2P/broker variant" -
+ *     with the key schedule at param_2 + 0x1a78, a 6000-byte output buffer,
+ *     the composed record, and a length rounded up to a whole 12-byte cipher
+ *     block: ((param_1 + 0x1f) / 0xc) * 0xc.
+ *   - on success it calls FUN_00502500, which gates on the same session
+ *     object's +0x1a70/+0x1a74 flags before staging the buffer.
+ * The final hop (FUN_00502500) is still unnamed, so "Send" describes the
+ * intent of the chain rather than a proven socket write.
+ *
+ * ABI: genuinely __fastcall - ECX = payload length, EDX = the session object,
+ * plus ret 0xc = 3 stack arguments (name, tag, payload).  It has no call
+ * sites in the tree yet.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
@@ -10,7 +28,7 @@
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
 void __fastcall
-FUN_00502590(ushort param_1,int param_2,char *param_3,undefined2 param_4,undefined4 *param_5)
+SendP2PNamedMessage(ushort param_1,int param_2,char *param_3,undefined2 param_4,undefined4 *param_5)
 
 {
   char cVar1;

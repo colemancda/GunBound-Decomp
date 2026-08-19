@@ -338,7 +338,7 @@ LAB_00467bba:
     uVar20 = 0xff;
     uVar19 = 0;
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-    FUN_00431d90(iStack_adc,iImpactX,(char)param_1[0xf],7,0,uVar19,uVar10,uVar20,uVar21,uVar22);
+    SpawnBlastEffect(iStack_adc,iImpactX,(char)param_1[0xf],7,0,uVar19,uVar10,uVar20,uVar21,uVar22);
   }
   *(undefined1 *)(param_1 + 5) = 1;
   (**(code **)(*param_1 + 0x20))();

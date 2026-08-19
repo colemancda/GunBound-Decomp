@@ -489,7 +489,7 @@ LAB_0044e02e:
     uVar9 = 0;
     iImpactX = PeekChecksumStateUnderLock(piVar1);
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-    FUN_00431d90(iVar6,iImpactX,(char)param_1[0xf],7,0,uVar9,uVar7,uVar17,uVar18,uVar19);
+    SpawnBlastEffect(iVar6,iImpactX,(char)param_1[0xf],7,0,uVar9,uVar7,uVar17,uVar18,uVar19);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iStack_ae0 = PeekPacketChecksumState((void *)(param_1 + 0x45e));

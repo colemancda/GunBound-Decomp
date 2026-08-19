@@ -204,7 +204,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040c8b0,32,FUN_0040c8b0,false,1,1,RAW-src
 0040c8d0,31,FUN_0040c8d0,false,1,1,RAW-src
 0040c8f0,131,FUN_0040c8f0,false,4,3,RAW-src
-0040c980,124,FUN_0040c980,false,2,0,RAW-src
+0040c980,124,InitTextBoxWidget,false,2,0,RAW-src
 0040ca00,32,DeletePoisonedBaseObject,false,24,2,RAW-src
 0040cc50,145,FUN_0040cc50,false,4,2,RAW-src
 0040ccf0,72,CommitActiveTextInput,false,9,2,RAW-src
@@ -405,7 +405,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0042f4b0,4357,SpawnShot_Type9,false,5,24,RAW-src
 004305c0,4583,SpawnKnightFlameShot,false,8,24,RAW-src
 004317b0,1491,SpawnItemProjectile,false,16,11,RAW-src
-00431d90,1421,FUN_00431d90,false,36,15,RAW-src
+00431d90,1421,SpawnBlastEffect,false,36,15,RAW-src
 00432320,1322,FUN_00432320,false,50,15,RAW-src
 00432850,3970,FUN_00432850,false,1,20,RAW-src
 004337f0,2403,FUN_004337f0,false,1,12,RAW-src
@@ -1202,7 +1202,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004eca50,532,BuildScaledSpriteQuad,false,18,0,RAW-src
 004ecc70,614,BuildSizedSpriteQuad,false,17,0,RAW-src
 004ecee0,475,FUN_004ecee0,false,2,0,RAW-src
-004ed0c0,571,FUN_004ed0c0,false,2,0,RAW-src
+004ed0c0,571,BuildRotatedBeamQuad,false,2,0,RAW-src
 004ed300,658,FUN_004ed300,false,4,0,RAW-src
 004ed5a0,253,BuildColorQuad,false,4,0,RAW-src
 004ed6a0,463,BlitSprite16bpp,false,252,1,RAW-src
@@ -1475,7 +1475,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00501770,3372,FUN_00501770,false,1,42,RAW-src
 005024a0,85,FUN_005024a0,false,3,2,RAW-src
 00502500,140,FUN_00502500,false,12,3,RAW-src
-00502590,192,FUN_00502590,false,1,4,RAW-src
+00502590,192,SendP2PNamedMessage,false,1,4,RAW-src
 00502650,250,FUN_00502650,false,3,4,RAW-src
 00502750,125,FUN_00502750,false,2,2,RAW-src
 005027d0,38,FUN_005027d0,false,1,1,RAW-src
@@ -1533,7 +1533,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00504730,91,FUN_00504730,false,1,2,RAW-src
 00504790,98,FUN_00504790,false,1,1,RAW-src
 00504880,79,FUN_00504880,false,0,3,RAW-src
-00504970,463,FUN_00504970,false,2,3,RAW-src
+00504970,463,DispatchP2PMessage,false,2,3,RAW-src
 00504bb0,83,FUN_00504bb0,false,1,1,RAW-src
 00504c10,361,FUN_00504c10,false,3,6,RAW-src
 00504d80,258,FUN_00504d80,false,1,0,RAW-src

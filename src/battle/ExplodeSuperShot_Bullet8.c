@@ -100,7 +100,7 @@ LAB_0048398a:
       uVar4 = 0xff;
       uVar3 = 0;
       PeekPacketChecksumBool((byte *)(param_1 + 0xf3c));
-      FUN_00431d90(local_10,iVar5,*(undefined1 *)(param_1 + 0x3c),7,0,uVar3,uVar2,uVar4,uVar8,uVar9);
+      SpawnBlastEffect(local_10,iVar5,*(undefined1 *)(param_1 + 0x3c),7,0,uVar3,uVar2,uVar4,uVar8,uVar9);
       cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       if (cVar1 == '\0') {
         AcquireSoundChannel(0);
@@ -158,7 +158,7 @@ LAB_00483b89:
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_00431d90(local_10,iVar5,*(undefined1 *)(param_1 + 0x3c),7,0,0,uVar2,0xff,1,1);
+      SpawnBlastEffect(local_10,iVar5,*(undefined1 *)(param_1 + 0x3c),7,0,0,uVar2,0xff,1,1);
       iVar5 = g_clientContext;
       pbVar7 = &DAT_006a7f74 + g_clientContext;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -227,7 +227,7 @@ LAB_00483e2e:
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_00431d90(local_10,iVar5,*(undefined1 *)(param_1 + 0x3c),7,0,0,uVar2,0xff,1,1);
+      SpawnBlastEffect(local_10,iVar5,*(undefined1 *)(param_1 + 0x3c),7,0,0,uVar2,0xff,1,1);
       iVar5 = g_clientContext;
       pbVar7 = &DAT_006a7f74 + g_clientContext;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

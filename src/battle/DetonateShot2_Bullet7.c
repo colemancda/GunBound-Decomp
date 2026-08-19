@@ -557,7 +557,7 @@ LAB_004964ea:
     uVar21 = 0xff;
     uVar6 = 0;
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-    FUN_00431d90(iVar4,iImpactX,(char)param_1[0xf],7,0,uVar6,uImpactPower,uVar21,uVar22,uVar23);
+    SpawnBlastEffect(iVar4,iImpactX,(char)param_1[0xf],7,0,uVar6,uImpactPower,uVar21,uVar22,uVar23);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x45e));

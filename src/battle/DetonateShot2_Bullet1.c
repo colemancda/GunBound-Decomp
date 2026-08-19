@@ -152,7 +152,7 @@ LAB_00468a0a:
       uVar18 = 0xff;
       uVar17 = 0;
       PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-      FUN_00431d90(local_aec,iStack_ad4,(char)param_1[0xf],7,0,uVar17,uVar8,uVar18,uVar19,uVar20);
+      SpawnBlastEffect(local_aec,iStack_ad4,(char)param_1[0xf],7,0,uVar17,uVar8,uVar18,uVar19,uVar20);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iStack_ad8 = PeekPacketChecksumState((void *)(param_1 + 0x45e));

@@ -1,9 +1,28 @@
-/* FUN_004ed0c0 - 0x004ed0c0 in the original binary.
+/* BuildRotatedBeamQuad - 0x004ed0c0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004ed0c0).  Appends a rotated, texture-tiled
+ * BEAM quad pair to the sprite vertex buffer - the rotated sibling of
+ * BuildScaledSpriteQuad (0x4eb...) and distinct from BuildRotatedSpriteQuad
+ * (0x4ebbc0), which emits a single plain quad.  Evidence:
+ *   - the angle arrives in EAX and is reduced `% 0x168` (360) twice, once
+ *     with a +0x5a (+90 degree) bias, and both indices look up
+ *     g_sineTable360 - i.e. sin and cos of one angle.
+ *   - param_6 is the beam LENGTH and param_7 its WIDTH: the four corners are
+ *     (x, y) +/- the perpendicular half-width (param_7 / 2) offset by
+ *     cos/sin * length.
+ *   - the texture rect comes from param_2 + 0x80 / +0x84 / +0x88, and
+ *     _DAT_00ea0e88 = uv_extent / (length / width) + v0 TILES the texture
+ *     along the beam.
+ *   - it appends to g_spriteVertexBuffer and does g_spriteVertexCount += 2.
+ * Both call sites are in State11_InBattle_Render.
+ *
+ * ABI CAVEAT: Ghidra marked this __fastcall, but the prologue loads ECX from
+ * [esp+0x28] (a stack slot), so param_1 is a phantom - the real register
+ * arguments are EAX (the angle, modelled as `in_EAX`) and EDX.  The call
+ * sites pass 5 arguments and have not been re-mapped; see the
+ * fastcall-decls audit.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
@@ -11,7 +30,7 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void __fastcall
-FUN_004ed0c0(undefined4 param_1,int param_2,int param_3,int param_4,char param_5,int param_6,
+BuildRotatedBeamQuad(undefined4 param_1,int param_2,int param_3,int param_4,char param_5,int param_6,
             int param_7)
 
 {

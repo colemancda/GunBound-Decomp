@@ -521,7 +521,7 @@ LAB_004457e7:
             iVar3 = 0;
           }
           else {
-            iVar3 = FUN_0040c980(0xf2,0x112,0x49,0xc,0xc,0);
+            iVar3 = InitTextBoxWidget(0xf2,0x112,0x49,0xc,0xc,0);
           }
           *(undefined4 *)(iVar3 + 0x448) = 0;
           RegisterActiveObject(0, 0, (undefined4 *)0);
@@ -530,7 +530,7 @@ LAB_004457e7:
             iVar3 = 0;
           }
           else {
-            iVar3 = FUN_0040c980(0xf2,0x139,0xa5,0xc,0x32,0);
+            iVar3 = InitTextBoxWidget(0xf2,0x139,0xa5,0xc,0x32,0);
           }
           *(undefined4 *)(iVar3 + 0x448) = 0;
           RegisterActiveObject(0, 0, (undefined4 *)0);

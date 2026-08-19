@@ -150,7 +150,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
             local_48ba[bVar5] = '\0';
             FUN_00503e30(local_48ba);
             uVar6 = *(ushort *)((int)puVar15 + 0x26);
-            FUN_00504970(local_4978,&local_496c,puVar15[8],*(undefined2 *)(puVar15 + 9));
+            DispatchP2PMessage(local_4978,&local_496c,puVar15[8],*(undefined2 *)(puVar15 + 9));
             puVar15 = (undefined4 *)((int)puVar15 + uVar6 + 0x28);
             local_4984 = local_4984 - 1;
           } while (local_4984 != 0);
@@ -454,7 +454,7 @@ LAB_00501b17:
         iVar7 = local_497c;
         FUN_00503e30(local_4958);
         _Var11 = FID_conflict___time32((__time32_t *)0x0);
-        FUN_00504970(iVar7 + -0x2f4,local_4958,_Var11,local_464c[0]);
+        DispatchP2PMessage(iVar7 + -0x2f4,local_4958,_Var11,local_464c[0]);
       }
     }
     else if (((uVar6 == 0x3001) && (1 < param_3)) && (*puVar1 == 0)) {

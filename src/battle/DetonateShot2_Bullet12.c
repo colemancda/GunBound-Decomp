@@ -573,7 +573,7 @@ LAB_004afe5d:
     uVar5 = 0;
     puVar29 = puVar28;
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-    FUN_00431d90(iImpactY,iImpactX,(char)param_1[0xf],7,0,uVar5,uImpactPower,uVar6,uVar25,uVar26);
+    SpawnBlastEffect(iImpactY,iImpactX,(char)param_1[0xf],7,0,uVar5,uImpactPower,uVar6,uVar25,uVar26);
   }
   cVar3 = (char)((uint)puVar27 >> 0x18);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

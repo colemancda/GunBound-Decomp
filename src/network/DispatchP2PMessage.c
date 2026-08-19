@@ -1,8 +1,24 @@
-/* FUN_00504970 - 0x00504970 in the original binary.
+/* DispatchP2PMessage - 0x00504970 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00504970).  Dispatches one inbound P2P message
+ * to the session's handler.  Evidence:
+ *   - it first calls the handler object's vtable slot 0 through
+ *     [param_3 + 0x1ab0] as a filter/accept test, then switches on
+ *     (param_6 & 0xffff) - 16-bit message type codes (0xc011, 0xc018, ...) -
+ *     copying the payload into a local buffer and invoking vtable slot 6
+ *     (+0x18) with it.
+ *   - its only caller (FUN_00501770) is the receive loop: it walks a packet
+ *     stream advancing by `*(ushort *)(rec + 0x26) + 0x28` per record and
+ *     calls this once per record.
+ *   - [ctx + 0x1ab0] is the same session object whose +0x1a70/+0x1a74 flags
+ *     and +0x1a78 key schedule the P2P send path uses (SendP2PNamedMessage).
+ *
+ * ABI CAVEAT: genuinely __fastcall (ECX = payload length, EDX = payload) plus
+ * ret 0x10 = 4 stack arguments.  The single call site passes only the 4 stack
+ * arguments, so the length and payload are currently dropped - see the
+ * fastcall-decls audit.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
@@ -10,7 +26,7 @@
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
 void __fastcall
-FUN_00504970(uint param_1,char *param_2,int param_3,undefined4 param_4,undefined4 param_5,
+DispatchP2PMessage(uint param_1,char *param_2,int param_3,undefined4 param_4,undefined4 param_5,
             uint param_6)
 
 {

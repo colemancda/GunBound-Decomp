@@ -353,7 +353,7 @@ LAB_004ab0f1:
     uVar20 = 0xff;
     uVar11 = 0;
     PeekPacketChecksumBool((byte *)param_1 + 0xf3c);
-    FUN_00431d90(iVar7,local_ad0[0],(char)param_1[0xf],7,0,uVar11,uVar10,uVar20,uVar21,uVar22);
+    SpawnBlastEffect(iVar7,local_ad0[0],(char)param_1[0xf],7,0,uVar11,uVar10,uVar20,uVar21,uVar22);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar10 = PeekPacketChecksumState((void *)(param_1 + 0x45e));
