@@ -7512,7 +7512,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00413bf0.c": {
+    "src/network/SendPlayResult.c": {
       "status": "clean",
       "c_argless_lines": [
         30,
@@ -8914,7 +8914,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004203b0.c": {
+    "src/battle/SortTurnOrderByDelay.c": {
       "status": "clean",
       "c_argless_lines": [
         29,
@@ -9166,7 +9166,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00424ac0.c": {
+    "src/battle/ApplyAvatarStatBonuses.c": {
       "status": "clean",
       "c_argless_lines": [
         46,
@@ -9552,7 +9552,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00425ac0.c": {
+    "src/battle/HitTestLocalMobile.c": {
       "status": "clean",
       "c_argless_lines": [
         37,
@@ -9571,7 +9571,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00425c90.c": {
+    "src/battle/HitTestJewel.c": {
       "status": "clean",
       "c_argless_lines": [
         47,
@@ -9590,7 +9590,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00425e60.c": {
+    "src/battle/HitTestMine.c": {
       "status": "clean",
       "c_argless_lines": [
         47,
@@ -9775,7 +9775,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004337f0.c": {
+    "src/battle/SpawnDropBombProjectile.c": {
       "status": "clean",
       "c_argless_lines": [
         72,
@@ -9848,7 +9848,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00434160.c": {
+    "src/battle/SpawnEventProjectile.c": {
       "status": "clean",
       "c_argless_lines": [
         76,
@@ -9921,7 +9921,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00434ac0.c": {
+    "src/battle/SpawnDropCaseProjectile.c": {
       "status": "clean",
       "c_argless_lines": [
         61,
@@ -9976,7 +9976,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00434fc0.c": {
+    "src/battle/SpawnLightningBlastEffect.c": {
       "status": "clean",
       "c_argless_lines": [
         71,
@@ -10037,7 +10037,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00436220.c": {
+    "src/battle/SpawnItemCase.c": {
       "status": "clean",
       "c_argless_lines": [
         55,
@@ -10281,7 +10281,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004372f0.c": {
+    "src/battle/SpawnFlameEffect.c": {
       "status": "clean",
       "c_argless_lines": [
         37
@@ -10294,7 +10294,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004373c0.c": {
+    "src/battle/SpawnSuperFlameEffect.c": {
       "status": "clean",
       "c_argless_lines": [
         36
@@ -10307,7 +10307,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004375f0.c": {
+    "src/battle/SpawnMine.c": {
       "status": "clean",
       "c_argless_lines": [
         70,
@@ -10332,7 +10332,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00437870.c": {
+    "src/battle/SpawnSuperMine.c": {
       "status": "clean",
       "c_argless_lines": [
         69,
@@ -10357,7 +10357,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00437b40.c": {
+    "src/battle/SpawnCrystalShot.c": {
       "status": "clean",
       "c_argless_lines": [
         68,
@@ -10382,7 +10382,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00437d90.c": {
+    "src/battle/SpawnSuperCrystalShot.c": {
       "status": "clean",
       "c_argless_lines": [
         76
@@ -10395,7 +10395,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00437f70.c": {
+    "src/battle/SpawnLaserIon.c": {
       "status": "clean",
       "c_argless_lines": [
         70
@@ -10408,7 +10408,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00438100.c": {
+    "src/battle/SpawnKnightIon.c": {
       "status": "clean",
       "c_argless_lines": [
         80
@@ -10421,7 +10421,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00438410.c": {
+    "src/battle/SpawnJewel.c": {
       "status": "clean",
       "c_argless_lines": [
         114,
@@ -10547,7 +10547,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0043af40.c": {
+    "src/battle/ApplyBlastDamage.c": {
       "status": "clean",
       "c_argless_lines": [
         59,
@@ -11233,7 +11233,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0044c950.c": {
+    "src/battle/DetonateShot1_Bullet7.c": {
       "status": "clean",
       "c_argless_lines": [
         73,
@@ -11456,7 +11456,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0044d9b0.c": {
+    "src/battle/DetonateSuperShot_Bullet1.c": {
       "status": "clean",
       "c_argless_lines": [
         94,
@@ -11583,7 +11583,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0044f050.c": {
+    "src/battle/DetonateSuperShot_Bullet10.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         43,
@@ -12281,7 +12281,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00452cc0.c": {
+    "src/battle/DetonateSuperShot_Bullet6.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         107,
@@ -12548,7 +12548,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0045ba50.c": {
+    "src/battle/AlignMobileToTerrain.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         46,
@@ -12724,7 +12724,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0045d150.c": {
+    "src/battle/ComputeTurnDelay.c": {
       "status": "clean",
       "c_argless_lines": [
         22,
@@ -12896,7 +12896,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0045ed80.c": {
+    "src/battle/UpdateMobileEmotionState.c": {
       "status": "clean",
       "c_argless_lines": [
         79,
@@ -13070,7 +13070,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00463c80.c": {
+    "src/battle/SavePlayerStateSnapshot.c": {
       "status": "clean",
       "c_argless_lines": [
         25,
@@ -13119,7 +13119,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00463e50.c": {
+    "src/battle/RestorePlayerStateSnapshot.c": {
       "status": "clean",
       "c_argless_lines": [
         26,
@@ -13464,7 +13464,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00465500.c": {
+    "src/battle/DetonateShot2_Bullet9.c": {
       "status": "clean",
       "c_argless_lines": [
         63,
@@ -13813,7 +13813,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00467a70.c": {
+    "src/battle/DetonateSuperShot_Bullet16.c": {
       "status": "clean",
       "c_argless_lines": [
         61,
@@ -14006,7 +14006,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004685b0.c": {
+    "src/battle/ExplodeSuperShot_Bullet16.c": {
       "status": "clean",
       "c_argless_lines": [
         17,
@@ -14025,7 +14025,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004688b0.c": {
+    "src/battle/DetonateShot2_Bullet1.c": {
       "status": "clean",
       "c_argless_lines": [
         62,
@@ -15194,7 +15194,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0046ca60.c": {
+    "src/battle/ExplodeSuperShot_Bullet14.c": {
       "status": "clean",
       "c_argless_lines": [
         21,
@@ -15292,7 +15292,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0046e5a0.c": {
+    "src/battle/DetonateShot1_Bullet9_16.c": {
       "status": "clean",
       "c_argless_lines": [
         64,
@@ -15671,7 +15671,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0046fb20.c": {
+    "src/battle/SimulatePrimaryShot_Bullet14.c": {
       "status": "clean",
       "c_argless_lines": [
         81,
@@ -15816,7 +15816,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00471c70.c": {
+    "src/battle/TickFlameEffect.c": {
       "status": "clean",
       "c_argless_lines": [
         22,
@@ -15835,7 +15835,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004731b0.c": {
+    "src/battle/SimulateShot2_Bullet11.c": {
       "status": "clean",
       "c_argless_lines": [
         81,
@@ -15962,7 +15962,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00474650.c": {
+    "src/battle/DetonateShot2_Bullet11.c": {
       "status": "clean",
       "c_argless_lines": [
         66,
@@ -16305,7 +16305,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004759b0.c": {
+    "src/battle/ExplodeSuperShot_Bullet11.c": {
       "status": "clean",
       "c_argless_lines": [
         26,
@@ -16450,7 +16450,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004765d0.c": {
+    "src/battle/DetonateItemShot.c": {
       "status": "clean",
       "c_argless_lines": [
         61,
@@ -16743,7 +16743,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00477bb0.c": {
+    "src/battle/InitJewel.c": {
       "status": "clean",
       "c_argless_lines": [
         207
@@ -16978,7 +16978,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00479ba0.c": {
+    "src/battle/TickJewelFrame.c": {
       "status": "clean",
       "c_argless_lines": [
         51,
@@ -17045,7 +17045,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0047a960.c": {
+    "src/battle/RenderJewel.c": {
       "status": "clean",
       "c_argless_lines": [
         23,
@@ -17082,7 +17082,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0047b2f0.c": {
+    "src/battle/DetonatePrimaryShot_Bullet15.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         43,
@@ -17641,7 +17641,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0047de50.c": {
+    "src/battle/DetonateSuperShot_Bullet15.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         43,
@@ -18169,7 +18169,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00481320.c": {
+    "src/battle/DetonatePrimaryShot_Bullet10.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         43,
@@ -18369,7 +18369,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00482550.c": {
+    "src/battle/DetonateShot1_Bullet8.c": {
       "status": "clean",
       "c_argless_lines": [
         81,
@@ -18640,7 +18640,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004837e0.c": {
+    "src/battle/ExplodeSuperShot_Bullet8.c": {
       "status": "clean",
       "c_argless_lines": [
         27,
@@ -18803,7 +18803,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00483ff0.c": {
+    "src/battle/DetonateSuperShot_Bullet2_8_11.c": {
       "status": "clean",
       "c_argless_lines": [
         61,
@@ -19026,7 +19026,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004857f0.c": {
+    "src/battle/SimulateSuperShot_Bullet13.c": {
       "status": "clean",
       "c_argless_lines": [
         83,
@@ -19153,7 +19153,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00486ea0.c": {
+    "src/battle/DetonateSuperShot_Bullet13.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         77,
@@ -19601,7 +19601,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0048b420.c": {
+    "src/battle/ExplodeSuperShot_Bullet3.c": {
       "status": "clean",
       "c_argless_lines": [
         26,
@@ -19734,7 +19734,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0048b7f0.c": {
+    "src/battle/SimulateSuperShot_Bullet3.c": {
       "status": "clean",
       "c_argless_lines": [
         72,
@@ -19969,7 +19969,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0048d110.c": {
+    "src/battle/AnimateSuperShot_Bullet3.c": {
       "status": "clean",
       "c_argless_lines": [
         23,
@@ -19988,7 +19988,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0048d8e0.c": {
+    "src/battle/ExplodeSuperShot_Bullet2.c": {
       "status": "clean",
       "c_argless_lines": [
         33,
@@ -20047,7 +20047,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0048de60.c": {
+    "src/battle/ExplodeSuperShot_Bullet1_5_6_12_13_15.c": {
       "status": "clean",
       "c_argless_lines": [
         26,
@@ -20168,7 +20168,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0048e1d0.c": {
+    "src/battle/DetonateSuperShot_Bullet3_5_14.c": {
       "status": "clean",
       "c_argless_lines": [
         61,
@@ -20711,7 +20711,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00490820.c": {
+    "src/battle/DetonateSuperShot_Bullet9.c": {
       "status": "clean",
       "c_argless_lines": [
         67,
@@ -21025,7 +21025,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00491b40.c": {
+    "src/battle/ExplodeSuperMine.c": {
       "status": "clean",
       "c_argless_lines": [
         47,
@@ -21182,7 +21182,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004921e0.c": {
+    "src/battle/AnimateSuperMine.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         51,
@@ -21385,7 +21385,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00493390.c": {
+    "src/battle/SimulateShot2_Bullet3.c": {
       "status": "clean",
       "c_argless_lines": [
         74,
@@ -21524,7 +21524,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00494910.c": {
+    "src/battle/DetonateShot2_Bullet3.c": {
       "status": "clean",
       "c_argless_lines": [
         62,
@@ -21867,7 +21867,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00495c20.c": {
+    "src/battle/InitShot2_Bullet7.c": {
       "status": "clean",
       "c_argless_lines": [
         57
@@ -21880,7 +21880,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00495e80.c": {
+    "src/battle/DetonateShot2_Bullet7.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         99,
@@ -22353,7 +22353,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00497ad0.c": {
+    "src/battle/ExplodeMine.c": {
       "status": "clean",
       "c_argless_lines": [
         38,
@@ -22660,7 +22660,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00498b60.c": {
+    "src/battle/AnimateMine.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         42,
@@ -22870,7 +22870,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00499ef0.c": {
+    "src/battle/DetonateSuperShot_Bullet7.c": {
       "status": "clean",
       "c_argless_lines": [
         61,
@@ -23093,7 +23093,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0049aeb0.c": {
+    "src/battle/SimulateShot_Bullet7n_9s_7p_9p.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         79,
@@ -23633,7 +23633,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0049e650.c": {
+    "src/battle/SimulateShot2_Bullet13.c": {
       "status": "clean",
       "c_argless_lines": [
         73,
@@ -23760,7 +23760,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_0049fd40.c": {
+    "src/battle/DetonateShot2_Bullet13.c": {
       "status": "clean",
       "c_argless_lines": [
         74,
@@ -24115,7 +24115,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004a1690.c": {
+    "src/battle/AnimateShot2_Bullet13.c": {
       "status": "clean",
       "c_argless_lines": [
         26,
@@ -24175,7 +24175,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004a2a70.c": {
+    "src/battle/InitPrimaryShot_Bullet4.c": {
       "status": "clean",
       "c_argless_lines": [
         57
@@ -24188,7 +24188,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004a4610.c": {
+    "src/battle/AnimatePrimaryShot_Bullet4.c": {
       "status": "clean",
       "c_argless_lines": [
         26,
@@ -24213,7 +24213,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004a46f0.c": {
+    "src/battle/InitShot2_Bullet2.c": {
       "status": "clean",
       "c_argless_lines": [
         61
@@ -24226,7 +24226,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004a4950.c": {
+    "src/battle/DetonateShot2_Bullet2.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         99,
@@ -24778,7 +24778,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004a7050.c": {
+    "src/battle/SimulateShot_Bullet8n_8s_Item.c": {
       "status": "clean",
       "c_argless_lines": [
         90,
@@ -24905,7 +24905,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004a8360.c": {
+    "src/battle/DetonateShot2_Bullet8.c": {
       "status": "clean",
       "c_argless_lines": [
         70,
@@ -25472,7 +25472,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004aafd0.c": {
+    "src/battle/DetonateShot2_Bullet16.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         62,
@@ -25921,7 +25921,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004ad230.c": {
+    "src/battle/ExplodeSuperShot_Bullet4.c": {
       "status": "clean",
       "c_argless_lines": [
         37,
@@ -25946,7 +25946,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004ad3b0.c": {
+    "src/battle/DetonateSuperShot_Bullet4.c": {
       "status": "clean",
       "c_argless_lines": [
         59,
@@ -26097,7 +26097,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004ae0f0.c": {
+    "src/battle/AnimateSuperShot_Bullet4.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         24,
@@ -26136,7 +26136,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004ae3a0.c": {
+    "src/battle/DetonateSuperShot_Bullet12.c": {
       "status": "clean",
       "c_argless_lines": [
         67,
@@ -26209,7 +26209,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004af530.c": {
+    "src/battle/InitShot2_Bullet12.c": {
       "status": "clean",
       "c_argless_lines": [
         61
@@ -26222,7 +26222,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004b1810.c": {
+    "src/battle/DetonateShot1_Bullet12.c": {
       "status": "MISMATCH",
       "c_argless_lines": [
         78,
@@ -26612,7 +26612,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004cb280.c": {
+    "src/battle/FinishTurnAndSelectNext.c": {
       "status": "clean",
       "c_argless_lines": [
         66,
@@ -27105,7 +27105,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004cf050.c": {
+    "src/battle/EnqueueTurnSlot.c": {
       "status": "clean",
       "c_argless_lines": [
         34,
@@ -27154,7 +27154,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004cf310.c": {
+    "src/battle/AdvanceTurnQueue.c": {
       "status": "clean",
       "c_argless_lines": [
         65,
@@ -27295,7 +27295,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004d0a10.c": {
+    "src/battle/BeginNewTurn.c": {
       "status": "clean",
       "c_argless_lines": [
         30,
@@ -27430,7 +27430,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004d0fd0.c": {
+    "src/battle/ChangePlayerMobile.c": {
       "status": "clean",
       "c_argless_lines": [
         41,
@@ -27498,7 +27498,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_004dc140.c": {
+    "src/battle/FindFreeItemSlot.c": {
       "status": "clean",
       "c_argless_lines": [
         25,

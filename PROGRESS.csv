@@ -46,7 +46,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00403170,244,FUN_00403170,false,2,5,RAW-src
 00403270,75,FUN_00403270,false,1,1,RAW-src
 004032c0,1447,FUN_004032c0,false,1,13,RAW-src
-004038b0,3,NoOpMethodArg1,false,14,0,RAW-src
+004038b0,3,NoOpMethodStdcall1,false,14,0,RAW-src
 00403ae0,285,FUN_00403ae0,false,1,6,RAW-src
 00403d20,231,FUN_00403d20,false,1,5,RAW-src
 00403f30,186,FUN_00403f30,false,1,0,RAW-src
@@ -294,7 +294,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00419d90,5740,LoadGameDataFiles,false,3,15,RAW-src
 0041b410,151,WrapChatLineText,false,4,0,RAW-src
 0041b4b0,505,RenderWrappedText,false,11,0,RAW-src
-0041b6b0,49,FUN_0041b6b0,false,1,0,RAW-src
+0041b6b0,49,RebuildChannelUserIndex,false,1,0,RAW-src
 0041b6f0,233,FUN_0041b6f0,false,1,0,RAW-src
 0041b7e0,82,FUN_0041b7e0,false,3,0,RAW-src
 0041b840,118,FUN_0041b840,false,2,0,RAW-src
@@ -1114,8 +1114,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e7140,389,FUN_004e7140,false,9,8,RAW-src
 004e72d0,106,SendUdpDatagram,false,16,3,RAW-src
 004e7340,150,FUN_004e7340,false,4,1,RAW-src
-004e73e0,77,FUN_004e73e0,false,1,1,RAW-src
-004e7430,137,FUN_004e7430,false,3,1,RAW-src
+004e73e0,77,SetLocalPeerEndpoint,false,1,1,RAW-src
+004e7430,137,ResetReplayContext,false,3,1,RAW-src
 004e74c0,159,FUN_004e74c0,false,2,1,RAW-src
 004e7560,121,FUN_004e7560,false,1,1,RAW-src
 004e75e0,118,FUN_004e75e0,false,2,0,RAW-src
@@ -1353,7 +1353,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f48b0,1117,RijndaelSetKey,false,8,0,RAW-src
 004f4d10,4345,EncodeCipherBlock,false,8,0,RAW-src
 004f5e10,4337,DecodeCipherBlock,false,8,0,RAW-src
-004f6f10,40,FUN_004f6f10,false,1,1,RAW-src
+004f6f10,40,AllocCipherSchedule,false,1,1,RAW-src
 004f6f40,353,EncodeHandshakeBlock,false,2,5,RAW-src
 004f70b0,157,EncodePacketBlocks,false,2,1,RAW-src
 004f7150,184,DecodePacketBlocks,false,1,1,RAW-src

@@ -452,7 +452,7 @@
   {
     "addr": "004056c0",
     "func": "FUN_004056c0",
-    "path": "src/unnamed/FUN_004056c0.c",
+    "path": "src/unnamed/AssignStringBuffer.c",
     "reg": "ebx",
     "score": 1.0,
     "callsites": 21,
@@ -992,7 +992,7 @@
   {
     "addr": "0040ccf0",
     "func": "FUN_0040ccf0",
-    "path": "src/unnamed/FUN_0040ccf0.c",
+    "path": "src/ui_widget/CommitActiveTextInput.c",
     "reg": "edi",
     "score": 1.0,
     "callsites": 9,
@@ -1675,7 +1675,7 @@
   {
     "addr": "0042bb10",
     "func": "FUN_0042bb10",
-    "path": "src/unnamed/FUN_0042bb10.c",
+    "path": "src/battle/SpawnRiderEffect.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 5,
@@ -1879,7 +1879,7 @@
   {
     "addr": "0040c880",
     "func": "FUN_0040c880",
-    "path": "src/unnamed/FUN_0040c880.c",
+    "path": "src/ui_widget/FetchActiveTextInputText.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 4,
@@ -1893,7 +1893,7 @@
   {
     "addr": "0040c880",
     "func": "FUN_0040c880",
-    "path": "src/unnamed/FUN_0040c880.c",
+    "path": "src/ui_widget/FetchActiveTextInputText.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 4,
@@ -2610,7 +2610,7 @@
   {
     "addr": "0045d150",
     "func": "FUN_0045d150",
-    "path": "src/unnamed/FUN_0045d150.c",
+    "path": "src/battle/ComputeTurnDelay.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 3,
@@ -2649,7 +2649,7 @@
   {
     "addr": "004aa830",
     "func": "FUN_004aa830",
-    "path": "src/unnamed/FUN_004aa830.c",
+    "path": "src/battle/InitBlastEffect.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 3,
@@ -2740,7 +2740,7 @@
   {
     "addr": "004f7210",
     "func": "FUN_004f7210",
-    "path": "src/unnamed/FUN_004f7210.c",
+    "path": "src/network/EncodeP2PPacketBlocks.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 3,
@@ -3381,7 +3381,7 @@
   {
     "addr": "0040c980",
     "func": "FUN_0040c980",
-    "path": "src/unnamed/FUN_0040c980.c",
+    "path": "src/ui_widget/InitTextBoxWidget.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 2,
@@ -3621,7 +3621,7 @@
   {
     "addr": "0044b5d0",
     "func": "FUN_0044b5d0",
-    "path": "src/unnamed/FUN_0044b5d0.c",
+    "path": "src/rendering/BlitAvatarFrameToPreviewTexture.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 2,
@@ -3669,7 +3669,7 @@
   {
     "addr": "0046e550",
     "func": "FUN_0046e550",
-    "path": "src/unnamed/FUN_0046e550.c",
+    "path": "src/battle/InitShot1_Bullet9_16.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 2,
@@ -3693,7 +3693,7 @@
   {
     "addr": "0047b2a0",
     "func": "FUN_0047b2a0",
-    "path": "src/unnamed/FUN_0047b2a0.c",
+    "path": "src/battle/InitPrimaryShot_Bullet15.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 2,
@@ -3705,7 +3705,7 @@
   {
     "addr": "004812d0",
     "func": "FUN_004812d0",
-    "path": "src/unnamed/FUN_004812d0.c",
+    "path": "src/battle/InitPrimaryShot_Bullet10.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 2,
@@ -3909,7 +3909,7 @@
   {
     "addr": "004ed0c0",
     "func": "FUN_004ed0c0",
-    "path": "src/unnamed/FUN_004ed0c0.c",
+    "path": "src/rendering/BuildRotatedBeamQuad.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 2,
@@ -3921,7 +3921,7 @@
   {
     "addr": "004ed0c0",
     "func": "FUN_004ed0c0",
-    "path": "src/unnamed/FUN_004ed0c0.c",
+    "path": "src/rendering/BuildRotatedBeamQuad.c",
     "reg": "ebx",
     "score": 1.0,
     "callsites": 2,
@@ -4233,7 +4233,7 @@
   {
     "addr": "00506e70",
     "func": "FUN_00506e70",
-    "path": "src/unnamed/FUN_00506e70.c",
+    "path": "src/ui_widget/ActivateLegacyTextInputField.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 2,
@@ -5032,7 +5032,7 @@
   {
     "addr": "00405e30",
     "func": "FUN_00405e30",
-    "path": "src/unnamed/FUN_00405e30.c",
+    "path": "src/ui_widget/SetButtonStateByIndex.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5428,7 +5428,7 @@
   {
     "addr": "00439d90",
     "func": "FUN_00439d90",
-    "path": "src/unnamed/FUN_00439d90.c",
+    "path": "src/battle/SpawnThor.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5549,7 +5549,7 @@
   {
     "addr": "0044c900",
     "func": "FUN_0044c900",
-    "path": "src/unnamed/FUN_0044c900.c",
+    "path": "src/battle/InitShot1_Bullet7.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5560,7 +5560,7 @@
   {
     "addr": "0044c940",
     "func": "FUN_0044c940",
-    "path": "src/unnamed/FUN_0044c940.c",
+    "path": "src/battle/DestroyShot1_Bullet7.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5571,7 +5571,7 @@
   {
     "addr": "0044d970",
     "func": "FUN_0044d970",
-    "path": "src/unnamed/FUN_0044d970.c",
+    "path": "src/battle/InitSuperShot_Bullet1.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5582,7 +5582,7 @@
   {
     "addr": "0044e910",
     "func": "FUN_0044e910",
-    "path": "src/unnamed/FUN_0044e910.c",
+    "path": "src/battle/Mobile00_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5593,7 +5593,7 @@
   {
     "addr": "0044f000",
     "func": "FUN_0044f000",
-    "path": "src/unnamed/FUN_0044f000.c",
+    "path": "src/battle/InitSuperShot_Bullet10.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5604,7 +5604,7 @@
   {
     "addr": "0044f040",
     "func": "FUN_0044f040",
-    "path": "src/unnamed/FUN_0044f040.c",
+    "path": "src/battle/DestroySuperShot_Bullet10.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5703,7 +5703,7 @@
   {
     "addr": "00452c80",
     "func": "FUN_00452c80",
-    "path": "src/unnamed/FUN_00452c80.c",
+    "path": "src/battle/InitSuperShot_Bullet6.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5714,7 +5714,7 @@
   {
     "addr": "00454290",
     "func": "FUN_00454290",
-    "path": "src/unnamed/FUN_00454290.c",
+    "path": "src/battle/Mobile05_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5725,7 +5725,7 @@
   {
     "addr": "00463c80",
     "func": "FUN_00463c80",
-    "path": "src/unnamed/FUN_00463c80.c",
+    "path": "src/battle/SavePlayerStateSnapshot.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5736,7 +5736,7 @@
   {
     "addr": "00463e50",
     "func": "FUN_00463e50",
-    "path": "src/unnamed/FUN_00463e50.c",
+    "path": "src/battle/RestorePlayerStateSnapshot.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5747,7 +5747,7 @@
   {
     "addr": "004654b0",
     "func": "FUN_004654b0",
-    "path": "src/unnamed/FUN_004654b0.c",
+    "path": "src/battle/InitShot2_Bullet9.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5758,7 +5758,7 @@
   {
     "addr": "004654f0",
     "func": "FUN_004654f0",
-    "path": "src/unnamed/FUN_004654f0.c",
+    "path": "src/battle/DestroyShot2_Bullet9.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5769,7 +5769,7 @@
   {
     "addr": "00466880",
     "func": "FUN_00466880",
-    "path": "src/unnamed/FUN_00466880.c",
+    "path": "src/battle/Mobile08_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5780,7 +5780,7 @@
   {
     "addr": "00466fc0",
     "func": "FUN_00466fc0",
-    "path": "src/unnamed/FUN_00466fc0.c",
+    "path": "src/battle/Mobile15_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5791,7 +5791,7 @@
   {
     "addr": "00467a50",
     "func": "FUN_00467a50",
-    "path": "src/unnamed/FUN_00467a50.c",
+    "path": "src/battle/InitSuperShot_Bullet16.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5802,7 +5802,7 @@
   {
     "addr": "00468860",
     "func": "FUN_00468860",
-    "path": "src/unnamed/FUN_00468860.c",
+    "path": "src/battle/InitShot2_Bullet1.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5813,7 +5813,7 @@
   {
     "addr": "004688a0",
     "func": "FUN_004688a0",
-    "path": "src/unnamed/FUN_004688a0.c",
+    "path": "src/battle/DestroyShot2_Bullet1.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5857,7 +5857,7 @@
   {
     "addr": "0046ca40",
     "func": "FUN_0046ca40",
-    "path": "src/unnamed/FUN_0046ca40.c",
+    "path": "src/battle/InitSuperShot_Bullet14.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5890,7 +5890,7 @@
   {
     "addr": "0046cba0",
     "func": "FUN_0046cba0",
-    "path": "src/unnamed/FUN_0046cba0.c",
+    "path": "src/battle/Mobile13_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5901,7 +5901,7 @@
   {
     "addr": "0046e590",
     "func": "FUN_0046e590",
-    "path": "src/unnamed/FUN_0046e590.c",
+    "path": "src/battle/DestroyShot1_Bullet9_16.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5912,7 +5912,7 @@
   {
     "addr": "0046fad0",
     "func": "FUN_0046fad0",
-    "path": "src/unnamed/FUN_0046fad0.c",
+    "path": "src/battle/InitPrimaryShot_Bullet14.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5923,7 +5923,7 @@
   {
     "addr": "0046fb10",
     "func": "FUN_0046fb10",
-    "path": "src/unnamed/FUN_0046fb10.c",
+    "path": "src/battle/DestroyPrimaryShot_Bullet14.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5945,7 +5945,7 @@
   {
     "addr": "00471fc0",
     "func": "FUN_00471fc0",
-    "path": "src/unnamed/FUN_00471fc0.c",
+    "path": "src/battle/Mobile12_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5956,7 +5956,7 @@
   {
     "addr": "00473160",
     "func": "FUN_00473160",
-    "path": "src/unnamed/FUN_00473160.c",
+    "path": "src/battle/InitShot2_Bullet11.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5967,7 +5967,7 @@
   {
     "addr": "004731a0",
     "func": "FUN_004731a0",
-    "path": "src/unnamed/FUN_004731a0.c",
+    "path": "src/battle/DestroyShot2_Bullet11.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -5978,7 +5978,7 @@
   {
     "addr": "00475990",
     "func": "FUN_00475990",
-    "path": "src/unnamed/FUN_00475990.c",
+    "path": "src/battle/InitSuperShot_Bullet11.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5989,7 +5989,7 @@
   {
     "addr": "00475e30",
     "func": "FUN_00475e30",
-    "path": "src/unnamed/FUN_00475e30.c",
+    "path": "src/battle/Mobile10_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6000,7 +6000,7 @@
   {
     "addr": "00476510",
     "func": "FUN_00476510",
-    "path": "src/unnamed/FUN_00476510.c",
+    "path": "src/battle/InitItemShot.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6011,7 +6011,7 @@
   {
     "addr": "004765c0",
     "func": "FUN_004765c0",
-    "path": "src/unnamed/FUN_004765c0.c",
+    "path": "src/battle/DestroyItemShot.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6066,7 +6066,7 @@
   {
     "addr": "0047ab80",
     "func": "FUN_0047ab80",
-    "path": "src/unnamed/FUN_0047ab80.c",
+    "path": "src/battle/Mobile14_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6077,7 +6077,7 @@
   {
     "addr": "0047b2e0",
     "func": "FUN_0047b2e0",
-    "path": "src/unnamed/FUN_0047b2e0.c",
+    "path": "src/battle/DestroyPrimaryShot_Bullet15.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6110,7 +6110,7 @@
   {
     "addr": "0047de30",
     "func": "FUN_0047de30",
-    "path": "src/unnamed/FUN_0047de30.c",
+    "path": "src/battle/InitSuperShot_Bullet15.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6143,7 +6143,7 @@
   {
     "addr": "0047f2c0",
     "func": "FUN_0047f2c0",
-    "path": "src/unnamed/FUN_0047f2c0.c",
+    "path": "src/battle/Mobile09_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6154,7 +6154,7 @@
   {
     "addr": "0047f9e0",
     "func": "FUN_0047f9e0",
-    "path": "src/unnamed/FUN_0047f9e0.c",
+    "path": "src/battle/InitLaserIon.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6187,7 +6187,7 @@
   {
     "addr": "00481310",
     "func": "FUN_00481310",
-    "path": "src/unnamed/FUN_00481310.c",
+    "path": "src/battle/DestroyPrimaryShot_Bullet10.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6198,7 +6198,7 @@
   {
     "addr": "00482500",
     "func": "FUN_00482500",
-    "path": "src/unnamed/FUN_00482500.c",
+    "path": "src/battle/InitShot1_Bullet8.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6209,7 +6209,7 @@
   {
     "addr": "00482540",
     "func": "FUN_00482540",
-    "path": "src/unnamed/FUN_00482540.c",
+    "path": "src/battle/DestroyShot1_Bullet8.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6220,7 +6220,7 @@
   {
     "addr": "004837c0",
     "func": "FUN_004837c0",
-    "path": "src/unnamed/FUN_004837c0.c",
+    "path": "src/battle/InitSuperShot_Bullet8.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6231,7 +6231,7 @@
   {
     "addr": "00484fe0",
     "func": "FUN_00484fe0",
-    "path": "src/unnamed/FUN_00484fe0.c",
+    "path": "src/battle/Mobile07_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6242,7 +6242,7 @@
   {
     "addr": "00488ab0",
     "func": "FUN_00488ab0",
-    "path": "src/unnamed/FUN_00488ab0.c",
+    "path": "src/battle/Mobile01_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6253,7 +6253,7 @@
   {
     "addr": "00489570",
     "func": "FUN_00489570",
-    "path": "src/unnamed/FUN_00489570.c",
+    "path": "src/battle/Mobile04_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6264,7 +6264,7 @@
   {
     "addr": "0048b3f0",
     "func": "FUN_0048b3f0",
-    "path": "src/unnamed/FUN_0048b3f0.c",
+    "path": "src/battle/InitSuperShot_Bullet3.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6275,7 +6275,7 @@
   {
     "addr": "0048d1e0",
     "func": "FUN_0048d1e0",
-    "path": "src/unnamed/FUN_0048d1e0.c",
+    "path": "src/battle/Mobile02_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6286,7 +6286,7 @@
   {
     "addr": "0048d8c0",
     "func": "FUN_0048d8c0",
-    "path": "src/unnamed/FUN_0048d8c0.c",
+    "path": "src/battle/InitSuperShot_Bullet2.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6308,7 +6308,7 @@
   {
     "addr": "004907d0",
     "func": "FUN_004907d0",
-    "path": "src/unnamed/FUN_004907d0.c",
+    "path": "src/battle/InitSuperShot_Bullet9.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6319,7 +6319,7 @@
   {
     "addr": "00490810",
     "func": "FUN_00490810",
-    "path": "src/unnamed/FUN_00490810.c",
+    "path": "src/battle/DestroySuperShot_Bullet9.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6330,7 +6330,7 @@
   {
     "addr": "00491b30",
     "func": "FUN_00491b30",
-    "path": "src/unnamed/FUN_00491b30.c",
+    "path": "src/battle/DestroySuperMine.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6341,7 +6341,7 @@
   {
     "addr": "00493340",
     "func": "FUN_00493340",
-    "path": "src/unnamed/FUN_00493340.c",
+    "path": "src/battle/InitShot2_Bullet3.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6352,7 +6352,7 @@
   {
     "addr": "00493380",
     "func": "FUN_00493380",
-    "path": "src/unnamed/FUN_00493380.c",
+    "path": "src/battle/DestroyShot2_Bullet3.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6363,7 +6363,7 @@
   {
     "addr": "00499ed0",
     "func": "FUN_00499ed0",
-    "path": "src/unnamed/FUN_00499ed0.c",
+    "path": "src/battle/InitSuperShot_Bullet7.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6374,7 +6374,7 @@
   {
     "addr": "0049c110",
     "func": "FUN_0049c110",
-    "path": "src/unnamed/FUN_0049c110.c",
+    "path": "src/battle/Mobile06_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6407,7 +6407,7 @@
   {
     "addr": "004a7000",
     "func": "FUN_004a7000",
-    "path": "src/unnamed/FUN_004a7000.c",
+    "path": "src/battle/InitShot2_Bullet8.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6418,7 +6418,7 @@
   {
     "addr": "004a7040",
     "func": "FUN_004a7040",
-    "path": "src/unnamed/FUN_004a7040.c",
+    "path": "src/battle/DestroyShot2_Bullet8.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6451,7 +6451,7 @@
   {
     "addr": "004aaf80",
     "func": "FUN_004aaf80",
-    "path": "src/unnamed/FUN_004aaf80.c",
+    "path": "src/battle/InitShot2_Bullet16.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6462,7 +6462,7 @@
   {
     "addr": "004aafc0",
     "func": "FUN_004aafc0",
-    "path": "src/unnamed/FUN_004aafc0.c",
+    "path": "src/battle/DestroyShot2_Bullet16.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6473,7 +6473,7 @@
   {
     "addr": "004accf0",
     "func": "FUN_004accf0",
-    "path": "src/unnamed/FUN_004accf0.c",
+    "path": "src/battle/InitSuperShot_Bullet4.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6484,7 +6484,7 @@
   {
     "addr": "004ae370",
     "func": "FUN_004ae370",
-    "path": "src/unnamed/FUN_004ae370.c",
+    "path": "src/battle/InitSuperShot_Bullet12.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6506,7 +6506,7 @@
   {
     "addr": "004aed20",
     "func": "FUN_004aed20",
-    "path": "src/unnamed/FUN_004aed20.c",
+    "path": "src/battle/Mobile11_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6517,7 +6517,7 @@
   {
     "addr": "004b17b0",
     "func": "FUN_004b17b0",
-    "path": "src/unnamed/FUN_004b17b0.c",
+    "path": "src/battle/InitShot1_Bullet12.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -6528,7 +6528,7 @@
   {
     "addr": "004b1800",
     "func": "FUN_004b1800",
-    "path": "src/unnamed/FUN_004b1800.c",
+    "path": "src/battle/DestroyShot1_Bullet12.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6539,7 +6539,7 @@
   {
     "addr": "004b31e0",
     "func": "FUN_004b31e0",
-    "path": "src/unnamed/FUN_004b31e0.c",
+    "path": "src/battle/Mobile03_Destructor.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -6594,7 +6594,7 @@
   {
     "addr": "004d0a10",
     "func": "FUN_004d0a10",
-    "path": "src/unnamed/FUN_004d0a10.c",
+    "path": "src/battle/BeginNewTurn.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -7045,7 +7045,7 @@
   {
     "addr": "004f14e0",
     "func": "FUN_004f14e0",
-    "path": "src/unnamed/FUN_004f14e0.c",
+    "path": "src/rendering/DestroySpriteFrame.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -7221,7 +7221,7 @@
   {
     "addr": "004fdc80",
     "func": "FUN_004fdc80",
-    "path": "src/unnamed/FUN_004fdc80.c",
+    "path": "src/network/CreateCommEngineNotifyWindow.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -7232,7 +7232,7 @@
   {
     "addr": "004fdd30",
     "func": "FUN_004fdd30",
-    "path": "src/unnamed/FUN_004fdd30.c",
+    "path": "src/network/ResolveHostAddress.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -7243,7 +7243,7 @@
   {
     "addr": "004fdfd0",
     "func": "FUN_004fdfd0",
-    "path": "src/unnamed/FUN_004fdfd0.c",
+    "path": "src/network/DestroyCommEngine.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -7254,7 +7254,7 @@
   {
     "addr": "004fe060",
     "func": "FUN_004fe060",
-    "path": "src/unnamed/FUN_004fe060.c",
+    "path": "src/network/CreateBoundSocket.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -7265,7 +7265,7 @@
   {
     "addr": "004fe060",
     "func": "FUN_004fe060",
-    "path": "src/unnamed/FUN_004fe060.c",
+    "path": "src/network/CreateBoundSocket.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -7309,7 +7309,7 @@
   {
     "addr": "004fe5f0",
     "func": "FUN_004fe5f0",
-    "path": "src/unnamed/FUN_004fe5f0.c",
+    "path": "src/network/ConnectToHostPort.c",
     "reg": "ebx",
     "score": 1.0,
     "callsites": 1,
@@ -7353,7 +7353,7 @@
   {
     "addr": "004ff4a0",
     "func": "FUN_004ff4a0",
-    "path": "src/unnamed/FUN_004ff4a0.c",
+    "path": "src/network/CommEngineRecv.c",
     "reg": "edi",
     "score": 1.0,
     "callsites": 1,
@@ -7364,7 +7364,7 @@
   {
     "addr": "004ff550",
     "func": "FUN_004ff550",
-    "path": "src/unnamed/FUN_004ff550.c",
+    "path": "src/network/CommEngineSend.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,
@@ -7375,7 +7375,7 @@
   {
     "addr": "004ff550",
     "func": "FUN_004ff550",
-    "path": "src/unnamed/FUN_004ff550.c",
+    "path": "src/network/CommEngineSend.c",
     "reg": "ebx",
     "score": 1.0,
     "callsites": 1,

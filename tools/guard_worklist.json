@@ -14882,7 +14882,7 @@
     "orig_sites": []
    }
   },
-  "src/unnamed/FUN_00425ac0.c": {
+  "src/battle/HitTestLocalMobile.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -14909,7 +14909,7 @@
     "orig_sites": []
    }
   },
-  "src/unnamed/FUN_00425c90.c": {
+  "src/battle/HitTestJewel.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -14936,7 +14936,7 @@
     "orig_sites": []
    }
   },
-  "src/unnamed/FUN_00425e60.c": {
+  "src/battle/HitTestMine.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -15291,7 +15291,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_004337f0.c": {
+  "src/battle/SpawnDropBombProjectile.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -15524,7 +15524,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00434160.c": {
+  "src/battle/SpawnEventProjectile.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -15757,7 +15757,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00434ac0.c": {
+  "src/battle/SpawnDropCaseProjectile.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -15888,7 +15888,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00434fc0.c": {
+  "src/battle/SpawnLightningBlastEffect.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -16109,7 +16109,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00436220.c": {
+  "src/battle/SpawnItemCase.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -16579,7 +16579,7 @@
     "orig_sites": []
    }
   },
-  "src/unnamed/FUN_004372f0.c": {
+  "src/battle/SpawnFlameEffect.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -16600,7 +16600,7 @@
     "orig_sites": []
    }
   },
-  "src/unnamed/FUN_004373c0.c": {
+  "src/battle/SpawnSuperFlameEffect.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -16621,7 +16621,7 @@
     "orig_sites": []
    }
   },
-  "src/unnamed/FUN_004375f0.c": {
+  "src/battle/SpawnMine.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -16674,7 +16674,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00437870.c": {
+  "src/battle/SpawnSuperMine.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -16727,7 +16727,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00437b40.c": {
+  "src/battle/SpawnCrystalShot.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -16780,7 +16780,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00437d90.c": {
+  "src/battle/SpawnSuperCrystalShot.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -16821,7 +16821,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00437f70.c": {
+  "src/battle/SpawnLaserIon.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -16862,7 +16862,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00438100.c": {
+  "src/battle/SpawnKnightIon.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -16903,7 +16903,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00438410.c": {
+  "src/battle/SpawnJewel.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -17213,7 +17213,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_0043af40.c": {
+  "src/battle/ApplyBlastDamage.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -19131,7 +19131,7 @@
     "orig_sites": []
    }
   },
-  "src/unnamed/FUN_0045ed80.c": {
+  "src/battle/UpdateMobileEmotionState.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -20624,7 +20624,7 @@
     "orig_sites": []
    }
   },
-  "src/unnamed/FUN_00471c70.c": {
+  "src/battle/TickFlameEffect.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -20893,7 +20893,7 @@
     "orig_sites": []
    }
   },
-  "src/unnamed/FUN_00477bb0.c": {
+  "src/battle/InitJewel.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -21354,7 +21354,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00479ba0.c": {
+  "src/battle/TickJewelFrame.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -21473,7 +21473,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_0047a960.c": {
+  "src/battle/RenderJewel.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -22918,7 +22918,7 @@
     "orig_sites": []
    }
   },
-  "src/unnamed/FUN_00491b40.c": {
+  "src/battle/ExplodeSuperMine.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -23097,7 +23097,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_004921e0.c": {
+  "src/battle/AnimateSuperMine.c": {
    "peek": {
     "status": "MISMATCH",
     "c_argless_lines": [
@@ -23340,7 +23340,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00495c20.c": {
+  "src/battle/InitShot2_Bullet7.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -23399,7 +23399,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_00497ad0.c": {
+  "src/battle/ExplodeMine.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -23744,7 +23744,7 @@
     "orig_sites": []
    }
   },
-  "src/unnamed/FUN_00498b60.c": {
+  "src/battle/AnimateMine.c": {
    "peek": {
     "status": "MISMATCH",
     "c_argless_lines": [
@@ -24459,7 +24459,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_004a2a70.c": {
+  "src/battle/InitPrimaryShot_Bullet4.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -24518,7 +24518,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_004a46f0.c": {
+  "src/battle/InitShot2_Bullet2.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
@@ -25021,7 +25021,7 @@
     ]
    }
   },
-  "src/unnamed/FUN_004af530.c": {
+  "src/battle/InitShot2_Bullet12.c": {
    "peek": {
     "status": "clean",
     "c_argless_lines": [
