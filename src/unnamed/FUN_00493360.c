@@ -10,7 +10,7 @@
 void * __thiscall FUN_00493360(void *param_1,int param_2)
 
 {
-  FUN_00493380();
+  DestroyShot2_Bullet3();
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }
