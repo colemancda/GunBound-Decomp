@@ -127,6 +127,25 @@
  * fingerprint, 6 witness agreements) and DarkenTerrainScorchRow.c (1, the
  * only site in its file and therefore unambiguous).
  *
+ * ROUND 3 (2026-08-20) came from the opposite direction and needed no
+ * disassembly. Once BlitSpriteClipped's own call sites carry (frame, x, y,
+ * outerKey), a completed sibling in the same block states this call's two
+ * arguments outright: the outerKey is the same key, and the frame is the very
+ * frame the block looks up before blitting it. 18 more sites - including all
+ * 10 in FUN_0044a000.c, the file whose block reordering defeated
+ * position-matching in round 1 and which I had held back rather than guess.
+ *
+ * Cross-checked against the independent binary scan: every (outerKey, frame)
+ * pair derived this way in FUN_0044a000.c appears in the literal EDX/ESI
+ * pairs scanned from that function, with no pair appearing in the source that
+ * the binary does not use. The two routes - source-level via the sibling, and
+ * disassembly via the registers - agree completely.
+ *
+ * 101 of 192 call sites now carry their arguments. THE TWO FUNCTIONS UNLOCK
+ * EACH OTHER, so the productive loop is: recover BlitSpriteClipped where its
+ * block's lookup is known, then recover lookups where their block's blit is
+ * known, and repeat.
+ *
  * WHAT ACTUALLY BLOCKS THE REST: not the pairing problem at all. Of the 27
  * files still holding argless calls, most fail on 'register not literal' -
  * their ESI, and sometimes EDX, comes from a caller local rather than an
