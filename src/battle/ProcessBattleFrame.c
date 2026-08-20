@@ -896,7 +896,7 @@ void ProcessBattleFrame(int param_1)
     AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
     break;
   case 0x47:
-    QueueBroadcastEvent(0x82ff);
+    QueueBroadcastEvent(0x82ff,(int)&g_replayContext);
     BroadcastQueuedEvent();
   }
   if (*(int *)(param_1 + 0x744) == -1) {
@@ -925,7 +925,7 @@ LAB_004dfad9:
     iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar6 == iVar5) {
-      QueueBroadcastEvent(0x8600);
+      QueueBroadcastEvent(0x8600,(int)&g_replayContext);
       BroadcastQueuedEvent();
     }
   }

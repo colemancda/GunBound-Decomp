@@ -214,7 +214,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
   case 1:
     cVar2 = CheckAllPlayersReady();
     if (cVar2 == '\0') {
-      QueueBroadcastEvent(0x9002);
+      QueueBroadcastEvent(0x9002,(int)&g_replayContext);
       uVar3 = BroadcastQueuedEvent();
       return uVar3;
     }

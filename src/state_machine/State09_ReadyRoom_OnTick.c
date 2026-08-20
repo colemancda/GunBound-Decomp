@@ -102,7 +102,7 @@ LAB_004d7cd2:
     *(int *)(param_1 + 0x73c) = iVar3;
     if (200 < iVar3) {
       *(undefined4 *)(param_1 + 0x73c) = 0;
-      QueueBroadcastEvent(0xa000);
+      QueueBroadcastEvent(0xa000,(int)&g_replayContext);
       BroadcastQueuedEvent();
       return;
     }

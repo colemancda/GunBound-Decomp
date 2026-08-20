@@ -294,7 +294,7 @@ LAB_004622cf:
     cVar5 = CheckGuardedBoolAnd(uVar9);
     if (((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x8bae), cVar5 != '\0')) &&
        (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x1c50), cVar5 != '\0')) {
-      QueueBroadcastEvent(0x8402);
+      QueueBroadcastEvent(0x8402,(int)&g_replayContext);
       uVar7 = PeekChecksumStateUnderLock(param_1 + 0x243);
       *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
@@ -307,7 +307,7 @@ LAB_004622cf:
       BroadcastQueuedEvent();
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
-      QueueBroadcastEvent(0xc301);
+      QueueBroadcastEvent(0xc301,(int)&g_replayContext);
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       uVar7 = FUN_0045d360(1);

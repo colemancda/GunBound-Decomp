@@ -450,7 +450,7 @@ LAB_0047a634:
   if (((iVar6 % 1000 == 0) && (iVar5 = PacketChecksumEquals(param_1 + 0x67d,0), (char)iVar5 != '\0')
       ) && (iVar5 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c), (char)iVar5 != '\0'
            )) {
-    QueueBroadcastEvent(0x4004);
+    QueueBroadcastEvent(0x4004,(int)&g_replayContext);
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)param_1[2];
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     iVar5 = param_1[0x791];

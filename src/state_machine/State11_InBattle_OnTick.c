@@ -1766,7 +1766,7 @@ LAB_004c0f5c:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeGuardedBool(1,(byte *)GB_GUARD_UNRECOVERED);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      QueueBroadcastEvent(0xc40a);
+      QueueBroadcastEvent(0xc40a,(int)&g_replayContext);
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar7 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x90c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -1785,7 +1785,7 @@ LAB_004c0f5c:
       cVar3 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
       iVar6 = g_clientContext;
       if (cVar3 == '\0') {
-        QueueBroadcastEvent(0xc302);
+        QueueBroadcastEvent(0xc302,(int)&g_replayContext);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar4 = PeekPacketChecksumState(&DAT_00794bf0);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -1923,7 +1923,7 @@ LAB_004c13d9:
       }
       else {
         AcquireSoundChannel(0);
-        QueueBroadcastEvent(0x8407);
+        QueueBroadcastEvent(0x8407,(int)&g_replayContext);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x6a64c4));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

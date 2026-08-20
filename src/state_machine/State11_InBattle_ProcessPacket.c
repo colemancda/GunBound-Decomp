@@ -110,7 +110,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
           g_stateChangeRequested = 0;
           DAT_0056d108 = 0;
           _DAT_007934d8 = 1;
-          QueueBroadcastEvent(0x8103);
+          QueueBroadcastEvent(0x8103,(int)&g_replayContext);
           BroadcastQueuedEvent();
           iVar6 = g_clientContext;
           if (*(int *)(&DAT_006a64b4 + g_clientContext) != -1) {
@@ -167,7 +167,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
           local_9a8 = GetPlayerRecordBySlot(g_clientContext);
           cVar2 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
           if (((cVar2 != '\0') && (uVar17 == *(uint *)((int)this + 0x10a0))) && (payload[2] != 0)) {
-            QueueBroadcastEvent(0x307);
+            QueueBroadcastEvent(0x307,(int)&g_replayContext);
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0xff;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
             BroadcastQueuedEvent();
@@ -264,7 +264,7 @@ LAB_004b4324:
              (uVar14 = FUN_004d0dd0(), uVar17 == uVar14)) {
             cVar2 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
             if (cVar2 != '\0') {
-              QueueBroadcastEvent(0x8500);
+              QueueBroadcastEvent(0x8500,(int)&g_replayContext);
               iVar6 = local_9a8;
               (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = local_9b5;
               g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -335,7 +335,7 @@ LAB_004b4324:
         if (cVar2 == '\x01') {
           cVar2 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
           if (cVar2 == '\0') {
-            QueueBroadcastEvent(0xc302);
+            QueueBroadcastEvent(0xc302,(int)&g_replayContext);
             iVar8 = g_clientContext;
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)iVar6;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -397,7 +397,7 @@ LAB_004b4324:
       if (((uint)piVar16 & 0xf000) == 0xf000) {
         cVar2 = CompareChecksumMatch(iVar8 + 0x3b6c4,iVar8 + 0x3b49c);
         if (cVar2 != '\0') {
-          QueueBroadcastEvent(0x8500);
+          QueueBroadcastEvent(0x8500,(int)&g_replayContext);
           (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = local_9b5;
           g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
           uVar4 = PeekChecksumStateUnderLock(iVar6 + 0x90c);

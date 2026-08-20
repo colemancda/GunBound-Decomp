@@ -602,7 +602,7 @@ LAB_0042ec76:
   } while (cVar4 != '\0');
   pcVar13 = (code *)LeaveCriticalSection;
   if (DAT_0079352a != '\0') {
-    QueueBroadcastEvent(0xf000);
+    QueueBroadcastEvent(0xf000,(int)&g_replayContext);
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 2;
     pbVar1 = &DAT_00e9aacd + g_dwBroadcastEventCursor;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;

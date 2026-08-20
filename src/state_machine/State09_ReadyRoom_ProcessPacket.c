@@ -79,7 +79,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
   if (opcode < 0x3232 /* switch-ladder split, not a match on GB_OP_ROOM_RETURN_RESULT_REQUEST */) {
     if (opcode == GB_OP_ROOM_USER_READY_RESPONSE) {
       if (*(short *)payload == 0) {
-        QueueBroadcastEvent(0x8102);
+        QueueBroadcastEvent(0x8102,(int)&g_replayContext);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] =
              (*(char *)((int)this + 8) != '\0') * '\x02' + '\x01';
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -103,7 +103,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
           if (*(short *)payload != 0) {
             return;
           }
-          QueueBroadcastEvent(0x8000);
+          QueueBroadcastEvent(0x8000,(int)&g_replayContext);
           (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)((int)this + 9);
           g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
           uVar11 = PeekChecksumStateUnderLock((int)this + 0xc);
@@ -134,7 +134,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
             pcVar12[iVar17 + 0x44e64] = cVar10;
             pcVar12 = pcVar12 + 1;
           } while (cVar10 != '\0');
-          QueueBroadcastEvent(0x8003);
+          QueueBroadcastEvent(0x8003,(int)&g_replayContext);
           pcVar12 = pcVar13;
           do {
             cVar10 = *pcVar12;
@@ -180,7 +180,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
         if (*(short *)payload != 0) {
           return;
         }
-        QueueBroadcastEvent(0x8200);
+        QueueBroadcastEvent(0x8200,(int)&g_replayContext);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = payload[2];
 LAB_004d3bd3:
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -190,7 +190,7 @@ LAB_004d3bd3:
       }
       if (opcode == GB_OP_ROOM_SELECT_TANK_RESPONSE) {
         if (*(short *)payload == 0) {
-          QueueBroadcastEvent(0x8100);
+          QueueBroadcastEvent(0x8100,(int)&g_replayContext);
           (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)((int)this + 0x259);
           puVar23 = &DAT_00e9aacd + g_dwBroadcastEventCursor;
           g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -203,7 +203,7 @@ LAB_004d3bd3:
           return;
         }
         if (*(short *)payload == 0) {
-          QueueBroadcastEvent(0x8101);
+          QueueBroadcastEvent(0x8101,(int)&g_replayContext);
           (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)((int)this + 0x25b);
           goto LAB_004d3bd3;
         }
@@ -839,7 +839,7 @@ LAB_004d4cc7:
       DAT_0056d108 = 0;
       _DAT_007934d8 = 1;
       *(undefined1 *)(*(int *)((int)this + 0x788) + 0x1e) = 1;
-      QueueBroadcastEvent(0x8103);
+      QueueBroadcastEvent(0x8103,(int)&g_replayContext);
       BroadcastQueuedEvent();
       if (*(int *)(&DAT_006a64b4 + g_clientContext) == -1) {
         return;

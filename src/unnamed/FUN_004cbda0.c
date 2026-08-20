@@ -29,7 +29,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
     iVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x39f30 + param_2 * 0x224));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (iVar7 != 0) {
-      QueueBroadcastEvent(0xc401);
+      QueueBroadcastEvent(0xc401,(int)&g_replayContext);
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)param_2;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       cVar3 = PacketChecksumEquals(param_2 * 0x224 + 0x39f30 + g_clientContext,0xff);
@@ -100,7 +100,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
           cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bab));
           if (cVar3 == '\0') {
             SetGuardedBool(1,GB_GUARD_UNRECOVERED);
-            QueueBroadcastEvent(0xc301);
+            QueueBroadcastEvent(0xc301,(int)&g_replayContext);
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
             uVar6 = FUN_0045d360(0);

@@ -88,7 +88,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
           if (cVar3 != '\0') {
             cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8));
             if (cVar3 != '\0') {
-              QueueBroadcastEvent(0x8405);
+              QueueBroadcastEvent(0x8405,(int)&g_replayContext);
               BroadcastQueuedEvent();
             }
             InvokeWidget(17,0);
@@ -160,7 +160,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
       return;
     }
     SetGuardedBool(1,GB_GUARD_UNRECOVERED);
-    QueueBroadcastEvent(0x8402);
+    QueueBroadcastEvent(0x8402,(int)&g_replayContext);
     uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
     *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
@@ -187,7 +187,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     }
     SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     SetGuardedBool(0,GB_GUARD_UNRECOVERED);
-    QueueBroadcastEvent(0xc301);
+    QueueBroadcastEvent(0xc301,(int)&g_replayContext);
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
     puVar1 = (undefined2 *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -289,7 +289,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
       uVar8 = CONCAT31((int3)(uVar8 >> 8),1);
     }
     InvokeWidget(18,uVar8);
-    QueueBroadcastEvent(0x4005);
+    QueueBroadcastEvent(0x4005,(int)&g_replayContext);
     iVar7 = g_clientContext;
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
     iVar7 = *(int *)(iVar7 + 0x621e0);
@@ -321,7 +321,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
       uVar10 = 1;
     }
     InvokeWidget(18,uVar10);
-    QueueBroadcastEvent(0x4005);
+    QueueBroadcastEvent(0x4005,(int)&g_replayContext);
     iVar7 = g_clientContext;
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
     iVar7 = *(int *)(iVar7 + 0x621e0);
@@ -340,7 +340,7 @@ LAB_004b8aeb:
        && ((cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb1)), cVar3 != '\0' && (cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb1)), cVar3 != '\0')))) {
       InvokeWidget(3,0);
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
-      QueueBroadcastEvent(0x8402);
+      QueueBroadcastEvent(0x8402,(int)&g_replayContext);
       uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
       *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
@@ -357,7 +357,7 @@ LAB_004b8aeb:
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         SetGuardedBool(1,GB_GUARD_UNRECOVERED);
-        QueueBroadcastEvent(0xc301);
+        QueueBroadcastEvent(0xc301,(int)&g_replayContext);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         uVar6 = FUN_0045d360(1);
@@ -406,7 +406,7 @@ LAB_004b8aeb:
     }
     *(undefined4 *)(&DAT_006a73c8 + g_clientContext) = 1;
     FUN_004e1f70();
-    QueueBroadcastEvent(0x8404);
+    QueueBroadcastEvent(0x8404,(int)&g_replayContext);
     sVar5 = PeekChecksumStateUnderLock(g_clientContext + 0xeba98);
     iVar7 = g_clientContext;
     *(short *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = sVar5 + 4;
@@ -501,7 +501,7 @@ LAB_004b8aeb:
        (cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8)), cVar3 != '\0')) {
       cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bae));
       if (cVar3 != '\0') {
-        QueueBroadcastEvent(0x8405);
+        QueueBroadcastEvent(0x8405,(int)&g_replayContext);
         BroadcastQueuedEvent();
       }
       InvokeWidget(17,0);

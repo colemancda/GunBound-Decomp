@@ -127,7 +127,7 @@ LAB_0045d679:
         uVar8 = extraout_var_01;
         if (cVar2 == '\0') {
           if (DAT_0079352a != '\0') {
-            QueueBroadcastEvent(0xf001);
+            QueueBroadcastEvent(0xf001,(int)&g_replayContext);
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)unaff_EDI[2];
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
             uVar3 = PeekChecksumStateUnderLock(unaff_EDI + 0x68b);

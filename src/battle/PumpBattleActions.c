@@ -130,7 +130,7 @@ LAB_00412cb3:
     }
     iStack_404 = iVar4;
     if (iVar1 == 2) {
-      QueueBroadcastEvent(3);
+      QueueBroadcastEvent(3,(int)&g_replayContext);
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)iVar4;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       BroadcastQueuedEvent();
@@ -149,7 +149,7 @@ LAB_00412cb3:
         *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 1;
         EncodePacketBody(0,iVar3);
         SendOutgoingPacket(iVar3);
-        QueueBroadcastEvent(0xf007);
+        QueueBroadcastEvent(0xf007,(int)&g_replayContext);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (undefined1)iStack_404;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         BroadcastQueuedEvent();

@@ -53,7 +53,7 @@ void __thiscall State09_ReadyRoom_HandleChatInput(int *param_1,int param_2,int p
           else {
             cVar4 = FUN_00415230();
             if (cVar4 == '\0') {
-              QueueBroadcastEvent(1);
+              QueueBroadcastEvent(1,(int)&g_replayContext);
               pcVar8 = acStack_80;
               do {
                 cVar4 = *pcVar8;

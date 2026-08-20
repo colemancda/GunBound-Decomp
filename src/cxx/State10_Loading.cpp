@@ -21,7 +21,7 @@ void FetchActiveTextInputText(int editState, char *out); /* read the EDIT contro
 char ParseChatSlashCommand(int ctx, char *text); /* slash-command handler (true = consumed) */
 char CheckChatWordFilter(char *text);          /* "message too long" check */
 char FUN_00415230(void);                /* "not allowed right now" check */
-void QueueBroadcastEvent(int type);
+void QueueBroadcastEvent(int type,(int)&g_replayContext);
 /* ECX is a dead incoming register (0x4e6db0 opens `xor ecx,ecx`); EDX is
  * the byte count and the stack arg the source. The context base arrives
  * in EAX - recovered as the trailing param, see
@@ -69,7 +69,7 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
             if (CheckChatWordFilter(text) == 1) {
                 msgId = 0x202;
             } else if (FUN_00415230() == 0) {
-                QueueBroadcastEvent(1);
+                QueueBroadcastEvent(1,(int)&g_replayContext);
                 AppendBroadcastString(0, strlen(text), text, (int)&g_replayContext);
                 BroadcastQueuedEvent();
                 goto reset;

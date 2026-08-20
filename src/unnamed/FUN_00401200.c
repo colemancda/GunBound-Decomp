@@ -33,7 +33,7 @@ void __fastcall FUN_00401200(int param_1)
     }
     if ((*(char *)(param_1 + 0x10) != '\0') && (DAT_00e9af60 = DAT_00e9af60 + 1, 0xb < DAT_00e9af60)
        ) {
-      QueueBroadcastEvent(0x9001);
+      QueueBroadcastEvent(0x9001,(int)&g_replayContext);
       BroadcastQueuedEvent();
       DAT_00e9af60 = 0;
     }

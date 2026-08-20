@@ -33,7 +33,7 @@ void BroadcastBattleSnapshot(int param_1)
   undefined4 uVar4;
   int iVar5;
   
-  QueueBroadcastEvent(0x8400);
+  QueueBroadcastEvent(0x8400,(int)&g_replayContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState((void *)&DAT_00e525e8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

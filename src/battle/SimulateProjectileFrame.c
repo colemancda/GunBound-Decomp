@@ -392,7 +392,7 @@ LAB_00457229:
       if (DAT_0079352a != '\0') {
         uVar11 = 0xf003;
 LAB_0045723e:
-        QueueBroadcastEvent(uVar11);
+        QueueBroadcastEvent(uVar11,(int)&g_replayContext);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)(iVar12 + 8);
         piVar1 = (int *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -614,7 +614,7 @@ LAB_00456a3c:
           *(byte *)(iVar13 + 0xf47) = bVar10 + *(char *)(iVar13 + 0xf45) + -0x34;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (DAT_0079352a != '\0') {
-            QueueBroadcastEvent(0xf002);
+            QueueBroadcastEvent(0xf002,(int)&g_replayContext);
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)(iVar13 + 8);
             piVar1 = (int *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;

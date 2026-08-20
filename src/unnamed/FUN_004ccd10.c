@@ -404,7 +404,7 @@ LAB_004cd6de:
     (*pcVar18)(&DAT_005a9068);
     if (iVar6 == iVar7) {
       if (*(int *)(g_clientContext + 0x621e0) != 0) {
-        QueueBroadcastEvent(0x8402);
+        QueueBroadcastEvent(0x8402,(int)&g_replayContext);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar5 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x90c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -458,7 +458,7 @@ LAB_004cd6de:
         *(byte *)(iVar7 + 0x8bad) = bVar15 + bVar16 + -0x34;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       }
-      QueueBroadcastEvent(0xc301);
+      QueueBroadcastEvent(0xc301,(int)&g_replayContext);
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
       puVar1 = (undefined2 *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;

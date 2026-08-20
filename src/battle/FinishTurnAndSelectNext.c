@@ -287,7 +287,7 @@ LAB_004cb8d4:
   cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62149));
   if (cVar1 == '\x01') {
 LAB_004cbb03:
-    QueueBroadcastEvent(0xc40b);
+    QueueBroadcastEvent(0xc40b,(int)&g_replayContext);
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -323,7 +323,7 @@ LAB_004cbb03:
           }
         }
         if ((*(int *)(iVar3 + 0x24) != 0xe) || (cVar1 = PeekPacketChecksumBool(), cVar1 == '\0')) {
-          QueueBroadcastEvent(0xc801);
+          QueueBroadcastEvent(0xc801,(int)&g_replayContext);
           (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (undefined1)local_714;
           g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
           BroadcastQueuedEvent();
@@ -364,7 +364,7 @@ LAB_004cbad9:
       *(byte *)(param_1 + 0x23d5) = bVar11;
       *(byte *)(param_1 + 0x23d6) = bVar11 + *pbVar12 + -0x34;
       (*pcVar14)(&DAT_005a9068);
-      QueueBroadcastEvent(0xc308);
+      QueueBroadcastEvent(0xc308,(int)&g_replayContext);
       FUN_0041f200(1);
       puVar13 = (undefined4 *)(g_clientContext + 0xeba78);
       puVar16 = (undefined4 *)(param_1 + 0x2302);
@@ -384,10 +384,10 @@ LAB_004cbad9:
     (*pcVar14)(&DAT_005a9068);
     if ((((int)local_718 <= iVar3) && (cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x67e3cc)), cVar1 == '\0')) &&
        (*(char *)(g_clientContext + 0x45127) != '\0')) {
-      QueueBroadcastEvent(0xc305);
+      QueueBroadcastEvent(0xc305,(int)&g_replayContext);
       BroadcastQueuedEvent();
     }
-    QueueBroadcastEvent(0xc300);
+    QueueBroadcastEvent(0xc300,(int)&g_replayContext);
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)local_70c;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

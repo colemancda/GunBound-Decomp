@@ -344,7 +344,7 @@ LAB_0049bfbb:
           *(byte *)(param_1 + 0xf46) = bVar12 | bVar17;
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           if (DAT_0079352a != '\0') {
-            QueueBroadcastEvent(0xf002);
+            QueueBroadcastEvent(0xf002,(int)&g_replayContext);
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(undefined1 *)(param_1 + 8);
             puVar1 = (uint *)(&DAT_00e9aacd + g_dwBroadcastEventCursor);
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;

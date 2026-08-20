@@ -285,7 +285,7 @@ void FUN_00436ec0(int a, int b);
 char FUN_00450e10(int y);
 void FUN_00458920(int *outA, int *outB, int a, int b, int c, int slope, int accum, int f, int g);
 void FUN_00458a00(int *outA, int *outB, int a, int b, int c, int slope, int accum, int f, int g);
-void QueueBroadcastEvent(unsigned int event);
+void QueueBroadcastEvent(unsigned int event,(int)&g_replayContext);
 void BroadcastQueuedEvent(void);
 extern unsigned char DAT_0079352a;
 extern unsigned char g_abBroadcastEventBuffer;
@@ -1200,7 +1200,7 @@ void CProjectile::SimulateFrame(int stepDelta)
             if (DAT_0079352a != '\0') {
                 uVar11 = 0xf003;
             LAB_0045723e:
-                QueueBroadcastEvent(uVar11);
+                QueueBroadcastEvent(uVar11,(int)&g_replayContext);
                 (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (unsigned char)pCVar17->m_ctorArg1;
                 piVar1 = reinterpret_cast<int *>(&DAT_00e9aacd + g_dwBroadcastEventCursor);
                 g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -1368,7 +1368,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                     pCVar17->m_pad3d[0xf0a] = (unsigned char)((bVar10 + pCVar17->m_pad3d[0xf08]) - 0x34);
                     LeaveCriticalSection(&DAT_005a9068);
                     if (DAT_0079352a != '\0') {
-                        QueueBroadcastEvent(0xf002);
+                        QueueBroadcastEvent(0xf002,(int)&g_replayContext);
                         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (unsigned char)pCVar17->m_ctorArg1;
                         piVar1 = reinterpret_cast<int *>(&DAT_00e9aacd + g_dwBroadcastEventCursor);
                         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;

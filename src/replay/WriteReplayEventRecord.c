@@ -263,7 +263,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                 iVar12 = iVar19 * 8 + g_clientContext;
                 *(undefined4 *)(&DAT_006a7670 + iVar12) = 0;
                 *(undefined4 *)((int)(&DAT_006a7670 + iVar12) + 4) = 0;
-                QueueBroadcastEvent(0xc303);
+                QueueBroadcastEvent(0xc303,(int)&g_replayContext);
                 (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)iVar19;
                 g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
                 if (iVar19 == 0xe) {

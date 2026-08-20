@@ -1112,7 +1112,7 @@ LAB_004b7fb2:
              *(undefined1 *)(*(int *)(iVar10 + 0x621e0) + 0xb0ac);
         *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 1;
         SendOutgoingPacket(iVar6);
-        QueueBroadcastEvent(0xc304);
+        QueueBroadcastEvent(0xc304,(int)&g_replayContext);
         iVar4 = g_clientContext;
         *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) =
              *(undefined4 *)(*(int *)(g_clientContext + 0x621e0) + 0xb0b0);

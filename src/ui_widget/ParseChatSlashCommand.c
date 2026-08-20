@@ -468,13 +468,13 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
             }
             iVar4 = __stricmp(local_220,s_clear_00552cfc);
             if ((iVar4 == 0) && (iVar3 == 1)) {
-              QueueBroadcastEvent(0x9000);
+              QueueBroadcastEvent(0x9000,(int)&g_replayContext);
               BroadcastQueuedEvent();
               return 1;
             }
             iVar4 = __stricmp(local_220,s_logging_00552cf4);
             if ((iVar4 == 0) && (iVar3 == 1)) {
-              QueueBroadcastEvent(0xf00e);
+              QueueBroadcastEvent(0xf00e,(int)&g_replayContext);
               BroadcastQueuedEvent();
               return 1;
             }

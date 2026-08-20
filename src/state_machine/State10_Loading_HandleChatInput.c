@@ -43,7 +43,7 @@ void __thiscall State10_Loading_HandleChatInput(int *param_1,int param_2,int par
       else {
         cVar2 = FUN_00415230();
         if (cVar2 == '\0') {
-          QueueBroadcastEvent(1);
+          QueueBroadcastEvent(1,(int)&g_replayContext);
           pcVar3 = acStack_80;
           do {
             cVar2 = *pcVar3;

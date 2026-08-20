@@ -384,7 +384,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
         return;
       }
       if (*(char *)((int)param_1 + 0x92) != '\0') {
-        QueueBroadcastEvent(0x8404);
+        QueueBroadcastEvent(0x8404,(int)&g_replayContext);
         sVar6 = PeekChecksumStateUnderLock(g_clientContext + 0xeba98);
         *(short *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = sVar6 + 4;
         puVar16 = &DAT_006a64c4 + g_clientContext;
@@ -414,7 +414,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
         *(undefined4 *)(&DAT_006a73c8 + iVar13) = 1;
       }
       if (*(char *)((int)param_1 + 0x93) != '\0') {
-        QueueBroadcastEvent(0x8408);
+        QueueBroadcastEvent(0x8408,(int)&g_replayContext);
         cVar4 = PacketChecksumEquals(g_clientContext + 0x45354,3);
         if (cVar4 == '\0') {
           sVar6 = PeekChecksumStateUnderLock(g_clientContext + 0xeba98);
@@ -552,7 +552,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
       }
       ResolveNamedState(&DAT_00556980);
       InvokeWidget(16,0);
-      QueueBroadcastEvent(0x8006);
+      QueueBroadcastEvent(0x8006,(int)&g_replayContext);
       uVar7 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
       iVar13 = g_clientContext;
       *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
@@ -666,7 +666,7 @@ LAB_004b9bb0:
         uVar20 = 2;
       }
       CreateButtonWidget(&DAT_00e9be90,0,uVar20,uVar21,pcVar22,uVar23,0x232,0x23,0x22,1,0);
-      QueueBroadcastEvent(0x4005);
+      QueueBroadcastEvent(0x4005,(int)&g_replayContext);
       cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba));
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = cVar4 != '\0';
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -741,7 +741,7 @@ LAB_004b9bb0:
         else {
           cVar4 = FUN_00415230();
           if (cVar4 == '\0') {
-            QueueBroadcastEvent((*(char *)(g_clientContext + 0xebee5) != '\0') + 0x4002);
+            QueueBroadcastEvent((*(char *)(g_clientContext + 0xebee5) != '\0') + 0x4002,(int)&g_replayContext);
             pcVar22 = acStack_80;
             do {
               cVar4 = *pcVar22;
@@ -810,7 +810,7 @@ LAB_004bafd2:
     if (cVar4 == '\0') goto LAB_004bafd2;
     uVar20 = 0x8403;
   }
-  QueueBroadcastEvent(uVar20);
+  QueueBroadcastEvent(uVar20,(int)&g_replayContext);
   uVar7 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
   iVar13 = g_clientContext;
   *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;

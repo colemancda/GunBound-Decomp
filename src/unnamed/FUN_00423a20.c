@@ -28,7 +28,7 @@ void __fastcall FUN_00423a20(int param_1)
   if (cVar4 != '\0') {
     *(undefined4 *)(&DAT_006a7670 + (uint)in_AL * 8 + param_1) = 0;
     *(undefined4 *)((int)(&DAT_006a7670 + (uint)in_AL * 8 + param_1) + 4) = 0;
-    QueueBroadcastEvent(0xc303);
+    QueueBroadcastEvent(0xc303,(int)&g_replayContext);
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = in_AL;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     if (in_AL == 0xe) {

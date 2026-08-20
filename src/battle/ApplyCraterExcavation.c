@@ -90,7 +90,7 @@ void ApplyCraterExcavation(int param_1,int param_2,int param_3,undefined4 param_
       *(int *)(terrainCtx + 0x854) = impactY - param_1 / 2;
       SpawnCraterDebris(&DAT_006a7f70 + g_clientContext,impactX,impactY,param_1,param_7,param_8);
       if (DAT_0079352a != '\0') {
-        QueueBroadcastEvent(0xf004);
+        QueueBroadcastEvent(0xf004,(int)&g_replayContext);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 0;
         param_6 = param_4;
         param_3 = param_1;
@@ -119,7 +119,7 @@ LAB_004e4ac8:
       bVar4 = DAT_0079352a != '\0';
       *(int *)(terrainCtx + 0x854) = impactY - param_2 / 2;
       if (bVar4) {
-        QueueBroadcastEvent(0xf004);
+        QueueBroadcastEvent(0xf004,(int)&g_replayContext);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
         param_6 = param_5;
         param_3 = param_2;
@@ -133,7 +133,7 @@ LAB_004e4ac8:
       bVar4 = DAT_0079352a != '\0';
       *(int *)(terrainCtx + 0x854) = impactY - param_3 / 2;
       if (bVar4) {
-        QueueBroadcastEvent(0xf004);
+        QueueBroadcastEvent(0xf004,(int)&g_replayContext);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 2;
         goto LAB_004e4ac8;
       }

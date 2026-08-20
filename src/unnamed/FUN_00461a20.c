@@ -73,7 +73,7 @@ void FUN_00461a20(int param_1)
          * tools/encodeoutgoingpacketfield_sites.json. */
         EncodeOutgoingPacketField(g_clientContext + 0x39f30 + local_1c * 0x224, uVar2);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        QueueBroadcastEvent(0x8406);
+        QueueBroadcastEvent(0x8406,(int)&g_replayContext);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar5 = PeekPacketChecksumState((void *)(param_1 + 0x90c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
