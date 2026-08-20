@@ -59,7 +59,7 @@
  * is its own +0x220 flag byte and +0x14 tableHandle, which is what
  * actually ties auStack_8a4/iStack_ab0 to auStack_ac4 and
  * auStack_680/uStack_88c to auStack_8a0.
- * Out of scope, flagged: FUN_00437d90's `unaff_ESI` arg (line ~570) is
+ * Out of scope, flagged: SpawnSuperCrystalShot's `unaff_ESI` arg (line ~570) is
  * really the discarded EBX result of the 0x49115c Peek (pushed at
  * 0x4911a8) - a dropped-arg fix for a different sweep.
  */
@@ -593,7 +593,7 @@ LAB_00490f39:
   PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   (*pcVar15)(&DAT_005a9068);
   uVar19 = PeekPacketChecksumBool();
-  FUN_00437d90(&DAT_006a7f70 + g_clientContext,unaff_ESI,uVar8,(char)param_1[0xf],uVar19);
+  SpawnSuperCrystalShot(&DAT_006a7f70 + g_clientContext,unaff_ESI,uVar8,(char)param_1[0xf],uVar19);
   cVar4 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar4 != '\0') && (cVar4 = InitChecksumSeed(), cVar4 == '\0')) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -1,14 +1,15 @@
-/* FUN_004abb70 - 0x004abb70 in the original binary.
+/* InitThor - 0x004abb70 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004abb70).  Constructor for the THOR satellite
+ * (see SpawnThor, its only caller): stamps class id 100010 at object +0x4 and
+ * installs vtable 0x5565cc.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_004abb70(undefined4 *param_1)
+undefined4 * InitThor(undefined4 *param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;

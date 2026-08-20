@@ -1,8 +1,11 @@
-/* FUN_00437d90 - 0x00437d90 in the original binary.
+/* SpawnSuperCrystalShot - 0x00437d90 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00437d90).  The super-shot twin of
+ * SpawnCrystalShot (0x437b40): same class id 100004, same "crystal" texture
+ * and "92blast.xes" sprite set, differing in operator_new(0x3fa4) vs 0x3fd4.
+ * Its one caller is DetonateSuperShot_Bullet9.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at the file's one argless PeekPacketChecksumState() call
@@ -11,7 +14,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00437d90(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4,
+void SpawnSuperCrystalShot(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4,
                  undefined4 param_5)
 
 {

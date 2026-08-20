@@ -1,9 +1,11 @@
-/* FUN_00437f70 - 0x00437f70 in the original binary.
+/* SpawnLaserIon - 0x00437f70 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00437f70).  The laser-mobile counterpart of
+ * SpawnKnightIon: operator_new(0x3fe4), constructed by InitLaserIon (class id
+ * 100005), texture FindPreloadedTextureByName("laserion") (0x553be8), state
+ * "normal".  Same two callers, CreateMobile and FUN_004207c0.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at the file's one argless PeekPacketChecksumState() call
@@ -12,7 +14,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00437f70(undefined4 param_1,int param_2,int param_3,uint param_4,undefined4 param_5)
+void SpawnLaserIon(undefined4 param_1,int param_2,int param_3,uint param_4,undefined4 param_5)
 
 {
   void *pvVar1;
@@ -33,7 +35,7 @@ void FUN_00437f70(undefined4 param_1,int param_2,int param_3,uint param_4,undefi
   piVar4 = (int *)0x0;
   local_4 = 0;
   if (pvVar1 != (void *)0x0) {
-    piVar4 = (int *)FUN_0047f9e0();
+    piVar4 = (int *)InitLaserIon();
   }
   local_4 = 0xffffffff;
   piVar4[6] = 0x17ce;

@@ -1,14 +1,16 @@
-/* FUN_0047f9e0 - 0x0047f9e0 in the original binary.
+/* InitLaserIon - 0x0047f9e0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_0047f9e0).  Constructor for the LASER ion aura
+ * (see SpawnLaserIon, its only caller): delegates to
+ * InitProjectile(this, 0x186a5) - class id 100005 - and installs vtable
+ * 0x556110.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_0047f9e0(void)
+undefined4 InitLaserIon(void)
 
 {
   undefined4 *unaff_ESI;

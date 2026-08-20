@@ -1,14 +1,18 @@
-/* FUN_00439d90 - 0x00439d90 in the original binary.
+/* SpawnThor - 0x00439d90 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00439d90).  Places the THOR satellite over the
+ * battlefield.  operator_new(0x6b8), constructed by InitThor (class id
+ * 100010), texture from FindPreloadedTextureByName("thor") at 0x553b88, state
+ * "normal".  Its one caller is State11_InBattle_OnEnter, which passes a
+ * randomised X near the map centre - `g_nCameraBoundX / 2 - 500 + rand % 1000`
+ * - so it is placed once when the battle starts.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00439d90(undefined4 param_1,int param_2)
+void SpawnThor(undefined4 param_1,int param_2)
 
 {
   char cVar1;
@@ -29,7 +33,7 @@ void FUN_00439d90(undefined4 param_1,int param_2)
     piVar4 = (int *)0x0;
     local_4 = 0;
     if (pvVar2 != (void *)0x0) {
-      piVar4 = (int *)FUN_004abb70(pvVar2);
+      piVar4 = (int *)InitThor(pvVar2);
     }
     local_4 = 0xffffffff;
     piVar4[0xe] = param_2;

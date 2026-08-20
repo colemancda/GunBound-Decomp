@@ -202,7 +202,7 @@ LAB_00420896:
       uVar9 = local_8b8[2] & 7;
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(piVar2);
-      FUN_00437f70(&DAT_006a7f70 + param_1,uVar7,uVar6,uVar9,uVar8);
+      SpawnLaserIon(&DAT_006a7f70 + param_1,uVar7,uVar6,uVar9,uVar8);
       uStack_4 = 0xffffffff;
       ScrubChecksumGuard();
     }
@@ -217,7 +217,7 @@ LAB_00420896:
       uVar8 = local_8b8[2] & 7;
       uVar6 = PeekChecksumStateUnderLock(uVar6);
       uVar7 = PeekChecksumStateUnderLock(piVar2);
-      FUN_00438100(&DAT_006a7f70 + param_1,uVar7,uVar6,uVar8,uVar9);
+      SpawnKnightIon(&DAT_006a7f70 + param_1,uVar7,uVar6,uVar8,uVar9);
       uStack_4 = 0xffffffff;
       ScrubChecksumGuard();
     }

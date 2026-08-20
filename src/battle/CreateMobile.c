@@ -156,7 +156,7 @@ LAB_0042b5ad:
       if ((int)uVar6 < 0) {
         uVar6 = (uVar6 - 1 | 0xfffffff8) + 1;
       }
-      FUN_00437f70(param_1,param_4,param_5 + -200,uVar6,param_6 != 0);
+      SpawnLaserIon(param_1,param_4,param_5 + -200,uVar6,param_6 != 0);
     }
     goto LAB_0042b60a;
   case 10:
@@ -206,7 +206,7 @@ LAB_0042b5ad:
       if ((int)uVar6 < 0) {
         uVar6 = (uVar6 - 1 | 0xfffffff8) + 1;
       }
-      FUN_00438100(param_1,param_4,param_5 + -200,uVar6,param_6 != 0);
+      SpawnKnightIon(param_1,param_4,param_5 + -200,uVar6,param_6 != 0);
     }
     goto LAB_0042b60a;
   case 0xf:
