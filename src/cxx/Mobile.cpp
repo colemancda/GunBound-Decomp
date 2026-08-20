@@ -120,6 +120,7 @@ void FUN_004eb7a0(int a, int b, int c);
 int  _sprintf(char *buf, const char *fmt, int a, int b);
 
 extern int g_clientContext;            /* _DAT_005b3484 */
+extern unsigned char g_replayContext;  /* 0xe55ce0 - battle/replay turn-event buffer sized in globals_sized.c; declared scalar and always used as &g_replayContext, the same offset-macro idiom as globals.h */
 extern unsigned char g_nCameraX, g_nCameraY;  /* 1-byte: used only as &sym + g_clientContext ctx bases (see Projectile.cpp) */
 extern int DAT_00793530, DAT_0056df30, DAT_00793534, DAT_0056df34;  /* on-screen clip bounds */
 extern unsigned char DAT_00e9bed8;     /* a guard cell (address-of taken) */
@@ -165,7 +166,7 @@ unsigned int AcquireSoundChannel(int a);   /* returns the acquired channel handl
 void ResolveNamedState(int *arg);
 int  DecodeGuardedBool(void);
 int SetGuardedBool(int value, int guardPtr);
-void QueueBroadcastEvent(unsigned int event,(int)&g_replayContext);
+void QueueBroadcastEvent(unsigned int event, int replayCtx);
 void BroadcastQueuedEvent(void);
 
 extern int DAT_005b3424;               /* second per-connection base (distinct from g_clientContext) */

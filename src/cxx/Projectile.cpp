@@ -251,6 +251,7 @@ int FindStringNoCase(int *table, char *needle);
 void NoOpMethod(void);
 
 extern int g_clientContext;             /* _DAT_005b3484 */
+extern unsigned char g_replayContext;  /* 0xe55ce0 - battle/replay turn-event buffer sized in globals_sized.c; declared scalar and always used as &g_replayContext, the same offset-macro idiom as globals.h */
 extern unsigned char DAT_006a7708;      /* address anchors: only ever used as    */
 extern unsigned char DAT_006a773c;      /* "&DAT_xxx + g_clientContext" bases -  */
 extern unsigned char DAT_006a7758;      /* declared as 1-byte so that arithmetic */
@@ -285,7 +286,7 @@ void FUN_00436ec0(int a, int b);
 char FUN_00450e10(int y);
 void FUN_00458920(int *outA, int *outB, int a, int b, int c, int slope, int accum, int f, int g);
 void FUN_00458a00(int *outA, int *outB, int a, int b, int c, int slope, int accum, int f, int g);
-void QueueBroadcastEvent(unsigned int event,(int)&g_replayContext);
+void QueueBroadcastEvent(unsigned int event, int replayCtx);
 void BroadcastQueuedEvent(void);
 extern unsigned char DAT_0079352a;
 extern unsigned char g_abBroadcastEventBuffer;
