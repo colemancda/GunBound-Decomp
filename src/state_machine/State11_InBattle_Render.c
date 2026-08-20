@@ -52,6 +52,7 @@ void State11_InBattle_Render(void)
   int iVar6;
   int iVar7;
   int *piVar8;
+  int iBeamAngle;
   undefined4 uVar9;
   undefined4 *puVar10;
   int iVar11;
@@ -1866,10 +1867,16 @@ LAB_004c7566:
           *(undefined4 *)((int)piVar8 + 0x80) = 0x3f0147ae;
           *(undefined4 *)((int)piVar8 + 0x84) = 0x3f4147ae;
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x4fb4));
+          iBeamAngle = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x4fb4));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar5 = g_clientContext;
-          BuildRotatedBeamQuad(iVar6,pcStack_a28,0,0x40,0x40);
+          /* RECOVERED (2026-08-19): param_1 is the phantom ECX, param_2 is the
+           * EDX record (piStack_a2c - the one whose +0x80/+0x84 are set just
+           * above), and param_8 is the original's EAX argument: the angle,
+           * which is the result of the peek on the line above that the
+           * decompile discarded.  orig 0x4c781e `mov eax,[esp+0x10]` reads
+           * back the 0x4c77fe store.  See src/rendering/BuildRotatedBeamQuad.c. */
+          BuildRotatedBeamQuad(0,(int)piStack_a2c,iVar6,pcStack_a28,0,0x40,0x40,iBeamAngle);
         }
       }
     }
@@ -2208,9 +2215,11 @@ LAB_004c8498:
       *(undefined4 *)((int)piVar8 + 0x80) = 0x3f0147ae;
       *(undefined4 *)((int)piVar8 + 0x84) = 0x3f4147ae;
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e4) + 0x4fb4));
+      iBeamAngle = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e4) + 0x4fb4));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      BuildRotatedBeamQuad(iVar19,pcStack_a28,0,0x40,0x40);
+      /* same trio; here the angle reaches EAX via `mov edi,eax` at 0x4c8615
+       * and EDX is esi = piStack_a2c. */
+      BuildRotatedBeamQuad(0,(int)piStack_a2c,iVar19,pcStack_a28,0,0x40,0x40,iBeamAngle);
     }
   }
   (**(code **)(*g_pD3DDevice7 + 0x8c))

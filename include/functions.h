@@ -529,6 +529,10 @@ uint __fastcall FUN_00425e60();
 /* Same generator gap; genuinely __fastcall - ECX = the randomise flag,
  * EDX = the sub-effect index.  (Its third register argument, EAX, is
  * already inlined in the callee - see the guard-cell note there.) */
+/* Same generator gap.  __fastcall with a PHANTOM param_1 (ECX); param_2 is
+ * EDX and the original's EAX argument (the angle) is param_8 in the port -
+ * see src/rendering/BuildRotatedBeamQuad.c. */
+void __fastcall BuildRotatedBeamQuad();
 void __fastcall SpawnSuperFlameEffect();
 uint __fastcall BlitSpriteAttached();
 undefined4 * __fastcall InitTextBoxWidget();

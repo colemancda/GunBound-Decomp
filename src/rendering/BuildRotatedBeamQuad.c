@@ -19,7 +19,7 @@
  * ABI, AND WHAT IS STILL OPEN (2026-08-19 audit).  Ghidra marked this
  * __fastcall, but the prologue loads ECX from [esp+0x28] - a stack slot - so
  * param_1 is a PHANTOM.  The real shape is EAX (the angle, Ghidra's
- * `in_EAX`) + EDX (param_2, the texture record) + ret 0x14 = 5 stack
+ * `param_8`) + EDX (param_2, the texture record) + ret 0x14 = 5 stack
  * arguments (params 3-7 = x, y, flip, length, width).  Both call sites in
  * State11_InBattle_Render pass only the 5 stack arguments, so the angle and
  * the texture record are read from whatever is left in EAX and EDX.
@@ -29,13 +29,21 @@
  * `PeekPacketChecksumState(*(int *)(g_clientContext + 0x621e4) + 0x4fb4)`
  * that the decompile discards on the line directly above the call.
  *
- * Site 0x4c7837 does NOT match that shape and is the open part: there the
- * discarded peek's result is stored to [esp+0x14] and becomes param_3, while
- * EAX comes from a DIFFERENT slot ([esp+0x10]) and EDX from [esp+0x28].
- * Resolving what feeds those two slots is the remaining step; until both
- * sites are known, NO prototype has been added to include/functions.h -
- * declaring it __fastcall while one site still passes 5 arguments would put
- * that site's x and y into ECX/EDX and make things worse, not better.
+ * Site 0x4c7837 RESOLVED (2026-08-19) and it has the same shape after all -
+ * an earlier reading of it was off by one stack slot.  The store at 0x4c77fe
+ * `mov [esp+0x14],eax` happens with the `push 0x5a9068` still live, so it
+ * lands at frame+0x10 - which is exactly the slot 0x4c781e `mov eax,[esp+0x10]`
+ * reads back after `call ebp` has popped that push.  So EAX is the discarded
+ * peek here too; param_3 comes from the neighbouring frame+0x14.
+ *
+ * EDX is piStack_a2c at both sites: it is the record the caller writes
+ * +0x80/+0x84 on immediately before the call, and the one this function then
+ * reads at +0x80/+0x84/+0x88 for the texture rect.
+ *
+ * FIXED: param_1 is passed 0, param_2 is passed the record, and `in_EAX` has
+ * been promoted to a real trailing parameter (param_8) since MSVC cannot
+ * express EAX - the rebuild becomes ret 0x18 and is self-consistent, at the
+ * cost of that one argument no longer sitting where the original put it.
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
@@ -46,7 +54,7 @@
 
 void __fastcall
 BuildRotatedBeamQuad(undefined4 param_1,int param_2,int param_3,int param_4,char param_5,int param_6,
-            int param_7)
+            int param_7,int param_8)
 
 {
   float fVar1;
@@ -55,7 +63,6 @@ BuildRotatedBeamQuad(undefined4 param_1,int param_2,int param_3,int param_4,char
   float fVar4;
   float fVar5;
   float fVar6;
-  int in_EAX;
   int iVar7;
   int iVar8;
   undefined4 unaff_EBX;
@@ -64,12 +71,12 @@ BuildRotatedBeamQuad(undefined4 param_1,int param_2,int param_3,int param_4,char
   
   fVar3 = (float)param_6;
   fVar4 = (float)(param_7 / 2 + -1);
-  iVar8 = (in_EAX + 0x5a) % 0x168;
+  iVar8 = (param_8 + 0x5a) % 0x168;
   if (iVar8 < 0) {
     iVar8 = iVar8 + 0x168;
   }
   fVar1 = *(float *)(&g_sineTable360 + iVar8 * 4);
-  iVar8 = in_EAX % 0x168;
+  iVar8 = param_8 % 0x168;
   if (iVar8 < 0) {
     iVar8 = iVar8 + 0x168;
   }
