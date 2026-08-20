@@ -11,7 +11,7 @@
 void FUN_00429f90(void)
 
 {
-  PanelManager_Unregister(&g_uiPanelManager);
+  PanelManager_Unregister(&g_uiPanelManager,0,1);
   return;
 }
 

@@ -25,7 +25,7 @@ void __fastcall State09_ReadyRoom_OnExit(int param_1)
   undefined4 *puVar8;
   int iVar9;
   
-  PanelManager_Unregister(&g_uiPanelManager);
+  PanelManager_Unregister(&g_uiPanelManager,0,0x7d0);
   HideStoreItemTooltipPanel();
   puVar8 = *(undefined4 **)(DAT_00ea0e1c + 0x1c);
   uVar5 = puVar8[1];

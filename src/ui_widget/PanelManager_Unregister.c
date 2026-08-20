@@ -5,6 +5,19 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
+ * DROPPED-REGISTER-ARG FIX (2026-08-19).  The original takes TWO register
+ * arguments besides its stack one, and the body is what gives them away: it
+ * scans the manager's list for the entry whose
+ *     *(int *)(entry + 0x20) == EAX  &&  *(int *)(entry + 0x24) == EBX
+ * - a two-dword key.  Ghidra modelled those as `in_EAX` and `unaff_EBX`, so
+ * the search ran against whatever the registers happened to hold and
+ * unregistered the wrong panel (or none).
+ *
+ * All 14 call sites in the binary set them immediately before the call, and
+ * EAX is `xor eax,eax` at every single one - so param_2 is a constant 0 group
+ * selector and param_3 is the panel key: 0, 1, 2, 3 or 0x7d0 depending on the
+ * site.  Promoted to real parameters and passed explicitly everywhere.
+ *
  * CI COMPILE-ERR FIX (2026-07-30): PanelManager_ReleasePool/
  * WidgetChildArray_Destroy were given real 1-param prototypes in an
  * earlier pass (see FUN_0050f290.c's header) but this file's own two
@@ -21,16 +34,14 @@
 #include "ghidra_types.h"
 
 
-undefined4 PanelManager_Unregister(int *param_1)
+undefined4 PanelManager_Unregister(int *param_1,int param_2,int param_3)
 
 {
   int *piVar1;
   void *_Memory;
   int *piVar2;
   int iVar3;
-  int in_EAX;
   int *piVar4;
-  int unaff_EBX;
   
   piVar1 = param_1 + 1;
   piVar4 = (int *)*piVar1;
@@ -38,7 +49,7 @@ undefined4 PanelManager_Unregister(int *param_1)
     while( true ) {
       _Memory = (void *)piVar4[2];
       piVar2 = (int *)*piVar4;
-      if ((*(int *)((int)_Memory + 0x20) == in_EAX) && (*(int *)((int)_Memory + 0x24) == unaff_EBX))
+      if ((*(int *)((int)_Memory + 0x20) == param_2) && (*(int *)((int)_Memory + 0x24) == param_3))
       break;
       piVar4 = piVar2;
       if (piVar2 == (int *)0x0) {

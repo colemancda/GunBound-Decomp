@@ -337,7 +337,7 @@ LAB_004d588d:
       AppendPacketBytes(0,iVar10,(uint)(pcVar13 - (char *)(param_1 + 0x62d) - 1),
                          (char *)(param_1 + 0x62d));
       SendOutgoingPacket(iVar10);
-      PanelManager_Unregister(&g_uiPanelManager);
+      PanelManager_Unregister(&g_uiPanelManager,0,3);
       InvokeWidget(8,1);
       /* was `return uVar3` reading InvokeWidget's nonexistent return
        * value (see this file's own header) - return 0 instead of
@@ -350,7 +350,7 @@ LAB_004d588d:
     return uVar3;
   case 9:
     InvokeWidget(8,1);
-    uVar3 = PanelManager_Unregister(&g_uiPanelManager);
+    uVar3 = PanelManager_Unregister(&g_uiPanelManager,0,3);
     return uVar3;
   case 10:
     RefreshReadyRoomControls(param_1,0,0);

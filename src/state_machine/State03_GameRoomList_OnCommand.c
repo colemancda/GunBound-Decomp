@@ -37,12 +37,12 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
       return;
     }
     if (*(char *)(param_1 + 0xd) != '\0') {
-      PanelManager_Unregister(&g_uiPanelManager);
+      PanelManager_Unregister(&g_uiPanelManager,0,2);
     }
     if (*(char *)(param_1 + 0xe) == '\0') {
       return;
     }
-    PanelManager_Unregister(&g_uiPanelManager);
+    PanelManager_Unregister(&g_uiPanelManager,0,1);
     return;
   }
   switch(param_4) {
