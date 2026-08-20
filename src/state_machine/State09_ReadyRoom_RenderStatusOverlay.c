@@ -120,7 +120,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
         iVar7 = piVar8[-8];
         if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x2717,4), iVar4 != 0)) {
           if (*(char *)(iVar4 + 0x18) == '\x01') {
-            BlitSprite16bpp(iVar7 + 0x1a,iVar3 + 2);
+            BlitSprite16bpp(4,iVar7 + 0x1a,iVar3 + 2,0x2717);
           }
           else {
             BlitSpriteClipped(cVar6);
