@@ -1400,7 +1400,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fddd0,288,FUN_004fddd0,false,1,8,RAW-src
 004fdef0,3,CGameState_NoOpVirtual_B,false,33,0,RAW-src
 004fdf00,204,InitCommP2PNotifyWindow,false,1,5,RAW-src
-004fdfd0,136,FUN_004fdfd0,false,1,6,RAW-src
+004fdfd0,136,DestroyCommEngine,false,1,6,RAW-src
 004fe060,161,CreateBoundSocket,false,1,5,RAW-src
 004fe110,760,FUN_004fe110,false,3,10,RAW-src
 004fe420,102,FUN_004fe420,false,9,1,RAW-src
@@ -1426,7 +1426,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ff240,114,FUN_004ff240,false,2,0,RAW-src
 004ff2c0,78,FUN_004ff2c0,false,1,0,RAW-src
 004ff310,51,FUN_004ff310,false,3,1,RAW-src
-004ff350,327,FUN_004ff350,false,2,5,RAW-src
+004ff350,327,ConfigureAsyncSocket,false,2,5,RAW-src
 004ff4a0,173,CommEngineRecv,false,1,5,RAW-src
 004ff550,238,CommEngineSend,false,1,6,RAW-src
 004ff640,67,FUN_004ff640,false,1,2,RAW-src

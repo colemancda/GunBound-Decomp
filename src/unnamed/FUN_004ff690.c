@@ -21,7 +21,7 @@ void FUN_004ff690(undefined4 param_1)
     closesocket(unaff_EDI);
     return;
   }
-  iVar1 = FUN_004ff350(unaff_ESI,param_1);
+  iVar1 = ConfigureAsyncSocket(unaff_ESI,param_1);
   if (iVar1 == 0) {
                     /* WARNING: Could not recover jumptable at 0x004ff6b4. Too many branches */
                     /* WARNING: Treating indirect jump as call */

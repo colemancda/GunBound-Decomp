@@ -1,13 +1,23 @@
-/* FUN_004ff350 - 0x004ff350 in the original binary.
+/* ConfigureAsyncSocket - 0x004ff350 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004ff350).  Puts a socket into the comm engine's
+ * asynchronous mode, and the message number is what ties the subsystem
+ * together:
+ *     ioctlsocket(s, FIONBIO, &nonblocking)
+ *     WSAAsyncSelect(s, engine->hwnd, 0x478, 0x33)
+ *     setsockopt(s, SOL_SOCKET, SO_SNDBUF, ...)
+ *     setsockopt(s, SOL_SOCKET, SO_RCVBUF, ...)
+ * 0x478 is exactly the one message CommEngineNotifyWndProc handles, and the
+ * hwnd comes from the same engine object CreateCommEngineNotifyWindow filled
+ * in - so this is the registration side of that window procedure.  Called
+ * from ConnectToHostPort.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_004ff350(SOCKET param_1,u_long param_2,undefined4 param_3)
+undefined4 __thiscall ConfigureAsyncSocket(SOCKET param_1,u_long param_2,undefined4 param_3)
 
 {
   u_long uVar1;

@@ -36,7 +36,7 @@ int ConnectToHostPort(undefined4 param_1,u_short param_2)
     SUBFIELD(local_10.sa_data,2,undefined2) = SUB42(param_1,0);
     SUBFIELD(local_10.sa_data,4,undefined2) = SUB42((uint)param_1 >> 0x10,0);
     SUBFIELD(local_10.sa_data,0,undefined2) = htons(param_2);
-    iVar1 = FUN_004ff350(unaff_EBX,&local_10);
+    iVar1 = ConfigureAsyncSocket(unaff_EBX,&local_10);
     if (iVar1 == 0) {
       closesocket(s);
       return 0;

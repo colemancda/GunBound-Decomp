@@ -62,7 +62,7 @@ LAB_004fd2b5:
   param_1[0x6a9] = 0;
   param_1[0x6aa] = 0;
   param_1[0x6ab] = 0;
-  FUN_004fdfd0();
+  DestroyCommEngine();
   param_1[1] = &PTR_LAB_00557598;
   if ((HWND)param_1[9] != (HWND)0x0) {
     DestroyWindow((HWND)param_1[9]);
