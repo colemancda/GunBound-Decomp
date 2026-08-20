@@ -84,7 +84,7 @@ public:
      * unconfirmed). GUESSED name/role - the specific purpose of the
      * per-slot tracking array isn't confirmed, only its shape. See
      * Projectile.cpp for the full derivation and the exact global offsets. */
-    virtual void v3();
+    virtual void PublishProjectileTrackingState();
     /* slot 4 +0x10: 0x429800 (shared) - no-op (`return;`). */
     virtual void v4_NoOp();
     /* slot 5 +0x14: 0x455cc0 = SimulateProjectileFrame (CONFIRMED) - the per-frame

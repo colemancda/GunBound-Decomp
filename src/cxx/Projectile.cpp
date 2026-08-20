@@ -25,7 +25,7 @@
  * now OBSOLETE for the guard family -- every PeekPacketChecksumState /
  * EncodeOutgoingPacketField call site in this file has had its cell
  * recovered (113 sites across AnimateProjectileTick, DetonateProjectile,
- * SimulateFrame, v3 and IsProjectileInBounds), and the two file-local extern declarations
+ * SimulateFrame, PublishProjectileTrackingState and IsProjectileInBounds), and the two file-local extern declarations
  * gained the `void *self` parameter (an empty parameter list means "no
  * arguments" in C++, unlike the .c ports).  Both stay __cdecl, so the
  * extra pushed argument is caller-cleaned and behaviour is unchanged
@@ -47,7 +47,7 @@
  *     etc.  The +0x3b0b / +0x113b results match the offsets this file
  *     ALREADY spells out by hand at its CompareChecksumPair /
  *     PacketChecksumGreaterEqual call sites, which is the cross-check.
- *   - v3 and IsProjectileInBounds needed no analysis: their per-call `/* cell: ... *\/`
+ *   - PublishProjectileTrackingState and IsProjectileInBounds needed no analysis: their per-call `/* cell: ... *\/`
  *     comments (added when those slots were promoted) already recorded the
  *     exact cell, and the values below are those comments made executable.
  *
@@ -205,11 +205,11 @@ char CompareChecksumExceeds(void *cellA, void *cellB);
 void AcquireSoundChannel(int a);
 int _rand(void);
 
-/* v3/IsProjectileInBounds/v11's additional dependencies (fresh angr disassembly, 2026-07-15,
+/* PublishProjectileTrackingState/IsProjectileInBounds/v11's additional dependencies (fresh angr disassembly, 2026-07-15,
  * no prior decompile existed for any of these 4 slots - see Projectile.h's
  * slot 3/7/10/11 comments). */
 char CompareChecksumPairGreaterEqual(void *cellA, void *cellB); /* 0x40b450 */
-/* 0x455b60 - an unnamed BST/tree-walk helper (v3 only) against the same
+/* 0x455b60 - an unnamed BST/tree-walk helper (PublishProjectileTrackingState only) against the same
  * sprite/frame registry root FindSpriteFrame/DrawButtonWidget use. The
  * original call site's convention is genuinely mixed (2 args via EDX/EAX,
  * 2 more via the stack, callee-cleans) and doesn't map to any normal C
@@ -219,7 +219,15 @@ char CompareChecksumPairGreaterEqual(void *cellA, void *cellB); /* 0x40b450 */
  * rebuild. Argument order below is a best-effort mapping of the observed
  * register/stack values (rowAddr, stride, spriteOrLifetimeKey,
  * this+0x30 key) - NOT verified against 0x455b60's own prologue. */
-int LookupProjectileTrackingRow(void *rowAddr, int stride, int keyA, int keyB);
+/* 0x455b60 - ABI corrected 2026-08-19 (see src/unnamed/FUN_00455b60.c and
+ * the raw carve src/battle/PublishProjectileTrackingState.c): __fastcall
+ * with a PHANTOM first parameter (ECX is written before it is read), the
+ * first key in EDX, and the second key in EAX - promoted here to a real
+ * trailing parameter because MSVC cannot express EAX.  The previous plain
+ * 4-arg declaration put rowAddr/stride in the right stack slots but left
+ * BOTH keys undefined. */
+int __fastcall LookupProjectileTrackingRow(int phantom, int keyA, void *rowAddr, int stride,
+                                           int keyB);
 /* 0x4eb640 / 0x4eb720 (v11 only) - unidentified draw-style calls, not
  * found anywhere else in the tree. Declared for bring-up auto-stubbing;
  * argument order is a best-effort reading of the observed per-call-site
@@ -1467,7 +1475,7 @@ void CProjectile::v12_NoOp()
  * same address 0x40a2e0) - noted per-call in comments instead, to stay
  * consistent with every other call site in this file rather than
  * introduce a differently-shaped declaration only this method could use. */
-void CProjectile::v3()
+void CProjectile::PublishProjectileTrackingState()
 {
     char *ctx = reinterpret_cast<char *>(g_clientContext);
     void *table1 = *reinterpret_cast<void **>(ctx + 0x20b94);
@@ -1509,7 +1517,7 @@ void CProjectile::v3()
     int row1 = (static_cast<int>(m_ctorArg1) >> 2) * stride1 + (m_ctorArg1 & 3) * 2;
     void *rowAddr1 = reinterpret_cast<char *>(table1) + (row1 << 6);
     if (rowAddr1 != 0) {
-        LookupProjectileTrackingRow(rowAddr1, stride1, static_cast<int>(m_spriteId), trackKey);
+        LookupProjectileTrackingRow(0, static_cast<int>(m_spriteId), rowAddr1, stride1, trackKey);
     }
 
     void *table2 = *reinterpret_cast<void **>(ctx + 0x20b9c);
@@ -1517,7 +1525,7 @@ void CProjectile::v3()
         int stride2 = *reinterpret_cast<int *>(ctx + 0x20ba0);
         int row2 = (static_cast<int>(m_ctorArg1) >> 2) * stride2 + (m_ctorArg1 & 3) * 2;
         void *rowAddr2 = reinterpret_cast<char *>(table2) + (row2 << 6);
-        int lookup2 = LookupProjectileTrackingRow(rowAddr2, stride2, static_cast<int>(m_lifetime), trackKey) & 0xff;
+        int lookup2 = LookupProjectileTrackingRow(0, static_cast<int>(m_lifetime), rowAddr2, stride2, trackKey) & 0xff;
         *reinterpret_cast<int *>(ctx + m_ctorArg1 * 5 * 4 + 0x20c30) = lookup2;
         *reinterpret_cast<int *>(ctx + m_ctorArg1 * 5 * 4 + 0x20c34) = 0;
     }

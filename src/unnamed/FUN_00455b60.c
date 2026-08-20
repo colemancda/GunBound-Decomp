@@ -1,17 +1,32 @@
 /* FUN_00455b60 - 0x00455b60 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * No confirmed real name/purpose.  A two-level walk of the sprite/frame
+ * registry rooted at DAT_00ea0e1c - the same root BlitSpriteAttached uses -
+ * keyed by param_2 at the first level and param_5 at the second.
+ *
+ * ABI FIX (2026-08-19).  Ghidra marks this __fastcall, but ECX is written at
+ * 0x455b6f before it is ever read, so param_1 is a PHANTOM; the real register
+ * arguments are EDX (param_2, read at 0x455b72 `cmp ecx,edx`) and EAX
+ * (0x455b65 `mov esi,eax`, Ghidra's `in_EAX`), plus 2 stack args.  EAX is not
+ * expressible under MSVC, so `in_EAX` has been promoted to a real trailing
+ * parameter (param_5) - the same trade documented for BlitSpriteAttached and
+ * InitTextBoxWidget.  Callers pass 0 for param_1.
+ *
+ * Four of its six call sites are still in UNCARVED regions (0x488a38,
+ * 0x488a6b, 0x4ae313, 0x4ae346 - other copies of the slot-3 publish logic);
+ * only PublishProjectileTrackingState's two are ported, and both pass the
+ * register arguments properly.
+ *
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond this - not
+ * hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-uint __fastcall FUN_00455b60(undefined4 param_1,uint param_2,int param_3,int param_4)
+uint __fastcall FUN_00455b60(undefined4 param_1,uint param_2,int param_3,int param_4,uint param_5)
 
 {
   int iVar1;
-  uint in_EAX;
   uint uVar2;
   undefined4 *puVar3;
   uint uVar4;
@@ -35,8 +50,8 @@ uint __fastcall FUN_00455b60(undefined4 param_1,uint param_2,int param_3,int par
     }
     iVar1 = *(int *)(uVar4 + 0x10);
     uVar4 = *(uint *)(iVar1 + 8);
-    while (uVar4 <= in_EAX) {
-      if (uVar4 == in_EAX) {
+    while (uVar4 <= param_5) {
+      if (uVar4 == param_5) {
         uVar10 = *(uint *)(iVar1 + 0x20);
         iVar5 = *(int *)(iVar1 + 0x28) + 0x30;
         uVar4 = uVar10 + iVar5;
