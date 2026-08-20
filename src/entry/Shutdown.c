@@ -37,7 +37,7 @@ void Shutdown(int param_1)
     WaitForSingleObject(DAT_00e9c9c8,1000);
   }
   if (param_1 != '\0') {
-    FUN_0040d760();
+    SaveClientSettingsToRegistry();
     SetEvent(DAT_00e55ce8);
     DAT_00e9c344 = 0;
     /* DAT_00e9c33c was this worker-thread struct's +8 HANDLE field under its

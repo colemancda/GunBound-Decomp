@@ -1,14 +1,17 @@
-/* FUN_004e4010 - 0x004e4010 in the original binary.
+/* PreloadBattleTextures - 0x004e4010 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004e4010).  A straight-line list of
+ * PreloadTexture(&g_textureCache, "...") calls for the battle texture set:
+ * CharacterTexture1/2, CharEffectTexture1/2, TagTexture, BulletTexture1/2,
+ * FlameTexture1/2, AvataTexture1/2, AvataEffectTexture1/2 and so on.  Called
+ * from State10_Loading_PreloadAssets and again from ProcessBattleFrame.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004e4010(undefined4 param_1)
+void PreloadBattleTextures(undefined4 param_1)
 
 {
   PreloadTexture(&g_textureCache,s_CharacterTexture1_005568d8);

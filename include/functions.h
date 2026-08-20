@@ -342,7 +342,7 @@ void FUN_0040d1c0();
 int __fastcall FUN_0040d200();
 void BuildSystemInfoBlob(undefined4 *, undefined4 *);
 void LoadClientSettingsFromRegistry();
-void FUN_0040d760();
+void SaveClientSettingsToRegistry();
 void __fastcall FUN_00411b40();
 void ProcessInputEventQueue();
 void ShowErrorDialog(); /* real args (closeSockets, messageId); K&R-empty so
@@ -1151,7 +1151,7 @@ void DrawStageDecorationParallax();
 int __fastcall DrawStageDecorationBase();
 void FUN_004e3c50(int param_1, char *name);
 void LoadStageDecorationSet();
-void FUN_004e4010();
+void PreloadBattleTextures();
 void FUN_004e4220();
 int __fastcall FindGroundHeightAtColumn();
 int FUN_004e4390();

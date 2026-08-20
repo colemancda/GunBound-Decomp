@@ -1,14 +1,17 @@
-/* FUN_0040d760 - 0x0040d760 in the original binary.
+/* SaveClientSettingsToRegistry - 0x0040d760 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_0040d760).  Writes the client's settings back to
+ * the registry with RegSetValueExA: ChannelName, GameName, Background,
+ * Effect3D, AutoRefresh, EffectVolume, LastServer and the rest.  Its one
+ * caller is Shutdown, and it is the exact counterpart of the already-named
+ * LoadClientSettingsFromRegistry (0x40d370), which reads the same key names.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0040d760(void)
+void SaveClientSettingsToRegistry(void)
 
 {
   char *pcVar1;
