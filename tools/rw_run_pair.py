@@ -1,0 +1,98 @@
+"""Pair RemoveWidget call sites to source using straight-line RUNS.
+
+A run is a maximal stretch with no control flow in it. Inside a run, source
+order must equal VA order - that is the one ordering assumption that is not an
+assumption. Runs are delimited on BOTH sides:
+  binary: any jmp/jcc/ret, or an address that is a branch target
+  source: goto/break/case/label/if/while/}/{ - anything that is not a call
+Each run is identified by the CreateButtonWidget that opens it, whose (key,id)
+literals are unique within the function.
+"""
+import struct,re,csv,bisect,sys,json,collections
+import pefile,capstone
+RW=0x405fb0; CBW=0x406020
+rows=[]
+for r in csv.reader(open('PROGRESS.csv')):
+    try: a=int(r[0],16); n=int(r[1])
+    except Exception: continue
+    rows.append((a,n,r[2]))
+rows.sort()
+def span(name):
+    for a,n,nm in rows:
+        if nm==name: return a,a+n
+pe=pefile.PE('orig/GunBound.gme',fast_load=True); ib=pe.OPTIONAL_HEADER.ImageBase
+sec=[s for s in pe.sections if s.Name.rstrip(b'\x00')==b'.text'][0]
+base=ib+sec.VirtualAddress; data=sec.get_data()
+md=capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
+
+def binary_runs(name):
+    a,b=span(name)
+    ins=list(md.disasm(data[a-base:b-base],a))
+    targets=set()
+    for i in ins:
+        if i.mnemonic.startswith('j') and i.op_str.startswith('0x'): targets.add(int(i.op_str,16))
+    runs=[]; cur=None; pend=[]
+    for idx,i in enumerate(ins):
+        if i.address in targets and cur is not None: cur=None      # a branch target ends the run
+        if i.mnemonic=='push':
+            m=re.fullmatch(r'0x[0-9a-f]+|\d+',i.op_str); pend.append(int(i.op_str,0) if m else None)
+        elif i.mnemonic=='call' and i.op_str.startswith('0x'):
+            t=int(i.op_str,16)
+            if t==CBW:
+                args=list(reversed(pend[-11:])) if len(pend)>=11 else None
+                k=(args[2],args[3]) if args and len(args)>3 else None
+                cur={'key':k,'esi':[]}; runs.append(cur)
+            elif t==RW and cur is not None:
+                e=None
+                for j in range(idx-1,max(0,idx-6),-1):
+                    m=re.match(r'esi, (0x[0-9a-f]+|\d+)$',ins[j].op_str)
+                    if m: e=int(m.group(1),0); break
+                    if ins[j].op_str.startswith('esi,'): break
+                cur['esi'].append(e)
+            pend=[]
+        elif i.mnemonic.startswith('j') or i.mnemonic=='ret':
+            cur=None
+    return [r for r in runs if r['key']]
+
+def source_runs(path):
+    # blank comments out RATHER THAN removing them, so every offset below is a
+    # real offset into the file on disk - deleting them shifts every position
+    src=re.sub(r'/\*.*?\*/',lambda m:' '*(m.end()-m.start()),
+               open(path,errors='replace').read(),flags=re.S)
+    runs=[]; cur=None; i=0
+    tok=re.compile(r'\bCreateButtonWidget\s*\(|\bRemoveWidget\(\s*\)|\bgoto\b|\bbreak\b|\bcase\b|\bdefault\b|\bLAB_00[0-9a-f]{6}:|\bif\b|\bwhile\b|\bfor\b|\belse\b|[{}]')
+    for m in tok.finditer(src):
+        t=m.group(0)
+        if t.startswith('CreateButtonWidget'):
+            d=1; j=m.end()
+            while d and j<len(src):
+                if src[j]=='(':d+=1
+                elif src[j]==')':d-=1
+                j+=1
+            a=[x.strip() for x in re.split(r',(?![^()]*\))',src[m.end():j-1])]
+            def num(x):
+                try: return int(x,0)
+                except Exception: return None
+            k=(num(a[2]),num(a[3])) if len(a)>3 else None
+            cur={'key':k,'pos':[]}; runs.append(cur)
+        elif t.startswith('RemoveWidget'):
+            if cur is not None: cur['pos'].append(m.start())
+        else:
+            cur=None
+    return [r for r in runs if r['key']],src
+
+name,path=sys.argv[1],sys.argv[2]
+b=binary_runs(name); s,src=source_runs(path)
+bk={r['key']:r for r in b}; sk={r['key']:r for r in s}
+assert len(bk)==len(b) and len(sk)==len(s), 'duplicate run keys'
+pairs=[]; mism=0
+for k,sr in sk.items():
+    br=bk.get(k)
+    if br is None or len(br['esi'])!=len(sr['pos']) or any(e is None for e in br['esi']):
+        if sr['pos'] or (br and br['esi']): mism+=1
+        continue
+    for pos,e in zip(sr['pos'],br['esi']): pairs.append((pos,e))
+print('runs: binary %d, source %d'%(len(b),len(s)))
+print('runs paired cleanly: %d ; runs skipped: %d'%(len(sk)-mism,mism))
+print('RemoveWidget calls paired: %d'%len(pairs))
+json.dump([[p,e] for p,e in pairs],open(sys.argv[3],'w'),indent=1)

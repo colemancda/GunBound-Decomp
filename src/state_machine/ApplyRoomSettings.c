@@ -65,7 +65,7 @@ void ApplyRoomSettings(int *param_1,int param_2)
   switch(uVar2) {
   case 0:
     CreateButtonWidget(&DAT_00e9be90,0,10,0x3f2,s_b_ready_option_00556b30,0x13d,0xe1,0x51,0x18,0,0);
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0xb);
     goto LAB_004dabfb;
   case 1:
     RemoveWidget();
@@ -93,7 +93,7 @@ LAB_004dac8a:
   case 2:
     CreateButtonWidget(&DAT_00e9be90,0,0x14,0x3fc,s_b_ready_option_00556b30,0x193,0xe1,0x51,0x18,0,0
                       );
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x15);
     goto LAB_004dad46;
   case 4:
     RemoveWidget();
@@ -121,9 +121,9 @@ LAB_004dadd5:
   case 0:
     CreateButtonWidget(&DAT_00e9be90,0,0x1e,0x406,s_b_ready_option_00556b30,0x193,0xff,0x51,0x18,0,0
                       );
-    RemoveWidget();
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x1f);
+    RemoveWidget((int)&DAT_00e9be90,0,0x20);
+    RemoveWidget((int)&DAT_00e9be90,0,0x21);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EncodeOutgoingPacketField((void *)(g_clientContext + 0x4512c), 0xffffffff);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -132,7 +132,7 @@ LAB_004dadd5:
     RemoveWidget();
     CreateButtonWidget(&DAT_00e9be90,0,0x1f,0x407,s_b_ready_option_00556b30,0x193,0xff,0x51,0x18,0,0
                       );
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x20);
     goto LAB_004daf59;
   case 2:
     RemoveWidget();
@@ -153,9 +153,9 @@ LAB_004daf59:
   case 0:
     CreateButtonWidget(&DAT_00e9be90,0,0x32,0x41a,s_b_ready_option_00556b30,0x193,0x11d,0x51,0x18,0,
                        0);
-    RemoveWidget();
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x33);
+    RemoveWidget((int)&DAT_00e9be90,0,0x34);
+    RemoveWidget((int)&DAT_00e9be90,0,0x35);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = 0x58;
     break;
@@ -163,8 +163,8 @@ LAB_004daf59:
     RemoveWidget();
     CreateButtonWidget(&DAT_00e9be90,0,0x33,0x41b,s_b_ready_option_00556b30,0x193,0x11d,0x51,0x18,0,
                        0);
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x34);
+    RemoveWidget((int)&DAT_00e9be90,0,0x35);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = 0x28;
     break;
@@ -196,7 +196,7 @@ switchD_004dafd1_default:
   if (cVar5 == '\0') {
     CreateButtonWidget(&DAT_00e9be90,0,0x3c,0x424,s_b_ready_option_00556b30,0x13d,0x11d,0x51,0x18,0,
                        0);
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x3d);
 LAB_004db263:
     RemoveWidget((int)&DAT_00e9be90,0,0x3e);
   }
@@ -228,7 +228,7 @@ LAB_004db263:
   case 0:
     CreateButtonWidget(&DAT_00e9be90,0,0x46,0x42e,s_b_ready_option_00556b30,0x13d,0xff,0x51,0x18,0,0
                       );
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x47);
     break;
   case 1:
     RemoveWidget();
