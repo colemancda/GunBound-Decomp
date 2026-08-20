@@ -60,7 +60,7 @@ void __fastcall FUN_0050ae40(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState((void *)(local_84 + 0x228));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if (((param_1 == iVar2) && (DAT_0079352c != 0)) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+  if (((param_1 == iVar2) && (DAT_0079352c != 0)) && (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x2712,1), iVar2 != 0)) {
     if (*(char *)(iVar2 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar4,local_94);
     }
@@ -187,7 +187,7 @@ LAB_0050b11f:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar2 < 1) {
         iVar2 = local_88 + 0x99;
-        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,9), iVar4 != 0)) {
           if (*(char *)(iVar4 + 0x18) == '\x01') {
             BlitSprite16bpp(iVar2,local_94 + 2);
           }
@@ -202,7 +202,7 @@ LAB_0050b11f:
       }
       else {
         iVar2 = local_88 + 0x99;
-        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,8), iVar4 != 0)) {
           if (*(char *)(iVar4 + 0x18) == '\x01') {
             BlitSprite16bpp(iVar2,local_94 + 2);
           }
@@ -229,7 +229,7 @@ LAB_0050b11f:
       local_8c = (undefined *)(local_90 * 0x19 + local_88);
       puVar3 = local_8c + 0x67;
       if (iVar2 < 0) {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0xa), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(puVar3,local_94 + 2);
           }
@@ -243,7 +243,7 @@ LAB_0050b11f:
         iVar2 = -iVar2;
       }
       else {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0xb), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(puVar3,local_94 + 2);
           }
@@ -272,7 +272,7 @@ LAB_0050b11f:
       (*pcVar7)(&DAT_005a9068);
       if (iVar2 < 0) {
         puVar3 = local_8c + (int)puVar3 * 0x19 + 0x67;
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0xc), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(puVar3,unaff_EBX + 2);
           }
@@ -287,7 +287,7 @@ LAB_0050b11f:
       }
       else {
         puVar3 = local_8c + (int)puVar3 * 0x19 + 0x67;
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0xd), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(puVar3,unaff_EBX + 2);
           }
@@ -315,7 +315,7 @@ LAB_0050b11f:
       (*pcVar7)(&DAT_005a9068);
       if (iVar2 < 0) {
         iVar2 = (int)puVar3 * 0x19 + local_90;
-        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0xe), iVar4 != 0)) {
           if (*(char *)(iVar4 + 0x18) == '\x01') {
             BlitSprite16bpp(iVar2 + 0x67,unaff_EBP + 2);
           }
@@ -330,7 +330,7 @@ LAB_0050b11f:
       }
       else {
         iVar2 = (int)puVar3 * 0x19 + local_90;
-        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0xf), iVar4 != 0)) {
           if (*(char *)(iVar4 + 0x18) == '\x01') {
             BlitSprite16bpp(iVar2 + 0x67,unaff_EBP + 2);
           }
@@ -358,7 +358,7 @@ LAB_0050b11f:
       (*pcVar7)(&DAT_005a9068);
       if (iVar2 < 0) {
         puVar3 = local_94 + (int)puVar3 * 0x19 + 0x67;
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0x10), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(puVar3,unaff_ESI + 2);
           }
@@ -373,7 +373,7 @@ LAB_0050b11f:
       }
       else {
         puVar3 = local_94 + (int)puVar3 * 0x19 + 0x67;
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0x11), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(puVar3,unaff_ESI + 2);
           }
@@ -399,7 +399,7 @@ LAB_0050b11f:
       iVar4 = PeekPacketChecksumState((void *)(local_84 + 0xec94));
       (*pcVar7)(&DAT_005a9068);
       if (iVar4 < 0) {
-        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0x12), iVar4 != 0)) {
           if (*(char *)(iVar4 + 0x18) == '\x01') {
             BlitSprite16bpp((int)puVar3 * 0x19 + iVar2 + 0x67,unaff_EDI + 2);
           }
@@ -413,7 +413,7 @@ LAB_0050b11f:
         iVar2 = -iVar2;
       }
       else {
-        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0x13), iVar4 != 0)) {
           if (*(char *)(iVar4 + 0x18) == '\x01') {
             BlitSprite16bpp((int)puVar3 * 0x19 + iVar2 + 0x67,unaff_EDI + 2);
           }
@@ -439,7 +439,7 @@ LAB_0050b11f:
       iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xe404));
       (*pcVar7)(&DAT_005a9068);
       if (iVar2 < 0) {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0x14), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(puVar1 + (int)puVar3 * 0x19 + 0xe46b,puVar9 + 2);
           }
@@ -453,7 +453,7 @@ LAB_0050b11f:
         iVar2 = -iVar2;
       }
       else {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0x15), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(puVar1 + (int)puVar3 * 0x19 + 0xe46b,puVar9 + 2);
           }
@@ -479,7 +479,7 @@ LAB_0050b11f:
       iVar2 = PeekPacketChecksumState((void *)(local_84 + 0xeeb8));
       (*pcVar7)(&DAT_005a9068);
       if (iVar2 < 0) {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0x16), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(unaff_EDI + (int)puVar3 * 0x19 + 0x67,puVar8 + 2);
           }
@@ -493,7 +493,7 @@ LAB_0050b11f:
         iVar2 = -iVar2;
       }
       else {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame(), iVar2 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x2713,0x17), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(unaff_EDI + (int)puVar3 * 0x19 + 0x67,puVar8 + 2);
           }

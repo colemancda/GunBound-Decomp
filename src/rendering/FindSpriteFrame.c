@@ -80,6 +80,49 @@
  * src/cxx/State03_GameRoomList.cpp's own existing `extern int
  * FindSpriteFrame(void)` (plain cdecl) declaration.
  *
+ * CALLER SWEEP, ROUND 1 (2026-08-20): 34 of the 162 argless call sites
+ * recovered. All 181 direct call sites were re-scanned from the binary
+ * (byte-scan for E8 rel32 targeting 0x4f30c0; results cached in
+ * tools/findspriteframe_regs.json, which supersedes the older angr-derived
+ * findspriteframe_sites.json for EDX - that one carried EAX and ESI only).
+ * The register picture is much more uniform than expected:
+ *     EAX  0xea0e18 at 168 of 181 - the sprite registry, as the 2-site
+ *          spot-check above had already suggested
+ *     EDX  a literal at 164 of 181
+ *     ESI  a literal or xor-zero at roughly half; the rest come from a
+ *          caller local and still need per-site recovery
+ *
+ * THE TRAP, and why this is not a bulk sed: VA ORDER IS NOT SOURCE ORDER.
+ * Pairing the Nth call in the binary with the Nth FindSpriteFrame() in the
+ * file is wrong often enough to matter, and it fails silently.
+ *
+ * What makes it checkable is that ESI - the frame index - is ALSO passed to
+ * the BlitSpriteClipped call inside the same block, where Ghidra DID model it
+ * as an argument. So `BlitSpriteClipped(<n>)` a few lines below a
+ * FindSpriteFrame() is an independent witness for that site's ESI, and any
+ * pairing can be tested rather than trusted. Watch two things when using it:
+ * Ghidra prints values >= 10 in hex, so a decimal-only regex silently reports
+ * "no witness" for exactly the sites you most want checked; and
+ * BlitSprite16bpp's first argument is an X coordinate, NOT the frame - only
+ * BlitSpriteClipped's is.
+ *
+ * Applied to the two files where the witness agreed on every site:
+ * FUN_0050ae40.c and FUN_0050be20.c, 17 of 17 each, zero mismatches.
+ *
+ * Held back, with the evidence, for a follow-up:
+ *   - FUN_0044a000.c (26 sites) is the proof that the trap is real. Its
+ *     witnesses run 13,12,15,14,17,16,19,18,21,20 against a binary that runs
+ *     11..20 in VA order. The transformation is systematic - each if/else
+ *     pair is emitted in the opposite order from the code layout - and it
+ *     accounts for 23 of the 26, but three sites (ESI 11, 22, 23) cannot be
+ *     placed without reading the blocks, so none of it was applied.
+ *   - State11_InBattle_RenderHud.c (18) and the other 32 files hold sites
+ *     whose ESI comes from a caller local, which is the same
+ *     dropped-register recovery this file's header describes for
+ *     BlitSpriteText/DrawFontString/BlitSprite16bpp - a caller-side job, not
+ *     a callee-side one.
+ * 128 argless call sites remain.
+ *
  * Not renamed in-tree yet: a rename would touch all 43 caller files.
  * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified.
  * See src/README.md's "Raw/verbatim ports" section for status.
