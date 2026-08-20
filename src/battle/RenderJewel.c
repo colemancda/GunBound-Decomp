@@ -1,4 +1,4 @@
-/* FUN_0047a960 - 0x0047a960 in the original binary.
+/* RenderJewel - 0x0047a960 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -13,7 +13,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0047a960(int param_1)
+void __fastcall RenderJewel(int param_1)
 
 {
   int iVar1;

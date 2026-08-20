@@ -622,10 +622,10 @@ vtable 0x555fbc  installs=2  slots=8  UNCARVED=2
    7: 0x458850  UNCARVED
 
 vtable 0x555fdc  installs=2  slots=5
-   0: 0x4780c0  FUN_004780c0
+   0: 0x4780c0  DeleteJewel
    1: 0x461c60  ResolveNamedState
-   2: 0x479ba0  FUN_00479ba0
-   3: 0x47a960  FUN_0047a960
+   2: 0x479ba0  TickJewelFrame
+   3: 0x47a960  RenderJewel
    4: 0x429800  NoOpMethod
 
 vtable 0x556008  installs=2  slots=8  UNCARVED=2

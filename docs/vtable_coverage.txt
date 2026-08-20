@@ -1,8 +1,9 @@
-# Per-class port coverage, ranked (tools/vtable_census.py --coverage, 2026-08-18)
+# Per-class port coverage, ranked (tools/vtable_census.py --coverage, 2026-08-19)
 # ported = summed PROGRESS.csv bytes of this vtable's distinct slots with
 # status RAW-src/PARITY-*; slots = raw count (ported/distinct); uncarved =
 # distinct slots Ghidra never carved.  ~name = synthesized from the
 # vtable's most distinctive named slot.
+ported    vtable slots       uncarved class (~ = named from its most distinctive slot)
 ported    vtable slots       uncarved class (~ = named from its most distinctive slot)
   93564b  0x5566d8 18 (17/17)     0     ~State11_InBattle_Delete
   27201b  0x5569f8 18 (15/15)     0     ~State09_ReadyRoom_Delete
@@ -79,7 +80,7 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
    7749b  0x555f9c  8 ( 7/ 8)     1     ~DetonateItemShot
    7533b  0x555dec  8 ( 6/ 8)     2     ~SimulateProjectileFrame
    5649b  0x5570f0 18 ( 9/12)     0     ~State02_ServerSelect_ProcessPacket
-   3946b  0x555fdc  5 ( 5/ 5)     0     ~ResolveNamedState
+   3946b  0x555fdc  5 ( 5/ 5)     0     ~DeleteJewel
    2664b  0x557eb8 10 ( 8/10)     2     ~Widget_DispatchKeyToChildren
    2260b  0x555b54  5 ( 5/ 5)     0     ~DeletePoisonedBaseObject
    2075b  0x557cd4 10 ( 8/10)     2     ~Widget_OnDragMove

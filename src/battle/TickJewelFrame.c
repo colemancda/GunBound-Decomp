@@ -1,4 +1,4 @@
-/* FUN_00479ba0 - 0x00479ba0 in the original binary.
+/* TickJewelFrame - 0x00479ba0 in the original binary.
  *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
@@ -26,7 +26,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_00479ba0(int *param_1)
+int __fastcall TickJewelFrame(int *param_1)
 
 {
   int *piVar1;
