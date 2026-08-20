@@ -382,8 +382,8 @@ LAB_004b8aeb:
     *(undefined1 *)(g_clientContext + 0xebee5) = 0;
     return;
   case 8:
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,8);
+    RemoveWidget((int)&DAT_00e9be90,0,9);
     FUN_004e1f70();
     *(undefined4 *)(&DAT_006a73c8 + g_clientContext) = 1;
     return;
@@ -420,7 +420,7 @@ LAB_004b8aeb:
     uVar4 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
     goto LAB_004b8ad9;
   case 10:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0xa);
     *(undefined1 *)(param_1 + 0x92) = 0;
     FUN_004e1f70();
     iVar7 = g_clientContext;
@@ -512,7 +512,7 @@ LAB_004b8aeb:
     cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x5f3770));
     if (cVar3 != '\0') {
       SetGuardedBool(1,GB_GUARD_UNRECOVERED);
-      RemoveWidget();
+      RemoveWidget((int)&DAT_00e9be90,0,0x12);
       CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0);
       CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,0)
       ;

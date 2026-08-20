@@ -218,8 +218,8 @@ void __fastcall AdvanceTurnQueue(int param_1)
          ) {
         if (*(char *)(g_clientContext + 0x45126) != '\0') {
           FUN_004e1f70();
-          RemoveWidget();
-          RemoveWidget();
+          RemoveWidget((int)&DAT_00e9be90,0,3);
+          RemoveWidget((int)&DAT_00e9be90,0,0xf);
           pcVar9 = (code *)LeaveCriticalSection;
           *(undefined4 *)(&DAT_006a73c8 + g_clientContext) = 1;
           param_1 = unaff_EBX;

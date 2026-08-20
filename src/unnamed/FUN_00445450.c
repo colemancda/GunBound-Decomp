@@ -116,7 +116,7 @@ void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefine
     *(byte *)(param_1 + 0x32c55) = bVar14;
     *(byte *)(param_1 + 0x32c56) = *(byte *)(param_1 + 0x32c54) + bVar14 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x34);
 LAB_00445543:
     RemoveWidget((int)&DAT_00e9be90,0,0x35);
     FUN_0040cdf0();
@@ -771,17 +771,17 @@ LAB_00446d2b:
     break;
   case 0x33:
     QueueOutgoingPacketField(0);
-    RemoveWidget();
-    RemoveWidget();
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x32);
+    RemoveWidget((int)&DAT_00e9be90,0,0x33);
+    RemoveWidget((int)&DAT_00e9be90,0,0x37);
+    RemoveWidget((int)&DAT_00e9be90,0,0x3c);
     CreateAvatarStoreButtons(param_1);
     break;
   case 0x34:
     SetGuardedBool(0,GB_GUARD_UNRECOVERED);
-    RemoveWidget();
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x34);
+    RemoveWidget((int)&DAT_00e9be90,0,0x35);
+    RemoveWidget((int)&DAT_00e9be90,0,0x37);
     goto LAB_00445543;
   case 0x35:
     pcVar8 = (char *)FUN_0040cfe0();
@@ -988,7 +988,7 @@ LAB_00446f6d:
   case 0x3b:
     *(undefined1 *)(param_1 + 0x32f90) = 1;
     QueueOutgoingPacketField(0);
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x3b);
     CreateAvatarStoreButtons(param_1);
     FUN_00449250(param_1,1,0);
     break;
