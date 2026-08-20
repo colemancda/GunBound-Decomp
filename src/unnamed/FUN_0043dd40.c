@@ -30,7 +30,9 @@ int FUN_0043dd40(int id,undefined4 param_1,char *message)
   int iVar2;
   char *pcVar3;
 
-  iVar2 = FUN_0043e060();
+  /* orig 0x43dd4a `mov edx,ebp` = param_1 (the table, this function's
+   * first STACK argument) and 0x43dd48 `mov edi,ecx` = id. */
+  iVar2 = (int)FUN_0043e060(0,(undefined4 *)param_1,id);
   if (iVar2 == 0) {
     iVar2 = FUN_0043de70(param_1);
     return iVar2;

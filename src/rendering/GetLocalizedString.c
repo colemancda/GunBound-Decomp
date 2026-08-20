@@ -1,5 +1,14 @@
 /* GetLocalizedString - 0x0043dc70 in the original binary.
  *
+ * SIGNATURE FIX (2026-08-19, found by tools/retn_signature_audit.py): this was
+ * declared `GetLocalizedString(void)` while the original is `ret 8` = TWO
+ * stack arguments and every caller passes two - the string table and the
+ * numeric id.  Both are now declared, and both are forwarded to the lookup
+ * FUN_0043e060 as its EDX/EDI register arguments (orig 0x43dca0 `mov
+ * edx,[esp+0x1c]` = param_1, 0x43dc9c `mov edi,[esp+0x20]` = param_2).
+ * Until now the id never appeared in this function's body at all, so the
+ * lookup ran against whatever was left in EDI.
+ *
  * Looks up a localized UI string by numeric id in g_localizedStringTable
  * (the id -> string map LoadLocalizedStrings built from graphics.xfs's
  * Language.txt) and returns a pointer to it. The read half of the
@@ -30,7 +39,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 * GetLocalizedString(void)
+undefined4 * GetLocalizedString(undefined4 param_1,int param_2)
 
 {
   int *piVar1;
@@ -47,7 +56,9 @@ undefined4 * GetLocalizedString(void)
    * Same rationale as entry/InitGame.c - see src/README.md. */
   puVar3 = (undefined4 *)(**(code **)(DAT_005b1444 + 0xc))();
   uStack_4 = 0;
-  iVar4 = FUN_0043e060();
+  /* orig 0x43dca0/0x43dc9c: EDX = param_1 (the table) and EDI = param_2
+   * (the id) - both dropped by the decompile until 2026-08-19. */
+  iVar4 = (int)FUN_0043e060(0,(undefined4 *)param_1,param_2);
   puVar2 = PTR_DAT_0056d460;
   if (iVar4 != 0) {
     FUN_0043ddb0();
