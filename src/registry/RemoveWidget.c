@@ -1,7 +1,21 @@
 /* RemoveWidget - 0x00405fb0 in the original binary.
  *
- * THE NAME IS A GUESS AND IT IS MISLEADING (analysed 2026-08-20, not renamed).
- * This has nothing to do with widgets. Disassembled at 0x405fb0 it is
+ * THE NAME IS BETTER THAN I FIRST CLAIMED - CORRECTION (2026-08-20).  An
+ * earlier revision of this header, and commit 2755ae1, asserted that this
+ * function "has nothing to do with widgets" and that the name names the wrong
+ * subsystem.  THAT WAS WRONG, and scanning the call sites is what showed it:
+ * EDI - the container - is the immediate 0xe9be90 at 132 of 133 sites, and
+ * DAT_00e9be90 is the ACTIVE-OBJECT (widget) REGISTRY, the same container
+ * SweepActiveObjectRegistry, DrawActiveObjectRegistry and
+ * TickActiveObjectRegistry walk.  So this really does operate on widgets.
+ *
+ * What survives from that analysis is the part about the ALGORITHM, which is
+ * genuinely shared: the lookup is a generic two-level keyed container walk, and
+ * FindSpriteFrame runs the identical code over a different container.  I
+ * inferred the subsystem from the algorithm, which does not follow - the same
+ * container shape is reused for sprites and for widgets alike.
+ *
+ * Disassembled at 0x405fb0 it is
  * byte-for-byte the SAME two-level keyed lookup as FindSpriteFrame
  * (0x4f30c0): outer list from container+4 then +0x1c, walked by +0x1c and
  * keyed at +4; inner list from the matched node's +0x10, walked by +0x10 and
@@ -22,14 +36,21 @@
  * slots if either points at it -
  *     cmp eax,[edi+8]  / jne / mov [edi+8],0
  *     cmp eax,[edi+0xc] / ...
- * i.e. look up an entry and evict it from the cache. So it is a
- * find-and-evict over the same resource container FindSpriteFrame reads, and
- * a name like FindAndEvictResourceEntry would fit; the current one implies
- * both the wrong subsystem and the wrong operation.
+ * i.e. look up an entry and evict it from the registry's two cached slots.
+ * "Remove" is therefore a fair description of the tail, over the right
+ * subsystem - so the name stands, and no rename is called for.
  *
- * Not renamed here only because a rename touches its 13 caller files and all
- * 131 of its call sites currently pass ZERO arguments - the register recovery
- * should land first so the two changes are not tangled together.
+ * CALL SITES SCANNED (133 direct calls, cached in
+ * tools/removewidget_regs.json).  The arguments are almost entirely literal,
+ * so this should sweep cleanly once the source-to-site pairing is settled:
+ *     EDI  0xe9be90 at 132/133 - &DAT_00e9be90, the widget registry
+ *     EDX  `xor edx,edx` at 131/133 - the outer key is 0
+ *     ESI  an immediate at ~124/133, spread over 37 distinct values
+ *          (0x32..0x3c and friends - widget ids)
+ * ECX is a phantom and must NOT be given a value.  The ESI spread means the
+ * pairing does matter here, unlike the uniform cases: see
+ * tools/count_call_args.py and the block/witness techniques used for the
+ * render chain.
  *
  * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified.
  * See src/README.md's "Raw/verbatim ports" section for status.
