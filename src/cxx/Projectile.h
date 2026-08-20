@@ -20,6 +20,13 @@
  *    state (same treatment as CMobile). They are left as padding here until the
  *    guard fields are individually mapped.
  *
+ * The per-weapon subclasses themselves are tabulated in
+ * docs/projectile_classes.md - every vtable in this family, the class it
+ * belongs to, and which function fills each of its Delete/Animate/Simulate/
+ * Detonate/Explode slots.  Classes there were identified only from slots
+ * UNIQUE to one vtable; the table also lists the ones that cannot be
+ * identified and why.
+ *
  * GUESSED: the vtable-only slots (3/7/8/10/11) and the shared no-ops. CONFIRMED:
  * slot 0 (dtor), slot 2 (AnimateProjectileTick), slot 5 (SimulateProjectileFrame),
  * slot 6 (DetonateProjectile). Interior fields between the named ones are unmapped

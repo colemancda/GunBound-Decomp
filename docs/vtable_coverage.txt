@@ -26,24 +26,24 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
   17905b  0x5562a8  8 ( 8/ 8)     0     ~Mobile02_MainAction
   17905b  0x555f7c  8 ( 8/ 8)     0     ~Mobile10_MainAction
   16206b  0x555c68  8 ( 8/ 8)     0     CMobile (base)
-  15899b  0x556380 10 ( 8/10)     2     ~DetonateProjectile
+  15899b  0x556380 10 ( 8/10)     2     ~DeleteSuperMine
   15300b  0x556078  8 ( 7/ 8)     1     ~DetonateProjectile
-  15015b  0x5563f0 10 ( 8/10)     2     ~DetonateProjectile
-  14306b  0x556524  8 ( 8/ 8)     0     ~DetonateShot2_Bullet8
+  15015b  0x5563f0 10 ( 8/10)     2     ~DeleteMine
+  14306b  0x556524  8 ( 8/ 8)     0     ~DeleteShot2_Bullet8
   14272b  0x556110  8 ( 7/ 8)     1     ~DetonateProjectile
-  13831b  0x55620c  9 ( 8/ 9)     1     ~SimulateSuperShot_Bullet13
-  13627b  0x555dac  8 ( 8/ 8)     0     ~DetonateShot2_Bullet1
-  13232b  0x55649c  8 ( 8/ 8)     0     ~SimulateShot2_Bullet13
-  12999b  0x5564d0  8 ( 8/ 8)     0     ~DetonatePrimaryShot_Bullet4
+  13831b  0x55620c  9 ( 8/ 9)     1     ~DeleteSuperShot_Bullet13
+  13627b  0x555dac  8 ( 8/ 8)     0     ~DeleteShot2_Bullet1
+  13232b  0x55649c  8 ( 8/ 8)     0     ~DeleteShot2_Bullet13
+  12999b  0x5564d0  8 ( 8/ 8)     0     ~DeletePrimaryShot_Bullet4
   12683b  0x555bd0  8 ( 8/ 8)     0     ~PublishProjectileTrackingState
-  12649b  0x5563d0  8 ( 7/ 8)     1     ~DetonateShot2_Bullet7
+  12649b  0x5563d0  8 ( 7/ 8)     1     ~DeleteShot2_Bullet7
   12582b  0x5561c8  9 ( 9/ 9)     0     ~ExplodeSuperShot_Bullet8
   12435b  0x556284  9 ( 9/ 9)     0     ~ExplodeSuperShot_Bullet3
-  12207b  0x556660  8 ( 6/ 8)     2     ~DetonateShot2_Bullet12
-  12201b  0x5564f0  8 ( 6/ 8)     2     ~DetonateShot2_Bullet2
+  12207b  0x556660  8 ( 6/ 8)     2     ~DeleteShot2_Bullet12
+  12201b  0x5564f0  8 ( 6/ 8)     2     ~DeleteShot2_Bullet2
   12145b  0x553670 18 (11/11)     0     ~State03_GameRoomList_ProcessPacket
   11924b  0x555bf0  9 ( 8/ 9)     1     ~DetonateSuperShot_Bullet6
-  11913b  0x555e88  8 ( 8/ 8)     0     ~DetonateShot1_Bullet9_16
+  11913b  0x555e88  8 ( 8/ 8)     0     ~DeleteShot1_Bullet9_16
   11699b  0x55656c  8 ( 7/ 7)     0     ~DetonateProjectile
   11639b  0x555f58  9 ( 9/ 9)     0     ~ExplodeSuperShot_Bullet11
   11469b  0x55658c  8 ( 7/ 8)     1     ~DetonateProjectile
@@ -53,31 +53,31 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
   11387b  0x555c34  8 ( 8/ 8)     0     CProjectile (base)
   11325b  0x556008  8 ( 8/ 8)     0     ~DetonateProjectile
   11276b  0x5562c8  9 ( 9/ 9)     0     ~ExplodeSuperShot_Bullet2
-  11259b  0x5563a8  8 ( 8/ 8)     0     ~SimulateShot2_Bullet3
+  11259b  0x5563a8  8 ( 8/ 8)     0     ~DeleteShot2_Bullet3
   11258b  0x555ac4  9 ( 9/ 9)     0     ~DetonateSuperShot_Bullet1
-  11148b  0x555ea8  8 ( 7/ 7)     0     ~SimulatePrimaryShot_Bullet14
-  11082b  0x555f38  8 ( 8/ 8)     0     ~SimulateShot2_Bullet11
+  11148b  0x555ea8  8 ( 7/ 7)     0     ~DeletePrimaryShot_Bullet14
+  11082b  0x555f38  8 ( 8/ 8)     0     ~DeleteShot2_Bullet11
   10862b  0x556340  8 ( 7/ 7)     0     ~DetonateProjectile
   10805b  0x555e30  9 ( 9/ 9)     0     ~ExplodeSuperShot_Bullet14
   10794b  0x5560d0  8 ( 6/ 8)     2     ~DetonateProjectile
   10793b  0x555cf4  8 ( 6/ 7)     1     ~DetonateProjectile
-  10644b  0x556680  8 ( 6/ 8)     2     ~DetonateShot1_Bullet12
-  10474b  0x5561a8  8 ( 8/ 8)     0     ~DetonateShot1_Bullet8
+  10644b  0x556680  8 ( 6/ 8)     2     ~DeleteShot1_Bullet12
+  10474b  0x5561a8  8 ( 8/ 8)     0     ~DeleteShot1_Bullet8
   10414b  0x556468  8 ( 6/ 8)     2     ~SimulateProjectileFrame
-  10356b  0x555d14  8 ( 8/ 8)     0     ~DetonateShot2_Bullet9
+  10356b  0x555d14  8 ( 8/ 8)     0     ~DeleteShot2_Bullet9
   10156b  0x556098  9 ( 9/ 9)     0     ~DetonateSuperShot_Bullet15
-  10029b  0x556360  8 ( 8/ 8)     0     ~DetonateSuperShot_Bullet9
+  10029b  0x556360  8 ( 8/ 8)     0     ~DeleteSuperShot_Bullet9
    9822b  0x5565f8  9 ( 8/ 9)     1     ~ExplodeSuperShot_Bullet4
    9750b  0x55661c  9 ( 9/ 9)     0     ~DetonateSuperShot_Bullet12
    9536b  0x555d74  9 ( 9/ 9)     0     ~DetonateSuperShot_Bullet16
-   9527b  0x5565ac  8 ( 8/ 8)     0     ~DetonateShot2_Bullet16
-   9512b  0x555aa4  8 ( 8/ 8)     0     ~DetonateShot1_Bullet7
+   9527b  0x5565ac  8 ( 8/ 8)     0     ~DeleteShot2_Bullet16
+   9512b  0x555aa4  8 ( 8/ 8)     0     ~DeleteShot1_Bullet7
    9407b  0x556424  9 ( 8/ 9)     1     ~DetonateSuperShot_Bullet7
-   9319b  0x556160  8 ( 8/ 8)     0     ~DetonatePrimaryShot_Bullet10
-   9285b  0x555b18  8 ( 8/ 8)     0     ~DetonateSuperShot_Bullet10
-   9280b  0x556058  8 ( 8/ 8)     0     ~DetonatePrimaryShot_Bullet15
+   9319b  0x556160  8 ( 8/ 8)     0     ~DeletePrimaryShot_Bullet10
+   9285b  0x555b18  8 ( 8/ 8)     0     ~DeleteSuperShot_Bullet10
+   9280b  0x556058  8 ( 8/ 8)     0     ~DeletePrimaryShot_Bullet15
    9059b  0x555dcc  8 ( 8/ 8)     0     ~AnimateProjectileTick
-   8197b  0x555f9c  8 ( 8/ 8)     0     ~DetonateItemShot
+   8197b  0x555f9c  8 ( 8/ 8)     0     ~DeleteItemShot
    8174b  0x555dec  8 ( 8/ 8)     0     ~PublishProjectileTrackingState
    5649b  0x5570f0 18 ( 9/12)     0     ~State02_ServerSelect_ProcessPacket
    3946b  0x555fdc  5 ( 5/ 5)     0     ~DeleteJewel
@@ -86,10 +86,10 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
    2085b  0x557cd4 10 ( 9/10)     1     ~Widget_OnDragMove
    1913b  0x557f08 10 ( 9/10)     1     ~WorldListPanel_OnMouseDown
    1693b  0x557ee0 10 (10/10)     0     ~RenderReadyRoomChatRow
-   1524b  0x555edc  5 ( 5/ 5)     0     ~RenderFirewallHazard
+   1524b  0x555edc  5 ( 5/ 5)     0     ~DeleteFirewallHazard
    1514b  0x557c84 10 ( 8/10)     2     ~TextEntry_SyncFromControl
-   1506b  0x555e74  5 ( 5/ 5)     0     ~RenderLightningHazard
-   1505b  0x5565e4  5 ( 5/ 5)     0     ~TickTornadoHazardFrame
+   1506b  0x555e74  5 ( 5/ 5)     0     ~DeleteLightningHazard
+   1505b  0x5565e4  5 ( 5/ 5)     0     ~DeleteTornadoHazard
    1354b  0x556510  5 ( 4/ 5)     1     ~ResolveNamedState
    1299b  0x5575c8 17 (12/17)     5     (all FUN_/uncarved)
    1293b  0x557e90 10 ( 8/10)     0     ~ScrollListWidget_DrawThumb
@@ -159,9 +159,9 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
       4b  0x5572e0  2 ( 2/ 2)     0     ~NoOpMethodArg1
       4b  0x553ff8  2 ( 2/ 2)     0     ~NoOpMethodArg1
       4b  0x5520a4  2 ( 2/ 2)     0     ~NoOpMethodArg1
-      3b  0x557598  4 ( 1/ 2)     1     ~CGameState_NoOpVirtual_B
       3b  0x554000  2 ( 1/ 2)     1     ~NoOpMethodArg1
-      1b  0x55755c  4 ( 1/ 3)     2     ~NoOpMethod
-      0b  0x557654  3 ( 0/ 1)     1     (all FUN_/uncarved)
-      0b  0x557610 17 ( 0/ 1)     1     (all FUN_/uncarved)
-      0b  0x551cf4 14 ( 0/ 1)     1     (all FUN_/uncarved)
+      3b  0x557598  4 ( 1/ 2)     0     ~__purecall
+      1b  0x55755c  4 ( 1/ 3)     1     ~__purecall
+      0b  0x557654  3 ( 0/ 1)     0     ~__purecall
+      0b  0x557610 17 ( 0/ 1)     0     ~__purecall
+      0b  0x551cf4 14 ( 0/ 1)     0     ~__purecall
