@@ -816,9 +816,9 @@ LAB_004d4cc7:
           *(int *)DAT_00e9af14 = DAT_00e9af14;
           *(int *)(DAT_00e9af14 + 8) = DAT_00e9af14;
           iStack_98c = 0xc303;
-          FUN_004e86f0(apvStack_988);
+          FUN_004e86f0(apvStack_988,(int)&DAT_00e9af10,(ushort *)&iStack_98c);
           iStack_98c = 0xc302;
-          FUN_004e86f0(apvStack_988);
+          FUN_004e86f0(apvStack_988,(int)&DAT_00e9af10,(ushort *)&iStack_98c);
           return;
         }
       } while( true );

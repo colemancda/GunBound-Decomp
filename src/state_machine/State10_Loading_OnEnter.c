@@ -37,6 +37,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   int iVar12;
   byte *pbVar13;
   undefined4 *puVar14;
+  undefined4 uEventKey;
   undefined1 auStack_108 [8];
   char acStack_100 [128];
   char acStack_80 [128];
@@ -430,8 +431,13 @@ LAB_0043eec8:
   _DAT_00e9af18 = 0;
   *(int *)DAT_00e9af14 = DAT_00e9af14;
   *(int *)(DAT_00e9af14 + 8) = DAT_00e9af14;
-  FUN_004e86f0(auStack_108);
-  FUN_004e86f0(auStack_108);
+  /* RECOVERED (2026-08-19): the key stores the decompile dropped -
+   * orig 0x43efac `mov dword [esp+0x14],0xc303` and 0x43efc7 `... ,0xc302`,
+   * the slot 4 bytes below the out-slot that EBX points at. */
+  uEventKey = 0xc303;
+  FUN_004e86f0(auStack_108,(int)&DAT_00e9af10,(ushort *)&uEventKey);
+  uEventKey = 0xc302;
+  FUN_004e86f0(auStack_108,(int)&DAT_00e9af10,(ushort *)&uEventKey);
   return;
 }
 

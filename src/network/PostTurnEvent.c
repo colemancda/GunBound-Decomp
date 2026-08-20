@@ -19,12 +19,11 @@
  * flag to out[1].  Ghidra modelled the two register arguments as `in_EAX`
  * and `unaff_EBX`, so they arrive as garbage today.
  *
- * That is NOT fixed here: FUN_004e86f0 has 22 call sites across six files,
- * and while EAX is the same set at all of them (0xe9af10 - which is what
- * param_1 + 0x45230 resolves to), the EBX key local differs per file and is
- * not adjacent to the out-slot in a uniform way, so a blanket rewrite would
- * be guesswork.  Eight of those sites (State11_InBattle_OnTick) currently
- * pass no arguments at all.  Recorded for a dedicated pass.
+ * FIXED the same day across all 22 call sites: FUN_004e86f0 now takes the set
+ * and the key pointer as real parameters.  The per-site work was recovering
+ * the key local, which the decompile had dropped entirely in three of them
+ * (State10_Loading_OnEnter x2, FUN_00423a20) and whose out-slot it had
+ * dropped in eight more (State11_InBattle_OnTick).
  *
  * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
  * verified against documented behavior beyond what's already in
@@ -43,11 +42,11 @@ void PostTurnEvent(int param_1,undefined4 param_2)
 {
   undefined1 local_8 [8];
   
-  /* orig 0x4e7d39-0x4e7d46: EAX = param_1 + 0x45230 (the event set) and
-   * EBX = &param_2 (the 16-bit event code) are REGISTER arguments to
-   * FUN_004e86f0 that the decompile dropped; only the out-slot survived.
-   * They are left dropped here - see the header note. */
-  FUN_004e86f0(local_8);
+  /* orig 0x4e7d39-0x4e7d46: EAX = param_1 + 0x45230 (the event set - the same
+   * 0xe9af10 every other call site passes as a literal) and EBX = &param_2
+   * (the 16-bit event code).  Both were dropped by the decompile; both are
+   * now passed. */
+  FUN_004e86f0((undefined4 *)local_8,param_1 + 0x45230,(ushort *)&param_2);
   return;
 }
 

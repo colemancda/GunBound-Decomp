@@ -21,6 +21,7 @@ void __fastcall FUN_00423a20(int param_1)
   uint uVar6;
   int iVar7;
   byte bVar8;
+  undefined4 uEventKey;
   undefined1 local_8 [8];
   
   cVar4 = FUN_0041c190();
@@ -79,7 +80,10 @@ LAB_00423b89:
     }
     (&DAT_006aa624)[iVar7] = 0xff;
     if (*(int *)(&DAT_006a76f8 + iVar7) == 0) {
-      FUN_004e86f0(local_8);
+      /* RECOVERED (2026-08-19): the key store the decompile dropped -
+       * orig 0x423bd9 `mov dword [esp+0x14],0xc302`. */
+      uEventKey = 0xc302;
+      FUN_004e86f0(local_8,(int)&DAT_00e9af10,(ushort *)&uEventKey);
     }
   }
   return;
