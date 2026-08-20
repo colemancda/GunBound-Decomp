@@ -3,7 +3,7 @@
  * NAMED 2026-08-19 (was FUN_00438410).  Places one JEWEL - the collectible
  * that sits on the terrain and chain-detonates when a blast reaches it.
  * Evidence:
- *   - operator_new(0x2298), constructed by FUN_00477bb0, then two guarded
+ *   - operator_new(0x2298), constructed by InitJewel, then two guarded
  *     writes: EncodeOutgoingPacketField at int index 0x97 = BYTE +0x25c gets
  *     param_2 (the X - its AdvanceTurnQueue caller passes
  *     `x % g_nCameraBoundX`), and index 0xe = byte +0x38 gets param_3 (the
@@ -22,7 +22,7 @@
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 10 argless sites.  Seven of them are offsets off ESI, which
  * 0x438514 sets from the freshly constructed object (`mov esi,eax` right
- * after the FUN_00477bb0 call) -- that is piVar6, and since piVar6 is an
+ * after the InitJewel call) -- that is piVar6, and since piVar6 is an
  * `int *` the byte offsets divide by 4: +0x25c -> +0x97 (C97), +0x38 ->
  * +0xe (C100), +0x6a4 -> +0x1a9 (C121), +0x480 -> +0x120 (C152, C155,
  * C179) and +0x19f4 -> +0x67d (C182).  C114 (0x4385ad) reads the standalone
@@ -120,7 +120,7 @@ LAB_004384ed:
     piVar6 = (int *)0x0;
   }
   else {
-    piVar6 = (int *)FUN_00477bb0(pvVar5,uVar12);
+    piVar6 = (int *)InitJewel(pvVar5,uVar12);
   }
   local_4 = 0xffffffff;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

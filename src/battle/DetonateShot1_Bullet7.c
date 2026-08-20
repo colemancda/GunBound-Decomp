@@ -509,7 +509,7 @@ LAB_0044cfdd:
       /* FIXED (2026-07-15): dropped `self` args - angr-confirmed EDI at
        * 0x44d029/0x44d03a. Disasm reload (`mov 0x3c(%esp),%edi`) feeds the
        * same physical value already named `unaff_EDI` elsewhere in this
-       * function (see PeekPacketChecksumBool/FUN_004375f0 calls below),
+       * function (see PeekPacketChecksumBool/SpawnMine calls below),
        * which is never reassigned in between. */
       uVar7 = FUN_004ac4d0(unaff_EDI);
       puStack_ae4[0xfe9] = uVar7;
@@ -578,7 +578,7 @@ LAB_0044d07e:
     PeekPacketChecksumState((void *)(pvDelta));
     (*pcVar13)(&DAT_005a9068);
     uVar16 = PeekPacketChecksumBool(unaff_EDI);
-    FUN_004375f0(&DAT_006a7f70 + g_clientContext,iVar4,uVar7,(char)param_1[0xf],uVar16,unaff_EDI);
+    SpawnMine(&DAT_006a7f70 + g_clientContext,iVar4,uVar7,(char)param_1[0xf],uVar16,unaff_EDI);
     uStack_18 = 6;
     if ((unaff_ESI & 2) != 0) {
       unaff_ESI = unaff_ESI & 0xfffffffd;
@@ -600,7 +600,7 @@ LAB_0044d07e:
     PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     (*pcVar13)(&DAT_005a9068);
     uVar16 = PeekPacketChecksumBool(unaff_EDI);
-    FUN_004375f0(&DAT_006a7f70 + g_clientContext,iVar4,uVar7,(char)param_1[0xf],uVar16,unaff_EDI);
+    SpawnMine(&DAT_006a7f70 + g_clientContext,iVar4,uVar7,(char)param_1[0xf],uVar16,unaff_EDI);
   }
   cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   if ((cVar3 != '\0') && (cVar3 = InitChecksumSeed(), cVar3 == '\0')) {

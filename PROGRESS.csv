@@ -349,7 +349,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00425a30,133,FUN_00425a30,false,2,3,RAW-src
 00425ac0,450,HitTestLocalMobile,false,5,7,RAW-src
 00425c90,463,HitTestJewel,false,3,6,RAW-src
-00425e60,460,FUN_00425e60,false,3,6,RAW-src
+00425e60,460,HitTestMine,false,3,6,RAW-src
 00426030,84,FUN_00426030,false,6,2,RAW-src
 00426090,84,FUN_00426090,false,8,2,RAW-src
 004260f0,35,FUN_004260f0,false,2,1,RAW-src
@@ -433,8 +433,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004373c0,196,SpawnSuperFlameEffect,false,9,9,RAW-src
 00437490,94,FUN_00437490,false,4,0,RAW-src
 00437500,225,FUN_00437500,false,2,0,RAW-src
-004375f0,626,FUN_004375f0,false,2,13,RAW-src
-00437870,624,FUN_00437870,false,1,14,RAW-src
+004375f0,626,SpawnMine,false,2,13,RAW-src
+00437870,624,SpawnSuperMine,false,1,14,RAW-src
 00437ae0,90,FUN_00437ae0,false,2,0,RAW-src
 00437b40,591,FUN_00437b40,false,1,12,RAW-src
 00437d90,478,FUN_00437d90,false,1,13,RAW-src
@@ -726,7 +726,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00477140,1291,FUN_00477140,false,1,14,RAW-src
 00477650,716,FUN_00477650,false,1,10,RAW-src
 00477930,634,FUN_00477930,false,1,10,RAW-src
-00477bb0,1286,FUN_00477bb0,false,1,6,RAW-src
+00477bb0,1286,InitJewel,false,1,6,RAW-src
 004780c0,31,FUN_004780c0,false,1,2,RAW-src
 004780e0,943,FUN_004780e0,false,1,3,RAW-src
 004784a0,336,FUN_004784a0,false,2,0,RAW-src
@@ -838,7 +838,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00495d40,31,FUN_00495d40,false,1,2,RAW-src
 00495d60,274,FUN_00495d60,false,1,3,RAW-src
 00495e80,6307,DetonateShot2_Bullet7,false,1,49,RAW-src
-004977c0,166,FUN_004977c0,false,2,2,RAW-src
+004977c0,166,InitMine,false,2,2,RAW-src
 00497870,31,FUN_00497870,false,1,2,RAW-src
 00497890,233,FUN_00497890,false,2,3,RAW-src
 00497980,336,FUN_00497980,false,2,0,RAW-src
@@ -866,7 +866,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0049fd40,6468,DetonateShot2_Bullet13,false,1,59,RAW-src
 004a1690,164,AnimateShot2_Bullet13,false,1,7,RAW-src
 004a1740,4160,FUN_004a1740,false,2,15,RAW-src
-004a2780,68,FUN_004a2780,false,1,0,RAW-src
+004a2780,68,InitRiderEffect,false,1,0,RAW-src
 004a27d0,334,FUN_004a27d0,false,1,0,RAW-src
 004a2920,210,TickRiderEffect,false,1,1,RAW-src
 004a2a00,112,DrawRiderEffect,false,1,1,RAW-src

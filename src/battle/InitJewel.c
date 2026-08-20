@@ -1,9 +1,14 @@
-/* FUN_00477bb0 - 0x00477bb0 in the original binary.
+/* InitJewel - 0x00477bb0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00477bb0).  Constructor for the JEWEL entity:
+ * `param_1[1] = 0x186a6` stamps class id 100006 at object +0x4 - the field
+ * every battle entity carries and the registry keys on - and installs vtable
+ * 0x555fdc.  Its only caller is SpawnJewel, which allocates the 0x2298 bytes
+ * and then writes the guarded type/X.  Unlike the InitProjectile-derived
+ * classes this one stamps the id inline rather than delegating, which is why
+ * its guard block is based at +0x38 instead of the projectile base's +0x40.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at the file's one argless PeekPacketChecksumState() call: param_1+0x480, the cell the Encode immediately above zeroes (its 2026-07-15 note names the base), re-read into the +0x25c Encode.
@@ -11,7 +16,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_00477bb0(undefined4 *param_1,undefined4 param_2)
+undefined4 * InitJewel(undefined4 *param_1,undefined4 param_2)
 
 {
   undefined4 uVar1;

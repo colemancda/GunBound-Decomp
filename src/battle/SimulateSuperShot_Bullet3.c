@@ -426,12 +426,12 @@ LAB_0048d0e3:
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           /* RECOVERED (2026-08-19): the dropped EDX argument - the 0..7 SLOT
            * index this loop is walking - plus the resulting two-position shift.
-           * FUN_00425e60 is the layer-100003 twin of HitTestLocalMobile:
+           * HitTestMine is the layer-100003 twin of HitTestLocalMobile:
            * it looks up the entity at slot EDX and guard-computes
            * (entityX - x, entityY - y) from its +0x25c/+0x480 cells.  param_1 is
            * a PHANTOM (Ghidra marks the function __fastcall, but ECX is written
            * before it is ever read - orig 0x425e7a mov ecx,[eax+0x6a7f8c]), so it is passed 0. */
-          iVar5 = FUN_00425e60(0,local_15c4,uVar2,local_158c,local_15a0 / *(int *)(iVar3 + 0x3fa4));
+          iVar5 = HitTestMine(0,local_15c4,uVar2,local_158c,local_15a0 / *(int *)(iVar3 + 0x3fa4));
           if (iVar5 != 0) {
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar3 = local_15b4;
@@ -763,12 +763,12 @@ LAB_0048d0d0:
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           /* RECOVERED (2026-08-19): the dropped EDX argument - the 0..7 SLOT
            * index this loop is walking - plus the resulting two-position shift.
-           * FUN_00425e60 is the layer-100003 twin of HitTestLocalMobile:
+           * HitTestMine is the layer-100003 twin of HitTestLocalMobile:
            * it looks up the entity at slot EDX and guard-computes
            * (entityX - x, entityY - y) from its +0x25c/+0x480 cells.  param_1 is
            * a PHANTOM (Ghidra marks the function __fastcall, but ECX is written
            * before it is ever read - orig 0x425e7a mov ecx,[eax+0x6a7f8c]), so it is passed 0. */
-          iVar5 = FUN_00425e60(0,local_15bc,local_15a0,local_1580[0],(int)local_15ac / *(int *)(iVar3 + 0x3fa4));
+          iVar5 = HitTestMine(0,local_15bc,local_15a0,local_1580[0],(int)local_15ac / *(int *)(iVar3 + 0x3fa4));
           if (iVar5 != 0) {
             EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
             iVar3 = local_15b4;

@@ -14,9 +14,9 @@
  * EncodeChecksumPairDiff (0x4992d5, 0x499358, 0x499468, 0x49951c), each
  * `mov edi,eax` -> `mov eax,edi; call Peek` or parked in frame[0x18] -
  * captured in iDelta.  Vtable: slot 2 (Animate) of the sub-projectile
- * class 0x5563f0 (dtor 0x497870, ctor FUN_004977c0) that FUN_004375f0
+ * class 0x5563f0 (dtor 0x497870, ctor InitMine) that SpawnMine
  * builds for DetonateShot1_Bullet7 - i.e. bullet 7's shot-1 cluster
- * child; 0x556380 (FUN_004921e0's class) derives from it (FUN_00437870
+ * child; 0x556380 (FUN_004921e0's class) derives from it (SpawnSuperMine
  * calls the same ctor then swaps in 0x556380).
  */
 #include "ghidra_types.h"

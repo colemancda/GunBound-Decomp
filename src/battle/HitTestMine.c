@@ -1,37 +1,29 @@
-/* FUN_00425e60 - 0x00425e60 in the original binary.
+/* HitTestMine - 0x00425e60 in the original binary.
  *
- * IDENTIFIED but NOT renamed (2026-08-19).  This is the layer-100003 twin of
- * HitTestLocalMobile (0x425ac0) / HitTestJewel (0x425c90): it walks the DAT_006a7f8c registry for the
- * collection whose key is 100003, finds the entry whose index equals the EDX
- * argument, and guard-computes (entityX - param_3) and (entityY - param_4)
- * from that entity's +0x40 and +0x264 CValueGuard cells - the same
- * subtract-then-compare shape HitTestLocalMobile uses on a player record's
- * +0x90c/+0xb30, and HitTestJewel on a jewel's +0x25c/+0x480.  (CORRECTION,
- * same day: an earlier revision of this note copied HitTestJewel's
- * +0x25c/+0x480 here.  This function's cells are +0x40 and +0x264 - a
- * consecutive 0x224-byte pair based at +0x40, not at +0x25c - which is why
- * its callers peek the returned entity's +0x40 for the X where the jewel
- * path peeks +0x25c.)  It returns the entity when the point is in range, else 0;
- * callers peek +0x40 on the result.  All six call sites are 0..7 slot loops
- * inside SimulateSuperShot_Bullet3 / ExplodeSuperShot_Bullet8, fed
- * (x, y, radius) from the projectile's +0xf54 / +0x1178 / +0x3198 cells.
+ * NAMED 2026-08-19 (was FUN_00425e60).  Finds the MINE at slot EDX and
+ * returns it when the point (param_3, param_4) is in range, else 0 - the
+ * layer-100003 sibling of HitTestLocalMobile (players) and HitTestJewel.
  *
- * It is NOT renamed because what an entity of class id 100003 actually IS has
- * not been established - naming it "HitTestSomething" would encode a guess.
- * The mechanism is proven and its TWIN now is too (layer 100006 turned out to
- * be the jewels - see HitTestJewel), but nothing in the tree CREATES a
- * layer-100003 entity: every function carrying the 0x186a3 immediate only
- * walks the collection.  Find the producer and this one names itself.  Its
- * guard block based at +0x40 (vs the jewel's +0x38) is the distinguishing
- * fingerprint to match a constructor against.
+ * WHAT PINS "MINE": class 100003 has exactly one constructor in the binary,
+ * InitMine (0x4977c0), and its two spawners load the textures "rayonmine"
+ * (SpawnMine) and "srayonmine" (SpawnSuperMine).  The cells this function
+ * subtracts, +0x40 and +0x264, are the FIRST TWO of the shared CValueGuard
+ * block InitProjectile lays out at +0x40/+0x264/+0x488/... - the projectile
+ * base position pair - which is also why callers peek the returned entity's
+ * +0x40 for its X where the jewel path peeks +0x25c.  (An earlier note here
+ * wrongly copied HitTestJewel's offsets; corrected 2026-08-19.)
+ *
+ * Callers use it for the CHAIN REACTION, exactly as with jewels: on a hit
+ * they peek the mine's X, column-scan the terrain for the ground row under
+ * it, and run the FUN_00436070 / ApplyBlastDamage / SpawnBlastEffect trio at
+ * that point - a blast sets off nearby mines.
  *
  * ABI: param_1 is a PHANTOM.  Ghidra marks the function __fastcall, but ECX
- * is written before it is ever read (orig 0x425e7a `mov ecx,[eax+0x6a7f8c]`), so only EDX (param_2, the
- * slot index) is a real register argument; ret 0xc = 3 stack args.  Every
- * caller passed just those 3 until the 2026-08-19 sweep, which left param_2
- * reading garbage and shifted params 3-5 by two.  Callers now pass 0 for
- * param_1.
- *
+ * is written before it is ever read (orig 0x425e7a `mov ecx,[eax+0x6a7f8c]`),
+ * so only EDX (param_2, the slot index) is a real register argument; ret 0xc
+ * = 3 stack args.  Every caller passed just those 3 until the 2026-08-19
+ * sweep, which left param_2 reading garbage and shifted params 3-5 by two.
+ * Callers now pass 0 for param_1.
  * Raw/near-verbatim port of Ghidra's decompiler output beyond this - not
  * hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
@@ -42,7 +34,7 @@
 
 
 uint __fastcall
-FUN_00425e60(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_4,int param_5)
+HitTestMine(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_4,int param_5)
 
 {
   uint uVar1;

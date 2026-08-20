@@ -1,13 +1,18 @@
-/* FUN_004977c0 - 0x004977c0 in the original binary.
+/* InitMine - 0x004977c0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004977c0).  Constructor for the MINE entity -
+ * the sole class-100003 constructor in the binary.  It delegates to
+ * InitProjectile(param_1, 0x186a3), which stamps the class id at object +0x4
+ * and lays out the shared CValueGuard block at +0x40, +0x264, +0x488, ...
+ * (0x224 stride), then installs vtable 0x5563f0 and zeroes its own cells at
+ * +0x3fd4 / +0x41f8.  Callers: SpawnMine and SpawnSuperMine.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_004977c0(undefined4 *param_1)
+undefined4 * InitMine(undefined4 *param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;

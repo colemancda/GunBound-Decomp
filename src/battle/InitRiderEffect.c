@@ -1,14 +1,17 @@
-/* FUN_004a2780 - 0x004a2780 in the original binary.
+/* InitRiderEffect - 0x004a2780 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004a2780).  Constructor for the RIDER effect:
+ * stamps class id 100007 at object +0x4 and installs vtable 0x5564bc, which
+ * src/cxx/Effects.h already documents as CRiderEffect (0x48 bytes).  Its only
+ * caller is SpawnRiderEffect.  Note it takes its object in EAX (Ghidra's
+ * `in_EAX`), not a normal parameter.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall FUN_004a2780(undefined4 param_1)
+undefined4 __fastcall InitRiderEffect(undefined4 param_1)
 
 {
   undefined4 *in_EAX;

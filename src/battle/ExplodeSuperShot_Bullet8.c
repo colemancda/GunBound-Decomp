@@ -20,7 +20,7 @@
  * +0x3198/+0x35ec/+0x33c8 (the three spawn parameters), +0x17e4.  The
  * three peeks whose cell the resolver saw as clobbered (0x483929,
  * 0x483b28, 0x483dcd) read the object returned by the preceding
- * HitTestLocalMobile / HitTestJewel / FUN_00425e60 call (`mov edi,eax` -> `lea
+ * HitTestLocalMobile / HitTestJewel / HitTestMine call (`mov edi,eax` -> `lea
  * eax,[edi+N]`): record+0x90c, object+0x25c, object+0x40 - the C's iVar5
  * before its own reassignment on the same line.
  */
@@ -203,12 +203,12 @@ LAB_00483b89:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     /* RECOVERED (2026-08-19): the dropped EDX argument - the 0..7 SLOT
      * index this loop is walking - plus the resulting two-position shift.
-     * FUN_00425e60 is the layer-100003 twin of HitTestLocalMobile:
+     * HitTestMine is the layer-100003 twin of HitTestLocalMobile:
      * it looks up the entity at slot EDX and guard-computes
      * (entityX - x, entityY - y) from its +0x25c/+0x480 cells.  param_1 is
      * a PHANTOM (Ghidra marks the function __fastcall, but ECX is written
      * before it is ever read - orig 0x425e7a mov ecx,[eax+0x6a7f8c]), so it is passed 0. */
-    iVar5 = FUN_00425e60(0,local_18,uVar4,uVar3,uVar2);
+    iVar5 = HitTestMine(0,local_18,uVar4,uVar3,uVar2);
     if (iVar5 != 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState((void *)(iVar5 + 0x40));

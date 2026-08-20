@@ -1,8 +1,14 @@
-/* FUN_00437870 - 0x00437870 in the original binary.
+/* SpawnSuperMine - 0x00437870 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00437870).  The super variant of SpawnMine
+ * (0x4375f0): same class-100003 InitMine construction and the same event-flag
+ * texture swap, differing only in operator_new(0x4420) vs 0x441c, the texture
+ * name "srayonmine" vs "rayonmine" (the same s- prefix convention as
+ * "ssflame" for SpawnSuperFlameEffect), and the initial state - "active"
+ * rather than "normal", i.e. it arms immediately.  It has no call sites in
+ * the ported tree yet.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 3 argless PeekPacketChecksumState() calls: the turn counter
@@ -15,7 +21,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00437870(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4,
+void SpawnSuperMine(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4,
                  undefined4 param_5,char param_6)
 
 {
@@ -46,7 +52,7 @@ void FUN_00437870(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   local_4 = 0;
   piVar7 = (int *)0x0;
   if (piVar3 != (int *)0x0) {
-    FUN_004977c0(piVar3);
+    InitMine(piVar3);
     piVar3[0x1107] = 0;
     *piVar3 = (int)&PTR_FUN_00556380;
     piVar7 = piVar3;

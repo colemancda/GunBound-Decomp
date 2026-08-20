@@ -519,7 +519,7 @@ void SpawnItemProjectile();
  * EDX (the slot index) is a real register argument, so callers pass 0 for
  * param_1.  Layer-100006 / layer-100003 twins of HitTestLocalMobile. */
 uint __fastcall HitTestJewel();
-uint __fastcall FUN_00425e60();
+uint __fastcall HitTestMine();
 /* Same generator gap.  ECX and EDX (the object) are real __fastcall
  * arguments; the original's third register argument (EAX) is param_9 in
  * the port - see src/ui_widget/InitTextBoxWidget.c. */
@@ -838,7 +838,7 @@ void FUN_00476f80();
 void FUN_00477140();
 void FUN_00477650();
 void __fastcall FUN_00477930();
-undefined4 * FUN_00477bb0();
+undefined4 * InitJewel();
 void * __thiscall FUN_004780c0();
 void FUN_004780e0();
 void __fastcall FUN_004784a0();
@@ -949,7 +949,7 @@ undefined4 * FUN_00495c20();
 void * __thiscall FUN_00495d40();
 void FUN_00495d60();
 void __fastcall DetonateShot2_Bullet7();
-undefined4 * FUN_004977c0();
+undefined4 * InitMine();
 void * __thiscall FUN_00497870();
 void FUN_00497890();
 void __fastcall FUN_00497980();
@@ -977,7 +977,7 @@ void __thiscall SimulateShot2_Bullet13();
 void __fastcall DetonateShot2_Bullet13();
 void __fastcall AnimateShot2_Bullet13();
 undefined4 FUN_004a1740();
-undefined4 __fastcall FUN_004a2780();
+undefined4 __fastcall InitRiderEffect();
 void FUN_004a27d0(uint spriteKey, uint sortKey, int rowBase, int stride);
 undefined4 * FUN_004a2a70();
 void * __thiscall FUN_004a2ba0();

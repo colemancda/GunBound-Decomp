@@ -31,7 +31,7 @@ void __thiscall SpawnRiderEffect(int param_1,undefined4 param_2,int param_3)
       piVar3 = (int *)0x0;
     }
     else {
-      piVar3 = (int *)FUN_004a2780();
+      piVar3 = (int *)InitRiderEffect();
     }
     iVar5 = g_clientContext;
     piVar3[0xe] = unaff_ESI;

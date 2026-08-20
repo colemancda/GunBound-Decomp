@@ -1,8 +1,13 @@
-/* FUN_004375f0 - 0x004375f0 in the original binary.
+/* SpawnMine - 0x004375f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004375f0).  Places a MINE on the terrain:
+ * operator_new(0x441c), constructed by InitMine (class 100003), texture from
+ * FindPreloadedTextureByName("rayonmine") - or "rayonevent1" when the event
+ * flag at g_clientContext + 0x45578 is 1 - and the object is put in state
+ * "normal".  Both call sites are in DetonateShot1_Bullet7, the mine-laying
+ * weapon.  See SpawnSuperMine (0x437870) for the super variant.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 3 argless PeekPacketChecksumState() calls: the turn counter
@@ -15,7 +20,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004375f0(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4,
+void SpawnMine(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4,
                  undefined4 param_5,char param_6)
 
 {
@@ -50,7 +55,7 @@ void FUN_004375f0(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint 
   piVar7 = (int *)0x0;
   local_4 = 0;
   if (pvVar3 != (void *)0x0) {
-    piVar7 = (int *)FUN_004977c0(pvVar3);
+    piVar7 = (int *)InitMine(pvVar3);
   }
   pcVar6 = (code *)EnterCriticalSection;
   local_4 = 0xffffffff;
