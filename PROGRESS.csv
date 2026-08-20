@@ -683,8 +683,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0046cbb0,1206,FUN_0046cbb0,false,1,10,RAW-src
 0046d070,3353,Mobile13_MainAction,false,1,16,RAW-src
 0046dde0,290,InitLightningHazard,false,1,5,RAW-src
-0046df10,31,FUN_0046df10,false,1,2,RAW-src
-0046df30,213,FUN_0046df30,false,1,2,RAW-src
+0046df10,31,DeleteLightningHazard,false,1,2,RAW-src
+0046df30,213,DestroyLightningHazard,false,1,2,RAW-src
 0046e010,7,TickWeatherHazardFrame,false,2,0,RAW-src
 0046e020,1314,RenderLightningHazard,false,1,9,RAW-src
 0046e550,20,InitShot1_Bullet9_16,false,2,1,RAW-src
@@ -698,8 +698,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004711e0,7,ScrubObjectVtable,false,2,0,RAW-src
 004711f0,71,FUN_004711f0,false,1,3,RAW-src
 00471320,290,InitFirewallHazard,false,1,5,RAW-src
-00471450,31,FUN_00471450,false,1,2,RAW-src
-00471470,213,FUN_00471470,false,1,2,RAW-src
+00471450,31,DeleteFirewallHazard,false,1,2,RAW-src
+00471470,213,DestroyFirewallHazard,false,1,2,RAW-src
 00471550,1332,RenderFirewallHazard,false,1,9,RAW-src
 00471a90,91,TickWeatherHazardLifetime,false,2,4,RAW-src
 00471af0,72,FUN_00471af0,false,1,0,RAW-src
@@ -914,8 +914,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ac400,208,FUN_004ac400,false,25,6,RAW-src
 004ac4d0,208,FUN_004ac4d0,false,25,6,RAW-src
 004ac5a0,175,InitTornadoHazard,false,1,1,RAW-src
-004ac650,31,FUN_004ac650,false,1,2,RAW-src
-004ac670,213,FUN_004ac670,false,1,2,RAW-src
+004ac650,31,DeleteTornadoHazard,false,1,2,RAW-src
+004ac670,213,DestroyTornadoHazard,false,1,2,RAW-src
 004ac750,7,TickTornadoHazardFrame,false,1,0,RAW-src
 004ac760,1313,RenderTornadoHazard,false,1,9,RAW-src
 004acc90,91,TickTornadoHazardLifetime,false,1,4,RAW-src

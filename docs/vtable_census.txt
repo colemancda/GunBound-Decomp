@@ -506,7 +506,7 @@ vtable 0x555e54  installs=2  slots=8
    7: 0x46d070  Mobile13_MainAction
 
 vtable 0x555e74  installs=2  slots=5
-   0: 0x46df10  FUN_0046df10
+   0: 0x46df10  DeleteLightningHazard
    1: 0x461c60  ResolveNamedState
    2: 0x46e010  TickWeatherHazardFrame
    3: 0x46e020  RenderLightningHazard
@@ -540,7 +540,7 @@ vtable 0x555ec8  installs=1  slots=5  UNCARVED=1
    4: 0x429800  NoOpMethod
 
 vtable 0x555edc  installs=2  slots=5
-   0: 0x471450  FUN_00471450
+   0: 0x471450  DeleteFirewallHazard
    1: 0x461c60  ResolveNamedState
    2: 0x46e010  TickWeatherHazardFrame
    3: 0x471550  RenderFirewallHazard
@@ -1074,7 +1074,7 @@ vtable 0x5565cc  installs=2  slots=5  UNCARVED=2
    4: 0x429800  NoOpMethod
 
 vtable 0x5565e4  installs=2  slots=5
-   0: 0x4ac650  FUN_004ac650
+   0: 0x4ac650  DeleteTornadoHazard
    1: 0x461c60  ResolveNamedState
    2: 0x4ac750  TickTornadoHazardFrame
    3: 0x4ac760  RenderTornadoHazard

@@ -1,13 +1,16 @@
-/* FUN_00471470 - 0x00471470 in the original binary.
+/* DestroyFirewallHazard - 0x00471470 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was a FUN_ name).  CFirewallHazard's destructor proper: it
+ * installs 0x555edc on entry - the vtable src/cxx/Hazards.h assigns to that
+ * class - and is reached through DeleteFirewallHazard, its scalar-deleting
+ * wrapper in slot 0.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00471470(undefined4 *param_1)
+void DestroyFirewallHazard(undefined4 *param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;

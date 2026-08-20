@@ -1,13 +1,16 @@
-/* FUN_004ac670 - 0x004ac670 in the original binary.
+/* DestroyTornadoHazard - 0x004ac670 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was a FUN_ name).  CTornadoHazard's destructor proper: it
+ * installs 0x5565e4 on entry - the vtable src/cxx/Hazards.h assigns to that
+ * class - and is reached through DeleteTornadoHazard, its scalar-deleting
+ * wrapper in slot 0.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004ac670(undefined4 *param_1)
+void DestroyTornadoHazard(undefined4 *param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;

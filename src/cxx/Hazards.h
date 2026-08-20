@@ -48,7 +48,7 @@
 
 class CTornadoHazard {
 public:
-    virtual void *Delete(int shouldFree);        /* 0x4ac650 - scalar-deleting dtor */
+    virtual void *Delete(int shouldFree);        /* 0x4ac650 = DeleteTornadoHazard */
     virtual void SetState(const char *name);     /* 0x461c60 - ResolveNamedState (shared) */
     virtual int Tick();                          /* 0x4ac750 - TickTornadoHazardFrame */
     virtual void Draw();                         /* 0x4ac760 - RenderTornadoHazard
@@ -63,7 +63,7 @@ GB_STATIC_ASSERT(sizeof(CTornadoHazard) == 0x6a8, tornadohazard_size);
 
 class CFirewallHazard {
 public:
-    virtual void *Delete(int shouldFree);        /* 0x471450 - scalar-deleting dtor */
+    virtual void *Delete(int shouldFree);        /* 0x471450 = DeleteFirewallHazard */
     virtual void SetState(const char *name);     /* 0x461c60 - ResolveNamedState (shared) */
     virtual int Tick();                          /* 0x46e010 - TickWeatherHazardFrame
                                                   * (shared with CLightningHazard) */
@@ -79,7 +79,7 @@ GB_STATIC_ASSERT(sizeof(CFirewallHazard) == 0x6ac, firewallhazard_size);
 
 class CLightningHazard {
 public:
-    virtual void *Delete(int shouldFree);        /* 0x46df10 - scalar-deleting dtor */
+    virtual void *Delete(int shouldFree);        /* 0x46df10 = DeleteLightningHazard */
     virtual void SetState(const char *name);     /* 0x461c60 - ResolveNamedState (shared) */
     virtual int Tick();                          /* 0x46e010 - TickWeatherHazardFrame */
     virtual void Draw();                         /* 0x46e020 - RenderLightningHazard */
