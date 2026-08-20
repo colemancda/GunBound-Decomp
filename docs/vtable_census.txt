@@ -253,7 +253,7 @@ vtable 0x5555f8  installs=2  slots=18
   17: 0x429800  NoOpMethod
 
 vtable 0x555aa4  installs=2  slots=8  UNCARVED=2
-   0: 0x44c920  FUN_0044c920
+   0: 0x44c920  DeleteShot1_Bullet7
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -284,7 +284,7 @@ vtable 0x555af8  installs=3  slots=8
    7: 0x44e920  Mobile00_MainAction
 
 vtable 0x555b18  installs=2  slots=8  UNCARVED=1
-   0: 0x44f020  FUN_0044f020
+   0: 0x44f020  DeleteSuperShot_Bullet10
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -397,7 +397,7 @@ vtable 0x555cf4  installs=2  slots=8  UNCARVED=2
    7: 0x458850  UNCARVED
 
 vtable 0x555d14  installs=2  slots=8  UNCARVED=1
-   0: 0x4654d0  FUN_004654d0
+   0: 0x4654d0  DeleteShot2_Bullet9
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -445,7 +445,7 @@ vtable 0x555d98  installs=2  slots=5  UNCARVED=2
    4: 0x429800  NoOpMethod
 
 vtable 0x555dac  installs=2  slots=8  UNCARVED=2
-   0: 0x468880  FUN_00468880
+   0: 0x468880  DeleteShot2_Bullet1
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -513,7 +513,7 @@ vtable 0x555e74  installs=2  slots=5
    4: 0x471a90  TickWeatherHazardLifetime
 
 vtable 0x555e88  installs=2  slots=8  UNCARVED=2
-   0: 0x46e570  FUN_0046e570
+   0: 0x46e570  DeleteShot1_Bullet9_16
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -523,7 +523,7 @@ vtable 0x555e88  installs=2  slots=8  UNCARVED=2
    7: 0x458850  UNCARVED
 
 vtable 0x555ea8  installs=2  slots=8  UNCARVED=1
-   0: 0x46faf0  FUN_0046faf0
+   0: 0x46faf0  DeletePrimaryShot_Bullet14
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x429800  NoOpMethod
@@ -571,7 +571,7 @@ vtable 0x555f18  installs=2  slots=8
    7: 0x471fd0  Mobile12_MainAction
 
 vtable 0x555f38  installs=2  slots=8  UNCARVED=2
-   0: 0x473180  FUN_00473180
+   0: 0x473180  DeleteShot2_Bullet11
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -602,7 +602,7 @@ vtable 0x555f7c  installs=2  slots=8
    7: 0x475e40  Mobile10_MainAction
 
 vtable 0x555f9c  installs=2  slots=8  UNCARVED=1
-   0: 0x4765a0  FUN_004765a0
+   0: 0x4765a0  DeleteItemShot
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -649,7 +649,7 @@ vtable 0x556038  installs=2  slots=8
    7: 0x47ab90  Mobile14_MainAction
 
 vtable 0x556058  installs=2  slots=8  UNCARVED=1
-   0: 0x47b2c0  FUN_0047b2c0
+   0: 0x47b2c0  DeletePrimaryShot_Bullet15
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -717,7 +717,7 @@ vtable 0x556110  installs=2  slots=8  UNCARVED=2
    7: 0x458850  UNCARVED
 
 vtable 0x556160  installs=2  slots=8  UNCARVED=1
-   0: 0x4812f0  FUN_004812f0
+   0: 0x4812f0  DeletePrimaryShot_Bullet10
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -741,7 +741,7 @@ vtable 0x556194  installs=2  slots=5  UNCARVED=1
    4: 0x429800  NoOpMethod
 
 vtable 0x5561a8  installs=2  slots=8  UNCARVED=2
-   0: 0x482520  FUN_00482520
+   0: 0x482520  DeleteShot1_Bullet8
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -772,7 +772,7 @@ vtable 0x5561ec  installs=2  slots=8
    7: 0x484ff0  Mobile07_MainAction
 
 vtable 0x55620c  installs=2  slots=9  UNCARVED=2
-   0: 0x485740  FUN_00485740
+   0: 0x485740  DeleteSuperShot_Bullet13
    1: 0x461c60  ResolveNamedState
    2: 0x488780  UNCARVED
    3: 0x488880  UNCARVED
@@ -877,7 +877,7 @@ vtable 0x556340  installs=2  slots=8  UNCARVED=1
    7: 0x458850  UNCARVED
 
 vtable 0x556360  installs=2  slots=8  UNCARVED=1
-   0: 0x4907f0  FUN_004907f0
+   0: 0x4907f0  DeleteSuperShot_Bullet9
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -889,17 +889,17 @@ vtable 0x556360  installs=2  slots=8  UNCARVED=1
 vtable 0x556380  installs=2  slots=10  UNCARVED=3
    0: 0x491b10  DeleteSuperMine
    1: 0x461c60  ResolveNamedState
-   2: 0x4921e0  FUN_004921e0
+   2: 0x4921e0  AnimateSuperMine
    3: 0x499d50  UNCARVED
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
    6: 0x4572b0  DetonateProjectile
    7: 0x458850  UNCARVED
-   8: 0x491b40  FUN_00491b40
+   8: 0x491b40  ExplodeSuperMine
    9: 0x492f50  UNCARVED
 
 vtable 0x5563a8  installs=2  slots=8  UNCARVED=1
-   0: 0x493360  FUN_00493360
+   0: 0x493360  DeleteShot2_Bullet3
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -909,7 +909,7 @@ vtable 0x5563a8  installs=2  slots=8  UNCARVED=1
    7: 0x491a40  FUN_00491a40
 
 vtable 0x5563d0  installs=2  slots=8  UNCARVED=3
-   0: 0x495d40  FUN_00495d40
+   0: 0x495d40  DeleteShot2_Bullet7
    1: 0x461c60  ResolveNamedState
    2: 0x497730  UNCARVED
    3: 0x458690  UNCARVED
@@ -921,13 +921,13 @@ vtable 0x5563d0  installs=2  slots=8  UNCARVED=3
 vtable 0x5563f0  installs=2  slots=10  UNCARVED=3
    0: 0x497870  DeleteMine
    1: 0x461c60  ResolveNamedState
-   2: 0x498b60  FUN_00498b60
+   2: 0x498b60  AnimateMine
    3: 0x499d50  UNCARVED
    4: 0x429800  NoOpMethod
    5: 0x455cc0  SimulateProjectileFrame
    6: 0x4572b0  DetonateProjectile
    7: 0x458850  UNCARVED
-   8: 0x497ad0  FUN_00497ad0
+   8: 0x497ad0  ExplodeMine
    9: 0x499930  UNCARVED
 
 vtable 0x556424  installs=1  slots=9  UNCARVED=3
@@ -969,7 +969,7 @@ vtable 0x556488  installs=1  slots=5  UNCARVED=1
    4: 0x429800  NoOpMethod
 
 vtable 0x55649c  installs=2  slots=8  UNCARVED=1
-   0: 0x49e5b0  FUN_0049e5b0
+   0: 0x49e5b0  DeleteShot2_Bullet13
    1: 0x461c60  ResolveNamedState
    2: 0x4a1690  AnimateShot2_Bullet13
    3: 0x458690  UNCARVED
@@ -986,7 +986,7 @@ vtable 0x5564bc  installs=1  slots=5
    4: 0x429800  NoOpMethod
 
 vtable 0x5564d0  installs=2  slots=8  UNCARVED=2
-   0: 0x4a2ba0  FUN_004a2ba0
+   0: 0x4a2ba0  DeletePrimaryShot_Bullet4
    1: 0x461c60  ResolveNamedState
    2: 0x4a4610  AnimatePrimaryShot_Bullet4
    3: 0x458690  UNCARVED
@@ -996,7 +996,7 @@ vtable 0x5564d0  installs=2  slots=8  UNCARVED=2
    7: 0x458850  UNCARVED
 
 vtable 0x5564f0  installs=2  slots=8  UNCARVED=3
-   0: 0x4a4810  FUN_004a4810
+   0: 0x4a4810  DeleteShot2_Bullet2
    1: 0x461c60  ResolveNamedState
    2: 0x4a6200  UNCARVED
    3: 0x4a6840  UNCARVED
@@ -1013,7 +1013,7 @@ vtable 0x556510  installs=2  slots=5  UNCARVED=1
    4: 0x429800  NoOpMethod
 
 vtable 0x556524  installs=2  slots=8  UNCARVED=2
-   0: 0x4a7020  FUN_004a7020
+   0: 0x4a7020  DeleteShot2_Bullet8
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x458690  UNCARVED
@@ -1057,7 +1057,7 @@ vtable 0x55658c  installs=26  slots=8  UNCARVED=2
    7: 0x458850  UNCARVED
 
 vtable 0x5565ac  installs=2  slots=8  UNCARVED=1
-   0: 0x4aafa0  FUN_004aafa0
+   0: 0x4aafa0  DeleteShot2_Bullet16
    1: 0x461c60  ResolveNamedState
    2: 0x48f1c0  AnimateProjectileTick
    3: 0x488880  UNCARVED
@@ -1113,7 +1113,7 @@ vtable 0x556640  installs=2  slots=8
    7: 0x4aed30  Mobile11_MainAction
 
 vtable 0x556660  installs=2  slots=8  UNCARVED=3
-   0: 0x4af660  FUN_004af660
+   0: 0x4af660  DeleteShot2_Bullet12
    1: 0x461c60  ResolveNamedState
    2: 0x4b1050  UNCARVED
    3: 0x4b30e0  UNCARVED
@@ -1123,7 +1123,7 @@ vtable 0x556660  installs=2  slots=8  UNCARVED=3
    7: 0x458850  UNCARVED
 
 vtable 0x556680  installs=2  slots=8  UNCARVED=3
-   0: 0x4b17e0  FUN_004b17e0
+   0: 0x4b17e0  DeleteShot1_Bullet12
    1: 0x461c60  ResolveNamedState
    2: 0x4b2aa0  UNCARVED
    3: 0x4b30e0  UNCARVED

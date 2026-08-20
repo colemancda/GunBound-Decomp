@@ -1,8 +1,13 @@
-/* FUN_004921e0 - 0x004921e0 in the original binary.
+/* AnimateSuperMine - 0x004921e0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was a FUN_ name).  slot 2, the per-frame animate tick of the SuperMine class's
+ * vtable.  The class was already fixed by a slot UNIQUE to that vtable (see
+ * the InitSuperMine / DestroySuperMine notes); this slot's role comes from the
+ * CProjectile slot map in src/cxx/Projectile.h, and the name was only
+ * assigned because this function too appears in exactly one vtable - a slot
+ * shared between vtables would say nothing about which class it belongs to.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 27 argless PeekPacketChecksumState() calls.  (The worklist's
@@ -21,7 +26,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004921e0(int *param_1)
+void __fastcall AnimateSuperMine(int *param_1)
 
 {
   uint uVar1;

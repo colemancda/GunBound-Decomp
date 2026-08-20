@@ -1,8 +1,13 @@
-/* FUN_00491b40 - 0x00491b40 in the original binary.
+/* ExplodeSuperMine - 0x00491b40 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was a FUN_ name).  slot 8, the post-detonation effect of the SuperMine class's
+ * vtable.  The class was already fixed by a slot UNIQUE to that vtable (see
+ * the InitSuperMine / DestroySuperMine notes); this slot's role comes from the
+ * CProjectile slot map in src/cxx/Projectile.h, and the name was only
+ * assigned because this function too appears in exactly one vtable - a slot
+ * shared between vtables would say nothing about which class it belongs to.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 25 argless PeekPacketChecksumState() calls (peek status
@@ -32,7 +37,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00491b40(int param_1)
+void __fastcall ExplodeSuperMine(int param_1)
 
 {
   char cVar1;
@@ -117,7 +122,7 @@ void __fastcall FUN_00491b40(int param_1)
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x491d94
      * (`mov edi,dword ptr [esp + 0x20]`): esp+0x20 is a spilled reload of
      * `local_478`, set above to `param_1 + 0xf54` (never reassigned
-     * since). This mirrors the structurally-identical FUN_00497ad0.c,
+     * since). This mirrors the structurally-identical ExplodeMine.c,
      * whose corresponding first EncodeOutgoingPacketField call in the
      * same position resolves via direct register trace to param_1+0xf54.
      * See tools/encodeoutgoingpacketfield_sites.json. */
@@ -133,7 +138,7 @@ void __fastcall FUN_00491b40(int param_1)
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x491dec
      * (`mov edi,dword ptr [esp + 0x24]`): esp+0x24 is a spilled reload of
      * `local_474`, set above to `param_1 + 0x1178` (never reassigned
-     * since). Mirrors FUN_00497ad0.c's second call resolving to
+     * since). Mirrors ExplodeMine.c's second call resolving to
      * param_1+0x1178. See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField(local_474, uVar2);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -1,12 +1,17 @@
-/* FUN_00498b60 - 0x00498b60 in the original binary.
+/* AnimateMine - 0x00498b60 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was a FUN_ name).  slot 2, the per-frame animate tick of the Mine class's
+ * vtable.  The class was already fixed by a slot UNIQUE to that vtable (see
+ * the InitMine / DestroyMine notes); this slot's role comes from the
+ * CProjectile slot map in src/cxx/Projectile.h, and the name was only
+ * assigned because this function too appears in exactly one vtable - a slot
+ * shared between vtables would say nothing about which class it belongs to.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 24 argless PeekPacketChecksumState() calls (worklist 24).
- * Twin of FUN_004921e0 (this=EBX, spilled to frame[0x20]): cells
+ * Twin of AnimateSuperMine (this=EBX, spilled to frame[0x20]): cells
  * param_1+0x10/0x99/0x3d5/0xe48 and the global 0x794bf0.  TEN chained
  * returns - the cell pointer returned by EncodeChecksumDeltaSub/DeltaAdd
  * (0x498bd1, 0x498d1d -> frame[0x18], 0x498daa, 0x498e50, 0x498eec ->
@@ -16,13 +21,13 @@
  * captured in iDelta.  Vtable: slot 2 (Animate) of the sub-projectile
  * class 0x5563f0 (dtor 0x497870, ctor InitMine) that SpawnMine
  * builds for DetonateShot1_Bullet7 - i.e. bullet 7's shot-1 cluster
- * child; 0x556380 (FUN_004921e0's class) derives from it (SpawnSuperMine
+ * child; 0x556380 (AnimateSuperMine's class) derives from it (SpawnSuperMine
  * calls the same ctor then swaps in 0x556380).
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00498b60(int *param_1)
+void __fastcall AnimateMine(int *param_1)
 
 {
   uint uVar1;

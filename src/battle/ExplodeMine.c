@@ -1,15 +1,20 @@
-/* FUN_00497ad0 - 0x00497ad0 in the original binary.
+/* ExplodeMine - 0x00497ad0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was a FUN_ name).  slot 8, the post-detonation effect of the Mine class's
+ * vtable.  The class was already fixed by a slot UNIQUE to that vtable (see
+ * the InitMine / DestroyMine notes); this slot's role comes from the
+ * CProjectile slot map in src/cxx/Projectile.h, and the name was only
+ * assigned because this function too appears in exactly one vtable - a slot
+ * shared between vtables would say nothing about which class it belongs to.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 23 argless PeekPacketChecksumState() calls (peek status
  * "clean", 23 C : 23 orig).  Cells from tools/guard_cell_resolve.py over
  * 0x497ad0-0x497fba; no gotos, straight-line, so the sites order-zip.
  *
- * Structural twin of FUN_00491b40 (same crater block, same five
+ * Structural twin of ExplodeSuperMine (same crater block, same five
  * EncodeChecksumDeltaSub rounds), and the two cross-check each other.
  * Five cells are chained returns the decompile discarded: each DeltaSub
  * (0x40a6e0, at 0x497b38/0x497d2f/0x497dc3/0x497e85/0x497f47) returns
@@ -28,7 +33,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00497ad0(int param_1)
+void __fastcall ExplodeMine(int param_1)
 
 {
   int iVar1;
