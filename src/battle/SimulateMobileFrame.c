@@ -304,7 +304,7 @@ LAB_004622cf:
       uVar6 = PacketChecksumEquals(param_1 + 0x715,1);
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar6;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-      BroadcastQueuedEvent();
+      BroadcastQueuedEvent((int)&g_replayContext);
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       QueueBroadcastEvent(0xc301,(int)&g_replayContext);
@@ -314,7 +314,7 @@ LAB_004622cf:
       *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
       FUN_0041f200(0);
-      BroadcastQueuedEvent();
+      BroadcastQueuedEvent((int)&g_replayContext);
     }
   }
   cVar5 = PacketChecksumGreaterEqual(param_1 + 0x2cc,*(undefined4 *)(&g_nCameraBoundY + g_clientContext));

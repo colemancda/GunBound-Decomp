@@ -51,7 +51,7 @@ void __thiscall State10_Loading_HandleChatInput(int *param_1,int param_2,int par
           } while (cVar2 != '\0');
           AppendBroadcastString(0,(int)pcVar3 - (int)acStack_80 - 1,(undefined4 *)acStack_80,
                                 (int)&g_replayContext);
-          BroadcastQueuedEvent();
+          BroadcastQueuedEvent((int)&g_replayContext);
           goto LAB_0043e820;
         }
         uVar4 = 0x205;

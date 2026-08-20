@@ -735,7 +735,7 @@ LAB_0049fcda:
     *piVar1 = local_15c0;
 LAB_0049fd06:
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
-    BroadcastQueuedEvent();
+    BroadcastQueuedEvent((int)&g_replayContext);
   }
   goto LAB_0049fd17;
 }

@@ -276,7 +276,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
                   FUN_0041f200(0);
                 }
-                BroadcastQueuedEvent();
+                BroadcastQueuedEvent((int)&g_replayContext);
                 FUN_00415470();
                 local_d78 = local_d78 - 1;
                 if (*(int *)(&DAT_006a76f8 + g_clientContext) == 0) {

@@ -405,7 +405,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
         uVar5 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar5;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-        BroadcastQueuedEvent();
+        BroadcastQueuedEvent((int)&g_replayContext);
         *(undefined1 *)((int)param_1 + 0x92) = 0;
         FUN_004e1f70();
         RemoveWidget();
@@ -440,7 +440,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
           *(int *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = iVar13 / 2;
         }
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
-        BroadcastQueuedEvent();
+        BroadcastQueuedEvent((int)&g_replayContext);
         iVar13 = g_clientContext;
         *(undefined1 *)((int)param_1 + 0x93) = 0;
         (&DAT_006a7758)[iVar13] = 1;
@@ -575,7 +575,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar5;
 LAB_004b9bb0:
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-      BroadcastQueuedEvent();
+      BroadcastQueuedEvent((int)&g_replayContext);
       return;
     }
     if (param_2 == 0x112) {
@@ -749,7 +749,7 @@ LAB_004b9bb0:
             } while (cVar4 != '\0');
             AppendBroadcastString(0,(int)pcVar22 - (int)acStack_80 - 1,(undefined4 *)acStack_80,
                                   (int)&g_replayContext);
-            BroadcastQueuedEvent();
+            BroadcastQueuedEvent((int)&g_replayContext);
             goto LAB_004b9e3e;
           }
           uVar20 = 0x205;
@@ -911,7 +911,7 @@ LAB_004bafd2:
   *puVar3 = 0;
   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
   FUN_0043d6d0();
-  BroadcastQueuedEvent();
+  BroadcastQueuedEvent((int)&g_replayContext);
   /* self/x/y dropped as ECX/EBX/EDI - confirmed via disassembly at
    * 0x4bb4f0: self is the DirectInput mouse device singleton
    * (g_mouseDeviceTimerBlock, 0xe53698); the PeekChecksumStateUnderLock

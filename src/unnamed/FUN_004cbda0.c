@@ -76,7 +76,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
       uVar4 = PacketChecksumEquals(*(int *)(iVar7 + 0x621e0) + 0x1c54,1);
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar4;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-      BroadcastQueuedEvent();
+      BroadcastQueuedEvent((int)&g_replayContext);
       FUN_004cc5c0(*(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 8),cVar3 != '\0',
                    *(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc));
       iVar7 = *(int *)(g_clientContext + 0x621e0);
@@ -107,7 +107,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
             *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
             FUN_0041f200(0);
-            BroadcastQueuedEvent();
+            BroadcastQueuedEvent((int)&g_replayContext);
           }
         }
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);

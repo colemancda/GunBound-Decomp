@@ -97,7 +97,7 @@ void FUN_00461a20(int param_1)
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar4;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-        BroadcastQueuedEvent();
+        BroadcastQueuedEvent((int)&g_replayContext);
       }
     }
   }

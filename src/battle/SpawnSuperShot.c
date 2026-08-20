@@ -666,7 +666,7 @@ LAB_0042ec76:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
-    BroadcastQueuedEvent();
+    BroadcastQueuedEvent((int)&g_replayContext);
   }
   if (param_2 != 5) {
     if (param_2 == 0xc) {

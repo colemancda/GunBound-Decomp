@@ -125,7 +125,7 @@ int FUN_0045d692(void)
             uVar4 = FUN_0045f5d0();
             *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar4;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
-            BroadcastQueuedEvent();
+            BroadcastQueuedEvent((int)&g_replayContext);
             uVar5 = extraout_var_02;
           }
           iVar3 = CONCAT31(uVar5,1);

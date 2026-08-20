@@ -393,7 +393,7 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
-    BroadcastQueuedEvent();
+    BroadcastQueuedEvent((int)&g_replayContext);
   }
   FUN_0041da80();
   iVar4 = GetPlayerRecordBySlot();

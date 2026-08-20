@@ -493,7 +493,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
-    BroadcastQueuedEvent();
+    BroadcastQueuedEvent((int)&g_replayContext);
   }
   FUN_0041da80(g_clientContext,piVar3,uStack_6c,uStack_4c);
   iVar4 = GetPlayerRecordBySlot();

@@ -108,7 +108,7 @@ LAB_004e4ac8:
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
         *puVar2 = param_6;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
-        BroadcastQueuedEvent();
+        BroadcastQueuedEvent((int)&g_replayContext);
         return;
       }
     }

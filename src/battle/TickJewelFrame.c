@@ -476,7 +476,7 @@ LAB_0047a634:
     }
     AppendBroadcastString(0,(int)pcVar14 - (int)uVar4 - 1,(undefined4 *)uVar4,
                           (int)&g_replayContext);
-    iVar5 = BroadcastQueuedEvent();
+    iVar5 = BroadcastQueuedEvent((int)&g_replayContext);
   }
 LAB_0047a932:
   *unaff_FS_OFFSET = local_c;

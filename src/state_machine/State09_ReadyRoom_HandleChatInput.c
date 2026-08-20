@@ -61,7 +61,7 @@ void __thiscall State09_ReadyRoom_HandleChatInput(int *param_1,int param_2,int p
               } while (cVar4 != '\0');
               AppendBroadcastString(0,(int)pcVar8 - (int)acStack_80 - 1,(undefined4 *)acStack_80,
                                     (int)&g_replayContext);
-              BroadcastQueuedEvent();
+              BroadcastQueuedEvent((int)&g_replayContext);
               goto LAB_004d67e1;
             }
             uVar13 = 0x205;

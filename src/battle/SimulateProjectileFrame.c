@@ -402,7 +402,7 @@ LAB_0045723e:
         *piVar1 = local_15b4;
 LAB_00457283:
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
-        BroadcastQueuedEvent();
+        BroadcastQueuedEvent((int)&g_replayContext);
       }
     }
   }

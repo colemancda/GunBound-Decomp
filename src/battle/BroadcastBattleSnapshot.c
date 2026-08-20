@@ -112,7 +112,7 @@ void BroadcastBattleSnapshot(int param_1)
   *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar4;
   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
   if (param_1 == -1) {
-    BroadcastQueuedEvent();
+    BroadcastQueuedEvent((int)&g_replayContext);
     return;
   }
   FUN_004e7140();
