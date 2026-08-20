@@ -73,7 +73,79 @@ def main():
             print("  %-50s claims not in the binary: %s" % (path, dict(extra)))
 
     print("source-only (outerKey, frame) pairs: %d" % bad)
+    bad += audit_blit_keys()
     return 1 if bad else 0
+
+
+def split_top(text):
+    args, depth, cur = [], 0, ""
+    for ch in text:
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth -= 1
+        if ch == "," and depth == 0:
+            args.append(cur.strip())
+            cur = ""
+        else:
+            cur += ch
+    if cur.strip() or args:
+        args.append(cur.strip())
+    return [a for a in args if a]
+
+
+def audit_blit_keys():
+    """Same containment check for BlitSpriteClipped's recovered outerKey.
+
+    Only the KEY is checked, not the frame. The frame comes from the source in
+    the first place, and a source-side "not an integer literal" is not the same
+    property as a binary-side "not an immediate push" - comparing those two
+    manufactures 25 mismatches that are purely an artefact of the encoding.
+
+    Sites where the binary's EDX was not an immediate cannot be attributed to a
+    key at all, so they are carried as SLACK: a function may legitimately show
+    that many source keys beyond what the scan pinned down.
+    """
+    path_of = {}
+    for p in glob.glob("src/**/*.c", recursive=True):
+        path_of.setdefault(os.path.basename(p)[:-2], p)
+    binary = collections.defaultdict(collections.Counter)
+    slack = collections.Counter()
+    for r in json.load(open("tools/blitspriteclipped_regs.json")):
+        m = re.match(r"mov edx, (0x[0-9a-f]+|\d+)$", r["edx"] or "")
+        if m:
+            binary[r["func"]][int(m.group(1), 0)] += 1
+        else:
+            slack[r["func"]] += 1
+    bad = 0
+    for func in sorted(set(binary) | set(slack)):
+        path = path_of.get(func)
+        if not path or not os.path.exists(path):
+            continue
+        src = re.sub(r"/\*.*?\*/", "", open(path, errors="replace").read(), flags=re.S)
+        found = collections.Counter()
+        for m in re.finditer(r"\bBlitSpriteClipped\(", src):
+            depth, j = 1, m.end()
+            while depth and j < len(src):
+                if src[j] == "(":
+                    depth += 1
+                elif src[j] == ")":
+                    depth -= 1
+                j += 1
+            a = split_top(src[m.end():j - 1])
+            if len(a) != 4:
+                continue
+            try:
+                found[int(a[3], 0)] += 1
+            except ValueError:
+                pass
+        surplus = sum((found - binary[func]).values())
+        if surplus > slack[func]:
+            bad += surplus - slack[func]
+            print("  %-50s outerKeys beyond the binary: %s (slack %d)"
+                  % (path, dict(found - binary[func]), slack[func]))
+    print("unexplained BlitSpriteClipped outerKey claims: %d" % bad)
+    return bad
 
 
 if __name__ == "__main__":
