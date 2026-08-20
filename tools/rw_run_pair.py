@@ -25,12 +25,18 @@ sec=[s for s in pe.sections if s.Name.rstrip(b'\x00')==b'.text'][0]
 base=ib+sec.VirtualAddress; data=sec.get_data()
 md=capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
 
-def binary_runs(name):
+def binary_runs(name, srclabels=None):
     a,b=span(name)
     ins=list(md.disasm(data[a-base:b-base],a))
     targets=set()
     for i in ins:
         if i.mnemonic.startswith('j') and i.op_str.startswith('0x'): targets.add(int(i.op_str,16))
+    # Only break at targets the SOURCE can also see. Ghidra emits LAB_ for the
+    # targets it cannot express structurally; the rest it renders as if/else,
+    # which the source-side tokenizer already breaks on. Breaking at every
+    # target makes the binary runs finer than the source runs, and then no
+    # count ever matches.
+    if srclabels is not None: targets &= srclabels
     runs=[]; key=None; buf=[]; pend=[]
     def flush():
         nonlocal key,buf
@@ -45,7 +51,7 @@ def binary_runs(name):
             t=int(i.op_str,16)
             if t==CBW:
                 args=list(reversed(pend[-11:])) if len(pend)>=11 else None
-                k=(args[2],args[3]) if args and len(args)>3 else None
+                k=tuple(args[2:7]) if args and len(args)>6 else None
                 if k is not None and key is None: key=k   # label anchor wins - it is exact
             elif t==RW:
                 e=None
@@ -82,8 +88,11 @@ def source_runs(path):
             a=[x.strip() for x in re.split(r',(?![^()]*\))',src[m.end():j-1])]
             def num(x):
                 try: return int(x,0)
-                except Exception: return None
-            k=(num(a[2]),num(a[3])) if len(a)>3 else None
+                except Exception: pass
+                # Ghidra's string symbols carry their own address: s_foo_0055412c
+                m2=re.search(r'_00([0-9a-f]{6})$',x)
+                return int(m2.group(1),16) if m2 else None
+            k=tuple(num(x) for x in a[2:7]) if len(a)>6 else None
             if k is not None and key is None: key=k   # label anchor wins - it is exact
         elif t.startswith('RemoveWidget'):
             # count ALREADY-RECOVERED calls too, or their absence desynchronises
@@ -102,7 +111,9 @@ def source_runs(path):
     return [r for r in runs if r['key']],src
 
 name,path=sys.argv[1],sys.argv[2]
-b=binary_runs(name); s,src=source_runs(path)
+s,src=source_runs(path)
+srclabels={int(m.group(1),16) for m in re.finditer(r'\bLAB_00([0-9a-f]{6})\b',src)}
+b=binary_runs(name,srclabels)
 def uniq(runs):
     '''Drop runs whose key is not unique - an ambiguous key cannot pair anything,
     and aborting the whole function over one loses every unambiguous run in it.'''

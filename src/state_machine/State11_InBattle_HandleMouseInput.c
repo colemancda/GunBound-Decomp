@@ -605,7 +605,7 @@ LAB_004b9bb0:
           *(undefined1 *)(g_clientContext + 0xebee5) = 0;
           return;
         }
-        RemoveWidget();
+        RemoveWidget((int)&DAT_00e9be90,0,4);
         CreateButtonWidget(&DAT_00e9be90,0,5,0x3ed,s_b_play_team_00554114,0xa8,0x219,0x1d,0x10,1,0);
         *(undefined1 *)(g_clientContext + 0xebee5) = 1;
         return;

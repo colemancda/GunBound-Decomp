@@ -70,7 +70,7 @@
  *     they already read garbage out of registers, so it is strictly no worse
  *     for them and unblocks the sites that ARE fixed.
  *
- * 63 of the 131 call sites are recovered.  ApplyRoomSettings - which holds 55
+ * 64 of the 131 call sites are recovered.  ApplyRoomSettings - which holds 55
  * of them and was the hard case - is COMPLETE.
  *
  * The method that finished it is straight-line RUNS (tools/rw_run_pair.py):
@@ -112,6 +112,21 @@
  * State11_InBattle_ProcessBattleAction independently shows.
  *
  * 63 of 131 done.
+ *
+ * TWO REFINEMENTS THAT BARELY PAID, recorded so they are not retried blind:
+ * widening the landmark key from (key, id) to (key, id, string, x, y) - the
+ * string argument is discriminating because Ghidra's symbol names carry their
+ * own address, s_b_play_all_0055412c - and restricting the BINARY's run
+ * boundaries to branch targets the SOURCE can also see.  The second one
+ * matters in principle: breaking at every target makes the binary runs finer
+ * than the source runs, so no count ever matches.  Together they yielded ONE
+ * more site.
+ *
+ * They were regression-tested rather than assumed: re-running the changed tool
+ * against the pre-sweep ApplyRoomSettings and diffing its output against what
+ * is committed gives 0 contradictions across all 54 overlapping sites, with
+ * the new version recovering one FEWER.  Strictly more conservative, not
+ * wrong.
  *
  * WHAT DOES NOT YIELD: five of the remaining callers - FUN_00445450,
  * State11_InBattle_HandleKeyInput/HandleMouseInput, HandleTurnTimeoutSlot and
