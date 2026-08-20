@@ -81,52 +81,52 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
    8174b  0x555dec  8 ( 8/ 8)     0     ~PublishProjectileTrackingState
    5649b  0x5570f0 18 ( 9/12)     0     ~State02_ServerSelect_ProcessPacket
    3946b  0x555fdc  5 ( 5/ 5)     0     ~DeleteJewel
-   2664b  0x557eb8 10 ( 8/10)     2     ~Widget_DispatchKeyToChildren
+   2674b  0x557eb8 10 ( 9/10)     1     ~Widget_SetFocus
    2260b  0x555b54  5 ( 5/ 5)     0     ~DeletePoisonedBaseObject
-   2075b  0x557cd4 10 ( 8/10)     2     ~Widget_OnDragMove
-   1903b  0x557f08 10 ( 8/10)     2     ~WorldListPanel_OnMouseDown
-   1683b  0x557ee0 10 ( 9/10)     1     ~RenderReadyRoomChatRow
+   2085b  0x557cd4 10 ( 9/10)     1     ~Widget_OnDragMove
+   1913b  0x557f08 10 ( 9/10)     1     ~WorldListPanel_OnMouseDown
+   1693b  0x557ee0 10 (10/10)     0     ~RenderReadyRoomChatRow
    1524b  0x555edc  5 ( 5/ 5)     0     ~RenderFirewallHazard
    1514b  0x557c84 10 ( 8/10)     2     ~TextEntry_SyncFromControl
    1506b  0x555e74  5 ( 5/ 5)     0     ~RenderLightningHazard
    1505b  0x5565e4  5 ( 5/ 5)     0     ~TickTornadoHazardFrame
    1354b  0x556510  5 ( 4/ 5)     1     ~ResolveNamedState
    1299b  0x5575c8 17 (12/17)     5     (all FUN_/uncarved)
-   1283b  0x557e90 10 ( 7/10)     1     ~ScrollListWidget_DrawThumb
-   1263b  0x557bbc 10 ( 9/10)     1     ~Widget_OnCommandDefault
-   1237b  0x557f30 10 ( 9/10)     1     ~Widget_MouseDownChildren
-   1224b  0x557c5c 10 ( 9/10)     1     ~Widget_OnCommandDefault
-   1208b  0x557cac 10 ( 7/10)     3     ~RenderChannelUserRow
-   1175b  0x557f58 10 ( 9/10)     1     ~Widget_DrawChildrenDeep
-   1165b  0x5574cc  5 ( 2/ 5)     3     ~DecodeSoundBufferChunk
+   1293b  0x557e90 10 ( 8/10)     0     ~ScrollListWidget_DrawThumb
+   1273b  0x557bbc 10 (10/10)     0     ~Widget_OnCommandDefault
+   1247b  0x557f30 10 (10/10)     0     ~Widget_MouseDownChildren
+   1234b  0x557c5c 10 (10/10)     0     ~Widget_OnCommandDefault
+   1218b  0x557cac 10 ( 8/10)     2     ~RenderChannelUserRow
+   1185b  0x557f58 10 (10/10)     0     ~Widget_DrawChildrenDeep
+   1168b  0x5574cc  5 ( 3/ 5)     2     ~DecodeSoundBufferChunk
    1059b  0x556194  5 ( 4/ 5)     1     ~ResolveNamedState
    1018b  0x5572f0  4 ( 3/ 3)     0     ~NoOpMethod
-   1004b  0x557df0 10 ( 9/10)     1     ~EnterRoomNumberDialog_OnCommand
-   1004b  0x557c0c 10 ( 9/10)     1     ~Widget_DrawSelf
-   1003b  0x557da0 10 ( 6/10)     4     ~Label_OnMouseDown
-    937b  0x557b94 10 ( 9/10)     1     ~HandlePanelMouseDown
-    925b  0x551cb8 14 ( 4/12)     8     (all FUN_/uncarved)
-    885b  0x557e68 10 ( 9/10)     1     ~Widget_DrawSelf
-    883b  0x557d78 10 ( 9/10)     1     ~Widget_DrawSelf
-    868b  0x557d50 10 ( 9/10)     1     ~Widget_DrawSelf
-    866b  0x557e40 10 ( 9/10)     1     ~Widget_DrawSelf
-    848b  0x557dc8  8 ( 7/ 8)     1     ~HandlePanelMouseDown
+   1014b  0x557df0 10 (10/10)     0     ~EnterRoomNumberDialog_OnCommand
+   1014b  0x557c0c 10 (10/10)     0     ~Widget_DrawSelf
+   1013b  0x557da0 10 ( 7/10)     3     ~Label_OnMouseDown
+    947b  0x557b94 10 (10/10)     0     ~HandlePanelMouseDown
+    928b  0x551cb8 14 ( 5/12)     7     ~NoOpMethodArg1
+    895b  0x557e68 10 (10/10)     0     ~Widget_DrawSelf
+    893b  0x557d78 10 (10/10)     0     ~Widget_DrawSelf
+    878b  0x557d50 10 (10/10)     0     ~Widget_DrawSelf
+    876b  0x557e40 10 (10/10)     0     ~Widget_DrawSelf
+    858b  0x557dc8  8 ( 8/ 8)     0     ~HandlePanelMouseDown
+    808b  0x557e18 10 ( 9/10)     1     ~Widget_DrawSelf
+    808b  0x557d28 10 ( 9/10)     1     ~Widget_DrawSelf
+    807b  0x557c34 10 ( 9/10)     1     ~HandlePanelMouseDown
     806b  0x557484 10 ( 6/ 9)     3     ~CInputDevice_ScalarDeletingDestructor
-    798b  0x557e18 10 ( 8/10)     2     ~Widget_DrawSelf
-    798b  0x557d28 10 ( 8/10)     2     ~Widget_DrawSelf
-    797b  0x557c34 10 ( 8/10)     2     ~HandlePanelMouseDown
     745b  0x557f80 11 (10/11)     1     ~PanelManager_DispatchMouseMove
-    626b  0x557be4 10 ( 6/10)     4     ~Widget_OnDragMove
+    636b  0x557be4 10 ( 7/10)     3     ~Widget_OnDragMove
     556b  0x557300  6 ( 4/ 6)     2     ~NoOpMethod
+    546b  0x5574e8  5 ( 3/ 5)     2     ~NoOpMethodArg1
     544b  0x557cfc 11 ( 9/11)     2     ~PanelManager_DispatchMouseDown
-    543b  0x5574e8  5 ( 2/ 5)     3     (all FUN_/uncarved)
     512b  0x556250  5 ( 4/ 5)     1     ~DeletePoisonedBaseObject
     505b  0x556544  5 ( 4/ 5)     1     ~DeletePoisonedBaseObject
     491b  0x5572e8  2 ( 2/ 2)     0     ~HandleSocketEvent
     450b  0x555590 18 ( 8/ 9)     1     ~State05_Logo1_OnEnter
     418b  0x5564bc  5 ( 5/ 5)     0     CRiderEffect
     416b  0x555ef0  5 ( 5/ 5)     0     CFlameEffect
-    372b  0x557538  6 ( 4/ 6)     2     ~NoOpMethod
+    375b  0x557538  6 ( 5/ 6)     1     ~NoOpMethodArg1
     368b  0x5560bc  5 ( 5/ 5)     0     CSuperFlameEffect
     296b  0x55745c 10 ( 5/10)     5     ~CInputDevice_ScalarDeletingDestructor
     260b  0x557278 18 ( 8/ 9)     1     ~State01_Title_OnEnter
@@ -151,17 +151,17 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
      96b  0x55208c  5 ( 3/ 4)     1     ~DeletePoisonedBaseObject
      96b  0x555b68  5 ( 3/ 3)     0     ~DeletePoisonedBaseObject
      95b  0x5565cc  5 ( 3/ 5)     2     ~ResolveNamedState
-     86b  0x5520ac  2 ( 1/ 2)     1     (all FUN_/uncarved)
+     89b  0x5520ac  2 ( 2/ 2)     0     ~NoOpMethodArg1
      79b  0x5575ac  3 ( 1/ 3)     2     (all FUN_/uncarved)
       7b  0x553fb0 18 ( 3/ 4)     1     ~CGameState_NoOpVirtual_A
       4b  0x557434 10 ( 2/ 5)     3     ~CGameState_NoOpVirtual_B
+      4b  0x5574e0  2 ( 2/ 2)     0     ~NoOpMethodArg1
+      4b  0x5572e0  2 ( 2/ 2)     0     ~NoOpMethodArg1
+      4b  0x553ff8  2 ( 2/ 2)     0     ~NoOpMethodArg1
+      4b  0x5520a4  2 ( 2/ 2)     0     ~NoOpMethodArg1
       3b  0x557598  4 ( 1/ 2)     1     ~CGameState_NoOpVirtual_B
+      3b  0x554000  2 ( 1/ 2)     1     ~NoOpMethodArg1
       1b  0x55755c  4 ( 1/ 3)     2     ~NoOpMethod
-      1b  0x5574e0  2 ( 1/ 2)     1     ~NoOpMethod
-      1b  0x5572e0  2 ( 1/ 2)     1     ~NoOpMethod
-      1b  0x553ff8  2 ( 1/ 2)     1     ~NoOpMethod
-      1b  0x5520a4  2 ( 1/ 2)     1     ~NoOpMethod
-      0b  0x554000  2 ( 0/ 2)     2     (all FUN_/uncarved)
       0b  0x557654  3 ( 0/ 1)     1     (all FUN_/uncarved)
       0b  0x557610 17 ( 0/ 1)     1     (all FUN_/uncarved)
       0b  0x551cf4 14 ( 0/ 1)     1     (all FUN_/uncarved)

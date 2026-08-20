@@ -46,6 +46,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00403170,244,FUN_00403170,false,2,5,RAW-src
 00403270,75,FUN_00403270,false,1,1,RAW-src
 004032c0,1447,FUN_004032c0,false,1,13,RAW-src
+004038b0,3,NoOpMethodArg1,false,14,0,RAW-src
 00403ae0,285,FUN_00403ae0,false,1,6,RAW-src
 00403d20,231,FUN_00403d20,false,1,5,RAW-src
 00403f30,186,FUN_00403f30,false,1,0,RAW-src
@@ -1654,6 +1655,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0050e790,53,Widget_ClearPressedRecursive,false,4,2,RAW-src
 0050e7d0,72,Widget_SetEnabled,false,10,2,PARITY-cxx-Widget.cpp
 0050e820,59,FUN_0050e820,false,1,1,RAW-src
+0050e860,10,Widget_SetFocus,false,23,0,RAW-src
 0050e870,99,Widget_MouseMoveChildren,false,7,1,PARITY-cxx-Widget.cpp
 0050e8e0,99,Widget_MouseDownChildren,false,7,1,PARITY-cxx-Widget.cpp
 0050e950,99,Widget_MouseUpChildren,false,7,1,PARITY-cxx-Widget.cpp
