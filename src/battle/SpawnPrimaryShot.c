@@ -134,7 +134,7 @@ void SpawnPrimaryShot(undefined1 param_1,uint param_2,uint param_3,uint param_4,
         pcVar14 = s_bullet1s_00553f74;
       }
       else {
-        local_8b8 = (int *)FUN_00468860();
+        local_8b8 = (int *)InitShot2_Bullet1();
         local_8b8[0x794] = 5;
         pcVar14 = s_bullet1s_00553f74;
       }
@@ -170,7 +170,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_004a46f0(local_8bc);
+        local_8b8 = (int *)InitShot2_Bullet2(local_8bc);
       }
       iVar6 = g_clientContext;
       uVar7 = param_2 & 0x80000001;
@@ -209,7 +209,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_00493340();
+        local_8b8 = (int *)InitShot2_Bullet3();
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet3s_00553f5c);
@@ -238,7 +238,7 @@ LAB_0042c334:
           local_8b8 = (int *)0x0;
         }
         else {
-          local_8b8 = (int *)FUN_004a2a70(local_8bc);
+          local_8b8 = (int *)InitPrimaryShot_Bullet4(local_8bc);
         }
         uVar7 = param_2 & 0x80000007;
         if ((int)uVar7 < 0) {
@@ -331,7 +331,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_0044c900();
+        local_8b8 = (int *)InitShot1_Bullet7();
       }
       pcVar14 = s_bullet7s_00553efc;
       goto LAB_0042c334;
@@ -358,7 +358,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_00495c20(local_8bc);
+        local_8b8 = (int *)InitShot2_Bullet7(local_8bc);
       }
       uVar7 = param_2 & 0x80000001;
       if ((int)uVar7 < 0) {
@@ -380,7 +380,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_00482500();
+        local_8b8 = (int *)InitShot1_Bullet8();
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet8n_00553ef0);
@@ -394,7 +394,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_004a7000();
+        local_8b8 = (int *)InitShot2_Bullet8();
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet8s_00553ee4);
@@ -410,7 +410,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_0046e550();
+        local_8b8 = (int *)InitShot1_Bullet9_16();
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet9n_00553ed8);
@@ -424,7 +424,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_004654b0();
+        local_8b8 = (int *)InitShot2_Bullet9();
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet9s_00553ecc);
@@ -440,7 +440,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_004812d0();
+        local_8b8 = (int *)InitPrimaryShot_Bullet10();
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet10n_00553ec0);
@@ -455,7 +455,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_004812d0();
+        local_8b8 = (int *)InitPrimaryShot_Bullet10();
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet10s_00553eb4);
@@ -486,7 +486,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_00473160();
+        local_8b8 = (int *)InitShot2_Bullet11();
       }
       local_4 = 0xffffffff;
       local_8b8[0x794] = 5;
@@ -503,7 +503,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_004b17b0();
+        local_8b8 = (int *)InitShot1_Bullet12();
       }
       iVar6 = g_clientContext;
       local_4 = 0xffffffff;
@@ -520,7 +520,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_004af530(local_8bc);
+        local_8b8 = (int *)InitShot2_Bullet12(local_8bc);
       }
       iVar6 = g_clientContext;
       uVar7 = param_2 & 0x80000001;
@@ -559,7 +559,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_0049e540(local_8bc);
+        local_8b8 = (int *)InitShot2_Bullet13(local_8bc);
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet13s_00553e84);
@@ -574,7 +574,7 @@ LAB_0042c334:
       local_8b8 = (int *)0x0;
     }
     else {
-      local_8b8 = (int *)FUN_0046fad0();
+      local_8b8 = (int *)InitPrimaryShot_Bullet14();
     }
     local_4 = 0xffffffff;
     local_8b8[0x794] = 5;
@@ -588,7 +588,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_0047b2a0();
+        local_8b8 = (int *)InitPrimaryShot_Bullet15();
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet15n_00553e78);
@@ -603,7 +603,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_0047b2a0();
+        local_8b8 = (int *)InitPrimaryShot_Bullet15();
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet15s_00553e6c);
@@ -620,7 +620,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_0046e550();
+        local_8b8 = (int *)InitShot1_Bullet9_16();
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet16n_00553e60);
@@ -634,7 +634,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_004aaf80();
+        local_8b8 = (int *)InitShot2_Bullet16();
       }
       local_4 = 0xffffffff;
       iVar6 = FindPreloadedTextureByName(s_bullet16s_00553e54);

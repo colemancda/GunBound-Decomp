@@ -4,7 +4,7 @@
  * (CProjectile virtual slot 6) override for mobile TYPE 3's primary-shot
  * projectile. Type/role CONFIRMED via vtable geometry (its pointer
  * appears once, at slot 6 of projectile vtable 0x5564d0, whose ctor
- * FUN_004a2a70 is reached only through SpawnPrimaryShot's case 3 - the
+ * InitPrimaryShot_Bullet4 is reached only through SpawnPrimaryShot's case 3 - the
  * s_bullet4n/s_bullet4s case) - a MIRV/cluster detonation that
  * operator_new's a sub-projectile with the base vtable 0x55658c. The
  * "_Bullet4" suffix is the confirmed bullet/mobile-type; the specific

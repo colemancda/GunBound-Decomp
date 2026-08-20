@@ -3,12 +3,12 @@
  * RENAMED (2026-08-16, from FUN_0049aeb0): CProjectile virtual slot 5
  * (SimulateProjectileFrame, base impl 0x455cc0) override for mobile type
  * 6's shot 1 (weapon index 0, texture bullet7n); vtable 0x555aa4, ctor
- * FUN_0044c900 reached only through SpawnPrimaryShot's case 6; mobile type
+ * InitShot1_Bullet7 reached only through SpawnPrimaryShot's case 6; mobile type
  * 8's shot 2 (weapon index 1, texture bullet9s); vtable 0x555d14, ctor
- * FUN_004654b0 reached only through SpawnPrimaryShot's case 8; mobile type
- * 6's super shot (texture bullet7p; vtable 0x556424, ctor FUN_00499ed0
+ * InitShot2_Bullet9 reached only through SpawnPrimaryShot's case 8; mobile type
+ * 6's super shot (texture bullet7p; vtable 0x556424, ctor InitSuperShot_Bullet7
  * reached only through SpawnSuperShot's case 6); mobile type 8's super
- * shot (texture bullet9p; vtable 0x556360, ctor FUN_004907d0 reached only
+ * shot (texture bullet9p; vtable 0x556360, ctor InitSuperShot_Bullet9 reached only
  * through SpawnSuperShot's case 8). Type/role CONFIRMED via vtable
  * geometry (tools/projectile_class_map.py); the mobile NAME is not
  * confirmable (no mobile-type->name map in the repo).

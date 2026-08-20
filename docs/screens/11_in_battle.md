@@ -102,7 +102,7 @@ All three `operator_new` the projectile, resolve its texture via
 `(angle+90)%360` for the x/cos term and `angle%360` for the y/sin term, via
 `FloatToInt64`) into the outgoing packet, append a **`0xf000`** broadcast event, and
 register the object (`RegisterActiveObject` + `FUN_0041da80`). The per-projectile
-constructors (`FUN_00454dc0`, `FUN_00468860`, …, one per bullet class) remain
+constructors (`FUN_00454dc0`, `InitShot2_Bullet1`, …, one per bullet class) remain
 `FUN_`-named. `g_sineTable360` is the ballistics sine table referenced above.
 
 ## Network (see PROTOCOL.md — "State 11")

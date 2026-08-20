@@ -5,7 +5,7 @@
  * right after marking the projectile dead (`param_1[5] = 1; (**(code
  * **)(*param_1 + 0x20))()`), only super-shot classes have it. "Explode" is
  * a descriptive label for that role, not a recovered name for mobile type
- * 15's super shot (texture bullet16p; vtable 0x555d74, ctor FUN_00467a50
+ * 15's super shot (texture bullet16p; vtable 0x555d74, ctor InitSuperShot_Bullet16
  * reached only through SpawnSuperShot's case 15). Type/role CONFIRMED via
  * vtable geometry (tools/projectile_class_map.py); the mobile NAME is not
  * confirmable (no mobile-type->name map in the repo).

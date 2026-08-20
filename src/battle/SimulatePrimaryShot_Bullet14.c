@@ -3,7 +3,7 @@
  * RENAMED (2026-08-16, from FUN_0046fb20): CProjectile virtual slot 5
  * (SimulateProjectileFrame, base impl 0x455cc0) override for mobile type
  * 13's shot 1 AND shot 2 (one class for both, textures
- * bullet14n/bullet14s); vtable 0x555ea8, ctor FUN_0046fad0 reached only
+ * bullet14n/bullet14s); vtable 0x555ea8, ctor InitPrimaryShot_Bullet14 reached only
  * through SpawnPrimaryShot's case 13. Type/role CONFIRMED via vtable
  * geometry (tools/projectile_class_map.py); the mobile NAME is not
  * confirmable (no mobile-type->name map in the repo).

@@ -7,7 +7,7 @@
  *  - The base object is 0x3f9c bytes; allocated by the shot spawners
  *    (operator_new(0x3f9c)) and constructed by InitProjectile(this, 0x186a2).
  *    Per-weapon subtypes are larger (0x3fa0 / 0x40a8 / 0x4940 / 0x4838 / 0x41cc
- *    / 0x42d8 / 0x494c ...): a thin per-type ctor (e.g. FUN_00468860) calls
+ *    / 0x42d8 / 0x494c ...): a thin per-type ctor (e.g. InitShot2_Bullet1) calls
  *    InitProjectile then swaps in its own vtable (e.g. 0x555dac) - the same
  *    pattern as the 16 CMobile subclasses.
  *  - Single base vtable at 0x555c34 (dumped: 13 slots). NOT related to CMobile's

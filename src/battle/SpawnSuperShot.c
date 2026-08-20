@@ -80,7 +80,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
     piVar5 = (int *)0x0;
     local_4 = 0;
     if (local_8b4 != (void *)0x0) {
-      piVar5 = (int *)FUN_0044d970();
+      piVar5 = (int *)InitSuperShot_Bullet1();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -95,7 +95,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_0048d8c0();
+      piVar5 = (int *)InitSuperShot_Bullet2();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -110,7 +110,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_0048b3f0();
+      piVar5 = (int *)InitSuperShot_Bullet3();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -126,7 +126,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_004accf0();
+      piVar5 = (int *)InitSuperShot_Bullet4();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -156,7 +156,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_00452c80();
+      piVar5 = (int *)InitSuperShot_Bullet6();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -172,7 +172,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_00499ed0();
+      piVar5 = (int *)InitSuperShot_Bullet7();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -187,7 +187,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_004837c0();
+      piVar5 = (int *)InitSuperShot_Bullet8();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -202,7 +202,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_004907d0();
+      piVar5 = (int *)InitSuperShot_Bullet9();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -217,7 +217,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_0044f000();
+      piVar5 = (int *)InitSuperShot_Bullet10();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -232,7 +232,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_00475990();
+      piVar5 = (int *)InitSuperShot_Bullet11();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -247,7 +247,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_004ae370();
+      piVar5 = (int *)InitSuperShot_Bullet12();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -262,7 +262,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_004856d0(local_8b4);
+      piVar5 = (int *)InitSuperShot_Bullet13(local_8b4);
     }
     local_4 = 0xffffffff;
     piVar5[0x10b5] = 0xf80ffff;
@@ -278,7 +278,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_0046ca40();
+      piVar5 = (int *)InitSuperShot_Bullet14();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -293,7 +293,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_0047de30();
+      piVar5 = (int *)InitSuperShot_Bullet15();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
@@ -308,7 +308,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_00467a50();
+      piVar5 = (int *)InitSuperShot_Bullet16();
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;

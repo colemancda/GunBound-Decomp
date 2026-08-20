@@ -3,9 +3,9 @@
  * RENAMED (2026-08-16, from FUN_0046e5a0): CProjectile virtual slot 6
  * (DetonateProjectile, base impl 0x4572b0) override for mobile type 8's
  * shot 1 (weapon index 0, texture bullet9n); vtable 0x555e88, ctor
- * FUN_0046e550 reached only through SpawnPrimaryShot's case 8; mobile type
+ * InitShot1_Bullet9_16 reached only through SpawnPrimaryShot's case 8; mobile type
  * 15's shot 1 (weapon index 0, texture bullet16n); vtable 0x555e88, ctor
- * FUN_0046e550 reached only through SpawnPrimaryShot's case 15. Type/role
+ * InitShot1_Bullet9_16 reached only through SpawnPrimaryShot's case 15. Type/role
  * CONFIRMED via vtable geometry (tools/projectile_class_map.py); the
  * mobile NAME is not confirmable (no mobile-type->name map in the repo).
  *

@@ -2,7 +2,7 @@
  *
  * RENAMED (2026-08-16, from FUN_0048d110): CProjectile virtual slot 2
  * (AnimateProjectileTick, base impl 0x48f1c0) override for mobile type 2's
- * super shot (texture bullet3p; vtable 0x556284, ctor FUN_0048b3f0 reached
+ * super shot (texture bullet3p; vtable 0x556284, ctor InitSuperShot_Bullet3 reached
  * only through SpawnSuperShot's case 2). Type/role CONFIRMED via vtable
  * geometry (tools/projectile_class_map.py); the mobile NAME is not
  * confirmable (no mobile-type->name map in the repo).

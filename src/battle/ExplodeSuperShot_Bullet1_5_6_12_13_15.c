@@ -5,17 +5,17 @@
  * right after marking the projectile dead (`param_1[5] = 1; (**(code
  * **)(*param_1 + 0x20))()`), only super-shot classes have it. "Explode" is
  * a descriptive label for that role, not a recovered name for mobile type
- * 0's super shot (texture bullet1p; vtable 0x555ac4, ctor FUN_0044d970
+ * 0's super shot (texture bullet1p; vtable 0x555ac4, ctor InitSuperShot_Bullet1
  * reached only through SpawnSuperShot's case 0); mobile type 4's super
  * shot (texture bullet5p; vtable 0x55631c, ctor FUN_0048de40 reached only
  * through SpawnSuperShot's case 4); mobile type 5's super shot (texture
- * bullet6p; vtable 0x555bf0, ctor FUN_00452c80 reached only through
+ * bullet6p; vtable 0x555bf0, ctor InitSuperShot_Bullet6 reached only through
  * SpawnSuperShot's case 5); mobile type 11's super shot (texture
- * bullet12p; vtable 0x55661c, ctor FUN_004ae370 reached only through
+ * bullet12p; vtable 0x55661c, ctor InitSuperShot_Bullet12 reached only through
  * SpawnSuperShot's case 11); mobile type 12's super shot (texture
- * bullet13p; vtable 0x55620c, ctor FUN_004856d0 reached only through
+ * bullet13p; vtable 0x55620c, ctor InitSuperShot_Bullet13 reached only through
  * SpawnSuperShot's case 12); mobile type 14's super shot (texture
- * bullet15p; vtable 0x556098, ctor FUN_0047de30 reached only through
+ * bullet15p; vtable 0x556098, ctor InitSuperShot_Bullet15 reached only through
  * SpawnSuperShot's case 14). Type/role CONFIRMED via vtable geometry
  * (tools/projectile_class_map.py); the mobile NAME is not confirmable (no
  * mobile-type->name map in the repo).

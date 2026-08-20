@@ -2,7 +2,7 @@
  *
  * RENAMED (2026-08-16, from DetonatePrimaryShot_Bullet12): Re-labelled
  * (was DetonatePrimaryShot_Bullet12): the vtable 0x556660 / ctor
- * FUN_004af530 it overrides is reached only through SpawnPrimaryShot's
+ * InitShot2_Bullet12 it overrides is reached only through SpawnPrimaryShot's
  * case 11 SECOND branch (weapon index 1, texture bullet12s), i.e. it is
  * shot 2 only; shot 1 has its own class (DetonateShot1_Bullet12). Naming
  * aligned with the 2026-08-16 projectile-virtual scheme:
@@ -12,7 +12,7 @@
  * (CProjectile virtual slot 6) override for mobile TYPE 11's primary-shot
  * projectile. Type/role CONFIRMED via vtable geometry (its pointer
  * appears once, at slot 6 of projectile vtable 0x556660, whose ctor
- * FUN_004af530 is reached only through SpawnPrimaryShot's case 0xb - the
+ * InitShot2_Bullet12 is reached only through SpawnPrimaryShot's case 0xb - the
  * bullet-12 case) - same MIRV/cluster shape as the near-twin
  * DetonatePrimaryShot_Bullet4. The "_Bullet12" suffix is the confirmed
  * bullet/mobile-type; the specific mobile NAME is not confirmable. Raw/
