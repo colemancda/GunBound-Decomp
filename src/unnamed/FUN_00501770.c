@@ -150,7 +150,19 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
             local_48ba[bVar5] = '\0';
             FUN_00503e30(local_48ba);
             uVar6 = *(ushort *)((int)puVar15 + 0x26);
-            DispatchP2PMessage(local_4978,&local_496c,puVar15[8],*(undefined2 *)(puVar15 + 9));
+            /* RECOVERED (2026-08-19): the two register arguments, dropped
+             * because DispatchP2PMessage (0x504970) had no declaration and
+             * every call compiled __cdecl.  orig 0x501fb4-0x501fdb, with the
+             * record cursor in EBX (= puVar15 + 0x20 at 0x501fb4):
+             *   0x501fb9 mov dx,[ebx+2] / 0x501fc5 movzx esi,dx / mov ecx,esi
+             *     -> ECX = the payload LENGTH at puVar15 + 0x26, i.e. uVar6,
+             *        the value this loop already reads on the line above
+             *   0x501fd9 mov edx,ebx (after two `add ebx,2`)
+             *     -> EDX = the PAYLOAD at puVar15 + 0x28, exactly the base the
+             *        cursor advance on the line below steps past. */
+            DispatchP2PMessage(uVar6,(int)puVar15 + 0x28,
+                               local_4978,&local_496c,puVar15[8],
+                               *(undefined2 *)(puVar15 + 9));
             puVar15 = (undefined4 *)((int)puVar15 + uVar6 + 0x28);
             local_4984 = local_4984 - 1;
           } while (local_4984 != 0);
@@ -454,7 +466,17 @@ LAB_00501b17:
         iVar7 = local_497c;
         FUN_00503e30(local_4958);
         _Var11 = FID_conflict___time32((__time32_t *)0x0);
-        DispatchP2PMessage(iVar7 + -0x2f4,local_4958,_Var11,local_464c[0]);
+        /* RECOVERED (2026-08-19), same dropped register pair; orig
+         * 0x5021ca/0x5021ec, anchored on this branch's own decode buffer
+         * (&local_4668 = esp_b+0x328, per the note above):
+         *   movzx esi,[esp+0x346] -> esp_b+0x346 = &local_4668 + 0x1e = LENGTH
+         *   lea edx,[esp+0x358]   -> esp_b+0x348 = &local_4668 + 0x20 = PAYLOAD
+         * The +0x1e/+0x20 pair is the [name16][tag16][len16][payload] record
+         * SendP2PNamedMessage composes, sitting 0xc bytes into the decoded
+         * buffer. */
+        DispatchP2PMessage(*(ushort *)((int)&local_4668 + 0x1e),
+                           (int)&local_4668 + 0x20,
+                           iVar7 + -0x2f4,local_4958,_Var11,local_464c[0]);
       }
     }
     else if (((uVar6 == 0x3001) && (1 < param_3)) && (*puVar1 == 0)) {

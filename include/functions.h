@@ -513,6 +513,14 @@ void SpawnItemProjectile();
  * src/battle/SpawnBlastEffect.c).  Without this declaration every caller
  * compiled the call as __cdecl and the two REGISTER arguments (ECX/EDX)
  * were never passed at all. */
+/* Same generator gap as SpawnBlastEffect below: genuinely __fastcall
+ * (ECX = payload length, EDX = payload) - see src/network/DispatchP2PMessage.c. */
+/* Same generator gap; both are __fastcall with a PHANTOM param_1 - only
+ * EDX (the slot index) is a real register argument, so callers pass 0 for
+ * param_1.  Layer-100006 / layer-100003 twins of HitTestLocalMobile. */
+uint __fastcall FUN_00425c90();
+uint __fastcall FUN_00425e60();
+void __fastcall DispatchP2PMessage();
 void __fastcall SpawnBlastEffect();
 void FUN_00432850();
 void FUN_004337f0();

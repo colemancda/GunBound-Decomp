@@ -119,7 +119,14 @@ LAB_0048398a:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = FUN_00425c90(uVar4,uVar3,uVar2);
+    /* RECOVERED (2026-08-19): the dropped EDX argument - the 0..7 SLOT
+     * index this loop is walking - plus the resulting two-position shift.
+     * FUN_00425c90 is the layer-100006 twin of HitTestLocalMobile:
+     * it looks up the entity at slot EDX and guard-computes
+     * (entityX - x, entityY - y) from its +0x25c/+0x480 cells.  param_1 is
+     * a PHANTOM (Ghidra marks the function __fastcall, but ECX is written
+     * before it is ever read - orig 0x425caa mov ecx,[eax+0x6a7f8c]), so it is passed 0. */
+    iVar5 = FUN_00425c90(0,local_18,uVar4,uVar3,uVar2);
     if (iVar5 != 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState((void *)(iVar5 + 0x25c));
@@ -188,7 +195,14 @@ LAB_00483b89:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    iVar5 = FUN_00425e60(uVar4,uVar3,uVar2);
+    /* RECOVERED (2026-08-19): the dropped EDX argument - the 0..7 SLOT
+     * index this loop is walking - plus the resulting two-position shift.
+     * FUN_00425e60 is the layer-100003 twin of HitTestLocalMobile:
+     * it looks up the entity at slot EDX and guard-computes
+     * (entityX - x, entityY - y) from its +0x25c/+0x480 cells.  param_1 is
+     * a PHANTOM (Ghidra marks the function __fastcall, but ECX is written
+     * before it is ever read - orig 0x425e7a mov ecx,[eax+0x6a7f8c]), so it is passed 0. */
+    iVar5 = FUN_00425e60(0,local_18,uVar4,uVar3,uVar2);
     if (iVar5 != 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       iVar5 = PeekPacketChecksumState((void *)(iVar5 + 0x40));
