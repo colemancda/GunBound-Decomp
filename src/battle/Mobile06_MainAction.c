@@ -2,6 +2,21 @@
  *
  * RENAMED (2026-08-17, from FUN_0049c120): mobile type 6 vtable-slot-7 weapon-fire handler; PROGRESS.csv already carried this name for 0x49c120 (vtable geometry), the source tree kept the FUN_ name.
  *
+ * EXTENT FIX (2026-08-19).  PROGRESS.csv recorded this function as THIRTY-ONE
+ * BYTES.  0x49c120..0x49c13e is only the SEH prologue plus `mov eax,0x2478 /
+ * call __chkstk`, which falls straight through into the body at 0x49c13f -
+ * and Ghidra carved that body as a separate function (FUN_0049c13f), so the
+ * two rows describe ONE original function.  The size is now the full 2795
+ * bytes.
+ *
+ * Why it mattered: tools/guard_callsite_verify.py resolves a file's guard
+ * cells by disassembling [addr, addr+size), so it saw only the 31-byte
+ * prologue here, found ZERO resolver rows, and reported all 27 of this
+ * file's PeekPacketChecksumBool cells as WRONG.  They were never wrong; with
+ * the real extent the same run reports 27 verified / 0 wrong.  A whole-tree
+ * scan for the same shape - a function ending in `call __chkstk` whose end
+ * is the start of the next carved function - finds no other instance.
+ *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.

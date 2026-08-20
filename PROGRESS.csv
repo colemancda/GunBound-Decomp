@@ -855,7 +855,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0049aeb0,4512,SimulateShot_Bullet7n_9s_7p_9p,false,4,23,RAW-src
 0049c0f0,32,FUN_0049c0f0,false,1,2,RAW-src
 0049c110,13,FUN_0049c110,false,1,1,RAW-src
-0049c120,31,Mobile06_MainAction,false,1,1,RAW-src
+0049c120,2795,Mobile06_MainAction,false,1,1,RAW-src
 0049c13f,2764,FUN_0049c13f,false,0,15,RAW-src
 0049cc40,32,FUN_0049cc40,false,1,2,RAW-src
 0049cc60,13,FUN_0049cc60,false,1,1,RAW-src
