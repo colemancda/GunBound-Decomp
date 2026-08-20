@@ -520,6 +520,14 @@ void SpawnItemProjectile();
  * param_1.  Layer-100006 / layer-100003 twins of HitTestLocalMobile. */
 uint __fastcall FUN_00425c90();
 uint __fastcall FUN_00425e60();
+/* Same generator gap.  ECX and EDX (the object) are real __fastcall
+ * arguments; the original's third register argument (EAX) is param_9 in
+ * the port - see src/ui_widget/InitTextBoxWidget.c. */
+/* Same generator gap.  __fastcall with a PHANTOM param_1 (ECX); param_2 is
+ * EDX and the original's EAX argument is param_7 in the port - see
+ * src/rendering/BlitSpriteAttached.c. */
+uint __fastcall BlitSpriteAttached();
+undefined4 * __fastcall InitTextBoxWidget();
 void __fastcall DispatchP2PMessage();
 void __fastcall SpawnBlastEffect();
 void FUN_00432850();

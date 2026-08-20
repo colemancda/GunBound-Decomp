@@ -82,9 +82,15 @@ void __fastcall RenderMobile(int param_1)
     else {
       uVar7 = *(undefined4 *)(param_1 + 0x18);
     }
-    BlitSpriteAttached(uVar7,*(undefined4 *)(param_1 + 0x68),
+    /* RECOVERED (2026-08-19): the dropped EDX and EAX arguments (orig
+     * 0x462a70 `mov edx,[ebp+0x30]` and 0x462a78-0x462a7e
+     * `mov eax,[ebp+8] / and eax,7 / add eax,0x30d40`); param_1 is the
+     * phantom ECX.  See src/rendering/BlitSpriteAttached.c. */
+    BlitSpriteAttached(0,*(undefined4 *)(param_1 + 0x30),
+                 uVar7,*(undefined4 *)(param_1 + 0x68),
                  (*(int *)(g_clientContext + 0x1fe4c + uVar4 * 4) * uVar13 + iVar14) * 0x80 +
-                 *(int *)(g_clientContext + 0x1fe44 + uVar4 * 4),iVar10);
+                 *(int *)(g_clientContext + 0x1fe44 + uVar4 * 4),iVar10,
+                 (*(uint *)(param_1 + 8) & 7) + 0x30d40);
     uVar6 = *(uint *)(param_1 + 8) >> 2 & 1;
     if (*(int *)(param_1 + 0x24) == 0xe) {
       uVar7 = 0xffffffff;
@@ -92,9 +98,12 @@ void __fastcall RenderMobile(int param_1)
     else {
       uVar7 = *(undefined4 *)(param_1 + 0x18);
     }
-    uVar6 = BlitSpriteAttached(uVar7,*(undefined4 *)(param_1 + 0x68),
+    /* same pair, orig 0x462ac3 / 0x462acb-0x462ad1 (`add eax,0x493e0`). */
+    uVar6 = BlitSpriteAttached(0,*(undefined4 *)(param_1 + 0x30),
+                         uVar7,*(undefined4 *)(param_1 + 0x68),
                          (*(int *)(iVar8 + 0x1fe5c + uVar6 * 4) * uVar13 + iVar14) * 0x80 +
-                         *(int *)(iVar8 + 0x1fe54 + uVar6 * 4),iVar10);
+                         *(int *)(iVar8 + 0x1fe54 + uVar6 * 4),iVar10,
+                         (*(uint *)(param_1 + 8) & 7) + 0x493e0);
     *(uint *)(iVar8 + ((*(uint *)(param_1 + 8) & 7) + 0x154c) * 0x18) = uVar6 & 0xff;
     if (((iVar5 != 0) && (*(char *)(param_1 + 0xae14) == '\0')) &&
        (cVar3 = PeekPacketChecksumBool(), cVar3 != '\x01')) {

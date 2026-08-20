@@ -23,6 +23,7 @@ void __fastcall RenderRoomMobiles(int param_1)
   uint uVar6;
   undefined4 uVar7;
   int iVar8;
+  undefined4 uAttachOwner;
   int *local_14;
   uint local_10;
   int local_8;
@@ -60,27 +61,42 @@ void __fastcall RenderRoomMobiles(int param_1)
       }
       BlitMobilePart(iVar4,iVar8);
       iVar8 = *(int *)(iVar5 + 0x1fe4c + uVar1 * 4);
+      /* RECOVERED (2026-08-19): the dropped EDX and EAX arguments, and
+       * param_1 = the phantom ECX.  EDX is branch-dependent - orig
+       * 0x4dc9ab `mov edx,[ecx+0x30]` with ecx = *local_14 on the attached
+       * path, 0x4dc9d0 `or edx,-1` on the iVar2 == -1 path - and EAX is
+       * 0x4dc99e/0x4dc9c8 `lea eax,[edx-0x186a0]` off the 0x4dc985
+       * `add edx,0x493e0`, i.e. local_10 + 0x30d40.  See
+       * src/rendering/BlitSpriteAttached.c. */
       if (iVar2 == -1) {
         uVar7 = *(undefined4 *)(local_14[1] + 0x30);
         iVar4 = -1;
+        uAttachOwner = 0xffffffff;
       }
       else {
         uVar7 = *(undefined4 *)(local_14[1] + 0x30);
         iVar4 = iVar2 + 5000;
+        uAttachOwner = *(undefined4 *)(*local_14 + 0x30);
       }
-      BlitSpriteAttached(iVar4,uVar7,
-                   (uVar6 * iVar8 + iVar3) * 0x80 + *(int *)(iVar5 + 0x1fe44 + uVar1 * 4),iVar8);
+      BlitSpriteAttached(0,uAttachOwner,iVar4,uVar7,
+                   (uVar6 * iVar8 + iVar3) * 0x80 + *(int *)(iVar5 + 0x1fe44 + uVar1 * 4),iVar8,
+                   local_10 + 0x30d40);
       iVar8 = *(int *)(iVar5 + 0x1fe5c + uVar1 * 4);
+      /* same pair, orig 0x4dca08 / 0x4dca21 and 0x4dca24-0x4dca28
+       * (`add eax,0x493e0`). */
       if (iVar2 == -1) {
         uVar7 = *(undefined4 *)(local_14[1] + 0x30);
         iVar2 = -1;
+        uAttachOwner = 0xffffffff;
       }
       else {
         uVar7 = *(undefined4 *)(local_14[1] + 0x30);
         iVar2 = iVar2 + 5000;
+        uAttachOwner = *(undefined4 *)(*local_14 + 0x30);
       }
-      BlitSpriteAttached(iVar2,uVar7,
-                   (uVar6 * iVar8 + iVar3) * 0x80 + *(int *)(iVar5 + 0x1fe54 + uVar1 * 4),iVar8);
+      BlitSpriteAttached(0,uAttachOwner,iVar2,uVar7,
+                   (uVar6 * iVar8 + iVar3) * 0x80 + *(int *)(iVar5 + 0x1fe54 + uVar1 * 4),iVar8,
+                   local_10 + 0x493e0);
     }
     local_8 = local_8 + 2;
     local_10 = local_10 + 1;

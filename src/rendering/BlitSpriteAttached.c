@@ -1,18 +1,40 @@
 /* BlitSpriteAttached - 0x0045b730 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * ABI FIX (2026-08-19).  The original takes TWO register arguments plus
+ * ret 0x10 = 4 stack arguments, and Ghidra's __fastcall model has one slot
+ * too many.  Proved by walking the four red-black-tree lookups in the body
+ * against the disassembly:
+ *   param_3 = stack arg 1  (orig 0x45b733 `mov ebp,[esp+0x10]`, keyed at
+ *                           0x45b748 `cmp ecx,ebp`)
+ *   param_2 = EDX          (0x45b762 `cmp ecx,edx`)
+ *   param_7 = EAX          (0x45b737 `mov ebx,eax`, keyed at 0x45b77d
+ *                           `cmp ecx,ebx` - this was Ghidra's `in_EAX`)
+ *   param_4 = stack arg 2  (0x45b7a1 `mov edx,[esp+0x1c]`)
+ * param_1 is a PHANTOM: the `push ecx` at 0x45b730 is stack allocation, not
+ * a use, and ECX is written at 0x45b745 before it is ever read.  Callers
+ * pass 0 for it.
+ *
+ * EAX is not expressible under MSVC, so `in_EAX` has been promoted to a real
+ * trailing parameter (param_7): the rebuild becomes ret 0x14 and is
+ * self-consistent, at the cost of that one argument no longer sitting where
+ * the original put it.  Every caller previously passed just the 4 stack
+ * arguments, so param_2 and param_7 - two of the three tree keys - were read
+ * from whatever happened to be in EDX and EAX.  param_7 is a class id:
+ * 200000 + slot for the first blit of a pair and 300000 + slot for the
+ * second, at all four call sites.
+ *
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond this - not
+ * hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
 uint __fastcall
-BlitSpriteAttached(undefined4 param_1,uint param_2,uint param_3,uint param_4,int param_5,int param_6)
+BlitSpriteAttached(undefined4 param_1,uint param_2,uint param_3,uint param_4,int param_5,int param_6,
+            uint param_7)
 
 {
   int iVar1;
-  uint in_EAX;
   uint uVar2;
   uint uVar3;
   int iVar4;
@@ -40,8 +62,8 @@ BlitSpriteAttached(undefined4 param_1,uint param_2,uint param_3,uint param_4,int
   iVar7 = 0;
 LAB_0045b778:
   uVar8 = *(uint *)(uVar2 + 4);
-  while (uVar8 <= in_EAX) {
-    if (uVar8 == in_EAX) {
+  while (uVar8 <= param_7) {
+    if (uVar8 == param_7) {
       uVar2 = *(uint *)(uVar2 + 0x10);
       uVar8 = *(uint *)(uVar2 + 8);
       if (uVar8 <= param_4) goto LAB_0045b7a9;

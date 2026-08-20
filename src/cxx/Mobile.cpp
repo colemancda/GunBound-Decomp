@@ -99,7 +99,13 @@ extern CRITICAL_SECTION DAT_005a9068;  /* the guard family's shared lock, define
  * renamed here only to avoid colliding with <windows.h>'s FillRect - the
  * name is irrelevant to the score (it compiles to an external-call reloc). */
 void BlitSpriteDirect(int a, int b);
-unsigned int BlitSpriteAttached(unsigned int spriteId, unsigned int tex, int pos, int layer);
+/* __fastcall with a PHANTOM first parameter (ECX) - see
+ * src/rendering/BlitSpriteAttached.c.  `attachOwner` is EDX and `classId`
+ * is the original's EAX register argument, promoted to a real trailing
+ * parameter because MSVC cannot express EAX. */
+unsigned int __fastcall BlitSpriteAttached(unsigned int phantom, unsigned int attachOwner,
+                                           unsigned int spriteId, unsigned int tex, int pos,
+                                           int layer, unsigned int classId);
 void BlitRLESprite(int a, int b);
 void DrawSprite(void);
 void GBFillRect(int a, int b);
@@ -393,14 +399,18 @@ void CMobile::v3_Render()
         uVar15 = (uVar7 & 3) / 2;
         iVar16 = (uVar7 & 1) * 2;
         uVar7 = (*reinterpret_cast<int *>(this->m_pad20 + 4) == 0xe) ? 0xffffffffu : this->m_spriteId;
-        BlitSpriteAttached(uVar7, *reinterpret_cast<unsigned int *>(this->m_pad58 + 0x10),
+        BlitSpriteAttached(0, *reinterpret_cast<unsigned int *>(this->m_pad20 + 0x10),
+                           uVar7, *reinterpret_cast<unsigned int *>(this->m_pad58 + 0x10),
                            (*reinterpret_cast<int *>(g_clientContext + 0x1fe4c + uVar5 * 4) * (int)uVar15 + iVar16) * 0x80 +
-                           *reinterpret_cast<int *>(g_clientContext + 0x1fe44 + uVar5 * 4), iVar11);
+                           *reinterpret_cast<int *>(g_clientContext + 0x1fe44 + uVar5 * 4), iVar11,
+                           (this->m_owner & 7) + 0x30d40);
         uVar7 = this->m_owner >> 2 & 1;
         uVar5 = (*reinterpret_cast<int *>(this->m_pad20 + 4) == 0xe) ? 0xffffffffu : this->m_spriteId;
-        uVar7 = BlitSpriteAttached(uVar5, *reinterpret_cast<unsigned int *>(this->m_pad58 + 0x10),
+        uVar7 = BlitSpriteAttached(0, *reinterpret_cast<unsigned int *>(this->m_pad20 + 0x10),
+                                   uVar5, *reinterpret_cast<unsigned int *>(this->m_pad58 + 0x10),
                                    (*reinterpret_cast<int *>(iVar9 + 0x1fe5c + uVar7 * 4) * (int)uVar15 + iVar16) * 0x80 +
-                                   *reinterpret_cast<int *>(iVar9 + 0x1fe54 + uVar7 * 4), iVar11);
+                                   *reinterpret_cast<int *>(iVar9 + 0x1fe54 + uVar7 * 4), iVar11,
+                                   (this->m_owner & 7) + 0x493e0);
         *reinterpret_cast<unsigned int *>(iVar9 + ((this->m_owner & 7) + 0x154c) * 0x18) = uVar7 & 0xff;
         if (iVar6 != 0 && this->m_pad908[0xa50c] == 0 &&
             (cVar4 = PeekPacketChecksumBool((unsigned char *)this + 0xbff7), cVar4 != '\x01')) {
