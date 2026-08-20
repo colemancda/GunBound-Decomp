@@ -1,5 +1,24 @@
 /* SpawnShot_Type13 - 0x004388e0 in the original binary.
  *
+ * SIGNATURE FIX (2026-08-19): this was declared `void SpawnShot_Type13(void)`
+ * - NO parameters - while the original is `ret 0x1c` = SEVEN stack arguments
+ * and its one call site passes seven.  Ghidra recovered none of them and
+ * reached two through raw `in_stack_000000NN` locals instead.
+ *
+ * The two it did reach are the 6th and 7th arguments, and the SEMANTICS pin
+ * which is which rather than the offset arithmetic alone:
+ *     *(undefined1 *)(obj + 0xf) = *(undefined1 *)(param_7 + 0x3c);
+ * dereferences its argument at +0x3c, which is the owner byte every spawn in
+ * this family reads off the projectile object - so param_7 must be the OBJECT
+ * POINTER.  At the call site (orig 0x46cb00-0x46cb18) the 7th pushed value is
+ * indeed an object read out of a frame slot, while the 6th is the literal 5;
+ * and 5 lands in obj[0xfe5], the small per-shot field the SpawnPrimaryShot
+ * notes already describe.  Reading them the other way round would make the
+ * code dereference the constant 5.
+ *
+ * The remaining five arguments are declared but unreferenced - Ghidra found no
+ * uses, and none were invented here.
+ *
  * RENAMED (2026-07-16, from FUN_004388e0): projectile-shot spawner for
  * mobile TYPE 13 (structural sibling of SpawnKnightFlameShot /
  * SpawnPrimaryShot / SpawnSuperShot / SpawnShot_Type9). Mobile type
@@ -58,7 +77,8 @@
 #include "ghidra_types.h"
 
 
-void SpawnShot_Type13(void)
+void SpawnShot_Type13(undefined4 param_1,undefined4 param_2,undefined4 param_3,
+                 undefined4 param_4,undefined4 param_5,int param_6,int param_7)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -76,8 +96,6 @@ void SpawnShot_Type13(void)
   code *pcVar9;
   code *pcVar10;
   undefined4 *unaff_FS_OFFSET;
-  int in_stack_00000014;
-  int in_stack_00000018;
   undefined *puVar11;
   undefined1 *puStack_8d8;
   undefined1 *puStack_8d4;
@@ -152,7 +170,7 @@ void SpawnShot_Type13(void)
   FloatToInt64();
   FloatToInt64();
   piVar2[0xfe4] = 0xff;
-  *(undefined1 *)(piVar2 + 0xf) = *(undefined1 *)(in_stack_00000018 + 0x3c);
+  *(undefined1 *)(piVar2 + 0xf) = *(undefined1 *)(param_7 + 0x3c);
   /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at 0x438ab7
    * .. 0x438c56 (`lea edi,[ebp + OFFSET]`, ebp = this file's own local
    * object pointer `piVar2`): the offsets/order (0xf54, 0x3b48, 0x1178,
@@ -223,7 +241,7 @@ void SpawnShot_Type13(void)
    * (`lea edi,[ebp + 0x1a08]`): cell is piVar2+0x682 (== piVar2+0x1a08
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
   RescrambleGuardedBool();
-  piVar2[0xfe5] = in_stack_00000014;
+  piVar2[0xfe5] = param_6;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState((void *)(piVar2 + 0x682));
   EncodeOutgoingPacketField(piVar2 + 0x682);
