@@ -128,6 +128,21 @@
  * passing one, 14 passing none, 2 passing three. 70 of those 121 were fixed
  * by these three passes; the rest already carried their arguments.
  *
+ * FOURTH PASS uses the cheapest rule of the four and needs no disassembly at
+ * all: where a block's FindSpriteFrame call has ALREADY been recovered, it
+ * hands this one both values directly - the outerKey is the same key, and the
+ * frame is the very frame just looked up, because the block looks a frame up
+ * and then blits it.  There is no pairing question because the two calls are
+ * in the same block.  5 more sites, and at every one the frame the source
+ * already passed agreed with the frame in the lookup.  One site was skipped
+ * on that check rather than forced: BlitSpriteClipped(cVar6) sitting after a
+ * lookup of frame 4, which means the window had spanned into a neighbouring
+ * block.  126 of 227 sites now complete.
+ *
+ * This rule will keep paying out as FindSpriteFrame's own caller sweep
+ * advances - the two functions unlock each other, so the order to work in is
+ * FindSpriteFrame first, then re-run this.
+ *
  * The frame-7 site skipped in the first instalment IS included, on different
  * evidence rather than by relaxing the rule: at 0x50afa4 both branches read x
  * from the SAME stack slot ([esp+0x1c] in the else-branch, the same slot at

@@ -73,7 +73,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
       BlitSprite16bpp(0,0x164);
     }
     else {
-      BlitSpriteClipped(0);
+      BlitSpriteClipped(0,0,0x164,0x2717);
     }
   }
   SetClipRect(0x261, 0x9c, 0x257, 0);
@@ -91,7 +91,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
       BlitSprite16bpp(0x1a,0x17f);
     }
     else {
-      BlitSpriteClipped(0);
+      BlitSpriteClipped(0,0x1a,0x17f,0x2718);
     }
   }
   if (2 < *(int *)(param_1 + 0x740)) {
@@ -360,7 +360,7 @@ LAB_004da286:
       BlitSprite16bpp(0,0x164);
     }
     else {
-      BlitSpriteClipped(0);
+      BlitSpriteClipped(0,0,0x164,0x271a);
     }
   }
 LAB_004da2f4:

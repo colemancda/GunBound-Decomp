@@ -360,7 +360,7 @@ LAB_004137a9:
           BlitSprite16bpp(0xf9,0xc1);
         }
         else {
-          BlitSpriteClipped(0);
+          BlitSpriteClipped(0,0xf9,0xc1,0x384);
         }
       }
       /* BlitRLESprite's 1st/4th args (this/rleData) were dropped -
@@ -405,7 +405,7 @@ LAB_00413933:
             BlitSprite16bpp(0x2fc,8);
           }
           else {
-            BlitSpriteClipped(0);
+            BlitSpriteClipped(0,0x2fc,8,0x190);
           }
         }
         goto LAB_004139be;
