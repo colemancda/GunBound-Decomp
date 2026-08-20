@@ -111,7 +111,7 @@ LAB_004ce86c:
     break;
   case 3:
     SpawnRiderEffect(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
-    FUN_004337f0(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
+    SpawnDropBombProjectile(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
     break;
   case 4:
     SpawnRiderEffect(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
@@ -119,7 +119,7 @@ LAB_004ce86c:
     break;
   case 5:
     SpawnRiderEffect(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
-    FUN_00434fc0(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c),0);
+    SpawnLightningBlastEffect(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c),0);
     break;
   case 6:
     AddToPacketChecksum((void *)(g_clientContext + 0x5b1ac), 0xb4);

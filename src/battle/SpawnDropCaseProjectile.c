@@ -11,7 +11,7 @@
  * cell at all 8 argless PeekPacketChecksumState() calls (8 C : 8 orig,
  * goto-free zip), from tools/guard_cell_resolve.py over
  * 0x434ac0-0x434fa0.  Another allocate-then-populate spawner in the
- * FUN_004337f0/FUN_00436220 family: the +0xf54 cell sits beside the
+ * SpawnDropBombProjectile/SpawnItemCase family: the +0xf54 cell sits beside the
  * already-fixed Encode at the same offset, and the rest are the usual
  * globals - two rounds of g_clientContext+0x5b1ac / +0x5af88 /
  * &DAT_00796aa0 plus one &DAT_00e9ba40.

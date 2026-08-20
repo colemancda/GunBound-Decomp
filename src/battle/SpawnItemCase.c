@@ -1,8 +1,13 @@
-/* FUN_00436220 - 0x00436220 in the original binary.
+/* SpawnItemCase - 0x00436220 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00436220).  Spawns the ITEM CASE:
+ * operator_new(0x3f9c), class id 100002 via InitProjectile, texture
+ * FindPreloadedTextureByName("itemcase") (0x553c38), state "normal", and the
+ * "caseflame" (0x553c78) effect.  Distinct from SpawnDropCaseProjectile
+ * (0x434ac0), which is the falling "dropcase" projectile - this one is the
+ * case itself, spawned from FUN_0046af10.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 9 argless PeekPacketChecksumState() calls (peek status
@@ -10,7 +15,7 @@
  * 0x436220-0x436866.
  *
  * Another allocate-then-populate spawner, structurally the same as
- * FUN_004337f0: the object is ESI (the resolver stalls on `xor esi,esi`
+ * SpawnDropBombProjectile: the object is ESI (the resolver stalls on `xor esi,esi`
  * at the allocation-FAILED path, which merges before every later use),
  * and six of the nine cells sit directly beside Encode sites the
  * 2026-07-15 sweep already fixed at the same offsets off piVar2.  The
@@ -19,7 +24,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00436220(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void SpawnItemCase(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
   char cVar1;

@@ -1,9 +1,14 @@
-/* FUN_004337f0 - 0x004337f0 in the original binary.
+/* SpawnDropBombProjectile - 0x004337f0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004337f0).  Spawns the DROP BOMB projectile:
+ * operator_new(0x3f9c), class id 100002 via InitProjectile, texture
+ * FindPreloadedTextureByName("dropbomb") (0x553cd4) - or "bulletevent1"
+ * (0x553e38) on the event variant - and state "normal".  Its detonation
+ * assets are "bombblast.xes" (0x553cb8) and "bombflame" (0x553cc8).
+ * Structurally the twin of SpawnDropCaseProjectile (0x434ac0), which is the
+ * same shape around "dropcase" / "caseblast.xes" / "caseflame".
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-12, CValueGuard sweep): recovered the guard
  * cell at all 11 argless PeekPacketChecksumState() calls (peek status
@@ -24,7 +29,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004337f0(undefined4 param_1,int param_2)
+void SpawnDropBombProjectile(undefined4 param_1,int param_2)
 
 {
   char cVar1;

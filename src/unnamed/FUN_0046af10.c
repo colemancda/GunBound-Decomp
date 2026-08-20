@@ -81,7 +81,7 @@ void __fastcall FUN_0046af10(int *param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_00436220(&DAT_006a7f70 + g_clientContext,uVar7,uVar6);
+    SpawnItemCase(&DAT_006a7f70 + g_clientContext,uVar7,uVar6);
     goto LAB_0046b5e9;
   }
   EncodeChecksumDeltaShr(param_1 + 0x10,auStack_ac4,8);

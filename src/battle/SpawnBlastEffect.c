@@ -89,7 +89,7 @@ SpawnBlastEffect(int param_1,int param_2,byte param_3,int param_4,uint param_5,u
     pvVar2 = operator_new(0x3fa0);
     local_4 = 0;
     if (pvVar2 != (void *)0x0) {
-      piVar8 = (int *)FUN_004aa830();
+      piVar8 = (int *)InitBlastEffect();
     }
     local_4 = 0xffffffff;
     piVar8[6] = -1;

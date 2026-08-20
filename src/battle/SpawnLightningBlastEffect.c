@@ -1,15 +1,18 @@
-/* FUN_00434fc0 - 0x00434fc0 in the original binary.
+/* SpawnLightningBlastEffect - 0x00434fc0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00434fc0).  The LIGHTNING variant of
+ * SpawnBlastEffect: the same operator_new(0x3fa0) and the same InitBlastEffect
+ * constructor, but the sprite set is "lightningblast.xes" (0x553c44) and the
+ * animation state "lightningflame" (0x553c58) instead of the "<N>blast.xes"
+ * table lookup and "flame%d%d" that the terrain blast builds.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 9 argless PeekPacketChecksumState() calls and all 25 1-arg
  * EncodeOutgoingPacketField() calls (34 sites).  Every ESI-relative cell
  * belongs to the object this function allocates: ESI is the
- * operator_new(0x3fa0) + FUN_004aa830 result (0x43507b-0x435084; the
+ * operator_new(0x3fa0) + InitBlastEffect result (0x43507b-0x435084; the
  * resolver only saw the null path's `xor esi,esi` at 0x43508c), which the
  * decompile calls iVar11 - pinned by 0x4350a0-0x4350b1 writing +0x18 /
  * +0x3894 / +0x3c / +0x38, exactly the four stores the C does through
@@ -27,7 +30,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00434fc0(undefined4 param_1,undefined4 param_2,int param_3)
+void __thiscall SpawnLightningBlastEffect(undefined4 param_1,undefined4 param_2,int param_3)
 
 {
   int *piVar1;
@@ -76,7 +79,7 @@ LAB_00435034:
       iVar11 = 0;
     }
     else {
-      iVar11 = FUN_004aa830();
+      iVar11 = InitBlastEffect();
     }
     local_4 = 0xffffffff;
     *(undefined4 *)(iVar11 + 0x18) = 0xffffffff;

@@ -20,7 +20,7 @@
  *
  * The two per-turn values it seeds are the ones every projectile
  * spawner reads back (SpawnPrimaryShot, SpawnItemProjectile,
- * FUN_004337f0, FUN_004aa520) and that the shot broadcast re-sends as a
+ * SpawnDropBombProjectile, FUN_004aa520) and that the shot broadcast re-sends as a
  * u16 pair (Mobile.cpp, State11_InBattle_HandleFireInput) - i.e. they
  * are per-turn shot parameters assigned by the server, not client
  * state.  Their exact meaning is NOT confirmed here, so they are left
