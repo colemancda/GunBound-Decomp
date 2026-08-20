@@ -1,9 +1,23 @@
-/* FUN_00438410 - 0x00438410 in the original binary.
+/* SpawnJewel - 0x00438410 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00438410).  Places one JEWEL - the collectible
+ * that sits on the terrain and chain-detonates when a blast reaches it.
+ * Evidence:
+ *   - operator_new(0x2298), constructed by FUN_00477bb0, then two guarded
+ *     writes: EncodeOutgoingPacketField at int index 0x97 = BYTE +0x25c gets
+ *     param_2 (the X - its AdvanceTurnQueue caller passes
+ *     `x % g_nCameraBoundX`), and index 0xe = byte +0x38 gets param_3 (the
+ *     TYPE, which also drives a switch selecting 300 / 200 / a peeked value).
+ *   - the sprite name is built with sprintf("jewel%d", param_3 + 1)
+ *     (s_jewel_d_00553bd4) and the object's state is set to "normal".
+ *   - both callers are placement points: AdvanceTurnQueue (between turns) and
+ *     State11_InBattle_OnEnter (initial layout).
+ * The object it produces is the layer-100006 entity HitTestJewel looks up and
+ * ApplyBlastDamage's second pass damages; its guard block is three
+ * consecutive 0x224-byte CValueGuard cells - +0x38 type, +0x25c X, +0x480 Y.
+ *
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 10 argless sites.  Seven of them are offsets off ESI, which
@@ -24,7 +38,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00438410(undefined4 param_1,int param_2,int param_3,int param_4)
+void SpawnJewel(undefined4 param_1,int param_2,int param_3,int param_4)
 
 {
   uint uVar1;

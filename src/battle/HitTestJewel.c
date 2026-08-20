@@ -1,26 +1,32 @@
-/* FUN_00425c90 - 0x00425c90 in the original binary.
+/* HitTestJewel - 0x00425c90 in the original binary.
  *
- * IDENTIFIED but NOT renamed (2026-08-19).  This is the layer-100006 twin of
- * HitTestLocalMobile (0x425ac0): it walks the DAT_006a7f8c registry for the
- * collection whose key is 100006, finds the entry whose index equals the EDX
- * argument, and guard-computes (entityX - param_3) and (entityY - param_4)
- * from that entity's +0x25c and +0x480 CValueGuard cells - the same
- * subtract-then-compare shape HitTestLocalMobile uses on a player record's
- * +0x90c/+0xb30.  It returns the entity when the point is in range, else 0;
- * callers peek +0x25c on the result.  All six call sites are 0..7 slot loops
- * inside SimulateSuperShot_Bullet3 / ExplodeSuperShot_Bullet8, fed
- * (x, y, radius) from the projectile's +0xf54 / +0x1178 / +0x3198 cells.
+ * NAMED 2026-08-19 (was FUN_00425c90).  Finds the JEWEL at slot EDX and
+ * returns it when the point (param_3, param_4) is within range, else 0 - the
+ * layer-100006 twin of HitTestLocalMobile (0x425ac0), which does the same
+ * against layer 100001, the player records.
  *
- * It is NOT renamed because what an entity of class id 100006 actually IS has
- * not been established - naming it "HitTestSomething" would encode a guess.
- * The mechanism above is proven; the entity type is the open part.
+ * WHAT PINS "JEWEL": SpawnJewel (0x438410) allocates the layer-100006 entity
+ * with operator_new(0x2298), sprintfs its sprite name as "jewel%d"
+ * (s_jewel_d_00553bd4) from the type in param_3, sets its state to "normal",
+ * and writes exactly two guarded fields - EncodeOutgoingPacketField at int
+ * index 0x97 = BYTE +0x25c (the X, fed `x % g_nCameraBoundX` by its
+ * AdvanceTurnQueue caller) and index 0xe = byte +0x38 (the type).  +0x25c is
+ * precisely the cell this function subtracts param_3 from, and the same cell
+ * ApplyBlastDamage's second pass subtracts at piVar11 + 0x97.  The jewel's
+ * guard block is three consecutive 0x224-byte CValueGuard cells: +0x38 type,
+ * +0x25c X, +0x480 Y.
+ *
+ * Callers use it for the CHAIN REACTION: on a hit they peek the jewel's
+ * +0x25c X, column-scan the terrain for the ground row under it, and run the
+ * whole FUN_00436070 / ApplyBlastDamage / SpawnBlastEffect detonation trio at
+ * that point.
  *
  * ABI: param_1 is a PHANTOM.  Ghidra marks the function __fastcall, but ECX
- * is written before it is ever read (orig 0x425caa `mov ecx,[eax+0x6a7f8c]`), so only EDX (param_2, the
- * slot index) is a real register argument; ret 0xc = 3 stack args.  Every
- * caller passed just those 3 until the 2026-08-19 sweep, which left param_2
- * reading garbage and shifted params 3-5 by two.  Callers now pass 0 for
- * param_1.
+ * is written before it is ever read (orig 0x425caa `mov ecx,[eax+0x6a7f8c]`),
+ * so only EDX (param_2, the slot index) is a real register argument; ret 0xc
+ * = 3 stack args.  Every caller passed just those 3 until the 2026-08-19
+ * sweep, which left param_2 reading garbage and shifted params 3-5 by two.
+ * Callers now pass 0 for param_1.
  *
  * Raw/near-verbatim port of Ghidra's decompiler output beyond this - not
  * hand-verified. See src/README.md's "Raw/verbatim ports" section.
@@ -34,7 +40,7 @@
 
 
 uint __fastcall
-FUN_00425c90(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_4,int param_5)
+HitTestJewel(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_4,int param_5)
 
 {
   uint uVar1;

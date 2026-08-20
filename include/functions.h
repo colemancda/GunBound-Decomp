@@ -518,7 +518,7 @@ void SpawnItemProjectile();
 /* Same generator gap; both are __fastcall with a PHANTOM param_1 - only
  * EDX (the slot index) is a real register argument, so callers pass 0 for
  * param_1.  Layer-100006 / layer-100003 twins of HitTestLocalMobile. */
-uint __fastcall FUN_00425c90();
+uint __fastcall HitTestJewel();
 uint __fastcall FUN_00425e60();
 /* Same generator gap.  ECX and EDX (the object) are real __fastcall
  * arguments; the original's third register argument (EAX) is param_9 in
@@ -567,7 +567,7 @@ void FUN_00437f70();
 void FUN_00438100();
 void FUN_004382d0();
 void FUN_00438360();
-void FUN_00438410();
+void SpawnJewel();
 void SpawnShot_Type13();
 uint SpawnCraterDebris();
 void FUN_00439d90();

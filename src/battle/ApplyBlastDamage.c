@@ -23,7 +23,7 @@
  *   - param_7 doubles as a 0..7 SLOT index: when param_7 < 8 it accumulates
  *     param_5 + param_6 into a per-slot running total.
  *   - a second pass repeats the subtract-and-test over the layer-100006
- *     collection (the same class id FUN_00425c90 hit-tests), at that
+ *     collection (the same class id HitTestJewel hit-tests), at that
  *     entity's +0x97.
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.

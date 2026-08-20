@@ -348,7 +348,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004259d0,82,FUN_004259d0,false,11,2,RAW-src
 00425a30,133,FUN_00425a30,false,2,3,RAW-src
 00425ac0,450,HitTestLocalMobile,false,5,7,RAW-src
-00425c90,463,FUN_00425c90,false,3,6,RAW-src
+00425c90,463,HitTestJewel,false,3,6,RAW-src
 00425e60,460,FUN_00425e60,false,3,6,RAW-src
 00426030,84,FUN_00426030,false,6,2,RAW-src
 00426090,84,FUN_00426090,false,8,2,RAW-src
@@ -442,7 +442,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00438100,449,FUN_00438100,false,2,11,RAW-src
 004382d0,131,FUN_004382d0,false,8,6,RAW-src
 00438360,175,FUN_00438360,false,7,4,RAW-src
-00438410,1211,FUN_00438410,false,2,13,RAW-src
+00438410,1211,SpawnJewel,false,2,13,RAW-src
 004388e0,3351,SpawnShot_Type13,false,1,22,RAW-src
 00439600,727,SpawnCraterDebris,false,3,10,RAW-src
 004398e0,1196,FUN_004398e0,false,5,19,RAW-src

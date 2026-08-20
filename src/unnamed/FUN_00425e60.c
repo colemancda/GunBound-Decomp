@@ -1,19 +1,29 @@
 /* FUN_00425e60 - 0x00425e60 in the original binary.
  *
  * IDENTIFIED but NOT renamed (2026-08-19).  This is the layer-100003 twin of
- * HitTestLocalMobile (0x425ac0): it walks the DAT_006a7f8c registry for the
+ * HitTestLocalMobile (0x425ac0) / HitTestJewel (0x425c90): it walks the DAT_006a7f8c registry for the
  * collection whose key is 100003, finds the entry whose index equals the EDX
  * argument, and guard-computes (entityX - param_3) and (entityY - param_4)
- * from that entity's +0x25c and +0x480 CValueGuard cells - the same
+ * from that entity's +0x40 and +0x264 CValueGuard cells - the same
  * subtract-then-compare shape HitTestLocalMobile uses on a player record's
- * +0x90c/+0xb30.  It returns the entity when the point is in range, else 0;
+ * +0x90c/+0xb30, and HitTestJewel on a jewel's +0x25c/+0x480.  (CORRECTION,
+ * same day: an earlier revision of this note copied HitTestJewel's
+ * +0x25c/+0x480 here.  This function's cells are +0x40 and +0x264 - a
+ * consecutive 0x224-byte pair based at +0x40, not at +0x25c - which is why
+ * its callers peek the returned entity's +0x40 for the X where the jewel
+ * path peeks +0x25c.)  It returns the entity when the point is in range, else 0;
  * callers peek +0x40 on the result.  All six call sites are 0..7 slot loops
  * inside SimulateSuperShot_Bullet3 / ExplodeSuperShot_Bullet8, fed
  * (x, y, radius) from the projectile's +0xf54 / +0x1178 / +0x3198 cells.
  *
  * It is NOT renamed because what an entity of class id 100003 actually IS has
  * not been established - naming it "HitTestSomething" would encode a guess.
- * The mechanism above is proven; the entity type is the open part.
+ * The mechanism is proven and its TWIN now is too (layer 100006 turned out to
+ * be the jewels - see HitTestJewel), but nothing in the tree CREATES a
+ * layer-100003 entity: every function carrying the 0x186a3 immediate only
+ * walks the collection.  Find the producer and this one names itself.  Its
+ * guard block based at +0x40 (vs the jewel's +0x38) is the distinguishing
+ * fingerprint to match a constructor against.
  *
  * ABI: param_1 is a PHANTOM.  Ghidra marks the function __fastcall, but ECX
  * is written before it is ever read (orig 0x425e7a `mov ecx,[eax+0x6a7f8c]`), so only EDX (param_2, the
@@ -26,7 +36,7 @@
  * hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
- * cell at both argless PeekPacketChecksumState() calls: both chained DeltaSub returns (0x425f03, 0x425f85), discarded, captured in a new uVar8 - FUN_00425c90's shape with +0x40/+0x264 instead of +0x25c/+0x480.
+ * cell at both argless PeekPacketChecksumState() calls: both chained DeltaSub returns (0x425f03, 0x425f85), discarded, captured in a new uVar8 - HitTestJewel's shape with +0x40/+0x264 instead of +0x25c/+0x480.
  */
 #include "ghidra_types.h"
 

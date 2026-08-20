@@ -287,7 +287,7 @@ LAB_004bbe6b:
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           puStack_98 = (undefined *)PeekPacketChecksumState((void *)(pvSlotCell));
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          FUN_00438410(&DAT_006a7f70 + g_clientContext,
+          SpawnJewel(&DAT_006a7f70 + g_clientContext,
                        (int)puStack_98 % *(int *)(&g_nCameraBoundX + g_clientContext),apuStack_90[0],0);
           iVar6 = iVar6 + 0x224;
         } while (iVar6 < 0xcd8);
