@@ -1,5 +1,32 @@
 /* SpawnItemProjectile - 0x004317b0 in the original binary.
  *
+ * SIGNATURE FIX (2026-08-19) - the third instance of the SpawnPrimaryShot /
+ * SpawnSuperShot defect, and the worst of them: this signature declared THREE
+ * parameters where the original is `ret 0x1c` = SEVEN stack arguments, and all
+ * 27 full-form call sites pass seven.  Ghidra's whole parameter frame was
+ * shifted one slot, so every declared parameter named the wrong argument.
+ *
+ * Proved by tracking esp from the entry frame ([esp+0] = return address,
+ * [esp+4] = param_1, ...) to each read:
+ *     0x431877 `mov ecx,[esp+0x2c]` = entry+0xc  -> the value encoded into the
+ *              X cell (obj+0xf54).  entry+0xc is the THIRD argument, but the
+ *              old signature called it param_2.
+ *     0x4318b6 `mov edx,[esp+0x30]` = entry+0x10 -> the Y cell (obj+0x1178);
+ *              the fourth argument, called param_3.
+ *     0x431814 `mov ax,[esp+0x3c]`  = entry+0x1c -> obj+0x3f9c; the seventh
+ *              argument, which Ghidra named `in_stack_0000001c`.
+ *     0x431849 `movzx eax,[esp+0x24]` -> `& 7` into obj+0x3c; the owner byte,
+ *              i.e. the FIRST argument, which Ghidra named `unaff_retaddr`.
+ * The old param_1 was declared but never referenced - it is the real second
+ * argument, which this function genuinely ignores.
+ *
+ * Runtime impact of the shift: the item projectile took its X from the
+ * caller's 2nd argument and its Y from the 3rd, one slot early in both cases,
+ * so every item shot was positioned from the wrong values.
+ *
+ * No caller changes were needed - all 27 already passed seven arguments in
+ * the right order; only the callee's view of them was wrong.
+ *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
@@ -25,7 +52,8 @@
 
 /* WARNING: Removing unreachable block (ram,0x00431855) */
 
-void SpawnItemProjectile(undefined4 param_1,int param_2,int param_3)
+void SpawnItemProjectile(byte param_1,undefined4 param_2,int param_3,int param_4,
+                 undefined4 param_5,undefined4 param_6,undefined2 param_7)
 
 {
   void *pvVar1;
@@ -35,8 +63,6 @@ void SpawnItemProjectile(undefined4 param_1,int param_2,int param_3)
   byte bVar5;
   int *piVar6;
   undefined4 *unaff_FS_OFFSET;
-  byte unaff_retaddr;
-  undefined2 in_stack_0000001c;
   undefined4 uStack_c;
   undefined1 *puStack_8;
   undefined4 local_4;
@@ -55,11 +81,11 @@ void SpawnItemProjectile(undefined4 param_1,int param_2,int param_3)
   ComputeShotViewBounds();
   piVar6[6] = -1;
   piVar6[0xe25] = -1;
-  *(undefined2 *)(piVar6 + 0xfe7) = in_stack_0000001c;
+  *(undefined2 *)(piVar6 + 0xfe7) = param_7;
   iVar2 = FindPreloadedTextureByName(s_bulletitem_00553d14);
   piVar6[7] = iVar2;
   (**(code **)(*piVar6 + 4))(s_normal_00552230);
-  *(byte *)(piVar6 + 0xf) = unaff_retaddr & 7;
+  *(byte *)(piVar6 + 0xf) = param_1 & 7;
   piVar6[0xe] = 0x1965;
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
@@ -68,20 +94,20 @@ void SpawnItemProjectile(undefined4 param_1,int param_2,int param_3)
    * allocated item-projectile object) 5 distinct CValueGuard cells at
    * (int)piVar6+0xf54/0x3b48/0x1178/0x40/0x264. See
    * tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField((int)piVar6 + 0xf54, param_2);
+  EncodeOutgoingPacketField((int)piVar6 + 0xf54, param_3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState((void *)((int)piVar6 + 0xf54));
   EncodeOutgoingPacketField((int)piVar6 + 0x3b48, uVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField((int)piVar6 + 0x1178, param_3);
+  EncodeOutgoingPacketField((int)piVar6 + 0x1178, param_4);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField((int)piVar6 + 0x40, param_2 << 8);
+  EncodeOutgoingPacketField((int)piVar6 + 0x40, param_3 << 8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EncodeOutgoingPacketField((int)piVar6 + 0x264, param_3 << 8);
+  EncodeOutgoingPacketField((int)piVar6 + 0x264, param_4 << 8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
