@@ -105,22 +105,22 @@ public:
      * the crater (FloatToInt64), spawns damage particles (FUN_00432320),
      * RegisterActiveObject + AcquireSoundChannel, then rescrambles a guard. */
     virtual void DetonateProjectile();
-    /* slot 7 +0x1c: 0x458850 - fresh angr disassembly (2026-07-15, no prior
-     * decompile existed). FIXED: was declared void-returning; the real
-     * function has two distinct exits (`mov al,1; ret` / `xor al,al; ret`)
-     * - a bool return. 0-arg __thiscall otherwise (confirmed). A 3-part
-     * guarded window check, short-circuit ANDed: two PeekPacketChecksumState
-     * range comparisons (cell targets not resolvable - same "~45 unresolved
-     * guard-cell target" gap DetonateProjectile already documents), then
-     * this->m_pad3d+0xf17 vs g_clientContext+0x6aa1e4, then
-     * this->m_pad3d+0x113b vs the fixed constant 0xfffffc18 via
-     * PacketChecksumLessThan. Both cell offsets (0xf17, 0x113b) are already
-     * used by DetonateProjectile (self->m_pad3d + 0xf17 /
-     * self->m_pad3d + 0x113b) - strong cross-confirmation these are the
-     * right cells. GUESSED name/role - the structural shape (an ANDed
-     * guard-window check) is solid, the semantic meaning ("can this
-     * projectile still act/detonate"?) is not confirmed. */
-    virtual bool v7();
+    /* slot 7 +0x1c: 0x458850 = IsProjectileInBounds - CARVED and NAMED
+     * 2026-08-19 (src/battle/IsProjectileInBounds.c); the highest-leverage
+     * uncarved slot in the tree, referenced by FORTY vtables.  The
+     * 2026-07-15 angr pass had the shape right - a bool return with two
+     * distinct exits, 0 stack args, an ANDed guarded window check - but
+     * recorded "cell targets not resolvable" for the first two comparisons
+     * and left the role GUESSED.  Both targets are plain g_clientContext
+     * offsets, 0x6a9b78 and 0x6a9d9c, and they, 0x6a9fc0 and 0x6aa1e4 are
+     * CONSECUTIVE 0x224-byte CValueGuard cells - a guarded quadruple of
+     * WORLD BOUNDS, compared against this projectile's own X (+0xf54) and
+     * Y (+0x1178) cells.  That makes the role confirmed rather than guessed:
+     * the projectile is in bounds while
+     *     boundsLeft <= x < boundsRight  &&  -1000 <= y < boundsBottom.
+     * The two object cells are the same pair DetonateProjectile,
+     * ApplyBlastDamage and the terrain column scans use. */
+    virtual bool IsProjectileInBounds();
     /* slot 8 +0x20: 0x40ca00 - RENAMED from v8 (2026-07-15): confirmed the
      * same address as CButtonWidget's slot 0 (Delete -
      * DeletePoisonedBaseObject, see ButtonWidget.h/.cpp), a shared

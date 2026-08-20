@@ -25,7 +25,7 @@
  * now OBSOLETE for the guard family -- every PeekPacketChecksumState /
  * EncodeOutgoingPacketField call site in this file has had its cell
  * recovered (113 sites across AnimateProjectileTick, DetonateProjectile,
- * SimulateFrame, v3 and v7), and the two file-local extern declarations
+ * SimulateFrame, v3 and IsProjectileInBounds), and the two file-local extern declarations
  * gained the `void *self` parameter (an empty parameter list means "no
  * arguments" in C++, unlike the .c ports).  Both stay __cdecl, so the
  * extra pushed argument is caller-cleaned and behaviour is unchanged
@@ -47,7 +47,7 @@
  *     etc.  The +0x3b0b / +0x113b results match the offsets this file
  *     ALREADY spells out by hand at its CompareChecksumPair /
  *     PacketChecksumGreaterEqual call sites, which is the cross-check.
- *   - v3 and v7 needed no analysis: their per-call `/* cell: ... *\/`
+ *   - v3 and IsProjectileInBounds needed no analysis: their per-call `/* cell: ... *\/`
  *     comments (added when those slots were promoted) already recorded the
  *     exact cell, and the values below are those comments made executable.
  *
@@ -205,7 +205,7 @@ char CompareChecksumExceeds(void *cellA, void *cellB);
 void AcquireSoundChannel(int a);
 int _rand(void);
 
-/* v3/v7/v11's additional dependencies (fresh angr disassembly, 2026-07-15,
+/* v3/IsProjectileInBounds/v11's additional dependencies (fresh angr disassembly, 2026-07-15,
  * no prior decompile existed for any of these 4 slots - see Projectile.h's
  * slot 3/7/10/11 comments). */
 char CompareChecksumPairGreaterEqual(void *cellA, void *cellB); /* 0x40b450 */
@@ -1523,30 +1523,42 @@ void CProjectile::v3()
     }
 }
 
-/* slot 7 +0x1c: 0x458850 - see Projectile.h's slot-7 comment. A 3-part
- * guarded window check, short-circuit ANDed; PeekPacketChecksumState calls
- * stay bare per this file's established convention (see slot 3's comment
- * above for why), cell targets noted per-call. */
-bool CProjectile::v7()
+/* slot 7 +0x1c: 0x458850 = IsProjectileInBounds - see Projectile.h's slot-7
+ * comment and the raw carve in src/battle/IsProjectileInBounds.c.  A 3-part
+ * guarded WORLD-BOUNDS check, short-circuit ANDed; PeekPacketChecksumState
+ * calls stay bare per this file's established convention (see slot 3's
+ * comment above for why), cell targets noted per-call.
+ *
+ * POLARITY FIX (2026-08-19): all three comparisons were backwards here, found
+ * by carving the raw function independently from the disassembly and diffing
+ * the two.  The original fails - returns false - when the projectile is OUT
+ * of bounds; this body was failing when it was IN bounds:
+ *   0x458890 `cmp ebx,eax / setl bl / test bl,bl / jne <false>` means
+ *     "x < leftBound -> false", i.e. `if (a < b)`, not `if (!(a < b))`;
+ *   0x4588c3 `setge bl` likewise means "x >= rightBound -> false";
+ *   and the 0x4588e1/0x4588e8 push order makes the y cell arg1 and the bound
+ *     cell arg2 of the A >= B helper, which is the reverse of what was
+ *     passed here. */
+bool CProjectile::IsProjectileInBounds()
 {
     EnterCriticalSection(&DAT_005a9068);
-    int a = PeekPacketChecksumState((void *)(this->m_pad3d + 0xf17)); /* cell: this->m_pad3d + 0xf17 (this+0xf54) */
-    int b = PeekPacketChecksumState((void *)(g_clientContext + 0x6a9b78)); /* cell: g_clientContext + 0x6a9b78 */
+    int a = PeekPacketChecksumState((void *)(this->m_pad3d + 0xf17)); /* cell: this->m_pad3d + 0xf17 (this+0xf54) - the X position */
+    int b = PeekPacketChecksumState((void *)(g_clientContext + 0x6a9b78)); /* cell: g_clientContext + 0x6a9b78 - left bound */
     LeaveCriticalSection(&DAT_005a9068);
-    if (!(a < b)) {
+    if (a < b) {
         return false;
     }
 
     EnterCriticalSection(&DAT_005a9068);
     a = PeekPacketChecksumState((void *)(this->m_pad3d + 0xf17)); /* cell: this->m_pad3d + 0xf17 (this+0xf54), re-peeked */
-    b = PeekPacketChecksumState((void *)(g_clientContext + 0x6a9d9c)); /* cell: g_clientContext + 0x6a9d9c */
+    b = PeekPacketChecksumState((void *)(g_clientContext + 0x6a9d9c)); /* cell: g_clientContext + 0x6a9d9c - right bound */
     LeaveCriticalSection(&DAT_005a9068);
-    if (!(a >= b)) {
+    if (a >= b) {
         return false;
     }
 
-    if (CompareChecksumPairGreaterEqual(reinterpret_cast<void *>(g_clientContext + 0x6aa1e4),
-                                         m_pad3d + 0x113b) != 0) {
+    if (CompareChecksumPairGreaterEqual(m_pad3d + 0x113b,
+                                         reinterpret_cast<void *>(g_clientContext + 0x6aa1e4)) != 0) {
         return false;
     }
     if (PacketChecksumLessThan(m_pad3d + 0x113b, static_cast<int>(0xfffffc18)) != 0) {

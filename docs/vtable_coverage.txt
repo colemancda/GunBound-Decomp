@@ -26,59 +26,59 @@ ported    vtable slots       uncarved class (~ = named from its most distinctive
   17905b  0x555f7c  8 ( 8/ 8)     0     ~Mobile10_MainAction
   16235b  0x556448  8 ( 8/ 8)     0     ~Mobile06_MainAction
   16206b  0x555c68  8 ( 8/ 8)     0     CMobile (base)
-  15706b  0x556380 10 ( 7/10)     3     ~DetonateProjectile
-  15107b  0x556078  8 ( 6/ 8)     2     ~DetonateProjectile
-  14822b  0x5563f0 10 ( 7/10)     3     ~DetonateProjectile
-  14079b  0x556110  8 ( 6/ 8)     2     ~DetonateProjectile
-  13665b  0x556524  8 ( 6/ 8)     2     ~DetonateShot2_Bullet8
+  15899b  0x556380 10 ( 8/10)     2     ~DetonateProjectile
+  15300b  0x556078  8 ( 7/ 8)     1     ~DetonateProjectile
+  15015b  0x5563f0 10 ( 8/10)     2     ~DetonateProjectile
+  14272b  0x556110  8 ( 7/ 8)     1     ~DetonateProjectile
+  13858b  0x556524  8 ( 7/ 8)     1     ~DetonateShot2_Bullet8
   13313b  0x55620c  9 ( 7/ 9)     2     ~SimulateSuperShot_Bullet13
-  12986b  0x555dac  8 ( 6/ 8)     2     ~DetonateShot2_Bullet1
+  13179b  0x555dac  8 ( 7/ 8)     1     ~DetonateShot2_Bullet1
   12784b  0x55649c  8 ( 7/ 8)     1     ~SimulateShot2_Bullet13
-  12358b  0x5564d0  8 ( 6/ 8)     2     ~DetonatePrimaryShot_Bullet4
+  12551b  0x5564d0  8 ( 7/ 8)     1     ~DetonatePrimaryShot_Bullet4
   12235b  0x555bd0  8 ( 7/ 8)     1     ~SimulateProjectileFrame
+  12207b  0x556660  8 ( 6/ 8)     2     ~DetonateShot2_Bullet12
+  12201b  0x5564f0  8 ( 6/ 8)     2     ~DetonateShot2_Bullet2
+  12201b  0x5563d0  8 ( 6/ 8)     2     ~DetonateShot2_Bullet7
   12145b  0x553670 18 (11/11)     0     ~State03_GameRoomList_ProcessPacket
-  12014b  0x556660  8 ( 5/ 8)     3     ~DetonateShot2_Bullet12
-  12008b  0x5564f0  8 ( 5/ 8)     3     ~DetonateShot2_Bullet2
-  12008b  0x5563d0  8 ( 5/ 8)     3     ~DetonateShot2_Bullet7
-  11941b  0x5561c8  9 ( 7/ 9)     2     ~ExplodeSuperShot_Bullet8
-  11724b  0x556284  9 ( 7/ 9)     2     ~ExplodeSuperShot_Bullet3
-  11506b  0x55656c  8 ( 6/ 7)     1     ~DetonateProjectile
-  11283b  0x555bf0  9 ( 6/ 9)     3     ~DetonateSuperShot_Bullet6
-  11276b  0x55658c  8 ( 6/ 8)     2     ~DetonateProjectile
-  11272b  0x555e88  8 ( 6/ 8)     2     ~DetonateShot1_Bullet9_16
-  11235b  0x555fbc  8 ( 6/ 8)     2     ~DetonateProjectile
-  10998b  0x555f58  9 ( 7/ 9)     2     ~ExplodeSuperShot_Bullet11
-  10955b  0x555ea8  8 ( 6/ 7)     1     ~SimulatePrimaryShot_Bullet14
+  12134b  0x5561c8  9 ( 8/ 9)     1     ~ExplodeSuperShot_Bullet8
+  11917b  0x556284  9 ( 8/ 9)     1     ~ExplodeSuperShot_Bullet3
+  11699b  0x55656c  8 ( 7/ 7)     0     ~DetonateProjectile
+  11476b  0x555bf0  9 ( 7/ 9)     2     ~DetonateSuperShot_Bullet6
+  11469b  0x55658c  8 ( 7/ 8)     1     ~DetonateProjectile
+  11465b  0x555e88  8 ( 7/ 8)     1     ~DetonateShot1_Bullet9_16
+  11428b  0x555fbc  8 ( 7/ 8)     1     ~DetonateProjectile
+  11191b  0x555f58  9 ( 8/ 9)     1     ~ExplodeSuperShot_Bullet11
+  11148b  0x555ea8  8 ( 7/ 7)     0     ~SimulatePrimaryShot_Bullet14
+  10985b  0x55631c  9 ( 8/ 9)     1     ~DetonateSuperShot_Bullet3_5_14
+  10945b  0x555e0c  8 ( 7/ 8)     1     ~SimulateProjectileFrame
+  10939b  0x555c34  8 ( 7/ 8)     1     CProjectile (base)
+  10877b  0x556008  8 ( 7/ 8)     1     ~DetonateProjectile
+  10862b  0x556340  8 ( 7/ 7)     0     ~DetonateProjectile
+  10828b  0x5562c8  9 ( 8/ 9)     1     ~ExplodeSuperShot_Bullet2
   10811b  0x5563a8  8 ( 7/ 8)     1     ~SimulateShot2_Bullet3
-  10792b  0x55631c  9 ( 7/ 9)     2     ~DetonateSuperShot_Bullet3_5_14
-  10752b  0x555e0c  8 ( 6/ 8)     2     ~SimulateProjectileFrame
-  10746b  0x555c34  8 ( 6/ 8)     2     CProjectile (base)
-  10684b  0x556008  8 ( 6/ 8)     2     ~DetonateProjectile
-  10669b  0x556340  8 ( 6/ 7)     1     ~DetonateProjectile
-  10635b  0x5562c8  9 ( 7/ 9)     2     ~ExplodeSuperShot_Bullet2
-  10617b  0x555ac4  9 ( 7/ 9)     2     ~DetonateSuperShot_Bullet1
-  10601b  0x5560d0  8 ( 5/ 8)     3     ~DetonateProjectile
-  10600b  0x555cf4  8 ( 5/ 7)     2     ~DetonateProjectile
-  10451b  0x556680  8 ( 5/ 8)     3     ~DetonateShot1_Bullet12
-  10441b  0x555f38  8 ( 6/ 8)     2     ~SimulateShot2_Bullet11
-  10221b  0x556468  8 ( 5/ 8)     3     ~SimulateProjectileFrame
-  10164b  0x555e30  9 ( 7/ 9)     2     ~ExplodeSuperShot_Bullet14
+  10810b  0x555ac4  9 ( 8/ 9)     1     ~DetonateSuperShot_Bullet1
+  10794b  0x5560d0  8 ( 6/ 8)     2     ~DetonateProjectile
+  10793b  0x555cf4  8 ( 6/ 7)     1     ~DetonateProjectile
+  10644b  0x556680  8 ( 6/ 8)     2     ~DetonateShot1_Bullet12
+  10634b  0x555f38  8 ( 7/ 8)     1     ~SimulateShot2_Bullet11
+  10414b  0x556468  8 ( 6/ 8)     2     ~SimulateProjectileFrame
+  10357b  0x555e30  9 ( 8/ 9)     1     ~ExplodeSuperShot_Bullet14
+  10026b  0x5561a8  8 ( 7/ 8)     1     ~DetonateShot1_Bullet8
    9908b  0x555d14  8 ( 7/ 8)     1     ~DetonateShot2_Bullet9
-   9833b  0x5561a8  8 ( 6/ 8)     2     ~DetonateShot1_Bullet8
+   9822b  0x5565f8  9 ( 8/ 9)     1     ~ExplodeSuperShot_Bullet4
    9708b  0x556098  9 ( 8/ 9)     1     ~DetonateSuperShot_Bullet15
-   9629b  0x5565f8  9 ( 7/ 9)     2     ~ExplodeSuperShot_Bullet4
    9581b  0x556360  8 ( 7/ 8)     1     ~DetonateSuperShot_Bullet9
-   9109b  0x55661c  9 ( 7/ 9)     2     ~DetonateSuperShot_Bullet12
+   9302b  0x55661c  9 ( 8/ 9)     1     ~DetonateSuperShot_Bullet12
+   9064b  0x555aa4  8 ( 7/ 8)     1     ~DetonateShot1_Bullet7
+   9018b  0x555d74  9 ( 8/ 9)     1     ~DetonateSuperShot_Bullet16
    9009b  0x5565ac  8 ( 7/ 8)     1     ~DetonateShot2_Bullet16
+   8959b  0x556424  9 ( 7/ 9)     2     ~DetonateSuperShot_Bullet7
    8871b  0x556160  8 ( 7/ 8)     1     ~DetonatePrimaryShot_Bullet10
-   8871b  0x555aa4  8 ( 6/ 8)     2     ~DetonateShot1_Bullet7
    8837b  0x555b18  8 ( 7/ 8)     1     ~DetonateSuperShot_Bullet10
    8832b  0x556058  8 ( 7/ 8)     1     ~DetonatePrimaryShot_Bullet15
-   8825b  0x555d74  9 ( 7/ 9)     2     ~DetonateSuperShot_Bullet16
-   8766b  0x556424  9 ( 6/ 9)     3     ~DetonateSuperShot_Bullet7
-   8418b  0x555dcc  8 ( 6/ 8)     2     ~AnimateProjectileTick
+   8611b  0x555dcc  8 ( 7/ 8)     1     ~AnimateProjectileTick
    7749b  0x555f9c  8 ( 7/ 8)     1     ~DetonateItemShot
-   7533b  0x555dec  8 ( 6/ 8)     2     ~SimulateProjectileFrame
+   7726b  0x555dec  8 ( 7/ 8)     1     ~SimulateProjectileFrame
    5649b  0x5570f0 18 ( 9/12)     0     ~State02_ServerSelect_ProcessPacket
    3946b  0x555fdc  5 ( 5/ 5)     0     ~DeleteJewel
    2664b  0x557eb8 10 ( 8/10)     2     ~Widget_DispatchKeyToChildren
