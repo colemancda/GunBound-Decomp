@@ -119,8 +119,14 @@
  * call, because the value applied is identical either way, and the frame is
  * already correct in the source. That holds for only 3 files (FUN_0041bce0,
  * FUN_00477930, FUN_004e2b20); most callers mix two to four different
- * outerKeys, so for them the pairing has to be settled first. Running total
- * 70 of 217, with 75 single-argument calls left.
+ * outerKeys, so for them the pairing has to be settled first.
+ *
+ * WHERE THIS STANDS, counted properly with tools/count_call_args.py (the
+ * running totals in the three commit messages were each measured with a
+ * different ad-hoc grep and none of them is right): there are 227 call sites
+ * in the tree, of which 121 now pass all four arguments and 106 do not - 90
+ * passing one, 14 passing none, 2 passing three. 70 of those 121 were fixed
+ * by these three passes; the rest already carried their arguments.
  *
  * The frame-7 site skipped in the first instalment IS included, on different
  * evidence rather than by relaxing the rule: at 0x50afa4 both branches read x
