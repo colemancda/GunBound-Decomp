@@ -1,13 +1,17 @@
-/* FUN_00497890 - 0x00497890 in the original binary.
+/* CMine_BaseDestructor - 0x00497890 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00497890).  CMine's BASE DESTRUCTOR: it installs
+ * `PTR_FUN_005563f0` on entry - the very vtable InitMine installs, which is
+ * what ties it to the class - and then tears the object's guard members down.
+ * DeleteMine (0x497870) is its scalar-deleting wrapper, and DestroySuperMine
+ * (0x491b30) chains into it after installing the super-mine vtable.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00497890(undefined4 *param_1)
+void CMine_BaseDestructor(undefined4 *param_1)
 
 {
   int iVar1;

@@ -887,7 +887,7 @@ vtable 0x556360  installs=2  slots=8  UNCARVED=1
    7: 0x491a40  FUN_00491a40
 
 vtable 0x556380  installs=2  slots=10  UNCARVED=3
-   0: 0x491b10  FUN_00491b10
+   0: 0x491b10  DeleteSuperMine
    1: 0x461c60  ResolveNamedState
    2: 0x4921e0  FUN_004921e0
    3: 0x499d50  UNCARVED
@@ -919,7 +919,7 @@ vtable 0x5563d0  installs=2  slots=8  UNCARVED=3
    7: 0x458850  UNCARVED
 
 vtable 0x5563f0  installs=2  slots=10  UNCARVED=3
-   0: 0x497870  FUN_00497870
+   0: 0x497870  DeleteMine
    1: 0x461c60  ResolveNamedState
    2: 0x498b60  FUN_00498b60
    3: 0x499d50  UNCARVED
