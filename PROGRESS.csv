@@ -1900,6 +1900,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005255de,88,_sprintf,false,249,2,EXCLUDED-msvc-crt-atl
 00525636,331,__mbsicmp,false,10,4,EXCLUDED-msvc-crt-atl
 00525790,672,_memmove,false,38,0,EXCLUDED-msvc-crt-atl
+00525acd,20,__purecall,false,36,2,EXCLUDED-msvc-crt-atl
 00525ae1,61,__endthread,false,6,6,EXCLUDED-msvc-crt-atl
 00525b1f,134,FUN_00525b1f,false,1,6,EXCLUDED-msvc-crt-atl
 00525bb1,145,__beginthread,false,7,8,EXCLUDED-msvc-crt-atl
