@@ -37,14 +37,16 @@ def binary_runs(name):
         if key is not None: runs.append({'key':key,'esi':buf})
         key=None; buf=[]
     for idx,i in enumerate(ins):
-        if i.address in targets: flush()           # a branch target opens a new run
+        if i.address in targets:
+            flush(); key=('LAB',i.address)         # branch target: exact anchor
         if i.mnemonic=='push':
             m=re.fullmatch(r'0x[0-9a-f]+|\d+',i.op_str); pend.append(int(i.op_str,0) if m else None)
         elif i.mnemonic=='call' and i.op_str.startswith('0x'):
             t=int(i.op_str,16)
             if t==CBW:
                 args=list(reversed(pend[-11:])) if len(pend)>=11 else None
-                key=(args[2],args[3]) if args and len(args)>3 else None
+                k=(args[2],args[3]) if args and len(args)>3 else None
+                if k is not None and key is None: key=k   # label anchor wins - it is exact
             elif t==RW:
                 e=None
                 for j in range(idx-1,max(0,idx-6),-1):
@@ -81,7 +83,8 @@ def source_runs(path):
             def num(x):
                 try: return int(x,0)
                 except Exception: return None
-            key=(num(a[2]),num(a[3])) if len(a)>3 else None
+            k=(num(a[2]),num(a[3])) if len(a)>3 else None
+            if k is not None and key is None: key=k   # label anchor wins - it is exact
         elif t.startswith('RemoveWidget'):
             # count ALREADY-RECOVERED calls too, or their absence desynchronises
             # the run against the binary and the whole run gets skipped
@@ -91,6 +94,8 @@ def source_runs(path):
                 elif src[j]==')':d-=1
                 j+=1
             buf.append((m.start(),src[m.end():j-1].strip()==''))
+        elif t.startswith('LAB_'):
+            flush(); key=('LAB',int(t[6:12],16))   # label: exact anchor
         else:
             flush()
     flush()
@@ -98,8 +103,13 @@ def source_runs(path):
 
 name,path=sys.argv[1],sys.argv[2]
 b=binary_runs(name); s,src=source_runs(path)
-bk={r['key']:r for r in b}; sk={r['key']:r for r in s}
-assert len(bk)==len(b) and len(sk)==len(s), 'duplicate run keys'
+def uniq(runs):
+    '''Drop runs whose key is not unique - an ambiguous key cannot pair anything,
+    and aborting the whole function over one loses every unambiguous run in it.'''
+    seen=collections.Counter(r['key'] for r in runs)
+    return {r['key']:r for r in runs if seen[r['key']]==1}, sum(1 for r in runs if seen[r['key']]>1)
+bk,bdup=uniq(b); sk,sdup=uniq(s)
+if bdup or sdup: print('ambiguous runs dropped: %d binary, %d source'%(bdup,sdup))
 pairs=[]; mism=0
 for k,sr in sk.items():
     br=bk.get(k)

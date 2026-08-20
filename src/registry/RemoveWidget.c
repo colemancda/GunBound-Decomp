@@ -70,7 +70,7 @@
  *     they already read garbage out of registers, so it is strictly no worse
  *     for them and unblocks the sites that ARE fixed.
  *
- * 57 of the 131 call sites are recovered.  ApplyRoomSettings - which holds 55
+ * 63 of the 131 call sites are recovered.  ApplyRoomSettings - which holds 55
  * of them and was the hard case - is COMPLETE.
  *
  * The method that finished it is straight-line RUNS (tools/rw_run_pair.py):
@@ -94,6 +94,24 @@
  * Two more in State11_InBattle_ProcessBattleAction, confirmed by the same
  * shape in miniature: InvokeWidget(1,1) with create of widget 1 removes
  * widget 2, and the mirror image for weapon 2.
+ *
+ * LABEL-KEYED RUNS (second pass).  A run does not need a landmark at all if it
+ * OPENS at a branch target: Ghidra's LAB_00XXXXXX names ARE addresses, so such
+ * a run is anchored exactly and uniquely by construction.  Keying on the label
+ * where there is one, and only falling back to the CreateButtonWidget
+ * landmark otherwise, added 6 more sites.  Note the precedence matters and I
+ * had it backwards first: preferring the landmark reintroduces the very
+ * ambiguity the label avoids.  Runs whose key is still not unique are DROPPED
+ * rather than aborting the function, so the unambiguous runs in the same body
+ * still pair.
+ *
+ * Those 6 are all one shape, and it corroborates them: remove the other
+ * member of a pair and create this one.  case 4 removes widget 4 ("b_play_all")
+ * and creates 5 ("b_play_team"); case 5 mirrors it; and the weapon toggle
+ * removes weapon1 while creating weapon2, matching what
+ * State11_InBattle_ProcessBattleAction independently shows.
+ *
+ * 63 of 131 done.
  *
  * WHAT DOES NOT YIELD: five of the remaining callers - FUN_00445450,
  * State11_InBattle_HandleKeyInput/HandleMouseInput, HandleTurnTimeoutSlot and

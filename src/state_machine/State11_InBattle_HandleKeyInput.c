@@ -269,7 +269,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     *(undefined4 *)(g_clientContext + 0xebef0) = 0xfffffffd;
     SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     SetGuardedBool(0,GB_GUARD_UNRECOVERED);
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,1);
     CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,0);
     cVar3 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
     if ((cVar3 == '\0') || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
@@ -372,12 +372,12 @@ LAB_004b8aeb:
     }
     break;
   case 4:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,4);
     CreateButtonWidget(&DAT_00e9be90,0,5,0x3ed,s_b_play_team_00554114,0xa8,0x219,0x1d,0x10,1,0);
     *(undefined1 *)(g_clientContext + 0xebee5) = 1;
     return;
   case 5:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,5);
     CreateButtonWidget(&DAT_00e9be90,0,4,0x3ec,s_b_play_all_0055412c,0xa8,0x219,0x1d,0x10,1,0);
     *(undefined1 *)(g_clientContext + 0xebee5) = 0;
     return;
