@@ -72,9 +72,9 @@ void ApplyRoomSettings(int *param_1,int param_2)
     CreateButtonWidget(&DAT_00e9be90,0,0xb,0x3f3,s_b_ready_option_00556b30,0x13d,0xe1,0x51,0x18,0,0)
     ;
 LAB_004dabfb:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0xc);
 LAB_004dac8a:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0xd);
     break;
   case 2:
     RemoveWidget();
@@ -100,9 +100,9 @@ LAB_004dac8a:
     CreateButtonWidget(&DAT_00e9be90,0,0x15,0x3fd,s_b_ready_option_00556b30,0x193,0xe1,0x51,0x18,0,0
                       );
 LAB_004dad46:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x16);
 LAB_004dadd5:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x17);
     break;
   case 6:
     RemoveWidget();
@@ -140,7 +140,7 @@ LAB_004dadd5:
     CreateButtonWidget(&DAT_00e9be90,0,0x20,0x408,s_b_ready_option_00556b30,0x193,0xff,0x51,0x18,0,0
                       );
 LAB_004daf59:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x21);
     break;
   case 3:
     RemoveWidget();
@@ -198,7 +198,7 @@ switchD_004dafd1_default:
                        0);
     RemoveWidget();
 LAB_004db263:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x3e);
   }
   else {
     if (cVar5 == '\x01') {
@@ -252,7 +252,7 @@ LAB_004db263:
   }
   RemoveWidget();
 LAB_004db3cd:
-  RemoveWidget();
+  RemoveWidget((int)&DAT_00e9be90,0,0x49);
 switchD_004db2fc_default:
   ComputeTurnOrder();
   RefreshTeamSlotHighlights();

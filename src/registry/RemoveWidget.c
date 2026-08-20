@@ -29,7 +29,7 @@
  * the same three FindSpriteFrame takes, differing only in that the container
  * arrives in EDI rather than EAX. And as there, ECX is a PHANTOM: `mov
  * ecx,[eax+4]` at 0x405fb6 writes it before anything reads it, so Ghidra's
- * `param_1` is not an argument at all. `param_2` (EDX) is real.
+ * `param_1` is not an argument at all. `outerKey` (EDX) is real.
  *
  * What it does beyond the lookup is the tail, and it is where the "Remove"
  * came from: having found the record it clears the container's two cached
@@ -54,26 +54,61 @@
  *
  * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified.
  * See src/README.md's "Raw/verbatim ports" section for status.
- */
+ *
+ * PROMOTED (2026-08-20).  Signature is now
+ * `void RemoveWidget(int container, uint outerKey, uint innerKey)` - plain
+ * __cdecl, NOT __fastcall.  Two deliberate choices:
+ *   - Ghidra's `param_1` (ECX) IS GONE.  It was a phantom: `mov ecx,[eax+4]`
+ *     at 0x405fb6 writes ECX before anything reads it, so it was never an
+ *     argument.  Keeping it would have meant inventing a value for every
+ *     call site.
+ *   - __cdecl rather than __fastcall, for the reason FindSpriteFrame's header
+ *     sets out: __fastcall decorates the symbol with its stack-byte count, so
+ *     adding parameters renames it and breaks every not-yet-fixed caller at
+ *     link time.  __cdecl keeps `_RemoveWidget` and lets the 123 still-argless
+ *     call sites keep compiling - they read garbage off the stack exactly as
+ *     they already read garbage out of registers, so it is strictly no worse
+ *     for them and unblocks the sites that ARE fixed.
+ *
+ * 8 of the 131 call sites are recovered so far, and only where the pairing is
+ * EXACT rather than inferred: Ghidra emits `LAB_00XXXXXX:` labels whose names
+ * are real addresses, so a label immediately followed by RemoveWidget() pins
+ * that call to that VA (the label lands on the argument setup, and the call
+ * follows within a few instructions).  No ordering assumption is involved.
+ *
+ * WHY THE OTHER 123 ARE NOT DONE.  ApplyRoomSettings alone holds 55 of them
+ * and its structure defeats every cheaper method: it is a switch whose cases
+ * share tails through gotos, and Ghidra emits the case bodies in a different
+ * order from the binary - the CreateButtonWidget landmarks run
+ * ...(50),(51),(52),(53),(62),(61),(60),(70)... in the binary against
+ * ...(53),(60),(61),(62),(70)... in the source.  Aligning on those landmarks
+ * by VALUE (their key/id pairs are unique) matches 11 of 24 segments and
+ * would pair 25 calls, but every one of those rests on source order matching
+ * VA order WITHIN a segment, and this is precisely the file that proves that
+ * assumption is unsafe.  So none of the 25 were applied.
+ *
+ * The semantics are clear and will make the rest tractable: each case creates
+ * one widget of a group and removes that group's other members - create key
+ * 10 removes 11,12,13; create 20 removes 21,22,23; and so on in groups of
+ * four (0xa-0xd, 0x14-0x17, 0x1e-0x21, 0x32-0x35, 0x3c-0x3e, 0x46-0x49).
+ * Scanned register data is cached in tools/removewidget_regs.json. */
 #include "ghidra_types.h"
 
 
-void __fastcall RemoveWidget(undefined4 param_1,uint param_2)
+void RemoveWidget(int container,uint outerKey,uint innerKey)
 
 {
   int iVar1;
   uint uVar2;
   undefined4 *puVar3;
-  uint unaff_ESI;
-  int unaff_EDI;
   
-  iVar1 = *(int *)(*(int *)(unaff_EDI + 4) + 0x1c);
+  iVar1 = *(int *)(*(int *)(container + 4) + 0x1c);
   uVar2 = *(uint *)(iVar1 + 4);
-  while (uVar2 <= param_2) {
-    if (uVar2 == param_2) {
+  while (uVar2 <= outerKey) {
+    if (uVar2 == outerKey) {
       puVar3 = *(undefined4 **)(iVar1 + 0x10);
       uVar2 = puVar3[2];
-      if (uVar2 <= unaff_ESI) goto LAB_00405fd5;
+      if (uVar2 <= innerKey) goto LAB_00405fd5;
       break;
     }
     iVar1 = *(int *)(iVar1 + 0x1c);
@@ -83,18 +118,18 @@ void __fastcall RemoveWidget(undefined4 param_1,uint param_2)
   while( true ) {
     puVar3 = (undefined4 *)puVar3[4];
     uVar2 = puVar3[2];
-    if (unaff_ESI < uVar2) break;
+    if (innerKey < uVar2) break;
 LAB_00405fd5:
-    if (uVar2 == unaff_ESI) goto LAB_00405fe3;
+    if (uVar2 == innerKey) goto LAB_00405fe3;
   }
 LAB_00405fe1:
   puVar3 = (undefined4 *)0x0;
 LAB_00405fe3:
-  if (puVar3 == *(undefined4 **)(unaff_EDI + 8)) {
-    *(undefined4 *)(unaff_EDI + 8) = 0;
+  if (puVar3 == *(undefined4 **)(container + 8)) {
+    *(undefined4 *)(container + 8) = 0;
   }
-  if (puVar3 == *(undefined4 **)(unaff_EDI + 0xc)) {
-    *(undefined4 *)(unaff_EDI + 0xc) = 0;
+  if (puVar3 == *(undefined4 **)(container + 0xc)) {
+    *(undefined4 *)(container + 0xc) = 0;
   }
   if (puVar3 != (undefined4 *)0x0) {
     *(undefined4 *)(puVar3[3] + 0x10) = puVar3[4];

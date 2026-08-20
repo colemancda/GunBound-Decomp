@@ -229,7 +229,7 @@ void __fastcall DrawButtonWidget();
 void FUN_00405f00();
 void * __thiscall FUN_00405f20();
 void FUN_00405f40();
-void __fastcall RemoveWidget();
+void RemoveWidget(); /* real args (container, outerKey, innerKey); K&R-empty and __cdecl deliberately - see RemoveWidget.c */
 undefined4 HandleActiveObjectMouseDown(void *widgetRoot,int mouseX,int mouseY);
 void HandleActiveObjectMouseUp(void *widgetRoot,int mouseX,int mouseY);
 undefined4 HandleActiveObjectMouseMove(void *widgetRoot,int mouseX,int mouseY);
