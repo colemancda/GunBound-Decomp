@@ -139,9 +139,22 @@
  * lookup of frame 4, which means the window had spanned into a neighbouring
  * block.  126 of 227 sites now complete.
  *
- * This rule will keep paying out as FindSpriteFrame's own caller sweep
- * advances - the two functions unlock each other, so the order to work in is
- * FindSpriteFrame first, then re-run this.
+ * The two functions unlock each other, so the productive move is to alternate
+ * the two derivations until neither yields. RUN TO A FIXED POINT (2026-08-20)
+ * it converged after one iteration, which is the useful negative result: the
+ * mutual unlock is exhausted, and everything still open needs information
+ * neither function has - x and y coming from a caller local, or blocks where
+ * neither side is known.
+ *
+ * A last forced-pairing rule closed 2 more: where a function has exactly ONE
+ * still-incomplete variable-frame call in the source and exactly ONE
+ * disassembled site whose frame was not an immediate, the pairing has no
+ * freedom left in it.
+ *
+ * FINAL STATE for this session: 128 of 227 BlitSpriteClipped sites complete
+ * (99 open), and 102 of 192 FindSpriteFrame sites (90 open). Counts from
+ * tools/count_call_args.py, which is the only counter in this tree that gets
+ * multi-line calls and nested parentheses right.
  *
  * The frame-7 site skipped in the first instalment IS included, on different
  * evidence rather than by relaxing the rule: at 0x50afa4 both branches read x
