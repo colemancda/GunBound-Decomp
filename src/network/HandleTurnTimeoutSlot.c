@@ -1,5 +1,22 @@
 /* HandleTurnTimeoutSlot - 0x004cc1e0 in the original binary.
  *
+ * KNOWN SIGNATURE GAP (analysed 2026-08-19, deliberately NOT changed).
+ * The original is `ret 8` = TWO stack arguments plus a register one, but this
+ * declares a single parameter:
+ *   - param_2 is missing.  Its one caller already passes two arguments
+ *     (State11_InBattle_ProcessBattleAction, line ~1131), and orig 0x4cc1e6
+ *     `movzx edi,[esp+0x20]` reads the second at entry+0x8.
+ *   - EAX is a third argument, Ghidra's `in_EAX` (0x4cc1eb `mov esi,eax`).
+ *     The body reads *(in_EAX + 1), +2 and +3 - a packet payload pointer.
+ *
+ * What blocks the fix is the EAX value at the call site.  That call block
+ * (orig 0x4b7c59) is a BRANCH TARGET, so ESI there is inherited rather than
+ * set locally: the caller's prologue computes `esi = param_2 + 0x21` - a
+ * payload after a 0x21-byte header, which fits the +1/+2/+3 reads exactly -
+ * but 0x4b7c2b also does `mov esi,[ebx+0x10a0]` on another path into the same
+ * block.  Deciding which reaches the call needs per-path analysis, and
+ * guessing would hand the callee the wrong pointer.
+ *
  * Raw/near-verbatim port of Ghidra's decompiler output - not hand-
  * verified against documented behavior beyond what's already in
  * ARCHITECTURE.md/PROTOCOL.md/FILEFORMATS.md. Calls to unnamed
