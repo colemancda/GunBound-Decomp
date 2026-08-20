@@ -1,13 +1,22 @@
-/* FUN_00476510 - 0x00476510 in the original binary.
+/* InitItemShot - 0x00476510 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_00476510).  The ITEM SHOT projectile's
+ * constructor: delegates to InitProjectile with class id 100002 and installs
+ * vtable 0x555f9c.  Two independent things identify the class - SpawnItemShot's
+ * sibling SpawnItemProjectile calls it directly as its constructor (orig
+ * 0x4317eb `call 0x476510`, right after its operator_new(0x3fa8)), and slot 6
+ * of 0x555f9c is DetonateItemShot, which appears in exactly ONE vtable.
+ *
+ * The 2026-08-19 constructor-naming pass skipped this one because its unique
+ * slot carries no `_Bullet<N>` suffix to vote on; the slot is still unique, so
+ * the identification is just as firm.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00476510(void)
+undefined4 InitItemShot(void)
 
 {
   int iVar1;

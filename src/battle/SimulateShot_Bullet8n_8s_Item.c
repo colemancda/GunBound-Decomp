@@ -6,7 +6,7 @@
  * InitShot1_Bullet8 reached only through SpawnPrimaryShot's case 7; mobile type
  * 7's shot 2 (weapon index 1, texture bullet8s); vtable 0x556524, ctor
  * InitShot2_Bullet8 reached only through SpawnPrimaryShot's case 7; the item
- * projectile (texture bulletitem; vtable 0x555f9c, ctor FUN_00476510, the
+ * projectile (texture bulletitem; vtable 0x555f9c, ctor InitItemShot, the
  * only class SpawnItemProjectile builds). Type/role CONFIRMED via vtable
  * geometry (tools/projectile_class_map.py); the mobile NAME is not
  * confirmable (no mobile-type->name map in the repo).

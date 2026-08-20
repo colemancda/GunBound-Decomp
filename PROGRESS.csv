@@ -719,9 +719,9 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00475e10,32,FUN_00475e10,false,1,2,RAW-src
 00475e30,13,Mobile10_Destructor,false,1,1,RAW-src
 00475e40,1701,Mobile10_MainAction,false,1,14,RAW-src
-00476510,142,FUN_00476510,false,1,4,RAW-src
+00476510,142,InitItemShot,false,1,4,RAW-src
 004765a0,32,FUN_004765a0,false,1,2,RAW-src
-004765c0,13,FUN_004765c0,false,1,1,RAW-src
+004765c0,13,DestroyItemShot,false,1,1,RAW-src
 004765d0,2430,DetonateItemShot,false,1,31,RAW-src
 00476f50,32,FUN_00476f50,false,1,2,RAW-src
 00476f70,13,FUN_00476f70,false,1,1,RAW-src

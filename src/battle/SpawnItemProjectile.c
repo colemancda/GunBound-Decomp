@@ -38,7 +38,7 @@
  * object-relative cells land next to Encode sites the 2026-07-15 sweep
  * had already resolved to the same base by a separate trace.
  *
- * The object is EBP = the FUN_00476510 return at 0x4317eb, i.e. piVar6.
+ * The object is EBP = the InitItemShot return at 0x4317eb, i.e. piVar6.
  * guard_cell_resolve.py cannot see through that and reports every
  * EBP-based cell as `<clobbered by call at 0x4317eb>`; the offsets are
  * the ones the existing in-file Encode notes already document.
@@ -75,7 +75,7 @@ void SpawnItemProjectile(byte param_1,undefined4 param_2,int param_3,int param_4
   piVar6 = (int *)0x0;
   local_4 = 0;
   if (pvVar1 != (void *)0x0) {
-    piVar6 = (int *)FUN_00476510();
+    piVar6 = (int *)InitItemShot();
   }
   local_4 = 0xffffffff;
   ComputeShotViewBounds();
