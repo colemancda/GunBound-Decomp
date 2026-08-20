@@ -1,15 +1,17 @@
-/* FUN_004ff4a0 - 0x004ff4a0 in the original binary.
+/* CommEngineRecv - 0x004ff4a0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004ff4a0).  The FD_READ half of the comm engine:
+ * recv() with WSAGetLastError handling, called from
+ * CommEngineNotifyWndProc.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Function: __chkstk replaced with injection: alloca_probe */
 
-void __thiscall FUN_004ff4a0(int *param_1,int param_2)
+void __thiscall CommEngineRecv(int *param_1,int param_2)
 
 {
   int iVar1;

@@ -1,13 +1,19 @@
-/* FUN_004ff550 - 0x004ff550 in the original binary.
+/* CommEngineSend - 0x004ff550 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004ff550).  The FD_WRITE half of the comm engine:
+ * send() with WSAGetLastError handling, called from
+ * CommEngineNotifyWndProc.
+ *
+ * NOTE it is declared `(void)` while the original is `ret 4` plus an in_EAX
+ * register argument - a known signature gap flagged by
+ * tools/retn_signature_audit.py, not fixed here.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004ff550(void)
+void CommEngineSend(void)
 
 {
   int *piVar1;

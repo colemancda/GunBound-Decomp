@@ -1,13 +1,15 @@
-/* FUN_004fdd30 - 0x004fdd30 in the original binary.
+/* ResolveHostAddress - 0x004fdd30 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004fdd30).  Resolves a host string to an
+ * address - inet_addr first, falling back to gethostbyname - and hands the
+ * result to ConnectToHostPort.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004fdd30(undefined4 param_1,undefined4 param_2)
+undefined4 ResolveHostAddress(undefined4 param_1,undefined4 param_2)
 
 {
   char **ppcVar1;
@@ -38,7 +40,7 @@ undefined4 FUN_004fdd30(undefined4 param_1,undefined4 param_2)
     uVar6 = FUN_00504e90();
     uVar3 = *(ulong *)phVar4->h_addr_list[uVar6 % uVar8];
   }
-  uVar7 = FUN_004fe5f0(uVar3,param_2);
+  uVar7 = ConnectToHostPort(uVar3,param_2);
   return uVar7;
 }
 

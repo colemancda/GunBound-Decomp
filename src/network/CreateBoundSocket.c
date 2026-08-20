@@ -1,13 +1,18 @@
-/* FUN_004fe060 - 0x004fe060 in the original binary.
+/* CreateBoundSocket - 0x004fe060 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004fe060).  Creates a socket, bind()s it, and
+ * registers it for asynchronous notification with WSAAsyncSelect.  There is no
+ * listen() call, so this is the bound-but-not-listening socket the datagram
+ * paths (sendto/recvfrom, FUN_004feb00 and FUN_004ff770) use rather than a
+ * TCP server socket - named for what it does rather than for a role that is
+ * not proven.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004fe060(void)
+undefined4 CreateBoundSocket(void)
 
 {
   char cVar1;

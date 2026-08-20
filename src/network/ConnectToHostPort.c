@@ -1,13 +1,16 @@
-/* FUN_004fe5f0 - 0x004fe5f0 in the original binary.
+/* ConnectToHostPort - 0x004fe5f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004fe5f0).  Opens a TCP socket and connects it:
+ * socket(), htons(param_2) for the port, connect(), with WSAGetLastError and
+ * closesocket on failure.  Its parameter list already says so - `(undefined4
+ * host, u_short port)`.  Called from ResolveHostAddress.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-int FUN_004fe5f0(undefined4 param_1,u_short param_2)
+int ConnectToHostPort(undefined4 param_1,u_short param_2)
 
 {
   SOCKET s;

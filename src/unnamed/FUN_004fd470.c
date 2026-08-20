@@ -37,9 +37,9 @@ FUN_004fd470(int param_1,undefined4 param_2,undefined4 param_3,char *param_4,cha
        * `lea edx,[edi+0x1da4]` as the context. */
       FUN_005051e0((int)(param_5 - start5) - 1,param_1 + 0x1da4,start5);
     }
-    FUN_004fe060();
+    CreateBoundSocket();
     if (*(char *)(param_1 + 0x1a70) == '\0') {
-      iVar2 = FUN_004fdd30(param_1 + 4,param_3);
+      iVar2 = ResolveHostAddress(param_1 + 4,param_3);
       *(int *)(param_1 + 0x1a74) = iVar2;
       if (iVar2 == 0) {
         return 0;

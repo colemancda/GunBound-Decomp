@@ -1,8 +1,16 @@
-/* FUN_004fe6f0 - 0x004fe6f0 in the original binary.
+/* CommEngineNotifyWndProc - 0x004fe6f0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004fe6f0).  The window procedure of the comm
+ * engine's message-only window: `LRESULT __stdcall (HWND, UINT, WPARAM, uint)`,
+ * installed by CreateCommEngineNotifyWindow with
+ * SetWindowLongA(hwnd, GWL_WNDPROC, ...).  It handles exactly one message,
+ * 0x478 - the custom notification code the WSAAsyncSelect registrations ask
+ * for - and hands everything else to DefWindowProcA.  Inside it retrieves the
+ * connection through GetWindowLongA(hwnd, GWL_USERDATA) and dispatches the
+ * socket event: accept() for a pending connection, CommEngineRecv for FD_READ
+ * and CommEngineSend for FD_WRITE.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
@@ -12,7 +20,7 @@
  * Ghidra emitted __cdecl, and the install site passed the literal
  * original-binary address instead of this symbol. Same bug class as
  * FUN_004fecb0. */
-LRESULT __stdcall FUN_004fe6f0(HWND param_1,UINT param_2,WPARAM param_3,uint param_4)
+LRESULT __stdcall CommEngineNotifyWndProc(HWND param_1,UINT param_2,WPARAM param_3,uint param_4)
 
 {
   undefined4 *puVar1;
@@ -41,10 +49,10 @@ LAB_004fe749:
   }
   switch(param_4 & 0xffff) {
   case 1:
-    FUN_004ff4a0(param_4 >> 0x10);
+    CommEngineRecv(param_4 >> 0x10);
     return 0;
   case 2:
-    FUN_004ff550(LVar3);
+    CommEngineSend(LVar3);
     return 0;
   case 8:
     if (*(SOCKET *)(LVar3 + 0x1c) == param_3) {
