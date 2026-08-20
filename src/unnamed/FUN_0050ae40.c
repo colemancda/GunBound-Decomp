@@ -65,7 +65,7 @@ void __fastcall FUN_0050ae40(int param_1)
       BlitSprite16bpp(iVar4,local_94);
     }
     else {
-      BlitSpriteClipped(1);
+      BlitSpriteClipped(1,iVar4,local_94,0x2712);
     }
   }
   if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(local_84 + 0x454) + param_1)) {
@@ -192,7 +192,7 @@ LAB_0050b11f:
             BlitSprite16bpp(iVar2,local_94 + 2);
           }
           else {
-            BlitSpriteClipped(9);
+            BlitSpriteClipped(9,iVar2,local_94 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -207,7 +207,7 @@ LAB_0050b11f:
             BlitSprite16bpp(iVar2,local_94 + 2);
           }
           else {
-            BlitSpriteClipped(8);
+            BlitSpriteClipped(8,iVar2,local_94 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -234,7 +234,7 @@ LAB_0050b11f:
             BlitSprite16bpp(puVar3,local_94 + 2);
           }
           else {
-            BlitSpriteClipped(10);
+            BlitSpriteClipped(10,puVar3,local_94 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -248,7 +248,7 @@ LAB_0050b11f:
             BlitSprite16bpp(puVar3,local_94 + 2);
           }
           else {
-            BlitSpriteClipped(0xb);
+            BlitSpriteClipped(0xb,puVar3,local_94 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -277,7 +277,7 @@ LAB_0050b11f:
             BlitSprite16bpp(puVar3,unaff_EBX + 2);
           }
           else {
-            BlitSpriteClipped(0xc);
+            BlitSpriteClipped(0xc,puVar3,unaff_EBX + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -292,7 +292,7 @@ LAB_0050b11f:
             BlitSprite16bpp(puVar3,unaff_EBX + 2);
           }
           else {
-            BlitSpriteClipped(0xd);
+            BlitSpriteClipped(0xd,puVar3,unaff_EBX + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -320,7 +320,7 @@ LAB_0050b11f:
             BlitSprite16bpp(iVar2 + 0x67,unaff_EBP + 2);
           }
           else {
-            BlitSpriteClipped(0xe);
+            BlitSpriteClipped(0xe,iVar2 + 0x67,unaff_EBP + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -335,7 +335,7 @@ LAB_0050b11f:
             BlitSprite16bpp(iVar2 + 0x67,unaff_EBP + 2);
           }
           else {
-            BlitSpriteClipped(0xf);
+            BlitSpriteClipped(0xf,iVar2 + 0x67,unaff_EBP + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -363,7 +363,7 @@ LAB_0050b11f:
             BlitSprite16bpp(puVar3,unaff_ESI + 2);
           }
           else {
-            BlitSpriteClipped(0x10);
+            BlitSpriteClipped(0x10,puVar3,unaff_ESI + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -378,7 +378,7 @@ LAB_0050b11f:
             BlitSprite16bpp(puVar3,unaff_ESI + 2);
           }
           else {
-            BlitSpriteClipped(0x11);
+            BlitSpriteClipped(0x11,puVar3,unaff_ESI + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -404,7 +404,7 @@ LAB_0050b11f:
             BlitSprite16bpp((int)puVar3 * 0x19 + iVar2 + 0x67,unaff_EDI + 2);
           }
           else {
-            BlitSpriteClipped(0x12);
+            BlitSpriteClipped(0x12,(int)puVar3 * 0x19 + iVar2 + 0x67,unaff_EDI + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -418,7 +418,7 @@ LAB_0050b11f:
             BlitSprite16bpp((int)puVar3 * 0x19 + iVar2 + 0x67,unaff_EDI + 2);
           }
           else {
-            BlitSpriteClipped(0x13);
+            BlitSpriteClipped(0x13,(int)puVar3 * 0x19 + iVar2 + 0x67,unaff_EDI + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -444,7 +444,7 @@ LAB_0050b11f:
             BlitSprite16bpp(puVar1 + (int)puVar3 * 0x19 + 0xe46b,puVar9 + 2);
           }
           else {
-            BlitSpriteClipped(0x14);
+            BlitSpriteClipped(0x14,puVar1 + (int)puVar3 * 0x19 + 0xe46b,puVar9 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -458,7 +458,7 @@ LAB_0050b11f:
             BlitSprite16bpp(puVar1 + (int)puVar3 * 0x19 + 0xe46b,puVar9 + 2);
           }
           else {
-            BlitSpriteClipped(0x15);
+            BlitSpriteClipped(0x15,puVar1 + (int)puVar3 * 0x19 + 0xe46b,puVar9 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -484,7 +484,7 @@ LAB_0050b11f:
             BlitSprite16bpp(unaff_EDI + (int)puVar3 * 0x19 + 0x67,puVar8 + 2);
           }
           else {
-            BlitSpriteClipped(0x16);
+            BlitSpriteClipped(0x16,unaff_EDI + (int)puVar3 * 0x19 + 0x67,puVar8 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -498,7 +498,7 @@ LAB_0050b11f:
             BlitSprite16bpp(unaff_EDI + (int)puVar3 * 0x19 + 0x67,puVar8 + 2);
           }
           else {
-            BlitSpriteClipped(0x17);
+            BlitSpriteClipped(0x17,unaff_EDI + (int)puVar3 * 0x19 + 0x67,puVar8 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

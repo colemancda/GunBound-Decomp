@@ -59,7 +59,7 @@ void FUN_0050be20(int param_1,int param_2,int param_3)
       BlitSprite16bpp(param_2,param_3);
     }
     else {
-      BlitSpriteClipped(1);
+      BlitSpriteClipped(1,param_2,param_3,0x2712);
     }
   }
   local_88 = 0;
@@ -191,7 +191,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(param_2 + 0x99,param_3 + 2);
           }
           else {
-            BlitSpriteClipped(9);
+            BlitSpriteClipped(9,param_2 + 0x99,param_3 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -205,7 +205,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(param_2 + 0x99,param_3 + 2);
           }
           else {
-            BlitSpriteClipped(8);
+            BlitSpriteClipped(8,param_2 + 0x99,param_3 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -232,7 +232,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1,param_3 + 2);
           }
           else {
-            BlitSpriteClipped(10);
+            BlitSpriteClipped(10,iVar1,param_3 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -247,7 +247,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1,param_3 + 2);
           }
           else {
-            BlitSpriteClipped(0xb);
+            BlitSpriteClipped(0xb,iVar1,param_3 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -275,7 +275,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1,param_2 + 2);
           }
           else {
-            BlitSpriteClipped(0xc);
+            BlitSpriteClipped(0xc,iVar1,param_2 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -290,7 +290,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1,param_2 + 2);
           }
           else {
-            BlitSpriteClipped(0xd);
+            BlitSpriteClipped(0xd,iVar1,param_2 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -316,7 +316,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1 + 0x67,param_1 + 2);
           }
           else {
-            BlitSpriteClipped(0xe);
+            BlitSpriteClipped(0xe,iVar1 + 0x67,param_1 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -330,7 +330,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1 + 0x67,param_1 + 2);
           }
           else {
-            BlitSpriteClipped(0xf);
+            BlitSpriteClipped(0xf,iVar1 + 0x67,param_1 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -356,7 +356,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1 + 0x67,unaff_retaddr + 2);
           }
           else {
-            BlitSpriteClipped(0x10);
+            BlitSpriteClipped(0x10,iVar1 + 0x67,unaff_retaddr + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -370,7 +370,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1 + 0x67,unaff_retaddr + 2);
           }
           else {
-            BlitSpriteClipped(0x11);
+            BlitSpriteClipped(0x11,iVar1 + 0x67,unaff_retaddr + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -395,7 +395,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1 + 0x67,iStack_4 + 2);
           }
           else {
-            BlitSpriteClipped(0x12);
+            BlitSpriteClipped(0x12,iVar1 + 0x67,iStack_4 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -409,7 +409,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1 + 0x67,iStack_4 + 2);
           }
           else {
-            BlitSpriteClipped(0x13);
+            BlitSpriteClipped(0x13,iVar1 + 0x67,iStack_4 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -434,7 +434,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1 + 0x67,iStack_8 + 2);
           }
           else {
-            BlitSpriteClipped(0x14);
+            BlitSpriteClipped(0x14,iVar1 + 0x67,iStack_8 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -448,7 +448,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1 + 0x67,iStack_8 + 2);
           }
           else {
-            BlitSpriteClipped(0x15);
+            BlitSpriteClipped(0x15,iVar1 + 0x67,iStack_8 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -473,7 +473,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1 + 0x67,iStack_10 + 2);
           }
           else {
-            BlitSpriteClipped(0x16);
+            BlitSpriteClipped(0x16,iVar1 + 0x67,iStack_10 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -487,7 +487,7 @@ LAB_0050c0b2:
             BlitSprite16bpp(iVar1 + 0x67,iStack_10 + 2);
           }
           else {
-            BlitSpriteClipped(0x17);
+            BlitSpriteClipped(0x17,iVar1 + 0x67,iStack_10 + 2,0x2713);
           }
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

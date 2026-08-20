@@ -68,6 +68,60 @@
  * migrated) call site updated to pass its real key - see each site's own
  * recovery. functions.h stays K&R-empty so the ~290 still-2-arg
  * (frame not yet even recovered) call sites keep compiling unchanged.
+ *
+ * CALLING CONVENTION RECOVERED (2026-08-20).  The original is __cdecl (`ret`,
+ * not `ret N`) with ONE stack argument and THREE register ones, and the entry
+ * pins every role:
+ *     mov esi,[esp+0x10] / test esi,esi / jl <exit>   the stack arg is FRAME
+ *                                                     (the `-1 < frame` test)
+ *     mov edi,eax        then  add edi,[frame+0x2c]   EAX is Y
+ *     mov ebx,ecx        then  add ebx,[frame+0x28]   ECX is X
+ *     (edx untouched before)  call FindSpriteFrame    EDX is OUTERKEY
+ * matching this port's own (frame, x, y, outerKey) parameter order.
+ *
+ * Scanning all 217 direct call sites: FRAME is an immediate at 190 and
+ * OUTERKEY at 198, but X and Y almost always come from a caller local.
+ * Cached in tools/blitspriteclipped_regs.json.
+ *
+ * WHERE X AND Y ACTUALLY COME FROM.  180 of the 217 sites sit in one shape:
+ *     if (FindSpriteFrame(...)) {
+ *       if (frame->flags == 1) BlitSprite16bpp(A, B);
+ *       else                   BlitSpriteClipped(F);
+ *     }
+ * Both branches receive the SAME x and y - the if-branch through the stack,
+ * where Ghidra modelled them, and the else-branch through ECX/EAX, where it
+ * did not.  So the sibling call already carries the expressions this one
+ * needs, and no new analysis is required to recover them.
+ *
+ * TRAP - A BACKWARD SCAN CROSSES BRANCH BOUNDARIES.  Reading back from the
+ * else-branch call for "the last instruction that writes EAX" walks straight
+ * into the IF-branch and reports `mov eax,esi` (the frame), when the real
+ * incoming EAX is whatever the value was at the branch point - the Y computed
+ * before the test.  It looks authoritative and it is wrong at 16 of the 19
+ * sites in FUN_0050ae40.c alone.  ECX, EDX and the pushed frame ARE reliable,
+ * because they are set inside the else-branch itself.  This is the same
+ * inherited-across-a-branch-target hazard already recorded for
+ * HandleTurnTimeoutSlot.
+ *
+ * FIRST INSTALMENT: 34 sites in FUN_0050ae40.c and FUN_0050be20.c, 17 each.
+ * X and Y lifted from the sibling BlitSprite16bpp; FRAME and OUTERKEY from
+ * the disassembly.  Every one is cross-checked: the OUTERKEY recovered here
+ * must equal the outerKey of the FindSpriteFrame call in the SAME block,
+ * since that is the value this function forwards to it.  All 34 agree.
+ *
+ * The one site per file that is skipped (frame 7) is skipped for a real
+ * reason, not a tooling gap: the compiler INLINED the lookup there - the
+ * `while (true) { p = *(p+0x10); k = *(p+8); ... }` walk in the caller is
+ * FindSpriteFrame's own inner-list loop - so there is no call to cross-check
+ * against, and it was left alone rather than applied unverified.
+ *
+ * SEPARATE DEFECT FOUND, NOT FIXED HERE: the sibling BlitSprite16bpp call
+ * sites are MISALIGNED BY ONE SLOT.  Its real arguments are EAX=frame,
+ * stack1=x, stack2=y, EDX=outerKey, but the C calls it as
+ * `BlitSprite16bpp(x, y)`, which fills its declared (frame, param_1) - so an
+ * X COORDINATE is being passed as the frame index that its own body hands to
+ * FindSpriteFrame.  That affects its whole call fan-out and needs its own
+ * sweep.
  */
 #include "ghidra_types.h"
 #include <windows.h>

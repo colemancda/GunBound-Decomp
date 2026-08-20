@@ -1,0 +1,1738 @@
+[
+ {
+  "va": "00405ee5",
+  "func": "DrawButtonWidget",
+  "frame": 5578328,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, dword ptr [ecx + 0x18]"
+ },
+ {
+  "va": "00408280",
+  "func": "State11_InBattle_RenderPlayerRoster",
+  "frame": 226,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "00408634",
+  "func": "State11_InBattle_RenderPlayerRoster",
+  "frame": 569,
+  "eax": "mov eax, 0x239",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004086e1",
+  "func": "State11_InBattle_RenderPlayerRoster",
+  "frame": 199,
+  "eax": "mov eax, 0x239",
+  "ecx": "mov ecx, 0x2e6",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004087b3",
+  "func": "State11_InBattle_RenderPlayerRoster",
+  "frame": 569,
+  "eax": "mov eax, 0x239",
+  "ecx": "mov ecx, esi",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "00408918",
+  "func": "State11_InBattle_RenderPlayerRoster",
+  "frame": 569,
+  "eax": "mov eax, 0x239",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004089c5",
+  "func": "State11_InBattle_RenderPlayerRoster",
+  "frame": 199,
+  "eax": "mov eax, 0x239",
+  "ecx": "mov ecx, 0x2ac",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "00408a93",
+  "func": "State11_InBattle_RenderPlayerRoster",
+  "frame": 569,
+  "eax": "mov eax, 0x239",
+  "ecx": "mov ecx, esi",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "00408b78",
+  "func": "State11_InBattle_RenderPlayerRoster",
+  "frame": 199,
+  "eax": "mov eax, 0x239",
+  "ecx": "mov ecx, 0x2e6",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004094d2",
+  "func": "State11_InBattle_RenderPlayerRoster",
+  "frame": 6,
+  "eax": "mov eax, dword ptr [esp + 0x28]",
+  "ecx": "mov ecx, 6",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "00409559",
+  "func": "State11_InBattle_RenderPlayerRoster",
+  "frame": 19,
+  "eax": "mov eax, dword ptr [esp + 0x28]",
+  "ecx": "mov ecx, 0x13",
+  "edx": "mov edx, 0x65"
+ },
+ {
+  "va": "004098cb",
+  "func": "State11_InBattle_RenderPlayerRoster",
+  "frame": null,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, dword ptr [ecx + 8]"
+ },
+ {
+  "va": "0040996a",
+  "func": "State11_InBattle_RenderPlayerRoster",
+  "frame": 3,
+  "eax": "mov eax, 0x239",
+  "ecx": "mov ecx, dword ptr [edx + 0xebee8]",
+  "edx": "mov edx, 0x1b58"
+ },
+ {
+  "va": "004138db",
+  "func": "GameTick",
+  "frame": 249,
+  "eax": "mov eax, 0xc1",
+  "ecx": "mov ecx, 0xf9",
+  "edx": "mov edx, 0x384"
+ },
+ {
+  "va": "004139b6",
+  "func": "GameTick",
+  "frame": 764,
+  "eax": "mov eax, 8",
+  "ecx": "mov ecx, 0x2fc",
+  "edx": "mov edx, 0x190"
+ },
+ {
+  "va": "00413a0f",
+  "func": "GameTick",
+  "frame": 764,
+  "eax": "mov eax, dword ptr [0x56d110]",
+  "ecx": "mov ecx, dword ptr [0x56d10c]",
+  "edx": "xor edx, edx"
+ },
+ {
+  "va": "0041bdaf",
+  "func": "FUN_0041bce0",
+  "frame": 36,
+  "eax": "mov eax, ebp",
+  "ecx": "mov ecx, 0x24",
+  "edx": "mov edx, 0x34"
+ },
+ {
+  "va": "00429855",
+  "func": "State03_GameRoomList_RenderRoomLabel",
+  "frame": 15023168,
+  "eax": "xor eax, eax",
+  "ecx": "xor ecx, ecx",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "004298ad",
+  "func": "State03_GameRoomList_RenderRoomLabel",
+  "frame": 172,
+  "eax": "mov eax, 9",
+  "ecx": "mov ecx, 0xac",
+  "edx": "mov edx, 0x64"
+ },
+ {
+  "va": "0042a2ac",
+  "func": "RenderRoomCard",
+  "frame": null,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "0042a30c",
+  "func": "RenderRoomCard",
+  "frame": 14,
+  "eax": "mov eax, ebx",
+  "ecx": "lea ecx, [ebp + 0xb1]",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "0042a37d",
+  "func": "RenderRoomCard",
+  "frame": 14,
+  "eax": "mov eax, ebx",
+  "ecx": "lea ecx, [ebp + 0xc3]",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "0042a3ea",
+  "func": "RenderRoomCard",
+  "frame": null,
+  "eax": "mov eax, ebx",
+  "ecx": "lea ecx, [ebp + 0xd2]",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "0042a45d",
+  "func": "RenderRoomCard",
+  "frame": null,
+  "eax": "mov eax, ebx",
+  "ecx": "lea ecx, [ebp + 0x6a]",
+  "edx": "mov edx, 0x2716"
+ },
+ {
+  "va": "0042a4dc",
+  "func": "RenderRoomCard",
+  "frame": null,
+  "eax": "mov eax, ebx",
+  "ecx": "lea ecx, [ebp + 0x13]",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "0042a561",
+  "func": "RenderRoomCard",
+  "frame": 15,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, dword ptr [esp + 0x10]",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "0042a65e",
+  "func": "RenderRoomCard",
+  "frame": 65535,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "0042a709",
+  "func": "FUN_0042a680",
+  "frame": null,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "0042a76f",
+  "func": "FUN_0042a680",
+  "frame": 14,
+  "eax": "mov eax, ebx",
+  "ecx": "lea ecx, [ebp + 0xb1]",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "0042a7d6",
+  "func": "FUN_0042a680",
+  "frame": 14,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "0042a83a",
+  "func": "FUN_0042a680",
+  "frame": null,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "0042a89f",
+  "func": "FUN_0042a680",
+  "frame": null,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2716"
+ },
+ {
+  "va": "0042a92f",
+  "func": "FUN_0042a680",
+  "frame": null,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "0042a9b9",
+  "func": "FUN_0042a680",
+  "frame": 15,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "0042aac7",
+  "func": "FUN_0042a680",
+  "frame": 65535,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "004422c7",
+  "func": "State10_Loading_Render",
+  "frame": 0,
+  "eax": "xor eax, eax",
+  "ecx": "xor ecx, ecx",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "00442320",
+  "func": "State10_Loading_Render",
+  "frame": 23,
+  "eax": "mov eax, 0x10c",
+  "ecx": "mov ecx, 0x243",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "004423ad",
+  "func": "State10_Loading_Render",
+  "frame": 22,
+  "eax": "mov eax, 0x237",
+  "ecx": "mov ecx, 0x6b",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "00442417",
+  "func": "State10_Loading_Render",
+  "frame": 26,
+  "eax": "mov eax, 0x12",
+  "ecx": "mov ecx, 0x1a",
+  "edx": "mov edx, 0x2711"
+ },
+ {
+  "va": "004425d2",
+  "func": "State10_Loading_Render",
+  "frame": 268,
+  "eax": "mov eax, 0xe",
+  "ecx": "mov ecx, dword ptr [esp + 0x10]",
+  "edx": "mov edx, 0x32"
+ },
+ {
+  "va": "00442788",
+  "func": "State10_Loading_Render",
+  "frame": 5935208,
+  "eax": "mov eax, ebp",
+  "ecx": "add ecx, 0x1a",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "004428e3",
+  "func": "State10_Loading_Render",
+  "frame": 279,
+  "eax": "mov eax, 0x117",
+  "ecx": "mov ecx, esi",
+  "edx": "mov edx, 0x32"
+ },
+ {
+  "va": "00442d37",
+  "func": "State10_Loading_Render",
+  "frame": 0,
+  "eax": "mov eax, 0x12",
+  "ecx": "mov ecx, 0x1a",
+  "edx": "mov edx, 0x2712"
+ },
+ {
+  "va": "00442eab",
+  "func": "FUN_00442e00",
+  "frame": 615,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, 0x267",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "00442f21",
+  "func": "FUN_00442e00",
+  "frame": 3,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, 0x2f3",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "00442f9c",
+  "func": "FUN_00442e00",
+  "frame": 626,
+  "eax": "mov eax, ebp",
+  "ecx": "mov ecx, 0x272",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "00442ff2",
+  "func": "FUN_00442e00",
+  "frame": 656,
+  "eax": "mov eax, ebp",
+  "ecx": "mov ecx, 0x290",
+  "edx": "mov edx, 0x64"
+ },
+ {
+  "va": "004430a8",
+  "func": "FUN_00442e00",
+  "frame": 589,
+  "eax": "mov eax, ebp",
+  "ecx": "mov ecx, 0x24d",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "004433a9",
+  "func": "State06_Logo2_OnTick",
+  "frame": 0,
+  "eax": "xor eax, eax",
+  "ecx": "xor ecx, ecx",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "004435a7",
+  "func": "RenderScreenBackdrop",
+  "frame": null,
+  "eax": "xor eax, eax",
+  "ecx": "xor ecx, ecx",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "00448482",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": null,
+  "eax": "xor eax, eax",
+  "ecx": "xor ecx, ecx",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "004484db",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": 172,
+  "eax": "mov eax, 9",
+  "ecx": "mov ecx, 0xac",
+  "edx": "mov edx, 0x64"
+ },
+ {
+  "va": "004488db",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": 0,
+  "eax": "mov eax, 0xc1",
+  "ecx": "mov ecx, 0x7a",
+  "edx": "mov edx, 0x2714"
+ },
+ {
+  "va": "004489af",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": 7,
+  "eax": "mov eax, 0x9c",
+  "ecx": "mov ecx, 0x8b",
+  "edx": "mov edx, 0x2714"
+ },
+ {
+  "va": "00448a2d",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": 0,
+  "eax": "mov eax, 0xf4",
+  "ecx": "mov ecx, 0xd1",
+  "edx": "add edx, 0x4e20"
+ },
+ {
+  "va": "00448b7f",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": 3,
+  "eax": "mov eax, 0xc1",
+  "ecx": "mov ecx, 0x7a",
+  "edx": "mov edx, 0x2714"
+ },
+ {
+  "va": "00448c07",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": 238,
+  "eax": "mov eax, 0xec",
+  "ecx": "mov ecx, 0xee",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "00448cc1",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": 386,
+  "eax": "mov eax, 0xec",
+  "ecx": "mov ecx, 0x182",
+  "edx": "mov edx, 0x2714"
+ },
+ {
+  "va": "00448d3c",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": 0,
+  "eax": "mov eax, 0x11b",
+  "ecx": "mov ecx, 0xbc",
+  "edx": "mov edx, 0x7530"
+ },
+ {
+  "va": "00448e1b",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": 4,
+  "eax": "mov eax, 0xc1",
+  "ecx": "mov ecx, 0x7a",
+  "edx": "mov edx, 0x2714"
+ },
+ {
+  "va": "00448e9f",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": 238,
+  "eax": "mov eax, 0xec",
+  "ecx": "mov ecx, 0xee",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "00448f73",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": 386,
+  "eax": "mov eax, 0xec",
+  "ecx": "mov ecx, 0x182",
+  "edx": "mov edx, 0x2714"
+ },
+ {
+  "va": "00448fee",
+  "func": "State07_AvatarStore_RenderStoreContent",
+  "frame": 0,
+  "eax": "mov eax, 0x11b",
+  "ecx": "mov ecx, 0xbc",
+  "edx": "mov edx, 0x9c40"
+ },
+ {
+  "va": "0044a09e",
+  "func": "FUN_0044a000",
+  "frame": 5935208,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, 0x2711"
+ },
+ {
+  "va": "0044a10f",
+  "func": "FUN_0044a000",
+  "frame": 5935208,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 7]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044a1b6",
+  "func": "FUN_0044a000",
+  "frame": 3,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2711"
+ },
+ {
+  "va": "0044a278",
+  "func": "FUN_0044a000",
+  "frame": 8,
+  "eax": "mov eax, edi",
+  "ecx": "lea ecx, [ebp + 9]",
+  "edx": "mov edx, 0x2711"
+ },
+ {
+  "va": "0044a305",
+  "func": "FUN_0044a000",
+  "frame": 0,
+  "eax": "mov eax, edi",
+  "ecx": "lea ecx, [ebp + 0x34]",
+  "edx": "lea edx, [ebx + 0x4e20]"
+ },
+ {
+  "va": "0044a3b9",
+  "func": "FUN_0044a000",
+  "frame": 9,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044a41a",
+  "func": "FUN_0044a000",
+  "frame": 8,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044a51e",
+  "func": "FUN_0044a000",
+  "frame": 10,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044a589",
+  "func": "FUN_0044a000",
+  "frame": 11,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044a685",
+  "func": "FUN_0044a000",
+  "frame": 12,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044a6f0",
+  "func": "FUN_0044a000",
+  "frame": 13,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044a7ec",
+  "func": "FUN_0044a000",
+  "frame": 14,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044a857",
+  "func": "FUN_0044a000",
+  "frame": 15,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044a953",
+  "func": "FUN_0044a000",
+  "frame": 16,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044a9be",
+  "func": "FUN_0044a000",
+  "frame": 17,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044aaba",
+  "func": "FUN_0044a000",
+  "frame": 18,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044ab25",
+  "func": "FUN_0044a000",
+  "frame": 19,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044ac21",
+  "func": "FUN_0044a000",
+  "frame": 20,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044ac8c",
+  "func": "FUN_0044a000",
+  "frame": 21,
+  "eax": "mov eax, esi",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044ad8a",
+  "func": "FUN_0044a000",
+  "frame": 22,
+  "eax": "mov eax, ebx",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044adf7",
+  "func": "FUN_0044a000",
+  "frame": 23,
+  "eax": "mov eax, ebx",
+  "ecx": "lea ecx, [ebp + 0x68]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0044af57",
+  "func": "FUN_0044a000",
+  "frame": 6,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2711"
+ },
+ {
+  "va": "0044b08c",
+  "func": "FUN_0044a000",
+  "frame": 7,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, 0x2711"
+ },
+ {
+  "va": "0044c4de",
+  "func": "FUN_0044c460",
+  "frame": null,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, edi"
+ },
+ {
+  "va": "0044c566",
+  "func": "FUN_0044c460",
+  "frame": null,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, edi"
+ },
+ {
+  "va": "0045016e",
+  "func": "FUN_0044fff0",
+  "frame": 1,
+  "eax": "mov eax, ebp",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2719"
+ },
+ {
+  "va": "004501ec",
+  "func": "FUN_0044fff0",
+  "frame": 6,
+  "eax": "mov eax, dword ptr [esp + 0x10]",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2719"
+ },
+ {
+  "va": "0045028e",
+  "func": "FUN_0044fff0",
+  "frame": 3,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2719"
+ },
+ {
+  "va": "0045030c",
+  "func": "FUN_0044fff0",
+  "frame": 4,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, dword ptr [esp + 0x14]",
+  "edx": "mov edx, 0x2719"
+ },
+ {
+  "va": "00450391",
+  "func": "FUN_0044fff0",
+  "frame": 0,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x2719"
+ },
+ {
+  "va": "00450413",
+  "func": "FUN_0044fff0",
+  "frame": 2,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, dword ptr [esp + 0x14]",
+  "edx": "mov edx, 0x2719"
+ },
+ {
+  "va": "004504c9",
+  "func": "FUN_0044fff0",
+  "frame": 5,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x2719"
+ },
+ {
+  "va": "0045051d",
+  "func": "FUN_0044fff0",
+  "frame": 7,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, dword ptr [esp + 0x14]",
+  "edx": "mov edx, 0x2719"
+ },
+ {
+  "va": "00450591",
+  "func": "FUN_0044fff0",
+  "frame": 8,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, dword ptr [esp + 0x18]",
+  "edx": "mov edx, 0x2719"
+ },
+ {
+  "va": "0046882d",
+  "func": "FUN_00468620",
+  "frame": 237,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "00471f6d",
+  "func": "DrawFlameEffect",
+  "frame": 248,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "00477a7b",
+  "func": "FUN_00477930",
+  "frame": 5935208,
+  "eax": "mov eax, dword ptr [esp + 0x10]",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x1900"
+ },
+ {
+  "va": "0048dca8",
+  "func": "ExplodeSuperShot_Bullet2",
+  "frame": null,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x1e14"
+ },
+ {
+  "va": "004ac0d7",
+  "func": "FUN_004abcc0",
+  "frame": 287,
+  "eax": "mov eax, dword ptr [esp + 0x10]",
+  "ecx": "lea ecx, [ebx + 0x28]",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004b3ebb",
+  "func": "FUN_004b3e60",
+  "frame": 0,
+  "eax": "mov eax, 0x17d",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x38e"
+ },
+ {
+  "va": "004b3f0e",
+  "func": "FUN_004b3e60",
+  "frame": 396,
+  "eax": "mov eax, 0x18c",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x64"
+ },
+ {
+  "va": "004c89ac",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 20,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, 0x14",
+  "edx": "mov edx, 0x34"
+ },
+ {
+  "va": "004c8d0c",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 36,
+  "eax": "mov eax, 0x24",
+  "ecx": "add ecx, 0x190",
+  "edx": "mov edx, 0x2328"
+ },
+ {
+  "va": "004c8e20",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 36,
+  "eax": "mov eax, 0x24",
+  "ecx": "add ecx, 0x190",
+  "edx": "mov edx, 0x2328"
+ },
+ {
+  "va": "004c930e",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 36,
+  "eax": "mov eax, 0x24",
+  "ecx": "add ecx, 0x190",
+  "edx": "mov edx, 0x1b58"
+ },
+ {
+  "va": "004c970c",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 36,
+  "eax": "mov eax, 0x24",
+  "ecx": "add ecx, 0x190",
+  "edx": "mov edx, 0x1b58"
+ },
+ {
+  "va": "004c9b0a",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 36,
+  "eax": "mov eax, 0x24",
+  "ecx": "add ecx, 0x190",
+  "edx": "mov edx, 0x1b58"
+ },
+ {
+  "va": "004c9dba",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 0,
+  "eax": "mov eax, 0x2d",
+  "ecx": "mov ecx, 8",
+  "edx": "mov edx, dword ptr [0x79352c]"
+ },
+ {
+  "va": "004c9ef1",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 113,
+  "eax": "mov eax, 0x72",
+  "ecx": "mov ecx, 0x71",
+  "edx": "mov edx, 0x3f3"
+ },
+ {
+  "va": "004ca0d9",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 239,
+  "eax": "mov eax, 0xa8",
+  "ecx": "mov ecx, 0xef",
+  "edx": "mov edx, 0x3f3"
+ },
+ {
+  "va": "004ca1d4",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 35,
+  "eax": "mov eax, 0xda",
+  "ecx": "mov ecx, 0x23",
+  "edx": "mov edx, 0x3f3"
+ },
+ {
+  "va": "004ca3b3",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 239,
+  "eax": "mov eax, 0xf8",
+  "ecx": "mov ecx, 0xef",
+  "edx": "mov edx, 0x3f3"
+ },
+ {
+  "va": "004ca592",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 239,
+  "eax": "mov eax, 0x112",
+  "ecx": "mov ecx, 0xef",
+  "edx": "mov edx, 0x3f3"
+ },
+ {
+  "va": "004ca72a",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 198,
+  "eax": "mov eax, 0x144",
+  "ecx": "mov ecx, 0xc6",
+  "edx": "mov edx, 0x3f3"
+ },
+ {
+  "va": "004ca7c3",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 35,
+  "eax": "mov eax, 0x176",
+  "ecx": "mov ecx, 0x23",
+  "edx": "mov edx, 0x3f3"
+ },
+ {
+  "va": "004ca852",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 219,
+  "eax": "mov eax, 0x176",
+  "ecx": "mov ecx, 0xdb",
+  "edx": "mov edx, 0x3f3"
+ },
+ {
+  "va": "004ca8a8",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 14,
+  "eax": "mov eax, 0x1e0",
+  "ecx": "mov ecx, 0xde",
+  "edx": "mov edx, 0x1b58"
+ },
+ {
+  "va": "004ca950",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 174,
+  "eax": "mov eax, 0x1e0",
+  "ecx": "mov ecx, 0xde",
+  "edx": "mov edx, 0x1b58"
+ },
+ {
+  "va": "004caacb",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 24,
+  "eax": "mov eax, 0x30",
+  "ecx": "mov ecx, 0x18",
+  "edx": "mov edx, 0x2329"
+ },
+ {
+  "va": "004cac69",
+  "func": "State11_InBattle_RenderHud",
+  "frame": 403,
+  "eax": "mov eax, 0x30",
+  "ecx": "mov ecx, 0x193",
+  "edx": "mov edx, 0x2329"
+ },
+ {
+  "va": "004d02d9",
+  "func": "FUN_004d0260",
+  "frame": 506,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x2329"
+ },
+ {
+  "va": "004d033e",
+  "func": "FUN_004d0260",
+  "frame": null,
+  "eax": "mov eax, ebx",
+  "ecx": "add ecx, 0x29",
+  "edx": "mov edx, 0x64"
+ },
+ {
+  "va": "004d054f",
+  "func": "FUN_004d0260",
+  "frame": 102,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004d05e9",
+  "func": "FUN_004d0260",
+  "frame": null,
+  "eax": "mov eax, edi",
+  "ecx": "add ecx, 0x119",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004d075e",
+  "func": "FUN_004d0260",
+  "frame": null,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, dword ptr [ecx + 8]"
+ },
+ {
+  "va": "004d07f9",
+  "func": "FUN_004d0260",
+  "frame": null,
+  "eax": "mov eax, edi",
+  "ecx": "add ecx, 0x112",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004d09a5",
+  "func": "FUN_004d0260",
+  "frame": null,
+  "eax": "mov eax, edi",
+  "ecx": "add ecx, 0x117",
+  "edx": "mov edx, 0x2329"
+ },
+ {
+  "va": "004d7e2b",
+  "func": "State09_ReadyRoom_RenderRosterAndItems",
+  "frame": 5488332,
+  "eax": "xor eax, eax",
+  "ecx": "xor ecx, ecx",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "004d8055",
+  "func": "State09_ReadyRoom_RenderRosterAndItems",
+  "frame": 10,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004d8177",
+  "func": "State09_ReadyRoom_RenderRosterAndItems",
+  "frame": 10,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004d8250",
+  "func": "State09_ReadyRoom_RenderRosterAndItems",
+  "frame": 10,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004d8395",
+  "func": "State09_ReadyRoom_RenderRosterAndItems",
+  "frame": 10,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004d8446",
+  "func": "State09_ReadyRoom_RenderRosterAndItems",
+  "frame": 10,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x1f4"
+ },
+ {
+  "va": "004d8510",
+  "func": "State09_ReadyRoom_RenderRosterAndItems",
+  "frame": 332,
+  "eax": "mov eax, 0x33",
+  "ecx": "mov ecx, 0x14c",
+  "edx": "mov edx, 0x2711"
+ },
+ {
+  "va": "004d8625",
+  "func": "State09_ReadyRoom_RenderRosterAndItems",
+  "frame": null,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, edi",
+  "edx": "add edx, 0x2713"
+ },
+ {
+  "va": "004d87c7",
+  "func": "State09_ReadyRoom_RenderRosterAndItems",
+  "frame": 364,
+  "eax": "mov eax, 0x16c",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x2716"
+ },
+ {
+  "va": "004d8962",
+  "func": "State09_ReadyRoom_RenderRosterAndItems",
+  "frame": 364,
+  "eax": "mov eax, 0x16c",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, 0x2715"
+ },
+ {
+  "va": "004d8afa",
+  "func": "State09_ReadyRoom_RenderRosterAndItems",
+  "frame": 378,
+  "eax": "mov eax, 0x186",
+  "ecx": "mov ecx, 0x17a",
+  "edx": "mov edx, 0x2712"
+ },
+ {
+  "va": "004d9b63",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 9,
+  "eax": "mov eax, 0x1e5",
+  "ecx": "mov ecx, 0x23b",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "004d9bdf",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 9,
+  "eax": "mov eax, 0x1e5",
+  "ecx": "mov ecx, 0x23b",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "004d9c46",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 0,
+  "eax": "mov eax, 0x164",
+  "ecx": "xor ecx, ecx",
+  "edx": "mov edx, 0x2717"
+ },
+ {
+  "va": "004d9cd8",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 1,
+  "eax": "mov eax, 0x16d",
+  "ecx": "mov ecx, 0x261",
+  "edx": "mov edx, 0x2717"
+ },
+ {
+  "va": "004d9d36",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 0,
+  "eax": "mov eax, 0x17f",
+  "ecx": "mov ecx, 0x1a",
+  "edx": "mov edx, 0x2718"
+ },
+ {
+  "va": "004d9e54",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 5935208,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, 0x2717"
+ },
+ {
+  "va": "004d9f90",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 317,
+  "eax": "mov eax, 0xe1",
+  "ecx": "mov ecx, 0x13d",
+  "edx": "mov edx, 0x2717"
+ },
+ {
+  "va": "004da020",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 403,
+  "eax": "mov eax, 0xe1",
+  "ecx": "mov ecx, 0x193",
+  "edx": "mov edx, 0x2717"
+ },
+ {
+  "va": "004da0a8",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 317,
+  "eax": "mov eax, 0x11d",
+  "ecx": "mov ecx, 0x13d",
+  "edx": "mov edx, 0x2717"
+ },
+ {
+  "va": "004da130",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 403,
+  "eax": "mov eax, 0xff",
+  "ecx": "mov ecx, 0x193",
+  "edx": "mov edx, 0x2717"
+ },
+ {
+  "va": "004da1da",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 403,
+  "eax": "mov eax, 0x11d",
+  "ecx": "mov ecx, 0x193",
+  "edx": "mov edx, 0x2717"
+ },
+ {
+  "va": "004da27e",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 317,
+  "eax": "mov eax, 0xff",
+  "ecx": "mov ecx, 0x13d",
+  "edx": "mov edx, 0x2717"
+ },
+ {
+  "va": "004da2ec",
+  "func": "State09_ReadyRoom_RenderStatusOverlay",
+  "frame": 0,
+  "eax": "mov eax, 0x164",
+  "ecx": "xor ecx, ecx",
+  "edx": "mov edx, 0x271a"
+ },
+ {
+  "va": "004dbc00",
+  "func": "RenderPlayerNameplate",
+  "frame": 7,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "004dbd16",
+  "func": "RenderPlayerNameplate",
+  "frame": 6,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2710"
+ },
+ {
+  "va": "004e2bc1",
+  "func": "FUN_004e2b20",
+  "frame": 262,
+  "eax": "mov eax, 0x1df",
+  "ecx": "mov ecx, 0x106",
+  "edx": "mov edx, 0x2328"
+ },
+ {
+  "va": "004e2ec5",
+  "func": "FUN_004e2b20",
+  "frame": 269,
+  "eax": "mov eax, 0x1f4",
+  "ecx": "mov ecx, 0x10d",
+  "edx": "mov edx, 0x2328"
+ },
+ {
+  "va": "004e31c8",
+  "func": "FUN_004e2b20",
+  "frame": 297,
+  "eax": "mov eax, 0x1f4",
+  "ecx": "mov ecx, 0x129",
+  "edx": "mov edx, 0x2328"
+ },
+ {
+  "va": "004e34d6",
+  "func": "FUN_004e2b20",
+  "frame": 325,
+  "eax": "mov eax, 0x1f4",
+  "ecx": "mov ecx, 0x145",
+  "edx": "mov edx, 0x2328"
+ },
+ {
+  "va": "004eb8c7",
+  "func": "DrawSprite",
+  "frame": null,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, eax"
+ },
+ {
+  "va": "004eda75",
+  "func": "BlitSpriteText",
+  "frame": null,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, edi",
+  "edx": "mov edx, esi"
+ },
+ {
+  "va": "0050540c",
+  "func": "Label_OnMouseDown",
+  "frame": null,
+  "eax": "mov eax, ebp",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, dword ptr [edi + 0x3c]"
+ },
+ {
+  "va": "00505506",
+  "func": "Widget_DrawSelf",
+  "frame": 1,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, dword ptr [edi + 0x44]"
+ },
+ {
+  "va": "00505f7e",
+  "func": "FUN_00505f10",
+  "frame": 1,
+  "eax": "mov eax, ebx",
+  "ecx": "lea ecx, [ebp - 6]",
+  "edx": "mov edx, dword ptr [eax + 0x44]"
+ },
+ {
+  "va": "00505fca",
+  "func": "FUN_00505f10",
+  "frame": 1,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, 0x64"
+ },
+ {
+  "va": "005061c2",
+  "func": "FUN_00505f10",
+  "frame": 6,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, 0x2bc"
+ },
+ {
+  "va": "0050693e",
+  "func": "FUN_005068e0",
+  "frame": 2147942487,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050757b",
+  "func": "RenderChannelUserRow",
+  "frame": 2,
+  "eax": "mov eax, ebp",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x12c"
+ },
+ {
+  "va": "005075f8",
+  "func": "RenderChannelUserRow",
+  "frame": 2,
+  "eax": "mov eax, ebp",
+  "ecx": "add ecx, 0x27",
+  "edx": "mov edx, 0x64"
+ },
+ {
+  "va": "005079e2",
+  "func": "FUN_005078f0",
+  "frame": null,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, 0x34"
+ },
+ {
+  "va": "0050ac89",
+  "func": "FUN_0050a980",
+  "frame": 5935208,
+  "eax": "mov eax, ebp",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050ae2c",
+  "func": "FUN_0050a980",
+  "frame": 2,
+  "eax": "mov eax, 0x23",
+  "ecx": "mov ecx, 0x292",
+  "edx": "mov edx, 0x2712"
+ },
+ {
+  "va": "0050aeda",
+  "func": "FUN_0050ae40",
+  "frame": 1,
+  "eax": "mov eax, dword ptr [esp + 0x10]",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2712"
+ },
+ {
+  "va": "0050afca",
+  "func": "FUN_0050ae40",
+  "frame": 7,
+  "eax": "mov eax, 7",
+  "ecx": "mov ecx, dword ptr [esp + 0x1c]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050b117",
+  "func": "FUN_0050ae40",
+  "frame": 5935208,
+  "eax": "mov eax, esi",
+  "ecx": "add ecx, 6",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050b260",
+  "func": "FUN_0050ae40",
+  "frame": 9,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050b2d5",
+  "func": "FUN_0050ae40",
+  "frame": 8,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050b3ed",
+  "func": "FUN_0050ae40",
+  "frame": 10,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050b451",
+  "func": "FUN_0050ae40",
+  "frame": 11,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050b568",
+  "func": "FUN_0050ae40",
+  "frame": 12,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050b5e7",
+  "func": "FUN_0050ae40",
+  "frame": 13,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050b6fa",
+  "func": "FUN_0050ae40",
+  "frame": 14,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050b779",
+  "func": "FUN_0050ae40",
+  "frame": 15,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050b888",
+  "func": "FUN_0050ae40",
+  "frame": 16,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050b902",
+  "func": "FUN_0050ae40",
+  "frame": 17,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050ba15",
+  "func": "FUN_0050ae40",
+  "frame": 18,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050ba94",
+  "func": "FUN_0050ae40",
+  "frame": 19,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050bba7",
+  "func": "FUN_0050ae40",
+  "frame": 20,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050bc26",
+  "func": "FUN_0050ae40",
+  "frame": 21,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050bd35",
+  "func": "FUN_0050ae40",
+  "frame": 22,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050bdaf",
+  "func": "FUN_0050ae40",
+  "frame": 23,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050be7c",
+  "func": "FUN_0050be20",
+  "frame": 1,
+  "eax": "mov eax, edi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2712"
+ },
+ {
+  "va": "0050bf5b",
+  "func": "FUN_0050be20",
+  "frame": 7,
+  "eax": "mov eax, 7",
+  "ecx": "mov ecx, dword ptr [esp + 0xa4]",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050c0aa",
+  "func": "FUN_0050be20",
+  "frame": 5935208,
+  "eax": "mov eax, esi",
+  "ecx": "add ecx, 6",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050c1f2",
+  "func": "FUN_0050be20",
+  "frame": 9,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050c26a",
+  "func": "FUN_0050be20",
+  "frame": 8,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050c38f",
+  "func": "FUN_0050be20",
+  "frame": 10,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050c3f9",
+  "func": "FUN_0050be20",
+  "frame": 11,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050c519",
+  "func": "FUN_0050be20",
+  "frame": 12,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050c583",
+  "func": "FUN_0050be20",
+  "frame": 13,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050c6a3",
+  "func": "FUN_0050be20",
+  "frame": 14,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050c70d",
+  "func": "FUN_0050be20",
+  "frame": 15,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050c82d",
+  "func": "FUN_0050be20",
+  "frame": 16,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050c897",
+  "func": "FUN_0050be20",
+  "frame": 17,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050c9b7",
+  "func": "FUN_0050be20",
+  "frame": 18,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050ca21",
+  "func": "FUN_0050be20",
+  "frame": 19,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050cb41",
+  "func": "FUN_0050be20",
+  "frame": 20,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050cbab",
+  "func": "FUN_0050be20",
+  "frame": 21,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050cccb",
+  "func": "FUN_0050be20",
+  "frame": 22,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050cd35",
+  "func": "FUN_0050be20",
+  "frame": 23,
+  "eax": "mov eax, esi",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, 0x2713"
+ },
+ {
+  "va": "0050d2d5",
+  "func": "RenderReadyRoomChatRow",
+  "frame": null,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, dword ptr [esp + 0x20]",
+  "edx": "lea edx, [eax + 0xb]"
+ },
+ {
+  "va": "0050dd37",
+  "func": "RenderWorldListRow",
+  "frame": null,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, 0x2711"
+ },
+ {
+  "va": "0050df1f",
+  "func": "RenderWorldListRow",
+  "frame": null,
+  "eax": "mov eax, dword ptr [esp + 0x18]",
+  "ecx": "lea ecx, [ebp + 0xb5]",
+  "edx": "mov edx, 0x2711"
+ },
+ {
+  "va": "0050e10f",
+  "func": "ScrollListWidget_DrawThumb",
+  "frame": 0,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, dword ptr [edi + 0x54]"
+ },
+ {
+  "va": "0050e17c",
+  "func": "ScrollListWidget_DrawThumb",
+  "frame": 1,
+  "eax": "mov eax, ebx",
+  "ecx": "mov ecx, ebp",
+  "edx": "mov edx, dword ptr [edi + 0x54]"
+ },
+ {
+  "va": "0050e1ea",
+  "func": "ScrollListWidget_DrawThumb",
+  "frame": 2,
+  "eax": "mov eax, ebp",
+  "ecx": "mov ecx, ebx",
+  "edx": "mov edx, dword ptr [edi + 0x54]"
+ }
+]
