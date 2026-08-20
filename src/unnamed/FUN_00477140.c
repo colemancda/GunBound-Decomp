@@ -26,6 +26,8 @@
 void FUN_00477140(void)
 
 {
+  int iCraterX;
+  int iCraterY;
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
   undefined stack0xfffffb78;
@@ -92,12 +94,13 @@ void FUN_00477140(void)
   local_478[0] = PeekPacketChecksumState((void *)(unaff_ESI + 0x24c0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState((void *)uVar11);
+  iCraterY = PeekPacketChecksumState((void *)uVar11);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState((void *)(unaff_ESI + 0x40));
+  iCraterX = PeekPacketChecksumState((void *)(unaff_ESI + 0x40));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  ApplyCraterExcavation(local_478[0],local_46c,local_470,local_464,local_45c,local_460,local_468,local_458);
+  ApplyCraterExcavation(local_478[0],local_46c,local_470,local_464,local_45c,local_460,local_468,local_458,
+                 (int)(&DAT_006a7708 + g_clientContext),(int)iCraterX,(int)iCraterY);
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes();

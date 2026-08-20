@@ -1158,6 +1158,9 @@ int FUN_004e4390();
 int __fastcall FUN_004e43d0();
 undefined4 __fastcall FUN_004e4410();
 void CarveTerrainCrater();
+void ApplyCraterExcavation(int param_1,int param_2,int param_3,undefined4 param_4,
+                           undefined4 param_5,undefined4 param_6,undefined4 param_7,
+                           undefined4 param_8,int terrainCtx,int impactX,int impactY);
 void __fastcall DarkenTerrainScorchRow();
 void RebuildTerrainColumnCache();
 void FUN_004e4f50();

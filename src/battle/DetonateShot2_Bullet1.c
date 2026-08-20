@@ -39,6 +39,7 @@
 void __fastcall DetonateShot2_Bullet1(int *param_1)
 
 {
+  int iCraterX;
   byte bVar1;
   bool bVar2;
   bool bVar3;
@@ -330,9 +331,10 @@ LAB_00468fef:
     iStack_ac8 = PeekPacketChecksumState((void *)(piStack_ae8 + 0x45e));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)(piStack_ae8 + 0x3d5));
+    iCraterX = PeekPacketChecksumState((void *)(piStack_ae8 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    ApplyCraterExcavation(uStack_acc,iStack_ad0,iStack_ad8,iStack_ad4,uVar18,apuStack_ae0[0],uVar17,uVar8);
+    ApplyCraterExcavation(uStack_acc,iStack_ad0,iStack_ad8,iStack_ad4,uVar18,apuStack_ae0[0],uVar17,uVar8,
+                 (int)(&DAT_006a7708 + g_clientContext),(int)iCraterX,(int)iStack_ac8);
     RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState((void *)(piStack_ae8 + 0x45e));
@@ -448,9 +450,10 @@ LAB_0046942b:
   iStack_ac8 = PeekPacketChecksumState((void *)(piStack_ae8 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState((void *)(piStack_ae8 + 0x3d5));
+  iCraterX = PeekPacketChecksumState((void *)(piStack_ae8 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  ApplyCraterExcavation(uStack_acc,iStack_ad0,iStack_ad8,iStack_ad4,uVar18,apuStack_ae0[0],uVar17,uVar8);
+  ApplyCraterExcavation(uStack_acc,iStack_ad0,iStack_ad8,iStack_ad4,uVar18,apuStack_ae0[0],uVar17,uVar8,
+                 (int)(&DAT_006a7708 + g_clientContext),(int)iCraterX,(int)iStack_ac8);
   RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar8 = PeekPacketChecksumState((void *)(piStack_ae8 + 0x45e));

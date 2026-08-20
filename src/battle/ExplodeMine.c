@@ -36,6 +36,8 @@
 void __fastcall ExplodeMine(int param_1)
 
 {
+  int iCraterX;
+  int iCraterY;
   int iVar1;
   char cVar2;
   undefined4 uVar3;
@@ -91,12 +93,13 @@ void __fastcall ExplodeMine(int param_1)
     uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x24c0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)uVar6);
+    iCraterY = PeekPacketChecksumState((void *)uVar6);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)(param_1 + 0x40));
+    iCraterX = PeekPacketChecksumState((void *)(param_1 + 0x40));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    ApplyCraterExcavation(uVar3,local_474[0],local_45c,local_46c,local_464,local_460,local_468,local_458);
+    ApplyCraterExcavation(uVar3,local_474[0],local_45c,local_46c,local_464,local_460,local_468,local_458,
+                 (int)(&DAT_006a7708 + g_clientContext),(int)iCraterX,(int)iCraterY);
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes();

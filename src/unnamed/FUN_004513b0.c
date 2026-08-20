@@ -32,6 +32,7 @@
 void __fastcall FUN_004513b0(int *param_1)
 
 {
+  int iCraterX;
   byte bVar1;
   char cVar2;
   byte bVar3;
@@ -945,9 +946,10 @@ LAB_00451f7a:
   uStack_b6c = (undefined *)PeekPacketChecksumState((void *)(param_1 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   (*pcVar17)(&DAT_005a9068);
-  PeekPacketChecksumState((void *)(param_1 + 0x3d5));
+  iCraterX = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  ApplyCraterExcavation(uVar10,uVar9,puVar24,puVar25,puVar23,puVar26,puVar22,uVar8);
+  ApplyCraterExcavation(uVar10,uVar9,puVar24,puVar25,puVar23,puVar26,puVar22,uVar8,
+                 (int)(&DAT_006a7708 + g_clientContext),(int)iCraterX,(int)uStack_b6c);
   RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
   puVar22 = &DAT_005a9068;
   (*pcVar17)(&DAT_005a9068);

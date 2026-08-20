@@ -695,7 +695,8 @@ LAB_004a101f:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_acc = (int *)PeekPacketChecksumState((void *)piStack_af0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  ApplyCraterExcavation(uVar19,piStack_ad8,local_af4,piStack_ae4,uVar6,piStack_ad4,puStack_aec,uVar5);
+  ApplyCraterExcavation(uVar19,piStack_ad8,local_af4,piStack_ae4,uVar6,piStack_ad4,puStack_aec,uVar5,
+                 (int)(&DAT_006a7708 + g_clientContext),(int)local_acc,(int)iStack_adc);
   RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState((void *)piStack_ae0);

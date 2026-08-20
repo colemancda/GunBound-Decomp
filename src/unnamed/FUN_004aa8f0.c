@@ -21,6 +21,8 @@
 void __fastcall FUN_004aa8f0(int param_1)
 
 {
+  int iCraterX;
+  int iCraterY;
   int iVar1;
   char cVar2;
   undefined4 uVar3;
@@ -60,12 +62,13 @@ void __fastcall FUN_004aa8f0(int param_1)
   uVar10 = PeekPacketChecksumState((void *)(param_1 + 0x24c0));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState((void *)(param_1 + 0x1178));
+  iCraterY = PeekPacketChecksumState((void *)(param_1 + 0x1178));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState((void *)(param_1 + 0xf54));
+  iCraterX = PeekPacketChecksumState((void *)(param_1 + 0xf54));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  ApplyCraterExcavation(uVar10,uVar9,uVar8,uVar7,uVar6,uVar5,uVar4,uVar3);
+  ApplyCraterExcavation(uVar10,uVar9,uVar8,uVar7,uVar6,uVar5,uVar4,uVar3,
+                 (int)(&DAT_006a7708 + g_clientContext),(int)iCraterX,(int)iCraterY);
   RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x1178));

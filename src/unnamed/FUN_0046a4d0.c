@@ -28,6 +28,8 @@
 void __fastcall FUN_0046a4d0(int *param_1)
 
 {
+  int iCraterX;
+  int iCraterY;
   bool bVar1;
   bool bVar2;
   bool bVar3;
@@ -106,12 +108,13 @@ void __fastcall FUN_0046a4d0(int *param_1)
     local_adc[0] = (int *)PeekPacketChecksumState((void *)(param_1 + 0x930));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)(param_1 + 0x45e));
+    iCraterY = PeekPacketChecksumState((void *)(param_1 + 0x45e));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)(param_1 + 0x3d5));
+    iCraterX = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    ApplyCraterExcavation(local_adc[0],uStack_ad4,uStack_ac8,uStack_ad0,uStack_acc,uVar10,uVar9,uVar8);
+    ApplyCraterExcavation(local_adc[0],uStack_ad4,uStack_ac8,uStack_ad0,uStack_acc,uVar10,uVar9,uVar8,
+                 (int)(&DAT_006a7708 + g_clientContext),(int)iCraterX,(int)iCraterY);
     RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar8 = PeekPacketChecksumState((void *)(param_1 + 0x45e));

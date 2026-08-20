@@ -40,6 +40,8 @@
 void __fastcall ExplodeSuperMine(int param_1)
 
 {
+  int iCraterX;
+  int iCraterY;
   char cVar1;
   undefined4 uVar2;
   undefined4 uVar3;
@@ -104,16 +106,17 @@ void __fastcall ExplodeSuperMine(int param_1)
     local_480[0] = PeekPacketChecksumState((void *)(param_1 + 0x24c0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)uVar8);
+    iCraterY = PeekPacketChecksumState((void *)uVar8);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    PeekPacketChecksumState((void *)(param_1 + 0x40));
+    iCraterX = PeekPacketChecksumState((void *)(param_1 + 0x40));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     ApplyCraterExcavation(local_480[0],local_46c,local_458,local_464,local_470,local_460,local_468,local_45c)
     ;
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(,
+                 (int)(&DAT_006a7708 + g_clientContext),(int)iCraterX,(int)iCraterY);
       TreeLowerBound(local_480);
     }
     RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);

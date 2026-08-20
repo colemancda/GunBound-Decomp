@@ -71,6 +71,7 @@
 void __fastcall DetonatePrimaryShot_Bullet4(int *param_1)
 
 {
+  int iCraterX;
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
   undefined stack0xfffff2c0;
@@ -735,9 +736,10 @@ LAB_004a3955:
   uVar13 = PeekPacketChecksumState((void *)(param_1 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  PeekPacketChecksumState((void *)(param_1 + 0x3d5));
+  iCraterX = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  ApplyCraterExcavation(uVar12,uVar11,uVar10,uVar9,uVar27,uVar25,uVar24,uVar5);
+  ApplyCraterExcavation(uVar12,uVar11,uVar10,uVar9,uVar27,uVar25,uVar24,uVar5,
+                 (int)(&DAT_006a7708 + g_clientContext),(int)iCraterX,(int)uVar13);
   RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar5 = PeekPacketChecksumState((void *)(param_1 + 0x45e));

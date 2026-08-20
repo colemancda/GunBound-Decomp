@@ -194,7 +194,8 @@ unsigned int FUN_004ac4d0(void);
 int FUN_004ac400(void);
 char PeekChecksumStateUnderLock(void *out);
 void ApplyCraterExcavation(unsigned int a, void *b, unsigned int c, unsigned int d, unsigned int e,
-                            void *f, unsigned int g, unsigned int h);
+                            void *f, unsigned int g, unsigned int h,
+                            int terrainCtx, int impactX, int impactY);
 void RebuildTerrainColumnCache(void *base);
 void FUN_00450eb0(void *a, unsigned int b, void *c, int d, int e, int f);
 void FUN_00436ac0(unsigned int a, unsigned int b);
@@ -403,6 +404,7 @@ void CProjectile::AnimateProjectileTick()
  *    reconciling functions.h globally is out of scope here. */
 void CProjectile::DetonateProjectile()
 {
+    int iCraterX;
     void *capturedEdi, *capturedEsi, *capturedEbp;
     __asm {
         mov capturedEdi, edi
@@ -805,9 +807,11 @@ LAB_004579de:
     reinterpret_cast<int &>(pCStack_ac8) = PeekPacketChecksumState((void *)(pCStack_ad8->m_pad3d + 0x113b));
     LeaveCriticalSection(&DAT_005a9068);
     EnterCriticalSection(&DAT_005a9068);
-    PeekPacketChecksumState((void *)(pCStack_ad8->m_pad3d + 0xf17));
+    iCraterX = PeekPacketChecksumState((void *)(pCStack_ad8->m_pad3d + 0xf17));
     LeaveCriticalSection(&DAT_005a9068);
-    ApplyCraterExcavation(uStack_adc, local_ad4, uVar24, uVar23, uVar22, apuStack_ad0[0], uVar21, uVar8);
+    ApplyCraterExcavation(uStack_adc, local_ad4, uVar24, uVar23, uVar22, apuStack_ad0[0], uVar21, uVar8,
+                          (int)(&DAT_006a7708 + g_clientContext), iCraterX,
+                          reinterpret_cast<int &>(pCStack_ac8));
     RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection(&DAT_005a9068);
     pCVar9 = pCStack_ad8;
