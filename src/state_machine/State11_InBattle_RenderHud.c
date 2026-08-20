@@ -1342,7 +1342,7 @@ LAB_004ca86a:
         BlitSprite16bpp(0xde,0x1e0);
       }
       else {
-        BlitSpriteClipped(0xe);
+        BlitSpriteClipped(0xe,0xde,0x1e0,0x1b58);
       }
       break;
     }
@@ -1358,7 +1358,7 @@ LAB_004ca90c:
         BlitSprite16bpp(0xde,0x1e0);
       }
       else {
-        BlitSpriteClipped(0xae);
+        BlitSpriteClipped(0xae,0xde,0x1e0,0x1b58);
       }
       break;
     }

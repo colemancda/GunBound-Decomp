@@ -93,7 +93,7 @@ LAB_0050bf1b:
         BlitSprite16bpp(param_2,param_3 + 4);
       }
       else {
-        BlitSpriteClipped(7);
+        BlitSpriteClipped(7,param_2,param_3 + 4,0x2713);
       }
       break;
     }

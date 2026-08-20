@@ -103,6 +103,23 @@
  * inherited-across-a-branch-target hazard already recorded for
  * HandleTurnTimeoutSlot.
  *
+ * SECOND PASS extended this to every caller by keying on the FRAME LITERAL
+ * instead of position: pair the C's BlitSpriteClipped(F) with the
+ * disassembled sites whose pushed frame is F, require the counts to agree,
+ * and require every candidate with that frame to carry the SAME outerKey - in
+ * which case it does not matter which is which, because the values applied
+ * are identical. Being keyed on a value rather than an ordinal, it is immune
+ * to the block reordering that makes FUN_0044a000.c unsafe for
+ * position-matching, and that file contributed 10 sites. 31 more sites across
+ * 9 files; running total 65, with 80 single-argument calls left.
+ *
+ * The frame-7 site skipped in the first instalment IS included, on different
+ * evidence rather than by relaxing the rule: at 0x50afa4 both branches read x
+ * from the SAME stack slot ([esp+0x1c] in the else-branch, the same slot at
+ * one-push depth in the if-branch), and `mov edx,0x2713` at 0x50afa8
+ * dominates both, so frame, x and outerKey are all pinned without needing a
+ * FindSpriteFrame call to compare against.
+ *
  * FIRST INSTALMENT: 34 sites in FUN_0050ae40.c and FUN_0050be20.c, 17 each.
  * X and Y lifted from the sibling BlitSprite16bpp; FRAME and OUTERKEY from
  * the disassembly.  Every one is cross-checked: the OUTERKEY recovered here

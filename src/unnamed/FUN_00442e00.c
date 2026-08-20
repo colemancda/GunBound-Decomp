@@ -51,7 +51,7 @@ void FUN_00442e00(void)
       BlitSprite16bpp(0x2f3,iVar7 + 3);
     }
     else {
-      BlitSpriteClipped(3);
+      BlitSpriteClipped(3,0x2f3,iVar7 + 3,0x2710);
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

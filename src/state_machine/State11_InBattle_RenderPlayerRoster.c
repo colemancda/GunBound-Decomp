@@ -120,7 +120,7 @@ void State11_InBattle_RenderPlayerRoster(int param_1)
           BlitSprite16bpp(iVar13 + 4,iVar3 + 0x17);
         }
         else {
-          BlitSpriteClipped(0xe2);
+          BlitSpriteClipped(0xe2,iVar13 + 4,iVar3 + 0x17,0x1f4);
         }
       }
     }
@@ -919,7 +919,7 @@ LAB_00409934:
         BlitSprite16bpp(*(undefined4 *)(g_clientContext + 0xebee8),0x239);
       }
       else {
-        BlitSpriteClipped(3);
+        BlitSpriteClipped(3,*(undefined4 *)(g_clientContext + 0xebee8),0x239,0x1b58);
       }
       break;
     }

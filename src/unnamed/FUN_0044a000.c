@@ -232,7 +232,7 @@ LAB_0044a1b2:
             BlitSprite16bpp(iVar4 + 0x7d,iVar2 + uVar7 * 0x12 + 0x22);
           }
           else {
-            BlitSpriteClipped(0xd);
+            BlitSpriteClipped(0xd,iVar4 + 0x7d,iVar2 + uVar7 * 0x12 + 0x22,0x2713);
           }
         }
         iVar2 = PeekChecksumStateUnderLock(uVar8);
@@ -243,7 +243,7 @@ LAB_0044a1b2:
             BlitSprite16bpp(iVar4 + 0x7d,iVar2 + uVar7 * 0x12 + 0x22);
           }
           else {
-            BlitSpriteClipped(0xc);
+            BlitSpriteClipped(0xc,iVar4 + 0x7d,iVar2 + uVar7 * 0x12 + 0x22,0x2713);
           }
         }
         iVar2 = PeekChecksumStateUnderLock(uVar8);
@@ -273,7 +273,7 @@ LAB_0044a1b2:
             BlitSprite16bpp(iVar4 + 0x7d,iVar2 + uVar7 * 0x12 + 0x22);
           }
           else {
-            BlitSpriteClipped(0xf);
+            BlitSpriteClipped(0xf,iVar4 + 0x7d,iVar2 + uVar7 * 0x12 + 0x22,0x2713);
           }
         }
         iVar2 = PeekChecksumStateUnderLock(uVar8);
@@ -284,7 +284,7 @@ LAB_0044a1b2:
             BlitSprite16bpp(iVar4 + 0x7d,iVar2 + uVar7 * 0x12 + 0x22);
           }
           else {
-            BlitSpriteClipped(0xe);
+            BlitSpriteClipped(0xe,iVar4 + 0x7d,iVar2 + uVar7 * 0x12 + 0x22,0x2713);
           }
         }
         iVar2 = PeekChecksumStateUnderLock(uVar8);
@@ -315,7 +315,7 @@ LAB_0044a1b2:
             BlitSprite16bpp(iVar4 + 0x7d,iVar2 + 0x22);
           }
           else {
-            BlitSpriteClipped(0x11);
+            BlitSpriteClipped(0x11,iVar4 + 0x7d,iVar2 + 0x22,0x2713);
           }
         }
         iVar2 = PeekChecksumStateUnderLock(uVar8);
@@ -327,7 +327,7 @@ LAB_0044a1b2:
             BlitSprite16bpp(iVar4 + 0x7d,iVar2 + 0x22);
           }
           else {
-            BlitSpriteClipped(0x10);
+            BlitSpriteClipped(0x10,iVar4 + 0x7d,iVar2 + 0x22,0x2713);
           }
         }
         iVar2 = PeekChecksumStateUnderLock(uVar8);
@@ -356,7 +356,7 @@ LAB_0044a1b2:
             BlitSprite16bpp(iVar4 + 0x7d,iVar2 + 0x22);
           }
           else {
-            BlitSpriteClipped(0x13);
+            BlitSpriteClipped(0x13,iVar4 + 0x7d,iVar2 + 0x22,0x2713);
           }
         }
         iVar2 = PeekChecksumStateUnderLock(uVar8);
@@ -368,7 +368,7 @@ LAB_0044a1b2:
             BlitSprite16bpp(iVar4 + 0x7d,iVar2 + 0x22);
           }
           else {
-            BlitSpriteClipped(0x12);
+            BlitSpriteClipped(0x12,iVar4 + 0x7d,iVar2 + 0x22,0x2713);
           }
         }
         iVar2 = PeekChecksumStateUnderLock(uVar8);
@@ -395,7 +395,7 @@ LAB_0044a1b2:
             BlitSprite16bpp(iVar4 + 0x7d,iVar1 + uVar7 * 0x12 + 0x22);
           }
           else {
-            BlitSpriteClipped(0x15);
+            BlitSpriteClipped(0x15,iVar4 + 0x7d,iVar1 + uVar7 * 0x12 + 0x22,0x2713);
           }
         }
         iVar1 = PeekChecksumStateUnderLock(uVar8);
@@ -406,7 +406,7 @@ LAB_0044a1b2:
             BlitSprite16bpp(iVar4 + 0x7d,iVar1 + uVar7 * 0x12 + 0x22);
           }
           else {
-            BlitSpriteClipped(0x14);
+            BlitSpriteClipped(0x14,iVar4 + 0x7d,iVar1 + uVar7 * 0x12 + 0x22,0x2713);
           }
         }
         iVar1 = PeekChecksumStateUnderLock(uVar8);

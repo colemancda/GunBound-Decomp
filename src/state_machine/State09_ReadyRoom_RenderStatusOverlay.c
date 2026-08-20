@@ -47,7 +47,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
         BlitSprite16bpp(0x23b,0x1e5);
       }
       else {
-        BlitSpriteClipped(9);
+        BlitSpriteClipped(9,0x23b,0x1e5,0x2710);
       }
     }
   }
@@ -62,7 +62,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
         BlitSprite16bpp(0x23b,0x1e5);
       }
       else {
-        BlitSpriteClipped(9);
+        BlitSpriteClipped(9,0x23b,0x1e5,0x2710);
       }
     }
   }
@@ -82,7 +82,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
       BlitSprite16bpp(0x261,0x16d);
     }
     else {
-      BlitSpriteClipped(1);
+      BlitSpriteClipped(1,0x261,0x16d,0x2717);
     }
   }
   SetClipRect(0, 0x31f, 0x257, 0);

@@ -78,7 +78,7 @@ int __fastcall State10_Loading_Render(int param_1)
         BlitSprite16bpp(0x243,0x10c);
       }
       else {
-        BlitSpriteClipped(0x17);
+        BlitSpriteClipped(0x17,0x243,0x10c,0x2710);
       }
     }
     FUN_00442d50(param_1);
@@ -89,7 +89,7 @@ int __fastcall State10_Loading_Render(int param_1)
       BlitSprite16bpp(0x6b,0x237);
     }
     else {
-      BlitSpriteClipped(0x16);
+      BlitSpriteClipped(0x16,0x6b,0x237,0x2710);
     }
   }
   SetClipRect(0, 0x31f, 0x257, 0);
