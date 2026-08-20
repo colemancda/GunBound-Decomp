@@ -16,10 +16,16 @@ told apart, and getting it wrong swings the count by hundreds:
     the established fix in this tree (MSVC cannot express an EAX argument,
     so the register is promoted to a trailing/positional parameter and the
     callers pass it explicitly). Ugly name, correct code - it is FIXED.
-  * STILL A LOCAL - the register is declared inside the body, e.g.
-    FindSpriteFrame's `int in_EAX; int unaff_ESI;`. Nothing supplies it,
-    every call site passes nothing, and the value read at runtime is
-    whatever happened to be in the register. That is the real backlog.
+  * ALIASED - the register name survives as a local, but it is INITIALISED
+    FROM A REAL PARAMETER: `int FindSpriteFrame(int container, ...) { int
+    in_EAX = container; ... }`. This is what a promotion looks like when the
+    author kept the register name so the body did not have to change. Also
+    FIXED, and it is worth 34 entries - counting these as open reports 608
+    instead of 574, which is how this script read on its first outing.
+  * STILL A LOCAL - the register is declared inside the body with nothing
+    assigned to it. Nothing supplies it, every call site passes nothing, and
+    the value read at runtime is whatever happened to be in the register.
+    That is the real backlog.
 
 So the script locates each function's own definition, splits its parameter
 list from its body, and only counts the register as open when the name is
@@ -73,6 +79,11 @@ def classify(entry):
     plist = param_list_of(src, entry["func"])
     if any(re.search(r"\b%s\b" % n, plist) for n in names):
         return "promoted"
+    for n in names:
+        # `<type> in_EAX = <something>;` - a declaration WITH an initialiser
+        # is the register aliased onto a real parameter, not an unsupplied one.
+        if re.search(r"\b\w+\s+\*?%s\s*=\s*[^;=][^;]*;" % n, src):
+            return "aliased"
     return "open"
 
 
@@ -90,6 +101,7 @@ def main():
     print("confirmed (function, register) pairs : %d" % len(entries))
     print("  register no longer named at all    : %d" % len(buckets["gone"]))
     print("  promoted to a real parameter       : %d" % len(buckets["promoted"]))
+    print("  aliased onto a real parameter      : %d" % len(buckets["aliased"]))
     print("  STILL DECLARED AS A LOCAL (open)   : %d" % len(buckets["open"]))
     print("  file no longer exists              : %d" % len(buckets["missing"]))
 
