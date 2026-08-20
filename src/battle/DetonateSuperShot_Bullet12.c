@@ -323,7 +323,13 @@ LAB_004ae9a8:
     uVar10 = 0x2077;
     uVar11 = PeekChecksumStateUnderLock(param_1 + 0x45e);
     uVar9 = PeekChecksumStateUnderLock(piVar2);
-    SpawnSuperFlameEffect(uVar9,uVar11,uVar10,pcVar19);
+    /* RECOVERED (2026-08-19): the two dropped __fastcall register
+     * arguments (orig 0x4ae642 xor cl,cl / 0x4ae644 mov edx,1).  param_1 is the randomise flag,
+     * param_2 the sub-effect index (the callee caps it at < 4).  The third
+     * register argument, EAX, needs nothing here: the 2026-08-17 audit proved
+     * every site passes ctx+0x6a7f70 and the callee already inlines the
+     * resulting +0x6a7f74 gate peek. */
+    SpawnSuperFlameEffect(0,1,uVar9,uVar11,uVar10,pcVar19);
   }
   cVar6 = PeekPacketChecksumBool((byte *)param_1 + 0xf3f);
   iVar7 = g_clientContext;

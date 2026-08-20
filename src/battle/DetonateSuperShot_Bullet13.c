@@ -732,7 +732,13 @@ LAB_00487dd6:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar6 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  SpawnSuperFlameEffect(uVar6,uVar5,0x2078,s_ssflame13_005548d8);
+  /* RECOVERED (2026-08-19): the two dropped __fastcall register
+   * arguments (orig 0x487f9a mov cl,1 / 0x487f9c mov edx,1).  param_1 is the randomise flag,
+   * param_2 the sub-effect index (the callee caps it at < 4).  The third
+   * register argument, EAX, needs nothing here: the 2026-08-17 audit proved
+   * every site passes ctx+0x6a7f70 and the callee already inlines the
+   * resulting +0x6a7f74 gate peek. */
+  SpawnSuperFlameEffect(1,1,uVar6,uVar5,0x2078,s_ssflame13_005548d8);
   cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0xf4c);
   if (cVar1 == '\0') {
     AcquireSoundChannel(0);

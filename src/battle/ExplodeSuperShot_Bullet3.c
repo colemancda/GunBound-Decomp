@@ -143,7 +143,13 @@ void __fastcall ExplodeSuperShot_Bullet3(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  SpawnSuperFlameEffect(uVar4,uVar3,0x206e,s_ssflame3_00555248);
+  /* RECOVERED (2026-08-19): the two dropped __fastcall register
+   * arguments (orig 0x48b7d9 mov cl,1 / 0x48b7db mov edx,1).  param_1 is the randomise flag,
+   * param_2 the sub-effect index (the callee caps it at < 4).  The third
+   * register argument, EAX, needs nothing here: the 2026-08-17 audit proved
+   * every site passes ctx+0x6a7f70 and the callee already inlines the
+   * resulting +0x6a7f74 gate peek. */
+  SpawnSuperFlameEffect(1,1,uVar4,uVar3,0x206e,s_ssflame3_00555248);
   return;
 }
 

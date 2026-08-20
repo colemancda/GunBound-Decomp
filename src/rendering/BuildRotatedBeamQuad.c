@@ -16,11 +16,26 @@
  *   - it appends to g_spriteVertexBuffer and does g_spriteVertexCount += 2.
  * Both call sites are in State11_InBattle_Render.
  *
- * ABI CAVEAT: Ghidra marked this __fastcall, but the prologue loads ECX from
- * [esp+0x28] (a stack slot), so param_1 is a phantom - the real register
- * arguments are EAX (the angle, modelled as `in_EAX`) and EDX.  The call
- * sites pass 5 arguments and have not been re-mapped; see the
- * fastcall-decls audit.
+ * ABI, AND WHAT IS STILL OPEN (2026-08-19 audit).  Ghidra marked this
+ * __fastcall, but the prologue loads ECX from [esp+0x28] - a stack slot - so
+ * param_1 is a PHANTOM.  The real shape is EAX (the angle, Ghidra's
+ * `in_EAX`) + EDX (param_2, the texture record) + ret 0x14 = 5 stack
+ * arguments (params 3-7 = x, y, flip, length, width).  Both call sites in
+ * State11_InBattle_Render pass only the 5 stack arguments, so the angle and
+ * the texture record are read from whatever is left in EAX and EDX.
+ *
+ * Site 0x4c8630 is fully resolved: param_3/param_4 are [esp+0x14]/[esp+0x2c]
+ * (iVar19 / pcStack_a28), EDX = esi, and EAX = edi = the result of the
+ * `PeekPacketChecksumState(*(int *)(g_clientContext + 0x621e4) + 0x4fb4)`
+ * that the decompile discards on the line directly above the call.
+ *
+ * Site 0x4c7837 does NOT match that shape and is the open part: there the
+ * discarded peek's result is stored to [esp+0x14] and becomes param_3, while
+ * EAX comes from a DIFFERENT slot ([esp+0x10]) and EDX from [esp+0x28].
+ * Resolving what feeds those two slots is the remaining step; until both
+ * sites are known, NO prototype has been added to include/functions.h -
+ * declaring it __fastcall while one site still passes 5 arguments would put
+ * that site's x and y into ECX/EDX and make things worse, not better.
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
