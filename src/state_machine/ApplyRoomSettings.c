@@ -68,7 +68,7 @@ void ApplyRoomSettings(int *param_1,int param_2)
     RemoveWidget((int)&DAT_00e9be90,0,0xb);
     goto LAB_004dabfb;
   case 1:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0xa);
     CreateButtonWidget(&DAT_00e9be90,0,0xb,0x3f3,s_b_ready_option_00556b30,0x13d,0xe1,0x51,0x18,0,0)
     ;
 LAB_004dabfb:
@@ -77,15 +77,15 @@ LAB_004dac8a:
     RemoveWidget((int)&DAT_00e9be90,0,0xd);
     break;
   case 2:
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0xa);
+    RemoveWidget((int)&DAT_00e9be90,0,0xb);
     CreateButtonWidget(&DAT_00e9be90,0,0xc,0x3f4,s_b_ready_option_00556b30,0x13d,0xe1,0x51,0x18,0,0)
     ;
     goto LAB_004dac8a;
   case 3:
-    RemoveWidget();
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0xa);
+    RemoveWidget((int)&DAT_00e9be90,0,0xb);
+    RemoveWidget((int)&DAT_00e9be90,0,0xc);
     CreateButtonWidget(&DAT_00e9be90,0,0xd,0x3f5,s_b_ready_option_00556b30,0x13d,0xe1,0x51,0x18,0,0)
     ;
   }
@@ -96,7 +96,7 @@ LAB_004dac8a:
     RemoveWidget((int)&DAT_00e9be90,0,0x15);
     goto LAB_004dad46;
   case 4:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x14);
     CreateButtonWidget(&DAT_00e9be90,0,0x15,0x3fd,s_b_ready_option_00556b30,0x193,0xe1,0x51,0x18,0,0
                       );
 LAB_004dad46:
@@ -105,15 +105,15 @@ LAB_004dadd5:
     RemoveWidget((int)&DAT_00e9be90,0,0x17);
     break;
   case 6:
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x14);
+    RemoveWidget((int)&DAT_00e9be90,0,0x15);
     CreateButtonWidget(&DAT_00e9be90,0,0x16,0x3fe,s_b_ready_option_00556b30,0x193,0xe1,0x51,0x18,0,0
                       );
     goto LAB_004dadd5;
   case 8:
-    RemoveWidget();
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x14);
+    RemoveWidget((int)&DAT_00e9be90,0,0x15);
+    RemoveWidget((int)&DAT_00e9be90,0,0x16);
     CreateButtonWidget(&DAT_00e9be90,0,0x17,0x3ff,s_b_ready_option_00556b30,0x193,0xe1,0x51,0x18,0,0
                       );
   }
@@ -129,23 +129,23 @@ LAB_004dadd5:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     break;
   case 1:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x1e);
     CreateButtonWidget(&DAT_00e9be90,0,0x1f,0x407,s_b_ready_option_00556b30,0x193,0xff,0x51,0x18,0,0
                       );
     RemoveWidget((int)&DAT_00e9be90,0,0x20);
     goto LAB_004daf59;
   case 2:
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x1e);
+    RemoveWidget((int)&DAT_00e9be90,0,0x1f);
     CreateButtonWidget(&DAT_00e9be90,0,0x20,0x408,s_b_ready_option_00556b30,0x193,0xff,0x51,0x18,0,0
                       );
 LAB_004daf59:
     RemoveWidget((int)&DAT_00e9be90,0,0x21);
     break;
   case 3:
-    RemoveWidget();
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x1e);
+    RemoveWidget((int)&DAT_00e9be90,0,0x1f);
+    RemoveWidget((int)&DAT_00e9be90,0,0x20);
     CreateButtonWidget(&DAT_00e9be90,0,0x21,0x409,s_b_ready_option_00556b30,0x193,0xff,0x51,0x18,0,0
                       );
   }
@@ -160,7 +160,7 @@ LAB_004daf59:
     uVar2 = 0x58;
     break;
   case 1:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x32);
     CreateButtonWidget(&DAT_00e9be90,0,0x33,0x41b,s_b_ready_option_00556b30,0x193,0x11d,0x51,0x18,0,
                        0);
     RemoveWidget((int)&DAT_00e9be90,0,0x34);
@@ -169,18 +169,18 @@ LAB_004daf59:
     uVar2 = 0x28;
     break;
   case 2:
-    RemoveWidget();
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x32);
+    RemoveWidget((int)&DAT_00e9be90,0,0x33);
+    RemoveWidget((int)&DAT_00e9be90,0,0x35);
     CreateButtonWidget(&DAT_00e9be90,0,0x34,0x41c,s_b_ready_option_00556b30,0x193,0x11d,0x51,0x18,0,
                        0);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = 0x38;
     break;
   case 3:
-    RemoveWidget();
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x32);
+    RemoveWidget((int)&DAT_00e9be90,0,0x33);
+    RemoveWidget((int)&DAT_00e9be90,0,0x34);
     CreateButtonWidget(&DAT_00e9be90,0,0x35,0x41d,s_b_ready_option_00556b30,0x193,0x11d,0x51,0x18,0,
                        0);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -202,14 +202,14 @@ LAB_004db263:
   }
   else {
     if (cVar5 == '\x01') {
-      RemoveWidget();
+      RemoveWidget((int)&DAT_00e9be90,0,0x3c);
       CreateButtonWidget(&DAT_00e9be90,0,0x3d,0x425,s_b_ready_option_00556b30,0x13d,0x11d,0x51,0x18,
                          0,0);
       goto LAB_004db263;
     }
     if (cVar5 == '\x02') {
-      RemoveWidget();
-      RemoveWidget();
+      RemoveWidget((int)&DAT_00e9be90,0,0x3c);
+      RemoveWidget((int)&DAT_00e9be90,0,0x3d);
       CreateButtonWidget(&DAT_00e9be90,0,0x3e,0x426,s_b_ready_option_00556b30,0x13d,0x11d,0x51,0x18,
                          0,0);
     }
@@ -231,20 +231,20 @@ LAB_004db263:
     RemoveWidget((int)&DAT_00e9be90,0,0x47);
     break;
   case 1:
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x46);
     CreateButtonWidget(&DAT_00e9be90,0,0x47,0x42f,s_b_ready_option_00556b30,0x13d,0xff,0x51,0x18,0,0
                       );
     break;
   case 2:
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x46);
+    RemoveWidget((int)&DAT_00e9be90,0,0x47);
     CreateButtonWidget(&DAT_00e9be90,0,0x48,0x430,s_b_ready_option_00556b30,0x13d,0xff,0x51,0x18,0,0
                       );
     goto LAB_004db3cd;
   case 3:
-    RemoveWidget();
-    RemoveWidget();
-    RemoveWidget();
+    RemoveWidget((int)&DAT_00e9be90,0,0x46);
+    RemoveWidget((int)&DAT_00e9be90,0,0x47);
+    RemoveWidget((int)&DAT_00e9be90,0,0x48);
     CreateButtonWidget(&DAT_00e9be90,0,0x49,0x431,s_b_ready_option_00556b30,0x13d,0xff,0x51,0x18,0,0
                       );
   default:

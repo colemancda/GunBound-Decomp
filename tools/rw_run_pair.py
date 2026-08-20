@@ -31,27 +31,31 @@ def binary_runs(name):
     targets=set()
     for i in ins:
         if i.mnemonic.startswith('j') and i.op_str.startswith('0x'): targets.add(int(i.op_str,16))
-    runs=[]; cur=None; pend=[]
+    runs=[]; key=None; buf=[]; pend=[]
+    def flush():
+        nonlocal key,buf
+        if key is not None: runs.append({'key':key,'esi':buf})
+        key=None; buf=[]
     for idx,i in enumerate(ins):
-        if i.address in targets and cur is not None: cur=None      # a branch target ends the run
+        if i.address in targets: flush()           # a branch target opens a new run
         if i.mnemonic=='push':
             m=re.fullmatch(r'0x[0-9a-f]+|\d+',i.op_str); pend.append(int(i.op_str,0) if m else None)
         elif i.mnemonic=='call' and i.op_str.startswith('0x'):
             t=int(i.op_str,16)
             if t==CBW:
                 args=list(reversed(pend[-11:])) if len(pend)>=11 else None
-                k=(args[2],args[3]) if args and len(args)>3 else None
-                cur={'key':k,'esi':[]}; runs.append(cur)
-            elif t==RW and cur is not None:
+                key=(args[2],args[3]) if args and len(args)>3 else None
+            elif t==RW:
                 e=None
                 for j in range(idx-1,max(0,idx-6),-1):
                     m=re.match(r'esi, (0x[0-9a-f]+|\d+)$',ins[j].op_str)
                     if m: e=int(m.group(1),0); break
                     if ins[j].op_str.startswith('esi,'): break
-                cur['esi'].append(e)
+                buf.append(e)
             pend=[]
         elif i.mnemonic.startswith('j') or i.mnemonic=='ret':
-            cur=None
+            flush()
+    flush()
     return [r for r in runs if r['key']]
 
 def source_runs(path):
@@ -59,8 +63,12 @@ def source_runs(path):
     # real offset into the file on disk - deleting them shifts every position
     src=re.sub(r'/\*.*?\*/',lambda m:' '*(m.end()-m.start()),
                open(path,errors='replace').read(),flags=re.S)
-    runs=[]; cur=None; i=0
-    tok=re.compile(r'\bCreateButtonWidget\s*\(|\bRemoveWidget\(\s*\)|\bgoto\b|\bbreak\b|\bcase\b|\bdefault\b|\bLAB_00[0-9a-f]{6}:|\bif\b|\bwhile\b|\bfor\b|\belse\b|[{}]')
+    runs=[]; key=None; buf=[]
+    def flush():
+        nonlocal key,buf
+        if key is not None: runs.append({'key':key,'pos':buf})
+        key=None; buf=[]
+    tok=re.compile(r'\bCreateButtonWidget\s*\(|\bRemoveWidget\s*\(|\bgoto\b|\bbreak\b|\bcase\b|\bdefault\b|\bLAB_00[0-9a-f]{6}:|\bif\b|\bwhile\b|\bfor\b|\belse\b|[{}]')
     for m in tok.finditer(src):
         t=m.group(0)
         if t.startswith('CreateButtonWidget'):
@@ -73,12 +81,19 @@ def source_runs(path):
             def num(x):
                 try: return int(x,0)
                 except Exception: return None
-            k=(num(a[2]),num(a[3])) if len(a)>3 else None
-            cur={'key':k,'pos':[]}; runs.append(cur)
+            key=(num(a[2]),num(a[3])) if len(a)>3 else None
         elif t.startswith('RemoveWidget'):
-            if cur is not None: cur['pos'].append(m.start())
+            # count ALREADY-RECOVERED calls too, or their absence desynchronises
+            # the run against the binary and the whole run gets skipped
+            j=m.end(); d=1
+            while d and j<len(src):
+                if src[j]=='(':d+=1
+                elif src[j]==')':d-=1
+                j+=1
+            buf.append((m.start(),src[m.end():j-1].strip()==''))
         else:
-            cur=None
+            flush()
+    flush()
     return [r for r in runs if r['key']],src
 
 name,path=sys.argv[1],sys.argv[2]
@@ -91,7 +106,8 @@ for k,sr in sk.items():
     if br is None or len(br['esi'])!=len(sr['pos']) or any(e is None for e in br['esi']):
         if sr['pos'] or (br and br['esi']): mism+=1
         continue
-    for pos,e in zip(sr['pos'],br['esi']): pairs.append((pos,e))
+    for (pos,argless),e in zip(sr['pos'],br['esi']):
+        if argless: pairs.append((pos,e))      # skip sites already recovered
 print('runs: binary %d, source %d'%(len(b),len(s)))
 print('runs paired cleanly: %d ; runs skipped: %d'%(len(sk)-mism,mism))
 print('RemoveWidget calls paired: %d'%len(pairs))

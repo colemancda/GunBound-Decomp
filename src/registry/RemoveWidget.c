@@ -70,8 +70,38 @@
  *     they already read garbage out of registers, so it is strictly no worse
  *     for them and unblocks the sites that ARE fixed.
  *
- * 8 of the 131 call sites are recovered so far, and only where the pairing is
- * EXACT rather than inferred: Ghidra emits `LAB_00XXXXXX:` labels whose names
+ * 57 of the 131 call sites are recovered.  ApplyRoomSettings - which holds 55
+ * of them and was the hard case - is COMPLETE.
+ *
+ * The method that finished it is straight-line RUNS (tools/rw_run_pair.py):
+ * delimit a run by CONTROL FLOW on both sides - any jmp/jcc/ret or branch
+ * TARGET in the binary, any goto/break/case/label/if/else/brace in the source
+ * - and inside such a run source order must equal VA order, which is the one
+ * ordering claim that is not an assumption.  Each run is identified by the
+ * CreateButtonWidget it contains, whose (key, id) literals are unique there.
+ * Two details mattered: a run must extend BACKWARDS to its opening boundary,
+ * or the removes that precede the create are never reached; and the source
+ * side must count calls that are ALREADY recovered, or their absence
+ * desynchronises the run and the whole run is discarded.
+ *
+ * Checked against evidence the pairing never uses: each case creates one
+ * widget of a group and removes that group's other members.  47 removes
+ * consistent, 0 violations.  The result reads as obviously right - case 1
+ * removes 10, 12, 13 around creating 11; case 2 removes 10, 11, 13 around
+ * creating 12 - with the shared tails arriving through the gotos exactly as
+ * the original lays them out.
+ *
+ * Two more in State11_InBattle_ProcessBattleAction, confirmed by the same
+ * shape in miniature: InvokeWidget(1,1) with create of widget 1 removes
+ * widget 2, and the mirror image for weapon 2.
+ *
+ * WHAT DOES NOT YIELD: five of the remaining callers - FUN_00445450,
+ * State11_InBattle_HandleKeyInput/HandleMouseInput, HandleTurnTimeoutSlot and
+ * FUN_004ccd10 - have CreateButtonWidget landmarks that are NOT UNIQUE within
+ * the function, so runs cannot be keyed by them at all; the tool refuses
+ * rather than guessing.  Those 74 sites need a different landmark.
+ *
+ * The original 8 came from an exact pairing that needs no landmark at all: Ghidra emits `LAB_00XXXXXX:` labels whose names
  * are real addresses, so a label immediately followed by RemoveWidget() pins
  * that call to that VA (the label lands on the argument setup, and the call
  * follows within a few instructions).  No ordering assumption is involved.
