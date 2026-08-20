@@ -1,5 +1,30 @@
 /* SpawnSuperShot - 0x0042de70 in the original binary.
  *
+ * SIGNATURE FIX (2026-08-19) - the same defect d63c34d fixed in
+ * SpawnPrimaryShot, in its sibling, and MISSED by that commit's own
+ * cross-check.  The original is `ret 0x30` = TWELVE stack arguments and all
+ * 31 full-form call sites pass twelve; this signature declared ELEVEN, and
+ * Ghidra modelled the missing one as `byte unaff_retaddr` - it read the 12th
+ * argument as the return address, exactly as it had for SpawnPrimaryShot.
+ *
+ * Why d63c34d cleared it: that pass checked `ret 0x30 = 12` against the
+ * CALLERS' twelve arguments and concluded they matched.  They did - the
+ * callers were already right.  It is the CALLEE that was short.  The lesson
+ * is to compare ret N against the callee's DECLARED PARAMETER LIST, not
+ * against what the call sites happen to pass.
+ *
+ * param_12 is the SHOT INDEX, and it is used twice:
+ *     *(byte *)(obj + 0xf) = param_12 & 7;      the object's own index
+ *     *pbVar1              = param_12;          into the broadcast event
+ *                                               buffer - so it goes out on
+ *                                               the wire to other clients
+ * Reading the return address there gave every super shot a garbage index,
+ * locally and in the packet.
+ *
+ * The 9-argument and 1-argument call sites are the artifact-dialect spawns
+ * inside Mobile04/06/12, still pending hand translation (see the memory note
+ * spawnprimaryshot-13-args); they are untouched here.
+ *
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
@@ -25,7 +50,8 @@
 /* WARNING: Removing unreachable block (ram,0x0042e5f3) */
 
 void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int param_5,int param_6,
-                 int param_7,undefined4 param_8,undefined4 param_9,undefined4 param_10,int param_11)
+                 int param_7,undefined4 param_8,undefined4 param_9,undefined4 param_10,int param_11,
+                 int param_12)
 
 {
   void *pvDelta;
@@ -45,7 +71,6 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
   code *pcVar13;
   undefined4 unaff_EDI;
   undefined4 *unaff_FS_OFFSET;
-  byte unaff_retaddr;
   undefined4 local_8b4;
   int *piStack_8b0;
   int *local_8ac;
@@ -332,7 +357,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
   }
   piVar5 = local_8ac;
   (**(code **)(*local_8ac + 4))(s_normal_00552230);
-  *(byte *)(piVar5 + 0xf) = unaff_retaddr & 7;
+  *(byte *)(piVar5 + 0xf) = (byte)param_12 & 7;
   piVar5[0xe] = piVar5[6] + 1;
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42e61d
    * (`lea edi,[ebx + 0xf54]`, ebx = this file's own local object pointer
@@ -581,7 +606,7 @@ LAB_0042ec76:
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 2;
     pbVar1 = &DAT_00e9aacd + g_dwBroadcastEventCursor;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-    *pbVar1 = unaff_retaddr;
+    *pbVar1 = (byte)param_12;
     puVar2 = &DAT_00e9aacd + g_dwBroadcastEventCursor;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     *puVar2 = param_1;
