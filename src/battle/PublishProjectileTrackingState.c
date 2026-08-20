@@ -18,9 +18,14 @@
  * stride, not four unrelated arrays:
  *     +0x20c24   X          Peek(this + 0xf54)
  *     +0x20c28   Y          Peek(this + 0x1178)
- *     +0x20c2c   (unnamed)  Peek(this + 0x1c2c)
+ *     +0x20c2c   angle      Peek(this + 0x1c2c)  (identified by the FACING
+ *                           variant at 0x488880, which tests this same value
+ *                           against the 90..270 degree window)
  *     +0x20c30   the table-2 row lookup result, truncated to a byte
- *     +0x20c34   cleared to 0 (twice - once before the lookups, once after)
+ *     +0x20c34   cleared to 0 (twice - once before the lookups, once after).
+ *                In the 0x488880 variant this field instead carries a FACING
+ *                flag, (angle > 90 && angle < 270); classes whose sprite does
+ *                not flip use this version and hardcode the 0.
  * Two separate byte flags are keyed by the same id: ctx+0x20bb4+id (cleared
  * when the +0x3810 GuardedBool reads true) and ctx+0x20ba4+id (set to the
  * INVERSE of CheckGuardedBoolAnd's result).
