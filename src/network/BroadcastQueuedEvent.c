@@ -21,6 +21,18 @@
  * boundaries, which is exactly how BlitSpriteClipped's EAX was misread at 16
  * of 19 sites earlier today.
  *
+ * TESTED, NOT ASSUMED (2026-08-20).  The obvious way to rescue the register
+ * form is a whole-function argument: if a caller's ONLY writes to ESI are
+ * `mov esi, 0xe55ce0`, then every `mov eax, esi` in it is that global,
+ * regardless of control flow.  Disassembling all 20 mixed callers end to end
+ * and collecting every instruction that writes ESI, that holds for NONE of
+ * them.  ESI is a general-purpose scratch register in all 20 - typical
+ * contents are `add esi, 0x3b49c`, `imul esi, esi, 0x7d28`, `lea esi, [ebp +
+ * 0x62d]`, `pop esi` - and several load the global AND reuse the register for
+ * other things in the same body.  So the register form needs genuine per-site
+ * dataflow; there is no shortcut, and this is a measured result rather than
+ * caution.
+ *
  * So this is applied only where a whole function's sites load the literal:
  * 23 functions, 28 sites.  The 20 mixed callers - including
  * State11_InBattle_ProcessBattleAction, ProcessBattleFrame,
