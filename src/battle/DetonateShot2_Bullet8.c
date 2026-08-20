@@ -357,7 +357,7 @@ LAB_004aa2ed:
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_b10 = (byte *)PeekPacketChecksumState((void *)local_b10);
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        FUN_0043af40(iVar6,iVar7,local_b10,pbStack_b08,local_af0,pbStack_af8,(char)param_1[0xf]);
+        ApplyBlastDamage(iVar6,iVar7,local_b10,pbStack_b08,local_af0,pbStack_af8,(char)param_1[0xf]);
         SUBFIELD(puStack_10,0,undefined1) = 2;
         local_b10 = pbStack_ac8;
         if (pbStack_ac8 != (byte *)0x0) {
@@ -469,7 +469,7 @@ LAB_004aa2ed:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_b10 = (byte *)PeekPacketChecksumState((void *)local_b10);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_0043af40(iVar6,iStack_b14,local_b10,pbStack_b08,local_af0,pbStack_af8,(char)param_1[0xf]);
+  ApplyBlastDamage(iVar6,iStack_b14,local_b10,pbStack_b08,local_af0,pbStack_af8,(char)param_1[0xf]);
   pbVar9 = pbStack_674;
   SUBFIELD(puStack_10,0,undefined1) = 5;
   if (pbStack_674 != (byte *)0x0) {
@@ -558,7 +558,7 @@ LAB_004a87b1:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_b10 = (byte *)PeekPacketChecksumState((void *)local_b10);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0043af40(pbVar9,iVar6,local_b10,pbStack_b08,local_af0,pbStack_af8,(char)param_1[0xf]);
+    ApplyBlastDamage(pbVar9,iVar6,local_b10,pbStack_b08,local_af0,pbStack_af8,(char)param_1[0xf]);
     puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),8);
     local_b10 = pbStack_674;
     if (pbStack_674 != (byte *)0x0) {
@@ -684,7 +684,7 @@ LAB_004a87ec:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_b10 = (byte *)PeekPacketChecksumState((void *)local_b10);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_0043af40(pbVar9,iStack_b14,local_b10,pbStack_b08,local_af0,pbStack_af8,(char)param_1[0xf]);
+  ApplyBlastDamage(pbVar9,iStack_b14,local_b10,pbStack_b08,local_af0,pbStack_af8,(char)param_1[0xf]);
   puStack_10 = (undefined1 *)CONCAT31(SUBFIELD(puStack_10,1,undefined3),10);
   if (pbStack_674 != (byte *)0x0) {
     iVar6 = (int)pbStack_674 << 4;
@@ -761,7 +761,7 @@ LAB_004a9290:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     apiStack_ae4[0] = (int *)PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0043af40(apiStack_ae4[0],pbStack_afc,0,local_af0,(int)pbStack_af8 / (int)pbStack_b08,
+    ApplyBlastDamage(apiStack_ae4[0],pbStack_afc,0,local_af0,(int)pbStack_af8 / (int)pbStack_b08,
                  local_b10,(char)param_1[0xf]);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_b10 = (byte *)PeekPacketChecksumState((void *)(param_1 + 0x5f9));

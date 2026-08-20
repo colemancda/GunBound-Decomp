@@ -1,8 +1,12 @@
-/* FUN_004f7210 - 0x004f7210 in the original binary.
+/* EncodeP2PPacketBlocks - 0x004f7210 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004f7210).  The P2P/broker variant of
+ * EncodePacketBlocks (0x4f70b0): identical block loop, but the per-block tag
+ * is just *(int *)(schedule + 0x20c) with no opcode addend.  This was
+ * already proven by the 2026-07-19 dropped-register pass documented below -
+ * the rename just makes the file say what that pass established.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * RECOVERED (2026-07-19): this is EncodePacketBlocks (0x4f70b0) minus the
  * opcode addend - the P2P/broker variant, whose per-block tag is just
@@ -28,7 +32,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004f7210(undefined4 param_1,int param_2,int param_3,byte *input,int inputLen)
+undefined4 EncodeP2PPacketBlocks(undefined4 param_1,int param_2,int param_3,byte *input,int inputLen)
 
 {
   short sVar1;

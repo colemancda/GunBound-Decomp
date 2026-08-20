@@ -4,7 +4,7 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * RECOVERED (2026-07-19): the decode twin of FUN_004f7210 - it consumes
+ * RECOVERED (2026-07-19): the decode twin of EncodeP2PPacketBlocks - it consumes
  * 16-byte cipher blocks and emits 12 plaintext bytes each, checking the
  * 4-byte tag against *(int *)(schedule + 0x20c). Ghidra dropped the EAX
  * register arg (the ciphertext byte count) and, at every call site, the ECX

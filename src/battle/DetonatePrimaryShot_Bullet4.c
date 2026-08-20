@@ -553,7 +553,7 @@ LAB_004a337e:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     (*pcVar20)(&DAT_005a9068);
-    FUN_0043af40(puVar33,puVar34,0,puVar32,iVar4 / iVar6,puVar26,(char)param_1[0xf]);
+    ApplyBlastDamage(puVar33,puVar34,0,puVar32,iVar4 / iVar6,puVar26,(char)param_1[0xf]);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uImpactPower = PeekPacketChecksumState((void *)(param_1 + 0x5f9));
     (*pcVar20)(&DAT_005a9068);

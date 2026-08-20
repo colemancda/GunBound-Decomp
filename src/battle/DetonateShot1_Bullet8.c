@@ -14,7 +14,7 @@
  * cell at all 44 argless PeekPacketChecksumState() calls (44 C : 44
  * orig).  DETONATION-TWIN VARIANT: same skeleton and goto-shuffle as
  * FUN_00483ff0/499ef0/48e1d0 (C's first block = orig's last), but its
- * first FUN_0043af40 round reads THREE OBJECT CELLS (+0x35ec/+0x33c8/
+ * first ApplyBlastDamage round reads THREE OBJECT CELLS (+0x35ec/+0x33c8/
  * +0x3198, C's param_1+0xd7b/+0xcf2/+0xc66) where the twins read the
  * &DAT_00e55ab8 / &DAT_007949c8 globals, and its second round is the
  * twins' standard one.  Object = `this` (ESI from entry; the only other
@@ -338,7 +338,7 @@ LAB_0048268a:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uStack_ad8 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  FUN_0043af40(uStack_ad8,iStack_af4,0,uVar9,uVar8,uVar7,(char)param_1[0xf]);
+  ApplyBlastDamage(uStack_ad8,iStack_af4,0,uVar9,uVar8,uVar7,(char)param_1[0xf]);
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -425,7 +425,7 @@ LAB_0048268a:
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     piStack_ad4 = (int *)PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0043af40(piStack_ad4,iStack_af4,0,uStack_ad8,iVar4 / local_ae8,uVar7,(char)param_1[0xf]);
+    ApplyBlastDamage(piStack_ad4,iStack_af4,0,uStack_ad8,iVar4 / local_ae8,uVar7,(char)param_1[0xf]);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar7 = PeekPacketChecksumState((void *)(param_1 + 0x5f9));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

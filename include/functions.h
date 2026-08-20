@@ -1435,9 +1435,9 @@ undefined4 EncodePacketBlocks(unsigned char *input, int inputLen, int schedule, 
  * recovered EAX `byteLen`; see that function's own header comment). */
 undefined4 __thiscall DecodePacketBlocks(undefined4 *param_1, int param_2, unsigned short param_3, unsigned int *param_4, int param_5, unsigned int byteLen);
 /* RECOVERED (2026-07-19): both take dropped ECX/EAX register args - see the
- * .c files' headers for the disassembly. FUN_004f7210 is EncodePacketBlocks
+ * .c files' headers for the disassembly. EncodeP2PPacketBlocks is EncodePacketBlocks
  * without the opcode addend; FUN_004f72b0 is its decode twin. */
-undefined4 FUN_004f7210(undefined4 param_1, int param_2, int param_3, unsigned char *input,
+undefined4 EncodeP2PPacketBlocks(undefined4 param_1, int param_2, int param_3, unsigned char *input,
                         int inputLen);
 undefined4 __thiscall FUN_004f72b0(undefined4 *param_1, int param_2, int param_3, int param_4,
                         unsigned int inputLen);

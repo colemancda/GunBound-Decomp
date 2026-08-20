@@ -616,7 +616,7 @@ LAB_004517be:
     (*pcVar17)(&DAT_005a9068);
     piStack_b48 = (int *)PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     (*pcVar16)(&DAT_005a9068);
-    FUN_0043af40(puStack_b4c,uStack_b6c,0,puStack_b50,(int)uStack_b60 / (int)ppuStack_b64,uStack_b68
+    ApplyBlastDamage(puStack_b4c,uStack_b6c,0,puStack_b50,(int)uStack_b60 / (int)ppuStack_b64,uStack_b68
                  ,(char)param_1[0xf]);
     (*pcVar17)(&DAT_005a9068);
     uImpactPower = PeekPacketChecksumState((void *)(param_1 + 0x5f9));

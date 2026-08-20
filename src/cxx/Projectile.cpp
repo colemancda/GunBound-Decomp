@@ -177,7 +177,7 @@ char PacketChecksumGreaterEqual(void *cell, unsigned int value);
 char CheckBothGuardedBools(void);
 void SyncOutgoingChecksumField(void *self, int arg1, void *cell);
 void FUN_00436070(void *base, unsigned int a, void *b);
-void FUN_0043af40(unsigned int a, void *b, int c, void *d, int e, unsigned int f, unsigned char g);
+void ApplyBlastDamage(unsigned int a, void *b, int c, void *d, int e, unsigned int f, unsigned char g);
 /* __fastcall, 10 args: the first two are the REGISTER pair the whole tree
  * used to drop - y = ECX (terrain row), x = EDX (terrain column).  See
  * src/unnamed/SpawnBlastEffect.c's header. */
@@ -628,7 +628,7 @@ void CProjectile::DetonateProjectile()
         EnterCriticalSection(&DAT_005a9068);
         uStack_adc = PeekPacketChecksumState((void *)(this->m_pad3d + 0xf17));
         LeaveCriticalSection(&DAT_005a9068);
-        FUN_0043af40(uStack_adc, puStack_af4, 0, local_ad4, iVar5 / (int)local_ae8, uVar8, self->m_flags);
+        ApplyBlastDamage(uStack_adc, puStack_af4, 0, local_ad4, iVar5 / (int)local_ae8, uVar8, self->m_flags);
         EnterCriticalSection(&DAT_005a9068);
         uVar8 = PeekPacketChecksumState((void *)(this->m_pad3d + 0x17a7));
         LeaveCriticalSection(&DAT_005a9068);

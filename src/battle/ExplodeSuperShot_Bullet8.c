@@ -97,7 +97,7 @@ LAB_0048398a:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar4 = PeekPacketChecksumState((void *)(param_1 + 0x3198));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_0043af40(iVar5,local_10,0,uVar4,uVar3,uVar2,*(undefined1 *)(param_1 + 0x3c));
+      ApplyBlastDamage(iVar5,local_10,0,uVar4,uVar3,uVar2,*(undefined1 *)(param_1 + 0x3c));
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState((void *)(param_1 + 0x17e4));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -160,7 +160,7 @@ LAB_00483b89:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar4 = PeekPacketChecksumState((void *)(param_1 + 0x3198));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_0043af40(iVar5,local_10,0,uVar4,uVar3,uVar2,*(undefined1 *)(param_1 + 0x3c));
+      ApplyBlastDamage(iVar5,local_10,0,uVar4,uVar3,uVar2,*(undefined1 *)(param_1 + 0x3c));
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState((void *)(param_1 + 0x17e4));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -236,7 +236,7 @@ LAB_00483e2e:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar4 = PeekPacketChecksumState((void *)(param_1 + 0x3198));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      FUN_0043af40(iVar5,local_10,0,uVar4,uVar3,uVar2,*(undefined1 *)(param_1 + 0x3c));
+      ApplyBlastDamage(iVar5,local_10,0,uVar4,uVar3,uVar2,*(undefined1 *)(param_1 + 0x3c));
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar2 = PeekPacketChecksumState((void *)(param_1 + 0x17e4));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

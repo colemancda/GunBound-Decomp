@@ -317,7 +317,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
              *                                   ;   the 0x24-byte block whose
              *                                   ;   first dword is the 0x13 set
              *                                   ;   at 0x501c73 */
-            cVar4 = (char)FUN_004f7210(*(undefined4 *)(param_1 + 0x1784),(int)local_2ed8,0x1750,
+            cVar4 = (char)EncodeP2PPacketBlocks(*(undefined4 *)(param_1 + 0x1784),(int)local_2ed8,0x1750,
                                        (byte *)&local_4668,0x24);
             if (cVar4 != '\0') {
               FUN_00502500(0x1010);

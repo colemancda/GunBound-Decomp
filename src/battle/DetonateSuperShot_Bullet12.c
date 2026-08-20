@@ -299,7 +299,7 @@ LAB_004ae9a8:
     uVar10 = PeekChecksumStateUnderLock(&DAT_007949c8);
     uVar18 = 0;
     uVar12 = PeekChecksumStateUnderLock(piVar2);
-    FUN_0043af40(uVar12,uVar9,uVar18,uVar10,iVar8,uVar11,uVar13);
+    ApplyBlastDamage(uVar12,uVar9,uVar18,uVar10,iVar8,uVar11,uVar13);
     uVar18 = 0;
     uVar12 = 2;
     uVar10 = 0xff;

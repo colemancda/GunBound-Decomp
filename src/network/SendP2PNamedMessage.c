@@ -6,7 +6,7 @@
  *     0x10) then a 16-bit tag (param_4) and the 16-bit payload length
  *     (param_1, clamped to 0xff), followed by the payload copied from
  *     param_5.
- *   - it then calls FUN_004f7210 - already documented in this tree as
+ *   - it then calls EncodeP2PPacketBlocks - already documented in this tree as
  *     "EncodePacketBlocks minus the opcode addend, the P2P/broker variant" -
  *     with the key schedule at param_2 + 0x1a78, a 6000-byte output buffer,
  *     the composed record, and a length rounded up to a whole 12-byte cipher
@@ -68,7 +68,7 @@ SendP2PNamedMessage(ushort param_1,int param_2,char *param_3,undefined2 param_4,
    *                                                 ;   ((param_1+0x1f)/0xc)*0xc
    * 0x1f = the 0x14-byte header (16-byte name + param_4 + param_1) plus the
    * 0xb round-up to a whole 12-byte block. */
-  cVar1 = (char)FUN_004f7210(*(undefined4 *)(param_2 + 0x1a78),(int)local_1778,6000,
+  cVar1 = (char)EncodeP2PPacketBlocks(*(undefined4 *)(param_2 + 0x1a78),(int)local_1778,6000,
                              (byte *)local_2ee8,(((int)param_1 + 0x1f) / 0xc) * 0xc);
   if (cVar1 == '\0') {
     return;

@@ -62,7 +62,7 @@ uint FUN_00502650(int param_1,int param_2,int param_3,undefined4 *param_4,uint p
      *                                                 ; EAX = INPUTLEN =
      *                                                 ;   ((esi-base+0xb)/0xc)*0xc
      * where esi is the running write cursor - the port's `_Dest`. */
-    param_5 = FUN_004f7210(*(undefined4 *)(param_1 + 0x1a78),(int)local_1778,6000,
+    param_5 = EncodeP2PPacketBlocks(*(undefined4 *)(param_1 + 0x1a78),(int)local_1778,6000,
                            (byte *)&local_2ee3 - 5,
                            (((int)(_Dest - ((char *)&local_2ee3 - 5)) + 0xb) / 0xc) * 0xc);
     if ((char)param_5 != '\0') {

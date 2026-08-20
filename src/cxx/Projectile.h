@@ -143,7 +143,7 @@ public:
      * counter into this+0x3c - the SAME offset Projectile.h documents as
      * m_flags (u8, "low 3 bits = a per-shot tag", set once by InitProjectile
      * and read as a small tag value by DetonateProjectile's
-     * FUN_00432320/FUN_0043af40 calls), but reads/writes it here as a full
+     * FUN_00432320/ApplyBlastDamage calls), but reads/writes it here as a full
      * accumulating DWORD. Both behaviors are real and angr-confirmed at the
      * same address; not reconciled here - see Projectile.cpp for how this
      * is written (raw offset arithmetic, not through the m_flags member, to

@@ -1,9 +1,32 @@
-/* FUN_0043af40 - 0x0043af40 in the original binary.
+/* ApplyBlastDamage - 0x0043af40 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_0043af40).  Applies an explosion at (param_1,
+ * param_2) = (x, y) to everything in range.  This is the damage half of the
+ * detonation pair - every Detonate / Explode body calls it and then
+ * SpawnBlastEffect on the same impact point (note the two take the point in
+ * OPPOSITE orders: this one (x, y), SpawnBlastEffect (y, x)).  Evidence:
+ *   - param_2 is clamped to g_nCameraBoundY and param_1 bounds-checked
+ *     against g_nCameraBoundX, the terrain extents.
+ *   - it walks the layer-100001 collection (the player records - the same
+ *     0x186a1 key GetPlayerRecordBySlot uses) and for each record computes
+ *     EncodeChecksumDeltaSub(rec + 0x243, buf, param_1) and
+ *     (rec + 0x2cc, buf, param_2): int indices 0x243/0x2cc are BYTE offsets
+ *     0x90c/0xb30 - exactly the pair HitTestLocalMobile subtracts to get
+ *     (mobileX - x, mobileY - y).  So param_1/param_2 are the blast point
+ *     and this is the same in-range test, run over every player.
+ *   - on a hit it writes three guarded fields through
+ *     EncodeOutgoingPacketField - +0xb0bc = param_5, +0xb2e0 = param_6,
+ *     +0xb504 = param_4 (param_4 is pre-scaled to (param_4 * 7) / ... when
+ *     param_3 is set) - stores param_7 to +0x2c2b, and then calls vtable
+ *     slot 1 (ResolveNamedState) with "shock" (s_shock_00553b80), putting
+ *     the hit mobile into its shock animation.
+ *   - param_7 doubles as a 0..7 SLOT index: when param_7 < 8 it accumulates
+ *     param_5 + param_6 into a per-slot running total.
+ *   - a second pass repeats the subtract-and-test over the layer-100006
+ *     collection (the same class id FUN_00425c90 hit-tests), at that
+ *     entity's +0x97.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 5 argless PeekPacketChecksumState() calls: the global
@@ -17,7 +40,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_0043af40(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,
+void ApplyBlastDamage(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,
                  byte param_7)
 
 {

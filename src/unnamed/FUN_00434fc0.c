@@ -69,7 +69,7 @@ void __thiscall FUN_00434fc0(undefined4 param_1,undefined4 param_2,int param_3)
 LAB_00435034:
     iVar9 = iVar11;
     FUN_00436070(&DAT_006a7f70 + g_clientContext,param_3,iVar11);
-    FUN_0043af40(param_3,iVar11,0,0x1e,0x1e,0x1e,0xff);
+    ApplyBlastDamage(param_3,iVar11,0,0x1e,0x1e,0x1e,0xff);
     pvVar4 = operator_new(0x3fa0);
     local_4 = 0;
     if (pvVar4 == (void *)0x0) {

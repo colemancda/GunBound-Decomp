@@ -481,7 +481,7 @@ LAB_0044e02e:
     iVar11 = iStack_ae0;
     uVar7 = uStack_ad0;
     uVar9 = PeekChecksumStateUnderLock(piVar1);
-    FUN_0043af40(uVar9,iVar6,uVar17,iVar11,iVar8,uVar7,uVar10);
+    ApplyBlastDamage(uVar9,iVar6,uVar17,iVar11,iVar8,uVar7,uVar10);
     uVar19 = 0;
     uVar18 = 2;
     uVar17 = 0xff;

@@ -14,7 +14,7 @@
  *     (orig 0x431f7a: movzx ecx,bl / shl ecx,4 / add ecx,edi /
  *      mov ecx,[ecx*4 + 0x56d290]).
  *   - it is called from every Detonate / Explode path, always immediately
- *     after FUN_0043af40 on the same impact point.
+ *     after ApplyBlastDamage on the same impact point.
  * param_1/param_2 are the terrain (Y, X) - see the ABI note below.
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
@@ -45,7 +45,7 @@
  *     the peek whose result Ghidra had discarded immediately above the
  *     call.
  * The cross-check that pins the ORDER: every caller pairs this call with
- * FUN_0043af40 / FUN_00436070 / SpawnProjectileLightningHazard on the
+ * ApplyBlastDamage / FUN_00436070 / SpawnProjectileLightningHazard on the
  * same impact point, and those take (X, Y) - this one takes (Y, X).
  * Verified per site by push-depth normalisation against a capstone
  * disassembly of all 36 raw-C call sites (the Ghidra stack-local names

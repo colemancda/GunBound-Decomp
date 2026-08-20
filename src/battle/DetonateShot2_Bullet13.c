@@ -162,7 +162,7 @@ LAB_004a0a52:
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iStack_adc = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        FUN_0043af40(iStack_adc,local_af8,0,piStack_ad8,(int)piStack_ae4 / (int)local_af4,uVar5,
+        ApplyBlastDamage(iStack_adc,local_af8,0,piStack_ad8,(int)piStack_ae4 / (int)local_af4,uVar5,
                      (char)param_1[0xf]);
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         uVar5 = PeekPacketChecksumState((void *)(param_1 + 0x5f9));
