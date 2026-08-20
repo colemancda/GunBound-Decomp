@@ -1,14 +1,18 @@
-/* FUN_0044b720 - 0x0044b720 in the original binary.
+/* CreateAvatarStoreButtons - 0x0044b720 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_0044b720).  Builds the avatar-store window's
+ * button row: a run of CreateButtonWidget calls over the "b_store_*" sprite
+ * names - b_store_buy, b_store_cashcharge, b_store_cloth, b_store_cap,
+ * b_store_buddygame, b_store_down and the rest.  Called from
+ * State07_AvatarStore_OnEnter, State07_AvatarStore_ProcessPacket,
+ * RenderInventoryItemDetail and the store-window builder FUN_00445450.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0044b720(undefined4 param_1)
+void CreateAvatarStoreButtons(undefined4 param_1)
 
 {
   CreateButtonWidget(&DAT_00e9be90,0,0,1000,s_b_store_exit_00555778,0x232,0x226,0x6b,0x2d,1,0);

@@ -98,10 +98,10 @@ void __fastcall SimulateMobileFrame(int *param_1)
   AdvanceSpriteAnimation((int)param_1);
   if ((char)param_1[0xd] != '\0') {
     /* FIXED (2026-07-15): dropped `self` arg - real signature is
-     * `void __fastcall FUN_0045ed80(int *param_1)` (see its own file);
+     * `void __fastcall UpdateMobileEmotionState(int *param_1)` (see its own file);
      * this file's own param_1 is the same CMobile-shaped object already
      * passed to the sibling call AlignMobileToTerrain(param_1) one line above. */
-    FUN_0045ed80(param_1);
+    UpdateMobileEmotionState(param_1);
   }
   (**(code **)(*param_1 + 0x1c))(param_1[9],param_1[0xb]);
   cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));

@@ -18,7 +18,7 @@ undefined4 * FUN_004fd0f0(undefined4 *param_1,undefined4 param_2)
    * (LAB_00537bc6) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
   *param_1 = &PTR_LAB_00557610;
-  FUN_004fdc80();
+  CreateCommEngineNotifyWindow();
   /* orig 0x4fd11c `lea edi, [ebp + 0x2c]` (EBP = param_1) -
    * InitCommP2PNotifyWindow's recovered EDI `self` argument. */
   InitCommP2PNotifyWindow(param_1 + 0xb);

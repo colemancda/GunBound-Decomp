@@ -42,7 +42,7 @@ undefined4 __fastcall ReadRegistryDword(undefined4 param_1,undefined4 param_2,un
   local_d4[0xf] = 0;
   local_d4[0] = '\0';
   _sprintf(local_80,s_modes__d__d__d_00552030,param_3,param_2,param_1);
-  iVar1 = FUN_0040c250(s_display_00552028,local_c0,0x10,0);
+  iVar1 = OpenDriverRegistryKey(s_display_00552028,local_c0,0x10,0);
   iVar3 = 0;
   if (0 < iVar1) {
     do {

@@ -484,7 +484,7 @@ switchD_004449fc_default:
           RemoveWidget();
           FUN_0040cdf0();
           FUN_0040cdf0();
-          FUN_0044b720(this);
+          CreateAvatarStoreButtons(this);
           return;
         }
         goto LAB_00445282;

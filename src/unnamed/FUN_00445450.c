@@ -121,7 +121,7 @@ LAB_00445543:
     RemoveWidget();
     FUN_0040cdf0();
     FUN_0040cdf0();
-    FUN_0044b720(param_1);
+    CreateAvatarStoreButtons(param_1);
     goto switchD_00445591_caseD_2;
   }
   switch(param_4) {
@@ -766,7 +766,7 @@ LAB_00446d2b:
     RemoveWidget();
     RemoveWidget();
     RemoveWidget();
-    FUN_0044b720(param_1);
+    CreateAvatarStoreButtons(param_1);
     FUN_00449250(param_1,1,0);
     break;
   case 0x33:
@@ -775,7 +775,7 @@ LAB_00446d2b:
     RemoveWidget();
     RemoveWidget();
     RemoveWidget();
-    FUN_0044b720(param_1);
+    CreateAvatarStoreButtons(param_1);
     break;
   case 0x34:
     SetGuardedBool(0,GB_GUARD_UNRECOVERED);
@@ -982,14 +982,14 @@ LAB_00446f6d:
     RemoveWidget();
     RemoveWidget();
     RemoveWidget();
-    FUN_0044b720(param_1);
+    CreateAvatarStoreButtons(param_1);
     FUN_00449250(param_1,0,0);
     break;
   case 0x3b:
     *(undefined1 *)(param_1 + 0x32f90) = 1;
     QueueOutgoingPacketField(0);
     RemoveWidget();
-    FUN_0044b720(param_1);
+    CreateAvatarStoreButtons(param_1);
     FUN_00449250(param_1,1,0);
     break;
   case 0x3c:
@@ -998,7 +998,7 @@ LAB_00446f6d:
     RemoveWidget();
     RemoveWidget();
     RemoveWidget();
-    FUN_0044b720(param_1);
+    CreateAvatarStoreButtons(param_1);
     FUN_00449250(param_1,1,0);
   case 0x3d:
     BuildSystemInfoBlob(&local_4518, systemInfoBlob2);

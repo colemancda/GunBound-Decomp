@@ -1,14 +1,18 @@
-/* FUN_0040c250 - 0x0040c250 in the original binary.
+/* OpenDriverRegistryKey - 0x0040c250 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_0040c250).  Formats a
+ * "System\CurrentControlSet\Service..." subkey path with sprintf and opens it
+ * under HKEY_CURRENT_USER via RegOpenKeyExA with KEY_ALL_ACCESS, returning the
+ * handle through its PHKEY out-parameter.  Both ReadRegistryDword and
+ * WriteRegistryDword call it to resolve the key they then act on; the "class"
+ * and "driver" strings are the subkey names it selects between.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-int FUN_0040c250(char *param_1,PHKEY param_2,int param_3,HKEY param_4)
+int OpenDriverRegistryKey(char *param_1,PHKEY param_2,int param_3,HKEY param_4)
 
 {
   bool bVar1;
@@ -59,7 +63,7 @@ int FUN_0040c250(char *param_1,PHKEY param_2,int param_3,HKEY param_4)
       dwIndex = dwIndex + 1;
       LVar2 = RegOpenKeyExA(param_4,local_200,0,0x20019,&local_2cc);
       if (LVar2 == 0) {
-        iVar3 = FUN_0040c250(param_1,param_2 + iVar4,param_3 - iVar4,local_2cc);
+        iVar3 = OpenDriverRegistryKey(param_1,param_2 + iVar4,param_3 - iVar4,local_2cc);
         iVar4 = iVar4 + iVar3;
         RegCloseKey(local_2cc);
       }

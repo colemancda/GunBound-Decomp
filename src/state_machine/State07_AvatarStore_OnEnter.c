@@ -202,7 +202,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   *(byte *)(param_1 + 0x32ce2) = *(byte *)(param_1 + 0x32ce0) + bVar6 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   *(undefined1 *)(param_1 + 0x32f90) = 1;
-  FUN_0044b720(param_1);
+  CreateAvatarStoreButtons(param_1);
   if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
     piVar1 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10);
     uVar2 = piVar1[2];
@@ -240,7 +240,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
     *(byte *)(param_1 + 0x32e64) = bVar6;
     *(byte *)(param_1 + 0x32e65) = *(byte *)(param_1 + 0x32e63) + bVar6 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    FUN_0044b720(param_1);
+    CreateAvatarStoreButtons(param_1);
   }
   else {
     RenderInventoryItemDetail(param_1);

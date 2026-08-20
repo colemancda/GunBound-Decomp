@@ -195,7 +195,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040c150,93,FUN_0040c150,false,1,0,RAW-src
 0040c1b0,87,FUN_0040c1b0,false,2,0,RAW-src
 0040c210,55,FUN_0040c210,false,2,2,RAW-src
-0040c250,534,FUN_0040c250,false,3,7,RAW-src
+0040c250,534,OpenDriverRegistryKey,false,3,7,RAW-src
 0040c470,224,ReadRegistryDword,false,2,6,RAW-src
 0040c550,194,WriteRegistryDword,false,3,6,RAW-src
 0040c620,71,GetDisplayConfigFromRegistry,false,1,4,RAW-src
@@ -540,7 +540,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0044b330,295,UnequipAvatarSlot,false,1,8,RAW-src
 0044b460,339,PreviewAvatarPart,false,1,5,RAW-src
 0044b5d0,334,BlitAvatarFrameToPreviewTexture,false,2,0,RAW-src
-0044b720,467,FUN_0044b720,false,11,2,RAW-src
+0044b720,467,CreateAvatarStoreButtons,false,11,2,RAW-src
 0044b900,1328,RenderInventoryItemDetail,false,3,20,RAW-src
 0044be40,186,FUN_0044be40,false,1,6,RAW-src
 0044bf00,1005,FUN_0044bf00,false,2,11,RAW-src
@@ -628,7 +628,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0045db20,3862,FUN_0045db20,false,1,16,RAW-src
 0045ea40,487,FUN_0045ea40,false,2,10,RAW-src
 0045ec30,336,FUN_0045ec30,false,3,5,RAW-src
-0045ed80,1364,FUN_0045ed80,false,1,15,RAW-src
+0045ed80,1364,UpdateMobileEmotionState,false,1,15,RAW-src
 0045f300,707,FUN_0045f300,false,4,10,RAW-src
 0045f5d0,611,FUN_0045f5d0,false,4,10,RAW-src
 0045f840,208,FUN_0045f840,false,16,4,RAW-src
@@ -1394,7 +1394,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fdb40,88,FUN_004fdb40,false,1,1,RAW-src
 004fdc30,31,FUN_004fdc30,false,1,0,RAW-src
 004fdc50,35,FUN_004fdc50,false,4,0,RAW-src
-004fdc80,109,FUN_004fdc80,false,1,2,RAW-src
+004fdc80,109,CreateCommEngineNotifyWindow,false,1,2,RAW-src
 004fdd30,97,FUN_004fdd30,false,1,4,RAW-src
 004fdda0,40,FUN_004fdda0,false,2,2,RAW-src
 004fddd0,288,FUN_004fddd0,false,1,8,RAW-src

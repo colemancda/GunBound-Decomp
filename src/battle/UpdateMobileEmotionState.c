@@ -1,8 +1,13 @@
-/* FUN_0045ed80 - 0x0045ed80 in the original binary.
+/* UpdateMobileEmotionState - 0x0045ed80 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_0045ed80).  Drives the mobile's EMOTICON
+ * animation: it formats "emotion%d" from the field at param_1[0x2b90] modulo
+ * 10 and pushes it through the object's vtable slot 1 (ResolveNamedState),
+ * then advances that field from its queued successor at [0x2b91].  Falls back
+ * to the "normal" / "wnormal" states otherwise.  Its one caller is
+ * SimulateMobileFrame.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at both argless PeekPacketChecksumState() calls.  C79 is 0x45f244
@@ -17,7 +22,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0045ed80(int *param_1)
+void __fastcall UpdateMobileEmotionState(int *param_1)
 
 {
   char cVar1;

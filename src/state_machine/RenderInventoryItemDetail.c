@@ -111,7 +111,7 @@ void RenderInventoryItemDetail(int param_1)
       *(byte *)(param_1 + 0x32e65) = bVar9 + *(char *)(param_1 + 0x32e63) + -0x34;
       (*pcVar11)(&DAT_005a9068);
       RemoveWidget();
-      FUN_0044b720(param_1);
+      CreateAvatarStoreButtons(param_1);
     }
     else {
       if (*(int *)(g_clientContext + 0x44bec) == 0) {

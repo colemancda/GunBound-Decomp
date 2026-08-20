@@ -27,7 +27,7 @@ void __fastcall WriteRegistryDword(undefined4 param_1,undefined4 param_2,int par
   
   _sprintf(local_80,s_modes__d__d__d_00552030,param_2,param_1);
   __itoa(param_3,(char *)local_d0,10);
-  iVar2 = FUN_0040c250(s_display_00552028,local_c0,0x10,0);
+  iVar2 = OpenDriverRegistryKey(s_display_00552028,local_c0,0x10,0);
   iVar5 = 0;
   if (0 < iVar2) {
     do {

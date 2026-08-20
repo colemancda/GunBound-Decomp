@@ -1,13 +1,16 @@
-/* FUN_004fdc80 - 0x004fdc80 in the original binary.
+/* CreateCommEngineNotifyWindow - 0x004fdc80 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_004fdc80).  One CreateWindowExA call making a
+ * hidden "STATIC" window titled "CCommEngine_Notify_Window" - the message-only
+ * window the comm engine uses as its notification sink (the usual WSAAsyncSelect
+ * pattern).  109 bytes, one caller.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004fdc80(void)
+void CreateCommEngineNotifyWindow(void)
 
 {
   HWND hWnd;
