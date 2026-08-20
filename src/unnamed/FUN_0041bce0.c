@@ -53,7 +53,7 @@ LAB_0041bd02:
 LAB_0041bd81:
     if (uVar4 == uVar5) {
       if (*(char *)(iVar7 + 0x18) == '\x01') {
-        BlitSprite16bpp(0x24,local_10);
+        BlitSprite16bpp(uVar5,0x24,local_10,0x34);
       }
       else {
         BlitSpriteClipped(uVar5,0x24,local_10,0x34);

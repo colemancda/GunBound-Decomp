@@ -1339,7 +1339,7 @@ LAB_004ca787:
 LAB_004ca86a:
     if (uVar10 == 0xe) {
       if (*(char *)(iVar7 + 0x18) == '\x01') {
-        BlitSprite16bpp(0xde,0x1e0);
+        BlitSprite16bpp(0xe,0xde,0x1e0,0x1b58);
       }
       else {
         BlitSpriteClipped(0xe,0xde,0x1e0,0x1b58);
@@ -1355,7 +1355,7 @@ LAB_004ca86a:
 LAB_004ca90c:
     if (uVar10 == 0xae) {
       if (*(char *)(iVar7 + 0x18) == '\x01') {
-        BlitSprite16bpp(0xde,0x1e0);
+        BlitSprite16bpp(0xae,0xde,0x1e0,0x1b58);
       }
       else {
         BlitSpriteClipped(0xae,0xde,0x1e0,0x1b58);

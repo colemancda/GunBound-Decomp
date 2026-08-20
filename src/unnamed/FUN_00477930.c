@@ -58,7 +58,7 @@ void __fastcall FUN_00477930(int param_1)
     iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x1900,iVar1);
     if (iVar4 != 0) {
       if (*(char *)(iVar4 + 0x18) == '\x01') {
-        BlitSprite16bpp(uVar3,uVar2);
+        BlitSprite16bpp(iVar1,uVar3,uVar2,0x1900);
       }
       else {
         BlitSpriteClipped(iVar1,uVar3,uVar2,0x1900);

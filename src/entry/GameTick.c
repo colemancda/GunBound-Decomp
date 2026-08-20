@@ -357,7 +357,7 @@ LAB_004137a9:
       if ((DAT_0079352c != 0) &&
           (iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x384,0), iVar5 != 0)) {
         if (*(char *)(iVar5 + 0x18) == '\x01') {
-          BlitSprite16bpp(0xf9,0xc1);
+          BlitSprite16bpp(0,0xf9,0xc1,0x384);
         }
         else {
           BlitSpriteClipped(0,0xf9,0xc1,0x384);
@@ -402,7 +402,7 @@ LAB_00413933:
         iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x190,0);
         if (iVar5 != 0) {
           if (*(char *)(iVar5 + 0x18) == '\x01') {
-            BlitSprite16bpp(0x2fc,8);
+            BlitSprite16bpp(0,0x2fc,8,0x190);
           }
           else {
             BlitSpriteClipped(0,0x2fc,8,0x190);

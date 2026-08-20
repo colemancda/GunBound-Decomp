@@ -46,6 +46,33 @@
  * (already frame/x/y-migrated) call site updated to pass its real key.
  * functions.h stays K&R-empty so the ~290 still-2-arg call sites keep
  * compiling unchanged.
+ *
+ * STALE 2-ARGUMENT CALL SITES REPAIRED (2026-08-20).  When `frame` was
+ * prepended as a leading parameter on 2026-07-13, only the call sites that
+ * were already frame/x/y-migrated got updated.  The rest still read
+ * `BlitSprite16bpp(x, y)`, which under the new signature fills (frame,
+ * param_1) - so an X COORDINATE was being passed as the frame index that this
+ * function's own body hands to FindSpriteFrame, and the y coordinate was
+ * landing in x.  186 call sites were in that state.
+ *
+ * The repair needs no disassembly, because the sibling call in the same block
+ * already carries the answer.  Every one of these sites sits in
+ *     if (FindSpriteFrame(ctx, KEY, FRAME)) {
+ *       if (frame->flags == 1) BlitSprite16bpp(x, y);
+ *       else                   BlitSpriteClipped(FRAME, x, y, KEY);
+ *     }
+ * so FRAME and KEY come straight from the else-branch, which the
+ * BlitSpriteClipped sweep had already recovered.
+ *
+ * That also makes the repair self-checking, and the check is exact rather
+ * than statistical: the two arguments the stale call passes MUST equal the x
+ * and y the sibling receives.  At all 77 sites repaired here they matched
+ * exactly, with zero mismatches - which is what licences rewriting an
+ * argument list rather than merely appending to one.
+ *
+ * 129 of 258 call sites now pass all four arguments.  The 129 still open are
+ * in blocks where neither sibling has been recovered yet; they unlock as
+ * FindSpriteFrame and BlitSpriteClipped advance.
  */
 #include "ghidra_types.h"
 #include <windows.h>

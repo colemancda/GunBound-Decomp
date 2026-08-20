@@ -117,7 +117,7 @@ void State11_InBattle_RenderPlayerRoster(int param_1)
       iVar13 = *(int *)(param_1 + 0x40);
       if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&DAT_00ea0e18,0x1f4,0xe2), iVar2 != 0)) {
         if (*(char *)(iVar2 + 0x18) == '\x01') {
-          BlitSprite16bpp(iVar13 + 4,iVar3 + 0x17);
+          BlitSprite16bpp(0xe2,iVar13 + 4,iVar3 + 0x17,0x1f4);
         }
         else {
           BlitSpriteClipped(0xe2,iVar13 + 4,iVar3 + 0x17,0x1f4);
@@ -916,7 +916,7 @@ code_r0x004098ed:
 LAB_00409934:
     if (uVar7 == 3) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        BlitSprite16bpp(*(undefined4 *)(g_clientContext + 0xebee8),0x239);
+        BlitSprite16bpp(3,*(undefined4 *)(g_clientContext + 0xebee8),0x239,0x1b58);
       }
       else {
         BlitSpriteClipped(3,*(undefined4 *)(g_clientContext + 0xebee8),0x239,0x1b58);
