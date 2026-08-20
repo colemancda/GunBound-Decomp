@@ -42,7 +42,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
     if ((int)uVar2 < 0) {
       bVar9 = (uVar2 - 1 | 0xfffffffe) == 0xffffffff;
     }
-    if (((bVar9) && (DAT_0079352c != 0)) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
+    if (((bVar9) && (DAT_0079352c != 0)) && (iVar3 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,9), iVar3 != 0)) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
         BlitSprite16bpp(0x23b,0x1e5);
       }
@@ -57,7 +57,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
     if ((int)uVar2 < 0) {
       bVar9 = (uVar2 - 1 | 0xfffffffe) == 0xffffffff;
     }
-    if (((bVar9) && (DAT_0079352c != 0)) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
+    if (((bVar9) && (DAT_0079352c != 0)) && (iVar3 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,9), iVar3 != 0)) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
         BlitSprite16bpp(0x23b,0x1e5);
       }
@@ -68,7 +68,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
   }
   if (g_bBattleSessionActive == '\0') goto LAB_004da2f4;
   SetClipRect(0, 0x31f, 0x257, 0);
-  if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame((int)&DAT_00ea0e18,0x2717,0), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0,0x164);
     }
@@ -77,7 +77,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
     }
   }
   SetClipRect(0x261, 0x9c, 0x257, 0);
-  if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame((int)&DAT_00ea0e18,0x2717,1), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0x261,0x16d);
     }
@@ -86,7 +86,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
     }
   }
   SetClipRect(0, 0x31f, 0x257, 0);
-  if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame((int)&DAT_00ea0e18,0x2718,0), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0x1a,0x17f);
     }
@@ -118,7 +118,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
         }
         iVar3 = *piVar8;
         iVar7 = piVar8[-8];
-        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
+        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x2717,4), iVar4 != 0)) {
           if (*(char *)(iVar4 + 0x18) == '\x01') {
             BlitSprite16bpp(iVar7 + 0x1a,iVar3 + 2);
           }
@@ -355,7 +355,7 @@ LAB_004da1e2:
   }
 LAB_004da286:
   if ((((*(short *)(&DAT_006aa660 + g_clientContext) != -1) && (*(int *)(param_1 + 0x740) % 0x14 < 10))
-      && (DAT_0079352c != 0)) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
+      && (DAT_0079352c != 0)) && (iVar3 = FindSpriteFrame((int)&DAT_00ea0e18,0x271a,0), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0,0x164);
     }

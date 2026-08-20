@@ -80,8 +80,14 @@
  * src/cxx/State03_GameRoomList.cpp's own existing `extern int
  * FindSpriteFrame(void)` (plain cdecl) declaration.
  *
- * CALLER SWEEP, ROUND 1 (2026-08-20): 34 of the 162 argless call sites
- * recovered. All 181 direct call sites were re-scanned from the binary
+ * CALLER SWEEP (2026-08-20): 42 of the 150 argless call sites recovered,
+ * in two rounds of 34 and 8; 108 remain.
+ *
+ * COUNT CORRECTION: round 1's commit message said "162 argless, leaving 128".
+ * Both figures were inflated - they came from a plain grep for
+ * "FindSpriteFrame()", which also counts the prose in headers like this one,
+ * including my own. Counting only code (comments stripped) the real
+ * progression is 150 -> 116 -> 108. All 181 direct call sites were re-scanned from the binary
  * (byte-scan for E8 rel32 targeting 0x4f30c0; results cached in
  * tools/findspriteframe_regs.json, which supersedes the older angr-derived
  * findspriteframe_sites.json for EDX - that one carried EAX and ESI only).
@@ -106,8 +112,28 @@
  * BlitSprite16bpp's first argument is an X coordinate, NOT the frame - only
  * BlitSpriteClipped's is.
  *
- * Applied to the two files where the witness agreed on every site:
- * FUN_0050ae40.c and FUN_0050be20.c, 17 of 17 each, zero mismatches.
+ * Applied in round 1 to the two files where the witness agreed on every
+ * site: FUN_0050ae40.c and FUN_0050be20.c, 17 of 17 each, zero mismatches.
+ *
+ * ROUND 2 replaced position-matching with a CALL-SEQUENCE FINGERPRINT: from
+ * each call site, the next three call targets in the binary (resolved to
+ * names through PROGRESS.csv) versus the next three function calls in the
+ * source block. Grouping both sides by that fingerprint and pairing within
+ * each group is order-independent, so it survives the block reordering that
+ * defeats position-matching. Where the ESI witness was also present it agreed
+ * every time, with zero contradictions across all files - the two methods are
+ * independent, so that is a real cross-check rather than a restatement.
+ * It added 8 sites: State09_ReadyRoom_RenderStatusOverlay.c (7, by
+ * fingerprint, 6 witness agreements) and DarkenTerrainScorchRow.c (1, the
+ * only site in its file and therefore unambiguous).
+ *
+ * WHAT ACTUALLY BLOCKS THE REST: not the pairing problem at all. Of the 27
+ * files still holding argless calls, most fail on 'register not literal' -
+ * their ESI, and sometimes EDX, comes from a caller local rather than an
+ * immediate. Those need the same caller-side dropped-register recovery one
+ * level up, which is why the render primitives (BlitSprite16bpp,
+ * BlitSpriteClipped, QueueSpriteFrameSpans, Widget_DrawSelf) are all in the
+ * held list: they are themselves stubs waiting on their own callers.
  *
  * Held back, with the evidence, for a follow-up:
  *   - FUN_0044a000.c (26 sites) is the proof that the trap is real. Its
@@ -121,7 +147,6 @@
  *     dropped-register recovery this file's header describes for
  *     BlitSpriteText/DrawFontString/BlitSprite16bpp - a caller-side job, not
  *     a callee-side one.
- * 128 argless call sites remain.
  *
  * Not renamed in-tree yet: a rename would touch all 43 caller files.
  * Raw/near-verbatim port of Ghidra's decompiler output, not hand-verified.

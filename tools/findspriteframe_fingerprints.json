@@ -1,0 +1,1789 @@
+[
+ {
+  "va": "00405ec1",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FUN_004f2e40",
+   "FUN_00405f40",
+   "_free"
+  ]
+ },
+ {
+  "va": "0040825a",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "DrawSprite",
+   "DrawSprite"
+  ]
+ },
+ {
+  "va": "0040860b",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "004086ad",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004088ef",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "00408991",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0040d0ac",
+  "seq": [
+   "CommitActiveTextInput",
+   "FUN_0040cc50",
+   "FindSpriteFrame",
+   "CommitActiveTextInput",
+   "FUN_0040cc50"
+  ]
+ },
+ {
+  "va": "0040d105",
+  "seq": [
+   "CommitActiveTextInput",
+   "FUN_0040cc50",
+   "EnqueueInputEvent",
+   "CommitActiveTextInput",
+   "FUN_004154c0"
+  ]
+ },
+ {
+  "va": "004138ab",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "BlitRLESprite",
+   "BlitRLESprite",
+   "DrawActiveObjectRegistry"
+  ]
+ },
+ {
+  "va": "00413989",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "004139d7",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FUN_00412e50",
+   "PresentFrame",
+   "ChangeGameState"
+  ]
+ },
+ {
+  "va": "00429835",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "00429881",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState",
+   "_sprintf"
+  ]
+ },
+ {
+  "va": "0042a28a",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a2df",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a351",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a3be",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a437",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a4b6",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a52e",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "_sprintf",
+   "BlitSpriteText",
+   "SetClipRect"
+  ]
+ },
+ {
+  "va": "0042a62f",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a6e7",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a742",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a7b4",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a818",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a87d",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a90d",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0042a996",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "_sprintf",
+   "BlitSpriteText",
+   "SetClipRect"
+  ]
+ },
+ {
+  "va": "0042aaa0",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "DrawFontString",
+   "BlitRLESprite",
+   "BlitRLESprite"
+  ]
+ },
+ {
+  "va": "0043255b",
+  "seq": [
+   "FUN_004ac260",
+   "QueueOutgoingPacketField",
+   "FUN_004ac260",
+   "QueueOutgoingPacketField",
+   "FUN_004ac260"
+  ]
+ },
+ {
+  "va": "00436886",
+  "seq": [
+   "operator_new",
+   "FUN_00468620",
+   "RegisterActiveObject",
+   "PeekPacketChecksumBool",
+   "operator_new"
+  ]
+ },
+ {
+  "va": "004382f2",
+  "seq": [
+   "operator_new",
+   "FUN_0044fd00",
+   "FUN_00450600",
+   "RegisterActiveObject",
+   "PeekPacketChecksumBool"
+  ]
+ },
+ {
+  "va": "004422a6",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "004422ef",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FUN_00442d50",
+   "SetClipRect",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "0044237f",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "SetClipRect",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004423ed",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState"
+  ]
+ },
+ {
+  "va": "00442e81",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "00442ef6",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "00442f73",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "00442fc9",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "DrawFontString",
+   "BlitRLESprite",
+   "BlitRLESprite"
+  ]
+ },
+ {
+  "va": "0044307d",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "00443385",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "LoadSpriteSet",
+   "PlayMusicTrack",
+   "BuildSystemInfoBlob"
+  ]
+ },
+ {
+  "va": "00443586",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FUN_00443680",
+   "_free",
+   "FUN_00443700"
+  ]
+ },
+ {
+  "va": "00448461",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "004484ae",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState",
+   "_sprintf"
+  ]
+ },
+ {
+  "va": "0044a07c",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0044a0e8",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "0044a15f",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "DrawFontString"
+  ]
+ },
+ {
+  "va": "0044a193",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "DrawFontString",
+   "BlitRLESprite",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "0044a251",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "BlitRLESprite",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0044a2de",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "0044a396",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0044a3f7",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0044a4f6",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0044a561",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0044a65d",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0044a6c8",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0044a7c4",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0044a82f",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0044a92b",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0044a996",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0044aa92",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0044aafd",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0044abf9",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0044ac64",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0044ad63",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0044add0",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekChecksumStateUnderLock",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0044aeed",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState"
+  ]
+ },
+ {
+  "va": "0044af34",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState",
+   "_sprintf"
+  ]
+ },
+ {
+  "va": "0044b00e",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState"
+  ]
+ },
+ {
+  "va": "0044b05e",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FUN_004240c0",
+   "ThrowCxxException"
+  ]
+ },
+ {
+  "va": "0044c4bc",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "ThrowCxxException"
+  ]
+ },
+ {
+  "va": "0044fdfb",
+  "seq": [
+   "PeekChecksumStateUnderLock",
+   "EncodeChecksumDeltaSub",
+   "PeekChecksumStateUnderLock",
+   "ScrubChecksumGuard",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "0044fe7c",
+  "seq": [
+   "GetPlayerRecordBySlot",
+   "PeekPacketChecksumBool",
+   "PeekChecksumStateUnderLock",
+   "EncodeChecksumDeltaSub",
+   "PacketChecksumLessThan"
+  ]
+ },
+ {
+  "va": "0045ea07",
+  "seq": [
+   "AddToPacketChecksum",
+   "PeekPacketChecksumBool",
+   "PeekPacketChecksumBool",
+   "PeekPacketChecksumBool",
+   "SetGuardedBool"
+  ]
+ },
+ {
+  "va": "00477a49",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "ScrambleChecksumGuardBytes",
+   "TreeLowerBound",
+   "ScrambleChecksumGuardBytes"
+  ]
+ },
+ {
+  "va": "004798c9",
+  "seq": [
+   "AddToPacketChecksum",
+   "QueueOutgoingPacketField",
+   "PeekPacketChecksumBool",
+   "_rand",
+   "_rand"
+  ]
+ },
+ {
+  "va": "0048dc84",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState",
+   "FindTextureCacheEntryByName"
+  ]
+ },
+ {
+  "va": "004ac09d",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "DrawSprite",
+   "PeekPacketChecksumState"
+  ]
+ },
+ {
+  "va": "004b3e91",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "004b3ee5",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "DrawFontString",
+   "BlitRLESprite",
+   "BlitRLESprite"
+  ]
+ },
+ {
+  "va": "004b573f",
+  "seq": [
+   "PeekChecksumStateUnderLock",
+   "PeekChecksumStateUnderLock",
+   "AppendWordFilterEntry",
+   "FUN_004259d0",
+   "FUN_004e3740"
+  ]
+ },
+ {
+  "va": "004c9f3b",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004c9f86",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004c9fd1",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ca01c",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ca06a",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ca0aa",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "BlitSprite16bpp",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "004ca212",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ca25d",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ca2a8",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ca2f6",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ca344",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "004ca384",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "004ca3f1",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ca43c",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ca487",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ca4d5",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ca523",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ca563",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "BlitSprite16bpp",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004ce50d",
+  "seq": [
+   "PeekChecksumStateUnderLock",
+   "FUN_0041c360",
+   "SetGuardedBool",
+   "SetGuardedBool",
+   "QueueOutgoingPacketField"
+  ]
+ },
+ {
+  "va": "004cef69",
+  "seq": [
+   "FindSpriteFrame",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "AcquireSoundChannel",
+   "PeekPacketChecksumState"
+  ]
+ },
+ {
+  "va": "004cef98",
+  "seq": [
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "AcquireSoundChannel",
+   "PeekPacketChecksumState",
+   "FUN_0043c6a0"
+  ]
+ },
+ {
+  "va": "004d02b7",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "004d0310",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "_sprintf",
+   "BlitRLESprite",
+   "BlitRLESprite"
+  ]
+ },
+ {
+  "va": "004d7e0a",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "_sprintf",
+   "BlitSpriteText",
+   "SetClipRect"
+  ]
+ },
+ {
+  "va": "004d8032",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "004d80e8",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "004d8280",
+  "seq": [
+   "BlitSprite16bpp",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "004d8372",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "004d8420",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "004d9b32",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "004d9bae",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "SetClipRect",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004d9c1c",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "SetClipRect",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004d9ca7",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "SetClipRect",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004d9d08",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "004d9e32",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "DrawFontString",
+   "BlitRLESprite",
+   "PeekPacketChecksumState"
+  ]
+ },
+ {
+  "va": "004da2c2",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FUN_0040c8f0",
+   "DrawHLine",
+   "DrawHLine"
+  ]
+ },
+ {
+  "va": "004dbbdd",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "DrawSprite",
+   "_sprintf",
+   "BlitRLESprite"
+  ]
+ },
+ {
+  "va": "004dbce8",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "DrawSprite",
+   "FindItemRecordByIcon",
+   "GetLocalizedString"
+  ]
+ },
+ {
+  "va": "004e2b91",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "EncodeChecksumDeltaMul",
+   "EncodeChecksumDeltaAdd",
+   "EncodeChecksumDeltaMod"
+  ]
+ },
+ {
+  "va": "004e2e91",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "EncodeChecksumDeltaMul",
+   "EncodeChecksumDeltaAdd",
+   "EncodeChecksumDeltaMod"
+  ]
+ },
+ {
+  "va": "004e3194",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "EncodeChecksumDeltaMul",
+   "EncodeChecksumDeltaAdd",
+   "EncodeChecksumDeltaMod"
+  ]
+ },
+ {
+  "va": "004e3490",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "__chkstk",
+   "BuildAssetPath",
+   "OpenXFSArchive"
+  ]
+ },
+ {
+  "va": "004e4c22",
+  "seq": [
+   "PeekPacketChecksumBool"
+  ]
+ },
+ {
+  "va": "004eb8a5",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "004eb9e6",
+  "seq": [
+   "FUN_004eb940",
+   "QueueCompositorSpan"
+  ]
+ },
+ {
+  "va": "004ed6c5",
+  "seq": []
+ },
+ {
+  "va": "004ed893",
+  "seq": [
+   "QueueCompositorSpan",
+   "QueueCompositorSpan"
+  ]
+ },
+ {
+  "va": "005053e1",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "HandlePanelPress",
+   "ThrowCxxException",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "005054db",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "Widget_FindChildIndex",
+   "ThrowCxxException",
+   "Widget_SetEnabled"
+  ]
+ },
+ {
+  "va": "00505f57",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "00505fa8",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "BlitRLESprite",
+   "BlitRLESprite",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "00506021",
+  "seq": [
+   "BlitSprite16bpp",
+   "DrawSprite",
+   "DrawSprite",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050614d",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "Widget_OnCommandDefault"
+  ]
+ },
+ {
+  "va": "00506194",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "Widget_OnCommandDefault",
+   "Widget_FindChildIndex",
+   "ThrowCxxException"
+  ]
+ },
+ {
+  "va": "0050691a",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "Widget_FindChildIndex",
+   "ThrowCxxException",
+   "AssignStringBuffer"
+  ]
+ },
+ {
+  "va": "00507524",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "00507558",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "BlitRLESprite"
+  ]
+ },
+ {
+  "va": "0050abad",
+  "seq": [
+   "BlitSprite16bpp",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame"
+  ]
+ },
+ {
+  "va": "0050abef",
+  "seq": [
+   "BlitSprite16bpp",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0050ac64",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050aeb1",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0050b236",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050b2ab",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050b3c3",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050b427",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050b53e",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050b5bd",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050b6d0",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050b74f",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050b85e",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050b8d8",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050b9eb",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050ba6a",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050bb7d",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050bbfc",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050bd0b",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050bd85",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050be59",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0050c1c5",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050c23d",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050c362",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050c3cc",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050c4ec",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050c556",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050c676",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050c6e0",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050c800",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050c86a",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050c98a",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050c9f4",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050cb14",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050cb7e",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050cc9e",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "FindSpriteFrame",
+   "BlitSprite16bpp"
+  ]
+ },
+ {
+  "va": "0050cd08",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "PeekPacketChecksumState",
+   "_sprintf",
+   "BlitSpriteText"
+  ]
+ },
+ {
+  "va": "0050d2ad",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "DrawFontString",
+   "BlitRLESprite"
+  ]
+ },
+ {
+  "va": "0050dd15",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "_sprintf",
+   "BlitSpriteText",
+   "DrawFontString"
+  ]
+ },
+ {
+  "va": "0050e0ec",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0050e159",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "FindSpriteFrame",
+   "BlitSprite16bpp",
+   "BlitSpriteClipped"
+  ]
+ },
+ {
+  "va": "0050e1bb",
+  "seq": [
+   "BlitSprite16bpp",
+   "BlitSpriteClipped",
+   "Widget_MouseMoveChildren",
+   "Widget_MouseDownChildren",
+   "Widget_MouseUpChildren"
+  ]
+ }
+]
