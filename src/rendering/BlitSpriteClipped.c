@@ -111,7 +111,16 @@
  * are identical. Being keyed on a value rather than an ordinal, it is immune
  * to the block reordering that makes FUN_0044a000.c unsafe for
  * position-matching, and that file contributed 10 sites. 31 more sites across
- * 9 files; running total 65, with 80 single-argument calls left.
+ * 9 files; running total 65.
+ *
+ * THIRD PASS adds 5 more on a different sufficiency argument: where EVERY
+ * remaining site in a function carries the SAME literal outerKey, the pairing
+ * question disappears - it does not matter which C call maps to which binary
+ * call, because the value applied is identical either way, and the frame is
+ * already correct in the source. That holds for only 3 files (FUN_0041bce0,
+ * FUN_00477930, FUN_004e2b20); most callers mix two to four different
+ * outerKeys, so for them the pairing has to be settled first. Running total
+ * 70 of 217, with 75 single-argument calls left.
  *
  * The frame-7 site skipped in the first instalment IS included, on different
  * evidence rather than by relaxing the rule: at 0x50afa4 both branches read x

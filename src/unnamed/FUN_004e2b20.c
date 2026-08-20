@@ -62,7 +62,7 @@ void __fastcall FUN_004e2b20(int param_1)
         BlitSprite16bpp(0x106,0x1df);
       }
       else {
-        BlitSpriteClipped(iVar1);
+        BlitSpriteClipped(iVar1,0x106,0x1df,0x2328);
       }
     }
     uVar3 = EncodeChecksumDeltaMul(param_1 + 0x224,local_89c,2);
@@ -136,7 +136,7 @@ void __fastcall FUN_004e2b20(int param_1)
         BlitSprite16bpp(0x10d,500);
       }
       else {
-        BlitSpriteClipped(local_8a0);
+        BlitSpriteClipped(local_8a0,0x10d,500,0x2328);
       }
     }
     uVar3 = EncodeChecksumDeltaMul(param_1 + 0x448,local_454,2);
@@ -210,7 +210,7 @@ void __fastcall FUN_004e2b20(int param_1)
         BlitSprite16bpp(0x129,500);
       }
       else {
-        BlitSpriteClipped(local_8a0);
+        BlitSpriteClipped(local_8a0,0x129,500,0x2328);
       }
     }
     uVar3 = EncodeChecksumDeltaMul(param_1 + 0x66c,local_454,2);

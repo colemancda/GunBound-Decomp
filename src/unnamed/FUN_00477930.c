@@ -61,7 +61,7 @@ void __fastcall FUN_00477930(int param_1)
         BlitSprite16bpp(uVar3,uVar2);
       }
       else {
-        BlitSpriteClipped(iVar1);
+        BlitSpriteClipped(iVar1,uVar3,uVar2,0x1900);
       }
     }
   }

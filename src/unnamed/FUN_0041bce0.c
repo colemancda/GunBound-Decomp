@@ -56,7 +56,7 @@ LAB_0041bd81:
         BlitSprite16bpp(0x24,local_10);
       }
       else {
-        BlitSpriteClipped(uVar5);
+        BlitSpriteClipped(uVar5,0x24,local_10,0x34);
       }
       break;
     }
