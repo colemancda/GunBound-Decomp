@@ -1,13 +1,23 @@
-/* FUN_0045a560 - 0x0045a560 in the original binary.
+/* CMobile_BaseDestructor - 0x0045a560 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * NAMED 2026-08-19 (was FUN_0045a560).  CMobile's BASE DESTRUCTOR, following
+ * the existing CGameState_BaseDestructor convention.  It opens by installing
+ * the CMobile base vtable - `*param_1 = &PTR_FUN_00555c68` (0x555c68 is the
+ * base vtable Projectile.h and the census both identify as CMobile's) - and
+ * then tears the object's CValueGuard members down with repeated
+ * ScrambleChecksumGuardBytes / TreeLowerBound pairs.  Re-pointing `this` at
+ * the base vtable on entry is the MSVC destructor signature.
+ *
+ * All 16 per-type mobile destructors call it, each after installing its OWN
+ * vtable first - see Mobile00_Destructor .. Mobile15_Destructor - and
+ * DeleteMobile (0x45a540) is the scalar-deleting wrapper around it.
+ * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
+ * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0045a560(undefined4 *param_1)
+void CMobile_BaseDestructor(undefined4 *param_1)
 
 {
   undefined4 *unaff_FS_OFFSET;

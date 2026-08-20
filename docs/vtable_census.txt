@@ -363,7 +363,7 @@ vtable 0x555c54  installs=1  slots=5  UNCARVED=2
    4: 0x429800  NoOpMethod
 
 vtable 0x555c68  installs=2  slots=8
-   0: 0x45a540  FUN_0045a540
+   0: 0x45a540  DeleteMobile
    1: 0x461c60  ResolveNamedState
    2: 0x461ca0  SimulateMobileFrame
    3: 0x462900  RenderMobile
