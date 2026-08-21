@@ -99,6 +99,91 @@ def dominates(edges, w_addr, site_addr):
     return True
 
 
+def stack_delta(dis, lo, hi):
+    """Net esp change over the STRAIGHT-LINE span (lo, hi), or None.
+
+    None means "do not trust this span": either it contains a branch - in
+    which case a linear sum is meaningless, since a jump can skip the very
+    push that unbalances it - or it contains an esp adjustment this does not
+    model. Only a span that is provably straight-line AND balanced can be used
+    to argue that [esp + N] means the same slot at both ends.
+    """
+    delta = 0
+    for l in dis:
+        a = addr_of(l)
+        if not (lo < a < hi):
+            continue
+        body = l.split('\t', 1)[1] if '\t' in l else ''
+        mn = body.split('\t')[0].strip()
+        ops = body.split('\t')[1].strip() if '\t' in body else ''
+        if mn.startswith('j') or mn in ('ret', 'call'):
+            return None                     # not straight-line / opaque
+        if mn == 'push':
+            delta -= 4
+        elif mn == 'pop':
+            delta += 4
+        elif mn in ('add', 'sub') and ops.startswith('esp,'):
+            m = re.match(r'esp,\s*(0x[0-9a-f]+|\d+)$', ops)
+            if not m:
+                return None
+            delta += int(m.group(1), 0) * (1 if mn == 'add' else -1)
+        elif re.match(r'(mov|lea|xchg)\b', mn) and re.match(r'esp\b', ops):
+            return None                     # esp written some other way
+    return delta
+
+
+def resolve_spill(dis, edges, slot, site_addr, depth=0):
+    """(expression, offset) for the pointer spilled at [esp + slot].
+
+    THE HAZARD this guards against: [esp + N] is not a stable name. esp moves
+    with every push, so the slot written by `mov [esp+0x20], edi` is NOT the
+    slot read by `mov ebx, [esp+0x20]` unless the stack depth happens to match
+    at both points. Taking the trace on trust is what made an earlier attempt
+    at this unreliable (see row_expr's note in guard_callsite_verify.py).
+
+    So a store is accepted only when it DOMINATES the site, the span between
+    them is straight-line, and the net esp change across it is exactly zero.
+    Anything less returns unresolved rather than a guess.
+
+    MEASURED RESULT, 2026-08-21: this currently resolves NOTHING. Probed over
+    49 spill rows in 12 files - 0 resolved, 47 reporting "no store before the
+    site", 2 "not straight-line". The reason is worth recording, because it
+    is not a missing branch and no amount of loosening the guards fixes it:
+
+    THE SLOT NAMES DO NOT MATCH. A row says `[esp + 0x30]` because that is the
+    offset AT THE SITE, while the store that filled it says `[esp + 0x3c]`
+    because esp was 12 bytes lower there. They are the same slot under two
+    names. Matching them needs esp depth at every instruction, which means
+    walking the CFG - not the linear scan this does. Where the names DO
+    coincide, the slot usually turns out to be reused scratch anyway:
+    SimulateShot2_Bullet3 has SEVEN different stores to [esp+0x20], from esi,
+    edx, edi and ecx, so no single base is correct for it.
+
+    Kept rather than reverted because the soundness conditions above are the
+    hard-won part and would otherwise be re-derived; it becomes useful the
+    moment a stack-depth model exists. It is NOT wired into
+    guard_callsite_verify.py, because a function that resolves nothing has no
+    business in the path that rewrites cells.
+    """
+    pat = re.compile(r'^[0-9a-f]{8}:\tmov\tdword ptr \[esp \+ 0x%x\], (\w+)$' % slot)
+    best = None
+    for l in dis:
+        m = pat.match(l)
+        if m and addr_of(l) < site_addr:
+            best = (addr_of(l), m.group(1))
+    if best is None:
+        return None, 'no store to [esp + 0x%x] before the site' % slot
+    w_addr, src = best
+    if not dominates(edges, w_addr, site_addr):
+        return None, 'store at 0x%x does not dominate the site' % w_addr
+    d = stack_delta(dis, w_addr, site_addr)
+    if d is None:
+        return None, 'span from 0x%x is not straight-line' % w_addr
+    if d != 0:
+        return None, 'esp moves by %d between store and site' % d
+    return resolve(dis, edges, src, w_addr, depth + 1)
+
+
 def resolve(dis, edges, reg, site_addr, depth=0):
     """(expression, offset) for `reg` at `site_addr`, or (None, reason)."""
     if depth > 4:
