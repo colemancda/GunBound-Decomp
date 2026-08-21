@@ -669,7 +669,7 @@ LAB_00469dc9:
     TreeLowerBound(apuStack_ae0,&DAT_00793770);
     piVar15 = piStack_ae8;
   }
-  cVar4 = CheckGuardedBoolAnd(piVar15[0x3d2] != 0);
+  cVar4 = CheckGuardedBoolAnd(piVar15[0x3d2] != 0,(byte *)(piVar15 + 0x3d3));
   if (cVar4 == '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar5 = PeekPacketChecksumState((void *)(piVar15 + 0x122));

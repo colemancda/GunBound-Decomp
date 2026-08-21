@@ -336,7 +336,7 @@ LAB_004a2df0:
       TreeLowerBound(&stack0xfffff2d0,&DAT_00793770);
       pcVar20 = (code *)LeaveCriticalSection;
     }
-    cVar3 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
+    cVar3 = CheckGuardedBoolAnd(param_1[0x3d2] != 0,(byte *)(param_1 + 0x3d3));
     if (cVar3 == '\0') {
       EmitChecksumSum(param_1 + 0x122, param_1 + 0x2bd);
       EmitChecksumSum(param_1 + 0x1ab, param_1 + 0x346);

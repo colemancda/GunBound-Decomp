@@ -198,7 +198,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
     TreeLowerBound(local_adc,&DAT_00793770);
     piVar16 = piVar7;
   }
-  cVar4 = CheckGuardedBoolAnd(piVar16[0x3d2] != 0);
+  cVar4 = CheckGuardedBoolAnd(piVar16[0x3d2] != 0,(byte *)(piVar16 + 0x3d3));
   if (cVar4 == '\0') {
     EmitChecksumSum(piVar16 + 0x122, piVar16 + 0x2bd);
     EmitChecksumSum(piVar16 + 0x1ab, piVar16 + 0x346);

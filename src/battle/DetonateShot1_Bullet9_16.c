@@ -130,7 +130,7 @@ void __fastcall DetonateShot1_Bullet9_16(int *param_1)
       TreeLowerBound(apuStack_ad0,&DAT_00793770);
       piVar17 = piStack_ae0;
     }
-    cVar4 = CheckGuardedBoolAnd(piVar17[0x3d2] != 0);
+    cVar4 = CheckGuardedBoolAnd(piVar17[0x3d2] != 0,(byte *)(piVar17 + 0x3d3));
     if (cVar4 == '\0') {
       EmitChecksumSum(piVar17 + 0x122, piVar17 + 0x2bd);
       EmitChecksumSum(piVar17 + 0x1ab, piVar17 + 0x346);

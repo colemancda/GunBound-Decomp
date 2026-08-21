@@ -121,7 +121,7 @@ void __fastcall DetonateSuperShot_Bullet16(int *param_1)
       pcVar17 = (code *)LeaveCriticalSection;
       unaff_EBX = uStack_ab4;
     }
-    cVar6 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
+    cVar6 = CheckGuardedBoolAnd(param_1[0x3d2] != 0,(byte *)(param_1 + 0x3d3));
     if (cVar6 == '\0') {
       EmitChecksumSum(param_1 + 0x122, param_1 + 0x2bd);
       EmitChecksumSum(param_1 + 0x1ab, param_1 + 0x346);

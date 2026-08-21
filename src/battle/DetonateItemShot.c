@@ -210,7 +210,7 @@ void __fastcall DetonateItemShot(int *param_1)
     ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
     TreeLowerBound(apiStack_acc,&DAT_00793770);
   }
-  cVar6 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
+  cVar6 = CheckGuardedBoolAnd(param_1[0x3d2] != 0,(byte *)(param_1 + 0x3d3));
   if (cVar6 == '\0') {
     EmitChecksumSum(param_1 + 0x122, param_1 + 0x2bd);
     EmitChecksumSum(param_1 + 0x1ab, param_1 + 0x346);

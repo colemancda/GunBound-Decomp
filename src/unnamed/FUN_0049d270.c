@@ -139,7 +139,7 @@ void __fastcall FUN_0049d270(int *param_1)
       TreeLowerBound(apuStack_ad0,&DAT_00793770);
       piVar9 = piStack_ad8;
     }
-    cVar4 = CheckGuardedBoolAnd(piVar9[0x3d2] != 0);
+    cVar4 = CheckGuardedBoolAnd(piVar9[0x3d2] != 0,(byte *)(piVar9 + 0x3d3));
     if (cVar4 == '\0') {
       EmitChecksumSum(piVar9 + 0x122, piVar9 + 0x2bd);
       EmitChecksumSum(piVar9 + 0x1ab, piVar9 + 0x346);

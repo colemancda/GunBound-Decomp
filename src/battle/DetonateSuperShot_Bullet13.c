@@ -405,7 +405,7 @@ LAB_0048780a:
     pcVar14 = (code *)EnterCriticalSection;
     pcVar16 = (code *)LeaveCriticalSection;
   }
-  cVar2 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
+  cVar2 = CheckGuardedBoolAnd(param_1[0x3d2] != 0,(byte *)(param_1 + 0x3d3));
   if (cVar2 == '\0') {
     (*pcVar14)(&DAT_005a9068);
     iVar3 = PeekPacketChecksumState((void *)(param_1 + 0x122));

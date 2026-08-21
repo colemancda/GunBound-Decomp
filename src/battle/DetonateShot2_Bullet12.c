@@ -342,7 +342,7 @@ LAB_004af8b0:
       TreeLowerBound(&stack0xfffff2d4,&DAT_00793770);
       pcVar20 = (code *)LeaveCriticalSection;
     }
-    cVar24 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
+    cVar24 = CheckGuardedBoolAnd(param_1[0x3d2] != 0,(byte *)(param_1 + 0x3d3));
     if (cVar24 == '\0') {
       EmitChecksumSum(param_1 + 0x122, param_1 + 0x2bd);
       EmitChecksumSum(param_1 + 0x1ab, param_1 + 0x346);

@@ -155,7 +155,7 @@ void __fastcall DetonateSuperShot_Bullet7(int *param_1)
       TreeLowerBound(&piStack_ad4,&DAT_00793770);
       pcVar13 = (code *)LeaveCriticalSection;
     }
-    cVar2 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
+    cVar2 = CheckGuardedBoolAnd(param_1[0x3d2] != 0,(byte *)(param_1 + 0x3d3));
     if (cVar2 == '\0') {
       EmitChecksumSum(param_1 + 0x122, param_1 + 0x2bd);
       EmitChecksumSum(param_1 + 0x1ab, param_1 + 0x346);

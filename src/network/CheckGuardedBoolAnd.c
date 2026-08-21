@@ -6,7 +6,7 @@
  * verbatim ports" section for status.
  *
  * SURVEYED 2026-08-20 - the missing argument is the GUARD CELL, and most of
- * the work is already cached.  in_EAX is a byte* to a 3-byte guard cell (the
+ * the work is already cached.  cell is a byte* to a 3-byte guard cell (the
  * body checks (cell[0] + cell[1] - 0x34) == cell[2], the same shape as the
  * rest of the CValueGuard family), and 96 of the 100 call sites pass only the
  * bool, never the cell.  The signature this wants is
@@ -30,18 +30,42 @@
  * ordering of the cache. The 78 resolved expressions also still need their
  * register mapped to a caller local per site, which is what
  * tools/guard_cell_resolve.py exists for.
- */
+ *
+ * CELL RECOVERED AT 34 SITES (2026-08-21) FROM THE BOOL'S OWN OFFSET.  The
+ * guard cell sits FOUR BYTES ABOVE the boolean it guards, so where the C
+ * already passes the bool as `X[0x3d2] != 0` the cell is X + 0xf4c - derived
+ * entirely from the argument already in the source, with no pairing and no
+ * per-site disassembly.
+ *
+ * Checked against the cached resolver rows (tools/guard_family_sites.json):
+ * of the 35 sites whose bool offset is derivable, 34 have bool_offset + 4
+ * among the cell offsets their caller actually uses in the binary.  The one
+ * exception is DetonateSuperShot_Bullet12, whose cache holds only the other
+ * cell - left bare rather than forced.
+ *
+ * The cell is APPENDED rather than placed first (PeekPacketChecksumBool takes
+ * its cell first) so that the 60 still-1-argument call sites keep compiling
+ * against the K&R-empty declaration in functions.h.  Consistency with the
+ * family loses to keeping a partial migration buildable.
+ *
+ * NOT RECOVERED: 40 sites pass a comparison rather than a field test
+ * (`iVar5 < iVar6`), so there is no offset to derive from, and 4 pass nothing
+ * at all.  Those need the cached rows paired to sites - which for this family
+ * means extending guard_callsite_verify.py, since it only knows Peek,
+ * PeekBool and Encode.  Cell offsets are overwhelmingly two values, 0xf4c and
+ * 0x391b, and in 27 of the 33 two-site callers they appear in VA order
+ * (0x391b, 0xf4c) - suggestive, but VA order is not source order, which is
+ * exactly the trap that has to be verified rather than assumed. */
 #include "ghidra_types.h"
 
 
-undefined4 CheckGuardedBoolAnd(int param_1)
+undefined4 CheckGuardedBoolAnd(int param_1,byte *cell)
 
 {
-  byte *in_EAX;
   
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if ((byte)((*in_EAX + in_EAX[1]) - 0x34) == in_EAX[2]) {
-    if (((in_EAX[1] >> (*in_EAX & 7) & 1) == 1) && (param_1 != '\0')) {
+  if ((byte)((*cell + cell[1]) - 0x34) == cell[2]) {
+    if (((cell[1] >> (*cell & 7) & 1) == 1) && (param_1 != '\0')) {
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       return 1;
     }
