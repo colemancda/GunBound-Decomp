@@ -14,7 +14,7 @@
  * It is now a real parameter, and the call sites pass it, even though THE
  * BODY IGNORES IT while the neuter stands.  That is deliberate: the value is
  * uniform so the sweep is free of per-site risk, and whoever restores the
- * real lower_bound gets the argument already threaded through all 1213 sites
+ * real lower_bound gets the argument already threaded through all 1210 sites
  * instead of having to redo this scan.  Nothing about the current behaviour
  * changes - unlike ScrambleChecksumGuardBytes, whose body was live and was
  * writing through an uninitialised pointer, this stub was already correct as

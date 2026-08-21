@@ -5,7 +5,7 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * BOTH REGISTER ARGUMENTS RECOVERED (2026-08-21), 1001 of 1123 call sites.
+ * BOTH REGISTER ARGUMENTS RECOVERED (2026-08-21), 998 of 1120 call sites.
  * The signature is (int slot, int *guardTable) and the body is now
  * `*(char *)(*guardTable + slot * 0x10 + i) = rand()` for i in 0..0xf - i.e.
  * CORRECT, not merely better: the port used to dereference an uninitialised

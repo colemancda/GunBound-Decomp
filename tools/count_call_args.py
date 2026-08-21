@@ -26,7 +26,12 @@ Usage:
 """
 import argparse
 import glob
+import os
 import re
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from callsites import blank_comments, find as find_calls   # noqa: E402
 
 
 def strip_comments(src):
@@ -85,13 +90,15 @@ def main():
     buckets, incomplete = {}, []
     for path in sorted(glob.glob("src/**/*.c", recursive=True) +
                        glob.glob("src/**/*.cpp", recursive=True)):
-        src = strip_comments(open(path, errors="replace").read())
-        for off, a, is_def in call_sites(src, args.name):
-            if is_def and not args.include_definition:
+        src = open(path, errors="replace").read()
+        b = blank_comments(src)
+        for c in find_calls(src, args.name, b):
+            if c["kind"] != "call" and not args.include_definition:
                 continue
-            buckets[len(a)] = buckets.get(len(a), 0) + 1
-            if args.want is not None and len(a) != args.want:
-                incomplete.append((path, src[:off].count("\n") + 1, len(a)))
+            n = len(c["args"])
+            buckets[n] = buckets.get(n, 0) + 1
+            if args.want is not None and n != args.want:
+                incomplete.append((path, b[:c["start"]].count("\n") + 1, n))
 
     total = sum(buckets.values())
     print("%s: %d call sites" % (args.name, total))
