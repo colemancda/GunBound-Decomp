@@ -517,12 +517,12 @@ LAB_0046942b:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),5);
   if (iStack_ab0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
   }
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_88c != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_88c,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
   }
   uVar8 = EncodeChecksumDeltaMul(piStack_ae8 + 0x9b9,auStack_8a0,7);
@@ -538,12 +538,12 @@ LAB_0046942b:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),7);
   if (iStack_ab0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
   }
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_88c != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_88c,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
   }
   uVar8 = EncodeChecksumDeltaMul(piStack_ae8 + 0xa42,auStack_8a0,7);
@@ -559,12 +559,12 @@ LAB_0046942b:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),9);
   if (iStack_ab0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
   }
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_88c != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_88c,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
   }
   uVar8 = EncodeChecksumDeltaMul(piStack_ae8 + 0x795,auStack_8a0,7);
@@ -580,12 +580,12 @@ LAB_0046942b:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xb);
   if (iStack_ab0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
   }
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_88c != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_88c,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
   }
   uVar8 = EncodeChecksumDeltaMul(piStack_ae8 + 0x81e,auStack_8a0,7);
@@ -601,12 +601,12 @@ LAB_0046942b:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xd);
   if (iStack_ab0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
   }
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_88c != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_88c,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
   }
   uVar8 = EncodeChecksumDeltaMul(piStack_ae8 + 0x8a7,auStack_8a0,7);
@@ -622,12 +622,12 @@ LAB_0046942b:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),0xf);
   if (iStack_ab0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
   }
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_88c != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_88c,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
   }
   *(undefined1 *)(piStack_ae8 + 0xfe7) = 1;
@@ -652,7 +652,7 @@ LAB_00469dc9:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_ab0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
     param_1 = piStack_ae8;
   }
@@ -665,7 +665,7 @@ LAB_00469dc9:
   puStack_8 = (undefined1 *)0xffffffff;
   piVar15 = param_1;
   if (iStack_ab0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
     TreeLowerBound(apuStack_ae0);
     piVar15 = piStack_ae8;
   }

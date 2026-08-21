@@ -83,7 +83,7 @@ void FUN_004785f0(int param_1)
   local_8a0 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar11,(int)uVar10);
   local_4 = 0xffffffff;
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8b0);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -110,13 +110,13 @@ void FUN_004785f0(int param_1)
   iVar4 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar13,(int)uVar12);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     local_8b0[0] = (*(int *)(local_89c + 0x14));
     TreeLowerBound(local_8a8);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     local_8b0[0] = (*(int *)(local_678 + 0x14));
     TreeLowerBound(local_8a8);
   }
@@ -152,13 +152,13 @@ void FUN_004785f0(int param_1)
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
   local_8b0[0] = (*(int *)(local_454 + 0x14));
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a8);
   }
   local_4 = 0xffffffff;
   local_8b0[0] = (*(int *)(local_230 + 0x14));
   if ((*(int *)(local_230 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a8);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

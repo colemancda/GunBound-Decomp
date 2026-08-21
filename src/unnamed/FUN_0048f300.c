@@ -108,7 +108,7 @@ undefined1 FUN_0048f300(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_1350 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_1350 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_2480);
       }
       local_2480[0] = EncodeChecksumPairDiff(param_1 + 0x264,local_1798,piVar5 + 0x2cc);
@@ -118,7 +118,7 @@ undefined1 FUN_0048f300(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_1798 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_1798 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_2478);
       }
       if (local_2480[0] * local_2480[0] + iVar7 * iVar7 < iVar6 * iVar6) {
@@ -198,12 +198,12 @@ LAB_0048f583:
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
         if ((*(int *)(local_19bc + 0x14)) != 0) {
-          ScrambleChecksumGuardBytes();
+          ScrambleChecksumGuardBytes(*(int *)(local_19bc + 0x14),&DAT_0079376c);
           TreeLowerBound(local_2478);
         }
         local_4 = 0xffffffff;
         if ((*(int *)(local_f08 + 0x14)) != 0) {
-          ScrambleChecksumGuardBytes();
+          ScrambleChecksumGuardBytes(*(int *)(local_f08 + 0x14),&DAT_0079376c);
           TreeLowerBound(local_2478);
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

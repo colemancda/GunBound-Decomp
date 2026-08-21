@@ -141,7 +141,7 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
     puStack_8 = (undefined1 *)0xffffffff;
     pcVar5 = (code *)LeaveCriticalSection;
     if (iStack_220 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_220,&DAT_0079376c);
       TreeLowerBound(aiStack_464);
       pcVar5 = (code *)LeaveCriticalSection;
       unaff_EBX = iStack_220;

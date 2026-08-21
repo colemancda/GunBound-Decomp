@@ -28,12 +28,12 @@ void FUN_004780e0(undefined4 *param_1)
   *param_1 = &PTR_FUN_00555fdc;
   local_4 = 0x10;
   if (param_1[0x822] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x822],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 0xf;
   if (param_1[0x799] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x799],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 0xe;
@@ -60,72 +60,72 @@ void FUN_004780e0(undefined4 *param_1)
   }
   local_4 = 0xd;
   if (param_1[0x70c] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x70c],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 0xc;
   if (param_1[0x682] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x682],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 0xb;
   if (param_1[0x5f9] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x5f9],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 10;
   if (param_1[0x570] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x570],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 9;
   if (param_1[0x4e7] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x4e7],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 8;
   if (param_1[0x45e] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x45e],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 7;
   if (param_1[0x3d5] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x3d5],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 6;
   if (param_1[0x34a] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x34a],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 5;
   if (param_1[0x2c1] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x2c1],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 4;
   if (param_1[0x237] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x237],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 3;
   if (param_1[0x1ae] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x1ae],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 2;
   if (param_1[0x125] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x125],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 1;
   if (param_1[0x9c] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x9c],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 0;
   if (param_1[0x13] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x13],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   *param_1 = &PTR_LAB_0055752c;

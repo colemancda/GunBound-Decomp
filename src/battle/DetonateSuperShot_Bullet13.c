@@ -385,7 +385,7 @@ LAB_0048780a:
   (*pcVar16)();
   uStack_c = 0xffffffff;
   if (iStack_ab4 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab4,&DAT_0079376c);
     TreeLowerBound(&uStack_ad0);
     pcVar14 = (code *)EnterCriticalSection;
     pcVar16 = (code *)LeaveCriticalSection;
@@ -400,7 +400,7 @@ LAB_0048780a:
   (*pcVar16)();
   uStack_14 = 0xffffffff;
   if (iStack_abc != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_abc,&DAT_0079376c);
     TreeLowerBound(&iStack_ad8);
     pcVar14 = (code *)EnterCriticalSection;
     pcVar16 = (code *)LeaveCriticalSection;

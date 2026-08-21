@@ -55,16 +55,16 @@ int FUN_0045d692(void)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   cStack00000007 = in_stack_00000ad4 < iVar3;
   if (in_stack_00000024 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(in_stack_00000024,&DAT_0079376c);
     TreeLowerBound();
   }
   if (in_stack_0000046c != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(in_stack_0000046c,&DAT_0079376c);
     TreeLowerBound();
   }
   uVar4 = 0;
   if (in_stack_00000248 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(in_stack_00000248,&DAT_0079376c);
     uVar4 = TreeLowerBound();
   }
   uVar5 = (uint3)((uint)uVar4 >> 8);

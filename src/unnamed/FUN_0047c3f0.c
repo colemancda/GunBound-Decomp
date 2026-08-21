@@ -139,7 +139,7 @@ void FUN_0047c3f0(void)
     puStack_8 = (undefined1 *)0xffffffff;
     pcVar8 = (code *)LeaveCriticalSection;
     if (iStack_444 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_444,&DAT_0079376c);
       TreeLowerBound(aiStack_acc);
       pcVar8 = (code *)LeaveCriticalSection;
     }
@@ -177,7 +177,7 @@ void FUN_0047c3f0(void)
   uStack_18 = CONCAT31(SUBFIELD(uStack_18,1,undefined3),3);
   unaff_ESI[0xff3] = iVar3;
   if (iStack_89c != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_89c,&DAT_0079376c);
     TreeLowerBound(&stack0xfffff524);
   }
   uStack_18 = 2;
@@ -187,7 +187,7 @@ void FUN_0047c3f0(void)
   }
   uStack_18 = 0xffffffff;
   if (iStack_230 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_230,&DAT_0079376c);
     TreeLowerBound(&stack0xfffff524);
   }
   fVar9 = (float10)_DAT_00558070;

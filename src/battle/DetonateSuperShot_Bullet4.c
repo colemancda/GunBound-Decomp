@@ -201,7 +201,7 @@ LAB_004adaf2:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_ab0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
     TreeLowerBound(&puStack_acc);
     pcVar11 = (code *)LeaveCriticalSection;
   }
@@ -213,7 +213,7 @@ LAB_004adaf2:
   (*pcVar11)(&DAT_005a9068);
   uStack_c = 0xffffffff;
   if (iStack_ab4 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab4,&DAT_0079376c);
     TreeLowerBound(&piStack_ad0);
     pcVar11 = (code *)LeaveCriticalSection;
   }

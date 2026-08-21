@@ -81,7 +81,7 @@ HitTestJewel(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_4 = 0xffffffff;
         if ((*(int *)(local_454 + 0x14)) != 0) {
-          ScrambleChecksumGuardBytes();
+          ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
           TreeLowerBound(local_45c);
         }
         uVar8 = EncodeChecksumDeltaSub(uVar1 + 0x480,local_230,param_4);
@@ -91,7 +91,7 @@ HitTestJewel(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_4 = 0xffffffff;
         if ((*(int *)(local_230 + 0x14)) != 0) {
-          ScrambleChecksumGuardBytes();
+          ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
           TreeLowerBound(local_45c);
         }
         return (param_5 * param_5 <= iVar3 * iVar3 + iVar4 * iVar4) - 1 & uVar1;

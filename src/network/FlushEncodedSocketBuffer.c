@@ -115,12 +115,12 @@ void FlushEncodedSocketBuffer(int param_1)
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   *(undefined2 *)(param_1 + 0x44d6) = uVar1;
   if ((*(int *)(local_5230 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_5230 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_545c);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_5454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_5454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_545c);
   }
   SendSocketData((char *)(param_1 + 0x44d4),*(undefined4 *)(param_1 + 0x84e0),local_5464);

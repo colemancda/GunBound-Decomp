@@ -96,7 +96,7 @@ void __fastcall UpdateMobileEmotionState(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_4 = 0xffffffff;
     if (iStack_21c != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_21c,&DAT_0079376c);
       TreeLowerBound(auStack_924);
     }
     if (iVar6 < iVar7) {

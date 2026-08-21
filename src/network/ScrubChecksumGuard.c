@@ -14,7 +14,7 @@ undefined4 __fastcall ScrubChecksumGuard(int param_1)
   undefined1 local_8 [8];
   
   if (*(int *)(param_1 + 0x14) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8);
   }
   /* Ghidra emitted a bare `return;` in a value-returning function;

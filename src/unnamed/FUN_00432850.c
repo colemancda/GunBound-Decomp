@@ -129,17 +129,17 @@ void FUN_00432850(int param_1,int param_2)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 1;
   if (local_19a8 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(local_19a8,&DAT_0079376c);
     TreeLowerBound();
   }
   local_4 = 0;
   if (local_1bcc != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(local_1bcc,&DAT_0079376c);
     TreeLowerBound();
   }
   local_4 = 0xffffffff;
   if (local_1df0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(local_1df0,&DAT_0079376c);
     TreeLowerBound();
   }
   FloatToInt64();
@@ -151,7 +151,7 @@ void FUN_00432850(int param_1,int param_2)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if (local_1df0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(local_1df0,&DAT_0079376c);
     TreeLowerBound();
   }
   local_1e0c = 0;

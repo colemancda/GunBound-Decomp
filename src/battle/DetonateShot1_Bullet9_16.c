@@ -113,7 +113,7 @@ void __fastcall DetonateShot1_Bullet9_16(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
       TreeLowerBound(apuStack_ad0);
       param_1 = piStack_ae0;
     }
@@ -126,7 +126,7 @@ void __fastcall DetonateShot1_Bullet9_16(int *param_1)
     puStack_8 = (undefined1 *)0xffffffff;
     piVar17 = param_1;
     if (iStack_ab0 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
       TreeLowerBound(apuStack_ad0);
       piVar17 = piStack_ae0;
     }

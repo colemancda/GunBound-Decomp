@@ -125,7 +125,7 @@ void __fastcall DetonateProjectile(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
       TreeLowerBound(apuStack_ad0);
       param_1 = piStack_ad8;
     }
@@ -138,7 +138,7 @@ void __fastcall DetonateProjectile(int *param_1)
     puStack_8 = (undefined1 *)0xffffffff;
     piVar9 = param_1;
     if (iStack_ab0 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
       TreeLowerBound(apuStack_ad0);
       piVar9 = piStack_ad8;
     }

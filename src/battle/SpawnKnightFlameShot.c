@@ -403,7 +403,7 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     EmitChecksumSum(piVar3 + 0x930, (void *)auStackEmitScratch);
     uStack_88 = 0xffffffff;
     if (uStack_90c != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(uStack_90c,&DAT_0079376c);
       TreeLowerBound();
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x9b9,auStackEmitScratch,4);
@@ -411,7 +411,7 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     EmitChecksumSum(piVar3 + 0x9b9, (void *)auStackEmitScratch);
     uStack_88 = 0xffffffff;
     if (uStack_90c != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(uStack_90c,&DAT_0079376c);
       TreeLowerBound();
     }
     EncodeChecksumDeltaDiv(piVar3 + 0xa42,auStackEmitScratch,4);
@@ -419,7 +419,7 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     EmitChecksumSum(piVar3 + 0xa42, (void *)auStackEmitScratch);
     uStack_88 = 0xffffffff;
     if (uStack_90c != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(uStack_90c,&DAT_0079376c);
       TreeLowerBound();
     }
   }
@@ -449,13 +449,13 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_88 = CONCAT31(SUBFIELD(uStack_88,1,undefined3),4);
     if (uStack_90c != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(uStack_90c,&DAT_0079376c);
       TreeLowerBound();
       pcVar10 = (code *)LeaveCriticalSection;
     }
     uStack_88 = 0xffffffff;
     if (iStack_6e8 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_6e8,&DAT_0079376c);
       TreeLowerBound();
       pcVar10 = (code *)LeaveCriticalSection;
     }
@@ -476,13 +476,13 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     (*pcVar10)();
     uStack_90 = CONCAT31(SUBFIELD(uStack_90,1,undefined3),6);
     if (iStack_6f0 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_6f0,&DAT_0079376c);
       TreeLowerBound();
       pcVar10 = (code *)LeaveCriticalSection;
     }
     uStack_90 = 0xffffffff;
     if (uStack_914 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(uStack_914,&DAT_0079376c);
       TreeLowerBound();
       pcVar10 = (code *)LeaveCriticalSection;
     }
@@ -503,13 +503,13 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     (*pcVar10)();
     uStack_88 = CONCAT31(SUBFIELD(uStack_88,1,undefined3),8);
     if (iStack_6e8 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_6e8,&DAT_0079376c);
       TreeLowerBound();
       pcVar10 = (code *)LeaveCriticalSection;
     }
     uStack_88 = 0xffffffff;
     if (uStack_90c != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(uStack_90c,&DAT_0079376c);
       TreeLowerBound();
       pcVar10 = (code *)LeaveCriticalSection;
     }
@@ -542,7 +542,7 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     (*pcVar10)();
     uStack_a0 = CONCAT31(SUBFIELD(uStack_a0,1,undefined3),10);
     if (iStack_700 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_700,&DAT_0079376c);
       TreeLowerBound(&stack0xfffff6b8);
     }
     uStack_a0 = 0xffffffff;
@@ -571,13 +571,13 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_b8 = CONCAT31(SUBFIELD(uStack_b8,1,undefined3),0xc);
     if (iStack_718 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_718,&DAT_0079376c);
       TreeLowerBound(&stack0xfffff6a0);
       pcVar10 = (code *)LeaveCriticalSection;
     }
     uStack_b8 = 0xffffffff;
     if (iVar4 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iVar4,&DAT_0079376c);
       TreeLowerBound(&stack0xfffff6a0);
       pcVar10 = (code *)LeaveCriticalSection;
     }
@@ -601,12 +601,12 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     (*pcVar10)(&DAT_005a9068);
     uStack_88 = CONCAT31(SUBFIELD(uStack_88,1,undefined3),0xe);
     if (iStack_4c4 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_4c4,&DAT_0079376c);
       TreeLowerBound();
     }
     uStack_88 = 0xffffffff;
     if (iStack_2a0 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_2a0,&DAT_0079376c);
       TreeLowerBound();
     }
   }

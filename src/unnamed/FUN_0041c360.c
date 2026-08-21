@@ -169,17 +169,17 @@ void __thiscall FUN_0041c360(int param_1,int param_2,int param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 1;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   local_4 = 0;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -246,17 +246,17 @@ void __thiscall FUN_0041c360(int param_1,int param_2,int param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 4;
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   local_4 = 3;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -323,17 +323,17 @@ void __thiscall FUN_0041c360(int param_1,int param_2,int param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 7;
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   local_4 = 6;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -384,17 +384,17 @@ void __thiscall FUN_0041c360(int param_1,int param_2,int param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 10;
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   local_4 = 9;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -412,7 +412,7 @@ void __thiscall FUN_0041c360(int param_1,int param_2,int param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -445,7 +445,7 @@ void __thiscall FUN_0041c360(int param_1,int param_2,int param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   uVar2 = EncodeChecksumPairSum(param_3 + 0x6744,local_89c,param_3 + 0x6db0);
@@ -455,7 +455,7 @@ void __thiscall FUN_0041c360(int param_1,int param_2,int param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   if (2000 < iVar3) {
@@ -523,7 +523,7 @@ void __thiscall FUN_0041c360(int param_1,int param_2,int param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if ((*(int *)(local_230 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8a4);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

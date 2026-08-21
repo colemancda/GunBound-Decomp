@@ -170,22 +170,22 @@ void ChangePlayerMobile(int param_1,undefined4 param_2)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       SUBFIELD(local_4,0,undefined1) = 2;
       if (local_888 != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(local_888,&DAT_0079376c);
         TreeLowerBound(local_8a4);
       }
       SUBFIELD(local_4,0,undefined1) = 1;
       if (local_440 != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(local_440,&DAT_0079376c);
         TreeLowerBound(local_8a4);
       }
       local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
       if ((*(int *)(local_678 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_8a4);
       }
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_8a4);
       }
     }

@@ -45,7 +45,7 @@ void FUN_00476f80(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_454 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_45c);
       }
       EncodeChecksumPairDiff(param_1 + 0x264,local_230,iVar2 + 0xb30);
@@ -55,7 +55,7 @@ void FUN_00476f80(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_45c);
       }
       if (iVar4 * iVar4 + iVar3 * iVar3 < 0x640) {

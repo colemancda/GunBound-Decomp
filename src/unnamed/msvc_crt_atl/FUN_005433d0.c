@@ -13,7 +13,7 @@ void FUN_005433d0(void)
   undefined1 local_8 [8];
   
   if (DAT_00e53c74 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(DAT_00e53c74,&DAT_0079376c);
     TreeLowerBound(local_8);
   }
   return;

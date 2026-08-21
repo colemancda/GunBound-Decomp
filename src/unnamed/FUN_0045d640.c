@@ -65,18 +65,18 @@ LAB_0045d679:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   SUBFIELD(iStack_4,0,undefined1) = 1;
   if (iStack_aac != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_aac,&DAT_0079376c);
     TreeLowerBound(auStack_ac8);
   }
   iStack_4 = (uint)SUBFIELD(iStack_4,1,undefined3) << 8;
   if (iStack_664 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_664,&DAT_0079376c);
     TreeLowerBound(auStack_ac8);
   }
   iStack_4 = 0xffffffff;
   uVar5 = 0;
   if (iStack_888 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_888,&DAT_0079376c);
     uVar5 = TreeLowerBound(auStack_ac8);
   }
   uVar8 = (uint3)((uint)uVar5 >> 8);

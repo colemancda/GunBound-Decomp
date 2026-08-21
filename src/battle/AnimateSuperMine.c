@@ -87,7 +87,7 @@ void __fastcall AnimateSuperMine(int *param_1)
   iVar4 = (*(int *)(local_acc + 0x14));
   local_c = 0xffffffff;
   if ((*(int *)(local_acc + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
     local_aec[0] = iVar4;
     TreeLowerBound(local_ad8);
     param_1 = local_ae0;
@@ -108,7 +108,7 @@ void __fastcall AnimateSuperMine(int *param_1)
     iVar4 = (*(int *)(local_acc + 0x14));
     local_c = 0xffffffff;
     if ((*(int *)(local_acc + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
       local_aec[0] = iVar4;
       TreeLowerBound(local_ad8);
       param_1 = local_ae0;
@@ -136,7 +136,7 @@ void __fastcall AnimateSuperMine(int *param_1)
     bVar9 = local_ae4 == iVar5;
     local_c = 0xffffffff;
     if ((*(int *)(local_acc + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
       local_aec[0] = iVar4;
       TreeLowerBound(local_ad8);
       param_1 = local_ae0;
@@ -158,7 +158,7 @@ void __fastcall AnimateSuperMine(int *param_1)
       iVar4 = (*(int *)(local_acc + 0x14));
       local_c = 0xffffffff;
       if ((*(int *)(local_acc + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
         local_aec[0] = iVar4;
         TreeLowerBound(local_ad8);
         param_1 = local_ae0;
@@ -172,7 +172,7 @@ void __fastcall AnimateSuperMine(int *param_1)
       bVar9 = local_ad0 == iVar5;
       local_c = 0xffffffff;
       if ((*(int *)(local_acc + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
         local_aec[0] = iVar4;
         TreeLowerBound(local_ad8);
         param_1 = local_ae0;
@@ -246,7 +246,7 @@ LAB_00492677:
     iVar4 = (*(int *)(local_acc + 0x14));
     local_c = 0xffffffff;
     if ((*(int *)(local_acc + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
       local_aec[0] = iVar4;
       TreeLowerBound(local_ad8);
       param_1 = local_ae0;
@@ -317,7 +317,7 @@ LAB_00492912:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_c = 0xffffffff;
   if ((*(int *)(local_acc + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
     local_aec[0] = (*(int *)(local_acc + 0x14));
     TreeLowerBound(local_ad8);
   }
@@ -333,7 +333,7 @@ LAB_00492912:
       local_c = 0xffffffff;
       local_aec[0] = (*(int *)(local_8a8 + 0x14));
       if ((*(int *)(local_8a8 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_ad8);
       }
       iDelta = EncodeChecksumPairDiff(local_ae0 + 0x99,local_460,iVar4 + 0xb30);
@@ -344,7 +344,7 @@ LAB_00492912:
       local_c = 0xffffffff;
       local_aec[0] = (*(int *)(local_460 + 0x14));
       if ((*(int *)(local_460 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_460 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_ad8);
       }
       if (iVar4 * iVar4 + local_adc * local_adc < local_ad0) {

@@ -188,13 +188,13 @@ void FinishTurnAndSelectNext(int param_1)
         (*pcVar14)(&DAT_005a9068);
         uStack_20 = 1;
         if (iStack_45c != 0) {
-          ScrambleChecksumGuardBytes();
+          ScrambleChecksumGuardBytes(iStack_45c,&DAT_0079376c);
           TreeLowerBound(&stack0xfffff8e4);
           iVar3 = unaff_EBP;
         }
         uStack_20 = 0;
         if (iStack_238 != 0) {
-          ScrambleChecksumGuardBytes();
+          ScrambleChecksumGuardBytes(iStack_238,&DAT_0079376c);
           TreeLowerBound(&stack0xfffff8e4);
           iVar3 = unaff_EBP;
         }
@@ -266,7 +266,7 @@ void FinishTurnAndSelectNext(int param_1)
         local_4 = 0xffffffff;
         pcVar14 = (code *)LeaveCriticalSection;
         if (local_664 != 0) {
-          ScrambleChecksumGuardBytes();
+          ScrambleChecksumGuardBytes(local_664,&DAT_0079376c);
           TreeLowerBound(local_700);
           pcVar14 = (code *)LeaveCriticalSection;
         }

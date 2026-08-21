@@ -59,7 +59,7 @@ void __fastcall FUN_00479910(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_4 = 0xffffffff;
     if (iStack_440 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_440,&DAT_0079376c);
       TreeLowerBound(auStack_45c);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -113,7 +113,7 @@ void __fastcall FUN_00479910(int *param_1)
     }
     uStack_4 = 0xffffffff;
     if (iStack_21c != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_21c,&DAT_0079376c);
       TreeLowerBound(auStack_45c);
     }
   }

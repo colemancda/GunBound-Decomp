@@ -228,12 +228,12 @@ LAB_00420896:
     cVar3 = CompareChecksumPair(local_8b8 + 0x1a5a,uVar6);
     uStack_4 = 2;
     if (iStack_888 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_888,&DAT_0079376c);
       TreeLowerBound(auStack_8a4);
     }
     uStack_4 = 0xffffffff;
     if (iStack_664 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_664,&DAT_0079376c);
       TreeLowerBound(auStack_8a4);
     }
     if (cVar3 == '\0') {

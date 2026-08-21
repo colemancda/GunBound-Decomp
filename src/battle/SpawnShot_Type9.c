@@ -554,7 +554,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     }
     uStack_7c = 0xffffffff;
     if (iStack_6dc != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_6dc,&DAT_0079376c);
       TreeLowerBound();
       pcVar11 = (code *)LeaveCriticalSection;
     }
@@ -576,7 +576,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_7c = CONCAT31(SUBFIELD(uStack_7c,1,undefined3),7);
     if (iStack_6dc != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_6dc,&DAT_0079376c);
       TreeLowerBound();
       pcVar11 = (code *)LeaveCriticalSection;
     }
@@ -604,7 +604,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_7c = CONCAT31(SUBFIELD(uStack_7c,1,undefined3),9);
     if (iStack_6dc != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_6dc,&DAT_0079376c);
       TreeLowerBound();
       pcVar11 = (code *)LeaveCriticalSection;
     }
@@ -637,7 +637,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_88 = CONCAT31(SUBFIELD(uStack_88,1,undefined3),0xb);
     if (iStack_6e8 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_6e8,&DAT_0079376c);
       TreeLowerBound(&stack0xfffff6d0);
       pcVar11 = (code *)LeaveCriticalSection;
     }
@@ -669,7 +669,7 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uStack_94 = CONCAT31(SUBFIELD(uStack_94,1,undefined3),0xd);
     if (iStack_6f4 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_6f4,&DAT_0079376c);
       TreeLowerBound(&stack0xfffff6c4);
       pcVar11 = (code *)LeaveCriticalSection;
     }
@@ -699,12 +699,12 @@ void SpawnShot_Type9(undefined4 param_1,undefined4 param_2,int param_3,int param
     (*pcVar11)(&DAT_005a9068);
     uStack_7c = CONCAT31(SUBFIELD(uStack_7c,1,undefined3),0xf);
     if (iStack_4b8 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_4b8,&DAT_0079376c);
       TreeLowerBound();
     }
     uStack_7c = 0xffffffff;
     if (iStack_294 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_294,&DAT_0079376c);
       TreeLowerBound();
     }
   }

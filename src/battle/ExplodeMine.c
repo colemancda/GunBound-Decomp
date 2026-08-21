@@ -102,7 +102,7 @@ void __fastcall ExplodeMine(int param_1)
                  (int)(&DAT_006a7708 + g_clientContext),(int)iCraterX,(int)iCraterY);
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_474);
     }
     RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
@@ -128,7 +128,7 @@ void __fastcall ExplodeMine(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_474);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -145,7 +145,7 @@ void __fastcall ExplodeMine(int param_1)
     FUN_00450eb0(uVar4,uVar3,param_1,0,0,0);
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_474);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -162,7 +162,7 @@ void __fastcall ExplodeMine(int param_1)
     FUN_00436ac0(uVar4,uVar3);
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_474);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -180,7 +180,7 @@ void __fastcall ExplodeMine(int param_1)
                  param_1 + 0x3898);
     local_4 = 0xffffffff;
     if ((*(int *)(local_230 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_474);
     }
     iVar1 = g_clientContext;

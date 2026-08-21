@@ -181,7 +181,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_ab0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
     TreeLowerBound(local_adc);
     param_1 = piVar7;
   }
@@ -194,7 +194,7 @@ void __fastcall FUN_0046a4d0(int *param_1)
   puStack_8 = (undefined1 *)0xffffffff;
   piVar16 = param_1;
   if (iStack_ab0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
     TreeLowerBound(local_adc);
     piVar16 = piVar7;
   }

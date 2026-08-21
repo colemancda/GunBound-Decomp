@@ -89,7 +89,7 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   SUBFIELD(local_2d18,0,undefined4) = (*(int *)(local_2028 + 0x14));
   SUBFIELD(local_2d18,0,undefined4) = (*(int *)(local_2028 + 0x14));
   if ((*(int *)(local_2028 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_2028 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_2d20);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -179,14 +179,14 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),7);
   if ((*(int *)(local_2470 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_2470 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_2d08);
     iVar2 = local_2d10;
   }
   local_4 = 0xffffffff;
   local_2d18 = (double)CONCAT44(SUBFIELD(local_2d18,4,undefined4),(*(int *)(local_28b8 + 0x14)));
   if ((*(int *)(local_28b8 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_28b8 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_2d08);
     iVar2 = local_2d10;
   }
@@ -306,13 +306,13 @@ LAB_00479655:
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x1b);
   local_2d20[0] = (*(int *)(local_2d00 + 0x14));
   if ((*(int *)(local_2d00 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_2d00 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_2d08);
   }
   local_4 = 0xffffffff;
   local_2d20[0] = (*(int *)(local_1be0 + 0x14));
   if ((*(int *)(local_1be0 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_1be0 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_2d08);
   }
   EncodeChecksumDeltaDiv(unaff_EDI + 0x15c0,local_2d00,2);
@@ -334,7 +334,7 @@ LAB_00479655:
   local_4 = 0xffffffff;
   local_2d0c = iVar5;
   if ((*(int *)(local_2d00 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_2d00 + 0x14),&DAT_0079376c);
     local_2d20[0] = (*(int *)(local_2d00 + 0x14));
     TreeLowerBound(local_2d08);
   }

@@ -93,12 +93,12 @@ void __fastcall FUN_004acd10(int param_1)
       SpawnBlastEffect(iImpactY,iImpactX,*(undefined1 *)(param_1 + 0x3c),3,0,uVar4,iVar7,uVar10,uVar11,uVar12);
       local_4 = 0;
       if ((*(int *)(local_454 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_45c);
       }
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_45c);
       }
     }

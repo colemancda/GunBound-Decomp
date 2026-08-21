@@ -92,12 +92,12 @@ void AlignMobileToTerrain(int param_1)
   FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar7,iVar6);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_ad0);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_ad0);
   }
   uVar2 = EncodeChecksumDeltaDiv(param_1 + 0x119c,local_ac0,2);
@@ -122,28 +122,28 @@ void AlignMobileToTerrain(int param_1)
   iVar3 = (*(int *)(local_678 + 0x14));
   SUBFIELD(local_4,0,undefined1) = 4;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     local_ad0[0] = iVar3;
     TreeLowerBound(local_ac8);
   }
   iVar3 = (*(int *)(local_454 + 0x14));
   SUBFIELD(local_4,0,undefined1) = 3;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     local_ad0[0] = iVar3;
     TreeLowerBound(local_ac8);
   }
   iVar3 = (*(int *)(local_89c + 0x14));
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     local_ad0[0] = iVar3;
     TreeLowerBound(local_ac8);
   }
   iVar3 = (*(int *)(local_ac0 + 0x14));
   local_4 = 0xffffffff;
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
     local_ad0[0] = iVar3;
     TreeLowerBound(local_ac8);
   }
@@ -169,25 +169,25 @@ void AlignMobileToTerrain(int param_1)
   SUBFIELD(local_4,0,undefined1) = 8;
   local_ad0[0] = (*(int *)(local_ac0 + 0x14));
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_ac8);
   }
   SUBFIELD(local_4,0,undefined1) = 7;
   local_ad0[0] = (*(int *)(local_89c + 0x14));
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     TreeLowerBound(local_ac8);
   }
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),6);
   local_ad0[0] = (*(int *)(local_678 + 0x14));
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_ac8);
   }
   local_4 = 0xffffffff;
   local_ad0[0] = (*(int *)(local_454 + 0x14));
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_ac8);
   }
   PeekPacketChecksumState((void *)(param_1 + 0x119c));
@@ -219,7 +219,7 @@ void AlignMobileToTerrain(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_ac8);
   }
   if (3 < (int)((uVar4 ^ (int)uVar4 >> 0x1f) - ((int)uVar4 >> 0x1f))) {
@@ -256,7 +256,7 @@ void AlignMobileToTerrain(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_ac8);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -278,12 +278,12 @@ void AlignMobileToTerrain(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xc);
     if ((*(int *)(local_ac0 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_ac8);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_89c + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
       TreeLowerBound(local_ac8);
     }
   }
@@ -300,7 +300,7 @@ void AlignMobileToTerrain(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if ((*(int *)(local_ac0 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_ac8);
     }
     cVar1 = PeekPacketChecksumBool();
@@ -316,7 +316,7 @@ void AlignMobileToTerrain(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_ac0 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_ac8);
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -353,12 +353,12 @@ void AlignMobileToTerrain(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x12);
       if ((*(int *)(local_ac0 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_ac8);
       }
       local_4 = 0xffffffff;
       if ((*(int *)(local_89c + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
         TreeLowerBound(local_ac8);
       }
     }
@@ -381,7 +381,7 @@ void AlignMobileToTerrain(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_ac0 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_ac8);
       }
     }
@@ -404,7 +404,7 @@ void AlignMobileToTerrain(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_ac8);
       }
     }

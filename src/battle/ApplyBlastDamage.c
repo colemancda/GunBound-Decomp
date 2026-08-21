@@ -135,7 +135,7 @@ LAB_0043b008:
             (*pcVar9)(&DAT_005a9068);
             puStack_10 = (undefined1 *)0xffffffff;
             if (iStack_450 != 0) {
-              ScrambleChecksumGuardBytes();
+              ScrambleChecksumGuardBytes(iStack_450,&DAT_0079376c);
               TreeLowerBound(&local_8bc);
               pcVar9 = (code *)LeaveCriticalSection;
             }
@@ -147,7 +147,7 @@ LAB_0043b008:
             local_8c8 = local_894;
             local_c = 0xffffffff;
             if (local_894 != 0) {
-              ScrambleChecksumGuardBytes();
+              ScrambleChecksumGuardBytes(local_894,&DAT_0079376c);
               TreeLowerBound(local_8b0);
               pcVar9 = (code *)LeaveCriticalSection;
             }

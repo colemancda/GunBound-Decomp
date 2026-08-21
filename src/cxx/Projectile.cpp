@@ -135,7 +135,8 @@
 #include "ValueGuard.h"
 
 extern "C" {
-void ScrambleChecksumGuardBytes(void);
+void ScrambleChecksumGuardBytes(int slot, int *guardTable);
+extern int DAT_0079376c;   /* guard-table base pointer cell (0x79376c) */
 void TreeLowerBound(void *scratch);
 void AdvanceSpriteAnimation(void);
 void FUN_004585e0(void);
@@ -308,35 +309,35 @@ CProjectile::~CProjectile()
     unsigned int *self = reinterpret_cast<unsigned int *>(this);
     unsigned char scratch[8];
 
-    if (self[0xf60] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0xed7] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0xe4d] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0xd80] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0xcf7] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0xc6b] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0xbe2] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0xb59] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0xad0] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0xa47] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x9be] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x935] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x8ac] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x823] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x79a] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x710] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x687] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x5fe] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x575] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x4ec] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x463] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x3da] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x34b] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x2c2] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x239] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x1b0] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x127] != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x9e]  != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
-    if (self[0x15]  != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(scratch); }
+    if (self[0xf60] != 0) { ScrambleChecksumGuardBytes(self[0xf60],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0xed7] != 0) { ScrambleChecksumGuardBytes(self[0xed7],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0xe4d] != 0) { ScrambleChecksumGuardBytes(self[0xe4d],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0xd80] != 0) { ScrambleChecksumGuardBytes(self[0xd80],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0xcf7] != 0) { ScrambleChecksumGuardBytes(self[0xcf7],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0xc6b] != 0) { ScrambleChecksumGuardBytes(self[0xc6b],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0xbe2] != 0) { ScrambleChecksumGuardBytes(self[0xbe2],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0xb59] != 0) { ScrambleChecksumGuardBytes(self[0xb59],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0xad0] != 0) { ScrambleChecksumGuardBytes(self[0xad0],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0xa47] != 0) { ScrambleChecksumGuardBytes(self[0xa47],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x9be] != 0) { ScrambleChecksumGuardBytes(self[0x9be],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x935] != 0) { ScrambleChecksumGuardBytes(self[0x935],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x8ac] != 0) { ScrambleChecksumGuardBytes(self[0x8ac],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x823] != 0) { ScrambleChecksumGuardBytes(self[0x823],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x79a] != 0) { ScrambleChecksumGuardBytes(self[0x79a],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x710] != 0) { ScrambleChecksumGuardBytes(self[0x710],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x687] != 0) { ScrambleChecksumGuardBytes(self[0x687],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x5fe] != 0) { ScrambleChecksumGuardBytes(self[0x5fe],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x575] != 0) { ScrambleChecksumGuardBytes(self[0x575],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x4ec] != 0) { ScrambleChecksumGuardBytes(self[0x4ec],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x463] != 0) { ScrambleChecksumGuardBytes(self[0x463],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x3da] != 0) { ScrambleChecksumGuardBytes(self[0x3da],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x34b] != 0) { ScrambleChecksumGuardBytes(self[0x34b],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x2c2] != 0) { ScrambleChecksumGuardBytes(self[0x2c2],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x239] != 0) { ScrambleChecksumGuardBytes(self[0x239],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x1b0] != 0) { ScrambleChecksumGuardBytes(self[0x1b0],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x127] != 0) { ScrambleChecksumGuardBytes(self[0x127],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x9e]  != 0) { ScrambleChecksumGuardBytes(self[0x9e],&DAT_0079376c); TreeLowerBound(scratch); }
+    if (self[0x15]  != 0) { ScrambleChecksumGuardBytes(self[0x15],&DAT_0079376c); TreeLowerBound(scratch); }
 }
 
 /* 0x48f1c0 AnimateProjectileTick, vtable slot 2. Per-frame animate tick:
@@ -457,7 +458,7 @@ void CProjectile::DetonateProjectile()
         EncodeOutgoingPacketField((void *)(self->m_pad3d + 0xf17), uVar8);
         LeaveCriticalSection(&DAT_005a9068);
         if (auStack_ac4.tableHandle != 0) {
-            ScrambleChecksumGuardBytes();
+            ScrambleChecksumGuardBytes(auStack_ac4.tableHandle,&DAT_0079376c);
             TreeLowerBound(apuStack_ad0);
             self = pCStack_ad8;
         }
@@ -468,7 +469,7 @@ void CProjectile::DetonateProjectile()
         LeaveCriticalSection(&DAT_005a9068);
         pCVar9 = self;
         if (auStack_ac4.tableHandle != 0) {
-            ScrambleChecksumGuardBytes();
+            ScrambleChecksumGuardBytes(auStack_ac4.tableHandle,&DAT_0079376c);
             TreeLowerBound(apuStack_ad0);
             pCVar9 = pCStack_ad8;
         }
@@ -991,26 +992,26 @@ void CProjectile::SimulateFrame(int stepDelta)
     EnterCriticalSection(&DAT_005a9068);
     local_1590 = PeekPacketChecksumState((void *)(&g1574));
     LeaveCriticalSection(&DAT_005a9068);
-    if (g1574.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(local_15b0); }
+    if (g1574.tableHandle != 0) { ScrambleChecksumGuardBytes(g1574.tableHandle,&DAT_0079376c); TreeLowerBound(local_15b0); }
     EncodeChecksumDeltaShr(cellPower, &g1574, 8);
     EnterCriticalSection(&DAT_005a9068);
     local_1598 = reinterpret_cast<unsigned char *>(PeekPacketChecksumState((void *)(&g1574)));
     LeaveCriticalSection(&DAT_005a9068);
-    if (g1574.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(local_15b0); }
+    if (g1574.tableHandle != 0) { ScrambleChecksumGuardBytes(g1574.tableHandle,&DAT_0079376c); TreeLowerBound(local_15b0); }
     uVar11 = EncodeChecksumPairDiff(reinterpret_cast<int>(cellAngle), &g112c, reinterpret_cast<unsigned int>(this->m_pad3d + 0x44b));
     EncodeChecksumDeltaShr(reinterpret_cast<void *>(uVar11), &g1574, 8);
     EnterCriticalSection(&DAT_005a9068);
     local_1584 = PeekPacketChecksumState((void *)(&g1574));
     LeaveCriticalSection(&DAT_005a9068);
-    if (g1574.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(local_15b0); }
-    if (g112c.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(local_15b0); }
+    if (g1574.tableHandle != 0) { ScrambleChecksumGuardBytes(g1574.tableHandle,&DAT_0079376c); TreeLowerBound(local_15b0); }
+    if (g112c.tableHandle != 0) { ScrambleChecksumGuardBytes(g112c.tableHandle,&DAT_0079376c); TreeLowerBound(local_15b0); }
     uVar11 = EncodeChecksumPairDiff(reinterpret_cast<int>(cellPower), &g1574, reinterpret_cast<unsigned int>(local_159c->m_pad3d + 0x66f));
     EncodeChecksumDeltaShr(reinterpret_cast<void *>(uVar11), &g112c, 8);
     EnterCriticalSection(&DAT_005a9068);
     iVar12 = PeekPacketChecksumState((void *)(&g112c));
     LeaveCriticalSection(&DAT_005a9068);
-    if (g112c.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(local_15b0); }
-    if (g1574.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(local_15b0); }
+    if (g112c.tableHandle != 0) { ScrambleChecksumGuardBytes(g112c.tableHandle,&DAT_0079376c); TreeLowerBound(local_15b0); }
+    if (g1574.tableHandle != 0) { ScrambleChecksumGuardBytes(g1574.tableHandle,&DAT_0079376c); TreeLowerBound(local_15b0); }
 
     uVar14 = (unsigned int)(local_1584 - local_1590) >> 0x1f;
     iVar15 = ((local_1584 - local_1590) ^ (int)uVar14) - uVar14;
@@ -1067,10 +1068,10 @@ void CProjectile::SimulateFrame(int stepDelta)
                 EnterCriticalSection(&DAT_005a9068);
                 EncodeOutgoingPacketField((void *)(pbVar18), uVar11);
                 LeaveCriticalSection(&DAT_005a9068);
-                if (bVar2 && (bVar2 = false, g454.tableHandle != 0)) { ScrambleChecksumGuardBytes(); TreeLowerBound(local_1580); }
-                if (bVar3 && (bVar3 = false, g89c.tableHandle != 0)) { ScrambleChecksumGuardBytes(); TreeLowerBound(local_1580); }
-                if (bVar4 && (bVar4 = false, gac0.tableHandle != 0)) { ScrambleChecksumGuardBytes(); TreeLowerBound(local_1580); }
-                if (g1350.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(local_1580); }
+                if (bVar2 && (bVar2 = false, g454.tableHandle != 0)) { ScrambleChecksumGuardBytes(g454.tableHandle,&DAT_0079376c); TreeLowerBound(local_1580); }
+                if (bVar3 && (bVar3 = false, g89c.tableHandle != 0)) { ScrambleChecksumGuardBytes(g89c.tableHandle,&DAT_0079376c); TreeLowerBound(local_1580); }
+                if (bVar4 && (bVar4 = false, gac0.tableHandle != 0)) { ScrambleChecksumGuardBytes(gac0.tableHandle,&DAT_0079376c); TreeLowerBound(local_1580); }
+                if (g1350.tableHandle != 0) { ScrambleChecksumGuardBytes(g1350.tableHandle,&DAT_0079376c); TreeLowerBound(local_1580); }
                 local_15a5 = '\x01';
             }
             pCVar17 = local_159c;
@@ -1139,8 +1140,8 @@ void CProjectile::SimulateFrame(int stepDelta)
                 iVar13 = PeekPacketChecksumState((void *)(&gce4));
                 LeaveCriticalSection(&DAT_005a9068);
                 FUN_00436bd0(local_15a4 - iVar13, local_15b4 - iVar12, *reinterpret_cast<unsigned int *>(pCVar17->m_pad3d + 0x1e13));
-                if (gf08.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(local_1580); pCVar17 = local_159c; }
-                if (gce4.tableHandle != 0) { ScrambleChecksumGuardBytes(); TreeLowerBound(local_1580); pCVar17 = local_159c; }
+                if (gf08.tableHandle != 0) { ScrambleChecksumGuardBytes(gf08.tableHandle,&DAT_0079376c); TreeLowerBound(local_1580); pCVar17 = local_159c; }
+                if (gce4.tableHandle != 0) { ScrambleChecksumGuardBytes(gce4.tableHandle,&DAT_0079376c); TreeLowerBound(local_1580); pCVar17 = local_159c; }
             }
             iVar12 = local_15a4;
             cVar8 = PeekPacketChecksumBool(pCVar17->m_pad3d + 0x38db);
@@ -1263,13 +1264,13 @@ void CProjectile::SimulateFrame(int stepDelta)
                     EncodeOutgoingPacketField((void *)(pbVar18), uVar11);
                     LeaveCriticalSection(&DAT_005a9068);
                     uVar14 = gce4.tableHandle;
-                    if (bVar5 && (bVar5 = false, gce4.tableHandle != 0)) { ScrambleChecksumGuardBytes(); local_15b0[0] = uVar14; TreeLowerBound(local_1580); }
+                    if (bVar5 && (bVar5 = false, gce4.tableHandle != 0)) { ScrambleChecksumGuardBytes(gce4.tableHandle,&DAT_0079376c); local_15b0[0] = uVar14; TreeLowerBound(local_1580); }
                     uVar14 = gf08.tableHandle;
-                    if (bVar6 && (bVar6 = false, gf08.tableHandle != 0)) { ScrambleChecksumGuardBytes(); local_15b0[0] = uVar14; TreeLowerBound(local_1580); }
+                    if (bVar6 && (bVar6 = false, gf08.tableHandle != 0)) { ScrambleChecksumGuardBytes(gf08.tableHandle,&DAT_0079376c); local_15b0[0] = uVar14; TreeLowerBound(local_1580); }
                     uVar14 = g1350.tableHandle;
-                    if (bVar7 && (bVar7 = false, g1350.tableHandle != 0)) { ScrambleChecksumGuardBytes(); local_15b0[0] = uVar14; TreeLowerBound(local_1580); }
+                    if (bVar7 && (bVar7 = false, g1350.tableHandle != 0)) { ScrambleChecksumGuardBytes(g1350.tableHandle,&DAT_0079376c); local_15b0[0] = uVar14; TreeLowerBound(local_1580); }
                     uVar14 = gac0.tableHandle;
-                    if (gac0.tableHandle != 0) { ScrambleChecksumGuardBytes(); local_15b0[0] = uVar14; TreeLowerBound(local_1580); }
+                    if (gac0.tableHandle != 0) { ScrambleChecksumGuardBytes(gac0.tableHandle,&DAT_0079376c); local_15b0[0] = uVar14; TreeLowerBound(local_1580); }
                     local_15a5 = '\x01';
                 }
                 pCVar17 = local_159c;
@@ -1341,9 +1342,9 @@ void CProjectile::SimulateFrame(int stepDelta)
                     LeaveCriticalSection(&DAT_005a9068);
                     FUN_00436bd0(local_15b8 - local_15b0[0], local_15a4 - iVar13, *reinterpret_cast<unsigned int *>(pCVar17->m_pad3d + 0x1e13));
                     uVar14 = g678.tableHandle;
-                    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(); local_15b0[0] = uVar14; TreeLowerBound(local_1580); pCVar17 = local_159c; }
+                    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); local_15b0[0] = uVar14; TreeLowerBound(local_1580); pCVar17 = local_159c; }
                     uVar14 = g230.tableHandle;
-                    if (g230.tableHandle != 0) { ScrambleChecksumGuardBytes(); local_15b0[0] = uVar14; TreeLowerBound(local_1580); pCVar17 = local_159c; }
+                    if (g230.tableHandle != 0) { ScrambleChecksumGuardBytes(g230.tableHandle,&DAT_0079376c); local_15b0[0] = uVar14; TreeLowerBound(local_1580); pCVar17 = local_159c; }
                 }
                 iVar13 = local_15b8;
                 cVar8 = PeekPacketChecksumBool(pCVar17->m_pad3d + 0x38db);

@@ -33,19 +33,19 @@ void __fastcall FUN_004186b0(int param_1)
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x1668),0x224,8,ScrubChecksumGuard);
   SUBFIELD(local_4,0,undefined1) = 2;
   if (*(int *)(param_1 + 0x1458) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x1458),&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   SUBFIELD(local_4,0,undefined1) = 1;
   _eh_vector_destructor_iterator_((void *)(param_1 + 0x548),0x224,7,ScrubChecksumGuard);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (*(int *)(param_1 + 0x338) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x338),&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 0xffffffff;
   if (*(int *)(param_1 + 0x114) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x114),&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   *unaff_FS_OFFSET = local_c;

@@ -82,7 +82,7 @@ void EncodeOutgoingPacketField(void *self, uint param_1)
   uVar2 = param_1;
   uVar1 = *(uint *)(unaff_EDI + 0x14);
   if (uVar1 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(uVar1,&DAT_0079376c);
     param_1 = uVar1;
     TreeLowerBound(local_8);
   }

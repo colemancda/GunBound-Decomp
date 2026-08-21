@@ -21,22 +21,22 @@ void __fastcall DestroyItemRecord(int param_1)
   *unaff_FS_OFFSET = &local_c;
   local_4 = 2;
   if (*(int *)(param_1 + 0x6ac) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x6ac),&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 1;
   if (*(int *)(param_1 + 0x47c) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x47c),&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 0;
   if (*(int *)(param_1 + 600) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(param_1 + 600),&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 0xffffffff;
   if (*(int *)(param_1 + 0x34) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x34),&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   *unaff_FS_OFFSET = local_c;

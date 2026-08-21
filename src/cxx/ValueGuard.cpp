@@ -29,7 +29,7 @@ int  DAT_0079376c;                  /* key-table base (16 bytes/entry) */
 int *DAT_00793774;                  /* current key-table object ptr (integrity anchor) */
 int  DAT_00793778;                  /* "encoding active" gate */
 int  DAT_00793770;                  /* key-table registry root */
-void ScrambleChecksumGuardBytes(void);            /* registry re-key step */
+void ScrambleChecksumGuardBytes(int slot, int *guardTable);            /* registry re-key step */
 void TreeLowerBound(void *scratch);
 void FUN_0040b600(void *root, void *field, int tableObj);
 int *FUN_0040b8c0(void);            /* returns the live table object (see note below) */
@@ -80,7 +80,7 @@ void CValueGuard::EncodeOutgoingPacketField(u32 value)
 {
     u32 v = value;
     if (tableHandle != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(tableHandle,&DAT_0079376c);
         TreeLowerBound(0);
     }
     int newHandle = 0;

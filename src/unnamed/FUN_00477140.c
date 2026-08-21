@@ -103,7 +103,7 @@ void FUN_00477140(void)
                  (int)(&DAT_006a7708 + g_clientContext),(int)iCraterX,(int)iCraterY);
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_478);
   }
   RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
@@ -129,7 +129,7 @@ void FUN_00477140(void)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_478);
     pcVar6 = (code *)LeaveCriticalSection;
   }
@@ -145,7 +145,7 @@ void FUN_00477140(void)
   FUN_00450eb0(unaff_EBP,uVar3,unaff_ESI,1,0,0);
   local_c = 0xffffffff;
   if (iStack_448 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_448,&DAT_0079376c);
     TreeLowerBound(&stack0xfffffb80);
     pcVar6 = (code *)LeaveCriticalSection;
   }
@@ -160,7 +160,7 @@ void FUN_00477140(void)
   FUN_00436ac0(puVar7,uVar3);
   uStack_14 = 0xffffffff;
   if (iStack_450 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_450,&DAT_0079376c);
     TreeLowerBound(&stack0xfffffb78);
   }
   uVar11 = EncodeChecksumDeltaSub(unaff_ESI + 0x264,auStack_240,10);
@@ -175,7 +175,7 @@ void FUN_00477140(void)
                unaff_ESI + 0x3898);
   uStack_14 = 0xffffffff;
   if (iStack_22c != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_22c,&DAT_0079376c);
     TreeLowerBound(&stack0xfffffb78);
   }
   iVar1 = g_clientContext;

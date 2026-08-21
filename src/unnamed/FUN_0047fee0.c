@@ -97,7 +97,7 @@ void FUN_0047fee0(int param_1)
   puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
   unaff_ESI[0xff2] = iVar3;
   if (iStack_668 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_668,&DAT_0079376c);
     TreeLowerBound(aiStack_688);
   }
   puStack_8 = (undefined1 *)0x0;
@@ -107,7 +107,7 @@ void FUN_0047fee0(int param_1)
   }
   puStack_8 = (undefined1 *)0xffffffff;
   if (iStack_220 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_220,&DAT_0079376c);
     TreeLowerBound(aiStack_688);
   }
   unaff_ESI[0xff3] = 1;

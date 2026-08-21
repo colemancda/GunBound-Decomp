@@ -33,7 +33,7 @@ undefined4 FUN_0044be40(int param_1,int param_2)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if ((*(int *)(local_230 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_238);
   }
   *unaff_FS_OFFSET = local_c;

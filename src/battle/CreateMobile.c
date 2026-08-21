@@ -322,7 +322,7 @@ LAB_0042b60a:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_440,&DAT_0079376c);
       TreeLowerBound(auStack_4dc);
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x1b6c,auStack_454,2);
@@ -333,7 +333,7 @@ LAB_0042b60a:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_440,&DAT_0079376c);
       TreeLowerBound(auStack_4dc);
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x1ae3,auStack_454,2);
@@ -350,7 +350,7 @@ LAB_0042b60a:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_440,&DAT_0079376c);
       TreeLowerBound(auStack_4dc);
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x1c7e,auStack_230,2);
@@ -361,7 +361,7 @@ LAB_0042b60a:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if (iStack_21c != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_21c,&DAT_0079376c);
       TreeLowerBound(auStack_4dc);
     }
   }

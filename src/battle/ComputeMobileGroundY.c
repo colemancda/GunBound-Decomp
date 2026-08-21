@@ -68,12 +68,12 @@ int __fastcall ComputeMobileGroundY(int param_1)
   local_680 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar7,iVar6);
   local_4 = 0;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_688);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_688);
   }
   uVar2 = EncodeChecksumDeltaDiv(iVar5,local_454,2);
@@ -86,12 +86,12 @@ int __fastcall ComputeMobileGroundY(int param_1)
   bVar6 = local_680 == iVar3;
   local_4 = 2;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_688);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_688);
   }
   iVar3 = local_680;
@@ -111,7 +111,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
     iVar4 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar7,iVar6);
     local_4 = 0xffffffff;
     if ((*(int *)(local_678 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_688);
     }
     uVar8 = EncodeChecksumPairDiff(iVar1,local_678,iVar5);
@@ -121,7 +121,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = 0xffffffff;
     if ((*(int *)(local_678 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_688);
     }
     iVar3 = local_680;
@@ -142,7 +142,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
       iVar3 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar7,iVar6);
       local_4 = 0xffffffff;
       if ((*(int *)(local_678 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_688);
       }
       uVar8 = EncodeChecksumDeltaAdd(iVar1,local_230,1);
@@ -152,7 +152,7 @@ int __fastcall ComputeMobileGroundY(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_688);
       }
       if (iVar3 == iVar5) {

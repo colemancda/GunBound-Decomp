@@ -22,12 +22,12 @@ void __fastcall State09_ReadyRoom_Destroy(undefined4 *param_1)
   *param_1 = &vtable_State09_ReadyRoom;
   local_4 = 1;
   if (param_1[0xa0] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0xa0],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = local_4 & 0xffffff00;
   if (param_1[8] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[8],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   *param_1 = &PTR_LAB_00553fb0;

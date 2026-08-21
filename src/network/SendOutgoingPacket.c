@@ -99,12 +99,12 @@ undefined4 SendOutgoingPacket(int param_1)
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   *(undefined2 *)(param_1 + 0x4d2) = uVar2;
   if (*(int *)(local_454 + 0x14) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_45c);
   }
   local_4 = 0xffffffff;
   if (*(int *)(local_230 + 0x14) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_45c);
   }
   SendSocketData((char *)(param_1 + 0x4d0),*(undefined4 *)(param_1 + 0x84e0),

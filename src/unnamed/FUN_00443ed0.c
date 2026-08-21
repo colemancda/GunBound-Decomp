@@ -24,7 +24,7 @@ void __fastcall FUN_00443ed0(undefined4 *param_1)
   FUN_004254a0();
   local_4 = 9;
   if (param_1[0xc971] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0xc971],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 8;
@@ -33,17 +33,17 @@ void __fastcall FUN_00443ed0(undefined4 *param_1)
   FUN_00443dc0(param_1 + 0xc2ef);
   local_4 = 6;
   if (param_1[0xc26a] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0xc26a],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 5;
   if (param_1[0xc1e1] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0xc1e1],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 4;
   if (param_1[0xc158] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0xc158],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 3;
@@ -52,12 +52,12 @@ void __fastcall FUN_00443ed0(undefined4 *param_1)
   _eh_vector_destructor_iterator_(param_1 + 0x116,0x17e4,9,FUN_004254a0);
   local_4 = 1;
   if (param_1[0x8f] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[0x8f],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   local_4 = 0;
   if (param_1[6] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(param_1[6],&DAT_0079376c);
     TreeLowerBound(local_14);
   }
   *param_1 = &PTR_LAB_00553fb0;

@@ -190,14 +190,14 @@ void __fastcall AdvanceTurnQueue(int param_1)
     (*pcVar9)(&DAT_005a9068);
     local_c = local_c & 0xffffff00;
     if (iStack_448 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_448,&DAT_0079376c);
       TreeLowerBound(&local_464);
       pcVar9 = (code *)LeaveCriticalSection;
       unaff_EBX = iStack_448;
     }
     local_c = 0xffffffff;
     if (iStack_224 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_224,&DAT_0079376c);
       TreeLowerBound(&local_464);
       pcVar9 = (code *)LeaveCriticalSection;
       unaff_EBX = iStack_224;

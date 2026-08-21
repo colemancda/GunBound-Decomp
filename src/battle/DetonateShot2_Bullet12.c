@@ -229,14 +229,14 @@ LAB_004af8b0:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (local_cd0 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(local_cd0,&DAT_0079376c);
     local_d14 = local_cd0;
     TreeLowerBound();
     pcVar20 = (code *)LeaveCriticalSection;
   }
   local_4 = 0xffffffff;
   if (local_aac != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(local_aac,&DAT_0079376c);
     local_d14 = local_aac;
     TreeLowerBound();
     pcVar20 = (code *)LeaveCriticalSection;
@@ -277,7 +277,7 @@ LAB_004af8b0:
   (*pcVar20)(&DAT_005a9068);
   uStack_20 = 0xffffffff;
   if (iStack_cec != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_cec,&DAT_0079376c);
     TreeLowerBound(&stack0xfffff2dc);
     pcVar20 = (code *)LeaveCriticalSection;
   }
@@ -338,7 +338,7 @@ LAB_004af8b0:
     (*pcVar20)();
     uStack_40 = 0xffffffff;
     if (local_d0c != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(local_d0c,&DAT_0079376c);
       TreeLowerBound(&stack0xfffff2d4);
       pcVar20 = (code *)LeaveCriticalSection;
     }
@@ -511,12 +511,12 @@ LAB_004b0dc8:
       }
       uStack_50 = CONCAT31(SUBFIELD(uStack_50,1,undefined3),0x10);
       if (iStack_48c != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(iStack_48c,&DAT_0079376c);
         TreeLowerBound(&stack0xfffff2c4);
       }
       uStack_50 = 0xffffffff;
       if (iStack_268 != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(iStack_268,&DAT_0079376c);
         TreeLowerBound(&stack0xfffff2c4);
       }
     }

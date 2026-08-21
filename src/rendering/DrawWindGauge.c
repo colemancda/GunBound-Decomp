@@ -171,17 +171,17 @@ LAB_00408159:
   SetClipRect(0, iVar13, 0x257, 0);
   local_4 = 1;
   if ((*(int *)(local_ce4 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_ce4 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_f9c);
   }
   local_4 = 0;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_f9c);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     TreeLowerBound(local_f9c);
   }
   iVar2 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -233,17 +233,17 @@ LAB_00406d42:
 LAB_00406e95:
   local_4 = 4;
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
     TreeLowerBound(local_f9c);
   }
   local_4 = 3;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_f9c);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_ce4 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_ce4 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_f9c);
   }
   if (*param_1 == -1) {
@@ -321,7 +321,7 @@ LAB_00406f80:
     QueueSpriteSpansByContentId(500);
     local_4 = 0xffffffff;
     if ((*(int *)(local_f08 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_f08 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_f9c);
     }
     uVar9 = EncodeChecksumDeltaDiv(*(int *)(g_clientContext + 0x621e0) + 0x8bc4,local_ac0,0x14);
@@ -334,12 +334,12 @@ LAB_00406f80:
     QueueSpriteSpansByContentId(500);
     local_4 = 0xd;
     if ((*(int *)(local_f08 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_f08 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_f9c);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_ac0 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_f9c);
     }
     iVar2 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -365,12 +365,12 @@ LAB_00407429:
     QueueSpriteSpansByContentId(500);
     local_4 = 0xf;
     if ((*(int *)(local_f08 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_f08 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_f9c);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_ac0 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_f9c);
     }
   }

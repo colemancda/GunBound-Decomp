@@ -110,7 +110,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
     puStack_8 = (undefined1 *)0xffffffff;
     unaff_EBX = iStack_220;
     if (iStack_220 != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(iStack_220,&DAT_0079376c);
       TreeLowerBound(aiStack_464);
     }
   }

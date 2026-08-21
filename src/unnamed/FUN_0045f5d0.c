@@ -57,12 +57,12 @@ undefined4 __fastcall FUN_0045f5d0(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     SUBFIELD(local_4,0,undefined1) = 3;
     if ((*(int *)(local_89c + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
       TreeLowerBound(local_ac8);
     }
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
     if ((*(int *)(local_678 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_ac8);
     }
     local_4 = 0xffffffff;
@@ -79,7 +79,7 @@ undefined4 __fastcall FUN_0045f5d0(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     if ((*(int *)(local_454 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_ac8);
     }
     local_4 = 0xffffffff;

@@ -106,7 +106,7 @@ void __fastcall FUN_0046af10(int *param_1)
   (*pcVar13)(&DAT_005a9068);
   uStack_c = 0xffffffff;
   if (uStack_ab4 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(uStack_ab4,&DAT_0079376c);
     TreeLowerBound(&local_ad0);
     pcVar13 = (code *)LeaveCriticalSection;
     unaff_EBX = uStack_ab4;

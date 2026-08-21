@@ -338,7 +338,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   (*pcVar5)();
   local_c = 0xffffffff;
   if (iStack_448 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_448,&DAT_0079376c);
     TreeLowerBound();
     pcVar5 = (code *)LeaveCriticalSection;
     param_3 = (undefined1 *)unaff_retaddr;
@@ -355,7 +355,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   (*pcVar5)();
   uStack_14 = 0xffffffff;
   if (iStack_450 != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_450,&DAT_0079376c);
     TreeLowerBound();
     pcVar5 = (code *)LeaveCriticalSection;
     param_3 = puStack_8;
@@ -411,7 +411,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   (*pcVar5)(&DAT_005a9068);
   uStack_2c = 0xffffffff;
   if (local_468[0] != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(local_468[0],&DAT_0079376c);
     TreeLowerBound(&stack0xfffffb70);
     pcVar5 = (code *)LeaveCriticalSection;
   }
@@ -430,7 +430,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   (*pcVar5)(&DAT_005a9068);
   uStack_34 = 0xffffffff;
   if (iStack_24c != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(iStack_24c,&DAT_0079376c);
     TreeLowerBound(&stack0xfffffb74);
   }
   *unaff_FS_OFFSET = uStack_3c;

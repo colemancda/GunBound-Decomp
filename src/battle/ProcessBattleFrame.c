@@ -49,7 +49,7 @@ void ProcessBattleFrame(int param_1)
   bVar1 = *(byte *)(g_clientContext + 0x475c4);
   local_4 = 0xffffffff;
   if ((*(int *)(local_230 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_338);
   }
   switch(*(undefined4 *)(param_1 + 0x740)) {

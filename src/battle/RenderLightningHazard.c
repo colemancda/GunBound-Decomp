@@ -59,12 +59,12 @@ void __fastcall RenderLightningHazard(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_688);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_688);
   }
   iVar6 = param_1 + 0x260;
@@ -90,7 +90,7 @@ LAB_0046e1bb:
   if ((local_688[0] & 2) != 0) {
     local_688[0] = local_688[0] & 0xfffffffd;
     if ((*(int *)(local_678 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_680);
     }
   }
@@ -120,7 +120,7 @@ LAB_0046e1bb:
       local_4 = 0xffffffff;
       _DAT_00ea0e94 = DAT_00ea0e28;
       if ((*(int *)(local_678 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_680);
       }
       EncodeChecksumDeltaDiv(iVar6,local_230,2);
@@ -132,7 +132,7 @@ LAB_0046e1bb:
       local_4 = 0xffffffff;
       DAT_00ea0e70 = _DAT_00ea0e4c;
       if ((*(int *)(local_230 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_680);
       }
       _DAT_00ea0ea4 = 0xffffffff;

@@ -79,7 +79,7 @@ void __fastcall AnimateMine(int *param_1)
   local_8c4 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar6,iVar5);
   local_c = 0xffffffff;
   if ((*(int *)(local_8a8 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&DAT_0079376c);
     TreeLowerBound(local_8b0);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -107,7 +107,7 @@ void __fastcall AnimateMine(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_c = 0xffffffff;
     if ((*(int *)(local_8a8 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_8b0);
     }
     if (local_8c4 == iVar4) {
@@ -126,7 +126,7 @@ void __fastcall AnimateMine(int *param_1)
       local_8b8[0] = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),iVar6,iVar5);
       local_c = 0xffffffff;
       if ((*(int *)(local_8a8 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_8b0);
       }
       iDelta = EncodeChecksumDeltaSub(param_1 + 0x99,local_8a8,0x1e);
@@ -137,7 +137,7 @@ void __fastcall AnimateMine(int *param_1)
       bVar8 = local_8b8[0] == iVar4;
       local_c = 0xffffffff;
       if ((*(int *)(local_8a8 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_8b0);
       }
       if (bVar8) {
@@ -206,7 +206,7 @@ LAB_00498f85:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     local_c = 0xffffffff;
     if ((*(int *)(local_8a8 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes();
+      ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&DAT_0079376c);
       TreeLowerBound(local_8b0);
     }
     if (iVar4 < (int)local_8c4) {
@@ -270,7 +270,7 @@ LAB_00499217:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_c = 0xffffffff;
   if ((*(int *)(local_8a8 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes();
+    ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&DAT_0079376c);
     local_8b8[0] = (*(int *)(local_8a8 + 0x14));
     TreeLowerBound(local_8b0);
   }
@@ -286,7 +286,7 @@ LAB_00499217:
       local_c = 0xffffffff;
       local_8b8[0] = (*(int *)(local_684 + 0x14));
       if ((*(int *)(local_684 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_684 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_8b0);
       }
       iDelta = EncodeChecksumPairDiff(param_1 + 0x99,local_460,iVar5 + 0xb30);
@@ -297,7 +297,7 @@ LAB_00499217:
       local_c = 0xffffffff;
       local_8b8[0] = (*(int *)(local_460 + 0x14));
       if ((*(int *)(local_460 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes();
+        ScrambleChecksumGuardBytes(*(int *)(local_460 + 0x14),&DAT_0079376c);
         TreeLowerBound(local_8b0);
       }
       if (iVar5 * iVar5 + iVar6 * iVar6 < iVar4) {
