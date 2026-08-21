@@ -319,7 +319,7 @@ LAB_004adef8:
       *(undefined4 *)(&DAT_005f376c + iVar2) = 0;
     }
   }
-  cVar1 = CheckBothGuardedBools();
+  cVar1 = CheckBothGuardedBools((byte *)param_1 + 0xf3f,(byte *)param_1 + 0xf42);
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState((void *)(param_1 + 0x45e));

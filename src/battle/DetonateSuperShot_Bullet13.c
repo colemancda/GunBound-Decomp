@@ -519,7 +519,7 @@ LAB_00488574:
       *(undefined4 *)(&DAT_005f376c + iVar3) = 0;
     }
   }
-  cVar1 = CheckBothGuardedBools();
+  cVar1 = CheckBothGuardedBools((byte *)param_1 + 0xf3f,(byte *)param_1 + 0xf42);
   if (cVar1 != '\0') {
     (*pcVar14)(&DAT_005a9068);
     iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x45e));

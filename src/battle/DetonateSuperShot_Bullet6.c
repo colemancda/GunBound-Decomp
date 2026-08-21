@@ -561,7 +561,7 @@ LAB_00453b3c:
         *(undefined4 *)(&DAT_005f376c + iVar5) = 0;
       }
     }
-    cVar3 = CheckBothGuardedBools();
+    cVar3 = CheckBothGuardedBools((byte *)param_1 + 0xf3f,(byte *)param_1 + 0xf42);
     if (cVar3 != '\0') {
       iVar8 = PeekChecksumStateUnderLock(param_1 + 0x45e);
       iVar9 = PeekChecksumStateUnderLock(param_1 + 0x3d5);

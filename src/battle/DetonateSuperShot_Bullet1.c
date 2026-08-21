@@ -379,7 +379,7 @@ LAB_0044e580:
         *(undefined4 *)(&DAT_005f376c + iVar6) = 0;
       }
     }
-    cVar5 = CheckBothGuardedBools();
+    cVar5 = CheckBothGuardedBools((byte *)param_1 + 0xf3f,(byte *)param_1 + 0xf42);
     if (cVar5 != '\0') {
       iVar8 = PeekChecksumStateUnderLock(iStack_ae0);
       iVar11 = PeekChecksumStateUnderLock(param_1 + 0x3d5);
