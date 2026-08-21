@@ -472,13 +472,13 @@ void SpawnShot_Type13(undefined4 param_1,undefined4 param_2,undefined4 param_3,
     uStack_38 = CONCAT31(SUBFIELD(uStack_38,1,undefined3),0xc);
     if (iStack_698 != 0) {
       ScrambleChecksumGuardBytes(iStack_698,&DAT_0079376c);
-      TreeLowerBound(&puStack_8d8);
+      TreeLowerBound(&puStack_8d8,&DAT_00793770);
       pcVar9 = (code *)LeaveCriticalSection;
     }
     uStack_38 = 0xffffffff;
     if (iVar3 != 0) {
       ScrambleChecksumGuardBytes(iVar3,&DAT_0079376c);
-      TreeLowerBound(&puStack_8d8);
+      TreeLowerBound(&puStack_8d8,&DAT_00793770);
       pcVar9 = (code *)LeaveCriticalSection;
     }
     (*pcVar10)(&DAT_005a9068);

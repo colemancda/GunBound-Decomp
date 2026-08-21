@@ -137,7 +137,7 @@ void FUN_0043bda0(void)
                     iVar8 = iVar8 + 1;
                     local_698 = local_698 + -1;
                   } while (local_698 != 0);
-                  TreeLowerBound(local_68c);
+                  TreeLowerBound(local_68c,&DAT_00793770);
                 }
                 piVar13 = *(int **)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
                 uVar11 = piVar13[1];

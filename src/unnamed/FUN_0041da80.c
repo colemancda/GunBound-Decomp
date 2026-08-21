@@ -373,7 +373,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   uStack_1c = 0xffffffff;
   if (puStack_458 != (undefined *)0x0) {
     ScrambleChecksumGuardBytes();
-    TreeLowerBound(&stack0xfffffb80);
+    TreeLowerBound(&stack0xfffffb80,&DAT_00793770);
     pcVar5 = (code *)LeaveCriticalSection;
     param_3 = (undefined1 *)iStack_10;
     puVar7 = puStack_458;
@@ -391,7 +391,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   uStack_24 = 0xffffffff;
   if (local_460 != (undefined *)0x0) {
     ScrambleChecksumGuardBytes();
-    TreeLowerBound(&stack0xfffffb78);
+    TreeLowerBound(&stack0xfffffb78,&DAT_00793770);
     pcVar5 = (code *)LeaveCriticalSection;
     param_3 = (undefined1 *)iStack_18;
     puVar6 = puVar7;
@@ -412,7 +412,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   uStack_2c = 0xffffffff;
   if (local_468[0] != 0) {
     ScrambleChecksumGuardBytes(local_468[0],&DAT_0079376c);
-    TreeLowerBound(&stack0xfffffb70);
+    TreeLowerBound(&stack0xfffffb70,&DAT_00793770);
     pcVar5 = (code *)LeaveCriticalSection;
   }
   iVar3 = iStack_18;
@@ -431,7 +431,7 @@ FUN_0041da80(int param_1,int param_2,undefined1 *param_3,char param_4,undefined 
   uStack_34 = 0xffffffff;
   if (iStack_24c != 0) {
     ScrambleChecksumGuardBytes(iStack_24c,&DAT_0079376c);
-    TreeLowerBound(&stack0xfffffb74);
+    TreeLowerBound(&stack0xfffffb74,&DAT_00793770);
   }
   *unaff_FS_OFFSET = uStack_3c;
   return;

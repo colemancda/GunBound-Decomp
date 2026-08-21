@@ -47,7 +47,7 @@ char FUN_00478a80(int param_1,int param_2,int param_3)
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_45c);
+    TreeLowerBound(local_45c,&DAT_00793770);
   }
   if (iVar3 <= param_2) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -61,7 +61,7 @@ char FUN_00478a80(int param_1,int param_2,int param_3)
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_45c);
+      TreeLowerBound(local_45c,&DAT_00793770);
     }
     if (param_2 <= iVar3) {
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

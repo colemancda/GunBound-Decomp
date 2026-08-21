@@ -135,14 +135,14 @@ void FUN_0047fad0(int param_1,int param_2,int param_3)
     unaff_ESI[0xfee] = iVar3;
     if (((uStack_45c & 1) != 0) && (iStack_444 != 0)) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(aiStack_464);
+      TreeLowerBound(aiStack_464,&DAT_00793770);
       unaff_EBX = iStack_444;
     }
     puStack_8 = (undefined1 *)0xffffffff;
     pcVar5 = (code *)LeaveCriticalSection;
     if (iStack_220 != 0) {
       ScrambleChecksumGuardBytes(iStack_220,&DAT_0079376c);
-      TreeLowerBound(aiStack_464);
+      TreeLowerBound(aiStack_464,&DAT_00793770);
       pcVar5 = (code *)LeaveCriticalSection;
       unaff_EBX = iStack_220;
     }

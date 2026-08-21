@@ -519,7 +519,7 @@ LAB_00408b80:
         local_1018[0] = local_1018[0] + -1;
       } while (local_1018[0] != 0);
       local_1024[0] = (*(int *)(local_ac0 + 0x14));
-      TreeLowerBound(local_1018);
+      TreeLowerBound(local_1018,&DAT_00793770);
     }
     local_4 = 1;
     local_1018[0] = (*(int *)(local_454 + 0x14));
@@ -533,12 +533,12 @@ LAB_00408b80:
         local_1024[0] = local_1024[0] + -1;
       } while (local_1024[0] != 0);
       local_1024[0] = local_1018[0];
-      TreeLowerBound(local_1018);
+      TreeLowerBound(local_1018,&DAT_00793770);
     }
     local_4 = 0;
     if ((0 < iVar2) && ((*(int *)(local_ce4 + 0x14)) != 0)) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(local_1024);
+      TreeLowerBound(local_1024,&DAT_00793770);
     }
     local_4 = 0xffffffff;
     local_1024[0] = (*(int *)(local_f08 + 0x14));
@@ -551,7 +551,7 @@ LAB_00408b80:
         iVar2 = iVar2 + 1;
         local_1028 = local_1028 + -1;
       } while (local_1028 != 0);
-      TreeLowerBound(local_1024);
+      TreeLowerBound(local_1024,&DAT_00793770);
     }
     uVar5 = EncodeChecksumPairSum(iVar13,local_ce4,iVar3);
     local_4 = 4;
@@ -571,7 +571,7 @@ LAB_00408b80:
         local_1028 = local_1028 + 1;
         local_1024[0] = local_1024[0] + -1;
       } while (local_1024[0] != 0);
-      TreeLowerBound(local_1024);
+      TreeLowerBound(local_1024,&DAT_00793770);
     }
     local_4 = 0xffffffff;
     local_1024[0] = (*(int *)(local_ce4 + 0x14));
@@ -584,7 +584,7 @@ LAB_00408b80:
         iVar9 = iVar9 + 1;
         local_1028 = local_1028 + -1;
       } while (local_1028 != 0);
-      TreeLowerBound(local_1024);
+      TreeLowerBound(local_1024,&DAT_00793770);
     }
     FillScreenRect(local_1010[0],(-(uint)(iVar2 < iVar6) & 0x5af7) + 0x65a9);
     uVar5 = EncodeChecksumPairSum(iVar13,local_230,iVar3);
@@ -608,7 +608,7 @@ LAB_00408b80:
         iVar13 = iVar13 + -1;
       } while (iVar13 != 0);
       local_101c = local_888;
-      TreeLowerBound(local_1010);
+      TreeLowerBound(local_1010,&DAT_00793770);
     }
     local_4 = 6;
     if ((*(int *)(local_678 + 0x14)) != 0) {
@@ -621,7 +621,7 @@ LAB_00408b80:
         iVar13 = iVar13 + -1;
       } while (iVar13 != 0);
       local_101c = (*(int *)(local_678 + 0x14));
-      TreeLowerBound(local_1010);
+      TreeLowerBound(local_1010,&DAT_00793770);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_230 + 0x14)) != 0) {
@@ -634,7 +634,7 @@ LAB_00408b80:
         iVar13 = iVar13 + -1;
       } while (iVar13 != 0);
       local_101c = (*(int *)(local_230 + 0x14));
-      TreeLowerBound(local_1010);
+      TreeLowerBound(local_1010,&DAT_00793770);
     }
   }
   iVar3 = 0;

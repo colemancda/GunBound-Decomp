@@ -86,7 +86,7 @@ int __fastcall TickJewelFrame(int *param_1)
   local_4 = 0xffffffff;
   if ((*(int *)(local_89c + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_924);
+    TreeLowerBound(local_924,&DAT_00793770);
   }
   EncodeChecksumPairSum(param_1 + 0x120,local_89c,param_1 + 0x67d);
   local_4 = 1;
@@ -109,7 +109,7 @@ LAB_00479d44:
   local_4 = 0xffffffff;
   if ((*(int *)(local_89c + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_924);
+    TreeLowerBound(local_924,&DAT_00793770);
   }
   if (bVar2) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -47,7 +47,7 @@ int * FUN_0040a0a0(int *param_1)
       iVar2 = iVar2 + 1;
     } while (iVar2 < 0x10);
     if (local_18 != 0) {
-      TreeLowerBound(local_14);
+      TreeLowerBound(local_14,&DAT_00793770);
     }
     local_18 = local_18 + 1;
   } while (local_18 < 0x10000);

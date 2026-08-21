@@ -97,7 +97,7 @@ void __fastcall UpdateMobileEmotionState(int *param_1)
     uStack_4 = 0xffffffff;
     if (iStack_21c != 0) {
       ScrambleChecksumGuardBytes(iStack_21c,&DAT_0079376c);
-      TreeLowerBound(auStack_924);
+      TreeLowerBound(auStack_924,&DAT_00793770);
     }
     if (iVar6 < iVar7) {
       (**(code **)(*param_1 + 4))(s_wnormal_00553618);

@@ -46,7 +46,7 @@ void FUN_00476f80(int param_1)
       local_4 = 0xffffffff;
       if ((*(int *)(local_454 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_45c);
+        TreeLowerBound(local_45c,&DAT_00793770);
       }
       EncodeChecksumPairDiff(param_1 + 0x264,local_230,iVar2 + 0xb30);
       local_4 = 1;
@@ -56,7 +56,7 @@ void FUN_00476f80(int param_1)
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_45c);
+        TreeLowerBound(local_45c,&DAT_00793770);
       }
       if (iVar4 * iVar4 + iVar3 * iVar3 < 0x640) {
         *(undefined1 *)(param_1 + 0x14) = 1;

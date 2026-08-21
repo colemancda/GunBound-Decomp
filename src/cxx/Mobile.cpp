@@ -78,7 +78,8 @@ extern "C" {
 void ScrambleChecksumGuardBytes(int slot, int *guardTable);
 extern int DAT_0079376c;   /* guard-table base pointer cell (0x79376c) */
 void ScrubChecksumGuard(void *cell);
-void TreeLowerBound(void *scratch);
+void TreeLowerBound(void *scratch, void *guardMap);
+extern unsigned char DAT_00793770;  /* guard-cell std::map object (0x793770) */
 int  PeekPacketChecksumState(void *self);
 int  PeekChecksumStateUnderLock(void *cell);
 char PeekPacketChecksumBool(unsigned char *cell);
@@ -267,8 +268,8 @@ int CMobile::v5_ComputeGroundY()
     PeekPacketChecksumState((void *)(local_67c));
     LeaveCriticalSection(&DAT_005a9068);
     local_680 = FindGroundHeightAtColumn();
-    if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&DAT_0079376c); TreeLowerBound(scratch); }
-    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch); }
+    if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
+    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
 
     uVar3 = EncodeChecksumDeltaDiv(pbVar1, &g454, 2);
     EncodeChecksumPairDiff(pbVar2, &g678, uVar3);
@@ -276,8 +277,8 @@ int CMobile::v5_ComputeGroundY()
     iVar4 = PeekPacketChecksumState((void *)(&g678));
     LeaveCriticalSection(&DAT_005a9068);
     bool bVar7 = local_680 == iVar4;
-    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch); }
-    if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&DAT_0079376c); TreeLowerBound(scratch); }
+    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
+    if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
 
     iVar4 = local_680;
     if (bVar7) {
@@ -289,13 +290,13 @@ int CMobile::v5_ComputeGroundY()
         PeekPacketChecksumState((void *)(local_67c));
         LeaveCriticalSection(&DAT_005a9068);
         iVar5 = FindGroundHeightAtColumn();
-        if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch); }
+        if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
 
         EncodeChecksumPairDiff(pbVar2, &g678, reinterpret_cast<unsigned int>(pbVar1));
         EnterCriticalSection(&DAT_005a9068);
         iVar6 = PeekPacketChecksumState((void *)(&g678));
         LeaveCriticalSection(&DAT_005a9068);
-        if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch); }
+        if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
 
         iVar4 = local_680;
         if (iVar5 == iVar6) {
@@ -307,13 +308,13 @@ int CMobile::v5_ComputeGroundY()
             PeekPacketChecksumState((void *)(local_67c));
             LeaveCriticalSection(&DAT_005a9068);
             iVar4 = FindGroundHeightAtColumn();
-            if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch); }
+            if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
 
             EncodeChecksumDeltaAdd(pbVar2, &g230, 1);
             EnterCriticalSection(&DAT_005a9068);
             iVar5 = PeekPacketChecksumState((void *)(&g230));
             LeaveCriticalSection(&DAT_005a9068);
-            if (g230.tableHandle != 0) { ScrambleChecksumGuardBytes(g230.tableHandle,&DAT_0079376c); TreeLowerBound(scratch); }
+            if (g230.tableHandle != 0) { ScrambleChecksumGuardBytes(g230.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
 
             if (iVar4 == iVar5) {
                 iVar4 = PeekChecksumStateUnderLock(pbVar2);

@@ -543,11 +543,11 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     uStack_a0 = CONCAT31(SUBFIELD(uStack_a0,1,undefined3),10);
     if (iStack_700 != 0) {
       ScrambleChecksumGuardBytes(iStack_700,&DAT_0079376c);
-      TreeLowerBound(&stack0xfffff6b8);
+      TreeLowerBound(&stack0xfffff6b8,&DAT_00793770);
     }
     uStack_a0 = 0xffffffff;
     ScrambleChecksumGuardBytes();
-    TreeLowerBound(&stack0xfffff6b8);
+    TreeLowerBound(&stack0xfffff6b8,&DAT_00793770);
     pcVar10 = (code *)LeaveCriticalSection;
     (*pcVar9)(&DAT_005a9068);
     PeekPacketChecksumState((void *)&DAT_00e9c578);
@@ -572,13 +572,13 @@ void SpawnKnightFlameShot(int param_1,int param_2,int param_3,int param_4,int pa
     uStack_b8 = CONCAT31(SUBFIELD(uStack_b8,1,undefined3),0xc);
     if (iStack_718 != 0) {
       ScrambleChecksumGuardBytes(iStack_718,&DAT_0079376c);
-      TreeLowerBound(&stack0xfffff6a0);
+      TreeLowerBound(&stack0xfffff6a0,&DAT_00793770);
       pcVar10 = (code *)LeaveCriticalSection;
     }
     uStack_b8 = 0xffffffff;
     if (iVar4 != 0) {
       ScrambleChecksumGuardBytes(iVar4,&DAT_0079376c);
-      TreeLowerBound(&stack0xfffff6a0);
+      TreeLowerBound(&stack0xfffff6a0,&DAT_00793770);
       pcVar10 = (code *)LeaveCriticalSection;
     }
     (*pcVar9)(&DAT_005a9068);

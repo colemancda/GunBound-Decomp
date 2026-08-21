@@ -107,7 +107,7 @@ void __thiscall SimulateSuperShot_Bullet3(int param_1,int param_2)
   local_4 = 0xffffffff;
   if ((*(int *)(local_1574 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_1574 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_1598);
+    TreeLowerBound(local_1598,&DAT_00793770);
   }
   local_1584 = param_1 + 0x264;
   iVar3 = EncodeChecksumDeltaShr(local_1584,local_1574,8);
@@ -118,7 +118,7 @@ void __thiscall SimulateSuperShot_Bullet3(int param_1,int param_2)
   local_4 = 0xffffffff;
   if ((*(int *)(local_1574 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_1574 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_1598);
+    TreeLowerBound(local_1598,&DAT_00793770);
   }
   uVar2 = EncodeChecksumPairDiff(local_1578,local_1350,param_1 + 0x488);
   local_4 = 2;
@@ -130,12 +130,12 @@ void __thiscall SimulateSuperShot_Bullet3(int param_1,int param_2)
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
   if ((*(int *)(local_1574 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_1574 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_1598);
+    TreeLowerBound(local_1598,&DAT_00793770);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_1350 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_1350 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_1598);
+    TreeLowerBound(local_1598,&DAT_00793770);
   }
   uVar2 = EncodeChecksumPairDiff(local_1584,local_1574,local_15b4 + 0x6ac);
   local_4 = 4;
@@ -147,12 +147,12 @@ void __thiscall SimulateSuperShot_Bullet3(int param_1,int param_2)
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),4);
   if ((*(int *)(local_1350 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_1350 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_1598);
+    TreeLowerBound(local_1598,&DAT_00793770);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_1574 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_1574 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_1598);
+    TreeLowerBound(local_1598,&DAT_00793770);
   }
   uVar8 = local_1590 - local_159c >> 0x1f;
   iVar5 = (local_1590 - local_159c ^ uVar8) - uVar8;
@@ -225,22 +225,22 @@ LAB_0048bc2e:
           local_4 = 8;
           if (((local_15c0 & 4) != 0) && (local_15c0 = local_15c0 & 0xfffffffb, (*(int *)(local_112c + 0x14)) != 0)) {
             ScrambleChecksumGuardBytes();
-            TreeLowerBound(local_1598);
+            TreeLowerBound(local_1598,&DAT_00793770);
           }
           local_4 = 7;
           if (((local_15c0 & 2) != 0) && (local_15c0 = local_15c0 & 0xfffffffd, (*(int *)(local_ce4 + 0x14)) != 0)) {
             ScrambleChecksumGuardBytes();
-            TreeLowerBound(local_1598);
+            TreeLowerBound(local_1598,&DAT_00793770);
           }
           local_4 = 6;
           if (((local_15c0 & 1) != 0) && (local_15c0 = local_15c0 & 0xfffffffe, (*(int *)(local_454 + 0x14)) != 0)) {
             ScrambleChecksumGuardBytes();
-            TreeLowerBound(local_1598);
+            TreeLowerBound(local_1598,&DAT_00793770);
           }
           local_4 = 0xffffffff;
           if ((*(int *)(local_89c + 0x14)) != 0) {
             ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
-            TreeLowerBound(local_1598);
+            TreeLowerBound(local_1598,&DAT_00793770);
           }
           local_15ad = '\x01';
         }
@@ -519,7 +519,7 @@ LAB_0048c664:
           {
             ScrambleChecksumGuardBytes();
             local_15ac = uVar8;
-            TreeLowerBound(local_1580);
+            TreeLowerBound(local_1580,&DAT_00793770);
           }
           uVar8 = (*(int *)(local_ac0 + 0x14));
           local_4 = 0xb;
@@ -527,21 +527,21 @@ LAB_0048c664:
           {
             ScrambleChecksumGuardBytes();
             local_15ac = uVar8;
-            TreeLowerBound(local_1580);
+            TreeLowerBound(local_1580,&DAT_00793770);
           }
           uVar8 = (*(int *)(local_678 + 0x14));
           local_4 = 10;
           if (((local_15c0 & 8) != 0) && (local_15c0 = local_15c0 & 0xfffffff7, (*(int *)(local_678 + 0x14)) != 0)) {
             ScrambleChecksumGuardBytes();
             local_15ac = uVar8;
-            TreeLowerBound(local_1580);
+            TreeLowerBound(local_1580,&DAT_00793770);
           }
           uVar8 = (*(int *)(local_230 + 0x14));
           local_4 = 0xffffffff;
           if ((*(int *)(local_230 + 0x14)) != 0) {
             ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
             local_15ac = uVar8;
-            TreeLowerBound(local_1580);
+            TreeLowerBound(local_1580,&DAT_00793770);
           }
           local_15ad = '\x01';
           iVar3 = local_15c4;

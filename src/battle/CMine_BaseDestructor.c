@@ -39,12 +39,12 @@ void CMine_BaseDestructor(undefined4 *param_1)
   param_1[0xff3] = 0xffffffff;
   if (param_1[0x1083] != 0) {
     ScrambleChecksumGuardBytes(param_1[0x1083],&DAT_0079376c);
-    TreeLowerBound(auStack_14);
+    TreeLowerBound(auStack_14,&DAT_00793770);
   }
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (param_1[0xffa] != 0) {
     ScrambleChecksumGuardBytes(param_1[0xffa],&DAT_0079376c);
-    TreeLowerBound(auStack_14);
+    TreeLowerBound(auStack_14,&DAT_00793770);
   }
   local_4 = 0xffffffff;
   DestroyProjectile(param_1);

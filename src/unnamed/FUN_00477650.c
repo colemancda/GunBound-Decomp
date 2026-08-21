@@ -56,12 +56,12 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
     local_4 = 0;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_688);
+      TreeLowerBound(local_688,&DAT_00793770);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_688);
+      TreeLowerBound(local_688,&DAT_00793770);
     }
     uVar8 = EncodeChecksumDeltaSub(param_1 + 0x40,local_678,param_2);
     local_4 = 2;
@@ -71,7 +71,7 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
     local_4 = 0xffffffff;
     if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_690);
+      TreeLowerBound(local_690,&DAT_00793770);
     }
     uVar8 = EncodeChecksumDeltaSub(param_1 + 0x264,local_230,param_3);
     local_4 = 3;
@@ -82,7 +82,7 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
     local_4 = 0xffffffff;
     if ((*(int *)(local_230 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_680);
+      TreeLowerBound(local_680,&DAT_00793770);
       iVar5 = local_690[0];
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

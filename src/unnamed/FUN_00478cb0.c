@@ -90,7 +90,7 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   SUBFIELD(local_2d18,0,undefined4) = (*(int *)(local_2028 + 0x14));
   if ((*(int *)(local_2028 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_2028 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_2d20);
+    TreeLowerBound(local_2d20,&DAT_00793770);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
@@ -180,14 +180,14 @@ void FUN_00478cb0(int *param_1,int param_2,undefined4 param_3)
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),7);
   if ((*(int *)(local_2470 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_2470 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_2d08);
+    TreeLowerBound(local_2d08,&DAT_00793770);
     iVar2 = local_2d10;
   }
   local_4 = 0xffffffff;
   local_2d18 = (double)CONCAT44(SUBFIELD(local_2d18,4,undefined4),(*(int *)(local_28b8 + 0x14)));
   if ((*(int *)(local_28b8 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_28b8 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_2d08);
+    TreeLowerBound(local_2d08,&DAT_00793770);
     iVar2 = local_2d10;
   }
   iVar5 = param_2 * param_2 + local_2d20[0] * local_2d20[0];
@@ -307,13 +307,13 @@ LAB_00479655:
   local_2d20[0] = (*(int *)(local_2d00 + 0x14));
   if ((*(int *)(local_2d00 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_2d00 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_2d08);
+    TreeLowerBound(local_2d08,&DAT_00793770);
   }
   local_4 = 0xffffffff;
   local_2d20[0] = (*(int *)(local_1be0 + 0x14));
   if ((*(int *)(local_1be0 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_1be0 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_2d08);
+    TreeLowerBound(local_2d08,&DAT_00793770);
   }
   EncodeChecksumDeltaDiv(unaff_EDI + 0x15c0,local_2d00,2);
   local_4 = 0x1d;
@@ -336,7 +336,7 @@ LAB_00479655:
   if ((*(int *)(local_2d00 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_2d00 + 0x14),&DAT_0079376c);
     local_2d20[0] = (*(int *)(local_2d00 + 0x14));
-    TreeLowerBound(local_2d08);
+    TreeLowerBound(local_2d08,&DAT_00793770);
   }
   if (0 < iVar5) {
     AddToPacketChecksum(param_1 + 0x232, iVar5);

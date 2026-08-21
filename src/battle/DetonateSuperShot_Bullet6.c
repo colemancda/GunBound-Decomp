@@ -232,13 +232,13 @@ void __fastcall DetonateSuperShot_Bullet6(int *param_1)
       uStack_14 = 6;
       if (iStack_abc != 0) {
         ScrambleChecksumGuardBytes(iStack_abc,&DAT_0079376c);
-        TreeLowerBound(&stack0xfffff51c);
+        TreeLowerBound(&stack0xfffff51c,&DAT_00793770);
         pcVar15 = (code *)LeaveCriticalSection;
       }
       uStack_14 = 0xffffffff;
       if (iStack_898 != 0) {
         ScrambleChecksumGuardBytes(iStack_898,&DAT_0079376c);
-        TreeLowerBound(&stack0xfffff51c);
+        TreeLowerBound(&stack0xfffff51c,&DAT_00793770);
         pcVar15 = (code *)LeaveCriticalSection;
       }
       uVar6 = InitGuardedChecksumSlot(param_1 + 0x9b9,auStack_8ac,param_1 + 0xd7b);
@@ -257,13 +257,13 @@ void __fastcall DetonateSuperShot_Bullet6(int *param_1)
       uStack_18 = 8;
       if (iStack_ac0 != 0) {
         ScrambleChecksumGuardBytes(iStack_ac0,&DAT_0079376c);
-        TreeLowerBound(&stack0xfffff518);
+        TreeLowerBound(&stack0xfffff518,&DAT_00793770);
         pcVar15 = (code *)LeaveCriticalSection;
       }
       uStack_18 = 0xffffffff;
       if (iStack_89c != 0) {
         ScrambleChecksumGuardBytes(iStack_89c,&DAT_0079376c);
-        TreeLowerBound(&stack0xfffff518);
+        TreeLowerBound(&stack0xfffff518,&DAT_00793770);
         pcVar15 = (code *)LeaveCriticalSection;
       }
       uVar6 = InitGuardedChecksumSlot(param_1 + 0xa42,auStack_8b0,param_1 + 0xd7b);
@@ -440,7 +440,7 @@ LAB_00453238:
     uStack_34 = 0xffffffff;
     if (iVar8 != 0) {
       ScrambleChecksumGuardBytes(iVar8,&DAT_0079376c);
-      TreeLowerBound(&stack0xfffff504);
+      TreeLowerBound(&stack0xfffff504,&DAT_00793770);
       pcVar15 = (code *)LeaveCriticalSection;
     }
     pvDelta = EncodeChecksumDeltaShr(param_1 + 0x99,&stack0xfffff510,8);
@@ -460,7 +460,7 @@ LAB_00453238:
     uStack_38 = 0xffffffff;
     if (uStack_ae0 != 0) {
       ScrambleChecksumGuardBytes(uStack_ae0,&DAT_0079376c);
-      TreeLowerBound(&stack0xfffff500);
+      TreeLowerBound(&stack0xfffff500,&DAT_00793770);
       pcVar15 = (code *)LeaveCriticalSection;
     }
     cVar3 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);

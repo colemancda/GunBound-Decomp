@@ -146,7 +146,7 @@ LAB_0047b4f8:
     uStack_c = 0xffffffff;
     if (iStack_ab4 != 0) {
       ScrambleChecksumGuardBytes(iStack_ab4,&DAT_0079376c);
-      TreeLowerBound(&local_ad0);
+      TreeLowerBound(&local_ad0,&DAT_00793770);
       pcVar17 = (code *)LeaveCriticalSection;
     }
     pvDelta = EncodeChecksumDeltaShr(param_1 + 0x99,&local_ac8,8);
@@ -166,7 +166,7 @@ LAB_0047b4f8:
     uStack_10 = 0xffffffff;
     if (iStack_ab8 != 0) {
       ScrambleChecksumGuardBytes(iStack_ab8,&DAT_0079376c);
-      TreeLowerBound(&stack0xfffff524);
+      TreeLowerBound(&stack0xfffff524,&DAT_00793770);
       pcVar17 = (code *)LeaveCriticalSection;
     }
     cVar7 = CheckGuardedBoolAnd(param_1[0x3d2] != 0);
@@ -446,14 +446,14 @@ joined_r0x0047b3d1:
     local_4 = 0;
     if ((*(int *)(local_89c + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
-      TreeLowerBound(&local_ad0);
+      TreeLowerBound(&local_ad0,&DAT_00793770);
       pcVar17 = (code *)LeaveCriticalSection;
     }
     local_4 = 0xffffffff;
     iVar8 = local_ac8;
     if ((*(int *)(local_ac0 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
-      TreeLowerBound(&local_ad0);
+      TreeLowerBound(&local_ad0,&DAT_00793770);
       pcVar17 = (code *)LeaveCriticalSection;
       iVar8 = local_ac8;
     }

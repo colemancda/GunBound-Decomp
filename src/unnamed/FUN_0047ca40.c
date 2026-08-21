@@ -133,12 +133,12 @@ void __fastcall FUN_0047ca40(int *param_1)
     uStack_4 = 0;
     if (((local_acc & 1) != 0) && (iStack_888 != 0)) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(auStack_ac8);
+      TreeLowerBound(auStack_ac8,&DAT_00793770);
     }
     uStack_4 = 0xffffffff;
     if (iStack_440 != 0) {
       ScrambleChecksumGuardBytes(iStack_440,&DAT_0079376c);
-      TreeLowerBound(auStack_ac8);
+      TreeLowerBound(auStack_ac8,&DAT_00793770);
     }
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -407,7 +407,7 @@ void __fastcall FUN_0047ca40(int *param_1)
     param_1[0xfee] = iVar6;
     if (iStack_ab0 != 0) {
       ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
-      TreeLowerBound(&local_acc);
+      TreeLowerBound(&local_acc,&DAT_00793770);
       pcVar14 = (code *)LeaveCriticalSection;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

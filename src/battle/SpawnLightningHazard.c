@@ -85,12 +85,12 @@ void SpawnLightningHazard(undefined4 param_1,int param_2,int param_3,undefined4 
         local_4 = 0;
         if ((*(int *)(local_454 + 0x14)) != 0) {
           ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-          TreeLowerBound(local_45c);
+          TreeLowerBound(local_45c,&DAT_00793770);
         }
         local_4 = 0xffffffff;
         if ((*(int *)(local_230 + 0x14)) != 0) {
           ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
-          TreeLowerBound(local_45c);
+          TreeLowerBound(local_45c,&DAT_00793770);
         }
         goto LAB_0043604a;
       }

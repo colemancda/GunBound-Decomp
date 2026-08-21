@@ -103,7 +103,7 @@ void __fastcall ExplodeMine(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_474);
+      TreeLowerBound(local_474,&DAT_00793770);
     }
     RebuildTerrainColumnCache(&DAT_006a7708 + g_clientContext);
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -129,7 +129,7 @@ void __fastcall ExplodeMine(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_474);
+      TreeLowerBound(local_474,&DAT_00793770);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
@@ -146,7 +146,7 @@ void __fastcall ExplodeMine(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_474);
+      TreeLowerBound(local_474,&DAT_00793770);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
@@ -163,7 +163,7 @@ void __fastcall ExplodeMine(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_474);
+      TreeLowerBound(local_474,&DAT_00793770);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar3 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
@@ -181,7 +181,7 @@ void __fastcall ExplodeMine(int param_1)
     local_4 = 0xffffffff;
     if ((*(int *)(local_230 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_474);
+      TreeLowerBound(local_474,&DAT_00793770);
     }
     iVar1 = g_clientContext;
     cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));

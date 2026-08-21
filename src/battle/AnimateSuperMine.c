@@ -89,7 +89,7 @@ void __fastcall AnimateSuperMine(int *param_1)
   if ((*(int *)(local_acc + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
     local_aec[0] = iVar4;
-    TreeLowerBound(local_ad8);
+    TreeLowerBound(local_ad8,&DAT_00793770);
     param_1 = local_ae0;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -110,7 +110,7 @@ void __fastcall AnimateSuperMine(int *param_1)
     if ((*(int *)(local_acc + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
       local_aec[0] = iVar4;
-      TreeLowerBound(local_ad8);
+      TreeLowerBound(local_ad8,&DAT_00793770);
       param_1 = local_ae0;
     }
     if (-iVar5 <= iVar6) {
@@ -138,7 +138,7 @@ void __fastcall AnimateSuperMine(int *param_1)
     if ((*(int *)(local_acc + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
       local_aec[0] = iVar4;
-      TreeLowerBound(local_ad8);
+      TreeLowerBound(local_ad8,&DAT_00793770);
       param_1 = local_ae0;
     }
     if (bVar9) {
@@ -160,7 +160,7 @@ void __fastcall AnimateSuperMine(int *param_1)
       if ((*(int *)(local_acc + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
         local_aec[0] = iVar4;
-        TreeLowerBound(local_ad8);
+        TreeLowerBound(local_ad8,&DAT_00793770);
         param_1 = local_ae0;
       }
       iDelta = EncodeChecksumDeltaSub(param_1 + 0x99,local_acc,0x1e);
@@ -174,7 +174,7 @@ void __fastcall AnimateSuperMine(int *param_1)
       if ((*(int *)(local_acc + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
         local_aec[0] = iVar4;
-        TreeLowerBound(local_ad8);
+        TreeLowerBound(local_ad8,&DAT_00793770);
         param_1 = local_ae0;
       }
       if (bVar9) {
@@ -248,7 +248,7 @@ LAB_00492677:
     if ((*(int *)(local_acc + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
       local_aec[0] = iVar4;
-      TreeLowerBound(local_ad8);
+      TreeLowerBound(local_ad8,&DAT_00793770);
       param_1 = local_ae0;
     }
     if (bVar9) {
@@ -319,7 +319,7 @@ LAB_00492912:
   if ((*(int *)(local_acc + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
     local_aec[0] = (*(int *)(local_acc + 0x14));
-    TreeLowerBound(local_ad8);
+    TreeLowerBound(local_ad8,&DAT_00793770);
   }
   local_ae4 = 0;
   do {
@@ -334,7 +334,7 @@ LAB_00492912:
       local_aec[0] = (*(int *)(local_8a8 + 0x14));
       if ((*(int *)(local_8a8 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_ad8);
+        TreeLowerBound(local_ad8,&DAT_00793770);
       }
       iDelta = EncodeChecksumPairDiff(local_ae0 + 0x99,local_460,iVar4 + 0xb30);
       local_c = 10;
@@ -345,7 +345,7 @@ LAB_00492912:
       local_aec[0] = (*(int *)(local_460 + 0x14));
       if ((*(int *)(local_460 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_460 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_ad8);
+        TreeLowerBound(local_ad8,&DAT_00793770);
       }
       if (iVar4 * iVar4 + local_adc * local_adc < local_ad0) {
         (**(code **)(*local_ae0 + 0x20))();
@@ -404,7 +404,7 @@ LAB_00492b46:
       iVar5 = iVar5 + 1;
       local_aec[0] = local_aec[0] + -1;
     } while (local_aec[0] != 0);
-    TreeLowerBound(local_aec);
+    TreeLowerBound(local_aec,&DAT_00793770);
   }
   piVar7 = local_ae0;
   iDelta = EncodeChecksumPairDiff(local_ae0 + 0x99,auStack_684,iVar4 + 0x480);
@@ -423,7 +423,7 @@ LAB_00492b46:
       iVar5 = iVar5 + 1;
       local_aec[0] = local_aec[0] + -1;
     } while (local_aec[0] != 0);
-    TreeLowerBound(local_aec);
+    TreeLowerBound(local_aec,&DAT_00793770);
     piVar7 = local_ae0;
   }
   if (local_ad8[0] * local_ad8[0] + iVar4 * iVar4 < local_ad0) {
@@ -458,7 +458,7 @@ LAB_00492d35:
             iVar4 = iVar4 + 1;
             local_aec[0] = local_aec[0] + -1;
           } while (local_aec[0] != 0);
-          TreeLowerBound(local_aec);
+          TreeLowerBound(local_aec,&DAT_00793770);
           piVar7 = local_ae0;
         }
         iDelta = EncodeChecksumPairDiff(piVar7 + 0x99,auStack_23c,piVar8 + 0x99);
@@ -477,7 +477,7 @@ LAB_00492d35:
             iVar5 = iVar5 + 1;
             local_aec[0] = local_aec[0] + -1;
           } while (local_aec[0] != 0);
-          TreeLowerBound(local_aec);
+          TreeLowerBound(local_aec,&DAT_00793770);
           piVar7 = local_ae0;
         }
         if (local_adc * local_adc + iVar4 * iVar4 < local_ad0) {

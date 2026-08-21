@@ -94,7 +94,7 @@ void FUN_00498070(int *param_1)
       local_4 = 0xffffffff;
       if ((*(int *)(local_678 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_8a8);
+        TreeLowerBound(local_8a8,&DAT_00793770);
       }
       EncodeChecksumPairDiff(param_1 + 0x99,local_454,iVar3 + 0xb30);
       local_4 = 1;
@@ -104,7 +104,7 @@ void FUN_00498070(int *param_1)
       local_4 = 0xffffffff;
       if ((*(int *)(local_454 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_8a8);
+        TreeLowerBound(local_8a8,&DAT_00793770);
       }
       puVar5 = (undefined *)(iVar3 * iVar3 + local_8c4[0] * local_8c4[0]);
       if (((int)puVar5 < local_8ac) && ((int)puVar5 < (int)local_8b4)) {
@@ -119,7 +119,7 @@ void FUN_00498070(int *param_1)
         local_8a0 = iVar3;
         if ((*(int *)(local_89c + 0x14)) != 0) {
           ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
-          TreeLowerBound(local_8a8);
+          TreeLowerBound(local_8a8,&DAT_00793770);
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar3 = PeekPacketChecksumState((void *)(local_8bc[0]));
@@ -184,7 +184,7 @@ LAB_00498381:
       local_8c4[0] = local_8c4[0] + -1;
     } while (local_8c4[0] != 0);
     local_8c4[0] = iVar4;
-    TreeLowerBound(local_8bc);
+    TreeLowerBound(local_8bc,&DAT_00793770);
   }
   EncodeChecksumPairDiff(param_1 + 0x99,local_678,iVar3 + 0x480);
   local_4 = 4;
@@ -203,7 +203,7 @@ LAB_00498381:
       local_8c4[0] = local_8c4[0] + -1;
     } while (local_8c4[0] != 0);
     local_8c4[0] = local_8bc[0];
-    TreeLowerBound(local_8bc);
+    TreeLowerBound(local_8bc,&DAT_00793770);
   }
   puVar5 = (undefined *)(iVar4 * iVar4 + local_8a8[0] * local_8a8[0]);
   if (((int)puVar5 < local_8ac) && ((int)puVar5 < (int)local_8b4)) {
@@ -228,7 +228,7 @@ LAB_00498381:
         local_8c4[0] = local_8c4[0] + -1;
       } while (local_8c4[0] != 0);
       local_8a8[0] = iVar3;
-      TreeLowerBound(local_8c4);
+      TreeLowerBound(local_8c4,&DAT_00793770);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState((void *)(iCellB));

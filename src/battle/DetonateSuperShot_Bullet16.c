@@ -104,7 +104,7 @@ void __fastcall DetonateSuperShot_Bullet16(int *param_1)
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
       ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
-      TreeLowerBound(local_ad4);
+      TreeLowerBound(local_ad4,&DAT_00793770);
       pcVar17 = (code *)LeaveCriticalSection;
     }
     pvDelta = EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac4,8);
@@ -117,7 +117,7 @@ void __fastcall DetonateSuperShot_Bullet16(int *param_1)
     uStack_c = 0xffffffff;
     if (uStack_ab4 != 0) {
       ScrambleChecksumGuardBytes(uStack_ab4,&DAT_0079376c);
-      TreeLowerBound(&local_ad8);
+      TreeLowerBound(&local_ad8,&DAT_00793770);
       pcVar17 = (code *)LeaveCriticalSection;
       unaff_EBX = uStack_ab4;
     }

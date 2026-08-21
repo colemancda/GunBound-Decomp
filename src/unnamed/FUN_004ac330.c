@@ -45,7 +45,7 @@ undefined4 __fastcall FUN_004ac330(int param_1)
   local_4 = 0xffffffff;
   if ((*(int *)(local_230 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_238);
+    TreeLowerBound(local_238,&DAT_00793770);
   }
   *unaff_FS_OFFSET = local_c;
   return uVar1;

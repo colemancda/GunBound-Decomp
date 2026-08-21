@@ -284,7 +284,7 @@ void FUN_004ccd10(int *param_1)
         if (local_440 != (undefined *)0x0) {
           ScrambleChecksumGuardBytes();
           local_71c = puVar3;
-          TreeLowerBound(local_700);
+          TreeLowerBound(local_700,&DAT_00793770);
           uVar8 = local_714;
         }
         puVar3 = local_21c;
@@ -292,7 +292,7 @@ void FUN_004ccd10(int *param_1)
         if (local_21c != (undefined *)0x0) {
           ScrambleChecksumGuardBytes();
           local_71c = puVar3;
-          TreeLowerBound(local_700);
+          TreeLowerBound(local_700,&DAT_00793770);
           uVar8 = local_714;
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -365,7 +365,7 @@ void FUN_004ccd10(int *param_1)
         if (local_664 != (undefined *)0x0) {
           ScrambleChecksumGuardBytes();
           local_71c = puVar3;
-          TreeLowerBound(local_700);
+          TreeLowerBound(local_700,&DAT_00793770);
         }
       }
       local_704 = local_704 + 0x1120;

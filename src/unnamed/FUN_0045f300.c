@@ -63,12 +63,12 @@ int FUN_0045f300(int param_1)
     local_4 = 3;
     if ((*(int *)(local_89c + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_ac8);
+      TreeLowerBound(local_ac8,&DAT_00793770);
     }
     local_4 = 2;
     if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_ac8);
+      TreeLowerBound(local_ac8,&DAT_00793770);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_230 + 0x14)) == 0) goto LAB_0045f51b;
@@ -85,13 +85,13 @@ int FUN_0045f300(int param_1)
     local_4 = 0;
     if ((*(int *)(local_ac0 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_ac8);
+      TreeLowerBound(local_ac8,&DAT_00793770);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_454 + 0x14)) == 0) goto LAB_0045f51b;
     ScrambleChecksumGuardBytes();
   }
-  TreeLowerBound(local_ac8);
+  TreeLowerBound(local_ac8,&DAT_00793770);
 LAB_0045f51b:
   if (5 < local_acc) {
     local_acc = 6;
