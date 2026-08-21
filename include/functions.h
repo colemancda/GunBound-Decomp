@@ -1369,7 +1369,7 @@ void FUN_004f1d80();
 void FUN_004f1da0();
 void FUN_004f1e20();
 void FUN_004f1eb0();
-int __fastcall CalculateAngleFromDelta();
+int CalculateAngleFromDelta(); /* real args (dx, dy); K&R-empty and __cdecl deliberately - see CalculateAngleFromDelta.c */
 undefined4 * __fastcall FUN_004f1f50();
 void FUN_004f2240();
 void __fastcall FUN_004f2530();
