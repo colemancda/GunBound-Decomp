@@ -53,6 +53,10 @@ CALLS = {
     'PeekPacketChecksumState': 'Peek',
     'PeekPacketChecksumBool': 'PeekBool',
     'EncodeOutgoingPacketField': 'Encode',
+    # Added 2026-08-21. guard_cell_resolve.py already emits rows for these
+    # families; only this map was holding the verifier to three of them.
+    'RescrambleGuardedBool': 'RescrambleBool',
+    'EncodeGuardedBool': 'EncodeBool',
 }
 
 byaddr = {}
@@ -340,7 +344,8 @@ def main():
         fix = True
         args = args[1:]
     cname = {v: k for k, v in CALLS.items()}[family]
-    fam_addr = {'Peek': {0x40a2e0}, 'PeekBool': {0x4065a0}, 'Encode': {0x40a380}}[family]
+    fam_addr = {'Peek': {0x40a2e0}, 'PeekBool': {0x4065a0}, 'Encode': {0x40a380},
+                'RescrambleBool': {0x406530}, 'EncodeBool': {0x4064a0}}[family]
 
     n_ver = n_wrong = n_fixed = n_und = 0
     for path in args:
