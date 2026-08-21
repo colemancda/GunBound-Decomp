@@ -508,7 +508,7 @@ LAB_004cd6de:
         cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba));
         if (cVar4 == '\x01') {
           InvokeWidget(1,1);
-          RemoveWidget();
+          RemoveWidget((int)&DAT_00e9be90,0,2);
           uVar22 = 6;
           pcVar10 = s_b_play_weapon1_00554164;
           uVar21 = 0x3e9;

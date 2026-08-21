@@ -638,7 +638,7 @@ LAB_004b9bb0:
       if (cVar4 == '\0') {
         *(undefined4 *)(g_clientContext + 0xebef0) = 0xffffffe8;
         SetGuardedBool(1,GB_GUARD_UNRECOVERED);
-        RemoveWidget();
+        RemoveWidget((int)&DAT_00e9be90,0,2);
         uVar23 = 6;
         pcVar22 = s_b_play_weapon1_00554164;
         uVar21 = 0x3e9;
