@@ -8,16 +8,15 @@
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall SetWidgetReadyState(undefined4 param_1,uint param_2,int param_3)
+undefined4 __fastcall SetWidgetReadyState(undefined4 param_1,uint param_2,int param_3,int regEax)
 
 {
   uint uVar1;
-  int in_EAX;
   int iVar2;
   int *piVar3;
   uint unaff_EDI;
   
-  iVar2 = *(int *)(*(int *)(in_EAX + 4) + 0x1c);
+  iVar2 = *(int *)(*(int *)(regEax + 4) + 0x1c);
   uVar1 = *(uint *)(iVar2 + 4);
   if (uVar1 <= param_2) {
     while (uVar1 != param_2) {

@@ -47,7 +47,7 @@ void __fastcall State03_GameRoomList_HandleMouseInput(int param_1,int dummyEDX,u
     if (param_2 == 0x203) {
       iVar3 = RoomCardHitTest(param_4 >> 0x10,0);
       if (iVar3 != -1) {
-        cVar2 = FUN_00406400();
+        cVar2 = FUN_00406400((int)&DAT_00e9be90);
         if (cVar2 == '\x01') {
           EnqueueInputEvent();
           return;

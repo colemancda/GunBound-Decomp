@@ -8,15 +8,14 @@
 #include "ghidra_types.h"
 
 
-uint __fastcall FUN_00406400(undefined4 param_1,uint param_2)
+uint __fastcall FUN_00406400(undefined4 param_1,uint param_2,int regEax)
 
 {
   uint uVar1;
-  int in_EAX;
   uint uVar2;
   uint unaff_ESI;
   
-  uVar2 = *(uint *)(*(int *)(in_EAX + 4) + 0x1c);
+  uVar2 = *(uint *)(*(int *)(regEax + 4) + 0x1c);
   uVar1 = *(uint *)(uVar2 + 4);
   do {
     if (param_2 < uVar1) {

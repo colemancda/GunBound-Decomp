@@ -1,176 +1,56 @@
 [
  {
-  "func": "FUN_00451030",
+  "func": "SetWidgetReadyState",
   "reg": "eax",
-  "path": "src/unnamed/FUN_00451030.c",
-  "sites": 21,
-  "value": "ctx+0x6a7f88",
+  "path": "src/registry/SetWidgetReadyState.c",
+  "sites": 13,
+  "value": "0xe9be90",
   "pct": 100,
   "distinct": 1,
   "vals": {
-   "ctx+0x6a7f88": 21
+   "0xe9be90": 13
   }
  },
  {
-  "func": "FUN_004511b0",
+  "func": "FUN_00406400",
   "reg": "eax",
-  "path": "src/unnamed/FUN_004511b0.c",
-  "sites": 19,
-  "value": "ctx+0x6a7f88",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "ctx+0x6a7f88": 19
-  }
- },
- {
-  "func": "FUN_004fe420",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004fe420.c",
-  "sites": 9,
-  "value": "0x11",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0x11": 9
-  }
- },
- {
-  "func": "AppendBroadcastString",
-  "reg": "eax",
-  "path": "src/network/AppendBroadcastString.c",
-  "sites": 6,
-  "value": "0xe55ce0",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe55ce0": 6
-  }
- },
- {
-  "func": "PanelManager_FindByName",
-  "reg": "eax",
-  "path": "src/ui_widget/PanelManager_FindByName.c",
-  "sites": 6,
-  "value": "0xe53c40",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe53c40": 6
-  }
- },
- {
-  "func": "FUN_004e4390",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_004e4390.c",
+  "path": "src/unnamed/FUN_00406400.c",
   "sites": 5,
-  "value": "ctx+0x6a7708",
+  "value": "0xe9be90",
   "pct": 100,
   "distinct": 1,
   "vals": {
-   "ctx+0x6a7708": 5
+   "0xe9be90": 5
   }
  },
  {
-  "func": "FUN_0044c6a0",
-  "reg": "edi",
-  "path": "src/unnamed/FUN_0044c6a0.c",
-  "sites": 4,
-  "value": "0x1",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0x1": 4
-  }
- },
- {
-  "func": "ComputeShotViewBounds",
-  "reg": "esi",
-  "path": "src/battle/ComputeShotViewBounds.c",
-  "sites": 3,
-  "value": "ctx+0x6a7708",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "ctx+0x6a7708": 3
-  }
- },
- {
-  "func": "FlushCompositorLayer",
-  "reg": "ebx",
-  "path": "src/rendering/FlushCompositorLayer.c",
-  "sites": 3,
-  "value": "0xf22650",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xf22650": 3
-  }
- },
- {
-  "func": "QueueCompositorSpan",
-  "reg": "esi",
-  "path": "src/rendering/QueueCompositorSpan.c",
-  "sites": 3,
-  "value": "0xf22650",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xf22650": 3
-  }
- },
- {
-  "func": "FUN_00401c10",
+  "func": "FUN_0040cfe0",
   "reg": "eax",
-  "path": "src/unnamed/FUN_00401c10.c",
+  "path": "src/unnamed/FUN_0040cfe0.c",
   "sites": 3,
-  "value": "0xe53e88",
+  "value": "0xe9c0fc",
   "pct": 100,
   "distinct": 1,
   "vals": {
-   "0xe53e88": 3
+   "0xe9c0fc": 3
   }
  },
  {
-  "func": "FUN_0043d6d0",
+  "func": "FUN_0040cf30",
   "reg": "eax",
-  "path": "src/unnamed/FUN_0043d6d0.c",
-  "sites": 3,
-  "value": "ctx+0x6a7f70",
+  "path": "src/unnamed/FUN_0040cf30.c",
+  "sites": 2,
+  "value": "0xe9c0fc",
   "pct": 100,
   "distinct": 1,
   "vals": {
-   "ctx+0x6a7f70": 3
+   "0xe9c0fc": 2
   }
  },
  {
-  "func": "FUN_0043d780",
+  "func": "FUN_0050f000",
   "reg": "eax",
-  "path": "src/unnamed/FUN_0043d780.c",
-  "sites": 3,
-  "value": "ctx+0x6a7f70",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "ctx+0x6a7f70": 3
-  }
- },
- {
-  "func": "FUN_004f3100",
-  "reg": "ebx",
-  "path": "src/unnamed/FUN_004f3100.c",
-  "sites": 3,
-  "value": "ctx+0x6a7f88",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "ctx+0x6a7f88": 3
-  }
- },
- {
-  "func": "HideStoreItemTooltipPanel",
-  "reg": "eax",
-  "path": "src/ui_widget/HideStoreItemTooltipPanel.c",
+  "path": "src/unnamed/FUN_0050f000.c",
   "sites": 2,
   "value": "0xe53c40",
   "pct": 100,
@@ -180,135 +60,15 @@
   }
  },
  {
-  "func": "FUN_0040cf80",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_0040cf80.c",
-  "sites": 2,
+  "func": "RemoveInventoryItems",
+  "reg": "eax",
+  "path": "src/state_machine/RemoveInventoryItems.c",
+  "sites": 1,
   "value": "0x0",
   "pct": 100,
   "distinct": 1,
   "vals": {
-   "0x0": 2
-  }
- },
- {
-  "func": "FUN_0044c460",
-  "reg": "edi",
-  "path": "src/unnamed/FUN_0044c460.c",
-  "sites": 2,
-  "value": "0x1f4",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0x1f4": 2
-  }
- },
- {
-  "func": "FUN_004d2130",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004d2130.c",
-  "sites": 2,
-  "value": "ctx+0x6a76f4",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "ctx+0x6a76f4": 2
-  }
- },
- {
-  "func": "FUN_004e7d60",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004e7d60.c",
-  "sites": 2,
-  "value": "0xe55ce0",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe55ce0": 2
-  }
- },
- {
-  "func": "FUN_004f1c00",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004f1c00.c",
-  "sites": 2,
-  "value": "0xea0e18",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xea0e18": 2
-  }
- },
- {
-  "func": "RemoveInventoryItems",
-  "reg": "ebx",
-  "path": "src/state_machine/RemoveInventoryItems.c",
-  "sites": 1,
-  "value": "0x1",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0x1": 1
-  }
- },
- {
-  "func": "FUN_00401180",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_00401180.c",
-  "sites": 1,
-  "value": "0x7a767c",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0x7a767c": 1
-  }
- },
- {
-  "func": "FUN_004011b0",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_004011b0.c",
-  "sites": 1,
-  "value": "0x7a767c",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0x7a767c": 1
-  }
- },
- {
-  "func": "FUN_00401cb0",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_00401cb0.c",
-  "sites": 1,
-  "value": "0xe53e88",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe53e88": 1
-  }
- },
- {
-  "func": "FUN_00405f00",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_00405f00.c",
-  "sites": 1,
-  "value": "0xe9be90",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe9be90": 1
-  }
- },
- {
-  "func": "FUN_0040cd40",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_0040cd40.c",
-  "sites": 1,
-  "value": "0xe9c0fc",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe9c0fc": 1
+   "0x0": 1
   }
  },
  {
@@ -337,50 +97,14 @@
  },
  {
   "func": "FUN_00415470",
-  "reg": "edi",
+  "reg": "ebx",
   "path": "src/unnamed/FUN_00415470.c",
-  "sites": 1,
-  "value": "ctx+0x6a76f4",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "ctx+0x6a76f4": 1
-  }
- },
- {
-  "func": "FUN_004264d0",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_004264d0.c",
   "sites": 1,
   "value": "0x1",
   "pct": 100,
   "distinct": 1,
   "vals": {
    "0x1": 1
-  }
- },
- {
-  "func": "FUN_0043d910",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_0043d910.c",
-  "sites": 1,
-  "value": "0xe9c334",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe9c334": 1
-  }
- },
- {
-  "func": "FUN_0043d930",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_0043d930.c",
-  "sites": 1,
-  "value": "0xe9c334",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe9c334": 1
   }
  },
  {
@@ -396,99 +120,15 @@
   }
  },
  {
-  "func": "FUN_00450810",
-  "reg": "ebx",
-  "path": "src/unnamed/FUN_00450810.c",
-  "sites": 1,
-  "value": "ctx+0x6a7f88",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "ctx+0x6a7f88": 1
-  }
- },
- {
-  "func": "FUN_00450bd0",
-  "reg": "ebx",
-  "path": "src/unnamed/FUN_00450bd0.c",
-  "sites": 1,
-  "value": "ctx+0x6a7f88",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "ctx+0x6a7f88": 1
-  }
- },
- {
-  "func": "FUN_00450dd0",
-  "reg": "ebx",
-  "path": "src/unnamed/FUN_00450dd0.c",
-  "sites": 1,
-  "value": "ctx+0x6a7f88",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "ctx+0x6a7f88": 1
-  }
- },
- {
-  "func": "FUN_004e39b0",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_004e39b0.c",
-  "sites": 1,
-  "value": "ctx+0x6a7708",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "ctx+0x6a7708": 1
-  }
- },
- {
-  "func": "FUN_004e5c50",
+  "func": "FUN_004e5cc0",
   "reg": "eax",
-  "path": "src/unnamed/FUN_004e5c50.c",
+  "path": "src/unnamed/FUN_004e5cc0.c",
   "sites": 1,
   "value": "0x0",
   "pct": 100,
   "distinct": 1,
   "vals": {
    "0x0": 1
-  }
- },
- {
-  "func": "FUN_004e5cc0",
-  "reg": "ebx",
-  "path": "src/unnamed/FUN_004e5cc0.c",
-  "sites": 1,
-  "value": "0x1",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0x1": 1
-  }
- },
- {
-  "func": "FUN_004e76d0",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_004e76d0.c",
-  "sites": 1,
-  "value": "0xe55ce0",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe55ce0": 1
-  }
- },
- {
-  "func": "FUN_004e83b0",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_004e83b0.c",
-  "sites": 1,
-  "value": "0xe55ce0",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe55ce0": 1
   }
  },
  {
@@ -504,18 +144,6 @@
   }
  },
  {
-  "func": "FUN_004eb720",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004eb720.c",
-  "sites": 1,
-  "value": "0x3",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0x3": 1
-  }
- },
- {
   "func": "FUN_004ee120",
   "reg": "eax",
   "path": "src/unnamed/FUN_004ee120.c",
@@ -528,18 +156,6 @@
   }
  },
  {
-  "func": "FUN_004f1750",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004f1750.c",
-  "sites": 1,
-  "value": "0xea0e18",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xea0e18": 1
-  }
- },
- {
   "func": "FUN_004f1d80",
   "reg": "esi",
   "path": "src/unnamed/FUN_004f1d80.c",
@@ -549,449 +165,6 @@
   "distinct": 1,
   "vals": {
    "0xeb1a78": 1
-  }
- },
- {
-  "func": "FUN_004f3940",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004f3940.c",
-  "sites": 1,
-  "value": "0xeb168c",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xeb168c": 1
-  }
- },
- {
-  "func": "FUN_004f3af0",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004f3af0.c",
-  "sites": 1,
-  "value": "0x5a90e0",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0x5a90e0": 1
-  }
- },
- {
-  "func": "FUN_00503810",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_00503810.c",
-  "sites": 1,
-  "value": "0x551cb1",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0x551cb1": 1
-  }
- },
- {
-  "func": "FUN_00508910",
-  "reg": "edi",
-  "path": "src/unnamed/FUN_00508910.c",
-  "sites": 1,
-  "value": "0xe53c40",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe53c40": 1
-  }
- },
- {
-  "func": "FUN_00508b90",
-  "reg": "edi",
-  "path": "src/unnamed/FUN_00508b90.c",
-  "sites": 1,
-  "value": "0xe53c40",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe53c40": 1
-  }
- },
- {
-  "func": "BlitSpriteText",
-  "reg": "esi",
-  "path": "src/rendering/BlitSpriteText.c",
-  "sites": 36,
-  "value": "0x1f4",
-  "pct": 97,
-  "distinct": 2,
-  "vals": {
-   "0x1f4": 35,
-   "0x32": 1
-  }
- },
- {
-  "func": "FUN_004510f0",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004510f0.c",
-  "sites": 19,
-  "value": "ctx+0x6a7f88",
-  "pct": 68,
-  "distinct": 2,
-  "vals": {
-   "ctx+0x6a7f88": 13,
-   "<other>": 6
-  }
- },
- {
-  "func": "FUN_0040cfe0",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_0040cfe0.c",
-  "sites": 3,
-  "value": "0x0",
-  "pct": 66,
-  "distinct": 2,
-  "vals": {
-   "0x0": 2,
-   "0x1": 1
-  }
- },
- {
-  "func": "FUN_004507d0",
-  "reg": "ebx",
-  "path": "src/unnamed/FUN_004507d0.c",
-  "sites": 3,
-  "value": "ctx+0x6a7f88",
-  "pct": 66,
-  "distinct": 2,
-  "vals": {
-   "ctx+0x6a7f88": 2,
-   "<other>": 1
-  }
- },
- {
-  "func": "BuildSizedSpriteQuad",
-  "reg": "eax",
-  "path": "src/rendering/BuildSizedSpriteQuad.c",
-  "sites": 17,
-  "value": "<other>",
-  "pct": 58,
-  "distinct": 2,
-  "vals": {
-   "0x0": 7,
-   "<other>": 10
-  }
- },
- {
-  "func": "FUN_00438360",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_00438360.c",
-  "sites": 7,
-  "value": "0x6",
-  "pct": 57,
-  "distinct": 4,
-  "vals": {
-   "0x5": 1,
-   "0x6": 4,
-   "0x0": 1,
-   "<other>": 1
-  }
- },
- {
-  "func": "FUN_004e1f70",
-  "reg": "ebx",
-  "path": "src/unnamed/FUN_004e1f70.c",
-  "sites": 7,
-  "value": "ctx+0x6a64c4",
-  "pct": 57,
-  "distinct": 2,
-  "vals": {
-   "ctx+0x6a64c4": 4,
-   "<other>": 3
-  }
- },
- {
-  "func": "BuildScaledSpriteQuad",
-  "reg": "eax",
-  "path": "src/rendering/BuildScaledSpriteQuad.c",
-  "sites": 18,
-  "value": "0x0",
-  "pct": 55,
-  "distinct": 2,
-  "vals": {
-   "<other>": 8,
-   "0x0": 10
-  }
- },
- {
-  "func": "DrawVLine",
-  "reg": "eax",
-  "path": "src/rendering/DrawVLine.c",
-  "sites": 8,
-  "value": "<other>",
-  "pct": 50,
-  "distinct": 3,
-  "vals": {
-   "0x249": 2,
-   "<other>": 4,
-   "0x16f": 2
-  }
- },
- {
-  "func": "FUN_0040cdf0",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_0040cdf0.c",
-  "sites": 8,
-  "value": "0x0",
-  "pct": 50,
-  "distinct": 2,
-  "vals": {
-   "0x0": 4,
-   "0x1": 4
-  }
- },
- {
-  "func": "FUN_004e7140",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004e7140.c",
-  "sites": 8,
-  "value": "0xe55ce0",
-  "pct": 50,
-  "distinct": 2,
-  "vals": {
-   "0xe55ce0": 4,
-   "<other>": 4
-  }
- },
- {
-  "func": "FUN_00401fa0",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_00401fa0.c",
-  "sites": 4,
-  "value": "<other>",
-  "pct": 50,
-  "distinct": 2,
-  "vals": {
-   "<other>": 2,
-   "0xe53e88": 2
-  }
- },
- {
-  "func": "FUN_004e7340",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004e7340.c",
-  "sites": 4,
-  "value": "0xe55ce0",
-  "pct": 50,
-  "distinct": 2,
-  "vals": {
-   "0xe55ce0": 2,
-   "<other>": 2
-  }
- },
- {
-  "func": "FUN_004e77e0",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004e77e0.c",
-  "sites": 4,
-  "value": "0x1",
-  "pct": 50,
-  "distinct": 2,
-  "vals": {
-   "0x1": 2,
-   "<other>": 2
-  }
- },
- {
-  "func": "FUN_0040cf30",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_0040cf30.c",
-  "sites": 2,
-  "value": "0x0",
-  "pct": 50,
-  "distinct": 2,
-  "vals": {
-   "0x0": 1,
-   "0x1": 1
-  }
- },
- {
-  "func": "FUN_00443610",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_00443610.c",
-  "sites": 2,
-  "value": "0xe9ca2c",
-  "pct": 50,
-  "distinct": 2,
-  "vals": {
-   "0xe9ca2c": 1,
-   "0xe9ca38": 1
-  }
- },
- {
-  "func": "FUN_004f3ba0",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004f3ba0.c",
-  "sites": 2,
-  "value": "0x5a90e0",
-  "pct": 50,
-  "distinct": 2,
-  "vals": {
-   "0x5a90e0": 1,
-   "0x5a93e0": 1
-  }
- },
- {
-  "func": "FUN_0050f000",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_0050f000.c",
-  "sites": 2,
-  "value": "0x232a",
-  "pct": 50,
-  "distinct": 2,
-  "vals": {
-   "0x232a": 1,
-   "0x3": 1
-  }
- },
- {
-  "func": "FUN_004f3150",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004f3150.c",
-  "sites": 2,
-  "value": "0x0",
-  "pct": 50,
-  "distinct": 2,
-  "vals": {
-   "0x0": 1,
-   "<none>": 1
-  }
- },
- {
-  "func": "ShowErrorDialogFmt",
-  "reg": "eax",
-  "path": "src/ui_widget/ShowErrorDialogFmt.c",
-  "sites": 3,
-  "value": "0x36",
-  "pct": 33,
-  "distinct": 3,
-  "vals": {
-   "0x36": 1,
-   "0x17": 1,
-   "0x18": 1
-  }
- },
- {
-  "func": "FUN_004f09d0",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_004f09d0.c",
-  "sites": 3,
-  "value": "0x796f10",
-  "pct": 33,
-  "distinct": 3,
-  "vals": {
-   "0x796f10": 1,
-   "0xea0f50": 1,
-   "0xf11dd0": 1
-  }
- },
- {
-  "func": "FUN_004f1770",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_004f1770.c",
-  "sites": 3,
-  "value": "<other>",
-  "pct": 33,
-  "distinct": 3,
-  "vals": {
-   "<other>": 1,
-   "0xea0e18": 1,
-   "0xeb168c": 1
-  }
- },
- {
-  "func": "SetWidgetReadyState",
-  "reg": "edi",
-  "path": "src/registry/SetWidgetReadyState.c",
-  "sites": 13,
-  "value": "0xa",
-  "pct": 30,
-  "distinct": 6,
-  "vals": {
-   "0xa": 4,
-   "0xb": 3,
-   "0xc": 2,
-   "0xd": 1,
-   "<other>": 2,
-   "0x72": 1
-  }
- },
- {
-  "func": "QueueSpriteFrameSpans",
-  "reg": "eax",
-  "path": "src/rendering/QueueSpriteFrameSpans.c",
-  "sites": 20,
-  "value": "0x0",
-  "pct": 25,
-  "distinct": 10,
-  "vals": {
-   "0x0": 5,
-   "0x22c": 1,
-   "0x239": 2,
-   "0x51": 1,
-   "0x4f": 1,
-   "0x245": 3,
-   "0x230": 1,
-   "0x6": 3,
-   "0x4": 1,
-   "<other>": 2
-  }
- },
- {
-  "func": "FUN_00406400",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_00406400.c",
-  "sites": 5,
-  "value": "0x5",
-  "pct": 20,
-  "distinct": 5,
-  "vals": {
-   "0x5": 1,
-   "0xf": 1,
-   "0x3": 1,
-   "0x10": 1,
-   "0x1": 1
-  }
- },
- {
-  "func": "FUN_004fcf10",
-  "reg": "edi",
-  "path": "src/unnamed/FUN_004fcf10.c",
-  "sites": 7,
-  "value": "0xc018",
-  "pct": 14,
-  "distinct": 7,
-  "vals": {
-   "0xc018": 1,
-   "0xc011": 1,
-   "0xc051": 1,
-   "0xc053": 1,
-   "0xc041": 1,
-   "0xc042": 1,
-   "0xc043": 1
-  }
- },
- {
-  "func": "LoadReadyRoomSlotAvatar",
-  "reg": "eax",
-  "path": "src/rendering/LoadReadyRoomSlotAvatar.c",
-  "sites": 8,
-  "value": "0x0",
-  "pct": 12,
-  "distinct": 8,
-  "vals": {
-   "0x0": 1,
-   "0x1": 1,
-   "0x2": 1,
-   "0x3": 1,
-   "0x4": 1,
-   "0x5": 1,
-   "0x6": 1,
-   "0x7": 1
   }
  }
 ]

@@ -277,7 +277,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                   FUN_0041f200(0);
                 }
                 BroadcastQueuedEvent((int)&g_replayContext);
-                FUN_00415470((int *)(&DAT_006a76f4 + g_clientContext));
+                FUN_00415470((int *)(&DAT_006a76f4 + g_clientContext),1);
                 local_d78 = local_d78 - 1;
                 if (*(int *)(&DAT_006a76f8 + g_clientContext) == 0) {
                   PostTurnEvent(&g_replayContext,0xc302);
@@ -396,7 +396,7 @@ LAB_00411727:
     cVar4 = *(char *)(iVar19 + 0x41344) + -1;
 LAB_004111c0:
     *(char *)(iVar19 + 0x41344) = cVar4;
-    iVar12 = FUN_0050f000();
+    iVar12 = FUN_0050f000((int)&g_uiPanelManager);
     pbVar22 = param_3;
     if (iVar12 != 0) {
       Widget_SetChildRange(*(undefined1 *)(iVar19 + 0x41344),7);

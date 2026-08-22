@@ -92,10 +92,23 @@ def main():
                 else:
                     m=re.match(r'add \w+, (0x[0-9a-f]{6})$',last)
                     if m: vals['ctx+'+m.group(1)]+=1
+            # Record the call-site VAs and the exact defining instruction at
+            # each.  Without these a pair can only be handled in bulk; with
+            # them a single-call-site pair can be read off directly, since
+            # one binary site and one source site must correspond.
+            per=[]
+            for va in vas:
+                last=None
+                for i in wins[va][:-1]:
+                    if i.mnemonic in ('test','cmp','push','call','ret') or i.mnemonic.startswith('j'):
+                        continue
+                    if i.op_str.split(',')[0].strip() in SUB[e['reg']]:
+                        last='%s %s'%(i.mnemonic,i.op_str)
+                per.append({'va':'0x%x'%va,'ins':last,'cls':classify(last)})
             out.append({'func':e['func'],'reg':e['reg'],'sites':n,
                         'values':{str(k):v for k,v in vals.most_common(4)},
                         'top':b.most_common(1)[0][0],'pct':100*b.most_common(1)[0][1]//n,
-                        'buckets':dict(b),'path':e['path']})
+                        'buckets':dict(b),'path':e['path'],'per_site':per})
     json.dump(out, open(os.path.join(ROOT,'tools/backlog_triage.json'),'w'), indent=1)
     agg=collections.Counter(); wsites=collections.Counter()
     for o in out:
