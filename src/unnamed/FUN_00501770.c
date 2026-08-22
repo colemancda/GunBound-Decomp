@@ -421,7 +421,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
     }
     else {
       FUN_00501600();
-      FUN_00503810();
+      FUN_00503810((int)&DAT_00551cb1);
       uVar18 = 0;
       pcVar12 = local_48ba + 0x12;
       pcVar17 = &DAT_00551cb1;

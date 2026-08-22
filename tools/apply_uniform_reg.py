@@ -22,6 +22,13 @@ This applier:
     own extern "C" blocks that functions.h does not reach
   * appends the recovered value at every call site tree-wide
 
+The threshold is 100%, deliberately.  A "95% uniform" register is not uniform:
+it is a genuine varying argument that happens to repeat, and writing the
+majority value at the minority site injects a WRONG value where there was
+previously an unrecovered one -- strictly worse, and invisible afterwards.
+BlitSpriteText is the cautionary case: ESI is 0x1f4 at 35 sites and 0x32 at
+RenderWorldListRow, which its own file header had already written down.
+
 It refuses rather than guesses: a pair whose local is already promoted/aliased,
 whose value will not resolve to a declared global, or whose definition it
 cannot parse is SKIPPED and reported.
@@ -128,6 +135,23 @@ def apply_one(entry, apply=False):
         return False, ['%s/%s: no local declaration -- already promoted or aliased'
                        % (name, reg)], []
 
+    # Is the local already ALIASED onto a real parameter on a later line?
+    #     uint unaff_ESI;
+    #     ...
+    #     unaff_ESI = (uint)charsetKey;
+    # The declaration alone does not mean the register is unsupplied.
+    # BlitSpriteText is exactly this: fully recovered since 2026-07-17, but it
+    # still declares `uint unaff_ESI;`, so a check that stops at the
+    # declaration would re-promote it and give it a DUPLICATE parameter.
+    plist = src[d['open']:d['close']]
+    pnames = set(re.findall(r'\b\w+\b', plist))
+    am = re.search(r'^[ \t]*%s\s*=\s*([^;=][^;]*);' % local, src, re.M)
+    if (am and local not in am.group(1)
+            and any(re.search(r'\b%s\b' % re.escape(pn), am.group(1))
+                    for pn in pnames)):
+        return False, ['%s/%s: already aliased onto a parameter (%s)'
+                       % (name, reg, am.group(1).strip())], []
+
     ctype = decl_m.group(1).strip()
     is_ptr = ctype.endswith('*')
     cast = ctype if is_ptr else 'int'
@@ -200,7 +224,7 @@ def main():
     argv = sys.argv[1:]
     apply = '--apply' in argv
     argv = [a for a in argv if a != '--apply']
-    min_pct, only = 95, None
+    min_pct, only = 100, None
     if '--min-pct' in argv:
         i = argv.index('--min-pct'); min_pct = int(argv[i + 1]); del argv[i:i + 2]
     if '--only' in argv:

@@ -221,7 +221,7 @@ LAB_004bdd21:
             if (((((&DAT_00e55e20)[local_3d4c >> 5] & 1 << ((byte)local_3d4c & 0x1f)) != 0) &&
                 ((&DAT_006a7670)[local_3d4c + local_3d50 * 8 + iVar6] == '\0')) &&
                (cVar3 = FUN_004e82c0(), iVar6 = g_clientContext, cVar3 != '\0')) {
-              FUN_004e83b0();
+              FUN_004e83b0((int)&g_replayContext);
               iVar6 = g_clientContext;
             }
             local_3d4c = local_3d4c + 1;
@@ -2066,7 +2066,7 @@ LAB_004c1acb:
     }
   }
   SyncChatTypingState(&DAT_006a647c + iVar6,1);
-  FUN_004e39b0();
+  FUN_004e39b0((int *)(&DAT_006a7708 + g_clientContext));
   *unaff_FS_OFFSET = uStack_20;
   return;
 }

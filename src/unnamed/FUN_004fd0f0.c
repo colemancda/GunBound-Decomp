@@ -38,8 +38,8 @@ undefined4 * FUN_004fd0f0(undefined4 *param_1,undefined4 param_2)
   param_1[0x6ac] = param_2;
   param_1[0x6ad] = 0;
   param_1[0x6ae] = 0;
-  FUN_004fe420(0x3f400000,0x3e800000,0x40100000);
-  FUN_004fe420(0x3f400000,0x3e800000,0x40100000);
+  FUN_004fe420(0x3f400000,0x3e800000,0x40100000,0x11);
+  FUN_004fe420(0x3f400000,0x3e800000,0x40100000,0x11);
   *(undefined1 *)(param_1 + 0x74a) = 0;
   FUN_00504c10();
   param_1[0x767] = 0;

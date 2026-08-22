@@ -7,16 +7,15 @@
 #include "ghidra_types.h"
 
 
-void FUN_00450bd0(void)
+void FUN_00450bd0(int regEbx)
 
 {
   char cVar1;
   int *piVar2;
-  int unaff_EBX;
   int iVar3;
   
-  iVar3 = *(int *)(*(int *)(unaff_EBX + 4) + 0x1c);
-  if (iVar3 != *(int *)(unaff_EBX + 4)) {
+  iVar3 = *(int *)(*(int *)(regEbx + 4) + 0x1c);
+  if (iVar3 != *(int *)(regEbx + 4)) {
     do {
       if (100000 < *(uint *)(iVar3 + 4)) {
         if (189999 < *(uint *)(iVar3 + 4)) {
@@ -31,7 +30,7 @@ void FUN_00450bd0(void)
         }
       }
       iVar3 = *(int *)(iVar3 + 0x1c);
-    } while (iVar3 != *(int *)(unaff_EBX + 4));
+    } while (iVar3 != *(int *)(regEbx + 4));
   }
   return;
 }

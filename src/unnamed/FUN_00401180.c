@@ -7,19 +7,18 @@
 #include "ghidra_types.h"
 
 
-void FUN_00401180(void)
+void FUN_00401180(undefined4 *regEsi)
 
 {
   HANDLE pvVar1;
-  undefined4 *unaff_ESI;
   
-  *unaff_ESI = &PTR_LAB_0054b450;
-  unaff_ESI[1] = 0;
+  *regEsi = &PTR_LAB_0054b450;
+  regEsi[1] = 0;
   pvVar1 = CreateEventA((LPSECURITY_ATTRIBUTES)0x0,0,0,(LPCSTR)0x0);
-  unaff_ESI[2] = pvVar1;
-  *(undefined1 *)(unaff_ESI + 3) = 0;
-  *unaff_ESI = &PTR_LAB_0054b458;
-  *(undefined1 *)(unaff_ESI + 4) = 0;
+  regEsi[2] = pvVar1;
+  *(undefined1 *)(regEsi + 3) = 0;
+  *regEsi = &PTR_LAB_0054b458;
+  *(undefined1 *)(regEsi + 4) = 0;
   return;
 }
 

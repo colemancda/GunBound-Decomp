@@ -8,24 +8,23 @@
 #include "ghidra_types.h"
 
 
-void RemoveInventoryItems(void)
+void RemoveInventoryItems(int regEbx)
 
 {
   int in_EAX;
   int iVar1;
-  int unaff_EBX;
   int *unaff_EDI;
   
-  if ((uint)unaff_EDI[1] < (uint)(in_EAX + unaff_EBX)) {
+  if ((uint)unaff_EDI[1] < (uint)(in_EAX + regEbx)) {
                     /* WARNING: Subroutine does not return */
     ThrowCxxException(0x80070057);
   }
-  iVar1 = (unaff_EDI[1] - in_EAX) - unaff_EBX;
+  iVar1 = (unaff_EDI[1] - in_EAX) - regEbx;
   if (iVar1 != 0) {
-    _memmove((void *)(in_EAX * 0x9c + *unaff_EDI),(void *)((in_EAX + unaff_EBX) * 0x9c + *unaff_EDI)
+    _memmove((void *)(in_EAX * 0x9c + *unaff_EDI),(void *)((in_EAX + regEbx) * 0x9c + *unaff_EDI)
              ,iVar1 * 0x9c);
   }
-  unaff_EDI[1] = unaff_EDI[1] - unaff_EBX;
+  unaff_EDI[1] = unaff_EDI[1] - regEbx;
   return;
 }
 

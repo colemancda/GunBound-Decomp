@@ -7,14 +7,13 @@
 #include "ghidra_types.h"
 
 
-void FUN_0040cd40(void)
+void FUN_0040cd40(undefined4 *regEax)
 
 {
-  undefined4 *in_EAX;
   
   FUN_004f2e40();
-  *in_EAX = &PTR_FUN_005520a0;
-  in_EAX[2] = 0;
+  *regEax = &PTR_FUN_005520a0;
+  regEax[2] = 0;
   return;
 }
 

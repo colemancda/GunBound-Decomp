@@ -53,7 +53,7 @@ void SendJoinRoomChecked(void)
     SendOutgoingPacket(iVar1);
     return;
   }
-  FUN_00508910();
+  FUN_00508910((int)&g_uiPanelManager);
   return;
 }
 

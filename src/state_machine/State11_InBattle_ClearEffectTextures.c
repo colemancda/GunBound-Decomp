@@ -810,7 +810,7 @@ void State11_InBattle_ClearEffectTextures(void)
   }
   FUN_00450b80();
   FlushCompositorLayer(2,(int)&DAT_00f22650);
-  FUN_00450bd0();
+  FUN_00450bd0((int)(&DAT_006a7f88 + g_clientContext));
   if (iVar2 != 0) {
     piVar1 = *(int **)(*(int *)(iVar2 + 0x94) + 0x110);
     (**(code **)(*piVar1 + 0x80))(piVar1,0);

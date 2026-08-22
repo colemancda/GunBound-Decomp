@@ -18,7 +18,7 @@ void __thiscall FUN_00505d20(int param_1,int param_2,int param_3,undefined4 para
     }
     else {
       if (param_3 == 1) {
-        FUN_00508b90();
+        FUN_00508b90((int)&g_uiPanelManager);
         Widget_OnCommandDefault(0,1,param_4);
         return;
       }

@@ -8,28 +8,27 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004e76d0(undefined4 param_1,int param_2,undefined4 *param_3)
+void __fastcall FUN_004e76d0(undefined4 param_1,int param_2,undefined4 *param_3,int regEsi)
 
 {
   char cVar1;
   char *in_EAX;
   int iVar2;
-  int unaff_ESI;
   
-  *(undefined4 *)(unaff_ESI + 0x4520c) = param_1;
-  *(undefined2 *)(unaff_ESI + 0x45210) = param_2;
-  *(undefined4 *)(unaff_ESI + 0x45212) = *param_3;
-  iVar2 = (unaff_ESI + 0x4521b) - (int)in_EAX;
+  *(undefined4 *)(regEsi + 0x4520c) = param_1;
+  *(undefined2 *)(regEsi + 0x45210) = param_2;
+  *(undefined4 *)(regEsi + 0x45212) = *param_3;
+  iVar2 = (regEsi + 0x4521b) - (int)in_EAX;
   do {
     cVar1 = *in_EAX;
     in_EAX[iVar2] = cVar1;
     in_EAX = in_EAX + 1;
   } while (cVar1 != '\0');
-  *(undefined4 *)(unaff_ESI + 0x45208) = 7;
-  EnterCriticalSection((LPCRITICAL_SECTION)(unaff_ESI + 0x17c));
-  SendUdpDatagram(*(int *)(unaff_ESI + 0x4520c),(int)*(short *)(unaff_ESI + 0x45210),
-                  (char *)(unaff_ESI + 0x45212),4,unaff_ESI);
-  LeaveCriticalSection((LPCRITICAL_SECTION)(unaff_ESI + 0x17c));
+  *(undefined4 *)(regEsi + 0x45208) = 7;
+  EnterCriticalSection((LPCRITICAL_SECTION)(regEsi + 0x17c));
+  SendUdpDatagram(*(int *)(regEsi + 0x4520c),(int)*(short *)(regEsi + 0x45210),
+                  (char *)(regEsi + 0x45212),4,regEsi);
+  LeaveCriticalSection((LPCRITICAL_SECTION)(regEsi + 0x17c));
   return;
 }
 

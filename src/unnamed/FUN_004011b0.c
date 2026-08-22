@@ -7,21 +7,20 @@
 #include "ghidra_types.h"
 
 
-void FUN_004011b0(void)
+void FUN_004011b0(undefined4 *regEsi)
 
 {
-  undefined4 *unaff_ESI;
   
-  *unaff_ESI = &PTR_LAB_0054b458;
-  *(undefined1 *)(unaff_ESI + 3) = 0;
-  SetEvent((HANDLE)unaff_ESI[2]);
-  *unaff_ESI = &PTR_LAB_0054b450;
-  *(undefined1 *)(unaff_ESI + 3) = 0;
-  SetEvent((HANDLE)unaff_ESI[2]);
-  if ((HANDLE)unaff_ESI[1] != (HANDLE)0x0) {
-    WaitForSingleObject((HANDLE)unaff_ESI[1],1000);
+  *regEsi = &PTR_LAB_0054b458;
+  *(undefined1 *)(regEsi + 3) = 0;
+  SetEvent((HANDLE)regEsi[2]);
+  *regEsi = &PTR_LAB_0054b450;
+  *(undefined1 *)(regEsi + 3) = 0;
+  SetEvent((HANDLE)regEsi[2]);
+  if ((HANDLE)regEsi[1] != (HANDLE)0x0) {
+    WaitForSingleObject((HANDLE)regEsi[1],1000);
   }
-  CloseHandle((HANDLE)unaff_ESI[2]);
+  CloseHandle((HANDLE)regEsi[2]);
   return;
 }
 

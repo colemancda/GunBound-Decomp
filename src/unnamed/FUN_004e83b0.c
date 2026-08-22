@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e83b0(void)
+void FUN_004e83b0(int regEsi)
 
 {
   LPCRITICAL_SECTION lpCriticalSection;
@@ -16,25 +16,24 @@ void FUN_004e83b0(void)
   void *pvVar3;
   int iVar4;
   char unaff_BL;
-  int unaff_ESI;
   uint uVar5;
   
-  lpCriticalSection = (LPCRITICAL_SECTION)(unaff_ESI + 0x45264);
+  lpCriticalSection = (LPCRITICAL_SECTION)(regEsi + 0x45264);
   EnterCriticalSection(lpCriticalSection);
-  uVar5 = *(uint *)(unaff_ESI + 0x454a8);
+  uVar5 = *(uint *)(regEsi + 0x454a8);
   uVar1 = 0;
   if (uVar5 != 0) {
     iVar4 = 0;
     do {
       if (uVar5 <= uVar1) goto LAB_004e8470;
-      if (*(char *)(*(int *)(unaff_ESI + 0x454a4) + 4 + iVar4) == unaff_BL) {
-        if (uVar1 + 1 <= *(uint *)(unaff_ESI + 0x454a8)) {
-          iVar4 = (*(uint *)(unaff_ESI + 0x454a8) - uVar1) + -1;
+      if (*(char *)(*(int *)(regEsi + 0x454a4) + 4 + iVar4) == unaff_BL) {
+        if (uVar1 + 1 <= *(uint *)(regEsi + 0x454a8)) {
+          iVar4 = (*(uint *)(regEsi + 0x454a8) - uVar1) + -1;
           if (iVar4 != 0) {
-            pvVar3 = (void *)(uVar1 * 0x206 + *(int *)(unaff_ESI + 0x454a4));
+            pvVar3 = (void *)(uVar1 * 0x206 + *(int *)(regEsi + 0x454a4));
             _memmove(pvVar3,(void *)((int)pvVar3 + 0x206),iVar4 * 0x206);
           }
-          *(int *)(unaff_ESI + 0x454a8) = *(int *)(unaff_ESI + 0x454a8) + -1;
+          *(int *)(regEsi + 0x454a8) = *(int *)(regEsi + 0x454a8) + -1;
           LeaveCriticalSection(lpCriticalSection);
           return;
         }
@@ -45,26 +44,26 @@ void FUN_004e83b0(void)
     } while (uVar1 < uVar5);
   }
   uVar5 = 0;
-  if (*(int *)(unaff_ESI + 0x454b8) != 0) {
+  if (*(int *)(regEsi + 0x454b8) != 0) {
     iVar4 = 0;
-    if (*(int *)(unaff_ESI + 0x454b8) == 0) {
+    if (*(int *)(regEsi + 0x454b8) == 0) {
 LAB_004e8470:
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x80070057);
     }
     do {
-      if (*(char *)(*(int *)(unaff_ESI + 0x454b4) + 4 + iVar4) == unaff_BL) {
-        if (*(uint *)(unaff_ESI + 0x454b8) < uVar5 + 1) goto LAB_004e8470;
-        iVar2 = (*(uint *)(unaff_ESI + 0x454b8) - uVar5) + -1;
+      if (*(char *)(*(int *)(regEsi + 0x454b4) + 4 + iVar4) == unaff_BL) {
+        if (*(uint *)(regEsi + 0x454b8) < uVar5 + 1) goto LAB_004e8470;
+        iVar2 = (*(uint *)(regEsi + 0x454b8) - uVar5) + -1;
         if (iVar2 != 0) {
-          pvVar3 = (void *)(*(int *)(unaff_ESI + 0x454b4) + iVar4);
+          pvVar3 = (void *)(*(int *)(regEsi + 0x454b4) + iVar4);
           _memmove(pvVar3,(void *)((int)pvVar3 + 0x206),iVar2 * 0x206);
         }
-        *(int *)(unaff_ESI + 0x454b8) = *(int *)(unaff_ESI + 0x454b8) + -1;
+        *(int *)(regEsi + 0x454b8) = *(int *)(regEsi + 0x454b8) + -1;
       }
       uVar5 = uVar5 + 1;
       iVar4 = iVar4 + 0x206;
-    } while (uVar5 < *(uint *)(unaff_ESI + 0x454b8));
+    } while (uVar5 < *(uint *)(regEsi + 0x454b8));
   }
   LeaveCriticalSection(lpCriticalSection);
   return;

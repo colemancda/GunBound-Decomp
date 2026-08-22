@@ -235,8 +235,8 @@ int __fastcall LookupProjectileTrackingRow(int phantom, int keyA, void *rowAddr,
  * found anywhere else in the tree. Declared for bring-up auto-stubbing;
  * argument order is a best-effort reading of the observed per-call-site
  * register state, not independently verified. */
-void FUN_004eb640(int mode, int x, int y, unsigned short label);
-void FUN_004eb720(int mode, int x, int y, unsigned short label);
+void FUN_004eb640(int ecxPhantom, int runLength, int label, int x, int y);
+void FUN_004eb720(int param_1,int param_2,int param_3,int regEax);
 
 /* v1_SetState/v9_SetState/v8_Delete/v4_NoOp/v12_NoOp's dependencies - same
  * shared functions ButtonWidget.cpp declares for CButtonWidget's identical
@@ -1626,9 +1626,20 @@ void CProjectile::v11()
 
     int y1 = (rawY - camY) + 0x12a;
     int x1 = (rawX - camX) + 0x18f;
-    FUN_004eb640(3, x1, y1, label);
+    /* Horizontal half of the crosshair; see FUN_004eb640.c's header.  ECX is
+     * a phantom the callee never reads, so it is passed 0. */
+    FUN_004eb640(0, 3, label, x1, y1);
 
     int y2 = (rawY - camY) + 0x129;
     int x2 = (rawX - camX) + 0x190;
-    FUN_004eb720(3, x2, y2, label);
+    /* (param_1=row, param_2=column, param_3=label word, regEax=run length).
+     * Recovered from the sole call site at 0x00458b6d:
+     *   mov cx,[esi+0x48] / push ecx   -> param_3 = label   (the stack word)
+     *   ecx = [esi+0x3c]-camY + 0x129  -> param_1 = y2      (ECX)
+     *   edx = [esi+0x38]-camX + 0x190  -> param_2 = x2      (EDX)
+     *   mov eax,3                      -> regEax  = 3       (rows to draw)
+     * The port had these in the wrong order -- the 3 was being passed first,
+     * as though it were a mode selector, which put y2 in the label slot and
+     * the label in the run length. */
+    FUN_004eb720(y2, x2, label, 3);
 }

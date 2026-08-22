@@ -17,7 +17,7 @@ void FUN_004258e0(undefined4 param_1)
   
   iVar1 = FUN_004259d0(param_1);
   if (iVar1 != -1) {
-    FUN_004264d0();
+    FUN_004264d0(1);
     _Format = (char *)GetLocalizedString(&g_localizedStringTable,0x1ff);
     _sprintf(local_80,_Format,param_1);
     (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_80,2,6);

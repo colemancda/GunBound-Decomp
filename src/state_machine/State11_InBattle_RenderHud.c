@@ -78,7 +78,7 @@ void __fastcall State11_InBattle_RenderHud(int param_1)
   if (*(int *)(g_clientContext + 0x621e0) != 0) {
     FUN_00463630(*(int *)(g_clientContext + 0x621e0));
   }
-  FUN_00450dd0();
+  FUN_00450dd0((int)(&DAT_006a7f88 + g_clientContext));
   pbStack_90 = (byte *)(g_clientContext + 0x58c4a);
   pcStack_9c = (char *)(g_clientContext + 0x58bbe);
   puStack_8c = (ushort *)(g_clientContext + 0x5917c);

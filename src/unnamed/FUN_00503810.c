@@ -7,20 +7,19 @@
 #include "ghidra_types.h"
 
 
-void FUN_00503810(void)
+void FUN_00503810(int regEsi)
 
 {
   int in_EAX;
   byte bVar1;
   uint uVar2;
-  int unaff_ESI;
   
   uVar2 = 0;
   do {
     bVar1 = (byte)uVar2;
-    if (*(char *)(uVar2 + unaff_ESI) == '\0') break;
+    if (*(char *)(uVar2 + regEsi) == '\0') break;
     bVar1 = bVar1 + 1;
-    *(char *)(uVar2 + in_EAX) = *(char *)(uVar2 + unaff_ESI);
+    *(char *)(uVar2 + in_EAX) = *(char *)(uVar2 + regEsi);
     uVar2 = (uint)bVar1;
   } while (bVar1 < 8);
   *(byte *)(in_EAX + 9) = bVar1;

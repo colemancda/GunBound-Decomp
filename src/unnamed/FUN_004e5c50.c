@@ -7,15 +7,14 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_004e5c50(int *param_1)
+int __fastcall FUN_004e5c50(int *param_1,uint regEax)
 
 {
-  uint in_EAX;
   
-  if ((uint)param_1[1] <= in_EAX) {
+  if ((uint)param_1[1] <= regEax) {
                     /* WARNING: Subroutine does not return */
     ThrowCxxException(0x80070057);
   }
-  return in_EAX * 0x4004 + *param_1;
+  return regEax * 0x4004 + *param_1;
 }
 

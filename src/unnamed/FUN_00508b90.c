@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00508b90(void)
+void FUN_00508b90(int regEdi)
 
 {
   int *piVar1;
@@ -15,7 +15,6 @@ void FUN_00508b90(void)
   undefined4 *puVar3;
   undefined4 uVar4;
   undefined4 *puVar5;
-  int unaff_EDI;
   undefined4 *unaff_FS_OFFSET;
   undefined4 uVar6;
   undefined4 local_c;
@@ -26,7 +25,7 @@ void FUN_00508b90(void)
   puStack_8 = &LAB_0053795b;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
-  puVar2 = *(undefined4 **)(unaff_EDI + 4);
+  puVar2 = *(undefined4 **)(regEdi + 4);
   do {
     if (puVar2 == (undefined4 *)0x0) {
       puVar2 = operator_new(0xa8);
@@ -50,7 +49,7 @@ void FUN_00508b90(void)
       puVar5[0xd] = 0x94;
       puVar3 = (undefined4 *)CreateTextEntryWidget(0,0x32,0x58,0x8c,0xc,0xc);
       Widget_AddChild(puVar3);
-      PanelManager_ClearAllFocus(unaff_EDI);
+      PanelManager_ClearAllFocus(regEdi);
       (**(code **)*puVar3)(1);
       uVar4 = CreateLabelWidget(0,0x2c8,0x42,0x6b,0x4a,0x1a);
       Widget_AddChild(uVar4);

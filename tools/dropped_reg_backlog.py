@@ -92,6 +92,24 @@ def classify(entry):
         # is the register aliased onto a real parameter, not an unsupplied one.
         if re.search(r"\b\w+\s+\*?%s\s*=\s*[^;=][^;]*;" % n, src):
             return "aliased"
+        # The same alias split across two statements:
+        #     uint unaff_ESI;
+        #     ...
+        #     unaff_ESI = (uint)charsetKey;
+        # Ghidra emits this form whenever the declaration and the first
+        # assignment are separated, and BlitSpriteText is exactly it -- fully
+        # recovered since 2026-07-17, yet counted as open (and as the third
+        # largest item in the backlog) purely because the initialiser was on
+        # its own line.  Require the right-hand side to mention a real
+        # parameter, so a self-assignment or a local cannot pass for a fix.
+        m = re.search(r"^[ \t]*%s\s*=\s*([^;=][^;]*);" % n, src, re.M)
+        # `in_EAX = in_EAX + (param_1 - ...)` mentions a parameter but is a
+        # MODIFICATION of a still-unsupplied register, not an alias onto one,
+        # so the register's own name must not appear on the right.
+        if (m and n not in m.group(1)
+                and any(re.search(r"\b%s\b" % re.escape(pn), m.group(1))
+                        for pn in re.findall(r"\b\w+\b", plist))):
+            return "aliased"
     return "open"
 
 

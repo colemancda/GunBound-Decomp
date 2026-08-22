@@ -83,7 +83,7 @@ LAB_004e9694:
   }
   iVar1 = *(int *)(unaff_EBX + 0x114);
   if ((iVar1 < 2) || (pfVar5 = *(float **)(unaff_EBX + 0x118), param_1 < *pfVar5)) {
-    FUN_004f3af0(0,0,0);
+    FUN_004f3af0(0,0,0,(float *)&DAT_005a90e0);
   }
   else {
     iVar6 = 0;

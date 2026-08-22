@@ -277,7 +277,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                   FUN_0041f200(0);
                 }
                 BroadcastQueuedEvent((int)&g_replayContext);
-                FUN_00415470();
+                FUN_00415470((int *)(&DAT_006a76f4 + g_clientContext));
                 local_d78 = local_d78 - 1;
                 if (*(int *)(&DAT_006a76f8 + g_clientContext) == 0) {
                   PostTurnEvent(&g_replayContext,0xc302);
