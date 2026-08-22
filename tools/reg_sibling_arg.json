@@ -1,0 +1,22 @@
+[
+ {
+  "func": "FUN_00443680",
+  "reg": "esi",
+  "path": "src/unnamed/FUN_00443680.c",
+  "site": "src/unnamed/FUN_004435b0.c",
+  "arg_index": 1,
+  "disp": 0,
+  "expr": "local_4",
+  "ins": "mov esi, eax"
+ },
+ {
+  "func": "FUN_00443700",
+  "reg": "esi",
+  "path": "src/unnamed/FUN_00443700.c",
+  "site": "src/unnamed/FUN_004435e0.c",
+  "arg_index": 1,
+  "disp": 0,
+  "expr": "local_4",
+  "ins": "mov esi, eax"
+ }
+]

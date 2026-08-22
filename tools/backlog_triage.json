@@ -1883,87 +1883,6 @@
  },
  {
   "func": "SetWidgetReadyState",
-  "reg": "eax",
-  "sites": 13,
-  "values": {
-   "15318672": 13
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 13
-  },
-  "path": "src/registry/SetWidgetReadyState.c",
-  "per_site": [
-   {
-    "va": "0x445622",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x445635",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x445648",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4456bd",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x445732",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x445745",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4457ba",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4457cd",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4457e0",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4457f3",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4d6102",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4db9a8",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4dba70",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   }
-  ]
- },
- {
-  "func": "SetWidgetReadyState",
   "reg": "edi",
   "sites": 13,
   "values": {
@@ -3741,47 +3660,6 @@
  },
  {
   "func": "FUN_00406400",
-  "reg": "eax",
-  "sites": 5,
-  "values": {
-   "15318672": 5
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 5
-  },
-  "path": "src/unnamed/FUN_00406400.c",
-  "per_site": [
-   {
-    "va": "0x428c2d",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x447671",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4b8303",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4b9d10",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4d6278",
-    "ins": "mov eax, 0xe9be90",
-    "cls": "IMMEDIATE"
-   }
-  ]
- },
- {
-  "func": "FUN_00406400",
   "reg": "esi",
   "sites": 5,
   "values": {
@@ -5299,37 +5177,6 @@
  },
  {
   "func": "FUN_0040cfe0",
-  "reg": "eax",
-  "sites": 3,
-  "values": {
-   "15319292": 3
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 3
-  },
-  "path": "src/unnamed/FUN_0040cfe0.c",
-  "per_site": [
-   {
-    "va": "0x446e30",
-    "ins": "mov eax, 0xe9c0fc",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x446e59",
-    "ins": "mov eax, 0xe9c0fc",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4d555a",
-    "ins": "mov eax, 0xe9c0fc",
-    "cls": "IMMEDIATE"
-   }
-  ]
- },
- {
-  "func": "FUN_0040cfe0",
   "reg": "esi",
   "sites": 3,
   "values": {
@@ -6504,32 +6351,6 @@
     "va": "0x40a204",
     "ins": "add esi, 4",
     "cls": "OTHER"
-   }
-  ]
- },
- {
-  "func": "FUN_0040cf30",
-  "reg": "eax",
-  "sites": 2,
-  "values": {
-   "15319292": 2
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 2
-  },
-  "path": "src/unnamed/FUN_0040cf30.c",
-  "per_site": [
-   {
-    "va": "0x447247",
-    "ins": "mov eax, 0xe9c0fc",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x44725c",
-    "ins": "mov eax, 0xe9c0fc",
-    "cls": "IMMEDIATE"
    }
   ]
  },
@@ -7783,32 +7604,6 @@
  },
  {
   "func": "FUN_0050f000",
-  "reg": "eax",
-  "sites": 2,
-  "values": {
-   "15023168": 2
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 2
-  },
-  "path": "src/unnamed/FUN_0050f000.c",
-  "per_site": [
-   {
-    "va": "0x4111d2",
-    "ins": "mov eax, 0xe53c40",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x4d593f",
-    "ins": "mov eax, 0xe53c40",
-    "cls": "IMMEDIATE"
-   }
-  ]
- },
- {
-  "func": "FUN_0050f000",
   "reg": "esi",
   "sites": 2,
   "values": {
@@ -7988,27 +7783,6 @@
     "va": "0x4d8523",
     "ins": "mov eax, edi",
     "cls": "REGISTER"
-   }
-  ]
- },
- {
-  "func": "RemoveInventoryItems",
-  "reg": "eax",
-  "sites": 1,
-  "values": {
-   "0": 1
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 1
-  },
-  "path": "src/state_machine/RemoveInventoryItems.c",
-  "per_site": [
-   {
-    "va": "0x44bb11",
-    "ins": "xor eax, eax",
-    "cls": "IMMEDIATE"
    }
   ]
  },
@@ -8469,27 +8243,6 @@
   ]
  },
  {
-  "func": "FUN_0040d1c0",
-  "reg": "esi",
-  "sites": 1,
-  "values": {
-   "15321540": 1
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 1
-  },
-  "path": "src/unnamed/FUN_0040d1c0.c",
-  "per_site": [
-   {
-    "va": "0x5437d6",
-    "ins": "mov esi, 0xe9c9c4",
-    "cls": "IMMEDIATE"
-   }
-  ]
- },
- {
   "func": "FUN_00412e00",
   "reg": "edi",
   "sites": 1,
@@ -8505,48 +8258,6 @@
     "va": "0x412f03",
     "ins": null,
     "cls": "OTHER"
-   }
-  ]
- },
- {
-  "func": "FUN_00415410",
-  "reg": "esi",
-  "sites": 1,
-  "values": {
-   "15321540": 1
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 1
-  },
-  "path": "src/unnamed/FUN_00415410.c",
-  "per_site": [
-   {
-    "va": "0x5411a6",
-    "ins": "mov esi, 0xe9c9c4",
-    "cls": "IMMEDIATE"
-   }
-  ]
- },
- {
-  "func": "FUN_00415470",
-  "reg": "ebx",
-  "sites": 1,
-  "values": {
-   "1": 1
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 1
-  },
-  "path": "src/unnamed/FUN_00415470.c",
-  "per_site": [
-   {
-    "va": "0x4113c1",
-    "ins": "mov ebx, 1",
-    "cls": "IMMEDIATE"
    }
   ]
  },
@@ -8927,27 +8638,6 @@
     "va": "0x43833a",
     "ins": "mov eax, ebx",
     "cls": "REGISTER"
-   }
-  ]
- },
- {
-  "func": "FUN_00450700",
-  "reg": "eax",
-  "sites": 1,
-  "values": {
-   "8025668": 1
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 1
-  },
-  "path": "src/unnamed/FUN_00450700.c",
-  "per_site": [
-   {
-    "va": "0x540ea9",
-    "ins": "mov eax, 0x7a7644",
-    "cls": "IMMEDIATE"
    }
   ]
  },
@@ -9523,27 +9213,6 @@
  },
  {
   "func": "FUN_004e5cc0",
-  "reg": "eax",
-  "sites": 1,
-  "values": {
-   "0": 1
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 1
-  },
-  "path": "src/unnamed/FUN_004e5cc0.c",
-  "per_site": [
-   {
-    "va": "0x4e5958",
-    "ins": "xor eax, eax",
-    "cls": "IMMEDIATE"
-   }
-  ]
- },
- {
-  "func": "FUN_004e5cc0",
   "reg": "edi",
   "sites": 1,
   "values": {},
@@ -9733,27 +9402,6 @@
   ]
  },
  {
-  "func": "FUN_004e9ab0",
-  "reg": "esi",
-  "sites": 1,
-  "values": {
-   "15869208": 1
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 1
-  },
-  "path": "src/unnamed/FUN_004e9ab0.c",
-  "per_site": [
-   {
-    "va": "0x542996",
-    "ins": "mov esi, 0xf22518",
-    "cls": "IMMEDIATE"
-   }
-  ]
- },
- {
   "func": "FUN_004e9af0",
   "reg": "ebx",
   "sites": 1,
@@ -9866,27 +9514,6 @@
     "va": "0x4ef436",
     "ins": "mov eax, esi",
     "cls": "REGISTER"
-   }
-  ]
- },
- {
-  "func": "FUN_004f1d80",
-  "reg": "esi",
-  "sites": 1,
-  "values": {
-   "15407736": 1
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 1
-  },
-  "path": "src/unnamed/FUN_004f1d80.c",
-  "per_site": [
-   {
-    "va": "0x542976",
-    "ins": "mov esi, 0xeb1a78",
-    "cls": "IMMEDIATE"
    }
   ]
  },

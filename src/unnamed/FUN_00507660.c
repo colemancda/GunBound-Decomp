@@ -78,7 +78,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
               AppendPacketBytes(0,iVar2,(uint)puVar4[1],puVar5);
               EncodePacketBody(0,iVar2);
               SendOutgoingPacket(iVar2);
-              FUN_00425700();
+              FUN_00425700(g_clientContext);
             }
             else {
               iVar2 = *(int *)g_gameStateVTableArray[3];

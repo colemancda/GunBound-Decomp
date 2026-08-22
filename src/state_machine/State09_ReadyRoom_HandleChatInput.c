@@ -174,7 +174,15 @@ LAB_004d67e1:
         cVar4 = *pcVar8;
         pcVar8 = pcVar8 + 1;
       } while (cVar4 != '\0');
-      FUN_0040c8d0((int)pcVar8 - (int)(acStack_80 + 1));
+      /* EM_SETSEL(len, len) on the chat edit box - move the caret to the end.
+       * Recovered from 0x004d6621: `push eax` (lParam) / `mov edx,eax`
+       * (wParam) / `mov eax,[0x7934e4]` (the object).  The callee's `ret 4`
+       * confirms the single stack argument, and it never reads ECX as an
+       * argument (it overwrites it with `mov ecx,[esp+4]`), so param_1 is a
+       * phantom and is passed 0.  The port had been passing the length as
+       * that phantom and omitting both real arguments. */
+      FUN_0040c8d0(0,(int)pcVar8 - (int)(acStack_80 + 1),
+                   (int)pcVar8 - (int)(acStack_80 + 1),(int)DAT_007934e4);
 LAB_004d6626:
       if ((char)param_1[0x133] != '\0') {
         return;
