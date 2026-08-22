@@ -742,7 +742,7 @@ LAB_004c9ba8:
   /* FIXED (2026-07-15): dropped all 4 corner args - real literal values
    * (full-screen reset) recovered via angr at 0x4c9be9. */
   SetClipRect(0, 0x31f, 0x257, 0);
-  FlushCompositorLayer(3);
+  FlushCompositorLayer(3,(int)&DAT_00f22650);
   State11_InBattle_RenderPlayerRoster(&DAT_006a647c + g_clientContext);
   iVar6 = g_clientContext;
   if ((*(char *)(param_1 + 0x11ac) != '\0') && (*(char *)(param_1 + 0x11d0) == '\0')) {

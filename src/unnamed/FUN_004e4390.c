@@ -7,20 +7,19 @@
 #include "ghidra_types.h"
 
 
-int FUN_004e4390(void)
+int FUN_004e4390(int regEsi)
 
 {
   int iVar1;
   int in_EAX;
   char *pcVar2;
-  int unaff_ESI;
   int unaff_EDI;
   
-  if ((-1 < unaff_EDI) && (iVar1 = *(int *)(unaff_ESI + 0x18), unaff_EDI < iVar1)) {
-    if (*(int *)(unaff_ESI + 0x1c) <= in_EAX) {
-      in_EAX = *(int *)(unaff_ESI + 0x1c) + -1;
+  if ((-1 < unaff_EDI) && (iVar1 = *(int *)(regEsi + 0x18), unaff_EDI < iVar1)) {
+    if (*(int *)(regEsi + 0x1c) <= in_EAX) {
+      in_EAX = *(int *)(regEsi + 0x1c) + -1;
     }
-    pcVar2 = (char *)(iVar1 * in_EAX + *(int *)(unaff_ESI + 0x34) + unaff_EDI);
+    pcVar2 = (char *)(iVar1 * in_EAX + *(int *)(regEsi + 0x34) + unaff_EDI);
     while( true ) {
       if (in_EAX < 0) {
         return -10000;

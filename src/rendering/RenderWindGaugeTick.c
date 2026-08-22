@@ -25,7 +25,7 @@ void __fastcall RenderWindGaugeTick(int param_1)
   DrawStageDecorationBase();
   SetClipRect(0, 0x31f, 0x257, 0);
   DrawWindGauge(&DAT_006a647c + g_clientContext);
-  FlushCompositorLayer(1);
+  FlushCompositorLayer(1,(int)&DAT_00f22650);
   return;
 }
 

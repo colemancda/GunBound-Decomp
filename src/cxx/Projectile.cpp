@@ -259,6 +259,7 @@ extern unsigned char DAT_006a773c;      /* "&DAT_xxx + g_clientContext" bases - 
 extern unsigned char DAT_006a7758;      /* declared as 1-byte so that arithmetic */
 extern unsigned char DAT_006a7f70;      /* on them matches the raw port exactly. */
 extern unsigned char DAT_006a7f8c;
+extern unsigned char DAT_006a7f88;
 extern unsigned char DAT_006a7f74;
 /* The camera/terrain-state globals below are ALSO used only as
  * "&sym + g_clientContext" ctx-relative bases (each is really a field in
@@ -280,8 +281,8 @@ extern void *PTR_FUN_0055658c;
 unsigned int EncodeChecksumDeltaAdd(void *cell, void *out, int delta);
 char DecodeGuardedBool(void);
 int  FUN_004510f0(int x);
-int  FUN_00451030(int x);
-int  FUN_004511b0(int x);
+int  FUN_00451030(int x, int regEax);
+int  FUN_004511b0(int x, int regEax);
 void FUN_00436dc0(int a, int b, unsigned int c);
 void FUN_00436bd0(int a, int b, unsigned int c);
 void FUN_00436ec0(int a, int b);
@@ -1079,7 +1080,7 @@ void CProjectile::SimulateFrame(int stepDelta)
             pbVar18 = local_159c->m_pad3d;
             cVar8 = DecodeGuardedBool();
             if (cVar8 != '\0') {
-                iVar12 = FUN_00451030(local_15a4);
+                iVar12 = FUN_00451030(local_15a4,(int)(&DAT_006a7f88 + g_clientContext));
                 *reinterpret_cast<int *>(pCVar17->m_pad3d + 0xf0b) = iVar12;
                 if (iVar12 != 0) {
                     pCVar17->m_pad3d[0xf13] = 0; pCVar17->m_pad3d[0xf14] = 0;
@@ -1111,7 +1112,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 }
             }
             cVar8 = PeekPacketChecksumBool(pCVar17->m_pad3d + 0x38db);
-            if (cVar8 == '\0' && (iVar12 = FUN_004511b0(local_15a4), iVar12 != 0)) {
+            if (cVar8 == '\0' && (iVar12 = FUN_004511b0(local_15a4,(int)(&DAT_006a7f88 + g_clientContext)), iVar12 != 0)) {
                 EnterCriticalSection(&DAT_005a9068);
                 iVar12 = _rand();
                 pCVar17->m_pad3d[0x38db] = (unsigned char)iVar12;
@@ -1278,7 +1279,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 pbVar18 = local_159c->m_pad3d + 0xf0f;
                 cVar8 = DecodeGuardedBool();
                 if (cVar8 != '\0') {
-                    iVar13 = FUN_00451030(local_15b8);
+                    iVar13 = FUN_00451030(local_15b8,(int)(&DAT_006a7f88 + g_clientContext));
                     *reinterpret_cast<int *>(pCVar17->m_pad3d + 0xf0b) = iVar13;
                     if (iVar13 != 0) {
                         pCVar17->m_pad3d[0xf13] = 0; pCVar17->m_pad3d[0xf14] = 0;
@@ -1313,7 +1314,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 }
                 pbVar18 = pCVar17->m_pad3d + 0x38db;
                 cVar8 = PeekPacketChecksumBool(pCVar17->m_pad3d + 0x38db);
-                if (cVar8 == '\0' && (iVar13 = FUN_004511b0(local_15b8), iVar13 != 0)) {
+                if (cVar8 == '\0' && (iVar13 = FUN_004511b0(local_15b8,(int)(&DAT_006a7f88 + g_clientContext)), iVar13 != 0)) {
                     EnterCriticalSection(&DAT_005a9068);
                     iVar13 = _rand();
                     *pbVar18 = (unsigned char)iVar13;

@@ -258,7 +258,7 @@ LAB_004a7499:
         pbVar19 = (byte *)(local_15b0 + 0xf4c);
         cVar10 = DecodeGuardedBool();
         if (cVar10 != '\0') {
-          iVar18 = FUN_00451030(local_15c4);
+          iVar18 = FUN_00451030(local_15c4,(int)(&DAT_006a7f88 + g_clientContext));
           *(int *)(iVar13 + 0xf48) = iVar18;
           if (iVar18 != 0) {
             *(undefined4 *)(iVar13 + 0xf50) = 0;
@@ -296,7 +296,7 @@ LAB_004a7499:
         pbVar19 = (byte *)(iVar13 + 0x3918);
         local_15ac[0] = pbVar19;
         cVar10 = PeekPacketChecksumBool();
-        if ((cVar10 == '\0') && (iVar18 = FUN_004511b0(local_15c4), iVar18 != 0)) {
+        if ((cVar10 == '\0') && (iVar18 = FUN_004511b0(local_15c4,(int)(&DAT_006a7f88 + g_clientContext)), iVar18 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar18 = _rand();
           *pbVar19 = (byte)iVar18;
@@ -492,7 +492,7 @@ LAB_004a7c59:
         pbVar19 = (byte *)(local_15b0 + 0xf4c);
         cVar10 = DecodeGuardedBool();
         if (cVar10 != '\0') {
-          iVar18 = FUN_00451030(local_15b4);
+          iVar18 = FUN_00451030(local_15b4,(int)(&DAT_006a7f88 + g_clientContext));
           *(int *)(iVar13 + 0xf48) = iVar18;
           if (iVar18 != 0) {
             *(undefined4 *)(iVar13 + 0xf50) = 0;
@@ -530,7 +530,7 @@ LAB_004a7c59:
         pbVar19 = (byte *)(iVar13 + 0x3918);
         local_15ac[0] = pbVar19;
         cVar10 = PeekPacketChecksumBool();
-        if ((cVar10 == '\0') && (iVar18 = FUN_004511b0(local_15b4), iVar18 != 0)) {
+        if ((cVar10 == '\0') && (iVar18 = FUN_004511b0(local_15b4,(int)(&DAT_006a7f88 + g_clientContext)), iVar18 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar18 = _rand();
           *pbVar19 = (byte)iVar18;

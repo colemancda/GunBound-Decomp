@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void ComputeShotViewBounds(void)
+void ComputeShotViewBounds(int regEsi)
 
 {
   uint uVar1;
@@ -17,15 +17,14 @@ void ComputeShotViewBounds(void)
   int iVar4;
   uint uVar5;
   uint uVar6;
-  int unaff_ESI;
   int iVar7;
   
   uVar1 = *(uint *)(&DAT_006a7f7c + g_clientContext);
   if (uVar1 == 0) {
-    *(undefined1 *)(unaff_ESI + 0x2c) = 1;
+    *(undefined1 *)(regEsi + 0x2c) = 1;
     return;
   }
-  uVar5 = *(uint *)(unaff_ESI + 8);
+  uVar5 = *(uint *)(regEsi + 8);
   uVar6 = in_EAX;
   if (((int)uVar5 < (int)in_EAX) || (uVar6 = uVar5, (int)uVar5 <= (int)in_EAX)) {
     in_EAX = uVar5;
@@ -49,19 +48,19 @@ void ComputeShotViewBounds(void)
       iVar4 = iVar4 + 6;
     } while (uVar5 < uVar1);
   }
-  *(uint *)(unaff_ESI + 0x24) = in_EAX + 0x96;
-  *(uint *)(unaff_ESI + 0x28) = uVar6 - 0x96;
+  *(uint *)(regEsi + 0x24) = in_EAX + 0x96;
+  *(uint *)(regEsi + 0x28) = uVar6 - 0x96;
   if ((int)(uVar6 - 400) < (int)(in_EAX + 400)) {
     iVar4 = (int)(uVar6 - in_EAX) / 2 + -400 + in_EAX;
-    *(int *)(unaff_ESI + 0x24) = iVar4;
-    *(int *)(unaff_ESI + 0x28) = iVar4 + 800;
+    *(int *)(regEsi + 0x24) = iVar4;
+    *(int *)(regEsi + 0x28) = iVar4 + 800;
   }
-  if ((*(int *)(unaff_ESI + 8) + -300 < (int)in_EAX) && ((int)uVar6 < *(int *)(unaff_ESI + 8) + 300)
+  if ((*(int *)(regEsi + 8) + -300 < (int)in_EAX) && ((int)uVar6 < *(int *)(regEsi + 8) + 300)
      ) {
-    *(undefined1 *)(unaff_ESI + 0x2e) = 1;
+    *(undefined1 *)(regEsi + 0x2e) = 1;
   }
-  iVar4 = *(int *)(unaff_ESI + 0x24);
-  iVar3 = *(int *)(unaff_ESI + 0x18) + -400;
+  iVar4 = *(int *)(regEsi + 0x24);
+  iVar3 = *(int *)(regEsi + 0x18) + -400;
   iVar7 = iVar3;
   if (iVar4 <= iVar3) {
     iVar7 = iVar4;
@@ -72,8 +71,8 @@ void ComputeShotViewBounds(void)
   else if (iVar3 < iVar4) {
     iVar4 = iVar3;
   }
-  *(int *)(unaff_ESI + 0x24) = iVar4;
-  iVar4 = *(int *)(unaff_ESI + 0x28);
+  *(int *)(regEsi + 0x24) = iVar4;
+  iVar4 = *(int *)(regEsi + 0x28);
   iVar7 = iVar3;
   if (iVar4 <= iVar3) {
     iVar7 = iVar4;
@@ -84,10 +83,10 @@ void ComputeShotViewBounds(void)
   else if (iVar4 <= iVar3) {
     iVar3 = iVar4;
   }
-  *(int *)(unaff_ESI + 0x28) = iVar3;
-  *(undefined1 *)(unaff_ESI + 0x2c) = 0;
-  *(undefined1 *)(unaff_ESI + 0x864) = 1;
-  *(undefined1 *)(unaff_ESI + 0x2d) = 1;
+  *(int *)(regEsi + 0x28) = iVar3;
+  *(undefined1 *)(regEsi + 0x2c) = 0;
+  *(undefined1 *)(regEsi + 0x864) = 1;
+  *(undefined1 *)(regEsi + 0x2d) = 1;
   return;
 }
 

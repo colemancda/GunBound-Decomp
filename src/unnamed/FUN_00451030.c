@@ -15,16 +15,15 @@
 #include "ghidra_types.h"
 
 
-int FUN_00451030(int param_1)
+int FUN_00451030(int param_1,int regEax)
 
 {
   uint uVar1;
-  int in_EAX;
   int iVar2;
   int iVar3;
   int iVar4;
   
-  iVar4 = *(int *)(*(int *)(in_EAX + 4) + 0x1c);
+  iVar4 = *(int *)(*(int *)(regEax + 4) + 0x1c);
   uVar1 = *(uint *)(iVar4 + 4);
   while( true ) {
     if (500 < uVar1) {

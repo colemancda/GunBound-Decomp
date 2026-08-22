@@ -212,7 +212,7 @@ LAB_004a1ad6:
           local_4 = 10;
           PeekChecksumStateUnderLock(uVar9);
           PeekChecksumStateUnderLock(iVar13);
-          iVar7 = FUN_004e4390();
+          iVar7 = FUN_004e4390((int)(&DAT_006a7708 + g_clientContext));
           local_4 = 0xffffffff;
           ScrubChecksumGuard();
           uVar9 = EncodeChecksumDeltaAdd(param_1,local_1350,6);
@@ -221,7 +221,7 @@ LAB_004a1ad6:
           SUBFIELD(local_4,0,undefined1) = 0xc;
           PeekChecksumStateUnderLock(uVar9);
           PeekChecksumStateUnderLock(uVar10);
-          iVar8 = FUN_004e4390();
+          iVar8 = FUN_004e4390((int)(&DAT_006a7708 + g_clientContext));
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xb);
           ScrubChecksumGuard();
           local_4 = 0xffffffff;
@@ -232,7 +232,7 @@ LAB_004a1ad6:
           SUBFIELD(local_4,0,undefined1) = 0xe;
           PeekChecksumStateUnderLock(uVar9);
           PeekChecksumStateUnderLock(uVar10);
-          iVar11 = FUN_004e4390();
+          iVar11 = FUN_004e4390((int)(&DAT_006a7708 + g_clientContext));
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xd);
           ScrubChecksumGuard();
           local_4 = 0xffffffff;

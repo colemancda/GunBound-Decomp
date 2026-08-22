@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FlushCompositorLayer(int param_1)
+void FlushCompositorLayer(int param_1,int regEbx)
 
 {
   short sVar1;
@@ -15,20 +15,19 @@ void FlushCompositorLayer(int param_1)
   short *psVar3;
   uint uVar4;
   int iVar5;
-  int unaff_EBX;
   int iVar6;
   undefined4 *puVar7;
   undefined4 *puVar8;
   undefined4 *local_8;
   int local_4;
   
-  if ((DAT_0079352c != 0) && (local_4 = 0, 0 < *(int *)(unaff_EBX + 0x1008))) {
-    local_8 = (undefined4 *)(unaff_EBX + 0x100c);
+  if ((DAT_0079352c != 0) && (local_4 = 0, 0 < *(int *)(regEbx + 0x1008))) {
+    local_8 = (undefined4 *)(regEbx + 0x100c);
     iVar6 = DAT_0079352c;
     do {
       psVar3 = (short *)*local_8;
       iVar5 = 0;
-      if (0 < *(int *)(unaff_EBX + 0x1004)) {
+      if (0 < *(int *)(regEbx + 0x1004)) {
         do {
           if ((char)psVar3[2] == param_1) {
             sVar1 = *psVar3;
@@ -49,12 +48,12 @@ void FlushCompositorLayer(int param_1)
           }
           iVar5 = (int)psVar3[1];
           psVar3 = *(short **)(psVar3 + 6);
-        } while (iVar5 < *(int *)(unaff_EBX + 0x1004));
+        } while (iVar5 < *(int *)(regEbx + 0x1004));
       }
       local_4 = local_4 + 1;
       iVar6 = iVar6 + DAT_005b3620 * 2;
       local_8 = local_8 + 1;
-    } while (local_4 < *(int *)(unaff_EBX + 0x1008));
+    } while (local_4 < *(int *)(regEbx + 0x1008));
   }
   return;
 }

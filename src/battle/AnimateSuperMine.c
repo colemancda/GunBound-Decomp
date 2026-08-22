@@ -495,7 +495,7 @@ LAB_00492ecb:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       uVar3 = PeekPacketChecksumState((void *)(local_ae0 + 0x10));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar4 = FUN_00451030(uVar3);
+      iVar4 = FUN_00451030(uVar3,(int)(&DAT_006a7f88 + g_clientContext));
       if (iVar4 != 0) {
         *(undefined1 *)(piVar7 + 0xfed) = 0;
         *(undefined1 *)(piVar7 + 0xff1) = 1;

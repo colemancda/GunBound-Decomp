@@ -310,7 +310,7 @@ LAB_0048780a:
           puStack_8 = (undefined1 *)0x7;
           PeekChecksumStateUnderLock(uVar5);
           PeekChecksumStateUnderLock(param_1 + 0x3d5);
-          iVar3 = FUN_004e4390();
+          iVar3 = FUN_004e4390((int)(&DAT_006a7708 + g_clientContext));
           puStack_8 = (undefined1 *)0xffffffff;
           ScrubChecksumGuard();
           uVar5 = EncodeChecksumDeltaAdd(param_1 + 0x45e,auStack_ac4,8);

@@ -68,13 +68,13 @@ undefined4 __thiscall QueueSpriteFrameSpans(int param_1,int param_2)
                 }
                 else {
                   if (iVar3 < iVar5) {
-                    QueueCompositorSpan(iVar7,iVar3 + 1,puVar8 + 2);
+                    QueueCompositorSpan(iVar7,iVar3 + 1,puVar8 + 2,(int)&DAT_00f22650);
                     iVar3 = DAT_0056df30;
                     break;
                   }
                   puVar9 = puVar8 + 2;
                 }
-                QueueCompositorSpan(iVar7,iVar5,puVar9);
+                QueueCompositorSpan(iVar7,iVar5,puVar9,(int)&DAT_00f22650);
                 uVar6 = (uint)puVar8[1];
                 iVar3 = DAT_0056df30;
               }

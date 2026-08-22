@@ -58,7 +58,7 @@ void SpawnLightningHazard(undefined4 param_1,int param_2,int param_3,undefined4 
   if (cVar1 == '\0') {
     iVar2 = (int)(param_3 + (param_3 >> 0x1f & 3U)) >> 2;
     for (iVar6 = (param_2 - iVar2) + -5; iVar6 <= iVar2 + 5 + param_2; iVar6 = iVar6 + 1) {
-      iVar3 = FUN_004511b0(iVar6);
+      iVar3 = FUN_004511b0(iVar6,(int)(&DAT_006a7f88 + g_clientContext));
       if (iVar3 != 0) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         EncodeOutgoingPacketField((void *)(iVar3 + 0x488), param_4);

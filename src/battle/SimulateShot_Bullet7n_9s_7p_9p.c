@@ -240,7 +240,7 @@ LAB_0049b2e9:
         }
         cVar9 = DecodeGuardedBool();
         if (cVar9 != '\0') {
-          iVar18 = FUN_00451030(local_15ac);
+          iVar18 = FUN_00451030(local_15ac,(int)(&DAT_006a7f88 + g_clientContext));
           *(int *)(param_1 + 0xf48) = iVar18;
           if (iVar18 != 0) {
             *(undefined4 *)(param_1 + 0xf50) = 0;
@@ -271,7 +271,7 @@ LAB_0049b2e9:
           }
         }
         cVar9 = PeekPacketChecksumBool((byte *)(param_1 + 0x3918));
-        if ((cVar9 == '\0') && (iVar18 = FUN_004511b0(local_15ac), iVar18 != 0)) {
+        if ((cVar9 == '\0') && (iVar18 = FUN_004511b0(local_15ac,(int)(&DAT_006a7f88 + g_clientContext)), iVar18 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar18 = _rand();
           *(byte *)(param_1 + 0x3918) = (byte)iVar18;
@@ -448,7 +448,7 @@ LAB_0049b9fa:
         }
         cVar9 = DecodeGuardedBool();
         if (cVar9 != '\0') {
-          iVar14 = FUN_00451030(local_15b0);
+          iVar14 = FUN_00451030(local_15b0,(int)(&DAT_006a7f88 + g_clientContext));
           *(int *)(param_1 + 0xf48) = iVar14;
           if (iVar14 != 0) {
             *(undefined4 *)(param_1 + 0xf50) = 0;
@@ -483,7 +483,7 @@ LAB_0049b9fa:
           }
         }
         cVar9 = PeekPacketChecksumBool((byte *)(param_1 + 0x3918));
-        if ((cVar9 == '\0') && (iVar14 = FUN_004511b0(local_15b0), iVar14 != 0)) {
+        if ((cVar9 == '\0') && (iVar14 = FUN_004511b0(local_15b0,(int)(&DAT_006a7f88 + g_clientContext)), iVar14 != 0)) {
           EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           iVar14 = _rand();
           *(byte *)(param_1 + 0x3918) = (byte)iVar14;

@@ -8,16 +8,15 @@
 #include "ghidra_types.h"
 
 
-int PanelManager_FindByName(void)
+int PanelManager_FindByName(int regEax)
 
 {
   undefined4 *puVar1;
   int iVar2;
-  int in_EAX;
   int iVar3;
   char *unaff_EBX;
   
-  puVar1 = *(undefined4 **)(in_EAX + 4);
+  puVar1 = *(undefined4 **)(regEax + 4);
   do {
     if (puVar1 == (undefined4 *)0x0) {
       return 0;

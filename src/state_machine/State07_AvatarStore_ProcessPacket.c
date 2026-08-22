@@ -398,7 +398,7 @@ LAB_0044469b:
             }
             FUN_0044c370();
             PeekChecksumStateUnderLock((int)this + 0x3054c);
-            FUN_0044c6a0(g_clientContext + 0x44e20);
+            FUN_0044c6a0(g_clientContext + 0x44e20,1);
             iVar4 = 0;
             local_520 = 0;
             do {
@@ -505,12 +505,12 @@ LAB_00444d76:
         }
         FUN_0044c370();
         PeekChecksumStateUnderLock(iVar4);
-        FUN_0044c6a0(g_clientContext + 0x44e20);
+        FUN_0044c6a0(g_clientContext + 0x44e20,1);
         uVar11 = *(uint *)(g_clientContext + 0x44e34);
         uVar8 = PeekChecksumStateUnderLock(iVar4);
         if (uVar8 < uVar11) {
           PeekChecksumStateUnderLock(iVar4);
-          FUN_0044c6a0(g_clientContext + 0x44e30);
+          FUN_0044c6a0(g_clientContext + 0x44e30,1);
         }
         local_514 = 0;
         local_520 = 0;
