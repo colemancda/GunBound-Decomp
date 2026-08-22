@@ -910,7 +910,7 @@ LAB_004bafd2:
   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
   *puVar3 = 0;
   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-  FUN_0043d6d0();
+  FUN_0043d6d0((int)(&DAT_006a7f70 + g_clientContext));
   BroadcastQueuedEvent((int)&g_replayContext);
   /* self/x/y dropped as ECX/EBX/EDI - confirmed via disassembly at
    * 0x4bb4f0: self is the DirectInput mouse device singleton

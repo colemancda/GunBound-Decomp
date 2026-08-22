@@ -7,20 +7,19 @@
 #include "ghidra_types.h"
 
 
-int FUN_00401c10(void)
+int FUN_00401c10(int regEax)
 
 {
   char cVar1;
   int iVar2;
   int iVar3;
-  int in_EAX;
   int iVar4;
   int unaff_EDI;
   
-  iVar2 = *(int *)(*(int *)(in_EAX + 4) + 0x1c);
+  iVar2 = *(int *)(*(int *)(regEax + 4) + 0x1c);
   iVar4 = 0;
   do {
-    if (iVar2 == *(int *)(in_EAX + 4)) {
+    if (iVar2 == *(int *)(regEax + 4)) {
       return 0;
     }
     iVar3 = *(int *)(iVar2 + 0x10);

@@ -8,14 +8,13 @@
 #include "ghidra_types.h"
 
 
-void HideStoreItemTooltipPanel(void)
+void HideStoreItemTooltipPanel(int regEax)
 
 {
   int iVar1;
-  int in_EAX;
   int *piVar2;
   
-  piVar2 = *(int **)(in_EAX + 4);
+  piVar2 = *(int **)(regEax + 4);
   if (piVar2 != (int *)0x0) {
     while( true ) {
       iVar1 = piVar2[2];

@@ -8,22 +8,21 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004e7d60(int param_1,int param_2)
+void __thiscall FUN_004e7d60(int param_1,int param_2,int regEax)
 
 {
-  int in_EAX;
   
   if (param_2 == -1) {
-    FUN_004e8ad0(*(undefined4 *)(*(int *)(in_EAX + 0x45234) + 4));
-    *(int *)(*(int *)(in_EAX + 0x45234) + 4) = *(int *)(in_EAX + 0x45234);
-    *(undefined4 *)(in_EAX + 0x45238) = 0;
-    *(undefined4 *)*(undefined4 *)(in_EAX + 0x45234) = *(undefined4 *)(in_EAX + 0x45234);
-    *(int *)(*(int *)(in_EAX + 0x45234) + 8) = *(int *)(in_EAX + 0x45234);
+    FUN_004e8ad0(*(undefined4 *)(*(int *)(regEax + 0x45234) + 4));
+    *(int *)(*(int *)(regEax + 0x45234) + 4) = *(int *)(regEax + 0x45234);
+    *(undefined4 *)(regEax + 0x45238) = 0;
+    *(undefined4 *)*(undefined4 *)(regEax + 0x45234) = *(undefined4 *)(regEax + 0x45234);
+    *(int *)(*(int *)(regEax + 0x45234) + 8) = *(int *)(regEax + 0x45234);
     return;
   }
   FUN_004e8a70();
-  if (param_1 != *(int *)(in_EAX + 0x45234)) {
-    FUN_004e87b0(in_EAX + 0x45230,&param_2,param_1);
+  if (param_1 != *(int *)(regEax + 0x45234)) {
+    FUN_004e87b0(regEax + 0x45230,&param_2,param_1);
   }
   return;
 }

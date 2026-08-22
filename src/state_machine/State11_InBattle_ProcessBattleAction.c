@@ -522,7 +522,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
     QueueOutgoingPacketField((int)*(short *)(param_2 + 0x38));
     QueueOutgoingPacketField((int)*(short *)(param_2 + 0x3a));
     SetGuardedBool(*(char *)(param_2 + 0x3c) == '\x01',GB_GUARD_UNRECOVERED);
-    FUN_0043d780(param_2 + 0x3d);
+    FUN_0043d780(param_2 + 0x3d,(int)(&DAT_006a7f70 + g_clientContext));
     cVar2 = FUN_0043c820();
     if (cVar2 == '\x01') {
       *(undefined4 *)((int)piVar7 + 0xbffa) = SUBFIELD(s_ifire_00553b60,0,undefined4);
@@ -1040,7 +1040,7 @@ LAB_004b7fb2:
       QueueOutgoingPacketField((int)*(short *)(param_2 + 0x38));
       QueueOutgoingPacketField((int)*(short *)(param_2 + 0x3a));
       SetGuardedBool(*(char *)(param_2 + 0x3c) == '\x01',GB_GUARD_UNRECOVERED);
-      FUN_0043d780(param_2 + 0x3d);
+      FUN_0043d780(param_2 + 0x3d,(int)(&DAT_006a7f70 + g_clientContext));
       *(undefined1 *)(piVar7 + 0x2ffa) = 0;
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       cVar2 = FUN_0043c820();
@@ -1159,7 +1159,7 @@ LAB_004b7fb2:
       QueueOutgoingPacketField((int)*(short *)(param_2 + 0x38));
       QueueOutgoingPacketField((int)*(short *)(param_2 + 0x3a));
       SetGuardedBool(*(char *)(param_2 + 0x3c) == '\x01',GB_GUARD_UNRECOVERED);
-      FUN_0043d780(param_2 + 0x3d);
+      FUN_0043d780(param_2 + 0x3d,(int)(&DAT_006a7f70 + g_clientContext));
       *(undefined1 *)(piVar7 + 0x2ffa) = 0;
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       cVar2 = FUN_0043c820();

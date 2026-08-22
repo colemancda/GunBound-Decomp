@@ -339,7 +339,7 @@ code_r0x0043cb21:
         (&DAT_006aa62a)[iVar6] = bVar9 + bVar7 + -0x34;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         FUN_00450810();
-        FUN_004f3100();
+        FUN_004f3100((int)(&DAT_006a7f88 + g_clientContext));
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x621e8));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

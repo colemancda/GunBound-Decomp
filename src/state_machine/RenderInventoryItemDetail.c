@@ -98,7 +98,7 @@ void RenderInventoryItemDetail(int param_1)
       pcVar13 = (code *)EnterCriticalSection;
     }
     iVar5 = *(int *)(g_clientContext + 0x44bec);
-    FUN_004f1c00();
+    FUN_004f1c00((int)&DAT_00ea0e18);
     if (iVar5 == 0) {
       (*pcVar13)(&DAT_005a9068);
       iVar5 = _rand();

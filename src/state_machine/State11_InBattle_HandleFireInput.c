@@ -574,7 +574,7 @@ LAB_004606d5:
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
     *puVar2 = 0;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-    FUN_0043d6d0();
+    FUN_0043d6d0((int)(&DAT_006a7f70 + g_clientContext));
     BroadcastQueuedEvent();
     SetGuardedBool(0,GB_GUARD_UNRECOVERED);
     SetGuardedBool(0,GB_GUARD_UNRECOVERED);
@@ -739,7 +739,7 @@ LAB_004606d5:
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         *puVar2 = 0;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-        FUN_0043d6d0();
+        FUN_0043d6d0((int)(&DAT_006a7f70 + g_clientContext));
         BroadcastQueuedEvent();
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);

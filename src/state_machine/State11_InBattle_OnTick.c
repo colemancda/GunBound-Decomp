@@ -505,7 +505,7 @@ LAB_004bdf96:
   (&DAT_006aa62a)[iVar6] = bVar13 + bVar12 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   FUN_004507d0();
-  FUN_004f3100();
+  FUN_004f3100((int)(&DAT_006a7f88 + g_clientContext));
   SortTurnOrderByDelay();
   iVar5 = g_clientContext;
   FUN_004068d0();
@@ -1810,14 +1810,14 @@ LAB_004c0f5c:
         *(undefined4 *)(&DAT_006aab00 + g_clientContext) = 0;
         *puVar1 = 0;
         *(undefined4 *)(&DAT_006a76ec + iVar6) = 0;
-        FUN_004d2130(0xf);
+        FUN_004d2130(0xf,(int *)(&DAT_006a76f4 + g_clientContext));
         iVar6 = g_clientContext;
         (&DAT_006aa624)[g_clientContext] = 0xf;
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar14 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         (&DAT_006a76e8)[iVar6 + iVar14] = 1;
-        FUN_004e7d60(0xc302);
+        FUN_004e7d60(0xc302,(int)&g_replayContext);
         FUN_00423a20();
       }
       pcVar16 = (code *)EnterCriticalSection;

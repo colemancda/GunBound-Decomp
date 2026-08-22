@@ -173,7 +173,7 @@ void ApplyBattleActionToContext(int param_1,int param_2,int param_3)
         (cVar5 = PacketChecksumEquals(g_clientContext + 0x6240c,0xffffffff), cVar5 != '\0')) &&
        (puVar4[0x10bd] == '\0')) {
 LAB_0042326c:
-      FUN_004e7d60(0xffff);
+      FUN_004e7d60(0xffff,(int)&g_replayContext);
       QueueBroadcastEvent(0xc302,(int)&g_replayContext);
       iVar8 = g_clientContext;
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = *(byte *)puVar12;

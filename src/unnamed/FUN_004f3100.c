@@ -8,16 +8,15 @@
 #include "ghidra_types.h"
 
 
-void FUN_004f3100(void)
+void FUN_004f3100(int regEbx)
 
 {
   undefined4 *puVar1;
   undefined4 *puVar2;
-  int unaff_EBX;
   undefined4 *puVar3;
   
-  puVar3 = (undefined4 *)(*(undefined4 **)(unaff_EBX + 4))[7];
-  if (puVar3 != *(undefined4 **)(unaff_EBX + 4)) {
+  puVar3 = (undefined4 *)(*(undefined4 **)(regEbx + 4))[7];
+  if (puVar3 != *(undefined4 **)(regEbx + 4)) {
     do {
       puVar1 = (undefined4 *)puVar3[4];
       while (puVar2 = puVar1, puVar2 != puVar3) {
@@ -29,7 +28,7 @@ void FUN_004f3100(void)
         }
       }
       puVar3 = (undefined4 *)puVar3[7];
-    } while (puVar3 != *(undefined4 **)(unaff_EBX + 4));
+    } while (puVar3 != *(undefined4 **)(regEbx + 4));
   }
   return;
 }

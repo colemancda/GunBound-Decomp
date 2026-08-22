@@ -74,9 +74,17 @@ def classify(entry):
         return "missing"
     src = strip_comments(open(path, errors="replace").read())
     names = NAMES[entry["reg"]]
+    plist = param_list_of(src, entry["func"])
+    # A recovered register is renamed to regEax/regEsi/... as it is promoted,
+    # so the Ghidra local (in_EAX, unaff_ESI, ...) vanishes from the file
+    # entirely.  Test the parameter list for the promoted spelling BEFORE the
+    # "is the old name still present" test, or every recovery is miscounted as
+    # "gone" -- which reads as lost information rather than as work completed.
+    promoted_name = "reg" + entry["reg"][0].upper() + entry["reg"][1:].lower()
+    if re.search(r"\b%s\b" % promoted_name, plist):
+        return "promoted"
     if not any(re.search(r"\b%s\b" % n, src) for n in names):
         return "gone"
-    plist = param_list_of(src, entry["func"])
     if any(re.search(r"\b%s\b" % n, plist) for n in names):
         return "promoted"
     for n in names:

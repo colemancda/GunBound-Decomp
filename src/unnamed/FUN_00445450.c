@@ -506,7 +506,7 @@ LAB_004457e7:
           case 3:
             local_4518 = &DAT_00666d73;
           }
-          FUN_004f1c00();
+          FUN_004f1c00((int)&DAT_00ea0e18);
           PeekChecksumStateUnderLock(iVar3);
           iVar3 = FUN_00426570();
           uVar4 = PeekChecksumStateUnderLock(iVar3 + 0x22c);
@@ -536,7 +536,7 @@ LAB_004457e7:
           }
           *(undefined4 *)(iVar3 + 0x448) = 0;
           RegisterActiveObject(0, 0, (undefined4 *)0);
-          FUN_0040cf80(&DAT_00e9c0fc);
+          FUN_0040cf80(&DAT_00e9c0fc,0);
           local_4 = local_4 & 0xffffff00;
           FUN_004254a0();
         }
@@ -943,7 +943,7 @@ LAB_00446f6d:
         break;
       }
     }
-    FUN_0040cf80(&DAT_00e9c0fc);
+    FUN_0040cf80(&DAT_00e9c0fc,0);
     break;
   case 0x36:
     RenderInventoryItemDetail(param_1);

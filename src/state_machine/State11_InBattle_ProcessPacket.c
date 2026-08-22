@@ -357,7 +357,7 @@ LAB_004b4324:
             iVar8 = iVar6 * 8 + g_clientContext;
             *(undefined4 *)(&DAT_006a7670 + iVar8) = 0;
             *(undefined4 *)((int)(&DAT_006a7670 + iVar8) + 4) = 0;
-            FUN_004d2130(iVar6);
+            FUN_004d2130(iVar6,(int *)(&DAT_006a76f4 + g_clientContext));
             FUN_004261d0();
             local_9a8 = 0xc302;
             FUN_004e8a70();

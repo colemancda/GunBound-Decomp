@@ -191,7 +191,7 @@ char FUN_0040b450(void *cell, unsigned int v);
 void FUN_0043c860(void *base, int *self);
 char FUN_0041eaa0(int a, short b);
 char FUN_0045ec30(void);
-void FUN_0043d6d0(void);
+void FUN_0043d6d0(int regEax);
 void FUN_00464060(void);
 void ClampCursorToRect(void);
 void InvokeWidget(int widgetId, int a);
@@ -1441,7 +1441,7 @@ LAB_00460553:
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
         *puVar2 = 0;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-        FUN_0043d6d0();
+        FUN_0043d6d0((int)(&DAT_006a7f70 + g_clientContext));
         BroadcastQueuedEvent();
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
@@ -1591,7 +1591,7 @@ LAB_00460553:
                 g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
                 *puVar2 = 0;
                 g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-                FUN_0043d6d0();
+                FUN_0043d6d0((int)(&DAT_006a7f70 + g_clientContext));
                 BroadcastQueuedEvent();
                 SetGuardedBool(0,GB_GUARD_UNRECOVERED);
                 SetGuardedBool(0,GB_GUARD_UNRECOVERED);
