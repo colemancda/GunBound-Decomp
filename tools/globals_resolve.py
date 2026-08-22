@@ -72,6 +72,19 @@ def build_map(path=HDR):
         base = int(dat_addr, 16) - int(off, 0)
         out.setdefault(_norm(base), name)
 
+    # 1c. the SUBFIELD offset-macro form, which is what this tree actually
+    #     uses for fields of a sized blob:
+    #       #define DAT_00e9c9c8 SUBFIELD(g_workerThreadBlock, 0x4, uint32_t)
+    #     fixes the blob's base at 0xe9c9c8 - 4.  Same inference as 1b, but
+    #     1b's "&name + off" pattern does not match this spelling.
+    for m in re.finditer(
+            r'^#define\s+_?DAT_(00[0-9a-f]+)\s+SUBFIELD\s*\(\s*'
+            r'([A-Za-z_][A-Za-z0-9_]*)\s*,\s*(0x[0-9a-fA-F]+|\d+)', src, re.M):
+        dat_addr, name, off = m.group(1), m.group(2), m.group(3)
+        if name.startswith('DAT_'):
+            continue
+        out.setdefault(_norm(int(dat_addr, 16) - int(off, 0)), name)
+
     # 1. renames -- these WIN over any DAT_ spelling above.
     #    form A: extern uint32_t g_foo;   /* was DAT_00551cac - ... */
     #    Take the LAST identifier before the ';' -- a greedy type pattern

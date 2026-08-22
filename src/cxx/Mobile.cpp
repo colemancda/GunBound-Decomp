@@ -176,7 +176,8 @@ extern unsigned char g_nCameraBoundX, g_nCameraBoundY;  /* 1-byte ctx bases (&sy
 extern unsigned char DAT_005f3768;     /* 1-byte ctx base */
 extern unsigned char DAT_006a7758;     /* 1-byte ctx base (byte-indexed) */
 extern unsigned int  DAT_007934e4;     /* shared overlay EDIT control singleton (holds an address) */
-extern unsigned char DAT_007a7644;     /* animated cursor object (address taken) */
+extern unsigned char DAT_007a7644[0x1c];/* animated cursor object (address taken);
+                                        * real extent now backed in globals_sized.c */
 extern unsigned char g_abBroadcastEventBuffer;
 extern unsigned int  g_dwBroadcastEventCursor;
 extern const char s_normal_00552230[], s_wnormal_00553618[], s_wmove_00555ca0[];
@@ -903,7 +904,7 @@ LAB_004622cf:
         if (cVar5 != '\0') {
             *reinterpret_cast<unsigned char *>(DAT_007934e4 + 8) = 1;
         }
-        ResolveNamedState(reinterpret_cast<int *>(&DAT_007a7644));
+        ResolveNamedState(reinterpret_cast<int *>(DAT_007a7644));
         uVar9 = DecodeGuardedBool();
         cVar5 = CheckGuardedBoolAnd(uVar9);
         if (cVar5 != '\0' && (cVar5 = PeekPacketChecksumBool((unsigned char *)this + 0x8bae), cVar5 != '\0') &&
@@ -1448,7 +1449,7 @@ LAB_00460553:
         iVar18 = g_clientContext;
         *reinterpret_cast<unsigned char *>(param_1 + 0x2ffa) = 0;
         if ((&DAT_005f2f40)[iVar18] == '\x02') {
-            ResolveNamedState(reinterpret_cast<int *>(&DAT_007a7644));
+            ResolveNamedState(reinterpret_cast<int *>(DAT_007a7644));
             PeekChecksumStateUnderLock(param_1 + 0x1e19);
             ClampCursorToRect();
         }

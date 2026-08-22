@@ -7,14 +7,13 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e9ab0(void)
+void FUN_004e9ab0(undefined4 *regEsi)
 
 {
-  undefined4 *unaff_ESI;
   
   FUN_004e94c0();
-  unaff_ESI[0x4c] = 0;
-  *unaff_ESI = 0;
+  regEsi[0x4c] = 0;
+  *regEsi = 0;
   return;
 }
 

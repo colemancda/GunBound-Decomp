@@ -262,3 +262,45 @@ unsigned char DAT_005b3440[0x40];
  * never got their own DAT_ symbols from Ghidra. Sized 0x10 - the whole
  * header, nothing more is read/written by any known caller. */
 unsigned char g_wordFilterArrayHeader[0x10];
+
+/* Four objects that a dropped register argument pointed at, and which had no
+ * declaration anywhere in the port.  Each was reached through an
+ * uninitialised local -- `undefined4 *unaff_ESI;` -- so the writes below were
+ * landing at whatever address the register happened to hold.  Recovering the
+ * register is only half the fix; it has to point at something.
+ *
+ * Extents were bounded from the original rather than guessed.  A lower bound
+ * comes from the highest field each callee touches; an upper bound comes from
+ * the next address the binary uses as an OBJECT BASE (an address loaded into
+ * a register, as opposed to dereferenced in place as [0xADDR], which is just
+ * a field of the object already in progress).  Where the two meet, the size
+ * is exact rather than generous.
+ *
+ * g_workerThreadBlock (0xe9c9c4, spans exactly to g_wordFilterArrayHeader):
+ *   +0x0  vtable            FUN_0040d1c0 stores &PTR_LAB_005520a4
+ *   +0x4  thread handle     Shutdown.c waits on it (was DAT_00e9c9c8)
+ *   +0x8  event handle      FUN_0040d1c0 calls SetEvent on it (DAT_00e9c9cc)
+ *   +0xc  stop flag         written as a single byte (DAT_00e9c9d0, and it
+ *                           was already declared uint8_t - which is what
+ *                           confirms the layout rather than merely fitting it)
+ *   The upper three fields keep their DAT_ names as offset-macros, the same
+ *   treatment g_wordFilterArrayHeader's fields get, so no existing user of
+ *   those symbols changes.
+ *
+ * DAT_007a7644  0x1c : callee writes [1]..[3]; next object base is
+ *                      g_cursorTexture at 0x7a7660.
+ * DAT_00eb1a78  0x160: callee writes +0x15c; next object base is exactly
+ *                      0x160 higher - an exact fit.
+ * DAT_00f22518  0x138: callee writes [0x4c] (+0x134); next object base is
+ *                      DAT_00f22650, 0x138 higher.
+ *
+ * Two more of these are NOT here.  0xe53698 and its neighbour DAT_00e5369c
+ * sit in the region globals.c already flags as a KNOWN DIVERGENCE (the input
+ * devices modelled as scattered separate globals), and the next object base
+ * above it is 0x5a8 away, so its real extent is not established.  Guessing a
+ * size there would trade a wild write for a silent overlap, which is harder
+ * to find, not easier. */
+unsigned char g_workerThreadBlock[0x18];
+unsigned char DAT_007a7644[0x1c];
+unsigned char DAT_00eb1a78[0x160];
+unsigned char DAT_00f22518[0x138];

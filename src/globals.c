@@ -802,9 +802,8 @@ uint8_t DAT_00e9c108;
 uint8_t DAT_00e9c334[0x18];
 uint8_t DAT_00e9c344;
 uint8_t DAT_00e9c348;
-uint32_t DAT_00e9c9c8;
-uint32_t DAT_00e9c9cc;
-uint8_t DAT_00e9c9d0;
+/* DAT_00e9c9c8/cc/d0 are now offset-macros into g_workerThreadBlock;
+ * their storage lives in globals_sized.c. */
 /* DAT_00e9c9dc/DAT_00e9c9e0: the word-filter AtlArray header's data-ptr and
  * count fields - now offset-macros into g_wordFilterArrayHeader in
  * globals_sized.c (see that file's comment), not independent storage. */

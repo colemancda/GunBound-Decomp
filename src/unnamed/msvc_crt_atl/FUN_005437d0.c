@@ -10,7 +10,7 @@
 void FUN_005437d0(void)
 
 {
-  FUN_0040d1c0();
+  FUN_0040d1c0((undefined4 *)&g_workerThreadBlock);
   return;
 }
 

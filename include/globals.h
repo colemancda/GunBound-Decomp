@@ -964,12 +964,20 @@ extern uint8_t DAT_00e9c108;
 extern uint8_t DAT_00e9c334[0x18]; /* worker-thread control block - see globals.c */
 extern uint8_t DAT_00e9c344;
 extern uint8_t DAT_00e9c348;
-extern uint32_t DAT_00e9c9c8;
-extern uint32_t DAT_00e9c9cc;
-extern uint8_t DAT_00e9c9d0;
+/* The worker-thread control block at 0xe9c9c4 (see globals_sized.c).  Its
+ * three upper fields already had their own DAT_ symbols, so - exactly as with
+ * g_wordFilterArrayHeader just below - they stay as offset-macros into the
+ * blob rather than being renamed, and every existing user keeps compiling. */
+extern unsigned char g_workerThreadBlock[0x18];
+#define DAT_00e9c9c8 SUBFIELD(g_workerThreadBlock, 0x4, uint32_t)
+#define DAT_00e9c9cc SUBFIELD(g_workerThreadBlock, 0x8, uint32_t)
+#define DAT_00e9c9d0 SUBFIELD(g_workerThreadBlock, 0xc, uint8_t)
 extern unsigned char g_wordFilterArrayHeader[0x10]; /* word-filter AtlArray header - see globals_sized.c */
 #define DAT_00e9c9dc SUBFIELD(g_wordFilterArrayHeader, 0, uint32_t)
 #define DAT_00e9c9e0 SUBFIELD(g_wordFilterArrayHeader, 4, uint32_t)
+extern unsigned char DAT_007a7644[0x1c];  /* sized object - see globals_sized.c */
+extern unsigned char DAT_00eb1a78[0x160]; /* sized object - see globals_sized.c */
+extern unsigned char DAT_00f22518[0x138]; /* sized object - see globals_sized.c */
 extern uint8_t DAT_00ea0e18[0x20]; /* global sprite registry - sentinel-list container, see globals.c */
 extern uint32_t DAT_00ea0e1c;
 extern uint32_t DAT_00ea0e28;
