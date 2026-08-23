@@ -4,6 +4,18 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED REGISTERS ANALYSED, NOT APPLIED.  `ret 0`, and FOUR registers are
+ * read before being written: ECX, EBX, ESI and EDI.  At the sole call site
+ * (0x0042590b):
+ *
+ *   ecx = eax, and eax's own last write is a `cmp` -- so its value comes from
+ *         further back than the call-site window reaches
+ *   ebx = [edi + 0x67ec60]    <- context-relative, but through EDI
+ *   esi = 1
+ *   edi is pushed, so its value is live from earlier still
+ *
+ * Only ESI is determined.  One of four is not worth writing.
  */
 #include "ghidra_types.h"
 

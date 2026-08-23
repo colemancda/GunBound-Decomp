@@ -4,6 +4,20 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED REGISTERS ANALYSED, NOT APPLIED.  `ret 4` gives one stack argument;
+ * param_1 (ECX), param_2 (EDX) and ESI, EAX, EDI are all read before being
+ * written.  At the sole call site (0x004e0371):
+ *
+ *   ecx = [esp + 0x38]        <- caller stack local
+ *   edx = [esp + 0x32]        <- caller stack local (unaligned: a word)
+ *   push [esp + 0x10]         <- caller stack local
+ *   esi = 0xe55ce0            -> &g_replayContext
+ *   eax = [ecx + 0x23330]
+ *
+ * Only ESI is expressible.  The port passes one argument, &uStack_f0, which
+ * lands in param_1; whether that is even the right VALUE cannot be settled
+ * while the three spill slots are unnamed.
  */
 #include "ghidra_types.h"
 

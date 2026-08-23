@@ -4,6 +4,24 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED REGISTERS ANALYSED, NOT APPLIED.  `ret 0` puts nothing on the stack,
+ * so param_1 (ECX) and param_2 (EDX) are registers, and EBX and EDI are two
+ * more that Ghidra did not declare.  At the sole call site (0x004113c1):
+ *
+ *   ecx  PHANTOM   -- the entry writes it (`mov ecx,[edi]`) before any read
+ *   edx  = esi, where esi = [esp + 0x10]     <- a caller stack local
+ *   ebx  = 1
+ *   edi  = <something> + 0x6a76f4            <- context-relative
+ *
+ * Blocked on param_2: its value lives in a caller spill slot, and naming a
+ * spill needs a stack-depth model over the CFG that does not exist here (see
+ * tools/guard_dominator_base.py, which resolves 0 of 49 such cases).
+ *
+ * NOT filled with the two known values alone: appending them puts EDI's value
+ * in param_1 and EBX's in param_2, which is what an earlier pass on this
+ * branch did before it was reverted.  Three of four arguments right is not
+ * three quarters correct -- it is wrong, in a shape that looks recovered.
  */
 #include "ghidra_types.h"
 

@@ -142,7 +142,7 @@ LAB_004e58ad:
     if (*(int *)(local_403c + 8) == 0) {
       EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x24a58));
       if (*(int *)(param_1 + 0x24a44) != 0) {
-        puVar3 = (undefined4 *)FUN_004e5c50();
+        puVar3 = (undefined4 *)FUN_004e5c50((int *)(param_1 + 0x24a40),0);
         pcVar5 = acStack_401c;
         for (iVar2 = 0x1001; iVar2 != 0; iVar2 = iVar2 + -1) {
           *(undefined4 *)pcVar5 = *puVar3;

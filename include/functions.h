@@ -1178,7 +1178,7 @@ void SignalConnectRequest(int, char *, int);
 uint __thiscall SendSocketData();
 undefined4 * FUN_004e5bb0();
 void ShutdownConnectionThread();
-int __fastcall FUN_004e5c50();
+int __fastcall FUN_004e5c50(int *param_1,uint regEax);
 uint FUN_004e5c70();
 void FUN_004e5cc0(int regEbx,int regEax);
 undefined4 FUN_004e5d10();
