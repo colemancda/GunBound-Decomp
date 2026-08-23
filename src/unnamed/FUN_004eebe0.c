@@ -10,7 +10,7 @@
  * RETURN VALUE: Ghidra emitted a bare `return;`, but objdump at
  * 0x4eec6b shows the real function ends with `mov eax,esi` before its
  * `ret` - it returns the same object pointer it was passed, which the
- * caller stores into *DAT_00793554. Fixed to match.
+ * caller stores into *g_soundChannels. Fixed to match.
  *
  * No confirmed real name/purpose - referenced by at least one already-
  * ported function under src/. Raw/near-verbatim port of Ghidra's

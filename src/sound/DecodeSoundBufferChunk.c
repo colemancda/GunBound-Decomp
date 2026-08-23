@@ -37,11 +37,11 @@ void __thiscall DecodeSoundBufferChunk(int param_1,int param_2)
   if ((*(int *)(param_1 + 0x50) != 0) && (*(char *)(param_1 + 0x4c) != '\0')) {
     lpCriticalSection = (LPCRITICAL_SECTION)(param_1 + 0x20);
     EnterCriticalSection(lpCriticalSection);
-    if (DAT_00793560 < *(uint *)(param_1 + 0x38)) {
+    if (g_soundChannelCount < *(uint *)(param_1 + 0x38)) {
       LeaveCriticalSection(lpCriticalSection);
       return;
     }
-    piVar3 = *(int **)(DAT_00793558 + *(uint *)(param_1 + 0x38) * 4);
+    piVar3 = *(int **)(g_secondarySoundBuffers + *(uint *)(param_1 + 0x38) * 4);
     uVar14 = 0;
     puVar13 = local_24;
     puVar12 = &local_20;
@@ -52,7 +52,7 @@ void __thiscall DecodeSoundBufferChunk(int param_1,int param_2)
       if (*(int *)(param_1 + 0x50) == 0) {
 LAB_004ef344:
         cVar1 = (char)((uint)puVar13 >> 0x18);
-        piVar3 = *(int **)(DAT_00793558 + *(int *)(param_1 + 0x38) * 4);
+        piVar3 = *(int **)(g_secondarySoundBuffers + *(int *)(param_1 + 0x38) * 4);
         (**(code **)(*piVar3 + 0x4c))(piVar3,puVar12,unaff_EDI,uVar14);
         if (cVar1 == '\0') {
           LeaveCriticalSection(lpCriticalSection);
@@ -86,7 +86,7 @@ LAB_004ef344:
                                      ,param_1 + 0x58,param_1 + 0x8c);
                 *(int *)(param_1 + 0x54) = iVar2;
                 if (iVar2 == 0) {
-                  piVar3 = *(int **)(DAT_00793558 + *(int *)(param_1 + 0x38) * 4);
+                  piVar3 = *(int **)(g_secondarySoundBuffers + *(int *)(param_1 + 0x38) * 4);
                   goto LAB_004ef161;
                 }
                 iVar2 = DecodeMpegAudioFrame(param_1 + 0x58,iVar2,0,0,0,DAT_00588f3c);
@@ -96,7 +96,7 @@ LAB_004ef344:
                 }
               }
 LAB_004ef25f:
-              piVar3 = *(int **)(DAT_00793558 + *(int *)(param_1 + 0x38) * 4);
+              piVar3 = *(int **)(g_secondarySoundBuffers + *(int *)(param_1 + 0x38) * 4);
               (**(code **)(*piVar3 + 0x4c))(piVar3,puVar12,unaff_EDI,uVar14,puVar13);
               goto LAB_004ef285;
             }
@@ -209,21 +209,21 @@ LAB_004ef13b:
           cVar1 = FUN_004eec70();
           uVar6 = DAT_00588f44;
         }
-        piVar3 = *(int **)(DAT_00793558 + *(int *)(param_1 + 0x38) * 4);
+        piVar3 = *(int **)(g_secondarySoundBuffers + *(int *)(param_1 + 0x38) * 4);
 LAB_004ef161:
         (**(code **)(*piVar3 + 0x4c))(piVar3,puVar12,unaff_EDI,uVar14,puVar13);
       }
       LeaveCriticalSection(lpCriticalSection);
-      if (DAT_00793549 != '\0') {
-        (**(code **)(*(int *)*DAT_00793554 + 0xc))();
+      if (g_soundAvailable != '\0') {
+        (**(code **)(*(int *)*g_soundChannels + 0xc))();
         DAT_00793568 = 0;
       }
     }
     else {
 LAB_004ef285:
       LeaveCriticalSection(lpCriticalSection);
-      if (DAT_00793549 != '\0') {
-        (**(code **)(*(int *)*DAT_00793554 + 0xc))();
+      if (g_soundAvailable != '\0') {
+        (**(code **)(*(int *)*g_soundChannels + 0xc))();
         DAT_00793568 = 0;
         return;
       }

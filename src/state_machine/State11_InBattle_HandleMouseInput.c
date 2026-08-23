@@ -163,18 +163,18 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
         }
         if ((0xf8 < uVar9) && (uVar9 < 0x104)) {
           if ((0x59 < uVar17) && (uVar17 < 0x6e)) {
-            bVar19 = DAT_00793549 != '\0';
+            bVar19 = g_soundAvailable != '\0';
             *(undefined4 *)(&DAT_005f2f4c + iVar13) = 0;
             DAT_0079354a = '\0';
             if (bVar19) {
-              (**(code **)(*(int *)*DAT_00793554 + 0xc))();
+              (**(code **)(*(int *)*g_soundChannels + 0xc))();
               DAT_00793568 = 0;
               iVar13 = g_clientContext;
             }
           }
           if ((0x6e < uVar17) && (uVar17 < 0x8c)) {
             if (DAT_0079354a == '\0') {
-              DAT_0079354a = DAT_00793549 != '\0';
+              DAT_0079354a = g_soundAvailable != '\0';
               _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar13 + 0x475c4));
               cVar4 = PlayMusicTrack(1,(byte *)acStack_80);
               iVar13 = g_clientContext;
@@ -191,7 +191,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
           }
           if ((0x8c < uVar17) && (uVar17 < 0xaa)) {
             if (DAT_0079354a == '\0') {
-              DAT_0079354a = DAT_00793549 != '\0';
+              DAT_0079354a = g_soundAvailable != '\0';
               _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar13 + 0x475c4));
               cVar4 = PlayMusicTrack(1,(byte *)acStack_80);
               iVar13 = g_clientContext;
@@ -208,7 +208,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
           }
           if ((0xaa < uVar17) && (uVar17 < 200)) {
             if (DAT_0079354a == '\0') {
-              DAT_0079354a = DAT_00793549 != '\0';
+              DAT_0079354a = g_soundAvailable != '\0';
               _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar13 + 0x475c4));
               cVar4 = PlayMusicTrack(1,(byte *)acStack_80);
               iVar13 = g_clientContext;
@@ -225,7 +225,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
           }
           if ((200 < uVar17) && (uVar17 < 0xe6)) {
             if (DAT_0079354a == '\0') {
-              DAT_0079354a = DAT_00793549 != '\0';
+              DAT_0079354a = g_soundAvailable != '\0';
               _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar13 + 0x475c4));
               cVar4 = PlayMusicTrack(1,(byte *)acStack_80);
               iVar13 = g_clientContext;
@@ -242,7 +242,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
           }
           if ((0xe6 < uVar17) && (uVar17 < 0xfb)) {
             if (DAT_0079354a == '\0') {
-              DAT_0079354a = DAT_00793549 != '\0';
+              DAT_0079354a = g_soundAvailable != '\0';
               _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar13 + 0x475c4));
               cVar4 = PlayMusicTrack(1,(byte *)acStack_80);
               iVar13 = g_clientContext;
@@ -258,7 +258,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
             iVar13 = g_clientContext;
           }
         }
-        uVar14 = DAT_00793560;
+        uVar14 = g_soundChannelCount;
         if ((0x112 < uVar9) && (uVar9 < 0x11e)) {
           if ((0x59 < uVar17) && (uVar17 < 0x6e)) {
             uVar18 = 1;
@@ -266,9 +266,9 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
             DAT_0079354b = 0;
             if (1 < uVar14) {
               do {
-                if (DAT_00793549 != '\0') {
+                if (g_soundAvailable != '\0') {
                   if (uVar18 != 0xffffffff) {
-                    (**(code **)(*(int *)DAT_00793554[uVar18] + 0xc))();
+                    (**(code **)(*(int *)g_soundChannels[uVar18] + 0xc))();
                     iVar13 = g_clientContext;
                   }
                   if (uVar18 == 0) {
@@ -276,35 +276,35 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
                   }
                 }
                 uVar18 = uVar18 + 1;
-              } while (uVar18 < DAT_00793560);
+              } while (uVar18 < g_soundChannelCount);
             }
           }
           if ((0x6e < uVar17) && (uVar17 < 0x8c)) {
-            DAT_0079354b = DAT_00793549 != '\0';
+            DAT_0079354b = g_soundAvailable != '\0';
             *(undefined4 *)(&DAT_005f2f50 + iVar13) = 0x50;
             FUN_004eeb30();
             iVar13 = g_clientContext;
           }
           if ((0x8c < uVar17) && (uVar17 < 0xaa)) {
-            DAT_0079354b = DAT_00793549 != '\0';
+            DAT_0079354b = g_soundAvailable != '\0';
             *(undefined4 *)(&DAT_005f2f50 + iVar13) = 0x5a;
             FUN_004eeb30();
             iVar13 = g_clientContext;
           }
           if ((0xaa < uVar17) && (uVar17 < 200)) {
-            DAT_0079354b = DAT_00793549 != '\0';
+            DAT_0079354b = g_soundAvailable != '\0';
             *(undefined4 *)(&DAT_005f2f50 + iVar13) = 0x5f;
             FUN_004eeb30();
             iVar13 = g_clientContext;
           }
           if ((200 < uVar17) && (uVar17 < 0xe6)) {
-            DAT_0079354b = DAT_00793549 != '\0';
+            DAT_0079354b = g_soundAvailable != '\0';
             *(undefined4 *)(&DAT_005f2f50 + iVar13) = 0x62;
             FUN_004eeb30();
             iVar13 = g_clientContext;
           }
           if ((0xe6 < uVar17) && (uVar17 < 0xfb)) {
-            DAT_0079354b = DAT_00793549 != '\0';
+            DAT_0079354b = g_soundAvailable != '\0';
             *(undefined4 *)(&DAT_005f2f50 + iVar13) = 100;
             FUN_004eeb30();
             iVar13 = g_clientContext;

@@ -34,7 +34,7 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 /* Calling-convention cast mismatch (see file header pattern #2): the two
- * vtable calls below on DAT_00793554[]'s channel objects (slot +0xc) were
+ * vtable calls below on g_soundChannels[]'s channel objects (slot +0xc) were
  * decompiled by Ghidra as bare no-arg `code()` calls, silently dropping the
  * channel object pointer that the original passes as `this` in ECX with no
  * stack args at all (confirmed via objdump -d -Mintel
@@ -100,26 +100,26 @@ int InitGame(undefined4 param_1,undefined4 param_2)
         InitDirectInput(param_2);
         LoadBitmapFont();
         if ((*(int *)(&DAT_005f2f4c + g_clientContext) == 0) &&
-           (DAT_0079354a = 0, DAT_00793549 != '\0')) {
-          (*(ChannelVtableFn *)(*(int *)*DAT_00793554 + 0xc))(*DAT_00793554);
+           (DAT_0079354a = 0, g_soundAvailable != '\0')) {
+          (*(ChannelVtableFn *)(*(int *)*g_soundChannels + 0xc))(*g_soundChannels);
           DAT_00793568 = 0;
         }
         if (*(int *)(&DAT_005f2f50 + g_clientContext) == 0) {
           uVar3 = 1;
           DAT_0079354b = 0;
-          if (1 < DAT_00793560) {
+          if (1 < g_soundChannelCount) {
             do {
-              if (DAT_00793549 != '\0') {
+              if (g_soundAvailable != '\0') {
                 if (uVar3 != 0xffffffff) {
-                  (*(ChannelVtableFn *)(*(int *)DAT_00793554[uVar3] + 0xc))
-                            (DAT_00793554[uVar3]);
+                  (*(ChannelVtableFn *)(*(int *)g_soundChannels[uVar3] + 0xc))
+                            (g_soundChannels[uVar3]);
                 }
                 if (uVar3 == 0) {
                   DAT_00793568 = 0;
                 }
               }
               uVar3 = uVar3 + 1;
-            } while (uVar3 < DAT_00793560);
+            } while (uVar3 < g_soundChannelCount);
           }
         }
         FUN_004eeb10();

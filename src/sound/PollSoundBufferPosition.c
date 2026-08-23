@@ -16,7 +16,7 @@
  * genuine race between AudioStreamThreadProc's worker thread (spawned
  * via __beginthread partway through construction) and
  * InitDirectSound.c's own later loop that populates
- * DAT_00793558[]/this+0x38 with the per-channel IDirectSoundBuffer
+ * g_secondarySoundBuffers[]/this+0x38 with the per-channel IDirectSoundBuffer
  * index, observed as garbage (stack-address-shaped, not a valid small
  * index) by the time this function first runs. Confirmed unhandled
  * SIGSEGV on this background thread kills the whole Wine process, not
@@ -74,7 +74,7 @@ void __thiscall PollSoundBufferPosition(int param_1)
   if (idx == -1) {
     return;
   }
-  pDSBuffer = ((void **)DAT_00793558)[idx];
+  pDSBuffer = ((void **)g_secondarySoundBuffers)[idx];
   ((GetCurrentPositionFn)VTBL(pDSBuffer, 4))(pDSBuffer, &playCursor, (DWORD *)0);
   halfIndex = *(int *)(param_1 + 0x40);
   bytesPerHalf = DAT_00588f44;

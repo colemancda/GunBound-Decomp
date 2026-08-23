@@ -13,9 +13,9 @@ void FUN_004eeae0(void)
 {
   int unaff_ESI;
   
-  if (DAT_00793549 != '\0') {
+  if (g_soundAvailable != '\0') {
     if (unaff_ESI != -1) {
-      (**(code **)(**(int **)(DAT_00793554 + unaff_ESI * 4) + 0xc))();
+      (**(code **)(**(int **)(g_soundChannels + unaff_ESI * 4) + 0xc))();
     }
     if (unaff_ESI == 0) {
       DAT_00793568 = 0;

@@ -15,7 +15,7 @@ void __fastcall FUN_004ef5b0(int param_1)
   
   EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x20));
   if (*(int *)(param_1 + 0x14) != 0) {
-    piVar1 = *(int **)(DAT_00793558 + *(int *)(param_1 + 0x38) * 4);
+    piVar1 = *(int **)(g_secondarySoundBuffers + *(int *)(param_1 + 0x38) * 4);
     (**(code **)(*piVar1 + 0x48))(piVar1);
     CloseSpriteReadState();
     *(undefined4 *)(param_1 + 0x14) = 0;

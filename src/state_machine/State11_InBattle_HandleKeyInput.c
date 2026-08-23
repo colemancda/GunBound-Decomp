@@ -238,14 +238,14 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     (&DAT_005f2f54)[iVar7] = *(undefined1 *)(param_1 + 0x11c0);
     (&DAT_005f2f55)[iVar7] = *(undefined1 *)(param_1 + 0x11c1);
     if (*(int *)(param_1 + 0x11b8) == 0) {
-      if ((DAT_0079354a != '\0') && (DAT_0079354a = '\0', DAT_00793549 != '\0')) {
-        (**(code **)(*(int *)*DAT_00793554 + 0xc))();
+      if ((DAT_0079354a != '\0') && (DAT_0079354a = '\0', g_soundAvailable != '\0')) {
+        (**(code **)(*(int *)*g_soundChannels + 0xc))();
         DAT_00793568 = 0;
       }
     }
     else {
       if (DAT_0079354a == '\0') {
-        DAT_0079354a = DAT_00793549 != '\0';
+        DAT_0079354a = g_soundAvailable != '\0';
         _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar7 + 0x475c4));
         cVar3 = PlayMusicTrack(1,(byte *)acStack_80);
         if (cVar3 == '\0') {
@@ -442,14 +442,14 @@ LAB_004b8aeb:
     (&DAT_005f2f54)[iVar7] = *(undefined1 *)(param_1 + 0x11c0);
     (&DAT_005f2f55)[iVar7] = *(undefined1 *)(param_1 + 0x11c1);
     if (*(int *)(param_1 + 0x11b8) == 0) {
-      if ((DAT_0079354a != '\0') && (DAT_0079354a = '\0', DAT_00793549 != '\0')) {
-        (**(code **)(*(int *)*DAT_00793554 + 0xc))();
+      if ((DAT_0079354a != '\0') && (DAT_0079354a = '\0', g_soundAvailable != '\0')) {
+        (**(code **)(*(int *)*g_soundChannels + 0xc))();
         DAT_00793568 = 0;
       }
     }
     else {
       if (DAT_0079354a == '\0') {
-        DAT_0079354a = DAT_00793549 != '\0';
+        DAT_0079354a = g_soundAvailable != '\0';
         _sprintf(acStack_80,s_stage_d_mp3_005569c0,(uint)*(byte *)(iVar7 + 0x475c4));
         cVar3 = PlayMusicTrack(1,(byte *)acStack_80);
         if (cVar3 == '\0') {

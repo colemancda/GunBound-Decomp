@@ -65,7 +65,7 @@ public:
     u32     m_unk18;                   /* +0x18: untraced gap */
     u32     m_unk1c;                   /* +0x1c: untraced gap */
     CRITICAL_SECTION m_lock;           /* +0x20..+0x37 (24 bytes) */
-    s32     m_bufferIndex;             /* +0x38: index into DAT_00793558's registry; -1 = none */
+    s32     m_bufferIndex;             /* +0x38: index into g_secondarySoundBuffers's registry; -1 = none */
     u32     m_unk3c[4];                /* +0x3c..+0x4b: untraced gap */
     u8      m_decoding;                /* +0x4c: cleared by Stop() */
     u8      m_pad4d[3];

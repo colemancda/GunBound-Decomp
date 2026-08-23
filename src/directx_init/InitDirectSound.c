@@ -63,26 +63,26 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
     return 0;
   }
   pFVar1 = GetProcAddress(DAT_007935e8,s_DirectSoundCreate8_005574ac);
-  DAT_0079355c = param_1;
+  g_soundWindow = param_1;
   /* original: ESI=sound-archive singleton (0xea0f50), path in ECX
    * (=param_1), writeFlag 1, param_3 0. Bring-up routes it through the
    * shared scratch archive. */
   OpenXFSArchive(&g_xfsScratch,(LPCSTR)param_1,1,0);
-  DAT_00793560 = 0x1f;
+  g_soundChannelCount = 0x1f;
   if (param_2 < 0x20) {
-    DAT_00793560 = param_2;
+    g_soundChannelCount = param_2;
   }
-  /* DirectSoundCreate8(pcGuidDevice=NULL, ppDS8=&DAT_0079354c, pUnkOuter=NULL).
+  /* DirectSoundCreate8(pcGuidDevice=NULL, ppDS8=&g_directSound, pUnkOuter=NULL).
    * Ghidra emitted this as an argless `(*pFVar1)()`; the real argument push
    * order was recovered from the original at 0x4ee619-0x4ee622 (push NULL /
-   * &DAT_0079354c / NULL). Without the args, DAT_0079354c never gets a valid
+   * &g_directSound / NULL). Without the args, g_directSound never gets a valid
    * IDirectSound8 pointer written into it, and the very next line's vtable
-   * dereference (*DAT_0079354c) reads NULL/garbage and calls through it. */
+   * dereference (*g_directSound) reads NULL/garbage and calls through it. */
   iVar2 = ((HRESULT (WINAPI *)(GUID *, void **, IUnknown *))pFVar1)
-              (NULL, (void **)&DAT_0079354c, NULL);
+              (NULL, (void **)&g_directSound, NULL);
   if (-1 < iVar2) {
-    iVar2 = ((SetCooperativeLevelFn)VTBL(DAT_0079354c, 6))
-                (DAT_0079354c, (HWND)DAT_0079355c, 2);
+    iVar2 = ((SetCooperativeLevelFn)VTBL(g_directSound, 6))
+                (g_directSound, (HWND)g_soundWindow, 2);
     if (-1 < iVar2) {
       /* Primary buffer: DSBUFFERDESC{dwSize=sizeof, dwFlags=
        * DSBCAPS_PRIMARYBUFFER|DSBCAPS_CTRLVOLUME=0x81}, rest zeroed.
@@ -92,8 +92,8 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
       ZeroMemory(&primaryDesc, sizeof(primaryDesc));
       primaryDesc.dwSize = sizeof(primaryDesc);
       primaryDesc.dwFlags = DSBCAPS_PRIMARYBUFFER | DSBCAPS_CTRLVOLUME;
-      iVar2 = ((CreateSoundBufferFn)VTBL(DAT_0079354c, 3))
-                  (DAT_0079354c, &primaryDesc, (void **)&DAT_00793550, 0);
+      iVar2 = ((CreateSoundBufferFn)VTBL(g_directSound, 3))
+                  (g_directSound, &primaryDesc, (void **)&g_primarySoundBuffer, 0);
       if (-1 < iVar2) {
         /* WAVEFORMATEX for the primary buffer's SetFormat (vtbl slot 0xe).
          * Ghidra already recognized uStack_60/iStack_5c/iStack_58/uStack_54
@@ -107,10 +107,10 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
         waveFmt.nBlockAlign = (DAT_00588f40 >> 3) * (short)_DAT_00588f38;
         waveFmt.wBitsPerSample = DAT_00588f40;
         waveFmt.cbSize = 0;
-        ((SetFormatFn)VTBL(DAT_00793550, 0xe))(DAT_00793550, &waveFmt);
-        ((PlayFn)VTBL(DAT_00793550, 0xc))(DAT_00793550,0,0,1);
-        DAT_00793554 = operator_new(DAT_00793560 * 4);
-        DAT_00793558 = operator_new(DAT_00793560 * 4);
+        ((SetFormatFn)VTBL(g_primarySoundBuffer, 0xe))(g_primarySoundBuffer, &waveFmt);
+        ((PlayFn)VTBL(g_primarySoundBuffer, 0xc))(g_primarySoundBuffer,0,0,1);
+        g_soundChannels = operator_new(g_soundChannelCount * 4);
+        g_secondarySoundBuffers = operator_new(g_soundChannelCount * 4);
         pvVar3 = operator_new(0xb8);
         if (pvVar3 == (void *)0x0) {
           uVar4 = 0;
@@ -118,9 +118,9 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
         else {
           uVar4 = (undefined4)FUN_004eebe0(pvVar3);
         }
-        *DAT_00793554 = uVar4;
+        *g_soundChannels = uVar4;
         uVar5 = 1;
-        if (1 < DAT_00793560) {
+        if (1 < g_soundChannelCount) {
           do {
             pvVar3 = operator_new(0x50);
             if (pvVar3 == (void *)0x0) {
@@ -129,9 +129,9 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
             else {
               uVar4 = (undefined4)FUN_004ef3a0(pvVar3);
             }
-            DAT_00793554[uVar5] = uVar4;
+            g_soundChannels[uVar5] = uVar4;
             uVar5 = uVar5 + 1;
-          } while (uVar5 < DAT_00793560);
+          } while (uVar5 < g_soundChannelCount);
         }
         /* Secondary (per-channel) buffers: DSBUFFERDESC{dwSize=sizeof,
          * dwBufferBytes=2*DAT_00588f44, lpwfxFormat=&waveFmt}, dwFlags set
@@ -144,15 +144,15 @@ undefined4 InitDirectSound(undefined4 param_1,uint param_2,undefined4 param_3)
         secondaryDesc.dwBufferBytes = DAT_00588f44 * 2;
         secondaryDesc.lpwfxFormat = &waveFmt;
         uVar5 = 0;
-        if (DAT_00793560 != 0) {
+        if (g_soundChannelCount != 0) {
           do {
             secondaryDesc.dwFlags = (-(uint)(uVar5 != 0) & 0xffffffe0) + 0x1a2;
-            ((CreateSoundBufferFn)VTBL(DAT_0079354c, 3))
-                      (DAT_0079354c,&secondaryDesc,(void **)((int)DAT_00793558 + uVar5 * 4),0);
+            ((CreateSoundBufferFn)VTBL(g_directSound, 3))
+                      (g_directSound,&secondaryDesc,(void **)((int)g_secondarySoundBuffers + uVar5 * 4),0);
             uVar5 = uVar5 + 1;
-          } while (uVar5 < DAT_00793560);
+          } while (uVar5 < g_soundChannelCount);
         }
-        DAT_00793549 = 1;
+        g_soundAvailable = 1;
         DAT_0079354b = 1;
         DAT_0079354a = 1;
         return 1;

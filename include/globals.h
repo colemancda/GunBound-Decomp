@@ -714,18 +714,31 @@ extern uint32_t g_screenSurface;
 extern uint32_t g_clipMinX;
 extern uint32_t g_clipMinY;
 extern uint32_t DAT_00793544;
-extern uint8_t DAT_00793549;
+/* g_soundAvailable (was DAT_00793549) - set to 1 on InitDirectSound's
+ * success path, immediately before `return 1`, and checked before every
+ * channel dispatch in the sound and battle code. */
+extern uint8_t g_soundAvailable;
 extern uint8_t DAT_0079354a;
 extern uint8_t DAT_0079354b;
-extern int *DAT_0079354c; /* used dereferenced as a vtable-bearing ptr at call sites */
-extern int *DAT_00793550; /* used dereferenced as a vtable-bearing ptr at call sites */
-extern void **DAT_00793554; /* heap array of channel object ptrs: allocated
-                             * (operator_new) and freed in InitDirectSound /
-                             * FUN_004ee850, indexed by InitGame and others -
-                             * a pointer, not a fixed [16] array */
-extern int *DAT_00793558; /* used dereferenced as a vtable-bearing ptr at call sites */
-extern uint32_t DAT_0079355c;
-extern uint32_t DAT_00793560;
+/* The DirectSound singletons, all established by InitDirectSound:
+ *   g_directSound (was DAT_0079354c) - the IDirectSound8, DirectSoundCreate8's
+ *     ppDS8 out-parameter; every use is VTBL(g_directSound, n)
+ *   g_primarySoundBuffer (was DAT_00793550) - the PRIMARY buffer, created from
+ *     primaryDesc and then SetFormat'd and Play'd once
+ *   g_soundChannels (was DAT_00793554) - heap array of channel object ptrs,
+ *     operator_new'd and freed in InitDirectSound / FUN_004ee850, indexed
+ *     0..g_soundChannelCount-1.  A pointer, not a fixed [16] array.
+ *   g_secondarySoundBuffers (was DAT_00793558) - the parallel array of
+ *     secondary buffers, operator_new(g_soundChannelCount * 4) */
+extern int *g_directSound;
+extern int *g_primarySoundBuffer;
+extern void **g_soundChannels;
+extern int *g_secondarySoundBuffers;
+/* g_soundWindow (was DAT_0079355c) - the HWND handed to
+ * IDirectSound::SetCooperativeLevel. */
+extern uint32_t g_soundWindow;
+/* g_soundChannelCount (was DAT_00793560) - bounds both channel arrays. */
+extern uint32_t g_soundChannelCount;
 extern uint8_t DAT_00793568;
 extern uint32_t DAT_007935e8;
 extern uint32_t DAT_007935ec;

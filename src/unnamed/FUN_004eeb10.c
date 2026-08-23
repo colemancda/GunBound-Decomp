@@ -11,8 +11,8 @@
 void __fastcall FUN_004eeb10(undefined4 param_1,int param_2)
 
 {
-  if (DAT_00793549 != '\0') {
-    (**(code **)(*(int *)*DAT_00793558 + 0x3c))((int *)*DAT_00793558,(param_2 + -100) * 100);
+  if (g_soundAvailable != '\0') {
+    (**(code **)(*(int *)*g_secondarySoundBuffers + 0x3c))((int *)*g_secondarySoundBuffers,(param_2 + -100) * 100);
   }
   return;
 }

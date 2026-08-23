@@ -231,8 +231,8 @@ void SpawnSuperShot(char owner, int a, int b, int c, unsigned int d, unsigned in
  * the "2-arg peek" was the real 1-arg peek of this+0xbfcd whose neighbouring
  * pushes belonged to SpawnPrimaryShot's args 12-13 (wind, shot index).  See
  * memory spawnprimaryshot-13-args and the caller sweep of the same day. */
-extern char DAT_00793549, DAT_00793568;
-extern int  DAT_00793554;
+extern char g_soundAvailable, DAT_00793568;
+extern int  g_soundChannels;
 extern unsigned char DAT_00794e48, DAT_007949c8;
 extern unsigned char DAT_005f376c;
 }
@@ -1820,9 +1820,9 @@ void CMobile::Mobile00_MainAction(int animEvent, int subType)
         break;
     default:
         iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-        if (DAT_00793549 != '\0') {
+        if (g_soundAvailable != '\0') {
             if (iVar1 != -1) {
-                int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+                int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar1 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
             }
             if (iVar1 == 0) {
@@ -2016,9 +2016,9 @@ void CMobile::Mobile01_MainAction(int animEvent, int subType)
         break;
     default:
         iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-        if (DAT_00793549 != '\0') {
+        if (g_soundAvailable != '\0') {
             if (iVar1 != -1) {
-                int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+                int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar1 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
             }
             if (iVar1 == 0) {
@@ -2372,9 +2372,9 @@ LAB_0048d68d:
     }
   default:
     iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar1 != -1) {
-        int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+        int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar1 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
       }
       if (iVar1 == 0) {
@@ -2432,9 +2432,9 @@ void CMobile::Mobile03_MainAction(int animEvent, int subType)
     break;
   default:
     iVar3 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar3 != -1) {
-        int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar3 * 4);
+        int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar3 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
       }
       if (iVar3 == 0) {
@@ -2700,9 +2700,9 @@ void CMobile::Mobile05_MainAction(int animEvent, int subType)
     break;
   default:
     iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar1 != -1) {
-        int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+        int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar1 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
       }
       if (iVar1 == 0) {
@@ -3013,9 +3013,9 @@ void CMobile::Mobile07_MainAction(int animEvent, int subType)
     break;
   default:
     iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar1 != -1) {
-        int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+        int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar1 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
       }
       if (iVar1 == 0) {
@@ -3222,9 +3222,9 @@ void CMobile::Mobile08_MainAction(int animEvent, int subType)
     break;
   default:
     iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar1 != -1) {
-        int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+        int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar1 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
       }
       if (iVar1 == 0) {
@@ -3432,9 +3432,9 @@ void CMobile::Mobile09_MainAction(int animEvent, int subType)
     break;
   default:
     iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar1 != -1) {
-        int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+        int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar1 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
       }
       if (iVar1 == 0) {
@@ -3789,9 +3789,9 @@ LAB_004762dd:
     }
   default:
     iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar1 != -1) {
-        int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+        int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar1 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
       }
       if (iVar1 == 0) {
@@ -3845,9 +3845,9 @@ void CMobile::Mobile11_MainAction(int animEvent, int subType)
     break;
   default:
     iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar1 != -1) {
-        int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+        int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar1 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
       }
       if (iVar1 == 0) {
@@ -4076,9 +4076,9 @@ void CMobile::Mobile14_MainAction(int animEvent, int subType)
     break;
   default:
     iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar1 != -1) {
-        int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+        int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar1 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
       }
       if (iVar1 == 0) {
@@ -4531,9 +4531,9 @@ LAB_0046735a:
   default:
 switchD_0046700f_caseD_2:
     iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar1 != -1) {
-        int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+        int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar1 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
       }
       if (iVar1 == 0) {
@@ -4602,9 +4602,9 @@ void CMobile::Mobile13_MainAction(int animEvent, int subType)
     break;
   default:
     iVar1 = *reinterpret_cast<int *>(this->m_padae22 + 0x282);
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar1 != -1) {
-        int *obj = *reinterpret_cast<int **>(DAT_00793554 + iVar1 * 4);
+        int *obj = *reinterpret_cast<int **>(g_soundChannels + iVar1 * 4);
                 (*reinterpret_cast<void (**)()>(*obj + 0xc))();
       }
       if (iVar1 == 0) {

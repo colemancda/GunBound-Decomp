@@ -291,8 +291,8 @@ LAB_004bdd1c:
     iVar6 = *(int *)(&DAT_006a64b4 + g_clientContext);
     iVar5 = g_clientContext;
     if (iVar6 != -1) {
-      if ((DAT_00793549 != '\0') &&
-         ((**(code **)(**(int **)(DAT_00793554 + iVar6 * 4) + 0xc))(), iVar6 == 0)) {
+      if ((g_soundAvailable != '\0') &&
+         ((**(code **)(**(int **)(g_soundChannels + iVar6 * 4) + 0xc))(), iVar6 == 0)) {
         DAT_00793568 = 0;
       }
       iVar5 = g_clientContext;

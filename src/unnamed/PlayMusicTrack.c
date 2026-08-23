@@ -16,10 +16,10 @@
  * Both vtable calls were also CALLING-CONVENTION CAST MISMATCHES (raw
  * `code**` cdecl cast on what's actually a __fastcall(this) callee) -
  * confirmed by disassembling 0x4eea9e-0x4eead2:
- *   +0xc slot: `mov ecx,[*DAT_00793554]; mov edx,[ecx]; call [edx+0xc]`
+ *   +0xc slot: `mov ecx,[*g_soundChannels]; mov edx,[ecx]; call [edx+0xc]`
  *     with NO stack push at all - __fastcall(this) taking zero other
  *     args, same vtable slot/shape as InitGame.c's ChannelVtableFn.
- *   +0x8 slot: `mov ecx,[*DAT_00793554]; ...; push param_1; push edi;
+ *   +0x8 slot: `mov ecx,[*g_soundChannels]; ...; push param_1; push edi;
  *     push 0x0; call [edx+8]` - __fastcall(this) plus 3 cdecl-style
  *     stack args (0, track-name pointer, param_1), this in ECX. The old
  *     code passed the this pointer nowhere and only pushed a literal 0,
@@ -77,7 +77,7 @@ LAB_004eea94:
       if (iVar4 == 0) {
         return 1;
       }
-      (*(ChannelStopFn *)(*(int *)*DAT_00793554 + 0xc))(*DAT_00793554);
+      (*(ChannelStopFn *)(*(int *)*g_soundChannels + 0xc))(*g_soundChannels);
       iVar4 = (int)&DAT_00793568 - (int)unaff_EDI;
       pbVar3 = unaff_EDI;
       do {
@@ -85,8 +85,8 @@ LAB_004eea94:
         pbVar3[iVar4] = bVar1;
         pbVar3 = pbVar3 + 1;
       } while (bVar1 != 0);
-      uVar5 = (*(ChannelStartFn *)(*(int *)*DAT_00793554 + 8))
-                        (*DAT_00793554, 0, unaff_EDI, (int)param_1);
+      uVar5 = (*(ChannelStartFn *)(*(int *)*g_soundChannels + 8))
+                        (*g_soundChannels, 0, unaff_EDI, (int)param_1);
       return uVar5;
     }
   }

@@ -17,60 +17,60 @@ void FUN_004ee850(void)
   uint uVar3;
   
   uVar3 = 0;
-  if (DAT_00793560 != 0) {
+  if (g_soundChannelCount != 0) {
     do {
-      if (DAT_00793549 != '\0') {
+      if (g_soundAvailable != '\0') {
         if (uVar3 != 0xffffffff) {
-          (**(code **)(**(int **)((int)DAT_00793554 + uVar3 * 4) + 0xc))();
+          (**(code **)(**(int **)((int)g_soundChannels + uVar3 * 4) + 0xc))();
         }
         if (uVar3 == 0) {
           DAT_00793568 = 0;
         }
       }
       uVar3 = uVar3 + 1;
-    } while (uVar3 < DAT_00793560);
+    } while (uVar3 < g_soundChannelCount);
   }
-  if (DAT_0079354c != (int *)0x0) {
+  if (g_directSound != (int *)0x0) {
     uVar3 = 0;
-    if (DAT_00793560 != 0) {
+    if (g_soundChannelCount != 0) {
       do {
-        if (DAT_00793554 != (void *)0x0) {
-          (**(code **)(**(int **)((int)DAT_00793554 + uVar3 * 4) + 0xc))();
-          iVar1 = *(int *)((int)DAT_00793554 + uVar3 * 4);
+        if (g_soundChannels != (void *)0x0) {
+          (**(code **)(**(int **)((int)g_soundChannels + uVar3 * 4) + 0xc))();
+          iVar1 = *(int *)((int)g_soundChannels + uVar3 * 4);
           *(undefined1 *)(iVar1 + 0x10) = 0;
           SetEvent(*(HANDLE *)(iVar1 + 8));
           if (*(HANDLE *)(iVar1 + 4) != (HANDLE)0x0) {
             WaitForSingleObject(*(HANDLE *)(iVar1 + 4),1000);
           }
-          _Memory = *(void **)((int)DAT_00793554 + uVar3 * 4);
+          _Memory = *(void **)((int)g_soundChannels + uVar3 * 4);
           if (_Memory != (void *)0x0) {
             FUN_004ef3f0(_Memory);
             _free(_Memory);
           }
         }
-        if (DAT_00793558 != (void *)0x0) {
-          piVar2 = *(int **)((int)DAT_00793558 + uVar3 * 4);
+        if (g_secondarySoundBuffers != (void *)0x0) {
+          piVar2 = *(int **)((int)g_secondarySoundBuffers + uVar3 * 4);
           (**(code **)(*piVar2 + 8))(piVar2);
-          *(undefined4 *)((int)DAT_00793558 + uVar3 * 4) = 0;
+          *(undefined4 *)((int)g_secondarySoundBuffers + uVar3 * 4) = 0;
         }
         uVar3 = uVar3 + 1;
-      } while (uVar3 < DAT_00793560);
+      } while (uVar3 < g_soundChannelCount);
     }
-    if (DAT_00793554 != (void *)0x0) {
-      _free(DAT_00793554);
-      DAT_00793554 = (void *)0x0;
+    if (g_soundChannels != (void *)0x0) {
+      _free(g_soundChannels);
+      g_soundChannels = (void *)0x0;
     }
-    if (DAT_00793558 != (void *)0x0) {
-      _free(DAT_00793558);
-      DAT_00793558 = (void *)0x0;
+    if (g_secondarySoundBuffers != (void *)0x0) {
+      _free(g_secondarySoundBuffers);
+      g_secondarySoundBuffers = (void *)0x0;
     }
-    if (DAT_00793550 != (int *)0x0) {
-      (**(code **)(*DAT_00793550 + 0x48))(DAT_00793550);
-      (**(code **)(*DAT_00793550 + 8))(DAT_00793550);
-      DAT_00793550 = (int *)0x0;
+    if (g_primarySoundBuffer != (int *)0x0) {
+      (**(code **)(*g_primarySoundBuffer + 0x48))(g_primarySoundBuffer);
+      (**(code **)(*g_primarySoundBuffer + 8))(g_primarySoundBuffer);
+      g_primarySoundBuffer = (int *)0x0;
     }
-    (**(code **)(*DAT_0079354c + 8))(DAT_0079354c);
-    DAT_0079354c = (int *)0x0;
+    (**(code **)(*g_directSound + 8))(g_directSound);
+    g_directSound = (int *)0x0;
   }
   FUN_004f0d70();
   FreeLibrary(DAT_007935e8);

@@ -34,11 +34,11 @@ void __thiscall FUN_004ef610(int param_1,int param_2)
   if ((*(int *)(param_1 + 0x14) != 0) && (*(char *)(param_1 + 0x4c) != '\0')) {
     lpCriticalSection = (LPCRITICAL_SECTION)(param_1 + 0x20);
     EnterCriticalSection(lpCriticalSection);
-    if (DAT_00793560 < *(uint *)(param_1 + 0x38)) {
+    if (g_soundChannelCount < *(uint *)(param_1 + 0x38)) {
       LeaveCriticalSection(lpCriticalSection);
       return;
     }
-    piVar2 = *(int **)(DAT_00793558 + *(uint *)(param_1 + 0x38) * 4);
+    piVar2 = *(int **)(g_secondarySoundBuffers + *(uint *)(param_1 + 0x38) * 4);
     pLVar1 = &local_18.LockCount;
     cStack_45 = (char)((uint)local_24 >> 0x18);
     local_20 = lpCriticalSection;
@@ -104,7 +104,7 @@ void __thiscall FUN_004ef610(int param_1,int param_2)
           }
         }
       }
-      piVar2 = *(int **)(DAT_00793558 + *(int *)(param_1 + 0x38) * 4);
+      piVar2 = *(int **)(g_secondarySoundBuffers + *(int *)(param_1 + 0x38) * 4);
       (**(code **)(*piVar2 + 0x4c))(piVar2,pLVar1,unaff_EDI,0,local_1c);
       if (cStack_45 == '\0') {
         LeaveCriticalSection(&local_18);

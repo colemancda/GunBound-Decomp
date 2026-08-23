@@ -13,19 +13,19 @@ void FUN_004eeb70(void)
   char in_AL;
   uint uVar1;
   
-  if ((((DAT_00793549 == '\0') || (DAT_0079354b = 1, in_AL == '\0')) &&
-      (DAT_0079354b = 0, in_AL == '\0')) && (uVar1 = 1, 1 < DAT_00793560)) {
+  if ((((g_soundAvailable == '\0') || (DAT_0079354b = 1, in_AL == '\0')) &&
+      (DAT_0079354b = 0, in_AL == '\0')) && (uVar1 = 1, 1 < g_soundChannelCount)) {
     do {
-      if (DAT_00793549 != '\0') {
+      if (g_soundAvailable != '\0') {
         if (uVar1 != 0xffffffff) {
-          (**(code **)(**(int **)(DAT_00793554 + uVar1 * 4) + 0xc))();
+          (**(code **)(**(int **)(g_soundChannels + uVar1 * 4) + 0xc))();
         }
         if (uVar1 == 0) {
           DAT_00793568 = 0;
         }
       }
       uVar1 = uVar1 + 1;
-    } while (uVar1 < DAT_00793560);
+    } while (uVar1 < g_soundChannelCount);
   }
   return;
 }

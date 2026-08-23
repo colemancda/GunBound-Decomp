@@ -704,8 +704,8 @@ LAB_004bd75c:
   }
   iVar7 = *(int *)(&DAT_006a64b4 + iVar7);
   if (iVar7 != -1) {
-    if ((DAT_00793549 != '\0') &&
-       ((**(code **)(**(int **)(DAT_00793554 + iVar7 * 4) + 0xc))(), iVar7 == 0)) {
+    if ((g_soundAvailable != '\0') &&
+       ((**(code **)(**(int **)(g_soundChannels + iVar7 * 4) + 0xc))(), iVar7 == 0)) {
       DAT_00793568 = 0;
     }
     *(undefined4 *)(&DAT_006a64b4 + g_clientContext) = 0xffffffff;

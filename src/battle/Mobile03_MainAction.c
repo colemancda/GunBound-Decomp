@@ -68,9 +68,9 @@ void __thiscall Mobile03_MainAction(int param_1,undefined4 param_2,int param_3)
     break;
   default:
     iVar3 = *(int *)(param_1 + 0xb0a4);
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar3 != -1) {
-        (**(code **)(**(int **)(DAT_00793554 + iVar3 * 4) + 0xc))();
+        (**(code **)(**(int **)(g_soundChannels + iVar3 * 4) + 0xc))();
       }
       if (iVar3 == 0) {
         DAT_00793568 = 0;

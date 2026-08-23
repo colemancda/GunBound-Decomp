@@ -52,8 +52,8 @@ void __fastcall UpdateMobileEmotionState(int *param_1)
    * Same rationale as entry/InitGame.c - see src/README.md. */
   iVar6 = param_1[0x2c29];
   if (iVar6 != -1) {
-    if ((DAT_00793549 != '\0') &&
-       ((**(code **)(**(int **)(DAT_00793554 + iVar6 * 4) + 0xc))(), iVar6 == 0)) {
+    if ((g_soundAvailable != '\0') &&
+       ((**(code **)(**(int **)(g_soundChannels + iVar6 * 4) + 0xc))(), iVar6 == 0)) {
       DAT_00793568 = 0;
     }
     param_1[0x2c29] = -1;

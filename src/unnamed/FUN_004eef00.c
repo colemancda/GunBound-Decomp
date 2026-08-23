@@ -14,7 +14,7 @@ void __fastcall FUN_004eef00(int param_1)
   
   EnterCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x20));
   if (*(int *)(param_1 + 0x50) != 0) {
-    piVar1 = *(int **)(DAT_00793558 + *(int *)(param_1 + 0x38) * 4);
+    piVar1 = *(int **)(g_secondarySoundBuffers + *(int *)(param_1 + 0x38) * 4);
     (**(code **)(*piVar1 + 0x48))(piVar1);
     _free(*(void **)(param_1 + 0x98));
     _free(*(void **)(param_1 + 0xa8));

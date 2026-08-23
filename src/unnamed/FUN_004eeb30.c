@@ -14,12 +14,12 @@ void __fastcall FUN_004eeb30(int param_1)
   int *piVar1;
   uint uVar2;
   
-  if ((DAT_00793549 != '\0') && (uVar2 = 1, 1 < DAT_00793560)) {
+  if ((g_soundAvailable != '\0') && (uVar2 = 1, 1 < g_soundChannelCount)) {
     do {
-      piVar1 = *(int **)(DAT_00793558 + uVar2 * 4);
+      piVar1 = *(int **)(g_secondarySoundBuffers + uVar2 * 4);
       (**(code **)(*piVar1 + 0x3c))(piVar1,(param_1 + -100) * 100);
       uVar2 = uVar2 + 1;
-    } while (uVar2 < DAT_00793560);
+    } while (uVar2 < g_soundChannelCount);
   }
   return;
 }

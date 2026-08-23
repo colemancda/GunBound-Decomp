@@ -6,7 +6,7 @@ extern "C" {
 extern void *PTR_LAB_005574e0[4];
 extern void *PTR_LAB_005574e8[5];
 extern void *PTR_LAB_005574cc[7];
-extern int  *DAT_00793558;   /* registry of "stream reader" handles, indexed by m_bufferIndex */
+extern int  *g_secondarySoundBuffers;   /* registry of "stream reader" handles, indexed by m_bufferIndex */
 extern u32   DAT_00588f44;   /* default volume/pan-ish constant poked into new primary channels */
 void FUN_004ef870(void *arg);        /* __beginthread thunk -> AudioStreamThreadProc (0x4ef870) */
 void CloseSpriteReadState(void);     /* shared stream-reader teardown, despite the sprite-ish name */
@@ -48,7 +48,7 @@ void CSoundChannel::Stop()
 {
     EnterCriticalSection(&m_lock);
     if (m_unk14 != 0) {
-        int *reader = (int *)DAT_00793558[m_bufferIndex];
+        int *reader = (int *)g_secondarySoundBuffers[m_bufferIndex];
         (*(void (__stdcall **)(int *))(*(int *)reader + 0x48))(reader);
         CloseSpriteReadState();
         m_unk14 = 0;
@@ -84,7 +84,7 @@ void CPrimaryStreamChannel::Stop()
 {
     EnterCriticalSection(&m_lock);
     if (m_streamActive != 0) {
-        int *reader = (int *)DAT_00793558[m_bufferIndex];
+        int *reader = (int *)g_secondarySoundBuffers[m_bufferIndex];
         (*(void (__stdcall **)(int *))(*(int *)reader + 0x48))(reader);
         free(m_buffer1);
         free(m_buffer2);

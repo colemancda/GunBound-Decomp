@@ -20,9 +20,9 @@ void FUN_0047fa50(undefined4 *param_1)
   *param_1 = &PTR_FUN_00556110;
   local_4 = 0;
   iVar1 = param_1[0xff0];
-  if (DAT_00793549 != '\0') {
+  if (g_soundAvailable != '\0') {
     if (iVar1 != -1) {
-      (**(code **)(**(int **)(DAT_00793554 + iVar1 * 4) + 0xc))();
+      (**(code **)(**(int **)(g_soundChannels + iVar1 * 4) + 0xc))();
     }
     if (iVar1 == 0) {
       DAT_00793568 = 0;

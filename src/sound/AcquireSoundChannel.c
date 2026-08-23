@@ -60,14 +60,14 @@ uint AcquireSoundChannel(char *soundName,int flag)
     } while (cVar2 != '\0');
     if (unaff_EDI != pcVar1) {
       uVar3 = 1;
-      if (1 < DAT_00793560) {
+      if (1 < g_soundChannelCount) {
         do {
-          if (*(char *)(*(int *)(DAT_00793554 + uVar3 * 4) + 0x4c) == '\0') break;
+          if (*(char *)(*(int *)(g_soundChannels + uVar3 * 4) + 0x4c) == '\0') break;
           uVar3 = uVar3 + 1;
-        } while (uVar3 < DAT_00793560);
+        } while (uVar3 < g_soundChannelCount);
       }
-      if (uVar3 != DAT_00793560) {
-        cVar2 = (**(code **)(**(int **)(DAT_00793554 + uVar3 * 4) + 8))(uVar3,soundName,flag);
+      if (uVar3 != g_soundChannelCount) {
+        cVar2 = (**(code **)(**(int **)(g_soundChannels + uVar3 * 4) + 8))(uVar3,soundName,flag);
         if (cVar2 == '\0') {
           uVar3 = 0xffffffff;
         }

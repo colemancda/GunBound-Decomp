@@ -121,9 +121,9 @@ LAB_00420896:
     *(byte *)((int)local_8ac + 0x90a) = *(byte *)(local_8ac + 0x242) + bVar4 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = local_8ac[0x2c29];
-    if (DAT_00793549 != '\0') {
+    if (g_soundAvailable != '\0') {
       if (iVar5 != -1) {
-        (**(code **)(**(int **)(DAT_00793554 + iVar5 * 4) + 0xc))();
+        (**(code **)(**(int **)(g_soundChannels + iVar5 * 4) + 0xc))();
       }
       if (iVar5 == 0) {
         DAT_00793568 = 0;
