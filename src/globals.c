@@ -27,7 +27,7 @@ uint8_t IMAGE_DOS_HEADER_00400000;
 
 uint8_t DAT_0054b420;
 uint8_t DAT_0054b438;
-void * DAT_0054f378;
+/* 0x54f378: real storage is g_aesTe4_1 in aes_tables.c - see globals.h. */
 /* Button-definition XFS extension ".epa" appended by AppendPersistentButtonName
  * (orig .data 0x551cac = bytes 2e 65 70 61 00). Our extraction left these
  * zero, so button-def filenames had no extension and OpenXFSEntryStream

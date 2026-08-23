@@ -113,27 +113,60 @@ extern uint8_t IMAGE_DOS_HEADER_00400000;
 
 extern uint8_t DAT_0054b420;
 extern uint8_t DAT_0054b438;
-extern uint32_t DAT_0054cb00;
-extern uint8_t DAT_0054cb78;
-extern uint8_t DAT_0054cf78;
-extern uint8_t DAT_0054d378;
-extern uint8_t DAT_0054d778;
-extern uint8_t DAT_0054db78;
-extern uint8_t DAT_0054df78;
-extern uint8_t DAT_0054e378;
-extern uint8_t DAT_0054e778;
-extern uint8_t DAT_0054eb78;
-extern uint8_t DAT_0054ef78;
-extern void * DAT_0054f378;
-#define _DAT_0054f378 DAT_0054f378
-extern uint8_t DAT_0054f778;
-extern uint8_t DAT_0054fb78;
-extern uint8_t DAT_0054ff78;
-extern uint8_t DAT_00550778;
-extern uint8_t DAT_00550b78;
-extern uint8_t DAT_00550f78;
-extern uint8_t DAT_00551378;
-extern uint8_t DAT_00551778;
+/* AES/Rijndael tables.  Real storage is in src/aes_tables.c; these stay
+ * scalars because the code indexes them as `*(uint *)(&sym + b * 4)`.
+ *
+ * The index suffix is NOT address order -- it is the byte each table is
+ * indexed by, which runs the other way.  EncodeCipherBlock's round is
+ *   Te0[s>>24] ^ Te1[(s>>16)&0xff] ^ Te2[(s>>8)&0xff] ^ Te3[s&0xff]
+ * and the table taking `>>24` is the HIGHEST address of its group.  Naming
+ * these in address order would have numbered all five groups backwards.
+ *
+ * Listed one per line so tools/globals_resolve.py can map each address back.
+ *
+ *   g_aesRcon (was DAT_0054cb00)          round constants, 0x78 bytes
+ *   encrypt rounds:
+ *     g_aesTe0 (was DAT_0054d778)   g_aesTe1 (was DAT_0054d378)
+ *     g_aesTe2 (was DAT_0054cf78)   g_aesTe3 (was DAT_0054cb78)
+ *   decrypt rounds:
+ *     g_aesTd0 (was DAT_0054e778)   g_aesTd1 (was DAT_0054e378)
+ *     g_aesTd2 (was DAT_0054df78)   g_aesTd3 (was DAT_0054db78)
+ *   encrypt LAST round -- and the same four the key schedule uses for
+ *   SubWord, which is how this group identifies itself:
+ *     g_aesTe4_0 (was DAT_0054f778) g_aesTe4_1 (was PTR_DAT_0054f378)
+ *     g_aesTe4_2 (was DAT_0054ef78) g_aesTe4_3 (was DAT_0054eb78)
+ *   decrypt last round.  g_aesTd4_1 is real data no ported function reads:
+ *     g_aesTd4_0 (was DAT_00550778) g_aesTd4_1 (was DAT_00550378)
+ *     g_aesTd4_2 (was DAT_0054ff78) g_aesTd4_3 (was DAT_0054fb78)
+ *   a FIFTH group, used only by RijndaelSetKey's inverse key schedule --
+ *   indexed and combined exactly like Td0..3, but a separate copy, so it is
+ *   deliberately not named Td:
+ *     g_aesInvKeyTable0 (was DAT_00551778) g_aesInvKeyTable1 (was DAT_00551378)
+ *     g_aesInvKeyTable2 (was DAT_00550f78) g_aesInvKeyTable3 (was DAT_00550b78) */
+extern uint32_t g_aesRcon;
+extern uint8_t g_aesTe3;
+extern uint8_t g_aesTe2;
+extern uint8_t g_aesTe1;
+extern uint8_t g_aesTe0;
+extern uint8_t g_aesTd3;
+extern uint8_t g_aesTd2;
+extern uint8_t g_aesTd1;
+extern uint8_t g_aesTd0;
+extern uint8_t g_aesTe4_3;
+extern uint8_t g_aesTe4_2;
+/* NOTE: 0x54f378 already has real storage as g_aesTe4_1 in aes_tables.c.
+ * A stray `void *DAT_0054f378` scalar used to be declared here as well --
+ * two symbols, two storages, one original address.  Nothing referenced it
+ * (every use in the tree went through the aes_tables.c symbol), so it is
+ * removed rather than left where someone could pick the null one. */
+extern uint8_t g_aesTe4_0;
+extern uint8_t g_aesTd4_3;
+extern uint8_t g_aesTd4_2;
+extern uint8_t g_aesTd4_0;
+extern uint8_t g_aesInvKeyTable3;
+extern uint8_t g_aesInvKeyTable2;
+extern uint8_t g_aesInvKeyTable1;
+extern uint8_t g_aesInvKeyTable0;
 extern uint32_t g_buttonDefExt;      /* was DAT_00551cac - ".epa" button-def XFS ext */
 extern uint8_t g_buttonDefExtNul;    /* was DAT_00551cb0 - its trailing NUL */
 extern uint8_t DAT_00551cb1;
@@ -1351,7 +1384,7 @@ extern const char s_yesoori_005533c8[];
 /* --- Named data symbols (vtables, PTR_DAT_/PTR_FUN_ pointer
  * variables) --- */
 
-extern void *PTR_DAT_0054f378;
+extern void *g_aesTe4_1;
 extern void *PTR_DAT_00551ecc;
 extern void *PTR_DAT_00551ed0;
 extern void *PTR_DAT_00552788;

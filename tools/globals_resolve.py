@@ -35,11 +35,11 @@ HDR = os.path.join(os.path.dirname(__file__), '..', 'include', 'globals.h')
 
 
 def _norm(addr):
-    """Accept 0x6a7f88 / 006a7f88 / DAT_006a7f88 -> canonical 8-hex-digit string."""
+    """Accept 0x6a7f88 / 006a7f88 / DAT_006a7f88 / PTR_DAT_... -> 8-hex string."""
     if isinstance(addr, int):
         return '%08x' % addr
     s = str(addr).strip().lower()
-    s = re.sub(r'^_?dat_', '', s)
+    s = re.sub(r'^(?:ptr_)?_?dat_', '', s)
     s = re.sub(r'^0x', '', s)
     return '%08x' % int(s, 16)
 
@@ -98,7 +98,12 @@ def build_map(path=HDR):
         if ids and not ids[-1].startswith('DAT_'):
             out[_norm(dat)] = ids[-1]
     #    form B: /* g_foo (was DAT_00e53c40) - prose... */  (declaration follows)
-    for m in re.finditer(r'\b([A-Za-z_][A-Za-z0-9_]*)\s*\(was\s+(DAT_00[0-9a-f]+)\)', src):
+    # Ghidra also emits PTR_DAT_ and _DAT_ prefixes, and a rename comment may
+    # name either form as the old symbol.  Matching only "DAT_" silently loses
+    # those addresses -- which is a quiet failure: the resolver returns None and
+    # a caller concludes the global is undeclared.
+    for m in re.finditer(
+            r'\b([A-Za-z_][A-Za-z0-9_]*)\s*\(was\s+((?:PTR_)?_?DAT_00[0-9a-f]+)\)', src):
         name, dat = m.group(1), m.group(2)
         if not name.startswith('DAT_'):
             out[_norm(dat)] = name

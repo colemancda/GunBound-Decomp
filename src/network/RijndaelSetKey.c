@@ -40,13 +40,13 @@ int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3,uint *ctx)
     ctx[5] = param_1[3];
     puVar3 = puVar1 + (((uVar5 + 6) * 4 + 4) - param_2);
     if (param_2 == 4) {
-      puVar6 = &DAT_0054cb00;
+      puVar6 = &g_aesRcon;
       do {
         uVar5 = puVar1[3];
-        uVar2 = (uint)(&PTR_DAT_0054f378)[uVar5 >> 0x18] ^
-                *(uint *)(&DAT_0054ef78 + (uVar5 >> 0x10 & 0xff) * 4) ^
-                *(uint *)(&DAT_0054eb78 + (uVar5 >> 8 & 0xff) * 4) ^
-                *(uint *)(&DAT_0054f778 + (uVar5 & 0xff) * 4) ^ *puVar1 ^ *puVar6;
+        uVar2 = (uint)(&g_aesTe4_1)[uVar5 >> 0x18] ^
+                *(uint *)(&g_aesTe4_2 + (uVar5 >> 0x10 & 0xff) * 4) ^
+                *(uint *)(&g_aesTe4_3 + (uVar5 >> 8 & 0xff) * 4) ^
+                *(uint *)(&g_aesTe4_0 + (uVar5 & 0xff) * 4) ^ *puVar1 ^ *puVar6;
         uVar4 = puVar1[1] ^ uVar2;
         puVar1[4] = uVar2;
         uVar2 = puVar1[2] ^ uVar4;
@@ -60,15 +60,15 @@ int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3,uint *ctx)
     else if (param_2 == 6) {
       ctx[6] = param_1[4];
       ctx[7] = param_1[5];
-      local_8 = &DAT_0054cb00;
+      local_8 = &g_aesRcon;
       do {
         uVar5 = puVar1[5];
         uVar2 = *local_8;
         local_8 = local_8 + 1;
-        uVar2 = (uint)(&PTR_DAT_0054f378)[uVar5 >> 0x18] ^
-                *(uint *)(&DAT_0054ef78 + (uVar5 >> 0x10 & 0xff) * 4) ^
-                *(uint *)(&DAT_0054eb78 + (uVar5 >> 8 & 0xff) * 4) ^
-                *(uint *)(&DAT_0054f778 + (uVar5 & 0xff) * 4) ^ *puVar1 ^ uVar2;
+        uVar2 = (uint)(&g_aesTe4_1)[uVar5 >> 0x18] ^
+                *(uint *)(&g_aesTe4_2 + (uVar5 >> 0x10 & 0xff) * 4) ^
+                *(uint *)(&g_aesTe4_3 + (uVar5 >> 8 & 0xff) * 4) ^
+                *(uint *)(&g_aesTe4_0 + (uVar5 & 0xff) * 4) ^ *puVar1 ^ uVar2;
         uVar4 = puVar1[1] ^ uVar2;
         uVar7 = puVar1[2] ^ uVar4;
         puVar1[6] = uVar2;
@@ -87,13 +87,13 @@ int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3,uint *ctx)
       ctx[7] = param_1[5];
       ctx[8] = param_1[6];
       ctx[9] = param_1[7];
-      puVar6 = &DAT_0054cb00;
+      puVar6 = &g_aesRcon;
       do {
         uVar5 = puVar1[7];
-        uVar4 = (uint)(&PTR_DAT_0054f378)[uVar5 >> 0x18] ^
-                *(uint *)(&DAT_0054ef78 + (uVar5 >> 0x10 & 0xff) * 4) ^
-                *(uint *)(&DAT_0054eb78 + (uVar5 >> 8 & 0xff) * 4) ^
-                *(uint *)(&DAT_0054f778 + (uint)(byte)puVar1[7] * 4) ^ *puVar1 ^ *puVar6;
+        uVar4 = (uint)(&g_aesTe4_1)[uVar5 >> 0x18] ^
+                *(uint *)(&g_aesTe4_2 + (uVar5 >> 0x10 & 0xff) * 4) ^
+                *(uint *)(&g_aesTe4_3 + (uVar5 >> 8 & 0xff) * 4) ^
+                *(uint *)(&g_aesTe4_0 + (uint)(byte)puVar1[7] * 4) ^ *puVar1 ^ *puVar6;
         uVar2 = puVar1[1] ^ uVar4;
         puVar1[8] = uVar4;
         uVar4 = puVar1[2] ^ uVar2;
@@ -102,10 +102,10 @@ int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3,uint *ctx)
         puVar1[10] = uVar4;
         uVar4 = puVar1[3] ^ uVar4;
         puVar1[0xb] = uVar4;
-        uVar2 = *(uint *)(&DAT_0054f778 + (uVar4 >> 0x18) * 4) ^
-                (uint)(&PTR_DAT_0054f378)[uVar4 >> 0x10 & 0xff] ^
-                *(uint *)(&DAT_0054ef78 + (uVar4 >> 8 & 0xff) * 4) ^
-                *(uint *)(&DAT_0054eb78 + (uint)(byte)puVar1[0xb] * 4) ^ puVar1[4];
+        uVar2 = *(uint *)(&g_aesTe4_0 + (uVar4 >> 0x18) * 4) ^
+                (uint)(&g_aesTe4_1)[uVar4 >> 0x10 & 0xff] ^
+                *(uint *)(&g_aesTe4_2 + (uVar4 >> 8 & 0xff) * 4) ^
+                *(uint *)(&g_aesTe4_3 + (uint)(byte)puVar1[0xb] * 4) ^ puVar1[4];
         uVar4 = puVar1[5] ^ uVar2;
         puVar1[0xc] = uVar2;
         uVar2 = puVar1[6] ^ uVar4;
@@ -127,25 +127,25 @@ int __fastcall RijndaelSetKey(uint *param_1,uint param_2,int param_3,uint *ctx)
       if (1 < ctx[1]) {
         do {
           uVar2 = *puVar1;
-          *puVar3 = *(uint *)(&DAT_00551778 + (uVar2 >> 0x18) * 4) ^
-                    *(uint *)(&DAT_00551378 + (uVar2 >> 0x10 & 0xff) * 4) ^
-                    *(uint *)(&DAT_00550f78 + (uVar2 >> 8 & 0xff) * 4) ^
-                    *(uint *)(&DAT_00550b78 + (uint)(byte)*puVar1 * 4);
+          *puVar3 = *(uint *)(&g_aesInvKeyTable0 + (uVar2 >> 0x18) * 4) ^
+                    *(uint *)(&g_aesInvKeyTable1 + (uVar2 >> 0x10 & 0xff) * 4) ^
+                    *(uint *)(&g_aesInvKeyTable2 + (uVar2 >> 8 & 0xff) * 4) ^
+                    *(uint *)(&g_aesInvKeyTable3 + (uint)(byte)*puVar1 * 4);
           uVar2 = puVar1[1];
-          puVar3[1] = *(uint *)(&DAT_00551778 + (uVar2 >> 0x18) * 4) ^
-                      *(uint *)(&DAT_00551378 + (uVar2 >> 0x10 & 0xff) * 4) ^
-                      *(uint *)(&DAT_00550f78 + (uVar2 >> 8 & 0xff) * 4) ^
-                      *(uint *)(&DAT_00550b78 + (uint)(byte)puVar1[1] * 4);
+          puVar3[1] = *(uint *)(&g_aesInvKeyTable0 + (uVar2 >> 0x18) * 4) ^
+                      *(uint *)(&g_aesInvKeyTable1 + (uVar2 >> 0x10 & 0xff) * 4) ^
+                      *(uint *)(&g_aesInvKeyTable2 + (uVar2 >> 8 & 0xff) * 4) ^
+                      *(uint *)(&g_aesInvKeyTable3 + (uint)(byte)puVar1[1] * 4);
           uVar2 = puVar1[2];
-          puVar3[2] = *(uint *)(&DAT_00551778 + (uVar2 >> 0x18) * 4) ^
-                      *(uint *)(&DAT_00551378 + (uVar2 >> 0x10 & 0xff) * 4) ^
-                      *(uint *)(&DAT_00550f78 + (uVar2 >> 8 & 0xff) * 4) ^
-                      *(uint *)(&DAT_00550b78 + (uint)(byte)puVar1[2] * 4);
+          puVar3[2] = *(uint *)(&g_aesInvKeyTable0 + (uVar2 >> 0x18) * 4) ^
+                      *(uint *)(&g_aesInvKeyTable1 + (uVar2 >> 0x10 & 0xff) * 4) ^
+                      *(uint *)(&g_aesInvKeyTable2 + (uVar2 >> 8 & 0xff) * 4) ^
+                      *(uint *)(&g_aesInvKeyTable3 + (uint)(byte)puVar1[2] * 4);
           uVar2 = puVar1[3];
-          puVar3[3] = *(uint *)(&DAT_00551778 + (uVar2 >> 0x18) * 4) ^
-                      *(uint *)(&DAT_00551378 + (uVar2 >> 0x10 & 0xff) * 4) ^
-                      *(uint *)(&DAT_00550f78 + (uVar2 >> 8 & 0xff) * 4) ^
-                      *(uint *)(&DAT_00550b78 + (uint)(byte)puVar1[3] * 4);
+          puVar3[3] = *(uint *)(&g_aesInvKeyTable0 + (uVar2 >> 0x18) * 4) ^
+                      *(uint *)(&g_aesInvKeyTable1 + (uVar2 >> 0x10 & 0xff) * 4) ^
+                      *(uint *)(&g_aesInvKeyTable2 + (uVar2 >> 8 & 0xff) * 4) ^
+                      *(uint *)(&g_aesInvKeyTable3 + (uint)(byte)puVar1[3] * 4);
           puVar1 = puVar1 + 4;
           puVar3 = puVar3 + -4;
           uVar5 = uVar5 + 1;
