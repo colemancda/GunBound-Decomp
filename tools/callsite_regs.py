@@ -59,12 +59,34 @@ def main():
             continue
         ins = disasm_function(md, data, base, c[0], c[1])
         prev = [i for i in ins if i.address < va]
+        # The caller's PROLOGUE saves are pushes too, and a short window can
+        # reach them in a small caller -- "push esi" at the function's own
+        # entry address is a register save, not a fourth argument.  Treat the
+        # leading run of callee-saved pushes as prologue and exclude it.
+        pro = 0
+        for i in prev:
+            if i.mnemonic == 'push' and i.op_str.strip() in ('ebx', 'esi', 'edi', 'ebp'):
+                pro = i.address + i.size
+            elif i.mnemonic in ('mov', 'sub', 'lea', 'and') or i.mnemonic.startswith('j'):
+                break
+            else:
+                break
+        prev = [i for i in prev if i.address >= pro]
         vals = {}
         ps = []
         for i in prev[-16:]:
             o = i.op_str
             if i.mnemonic == 'push':
-                ps.append(o.strip())
+                # Record what the operand held AT THE PUSH, not at the call.
+                # A caller routinely pushes a register and then reloads it for
+                # the register arguments:
+                #     push edx          <- the argument
+                #     mov  edx, 0x10    <- a DIFFERENT argument, same register
+                #     call ...
+                # Reporting edx's value at the call labels the pushed argument
+                # 0x10, which is a plausible-looking pointer of value sixteen.
+                op = o.strip()
+                ps.append('%s{=%s}' % (op, vals[op]) if op in vals else op)
                 continue
             if i.mnemonic == 'call':
                 ps = []

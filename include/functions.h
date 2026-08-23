@@ -431,7 +431,7 @@ undefined4 FUN_004217b0(int ctx,undefined4 param_1);
 int FUN_00421820();
 void __fastcall FUN_00421870();
 undefined4 ParseChatSlashCommand();
-void __thiscall FUN_00422f10();
+void __thiscall FUN_00422f10(undefined4 param_1,undefined4 param_2,int regEsi);
 void FUN_00422f70();
 void FUN_00423050();
 void ApplyBattleActionToContext();

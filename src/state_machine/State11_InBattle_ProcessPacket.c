@@ -389,7 +389,8 @@ LAB_004b4324:
         *(undefined2 *)(iVar18 + 0x4d6) = 0xffff;
         *(int *)(iVar18 + 0x44d0) = *(int *)(iVar18 + 0x44d0) + 2;
         SendOutgoingPacket(iVar18);
-        FUN_00422f10(*(undefined4 *)(g_clientContext + 0x44e60));
+        FUN_00422f10(*(undefined4 *)(g_clientContext + 0x3f804),
+                     *(undefined4 *)(g_clientContext + 0x44e60),g_clientContext);
         iVar8 = g_clientContext;
         *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
         piVar16 = local_9ac;

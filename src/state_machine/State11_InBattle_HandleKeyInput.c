@@ -155,7 +155,8 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
       *(undefined2 *)(iVar7 + 0x4d6) = 0xffff;
       *(int *)(iVar7 + 0x44d0) = *(int *)(iVar7 + 0x44d0) + 2;
       SendOutgoingPacket(iVar7);
-      FUN_00422f10(*(undefined4 *)(g_clientContext + 0x44e60));
+      FUN_00422f10(*(undefined4 *)(g_clientContext + 0x3f804),
+                     *(undefined4 *)(g_clientContext + 0x44e60),g_clientContext);
       *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
       return;
     }
@@ -476,7 +477,8 @@ LAB_004b8aeb:
       *(undefined2 *)(iVar7 + 0x4d6) = 0xffff;
       *(int *)(iVar7 + 0x44d0) = *(int *)(iVar7 + 0x44d0) + 2;
       SendOutgoingPacket(iVar7);
-      FUN_00422f10(*(undefined4 *)(g_clientContext + 0x44e60));
+      FUN_00422f10(*(undefined4 *)(g_clientContext + 0x3f804),
+                     *(undefined4 *)(g_clientContext + 0x44e60),g_clientContext);
       *(undefined4 *)(g_clientContext + 0x44e60) = 0xffffffff;
       return;
     }
