@@ -3,6 +3,15 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * param_1 FILLED: it is ECX = &DAT_00e53e88, and the body reads `[param_1+4]`.
+ *
+ * This one was already solved elsewhere and not carried across.
+ * State02_ServerSelect.cpp declares this function with a real prototype and
+ * calls it as FUN_00402020((int)&DAT_00e53e88) -- the same value, worked out
+ * independently -- while the C call site in State02_ServerSelect_OnTick.c
+ * still passed nothing.  Two call sites of one function disagreeing about its
+ * arity is the shape a K&R declaration hides.
  */
 #include "ghidra_types.h"
 

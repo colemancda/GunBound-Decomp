@@ -112,7 +112,7 @@ void __fastcall State02_ServerSelect_OnTick(int param_1)
   iVar5 = 0;
   if (*(char *)(g_clientContext + 0x3f808) != '\0') {
     do {
-      uVar4 = FUN_00402020();
+      uVar4 = FUN_00402020((int)&DAT_00e53e88);
       *(undefined1 *)(iVar5 + 0x4110a + iVar6) = uVar4;
       iVar5 = iVar5 + 1;
     } while (iVar5 < (int)(uint)*(byte *)(iVar6 + 0x3f808));

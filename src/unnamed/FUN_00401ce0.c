@@ -4,6 +4,15 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * ARGUMENTS RE-SLOTTED.  `ret 4` gives one stack argument, so param_1 is ECX
+ * and param_2 is the push.  ECX is &DAT_00e53e88 at the sole call site, and
+ * the body reads it as `[param_1 + 0xc0c]` -- inside that object's confirmed
+ * 0xf28 extent, so the placement is corroborated by the size someone else
+ * established for a different reason.
+ *
+ * The port passed its one argument (&local_120) as param_1, which is the
+ * right value in the wrong slot: it belongs in param_2.
  */
 #include "ghidra_types.h"
 

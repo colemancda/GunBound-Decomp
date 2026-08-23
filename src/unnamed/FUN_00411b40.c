@@ -235,7 +235,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
     uVar5 = (uint)*(ushort *)((int)param_1 + 0x36);
     puVar4 = &local_13c;
     puVar9 = local_108;
-    uVar6 = FUN_00401ce0(&local_120);
+    uVar6 = FUN_00401ce0((int)&DAT_00e53e88,&local_120);
     FUN_00401d50(&DAT_00e53e88,1,uVar6,uVar5,puVar9,puVar4);
     FUN_00401fa0();
   }

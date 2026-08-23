@@ -3,6 +3,11 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * param_1 FILLED: it is ECX, and its sole call site loads &g_replayContext.
+ * The body uses it as a context base (`[param_1 + 0x454a8]`), which is what
+ * that struct's offsets look like.  `ret 0` confirms nothing arrives on the
+ * stack.
  */
 #include "ghidra_types.h"
 

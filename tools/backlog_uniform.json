@@ -1,98 +1,14 @@
 [
  {
-  "func": "SetWidgetReadyState",
-  "reg": "eax",
-  "path": "src/registry/SetWidgetReadyState.c",
-  "sites": 13,
-  "value": "0xe9be90",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe9be90": 13
-  }
- },
- {
-  "func": "FUN_00406400",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_00406400.c",
-  "sites": 5,
-  "value": "0xe9be90",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe9be90": 5
-  }
- },
- {
-  "func": "FUN_0040cfe0",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_0040cfe0.c",
-  "sites": 3,
-  "value": "0xe9c0fc",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe9c0fc": 3
-  }
- },
- {
-  "func": "FUN_0040cf30",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_0040cf30.c",
-  "sites": 2,
-  "value": "0xe9c0fc",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe9c0fc": 2
-  }
- },
- {
-  "func": "FUN_0050f000",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_0050f000.c",
-  "sites": 2,
-  "value": "0xe53c40",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe53c40": 2
-  }
- },
- {
-  "func": "RemoveInventoryItems",
-  "reg": "eax",
-  "path": "src/state_machine/RemoveInventoryItems.c",
-  "sites": 1,
-  "value": "0x0",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0x0": 1
-  }
- },
- {
-  "func": "WorkerThread_Shutdown",
+  "func": "FUN_00401cb0",
   "reg": "esi",
-  "path": "src/unnamed/WorkerThread_Shutdown.c",
+  "path": "src/unnamed/FUN_00401cb0.c",
   "sites": 1,
-  "value": "0xe9c9c4",
+  "value": "0xe53e88",
   "pct": 100,
   "distinct": 1,
   "vals": {
-   "0xe9c9c4": 1
-  }
- },
- {
-  "func": "FUN_00415410",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_00415410.c",
-  "sites": 1,
-  "value": "0xe9c9c4",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xe9c9c4": 1
+   "0xe53e88": 1
   }
  },
  {
@@ -108,39 +24,39 @@
   }
  },
  {
-  "func": "FUN_00450700",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_00450700.c",
+  "func": "FUN_00415470",
+  "reg": "edi",
+  "path": "src/unnamed/FUN_00415470.c",
   "sites": 1,
-  "value": "0x7a7644",
+  "value": "ctx+0x6a76f4",
   "pct": 100,
   "distinct": 1,
   "vals": {
-   "0x7a7644": 1
+   "ctx+0x6a76f4": 1
   }
  },
  {
-  "func": "FUN_004e5cc0",
-  "reg": "eax",
-  "path": "src/unnamed/FUN_004e5cc0.c",
-  "sites": 1,
-  "value": "0x0",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0x0": 1
-  }
- },
- {
-  "func": "FUN_004e9ab0",
+  "func": "FUN_004264d0",
   "reg": "esi",
-  "path": "src/unnamed/FUN_004e9ab0.c",
+  "path": "src/unnamed/FUN_004264d0.c",
   "sites": 1,
-  "value": "0xf22518",
+  "value": "0x1",
   "pct": 100,
   "distinct": 1,
   "vals": {
-   "0xf22518": 1
+   "0x1": 1
+  }
+ },
+ {
+  "func": "FUN_004e76d0",
+  "reg": "esi",
+  "path": "src/unnamed/FUN_004e76d0.c",
+  "sites": 1,
+  "value": "0xe55ce0",
+  "pct": 100,
+  "distinct": 1,
+  "vals": {
+   "0xe55ce0": 1
   }
  },
  {
@@ -153,18 +69,6 @@
   "distinct": 1,
   "vals": {
    "0xe53698": 1
-  }
- },
- {
-  "func": "FUN_004f1d80",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_004f1d80.c",
-  "sites": 1,
-  "value": "0xeb1a78",
-  "pct": 100,
-  "distinct": 1,
-  "vals": {
-   "0xeb1a78": 1
   }
  }
 ]

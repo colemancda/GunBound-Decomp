@@ -22,20 +22,6 @@
   }
  },
  {
-  "func": "FUN_0040cdf0",
-  "sites": 8,
-  "uniform": {
-   "edx": "0x2710"
-  }
- },
- {
-  "func": "FindRoomListIndexById",
-  "sites": 7,
-  "uniform": {
-   "esi": "0"
-  }
- },
- {
   "func": "FUN_00421870",
   "sites": 6,
   "uniform": {
@@ -92,14 +78,6 @@
   }
  },
  {
-  "func": "FUN_00422f10",
-  "sites": 4,
-  "uniform": {
-   "ecx": "[esi + 0x3f804]",
-   "esi": "[0x5b3484]"
-  }
- },
- {
   "func": "FUN_004ec430",
   "sites": 4,
   "uniform": {
@@ -141,13 +119,6 @@
   "sites": 3,
   "uniform": {
    "esi": "[esp + 0x10]"
-  }
- },
- {
-  "func": "FUN_00522880",
-  "sites": 3,
-  "uniform": {
-   "ecx": "[0x5b15ac]"
   }
  },
  {
@@ -201,22 +172,6 @@
   }
  },
  {
-  "func": "FUN_0040cf30",
-  "sites": 2,
-  "uniform": {
-   "eax": "0xe9c0fc",
-   "edx": "0x2710"
-  }
- },
- {
-  "func": "FUN_0040cf80",
-  "sites": 2,
-  "uniform": {
-   "edx": "0x2710",
-   "esi": "0"
-  }
- },
- {
   "func": "FUN_00411b40",
   "sites": 2,
   "uniform": {
@@ -245,14 +200,6 @@
   }
  },
  {
-  "func": "AppendToEncodedSocketBuffer",
-  "sites": 2,
-  "uniform": {
-   "eax": "[0x7934e8]",
-   "edx": "0x10"
-  }
- },
- {
   "func": "FUN_004e6d10",
   "sites": 2,
   "uniform": {
@@ -272,13 +219,6 @@
   "sites": 2,
   "uniform": {
    "eax": "esi"
-  }
- },
- {
-  "func": "FUN_004e7d60",
-  "sites": 2,
-  "uniform": {
-   "eax": "0xe55ce0"
   }
  },
  {
@@ -480,16 +420,6 @@
   }
  },
  {
-  "func": "TextEntry_PushTextToControl",
-  "sites": 1,
-  "uniform": {
-   "eax": "[esp + 0x58]",
-   "ecx": "[0x7934e4]",
-   "edx": "eax",
-   "esi": "edx"
-  }
- },
- {
   "func": "FUN_00415470",
   "sites": 1,
   "uniform": {
@@ -504,13 +434,6 @@
   "uniform": {
    "eax": "esi",
    "edx": "0xa"
-  }
- },
- {
-  "func": "FUN_0041c1e0",
-  "sites": 1,
-  "uniform": {
-   "edx": "[0x5b3484]"
   }
  },
  {
@@ -607,14 +530,6 @@
    "ebx": "1",
    "ecx": "[edi + 0x6a64c4]",
    "edi": "[0x5b3484]"
-  }
- },
- {
-  "func": "SendQueue_ElementAt",
-  "sites": 1,
-  "uniform": {
-   "eax": "0",
-   "ecx": "[esi + 0x24a40]"
   }
  },
  {

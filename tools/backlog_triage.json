@@ -2901,55 +2901,6 @@
   ]
  },
  {
-  "func": "FindRoomListIndexById",
-  "reg": "esi",
-  "sites": 7,
-  "values": {},
-  "top": "OTHER",
-  "pct": 100,
-  "buckets": {
-   "OTHER": 7
-  },
-  "path": "src/unnamed/FindRoomListIndexById.c",
-  "per_site": [
-   {
-    "va": "0x4270ca",
-    "ins": "mov si, word ptr [ebx]",
-    "cls": "OTHER"
-   },
-   {
-    "va": "0x428070",
-    "ins": "mov si, word ptr [edi]",
-    "cls": "OTHER"
-   },
-   {
-    "va": "0x4280eb",
-    "ins": "mov si, word ptr [edi]",
-    "cls": "OTHER"
-   },
-   {
-    "va": "0x42813c",
-    "ins": "mov si, word ptr [edi]",
-    "cls": "OTHER"
-   },
-   {
-    "va": "0x42818d",
-    "ins": "mov si, word ptr [edi]",
-    "cls": "OTHER"
-   },
-   {
-    "va": "0x4281de",
-    "ins": "mov si, word ptr [edi]",
-    "cls": "OTHER"
-   },
-   {
-    "va": "0x42822f",
-    "ins": "mov si, word ptr [edi]",
-    "cls": "OTHER"
-   }
-  ]
- },
- {
   "func": "FUN_00438360",
   "reg": "esi",
   "sites": 7,
@@ -4249,40 +4200,6 @@
     "va": "0x47a8e0",
     "ins": "mov eax, esi",
     "cls": "REGISTER"
-   }
-  ]
- },
- {
-  "func": "FUN_00422f10",
-  "reg": "esi",
-  "sites": 4,
-  "values": {},
-  "top": "OTHER",
-  "pct": 100,
-  "buckets": {
-   "OTHER": 4
-  },
-  "path": "src/unnamed/FUN_00422f10.c",
-  "per_site": [
-   {
-    "va": "0x4b5214",
-    "ins": "mov esi, dword ptr [0x5b3484]",
-    "cls": "OTHER"
-   },
-   {
-    "va": "0x4b9321",
-    "ins": "mov esi, dword ptr [0x5b3484]",
-    "cls": "OTHER"
-   },
-   {
-    "va": "0x4b9726",
-    "ins": "mov esi, dword ptr [0x5b3484]",
-    "cls": "OTHER"
-   },
-   {
-    "va": "0x4d5301",
-    "ins": "mov esi, dword ptr [0x5b3484]",
-    "cls": "OTHER"
    }
   ]
  },
@@ -6355,33 +6272,6 @@
   ]
  },
  {
-  "func": "FUN_0040cf30",
-  "reg": "esi",
-  "sites": 2,
-  "values": {
-   "0": 1,
-   "1": 1
-  },
-  "top": "IMMEDIATE",
-  "pct": 100,
-  "buckets": {
-   "IMMEDIATE": 2
-  },
-  "path": "src/unnamed/FUN_0040cf30.c",
-  "per_site": [
-   {
-    "va": "0x447247",
-    "ins": "xor esi, esi",
-    "cls": "IMMEDIATE"
-   },
-   {
-    "va": "0x44725c",
-    "ins": "mov esi, 1",
-    "cls": "IMMEDIATE"
-   }
-  ]
- },
- {
   "func": "FUN_00413af0",
   "reg": "edi",
   "sites": 2,
@@ -6816,30 +6706,6 @@
    {
     "va": "0x499eb6",
     "ins": "mov eax, dword ptr [esi + 0x30]",
-    "cls": "OTHER"
-   }
-  ]
- },
- {
-  "func": "AppendToEncodedSocketBuffer",
-  "reg": "eax",
-  "sites": 2,
-  "values": {},
-  "top": "OTHER",
-  "pct": 100,
-  "buckets": {
-   "OTHER": 2
-  },
-  "path": "src/unnamed/AppendToEncodedSocketBuffer.c",
-  "per_site": [
-   {
-    "va": "0x410685",
-    "ins": "mov eax, dword ptr [0x7934e8]",
-    "cls": "OTHER"
-   },
-   {
-    "va": "0x4106cd",
-    "ins": "mov eax, dword ptr [0x7934e8]",
     "cls": "OTHER"
    }
   ]
@@ -7825,6 +7691,27 @@
   ]
  },
  {
+  "func": "FUN_00401cb0",
+  "reg": "esi",
+  "sites": 1,
+  "values": {
+   "15023752": 1
+  },
+  "top": "IMMEDIATE",
+  "pct": 100,
+  "buckets": {
+   "IMMEDIATE": 1
+  },
+  "path": "src/unnamed/FUN_00401cb0.c",
+  "per_site": [
+   {
+    "va": "0x411c65",
+    "ins": "mov esi, 0xe53e88",
+    "cls": "IMMEDIATE"
+   }
+  ]
+ },
+ {
   "func": "FUN_00402300",
   "reg": "eax",
   "sites": 1,
@@ -8224,25 +8111,6 @@
   ]
  },
  {
-  "func": "TextEntry_SetSelection",
-  "reg": "eax",
-  "sites": 1,
-  "values": {},
-  "top": "OTHER",
-  "pct": 100,
-  "buckets": {
-   "OTHER": 1
-  },
-  "path": "src/unnamed/TextEntry_SetSelection.c",
-  "per_site": [
-   {
-    "va": "0x4d6621",
-    "ins": "mov eax, dword ptr [0x7934e4]",
-    "cls": "OTHER"
-   }
-  ]
- },
- {
   "func": "FUN_00412e00",
   "reg": "edi",
   "sites": 1,
@@ -8258,6 +8126,48 @@
     "va": "0x412f03",
     "ins": null,
     "cls": "OTHER"
+   }
+  ]
+ },
+ {
+  "func": "FUN_00415470",
+  "reg": "ebx",
+  "sites": 1,
+  "values": {
+   "1": 1
+  },
+  "top": "IMMEDIATE",
+  "pct": 100,
+  "buckets": {
+   "IMMEDIATE": 1
+  },
+  "path": "src/unnamed/FUN_00415470.c",
+  "per_site": [
+   {
+    "va": "0x4113c1",
+    "ins": "mov ebx, 1",
+    "cls": "IMMEDIATE"
+   }
+  ]
+ },
+ {
+  "func": "FUN_00415470",
+  "reg": "edi",
+  "sites": 1,
+  "values": {
+   "ctx+0x6a76f4": 1
+  },
+  "top": "CTX-REL",
+  "pct": 100,
+  "buckets": {
+   "CTX-REL": 1
+  },
+  "path": "src/unnamed/FUN_00415470.c",
+  "per_site": [
+   {
+    "va": "0x4113c1",
+    "ins": "add edi, 0x6a76f4",
+    "cls": "CTX-REL"
    }
   ]
  },
@@ -8300,25 +8210,6 @@
   ]
  },
  {
-  "func": "FUN_00425700",
-  "reg": "esi",
-  "sites": 1,
-  "values": {},
-  "top": "OTHER",
-  "pct": 100,
-  "buckets": {
-   "OTHER": 1
-  },
-  "path": "src/unnamed/FUN_00425700.c",
-  "per_site": [
-   {
-    "va": "0x507801",
-    "ins": "mov esi, dword ptr [0x5b3484]",
-    "cls": "OTHER"
-   }
-  ]
- },
- {
   "func": "FUN_00425840",
   "reg": "esi",
   "sites": 1,
@@ -8357,25 +8248,6 @@
   ]
  },
  {
-  "func": "FUN_004261d0",
-  "reg": "esi",
-  "sites": 1,
-  "values": {},
-  "top": "OTHER",
-  "pct": 100,
-  "buckets": {
-   "OTHER": 1
-  },
-  "path": "src/unnamed/FUN_004261d0.c",
-  "per_site": [
-   {
-    "va": "0x4b49e3",
-    "ins": "mov esi, dword ptr [0x5b3484]",
-    "cls": "OTHER"
-   }
-  ]
- },
- {
   "func": "FUN_004264d0",
   "reg": "ebx",
   "sites": 1,
@@ -8391,6 +8263,27 @@
     "va": "0x42590b",
     "ins": "lea ebx, [edi + 0x67ec60]",
     "cls": "OBJ-REL"
+   }
+  ]
+ },
+ {
+  "func": "FUN_004264d0",
+  "reg": "esi",
+  "sites": 1,
+  "values": {
+   "1": 1
+  },
+  "top": "IMMEDIATE",
+  "pct": 100,
+  "buckets": {
+   "IMMEDIATE": 1
+  },
+  "path": "src/unnamed/FUN_004264d0.c",
+  "per_site": [
+   {
+    "va": "0x42590b",
+    "ins": "mov esi, 1",
+    "cls": "IMMEDIATE"
    }
   ]
  },
@@ -9303,6 +9196,27 @@
     "va": "0x4e0371",
     "ins": "lea eax, [ecx + 0x23330]",
     "cls": "OBJ-REL"
+   }
+  ]
+ },
+ {
+  "func": "FUN_004e76d0",
+  "reg": "esi",
+  "sites": 1,
+  "values": {
+   "15031520": 1
+  },
+  "top": "IMMEDIATE",
+  "pct": 100,
+  "buckets": {
+   "IMMEDIATE": 1
+  },
+  "path": "src/unnamed/FUN_004e76d0.c",
+  "per_site": [
+   {
+    "va": "0x4e0371",
+    "ins": "mov esi, 0xe55ce0",
+    "cls": "IMMEDIATE"
    }
   ]
  },

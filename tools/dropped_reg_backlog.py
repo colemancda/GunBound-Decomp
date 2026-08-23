@@ -68,9 +68,35 @@ def param_list_of(src, func):
     return m.group(1) if m else ""
 
 
-def classify(entry):
+_BYNAME = None
+
+
+def locate(entry):
+    """Find the entry's file, tolerating renames since the scan was cached.
+
+    The cached path goes stale every time a function is renamed or moved --
+    and a stale path is scored "missing", which silently REMOVES the pair from
+    the open count.  Renaming ten functions quietly shrank this backlog by ten
+    without a single register being recovered, which is the wrong direction for
+    a measurement to be wrong in.  Fall back to locating the definition by
+    name.
+    """
+    global _BYNAME
     path = entry["path"]
-    if not os.path.exists(path):
+    if os.path.exists(path):
+        return path
+    if _BYNAME is None:
+        _BYNAME = {}
+        for base, _, files in os.walk("src"):
+            for f in files:
+                if f.endswith((".c", ".cpp")):
+                    _BYNAME.setdefault(os.path.splitext(f)[0], os.path.join(base, f))
+    return _BYNAME.get(entry["func"])
+
+
+def classify(entry):
+    path = locate(entry)
+    if not path:
         return "missing"
     src = strip_comments(open(path, errors="replace").read())
     names = NAMES[entry["reg"]]
