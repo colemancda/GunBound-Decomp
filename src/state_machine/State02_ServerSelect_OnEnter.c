@@ -118,7 +118,7 @@ void __fastcall State02_ServerSelect_OnEnter(int param_1)
   *(undefined1 *)(param_1 + 6) = 1;
   *(undefined4 *)(param_1 + 0xc) = 0xffffffff;
   *(undefined1 *)(param_1 + 0x10) = 0;
-  if ((int)DAT_005b2b64 < 1) {
+  if ((int)g_lastServerIndex < 1) {
     iVar1 = *(int *)(iVar1 + 0x3f804);
     if (iVar1 < 1) {
       uVar2 = 0;
@@ -128,13 +128,13 @@ void __fastcall State02_ServerSelect_OnEnter(int param_1)
     }
   }
   else {
-    uVar2 = DAT_005b2b64 >> 4;
+    uVar2 = g_lastServerIndex >> 4;
   }
   *(uint *)(param_1 + 0x14) = uVar2;
   *(uint *)(param_1 + 0x18) = uVar2;
   *(undefined1 *)(param_1 + 0x1c) = 0;
   BuildWorldListPanel(&g_uiPanelManager);
-  BeginServerConnect((undefined4)DAT_005b2ad0,DAT_005b33e8,DAT_007934f0);
+  BeginServerConnect((undefined4)g_brokerHost,g_brokerPort,DAT_007934f0);
   iVar1 = g_sharedTextInputControl;
   *(undefined1 *)(param_1 + 7) = 1;
   *(undefined1 *)(iVar1 + 8) = 1;

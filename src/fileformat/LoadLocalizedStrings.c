@@ -97,7 +97,7 @@ undefined4 LoadLocalizedStrings(undefined4 param_1)
   local_f70b = 1;
   uStack_10748 = 0;
   local_c = 0;
-  BuildAssetPath(auStack_10b50,&DAT_005b1ed0,s_graphics_xfs_00551fdc,0);
+  BuildAssetPath(auStack_10b50,&g_installPath,s_graphics_xfs_00551fdc,0);
   OpenXFSArchive(&g_xfsScratch,auStack_10b50,1,0);
   iVar5 = FindXFSEntry(&g_xfsScratch,s_Language_txt_00554008);
   if (((iVar5 == 0) || (pvVar2 = operator_new(0x1024), pvVar2 == (void *)0x0)) ||

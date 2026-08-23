@@ -47,9 +47,9 @@ extern const char s_b_server_exitgame_00557144[];
 extern const char s_b_server_buddygame_00557170[];
 extern const char s_b_server_choiceserver_00557158[];
 void BeginServerConnect(void *target, int a, int connCtxBase);
-extern unsigned char DAT_005b2ad0[0x80]; /* broker IP - sized, see globals.c */
-extern unsigned int DAT_005b33e8;        /* broker Port - sized, see globals.c */
-extern int DAT_005b2b64;                /* server count hint for the scroll seed */
+extern unsigned char g_brokerHost[0x80]; /* broker IP - sized, see globals.c */
+extern unsigned int g_brokerPort;        /* broker Port - sized, see globals.c */
+extern int g_lastServerIndex;                /* server count hint for the scroll seed */
 extern unsigned int g_sharedTextInputControl;       /* shared EDIT-control singleton (+8 = live flag) */
 extern unsigned int g_connectionContextA;       /* double-buffered connection context */
 extern unsigned int g_directLinkConnection;       /* outgoing packet buffer base */
@@ -90,7 +90,7 @@ extern unsigned char DAT_00e53e88[0xf28]; /* sized, see globals.c */
  * (exitgame / buddygame / choiceserver - the last starts disabled),
  * wipe the entire 16-entry server SoA arena at g_clientContext+0x3f808,
  * reset the state fields (uiDirty on, view mode All, scroll seeded
- * from DAT_005b2b64/16 or the previous server id/16), build the world
+ * from g_lastServerIndex/16 or the previous server id/16), build the world
  * list panel, kick the async broker connect, tear down a leftover
  * connected socket from a previous session, start the channel music,
  * and reset the chat-log side. The SoA wipe uses memsets where the
@@ -134,17 +134,17 @@ void CState02ServerSelect::OnEnter()
     m_selectedSlot = -1;
     m_viewMode = 0;
     unsigned int page;
-    if ((int)DAT_005b2b64 < 1) {
+    if ((int)g_lastServerIndex < 1) {
         int prev = *(int *)(ctx + 0x3f804);
         page = prev < 1 ? 0 : (unsigned int)((prev + ((prev >> 31) & 0xf)) >> 4);
     } else {
-        page = (unsigned int)DAT_005b2b64 >> 4;
+        page = (unsigned int)g_lastServerIndex >> 4;
     }
     m_scrollA = (int)page;
     m_scrollOffset = (int)page;
     m_unk1c = 0;
     BuildWorldListPanel(&g_uiPanelManager);
-    BeginServerConnect(&DAT_005b2ad0, DAT_005b33e8, (int)DAT_007934f0);
+    BeginServerConnect(&g_brokerHost, g_brokerPort, (int)DAT_007934f0);
     m_wantInitialList = 1;
     *(unsigned char *)(g_sharedTextInputControl + 8) = 1;   /* show the shared EDIT overlay */
     /* leftover connected socket from a previous session: tear it down */

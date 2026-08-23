@@ -70,7 +70,7 @@ byte LoadGameDataFiles(int param_1)
   undefined4 uStack_c;
   
   uStack_c = 0x419da0;
-  BuildAssetPath(auStack_181b8,&DAT_005b1ed0,s_Avatar_xfs_00553660,0);
+  BuildAssetPath(auStack_181b8,&g_installPath,s_Avatar_xfs_00553660,0);
   /* WRONG-TARGET FIX (2026-07-29): the raw port opened Avatar.xfs into the
    * shared one-shot &g_xfsScratch buffer, but objdump (0x419dc3-0x419dce)
    * shows the real target is `param_1 + 0xf6e8` - a PERSISTENT per-client
@@ -89,7 +89,7 @@ byte LoadGameDataFiles(int param_1)
   if (cVar4 == '\0') {
     return 7;
   }
-  BuildAssetPath(auStack_181b8,&DAT_005b1ed0,s_characterdata_dat_0055364c,0);
+  BuildAssetPath(auStack_181b8,&g_installPath,s_characterdata_dat_0055364c,0);
   pFVar6 = (FILE *)FUN_00525fac(auStack_181b8,&DAT_00553648);
   if (pFVar6 == (FILE *)0x0) {
     return 2;
@@ -454,7 +454,7 @@ byte LoadGameDataFiles(int param_1)
     iStack_181dc = iStack_181dc + 0xb1ac;
     pcStack_181cc = (char *)((int)pcStack_181cc + -1);
   } while (pcStack_181cc != (char *)0x0);
-  BuildAssetPath(auStack_181b8,&DAT_005b1ed0,s_stage_dat_0055363c,0);
+  BuildAssetPath(auStack_181b8,&g_installPath,s_stage_dat_0055363c,0);
   pFVar6 = (FILE *)FUN_00525fac(auStack_181b8,&DAT_00553648);
   if (pFVar6 != (FILE *)0x0) {
     _fseek(pFVar6,0,2);
@@ -578,7 +578,7 @@ byte LoadGameDataFiles(int param_1)
       if (uStack_181c4 == 0) break;
       iStack_181bc = 0;
     }
-    BuildAssetPath(auStack_181b8,&DAT_005b1ed0,s_itemdata_dat_0055362c,0);
+    BuildAssetPath(auStack_181b8,&g_installPath,s_itemdata_dat_0055362c,0);
     pFVar6 = (FILE *)FUN_00525fac(auStack_181b8,&DAT_00553648);
     if (pFVar6 == (FILE *)0x0) {
       return 5;

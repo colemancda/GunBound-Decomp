@@ -62,7 +62,7 @@ void FUN_00412e50(void)
   local_410 = 0x48;
   local_40c = 0x48;
   local_430 = pvVar3;
-  FUN_00412e00(&DAT_005b2f68);
+  FUN_00412e00(&g_screenPath);
   pFVar4 = (FILE *)FUN_00525fac(local_400,&DAT_00552218);
   local_42c = pFVar4;
   _fwrite(&local_440,0xe,1,pFVar4);

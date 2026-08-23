@@ -55,7 +55,7 @@ void * DAT_00552788;
  * byte of storage, RegQueryValueExA's lpValueName read past the end into
  * whatever the linker placed next, never matching the real "IP"/"Port"
  * value names - so LoadClientSettingsFromRegistry.c's queries always
- * failed and DAT_005b2ad0/DAT_005b33e8 (the broker host/port
+ * failed and g_brokerHost/g_brokerPort (the broker host/port
  * ServerSelect connects to) stayed at their zero-init default, live-
  * reproduced as BeginServerConnect always getting ip="" port=0 even with
  * the real registry values present. Recovered byte-for-byte from
@@ -346,7 +346,7 @@ uint32_t g_edgeCursors[9];
  * the next symbol in each case (0x1cf0-0x1c70=0x80, 0x1d70-0x1cf0=0x80) -
  * were 1-byte placeholders, so any real registry value longer than 1
  * byte overflowed into whatever the linker placed next. See
- * DAT_005b2ad0's comment below for the live-reproduced sibling bug this
+ * g_brokerHost's comment below for the live-reproduced sibling bug this
  * matches exactly. */
 uint8_t DAT_005b1c70[0x80];
 uint8_t DAT_005b1cf0[0x80];
@@ -361,24 +361,24 @@ uint8_t DAT_005b1cf0[0x80];
  * 0x160 bytes: the real extent is independently confirmed three ways - the
  * 0x15e (350) zero-fill target, RenderWrappedText's own wrapWidth=0x15e
  * argument at every call site, and the original binary's next symbol
- * DAT_005b1ed0 sitting at exactly +0x160. DAT_005b1da2 (the old split-out
+ * g_installPath sitting at exactly +0x160. DAT_005b1da2 (the old split-out
  * symbol for this buffer's own +0x32 offset, used by GameTick's RLE blit
  * loop) is folded into this array - see GameTick.c. */
 uint8_t DAT_005b1d70[0x160];
-/* DAT_005b1ed0 (Location)/DAT_005b2f68 (Screen, copy-fallback target for
+/* g_installPath (Location)/g_screenPath (Screen, copy-fallback target for
  * the same value - see the copy loop right after both RegQueryValueExA
  * calls in LoadClientSettingsFromRegistry.c): both told 0x400 (1024)
  * bytes of real capacity (`local_14 = 0x400;`, unchanged across both
  * calls), matching the real gap to each one's next symbol exactly
  * (0x22d0-0x1ed0=0x400, 0x3368-0x2f68=0x400). Were 1-byte placeholders -
- * see DAT_005b2ad0's comment below for the live-reproduced sibling bug. */
-uint8_t DAT_005b1ed0[0x400];
+ * see g_brokerHost's comment below for the live-reproduced sibling bug. */
+uint8_t g_installPath[0x400];
 uint8_t DAT_005b22d0;
 /* DAT_005b26d0 (GameBuddy Executable path): told 0x400 bytes
  * (`local_14 = 0x400;`), matching the real gap to the next symbol
  * (0x2ad0-0x26d0=0x400). Was a 1-byte placeholder. */
 uint8_t DAT_005b26d0[0x400];
-/* DAT_005b2ad0 (the broker "IP" registry value, the actual host
+/* g_brokerHost (the broker "IP" registry value, the actual host
  * State02_ServerSelect_OnEnter's BeginServerConnect connects to) was a
  * 1-byte placeholder despite LoadClientSettingsFromRegistry.c telling
  * RegQueryValueExA it has 0x80 (128) bytes of real capacity
@@ -393,17 +393,17 @@ uint8_t DAT_005b26d0[0x400];
  * bring-up sessions never had HKCU\Software\Softnyx\GunBound populated
  * at all, so RegQueryValueExA always failed cleanly and this 1-byte
  * buffer was simply never written. */
-uint8_t DAT_005b2ad0[0x80];
+uint8_t g_brokerHost[0x80];
 /* DAT_005b2b50 (GameBuddy's own port, read via PTR_DAT_00552788): told
  * 4 bytes (`local_14 = 4;`, a DWORD), matching the real gap to the next
  * symbol (0x2b54-0x2b50=4). Was a 1-byte placeholder - same overflow
- * class as DAT_005b2ad0 above. */
+ * class as g_brokerHost above. */
 uint32_t DAT_005b2b50;
 uint32_t DAT_005b2b54;
 uint32_t DAT_005b2b58;
 uint32_t DAT_005b2b5c;
 uint32_t DAT_005b2b60;
-uint32_t DAT_005b2b64;
+uint32_t g_lastServerIndex;
 /* DAT_005b2b68 (ShopURL): registry read told 0x80 (128) bytes
  * (`local_14 = 0x80;`); its OWN fallback path (when no registry value
  * exists - the default "http://shop.gunbound.com/avatar/" case, which
@@ -414,17 +414,17 @@ uint32_t DAT_005b2b64;
  * every prior bring-up run, independent of any registry state; widened
  * to array form matching the registry read's own larger size hint. */
 uint8_t DAT_005b2b68[0x80];
-uint8_t DAT_005b2f68[0x400];
+uint8_t g_screenPath[0x400];
 /* DAT_005b3368 (GameName): told 0x80 bytes (`local_14 = 0x80;`),
  * matching the real gap to the next symbol (0x33e8-0x3368=0x80). Was a
  * 1-byte placeholder. */
 uint8_t DAT_005b3368[0x80];
-/* DAT_005b33e8 (the broker "Port" registry value, paired with
- * DAT_005b2ad0 above): RegQueryValueExA reads it with `local_14 = 4;`
+/* g_brokerPort (the broker "Port" registry value, paired with
+ * g_brokerHost above): RegQueryValueExA reads it with `local_14 = 4;`
  * (a DWORD) but it was declared uint16_t (2 bytes) - a second, smaller
- * overflow in the exact same live-reproduced hang (see DAT_005b2ad0's
+ * overflow in the exact same live-reproduced hang (see g_brokerHost's
  * comment). Widened to match the real DWORD size. */
-uint32_t DAT_005b33e8;
+uint32_t g_brokerPort;
 uint32_t DAT_005b33f0;
 uint16_t DAT_005b33f4;
 uint32_t DAT_005b3424;

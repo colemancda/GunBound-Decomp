@@ -437,20 +437,31 @@ extern uint32_t g_edgeCursors[9];
 extern uint8_t DAT_005b1c70[0x80]; /* BuddyIP - sized, see globals.c */
 extern uint8_t DAT_005b1cf0[0x80]; /* ChannelName - sized, see globals.c */
 extern uint8_t DAT_005b1d70[0x160]; /* text-render/RLE scratch buffer - sized, see globals.c */
-extern uint8_t DAT_005b1ed0[0x400]; /* Location - sized, see globals.c */
+/* The persisted client settings, all read by LoadClientSettingsFromRegistry
+ * from HKEY_CURRENT_USER\Software\Softnyx\GunBound.  Each is named for the
+ * registry VALUE it receives, which is what the code establishes:
+ *   g_installPath (was DAT_005b1ed0) <- "Location", 0x400 bytes.  WinMain
+ *     builds "%sADB.exe" from it, so it is the install directory.
+ *   g_brokerHost (was DAT_005b2ad0) <- "IP", 0x80 bytes
+ *   g_brokerPort (was DAT_005b33e8) <- "Port", 4 bytes
+ *   g_lastServerIndex (was DAT_005b2b64) <- "LastServer", 4 bytes
+ *   g_screenPath (was DAT_005b2f68) <- "Screen", 0x400 bytes; when that read
+ *     fails the loader copies g_installPath into it, so it defaults to the
+ *     install directory.  What it is FOR is not established here. */
+extern uint8_t g_installPath[0x400];
 extern uint8_t DAT_005b22d0;
 extern uint8_t DAT_005b26d0[0x400]; /* GameBuddy Executable - sized, see globals.c */
-extern uint8_t DAT_005b2ad0[0x80]; /* broker IP - sized, see globals.c */
+extern uint8_t g_brokerHost[0x80];
 extern uint32_t DAT_005b2b50; /* GameBuddy port - sized, see globals.c */
 extern uint32_t DAT_005b2b54;
 extern uint32_t DAT_005b2b58;
 extern uint32_t DAT_005b2b5c;
 extern uint32_t DAT_005b2b60;
-extern uint32_t DAT_005b2b64;
+extern uint32_t g_lastServerIndex;
 extern uint8_t DAT_005b2b68[0x80]; /* ShopURL - sized, see globals.c */
-extern uint8_t DAT_005b2f68[0x400]; /* Screen - sized, see globals.c */
+extern uint8_t g_screenPath[0x400];
 extern uint8_t DAT_005b3368[0x80]; /* GameName - sized, see globals.c */
-extern uint32_t DAT_005b33e8; /* broker Port - sized, see globals.c */
+extern uint32_t g_brokerPort;
 extern uint32_t DAT_005b33f0;
 extern uint16_t DAT_005b33f4;
 extern uint32_t DAT_005b3424;          /* second per-connection base (see Mobile.cpp) */

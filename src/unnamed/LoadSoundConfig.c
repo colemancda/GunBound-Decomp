@@ -76,7 +76,7 @@ undefined4 LoadSoundConfig(undefined4 param_1)
   local_f70b = 1;
   uStack_10748 = 0;
   local_c = 0;
-  BuildAssetPath(auStack_10b50,&DAT_005b1ed0,s_graphics_xfs_00551fdc,0);
+  BuildAssetPath(auStack_10b50,&g_installPath,s_graphics_xfs_00551fdc,0);
   OpenXFSArchive(&g_xfsScratch,auStack_10b50,1,0);
   iVar6 = FindXFSEntry(&g_xfsScratch,s_Sound_txt_00557218);
   if (((iVar6 == 0) || (pvVar4 = operator_new(0x1024), pvVar4 == (void *)0x0)) ||

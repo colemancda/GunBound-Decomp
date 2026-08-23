@@ -283,7 +283,7 @@ LAB_004d3fb0:
           } while (cVar10 != '\0');
         } while (uVar18 < (uint)((int)pcVar14 - (g_clientContext + 0x44e65)));
       }
-      _sprintf(acStack_800,s__s_s____s_sv_005570ac,&DAT_005b1ed0,acStack_880,&cStack_980);
+      _sprintf(acStack_800,s__s_s____s_sv_005570ac,&g_installPath,acStack_880,&cStack_980);
       iVar17 = g_clientContext;
       *(undefined4 *)(&g_replayFileHandle + g_clientContext) = 0;
       bVar2 = *payload;

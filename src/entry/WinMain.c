@@ -328,7 +328,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
   }
   *(undefined2 *)puVar14 = 0;
   *(undefined1 *)((int)puVar14 + 2) = 0;
-  _sprintf(&cStack_408,s__sADB_exe_00552730,&DAT_005b1ed0);
+  _sprintf(&cStack_408,s__sADB_exe_00552730,&g_installPath);
   DVar3 = local_dac;
   Shutdown(local_dac == 0);
   ShowCursor(1);
@@ -489,14 +489,14 @@ LAB_0040e0f1:
     MessageBoxA((HWND)0x0,pCVar9,pCVar8,UVar16);
     break;
   case 0xcd:
-    puVar17 = &DAT_005b1ed0;
+    puVar17 = &g_installPath;
     uVar6 = DAT_007934c8;
     uVar10 = PeekChecksumStateUnderLock(&DAT_00796878);
     pcVar11 = (char *)GetLocalizedString(&g_localizedStringTable,0x133);
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6,puVar17);
     goto LAB_0040e1a0;
   case 0xce:
-    puVar17 = &DAT_005b1ed0;
+    puVar17 = &g_installPath;
     uVar6 = DAT_007934c8;
     uVar10 = PeekChecksumStateUnderLock(&DAT_00796878);
     pcVar11 = (char *)GetLocalizedString(&g_localizedStringTable,0x134);
@@ -509,7 +509,7 @@ LAB_0040e0f1:
     _sprintf(acStack_d48,pcVar11,uVar10,uVar6);
     goto LAB_0040e1a0;
   case 0xe2:
-    puVar17 = &DAT_005b1ed0;
+    puVar17 = &g_installPath;
     pcVar11 = (char *)GetLocalizedString(&g_localizedStringTable,0x12e);
     _sprintf(acStack_d48,pcVar11,puVar17);
     goto LAB_0040e1ec;
@@ -523,7 +523,7 @@ LAB_0040e0f1:
     MessageBoxA((HWND)0x0,acStack_d48,pCVar8,UVar16);
     break;
   case 0xe4:
-    puVar17 = &DAT_005b1ed0;
+    puVar17 = &g_installPath;
     pcVar11 = (char *)GetLocalizedString(&g_localizedStringTable,0x130);
     _sprintf(acStack_d48,pcVar11,puVar17);
     UVar16 = 0;
@@ -531,7 +531,7 @@ LAB_0040e0f1:
     MessageBoxA((HWND)0x0,acStack_d48,pCVar8,UVar16);
     break;
   case 0xe5:
-    puVar17 = &DAT_005b1ed0;
+    puVar17 = &g_installPath;
     pcVar11 = (char *)GetLocalizedString(&g_localizedStringTable,0x132);
     _sprintf(acStack_d48,pcVar11,puVar17);
     UVar16 = 0;
@@ -549,7 +549,7 @@ LAB_0040e1ec:
     MessageBoxA((HWND)0x0,acStack_d48,pCVar8,UVar16);
     break;
   case 0xe7:
-    puVar17 = &DAT_005b1ed0;
+    puVar17 = &g_installPath;
     pcVar11 = (char *)GetLocalizedString(&g_localizedStringTable,0x142);
     _sprintf(acStack_d48,pcVar11,puVar17);
 LAB_0040e1a0:
@@ -560,7 +560,7 @@ LAB_0040e1a0:
 LAB_0040e75c:
   iVar13 = 0;
   do {
-    cVar1 = (&DAT_005b1ed0)[iVar13];
+    cVar1 = (&g_installPath)[iVar13];
     aCStack_948[iVar13] = cVar1;
     iVar13 = iVar13 + 1;
   } while (cVar1 != '\0');
@@ -577,7 +577,7 @@ LAB_0040e75c:
   if (pvVar2 != (HANDLE)0xffffffff) {
     iVar13 = 0;
     do {
-      cVar1 = (&DAT_005b1ed0)[iVar13];
+      cVar1 = (&g_installPath)[iVar13];
       acStack_d48[iVar13] = cVar1;
       iVar13 = iVar13 + 1;
     } while (cVar1 != '\0');

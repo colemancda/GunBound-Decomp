@@ -227,7 +227,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
           }
           *(undefined1 *)(iVar20 + 0x4110a + iVar8) = 0;
           uVar6 = (uint)*(ushort *)(iStack_d8 + -0x1890 + iVar20);
-          if (((*(uint *)(iVar20 + 0x3f804) == uVar6) || (uVar6 == DAT_005b2b64)) && (bVar23)) {
+          if (((*(uint *)(iVar20 + 0x3f804) == uVar6) || (uVar6 == g_lastServerIndex)) && (bVar23)) {
             *(int *)((int)pvStack_e4 + 8) = iVar8;
           }
           iStack_dc = iStack_dc + 0x100;
@@ -303,7 +303,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
         g_connectionContextA = iVar8;
         *(uint *)(g_clientContext + 0x3f804) =
              (uint)*(ushort *)(g_clientContext + 0x3f81a + *(int *)((int)this + 0x68) * 2);
-        DAT_005b2b64 = 0xffffffff;
+        g_lastServerIndex = 0xffffffff;
         pcVar9 = (char *)(*(int *)((int)this + 0x68) * 0x80 + 0x3f84a + iVar20);
         pcVar13 = (char *)(iVar20 + 0x3b8e8);
         do {

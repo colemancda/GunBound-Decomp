@@ -3,8 +3,8 @@
  * Loads persisted client settings from the registry at
  * HKEY_CURRENT_USER\Software\Softnyx\GunBound (and ...\GameBuddy). This is
  * where the externally-configured server-broker address enters the client:
- * the "IP" value -> DAT_005b2ad0 (128-byte hostname string) and "Port" ->
- * DAT_005b33e8, which State02 ServerSelect's OnEnter then connects to. Also
+ * the "IP" value -> g_brokerHost (128-byte hostname string) and "Port" ->
+ * g_brokerPort, which State02 ServerSelect's OnEnter then connects to. Also
  * reads LastServer, Location, Screen, Version, ShootingMode, MouseSpeed,
  * MidiMode, Music/EffectVolume, AutoRefresh, Effect3D, Background, GameName,
  * ChannelName, Language, BuddyIP/BuddyPort (default port 0x20a0), and ShopURL
@@ -49,20 +49,20 @@ void LoadClientSettingsFromRegistry(void)
                        );
   if (LVar2 == 0) {
     local_14 = 0x80;
-    RegQueryValueExA(local_10,s_IP_00552898,(LPDWORD)0x0,&local_c,DAT_005b2ad0,&local_14);
+    RegQueryValueExA(local_10,s_IP_00552898,(LPDWORD)0x0,&local_c,g_brokerHost,&local_14);
     local_14 = 4;
-    RegQueryValueExA(local_10,s_Port_00552890,(LPDWORD)0x0,&local_c,(LPBYTE)&DAT_005b33e8,&local_14);
-    RegQueryValueExA(local_10,s_LastServer_00552884,(LPDWORD)0x0,&local_c,(LPBYTE)&DAT_005b2b64,
+    RegQueryValueExA(local_10,s_Port_00552890,(LPDWORD)0x0,&local_c,(LPBYTE)&g_brokerPort,&local_14);
+    RegQueryValueExA(local_10,s_LastServer_00552884,(LPDWORD)0x0,&local_c,(LPBYTE)&g_lastServerIndex,
                      &local_14);
     local_14 = 0x400;
-    RegQueryValueExA(local_10,s_Location_00552878,(LPDWORD)0x0,&local_c,DAT_005b1ed0,&local_14);
-    LVar2 = RegQueryValueExA(local_10,s_Screen_00552870,(LPDWORD)0x0,&local_c,DAT_005b2f68,
+    RegQueryValueExA(local_10,s_Location_00552878,(LPDWORD)0x0,&local_c,g_installPath,&local_14);
+    LVar2 = RegQueryValueExA(local_10,s_Screen_00552870,(LPDWORD)0x0,&local_c,g_screenPath,
                              &local_14);
     if (LVar2 != 0) {
       iVar3 = 0;
       do {
-        pcVar4 = DAT_005b1ed0 + iVar3;
-        DAT_005b2f68[iVar3] = *pcVar4;
+        pcVar4 = g_installPath + iVar3;
+        g_screenPath[iVar3] = *pcVar4;
         iVar3 = iVar3 + 1;
       } while (*pcVar4 != '\0');
     }

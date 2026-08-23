@@ -75,7 +75,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
   LoadChooseEventConfig(&DAT_00e9bea8);
   CoInitialize((LPVOID)0x0);
   DAT_00588f4c = 0;
-  BuildAssetPath(local_40c,&DAT_005b1ed0,s_graphics_xfs_00551fdc,0);
+  BuildAssetPath(local_40c,&g_installPath,s_graphics_xfs_00551fdc,0);
   /* param_1 is the main window HWND (WinMain calls InitGame(hWnd, hInstance));
    * the original passed it to InitDirectDraw in EAX. */
   iVar1 = InitDirectDraw(local_40c, (HWND)param_1);
@@ -90,7 +90,7 @@ int InitGame(undefined4 param_1,undefined4 param_2)
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (DAT_007934c8 == iVar1) {
       FUN_004f1eb0();
-      BuildAssetPath(local_40c,&DAT_005b1ed0,s_sound_xfs_005526fc,0);
+      BuildAssetPath(local_40c,&g_installPath,s_sound_xfs_005526fc,0);
       InitDirectSound(param_1,0x10,local_40c);
       DAT_007934c8 = DAT_00ea0f54;
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
