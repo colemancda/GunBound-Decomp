@@ -30,7 +30,7 @@
  * orig 0x41231f: `mov ebx,0xe9be90` before ChangeGameState's first
  * call, orig 0x41232b: `mov ebx,0xe9c0fc` before its second) is kept as
  * an explicit parameter here, but the body itself is left a no-op. The
- * ORIGINAL blocker - DAT_00e9be90/DAT_00e9c0fc were 1-byte placeholders
+ * ORIGINAL blocker - g_activeObjectRegistry/g_activeObjectRegistry2 were 1-byte placeholders
  * while this function indexes them as a real 32-byte struct - is now
  * resolved (see globals.c/crt_shims_msvc.c: both are sized to 0x20
  * bytes with a self-referencing empty-sentinel init), so restoring the

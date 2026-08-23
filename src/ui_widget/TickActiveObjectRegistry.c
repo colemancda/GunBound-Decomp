@@ -15,7 +15,7 @@
  * port read EBX uninitialized and faulted on the first list deref. Recovered
  * from the sole call site in GameTick (orig 0x413130): 0x4132a4 does
  * `mov ebx, 0xe9be90` immediately before `call 0x406280` at 0x4132a9, and the
- * intervening 0x50f290 call preserves EBX, so the argument is &DAT_00e9be90 -
+ * intervening 0x50f290 call preserves EBX, so the argument is &g_activeObjectRegistry -
  * the first active-object registry (the same one DrawActiveObjectRegistry and
  * the mouse-hit-test family walk). It is called once per tick, on that one
  * registry only (DrawActiveObjectRegistry runs on both).

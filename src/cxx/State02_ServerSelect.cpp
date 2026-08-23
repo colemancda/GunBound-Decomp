@@ -42,7 +42,7 @@ void AppendPersistentButtonName(void *slot);
 void CreateButtonWidget(void *registry, int a, int id, int spriteBase,
                         const char *name, int x, int y, int w, int h,
                         int enabled, int b);
-extern unsigned char DAT_00e9be90[0x20]; /* flat-ButtonWidget registry - sized, see globals.c */
+extern unsigned char g_activeObjectRegistry[0x20]; /* flat-ButtonWidget registry - sized, see globals.c */
 extern const char s_b_server_exitgame_00557144[];
 extern const char s_b_server_buddygame_00557170[];
 extern const char s_b_server_choiceserver_00557158[];
@@ -111,11 +111,11 @@ void CState02ServerSelect::OnEnter()
     for (int i = 0; i < 3; ++i) {
         AppendPersistentButtonName((unsigned char *)&DAT_0067ec70 + g_clientContext);
     }
-    CreateButtonWidget(&DAT_00e9be90, 0, 0, 1000, s_b_server_exitgame_00557144,
+    CreateButtonWidget(&g_activeObjectRegistry, 0, 0, 1000, s_b_server_exitgame_00557144,
                        0x28, 0x227, 0x6b, 0x2d, 1, 0);
-    CreateButtonWidget(&DAT_00e9be90, 0, 1, 0x3e9, s_b_server_buddygame_00557170,
+    CreateButtonWidget(&g_activeObjectRegistry, 0, 1, 0x3e9, s_b_server_buddygame_00557170,
                        0xa3, 0x227, 0x6b, 0x2d, 1, 0);
-    CreateButtonWidget(&DAT_00e9be90, 0, 2, 0x3ea, s_b_server_choiceserver_00557158,
+    CreateButtonWidget(&g_activeObjectRegistry, 0, 2, 0x3ea, s_b_server_choiceserver_00557158,
                        0x199, 0x227, 0x6b, 0x2d, 0, 0);
 
     unsigned char *ctx = (unsigned char *)g_clientContext;

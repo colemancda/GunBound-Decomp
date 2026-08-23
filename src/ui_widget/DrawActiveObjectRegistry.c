@@ -1,7 +1,7 @@
 /* DrawActiveObjectRegistry - 0x004062b0 in the original binary.
  *
  * PROMOTED (2026-07-13): walks `param_1` (one of the two active-object
- * registries, DAT_00e9be90/DAT_00e9c0fc) outer (layer) list, and for
+ * registries, g_activeObjectRegistry/g_activeObjectRegistry2) outer (layer) list, and for
  * layers whose own +4 "layer" field is <= 999999 (see
  * HandleActiveObjectMouseDown.c's note on that same 1000000 threshold),
  * calls every inner object's vtable slot 3 - `Draw()` (CButtonWidget.h) -

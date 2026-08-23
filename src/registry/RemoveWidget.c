@@ -5,7 +5,7 @@
  * function "has nothing to do with widgets" and that the name names the wrong
  * subsystem.  THAT WAS WRONG, and scanning the call sites is what showed it:
  * EDI - the container - is the immediate 0xe9be90 at 132 of 133 sites, and
- * DAT_00e9be90 is the ACTIVE-OBJECT (widget) REGISTRY, the same container
+ * g_activeObjectRegistry is the ACTIVE-OBJECT (widget) REGISTRY, the same container
  * SweepActiveObjectRegistry, DrawActiveObjectRegistry and
  * TickActiveObjectRegistry walk.  So this really does operate on widgets.
  *
@@ -43,7 +43,7 @@
  * CALL SITES SCANNED (133 direct calls, cached in
  * tools/removewidget_regs.json).  The arguments are almost entirely literal,
  * so this should sweep cleanly once the source-to-site pairing is settled:
- *     EDI  0xe9be90 at 132/133 - &DAT_00e9be90, the widget registry
+ *     EDI  0xe9be90 at 132/133 - &g_activeObjectRegistry, the widget registry
  *     EDX  `xor edx,edx` at 131/133 - the outer key is 0
  *     ESI  an immediate at ~124/133, spread over 37 distinct values
  *          (0x32..0x3c and friends - widget ids)

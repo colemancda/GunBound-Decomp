@@ -369,7 +369,7 @@ LAB_0044469b:
           pcVar7 = pcVar7 + 1;
         } while (cVar2 != '\0');
         *(undefined1 *)((int)this + 0x32ad4) = 0;
-        CreateButtonWidget(&DAT_00e9be90,0,0x3b,0x516,s_b_storewindow_confirm_00555a8c,0x14d,0x154,
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x3b,0x516,s_b_storewindow_confirm_00555a8c,0x14d,0x154,
                            0x4a,0x1a,1,0);
         g_serverWaitTicks = 0xffffffff;
         local_c = 0xffffffff;

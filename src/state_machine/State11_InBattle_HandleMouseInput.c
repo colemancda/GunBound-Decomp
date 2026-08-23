@@ -599,14 +599,14 @@ LAB_004b9bb0:
           return;
         }
         if (*(char *)(g_clientContext + 0xebee5) == '\x01') {
-          RemoveWidget((int)&DAT_00e9be90,0,5);
-          CreateButtonWidget(&DAT_00e9be90,0,4,0x3ec,s_b_play_all_0055412c,0xa8,0x219,0x1d,0x10,1,0)
+          RemoveWidget((int)&g_activeObjectRegistry,0,5);
+          CreateButtonWidget(&g_activeObjectRegistry,0,4,0x3ec,s_b_play_all_0055412c,0xa8,0x219,0x1d,0x10,1,0)
           ;
           *(undefined1 *)(g_clientContext + 0xebee5) = 0;
           return;
         }
-        RemoveWidget((int)&DAT_00e9be90,0,4);
-        CreateButtonWidget(&DAT_00e9be90,0,5,0x3ed,s_b_play_team_00554114,0xa8,0x219,0x1d,0x10,1,0);
+        RemoveWidget((int)&g_activeObjectRegistry,0,4);
+        CreateButtonWidget(&g_activeObjectRegistry,0,5,0x3ed,s_b_play_team_00554114,0xa8,0x219,0x1d,0x10,1,0);
         *(undefined1 *)(g_clientContext + 0xebee5) = 1;
         return;
       }
@@ -619,8 +619,8 @@ LAB_004b9bb0:
         *(undefined4 *)(g_clientContext + 0xebef0) = 0xfffffffd;
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
-        RemoveWidget((int)&DAT_00e9be90,0,1);
-        CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,
+        RemoveWidget((int)&g_activeObjectRegistry,0,1);
+        CreateButtonWidget(&g_activeObjectRegistry,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,
                            0);
         uVar9 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
         if (((char)uVar9 == '\0') ||
@@ -630,7 +630,7 @@ LAB_004b9bb0:
         else {
           uVar9 = CONCAT31((int3)(uVar9 >> 8),1);
         }
-        CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x23,0x22
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x23,0x22
                            ,uVar9,0);
         return;
       }
@@ -638,7 +638,7 @@ LAB_004b9bb0:
       if (cVar4 == '\0') {
         *(undefined4 *)(g_clientContext + 0xebef0) = 0xffffffe8;
         SetGuardedBool(1,GB_GUARD_UNRECOVERED);
-        RemoveWidget((int)&DAT_00e9be90,0,2);
+        RemoveWidget((int)&g_activeObjectRegistry,0,2);
         uVar23 = 6;
         pcVar22 = s_b_play_weapon1_00554164;
         uVar21 = 0x3e9;
@@ -656,8 +656,8 @@ LAB_004b9bb0:
         }
         else {
           SetGuardedBool(1,GB_GUARD_UNRECOVERED);
-          RemoveWidget((int)&DAT_00e9be90,0,0x12);
-          CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0
+          RemoveWidget((int)&g_activeObjectRegistry,0,0x12);
+          CreateButtonWidget(&g_activeObjectRegistry,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0
                             );
         }
         uVar23 = 0x2f;
@@ -665,7 +665,7 @@ LAB_004b9bb0:
         uVar21 = 0x3ea;
         uVar20 = 2;
       }
-      CreateButtonWidget(&DAT_00e9be90,0,uVar20,uVar21,pcVar22,uVar23,0x232,0x23,0x22,1,0);
+      CreateButtonWidget(&g_activeObjectRegistry,0,uVar20,uVar21,pcVar22,uVar23,0x232,0x23,0x22,1,0);
       QueueBroadcastEvent(0x4005,(int)&g_replayContext);
       cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba));
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = cVar4 != '\0';
@@ -720,7 +720,7 @@ LAB_004b9bb0:
       *(int *)(&g_nCameraScrollY + iVar13) = iVar15;
       return;
     }
-    if (((char)param_1[0x474] != '\0') && (cVar4 = FUN_00406400(0,0,(int)&DAT_00e9be90), cVar4 == '\x01')) {
+    if (((char)param_1[0x474] != '\0') && (cVar4 = FUN_00406400(0,0,(int)&g_activeObjectRegistry), cVar4 == '\x01')) {
       InvokeWidget(3,extraout_EDX);
       iVar13 = DAT_007934e8;
       *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;

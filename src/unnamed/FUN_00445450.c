@@ -116,9 +116,9 @@ void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefine
     *(byte *)(param_1 + 0x32c55) = bVar14;
     *(byte *)(param_1 + 0x32c56) = *(byte *)(param_1 + 0x32c54) + bVar14 + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    RemoveWidget((int)&DAT_00e9be90,0,0x34);
+    RemoveWidget((int)&g_activeObjectRegistry,0,0x34);
 LAB_00445543:
-    RemoveWidget((int)&DAT_00e9be90,0,0x35);
+    RemoveWidget((int)&g_activeObjectRegistry,0,0x35);
     FUN_0040cdf0(0,0x2710);
     FUN_0040cdf0(0,0x2710);
     CreateAvatarStoreButtons(param_1);
@@ -138,7 +138,7 @@ LAB_00445543:
        ((cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,1);
     FUN_00449250(param_1,1,0);
-    SetWidgetReadyState(0,0,1,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,1,(int)&g_activeObjectRegistry);
     uVar12 = 0;
     goto LAB_00445629;
   case 0xb:
@@ -147,16 +147,16 @@ LAB_00445543:
        ((cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,0);
     FUN_00449250(param_1,1,0);
-    SetWidgetReadyState(0,0,0,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry);
     uVar12 = 1;
 LAB_00445629:
-    SetWidgetReadyState(0,0,uVar12,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,uVar12,(int)&g_activeObjectRegistry);
     uVar12 = 0;
 LAB_0044563c:
-    SetWidgetReadyState(0,0,uVar12,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,uVar12,(int)&g_activeObjectRegistry);
     uVar12 = 0;
 LAB_004457e7:
-    SetWidgetReadyState(0,0,uVar12,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,uVar12,(int)&g_activeObjectRegistry);
     break;
   case 0xc:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
@@ -164,8 +164,8 @@ LAB_004457e7:
         (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01')) || (g_stateChangeInProgress != 0)) break;
     FUN_00449540(param_1,2);
     FUN_00449250(param_1,1,0);
-    SetWidgetReadyState(0,0,0,(int)&DAT_00e9be90);
-    SetWidgetReadyState(0,0,0,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry);
+    SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry);
     uVar12 = 1;
     goto LAB_0044563c;
   case 0xd:
@@ -174,9 +174,9 @@ LAB_004457e7:
        ((cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,3);
     FUN_00449250(param_1,1,0);
-    SetWidgetReadyState(0,0,0,(int)&DAT_00e9be90);
-    SetWidgetReadyState(0,0,0,(int)&DAT_00e9be90);
-    SetWidgetReadyState(0,0,0,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry);
+    SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry);
+    SetWidgetReadyState(0,0,0,(int)&g_activeObjectRegistry);
     uVar12 = 1;
     goto LAB_004457e7;
   case 0xe:
@@ -282,7 +282,7 @@ LAB_004457e7:
         uVar12 = PeekChecksumStateUnderLock(iVar9);
         cVar1 = PacketChecksumGreaterThan(partWorkspace + 0x460,uVar12);
         if (cVar1 != '\0') {
-          CreateButtonWidget(&DAT_00e9be90,0,0x3c,0x518,s_b_storewindow_cashcharge_00555a70,0xd0,
+          CreateButtonWidget(&g_activeObjectRegistry,0,0x3c,0x518,s_b_storewindow_cashcharge_00555a70,0xd0,
                              0x146,0x88,0x28,1,0);
         }
         uVar12 = PeekChecksumStateUnderLock(g_clientContext + 0x396a0);
@@ -293,7 +293,7 @@ LAB_004457e7:
         else {
           uVar12 = 1;
         }
-        CreateButtonWidget(&DAT_00e9be90,0,0x32,0x519,s_b_storewindow_gold_00555a5c,0xea,0x178,0x55,
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x32,0x519,s_b_storewindow_gold_00555a5c,0xea,0x178,0x55,
                            0x24,uVar12,0);
         uVar12 = PeekChecksumStateUnderLock(g_clientContext + 0x398c4);
         cVar1 = PacketChecksumLessEqual(partWorkspace + 0x460,uVar12);
@@ -303,9 +303,9 @@ LAB_004457e7:
         else {
           uVar12 = 1;
         }
-        CreateButtonWidget(&DAT_00e9be90,0,0x37,0x51a,s_b_storewindow_cash_00555a48,0x95,0x178,0x55,
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x37,0x51a,s_b_storewindow_cash_00555a48,0x95,0x178,0x55,
                            0x24,uVar12,0);
-        CreateButtonWidget(&DAT_00e9be90,0,0x33,0x517,s_b_storewindow_cancel_00555a30,0x13f,0x178,
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x33,0x517,s_b_storewindow_cancel_00555a30,0x13f,0x178,
                            0x4a,0x1a,1,0);
         uVar12 = PeekChecksumStateUnderLock(iVar3);
         *(undefined4 *)(param_1 + 0x34788) = uVar12;
@@ -391,9 +391,9 @@ LAB_004457e7:
                 pcVar13 = pcVar13 + 1;
               } while (cVar1 != '\0');
               *(undefined1 *)(param_1 + 0x32ad4) = 0;
-              CreateButtonWidget(&DAT_00e9be90,0,0x32,0x516,s_b_storewindow_yes_00555a1c,0xf2,0x154,
+              CreateButtonWidget(&g_activeObjectRegistry,0,0x32,0x516,s_b_storewindow_yes_00555a1c,0xf2,0x154,
                                  0x4a,0x1a,1,0);
-              CreateButtonWidget(&DAT_00e9be90,0,0x33,0x517,s_b_storewindow_cancel_00555a30,0x14d,
+              CreateButtonWidget(&g_activeObjectRegistry,0,0x33,0x517,s_b_storewindow_cancel_00555a30,0x14d,
                                  0x154,0x4a,0x1a,1,0);
               local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
               FUN_004254a0();
@@ -512,9 +512,9 @@ LAB_004457e7:
           uVar4 = PeekChecksumStateUnderLock(iVar3 + 0x22c);
           _sprintf((char *)((int)&local_4518 + 3),s__05d_img_00555a08,uVar4 & 0x7fff);
           LoadSpriteSet(&g_spriteRegistry,30000);
-          CreateButtonWidget(&DAT_00e9be90,0,0x34,0x517,s_b_storewindow_cancel_00555a30,0x14d,0x154,
+          CreateButtonWidget(&g_activeObjectRegistry,0,0x34,0x517,s_b_storewindow_cancel_00555a30,0x14d,0x154,
                              0x4a,0x1a,1,0);
-          CreateButtonWidget(&DAT_00e9be90,0,0x35,0x516,s_b_storewindow_confirm_00555a8c,0xf2,0x154,
+          CreateButtonWidget(&g_activeObjectRegistry,0,0x35,0x516,s_b_storewindow_confirm_00555a8c,0xf2,0x154,
                              0x4a,0x1a,1,0);
           pvVar5 = operator_new(0x458);
           if (pvVar5 == (void *)0x0) {
@@ -536,7 +536,7 @@ LAB_004457e7:
           }
           *(undefined4 *)(iVar3 + 0x448) = 0;
           RegisterActiveObject(0, 0, (undefined4 *)0);
-          FUN_0040cf80(0,0x2710,(int)&DAT_00e9c0fc,0);
+          FUN_0040cf80(0,0x2710,(int)&g_activeObjectRegistry2,0);
           local_4 = local_4 & 0xffffff00;
           FUN_004254a0();
         }
@@ -597,9 +597,9 @@ LAB_004457e7:
           pcVar13 = pcVar13 + 1;
         } while (cVar1 != '\0');
         *(undefined1 *)(param_1 + 0x32ad4) = 0;
-        CreateButtonWidget(&DAT_00e9be90,0,0x32,0x516,s_b_storewindow_yes_00555a1c,0xf2,0x154,0x4a,
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x32,0x516,s_b_storewindow_yes_00555a1c,0xf2,0x154,0x4a,
                            0x1a,1,0);
-        CreateButtonWidget(&DAT_00e9be90,0,0x33,0x517,s_b_storewindow_cancel_00555a30,0x14d,0x154,
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x33,0x517,s_b_storewindow_cancel_00555a30,0x14d,0x154,
                            0x4a,0x1a,1,0);
       }
       local_4 = local_4 & 0xffffff00;
@@ -771,20 +771,20 @@ LAB_00446d2b:
     break;
   case 0x33:
     QueueOutgoingPacketField(0);
-    RemoveWidget((int)&DAT_00e9be90,0,0x32);
-    RemoveWidget((int)&DAT_00e9be90,0,0x33);
-    RemoveWidget((int)&DAT_00e9be90,0,0x37);
-    RemoveWidget((int)&DAT_00e9be90,0,0x3c);
+    RemoveWidget((int)&g_activeObjectRegistry,0,0x32);
+    RemoveWidget((int)&g_activeObjectRegistry,0,0x33);
+    RemoveWidget((int)&g_activeObjectRegistry,0,0x37);
+    RemoveWidget((int)&g_activeObjectRegistry,0,0x3c);
     CreateAvatarStoreButtons(param_1);
     break;
   case 0x34:
     SetGuardedBool(0,GB_GUARD_UNRECOVERED);
-    RemoveWidget((int)&DAT_00e9be90,0,0x34);
-    RemoveWidget((int)&DAT_00e9be90,0,0x35);
-    RemoveWidget((int)&DAT_00e9be90,0,0x37);
+    RemoveWidget((int)&g_activeObjectRegistry,0,0x34);
+    RemoveWidget((int)&g_activeObjectRegistry,0,0x35);
+    RemoveWidget((int)&g_activeObjectRegistry,0,0x37);
     goto LAB_00445543;
   case 0x35:
-    pcVar8 = (char *)FUN_0040cfe0(0,0x2710,(int)&DAT_00e9c0fc);
+    pcVar8 = (char *)FUN_0040cfe0(0,0x2710,(int)&g_activeObjectRegistry2);
     pcVar13 = (char *)(param_1 + 0x32ce3);
     do {
       cVar1 = *pcVar8;
@@ -792,7 +792,7 @@ LAB_00446d2b:
       *pcVar13 = cVar1;
       pcVar13 = pcVar13 + 1;
     } while (cVar1 != '\0');
-    pcVar8 = (char *)FUN_0040cfe0(0,0x2710,(int)&DAT_00e9c0fc);
+    pcVar8 = (char *)FUN_0040cfe0(0,0x2710,(int)&g_activeObjectRegistry2);
     pcVar13 = (char *)(param_1 + 0x32d63);
     do {
       cVar1 = *pcVar8;
@@ -938,12 +938,12 @@ LAB_00446f6d:
         *(undefined1 *)(param_1 + 0x32f90) = 0;
         InvokeWidget(52,0);
         InvokeWidget(53,0);
-        FUN_0040cf30(0,0x2710,0,(int)&DAT_00e9c0fc,0);
-        FUN_0040cf30(0,0x2710,0,(int)&DAT_00e9c0fc,1);
+        FUN_0040cf30(0,0x2710,0,(int)&g_activeObjectRegistry2,0);
+        FUN_0040cf30(0,0x2710,0,(int)&g_activeObjectRegistry2,1);
         break;
       }
     }
-    FUN_0040cf80(0,0x2710,(int)&DAT_00e9c0fc,0);
+    FUN_0040cf80(0,0x2710,(int)&g_activeObjectRegistry2,0);
     break;
   case 0x36:
     RenderInventoryItemDetail(param_1);
@@ -988,7 +988,7 @@ LAB_00446f6d:
   case 0x3b:
     *(undefined1 *)(param_1 + 0x32f90) = 1;
     QueueOutgoingPacketField(0);
-    RemoveWidget((int)&DAT_00e9be90,0,0x3b);
+    RemoveWidget((int)&g_activeObjectRegistry,0,0x3b);
     CreateAvatarStoreButtons(param_1);
     FUN_00449250(param_1,1,0);
     break;

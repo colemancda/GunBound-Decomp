@@ -477,7 +477,7 @@ LAB_004cd6de:
     if (((local_715 == '\0') &&
         ((cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x67e3cc)), cVar4 != '\x01' || (*(char *)(g_clientContext + 0x45127) != '\x03')))
         ) || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
-      CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26,0
+      CreateButtonWidget(&g_activeObjectRegistry,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26,0
                          ,0);
       if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
         piVar2 = *(int **)(*(int *)(DAT_00e9be94 + 0x1c) + 0x10);
@@ -508,7 +508,7 @@ LAB_004cd6de:
         cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bba));
         if (cVar4 == '\x01') {
           InvokeWidget(1,1);
-          RemoveWidget((int)&DAT_00e9be90,0,2);
+          RemoveWidget((int)&g_activeObjectRegistry,0,2);
           uVar22 = 6;
           pcVar10 = s_b_play_weapon1_00554164;
           uVar21 = 0x3e9;
@@ -522,14 +522,14 @@ LAB_004cd6de:
           uVar21 = 0x3ea;
           uVar9 = 2;
         }
-        CreateButtonWidget(&DAT_00e9be90,0,uVar9,uVar21,pcVar10,uVar22,0x232,0x25,0x26,1,0);
+        CreateButtonWidget(&g_activeObjectRegistry,0,uVar9,uVar21,pcVar10,uVar22,0x232,0x25,0x26,1,0);
         pcVar18 = (code *)LeaveCriticalSection;
       }
     }
     else {
       cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb7));
       if (cVar4 == '\0') {
-        CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26
                            ,1,0);
         InvokeWidget(18,1);
         pcVar18 = (code *)LeaveCriticalSection;

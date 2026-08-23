@@ -439,7 +439,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
         else {
           uVar11 = CONCAT31((int3)(uVar11 >> 8),1);
         }
-        CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x23,0x22
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x23,0x22
                            ,uVar11,0);
         cVar2 = PacketChecksumGreaterThan(*(int *)(g_clientContext + 0x621e0) + 0xc080,4);
         if ((cVar2 == '\0') || (*(short *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc) != 0)) {
@@ -455,15 +455,15 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
         cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bb7));
         if (cVar2 == '\x01') {
           InvokeWidget(1,1);
-          RemoveWidget((int)&DAT_00e9be90,0,2);
-          CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0
+          RemoveWidget((int)&g_activeObjectRegistry,0,2);
+          CreateButtonWidget(&g_activeObjectRegistry,0,1,0x3e9,s_b_play_weapon1_00554164,6,0x232,0x23,0x22,1,0
                             );
           *unaff_FS_OFFSET = local_14;
           return;
         }
         InvokeWidget(2,1);
-        RemoveWidget((int)&DAT_00e9be90,0,1);
-        CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,
+        RemoveWidget((int)&g_activeObjectRegistry,0,1);
+        CreateButtonWidget(&g_activeObjectRegistry,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,
                            0);
         *unaff_FS_OFFSET = local_14;
         return;
@@ -485,7 +485,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
     }
     if (uVar1 != GB_ACT_FIRE) {
       if (uVar1 == GB_ACT_SHOW_RESULT_CONFIRM) {
-        CreateButtonWidget(&DAT_00e9be90,0,0x10,0x3f8,s_b_result_confirm_00554074,0x29f,0x1b9,0x67,
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x10,0x3f8,s_b_result_confirm_00554074,0x29f,0x1b9,0x67,
                            0x2d,1,0);
         *unaff_FS_OFFSET = local_14;
         return;

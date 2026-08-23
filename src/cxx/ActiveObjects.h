@@ -2,7 +2,7 @@
  * list container every screen's sprites/widgets register with. There are
  * several instances of the SAME structure: the sprite cache g_spriteRegistry
  * (primed per-screen by LoadSpriteSet), and the two flat-widget registries
- * DAT_00e9be90 / DAT_00e9c0fc that the CButtonWidget / CScrollBar / CLabel
+ * g_activeObjectRegistry / g_activeObjectRegistry2 that the CButtonWidget / CScrollBar / CLabel
  * objects register into (see RegisterActiveObject.c / CreateActiveObjectLayer.c).
  *
  * PROMOTED (2026-07-18): the full node/layer link structure - recovered
@@ -67,7 +67,7 @@ struct ActiveObjectLayer {
 GB_STATIC_ASSERT(sizeof(ActiveObjectLayer) == 0x20, activeobjectlayer_size);
 
 /* ---------------------------------------------------------------------------
- * The registry container itself (0x20 bytes: DAT_00e9be90, DAT_00e9c0fc,
+ * The registry container itself (0x20 bytes: g_activeObjectRegistry, g_activeObjectRegistry2,
  * g_spriteRegistry). gb_init_widget_registry (crt_shims_msvc.c) makes it its own
  * head/outer sentinel: `head` (+0x04) and outerPrev/outerNext (+0x18/+0x1c)
  * all point back at the container, so an empty registry's outer list is the

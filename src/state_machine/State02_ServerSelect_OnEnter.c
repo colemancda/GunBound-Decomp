@@ -42,10 +42,10 @@ void __fastcall State02_ServerSelect_OnEnter(int param_1)
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_server_buddygame_00557170);
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_server_choiceserver_00557158);
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext,(char *)s_b_server_exitgame_00557144);
-  CreateButtonWidget(&DAT_00e9be90,0,0,1000,s_b_server_exitgame_00557144,0x28,0x227,0x6b,0x2d,1,0);
-  CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_server_buddygame_00557170,0xa3,0x227,0x6b,0x2d,1,0)
+  CreateButtonWidget(&g_activeObjectRegistry,0,0,1000,s_b_server_exitgame_00557144,0x28,0x227,0x6b,0x2d,1,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,1,0x3e9,s_b_server_buddygame_00557170,0xa3,0x227,0x6b,0x2d,1,0)
   ;
-  CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_server_choiceserver_00557158,0x199,0x227,0x6b,0x2d,
+  CreateButtonWidget(&g_activeObjectRegistry,0,2,0x3ea,s_b_server_choiceserver_00557158,0x199,0x227,0x6b,0x2d,
                      0,0);
   iVar1 = g_clientContext;
   *(undefined4 *)(param_1 + 8) = 0xffffffff;

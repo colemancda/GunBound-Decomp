@@ -10,7 +10,7 @@
 void FUN_00543220(void)
 
 {
-  FUN_0040cd80(&DAT_00e9c0fc);
+  FUN_0040cd80(&g_activeObjectRegistry2);
   return;
 }
 

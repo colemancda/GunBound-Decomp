@@ -945,7 +945,18 @@ extern uint8_t DAT_00e9b810;
 #define _DAT_00e9b810 DAT_00e9b810
 extern uint8_t DAT_00e9b818;
 extern uint8_t DAT_00e9ba40;
-extern uint8_t DAT_00e9be90[0x20]; /* sized to real storage - see globals.c */
+/* The two active-object registry roots, each a 0x20-byte container doubling
+ * as its own circular-list sentinel.
+ *   g_activeObjectRegistry (was DAT_00e9be90)
+ *   g_activeObjectRegistry2 (was DAT_00e9c0fc)
+ * Named for their ROLE and their order, not their contents, because the two
+ * accounts in this tree disagree about what the second one holds: globals.c
+ * calls both "flat-ButtonWidget registry roots", while
+ * HandleBackgroundActiveObjectMouseDown records that the second registry's
+ * hit result is read at +0x448 -- far past CButtonWidget's 0x50 bytes -- and
+ * concludes its objects are "a larger, different class - not yet identified".
+ * Until that is settled, a name asserting either would be a guess. */
+extern uint8_t g_activeObjectRegistry[0x20]; /* sized to real storage - see globals.c */
 extern uint32_t DAT_00e9be94;
 extern uint8_t DAT_00e9be98;
 #define _DAT_00e9be98 DAT_00e9be98
@@ -980,7 +991,7 @@ extern uint8_t DAT_007a78b8;   /* WinMain guard slot 14 (opcode 0x62) */
 extern uint8_t DAT_00e9c7a0;   /* WinMain guard slot 17 (opcode 0xc8) */
 extern uint8_t DAT_00e9c350;   /* WinMain guard slot 18 (opcode 0x100) */
 
-extern uint8_t DAT_00e9c0fc[0x20]; /* sized to real storage - see globals.c */
+extern uint8_t g_activeObjectRegistry2[0x20]; /* the second one - see the note above */
 extern uint32_t DAT_00e9c104;
 extern uint8_t DAT_00e9c108;
 #define _DAT_00e9c108 DAT_00e9c108

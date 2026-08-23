@@ -138,25 +138,25 @@ void __fastcall State09_ReadyRoom_OnEnter(int param_1)
   iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar4 == iVar5) {
-    CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_ready_startgame_005570d8,0x28f,0x227,0x6b,0x2d,1,
+    CreateButtonWidget(&g_activeObjectRegistry,0,1,0x3e9,s_b_ready_startgame_005570d8,0x28f,0x227,0x6b,0x2d,1,
                        0);
   }
   else {
-    CreateButtonWidget(&DAT_00e9be90,0,0,1000,s_b_ready_ready_005570c8,0x28f,0x227,0x6b,0x2d,1,0);
+    CreateButtonWidget(&g_activeObjectRegistry,0,0,1000,s_b_ready_ready_005570c8,0x28f,0x227,0x6b,0x2d,1,0);
   }
-  CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_ready_changeteam_00556b60,0x214,0x227,0x6b,0x2d,1,0
+  CreateButtonWidget(&g_activeObjectRegistry,0,2,0x3ea,s_b_ready_changeteam_00556b60,0x214,0x227,0x6b,0x2d,1,0
                     );
-  CreateButtonWidget(&DAT_00e9be90,0,3,0x3eb,s_b_ready_exit_00556b50,0x28,0x227,0x6b,0x2d,1,0);
-  CreateButtonWidget(&DAT_00e9be90,0,4,0x3ec,s_b_ready_scroll_00556b0c,0x144,0x61,0x13,0x13,0,0);
-  CreateButtonWidget(&DAT_00e9be90,0,5,0x3ed,s_b_ready_scroll_00556b0c,0x1c9,0x61,0x13,0x13,0,0);
-  CreateButtonWidget(&DAT_00e9be90,0,6,0x3ee,s_b_ready_scroll_00556b0c,0x2ef,0x195,0x10,0x30,1,0);
-  CreateButtonWidget(&DAT_00e9be90,0,7,0x3ef,s_b_ready_scroll_00556b0c,0x2ef,0x1e8,0x10,0x30,1,0);
-  CreateButtonWidget(&DAT_00e9be90,0,8,0x3f0,s_b_ready_button_00556afc,0x16b,10,0x15,0x15,0,0);
-  CreateButtonWidget(&DAT_00e9be90,0,500,0x578,s_b_ready_button_00556afc,0x25,0x16b,0x19,0x14,1,0);
-  CreateButtonWidget(&DAT_00e9be90,0,300,0x514,s_b_ready_buddy_00556b40,0xa3,0x227,0x6b,0x2d,0,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,3,0x3eb,s_b_ready_exit_00556b50,0x28,0x227,0x6b,0x2d,1,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,4,0x3ec,s_b_ready_scroll_00556b0c,0x144,0x61,0x13,0x13,0,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,5,0x3ed,s_b_ready_scroll_00556b0c,0x1c9,0x61,0x13,0x13,0,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,6,0x3ee,s_b_ready_scroll_00556b0c,0x2ef,0x195,0x10,0x30,1,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,7,0x3ef,s_b_ready_scroll_00556b0c,0x2ef,0x1e8,0x10,0x30,1,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,8,0x3f0,s_b_ready_button_00556afc,0x16b,10,0x15,0x15,0,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,500,0x578,s_b_ready_button_00556afc,0x25,0x16b,0x19,0x14,1,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,300,0x514,s_b_ready_buddy_00556b40,0xa3,0x227,0x6b,0x2d,0,0);
   iVar4 = 0;
   do {
-    CreateButtonWidget(&DAT_00e9be90,0,iVar4 + 100,iVar4 + 0x44c,s_b_ready_character_00556b1c,
+    CreateButtonWidget(&g_activeObjectRegistry,0,iVar4 + 100,iVar4 + 0x44c,s_b_ready_character_00556b1c,
                        (iVar4 % 5) * 0x42 + 0x21,(iVar4 / 5) * 0x32 + 0x184,0x42,0x32,iVar4 != 0xd,0
                       );
     iVar4 = iVar4 + 1;

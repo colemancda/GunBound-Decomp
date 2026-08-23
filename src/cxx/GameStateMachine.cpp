@@ -24,7 +24,7 @@ extern unsigned char DAT_00e55a45;
 extern unsigned int DAT_00e9be98, DAT_00e9be9c, DAT_00e9c104;
 extern unsigned int DAT_0056d108, DAT_007934d8;
 extern unsigned char DAT_0067ec70;
-extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20]; /* the two active-object registries */
+extern unsigned char g_activeObjectRegistry[0x20], g_activeObjectRegistry2[0x20]; /* the two active-object registries */
 extern void *g_cursorTexture;
 extern const char s_cursor_005524e8[];
 extern const char s_normal_00552230[];
@@ -92,11 +92,11 @@ void ChangeGameState(int newStateId)
     }
     DAT_00e55a45 = 0;
     g_gameStateVTableArray[g_currentGameState]->OnExit();
-    SweepActiveObjectRegistry(DAT_00e9be90);
+    SweepActiveObjectRegistry(g_activeObjectRegistry);
     DAT_00e9be98 = 0;
     DAT_00e9be9c = 0;
     DAT_00e9c104 = 0;
-    SweepActiveObjectRegistry(DAT_00e9c0fc);
+    SweepActiveObjectRegistry(g_activeObjectRegistry2);
     FUN_005098e0(10000);
     if (newStateId == 0xf) {
         PostQuitMessage(0);

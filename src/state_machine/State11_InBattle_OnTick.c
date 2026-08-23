@@ -1913,9 +1913,9 @@ LAB_004c13d9:
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar6 < 8) {
         if ((char)piStack_3d64[0x474] == '\0') {
-          CreateButtonWidget(&DAT_00e9be90,0,8,0x3f0,s_b_slot_retry_005540ec,0x1e2,0x201,0x34,0xe,1,
+          CreateButtonWidget(&g_activeObjectRegistry,0,8,0x3f0,s_b_slot_retry_005540ec,0x1e2,0x201,0x34,0xe,1,
                              0);
-          CreateButtonWidget(&DAT_00e9be90,0,9,0x3f1,s_b_slot_use_005540e0,0x1b0,0x201,0x34,0xe,1,0)
+          CreateButtonWidget(&g_activeObjectRegistry,0,9,0x3f1,s_b_slot_use_005540e0,0x1b0,0x201,0x34,0xe,1,0)
           ;
         }
         iVar6 = g_clientContext;

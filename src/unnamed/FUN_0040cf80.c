@@ -9,7 +9,7 @@
  * PHANTOM (the entry writes it before any read), so it takes 0.  Both call
  * sites agree: push 0xe9c0fc -> param_3, edx = 0x2710 -> param_2, esi = 0.
  *
- * The port passed &DAT_00e9c0fc as param_1 -- the right value in the wrong
+ * The port passed &g_activeObjectRegistry2 as param_1 -- the right value in the wrong
  * slot.  param_3 is the registry the tree walk starts from
  * (*(param_3 + 4) + 0x1c), which is what confirms the placement rather than
  * merely permitting it.

@@ -465,7 +465,7 @@ LAB_004b4324:
       RemoveWidget();
       *(undefined1 *)((int)this + 0x11d0) = 1;
       *(undefined4 *)((int)this + 0x11d4) = 0;
-      CreateButtonWidget(&DAT_00e9be90,0,0x10,0x3f8,s_b_result_confirm_00554074,0x29f,0x1b9,0x67,
+      CreateButtonWidget(&g_activeObjectRegistry,0,0x10,0x3f8,s_b_result_confirm_00554074,0x29f,0x1b9,0x67,
                          0x2d,1,0);
       iVar6 = g_clientContext;
       pbVar15 = (byte *)(g_clientContext + 0x62152);

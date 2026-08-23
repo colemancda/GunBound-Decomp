@@ -10,7 +10,7 @@
 void FUN_00540d50(void)
 
 {
-  FUN_00405f00((undefined4 *)&DAT_00e9be90);
+  FUN_00405f00((undefined4 *)&g_activeObjectRegistry);
   _atexit(FUN_00543210);
   return;
 }

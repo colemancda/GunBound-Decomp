@@ -90,15 +90,15 @@ void __fastcall State11_InBattle_OnEnter(int param_1)
     ShowErrorDialog(1);
     return;
   }
-  CreateButtonWidget(&DAT_00e9be90,0,0,1000,s_b_play_option_00554174,0xb,3,0x28,0x1e,1,0);
-  CreateButtonWidget(&DAT_00e9be90,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,0);
-  CreateButtonWidget(&DAT_00e9be90,0,3,0x3eb,s_b_play_skip_00554138,0x2ee,3,0x28,0x1e,0,0);
-  CreateButtonWidget(&DAT_00e9be90,0,4,0x3ec,s_b_play_all_0055412c,0xa8,0x219,0x1d,0x10,1,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,0,1000,s_b_play_option_00554174,0xb,3,0x28,0x1e,1,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,2,0x3ea,s_b_play_weapon2_00554154,0x2f,0x232,0x23,0x22,1,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,3,0x3eb,s_b_play_skip_00554138,0x2ee,3,0x28,0x1e,0,0);
+  CreateButtonWidget(&g_activeObjectRegistry,0,4,0x3ec,s_b_play_all_0055412c,0xa8,0x219,0x1d,0x10,1,0);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar6 == 2) {
-    CreateButtonWidget(&DAT_00e9be90,0,0x11,0x3f9,s_b_play_tag_00554120,0x29e,0x232,0x28,0x22,0,0);
+    CreateButtonWidget(&g_activeObjectRegistry,0,0x11,0x3f9,s_b_play_tag_00554120,0x29e,0x232,0x28,0x22,0,0);
   }
   iVar6 = g_clientContext;
   pbVar12 = &DAT_0067e3cc + g_clientContext;
@@ -310,7 +310,7 @@ LAB_004bbe6b:
       uVar7 = DAT_005b3480 * 0xda003 + 0x5703b11;
       DAT_005b3480 = DAT_005b3480 + (uVar7 * 0x61 + 0x61) % 0xf4241;
       SpawnThor(&DAT_006a7f70 + iVar6,*(int *)(&g_nCameraBoundX + iVar6) / 2 + -500 + uVar7 % 1000);
-      CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26,1
+      CreateButtonWidget(&g_activeObjectRegistry,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26,1
                          ,0);
       iVar6 = g_clientContext;
       *(undefined4 *)(param_1 + 4) = 0;

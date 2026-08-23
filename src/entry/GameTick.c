@@ -117,14 +117,14 @@ void GameTick(void)
    * call as if it were g_uiPanelManager, eventually indirect-calling
    * through garbage). */
   FUN_0050f290((int *)&g_uiPanelManager);
-  /* orig 0x4132a4 loads EBX = &DAT_00e9be90 immediately before this call
+  /* orig 0x4132a4 loads EBX = &g_activeObjectRegistry immediately before this call
    * (0x4132a9); TickActiveObjectRegistry's argument was dropped by Ghidra as
    * unaff_EBX - see that file. */
-  TickActiveObjectRegistry((int)&DAT_00e9be90);
-  /* orig 0x4132ae loads EAX = &DAT_00e9c0fc immediately before this call
+  TickActiveObjectRegistry((int)&g_activeObjectRegistry);
+  /* orig 0x4132ae loads EAX = &g_activeObjectRegistry2 immediately before this call
    * (0x4132b3); SyncActiveTextInput's registry argument was dropped by Ghidra
    * as in_EAX - see that file. */
-  SyncActiveTextInput((int)&DAT_00e9c0fc);
+  SyncActiveTextInput((int)&g_activeObjectRegistry2);
   FUN_0041b6f0();
   FUN_0041c0a0();
   FUN_004022b0(&DAT_00e53e88);
@@ -254,8 +254,8 @@ LAB_00413510:
     (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x3c))
               (g_gameStateVTableArray[g_currentGameState]);
     FUN_004b3e60(&DAT_00e9b4e8);
-    DrawActiveObjectRegistry(&DAT_00e9be90, 0);
-    DrawActiveObjectRegistry(&DAT_00e9c0fc, 0);
+    DrawActiveObjectRegistry(&g_activeObjectRegistry, 0);
+    DrawActiveObjectRegistry(&g_activeObjectRegistry2, 0);
     /* KNOWN DIVERGENCE fix: DAT_00e53c48 is a separate, never-written
      * global (Ghidra split it out of g_uiPanelManager+8 - see globals.c's
      * own comment on this exact split). PanelManager_Register writes the
@@ -390,8 +390,8 @@ LAB_004137a9:
        * end regardless of where the linker places it. */
       } while (puVar9 < DAT_005b1d70 + 0x15e);
 LAB_00413933:
-      DrawActiveObjectRegistry(&DAT_00e9be90, 1);
-      DrawActiveObjectRegistry(&DAT_00e9c0fc, 1);
+      DrawActiveObjectRegistry(&g_activeObjectRegistry, 1);
+      DrawActiveObjectRegistry(&g_activeObjectRegistry2, 1);
     }
     /* orig 0x41394b-0x413950: `mov eax,ds:0x5b3484` (g_clientContext) /
      * `add eax,0x23310` immediately before `call 0x4065a0`. */

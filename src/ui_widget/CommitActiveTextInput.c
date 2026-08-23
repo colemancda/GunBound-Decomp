@@ -1,7 +1,7 @@
 /* CommitActiveTextInput - 0x0040ccf0 in the original binary.
  *
  * RENAMED (2026-07-30): given a "background active object" (the same
- * DAT_00e9c0fc-registered, +0x448-flagged class HandleBackgroundActive
+ * g_activeObjectRegistry2-registered, +0x448-flagged class HandleBackgroundActive
  * ObjectMouseDown works with), commits the real Win32 edit control's
  * current text into that object's own +0x48 text buffer (or clears it),
  * resets the Win32 control, and clears the object's +0x448 "focused"
@@ -13,7 +13,7 @@
  * DROPPED-ARGUMENT FIX (2026-07-30): `unaff_EDI` is this function's real
  * (and only) argument - `this`, the background active object being
  * un-focused (same +0x448 flag field HandleBackgroundActiveObjectMouseDown
- * already documents as belonging to DAT_00e9c0fc's larger, not-yet-
+ * already documents as belonging to g_activeObjectRegistry2's larger, not-yet-
  * identified object class). Confirmed via objdump (orig 0x40ccf0-0x40cd37):
  * `lea esi,[edi+0x48]` is the very first instruction, EDI live-in with no
  * prior write; the function also writes `[edi+0x448]=0` right before its

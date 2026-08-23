@@ -12,7 +12,7 @@
  *
  * The port had been passing the ready state as that phantom param_1 and
  * omitting everything else.  An earlier pass here recovered EAX correctly but
- * APPENDED it, which put &DAT_00e9be90 into param_2 -- an unrelated parameter
+ * APPENDED it, which put &g_activeObjectRegistry into param_2 -- an unrelated parameter
  * -- at all 13 call sites.  Nothing diagnosed that, because functions.h still
  * declared this K&R-empty, and a K&R prototype accepts any argument list; the
  * value looked recovered and was in the wrong slot.  The declaration is now a

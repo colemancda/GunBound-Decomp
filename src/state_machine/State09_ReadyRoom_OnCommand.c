@@ -61,7 +61,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
   
   if (param_2 != 0) {
     if (param_2 == 10) {
-      pcVar4 = (char *)FUN_0040cfe0(0,0x186a0,(int)&DAT_00e9c0fc);
+      pcVar4 = (char *)FUN_0040cfe0(0,0x186a0,(int)&g_activeObjectRegistry2);
       pcVar13 = (char *)(param_1 + 0x62d);
       pcVar12 = pcVar13;
       do {
@@ -94,7 +94,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
         CommitActiveTextInput();
       }
       DAT_00e9c104 = 0;
-      FUN_004f3060(&DAT_00e9c0fc);
+      FUN_004f3060(&g_activeObjectRegistry2);
       hWnd = *(HWND *)(g_sharedTextInputControl + 4);
     }
     else {
@@ -105,7 +105,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
         CommitActiveTextInput();
       }
       DAT_00e9c104 = 0;
-      FUN_004f3060(&DAT_00e9c0fc);
+      FUN_004f3060(&g_activeObjectRegistry2);
       hWnd = *(HWND *)(g_sharedTextInputControl + 4);
     }
     SendMessageA(hWnd,0xc5,0x3c,0);
@@ -135,7 +135,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
          ((cVar2 = PacketChecksumEquals(g_clientContext + 0x45354,2), cVar2 != '\0' &&
           (iVar10 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c),
           (int)*(char *)(g_clientContext + 0x458fd + iVar10 * 2) == param_4 - 100)))) {
-        uVar3 = SetWidgetReadyState(0,0,1,(int)&DAT_00e9be90);
+        uVar3 = SetWidgetReadyState(0,0,1,(int)&g_activeObjectRegistry);
         return uVar3;
       }
       RefreshReadyRoomControls(param_1,0,0);

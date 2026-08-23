@@ -128,7 +128,7 @@ void HandleTurnTimeoutSlot(int param_1)
         *(byte *)((int)piVar5 + 0x8bbb) = bVar9;
         *(byte *)(piVar5 + 0x22ef) = bVar9 + *pbVar1 + -0x34;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26
                            ,0,0);
         InvokeWidget(18,0);
       }
@@ -143,7 +143,7 @@ void HandleTurnTimeoutSlot(int param_1)
         *(byte *)((int)piVar5 + 0x8bbb) = bVar9;
         *(byte *)(piVar5 + 0x22ef) = bVar9 + *pbVar1 + -0x34;
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        CreateButtonWidget(&DAT_00e9be90,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x12,0x3fa,s_b_play_weapon3_00554144,0x58,0x232,0x25,0x26
                            ,0,0);
         InvokeWidget(18,0);
         cVar4 = PeekPacketChecksumBool();
@@ -163,7 +163,7 @@ void HandleTurnTimeoutSlot(int param_1)
           uVar11 = 0x3ea;
           uVar7 = 2;
         }
-        CreateButtonWidget(&DAT_00e9be90,0,uVar7,uVar11,pcVar12,uVar13,0x232,0x25,0x26,1,0);
+        CreateButtonWidget(&g_activeObjectRegistry,0,uVar7,uVar11,pcVar12,uVar13,0x232,0x25,0x26,1,0);
         pcVar10 = (code *)LeaveCriticalSection;
       }
     }

@@ -273,7 +273,7 @@ void CState03GameRoomList::RenderOverlay()   /* slot 15; nee RenderRoomLabel */
 
 /* --- CreateButtons (0x42aba0) --------------------------------------- */
 extern "C" {
-extern unsigned char DAT_00e9be90[0x20];    /* the button-widget registry - sized, see globals.c */
+extern unsigned char g_activeObjectRegistry[0x20];    /* the button-widget registry - sized, see globals.c */
 void CreateButtonWidget(void *registry, int a, int id, int spriteBase,
                         const char *name, int x, int y, int w, int h,
                         int enabled, int b);
@@ -316,7 +316,7 @@ void CState03GameRoomList::CreateButtons()
     };
     for (int i = 0; i < 12; ++i) {
         const Btn &b = buttons[i];
-        CreateButtonWidget(&DAT_00e9be90, 0, b.id, b.spriteBase, b.name,
+        CreateButtonWidget(&g_activeObjectRegistry, 0, b.id, b.spriteBase, b.name,
                            b.x, b.y, b.w, b.h, 0, 0);
     }
     RefreshGameRoomListControls();

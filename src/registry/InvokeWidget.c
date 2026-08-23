@@ -11,7 +11,7 @@
  * `__fastcall` shape (`param_1`/ECX was scratch, never read as input;
  * `param_2`/EDX was always literal 0 at every one of the ~100 call
  * sites found via an angr CFG backward-scan of every caller). EAX
- * (`DAT_00e9be90`, the flat-ButtonWidget registry root) is ALSO
+ * (`g_activeObjectRegistry`, the flat-ButtonWidget registry root) is ALSO
  * invariant across every site - hardcoded here. ESI is the one real
  * per-caller value (the target widget's id within that registry) -
  * promoted to an explicit parameter and threaded through every call
@@ -40,7 +40,7 @@ void InvokeWidget(int widgetId, int enabled)
   uint uVar2;
   int *piVar3;
 
-  iVar1 = *(int *)(*(int *)((int)&DAT_00e9be90 + 4) + 0x1c);
+  iVar1 = *(int *)(*(int *)((int)&g_activeObjectRegistry + 4) + 0x1c);
   uVar2 = *(uint *)(iVar1 + 4);
   while( true ) {
     if (0 < uVar2) {

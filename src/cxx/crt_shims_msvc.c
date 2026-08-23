@@ -154,7 +154,7 @@ extern void *PTR_FUN_00557530;   /* the layer vtable (src/globals.c) */
  * clobbered the link - so once SweepActiveObjectRegistry was restored it
  * walked out of the layer list, treated the container itself as a layer, and
  * read g_inputEventRing as a button node (observed live: `sweep
- * layer=<DAT_00e9be90> node=<g_inputEventRing> vtbl=00000003`).
+ * layer=<g_activeObjectRegistry> node=<g_inputEventRing> vtbl=00000003`).
  *
  * The sentinel is shaped exactly like a layer built by CreateActiveObjectLayer
  * (0x4f2f00): +0 vtable, +4 sort key, +0xc/+0x10 inner list, +0x18/+0x1c outer
@@ -174,7 +174,7 @@ static void gb_init_widget_registry(unsigned char *registry, unsigned char *sent
     /* registry+0x0c/+0x10/+0x18/+0x1c are left alone - +0x10 is the input-ring
      * pointer, written below. */
 }
-extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20], g_spriteRegistry[0x20];
+extern unsigned char g_activeObjectRegistry[0x20], g_activeObjectRegistry2[0x20], g_spriteRegistry[0x20];
 /* One list sentinel per registry root - see gb_init_widget_registry. */
 static unsigned char gb_registrySentinel[4][0x20];
 /* input-event ring (globals_sized.c) - the registries' +0x10 slot points here
@@ -216,7 +216,7 @@ static void gb_init_panel_manager(unsigned char *manager)
  * zeroed BSS (`*(int*)(0+0x1c)`) the first time GameTick runs it. */
 extern unsigned char DAT_00e53e88[0xf28];
 /* KNOWN DIVERGENCE alias (src/globals.c): Ghidra split registry1's +4 head
- * pointer into its own uint32_t global instead of aliasing DAT_00e9be90+4, so
+ * pointer into its own uint32_t global instead of aliasing g_activeObjectRegistry+4, so
  * gb_init_widget_registry's write to the array never reaches it. Readers that
  * begin their list walk from this global rather than from the array base -
  * FUN_0041b6f0 does exactly that, `*(DAT_00e9be94 + 0x1c)` every tick - would
@@ -378,8 +378,8 @@ static void gb_startup_init(void)
     gb_init_atl_string_mgr();
     *(int *)(g_graphicsArchive + 0x1040) = (int)0xffffffff;
     *(int *)(g_xfsScratch     + 0x1040) = (int)0xffffffff;
-    gb_init_widget_registry(DAT_00e9be90, gb_registrySentinel[0]);
-    gb_init_widget_registry(DAT_00e9c0fc, gb_registrySentinel[1]);
+    gb_init_widget_registry(g_activeObjectRegistry, gb_registrySentinel[0]);
+    gb_init_widget_registry(g_activeObjectRegistry2, gb_registrySentinel[1]);
     gb_init_widget_registry(g_spriteRegistry, gb_registrySentinel[2]);   /* global sprite registry */
     gb_init_widget_registry(DAT_00e53e88, gb_registrySentinel[3]);   /* chat-log/replay object */
     /* FIXED (2026-07-18): the two hit-test registries' +0x10 slot is the
@@ -389,12 +389,12 @@ static void gb_startup_init(void)
      * original set it via InitGame (`registry+0x10 = 0x795070`, the ring), but
      * gb_init_widget_registry's generic self-init clobbered it, and our
      * InitGame port writes the ring to `_DAT_00e9bea0` - a split-out global
-     * that is NOT the same memory as DAT_00e9be90[0x10] in this build. Point
+     * that is NOT the same memory as g_activeObjectRegistry[0x10] in this build. Point
      * +0x10 at the real g_inputEventRing so a button release actually reaches
      * ProcessInputEventQueue -> State OnCommand (this is what made a BUDDY/EXIT
      * click a silent no-op even after the state gate started passing). */
-    *(void **)(DAT_00e9be90 + 0x10) = g_inputEventRing;
-    *(void **)(DAT_00e9c0fc + 0x10) = g_inputEventRing;
+    *(void **)(g_activeObjectRegistry + 0x10) = g_inputEventRing;
+    *(void **)(g_activeObjectRegistry2 + 0x10) = g_inputEventRing;
     gb_init_panel_manager(g_uiPanelManager);
     /* DAT_00e9be94 / DAT_00ea0e1c are Ghidra's split-out aliases of
      * registry+4, i.e. the SENTINEL pointer - not the container address. */

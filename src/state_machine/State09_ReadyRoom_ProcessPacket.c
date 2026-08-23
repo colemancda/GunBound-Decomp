@@ -96,7 +96,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
             CommitActiveTextInput();
           }
           DAT_00e9c104 = 0;
-          FUN_004f3060(&DAT_00e9c0fc);
+          FUN_004f3060(&g_activeObjectRegistry2);
           SendMessageA(*(HWND *)(g_sharedTextInputControl + 4),0xc5,0x3c,0);
           *(undefined1 *)((int)this + 0x62c) = 0;
           RefreshReadyRoomControls(this,1,0);
@@ -509,14 +509,14 @@ LAB_004d438d:
       }
       /* SPLIT-STRUCT FIX (2026-08-09): same registry1 hovered(+8)/clicked(+0xc)
        * clear as ChangeGameState.c - the inline sweep just above frees registry1's
-       * nodes, so these must zero the real pointers INSIDE the DAT_00e9be90 block,
+       * nodes, so these must zero the real pointers INSIDE the g_activeObjectRegistry block,
        * not the write-only split globals _DAT_00e9be98/_DAT_00e9be9c that
        * HandleActiveObjectMouseMove never reads. Left unfixed, a widget hovered
        * before entering battle would dangle in registry1+8 (freed, sentinel
        * vtable) and the next mouse-move would dispatch slot 1 through it. See
        * ChangeGameState.c's header for the full root-cause writeup. */
-      *(undefined4 *)(DAT_00e9be90 + 8) = 0;
-      *(undefined4 *)(DAT_00e9be90 + 0xc) = 0;
+      *(undefined4 *)(g_activeObjectRegistry + 8) = 0;
+      *(undefined4 *)(g_activeObjectRegistry + 0xc) = 0;
       g_bBattleSessionActive = 1;
       puVar22 = DAT_00e53c44;
       do {
@@ -858,13 +858,13 @@ LAB_004d4cc7:
       cVar10 = CompareChecksumMatch(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4);
       if (cVar10 == '\0') {
         RemoveWidget();
-        CreateButtonWidget(&DAT_00e9be90,0,0,1000,s_b_ready_ready_005570c8,0x28f,0x226,0x6b,0x2d,1,0
+        CreateButtonWidget(&g_activeObjectRegistry,0,0,1000,s_b_ready_ready_005570c8,0x28f,0x226,0x6b,0x2d,1,0
                           );
         BuildItemLoadout(this,0);
       }
       else {
         RemoveWidget();
-        CreateButtonWidget(&DAT_00e9be90,0,1,0x3e9,s_b_ready_startgame_005570d8,0x28f,0x226,0x6b,
+        CreateButtonWidget(&g_activeObjectRegistry,0,1,0x3e9,s_b_ready_startgame_005570d8,0x28f,0x226,0x6b,
                            0x2d,1,0);
         *(undefined1 *)((int)this + 0x4cc) = 0;
         BuildItemLoadout(this,0);

@@ -21,7 +21,7 @@ void ShowErrorDialogFmt(int param_1,undefined4 param_2)
   
   DAT_0079350c = param_1;
   g_stateChangeInProgress = in_EAX;
-  CreateButtonWidget(&DAT_00e9be90,1000000,1000000,0x385,s_b_error_confirm_00552238,0x1c6,0x14b,0x4a
+  CreateButtonWidget(&g_activeObjectRegistry,1000000,1000000,0x385,s_b_error_confirm_00552238,0x1c6,0x14b,0x4a
                      ,0x1a,1,0);
   /* self/x/y dropped as ECX/EBX/EDI - confirmed via disassembly at
    * 0x4126ac: self is the DirectInput mouse device singleton

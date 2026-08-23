@@ -1,7 +1,7 @@
 /* SyncActiveTextInput - 0x0040cf00 in the original binary.
  *
  * PROMOTED (2026-07-14): the per-frame chat/text-input sync pass. `param_1`
- * is the second active-object registry (&DAT_00e9c0fc); its +8 slot holds the
+ * is the second active-object registry (&g_activeObjectRegistry2); its +8 slot holds the
  * currently-focused text-input object (0 when none - the same value ChangeGameState
  * zeroes and State09_ReadyRoom tracks via the separately-declared DAT_00e9c104).
  * When an input object is focused, this copies the live text out of the Win32

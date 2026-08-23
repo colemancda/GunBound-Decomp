@@ -10,7 +10,7 @@
  * caller, not just Ghidra's read: `mov ecx,esi[[wParam]]; mov
  * eax,edi[uMsg]; push 0xe9c0fc; call 0x40d020` - the raw C port
  * (src/entry/WndProc.c) had dropped BOTH the uMsg and wParam arguments,
- * calling `FUN_0040d020(&DAT_00e9c0fc)` with only the stack arg (which
+ * calling `FUN_0040d020(&g_activeObjectRegistry2)` with only the stack arg (which
  * itself landed in the wrong parameter slot). Added `message` as an
  * explicit trailing parameter and fixed the call site to pass all three.
  */

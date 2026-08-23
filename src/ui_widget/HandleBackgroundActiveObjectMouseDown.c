@@ -4,10 +4,10 @@
  * default/background object" branch): sole caller is WndProc's
  * WM_LBUTTONDOWN handler (case 0x201's else-branch, 0x4102ea), right
  * after `push 0xe9c0fc; mov edx,ebx[mouseY]` with mouseX (ESI) unchanged
- * from WndProc's own locals - i.e. this scans DAT_00e9c0fc, the SECOND
- * active-object registry (distinct from DAT_00e9be90's flat buttons: the
+ * from WndProc's own locals - i.e. this scans g_activeObjectRegistry2, the SECOND
+ * active-object registry (distinct from g_activeObjectRegistry's flat buttons: the
  * hit result here is checked at offset +0x448, far past CButtonWidget's
- * 0x50-byte size, so DAT_00e9c0fc's registered objects are a larger,
+ * 0x50-byte size, so g_activeObjectRegistry2's registered objects are a larger,
  * different class - not yet identified).
  *
  * FIXED (2026-07-13): part of the 5-function mouse-hit-test family (see

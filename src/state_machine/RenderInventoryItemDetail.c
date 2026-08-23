@@ -202,7 +202,7 @@ void RenderInventoryItemDetail(int param_1)
       LoadSpriteSet(&g_spriteRegistry,40000);
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
-        CreateButtonWidget(&DAT_00e9be90,0,0x36,0x516,s_b_storewindow_confirm_00555a8c,0x14d,0x154,
+        CreateButtonWidget(&g_activeObjectRegistry,0,0x36,0x516,s_b_storewindow_confirm_00555a8c,0x14d,0x154,
                            0x4a,0x1a,1,0);
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

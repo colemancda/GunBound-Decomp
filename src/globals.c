@@ -733,7 +733,7 @@ uint32_t DAT_00e53c48;
  * fix confirms a hard lower bound: it walks a `+4`-rooted sentinel list
  * and writes an int count to `+0xf24`, so real storage must cover at
  * least 0xf28 bytes - sized to that confirmed minimum, matching the same
- * incremental-resize idiom used for DAT_00e9be90/g_spriteDrawBatchPool. Its `+4`
+ * incremental-resize idiom used for g_activeObjectRegistry/g_spriteDrawBatchPool. Its `+4`
  * sentinel-list head is self-referencing-initialized in crt_shims_msvc.c's
  * gb_startup_init (same treatment as those two registries) - the other
  * ~25 callers' own offset requirements beyond this confirmed 0xf28-byte
@@ -760,7 +760,7 @@ uint8_t DAT_00e9b80c;
 uint8_t DAT_00e9b810;
 /* DAT_00e9b818: moved to globals_sized.c (0x224 CValueGuard cell). */
 /* DAT_00e9ba40: moved to globals_sized.c (0x224 CValueGuard cell). */
-/* DAT_00e9be90/DAT_00e9c0fc were 1-byte placeholders, but SweepActiveObjectRegistry's
+/* g_activeObjectRegistry/g_activeObjectRegistry2 were 1-byte placeholders, but SweepActiveObjectRegistry's
  * header (and InvokeWidget.c's already-fixed traversal) established these
  * are two independent 32-byte "8-word" flat-ButtonWidget registry roots -
  * each doubling as its own embedded circular-list sentinel node (self-
@@ -782,7 +782,7 @@ uint8_t DAT_00e9b810;
  * while these registries are never actually populated with real widgets
  * (bring-up doesn't reach button creation yet); must be unified when the
  * real 32-byte struct is properly modeled. */
-uint8_t DAT_00e9be90[0x20];
+uint8_t g_activeObjectRegistry[0x20];
 uint32_t DAT_00e9be94;
 uint8_t DAT_00e9be98;
 uint8_t DAT_00e9be9c;
@@ -790,7 +790,7 @@ uint8_t DAT_00e9bea0;
 uint8_t DAT_00e9bea4;
 uint32_t DAT_00e9bea8;
 /* DAT_00e9bed8: moved to globals_sized.c (0x224 CValueGuard cell). */
-uint8_t DAT_00e9c0fc[0x20];
+uint8_t g_activeObjectRegistry2[0x20];
 uint32_t DAT_00e9c104;
 uint8_t DAT_00e9c108;
 /* Worker-thread control block for WorkerThread_Start/WorkerThreadProcThunk/WorkerThreadEventLoop:
@@ -808,7 +808,7 @@ uint8_t DAT_00e9c348;
  * count fields - now offset-macros into g_wordFilterArrayHeader in
  * globals_sized.c (see that file's comment), not independent storage. */
 /* The global sprite registry - the same 0x20-byte sentinel-node circular-list
- * container as the two active-object registries (DAT_00e9be90/DAT_00e9c0fc):
+ * container as the two active-object registries (g_activeObjectRegistry/g_activeObjectRegistry2):
  * LoadSpriteSet/RegisterTankSprite/LoadAvatarSprites all populate it through
  * FUN_004f2f00 (the shared node allocator) and FindSpriteFrame walks it via the
  * same *(root+4) head / +0x1c outer-next idiom. Was a 1-byte placeholder, so

@@ -57,7 +57,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
   uint uVar4;
   
   cVar1 = '\x01';
-  FUN_0040d020(param_3, &DAT_00e9c0fc, param_2);
+  FUN_0040d020(param_3, &g_activeObjectRegistry2, param_2);
   if (param_2 < 0x106) {
     if (param_2 == 0x105) {
       if (param_3 == 0x79) {
@@ -154,7 +154,7 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     cVar1 = PanelManager_DispatchMouseMove((int)&g_uiPanelManager,uVar4,uVar3);
     cVar1 = cVar1 == '\0';
     if ((bool)cVar1) {
-      HandleActiveObjectMouseMove(&DAT_00e9be90, uVar4, uVar3);
+      HandleActiveObjectMouseMove(&g_activeObjectRegistry, uVar4, uVar3);
     }
     g_cursorDeltaX = g_cursorDeltaX + (uVar4 - g_cursorAnchorX);
     g_cursorDeltaY = g_cursorDeltaY + (uVar3 - g_cursorAnchorY);
@@ -168,17 +168,17 @@ LRESULT __stdcall WndProc(HWND param_1,uint param_2,WPARAM param_3,uint param_4)
     cVar1 = PanelManager_DispatchMouseDown((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
     if (cVar1 != '\0') {
       DAT_00e9bea4 = 1;
-      HandleActiveObjectMouseDown(&DAT_00e9be90, param_4 & 0xffff, param_4 >> 0x10);
+      HandleActiveObjectMouseDown(&g_activeObjectRegistry, param_4 & 0xffff, param_4 >> 0x10);
       DAT_00e9bea4 = 0;
       goto LAB_004103ac;
     }
-    HandleActiveObjectMouseDown(&DAT_00e9be90, param_4 & 0xffff, param_4 >> 0x10);
-    HandleBackgroundActiveObjectMouseDown(&DAT_00e9c0fc, param_4 & 0xffff, param_4 >> 0x10);
+    HandleActiveObjectMouseDown(&g_activeObjectRegistry, param_4 & 0xffff, param_4 >> 0x10);
+    HandleBackgroundActiveObjectMouseDown(&g_activeObjectRegistry2, param_4 & 0xffff, param_4 >> 0x10);
     break;
   case 0x202:
     DAT_00e9bea4 = PanelManager_DispatchMouseUp((int)&g_uiPanelManager,param_4 & 0xffff,param_4 >> 0x10);
     cVar1 = DAT_00e9bea4 != '\x01';
-    HandleActiveObjectMouseUp(&DAT_00e9be90, param_4 & 0xffff, param_4 >> 0x10);
+    HandleActiveObjectMouseUp(&g_activeObjectRegistry, param_4 & 0xffff, param_4 >> 0x10);
     DAT_00e9bea4 = 0;
     uVar4 = g_cursorAnchorX;
     uVar3 = g_cursorAnchorY;

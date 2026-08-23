@@ -1,7 +1,7 @@
 /* FindActiveObjectAt - 0x0040cea0 in the original binary.
  *
  * Mouse-hit-test scan: walks `registry` (one of the two flat
- * active-object registries, DAT_00e9be90/DAT_00e9c0fc - NOT the
+ * active-object registries, g_activeObjectRegistry/g_activeObjectRegistry2 - NOT the
  * unrelated CWidget/CPanel tree in Widget.h) looking for a registered
  * object whose bounding box ([+0x38,+0x38+0x40) x [+0x3c,+0x3c+0x44))
  * contains (mouseX, mouseY). Returns the matching object, or 0.
