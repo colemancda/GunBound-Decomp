@@ -1066,8 +1066,16 @@ extern uint8_t g_activeObjectRegistry2[0x20]; /* the second one - see the note a
 extern uint32_t DAT_00e9c104;
 extern uint8_t DAT_00e9c108;
 #define _DAT_00e9c108 DAT_00e9c108
-extern uint8_t DAT_00e9c334[0x18]; /* worker-thread control block - see globals.c */
-extern uint8_t DAT_00e9c344;
+extern uint8_t DAT_00e9c334[0x14]; /* worker-thread control block - see globals.c */
+/* DAT_00e9c344 IS the worker-thread block's +0x10 running flag, not a global
+ * of its own.  It had separate storage, so Shutdown.c's `DAT_00e9c344 = 0`
+ * -- the request for the worker thread to stop -- wrote a byte nothing read,
+ * while WorkerThread_Start set and WorkerThreadEventLoop polled the flag
+ * THROUGH the block.  The thread never saw the stop request and ran until its
+ * wait timed out.  globals.c documented both halves ("+0x10 running flag" and
+ * a separate `uint8_t DAT_00e9c344;` two lines later) without the collision
+ * being visible, because the two symbols look unrelated until you add 0x10. */
+#define DAT_00e9c344 SUBFIELD(DAT_00e9c334, 0x10, uint8_t)
 extern uint8_t DAT_00e9c348;
 /* The worker-thread control block at 0xe9c9c4 (see globals_sized.c).  Its
  * three upper fields already had their own DAT_ symbols, so - exactly as with

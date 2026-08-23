@@ -799,8 +799,12 @@ uint8_t DAT_00e9c108;
  * register). DAT_00e9c33c (a HANDLE SetEvent'd in Shutdown.c) is this same
  * struct's +8 field under its own Ghidra-assigned symbol - sized to absorb
  * it (0xe9c33c - 0xe9c334 = 8) rather than declare overlapping storage. */
-uint8_t DAT_00e9c334[0x18];
-uint8_t DAT_00e9c344;
+uint8_t DAT_00e9c334[0x14];
+/* DAT_00e9c344 is this block's +0x10 RUNNING FLAG, now an offset-macro into
+ * it (see globals.h) rather than separate storage.  DAT_00e9c348 (+0x14) is
+ * NOT part of the block -- it is the InterlockedExchange'd window-active flag
+ * used by WndProc/InitGame/UpdateDeviceAcquisition -- so the array is sized
+ * 0x14 to stop short of it rather than 0x18. */
 uint8_t DAT_00e9c348;
 /* DAT_00e9c9c8/cc/d0 are now offset-macros into g_workerThreadBlock;
  * their storage lives in globals_sized.c. */
