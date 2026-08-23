@@ -54,7 +54,7 @@ void __thiscall State02_ServerSelect_OnTopButton(int param_1,int param_2,int par
     }
     *(int *)(iVar5 + 0x44d0) = *(int *)(iVar5 + 0x44d0) + 2;
     SendOutgoingPacket();
-    FUN_0041c1e0();
+    FUN_0041c1e0(0,g_clientContext);
   }
   else if (param_2 == 4) {
     g_serverWaitTicks = 0xffffffff;

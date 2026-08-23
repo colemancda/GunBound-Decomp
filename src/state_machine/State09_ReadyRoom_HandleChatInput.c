@@ -168,7 +168,7 @@ LAB_004d67e1:
         pcVar12 = pcVar12 + 1;
       }
       uStack_44 = 0;
-      FUN_0040c8b0();
+      FUN_0040c8b0((int)DAT_007934e4);
       pcVar8 = acStack_80;
       do {
         cVar4 = *pcVar8;
