@@ -185,11 +185,27 @@ def apply_one(entry, apply=False):
         cs = [c for c in callsites.find(s, name, b) if c['kind'] == 'call']
         if not cs:
             continue
+        short_site = False
         for c in sorted(cs, key=lambda x: -x['start']):
             inner = s[c['open']:c['close']]
+            # REFUSE a call site that is already short.  Appending only puts
+            # the value in the right slot when the site already supplies every
+            # preceding parameter; against a short call it lands in an
+            # unrelated one.  That is not a near miss -- it replaces a missing
+            # value with a confidently wrong one, and a K&R-empty declaration
+            # lets it compile, so nothing downstream objects.
+            have = len(callsites.split_args(inner))
+            if have != len(callsites.split_args(args)) - 1:
+                short_site = True
+                break
             add = expr if inner.strip() == '' else inner.rstrip() + ',' + expr
             s = s[:c['open']] + add + s[c['close']:]
             n_sites += 1
+        if short_site:
+            return False, ['%s/%s: call site in %s passes %d args for a '
+                           '%d-parameter definition -- re-slot, do not append'
+                           % (name, reg, os.path.relpath(f, ROOT), have,
+                              len(callsites.split_args(args)))], []
         files[f] = s
     log.append('%-26s %s  %2d sites  %s' % (name, reg, n_sites, expr))
 

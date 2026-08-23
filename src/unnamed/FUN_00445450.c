@@ -138,7 +138,7 @@ LAB_00445543:
        ((cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,1);
     FUN_00449250(param_1,1,0);
-    SetWidgetReadyState(1,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,1,(int)&DAT_00e9be90);
     uVar12 = 0;
     goto LAB_00445629;
   case 0xb:
@@ -147,16 +147,16 @@ LAB_00445543:
        ((cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,0);
     FUN_00449250(param_1,1,0);
-    SetWidgetReadyState(0,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,0,(int)&DAT_00e9be90);
     uVar12 = 1;
 LAB_00445629:
-    SetWidgetReadyState(uVar12,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,uVar12,(int)&DAT_00e9be90);
     uVar12 = 0;
 LAB_0044563c:
-    SetWidgetReadyState(uVar12,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,uVar12,(int)&DAT_00e9be90);
     uVar12 = 0;
 LAB_004457e7:
-    SetWidgetReadyState(uVar12,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,uVar12,(int)&DAT_00e9be90);
     break;
   case 0xc:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
@@ -164,8 +164,8 @@ LAB_004457e7:
         (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01')) || (g_stateChangeInProgress != 0)) break;
     FUN_00449540(param_1,2);
     FUN_00449250(param_1,1,0);
-    SetWidgetReadyState(0,(int)&DAT_00e9be90);
-    SetWidgetReadyState(0,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,0,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,0,(int)&DAT_00e9be90);
     uVar12 = 1;
     goto LAB_0044563c;
   case 0xd:
@@ -174,9 +174,9 @@ LAB_004457e7:
        ((cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 == '\x01' || (g_stateChangeInProgress != 0)))) break;
     FUN_00449540(param_1,3);
     FUN_00449250(param_1,1,0);
-    SetWidgetReadyState(0,(int)&DAT_00e9be90);
-    SetWidgetReadyState(0,(int)&DAT_00e9be90);
-    SetWidgetReadyState(0,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,0,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,0,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,0,(int)&DAT_00e9be90);
     uVar12 = 1;
     goto LAB_004457e7;
   case 0xe:
@@ -506,7 +506,7 @@ LAB_004457e7:
           case 3:
             local_4518 = &DAT_00666d73;
           }
-          FUN_004f1c00((int)&DAT_00ea0e18);
+          FUN_004f1c00(0x7530,(int)&DAT_00ea0e18);
           PeekChecksumStateUnderLock(iVar3);
           iVar3 = FUN_00426570();
           uVar4 = PeekChecksumStateUnderLock(iVar3 + 0x22c);
@@ -536,7 +536,7 @@ LAB_004457e7:
           }
           *(undefined4 *)(iVar3 + 0x448) = 0;
           RegisterActiveObject(0, 0, (undefined4 *)0);
-          FUN_0040cf80(&DAT_00e9c0fc,0);
+          FUN_0040cf80(&DAT_00e9c0fc);
           local_4 = local_4 & 0xffffff00;
           FUN_004254a0();
         }
@@ -784,7 +784,7 @@ LAB_00446d2b:
     RemoveWidget((int)&DAT_00e9be90,0,0x37);
     goto LAB_00445543;
   case 0x35:
-    pcVar8 = (char *)FUN_0040cfe0((int)&DAT_00e9c0fc);
+    pcVar8 = (char *)FUN_0040cfe0(0,0x2710,(int)&DAT_00e9c0fc);
     pcVar13 = (char *)(param_1 + 0x32ce3);
     do {
       cVar1 = *pcVar8;
@@ -792,7 +792,7 @@ LAB_00446d2b:
       *pcVar13 = cVar1;
       pcVar13 = pcVar13 + 1;
     } while (cVar1 != '\0');
-    pcVar8 = (char *)FUN_0040cfe0((int)&DAT_00e9c0fc);
+    pcVar8 = (char *)FUN_0040cfe0(0,0x2710,(int)&DAT_00e9c0fc);
     pcVar13 = (char *)(param_1 + 0x32d63);
     do {
       cVar1 = *pcVar8;
@@ -938,12 +938,12 @@ LAB_00446f6d:
         *(undefined1 *)(param_1 + 0x32f90) = 0;
         InvokeWidget(52,0);
         InvokeWidget(53,0);
-        FUN_0040cf30(0,(int)&DAT_00e9c0fc);
-        FUN_0040cf30(0,(int)&DAT_00e9c0fc);
+        FUN_0040cf30(0);
+        FUN_0040cf30(0);
         break;
       }
     }
-    FUN_0040cf80(&DAT_00e9c0fc,0);
+    FUN_0040cf80(&DAT_00e9c0fc);
     break;
   case 0x36:
     RenderInventoryItemDetail(param_1);

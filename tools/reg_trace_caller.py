@@ -137,9 +137,17 @@ def trace(ins, call_va, reg, depth=8):
         m = re.match(r'\w+, \[(esp|ebp) ([-+]) (0x[0-9a-f]+)\]$', o)
         if m:
             return ('FRAME', '%s%s%s' % (m.group(1), m.group(2), m.group(3)), safe)
-        m = re.match(r'\w+, \[(\w+) [-+] 0x[0-9a-f]+\]$', o)
+        m = re.match(r'\w+, \[(\w+) ([-+]) (0x[0-9a-f]+)\]$', o)
         if m and FULL.get(m.group(1)):
-            return ('FIELD', '%s %s' % (mn, o), safe)
+            # Resolve the BASE one level further.  A displacement that is
+            # itself a data address means the arena-offset idiom -- the port
+            # writes it as "&DAT_00xxxxxx + g_clientContext" -- so the whole
+            # expression is recoverable once the base is known to be the
+            # context.  Stopping at FIELD hides that.
+            bform, bdetail, bsafe = trace(ins, defn.address, FULL[m.group(1)],
+                                          depth - 1)
+            return ('FIELD', '%s %s | base=%s(%s)' % (mn, o, bform, bdetail),
+                    safe and bsafe)
         m = re.match(r'\w+, (\w+)$', o)
         if m and FULL.get(m.group(1)) and mn in ('mov', 'lea'):
             cur, limit = FULL[m.group(1)], defn.address

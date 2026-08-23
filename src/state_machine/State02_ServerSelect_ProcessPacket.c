@@ -537,7 +537,7 @@ LAB_004e0d7f:
   *(undefined1 *)(iVar20 + 0x2333c) = 0;
   *(undefined4 *)(iVar20 + 0x23338) = uVar5;
   puVar16 = (uint *)(payload + 9);
-  FUN_004e76d0(&uStack_f0,(int)&g_replayContext);
+  FUN_004e76d0(&uStack_f0);
   if (payloadLen < 0xa1) goto LAB_004e071c;
   FUN_005204f0(g_clientContext + 0x23330);
   uVar6 = *puVar16;

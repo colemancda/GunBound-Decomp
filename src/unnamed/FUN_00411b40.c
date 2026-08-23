@@ -113,7 +113,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
             local_f8 = param_1[4];
             local_f4 = 0;
             puVar4 = param_1 + 5;
-            FUN_00401cb0((int)&DAT_00e53e88);
+            FUN_00401cb0();
             puVar8 = (undefined4 *)local_108;
             for (iVar7 = 0x20; iVar7 != 0; iVar7 = iVar7 + -1) {
               *puVar8 = 0xffffffff;

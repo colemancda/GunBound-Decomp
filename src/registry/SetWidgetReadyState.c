@@ -4,6 +4,30 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * ARGUMENTS RE-SLOTTED, not merely appended.  `ret 4` gives one stack
+ * argument, and the entry writes ECX (`mov ecx,[eax+4]`) before ever reading
+ * it, so param_1 is a PHANTOM.  The real inputs are EAX (the widget
+ * registry), EDX, one stack slot (the ready state), and EDI (the widget key).
+ *
+ * The port had been passing the ready state as that phantom param_1 and
+ * omitting everything else.  An earlier pass here recovered EAX correctly but
+ * APPENDED it, which put &DAT_00e9be90 into param_2 -- an unrelated parameter
+ * -- at all 13 call sites.  Nothing diagnosed that, because functions.h still
+ * declared this K&R-empty, and a K&R prototype accepts any argument list; the
+ * value looked recovered and was in the wrong slot.  The declaration is now a
+ * real prototype, so the compiler enforces the arity from here on.
+ *
+ * Re-slotting needed no pairing of binary sites to source sites, which is
+ * what makes it safe despite the caller being a switch full of shared tails
+ * reached by goto (where VA order is emphatically not source order).  Every
+ * value required was already determined: EAX is 0xe9be90 at all 13 sites,
+ * EDX is 0 at all 13, the ready state is the argument the port already
+ * passed, and the phantom takes 0 because nothing reads it.
+ *
+ * EDI remains open: it is the widget key, and it genuinely varies (7 distinct
+ * values across the 13 sites), so it needs a per-site witness rather than
+ * this treatment.
  */
 #include "ghidra_types.h"
 

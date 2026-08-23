@@ -139,7 +139,7 @@
   "caller_va": "0x506430",
   "va": "0x506456",
   "form": "FIELD",
-  "detail": "mov edi, [esi + 0x50]",
+  "detail": "mov edi, [esi + 0x50] | base=ENTRY(ecx)",
   "safe": true
  },
  {
@@ -150,7 +150,7 @@
   "caller_va": "0x5063e0",
   "va": "0x506409",
   "form": "FIELD",
-  "detail": "mov eax, [esi + 0x50]",
+  "detail": "mov eax, [esi + 0x50] | base=ENTRY(ecx)",
   "safe": true
  },
  {
@@ -271,7 +271,7 @@
   "caller_va": "0x4bd8b0",
   "va": "0x4be267",
   "form": "FIELD",
-  "detail": "lea eax, [edi + 0x6a647c]",
+  "detail": "lea eax, [edi + 0x6a647c] | base=GLOBAL(0x5b3484)",
   "safe": true
  },
  {
@@ -414,7 +414,7 @@
   "caller_va": "0x4258e0",
   "va": "0x42590b",
   "form": "FIELD",
-  "detail": "lea ebx, [edi + 0x67ec60]",
+  "detail": "lea ebx, [edi + 0x67ec60] | base=ENTRY(eax)",
   "safe": true
  },
  {
@@ -568,8 +568,8 @@
   "caller_va": "0x4c1d30",
   "va": "0x4c2d12",
   "form": "FIELD",
-  "detail": "lea ebx, [edx + 0x6a7f88]",
-  "safe": true
+  "detail": "lea ebx, [edx + 0x6a7f88] | base=GLOBAL(0x5b3484)",
+  "safe": false
  },
  {
   "func": "FUN_004513a0",
@@ -876,7 +876,7 @@
   "caller_va": "0x4e5ac0",
   "va": "0x4e5b5f",
   "form": "FIELD",
-  "detail": "lea ebx, [edi + 0x24a40]",
+  "detail": "lea ebx, [edi + 0x24a40] | base=OTHER(mov edi, [ebp + 8])",
   "safe": true
  },
  {
@@ -931,7 +931,7 @@
   "caller_va": "0x4e02b0",
   "va": "0x4e0371",
   "form": "FIELD",
-  "detail": "lea eax, [ecx + 0x23330]",
+  "detail": "lea eax, [ecx + 0x23330] | base=GLOBAL(0x5b3484)",
   "safe": true
  },
  {
@@ -986,8 +986,8 @@
   "caller_va": "0x4e6050",
   "va": "0x4e60f9",
   "form": "FIELD",
-  "detail": "lea esi, [edi + 0x45230]",
-  "safe": true
+  "detail": "lea esi, [edi + 0x45230] | base=FRAME(esp+0x20)",
+  "safe": false
  },
  {
   "func": "FUN_004e9af0",
@@ -1019,7 +1019,7 @@
   "caller_va": "0x4caed0",
   "va": "0x4cb1e7",
   "form": "FIELD",
-  "detail": "mov eax, [eax + 0x23260]",
+  "detail": "mov eax, [eax + 0x23260] | base=GLOBAL(0x5b3484)",
   "safe": true
  },
  {
@@ -1063,7 +1063,7 @@
   "caller_va": "0x4f3440",
   "va": "0x4f344d",
   "form": "FIELD",
-  "detail": "lea eax, [esi + 0x1e0]",
+  "detail": "lea eax, [esi + 0x1e0] | base=ENTRY(esi)",
   "safe": true
  },
  {
@@ -1074,7 +1074,7 @@
   "caller_va": "0x4e95c0",
   "va": "0x4e97e5",
   "form": "FIELD",
-  "detail": "lea esi, [ecx - 0x10]",
+  "detail": "lea esi, [ecx - 0x10] | base=OTHER(add ecx, eax)",
   "safe": true
  },
  {
@@ -1085,7 +1085,7 @@
   "caller_va": "0x4f3540",
   "va": "0x4f356f",
   "form": "FIELD",
-  "detail": "lea ebx, [edx + 0xe0]",
+  "detail": "lea ebx, [edx + 0xe0] | base=ENTRY(edx)",
   "safe": false
  },
  {
@@ -1151,8 +1151,8 @@
   "caller_va": "0x4fe110",
   "va": "0x4fe33c",
   "form": "FIELD",
-  "detail": "mov eax, [ebx + 0x18]",
-  "safe": true
+  "detail": "mov eax, [ebx + 0x18] | base=OTHER(pop ebx)",
+  "safe": false
  },
  {
   "func": "FUN_004fee20",
@@ -1162,8 +1162,8 @@
   "caller_va": "0x4fd230",
   "va": "0x4fd334",
   "form": "FIELD",
-  "detail": "lea esi, [edi + 0x1ac0]",
-  "safe": true
+  "detail": "lea esi, [edi + 0x1ac0] | base=FRAME(esp+0x2c)",
+  "safe": false
  },
  {
   "func": "FUN_004ff2c0",
@@ -1217,7 +1217,7 @@
   "caller_va": "0x4fe8d0",
   "va": "0x4fe94a",
   "form": "FIELD",
-  "detail": "lea esi, [ebx + 0x290]",
+  "detail": "lea esi, [ebx + 0x290] | base=ENTRY(ecx)",
   "safe": true
  },
  {
@@ -1228,7 +1228,7 @@
   "caller_va": "0x4fdfd0",
   "va": "0x4fe035",
   "form": "FIELD",
-  "detail": "lea eax, [esi + 0x290]",
+  "detail": "lea eax, [esi + 0x290] | base=ENTRY(esi)",
   "safe": true
  },
  {
@@ -1426,8 +1426,8 @@
   "caller_va": "0x501770",
   "va": "0x502278",
   "form": "FIELD",
-  "detail": "lea esi, [edi + 0x17ac]",
-  "safe": true
+  "detail": "lea esi, [edi + 0x17ac] | base=FIELD(lea edi, [ebx + 0x17cc] | base=FRAME(esp+0x14))",
+  "safe": false
  },
  {
   "func": "FUN_00502800",
@@ -1525,7 +1525,7 @@
   "caller_va": "0x501770",
   "va": "0x50187d",
   "form": "FIELD",
-  "detail": "lea eax, [edi - 0x2f0]",
+  "detail": "lea eax, [edi - 0x2f0] | base=ENTRY(ecx)",
   "safe": true
  },
  {
@@ -1536,8 +1536,8 @@
   "caller_va": "0x501770",
   "va": "0x501be3",
   "form": "FIELD",
-  "detail": "lea eax, [edi - 0x2f0]",
-  "safe": true
+  "detail": "lea eax, [edi - 0x2f0] | base=FRAME(esp+0x14)",
+  "safe": false
  },
  {
   "func": "FUN_005039a0",
@@ -1580,7 +1580,7 @@
   "caller_va": "0x501770",
   "va": "0x501857",
   "form": "FIELD",
-  "detail": "lea ebx, [edi - 0x2c8]",
+  "detail": "lea ebx, [edi - 0x2c8] | base=ENTRY(ecx)",
   "safe": true
  },
  {
@@ -1734,7 +1734,7 @@
   "caller_va": "0x504880",
   "va": "0x50488d",
   "form": "FIELD",
-  "detail": "lea esi, [ecx - 0x2c]",
+  "detail": "lea esi, [ecx - 0x2c] | base=ENTRY(ecx)",
   "safe": true
  },
  {
@@ -1767,7 +1767,7 @@
   "caller_va": "0x505d20",
   "va": "0x505d90",
   "form": "FIELD",
-  "detail": "lea edi, [eax + 0x21]",
+  "detail": "lea edi, [eax + 0x21] | base=RETVAL(0x401c10)",
   "safe": true
  },
  {

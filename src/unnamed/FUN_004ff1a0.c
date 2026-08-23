@@ -12,8 +12,8 @@ void FUN_004ff1a0(void)
 {
   int unaff_EDI;
   
-  FUN_004fe420(0x3f400000,0x3e800000,0x40100000,0x11);
-  FUN_004fe420(0x3f400000,0x3e800000,0x40100000,0x11);
+  FUN_004fe420(0xa,0x3f400000,0x3e800000,0x40100000,0x11);
+  FUN_004fe420(0xa,0x3f400000,0x3e800000,0x40100000,0x11);
   *(undefined4 *)(unaff_EDI + 0x80) = 0;
   *(undefined4 *)(unaff_EDI + 0x84) = 0;
   *(undefined4 *)(unaff_EDI + 0x88) = 0;

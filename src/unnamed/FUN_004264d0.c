@@ -8,26 +8,27 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004264d0(int param_1,int regEsi)
+void __fastcall FUN_004264d0(int param_1)
 
 {
   int iVar1;
   int iVar2;
   int *unaff_EBX;
+  int unaff_ESI;
   
-  if ((uint)unaff_EBX[1] < (uint)(param_1 + regEsi)) {
+  if ((uint)unaff_EBX[1] < (uint)(param_1 + unaff_ESI)) {
                     /* WARNING: Subroutine does not return */
     ThrowCxxException(0x80070057);
   }
-  iVar1 = (unaff_EBX[1] - param_1) - regEsi;
-  for (iVar2 = regEsi; iVar2 != 0; iVar2 = iVar2 + -1) {
+  iVar1 = (unaff_EBX[1] - param_1) - unaff_ESI;
+  for (iVar2 = unaff_ESI; iVar2 != 0; iVar2 = iVar2 + -1) {
     FUN_00405320();
   }
   if (iVar1 != 0) {
-    _memmove((void *)(*unaff_EBX + param_1 * 4),(void *)(*unaff_EBX + (param_1 + regEsi) * 4),
+    _memmove((void *)(*unaff_EBX + param_1 * 4),(void *)(*unaff_EBX + (param_1 + unaff_ESI) * 4),
              iVar1 * 4);
   }
-  unaff_EBX[1] = unaff_EBX[1] - regEsi;
+  unaff_EBX[1] = unaff_EBX[1] - unaff_ESI;
   return;
 }
 

@@ -4,6 +4,24 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * ARGUMENTS RE-SLOTTED.  Ghidra typed this __thiscall, so param_1 is the ECX
+ * slot and param_2..param_4 are the three stack arguments.  The port had been
+ * passing its three constants as param_1..param_3, i.e. one slot too early,
+ * with ECX left unsupplied -- and an earlier pass here APPENDED the recovered
+ * EAX, which put it in param_4 rather than in the trailing register
+ * parameter.  Appending is only correct when the call site already fills every
+ * preceding slot; against a short call it is not an approximation, it is a
+ * confidently wrong value where a missing one used to be.
+ *
+ * All nine call sites agree, so nothing had to be paired:
+ *   push 0x40100000 / 0x3e800000 / 0x3f400000   -> param_2..param_4
+ *   mov ecx, 0xa                                -> param_1
+ *   mov eax, 0x11                               -> regEax
+ *
+ * ESI is a second dropped register here and remains open; unlike the rest it
+ * is genuinely per-site (nine distinct values across nine sites), so it needs
+ * a witness rather than this treatment.
  */
 #include "ghidra_types.h"
 

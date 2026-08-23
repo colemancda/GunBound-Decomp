@@ -8,20 +8,21 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00401cb0(char *param_1,int regEsi)
+void __fastcall FUN_00401cb0(char *param_1)
 
 {
   char cVar1;
   char *pcVar2;
+  int unaff_ESI;
   
-  pcVar2 = (char *)(regEsi + 0xc + *(int *)(regEsi + 0xc0c) * 0x18);
+  pcVar2 = (char *)(unaff_ESI + 0xc + *(int *)(unaff_ESI + 0xc0c) * 0x18);
   do {
     cVar1 = *param_1;
     param_1 = param_1 + 1;
     *pcVar2 = cVar1;
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
-  *(int *)(regEsi + 0xc0c) = *(int *)(regEsi + 0xc0c) + 1;
+  *(int *)(unaff_ESI + 0xc0c) = *(int *)(unaff_ESI + 0xc0c) + 1;
   return;
 }
 

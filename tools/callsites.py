@@ -24,8 +24,34 @@ Use classify() and act only on kind == 'call'.
 """
 import re
 
+# A declaration is distinguished from a call ONLY by the return type in front
+# of the name.  Two things this must get right, both learned the hard way:
+#
+#  * the return type is not one word.  "void __fastcall f();" and
+#    "unsigned char *f();" are declarations, and a pattern allowing a single
+#    identifier calls them both CALLS -- which silently skips them during a
+#    prototype sweep, leaving a K&R-empty declaration in place.  That is the
+#    worst possible outcome, because a K&R prototype accepts any argument
+#    list, so the call sites then compile clean no matter how wrong they are.
+#  * a C keyword is not a return type.  "return f(a);" ends with an
+#    identifier and whitespace exactly like "int f(a)", so without a keyword
+#    blacklist every `return f(...)` call site is classified as a DECLARATION
+#    and skipped by every sweep that acts on calls.
+KEYWORDS = {'return', 'if', 'while', 'for', 'switch', 'do', 'else', 'case',
+            'sizeof', 'goto', 'break', 'continue', 'default', 'typedef'}
+
+# [\s*]+ rather than \s+ so a pointer return type whose star binds to the
+# NAME -- "unsigned char *f();" -- still ends the type correctly.
 DECL = re.compile(r'(?:^|[;{}])\s*(?:static\s+|extern\s+|const\s+)*'
-                  r'[A-Za-z_]\w*(?:\s*\*)*\s+$')
+                  r'((?:[A-Za-z_]\w*[\s*]+)+)$')
+
+
+def _is_declaration(before):
+    m = DECL.search(before)
+    if not m:
+        return False
+    words = re.findall(r'[A-Za-z_]\w*', m.group(1))
+    return bool(words) and not (set(words) & KEYWORDS)
 
 
 def blank_comments(src):
@@ -78,7 +104,7 @@ def find(src, name, blanked=None):
         after = b[j:].lstrip()
         if after.startswith('{'):
             kind = 'definition'
-        elif DECL.search(b[:m.start()]):
+        elif _is_declaration(b[:m.start()]):
             kind = 'declaration'
         else:
             kind = 'call'

@@ -236,8 +236,8 @@ undefined4 HandleActiveObjectMouseMove(void *widgetRoot,int mouseX,int mouseY);
 void TickActiveObjectRegistry(int param_1);
 void DrawActiveObjectRegistry(int, int);
 void InvokeWidget(int widgetId,int enabled);
-undefined4 __fastcall SetWidgetReadyState();
-uint __fastcall FUN_00406400();
+undefined4 __fastcall SetWidgetReadyState(undefined4 param_1,uint param_2,int param_3,int regEax);
+uint __fastcall FUN_00406400(undefined4 param_1,uint param_2,int regEax);
 byte * __fastcall InitGuardedBool();
 void EncodeGuardedBool(int param_1,byte *guardPtr);
 int SetGuardedBool(undefined4 param_1,int guardPtr);
@@ -331,7 +331,7 @@ int FindActiveObjectAt(void *widgetRoot,int mouseX,int mouseY);
 void SyncActiveTextInput(int param_1);
 void __fastcall FUN_0040cf30();
 void __fastcall FUN_0040cf80();
-int __fastcall FUN_0040cfe0();
+int __fastcall FUN_0040cfe0(undefined4 param_1,uint param_2,int regEax);
 void __thiscall FUN_0040d020(int param_1, int param_2, int message);
 void __fastcall thunk_FUN_0050ee00();
 void FUN_0040d160();
@@ -697,7 +697,7 @@ void __fastcall FUN_0044fd70();
 void __fastcall FUN_0044fff0();
 void __fastcall FUN_00450600();
 int FUN_00450650();
-void __fastcall FUN_00450700();
+void __fastcall FUN_00450700(undefined4 param_1,undefined4 param_2,undefined4 *regEax);
 void AdvanceSpriteAnimation(int animObj);
 void FUN_004507d0();
 void FUN_00450810(int regEbx);
@@ -1266,7 +1266,7 @@ void __thiscall DrawFontString();
 void __fastcall DrawHLine();
 void __fastcall FUN_004eb640(undefined4 param_1,int param_2,int param_3,int regEax,int regEdi);
 void __fastcall DrawVLine();
-void __fastcall FUN_004eb720();
+void __fastcall FUN_004eb720(int param_1,int param_2,int param_3,int regEax);
 void FUN_004eb7a0();
 void __fastcall FillScreenRect();
 void DrawSprite(); /* K&R-empty deliberately (like FindSpriteFrame): real args
@@ -1362,7 +1362,7 @@ void FUN_004f1770();
 int LoadSpriteSet();
 int FUN_004f18c0();
 int FUN_004f1a50();
-void __fastcall FUN_004f1c00();
+void __fastcall FUN_004f1c00(uint param_1,int regEax);
 undefined4 * __fastcall FUN_004f1c40();
 void __fastcall FUN_004f1d40();
 void FUN_004f1d80(int regEsi);
@@ -1730,7 +1730,7 @@ void __fastcall FUN_0050ee00();
 void __stdcall PanelManager_Register();
 undefined4 PanelManager_Unregister();
 void PanelManager_ClearAllFocus();
-int __fastcall FUN_0050f000();
+int __fastcall FUN_0050f000(undefined4 param_1,int param_2,int regEax);
 undefined1 __thiscall PanelManager_DispatchMouseMove();
 char __thiscall FUN_0050f060();
 uint __thiscall PanelManager_DispatchRightMouseUp();
@@ -1847,6 +1847,9 @@ undefined8 __fastcall FUN_0051c6a0();
  * compiled: a bare name with no prototype is not a call, so C's implicit-
  * declaration rule does not rescue it and the identifier is simply undefined.
  * The functions themselves are ported and take no arguments. */
+void __thiscall FUN_004fe420(undefined4 param_1,undefined4 param_2,undefined4 param_3,
+                             undefined4 param_4,undefined4 regEax);
+
 void FUN_00543210(void);
 void FUN_00543220(void);
 void FUN_00543280(void);

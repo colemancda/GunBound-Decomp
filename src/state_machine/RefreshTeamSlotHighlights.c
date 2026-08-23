@@ -39,7 +39,7 @@ LAB_004db999:
       if (cVar1 == iVar3) goto LAB_004db999;
       iVar2 = (uint)(uint3)(cVar1 >> 7) << 8;
     }
-    SetWidgetReadyState(iVar2,(int)&DAT_00e9be90);
+    SetWidgetReadyState(0,0,iVar2,(int)&DAT_00e9be90);
     iVar3 = iVar3 + 1;
   } while (iVar3 < 0xe);
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -65,7 +65,7 @@ LAB_004db999:
     bVar4 = *(char *)(g_clientContext + 0x458fc + iVar2 * 2) == -1;
   }
 LAB_004dba63:
-  SetWidgetReadyState(bVar4,(int)&DAT_00e9be90);
+  SetWidgetReadyState(0,0,bVar4,(int)&DAT_00e9be90);
   return;
 }
 

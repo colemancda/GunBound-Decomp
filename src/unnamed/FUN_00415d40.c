@@ -570,8 +570,8 @@ int FUN_00415d40(int param_1)
    * &DAT_006aa404+param_1 (cell+0x220), confirming the cell.
    * See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)&DAT_006aa1f8 + param_1 - 0x14, 0);
-  FUN_004fe420(0x3f400000,0x3e800000,0x40100000,0x11);
-  FUN_004fe420(0x3f400000,0x3e800000,0x40100000,0x11);
+  FUN_004fe420(0xa,0x3f400000,0x3e800000,0x40100000,0x11);
+  FUN_004fe420(0xa,0x3f400000,0x3e800000,0x40100000,0x11);
   SUBFIELD(local_4,0,undefined1) = 0x5d;
   InitGuardedBool();
   InitGuardedBool();
