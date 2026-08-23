@@ -1259,8 +1259,8 @@
   },
   {
     "addr": "0041c290",
-    "func": "FUN_0041c290",
-    "path": "src/unnamed/FUN_0041c290.c",
+    "func": "FindRoomListIndexById",
+    "path": "src/unnamed/FindRoomListIndexById.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 7,

@@ -304,7 +304,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0041c190,66,FUN_0041c190,false,2,1,RAW-src
 0041c1e0,77,FUN_0041c1e0,false,1,0,RAW-src
 0041c230,82,FUN_0041c230,false,1,0,RAW-src
-0041c290,38,FUN_0041c290,false,7,0,RAW-src
+0041c290,38,FindRoomListIndexById,false,7,0,RAW-src
 0041c2c0,156,CheckRoomSlotActive,false,84,3,RAW-src
 0041c360,5919,FUN_0041c360,false,2,12,RAW-src
 0041da80,3859,FUN_0041da80,false,11,8,RAW-src

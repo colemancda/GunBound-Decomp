@@ -2901,7 +2901,7 @@
   ]
  },
  {
-  "func": "FUN_0041c290",
+  "func": "FindRoomListIndexById",
   "reg": "esi",
   "sites": 7,
   "values": {},
@@ -2910,7 +2910,7 @@
   "buckets": {
    "OTHER": 7
   },
-  "path": "src/unnamed/FUN_0041c290.c",
+  "path": "src/unnamed/FindRoomListIndexById.c",
   "per_site": [
    {
     "va": "0x4270ca",

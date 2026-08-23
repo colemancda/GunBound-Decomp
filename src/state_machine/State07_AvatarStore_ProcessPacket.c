@@ -482,8 +482,8 @@ switchD_004449fc_default:
           LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
           RemoveWidget();
           RemoveWidget();
-          FUN_0040cdf0();
-          FUN_0040cdf0();
+          FUN_0040cdf0(0,0x2710);
+          FUN_0040cdf0(0,0x2710);
           CreateAvatarStoreButtons(this);
           return;
         }

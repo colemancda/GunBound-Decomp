@@ -1,0 +1,1075 @@
+[
+ {
+  "func": "ScrambleChecksumGuardBytes",
+  "sites": 1070,
+  "uniform": {
+   "ebx": "0x79376c"
+  }
+ },
+ {
+  "func": "FUN_004eeb10",
+  "sites": 9,
+  "uniform": {
+   "eax": "[0x5b3484]",
+   "edx": "[eax + 0x5f2f4c]"
+  }
+ },
+ {
+  "func": "__fload_withFB",
+  "sites": 9,
+  "uniform": {
+   "edx": "[esp + 4]"
+  }
+ },
+ {
+  "func": "FUN_0040cdf0",
+  "sites": 8,
+  "uniform": {
+   "edx": "0x2710"
+  }
+ },
+ {
+  "func": "FindRoomListIndexById",
+  "sites": 7,
+  "uniform": {
+   "esi": "0"
+  }
+ },
+ {
+  "func": "FUN_00421870",
+  "sites": 6,
+  "uniform": {
+   "edx": "[esp + 0x134]"
+  }
+ },
+ {
+  "func": "ClampCursorToRect",
+  "sites": 5,
+  "uniform": {
+   "ecx": "0xe53698"
+  }
+ },
+ {
+  "func": "CreateActiveObjectLayer",
+  "sites": 5,
+  "uniform": {
+   "eax": "[eax + 0x1c]"
+  }
+ },
+ {
+  "func": "DarkenTerrainScorchRow",
+  "sites": 5,
+  "uniform": {
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_00404c40",
+  "sites": 5,
+  "uniform": {
+   "ecx": "edi"
+  }
+ },
+ {
+  "func": "FUN_00404cd0",
+  "sites": 5,
+  "uniform": {
+   "ecx": "edi"
+  }
+ },
+ {
+  "func": "FUN_004e43d0",
+  "sites": 5,
+  "uniform": {
+   "ecx": "eax"
+  }
+ },
+ {
+  "func": "BlitSpriteDirect",
+  "sites": 4,
+  "uniform": {
+   "eax": "[ebp + 0x30]"
+  }
+ },
+ {
+  "func": "FUN_00422f10",
+  "sites": 4,
+  "uniform": {
+   "ecx": "[esi + 0x3f804]",
+   "esi": "[0x5b3484]"
+  }
+ },
+ {
+  "func": "FUN_004ec430",
+  "sites": 4,
+  "uniform": {
+   "eax": "[eax + 4]",
+   "ecx": "ebx"
+  }
+ },
+ {
+  "func": "Widget_ClearPressedRecursive",
+  "sites": 4,
+  "uniform": {
+   "eax": "[esi + 0xc]",
+   "ecx": "[eax + edi*4]"
+  }
+ },
+ {
+  "func": "FUN_004ac260",
+  "sites": 3,
+  "uniform": {
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_004ac330",
+  "sites": 3,
+  "uniform": {
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_005002a0",
+  "sites": 3,
+  "uniform": {
+   "esi": "[esp + 0x10]"
+  }
+ },
+ {
+  "func": "FUN_005013c0",
+  "sites": 3,
+  "uniform": {
+   "esi": "[esp + 0x10]"
+  }
+ },
+ {
+  "func": "FUN_00522880",
+  "sites": 3,
+  "uniform": {
+   "ecx": "[0x5b15ac]"
+  }
+ },
+ {
+  "func": "CheckAllPlayersReady",
+  "sites": 2,
+  "uniform": {
+   "ecx": "ebp"
+  }
+ },
+ {
+  "func": "FUN_00403000",
+  "sites": 2,
+  "uniform": {
+   "eax": "[ebp + 0xc]",
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_004057c0",
+  "sites": 2,
+  "uniform": {
+   "ecx": "ebp"
+  }
+ },
+ {
+  "func": "FUN_004059e0",
+  "sites": 2,
+  "uniform": {
+   "edx": "ecx"
+  }
+ },
+ {
+  "func": "FUN_0040b8c0",
+  "sites": 2,
+  "uniform": {
+   "ecx": "0x793770"
+  }
+ },
+ {
+  "func": "FUN_0040b9b0",
+  "sites": 2,
+  "uniform": {
+   "ecx": "[ebp - 0x28]"
+  }
+ },
+ {
+  "func": "FUN_0040bda0",
+  "sites": 2,
+  "uniform": {
+   "ecx": "ebx"
+  }
+ },
+ {
+  "func": "FUN_0040cf30",
+  "sites": 2,
+  "uniform": {
+   "eax": "0xe9c0fc",
+   "edx": "0x2710"
+  }
+ },
+ {
+  "func": "FUN_0040cf80",
+  "sites": 2,
+  "uniform": {
+   "edx": "0x2710",
+   "esi": "0"
+  }
+ },
+ {
+  "func": "FUN_00411b40",
+  "sites": 2,
+  "uniform": {
+   "edx": "[esi - 2]"
+  }
+ },
+ {
+  "func": "FUN_00426430",
+  "sites": 2,
+  "uniform": {
+   "ecx": "[esp + 0x10]"
+  }
+ },
+ {
+  "func": "FUN_00437500",
+  "sites": 2,
+  "uniform": {
+   "edx": "edi"
+  }
+ },
+ {
+  "func": "FUN_004784a0",
+  "sites": 2,
+  "uniform": {
+   "eax": "[esi + 0x30]"
+  }
+ },
+ {
+  "func": "FUN_004d34f0",
+  "sites": 2,
+  "uniform": {
+   "eax": "[0x7934e8]",
+   "edx": "0x10"
+  }
+ },
+ {
+  "func": "FUN_004e6d10",
+  "sites": 2,
+  "uniform": {
+   "ecx": "ebx",
+   "edx": "[esp + 0x250]"
+  }
+ },
+ {
+  "func": "FUN_004e74c0",
+  "sites": 2,
+  "uniform": {
+   "edx": "0xe55ce0"
+  }
+ },
+ {
+  "func": "FUN_004e75e0",
+  "sites": 2,
+  "uniform": {
+   "eax": "esi"
+  }
+ },
+ {
+  "func": "FUN_004e7d60",
+  "sites": 2,
+  "uniform": {
+   "eax": "0xe55ce0"
+  }
+ },
+ {
+  "func": "FUN_004e8b10",
+  "sites": 2,
+  "uniform": {
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_004ebdd0",
+  "sites": 2,
+  "uniform": {
+   "ebx": "0",
+   "ecx": "[esp + 0x2c]"
+  }
+ },
+ {
+  "func": "FUN_004f0960",
+  "sites": 2,
+  "uniform": {
+   "ebx": "[ebx]"
+  }
+ },
+ {
+  "func": "FUN_004f1020",
+  "sites": 2,
+  "uniform": {
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_004fe500",
+  "sites": 2,
+  "uniform": {
+   "eax": "[edi + 0x17fc]",
+   "edx": "[esp + 0xf2]"
+  }
+ },
+ {
+  "func": "FUN_004ff240",
+  "sites": 2,
+  "uniform": {
+   "eax": "[esi + 4]"
+  }
+ },
+ {
+  "func": "FUN_00522430",
+  "sites": 2,
+  "uniform": {
+   "ecx": "ebx"
+  }
+ },
+ {
+  "func": "LZHUFDeleteNode",
+  "sites": 2,
+  "uniform": {
+   "eax": "ebp",
+   "edx": "[esp + 0x18]"
+  }
+ },
+ {
+  "func": "BuildEnterRoomNumberDialog",
+  "sites": 1,
+  "uniform": {
+   "edi": "0xe53c40"
+  }
+ },
+ {
+  "func": "CGameState_BaseDestructor",
+  "sites": 1,
+  "uniform": {
+   "esi": "ecx"
+  }
+ },
+ {
+  "func": "CommEngineRecv",
+  "sites": 1,
+  "uniform": {
+   "eax": "0xfffffffb",
+   "ecx": "eax",
+   "edi": "esi"
+  }
+ },
+ {
+  "func": "DrawStageDecorationBase",
+  "sites": 1,
+  "uniform": {
+   "eax": "[0x5b3484]",
+   "ecx": "[eax + 0x6a7708]"
+  }
+ },
+ {
+  "func": "FUN_004010e0",
+  "sites": 1,
+  "uniform": {
+   "ecx": "[esi + 0x18]",
+   "esi": "ecx"
+  }
+ },
+ {
+  "func": "FUN_00401100",
+  "sites": 1,
+  "uniform": {
+   "ecx": "[esi + 0x18]"
+  }
+ },
+ {
+  "func": "FUN_00401cb0",
+  "sites": 1,
+  "uniform": {
+   "eax": "[edx + 8]",
+   "ecx": "[esp + 0x60]",
+   "edx": "[edx + 0x10]",
+   "esi": "0xe53e88"
+  }
+ },
+ {
+  "func": "FUN_00401ce0",
+  "sites": 1,
+  "uniform": {
+   "ecx": "0xe53e88",
+   "edi": "[esp + 0x60]"
+  }
+ },
+ {
+  "func": "FUN_00402020",
+  "sites": 1,
+  "uniform": {
+   "ebx": "[ebp + 0x3f81a]",
+   "ecx": "0xe53e88",
+   "esi": "0"
+  }
+ },
+ {
+  "func": "FUN_00402160",
+  "sites": 1,
+  "uniform": {
+   "ebx": "0",
+   "ecx": "0xe53e88",
+   "esi": "[0x5b3484]",
+   "edi": "[ebp]"
+  }
+ },
+ {
+  "func": "FUN_004032c0",
+  "sites": 1,
+  "uniform": {
+   "eax": "[ebp + 0x10]",
+   "ecx": "[esp + 0x28]",
+   "edx": "[esp + 0x18]",
+   "esi": "[esp + 0xc]",
+   "edi": "[ebp + 0xc]"
+  }
+ },
+ {
+  "func": "FUN_00404890",
+  "sites": 1,
+  "uniform": {
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_00404d60",
+  "sites": 1,
+  "uniform": {
+   "eax": "esi",
+   "ecx": "ebx",
+   "edx": "edi"
+  }
+ },
+ {
+  "func": "FUN_00404dd0",
+  "sites": 1,
+  "uniform": {
+   "eax": "[esp + 0x14]",
+   "ecx": "edi"
+  }
+ },
+ {
+  "func": "FUN_004055f0",
+  "sites": 1,
+  "uniform": {
+   "eax": "esi"
+  }
+ },
+ {
+  "func": "FUN_00405810",
+  "sites": 1,
+  "uniform": {
+   "eax": "edx"
+  }
+ },
+ {
+  "func": "FUN_00409d10",
+  "sites": 1,
+  "uniform": {
+   "ecx": "[esp + 0xc]"
+  }
+ },
+ {
+  "func": "FUN_0040c8b0",
+  "sites": 1,
+  "uniform": {
+   "eax": "[esp + 0x58]",
+   "ecx": "[0x7934e4]",
+   "edx": "eax",
+   "esi": "edx"
+  }
+ },
+ {
+  "func": "FUN_00415470",
+  "sites": 1,
+  "uniform": {
+   "ebx": "1",
+   "edx": "esi",
+   "esi": "[esp + 0x10]"
+  }
+ },
+ {
+  "func": "FUN_004154c0",
+  "sites": 1,
+  "uniform": {
+   "eax": "esi",
+   "edx": "0xa"
+  }
+ },
+ {
+  "func": "FUN_0041c1e0",
+  "sites": 1,
+  "uniform": {
+   "edx": "[0x5b3484]"
+  }
+ },
+ {
+  "func": "FUN_0041c230",
+  "sites": 1,
+  "uniform": {
+   "edx": "edi"
+  }
+ },
+ {
+  "func": "FUN_004264d0",
+  "sites": 1,
+  "uniform": {
+   "ebx": "[edi + 0x67ec60]",
+   "ecx": "eax",
+   "esi": "1"
+  }
+ },
+ {
+  "func": "FUN_00426700",
+  "sites": 1,
+  "uniform": {
+   "edx": "[esi]"
+  }
+ },
+ {
+  "func": "FUN_00436cd0",
+  "sites": 1,
+  "uniform": {
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_0043e0f0",
+  "sites": 1,
+  "uniform": {
+   "ebx": "ecx",
+   "ecx": "ebp"
+  }
+ },
+ {
+  "func": "FUN_00443ed0",
+  "sites": 1,
+  "uniform": {
+   "esi": "ecx"
+  }
+ },
+ {
+  "func": "FUN_0044fd00",
+  "sites": 1,
+  "uniform": {
+   "eax": "esi"
+  }
+ },
+ {
+  "func": "FUN_00450600",
+  "sites": 1,
+  "uniform": {
+   "eax": "ebx",
+   "ecx": "edi",
+   "edi": "0"
+  }
+ },
+ {
+  "func": "FUN_0045db20",
+  "sites": 1,
+  "uniform": {
+   "eax": "[eax + 0x1c]",
+   "ecx": "ebp"
+  }
+ },
+ {
+  "func": "FUN_00468620",
+  "sites": 1,
+  "uniform": {
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_00479910",
+  "sites": 1,
+  "uniform": {
+   "ecx": "esi",
+   "edx": "0",
+   "esi": "[esi + 0x10]",
+   "edi": "edi"
+  }
+ },
+ {
+  "func": "FUN_004e2b20",
+  "sites": 1,
+  "uniform": {
+   "eax": "[eax + 0x10]",
+   "ebx": "1",
+   "ecx": "[edi + 0x6a64c4]",
+   "edi": "[0x5b3484]"
+  }
+ },
+ {
+  "func": "FUN_004e5c50",
+  "sites": 1,
+  "uniform": {
+   "eax": "0",
+   "ecx": "[esi + 0x24a40]"
+  }
+ },
+ {
+  "func": "FUN_004e7560",
+  "sites": 1,
+  "uniform": {
+   "edx": "0xe55ce0"
+  }
+ },
+ {
+  "func": "FUN_004e7660",
+  "sites": 1,
+  "uniform": {
+   "edx": "ebp"
+  }
+ },
+ {
+  "func": "FUN_004e76d0",
+  "sites": 1,
+  "uniform": {
+   "eax": "[ecx + 0x23330]",
+   "ecx": "[esp + 0x38]",
+   "edx": "[esp + 0x32]",
+   "esi": "0xe55ce0",
+   "edi": "[edx + 4]"
+  }
+ },
+ {
+  "func": "FUN_004e82c0",
+  "sites": 1,
+  "uniform": {
+   "ebx": "[esp + 0x30]",
+   "ecx": "0xe55ce0",
+   "edx": "[esi + ebx*8 + 0x6a7670]",
+   "esi": "[0x5b3484]",
+   "edi": "[eax*4]"
+  }
+ },
+ {
+  "func": "FUN_004e8eb0",
+  "sites": 1,
+  "uniform": {
+   "eax": "ebp",
+   "edx": "[esp + 0x14]"
+  }
+ },
+ {
+  "func": "FUN_004e94c0",
+  "sites": 1,
+  "uniform": {
+   "edx": "[esi + 4]"
+  }
+ },
+ {
+  "func": "FUN_004edb50",
+  "sites": 1,
+  "uniform": {
+   "edx": "0x31f",
+   "edi": "[ecx + 0x5f376c]"
+  }
+ },
+ {
+  "func": "FUN_004ef5b0",
+  "sites": 1,
+  "uniform": {
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_004f1c40",
+  "sites": 1,
+  "uniform": {
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_004f2530",
+  "sites": 1,
+  "uniform": {
+   "ecx": "ebp",
+   "edx": "0x5a9250"
+  }
+ },
+ {
+  "func": "FUN_004f33b0",
+  "sites": 1,
+  "uniform": {
+   "esi": "ecx"
+  }
+ },
+ {
+  "func": "FUN_004f3c70",
+  "sites": 1,
+  "uniform": {
+   "eax": "[ebx + 0x11c]",
+   "esi": "[ecx - 0x10]",
+   "edi": "edi"
+  }
+ },
+ {
+  "func": "FUN_004f4810",
+  "sites": 1,
+  "uniform": {
+   "eax": "ebx",
+   "ebx": "[edx + 0xe0]",
+   "ecx": "[esi + eax + 0x258]",
+   "esi": "0",
+   "edi": "[edx + 0x210]"
+  }
+ },
+ {
+  "func": "FUN_004fdc30",
+  "sites": 1,
+  "uniform": {
+   "ecx": "edi"
+  }
+ },
+ {
+  "func": "FUN_004fe590",
+  "sites": 1,
+  "uniform": {
+   "eax": "[esp + 0x20]",
+   "edx": "[esp + 0x1770]"
+  }
+ },
+ {
+  "func": "FUN_004ff2c0",
+  "sites": 1,
+  "uniform": {
+   "ecx": "[esi]",
+   "edx": "[esp + 0xc]"
+  }
+ },
+ {
+  "func": "FUN_004ff640",
+  "sites": 1,
+  "uniform": {
+   "eax": "0",
+   "ebx": "ecx",
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_005006c0",
+  "sites": 1,
+  "uniform": {
+   "ebx": "[ebx]",
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_00500b70",
+  "sites": 1,
+  "uniform": {
+   "ecx": "esi",
+   "edx": "[esp + 0x10]"
+  }
+ },
+ {
+  "func": "FUN_00502800",
+  "sites": 1,
+  "uniform": {
+   "eax": "[esp + 0xa0]",
+   "ecx": "[esp + 0x38]"
+  }
+ },
+ {
+  "func": "FUN_00502890",
+  "sites": 1,
+  "uniform": {
+   "ecx": "[esp + 0x18]",
+   "esi": "[esp + 0x38]"
+  }
+ },
+ {
+  "func": "FUN_00502ad0",
+  "sites": 1,
+  "uniform": {
+   "ecx": "esi"
+  }
+ },
+ {
+  "func": "FUN_00502b70",
+  "sites": 1,
+  "uniform": {
+   "eax": "0x38e38e39",
+   "ecx": "[esp + 0x18]"
+  }
+ },
+ {
+  "func": "FUN_00502e20",
+  "sites": 1,
+  "uniform": {
+   "eax": "0x4ec4ec4f",
+   "ecx": "1",
+   "edx": "[esp + 0x18]"
+  }
+ },
+ {
+  "func": "FUN_005033e0",
+  "sites": 1,
+  "uniform": {
+   "eax": "0x88888889",
+   "ecx": "1",
+   "edx": "[esp + 0x18]"
+  }
+ },
+ {
+  "func": "FUN_00503770",
+  "sites": 1,
+  "uniform": {
+   "eax": "[ebp - 0x34]",
+   "ebx": "ecx",
+   "esi": "[ebp + 8]"
+  }
+ },
+ {
+  "func": "FUN_00503910",
+  "sites": 1,
+  "uniform": {
+   "eax": "[edi - 0x2f0]",
+   "ecx": "[edi + 0x1780]"
+  }
+ },
+ {
+  "func": "FUN_00503930",
+  "sites": 1,
+  "uniform": {
+   "eax": "[edi - 0x2f0]",
+   "ecx": "[edi + 0x1780]"
+  }
+ },
+ {
+  "func": "FUN_00503eb0",
+  "sites": 1,
+  "uniform": {
+   "eax": "ebx",
+   "ecx": "[esi + ebx]",
+   "edx": "[ebp - 0x28]"
+  }
+ },
+ {
+  "func": "FUN_00503ef0",
+  "sites": 1,
+  "uniform": {
+   "eax": "esi",
+   "ebx": "[ebp - 0x4c]",
+   "edx": "[edi + esi]"
+  }
+ },
+ {
+  "func": "FUN_00503f10",
+  "sites": 1,
+  "uniform": {
+   "eax": "ebx",
+   "ebx": "esi",
+   "edx": "[ebp + 8]",
+   "esi": "[ebp + 0xc]"
+  }
+ },
+ {
+  "func": "FUN_00504010",
+  "sites": 1,
+  "uniform": {
+   "eax": "edi",
+   "ebx": "[ebp - 0x34]",
+   "edx": "[eax + edi]"
+  }
+ },
+ {
+  "func": "FUN_00504030",
+  "sites": 1,
+  "uniform": {
+   "eax": "[ebp + 8]",
+   "ebx": "edi",
+   "edx": "ebx"
+  }
+ },
+ {
+  "func": "FUN_00504050",
+  "sites": 1,
+  "uniform": {
+   "eax": "[ebp + 0x290]",
+   "ebx": "[esp + 0x2c]",
+   "edx": "[esp + 0x12]"
+  }
+ },
+ {
+  "func": "FUN_00504d80",
+  "sites": 1,
+  "uniform": {
+   "ebx": "ecx",
+   "edx": "[edi + 0x20c]",
+   "esi": "0",
+   "edi": "edx"
+  }
+ },
+ {
+  "func": "FUN_005052b0",
+  "sites": 1,
+  "uniform": {
+   "ebx": "[esp + 0x14]",
+   "ecx": "ebp",
+   "esi": "[esp + 0x1c]"
+  }
+ },
+ {
+  "func": "FUN_00507d50",
+  "sites": 1,
+  "uniform": {
+   "ecx": "[ebx + 0x28c]"
+  }
+ },
+ {
+  "func": "FUN_005098e0",
+  "sites": 1,
+  "uniform": {
+   "eax": "0xe53c40"
+  }
+ },
+ {
+  "func": "FUN_0050ee00",
+  "sites": 1,
+  "uniform": {
+   "esi": "ecx"
+  }
+ },
+ {
+  "func": "FUN_0050f840",
+  "sites": 1,
+  "uniform": {
+   "ecx": "ebp",
+   "edx": "[edx + eax*4]"
+  }
+ },
+ {
+  "func": "FUN_005207d0",
+  "sites": 1,
+  "uniform": {
+   "ecx": "0"
+  }
+ },
+ {
+  "func": "FUN_00521bf0",
+  "sites": 1,
+  "uniform": {
+   "ebx": "ecx"
+  }
+ },
+ {
+  "func": "FUN_00522330",
+  "sites": 1,
+  "uniform": {
+   "ecx": "ebx"
+  }
+ },
+ {
+  "func": "FUN_00524130",
+  "sites": 1,
+  "uniform": {
+   "ecx": "[esi + 0x1060]"
+  }
+ },
+ {
+  "func": "FUN_005246e0",
+  "sites": 1,
+  "uniform": {
+   "ecx": "[esi + 0x107c]"
+  }
+ },
+ {
+  "func": "FUN_00524730",
+  "sites": 1,
+  "uniform": {
+   "ecx": "[esi + 0x107c]",
+   "esi": "ecx"
+  }
+ },
+ {
+  "func": "FUN_00525d92",
+  "sites": 1,
+  "uniform": {
+   "esi": "ecx"
+  }
+ },
+ {
+  "func": "FUN_00534bec",
+  "sites": 1,
+  "uniform": {
+   "ecx": "0",
+   "edx": "[eax + eax*2]",
+   "esi": "[ebx + 0x54]"
+  }
+ },
+ {
+  "func": "FindChecksumStateRecord",
+  "sites": 1,
+  "uniform": {
+   "ecx": "[esi + 0x6a7f70]"
+  }
+ },
+ {
+  "func": "InitRiderEffect",
+  "sites": 1,
+  "uniform": {
+   "ecx": "[esp + 0xc]"
+  }
+ },
+ {
+  "func": "OpenCreateRoomDialog",
+  "sites": 1,
+  "uniform": {
+   "ecx": "edi"
+  }
+ },
+ {
+  "func": "RenderRoomMobiles",
+  "sites": 1,
+  "uniform": {
+   "eax": "0",
+   "ebx": "ecx",
+   "ecx": "[esp + 0x24]",
+   "esi": "[0x5b3484]"
+  }
+ },
+ {
+  "func": "State09_ReadyRoom_Destroy",
+  "sites": 1,
+  "uniform": {
+   "esi": "ecx"
+  }
+ },
+ {
+  "func": "State11_InBattle_Destroy",
+  "sites": 1,
+  "uniform": {
+   "esi": "ecx"
+  }
+ },
+ {
+  "func": "__IsZeroMan",
+  "sites": 1,
+  "uniform": {
+   "ebx": "0",
+   "ecx": "[eax + 2]",
+   "esi": "[ebp + 0x10]"
+  }
+ },
+ {
+  "func": "__store_str",
+  "sites": 1,
+  "uniform": {
+   "eax": "ebx",
+   "ecx": "edi",
+   "edx": "[edx + 0x9c]"
+  }
+ }
+]

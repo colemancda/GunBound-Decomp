@@ -160,7 +160,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
       else {
         switch(opcode) {
         case GB_OP_ROOM_PLAYER_DISPLAY_UPDATE_NOTIFICATION:
-          iVar10 = FUN_0041c290();
+          iVar10 = FindRoomListIndexById(g_clientContext,0);
           if (iVar10 != -1) {
             if (*(int *)((int)this + 4) == iVar10) {
               *(undefined4 *)((int)this + 4) = 0xffffffff;
@@ -184,7 +184,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
           }
           break;
         case GB_OP_ROOM_PLAYER_FLAG_UPDATE_NOTIFICATION:
-          iVar10 = FUN_0041c290();
+          iVar10 = FindRoomListIndexById(g_clientContext,0);
           if (iVar10 != -1) {
             if (*(int *)((int)this + 4) == iVar10) {
               *(undefined4 *)((int)this + 4) = 0xffffffff;
@@ -194,7 +194,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
           }
           break;
         case GB_OP_ROOM_PLAYER_VALUE_UPDATE_NOTIFICATION:
-          iVar10 = FUN_0041c290();
+          iVar10 = FindRoomListIndexById(g_clientContext,0);
           if (iVar10 != -1) {
             if (*(int *)((int)this + 4) == iVar10) {
               *(undefined4 *)((int)this + 4) = 0xffffffff;
@@ -204,7 +204,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
           }
           break;
         case GB_OP_JOIN_ROOM_NOTIFICATION_SELF:
-          iVar10 = FUN_0041c290();
+          iVar10 = FindRoomListIndexById(g_clientContext,0);
           if (iVar10 != -1) {
             if (*(int *)((int)this + 4) == iVar10) {
               *(undefined4 *)((int)this + 4) = 0xffffffff;
@@ -214,7 +214,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
           }
           break;
         case GB_OP_ROOM_PLAYER_STATUS_UPDATE_NOTIFICATION:
-          iVar10 = FUN_0041c290();
+          iVar10 = FindRoomListIndexById(g_clientContext,0);
           if (iVar10 != -1) {
             if (*(int *)((int)this + 4) == iVar10) {
               *(undefined4 *)((int)this + 4) = 0xffffffff;
@@ -224,7 +224,7 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
           }
           break;
         case GB_OP_ROOM_PLAYER_MODE_UPDATE_NOTIFICATION:
-          iVar10 = FUN_0041c290();
+          iVar10 = FindRoomListIndexById(g_clientContext,0);
           if (iVar10 != -1) {
             if (*(int *)((int)this + 4) == iVar10) {
               *(undefined4 *)((int)this + 4) = 0xffffffff;
@@ -457,7 +457,7 @@ switchD_00428058_default:
     if (opcode != GB_OP_JOIN_ROOM_RESPONSE) {
       if (opcode != GB_OP_CREATE_ROOM_RESPONSE) {
         if (opcode == GB_OP_ROOM_SELF_DISPLAY_UPDATE_NOTIFICATION) {
-          iVar24 = FUN_0041c290();
+          iVar24 = FindRoomListIndexById(g_clientContext,0);
           if (iVar24 != -1) {
             uVar6 = payload[1];
             uVar23 = (uint)(byte)uVar6;

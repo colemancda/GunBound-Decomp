@@ -4,6 +4,15 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DECLARED ARGUMENTS FILLED.  `ret 0` puts nothing on the stack, so param_1
+ * (ECX) and param_2 (EDX) are both registers, and every call site passed
+ * neither.  ECX is a PHANTOM -- the entry writes it (`mov ecx,[eax+4]`)
+ * before any read -- so it takes 0; EDX is 0x2710 at every site.
+ *
+ * ESI and EDI are also read before being written here, so they are further
+ * register arguments Ghidra did not declare.  ESI genuinely varies per site
+ * (0 and 1), so it stays open rather than being guessed at.
  */
 #include "ghidra_types.h"
 
