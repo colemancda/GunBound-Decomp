@@ -40,13 +40,13 @@ uint8_t DAT_00551e24;
 uint16_t DAT_00551e34;
 uint8_t DAT_00551e36;
 const char DAT_00551e78[] = "push"; /* mouse-press state name; was a zeroed 1-byte global (orig .data 0x551e78) */
-void * DAT_00551ecc;
+/* 0x00551ecc: real storage is PTR_DAT_00551ecc below - see globals.h. */
 uint8_t DAT_0055207c;
 const char DAT_00552084[] = "edit"; /* Win32 EDIT-control class name for the hidden global chat-input control (FUN_0040c670's CreateWindowExA) - was a zeroed 1-byte global (orig .rdata 0x552084), same class of bug as DAT_00551e78 above. With the class name reading as an empty string, CreateWindowExA silently failed (ERROR_CANNOT_FIND_WND_CLASS -> NULL HWND), so the control never existed: SetFocus/SetWindowLongA/ImmDisableIME in FUN_0040c670 all silently no-op'd on a NULL HWND, keyboard focus stayed on the main window instead of the (nonexistent) edit control, and chat typing never worked. */
 uint8_t DAT_00552218;
 uint8_t DAT_00552728;
 uint8_t DAT_0055275c;
-void * DAT_00552788;
+/* 0x00552788: real storage is PTR_DAT_00552788 below - see globals.h. */
 /* Registry value-name strings for the broker "IP"/"Port" settings
  * (HKCU\Software\Softnyx\GunBound) - were 1-byte placeholders (Ghidra
  * failed to recognize these two specifically as string literals, unlike
@@ -129,7 +129,7 @@ uint8_t DAT_005535a4;
 uint8_t DAT_005535ac;
 uint8_t DAT_005535b0;
 uint8_t DAT_005535b8;
-void * DAT_005535c0;
+/* 0x005535c0: real storage is PTR_DAT_005535c0 below - see globals.h. */
 uint8_t DAT_005535c4;
 uint8_t DAT_005535cc;
 uint8_t DAT_005535d8;
@@ -152,7 +152,7 @@ uint8_t DAT_00553f90;
 uint8_t DAT_00554060;
 uint32_t DAT_005554f8;
 uint8_t DAT_005554fc;
-void * DAT_00555500;
+/* 0x00555500: real storage is PTR_DAT_00555500 below - see globals.h. */
 uint16_t DAT_00555a14;
 uint8_t DAT_00555a16;
 uint16_t DAT_00555a18;
@@ -240,7 +240,7 @@ uint32_t DAT_0056d3dc;
 uint8_t DAT_0056d3e0;
 uint8_t DAT_0056d400;
 uint8_t DAT_0056d440;
-void * DAT_0056d460;
+/* 0x0056d460: real storage is PTR_DAT_0056d460 below - see globals.h. */
 uint32_t DAT_0056dbe8;
 /* DAT_0056dbf0 -> moved to globals_sized.c (the real 0xa0-byte AES login-key table) */
 /* DAT_0056dc30: per-connection-type magic/key table (0x56dc30), indexed

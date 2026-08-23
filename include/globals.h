@@ -175,15 +175,11 @@ extern uint8_t DAT_00551e24;
 extern uint16_t DAT_00551e34;
 extern uint8_t DAT_00551e36;
 extern const char DAT_00551e78[];  /* "push" - mouse-press state name */
-extern void * DAT_00551ecc;
-#define _DAT_00551ecc DAT_00551ecc
 extern uint8_t DAT_0055207c;
 extern const char DAT_00552084[];  /* "edit" - Win32 EDIT-control class name, see globals.c */
 extern uint8_t DAT_00552218;
 extern uint8_t DAT_00552728;
 extern uint8_t DAT_0055275c;
-extern void * DAT_00552788;
-#define _DAT_00552788 DAT_00552788
 extern const char s_Port_00552890[];
 extern const char s_IP_00552898[];
 extern uint32_t DAT_00552c70;
@@ -253,8 +249,6 @@ extern uint8_t DAT_005535a4;
 extern uint8_t DAT_005535ac;
 extern uint8_t DAT_005535b0;
 extern uint8_t DAT_005535b8;
-extern void * DAT_005535c0;
-#define _DAT_005535c0 DAT_005535c0
 extern uint8_t DAT_005535c4;
 extern uint8_t DAT_005535cc;
 extern uint8_t DAT_005535d8;
@@ -277,8 +271,6 @@ extern uint8_t DAT_00553f90;
 extern uint8_t DAT_00554060;
 extern uint32_t DAT_005554f8;
 extern uint8_t DAT_005554fc;
-extern void * DAT_00555500;
-#define _DAT_00555500 DAT_00555500
 extern uint16_t DAT_00555a14;
 extern uint8_t DAT_00555a16;
 extern uint16_t DAT_00555a18;
@@ -393,8 +385,6 @@ extern uint32_t DAT_0056d3dc;
 extern uint8_t DAT_0056d3e0;
 extern uint8_t DAT_0056d400;
 extern uint8_t DAT_0056d440;
-extern void * DAT_0056d460;
-#define _DAT_0056d460 DAT_0056d460
 extern uint32_t DAT_0056dbe8;
 extern const unsigned char DAT_0056dbf0[0xa0];  /* AES login-key table - see globals_sized.c */
 extern uint32_t DAT_0056dc30[4];
@@ -1385,6 +1375,15 @@ extern const char s_yesoori_005533c8[];
  * variables) --- */
 
 extern void *g_aesTe4_1;
+/* Five addresses used to carry TWO defined symbols each: a `void *DAT_00xxxxxx`
+ * here and a PTR_DAT_00xxxxxx with the real storage, at 0x551ecc, 0x552788,
+ * 0x5535c0, 0x555500 and 0x56d460.  Same shape as the one removed at 0x54f378
+ * (which shadowed an AES table): separate storage for one original address,
+ * with the DAT_ half holding NULL.  Nothing referenced the DAT_ half or its
+ * _DAT_ macro alias -- every real use goes through PTR_DAT_ -- so they are
+ * removed rather than left where a future port could pick the null one.
+ * PTR_DAT_00551ecc, for instance, is a "%3d" format string that _sprintf is
+ * called with in three files. */
 extern void *PTR_DAT_00551ecc;
 extern void *PTR_DAT_00551ed0;
 extern void *PTR_DAT_00552788;
