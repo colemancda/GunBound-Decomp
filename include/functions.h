@@ -1098,7 +1098,7 @@ void __fastcall EncodePacketBody(int param_1, int connObj);
 undefined4 SendOutgoingPacket();
 void ProcessIncomingPackets();
 void FUN_004d34a0();
-undefined4 __fastcall FUN_004d34f0();
+undefined4 __fastcall FUN_004d34f0(undefined4 param_1,uint param_2,undefined4 *param_3,int regEax);
 void FlushEncodedSocketBuffer(int param_1);
 undefined4 * State09_ReadyRoom_Construct();
 void * __thiscall State09_ReadyRoom_Delete();

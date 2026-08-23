@@ -50,7 +50,7 @@ undefined4 FUN_005230f0(int *param_1)
   if ((DAT_005b15ac != (char *)0x0) && (*DAT_005b15ac == '\0')) {
     *(int *)(DAT_005b15ac + 0x10) = *(int *)(DAT_005b15ac + 0x10) + 10000;
     DAT_005b158c = 1;
-    FUN_00522880();
+    FUN_00522880((int)DAT_005b15ac);
                     /* WARNING: Subroutine does not return */
     ExitProcess(100);
   }

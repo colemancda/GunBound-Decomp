@@ -3,6 +3,24 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * param_1 FILLED.  `ret 0` puts nothing on the stack, so param_1 is ECX, and
+ * its call site passed nothing.  At 0x005231f8, in FUN_005230f0 -- the same
+ * function the single source call site lives in, so the correspondence needs
+ * no pairing -- ECX is loaded from [0x5b15ac].
+ *
+ * Two further call sites exist in the binary but fall outside any function
+ * PROGRESS.csv maps, so their setup could not be read; neither has a source
+ * counterpart, so filling this one does not depend on them.
+ *
+ * ESI and EDI are read before being written here too, and remain open.
+ *
+ * NOT COMPILE-VERIFIED.  This file and its caller are both in the
+ * src/unnamed/msvc_crt_atl set that has never compiled -- each references
+ * undeclared DAT_ symbols (DAT_0056a924 here, DAT_005b15b5 and four more in
+ * FUN_005230f0), identically at HEAD.  The edit is backed by the
+ * disassembly, but the toolchain cannot confirm it either way, and saying so
+ * is the point: a change nothing can check should be labelled, not counted.
  */
 #include "ghidra_types.h"
 
