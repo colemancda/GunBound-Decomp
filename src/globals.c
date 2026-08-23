@@ -793,7 +793,7 @@ uint32_t DAT_00e9bea8;
 uint8_t DAT_00e9c0fc[0x20];
 uint32_t DAT_00e9c104;
 uint8_t DAT_00e9c108;
-/* Worker-thread control block for FUN_00415500/FUN_004156b0/FUN_004157b0:
+/* Worker-thread control block for WorkerThread_Start/WorkerThreadProcThunk/WorkerThreadEventLoop:
  * +4 thread handle (uintptr_t), +8/+0xc two wait handles, +0x10 running flag.
  * Was completely undeclared (the raw ports take it via a dropped ESI
  * register). DAT_00e9c33c (a HANDLE SetEvent'd in Shutdown.c) is this same

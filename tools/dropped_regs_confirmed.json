@@ -5240,8 +5240,8 @@
   },
   {
     "addr": "00415500",
-    "func": "FUN_00415500",
-    "path": "src/unnamed/FUN_00415500.c",
+    "func": "WorkerThread_Start",
+    "path": "src/unnamed/WorkerThread_Start.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,
@@ -5273,8 +5273,8 @@
   },
   {
     "addr": "004157b0",
-    "func": "FUN_004157b0",
-    "path": "src/unnamed/FUN_004157b0.c",
+    "func": "WorkerThreadEventLoop",
+    "path": "src/unnamed/WorkerThreadEventLoop.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,

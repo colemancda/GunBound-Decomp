@@ -13,7 +13,7 @@ void FUN_004e6b50(void)
 {
   /* BRING-UP WORKAROUND: skip starting this worker thread.
    *
-   * Same dropped-ESI situation as FUN_00415500/FUN_00415530 (orig
+   * Same dropped-ESI situation as WorkerThread_Start/FUN_00415530 (orig
    * 0x40f3b4 loads ESI=&g_replayContext before calling this), but that global
    * is ALREADY a large, widely-referenced struct throughout battle/replay
    * code (PostTurnEvent, FUN_004e7b60/004e80d0/004e84c0, WriteReplayEventRecord,
