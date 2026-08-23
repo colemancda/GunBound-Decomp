@@ -17,7 +17,9 @@
  * all three before the CRT calls WinMain. */
 unsigned char g_valueGuardLock[24];
 unsigned char DAT_005a9084[24];
-unsigned char DAT_00e9af44[24];
+/* 0xe9af44 is NOT separate storage: it is g_replayContext + 0x45264, inside
+ * that struct's own 0x454f9 extent.  See globals.h - it is now an offset-macro
+ * into g_replayContext, and crt_shims_msvc.c initialises it at that address. */
 
 /* The graphics.xfs archive singleton (was the 1-byte DAT_00f11dd0).
  * 0x10740 bytes; OpenXFSArchive stores the file handle at +0x1040 and
@@ -42,7 +44,7 @@ unsigned char g_localizedStringTable[0x10000];
  * that fell inside this range and are now offset-macros into this array
  * (see globals.h) instead of independent symbols, so param_N-relative
  * access and direct DAT_ access observe the same memory. Does NOT cover
- * the CRITICAL_SECTION at +0x45264 (DAT_00e9af44), which stays
+ * the CRITICAL_SECTION at +0x45264 (DAT_00e9af44), which IS inside it and
  * independently declared/sized above - a real but pre-existing gap for
  * FUN_004e7de0's own use of that offset, not addressed by this change. */
 unsigned char g_replayContext[0x454f9];

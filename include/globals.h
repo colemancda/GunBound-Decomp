@@ -985,7 +985,14 @@ extern uint8_t g_replayContext;
 #define _DAT_00e9af18 DAT_00e9af18
 #define DAT_00e9af1c (*(uint8_t*)(&g_replayContext+0x4523c))
 #define _DAT_00e9af1c DAT_00e9af1c
-extern uint8_t DAT_00e9af44;
+/* DAT_00e9af44 is the CRITICAL_SECTION at g_replayContext + 0x45264 -- a FIELD
+ * of that struct, not a global beside it.  It had its own 24-byte storage
+ * while FUN_004e7de0 locked `param_1 + 0x45264` (param_1 being
+ * &g_replayContext) and then wrote the fields at +0x4529c..+0x452a1 that the
+ * lock guards.  So FUN_004e7de0 was entering a CRITICAL_SECTION that
+ * InitializeCriticalSection had never been called on, while PumpBattleActions
+ * locked the real one -- two objects, no mutual exclusion between them. */
+#define DAT_00e9af44 (*(uint8_t *)(&g_replayContext + 0x45264))
 #define DAT_00e9b188 (*(uint32_t*)(&g_replayContext+0x454a8))
 #define DAT_00e9b198 (*(uint32_t*)(&g_replayContext+0x454b8))
 #define DAT_00e9b1c4 (*(uint8_t*)(&g_replayContext+0x454e4))

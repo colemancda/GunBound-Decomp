@@ -114,7 +114,10 @@ double FID_conflict__cos(double x) { return cos(x); } /* Ghidra-renamed cos */
  * lost that, so register an initializer in the CRT's C-init table
  * (.CRT$XCU) - libcmt runs it before WinMain. Storage lives in
  * src/globals_sized.c. */
-extern unsigned char g_valueGuardLock[24], DAT_005a9084[24], DAT_00e9af44[24];
+extern unsigned char g_valueGuardLock[24], DAT_005a9084[24];
+/* the third static CRITICAL_SECTION lives INSIDE g_replayContext, at
+ * +0x45264 - see globals.h.  It is not a separate object. */
+extern unsigned char g_replayContext;
 /* XFS archive singletons (src/globals_sized.c). The original binary
  * constructed these with hFile=-1 via a C++ static initializer; the
  * bring-up build sets it here so OpenXFSArchive will open them instead
@@ -374,7 +377,7 @@ static void gb_startup_init(void)
 {
     InitializeCriticalSection((LPCRITICAL_SECTION)g_valueGuardLock);
     InitializeCriticalSection((LPCRITICAL_SECTION)DAT_005a9084);
-    InitializeCriticalSection((LPCRITICAL_SECTION)DAT_00e9af44);
+    InitializeCriticalSection((LPCRITICAL_SECTION)(&g_replayContext + 0x45264));
     gb_init_atl_string_mgr();
     *(int *)(g_graphicsArchive + 0x1040) = (int)0xffffffff;
     *(int *)(g_xfsScratch     + 0x1040) = (int)0xffffffff;
