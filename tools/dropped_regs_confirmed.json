@@ -3740,8 +3740,8 @@
   },
   {
     "addr": "004d34f0",
-    "func": "FUN_004d34f0",
-    "path": "src/unnamed/FUN_004d34f0.c",
+    "func": "AppendToEncodedSocketBuffer",
+    "path": "src/unnamed/AppendToEncodedSocketBuffer.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 2,
@@ -6659,8 +6659,8 @@
   },
   {
     "addr": "004e5c50",
-    "func": "FUN_004e5c50",
-    "path": "src/unnamed/FUN_004e5c50.c",
+    "func": "SendQueue_ElementAt",
+    "path": "src/unnamed/SendQueue_ElementAt.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,

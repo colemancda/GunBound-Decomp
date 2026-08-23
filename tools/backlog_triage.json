@@ -6821,7 +6821,7 @@
   ]
  },
  {
-  "func": "FUN_004d34f0",
+  "func": "AppendToEncodedSocketBuffer",
   "reg": "eax",
   "sites": 2,
   "values": {},
@@ -6830,7 +6830,7 @@
   "buckets": {
    "OTHER": 2
   },
-  "path": "src/unnamed/FUN_004d34f0.c",
+  "path": "src/unnamed/AppendToEncodedSocketBuffer.c",
   "per_site": [
    {
     "va": "0x410685",

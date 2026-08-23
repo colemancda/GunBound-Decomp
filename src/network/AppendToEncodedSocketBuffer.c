@@ -1,9 +1,13 @@
-/* FUN_004d34f0 - 0x004d34f0 in the original binary.
+/* AppendToEncodedSocketBuffer - 0x004d34f0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Appends bytes to the encoded outgoing socket buffer at its write cursor.
+ *
+ * The producer for exactly the buffer FlushEncodedSocketBuffer drains: it
+ * copies param_2 bytes from param_3 to regEax + 0x44da + *(regEax + 0x84d8)
+ * and advances that cursor, while FlushEncodedSocketBuffer reads the same
+ * base (+0x44da) with the write cursor at +0x84d8 and the read cursor at
+ * +0x84dc.  regEax is the client-context arena (DAT_007934e8 at both call
+ * sites), and it is returned unchanged - see the note at the return.
  *
  * ARGUMENTS RE-SLOTTED AND EAX RECOVERED.  `ret 4` gives one stack argument,
  * so param_1 is ECX -- a PHANTOM, written by `mov ecx,edx` before any read --
@@ -29,7 +33,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall FUN_004d34f0(undefined4 param_1,uint param_2,undefined4 *param_3,
+undefined4 __fastcall AppendToEncodedSocketBuffer(undefined4 param_1,uint param_2,undefined4 *param_3,
                                    int regEax)
 
 {
@@ -48,10 +52,15 @@ undefined4 __fastcall FUN_004d34f0(undefined4 param_1,uint param_2,undefined4 *p
     puVar2 = (undefined4 *)((int)puVar2 + 1);
   }
   *(uint *)(regEax + 0x84d8) = *(int *)(regEax + 0x84d8) + param_2;
-  /* Ghidra emitted a bare `return;` in a value-returning function;
-   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
-   * (-Wreturn-mismatch). This path's result is unused by callers -
-   * return 0 to satisfy both toolchains without inventing a value. */
-  return 0;
+  /* Ghidra emitted a bare `return;` here, and the port returned 0 rather
+   * than invent a value.  The value is no longer invented: EAX is only ever
+   * READ in this function (`mov edi,[eax+0x84d8]`, `lea edi,[eax+edi+0x44da]`,
+   * `mov [eax+0x84d8],ecx`) and never written, so at `ret 4` it still holds
+   * the incoming argument.  The original "returns" its EAX argument by not
+   * touching it, and the caller depends on that -- 0x00410685 does
+   * `push eax; call 0x4d3530`, i.e. FlushEncodedSocketBuffer(arena).
+   * Returning 0 was flushing the buffer through a null pointer.  Expressible
+   * only because regEax is now a named parameter. */
+  return (undefined4)regEax;
 }
 

@@ -1,8 +1,19 @@
-/* FUN_004e5c50 - 0x004e5c50 in the original binary.
+/* SendQueue_ElementAt - 0x004e5c50 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Bounds-checked element accessor for a connection's OUTBOUND SEND QUEUE.
+ *
+ * Returns *param_1 + regEax * 0x4004 after checking regEax against the count
+ * at param_1[1], throwing E_INVALIDARG (0x80070057) otherwise -- the ATL
+ * array-index idiom, alongside AtlArray_GrowBuffer elsewhere in this tree.
+ *
+ * What the array holds is settled by the caller rather than by this function.
+ * HandleSocketEvent passes the header at conn + 0x24a40, having first checked
+ * the count at conn + 0x24a44, then copies 0x4004 bytes out of the returned
+ * element and hands them to send().  And 0x4004 is not an arbitrary stride:
+ * that file's own destination is `char acStack_401c[16384 + 4]`, a 16 KB
+ * payload with a trailing dword length that the send() call uses as its size
+ * -- a layout a previous session had already had to reconstruct there.  So an
+ * element is one queued outbound packet.
  *
  * A BOUNDS-CHECKED ARRAY INDEXER.  `ret 0` puts nothing on the stack, so
  * param_1 (ECX) and EAX are the whole input, and its one call site supplied
@@ -27,7 +38,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_004e5c50(int *param_1,uint regEax)
+int __fastcall SendQueue_ElementAt(int *param_1,uint regEax)
 
 {
   

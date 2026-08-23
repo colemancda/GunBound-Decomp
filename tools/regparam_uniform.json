@@ -245,7 +245,7 @@
   }
  },
  {
-  "func": "FUN_004d34f0",
+  "func": "AppendToEncodedSocketBuffer",
   "sites": 2,
   "uniform": {
    "eax": "[0x7934e8]",
@@ -610,7 +610,7 @@
   }
  },
  {
-  "func": "FUN_004e5c50",
+  "func": "SendQueue_ElementAt",
   "sites": 1,
   "uniform": {
    "eax": "0",
