@@ -25,13 +25,13 @@ void __fastcall TickWeatherHazardLifetime(int param_1)
 {
   int iVar1;
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)(param_1 + 0x488));
   EncodeOutgoingPacketField((void *)(param_1 + 0x488), iVar1 + -1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)(param_1 + 0x488));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar1 < 0) {
     *(undefined1 *)(param_1 + 0x14) = 1;
   }

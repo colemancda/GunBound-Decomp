@@ -42,11 +42,11 @@ void __fastcall FUN_0045cb50(int *param_1)
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
   iVar5 = *(int *)(&g_nCameraBoundY + g_clientContext);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x2cc));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((iVar5 + 500 < iVar4) || (cVar3 = PeekPacketChecksumBool((byte *)param_1 + 0xbff7), cVar3 == '\x01')) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at
      * 0x45d11c: self is edi+0x8984, and edi is param_1 (`mov edi,ecx`
      * in this function's own prologue, stable for the whole function) -
@@ -55,16 +55,16 @@ void __fastcall FUN_0045cb50(int *param_1)
      * below (this early-return path never reaches that assignment, so
      * the offset is spelled out directly here instead). */
     EncodeOutgoingPacketField(param_1 + 0x2261, 0);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     goto LAB_0045d128;
   }
   iVar5 = (**(code **)(*param_1 + 0x14))();
   piVar1 = param_1 + 0x2261;
   EncodeChecksumPairSum(param_1 + 0x2cc,auStack_454,piVar1);
   uStack_4 = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)(auStack_454));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((iVar4 < iVar5) || (cVar3 = PacketChecksumGreaterEqual(param_1 + 0x243,0), cVar3 == '\0')) {
 LAB_0045cc63:
     bVar2 = false;
@@ -112,9 +112,9 @@ LAB_0045cdb1:
         uVar6 = PeekChecksumStateUnderLock(&DAT_00e55ab8);
         QueueOutgoingPacketField(uVar6);
         iVar4 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
-        iVar5 = DAT_007934e8;
+        iVar5 = g_connectionContextA;
         if (param_1[2] == iVar4) {
-          *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x4104;
+          *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x4104;
           *(undefined4 *)(iVar5 + 0x44d0) = 6;
           *(char *)(iVar5 + 0x4d6) = (char)param_1[2];
           *(int *)(iVar5 + 0x44d0) = *(int *)(iVar5 + 0x44d0) + 1;

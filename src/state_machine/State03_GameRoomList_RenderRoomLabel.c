@@ -87,12 +87,12 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
     }
   }
   if (*(char *)(iVar3 + 0x23313) != '\0') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x239b4));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x23790));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     _sprintf(acStack_80,s__s__3d__3d__005536b8,g_clientContext + 0x23313,uVar6,uVar5);
     /* BlitRLESprite's 4th arg (rleData) was dropped as `in_EAX` in the
      * raw port - objdump at this call site (0x429937) shows
@@ -113,9 +113,9 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
    *   push 0xffff / lea eax,[ebp+0x23330] / push 0x17 / mov ecx,0xbe
    * Same dropped-ECX shift as above: (ECX=0xbe, arg1=0x17, arg2=0xffff). */
   BlitRLESprite(0xbe,0x17,0xffff,(byte *)(g_clientContext + 0x23330));
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x23348));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,20000);
   _sprintf(acStack_80,pcVar7,uVar5);
   pcVar7 = acStack_80;
@@ -131,9 +131,9 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
    * sprintf'd acStack_80. The strlen the port already computes in the loop
    * just above is exactly that length. */
   BlitRLESprite((0x19b - (((int)(pcVar7 - acStack_80) - 1) * 6)),9,0xffff,(byte *)acStack_80);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x39ae8));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e21);
   _sprintf(acStack_80,pcVar7,uVar5);
   pcVar7 = acStack_80;
@@ -149,18 +149,18 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
    * sprintf'd acStack_80. The strlen the port already computes in the loop
    * just above is exactly that length. */
   BlitRLESprite((0x19b - (((int)(pcVar7 - acStack_80) - 1) * 6)),0x16,0xffff,(byte *)acStack_80);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x396a0));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e22);
   _sprintf(acStack_80,pcVar7,uVar5);
   /* RECOVERED (2026-07-20), orig 0x429a7e-0x429a87: `push 0x1f3b / push 0x27
    * / lea eax,[esp+0x28] / mov ecx,0xad` - this site is NOT right-aligned
    * (literal ECX, and no strlen loop precedes it), unlike its neighbours. */
   BlitRLESprite(0xad,0x27,0x1f3b,(byte *)acStack_80);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x398c4));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e23);
   _sprintf(acStack_80,pcVar7,uVar5);
   pcVar7 = acStack_80;

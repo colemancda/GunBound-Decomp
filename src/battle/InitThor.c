@@ -58,15 +58,15 @@ undefined4 * InitThor(undefined4 *param_1)
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
   param_1[0x11] = 0x10e;
   param_1[0x12] = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)param_1 + 0x270, 0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)param_1 + 0x4c, 1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)param_1 + 0x494, 0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *unaff_FS_OFFSET = local_c;
   return param_1;
 }

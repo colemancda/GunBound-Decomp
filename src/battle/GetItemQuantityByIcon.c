@@ -25,13 +25,13 @@ undefined4 GetItemQuantityByIcon(undefined4 param_1,int param_2)
   
   iVar3 = 0;
   do {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar1 = PeekPacketChecksumState((void *)(param_1 + 0x58b8e0 + iVar3 * 0x9bc));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (param_2 == uVar1) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar2 = PeekPacketChecksumState((void *)(param_1 + 0x58b48c + iVar3 * 0x9bc));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       return uVar2;
     }
     iVar3 = iVar3 + 1;

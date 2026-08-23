@@ -29,9 +29,9 @@
 undefined4 QueueOutgoingPacketField(void *cell,undefined4 value)
 
 {
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField(cell,value);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* Ghidra emitted a bare `return;` in a value-returning function;
    * MSVC falls through with whatever's in EAX, gcc 14 rejects it
    * (-Wreturn-mismatch). This path's result is unused by callers -

@@ -48,12 +48,12 @@ void __fastcall ExplodeSuperShot_Bullet2(int param_1)
    * Same rationale as entry/InitGame.c - see src/README.md. */
   cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar2 == '\0') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x1178));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* RECOVERED (2026-08-19): the two dropped __fastcall register
      * arguments (orig 0x48d97a mov cl,1 / 0x48d97c xor edx,edx).  param_1 is the randomise flag,
      * param_2 the sub-effect index (the callee caps it at < 4).  The third
@@ -63,24 +63,24 @@ void __fastcall ExplodeSuperShot_Bullet2(int param_1)
     SpawnSuperFlameEffect(1,0,uVar4,uVar3,0x206d,s_ssflame2_00555320);
     local_240 = 0;
     do {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar3 = PeekPacketChecksumState((void *)(param_1 + 0x33c8));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar4 = PeekPacketChecksumState((void *)(param_1 + 0x1178));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar5 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       piVar6 = (int *)HitTestLocalMobile(g_clientContext,uVar5,uVar4,uVar3);
       if (piVar6 != (int *)0x0) {
         cVar2 = PeekPacketChecksumBool();
         if (cVar2 != '\0') {
           cVar2 = PeekPacketChecksumBool();
           if ((cVar2 != '\x01') && (piVar6[9] != 0xe)) {
-            EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+            EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             iVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-            LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+            LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             if (iVar7 != 3) {
               cVar2 = PacketChecksumNotEquals(piVar6 + 0x1bf5,0);
               if (cVar2 != '\0') {
@@ -110,13 +110,13 @@ void __fastcall ExplodeSuperShot_Bullet2(int param_1)
                 }
               }
             }
-            EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+            EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at
              * 0x48db78: self is esi+0x6fd4 (0x1bf5 ints) - esi is
              * piVar6, the same cell already used at piVar6+0x1bf5
              * elsewhere in this function (e.g. line 60/66/76/82). */
             EncodeOutgoingPacketField(piVar6 + 0x1bf5, 0);
-            LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+            LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             piVar6[0x30ab] = 4;
             (**(code **)(*piVar6 + 4))(s_shield_005562ec);
           }

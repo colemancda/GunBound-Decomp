@@ -133,10 +133,10 @@ void __fastcall State09_ReadyRoom_OnEnter(int param_1)
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
   AppendPersistentButtonName(&DAT_0067ec70 + g_clientContext);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
   iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar4 == iVar5) {
     CreateButtonWidget(&g_activeObjectRegistry,0,1,0x3e9,s_b_ready_startgame_005570d8,0x28f,0x227,0x6b,0x2d,1,
                        0);
@@ -253,9 +253,9 @@ LAB_004d722d:
     puVar10 = puVar10 + 2;
   } while (iStack_94 < 0x4590c);
   *(undefined1 *)(g_clientContext + 0x45578) = *(undefined1 *)(g_clientContext + 0x457a0);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   PeekPacketChecksumState((void *)(g_clientContext + 0x44efc));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   ApplyRoomSettings(param_1,*(undefined1 *)(g_clientContext + 0x45124));
   *(undefined1 *)(param_1 + 0x4cc) = 0;
   RefreshTeamSlotHighlights();
@@ -295,16 +295,16 @@ LAB_004d722d:
     *(undefined4 *)(&g_replayFileHandle + g_clientContext) = 0;
   }
   *(undefined1 *)(param_1 + 9) = *(undefined1 *)(iVar4 + 0x44ef8);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x44efc));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x4d7431:
    * self is ebp+0xc, and ebp is param_1 (`mov ebp,ecx` in this
    * function's own prologue, stable for the whole function). Value
    * (uVar7) was already correct. */
   EncodeOutgoingPacketField((void *)(param_1 + 0xc), uVar7);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = g_clientContext;
   *(undefined4 *)(param_1 + 0x25d) = *(undefined4 *)(g_clientContext + 0x457a1);
   *(undefined4 *)(param_1 + 0x261) = *(undefined4 *)(iVar4 + 0x457a5);

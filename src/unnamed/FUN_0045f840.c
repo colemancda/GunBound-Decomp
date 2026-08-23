@@ -27,13 +27,13 @@ int FUN_0045f840(void)
   int unaff_EBX;
   
   if (*(char *)(unaff_EBX + 0x651c) == '\x01') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
   else {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
   iVar2 = PeekPacketChecksumState((void *)(*(char *)(unaff_EBX + 0x651c) == '\x01' ? (void *)&DAT_00796aa0 : (void *)&DAT_00794e48));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     iVar2 = iVar2 + (iVar2 * 0x14) / 100;
@@ -45,13 +45,13 @@ int FUN_0045f840(void)
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
     if (*(char *)(unaff_EBX + 0x651c) == '\x01') {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
     else {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
     iVar3 = PeekPacketChecksumState((void *)(*(char *)(unaff_EBX + 0x651c) == '\x01' ? (void *)&DAT_007949c8 : (void *)&DAT_00e55ab8));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar2 = iVar2 + iVar3;
   }
   return iVar2;

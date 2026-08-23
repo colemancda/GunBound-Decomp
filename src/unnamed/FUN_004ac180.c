@@ -31,20 +31,20 @@ void FUN_004ac180(int param_1)
   int local_c;
 
   pcVar4 = (code *)EnterCriticalSection;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_c = PeekPacketChecksumState((void *)(param_1 + 0x4c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (local_c + -1 < 6) {
     puVar1 = &DAT_00e9cd30 + (local_c + -1) * 0x224;
     do {
-      (*pcVar4)(&DAT_005a9068);
+      (*pcVar4)(&g_valueGuardLock);
       iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x270));
       iVar3 = PeekPacketChecksumState((void *)puVar1);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if (iVar3 < iVar2) {
-        (*pcVar4)(&DAT_005a9068);
+        (*pcVar4)(&g_valueGuardLock);
         EncodeOutgoingPacketField((void *)(param_1 + 0x4c), local_c);
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         pcVar4 = (code *)EnterCriticalSection;
       }
       puVar1 = puVar1 + 0x224;

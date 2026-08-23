@@ -19,7 +19,7 @@
  *            then `call 0x4d2480` at 0x4e1746  -> DAT_007934f0
  *   0x4e1d2a (ConnectToSelectedServer): `mov ebx, eax` then `call 0x4d2480`
  *            at 0x4e1d2e, where EAX came from `mov eax, dword ptr
- *            [0x7934ec]` at 0x4e1d08          -> DAT_007934ec
+ *            [0x7934ec]` at 0x4e1d08          -> g_connectionContextB
  * EBX is genuinely read-before-written in the callee (`lea edi,[ebx+0x84]`
  * at 0x4d2492, the first use of EBX in the function).
  *
@@ -46,12 +46,12 @@ void BeginServerConnect(undefined4 param_1,undefined4 param_2,int conn)
    * unaff_EBX+0x2a8, the same two cells InitConnectionObject.c zero-inits
    * for this same connection object. `unaff_EBX` is plain `int`, so byte
    * offsets are natural. See tools/encodeoutgoingpacketfield_sites.json. */
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField(unaff_EBX + 0x84, 0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField(unaff_EBX + 0x2a8, 0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   SignalConnectRequest(*(int *)(unaff_EBX + 0x84e0),(char *)param_1,(int)param_2);
   *(undefined1 *)(unaff_EBX + 0x84e4) = 1;
   return;

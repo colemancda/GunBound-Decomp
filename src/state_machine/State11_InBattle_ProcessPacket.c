@@ -92,11 +92,11 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
   puStack_8 = &LAB_0053e03c;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
-  iVar6 = DAT_007934e8;
+  iVar6 = g_connectionContextA;
   local_9ac = this;
   if (opcode < 0x4000 /* switch-ladder split, not a match on GB_OP_GAME_DROP_USER_COMMAND */) {
     if (opcode == GB_OP_CLOSE) {
-      *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+      *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       *(undefined2 *)(iVar6 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar6 + 0x4d6) = 0xffff;
       *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 2;
@@ -126,7 +126,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
           }
         }
         else {
-          *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+          *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
           *(undefined2 *)(iVar6 + 0x4d4) = 0x2000;
           *(undefined2 *)(iVar6 + 0x4d6) = 0xffff;
           *(int *)(iVar6 + 0x44d0) = *(int *)(iVar6 + 0x44d0) + 2;
@@ -257,9 +257,9 @@ LAB_004b4324:
               } while (iVar18 < 0x1120);
             }
           }
-          EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+          EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           EncodeOutgoingPacketField((void *)(g_clientContext + local_9b0 + 0xebef4), 0xffffffff);
-          LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+          LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           if ((uVar17 == *(uint *)((int)this + 0x10a0)) ||
              (uVar14 = FUN_004d0dd0(), uVar17 == uVar14)) {
             cVar2 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
@@ -281,7 +281,7 @@ LAB_004b4324:
             }
             iVar6 = g_clientContext;
             pbVar15 = &DAT_006a9b72 + g_clientContext;
-            EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+            EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             iVar8 = _rand();
             *pbVar15 = (byte)iVar8;
             iVar8 = _rand();
@@ -291,10 +291,10 @@ LAB_004b4324:
             bVar12 = ~('\x01' << bVar12) & (byte)iVar8 | '\0' << bVar12;
             (&DAT_006a9b73)[iVar6] = bVar12;
             (&DAT_006a9b74)[iVar6] = bVar13 + bVar12 + -0x34;
-            LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+            LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             iVar6 = g_clientContext;
             pbVar15 = &DAT_006a9b6f + g_clientContext;
-            EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+            EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             iVar8 = _rand();
             *pbVar15 = (byte)iVar8;
             iVar8 = _rand();
@@ -304,7 +304,7 @@ LAB_004b4324:
             bVar12 = ~bVar12 & (byte)iVar8 | bVar12;
             (&DAT_006a9b70)[iVar6] = bVar12;
             (&DAT_006a9b71)[iVar6] = bVar13 + bVar12 + -0x34;
-            LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+            LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           }
           cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62149));
           if ((((cVar2 == '\x01') &&
@@ -383,8 +383,8 @@ LAB_004b4324:
       uVar14 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
       iVar8 = g_clientContext;
       if ((uVar17 == uVar14) &&
-         (cVar2 = PeekPacketChecksumBool((byte *)this + 0x11c2), iVar18 = DAT_007934e8, iVar8 = g_clientContext, cVar2 != '\0')) {
-        *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+         (cVar2 = PeekPacketChecksumBool((byte *)this + 0x11c2), iVar18 = g_connectionContextA, iVar8 = g_clientContext, cVar2 != '\0')) {
+        *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
         *(undefined2 *)(iVar18 + 0x4d4) = 0x2000;
         *(undefined2 *)(iVar18 + 0x4d6) = 0xffff;
         *(int *)(iVar18 + 0x44d0) = *(int *)(iVar18 + 0x44d0) + 2;
@@ -469,7 +469,7 @@ LAB_004b4324:
                          0x2d,1,0);
       iVar6 = g_clientContext;
       pbVar15 = (byte *)(g_clientContext + 0x62152);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar8 = _rand();
       *pbVar15 = (byte)iVar8;
       iVar8 = _rand();
@@ -479,7 +479,7 @@ LAB_004b4324:
       bVar12 = ~bVar12 & (byte)iVar8 | bVar12;
       *(byte *)(iVar6 + 0x62153) = bVar12;
       *(byte *)(iVar6 + 0x62154) = bVar13 + bVar12 + -0x34;
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
     goto LAB_004b541a;
   }
@@ -538,7 +538,7 @@ LAB_004b4d38:
   do {
     iVar6 = GetPlayerRecordBySlot(g_clientContext);
     if (iVar6 != 0) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar8 = _rand();
       *(char *)(iVar6 + 0x8ba8) = (char)iVar8;
       iVar8 = _rand();
@@ -547,8 +547,8 @@ LAB_004b4d38:
       bVar13 = ~('\x01' << (local_9b5 & 7)) & (byte)iVar8 | '\0' << (local_9b5 & 7);
       *(byte *)(iVar6 + 0x8ba9) = bVar13;
       *(byte *)(iVar6 + 0x8baa) = local_9b5 + bVar13 + -0x34;
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar8 = _rand();
       *(char *)(iVar6 + 0x8bb1) = (char)iVar8;
       iVar8 = _rand();
@@ -557,7 +557,7 @@ LAB_004b4d38:
       bVar13 = ~('\x01' << (local_9b5 & 7)) & (byte)iVar8 | '\0' << (local_9b5 & 7);
       *(byte *)(iVar6 + 0x8bb2) = bVar13;
       *(byte *)(iVar6 + 0x8bb3) = local_9b5 + bVar13 + -0x34;
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
     local_9b4 = local_9b4 + 1;
   } while ((int)local_9b4 < 8);
@@ -568,33 +568,33 @@ LAB_004b4d38:
     if (((*(char *)(iVar6 + 0x5010d + local_9b4) != '\0') &&
         (*(char *)(iVar6 + 0x50126 + local_9b4) == *(char *)(iVar6 + 0x62155))) &&
        (iVar8 = GetPlayerRecordBySlot(iVar6), iVar6 = g_clientContext, iVar8 != 0)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar9 = PeekPacketChecksumState((void *)((char *)&local_664 - 0x14));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_9a8 = PeekPacketChecksumState((void *)(iVar8 + 0xb30));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_9a4[0] = PeekPacketChecksumState((void *)(iVar8 + 0x90c));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       FUN_004368f0(local_9a4[0],local_9a8,uVar9);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar6 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_9a4[0] = local_9b0 + 0x5113c + g_clientContext;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_9a4[0] = PeekPacketChecksumState((void *)(local_9a4[0]));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar9 = EncodeChecksumDeltaMul(local_89c,local_230,local_9a4[0] + iVar6);
       local_4 = 2;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_9a4[0] = PeekPacketChecksumState((void *)(&DAT_00796aa0));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       EncodeChecksumDeltaDiv(uVar9,local_454,local_9a4[0]);
       local_4 = 3;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar9 = PeekPacketChecksumState((void *)(local_454));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar8 = iVar8 + 0xae15;
       pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x25e);
       _sprintf(local_99c,pcVar5,iVar8,uVar9);

@@ -45,12 +45,12 @@ void FUN_004cea70(int param_1)
 LAB_004ceb04:
       if (uVar12 != 0x40) {
         if (uVar12 != *(uint *)(param_1 + 0x10c0)) {
-          EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+          EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar7 = PeekPacketChecksumState((void *)(param_1 + 0x264));
-          LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+          LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+          EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar8 = PeekPacketChecksumState((void *)(param_1 + 0x40));
-          LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+          LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar6 = g_clientContext;
           cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
           if ((cVar5 == '\0') && ((&DAT_006a7758)[iVar6] != '\0')) {
@@ -81,13 +81,13 @@ LAB_004ceb04:
       *(undefined1 *)(param_1 + 0x10bd) = 0;
       FUN_0043c3c0();
       if (*(int *)(g_clientContext + 0x621e0) != 0) {
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar6 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x6968));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         if (((iVar6 < 1) && (cVar5 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bc0)), cVar5 != '\0')) &&
            (cVar5 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74)), cVar5 == '\0')) {
           iVar6 = *(int *)(g_clientContext + 0x621e0);
-          EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+          EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar7 = _rand();
           *(byte *)(iVar6 + 0x8bc0) = (byte)iVar7;
           iVar7 = _rand();
@@ -97,10 +97,10 @@ LAB_004ceb04:
           bVar11 = ~bVar11 & (byte)iVar7 | bVar11;
           *(byte *)(iVar6 + 0x8bc1) = bVar11;
           *(byte *)(iVar6 + 0x8bc2) = bVar11 + bVar2 + -0x34;
-          LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-          iVar8 = DAT_007934e8;
+          LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+          iVar8 = g_connectionContextA;
           iVar7 = g_clientContext;
-          *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+          *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
           *(undefined2 *)(iVar8 + 0x4d4) = 0x4100;
           *(undefined4 *)(iVar8 + 0x4d6) = *(undefined4 *)(*(int *)(iVar7 + 0x621e0) + 0xb0b0);
           iVar6 = *(int *)(iVar8 + 0x44d0);

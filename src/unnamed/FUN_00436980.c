@@ -42,14 +42,14 @@ void __thiscall FUN_00436980(undefined4 param_1,int param_2,int param_3,int para
         *puVar2 = &PTR_FUN_00555c54;
         puVar5 = puVar2;
       }
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar3 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar4 = _rand();
       puVar5[0xe] = (iVar4 % 0x15 - iVar3) + param_2;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar3 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar4 = _rand();
       puVar5[0xf] = (iVar4 % 0x15 - iVar3) + param_3;
       iVar3 = _rand();

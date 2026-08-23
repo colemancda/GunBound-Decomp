@@ -20,15 +20,15 @@ undefined4 CheckRoomSlotActive(int param_1,int param_2)
   local_4 = 0;
   do {
     if (*(char *)(param_1 + 0x45914 + local_4) != '\0') {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar1 = PeekPacketChecksumState((void *)(param_1 + 0x47a10 + local_4 * 0x448 - 0x224));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if (iVar1 == param_2) {
         return 1;
       }
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar1 = PeekPacketChecksumState((void *)(param_1 + 0x47a10 + local_4 * 0x448));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if (iVar1 == param_2) {
         return 1;
       }

@@ -104,13 +104,13 @@ void __fastcall AdvanceTurnQueue(int param_1)
     piVar2 = (int *)GetPlayerRecordBySlot(g_clientContext);
     pcVar9 = (code *)LeaveCriticalSection;
     if (piVar2 != (int *)0x0) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar3 = PeekPacketChecksumState((void *)(piVar2 + 0x2cc));
       pcVar9 = (code *)LeaveCriticalSection;
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_464 = PeekPacketChecksumState((void *)(piVar2 + 0x243));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_45c = &DAT_006a7708 + g_clientContext;
       cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
       iVar5 = local_464;
@@ -134,20 +134,20 @@ void __fastcall AdvanceTurnQueue(int param_1)
         *(int *)(local_45c + 0x10) = local_464;
         *(int *)(local_45c + 0x14) = iVar4;
       }
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       PeekPacketChecksumState((void *)(piVar2 + 0x2cc));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_45c = (undefined *)PeekPacketChecksumState((void *)(piVar2 + 0x243));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       SpawnRiderEffect(*(undefined1 *)(param_1 + 0x10a8),1000);
       (**(code **)(*piVar2 + 4))(&DAT_00555c90);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if ((iVar5 == 1) || (cVar1 = PacketChecksumNotEquals(g_clientContext + 0x45354,3), cVar1 == '\0')
          ) {
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar5 = _rand();
         *(char *)((int)piVar2 + 0xbff7) = (char)iVar5;
         iVar5 = _rand();
@@ -156,7 +156,7 @@ void __fastcall AdvanceTurnQueue(int param_1)
         bVar8 = ~bVar8 & (byte)iVar5 | bVar8;
         *(byte *)(piVar2 + 0x2ffe) = bVar8;
         *(byte *)((int)piVar2 + 0xbff9) = bVar8 + *(char *)((int)piVar2 + 0xbff7) + -0x34;
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         param_1 = local_460;
       }
       else {
@@ -164,14 +164,14 @@ void __fastcall AdvanceTurnQueue(int param_1)
         param_1 = local_460;
       }
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-    (*pcVar9)(&DAT_005a9068);
+    (*pcVar9)(&g_valueGuardLock);
     if ((char)((uint)unaff_EBX >> 0x18) != '\0') {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
       unaff_EBX = CONCAT13(iVar5 != 3,(int3)unaff_EBX);
-      (*pcVar9)(&DAT_005a9068);
+      (*pcVar9)(&g_valueGuardLock);
       if (iVar5 != 3) {
         FUN_0043c440();
         FUN_0043c4a0();
@@ -183,11 +183,11 @@ void __fastcall AdvanceTurnQueue(int param_1)
     uVar10 = EncodeChecksumPairSum((*(byte *)(param_1 + 0x10a8) & 0x80000007) * 0x224 + 0xebef4 + g_clientContext,
                  auStack_458,uVar6);
     puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar6 = PeekPacketChecksumState((void *)uVar10);
     EncodeOutgoingPacketField((*(byte *)(param_1 + 0x10a8) & 0x80000007) * 0x224 + 0xee134 + g_clientContext,
                               uVar6);
-    (*pcVar9)(&DAT_005a9068);
+    (*pcVar9)(&g_valueGuardLock);
     local_c = local_c & 0xffffff00;
     if (iStack_448 != 0) {
       ScrambleChecksumGuardBytes(iStack_448,&g_valueGuardKeyTable);
@@ -202,18 +202,18 @@ void __fastcall AdvanceTurnQueue(int param_1)
       pcVar9 = (code *)LeaveCriticalSection;
       unaff_EBX = iStack_224;
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField((*(byte *)(param_1 + 0x10a8) & 0x80000007) * 0x224 + 0xebef4 + g_clientContext,
                               0xffffffff);
-    (*pcVar9)(&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    (*pcVar9)(&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-    (*pcVar9)(&DAT_005a9068);
+    (*pcVar9)(&g_valueGuardLock);
     if (*(byte *)(param_1 + 0x10a8) == uVar7) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
       cVar1 = '\x01' - (iVar5 != 1);
-      (*pcVar9)(&DAT_005a9068);
+      (*pcVar9)(&g_valueGuardLock);
       if ((cVar1 == '\0') && (cVar1 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar1 == '\0')
          ) {
         if (*(char *)(g_clientContext + 0x45126) != '\0') {
@@ -240,9 +240,9 @@ void __fastcall AdvanceTurnQueue(int param_1)
     }
     *(undefined1 *)(iVar5 + 0x10a8 + param_1) = 0xff;
     *(int *)(param_1 + 0x10b0) = *(int *)(param_1 + 0x10b0) + -1;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar6 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
-    (*pcVar9)(&DAT_005a9068);
+    (*pcVar9)(&g_valueGuardLock);
     *(undefined4 *)(param_1 + 0x10b4) = uVar6;
     *unaff_FS_OFFSET = uStack_20;
     return;

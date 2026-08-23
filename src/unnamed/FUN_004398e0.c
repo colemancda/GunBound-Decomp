@@ -52,9 +52,9 @@ void FUN_004398e0(undefined4 param_1,int param_2,undefined4 param_3,undefined4 p
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053d9ba;
   *unaff_FS_OFFSET = &local_c;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0xebcbc));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((iVar4 == 4) || (param_6 != '\0')) {
     puVar5 = operator_new(0x3fbc);
     local_4 = 0;
@@ -124,12 +124,12 @@ LAB_004399d4:
         EncodeOutgoingPacketField(auStack_230, 0);
         SUBFIELD(local_4,0,undefined1) = 4;
         SyncOutgoingChecksumField(auStack_454, param_2 + 0x10,auStack_230);
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         PeekPacketChecksumState((void *)(auStack_454));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         uVar9 = PeekPacketChecksumState((void *)(auStack_230));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar12 = param_5;
         uVar10 = *(undefined4 *)(param_5 + 0x3f94);
         uVar17 = 0;

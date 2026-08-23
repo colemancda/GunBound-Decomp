@@ -25,12 +25,12 @@ void __fastcall ExplodeSuperShot_Bullet16(int param_1)
   undefined4 uVar1;
   undefined4 uVar2;
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)(param_1 + 0x1178));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   FUN_004398e0(&DAT_006a7f70 + g_clientContext,*(int *)(param_1 + 8) + 3,uVar2,uVar1,param_1,1);
   return;
 }

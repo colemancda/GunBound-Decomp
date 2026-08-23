@@ -59,7 +59,7 @@ void SpawnCrystalShot(undefined4 param_1,undefined4 param_2,undefined4 param_3,u
   piVar7[6] = 0x17d0;
   piVar7[0xe] = 0x17d1;
   piVar7[0xe25] = 0x1f4d;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x437bf4
    * (`lea edi,[ebp + 0x40]`, ebp = the constructed projectile object
    * piVar7, built here via InitProjectile(piVar2,0x186a4)): piVar7+0x40
@@ -68,41 +68,41 @@ void SpawnCrystalShot(undefined4 param_1,undefined4 param_2,undefined4 param_3,u
    * there), confirming the same CProjectile cell layout. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)piVar7 + 0x40, param_2);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x437c18
    * (`lea edi,[ebp + 0x264]`, ebp = piVar7): matches InitProjectile.c's
    * cell #2 (param_2+0x264). See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)piVar7 + 0x264, param_3);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   param_4 = param_4 & 0x80000007;
   piVar7[0xfe7] = iVar3;
   if ((int)param_4 < 0) {
     param_4 = (param_4 - 1 | 0xfffffff8) + 1;
   }
   *(char *)(piVar7 + 0xf) = (char)param_4;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeGuardedBool(param_5,(byte *)GB_GUARD_UNRECOVERED);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   piVar7[0xfea] = (uint)(param_6 != '\0');
   iVar3 = FindPreloadedTextureByName(s_crystal_00553bfc);
   piVar7[7] = iVar3;
   (**(code **)(*piVar7 + 4))(s_normal_00552230);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar4 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x437ce8
    * (`lea edi,[ebp + 0x17e4]`, ebp = piVar7): a later cell on the same
    * projectile object, already initialized during InitProjectile above
    * and reused here for the checksum-state value. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)piVar7 + 0x17e4, uVar4);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   piVar7[0xe26] = DAT_00553bf4;
   piVar7[0xe27] = DAT_00553bf8;
   pcVar6 = (char *)((int)piVar7 + 0x3813);
@@ -114,9 +114,9 @@ void SpawnCrystalShot(undefined4 param_1,undefined4 param_2,undefined4 param_3,u
     pcVar6 = pcVar6 + 1;
   } while (cVar1 != '\0');
   FUN_0041da80(g_clientContext,piVar7,1,1,0);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)((int)piVar7 + 0x35ec));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   piVar7[0xfeb] = iVar3;
   RegisterActiveObject(0, 0, (undefined4 *)0);
   return;

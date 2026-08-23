@@ -19,9 +19,9 @@ void __fastcall FUN_00490780(int param_1)
   
   cVar1 = FUN_0048f300(param_1);
   if (cVar1 != '\0') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar2 = PeekPacketChecksumState((void *)&DAT_00e55ab8);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (*(int *)(param_1 + 0x3f9c) <= iVar2) goto LAB_004907bd;
   }
   *(undefined1 *)(param_1 + 0x14) = 1;

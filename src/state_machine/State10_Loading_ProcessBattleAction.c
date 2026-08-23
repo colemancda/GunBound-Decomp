@@ -91,7 +91,7 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
         puVar9 = puVar9 + 1;
       }
       pbVar8 = &DAT_006a9b6c + g_clientContext;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = _rand();
       *pbVar8 = (byte)iVar5;
       iVar5 = _rand();
@@ -101,7 +101,7 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
       bVar6 = ~bVar6 & (byte)iVar5 | bVar6;
       (&DAT_006a9b6d)[iVar10] = bVar6;
       (&DAT_006a9b6e)[iVar10] = bVar6 + bVar1 + -0x34;
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       *(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 0xae68) = 1;
     }
   }

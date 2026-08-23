@@ -59,7 +59,7 @@ void RenderInventoryItemDetail(int param_1)
   if (cVar3 != '\0') {
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\x01') goto LAB_0044bdfe;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = _rand();
     *(byte *)(param_1 + 0x32c54) = (byte)iVar5;
     iVar5 = _rand();
@@ -70,7 +70,7 @@ void RenderInventoryItemDetail(int param_1)
     *(byte *)(param_1 + 0x32c55) = bVar8;
     pcVar11 = (code *)LeaveCriticalSection;
     *(byte *)(param_1 + 0x32c56) = bVar8 + bVar9 + -0x34;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     RemoveWidget();
     RemoveWidget();
     FUN_0040cdf0(0,0x2710);
@@ -79,18 +79,18 @@ void RenderInventoryItemDetail(int param_1)
   pcVar13 = (code *)EnterCriticalSection;
   if ((g_stateChangeInProgress == 0) || (DAT_0079350c != '\x01')) {
     g_stateChangeInProgress = 0;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = PeekPacketChecksumState((void *)(param_1 + 0x325b0));
     local_190d = iVar5 != 0;
-    (*pcVar11)(&DAT_005a9068);
+    (*pcVar11)(&g_valueGuardLock);
     if (local_190d != '\0') {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x44ba6e (`lea edi,[ebp+0x325b0]`, ebp = this file's own param_1,
        * confirmed by objdump of orig/GunBound.gme): the cell is
        * param_1+0x325b0. See tools/encodeoutgoingpacketfield_sites.json. */
       EncodeOutgoingPacketField(param_1 + 0x325b0, 0);
-      (*pcVar11)(&DAT_005a9068);
+      (*pcVar11)(&g_valueGuardLock);
       RemoveWidget();
       RemoveWidget();
       RemoveWidget();
@@ -100,7 +100,7 @@ void RenderInventoryItemDetail(int param_1)
     iVar5 = *(int *)(g_clientContext + 0x44bec);
     FUN_004f1c00(0x9c40,(int)&g_spriteRegistry);
     if (iVar5 == 0) {
-      (*pcVar13)(&DAT_005a9068);
+      (*pcVar13)(&g_valueGuardLock);
       iVar5 = _rand();
       *(char *)(param_1 + 0x32e63) = (char)iVar5;
       iVar5 = _rand();
@@ -109,7 +109,7 @@ void RenderInventoryItemDetail(int param_1)
       bVar9 = ~('\x01' << bVar9) & (byte)iVar5 | '\0' << bVar9;
       *(byte *)(param_1 + 0x32e64) = bVar9;
       *(byte *)(param_1 + 0x32e65) = bVar9 + *(char *)(param_1 + 0x32e63) + -0x34;
-      (*pcVar11)(&DAT_005a9068);
+      (*pcVar11)(&g_valueGuardLock);
       RemoveWidget();
       CreateAvatarStoreButtons(param_1);
     }
@@ -205,7 +205,7 @@ void RenderInventoryItemDetail(int param_1)
         CreateButtonWidget(&g_activeObjectRegistry,0,0x36,0x516,s_b_storewindow_confirm_00555a8c,0x14d,0x154,
                            0x4a,0x1a,1,0);
       }
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = _rand();
       *(byte *)(param_1 + 0x32e63) = (byte)iVar5;
       iVar5 = _rand();
@@ -215,7 +215,7 @@ void RenderInventoryItemDetail(int param_1)
       bVar8 = ~bVar8 & (byte)iVar5 | bVar8;
       *(byte *)(param_1 + 0x32e64) = bVar8;
       *(byte *)(param_1 + 0x32e65) = bVar8 + bVar9 + -0x34;
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
   }
 LAB_0044bdfe:

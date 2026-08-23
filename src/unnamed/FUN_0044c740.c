@@ -20,7 +20,7 @@ void FUN_0044c740(void)
   
   RescrambleGuardedBool();
   *(undefined4 *)(unaff_ESI + 4) = *(undefined4 *)(unaff_EBX + 4);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)(unaff_EBX + 8));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x44c76a
    * (`lea edi,[esi + 8]`, esi = this file's own `unaff_ESI`, already
@@ -31,15 +31,15 @@ void FUN_0044c740(void)
    * offsets add directly. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField(unaff_ESI + 8, uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)(unaff_EBX + 0x22c));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x44c793
    * (`lea edi,[esi + 0x22c]`, esi = unaff_ESI): cell is unaff_ESI+0x22c,
    * the paired second cell offset for this same class. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField(unaff_ESI + 0x22c, uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return;
 }
 

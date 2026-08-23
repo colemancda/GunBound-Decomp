@@ -52,17 +52,17 @@ int FUN_004e1d50(int param_1)
    * array constructed at param_1+0x890 above
    * (_eh_vector_constructor_iterator_(..., 0x224, 3, ...)). See
    * tools/encodeoutgoingpacketfield_sites.json. */
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField(param_1 + 0x890, iVar1 % 10);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField(param_1 + 0xab4, iVar1 % 10);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField(param_1 + 0xcd8, iVar1 % 10);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *unaff_FS_OFFSET = local_c;
   return param_1;
 }

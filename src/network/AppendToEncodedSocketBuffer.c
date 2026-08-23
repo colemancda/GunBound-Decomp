@@ -6,7 +6,7 @@
  * copies param_2 bytes from param_3 to regEax + 0x44da + *(regEax + 0x84d8)
  * and advances that cursor, while FlushEncodedSocketBuffer reads the same
  * base (+0x44da) with the write cursor at +0x84d8 and the read cursor at
- * +0x84dc.  regEax is the client-context arena (DAT_007934e8 at both call
+ * +0x84dc.  regEax is the client-context arena (g_connectionContextA at both call
  * sites), and it is returned unchanged - see the note at the return.
  *
  * ARGUMENTS RE-SLOTTED AND EAX RECOVERED.  `ret 4` gives one stack argument,

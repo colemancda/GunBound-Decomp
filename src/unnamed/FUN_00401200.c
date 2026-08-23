@@ -21,15 +21,15 @@ void __fastcall FUN_00401200(int param_1)
   undefined4 systemInfoBlob2 [6];
 
 
-  iVar1 = DAT_007934e8;
-  if (DAT_007934e8 != 0) {
-    iVar2 = *(int *)(DAT_007934e8 + 0x84ec) + 1;
-    *(int *)(DAT_007934e8 + 0x84ec) = iVar2;
+  iVar1 = g_connectionContextA;
+  if (g_connectionContextA != 0) {
+    iVar2 = *(int *)(g_connectionContextA + 0x84ec) + 1;
+    *(int *)(g_connectionContextA + 0x84ec) = iVar2;
     if (0x1d < iVar2) {
       *(undefined2 *)(iVar1 + 0x4d4) = 0;
       *(undefined4 *)(iVar1 + 0x44d0) = 6;
       SendOutgoingPacket(iVar1);
-      *(undefined4 *)(DAT_007934e8 + 0x84ec) = 0;
+      *(undefined4 *)(g_connectionContextA + 0x84ec) = 0;
     }
     if ((*(char *)(param_1 + 0x10) != '\0') && (DAT_00e9af60 = DAT_00e9af60 + 1, 0xb < DAT_00e9af60)
        ) {

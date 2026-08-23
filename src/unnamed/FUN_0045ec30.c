@@ -54,17 +54,17 @@ undefined4 FUN_0045ec30(void)
     }
     return 1;
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(in_EAX + 0x42dc));
   iVar3 = PeekPacketChecksumState((void *)(in_EAX + 0x4948));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((iVar2 <= iVar3) && (cVar1 = CompareChecksumAtMost(in_EAX + 0x4948,in_EAX + 0x40b8), cVar1 != '\0')) {
     return 1;
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(in_EAX + 0x4724));
   iVar3 = PeekPacketChecksumState((void *)(in_EAX + 0x4948));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((iVar2 <= iVar3) && (cVar1 = CompareChecksumAtMost(in_EAX + 0x4948,in_EAX + 0x4500), cVar1 != '\0')) {
     return 1;
   }

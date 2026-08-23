@@ -35,13 +35,13 @@ void __fastcall AnimatePrimaryShot_Bullet4(int *param_1)
     iVar3 = 0x1e;
   }
   param_1[0xfe9] = iVar3;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)&DAT_00e9bed8);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   param_1[0xfe7] = (param_1[0xfe8] + param_1[0xfe7]) % iVar3;
   cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0x391b);
   if (cVar1 != '\0') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)((int)param_1 + 0x3920));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4a46a5
      * (`lea edi,[esi + 0x3920]`, esi = this file's own param_1, preserved
@@ -50,12 +50,12 @@ void __fastcall AnimatePrimaryShot_Bullet4(int *param_1)
      * `int *`, so byte offsets use `(int)param_1 + N`. See
      * tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)param_1 + 0x3920, iVar3 + 1);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
   iVar3 = param_1[0xed1];
   param_1[0xed1] = iVar3 + 1;
   if (iVar3 + 1 == 5) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar2 = PeekPacketChecksumState((void *)((int)param_1 + 0xf54));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4a46de
      * (`lea edi,[esi + 0x3d6c]`, esi = param_1): cell is param_1+0x3d6c -
@@ -63,7 +63,7 @@ void __fastcall AnimatePrimaryShot_Bullet4(int *param_1)
      * CompareChecksumPair/CompareChecksumExceeds) in FUN_004acd10.c. See
      * tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)param_1 + 0x3d6c, uVar2);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
   return;
 }

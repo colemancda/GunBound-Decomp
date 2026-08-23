@@ -28,9 +28,9 @@ undefined4 FUN_0044be40(int param_1,int param_2)
   *unaff_FS_OFFSET = &local_c;
   uVar8 = EncodeChecksumPairDiff(param_1 + 8,local_230,param_2 + 8);
   local_4 = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)uVar8);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_4 = 0xffffffff;
   if ((*(int *)(local_230 + 0x14)) != 0) {
     ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);

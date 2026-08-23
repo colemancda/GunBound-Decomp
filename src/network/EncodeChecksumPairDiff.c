@@ -42,7 +42,7 @@ int EncodeChecksumPairDiff(undefined4 param_1,int param_2,undefined4 param_3)
   puStack_8 = &LAB_00538e6a;
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_10 = 0;
   local_21c = 0;
   EncodeOutgoingPacketField((char *)&local_21c - 0x14, 0);
@@ -50,7 +50,7 @@ int EncodeChecksumPairDiff(undefined4 param_1,int param_2,undefined4 param_3)
   iVar1 = PeekPacketChecksumState((void *)(param_1));
   iVar2 = PeekPacketChecksumState((void *)(param_3));
   EncodeOutgoingPacketField((char *)&local_21c - 0x14, iVar1 - iVar2);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(undefined1 *)(param_2 + 0x220) = 0;
   *(undefined4 *)(param_2 + 0x14) = 0;
   uVar3 = PeekPacketChecksumState((void *)((char *)&local_21c - 0x14));

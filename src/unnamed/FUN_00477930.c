@@ -47,12 +47,12 @@ void __fastcall FUN_00477930(int param_1)
   local_4 = 3;
   uVar9 = EncodeChecksumDeltaAdd(uVar2,local_454,400);
   local_4 = 4;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = PeekPacketChecksumState((void *)uVar8);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar3 = PeekPacketChecksumState((void *)uVar9);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = *(int *)(param_1 + 0x30);
   if ((g_screenSurface != 0) && (-1 < iVar1)) {
     iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x1900,iVar1);

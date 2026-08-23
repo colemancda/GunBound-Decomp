@@ -107,9 +107,9 @@ LAB_004493f8:
       iVar6 = (uint)uVar7 << 8;
     }
     else {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar6 = PeekPacketChecksumState((void *)(param_1 + 4));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar7 = extraout_var;
       if (iVar6 == -1) goto LAB_004493f8;
       iVar6 = CONCAT31(extraout_var,1);
@@ -117,22 +117,22 @@ LAB_004493f8:
     InvokeWidget(16,iVar6);
   }
   bVar8 = false;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar6 = PeekPacketChecksumState((void *)(param_1 + 4));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = extraout_EAX;
   if (iVar6 != -1) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 4));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     cVar4 = CheckGuardedBoolAnd(*(char *)(iVar6 + *(int *)(param_1 + 0x450) * 9 + 0x2d54c + param_1) ==
                          '\x01');
     bVar8 = cVar4 != '\0';
     uVar5 = DecodeGuardedBool();
     if ((char)uVar5 != '\0') {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar6 = PeekPacketChecksumState((void *)(param_1 + 4));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       cVar4 = *(char *)(iVar6 + *(int *)(param_1 + 0x450) * 9 + 0x2d54c + param_1);
       uVar5 = CONCAT31((int3)((uint)*(int *)(param_1 + 0x450) >> 8),cVar4);
       if (cVar4 == '\0') {
@@ -145,9 +145,9 @@ LAB_004493f8:
   }
   uVar7 = (uint3)((uint)uVar5 >> 8);
   if (cVar3 != '\0') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 4));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar7 = extraout_var_00;
     if ((iVar6 != -1) && (bVar8)) {
       iVar6 = CONCAT31(extraout_var_00,1);

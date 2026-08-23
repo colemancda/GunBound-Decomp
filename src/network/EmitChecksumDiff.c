@@ -21,11 +21,11 @@ void EmitChecksumDiff(void *self,void *other)
   int iVar1;
   int iVar2;
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState(self);
   iVar2 = PeekPacketChecksumState(other);
   EncodeOutgoingPacketField(self, iVar1 - iVar2);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return;
 }
 

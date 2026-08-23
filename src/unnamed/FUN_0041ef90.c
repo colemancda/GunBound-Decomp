@@ -96,9 +96,9 @@ FUN_0041ef90(int param_1,undefined1 param_2,byte param_3,undefined4 param_4,int 
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   PeekPacketChecksumState((void *)&DAT_00796aa0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = WrapChatLineText();
   *(undefined4 *)(param_1 + 0x59154 + *(int *)(param_1 + 0x58b60) * 4) = param_6;
   *(undefined1 *)(*(int *)(param_1 + 0x58b60) + 0x58c4a + param_1) = param_2;

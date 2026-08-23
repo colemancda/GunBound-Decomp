@@ -129,11 +129,11 @@ LAB_004da4f7:
   }
   InvokeWidget(4,cVar2);
   InvokeWidget(5,cVar2);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
   iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
   param_3 = iVar4 == iVar5;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   InvokeWidget(8,param_3);
   InvokeWidget(10,cVar2);
   InvokeWidget(11,cVar2);
@@ -177,9 +177,9 @@ LAB_004da4f7:
   InvokeWidget(53,iVar4);
   uVar7 = extraout_var_02;
   if (bVar10) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar7 = (uint3)((uint)extraout_EAX >> 8);
     if ((iVar4 == 1) ||
        (PacketChecksumNotEquals(g_clientContext + 0x45354,3), uVar7 = extraout_var_03,
@@ -193,9 +193,9 @@ LAB_004da901:
   InvokeWidget(60,iVar4);
   uVar7 = extraout_var_04;
   if (bVar10) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar7 = (uint3)((uint)extraout_EAX_00 >> 8);
     if ((iVar4 == 1) ||
        (PacketChecksumNotEquals(g_clientContext + 0x45354,3), uVar7 = extraout_var_05,
@@ -209,9 +209,9 @@ LAB_004da964:
   InvokeWidget(61,iVar4);
   cVar11 = '\0';
   if (bVar10) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     cVar11 = cVar2;
     if ((iVar4 == 1) || (cVar2 = PacketChecksumNotEquals(g_clientContext + 0x45354,3), cVar2 == '\0'))
     goto LAB_004da9cb;

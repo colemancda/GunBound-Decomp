@@ -44,9 +44,9 @@ void SendCreateRoom(int param_1)
     pcVar9 = pcVar9 + 1;
   } while (cVar1 != '\0');
 LAB_00429cbe:
-  iVar2 = DAT_007934e8;
+  iVar2 = g_connectionContextA;
   pcVar9 = (char *)(param_1 + 0xf);
-  *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x2120;
+  *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x2120;
   *(undefined4 *)(iVar2 + 0x44d0) = 6;
   pcVar4 = pcVar9;
   do {

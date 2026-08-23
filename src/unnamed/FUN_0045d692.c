@@ -50,9 +50,9 @@ int FUN_0045d692(void)
    * own 3 dropped args are the helper-family sweep's scope, not this
    * site's.) */
   iVar3 = EncodeChecksumDeltaAdd();
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)iVar3);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   cStack00000007 = in_stack_00000ad4 < iVar3;
   if (in_stack_00000024 != 0) {
     ScrambleChecksumGuardBytes(in_stack_00000024,&g_valueGuardKeyTable);

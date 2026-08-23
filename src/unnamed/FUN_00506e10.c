@@ -12,10 +12,10 @@ void __thiscall FUN_00506e10(int param_1,int param_2,int param_3,undefined4 para
 {
   int iVar1;
   
-  iVar1 = DAT_007934e8;
+  iVar1 = g_connectionContextA;
   if (param_2 == 0) {
     if (param_3 == 0) {
-      *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x1078;
+      *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x1078;
       *(undefined4 *)(iVar1 + 0x44d0) = 6;
       SendOutgoingPacket(iVar1);
     }

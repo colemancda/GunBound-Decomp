@@ -722,8 +722,8 @@ LAB_004b9bb0:
     }
     if (((char)param_1[0x474] != '\0') && (cVar4 = FUN_00406400(0,0,(int)&g_activeObjectRegistry), cVar4 == '\x01')) {
       InvokeWidget(3,extraout_EDX);
-      iVar13 = DAT_007934e8;
-      *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
+      iVar13 = g_connectionContextA;
+      *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3232;
       *(undefined4 *)(iVar13 + 0x44d0) = 6;
       SendOutgoingPacket(iVar13);
       return;

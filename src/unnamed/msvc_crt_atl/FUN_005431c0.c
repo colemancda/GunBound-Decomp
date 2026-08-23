@@ -11,7 +11,7 @@ void FUN_005431c0(void)
 
 {
   PTR_PTR_005a9064 = (undefined *)&PTR_FUN_005572dc;
-  DeleteCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  DeleteCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return;
 }
 

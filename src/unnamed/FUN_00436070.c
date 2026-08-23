@@ -30,7 +30,7 @@ void FUN_00436070(undefined4 param_1,undefined4 param_2,int param_3)
       FUN_00481fb0(pvVar2);
     }
     local_4 = 0xffffffff;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
      * 0x4360dd (`lea edi,[esi + 0x38]`, esi = the object just
      * constructed above via FUN_00481fb0(pvVar2), not this function's
@@ -39,17 +39,17 @@ void FUN_00436070(undefined4 param_1,undefined4 param_2,int param_3)
      * `this`. `pvVar2` is `void *`, so byte offsets use
      * `(int)pvVar2 + N`. See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)pvVar2 + 0x38, param_2);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (*(int *)(&g_nCameraBoundY + g_clientContext) <= param_3) {
       param_3 = *(int *)(&g_nCameraBoundY + g_clientContext);
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
      * 0x436113 (`lea edi,[esi + 0x25c]`, esi = pvVar2, same object as
      * above): cell is pvVar2+0x25c, matching FUN_00481fb0.c's second
      * cell offset. See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)pvVar2 + 0x25c, param_3);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   *unaff_FS_OFFSET = local_c;

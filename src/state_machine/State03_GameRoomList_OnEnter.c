@@ -118,7 +118,7 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   else {
     *(undefined1 *)((int)param_1 + 0x115) = 2;
   }
-  iVar2 = DAT_007934e8;
+  iVar2 = g_connectionContextA;
   *(undefined1 *)((int)param_1 + 0x116) = 0;
   param_1[0x46] = 0;
   *(undefined1 *)(param_1 + 0x48) = 0;
@@ -130,14 +130,14 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
   *(undefined1 *)(iVar4 + 0x4d1 + iVar2) = *(undefined1 *)((int)param_1 + 0x116);
   *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
   cVar3 = PeekPacketChecksumBool((byte *)g_clientContext + 0x3b968);
-  iVar4 = DAT_007934e8;
+  iVar4 = g_connectionContextA;
   if ((cVar3 == '\x01') && (*(ushort *)(g_clientContext + 0x3b96f) != 0xffff)) {
-    *(short *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) =
+    *(short *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) =
          (short)((ulonglong)((longlong)(int)(uint)*(ushort *)(g_clientContext + 0x3b96f) * 0x2aaaaaab)
                 >> 0x20);
   }
   else {
-    *(short *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = (short)param_1[0x47];
+    *(short *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = (short)param_1[0x47];
   }
   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 2;
   SendOutgoingPacket(iVar4);
@@ -169,9 +169,9 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
    * to this same function. */
   FUN_0050f290((int *)&g_uiPanelManager);
   BuildBuddyPanel();
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((uVar5 & 0x100000) != 0) {
     iVar4 = *param_1;
     uVar8 = 6;
@@ -179,9 +179,9 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
     uVar6 = GetLocalizedString(&g_localizedStringTable,0xc351);
     (**(code **)(iVar4 + 0x28))(uVar6,uVar7,uVar8);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((uVar5 & 0x200000) != 0) {
     iVar4 = *param_1;
     uVar8 = 6;
@@ -189,9 +189,9 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
     uVar6 = GetLocalizedString(&g_localizedStringTable,0xc352);
     (**(code **)(iVar4 + 0x28))(uVar6,uVar7,uVar8);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((uVar5 & 0x400000) != 0) {
     iVar4 = *param_1;
     uVar8 = 6;
@@ -199,9 +199,9 @@ void __fastcall State03_GameRoomList_OnEnter(int *param_1)
     uVar6 = GetLocalizedString(&g_localizedStringTable,0xc353);
     (**(code **)(iVar4 + 0x28))(uVar6,uVar7,uVar8);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((uVar5 & 0x800000) != 0) {
     iVar4 = *param_1;
     uVar8 = 6;

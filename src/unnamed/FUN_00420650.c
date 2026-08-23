@@ -34,9 +34,9 @@ int FUN_00420650(int param_1,int param_2,int param_3)
       if (uVar2 != 0) {
         uVar4 = uVar2;
       }
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar4 = (uint)(*piVar1 * iVar3) / uVar4;
       if ((int)local_8 < (int)uVar4) {
         local_8 = uVar4;

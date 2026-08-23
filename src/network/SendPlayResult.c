@@ -2,7 +2,7 @@
  *
  * RENAMED (2026-08-13, from FUN_00413bf0). Builds and sends the
  * SVC_PLAY_RESULT packet (opcode 0x4412 - the id stored at +0x4d4 of the
- * outgoing buffer at DAT_007934e8; the server's Opcode.swift names it
+ * outgoing buffer at g_connectionContextA; the server's Opcode.swift names it
  * playResultCommand).  Payload: one guarded header cell
  * (ctx+0x473a0), then for every occupied slot (ctx+0x5010d+slot != 0)
  * the slot number, four guarded per-slot cells from the parallel
@@ -28,7 +28,7 @@
  * 0x5dcc0 is the same array the State11_OnTick sweep already confirmed
  * at its 0x4be9f3 site.  The head cell is g_clientContext+0x473a0.
  * This function serializes those cells into the outgoing packet at
- * DAT_007934e8 (opcode 0x4412 at +0x4d4) and sends it - a per-slot
+ * g_connectionContextA (opcode 0x4412 at +0x4d4) and sends it - a per-slot
  * guarded-state report.
  */
 #include "ghidra_types.h"
@@ -49,14 +49,14 @@ void SendPlayResult(void)
   int iVar10;
   int local_8;
   
-  iVar8 = DAT_007934e8;
-  *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x4412;
+  iVar8 = g_connectionContextA;
+  *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x4412;
   *(undefined4 *)(iVar8 + 0x44d0) = 6;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x473a0));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  iVar8 = DAT_007934e8;
-  *(undefined2 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar5;
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  iVar8 = g_connectionContextA;
+  *(undefined2 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar5;
   *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 2;
   local_8 = 0;
   iVar10 = 0;
@@ -64,11 +64,11 @@ void SendPlayResult(void)
     if (*(char *)(g_clientContext + 0x5010d + local_8) != '\0') {
       *(char *)(*(int *)(iVar8 + 0x44d0) + 0x4d0 + iVar8) = (char)local_8;
       *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 1;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x5ba80 + iVar10));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar3 = DAT_007934e8;
-      *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar6;
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      iVar3 = g_connectionContextA;
+      *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar6;
       iVar8 = *(int *)(iVar3 + 0x44d0);
       *(int *)(iVar3 + 0x44d0) = iVar8 + 4;
       if (*(short *)(&DAT_006aa660 + g_clientContext) == -1) {
@@ -80,23 +80,23 @@ void SendPlayResult(void)
                      *(char *)(g_clientContext + 0x50126 + local_8));
       }
       *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 2;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x5cba0 + iVar10));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar8 = DAT_007934e8;
-      *(undefined2 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar5;
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      iVar8 = g_connectionContextA;
+      *(undefined2 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar5;
       *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 2;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x61020 + iVar10));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar8 = DAT_007934e8;
-      *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar6;
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      iVar8 = g_connectionContextA;
+      *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar6;
       *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 4;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x5dcc0 + iVar10));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar8 = DAT_007934e8;
-      *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar6;
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      iVar8 = g_connectionContextA;
+      *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar6;
       iVar4 = g_clientContext;
       iVar3 = *(int *)(iVar8 + 0x44d0);
       *(int *)(iVar8 + 0x44d0) = iVar3 + 4;
@@ -118,7 +118,7 @@ void SendPlayResult(void)
   }
   iVar8 = g_clientContext;
   pbVar9 = (byte *)(g_clientContext + 0x62152);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar10 = _rand();
   *pbVar9 = (byte)iVar10;
   iVar10 = _rand();
@@ -128,7 +128,7 @@ void SendPlayResult(void)
   bVar7 = ~bVar7 & (byte)iVar10 | bVar7;
   *(byte *)(iVar8 + 0x62153) = bVar7;
   *(byte *)(iVar8 + 0x62154) = bVar7 + bVar2 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return;
 }
 

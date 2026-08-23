@@ -43,9 +43,9 @@ SpawnFlameEffect(char param_1,undefined4 param_2,int param_3,int param_4,int par
       iVar5 = 0;
     }
     else {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar4 = PeekPacketChecksumState((void *)&DAT_00e9bed8);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = _rand();
       iVar5 = iVar5 % iVar4;
     }

@@ -38,19 +38,19 @@ uint SpawnCraterDebris(int *param_1,int param_2,int param_3,int param_4,int para
       else {
         local_94 = (int)(in_EAX + (in_EAX >> 0x1f & 3U)) >> 2;
       }
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       PeekPacketChecksumState((void *)(g_clientContext + 0x5af88));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar4 = FloatToInt64();
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       PeekPacketChecksumState((void *)(g_clientContext + 0x5af88));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = FloatToInt64();
       uVar3 = param_4 * -0x55555554;
       iVar2 = (param_4 * 2) / 3;

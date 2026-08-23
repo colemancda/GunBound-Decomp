@@ -95,7 +95,7 @@ void FlushEncodedSocketBuffer(int param_1)
     local_5464 = local_5464 + (uVar6 - (iVar5 + -6));
   }
   *(short *)(param_1 + 0x44d4) = (short)local_5464;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = PeekPacketChecksumState((void *)(param_1 + 0x84));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4d3623
    * (`lea edi,[ebp+0x84]`, ebp = this file's own param_1) the cell is
@@ -104,14 +104,14 @@ void FlushEncodedSocketBuffer(int param_1)
    * SendOutgoingPacket.c's identical fix) - see
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField(param_1 + 0x84, iVar5 + local_5464);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = EncodeChecksumDeltaMul(param_1 + 0x84,local_5454,0x343fd);
   local_4 = 0;
   EncodeChecksumDeltaAdd(uVar2,local_5230,0x269ec3);
   SUBFIELD(local_4,0,undefined1) = 1;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)(local_5230));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   *(undefined2 *)(param_1 + 0x44d6) = uVar1;
   if ((*(int *)(local_5230 + 0x14)) != 0) {

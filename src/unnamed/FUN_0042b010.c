@@ -20,7 +20,7 @@ void FUN_0042b010(void)
   *(undefined4 *)(unaff_EDI + 0xc) = 0;
   *(undefined4 *)(unaff_EDI + 0x10) = 0;
   *(undefined4 *)(unaff_EDI + 0x14) = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = _rand();
   *(byte *)(unaff_EDI + 4) = (byte)iVar2;
   iVar2 = _rand();
@@ -30,7 +30,7 @@ void FUN_0042b010(void)
   bVar3 = ~('\x01' << bVar3) & (byte)iVar2 | '\0' << bVar3;
   *(byte *)(unaff_EDI + 5) = bVar3;
   *(byte *)(unaff_EDI + 6) = bVar3 + bVar1 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return;
 }
 

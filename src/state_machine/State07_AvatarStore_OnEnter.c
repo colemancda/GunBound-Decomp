@@ -148,30 +148,30 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   FUN_00423bf0((int)g_clientContext);
   FUN_00449540(param_1,1);
   *(undefined4 *)(param_1 + 0x454) = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField(0xffffffff);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   FUN_0044b0b0(param_1);
   FUN_00424400();
   *(undefined1 *)(param_1 + 0x30bb8) = 0;
   LoadAvatarSprites(0xffffffff,0xffffffff,0xffffffff,0xffffffff,param_1 + 0x31488,200000,300000);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField(0xffffffff);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar8 = 0;
   puVar7 = (undefined2 *)(param_1 + 0x325a8);
   do {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ac08 + iVar8));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     *puVar7 = uVar4;
     iVar8 = iVar8 + 0x224;
     puVar7 = puVar7 + 1;
   } while (iVar8 < 0x890);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField(0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar8 = _rand();
   *(char *)(param_1 + 0x32c54) = (char)iVar8;
   iVar8 = _rand();
@@ -180,8 +180,8 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   bVar6 = ~('\x01' << bVar6) & (byte)iVar8 | '\0' << bVar6;
   *(byte *)(param_1 + 0x32c55) = bVar6;
   *(byte *)(param_1 + 0x32c56) = *(byte *)(param_1 + 0x32c54) + bVar6 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar8 = _rand();
   *(char *)(param_1 + 0x32e63) = (char)iVar8;
   iVar8 = _rand();
@@ -190,8 +190,8 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   bVar6 = ~('\x01' << bVar6) & (byte)iVar8 | '\0' << bVar6;
   *(byte *)(param_1 + 0x32e64) = bVar6;
   *(byte *)(param_1 + 0x32e65) = *(byte *)(param_1 + 0x32e63) + bVar6 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar8 = _rand();
   *(char *)(param_1 + 0x32ce0) = (char)iVar8;
   iVar8 = _rand();
@@ -200,7 +200,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   bVar6 = ~('\x01' << bVar6) & (byte)iVar8 | '\0' << bVar6;
   *(byte *)(param_1 + 0x32ce1) = bVar6;
   *(byte *)(param_1 + 0x32ce2) = *(byte *)(param_1 + 0x32ce0) + bVar6 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(undefined1 *)(param_1 + 0x32f90) = 1;
   CreateAvatarStoreButtons(param_1);
   if (*(int *)(*(int *)(DAT_00e9be94 + 0x1c) + 4) == 0) {
@@ -222,15 +222,15 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
   uVar5 = BuildAvatarStorePanel(&g_uiPanelManager);
   *(undefined4 *)(param_1 + 0x34784) = uVar5;
   FUN_00449250(param_1,1,0);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField(0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar8 = g_clientContext;
   *(undefined1 *)(param_1 + 0x32f92) = 0;
   *(undefined4 *)(param_1 + 0x32f94) = 0x80000000;
   *(undefined4 *)(param_1 + 0x32f98) = 0x7fffffff;
   if (*(int *)(iVar8 + 0x44bec) == 0) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar8 = _rand();
     *(char *)(param_1 + 0x32e63) = (char)iVar8;
     iVar8 = _rand();
@@ -239,7 +239,7 @@ void __fastcall State07_AvatarStore_OnEnter(int param_1)
     bVar6 = ~('\x01' << bVar6) & (byte)iVar8 | '\0' << bVar6;
     *(byte *)(param_1 + 0x32e64) = bVar6;
     *(byte *)(param_1 + 0x32e65) = *(byte *)(param_1 + 0x32e63) + bVar6 + -0x34;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     CreateAvatarStoreButtons(param_1);
   }
   else {

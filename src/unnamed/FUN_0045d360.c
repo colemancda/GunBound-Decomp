@@ -29,18 +29,18 @@ int FUN_0045d360(int param_1)
   int iVar4;
   int iVar5;
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(in_EAX + 0x8de8));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(in_EAX + 0x8bc4));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)(&DAT_00e55ab8));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = PeekPacketChecksumState((void *)(in_EAX + 0x900c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = ((400 - iVar3) / iVar4) * iVar5;
   cVar1 = DecodeGuardedBool();
   if (cVar1 != '\0') {
@@ -56,26 +56,26 @@ int FUN_0045d360(int param_1)
       iVar3 = PeekChecksumStateUnderLock(iVar3);
     }
     else {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar3 = PeekPacketChecksumState((void *)(in_EAX + 0x9678));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
     iVar5 = iVar5 + iVar3;
   }
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 == '\x01') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)(in_EAX + 0x989c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = iVar5 + iVar3;
     if (param_1 != '\0') {
       iVar3 = GetItemQuantityByIcon(g_clientContext,*(undefined2 *)(in_EAX + 0xbfbc));
       iVar5 = iVar5 + iVar3;
       goto LAB_0045d4b9;
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)(in_EAX + 0x9ac0));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = GetItemQuantityByIcon(g_clientContext,*(undefined2 *)(in_EAX + 0xbfbc));
     if (iVar4 + iVar3 * -3 < 0) {
       iVar3 = 0;
@@ -89,12 +89,12 @@ int FUN_0045d360(int param_1)
   else {
 LAB_0045d4b9:
     if (param_1 == '\0') goto LAB_0045d527;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)((*(uint *)(in_EAX + 8) & 7) * 0x1120 + g_clientContext + 0x50cf4));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = iVar3 + iVar4 * -3;
   }
   iVar5 = iVar5 + iVar3;
@@ -102,18 +102,18 @@ LAB_0045d527:
   *(undefined1 *)(in_EAX + 0xae68) = 1;
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45d555
      * (`lea edi,[esi+0xae6c]`). Objdump of orig/GunBound.gme confirms
      * esi = eax at function entry (`mov esi,eax` at 0x45d372), i.e. esi is
      * this file's own `in_EAX`; the cell is in_EAX+0xae6c. See
      * tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField(in_EAX + 0xae6c, iVar5 + iVar2);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)((*(uint *)(in_EAX + 8) & 7) * 0x1120 + g_clientContext + 0x50cf4));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return iVar3 * (iVar5 + iVar2);
 }
 

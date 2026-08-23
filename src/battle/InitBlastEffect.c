@@ -22,7 +22,7 @@ undefined4 InitBlastEffect(void)
   
   InitProjectile(unaff_ESI,0x186a2);
   *unaff_ESI = &PTR_FUN_0055656c;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
   *(char *)((int)unaff_ESI + 0xf45) = (char)iVar1;
   iVar1 = _rand();
@@ -31,7 +31,7 @@ undefined4 InitBlastEffect(void)
   bVar2 = ~('\x01' << bVar2) & (byte)iVar1 | '\0' << bVar2;
   *(byte *)((int)unaff_ESI + 0xf46) = bVar2;
   *(byte *)((int)unaff_ESI + 0xf47) = bVar2 + *(byte *)((int)unaff_ESI + 0xf45) + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* Ghidra emitted a bare `return;` in a value-returning function;
    * MSVC falls through with whatever's in EAX, gcc 14 rejects it
    * (-Wreturn-mismatch). This path's result is unused by callers -

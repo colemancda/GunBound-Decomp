@@ -17,7 +17,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
   undefined4 uVar5;
   int iVar6;
 
-  iVar2 = DAT_007934e8;
+  iVar2 = g_connectionContextA;
   iVar4 = g_clientContext;
   if (param_2 != 0) {
     if (param_2 == 10) {
@@ -86,9 +86,9 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
     cVar3 = PacketChecksumEquals(g_clientContext + 0x449c4,2);
     if (cVar3 == '\0') {
       RefreshGameRoomListControls(0,(int)g_gameStateVTableArray[3]);
-      iVar2 = DAT_007934e8;
+      iVar2 = g_connectionContextA;
       iVar4 = g_clientContext;
-      *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+      *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       *(undefined2 *)(iVar2 + 0x4d4) = 0x6000;
       *(bool *)(iVar2 + 0x4d6) = *(char *)(iVar4 + 0x44bf8) == '\0';
       *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
@@ -142,7 +142,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
     return;
   case 0xc:
     cVar3 = *(char *)(param_1 + 0x115);
-    *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+    *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
     if (cVar3 == '\x06') {
       *(undefined2 *)(iVar2 + 0x4d4) = 0x2101;
       iVar4 = *(int *)(param_1 + 0x118) + -1;
@@ -173,7 +173,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
     return;
   case 0xd:
     if (*(char *)(param_1 + 0x115) == '\x06') {
-      *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x2101;
+      *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x2101;
       *(undefined4 *)(iVar2 + 0x44d0) = 6;
       iVar4 = *(int *)(param_1 + 0x118) + 1;
       *(int *)(param_1 + 0x11c) = iVar4;
@@ -182,7 +182,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
        * g_serverSelectRecordCount (0xe54ca4); if iVar4*6+6 <= iVar6,
        * iVar6 becomes the remaining-record count (iVar6-iVar4*6),
        * otherwise it's clamped to 6; the byte count passed to
-       * AppendPacketBytes is iVar6*2. self=iVar2 (DAT_007934e8, still
+       * AppendPacketBytes is iVar6*2. self=iVar2 (g_connectionContextA, still
        * live from the top of this function). */
       iVar6 = g_serverSelectRecordCount;
       if (iVar4 * 6 + 6 <= iVar6) {
@@ -194,7 +194,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
       AppendPacketBytes(0,iVar2,(uint)(iVar6 * 2),g_serverSelectRecords + iVar4 * 0xc);
       goto LAB_004287a5;
     }
-    *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+    *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
     *(undefined2 *)(iVar2 + 0x4d4) = 0x2100;
     *(undefined1 *)(iVar2 + 0x4d6) = *(undefined1 *)(param_1 + 0x115);
     iVar4 = *(int *)(iVar2 + 0x44d0);
@@ -215,16 +215,16 @@ LAB_004287a5:
     *(undefined1 *)(param_1 + 0x115) = 6;
     *(undefined4 *)(param_1 + 0x118) = 0;
     FindBuddyRoomsForServer(*(undefined4 *)(iVar4 + 0x3f804));
-    iVar2 = DAT_007934e8;
+    iVar2 = g_connectionContextA;
     if (g_serverSelectRecordCount != 0) {
-      *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x2101;
+      *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x2101;
       *(undefined4 *)(iVar2 + 0x44d0) = 6;
       *(undefined4 *)(param_1 + 0x118) = 0;
       *(undefined4 *)(param_1 + 0x11c) = 0;
       /* 0x428a53-0x428a8f: another dropped bounded-count computation.
        * Real disasm: iVar6 = min(g_serverSelectRecordCount, 6); the byte
        * count passed to AppendPacketBytes is iVar6*2. self=iVar2
-       * (DAT_007934e8, reloaded just above at the top of this case). */
+       * (g_connectionContextA, reloaded just above at the top of this case). */
       iVar6 = g_serverSelectRecordCount;
       if (6 <= iVar6) {
         iVar6 = 6;

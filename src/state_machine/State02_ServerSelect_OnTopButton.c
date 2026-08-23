@@ -39,18 +39,18 @@ void __thiscall State02_ServerSelect_OnTopButton(int param_1,int param_2,int par
   byte bVar8;
   byte *pbVar9;
 
-  iVar5 = DAT_007934ec;
+  iVar5 = g_connectionContextB;
   if (param_2 == 3) {
-    *(undefined2 *)(DAT_007934ec + 0x4d4) = 0x2000;
+    *(undefined2 *)(g_connectionContextB + 0x4d4) = 0x2000;
     *(undefined4 *)(iVar5 + 0x44d0) = 6;
     cVar6 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b968));
-    iVar5 = DAT_007934ec;
+    iVar5 = g_connectionContextB;
     if (((cVar6 == '\x01') && (sVar2 = *(short *)(g_clientContext + 0x3b96d), sVar2 != -1)) &&
        (sVar2 != -2)) {
-      *(short *)(*(int *)(DAT_007934ec + 0x44d0) + 0x4d0 + DAT_007934ec) = sVar2;
+      *(short *)(*(int *)(g_connectionContextB + 0x44d0) + 0x4d0 + g_connectionContextB) = sVar2;
     }
     else {
-      *(undefined2 *)(*(int *)(DAT_007934ec + 0x44d0) + 0x4d0 + DAT_007934ec) = 0xffff;
+      *(undefined2 *)(*(int *)(g_connectionContextB + 0x44d0) + 0x4d0 + g_connectionContextB) = 0xffff;
     }
     *(int *)(iVar5 + 0x44d0) = *(int *)(iVar5 + 0x44d0) + 2;
     SendOutgoingPacket();
@@ -94,7 +94,7 @@ void __thiscall State02_ServerSelect_OnTopButton(int param_1,int param_2,int par
     iVar5 = g_clientContext;
     if (cVar6 != '\0') {
       pbVar9 = (byte *)(g_clientContext + 0x3b968);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar7 = _rand();
       *pbVar9 = (byte)iVar7;
       iVar7 = _rand();
@@ -104,7 +104,7 @@ void __thiscall State02_ServerSelect_OnTopButton(int param_1,int param_2,int par
       bVar8 = ~('\x01' << bVar8) & (byte)iVar7 | '\0' << bVar8;
       *(byte *)(iVar5 + 0x3b969) = bVar8;
       *(byte *)(iVar5 + 0x3b96a) = bVar8 + bVar1 + -0x34;
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
     FUN_004d24f0();
     return;

@@ -23,7 +23,7 @@
 #include "ValueGuard.h"
 
 extern "C" {
-CRITICAL_SECTION DAT_005a9068;      /* the family's shared lock */
+CRITICAL_SECTION g_valueGuardLock;      /* the family's shared lock */
 unsigned char g_valueGuardTamperFlag;
 int  g_valueGuardKeyTable;                  /* key-table base (16 bytes/entry) */
 int *DAT_00793774;                  /* current key-table object ptr (integrity anchor) */
@@ -122,10 +122,10 @@ extern "C" void EncodeOutgoingPacketField(void *self, unsigned int value)
 /* 0x40a4a0 EncodeChecksumState - push the current value to the wire. */
 void CValueGuard::Encode()
 {
-    EnterCriticalSection(&DAT_005a9068);
+    EnterCriticalSection(&g_valueGuardLock);
     u32 v = Peek();
     EncodeOutgoingPacketField(v);
-    LeaveCriticalSection(&DAT_005a9068);
+    LeaveCriticalSection(&g_valueGuardLock);
 }
 
 /* 0x40a440 EncodeChecksumStateXored - push value XOR 0xeeaeaec0. The
@@ -133,43 +133,43 @@ void CValueGuard::Encode()
  * method we Peek explicitly. */
 void CValueGuard::EncodeXored()
 {
-    EnterCriticalSection(&DAT_005a9068);
+    EnterCriticalSection(&g_valueGuardLock);
     u32 v = Peek();
     EncodeOutgoingPacketField(v ^ 0xeeaeaec0);
-    LeaveCriticalSection(&DAT_005a9068);
+    LeaveCriticalSection(&g_valueGuardLock);
 }
 
 /* 0x40aab0 AddToPacketChecksum - value += delta, re-encode. */
 void CValueGuard::Add(int delta)
 {
-    EnterCriticalSection(&DAT_005a9068);
+    EnterCriticalSection(&g_valueGuardLock);
     u32 v = Peek();
     EncodeOutgoingPacketField(v + (u32)delta);
-    LeaveCriticalSection(&DAT_005a9068);
+    LeaveCriticalSection(&g_valueGuardLock);
 }
 
 /* 0x40aaf0 SubFromPacketChecksum - value -= delta, re-encode. */
 void CValueGuard::Sub(int delta)
 {
-    EnterCriticalSection(&DAT_005a9068);
+    EnterCriticalSection(&g_valueGuardLock);
     u32 v = Peek();
     EncodeOutgoingPacketField(v - (u32)delta);
-    LeaveCriticalSection(&DAT_005a9068);
+    LeaveCriticalSection(&g_valueGuardLock);
 }
 
 /* 0x40b270 PacketChecksumEquals / 0x40b2a0 PacketChecksumNotEquals. */
 bool CValueGuard::Equals(int other)
 {
-    EnterCriticalSection(&DAT_005a9068);
+    EnterCriticalSection(&g_valueGuardLock);
     u32 v = Peek();
-    LeaveCriticalSection(&DAT_005a9068);
+    LeaveCriticalSection(&g_valueGuardLock);
     return (int)v == other;
 }
 
 bool CValueGuard::NotEquals(int other)
 {
-    EnterCriticalSection(&DAT_005a9068);
+    EnterCriticalSection(&g_valueGuardLock);
     u32 v = Peek();
-    LeaveCriticalSection(&DAT_005a9068);
+    LeaveCriticalSection(&g_valueGuardLock);
     return (int)v != other;
 }

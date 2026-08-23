@@ -106,7 +106,7 @@ void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefine
   local_4 = 0;
   if (param_2 != 0) {
     if ((param_2 != 0xb) || (cVar1 = PeekPacketChecksumBool(), cVar1 != '\0')) goto switchD_00445591_caseD_2;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = _rand();
     *(char *)(param_1 + 0x32c54) = (char)iVar3;
     iVar3 = _rand();
@@ -115,7 +115,7 @@ void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefine
     bVar14 = ~('\x01' << bVar14) & (byte)iVar3 | '\0' << bVar14;
     *(byte *)(param_1 + 0x32c55) = bVar14;
     *(byte *)(param_1 + 0x32c56) = *(byte *)(param_1 + 0x32c54) + bVar14 + -0x34;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     RemoveWidget((int)&g_activeObjectRegistry,0,0x34);
 LAB_00445543:
     RemoveWidget((int)&g_activeObjectRegistry,0,0x35);
@@ -618,8 +618,8 @@ LAB_004457e7:
       FUN_004240c0(g_clientContext,
                    *(char *)(*(int *)(param_1 + 0x450) * 9 + 0x2d54c + iVar3 + param_1) == '\x01',
                    uVar6,uVar4,(int)guardWorkspace);
-      iVar3 = DAT_007934e8;
-      *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x6010;
+      iVar3 = g_connectionContextA;
+      *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x6010;
       *(undefined4 *)(iVar3 + 0x44d0) = 6;
       uVar12 = EncodeChecksumNegate(local_15b4,local_2910);
       SUBFIELD(local_4,0,undefined1) = 5;
@@ -628,14 +628,14 @@ LAB_004457e7:
       ScrubChecksumGuard();
       QueueOutgoingPacketField(0);
       uVar12 = PeekChecksumStateUnderLock(param_1 + 0x3054c);
-      iVar3 = DAT_007934e8;
-      *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+      iVar3 = g_connectionContextA;
+      *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
       *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
       uVar12 = EncodeChecksumNegate(local_15b4,local_24c8);
       local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),6);
       uVar12 = PeekChecksumStateUnderLock(uVar12);
-      iVar3 = DAT_007934e8;
-      *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+      iVar3 = g_connectionContextA;
+      *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
       *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
 LAB_00446d18:
       local_4 = local_4 & 0xffffff00;
@@ -668,19 +668,19 @@ LAB_00446d2b:
         PeekChecksumStateUnderLock(iVar3);
         FUN_00426570();
         cVar1 = PeekPacketChecksumBool();
-        iVar9 = DAT_007934e8;
-        *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+        iVar9 = g_connectionContextA;
+        *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
         if (cVar1 == '\0') {
           *(undefined2 *)(iVar9 + 0x4d4) = 0x6020;
           uVar2 = PeekChecksumStateUnderLock(iVar3);
-          iVar9 = DAT_007934e8;
-          *(undefined1 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar2;
+          iVar9 = g_connectionContextA;
+          *(undefined1 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar2;
           *(int *)(iVar9 + 0x44d0) = *(int *)(iVar9 + 0x44d0) + 1;
           PeekChecksumStateUnderLock(iVar3);
           iVar3 = FUN_00426570();
           uVar12 = PeekChecksumStateUnderLock(iVar3 + 0x22c);
-          iVar3 = DAT_007934e8;
-          *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+          iVar3 = g_connectionContextA;
+          *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
           *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
           uVar12 = EncodeChecksumDeltaMul(local_15b4,local_2b34,6);
           SUBFIELD(local_4,0,undefined1) = 9;
@@ -688,8 +688,8 @@ LAB_00446d2b:
           uVar12 = EncodeChecksumDeltaDiv(uVar12,local_26ec,uVar7);
           SUBFIELD(local_4,0,undefined1) = 10;
           uVar12 = PeekChecksumStateUnderLock(uVar12);
-          iVar3 = DAT_007934e8;
-          *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+          iVar3 = g_connectionContextA;
+          *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
           *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),9);
           ScrubChecksumGuard();
@@ -699,14 +699,14 @@ LAB_00446d2b:
           PeekChecksumStateUnderLock(iVar3);
           iVar9 = FUN_00426570();
           uVar12 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
-          iVar9 = DAT_007934e8;
-          *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+          iVar9 = g_connectionContextA;
+          *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
           *(int *)(iVar9 + 0x44d0) = *(int *)(iVar9 + 0x44d0) + 4;
           PeekChecksumStateUnderLock(iVar3);
           iVar3 = FUN_00426570();
           uVar12 = PeekChecksumStateUnderLock(iVar3 + 8);
-          iVar3 = DAT_007934e8;
-          *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+          iVar3 = g_connectionContextA;
+          *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
           *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
           uVar12 = EncodeChecksumDeltaMul(local_15b4,local_1a14,6);
           SUBFIELD(local_4,0,undefined1) = 0xb;
@@ -714,8 +714,8 @@ LAB_00446d2b:
           uVar12 = EncodeChecksumDeltaDiv(uVar12,local_22a4,uVar7);
           SUBFIELD(local_4,0,undefined1) = 0xc;
           uVar12 = PeekChecksumStateUnderLock(uVar12);
-          iVar3 = DAT_007934e8;
-          *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+          iVar3 = g_connectionContextA;
+          *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
           *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xb);
           ScrubChecksumGuard();
@@ -728,13 +728,13 @@ LAB_00446d2b:
         PeekChecksumStateUnderLock(iVar3);
         FUN_00426570();
         cVar1 = PeekPacketChecksumBool();
-        iVar9 = DAT_007934e8;
-        *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+        iVar9 = g_connectionContextA;
+        *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
         if (cVar1 == '\0') {
           *(undefined2 *)(iVar9 + 0x4d4) = 0x6020;
           uVar2 = PeekChecksumStateUnderLock(iVar3);
-          iVar9 = DAT_007934e8;
-          *(undefined1 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar2;
+          iVar9 = g_connectionContextA;
+          *(undefined1 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar2;
           *(int *)(iVar9 + 0x44d0) = *(int *)(iVar9 + 0x44d0) + 1;
           PeekChecksumStateUnderLock(iVar3);
           iVar3 = FUN_00426570();
@@ -745,15 +745,15 @@ LAB_00446d2b:
           PeekChecksumStateUnderLock(iVar3);
           iVar9 = FUN_00426570();
           uVar12 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
-          iVar9 = DAT_007934e8;
-          *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+          iVar9 = g_connectionContextA;
+          *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
           *(int *)(iVar9 + 0x44d0) = *(int *)(iVar9 + 0x44d0) + 4;
           PeekChecksumStateUnderLock(iVar3);
           iVar3 = FUN_00426570();
           uVar12 = PeekChecksumStateUnderLock(iVar3 + 8);
         }
-        iVar9 = DAT_007934e8;
-        *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+        iVar9 = g_connectionContextA;
+        *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
         iVar3 = *(int *)(iVar9 + 0x44d0);
         *(int *)(iVar9 + 0x44d0) = iVar3 + 4;
         *(undefined4 *)(iVar3 + 0x4d4 + iVar9) = 0;
@@ -845,8 +845,8 @@ LAB_00446f6d:
         PeekChecksumStateUnderLock(iVar3);
         FUN_00426570();
         cVar1 = PeekPacketChecksumBool();
-        iVar9 = DAT_007934e8;
-        *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+        iVar9 = g_connectionContextA;
+        *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
         if (cVar1 == '\0') {
           *(undefined2 *)(iVar9 + 0x4d4) = 0x6030;
           *(undefined4 *)(iVar9 + 0x4d6) = *(undefined4 *)pcVar13;
@@ -856,8 +856,8 @@ LAB_00446f6d:
           *(int *)(iVar9 + 0x44d0) = *(int *)(iVar9 + 0x44d0) + 0x10;
           PeekChecksumStateUnderLock(iVar3);
           iVar10 = FUN_00426570();
-          iVar9 = DAT_007934e8;
-          *(undefined1 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) =
+          iVar9 = g_connectionContextA;
+          *(undefined1 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) =
                *(undefined1 *)(iVar10 + 4);
           *(int *)(iVar9 + 0x44d0) = *(int *)(iVar9 + 0x44d0) + 1;
           PeekChecksumStateUnderLock(iVar3);
@@ -869,8 +869,8 @@ LAB_00446f6d:
           PeekChecksumStateUnderLock(iVar3);
           iVar9 = FUN_00426570();
           uVar12 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
-          iVar10 = DAT_007934e8;
-          *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+          iVar10 = g_connectionContextA;
+          *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
           iVar9 = *(int *)(iVar10 + 0x44d0);
           *(int *)(iVar10 + 0x44d0) = iVar9 + 4;
           puVar11 = (undefined4 *)(iVar9 + 0x4d4 + iVar10);
@@ -883,8 +883,8 @@ LAB_00446f6d:
           iVar9 = FUN_00426570();
           uVar12 = PeekChecksumStateUnderLock(iVar9 + 8);
         }
-        iVar9 = DAT_007934e8;
-        *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+        iVar9 = g_connectionContextA;
+        *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
         pcVar13 = (char *)(param_1 + 0x32d63);
         *(int *)(iVar9 + 0x44d0) = *(int *)(iVar9 + 0x44d0) + 4;
         do {
@@ -898,7 +898,7 @@ LAB_00446f6d:
           cVar1 = *pcVar13;
           pcVar13 = pcVar13 + 1;
         } while (cVar1 != '\0');
-        /* 0x4470ec-0x447158: ecx=DAT_007934e8 (self, ==iVar9, unmodified
+        /* 0x4470ec-0x447158: ecx=g_connectionContextA (self, ==iVar9, unmodified
          * since it was loaded well above) moved into eax right before the
          * call; edx=strlen(param_1+0x32d63) from the loop directly above
          * (pcVar13 walked to one past the NUL); pushed param_1+0x32d63
@@ -907,7 +907,7 @@ LAB_00446f6d:
         PeekChecksumStateUnderLock(iVar3);
         FUN_00426570();
         cVar1 = PeekPacketChecksumBool();
-        iVar3 = DAT_007934e8;
+        iVar3 = g_connectionContextA;
         if (cVar1 == '\0') {
           uVar12 = 0;
         }
@@ -958,19 +958,19 @@ LAB_00446f6d:
     FUN_004240c0(g_clientContext,
                  *(char *)(*(int *)(param_1 + 0x450) * 9 + 0x2d54c + iVar3 + param_1) == '\x01',
                  uVar6,uVar4,(int)guardWorkspace);
-    iVar3 = DAT_007934e8;
-    *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x6011;
+    iVar3 = g_connectionContextA;
+    *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x6011;
     *(undefined4 *)(iVar3 + 0x44d0) = 6;
     QueueOutgoingPacketField(0);
     uVar12 = PeekChecksumStateUnderLock(param_1 + 0x3054c);
-    iVar3 = DAT_007934e8;
-    *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+    iVar3 = g_connectionContextA;
+    *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
     *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
     uVar12 = EncodeChecksumNegate(local_1390,local_2080);
     SUBFIELD(local_4,0,undefined1) = 0xd;
     uVar12 = PeekChecksumStateUnderLock(uVar12);
-    iVar3 = DAT_007934e8;
-    *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar12;
+    iVar3 = g_connectionContextA;
+    *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar12;
     *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     ScrubChecksumGuard();

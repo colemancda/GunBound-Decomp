@@ -8,7 +8,7 @@
  * Dropped-argument fix: Ghidra emitted the client-context/channel `this`
  * pointer (the same base used throughout src/ for +0x44d0 length-cursor,
  * +0x4d0 packet buffer, +0x84e0 socket handle, etc. - see globals.h's
- * DAT_007934e8/DAT_007934ec comment) as a bare `unaff_ESI` read instead of
+ * g_connectionContextA/g_connectionContextB comment) as a bare `unaff_ESI` read instead of
  * a real parameter. Confirmed via objdump of orig/GunBound.gme: every
  * sampled call site (e.g. 0x401238, 0x4028c9, 0x402a93, 0x402fb2, 0x403a37)
  * loads/keeps that same context pointer in ESI immediately before `call
@@ -18,7 +18,7 @@
  * parameter; functions.h's prototype is left K&R-empty so any not-yet-
  * updated call sites still compile. Every real call site under src/ has
  * been updated to pass the context pointer that was live at that point
- * (almost always DAT_007934e8 or a local copy of it taken shortly before).
+ * (almost always g_connectionContextA or a local copy of it taken shortly before).
  *
  * FIXED (2026-07-14): the trailing SendSocketData call only passed 2 of
  * its 3 real args and dropped the buffer ("this") entirely. Confirmed via
@@ -80,7 +80,7 @@ undefined4 SendOutgoingPacket(int param_1)
   (void)local_c; (void)puStack_8;
   iVar1 = *(int *)(param_1 + 0x44d0);
   *(undefined2 *)(param_1 + 0x4d0) = *(undefined2 *)(param_1 + 0x44d0);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(param_1 + 0x84));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4d26bd
    * (`lea edi,[esi+0x84]`, esi = this file's own param_1) the cell is
@@ -88,14 +88,14 @@ undefined4 SendOutgoingPacket(int param_1)
    * EncodeChecksumDeltaMul 2 lines below - see
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField(param_1 + 0x84, iVar3 + iVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar4 = EncodeChecksumDeltaMul(param_1 + 0x84,local_230,0x343fd);
   local_4 = 0;
   EncodeChecksumDeltaAdd(uVar4,local_454,0x269ec3);
   SUBFIELD(local_4,0,undefined1) = 1;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = PeekPacketChecksumState((void *)(local_454));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   *(undefined2 *)(param_1 + 0x4d2) = uVar2;
   if (*(int *)(local_454 + 0x14) != 0) {

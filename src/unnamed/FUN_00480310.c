@@ -84,28 +84,28 @@ void __fastcall FUN_00480310(int *param_1)
   }
   pcVar15 = (code *)EnterCriticalSection;
   if (iVar5 == 0) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     pcVar14 = (code *)LeaveCriticalSection;
     if (iVar5 != 1) {
       *(undefined1 *)(param_1 + 5) = 1;
     }
   }
   else if ((char)param_1[0xff1] == '\0') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(iVar5 + 0x90c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     param_1[0xfed] = iVar6;
     pvDelta = EncodeChecksumDeltaAdd(iVar5 + 0xb30,auStack_ac0,
                  (-(uint)((char)param_1[0xfe8] != '\0') & 0xfffffea2) - 200);
     uStack_4 = 2;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     aiStack_ac8[0] = PeekPacketChecksumState((void *)(&DAT_00796aa0));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(pvDelta));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     bVar2 = iVar6 <= *(int *)(&g_nCameraBoundY + g_clientContext) + aiStack_ac8[0];
     if (bVar2) {
       uVar8 = EncodeChecksumDeltaAdd(iVar5 + 0xb30,auStack_89c,
@@ -114,9 +114,9 @@ void __fastcall FUN_00480310(int *param_1)
       iVar5 = PeekChecksumStateUnderLock(uVar8);
     }
     else {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = *(int *)(&g_nCameraBoundY + g_clientContext) + iVar5;
     }
     param_1[0xfee] = iVar5;
@@ -136,13 +136,13 @@ void __fastcall FUN_00480310(int *param_1)
     aiStack_ac8[0] = EncodeChecksumDeltaSub(iVar5 + 0xb30,auStack_89c,400);
     pcVar15 = (code *)EnterCriticalSection;
     uStack_4 = 0;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
     pcVar14 = (code *)LeaveCriticalSection;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     aiStack_ac8[0] = PeekPacketChecksumState((void *)(aiStack_ac8[0]));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     bVar2 = aiStack_ac8[0] <= *(int *)(&g_nCameraBoundY + g_clientContext) + iVar6;
     if (bVar2) {
       uVar8 = EncodeChecksumDeltaSub(iVar5 + 0xb30,auStack_ac0,400);
@@ -150,9 +150,9 @@ void __fastcall FUN_00480310(int *param_1)
       iVar5 = PeekChecksumStateUnderLock(uVar8);
     }
     else {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = *(int *)(&g_nCameraBoundY + g_clientContext) + iVar5;
     }
     param_1[0xfee] = iVar5;
@@ -166,13 +166,13 @@ void __fastcall FUN_00480310(int *param_1)
       TreeLowerBound(aiStack_ac8,&g_valueGuardMap);
     }
   }
-  (*pcVar15)(&DAT_005a9068);
+  (*pcVar15)(&g_valueGuardLock);
   PeekPacketChecksumState((void *)(param_1 + 0x99));
-  (*pcVar14)(&DAT_005a9068);
+  (*pcVar14)(&g_valueGuardLock);
   if (param_1[0xfee] != unaff_EBP) {
-    (*pcVar15)(&DAT_005a9068);
+    (*pcVar15)(&g_valueGuardLock);
     iVar5 = PeekPacketChecksumState((void *)(param_1 + 0x99));
-    (*pcVar14)(&DAT_005a9068);
+    (*pcVar14)(&g_valueGuardLock);
     iVar5 = param_1[0xfee] - iVar5;
     if ((param_1[0xfef] == 0) && (param_1[9] != 3)) {
       if (0 < iVar5) {
@@ -197,19 +197,19 @@ void __fastcall FUN_00480310(int *param_1)
      * exactly the `param_1 + 0x99` cell this file threads through
      * PeekChecksumStateUnderLock elsewhere below. See
      * tools/encodeoutgoingpacketfield_sites.json. */
-    (*pcVar15)(&DAT_005a9068);
+    (*pcVar15)(&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x99));
     EncodeOutgoingPacketField(param_1 + 0x99, iVar6 + iVar5);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     pcVar14 = (code *)LeaveCriticalSection;
   }
-  (*pcVar15)(&DAT_005a9068);
+  (*pcVar15)(&g_valueGuardLock);
   iVar5 = PeekPacketChecksumState((void *)(param_1 + 0x10));
-  (*pcVar14)(&DAT_005a9068);
+  (*pcVar14)(&g_valueGuardLock);
   if (param_1[0xfed] != unaff_EDI) {
-    (*pcVar15)(&DAT_005a9068);
+    (*pcVar15)(&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x10));
-    (*pcVar14)(&DAT_005a9068);
+    (*pcVar14)(&g_valueGuardLock);
     iVar6 = param_1[0xfed] - iVar6;
     if ((param_1[0xfef] == 0) && (param_1[9] != 3)) {
       if (0 < iVar6) {
@@ -234,20 +234,20 @@ void __fastcall FUN_00480310(int *param_1)
      * exactly the `param_1 + 0x10` cell this file threads through
      * PeekChecksumStateUnderLock elsewhere below. See
      * tools/encodeoutgoingpacketfield_sites.json. */
-    (*pcVar15)(&DAT_005a9068);
+    (*pcVar15)(&g_valueGuardLock);
     iVar7 = PeekPacketChecksumState((void *)(param_1 + 0x10));
     EncodeOutgoingPacketField(param_1 + 0x10, iVar7 + iVar6);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     pcVar14 = (code *)LeaveCriticalSection;
   }
   if (param_1[9] == 3) {
-    (*pcVar15)(&DAT_005a9068);
+    (*pcVar15)(&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x10));
-    (*pcVar14)(&DAT_005a9068);
+    (*pcVar14)(&g_valueGuardLock);
     if (param_1[0xfed] == iVar6) {
-      (*pcVar15)(&DAT_005a9068);
+      (*pcVar15)(&g_valueGuardLock);
       iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x99));
-      (*pcVar14)(&DAT_005a9068);
+      (*pcVar14)(&g_valueGuardLock);
       if (param_1[0xfee] == iVar6) {
         switch(param_1[0xfef]) {
         case 0:
@@ -272,23 +272,23 @@ void __fastcall FUN_00480310(int *param_1)
        * 0x480902/0x480989 (edi loaded from esi+0x264/esi+0x40), same
        * `param_1 + 0x99` / `param_1 + 0x10` cells as above. See
        * tools/encodeoutgoingpacketfield_sites.json. */
-      (*pcVar15)(&DAT_005a9068);
+      (*pcVar15)(&g_valueGuardLock);
       uVar8 = PeekPacketChecksumState((void *)(pvDelta));
       EncodeOutgoingPacketField(param_1 + 0x99, uVar8);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      (*pcVar15)(&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      (*pcVar15)(&g_valueGuardLock);
       iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x99));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       param_1[0xfee] = iVar6;
       uStack_1c = 0xffffffff;
       ScrubChecksumGuard();
       iVar6 = param_1[0xff4];
-      (*pcVar15)(&DAT_005a9068);
+      (*pcVar15)(&g_valueGuardLock);
       EncodeOutgoingPacketField(param_1 + 0x10, iVar6);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      (*pcVar15)(&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      (*pcVar15)(&g_valueGuardLock);
       iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x10));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       param_1[0xfed] = iVar6;
       if (param_1[0xb] == 1) {
         if (*(char *)(iVar5 + 0x651c) == '\0') {
@@ -357,23 +357,23 @@ void __fastcall FUN_00480310(int *param_1)
      * 0x480c49/0x480ca4 (edi loaded from esi+0x264/esi+0x40), same
      * `param_1 + 0x99` / `param_1 + 0x10` cells as above. See
      * tools/encodeoutgoingpacketfield_sites.json. */
-    (*pcVar15)(&DAT_005a9068);
+    (*pcVar15)(&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)(pvDelta));
     EncodeOutgoingPacketField(param_1 + 0x99, uVar8);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    (*pcVar15)(&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    (*pcVar15)(&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x99));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     param_1[0xfee] = iVar6;
     uStack_1c = 0xffffffff;
     ScrubChecksumGuard();
-    (*pcVar15)(&DAT_005a9068);
+    (*pcVar15)(&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)(iVar5 + 0x90c));
     EncodeOutgoingPacketField(param_1 + 0x10, uVar8);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    (*pcVar15)(&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    (*pcVar15)(&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x10));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     param_1[0xfed] = iVar6;
     FUN_0047bfd0();
     if (param_1[0xb] != 1) goto LAB_0048108e;
@@ -407,14 +407,14 @@ void __fastcall FUN_00480310(int *param_1)
      * even has `piVar1 = param_1 + 0x10;` assigned on the very same
      * line, confirming the cell independently). See
      * tools/encodeoutgoingpacketfield_sites.json. */
-    (*pcVar15)(&DAT_005a9068);
+    (*pcVar15)(&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)(pvDelta));
     EncodeOutgoingPacketField(param_1 + 0x99, uVar8);
     pcVar14 = (code *)LeaveCriticalSection;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    (*pcVar15)(&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    (*pcVar15)(&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x99));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uStack_1c = 0xffffffff;
     param_1[0xfee] = iVar6;
     if (iStack_67c != 0) {
@@ -422,14 +422,14 @@ void __fastcall FUN_00480310(int *param_1)
       TreeLowerBound(&stack0xfffff520,&g_valueGuardMap);
       pcVar14 = (code *)LeaveCriticalSection;
     }
-    (*pcVar15)(&DAT_005a9068);
+    (*pcVar15)(&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)(iVar5 + 0x90c));
     piVar1 = param_1 + 0x10;
     EncodeOutgoingPacketField(param_1 + 0x10, uVar8);
-    (*pcVar14)(&DAT_005a9068);
-    (*pcVar15)(&DAT_005a9068);
+    (*pcVar14)(&g_valueGuardLock);
+    (*pcVar15)(&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x10));
-    (*pcVar14)(&DAT_005a9068);
+    (*pcVar14)(&g_valueGuardLock);
     param_1[0xfed] = iVar6;
     FUN_0047bfd0();
     iVar6 = param_1[0xb];

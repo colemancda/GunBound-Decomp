@@ -38,12 +38,12 @@ int FUN_00451030(int param_1,int regEax)
     return 0;
   }
   while( true ) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar2 = PeekPacketChecksumState((void *)(iVar4 + 0x38));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)(iVar4 + 0x25c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = (int)(iVar3 + (iVar3 >> 0x1f & 3U)) >> 2;
     if ((iVar2 - iVar3 < param_1) && (param_1 < iVar2 + iVar3)) break;
     iVar4 = *(int *)(iVar4 + 0x10);

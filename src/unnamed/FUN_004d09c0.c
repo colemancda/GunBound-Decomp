@@ -15,9 +15,9 @@ void FUN_004d09c0(void)
   
   iVar1 = 8;
   do {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField(0);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
   return;

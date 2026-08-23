@@ -30,17 +30,17 @@ uint FUN_0043c550(undefined4 param_1,undefined4 param_2)
     return 0xffffffff;
   }
   while( true ) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if ((byte)(*(byte *)(iVar4 + 0x908) + *(byte *)(iVar4 + 0x909) + -0x34) ==
         *(char *)(iVar4 + 0x90a)) {
       cVar3 = '\x01' - ((*(byte *)(iVar4 + 0x909) >> (*(byte *)(iVar4 + 0x908) & 7) & 1) != 1);
     }
     else {
       g_valueGuardTamperFlag = 1;
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       cVar3 = '\0';
     }
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if ((cVar3 == '\x01') && (cVar3 = FUN_0045d640(param_1,param_2), cVar3 != '\0')) break;
     iVar4 = *(int *)(iVar4 + 0x10);
     if (iVar1 == iVar4) {

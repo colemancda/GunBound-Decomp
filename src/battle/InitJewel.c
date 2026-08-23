@@ -195,23 +195,23 @@ undefined4 * InitJewel(undefined4 *param_1,undefined4 param_2)
    * above this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x2074),0);
   local_4 = 0x11;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477df0
    * (`0x477ded: lea edi,[esi + 0x38]`) the cell is param_1 (this object being
    * constructed) plus byte offset 0x38 - confirmed by the zero-writes to the
    * matching tableHandle (+0x14) and activeFlag (+0x220) fields just above
    * this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x38),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477e0e
    * (`0x477e08: lea edi,[esi + 0x480]`) the cell is param_1 (this object being
    * constructed) plus byte offset 0x480 - confirmed by the zero-writes to the
    * matching tableHandle (+0x14) and activeFlag (+0x220) fields just above
    * this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x480),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)((int)param_1 + 0x480));
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477e37
    * (`0x477e31: lea edi,[esi + 0x25c]`) the cell is param_1 (this object being
@@ -219,33 +219,33 @@ undefined4 * InitJewel(undefined4 *param_1,undefined4 param_2)
    * matching tableHandle (+0x14) and activeFlag (+0x220) fields just above
    * this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x25c),uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477e55
    * (`0x477e4f: lea edi,[esi + 0x6a4]`) the cell is param_1 (this object being
    * constructed) plus byte offset 0x6a4 - confirmed by the zero-writes to the
    * matching tableHandle (+0x14) and activeFlag (+0x220) fields just above
    * this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x6a4),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477e73
    * (`0x477e6d: lea edi,[esi + 0x8c8]`) the cell is param_1 (this object being
    * constructed) plus byte offset 0x8c8 - confirmed by the zero-writes to the
    * matching tableHandle (+0x14) and activeFlag (+0x220) fields just above
    * this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x8c8),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   param_1[699] = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477e97
    * (`0x477e91: lea edi,[esi + 0x19f4]`) the cell is param_1 (this object
    * being constructed) plus byte offset 0x19f4 - confirmed by the zero-writes
    * to the matching tableHandle (+0x14) and activeFlag (+0x220) fields just
    * above this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x19f4),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = _rand();
   *(char *)(param_1 + 0x3ce) = (char)iVar2;
   iVar2 = _rand();
@@ -254,8 +254,8 @@ undefined4 * InitJewel(undefined4 *param_1,undefined4 param_2)
           '\0' << (*(byte *)(param_1 + 0x3ce) & 7);
   *(byte *)((int)param_1 + 0xf39) = bVar3;
   *(byte *)((int)param_1 + 0xf3a) = bVar3 + *(char *)(param_1 + 0x3ce) + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = _rand();
   *(char *)((int)param_1 + 0xf3b) = (char)iVar2;
   iVar2 = _rand();
@@ -264,40 +264,40 @@ undefined4 * InitJewel(undefined4 *param_1,undefined4 param_2)
   bVar3 = ~('\x01' << bVar3) & (byte)iVar2 | '\0' << bVar3;
   *(byte *)(param_1 + 0x3cf) = bVar3;
   *(byte *)((int)param_1 + 0xf3d) = *(byte *)((int)param_1 + 0xf3b) + bVar3 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477fa0
    * (`0x477f9a: lea edi,[esi + 0x1164]`) the cell is param_1 (this object
    * being constructed) plus byte offset 0x1164 - confirmed by the zero-writes
    * to the matching tableHandle (+0x14) and activeFlag (+0x220) fields just
    * above this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x1164),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477fbe
    * (`0x477fb8: lea edi,[esi + 0x1388]`) the cell is param_1 (this object
    * being constructed) plus byte offset 0x1388 - confirmed by the zero-writes
    * to the matching tableHandle (+0x14) and activeFlag (+0x220) fields just
    * above this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x1388),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477fdc
    * (`0x477fd6: lea edi,[esi + 0x15ac]`) the cell is param_1 (this object
    * being constructed) plus byte offset 0x15ac - confirmed by the zero-writes
    * to the matching tableHandle (+0x14) and activeFlag (+0x220) fields just
    * above this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x15ac),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x477ffa
    * (`0x477ff4: lea edi,[esi + 0x17d0]`) the cell is param_1 (this object
    * being constructed) plus byte offset 0x17d0 - confirmed by the zero-writes
    * to the matching tableHandle (+0x14) and activeFlag (+0x220) fields just
    * above this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x17d0),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = _rand();
   *(char *)(param_1 + 0x706) = (char)iVar2;
   iVar2 = _rand();
@@ -306,15 +306,15 @@ undefined4 * InitJewel(undefined4 *param_1,undefined4 param_2)
   bVar3 = ~('\x01' << bVar3) & (byte)iVar2 | '\0' << bVar3;
   *(byte *)((int)param_1 + 0x1c19) = bVar3;
   *(byte *)((int)param_1 + 0x1c1a) = *(byte *)(param_1 + 0x706) + bVar3 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x47808f
    * (`0x478089: lea edi,[esi + 0x1c1c]`) the cell is param_1 (this object
    * being constructed) plus byte offset 0x1c1c - confirmed by the zero-writes
    * to the matching tableHandle (+0x14) and activeFlag (+0x220) fields just
    * above this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_1 + 0x1c1c),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *unaff_FS_OFFSET = local_c;
   return param_1;
 }

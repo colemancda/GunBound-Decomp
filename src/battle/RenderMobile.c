@@ -55,13 +55,13 @@ void __fastcall RenderMobile(int param_1)
   cVar3 = PeekPacketChecksumBool((byte *)(param_1 + 0x908));
   iVar8 = g_clientContext;
   if (cVar3 == '\0') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar5 == 2) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if ((*(uint *)(param_1 + 8) & 7) == uVar6) {
         iVar5 = *(int *)(g_clientContext + 0x1fe2c);
         iVar10 = *(int *)(g_clientContext + 0x1fe30);

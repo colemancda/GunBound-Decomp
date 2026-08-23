@@ -35,16 +35,16 @@ void __thiscall FUN_00436cd0(int param_1,int param_2,int param_3)
       else {
         iVar2 = FUN_004892c0();
       }
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar4 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = _rand();
       *(int *)(iVar2 + 0x38) = (iVar5 % 0x15 - iVar4) + param_2;
       iVar4 = _rand();
       *(int *)(iVar2 + 0x3c) = param_1 - iVar4 % 0x15;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar4 = PeekPacketChecksumState((void *)&DAT_00e9bed8);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = _rand();
       *(int *)(iVar2 + 0x44) = iVar5 % iVar4;
       RegisterActiveObject(0, 0, (undefined4 *)0);

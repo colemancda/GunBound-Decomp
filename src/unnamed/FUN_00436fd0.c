@@ -69,9 +69,9 @@ void FUN_00436fd0(int param_1,int param_2,int param_3,int param_4,int param_5)
           puVar4[0xe] = local_8 / iVar1 + -4 + iVar5 % 9 + param_4;
           iVar5 = _rand();
           puVar4[0xf] = param_3 / iVar1 + -4 + iVar5 % 9 + param_5;
-          EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+          EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar5 = PeekPacketChecksumState((void *)&DAT_00e9bed8);
-          LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+          LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar6 = _rand();
           puVar4[0x11] = iVar6 % iVar5;
           RegisterActiveObject(0, 0, (undefined4 *)0);

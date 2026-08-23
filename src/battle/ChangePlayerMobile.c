@@ -73,21 +73,21 @@ void ChangePlayerMobile(int param_1,undefined4 param_2)
   if (iVar1 != 0) {
     *(undefined4 *)(*(int *)(iVar1 + 0xc) + 0x10) = *(undefined4 *)(iVar1 + 0x10);
     *(undefined4 *)(*(int *)(iVar1 + 0x10) + 0xc) = *(undefined4 *)(iVar1 + 0xc);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar2 = PeekPacketChecksumState((void *)(iVar1 + 0xb30));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar3 = PeekPacketChecksumState((void *)(iVar1 + 0x90c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     CreateMobile((uint)param_1,param_2,uVar3,uVar2,*(undefined4 *)(iVar1 + 0xae2c),
                  *(undefined4 *)(iVar1 + 0xae38),*(undefined4 *)(iVar1 + 0xae3c),iVar1 + 0xae15,
                  iVar1 + 0xae22,*(undefined4 *)(iVar1 + 0xae30),*(undefined4 *)(iVar1 + 0xae34),1);
     iVar4 = GetPlayerRecordBySlot(g_clientContext);
     if (iVar4 != 0) {
       *(int *)(g_clientContext + 0x621e4) = iVar4;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if (param_1 == uVar5) {
         *(int *)(g_clientContext + 0x621e0) = iVar4;
       }
@@ -112,17 +112,17 @@ void ChangePlayerMobile(int param_1,undefined4 param_2)
        * own iVar4 per `mov ebx,eax` right after the second
        * GetPlayerRecordBySlot call above) the cell is iVar4+0x8bc4. See
        * tools/encodeoutgoingpacketfield_sites.json. */
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar2 = PeekPacketChecksumState((void *)(iVar1 + 0x8bc4));
       EncodeOutgoingPacketField(iVar4 + 0x8bc4, uVar2);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x4d1267 (`lea edi,[ebx+0x1c54]` at 0x4d1253) the cell is
        * iVar4+0x1c54. See tools/encodeoutgoingpacketfield_sites.json. */
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar2 = PeekPacketChecksumState((void *)(iVar1 + 0x1c54));
       EncodeOutgoingPacketField(iVar4 + 0x1c54, uVar2);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       cVar6 = CompareChecksumPair(iVar4 + 0x8318,iVar1 + 0x853c);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x4d12b5 (`lea edi,[ebx+0x853c]` at 0x4d12a3, AFTER the
@@ -130,10 +130,10 @@ void ChangePlayerMobile(int param_1,undefined4 param_2)
        * ternary - the final `lea edi,[ebx+0x853c]` right before this
        * call is what feeds it) the cell is iVar4+0x853c. See
        * tools/encodeoutgoingpacketfield_sites.json. */
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar2 = PeekPacketChecksumState((void *)(cVar6 != 0 ? iVar4 + 0x8318 : iVar1 + 0x853c));
       EncodeOutgoingPacketField(iVar4 + 0x853c, uVar2);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       RescrambleGuardedBool();
       *(undefined2 *)(iVar4 + 0xbfbc) = *(undefined2 *)(iVar1 + 0xbfbc);
       *(undefined1 *)(iVar4 + 0xae68) = *(undefined1 *)(iVar1 + 0xae68);
@@ -144,10 +144,10 @@ void ChangePlayerMobile(int param_1,undefined4 param_2)
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x4d1339 (`lea edi,[ebx+0xc080]` at 0x4d1325) the cell is
        * iVar4+0xc080. See tools/encodeoutgoingpacketfield_sites.json. */
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar2 = PeekPacketChecksumState((void *)(iVar1 + 0xc080));
       EncodeOutgoingPacketField(iVar4 + 0xc080, uVar2);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       *(undefined4 *)(iVar1 + 0xbfe4) = 200;
       *(undefined4 *)(iVar4 + 0xbfe0) = 200;
       uVar2 = EncodeChecksumPairSum(iVar1 + 0x6744,local_230,iVar1 + 0x6db0);
@@ -164,10 +164,10 @@ void ChangePlayerMobile(int param_1,undefined4 param_2)
        * FUN_0040aea0 call above) the cell is iVar4+0x6968 - not
        * expressed as a named variable in the existing C, so written
        * directly. See tools/encodeoutgoingpacketfield_sites.json. */
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar2 = PeekPacketChecksumState((void *)uVar7);
       EncodeOutgoingPacketField(iVar4 + 0x6968, uVar2);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       SUBFIELD(local_4,0,undefined1) = 2;
       if (local_888 != 0) {
         ScrambleChecksumGuardBytes(local_888,&g_valueGuardKeyTable);

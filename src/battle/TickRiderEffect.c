@@ -33,14 +33,14 @@ void __thiscall TickRiderEffect(int param_1)
 
   AdvanceSpriteAnimation(param_1);
   if (*(int *)(param_1 + 0x3c) <= *(int *)(param_1 + 0x44)) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     cVar2 = (iVar1 == 1);
     if (cVar2 == '\0') {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       cVar2 = (iVar1 == 3);
     }
     if (cVar2 == '\0') {

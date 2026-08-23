@@ -60,9 +60,9 @@ LAB_0045d679:
   uVar6 = FUN_0045f300(unaff_EDI);
   uVar12 = EncodeChecksumDeltaAdd(uVar5,auStack_ac0,uVar6);
   SUBFIELD(iStack_4,0,undefined1) = 2;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar7 = PeekPacketChecksumState((void *)uVar12);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   SUBFIELD(iStack_4,0,undefined1) = 1;
   if (iStack_aac != 0) {
     ScrambleChecksumGuardBytes(iStack_aac,&g_valueGuardKeyTable);

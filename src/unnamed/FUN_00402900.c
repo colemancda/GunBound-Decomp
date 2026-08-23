@@ -87,9 +87,9 @@ void FUN_00402900(int param_1,char *param_2)
       pcVar4 = pcVar4 + 1;
     } while (cVar2 != '\0');
     iVar3 = FUN_00404b00(&local_38);
-    iVar8 = DAT_007934e8;
+    iVar8 = g_connectionContextA;
     if (iVar3 == 0) {
-      *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+      *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       *(undefined2 *)(iVar8 + 0x4d4) = 0x1020;
       *(undefined4 *)(iVar8 + 0x4d6) = *(undefined4 *)param_2;
       *(undefined4 *)(iVar8 + 0x4da) = *(undefined4 *)(param_2 + 4);

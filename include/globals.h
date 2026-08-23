@@ -418,7 +418,12 @@ extern uint8_t DAT_0058b8d6;
  * variables" section for the known ~1159-address gap this was pulled
  * from) - added by hand since it was blocking FUN_0041eb80.c. */
 extern uint8_t DAT_0058bb04;
-extern uint8_t DAT_005a9068;
+/* g_valueGuardLock (was DAT_005a9068) - the value-guard / packet-encode
+ * CRITICAL_SECTION, entered by WinMain before anything could have
+ * initialised it; crt_shims_msvc.c's .CRT$XCU hook initialises all three
+ * static sections before the CRT calls WinMain.  Real 24-byte storage is
+ * in globals_sized.c. */
+extern uint8_t g_valueGuardLock;
 extern uint8_t DAT_005a9084;
 extern uint32_t DAT_005b1444; /* ATL::CAtlStringMgr* singleton (holds the vtable ptr value) - see globals.c */
 extern uint32_t DAT_005b15ac;
@@ -462,8 +467,8 @@ extern uint32_t DAT_005b3480;
  * starting at +0x3f808: count, onlineFlag, serverId, regionOrType, name,
  * desc, serverIp, port, currentPlayers, maxCapacity - see PROTOCOL.md).
  * Held as a uint32_t (raw address); call sites do `base + fixed_offset`.
- * There appear to be two such arenas double-buffered via DAT_007934ec /
- * DAT_007934e8 (swapped on server change); this handle tracks the active
+ * There appear to be two such arenas double-buffered via g_connectionContextB /
+ * g_connectionContextA (swapped on server change); this handle tracks the active
  * one. Name is a defensible role label, not a verified original symbol. */
 extern uint32_t g_clientContext;
 extern uint32_t DAT_005b3488;
@@ -656,8 +661,14 @@ extern uint32_t DAT_007934e0;
  * singleton: +0x04 is its HWND, +0x08 a live/visible flag.  Named in
  * ActivateLegacyTextInputField's header before the symbol itself was renamed. */
 extern uint32_t g_sharedTextInputControl;
-extern uint32_t DAT_007934e8;
-extern uint32_t DAT_007934ec;
+/* The two halves of the double-buffered connection context, swapped on
+ * server change; g_clientContext tracks whichever is active.  State02_
+ * ServerSelect.cpp already declared them locally as "double-buffered
+ * connection context" and "the other half".
+ *   g_connectionContextA (was DAT_007934e8)
+ *   g_connectionContextB (was DAT_007934ec) */
+extern uint32_t g_connectionContextA;
+extern uint32_t g_connectionContextB;
 extern uint32_t DAT_007934f0;
 /* The direct-link / peer-to-peer auto-connect object WinMain allocates at
  * startup (operator_new(0x200c), then FUN_004058c0(obj,3,...)); its session

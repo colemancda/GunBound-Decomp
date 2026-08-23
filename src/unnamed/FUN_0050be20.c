@@ -65,9 +65,9 @@ void FUN_0050be20(int param_1,int param_2,int param_3)
   local_88 = 0;
 LAB_0050be92:
   iVar1 = *(int *)(param_1 + 0x94);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(g_clientContext + local_88 + 0x5f4ab8));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((iVar2 == iVar1) && (g_screenSurface != 0)) {
     iVar1 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar3 = *(uint *)(iVar1 + 4);
@@ -107,9 +107,9 @@ code_r0x0050bf7b:
                     /* WARNING: Subroutine does not return */
     ThrowCxxException(0x80070057);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + *(int *)(param_1 + 0x94) * 0x450 + 0x22c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar3 = iVar1 >> 0x10 & 0xf;
   uVar4 = uVar3 * 2;
   if (uVar3 != 3) {
@@ -117,9 +117,9 @@ code_r0x0050bf7b:
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x80070057);
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar3 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + *(int *)(param_1 + 0x94) * 0x450 + 0x22c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if ((uVar3 & 0x8000) == 0) {
       uVar4 = uVar4 + 1;
     }
@@ -156,9 +156,9 @@ LAB_0050c076:
   }
 LAB_0050c0b2:
   if (*(uint *)(param_1 + 0x94) < *(uint *)(g_clientContext + 0x44e24)) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar3 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + *(int *)(param_1 + 0x94) * 0x450 + 0x22c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* BlitRLESprite's `this` (1st arg) recovered via objdump at this call
      * site (orig 0x50c142): ECX is loaded from [esp+0xa4] (this file's own
      * param_2) then `add ecx,0x18` right before the call - so `this` is
@@ -178,13 +178,13 @@ LAB_0050c0b2:
      * ambiguity" exception. */
     BlitRLESprite(param_2 + 0x18,param_3 + 3,(-(uint)((uVar3 & 0x20000000) != 0x20000000) & 0x480d) + 0xb7f2,(byte *)(local_84 + 0x331c4));
     local_8c = 2;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33624));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar1 != 0) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33624));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if (iVar1 < 1) {
         if ((g_screenSurface != 0) && (iVar1 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,9), iVar1 != 0)) {
           if (*(char *)(iVar1 + 0x18) == '\x01') {
@@ -194,9 +194,9 @@ LAB_0050c0b2:
             BlitSpriteClipped(9,param_2 + 0x99,param_3 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33624));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = -iVar1;
       }
       else {
@@ -208,22 +208,22 @@ LAB_0050c0b2:
             BlitSpriteClipped(8,param_2 + 0x99,param_3 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33624));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       }
       _sprintf(local_80,&DAT_00555654,iVar1);
       BlitSpriteText(0x28,local_80,2,6);
       local_8c = 1;
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x34520));
     pcVar5 = (code *)LeaveCriticalSection;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if ((iVar1 != 0) && (local_8c < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x34520));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_88 = local_8c * 0x19 + param_2;
       if (iVar1 < 0) {
         iVar1 = local_88 + 0x67;
@@ -235,9 +235,9 @@ LAB_0050c0b2:
             BlitSpriteClipped(10,iVar1,param_3 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x34520));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = -iVar1;
       }
       else {
@@ -250,23 +250,23 @@ LAB_0050c0b2:
             BlitSpriteClipped(0xb,iVar1,param_3 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x34520));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       }
       _sprintf(local_80,&DAT_00555654,iVar1);
       BlitSpriteText(0x28,local_80,2,6);
       local_8c = local_8c + -1;
       pcVar5 = (code *)LeaveCriticalSection;
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33a6c));
-    puVar8 = &DAT_005a9068;
+    puVar8 = &g_valueGuardLock;
     (*pcVar5)();
     if ((iVar1 != 0) && (unaff_EBX < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33a6c));
-      (*pcVar5)(&DAT_005a9068);
+      (*pcVar5)(&g_valueGuardLock);
       local_8c = unaff_EBX * 0x19 + param_1;
       if (iVar1 < 0) {
         iVar1 = local_8c + 0x67;
@@ -278,9 +278,9 @@ LAB_0050c0b2:
             BlitSpriteClipped(0xc,iVar1,param_2 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33a6c));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = -iVar1;
       }
       else {
@@ -293,22 +293,22 @@ LAB_0050c0b2:
             BlitSpriteClipped(0xd,iVar1,param_2 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33a6c));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       }
       _sprintf((char *)&local_84,&DAT_00555654,iVar1);
       BlitSpriteText(0x28,&local_84,2,6);
       pcVar5 = (code *)LeaveCriticalSection;
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33c90));
-    puVar7 = &DAT_005a9068;
+    puVar7 = &g_valueGuardLock;
     (*pcVar5)();
     if ((iVar1 != 0) && (unaff_EBP < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar2 = PeekPacketChecksumState((void *)(local_84 + 0x33c90));
-      (*pcVar5)(&DAT_005a9068);
+      (*pcVar5)(&g_valueGuardLock);
       iVar1 = unaff_EBP * 0x19 + unaff_retaddr;
       if (iVar2 < 0) {
         if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xe), iVar2 != 0)) {
@@ -319,9 +319,9 @@ LAB_0050c0b2:
             BlitSpriteClipped(0xe,iVar1 + 0x67,param_1 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33c90));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = -iVar1;
       }
       else {
@@ -333,22 +333,22 @@ LAB_0050c0b2:
             BlitSpriteClipped(0xf,iVar1 + 0x67,param_1 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33c90));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       }
       _sprintf((char *)&local_88,&DAT_00555654,iVar1);
       BlitSpriteText(0x28,&local_88,2,6);
       pcVar5 = (code *)LeaveCriticalSection;
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33eb4));
-    puVar6 = &DAT_005a9068;
-    (*pcVar5)(&DAT_005a9068);
+    puVar6 = &g_valueGuardLock;
+    (*pcVar5)(&g_valueGuardLock);
     if ((iVar1 != 0) && (unaff_ESI < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar2 = PeekPacketChecksumState((void *)(local_84 + 0x33eb4));
-      (*pcVar5)(&DAT_005a9068);
+      (*pcVar5)(&g_valueGuardLock);
       iVar1 = unaff_ESI * 0x19 + iStack_4;
       if (iVar2 < 0) {
         if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x10), iVar2 != 0)) {
@@ -359,9 +359,9 @@ LAB_0050c0b2:
             BlitSpriteClipped(0x10,iVar1 + 0x67,unaff_retaddr + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33eb4));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = -iVar1;
       }
       else {
@@ -373,21 +373,21 @@ LAB_0050c0b2:
             BlitSpriteClipped(0x11,iVar1 + 0x67,unaff_retaddr + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33eb4));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       }
       _sprintf((char *)&local_8c,&DAT_00555654,iVar1);
       BlitSpriteText(0x28,&local_8c,2,6);
       pcVar5 = (code *)LeaveCriticalSection;
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x340d8));
-    (*pcVar5)(&DAT_005a9068);
+    (*pcVar5)(&g_valueGuardLock);
     if ((iVar1 != 0) && (unaff_EDI < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar2 = PeekPacketChecksumState((void *)(local_84 + 0x340d8));
-      (*pcVar5)(&DAT_005a9068);
+      (*pcVar5)(&g_valueGuardLock);
       iVar1 = unaff_EDI * 0x19 + iStack_8;
       if (iVar2 < 0) {
         if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x12), iVar2 != 0)) {
@@ -398,9 +398,9 @@ LAB_0050c0b2:
             BlitSpriteClipped(0x12,iVar1 + 0x67,iStack_4 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x340d8));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = -iVar1;
       }
       else {
@@ -412,21 +412,21 @@ LAB_0050c0b2:
             BlitSpriteClipped(0x13,iVar1 + 0x67,iStack_4 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x340d8));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       }
       _sprintf(&stack0xffffff70,&DAT_00555654,iVar1);
       BlitSpriteText(0x28,&stack0xffffff70,2,6);
       pcVar5 = (code *)LeaveCriticalSection;
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33848));
-    (*pcVar5)(&DAT_005a9068);
+    (*pcVar5)(&g_valueGuardLock);
     if ((iVar1 != 0) && ((int)puVar8 < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar2 = PeekPacketChecksumState((void *)(local_84 + 0x33848));
-      (*pcVar5)(&DAT_005a9068);
+      (*pcVar5)(&g_valueGuardLock);
       iVar1 = (int)puVar8 * 0x19 + iStack_c;
       if (iVar2 < 0) {
         if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x14), iVar2 != 0)) {
@@ -437,9 +437,9 @@ LAB_0050c0b2:
             BlitSpriteClipped(0x14,iVar1 + 0x67,iStack_8 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33848));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = -iVar1;
       }
       else {
@@ -451,21 +451,21 @@ LAB_0050c0b2:
             BlitSpriteClipped(0x15,iVar1 + 0x67,iStack_8 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33848));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       }
       _sprintf(&stack0xffffff6c,&DAT_00555654,iVar1);
       BlitSpriteText(0x28,&stack0xffffff6c,2,6);
       pcVar5 = (code *)LeaveCriticalSection;
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x342fc));
-    (*pcVar5)(&DAT_005a9068);
+    (*pcVar5)(&g_valueGuardLock);
     if ((iVar1 != 0) && ((int)puVar7 < 3)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar2 = PeekPacketChecksumState((void *)(local_84 + 0x342fc));
-      (*pcVar5)(&DAT_005a9068);
+      (*pcVar5)(&g_valueGuardLock);
       iVar1 = (int)puVar6 * 0x19 + iStack_14;
       if (iVar2 < 0) {
         if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x16), iVar2 != 0)) {
@@ -476,9 +476,9 @@ LAB_0050c0b2:
             BlitSpriteClipped(0x16,iVar1 + 0x67,iStack_10 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x342fc));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = -iVar1;
       }
       else {
@@ -490,9 +490,9 @@ LAB_0050c0b2:
             BlitSpriteClipped(0x17,iVar1 + 0x67,iStack_10 + 2,0x2713);
           }
         }
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x342fc));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       }
       _sprintf(&stack0xffffff64,&DAT_00555654,iVar1);
       BlitSpriteText(0x28,&stack0xffffff64,2,6);

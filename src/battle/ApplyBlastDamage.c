@@ -87,10 +87,10 @@ void ApplyBlastDamage(int param_1,int param_2,int param_3,int param_4,int param_
   pcVar9 = (code *)LeaveCriticalSection;
   iVar5 = g_clientContext;
   if (param_3 != 0) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
     pcVar9 = (code *)LeaveCriticalSection;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_8bc = (param_4 * 7) / iVar5;
     iVar5 = g_clientContext;
   }
@@ -107,13 +107,13 @@ LAB_0043b008:
       uVar8 = uStack_8d0;
       for (piVar11 = (int *)piVar7[4]; uStack_8d0 = uVar8, piVar7 != piVar11;
           piVar11 = (int *)piVar11[4]) {
-        (*pcVar12)(&DAT_005a9068);
+        (*pcVar12)(&g_valueGuardLock);
         if ((char)((char)piVar11[0x242] + *(char *)((int)piVar11 + 0x909) + -0x34) !=
             *(char *)((int)piVar11 + 0x90a)) {
           g_valueGuardTamperFlag = 1;
-          (*pcVar9)(&DAT_005a9068);
+          (*pcVar9)(&g_valueGuardLock);
         }
-        (*pcVar9)(&DAT_005a9068);
+        (*pcVar9)(&g_valueGuardLock);
         SUBFIELD(uStack_8d0,3,undefined1) = (char)(uVar8 >> 0x18);
         bVar13 = SUBFIELD(uStack_8d0,3,undefined1) != '\0';
         iVar5 = g_clientContext;
@@ -130,9 +130,9 @@ LAB_0043b008:
           if (cVar2 != '\0') {
             EncodeChecksumDeltaSub(piVar11 + 0x243,local_460,param_1);
             local_c = 0;
-            EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+            EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             PeekPacketChecksumState((void *)(local_460));
-            (*pcVar9)(&DAT_005a9068);
+            (*pcVar9)(&g_valueGuardLock);
             puStack_10 = (undefined1 *)0xffffffff;
             if (iStack_450 != 0) {
               ScrambleChecksumGuardBytes(iStack_450,&g_valueGuardKeyTable);
@@ -141,9 +141,9 @@ LAB_0043b008:
             }
             iVar6 = EncodeChecksumDeltaSub(piVar11 + 0x2cc,auStack_8ac,param_2);
             puStack_10 = (undefined1 *)0x1;
-            EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+            EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             local_8bc = PeekPacketChecksumState((void *)(auStack_8ac));
-            (*pcVar9)(&DAT_005a9068);
+            (*pcVar9)(&g_valueGuardLock);
             local_8c8 = local_894;
             local_c = 0xffffffff;
             if (local_894 != 0) {
@@ -154,7 +154,7 @@ LAB_0043b008:
             iVar5 = g_clientContext;
             pcVar12 = (code *)EnterCriticalSection;
             if (local_8b8[0] * local_8b8[0] + iVar6 * iVar6 < iVar10 * iVar10) {
-              EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+              EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
               iVar5 = _rand();
               *(byte *)((int)piVar11 + 0xb0b5) = (byte)iVar5;
               iVar5 = _rand();
@@ -165,7 +165,7 @@ LAB_0043b008:
               bVar3 = ~bVar3 & (byte)iVar5 | bVar3;
               *(byte *)((int)piVar11 + 0xb0b6) = bVar3;
               *(byte *)((int)piVar11 + 0xb0b7) = bVar4 + bVar3 + -0x34;
-              (*pcVar9)(&DAT_005a9068);
+              (*pcVar9)(&g_valueGuardLock);
               /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
                * 0x43b29b/0x43b2bc/0x43b2dd (edi loaded from esi+0xb0bc/
                * esi+0xb2e0/esi+0xb504). esi is the object pointer this file
@@ -176,16 +176,16 @@ LAB_0043b008:
                * is `int *`, so byte offsets are taken via `(int)piVar11 +
                * N`, matching this file's own idiom just above. See
                * tools/encodeoutgoingpacketfield_sites.json. */
-              EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+              EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
               EncodeOutgoingPacketField((int)piVar11 + 0xb0bc, param_5);
-              (*pcVar9)(&DAT_005a9068);
-              EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+              (*pcVar9)(&g_valueGuardLock);
+              EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
               EncodeOutgoingPacketField((int)piVar11 + 0xb2e0, param_6);
-              (*pcVar9)(&DAT_005a9068);
-              EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+              (*pcVar9)(&g_valueGuardLock);
+              EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
               EncodeOutgoingPacketField((int)piVar11 + 0xb504, param_4);
-              (*pcVar9)(&DAT_005a9068);
-              EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+              (*pcVar9)(&g_valueGuardLock);
+              EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
               iVar5 = _rand();
               *(char *)(piVar11 + 0x2c2e) = (char)iVar5;
               iVar5 = _rand();
@@ -194,7 +194,7 @@ LAB_0043b008:
               bVar4 = ~('\x01' << bVar4) & (byte)iVar5 | '\0' << bVar4;
               *(byte *)((int)piVar11 + 0xb0b9) = bVar4;
               *(byte *)((int)piVar11 + 0xb0ba) = *(byte *)(piVar11 + 0x2c2e) + bVar4 + -0x34;
-              (*pcVar9)(&DAT_005a9068);
+              (*pcVar9)(&g_valueGuardLock);
               iVar5 = piVar11[9];
               *(byte *)(piVar11 + 0x2c2b) = param_7;
               if (((iVar5 != 0xe) && (iVar5 != 5)) &&
@@ -235,9 +235,9 @@ LAB_0043b408:
             if ((char)piVar11[5] == '\0') {
               EncodeChecksumDeltaSub(piVar11 + 0x97,local_684,param_1);
               local_c = 2;
-              (*pcVar12)(&DAT_005a9068);
+              (*pcVar12)(&g_valueGuardLock);
               PeekPacketChecksumState((void *)(local_684));
-              (*pcVar9)(&DAT_005a9068);
+              (*pcVar9)(&g_valueGuardLock);
               local_14 = 0xffffffff;
               if (iStack_678 != 0) {
                 iVar5 = iStack_678 << 4;
@@ -254,9 +254,9 @@ LAB_0043b408:
               }
               EncodeChecksumDeltaSub(piVar11 + 0x120,auStack_244,param_2);
               local_14 = 3;
-              (*pcVar12)(&DAT_005a9068);
+              (*pcVar12)(&g_valueGuardLock);
               piVar7 = (int *)PeekPacketChecksumState((void *)(auStack_244));
-              (*pcVar9)(&DAT_005a9068);
+              (*pcVar9)(&g_valueGuardLock);
               local_c = 0xffffffff;
               if (local_228 != 0) {
                 iVar5 = local_228 << 4;
@@ -273,7 +273,7 @@ LAB_0043b408:
               }
               iVar5 = g_clientContext;
               if (local_8b8[0] * local_8b8[0] + local_8c8 * local_8c8 < param_4 * param_4) {
-                (*pcVar12)(&DAT_005a9068);
+                (*pcVar12)(&g_valueGuardLock);
                 iVar5 = _rand();
                 *(char *)(piVar11 + 0x3ce) = (char)iVar5;
                 uVar8 = _rand();
@@ -295,16 +295,16 @@ LAB_0043b408:
                  * CValueGuard cells (stride 0x224) at piVar11+0xf40. Byte
                  * offsets via `(int)piVar11 + N`. See
                  * tools/encodeoutgoingpacketfield_sites.json. */
-                (*pcVar12)(&DAT_005a9068);
+                (*pcVar12)(&g_valueGuardLock);
                 EncodeOutgoingPacketField((int)piVar11 + 0xf40, param_5);
-                (*pcVar9)(&DAT_005a9068);
-                EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+                (*pcVar9)(&g_valueGuardLock);
+                EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
                 EncodeOutgoingPacketField((int)piVar11 + 0x1164, param_6);
-                (*pcVar9)(&DAT_005a9068);
-                EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+                (*pcVar9)(&g_valueGuardLock);
+                EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
                 EncodeOutgoingPacketField((int)piVar11 + 0x1388, param_4);
-                (*pcVar9)(&DAT_005a9068);
-                EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+                (*pcVar9)(&g_valueGuardLock);
+                EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
                 iVar5 = _rand();
                 *(char *)((int)piVar11 + 0xf3b) = (char)iVar5;
                 iVar5 = _rand();
@@ -313,7 +313,7 @@ LAB_0043b408:
                 bVar4 = ~('\x01' << bVar4) & (byte)iVar5 | '\0' << bVar4;
                 *(byte *)(piVar11 + 0x3cf) = bVar4;
                 *(byte *)((int)piVar11 + 0xf3d) = *(byte *)((int)piVar11 + 0xf3b) + bVar4 + -0x34;
-                (*pcVar9)(&DAT_005a9068);
+                (*pcVar9)(&g_valueGuardLock);
                 (**(code **)(*piVar11 + 4))(s_shock_00553b80);
                 iVar5 = g_clientContext;
                 pcVar12 = (code *)EnterCriticalSection;

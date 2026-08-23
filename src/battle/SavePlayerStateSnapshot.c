@@ -38,18 +38,18 @@ void SavePlayerStateSnapshot(void)
    * array of 3 CValueGuard cells (stride 0x224 = sizeof(CValueGuard)) at
    * unaff_ESI+0xc2b0. `unaff_ESI` is plain `int`, so `unaff_ESI + N` is
    * already byte-precise. See tools/encodeoutgoingpacketfield_sites.json. */
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0x90c));
   EncodeOutgoingPacketField(unaff_ESI + 0xc2b0, uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0xb30));
   EncodeOutgoingPacketField(unaff_ESI + 0xc4d4, uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0x1c54));
   EncodeOutgoingPacketField(unaff_ESI + 0xc6f8, uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(undefined4 *)(unaff_ESI + 0xc91c) = *(undefined4 *)(unaff_ESI + 0x24);
   *(undefined4 *)(unaff_ESI + 0xc920) = *(undefined4 *)(unaff_ESI + 0x28);
   *(undefined4 *)(unaff_ESI + 0xc928) = *(undefined4 *)(unaff_ESI + 0x30);
@@ -67,22 +67,22 @@ void SavePlayerStateSnapshot(void)
    * esi+0xcd8c/esi+0xcfb0). Same `unaff_ESI` base as above; a second array
    * of 4 CValueGuard cells (stride 0x224) at unaff_ESI+0xc944. See
    * tools/encodeoutgoingpacketfield_sites.json. */
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0x6fd4));
   EncodeOutgoingPacketField(unaff_ESI + 0xc944, uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0x4d90));
   EncodeOutgoingPacketField(unaff_ESI + 0xcb68, uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0x51d8));
   EncodeOutgoingPacketField(unaff_ESI + 0xcd8c, uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)(unaff_ESI + 0x4948));
   EncodeOutgoingPacketField(unaff_ESI + 0xcfb0, uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return;
 }
 

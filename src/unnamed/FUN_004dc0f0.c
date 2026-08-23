@@ -21,9 +21,9 @@ int FUN_004dc0f0(void)
   if (unaff_EDI == 0) {
     return 0;
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0x39d0c + unaff_EDI * 0x224));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = unaff_EDI + -1;
   if (iVar1 != 0xff) {
     iVar2 = unaff_EDI;

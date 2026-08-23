@@ -70,7 +70,7 @@ undefined4 * InitFirewallHazard(undefined4 *param_1)
    * tableHandle(+0x14)=param_1+0x49c (== param_1[0x127]) is zeroed just
    * above. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)param_1 + 0x488, 0);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = _rand();
   *(byte *)(param_1 + 0xe) = (byte)iVar2;
   iVar2 = _rand();
@@ -80,7 +80,7 @@ undefined4 * InitFirewallHazard(undefined4 *param_1)
   bVar3 = ~('\x01' << bVar3) & (byte)iVar2 | '\0' << bVar3;
   *(byte *)((int)param_1 + 0x39) = bVar3;
   *(byte *)((int)param_1 + 0x3a) = bVar3 + bVar1 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *unaff_FS_OFFSET = local_c;
   return param_1;
 }

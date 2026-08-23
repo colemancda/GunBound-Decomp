@@ -25,9 +25,9 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
   byte bVar9;
   
   if ((*(int *)(g_clientContext + 0x621e0) != 0) && (cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8)), cVar3 != '\0')) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x39f30 + param_2 * 0x224));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar7 != 0) {
       QueueBroadcastEvent(0xc401,(int)&g_replayContext);
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = (char)param_2;
@@ -54,7 +54,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
       uVar5 = PeekChecksumStateUnderLock(param_2 * 0x224 + 0x39f30 + g_clientContext);
       puVar1 = (ushort *)(iVar7 + 0xbfbc);
       *puVar1 = *puVar1 | uVar5;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x4cbf1f (`mov edi,esi` at 0x4cbf1d; real disasm at 0x4cbf12
        * shows `esi = [old esi(=param_2*0x224) + eax(=g_clientContext) +
@@ -64,7 +64,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
        * g_clientContext)`): cell is that identical expression. See
        * tools/encodeoutgoingpacketfield_sites.json. */
       EncodeOutgoingPacketField(param_2 * 0x224 + 0x39f30 + g_clientContext, 0);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar6 = PeekChecksumStateUnderLock(*(int *)(g_clientContext + 0x621e0) + 0x90c);
       iVar7 = g_clientContext;
       *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
@@ -80,7 +80,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
       FUN_004cc5c0(*(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 8),cVar3 != '\0',
                    *(undefined1 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc));
       iVar7 = *(int *)(g_clientContext + 0x621e0);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar8 = _rand();
       *(byte *)(iVar7 + 0x8bb4) = (byte)iVar8;
       iVar8 = _rand();
@@ -90,7 +90,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
       bVar9 = ~bVar9 & (byte)iVar8 | bVar9;
       *(byte *)(iVar7 + 0x8bb5) = bVar9;
       *(byte *)(iVar7 + 0x8bb6) = bVar9 + bVar2 + -0x34;
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       cVar3 = FUN_0041ea30(g_clientContext,*(undefined2 *)(*(int *)(g_clientContext + 0x621e0) + 0xbfbc));
       if (cVar3 != '\0') {
         cVar3 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bab));

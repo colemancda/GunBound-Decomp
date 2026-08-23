@@ -27,16 +27,16 @@ int __fastcall TickFlameEffect(int param_1)
     *(undefined1 *)(param_1 + 0x14) = 1;
   }
   if (*(char *)(g_clientContext + 0x45578) != '\0') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = PeekPacketChecksumState((void *)&DAT_00e9bed8);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar2 = *(int *)(param_1 + 0x44) + 5;
     *(int *)(param_1 + 0x44) = iVar2 % iVar1;
     return iVar2 / iVar1;
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)&DAT_00e9bed8);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = *(int *)(param_1 + 0x44) + 2;
   *(int *)(param_1 + 0x44) = iVar2 % iVar1;
   return iVar2 / iVar1;

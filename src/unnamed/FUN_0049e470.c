@@ -18,9 +18,9 @@ void __fastcall FUN_0049e470(int param_1)
   int iVar2;
   
   *(int *)(param_1 + 0x44) = *(int *)(param_1 + 0x44) + 1;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)&DAT_00e9bed8);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = *(int *)(param_1 + 0x40) + 1;
   *(int *)(param_1 + 0x40) = iVar2;
   *(int *)(param_1 + 0x44) = *(int *)(param_1 + 0x44) % iVar1;

@@ -18,9 +18,9 @@ void __fastcall FUN_00448370(int param_1)
   int iVar2;
   
   (**(code **)(*(int *)(param_1 + 0x30bbc) + 8))();
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x325b0));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar2 == 0) {
     cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32c54));
     if (cVar1 != '\x01') {

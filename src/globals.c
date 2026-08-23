@@ -317,7 +317,7 @@ uint8_t DAT_00588f64;
 void * DAT_0058b248;
 uint8_t DAT_0058b8d6;
 uint8_t DAT_0058bb04;
-/* DAT_005a9068, DAT_005a9084: moved to globals_sized.c - both are
+/* g_valueGuardLock, DAT_005a9084: moved to globals_sized.c - both are
  * CRITICAL_SECTIONs, a one-byte cell under-sizes them */
 /* DAT_005b1444 holds a pointer to the ATL::CAtlStringMgr vtable (real,
  * documented VS2003 ATL library object - see src/unnamed/msvc_crt_atl/
@@ -559,8 +559,8 @@ uint8_t DAT_007934cc;
 uint32_t DAT_007934d8;
 uint32_t DAT_007934e0;
 uint32_t g_sharedTextInputControl;
-uint32_t DAT_007934e8;
-uint32_t DAT_007934ec;
+uint32_t g_connectionContextA;
+uint32_t g_connectionContextB;
 uint32_t DAT_007934f0;
 uint32_t g_directLinkConnection;
 uint8_t DAT_007934f8;

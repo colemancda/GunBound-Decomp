@@ -230,7 +230,7 @@ LAB_0042b5ad:
   }
   local_4 = 0xffffffff;
 LAB_0042b60a:
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
    * 0x42b61e/0x42b645/0x42b666/0x42b687/0x42b6ab/0x42b6cc/0x42b795 (a
    * run of `lea edi,[ebp+N]`, ebp = this function's own piVar3 - the
@@ -239,25 +239,25 @@ LAB_0042b60a:
    * reused for both the param_5 encode and the following vtable-call
    * result encode). See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)piVar3 + 0x1a2c, param_3);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)piVar3 + 0x90c, param_4);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar4 = PeekPacketChecksumState((void *)((int)piVar3 + 0x90c));
   EncodeOutgoingPacketField((int)piVar3 + 0x15e4, uVar4);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)piVar3 + 0xb30, param_5);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar4 = (**(code **)(*piVar3 + 0x14))();
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)piVar3 + 0xb30, uVar4);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar4 = PeekPacketChecksumState((void *)((int)piVar3 + 0xb30));
   EncodeOutgoingPacketField((int)piVar3 + 0x1808, uVar4);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   piVar3[6] = param_3 + 5000;
   piVar3[0x241] = param_3 + 0x13ec;
   piVar3[0x2b8c] = param_11;
@@ -268,21 +268,21 @@ LAB_0042b60a:
   iVar5 = FindPreloadedTextureByName(s_avata_00553fa8);
   piVar3[0x15] = iVar5;
   (**(code **)(piVar3[0xe] + 4))(s_normal_00552230);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeGuardedBool(param_12,(byte *)GB_GUARD_UNRECOVERED);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x42b795
    * (`lea edi,[ebp+0x1c54]`, ebp = piVar3) the cell is
    * (int)piVar3+0x1c54. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)piVar3 + 0x1c54, 1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeGuardedBool(iVar5 == unaff_retaddr,(byte *)GB_GUARD_UNRECOVERED);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = 0xae15 - (int)param_8;
   do {
     cVar1 = *param_8;
@@ -308,7 +308,7 @@ LAB_0042b60a:
   if ((char)param_12 == '\0') {
     EncodeChecksumDeltaDiv(piVar3 + 0x19d1,auStack_454,2);
     local_4 = 0x11;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar4 = PeekPacketChecksumState((void *)(auStack_454));
     /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
      * 0x42b8da/0x42b95b (`lea edi,[ebp+0x6968]` / `lea edi,[ebp+0x6fd4]`,
@@ -319,7 +319,7 @@ LAB_0042b60a:
      * this EncodeOutgoingPacketField. See
      * tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)piVar3 + 0x6968, uVar4);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
       ScrambleChecksumGuardBytes(iStack_440,&g_valueGuardKeyTable);
@@ -327,10 +327,10 @@ LAB_0042b60a:
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x1b6c,auStack_454,2);
     local_4 = 0x12;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar4 = PeekPacketChecksumState((void *)(auStack_454));
     EncodeOutgoingPacketField((int)piVar3 + 0x6fd4, uVar4);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
       ScrambleChecksumGuardBytes(iStack_440,&g_valueGuardKeyTable);
@@ -338,7 +338,7 @@ LAB_0042b60a:
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x1ae3,auStack_454,2);
     local_4 = 0x13;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar4 = PeekPacketChecksumState((void *)(auStack_454));
     /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
      * 0x42b9d6/0x42ba51 (`lea edi,[ebp+0x6b8c]` / `lea edi,[ebp+0x71f8]`,
@@ -347,7 +347,7 @@ LAB_0042b60a:
      * +0x1c7e), reused as self since nothing overwrites EDI in between.
      * See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)piVar3 + 0x6b8c, uVar4);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_4 = 0xffffffff;
     if (iStack_440 != 0) {
       ScrambleChecksumGuardBytes(iStack_440,&g_valueGuardKeyTable);
@@ -355,10 +355,10 @@ LAB_0042b60a:
     }
     EncodeChecksumDeltaDiv(piVar3 + 0x1c7e,auStack_230,2);
     local_4 = 0x14;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar4 = PeekPacketChecksumState((void *)(auStack_230));
     EncodeOutgoingPacketField((int)piVar3 + 0x71f8, uVar4);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_4 = 0xffffffff;
     if (iStack_21c != 0) {
       ScrambleChecksumGuardBytes(iStack_21c,&g_valueGuardKeyTable);

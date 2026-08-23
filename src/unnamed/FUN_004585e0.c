@@ -25,21 +25,21 @@ void FUN_004585e0(void)
    * EncodeOutgoingPacketField cell below. */
   int *unaff_ESI;
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   PeekPacketChecksumState((void *)(unaff_ESI + 0x1ab));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   PeekPacketChecksumState((void *)(unaff_ESI + 0x122));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = CalculateAngleFromDelta();
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x458675
    * (`lea edi,[esi+0x1c2c]`, esi = unaff_ESI per the note above).
    * unaff_ESI is `int *` (scales by 4), so the byte offset is taken via
    * `(int)unaff_ESI + 0x1c2c`. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)unaff_ESI + 0x1c2c, ((iVar1 + 1) / 3) * 3);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return;
 }
 

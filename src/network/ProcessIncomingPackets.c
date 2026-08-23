@@ -107,7 +107,7 @@ LAB_004d33f1:
       uVar13 = (uVar13 - 1 | 0xffffff00) + 1;
     }
     *(uint *)(iVar6 + 0x24238) = uVar13;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x2a8));
     /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x4d28b2:
      * edi (self) is loaded from [esp+0x24fc] (this function's own
@@ -117,14 +117,14 @@ LAB_004d33f1:
      * (iVar6 + 2 + local_24e4) was already correct - only self was
      * missing. */
     EncodeOutgoingPacketField((void *)(param_1 + 0x2a8), iVar6 + 2 + local_24e4);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar7 = EncodeChecksumDeltaMul(param_1 + 0x2a8,local_2230,0x343fd);
     local_4 = 0;
     EncodeChecksumDeltaAdd(uVar7,local_2454,0x29ac03);
     SUBFIELD(local_4,0,undefined1) = 1;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     sVar5 = PeekPacketChecksumState((void *)(local_2454));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     if ((*(int *)(local_2454 + 0x14)) != 0) {
       iVar14 = 0;

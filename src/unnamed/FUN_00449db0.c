@@ -41,14 +41,14 @@ void FUN_00449db0(int param_1)
     *puVar13 = 0;
     puVar13 = puVar13 + 1;
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x449de0
    * (`lea edi,[ebp+4]`, ebp = this file's own param_1, confirmed by
    * objdump of orig/GunBound.gme matching this file's own `param_1 +
    * 0x2d114`-style offsets): the cell is param_1+4. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField(param_1 + 4, 0xffffffff);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar11 = 20000;
   local_84 = (undefined4)0xa;
   while( true ) {
@@ -113,9 +113,9 @@ LAB_00449e39:
                               *(char *)(iVar2 + 0x2d54c + param_1) == '\x01'),
                      *(undefined1 *)(param_1 + 0x44c),*(undefined2 *)(param_1 + 0x2e54c + iVar2 * 2),
                      iVar9);
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         uVar7 = PeekPacketChecksumState((void *)iVar9);
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         _sprintf((char *)((int)&uStack_80 + 3),s__05d_img_00555a08,uVar7);
         LoadSpriteSet(&g_spriteRegistry,iVar12 + 20000);
         auVar6 = local_84;

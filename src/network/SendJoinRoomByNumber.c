@@ -67,8 +67,8 @@ LAB_00429e3e:
     }
   }
   RefreshGameRoomListControls(0,(int)g_gameStateVTableArray[3]);
-  iVar4 = DAT_007934e8;
-  *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+  iVar4 = g_connectionContextA;
+  *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
   *(undefined2 *)(iVar4 + 0x4d4) = 0x2100;
   *(undefined1 *)(iVar4 + 0x4d6) = 1;
   iVar2 = *(int *)(iVar4 + 0x44d0);
@@ -79,8 +79,8 @@ LAB_00429e3e:
   *(short *)(iVar2 + 0x4d1 + iVar4) = (short)(local_84 / 6);
   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 2;
   SendOutgoingPacket(iVar4);
-  iVar4 = DAT_007934e8;
-  *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+  iVar4 = g_connectionContextA;
+  *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
   *(undefined2 *)(iVar4 + 0x4d4) = 0x2110;
   *(short *)(iVar4 + 0x4d6) = (short)local_84;
   iVar2 = *(int *)(iVar4 + 0x44d0);

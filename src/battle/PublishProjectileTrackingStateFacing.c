@@ -55,37 +55,37 @@ void __fastcall PublishProjectileTrackingStateFacing(int param_1)
   if (cVar5 != '\0') {
     *(undefined1 *)(ctx + *(int *)(param_1 + 8) + 0x20bb4) = 0;
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x488));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   cVar5 = CheckGuardedBoolAnd(iVar2 < 0);
   *(undefined1 *)(ctx + *(int *)(param_1 + 8) + 0x20ba4) = (cVar5 == '\0');
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(int *)(ctx + *(int *)(param_1 + 8) * 0x14 + 0x20c24) = iVar2;
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x1178));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(int *)(ctx + *(int *)(param_1 + 8) * 0x14 + 0x20c28) = iVar2;
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iAngle = PeekPacketChecksumState((void *)(param_1 + 0x1c2c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(int *)(ctx + *(int *)(param_1 + 8) * 0x14 + 0x20c2c) = iAngle;
 
   /* orig 0x4889b8-0x4889f7: the angle is re-peeked for the window test, and
    * again inside it - the original does not reuse the value above. */
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iAngle = PeekPacketChecksumState((void *)(param_1 + 0x1c2c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iFacing = 0;
   if (0x5a < iAngle) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x1c2c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar2 < 0x10e) {
       iFacing = 1;
     }

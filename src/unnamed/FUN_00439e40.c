@@ -30,14 +30,14 @@ undefined4 FUN_00439e40(int param_1)
   byte bVar10;
   byte bVar11;
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x439e60:
    * self is g_clientContext+0x621e8. Value (0xffffffff) already correct. */
   EncodeOutgoingPacketField((void *)(g_clientContext + 0x621e8), 0xffffffff);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = *(int *)(g_clientContext + 0x621e4);
   if (iVar4 != 0) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = _rand();
     *(char *)(iVar4 + 0x8ba8) = (char)iVar3;
     iVar3 = _rand();
@@ -46,9 +46,9 @@ undefined4 FUN_00439e40(int param_1)
     bVar10 = ~('\x01' << bVar10) & (byte)iVar3 | '\0' << bVar10;
     *(byte *)(iVar4 + 0x8ba9) = bVar10;
     *(byte *)(iVar4 + 0x8baa) = *(byte *)(iVar4 + 0x8ba8) + bVar10 + -0x34;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = *(int *)(g_clientContext + 0x621e4);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = _rand();
     *(byte *)(iVar4 + 0x8bae) = (byte)iVar3;
     iVar3 = _rand();
@@ -58,9 +58,9 @@ undefined4 FUN_00439e40(int param_1)
     bVar11 = ~('\x01' << bVar11) & (byte)iVar3 | '\0' << bVar11;
     *(byte *)(iVar4 + 0x8baf) = bVar11;
     *(byte *)(iVar4 + 0x8bb0) = bVar10 + bVar11 + -0x34;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = *(int *)(g_clientContext + 0x621e4);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = _rand();
     *(byte *)(iVar4 + 0x8bb1) = (byte)iVar3;
     iVar3 = _rand();
@@ -70,9 +70,9 @@ undefined4 FUN_00439e40(int param_1)
     bVar11 = ~('\x01' << bVar11) & (byte)iVar3 | '\0' << bVar11;
     *(byte *)(iVar4 + 0x8bb2) = bVar11;
     *(byte *)(iVar4 + 0x8bb3) = bVar10 + bVar11 + -0x34;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = *(int *)(g_clientContext + 0x621e4);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = _rand();
     *(byte *)(iVar4 + 0x8bb4) = (byte)iVar3;
     iVar3 = _rand();
@@ -82,26 +82,26 @@ undefined4 FUN_00439e40(int param_1)
     bVar11 = ~('\x01' << bVar11) & (byte)iVar3 | '\0' << bVar11;
     *(byte *)(iVar4 + 0x8bb5) = bVar11;
     *(byte *)(iVar4 + 0x8bb6) = bVar10 + bVar11 + -0x34;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e4) + 0xc080));
     /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x43a076:
      * self is *(int *)(g_clientContext+0x621e4) + 0xc080 (the record
      * ptr at +0x621e4, the same one iVar4 was loaded from above). Value
      * (iVar4 + 1) was already correct. */
     EncodeOutgoingPacketField((void *)(*(int *)(g_clientContext + 0x621e4) + 0xc080), iVar4 + 1);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e4) + 0x7864));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar4 != 0) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar5 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e4) + 0x7864));
       /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at
        * 0x43a0de: self is *(int *)(g_clientContext+0x621e4) + 0x7a88.
        * Value (uVar5) was already correct. */
       EncodeOutgoingPacketField((void *)(*(int *)(g_clientContext + 0x621e4) + 0x7a88), uVar5);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
   }
   FUN_0043a670();

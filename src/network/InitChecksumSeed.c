@@ -33,7 +33,7 @@ undefined4 InitChecksumSeed(void)
     if (*(char *)(iVar2 + 0x14) == '\0') break;
     iVar2 = *(int *)(iVar2 + 0x10);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = _rand();
   *(char *)(iVar2 + 0xf3f) = (char)iVar3;
   iVar3 = _rand();
@@ -42,7 +42,7 @@ undefined4 InitChecksumSeed(void)
   bVar4 = ~bVar4 & (byte)iVar3 | bVar4;
   *(byte *)(iVar2 + 0xf40) = bVar4;
   *(byte *)(iVar2 + 0xf41) = bVar4 + *(byte *)(iVar2 + 0xf3f) + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return 1;
 }
 

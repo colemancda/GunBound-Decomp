@@ -114,45 +114,45 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
 
   /* --- guard/checksum debug labels (only when the +0x23313 flag set) --- */
   if (*(char *)(param_1 + 0x23313) != '\0') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x239b4));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x23790));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     _sprintf(acStack_fc,s__s__3d__3d__005536b8,param_1 + 0x23313,uVar7,uVar6);
     BlitRLESprite(0xbe,9,0xfd0f,(byte *)acStack_fc);
   }
   BlitRLESprite(0xbe,0x17,0xffff,(byte *)(param_1 + 0x23330));
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x23348));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e20);
   _sprintf(acStack_fc,pcVar8,uVar6);
   for (pcVar8 = acStack_fc; *pcVar8 != '\0'; pcVar8 = pcVar8 + 1) {
   }
   BlitRLESprite(0x19b - (int)(pcVar8 - acStack_fc) * 6,9,0xffff,(byte *)acStack_fc);
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x39ae8));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e21);
   _sprintf(acStack_fc,pcVar8,uVar6);
   for (pcVar8 = acStack_fc; *pcVar8 != '\0'; pcVar8 = pcVar8 + 1) {
   }
   BlitRLESprite(0x19b - (int)(pcVar8 - acStack_fc) * 6,0x16,0xffff,(byte *)acStack_fc);
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x396a0));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e22);
   _sprintf(acStack_fc,pcVar8,uVar6);
   BlitRLESprite(0xad,0x27,0x1f3b,(byte *)acStack_fc);
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x398c4));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x4e23);
   _sprintf(acStack_fc,pcVar8,uVar6);
   for (pcVar8 = acStack_fc; *pcVar8 != '\0'; pcVar8 = pcVar8 + 1) {
@@ -197,9 +197,9 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
   /* --- item-detail / category dispatch (PeekPacketChecksumState-gated;
    *     the stub returns 0 so iVar4==0 falls straight through to the tab
    *     block below in this build) --- */
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)(param_1 + 0x325b0));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar4 != 0) {
     if (iVar4 == 1) {
       if (g_screenSurface != 0) {
@@ -453,7 +453,7 @@ LAB_004488e3:
     iCache = iCache + 0x80;
   } while (idx < 0x145);
 LAB_00448ab0:
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((byte)(*(byte *)(param_1 + 0x32c54) + *(byte *)(param_1 + 0x32c55) + -0x34) ==
       *(char *)(param_1 + 0x32c56)) {
     cVar11 = '\x01' - ((*(byte *)(param_1 + 0x32c55) >> (*(byte *)(param_1 + 0x32c54) & 7) & 1)
@@ -461,10 +461,10 @@ LAB_00448ab0:
   }
   else {
     g_valueGuardTamperFlag = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     cVar11 = '\0';
   }
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (cVar11 != '\0') {
     if (g_screenSurface != 0) {
       iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -533,7 +533,7 @@ LAB_00448cc9:
     }
   }
 LAB_00448d4a:
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((byte)(*(byte *)(param_1 + 0x32e63) + *(byte *)(param_1 + 0x32e64) + -0x34) ==
       *(char *)(param_1 + 0x32e65)) {
     cVar11 = '\x01' - ((*(byte *)(param_1 + 0x32e64) >> (*(byte *)(param_1 + 0x32e63) & 7) & 1)
@@ -541,10 +541,10 @@ LAB_00448d4a:
   }
   else {
     g_valueGuardTamperFlag = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     cVar11 = '\0';
   }
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (cVar11 != '\0') {
     if (g_screenSurface != 0) {
       iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);

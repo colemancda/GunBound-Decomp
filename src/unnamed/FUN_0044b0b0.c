@@ -24,9 +24,9 @@ void FUN_0044b0b0(int param_1)
       return;
     }
     if (*(uint *)(g_clientContext + 0x44e24) <= uVar1) break;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar1 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + uVar1 * 0x450 + 0x22c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-08-11): dropped outRecord (ESI) - orig 0x44b0b9-0x44b0c0
      * `mov esi,[esp+0x10]` (= param_1) / `add esi,0xdb5c`, loop-invariant
      * up to the call at 0x44b146. */

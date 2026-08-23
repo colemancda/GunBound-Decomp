@@ -9,7 +9,7 @@
  * via a dropped EBX register, not a real parameter - confirmed at the
  * State02_ServerSelect_ProcessPacket call site (orig 0x4e09cd..0x4e09fa,
  * `mov ebx, ds:0x7934ec` immediately before `call 0x4d2570`), matching the
- * same DAT_007934ec/+0x44d0 base already used throughout that caller.
+ * same g_connectionContextB/+0x44d0 base already used throughout that caller.
  * Promoted to an explicit 2nd parameter, following the same idiom as
  * BeginServerConnect's unaff_EBX fix (src/network/BeginServerConnect.c).
  * The only real call site (State02_ServerSelect_ProcessPacket) currently
@@ -32,7 +32,7 @@
  * branch. Its argument mapping (from orig 0x4e09b7-0x4e09fa):
  *   ECX/param_1  = *(int *)payload            (the server's 4-byte nonce;
  *                  becomes EncodeHandshakeBlock's hashed param_3)
- *   EBX/unaff_EBX= DAT_007934ec               (the connection context)
+ *   EBX/unaff_EBX= g_connectionContextB               (the connection context)
  *   ESI/credKey  = systemInfoBlob2            (BuildSystemInfoBlob output 2)
  *   EAX/credStr  = auStack_a0                  (BuildSystemInfoBlob output 1)
  * The post-call block the caller copies into the packet is auStack_a0's

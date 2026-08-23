@@ -36,13 +36,13 @@ undefined4 CheckBothGuardedBools(byte *cellA,byte *cellB)
   char cVar1;
   char cVar2;
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((byte)((*cellA + cellA[1]) - 0x34) == cellA[2]) {
     cVar2 = '\x01' - ((cellA[1] >> (*cellA & 7) & 1) != 1);
   }
   else {
     g_valueGuardTamperFlag = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     cVar2 = '\0';
   }
   if ((byte)((*cellB + cellB[1]) - 0x34) == cellB[2]) {
@@ -50,14 +50,14 @@ undefined4 CheckBothGuardedBools(byte *cellA,byte *cellB)
   }
   else {
     g_valueGuardTamperFlag = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     cVar1 = '\0';
   }
   if ((cVar2 != '\0') && (cVar1 != '\0')) {
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     return 1;
   }
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return 0;
 }
 

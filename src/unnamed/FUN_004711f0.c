@@ -21,9 +21,9 @@ int __fastcall FUN_004711f0(int param_1)
   if (0xf < iVar2) {
     *(undefined1 *)(param_1 + 0x14) = 1;
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)&DAT_00e9bed8);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = *(int *)(param_1 + 0x44) + 6;
   *(int *)(param_1 + 0x44) = iVar1 % iVar2;
   return iVar1 / iVar2;

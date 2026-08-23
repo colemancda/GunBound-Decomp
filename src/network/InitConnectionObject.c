@@ -46,12 +46,12 @@ undefined4 * InitConnectionObject(undefined4 *param_1,int param_2,undefined4 par
   *(undefined1 *)(param_1 + 0x132) = 0;
   param_1[0xaf] = 0;
   EncodeOutgoingPacketField((int)param_1 + 0x2a8, 0);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)param_1 + 0x84, 0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)param_1 + 0x2a8, 0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   param_1[0x133] = param_2;
   uVar1 = DAT_0056dc30[param_2];
   pvVar2 = operator_new(0x210);

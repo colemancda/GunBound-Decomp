@@ -66,13 +66,13 @@ undefined4 * InitShot2_Bullet12(undefined4 *param_1)
   param_1[0x1028] = 0;
   param_1[0x102a] = 1000;
   param_1[0x102b] = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)param_1 + 0x42dc, 0xfff0bdc0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)((int)param_1 + 0x42dc));
   EncodeOutgoingPacketField((int)param_1 + 0x40b8, uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   param_1[0x102c] = 0;
   param_1[0x1252] = 5;
   *unaff_FS_OFFSET = local_c;

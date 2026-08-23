@@ -42,13 +42,13 @@ LAB_004ce86c:
       iVar5 = iVar5 + 1;
     } while (iVar5 < 8);
     if (*(int *)(g_clientContext + 0x621e0) != 0) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x6968));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if (((iVar5 < 1) && (cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bbd)), cVar4 != '\0')) &&
          (cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bc0)), cVar4 == '\0')) {
         iVar5 = *(int *)(g_clientContext + 0x621e0);
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar8 = _rand();
         *(byte *)(iVar5 + 0x8bc0) = (byte)iVar8;
         iVar8 = _rand();
@@ -58,10 +58,10 @@ LAB_004ce86c:
         bVar9 = ~bVar9 & (byte)iVar8 | bVar9;
         *(byte *)(iVar5 + 0x8bc1) = bVar9;
         *(byte *)(iVar5 + 0x8bc2) = bVar9 + bVar2 + -0x34;
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-        iVar3 = DAT_007934e8;
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+        iVar3 = g_connectionContextA;
         iVar8 = g_clientContext;
-        *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+        *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
         *(undefined2 *)(iVar3 + 0x4d4) = 0x4100;
         *(undefined4 *)(iVar3 + 0x4d6) = *(undefined4 *)(*(int *)(iVar8 + 0x621e0) + 0xb0b0);
         iVar5 = *(int *)(iVar3 + 0x44d0);
@@ -84,13 +84,13 @@ LAB_004ce86c:
     FUN_004cea70(param_1);
     return;
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar5 < *(int *)(param_1 + 0x9c)) goto LAB_004ce86c;
   cVar4 = FUN_0043c820();
   if (cVar4 == '\x01') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
      * 0x4ce683 (`lea edi,[esi + 0x6240c]` at 0x4ce679; real disasm
      * shows esi == g_clientContext throughout this function, e.g. the
@@ -101,7 +101,7 @@ LAB_004ce86c:
     EncodeOutgoingPacketField(g_clientContext + 0x6240c, 1);
                     /* WARNING: Could not recover jumptable at 0x004ce694. Too many branches */
                     /* WARNING: Treating indirect jump as call */
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     return;
   }
   switch(*(undefined4 *)(param_1 + 0x49c)) {

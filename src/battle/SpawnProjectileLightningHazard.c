@@ -36,7 +36,7 @@ void SpawnProjectileLightningHazard(undefined4 param_1,undefined4 param_2,undefi
       iVar3 = InitProjectileLightningHazard(pvVar2);
     }
     local_4 = 0xffffffff;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
      * 0x4361bd (`lea edi,[esi + 0x38]`, esi = the object just
      * constructed above via InitProjectileLightningHazard(pvVar2), returned/kept in
@@ -47,14 +47,14 @@ void SpawnProjectileLightningHazard(undefined4 param_1,undefined4 param_2,undefi
      * 0x4a8)` use of the same `iVar3` as this object's base. See
      * tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField(iVar3 + 0x38, param_2);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
      * 0x4361e1 (`lea edi,[esi + 0x25c]`, esi = iVar3, same object as
      * above): cell is iVar3+0x25c, matching InitProjectileLightningHazard.c's second
      * cell offset. See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField(iVar3 + 0x25c, param_3);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     *(undefined1 *)(iVar3 + 0x4a8) = param_4;
     RegisterActiveObject(0, 0, (undefined4 *)0);
   }

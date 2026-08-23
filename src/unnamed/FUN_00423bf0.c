@@ -53,26 +53,26 @@ undefined4 FUN_00423bf0(int ctx)
   if (iVar2 != 0) {
     ReadXFSEntryByte(iVar2,&local_4,4);
     uVar1 = local_4;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField((void *)(ctx + 0x5f3774), uVar1);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     CloseSpriteReadState();
     iVar2 = OpenXFSEntryStream(archiveBase, "fh.dat", 1, 0);
     if (iVar2 != 0) {
       ReadXFSEntryByte(iVar2,&local_4,4);
       uVar1 = local_4;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       EncodeOutgoingPacketField((void *)(ctx + 0x5f3998), uVar1);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       CloseSpriteReadState();
       iVar2 = OpenXFSEntryStream(archiveBase, "fg.dat", 1, 0);
       if (iVar2 != 0) {
         ReadXFSEntryByte(iVar2,&local_4,4);
         QueueOutgoingPacketField((void *)(ctx + 0x5f3bbc), local_4);
         CloseSpriteReadState();
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         EncodeOutgoingPacketField((void *)(ctx + 0x5f3de0), 0);
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar2 = OpenXFSEntryStream(archiveBase, "mb.dat", 1, 0);
         if (iVar2 != 0) {
           ReadXFSEntryByte(iVar2,&local_4,4);

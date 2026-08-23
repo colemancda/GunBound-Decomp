@@ -33,8 +33,8 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
   if (param_2 == 0) {
     if ((param_3 < 9) && (*(uint *)(g_clientContext + 0x41340) != param_3)) {
       FUN_00507cc0(0,*(uint *)(g_clientContext + 0x41340));
-      iVar2 = DAT_007934e8;
-      *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+      iVar2 = g_connectionContextA;
+      *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       *(undefined2 *)(iVar2 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar2 + 0x4d6) = (undefined2)param_3;
       *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 2;
@@ -62,14 +62,14 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
           }
           else {
             cVar3 = FUN_00415230();
-            iVar2 = DAT_007934e8;
+            iVar2 = g_connectionContextA;
             if (cVar3 == '\0') {
-              *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+              *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
               *(undefined2 *)(iVar2 + 0x4d4) = 0x2010;
               *(char *)(iVar2 + 0x4d6) = (char)puVar4[1];
               *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 1;
               /* FIXED (2026-07-15): dropped `self`/`count` args - disasm-
-               * confirmed at 0x5077e8. self=EAX=DAT_007934e8 (=iVar2
+               * confirmed at 0x5077e8. self=EAX=g_connectionContextA (=iVar2
                * above). count=EDX=[ebx-0xc] where ebx is this function's
                * (already use-before-set, pre-existing bug) puVar4 pointer
                * reloaded at 0x50775a - that same [ptr-0xc] field is exactly

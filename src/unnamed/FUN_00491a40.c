@@ -23,21 +23,21 @@ int __fastcall FUN_00491a40(int param_1)
   uint3 extraout_var;
   uint3 extraout_var_00;
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar3 = (uint3)((uint)extraout_EAX >> 8);
   if (-1 < iVar1) {
     iVar1 = *(int *)(&g_nCameraBoundX + g_clientContext);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar2 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar3 = (uint3)((uint)extraout_EAX_00 >> 8);
     if (iVar2 < iVar1) {
       iVar1 = *(int *)(&g_nCameraBoundY + g_clientContext);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x1178));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar3 = extraout_var;
       if (iVar2 < iVar1) {
         PacketChecksumLessThan(param_1 + 0x1178,0xfffffc18);

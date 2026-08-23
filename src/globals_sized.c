@@ -11,11 +11,11 @@
  */
 
 /* The three static CRITICAL_SECTIONs (24 bytes on win32).
- * DAT_005a9068 is the value-guard/packet-encode lock WinMain enters
+ * g_valueGuardLock is the value-guard/packet-encode lock WinMain enters
  * before anything could have initialized it - see the .CRT$XCU hook in
  * src/cxx/crt_shims_msvc.c, which runs InitializeCriticalSection on
  * all three before the CRT calls WinMain. */
-unsigned char DAT_005a9068[24];
+unsigned char g_valueGuardLock[24];
 unsigned char DAT_005a9084[24];
 unsigned char DAT_00e9af44[24];
 

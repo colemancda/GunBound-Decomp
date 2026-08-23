@@ -20,9 +20,9 @@ uint FUN_0041eaa0(undefined4 param_1,int param_2)
   
   iVar2 = 0;
   do {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar1 = PeekPacketChecksumState((void *)(param_1 + 0x58b8e0 + iVar2 * 0x9bc));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (param_2 == uVar1) {
       uVar1 = PeekPacketChecksumBool();
       return uVar1;

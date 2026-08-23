@@ -22,13 +22,13 @@ void FUN_004ce3d0(int param_1)
   undefined4 *puVar5;
   
   if (*(int *)(param_1 + 0x89c) != 0) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (*(int *)(param_1 + 0x8a0) <= iVar2) {
       cVar1 = FUN_0043c820();
       if (cVar1 != '\0') {
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
          * 0x4ce441 (`mov edi,esi` at 0x4ce43f; real disasm at 0x4ce42a
          * shows `esi = g_clientContext (ds:0x5b3484); add esi,0x6240c`
@@ -40,7 +40,7 @@ void FUN_004ce3d0(int param_1)
          * `PacketChecksumEquals(g_clientContext + 0x6240c, ...)`). See
          * tools/encodeoutgoingpacketfield_sites.json. */
         EncodeOutgoingPacketField(g_clientContext + 0x6240c, 1);
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         return;
       }
       piVar3 = (int *)GetPlayerRecordBySlot(g_clientContext);

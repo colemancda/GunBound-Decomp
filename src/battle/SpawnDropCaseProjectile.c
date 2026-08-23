@@ -63,7 +63,7 @@ void SpawnDropCaseProjectile(undefined4 param_1,int param_2)
     piVar2[0xe27] = SUBFIELD(s_caseflame_00553c78,4,undefined4);
     *(undefined2 *)(piVar2 + 0xe28) = SUBFIELD(s_caseflame_00553c78,8,undefined2);
     *(undefined1 *)(piVar2 + 0xf) = 0xff;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
      * 0x434ba5/0x434bcc/0x434be7/0x434c05/0x434c20/0x434c3b/0x434c56
      * (a run of `lea edi,[esi+N]`, esi = this function's own piVar2 -
@@ -71,68 +71,68 @@ void SpawnDropCaseProjectile(undefined4 param_1,int param_2)
      * cells at (int)piVar2+0xf54/0x3b48/0x1178/0x40/0x264/0x488/0x8d0.
      * See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)piVar2 + 0xf54, param_2);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar4 = PeekPacketChecksumState((void *)((int)piVar2 + 0xf54));
     EncodeOutgoingPacketField((int)piVar2 + 0x3b48, uVar4);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField((int)piVar2 + 0x1178, 0);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField((int)piVar2 + 0x40, param_2 << 8);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField((int)piVar2 + 0x264, 0);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField((int)piVar2 + 0x488, 0);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField((int)piVar2 + 0x8d0, 0);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar4 = PeekPacketChecksumState((void *)&DAT_00e9ba40);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
      * 0x434c8a (`lea edi,[esi+0x6ac]`, esi = piVar2) the cell is
      * (int)piVar2+0x6ac. See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)piVar2 + 0x6ac, uVar4);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     PeekPacketChecksumState((void *)(g_clientContext + 0x5af88));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = FloatToInt64();
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x434d35
      * (`lea edi,[esi+0xaf4]`, esi = piVar2) the cell is
      * (int)piVar2+0xaf4. See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)piVar2 + 0xaf4, (iVar5 << 8) / iVar3);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     PeekPacketChecksumState((void *)(g_clientContext + 0x5af88));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = FloatToInt64();
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x434de8
      * (`lea edi,[esi+0xd18]`, esi = piVar2) the cell is
      * (int)piVar2+0xd18. See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)piVar2 + 0xd18, ((0x62 - iVar5) * 0x100) / iVar3);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = _rand();
     *(char *)((int)piVar2 + 0xf3f) = (char)iVar3;
     iVar3 = _rand();
@@ -141,8 +141,8 @@ void SpawnDropCaseProjectile(undefined4 param_1,int param_2)
     bVar6 = ~bVar6 & (byte)iVar3 | bVar6;
     *(byte *)(piVar2 + 0x3d0) = bVar6;
     *(byte *)((int)piVar2 + 0xf41) = bVar6 + *(char *)((int)piVar2 + 0xf3f) + -0x34;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = _rand();
     *(char *)((int)piVar2 + 0xf45) = (char)iVar3;
     iVar3 = _rand();
@@ -151,8 +151,8 @@ void SpawnDropCaseProjectile(undefined4 param_1,int param_2)
     bVar6 = ~('\x01' << bVar6) & (byte)iVar3 | '\0' << bVar6;
     *(byte *)((int)piVar2 + 0xf46) = bVar6;
     *(byte *)((int)piVar2 + 0xf47) = bVar6 + *(char *)((int)piVar2 + 0xf45) + -0x34;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = _rand();
     *(char *)((int)piVar2 + 0x391b) = (char)iVar3;
     iVar3 = _rand();
@@ -161,13 +161,13 @@ void SpawnDropCaseProjectile(undefined4 param_1,int param_2)
     bVar6 = ~('\x01' << bVar6) & (byte)iVar3 | '\0' << bVar6;
     *(byte *)(piVar2 + 0xe47) = bVar6;
     *(byte *)((int)piVar2 + 0x391d) = bVar6 + *(char *)((int)piVar2 + 0x391b) + -0x34;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x434f55
      * (`lea edi,[esi+0x3920]`, esi = piVar2) the cell is
      * (int)piVar2+0x3920. See tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)piVar2 + 0x3920, 0);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     *(undefined4 *)((int)piVar2 + 0x3813) = SUBFIELD(s_caseblast_xes_00553c68,0,undefined4);
     *(undefined4 *)((int)piVar2 + 0x3817) = SUBFIELD(s_caseblast_xes_00553c68,4,undefined4);
     *(undefined4 *)((int)piVar2 + 0x381b) = SUBFIELD(s_caseblast_xes_00553c68,8,undefined4);

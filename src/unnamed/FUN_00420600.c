@@ -32,9 +32,9 @@ int FUN_00420600(int ctx,int unaff_ESI)
   if (unaff_ESI == 0) {
     return 0;
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)(ctx + unaff_ESI * 0x224 + 0x39d0c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = unaff_ESI + -1;
   if (iVar1 != 0xff) {
     iVar2 = unaff_ESI;

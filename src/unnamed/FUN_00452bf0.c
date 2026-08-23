@@ -21,7 +21,7 @@ void __fastcall FUN_00452bf0(int *param_1)
   AdvanceSpriteAnimation((int)param_1);
   cVar1 = PeekPacketChecksumBool((byte *)param_1 + 0x391b);
   if (cVar1 != '\0') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar2 = PeekPacketChecksumState((void *)((int)param_1 + 0x3920));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x452c33
      * (`lea edi,[esi + 0x3920]`, esi = this file's own param_1, preserved
@@ -30,12 +30,12 @@ void __fastcall FUN_00452bf0(int *param_1)
      * `int *`, so byte offsets use `(int)param_1 + N`. See
      * tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)param_1 + 0x3920, iVar2 + 1);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
   iVar2 = param_1[0xed1];
   param_1[0xed1] = iVar2 + 1;
   if (iVar2 + 1 == 5) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar3 = PeekPacketChecksumState((void *)((int)param_1 + 0xf54));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x452c6c
      * (`lea edi,[esi + 0x3d6c]`, esi = param_1): cell is param_1+0x3d6c -
@@ -43,7 +43,7 @@ void __fastcall FUN_00452bf0(int *param_1)
      * CompareChecksumPair/CompareChecksumExceeds) in FUN_004acd10.c. See
      * tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField((int)param_1 + 0x3d6c, uVar3);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
   return;
 }

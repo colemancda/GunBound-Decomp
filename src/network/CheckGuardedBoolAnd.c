@@ -63,18 +63,18 @@ undefined4 CheckGuardedBoolAnd(int param_1,byte *cell)
 
 {
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((byte)((*cell + cell[1]) - 0x34) == cell[2]) {
     if (((cell[1] >> (*cell & 7) & 1) == 1) && (param_1 != '\0')) {
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       return 1;
     }
   }
   else {
     g_valueGuardTamperFlag = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return 0;
 }
 

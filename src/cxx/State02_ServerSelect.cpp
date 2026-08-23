@@ -51,11 +51,11 @@ extern unsigned char DAT_005b2ad0[0x80]; /* broker IP - sized, see globals.c */
 extern unsigned int DAT_005b33e8;        /* broker Port - sized, see globals.c */
 extern int DAT_005b2b64;                /* server count hint for the scroll seed */
 extern unsigned int g_sharedTextInputControl;       /* shared EDIT-control singleton (+8 = live flag) */
-extern unsigned int DAT_007934e8;       /* double-buffered connection context */
+extern unsigned int g_connectionContextA;       /* double-buffered connection context */
 extern unsigned int g_directLinkConnection;       /* outgoing packet buffer base */
 extern unsigned int DAT_007934f0;       /* per-connection context base */
 void FUN_00405ba0(void);
-extern unsigned int DAT_007934ec;       /* the other half of the double-buffered context */
+extern unsigned int g_connectionContextB;       /* the other half of the double-buffered context */
 extern unsigned int g_serverWaitTicks;
 extern unsigned int DAT_00e9be94;
 extern const char s_active_00551e58[];
@@ -148,8 +148,8 @@ void CState02ServerSelect::OnEnter()
     m_wantInitialList = 1;
     *(unsigned char *)(g_sharedTextInputControl + 8) = 1;   /* show the shared EDIT overlay */
     /* leftover connected socket from a previous session: tear it down */
-    if (*(char *)(DAT_007934e8 + 0x84e5) != 0) {
-        int conn = *(int *)(DAT_007934e8 + 0x84e0);
+    if (*(char *)(g_connectionContextA + 0x84e5) != 0) {
+        int conn = *(int *)(g_connectionContextA + 0x84e0);
         if (conn != 0) {
             *(int *)(conn + 0x22c) = 1;
             if (*(unsigned int *)(conn + 0x24) != 0xffffffff) {
@@ -157,7 +157,7 @@ void CState02ServerSelect::OnEnter()
             }
             *(int *)(conn + 0x24) = -1;
             *(unsigned char *)(conn + 0x22a) = 0;
-            *(unsigned char *)(DAT_007934e8 + 0x84e5) = 0;
+            *(unsigned char *)(g_connectionContextA + 0x84e5) = 0;
         }
     }
     m_tickCounter = 0;
@@ -248,7 +248,7 @@ static void ConnectButtonFromPlayerRecord()
  * (4) roll each listed server's blink animState. */
 void CState02ServerSelect::OnTick()
 {
-    unsigned char *cfg = (unsigned char *)DAT_007934ec;
+    unsigned char *cfg = (unsigned char *)g_connectionContextB;
     ++m_tickCounter;
     if (m_connecting != 0 && *(char *)(cfg + 0x84e4) == 0) {
         if (*(char *)(cfg + 0x84e5) == 0) {
@@ -261,7 +261,7 @@ void CState02ServerSelect::OnTick()
                 SetGuardedBool(0,GB_GUARD_UNRECOVERED);
             }
             FUN_004d24f0();
-            cfg = (unsigned char *)DAT_007934ec;
+            cfg = (unsigned char *)g_connectionContextB;
         } else {
             m_sendHandshake = 1;
         }

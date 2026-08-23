@@ -62,27 +62,27 @@ void __fastcall PublishProjectileTrackingState(int param_1)
     *(undefined1 *)(ctx + *(int *)(param_1 + 8) + 0x20bb4) = 0;
   }
   /* orig 0x4586cf-0x4586f5: `test eax,eax / setl al` - the sign of the peek */
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x488));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* orig 0x4586fb-0x458726: the flag is the INVERSE of the guard result */
   cVar5 = CheckGuardedBoolAnd(iVar2 < 0);
   *(undefined1 *)(ctx + *(int *)(param_1 + 8) + 0x20ba4) = (cVar5 == '\0');
 
   /* orig 0x45872f-0x4587c8: the five-dword per-slot record (stride 20) */
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(int *)(ctx + *(int *)(param_1 + 8) * 0x14 + 0x20c24) = iVar2;
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x1178));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(int *)(ctx + *(int *)(param_1 + 8) * 0x14 + 0x20c28) = iVar2;
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(param_1 + 0x1c2c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(int *)(ctx + *(int *)(param_1 + 8) * 0x14 + 0x20c2c) = iVar2;
   *(int *)(ctx + *(int *)(param_1 + 8) * 0x14 + 0x20c34) = 0;
 

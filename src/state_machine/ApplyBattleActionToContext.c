@@ -192,9 +192,9 @@ LAB_0042326c:
   }
   else if (uVar3 < 0x8401) {
     if (uVar3 == 0x8400) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar8 = PeekPacketChecksumState((void *)&DAT_00e525e8);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if (iVar8 < (int)(uint)*puVar12) {
         ShowErrorDialog(1);
       }

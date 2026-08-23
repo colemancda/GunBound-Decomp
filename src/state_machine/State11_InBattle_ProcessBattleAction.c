@@ -1101,9 +1101,9 @@ LAB_004b7fb2:
       if (((uVar11 == bVar16) && (*(int *)(g_clientContext + 0x621e0) != 0)) &&
          (cVar2 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bc0)), cVar2 == '\0')) {
         SetGuardedBool(1,GB_GUARD_UNRECOVERED);
-        iVar6 = DAT_007934e8;
+        iVar6 = g_connectionContextA;
         iVar10 = g_clientContext;
-        *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+        *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
         *(undefined2 *)(iVar6 + 0x4d4) = 0x4100;
         *(undefined4 *)(iVar6 + 0x4d6) = *(undefined4 *)(*(int *)(iVar10 + 0x621e0) + 0xb0b0);
         iVar4 = *(int *)(iVar6 + 0x44d0);
@@ -1232,8 +1232,8 @@ LAB_004b7fb2:
               iVar10 = *(int *)(g_clientContext + 0x44e60) + 1;
               pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,5000);
               _sprintf(local_26d8,pcVar5,iVar4,iVar10);
-              iVar4 = DAT_007934e8;
-              *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+              iVar4 = g_connectionContextA;
+              *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
               *(undefined2 *)(iVar4 + 0x4d4) = 0x5010;
               *(undefined1 *)(iVar4 + 0x4d6) = 0xff;
               iVar10 = *(int *)(iVar4 + 0x44d0) + 1;

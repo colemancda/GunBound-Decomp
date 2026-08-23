@@ -25,13 +25,13 @@ undefined4 __fastcall EncodeDividedChecksum(undefined4 param_1,int divisor)
 {
   int iVar1;
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState(param_1);
   if (divisor == 0) {
     divisor = 1;
   }
   EncodeOutgoingPacketField(param_1, iVar1 / divisor);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return param_1;
 }
 

@@ -91,7 +91,7 @@ unsigned int EncodeChecksumPairSum(void *cell, void *out, void *b);
 unsigned int EncodeChecksumDeltaMul(void *cell, void *out, int m);
 unsigned int EncodeChecksumNegate(void *cell, void *out);
 int  FindGroundHeightAtColumn(void);   /* 0x4e4340 - column arg arrives in a register (dropped) */
-extern CRITICAL_SECTION DAT_005a9068;  /* the guard family's shared lock, defined in ValueGuard.cpp */
+extern CRITICAL_SECTION g_valueGuardLock;  /* the guard family's shared lock, defined in ValueGuard.cpp */
 
 /* RenderMobile's additional dependencies. The Blit / Draw / FillRect calls
  * all drop most of their real (register-passed) coordinate/handle args in
@@ -260,23 +260,23 @@ int CMobile::v5_ComputeGroundY()
 
     uVar3 = EncodeChecksumDeltaDiv(pbVar1, &g678, 2);
     EncodeChecksumPairDiff(pbVar2, &g454, uVar3);
-    EnterCriticalSection(&DAT_005a9068);
+    EnterCriticalSection(&g_valueGuardLock);
     PeekPacketChecksumState((void *)(&g454));
-    LeaveCriticalSection(&DAT_005a9068);
-    EnterCriticalSection(&DAT_005a9068);
+    LeaveCriticalSection(&g_valueGuardLock);
+    EnterCriticalSection(&g_valueGuardLock);
     local_67c = this->m_pad908 + 4;        /* column x - passed to FindGroundHeightAtColumn via register */
     (void)local_67c;
     PeekPacketChecksumState((void *)(local_67c));
-    LeaveCriticalSection(&DAT_005a9068);
+    LeaveCriticalSection(&g_valueGuardLock);
     local_680 = FindGroundHeightAtColumn();
     if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
     if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
 
     uVar3 = EncodeChecksumDeltaDiv(pbVar1, &g454, 2);
     EncodeChecksumPairDiff(pbVar2, &g678, uVar3);
-    EnterCriticalSection(&DAT_005a9068);
+    EnterCriticalSection(&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(&g678));
-    LeaveCriticalSection(&DAT_005a9068);
+    LeaveCriticalSection(&g_valueGuardLock);
     bool bVar7 = local_680 == iVar4;
     if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
     if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
@@ -284,37 +284,37 @@ int CMobile::v5_ComputeGroundY()
     iVar4 = local_680;
     if (bVar7) {
         EncodeChecksumPairDiff(pbVar2, &g678, reinterpret_cast<unsigned int>(pbVar1));
-        EnterCriticalSection(&DAT_005a9068);
+        EnterCriticalSection(&g_valueGuardLock);
         PeekPacketChecksumState((void *)(&g678));
-        LeaveCriticalSection(&DAT_005a9068);
-        EnterCriticalSection(&DAT_005a9068);
+        LeaveCriticalSection(&g_valueGuardLock);
+        EnterCriticalSection(&g_valueGuardLock);
         PeekPacketChecksumState((void *)(local_67c));
-        LeaveCriticalSection(&DAT_005a9068);
+        LeaveCriticalSection(&g_valueGuardLock);
         iVar5 = FindGroundHeightAtColumn();
         if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
 
         EncodeChecksumPairDiff(pbVar2, &g678, reinterpret_cast<unsigned int>(pbVar1));
-        EnterCriticalSection(&DAT_005a9068);
+        EnterCriticalSection(&g_valueGuardLock);
         iVar6 = PeekPacketChecksumState((void *)(&g678));
-        LeaveCriticalSection(&DAT_005a9068);
+        LeaveCriticalSection(&g_valueGuardLock);
         if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
 
         iVar4 = local_680;
         if (iVar5 == iVar6) {
             EncodeChecksumDeltaAdd(pbVar2, &g678, 1);
-            EnterCriticalSection(&DAT_005a9068);
+            EnterCriticalSection(&g_valueGuardLock);
             PeekPacketChecksumState((void *)(&g678));
-            LeaveCriticalSection(&DAT_005a9068);
-            EnterCriticalSection(&DAT_005a9068);
+            LeaveCriticalSection(&g_valueGuardLock);
+            EnterCriticalSection(&g_valueGuardLock);
             PeekPacketChecksumState((void *)(local_67c));
-            LeaveCriticalSection(&DAT_005a9068);
+            LeaveCriticalSection(&g_valueGuardLock);
             iVar4 = FindGroundHeightAtColumn();
             if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
 
             EncodeChecksumDeltaAdd(pbVar2, &g230, 1);
-            EnterCriticalSection(&DAT_005a9068);
+            EnterCriticalSection(&g_valueGuardLock);
             iVar5 = PeekPacketChecksumState((void *)(&g230));
-            LeaveCriticalSection(&DAT_005a9068);
+            LeaveCriticalSection(&g_valueGuardLock);
             if (g230.tableHandle != 0) { ScrambleChecksumGuardBytes(g230.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
 
             if (iVar4 == iVar5) {
@@ -382,13 +382,13 @@ void CMobile::v3_Render()
     cVar4 = PeekPacketChecksumBool((unsigned char *)this + 0x908);
     iVar9 = g_clientContext;
     if (cVar4 == '\0') {
-        EnterCriticalSection(&DAT_005a9068);
+        EnterCriticalSection(&g_valueGuardLock);
         iVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-        LeaveCriticalSection(&DAT_005a9068);
+        LeaveCriticalSection(&g_valueGuardLock);
         if (iVar6 == 2) {
-            EnterCriticalSection(&DAT_005a9068);
+            EnterCriticalSection(&g_valueGuardLock);
             uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-            LeaveCriticalSection(&DAT_005a9068);
+            LeaveCriticalSection(&g_valueGuardLock);
             if ((this->m_owner & 7) == uVar7) {
                 iVar6 = *reinterpret_cast<int *>(g_clientContext + 0x1fe2c);
                 iVar11 = *reinterpret_cast<int *>(g_clientContext + 0x1fe30);
@@ -1638,15 +1638,15 @@ LAB_004613ad:
     LAB_004613b2:
         if (DAT_007934c4 != '\0') {
             (&DAT_00e52868)[DAT_00e52e68] = 0;
-            EnterCriticalSection(&DAT_005a9068);
+            EnterCriticalSection(&g_valueGuardLock);
             EncodeOutgoingPacketField((void *)(g_clientContext + 0x59190), 0xffffffff);
-            LeaveCriticalSection(&DAT_005a9068);
-            EnterCriticalSection(&DAT_005a9068);
+            LeaveCriticalSection(&g_valueGuardLock);
+            EnterCriticalSection(&g_valueGuardLock);
             EncodeOutgoingPacketField((void *)(g_clientContext + 0x593b4), 0xffffffff);
-            LeaveCriticalSection(&DAT_005a9068);
-            EnterCriticalSection(&DAT_005a9068);
+            LeaveCriticalSection(&g_valueGuardLock);
+            EnterCriticalSection(&g_valueGuardLock);
             EncodeOutgoingPacketField((void *)(param_1 + 0x1e19), 0);
-            LeaveCriticalSection(&DAT_005a9068);
+            LeaveCriticalSection(&g_valueGuardLock);
         }
     }
     cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0x1c50);
@@ -1734,11 +1734,11 @@ LAB_004613ad:
         param_1[0x2b84] = 0;
     }
     iVar18 = *reinterpret_cast<int *>(&g_nCameraBoundY + g_clientContext);
-    EnterCriticalSection(&DAT_005a9068);
+    EnterCriticalSection(&g_valueGuardLock);
     iVar25 = PeekPacketChecksumState((void *)(param_1 + 0x2cc));
-    LeaveCriticalSection(&DAT_005a9068);
+    LeaveCriticalSection(&g_valueGuardLock);
     if (iVar18 <= iVar25 && param_1[0x2b8b] != 0xff && (char)param_1[0x2b85] == '\0') {
-        EnterCriticalSection(&DAT_005a9068);
+        EnterCriticalSection(&g_valueGuardLock);
         iVar18 = _rand();
         *reinterpret_cast<char *>(reinterpret_cast<int>(param_1) + 0xbff7) = (char)iVar18;
         iVar18 = _rand();
@@ -1748,7 +1748,7 @@ LAB_004613ad:
         *reinterpret_cast<unsigned char *>(param_1 + 0x2ffe) = bVar10;
         *reinterpret_cast<unsigned char *>(reinterpret_cast<int>(param_1) + 0xbff9) =
             *reinterpret_cast<unsigned char *>(reinterpret_cast<int>(param_1) + 0xbff7) + bVar10 - 0x34;
-        LeaveCriticalSection(&DAT_005a9068);
+        LeaveCriticalSection(&g_valueGuardLock);
         cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0x8bc0);
         cVar9 = CheckGuardedBoolAnd('\x01' - (cVar9 != '\0'));
         if (cVar9 != '\0' && (cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0xbff4), cVar9 == '\0')) {

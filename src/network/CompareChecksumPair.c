@@ -22,10 +22,10 @@ bool CompareChecksumPair(undefined4 param_1,undefined4 param_2)
   int iVar1;
   int iVar2;
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)(param_1));
   iVar2 = PeekPacketChecksumState((void *)(param_2));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return iVar1 < iVar2;
 }
 

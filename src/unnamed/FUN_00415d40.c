@@ -631,7 +631,7 @@ int FUN_00415d40(int param_1)
   }
   g_clientContext = param_1;
   *(undefined4 *)(&DAT_0067e3c8 + param_1) = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
   *(char *)(param_1 + 0x23310) = (char)iVar1;
   iVar1 = _rand();
@@ -640,7 +640,7 @@ int FUN_00415d40(int param_1)
   bVar2 = ~('\x01' << bVar2) & (byte)iVar1 | '\0' << bVar2;
   *(byte *)(param_1 + 0x23311) = bVar2;
   *(byte *)(param_1 + 0x23312) = bVar2 + *(char *)(param_1 + 0x23310) + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (*(void **)(param_1 + 0x44be8) != (void *)0x0) {
     _free(*(void **)(param_1 + 0x44be8));
     *(undefined4 *)(param_1 + 0x44be8) = 0;
@@ -655,7 +655,7 @@ int FUN_00415d40(int param_1)
   }
   *(undefined4 *)(&DAT_006aa5fc + param_1) = 0;
   (&DAT_006aa600)[param_1] = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
   (&DAT_006aa678)[param_1] = (byte)iVar1;
   iVar1 = _rand();
@@ -665,15 +665,15 @@ int FUN_00415d40(int param_1)
   bVar3 = ~('\x01' << bVar3) & (byte)iVar1 | '\0' << bVar3;
   (&DAT_006aa679)[param_1] = bVar3;
   (&DAT_006aa67a)[param_1] = bVar2 + bVar3 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(undefined1 *)(param_1 + 0x457a0) = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x416bf6
    * (`0x416bf0: lea edi,[ebp + 0x449c4]`) the cell is param_1 + 0x449c4; same cell as the call at 0x4160a0 above (param_1+0x449c4), reused here
    * under the trailing EnterCriticalSection/LeaveCriticalSection pair.
    * See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField(param_1 + 0x449c4, 0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *unaff_FS_OFFSET = local_c;
   return param_1;
 }

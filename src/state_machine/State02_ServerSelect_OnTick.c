@@ -25,7 +25,7 @@ void __fastcall State02_ServerSelect_OnTick(int param_1)
   int iVar6;
   undefined4 *puVar7;
   
-  iVar6 = DAT_007934ec;
+  iVar6 = g_connectionContextB;
   *(int *)(param_1 + 0x20) = *(int *)(param_1 + 0x20) + 1;
   if ((*(char *)(param_1 + 4) != '\0') && (*(char *)(iVar6 + 0x84e4) == '\0')) {
     if (*(char *)(iVar6 + 0x84e5) == '\0') {
@@ -67,7 +67,7 @@ void __fastcall State02_ServerSelect_OnTick(int param_1)
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       }
       FUN_004d24f0();
-      iVar6 = DAT_007934ec;
+      iVar6 = g_connectionContextB;
     }
     else {
       *(undefined1 *)(param_1 + 5) = 1;

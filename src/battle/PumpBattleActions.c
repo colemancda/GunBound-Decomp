@@ -72,9 +72,9 @@ LAB_00412baa:
     DAT_0056d3dc = -1;
   }
   else {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x621e8));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar3 != -1) goto LAB_00412baa;
     if (DAT_0056d3dc == -1) {
       DAT_0056d3dc = 0;
@@ -101,9 +101,9 @@ LAB_00412baa:
     cVar2 = FUN_004e80d0(&g_replayContext,local_400,&local_40c);
   }
   if (DAT_00e9b198 != 0) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x621e8));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar3 == -1) {
       if (DAT_0056d3d8 == -1) {
         DAT_0056d3d8 = 0;
@@ -121,7 +121,7 @@ LAB_00412baa:
   DAT_0056d3d8 = -1;
 LAB_00412cb3:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_00e9af44);
-  while (iVar3 = DAT_007934e8, g_gameEventRingReadIndex != g_gameEventRingWriteIndex) {
+  while (iVar3 = g_connectionContextA, g_gameEventRingReadIndex != g_gameEventRingWriteIndex) {
     iVar4 = *(int *)(&g_gameEventDataRing + g_gameEventRingReadIndex * 4);
     iVar1 = *(int *)(&g_gameEventTypeRing + g_gameEventRingReadIndex * 4);
     g_gameEventRingReadIndex = g_gameEventRingReadIndex + 1 & 0x800001ff;
@@ -136,7 +136,7 @@ LAB_00412cb3:
       BroadcastQueuedEvent();
     }
     else if (iVar1 == 5) {
-      *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+      *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       if (iVar4 == -1) {
         *(undefined2 *)(iVar3 + 0x4d4) = 0x2000;
         *(undefined2 *)(iVar3 + 0x4d6) = 0xffff;

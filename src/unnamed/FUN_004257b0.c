@@ -23,9 +23,9 @@ undefined4 FUN_004257b0(void)
   iVar4 = 0;
   puVar2 = local_20;
   do {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0xebef4 + iVar4));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     *puVar2 = uVar1;
     iVar4 = iVar4 + 0x224;
     puVar2 = puVar2 + 1;

@@ -32,9 +32,9 @@ void __thiscall FUN_00404330(int param_1,char *param_2)
     pcVar4 = pcVar4 + 1;
   } while (cVar3 != '\0');
   iVar5 = FUN_00404b00(&local_38);
-  iVar2 = DAT_007934e8;
+  iVar2 = g_connectionContextA;
   if (iVar5 == 0) {
-    *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+    *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
     *(undefined2 *)(iVar2 + 0x4d4) = 0x1022;
     *(undefined2 *)(iVar2 + 0x4d6) = 1;
     iVar5 = *(int *)(iVar2 + 0x44d0);

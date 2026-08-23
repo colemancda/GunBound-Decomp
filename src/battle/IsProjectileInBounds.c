@@ -50,18 +50,18 @@ bool __fastcall IsProjectileInBounds(int param_1)
 
   /* orig 0x458863-0x45889e: both peeks inside one critical section, then
    * `cmp ebx,eax / setl bl` and a jump to the false exit when set. */
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
   iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x6a9b78));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar1 < iVar2) {
     return false;
   }
   /* orig 0x4588a0-0x4588d1: same shape, `setge bl` this time. */
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
   iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x6a9d9c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar2 <= iVar1) {
     return false;
   }

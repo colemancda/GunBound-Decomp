@@ -67,10 +67,10 @@ void __fastcall State03_GameRoomList_HandleMouseInput(int param_1,int dummyEDX,u
   }
   else if (param_2 == 0x204) {
     iVar4 = RoomCardHitTest(param_4 >> 0x10,1);
-    iVar1 = DAT_007934e8;
+    iVar1 = g_connectionContextA;
     iVar3 = g_clientContext;
     if ((iVar4 != -1) && (*(int *)(g_clientContext + 0x4464c + iVar4 * 4) == 1)) {
-      *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+      *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       *(undefined2 *)(iVar1 + 0x4d4) = 0x2104;
       *(undefined2 *)(iVar1 + 0x4d6) = *(undefined2 *)(iVar3 + 0x44664 + iVar4 * 4);
       *(int *)(iVar1 + 0x44d0) = *(int *)(iVar1 + 0x44d0) + 2;

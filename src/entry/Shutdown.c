@@ -650,7 +650,7 @@ LAB_0040fd35:
     pvVar5 = DAT_005b2b58;
     iVar7 = *(int *)((int)DAT_005b2b58 + 0x84e0);
     g_directLinkConnection = (void *)0x0;
-    DAT_007934e8 = 0;
+    g_connectionContextA = 0;
     if (iVar7 != 0) {
       *(undefined4 *)(iVar7 + 0x22c) = 1;
       if (*(SOCKET *)(iVar7 + 0x24) != 0xffffffff) {

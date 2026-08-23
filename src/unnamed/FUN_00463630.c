@@ -50,9 +50,9 @@ void FUN_00463630(int param_1)
   local_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_c;
   uStack_10 = 0x46364f;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar2 != 3) {
     cVar1 = PeekPacketChecksumBool();
     if (cVar1 == '\0') {
@@ -63,9 +63,9 @@ void FUN_00463630(int param_1)
       local_4 = 1;
       uVar8 = EncodeChecksumDeltaSub(uVar3,local_ce4,0x29);
       local_4 = 2;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_1134 = PeekPacketChecksumState((void *)uVar8);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_4 = 1;
       if ((*(int *)(local_ce4 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_ce4 + 0x14),&g_valueGuardKeyTable);
@@ -87,9 +87,9 @@ void FUN_00463630(int param_1)
       local_4 = 4;
       uVar8 = EncodeChecksumDeltaAdd(uVar3,local_112c,0x26);
       local_4 = 5;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar2 = PeekPacketChecksumState((void *)uVar8);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_4 = 4;
       if ((*(int *)(local_112c + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_112c + 0x14),&g_valueGuardKeyTable);
@@ -106,9 +106,9 @@ void FUN_00463630(int param_1)
         TreeLowerBound(local_113c,&g_valueGuardMap);
       }
       if (500 < iVar2) {
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar4 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar2 = iVar2 - iVar4;
       }
       iVar4 = local_1134;

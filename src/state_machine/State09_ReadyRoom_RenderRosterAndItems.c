@@ -148,9 +148,9 @@ LAB_004d81a0:
       goto LAB_004d8258;
     }
     uVar4 = 0x2000 << ((byte)local_a4c & 0x1f);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar12 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if ((uVar12 & uVar4) != uVar4) goto LAB_004d8264;
     if (local_a4c == 4) {
       if ((g_screenSurface != 0) && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
@@ -161,21 +161,21 @@ LAB_004d81a0:
           BlitSpriteClipped(10);
         }
       }
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iGuardTable = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar6 = PeekPacketChecksumState((void *)((iGuardTable * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext + local_a4c * 0x224 + 0x1a2390));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = iVar13 + 0x1c4;
     }
     else {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iGuardTable = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar6 = PeekPacketChecksumState((void *)((iGuardTable * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext + 0x1a2c20));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
     iVar6 = iVar6 + 10;
     if (((g_screenSurface != 0) && (-1 < iVar6)) && (iVar13 = FindSpriteFrame(), iVar13 != 0)) {
@@ -195,9 +195,9 @@ LAB_004d7f30:
   iVar13 = uVar12 * 0x25 + 0x155;
   iVar3 = ((int)(local_a4c + ((int)local_a4c >> 0x1f & 3U)) >> 2) * 0x27 + 0xa4;
   uVar11 = 0x2000 << ((byte)local_a4c & 0x1f);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((uVar4 & uVar11) == uVar11) {
     if (local_a4c == 4) {
       if ((g_screenSurface != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
@@ -208,21 +208,21 @@ LAB_004d7f30:
           BlitSpriteClipped(10);
         }
       }
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iGuardTable = PeekPacketChecksumState((void *)(g_clientContext + 0x4557c));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = PeekPacketChecksumState((void *)((iGuardTable * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext + local_a4c * 0x224 + 0x1a2390));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar13 = uVar12 * 0x25 + 0x1c4;
     }
     else {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iGuardTable = PeekPacketChecksumState((void *)(g_clientContext + 0x4557c));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = PeekPacketChecksumState((void *)((iGuardTable * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + g_clientContext + 0x1a2c20));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
     iVar5 = iVar5 + 10;
     if (((g_screenSurface != 0) && (-1 < iVar5)) && (iVar6 = FindSpriteFrame(), iVar6 != 0)) {
@@ -303,9 +303,9 @@ LAB_004d817f:
   if (6 < (int)local_a4c) goto LAB_004d8460;
   goto LAB_004d7f30;
 LAB_004d8460:
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x4557c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar12 = (int)*(char *)(g_clientContext + 0x44ef8) + iVar3 * 0xb;
   if ((g_screenSurface != 0) && (-1 < (int)uVar12)) {
     iVar3 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -398,21 +398,21 @@ LAB_004d867a:
   iVar3 = 0;
   local_a4c = 0x20b;
 LAB_004d8685:
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar13 = PeekPacketChecksumState((void *)(g_clientContext + iVar3 + 0x39f30));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar13 != 0) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar13 = PeekPacketChecksumState((void *)(g_clientContext + iVar3 + 0x39f30));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar13 != 0xff) {
       uVar7 = EncodeChecksumDeltaSub(g_clientContext + 0x39f30 + iVar3,local_23c,1);
       local_c = 2;
       EncodeChecksumDeltaMul(uVar7,local_684,2);
       local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),3);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar12 = PeekPacketChecksumState((void *)(local_684));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if ((g_screenSurface != 0) && (-1 < (int)uVar12)) {
         iVar13 = *(int *)(DAT_00ea0e1c + 0x1c);
         uVar4 = *(uint *)(iVar13 + 4);
@@ -433,9 +433,9 @@ LAB_004d8685:
     local_c = 0;
     EncodeChecksumDeltaMul(uVar7,local_8a8,2);
     local_c = CONCAT31(SUBFIELD(local_c,1,undefined3),1);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar12 = PeekPacketChecksumState((void *)(local_8a8));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if ((g_screenSurface != 0) && (-1 < (int)uVar12)) {
       iVar13 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar4 = *(uint *)(iVar13 + 4);
@@ -542,9 +542,9 @@ LAB_004d8a20:
   if (0x2e2 < (int)local_a4c) goto code_r0x004d8a39;
   goto LAB_004d8685;
 code_r0x004d8a39:
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = (int)*(char *)(g_clientContext + 0x458fc + iVar3 * 2);
   if (iVar3 < 0x11) {
     if (0xc < iVar3) {

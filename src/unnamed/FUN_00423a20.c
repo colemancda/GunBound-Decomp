@@ -35,7 +35,7 @@ void __fastcall FUN_00423a20(int param_1)
       cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8bab));
       if (cVar4 == '\0') {
         iVar7 = *(int *)(g_clientContext + 0x621e0);
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar5 = _rand();
         *(byte *)(iVar7 + 0x8bab) = (byte)iVar5;
         iVar5 = _rand();
@@ -45,7 +45,7 @@ void __fastcall FUN_00423a20(int param_1)
         bVar8 = ~bVar8 & (byte)iVar5 | bVar8;
         *(byte *)(iVar7 + 0x8bac) = bVar8;
         *(byte *)(iVar7 + 0x8bad) = bVar8 + bVar2 + -0x34;
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       }
       *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) =
            *(undefined2 *)(&DAT_006aab04 + param_1);

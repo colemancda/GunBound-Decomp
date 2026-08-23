@@ -15,16 +15,16 @@ bool DecodeGuardedBool(void)
   byte bVar2;
   byte *in_EAX;
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   bVar1 = *in_EAX;
   bVar2 = in_EAX[1];
   if ((byte)((bVar1 + bVar2) - 0x34) != in_EAX[2]) {
     g_valueGuardTamperFlag = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     return true;
   }
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return (bVar2 >> (bVar1 & 7) & 1) != 1;
 }
 

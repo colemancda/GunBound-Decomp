@@ -46,7 +46,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   *(undefined4 *)(param_1 + 4) = 0;
   iVar12 = g_clientContext;
   pbVar13 = &DAT_006a9b6c + g_clientContext;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = _rand();
   *pbVar13 = (byte)iVar5;
   iVar5 = _rand();
@@ -56,10 +56,10 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   bVar11 = ~('\x01' << bVar11) & (byte)iVar5 | '\0' << bVar11;
   (&DAT_006a9b6d)[iVar12] = bVar11;
   (&DAT_006a9b6e)[iVar12] = bVar2 + bVar11 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar12 = g_clientContext;
   pbVar13 = (byte *)(g_clientContext + 0x6214f);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = _rand();
   *pbVar13 = (byte)iVar5;
   iVar5 = _rand();
@@ -69,10 +69,10 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   bVar11 = ~('\x01' << bVar11) & (byte)iVar5 | '\0' << bVar11;
   *(byte *)(iVar12 + 0x62150) = bVar11;
   *(byte *)(iVar12 + 0x62151) = bVar2 + bVar11 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar12 = g_clientContext;
   pbVar13 = (byte *)(g_clientContext + 0x62152);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = _rand();
   *pbVar13 = (byte)iVar5;
   iVar5 = _rand();
@@ -82,7 +82,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   bVar11 = ~('\x01' << bVar11) & (byte)iVar5 | '\0' << bVar11;
   *(byte *)(iVar12 + 0x62153) = bVar11;
   *(byte *)(iVar12 + 0x62154) = bVar2 + bVar11 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   FUN_00420280(g_clientContext);
   iVar12 = g_clientContext;
   puVar14 = (undefined4 *)(&DAT_006a7670 + g_clientContext);
@@ -91,7 +91,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
     puVar14 = puVar14 + 1;
   }
   *(undefined4 *)(g_gameStateVTableArray[0xb] + 0x10b8) = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = _rand();
   *(byte *)(iVar12 + 0x62149) = (byte)iVar5;
   iVar5 = _rand();
@@ -101,10 +101,10 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   bVar11 = ~('\x01' << bVar11) & (byte)iVar5 | '\0' << bVar11;
   *(byte *)(iVar12 + 0x6214a) = bVar11;
   *(byte *)(iVar12 + 0x6214b) = bVar2 + bVar11 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar12 = g_clientContext;
   pbVar13 = (byte *)(g_clientContext + 0x6214c);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = _rand();
   *pbVar13 = (byte)iVar5;
   iVar5 = _rand();
@@ -114,7 +114,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   bVar11 = ~('\x01' << bVar11) & (byte)iVar5 | '\0' << bVar11;
   *(byte *)(iVar12 + 0x6214d) = bVar11;
   *(byte *)(iVar12 + 0x6214e) = bVar2 + bVar11 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   pcVar6 = (char *)(g_clientContext + 0x45914);
   iVar12 = 8;
   do {
@@ -124,9 +124,9 @@ void __fastcall State10_Loading_OnEnter(int param_1)
     pcVar6 = pcVar6 + 1;
     iVar12 = iVar12 + -1;
   } while (iVar12 != 0);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   switch(uVar7) {
   case 0:
     pcVar6 = (char *)GetLocalizedString(&g_localizedStringTable,800);
@@ -325,9 +325,9 @@ LAB_0043ed58:
     } while (*pcVar1 != '\0');
   }
   else {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x4512c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     pcVar6 = (char *)GetLocalizedString(&g_localizedStringTable,0x32c);
     _sprintf(acStack_80,pcVar6,uVar7);
     pcVar6 = acStack_80;

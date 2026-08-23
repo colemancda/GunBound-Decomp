@@ -45,9 +45,9 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3)
   iVar9 = iVar8 * -2 + 5;
   local_34 = 0;
   local_2c = 3;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_18 = iVar8 * param_3;
   uVar5 = (local_18 / iVar3) * 2;
   iVar3 = param_1 - local_18 / iVar3;
@@ -94,9 +94,9 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3)
       local_38 = local_38 + iVar3;
       local_2c = local_2c + 2;
       iVar9 = iVar4 + 2;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar5 = (local_20 / iVar3) * 2;
       iVar3 = param_1 - local_20 / iVar3;
       if ((-1 < local_1c) && (local_1c < *(int *)(unaff_ESI + 0x1c))) {
@@ -139,9 +139,9 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3)
           puVar10 = (undefined4 *)((int)puVar10 + 1);
         }
       }
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar5 = (local_18 / iVar3) * 2;
       iVar3 = param_1 - local_18 / iVar3;
       if ((-1 < local_14) && (local_14 < *(int *)(unaff_ESI + 0x1c))) {
@@ -193,9 +193,9 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3)
     local_34 = 0;
     iVar8 = local_30 * -2 + 5;
     local_2c = 3;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_10 = local_30 * param_3;
     DarkenTerrainScorchRow((local_10 / iVar3) * 2);
     if (-1 < local_30) {
@@ -214,15 +214,15 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3)
         local_38 = local_38 + iVar9;
         local_2c = local_2c + 2;
         iVar8 = iVar4 + 2;
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar9 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar9 = (iVar3 / iVar9) * 2;
         DarkenTerrainScorchRow(iVar9);
         DarkenTerrainScorchRow(iVar9);
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar9 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar9 = (local_10 / iVar9) * 2;
         DarkenTerrainScorchRow(iVar9);
         DarkenTerrainScorchRow(iVar9);

@@ -43,10 +43,10 @@ undefined4 EncodeChecksumState(int param_1)
 {
   undefined4 uVar1;
 
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar1 = PeekPacketChecksumState((void *)(param_1));
   EncodeOutgoingPacketField((void *)param_1,uVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* bare `return;` in a value-returning function - MSVC falls through
    * with whatever's in EAX (here, uVar1, still live from the call
    * above); gcc 14 errors on this (-Wreturn-mismatch). Matches this

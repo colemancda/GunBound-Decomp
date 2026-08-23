@@ -138,9 +138,9 @@ void __fastcall State02_ServerSelect_OnEnter(int param_1)
   iVar1 = g_sharedTextInputControl;
   *(undefined1 *)(param_1 + 7) = 1;
   *(undefined1 *)(iVar1 + 8) = 1;
-  iVar1 = DAT_007934e8;
-  if (*(char *)(DAT_007934e8 + 0x84e5) != '\0') {
-    iVar3 = *(int *)(DAT_007934e8 + 0x84e0);
+  iVar1 = g_connectionContextA;
+  if (*(char *)(g_connectionContextA + 0x84e5) != '\0') {
+    iVar3 = *(int *)(g_connectionContextA + 0x84e0);
     if (iVar3 != 0) {
       *(undefined4 *)(iVar3 + 0x22c) = 1;
       if (*(SOCKET *)(iVar3 + 0x24) != 0xffffffff) {

@@ -159,8 +159,8 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
                 iVar3 = 999;
               }
             }
-            iVar5 = DAT_007934e8;
-            *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+            iVar5 = g_connectionContextA;
+            *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
             *(undefined2 *)(iVar5 + 0x4d4) = 0x2100;
             *(undefined1 *)(iVar5 + 0x4d6) = 1;
             iVar4 = *(int *)(iVar5 + 0x44d0);
@@ -479,13 +479,13 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
               return 1;
             }
             iVar5 = __stricmp(local_220,s_shrduatlwkr_00552ce8);
-            iVar4 = DAT_007934e8;
+            iVar4 = g_connectionContextA;
             if ((iVar5 == 0) && (iVar3 == 1)) {
-              *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3430;
+              *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3430;
               *(undefined4 *)(iVar4 + 0x44d0) = 6;
               DVar8 = GetTickCount();
-              iVar3 = DAT_007934e8;
-              *(DWORD *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = DVar8;
+              iVar3 = g_connectionContextA;
+              *(DWORD *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = DVar8;
               iVar4 = g_clientContext + 0x45354;
               *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
               cVar1 = PacketChecksumEquals(iVar4,3);
@@ -493,13 +493,13 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
                 iVar3 = 6;
                 do {
                   iVar5 = _rand();
-                  iVar4 = DAT_007934e8;
-                  *(short *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = (short)iVar5;
+                  iVar4 = g_connectionContextA;
+                  *(short *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = (short)iVar5;
                   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 2;
                   iVar5 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                   iVar9 = _rand();
-                  iVar4 = DAT_007934e8;
-                  *(char *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) =
+                  iVar4 = g_connectionContextA;
+                  *(char *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) =
                        (char)(iVar9 % iVar5);
                   iVar3 = iVar3 + -1;
                   *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 1;
@@ -515,21 +515,21 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
               if ((cVar1 != '\0') && (iVar4 = FUN_00409c70(&DAT_00e9bea8), iVar4 != -1)) {
                 uVar10 = PeekChecksumStateUnderLock(g_gameStateVTableArray[9] + 0x26c);
                 QueueOutgoingPacketField(uVar10 & 0xfffff | iVar4 << 0x18);
-                iVar3 = DAT_007934e8;
-                *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3101;
+                iVar3 = g_connectionContextA;
+                *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3101;
                 *(undefined4 *)(iVar3 + 0x44d0) = 6;
                 uVar15 = PeekChecksumStateUnderLock(g_gameStateVTableArray[9] + 0xc);
-                iVar3 = DAT_007934e8;
-                *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar15;
+                iVar3 = g_connectionContextA;
+                *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar15;
                 *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 4;
                 SendOutgoingPacket(iVar3);
                 return 1;
               }
               if (((g_currentGameState == 9) && (g_bBattleSessionActive == '\0')) &&
                  ((cVar1 = CompareChecksumMatch(param_1 + 0x3b6c4,param_1 + 0x3b49c), cVar1 != '\0' &&
-                  (iVar5 = __stricmp(local_220,s_shrduarhkswjs_00552cd8), iVar4 = DAT_007934e8,
+                  (iVar5 = __stricmp(local_220,s_shrduarhkswjs_00552cd8), iVar4 = g_connectionContextA,
                   iVar5 == 0)))) {
-                *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+                *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
                 *(undefined2 *)(iVar4 + 0x4d4) = 0x3210;
                 g_gameStateVTableArray[9][0x25b] = 0xff;
                 *(undefined1 *)(*(int *)(iVar4 + 0x44d0) + 0x4d0 + iVar4) = 0xff;
@@ -537,16 +537,16 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
               }
             }
             iVar5 = __stricmp(local_220,s_shrduaakstpakstpaksakstp_00552cbc);
-            iVar4 = DAT_007934e8;
+            iVar4 = g_connectionContextA;
             if ((iVar5 != 0) || (iVar3 != 2)) {
-              *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x5100;
+              *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x5100;
               *(undefined4 *)(iVar4 + 0x44d0) = 6;
               pcVar2 = param_2;
               do {
                 cVar1 = *pcVar2;
                 pcVar2 = pcVar2 + 1;
               } while (cVar1 != '\0');
-              /* 0x422d8c-0x422dbc: eax=DAT_007934e8 (self, ==iVar4 here,
+              /* 0x422d8c-0x422dbc: eax=g_connectionContextA (self, ==iVar4 here,
                * unmodified since it was loaded above), edx=strlen(param_2)
                * (pcVar2 already walked to one past the NUL from the loop
                * above), pushed param_2 unchanged as the source pointer. */
@@ -559,9 +559,9 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
             }
             FUN_00421870();
             RefreshReadyRoomControls(g_gameStateVTableArray[9],0,0);
-            iVar3 = DAT_007934e8;
+            iVar3 = g_connectionContextA;
             iVar4 = g_clientContext + 0x45354;
-            *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3200;
+            *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3200;
             *(undefined4 *)(iVar3 + 0x44d0) = 6;
             cVar1 = PacketChecksumNotEquals(iVar4,2);
             if (cVar1 != '\0') {
@@ -575,7 +575,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
             }
             *(int *)(g_gameStateVTableArray[9] + 0x268) =
                  *(int *)(g_gameStateVTableArray[9] + 0x268) + 1;
-            iVar4 = DAT_007934e8;
+            iVar4 = g_connectionContextA;
             uVar10 = *(uint *)(g_gameStateVTableArray[9] + 0x268) & 0x80000001;
             if ((int)uVar10 < 0) {
               uVar10 = (uVar10 - 1 | 0xfffffffe) + 1;
@@ -617,14 +617,14 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
         FUN_00421870();
         iVar3 = 0;
         pcVar2 = (char *)(param_1 + 0x457f1);
-        while (iVar5 = __stricmp(pcVar2,local_1a0), iVar4 = DAT_007934e8, iVar5 != 0) {
+        while (iVar5 = __stricmp(pcVar2,local_1a0), iVar4 = g_connectionContextA, iVar5 != 0) {
           iVar3 = iVar3 + 1;
           pcVar2 = pcVar2 + 0xd;
           if (7 < iVar3) {
             return 1;
           }
         }
-        *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3150;
+        *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3150;
         *(undefined4 *)(iVar4 + 0x44d0) = 6;
         *(char *)(iVar4 + 0x4d6) = (char)iVar3;
 LAB_00422d6b:

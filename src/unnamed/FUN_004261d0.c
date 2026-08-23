@@ -20,9 +20,9 @@ void FUN_004261d0(int regEsi)
   
   (&DAT_006aa624)[regEsi] = unaff_BL;
   if (unaff_BL != 0xff) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = PeekPacketChecksumState((void *)(regEsi + 0x3b49c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     (&DAT_006a7670)[regEsi + (uint)unaff_BL * 8 + iVar1] = 1;
   }
   return;

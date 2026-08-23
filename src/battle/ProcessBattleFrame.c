@@ -43,9 +43,9 @@ void ProcessBattleFrame(int param_1)
   *(int *)(param_1 + 0x740) = *(int *)(param_1 + 0x740) + 1;
   EncodeChecksumDeltaMul(iVar6,local_230,0xb);
   local_4 = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar6 = PeekPacketChecksumState((void *)(local_230));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   bVar1 = *(byte *)(g_clientContext + 0x475c4);
   local_4 = 0xffffffff;
   if ((*(int *)(local_230 + 0x14)) != 0) {
@@ -920,10 +920,10 @@ LAB_004dfad9:
     DAT_0056d108 = 0;
     _DAT_007934d8 = 1;
     *(undefined1 *)(*(int *)(param_1 + 0x788) + 0x1e) = 1;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
     iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar6 == iVar5) {
       QueueBroadcastEvent(0x8600,(int)&g_replayContext);
       BroadcastQueuedEvent();

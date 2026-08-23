@@ -35,9 +35,9 @@ void __fastcall RenderRoomMobiles(int param_1)
   do {
     if ((*(char *)(local_10 + 0x45914 + iVar5) != '\0') && (*(int *)(*local_14 + 0x1c) != 0)) {
       uVar1 = local_10 / 4;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x477ec + local_10 * 0x448));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = g_clientContext;
       if (g_bBattleSessionActive == '\0') {
         iVar2 = (int)*(char *)(local_8 + g_clientContext);

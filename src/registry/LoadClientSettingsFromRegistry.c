@@ -69,7 +69,7 @@ void LoadClientSettingsFromRegistry(void)
     local_14 = 4;
     RegQueryValueExA(local_10,s_Version_00552868,(LPDWORD)0x0,&local_c,(LPBYTE)&local_4,&local_14);
     uVar1 = local_4;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* EncodeOutgoingPacketField takes a leading `self` parameter (the
      * checksum-state object dropped by Ghidra as unaff_EDI - see that
      * function's own header comment). At this call site the original
@@ -77,7 +77,7 @@ void LoadClientSettingsFromRegistry(void)
      * (`mov edi,0x796878`), confirmed via objdump on the original binary
      * at 0x0040d4a2-0x0040d4a7. */
     EncodeOutgoingPacketField(&DAT_00796878,uVar1);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_14 = 1;
     RegQueryValueExA(local_10,s_ShootingMode_00552858,(LPDWORD)0x0,&local_c,&DAT_00d9aa20,&local_14)
     ;

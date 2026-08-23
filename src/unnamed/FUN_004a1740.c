@@ -57,13 +57,13 @@ undefined4 FUN_004a1740(int param_1)
   puStack_8 = &LAB_005396ee;
   *unaff_FS_OFFSET = &local_c;
   uStack_10 = 0x4a175f;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar13 = param_1 + 0xf54;
   iVar7 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar7 == 0) {
 LAB_004a2741:
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at 0x4a2757:
      * self is edi+0x3fa4 where edi is the ORIGINAL param_1 (reloaded
      * from its stack slot [esp+0x159c]). Every path reaching this label
@@ -72,20 +72,20 @@ LAB_004a2741:
      * param_1 is still original here - self is param_1+0x3fa4. Value
      * (0x5a) was already correct. */
     EncodeOutgoingPacketField((void *)(param_1 + 0x3fa4), 0x5a);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
   else {
     iVar7 = *(int *)(&g_nCameraBoundX + g_clientContext);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar8 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar8 == iVar7 + -1) goto LAB_004a2741;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     param_1 = param_1 + 0x1178;
     iVar7 = PeekPacketChecksumState((void *)(param_1));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar7 == -0x113) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       /* FIXED (2026-07-16): dropped `self` arg - angr-confirmed at
        * 0x4a182a: self is edi+0x3fa4 where edi holds the ORIGINAL
        * param_1 (loaded before the `param_1 = param_1 + 0x1178`
@@ -95,7 +95,7 @@ LAB_004a2741:
        * is 0x3fa4-0x1178 = 0x2e2c relative to the reassigned param_1.
        * Value (0xb4) was already correct. */
       EncodeOutgoingPacketField((void *)(param_1 + 0x2e2c), 0xb4);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
     else {
       cVar6 = PacketChecksumEquals(param_1,*(int *)(&g_nCameraBoundY + g_clientContext) + -1);

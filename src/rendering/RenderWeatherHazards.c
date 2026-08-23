@@ -59,9 +59,9 @@ void RenderWeatherHazards(int param_1)
           goto LAB_00450ac5;
         }
         if (uVar2 == 100) {
-          EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+          EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           PeekPacketChecksumState((void *)(g_clientContext + 0x1a216c + (uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28));
-          LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+          LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           FUN_004f01d0();
           iVar4 = FindTextureCacheEntryByName
                             ((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1ec8 +

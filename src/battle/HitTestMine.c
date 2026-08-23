@@ -70,9 +70,9 @@ HitTestMine(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_
       if (uVar2 == param_2) {
         uVar8 = EncodeChecksumDeltaSub(uVar1 + 0x40,local_454,param_3);
         local_4 = 0;
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar3 = PeekPacketChecksumState((void *)uVar8);
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         local_4 = 0xffffffff;
         if ((*(int *)(local_454 + 0x14)) != 0) {
           ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
@@ -80,9 +80,9 @@ HitTestMine(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_
         }
         uVar8 = EncodeChecksumDeltaSub(uVar1 + 0x264,local_230,param_4);
         local_4 = 1;
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar4 = PeekPacketChecksumState((void *)uVar8);
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         local_4 = 0xffffffff;
         if ((*(int *)(local_230 + 0x14)) != 0) {
           ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);

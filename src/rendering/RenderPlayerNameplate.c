@@ -70,9 +70,9 @@ LAB_004dbb40:
      * site (0x4dbb87) shows EAX = (byte)*(byte *)(iVar4 + 0x4590c +
      * param_1) + 1. */
     DrawSprite((int)(uint)(byte)*(char *)(iVar4 + 0x4590c + param_1) + 1);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (param_1 == iVar4) {
       if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
         if (*(char *)(iVar4 + 0x18) == '\x01') {

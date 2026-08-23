@@ -37,7 +37,7 @@
 extern "C" {
 extern char *g_gameStateVTableArray[16];
 extern unsigned int g_clientContext;
-extern unsigned char DAT_005a9068;
+extern unsigned char g_valueGuardLock;
 extern unsigned int g_stateChangeInProgress;
 unsigned int PeekPacketChecksumState(void *self);
 char PeekPacketChecksumBool();
@@ -59,9 +59,9 @@ extern "C" unsigned int FUN_0050a1b0(CPanel *this_, int x, int y)
   unsigned char *self = (unsigned char *)this_;
 
   puVar1 = (unsigned char *)g_gameStateVTableArray[7];
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)(puVar1 + 0x325b0));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = iVar4 != 0;
   if (iVar4 == 0) {
     uVar5 = (unsigned char)PeekPacketChecksumBool();

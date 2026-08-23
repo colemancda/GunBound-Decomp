@@ -110,37 +110,37 @@ State03_GameRoomList_ProcessPacket(void *this,int payloadLen,ushort opcode,ushor
             QueueOutgoingPacketField(payload[7]);
             payload = payload + 8;
             local_690 = (undefined1 *)0x0;
-            EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+            EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             iVar10 = PeekPacketChecksumState((void *)(g_clientContext + 0x5f4894));
-            LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+            LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             if (0 < iVar10) {
               do {
                 FUN_00428550(&local_468);
                 local_c = 0;
                 local_464 = (int)local_690;
-                EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+                EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
                 iVar10 = _rand();
                 local_468 = (byte)iVar10;
                 iVar10 = _rand();
                 local_467 = ~('\x01' << (local_468 & 7)) & (byte)iVar10 | '\0' << (local_468 & 7);
                 local_466 = local_467 + local_468 + -0x34;
-                LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-                EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+                LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+                EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
                 EncodeOutgoingPacketField((void *)((char *)&local_468 + 8), 0x80000000);
-                LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+                LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
                 uVar13 = *(undefined4 *)payload;
-                EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+                EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
                 EncodeOutgoingPacketField((void *)((char *)&local_468 + 0x22c), uVar13);
-                LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+                LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
                 FUN_0042ae30(&local_468);
                 FUN_0042ae30(&local_468);
                 payload = payload + 2;
                 local_c = 0xffffffff;
                 FUN_00426810(&local_468);
                 local_690 = (undefined1 *)((int)local_690 + 1);
-                EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+                EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
                 iVar10 = PeekPacketChecksumState((void *)(g_clientContext + 0x5f4894));
-                LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+                LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
               } while ((int)local_690 < iVar10);
             }
           }

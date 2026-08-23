@@ -109,12 +109,12 @@ double SQRT(double x)  { return sqrt(x); }
 double FID_conflict__cos(double x) { return cos(x); } /* Ghidra-renamed cos */
 
 /* --- Startup hook: initialize the static CRITICAL_SECTIONs ---
- * WinMain's first act is EnterCriticalSection(&DAT_005a9068); in the
+ * WinMain's first act is EnterCriticalSection(&g_valueGuardLock); in the
  * original binary a C++ static initializer set these up. Our ports
  * lost that, so register an initializer in the CRT's C-init table
  * (.CRT$XCU) - libcmt runs it before WinMain. Storage lives in
  * src/globals_sized.c. */
-extern unsigned char DAT_005a9068[24], DAT_005a9084[24], DAT_00e9af44[24];
+extern unsigned char g_valueGuardLock[24], DAT_005a9084[24], DAT_00e9af44[24];
 /* XFS archive singletons (src/globals_sized.c). The original binary
  * constructed these with hFile=-1 via a C++ static initializer; the
  * bring-up build sets it here so OpenXFSArchive will open them instead
@@ -372,7 +372,7 @@ static void gb_init_atl_string_mgr(void)
 
 static void gb_startup_init(void)
 {
-    InitializeCriticalSection((LPCRITICAL_SECTION)DAT_005a9068);
+    InitializeCriticalSection((LPCRITICAL_SECTION)g_valueGuardLock);
     InitializeCriticalSection((LPCRITICAL_SECTION)DAT_005a9084);
     InitializeCriticalSection((LPCRITICAL_SECTION)DAT_00e9af44);
     gb_init_atl_string_mgr();

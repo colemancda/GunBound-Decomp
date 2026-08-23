@@ -174,8 +174,8 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
         if (bVar1 == uVar9) {
           FUN_00422f10(*(undefined4 *)(g_clientContext + 0x3f804),
                      *(undefined4 *)(g_clientContext + 0x44e60),g_clientContext);
-          iVar4 = DAT_007934e8;
-          *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+          iVar4 = g_connectionContextA;
+          *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
           *(undefined2 *)(iVar4 + 0x4d4) = 0x2000;
           *(undefined2 *)(iVar4 + 0x4d6) = 0xffff;
           *(int *)(iVar4 + 0x44d0) = *(int *)(iVar4 + 0x44d0) + 2;

@@ -148,9 +148,9 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     }
     uVar10 = DecodeGuardedBool();
     cVar3 = CheckGuardedBoolAnd(uVar10);
-    iVar7 = DAT_007934e8;
+    iVar7 = g_connectionContextA;
     if (cVar3 == '\0') {
-      *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+      *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       *(undefined2 *)(iVar7 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar7 + 0x4d6) = 0xffff;
       *(int *)(iVar7 + 0x44d0) = *(int *)(iVar7 + 0x44d0) + 2;
@@ -172,8 +172,8 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar4;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     BroadcastQueuedEvent();
-    iVar2 = DAT_007934e8;
-    *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+    iVar2 = g_connectionContextA;
+    *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
     *(undefined2 *)(iVar2 + 0x4d4) = 0x4100;
     *(undefined4 *)(iVar2 + 0x4d6) = 0xf001;
     iVar7 = *(int *)(iVar2 + 0x44d0);
@@ -470,9 +470,9 @@ LAB_004b8aeb:
     uVar10 = DecodeGuardedBool();
     cVar3 = CheckGuardedBoolAnd(uVar10);
     if ((cVar3 == '\0') &&
-       (cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,1), iVar7 = DAT_007934e8, cVar3 == '\0')
+       (cVar3 = PacketChecksumEquals(g_clientContext + 0x45354,1), iVar7 = g_connectionContextA, cVar3 == '\0')
        ) {
-      *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+      *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       *(undefined2 *)(iVar7 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar7 + 0x4d6) = 0xffff;
       *(int *)(iVar7 + 0x44d0) = *(int *)(iVar7 + 0x44d0) + 2;
@@ -492,8 +492,8 @@ LAB_004b8aeb:
     return;
   case 0x10:
     InvokeWidget(16,0);
-    iVar7 = DAT_007934e8;
-    *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
+    iVar7 = g_connectionContextA;
+    *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3232;
     *(undefined4 *)(iVar7 + 0x44d0) = 6;
     SendOutgoingPacket(iVar7);
     return;

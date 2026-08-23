@@ -21,10 +21,10 @@ void State10_Loading_ProcessPacket(undefined4 param_1,int param_2,short *param_3
 {
   int iVar1;
 
-  iVar1 = DAT_007934e8;
+  iVar1 = g_connectionContextA;
   if (param_2 < 0x4000 /* switch-ladder split, not a match on GB_OP_GAME_DROP_USER_COMMAND */) {
     if (param_2 == GB_OP_CLOSE) {
-      *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+      *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       *(undefined2 *)(iVar1 + 0x4d4) = 0x2000;
       *(undefined2 *)(iVar1 + 0x4d6) = 0xffff;
       *(int *)(iVar1 + 0x44d0) = *(int *)(iVar1 + 0x44d0) + 2;
@@ -49,7 +49,7 @@ void State10_Loading_ProcessPacket(undefined4 param_1,int param_2,short *param_3
     }
     else if (param_2 == GB_OP_ROOM_RETURN_RESULT_RESPONSE) {
       if (*param_3 != 0) {
-        *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+        *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
         *(undefined2 *)(iVar1 + 0x4d4) = 0x2000;
         *(undefined2 *)(iVar1 + 0x4d6) = 0xffff;
         *(int *)(iVar1 + 0x44d0) = *(int *)(iVar1 + 0x44d0) + 2;
@@ -71,7 +71,7 @@ void State10_Loading_ProcessPacket(undefined4 param_1,int param_2,short *param_3
     }
   }
   else if ((param_2 == GB_OP_GAME_END_NOTIFICATION) && (g_pendingGameState != 3)) {
-    *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3232;
+    *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3232;
     *(undefined4 *)(iVar1 + 0x44d0) = 6;
     SendOutgoingPacket(iVar1);
     return;

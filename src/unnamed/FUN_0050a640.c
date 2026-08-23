@@ -41,9 +41,9 @@ undefined4 __thiscall FUN_0050a640(int param_1,int param_2,int param_3)
         if ((iVar9 != -1) &&
            ((uint)(*(int *)(g_gameStateVTableArray[7] + 0x454) + iVar9) <
             *(uint *)(g_clientContext + 0x44e24))) {
-          EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+          EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar3 = PeekPacketChecksumState((void *)(puVar1 + 0x228));
-          LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+          LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           if (iVar9 == iVar3) {
             iVar3 = 0;
             local_8 = 0;
@@ -64,9 +64,9 @@ undefined4 __thiscall FUN_0050a640(int param_1,int param_2,int param_3)
     if (0x88f < iVar3) break;
 LAB_0050a700:
     iVar8 = *(int *)(puVar1 + 0x454);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(g_clientContext + iVar3 + 0x5f4ab8));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar4 == iVar8 + iVar9) break;
   }
   if (local_8 != 4) {
@@ -77,18 +77,18 @@ LAB_0050a700:
                     /* WARNING: Subroutine does not return */
     ThrowCxxException(0x80070057);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(puVar1 + 0x454) + iVar9) * 0x450 + 0x22c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x3b498));
   if (cVar2 == '\0') {
     if (*(uint *)(g_clientContext + 0x44e24) <= (uint)(*(int *)(puVar1 + 0x454) + iVar9)) {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x80070057);
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar6 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(puVar1 + 0x454) + iVar9) * 0x450 + 0x22c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if ((uVar6 & 0x8000) != 0) goto LAB_0050a89a;
   }
   else {
@@ -96,9 +96,9 @@ LAB_0050a700:
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x80070057);
     }
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar6 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x44e20) + (*(int *)(puVar1 + 0x454) + iVar9) * 0x450 + 0x22c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if ((uVar6 & 0x8000) == 0) {
 LAB_0050a89a:
       if ((uVar5 & 0x30000) != 0x30000) goto LAB_0050a8b0;

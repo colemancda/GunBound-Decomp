@@ -54,10 +54,10 @@ void __fastcall State09_ReadyRoom_OnTick(int param_1)
   if (((iVar3 != -1) && (0 < iVar3)) && (*(int *)(param_1 + 0x6b8) = iVar3 + -1, iVar3 + -1 == 0)) {
     BuildItemDescriptionTooltip(&g_uiPanelManager,*(undefined2 *)(param_1 + 0x6b4));
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
   iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar3 == iVar4) {
     cVar2 = CheckAllPlayersReady();
     if (cVar2 != '\0') {
@@ -69,8 +69,8 @@ void __fastcall State09_ReadyRoom_OnTick(int param_1)
         *(int *)(param_1 + 0x6b0) = iVar3;
         if (iVar3 == 0) {
           QueueOutgoingPacketField(0xffffffff);
-          iVar3 = DAT_007934e8;
-          *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+          iVar3 = g_connectionContextA;
+          *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
           *(undefined2 *)(iVar3 + 0x4d4) = 0x2000;
           *(undefined2 *)(iVar3 + 0x4d6) = 0xffff;
           *(int *)(iVar3 + 0x44d0) = *(int *)(iVar3 + 0x44d0) + 2;

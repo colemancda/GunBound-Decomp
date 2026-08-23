@@ -9,7 +9,7 @@
  * as `unaff_EBX`, an uninitialized local read, instead of a real parameter.
  * Disassembly at every call site (e.g. 0x4028be-0x4028c4, 0x412d5a-0x412d62,
  * 0x446d25-0x446d2f, 0x5077ef-0x5077f1) shows `mov ebx, <conn-ptr>` (usually
- * the global DAT_007934e8, sometimes a local mirroring it) immediately
+ * the global g_connectionContextA, sometimes a local mirroring it) immediately
  * before `call 0x4d25e0`, with `xor ecx,ecx` also always present right
  * before the call - confirming the real fastcall arg (param_1/ECX) is
  * always literal 0 and EBX carries the actual connection pointer that

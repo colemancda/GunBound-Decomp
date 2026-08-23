@@ -40,9 +40,9 @@ void FUN_00476f80(int param_1)
        (cVar1 = PeekPacketChecksumBool(), cVar1 != '\x01')) {
       EncodeChecksumPairDiff(param_1 + 0x40,local_454,iVar2 + 0x90c);
       local_4 = 0;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar3 = PeekPacketChecksumState((void *)(local_454));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_4 = 0xffffffff;
       if ((*(int *)(local_454 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
@@ -50,9 +50,9 @@ void FUN_00476f80(int param_1)
       }
       EncodeChecksumPairDiff(param_1 + 0x264,local_230,iVar2 + 0xb30);
       local_4 = 1;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar4 = PeekPacketChecksumState((void *)(local_230));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);

@@ -91,18 +91,18 @@ void FUN_004cfd20(void)
    * sites and sibling FUN_004cfb20's local_80-buffer call pairs. */
   BlitRLESprite(0x21e,0x1ce,0,(byte *)local_80);
   BlitRLESprite(0x21d,0x1cd,0xffff,(byte *)local_80);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (*(int *)(g_clientContext + 0x4707c +
               ((uint)*(byte *)(g_clientContext + 0x475c4) + iVar3 * 0xb +
               *(int *)(in_EAX + 0x10cc) * 0x14) * 4) == 0) {
     local_84 = 1;
   }
   else {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_84 = *(uint *)(g_clientContext + 0x4707c +
                         ((uint)*(byte *)(g_clientContext + 0x475c4) + iVar3 * 0xb +
                         *(int *)(in_EAX + 0x10cc) * 0x14) * 4);
@@ -114,12 +114,12 @@ void FUN_004cfd20(void)
     uVar7 = *(int *)(g_clientContext + 0x4731c + iVar3 * 4) +
             *(int *)(g_clientContext + 0x472fc + iVar3 * 4);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_84 = (uint)(*(int *)(g_clientContext + 0x4667c +
                             (iVar3 * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4) +
                             *(int *)(in_EAX + 0x10cc) * 0x14) * 4) * 100) / local_84;
@@ -133,9 +133,9 @@ void FUN_004cfd20(void)
    * buffer just sprintf'd above) at each call. */
   BlitRLESprite(0x21e,0x1dd,0,(byte *)local_80);
   BlitRLESprite(0x21d,0x1dc,0xffff,(byte *)local_80);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x477ec + *(int *)(in_EAX + 0x10cc) * 0x448));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = FUN_00420650(g_clientContext,*(undefined4 *)(in_EAX + 0x10cc),iVar4);
   iVar3 = iVar5 + *(int *)(in_EAX + 0x10cc) * 0x14;
   if (*(int *)(g_clientContext + 0x45c3c + iVar3 * 4) + *(int *)(g_clientContext + 0x459bc + iVar3 * 4) ==

@@ -71,8 +71,8 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
         pcVar12 = pcVar12 + 1;
       } while (cVar2 != '\0');
       if ((*pcVar13 != '\0') &&
-         (cVar2 = CheckChatWordFilter(pcVar13), iVar10 = DAT_007934e8, cVar2 == '\0')) {
-        *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3104;
+         (cVar2 = CheckChatWordFilter(pcVar13), iVar10 = g_connectionContextA, cVar2 == '\0')) {
+        *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3104;
         *(undefined4 *)(iVar10 + 0x44d0) = 6;
         pcVar12 = pcVar13;
         do {
@@ -80,7 +80,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
           pcVar12 = pcVar12 + 1;
         } while (cVar2 != '\0');
         /* FIXED (2026-07-15): dropped `self`/`count` args - disasm-
-         * confirmed at 0x4d55ac. self=EAX=DAT_007934e8, loaded at 0x4d5583
+         * confirmed at 0x4d55ac. self=EAX=g_connectionContextA, loaded at 0x4d5583
          * and never clobbered before the call - same as iVar10 above (the
          * automated scan's null hint missed this because of the distance).
          * count=EDX=ECX, the strlen of pcVar13 computed by the do-while
@@ -139,8 +139,8 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
         return uVar3;
       }
       RefreshReadyRoomControls(param_1,0,0);
-      iVar10 = DAT_007934e8;
-      *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3200;
+      iVar10 = g_connectionContextA;
+      *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3200;
       *(undefined4 *)(iVar10 + 0x44d0) = 6;
       cVar2 = PacketChecksumNotEquals(g_clientContext + 0x45354,2);
       if (cVar2 != '\0') {
@@ -151,7 +151,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
       if (*(int *)(param_1 + 0x268) == 0) {
         *(undefined1 *)(param_1 + 0x25a) = 0xff;
       }
-      iVar10 = DAT_007934e8;
+      iVar10 = g_connectionContextA;
       uVar3 = *(int *)(param_1 + 0x268) + 1U & 0x80000001;
       if ((int)uVar3 < 0) {
         uVar3 = (uVar3 - 1 | 0xfffffffe) + 1;
@@ -168,8 +168,8 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
         return 0;
       }
       RefreshReadyRoomControls(param_1,0,0);
-      iVar10 = DAT_007934e8;
-      *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3200;
+      iVar10 = g_connectionContextA;
+      *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3200;
       *(undefined4 *)(iVar10 + 0x44d0) = 6;
       cVar2 = PacketChecksumNotEquals(g_clientContext + 0x45354,2);
       if (cVar2 != '\0') {
@@ -179,7 +179,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
       if (*(int *)(param_1 + 0x268) == 0) {
         *(undefined1 *)(param_1 + 0x25a) = 0xff;
       }
-      iVar10 = DAT_007934e8;
+      iVar10 = g_connectionContextA;
       uVar3 = *(int *)(param_1 + 0x268) + 1U & 0x80000001;
       if ((int)uVar3 < 0) {
         uVar3 = (uVar3 - 1 | 0xfffffffe) + 1;
@@ -204,8 +204,8 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
   switch(param_4) {
   case 0:
     RefreshReadyRoomControls(param_1,0,0);
-    iVar10 = DAT_007934e8;
-    *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+    iVar10 = g_connectionContextA;
+    *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
     *(undefined2 *)(iVar10 + 0x4d4) = 0x3230;
     bVar14 = *(char *)(param_1 + 0x4cc) == '\0';
     *(bool *)(param_1 + 8) = bVar14;
@@ -219,13 +219,13 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
       return uVar3;
     }
     RefreshReadyRoomControls(param_1,0,0);
-    iVar10 = DAT_007934e8;
+    iVar10 = g_connectionContextA;
     *(undefined4 *)(param_1 + 0x6b0) = 0xffffffff;
     *(undefined2 *)(iVar10 + 0x4d4) = 0x3430;
     *(undefined4 *)(iVar10 + 0x44d0) = 6;
     DVar5 = GetTickCount();
-    iVar10 = DAT_007934e8;
-    *(DWORD *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = DVar5;
+    iVar10 = g_connectionContextA;
+    *(DWORD *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = DVar5;
     iVar8 = g_clientContext + 0x45354;
     *(int *)(iVar10 + 0x44d0) = *(int *)(iVar10 + 0x44d0) + 4;
     cVar2 = PacketChecksumEquals(iVar8,3);
@@ -233,13 +233,13 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
       iVar10 = 6;
       do {
         iVar6 = _rand();
-        iVar8 = DAT_007934e8;
-        *(short *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = (short)iVar6;
+        iVar8 = g_connectionContextA;
+        *(short *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = (short)iVar6;
         *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 2;
         iVar6 = PeekChecksumStateUnderLock(&DAT_00796aa0);
         iVar7 = _rand();
-        iVar8 = DAT_007934e8;
-        *(char *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = (char)(iVar7 % iVar6);
+        iVar8 = g_connectionContextA;
+        *(char *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = (char)(iVar7 % iVar6);
         iVar10 = iVar10 + -1;
         *(int *)(iVar8 + 0x44d0) = *(int *)(iVar8 + 0x44d0) + 1;
       } while (iVar10 != 0);
@@ -250,9 +250,9 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
     return uVar3;
   case 2:
     RefreshReadyRoomControls(param_1,0,0);
-    iVar8 = DAT_007934e8;
+    iVar8 = g_connectionContextA;
     iVar10 = g_clientContext;
-    *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+    *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
     *(undefined2 *)(iVar8 + 0x4d4) = 0x3210;
     bVar14 = *(char *)(iVar10 + 0x3b6c0) != '\x01';
     *(bool *)(param_1 + 0x25b) = bVar14;
@@ -262,8 +262,8 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
     return uVar3;
   case 3:
     RefreshReadyRoomControls(param_1,0,0);
-    iVar10 = DAT_007934e8;
-    *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+    iVar10 = g_connectionContextA;
+    *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
     *(undefined2 *)(iVar10 + 0x4d4) = 0x2000;
     *(undefined2 *)(iVar10 + 0x4d6) = 0xffff;
     *(int *)(iVar10 + 0x44d0) = *(int *)(iVar10 + 0x44d0) + 2;
@@ -271,17 +271,17 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
     return uVar3;
   case 4:
     RefreshReadyRoomControls(param_1,0,0);
-    iVar10 = DAT_007934e8;
+    iVar10 = g_connectionContextA;
     iVar8 = g_clientContext;
-    *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3100;
+    *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3100;
     *(undefined4 *)(iVar10 + 0x44d0) = 6;
     iVar8 = *(char *)(iVar8 + 0x44ef8) + 10;
     goto LAB_004d588d;
   case 5:
     RefreshReadyRoomControls(param_1,0,0);
-    iVar10 = DAT_007934e8;
+    iVar10 = g_connectionContextA;
     iVar8 = g_clientContext;
-    *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3100;
+    *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3100;
     *(undefined4 *)(iVar10 + 0x44d0) = 6;
     iVar8 = *(char *)(iVar8 + 0x44ef8) + 1;
 LAB_004d588d:
@@ -320,8 +320,8 @@ LAB_004d588d:
           pcVar13 = pcVar13 + 1;
         } while (cVar2 != '\0');
       }
-      iVar10 = DAT_007934e8;
-      *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3104;
+      iVar10 = g_connectionContextA;
+      *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3104;
       *(undefined4 *)(iVar10 + 0x44d0) = 6;
       pcVar13 = (char *)(param_1 + 0x62d);
       do {
@@ -329,7 +329,7 @@ LAB_004d588d:
         pcVar13 = pcVar13 + 1;
       } while (cVar2 != '\0');
       /* FIXED (2026-07-15): dropped `self`/`count` args - disasm-confirmed
-       * at 0x4d598c. self=EAX=DAT_007934e8 (=iVar10 above). count=EDX=ECX,
+       * at 0x4d598c. self=EAX=g_connectionContextA (=iVar10 above). count=EDX=ECX,
        * the strlen of (param_1+0x62d) computed by the do-while loop just
        * above (0x4d597b-0x4d5987: `sub ecx,edi`) = pcVar13 -
        * (param_1+0x62d) - 1 (pcVar13 is itself the loop cursor here, left
@@ -376,23 +376,23 @@ LAB_004d588d:
     return 0;
   case 0x14:
     RefreshReadyRoomControls(param_1,0,0);
-    iVar10 = DAT_007934e8;
-    *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3103;
+    iVar10 = g_connectionContextA;
+    *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3103;
     *(undefined4 *)(iVar10 + 0x44d0) = 6;
     cVar2 = '\x04';
     goto LAB_004d5bde;
   case 0x15:
     RefreshReadyRoomControls(param_1,0,0);
-    iVar10 = DAT_007934e8;
-    *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+    iVar10 = g_connectionContextA;
+    *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
     *(undefined2 *)(iVar10 + 0x4d4) = 0x3103;
     *(undefined1 *)(param_1 + 0x230) = 6;
     *(undefined1 *)(*(int *)(iVar10 + 0x44d0) + 0x4d0 + iVar10) = 6;
     goto LAB_004d5661;
   case 0x16:
     RefreshReadyRoomControls(param_1,0,0);
-    iVar10 = DAT_007934e8;
-    *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3103;
+    iVar10 = g_connectionContextA;
+    *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3103;
     *(undefined4 *)(iVar10 + 0x44d0) = 6;
     cVar2 = '\b';
     goto LAB_004d5bde;
@@ -401,9 +401,9 @@ LAB_004d588d:
       return (uint)*(byte *)(g_clientContext + 0x45125);
     }
     RefreshReadyRoomControls(param_1,0,0);
-    iVar10 = DAT_007934e8;
+    iVar10 = g_connectionContextA;
     iVar8 = g_clientContext;
-    *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3103;
+    *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3103;
     *(undefined4 *)(iVar10 + 0x44d0) = 6;
     cVar2 = (char)((*(byte *)(iVar8 + 0x45125) + 1) / 2) << 1;
 LAB_004d5bde:
@@ -474,12 +474,12 @@ LAB_004d5661:
     uVar3 = uVar3 & 0xffff7fff | 0x4000;
 LAB_004d5a42:
     QueueOutgoingPacketField(uVar3);
-    iVar10 = DAT_007934e8;
-    *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3101;
+    iVar10 = g_connectionContextA;
+    *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3101;
     *(undefined4 *)(iVar10 + 0x44d0) = 6;
     uVar9 = PeekChecksumStateUnderLock(param_1 + 0xc);
-    iVar10 = DAT_007934e8;
-    *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar9;
+    iVar10 = g_connectionContextA;
+    *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar9;
     *(int *)(iVar10 + 0x44d0) = *(int *)(iVar10 + 0x44d0) + 4;
     uVar3 = SendOutgoingPacket(iVar10);
     return uVar3;
@@ -492,23 +492,23 @@ LAB_004d5a42:
     RefreshReadyRoomControls(param_1,0,0);
     uVar3 = PeekChecksumStateUnderLock(param_1 + 0x26c);
     QueueOutgoingPacketField(uVar3 & 0xffff7fff | 0x4000);
-    iVar10 = DAT_007934e8;
-    *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3101;
+    iVar10 = g_connectionContextA;
+    *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3101;
     *(undefined4 *)(iVar10 + 0x44d0) = 6;
     uVar9 = PeekChecksumStateUnderLock(param_1 + 0xc);
-    iVar10 = DAT_007934e8;
-    *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar9;
+    iVar10 = g_connectionContextA;
+    *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar9;
     *(int *)(iVar10 + 0x44d0) = *(int *)(iVar10 + 0x44d0) + 4;
     uVar3 = SendOutgoingPacket(iVar10);
     return uVar3;
   }
 LAB_004d5ecb:
-  iVar10 = DAT_007934e8;
-  *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x3101;
+  iVar10 = g_connectionContextA;
+  *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3101;
   *(undefined4 *)(iVar10 + 0x44d0) = 6;
   uVar9 = PeekChecksumStateUnderLock(param_1 + 0xc);
-  iVar10 = DAT_007934e8;
-  *(undefined4 *)(*(int *)(DAT_007934e8 + 0x44d0) + 0x4d0 + DAT_007934e8) = uVar9;
+  iVar10 = g_connectionContextA;
+  *(undefined4 *)(*(int *)(g_connectionContextA + 0x44d0) + 0x4d0 + g_connectionContextA) = uVar9;
   *(int *)(iVar10 + 0x44d0) = *(int *)(iVar10 + 0x44d0) + 4;
   uVar3 = SendOutgoingPacket(iVar10);
   return uVar3;

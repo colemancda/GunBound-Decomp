@@ -46,16 +46,16 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       *(undefined4 *)(iVar1 + 0x88) = 0x3e75c28f;
       *(undefined4 *)(iVar1 + 0x80) = 0x3f4147ae;
       *(undefined4 *)(iVar1 + 0x84) = 0x3ba3d70a;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       PeekPacketChecksumState((void *)(g_clientContext + 0x5b1ac));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       BuildSizedSpriteQuad(400,0x47,0,0x40,0x40,0xffffffff);
       FlushSpriteBatch();
     }
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar1 == 2) {
     iVar1 = FindTextureCacheEntryByName(s_TagTexture_005568b8);
     if (iVar1 != 0) {
@@ -64,9 +64,9 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       *(undefined4 *)(iVar1 + 0x88) = 0x3f000000;
       *(undefined4 *)(iVar1 + 0x80) = 0;
       *(undefined4 *)(iVar1 + 0x84) = 0;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       BuildScaledSpriteQuad(0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar2 * 0x18) == 1,0xff,0xffffff);
       FlushSpriteBatch();
       if (g_currentBlendMode != 2) {
@@ -76,9 +76,9 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
         (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,2);
       }
       *(undefined4 *)(iVar1 + 0x80) = 0x3f000000;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       BuildScaledSpriteQuad(0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar1 * 0x18) == 1,0xff,0xffffff);
       FlushSpriteBatch();
     }

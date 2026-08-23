@@ -36,9 +36,9 @@ uint __fastcall CheckAllPlayersReady(int param_1)
     do {
       cVar1 = *(char *)(iVar4 + 0x45914 + iVar5);
       if ((cVar1 != '\0') && (cVar1 != '\x03')) {
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar4 = g_clientContext;
         uVar3 = extraout_var;
         if (iVar5 != iVar2) {

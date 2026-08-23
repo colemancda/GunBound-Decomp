@@ -12,20 +12,20 @@ undefined4 FUN_00406690(int param_1)
 {
   byte *in_EAX;
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((byte)((*in_EAX + in_EAX[1]) - 0x34) == in_EAX[2]) {
     if ((in_EAX[1] >> (*in_EAX & 7) & 1) == 1) goto LAB_004066f7;
   }
   else {
     g_valueGuardTamperFlag = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
   if (param_1 == '\0') {
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     return 0;
   }
 LAB_004066f7:
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return 1;
 }
 

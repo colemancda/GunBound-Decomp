@@ -52,7 +52,7 @@ void FUN_004785f0(int param_1)
   *unaff_FS_OFFSET = &local_c;
   cVar2 = PeekPacketChecksumBool();
   if (cVar2 == '\x01') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x478636
      * (`lea edi,[ebx + 0xaf0]`, ebx = this file's own param_1 -
      * `mov ebx,dword ptr [esp+0x8bc]` at function entry reloads the
@@ -61,20 +61,20 @@ void FUN_004785f0(int param_1)
      * so byte offsets are natural. See
      * tools/encodeoutgoingpacketfield_sites.json. */
     EncodeOutgoingPacketField(param_1 + 0xaf0, 0);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     goto LAB_00478a67;
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar3 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeChecksumDeltaSub(param_1 + 0x480,local_89c,uVar3);
   local_4 = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar10 = PeekPacketChecksumState((void *)(local_89c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar11 = PeekPacketChecksumState((void *)(param_1 + 0x25c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x4786d8.
    * x=EDI loaded from [esp+0x10] (uVar11, the 2nd PeekPacketChecksumState
    * return just above), y=EAX<-EDI (uVar10, the 1st PeekPacketChecksumState
@@ -86,22 +86,22 @@ void FUN_004785f0(int param_1)
     ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&g_valueGuardKeyTable);
     TreeLowerBound(local_8b0,&g_valueGuardMap);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar3 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeChecksumDeltaSub(param_1 + 0x480,local_678,uVar3);
   local_4 = 1;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar3 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeChecksumDeltaSub(param_1 + 0x25c,local_89c,uVar3);
   SUBFIELD(local_4,0,undefined1) = 2;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar12 = PeekPacketChecksumState((void *)(local_89c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar13 = PeekPacketChecksumState((void *)(param_1 + 0x25c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x4787dc.
    * x=EDI loaded from [esp+0x10] (uVar13, the 2nd PeekPacketChecksumState
    * return just above), y=EAX<-EDI (uVar12, the 1st PeekPacketChecksumState
@@ -120,14 +120,14 @@ void FUN_004785f0(int param_1)
     local_8b0[0] = (*(int *)(local_678 + 0x14));
     TreeLowerBound(local_8a8,&g_valueGuardMap);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar3 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeChecksumDeltaSub(param_1 + 0x480,local_230,uVar3);
   local_4 = 3;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_8b0[0] = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* iVar9 mirrors the local_8b0[0] assignment below (side effect-free
    * capture) so its value survives the local_8b0[0] = PeekPacketChecksumState()
    * reassignment 2 statements down - the real x arg to FindGroundHeightAtColumn
@@ -136,12 +136,12 @@ void FUN_004785f0(int param_1)
   iVar9 = EncodeChecksumDeltaAdd(param_1 + 0x25c,local_454,local_8b0[0]);
   local_8b0[0] = iVar9;
   SUBFIELD(local_4,0,undefined1) = 4;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar14 = PeekPacketChecksumState((void *)(local_454));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_8b0[0] = PeekPacketChecksumState((void *)(param_1 + 0x25c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x478920.
    * x=EDI loaded from [esp+0x14], the compiler spill slot still holding
    * iVar9 (EncodeChecksumDeltaAdd's return just above, from before
@@ -161,9 +161,9 @@ void FUN_004785f0(int param_1)
     ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
     TreeLowerBound(local_8a8,&g_valueGuardMap);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_8b0[0] = PeekPacketChecksumState((void *)(&DAT_00e55ab8));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar6 = local_8b0[0] + local_8a0;
   if (iVar6 < iVar4) {
     iVar7 = local_8a0;
@@ -190,7 +190,7 @@ LAB_004789f7:
     iVar4 = iVar4 / 2;
   }
   sVar1 = *(short *)(&DAT_00598e7e + (iVar8 * 0x100 + iVar4) * 2);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x478a59
    * (`lea edi,[ebx + 0xaf0]`, ebx = param_1, still live/unchanged since
    * function entry - see the comment on this function's other
@@ -198,7 +198,7 @@ LAB_004789f7:
    * same cell as the other call in this function). See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField(param_1 + 0xaf0, (int)sVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
 LAB_00478a67:
   *unaff_FS_OFFSET = local_c;
   return;

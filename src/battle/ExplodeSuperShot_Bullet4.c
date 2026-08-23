@@ -50,9 +50,9 @@ void __fastcall ExplodeSuperShot_Bullet4(int param_1)
   uVar8 = EncodeChecksumPairSum(param_1 + 0xf54,local_230,param_1 + 0x1178);
   pcVar7 = (code *)EnterCriticalSection;
   local_4 = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = PeekPacketChecksumState((void *)uVar8);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_4 = 0xffffffff;
   *(undefined4 *)(param_1 + 0x3f9c) = uVar2;
   if ((*(int *)(local_230 + 0x14)) != 0) {
@@ -60,12 +60,12 @@ void __fastcall ExplodeSuperShot_Bullet4(int param_1)
     TreeLowerBound(local_238,&g_valueGuardMap);
     pcVar7 = (code *)EnterCriticalSection;
   }
-  (*pcVar7)(&DAT_005a9068);
+  (*pcVar7)(&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(param_1 + 0x1178));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  (*pcVar7)(&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  (*pcVar7)(&g_valueGuardLock);
   iVar4 = PeekPacketChecksumState((void *)(param_1 + 0xf54));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   cVar1 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
   if (cVar1 == '\0') {
     pvVar5 = operator_new(0x54);

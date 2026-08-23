@@ -25,30 +25,30 @@ void __fastcall RenderJewel(int param_1)
   uVar3 = *(uint *)(param_1 + 8);
   iVar1 = *(int *)(g_clientContext + 0x23274);
   *(undefined1 *)(uVar3 + 0x23278 + g_clientContext) = 1;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = PeekPacketChecksumState((void *)(param_1 + 0x25c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(undefined4 *)((*(int *)(param_1 + 8) + 9000) * 0x10 + g_clientContext) = uVar2;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = PeekPacketChecksumState((void *)(param_1 + 0x480));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(undefined4 *)(*(int *)(param_1 + 8) * 0x10 + 0x23284 + g_clientContext) = uVar2;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = PeekPacketChecksumState((void *)(param_1 + 0xaf0));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *(undefined4 *)(*(int *)(param_1 + 8) * 0x10 + 0x23288 + g_clientContext) = uVar2;
   uVar3 = uVar3 & 0x80000003;
   if ((int)uVar3 < 0) {
     uVar3 = (uVar3 - 1 | 0xfffffffc) + 1;
   }
   iVar4 = ((*(uint *)(param_1 + 8) >> 2) * iVar1 + uVar3 * 2) * 0x40 + iVar4;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   PeekPacketChecksumState((void *)(param_1 + 0x38));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   FUN_004784a0(iVar4,iVar1);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   PeekPacketChecksumState((void *)(param_1 + 0x38));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   FUN_004784a0(iVar1 * 0x80 + iVar4,iVar1);
   return;
 }

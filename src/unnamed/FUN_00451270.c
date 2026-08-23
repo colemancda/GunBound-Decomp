@@ -18,7 +18,7 @@ undefined4 * FUN_00451270(undefined4 *param_1)
   *param_1 = &PTR_FUN_00555bd0;
   InitGuardedBool();
   InitGuardedBool();
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = _rand();
   *(byte *)(param_1 + 0xfe7) = (byte)iVar2;
   iVar2 = _rand();
@@ -28,8 +28,8 @@ undefined4 * FUN_00451270(undefined4 *param_1)
   bVar3 = ~bVar3 & (byte)iVar2 | bVar3;
   *(byte *)((int)param_1 + 0x3f9d) = bVar3;
   *(byte *)((int)param_1 + 0x3f9e) = bVar3 + bVar1 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = _rand();
   *(byte *)((int)param_1 + 0x3f9f) = (byte)iVar2;
   iVar2 = _rand();
@@ -39,7 +39,7 @@ undefined4 * FUN_00451270(undefined4 *param_1)
   bVar3 = ~('\x01' << bVar3) & (byte)iVar2 | '\0' << bVar3;
   *(byte *)(param_1 + 0xfe8) = bVar3;
   *(byte *)((int)param_1 + 0x3fa1) = bVar3 + bVar1 + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return param_1;
 }
 

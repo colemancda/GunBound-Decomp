@@ -103,9 +103,9 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
       if ((*(char *)(iVar3 + 0x45914 + iStack_8c) != '\0') &&
          (cVar6 = *(char *)(iVar3 + 0x4590c + iStack_8c), cVar6 != -1)) {
         cVar6 = (cVar6 != *(char *)(iVar3 + 0x3b6c0)) + '\x02';
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         if (iVar3 == iStack_8c) {
           uVar2 = *(int *)(param_1 + 0x740) / 10 & 0x80000001;
           bVar9 = uVar2 == 0;
@@ -152,9 +152,9 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
       piVar8 = piVar8 + 1;
     } while (iStack_88 < 0x68);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = iVar3 + 7;
   if ((g_screenSurface != 0) && (-1 < (int)uVar2)) {
     iVar3 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -316,9 +316,9 @@ LAB_004da0b0:
     }
   }
 LAB_004da138:
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x4512c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = ((int)(iVar3 + -0x28 + (iVar3 + -0x28 >> 0x1f & 0xfU)) >> 4) + 0x14;
   if ((g_screenSurface != 0) && (-1 < (int)uVar2)) {
     iVar3 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -335,9 +335,9 @@ LAB_004da138:
     }
   }
 LAB_004da1e2:
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x4557c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = iVar3 + 0x1b;
   if ((g_screenSurface != 0) && (-1 < (int)uVar2)) {
     iVar3 = *(int *)(DAT_00ea0e1c + 0x1c);

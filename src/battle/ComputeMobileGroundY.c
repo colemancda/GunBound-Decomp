@@ -54,13 +54,13 @@ int __fastcall ComputeMobileGroundY(int param_1)
   local_4 = 0;
   uVar8 = EncodeChecksumPairDiff(iVar1,local_454,uVar2);
   local_4 = 1;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar6 = PeekPacketChecksumState((void *)uVar8);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_67c = param_1 + 0x90c;
   iVar7 = PeekPacketChecksumState((void *)local_67c);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed at
    * 0x45c798. y=EAX came from the PeekPacketChecksumState() return just
    * above (dropped by Ghidra, captured here as iVar6); x=EDI came from
@@ -80,9 +80,9 @@ int __fastcall ComputeMobileGroundY(int param_1)
   local_4 = 2;
   uVar8 = EncodeChecksumPairDiff(iVar1,local_678,uVar2);
   local_4 = 3;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)uVar8);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   bVar6 = local_680 == iVar3;
   local_4 = 2;
   if ((*(int *)(local_678 + 0x14)) != 0) {
@@ -98,12 +98,12 @@ int __fastcall ComputeMobileGroundY(int param_1)
   if (bVar6) {
     uVar8 = EncodeChecksumPairDiff(iVar1,local_678,iVar5);
     local_4 = 4;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)uVar8);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar7 = PeekPacketChecksumState((void *)local_67c);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed at
      * 0x45c93d. y=EAX came from the PeekPacketChecksumState() return just
      * above (dropped by Ghidra, captured here as iVar6); x=EDI came from
@@ -116,9 +116,9 @@ int __fastcall ComputeMobileGroundY(int param_1)
     }
     uVar8 = EncodeChecksumPairDiff(iVar1,local_678,iVar5);
     local_4 = 5;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = PeekPacketChecksumState((void *)uVar8);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_4 = 0xffffffff;
     if ((*(int *)(local_678 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
@@ -128,12 +128,12 @@ int __fastcall ComputeMobileGroundY(int param_1)
     if (iVar4 == iVar5) {
       uVar8 = EncodeChecksumDeltaAdd(iVar1,local_678,1);
       local_4 = 6;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar6 = PeekPacketChecksumState((void *)uVar8);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar7 = PeekPacketChecksumState((void *)local_67c);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       /* FIXED (2026-07-15): dropped terrain/x/y args - angr-confirmed at
        * 0x45ca5d. y=EAX came from the PeekPacketChecksumState() return
        * just above (dropped by Ghidra, captured here as iVar6); x=EDI
@@ -147,9 +147,9 @@ int __fastcall ComputeMobileGroundY(int param_1)
       }
       uVar8 = EncodeChecksumDeltaAdd(iVar1,local_230,1);
       local_4 = 7;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = PeekPacketChecksumState((void *)uVar8);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
         ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);

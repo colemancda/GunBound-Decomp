@@ -25,9 +25,9 @@
 int SetGuardedBool(undefined4 param_1,int guardPtr)
 
 {
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeGuardedBool(param_1,(byte *)guardPtr);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return guardPtr;
 }
 

@@ -66,17 +66,17 @@ int __fastcall TickJewelFrame(int *param_1)
   *unaff_FS_OFFSET = (int)&local_c;
   local_c = iVar5;
   if ((char)param_1[5] == '\x01') goto LAB_0047a932;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar4 = PeekPacketChecksumState((void *)&DAT_00794bf0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeChecksumDeltaSub(param_1 + 0x120,local_89c,uVar4);
   local_4 = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar16 = PeekPacketChecksumState((void *)local_89c);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar17 = PeekPacketChecksumState((void *)(param_1 + 0x97));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped x/y args - angr-confirmed at 0x479c65.
    * x=EDI loaded from [esp+0x14] (uVar17, the 2nd PeekPacketChecksumState
    * return just above), y=EAX<-EDI (uVar16, the 1st PeekPacketChecksumState
@@ -90,17 +90,17 @@ int __fastcall TickJewelFrame(int *param_1)
   }
   EncodeChecksumPairSum(param_1 + 0x120,local_89c,param_1 + 0x67d);
   local_4 = 1;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar6 = PeekPacketChecksumState((void *)local_89c);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar6 < iVar5) {
 LAB_00479d44:
     bVar2 = false;
   }
   else {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x97));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar6 < 0) goto LAB_00479d44;
     cVar3 = PacketChecksumLessThan(param_1 + 0x97,*(undefined4 *)(&g_nCameraBoundX + g_clientContext));
     bVar2 = true;
@@ -112,9 +112,9 @@ LAB_00479d44:
     TreeLowerBound(local_924,&g_valueGuardMap);
   }
   if (bVar2) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x67d));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar6 < 5) {
       QueueOutgoingPacketField(iVar5);
       if (param_1[9] == 1) {
@@ -129,12 +129,12 @@ LAB_00479d44:
        * PeekChecksumStateUnderLock elsewhere below - so these byte offsets
        * are just those same scaled `int *` cells. See
        * tools/encodeoutgoingpacketfield_sites.json. */
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       EncodeOutgoingPacketField(param_1 + 0x67d, 0);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       EncodeOutgoingPacketField(param_1 + 0x5f4, 0);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\x01') {
         uVar7 = FUN_00415c60();
@@ -156,12 +156,12 @@ LAB_00479e75:
       /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
        * 0x479ecf/0x479eea, same ebx+0x17d0 cell as above (== param_1 +
        * 0x5f4). See tools/encodeoutgoingpacketfield_sites.json. */
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       EncodeOutgoingPacketField(param_1 + 0x5f4, 1);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       EncodeOutgoingPacketField(param_1 + 0x5f4, 0);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       cVar3 = PeekPacketChecksumBool();
       if ((cVar3 == '\x01') && (iVar5 < *(int *)(&g_nCameraBoundY + g_clientContext))) goto LAB_00479e75;
     }
@@ -176,10 +176,10 @@ LAB_00479e75:
      * first call above - confirmed again by the very next line reusing
      * `param_1 + 0x67d` via EmitChecksumSum). See
      * tools/encodeoutgoingpacketfield_sites.json. */
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = PeekPacketChecksumState((void *)(param_1 + 0x67d));
     EncodeOutgoingPacketField(param_1 + 0x67d, iVar5 + 1);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EmitChecksumSum(param_1 + 0x120, param_1 + 0x67d);
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 != '\0') {
@@ -187,17 +187,17 @@ LAB_00479e75:
       PeekChecksumStateUnderLock(g_clientContext + 0x5af88);
       iVar5 = FloatToInt64();
       AddToPacketChecksum(param_1 + 0x5f4, iVar5 * 3);
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar4 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar4 = EncodeChecksumDeltaDiv(param_1 + 0x5f4,local_89c,uVar4);
       local_4 = 2;
       EmitChecksumSum(param_1 + 0x97, (void *)uVar4);
       local_4 = 0xffffffff;
       ScrubChecksumGuard();
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar4 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       EmitChecksumMod(param_1 + 0x5f4, uVar4);
     }
   }
@@ -270,9 +270,9 @@ LAB_00479e75:
     (**(code **)(*param_1 + 4))(s_normal_00552230);
   }
   iVar5 = *(int *)(&g_nCameraBoundY + g_clientContext);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x120));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((iVar5 < iVar6) || (cVar3 = FUN_0040b450(param_1 + 0x232,param_1 + 0x1a9), cVar3 != '\0')) {
     cVar3 = PeekPacketChecksumBool();
     if (cVar3 == '\x01') {
@@ -392,17 +392,17 @@ joined_r0x0047a5db:
       else {
 LAB_0047a634:
         cVar3 = CompareChecksumMatch(g_clientContext + 0x3b6c4,g_clientContext + 0x3b49c);
-        iVar5 = DAT_007934e8;
+        iVar5 = g_connectionContextA;
         if ((cVar3 != '\0') && (g_gameStateVTableArray[0xb][0x2382] == '\0')) {
-          *(undefined2 *)(DAT_007934e8 + 0x4d4) = 0x4200;
+          *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x4200;
           *(undefined4 *)(iVar5 + 0x44d0) = 6;
           cVar3 = CompareChecksumExceeds(&DAT_0067e5f4 + g_clientContext,&DAT_0067e3d0 + g_clientContext);
-          iVar5 = DAT_007934e8;
+          iVar5 = g_connectionContextA;
           if (cVar3 == '\0') {
-            *(undefined1 *)(DAT_007934e8 + 0x4d0 + *(int *)(DAT_007934e8 + 0x44d0)) = 0;
+            *(undefined1 *)(g_connectionContextA + 0x4d0 + *(int *)(g_connectionContextA + 0x44d0)) = 0;
           }
           else {
-            *(undefined1 *)(DAT_007934e8 + 0x4d0 + *(int *)(DAT_007934e8 + 0x44d0)) = 1;
+            *(undefined1 *)(g_connectionContextA + 0x4d0 + *(int *)(g_connectionContextA + 0x44d0)) = 1;
           }
           *(int *)(iVar5 + 0x44d0) = *(int *)(iVar5 + 0x44d0) + 1;
           EncodePacketBody(0,iVar5);

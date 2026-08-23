@@ -15,13 +15,13 @@ undefined4 FUN_004067c0(void)
   char cVar2;
   byte *unaff_EDI;
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((byte)((*in_EAX + in_EAX[1]) - 0x34) == in_EAX[2]) {
     cVar2 = '\x01' - ((in_EAX[1] >> (*in_EAX & 7) & 1) != 1);
   }
   else {
     g_valueGuardTamperFlag = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     cVar2 = '\0';
   }
   if ((byte)((*unaff_EDI + unaff_EDI[1]) - 0x34) == unaff_EDI[2]) {
@@ -29,14 +29,14 @@ undefined4 FUN_004067c0(void)
   }
   else {
     g_valueGuardTamperFlag = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     cVar1 = '\0';
   }
   if ((cVar2 == '\0') && (cVar1 == '\0')) {
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     return 0;
   }
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return 1;
 }
 

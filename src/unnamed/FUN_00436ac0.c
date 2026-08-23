@@ -36,9 +36,9 @@ void FUN_00436ac0(undefined4 param_1,undefined4 param_2)
     }
     *(undefined4 *)(iVar3 + 0x38) = param_1;
     *(undefined4 *)(iVar3 + 0x3c) = param_2;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)&DAT_00e9bed8);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = _rand();
     *(int *)(iVar3 + 0x18) = unaff_EBX;
     *(int *)(iVar3 + 0x44) = iVar5 % iVar4;

@@ -90,10 +90,10 @@ void __fastcall UpdateMobileEmotionState(int *param_1)
     }
     EncodeChecksumDeltaDiv(param_1 + 0x19d1,auStack_230,3);
     uStack_4 = 3;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = PeekPacketChecksumState((void *)(param_1 + 0x1a5a));
     iVar7 = PeekPacketChecksumState((void *)(auStack_230));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uStack_4 = 0xffffffff;
     if (iStack_21c != 0) {
       ScrambleChecksumGuardBytes(iStack_21c,&g_valueGuardKeyTable);

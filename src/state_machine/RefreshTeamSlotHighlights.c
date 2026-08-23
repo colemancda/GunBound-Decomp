@@ -24,17 +24,17 @@ void RefreshTeamSlotHighlights(void)
   
   iVar3 = 0;
   do {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (*(char *)(g_clientContext + 0x458fc + iVar2 * 2) == iVar3) {
 LAB_004db999:
       iVar2 = 1;
     }
     else {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       cVar1 = *(char *)(g_clientContext + 0x458fd + iVar2 * 2);
       if (cVar1 == iVar3) goto LAB_004db999;
       iVar2 = (uint)(uint3)(cVar1 >> 7) << 8;
@@ -42,17 +42,17 @@ LAB_004db999:
     SetWidgetReadyState(0,0,iVar2,(int)&g_activeObjectRegistry);
     iVar3 = iVar3 + 1;
   } while (iVar3 < 0xe);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
   if (iVar3 == 2) {
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (*(char *)(g_clientContext + 0x458fc + iVar2 * 2) != -1) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if (*(char *)(g_clientContext + 0x458fd + iVar3 * 2) != -1) {
         bVar4 = false;
         goto LAB_004dba63;
@@ -61,7 +61,7 @@ LAB_004db999:
     bVar4 = true;
   }
   else {
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     bVar4 = *(char *)(g_clientContext + 0x458fc + iVar2 * 2) == -1;
   }
 LAB_004dba63:

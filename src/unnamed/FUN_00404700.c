@@ -49,9 +49,9 @@ void FUN_00404700(int param_1)
       iVar3 = iVar3 + 1;
     } while (*pcVar1 != '\0');
     iVar4 = FUN_00404b00(&local_38);
-    iVar3 = DAT_007934e8;
+    iVar3 = g_connectionContextA;
     if (iVar4 == 0) {
-      *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+      *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       *(undefined2 *)(iVar3 + 0x4d4) = 0x1020;
       *(undefined4 *)(iVar3 + 0x4d6) = *unaff_EDI;
       *(undefined4 *)(iVar3 + 0x4da) = unaff_EDI[1];

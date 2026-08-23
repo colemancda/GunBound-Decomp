@@ -24,9 +24,9 @@ void FUN_00426230(int in_EAX)
   int iVar4;
   char local_400 [1024];
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)(in_EAX + 0x6aa67c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = (uint)(iVar1 / 0x14) / 0xe10;
   iVar4 = in_EAX + 0x23330;
   uVar3 = (undefined4)(((ulonglong)(uint)(iVar1 / 0x14) % 0xe10) / 0x3c);

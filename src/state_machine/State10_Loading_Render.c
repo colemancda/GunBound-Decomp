@@ -107,17 +107,17 @@ int __fastcall State10_Loading_Render(int param_1)
   iStack_b0 = 499;
 LAB_00442440:
   uVar18 = 0x2000 << ((byte)iStack_a0 & 0x1f);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x4111c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((uVar6 & uVar18) == uVar18) {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iArenaSel = PeekPacketChecksumState((void *)(g_clientContext + 0x475c8));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = PeekPacketChecksumState((void *)((iArenaSel * 0xb + *(byte *)(g_clientContext + 0x475c4)) * 0x7d28 +
                                                      iStack_ac + g_clientContext + 0x1a2390));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar6 = iVar5 + 0x10c;
     if ((g_screenSurface != 0) && (-1 < (int)uVar6)) {
       iVar5 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -216,10 +216,10 @@ LAB_00442690:
     iVar5 = iStack_b0;
     if (*(char *)(iVar9 + 0x45914 + iStack_b0) != '\0') {
       uVar6 = (uint)(*(char *)(iVar9 + 0x4590c + iStack_b0) == '\0') * 2 + 0x18;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar9 = PeekPacketChecksumState((void *)(iVar9 + 0x3b49c));
       cStack_a5 = iVar9 == iVar5;
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if (cStack_a5 != '\0') {
         uVar18 = *(int *)(iStack_a4 + 4) / 10 & 0x80000001;
         bVar19 = uVar18 == 0;

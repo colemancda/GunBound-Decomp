@@ -85,17 +85,17 @@ int InitGame(undefined4 param_1,undefined4 param_2)
       return iVar1 + 0xe0;
     }
     DAT_007934c8 = DAT_00f11dd4;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar1 = PeekPacketChecksumState((void *)&DAT_00796878);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (DAT_007934c8 == iVar1) {
       FUN_004f1eb0();
       BuildAssetPath(local_40c,&DAT_005b1ed0,s_sound_xfs_005526fc,0);
       InitDirectSound(param_1,0x10,local_40c);
       DAT_007934c8 = DAT_00ea0f54;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar1 = PeekPacketChecksumState((void *)&DAT_00796878);
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if (DAT_007934c8 == iVar1) {
         InitDirectInput(param_2);
         LoadBitmapFont();

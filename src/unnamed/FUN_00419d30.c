@@ -22,9 +22,9 @@ int FUN_00419d30(void)
   int unaff_EBX;
   
   iVar2 = *(int *)(unaff_EBX + 0xf6ec);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = PeekPacketChecksumState((void *)&DAT_00796878);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar3 = extraout_var;
   if (iVar2 == iVar1) {
     if (*(char *)(unaff_EBX + 0x1fe18) != '\0') {

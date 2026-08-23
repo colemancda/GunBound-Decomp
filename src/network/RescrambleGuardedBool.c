@@ -14,17 +14,17 @@ undefined4 __fastcall RescrambleGuardedBool(undefined4 param_1)
   char cVar1;
   byte *in_EAX;
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if ((byte)((*in_EAX + in_EAX[1]) - 0x34) == in_EAX[2]) {
     cVar1 = '\x01' - ((in_EAX[1] >> (*in_EAX & 7) & 1) != 1);
   }
   else {
     g_valueGuardTamperFlag = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     cVar1 = '\0';
   }
   EncodeGuardedBool(cVar1,(byte *)GB_GUARD_UNRECOVERED);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return param_1;
 }
 

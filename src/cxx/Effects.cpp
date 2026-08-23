@@ -25,11 +25,11 @@ int PeekPacketChecksumState(void *self);
 extern unsigned char DAT_00e9bed8;      /* guarded frame-divisor cell */
 extern int g_clientContext;
 void EnterCriticalSection_shim(void *);  /* not used - see note below */
-extern unsigned char DAT_005a9068[];     /* the guard critical section */
+extern unsigned char g_valueGuardLock[];     /* the guard critical section */
 }
 
 /* The raw port brackets both peeks with EnterCriticalSection/
- * LeaveCriticalSection(&DAT_005a9068) via windows.h; this TU avoids
+ * LeaveCriticalSection(&g_valueGuardLock) via windows.h; this TU avoids
  * dragging windows.h into the C++ tree the same way ValueGuard.cpp does -
  * the lock calls stay in the raw C port, which remains the linking
  * reference.  This body documents the logic against named fields. */

@@ -36,7 +36,7 @@ extern unsigned int g_screenSurface;         /* "sprites loaded" gate */
 extern void *PTR_DAT_00551ecc;            /* the "%d" room-number format string */
 extern const char s__s__3d__3d__005536b8[]; /* "%s[%3d/%3d]" scoreboard/banner format */
 extern unsigned char g_localizedStringTable; /* localized-string table base */
-extern CRITICAL_SECTION DAT_005a9068;     /* the value-guard lock */
+extern CRITICAL_SECTION g_valueGuardLock;     /* the value-guard lock */
 int  FindSpriteFrame(void);               /* resolves the current frame (args in regs) */
 void BlitSprite16bpp(int x, int y);       /* hardware blit (frame in regs) */
 void BlitSpriteClipped(int frame);        /* software blit */
@@ -197,9 +197,9 @@ void CState03GameRoomList::RenderRoomCard(int slot)
  * see the DROPPED-CELL FIX note in the file header for the six addresses. */
 static int ReadGuardedField(void *cell)
 {
-    EnterCriticalSection(&DAT_005a9068);
+    EnterCriticalSection(&g_valueGuardLock);
     int v = PeekPacketChecksumState(cell);
-    LeaveCriticalSection(&DAT_005a9068);
+    LeaveCriticalSection(&g_valueGuardLock);
     return v;
 }
 

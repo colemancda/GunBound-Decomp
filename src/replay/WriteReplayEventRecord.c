@@ -569,7 +569,7 @@ LAB_004111c0:
     local_d4c = local_d4c & 0xffffff00;
     if (*(short *)pbVar22 != 0) {
       (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x10))
-                (*(undefined2 *)(DAT_007934e8 + 0x44d8),*(undefined2 *)(pbVar22 + 0xe));
+                (*(undefined2 *)(g_connectionContextA + 0x44d8),*(undefined2 *)(pbVar22 + 0xe));
       ShowErrorDialogFmt(0,&local_d58);
       FUN_00403000(&DAT_00e53e88);
       break;
@@ -582,14 +582,14 @@ LAB_004111c0:
     FUN_004260f0();
     iVar19 = __stricmp(&DAT_006aa408 + g_clientContext,(char *)&local_d58);
     if (iVar19 == 0) {
-      uVar15 = AppendToEncodedSocketBuffer(0,0x10,&local_d44,(int)DAT_007934e8);
+      uVar15 = AppendToEncodedSocketBuffer(0,0x10,&local_d44,(int)g_connectionContextA);
       FlushEncodedSocketBuffer(uVar15);
       (&DAT_006aa408)[g_clientContext] = 0;
     }
     iVar19 = __stricmp(&DAT_006aa600 + g_clientContext,(char *)&local_d58);
     pbVar22 = param_3;
     if (iVar19 == 0) {
-      uVar15 = AppendToEncodedSocketBuffer(0,0x10,&local_d44,(int)DAT_007934e8);
+      uVar15 = AppendToEncodedSocketBuffer(0,0x10,&local_d44,(int)g_connectionContextA);
       FlushEncodedSocketBuffer(uVar15);
       (&DAT_006aa600)[g_clientContext] = 0;
       pbVar22 = param_3;

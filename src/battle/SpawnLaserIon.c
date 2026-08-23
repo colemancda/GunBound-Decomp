@@ -41,7 +41,7 @@ void SpawnLaserIon(undefined4 param_1,int param_2,int param_3,uint param_4,undef
   piVar4[6] = 0x17ce;
   piVar4[0xe] = 0x17cf;
   piVar4[0xe25] = 0x1f4d;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x437ff0
    * (`lea edi,[ebp + 0x40]`, ebp = the constructed projectile object
    * piVar4): piVar4+0x40 matches InitProjectile.c's own cell #1
@@ -50,14 +50,14 @@ void SpawnLaserIon(undefined4 param_1,int param_2,int param_3,uint param_4,undef
    * confirming the same CProjectile cell layout here. See
    * tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)piVar4 + 0x40, param_2);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x438014
    * (`lea edi,[ebp + 0x264]`, ebp = piVar4): matches InitProjectile.c's
    * cell #2 (param_2+0x264, tableHandle==param_2[0x9e], activeFlag at
    * param_2+0x121*4). See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)piVar4 + 0x264, param_3);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   param_4 = param_4 & 0x80000007;
   piVar4[0xfee] = param_3;
   if ((int)param_4 < 0) {
@@ -66,23 +66,23 @@ void SpawnLaserIon(undefined4 param_1,int param_2,int param_3,uint param_4,undef
   *(char *)(piVar4 + 0xf) = (char)param_4;
   piVar4[0xfea] = param_2;
   piVar4[0xfeb] = param_3 + 200;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeGuardedBool(param_5,(byte *)GB_GUARD_UNRECOVERED);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = FindPreloadedTextureByName(s_laserion_00553be8);
   piVar4[7] = iVar2;
   (**(code **)(*piVar4 + 4))(s_normal_00552230);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x4380cb
    * (`lea edi,[ebp + 0x17e4]`, ebp = piVar4): a later cell on the same
    * projectile object, already initialized during the InitProjectile-
    * equivalent construction above and reused here for the checksum-
    * state value. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)piVar4 + 0x17e4, uVar3);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   RegisterActiveObject(0, 0, (undefined4 *)0);
   *unaff_FS_OFFSET = pvVar1;
   return;

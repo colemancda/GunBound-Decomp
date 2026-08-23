@@ -30,9 +30,9 @@ void FUN_0043c3c0(void)
       }
     }
     for (iVar2 = *(int *)(iVar4 + 0x10); iVar4 != iVar2; iVar2 = *(int *)(iVar2 + 0x10)) {
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       uVar3 = PeekPacketChecksumState((void *)(iVar2 + 0x35ec));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       *(undefined4 *)(iVar2 + 0x3fac) = uVar3;
       *(undefined4 *)(iVar2 + 0x3fd0) = 0;
       *(undefined4 *)(iVar2 + 0x3fb0) = 0;

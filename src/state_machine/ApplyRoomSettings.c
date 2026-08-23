@@ -31,9 +31,9 @@ void ApplyRoomSettings(int *param_1,int param_2)
   undefined4 uVar6;
   undefined4 uVar7;
   
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((void *)(param_1 + 0x9b), in_EAX);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = g_clientContext;
   *(undefined1 *)(g_clientContext + 0x45124) = param_2;
   bVar4 = (byte)in_EAX;
@@ -44,12 +44,12 @@ void ApplyRoomSettings(int *param_1,int param_2)
   *(byte *)(iVar1 + 0x45127) = (byte)(in_EAX >> 8) & 0xf;
   *(byte *)(iVar1 + 0x45128) = (byte)(in_EAX >> 0xc) & 3;
   *(byte *)(iVar1 + 0x45126) = (byte)(in_EAX >> 0xe) & 3;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((void *)(g_clientContext + 0x45354), in_EAX >> 0x12 & 3);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((void *)(g_clientContext + 0x4557c), in_EAX >> 0x10 & 3);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   cVar5 = (char)(in_EAX >> 0x18);
   if (cVar5 != *(char *)(g_clientContext + 0x45578)) {
     uVar7 = 6;
@@ -59,9 +59,9 @@ void ApplyRoomSettings(int *param_1,int param_2)
     uVar2 = GetLocalizedString(&g_localizedStringTable,(in_EAX >> 0x18) + 10000);
     (**(code **)(iVar1 + 0x28))(uVar2,uVar6,uVar7);
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   switch(uVar2) {
   case 0:
     CreateButtonWidget(&g_activeObjectRegistry,0,10,0x3f2,s_b_ready_option_00556b30,0x13d,0xe1,0x51,0x18,0,0);
@@ -124,9 +124,9 @@ LAB_004dadd5:
     RemoveWidget((int)&g_activeObjectRegistry,0,0x1f);
     RemoveWidget((int)&g_activeObjectRegistry,0,0x20);
     RemoveWidget((int)&g_activeObjectRegistry,0,0x21);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField((void *)(g_clientContext + 0x4512c), 0xffffffff);
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     break;
   case 1:
     RemoveWidget((int)&g_activeObjectRegistry,0,0x1e);
@@ -156,7 +156,7 @@ LAB_004daf59:
     RemoveWidget((int)&g_activeObjectRegistry,0,0x33);
     RemoveWidget((int)&g_activeObjectRegistry,0,0x34);
     RemoveWidget((int)&g_activeObjectRegistry,0,0x35);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar2 = 0x58;
     break;
   case 1:
@@ -165,7 +165,7 @@ LAB_004daf59:
                        0);
     RemoveWidget((int)&g_activeObjectRegistry,0,0x34);
     RemoveWidget((int)&g_activeObjectRegistry,0,0x35);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar2 = 0x28;
     break;
   case 2:
@@ -174,7 +174,7 @@ LAB_004daf59:
     RemoveWidget((int)&g_activeObjectRegistry,0,0x35);
     CreateButtonWidget(&g_activeObjectRegistry,0,0x34,0x41c,s_b_ready_option_00556b30,0x193,0x11d,0x51,0x18,0,
                        0);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar2 = 0x38;
     break;
   case 3:
@@ -183,14 +183,14 @@ LAB_004daf59:
     RemoveWidget((int)&g_activeObjectRegistry,0,0x34);
     CreateButtonWidget(&g_activeObjectRegistry,0,0x35,0x41d,s_b_ready_option_00556b30,0x193,0x11d,0x51,0x18,0,
                        0);
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar2 = 0x48;
     break;
   default:
     goto switchD_004dafd1_default;
   }
   EncodeOutgoingPacketField((void *)(g_clientContext + 0x4512c), uVar2);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
 switchD_004dafd1_default:
   cVar5 = *(char *)(g_clientContext + 0x45126);
   if (cVar5 == '\0') {
@@ -214,16 +214,16 @@ LAB_004db263:
                          0,0);
     }
   }
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x4557c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = *(int *)(&DAT_0056d350 + *(char *)(g_clientContext + 0x44ef8) * 4);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((void *)(g_clientContext + 0x4557c), iVar3 % iVar1);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x4557c));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   switch(uVar2) {
   case 0:
     CreateButtonWidget(&g_activeObjectRegistry,0,0x46,0x42e,s_b_ready_option_00556b30,0x13d,0xff,0x51,0x18,0,0

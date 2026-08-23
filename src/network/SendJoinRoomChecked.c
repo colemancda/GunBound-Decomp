@@ -40,9 +40,9 @@ void SendJoinRoomChecked(void)
   }
   if (*(char *)(*(int *)(in_EAX + 4) + 0x449ae + g_clientContext) == '\0') {
     RefreshGameRoomListControls(0,(int)g_gameStateVTableArray[3]);
-    iVar1 = DAT_007934e8;
+    iVar1 = g_connectionContextA;
     iVar3 = g_clientContext;
-    *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+    *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
     *(undefined2 *)(iVar1 + 0x4d4) = 0x2110;
     *(undefined2 *)(iVar1 + 0x4d6) = *(undefined2 *)(iVar3 + 0x44664 + *(int *)(in_EAX + 4) * 4);
     iVar3 = *(int *)(iVar1 + 0x44d0);

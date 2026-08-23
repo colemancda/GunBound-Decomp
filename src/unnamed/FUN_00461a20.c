@@ -37,16 +37,16 @@ void FUN_00461a20(int param_1)
   
   cVar3 = PeekPacketChecksumBool();
   if (cVar3 != '\0') {
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if ((*(uint *)(param_1 + 8) & 7) == uVar6) {
       iVar8 = 0;
       local_1c = 0;
       do {
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x39f30 + iVar8));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         if (iVar7 == 0) break;
         local_1c = local_1c + 1;
         iVar8 = iVar8 + 0x224;
@@ -59,7 +59,7 @@ void FUN_00461a20(int param_1)
         local_14[4] = 0xf;
         iVar8 = _rand();
         uVar2 = local_14[iVar8 % 5];
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
          * 0x461b2d (`lea edi,[eax+edx+0x39f30]`). Objdump of
          * orig/GunBound.gme traces eax back to this file's own
@@ -72,29 +72,29 @@ void FUN_00461a20(int param_1)
          * documented per-player array stride. See
          * tools/encodeoutgoingpacketfield_sites.json. */
         EncodeOutgoingPacketField(g_clientContext + 0x39f30 + local_1c * 0x224, uVar2);
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         QueueBroadcastEvent(0x8406,(int)&g_replayContext);
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         uVar5 = PeekPacketChecksumState((void *)(param_1 + 0x90c));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar5;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         uVar5 = PeekPacketChecksumState((void *)(param_1 + 0xb30));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar5;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar8 = PeekPacketChecksumState((void *)(param_1 + 0x1c54));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = '\x01' - (iVar8 != 1);
         puVar1 = &DAT_00e9aacd + g_dwBroadcastEventCursor;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         *puVar1 = (undefined1)local_1c;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-        EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         uVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x39f30 + local_1c * 0x224));
-        LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+        LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = uVar4;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         BroadcastQueuedEvent((int)&g_replayContext);

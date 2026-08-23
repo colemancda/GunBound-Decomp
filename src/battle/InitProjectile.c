@@ -338,7 +338,7 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
   EncodeOutgoingPacketField((void *)((int)param_2 + 0x3d6c),0);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x1d);
   InitGuardedBool();
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
   *(char *)((int)param_2 + 0xf45) = (char)iVar1;
   iVar1 = _rand();
@@ -347,8 +347,8 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
   bVar2 = ~('\x01' << bVar2) & (byte)iVar1 | '\0' << bVar2;
   *(byte *)((int)param_2 + 0xf46) = bVar2;
   *(byte *)((int)param_2 + 0xf47) = bVar2 + *(char *)((int)param_2 + 0xf45) + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45521e
    * (`0x455218: lea edi,[esi + 0x139c]`) the cell is param_2 (the projectile
    * object being constructed - this function's __thiscall explicit pointer
@@ -356,8 +356,8 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
    * matching tableHandle (+0x14) and activeFlag (+0x220) fields just above
    * this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_2 + 0x139c),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45523c
    * (`0x455236: lea edi,[esi + 0x15c0]`) the cell is param_2 (the projectile
    * object being constructed - this function's __thiscall explicit pointer
@@ -365,8 +365,8 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
    * matching tableHandle (+0x14) and activeFlag (+0x220) fields just above
    * this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_2 + 0x15c0),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
   *(char *)(param_2 + 0x3d3) = (char)iVar1;
   iVar1 = _rand();
@@ -375,9 +375,9 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
           '\0' << (*(byte *)(param_2 + 0x3d3) & 7);
   *(byte *)((int)param_2 + 0xf4d) = bVar2;
   *(byte *)((int)param_2 + 0xf4e) = bVar2 + *(char *)(param_2 + 0x3d3) + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   param_2[0x3d2] = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
   *(char *)(param_2 + 0xe04) = (char)iVar1;
   iVar1 = _rand();
@@ -386,10 +386,10 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
   bVar2 = ~bVar2 & (byte)iVar1 | bVar2;
   *(byte *)((int)param_2 + 0x3811) = bVar2;
   *(byte *)((int)param_2 + 0x3812) = bVar2 + *(char *)(param_2 + 0xe04) + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   param_2[0x794] = 0;
   *(undefined1 *)(param_2 + 0xf) = 0xff;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
   *(char *)(param_2 + 0xe46) = (char)iVar1;
   iVar1 = _rand();
@@ -398,8 +398,8 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
           '\0' << (*(byte *)(param_2 + 0xe46) & 7);
   *(byte *)((int)param_2 + 0x3919) = bVar2;
   *(byte *)((int)param_2 + 0x391a) = bVar2 + *(char *)(param_2 + 0xe46) + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
   *(char *)((int)param_2 + 0x391b) = (char)iVar1;
   iVar1 = _rand();
@@ -408,8 +408,8 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
   bVar2 = ~('\x01' << bVar2) & (byte)iVar1 | '\0' << bVar2;
   *(byte *)(param_2 + 0xe47) = bVar2;
   *(byte *)((int)param_2 + 0x391d) = bVar2 + *(char *)((int)param_2 + 0x391b) + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x455436
    * (`0x455430: lea edi,[esi + 0x3920]`) the cell is param_2 (the projectile
    * object being constructed - this function's __thiscall explicit pointer
@@ -417,11 +417,11 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
    * matching tableHandle (+0x14) and activeFlag (+0x220) fields just above
    * this call. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((void *)((int)param_2 + 0x3920),0);
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   param_2[0xed1] = 0;
   param_2[0xfe4] = 3;
   param_2[0x3d4] = 0;
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
   *(char *)((int)param_2 + 0xf42) = (char)iVar1;
   iVar1 = _rand();
@@ -430,8 +430,8 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
   bVar2 = ~bVar2 & (byte)iVar1 | bVar2;
   *(byte *)((int)param_2 + 0xf43) = bVar2;
   *(byte *)(param_2 + 0x3d1) = bVar2 + *(byte *)((int)param_2 + 0xf42) + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar1 = _rand();
   *(char *)(param_2 + 0xfe6) = (char)iVar1;
   iVar1 = _rand();
@@ -440,7 +440,7 @@ undefined4 * __thiscall InitProjectile(undefined4 param_1,undefined4 *param_2,un
   bVar2 = ~('\x01' << bVar2) & (byte)iVar1 | '\0' << bVar2;
   *(byte *)((int)param_2 + 0x3f99) = bVar2;
   *(byte *)((int)param_2 + 0x3f9a) = bVar2 + *(byte *)(param_2 + 0xfe6) + -0x34;
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   *unaff_FS_OFFSET = local_c;
   return param_2;
 }

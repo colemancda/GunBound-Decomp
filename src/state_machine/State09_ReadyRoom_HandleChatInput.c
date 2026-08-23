@@ -85,14 +85,14 @@ LAB_004d67e1:
     if (param_2 == 0x201) {
       uVar10 = param_4 & 0xffff;
       param_4 = param_4 >> 0x10;
-      EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
-      LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+      LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       if ((((iVar5 == 2) && (0x17a < uVar10)) && (uVar10 < 0x1ea)) &&
          (((0x186 < param_4 && (param_4 < 0x218)) && ((char)param_1[0x133] == '\0')))) {
         RefreshReadyRoomControls(param_1,0,0);
-        iVar6 = DAT_007934e8;
-        *(undefined4 *)(DAT_007934e8 + 0x44d0) = 6;
+        iVar6 = g_connectionContextA;
+        *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
         *(undefined2 *)(iVar6 + 0x4d4) = 0x3200;
         uVar2 = *(undefined1 *)((int)param_1 + 0x25a);
         *(undefined1 *)((int)param_1 + 0x25a) = *(undefined1 *)((int)param_1 + 0x259);
@@ -221,7 +221,7 @@ LAB_004d6626:
       iVar5 = g_clientContext;
       *(undefined4 *)((int)param_1 + 0x25d) = *(undefined4 *)(g_clientContext + 0x457a1);
       *(undefined4 *)((int)param_1 + 0x261) = *(undefined4 *)(iVar5 + 0x457a5);
-      iVar5 = DAT_007934e8;
+      iVar5 = g_connectionContextA;
       uVar9 = uVar10 & 0x80000007;
       pbVar1 = (byte *)(((int)(uVar10 + ((int)uVar10 >> 0x1f & 7U)) >> 3) + 0x25d + (int)param_1);
       if ((int)uVar9 < 0) {

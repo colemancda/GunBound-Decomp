@@ -844,10 +844,10 @@ LAB_00442056:
     g_stateChangeRequested = 0;
     DAT_0056d108 = 0;
     _DAT_007934d8 = 1;
-    EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
     iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
-    LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+    LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar4 == iVar5) {
       QueueBroadcastEvent(0x8600,(int)&g_replayContext);
       BroadcastQueuedEvent();

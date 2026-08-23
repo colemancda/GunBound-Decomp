@@ -55,10 +55,10 @@ void BuildItemLoadout(int *param_1,int param_2)
     }
     uVar6 = uVar6 + 1;
   } while ((int)uVar6 < 0x40);
-  EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
   iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
-  LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
+  LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar3 == iVar4) {
     iVar3 = 0;
     piVar5 = param_1 + 0x146;
