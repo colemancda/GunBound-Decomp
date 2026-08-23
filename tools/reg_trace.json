@@ -308,9 +308,9 @@
   "safe": false
  },
  {
-  "func": "FUN_0040c8b0",
+  "func": "TextEntry_PushTextToControl",
   "reg": "eax",
-  "path": "src/unnamed/FUN_0040c8b0.c",
+  "path": "src/unnamed/TextEntry_PushTextToControl.c",
   "caller": "State09_ReadyRoom_HandleChatInput",
   "caller_va": "0x4d6210",
   "va": "0x4d65ff",
@@ -319,9 +319,9 @@
   "safe": true
  },
  {
-  "func": "FUN_0040c8d0",
+  "func": "TextEntry_SetSelection",
   "reg": "eax",
-  "path": "src/unnamed/FUN_0040c8d0.c",
+  "path": "src/unnamed/TextEntry_SetSelection.c",
   "caller": "State09_ReadyRoom_HandleChatInput",
   "caller_va": "0x4d6210",
   "va": "0x4d6621",

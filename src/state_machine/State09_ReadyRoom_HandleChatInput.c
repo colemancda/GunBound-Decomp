@@ -168,7 +168,7 @@ LAB_004d67e1:
         pcVar12 = pcVar12 + 1;
       }
       uStack_44 = 0;
-      FUN_0040c8b0((int)DAT_007934e4);
+      TextEntry_PushTextToControl((int)DAT_007934e4);
       pcVar8 = acStack_80;
       do {
         cVar4 = *pcVar8;
@@ -181,7 +181,7 @@ LAB_004d67e1:
        * argument (it overwrites it with `mov ecx,[esp+4]`), so param_1 is a
        * phantom and is passed 0.  The port had been passing the length as
        * that phantom and omitting both real arguments. */
-      FUN_0040c8d0(0,(int)pcVar8 - (int)(acStack_80 + 1),
+      TextEntry_SetSelection(0,(int)pcVar8 - (int)(acStack_80 + 1),
                    (int)pcVar8 - (int)(acStack_80 + 1),(int)DAT_007934e4);
 LAB_004d6626:
       if ((char)param_1[0x133] != '\0') {

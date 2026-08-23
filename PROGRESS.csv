@@ -202,8 +202,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040c670,113,FUN_0040c670,false,1,5,RAW-src
 0040c6f0,359,FUN_0040c6f0,false,1,5,RAW-src
 0040c880,39,FetchActiveTextInputText,false,4,1,RAW-src
-0040c8b0,32,FUN_0040c8b0,false,1,1,RAW-src
-0040c8d0,31,FUN_0040c8d0,false,1,1,RAW-src
+0040c8b0,32,TextEntry_PushTextToControl,false,1,1,RAW-src
+0040c8d0,31,TextEntry_SetSelection,false,1,1,RAW-src
 0040c8f0,131,FUN_0040c8f0,false,4,3,RAW-src
 0040c980,124,InitTextBoxWidget,false,2,0,RAW-src
 0040ca00,32,DeletePoisonedBaseObject,false,24,2,RAW-src
@@ -1185,9 +1185,9 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004eb450,186,BlitRLESprite,false,127,2,RAW-src
 004eb510,187,DrawFontString,false,30,2,RAW-src
 004eb5d0,99,DrawHLine,false,6,1,RAW-src
-004eb640,99,FUN_004eb640,false,1,1,RAW-src
+004eb640,99,DrawBlendedHLine,false,1,1,RAW-src
 004eb6b0,102,DrawVLine,false,8,0,RAW-src
-004eb720,123,FUN_004eb720,false,1,1,RAW-src
+004eb720,123,DrawBlendedVLine,false,1,1,RAW-src
 004eb7a0,82,FUN_004eb7a0,false,4,2,RAW-src
 004eb800,142,FillRect,false,11,1,RAW-src
 004eb890,65,DrawSprite,false,16,3,RAW-src
@@ -1297,7 +1297,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f2240,750,FUN_004f2240,false,4,1,RAW-src
 004f2530,448,FUN_004f2530,false,1,0,RAW-src
 004f26f0,74,FillPixels16,false,6,0,RAW-src
-004f2740,202,FUN_004f2740,false,2,0,RAW-src
+004f2740,202,BlendPixels16,false,2,0,RAW-src
 004f2810,507,FUN_004f2810,false,1,0,RAW-src
 004f2a10,777,FUN_004f2a10,false,3,1,RAW-src
 004f2d20,18,FUN_004f2d20,false,1,1,RAW-src

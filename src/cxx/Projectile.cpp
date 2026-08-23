@@ -235,8 +235,8 @@ int __fastcall LookupProjectileTrackingRow(int phantom, int keyA, void *rowAddr,
  * found anywhere else in the tree. Declared for bring-up auto-stubbing;
  * argument order is a best-effort reading of the observed per-call-site
  * register state, not independently verified. */
-void FUN_004eb640(int ecxPhantom, int runLength, int label, int x, int y);
-void FUN_004eb720(int param_1,int param_2,int param_3,int regEax);
+void DrawBlendedHLine(int ecxPhantom, int runLength, int label, int x, int y);
+void DrawBlendedVLine(int param_1,int param_2,int param_3,int regEax);
 
 /* v1_SetState/v9_SetState/v8_Delete/v4_NoOp/v12_NoOp's dependencies - same
  * shared functions ButtonWidget.cpp declares for CButtonWidget's identical
@@ -1626,9 +1626,9 @@ void CProjectile::v11()
 
     int y1 = (rawY - camY) + 0x12a;
     int x1 = (rawX - camX) + 0x18f;
-    /* Horizontal half of the crosshair; see FUN_004eb640.c's header.  ECX is
+    /* Horizontal half of the crosshair; see DrawBlendedHLine.c's header.  ECX is
      * a phantom the callee never reads, so it is passed 0. */
-    FUN_004eb640(0, 3, label, x1, y1);
+    DrawBlendedHLine(0, 3, label, x1, y1);
 
     int y2 = (rawY - camY) + 0x129;
     int x2 = (rawX - camX) + 0x190;
@@ -1641,5 +1641,5 @@ void CProjectile::v11()
      * The port had these in the wrong order -- the 3 was being passed first,
      * as though it were a mode selector, which put y2 in the label slot and
      * the label in the run length. */
-    FUN_004eb720(y2, x2, label, 3);
+    DrawBlendedVLine(y2, x2, label, 3);
 }

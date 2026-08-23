@@ -8205,7 +8205,7 @@
   ]
  },
  {
-  "func": "FUN_0040c8b0",
+  "func": "TextEntry_PushTextToControl",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -8214,7 +8214,7 @@
   "buckets": {
    "STACK": 1
   },
-  "path": "src/unnamed/FUN_0040c8b0.c",
+  "path": "src/unnamed/TextEntry_PushTextToControl.c",
   "per_site": [
    {
     "va": "0x4d65ff",
@@ -8224,7 +8224,7 @@
   ]
  },
  {
-  "func": "FUN_0040c8d0",
+  "func": "TextEntry_SetSelection",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -8233,7 +8233,7 @@
   "buckets": {
    "OTHER": 1
   },
-  "path": "src/unnamed/FUN_0040c8d0.c",
+  "path": "src/unnamed/TextEntry_SetSelection.c",
   "per_site": [
    {
     "va": "0x4d6621",

@@ -1,13 +1,24 @@
-/* FUN_004f2740 - 0x004f2740 in the original binary.
+/* BlendPixels16 - 0x004f2740 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Additively blends a solid colour over a run of 16bpp pixels.
+ *
+ * The blending twin of FillPixels16, which it sits immediately after in the
+ * original (0x004f26f0 then 0x004f2740) and whose argument shape it shares:
+ * (dest, colour, count).  Where FillPixels16 stores the colour, this halves
+ * both operands (>> 1 with the 0x7bef7bef / 0xe79ce79c channel masks), adds
+ * them, and re-saturates - two pixels per 32-bit word, with the odd trailing
+ * pixel handled separately.
+ *
+ * Named from that pairing rather than from the arithmetic alone: the masks
+ * identify the format as 16bpp with 5/6/5-shaped channels, but it is the
+ * shared signature and adjacency with FillPixels16, and the fact that
+ * DrawBlendedHLine calls this at the byte-identical address expression
+ * DrawHLine passes to FillPixels16, that fix what it is FOR.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004f2740(uint *param_1,int param_2,uint param_3)
+void BlendPixels16(uint *param_1,int param_2,uint param_3)
 
 {
   ushort uVar1;

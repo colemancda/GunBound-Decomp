@@ -1,11 +1,21 @@
-/* FUN_004eb640 - 0x004eb640 in the original binary.
+/* DrawBlendedHLine - 0x004eb640 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Draws a horizontal run of additively-blended pixels - the blending twin of
+ * DrawHLine.
+ *
+ * The two are the same function bar the final write.  DrawHLine and this share
+ * their clip logic exactly, down to which globals bound which axis:
+ *
+ *   edi <= DAT_0056df34 && DAT_00793534 <= edi     the row, against the Y clip
+ *   eax clamped into [DAT_00793530, DAT_0056df30]  the span, against the X clip
+ *
+ * and both then write at DAT_0079352c + (DAT_005b3620 * row + col) * 2.
+ * DrawHLine passes that to FillPixels16; this passes it to BlendPixels16.
+ * DrawBlendedVLine is the vertical member of the same set, with the two axis
+ * pairs transposed.
  *
  * DROPPED REGISTER ARGUMENTS RECOVERED.  This is the horizontal half of a
- * crosshair pair with FUN_004eb720 (the vertical half): this one emits a
+ * crosshair pair with DrawBlendedVLine (the vertical half): this one emits a
  * single run of param_2 pixels, while 0x4eb720 loops the same write down
  * param_2 rows.
  *
@@ -30,7 +40,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004eb640(undefined4 param_1,int param_2,int param_3,int regEax,
+void __fastcall DrawBlendedHLine(undefined4 param_1,int param_2,int param_3,int regEax,
                              int regEdi)
 
 {
@@ -44,7 +54,7 @@ void __fastcall FUN_004eb640(undefined4 param_1,int param_2,int param_3,int regE
       param_2 = (DAT_0056df30 - regEax) + 1;
     }
     if (0 < param_2) {
-      FUN_004f2740(DAT_0079352c + (DAT_005b3620 * regEdi + regEax) * 2,param_3,param_2);
+      BlendPixels16(DAT_0079352c + (DAT_005b3620 * regEdi + regEax) * 2,param_3,param_2);
     }
   }
   return;

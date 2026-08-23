@@ -480,7 +480,7 @@
   }
  },
  {
-  "func": "FUN_0040c8b0",
+  "func": "TextEntry_PushTextToControl",
   "sites": 1,
   "uniform": {
    "eax": "[esp + 0x58]",

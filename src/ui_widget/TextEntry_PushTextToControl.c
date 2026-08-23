@@ -1,9 +1,14 @@
-/* FUN_0040c8b0 - 0x0040c8b0 in the original binary.
+/* TextEntry_PushTextToControl - 0x0040c8b0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Writes a text-entry object's string into its Win32 control.
+ *
+ * param_1 is the entry object (its HWND is at +4) and regEax is the string,
+ * with NULL substituted by the empty string at DAT_00551cb1.  That NULL
+ * fallback is what identifies it: TextEntry_SetControlText does the same
+ * substitution against the same empty-string global, on the same
+ * DAT_007934e4 + 4 handle.  This is the primitive that takes the object
+ * explicitly; TextEntry_SetControlText is the larger routine that also copies
+ * the string into the object's own buffer at +0x38.
  *
  * param_1 FILLED.  `ret 0`, so param_1 is ECX, and the sole call site
  * (0x004d65ff) passed nothing: `mov ecx,[0x7934e4]`.  The body uses it as
@@ -20,7 +25,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_0040c8b0(int param_1)
+void __fastcall TextEntry_PushTextToControl(int param_1)
 
 {
   LPCSTR in_EAX;
