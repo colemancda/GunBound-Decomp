@@ -69,7 +69,7 @@ void FUN_00412e50(void)
   _fwrite(&local_428,0x28,1,pFVar4);
   pFVar4 = local_42c;
   _Memory = local_430;
-  iVar8 = DAT_005b3620 * 0x4ae + DAT_0079352c;
+  iVar8 = g_screenPitch * 0x4ae + g_screenSurface;
   puVar6 = (undefined1 *)((int)pvVar3 + 1);
   local_444 = 600;
   do {
@@ -102,7 +102,7 @@ void FUN_00412e50(void)
       puVar5 = puVar6;
       puVar7 = puVar7 + 5;
     } while (iVar9 != 0);
-    iVar8 = iVar8 + DAT_005b3620 * -2;
+    iVar8 = iVar8 + g_screenPitch * -2;
     local_444 = local_444 + -1;
   } while (local_444 != 0);
   _fwrite(local_430,0x960,600,local_42c);

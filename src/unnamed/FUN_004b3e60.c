@@ -34,7 +34,7 @@ void FUN_004b3e60(undefined2 *param_1)
 
   if (*(char *)(param_1 + 0x191) != '\0') {
     iVar3 = *(int *)(param_1 + 0x194);
-    if ((DAT_0079352c != 0) &&
+    if ((g_screenSurface != 0) &&
         (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x38e,0), iVar2 != 0)) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
         BlitSprite16bpp(0,iVar3,0x17d,0x38e);
@@ -44,7 +44,7 @@ void FUN_004b3e60(undefined2 *param_1)
       }
     }
     uVar1 = *param_1;
-    if ((DAT_0079352c != 0) &&
+    if ((g_screenSurface != 0) &&
         (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x64,uVar1), iVar2 != 0)) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
         BlitSprite16bpp(uVar1,iVar3 + 0x13,0x18c,0x64);

@@ -294,8 +294,8 @@ uint8_t g_eventKeyBlock[0x20] = {
 };
 uint8_t DAT_0056dd30;
 uint8_t DAT_0056de30;
-uint32_t DAT_0056df30;
-uint32_t DAT_0056df34;
+uint32_t g_clipMaxX;
+uint32_t g_clipMaxY;
 uint16_t DAT_00588f38;
 uint32_t DAT_00588f3c;
 uint16_t DAT_00588f40;
@@ -437,7 +437,7 @@ uint16_t DAT_005b343c;
 uint32_t DAT_005b3480;
 uint32_t g_clientContext;
 uint32_t DAT_005b3488;
-uint32_t DAT_005b3620;
+uint32_t g_screenPitch;
 /* g_fullWidthFontGlyphs (was DAT_005b3628, the full-width/CJK bitmap-font
  * glyph table) is sized to 0xc0000 in globals_sized.c - see the comment there. */
 uint8_t DAT_005f2f38;
@@ -581,9 +581,9 @@ uint8_t DAT_00793521;
 uint8_t g_bBattleSessionActive;
 uint8_t DAT_00793529;
 uint8_t DAT_0079352a;
-uint32_t DAT_0079352c;
-uint32_t DAT_00793530;
-uint32_t DAT_00793534;
+uint32_t g_screenSurface;
+uint32_t g_clipMinX;
+uint32_t g_clipMinY;
 uint32_t DAT_00793544;
 uint8_t DAT_00793549;
 uint8_t DAT_0079354a;

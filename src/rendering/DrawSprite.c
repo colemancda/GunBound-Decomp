@@ -69,7 +69,7 @@ void DrawSprite(int param_1,int y,int x,int outerKey,int innerKey)
 {
   int iVar1;
 
-  if ((DAT_0079352c != 0) && (-1 < param_1)) {
+  if ((g_screenSurface != 0) && (-1 < param_1)) {
     iVar1 = FindSpriteFrame((int)&g_spriteRegistry,outerKey,innerKey);
     if (iVar1 != 0) {
       if (*(char *)(iVar1 + 0x18) == '\x01') {

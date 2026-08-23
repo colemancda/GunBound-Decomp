@@ -51,7 +51,7 @@ void FUN_0044c460(int param_1,int param_2,int param_3,int param_4,int param_5,in
   local_4 = param_4;
 LAB_0044c490:
   if (local_4 % 3 == 0) {
-    if ((((bVar3) && (DAT_0079352c != 0)) && (-1 < regEax)) && (iVar4 = FindSpriteFrame(), iVar4 != 0))
+    if ((((bVar3) && (g_screenSurface != 0)) && (-1 < regEax)) && (iVar4 = FindSpriteFrame(), iVar4 != 0))
     {
       if (*(char *)(iVar4 + 0x18) == '\x01') {
         BlitSprite16bpp(param_1);
@@ -65,7 +65,7 @@ LAB_0044c490:
   if (*(char *)(local_8 + param_3) != ' ') {
     uVar1 = *(char *)(local_8 + param_3) + -0x30 + param_2;
     bVar3 = true;
-    if ((DAT_0079352c != 0) && (-1 < (int)uVar1)) {
+    if ((g_screenSurface != 0) && (-1 < (int)uVar1)) {
       iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar2 = *(uint *)(iVar4 + 4);
       while (uVar2 <= regEdi) {

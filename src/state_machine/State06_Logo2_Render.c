@@ -14,7 +14,7 @@
  *   cmp edx,0x28
  *   setge al            ; frame index = (frameCounter >= 40) ? 1 : 0
  *   mov esi,eax
- *   mov eax,ds:0x79352c ; DAT_0079352c - backbuffer-locked flag
+ *   mov eax,ds:0x79352c ; g_screenSurface - backbuffer-locked flag
  *   test eax,eax
  *   je ret              ; not locked -> nothing to draw
  *   test esi,esi
@@ -53,7 +53,7 @@ void __fastcall State06_Logo2_Render(int param_1,int dummyEDX)
 
   (void)dummyEDX;
   frameIndex = (0x28 <= *(int *)(param_1 + 4));
-  if (DAT_0079352c == 0) {
+  if (g_screenSurface == 0) {
     return;
   }
   frameRecord = FindSpriteFrame((int)&g_spriteRegistry,10000,frameIndex);

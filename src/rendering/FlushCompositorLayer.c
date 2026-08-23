@@ -21,9 +21,9 @@ void FlushCompositorLayer(int param_1,int regEbx)
   undefined4 *local_8;
   int local_4;
   
-  if ((DAT_0079352c != 0) && (local_4 = 0, 0 < *(int *)(regEbx + 0x1008))) {
+  if ((g_screenSurface != 0) && (local_4 = 0, 0 < *(int *)(regEbx + 0x1008))) {
     local_8 = (undefined4 *)(regEbx + 0x100c);
-    iVar6 = DAT_0079352c;
+    iVar6 = g_screenSurface;
     do {
       psVar3 = (short *)*local_8;
       iVar5 = 0;
@@ -51,7 +51,7 @@ void FlushCompositorLayer(int param_1,int regEbx)
         } while (iVar5 < *(int *)(regEbx + 0x1004));
       }
       local_4 = local_4 + 1;
-      iVar6 = iVar6 + DAT_005b3620 * 2;
+      iVar6 = iVar6 + g_screenPitch * 2;
       local_8 = local_8 + 1;
     } while (local_4 < *(int *)(regEbx + 0x1008));
   }

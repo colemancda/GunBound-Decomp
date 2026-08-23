@@ -54,7 +54,7 @@ void __fastcall FUN_00477930(int param_1)
   uVar3 = PeekPacketChecksumState((void *)uVar9);
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar1 = *(int *)(param_1 + 0x30);
-  if ((DAT_0079352c != 0) && (-1 < iVar1)) {
+  if ((g_screenSurface != 0) && (-1 < iVar1)) {
     iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x1900,iVar1);
     if (iVar4 != 0) {
       if (*(char *)(iVar4 + 0x18) == '\x01') {

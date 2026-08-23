@@ -32,7 +32,7 @@
 #include "ClientContext.h"
 
 extern "C" {
-extern unsigned int DAT_0079352c;         /* "sprites loaded" gate */
+extern unsigned int g_screenSurface;         /* "sprites loaded" gate */
 extern void *PTR_DAT_00551ecc;            /* the "%d" room-number format string */
 extern const char s__s__3d__3d__005536b8[]; /* "%s[%3d/%3d]" scoreboard/banner format */
 extern unsigned char g_localizedStringTable; /* localized-string table base */
@@ -86,7 +86,7 @@ void CState03GameRoomList::RenderRoomCard(int slot)
         bankBase += 1;
     }
     int frame;
-    if (DAT_0079352c != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
             BlitSprite16bpp(xBand, yBand + 0x3a);
         } else {
@@ -95,7 +95,7 @@ void CState03GameRoomList::RenderRoomCard(int slot)
     }
 
     /* presence/avatar icon (+0x449b4) */
-    if (Ctx_roomPresence(ctx)[slot] != 0 && DAT_0079352c != 0 &&
+    if (Ctx_roomPresence(ctx)[slot] != 0 && g_screenSurface != 0 &&
         (frame = FindSpriteFrame()) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
             BlitSprite16bpp(xBand + 0xb1, yBand + 0x42);
@@ -106,7 +106,7 @@ void CState03GameRoomList::RenderRoomCard(int slot)
 
     /* flagA counter (+0x4499c) */
     u8 flagA = Ctx_roomFlagA(ctx)[slot];
-    if (DAT_0079352c != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
             BlitSprite16bpp(xBand + 0xc3, yBand + 0x46);
         } else {
@@ -116,7 +116,7 @@ void CState03GameRoomList::RenderRoomCard(int slot)
 
     /* flagB counter (+0x449a2) */
     u8 flagB = Ctx_roomFlagB(ctx)[slot];
-    if (DAT_0079352c != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
             BlitSprite16bpp(xBand + 0xd2, yBand + 0x46);
         } else {
@@ -127,7 +127,7 @@ void CState03GameRoomList::RenderRoomCard(int slot)
     /* map thumbnail: map + (info.byte2 & 3)*11 (+0x4497c / +0x44986) */
     u8 infoB2 = Ctx_roomInfoByte2(ctx)[slot * 4];
     u8 mapId = Ctx_roomMap(ctx)[slot];
-    if (DAT_0079352c != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
             BlitSprite16bpp(xBand + 0x6a, yBand + 0x5b);
         } else {
@@ -145,7 +145,7 @@ void CState03GameRoomList::RenderRoomCard(int slot)
     } else {
         badge = 7;
     }
-    if (DAT_0079352c != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
             BlitSprite16bpp(xBand + 0x13, yBand + 0x55);
         } else {
@@ -155,7 +155,7 @@ void CState03GameRoomList::RenderRoomCard(int slot)
 
     /* lock icon (+0x449ae) */
     if (Ctx_roomLock(ctx)[slot] != 0) {
-        if (DAT_0079352c != 0 && (frame = FindSpriteFrame()) != 0) {
+        if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
             if (*(char *)(frame + 0x18) == 1) {
                 int lockX = (slot / 3 != 0 ? 0xea - 0xfa : 0xea) + xBand;
                 BlitSprite16bpp(lockX, yBand + 0x52);
@@ -182,7 +182,7 @@ void CState03GameRoomList::RenderRoomCard(int slot)
 
     /* fullness bar: info bits 18-19 (+0x44984) */
     u32 info = Ctx_roomInfo(ctx)[slot];
-    if (DAT_0079352c != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
         if (*(char *)(frame + 0x18) == 1) {
             BlitSprite16bpp(xBand + 0xb1, yBand + 0x5b);
             return;
@@ -216,13 +216,13 @@ void CState03GameRoomList::RenderOverlay()   /* slot 15; nee RenderRoomLabel */
     int frame;
 
     /* background layer 1 */
-    if (DAT_0079352c != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
         if (*(char *)(frame + 0x18) == 1) BlitSprite16bpp(0, 0); /* y in reg */
         else BlitSpriteClipped(0);
     }
     /* background layer 2 (frame index at ctx+0x23344) */
     u16 bgFrame = *(u16 *)(ctx + 0x23344);
-    if (DAT_0079352c != 0 && (frame = FindSpriteFrame()) != 0) {
+    if (g_screenSurface != 0 && (frame = FindSpriteFrame()) != 0) {
         if (*(char *)(frame + 0x18) == 1) BlitSprite16bpp(0xac, 9);
         else BlitSpriteClipped(bgFrame);
     }

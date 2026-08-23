@@ -57,7 +57,7 @@ void RenderScreenBackdrop(void)
 {
   int iVar1;
 
-  if (DAT_0079352c != 0) {
+  if (g_screenSurface != 0) {
     iVar1 = FindSpriteFrame((int)&g_spriteRegistry,10000,0);
     if (iVar1 != 0) {
       if (*(char *)(iVar1 + 0x18) == '\x01') {

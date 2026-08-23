@@ -37,7 +37,7 @@ void __fastcall DrawButtonWidget(int this)
   frame = *(int *)(this + 0x30);
   y = *(int *)(this + 0x3c);
   outerKey = *(int *)(this + 0x18);
-  if ((DAT_0079352c != 0) && (-1 < frame)) {
+  if ((g_screenSurface != 0) && (-1 < frame)) {
     record = FindSpriteFrame((int)&g_spriteRegistry,outerKey,frame);
     if (record != 0) {
       if (*(char *)(record + 0x18) == '\x01') {

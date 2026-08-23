@@ -74,7 +74,7 @@ LAB_004dbb40:
     iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     if (param_1 == iVar4) {
-      if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
+      if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
         if (*(char *)(iVar4 + 0x18) == '\x01') {
           BlitSprite16bpp(iVar2 + 99,iVar5 + 0x20);
         }
@@ -117,7 +117,7 @@ LAB_004dbb40:
     BlitRLESprite(iVar2 + 0x16,iVar5 + 0x21,0,
                   (byte *)(g_clientContext + param_1 * 0xd + 0x457f1));
     if ((g_bBattleSessionActive == '\0') && (*(char *)(iVar4 + 0x45914 + param_1) == '\x04')) {
-      if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
+      if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame(), iVar4 != 0)) {
         if (*(char *)(iVar4 + 0x18) != '\x01') {
           /* BlitSpriteClipped's x/y args were dropped (ECX/EAX) - this
            * site's own disassembly (0x4dbd10) shows ECX=iVar2+0x69,

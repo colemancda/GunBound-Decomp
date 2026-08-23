@@ -243,8 +243,8 @@ extern unsigned int DAT_005b1444;
  * in-battle HUD, room list) are reachable during the logo screen (states
  * 5/6) or anywhere in InitGame/WinMain's startup path. Left at their BSS
  * zero-init default, State06_Logo2_Render's blit clips to a single visible
- * row (empirically confirmed live: DAT_0056df34=0 makes
- * `local_4 = (DAT_0056df34 - y) + 1` evaluate to 1 for y=0) instead of the
+ * row (empirically confirmed live: g_clipMaxY=0 makes
+ * `local_4 = (g_clipMaxY - y) + 1` evaluate to 1 for y=0) instead of the
  * full 600-row logo image - the actual root cause of the black window
  * surviving even after LockBackBuffer/FindSpriteFrame/the blit call chain
  * and the present-frame RECT (see g_presentDstRect) were all confirmed
@@ -255,7 +255,7 @@ extern unsigned int DAT_005b1444;
  * the 800x600 canvas everywhere else in this codebase (e.g. InitGame.c's
  * DAT_00e53c24 family) and SetClipRect's own >=800/>=600 fallback constants
  * (0x31f=799, 0x257=599). */
-extern unsigned int DAT_00793530, DAT_0056df30, DAT_00793534, DAT_0056df34;
+extern unsigned int g_clipMinX, g_clipMaxX, g_clipMinY, g_clipMaxY;
 
 /* g_clientContext - see globals.h's own comment: a ~1MB+ arena built by
  * FUN_00415d40, whose only real caller (orig 0x540d30) is a tiny wrapper
@@ -400,10 +400,10 @@ static void gb_startup_init(void)
      * registry+4, i.e. the SENTINEL pointer - not the container address. */
     DAT_00e9be94 = (unsigned int)gb_registrySentinel[0];
     DAT_00ea0e1c = (unsigned int)gb_registrySentinel[2];
-    DAT_00793530 = 0;
-    DAT_0056df30 = 799;
-    DAT_00793534 = 0;
-    DAT_0056df34 = 599;
+    g_clipMinX = 0;
+    g_clipMaxX = 799;
+    g_clipMinY = 0;
+    g_clipMaxY = 599;
     gb_init_client_context();
 }
 /* data_seg, NOT #pragma section(...,read): VC7.1's linker keeps a

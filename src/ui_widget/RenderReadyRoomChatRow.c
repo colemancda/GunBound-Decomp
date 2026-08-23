@@ -51,7 +51,7 @@ void __fastcall RenderReadyRoomChatRow(int param_1)
         iVar4 = *(int *)(param_1 + 0x28);
         iVar11 = iVar4 + 0x19;
         iVar9 = uVar3 - 1;
-        if (((DAT_0079352c != 0) && (-1 < iVar9)) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
+        if (((g_screenSurface != 0) && (-1 < iVar9)) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
           if (*(char *)(iVar5 + 0x18) == '\x01') {
             BlitSprite16bpp(iVar4 + 0x1a,iVar7);
           }

@@ -41,7 +41,7 @@ void FUN_0042a680(int param_1)
    * NOTE the raw port's args had slid LEFT: `BlitSprite16bpp(iVar7, iVar6+0x3a)`
    * was passing the x as the frame handle. Frame is uVar8 at both paths.
    * Cached scan: tools/findspriteframe_sites.json (call_addr 0x42a6e7, esi=0x11). */
-  if ((DAT_0079352c != 0) &&
+  if ((g_screenSurface != 0) &&
       (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,uVar8), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(uVar8,iVar7,iVar6 + 0x3a,0x2710);
@@ -56,7 +56,7 @@ void FUN_0042a680(int param_1)
    * `push 0xe / mov eax,ebx / lea ecx,[ebp+0xb1]` (clipped). Frame is 0xe at
    * both. Cached scan call_addr 0x42a742 (esi=0xe). */
   if (((*(char *)(g_clientContext + 0x449b4 + *(int *)(param_1 + 0x124)) != '\0') &&
-      (DAT_0079352c != 0)) &&
+      (g_screenSurface != 0)) &&
       (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,0xe), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(0xe,iVar7 + 0xb1,iVar6 + 0x42,0x2710);
@@ -72,7 +72,7 @@ void FUN_0042a680(int param_1)
    * mov edx,0x1f4 / mov eax,0xea0e18; then `push edi / push ebx / mov eax,esi`
    * (16bpp) and `push esi / mov eax,edi / mov ecx,ebx` (clipped). Outer key
    * here is 0x1f4, not 0x2710. Cached scan call_addr 0x42a7b4. */
-  if ((DAT_0079352c != 0) &&
+  if ((g_screenSurface != 0) &&
       (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x1f4,bVar1 + 10), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(bVar1 + 10,iVar7 + 0xc3,iVar6 + 0x46,0x1f4);
@@ -86,7 +86,7 @@ void FUN_0042a680(int param_1)
    * above - esi = bVar1+10, edx = 0x1f4, EDI is still the y (iVar6+0x46,
    * unmodified since 0x42a796), x = `lea ebx,[ebp+0xd2]`.
    * Cached scan call_addr 0x42a818. */
-  if ((DAT_0079352c != 0) &&
+  if ((g_screenSurface != 0) &&
       (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x1f4,bVar1 + 10), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(bVar1 + 10,iVar7 + 0xd2,iVar6 + 0x46,0x1f4);
@@ -102,7 +102,7 @@ void FUN_0042a680(int param_1)
    * the raw byte); EDI is reloaded from the esp+0x10 spill and `add edi,0x21`
    * -> y = iVar6+0x5b; `lea ebx,[ebp+0x6a]` is the x; mov edx,0x2716.
    * Cached scan call_addr 0x42a87d. */
-  if ((DAT_0079352c != 0) &&
+  if ((g_screenSurface != 0) &&
       (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2716,uVar2), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(uVar2,iVar7 + 0x6a,iVar6 + 0x5b,0x2716);
@@ -127,7 +127,7 @@ void FUN_0042a680(int param_1)
    * and `add edi,0x1b` -> y = iVar6+0x55; `lea ebx,[ebp+0x13]` is the x;
    * mov edx,0x2710. Cached scan call_addr 0x42a90d (esi=8 on the sampled
    * branch). */
-  if ((DAT_0079352c != 0) &&
+  if ((g_screenSurface != 0) &&
       (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,uVar8), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(uVar8,iVar7 + 0x13,iVar6 + 0x55,0x2710);
@@ -145,7 +145,7 @@ void FUN_0042a680(int param_1)
      * mov edx,0x2710. 16bpp: `push ebx / push edi / mov eax,esi`; clipped:
      * `push 0xf / mov eax,ebx / mov ecx,edi`. Cached scan call_addr 0x42a996
      * (esi=0xf). */
-    if ((DAT_0079352c != 0) &&
+    if ((g_screenSurface != 0) &&
         (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,0xf), iVar5 != 0)) {
       if (*(char *)(iVar5 + 0x18) == '\x01') {
         BlitSprite16bpp(0xf,(-(uint)(iVar4 / 3 + (iVar4 >> 0x1f) != iVar4 >> 0x1f) & 0xffffff06) +
@@ -197,7 +197,7 @@ void FUN_0042a680(int param_1)
    * `add ebx,0x21` at 0x42aaac makes it the y (iVar6+0x5b) for both paths
    * (16bpp: `push ebx / push edi`; clipped: `push esi / mov eax,ebx /
    * mov ecx,edi`). edx=0x2710. Cached scan call_addr 0x42aaa0. */
-  if ((DAT_0079352c != 0) &&
+  if ((g_screenSurface != 0) &&
       (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,(uVar3 >> 0x12 & 3) + 10), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp((uVar3 >> 0x12 & 3) + 10,iVar7 + 0xb1,iVar6 + 0x5b,0x2710);

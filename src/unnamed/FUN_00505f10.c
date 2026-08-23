@@ -21,7 +21,7 @@ void __thiscall FUN_00505f10(int param_1,int param_2)
   
   iVar4 = *(int *)(in_EAX + 0x28);
   iVar1 = param_1 * 0x1e + 0x2f + *(int *)(in_EAX + 0x2c);
-  if (((*(int *)(in_EAX + 0x90) == DAT_00e54da8 + param_1) && (DAT_0079352c != 0)) &&
+  if (((*(int *)(in_EAX + 0x90) == DAT_00e54da8 + param_1) && (g_screenSurface != 0)) &&
      (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar4 + 0xe,iVar1 + -2);
@@ -31,7 +31,7 @@ void __thiscall FUN_00505f10(int param_1,int param_2)
     }
   }
   uVar2 = *(undefined2 *)(param_2 + 0x2e);
-  if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
+  if ((g_screenSurface != 0) && (iVar5 = FindSpriteFrame(), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar4 + 0x14,iVar1);
     }
@@ -53,7 +53,7 @@ void __thiscall FUN_00505f10(int param_1,int param_2)
    * struct as the +0x18 field used above. */
   BlitRLESprite(iVar4 + 0x24,iVar1 + 0xd,0xffff,(byte *)(param_2 + 0x21));
   if (*(char *)(param_2 + 0x30) == '\0') {
-    if (DAT_0079352c == 0) {
+    if (g_screenSurface == 0) {
       return;
     }
     iVar5 = FindSpriteFrame();
@@ -88,7 +88,7 @@ void __thiscall FUN_00505f10(int param_1,int param_2)
         return;
       }
       if (*(short *)(param_2 + 0x31) != -1) {
-        if (DAT_0079352c == 0) {
+        if (g_screenSurface == 0) {
           return;
         }
         iVar5 = FindSpriteFrame();
@@ -103,7 +103,7 @@ void __thiscall FUN_00505f10(int param_1,int param_2)
         goto LAB_005061be;
       }
     }
-    if (DAT_0079352c == 0) {
+    if (g_screenSurface == 0) {
       return;
     }
     iVar5 = FindSpriteFrame();

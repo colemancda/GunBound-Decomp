@@ -69,12 +69,12 @@ undefined4 __fastcall QueueTextureRegionSpans(uint param_1,uint param_2,int y)
       }
       uVar4 = *(undefined4 *)(iVar2 + 0x20);
       iVar5 = y + *(int *)(iVar2 + 0x2c);
-      iVar3 = *(int *)(iVar2 + 0x24) - ((DAT_00793534 - iVar5 < 0) - 1 & DAT_00793534 - iVar5);
-      if (iVar5 < DAT_00793534) {
-        iVar5 = DAT_00793534;
+      iVar3 = *(int *)(iVar2 + 0x24) - ((g_clipMinY - iVar5 < 0) - 1 & g_clipMinY - iVar5);
+      if (iVar5 < g_clipMinY) {
+        iVar5 = g_clipMinY;
       }
-      if (DAT_0056df34 < iVar3 + iVar5) {
-        iVar3 = (DAT_0056df34 - iVar5) + 1;
+      if (g_clipMaxY < iVar3 + iVar5) {
+        iVar3 = (g_clipMaxY - iVar5) + 1;
       }
       if (0 < iVar3) {
         do {

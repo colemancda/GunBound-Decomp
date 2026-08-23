@@ -73,7 +73,7 @@ undefined4 __thiscall BlitRLESprite(int param_1,undefined4 param_2,undefined4 pa
       if ((char)bVar1 < '\0') {
         bVar2 = *pbVar4;
         pbVar4 = in_EAX + 2;
-        if (DAT_00793530 <= iVar3) {
+        if (g_clipMinX <= iVar3) {
           FUN_004eaeb0(param_1,param_3,&g_fullWidthFontGlyphs + ((bVar1 & 0x7f) << 8 | (uint)bVar2) * 0x18);
         }
         param_1 = param_1 + 0xc;
@@ -81,7 +81,7 @@ undefined4 __thiscall BlitRLESprite(int param_1,undefined4 param_2,undefined4 pa
         local_4 = local_4 + 0xc;
       }
       else {
-        if ((bVar1 != 0x20) && (DAT_00793530 <= local_4)) {
+        if ((bVar1 != 0x20) && (g_clipMinX <= local_4)) {
           /* Real args recovered from orig 0x4eb4c6-0x4eb4d9: y=param_2
            * (ECX=[esp+0x18]), x=param_1 (ESI, the advancing cursor),
            * colour=param_3 (EBP), glyph bitmap = &DAT_00673628 + char*0xc
@@ -93,7 +93,7 @@ undefined4 __thiscall BlitRLESprite(int param_1,undefined4 param_2,undefined4 pa
         iVar3 = iVar3 + 6;
         local_4 = local_4 + 6;
       }
-    } while ((param_1 <= DAT_0056df30) && (bVar1 = *pbVar4, in_EAX = pbVar4, bVar1 != 0));
+    } while ((param_1 <= g_clipMaxX) && (bVar1 = *pbVar4, in_EAX = pbVar4, bVar1 != 0));
   }
   /* Ghidra emitted a bare `return;` in a value-returning function;
    * MSVC falls through with whatever's in EAX, gcc 14 rejects it

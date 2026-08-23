@@ -24,9 +24,9 @@ void FUN_004eaeb0(int param_1,int param_2,byte *param_3)
       uVar3 = 7;
       iVar2 = param_1;
       do {
-        if (((((*param_3 >> ((byte)uVar3 & 0x1f) & 1) != 0) && (iVar2 <= DAT_0056df30)) &&
-            (DAT_00793530 <= iVar2)) && ((in_EAX <= DAT_0056df34 && (DAT_00793534 <= in_EAX)))) {
-          *(undefined2 *)(DAT_0079352c + (in_EAX * DAT_005b3620 + iVar2) * 2) = param_2;
+        if (((((*param_3 >> ((byte)uVar3 & 0x1f) & 1) != 0) && (iVar2 <= g_clipMaxX)) &&
+            (g_clipMinX <= iVar2)) && ((in_EAX <= g_clipMaxY && (g_clipMinY <= in_EAX)))) {
+          *(undefined2 *)(g_screenSurface + (in_EAX * g_screenPitch + iVar2) * 2) = param_2;
         }
         uVar3 = uVar3 - 1;
         iVar2 = iVar2 + 1;
@@ -37,9 +37,9 @@ void FUN_004eaeb0(int param_1,int param_2,byte *param_3)
       iVar2 = 7;
       do {
         if ((((param_3[1] >> ((byte)iVar2 & 0x1f) & 1) != 0) &&
-            (iVar1 = iVar4 + 8 + param_1, iVar1 <= DAT_0056df30)) &&
-           ((DAT_00793530 <= iVar1 && ((in_EAX <= DAT_0056df34 && (DAT_00793534 <= in_EAX)))))) {
-          *(undefined2 *)(DAT_0079352c + (in_EAX * DAT_005b3620 + iVar1) * 2) = param_2;
+            (iVar1 = iVar4 + 8 + param_1, iVar1 <= g_clipMaxX)) &&
+           ((g_clipMinX <= iVar1 && ((in_EAX <= g_clipMaxY && (g_clipMinY <= in_EAX)))))) {
+          *(undefined2 *)(g_screenSurface + (in_EAX * g_screenPitch + iVar1) * 2) = param_2;
         }
         iVar4 = iVar4 + 1;
         iVar2 = iVar2 + -1;

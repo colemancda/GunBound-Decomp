@@ -236,8 +236,8 @@ void __fastcall RenderMobile(int param_1)
         iVar8 = PeekChecksumStateUnderLock(&DAT_00796aa0);
         iVar10 = iVar10 - iVar8;
       }
-      if (((DAT_00793530 <= iVar5 + 0x53) && (iVar5 <= DAT_0056df30)) &&
-         ((DAT_00793534 <= iVar10 + 0x1f && (iVar10 <= DAT_0056df34)))) {
+      if (((g_clipMinX <= iVar5 + 0x53) && (iVar5 <= g_clipMaxX)) &&
+         ((g_clipMinY <= iVar10 + 0x1f && (iVar10 <= g_clipMaxY)))) {
         uVar7 = EncodeChecksumDeltaSub(iVar1,local_678,*(undefined4 *)(&g_nCameraX + g_clientContext));
         local_4 = 0xc;
         uVar7 = EncodeChecksumDeltaAdd(uVar7,local_89c,400);

@@ -6,7 +6,7 @@
  * uses for CWorldListPanel::Update (see Widget_DrawSelf.c /
  * FindSpriteFrame.c for the derivations). */
 extern "C" {
-extern unsigned int DAT_0079352c;
+extern unsigned int g_screenSurface;
 extern unsigned char g_spriteRegistry[0x20];
 int FindSpriteFrame(int container, unsigned int outerKey, unsigned int innerKey);
 int BlitSprite16bpp(int frame, int x, int y, int outerKey);
@@ -68,7 +68,7 @@ void CLabel::Draw()
  * blits frame=state of sprite set m_spriteId at (m_x, m_y) - the exact
  * FindSpriteFrame/BlitSprite16bpp/BlitSpriteClipped sequence at
  * 0x5053c6-0x505414: EAX=&g_spriteRegistry, EDX=[this+0x3c], ESI=state,
- * gated on the locked surface DAT_0079352c. Hidden (+0x1e) returns
+ * gated on the locked surface g_screenSurface. Hidden (+0x1e) returns
  * WITHOUT the child broadcast (orig 0x50541f: ret before the 0x50ecf0
  * tail); otherwise falls into the base broadcast (CWidget::Update ==
  * 0x50ecf0). */
@@ -85,7 +85,7 @@ void CLabel::Update()
     } else if (m_unk39 != 0) {
         state = (m_unk38 != 0) ? 2 : 1;
     }
-    if (DAT_0079352c != 0 && state >= 0) {
+    if (g_screenSurface != 0 && state >= 0) {
         int rec = FindSpriteFrame((int)g_spriteRegistry, (unsigned int)m_spriteId, (unsigned int)state);
         if (rec != 0) {
             if (*(unsigned char *)(rec + 0x18) == 1) {

@@ -196,15 +196,15 @@ void GameTick(void)
   FUN_004e9070();
   _DAT_00793618 = 0;
   if (g_currentGameState == 0xb) {
-    cVar2 = LockBackBuffer(&DAT_0079352c,&DAT_005b3620);
+    cVar2 = LockBackBuffer(&g_screenSurface,&g_screenPitch);
     if (cVar2 == '\0') {
-      DAT_0079352c = 0;
+      g_screenSurface = 0;
     }
     else {
-      DAT_005b3620 = DAT_005b3620 / 2;
+      g_screenPitch = g_screenPitch / 2;
       (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x2c))
                 (g_gameStateVTableArray[g_currentGameState]);
-      DAT_0079352c = 0;
+      g_screenSurface = 0;
       (*(SurfaceUnlockFn *)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
     }
     iVar5 = (*(D3DBeginSceneFn *)(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
@@ -220,15 +220,15 @@ void GameTick(void)
       (*(D3DEndSceneFn *)(*g_pD3DDevice7 + 0x18))(g_pD3DDevice7);
     }
 LAB_00413510:
-    cVar2 = LockBackBuffer(&DAT_0079352c,&DAT_005b3620);
+    cVar2 = LockBackBuffer(&g_screenSurface,&g_screenPitch);
     if (cVar2 == '\0') {
-      DAT_0079352c = 0;
+      g_screenSurface = 0;
     }
     else {
-      DAT_005b3620 = DAT_005b3620 / 2;
+      g_screenPitch = g_screenPitch / 2;
       (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x34))
                 (g_gameStateVTableArray[g_currentGameState]);
-      DAT_0079352c = 0;
+      g_screenSurface = 0;
       (*(SurfaceUnlockFn *)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
     }
     iVar5 = (*(D3DBeginSceneFn *)(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
@@ -245,12 +245,12 @@ LAB_00413510:
     }
   }
   else if ((g_currentGameState == 9) || (g_currentGameState == 7)) goto LAB_00413510;
-  cVar2 = LockBackBuffer(&DAT_0079352c,&DAT_005b3620);
+  cVar2 = LockBackBuffer(&g_screenSurface,&g_screenPitch);
   if (cVar2 == '\0') {
-    DAT_0079352c = 0;
+    g_screenSurface = 0;
   }
   else {
-    DAT_005b3620 = DAT_005b3620 / 2;
+    g_screenPitch = g_screenPitch / 2;
     (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x3c))
               (g_gameStateVTableArray[g_currentGameState]);
     FUN_004b3e60(&DAT_00e9b4e8);
@@ -290,7 +290,7 @@ LAB_00413510:
        * (see DrawSprite.c's header for the full recovery). */
       DrawSprite((g_serverWaitTicks / 2) % 4,0x12c,0x190,0x398,0);
     }
-    DAT_0079352c = 0;
+    g_screenSurface = 0;
     (*(SurfaceUnlockFn *)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
   }
   iVar5 = (*(D3DBeginSceneFn *)(*g_pD3DDevice7 + 0x14))(g_pD3DDevice7);
@@ -338,12 +338,12 @@ LAB_004137a9:
     FUN_004f3ee0();
     (*(D3DEndSceneFn *)(*g_pD3DDevice7 + 0x18))(g_pD3DDevice7);
   }
-  cVar2 = LockBackBuffer(&DAT_0079352c,&DAT_005b3620);
+  cVar2 = LockBackBuffer(&g_screenSurface,&g_screenPitch);
   if (cVar2 == '\0') {
-    DAT_0079352c = 0;
+    g_screenSurface = 0;
   }
   else {
-    DAT_005b3620 = DAT_005b3620 / 2;
+    g_screenPitch = g_screenPitch / 2;
     if (DAT_0079350d != '\0') {
       (*(GameStateVirtualFn *)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x44))
                 (g_gameStateVTableArray[g_currentGameState]);
@@ -354,7 +354,7 @@ LAB_004137a9:
     else {
       /* FindSpriteFrame's (container,outerKey,innerKey) were dropped; orig
        * 0x4138a6-0x4138ab loads EAX=&g_spriteRegistry, EDX=0x384, ESI=0. */
-      if ((DAT_0079352c != 0) &&
+      if ((g_screenSurface != 0) &&
           (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x384,0), iVar5 != 0)) {
         if (*(char *)(iVar5 + 0x18) == '\x01') {
           BlitSprite16bpp(0,0xf9,0xc1,0x384);
@@ -397,7 +397,7 @@ LAB_00413933:
      * `add eax,0x23310` immediately before `call 0x4065a0`. */
     cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x23310));
     if ((cVar2 == '\x01') && (g_frameCounter % 0x14 < 10)) {
-      if (DAT_0079352c != 0) {
+      if (g_screenSurface != 0) {
         /* orig 0x41397f-0x413989 loads EAX=&g_spriteRegistry, EDX=0x190, ESI=0. */
         iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x190,0);
         if (iVar5 != 0) {
@@ -420,7 +420,7 @@ LAB_004139be:
        * frame-valid test must go through the signed `iVar5` (= g_cursorFrame)
        * - `-1 < g_cursorFrame` would promote -1 to 0xFFFFFFFF and be ALWAYS
        * FALSE, which is why the software cursor never drew. */
-      if (((DAT_0079352c != 0) && (-1 < iVar5)) &&
+      if (((g_screenSurface != 0) && (-1 < iVar5)) &&
           (iVar6 = FindSpriteFrame((int)&g_spriteRegistry,0,g_cursorFrame), iVar6 != 0)) {
         /* FIXED (2026-07-18): the cursor blit dropped its `frame` and
          * `outerKey` args - Ghidra rendered BlitSprite16bpp(x,y) with frame
@@ -443,7 +443,7 @@ LAB_004139be:
       DAT_00793520 = '\0';
       FUN_00412e50();
     }
-    DAT_0079352c = 0;
+    g_screenSurface = 0;
     (*(SurfaceUnlockFn *)(*g_pBackBufferSurface + 0x80))(g_pBackBufferSurface,0);
   }
   PresentFrame();

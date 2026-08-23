@@ -6,10 +6,10 @@
  * The two are the same function bar the final write.  DrawHLine and this share
  * their clip logic exactly, down to which globals bound which axis:
  *
- *   edi <= DAT_0056df34 && DAT_00793534 <= edi     the row, against the Y clip
- *   eax clamped into [DAT_00793530, DAT_0056df30]  the span, against the X clip
+ *   edi <= g_clipMaxY && g_clipMinY <= edi     the row, against the Y clip
+ *   eax clamped into [g_clipMinX, g_clipMaxX]  the span, against the X clip
  *
- * and both then write at DAT_0079352c + (DAT_005b3620 * row + col) * 2.
+ * and both then write at g_screenSurface + (g_screenPitch * row + col) * 2.
  * DrawHLine passes that to FillPixels16; this passes it to BlendPixels16.
  * DrawBlendedVLine is the vertical member of the same set, with the two axis
  * pairs transposed.
@@ -45,16 +45,16 @@ void __fastcall DrawBlendedHLine(undefined4 param_1,int param_2,int param_3,int 
 
 {
   
-  if (((DAT_0079352c != 0) && (regEdi <= DAT_0056df34)) && (DAT_00793534 <= regEdi)) {
-    if (regEax < DAT_00793530) {
-      param_2 = param_2 + (regEax - DAT_00793530);
-      regEax = DAT_00793530;
+  if (((g_screenSurface != 0) && (regEdi <= g_clipMaxY)) && (g_clipMinY <= regEdi)) {
+    if (regEax < g_clipMinX) {
+      param_2 = param_2 + (regEax - g_clipMinX);
+      regEax = g_clipMinX;
     }
-    if (DAT_0056df30 < regEax + param_2) {
-      param_2 = (DAT_0056df30 - regEax) + 1;
+    if (g_clipMaxX < regEax + param_2) {
+      param_2 = (g_clipMaxX - regEax) + 1;
     }
     if (0 < param_2) {
-      BlendPixels16(DAT_0079352c + (DAT_005b3620 * regEdi + regEax) * 2,param_3,param_2);
+      BlendPixels16(g_screenSurface + (g_screenPitch * regEdi + regEax) * 2,param_3,param_2);
     }
   }
   return;

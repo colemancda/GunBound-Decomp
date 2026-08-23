@@ -42,7 +42,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
     if ((int)uVar2 < 0) {
       bVar9 = (uVar2 - 1 | 0xfffffffe) == 0xffffffff;
     }
-    if (((bVar9) && (DAT_0079352c != 0)) && (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,9), iVar3 != 0)) {
+    if (((bVar9) && (g_screenSurface != 0)) && (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,9), iVar3 != 0)) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
         BlitSprite16bpp(9,0x23b,0x1e5,0x2710);
       }
@@ -57,7 +57,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
     if ((int)uVar2 < 0) {
       bVar9 = (uVar2 - 1 | 0xfffffffe) == 0xffffffff;
     }
-    if (((bVar9) && (DAT_0079352c != 0)) && (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,9), iVar3 != 0)) {
+    if (((bVar9) && (g_screenSurface != 0)) && (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,9), iVar3 != 0)) {
       if (*(char *)(iVar3 + 0x18) == '\x01') {
         BlitSprite16bpp(9,0x23b,0x1e5,0x2710);
       }
@@ -68,7 +68,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
   }
   if (g_bBattleSessionActive == '\0') goto LAB_004da2f4;
   SetClipRect(0, 0x31f, 0x257, 0);
-  if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x2717,0), iVar3 != 0)) {
+  if ((g_screenSurface != 0) && (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x2717,0), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0,0,0x164,0x2717);
     }
@@ -77,7 +77,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
     }
   }
   SetClipRect(0x261, 0x9c, 0x257, 0);
-  if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x2717,1), iVar3 != 0)) {
+  if ((g_screenSurface != 0) && (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x2717,1), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(1,0x261,0x16d,0x2717);
     }
@@ -86,7 +86,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
     }
   }
   SetClipRect(0, 0x31f, 0x257, 0);
-  if ((DAT_0079352c != 0) && (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x2718,0), iVar3 != 0)) {
+  if ((g_screenSurface != 0) && (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x2718,0), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0,0x1a,0x17f,0x2718);
     }
@@ -118,7 +118,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
         }
         iVar3 = *piVar8;
         iVar7 = piVar8[-8];
-        if ((DAT_0079352c != 0) && (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2717,4), iVar4 != 0)) {
+        if ((g_screenSurface != 0) && (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2717,4), iVar4 != 0)) {
           if (*(char *)(iVar4 + 0x18) == '\x01') {
             BlitSprite16bpp(4,iVar7 + 0x1a,iVar3 + 2,0x2717);
           }
@@ -156,7 +156,7 @@ void __fastcall State09_ReadyRoom_RenderStatusOverlay(int param_1)
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = iVar3 + 7;
-  if ((DAT_0079352c != 0) && (-1 < (int)uVar2)) {
+  if ((g_screenSurface != 0) && (-1 < (int)uVar2)) {
     iVar3 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar1 = *(uint *)(iVar3 + 4);
     while (uVar1 < 0x2718) {
@@ -269,7 +269,7 @@ LAB_004d9f58:
 LAB_004d9f98:
   iVar3 = g_clientContext;
   uVar2 = (*(byte *)(g_clientContext + 0x45124) >> 1) + 0x16;
-  if (DAT_0079352c != 0) {
+  if (g_screenSurface != 0) {
     iVar7 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar1 = *(uint *)(iVar7 + 4);
     while (uVar1 < 0x2718) {
@@ -285,7 +285,7 @@ LAB_004d9f98:
   }
 LAB_004da028:
   uVar2 = *(byte *)(iVar3 + 0x45126) + 0xd;
-  if (DAT_0079352c != 0) {
+  if (g_screenSurface != 0) {
     iVar7 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar1 = *(uint *)(iVar7 + 4);
     while (uVar1 < 0x2718) {
@@ -301,7 +301,7 @@ LAB_004da028:
   }
 LAB_004da0b0:
   uVar2 = *(byte *)(iVar3 + 0x45127) + 0x10;
-  if (DAT_0079352c != 0) {
+  if (g_screenSurface != 0) {
     iVar3 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar1 = *(uint *)(iVar3 + 4);
     while (uVar1 < 0x2718) {
@@ -320,7 +320,7 @@ LAB_004da138:
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x4512c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = ((int)(iVar3 + -0x28 + (iVar3 + -0x28 >> 0x1f & 0xfU)) >> 4) + 0x14;
-  if ((DAT_0079352c != 0) && (-1 < (int)uVar2)) {
+  if ((g_screenSurface != 0) && (-1 < (int)uVar2)) {
     iVar3 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar1 = *(uint *)(iVar3 + 4);
     while (uVar1 < 0x2718) {
@@ -339,7 +339,7 @@ LAB_004da1e2:
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x4557c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar2 = iVar3 + 0x1b;
-  if ((DAT_0079352c != 0) && (-1 < (int)uVar2)) {
+  if ((g_screenSurface != 0) && (-1 < (int)uVar2)) {
     iVar3 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar1 = *(uint *)(iVar3 + 4);
     while (uVar1 < 0x2718) {
@@ -355,7 +355,7 @@ LAB_004da1e2:
   }
 LAB_004da286:
   if ((((*(short *)(&DAT_006aa660 + g_clientContext) != -1) && (*(int *)(param_1 + 0x740) % 0x14 < 10))
-      && (DAT_0079352c != 0)) && (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x271a,0), iVar3 != 0)) {
+      && (g_screenSurface != 0)) && (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x271a,0), iVar3 != 0)) {
     if (*(char *)(iVar3 + 0x18) == '\x01') {
       BlitSprite16bpp(0,0,0x164,0x271a);
     }

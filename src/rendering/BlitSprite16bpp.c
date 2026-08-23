@@ -96,21 +96,21 @@ undefined4 BlitSprite16bpp(int frame,int param_1,int param_2,int outerKey)
   int local_c;
   int local_8;
   
-  if (((DAT_0079352c != 0) && (-1 < in_EAX)) &&
-     (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,outerKey,frame), iVar3 = DAT_00793530, iVar4 != 0)) {
+  if (((g_screenSurface != 0) && (-1 < in_EAX)) &&
+     (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,outerKey,frame), iVar3 = g_clipMinX, iVar4 != 0)) {
     iVar2 = *(int *)(iVar4 + 0x28);
     param_2 = param_2 + *(int *)(iVar4 + 0x2c);
     puVar6 = *(ushort **)(iVar4 + 0x34);
     iVar4 = *(int *)(iVar4 + 0x24);
     iVar8 = 0;
     local_8 = iVar4;
-    if (param_2 < DAT_00793534) {
-      iVar8 = DAT_00793534 - param_2;
+    if (param_2 < g_clipMinY) {
+      iVar8 = g_clipMinY - param_2;
       param_2 = param_2 + iVar8;
       local_8 = iVar4 - iVar8;
     }
-    if (DAT_0056df34 < local_8 + param_2) {
-      local_8 = (DAT_0056df34 - param_2) + 1;
+    if (g_clipMaxY < local_8 + param_2) {
+      local_8 = (g_clipMaxY - param_2) + 1;
     }
     if (iVar8 <= iVar4) {
       if (0 < iVar8) {
@@ -130,18 +130,18 @@ LAB_004ed770:
             uVar9 = (uint)puVar5[1];
             iVar8 = (uint)*puVar5 + param_1 + iVar2;
             iVar4 = uVar9 + iVar8;
-            if (iVar8 <= DAT_0056df30) {
+            if (iVar8 <= g_clipMaxX) {
               if (iVar4 <= iVar3) goto LAB_004ed80c;
               if (iVar8 < iVar3) {
-                if (DAT_0056df30 < iVar4) {
-                  iVar4 = DAT_0056df30 + 1;
+                if (g_clipMaxX < iVar4) {
+                  iVar4 = g_clipMaxX + 1;
                 }
                 uVar9 = (iVar4 - iVar3) * 2;
                 puVar10 = puVar5 + (iVar3 - iVar8) + 2;
                 uVar9 = uVar9 & ((int)uVar9 < 0) - 1;
-                iVar8 = DAT_005b3620 * param_2 + iVar3;
+                iVar8 = g_screenPitch * param_2 + iVar3;
 LAB_004ed7f6:
-                puVar11 = (undefined4 *)(DAT_0079352c + iVar8 * 2);
+                puVar11 = (undefined4 *)(g_screenSurface + iVar8 * 2);
                 for (uVar7 = uVar9 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
                   *puVar11 = *(undefined4 *)puVar10;
                   puVar10 = puVar10 + 2;
@@ -155,15 +155,15 @@ LAB_004ed7f6:
                 uVar9 = (uint)puVar5[1];
                 goto LAB_004ed80c;
               }
-              if (iVar4 <= DAT_0056df30) {
+              if (iVar4 <= g_clipMaxX) {
                 uVar9 = uVar9 * 2;
-                iVar8 = DAT_005b3620 * param_2 + iVar8;
+                iVar8 = g_screenPitch * param_2 + iVar8;
                 puVar10 = puVar5 + 2;
                 goto LAB_004ed7f6;
               }
-              uVar9 = (DAT_0056df30 - iVar8) * 2 + 2;
+              uVar9 = (g_clipMaxX - iVar8) * 2 + 2;
               uVar9 = ((int)uVar9 < 0) - 1 & uVar9;
-              puVar11 = (undefined4 *)(DAT_0079352c + (DAT_005b3620 * param_2 + iVar8) * 2);
+              puVar11 = (undefined4 *)(g_screenSurface + (g_screenPitch * param_2 + iVar8) * 2);
               for (uVar7 = uVar9 >> 2; puVar5 = puVar5 + 2, uVar7 != 0; uVar7 = uVar7 - 1) {
                 *puVar11 = *(undefined4 *)puVar5;
                 puVar11 = puVar11 + 1;

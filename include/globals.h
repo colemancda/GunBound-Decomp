@@ -390,8 +390,14 @@ extern uint8_t g_eventKeyBlock[0x20];
 #define DAT_0056dcaa (*(uint8_t*)(g_eventKeyBlock+0x1a))
 extern uint8_t DAT_0056dd30;
 extern uint8_t DAT_0056de30;
-extern uint32_t DAT_0056df30;
-extern uint32_t DAT_0056df34;
+/* The active clip rectangle, in screen pixels.  BlitFontGlyphClipped states
+ * the pairing outright: "x in [g_clipMinX, g_clipMaxX], y in [g_clipMinY,
+ * g_clipMaxY]", and DrawHLine/DrawVLine and their blended twins bound their
+ * two axes against exactly these four.
+ *   g_clipMaxX (was DAT_0056df30)
+ *   g_clipMaxY (was DAT_0056df34) */
+extern uint32_t g_clipMaxX;
+extern uint32_t g_clipMaxY;
 extern uint16_t DAT_00588f38;
 #define _DAT_00588f38 DAT_00588f38
 extern uint32_t DAT_00588f3c;
@@ -461,7 +467,9 @@ extern uint32_t DAT_005b3480;
  * one. Name is a defensible role label, not a verified original symbol. */
 extern uint32_t g_clientContext;
 extern uint32_t DAT_005b3488;
-extern uint32_t DAT_005b3620;
+/* g_screenPitch (was DAT_005b3620) - the surface pitch in PIXELS, not bytes:
+ * every writer indexes g_screenSurface + (y * g_screenPitch + x) * 2. */
+extern uint32_t g_screenPitch;
 extern uint8_t g_fullWidthFontGlyphs;
 extern uint8_t DAT_005f2f38;
 #define DAT_005f2f3c (*(uint8_t *)(0x005f2f3c))  /* client-context arena offset 0x005f2f3c; see the arena-offset note */
@@ -686,9 +694,14 @@ extern uint8_t DAT_00793521;
 extern uint8_t g_bBattleSessionActive;
 extern uint8_t DAT_00793529;
 extern uint8_t DAT_0079352a;
-extern uint32_t DAT_0079352c;
-extern uint32_t DAT_00793530;
-extern uint32_t DAT_00793534;
+/* g_screenSurface (was DAT_0079352c) - base of the 16bpp screen surface.
+ * Named from BlitFontGlyphClipped, which already wrote the access as
+ * "g_screenSurface[y*pitch + x]" while describing a different problem.
+ *   g_clipMinX (was DAT_00793530)
+ *   g_clipMinY (was DAT_00793534) */
+extern uint32_t g_screenSurface;
+extern uint32_t g_clipMinX;
+extern uint32_t g_clipMinY;
 extern uint32_t DAT_00793544;
 extern uint8_t DAT_00793549;
 extern uint8_t DAT_0079354a;

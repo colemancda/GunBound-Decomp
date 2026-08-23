@@ -15,21 +15,21 @@ void __fastcall DrawVLine(int param_1)
   undefined2 unaff_BX;
   int unaff_EDI;
   
-  if (((DAT_0079352c != 0) && (unaff_EDI <= DAT_0056df30)) && (DAT_00793530 <= unaff_EDI)) {
-    if (in_EAX < DAT_00793534) {
-      param_1 = param_1 + (in_EAX - DAT_00793534);
-      in_EAX = DAT_00793534;
+  if (((g_screenSurface != 0) && (unaff_EDI <= g_clipMaxX)) && (g_clipMinX <= unaff_EDI)) {
+    if (in_EAX < g_clipMinY) {
+      param_1 = param_1 + (in_EAX - g_clipMinY);
+      in_EAX = g_clipMinY;
     }
-    if (DAT_0056df34 < in_EAX + param_1) {
-      param_1 = (DAT_0056df34 - in_EAX) + 1;
+    if (g_clipMaxY < in_EAX + param_1) {
+      param_1 = (g_clipMaxY - in_EAX) + 1;
     }
     if ((0 < param_1) &&
-       (puVar1 = (undefined2 *)(DAT_0079352c + (DAT_005b3620 * in_EAX + unaff_EDI) * 2), 0 < param_1
+       (puVar1 = (undefined2 *)(g_screenSurface + (g_screenPitch * in_EAX + unaff_EDI) * 2), 0 < param_1
        )) {
       do {
         param_1 = param_1 + -1;
         *puVar1 = unaff_BX;
-        puVar1 = puVar1 + DAT_005b3620;
+        puVar1 = puVar1 + g_screenPitch;
       } while (param_1 != 0);
     }
   }

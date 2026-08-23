@@ -65,7 +65,7 @@ void __fastcall FUN_0044fff0(int param_1)
     iVar12 = (iVar11 - 1U) / 6 + 1;
     iVar11 = iVar7;
 LAB_00450100:
-    if (DAT_0079352c != 0) {
+    if (g_screenSurface != 0) {
       iVar6 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar2 = *(uint *)(iVar6 + 4);
       while (uVar2 < 0x271a) {
@@ -87,7 +87,7 @@ LAB_00450202:
     iVar13 = (iVar13 - 1U >> 1) + 1;
     iVar11 = iVar10;
 LAB_00450220:
-    if (DAT_0079352c != 0) {
+    if (g_screenSurface != 0) {
       iVar12 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar2 = *(uint *)(iVar12 + 4);
       while (uVar2 < 0x271a) {
@@ -105,7 +105,7 @@ LAB_00450220:
     goto LAB_00450314;
   }
 LAB_0045031e:
-  if (DAT_0079352c == 0) goto LAB_00450599;
+  if (g_screenSurface == 0) goto LAB_00450599;
   iVar11 = *(int *)(DAT_00ea0e1c + 0x1c);
   uVar2 = *(uint *)(iVar11 + 4);
   while (uVar2 < 0x271a) {
@@ -135,7 +135,7 @@ LAB_0045013d:
     }
   }
 LAB_00450176:
-  if (DAT_0079352c != 0) {
+  if (g_screenSurface != 0) {
     iVar6 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar2 = *(uint *)(iVar6 + 4);
     while (uVar2 < 0x271a) {
@@ -186,7 +186,7 @@ LAB_0045025d:
     }
   }
 LAB_00450296:
-  if (DAT_0079352c != 0) {
+  if (g_screenSurface != 0) {
     iVar12 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar2 = *(uint *)(iVar12 + 4);
     while (uVar2 < 0x271a) {
@@ -301,7 +301,7 @@ LAB_00450364:
     }
   }
 LAB_00450399:
-  if (DAT_0079352c != 0) {
+  if (g_screenSurface != 0) {
     iVar11 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar2 = *(uint *)(iVar11 + 4);
     while (uVar2 < 0x271a) {
@@ -315,7 +315,7 @@ LAB_00450399:
       uVar2 = *(uint *)(iVar11 + 4);
     }
 LAB_0045041b:
-    if (DAT_0079352c != 0) {
+    if (g_screenSurface != 0) {
       iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar2 = *(uint *)(iVar4 + 4);
       while (uVar2 < 0x271a) {
@@ -329,7 +329,7 @@ LAB_0045041b:
         uVar2 = *(uint *)(iVar4 + 4);
       }
 LAB_0045044f:
-      if (DAT_0079352c != 0) {
+      if (g_screenSurface != 0) {
         iVar7 = *(int *)(DAT_00ea0e1c + 0x1c);
         uVar2 = *(uint *)(iVar7 + 4);
         while (uVar2 < 0x271a) {
@@ -343,7 +343,7 @@ LAB_0045044f:
           uVar2 = *(uint *)(iVar7 + 4);
         }
 LAB_00450525:
-        if (DAT_0079352c != 0) {
+        if (g_screenSurface != 0) {
           iVar5 = *(int *)(DAT_00ea0e1c + 0x1c);
           uVar2 = *(uint *)(iVar5 + 4);
           while (uVar2 < 0x271a) {

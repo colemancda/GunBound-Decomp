@@ -29,18 +29,18 @@ void __fastcall FUN_004eb940(int width,undefined4 *param_2,int param_3,int x)
   uint uVar2;
   undefined4 *puVar3;
 
-  if ((((DAT_00793534 <= param_3) && (param_3 <= DAT_0056df34)) &&
-      (DAT_00793530 <= x + width)) && (x <= DAT_0056df30)) {
-    if (x < DAT_00793530) {
-      param_2 = (undefined4 *)((int)param_2 + (DAT_00793530 - x) * 2);
-      width = width + (x - DAT_00793530);
-      x = DAT_00793530;
+  if ((((g_clipMinY <= param_3) && (param_3 <= g_clipMaxY)) &&
+      (g_clipMinX <= x + width)) && (x <= g_clipMaxX)) {
+    if (x < g_clipMinX) {
+      param_2 = (undefined4 *)((int)param_2 + (g_clipMinX - x) * 2);
+      width = width + (x - g_clipMinX);
+      x = g_clipMinX;
     }
-    if (DAT_0056df30 < x + width) {
-      width = (DAT_0056df30 - x) + 1;
+    if (g_clipMaxX < x + width) {
+      width = (g_clipMaxX - x) + 1;
     }
     uVar1 = width * 2 & (width * 2 < 0) - 1;
-    puVar3 = (undefined4 *)(DAT_0079352c + (DAT_005b3620 * param_3 + x) * 2);
+    puVar3 = (undefined4 *)(g_screenSurface + (g_screenPitch * param_3 + x) * 2);
     for (uVar2 = uVar1 >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
       *puVar3 = *param_2;
       param_2 = param_2 + 1;

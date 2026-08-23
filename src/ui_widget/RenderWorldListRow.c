@@ -72,7 +72,7 @@ void __fastcall RenderWorldListRow(int param_1, uint in_EAX)
   if (*(uint *)(g_gameStateVTableArray[2] + 8) == in_EAX) {
     cVar8 = '\x03';
   }
-  if ((DAT_0079352c != 0) &&
+  if ((g_screenSurface != 0) &&
       (iVar6 = FindSpriteFrame((int)&g_spriteRegistry,0x2711,cVar8), iVar6 != 0)) {
     if (*(char *)(iVar6 + 0x18) == '\x01') {
       BlitSprite16bpp(cVar8,iVar1,iVar2,0x2711);
@@ -147,7 +147,7 @@ void __fastcall RenderWorldListRow(int param_1, uint in_EAX)
     } while (iVar9 < 5);
   }
   uVar5 = iVar10 + 5;
-  if ((DAT_0079352c != 0) && (-1 < (int)uVar5)) {
+  if ((g_screenSurface != 0) && (-1 < (int)uVar5)) {
     iVar6 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar4 = *(uint *)(iVar6 + 4);
     if (uVar4 < 0x2712) {

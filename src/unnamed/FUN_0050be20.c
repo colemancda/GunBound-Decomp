@@ -54,7 +54,7 @@ void FUN_0050be20(int param_1,int param_2,int param_3)
   int iStack_4;
   
   local_84 = g_gameStateVTableArray[7];
-  if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame((int)&g_spriteRegistry,0x2712,1), iVar1 != 0)) {
+  if ((g_screenSurface != 0) && (iVar1 = FindSpriteFrame((int)&g_spriteRegistry,0x2712,1), iVar1 != 0)) {
     if (*(char *)(iVar1 + 0x18) == '\x01') {
       BlitSprite16bpp(1,param_2,param_3,0x2712);
     }
@@ -68,7 +68,7 @@ LAB_0050be92:
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar2 = PeekPacketChecksumState((void *)(g_clientContext + local_88 + 0x5f4ab8));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if ((iVar2 == iVar1) && (DAT_0079352c != 0)) {
+  if ((iVar2 == iVar1) && (g_screenSurface != 0)) {
     iVar1 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar3 = *(uint *)(iVar1 + 4);
     while (uVar3 < 0x2714) {
@@ -124,7 +124,7 @@ code_r0x0050bf7b:
       uVar4 = uVar4 + 1;
     }
   }
-  if (DAT_0079352c != 0) {
+  if (g_screenSurface != 0) {
     iVar1 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar3 = *(uint *)(iVar1 + 4);
     while (uVar3 < 0x2714) {
@@ -186,7 +186,7 @@ LAB_0050c0b2:
       iVar1 = PeekPacketChecksumState((void *)(local_84 + 0x33624));
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       if (iVar1 < 1) {
-        if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,9), iVar1 != 0)) {
+        if ((g_screenSurface != 0) && (iVar1 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,9), iVar1 != 0)) {
           if (*(char *)(iVar1 + 0x18) == '\x01') {
             BlitSprite16bpp(9,param_2 + 0x99,param_3 + 2,0x2713);
           }
@@ -200,7 +200,7 @@ LAB_0050c0b2:
         iVar1 = -iVar1;
       }
       else {
-        if ((DAT_0079352c != 0) && (iVar1 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,8), iVar1 != 0)) {
+        if ((g_screenSurface != 0) && (iVar1 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,8), iVar1 != 0)) {
           if (*(char *)(iVar1 + 0x18) == '\x01') {
             BlitSprite16bpp(8,param_2 + 0x99,param_3 + 2,0x2713);
           }
@@ -227,7 +227,7 @@ LAB_0050c0b2:
       local_88 = local_8c * 0x19 + param_2;
       if (iVar1 < 0) {
         iVar1 = local_88 + 0x67;
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xa), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xa), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(10,iVar1,param_3 + 2,0x2713);
           }
@@ -242,7 +242,7 @@ LAB_0050c0b2:
       }
       else {
         iVar1 = local_88 + 0x67;
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xb), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xb), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0xb,iVar1,param_3 + 2,0x2713);
           }
@@ -270,7 +270,7 @@ LAB_0050c0b2:
       local_8c = unaff_EBX * 0x19 + param_1;
       if (iVar1 < 0) {
         iVar1 = local_8c + 0x67;
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xc), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xc), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0xc,iVar1,param_2 + 2,0x2713);
           }
@@ -285,7 +285,7 @@ LAB_0050c0b2:
       }
       else {
         iVar1 = local_8c + 0x67;
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xd), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xd), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0xd,iVar1,param_2 + 2,0x2713);
           }
@@ -311,7 +311,7 @@ LAB_0050c0b2:
       (*pcVar5)(&DAT_005a9068);
       iVar1 = unaff_EBP * 0x19 + unaff_retaddr;
       if (iVar2 < 0) {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xe), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xe), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0xe,iVar1 + 0x67,param_1 + 2,0x2713);
           }
@@ -325,7 +325,7 @@ LAB_0050c0b2:
         iVar1 = -iVar1;
       }
       else {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xf), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0xf), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0xf,iVar1 + 0x67,param_1 + 2,0x2713);
           }
@@ -351,7 +351,7 @@ LAB_0050c0b2:
       (*pcVar5)(&DAT_005a9068);
       iVar1 = unaff_ESI * 0x19 + iStack_4;
       if (iVar2 < 0) {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x10), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x10), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0x10,iVar1 + 0x67,unaff_retaddr + 2,0x2713);
           }
@@ -365,7 +365,7 @@ LAB_0050c0b2:
         iVar1 = -iVar1;
       }
       else {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x11), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x11), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0x11,iVar1 + 0x67,unaff_retaddr + 2,0x2713);
           }
@@ -390,7 +390,7 @@ LAB_0050c0b2:
       (*pcVar5)(&DAT_005a9068);
       iVar1 = unaff_EDI * 0x19 + iStack_8;
       if (iVar2 < 0) {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x12), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x12), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0x12,iVar1 + 0x67,iStack_4 + 2,0x2713);
           }
@@ -404,7 +404,7 @@ LAB_0050c0b2:
         iVar1 = -iVar1;
       }
       else {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x13), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x13), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0x13,iVar1 + 0x67,iStack_4 + 2,0x2713);
           }
@@ -429,7 +429,7 @@ LAB_0050c0b2:
       (*pcVar5)(&DAT_005a9068);
       iVar1 = (int)puVar8 * 0x19 + iStack_c;
       if (iVar2 < 0) {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x14), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x14), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0x14,iVar1 + 0x67,iStack_8 + 2,0x2713);
           }
@@ -443,7 +443,7 @@ LAB_0050c0b2:
         iVar1 = -iVar1;
       }
       else {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x15), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x15), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0x15,iVar1 + 0x67,iStack_8 + 2,0x2713);
           }
@@ -468,7 +468,7 @@ LAB_0050c0b2:
       (*pcVar5)(&DAT_005a9068);
       iVar1 = (int)puVar6 * 0x19 + iStack_14;
       if (iVar2 < 0) {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x16), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x16), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0x16,iVar1 + 0x67,iStack_10 + 2,0x2713);
           }
@@ -482,7 +482,7 @@ LAB_0050c0b2:
         iVar1 = -iVar1;
       }
       else {
-        if ((DAT_0079352c != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x17), iVar2 != 0)) {
+        if ((g_screenSurface != 0) && (iVar2 = FindSpriteFrame((int)&g_spriteRegistry,0x2713,0x17), iVar2 != 0)) {
           if (*(char *)(iVar2 + 0x18) == '\x01') {
             BlitSprite16bpp(0x17,iVar1 + 0x67,iStack_10 + 2,0x2713);
           }

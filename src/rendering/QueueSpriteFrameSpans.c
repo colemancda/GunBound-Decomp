@@ -23,20 +23,20 @@ undefined4 __thiscall QueueSpriteFrameSpans(int param_1,int param_2)
   int local_c;
   int local_8;
   
-  if (((DAT_0079352c != 0) && (-1 < param_1)) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
+  if (((g_screenSurface != 0) && (-1 < param_1)) && (iVar3 = FindSpriteFrame(), iVar3 != 0)) {
     iVar2 = *(int *)(iVar3 + 0x28);
     iVar7 = in_EAX + *(int *)(iVar3 + 0x2c);
     puVar4 = *(ushort **)(iVar3 + 0x34);
     iVar3 = *(int *)(iVar3 + 0x24);
     iVar5 = 0;
     local_8 = iVar3;
-    if (iVar7 < DAT_00793534) {
-      iVar5 = DAT_00793534 - iVar7;
+    if (iVar7 < g_clipMinY) {
+      iVar5 = g_clipMinY - iVar7;
       iVar7 = iVar7 + iVar5;
       local_8 = iVar3 - iVar5;
     }
-    if (DAT_0056df34 < local_8 + iVar7) {
-      local_8 = (DAT_0056df34 - iVar7) + 1;
+    if (g_clipMaxY < local_8 + iVar7) {
+      local_8 = (g_clipMaxY - iVar7) + 1;
     }
     if (iVar5 <= iVar3) {
       if (0 < iVar5) {
@@ -45,7 +45,7 @@ undefined4 __thiscall QueueSpriteFrameSpans(int param_1,int param_2)
           puVar4 = puVar4 + *puVar4;
         } while (iVar5 != 0);
       }
-      iVar3 = DAT_0056df30;
+      iVar3 = g_clipMaxX;
       if (0 < local_8) {
         do {
           uVar1 = puVar4[1];
@@ -58,25 +58,25 @@ undefined4 __thiscall QueueSpriteFrameSpans(int param_1,int param_2)
               iVar7 = (uint)*puVar8 + param_2 + iVar2;
               iVar5 = uVar6 + iVar7;
               if (iVar3 < iVar7) break;
-              if (DAT_00793530 < iVar5) {
-                if (iVar7 < DAT_00793530) {
+              if (g_clipMinX < iVar5) {
+                if (iVar7 < g_clipMinX) {
                   if (iVar3 < iVar5) {
                     iVar5 = iVar3 + 1;
                   }
-                  puVar9 = puVar8 + (DAT_00793530 - iVar7) + 2;
-                  iVar7 = DAT_00793530;
+                  puVar9 = puVar8 + (g_clipMinX - iVar7) + 2;
+                  iVar7 = g_clipMinX;
                 }
                 else {
                   if (iVar3 < iVar5) {
                     QueueCompositorSpan(iVar7,iVar3 + 1,puVar8 + 2,(int)&g_spriteDrawBatchPool);
-                    iVar3 = DAT_0056df30;
+                    iVar3 = g_clipMaxX;
                     break;
                   }
                   puVar9 = puVar8 + 2;
                 }
                 QueueCompositorSpan(iVar7,iVar5,puVar9,(int)&g_spriteDrawBatchPool);
                 uVar6 = (uint)puVar8[1];
-                iVar3 = DAT_0056df30;
+                iVar3 = g_clipMaxX;
               }
               puVar8 = puVar8 + uVar6 + 2;
               local_c = local_c + 1;

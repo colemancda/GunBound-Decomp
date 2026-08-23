@@ -36,7 +36,7 @@ extern "C" CLabel *CreateLabelWidget(int id, int spriteId, int x, int y, int w, 
 /* Sprite-lookup/blit primitives (same recovered shapes as Panel.cpp /
  * Label.cpp), for CScrollBar::Update's thumb draw below. */
 extern "C" {
-extern unsigned int DAT_0079352c;
+extern unsigned int g_screenSurface;
 extern unsigned char g_spriteRegistry[0x20];
 int FindSpriteFrame(int container, unsigned int outerKey, unsigned int innerKey);
 int BlitSprite16bpp(int frame, int x, int y, int outerKey);

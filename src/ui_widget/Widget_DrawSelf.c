@@ -49,7 +49,7 @@ void __fastcall Widget_DrawSelf(int param_1)
   uVar1 = *(undefined4 *)(param_1 + 0x2c);
   uVar2 = *(undefined4 *)(param_1 + 0x28);
   iVar3 = *(int *)(param_1 + 0x48);
-  if ((DAT_0079352c != 0) && (-1 < iVar3)) {
+  if ((g_screenSurface != 0) && (-1 < iVar3)) {
     iVar4 = FindSpriteFrame((int)&g_spriteRegistry,*(int *)(param_1 + 0x44),iVar3);
     if (iVar4 != 0) {
       if (*(char *)(iVar4 + 0x18) == '\x01') {

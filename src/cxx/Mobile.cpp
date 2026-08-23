@@ -124,7 +124,7 @@ int  _sprintf(char *buf, const char *fmt, int a, int b);
 extern int g_clientContext;            /* _DAT_005b3484 */
 extern unsigned char g_replayContext;  /* 0xe55ce0 - battle/replay turn-event buffer sized in globals_sized.c; declared scalar and always used as &g_replayContext, the same offset-macro idiom as globals.h */
 extern unsigned char g_nCameraX, g_nCameraY;  /* 1-byte: used only as &sym + g_clientContext ctx bases (see Projectile.cpp) */
-extern int DAT_00793530, DAT_0056df30, DAT_00793534, DAT_0056df34;  /* on-screen clip bounds */
+extern int g_clipMinX, g_clipMaxX, g_clipMinY, g_clipMaxY;  /* on-screen clip bounds */
 extern unsigned char DAT_00e9bed8;     /* a guard cell (address-of taken) */
 extern unsigned char DAT_00796aa0;     /* a guard cell (address-of taken) */
 extern unsigned char DAT_0056d468;     /* color/palette table base */
@@ -512,8 +512,8 @@ void CMobile::v3_Render()
                 iVar9 = PeekChecksumStateUnderLock(&DAT_00796aa0);
                 iVar11 = iVar11 - iVar9;
             }
-            if (DAT_00793530 <= iVar6 + 0x53 && iVar6 <= DAT_0056df30 &&
-                DAT_00793534 <= iVar11 + 0x1f && iVar11 <= DAT_0056df34) {
+            if (g_clipMinX <= iVar6 + 0x53 && iVar6 <= g_clipMaxX &&
+                g_clipMinY <= iVar11 + 0x1f && iVar11 <= g_clipMaxY) {
                 uVar8 = EncodeChecksumDeltaSub(pbVar13, local_678, *reinterpret_cast<unsigned int *>(&g_nCameraX + g_clientContext));
                 uVar8 = EncodeChecksumDeltaAdd(reinterpret_cast<void *>(uVar8), local_89c, 400);
                 PeekChecksumStateUnderLock(reinterpret_cast<void *>(uVar8));

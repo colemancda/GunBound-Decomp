@@ -51,7 +51,7 @@ extern int g_clientContext;
 /* Sprite-lookup/blit primitives - see Widget_DrawSelf.c/FindSpriteFrame.c
  * for the recovered (container,outerKey,innerKey)/(frame,x,y) shapes
  * used by CWorldListPanel::Update() below. */
-extern unsigned int DAT_0079352c;
+extern unsigned int g_screenSurface;
 extern unsigned char g_spriteRegistry[0x20];
 int FindSpriteFrame(int container, unsigned int outerKey, unsigned int innerKey);
 int BlitSprite16bpp(int frame, int x, int y, int outerKey);
@@ -140,7 +140,7 @@ void CWorldListPanel::Update()
     if (m_hidden) {
         return;
     }
-    if (DAT_0079352c != 0 && m_unk48 >= 0) {
+    if (g_screenSurface != 0 && m_unk48 >= 0) {
         int rec = FindSpriteFrame((int)g_spriteRegistry, (unsigned int)m_unk44, (unsigned int)m_unk48);
         if (rec != 0) {
             if (*(unsigned char *)(rec + 0x18) == 1) {

@@ -74,7 +74,7 @@ void __fastcall RenderFirewallHazard(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar4 = PeekPacketChecksumState((void *)(local_454));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if (DAT_00793530 <= iVar4 + iVar3) {
+  if (g_clipMinX <= iVar4 + iVar3) {
     EncodeChecksumDeltaDiv(iVar6,local_678,2);
     local_4 = 3;
     local_688[0] = 3;
@@ -82,7 +82,7 @@ void __fastcall RenderFirewallHazard(int param_1)
     iVar4 = PeekPacketChecksumState((void *)(local_678));
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     bVar1 = false;
-    if (iVar3 - iVar4 <= DAT_0056df30) goto LAB_004716eb;
+    if (iVar3 - iVar4 <= g_clipMaxX) goto LAB_004716eb;
   }
   bVar1 = true;
 LAB_004716eb:
@@ -144,8 +144,8 @@ LAB_004716eb:
         iVar3 = iVar4;
         do {
           iVar6 = iVar3 + 0x40;
-          if (DAT_00793534 <= iVar6) {
-            if (iVar4 - DAT_0056df34 != 0 && DAT_0056df34 <= iVar4) break;
+          if (g_clipMinY <= iVar6) {
+            if (iVar4 - g_clipMaxY != 0 && g_clipMaxY <= iVar4) break;
             DAT_00ea0e2c = (float)iVar3;
             uVar8 = local_688[0] & 0x80000001;
             DAT_00ea0e74 = (float)iVar6;

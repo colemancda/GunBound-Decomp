@@ -118,9 +118,9 @@ void __thiscall DrawWideGlyph(int param_1,int param_2,int param_3,int param_4)
     uVar7 = *puVar4;
     do {
       if (((((uVar7 >> (0xfU - (char)iVar5 & 0x1f) & 1) != 0) &&
-           (iVar6 = iVar5 + -1 + param_2, iVar6 <= DAT_0056df30)) && (DAT_00793530 <= iVar6)) &&
-         ((param_3 <= DAT_0056df34 && (DAT_00793534 <= param_3)))) {
-        *(undefined2 *)(DAT_0079352c + (param_3 * DAT_005b3620 + iVar6) * 2) = param_4;
+           (iVar6 = iVar5 + -1 + param_2, iVar6 <= g_clipMaxX)) && (g_clipMinX <= iVar6)) &&
+         ((param_3 <= g_clipMaxY && (g_clipMinY <= param_3)))) {
+        *(undefined2 *)(g_screenSurface + (param_3 * g_screenPitch + iVar6) * 2) = param_4;
       }
       iVar5 = iVar5 + 1;
     } while (iVar5 < 0xe);

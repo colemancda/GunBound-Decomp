@@ -13,16 +13,16 @@ void __fastcall DrawHLine(undefined4 param_1,int param_2,int param_3)
   int in_EAX;
   int unaff_EDI;
   
-  if (((DAT_0079352c != 0) && (unaff_EDI <= DAT_0056df34)) && (DAT_00793534 <= unaff_EDI)) {
-    if (in_EAX < DAT_00793530) {
-      param_2 = param_2 + (in_EAX - DAT_00793530);
-      in_EAX = DAT_00793530;
+  if (((g_screenSurface != 0) && (unaff_EDI <= g_clipMaxY)) && (g_clipMinY <= unaff_EDI)) {
+    if (in_EAX < g_clipMinX) {
+      param_2 = param_2 + (in_EAX - g_clipMinX);
+      in_EAX = g_clipMinX;
     }
-    if (DAT_0056df30 < in_EAX + param_2) {
-      param_2 = (DAT_0056df30 - in_EAX) + 1;
+    if (g_clipMaxX < in_EAX + param_2) {
+      param_2 = (g_clipMaxX - in_EAX) + 1;
     }
     if (0 < param_2) {
-      FillPixels16(DAT_0079352c + (DAT_005b3620 * unaff_EDI + in_EAX) * 2,param_3,param_2);
+      FillPixels16(g_screenSurface + (g_screenPitch * unaff_EDI + in_EAX) * 2,param_3,param_2);
     }
   }
   return;

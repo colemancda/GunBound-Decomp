@@ -31,7 +31,7 @@
  *     EDX/ESI, gate from EAX (or the item index the sprite-list walk
  *     matched), and x/y from the two stack pushes (1st push = y, 2nd = x).
  *     Leaving them argless crashed live (page fault in FindSpriteFrame
- *     dereferencing a garbage container) the moment the DAT_0079352c
+ *     dereferencing a garbage container) the moment the g_screenSurface
  *     sprite gate was non-zero, which it is on the store screen. Recovered
  *     per block from the 0x448440-0x44904f disassembly.
  *   - PeekPacketChecksumState() is the guarded-value stub that returns 0
@@ -91,7 +91,7 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
   DDSURFACEDESC2 ddsd;
 
   /* --- store background (key 0x2710) --- */
-  if ((DAT_0079352c != 0) &&
+  if ((g_screenSurface != 0) &&
      (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,0), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(0,0,0,0x2710);
@@ -102,7 +102,7 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
   }
   /* --- window frame (key 0x64), gate/innerKey = *(short*)(this+0x23344) --- */
   uVar6 = *(ushort *)(param_1 + 0x23344);
-  if (((DAT_0079352c != 0) && (0 <= (short)*(ushort *)(param_1 + 0x23344))) &&
+  if (((g_screenSurface != 0) && (0 <= (short)*(ushort *)(param_1 + 0x23344))) &&
      (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x64,uVar6), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(uVar6,0xac,9,0x64);
@@ -202,7 +202,7 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (iVar4 != 0) {
     if (iVar4 == 1) {
-      if (DAT_0079352c != 0) {
+      if (g_screenSurface != 0) {
         iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
         uVar9 = *(uint *)(iVar4 + 4);
         while (uVar9 < 0x2715) {
@@ -218,7 +218,7 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
       }
       goto LAB_004489b7;
     }
-    if (DAT_0079352c != 0) {
+    if (g_screenSurface != 0) {
       iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar9 = *(uint *)(iVar4 + 4);
       while (uVar9 < 0x2715) {
@@ -252,7 +252,7 @@ LAB_00448970:
   }
 LAB_004489b7:
   uVar9 = *(int *)(param_1 + 0x34788) + 20000;
-  if (DAT_0079352c != 0) {
+  if (g_screenSurface != 0) {
     iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar3 = *(uint *)(iVar4 + 4);
     while (uVar3 <= uVar9) {
@@ -466,7 +466,7 @@ LAB_00448ab0:
   }
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (cVar11 != '\0') {
-    if (DAT_0079352c != 0) {
+    if (g_screenSurface != 0) {
       iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar9 = *(uint *)(iVar4 + 4);
       while (uVar9 < 0x2715) {
@@ -482,7 +482,7 @@ LAB_00448ab0:
     }
 LAB_00448b87:
     uVar9 = *(uint *)(param_1 + 0x32c58);
-    if ((DAT_0079352c != 0) && (-1 < (int)uVar9)) {
+    if ((g_screenSurface != 0) && (-1 < (int)uVar9)) {
       iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar3 = *(uint *)(iVar4 + 4);
       while (uVar3 < 0x2714) {
@@ -500,7 +500,7 @@ LAB_00448c0f:
     DrawFontString(0x104,0xec,0);
     BlitRLESprite(0x104,0xec,0xffff,(byte *)(param_1 + 0x32c5c));
     uVar9 = *(uint *)(param_1 + 0x32cdc);
-    if (DAT_0079352c != 0) {
+    if (g_screenSurface != 0) {
       if (-1 < (int)uVar9) {
         iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
         uVar3 = *(uint *)(iVar4 + 4);
@@ -516,7 +516,7 @@ LAB_00448c0f:
         }
       }
 LAB_00448cc9:
-      if (DAT_0079352c != 0) {
+      if (g_screenSurface != 0) {
         iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
         uVar9 = *(uint *)(iVar4 + 4);
         while (uVar9 < 0x7531) {
@@ -546,7 +546,7 @@ LAB_00448d4a:
   }
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   if (cVar11 != '\0') {
-    if (DAT_0079352c != 0) {
+    if (g_screenSurface != 0) {
       iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar9 = *(uint *)(iVar4 + 4);
       while (uVar9 < 0x2715) {
@@ -562,7 +562,7 @@ LAB_00448d4a:
     }
 LAB_00448e23:
     uVar9 = *(uint *)(param_1 + 0x32e68);
-    if ((DAT_0079352c != 0) && (-1 < (int)uVar9)) {
+    if ((g_screenSurface != 0) && (-1 < (int)uVar9)) {
       iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar3 = *(uint *)(iVar4 + 4);
       while (uVar3 < 0x2714) {
@@ -581,7 +581,7 @@ LAB_00448ea7:
     BlitRLESprite(0x104,0xec,0xffff,(byte *)(param_1 + 0x32e6c));
     BlitRLESprite(0x129,0x104,0xffff,(byte *)(param_1 + 0x32ef0));
     uVar9 = *(uint *)(param_1 + 0x32eec);
-    if (DAT_0079352c != 0) {
+    if (g_screenSurface != 0) {
       if (-1 < (int)uVar9) {
         iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
         uVar3 = *(uint *)(iVar4 + 4);
@@ -597,7 +597,7 @@ LAB_00448ea7:
         }
       }
 LAB_00448f7b:
-      if (DAT_0079352c != 0) {
+      if (g_screenSurface != 0) {
         iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
         uVar9 = *(uint *)(iVar4 + 4);
         while (uVar9 < 0x9c41) {

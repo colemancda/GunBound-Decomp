@@ -59,7 +59,7 @@ void __fastcall FUN_00482130(int param_1)
     ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
     TreeLowerBound(local_ad0,&g_valueGuardMap);
   }
-  if ((DAT_00793530 <= iVar4 + 0x20) && (local_ad0[0] = iVar4 + -0x20, local_ad0[0] <= DAT_0056df30)
+  if ((g_clipMinX <= iVar4 + 0x20) && (local_ad0[0] = iVar4 + -0x20, local_ad0[0] <= g_clipMaxX)
      ) {
     uVar3 = EncodeChecksumDeltaSub(param_1 + 0x25c,local_230,*(undefined4 *)(&g_nCameraY + g_clientContext));
     local_4 = 2;
@@ -85,8 +85,8 @@ void __fastcall FUN_00482130(int param_1)
       ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
       TreeLowerBound(local_ac8,&g_valueGuardMap);
     }
-    iVar2 = DAT_00793534;
-    if ((DAT_00793534 <= iVar5) &&
+    iVar2 = g_clipMinY;
+    if ((g_clipMinY <= iVar5) &&
        (iVar6 = FindTextureCacheEntryByName(s_Lightning_00555b90), iVar6 != 0)) {
       DAT_00ea0e28 = (float)local_ad0[0];
       _DAT_00ea0e4c = (float)(iVar4 + 0x1f);
@@ -106,7 +106,7 @@ void __fastcall FUN_00482130(int param_1)
         do {
           iVar4 = iVar5 + -0x100;
           fVar1 = (float)*piVar8 * _DAT_00558054;
-          if (iVar4 <= DAT_0056df34) {
+          if (iVar4 <= g_clipMaxY) {
             DAT_00ea0e2c = (float)iVar4;
             g_spriteVertexCount = g_spriteVertexCount + 2;
             DAT_00ea0e74 = (float)iVar5;
@@ -141,7 +141,7 @@ void __fastcall FUN_00482130(int param_1)
           }
           piVar8 = piVar8 + 1;
           iVar5 = iVar4;
-        } while (DAT_00793534 < iVar4);
+        } while (g_clipMinY < iVar4);
       }
     }
   }

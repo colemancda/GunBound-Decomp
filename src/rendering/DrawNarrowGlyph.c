@@ -22,7 +22,7 @@ void DrawNarrowGlyph(int param_1,int param_2,int param_3)
   int local_18;
   byte local_10 [16];
   
-  iVar3 = DAT_0056df30;
+  iVar3 = g_clipMaxX;
   local_10[0xd] = in_EAX[0xb] >> 1;
   iVar7 = 1;
   do {
@@ -101,9 +101,9 @@ void DrawNarrowGlyph(int param_1,int param_2,int param_3)
       iVar5 = 0;
       do {
         if (((((bVar4 >> (7U - (char)iVar5 & 0x1f) & 1) != 0) &&
-             (iVar1 = iVar5 + -1 + param_1, iVar1 <= iVar3)) && (DAT_00793530 <= iVar1)) &&
-           ((iVar7 <= DAT_0056df34 && (DAT_00793534 <= iVar7)))) {
-          *(undefined2 *)(DAT_0079352c + (iVar7 * DAT_005b3620 + iVar1) * 2) = param_3;
+             (iVar1 = iVar5 + -1 + param_1, iVar1 <= iVar3)) && (g_clipMinX <= iVar1)) &&
+           ((iVar7 <= g_clipMaxY && (g_clipMinY <= iVar7)))) {
+          *(undefined2 *)(g_screenSurface + (iVar7 * g_screenPitch + iVar1) * 2) = param_3;
         }
         iVar5 = iVar5 + 1;
       } while (iVar5 < 8);

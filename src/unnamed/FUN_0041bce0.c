@@ -31,7 +31,7 @@ LAB_0041bd02:
   local_8 = 0x1f;
   iVar8 = (((int)*(uint *)(param_1 + 0x3b97c) < 1) - 1 & *(uint *)(param_1 + 0x3b97c)) + local_4;
   uVar3 = *(ushort *)(param_1 + 0x3f73c + iVar8 * 2);
-  if (((uVar3 != 0) && (uVar5 = uVar3 - 1, DAT_0079352c != 0)) && (-1 < (int)uVar5)) {
+  if (((uVar3 != 0) && (uVar5 = uVar3 - 1, g_screenSurface != 0)) && (-1 < (int)uVar5)) {
     iVar7 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar4 = *(uint *)(iVar7 + 4);
     while (uVar4 < 0x35) {

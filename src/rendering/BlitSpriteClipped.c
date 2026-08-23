@@ -198,7 +198,7 @@ undefined4 BlitSpriteClipped(int frame,int x,int y,int outerKey)
   int clipTop;
   int topSkip;
 
-  if (((DAT_0079352c != 0) && (-1 < frame)) &&
+  if (((g_screenSurface != 0) && (-1 < frame)) &&
      (iVar1 = FindSpriteFrame((int)&g_spriteRegistry,outerKey,frame), iVar1 != 0)) {
     iVar2 = y + *(int *)(iVar1 + 0x2c);
     x = x + *(int *)(iVar1 + 0x28);
@@ -206,8 +206,8 @@ undefined4 BlitSpriteClipped(int frame,int x,int y,int outerKey)
     /* FIXED (2026-07-20): `(clipTop - iVar2 < 0) - 1 & clipTop - iVar2` is a
      * branchless "max(0, clipTop-iVar2)" idiom, matching the original's
      * `test eax,eax`/`sets dl`/`dec edx`/`and edx,eax` sign-check sequence -
-     * it needs SIGNED subtraction. DAT_00793534 is declared uint32_t, so
-     * without going through a signed local first, `DAT_00793534 - iVar2` is
+     * it needs SIGNED subtraction. g_clipMinY is declared uint32_t, so
+     * without going through a signed local first, `g_clipMinY - iVar2` is
      * computed as UNSIGNED and wraps instead of going negative (e.g.
      * clipTop=0, iVar2=18 -> wraps to 0xffffffee, not -18), making `< 0`
      * permanently false. That silently inflates local_4 (rows-to-draw) by
@@ -223,7 +223,7 @@ undefined4 BlitSpriteClipped(int frame,int x,int y,int outerKey)
      * others (Add, close-X) render as noise. Verified live: a probe on
      * this exact call for the buddy Add button (frame h=22, y=18,
      * clipTop=0) printed local_4=40 before this fix. */
-    clipTop = (int)DAT_00793534;
+    clipTop = (int)g_clipMinY;
     topSkip = (clipTop - iVar2 < 0) ? 0 : clipTop - iVar2;
     local_4 = *(int *)(iVar1 + 0x24) - topSkip;
     puPixelRow = (undefined4 *)
@@ -232,8 +232,8 @@ undefined4 BlitSpriteClipped(int frame,int x,int y,int outerKey)
     if (iVar2 < clipTop) {
       iVar2 = clipTop;
     }
-    if (DAT_0056df34 < local_4 + iVar2) {
-      local_4 = (DAT_0056df34 - iVar2) + 1;
+    if (g_clipMaxY < local_4 + iVar2) {
+      local_4 = (g_clipMaxY - iVar2) + 1;
     }
     if (0 < local_4) {
       do {

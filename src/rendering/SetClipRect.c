@@ -2,8 +2,8 @@
  *
  * Sets the current draw clip rectangle from two arbitrary corner points
  * (x1,y1)-(x2,y2), min/max-sorting each axis internally and clamping to
- * the 800x600 screen (DAT_00793530/793534 = clip min x/y,
- * DAT_0056df30/0056df34 = clip max x/y). Has ~23 real call sites across
+ * the 800x600 screen (g_clipMinX/793534 = clip min x/y,
+ * g_clipMaxX/0056df34 = clip max x/y). Has ~23 real call sites across
  * the UI/HUD render paths (wind gauge, ready-room roster/status, in-
  * battle HUD, room list, chat/edit-box screens) - flagged since session 5
  * as needing its own dedicated recovery pass, done here (2026-07-15).
@@ -33,56 +33,56 @@ void __fastcall SetClipRect(int x1, int x2, int y1, int y2)
     iVar1 = x2;
   }
   if (iVar1 < 0) {
-    DAT_00793530 = 0;
+    g_clipMinX = 0;
 LAB_004eadd7:
     iVar2 = x1;
-    iVar1 = DAT_00793530;
+    iVar1 = g_clipMinX;
     if (x1 <= x2) goto LAB_004eaddd;
   }
   else {
-    DAT_00793530 = x2;
+    g_clipMinX = x2;
     iVar1 = x1;
     if (x2 <= x1) goto LAB_004eadd7;
 LAB_004eaddd:
-    DAT_00793530 = iVar1;
+    g_clipMinX = iVar1;
     iVar2 = x2;
   }
   if (iVar2 < 800) {
-    DAT_0056df30 = x1;
+    g_clipMaxX = x1;
     if (x1 <= x2) {
-      DAT_0056df30 = x2;
+      g_clipMaxX = x2;
     }
   }
   else {
-    DAT_0056df30 = 799;
+    g_clipMaxX = 799;
   }
   iVar1 = y2;
   if (y1 <= y2) {
     iVar1 = y1;
   }
   if (iVar1 < 0) {
-    DAT_00793534 = 0;
+    g_clipMinY = 0;
 LAB_004eae2a:
     iVar2 = y2;
-    iVar1 = DAT_00793534;
+    iVar1 = g_clipMinY;
     if (y1 < y2) goto LAB_004eae32;
   }
   else {
-    DAT_00793534 = y1;
+    g_clipMinY = y1;
     iVar1 = y2;
     if (y1 <= y2) goto LAB_004eae2a;
   }
-  DAT_00793534 = iVar1;
+  g_clipMinY = iVar1;
   iVar2 = y1;
 LAB_004eae32:
   if (iVar2 < 600) {
-    DAT_0056df34 = y2;
+    g_clipMaxY = y2;
     if (y2 <= y1) {
-      DAT_0056df34 = y1;
+      g_clipMaxY = y1;
     }
     return;
   }
-  DAT_0056df34 = 599;
+  g_clipMaxY = 599;
   return;
 }
 

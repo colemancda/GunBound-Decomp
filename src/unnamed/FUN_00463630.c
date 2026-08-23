@@ -112,8 +112,8 @@ void FUN_00463630(int param_1)
         iVar2 = iVar2 - iVar4;
       }
       iVar4 = local_1134;
-      if ((((DAT_00793530 <= local_1134 + 0x53) && (local_1134 <= DAT_0056df30)) &&
-          (DAT_00793534 <= iVar2 + 0x1f)) && (iVar2 <= DAT_0056df34)) {
+      if ((((g_clipMinX <= local_1134 + 0x53) && (local_1134 <= g_clipMaxX)) &&
+          (g_clipMinY <= iVar2 + 0x1f)) && (iVar2 <= g_clipMaxY)) {
         if (*(char *)(g_clientContext + 0x45122) == '\0') {
           PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         }

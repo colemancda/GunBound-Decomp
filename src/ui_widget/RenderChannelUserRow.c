@@ -91,7 +91,7 @@ LAB_005074e1:
    * Cached scan: tools/findspriteframe_sites.json call_addr 0x507524 (esi=1)
    * and 0x507558 (esi=2). */
   if ((*(byte *)(iVar4 + 0x42949 + iVar2 * 8) & 0x80) == 0) {
-    if ((DAT_0079352c != 0) &&
+    if ((g_screenSurface != 0) &&
         (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x12c,2), iVar4 != 0)) {
       if (*(char *)(iVar4 + 0x18) != '\x01') {
         uVar8 = 2;
@@ -100,7 +100,7 @@ LAB_005074e1:
       BlitSprite16bpp(2,iVar6,iVar7,0x12c);
     }
   }
-  else if ((DAT_0079352c != 0) &&
+  else if ((g_screenSurface != 0) &&
            (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x12c,1), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(1,iVar6,iVar7,0x12c);
@@ -112,7 +112,7 @@ LAB_00507577:
     }
   }
   uVar5 = (uint)*(ushort *)(g_clientContext + 0x43e48 + iVar2 * 2);
-  if (DAT_0079352c != 0) {
+  if (g_screenSurface != 0) {
     iVar4 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar3 = *(uint *)(iVar4 + 4);
     while (uVar3 < 0x65) {

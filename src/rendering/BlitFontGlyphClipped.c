@@ -5,8 +5,8 @@
  * (the `local_4 = 0xc` outer loop), each row a 1-byte bitmask in the
  * glyph bitmap whose top 6 bits (7..2) select the 6 columns. Set bits
  * write the solid text colour `param_3` as a u16 pixel at
- * `g_screenSurface[y*pitch + x]` (DAT_0079352c = surface base,
- * DAT_005b3620 = pixel pitch); clear bits and out-of-clip pixels are
+ * `g_screenSurface[y*pitch + x]` (g_screenSurface = surface base,
+ * g_screenPitch = pixel pitch); clear bits and out-of-clip pixels are
  * skipped. Called per character by the bitmap-font string renderer
  * BlitRLESprite (0x4eb450), which steps x by 6 (half-width) or 12
  * (full-width) between glyphs.
@@ -23,8 +23,8 @@
  * `glyphBitmap` parameter and the sole caller (BlitRLESprite) fixed to
  * pass it - it previously passed only (param_1,param_3), leaving in_EAX
  * garbage (a charsetKey 0x32 leaked in and `*in_EAX` faulted). Clip
- * rect: x in [DAT_00793530, DAT_0056df30], y in [DAT_00793534,
- * DAT_0056df34].
+ * rect: x in [g_clipMinX, g_clipMaxX], y in [g_clipMinY,
+ * g_clipMaxY].
  */
 #include "ghidra_types.h"
 
@@ -43,9 +43,9 @@ void __thiscall BlitFontGlyphClipped(int param_1,int param_2,int param_3,byte *g
       iVar2 = 7;
       iVar1 = param_2;
       do {
-        if (((((*in_EAX >> ((byte)iVar2 & 0x1f) & 1) != 0) && (iVar1 <= DAT_0056df30)) &&
-            (DAT_00793530 <= iVar1)) && ((param_1 <= DAT_0056df34 && (DAT_00793534 <= param_1)))) {
-          *(undefined2 *)(DAT_0079352c + (param_1 * DAT_005b3620 + iVar1) * 2) = param_3;
+        if (((((*in_EAX >> ((byte)iVar2 & 0x1f) & 1) != 0) && (iVar1 <= g_clipMaxX)) &&
+            (g_clipMinX <= iVar1)) && ((param_1 <= g_clipMaxY && (g_clipMinY <= param_1)))) {
+          *(undefined2 *)(g_screenSurface + (param_1 * g_screenPitch + iVar1) * 2) = param_3;
         }
         iVar2 = iVar2 + -1;
         iVar1 = iVar1 + 1;

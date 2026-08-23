@@ -61,7 +61,7 @@ void __fastcall FUN_004a6b10(int param_1)
     ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
     TreeLowerBound(local_ac8,&g_valueGuardMap);
   }
-  if ((DAT_00793530 <= iVar4 + 0x20) && (iVar4 + -0x20 <= DAT_0056df30)) {
+  if ((g_clipMinX <= iVar4 + 0x20) && (iVar4 + -0x20 <= g_clipMaxX)) {
     uVar3 = EncodeChecksumDeltaSub(param_1 + 0x25c,local_230,*(undefined4 *)(&g_nCameraY + g_clientContext));
     local_4 = 2;
     uVar3 = EncodeChecksumDeltaAdd(uVar3,local_678,0x104);
@@ -86,8 +86,8 @@ void __fastcall FUN_004a6b10(int param_1)
       ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
       TreeLowerBound(local_ac8,&g_valueGuardMap);
     }
-    iVar1 = DAT_00793534;
-    if ((DAT_00793534 <= iVar5) &&
+    iVar1 = g_clipMinY;
+    if ((g_clipMinY <= iVar5) &&
        (iVar6 = FindTextureCacheEntryByName(s_Lightning_00555b90), iVar6 != 0)) {
       _DAT_00ea0e38 = *(int *)(param_1 + 0x484) << 0x18 | 0xffffff;
       DAT_00ea0e64 = 0;
@@ -103,15 +103,15 @@ void __fastcall FUN_004a6b10(int param_1)
         do {
           iVar1 = iVar5 + -0x100;
           fVar2 = (float)*local_acc * _DAT_00558054;
-          if (iVar1 <= DAT_0056df34) {
+          if (iVar1 <= g_clipMaxY) {
             if (*(char *)(param_1 + 0x4a8) == '\0') {
-              if (iVar4 + -0x100 <= DAT_0056df30) {
-                if (DAT_00793530 <= iVar4) goto LAB_004a6e54;
+              if (iVar4 + -0x100 <= g_clipMaxX) {
+                if (g_clipMinX <= iVar4) goto LAB_004a6e54;
                 break;
               }
             }
-            else if (DAT_00793530 <= iVar4 + 0x100) {
-              if (DAT_0056df30 < iVar4) break;
+            else if (g_clipMinX <= iVar4 + 0x100) {
+              if (g_clipMaxX < iVar4) break;
 LAB_004a6e54:
               DAT_00ea0e28 = (float)(int)(((-(uint)(*(char *)(param_1 + 0x4a8) != '\0') & 0x200) -
                                           0x117) + iVar4);
@@ -162,7 +162,7 @@ LAB_004a6e54:
           }
           local_acc = local_acc + 1;
           iVar5 = iVar1;
-        } while (DAT_00793534 < iVar1);
+        } while (g_clipMinY < iVar1);
       }
     }
   }

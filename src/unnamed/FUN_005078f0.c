@@ -71,7 +71,7 @@ LAB_00507930:
      * (the icon column shifts the text right), while EBP (m_x+0x1a) is the
      * icon's own x used by the two blits below. */
     xCursor = *(int *)(param_1 + 0x28) + 0x28;
-    if ((DAT_0079352c != 0) && (-1 < (int)uVar5)) {
+    if ((g_screenSurface != 0) && (-1 < (int)uVar5)) {
       iVar7 = *(int *)(DAT_00ea0e1c + 0x1c);
       uVar4 = *(uint *)(iVar7 + 4);
       while (uVar4 < 0x35) {

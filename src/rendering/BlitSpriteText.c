@@ -79,7 +79,7 @@ void __thiscall BlitSpriteText(int param_1,int param_2,int param_3,int param_4,i
   }
 LAB_004eda02:
   if (((*(char *)(param_3 + iVar4) != ' ') &&
-      (uVar1 = *(char *)(param_3 + iVar4) + -0x30 + param_2, DAT_0079352c != 0)) &&
+      (uVar1 = *(char *)(param_3 + iVar4) + -0x30 + param_2, g_screenSurface != 0)) &&
      (-1 < (int)uVar1)) {
     iVar3 = *(int *)(DAT_00ea0e1c + 0x1c);
     uVar2 = *(uint *)(iVar3 + 4);
