@@ -1817,7 +1817,7 @@ LAB_004c0f5c:
         iVar14 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         (&DAT_006a76e8)[iVar6 + iVar14] = 1;
-        FUN_004e7d60(0xc302);
+        FUN_004e7d60(0xc302,(int)&g_replayContext);
         FUN_00423a20();
       }
       pcVar16 = (code *)EnterCriticalSection;

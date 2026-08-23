@@ -34,6 +34,21 @@ SUB = {'eax': {'eax', 'ax', 'al', 'ah'}, 'ebx': {'ebx', 'bx', 'bl', 'bh'},
 def verdict(ins, reg):
     """'ARGUMENT' if read before written, 'PHANTOM' if written first."""
     alias = SUB[reg]
+    # Skip the entry prologue.  Its pushes are not reads:
+    #   push ebx/esi/edi/ebp  -- callee-saved registers being saved
+    #   push ecx / push eax   -- MSVC's stack-allocation idiom, a four-byte
+    #                            `sub esp,4` written as a push
+    # Counting either as a read makes every __thiscall function look as though
+    # it reads ECX, which is exactly the wrong answer for the phantom case:
+    # FUN_004e7d60 opens with `push ecx` and never reads ECX at all.
+    k = 0
+    for i in ins:
+        if i.mnemonic == 'push' and i.op_str.strip() in ('ebx', 'esi', 'edi',
+                                                         'ebp', 'ecx', 'eax'):
+            k += 1
+            continue
+        break
+    ins = ins[k:]
     for i in ins:
         o = re.sub(r'\b(?:byte|word|dword) ptr ', '', i.op_str)
         parts = [p.strip() for p in o.split(',')]

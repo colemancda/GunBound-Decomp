@@ -1209,7 +1209,7 @@ void __fastcall FUN_004e76d0();
 undefined4 FUN_004e7740();
 void FUN_004e77e0();
 uint FUN_004e7b60();
-void __thiscall FUN_004e7d60();
+void __thiscall FUN_004e7d60(int param_2,int regEax);
 void FUN_004e7de0();
 void FUN_004e8040();
 uint FUN_004e80d0();
