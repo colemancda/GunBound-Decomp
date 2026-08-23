@@ -31,7 +31,7 @@ unsigned int PlayMusicTrack(unsigned int status, const char *trackName);
  * already declared correctly below). */
 CWorldListPanel *BuildWorldListPanel(void *manager);
 int LoadSpriteSet(void *container, int key, const char *imgName);
-extern unsigned char DAT_00ea0e18[0x20];
+extern unsigned char g_spriteRegistry[0x20];
 extern int g_clientContext;
 extern unsigned char DAT_0067ec70;
 extern unsigned char g_uiPanelManager[0x1c];
@@ -101,13 +101,13 @@ void CState02ServerSelect::OnEnter()
     /* image names recovered from the raw-C sibling
      * State02_ServerSelect_OnEnter.c, already verified/exercised on the
      * bring-up path. */
-    LoadSpriteSet(&DAT_00ea0e18, 10000, "server_back.img");
-    LoadSpriteSet(&DAT_00ea0e18, 0x2711, "server_list.img");
-    LoadSpriteSet(&DAT_00ea0e18, 1000, "b_server_exitgame.img");
-    LoadSpriteSet(&DAT_00ea0e18, 0x3e9, "b_server_buddygame.img");
-    LoadSpriteSet(&DAT_00ea0e18, 0x3ea, "b_server_choiceserver.img");
-    LoadSpriteSet(&DAT_00ea0e18, 0x44c, "b_server_all.img");
-    LoadSpriteSet(&DAT_00ea0e18, 0x44d, "b_server_friend.img");
+    LoadSpriteSet(&g_spriteRegistry, 10000, "server_back.img");
+    LoadSpriteSet(&g_spriteRegistry, 0x2711, "server_list.img");
+    LoadSpriteSet(&g_spriteRegistry, 1000, "b_server_exitgame.img");
+    LoadSpriteSet(&g_spriteRegistry, 0x3e9, "b_server_buddygame.img");
+    LoadSpriteSet(&g_spriteRegistry, 0x3ea, "b_server_choiceserver.img");
+    LoadSpriteSet(&g_spriteRegistry, 0x44c, "b_server_all.img");
+    LoadSpriteSet(&g_spriteRegistry, 0x44d, "b_server_friend.img");
     for (int i = 0; i < 3; ++i) {
         AppendPersistentButtonName((unsigned char *)&DAT_0067ec70 + g_clientContext);
     }

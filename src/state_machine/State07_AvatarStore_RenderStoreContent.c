@@ -27,7 +27,7 @@
  *     BlitSprite16bpp(gate,x,y,outerKey)/BlitSpriteClipped(gate,x,y,
  *     outerKey) all have REAL ported prototypes now (see DrawSprite.c) -
  *     they MUST be passed their full args, not left verbatim: container
- *     is always (int)&DAT_00ea0e18, outerKey/innerKey come from the block's
+ *     is always (int)&g_spriteRegistry, outerKey/innerKey come from the block's
  *     EDX/ESI, gate from EAX (or the item index the sprite-list walk
  *     matched), and x/y from the two stack pushes (1st push = y, 2nd = x).
  *     Leaving them argless crashed live (page fault in FindSpriteFrame
@@ -92,7 +92,7 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
 
   /* --- store background (key 0x2710) --- */
   if ((DAT_0079352c != 0) &&
-     (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,0), iVar4 != 0)) {
+     (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,0), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(0,0,0,0x2710);
     }
@@ -103,7 +103,7 @@ void __fastcall State07_AvatarStore_RenderStoreContent(int param_1)
   /* --- window frame (key 0x64), gate/innerKey = *(short*)(this+0x23344) --- */
   uVar6 = *(ushort *)(param_1 + 0x23344);
   if (((DAT_0079352c != 0) && (0 <= (short)*(ushort *)(param_1 + 0x23344))) &&
-     (iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x64,uVar6), iVar5 != 0)) {
+     (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x64,uVar6), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(uVar6,0xac,9,0x64);
     }

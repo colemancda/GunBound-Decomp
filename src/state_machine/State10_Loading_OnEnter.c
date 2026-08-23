@@ -42,7 +42,7 @@ void __fastcall State10_Loading_OnEnter(int param_1)
   char acStack_100 [128];
   char acStack_80 [128];
   
-  LoadSpriteSet(&DAT_00ea0e18,10000);
+  LoadSpriteSet(&g_spriteRegistry,10000);
   *(undefined4 *)(param_1 + 4) = 0;
   iVar12 = g_clientContext;
   pbVar13 = &DAT_006a9b6c + g_clientContext;
@@ -410,8 +410,8 @@ LAB_0043ed58:
 LAB_0043eec8:
   iVar12 = g_clientContext;
   *(undefined4 *)(param_1 + 0x108) = 0xffffffff;
-  FUN_004f18c0(&DAT_00ea0e18,0x2711,(uint)*(byte *)(iVar12 + 0x475c4) << 1);
-  FUN_004f18c0(&DAT_00ea0e18,0x2711,(uint)*(byte *)(g_clientContext + 0x475c4) * 2 + 1);
+  FUN_004f18c0(&g_spriteRegistry,0x2711,(uint)*(byte *)(iVar12 + 0x475c4) << 1);
+  FUN_004f18c0(&g_spriteRegistry,0x2711,(uint)*(byte *)(g_clientContext + 0x475c4) * 2 + 1);
   *(undefined1 *)(param_1 + 0x14c) = 0;
   iVar12 = g_clientContext;
   puVar14 = (undefined4 *)(&DAT_006a76f4 + g_clientContext);

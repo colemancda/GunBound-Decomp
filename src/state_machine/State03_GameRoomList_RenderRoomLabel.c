@@ -38,7 +38,7 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
    * deliberately incremental - fixing a call site is safe while others stay
    * unmigrated. Cached scan: tools/findspriteframe_sites.json. */
   if ((DAT_0079352c != 0) &&
-      (iVar3 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,0), iVar3 != 0)) {
+      (iVar3 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,0), iVar3 != 0)) {
     /* RECOVERED (2026-07-20), orig 0x429841-0x42985a - this is the LOBBY's
      * full-screen backdrop (outerKey 0x2710, the same static backdrop
      * RenderScreenBackdrop.c draws for Title/Logo1/ServerSelect; State03 has
@@ -66,7 +66,7 @@ void __fastcall State03_GameRoomList_RenderRoomLabel(int param_1)
    * same g_clientContext+0x23344 word this function already loads into uVar2
    * two lines above. */
   if ((DAT_0079352c != 0) &&
-      (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x64,(uint)(unsigned short)uVar2), iVar4 != 0)) {
+      (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x64,(uint)(unsigned short)uVar2), iVar4 != 0)) {
     /* RECOVERED (2026-07-20), orig 0x42988f-0x4298ad. Both blits here draw
      * the channel/room-list header sprite (outerKey 0x64) whose frame index
      * is the same g_clientContext+0x23344 word the FindSpriteFrame call

@@ -52,7 +52,7 @@ int __stdcall LoadSpriteSet(void *container, int key);
  * register under that key; OnExit destroys the same bucket). */
 void CState01Title::OnEnter()
 {
-    LoadSpriteSet(&DAT_00ea0e18, 10000);
+    LoadSpriteSet(&g_spriteRegistry, 10000);
     m_frameCounter = 0;
     PlayMusicTrack(0, "title.mp3");
 }

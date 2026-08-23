@@ -179,7 +179,7 @@ GUID DAT_005573c8 = {0xbf798030, 0x483a, 0x4da2, {0xaa, 0x99, 0x5d, 0x64, 0xed, 
  * header magic (0x4658) failed to match, so OpenXFSArchive always fell
  * through to its "not found" cleanup path for every archive that
  * genuinely existed on disk - which for graphics.xfs silently left the
- * sprite registry (DAT_00ea0e18) permanently empty (LoadSpriteSet always
+ * sprite registry (g_spriteRegistry) permanently empty (LoadSpriteSet always
  * returns 0), so nothing ever rendered - the black bring-up window. */
 uint16_t DAT_0055751c = 0x4658;
 /* Texture XFS extension ".xtf" appended by PreloadTexture (orig .data
@@ -733,7 +733,7 @@ uint32_t DAT_00e53c48;
  * fix confirms a hard lower bound: it walks a `+4`-rooted sentinel list
  * and writes an int count to `+0xf24`, so real storage must cover at
  * least 0xf28 bytes - sized to that confirmed minimum, matching the same
- * incremental-resize idiom used for DAT_00e9be90/DAT_00f22650. Its `+4`
+ * incremental-resize idiom used for DAT_00e9be90/g_spriteDrawBatchPool. Its `+4`
  * sentinel-list head is self-referencing-initialized in crt_shims_msvc.c's
  * gb_startup_init (same treatment as those two registries) - the other
  * ~25 callers' own offset requirements beyond this confirmed 0xf28-byte
@@ -815,7 +815,7 @@ uint8_t DAT_00e9c348;
  * FindSpriteFrame ran off the end; sized to 0x20 and sentinel-initialised by
  * gb_startup_init (crt_shims_msvc.c) so an empty registry terminates cleanly
  * and inserts link correctly. See [[bringup-frontier-mouse-hittest]]. */
-uint8_t DAT_00ea0e18[0x20];
+uint8_t g_spriteRegistry[0x20];
 uint32_t DAT_00ea0e1c;
 uint32_t DAT_00ea0e28;
 uint32_t DAT_00ea0e2c;
@@ -872,7 +872,7 @@ GUID DAT_00f22504 = {0x84e63de0, 0x46aa, 0x11cf, {0x81, 0x6f, 0x00, 0x00, 0xc0, 
  * clean no-op on the logo path instead of reading an out-of-bounds garbage
  * count and running the output writes off the end. (Was a lone uint32_t, then
  * [0x400] - each prior size still ran the code's higher accesses off the end.) */
-uint32_t DAT_00f22650[0x803];
+uint32_t g_spriteDrawBatchPool[0x803];
 uint8_t DAT_00f23650;
 uint8_t DAT_00f23654;
 uint8_t DAT_00f23658;

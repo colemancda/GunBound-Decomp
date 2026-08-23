@@ -46,7 +46,7 @@ void FUN_00442e00(void)
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-  if (((unaff_EDI == iVar5) && (DAT_0079352c != 0)) && (iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,3), iVar5 != 0)) {
+  if (((unaff_EDI == iVar5) && (DAT_0079352c != 0)) && (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,3), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(3,0x2f3,iVar7 + 3,0x2710);
     }

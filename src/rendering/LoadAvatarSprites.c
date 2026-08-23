@@ -131,7 +131,7 @@ LAB_00414245:
     uVar2 = param_4;
   }
   local_80a2 = (ushort)uVar2 & 0x7fff;
-  local_8090 = LoadSpriteSet(&DAT_00ea0e18,100000,local_8088);
+  local_8090 = LoadSpriteSet(&g_spriteRegistry,100000,local_8088);
   if (param_2 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ac08));
@@ -151,7 +151,7 @@ LAB_00414245:
     uVar2 = param_2;
   }
   local_80a8 = CONCAT22(SUBFIELD(local_80a8,2,undefined2),(short)uVar2);
-  local_808c = LoadSpriteSet(&DAT_00ea0e18,0x186a1,local_8088);
+  local_808c = LoadSpriteSet(&g_spriteRegistry,0x186a1,local_8088);
   if (param_3 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b050));
@@ -171,7 +171,7 @@ LAB_00414245:
     uVar2 = param_3;
   }
   local_80a4 = (undefined2)uVar2;
-  local_809c = LoadSpriteSet(&DAT_00ea0e18,0x186a2,local_8088);
+  local_809c = LoadSpriteSet(&g_spriteRegistry,0x186a2,local_8088);
   if (param_1 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     uVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3ae2c));
@@ -191,7 +191,7 @@ LAB_00414245:
     uVar2 = param_1;
   }
   local_80a8 = CONCAT22((short)uVar2,(undefined2)local_80a8);
-  local_8094 = LoadSpriteSet(&DAT_00ea0e18,0x186a3,local_8088);
+  local_8094 = LoadSpriteSet(&g_spriteRegistry,0x186a3,local_8088);
   if (param_5 != 0) {
     ApplyAvatarStatBonuses(g_clientContext,&local_80a8,param_5,0);
   }
@@ -373,7 +373,7 @@ LAB_00414842:
     iVar7 = *(int *)(iVar7 + 0x1c);
     uVar2 = *(uint *)(iVar7 + 4);
   }
-  iVar7 = CreateActiveObjectLayer((int)&DAT_00ea0e18);
+  iVar7 = CreateActiveObjectLayer((int)&g_spriteRegistry);
 LAB_0041496a:
   uVar2 = puVar12[2];
   if (uVar2 != 0xffffffff) {
@@ -469,7 +469,7 @@ LAB_00414ab9:
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   }
   _sprintf(local_8088,s_mf_05dl_img_005521dc,param_4 & 0x7fff);
-  local_8090 = LoadSpriteSet(&DAT_00ea0e18,100000,local_8088);
+  local_8090 = LoadSpriteSet(&g_spriteRegistry,100000,local_8088);
   /* DOUBLE-CLEANUP FIX (2026-08-06): Ghidra hoisted EnterCriticalSection
    * into a generic `code *` local and dispatched it unprototyped - cdecl
    * to MSVC, so the caller cleaned 4 bytes the __stdcall callee had
@@ -494,7 +494,7 @@ LAB_00414ab9:
     _sprintf(local_8088,s__cb_05dl_img_005521cc,
              (int)(char)((-((param_2 & 0x8000) != 0) & 7U) + 0x66),param_2 & 0x7fff);
   }
-  local_808c = LoadSpriteSet(&DAT_00ea0e18,0x186a1,local_8088);
+  local_808c = LoadSpriteSet(&g_spriteRegistry,0x186a1,local_8088);
   uVar2 = param_3;
   if (param_3 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -506,7 +506,7 @@ LAB_00414ab9:
   }
   _sprintf(local_8088,s__cg_05dl_img_005521bc,(int)(char)((-((param_3 & 0x8000) != 0) & 7U) + 0x66),
            uVar2 & 0x7fff);
-  local_809c = LoadSpriteSet(&DAT_00ea0e18,0x186a2,local_8088);
+  local_809c = LoadSpriteSet(&g_spriteRegistry,0x186a2,local_8088);
   uVar2 = param_1;
   if (param_1 == 0xffffffff) {
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -518,7 +518,7 @@ LAB_00414ab9:
   }
   _sprintf(local_8088,s__ch_05dl_img_005521ac,(int)(char)((-((param_1 & 0x8000) != 0) & 7U) + 0x66),
            uVar2 & 0x7fff);
-  local_8094 = LoadSpriteSet(&DAT_00ea0e18,0x186a3,local_8088);
+  local_8094 = LoadSpriteSet(&g_spriteRegistry,0x186a3,local_8088);
   local_80b0 = 0;
 LAB_00414d80:
   puVar12 = (undefined4 *)avatarCanvas;
@@ -707,7 +707,7 @@ LAB_00414fa2:
     iVar7 = *(int *)(iVar7 + 0x1c);
     uVar2 = *(uint *)(iVar7 + 4);
   }
-  iVar7 = CreateActiveObjectLayer((int)&DAT_00ea0e18);
+  iVar7 = CreateActiveObjectLayer((int)&g_spriteRegistry);
 LAB_004150ca:
   uVar2 = puVar12[2];
   if (uVar2 != 0xffffffff) {

@@ -7,7 +7,7 @@
  * FindSpriteFrame.c for the derivations). */
 extern "C" {
 extern unsigned int DAT_0079352c;
-extern unsigned char DAT_00ea0e18[0x20];
+extern unsigned char g_spriteRegistry[0x20];
 int FindSpriteFrame(int container, unsigned int outerKey, unsigned int innerKey);
 int BlitSprite16bpp(int frame, int x, int y, int outerKey);
 int BlitSpriteClipped(int frame, int x, int y, int outerKey);
@@ -67,7 +67,7 @@ void CLabel::Draw()
  * (matching the 5 states each .epa button definition carries), then
  * blits frame=state of sprite set m_spriteId at (m_x, m_y) - the exact
  * FindSpriteFrame/BlitSprite16bpp/BlitSpriteClipped sequence at
- * 0x5053c6-0x505414: EAX=&DAT_00ea0e18, EDX=[this+0x3c], ESI=state,
+ * 0x5053c6-0x505414: EAX=&g_spriteRegistry, EDX=[this+0x3c], ESI=state,
  * gated on the locked surface DAT_0079352c. Hidden (+0x1e) returns
  * WITHOUT the child broadcast (orig 0x50541f: ret before the 0x50ecf0
  * tail); otherwise falls into the base broadcast (CWidget::Update ==
@@ -86,7 +86,7 @@ void CLabel::Update()
         state = (m_unk38 != 0) ? 2 : 1;
     }
     if (DAT_0079352c != 0 && state >= 0) {
-        int rec = FindSpriteFrame((int)DAT_00ea0e18, (unsigned int)m_spriteId, (unsigned int)state);
+        int rec = FindSpriteFrame((int)g_spriteRegistry, (unsigned int)m_spriteId, (unsigned int)state);
         if (rec != 0) {
             if (*(unsigned char *)(rec + 0x18) == 1) {
                 BlitSprite16bpp(state, m_x, m_y, m_spriteId);

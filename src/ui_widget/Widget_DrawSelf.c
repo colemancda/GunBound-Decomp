@@ -12,7 +12,7 @@
  *   mov ebp,[edi+0x28]   ; x
  *   mov esi,[edi+0x48]   ; frame/innerKey = this->m_unk48
  *   ...
- *   mov eax,0xea0e18     ; container = &DAT_00ea0e18
+ *   mov eax,0xea0e18     ; container = &g_spriteRegistry
  *   call 0x4f30c0        ; FindSpriteFrame(container,outerKey,frame)
  *   ; success (byte[+0x18]==1): push ebx; push ebp; mov eax,esi;
  *   ;   call 0x4ed6a0 -> BlitSprite16bpp(frame=esi,x=ebp,y=ebx)
@@ -50,7 +50,7 @@ void __fastcall Widget_DrawSelf(int param_1)
   uVar2 = *(undefined4 *)(param_1 + 0x28);
   iVar3 = *(int *)(param_1 + 0x48);
   if ((DAT_0079352c != 0) && (-1 < iVar3)) {
-    iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,*(int *)(param_1 + 0x44),iVar3);
+    iVar4 = FindSpriteFrame((int)&g_spriteRegistry,*(int *)(param_1 + 0x44),iVar3);
     if (iVar4 != 0) {
       if (*(char *)(iVar4 + 0x18) == '\x01') {
         BlitSprite16bpp(iVar3,uVar2,uVar1,*(int *)(param_1 + 0x44));

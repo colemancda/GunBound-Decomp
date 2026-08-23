@@ -1,6 +1,6 @@
 /* The active-object registry (PLAN.md Phase 5.1) - the key->intrusive-
  * list container every screen's sprites/widgets register with. There are
- * several instances of the SAME structure: the sprite cache DAT_00ea0e18
+ * several instances of the SAME structure: the sprite cache g_spriteRegistry
  * (primed per-screen by LoadSpriteSet), and the two flat-widget registries
  * DAT_00e9be90 / DAT_00e9c0fc that the CButtonWidget / CScrollBar / CLabel
  * objects register into (see RegisterActiveObject.c / CreateActiveObjectLayer.c).
@@ -22,8 +22,8 @@
 #include "gb_common.h"
 
 extern "C" {
-extern unsigned char DAT_00ea0e18[0x20];  /* sprite-cache registry storage - sized, see globals.c */
-extern unsigned int  DAT_00ea0e1c;  /* its head field (registry+4) - aliased to &DAT_00ea0e18 at
+extern unsigned char g_spriteRegistry[0x20];  /* sprite-cache registry storage - sized, see globals.c */
+extern unsigned int  DAT_00ea0e1c;  /* its head field (registry+4) - aliased to &g_spriteRegistry at
                                         startup, see crt_shims_msvc.c; Ghidra split it out */
 }
 
@@ -68,7 +68,7 @@ GB_STATIC_ASSERT(sizeof(ActiveObjectLayer) == 0x20, activeobjectlayer_size);
 
 /* ---------------------------------------------------------------------------
  * The registry container itself (0x20 bytes: DAT_00e9be90, DAT_00e9c0fc,
- * DAT_00ea0e18). gb_init_widget_registry (crt_shims_msvc.c) makes it its own
+ * g_spriteRegistry). gb_init_widget_registry (crt_shims_msvc.c) makes it its own
  * head/outer sentinel: `head` (+0x04) and outerPrev/outerNext (+0x18/+0x1c)
  * all point back at the container, so an empty registry's outer list is the
  * container looping to itself - which is why RegisterActiveObject reaches the
@@ -84,7 +84,7 @@ struct CActiveObjectRegistry {
 };
 GB_STATIC_ASSERT(sizeof(CActiveObjectRegistry) == 0x20, activeobjectregistry_size);
 
-/* Walk the sorted layer list of the DAT_00ea0e18 sprite registry to `key`;
+/* Walk the sorted layer list of the g_spriteRegistry sprite registry to `key`;
  * if that layer exists, run every registered object's vtable-slot-0
  * destructor with free=1, then reset the layer's inner list to empty. The
  * outer list is sorted, so the walk bails as soon as it passes `key`. The

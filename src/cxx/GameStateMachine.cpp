@@ -37,7 +37,7 @@ void ResolveNamedState(const char *cursorName);/* select the named cursor */
 void FUN_005099b0(void);
 void FUN_004f0320(void);
 int __stdcall LoadSpriteSet(void *container, int key); /* .img name in EAX, .mp3 in EDI */
-extern unsigned char DAT_00ea0e18[0x20];
+extern unsigned char g_spriteRegistry[0x20];
 /* the three out-of-line state constructors (Ghidra-flattened
  * __thiscall: storage in as first arg, object out) */
 void *FUN_00443c20(void *storage);  /* CState07AvatarStore ctor */
@@ -74,7 +74,7 @@ void ConstructGameStates()
         800, 0x321, 0x322, 0x323, 900, 0x385, 0x38e, 0x398, 0,
     };
     for (int i = 0; i < (int)(sizeof(kSharedSpriteSets) / sizeof(int)); ++i) {
-        LoadSpriteSet(&DAT_00ea0e18, kSharedSpriteSets[i]);
+        LoadSpriteSet(&g_spriteRegistry, kSharedSpriteSets[i]);
     }
 }
 

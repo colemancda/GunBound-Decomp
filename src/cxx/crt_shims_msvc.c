@@ -174,7 +174,7 @@ static void gb_init_widget_registry(unsigned char *registry, unsigned char *sent
     /* registry+0x0c/+0x10/+0x18/+0x1c are left alone - +0x10 is the input-ring
      * pointer, written below. */
 }
-extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20], DAT_00ea0e18[0x20];
+extern unsigned char DAT_00e9be90[0x20], DAT_00e9c0fc[0x20], g_spriteRegistry[0x20];
 /* One list sentinel per registry root - see gb_init_widget_registry. */
 static unsigned char gb_registrySentinel[4][0x20];
 /* input-event ring (globals_sized.c) - the registries' +0x10 slot points here
@@ -226,7 +226,7 @@ extern unsigned char DAT_00e53e88[0xf28];
  * flag/focus fields, not node pointers, and correctly stay zero. */
 extern unsigned int DAT_00e9be94;
 /* Same KNOWN DIVERGENCE alias as DAT_00e9be94, for the global sprite
- * registry (DAT_00ea0e18): DAT_00ea0e1c is Ghidra's split-out copy of its +4
+ * registry (g_spriteRegistry): DAT_00ea0e1c is Ghidra's split-out copy of its +4
  * head pointer. ~40 raw-ported files (LoadAvatarSprites, ComposeAvatarSprites,
  * every State*_OnExit/ActiveObjects_DestroyBucket, DrawWindGauge, State11's
  * RenderHud, etc.) read `*(int *)(DAT_00ea0e1c + 0x1c)` directly, entering the
@@ -380,7 +380,7 @@ static void gb_startup_init(void)
     *(int *)(g_xfsScratch     + 0x1040) = (int)0xffffffff;
     gb_init_widget_registry(DAT_00e9be90, gb_registrySentinel[0]);
     gb_init_widget_registry(DAT_00e9c0fc, gb_registrySentinel[1]);
-    gb_init_widget_registry(DAT_00ea0e18, gb_registrySentinel[2]);   /* global sprite registry */
+    gb_init_widget_registry(g_spriteRegistry, gb_registrySentinel[2]);   /* global sprite registry */
     gb_init_widget_registry(DAT_00e53e88, gb_registrySentinel[3]);   /* chat-log/replay object */
     /* FIXED (2026-07-18): the two hit-test registries' +0x10 slot is the
      * input-event RING POINTER (read by HandleActiveObjectMouseUp as the

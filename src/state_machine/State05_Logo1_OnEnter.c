@@ -21,7 +21,7 @@
 void __fastcall State05_Logo1_OnEnter(int param_1)
 
 {
-  LoadSpriteSet(&DAT_00ea0e18,10000,"logomode.img");
+  LoadSpriteSet(&g_spriteRegistry,10000,"logomode.img");
   *(undefined4 *)(param_1 + 4) = 0;
   PlayMusicTrack(0,(byte *)"logo.mp3");
   return;

@@ -506,12 +506,12 @@ LAB_004457e7:
           case 3:
             local_4518 = &DAT_00666d73;
           }
-          FUN_004f1c00(0x7530,(int)&DAT_00ea0e18);
+          FUN_004f1c00(0x7530,(int)&g_spriteRegistry);
           PeekChecksumStateUnderLock(iVar3);
           iVar3 = FUN_00426570();
           uVar4 = PeekChecksumStateUnderLock(iVar3 + 0x22c);
           _sprintf((char *)((int)&local_4518 + 3),s__05d_img_00555a08,uVar4 & 0x7fff);
-          LoadSpriteSet(&DAT_00ea0e18,30000);
+          LoadSpriteSet(&g_spriteRegistry,30000);
           CreateButtonWidget(&DAT_00e9be90,0,0x34,0x517,s_b_storewindow_cancel_00555a30,0x14d,0x154,
                              0x4a,0x1a,1,0);
           CreateButtonWidget(&DAT_00e9be90,0,0x35,0x516,s_b_storewindow_confirm_00555a8c,0xf2,0x154,

@@ -32,7 +32,7 @@ typedef void *(__thiscall *ScalarDeletingDtorFn)(void *thisPtr,int freeFlag);
  * `mov edi,esi` (`puVar3`, the sprite object just built this iteration).
  *
  * CORRECTED (2026-07-14): [esp+0x20] is this function's own `param_1`
- * (the registry container, e.g. &DAT_00ea0e18), NOT param_2 (the
+ * (the registry container, e.g. &g_spriteRegistry), NOT param_2 (the
  * sprite-set key) - this file previously passed param_2, matching
  * RegisterActiveObject's real body (`*(int*)(param_2+4)`, a registry
  * `+4` head-pointer dereference identical to the widget registries'

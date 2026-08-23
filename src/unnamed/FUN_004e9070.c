@@ -9,7 +9,7 @@
  * confirmed via objdump that it arrives unchanged (no prior MOV to ESI,
  * `ret` with no operand). Sole caller is GameTick at 0x413440:
  * `mov esi,0xf22650; call 0x4e9070` - a fixed literal, already declared
- * as `DAT_00f22650` (a sprite-cache-slot table, see ShutdownDirectDraw.c/
+ * as `g_spriteDrawBatchPool` (a sprite-cache-slot table, see ShutdownDirectDraw.c/
  * InitDirectDraw.c uses of the same global) - hardcoded rather than
  * threading a parameter through, matching InvokeWidget's registry-base
  * precedent.
@@ -28,7 +28,7 @@ void FUN_004e9070(void)
   int *piVar5;
   int local_4;
 
-  base = (int)DAT_00f22650;
+  base = (int)g_spriteDrawBatchPool;
   *(undefined4 *)(base + 0x1000) = 0;
   local_4 = 0;
   if (0 < *(int *)(base + 0x1008)) {

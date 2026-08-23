@@ -1001,7 +1001,7 @@ extern unsigned char g_wordFilterArrayHeader[0x10]; /* word-filter AtlArray head
 extern unsigned char DAT_007a7644[0x1c];  /* sized object - see globals_sized.c */
 extern unsigned char DAT_00eb1a78[0x160]; /* sized object - see globals_sized.c */
 extern unsigned char DAT_00f22518[0x138]; /* sized object - see globals_sized.c */
-extern uint8_t DAT_00ea0e18[0x20]; /* global sprite registry - sentinel-list container, see globals.c */
+extern uint8_t g_spriteRegistry[0x20]; /* was DAT_00ea0e18 - sentinel-list container, see globals.c */
 extern uint32_t DAT_00ea0e1c;
 extern uint32_t DAT_00ea0e28;
 extern uint32_t DAT_00ea0e2c;
@@ -1051,7 +1051,7 @@ extern uint8_t DAT_00f11de0;
 extern uint8_t DAT_00f12e14;
 extern uint8_t DAT_00f12e18;
 extern GUID DAT_00f22504; /* IID_IDirect3DHALDevice - see globals.c */
-extern uint32_t DAT_00f22650[0x803]; /* sprite-draw batch pool, 0x200c bytes - see globals.c */
+extern uint32_t g_spriteDrawBatchPool[0x803]; /* was DAT_00f22650 - 0x200c bytes, see globals.c */
 extern uint8_t DAT_00f23650;
 #define _DAT_00f23650 DAT_00f23650
 extern uint8_t DAT_00f23654;

@@ -52,7 +52,7 @@ extern int g_clientContext;
  * for the recovered (container,outerKey,innerKey)/(frame,x,y) shapes
  * used by CWorldListPanel::Update() below. */
 extern unsigned int DAT_0079352c;
-extern unsigned char DAT_00ea0e18[0x20];
+extern unsigned char g_spriteRegistry[0x20];
 int FindSpriteFrame(int container, unsigned int outerKey, unsigned int innerKey);
 int BlitSprite16bpp(int frame, int x, int y, int outerKey);
 int BlitSpriteClipped(int frame, int x, int y, int outerKey);
@@ -141,7 +141,7 @@ void CWorldListPanel::Update()
         return;
     }
     if (DAT_0079352c != 0 && m_unk48 >= 0) {
-        int rec = FindSpriteFrame((int)DAT_00ea0e18, (unsigned int)m_unk44, (unsigned int)m_unk48);
+        int rec = FindSpriteFrame((int)g_spriteRegistry, (unsigned int)m_unk44, (unsigned int)m_unk48);
         if (rec != 0) {
             if (*(unsigned char *)(rec + 0x18) == 1) {
                 BlitSprite16bpp(m_unk48, m_x, m_y, m_unk44);

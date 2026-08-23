@@ -64,7 +64,7 @@ int __fastcall State10_Loading_Render(int param_1)
   char acStack_80 [128];
   
   iStack_a4 = param_1;
-  if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,0), iVar5 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,0), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(0);
     }
@@ -73,7 +73,7 @@ int __fastcall State10_Loading_Render(int param_1)
     }
   }
   if (DAT_00e55a34 == -1) {
-    if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,0x17), iVar5 != 0)) {
+    if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,0x17), iVar5 != 0)) {
       if (*(char *)(iVar5 + 0x18) == '\x01') {
         BlitSprite16bpp(0x17,0x243,0x10c,0x2710);
       }
@@ -84,7 +84,7 @@ int __fastcall State10_Loading_Render(int param_1)
     FUN_00442d50(param_1);
   }
   SetClipRect(0x6b, 0x1b8, 0x257, 0);
-  if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,0x16), iVar5 != 0)) {
+  if ((DAT_0079352c != 0) && (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,0x16), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(0x16,0x6b,0x237,0x2710);
     }

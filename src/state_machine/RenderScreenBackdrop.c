@@ -32,7 +32,7 @@
  * zero-arg dropped-register stub. Confirmed via objdump at this
  * function's real entry (0x443570): `mov edx,0x2710` (outerKey=10000,
  * the same sprite-set State06_Logo2_Render uses) / `mov eax,0xea0e18`
- * (container=&DAT_00ea0e18) / `xor esi,esi` (innerKey=0, a fixed frame
+ * (container=&g_spriteRegistry) / `xor esi,esi` (innerKey=0, a fixed frame
  * index - this backdrop is static, not animated) immediately before
  * `call 0x4f30c0`. Recovered while wiring up State01_Title/State05_Logo1's
  * real vtable render slot (both point here, slot 15 = 0x443570 in each's
@@ -58,7 +58,7 @@ void RenderScreenBackdrop(void)
   int iVar1;
 
   if (DAT_0079352c != 0) {
-    iVar1 = FindSpriteFrame((int)&DAT_00ea0e18,10000,0);
+    iVar1 = FindSpriteFrame((int)&g_spriteRegistry,10000,0);
     if (iVar1 != 0) {
       if (*(char *)(iVar1 + 0x18) == '\x01') {
         BlitSprite16bpp(0, 0, 0, 10000);

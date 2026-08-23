@@ -255,7 +255,7 @@ LAB_004495fa:
     uVar9 = PeekPacketChecksumState((void *)partRecord);
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     _sprintf((char *)((int)&uStack_1870 + 3),s__05d_img_00555a08,uVar9);
-    LoadSpriteSet(&DAT_00ea0e18,iVar11 + 20000);
+    LoadSpriteSet(&g_spriteRegistry,iVar11 + 20000);
     auVar8 = auStack_1874;
     /* Fifth part-load reloads into the OBJECT's per-slot record, not the
      * stack one: orig 0x449acf-0x449ad4 `mov edi,[esp+0x20]` (= this row's

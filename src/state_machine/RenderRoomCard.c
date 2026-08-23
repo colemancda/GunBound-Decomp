@@ -48,7 +48,7 @@ void __thiscall RenderRoomCard(int param_1,int param_2)
    *    BlitSpriteClipped(frame=stack, x=ECX, y=EAX, outerKey).
    * Cached scan: tools/findspriteframe_sites.json (call_addr 0x42a28a). */
   if ((DAT_0079352c != 0) &&
-      (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,iVar8), iVar4 != 0)) {
+      (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,iVar8), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(iVar8,iVar7,iVar6 + 0x3a,0x2710);
     }
@@ -62,7 +62,7 @@ void __thiscall RenderRoomCard(int param_1,int param_2)
    * `push 0xe / mov eax,ebx / lea ecx,[ebp+0xb1]` (clipped). Frame is 0xe at
    * both. Cached scan call_addr 0x42a2df (esi=0xe). */
   if (((*(char *)(g_clientContext + 0x449b4 + param_2) != '\0') && (DAT_0079352c != 0)) &&
-     (iVar8 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,0xe), iVar8 != 0)) {
+     (iVar8 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,0xe), iVar8 != 0)) {
     if (*(char *)(iVar8 + 0x18) == '\x01') {
       BlitSprite16bpp(0xe,iVar7 + 0xb1,iVar6 + 0x42,0x2710);
     }
@@ -79,7 +79,7 @@ void __thiscall RenderRoomCard(int param_1,int param_2)
    * lea ecx,[ebp+0xc3]` (clipped). Outer key here is 0x1f4, not 0x2710.
    * Cached scan call_addr 0x42a351. */
   if ((DAT_0079352c != 0) &&
-      (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x1f4,bVar1 + 10), iVar4 != 0)) {
+      (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x1f4,bVar1 + 10), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(bVar1 + 10,iVar7 + 0xc3,iVar6 + 0x46,0x1f4);
     }
@@ -94,7 +94,7 @@ void __thiscall RenderRoomCard(int param_1,int param_2)
    * iVar6+0x46, unmodified since 0x42a33e), x = `lea ecx/eax,[ebp+0xd2]`.
    * Cached scan call_addr 0x42a3be. */
   if ((DAT_0079352c != 0) &&
-      (iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x1f4,bVar1 + 10), iVar5 != 0)) {
+      (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x1f4,bVar1 + 10), iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp(bVar1 + 10,iVar7 + 0xd2,iVar6 + 0x46,0x1f4);
     }
@@ -111,7 +111,7 @@ void __thiscall RenderRoomCard(int param_1,int param_2)
    * mov edx,0x2716 / mov eax,0xea0e18; x = `lea ecx/eax,[ebp+0x6a]`.
    * Cached scan call_addr 0x42a437 (esi = edx). */
   if ((DAT_0079352c != 0) &&
-      (iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x2716,(bVar1 & 3) * 0xb + (uint)bVar2),
+      (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x2716,(bVar1 & 3) * 0xb + (uint)bVar2),
       iVar5 != 0)) {
     if (*(char *)(iVar5 + 0x18) == '\x01') {
       BlitSprite16bpp((bVar1 & 3) * 0xb + (uint)bVar2,iVar7 + 0x6a,iVar6 + 0x5b,0x2716);
@@ -135,7 +135,7 @@ void __thiscall RenderRoomCard(int param_1,int param_2)
    * mov edx,0x2710; x = `lea ecx/eax,[ebp+0x13]`. Cached scan call_addr
    * 0x42a4b6 (esi=8 on the branch it sampled). */
   if ((DAT_0079352c != 0) &&
-      (iVar8 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,uVar9), iVar8 != 0)) {
+      (iVar8 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,uVar9), iVar8 != 0)) {
     if (*(char *)(iVar8 + 0x18) == '\x01') {
       BlitSprite16bpp(uVar9,iVar7 + 0x13,iVar6 + 0x55,0x2710);
     }
@@ -150,7 +150,7 @@ void __thiscall RenderRoomCard(int param_1,int param_2)
      * as the blits' x. Both blit paths re-set `mov edx,0x2710` immediately
      * before the call, confirming the outer key. Cached scan call_addr
      * 0x42a52e (esi=0xf). */
-    if ((DAT_0079352c != 0) && (iVar8 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,0xf), iVar8 != 0))
+    if ((DAT_0079352c != 0) && (iVar8 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,0xf), iVar8 != 0))
     {
       if (*(char *)(iVar8 + 0x18) == '\x01') {
         BlitSprite16bpp(0xf,(-(uint)(param_2 / 3 != 0) & 0xffffff06) + 0xea + iVar7,iVar6 + 0x52,
@@ -204,7 +204,7 @@ void __thiscall RenderRoomCard(int param_1,int param_2)
    * use it (16bpp: `push eax / push ebp`; clipped: `push esi / mov ecx,ebp`
    * with that same EAX as y). edx=0x2710. Cached scan call_addr 0x42a62f. */
   if ((DAT_0079352c != 0) &&
-      (iVar8 = FindSpriteFrame((int)&DAT_00ea0e18,0x2710,(uVar3 >> 0x12 & 3) + 10), iVar8 != 0)) {
+      (iVar8 = FindSpriteFrame((int)&g_spriteRegistry,0x2710,(uVar3 >> 0x12 & 3) + 10), iVar8 != 0)) {
     if (*(char *)(iVar8 + 0x18) == '\x01') {
       BlitSprite16bpp((uVar3 >> 0x12 & 3) + 10,iVar7 + 0xb1,iVar6 + 0x5b,0x2710);
       return;

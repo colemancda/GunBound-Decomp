@@ -21,7 +21,7 @@
  *   jl ret
  *   mov edx,0x2710      ; sprite-set id 10000 (the set OnEnter loads
  *                       ;   logomode2.img into)
- *   mov eax,0xea0e18    ; &DAT_00ea0e18 - the sprite registry
+ *   mov eax,0xea0e18    ; &g_spriteRegistry - the sprite registry
  *   call 0x4f30c0       ; FindSpriteFrame(container=EAX, outer=EDX, inner=ESI)
  *   test eax,eax
  *   je ret              ; frame not found
@@ -56,7 +56,7 @@ void __fastcall State06_Logo2_Render(int param_1,int dummyEDX)
   if (DAT_0079352c == 0) {
     return;
   }
-  frameRecord = FindSpriteFrame((int)&DAT_00ea0e18,10000,frameIndex);
+  frameRecord = FindSpriteFrame((int)&g_spriteRegistry,10000,frameIndex);
   if (frameRecord == 0) {
     return;
   }

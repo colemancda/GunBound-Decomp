@@ -28,7 +28,7 @@
  * FIXED (2026-07-14): four dropped-argument bugs recovered via objdump
  * (orig 0x50dc80-0x50df31):
  *   - The first FindSpriteFrame() (row-background lookup) was zero-arg;
- *     real args are (container=&DAT_00ea0e18, outerKey=0x2711, cVar8)
+ *     real args are (container=&g_spriteRegistry, outerKey=0x2711, cVar8)
  *     (`mov edx,0x2711` / `mov eax,0xea0e18` immediately before
  *     `call 0x4f30c0`, ESI=cVar8 already live).
  *   - Its two blit calls (row background) were stale pre-migration
@@ -73,7 +73,7 @@ void __fastcall RenderWorldListRow(int param_1, uint in_EAX)
     cVar8 = '\x03';
   }
   if ((DAT_0079352c != 0) &&
-      (iVar6 = FindSpriteFrame((int)&DAT_00ea0e18,0x2711,cVar8), iVar6 != 0)) {
+      (iVar6 = FindSpriteFrame((int)&g_spriteRegistry,0x2711,cVar8), iVar6 != 0)) {
     if (*(char *)(iVar6 + 0x18) == '\x01') {
       BlitSprite16bpp(cVar8,iVar1,iVar2,0x2711);
     }

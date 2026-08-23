@@ -211,7 +211,7 @@ byte InitDirectDraw(undefined4 param_1, HWND hWnd)
   OpenXFSArchive(&g_graphicsArchive,param_1,1,0);
   _DAT_00f23658 = 600;
   _DAT_00f23654 = 800;
-  ZeroMemory(DAT_00f22650, sizeof(DAT_00f22650));
+  ZeroMemory(g_spriteDrawBatchPool, sizeof(g_spriteDrawBatchPool));
   _DAT_00f23650 = 0;
   g_nCompositorLayer = 0;
   return SetupZBuffer() ? 0 : 100;

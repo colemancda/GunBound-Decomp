@@ -98,7 +98,7 @@ void RenderInventoryItemDetail(int param_1)
       pcVar13 = (code *)EnterCriticalSection;
     }
     iVar5 = *(int *)(g_clientContext + 0x44bec);
-    FUN_004f1c00(0x9c40,(int)&DAT_00ea0e18);
+    FUN_004f1c00(0x9c40,(int)&g_spriteRegistry);
     if (iVar5 == 0) {
       (*pcVar13)(&DAT_005a9068);
       iVar5 = _rand();
@@ -199,7 +199,7 @@ void RenderInventoryItemDetail(int param_1)
         local_190c = &DAT_00666d73;
       }
       _sprintf((char *)((int)&local_190c + 3),s__05d_img_00555a08,local_1874 & 0x7fff);
-      LoadSpriteSet(&DAT_00ea0e18,40000);
+      LoadSpriteSet(&g_spriteRegistry,40000);
       cVar3 = PeekPacketChecksumBool();
       if (cVar3 == '\0') {
         CreateButtonWidget(&DAT_00e9be90,0,0x36,0x516,s_b_storewindow_confirm_00555a8c,0x14d,0x154,

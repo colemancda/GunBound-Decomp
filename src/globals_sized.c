@@ -110,7 +110,7 @@ unsigned char DAT_00ea0090[6 * 0x224];   /* FUN_004ac4d0's table */
  * heap lists off +0x114 and +0x1b4, then zeroes an inline 15-entry
  * table at +0x401bc and a count at +0x401b8 - so the object extends to
  * at least 0x401fc bytes. 0x40200 covers every offset it touches.
- * Distinct from the small [0x20] sentinel-list container DAT_00ea0e18.
+ * Distinct from the small [0x20] sentinel-list container g_spriteRegistry.
  * Before this sizing, &g_textureCache+0x401bc landed on whatever global
  * the linker placed next, and under the stricter (Lutris) wine the
  * dropped EBX was garbage and faulted outright. */
@@ -292,7 +292,7 @@ unsigned char g_wordFilterArrayHeader[0x10];
  * DAT_00eb1a78  0x160: callee writes +0x15c; next object base is exactly
  *                      0x160 higher - an exact fit.
  * DAT_00f22518  0x138: callee writes [0x4c] (+0x134); next object base is
- *                      DAT_00f22650, 0x138 higher.
+ *                      g_spriteDrawBatchPool, 0x138 higher.
  *
  * Two more of these are NOT here.  0xe53698 and its neighbour DAT_00e5369c
  * sit in the region globals.c already flags as a KNOWN DIVERGENCE (the input

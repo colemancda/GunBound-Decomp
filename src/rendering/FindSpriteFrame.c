@@ -25,7 +25,7 @@
  *     cmp ecx,esi         ; inner key compared against ESI
  * Cross-checked against two call sites' disassembly (DrawSprite.c @0x4eb890,
  * DrawButtonWidget.c @0x405ea0): both load EAX with the same fixed global
- * (0xea0e18, i.e. &DAT_00ea0e18, the sprite registry already referenced by
+ * (0xea0e18, i.e. &g_spriteRegistry, the sprite registry already referenced by
  * that name elsewhere in src/rendering/LoadAvatarSprites.c etc.) and set up
  * EDX/ESI from their own locals immediately before `call 0x4f30c0` - matching
  * this function's in_EAX/param_2/unaff_ESI reads exactly.
@@ -42,7 +42,7 @@
  * tools/scan_findspriteframe2.py) over all 181 call sites; results cached
  * in tools/findspriteframe_sites.json. Findings:
  *   - EAX (container) fully resolved at 179/181 sites: 168 use the fixed
- *     literal &DAT_00ea0e18 (confirming the 2-site spot-check above), 8 use
+ *     literal &g_spriteRegistry (confirming the 2-site spot-check above), 8 use
  *     g_clientContext (DAT_005b3484's value, not its address), 2 use a
  *     caller's own existing parameter (FUN_0040d020's `param_2`/EBP). Only
  *     2 sites (inside FUN_004cee30) need a one-more-step trace (`add

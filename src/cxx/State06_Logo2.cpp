@@ -11,7 +11,7 @@ extern "C" {
  * missing trackName argument. */
 unsigned int PlayMusicTrack(unsigned int status, const char *trackName);
 int __stdcall LoadSpriteSet(void *container, int key);
-extern unsigned char DAT_00ea0e18[0x20];
+extern unsigned char g_spriteRegistry[0x20];
 extern unsigned int  DAT_00ea0e1c;
 /* Takes 2 outputs, not 1 - the original's second output arrives via a
  * dropped ESI register (see src/network/BuildSystemInfoBlob.c). This
@@ -27,7 +27,7 @@ void BuildSystemInfoBlob(void *outBlob, void *outBlob2);
  * start the music. */
 void CState06Logo2::OnEnter()
 {
-    LoadSpriteSet(&DAT_00ea0e18, 10000);
+    LoadSpriteSet(&g_spriteRegistry, 10000);
     m_frameCounter = 0;
     PlayMusicTrack(0, "logo2.mp3");
 }

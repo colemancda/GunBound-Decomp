@@ -36,7 +36,7 @@
  * own now-fixed `frame` parameter. Confirmed via objdump at 0x4ed6a0: entry
  * does `mov esi,eax` (ESI = the caller's frame value, this function's own
  * `frame` param, left untouched through the call), then immediately before
- * `call 0x4f30c0` sets `mov eax,0xea0e18` (container = &DAT_00ea0e18) with
+ * `call 0x4f30c0` sets `mov eax,0xea0e18` (container = &g_spriteRegistry) with
  * no EDX write in between - EDX (outer key) is inherited live from the
  * caller. An EARLIER fix hardcoded EDX=10000 here, verified only against
  * State06_Logo2_Render's specific call site - WRONG in general, since EDX
@@ -97,7 +97,7 @@ undefined4 BlitSprite16bpp(int frame,int param_1,int param_2,int outerKey)
   int local_8;
   
   if (((DAT_0079352c != 0) && (-1 < in_EAX)) &&
-     (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,outerKey,frame), iVar3 = DAT_00793530, iVar4 != 0)) {
+     (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,outerKey,frame), iVar3 = DAT_00793530, iVar4 != 0)) {
     iVar2 = *(int *)(iVar4 + 0x28);
     param_2 = param_2 + *(int *)(iVar4 + 0x2c);
     puVar6 = *(ushort **)(iVar4 + 0x34);

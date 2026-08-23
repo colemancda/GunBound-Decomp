@@ -78,19 +78,19 @@ void ComposeAvatarSprites
   
   uStack_c = 0x4d1510;
   _sprintf(local_8088,s_mf_05d_img_0055220c,param_5);
-  flagCount = LoadSpriteSet(&DAT_00ea0e18,100000,local_8088);
+  flagCount = LoadSpriteSet(&g_spriteRegistry,100000,local_8088);
   _sprintf(local_8088,s__cb_05d_img_00552200,
            (int)(char)((-((*(ushort *)(g_clientContext + 0x501fe + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_2);
-  bodyCount = LoadSpriteSet(&DAT_00ea0e18,0x186a1,local_8088);
+  bodyCount = LoadSpriteSet(&g_spriteRegistry,0x186a1,local_8088);
   _sprintf(local_8088,s__cg_05d_img_005521f4,
            (int)(char)((-((*(ushort *)(g_clientContext + 0x50202 + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_4);
-  glassesCount = LoadSpriteSet(&DAT_00ea0e18,0x186a2,local_8088);
+  glassesCount = LoadSpriteSet(&g_spriteRegistry,0x186a2,local_8088);
   _sprintf(local_8088,s__ch_05d_img_005521e8,
            (int)(char)((-((*(ushort *)(g_clientContext + 0x50200 + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_3);
-  headCount = LoadSpriteSet(&DAT_00ea0e18,0x186a3,local_8088);
+  headCount = LoadSpriteSet(&g_spriteRegistry,0x186a3,local_8088);
   uVar10 = param_1 + 200000;
   puVar12 = *(undefined4 **)(DAT_00ea0e1c + 0x1c);
   uVar13 = puVar12[1];
@@ -275,7 +275,7 @@ LAB_004d18a6:
     iVar5 = *(int *)(iVar5 + 0x1c);
     uVar10 = *(uint *)(iVar5 + 4);
   }
-  iVar5 = CreateActiveObjectLayer((int)&DAT_00ea0e18);
+  iVar5 = CreateActiveObjectLayer((int)&g_spriteRegistry);
 LAB_004d19cc:
   uVar10 = puVar12[2];
   if (uVar10 != 0xffffffff) {
@@ -366,19 +366,19 @@ LAB_004d1aec:
   }
 LAB_004d1b19:
   _sprintf(local_8088,s_mf_05dl_img_005521dc,param_5);
-  flagCount = LoadSpriteSet(&DAT_00ea0e18,100000,local_8088);
+  flagCount = LoadSpriteSet(&g_spriteRegistry,100000,local_8088);
   _sprintf(local_8088,s__cb_05dl_img_005521cc,
            (int)(char)((-((*(ushort *)(g_clientContext + 0x501fe + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_2);
-  bodyCount = LoadSpriteSet(&DAT_00ea0e18,0x186a1,local_8088);
+  bodyCount = LoadSpriteSet(&g_spriteRegistry,0x186a1,local_8088);
   _sprintf(local_8088,s__cg_05dl_img_005521bc,
            (int)(char)((-((*(ushort *)(g_clientContext + 0x50202 + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_4);
-  glassesCount = LoadSpriteSet(&DAT_00ea0e18,0x186a2,local_8088);
+  glassesCount = LoadSpriteSet(&g_spriteRegistry,0x186a2,local_8088);
   _sprintf(local_8088,s__ch_05dl_img_005521ac,
            (int)(char)((-((*(ushort *)(g_clientContext + 0x50200 + param_1 * 8) & 0x8000) != 0) & 7U) +
                       0x66),param_3);
-  headCount = LoadSpriteSet(&DAT_00ea0e18,0x186a3,local_8088);
+  headCount = LoadSpriteSet(&g_spriteRegistry,0x186a3,local_8088);
   uVar10 = param_1 + 300000;
   puVar12 = *(undefined4 **)(DAT_00ea0e1c + 0x1c);
   uVar13 = puVar12[1];
@@ -583,7 +583,7 @@ LAB_004d1ea2:
     iVar5 = *(int *)(iVar5 + 0x1c);
     uVar13 = *(uint *)(iVar5 + 4);
   }
-  iVar5 = CreateActiveObjectLayer((int)&DAT_00ea0e18);
+  iVar5 = CreateActiveObjectLayer((int)&g_spriteRegistry);
 LAB_004d1fca:
   uVar13 = puVar12[2];
   if (uVar13 != 0xffffffff) {

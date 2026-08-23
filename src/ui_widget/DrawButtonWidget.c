@@ -10,7 +10,7 @@
  * FIXED (2026-07-15): FindSpriteFrame/BlitSprite16bpp/BlitSpriteClipped
  * were all called with dropped args here (this file predates their
  * project-wide promotion). Confirmed via angr disassembly at
- * 0x405ea0-0x405eea: container=&DAT_00ea0e18 (the standard sprite
+ * 0x405ea0-0x405eea: container=&g_spriteRegistry (the standard sprite
  * registry, matching every other FindSpriteFrame call site),
  * outerKey=*(this+0x18) (m_spriteBase, loaded once into EDX and never
  * touched again - still live at both the BlitSprite16bpp and
@@ -38,7 +38,7 @@ void __fastcall DrawButtonWidget(int this)
   y = *(int *)(this + 0x3c);
   outerKey = *(int *)(this + 0x18);
   if ((DAT_0079352c != 0) && (-1 < frame)) {
-    record = FindSpriteFrame((int)&DAT_00ea0e18,outerKey,frame);
+    record = FindSpriteFrame((int)&g_spriteRegistry,outerKey,frame);
     if (record != 0) {
       if (*(char *)(record + 0x18) == '\x01') {
         BlitSprite16bpp(frame,x,y,outerKey);

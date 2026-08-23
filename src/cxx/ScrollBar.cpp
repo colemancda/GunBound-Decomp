@@ -37,7 +37,7 @@ extern "C" CLabel *CreateLabelWidget(int id, int spriteId, int x, int y, int w, 
  * Label.cpp), for CScrollBar::Update's thumb draw below. */
 extern "C" {
 extern unsigned int DAT_0079352c;
-extern unsigned char DAT_00ea0e18[0x20];
+extern unsigned char g_spriteRegistry[0x20];
 int FindSpriteFrame(int container, unsigned int outerKey, unsigned int innerKey);
 int BlitSprite16bpp(int frame, int x, int y, int outerKey);
 int BlitSpriteClipped(int frame, int x, int y, int outerKey);
@@ -47,7 +47,7 @@ int BlitSpriteClipped(int frame, int x, int y, int outerKey);
  * per-site sequence at 0x50e0e5/0x50e14f/0x50e1b1. */
 static void BlitScrollThumbPiece(int key, int frame, int x, int y)
 {
-    int rec = FindSpriteFrame((int)DAT_00ea0e18, (unsigned int)key, (unsigned int)frame);
+    int rec = FindSpriteFrame((int)g_spriteRegistry, (unsigned int)key, (unsigned int)frame);
     if (rec != 0) {
         if (*(unsigned char *)(rec + 0x18) == 1) {
             BlitSprite16bpp(frame, x, y, key);

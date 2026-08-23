@@ -22,7 +22,7 @@ void __fastcall QueueTextureRowSpan(int param_1,int param_2,int param_3)
     if (DAT_0056df30 < param_1 + param_3) {
       param_3 = (DAT_0056df30 - param_1) + 1;
     }
-    QueueCompositorSpan(param_1,param_1 + param_3,param_2,(int)&DAT_00f22650);
+    QueueCompositorSpan(param_1,param_1 + param_3,param_2,(int)&g_spriteDrawBatchPool);
   }
   return;
 }

@@ -56,7 +56,7 @@
  * sibling bug. Confirmed via objdump at 0x4eb9c0: entry does `mov
  * esi,[esp+0x10]` (ESI = this function's own `frame` stack arg, left
  * untouched through the call), then immediately before `call 0x4f30c0` sets
- * `mov eax,0xea0e18` (container = &DAT_00ea0e18) with no EDX write in
+ * `mov eax,0xea0e18` (container = &g_spriteRegistry) with no EDX write in
  * between - EDX (outer key) is inherited live from the caller. An EARLIER
  * fix hardcoded EDX=10000 here, verified only against State06_Logo2_Render's
  * specific call site - WRONG in general, since EDX is a genuine per-caller
@@ -199,7 +199,7 @@ undefined4 BlitSpriteClipped(int frame,int x,int y,int outerKey)
   int topSkip;
 
   if (((DAT_0079352c != 0) && (-1 < frame)) &&
-     (iVar1 = FindSpriteFrame((int)&DAT_00ea0e18,outerKey,frame), iVar1 != 0)) {
+     (iVar1 = FindSpriteFrame((int)&g_spriteRegistry,outerKey,frame), iVar1 != 0)) {
     iVar2 = y + *(int *)(iVar1 + 0x2c);
     x = x + *(int *)(iVar1 + 0x28);
     iRowStride = *(int *)(iVar1 + 0x20);

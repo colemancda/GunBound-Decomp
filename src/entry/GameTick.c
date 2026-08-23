@@ -353,9 +353,9 @@ LAB_004137a9:
     }
     else {
       /* FindSpriteFrame's (container,outerKey,innerKey) were dropped; orig
-       * 0x4138a6-0x4138ab loads EAX=&DAT_00ea0e18, EDX=0x384, ESI=0. */
+       * 0x4138a6-0x4138ab loads EAX=&g_spriteRegistry, EDX=0x384, ESI=0. */
       if ((DAT_0079352c != 0) &&
-          (iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x384,0), iVar5 != 0)) {
+          (iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x384,0), iVar5 != 0)) {
         if (*(char *)(iVar5 + 0x18) == '\x01') {
           BlitSprite16bpp(0,0xf9,0xc1,0x384);
         }
@@ -398,8 +398,8 @@ LAB_00413933:
     cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x23310));
     if ((cVar2 == '\x01') && (g_frameCounter % 0x14 < 10)) {
       if (DAT_0079352c != 0) {
-        /* orig 0x41397f-0x413989 loads EAX=&DAT_00ea0e18, EDX=0x190, ESI=0. */
-        iVar5 = FindSpriteFrame((int)&DAT_00ea0e18,0x190,0);
+        /* orig 0x41397f-0x413989 loads EAX=&g_spriteRegistry, EDX=0x190, ESI=0. */
+        iVar5 = FindSpriteFrame((int)&g_spriteRegistry,0x190,0);
         if (iVar5 != 0) {
           if (*(char *)(iVar5 + 0x18) == '\x01') {
             BlitSprite16bpp(0,0x2fc,8,0x190);
@@ -414,14 +414,14 @@ LAB_00413933:
     else {
 LAB_004139be:
       iVar5 = g_cursorFrame;
-      /* orig 0x4139c6-0x4139d7 loads EAX=&DAT_00ea0e18, EDX=0, ESI=g_cursorFrame
+      /* orig 0x4139c6-0x4139d7 loads EAX=&g_spriteRegistry, EDX=0, ESI=g_cursorFrame
        * (the software-cursor sprite lookup). */
       /* NOTE: g_cursorFrame is uint32_t, so the original's signed `-1 < esi`
        * frame-valid test must go through the signed `iVar5` (= g_cursorFrame)
        * - `-1 < g_cursorFrame` would promote -1 to 0xFFFFFFFF and be ALWAYS
        * FALSE, which is why the software cursor never drew. */
       if (((DAT_0079352c != 0) && (-1 < iVar5)) &&
-          (iVar6 = FindSpriteFrame((int)&DAT_00ea0e18,0,g_cursorFrame), iVar6 != 0)) {
+          (iVar6 = FindSpriteFrame((int)&g_spriteRegistry,0,g_cursorFrame), iVar6 != 0)) {
         /* FIXED (2026-07-18): the cursor blit dropped its `frame` and
          * `outerKey` args - Ghidra rendered BlitSprite16bpp(x,y) with frame
          * (ESI=g_cursorFrame=EAX) and outerKey (EDX=0) dropped, so the
@@ -430,7 +430,7 @@ LAB_004139be:
          * `mov edx,[0x56d110](Y); mov eax,[0x56d10c](X); push edx; push eax;
          * mov eax,esi(frame); xor edx,edx(outerKey); call` -> the same
          * (frame,x,y,outerKey) shape DrawButtonWidget already uses. cursor.img
-         * is sprite set 0 (InitGame LoadSpriteSet(&DAT_00ea0e18,0,"cursor.img")). */
+         * is sprite set 0 (InitGame LoadSpriteSet(&g_spriteRegistry,0,"cursor.img")). */
         if (*(char *)(iVar6 + 0x18) == '\x01') {
           BlitSprite16bpp(iVar5,g_cursorAnchorX,g_cursorAnchorY,0);
         }

@@ -73,9 +73,9 @@ LAB_004e3de1:
     puVar9[4] = puVar9;
   }
 LAB_004e3e15:
-  FUN_004f18c0(&DAT_00ea0e18,60000,0);
+  FUN_004f18c0(&g_spriteRegistry,60000,0);
   if (*(char *)(g_clientContext + 0x45578) == '\0') {
-    FUN_004f18c0(&DAT_00ea0e18,60000,1);
+    FUN_004f18c0(&g_spriteRegistry,60000,1);
   }
   iVar8 = g_clientContext;
   iVar11 = *(int *)(DAT_00ea0e1c + 0x1c);
@@ -118,7 +118,7 @@ LAB_004e3e95:
   *(int *)(param_1 + 0x14) = iVar6;
   if (*(byte *)(iVar8 + 0x45578) != 0) {
     _sprintf(local_100,s_event_d1800_img_00557248,(uint)*(byte *)(iVar8 + 0x45578));
-    FUN_004f18c0(&DAT_00ea0e18,60000,1);
+    FUN_004f18c0(&g_spriteRegistry,60000,1);
   }
   pvVar7 = operator_new(*(int *)(iVar11 + 0x3c) << 1);
   iVar11 = g_clientContext;
@@ -140,7 +140,7 @@ LAB_004e3e95:
     if (uVar3 <= uVar2) break;
 LAB_004e3f75:
     _sprintf((char *)((int)&uStack_81 + 1),s__s_d_img_0055723c,param_2,iVar11);
-    iVar8 = LoadSpriteSet(&DAT_00ea0e18,uVar2);
+    iVar8 = LoadSpriteSet(&g_spriteRegistry,uVar2);
     if (iVar8 == 0) {
       return;
     }

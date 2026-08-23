@@ -92,7 +92,7 @@ LAB_005074e1:
    * and 0x507558 (esi=2). */
   if ((*(byte *)(iVar4 + 0x42949 + iVar2 * 8) & 0x80) == 0) {
     if ((DAT_0079352c != 0) &&
-        (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x12c,2), iVar4 != 0)) {
+        (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x12c,2), iVar4 != 0)) {
       if (*(char *)(iVar4 + 0x18) != '\x01') {
         uVar8 = 2;
         goto LAB_00507577;
@@ -101,7 +101,7 @@ LAB_005074e1:
     }
   }
   else if ((DAT_0079352c != 0) &&
-           (iVar4 = FindSpriteFrame((int)&DAT_00ea0e18,0x12c,1), iVar4 != 0)) {
+           (iVar4 = FindSpriteFrame((int)&g_spriteRegistry,0x12c,1), iVar4 != 0)) {
     if (*(char *)(iVar4 + 0x18) == '\x01') {
       BlitSprite16bpp(1,iVar6,iVar7,0x12c);
     }
@@ -143,7 +143,7 @@ LAB_005075d0:
        *   push eax / mov eax,ebp / (ecx=x) -> BlitSpriteClipped
        * EDX is re-set to 0x64 at 0x5075e2 because the inlined two-level list
        * walk above (0x5075a6-0x5075dc) clobbers it - that walk IS a hand-
-       * inlined FindSpriteFrame(&DAT_00ea0e18, 100, uVar5), which is why the
+       * inlined FindSpriteFrame(&g_spriteRegistry, 100, uVar5), which is why the
        * outer key here is 100 and not 0x12c.
        * The raw port's args had slid LEFT here too: `BlitSprite16bpp(iVar1 +
        * 0x27, iVar7)` was passing the x as the frame handle. */
