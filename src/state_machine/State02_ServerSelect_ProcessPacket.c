@@ -154,10 +154,10 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
        * does not run - it only serves the 0x1102 directory. Force input
        * enabled here so the connect path can be exercised end-to-end
        * (Enter -> HandleKeyInput -> ConnectToSelectedServer -> world
-       * server). DAT_007933b8=1 makes Enter auto-select the first online
+       * server). g_chatInputActive=1 makes Enter auto-select the first online
        * server. REMOVE once the broker completes 0x1010->0x1012. */
       *(undefined1 *)((int)this + 0x24) = 1;
-      DAT_007933b8 = 1;
+      g_chatInputActive = 1;
       pbVar19 = (byte *)(payload + 2);
       if (*(char *)((int)this + 0x10) == '\x02') {
         *(bool *)((int)this + 0x1c) = cVar2 == '\x10';

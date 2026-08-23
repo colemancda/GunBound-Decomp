@@ -40,7 +40,7 @@ void __thiscall State09_ReadyRoom_HandleChatInput(int *param_1,int param_2,int p
   undefined1 uStack_44;
   
   if (param_2 == 0x100) {
-    if ((param_3 == 0xd) && (DAT_007933b8 == '\x01')) {
+    if ((param_3 == 0xd) && (g_chatInputActive == '\x01')) {
       cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6aa678));
       if (cVar4 == '\0') {
         FetchActiveTextInputText(g_sharedTextInputControl,acStack_80);

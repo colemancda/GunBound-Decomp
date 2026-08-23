@@ -728,7 +728,7 @@ LAB_004b9bb0:
       SendOutgoingPacket(iVar13);
       return;
     }
-    if (DAT_007933b8 != '\x01') goto LAB_004b9e53;
+    if (g_chatInputActive != '\x01') goto LAB_004b9e53;
     cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8));
     if (cVar4 == '\0') {
       FetchActiveTextInputText(g_sharedTextInputControl,acStack_80);

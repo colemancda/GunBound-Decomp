@@ -276,7 +276,7 @@ LAB_00442907:
       BlitRLESprite(0x1ec,0x117,0xffff,(byte *)(iVar9 + 0x44ee4));
     }
     FUN_0041bce0(iVar9);
-    if (DAT_007933b8 == '\x01') {
+    if (g_chatInputActive == '\x01') {
       if (*(char *)(g_sharedTextInputControl + 8) == '\0') {
         iStack_ac = 0;
         iStack_b0 = 0;
@@ -407,11 +407,11 @@ LAB_00442907:
     else {
       /* BlitRLESprite's 1st/4th args (this/rleData) were dropped in the
        * raw port - objdump at this call site (0x442c81) shows ECX=0x24
-       * (fixed x-cursor) and EAX=&DAT_007933c0, the chat-input text
+       * (fixed x-cursor) and EAX=&g_chatInputText, the chat-input text
        * buffer used by GetWindowTextA/SetWindowTextA elsewhere
        * (ActivateLegacyTextInputField.c/TextEntry_RestoreChatInput.c/FUN_00507dc0.c) - the same global
        * State11_InBattle_RenderPlayerRoster.c's else-branch also passes at this same x/color. */
-      iVar12 = BlitRLESprite(0x24,0x208,0xffff,(byte *)&DAT_007933c0);
+      iVar12 = BlitRLESprite(0x24,0x208,0xffff,(byte *)&g_chatInputText);
     }
     if (((*(short *)(&DAT_006aa660 + iVar9) != -1) &&
         (iVar12 = *(int *)(iVar5 + 4) / 0x14, *(int *)(iVar5 + 4) % 0x14 < 10)) &&

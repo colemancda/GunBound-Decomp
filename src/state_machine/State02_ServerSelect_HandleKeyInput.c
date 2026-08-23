@@ -41,7 +41,7 @@ void __fastcall State02_ServerSelect_HandleKeyInput(int param_1,int dummyEDX,uin
   (void)lParam;
   iVar1 = g_clientContext;
   if ((msg == 0x100) && (wParam == 0xd)) {
-    if ((*(int *)(param_1 + 8) == -1) && (DAT_007933b8 == '\x01')) {
+    if ((*(int *)(param_1 + 8) == -1) && (g_chatInputActive == '\x01')) {
       iVar2 = 0;
       do {
         if (*(char *)(g_clientContext + 0x3f809 + iVar2) != '\0') {

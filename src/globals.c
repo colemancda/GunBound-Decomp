@@ -548,9 +548,9 @@ uint8_t DAT_00792198;
  * InitTextureCachePool reset) - the sibling of DAT_006b9100; same undersizing bug. */
 uint32_t DAT_007921b0[0x400];
 uint16_t DAT_00793228;
-uint8_t DAT_007933b8;
-uint32_t DAT_007933bc;
-/* DAT_007933c0: moved to src/globals_sized.c - the CPanelManager ctor
+uint8_t g_chatInputActive;
+uint32_t g_chatInputMaxLength;
+/* g_chatInputText: moved to src/globals_sized.c - the CPanelManager ctor
  * (FUN_00507dc0, orig 0x507dc0) zeroes 0x40 DWORDS (0x100 bytes) from
  * here, so a one-dword cell would clobber ~0xfc bytes of neighbours. */
 uint8_t DAT_007934c4;

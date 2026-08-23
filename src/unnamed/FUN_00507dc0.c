@@ -20,13 +20,13 @@ undefined4 * __fastcall FUN_00507dc0(undefined4 param_1,undefined4 *param_2)
   param_2[5] = 0;
   param_2[6] = 10;
   *param_2 = &PTR_FUN_00557cfc;
-  puVar2 = &DAT_007933c0;
+  puVar2 = &g_chatInputText;
   for (iVar1 = 0x40; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  DAT_007933b8 = 0;
-  DAT_007933bc = 0x3c;
+  g_chatInputActive = 0;
+  g_chatInputMaxLength = 0x3c;
   return param_2;
 }
 

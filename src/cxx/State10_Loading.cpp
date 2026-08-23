@@ -12,7 +12,7 @@
 
 extern "C" {
 extern int g_clientContext;
-extern unsigned char DAT_007933b8;      /* "chat entry armed" flag */
+extern unsigned char g_chatInputActive;      /* "chat entry armed" flag */
 extern unsigned int g_sharedTextInputControl;       /* shared overlay EDIT control (+4 = HWND) */
 extern unsigned char DAT_00551cb1;      /* the empty string the EDIT is reset to */
 extern unsigned char g_localizedStringTable;      /* localized-string table base */
@@ -59,7 +59,7 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
     if (msg != 0x100 || a != 0xd) {
         return;
     }
-    if (DAT_007933b8 != 1) {
+    if (g_chatInputActive != 1) {
         return;
     }
     if (PeekPacketChecksumBool() == 0) {

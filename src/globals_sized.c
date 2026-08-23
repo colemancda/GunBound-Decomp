@@ -190,7 +190,7 @@ const unsigned char DAT_0056dbf0[0xa0] = {
 /* CPanelManager's 0x100-byte scratch table. Its constructor (FUN_00507dc0,
  * orig 0x507dc0 - `mov ecx,0x40 / mov edi,0x7933c0 / rep stosd`) clears 0x40
  * dwords starting here; globals.c had it as a single uint32_t. */
-unsigned char DAT_007933c0[0x100];
+unsigned char g_chatInputText[0x100];
 
 /* CPanelManager's vtable (orig 0x557cfc, stored at +0 by its constructor
  * FUN_00507dc0). globals.c had it as a single zero-initialised `void *`, so

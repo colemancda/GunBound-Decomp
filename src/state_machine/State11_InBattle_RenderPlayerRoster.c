@@ -13,9 +13,9 @@
  * slot*0xd + 0x457f1`, the same per-slot player-name table this
  * function's siblings reference)
  * and per-slot digit/score sprites, plus - when the LOCAL player is
- * actively typing (`DAT_007933b8`) - a live chat-input preview fetched via
+ * actively typing (`g_chatInputActive`) - a live chat-input preview fetched via
  * `GetWindowTextA` and blitted as a bubble above the roster row (else
- * falls back to the shared `DAT_007933c0` legacy chat buffer). The
+ * falls back to the shared `g_chatInputText` legacy chat buffer). The
  * `PeekPacketChecksumState`/`EncodeChecksum*` calls threaded throughout
  * are the SAME functions used elsewhere in confirmed non-checksum roles
  * (timer/animation-state encoding) - their names are themselves suspect
@@ -134,7 +134,7 @@ void State11_InBattle_RenderPlayerRoster(int param_1)
     DrawSprite(0);
     DrawSprite(0);
   }
-  if (DAT_007933b8 == '\x01') {
+  if (g_chatInputActive == '\x01') {
     FUN_0040c8f0(0xca,0x21b,0);
     if ((*(char *)(g_sharedTextInputControl + 8) == '\0') ||
        (iVar3 = GetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&local_1008,0x80), iVar3 == 0)) {
@@ -168,14 +168,14 @@ void State11_InBattle_RenderPlayerRoster(int param_1)
     BlitRLESprite(0xca,0x21b,0xffe0,(byte *)&local_1008);
   }
   else {
-    /* objdump at 0x4083df/0x4083da shows ECX=0xcb, EAX=&DAT_007933c0 -
+    /* objdump at 0x4083df/0x4083da shows ECX=0xcb, EAX=&g_chatInputText -
      * the same chat-input text buffer used by GetWindowTextA/
      * SetWindowTextA elsewhere (ActivateLegacyTextInputField.c/
      * TextEntry_RestoreChatInput.c/FUN_00507dc0.c). */
-    BlitRLESprite(0xcb,0x21c,0,(byte *)&DAT_007933c0);
+    BlitRLESprite(0xcb,0x21c,0,(byte *)&g_chatInputText);
     /* Same site, second call (0x4083f8/0x4083f3): ECX=0xca, EAX still
-     * &DAT_007933c0 (unclobbered). */
-    BlitRLESprite(0xca,0x21b,0xffff,(byte *)&DAT_007933c0);
+     * &g_chatInputText (unclobbered). */
+    BlitRLESprite(0xca,0x21b,0xffff,(byte *)&g_chatInputText);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));

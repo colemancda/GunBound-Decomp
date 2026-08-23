@@ -615,9 +615,21 @@ extern uint8_t DAT_00792198;
 #define _DAT_00792198 DAT_00792198
 extern uint32_t DAT_007921b0[0x400];
 extern uint16_t DAT_00793228;
-extern uint8_t DAT_007933b8;
-extern uint32_t DAT_007933bc;
-extern uint32_t DAT_007933c0;
+/* The shared chat-input stash, swapped in and out of g_sharedTextInputControl
+ * by ActivateLegacyTextInputField (out) and TextEntry_RestoreChatInput (in).
+ * g_chatInputActive (was DAT_007933b8) is 1 while the shared EDIT control is
+ * showing the chat input and 0 while some other field has borrowed it. */
+extern uint8_t g_chatInputActive;
+/* g_chatInputMaxLength (was DAT_007933bc) - initialised to 0x3c (60) by
+ * FUN_00507dc0 and sent as EM_LIMITTEXT's limit.  It is ALSO reused as both
+ * ends of the following EM_SETSEL, which parks the caret at the end: a
+ * position past the text clamps.  ActivateLegacyTextInputField does exactly
+ * the same with each legacy field's own max-length at +0x138. */
+extern uint32_t g_chatInputMaxLength;
+/* g_chatInputText (was DAT_007933c0) - the stashed text itself; real storage
+ * is the 0x100-byte buffer in globals_sized.c, declared scalar here in the
+ * usual way so every existing &g_chatInputText use keeps compiling. */
+extern uint32_t g_chatInputText;
 extern uint8_t DAT_007934c4;
 extern uint32_t DAT_007934c8;
 extern uint8_t DAT_007934cc;

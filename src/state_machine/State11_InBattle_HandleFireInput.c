@@ -81,7 +81,7 @@ void __fastcall State11_InBattle_HandleFireInput(int *param_1)
   bVar6 = false;
   bVar5 = false;
   cVar9 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6a7f74));
-  if (((cVar9 != '\0') || (cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x908), cVar9 == '\0')) || (DAT_007933b8 == '\0'))
+  if (((cVar9 != '\0') || (cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x908), cVar9 == '\0')) || (g_chatInputActive == '\0'))
   goto LAB_004619ff;
   bVar8 = false;
   if (DAT_00e52838 == -1000) {

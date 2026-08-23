@@ -48,7 +48,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
       case 0x39:
         cVar3 = PacketChecksumEquals(g_clientContext + 0x59190,0xffffffff);
         if ((((cVar3 != '\0') && ((&DAT_006a6481)[g_clientContext] == '\0')) && (DAT_007934c4 == '\0'))
-           && (DAT_007933b8 == '\x01')) {
+           && (g_chatInputActive == '\x01')) {
           QueueOutgoingPacketField(param_4 + 0x32);
         }
         if ((&DAT_005f2f40)[g_clientContext] != '\x02') {
@@ -121,7 +121,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
         return;
       }
       if ((&DAT_006a6481)[g_clientContext] == '\0') {
-        if (DAT_007933b8 == '\x01') {
+        if (g_chatInputActive == '\x01') {
           QueueOutgoingPacketField(param_4);
           return;
         }

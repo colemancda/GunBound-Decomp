@@ -200,7 +200,7 @@ extern void * __fastcall FUN_00507dc0(unsigned int unused, void *thisPtr);
  * `(**(code **)(*this + 0x18))()` - vtable slot 6 - and faulted on that null
  * the moment State03's OnEnter got as far as BuildLobbyChatPanel. The ctor
  * stores &PTR_FUN_00557cfc at +0, zeroes +4..+0x14, sets +0x18 = 10, clears
- * the 0x100-byte table at DAT_007933c0 and sets DAT_007933b8/bc - i.e. exactly
+ * the 0x100-byte table at g_chatInputText and sets g_chatInputActive/bc - i.e. exactly
  * what the original's static initializer does. Same class of fix as the
  * registry roots' sentinel above. */
 static void gb_init_panel_manager(unsigned char *manager)

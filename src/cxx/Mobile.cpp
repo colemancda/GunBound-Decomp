@@ -199,7 +199,7 @@ void InvokeWidget(int widgetId, int a);
 int  _rand(void);
 unsigned long timeGetTime2(void);   /* winmm timeGetTime; renamed to dodge the <mmsystem.h> proto */
 
-extern char DAT_007933b8;
+extern char g_chatInputActive;
 extern int  DAT_00e52838, DAT_00e5283c;   /* fire-gesture state (-1000 / 0 / 1000) */
 extern char DAT_007934c4;
 extern unsigned char DAT_006a6481;         /* ctx-indexed */
@@ -1057,7 +1057,7 @@ void CMobile::HandleFireInput()
     unsigned char auStack_230[0x224];
 
     cVar9 = PeekPacketChecksumBool((unsigned char *)(g_clientContext + 0x6a7f74));
-    if (cVar9 != '\0' || (cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0x908), cVar9 == '\0') || DAT_007933b8 == '\0')
+    if (cVar9 != '\0' || (cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0x908), cVar9 == '\0') || g_chatInputActive == '\0')
         goto LAB_004619ff;
     bVar8 = false;
     if (DAT_00e52838 == -1000) {

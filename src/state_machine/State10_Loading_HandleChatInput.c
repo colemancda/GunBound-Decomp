@@ -29,7 +29,7 @@ void __thiscall State10_Loading_HandleChatInput(int *param_1,int param_2,int par
   if (param_3 != 0xd) {
     return;
   }
-  if (DAT_007933b8 != '\x01') {
+  if (g_chatInputActive != '\x01') {
     return;
   }
   cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6aa678));
