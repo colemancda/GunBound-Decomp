@@ -206,7 +206,7 @@ unsigned char DAT_007933c0[0x100];
  *   3  0x50f1b0  PanelManager_DispatchMouseUp
  *   4  0x50f1f0  PanelManager_DispatchRightMouseDown
  *   5  0x50f150  PanelManager_DispatchRightMouseUp
- *   6  0x507ed0  -> FUN_00507e30   (0x507ed0 is a stack-neutral thunk that
+ *   6  0x507ed0  -> TextEntry_RestoreChatInput   (0x507ed0 is a stack-neutral thunk that
  *                 just `jmp 0x507e30`; that target uses only globals, no
  *                 `this`, so the existing no-argument dispatch is correct)
  *   7  0x50f230  PanelManager_DispatchKeyDown
@@ -218,7 +218,7 @@ extern void  PanelManager_DispatchMouseDown();
 extern void  PanelManager_DispatchMouseUp();
 extern void  PanelManager_DispatchRightMouseDown();
 extern void  PanelManager_DispatchRightMouseUp();
-extern void  FUN_00507e30();
+extern void  TextEntry_RestoreChatInput();
 extern void  PanelManager_DispatchKeyDown();
 
 void *PTR_FUN_00557cfc[8] = {
@@ -228,7 +228,7 @@ void *PTR_FUN_00557cfc[8] = {
     (void *)&PanelManager_DispatchMouseUp,
     (void *)&PanelManager_DispatchRightMouseDown,
     (void *)&PanelManager_DispatchRightMouseUp,
-    (void *)&FUN_00507e30,
+    (void *)&TextEntry_RestoreChatInput,
     (void *)&PanelManager_DispatchKeyDown,
 };
 
@@ -277,9 +277,9 @@ unsigned char g_wordFilterArrayHeader[0x10];
  * is exact rather than generous.
  *
  * g_workerThreadBlock (0xe9c9c4, spans exactly to g_wordFilterArrayHeader):
- *   +0x0  vtable            FUN_0040d1c0 stores &PTR_LAB_005520a4
+ *   +0x0  vtable            WorkerThread_Shutdown stores &PTR_LAB_005520a4
  *   +0x4  thread handle     Shutdown.c waits on it (was DAT_00e9c9c8)
- *   +0x8  event handle      FUN_0040d1c0 calls SetEvent on it (DAT_00e9c9cc)
+ *   +0x8  event handle      WorkerThread_Shutdown calls SetEvent on it (DAT_00e9c9cc)
  *   +0xc  stop flag         written as a single byte (DAT_00e9c9d0, and it
  *                           was already declared uint8_t - which is what
  *                           confirms the layout rather than merely fitting it)

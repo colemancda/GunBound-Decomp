@@ -33,7 +33,7 @@ char PanelManager_DispatchMouseDown(int uiPanelManager,undefined4 param_1,undefi
 
   cVar1 = FUN_0050f060(uiPanelManager,param_1,param_2);
   if (cVar1 == '\0') {
-    FUN_00507e30();
+    TextEntry_RestoreChatInput();
   }
   return cVar1;
 }

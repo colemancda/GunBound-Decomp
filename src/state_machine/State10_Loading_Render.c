@@ -409,7 +409,7 @@ LAB_00442907:
        * raw port - objdump at this call site (0x442c81) shows ECX=0x24
        * (fixed x-cursor) and EAX=&DAT_007933c0, the chat-input text
        * buffer used by GetWindowTextA/SetWindowTextA elsewhere
-       * (ActivateLegacyTextInputField.c/FUN_00507e30.c/FUN_00507dc0.c) - the same global
+       * (ActivateLegacyTextInputField.c/TextEntry_RestoreChatInput.c/FUN_00507dc0.c) - the same global
        * State11_InBattle_RenderPlayerRoster.c's else-branch also passes at this same x/color. */
       iVar12 = BlitRLESprite(0x24,0x208,0xffff,(byte *)&DAT_007933c0);
     }

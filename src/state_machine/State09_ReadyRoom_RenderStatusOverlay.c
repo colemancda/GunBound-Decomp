@@ -403,7 +403,7 @@ LAB_004da2f4:
      * port - objdump at this call site (0x4da42d/0x4da428-0x4da423) shows
      * ECX=0x51 and EAX=&DAT_007933c0 (absolute load, not a stack lea) -
      * the same chat-input text buffer used elsewhere (ActivateLegacyTextInputField.c/
-     * FUN_00507e30.c/FUN_00507dc0.c), matching the sibling function
+     * TextEntry_RestoreChatInput.c/FUN_00507dc0.c), matching the sibling function
      * State11_InBattle_RenderPlayerRoster.c's analogous `else` branch. */
     BlitRLESprite(0x51,0x16f,0xffff,(byte *)&DAT_007933c0);
   }

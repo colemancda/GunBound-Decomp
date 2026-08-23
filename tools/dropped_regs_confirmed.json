@@ -5163,8 +5163,8 @@
   },
   {
     "addr": "0040d1c0",
-    "func": "FUN_0040d1c0",
-    "path": "src/unnamed/FUN_0040d1c0.c",
+    "func": "WorkerThread_Shutdown",
+    "path": "src/unnamed/WorkerThread_Shutdown.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 1,

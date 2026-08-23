@@ -72,9 +72,9 @@
   }
  },
  {
-  "func": "FUN_0040d1c0",
+  "func": "WorkerThread_Shutdown",
   "reg": "esi",
-  "path": "src/unnamed/FUN_0040d1c0.c",
+  "path": "src/unnamed/WorkerThread_Shutdown.c",
   "sites": 1,
   "value": "0xe9c9c4",
   "pct": 100,

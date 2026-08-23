@@ -225,7 +225,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040d170,5,thunk_FUN_004154e0,true,1,0,RAW-src
 0040d180,37,FUN_0040d180,false,2,1,RAW-src
 0040d1b0,5,thunk_FUN_00415600,true,1,1,RAW-src
-0040d1c0,50,FUN_0040d1c0,false,1,3,RAW-src
+0040d1c0,50,WorkerThread_Shutdown,false,1,3,RAW-src
 0040d200,83,FUN_0040d200,false,3,0,RAW-src
 0040d260,262,BuildSystemInfoBlob,false,11,2,RAW-src
 0040d370,983,LoadClientSettingsFromRegistry,false,1,6,RAW-src
@@ -1588,7 +1588,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00507d50,97,FUN_00507d50,false,1,1,RAW-src
 00507dc0,67,FUN_00507dc0,false,1,0,RAW-src
 00507e10,30,FUN_00507e10,false,1,2,RAW-src
-00507e30,109,FUN_00507e30,false,2,2,RAW-src
+00507e30,109,TextEntry_RestoreChatInput,false,2,2,RAW-src
 00507ea0,33,PanelManager_DispatchMouseDown,false,2,2,RAW-src
 00507ee0,115,CreateLabelWidget,false,30,1,PARITY-cxx-Label.cpp
 00507f60,140,CreateTextEntryWidget,false,9,1,PARITY-cxx-EditBox.cpp
