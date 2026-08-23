@@ -58,7 +58,7 @@ LAB_0050566b:
   if (uVar2 < *(uint *)(param_1 + 0x10)) {
     iVar3 = *(int *)(*(int *)(param_1 + 0xc) + uVar2 * 4);
     if (*(char *)(iVar3 + 4) != '\0') {
-      SetWindowTextA(*(HWND *)(DAT_007934e4 + 4),&DAT_00551cb1);
+      SetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&DAT_00551cb1);
     }
     puVar7 = (undefined4 *)(iVar3 + 0x38);
     for (iVar6 = 0x40; iVar6 != 0; iVar6 = iVar6 + -1) {

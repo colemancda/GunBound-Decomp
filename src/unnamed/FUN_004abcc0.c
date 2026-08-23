@@ -22,18 +22,18 @@ void FUN_004abcc0(undefined4 *param_1)
   *param_1 = &PTR_FUN_005565cc;
   local_4 = 2;
   if (param_1[0x12a] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x12a],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x12a],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 1;
   if (param_1[0xa1] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0xa1],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0xa1],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 0;
   if (param_1[0x18] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x18],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x18],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   *param_1 = &PTR_LAB_0055752c;
   *unaff_FS_OFFSET = local_c;

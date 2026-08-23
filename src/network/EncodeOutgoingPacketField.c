@@ -82,23 +82,23 @@ void EncodeOutgoingPacketField(void *self, uint param_1)
   uVar2 = param_1;
   uVar1 = *(uint *)(unaff_EDI + 0x14);
   if (uVar1 != 0) {
-    ScrambleChecksumGuardBytes(uVar1,&DAT_0079376c);
+    ScrambleChecksumGuardBytes(uVar1,&g_valueGuardKeyTable);
     param_1 = uVar1;
-    TreeLowerBound(local_8,&DAT_00793770);
+    TreeLowerBound(local_8,&g_valueGuardMap);
   }
   if (DAT_00793778 == 0) {
     iVar4 = 0;
   }
   else {
     iVar4 = *(int *)(*DAT_00793774 + 0xc);
-    FUN_0040b600(&DAT_00793770,&param_1,*DAT_00793774);
+    FUN_0040b600(&g_valueGuardMap,&param_1,*DAT_00793774);
   }
   *(int *)(unaff_EDI + 0x14) = iVar4;
   if (iVar4 != 0) {
     param_1 = iVar4;
     FUN_0040b8c0();
   }
-  puVar5 = (uint *)(iVar4 * 0x10 + DAT_0079376c);
+  puVar5 = (uint *)(iVar4 * 0x10 + g_valueGuardKeyTable);
   *(uint *)(unaff_EDI + 4) = *puVar5 ^ uVar2;
   *(uint *)(unaff_EDI + 8) = puVar5[1] ^ uVar2;
   *(uint *)(unaff_EDI + 0xc) = puVar5[2] ^ uVar2;

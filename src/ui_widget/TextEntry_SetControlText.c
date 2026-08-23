@@ -19,11 +19,11 @@ void TextEntry_SetControlText(void)
   
   if (*(char *)(unaff_EDI + 4) != '\0') {
     if (unaff_ESI == (char *)0x0) {
-      hWnd = *(HWND *)(DAT_007934e4 + 4);
+      hWnd = *(HWND *)(g_sharedTextInputControl + 4);
       lpString = &DAT_00551cb1;
     }
     else {
-      hWnd = *(HWND *)(DAT_007934e4 + 4);
+      hWnd = *(HWND *)(g_sharedTextInputControl + 4);
       lpString = unaff_ESI;
     }
     SetWindowTextA(hWnd,lpString);

@@ -419,7 +419,7 @@ LAB_0043eec8:
     _free(*(void **)(&DAT_006a76f4 + g_clientContext));
     *puVar14 = 0;
   }
-  iVar4 = DAT_007934e4;
+  iVar4 = g_sharedTextInputControl;
   iVar5 = g_clientContext;
   *(undefined4 *)(&DAT_006a76f8 + iVar12) = 0;
   *(undefined4 *)(&DAT_006a76fc + iVar12) = 0;

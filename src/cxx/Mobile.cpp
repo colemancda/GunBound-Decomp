@@ -76,10 +76,10 @@
 
 extern "C" {
 void ScrambleChecksumGuardBytes(int slot, int *guardTable);
-extern int DAT_0079376c;   /* guard-table base pointer cell (0x79376c) */
+extern int g_valueGuardKeyTable;   /* guard-table base pointer cell (0x79376c) */
 void ScrubChecksumGuard(void *cell);
 void TreeLowerBound(void *scratch, void *guardMap);
-extern unsigned char DAT_00793770;  /* guard-cell std::map object (0x793770) */
+extern unsigned char g_valueGuardMap;  /* guard-cell std::map object (0x793770) */
 int  PeekPacketChecksumState(void *self);
 int  PeekChecksumStateUnderLock(void *cell);
 char PeekPacketChecksumBool(unsigned char *cell);
@@ -175,7 +175,7 @@ extern int DAT_005b3424;               /* second per-connection base (distinct f
 extern unsigned char g_nCameraBoundX, g_nCameraBoundY;  /* 1-byte ctx bases (&sym + g_clientContext) */
 extern unsigned char DAT_005f3768;     /* 1-byte ctx base */
 extern unsigned char DAT_006a7758;     /* 1-byte ctx base (byte-indexed) */
-extern unsigned int  DAT_007934e4;     /* shared overlay EDIT control singleton (holds an address) */
+extern unsigned int  g_sharedTextInputControl;     /* shared overlay EDIT control singleton (holds an address) */
 extern unsigned char DAT_007a7644[0x1c];/* animated cursor object (address taken);
                                         * real extent now backed in globals_sized.c */
 extern unsigned char g_abBroadcastEventBuffer;
@@ -269,8 +269,8 @@ int CMobile::v5_ComputeGroundY()
     PeekPacketChecksumState((void *)(local_67c));
     LeaveCriticalSection(&DAT_005a9068);
     local_680 = FindGroundHeightAtColumn();
-    if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
-    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
+    if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
+    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
 
     uVar3 = EncodeChecksumDeltaDiv(pbVar1, &g454, 2);
     EncodeChecksumPairDiff(pbVar2, &g678, uVar3);
@@ -278,8 +278,8 @@ int CMobile::v5_ComputeGroundY()
     iVar4 = PeekPacketChecksumState((void *)(&g678));
     LeaveCriticalSection(&DAT_005a9068);
     bool bVar7 = local_680 == iVar4;
-    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
-    if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
+    if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
+    if (g454.tableHandle != 0) { ScrambleChecksumGuardBytes(g454.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
 
     iVar4 = local_680;
     if (bVar7) {
@@ -291,13 +291,13 @@ int CMobile::v5_ComputeGroundY()
         PeekPacketChecksumState((void *)(local_67c));
         LeaveCriticalSection(&DAT_005a9068);
         iVar5 = FindGroundHeightAtColumn();
-        if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
+        if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
 
         EncodeChecksumPairDiff(pbVar2, &g678, reinterpret_cast<unsigned int>(pbVar1));
         EnterCriticalSection(&DAT_005a9068);
         iVar6 = PeekPacketChecksumState((void *)(&g678));
         LeaveCriticalSection(&DAT_005a9068);
-        if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
+        if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
 
         iVar4 = local_680;
         if (iVar5 == iVar6) {
@@ -309,13 +309,13 @@ int CMobile::v5_ComputeGroundY()
             PeekPacketChecksumState((void *)(local_67c));
             LeaveCriticalSection(&DAT_005a9068);
             iVar4 = FindGroundHeightAtColumn();
-            if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
+            if (g678.tableHandle != 0) { ScrambleChecksumGuardBytes(g678.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
 
             EncodeChecksumDeltaAdd(pbVar2, &g230, 1);
             EnterCriticalSection(&DAT_005a9068);
             iVar5 = PeekPacketChecksumState((void *)(&g230));
             LeaveCriticalSection(&DAT_005a9068);
-            if (g230.tableHandle != 0) { ScrambleChecksumGuardBytes(g230.tableHandle,&DAT_0079376c); TreeLowerBound(scratch,&DAT_00793770); }
+            if (g230.tableHandle != 0) { ScrambleChecksumGuardBytes(g230.tableHandle,&g_valueGuardKeyTable); TreeLowerBound(scratch,&g_valueGuardMap); }
 
             if (iVar4 == iVar5) {
                 iVar4 = PeekChecksumStateUnderLock(pbVar2);
@@ -902,7 +902,7 @@ LAB_004622cf:
         QueueOutgoingPacketField(0xffffffff);
         cVar5 = PacketChecksumNotEquals(this->m_pad908 + 0x6f5c, 0);
         if (cVar5 != '\0') {
-            *reinterpret_cast<unsigned char *>(DAT_007934e4 + 8) = 1;
+            *reinterpret_cast<unsigned char *>(g_sharedTextInputControl + 8) = 1;
         }
         ResolveNamedState(reinterpret_cast<int *>(DAT_007a7644));
         uVar9 = DecodeGuardedBool();
@@ -1453,7 +1453,7 @@ LAB_00460553:
             PeekChecksumStateUnderLock(param_1 + 0x1e19);
             ClampCursorToRect();
         }
-        *reinterpret_cast<unsigned char *>(DAT_007934e4 + 8) = 1;
+        *reinterpret_cast<unsigned char *>(g_sharedTextInputControl + 8) = 1;
     }
     if (-1 < (char)(&DAT_00e52868)[DAT_00e52e68] ||
         (cVar9 = PacketChecksumNotEquals(reinterpret_cast<void *>(g_clientContext + 0x593b4), 0xffffffff), cVar9 != '\0')) {
@@ -1599,15 +1599,15 @@ LAB_00460553:
                 *reinterpret_cast<unsigned char *>(param_1 + 0x2ffa) = 0;
                 QueueOutgoingPacketField(0xffffffff);
                 QueueOutgoingPacketField(0xffffffff);
-                *reinterpret_cast<unsigned char *>(DAT_007934e4 + 8) = 1;
+                *reinterpret_cast<unsigned char *>(g_sharedTextInputControl + 8) = 1;
             } else {
                 QueueOutgoingPacketField(0xffffffff);
             }
         }
     }
     bVar5 = true;
-    if (*reinterpret_cast<char *>(DAT_007934e4 + 8) == '\0' ||
-        (iVar18 = GetWindowTextA(*reinterpret_cast<HWND *>(DAT_007934e4 + 4), &CStack_91c, 0x80), iVar18 == 0)) {
+    if (*reinterpret_cast<char *>(g_sharedTextInputControl + 8) == '\0' ||
+        (iVar18 = GetWindowTextA(*reinterpret_cast<HWND *>(g_sharedTextInputControl + 4), &CStack_91c, 0x80), iVar18 == 0)) {
         CStack_91c = '\0';
     }
     pcVar23 = &CStack_91c;
@@ -1632,7 +1632,7 @@ LAB_00460553:
             iVar18 = iVar18 + 1;
         } while (iVar18 < (int)pcVar23 - (int)acStack_91b);
     }
-    SetWindowTextA(*reinterpret_cast<HWND *>(DAT_007934e4 + 4), reinterpret_cast<LPCSTR>(&DAT_00551cb1));
+    SetWindowTextA(*reinterpret_cast<HWND *>(g_sharedTextInputControl + 4), reinterpret_cast<LPCSTR>(&DAT_00551cb1));
 LAB_004613ad:
     if (DAT_005b3438 == 2) {
     LAB_004613b2:
@@ -1696,8 +1696,8 @@ LAB_004613ad:
                 ScrubChecksumGuard(local_b40);
             }
             InvokeWidget(3, 0);
-            iVar18 = DAT_007934e4;
-            *reinterpret_cast<unsigned char *>(DAT_007934e4 + 8) = 0;
+            iVar18 = g_sharedTextInputControl;
+            *reinterpret_cast<unsigned char *>(g_sharedTextInputControl + 8) = 0;
             SetWindowTextA(*reinterpret_cast<HWND *>(iVar18 + 4), reinterpret_cast<LPCSTR>(&DAT_00551cb1));
             QueueBroadcastEvent(0x8006,(int)&g_replayContext);
             uVar11 = (unsigned short)PeekChecksumStateUnderLock(param_1 + 0x243);

@@ -289,23 +289,23 @@ int InitGame(undefined4 param_1,undefined4 param_2)
         LoadSpriteSet(&DAT_00ea0e18,0x200b23,"b_report_close.img");
         pvVar2 = operator_new(0x10);
         if (pvVar2 == (void *)0x0) {
-          DAT_007934e4 = 0;
+          g_sharedTextInputControl = 0;
         }
         else {
           /* FIXED (2026-07-14): FUN_0040c670 needs the freshly-allocated
            * block and the main window handle explicitly (both were
            * dropped registers - see that file's own header), AND
-           * DAT_007934e4 itself was never actually assigned on this
+           * g_sharedTextInputControl itself was never actually assigned on this
            * success path (only ever zeroed on the allocation-failure
            * branch above) - confirmed via objdump at InitGame's own
            * call site (orig 0x40f373: `mov esi,eax` right after
            * operator_new, left untouched all the way to the call - a
            * pure passthrough, i.e. this block itself is what
-           * DAT_007934e4 is meant to hold). State02_ServerSelect_OnEnter
-           * dereferences DAT_007934e4 unconditionally on entry - left
+           * g_sharedTextInputControl is meant to hold). State02_ServerSelect_OnEnter
+           * dereferences g_sharedTextInputControl unconditionally on entry - left
            * NULL, this was a real, live-reproduced NULL+8 write crash
            * the instant the game reached server select. */
-          DAT_007934e4 = (uint32_t)pvVar2;
+          g_sharedTextInputControl = (uint32_t)pvVar2;
           FUN_0040c670((HINSTANCE)param_2,(undefined4 *)pvVar2,(HWND)param_1);
         }
         /* Both take a fixed global control-block pointer via a dropped ESI

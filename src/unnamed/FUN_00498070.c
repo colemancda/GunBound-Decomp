@@ -93,8 +93,8 @@ void FUN_00498070(int *param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_678 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_8a8,&DAT_00793770);
+        ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
+        TreeLowerBound(local_8a8,&g_valueGuardMap);
       }
       EncodeChecksumPairDiff(param_1 + 0x99,local_454,iVar3 + 0xb30);
       local_4 = 1;
@@ -103,8 +103,8 @@ void FUN_00498070(int *param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_454 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_8a8,&DAT_00793770);
+        ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
+        TreeLowerBound(local_8a8,&g_valueGuardMap);
       }
       puVar5 = (undefined *)(iVar3 * iVar3 + local_8c4[0] * local_8c4[0]);
       if (((int)puVar5 < local_8ac) && ((int)puVar5 < (int)local_8b4)) {
@@ -118,8 +118,8 @@ void FUN_00498070(int *param_1)
         local_4 = 0xffffffff;
         local_8a0 = iVar3;
         if ((*(int *)(local_89c + 0x14)) != 0) {
-          ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
-          TreeLowerBound(local_8a8,&DAT_00793770);
+          ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&g_valueGuardKeyTable);
+          TreeLowerBound(local_8a8,&g_valueGuardMap);
         }
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         iVar3 = PeekPacketChecksumState((void *)(local_8bc[0]));
@@ -179,12 +179,12 @@ LAB_00498381:
     local_8c4[0] = 0x10;
     do {
       iVar6 = _rand();
-      *(char *)(local_8bc[0] + DAT_0079376c) = (char)iVar6;
+      *(char *)(local_8bc[0] + g_valueGuardKeyTable) = (char)iVar6;
       local_8bc[0] = local_8bc[0] + 1;
       local_8c4[0] = local_8c4[0] + -1;
     } while (local_8c4[0] != 0);
     local_8c4[0] = iVar4;
-    TreeLowerBound(local_8bc,&DAT_00793770);
+    TreeLowerBound(local_8bc,&g_valueGuardMap);
   }
   EncodeChecksumPairDiff(param_1 + 0x99,local_678,iVar3 + 0x480);
   local_4 = 4;
@@ -198,12 +198,12 @@ LAB_00498381:
     local_8c4[0] = 0x10;
     do {
       iVar7 = _rand();
-      *(char *)(iVar6 + DAT_0079376c) = (char)iVar7;
+      *(char *)(iVar6 + g_valueGuardKeyTable) = (char)iVar7;
       iVar6 = iVar6 + 1;
       local_8c4[0] = local_8c4[0] + -1;
     } while (local_8c4[0] != 0);
     local_8c4[0] = local_8bc[0];
-    TreeLowerBound(local_8bc,&DAT_00793770);
+    TreeLowerBound(local_8bc,&g_valueGuardMap);
   }
   puVar5 = (undefined *)(iVar4 * iVar4 + local_8a8[0] * local_8a8[0]);
   if (((int)puVar5 < local_8ac) && ((int)puVar5 < (int)local_8b4)) {
@@ -223,12 +223,12 @@ LAB_00498381:
       local_8c4[0] = 0x10;
       do {
         iVar6 = _rand();
-        *(char *)(iVar4 + DAT_0079376c) = (char)iVar6;
+        *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar6;
         iVar4 = iVar4 + 1;
         local_8c4[0] = local_8c4[0] + -1;
       } while (local_8c4[0] != 0);
       local_8a8[0] = iVar3;
-      TreeLowerBound(local_8c4,&DAT_00793770);
+      TreeLowerBound(local_8c4,&g_valueGuardMap);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     iVar3 = PeekPacketChecksumState((void *)(iCellB));

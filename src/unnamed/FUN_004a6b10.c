@@ -53,13 +53,13 @@ void __fastcall FUN_004a6b10(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if ((*(int *)(local_ac0 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_ac8,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
+    TreeLowerBound(local_ac8,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_ac8,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
+    TreeLowerBound(local_ac8,&g_valueGuardMap);
   }
   if ((DAT_00793530 <= iVar4 + 0x20) && (iVar4 + -0x20 <= DAT_0056df30)) {
     uVar3 = EncodeChecksumDeltaSub(param_1 + 0x25c,local_230,*(undefined4 *)(&g_nCameraY + g_clientContext));
@@ -73,18 +73,18 @@ void __fastcall FUN_004a6b10(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     SUBFIELD(local_4,0,undefined1) = 3;
     if ((*(int *)(local_89c + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_ac8,&DAT_00793770);
+      ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&g_valueGuardKeyTable);
+      TreeLowerBound(local_ac8,&g_valueGuardMap);
     }
     local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
     if ((*(int *)(local_678 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_ac8,&DAT_00793770);
+      ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
+      TreeLowerBound(local_ac8,&g_valueGuardMap);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_230 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_ac8,&DAT_00793770);
+      ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
+      TreeLowerBound(local_ac8,&g_valueGuardMap);
     }
     iVar1 = DAT_00793534;
     if ((DAT_00793534 <= iVar5) &&

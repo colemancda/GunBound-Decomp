@@ -59,13 +59,13 @@ int __fastcall FUN_0046cbb0(int param_1)
   local_68c = FindGroundHeightAtColumn();
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_688,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
+    TreeLowerBound(local_688,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_688,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
+    TreeLowerBound(local_688,&g_valueGuardMap);
   }
   uVar1 = EncodeChecksumDeltaDiv(param_1 + 0xf78,local_454,2);
   local_4 = 2;
@@ -76,13 +76,13 @@ int __fastcall FUN_0046cbb0(int param_1)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_688,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
+    TreeLowerBound(local_688,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_688,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
+    TreeLowerBound(local_688,&g_valueGuardMap);
   }
   if (local_68c == iVar2) {
     uVar5 = EncodeChecksumPairDiff(param_1 + 0xb30,local_678,param_1 + 0xf78);
@@ -96,8 +96,8 @@ int __fastcall FUN_0046cbb0(int param_1)
     local_688[0] = FindGroundHeightAtColumn();
     local_4 = 0xffffffff;
     if ((*(int *)(local_678 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
-      TreeLowerBound(local_680,&DAT_00793770);
+      ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
+      TreeLowerBound(local_680,&g_valueGuardMap);
     }
     uVar5 = EncodeChecksumPairDiff(param_1 + 0xb30,local_678,param_1 + 0xf78);
     local_4 = 5;
@@ -108,9 +108,9 @@ int __fastcall FUN_0046cbb0(int param_1)
     bVar4 = local_688[0] == iVar3;
     local_4 = 0xffffffff;
     if ((*(int *)(local_678 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
+      ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
       local_688[0] = iVar2;
-      TreeLowerBound(local_680,&DAT_00793770);
+      TreeLowerBound(local_680,&g_valueGuardMap);
     }
     if (bVar4) {
       uVar5 = EncodeChecksumDeltaAdd(param_1 + 0xb30,local_678,1);
@@ -124,9 +124,9 @@ int __fastcall FUN_0046cbb0(int param_1)
       local_68c = FindGroundHeightAtColumn();
       local_4 = 0xffffffff;
       if ((*(int *)(local_678 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
+        ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
         local_688[0] = (*(int *)(local_678 + 0x14));
-        TreeLowerBound(local_680,&DAT_00793770);
+        TreeLowerBound(local_680,&g_valueGuardMap);
       }
       uVar5 = EncodeChecksumDeltaAdd(param_1 + 0xb30,local_230,1);
       local_4 = 7;
@@ -135,9 +135,9 @@ int __fastcall FUN_0046cbb0(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 0xffffffff;
       if ((*(int *)(local_230 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
+        ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
         local_688[0] = (*(int *)(local_230 + 0x14));
-        TreeLowerBound(local_680,&DAT_00793770);
+        TreeLowerBound(local_680,&g_valueGuardMap);
       }
       if (local_68c == iVar2) {
         local_68c = PeekChecksumStateUnderLock(param_1 + 0xb30);

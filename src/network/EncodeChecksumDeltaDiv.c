@@ -59,8 +59,8 @@ int EncodeChecksumDeltaDiv(undefined4 param_1,int param_2,int param_3)
   EncodeOutgoingPacketField((void *)param_2, uVar2);
   local_4 = local_4 & 0xffffff00;
   if (local_21c != 0) {
-    ScrambleChecksumGuardBytes(local_21c,&DAT_0079376c);
-    TreeLowerBound(local_238,&DAT_00793770);
+    ScrambleChecksumGuardBytes(local_21c,&g_valueGuardKeyTable);
+    TreeLowerBound(local_238,&g_valueGuardMap);
   }
   *unaff_FS_OFFSET = local_c;
   return param_2;

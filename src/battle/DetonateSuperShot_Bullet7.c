@@ -139,8 +139,8 @@ void __fastcall DetonateSuperShot_Bullet7(int *param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
     puStack_8 = (undefined1 *)0xffffffff;
     if (iStack_ab0 != 0) {
-      ScrambleChecksumGuardBytes(iStack_ab0,&DAT_0079376c);
-      TreeLowerBound(apuStack_ad0,&DAT_00793770);
+      ScrambleChecksumGuardBytes(iStack_ab0,&g_valueGuardKeyTable);
+      TreeLowerBound(apuStack_ad0,&g_valueGuardMap);
       pcVar13 = (code *)LeaveCriticalSection;
     }
     uVar21 = EncodeChecksumDeltaShr(param_1 + 0x99,auStack_ac4,8);
@@ -151,8 +151,8 @@ void __fastcall DetonateSuperShot_Bullet7(int *param_1)
     (*pcVar13)(&DAT_005a9068);
     uStack_c = 0xffffffff;
     if (iStack_ab4 != 0) {
-      ScrambleChecksumGuardBytes(iStack_ab4,&DAT_0079376c);
-      TreeLowerBound(&piStack_ad4,&DAT_00793770);
+      ScrambleChecksumGuardBytes(iStack_ab4,&g_valueGuardKeyTable);
+      TreeLowerBound(&piStack_ad4,&g_valueGuardMap);
       pcVar13 = (code *)LeaveCriticalSection;
     }
     cVar2 = CheckGuardedBoolAnd(param_1[0x3d2] != 0,(byte *)(param_1 + 0x3d3));

@@ -13,7 +13,7 @@ extern "C" {
  * whichever text field has focus): +0x04 holds its HWND, +0x08 a
  * live/visible byte flag. Object layout not reconstructed yet, so the
  * raw-port global keeps its untyped uint form here. */
-extern unsigned int DAT_007934e4;
+extern unsigned int g_sharedTextInputControl;
 }
 
 /* 0x507f60 - the text-entry factory (docs' CreateTextEntryWidget;
@@ -53,8 +53,8 @@ void CEditBox::Draw()
     if (m_focused != '\0') {
         char *text = m_text;
         int got = 0;
-        if (*(char *)(DAT_007934e4 + 8) != '\0') {
-            got = GetWindowTextA(*(HWND *)(DAT_007934e4 + 4), text, 0x80);
+        if (*(char *)(g_sharedTextInputControl + 8) != '\0') {
+            got = GetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4), text, 0x80);
         }
         if (got == 0) {
             text[0] = '\0';

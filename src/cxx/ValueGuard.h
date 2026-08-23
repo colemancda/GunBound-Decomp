@@ -7,7 +7,7 @@
  * NOT actually a checksum - it's a value-obfuscation cell (the classic
  * GunBound client-side anti-cheat): the real value is stored FOUR
  * times, each XOR-encoded with a different word of a rotating key
- * table (DAT_0079376c, indexed by a per-cell table handle at +0x14).
+ * table (g_valueGuardKeyTable, indexed by a per-cell table handle at +0x14).
  * Reads verify the four copies agree and that the key-table pointer
  * hasn't been swapped (DAT_00793774); any mismatch sets the global
  * tamper flag g_valueGuardTamperFlag. Every "EncodeOutgoingPacketField"

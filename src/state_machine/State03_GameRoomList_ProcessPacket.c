@@ -699,7 +699,7 @@ switchD_00428058_default:
         _DAT_00e53c28 = 799;
         _DAT_00e53c2c = 0;
         _DAT_00e53c30 = 599;
-        *(undefined1 *)(DAT_007934e4 + 8) = 0;
+        *(undefined1 *)(g_sharedTextInputControl + 8) = 0;
         _DAT_0056dc98 = *(undefined2 *)(iVar10 + 0x44e60);
         _DAT_0056dc90 = *(undefined2 *)(iVar10 + 0x3f804);
         DAT_0079350d = 0;

@@ -97,7 +97,7 @@ State09_ReadyRoom_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pa
           }
           DAT_00e9c104 = 0;
           FUN_004f3060(&DAT_00e9c0fc);
-          SendMessageA(*(HWND *)(DAT_007934e4 + 4),0xc5,0x3c,0);
+          SendMessageA(*(HWND *)(g_sharedTextInputControl + 4),0xc5,0x3c,0);
           *(undefined1 *)((int)this + 0x62c) = 0;
           RefreshReadyRoomControls(this,1,0);
           if (*(short *)payload != 0) {

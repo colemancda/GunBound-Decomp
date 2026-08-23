@@ -366,8 +366,8 @@ LAB_004da286:
 LAB_004da2f4:
   if (DAT_007933b8 == '\x01') {
     FUN_0040c8f0(0xca,0x21b,0);
-    if ((*(char *)(DAT_007934e4 + 8) == '\0') ||
-       (iVar3 = GetWindowTextA(*(HWND *)(DAT_007934e4 + 4),aCStack_80,0x80), iVar3 == 0)) {
+    if ((*(char *)(g_sharedTextInputControl + 8) == '\0') ||
+       (iVar3 = GetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),aCStack_80,0x80), iVar3 == 0)) {
       aCStack_80[0] = '\0';
     }
     if (iStack_88 == -1) {

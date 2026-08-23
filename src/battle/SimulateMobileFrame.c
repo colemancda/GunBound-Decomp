@@ -287,7 +287,7 @@ LAB_004622cf:
     QueueOutgoingPacketField(0xffffffff);
     cVar5 = PacketChecksumNotEquals(param_1 + 0x1e19,0);
     if (cVar5 != '\0') {
-      *(undefined1 *)(DAT_007934e4 + 8) = 1;
+      *(undefined1 *)(g_sharedTextInputControl + 8) = 1;
     }
     ResolveNamedState(s_normal_00552230);
     uVar9 = DecodeGuardedBool();

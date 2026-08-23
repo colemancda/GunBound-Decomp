@@ -1,7 +1,7 @@
 /* ActivateLegacyTextInputField - 0x00506e70 in the original binary.
  *
  * RENAMED (2026-07-30): switches the shared overlay EDIT-control singleton
- * (DAT_007934e4: +0x04 HWND, +0x08 live/visible flag) over to represent
+ * (g_sharedTextInputControl: +0x04 HWND, +0x08 live/visible flag) over to represent
  * THIS "legacy" (non-C++, State09/10/11 flat-buffer) text field object:
  * first flushes the OLD field's pending text into the shared
  * DAT_007933b8/DAT_007933c0 chat-input pair (same commit-then-reset shape
@@ -43,26 +43,26 @@ void ActivateLegacyTextInputField(int thisObj)
     FUN_0050e820();
   }
   if (DAT_007933b8 == '\x01') {
-    if (*(char *)(DAT_007934e4 + 8) != '\0') {
-      iVar1 = GetWindowTextA(*(HWND *)(DAT_007934e4 + 4),(LPSTR)&DAT_007933c0,0x80);
+    if (*(char *)(g_sharedTextInputControl + 8) != '\0') {
+      iVar1 = GetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),(LPSTR)&DAT_007933c0,0x80);
       if (iVar1 != 0) goto LAB_00506eb8;
     }
     SUBFIELD(DAT_007933c0,0,undefined1) = 0;
   }
 LAB_00506eb8:
   DAT_007933b8 = 0;
-  SendMessageA(*(HWND *)(DAT_007934e4 + 4),0xc5,*(WPARAM *)(in_EAX + 0x138),0);
+  SendMessageA(*(HWND *)(g_sharedTextInputControl + 4),0xc5,*(WPARAM *)(in_EAX + 0x138),0);
   lpString = (LPCSTR)(in_EAX + 0x38);
   if (lpString == (LPCSTR)0x0) {
-    hWnd = *(HWND *)(DAT_007934e4 + 4);
+    hWnd = *(HWND *)(g_sharedTextInputControl + 4);
     lpString = &DAT_00551cb1;
   }
   else {
-    hWnd = *(HWND *)(DAT_007934e4 + 4);
+    hWnd = *(HWND *)(g_sharedTextInputControl + 4);
   }
   SetWindowTextA(hWnd,lpString);
-  if (*(char *)(DAT_007934e4 + 8) != '\0') {
-    SendMessageA(*(HWND *)(DAT_007934e4 + 4),0xb1,*(WPARAM *)(in_EAX + 0x138),
+  if (*(char *)(g_sharedTextInputControl + 8) != '\0') {
+    SendMessageA(*(HWND *)(g_sharedTextInputControl + 4),0xb1,*(WPARAM *)(in_EAX + 0x138),
                  *(WPARAM *)(in_EAX + 0x138));
   }
   return;

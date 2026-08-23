@@ -24,8 +24,8 @@ void __fastcall FUN_00443ed0(undefined4 *param_1)
   FUN_004254a0();
   local_4 = 9;
   if (param_1[0xc971] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0xc971],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0xc971],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 8;
   _eh_vector_destructor_iterator_(param_1 + 0xc522,0x224,8,ScrubChecksumGuard);
@@ -33,18 +33,18 @@ void __fastcall FUN_00443ed0(undefined4 *param_1)
   FUN_00443dc0(param_1 + 0xc2ef);
   local_4 = 6;
   if (param_1[0xc26a] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0xc26a],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0xc26a],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 5;
   if (param_1[0xc1e1] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0xc1e1],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0xc1e1],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 4;
   if (param_1[0xc158] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0xc158],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0xc158],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 3;
   _eh_vector_destructor_iterator_(param_1 + 0x36d7,0x17e4,0x15,FUN_004254a0);
@@ -52,13 +52,13 @@ void __fastcall FUN_00443ed0(undefined4 *param_1)
   _eh_vector_destructor_iterator_(param_1 + 0x116,0x17e4,9,FUN_004254a0);
   local_4 = 1;
   if (param_1[0x8f] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x8f],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x8f],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 0;
   if (param_1[6] != 0) {
-    ScrambleChecksumGuardBytes(param_1[6],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[6],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   *param_1 = &PTR_LAB_00553fb0;
   *unaff_FS_OFFSET = local_c;

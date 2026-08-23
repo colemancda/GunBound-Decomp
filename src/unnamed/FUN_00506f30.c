@@ -15,7 +15,7 @@ void FUN_00506f30(void)
   undefined4 *puVar2;
   
   if (*(char *)(unaff_ESI + 4) != '\0') {
-    SetWindowTextA(*(HWND *)(DAT_007934e4 + 4),&DAT_00551cb1);
+    SetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&DAT_00551cb1);
   }
   puVar2 = (undefined4 *)(unaff_ESI + 0x38);
   for (iVar1 = 0x40; iVar1 != 0; iVar1 = iVar1 + -1) {

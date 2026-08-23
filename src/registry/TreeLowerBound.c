@@ -5,7 +5,7 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * THE MAP OBJECT IS &DAT_00793770 (2026-08-21).  Scanning all 1180 direct
+ * THE MAP OBJECT IS &g_valueGuardMap (2026-08-21).  Scanning all 1180 direct
  * call sites: EAX is the immediate 0x793770 at 1179 of them (the one
  * exception is `mov eax,ebp`), and EBX is `lea ebx,[esp + N]` at ALL 1180 -
  * the scratch node the C already passes as param_1.  So the only argument

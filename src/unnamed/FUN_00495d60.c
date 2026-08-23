@@ -22,23 +22,23 @@ void FUN_00495d60(undefined4 *param_1)
   *param_1 = &PTR_FUN_005563d0;
   local_4 = 3;
   if (param_1[0x1189] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x1189],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x1189],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   SUBFIELD(local_4,0,undefined1) = 2;
   if (param_1[0x1100] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x1100],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x1100],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   SUBFIELD(local_4,0,undefined1) = 1;
   if (param_1[0x1077] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x1077],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x1077],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (param_1[0xfee] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0xfee],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0xfee],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   DestroyProjectile(param_1);

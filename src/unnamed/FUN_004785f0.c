@@ -83,8 +83,8 @@ void FUN_004785f0(int param_1)
   local_8a0 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar11,(int)uVar10);
   local_4 = 0xffffffff;
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_8b0,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&g_valueGuardKeyTable);
+    TreeLowerBound(local_8b0,&g_valueGuardMap);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
@@ -110,15 +110,15 @@ void FUN_004785f0(int param_1)
   iVar4 = FindGroundHeightAtColumn(0,(int)(&DAT_006a7708 + g_clientContext),(int)uVar13,(int)uVar12);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),1);
   if ((*(int *)(local_89c + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
+    ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&g_valueGuardKeyTable);
     local_8b0[0] = (*(int *)(local_89c + 0x14));
-    TreeLowerBound(local_8a8,&DAT_00793770);
+    TreeLowerBound(local_8a8,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   if ((*(int *)(local_678 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&DAT_0079376c);
+    ScrambleChecksumGuardBytes(*(int *)(local_678 + 0x14),&g_valueGuardKeyTable);
     local_8b0[0] = (*(int *)(local_678 + 0x14));
-    TreeLowerBound(local_8a8,&DAT_00793770);
+    TreeLowerBound(local_8a8,&g_valueGuardMap);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   uVar3 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
@@ -152,14 +152,14 @@ void FUN_004785f0(int param_1)
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
   local_8b0[0] = (*(int *)(local_454 + 0x14));
   if ((*(int *)(local_454 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_8a8,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
+    TreeLowerBound(local_8a8,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   local_8b0[0] = (*(int *)(local_230 + 0x14));
   if ((*(int *)(local_230 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_8a8,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
+    TreeLowerBound(local_8a8,&g_valueGuardMap);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_8b0[0] = PeekPacketChecksumState((void *)(&DAT_00e55ab8));

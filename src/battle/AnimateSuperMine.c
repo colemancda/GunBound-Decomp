@@ -87,9 +87,9 @@ void __fastcall AnimateSuperMine(int *param_1)
   iVar4 = (*(int *)(local_acc + 0x14));
   local_c = 0xffffffff;
   if ((*(int *)(local_acc + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
+    ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&g_valueGuardKeyTable);
     local_aec[0] = iVar4;
-    TreeLowerBound(local_ad8,&DAT_00793770);
+    TreeLowerBound(local_ad8,&g_valueGuardMap);
     param_1 = local_ae0;
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
@@ -108,9 +108,9 @@ void __fastcall AnimateSuperMine(int *param_1)
     iVar4 = (*(int *)(local_acc + 0x14));
     local_c = 0xffffffff;
     if ((*(int *)(local_acc + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
+      ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&g_valueGuardKeyTable);
       local_aec[0] = iVar4;
-      TreeLowerBound(local_ad8,&DAT_00793770);
+      TreeLowerBound(local_ad8,&g_valueGuardMap);
       param_1 = local_ae0;
     }
     if (-iVar5 <= iVar6) {
@@ -136,9 +136,9 @@ void __fastcall AnimateSuperMine(int *param_1)
     bVar9 = local_ae4 == iVar5;
     local_c = 0xffffffff;
     if ((*(int *)(local_acc + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
+      ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&g_valueGuardKeyTable);
       local_aec[0] = iVar4;
-      TreeLowerBound(local_ad8,&DAT_00793770);
+      TreeLowerBound(local_ad8,&g_valueGuardMap);
       param_1 = local_ae0;
     }
     if (bVar9) {
@@ -158,9 +158,9 @@ void __fastcall AnimateSuperMine(int *param_1)
       iVar4 = (*(int *)(local_acc + 0x14));
       local_c = 0xffffffff;
       if ((*(int *)(local_acc + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
+        ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&g_valueGuardKeyTable);
         local_aec[0] = iVar4;
-        TreeLowerBound(local_ad8,&DAT_00793770);
+        TreeLowerBound(local_ad8,&g_valueGuardMap);
         param_1 = local_ae0;
       }
       iDelta = EncodeChecksumDeltaSub(param_1 + 0x99,local_acc,0x1e);
@@ -172,9 +172,9 @@ void __fastcall AnimateSuperMine(int *param_1)
       bVar9 = local_ad0 == iVar5;
       local_c = 0xffffffff;
       if ((*(int *)(local_acc + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
+        ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&g_valueGuardKeyTable);
         local_aec[0] = iVar4;
-        TreeLowerBound(local_ad8,&DAT_00793770);
+        TreeLowerBound(local_ad8,&g_valueGuardMap);
         param_1 = local_ae0;
       }
       if (bVar9) {
@@ -246,9 +246,9 @@ LAB_00492677:
     iVar4 = (*(int *)(local_acc + 0x14));
     local_c = 0xffffffff;
     if ((*(int *)(local_acc + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
+      ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&g_valueGuardKeyTable);
       local_aec[0] = iVar4;
-      TreeLowerBound(local_ad8,&DAT_00793770);
+      TreeLowerBound(local_ad8,&g_valueGuardMap);
       param_1 = local_ae0;
     }
     if (bVar9) {
@@ -317,9 +317,9 @@ LAB_00492912:
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_c = 0xffffffff;
   if ((*(int *)(local_acc + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&DAT_0079376c);
+    ScrambleChecksumGuardBytes(*(int *)(local_acc + 0x14),&g_valueGuardKeyTable);
     local_aec[0] = (*(int *)(local_acc + 0x14));
-    TreeLowerBound(local_ad8,&DAT_00793770);
+    TreeLowerBound(local_ad8,&g_valueGuardMap);
   }
   local_ae4 = 0;
   do {
@@ -333,8 +333,8 @@ LAB_00492912:
       local_c = 0xffffffff;
       local_aec[0] = (*(int *)(local_8a8 + 0x14));
       if ((*(int *)(local_8a8 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_ad8,&DAT_00793770);
+        ScrambleChecksumGuardBytes(*(int *)(local_8a8 + 0x14),&g_valueGuardKeyTable);
+        TreeLowerBound(local_ad8,&g_valueGuardMap);
       }
       iDelta = EncodeChecksumPairDiff(local_ae0 + 0x99,local_460,iVar4 + 0xb30);
       local_c = 10;
@@ -344,8 +344,8 @@ LAB_00492912:
       local_c = 0xffffffff;
       local_aec[0] = (*(int *)(local_460 + 0x14));
       if ((*(int *)(local_460 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_460 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_ad8,&DAT_00793770);
+        ScrambleChecksumGuardBytes(*(int *)(local_460 + 0x14),&g_valueGuardKeyTable);
+        TreeLowerBound(local_ad8,&g_valueGuardMap);
       }
       if (iVar4 * iVar4 + local_adc * local_adc < local_ad0) {
         (**(code **)(*local_ae0 + 0x20))();
@@ -400,11 +400,11 @@ LAB_00492b46:
     local_aec[0] = 0x10;
     do {
       iVar6 = _rand();
-      *(char *)(iVar5 + DAT_0079376c) = (char)iVar6;
+      *(char *)(iVar5 + g_valueGuardKeyTable) = (char)iVar6;
       iVar5 = iVar5 + 1;
       local_aec[0] = local_aec[0] + -1;
     } while (local_aec[0] != 0);
-    TreeLowerBound(local_aec,&DAT_00793770);
+    TreeLowerBound(local_aec,&g_valueGuardMap);
   }
   piVar7 = local_ae0;
   iDelta = EncodeChecksumPairDiff(local_ae0 + 0x99,auStack_684,iVar4 + 0x480);
@@ -419,11 +419,11 @@ LAB_00492b46:
     local_aec[0] = 0x10;
     do {
       iVar6 = _rand();
-      *(char *)(iVar5 + DAT_0079376c) = (char)iVar6;
+      *(char *)(iVar5 + g_valueGuardKeyTable) = (char)iVar6;
       iVar5 = iVar5 + 1;
       local_aec[0] = local_aec[0] + -1;
     } while (local_aec[0] != 0);
-    TreeLowerBound(local_aec,&DAT_00793770);
+    TreeLowerBound(local_aec,&g_valueGuardMap);
     piVar7 = local_ae0;
   }
   if (local_ad8[0] * local_ad8[0] + iVar4 * iVar4 < local_ad0) {
@@ -454,11 +454,11 @@ LAB_00492d35:
           local_aec[0] = 0x10;
           do {
             iVar5 = _rand();
-            *(char *)(iVar4 + DAT_0079376c) = (char)iVar5;
+            *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar5;
             iVar4 = iVar4 + 1;
             local_aec[0] = local_aec[0] + -1;
           } while (local_aec[0] != 0);
-          TreeLowerBound(local_aec,&DAT_00793770);
+          TreeLowerBound(local_aec,&g_valueGuardMap);
           piVar7 = local_ae0;
         }
         iDelta = EncodeChecksumPairDiff(piVar7 + 0x99,auStack_23c,piVar8 + 0x99);
@@ -473,11 +473,11 @@ LAB_00492d35:
           local_aec[0] = 0x10;
           do {
             iVar6 = _rand();
-            *(char *)(iVar5 + DAT_0079376c) = (char)iVar6;
+            *(char *)(iVar5 + g_valueGuardKeyTable) = (char)iVar6;
             iVar5 = iVar5 + 1;
             local_aec[0] = local_aec[0] + -1;
           } while (local_aec[0] != 0);
-          TreeLowerBound(local_aec,&DAT_00793770);
+          TreeLowerBound(local_aec,&g_valueGuardMap);
           piVar7 = local_ae0;
         }
         if (local_adc * local_adc + iVar4 * iVar4 < local_ad0) {

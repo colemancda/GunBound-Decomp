@@ -22,13 +22,13 @@ void FUN_00426810(int param_1)
   *unaff_FS_OFFSET = &local_c;
   local_4 = 0;
   if (*(int *)(param_1 + 0x240) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x240),&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x240),&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   if (*(int *)(param_1 + 0x1c) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x1c),&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x1c),&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   *unaff_FS_OFFSET = local_c;
   return;

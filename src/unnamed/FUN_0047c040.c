@@ -105,13 +105,13 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
     puStack_8 = (undefined1 *)0x0;
     if (((uStack_45c & 1) != 0) && (iStack_444 != 0)) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(aiStack_464,&DAT_00793770);
+      TreeLowerBound(aiStack_464,&g_valueGuardMap);
     }
     puStack_8 = (undefined1 *)0xffffffff;
     unaff_EBX = iStack_220;
     if (iStack_220 != 0) {
-      ScrambleChecksumGuardBytes(iStack_220,&DAT_0079376c);
-      TreeLowerBound(aiStack_464,&DAT_00793770);
+      ScrambleChecksumGuardBytes(iStack_220,&g_valueGuardKeyTable);
+      TreeLowerBound(aiStack_464,&g_valueGuardMap);
     }
   }
   unaff_ESI[0xfea] = unaff_retaddr;

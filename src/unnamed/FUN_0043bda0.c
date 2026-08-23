@@ -133,11 +133,11 @@ void FUN_0043bda0(void)
                   local_698 = 0x10;
                   do {
                     iVar10 = _rand();
-                    *(char *)(iVar8 + DAT_0079376c) = (char)iVar10;
+                    *(char *)(iVar8 + g_valueGuardKeyTable) = (char)iVar10;
                     iVar8 = iVar8 + 1;
                     local_698 = local_698 + -1;
                   } while (local_698 != 0);
-                  TreeLowerBound(local_68c,&DAT_00793770);
+                  TreeLowerBound(local_68c,&g_valueGuardMap);
                 }
                 piVar13 = *(int **)(*(int *)(&DAT_006a7f8c + g_clientContext) + 0x1c);
                 uVar11 = piVar13[1];

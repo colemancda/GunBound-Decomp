@@ -297,11 +297,11 @@ LAB_0043ae95:
       iVar14 = 0x10;
       do {
         iVar10 = _rand();
-        *(char *)(iVar8 + DAT_0079376c) = (char)iVar10;
+        *(char *)(iVar8 + g_valueGuardKeyTable) = (char)iVar10;
         iVar8 = iVar8 + 1;
         iVar14 = iVar14 + -1;
       } while (iVar14 != 0);
-      TreeLowerBound(local_238,&DAT_00793770);
+      TreeLowerBound(local_238,&g_valueGuardMap);
       pcVar13 = (code *)EnterCriticalSection;
     }
   }

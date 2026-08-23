@@ -27,7 +27,7 @@
  *     ; operands in ECX/EBX/EAX, all still unrecovered - so wiring it
  *     ; here would pass garbage.  Re-add when the key table goes real.
  *   NODIAG:
- *   key = DAT_0079376c + esi*0x10       ; the 16-byte key row
+ *   key = g_valueGuardKeyTable + esi*0x10       ; the 16-byte key row
  *   for i in 0..3: dec[i] = key[i] ^ enc[i]; if i && dec[0]!=dec[i] -> TAMPER
  *   push dec[0]; call 0x40a380           ; RE-ENCODE the value just read
  *   return dec[0]
@@ -57,7 +57,7 @@ uint PeekPacketChecksumState(void *self)
 
   cell = (uint *)self;
   handle = cell[5];                          /* +0x14 tableHandle */
-  key = (uint *)(DAT_0079376c + handle * 0x10);
+  key = (uint *)(g_valueGuardKeyTable + handle * 0x10);
   decoded0 = key[0] ^ cell[1];               /* +0x04 enc0 */
   for (i = 1; i < 4; i = i + 1) {
     decodedI = key[i] ^ cell[1 + i];         /* +0x08 / +0x0c / +0x10 */

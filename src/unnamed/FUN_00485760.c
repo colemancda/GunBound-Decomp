@@ -22,8 +22,8 @@ void FUN_00485760(undefined4 *param_1)
   *param_1 = &PTR_FUN_0055620c;
   local_4 = 0;
   if (param_1[0xfee] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0xfee],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0xfee],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   *param_1 = &PTR_FUN_0055631c;

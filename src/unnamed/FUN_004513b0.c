@@ -883,7 +883,7 @@ LAB_00451f7a:
     uStack_90 = 0xffffffff;
     if (ppuStack_b38 != (undefined **)0x0) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(&ppuStack_b64,&DAT_00793770);
+      TreeLowerBound(&ppuStack_b64,&g_valueGuardMap);
       pcVar16 = (code *)LeaveCriticalSection;
     }
     uVar8 = EncodeChecksumDeltaDiv(param_1 + 0x81e,&puStack_b4c,10);
@@ -896,7 +896,7 @@ LAB_00451f7a:
     uStack_98 = 0xffffffff;
     if (puStack_b40 != (undefined *)0x0) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(&uStack_b6c,&DAT_00793770);
+      TreeLowerBound(&uStack_b6c,&g_valueGuardMap);
       pcVar16 = (code *)LeaveCriticalSection;
     }
     uVar8 = EncodeChecksumDeltaDiv(param_1 + 0x8a7,&puStack_b54,10);
@@ -909,7 +909,7 @@ LAB_00451f7a:
     uStack_88 = 0xffffffff;
     if (puStack_b30 != (undefined4 *)0x0) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(&uStack_b5c,&DAT_00793770);
+      TreeLowerBound(&uStack_b5c,&g_valueGuardMap);
     }
   }
   puVar25 = &DAT_005a9068;

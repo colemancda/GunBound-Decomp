@@ -731,7 +731,7 @@ LAB_004b9bb0:
     if (DAT_007933b8 != '\x01') goto LAB_004b9e53;
     cVar4 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8));
     if (cVar4 == '\0') {
-      FetchActiveTextInputText(DAT_007934e4,acStack_80);
+      FetchActiveTextInputText(g_sharedTextInputControl,acStack_80);
       if ((acStack_80[0] != '\0') && (cVar4 = ParseChatSlashCommand(g_clientContext,acStack_80), cVar4 == '\0'))
       {
         cVar4 = CheckChatWordFilter(acStack_80);
@@ -765,7 +765,7 @@ LAB_004b9bb0:
       FUN_00426230(g_clientContext);
     }
 LAB_004b9e3e:
-    SetWindowTextA(*(HWND *)(DAT_007934e4 + 4),&DAT_00551cb1);
+    SetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&DAT_00551cb1);
 LAB_004b9e53:
     SyncChatTypingState(&DAT_006a647c + g_clientContext,1);
     return;

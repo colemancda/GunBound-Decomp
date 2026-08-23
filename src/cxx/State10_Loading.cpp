@@ -13,7 +13,7 @@
 extern "C" {
 extern int g_clientContext;
 extern unsigned char DAT_007933b8;      /* "chat entry armed" flag */
-extern unsigned int DAT_007934e4;       /* shared overlay EDIT control (+4 = HWND) */
+extern unsigned int g_sharedTextInputControl;       /* shared overlay EDIT control (+4 = HWND) */
 extern unsigned char DAT_00551cb1;      /* the empty string the EDIT is reset to */
 extern unsigned char g_localizedStringTable;      /* localized-string table base */
 char PeekPacketChecksumBool(void);                /* replay-playback mode check */
@@ -63,7 +63,7 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
         return;
     }
     if (PeekPacketChecksumBool() == 0) {
-        FetchActiveTextInputText(DAT_007934e4, text);
+        FetchActiveTextInputText(g_sharedTextInputControl, text);
         if (text[0] != '\0' && ParseChatSlashCommand(g_clientContext, text) == 0) {
             int msgId;
             if (CheckChatWordFilter(text) == 1) {
@@ -84,5 +84,5 @@ void CState10Loading::OnKeyInput(int msg, int a, int /*b*/)
         FUN_00426230(g_clientContext);
     }
 reset:
-    SetWindowTextA(*(HWND *)(DAT_007934e4 + 4), (LPCSTR)&DAT_00551cb1);
+    SetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4), (LPCSTR)&DAT_00551cb1);
 }

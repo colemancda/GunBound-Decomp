@@ -136,8 +136,8 @@ void State11_InBattle_RenderPlayerRoster(int param_1)
   }
   if (DAT_007933b8 == '\x01') {
     FUN_0040c8f0(0xca,0x21b,0);
-    if ((*(char *)(DAT_007934e4 + 8) == '\0') ||
-       (iVar3 = GetWindowTextA(*(HWND *)(DAT_007934e4 + 4),&local_1008,0x80), iVar3 == 0)) {
+    if ((*(char *)(g_sharedTextInputControl + 8) == '\0') ||
+       (iVar3 = GetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&local_1008,0x80), iVar3 == 0)) {
       local_1008 = '\0';
     }
     iVar3 = local_1024[0];
@@ -514,12 +514,12 @@ LAB_00408b80:
       local_1018[0] = 0x10;
       do {
         iVar6 = _rand();
-        *(char *)(local_1024[0] + DAT_0079376c) = (char)iVar6;
+        *(char *)(local_1024[0] + g_valueGuardKeyTable) = (char)iVar6;
         local_1024[0] = local_1024[0] + 1;
         local_1018[0] = local_1018[0] + -1;
       } while (local_1018[0] != 0);
       local_1024[0] = (*(int *)(local_ac0 + 0x14));
-      TreeLowerBound(local_1018,&DAT_00793770);
+      TreeLowerBound(local_1018,&g_valueGuardMap);
     }
     local_4 = 1;
     local_1018[0] = (*(int *)(local_454 + 0x14));
@@ -528,17 +528,17 @@ LAB_00408b80:
       local_1024[0] = 0x10;
       do {
         iVar9 = _rand();
-        *(char *)(iVar6 + DAT_0079376c) = (char)iVar9;
+        *(char *)(iVar6 + g_valueGuardKeyTable) = (char)iVar9;
         iVar6 = iVar6 + 1;
         local_1024[0] = local_1024[0] + -1;
       } while (local_1024[0] != 0);
       local_1024[0] = local_1018[0];
-      TreeLowerBound(local_1018,&DAT_00793770);
+      TreeLowerBound(local_1018,&g_valueGuardMap);
     }
     local_4 = 0;
     if ((0 < iVar2) && ((*(int *)(local_ce4 + 0x14)) != 0)) {
       ScrambleChecksumGuardBytes();
-      TreeLowerBound(local_1024,&DAT_00793770);
+      TreeLowerBound(local_1024,&g_valueGuardMap);
     }
     local_4 = 0xffffffff;
     local_1024[0] = (*(int *)(local_f08 + 0x14));
@@ -547,11 +547,11 @@ LAB_00408b80:
       local_1028 = 0x10;
       do {
         iVar6 = _rand();
-        *(char *)(iVar2 + DAT_0079376c) = (char)iVar6;
+        *(char *)(iVar2 + g_valueGuardKeyTable) = (char)iVar6;
         iVar2 = iVar2 + 1;
         local_1028 = local_1028 + -1;
       } while (local_1028 != 0);
-      TreeLowerBound(local_1024,&DAT_00793770);
+      TreeLowerBound(local_1024,&g_valueGuardMap);
     }
     uVar5 = EncodeChecksumPairSum(iVar13,local_ce4,iVar3);
     local_4 = 4;
@@ -567,11 +567,11 @@ LAB_00408b80:
       local_1024[0] = 0x10;
       do {
         iVar9 = _rand();
-        *(char *)(local_1028 + DAT_0079376c) = (char)iVar9;
+        *(char *)(local_1028 + g_valueGuardKeyTable) = (char)iVar9;
         local_1028 = local_1028 + 1;
         local_1024[0] = local_1024[0] + -1;
       } while (local_1024[0] != 0);
-      TreeLowerBound(local_1024,&DAT_00793770);
+      TreeLowerBound(local_1024,&g_valueGuardMap);
     }
     local_4 = 0xffffffff;
     local_1024[0] = (*(int *)(local_ce4 + 0x14));
@@ -580,11 +580,11 @@ LAB_00408b80:
       local_1028 = 0x10;
       do {
         iVar10 = _rand();
-        *(char *)(iVar9 + DAT_0079376c) = (char)iVar10;
+        *(char *)(iVar9 + g_valueGuardKeyTable) = (char)iVar10;
         iVar9 = iVar9 + 1;
         local_1028 = local_1028 + -1;
       } while (local_1028 != 0);
-      TreeLowerBound(local_1024,&DAT_00793770);
+      TreeLowerBound(local_1024,&g_valueGuardMap);
     }
     FillScreenRect(local_1010[0],(-(uint)(iVar2 < iVar6) & 0x5af7) + 0x65a9);
     uVar5 = EncodeChecksumPairSum(iVar13,local_230,iVar3);
@@ -603,12 +603,12 @@ LAB_00408b80:
       iVar13 = 0x10;
       do {
         iVar2 = _rand();
-        *(char *)(iVar3 + DAT_0079376c) = (char)iVar2;
+        *(char *)(iVar3 + g_valueGuardKeyTable) = (char)iVar2;
         iVar3 = iVar3 + 1;
         iVar13 = iVar13 + -1;
       } while (iVar13 != 0);
       local_101c = local_888;
-      TreeLowerBound(local_1010,&DAT_00793770);
+      TreeLowerBound(local_1010,&g_valueGuardMap);
     }
     local_4 = 6;
     if ((*(int *)(local_678 + 0x14)) != 0) {
@@ -616,12 +616,12 @@ LAB_00408b80:
       iVar13 = 0x10;
       do {
         iVar2 = _rand();
-        *(char *)(iVar3 + DAT_0079376c) = (char)iVar2;
+        *(char *)(iVar3 + g_valueGuardKeyTable) = (char)iVar2;
         iVar3 = iVar3 + 1;
         iVar13 = iVar13 + -1;
       } while (iVar13 != 0);
       local_101c = (*(int *)(local_678 + 0x14));
-      TreeLowerBound(local_1010,&DAT_00793770);
+      TreeLowerBound(local_1010,&g_valueGuardMap);
     }
     local_4 = 0xffffffff;
     if ((*(int *)(local_230 + 0x14)) != 0) {
@@ -629,12 +629,12 @@ LAB_00408b80:
       iVar13 = 0x10;
       do {
         iVar2 = _rand();
-        *(char *)(iVar3 + DAT_0079376c) = (char)iVar2;
+        *(char *)(iVar3 + g_valueGuardKeyTable) = (char)iVar2;
         iVar3 = iVar3 + 1;
         iVar13 = iVar13 + -1;
       } while (iVar13 != 0);
       local_101c = (*(int *)(local_230 + 0x14));
-      TreeLowerBound(local_1010,&DAT_00793770);
+      TreeLowerBound(local_1010,&g_valueGuardMap);
     }
   }
   iVar3 = 0;

@@ -56,8 +56,8 @@ void __fastcall ExplodeSuperShot_Bullet4(int param_1)
   local_4 = 0xffffffff;
   *(undefined4 *)(param_1 + 0x3f9c) = uVar2;
   if ((*(int *)(local_230 + 0x14)) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
-    TreeLowerBound(local_238,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
+    TreeLowerBound(local_238,&g_valueGuardMap);
     pcVar7 = (code *)EnterCriticalSection;
   }
   (*pcVar7)(&DAT_005a9068);

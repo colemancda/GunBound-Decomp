@@ -1,6 +1,6 @@
 /* winmain_bringup.c - see include/winmain_bringup.h. Launch-only scaffolding for
  * the WinMain startup path; not part of the original binary. */
-#include "ghidra_types.h"   /* pulls in globals.h (DAT_0079376c) */
+#include "ghidra_types.h"   /* pulls in globals.h (g_valueGuardKeyTable) */
 #include "winmain_bringup.h"
 
 /* Address->slot map, recovered from the real binary's WinMain (0x40d8e0), each
@@ -20,7 +20,7 @@
  * is the recovered ground truth for which global holds which opcode. */
 
 /* The value-guard XOR key table. EncodeOutgoingPacketField reads 16-byte rows
- * from DAT_0079376c indexed by the (startup-zero) counter DAT_00793778, so only
+ * from g_valueGuardKeyTable indexed by the (startup-zero) counter DAT_00793778, so only
  * row 0 is touched on the WinMain path; 256 rows is generous headroom. Zeroed
  * (not rand()-filled) - fine for reaching a frame since the encoded values are
  * unread before then. */
@@ -28,5 +28,5 @@ static unsigned char g_vgKeyTable[256 * 16];
 
 void WinMain_BringupInit(void)
 {
-  DAT_0079376c = (uint32_t)(uintptr_t)g_vgKeyTable;
+  g_valueGuardKeyTable = (uint32_t)(uintptr_t)g_vgKeyTable;
 }

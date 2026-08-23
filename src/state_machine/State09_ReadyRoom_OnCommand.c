@@ -95,7 +95,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
       }
       DAT_00e9c104 = 0;
       FUN_004f3060(&DAT_00e9c0fc);
-      hWnd = *(HWND *)(DAT_007934e4 + 4);
+      hWnd = *(HWND *)(g_sharedTextInputControl + 4);
     }
     else {
       if (param_2 - 0xbU != 0) {
@@ -106,7 +106,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
       }
       DAT_00e9c104 = 0;
       FUN_004f3060(&DAT_00e9c0fc);
-      hWnd = *(HWND *)(DAT_007934e4 + 4);
+      hWnd = *(HWND *)(g_sharedTextInputControl + 4);
     }
     SendMessageA(hWnd,0xc5,0x3c,0);
     *(undefined1 *)(param_1 + 0x62c) = 0;

@@ -6,7 +6,7 @@
  * with NULL substituted by the empty string at DAT_00551cb1.  That NULL
  * fallback is what identifies it: TextEntry_SetControlText does the same
  * substitution against the same empty-string global, on the same
- * DAT_007934e4 + 4 handle.  This is the primitive that takes the object
+ * g_sharedTextInputControl + 4 handle.  This is the primitive that takes the object
  * explicitly; TextEntry_SetControlText is the larger routine that also copies
  * the string into the object's own buffer at +0x38.
  *

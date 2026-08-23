@@ -325,8 +325,8 @@ LAB_004bbe6b:
       EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       EncodeOutgoingPacketField((void *)(g_clientContext + 0x6240c), 0xffffffff);
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
-      iVar6 = DAT_007934e4;
-      *(undefined1 *)(DAT_007934e4 + 8) = 1;
+      iVar6 = g_sharedTextInputControl;
+      *(undefined1 *)(g_sharedTextInputControl + 8) = 1;
       SendMessageA(*(HWND *)(iVar6 + 4),0xc5,0x3c,0);
       iVar6 = g_clientContext;
       *(undefined1 *)(param_1 + 0x10) = 0;

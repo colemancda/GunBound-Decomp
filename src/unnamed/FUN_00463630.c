@@ -68,18 +68,18 @@ void FUN_00463630(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 1;
       if ((*(int *)(local_ce4 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_ce4 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_113c,&DAT_00793770);
+        ScrambleChecksumGuardBytes(*(int *)(local_ce4 + 0x14),&g_valueGuardKeyTable);
+        TreeLowerBound(local_113c,&g_valueGuardMap);
       }
       local_4 = 0;
       if ((*(int *)(local_f08 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_f08 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_113c,&DAT_00793770);
+        ScrambleChecksumGuardBytes(*(int *)(local_f08 + 0x14),&g_valueGuardKeyTable);
+        TreeLowerBound(local_113c,&g_valueGuardMap);
       }
       local_4 = 0xffffffff;
       if ((*(int *)(local_112c + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_112c + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_113c,&DAT_00793770);
+        ScrambleChecksumGuardBytes(*(int *)(local_112c + 0x14),&g_valueGuardKeyTable);
+        TreeLowerBound(local_113c,&g_valueGuardMap);
       }
       uVar3 = EncodeChecksumDeltaSub(param_1 + 0xb30,local_ce4,*(undefined4 *)(&g_nCameraY + g_clientContext));
       local_4 = 3;
@@ -92,18 +92,18 @@ void FUN_00463630(int param_1)
       LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
       local_4 = 4;
       if ((*(int *)(local_112c + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_112c + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_113c,&DAT_00793770);
+        ScrambleChecksumGuardBytes(*(int *)(local_112c + 0x14),&g_valueGuardKeyTable);
+        TreeLowerBound(local_113c,&g_valueGuardMap);
       }
       local_4 = 3;
       if ((*(int *)(local_f08 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_f08 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_113c,&DAT_00793770);
+        ScrambleChecksumGuardBytes(*(int *)(local_f08 + 0x14),&g_valueGuardKeyTable);
+        TreeLowerBound(local_113c,&g_valueGuardMap);
       }
       local_4 = 0xffffffff;
       if ((*(int *)(local_ce4 + 0x14)) != 0) {
-        ScrambleChecksumGuardBytes(*(int *)(local_ce4 + 0x14),&DAT_0079376c);
-        TreeLowerBound(local_113c,&DAT_00793770);
+        ScrambleChecksumGuardBytes(*(int *)(local_ce4 + 0x14),&g_valueGuardKeyTable);
+        TreeLowerBound(local_113c,&g_valueGuardMap);
       }
       if (500 < iVar2) {
         EnterCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);

@@ -34,7 +34,7 @@ void __thiscall State10_Loading_HandleChatInput(int *param_1,int param_2,int par
   }
   cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6aa678));
   if (cVar2 == '\0') {
-    FetchActiveTextInputText(DAT_007934e4,acStack_80);
+    FetchActiveTextInputText(g_sharedTextInputControl,acStack_80);
     if ((acStack_80[0] != '\0') && (cVar2 = ParseChatSlashCommand(g_clientContext,acStack_80), cVar2 == '\0')) {
       cVar2 = CheckChatWordFilter(acStack_80);
       if (cVar2 == '\x01') {
@@ -67,7 +67,7 @@ void __thiscall State10_Loading_HandleChatInput(int *param_1,int param_2,int par
     FUN_00426230(g_clientContext);
   }
 LAB_0043e820:
-  SetWindowTextA(*(HWND *)(DAT_007934e4 + 4),&DAT_00551cb1);
+  SetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&DAT_00551cb1);
   return;
 }
 

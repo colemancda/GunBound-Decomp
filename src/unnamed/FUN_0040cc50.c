@@ -18,14 +18,14 @@ void FUN_0040cc50(void)
   HWND hWnd;
   LPCSTR lpString;
   
-  SendMessageA(*(HWND *)(DAT_007934e4 + 4),0xc5,*(WPARAM *)(unaff_EBX + 0x44c),0);
+  SendMessageA(*(HWND *)(g_sharedTextInputControl + 4),0xc5,*(WPARAM *)(unaff_EBX + 0x44c),0);
   pcVar3 = (char *)(unaff_EBX + 0x48);
   if (pcVar3 == (char *)0x0) {
-    hWnd = *(HWND *)(DAT_007934e4 + 4);
+    hWnd = *(HWND *)(g_sharedTextInputControl + 4);
     lpString = &DAT_00551cb1;
   }
   else {
-    hWnd = *(HWND *)(DAT_007934e4 + 4);
+    hWnd = *(HWND *)(g_sharedTextInputControl + 4);
     lpString = pcVar3;
   }
   SetWindowTextA(hWnd,lpString);
@@ -38,8 +38,8 @@ void FUN_0040cc50(void)
     cVar1 = *pcVar3;
     pcVar3 = pcVar3 + 1;
   } while (cVar1 != '\0');
-  if (*(char *)(DAT_007934e4 + 8) != '\0') {
-    SendMessageA(*(HWND *)(DAT_007934e4 + 4),0xb1,(int)pcVar3 - (unaff_EBX + 0x49),
+  if (*(char *)(g_sharedTextInputControl + 8) != '\0') {
+    SendMessageA(*(HWND *)(g_sharedTextInputControl + 4),0xb1,(int)pcVar3 - (unaff_EBX + 0x49),
                  (int)pcVar2 - (unaff_EBX + 0x49));
   }
   *(undefined4 *)(unaff_EBX + 0x448) = 2;

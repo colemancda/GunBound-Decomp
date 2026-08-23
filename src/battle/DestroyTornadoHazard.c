@@ -25,18 +25,18 @@ void DestroyTornadoHazard(undefined4 *param_1)
   *param_1 = &PTR_FUN_005565e4;
   local_4 = 2;
   if (param_1[0x126] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x126],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x126],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   SUBFIELD(local_4,0,undefined1) = 1;
   if (param_1[0x9c] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x9c],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x9c],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (param_1[0x13] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x13],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x13],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   *param_1 = &PTR_LAB_0055752c;
   *unaff_FS_OFFSET = local_c;

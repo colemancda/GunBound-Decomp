@@ -22,23 +22,23 @@ void FUN_004a2bc0(undefined4 *param_1)
   *param_1 = &PTR_FUN_005564d0;
   local_4 = 3;
   if (param_1[0x118a] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x118a],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x118a],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 2;
   if (param_1[0x1101] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x1101],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x1101],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 1;
   if (param_1[0x1078] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x1078],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x1078],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 0;
   if (param_1[0xfef] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0xfef],&DAT_0079376c);
-    TreeLowerBound(local_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0xfef],&g_valueGuardKeyTable);
+    TreeLowerBound(local_14,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   DestroyProjectile(param_1);

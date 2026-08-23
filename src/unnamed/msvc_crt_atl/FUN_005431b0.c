@@ -10,7 +10,7 @@
 void FUN_005431b0(void)
 
 {
-  FUN_0040a1c0(&DAT_0079376c);
+  FUN_0040a1c0(&g_valueGuardKeyTable);
   return;
 }
 

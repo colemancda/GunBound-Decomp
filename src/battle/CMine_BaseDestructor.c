@@ -38,13 +38,13 @@ void CMine_BaseDestructor(undefined4 *param_1)
   SUBFIELD(local_4,0,undefined1) = 1;
   param_1[0xff3] = 0xffffffff;
   if (param_1[0x1083] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0x1083],&DAT_0079376c);
-    TreeLowerBound(auStack_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0x1083],&g_valueGuardKeyTable);
+    TreeLowerBound(auStack_14,&g_valueGuardMap);
   }
   local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
   if (param_1[0xffa] != 0) {
-    ScrambleChecksumGuardBytes(param_1[0xffa],&DAT_0079376c);
-    TreeLowerBound(auStack_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(param_1[0xffa],&g_valueGuardKeyTable);
+    TreeLowerBound(auStack_14,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   DestroyProjectile(param_1);

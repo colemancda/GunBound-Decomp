@@ -579,9 +579,9 @@ LAB_0040fd07:
       puVar8[4] = puVar8;
     }
 LAB_0040fd35:
-    pvVar5 = DAT_007934e4;
-    if (DAT_007934e4 != (void *)0x0) {
-      SetWindowLongA(*(HWND *)((int)DAT_007934e4 + 4),-4,*(LONG *)((int)DAT_007934e4 + 0xc));
+    pvVar5 = g_sharedTextInputControl;
+    if (g_sharedTextInputControl != (void *)0x0) {
+      SetWindowLongA(*(HWND *)((int)g_sharedTextInputControl + 4),-4,*(LONG *)((int)g_sharedTextInputControl + 0xc));
       _free(pvVar5);
     }
     if (g_gameStateVTableArray[0] != (undefined *)0x0) {

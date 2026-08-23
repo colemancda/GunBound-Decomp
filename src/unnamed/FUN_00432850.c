@@ -129,17 +129,17 @@ void FUN_00432850(int param_1,int param_2)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 1;
   if (local_19a8 != 0) {
-    ScrambleChecksumGuardBytes(local_19a8,&DAT_0079376c);
+    ScrambleChecksumGuardBytes(local_19a8,&g_valueGuardKeyTable);
     TreeLowerBound();
   }
   local_4 = 0;
   if (local_1bcc != 0) {
-    ScrambleChecksumGuardBytes(local_1bcc,&DAT_0079376c);
+    ScrambleChecksumGuardBytes(local_1bcc,&g_valueGuardKeyTable);
     TreeLowerBound();
   }
   local_4 = 0xffffffff;
   if (local_1df0 != 0) {
-    ScrambleChecksumGuardBytes(local_1df0,&DAT_0079376c);
+    ScrambleChecksumGuardBytes(local_1df0,&g_valueGuardKeyTable);
     TreeLowerBound();
   }
   FloatToInt64();
@@ -151,7 +151,7 @@ void FUN_00432850(int param_1,int param_2)
   LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
   local_4 = 0xffffffff;
   if (local_1df0 != 0) {
-    ScrambleChecksumGuardBytes(local_1df0,&DAT_0079376c);
+    ScrambleChecksumGuardBytes(local_1df0,&g_valueGuardKeyTable);
     TreeLowerBound();
   }
   local_1e0c = 0;
@@ -234,7 +234,7 @@ void FUN_00432850(int param_1,int param_2)
         local_1e24 = 0x10;
         do {
           iVar5 = _rand();
-          *(char *)(iVar4 + DAT_0079376c) = (char)iVar5;
+          *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar5;
           iVar4 = iVar4 + 1;
           local_1e24 = local_1e24 + -1;
         } while (local_1e24 != 0);
@@ -253,7 +253,7 @@ void FUN_00432850(int param_1,int param_2)
         iVar5 = 0x10;
         do {
           iVar6 = _rand();
-          *(char *)(iVar4 + DAT_0079376c) = (char)iVar6;
+          *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar6;
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
@@ -320,11 +320,11 @@ void FUN_00432850(int param_1,int param_2)
         iVar5 = 0x10;
         do {
           iVar6 = _rand();
-          *(char *)(iVar4 + DAT_0079376c) = (char)iVar6;
+          *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar6;
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1c4,&DAT_00793770);
+        TreeLowerBound(&stack0xffffe1c4,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_24 = 0xffffffff;
@@ -333,11 +333,11 @@ void FUN_00432850(int param_1,int param_2)
         iVar5 = 0x10;
         do {
           iVar6 = _rand();
-          *(char *)(iVar4 + DAT_0079376c) = (char)iVar6;
+          *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar6;
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1c4,&DAT_00793770);
+        TreeLowerBound(&stack0xffffe1c4,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = InitGuardedChecksumSlot(piVar3 + 0x81e,auStack_114c,piVar3 + 0xcf2);
@@ -354,11 +354,11 @@ void FUN_00432850(int param_1,int param_2)
         iVar5 = 0x10;
         do {
           iVar6 = _rand();
-          *(char *)(iVar4 + DAT_0079376c) = (char)iVar6;
+          *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar6;
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1c0,&DAT_00793770);
+        TreeLowerBound(&stack0xffffe1c0,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_28 = 0xffffffff;
@@ -367,11 +367,11 @@ void FUN_00432850(int param_1,int param_2)
         iVar5 = 0x10;
         do {
           iVar6 = _rand();
-          *(char *)(iVar4 + DAT_0079376c) = (char)iVar6;
+          *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar6;
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1c0,&DAT_00793770);
+        TreeLowerBound(&stack0xffffe1c0,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = InitGuardedChecksumSlot(piVar3 + 0x8a7,auStack_d08,piVar3 + 0xcf2);
@@ -388,11 +388,11 @@ void FUN_00432850(int param_1,int param_2)
         iVar5 = 0x10;
         do {
           iVar6 = _rand();
-          *(char *)(iVar4 + DAT_0079376c) = (char)iVar6;
+          *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar6;
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1bc,&DAT_00793770);
+        TreeLowerBound(&stack0xffffe1bc,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_2c = 0xffffffff;
@@ -401,11 +401,11 @@ void FUN_00432850(int param_1,int param_2)
         iVar5 = 0x10;
         do {
           iVar6 = _rand();
-          *(char *)(DAT_0079376c + iVar4) = (char)iVar6;
+          *(char *)(g_valueGuardKeyTable + iVar4) = (char)iVar6;
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1bc,&DAT_00793770);
+        TreeLowerBound(&stack0xffffe1bc,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = InitGuardedChecksumSlot(piVar3 + 0x930,auStack_1378,piVar3 + 0xd7b);
@@ -422,11 +422,11 @@ void FUN_00432850(int param_1,int param_2)
         iVar5 = 0x10;
         do {
           iVar6 = _rand();
-          *(char *)(DAT_0079376c + iVar4) = (char)iVar6;
+          *(char *)(g_valueGuardKeyTable + iVar4) = (char)iVar6;
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1b8,&DAT_00793770);
+        TreeLowerBound(&stack0xffffe1b8,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_30 = 0xffffffff;
@@ -435,11 +435,11 @@ void FUN_00432850(int param_1,int param_2)
         iVar5 = 0x10;
         do {
           iVar6 = _rand();
-          *(char *)(iVar4 + DAT_0079376c) = (char)iVar6;
+          *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar6;
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1b8,&DAT_00793770);
+        TreeLowerBound(&stack0xffffe1b8,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = InitGuardedChecksumSlot(piVar3 + 0x9b9,auStack_aec,piVar3 + 0xd7b);
@@ -456,11 +456,11 @@ void FUN_00432850(int param_1,int param_2)
         iVar5 = 0x10;
         do {
           iVar6 = _rand();
-          *(char *)(iVar4 + DAT_0079376c) = (char)iVar6;
+          *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar6;
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1b4,&DAT_00793770);
+        TreeLowerBound(&stack0xffffe1b4,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uStack_34 = 0xffffffff;
@@ -469,11 +469,11 @@ void FUN_00432850(int param_1,int param_2)
         iVar5 = 0x10;
         do {
           iVar6 = _rand();
-          *(char *)(iVar4 + DAT_0079376c) = (char)iVar6;
+          *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar6;
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);
-        TreeLowerBound(&stack0xffffe1b4,&DAT_00793770);
+        TreeLowerBound(&stack0xffffe1b4,&g_valueGuardMap);
         pcVar11 = (code *)LeaveCriticalSection;
       }
       uVar8 = InitGuardedChecksumSlot(piVar3 + 0xa42,auStack_260,piVar3 + 0xd7b);
@@ -490,7 +490,7 @@ void FUN_00432850(int param_1,int param_2)
         local_1e24 = 0x10;
         do {
           iVar5 = _rand();
-          *(char *)(iVar4 + DAT_0079376c) = (char)iVar5;
+          *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar5;
           iVar4 = iVar4 + 1;
           local_1e24 = local_1e24 + -1;
         } while (local_1e24 != 0);
@@ -502,7 +502,7 @@ void FUN_00432850(int param_1,int param_2)
         iVar5 = 0x10;
         do {
           iVar6 = _rand();
-          *(char *)(iVar4 + DAT_0079376c) = (char)iVar6;
+          *(char *)(iVar4 + g_valueGuardKeyTable) = (char)iVar6;
           iVar4 = iVar4 + 1;
           iVar5 = iVar5 + -1;
         } while (iVar5 != 0);

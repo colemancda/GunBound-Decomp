@@ -43,7 +43,7 @@ void __thiscall State09_ReadyRoom_HandleChatInput(int *param_1,int param_2,int p
     if ((param_3 == 0xd) && (DAT_007933b8 == '\x01')) {
       cVar4 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6aa678));
       if (cVar4 == '\0') {
-        FetchActiveTextInputText(DAT_007934e4,acStack_80);
+        FetchActiveTextInputText(g_sharedTextInputControl,acStack_80);
         if ((acStack_80[0] != '\0') &&
            (cVar4 = ParseChatSlashCommand(g_clientContext,acStack_80), cVar4 == '\0')) {
           cVar4 = CheckChatWordFilter(acStack_80);
@@ -77,7 +77,7 @@ void __thiscall State09_ReadyRoom_HandleChatInput(int *param_1,int param_2,int p
         FUN_00426230(g_clientContext);
       }
 LAB_004d67e1:
-      SetWindowTextA(*(HWND *)(DAT_007934e4 + 4),&DAT_00551cb1);
+      SetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&DAT_00551cb1);
       return;
     }
   }
@@ -144,7 +144,7 @@ LAB_004d67e1:
         iVar5 = iVar5 + 1;
         if (7 < iVar5) goto LAB_004d6626;
       }
-      FetchActiveTextInputText(DAT_007934e4,acStack_80);
+      FetchActiveTextInputText(g_sharedTextInputControl,acStack_80);
       pcVar8 = (char *)(iVar5 * 0xd + 0x457f1 + g_clientContext);
       pcVar7 = pcVar8;
       do {
@@ -168,7 +168,7 @@ LAB_004d67e1:
         pcVar12 = pcVar12 + 1;
       }
       uStack_44 = 0;
-      TextEntry_PushTextToControl((int)DAT_007934e4);
+      TextEntry_PushTextToControl((int)g_sharedTextInputControl);
       pcVar8 = acStack_80;
       do {
         cVar4 = *pcVar8;
@@ -182,7 +182,7 @@ LAB_004d67e1:
        * phantom and is passed 0.  The port had been passing the length as
        * that phantom and omitting both real arguments. */
       TextEntry_SetSelection(0,(int)pcVar8 - (int)(acStack_80 + 1),
-                   (int)pcVar8 - (int)(acStack_80 + 1),(int)DAT_007934e4);
+                   (int)pcVar8 - (int)(acStack_80 + 1),(int)g_sharedTextInputControl);
 LAB_004d6626:
       if ((char)param_1[0x133] != '\0') {
         return;

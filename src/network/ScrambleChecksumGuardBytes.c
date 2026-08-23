@@ -32,7 +32,7 @@
  * that site's test.  Watch which register that load targets - it is usually
  * NOT eax (`mov edi,[esi+off]` then `mov eax,edi`), so a check looking only
  * for `mov eax` reports zero matches.  And src/cxx/Mobile.cpp now reads
- * `ScrambleChecksumGuardBytes(g454.tableHandle, &DAT_0079376c)`, where
+ * `ScrambleChecksumGuardBytes(g454.tableHandle, &g_valueGuardKeyTable)`, where
  * `tableHandle` is a field name an earlier session picked independently.
  *
  * RETRACTED (2026-08-20): the note that used to stand here argued this

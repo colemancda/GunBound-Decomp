@@ -613,14 +613,14 @@ LAB_004b4d38:
   if (local_664 != (int *)0x0) {
     ScrambleChecksumGuardBytes();
     local_9ac = piVar16;
-    TreeLowerBound(local_9a4,&DAT_00793770);
+    TreeLowerBound(local_9a4,&g_valueGuardMap);
   }
   piVar16 = local_888;
   local_4 = 0xffffffff;
   if (local_888 != (int *)0x0) {
     ScrambleChecksumGuardBytes();
     local_9ac = piVar16;
-    TreeLowerBound(local_9a4,&DAT_00793770);
+    TreeLowerBound(local_9a4,&g_valueGuardMap);
   }
 LAB_004b541a:
   *unaff_FS_OFFSET = local_c;

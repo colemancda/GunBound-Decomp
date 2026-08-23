@@ -50,7 +50,7 @@ void BeginServerConnect(void *target, int a, int connCtxBase);
 extern unsigned char DAT_005b2ad0[0x80]; /* broker IP - sized, see globals.c */
 extern unsigned int DAT_005b33e8;        /* broker Port - sized, see globals.c */
 extern int DAT_005b2b64;                /* server count hint for the scroll seed */
-extern unsigned int DAT_007934e4;       /* shared EDIT-control singleton (+8 = live flag) */
+extern unsigned int g_sharedTextInputControl;       /* shared EDIT-control singleton (+8 = live flag) */
 extern unsigned int DAT_007934e8;       /* double-buffered connection context */
 extern unsigned int g_directLinkConnection;       /* outgoing packet buffer base */
 extern unsigned int DAT_007934f0;       /* per-connection context base */
@@ -146,7 +146,7 @@ void CState02ServerSelect::OnEnter()
     BuildWorldListPanel(&g_uiPanelManager);
     BeginServerConnect(&DAT_005b2ad0, DAT_005b33e8, (int)DAT_007934f0);
     m_wantInitialList = 1;
-    *(unsigned char *)(DAT_007934e4 + 8) = 1;   /* show the shared EDIT overlay */
+    *(unsigned char *)(g_sharedTextInputControl + 8) = 1;   /* show the shared EDIT overlay */
     /* leftover connected socket from a previous session: tear it down */
     if (*(char *)(DAT_007934e8 + 0x84e5) != 0) {
         int conn = *(int *)(DAT_007934e8 + 0x84e0);

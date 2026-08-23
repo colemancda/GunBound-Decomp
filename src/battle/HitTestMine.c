@@ -75,8 +75,8 @@ HitTestMine(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_4 = 0xffffffff;
         if ((*(int *)(local_454 + 0x14)) != 0) {
-          ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&DAT_0079376c);
-          TreeLowerBound(local_45c,&DAT_00793770);
+          ScrambleChecksumGuardBytes(*(int *)(local_454 + 0x14),&g_valueGuardKeyTable);
+          TreeLowerBound(local_45c,&g_valueGuardMap);
         }
         uVar8 = EncodeChecksumDeltaSub(uVar1 + 0x264,local_230,param_4);
         local_4 = 1;
@@ -85,8 +85,8 @@ HitTestMine(undefined4 param_1,uint param_2,undefined4 param_3,undefined4 param_
         LeaveCriticalSection((LPCRITICAL_SECTION)&DAT_005a9068);
         local_4 = 0xffffffff;
         if ((*(int *)(local_230 + 0x14)) != 0) {
-          ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&DAT_0079376c);
-          TreeLowerBound(local_45c,&DAT_00793770);
+          ScrambleChecksumGuardBytes(*(int *)(local_230 + 0x14),&g_valueGuardKeyTable);
+          TreeLowerBound(local_45c,&g_valueGuardMap);
         }
         return (param_5 * param_5 <= iVar3 * iVar3 + iVar4 * iVar4) - 1 & uVar1;
       }

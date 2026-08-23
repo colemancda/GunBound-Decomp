@@ -20,7 +20,7 @@
 #define GB_VG_OBJ_SIZE 0x224
 
 /* Initialises the value-guard key-table backing store (the original's
- * DAT_0079376c, an anti-cheat XOR key table normally rand()-filled by the
+ * g_valueGuardKeyTable, an anti-cheat XOR key table normally rand()-filled by the
  * value-guard subsystem - see ARCHITECTURE.md). Must run before WinMain's
  * EncodeOutgoingPacketField calls, which index this table. */
 void WinMain_BringupInit(void);

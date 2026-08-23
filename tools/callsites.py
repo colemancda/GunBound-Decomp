@@ -17,7 +17,7 @@ same four things, and each is a trap:
      declaration ends in ';' just like a call statement, and the only thing
      that distinguishes it is the RETURN TYPE in front of the name. Miss it
      and a sweep rewrites prototypes into nonsense like
-         void TreeLowerBound(void *scratch,&DAT_00793770);
+         void TreeLowerBound(void *scratch,&g_valueGuardMap);
      which is exactly what happened, twice, in one day.
 
 Use classify() and act only on kind == 'call'.

@@ -377,8 +377,8 @@ LAB_004a0a52:
   (*pcVar14)(&DAT_005a9068);
   uStack_c = 0xffffffff;
   if (uStack_ab4 != 0) {
-    ScrambleChecksumGuardBytes(uStack_ab4,&DAT_0079376c);
-    TreeLowerBound(&piStack_af0,&DAT_00793770);
+    ScrambleChecksumGuardBytes(uStack_ab4,&g_valueGuardKeyTable);
+    TreeLowerBound(&piStack_af0,&g_valueGuardMap);
     param_1 = piStack_ad4;
     pcVar14 = (code *)LeaveCriticalSection;
     unaff_EBX = uStack_ab4;
@@ -392,8 +392,8 @@ LAB_004a0a52:
   (*pcVar14)(&DAT_005a9068);
   uStack_10 = 0xffffffff;
   if (iStack_ab8 != 0) {
-    ScrambleChecksumGuardBytes(iStack_ab8,&DAT_0079376c);
-    TreeLowerBound(&local_af4,&DAT_00793770);
+    ScrambleChecksumGuardBytes(iStack_ab8,&g_valueGuardKeyTable);
+    TreeLowerBound(&local_af4,&g_valueGuardMap);
     param_1 = piStack_ad8;
     pcVar14 = (code *)LeaveCriticalSection;
   }

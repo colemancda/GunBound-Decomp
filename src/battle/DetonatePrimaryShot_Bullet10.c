@@ -144,8 +144,8 @@ LAB_00481528:
     (*pcVar17)(&DAT_005a9068);
     uStack_c = 0xffffffff;
     if (iStack_ab4 != 0) {
-      ScrambleChecksumGuardBytes(iStack_ab4,&DAT_0079376c);
-      TreeLowerBound(&local_ad0,&DAT_00793770);
+      ScrambleChecksumGuardBytes(iStack_ab4,&g_valueGuardKeyTable);
+      TreeLowerBound(&local_ad0,&g_valueGuardMap);
       pcVar17 = (code *)LeaveCriticalSection;
     }
     pvDelta = EncodeChecksumDeltaShr(param_1 + 0x99,&local_ac8,8);
@@ -164,8 +164,8 @@ LAB_00481528:
     (*pcVar17)();
     uStack_10 = 0xffffffff;
     if (iStack_ab8 != 0) {
-      ScrambleChecksumGuardBytes(iStack_ab8,&DAT_0079376c);
-      TreeLowerBound(&stack0xfffff524,&DAT_00793770);
+      ScrambleChecksumGuardBytes(iStack_ab8,&g_valueGuardKeyTable);
+      TreeLowerBound(&stack0xfffff524,&g_valueGuardMap);
       pcVar17 = (code *)LeaveCriticalSection;
     }
     cVar7 = CheckGuardedBoolAnd(param_1[0x3d2] != 0,(byte *)(param_1 + 0x3d3));
@@ -449,15 +449,15 @@ joined_r0x00481401:
     }
     local_4 = (uint)SUBFIELD(local_4,1,undefined3) << 8;
     if ((*(int *)(local_89c + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&DAT_0079376c);
-      TreeLowerBound(&local_ad0,&DAT_00793770);
+      ScrambleChecksumGuardBytes(*(int *)(local_89c + 0x14),&g_valueGuardKeyTable);
+      TreeLowerBound(&local_ad0,&g_valueGuardMap);
       pcVar17 = (code *)LeaveCriticalSection;
     }
     local_4 = 0xffffffff;
     iVar8 = local_ac8;
     if ((*(int *)(local_ac0 + 0x14)) != 0) {
-      ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&DAT_0079376c);
-      TreeLowerBound(&local_ad0,&DAT_00793770);
+      ScrambleChecksumGuardBytes(*(int *)(local_ac0 + 0x14),&g_valueGuardKeyTable);
+      TreeLowerBound(&local_ad0,&g_valueGuardMap);
       pcVar17 = (code *)LeaveCriticalSection;
       iVar8 = local_ac8;
     }

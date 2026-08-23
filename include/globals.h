@@ -632,7 +632,10 @@ extern uint8_t DAT_007934cc;
 extern uint32_t DAT_007934d8;
 #define _DAT_007934d8 DAT_007934d8
 extern uint32_t DAT_007934e0;
-extern uint32_t DAT_007934e4;
+/* g_sharedTextInputControl (was DAT_007934e4) - the shared overlay EDIT-control
+ * singleton: +0x04 is its HWND, +0x08 a live/visible flag.  Named in
+ * ActivateLegacyTextInputField's header before the symbol itself was renamed. */
+extern uint32_t g_sharedTextInputControl;
 extern uint32_t DAT_007934e8;
 extern uint32_t DAT_007934ec;
 extern uint32_t DAT_007934f0;
@@ -708,8 +711,16 @@ extern uint32_t DAT_0079364c;
 extern uint32_t g_frameTriangleCounter;
 extern uint32_t DAT_00793660;
 extern uint8_t DAT_00793664;
-extern uint32_t DAT_0079376c;
-extern uint8_t DAT_00793770;
+/* g_valueGuardKeyTable (was DAT_0079376c) - base of the CValueGuard key
+ * table: 16-byte key rows indexed by guard handle.  PeekPacketChecksumState
+ * reads a row as g_valueGuardKeyTable + handle * 0x10, EncodeOutgoingPacketField
+ * the same, and ScrambleChecksumGuardBytes re-randomises one row in place. */
+extern uint32_t g_valueGuardKeyTable;
+/* g_valueGuardMap (was DAT_00793770) - the CValueGuard guard-cell std::map
+ * object.  Mobile.cpp and Projectile.cpp both already declared it locally as
+ * "guard-cell std::map object", and ValueGuard.cpp as the key-table registry
+ * root; TreeLowerBound takes its address as the map to search. */
+extern uint8_t g_valueGuardMap;
 extern int *DAT_00793774; /* used dereferenced as a pointer at call sites */
 extern uint32_t DAT_00793778;
 /* Game-event ring drained by PumpBattleActions (orig 0x412bca): parallel

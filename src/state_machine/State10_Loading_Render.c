@@ -277,13 +277,13 @@ LAB_00442907:
     }
     FUN_0041bce0(iVar9);
     if (DAT_007933b8 == '\x01') {
-      if (*(char *)(DAT_007934e4 + 8) == '\0') {
+      if (*(char *)(g_sharedTextInputControl + 8) == '\0') {
         iStack_ac = 0;
         iStack_b0 = 0;
       }
       else {
-        puVar1 = (undefined4 *)(DAT_007934e4 + 4);
-        LVar10 = SendMessageA(*(HWND *)(DAT_007934e4 + 4),0xb0,(WPARAM)&iStack_b0,(LPARAM)&iStack_ac
+        puVar1 = (undefined4 *)(g_sharedTextInputControl + 4);
+        LVar10 = SendMessageA(*(HWND *)(g_sharedTextInputControl + 4),0xb0,(WPARAM)&iStack_b0,(LPARAM)&iStack_ac
                              );
         if (LVar10 == -1) {
           iStack_ac = 0;
@@ -296,8 +296,8 @@ LAB_00442907:
         pHVar11 = ImmGetContext((HWND)*puVar1);
         ImmSetCompositionWindow(pHVar11,lpCompForm);
       }
-      if ((*(char *)(DAT_007934e4 + 8) == '\0') ||
-         (iVar5 = GetWindowTextA(*(HWND *)(DAT_007934e4 + 4),acStack_80,0x80), iVar5 == 0)) {
+      if ((*(char *)(g_sharedTextInputControl + 8) == '\0') ||
+         (iVar5 = GetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),acStack_80,0x80), iVar5 == 0)) {
         acStack_80[0] = '\0';
       }
       iVar5 = iStack_b0;

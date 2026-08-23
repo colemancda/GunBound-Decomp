@@ -475,11 +475,11 @@ LAB_004d896a:
     iVar5 = 0x10;
     do {
       iVar6 = _rand();
-      *(char *)(iVar13 + DAT_0079376c) = (char)iVar6;
+      *(char *)(iVar13 + g_valueGuardKeyTable) = (char)iVar6;
       iVar13 = iVar13 + 1;
       iVar5 = iVar5 + -1;
     } while (iVar5 != 0);
-    TreeLowerBound(&local_a38,&DAT_00793770);
+    TreeLowerBound(&local_a38,&g_valueGuardMap);
   }
   local_c = 0xffffffff;
   if ((*(int *)(local_23c + 0x14)) != 0) {
@@ -487,11 +487,11 @@ LAB_004d896a:
     iVar5 = 0x10;
     do {
       iVar6 = _rand();
-      *(char *)(iVar13 + DAT_0079376c) = (char)iVar6;
+      *(char *)(iVar13 + g_valueGuardKeyTable) = (char)iVar6;
       iVar13 = iVar13 + 1;
       iVar5 = iVar5 + -1;
     } while (iVar5 != 0);
-    TreeLowerBound(&local_a38,&DAT_00793770);
+    TreeLowerBound(&local_a38,&g_valueGuardMap);
   }
   goto LAB_004d8a20;
   while( true ) {
@@ -516,11 +516,11 @@ LAB_004d87cf:
     iVar5 = 0x10;
     do {
       iVar6 = _rand();
-      *(char *)(iVar13 + DAT_0079376c) = (char)iVar6;
+      *(char *)(iVar13 + g_valueGuardKeyTable) = (char)iVar6;
       iVar13 = iVar13 + 1;
       iVar5 = iVar5 + -1;
     } while (iVar5 != 0);
-    TreeLowerBound(&local_a38,&DAT_00793770);
+    TreeLowerBound(&local_a38,&g_valueGuardMap);
   }
   local_c = 0xffffffff;
   if ((*(int *)(local_460 + 0x14)) != 0) {
@@ -528,11 +528,11 @@ LAB_004d87cf:
     iVar5 = 0x10;
     do {
       iVar6 = _rand();
-      *(char *)(iVar13 + DAT_0079376c) = (char)iVar6;
+      *(char *)(iVar13 + g_valueGuardKeyTable) = (char)iVar6;
       iVar13 = iVar13 + 1;
       iVar5 = iVar5 + -1;
     } while (iVar5 != 0);
-    TreeLowerBound(&local_a38,&DAT_00793770);
+    TreeLowerBound(&local_a38,&g_valueGuardMap);
   }
   local_a4c = local_a4c + 0x24;
   iVar3 = iVar3 + 0x224;

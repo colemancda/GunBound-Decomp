@@ -13,7 +13,7 @@
  * is the single clearest demonstration of why this tree exists.
  *
  * Peek() and Encode() reach the process-global key-table registry
- * (DAT_0079376c key words, DAT_00793774 table pointer,
+ * (g_valueGuardKeyTable key words, DAT_00793774 table pointer,
  * g_valueGuardTamperFlag); those globals belong to the guard registry,
  * not the cell, so they stay extern here. */
 #ifndef WIN32_LEAN_AND_MEAN
@@ -25,10 +25,10 @@
 extern "C" {
 CRITICAL_SECTION DAT_005a9068;      /* the family's shared lock */
 unsigned char g_valueGuardTamperFlag;
-int  DAT_0079376c;                  /* key-table base (16 bytes/entry) */
+int  g_valueGuardKeyTable;                  /* key-table base (16 bytes/entry) */
 int *DAT_00793774;                  /* current key-table object ptr (integrity anchor) */
 int  DAT_00793778;                  /* "encoding active" gate */
-int  DAT_00793770;                  /* key-table registry root */
+int  g_valueGuardMap;                  /* key-table registry root */
 void ScrambleChecksumGuardBytes(int slot, int *guardTable);            /* registry re-key step */
 void TreeLowerBound(void *scratch, void *guardMap);
 void FUN_0040b600(void *root, void *field, int tableObj);
@@ -53,7 +53,7 @@ u32 CValueGuard::Peek()
         }
     }
     u32 decoded[4];
-    u32 *key = reinterpret_cast<u32 *>(handle * 0x10 + DAT_0079376c);
+    u32 *key = reinterpret_cast<u32 *>(handle * 0x10 + g_valueGuardKeyTable);
     u32 *enc = &enc0;
     for (int i = 0; i < 4; ++i) {
         decoded[i] = key[i] ^ enc[i];
@@ -80,13 +80,13 @@ void CValueGuard::EncodeOutgoingPacketField(u32 value)
 {
     u32 v = value;
     if (tableHandle != 0) {
-        ScrambleChecksumGuardBytes(tableHandle,&DAT_0079376c);
-        TreeLowerBound(0,&DAT_00793770);
+        ScrambleChecksumGuardBytes(tableHandle,&g_valueGuardKeyTable);
+        TreeLowerBound(0,&g_valueGuardMap);
     }
     int newHandle = 0;
     if (DAT_00793778 != 0) {
         newHandle = *(int *)(*DAT_00793774 + 0xc);
-        FUN_0040b600(&DAT_00793770, &value, (int)DAT_00793774);
+        FUN_0040b600(&g_valueGuardMap, &value, (int)DAT_00793774);
     }
     tableHandle = (u32)newHandle;
     if (newHandle != 0) {
@@ -95,7 +95,7 @@ void CValueGuard::EncodeOutgoingPacketField(u32 value)
             g_valueGuardTamperFlag = 1;
         }
     }
-    u32 *key = reinterpret_cast<u32 *>(newHandle * 0x10 + DAT_0079376c);
+    u32 *key = reinterpret_cast<u32 *>(newHandle * 0x10 + g_valueGuardKeyTable);
     enc0 = key[0] ^ v;
     enc1 = key[1] ^ v;
     enc2 = key[2] ^ v;

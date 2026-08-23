@@ -7,7 +7,7 @@
  * caller passes the string length for both, which is the idiom for moving the
  * caret to the end of the text - see State09_ReadyRoom_HandleChatInput.
  *
- * DROPPED REGISTER RECOVERED: EAX is DAT_007934e4, loaded at its sole call
+ * DROPPED REGISTER RECOVERED: EAX is g_sharedTextInputControl, loaded at its sole call
  * site (0x004d6621).  The object it points at has an HWND at +4 and an enable
  * flag at +8, which is consistent with the SendMessageA below.
  */

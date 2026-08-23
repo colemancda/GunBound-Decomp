@@ -47,13 +47,13 @@ void FUN_004d22d0(int param_1)
     *(undefined4 *)(param_1 + 0x84e0) = 0;
   }
   if (*(int *)(param_1 + 700) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(param_1 + 700),&DAT_0079376c);
-    TreeLowerBound(auStack_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(param_1 + 700),&g_valueGuardKeyTable);
+    TreeLowerBound(auStack_14,&g_valueGuardMap);
   }
   local_4 = 0xffffffff;
   if (*(int *)(param_1 + 0x98) != 0) {
-    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x98),&DAT_0079376c);
-    TreeLowerBound(auStack_14,&DAT_00793770);
+    ScrambleChecksumGuardBytes(*(int *)(param_1 + 0x98),&g_valueGuardKeyTable);
+    TreeLowerBound(auStack_14,&g_valueGuardMap);
   }
   *unaff_FS_OFFSET = uStack_c;
   return;

@@ -585,7 +585,7 @@ LAB_004606d5:
       PeekChecksumStateUnderLock(param_1 + 0x1e19);
       ClampCursorToRect();
     }
-    *(undefined1 *)(DAT_007934e4 + 8) = 1;
+    *(undefined1 *)(g_sharedTextInputControl + 8) = 1;
   }
   if ((-1 < (char)(&DAT_00e52868)[DAT_00e52e68]) ||
      (cVar9 = PacketChecksumNotEquals(g_clientContext + 0x593b4,0xffffffff), cVar9 != '\0')) {
@@ -746,7 +746,7 @@ LAB_004606d5:
         *(undefined1 *)(param_1 + 0x2ffa) = 0;
         QueueOutgoingPacketField(0xffffffff);
         QueueOutgoingPacketField(0xffffffff);
-        *(undefined1 *)(DAT_007934e4 + 8) = 1;
+        *(undefined1 *)(g_sharedTextInputControl + 8) = 1;
       }
       else {
         QueueOutgoingPacketField(0xffffffff);
@@ -754,8 +754,8 @@ LAB_004606d5:
     }
   }
   bVar5 = true;
-  if ((*(char *)(DAT_007934e4 + 8) == '\0') ||
-     (iVar18 = GetWindowTextA(*(HWND *)(DAT_007934e4 + 4),&CStack_91c,0x80), iVar18 == 0)) {
+  if ((*(char *)(g_sharedTextInputControl + 8) == '\0') ||
+     (iVar18 = GetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&CStack_91c,0x80), iVar18 == 0)) {
     CStack_91c = '\0';
   }
   pcVar23 = &CStack_91c;
@@ -780,7 +780,7 @@ LAB_004606d5:
       iVar18 = iVar18 + 1;
     } while (iVar18 < (int)pcVar23 - (int)acStack_91b);
   }
-  SetWindowTextA(*(HWND *)(DAT_007934e4 + 4),&DAT_00551cb1);
+  SetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&DAT_00551cb1);
 LAB_004613ad:
   if (DAT_005b3438 == 2) {
 LAB_004613b2:
@@ -856,8 +856,8 @@ LAB_004613b2:
         ScrubChecksumGuard();
       }
       InvokeWidget(3,0);
-      iVar18 = DAT_007934e4;
-      *(undefined1 *)(DAT_007934e4 + 8) = 0;
+      iVar18 = g_sharedTextInputControl;
+      *(undefined1 *)(g_sharedTextInputControl + 8) = 0;
       SetWindowTextA(*(HWND *)(iVar18 + 4),&DAT_00551cb1);
       QueueBroadcastEvent(0x8006,(int)&g_replayContext);
       uVar11 = PeekChecksumStateUnderLock(param_1 + 0x243);
