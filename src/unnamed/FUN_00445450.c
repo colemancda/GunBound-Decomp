@@ -536,7 +536,7 @@ LAB_004457e7:
           }
           *(undefined4 *)(iVar3 + 0x448) = 0;
           RegisterActiveObject(0, 0, (undefined4 *)0);
-          FUN_0040cf80(&DAT_00e9c0fc);
+          FUN_0040cf80(0,0x2710,(int)&DAT_00e9c0fc,0);
           local_4 = local_4 & 0xffffff00;
           FUN_004254a0();
         }
@@ -938,12 +938,12 @@ LAB_00446f6d:
         *(undefined1 *)(param_1 + 0x32f90) = 0;
         InvokeWidget(52,0);
         InvokeWidget(53,0);
-        FUN_0040cf30(0);
-        FUN_0040cf30(0);
+        FUN_0040cf30(0,0x2710,0,(int)&DAT_00e9c0fc,0);
+        FUN_0040cf30(0,0x2710,0,(int)&DAT_00e9c0fc,1);
         break;
       }
     }
-    FUN_0040cf80(&DAT_00e9c0fc);
+    FUN_0040cf80(0,0x2710,(int)&DAT_00e9c0fc,0);
     break;
   case 0x36:
     RenderInventoryItemDetail(param_1);
