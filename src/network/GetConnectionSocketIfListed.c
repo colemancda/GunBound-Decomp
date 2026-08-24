@@ -9,20 +9,21 @@
  * the caller pushed beforehand.  The membership walk is the point of the
  * function -- a node that has been unlinked no longer yields its socket.
  *
- * NOTE both inputs are still DROPPED at that call site (eax = container =
- * callerThis - 0x2f0, ecx = node = [callerThis + 0x1780]); recovering them is
- * pending, and needs this signature first.
+ * Both inputs are now RECOVERED at that call site: the container arrives as
+ * regEax = callerThis - 0x2f0 and the node as param_1 =
+ * *(callerThis + 0x1780), read off `lea eax,[edi-0x2f0]` and
+ * `mov ecx,[edi+0x1780]` at 0x0050186d-0x0050187d, where EDI holds
+ * FUN_00501770's own entry ECX throughout.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall GetConnectionSocketIfListed(undefined4 *param_1)
+undefined4 __fastcall GetConnectionSocketIfListed(undefined4 *param_1,int regEax)
 
 {
   undefined4 *puVar1;
-  int in_EAX;
   
-  puVar1 = *(undefined4 **)(in_EAX + 4);
+  puVar1 = *(undefined4 **)(regEax + 4);
   while( true ) {
     if (puVar1 == (undefined4 *)0x0) {
       return 0xffffffff;

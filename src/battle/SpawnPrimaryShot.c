@@ -153,7 +153,7 @@ LAB_0042c334:
         local_8b8 = (int *)0x0;
       }
       else {
-        local_8b8 = (int *)FUN_0047eb60();
+        local_8b8 = (int *)FUN_0047eb60((undefined4 *)local_8bc);
       }
       iVar6 = g_clientContext;
       local_4 = 0xffffffff;

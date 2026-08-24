@@ -3,23 +3,26 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * CONSTRUCTOR BODY, ESI RECOVERED: regEsi is the object fresh from
+ * operator_new, held by the caller in local_8bc and passed explicitly now.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_0047eb60(void)
+undefined4 FUN_0047eb60(undefined4 *regEsi)
 
 {
-  undefined4 *unaff_ESI;
   
-  InitProjectile(unaff_ESI,0x186a2);
-  unaff_ESI[0xfe7] = 0;
-  unaff_ESI[0x1028] = 0;
-  *unaff_ESI = &PTR_FUN_005560d0;
-  /* Ghidra emitted a bare `return;` in a value-returning function;
-   * MSVC falls through with whatever's in EAX, gcc 14 rejects it
-   * (-Wreturn-mismatch). This path's result is unused by callers -
-   * return 0 to satisfy both toolchains without inventing a value. */
-  return 0;
+  InitProjectile(regEsi,0x186a2);
+  regEsi[0xfe7] = 0;
+  regEsi[0x1028] = 0;
+  *regEsi = &PTR_FUN_005560d0;
+  /* The original ends `mov eax, esi / ret`: it returns the object it just
+   * initialised.  The port returned 0 while regEsi was an unnamed dropped
+   * register; the caller assigns this result to its object pointer, so
+   * returning 0 nulled the freshly constructed object.  Same class of fix as
+   * AppendToEncodedSocketBuffer's return. */
+  return (undefined4)regEsi;
 }
 

@@ -166,7 +166,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
       piVar5 = (int *)0x0;
     }
     else {
-      piVar5 = (int *)FUN_0048de40();
+      piVar5 = (int *)FUN_0048de40((undefined4 *)local_8b4);
     }
     local_4 = 0xffffffff;
     local_8ac = piVar5;
