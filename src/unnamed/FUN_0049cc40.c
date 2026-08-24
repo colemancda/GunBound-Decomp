@@ -10,7 +10,7 @@
 void * __thiscall FUN_0049cc40(void *param_1,int param_2)
 
 {
-  FUN_0049cc60();
+  FUN_0049cc60((undefined4 *)param_1);
   if ((param_2 & 1) != 0) {
     _free(param_1);
   }
