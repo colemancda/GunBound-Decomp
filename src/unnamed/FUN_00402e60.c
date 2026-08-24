@@ -13,16 +13,20 @@
  * `push eax` where eax=[obj+0x2004] (connection object, param_2) / `push
  * eax` where eax=the just-computed new cursor (length, param_3 - already
  * held in iVar5).
+ *
+ * DROPPED REGISTER RECOVERED (2026-08-24): EAX is *(callerThis + 0x50) --
+ * the exact analogue of FUN_00402cf0's EDI, in the sibling caller
+ * FUN_005063e0.  Same evidence: `mov eax,[esi+0x50]` with ESI = the caller's
+ * entry ECX.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00402e60(int param_1,undefined4 param_2)
+void FUN_00402e60(int param_1,undefined4 param_2,char *regEax)
 
 {
   undefined2 *puVar1;
   char cVar2;
-  char *in_EAX;
   char *pcVar3;
   int iVar4;
   int iVar5;
@@ -59,10 +63,10 @@ void FUN_00402e60(int param_1,undefined4 param_2)
   }
   else {
     local_38 = 0x6e;
-    pcVar3 = in_EAX;
+    pcVar3 = regEax;
     do {
       cVar2 = *pcVar3;
-      pcVar3[(int)(local_37 + -(int)in_EAX)] = cVar2;
+      pcVar3[(int)(local_37 + -(int)regEax)] = cVar2;
       pcVar3 = pcVar3 + 1;
     } while (cVar2 != '\0');
     iVar4 = FUN_00404b00(&local_38);
@@ -70,9 +74,9 @@ void FUN_00402e60(int param_1,undefined4 param_2)
     if (iVar4 == 0) {
       *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       *(undefined2 *)(iVar5 + 0x4d4) = 0x1020;
-      *(undefined4 *)(iVar5 + 0x4d6) = *(undefined4 *)in_EAX;
-      *(undefined4 *)(iVar5 + 0x4da) = *(undefined4 *)(in_EAX + 4);
-      *(undefined4 *)(iVar5 + 0x4de) = *(undefined4 *)(in_EAX + 8);
+      *(undefined4 *)(iVar5 + 0x4d6) = *(undefined4 *)regEax;
+      *(undefined4 *)(iVar5 + 0x4da) = *(undefined4 *)(regEax + 4);
+      *(undefined4 *)(iVar5 + 0x4de) = *(undefined4 *)(regEax + 8);
       iVar4 = *(int *)(iVar5 + 0x44d0);
       *(int *)(iVar5 + 0x44d0) = iVar4 + 0xc;
       *(undefined1 *)(iVar4 + 0x4dc + iVar5) = 0;

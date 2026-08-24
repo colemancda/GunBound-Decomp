@@ -20,7 +20,7 @@ void __thiscall FUN_005063e0(int param_1,int param_2,int param_3,undefined4 para
       if (param_3 != 1) goto LAB_00506412;
       uVar1 = 0;
     }
-    FUN_00402e60(&DAT_00e53e88,uVar1);
+    FUN_00402e60(&DAT_00e53e88,uVar1,(char *)*(int *)(param_1 + 0x50));
     *(undefined1 *)(param_1 + 0x1d) = 1;
   }
 LAB_00506412:

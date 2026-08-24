@@ -12,7 +12,7 @@ void __thiscall FUN_00506430(int param_1,int param_2,int param_3,undefined4 para
 {
   if (param_2 == 0) {
     if (param_3 == 0) {
-      FUN_00402cf0(&DAT_00e53e88);
+      FUN_00402cf0(&DAT_00e53e88,(char *)*(int *)(param_1 + 0x50));
     }
     else if (param_3 != 1) goto LAB_00506460;
     *(undefined1 *)(param_1 + 0x1d) = 1;
