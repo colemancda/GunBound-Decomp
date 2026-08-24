@@ -94,7 +94,34 @@ def locate(entry):
     return _BYNAME.get(entry["func"])
 
 
+_EXCLUDED = None
+
+
+def excluded(entry):
+    """CRT/ATL functions PROGRESS.csv marks EXCLUDED are not port defects.
+
+    The worst offender is __chkstk (0x528380): its EAX is the FRAME SIZE its
+    90 callers load in their prologues, and Ghidra models it as a dropped
+    register like any other.  It sat at the top of this backlog as
+    "FUN_00528380 eax, 90 sites" -- the largest single entry -- and no amount
+    of call-site work could ever close it, because there is nothing wrong.
+    PROGRESS.csv already knows; match by ADDRESS since the JSON predates the
+    rename.
+    """
+    global _EXCLUDED
+    if _EXCLUDED is None:
+        import csv
+        _EXCLUDED = set()
+        for r in csv.reader(open("PROGRESS.csv")):
+            if len(r) > 6 and r[6].startswith("EXCLUDED"):
+                _EXCLUDED.add(int(r[0], 16))
+    m = re.match(r"^FUN_([0-9a-f]{8})$", entry["func"])
+    return bool(m) and int(m.group(1), 16) in _EXCLUDED
+
+
 def classify(entry):
+    if excluded(entry):
+        return "excluded"
     path = locate(entry)
     if not path:
         return "missing"
@@ -156,6 +183,7 @@ def main():
     print("  aliased onto a real parameter      : %d" % len(buckets["aliased"]))
     print("  STILL DECLARED AS A LOCAL (open)   : %d" % len(buckets["open"]))
     print("  file no longer exists              : %d" % len(buckets["missing"]))
+    print("  CRT/ATL, EXCLUDED in PROGRESS.csv  : %d" % len(buckets["excluded"]))
 
     by_func = collections.defaultdict(list)
     for e in buckets["open"]:

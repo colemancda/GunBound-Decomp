@@ -287,8 +287,8 @@ void FUN_00436dc0(int a, int b, unsigned int c);
 void FUN_00436bd0(int a, int b, unsigned int c);
 void FUN_00436ec0(int a, int b);
 char FUN_00450e10(int y);
-void FUN_00458920(int *outA, int *outB, int a, int b, int c, int slope, int accum, int f, int g);
-void FUN_00458a00(int *outA, int *outB, int a, int b, int c, int slope, int accum, int f, int g);
+void FUN_00458920(int *outA, int *outB, int a, int b, int c, int slope, int accum, int f, int g, int steps);
+void FUN_00458a00(int *outA, int *outB, int a, int b, int c, int slope, int accum, int f, int g, int steps);
 void QueueBroadcastEvent(unsigned int event, int replayCtx);
 void BroadcastQueuedEvent(void);
 extern unsigned char DAT_0079352a;
@@ -1153,7 +1153,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 -1 < local_15b4 && local_15b4 < *reinterpret_cast<int *>(&g_nCameraBoundY + g_clientContext) &&
                 *reinterpret_cast<char *>(*reinterpret_cast<int *>(&g_nCameraBoundX + g_clientContext) * local_15b4 +
                     *reinterpret_cast<int *>(&DAT_006a773c + g_clientContext) + iVar12) != '\0') {
-                FUN_00458920(&local_15b8, &local_15b4, local_1584, local_158c, local_1590, local_1588, local_1594, 1, 0);
+                FUN_00458920(&local_15b8, &local_15b4, local_1584, local_158c, local_1590, local_1588, local_1594, 1, 0, stepDelta);
                 EnterCriticalSection(&g_valueGuardLock); EncodeOutgoingPacketField((void *)(pCVar17->m_pad3d + 3), local_15b8 << 8); LeaveCriticalSection(&g_valueGuardLock);
                 EnterCriticalSection(&g_valueGuardLock); EncodeOutgoingPacketField((void *)(pCVar17->m_pad3d + 0x227), local_15b4 << 8); LeaveCriticalSection(&g_valueGuardLock);
                 EnterCriticalSection(&g_valueGuardLock); EncodeOutgoingPacketField((void *)(pCVar17->m_pad3d + 0xf17), local_15b8); LeaveCriticalSection(&g_valueGuardLock);
@@ -1180,7 +1180,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 if ((int)local_15b0[0] <= local_158c) goto LAB_00457294;
                 goto LAB_00456014;
             }
-            FUN_00458920(&local_15b8, &local_15b4, local_1584, local_158c, local_1590, local_1588, local_1594, 0, 1);
+            FUN_00458920(&local_15b8, &local_15b4, local_1584, local_158c, local_1590, local_1588, local_1594, 0, 1, stepDelta);
             EnterCriticalSection(&g_valueGuardLock);
             pCVar17 = local_159c;
             EncodeOutgoingPacketField((void *)(local_159c->m_pad3d + 3), local_15b8 << 8);
@@ -1356,7 +1356,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                     -1 < local_15a4 && local_15a4 < *reinterpret_cast<int *>(&g_nCameraBoundY + g_clientContext) &&
                     *reinterpret_cast<char *>(local_15a4 * *reinterpret_cast<int *>(&g_nCameraBoundX + g_clientContext) +
                         *reinterpret_cast<int *>(&DAT_006a773c + g_clientContext) + iVar13) != '\0') {
-                    FUN_00458a00(&local_15b8, &local_15b4, iVar12, local_158c, local_1590, local_1588, local_1594, 1, 0);
+                    FUN_00458a00(&local_15b8, &local_15b4, iVar12, local_158c, local_1590, local_1588, local_1594, 1, 0, stepDelta);
                     EnterCriticalSection(&g_valueGuardLock); EncodeOutgoingPacketField((void *)(pCVar17->m_pad3d + 3), local_15b8 << 8); LeaveCriticalSection(&g_valueGuardLock);
                     EnterCriticalSection(&g_valueGuardLock); EncodeOutgoingPacketField((void *)(pCVar17->m_pad3d + 0x227), local_15b4 << 8); LeaveCriticalSection(&g_valueGuardLock);
                     EnterCriticalSection(&g_valueGuardLock); EncodeOutgoingPacketField((void *)(pCVar17->m_pad3d + 0xf17), local_15b8); LeaveCriticalSection(&g_valueGuardLock);
@@ -1386,7 +1386,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 }
                 cVar8 = FUN_00450e10(local_15a4);
                 if (cVar8 != '\0') {
-                    FUN_00458a00(&local_15b8, &local_15b4, iVar12, local_158c, local_1590, local_1588, local_1594, 0, 1);
+                    FUN_00458a00(&local_15b8, &local_15b4, iVar12, local_158c, local_1590, local_1588, local_1594, 0, 1, stepDelta);
                     EnterCriticalSection(&g_valueGuardLock);
                     pCVar17 = local_159c;
                     EncodeOutgoingPacketField((void *)(local_159c->m_pad3d + 3), local_15b8 << 8);

@@ -1850,6 +1850,9 @@ undefined8 __fastcall FUN_0051c6a0();
 void __thiscall FUN_004fe420(undefined4 param_1,undefined4 param_2,undefined4 param_3,
                              undefined4 param_4,undefined4 regEax);
 
+void FUN_00458920(int *param_1,int *param_2,int param_3,int param_4,int param_5,int param_6,int param_7,char param_8,char param_9,int regEax);
+void FUN_00458a00(int *param_1,int *param_2,int param_3,int param_4,int param_5,int param_6,int param_7,char param_8,char param_9,int regEax);
+
 void FUN_00543210(void);
 void FUN_00543220(void);
 void FUN_00543280(void);

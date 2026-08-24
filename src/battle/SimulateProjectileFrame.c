@@ -319,7 +319,7 @@ LAB_004560f2:
                 (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * local_15b4 +
                            *(int *)(&DAT_006a773c + g_clientContext) + iVar13) != '\0')))) {
         FUN_00458920(&local_15b8,&local_15b4,local_1584,local_158c,local_1590,local_1588,local_1594,
-                     1,0);
+                     1,0,param_2);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15b8 << 8);
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -360,7 +360,7 @@ LAB_004560f2:
         goto LAB_00456014;
       }
       FUN_00458920(&local_15b8,&local_15b4,local_1584,local_158c,local_1590,local_1588,local_1594,0,
-                   1);
+                   1,param_2);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar12 = local_159c;
       EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15b8 << 8);
@@ -590,7 +590,7 @@ LAB_00456a3c:
             (*(char *)(local_15a4 * *(int *)(&g_nCameraBoundX + g_clientContext) +
                        *(int *)(&DAT_006a773c + g_clientContext) + iVar16) != '\0')))) {
           FUN_00458a00(&local_15b8,&local_15b4,iVar12,local_158c,local_1590,local_1588,local_1594,1,
-                       0);
+                       0,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15b8 << 8);
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -629,7 +629,7 @@ LAB_00456a3c:
         cVar8 = FUN_00450e10(local_15a4);
         if (cVar8 != '\0') {
           FUN_00458a00(&local_15b8,&local_15b4,iVar12,local_158c,local_1590,local_1588,local_1594,0,
-                       1);
+                       1,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar12 = local_159c;
           EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15b8 << 8);

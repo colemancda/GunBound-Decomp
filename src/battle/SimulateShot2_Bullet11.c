@@ -315,7 +315,7 @@ LAB_004735e2:
         cVar8 = FUN_00450e10(local_15b8);
         if (cVar8 != '\0') {
           FUN_00458920(&local_15bc,&local_15b8,local_1588,local_1598,local_1594,local_158c,
-                       local_159c,0,1);
+                       local_159c,0,1,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar13 = local_1590;
           EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15bc << 8);
@@ -355,7 +355,7 @@ LAB_004735e2:
         goto LAB_00473504;
       }
       FUN_00458920(&local_15bc,&local_15b8,local_1588,local_1598,local_1594,local_158c,local_159c,1,
-                   0);
+                   0,param_2);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15bc << 8);
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -575,7 +575,7 @@ LAB_00473e6c:
             (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * local_15a8 +
                        *(int *)(&DAT_006a773c + g_clientContext) + iVar17) != '\0')))) {
           FUN_00458a00(&local_15bc,&local_15b8,iVar12,local_1598,local_1594,local_158c,local_159c,1,
-                       0);
+                       0,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15bc << 8);
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -605,7 +605,7 @@ LAB_00473e6c:
         cVar8 = FUN_00450e10(local_15a8);
         if (cVar8 != '\0') {
           FUN_00458a00(&local_15bc,&local_15b8,iVar12,local_1598,local_1594,local_158c,local_159c,0,
-                       1);
+                       1,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar12 = local_1590;
           EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15bc << 8);

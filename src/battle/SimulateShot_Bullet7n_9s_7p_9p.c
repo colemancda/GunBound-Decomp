@@ -314,7 +314,7 @@ LAB_0049b2e9:
             (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * uVar16 +
                        *(int *)(&DAT_006a773c + g_clientContext) + uVar11) != '\0')))) {
           FUN_00458920(&local_15b0,&local_15a0,local_1580[0],local_1594,local_1590,iVar14,local_159c
-                       ,1,0);
+                       ,1,0,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15b0 << 8);
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -526,7 +526,7 @@ LAB_0049b9fa:
             (*(char *)(*(int *)(&g_nCameraBoundX + g_clientContext) * uVar16 +
                        *(int *)(&DAT_006a773c + g_clientContext) + uVar11) != '\0')))) {
           FUN_00458a00(&local_15b0,&local_15a0,local_1588[0],local_1594,local_1590,iVar19,local_159c
-                       ,1,0);
+                       ,1,0,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           EncodeOutgoingPacketField((void *)(param_1 + 0x10), local_15b0 << 8);
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

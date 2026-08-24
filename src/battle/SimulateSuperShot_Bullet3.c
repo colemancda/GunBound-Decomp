@@ -319,7 +319,7 @@ LAB_0048bc2e:
         iVar3 = local_15b4;
         if (cVar1 != '\0') {
           FUN_00458920(&local_15c4,&local_15bc,local_159c,local_15a4,local_1590,local_1578,
-                       local_1588,0,1);
+                       local_1588,0,1,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar3 = local_15b4;
           EncodeOutgoingPacketField((void *)(local_15b4 + 0x40),local_15c4 << 8);
@@ -626,7 +626,7 @@ LAB_0048c664:
         iVar3 = local_15b4;
         if (cVar1 != '\0') {
           FUN_00458a00(&local_15c4,&local_15bc,local_159c,local_15a4,local_1590,local_1578,
-                       local_1588,0,1);
+                       local_1588,0,1,param_2);
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
           iVar3 = local_15b4;
           EncodeOutgoingPacketField((void *)(local_15b4 + 0x40),local_15c4 << 8);

@@ -29,6 +29,8 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'tools'))
 
+CHKSTK = 0x528380   # __chkstk in this binary (PROGRESS.csv)
+
 MEM = re.compile(r'\[(esp|ebp)\s*([-+])\s*(0x[0-9a-f]+|\d+)\]')
 MEM0 = re.compile(r'\[(esp|ebp)\]')
 
@@ -80,6 +82,7 @@ def model(ins):
     """
     out, delta, ok = [], 0, True
     ebp_frame = None
+    last_eax_imm = None
     targets = set()
     # An indirect jump is a switch dispatch: blocks after it are reached only
     # through a table this walk cannot follow, so a linear delta carried into
@@ -103,17 +106,33 @@ def model(ins):
             seen_delta[i.address] = delta
         out.append((i, delta, ok))
         o = i.op_str
+        mi = re.match(r'^eax,\s*(0x[0-9a-f]+|\d+)$', o)
+        if i.mnemonic == 'mov' and mi:
+            last_eax_imm = int(mi.group(1), 0)
         if i.mnemonic == 'push':
             delta -= 4
         elif i.mnemonic == 'pop':
             delta += 4
         elif i.mnemonic == 'call':
             m = re.match(r'^0x([0-9a-f]+)$', o.strip())
-            pops = callee_pops(int(m.group(1), 16)) if m else None
-            if pops is None:
-                ok = False           # unknown callee: cannot say what it pops
+            tgt = int(m.group(1), 16) if m else None
+            if tgt == CHKSTK:
+                # MSVC's large-frame prologue: `mov eax, SIZE / call __chkstk`
+                # probes and then allocates SIZE bytes -- the frame allocation
+                # itself.  Modelled as an opaque call this loses the entire
+                # frame, and every [esp+N] in a >4KB function comes out
+                # thousands of bytes wrong (a local at esp+0x15fc reported as
+                # "parameter +5436").  The size is whatever the last
+                # `mov eax, imm` loaded.
+                delta -= last_eax_imm if last_eax_imm is not None else 0
+                if last_eax_imm is None:
+                    ok = False
             else:
-                delta += pops
+                pops = callee_pops(tgt) if tgt is not None else None
+                if pops is None:
+                    ok = False       # unknown callee: cannot say what it pops
+                else:
+                    delta += pops
         elif i.mnemonic in ('sub', 'add') and o.startswith('esp,'):
             m = re.match(r'esp,\s*(0x[0-9a-f]+|\d+)$', o)
             if m:
@@ -124,7 +143,10 @@ def model(ins):
         elif i.mnemonic == 'mov' and o == 'ebp, esp':
             ebp_frame = delta
         elif re.match(r'^(esp|ebp),', o) and i.mnemonic in ('mov', 'lea', 'xor'):
-            if o.startswith('esp,'):
+            # `lea esp, [esp]` is alignment padding (a multi-byte nop), not a
+            # write.  Flagging it poisoned every function that happened to
+            # contain one.
+            if o.startswith('esp,') and not re.match(r'^esp, \[esp\]$', o):
                 ok = False
     return out, ebp_frame
 
