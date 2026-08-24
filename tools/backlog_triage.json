@@ -8592,7 +8592,7 @@
   ]
  },
  {
-  "func": "FUN_0046af00",
+  "func": "DropCaseProjectile_DtorBody",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -8601,7 +8601,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_0046af00.c",
+  "path": "src/unnamed/DropCaseProjectile_DtorBody.c",
   "per_site": [
    {
     "va": "0x46aee5",
@@ -8668,7 +8668,7 @@
   ]
  },
  {
-  "func": "FUN_00476f70",
+  "func": "ItemCase_DtorBody",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -8677,7 +8677,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00476f70.c",
+  "path": "src/unnamed/ItemCase_DtorBody.c",
   "per_site": [
    {
     "va": "0x476f55",
@@ -8725,7 +8725,7 @@
   ]
  },
  {
-  "func": "FUN_0047aaf0",
+  "func": "KnightFlameShot_DtorBody",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -8734,7 +8734,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_0047aaf0.c",
+  "path": "src/unnamed/KnightFlameShot_DtorBody.c",
   "per_site": [
    {
     "va": "0x47aad5",
@@ -8896,7 +8896,7 @@
   ]
  },
  {
-  "func": "FUN_004aa8e0",
+  "func": "BlastEffect_DtorBody",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -8905,7 +8905,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_004aa8e0.c",
+  "path": "src/unnamed/BlastEffect_DtorBody.c",
   "per_site": [
    {
     "va": "0x4aa8c5",
@@ -10314,7 +10314,7 @@
   ]
  },
  {
-  "func": "FUN_00503910",
+  "func": "GetConnectionSocketIfListed",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -10323,7 +10323,7 @@
   "buckets": {
    "OBJ-REL": 1
   },
-  "path": "src/unnamed/FUN_00503910.c",
+  "path": "src/unnamed/GetConnectionSocketIfListed.c",
   "per_site": [
    {
     "va": "0x50187d",

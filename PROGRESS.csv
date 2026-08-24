@@ -667,8 +667,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0046a4a0,32,FUN_0046a4a0,false,1,2,RAW-src
 0046a4c0,13,FUN_0046a4c0,false,1,1,RAW-src
 0046a4d0,2570,FUN_0046a4d0,false,1,29,RAW-src
-0046aee0,32,FUN_0046aee0,false,1,2,RAW-src
-0046af00,13,FUN_0046af00,false,1,1,RAW-src
+0046aee0,32,DropCaseProjectile_ScalarDtor,false,1,2,RAW-src
+0046af00,13,DropCaseProjectile_DtorBody,false,1,1,RAW-src
 0046af10,1778,FUN_0046af10,false,1,23,RAW-src
 0046b610,53,FUN_0046b610,false,1,4,RAW-src
 0046b650,32,FUN_0046b650,false,1,2,RAW-src
@@ -723,8 +723,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004765a0,32,DeleteItemShot,false,1,2,RAW-src
 004765c0,13,DestroyItemShot,false,1,1,RAW-src
 004765d0,2430,DetonateItemShot,false,1,31,RAW-src
-00476f50,32,FUN_00476f50,false,1,2,RAW-src
-00476f70,13,FUN_00476f70,false,1,1,RAW-src
+00476f50,32,ItemCase_ScalarDtor,false,1,2,RAW-src
+00476f70,13,ItemCase_DtorBody,false,1,1,RAW-src
 00476f80,442,FUN_00476f80,false,1,9,RAW-src
 00477140,1291,FUN_00477140,false,1,14,RAW-src
 00477650,716,FUN_00477650,false,1,10,RAW-src
@@ -739,8 +739,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00479910,641,FUN_00479910,false,1,12,RAW-src
 00479ba0,3496,TickJewelFrame,false,1,47,RAW-src
 0047a960,355,RenderJewel,false,1,4,RAW-src
-0047aad0,32,FUN_0047aad0,false,1,2,RAW-src
-0047aaf0,13,FUN_0047aaf0,false,1,1,RAW-src
+0047aad0,32,KnightFlameShot_ScalarDtor,false,1,2,RAW-src
+0047aaf0,13,KnightFlameShot_DtorBody,false,1,1,RAW-src
 0047ab00,83,FUN_0047ab00,false,1,4,RAW-src
 0047ab60,32,FUN_0047ab60,false,1,2,RAW-src
 0047ab80,13,Mobile14_Destructor,false,1,1,RAW-src
@@ -895,8 +895,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004aa4d0,69,FUN_004aa4d0,false,1,0,RAW-src
 004aa520,409,FUN_004aa520,false,1,4,RAW-src
 004aa830,142,InitBlastEffect,false,3,4,RAW-src
-004aa8c0,32,FUN_004aa8c0,false,1,2,RAW-src
-004aa8e0,13,FUN_004aa8e0,false,1,1,RAW-src
+004aa8c0,32,BlastEffect_ScalarDtor,false,1,2,RAW-src
+004aa8e0,13,BlastEffect_DtorBody,false,1,1,RAW-src
 004aa8f0,905,FUN_004aa8f0,false,1,12,RAW-src
 004aac80,32,FUN_004aac80,false,2,2,RAW-src
 004aaca0,13,FUN_004aaca0,false,1,1,RAW-src
@@ -1505,7 +1505,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 005037f0,32,FUN_005037f0,false,4,0,RAW-src
 00503810,35,FUN_00503810,false,1,0,RAW-src
 00503840,201,FUN_00503840,false,2,4,RAW-src
-00503910,25,FUN_00503910,false,1,0,RAW-src
+00503910,25,GetConnectionSocketIfListed,false,1,0,RAW-src
 00503930,101,FUN_00503930,false,1,1,RAW-src
 005039a0,97,FUN_005039a0,false,1,2,RAW-src
 00503a10,61,FUN_00503a10,false,2,2,RAW-src

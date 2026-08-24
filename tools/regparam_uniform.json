@@ -747,7 +747,7 @@
   }
  },
  {
-  "func": "FUN_00503910",
+  "func": "GetConnectionSocketIfListed",
   "sites": 1,
   "uniform": {
    "eax": "[edi - 0x2f0]",

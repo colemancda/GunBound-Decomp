@@ -1,11 +1,10 @@
-/* FUN_00476f70 - 0x00476f70 in the original binary.
+/* ItemCase_DtorBody - 0x00476f70 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The ItemCase destructor body -- vtable PTR_FUN_00555fbc, installed only by
+ * SpawnItemCase.  See DropCaseProjectile_DtorBody for the pattern.
  *
  DROPPED REGISTER RECOVERED: EAX is the object being destroyed.  This is a
- * destructor body whose scalar-deleting wrapper (FUN_00476f50) receives the object as
+ * destructor body whose scalar-deleting wrapper (ItemCase_ScalarDtor) receives the object as
  * its __thiscall param_1 (ECX), never writes EAX, and calls this -- so EAX at
  * this call IS that param_1, traced through the caller by
  * tools/reg_trace_caller.py and passed explicitly now.
@@ -13,7 +12,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00476f70(undefined4 *regEax)
+void ItemCase_DtorBody(undefined4 *regEax)
 
 {
   *regEax = &PTR_FUN_00555fbc;

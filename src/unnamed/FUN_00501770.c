@@ -348,7 +348,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
         FUN_004fefe0();
         namelen = &local_4984;
         name = &local_496c;
-        s = FUN_00503910();
+        s = GetConnectionSocketIfListed();
         iVar7 = getpeername(s,name,(int *)namelen);
         pcVar12 = local_4980;
         if (iVar7 == 0) {
