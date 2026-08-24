@@ -1,0 +1,516 @@
+{
+ "FUN_004e4fe0/eax": [
+  [
+   "DetonateShot1_Bullet7",
+   "0x44cdfa",
+   -2792,
+   "local"
+  ],
+  [
+   "FUN_004513b0",
+   "0x451b1f",
+   -2788,
+   "local"
+  ],
+  [
+   "DetonateProjectile",
+   "0x45775a",
+   -2792,
+   "local"
+  ],
+  [
+   "DetonateShot2_Bullet9",
+   "0x4659aa",
+   -2792,
+   "local"
+  ],
+  [
+   "DetonateShot2_Bullet1",
+   "0x468d6b",
+   -2784,
+   "local"
+  ],
+  [
+   "FUN_0046b680",
+   "0x46bb2a",
+   -2792,
+   "local"
+  ],
+  [
+   "DetonateShot1_Bullet9_16",
+   "0x46ea4a",
+   -2792,
+   "local"
+  ],
+  [
+   "DetonateShot2_Bullet11",
+   "0x474afa",
+   -2808,
+   "local"
+  ],
+  [
+   "DetonateShot1_Bullet8",
+   "0x482c5b",
+   -2792,
+   "local"
+  ],
+  [
+   "DetonateSuperShot_Bullet2_8_11",
+   "0x48449a",
+   -2788,
+   "local"
+  ],
+  [
+   "DetonateSuperShot_Bullet13",
+   "0x487b71",
+   -2792,
+   "local"
+  ],
+  [
+   "DetonateSuperShot_Bullet3_5_14",
+   "0x48e67a",
+   -2788,
+   "local"
+  ],
+  [
+   "DetonateSuperShot_Bullet9",
+   "0x490cca",
+   -2788,
+   "local"
+  ],
+  [
+   "DetonateShot2_Bullet3",
+   "0x494dba",
+   -2792,
+   "local"
+  ],
+  [
+   "DetonateShot2_Bullet7",
+   "0x496850",
+   -3348,
+   "local"
+  ],
+  [
+   "DetonateSuperShot_Bullet7",
+   "0x49a39a",
+   -2788,
+   "local"
+  ],
+  [
+   "FUN_0049d270",
+   "0x49d71a",
+   -2792,
+   "local"
+  ],
+  [
+   "DetonateShot2_Bullet13",
+   "0x4a0db4",
+   -2808,
+   "local"
+  ],
+  [
+   "DetonatePrimaryShot_Bullet4",
+   "0x4a36e6",
+   -3348,
+   "local"
+  ],
+  [
+   "DetonateShot2_Bullet2",
+   "0x4a5320",
+   -3348,
+   "local"
+  ],
+  [
+   "DetonateShot2_Bullet8",
+   "0x4a9673",
+   -2784,
+   "local"
+  ],
+  [
+   "DetonateSuperShot_Bullet4",
+   "0x4ad87f",
+   -2788,
+   "local"
+  ],
+  [
+   "DetonateShot2_Bullet12",
+   "0x4b01c3",
+   -3348,
+   "local"
+  ],
+  [
+   "DetonateShot1_Bullet12",
+   "0x4b1cba",
+   -2792,
+   "local"
+  ]
+ ],
+ "FUN_004026a0/ebx": [
+  [
+   "FUN_00402720",
+   "0x4028e9",
+   4,
+   "param_1 [int param_1]"
+  ],
+  [
+   "FUN_00402900",
+   "0x402ab6",
+   4,
+   "param_1 [int param_1]"
+  ],
+  [
+   "FUN_00402ad0",
+   "0x402cda",
+   4,
+   "param_1 [int param_1]"
+  ]
+ ],
+ "FUN_00423e20/eax": [
+  [
+   "ApplyAvatarStatBonuses",
+   "0x424b0f",
+   4,
+   "param_1 [undefined4 param_1]"
+  ],
+  [
+   "ApplyAvatarStatBonuses",
+   "0x424c6e",
+   8,
+   "param_2 [undefined4 param_2]"
+  ],
+  [
+   "ApplyAvatarStatBonuses",
+   "0x424e3d",
+   4,
+   "param_1 [undefined4 param_1]"
+  ],
+  [
+   "ApplyAvatarStatBonuses",
+   "0x42500c",
+   8,
+   "param_2 [undefined4 param_2]"
+  ]
+ ],
+ "FUN_00438360/esi": [
+  [
+   "BeginNewTurn",
+   "0x4d0aee",
+   -144,
+   "local"
+  ]
+ ],
+ "FUN_00503e30/esi": [
+  [
+   "FUN_00501770",
+   "0x5018fb",
+   -18792,
+   "local"
+  ]
+ ],
+ "FUN_00503e30/edi": [
+  [
+   "FUN_00501770",
+   "0x501faf",
+   -18792,
+   "local"
+  ],
+  [
+   "FUN_00501770",
+   "0x50231f",
+   -18792,
+   "local"
+  ]
+ ],
+ "DarkenTerrainScorchRow/eax": [
+  [
+   "CarveTerrainCrater",
+   "0x4e47fd",
+   8,
+   "param_2 [int param_2]"
+  ],
+  [
+   "CarveTerrainCrater",
+   "0x4e48e8",
+   -12,
+   "local"
+  ],
+  [
+   "CarveTerrainCrater",
+   "0x4e493c",
+   -20,
+   "local"
+  ]
+ ],
+ "FUN_004024f0/eax": [
+  [
+   "FUN_00402720",
+   "0x4027f7",
+   8,
+   "param_2 [char *param_2]"
+  ],
+  [
+   "FUN_004032c0",
+   "0x4034f4",
+   8,
+   "param_3 [undefined4 param_3]"
+  ],
+  [
+   "FUN_004032c0",
+   "0x40352a",
+   8,
+   "param_3 [undefined4 param_3]"
+  ]
+ ],
+ "FUN_004e43d0/eax": [
+  [
+   "DetonateSuperShot_Bullet13",
+   "0x487081",
+   -2792,
+   "local"
+  ],
+  [
+   "DetonateShot2_Bullet13",
+   "0x49ff01",
+   -2808,
+   "local"
+  ]
+ ],
+ "WrapChatLineText/eax": [
+  [
+   "AppendChatLogEntry",
+   "0x41bb6a",
+   20,
+   "param_5 [char *param_5]"
+  ],
+  [
+   "FUN_0041ef90",
+   "0x41f116",
+   24,
+   "param_6 [undefined4 param_6]"
+  ]
+ ],
+ "FUN_00401fa0/esi": [
+  [
+   "FUN_00403d20",
+   "0x403d4d",
+   8,
+   "param_2 [undefined4 param_2]"
+  ]
+ ],
+ "FUN_004d24f0/edi": [
+  [
+   "ProcessIncomingPackets",
+   "0x4d2b5e",
+   16,
+   "stack arg 4 but caller declares 2"
+  ]
+ ],
+ "ComputeShotViewBounds/eax": [
+  [
+   "SpawnPrimaryShot",
+   "0x42bbdf",
+   -2216,
+   "local"
+  ],
+  [
+   "SpawnSuperShot",
+   "0x42de9f",
+   -2212,
+   "local"
+  ],
+  [
+   "SpawnItemProjectile",
+   "0x431809",
+   16,
+   "param_4 [int param_4]"
+  ]
+ ],
+ "FindItemGridCell/edi": [
+  [
+   "State09_ReadyRoom_HandleChatInput",
+   "0x4d663a",
+   -196,
+   "local"
+  ]
+ ],
+ "TextEntry_SetControlText/esi": [
+  [
+   "FUN_005056c0",
+   "0x5056ee",
+   8,
+   "stack arg 2 but caller declares 1"
+  ],
+  [
+   "BuildCreateRoomDialog",
+   "0x50827d",
+   24,
+   "stack arg 6 but caller declares ?"
+  ],
+  [
+   "FUN_00508a50",
+   "0x508b2d",
+   20,
+   "stack arg 5 but caller declares 1"
+  ]
+ ],
+ "FUN_004ff310/edi": [
+  [
+   "FUN_004fef70",
+   "0x4fef7d",
+   0,
+   "RETADDR(count off)"
+  ],
+  [
+   "FUN_004ff130",
+   "0x4ff13d",
+   0,
+   "RETADDR(count off)"
+  ],
+  [
+   "FUN_00500ef0",
+   "0x500efd",
+   0,
+   "RETADDR(count off)"
+  ]
+ ],
+ "FUN_00503a10/edi": [
+  [
+   "FUN_00501770",
+   "0x501a15",
+   -18776,
+   "local"
+  ]
+ ],
+ "FUN_0050cdb0/esi": [
+  [
+   "FUN_0050a320",
+   "0x50a370",
+   -16,
+   "local"
+  ]
+ ],
+ "FUN_004048e0/ebx": [
+  [
+   "FUN_00403170",
+   "0x40323c",
+   -528,
+   "local"
+  ]
+ ],
+ "FUN_00404dd0/eax": [
+  [
+   "FUN_004049a0",
+   "0x4049aa",
+   0,
+   "RETADDR(count off)"
+  ]
+ ],
+ "FUN_0046cb60/eax": [
+  [
+   "CreateMobile",
+   "0x42b4c7",
+   28,
+   "param_8 [char *param_8]"
+  ]
+ ],
+ "FUN_00477140/esi": [
+  [
+   "FUN_00477650",
+   "0x4778fc",
+   32,
+   "stack arg 8 but caller declares 4"
+  ]
+ ],
+ "FUN_004e5cc0/edi": [
+  [
+   "HandleSocketEvent",
+   "0x4e5958",
+   -16440,
+   "local"
+  ]
+ ],
+ "FUN_004eaeb0/eax": [
+  [
+   "BlitRLESprite",
+   "0x4eb49f",
+   -8,
+   "local"
+  ]
+ ],
+ "FUN_004fcf70/edi": [
+  [
+   "FUN_004fd680",
+   "0x4fd71f",
+   -6016,
+   "local"
+  ]
+ ],
+ "FUN_004ff690/eax": [
+  [
+   "CommEngineNotifyWndProc",
+   "0x4fe7fb",
+   20,
+   "stack arg 5 but caller declares 4"
+  ]
+ ],
+ "FUN_00500840/ebx": [
+  [
+   "FUN_004fed40",
+   "0x4fed93",
+   -8,
+   "local"
+  ]
+ ],
+ "FUN_00500940/eax": [
+  [
+   "FUN_004ff770",
+   "0x4ffb2c",
+   -11918,
+   "local"
+  ]
+ ],
+ "FUN_00501560/ebx": [
+  [
+   "FUN_00500940",
+   "0x500991",
+   -8,
+   "local"
+  ]
+ ],
+ "FUN_005039a0/edi": [
+  [
+   "FUN_00501770",
+   "0x502403",
+   -18776,
+   "local"
+  ]
+ ],
+ "FUN_005052b0/esi": [
+  [
+   "FUN_0050a1b0",
+   "0x50a283",
+   12,
+   "param_3 [int y]"
+  ]
+ ],
+ "DrawFontString/eax": [
+  [
+   "State11_InBattle_RenderHud",
+   "0x4c8aa3",
+   -132,
+   "local"
+  ],
+  [
+   "State11_InBattle_RenderHud",
+   "0x4c8ae8",
+   -140,
+   "local"
+  ],
+  [
+   "State11_InBattle_RenderHud",
+   "0x4c8b3a",
+   -144,
+   "local"
+  ]
+ ]
+}

@@ -265,7 +265,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
           if (iVar4 != 0) {
             iVar4 = __stricmp(local_220,s_loudall_00553580);
             if (iVar4 == 0) {
-              FUN_00425960();
+              FUN_00425960(param_1);
               return 1;
             }
             iVar4 = __stricmp(local_220,s_comsik_00553578);

@@ -451,7 +451,7 @@ void FUN_00425770(int clientContext);
 undefined4 FUN_004257b0();
 void FUN_00425840();
 void FUN_004258e0();
-void FUN_00425960();
+void FUN_00425960(int regEbx);
 uint FUN_004259d0();
 void FUN_00425a30();
 uint HitTestLocalMobile();

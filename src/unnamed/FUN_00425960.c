@@ -4,25 +4,31 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED REGISTER RECOVERED (2026-08-24): EBX is g_clientContext, arriving
+ * as ParseChatSlashCommand's own param_1.  At the sole call site (0x00421f88)
+ * EBX is loaded from a slot +4 above the caller's frame -- its first stack
+ * parameter -- and the body reads it as an arena base (`[regEbx + 0x67ec60]`,
+ * `+0x67ec70`), which is what the context looks like.  Found by
+ * tools/above_frame_params.py.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00425960(void)
+void FUN_00425960(int regEbx)
 
 {
-  int unaff_EBX;
   int iVar1;
   
-  if (*(int *)(&DAT_0067ec60 + unaff_EBX) != 0) {
-    for (iVar1 = *(int *)(&DAT_0067ec64 + unaff_EBX); iVar1 != 0; iVar1 = iVar1 + -1) {
+  if (*(int *)(&DAT_0067ec60 + regEbx) != 0) {
+    for (iVar1 = *(int *)(&DAT_0067ec64 + regEbx); iVar1 != 0; iVar1 = iVar1 + -1) {
       FUN_00405320();
     }
-    _free(*(void **)(&DAT_0067ec60 + unaff_EBX));
-    *(undefined4 *)(&DAT_0067ec60 + unaff_EBX) = 0;
+    _free(*(void **)(&DAT_0067ec60 + regEbx));
+    *(undefined4 *)(&DAT_0067ec60 + regEbx) = 0;
   }
-  *(undefined4 *)(&DAT_0067ec64 + unaff_EBX) = 0;
-  *(undefined4 *)(&DAT_0067ec68 + unaff_EBX) = 0;
+  *(undefined4 *)(&DAT_0067ec64 + regEbx) = 0;
+  *(undefined4 *)(&DAT_0067ec68 + regEbx) = 0;
   GetLocalizedString(&g_localizedStringTable,0x200);
   FUN_00413af0();
   return;
