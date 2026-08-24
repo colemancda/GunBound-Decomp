@@ -99,6 +99,17 @@
   "safe": true
  },
  {
+  "func": "FUN_00401cb0",
+  "reg": "esi",
+  "path": "src/unnamed/FUN_00401cb0.c",
+  "caller": "FUN_00411b40",
+  "caller_va": "0x411b40",
+  "va": "0x411c65",
+  "form": "GLOBAL_ADDR",
+  "detail": "0xe53e88",
+  "safe": true
+ },
+ {
   "func": "FUN_00402300",
   "reg": "eax",
   "path": "src/unnamed/FUN_00402300.c",
@@ -116,7 +127,7 @@
   "caller": "State07_AvatarStore_ProcessPacket",
   "caller_va": "0x4440c0",
   "va": "0x444b79",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x30",
   "safe": true
  },
@@ -193,7 +204,7 @@
   "caller": "FUN_00401a70",
   "caller_va": "0x401a70",
   "va": "0x401ae0",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "ebp+0x1bfc",
   "safe": true
  },
@@ -314,19 +325,8 @@
   "caller": "State09_ReadyRoom_HandleChatInput",
   "caller_va": "0x4d6210",
   "va": "0x4d65ff",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x58",
-  "safe": true
- },
- {
-  "func": "TextEntry_SetSelection",
-  "reg": "eax",
-  "path": "src/unnamed/TextEntry_SetSelection.c",
-  "caller": "State09_ReadyRoom_HandleChatInput",
-  "caller_va": "0x4d6210",
-  "va": "0x4d6621",
-  "form": "GLOBAL",
-  "detail": "0x7934e4",
   "safe": true
  },
  {
@@ -336,8 +336,30 @@
   "caller": "FUN_00412e50",
   "caller_va": "0x412e50",
   "va": "0x412f03",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x60",
+  "safe": true
+ },
+ {
+  "func": "FUN_00415470",
+  "reg": "ebx",
+  "path": "src/unnamed/FUN_00415470.c",
+  "caller": "WriteReplayEventRecord",
+  "caller_va": "0x4104f0",
+  "va": "0x4113c1",
+  "form": "IMMEDIATE",
+  "detail": "0x1",
+  "safe": true
+ },
+ {
+  "func": "FUN_00415470",
+  "reg": "edi",
+  "path": "src/unnamed/FUN_00415470.c",
+  "caller": "WriteReplayEventRecord",
+  "caller_va": "0x4104f0",
+  "va": "0x4113c1",
+  "form": "OTHER",
+  "detail": "add edi, 0x6a76f4",
   "safe": true
  },
  {
@@ -363,24 +385,13 @@
   "safe": true
  },
  {
-  "func": "FUN_00425700",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_00425700.c",
-  "caller": "FUN_00507660",
-  "caller_va": "0x507660",
-  "va": "0x507801",
-  "form": "GLOBAL",
-  "detail": "0x5b3484",
-  "safe": true
- },
- {
   "func": "FUN_00425840",
   "reg": "esi",
   "path": "src/unnamed/FUN_00425840.c",
   "caller": "ParseChatSlashCommand",
   "caller_va": "0x4218c0",
   "va": "0x421d7c",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x94",
   "safe": true
  },
@@ -396,17 +407,6 @@
   "safe": true
  },
  {
-  "func": "FUN_004261d0",
-  "reg": "esi",
-  "path": "src/unnamed/FUN_004261d0.c",
-  "caller": "State11_InBattle_ProcessPacket",
-  "caller_va": "0x4b4100",
-  "va": "0x4b49e3",
-  "form": "GLOBAL",
-  "detail": "0x5b3484",
-  "safe": true
- },
- {
   "func": "FUN_004264d0",
   "reg": "ebx",
   "path": "src/unnamed/FUN_004264d0.c",
@@ -415,6 +415,17 @@
   "va": "0x42590b",
   "form": "FIELD",
   "detail": "lea ebx, [edi + 0x67ec60] | base=ENTRY(eax)",
+  "safe": true
+ },
+ {
+  "func": "FUN_004264d0",
+  "reg": "esi",
+  "path": "src/unnamed/FUN_004264d0.c",
+  "caller": "FUN_004258e0",
+  "caller_va": "0x4258e0",
+  "va": "0x42590b",
+  "form": "IMMEDIATE",
+  "detail": "0x1",
   "safe": true
  },
  {
@@ -457,7 +468,7 @@
   "caller": "FUN_00415d40",
   "caller_va": "0x415d40",
   "va": "0x416850",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "ebp+0x6a7f70",
   "safe": true
  },
@@ -935,6 +946,17 @@
   "safe": true
  },
  {
+  "func": "FUN_004e76d0",
+  "reg": "esi",
+  "path": "src/unnamed/FUN_004e76d0.c",
+  "caller": "State02_ServerSelect_ProcessPacket",
+  "caller_va": "0x4e02b0",
+  "va": "0x4e0371",
+  "form": "GLOBAL_ADDR",
+  "detail": "0xe55ce0",
+  "safe": true
+ },
+ {
   "func": "FUN_004e7740",
   "reg": "esi",
   "path": "src/unnamed/FUN_004e7740.c",
@@ -1095,7 +1117,7 @@
   "caller": "FUN_004ff770",
   "caller_va": "0x4ff770",
   "va": "0x4ffa5a",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x78",
   "safe": true
  },
@@ -1139,7 +1161,7 @@
   "caller": "FUN_004fe110",
   "caller_va": "0x4fe110",
   "va": "0x4fe328",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x20",
   "safe": true
  },
@@ -1205,7 +1227,7 @@
   "caller": "FUN_004fe8d0",
   "caller_va": "0x4fe8d0",
   "va": "0x4fe94a",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x1a",
   "safe": true
  },
@@ -1304,7 +1326,7 @@
   "caller": "FUN_004ff770",
   "caller_va": "0x4ff770",
   "va": "0x4ffa0b",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x40",
   "safe": true
  },
@@ -1348,7 +1370,7 @@
   "caller": "ConfigureAsyncSocket",
   "caller_va": "0x4ff350",
   "va": "0x4ff460",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x18",
   "safe": true
  },
@@ -1414,7 +1436,7 @@
   "caller": "FUN_00501770",
   "caller_va": "0x501770",
   "va": "0x502278",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x1c",
   "safe": true
  },
@@ -1436,7 +1458,7 @@
   "caller": "FUN_00501770",
   "caller_va": "0x501770",
   "va": "0x5019ef",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0xa0",
   "safe": true
  },
@@ -1447,7 +1469,7 @@
   "caller": "FUN_00501770",
   "caller_va": "0x501770",
   "va": "0x501e22",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x38",
   "safe": true
  },
@@ -1458,7 +1480,7 @@
   "caller": "FUN_00501770",
   "caller_va": "0x501770",
   "va": "0x502347",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x3c",
   "safe": true
  },
@@ -1469,7 +1491,7 @@
   "caller": "FUN_00501770",
   "caller_va": "0x501770",
   "va": "0x501e8d",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x38",
   "safe": true
  },
@@ -1480,7 +1502,7 @@
   "caller": "FUN_005033e0",
   "caller_va": "0x5033e0",
   "va": "0x503409",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "ebp-0x34",
   "safe": true
  },
@@ -1491,7 +1513,7 @@
   "caller": "FUN_00501770",
   "caller_va": "0x501770",
   "va": "0x5019bf",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x4c",
   "safe": true
  },
@@ -1502,7 +1524,7 @@
   "caller": "FUN_00501770",
   "caller_va": "0x501770",
   "va": "0x5019bf",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0xb2",
   "safe": true
  },
@@ -1513,7 +1535,7 @@
   "caller": "FUN_00501770",
   "caller_va": "0x501770",
   "va": "0x501afd",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0xe8",
   "safe": true
  },
@@ -1546,7 +1568,7 @@
   "caller": "FUN_00501770",
   "caller_va": "0x501770",
   "va": "0x502403",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "esp+0x30",
   "safe": true
  },
@@ -1590,7 +1612,7 @@
   "caller": "FUN_00502e20",
   "caller_va": "0x502e20",
   "va": "0x503084",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "ebp-0x4c",
   "safe": true
  },
@@ -1601,7 +1623,7 @@
   "caller": "FUN_00502e20",
   "caller_va": "0x502e20",
   "va": "0x503077",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "ebp-0x4c",
   "safe": false
  },
@@ -1634,7 +1656,7 @@
   "caller": "FUN_005033e0",
   "caller_va": "0x5033e0",
   "va": "0x503664",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "ebp-0x34",
   "safe": true
  },
@@ -1667,7 +1689,7 @@
   "caller": "FUN_00503a50",
   "caller_va": "0x503a50",
   "va": "0x503b8b",
-  "form": "FRAME",
+  "form": "FRAMEADDR",
   "detail": "ebp+0x290",
   "safe": true
  },

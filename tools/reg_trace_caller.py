@@ -136,7 +136,12 @@ def trace(ins, call_va, reg, depth=8):
             return ('TABLE', m.group(1), safe)
         m = re.match(r'\w+, \[(esp|ebp) ([-+]) (0x[0-9a-f]+)\]$', o)
         if m:
-            return ('FRAME', '%s%s%s' % (m.group(1), m.group(2), m.group(3)), safe)
+            # `mov reg, [esp+N]` loads the slot's VALUE; `lea reg, [esp+N]`
+            # takes its ADDRESS.  Reporting both as FRAME invites resolving the
+            # lea case to whatever was stored in the slot -- which would make a
+            # pointer-to-a-local into a small integer.
+            kind = 'FRAMEADDR' if mn == 'lea' else 'FRAME'
+            return (kind, '%s%s%s' % (m.group(1), m.group(2), m.group(3)), safe)
         m = re.match(r'\w+, \[(\w+) ([-+]) (0x[0-9a-f]+)\]$', o)
         if m and FULL.get(m.group(1)):
             # Resolve the BASE one level further.  A displacement that is

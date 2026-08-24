@@ -48,6 +48,15 @@ def verdict(ins, reg):
             k += 1
             continue
         break
+    # ...unless a CALL follows the run immediately, in which case those pushes
+    # are that call's ARGUMENTS, not prologue.  FUN_0046cb60 opens
+    #     push eax / push esi / call InitMobile
+    # and skipping those two made EAX -- a real argument, visibly passed on --
+    # look like a phantom.  A false PHANTOM is the dangerous direction: it says
+    # "nothing reads this register", so a caller would be given 0 for a value
+    # the callee actually uses.
+    if k and k < len(ins) and ins[k].mnemonic == 'call':
+        k = 0
     ins = ins[k:]
     for i in ins:
         o = re.sub(r'\b(?:byte|word|dword) ptr ', '', i.op_str)
