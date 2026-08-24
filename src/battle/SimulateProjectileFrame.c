@@ -166,7 +166,7 @@ LAB_00456014:
       local_15b4 = local_1594 >> 0x10;
       local_15b8 = local_15a4;
       if ((local_15a5 == '\0') &&
-         (iVar13 = FUN_004510f0(local_15a4), iVar12 = local_1598, iVar13 != 0)) {
+         (iVar13 = FUN_004510f0(local_15a4,(int)(&DAT_006a7f88 + g_clientContext)), iVar12 = local_1598, iVar13 != 0)) {
         EncodeChecksumDeltaAdd(local_1598,local_1350,param_2);
         local_4 = 6;
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -421,7 +421,7 @@ LAB_00457283:
         local_15b4 = local_15a4;
         local_15b8 = local_1594 >> 0x10;
         if ((local_15a5 == '\0') &&
-           (iVar16 = FUN_004510f0(local_15b8), iVar13 = local_1598, iVar16 != 0)) {
+           (iVar16 = FUN_004510f0(local_15b8,(int)(&DAT_006a7f88 + g_clientContext)), iVar13 = local_1598, iVar16 != 0)) {
           local_15b0[0] = EncodeChecksumDeltaAdd(local_1598,local_ac0,param_2);
           local_4 = 0xc;
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

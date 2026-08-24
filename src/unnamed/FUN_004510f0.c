@@ -7,20 +7,29 @@
  *
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at both argless PeekPacketChecksumState() calls: both off iVar4 = *(param_1+0x10) (the [eax+0x10] record the resolver shows), at +0x3c and +0x260.
+ *
+ * DROPPED REGISTER RECOVERED (2026-08-24): EAX is the projectile registry,
+ * &DAT_006a7f88 + g_clientContext, at all 19 binary call sites -- 13 as
+ * `add eax, 0x6a7f88` after loading [0x5b3484], 6 as `lea eax,[ctx+0x6a7f88]`
+ * with the base register traced to the same global.  Its siblings
+ * FUN_00451030 / FUN_004511b0 / FUN_00450810 / bd0 / dd0 were recovered to the
+ * identical value earlier, and the body walks it the same way they do
+ * (*(regEax+4) -> +0x1c chain).  Six of the lea sites have a branch between
+ * the load and the call; accepted because every alternative path in those
+ * callers that reaches this call also passes through the same ctx load.
  */
 #include "ghidra_types.h"
 
 
-int FUN_004510f0(int param_1)
+int FUN_004510f0(int param_1,int regEax)
 
 {
   uint uVar1;
-  int in_EAX;
   int iVar2;
   int iVar3;
   int iVar4;
   
-  iVar4 = *(int *)(*(int *)(in_EAX + 4) + 0x1c);
+  iVar4 = *(int *)(*(int *)(regEax + 4) + 0x1c);
   uVar1 = *(uint *)(iVar4 + 4);
   while( true ) {
     if (0x1f5 < uVar1) {

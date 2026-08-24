@@ -101,7 +101,7 @@ void __thiscall Mobile06_MainAction(int param_1,undefined4 param_2,int param_3)
   *unaff_FS_OFFSET = &uStack_c;
   pcStack_10 = (code *)FUN_0049c13f; /* cast: __fastcall vs code()'s default cc */
   puStack_2498 = (undefined *)0x49c14c;
-  uVar4 = FUN_0045f840();
+  uVar4 = FUN_0045f840(param_1);
   switch(param_2) {
   case 1:
     if (*(int *)(param_1 + 0xb0a4) == -1) {

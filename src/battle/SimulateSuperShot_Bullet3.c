@@ -183,7 +183,7 @@ void __thiscall SimulateSuperShot_Bullet3(int param_1,int param_2)
         local_15bc = local_1588 >> 0x10;
         local_15c4 = local_15b8;
         if ((local_15ad == '\0') &&
-           (iVar5 = FUN_004510f0(local_15b8), iVar3 = local_15a8, iVar5 != 0)) {
+           (iVar5 = FUN_004510f0(local_15b8,(int)(&DAT_006a7f88 + g_clientContext)), iVar3 = local_15a8, iVar5 != 0)) {
           iVar5 = EncodeChecksumDeltaAdd(local_15a8,local_89c,param_2);
           local_4 = 6;
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -474,7 +474,7 @@ LAB_0048d0e3:
         iVar3 = local_1588 >> 0x10;
         local_15bc = local_15b8;
         local_15c4 = iVar3;
-        if ((local_15ad == '\0') && (iVar5 = FUN_004510f0(iVar3), iVar5 != 0)) {
+        if ((local_15ad == '\0') && (iVar5 = FUN_004510f0(iVar3,(int)(&DAT_006a7f88 + g_clientContext)), iVar5 != 0)) {
           iVar3 = EncodeChecksumDeltaAdd(local_15a8,local_230,param_2);
           local_4 = 10;
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

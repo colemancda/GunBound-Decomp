@@ -184,7 +184,7 @@ void __thiscall SimulateShot_Bullet8n_8s_Item(int param_1,int param_2)
         local_1598 = local_1598 + local_1584;
         local_15a4 = local_1598 >> 0x10;
         local_15b4 = local_15c4;
-        if ((!bVar3) && (iVar18 = FUN_004510f0(local_15c4), iVar18 != 0)) {
+        if ((!bVar3) && (iVar18 = FUN_004510f0(local_15c4,(int)(&DAT_006a7f88 + g_clientContext)), iVar18 != 0)) {
           local_15ac[0] = (byte *)EncodeChecksumDeltaAdd(iVar13,local_112c,param_2);
           local_4 = 6;
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -418,7 +418,7 @@ LAB_004a82c9:
         local_1598 = local_1598 + local_1584;
         local_15b4 = local_1598 >> 0x10;
         local_15a4 = local_15c4;
-        if ((!bVar3) && (iVar18 = FUN_004510f0(local_15b4), iVar18 != 0)) {
+        if ((!bVar3) && (iVar18 = FUN_004510f0(local_15b4,(int)(&DAT_006a7f88 + g_clientContext)), iVar18 != 0)) {
           local_15bc[0] = (byte *)EncodeChecksumDeltaAdd(iVar13,local_ac0,param_2);
           local_4 = 0xc;
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

@@ -215,7 +215,7 @@ extern unsigned char DAT_006a7f70;         /* ctx base */
 extern const char s_unmove_00555c98[];
 
 /* Mobile00_MainAction's additional dependencies. */
-unsigned int FUN_0045f840(void);
+unsigned int FUN_0045f840(int regEbx);   /* regEbx = the mobile (this) */
 char InitChecksumSeed(void);
 /* the shot spawners (SpawnPrimaryShot/Item/Super) - many args arrive by
  * register in the original; kept with the exact arg shape the decompile shows. */
@@ -1810,7 +1810,7 @@ void CMobile::Mobile00_MainAction(int animEvent, int subType)
     unsigned char local_454[0x224];
     unsigned char local_230[0x224];
 
-    uVar3 = FUN_0045f840();
+    uVar3 = FUN_0045f840(reinterpret_cast<int>(this));
     switch (animEvent) {
     case 1:
         if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
@@ -2006,7 +2006,7 @@ void CMobile::Mobile01_MainAction(int animEvent, int subType)
     unsigned char auStack_488[0x224];
     unsigned char local_230[0x224];
 
-    uVar3 = FUN_0045f840();
+    uVar3 = FUN_0045f840(reinterpret_cast<int>(this));
     switch (animEvent) {
     case 1:
         if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
@@ -2214,7 +2214,7 @@ void CMobile::Mobile02_MainAction(int animEvent, int subType)
   unsigned char local_454[0x224];
   unsigned char local_230[0x224];
   
-  uVar3 = FUN_0045f840();
+  uVar3 = FUN_0045f840(reinterpret_cast<int>(this));
   switch (animEvent) {
   case 1:
     if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
@@ -2422,7 +2422,7 @@ void CMobile::Mobile03_MainAction(int animEvent, int subType)
   unsigned char local_454[0x224];
   unsigned char local_230[0x224];
   
-  uVar5 = FUN_0045f840();
+  uVar5 = FUN_0045f840(reinterpret_cast<int>(this));
   switch (animEvent) {
   case 1:
     if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
@@ -2690,7 +2690,7 @@ void CMobile::Mobile05_MainAction(int animEvent, int subType)
   unsigned char local_454[0x224];
   unsigned char local_230[0x224];
   
-  uVar3 = FUN_0045f840();
+  uVar3 = FUN_0045f840(reinterpret_cast<int>(this));
   switch (animEvent) {
   case 1:
     if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
@@ -3003,7 +3003,7 @@ void CMobile::Mobile07_MainAction(int animEvent, int subType)
   unsigned char local_454[0x224];
   unsigned char local_230[0x224];
   
-  uVar3 = FUN_0045f840();
+  uVar3 = FUN_0045f840(reinterpret_cast<int>(this));
   switch (animEvent) {
   case 1:
     if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
@@ -3212,7 +3212,7 @@ void CMobile::Mobile08_MainAction(int animEvent, int subType)
    * Same rationale as entry/InitGame.c - see src/README.md. local_4's
    * `._0_1_`/`._1_3_` partial-field accesses are rewritten as plain
    * int operations, same reasoning as FUN_004174c0.c's fix. */
-  uVar3 = FUN_0045f840();
+  uVar3 = FUN_0045f840(reinterpret_cast<int>(this));
   switch (animEvent) {
   case 1:
     if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
@@ -3422,7 +3422,7 @@ void CMobile::Mobile09_MainAction(int animEvent, int subType)
   unsigned char local_454[0x224];
   unsigned char local_230[0x224];
   
-  uVar3 = FUN_0045f840();
+  uVar3 = FUN_0045f840(reinterpret_cast<int>(this));
   switch (animEvent) {
   case 1:
     if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
@@ -3631,7 +3631,7 @@ void CMobile::Mobile10_MainAction(int animEvent, int subType)
   unsigned char local_454[0x224];
   unsigned char local_230[0x224];
   
-  uVar3 = FUN_0045f840();
+  uVar3 = FUN_0045f840(reinterpret_cast<int>(this));
   switch (animEvent) {
   case 1:
     if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
@@ -3835,7 +3835,7 @@ void CMobile::Mobile11_MainAction(int animEvent, int subType)
   unsigned char auStack_488[0x258];
   unsigned char local_230[0x224];
   
-  uVar3 = FUN_0045f840();
+  uVar3 = FUN_0045f840(reinterpret_cast<int>(this));
   switch (animEvent) {
   case 1:
     if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
@@ -4066,7 +4066,7 @@ void CMobile::Mobile14_MainAction(int animEvent, int subType)
   unsigned char local_454[0x224];
   unsigned char local_230[0x224];
   
-  uVar3 = FUN_0045f840();
+  uVar3 = FUN_0045f840(reinterpret_cast<int>(this));
   switch (animEvent) {
   case 1:
     if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
@@ -4282,7 +4282,7 @@ void CMobile::Mobile15_MainAction(int animEvent, int subType)
   unsigned char local_454[0x224];
   unsigned char local_230[0x224];
   
-  uVar3 = FUN_0045f840();
+  uVar3 = FUN_0045f840(reinterpret_cast<int>(this));
   switch (animEvent) {
   case 1:
     if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {
@@ -4592,7 +4592,7 @@ void CMobile::Mobile13_MainAction(int animEvent, int subType)
   unsigned char local_454[0x224];
   unsigned char local_230[0x224];
   
-  uVar3 = FUN_0045f840();
+  uVar3 = FUN_0045f840(reinterpret_cast<int>(this));
   switch (animEvent) {
   case 1:
     if (*reinterpret_cast<int *>(this->m_padae22 + 0x282) == -1) {

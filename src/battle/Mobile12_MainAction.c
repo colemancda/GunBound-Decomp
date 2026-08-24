@@ -123,7 +123,7 @@ void __thiscall Mobile12_MainAction(int param_1,undefined4 param_2,int param_3)
   *unaff_FS_OFFSET = &local_c;
   uStack_10 = 0x471fef;
   puStack_4d48 = (undefined *)0x471ffc;
-  uVar4 = FUN_0045f840();
+  uVar4 = FUN_0045f840(param_1);
   switch(param_2) {
   case 1:
     if (*(int *)(param_1 + 0xb0a4) == -1) {

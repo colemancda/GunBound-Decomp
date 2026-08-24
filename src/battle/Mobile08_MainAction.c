@@ -48,7 +48,7 @@ void __thiscall Mobile08_MainAction(int param_1,undefined4 param_2,int param_3)
    * `._0_1_`/`._1_3_` partial-field accesses are rewritten as plain
    * int operations, same reasoning as FUN_004174c0.c's fix. */
   uStack_10 = 0x4668af;
-  uVar3 = FUN_0045f840();
+  uVar3 = FUN_0045f840(param_1);
   switch(param_2) {
   case 1:
     if (*(int *)(param_1 + 0xb0a4) == -1) {

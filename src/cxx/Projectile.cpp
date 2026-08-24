@@ -280,7 +280,7 @@ extern void *PTR_FUN_0055658c;
 /* SimulateProjectileFrame's additional dependencies. */
 unsigned int EncodeChecksumDeltaAdd(void *cell, void *out, int delta);
 char DecodeGuardedBool(void);
-int  FUN_004510f0(int x);
+int  FUN_004510f0(int x, int regEax);
 int  FUN_00451030(int x, int regEax);
 int  FUN_004511b0(int x, int regEax);
 void FUN_00436dc0(int a, int b, unsigned int c);
@@ -1037,7 +1037,7 @@ void CProjectile::SimulateFrame(int stepDelta)
             local_1594 = local_1594 + local_15a0;
             local_15b4 = local_1594 >> 0x10;
             local_15b8 = local_15a4;
-            if (local_15a5 == '\0' && (iVar12 = FUN_004510f0(local_15a4), pbVar18 = local_1598, iVar12 != 0)) {
+            if (local_15a5 == '\0' && (iVar12 = FUN_004510f0(local_15a4,(int)(&DAT_006a7f88 + g_clientContext)), pbVar18 = local_1598, iVar12 != 0)) {
                 EncodeChecksumDeltaAdd(local_1598, &g1350, stepDelta);
                 EnterCriticalSection(&g_valueGuardLock);
                 iVar12 = PeekPacketChecksumState((void *)(&g1350));
@@ -1232,7 +1232,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 local_1594 = local_1594 + local_15a0;
                 local_15b4 = local_15a4;
                 local_15b8 = local_1594 >> 0x10;
-                if (local_15a5 == '\0' && (iVar13 = FUN_004510f0(local_15b8), pbVar18 = local_1598, iVar13 != 0)) {
+                if (local_15a5 == '\0' && (iVar13 = FUN_004510f0(local_15b8,(int)(&DAT_006a7f88 + g_clientContext)), pbVar18 = local_1598, iVar13 != 0)) {
                     local_15b0[0] = EncodeChecksumDeltaAdd(local_1598, &gac0, stepDelta);
                     EnterCriticalSection(&g_valueGuardLock);
                     local_15b0[0] = PeekPacketChecksumState((void *)(&gac0));

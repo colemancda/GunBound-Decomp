@@ -14,25 +14,33 @@
  * (0x45f855-0x45f867, 0x45f8e0-0x45f8f8).  Written as the ternary on
  * the real `== 1` test.  Same idiom, same four cells, as the
  * FUN_0047c040/FUN_0047fad0 twins.
+ *
+ * DROPPED REGISTER RECOVERED (2026-08-24): EBX is the calling mobile's own
+ * `this`.  At all 16 binary call sites EBX traces, through `mov ebx,esi` /
+ * `mov esi,ecx`, to the caller's ENTRY ECX with no intervening write -- and
+ * every caller is a __thiscall MobileNN_MainAction (or FUN_0049c13f, which
+ * is the SEH-split tail of Mobile06_MainAction: it begins at 0x49c13f, inside
+ * Mobile06's 0x49c120..0x49cc0b extent).  The body reads it as a mobile
+ * (+0x651c is the mobile's guarded-bool selector), which is what pins the
+ * role rather than merely the register.
  */
 #include "ghidra_types.h"
 
 
-int FUN_0045f840(void)
+int FUN_0045f840(int regEbx)
 
 {
   char cVar1;
   int iVar2;
   int iVar3;
-  int unaff_EBX;
   
-  if (*(char *)(unaff_EBX + 0x651c) == '\x01') {
+  if (*(char *)(regEbx + 0x651c) == '\x01') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
   else {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
-  iVar2 = PeekPacketChecksumState((void *)(*(char *)(unaff_EBX + 0x651c) == '\x01' ? (void *)&DAT_00796aa0 : (void *)&DAT_00794e48));
+  iVar2 = PeekPacketChecksumState((void *)(*(char *)(regEbx + 0x651c) == '\x01' ? (void *)&DAT_00796aa0 : (void *)&DAT_00794e48));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
@@ -44,13 +52,13 @@ int FUN_0045f840(void)
   }
   cVar1 = PeekPacketChecksumBool();
   if (cVar1 != '\0') {
-    if (*(char *)(unaff_EBX + 0x651c) == '\x01') {
+    if (*(char *)(regEbx + 0x651c) == '\x01') {
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
     else {
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
-    iVar3 = PeekPacketChecksumState((void *)(*(char *)(unaff_EBX + 0x651c) == '\x01' ? (void *)&DAT_007949c8 : (void *)&DAT_00e55ab8));
+    iVar3 = PeekPacketChecksumState((void *)(*(char *)(regEbx + 0x651c) == '\x01' ? (void *)&DAT_007949c8 : (void *)&DAT_00e55ab8));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar2 = iVar2 + iVar3;
   }

@@ -39,7 +39,7 @@ void __fastcall FUN_0049c13f(int param_1)
   undefined4 in_stack_00002488;
   int in_stack_0000248c;
   
-  FUN_0045f840();
+  FUN_0045f840(param_1);
   switch(in_stack_00002488) {
   case 1:
     if (*(int *)(param_1 + 0xb0a4) == -1) {
