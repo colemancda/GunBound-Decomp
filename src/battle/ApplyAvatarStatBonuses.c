@@ -82,6 +82,10 @@ void ApplyAvatarStatBonuses(undefined4 param_1,undefined4 param_2,undefined4 par
   int local_1810 [1536];
   undefined4 uStack_10;
   undefined4 local_4;
+  /* The avatar-part workspace at frame -0x17f0, which this port never
+   * declared because every use went through a dropped register.  Same
+   * object FUN_00445450 declares as partWorkspace - see FUN_00423e20.c. */
+  undefined1 partWorkspace [0x17d0];
   
   local_4 = 0xffffffff;
   /* Windows SEH __try/__except frame setup stripped (local_c/
@@ -91,7 +95,7 @@ void ApplyAvatarStatBonuses(undefined4 param_1,undefined4 param_2,undefined4 par
   uStack_10 = 0x424adf;
   FUN_00425350();
   local_4 = 0;
-  FUN_00423e20(param_1,0);
+  FUN_00423e20(param_1,0,*(ushort *)((int)param_2 + 0),(int)partWorkspace);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x424b37..
    * 0x424c49 (`0x424b35: mov edi,esi` / `0x424b4e..0x424c0c: lea
    * edi,[esi+N]` / `0x424c32: add esi,0xefc` then `0x424c47: mov
@@ -134,7 +138,7 @@ void ApplyAvatarStatBonuses(undefined4 param_1,undefined4 param_2,undefined4 par
   uVar1 = PeekPacketChecksumState((void *)(local_1810 + 0x568));
   EncodeOutgoingPacketField(param_3 + 0xefc,uVar1); /* cell7 */
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00423e20(param_1,1);
+  FUN_00423e20(param_1,1,*(ushort *)((int)param_2 + 2),(int)partWorkspace);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x424c9b..
    * 0x424e18, same param_3 cell-array pattern as the block above (esi
    * reloaded from param_3 at 0x424c7a, then lea/add-walked through the
@@ -180,7 +184,7 @@ void ApplyAvatarStatBonuses(undefined4 param_1,undefined4 param_2,undefined4 par
   iVar3 = PeekPacketChecksumState((void *)(local_1810 + 0x568));
   EncodeOutgoingPacketField(param_3 + 0xefc,iVar3 + iVar2); /* cell7 */
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00423e20(param_1,2);
+  FUN_00423e20(param_1,2,*(ushort *)((int)param_2 + 4),(int)partWorkspace);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x424ea1..
    * 0x424fe7, same param_3 cell-array pattern as the two blocks above
    * (esi reloaded from param_3 at 0x424e49, then lea/add-walked through
@@ -226,7 +230,7 @@ void ApplyAvatarStatBonuses(undefined4 param_1,undefined4 param_2,undefined4 par
   iVar3 = PeekPacketChecksumState((void *)(local_1810 + 0x568));
   EncodeOutgoingPacketField(param_3 + 0xefc,iVar3 + iVar2); /* cell7 */
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00423e20(param_1,3);
+  FUN_00423e20(param_1,3,*(ushort *)((int)param_2 + 6),(int)partWorkspace);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x425039..
    * 0x4251ba, same param_3 cell-array pattern as the blocks above (esi
    * reloaded from param_3 at 0x425018; this block's final cell7 write

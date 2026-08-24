@@ -13,22 +13,42 @@
  * every caller here already passes g_clientContext as param_1) / `push 0x0`
  * (insertFlag) / `mov cl,0x1` (findExisting) / `lea eax,[esp+0x98]` (name =
  * the just-built auStack_81 string) / `call 0x4f1390`.
+ *
+ * BOTH DROPPED REGISTERS RECOVERED (2026-08-24), at all nine call sites.
+ *
+ * regEax is an avatar PART ID: the body uses `regEax & 0x7fff` as the part
+ * index and `& 0x8000` as a flag, and every caller loads only AX
+ * (`mov ax, word ptr [...]`) -- a 16-bit field.  Per caller:
+ *   ApplyAvatarStatBonuses  *(ushort *)(param_2 + 2N) for N = 0..3, the
+ *                           push literal N pairing each site to its source
+ *   FUN_00445450            the result of PeekChecksumStateUnderLock(iVar9 +
+ *                           0x22c) -- which the port had been DISCARDING; the
+ *                           block's six calls run in a straight line, so
+ *                           source order is VA order and the pairing is exact
+ *   RenderInventoryItemDetail  local_1874, which the source already copies
+ *                           into uVar2 on the line above
+ *
+ * regEsi is the avatar-part WORKSPACE, a ~0x17d0-byte struct this function
+ * reads at +0x224..+0x23b and +0x17a4..+0x17cc.  FUN_00445450 already
+ * declares it (partWorkspace).  The other two callers never declared it at
+ * all -- every use was through this dropped register -- yet both frames put
+ * it at exactly -0x17f0, and RenderInventoryItemDetail's lone `local_15cc`
+ * sits at -0x17f0 + 0x224: the +0x224 field, carved off as if it were a
+ * separate local.  It is now expressed as partWorkspace + 0x224 there.
  */
 #include "ghidra_types.h"
 
 
-uint FUN_00423e20(undefined4 param_1,int param_2)
+uint FUN_00423e20(undefined4 param_1,int param_2,uint regEax,int regEsi)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
   undefined stack0xffffff80;
   char cVar1;
-  uint in_EAX;
   uint uVar2;
   char *pcVar3;
   int iVar4;
-  int unaff_ESI;
   undefined4 *puVar5;
   undefined2 *puVar6;
   undefined4 *puVar7;
@@ -57,7 +77,7 @@ uint FUN_00423e20(undefined4 param_1,int param_2)
   }
   *(undefined2 *)puVar5 = 0;
   *(undefined1 *)((int)puVar5 + 2) = 0;
-  stack0xffffff80 = CONCAT11((undefined1)uStack_7f,(-((in_EAX & 0x8000) != 0) & 7U) + 0x66);
+  stack0xffffff80 = CONCAT11((undefined1)uStack_7f,(-((regEax & 0x8000) != 0) & 7U) + 0x66);
   switch(param_2) {
   case 0:
     puVar6 = (undefined2 *)auStack_81;
@@ -98,30 +118,30 @@ uint FUN_00423e20(undefined4 param_1,int param_2)
   uVar2 = 0;
   if (iVar4 != 0) {
     ReadXFSEntryByte(iVar4,&local_108);
-    if ((int)(in_EAX & 0x7fff) < local_108) {
+    if ((int)(regEax & 0x7fff) < local_108) {
       /* FIXED (2026-08-11): dropped seek args - orig 0x423f55 `mov edx,ebx`
-       * (ebx = in_EAX & 0x7fff, the part index, per the `and ebx,0x7fff` at
+       * (ebx = regEax & 0x7fff, the part index, per the `and ebx,0x7fff` at
        * 0x423f36 feeding the compare above) / `imul edx,edx,0x84` /
        * 0x423f3e `mov eax,ebp` (ebp = the open stream, this C's iVar4). */
-      uVar2 = FUN_004f08a0(0,(int)(in_EAX & 0x7fff) * 0x84,iVar4);
+      uVar2 = FUN_004f08a0(0,(int)(regEax & 0x7fff) * 0x84,iVar4);
       if ((char)uVar2 != '\0') {
         ReadXFSEntryByte(iVar4,&local_104);
         CloseSpriteReadState();
         uVar2 = local_104;
-        if (local_104 == (in_EAX & 0x7fff)) {
+        if (local_104 == (regEax & 0x7fff)) {
           QueueOutgoingPacketField(local_104);
           pcVar3 = local_100;
-          iVar4 = (unaff_ESI + 0x224) - (int)pcVar3;
+          iVar4 = (regEsi + 0x224) - (int)pcVar3;
           do {
             cVar1 = *pcVar3;
             pcVar3[iVar4] = cVar1;
             pcVar3 = pcVar3 + 1;
           } while (cVar1 != '\0');
-          if ((*(byte *)(unaff_ESI + 0x236) & 0x80) != 0) {
-            *(undefined1 *)(unaff_ESI + 0x236) = 0;
+          if ((*(byte *)(regEsi + 0x236) & 0x80) != 0) {
+            *(undefined1 *)(regEsi + 0x236) = 0;
           }
-          *(undefined1 *)(unaff_ESI + 0x237) = 0;
-          *(undefined1 *)(unaff_ESI + 0x23b) = local_e9;
+          *(undefined1 *)(regEsi + 0x237) = 0;
+          *(undefined1 *)(regEsi + 0x23b) = local_e9;
           QueueOutgoingPacketField(local_e8);
           QueueOutgoingPacketField(local_e4);
           QueueOutgoingPacketField(local_e0);
@@ -133,16 +153,16 @@ uint FUN_00423e20(undefined4 param_1,int param_2)
           QueueOutgoingPacketField(local_c8);
           QueueOutgoingPacketField(local_c4);
           pcVar3 = local_c0;
-          iVar4 = (unaff_ESI + 0x17a4) - (int)pcVar3;
+          iVar4 = (regEsi + 0x17a4) - (int)pcVar3;
           do {
             cVar1 = *pcVar3;
             pcVar3[iVar4] = cVar1;
             pcVar3 = pcVar3 + 1;
           } while (cVar1 != '\0');
-          if ((*(byte *)(unaff_ESI + 0x17cb) & 0x80) != 0) {
-            *(undefined1 *)(unaff_ESI + 0x17cb) = 0;
+          if ((*(byte *)(regEsi + 0x17cb) & 0x80) != 0) {
+            *(undefined1 *)(regEsi + 0x17cb) = 0;
           }
-          *(undefined1 *)(unaff_ESI + 0x17cc) = 0;
+          *(undefined1 *)(regEsi + 0x17cc) = 0;
           return CONCAT31((int3)((uint)pcVar3 >> 8),1);
         }
       }

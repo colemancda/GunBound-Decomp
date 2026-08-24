@@ -41,7 +41,11 @@ void RenderInventoryItemDetail(int param_1)
   byte local_1877;
   uint local_1874;
   undefined1 local_1870 [676];
-  char local_15cc [5564];
+  /* The avatar-part workspace (see FUN_00423e20.c).  Ghidra carved only
+   * its +0x224 field, as local_15cc [5564]; that name is kept as an alias
+   * into the real object so the existing use below is unchanged. */
+  undefined1 partWorkspace [0x17d0];
+  char *local_15cc = (char *)(partWorkspace + 0x224);
   undefined4 uStack_10;
   undefined4 local_c;
   undefined1 *puStack_8;
@@ -128,7 +132,7 @@ void RenderInventoryItemDetail(int param_1)
       RemoveInventoryItems(1,0);
       uVar2 = local_1874;
       uVar12 = local_1874 >> 0x10;
-      FUN_00423e20(g_clientContext,uVar12 & 0xf);
+      FUN_00423e20(g_clientContext,uVar12 & 0xf,uVar2,(int)partWorkspace);
       pcVar6 = local_1888;
       iVar5 = (param_1 + 0x32ef0) - (int)pcVar6;
       do {

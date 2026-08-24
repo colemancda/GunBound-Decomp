@@ -65,6 +65,7 @@ void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefine
    * FUN_004240c0/FUN_00425350 treat it as one 0x17a4-byte object with
    * writes up to +0x17cc, so it must be contiguous. */
   undefined1 partWorkspace [0x17d0];
+  int iVarPart;
   undefined1 local_2b34 [548];
   undefined1 local_2910 [548];
   undefined1 local_26ec [548];
@@ -353,11 +354,11 @@ LAB_004457e7:
               SUBFIELD(local_4,0,undefined1) = 2;
               PeekChecksumStateUnderLock(iVar3);
               iVar9 = FUN_00426570();
-              PeekChecksumStateUnderLock(iVar9 + 0x22c);
+              iVarPart = PeekChecksumStateUnderLock(iVar9 + 0x22c); /* was discarded - it is FUN_00423e20's EAX */
               PeekChecksumStateUnderLock(iVar3);
               iVar3 = FUN_00426570();
               iVar3 = PeekChecksumStateUnderLock(iVar3 + 0x22c);
-              FUN_00423e20(g_clientContext,iVar3 >> 0x10 & 0xffffff0f);
+              FUN_00423e20(g_clientContext,iVar3 >> 0x10 & 0xffffff0f,(uint)iVarPart,(int)partWorkspace);
               QueueOutgoingPacketField(2);
               pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c3);
               pcVar13 = (char *)(param_1 + 0x327d4);
@@ -431,11 +432,11 @@ LAB_004457e7:
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),3);
           PeekChecksumStateUnderLock(iVar3);
           iVar9 = FUN_00426570();
-          PeekChecksumStateUnderLock(iVar9 + 0x22c);
+          iVarPart = PeekChecksumStateUnderLock(iVar9 + 0x22c); /* was discarded - it is FUN_00423e20's EAX */
           PeekChecksumStateUnderLock(iVar3);
           iVar9 = FUN_00426570();
           iVar9 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
-          FUN_00423e20(g_clientContext,iVar9 >> 0x10 & 0xffffff0f);
+          FUN_00423e20(g_clientContext,iVar9 >> 0x10 & 0xffffff0f,(uint)iVarPart,(int)partWorkspace);
           SetGuardedBool(1,GB_GUARD_UNRECOVERED);
           PeekChecksumStateUnderLock(iVar3);
           iVar9 = FUN_00426570();
@@ -561,11 +562,11 @@ LAB_004457e7:
          (uVar4 = *(uint *)(g_clientContext + 0x44e24), uVar6 = PeekChecksumStateUnderLock(iVar3), uVar6 < uVar4)) {
         PeekChecksumStateUnderLock(iVar3);
         iVar9 = FUN_00426570();
-        PeekChecksumStateUnderLock(iVar9 + 0x22c);
+        iVarPart = PeekChecksumStateUnderLock(iVar9 + 0x22c); /* was discarded - it is FUN_00423e20's EAX */
         PeekChecksumStateUnderLock(iVar3);
         iVar3 = FUN_00426570();
         iVar3 = PeekChecksumStateUnderLock(iVar3 + 0x22c);
-        FUN_00423e20(g_clientContext,iVar3 >> 0x10 & 0xffffff0f);
+        FUN_00423e20(g_clientContext,iVar3 >> 0x10 & 0xffffff0f,(uint)iVarPart,(int)partWorkspace);
         QueueOutgoingPacketField(3);
         pcVar8 = (char *)GetLocalizedString(&g_localizedStringTable,0x2c8);
         pcVar13 = (char *)(param_1 + 0x327d4);
@@ -650,11 +651,11 @@ LAB_00446d2b:
         iVar3 = param_1 + 0x3054c;
         PeekChecksumStateUnderLock(iVar3);
         iVar9 = FUN_00426570();
-        PeekChecksumStateUnderLock(iVar9 + 0x22c);
+        iVarPart = PeekChecksumStateUnderLock(iVar9 + 0x22c); /* was discarded - it is FUN_00423e20's EAX */
         PeekChecksumStateUnderLock(iVar3);
         iVar9 = FUN_00426570();
         iVar9 = PeekChecksumStateUnderLock(iVar9 + 0x22c);
-        FUN_00423e20(g_clientContext,iVar9 >> 0x10 & 0xffffff0f);
+        FUN_00423e20(g_clientContext,iVar9 >> 0x10 & 0xffffff0f,(uint)iVarPart,(int)partWorkspace);
         uVar12 = EncodeChecksumDeltaMul(local_15b4,local_1c38,6);
         SUBFIELD(local_4,0,undefined1) = 7;
         uVar7 = PeekChecksumStateUnderLock(&DAT_00e9ba40);
