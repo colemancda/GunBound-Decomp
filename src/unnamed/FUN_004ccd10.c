@@ -464,7 +464,7 @@ LAB_004cd6de:
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       *puVar1 = 0xffff;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-      FUN_0041f200(0);
+      FUN_0041f200(0,(int)g_clientContext);
       BroadcastQueuedEvent();
     }
     goto LAB_004ce3a6;

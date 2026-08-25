@@ -194,7 +194,7 @@ void __thiscall State11_InBattle_HandleKeyInput(int param_1,int param_2,int para
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
     *puVar1 = 60000;
     g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-    FUN_0041f200(0);
+    FUN_0041f200(0,(int)g_clientContext);
     goto LAB_004b8aeb;
   }
   switch(param_4) {
@@ -364,7 +364,7 @@ LAB_004b8aeb:
         uVar6 = FUN_0045d360(1);
         *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-        FUN_0041f200(0);
+        FUN_0041f200(0,(int)g_clientContext);
         BroadcastQueuedEvent();
         DVar9 = GetTickCount();
         QueueOutgoingPacketField(DVar9);

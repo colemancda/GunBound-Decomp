@@ -156,7 +156,7 @@ void AlignMobileToTerrain(CMobile *self);
 void __fastcall UpdateMobileEmotionState(int *param_1);
 void FUN_00436cd0(unsigned int a, unsigned int b);
 unsigned short FUN_0045d360(int a);
-void FUN_0041f200(int a);
+void FUN_0041f200(int a, int regEax);
 char ChecksumPairDiffers(void *a, void *b);
 unsigned int EncodeChecksumDeltaMod(void *cell, void *out, int m);
 void EncodeChecksumState(void *cell);
@@ -928,7 +928,7 @@ LAB_004622cf:
             uVar7 = FUN_0045d360(1);
             *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-            FUN_0041f200(0);
+            FUN_0041f200(0,(int)g_clientContext);
             BroadcastQueuedEvent();
         }
     }
@@ -1766,7 +1766,7 @@ LAB_004613ad:
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
             *puVar1 = 0xffff;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-            FUN_0041f200(0);
+            FUN_0041f200(0,(int)g_clientContext);
             BroadcastQueuedEvent();
         }
         *reinterpret_cast<unsigned char *>(param_1 + 0x2b85) = 1;

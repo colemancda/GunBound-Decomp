@@ -106,7 +106,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
             uVar6 = FUN_0045d360(0);
             *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-            FUN_0041f200(0);
+            FUN_0041f200(0,(int)g_clientContext);
             BroadcastQueuedEvent((int)&g_replayContext);
           }
         }

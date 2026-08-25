@@ -50,7 +50,7 @@ void __fastcall FUN_00423a20(int param_1)
       *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) =
            *(undefined2 *)(&DAT_006aab04 + param_1);
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-      FUN_0041f200(0);
+      FUN_0041f200(0,(int)g_clientContext);
     }
     BroadcastQueuedEvent((int)&g_replayContext);
     uVar3 = *(uint *)(&DAT_006a76f8 + g_clientContext);

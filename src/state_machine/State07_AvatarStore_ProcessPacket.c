@@ -441,7 +441,7 @@ switchD_004449fc_default:
               iVar4 = iVar4 + 0x224;
             } while (iVar4 < 0x890);
             FUN_0044b0b0(this);
-            FUN_00424400();
+            FUN_00424400((int)g_clientContext);
             EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
             EncodeOutgoingPacketField((void *)((int)this + 0x3054c), 0xffffffff);
             LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -554,7 +554,7 @@ switchD_00444e7c_default:
           local_514 = local_514 + 1;
         } while (local_520 < 0x890);
         FUN_0044b0b0(this);
-        FUN_00424400();
+        FUN_00424400((int)g_clientContext);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         EncodeOutgoingPacketField((void *)((int)this + 0x3054c), 0xffffffff);
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

@@ -274,7 +274,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                   uVar5 = FUN_0045d360(0);
                   *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar5;
                   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-                  FUN_0041f200(0);
+                  FUN_0041f200(0,(int)g_clientContext);
                 }
                 BroadcastQueuedEvent((int)&g_replayContext);
                 FUN_00415470();
@@ -579,7 +579,7 @@ LAB_004111c0:
     local_d3c = *(undefined4 *)(pbVar22 + 0x16);
     local_d38 = *(uint *)(pbVar22 + 0x1a);
     local_d34 = 0;
-    FUN_004260f0();
+    FUN_004260f0((int)g_clientContext);
     iVar19 = __stricmp(&DAT_006aa408 + g_clientContext,(char *)&local_d58);
     if (iVar19 == 0) {
       uVar15 = AppendToEncodedSocketBuffer(0,0x10,&local_d44,(int)g_connectionContextA);
@@ -606,7 +606,7 @@ LAB_004111c0:
       local_d3c = *(undefined4 *)(pbVar22 + 0x1a);
       local_d48 = 0;
       local_d38 = local_d38 & 0xffffff00;
-      FUN_004260f0();
+      FUN_004260f0((int)g_clientContext);
       pbVar22 = param_3;
     }
 LAB_00410792:

@@ -365,7 +365,7 @@ LAB_004cbad9:
       *(byte *)(param_1 + 0x23d6) = bVar11 + *pbVar12 + -0x34;
       (*pcVar14)(&g_valueGuardLock);
       QueueBroadcastEvent(0xc308,(int)&g_replayContext);
-      FUN_0041f200(1);
+      FUN_0041f200(1,(int)g_clientContext);
       puVar13 = (undefined4 *)(g_clientContext + 0xeba78);
       puVar16 = (undefined4 *)(param_1 + 0x2302);
       for (iVar3 = 8; iVar3 != 0; iVar3 = iVar3 + -1) {

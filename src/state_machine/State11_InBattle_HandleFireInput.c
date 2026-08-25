@@ -926,7 +926,7 @@ LAB_004613b2:
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
       *puVar1 = 0xffff;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
-      FUN_0041f200(0);
+      FUN_0041f200(0,(int)g_clientContext);
       BroadcastQueuedEvent();
     }
     *(undefined1 *)(param_1 + 0x2b85) = 1;
