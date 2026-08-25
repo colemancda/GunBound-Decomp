@@ -8,13 +8,12 @@
 #include "ghidra_types.h"
 
 
-void DrawNarrowGlyph(int param_1,int param_2,int param_3)
+void DrawNarrowGlyph(int param_1,int param_2,int param_3,byte *regEax)
 
 {
   int iVar1;
   byte bVar2;
   int iVar3;
-  byte *in_EAX;
   byte bVar4;
   int iVar5;
   byte bVar6;
@@ -23,75 +22,75 @@ void DrawNarrowGlyph(int param_1,int param_2,int param_3)
   byte local_10 [16];
   
   iVar3 = g_clipMaxX;
-  local_10[0xd] = in_EAX[0xb] >> 1;
+  local_10[0xd] = regEax[0xb] >> 1;
   iVar7 = 1;
   do {
     if (iVar7 == 1) {
       bVar4 = 0;
     }
     else {
-      bVar4 = in_EAX[-1] >> 1;
+      bVar4 = regEax[-1] >> 1;
     }
-    bVar2 = *in_EAX;
+    bVar2 = *regEax;
     bVar4 = bVar2 >> 2 | bVar2 | bVar4;
     local_10[iVar7] = bVar4;
     if (iVar7 == 0xc) {
       bVar6 = 0;
     }
     else {
-      bVar6 = in_EAX[1] >> 1;
+      bVar6 = regEax[1] >> 1;
     }
     local_10[iVar7] = ~(bVar2 >> 1) & (bVar4 | bVar6);
     if (iVar7 == 0) {
       bVar4 = 0;
     }
     else {
-      bVar4 = *in_EAX >> 1;
+      bVar4 = *regEax >> 1;
     }
-    bVar2 = in_EAX[1];
+    bVar2 = regEax[1];
     bVar4 = bVar2 >> 2 | bVar2 | bVar4;
     local_10[iVar7 + 1] = bVar4;
     if (iVar7 == 0xb) {
       bVar6 = 0;
     }
     else {
-      bVar6 = in_EAX[2] >> 1;
+      bVar6 = regEax[2] >> 1;
     }
     local_10[iVar7 + 1] = ~(bVar2 >> 1) & (bVar4 | bVar6);
     if (iVar7 == -1) {
       bVar4 = 0;
     }
     else {
-      bVar4 = in_EAX[1] >> 1;
+      bVar4 = regEax[1] >> 1;
     }
-    bVar2 = in_EAX[2];
+    bVar2 = regEax[2];
     bVar4 = bVar2 >> 2 | bVar2 | bVar4;
     local_10[iVar7 + 2] = bVar4;
     if (iVar7 == 10) {
       bVar6 = 0;
     }
     else {
-      bVar6 = in_EAX[3] >> 1;
+      bVar6 = regEax[3] >> 1;
     }
     local_10[iVar7 + 2] = ~(bVar2 >> 1) & (bVar4 | bVar6);
     if (iVar7 == -2) {
       bVar4 = 0;
     }
     else {
-      bVar4 = in_EAX[2] >> 1;
+      bVar4 = regEax[2] >> 1;
     }
-    bVar2 = in_EAX[3];
+    bVar2 = regEax[3];
     bVar4 = bVar2 >> 2 | bVar2 | bVar4;
     local_10[iVar7 + 3] = bVar4;
     if (iVar7 == 9) {
       bVar6 = 0;
     }
     else {
-      bVar6 = in_EAX[4] >> 1;
+      bVar6 = regEax[4] >> 1;
     }
     local_10[iVar7 + 3] = ~(bVar2 >> 1) & (bVar4 | bVar6);
     iVar7 = iVar7 + 4;
-    in_EAX = in_EAX + 4;
+    regEax = regEax + 4;
   } while (iVar7 < 0xd);
   iVar7 = param_2 + -1;
   local_18 = 0xe;

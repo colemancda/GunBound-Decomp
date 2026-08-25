@@ -8,20 +8,19 @@
 #include "ghidra_types.h"
 
 
-uint FUN_004048e0(void)
+uint FUN_004048e0(int *regEax)
 
 {
   int iVar1;
-  int *in_EAX;
   int iVar2;
   int iVar3;
   int unaff_EBX;
   
   if (unaff_EBX != 0) {
-    iVar1 = in_EAX[5];
+    iVar1 = regEax[5];
     iVar2 = unaff_EBX;
     if ((*(int *)(unaff_EBX + 0x108) != iVar1) && (*(int *)(unaff_EBX + 0x10c) != iVar1)) {
-      iVar2 = FUN_004050a0(in_EAX);
+      iVar2 = FUN_004050a0(regEax);
     }
     iVar3 = *(int *)(iVar2 + 0x108);
     if (iVar3 == iVar1) {
@@ -29,8 +28,8 @@ uint FUN_004048e0(void)
     }
     *(undefined4 *)(iVar3 + 0x110) = *(undefined4 *)(iVar2 + 0x110);
     iVar1 = *(int *)(iVar2 + 0x110);
-    if (iVar1 == in_EAX[5]) {
-      *in_EAX = iVar3;
+    if (iVar1 == regEax[5]) {
+      *regEax = iVar3;
     }
     else if (iVar2 == *(int *)(iVar1 + 0x108)) {
       *(int *)(iVar1 + 0x108) = iVar3;
@@ -44,16 +43,16 @@ uint FUN_004048e0(void)
     if (iVar2 != unaff_EBX) {
       FUN_00404d60();
     }
-    if (*in_EAX != 0) {
-      *(int *)(*in_EAX + 0x110) = in_EAX[5];
+    if (*regEax != 0) {
+      *(int *)(*regEax + 0x110) = regEax[5];
     }
     thunk_FUN_00405320();
-    iVar1 = in_EAX[2];
+    iVar1 = regEax[2];
     *(int *)(unaff_EBX + 0x108) = iVar1;
-    in_EAX[1] = in_EAX[1] + -1;
-    in_EAX[2] = unaff_EBX;
+    regEax[1] = regEax[1] + -1;
+    regEax[2] = unaff_EBX;
     return CONCAT31((int3)((uint)iVar1 >> 8),1);
   }
-  return (uint)in_EAX & 0xffffff00;
+  return (uint)regEax & 0xffffff00;
 }
 

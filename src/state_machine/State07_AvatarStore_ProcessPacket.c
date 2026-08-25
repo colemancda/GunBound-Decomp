@@ -453,7 +453,7 @@ switchD_004449fc_default:
             iVar4 = g_clientContext + 0x23330;
             pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa8);
             _sprintf((char *)local_508,pcVar7,iVar4);
-            FUN_00402900(&DAT_00e53e88,(int)this + 0x32ce3);
+            FUN_00402900(&DAT_00e53e88,(int)this + 0x32ce3,(char *)local_508);
             Widget_SetChildRange(*(undefined4 *)(g_clientContext + 0x44e24),0xe);
           }
           else if (*payload == 0x6002) {

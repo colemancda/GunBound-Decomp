@@ -17,12 +17,11 @@
 #include "ghidra_types.h"
 
 
-void FUN_00402900(int param_1,char *param_2)
+void FUN_00402900(int param_1,char *param_2,char *regEax)
 
 {
   undefined2 *puVar1;
   char cVar2;
-  char *in_EAX;
   int iVar3;
   char *pcVar4;
   uint uVar5;
@@ -48,22 +47,22 @@ void FUN_00402900(int param_1,char *param_2)
       *(undefined4 *)(puVar1 + 8) = local_14;
       iVar8 = *(int *)(puVar1 + 0x1000);
       *(int *)(puVar1 + 0x1000) = iVar8 + 0x10;
-      pcVar4 = in_EAX;
+      pcVar4 = regEax;
       do {
         cVar2 = *pcVar4;
         pcVar4 = pcVar4 + 1;
       } while (cVar2 != '\0');
-      uVar5 = (int)pcVar4 - (int)(in_EAX + 1);
+      uVar5 = (int)pcVar4 - (int)(regEax + 1);
       uVar6 = ((int)uVar5 < 0) - 1 & uVar5;
       pcVar4 = (char *)((int)puVar1 + iVar8 + 0x10);
       for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
-        *(undefined4 *)pcVar4 = *(undefined4 *)in_EAX;
-        in_EAX = in_EAX + 4;
+        *(undefined4 *)pcVar4 = *(undefined4 *)regEax;
+        regEax = regEax + 4;
         pcVar4 = pcVar4 + 4;
       }
       for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
-        *pcVar4 = *in_EAX;
-        in_EAX = in_EAX + 1;
+        *pcVar4 = *regEax;
+        regEax = regEax + 1;
         pcVar4 = pcVar4 + 1;
       }
       iVar8 = *(int *)(puVar1 + 0x1000) + uVar5;
@@ -74,7 +73,7 @@ void FUN_00402900(int param_1,char *param_2)
     }
     if (*(int **)(param_1 + 0x1bdc) != (int *)0x0) {
       (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x10))(&local_20,0);
-      FUN_004024f0(param_1,in_EAX,param_2);
+      FUN_004024f0(param_1,regEax,param_2);
       return;
     }
   }
@@ -101,12 +100,12 @@ void FUN_00402900(int param_1,char *param_2)
       EncodePacketBody(0,iVar8);
       SendOutgoingPacket(iVar8);
     }
-    pcVar4 = in_EAX;
+    pcVar4 = regEax;
     do {
       cVar2 = *pcVar4;
       pcVar4 = pcVar4 + 1;
     } while (cVar2 != '\0');
-    FUN_004026a0(2,in_EAX,pcVar4 + (1 - (int)(in_EAX + 1)));
+    FUN_004026a0(2,regEax,pcVar4 + (1 - (int)(regEax + 1)));
   }
   return;
 }

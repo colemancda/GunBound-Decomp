@@ -68,7 +68,7 @@ void __thiscall DrawFontString(int param_1,undefined4 param_2,undefined4 param_3
       }
       else {
         if ((cVar1 != ' ') && (g_clipMinX <= local_4)) {
-          DrawNarrowGlyph(param_1,param_2,param_3);
+          DrawNarrowGlyph(param_1,param_2,param_3,&DAT_00673628 + (uint)(byte)cVar1 * 0xc);
         }
         param_1 = param_1 + 6;
         iVar2 = iVar2 + 6;

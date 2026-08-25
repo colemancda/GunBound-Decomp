@@ -17,12 +17,11 @@
 #include "ghidra_types.h"
 
 
-void FUN_00402ad0(int param_1,char *param_2)
+void FUN_00402ad0(int param_1,char *param_2,char *regEax)
 
 {
   undefined2 *puVar1;
   char cVar2;
-  char *in_EAX;
   undefined4 *puVar3;
   char *pcVar4;
   int iVar5;
@@ -81,10 +80,10 @@ void FUN_00402ad0(int param_1,char *param_2)
   }
   else {
     local_b8 = 0x6e;
-    pcVar4 = in_EAX;
+    pcVar4 = regEax;
     do {
       cVar2 = *pcVar4;
-      pcVar4[(int)&local_b8 + (1 - (int)in_EAX)] = cVar2;
+      pcVar4[(int)&local_b8 + (1 - (int)regEax)] = cVar2;
       pcVar4 = pcVar4 + 1;
     } while (cVar2 != '\0');
     iVar5 = FUN_00404b00(&local_b8);
@@ -92,9 +91,9 @@ void FUN_00402ad0(int param_1,char *param_2)
     if (iVar5 == 0) {
       *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       *(undefined2 *)(iVar6 + 0x4d4) = 0x1020;
-      *(undefined4 *)(iVar6 + 0x4d6) = *(undefined4 *)in_EAX;
-      *(undefined4 *)(iVar6 + 0x4da) = *(undefined4 *)(in_EAX + 4);
-      *(undefined4 *)(iVar6 + 0x4de) = *(undefined4 *)(in_EAX + 8);
+      *(undefined4 *)(iVar6 + 0x4d6) = *(undefined4 *)regEax;
+      *(undefined4 *)(iVar6 + 0x4da) = *(undefined4 *)(regEax + 4);
+      *(undefined4 *)(iVar6 + 0x4de) = *(undefined4 *)(regEax + 8);
       iVar5 = *(int *)(iVar6 + 0x44d0);
       *(int *)(iVar6 + 0x44d0) = iVar5 + 0xc;
       *(undefined1 *)(iVar5 + 0x4dc + iVar6) = 0;

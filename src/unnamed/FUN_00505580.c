@@ -41,7 +41,7 @@ void FUN_00505580(int param_1)
     if (iVar3 == 0) {
       iVar3 = __mbsicmp(*(uchar **)(param_1 + 0x50),(uchar *)(g_clientContext + 0x23330));
       if (iVar3 != 0) {
-        FUN_00402ad0(&DAT_00e53e88,&DAT_0054b460);
+        FUN_00402ad0(&DAT_00e53e88,&DAT_0054b460,*(char **)(param_1 + 0x50));
         goto LAB_0050566b;
       }
       pcVar4 = (char *)GetLocalizedString(&g_localizedStringTable,0xfa7);

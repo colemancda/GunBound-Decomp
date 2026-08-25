@@ -44,7 +44,7 @@ void FUN_00403170(int param_1,uchar *param_2)
         puVar1 = puVar2;
       } while (puVar2 != (uint *)0x0);
       FUN_004032c0(param_1,param_2 + 1);
-      FUN_004048e0();
+      FUN_004048e0((int *)(param_1 + 0x1be4));
       local_208[0] = 0xffffffff;
       puVar1 = (uint *)FUN_00404b00(param_2);
     } while (puVar1 != (uint *)0x0);
