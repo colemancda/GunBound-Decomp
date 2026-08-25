@@ -70,7 +70,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
     }
     if (in_AX < 0xa101) {
       if (in_AX == 0xa100) {
-        FUN_00402300(param_2);
+        FUN_00402300((int)&DAT_00e53e88,param_2,(int)param_1);
         return;
       }
       if (in_AX == 0x1fff) {

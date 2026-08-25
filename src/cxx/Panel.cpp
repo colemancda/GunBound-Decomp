@@ -686,8 +686,12 @@ extern "C" {
 extern unsigned int DAT_007934f0;   /* per-connection context base (channel-1 send buffer inside:
                                      * u16 opcode at +0x4d4, write cursor at +0x44d0, payload
                                      * bytes from +0x4d0+cursor) */
-extern unsigned int DAT_00e54a9c;   /* buddy/selector record count guard */
-extern unsigned char DAT_00e54aa0;  /* selector record storage */
+extern unsigned char DAT_00e53e88[];      /* the lobby-connection object */
+/* These two are fields of that object (+0xc14 record count, +0xc18 record
+ * storage), not globals of their own -- see globals.h.  Spelled as the same
+ * offset-macros here because this file keeps a private extern block. */
+#define DAT_00e54a9c (*(unsigned int *)(DAT_00e53e88 + 0xc14))
+#define DAT_00e54aa0 (DAT_00e53e88[0xc18])
 void AppendPacketBytes(void *record);    /* append a selector record to the pending packet */
 void SendOutgoingPacket(int channelCtx);  /* flush/send the pending channel-1 packet */
 void FUN_00402060(void);            /* buddy-list refresh */

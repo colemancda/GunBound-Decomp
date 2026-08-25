@@ -4,20 +4,27 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * RE-SLOTTED AND EAX RECOVERED (2026-08-24).  Entry: `mov ebp,[esp+0xc]`
+ * (the key string, param_2), `mov ebx,ecx` (this, param_1), then
+ * FUN_00405360(param_2, EAX) -- so EAX is the record.  Sole call site
+ * 0x004049aa in FUN_004049a0: ECX = its unaff_EDI (the tree), push = its own
+ * incoming EAX (the key), EAX = [esp+0x14] = its first stack parameter --
+ * which FUN_004049a0 did not declare, although both of ITS callers pass one
+ * (&local_108, &local_100).  That parameter is now declared as param_1.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_00404dd0(int *param_1,uchar *param_2)
+undefined4 __thiscall FUN_00404dd0(int *param_1,uchar *param_2,int regEax)
 
 {
-  undefined4 in_EAX;
   int iVar1;
   int iVar2;
   undefined4 *puVar3;
   undefined4 *puVar4;
   
-  iVar1 = FUN_00405360(param_2,in_EAX);
+  iVar1 = FUN_00405360(param_2,regEax);
   puVar4 = (undefined4 *)0x0;
   puVar3 = (undefined4 *)*param_1;
   if ((undefined4 *)*param_1 != (undefined4 *)param_1[5]) {

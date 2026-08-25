@@ -41,7 +41,7 @@ uint FUN_004048e0(int *regEax)
       FUN_00404e60();
     }
     if (iVar2 != unaff_EBX) {
-      FUN_00404d60();
+      FUN_00404d60((int)unaff_EBX,regEax,iVar2);
     }
     if (*regEax != 0) {
       *(int *)(*regEax + 0x110) = regEax[5];

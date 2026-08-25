@@ -4,14 +4,20 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * RE-SLOTTED AND EAX RECOVERED (2026-08-24).  CString::LoadString(hInst, nID):
+ * FindResourceA(param_1, (regEax >> 4) + 1, RT_STRING).  Sole call site
+ * 0x0040556b in ConstructStringFromText: ECX = iVar2, the HMODULE
+ * FUN_00401880 (AtlFindStringResourceInstance) just returned; push = param_2,
+ * the CString; EAX = (uint)param_1 & 0xffff, the string id.  The port had
+ * passed the CString as the HMODULE.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_004055f0(HMODULE param_1,int *param_2)
+undefined4 __thiscall FUN_004055f0(HMODULE param_1,int *param_2,uint regEax)
 
 {
-  uint in_EAX;
   HRSRC pHVar1;
   ushort *puVar2;
   uint uVar3;
@@ -25,7 +31,7 @@ undefined4 __thiscall FUN_004055f0(HMODULE param_1,int *param_2)
   LPCSTR pCVar8;
   LPBOOL pBVar9;
   
-  pHVar1 = FindResourceA(param_1,(LPCSTR)((in_EAX >> 4) + 1 & 0xffff),&DAT_00000006);
+  pHVar1 = FindResourceA(param_1,(LPCSTR)((regEax >> 4) + 1 & 0xffff),&DAT_00000006);
   if (pHVar1 != (HRSRC)0x0) {
     puVar2 = (ushort *)FUN_00401820(param_1);
     if (puVar2 != (ushort *)0x0) {

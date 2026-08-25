@@ -4,16 +4,25 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * RE-SLOTTED AND EAX RECOVERED (2026-08-24).  `ret 8`: param_1 is ECX (the
+ * packet: [esi+4] is the opcode dispatched on), param_2/param_3 the two
+ * pushes, EAX (`mov edi,eax` at entry) a 16-byte name record copied into the
+ * packet at +4..+0x10 and used as the key in case 0x1002.  Sole call site
+ * 0x00403231 in FUN_00403170: ECX = &local_208 (the packet), EAX =
+ * [ebp+0x10] = FUN_00403170's THIRD stack parameter -- which its source did
+ * not declare although its `ret 0xc` and both of its callers
+ * (FUN_00403000.c:44/68, three arguments) say it exists.  Now declared as
+ * param_3 there.  The port had passed the packet's owner as the packet.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
+void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3,undefined4 *regEax)
 
 {
   char cVar1;
   uint uVar2;
-  undefined4 *in_EAX;
   undefined4 *puVar3;
   int iVar4;
   byte bVar5;
@@ -57,10 +66,10 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
         }
         *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
         *(undefined2 *)(iVar4 + 2) = 0xa110;
-        *(undefined4 *)(iVar4 + 4) = *in_EAX;
-        *(undefined4 *)(iVar4 + 8) = in_EAX[1];
-        *(undefined4 *)(iVar4 + 0xc) = in_EAX[2];
-        *(undefined4 *)(iVar4 + 0x10) = in_EAX[3];
+        *(undefined4 *)(iVar4 + 4) = *regEax;
+        *(undefined4 *)(iVar4 + 8) = regEax[1];
+        *(undefined4 *)(iVar4 + 0xc) = regEax[2];
+        *(undefined4 *)(iVar4 + 0x10) = regEax[3];
         *(int *)(iVar4 + 0x2000) = *(int *)(iVar4 + 0x2000) + 0x10;
         pcVar6 = (char *)(param_1 + 8);
         do {
@@ -76,10 +85,10 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
         if (g_directLinkConnection != 0) {
           *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
           *(undefined2 *)(iVar4 + 2) = 0xa200;
-          *(undefined4 *)(iVar4 + 4) = *in_EAX;
-          *(undefined4 *)(iVar4 + 8) = in_EAX[1];
-          *(undefined4 *)(iVar4 + 0xc) = in_EAX[2];
-          *(undefined4 *)(iVar4 + 0x10) = in_EAX[3];
+          *(undefined4 *)(iVar4 + 4) = *regEax;
+          *(undefined4 *)(iVar4 + 8) = regEax[1];
+          *(undefined4 *)(iVar4 + 0xc) = regEax[2];
+          *(undefined4 *)(iVar4 + 0x10) = regEax[3];
           iVar7 = *(int *)(iVar4 + 0x2000) + 0x10;
           *(int *)(iVar4 + 0x2000) = iVar7;
           puVar3 = (undefined4 *)(iVar7 + iVar4);
@@ -103,10 +112,10 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
       else if ((uVar2 == 2) && (g_directLinkConnection != 0)) {
         *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
         *(undefined2 *)(iVar4 + 2) = 0xa112;
-        *(undefined4 *)(iVar4 + 4) = *in_EAX;
-        *(undefined4 *)(iVar4 + 8) = in_EAX[1];
-        *(undefined4 *)(iVar4 + 0xc) = in_EAX[2];
-        *(undefined4 *)(iVar4 + 0x10) = in_EAX[3];
+        *(undefined4 *)(iVar4 + 4) = *regEax;
+        *(undefined4 *)(iVar4 + 8) = regEax[1];
+        *(undefined4 *)(iVar4 + 0xc) = regEax[2];
+        *(undefined4 *)(iVar4 + 0x10) = regEax[3];
         *(int *)(iVar4 + 0x2000) = *(int *)(iVar4 + 0x2000) + 0x10;
         pcVar6 = (char *)(param_1 + 8);
         do {
@@ -123,7 +132,7 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
         return;
       }
       if (uVar2 == 0x1002) {
-        FUN_00401ee0(param_2,(char *)in_EAX); /* case 0x1002: the key is this function's own (still dropped) EAX */
+        FUN_00401ee0(param_2,(char *)regEax); /* case 0x1002: the key is this function's own (still dropped) EAX */
         return;
       }
       if (uVar2 == 0x1003) {
@@ -161,10 +170,10 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
       if (g_directLinkConnection != 0) {
         *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
         *(undefined2 *)(iVar4 + 2) = 0xa251;
-        *(undefined4 *)(iVar4 + 4) = *in_EAX;
-        *(undefined4 *)(iVar4 + 8) = in_EAX[1];
-        *(undefined4 *)(iVar4 + 0xc) = in_EAX[2];
-        *(undefined4 *)(iVar4 + 0x10) = in_EAX[3];
+        *(undefined4 *)(iVar4 + 4) = *regEax;
+        *(undefined4 *)(iVar4 + 8) = regEax[1];
+        *(undefined4 *)(iVar4 + 0xc) = regEax[2];
+        *(undefined4 *)(iVar4 + 0x10) = regEax[3];
         iVar7 = *(int *)(iVar4 + 0x2000) + 0x10;
         *(int *)(iVar4 + 0x2000) = iVar7;
         *(undefined1 *)(iVar7 + iVar4) = 1;
@@ -182,10 +191,10 @@ LAB_0040377c:
       if (g_directLinkConnection != 0) {
         *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
         *(undefined2 *)(iVar4 + 2) = 0xa251;
-        *(undefined4 *)(iVar4 + 4) = *in_EAX;
-        *(undefined4 *)(iVar4 + 8) = in_EAX[1];
-        *(undefined4 *)(iVar4 + 0xc) = in_EAX[2];
-        *(undefined4 *)(iVar4 + 0x10) = in_EAX[3];
+        *(undefined4 *)(iVar4 + 4) = *regEax;
+        *(undefined4 *)(iVar4 + 8) = regEax[1];
+        *(undefined4 *)(iVar4 + 0xc) = regEax[2];
+        *(undefined4 *)(iVar4 + 0x10) = regEax[3];
         iVar7 = *(int *)(iVar4 + 0x2000) + 0x10;
         *(int *)(iVar4 + 0x2000) = iVar7;
         *(undefined1 *)(iVar7 + iVar4) = 0;
@@ -206,10 +215,10 @@ LAB_0040377c:
       }
       *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
       *(undefined2 *)(iVar4 + 2) = 0xa210;
-      *(undefined4 *)(iVar4 + 4) = *in_EAX;
-      *(undefined4 *)(iVar4 + 8) = in_EAX[1];
-      *(undefined4 *)(iVar4 + 0xc) = in_EAX[2];
-      *(undefined4 *)(iVar4 + 0x10) = in_EAX[3];
+      *(undefined4 *)(iVar4 + 4) = *regEax;
+      *(undefined4 *)(iVar4 + 8) = regEax[1];
+      *(undefined4 *)(iVar4 + 0xc) = regEax[2];
+      *(undefined4 *)(iVar4 + 0x10) = regEax[3];
       *(int *)(iVar4 + 0x2000) = *(int *)(iVar4 + 0x2000) + 0x10;
       FUN_00405a20();
       FUN_00401ee0(param_2,(char *)param_3 + 1);

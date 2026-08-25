@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_004049a0(void)
+int FUN_004049a0(int param_1)
 
 {
   int iVar1;
@@ -18,7 +18,7 @@ int FUN_004049a0(void)
   int iVar4;
   int *unaff_EDI;
   
-  iVar2 = FUN_00404dd0(in_EAX);
+  iVar2 = FUN_00404dd0(unaff_EDI,(uchar *)in_EAX,param_1);
   *(undefined4 *)(iVar2 + 0x104) = 0;
   iVar4 = iVar2;
   if (iVar2 != *unaff_EDI) {

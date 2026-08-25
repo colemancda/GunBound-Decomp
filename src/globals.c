@@ -739,10 +739,17 @@ uint32_t DAT_00e53c48;
  * ~25 callers' own offset requirements beyond this confirmed 0xf28-byte
  * lower bound are still untraced, so the struct may need to grow further
  * once those call sites are individually recovered. */
-uint8_t DAT_00e53e88[0xf28];
-uint8_t DAT_00e55a45;
-uint8_t DAT_00e55a46;
-int *DAT_00e55a64;
+/* DAT_00e54a9c/aa0/da8, DAT_00e55a34/45/46/54/58/64: now offset-macros into
+ * DAT_00e53e88 - see the note on it below. */
+/* Resized 0xf28 -> 0x1bf0 (2026-08-24).  Wiring FUN_00402300's `this` to this
+ * object made its writes at +0xf28.., +0x15a8 and +0x1bb0 reachable, and
+ * FUN_00402cf0 / FUN_00401ee0 / FUN_004048e0 already read +0x15b0, +0x1bdc
+ * and +0x1be4.  Nine globals that Ghidra had declared separately lie INSIDE
+ * that extent -- one of them (DAT_00e54da8, +0xf20) inside even the old size
+ * -- and are now offset-macros into this storage (see globals.h), so a write
+ * through the object and a read through the field name see the same byte.
+ * 0x1bf0 stops short of the CValueGuard cell at +0x1c30 (DAT_00e55ab8). */
+uint8_t DAT_00e53e88[0x1bf0];
 /* DAT_00e55ab8: moved to globals_sized.c (0x224 CValueGuard cell). */
 /* g_replayContext (was DAT_00e55ce0): moved to globals_sized.c (0x454f9-byte struct - battle/replay turn-event buffer; real extent established via FUN_004e84c0/FUN_004e7b60/FUN_004e80d0/FUN_004e77e0/FUN_004e7de0/FUN_004e6050, all of which take &g_replayContext as their context arg; the ~42 other DAT_00e5.../DAT_00e9... globals formerly declared here in this offset range are now offset-macros into that storage - see globals.h). The CRITICAL_SECTION at +0x45264 (DAT_00e9af44) IS covered by this array -- 0x45264 < 0x454f9 -- and is now an offset-macro into it rather than separate storage; this comment previously asserted the opposite. */
 /* DAT_00e9af44: moved to globals_sized.c (CRITICAL_SECTION) */
@@ -2024,8 +2031,6 @@ uint32_t DAT_00793724;
 /* DAT_00794e48: moved to globals_sized.c (0x224 CValueGuard cell). */
 uint32_t g_lastCursorDirection;
 uint32_t DAT_00989680;
-uint32_t DAT_00e54a9c;
-uint32_t DAT_00e54aa0;
 /* --- 0x2101 server-select selector-record table ---
  * Standalone global (not the server-list SoA, which lives in g_clientContext
  * at +0x3f808). Records are 12 bytes each; the emit path in
@@ -2038,10 +2043,6 @@ uint32_t DAT_00e54aa0;
  * (0xe54da8) = 21 whole 12-byte records max. */
 uint32_t g_serverSelectRecordCount;         /* 0xe54ca4 - count/valid flag */
 uint8_t  g_serverSelectRecords[21 * 12];    /* 0xe54ca8 - record[0] == old DAT_00e54ca8/cac/cb0 */
-uint32_t DAT_00e54da8;
-uint32_t DAT_00e55a34;
-uint32_t DAT_00e55a54;
-uint32_t DAT_00e55a58;
 /* DAT_00e9c578: moved to globals_sized.c (0x224 CValueGuard cell). */
 uint32_t DAT_00e9cd30;
 uint32_t DAT_00f25840;

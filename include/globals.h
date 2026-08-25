@@ -933,10 +933,10 @@ extern uint8_t g_cursorFreeMode;     /* was DAT_00e53c3c - 1=cursor tracks mouse
 extern uint8_t g_uiPanelManager[0x1c]; /* sized to real storage - see globals.c */
 extern uint32_t DAT_00e53c44;
 extern uint32_t DAT_00e53c48;
-extern uint8_t DAT_00e53e88[0xf28]; /* sized to FUN_004022b0's confirmed access; see globals.c */
-extern uint8_t DAT_00e55a45;
-extern uint8_t DAT_00e55a46;
-extern int *DAT_00e55a64; /* used dereferenced as a vtable-bearing ptr at call sites */
+extern uint8_t DAT_00e53e88[0x1bf0]; /* sized to FUN_004022b0's confirmed access; see globals.c */
+#define DAT_00e55a45 SUBFIELD(DAT_00e53e88, 0x1bbd, uint8_t)
+#define DAT_00e55a46 SUBFIELD(DAT_00e53e88, 0x1bbe, uint8_t)
+#define DAT_00e55a64 SUBFIELD(DAT_00e53e88, 0x1bdc, int *)
 extern uint8_t DAT_00e55ab8;
 extern uint8_t g_replayContext;
 #define DAT_00e55ce8 (*(uint32_t*)(&g_replayContext+0x8))
@@ -2258,15 +2258,15 @@ extern uint32_t DAT_007949c8;
 extern uint32_t DAT_00794e48;
 extern uint32_t g_lastCursorDirection;
 extern uint32_t DAT_00989680;
-extern uint32_t DAT_00e54a9c;
-extern uint32_t DAT_00e54aa0;
+#define DAT_00e54a9c SUBFIELD(DAT_00e53e88, 0xc14, uint32_t)
+#define DAT_00e54aa0 SUBFIELD(DAT_00e53e88, 0xc18, uint32_t)
 /* 0x2101 server-select selector-record table (see globals.c). */
 extern uint32_t g_serverSelectRecordCount;   /* 0xe54ca4 */
 extern uint8_t  g_serverSelectRecords[21 * 12]; /* 0xe54ca8, 12 bytes/record */
-extern uint32_t DAT_00e54da8;
-extern uint32_t DAT_00e55a34;
-extern uint32_t DAT_00e55a54;
-extern uint32_t DAT_00e55a58;
+#define DAT_00e54da8 SUBFIELD(DAT_00e53e88, 0xf20, uint32_t)
+#define DAT_00e55a34 SUBFIELD(DAT_00e53e88, 0x1bac, uint32_t)
+#define DAT_00e55a54 SUBFIELD(DAT_00e53e88, 0x1bcc, uint32_t)
+#define DAT_00e55a58 SUBFIELD(DAT_00e53e88, 0x1bd0, uint32_t)
 #define DAT_00e9af60 (*(uint32_t*)(&g_replayContext+0x45280))
 /* WinMain value-guard slot 18 - declared with its 19 siblings above; the
  * full 0x224-byte storage is in globals_sized.c. */

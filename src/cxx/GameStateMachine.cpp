@@ -20,7 +20,11 @@ extern CGameState *g_gameStateVTableArray[16]; /* 0x5b33f8 (a.k.a. g_gameStateOb
                                                 * declared char*[] in the C tree - the C++
                                                 * layer types the elements for real */
 extern int g_clientContext;
-extern unsigned char DAT_00e55a45;
+extern unsigned char DAT_00e53e88[];      /* the lobby-connection object */
+/* DAT_00e55a45 is that object's byte at +0x1bbd, not a global of its own --
+ * see globals.h.  This file keeps a private extern block, so it spells the
+ * same offset-macro here. */
+#define DAT_00e55a45 (DAT_00e53e88[0x1bbd])
 extern unsigned int DAT_00e9be98, DAT_00e9be9c, DAT_00e9c104;
 extern unsigned int DAT_0056d108, DAT_007934d8;
 extern unsigned char DAT_0067ec70;
