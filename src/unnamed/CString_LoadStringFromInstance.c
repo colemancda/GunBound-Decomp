@@ -1,9 +1,10 @@
-/* FUN_004055f0 - 0x004055f0 in the original binary.
+/* CString_LoadStringFromInstance - 0x004055f0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * CString::LoadString(hInst, nID): FindResourceA(param_1, (regEax >> 4) + 1,
+ * RT_STRING), then walks the string-table block to entry nID & 0xf and copies
+ * it into the CString at *param_2.  ConstructStringFromText passes the
+ * HMODULE that FUN_00401880 (AtlFindStringResourceInstance) resolved for the
+ * same nID one line earlier.
  *
  * RE-SLOTTED AND EAX RECOVERED (2026-08-24).  CString::LoadString(hInst, nID):
  * FindResourceA(param_1, (regEax >> 4) + 1, RT_STRING).  Sole call site
@@ -15,7 +16,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 __thiscall FUN_004055f0(HMODULE param_1,int *param_2,uint regEax)
+undefined4 __thiscall CString_LoadStringFromInstance(HMODULE param_1,int *param_2,uint regEax)
 
 {
   HRSRC pHVar1;

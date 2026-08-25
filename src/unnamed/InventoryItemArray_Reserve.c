@@ -1,9 +1,12 @@
-/* FUN_004268b0 - 0x004268b0 in the original binary.
+/* InventoryItemArray_Reserve - 0x004268b0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Ensures the client's inventory-item array can hold regEax elements.  The
+ * array header is regEsi = g_clientContext + 0x44be8 (data ptr, count at +4,
+ * capacity at +8, grow hint at +0xc); elements are 0x9c bytes -- the same
+ * 0x9c-byte records RenderInventoryItemDetail copies out of *(ctx+0x44be8).
+ * The ATL CAtlArray::SetCount growth policy: first allocation takes
+ * max(requested, hint); later growth uses count/8 clamped to [4, 0x400] as
+ * the increment.  Returns 1 on success, 0 if malloc failed.
  *
  * BOTH REGISTERS RECOVERED (2026-08-24, workflow-analysed, hand-checked).
  * An ATL-array grow: regEsi is the array header at g_clientContext + 0x44be8
@@ -15,7 +18,7 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004268b0(uint regEax,int *regEsi)
+undefined4 InventoryItemArray_Reserve(uint regEax,int *regEsi)
 
 {
   void *pvVar1;

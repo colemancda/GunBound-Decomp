@@ -3732,7 +3732,7 @@
   ]
  },
  {
-  "func": "FUN_004e4390",
+  "func": "ScanTerrainUpForSolid",
   "reg": "edi",
   "sites": 5,
   "values": {},
@@ -3741,7 +3741,7 @@
   "buckets": {
    "REGISTER": 5
   },
-  "path": "src/unnamed/FUN_004e4390.c",
+  "path": "src/unnamed/ScanTerrainUpForSolid.c",
   "per_site": [
    {
     "va": "0x48732a",
@@ -3771,7 +3771,7 @@
   ]
  },
  {
-  "func": "FUN_004e43d0",
+  "func": "ScanTerrainLeftForSolid",
   "reg": "eax",
   "sites": 5,
   "values": {},
@@ -3781,7 +3781,7 @@
    "STACK": 2,
    "REGISTER": 3
   },
-  "path": "src/unnamed/FUN_004e43d0.c",
+  "path": "src/unnamed/ScanTerrainLeftForSolid.c",
   "per_site": [
    {
     "va": "0x487081",
@@ -7826,7 +7826,7 @@
   ]
  },
  {
-  "func": "FUN_004032c0",
+  "func": "DispatchDirectLinkPacket",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -7835,7 +7835,7 @@
   "buckets": {
    "OTHER": 1
   },
-  "path": "src/unnamed/FUN_004032c0.c",
+  "path": "src/unnamed/DispatchDirectLinkPacket.c",
   "per_site": [
    {
     "va": "0x403231",
@@ -7902,7 +7902,7 @@
   ]
  },
  {
-  "func": "FUN_00404d60",
+  "func": "TreeReplaceNode",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -7911,7 +7911,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00404d60.c",
+  "path": "src/unnamed/TreeReplaceNode.c",
   "per_site": [
    {
     "va": "0x404969",
@@ -7978,7 +7978,7 @@
   ]
  },
  {
-  "func": "FUN_004055f0",
+  "func": "CString_LoadStringFromInstance",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -7987,7 +7987,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_004055f0.c",
+  "path": "src/unnamed/CString_LoadStringFromInstance.c",
   "per_site": [
    {
     "va": "0x40556b",
@@ -7997,7 +7997,7 @@
   ]
  },
  {
-  "func": "FUN_00405760",
+  "func": "CString_Empty",
   "reg": "esi",
   "sites": 1,
   "values": {},
@@ -8006,7 +8006,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00405760.c",
+  "path": "src/unnamed/CString_Empty.c",
   "per_site": [
    {
     "va": "0x4056cc",
@@ -8016,7 +8016,7 @@
   ]
  },
  {
-  "func": "FUN_004068d0",
+  "func": "AdvanceHudAnimationCounters",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -8025,7 +8025,7 @@
   "buckets": {
    "OBJ-REL": 1
   },
-  "path": "src/unnamed/FUN_004068d0.c",
+  "path": "src/unnamed/AdvanceHudAnimationCounters.c",
   "per_site": [
    {
     "va": "0x4be267",
@@ -8035,7 +8035,7 @@
   ]
  },
  {
-  "func": "FUN_00409f60",
+  "func": "HashTable_OnNodeRemoved",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -8044,7 +8044,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00409f60.c",
+  "path": "src/unnamed/HashTable_OnNodeRemoved.c",
   "per_site": [
    {
     "va": "0x415635",
@@ -8307,7 +8307,7 @@
   ]
  },
  {
-  "func": "FUN_004268b0",
+  "func": "InventoryItemArray_Reserve",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -8316,7 +8316,7 @@
   "buckets": {
    "OTHER": 1
   },
-  "path": "src/unnamed/FUN_004268b0.c",
+  "path": "src/unnamed/InventoryItemArray_Reserve.c",
   "per_site": [
    {
     "va": "0x44460f",
@@ -8326,7 +8326,7 @@
   ]
  },
  {
-  "func": "FUN_004268b0",
+  "func": "InventoryItemArray_Reserve",
   "reg": "esi",
   "sites": 1,
   "values": {},
@@ -8335,7 +8335,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_004268b0.c",
+  "path": "src/unnamed/InventoryItemArray_Reserve.c",
   "per_site": [
    {
     "va": "0x44460f",

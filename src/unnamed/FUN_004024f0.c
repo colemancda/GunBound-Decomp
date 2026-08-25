@@ -7,7 +7,7 @@
  *
  * DROPPED REGISTER RECOVERED (2026-08-24): EAX is the second object handed
  * on to FUN_004025e0(param_1, regEax).  Five call sites in three callers:
- *   FUN_004032c0 (2)  param_3 -- [esp+0x144] on the four-saved-register path,
+ *   DispatchDirectLinkPacket (2)  param_3 -- [esp+0x144] on the four-saved-register path,
  *                     the same +8 slot the FUN_00401ee0 sites read as
  *                     [esp+0x140] on the three-register path
  *   FUN_00402720 (2)  param_2 -- loaded into EDI in the prologue.  One site

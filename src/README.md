@@ -394,7 +394,7 @@ Concretely, that means:
     `FUN_0053753c.c` (the last two are CRT-internal thread/FPU-state
     helpers, not game logic - likely not worth porting at all rather
     than fixing), `InitLightningHazard.c`, `InitFirewallHazard.c`, `InitTornadoHazard.c`
-    (sub-byte-field access), `FUN_00405760.c`
+    (sub-byte-field access), `CString_Empty.c`
     (vtable-call return value used as non-void)
 
   **`entry/InitGame.c` was in this list (Windows SEH `__try`/`__except`

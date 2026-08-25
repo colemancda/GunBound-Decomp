@@ -39,8 +39,8 @@ void __fastcall DetonateSuperShot_Bullet13(int *param_1)
 
 {
   char cVar1;
-  int peekRow;                       /* FUN_004e43d0 EAX: the row guard, captured instead of discarded */
-  int peekCol;                       /* FUN_004e43d0 ECX: the column guard */
+  int peekRow;                       /* ScanTerrainLeftForSolid EAX: the row guard, captured instead of discarded */
+  int peekCol;                       /* ScanTerrainLeftForSolid ECX: the column guard */
   char cVar2;
   int iVar3;
   int iVar4;
@@ -237,7 +237,7 @@ LAB_0048780a:
         puStack_8 = (undefined1 *)0x0;
         peekRow = PeekChecksumStateUnderLock(param_1 + 0x45e);
         peekCol = PeekChecksumStateUnderLock(uVar5);
-        iVar3 = FUN_004e43d0(peekCol,(int)(&DAT_006a7708 + g_clientContext),peekRow);
+        iVar3 = ScanTerrainLeftForSolid(peekCol,(int)(&DAT_006a7708 + g_clientContext),peekRow);
         puStack_8 = (undefined1 *)0xffffffff;
         ScrubChecksumGuard();
         uVar5 = EncodeChecksumDeltaAdd(piVar17,auStack_ac4,8);
@@ -312,7 +312,7 @@ LAB_0048780a:
           puStack_8 = (undefined1 *)0x7;
           PeekChecksumStateUnderLock(uVar5);
           PeekChecksumStateUnderLock(param_1 + 0x3d5);
-          iVar3 = FUN_004e4390((int)(&DAT_006a7708 + g_clientContext));
+          iVar3 = ScanTerrainUpForSolid((int)(&DAT_006a7708 + g_clientContext));
           puStack_8 = (undefined1 *)0xffffffff;
           ScrubChecksumGuard();
           uVar5 = EncodeChecksumDeltaAdd(param_1 + 0x45e,auStack_ac4,8);

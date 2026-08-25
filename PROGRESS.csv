@@ -45,7 +45,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00403000,354,FUN_00403000,false,2,2,RAW-src
 00403170,244,FUN_00403170,false,2,5,RAW-src
 00403270,75,FUN_00403270,false,1,1,RAW-src
-004032c0,1447,FUN_004032c0,false,1,13,RAW-src
+004032c0,1447,DispatchDirectLinkPacket,false,1,13,RAW-src
 004038b0,3,NoOpMethodStdcall1,false,14,0,RAW-src
 00403ae0,285,FUN_00403ae0,false,1,6,RAW-src
 00403d20,231,FUN_00403d20,false,1,5,RAW-src
@@ -60,7 +60,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00404b90,161,FUN_00404b90,false,1,5,RAW-src
 00404c40,135,FUN_00404c40,false,5,0,RAW-src
 00404cd0,135,FUN_00404cd0,false,5,0,RAW-src
-00404d60,111,FUN_00404d60,false,1,0,RAW-src
+00404d60,111,TreeReplaceNode,false,1,0,RAW-src
 00404dd0,138,FUN_00404dd0,false,1,2,RAW-src
 00404e60,476,FUN_00404e60,false,1,2,RAW-src
 00405040,96,FUN_00405040,false,2,0,RAW-src
@@ -74,9 +74,9 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004054c0,72,FUN_004054c0,false,4,2,RAW-src
 00405510,149,ConstructStringFromText,false,5,3,RAW-src
 004055b0,56,FUN_004055b0,false,3,1,RAW-src
-004055f0,201,FUN_004055f0,false,1,6,RAW-src
+004055f0,201,CString_LoadStringFromInstance,false,1,6,RAW-src
 004056c0,152,AssignStringBuffer,false,21,4,RAW-src
-00405760,92,FUN_00405760,false,1,1,RAW-src
+00405760,92,CString_Empty,false,1,1,RAW-src
 004057c0,73,FUN_004057c0,false,2,2,RAW-src
 00405810,122,FUN_00405810,false,1,1,RAW-src
 00405890,32,FUN_00405890,false,1,1,RAW-src
@@ -118,7 +118,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00406710,161,CheckBothGuardedBools,false,37,2,RAW-src
 004067c0,159,FUN_004067c0,false,2,2,RAW-src
 00406860,103,DecodeGuardedBool,false,35,2,RAW-src
-004068d0,190,FUN_004068d0,false,1,0,RAW-src
+004068d0,190,AdvanceHudAnimationCounters,false,1,0,RAW-src
 00406990,6109,DrawWindGauge,false,1,18,RAW-src
 00408180,6148,State11_InBattle_RenderPlayerRoster,false,1,30,RAW-src
 00409990,120,SyncChatTypingState,false,3,2,RAW-src
@@ -127,7 +127,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00409cb0,87,ParseChooseEventLine,false,1,4,RAW-src
 00409d10,232,FUN_00409d10,false,1,5,RAW-src
 00409e20,304,FUN_00409e20,false,4,6,RAW-src
-00409f60,102,FUN_00409f60,false,1,4,RAW-src
+00409f60,102,HashTable_OnNodeRemoved,false,1,4,RAW-src
 00409fd0,95,FUN_00409fd0,false,9,2,RAW-src
 0040a040,50,FUN_0040a040,false,1,2,RAW-src
 0040a080,30,FUN_0040a080,false,3,2,RAW-src
@@ -369,7 +369,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00426700,34,FUN_00426700,false,1,1,RAW-src
 00426780,139,FUN_00426780,false,9,1,RAW-src
 00426810,154,FUN_00426810,false,14,2,RAW-src
-004268b0,172,FUN_004268b0,false,1,3,RAW-src
+004268b0,172,InventoryItemArray_Reserve,false,1,3,RAW-src
 00426960,230,FUN_00426960,false,3,5,RAW-src
 00426a60,86,FUN_00426a60,false,1,1,RAW-src
 00426ac0,7,CGameState_BaseDestructor,false,1,0,RAW-src
@@ -1067,8 +1067,8 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e4010,513,PreloadBattleTextures,false,2,1,RAW-src
 004e4220,272,FUN_004e4220,false,1,3,RAW-src
 004e4340,65,FindGroundHeightAtColumn,false,40,0,RAW-src
-004e4390,57,FUN_004e4390,false,5,0,RAW-src
-004e43d0,55,FUN_004e43d0,false,5,0,RAW-src
+004e4390,57,ScanTerrainUpForSolid,false,5,0,RAW-src
+004e43d0,55,ScanTerrainLeftForSolid,false,5,0,RAW-src
 004e4410,64,FUN_004e4410,false,5,0,RAW-src
 004e4450,1300,CarveTerrainCrater,false,3,5,RAW-src
 004e4970,578,ApplyCraterExcavation,false,23,5,RAW-src

@@ -1,8 +1,13 @@
-/* FUN_00409f60 - 0x00409f60 in the original binary.
+/* HashTable_OnNodeRemoved - 0x00409f60 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Bookkeeping after a node is unlinked from the hash table regEsi (bucket
+ * count at +8, live count at +4, shrink threshold at +0x1c, lock count at
+ * +0x20, chunk list at +0x28, free head at +0x2c): pushes the node regEax
+ * onto the free list, shrinks the bucket array when the live count drops
+ * below the threshold and nothing holds the table locked, and frees every
+ * chunk once the table is empty.  FUN_00415600 drives it once per node while
+ * emptying the table -- which is why that caller captures the node before
+ * advancing: this function overwrites node+8.
  *
  * BOTH REGISTERS RECOVERED (2026-08-24, workflow-analysed, hand-checked).
  * regEsi is the hash table (the caller's own in_EAX: +0x20 lock count, +8
@@ -17,7 +22,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00409f60(int regEax,int regEsi)
+void HashTable_OnNodeRemoved(int regEax,int regEsi)
 
 {
   int *piVar1;

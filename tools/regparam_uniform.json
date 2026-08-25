@@ -64,7 +64,7 @@
   }
  },
  {
-  "func": "FUN_004e43d0",
+  "func": "ScanTerrainLeftForSolid",
   "sites": 5,
   "uniform": {
    "ecx": "eax"
@@ -364,7 +364,7 @@
   }
  },
  {
-  "func": "FUN_004032c0",
+  "func": "DispatchDirectLinkPacket",
   "sites": 1,
   "uniform": {
    "eax": "[ebp + 0x10]",
@@ -382,7 +382,7 @@
   }
  },
  {
-  "func": "FUN_00404d60",
+  "func": "TreeReplaceNode",
   "sites": 1,
   "uniform": {
    "eax": "esi",
@@ -399,7 +399,7 @@
   }
  },
  {
-  "func": "FUN_004055f0",
+  "func": "CString_LoadStringFromInstance",
   "sites": 1,
   "uniform": {
    "eax": "esi"

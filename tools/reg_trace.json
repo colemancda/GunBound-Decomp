@@ -165,9 +165,9 @@
   "safe": true
  },
  {
-  "func": "FUN_004032c0",
+  "func": "DispatchDirectLinkPacket",
   "reg": "eax",
-  "path": "src/unnamed/FUN_004032c0.c",
+  "path": "src/unnamed/DispatchDirectLinkPacket.c",
   "caller": "FUN_00403170",
   "caller_va": "0x403170",
   "va": "0x403231",
@@ -209,9 +209,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00404d60",
+  "func": "TreeReplaceNode",
   "reg": "eax",
-  "path": "src/unnamed/FUN_00404d60.c",
+  "path": "src/unnamed/TreeReplaceNode.c",
   "caller": "FUN_004048e0",
   "caller_va": "0x4048e0",
   "va": "0x404969",
@@ -253,9 +253,9 @@
   "safe": true
  },
  {
-  "func": "FUN_004055f0",
+  "func": "CString_LoadStringFromInstance",
   "reg": "eax",
-  "path": "src/unnamed/FUN_004055f0.c",
+  "path": "src/unnamed/CString_LoadStringFromInstance.c",
   "caller": "ConstructStringFromText",
   "caller_va": "0x405510",
   "va": "0x40556b",
@@ -264,9 +264,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00405760",
+  "func": "CString_Empty",
   "reg": "esi",
-  "path": "src/unnamed/FUN_00405760.c",
+  "path": "src/unnamed/CString_Empty.c",
   "caller": "AssignStringBuffer",
   "caller_va": "0x4056c0",
   "va": "0x4056cc",
@@ -275,9 +275,9 @@
   "safe": true
  },
  {
-  "func": "FUN_004068d0",
+  "func": "AdvanceHudAnimationCounters",
   "reg": "eax",
-  "path": "src/unnamed/FUN_004068d0.c",
+  "path": "src/unnamed/AdvanceHudAnimationCounters.c",
   "caller": "State11_InBattle_OnTick",
   "caller_va": "0x4bd8b0",
   "va": "0x4be267",
@@ -286,9 +286,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00409f60",
+  "func": "HashTable_OnNodeRemoved",
   "reg": "eax",
-  "path": "src/unnamed/FUN_00409f60.c",
+  "path": "src/unnamed/HashTable_OnNodeRemoved.c",
   "caller": "FUN_00415600",
   "caller_va": "0x415600",
   "va": "0x415635",
@@ -440,9 +440,9 @@
   "safe": true
  },
  {
-  "func": "FUN_004268b0",
+  "func": "InventoryItemArray_Reserve",
   "reg": "eax",
-  "path": "src/unnamed/FUN_004268b0.c",
+  "path": "src/unnamed/InventoryItemArray_Reserve.c",
   "caller": "State07_AvatarStore_ProcessPacket",
   "caller_va": "0x4440c0",
   "va": "0x44460f",
@@ -451,9 +451,9 @@
   "safe": true
  },
  {
-  "func": "FUN_004268b0",
+  "func": "InventoryItemArray_Reserve",
   "reg": "esi",
-  "path": "src/unnamed/FUN_004268b0.c",
+  "path": "src/unnamed/InventoryItemArray_Reserve.c",
   "caller": "State07_AvatarStore_ProcessPacket",
   "caller_va": "0x4440c0",
   "va": "0x44460f",

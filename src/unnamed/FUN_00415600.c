@@ -26,7 +26,7 @@ void FUN_00415600(void)
       while (iVar1 != 0) {
         node = iVar1;                      /* the node to release: captured before the advance */
         iVar1 = *(int *)(iVar1 + 8);
-        FUN_00409f60(node,(int)in_EAX);
+        HashTable_OnNodeRemoved(node,(int)in_EAX);
       }
       uVar4 = uVar4 + 1;
     } while (uVar4 < (uint)in_EAX[2]);

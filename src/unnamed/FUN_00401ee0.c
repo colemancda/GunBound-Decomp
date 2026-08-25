@@ -9,14 +9,14 @@
  * FUN_00401c50(param_1, char *) searches the list for.  Seven call sites,
  * five different sources, each pinned individually:
  *   FUN_00402cf0 (2)   its own regEdi, the char * it was itself given
- *   FUN_004032c0 (2)   (char *)param_3 + 1 -- the name one byte into the
+ *   DispatchDirectLinkPacket (2)   (char *)param_3 + 1 -- the name one byte into the
  *                      packet payload.  Frame 0x138 (sub esp,0x12c + three
  *                      saved registers, not four), so [esp+0x140] is +8:
  *                      the second stack parameter.  Then `inc eax`.
- *   FUN_004032c0 (1)   case 0x1002, a cold block after the epilogue reached
+ *   DispatchDirectLinkPacket (1)   case 0x1002, a cold block after the epilogue reached
  *                      only from the entry dispatch (`ja 0x403564` at
  *                      0x4032ee); on that path EDI still holds the entry
- *                      `mov edi, eax` -- FUN_004032c0's OWN incoming EAX,
+ *                      `mov edi, eax` -- DispatchDirectLinkPacket's OWN incoming EAX,
  *                      which is still an unrecovered local there.  Passed
  *                      through as-is so the dependency is visible.
  *   FUN_00404330 (1)   &local_20, a 32-byte buffer FUN_00426090 fills

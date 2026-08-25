@@ -1,9 +1,10 @@
-/* FUN_004032c0 - 0x004032c0 in the original binary.
+/* DispatchDirectLinkPacket - 0x004032c0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Dispatches one direct-link packet by its opcode word at packet+4 --
+ * 0x1001 / 0x1002 / 0x1004 / 0x2005 and the small-numbered replies -- to the
+ * per-opcode handlers, sending through g_directLinkConnection where a reply
+ * is due.  param_1 is the packet (ECX), param_2/param_3 the two stack
+ * arguments, regEax a 16-byte name record used as the key for case 0x1002.
  *
  * RE-SLOTTED AND EAX RECOVERED (2026-08-24).  `ret 8`: param_1 is ECX (the
  * packet: [esi+4] is the opcode dispatched on), param_2/param_3 the two
@@ -18,7 +19,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3,undefined4 *regEax)
+void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 param_3,undefined4 *regEax)
 
 {
   char cVar1;

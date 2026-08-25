@@ -1,13 +1,16 @@
-/* FUN_004e4390 - 0x004e4390 in the original binary.
+/* ScanTerrainUpForSolid - 0x004e4390 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Scans a terrain column UPWARD from a row for the first solid pixel and
+ * returns that row, or -10000 if none.  in_EAX = row (clamped to height-1),
+ * unaff_EDI = column (checked against width), regEsi = the terrain context
+ * (+0x18 width = the row stride the walk steps by, +0x1c height, +0x34
+ * pixels).  The row-wise twin is ScanTerrainLeftForSolid; the two share the
+ * -10000 sentinel and the same clamp-then-walk shape.
  */
 #include "ghidra_types.h"
 
 
-int FUN_004e4390(int regEsi)
+int ScanTerrainUpForSolid(int regEsi)
 
 {
   int iVar1;

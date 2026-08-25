@@ -5,7 +5,7 @@
  * dest[-4]/dest[-8]/dest[-0xc], same CStringT internal layout as the
  * rest of this family), copies `length` bytes in from `srcBuffer` (or
  * memmoves if src/dest overlap), and NUL-terminates. `length == 0` goes
- * through the separate FUN_00405760 "clear" path instead. Raw/near-
+ * through the separate CString_Empty "clear" path instead. Raw/near-
  * verbatim port of Ghidra's decompiler output otherwise, not hand-
  * verified. See src/README.md's "Raw/verbatim ports" section for status.
  *
@@ -36,7 +36,7 @@ void AssignStringBuffer(int *param_1,undefined4 *param_2,uint length)
   undefined4 *_Dst;
 
   if (unaff_EBX == 0) {
-    FUN_00405760(param_1);
+    CString_Empty(param_1);
     return;
   }
   if (param_2 != (undefined4 *)0x0) {

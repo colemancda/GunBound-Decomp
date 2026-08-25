@@ -1,14 +1,19 @@
-/* FUN_00405760 - 0x00405760 in the original binary.
+/* CString_Empty - 0x00405760 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * ATL CString Empty(): releases the string's data block.  regEsi is the
+ * CString (its +0 is the buffer pointer); the CStringData header sits just
+ * below the buffer -- refcount at -4, allocated length at -8, data length at
+ * -0xc, manager at -0x10.  Decrements the refcount under LOCK, and when it
+ * reaches zero hands the block back through the manager's vtable slot 1
+ * (Free) and resets the string through slot 3.  A negative refcount marks a
+ * locked buffer, in which case a negative allocated length throws
+ * E_INVALIDARG.  Reached from AssignStringBuffer's length == 0 branch, which
+ * is exactly where CString::Empty is called from in SetString.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00405760(int *regEsi)
+void CString_Empty(int *regEsi)
 
 {
   undefined4 *puVar1;

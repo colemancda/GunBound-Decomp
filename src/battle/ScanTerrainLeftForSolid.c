@@ -1,8 +1,13 @@
-/* FUN_004e43d0 - 0x004e43d0 in the original binary.
+/* ScanTerrainLeftForSolid - 0x004e43d0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Scans a terrain row LEFTWARD from a column for the first solid pixel and
+ * returns that column, or -10000 if the row has none (or the row is out of
+ * range).  param_1 = column (clamped to width-1), regEax = row (checked
+ * against height), param_2 = the terrain context: +0x18 width, +0x1c height,
+ * +0x34 pixel buffer, one byte per pixel, non-zero = solid.
+ *
+ * Named as one of a pair: ScanTerrainUpForSolid is the same walk along a
+ * column (stepping by the row stride) instead of along a row.
  *
  * RE-SLOTTED AND EAX RECOVERED (2026-08-24, workflow-analysed, hand-checked).
  * `ret 0` with two declared params: both are registers (param_1 = ECX, the
@@ -17,7 +22,7 @@
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_004e43d0(int param_1,int param_2,int regEax)
+int __fastcall ScanTerrainLeftForSolid(int param_1,int param_2,int regEax)
 
 {
   int iVar1;

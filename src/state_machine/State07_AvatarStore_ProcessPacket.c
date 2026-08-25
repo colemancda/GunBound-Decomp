@@ -180,7 +180,7 @@ State07_AvatarStore_ProcessPacket(void *this,int payloadLen,ushort opcode,ushort
             uVar11 = *(uint *)(g_clientContext + 0x44bec);
             piVar14 = (int *)(g_clientContext + 0x44be8);
             if ((*(uint *)(g_clientContext + 0x44bf0) <= uVar11) &&
-               (cVar2 = FUN_004268b0(uVar11 + 1,piVar14), cVar2 == '\0')) {
+               (cVar2 = InventoryItemArray_Reserve(uVar11 + 1,piVar14), cVar2 == '\0')) {
                     /* WARNING: Subroutine does not return */
               ThrowCxxException(0x8007000e);
             }

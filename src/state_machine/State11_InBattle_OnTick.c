@@ -508,7 +508,7 @@ LAB_004bdf96:
   FUN_004f3100((int)(&DAT_006a7f88 + g_clientContext));
   SortTurnOrderByDelay();
   iVar5 = g_clientContext;
-  FUN_004068d0((int)(&DAT_006a647c + iVar5));
+  AdvanceHudAnimationCounters((int)(&DAT_006a647c + iVar5));
   iVar6 = *(int *)(iVar5 + 0xf0380);
   if (iVar6 != -1) {
     *(int *)(iVar5 + 0xf0380) = iVar6 + -1;

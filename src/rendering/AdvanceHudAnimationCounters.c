@@ -1,13 +1,17 @@
-/* FUN_004068d0 - 0x004068d0 in the original binary.
+/* AdvanceHudAnimationCounters - 0x004068d0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Per-tick advance of four (delta, counter, flag) animation triplets in the
+ * battle HUD state block at g_clientContext + 0x6a647c -- the block
+ * RenderWindGaugeTick, State11_InBattle_RenderPlayerRoster and the State11
+ * tick/enter/input handlers all address.  Each triplet adds its delta to its
+ * counter and, at a cap (7, 1, 3, 1) or at zero, resets and raises its flag.
+ * State11_InBattle_OnTick calls it once per tick right after
+ * SortTurnOrderByDelay.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004068d0(int regEax)
+void AdvanceHudAnimationCounters(int regEax)
 
 {
   int iVar1;

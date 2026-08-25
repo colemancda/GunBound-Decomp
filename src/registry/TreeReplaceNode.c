@@ -1,9 +1,11 @@
-/* FUN_00404d60 - 0x00404d60 in the original binary.
+/* TreeReplaceNode - 0x00404d60 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Replaces node param_1 by node regEax in a red-black tree: repoints the
+ * parent's child slot (+0x108 / +0x10c, parent at +0x110), both children's
+ * parent links, copies the colour (+0x104), and repoints the root slot
+ * *param_2 if it held param_1.  Called from the delete fixup in
+ * FUN_004048e0 with the deleted node and its in-order successor.  The same
+ * node layout TreeLowerBound walks.
  *
  * RE-SLOTTED AND EAX RECOVERED (2026-08-24).  Tree-node "replace node ECX by
  * node EAX" (parent +0x110, children +0x108/+0x10c, colour +0x104, and the
@@ -15,7 +17,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00404d60(int param_1,int *param_2,int regEax)
+void __fastcall TreeReplaceNode(int param_1,int *param_2,int regEax)
 
 {
   int iVar1;
