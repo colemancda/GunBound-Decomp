@@ -108,14 +108,14 @@
   }
  },
  {
-  "func": "FUN_005002a0",
+  "func": "IntMap_Find_1768",
   "sites": 3,
   "uniform": {
    "esi": "[esp + 0x10]"
   }
  },
  {
-  "func": "FUN_005013c0",
+  "func": "IntMap_Find_14",
   "sites": 3,
   "uniform": {
    "esi": "[esp + 0x10]"
@@ -720,7 +720,7 @@
   }
  },
  {
-  "func": "FUN_00502e20",
+  "func": "Vector_InsertN_34",
   "sites": 1,
   "uniform": {
    "eax": "0x4ec4ec4f",
@@ -729,7 +729,7 @@
   }
  },
  {
-  "func": "FUN_005033e0",
+  "func": "Vector_InsertN_1e",
   "sites": 1,
   "uniform": {
    "eax": "0x88888889",
@@ -738,7 +738,7 @@
   }
  },
  {
-  "func": "FUN_00503770",
+  "func": "CopyNameKey",
   "sites": 1,
   "uniform": {
    "eax": "[ebp - 0x34]",
@@ -772,7 +772,7 @@
   }
  },
  {
-  "func": "FUN_00503ef0",
+  "func": "Vector_FillN_34",
   "sites": 1,
   "uniform": {
    "eax": "esi",
@@ -781,7 +781,7 @@
   }
  },
  {
-  "func": "FUN_00503f10",
+  "func": "Vector_CopyBackward_34",
   "sites": 1,
   "uniform": {
    "eax": "ebx",
@@ -791,7 +791,7 @@
   }
  },
  {
-  "func": "FUN_00504010",
+  "func": "Vector_FillN_1e",
   "sites": 1,
   "uniform": {
    "eax": "edi",
@@ -800,7 +800,7 @@
   }
  },
  {
-  "func": "FUN_00504030",
+  "func": "Vector_CopyBackward_1e",
   "sites": 1,
   "uniform": {
    "eax": "[ebp + 8]",

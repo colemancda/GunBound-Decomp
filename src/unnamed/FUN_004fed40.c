@@ -41,19 +41,19 @@ int FUN_004fed40(int *param_1,undefined1 *param_2,undefined4 regEax)
   uint local_8;
   undefined1 local_4 [4];
   
-  iVar2 = FUN_005002a0(param_1,(undefined4 *)local_4,&local_key,&local_8,regEax);
+  iVar2 = IntMap_Find_1768(param_1,(undefined4 *)local_4,&local_key,&local_8,regEax);
   if (iVar2 != 0) {
     FUN_004ff240(0,(undefined4 *)param_2,(undefined4 *)(iVar2 + 4));
     return iVar2;
   }
   if (*param_1 == 0) {
-    cVar1 = FUN_00500c00(param_1,param_1[2],1);
+    cVar1 = HashMap_InitHashTable(param_1,param_1[2],1);
     if (cVar1 == '\0') {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x8007000e);
     }
   }
-  iVar2 = FUN_00500840(regEax,regEax,local_8,param_1);
+  iVar2 = IntMap_Insert_1768(regEax,regEax,local_8,param_1);
   FUN_004ff240(0,(undefined4 *)param_2,(undefined4 *)(iVar2 + 4));
   return iVar2;
 }

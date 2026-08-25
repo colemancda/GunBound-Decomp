@@ -20,7 +20,7 @@ undefined4 __fastcall FUN_004fe500(undefined4 param_1,undefined4 param_2)
   undefined1 local_8 [8];
   
   local_c = 0;
-  iVar1 = FUN_004ff130((char *)param_2,(uint *)local_8,(undefined4 *)&local_c,regEax,
+  iVar1 = StringMap_Find_1c((char *)param_2,(uint *)local_8,(undefined4 *)&local_c,regEax,
                        (uint *)(local_8 + 4));
   if (iVar1 == 0) {
     return 0;

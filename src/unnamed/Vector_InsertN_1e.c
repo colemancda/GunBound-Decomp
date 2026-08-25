@@ -1,8 +1,9 @@
-/* FUN_005033e0 - 0x005033e0 in the original binary.
+/* Vector_InsertN_1e - 0x005033e0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * std::vector<T>::_Insert_n for 0x1e-byte elements: if the free tail is too
+ * short, reallocate; otherwise shift the tail up with Vector_CopyBackward_1e
+ * and fill the gap with Vector_FillN_1e.  The element being inserted lives
+ * by value in this frame -- see the header note on local_38.
  *
  * THE BY-VALUE ELEMENT BUFFER (2026-08-25).  Three calls here pass the address
  * of [ebp-0x34] in a register, and nothing in this function ever writes that
@@ -14,7 +15,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_005033e0(uint param_1,int param_2,int param_3)
+void __thiscall Vector_InsertN_1e(uint param_1,int param_2,int param_3)
 
 {
   int iVar1;
@@ -33,7 +34,7 @@ void __thiscall FUN_005033e0(uint param_1,int param_2,int param_3)
   puStack_c = &LAB_00537970;
   local_10 = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &local_10;
-  FUN_00503770();
+  CopyNameKey();
   iVar1 = *(int *)(param_2 + 4);
   if (iVar1 == 0) {
     uVar5 = 0;
@@ -104,10 +105,10 @@ void __thiscall FUN_005033e0(uint param_1,int param_2,int param_3)
     else {
       uVar4 = FUN_005046b0(iVar1,param_1 * 0x1e);
       *(undefined4 *)(param_2 + 8) = uVar4;
-      FUN_00504030(0,(undefined4 *)(iVar1 - param_1 * 0x1e),(undefined4 *)iVar1,
+      Vector_CopyBackward_1e(0,(undefined4 *)(iVar1 - param_1 * 0x1e),(undefined4 *)iVar1,
                  (undefined4 *)param_3);
     }
-    FUN_00504010(0,(undefined4 *)(param_3 + iVar3),(undefined4 *)param_3,
+    Vector_FillN_1e(0,(undefined4 *)(param_3 + iVar3),(undefined4 *)param_3,
                  (undefined4 *)local_38);
   }
   *unaff_FS_OFFSET = local_10;

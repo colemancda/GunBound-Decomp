@@ -34,7 +34,7 @@ int __thiscall FUN_00426620(undefined4 param_1,int *param_2,char *param_3)
   local_14 = &stack0xffffffd4;
   iVar2 = FUN_00426780(&local_1c,&local_18,local_20);
   if (iVar2 == 0) {
-    if ((*param_2 == 0) && (cVar1 = FUN_00500c00(param_2,param_2[2],1), cVar1 == '\0')) {
+    if ((*param_2 == 0) && (cVar1 = HashMap_InitHashTable(param_2,param_2[2],1), cVar1 == '\0')) {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x8007000e);
     }

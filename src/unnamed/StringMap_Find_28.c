@@ -1,8 +1,10 @@
-/* FUN_00500ef0 - 0x00500ef0 in the original binary.
+/* StringMap_Find_28 - 0x004fef70 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The string-keyed map find over 0x28-byte records: hash the key, take it modulo
+ * the bucket count, then walk the chain at bucket[i] comparing the node's
+ * hash at +0x24 and then the key itself.  Returns the node, and reports the
+ * hash, the bucket index and the predecessor node through its three
+ * out-parameters.  Its insert half is StringMap_Insert_28.
  *
  * EAX and EBX RECOVERED (2026-08-25).  This is a chained hash-map FIND, and
  * it returns THREE things: the hash through param_2, the predecessor node
@@ -17,7 +19,7 @@
 #include "ghidra_types.h"
 
 
-char * FUN_00500ef0(char *param_1,uint *param_2,undefined4 *param_3,int *regEax,uint *regEbx)
+char * StringMap_Find_28(char *param_1,uint *param_2,undefined4 *param_3,int *regEax,uint *regEbx)
 
 {
   char *pcVar1;
@@ -32,8 +34,8 @@ char * FUN_00500ef0(char *param_1,uint *param_2,undefined4 *param_3,int *regEax,
     *param_3 = 0;
     pcVar1 = (char *)0x0;
     for (_Str1 = *(char **)(*regEax + *regEbx * 4); _Str1 != (char *)0x0;
-        _Str1 = *(char **)(_Str1 + 0xa4)) {
-      if ((*(uint *)(_Str1 + 0xa8) == *param_2) && (iVar3 = __stricmp(_Str1,param_1), iVar3 == 0)) {
+        _Str1 = *(char **)(_Str1 + 0x20)) {
+      if ((*(uint *)(_Str1 + 0x24) == *param_2) && (iVar3 = __stricmp(_Str1,param_1), iVar3 == 0)) {
         *param_3 = pcVar1;
         return _Str1;
       }

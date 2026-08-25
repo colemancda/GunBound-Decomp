@@ -124,7 +124,7 @@ void FUN_00404410(int param_1)
             iVar8 = FUN_00426780(local_164,&local_16c,local_168);
             if (iVar8 == 0) {
               if ((*piVar11 == 0) &&
-                 (cVar7 = FUN_00500c00(piVar11,*(undefined4 *)(&DAT_006aa424 + iVar9),1),
+                 (cVar7 = HashMap_InitHashTable(piVar11,*(undefined4 *)(&DAT_006aa424 + iVar9),1),
                  cVar7 == '\0')) {
                     /* WARNING: Subroutine does not return */
                 ThrowCxxException(0x8007000e);

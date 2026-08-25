@@ -4657,7 +4657,7 @@
   ]
  },
  {
-  "func": "FUN_00500ef0",
+  "func": "StringMap_Find_ac",
   "reg": "eax",
   "sites": 4,
   "values": {},
@@ -4667,7 +4667,7 @@
    "OTHER": 2,
    "REGISTER": 2
   },
-  "path": "src/unnamed/FUN_00500ef0.c",
+  "path": "src/unnamed/StringMap_Find_ac.c",
   "per_site": [
    {
     "va": "0x4fe8a2",
@@ -4692,7 +4692,7 @@
   ]
  },
  {
-  "func": "FUN_00500ef0",
+  "func": "StringMap_Find_ac",
   "reg": "ebx",
   "sites": 4,
   "values": {},
@@ -4701,7 +4701,7 @@
   "buckets": {
    "STACK": 4
   },
-  "path": "src/unnamed/FUN_00500ef0.c",
+  "path": "src/unnamed/StringMap_Find_ac.c",
   "per_site": [
    {
     "va": "0x4fe8a2",
@@ -5402,7 +5402,7 @@
   ]
  },
  {
-  "func": "FUN_004ff130",
+  "func": "StringMap_Find_1c",
   "reg": "eax",
   "sites": 3,
   "values": {},
@@ -5412,7 +5412,7 @@
    "OBJ-REL": 1,
    "REGISTER": 2
   },
-  "path": "src/unnamed/FUN_004ff130.c",
+  "path": "src/unnamed/StringMap_Find_1c.c",
   "per_site": [
    {
     "va": "0x4fdb89",
@@ -5432,7 +5432,7 @@
   ]
  },
  {
-  "func": "FUN_004ff130",
+  "func": "StringMap_Find_1c",
   "reg": "ebx",
   "sites": 3,
   "values": {},
@@ -5441,7 +5441,7 @@
   "buckets": {
    "STACK": 3
   },
-  "path": "src/unnamed/FUN_004ff130.c",
+  "path": "src/unnamed/StringMap_Find_1c.c",
   "per_site": [
    {
     "va": "0x4fdb89",
@@ -5520,7 +5520,7 @@
   ]
  },
  {
-  "func": "FUN_005002a0",
+  "func": "IntMap_Find_1768",
   "reg": "eax",
   "sites": 3,
   "values": {},
@@ -5529,7 +5529,7 @@
   "buckets": {
    "STACK": 3
   },
-  "path": "src/unnamed/FUN_005002a0.c",
+  "path": "src/unnamed/IntMap_Find_1768.c",
   "per_site": [
    {
     "va": "0x4fed5b",
@@ -5549,7 +5549,7 @@
   ]
  },
  {
-  "func": "FUN_005002a0",
+  "func": "IntMap_Find_1768",
   "reg": "esi",
   "sites": 3,
   "values": {},
@@ -5558,7 +5558,7 @@
   "buckets": {
    "STACK": 3
   },
-  "path": "src/unnamed/FUN_005002a0.c",
+  "path": "src/unnamed/IntMap_Find_1768.c",
   "per_site": [
    {
     "va": "0x4fed5b",
@@ -5636,7 +5636,7 @@
   ]
  },
  {
-  "func": "FUN_005013c0",
+  "func": "IntMap_Find_14",
   "reg": "eax",
   "sites": 3,
   "values": {},
@@ -5645,7 +5645,7 @@
   "buckets": {
    "STACK": 3
   },
-  "path": "src/unnamed/FUN_005013c0.c",
+  "path": "src/unnamed/IntMap_Find_14.c",
   "per_site": [
    {
     "va": "0x500911",
@@ -5665,7 +5665,7 @@
   ]
  },
  {
-  "func": "FUN_005013c0",
+  "func": "IntMap_Find_14",
   "reg": "esi",
   "sites": 3,
   "values": {},
@@ -5674,7 +5674,7 @@
   "buckets": {
    "STACK": 3
   },
-  "path": "src/unnamed/FUN_005013c0.c",
+  "path": "src/unnamed/IntMap_Find_14.c",
   "per_site": [
    {
     "va": "0x500911",
@@ -7053,7 +7053,7 @@
   ]
  },
  {
-  "func": "FUN_004fef70",
+  "func": "StringMap_Find_28",
   "reg": "eax",
   "sites": 2,
   "values": {},
@@ -7063,7 +7063,7 @@
    "OBJ-REL": 1,
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_004fef70.c",
+  "path": "src/unnamed/StringMap_Find_28.c",
   "per_site": [
    {
     "va": "0x4fd429",
@@ -7078,7 +7078,7 @@
   ]
  },
  {
-  "func": "FUN_004fef70",
+  "func": "StringMap_Find_28",
   "reg": "ebx",
   "sites": 2,
   "values": {},
@@ -7087,7 +7087,7 @@
   "buckets": {
    "STACK": 2
   },
-  "path": "src/unnamed/FUN_004fef70.c",
+  "path": "src/unnamed/StringMap_Find_28.c",
   "per_site": [
    {
     "va": "0x4fd429",
@@ -9858,7 +9858,7 @@
   ]
  },
  {
-  "func": "FUN_00500580",
+  "func": "StringMap_Insert_1c",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -9867,7 +9867,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00500580.c",
+  "path": "src/unnamed/StringMap_Insert_1c.c",
   "per_site": [
    {
     "va": "0x4fe4db",
@@ -9877,7 +9877,7 @@
   ]
  },
  {
-  "func": "FUN_00500580",
+  "func": "StringMap_Insert_1c",
   "reg": "ebx",
   "sites": 1,
   "values": {},
@@ -9886,7 +9886,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00500580.c",
+  "path": "src/unnamed/StringMap_Insert_1c.c",
   "per_site": [
    {
     "va": "0x4fe4db",
@@ -9896,7 +9896,7 @@
   ]
  },
  {
-  "func": "FUN_00500840",
+  "func": "IntMap_Insert_1768",
   "reg": "ebx",
   "sites": 1,
   "values": {},
@@ -9905,7 +9905,7 @@
   "buckets": {
    "STACK": 1
   },
-  "path": "src/unnamed/FUN_00500840.c",
+  "path": "src/unnamed/IntMap_Insert_1768.c",
   "per_site": [
    {
     "va": "0x4fed93",
@@ -9915,7 +9915,7 @@
   ]
  },
  {
-  "func": "FUN_00500840",
+  "func": "IntMap_Insert_1768",
   "reg": "esi",
   "sites": 1,
   "values": {},
@@ -9924,7 +9924,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00500840.c",
+  "path": "src/unnamed/IntMap_Insert_1768.c",
   "per_site": [
    {
     "va": "0x4fed93",
@@ -10029,7 +10029,7 @@
   ]
  },
  {
-  "func": "FUN_00501420",
+  "func": "StringMap_Insert_ac",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -10038,7 +10038,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00501420.c",
+  "path": "src/unnamed/StringMap_Insert_ac.c",
   "per_site": [
    {
     "va": "0x50012b",
@@ -10048,7 +10048,7 @@
   ]
  },
  {
-  "func": "FUN_00501420",
+  "func": "StringMap_Insert_ac",
   "reg": "ebx",
   "sites": 1,
   "values": {},
@@ -10057,7 +10057,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00501420.c",
+  "path": "src/unnamed/StringMap_Insert_ac.c",
   "per_site": [
    {
     "va": "0x50012b",
@@ -10086,7 +10086,7 @@
   ]
  },
  {
-  "func": "FUN_00501560",
+  "func": "IntMap_Insert_14",
   "reg": "ebx",
   "sites": 1,
   "values": {},
@@ -10095,7 +10095,7 @@
   "buckets": {
    "STACK": 1
   },
-  "path": "src/unnamed/FUN_00501560.c",
+  "path": "src/unnamed/IntMap_Insert_14.c",
   "per_site": [
    {
     "va": "0x500991",
@@ -10105,7 +10105,7 @@
   ]
  },
  {
-  "func": "FUN_00501560",
+  "func": "IntMap_Insert_14",
   "reg": "esi",
   "sites": 1,
   "values": {},
@@ -10114,7 +10114,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00501560.c",
+  "path": "src/unnamed/IntMap_Insert_14.c",
   "per_site": [
    {
     "va": "0x500991",
@@ -10238,7 +10238,7 @@
   ]
  },
  {
-  "func": "FUN_00503770",
+  "func": "CopyNameKey",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -10247,7 +10247,7 @@
   "buckets": {
    "STACK": 1
   },
-  "path": "src/unnamed/FUN_00503770.c",
+  "path": "src/unnamed/CopyNameKey.c",
   "per_site": [
    {
     "va": "0x503409",
@@ -10428,7 +10428,7 @@
   ]
  },
  {
-  "func": "FUN_00503ef0",
+  "func": "Vector_FillN_34",
   "reg": "ebx",
   "sites": 1,
   "values": {},
@@ -10437,7 +10437,7 @@
   "buckets": {
    "STACK": 1
   },
-  "path": "src/unnamed/FUN_00503ef0.c",
+  "path": "src/unnamed/Vector_FillN_34.c",
   "per_site": [
    {
     "va": "0x503084",
@@ -10447,7 +10447,7 @@
   ]
  },
  {
-  "func": "FUN_00503f10",
+  "func": "Vector_CopyBackward_34",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -10456,7 +10456,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00503f10.c",
+  "path": "src/unnamed/Vector_CopyBackward_34.c",
   "per_site": [
    {
     "va": "0x503077",
@@ -10466,7 +10466,7 @@
   ]
  },
  {
-  "func": "FUN_00503f10",
+  "func": "Vector_CopyBackward_34",
   "reg": "ebx",
   "sites": 1,
   "values": {},
@@ -10475,7 +10475,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00503f10.c",
+  "path": "src/unnamed/Vector_CopyBackward_34.c",
   "per_site": [
    {
     "va": "0x503077",
@@ -10485,7 +10485,7 @@
   ]
  },
  {
-  "func": "FUN_00504010",
+  "func": "Vector_FillN_1e",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -10494,7 +10494,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00504010.c",
+  "path": "src/unnamed/Vector_FillN_1e.c",
   "per_site": [
    {
     "va": "0x503664",
@@ -10504,7 +10504,7 @@
   ]
  },
  {
-  "func": "FUN_00504010",
+  "func": "Vector_FillN_1e",
   "reg": "ebx",
   "sites": 1,
   "values": {},
@@ -10513,7 +10513,7 @@
   "buckets": {
    "STACK": 1
   },
-  "path": "src/unnamed/FUN_00504010.c",
+  "path": "src/unnamed/Vector_FillN_1e.c",
   "per_site": [
    {
     "va": "0x503664",
@@ -10523,7 +10523,7 @@
   ]
  },
  {
-  "func": "FUN_00504030",
+  "func": "Vector_CopyBackward_1e",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -10532,7 +10532,7 @@
   "buckets": {
    "OTHER": 1
   },
-  "path": "src/unnamed/FUN_00504030.c",
+  "path": "src/unnamed/Vector_CopyBackward_1e.c",
   "per_site": [
    {
     "va": "0x503654",
@@ -10542,7 +10542,7 @@
   ]
  },
  {
-  "func": "FUN_00504030",
+  "func": "Vector_CopyBackward_1e",
   "reg": "ebx",
   "sites": 1,
   "values": {},
@@ -10551,7 +10551,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00504030.c",
+  "path": "src/unnamed/Vector_CopyBackward_1e.c",
   "per_site": [
    {
     "va": "0x503654",
@@ -10618,7 +10618,7 @@
   ]
  },
  {
-  "func": "FUN_00504480",
+  "func": "StringMap_Insert_28",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -10627,7 +10627,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00504480.c",
+  "path": "src/unnamed/StringMap_Insert_28.c",
   "per_site": [
    {
     "va": "0x503e80",
@@ -10637,7 +10637,7 @@
   ]
  },
  {
-  "func": "FUN_00504480",
+  "func": "StringMap_Insert_28",
   "reg": "ebx",
   "sites": 1,
   "values": {},
@@ -10646,7 +10646,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_00504480.c",
+  "path": "src/unnamed/StringMap_Insert_28.c",
   "per_site": [
    {
     "va": "0x503e80",

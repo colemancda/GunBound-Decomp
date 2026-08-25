@@ -35,7 +35,7 @@ bool FUN_00504bb0(int param_1)
   } while (bVar1 < 0x10);
   local_1 = bVar1;
   local_12[bVar1] = '\0';
-  iVar3 = FUN_00500ef0(local_12,(uint *)local_1c,(undefined4 *)&param_1,(int *)(param_1 + 0x290),
+  iVar3 = StringMap_Find_ac(local_12,(uint *)local_1c,(undefined4 *)&param_1,(int *)(param_1 + 0x290),
                        (uint *)(local_1c + 4));
   return iVar3 != 0;
 }

@@ -33,7 +33,7 @@ bool FUN_004fdb40(int param_1,int regEcx)
   } while (bVar1 < 0x10);
   local_1 = bVar1;
   local_12[bVar1] = '\0';
-  iVar3 = FUN_004ff130(local_12,(uint *)local_1c,(undefined4 *)&param_1,(int *)(regEcx + 0x1af0),
+  iVar3 = StringMap_Find_1c(local_12,(uint *)local_1c,(undefined4 *)&param_1,(int *)(regEcx + 0x1af0),
                        (uint *)(local_1c + 4));
   return iVar3 == 0;
 }

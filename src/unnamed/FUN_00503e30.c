@@ -25,16 +25,16 @@ void FUN_00503e30(undefined4 param_1)
   undefined4 local_8;
   undefined1 local_4 [4];
   
-  iVar2 = FUN_004fef70((char *)param_1,&local_hash,(undefined4 *)local_4,unaff_EDI,(uint *)&local_8);
+  iVar2 = StringMap_Find_28((char *)param_1,&local_hash,(undefined4 *)local_4,unaff_EDI,(uint *)&local_8);
   if (iVar2 == 0) {
     if (*unaff_EDI == 0) {
-      cVar1 = FUN_00500c00(unaff_EDI,unaff_EDI[2],1);
+      cVar1 = HashMap_InitHashTable(unaff_EDI,unaff_EDI[2],1);
       if (cVar1 == '\0') {
                     /* WARNING: Subroutine does not return */
         ThrowCxxException(0x8007000e);
       }
     }
-    iVar2 = FUN_00504480(local_8,local_hash,(undefined4 *)param_1,unaff_EDI);
+    iVar2 = StringMap_Insert_28(local_8,local_hash,(undefined4 *)param_1,unaff_EDI);
   }
   *(undefined4 *)(iVar2 + 0x12) = *unaff_ESI;
   *(undefined4 *)(iVar2 + 0x16) = unaff_ESI[1];

@@ -17,7 +17,7 @@ undefined4 FUN_00500900(undefined4 *regEbx,int *regEcx,uint regEdi)
   int iVar1;
   undefined1 local_c [12];
   
-  iVar1 = FUN_005013c0(regEcx,(undefined4 *)local_c,(uint *)(local_c + 4),(uint *)(local_c + 8),
+  iVar1 = IntMap_Find_14(regEcx,(undefined4 *)local_c,(uint *)(local_c + 4),(uint *)(local_c + 8),
                regEdi);
   if (iVar1 == 0) {
     return 0;

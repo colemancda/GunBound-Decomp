@@ -29,16 +29,16 @@ void FUN_00500940(int *param_1,undefined4 *param_2,undefined4 regEax)
   uint local_8;
   undefined1 local_4 [4];
   
-  iVar2 = FUN_005013c0(param_1,(undefined4 *)local_4,&local_key,&local_8,regEax);
+  iVar2 = IntMap_Find_14(param_1,(undefined4 *)local_4,&local_key,&local_8,regEax);
   if (iVar2 == 0) {
     if (*param_1 == 0) {
-      cVar1 = FUN_00500c00(param_1,param_1[2],1);
+      cVar1 = HashMap_InitHashTable(param_1,param_1[2],1);
       if (cVar1 == '\0') {
                     /* WARNING: Subroutine does not return */
         ThrowCxxException(0x8007000e);
       }
     }
-    iVar2 = FUN_00501560(regEax,regEax,local_8,param_1);
+    iVar2 = IntMap_Insert_14(regEax,regEax,local_8,param_1);
   }
   *(undefined4 *)(iVar2 + 4) = *param_2;
   *(undefined4 *)(iVar2 + 8) = param_2[1];

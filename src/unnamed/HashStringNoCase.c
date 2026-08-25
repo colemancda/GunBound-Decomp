@@ -1,7 +1,7 @@
 /* HashStringNoCase - 0x004ff310 in the original binary.
  *
  * The case-insensitive string hash behind the three copies of the map find
- * (FUN_004fef70 / FUN_004ff130 / FUN_00500ef0): h = h*33 + toupper(c) over
+ * (StringMap_Find_28 / StringMap_Find_1c / StringMap_Find_ac): h = h*33 + toupper(c) over
  * the leading regEdi[0x11] bytes -- a 0x11-byte key record whose last byte
  * is its length.  Each caller stores the result as the node's hash and takes
  * it modulo the bucket count.

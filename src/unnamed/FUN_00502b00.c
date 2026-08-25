@@ -22,7 +22,7 @@ int * FUN_00502b00(int *param_1,int param_2)
   }
   iVar1 = 0;
 LAB_00502b4b:
-  FUN_005033e0(unaff_EDI,param_2);
+  Vector_InsertN_1e(unaff_EDI,param_2);
   *param_1 = iVar1 * 0x1e + *(int *)(unaff_EDI + 4);
   return param_1;
 }

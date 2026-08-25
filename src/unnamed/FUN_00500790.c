@@ -39,7 +39,7 @@ void FUN_00500790(int *regEax)
   if (regEax[8] == 0) {
     uVar5 = 0;
     uVar3 = FUN_00500e30(0);
-    FUN_00500c00(regEax,uVar3,uVar5);
+    HashMap_InitHashTable(regEax,uVar3,uVar5);
   }
   _Memory = (int *)regEax[10];
   regEax[0xb] = 0;

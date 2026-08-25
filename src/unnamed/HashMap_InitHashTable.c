@@ -1,14 +1,16 @@
-/* FUN_00500c00 - 0x00500c00 in the original binary.
+/* HashMap_InitHashTable - 0x00500c00 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * MFC's CMap::InitHashTable(nHashSize, bAllocNow), and the signature matches
+ * that exactly: free any existing bucket array, allocate and zero nHashSize
+ * pointers when bAllocNow is set, store the bucket count at +8, and compute
+ * the two load-factor thresholds at +0x18 and +0x1c (the second cleared when
+ * it lands under 0x11).  Every map insert calls it with (map, map[2], 1) the
+ * first time the bucket array is null.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00500c00(undefined4 *param_1,int param_2,int param_3)
+undefined4 HashMap_InitHashTable(undefined4 *param_1,int param_2,int param_3)
 
 {
   void *pvVar1;

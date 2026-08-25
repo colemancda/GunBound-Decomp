@@ -1,13 +1,12 @@
-/* FUN_00503770 - 0x00503770 in the original binary.
+/* CopyNameKey - 0x00503770 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Copies one 0x11-byte name key: the length byte at +0x11 first, then that
+ * many bytes of text.  The same key record HashStringNoCase hashes.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00503770(undefined4 param_1,undefined4 *param_2)
+void __fastcall CopyNameKey(undefined4 param_1,undefined4 *param_2)
 
 {
   byte bVar1;

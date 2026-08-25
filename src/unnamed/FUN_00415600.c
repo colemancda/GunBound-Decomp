@@ -37,7 +37,7 @@ void FUN_00415600(void)
   if (in_EAX[8] == 0) {
     uVar5 = 0;
     uVar3 = FUN_00500e30(0);
-    FUN_00500c00(in_EAX,uVar3,uVar5);
+    HashMap_InitHashTable(in_EAX,uVar3,uVar5);
   }
   in_EAX[0xb] = 0;
   _Memory = (int *)in_EAX[10];

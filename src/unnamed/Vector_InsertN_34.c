@@ -1,8 +1,7 @@
-/* FUN_00502e20 - 0x00502e20 in the original binary.
+/* Vector_InsertN_34 - 0x00502e20 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The same insert as Vector_InsertN_1e, for 0x34-byte elements, using
+ * Vector_CopyBackward_34 and Vector_FillN_34.
  *
  * THE BY-VALUE ELEMENT BUFFER (2026-08-25).  Three calls here pass the address
  * of [ebp-0x4c] in a register, and nothing in this function ever writes that
@@ -14,7 +13,7 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_00502e20(uint param_1,int param_2,int param_3)
+void __thiscall Vector_InsertN_34(uint param_1,int param_2,int param_3)
 
 {
   void *_Memory;
@@ -106,9 +105,9 @@ void __thiscall FUN_00502e20(uint param_1,int param_2,int param_3)
     else {
       uVar4 = FUN_005045a0(param_3);
       *(undefined4 *)(param_2 + 8) = uVar4;
-      FUN_00503f10(0,(undefined4 *)param_2,(undefined4 *)local_50,(undefined4 *)param_3);
+      Vector_CopyBackward_34(0,(undefined4 *)param_2,(undefined4 *)local_50,(undefined4 *)param_3);
     }
-    FUN_00503ef0(0,(undefined4 *)(param_3 + param_1 * 0x34),(undefined4 *)param_3,
+    Vector_FillN_34(0,(undefined4 *)(param_3 + param_1 * 0x34),(undefined4 *)param_3,
                  (undefined4 *)local_50);
   }
   *unaff_FS_OFFSET = local_10;

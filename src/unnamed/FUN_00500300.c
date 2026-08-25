@@ -30,7 +30,7 @@ void FUN_00500300(int *param_1,uint param_2)
   }
   if (param_2 != param_1[2]) {
     if (*param_1 == 0) {
-      FUN_00500c00(param_1,param_2,0);
+      HashMap_InitHashTable(param_1,param_2,0);
       *unaff_FS_OFFSET = local_10;
       return;
     }

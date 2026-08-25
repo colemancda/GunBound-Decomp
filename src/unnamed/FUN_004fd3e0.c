@@ -34,7 +34,7 @@ undefined4 FUN_004fd3e0(int param_1,undefined4 *param_2,int regEcx)
   } while (bVar2 < 0x10);
   local_1 = bVar2;
   local_12[bVar2] = '\0';
-  iVar4 = FUN_004fef70(local_12,(uint *)local_1c,(undefined4 *)&param_1,(int *)(regEcx + 0x1ac0),
+  iVar4 = StringMap_Find_28(local_12,(uint *)local_1c,(undefined4 *)&param_1,(int *)(regEcx + 0x1ac0),
                        (uint *)(local_1c + 4));
   if (iVar4 == 0) {
     return 0;

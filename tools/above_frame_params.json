@@ -355,19 +355,19 @@
  ],
  "HashStringNoCase/edi": [
   [
-   "FUN_004fef70",
+   "StringMap_Find_28",
    "0x4fef7d",
    0,
    "RETADDR(count off)"
   ],
   [
-   "FUN_004ff130",
+   "StringMap_Find_1c",
    "0x4ff13d",
    0,
    "RETADDR(count off)"
   ],
   [
-   "FUN_00500ef0",
+   "StringMap_Find_ac",
    "0x500efd",
    0,
    "RETADDR(count off)"
@@ -453,7 +453,7 @@
    "stack arg 5 but caller declares 4"
   ]
  ],
- "FUN_00500840/ebx": [
+ "IntMap_Insert_1768/ebx": [
   [
    "FUN_004fed40",
    "0x4fed93",
@@ -469,7 +469,7 @@
    "local"
   ]
  ],
- "FUN_00501560/ebx": [
+ "IntMap_Insert_14/ebx": [
   [
    "FUN_00500940",
    "0x500991",

@@ -12,7 +12,7 @@
  * pending; the caller's frame is 0xc8 (SEH 12 + sub esp,0xac + four saves),
  * so 0x1a - 0xc8 = -0xae: the ADDRESS of its `char local_ae [17]`, which the
  * next instruction NUL-terminates (`mov [esp+ecx+0x1a],0`).  It is the name
- * buffer FUN_00500ef0 parses, so the type is char *, not undefined4.
+ * buffer StringMap_Find_ac parses, so the type is char *, not undefined4.
  */
 #include "ghidra_types.h"
 
@@ -26,16 +26,16 @@ void FUN_005000e0(int *regEsi,char *regEdi)
   undefined4 local_8;
   undefined1 local_4 [4];
   
-  iVar2 = FUN_00500ef0(regEdi,(uint *)&local_c,(undefined4 *)local_4,regEsi,(uint *)&local_8);
+  iVar2 = StringMap_Find_ac(regEdi,(uint *)&local_c,(undefined4 *)local_4,regEsi,(uint *)&local_8);
   if (iVar2 == 0) {
     if (*regEsi == 0) {
-      cVar1 = FUN_00500c00(regEsi,regEsi[2],1);
+      cVar1 = HashMap_InitHashTable(regEsi,regEsi[2],1);
       if (cVar1 == '\0') {
                     /* WARNING: Subroutine does not return */
         ThrowCxxException(0x8007000e);
       }
     }
-    FUN_00501420(local_8,local_c,(undefined4 *)regEdi,regEsi);
+    StringMap_Insert_ac(local_8,local_c,(undefined4 *)regEdi,regEsi);
   }
   return;
 }

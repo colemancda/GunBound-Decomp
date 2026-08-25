@@ -1276,9 +1276,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00500580",
+  "func": "StringMap_Insert_1c",
   "reg": "eax",
-  "path": "src/unnamed/FUN_00500580.c",
+  "path": "src/unnamed/StringMap_Insert_1c.c",
   "caller": "FUN_004fe490",
   "caller_va": "0x4fe490",
   "va": "0x4fe4db",
@@ -1287,9 +1287,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00500580",
+  "func": "StringMap_Insert_1c",
   "reg": "ebx",
-  "path": "src/unnamed/FUN_00500580.c",
+  "path": "src/unnamed/StringMap_Insert_1c.c",
   "caller": "FUN_004fe490",
   "caller_va": "0x4fe490",
   "va": "0x4fe4db",
@@ -1298,9 +1298,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00500840",
+  "func": "IntMap_Insert_1768",
   "reg": "ebx",
-  "path": "src/unnamed/FUN_00500840.c",
+  "path": "src/unnamed/IntMap_Insert_1768.c",
   "caller": "FUN_004fed40",
   "caller_va": "0x4fed40",
   "va": "0x4fed93",
@@ -1309,9 +1309,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00500840",
+  "func": "IntMap_Insert_1768",
   "reg": "esi",
-  "path": "src/unnamed/FUN_00500840.c",
+  "path": "src/unnamed/IntMap_Insert_1768.c",
   "caller": "FUN_004fed40",
   "caller_va": "0x4fed40",
   "va": "0x4fed93",
@@ -1375,9 +1375,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00501420",
+  "func": "StringMap_Insert_ac",
   "reg": "eax",
-  "path": "src/unnamed/FUN_00501420.c",
+  "path": "src/unnamed/StringMap_Insert_ac.c",
   "caller": "FUN_005000e0",
   "caller_va": "0x5000e0",
   "va": "0x50012b",
@@ -1386,9 +1386,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00501420",
+  "func": "StringMap_Insert_ac",
   "reg": "ebx",
-  "path": "src/unnamed/FUN_00501420.c",
+  "path": "src/unnamed/StringMap_Insert_ac.c",
   "caller": "FUN_005000e0",
   "caller_va": "0x5000e0",
   "va": "0x50012b",
@@ -1408,9 +1408,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00501560",
+  "func": "IntMap_Insert_14",
   "reg": "ebx",
-  "path": "src/unnamed/FUN_00501560.c",
+  "path": "src/unnamed/IntMap_Insert_14.c",
   "caller": "FUN_00500940",
   "caller_va": "0x500940",
   "va": "0x500991",
@@ -1419,9 +1419,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00501560",
+  "func": "IntMap_Insert_14",
   "reg": "esi",
-  "path": "src/unnamed/FUN_00501560.c",
+  "path": "src/unnamed/IntMap_Insert_14.c",
   "caller": "FUN_00500940",
   "caller_va": "0x500940",
   "va": "0x500991",
@@ -1496,10 +1496,10 @@
   "safe": true
  },
  {
-  "func": "FUN_00503770",
+  "func": "CopyNameKey",
   "reg": "eax",
-  "path": "src/unnamed/FUN_00503770.c",
-  "caller": "FUN_005033e0",
+  "path": "src/unnamed/CopyNameKey.c",
+  "caller": "Vector_InsertN_1e",
   "caller_va": "0x5033e0",
   "va": "0x503409",
   "form": "FRAMEADDR",
@@ -1606,10 +1606,10 @@
   "safe": true
  },
  {
-  "func": "FUN_00503ef0",
+  "func": "Vector_FillN_34",
   "reg": "ebx",
-  "path": "src/unnamed/FUN_00503ef0.c",
-  "caller": "FUN_00502e20",
+  "path": "src/unnamed/Vector_FillN_34.c",
+  "caller": "Vector_InsertN_34",
   "caller_va": "0x502e20",
   "va": "0x503084",
   "form": "FRAMEADDR",
@@ -1617,10 +1617,10 @@
   "safe": true
  },
  {
-  "func": "FUN_00503f10",
+  "func": "Vector_CopyBackward_34",
   "reg": "eax",
-  "path": "src/unnamed/FUN_00503f10.c",
-  "caller": "FUN_00502e20",
+  "path": "src/unnamed/Vector_CopyBackward_34.c",
+  "caller": "Vector_InsertN_34",
   "caller_va": "0x502e20",
   "va": "0x503077",
   "form": "FRAMEADDR",
@@ -1628,10 +1628,10 @@
   "safe": false
  },
  {
-  "func": "FUN_00503f10",
+  "func": "Vector_CopyBackward_34",
   "reg": "ebx",
-  "path": "src/unnamed/FUN_00503f10.c",
-  "caller": "FUN_00502e20",
+  "path": "src/unnamed/Vector_CopyBackward_34.c",
+  "caller": "Vector_InsertN_34",
   "caller_va": "0x502e20",
   "va": "0x503077",
   "form": "FRAME",
@@ -1639,10 +1639,10 @@
   "safe": true
  },
  {
-  "func": "FUN_00504010",
+  "func": "Vector_FillN_1e",
   "reg": "eax",
-  "path": "src/unnamed/FUN_00504010.c",
-  "caller": "FUN_005033e0",
+  "path": "src/unnamed/Vector_FillN_1e.c",
+  "caller": "Vector_InsertN_1e",
   "caller_va": "0x5033e0",
   "va": "0x503664",
   "form": "FRAME",
@@ -1650,10 +1650,10 @@
   "safe": false
  },
  {
-  "func": "FUN_00504010",
+  "func": "Vector_FillN_1e",
   "reg": "ebx",
-  "path": "src/unnamed/FUN_00504010.c",
-  "caller": "FUN_005033e0",
+  "path": "src/unnamed/Vector_FillN_1e.c",
+  "caller": "Vector_InsertN_1e",
   "caller_va": "0x5033e0",
   "va": "0x503664",
   "form": "FRAMEADDR",
@@ -1661,10 +1661,10 @@
   "safe": true
  },
  {
-  "func": "FUN_00504030",
+  "func": "Vector_CopyBackward_1e",
   "reg": "eax",
-  "path": "src/unnamed/FUN_00504030.c",
-  "caller": "FUN_005033e0",
+  "path": "src/unnamed/Vector_CopyBackward_1e.c",
+  "caller": "Vector_InsertN_1e",
   "caller_va": "0x5033e0",
   "va": "0x503654",
   "form": "OTHER",
@@ -1672,10 +1672,10 @@
   "safe": true
  },
  {
-  "func": "FUN_00504030",
+  "func": "Vector_CopyBackward_1e",
   "reg": "ebx",
-  "path": "src/unnamed/FUN_00504030.c",
-  "caller": "FUN_005033e0",
+  "path": "src/unnamed/Vector_CopyBackward_1e.c",
+  "caller": "Vector_InsertN_1e",
   "caller_va": "0x5033e0",
   "va": "0x503654",
   "form": "FRAME",
@@ -1716,9 +1716,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00504480",
+  "func": "StringMap_Insert_28",
   "reg": "eax",
-  "path": "src/unnamed/FUN_00504480.c",
+  "path": "src/unnamed/StringMap_Insert_28.c",
   "caller": "FUN_00503e30",
   "caller_va": "0x503e30",
   "va": "0x503e80",
@@ -1727,9 +1727,9 @@
   "safe": false
  },
  {
-  "func": "FUN_00504480",
+  "func": "StringMap_Insert_28",
   "reg": "ebx",
-  "path": "src/unnamed/FUN_00504480.c",
+  "path": "src/unnamed/StringMap_Insert_28.c",
   "caller": "FUN_00503e30",
   "caller_va": "0x503e30",
   "va": "0x503e80",

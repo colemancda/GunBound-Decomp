@@ -76,7 +76,7 @@ void FUN_00500a20(int *regEsi)
   if (regEsi[8] == 0) {
     uVar10 = 0;
     uVar9 = FUN_00500e30(0);
-    FUN_00500c00(regEsi,uVar9,uVar10);
+    HashMap_InitHashTable(regEsi,uVar9,uVar10);
   }
   regEsi[0xb] = 0;
   piVar8 = (int *)regEsi[10];

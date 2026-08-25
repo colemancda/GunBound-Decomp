@@ -1,11 +1,13 @@
-/* FUN_005013c0 - 0x005013c0 in the original binary.
+/* IntMap_Find_14 - 0x005013c0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The integer-keyed map find over 0x14-byte records: hash the key, take it modulo
+ * the bucket count, then walk the chain at bucket[i] comparing the node's
+ * hash at +0x10 and then the key itself.  Returns the node, and reports the
+ * hash, the bucket index and the predecessor node through its three
+ * out-parameters.  Its insert half is IntMap_Insert_14.
  *
  * EAX, ESI and EDI RECOVERED (2026-08-25).  This is the second copy of the
- * chained hash-map FIND (the first is FUN_004ff130's family), and like it the
+ * chained hash-map FIND (the first is StringMap_Find_1c's family), and like it the
  * function returns more than it appears to: EDI is the key, ESI the address
  * of the caller's bucket-index slot, EAX the address of the slot the key is
  * stashed in, and the single pushed argument the predecessor node.
@@ -20,7 +22,7 @@
 #include "ghidra_types.h"
 
 
-uint * __thiscall FUN_005013c0(int *param_1,undefined4 *param_2,uint *regEax,uint *regEsi,
+uint * __thiscall IntMap_Find_14(int *param_1,undefined4 *param_2,uint *regEax,uint *regEsi,
                               uint regEdi)
 
 {

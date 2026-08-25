@@ -1,8 +1,7 @@
-/* FUN_00504030 - 0x00504030 in the original binary.
+/* Vector_CopyBackward_1e - 0x00504030 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * _Copy_backward over 0x1e-byte elements: walk both ranges downward so an
+ * overlapping shift-up cannot clobber what it has yet to read.
  *
  * EAX and EBX RECOVERED (2026-08-25): a vector _Insert_n's copy-backward over
  * 0x1e-byte elements.  EAX is _Oldend (the destination end), EDX _Oldend minus
@@ -12,7 +11,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00504030(undefined4 param_1,undefined4 *param_2,undefined4 *regEax,
+void __fastcall Vector_CopyBackward_1e(undefined4 param_1,undefined4 *param_2,undefined4 *regEax,
                              undefined4 *regEbx)
 
 {

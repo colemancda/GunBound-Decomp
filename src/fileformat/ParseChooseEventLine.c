@@ -41,7 +41,7 @@ void ParseChooseEventLine(int *param_1,undefined4 param_2,undefined4 param_3)
   iVar2 = (int)FUN_00426780(local_8,&local_c,local_4,param_1,(uchar *)param_2);
   if (iVar2 == 0) {
     if (*param_1 == 0) {
-      cVar1 = FUN_00500c00(param_1,param_1[2],1);
+      cVar1 = HashMap_InitHashTable(param_1,param_1[2],1);
       if (cVar1 == '\0') {
                     /* WARNING: Subroutine does not return */
         ThrowCxxException(0x8007000e);

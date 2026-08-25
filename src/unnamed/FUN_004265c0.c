@@ -22,7 +22,7 @@ int FUN_004265c0(void)
   iVar2 = FUN_00426780(local_8,&local_c,local_4);
   if (iVar2 == 0) {
     if (*unaff_ESI == 0) {
-      cVar1 = FUN_00500c00(unaff_ESI,unaff_ESI[2],1);
+      cVar1 = HashMap_InitHashTable(unaff_ESI,unaff_ESI[2],1);
       if (cVar1 == '\0') {
                     /* WARNING: Subroutine does not return */
         ThrowCxxException(0x8007000e);
