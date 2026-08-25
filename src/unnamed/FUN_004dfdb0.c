@@ -27,8 +27,8 @@ LAB_004dfe33:
     }
     if (param_3 < 1) {
       if (0x20 < iVar1) {
-        FUN_004dffb0(param_1);
-        FUN_004dfff0();
+        FUN_004dffb0(param_1,param_2);
+        FUN_004dfff0(param_2,(undefined4 *)param_1);
         return;
       }
       goto LAB_004dfe33;

@@ -20,7 +20,8 @@ void __fastcall FUN_004f3540(undefined4 param_1,int param_2)
   iVar4 = 0;
   puVar5 = (undefined4 *)(param_2 + 0x210);
   do {
-    uVar6 = FUN_004f4810();
+    uVar6 = FUN_004f4810((float *)(*(int *)(param_2 + 0xc4) + iVar4 + 0x258),
+                          (float *)(param_2 + 0xe0));
     iVar3 = (int)((ulonglong)uVar6 >> 0x20);
     puVar2 = (undefined4 *)uVar6;
     *puVar5 = *puVar2;

@@ -79,14 +79,14 @@ void FUN_004e87b0(int param_1,undefined4 *param_2,int *param_3)
   if ((int *)*puVar1 == param_3) {
     piVar3 = piVar5;
     if (*(char *)((int)piVar6 + 0xf) == '\0') {
-      FUN_004e8d30();
+      FUN_004e8d30(piVar6);
     }
     *puVar1 = piVar3;
   }
   iVar2 = *(int *)(param_1 + 4);
   if (*(int **)(iVar2 + 8) == param_3) {
     if (*(char *)((int)piVar6 + 0xf) == '\0') {
-      FUN_004e8d10();
+      FUN_004e8d10((int)piVar6);
       *(undefined4 *)(iVar2 + 8) = uVar4;
     }
     else {

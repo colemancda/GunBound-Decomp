@@ -3,6 +3,13 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * THE HASH SLOT (2026-08-25).  The original passes the find `&param_1` for
+ * its hash out-parameter -- reusing the incoming parameter slot, whose value
+ * it has already cached in EBP -- and then reads the hash back out of that
+ * slot for the insert while EBP still holds the original key.  A C port
+ * cannot alias param_1 that way without losing the key, so the hash gets a
+ * local of its own and param_1 keeps meaning what it means at the entry.
  */
 #include "ghidra_types.h"
 
@@ -14,10 +21,11 @@ void FUN_00503e30(undefined4 param_1)
   int iVar2;
   undefined4 *unaff_ESI;
   int *unaff_EDI;
+  uint local_hash;
   undefined4 local_8;
   undefined1 local_4 [4];
   
-  iVar2 = FUN_004fef70((char *)param_1,(uint *)&param_1,(undefined4 *)local_4,unaff_EDI,(uint *)&local_8);
+  iVar2 = FUN_004fef70((char *)param_1,&local_hash,(undefined4 *)local_4,unaff_EDI,(uint *)&local_8);
   if (iVar2 == 0) {
     if (*unaff_EDI == 0) {
       cVar1 = FUN_00500c00(unaff_EDI,unaff_EDI[2],1);
@@ -26,7 +34,7 @@ void FUN_00503e30(undefined4 param_1)
         ThrowCxxException(0x8007000e);
       }
     }
-    iVar2 = FUN_00504480(local_8,param_1);
+    iVar2 = FUN_00504480(local_8,local_hash,(undefined4 *)param_1,unaff_EDI);
   }
   *(undefined4 *)(iVar2 + 0x12) = *unaff_ESI;
   *(undefined4 *)(iVar2 + 0x16) = unaff_ESI[1];
