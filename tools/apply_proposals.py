@@ -125,13 +125,32 @@ def apply_one(rec, dry):
                 if s.get('source_line') and abs(s['source_line'] - line) > 3:
                     return False, ['%s/%s: %s site at line %d but proposal says %d'
                                    % (func, reg, rel, line, s['source_line'])]
-                if arity(t[c['open']:c['close']]) != declared:
+                have = arity(t[c['open']:c['close']])
+                if have != declared and not s.get('full_args'):
                     return False, ['%s/%s: %s:%d passes %d args for %d declared -- re-slot needed'
-                                   % (func, reg, rel, line, arity(t[c['open']:c['close']]), declared)]
+                                   % (func, reg, rel, line, have, declared)]
+                if s.get('full_args'):
+                    # A re-slot: the analyst supplied the COMPLETE argument list
+                    # (declared slots in order, recovered register last).  It
+                    # must contain exactly declared+1 expressions, none prose.
+                    fa = callsites.split_args(s['full_args'])
+                    if len(fa) != declared + 1:
+                        return False, ['%s/%s: %s:%d full_args has %d slots, need %d'
+                                       % (func, reg, rel, line, len(fa), declared + 1)]
+                    for e in fa:
+                        if re.search(r'\b(the|i\.e|currently|own|before|after|which)\b', e):
+                            return False, ['%s/%s: full_args slot is prose: %r' % (func, reg, e[:60])]
+                    if fa[-1].strip() != s['expr'].strip():
+                        return False, ['%s/%s: full_args last slot %r != expr %r'
+                                       % (func, reg, fa[-1][:40], s['expr'][:40])]
             # apply from the end so offsets stay valid
             for c, s in sorted(zip(sorted(cs, key=lambda x: x['start']), props), key=lambda z: -z[0]['start']):
                 inner = t[c['open']:c['close']]
-                t = t[:c['open']] + (s['expr'] if inner.strip() == '' else inner.rstrip() + ',' + s['expr']) + t[c['close']:]
+                if s.get('full_args') and arity(inner) != declared:
+                    repl = s['full_args'].strip()            # whole-list rewrite
+                else:
+                    repl = s['expr'] if inner.strip() == '' else inner.rstrip() + ',' + s['expr']
+                t = t[:c['open']] + repl + t[c['close']:]
                 total_sites += 1
             files[fp] = t
     if total_sites != len(p['sites']):
