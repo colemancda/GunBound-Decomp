@@ -3,6 +3,17 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * A STACK OBJECT GHIDRA SPLIT (2026-08-25).  Three calls here pass frame
+ * addresses through registers -- -0x9c, -0x7c and -0x4c -- and the offsets
+ * between them are 0x20 and 0x50, exactly the offsets FUN_004ff210 uses on
+ * ONE object (`lea eax,[esi+0x50]`, `add esi,0x20`).  So this frame holds a
+ * single 0x90-byte object at -0x9c, not three unrelated slots.
+ *
+ * Ghidra had named only one piece of it: `void *local_1c`, at -0x1c, which is
+ * that object's +0x80 -- the pointer FUN_004ff1a0 zeroes and FUN_004ff210
+ * frees.  The free below is the same field, now spelled as part of the object
+ * it belongs to.
  */
 #include "ghidra_types.h"
 
@@ -22,7 +33,7 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
   uint local_b4;
   char local_ae [17];
   undefined1 local_9d;
-  void *local_1c;
+  undefined1 local_9c [0x90];   /* +0x20 and +0x50 are maps, +0x80 the freed pointer */
   undefined4 uStack_c;
   undefined1 *puStack_8;
   undefined4 local_4;
@@ -35,7 +46,7 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
   cVar1 = FUN_004fe860(param_1,&local_b8);
   piVar8 = local_b8;
   if (cVar1 == '\0') {
-    FUN_004ff1a0();
+    FUN_004ff1a0((int)local_9c);
     local_4 = 0;
     uVar3 = 0;
     do {
@@ -54,11 +65,11 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
     uVar6 = FUN_00504e90();
     *(undefined4 *)(iVar5 + 0x2c) = uVar6;
     local_4 = 0xffffffff;
-    if (local_1c != (void *)0x0) {
-      _free(local_1c);
+    if (*(void **)(local_9c + 0x80) != (void *)0x0) {
+      _free(*(void **)(local_9c + 0x80));
     }
-    FUN_00500790();
-    FUN_00500a20();
+    FUN_00500790((int *)(local_9c + 0x50));
+    FUN_00500a20((int *)(local_9c + 0x20));
     piVar8 = (int *)(iVar5 + 0x14);
   }
   piVar8[2] = param_3;

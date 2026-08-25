@@ -15,8 +15,8 @@ void FUN_004ff210(void)
   if (*(void **)(in_EAX + 0x80) != (void *)0x0) {
     _free(*(void **)(in_EAX + 0x80));
   }
-  FUN_00500790();
-  FUN_00500a20();
+  FUN_00500790((int *)(in_EAX + 0x50));
+  FUN_00500a20((int *)(in_EAX + 0x20));
   return;
 }
 
