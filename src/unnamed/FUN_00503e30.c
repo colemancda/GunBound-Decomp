@@ -17,7 +17,7 @@ void FUN_00503e30(undefined4 param_1)
   undefined4 local_8;
   undefined1 local_4 [4];
   
-  iVar2 = FUN_004fef70(param_1,&param_1,local_4);
+  iVar2 = FUN_004fef70((char *)param_1,(uint *)&param_1,(undefined4 *)local_4,unaff_EDI,(uint *)&local_8);
   if (iVar2 == 0) {
     if (*unaff_EDI == 0) {
       cVar1 = FUN_00500c00(unaff_EDI,unaff_EDI[2],1);

@@ -28,7 +28,8 @@ undefined4 FUN_004fe860(undefined4 param_1,int *param_2)
   } while (bVar1 < 0x10);
   local_1 = bVar1;
   local_12[bVar1] = '\0';
-  iVar3 = FUN_00500ef0(local_12,local_1c,&param_1);
+  iVar3 = FUN_00500ef0(local_12,(uint *)local_1c,(undefined4 *)&param_1,(int *)(param_1 + 0x290),
+                       (uint *)(local_1c + 4));
   if (iVar3 != 0) {
     *param_2 = iVar3 + 0x14;
     return CONCAT31((int3)((uint)(iVar3 + 0x14) >> 8),1);

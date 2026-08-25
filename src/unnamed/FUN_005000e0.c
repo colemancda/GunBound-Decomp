@@ -26,7 +26,7 @@ void FUN_005000e0(int *regEsi,char *regEdi)
   undefined4 local_8;
   undefined1 local_4 [4];
   
-  iVar2 = FUN_00500ef0(regEdi,&local_c,local_4);
+  iVar2 = FUN_00500ef0(regEdi,(uint *)&local_c,(undefined4 *)local_4,regEsi,(uint *)&local_8);
   if (iVar2 == 0) {
     if (*regEsi == 0) {
       cVar1 = FUN_00500c00(regEsi,regEsi[2],1);

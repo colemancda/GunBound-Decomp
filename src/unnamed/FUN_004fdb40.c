@@ -3,11 +3,17 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * ECX PROMOTED (2026-08-25): the map-find call needs EAX = ecx + 0x1af0, and
+ * ECX is this function's own incoming register, which Ghidra never modelled.
+ * The function has NO call sites anywhere in the image, so there is no caller
+ * to derive it from and none to update -- regEcx is declared so the find's
+ * arguments can be written honestly.
  */
 #include "ghidra_types.h"
 
 
-bool FUN_004fdb40(int param_1)
+bool FUN_004fdb40(int param_1,int regEcx)
 
 {
   byte bVar1;
@@ -27,7 +33,8 @@ bool FUN_004fdb40(int param_1)
   } while (bVar1 < 0x10);
   local_1 = bVar1;
   local_12[bVar1] = '\0';
-  iVar3 = FUN_004ff130(local_12,local_1c,&param_1);
+  iVar3 = FUN_004ff130(local_12,(uint *)local_1c,(undefined4 *)&param_1,(int *)(regEcx + 0x1af0),
+                       (uint *)(local_1c + 4));
   return iVar3 == 0;
 }
 
