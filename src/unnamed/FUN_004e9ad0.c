@@ -4,11 +4,11 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * EAX PROMOTED (2026-08-25) so its callee's argument can be written.  This
- * function has no call sites and no data references anywhere in the image --
- * not merely no ported ones: an E8-relative scan and a whole-image search for
- * the literal 0x4e9ad0 both come back empty -- so there is no caller to derive
- * the value from and none to update.
+ * EAX RECOVERED (2026-08-25): the static object DAT_00f22518, handed over by the
+ * CRT atexit destructor thunk at 0x543940 (`mov eax,<obj>; jmp 0x4e9ad0`).
+ * A `jmp rel32` from an unported thunk is invisible both to an E8-relative
+ * call scan and to a search for the address as a stored dword, which is how
+ * this first looked like an unreachable function.
  */
 #include "ghidra_types.h"
 

@@ -295,6 +295,8 @@ unsigned char g_wordFilterArrayHeader[0x10];
  *                      0x160 higher - an exact fit.
  * DAT_00f22518  0x138: callee writes [0x4c] (+0x134); next object base is
  *                      g_spriteDrawBatchPool, 0x138 higher.
+ * DAT_00eb1698  0x3e0: its destructor reads +0x3d8; next object base is
+ *                      DAT_00eb1a78, exactly 0x3e0 higher - an exact fit.
  *
  * Two more of these are NOT here.  0xe53698 and its neighbour DAT_00e5369c
  * sit in the region globals.c already flags as a KNOWN DIVERGENCE (the input
@@ -305,4 +307,5 @@ unsigned char g_wordFilterArrayHeader[0x10];
 unsigned char g_workerThreadBlock[0x18];
 unsigned char DAT_007a7644[0x1c];
 unsigned char DAT_00eb1a78[0x160];
+unsigned char DAT_00eb1698[0x3e0];
 unsigned char DAT_00f22518[0x138];

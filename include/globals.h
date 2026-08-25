@@ -1136,6 +1136,10 @@ extern uint8_t DAT_00ea0eac;
 #define _DAT_00ea0eac DAT_00ea0eac
 extern uint32_t DAT_00ea0f54;
 extern uint8_t DAT_00eb168c;
+/* A static object with a CRT ctor/dtor pair: `mov edx,0xeb1698; call 0x4f2d20`
+ * at 0x542950 constructs it, and the atexit thunk 0x543920 tears it down.
+ * Sized object - see globals_sized.c. */
+extern unsigned char DAT_00eb1698[0x3e0];
 /* The named-texture-cache singleton (was DAT_00eb1bd8) - real 0x40200-byte
  * storage in globals_sized.c. InitTextureCache/DestroyTextureCache ctor/
  * dtor pair; PreloadTexture/FindTextureCacheEntryByName/FlushTextureCache

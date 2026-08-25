@@ -5,10 +5,9 @@
  * verbatim ports" section for status.
  *
  * EBX RECOVERED (2026-08-25): its one call site is `mov ebx,eax` at 0x4e9ad2,
- * i.e. FUN_004e9ad0's own incoming EAX.  A batch proposal claimed the value
- * was &DAT_00f22518; that is not supportable here -- FUN_004e9ad0 is itself
- * unreferenced, so nothing in the image says what its EAX holds -- and the
- * argument is written as the forwarded register instead.
+ * i.e. FUN_004e9ad0's own incoming EAX -- and that is DAT_00f22518, supplied
+ * by the CRT atexit thunk at 0x543940 (`mov eax,0xf22518; jmp 0x4e9ad0`).
+ * This object's destructor, in other words.
  */
 #include "ghidra_types.h"
 
