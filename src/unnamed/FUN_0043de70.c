@@ -4,11 +4,20 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * REGISTERS RECOVERED (2026-08-25, workflow-analysed, hand-checked).  The
+ * INSERT path of the localized-string id -> string map: FUN_0043dd40 looks
+ * the id up (FUN_0043e060) and falls into this when it is absent.  `ret 4`:
+ * param_1 is the map on the stack; ECX is the id and EAX the message text,
+ * both passed straight through -- this function never touches them itself,
+ * it parks ECX in EBX across the call to FUN_0043e0f0, which reads them as
+ * the node key and value.  Both come from FUN_0043dd40's own declared
+ * parameters (`id`, `message`) on a straight-line run from its entry.
  */
 #include "ghidra_types.h"
 
 
-int FUN_0043de70(int *param_1)
+int FUN_0043de70(int *param_1,int regEcx,char *regEax)
 
 {
   int iVar1;
@@ -17,7 +26,7 @@ int FUN_0043de70(int *param_1)
   int iVar4;
   int iVar5;
   
-  FUN_0043e0f0();
+  FUN_0043e0f0(param_1,regEcx,(undefined4)regEax);
   *(undefined4 *)(iVar2 + 8) = 0;
   iVar3 = iVar2;
   if (iVar2 != *param_1) {

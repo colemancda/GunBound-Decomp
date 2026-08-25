@@ -334,7 +334,7 @@ void __fastcall FUN_0040cf80(undefined4 param_1,uint param_2,int param_3,uint re
 int __fastcall FUN_0040cfe0(undefined4 param_1,uint param_2,int regEax);
 void __thiscall FUN_0040d020(int param_1, int param_2, int message);
 void __fastcall thunk_FUN_0050ee00();
-void FUN_0040d160();
+undefined4 * FUN_0040d160(undefined4 *regEsi);
 void thunk_FUN_004154e0();
 void FUN_0040d180();
 void thunk_FUN_00415600();
@@ -365,7 +365,7 @@ void FUN_00415410(undefined4 *regEsi);
 int __fastcall FUN_00415450();
 void __fastcall FUN_00415470();
 void thunk_FUN_00415560();
-void __fastcall FUN_004154c0();
+void __fastcall FUN_004154c0(undefined4 param_1,undefined4 param_2,undefined4 *regEax);
 void FUN_004154e0();
 bool WorkerThread_Start(void *);
 bool FUN_00415530(void *);
@@ -599,10 +599,10 @@ undefined4 * GetLocalizedString();
 int FUN_0043dd40();
 void FUN_0043ddb0();
 undefined4 FUN_0043de10();
-int FUN_0043de70();
+int FUN_0043de70(int *param_1,int regEcx,char *regEax);
 int * __fastcall FUN_0043e060();
-void __fastcall FUN_0043e0f0();
-undefined4 * FUN_0043e150();
+void __fastcall FUN_0043e0f0(int *param_1,int regEbx,undefined4 regEax);
+undefined4 * FUN_0043e150(undefined4 param_1,undefined4 param_2,undefined4 *regEsi);
 void State10_Loading_ProcessPacket();
 /* The other per-state ProcessPacket virtuals (vtable slot 1) - full
  * prototypes (winegcc rejects K&R decls against ushort-param
