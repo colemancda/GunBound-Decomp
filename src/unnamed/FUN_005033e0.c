@@ -3,6 +3,13 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * THE BY-VALUE ELEMENT BUFFER (2026-08-25).  Three calls here pass the address
+ * of [ebp-0x34] in a register, and nothing in this function ever writes that
+ * slot -- only `lea`s it -- so it is a scratch object the callees fill: the
+ * element being inserted, 0x1e bytes wide (the stride this function multiplies
+ * by).  Ghidra dropped it because its only users were dropped registers.  The
+ * next ebp slot in use is 0x14, so the object has room for exactly that width.
  */
 #include "ghidra_types.h"
 
@@ -17,6 +24,7 @@ void __thiscall FUN_005033e0(uint param_1,int param_2,int param_3)
   uint uVar5;
   uint extraout_ECX;
   undefined4 *unaff_FS_OFFSET;
+  undefined1 local_38 [0x1e];   /* the inserted element; see the header note */
   undefined4 local_10;
   undefined1 *puStack_c;
   undefined4 local_8;
@@ -99,7 +107,8 @@ void __thiscall FUN_005033e0(uint param_1,int param_2,int param_3)
       FUN_00504030(0,(undefined4 *)(iVar1 - param_1 * 0x1e),(undefined4 *)iVar1,
                  (undefined4 *)param_3);
     }
-    FUN_00504010();
+    FUN_00504010(0,(undefined4 *)(param_3 + iVar3),(undefined4 *)param_3,
+                 (undefined4 *)local_38);
   }
   *unaff_FS_OFFSET = local_10;
   return;
