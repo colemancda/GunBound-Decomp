@@ -1,14 +1,14 @@
-/* FUN_004e0090 - 0x004e0090 in the original binary.
+/* MedianIntRange - 0x004e0090 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Pivot selection for PartitionIntRange (_Median).  Under 41 elements it is
+ * the plain three-element median swap network; at 41 or more it takes the
+ * median of nine, sampling at eighths of the range.  The 0x29 threshold is
+ * the STL's own `if (40 < _Count)`.
  */
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004e0090(int *param_1,int *param_2,int *regEsi)
+void __thiscall MedianIntRange(int *param_1,int *param_2,int *regEsi)
 
 {
   int iVar1;

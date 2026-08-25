@@ -1,19 +1,16 @@
-/* FUN_004e5d10 - 0x004e5d10 in the original binary.
+/* CArray_Grow_206 - 0x004e8fc0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The same array growth as CArray_Grow_1750, at a 0x206-byte stride.
  *
  * EAX and ESI RECOVERED (2026-08-25): another vector grow, the same shape as
- * FUN_005001f0.  Every call site is `lea eax,[ebp+1]` (the requested capacity,
+ * CArray_Grow_1750.  Every call site is `lea eax,[ebp+1]` (the requested capacity,
  * count + 1) with ESI the vector object, immediately after the caller has
  * compared the count against the capacity.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004e5d10(uint regEax,int *regEsi)
+undefined4 CArray_Grow_206(uint regEax,int *regEsi)
 
 {
   void *pvVar1;
@@ -27,7 +24,7 @@ undefined4 FUN_004e5d10(uint regEax,int *regEsi)
     if (regEax < uVar2) {
       regEax = uVar2;
     }
-    pvVar1 = _malloc(regEax * 0x4004);
+    pvVar1 = _malloc(regEax * 0x206);
     *regEsi = (int)pvVar1;
     if (pvVar1 != (void *)0x0) {
       regEsi[2] = regEax;
@@ -48,9 +45,9 @@ undefined4 FUN_004e5d10(uint regEax,int *regEsi)
     if (uVar2 <= regEax) {
       uVar2 = regEax;
     }
-    pvVar1 = _malloc(uVar2 * 0x4004);
+    pvVar1 = _malloc(uVar2 * 0x206);
     if (pvVar1 != (void *)0x0) {
-      _memmove(pvVar1,(void *)*regEsi,regEsi[1] * 0x4004);
+      _memmove(pvVar1,(void *)*regEsi,regEsi[1] * 0x206);
       _free((void *)*regEsi);
       *regEsi = (int)pvVar1;
       regEsi[2] = uVar2;

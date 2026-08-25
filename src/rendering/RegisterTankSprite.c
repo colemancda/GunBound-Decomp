@@ -56,7 +56,7 @@ void RegisterTankSprite(int param_1)
     iVar3 = *piVar2;
     *(undefined2 *)((int)puVar7 + 5) = DAT_00556ae4;
     iVar6 = iVar3 + **(int **)(iVar5 + 0xc) * 4;
-    FUN_004dfdb0(iVar3,iVar6,iVar6 - iVar3 >> 2);
+    SortIntRange(iVar3,iVar6,iVar6 - iVar3 >> 2);
     FUN_004f1a50(&g_spriteRegistry,param_1 + 5000,**(undefined4 **)(iVar5 + 0x10),
                  **(undefined4 **)(iVar5 + 0xc));
     FUN_004f1a50(&g_spriteRegistry,param_1 + 0x13ec,**(undefined4 **)(iVar5 + 0x10),

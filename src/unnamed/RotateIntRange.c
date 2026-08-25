@@ -1,9 +1,9 @@
-/* FUN_004e0210 - 0x004e0210 in the original binary.
+/* RotateIntRange - 0x004e0210 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * std::rotate over 4-byte elements (_Rotate), by the juggling algorithm:
+ * the Euclidean loop at the top computes gcd(range, offset), and the outer
+ * loop then walks that many independent cycles, moving one element per step.
+ * InsertionSortIntRange calls it to slide an element into place.
  *
  * EAX and EBX RECOVERED (2026-08-25) from the single site 0x4e0074, and the
  * pairing is exact: the two guards the source writes as
@@ -14,7 +14,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e0210(undefined4 *param_1,int regEax,undefined4 *regEbx)
+void RotateIntRange(undefined4 *param_1,int regEax,undefined4 *regEbx)
 
 {
   undefined4 uVar1;

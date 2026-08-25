@@ -19,7 +19,7 @@ uint FUN_004e8f70(undefined4 *param_1)
   
   uVar1 = unaff_EBX[1];
   if ((uint)unaff_EBX[2] <= uVar1) {
-    cVar2 = FUN_004e8fc0(uVar1 + 1,unaff_EBX);
+    cVar2 = CArray_Grow_206(uVar1 + 1,unaff_EBX);
     if (cVar2 == '\0') {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x8007000e);

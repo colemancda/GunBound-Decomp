@@ -5461,7 +5461,7 @@
   ]
  },
  {
-  "func": "FUN_004ff310",
+  "func": "HashStringNoCase",
   "reg": "edi",
   "sites": 3,
   "values": {},
@@ -5470,7 +5470,7 @@
   "buckets": {
    "STACK": 3
   },
-  "path": "src/unnamed/FUN_004ff310.c",
+  "path": "src/unnamed/HashStringNoCase.c",
   "per_site": [
    {
     "va": "0x4fef7d",
@@ -6711,7 +6711,7 @@
   ]
  },
  {
-  "func": "FUN_004e01b0",
+  "func": "AdjustHeapIntRange",
   "reg": "ebx",
   "sites": 2,
   "values": {},
@@ -6720,7 +6720,7 @@
   "buckets": {
    "OTHER": 2
   },
-  "path": "src/unnamed/FUN_004e01b0.c",
+  "path": "src/unnamed/AdjustHeapIntRange.c",
   "per_site": [
    {
     "va": "0x4dffdb",
@@ -6783,7 +6783,7 @@
   ]
  },
  {
-  "func": "FUN_004e8fc0",
+  "func": "CArray_Grow_206",
   "reg": "eax",
   "sites": 2,
   "values": {},
@@ -6792,7 +6792,7 @@
   "buckets": {
    "OTHER": 2
   },
-  "path": "src/unnamed/FUN_004e8fc0.c",
+  "path": "src/unnamed/CArray_Grow_206.c",
   "per_site": [
    {
     "va": "0x4e7fbf",
@@ -6807,7 +6807,7 @@
   ]
  },
  {
-  "func": "FUN_004e8fc0",
+  "func": "CArray_Grow_206",
   "reg": "esi",
   "sites": 2,
   "values": {},
@@ -6817,7 +6817,7 @@
    "OBJ-REL": 1,
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_004e8fc0.c",
+  "path": "src/unnamed/CArray_Grow_206.c",
   "per_site": [
    {
     "va": "0x4e7fbf",
@@ -7029,7 +7029,7 @@
   ]
  },
  {
-  "func": "FUN_004fedd0",
+  "func": "CArray_Add_1750",
   "reg": "eax",
   "sites": 2,
   "values": {},
@@ -7038,7 +7038,7 @@
   "buckets": {
    "OBJ-REL": 2
   },
-  "path": "src/unnamed/FUN_004fedd0.c",
+  "path": "src/unnamed/CArray_Add_1750.c",
   "per_site": [
    {
     "va": "0x4fe1ea",
@@ -9010,7 +9010,7 @@
   ]
  },
  {
-  "func": "FUN_004dffb0",
+  "func": "MakeHeapIntRange",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -9019,7 +9019,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_004dffb0.c",
+  "path": "src/unnamed/MakeHeapIntRange.c",
   "per_site": [
    {
     "va": "0x4dfe51",
@@ -9029,7 +9029,7 @@
   ]
  },
  {
-  "func": "FUN_004dfff0",
+  "func": "SortHeapIntRange",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -9038,7 +9038,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_004dfff0.c",
+  "path": "src/unnamed/SortHeapIntRange.c",
   "per_site": [
    {
     "va": "0x4dfe5b",
@@ -9048,7 +9048,7 @@
   ]
  },
  {
-  "func": "FUN_004e0090",
+  "func": "MedianIntRange",
   "reg": "esi",
   "sites": 1,
   "values": {},
@@ -9057,7 +9057,7 @@
   "buckets": {
    "OTHER": 1
   },
-  "path": "src/unnamed/FUN_004e0090.c",
+  "path": "src/unnamed/MedianIntRange.c",
   "per_site": [
    {
     "va": "0x4dfe92",
@@ -9067,7 +9067,7 @@
   ]
  },
  {
-  "func": "FUN_004e0210",
+  "func": "RotateIntRange",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -9076,7 +9076,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_004e0210.c",
+  "path": "src/unnamed/RotateIntRange.c",
   "per_site": [
    {
     "va": "0x4e0074",
@@ -9124,7 +9124,7 @@
   ]
  },
  {
-  "func": "FUN_004e5d10",
+  "func": "CArray_Grow_4004",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -9133,7 +9133,7 @@
   "buckets": {
    "OTHER": 1
   },
-  "path": "src/unnamed/FUN_004e5d10.c",
+  "path": "src/unnamed/CArray_Grow_4004.c",
   "per_site": [
    {
     "va": "0x4e5c81",
@@ -9143,7 +9143,7 @@
   ]
  },
  {
-  "func": "FUN_004e5d10",
+  "func": "CArray_Grow_4004",
   "reg": "esi",
   "sites": 1,
   "values": {},
@@ -9152,7 +9152,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_004e5d10.c",
+  "path": "src/unnamed/CArray_Grow_4004.c",
   "per_site": [
    {
     "va": "0x4e5c81",
@@ -9706,7 +9706,7 @@
   ]
  },
  {
-  "func": "FUN_004ff2c0",
+  "func": "CArray_CopyElement_1750",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -9715,7 +9715,7 @@
   "buckets": {
    "OTHER": 1
   },
-  "path": "src/unnamed/FUN_004ff2c0.c",
+  "path": "src/unnamed/CArray_CopyElement_1750.c",
   "per_site": [
    {
     "va": "0x4fee06",
@@ -9820,7 +9820,7 @@
   ]
  },
  {
-  "func": "FUN_005001f0",
+  "func": "CArray_Grow_1750",
   "reg": "eax",
   "sites": 1,
   "values": {},
@@ -9829,7 +9829,7 @@
   "buckets": {
    "OTHER": 1
   },
-  "path": "src/unnamed/FUN_005001f0.c",
+  "path": "src/unnamed/CArray_Grow_1750.c",
   "per_site": [
    {
     "va": "0x4fede1",
@@ -9839,7 +9839,7 @@
   ]
  },
  {
-  "func": "FUN_005001f0",
+  "func": "CArray_Grow_1750",
   "reg": "esi",
   "sites": 1,
   "values": {},
@@ -9848,7 +9848,7 @@
   "buckets": {
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_005001f0.c",
+  "path": "src/unnamed/CArray_Grow_1750.c",
   "per_site": [
    {
     "va": "0x4fede1",

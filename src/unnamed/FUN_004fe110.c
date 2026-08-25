@@ -73,7 +73,7 @@ FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 para
           puVar5 = (undefined4 *)((int)puVar5 + 1);
         }
         _Stack_176c = FID_conflict___time32((__time32_t *)0x0);
-        FUN_004fedd0(&local_2eb8,(int *)(local_2ecc + 0x20));
+        CArray_Add_1750(&local_2eb8,(int *)(local_2ecc + 0x20));
         *(undefined1 *)(local_2ecc + 7) = 1;
         return 1;
       }
@@ -95,7 +95,7 @@ FUN_004fe110(undefined4 *param_1,int *param_2,undefined4 param_3,undefined4 para
         puVar5 = (undefined4 *)((int)puVar5 + 1);
       }
       _Stack_176c = FID_conflict___time32((__time32_t *)0x0);
-      FUN_004fedd0(&local_2eb8,(int *)(local_2ecc + 0x20));
+      CArray_Add_1750(&local_2eb8,(int *)(local_2ecc + 0x20));
       return 1;
     }
     local_2eb4 = param_1[1];

@@ -1,14 +1,13 @@
-/* FUN_004dfe70 - 0x004dfe70 in the original binary.
+/* PartitionIntRange - 0x004dfe70 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The partition step of SortIntRange (_Unguarded_partition): take the pivot
+ * from MedianIntRange, then walk both ends inward collecting the run equal
+ * to it, returning the pair of iterators that bound that run.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_004dfe70(undefined4 *param_1,int *param_2,int *param_3)
+undefined4 * PartitionIntRange(undefined4 *param_1,int *param_2,int *param_3)
 
 {
   int iVar1;
@@ -20,7 +19,7 @@ undefined4 * FUN_004dfe70(undefined4 *param_1,int *param_2,int *param_3)
   
   piVar4 = param_2 + (((int)param_3 - (int)param_2 >> 2) - ((int)param_3 - (int)param_2 >> 0x1f) >>
                      1);
-  FUN_004e0090(param_2,param_3 + -1,piVar4);
+  MedianIntRange(param_2,param_3 + -1,piVar4);
   piVar5 = piVar4 + 1;
   for (; param_2 < piVar4; piVar4 = piVar4 + -1) {
     if ((piVar4[-1] < *piVar4) || (*piVar4 < piVar4[-1])) break;

@@ -1,8 +1,10 @@
-/* FUN_004ff310 - 0x004ff310 in the original binary.
+/* HashStringNoCase - 0x004ff310 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The case-insensitive string hash behind the three copies of the map find
+ * (FUN_004fef70 / FUN_004ff130 / FUN_00500ef0): h = h*33 + toupper(c) over
+ * the leading regEdi[0x11] bytes -- a 0x11-byte key record whose last byte
+ * is its length.  Each caller stores the result as the node's hash and takes
+ * it modulo the bucket count.
  *
  * EDI RECOVERED (2026-08-25): the string to hash.  All three call sites are
  * the same instruction in the three copies of the map-find helper --
@@ -14,7 +16,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_004ff310(int regEdi)
+int HashStringNoCase(int regEdi)
 
 {
   int iVar1;

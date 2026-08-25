@@ -1,14 +1,13 @@
-/* FUN_004e01b0 - 0x004e01b0 in the original binary.
+/* AdjustHeapIntRange - 0x004e01b0 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * The heap sift used by MakeHeapIntRange and SortHeapIntRange
+ * (_Adjust_heap): slide the hole down to a leaf taking the larger child,
+ * then push the held value back up -- the _Push_heap tail.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004e01b0(int param_1,int param_2,int param_3,int regEbx)
+void __fastcall AdjustHeapIntRange(int param_1,int param_2,int param_3,int regEbx)
 
 {
   int iVar1;

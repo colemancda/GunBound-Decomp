@@ -25,7 +25,7 @@ char * FUN_004fef70(char *param_1,uint *param_2,undefined4 *param_3,int *regEax,
   uint uVar2;
   int iVar3;
   
-  uVar2 = FUN_004ff310((int)param_1);
+  uVar2 = HashStringNoCase((int)param_1);
   *param_2 = uVar2;
   *regEbx = uVar2 % (uint)regEax[2];
   if (*regEax != 0) {

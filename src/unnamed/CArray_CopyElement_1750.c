@@ -1,20 +1,20 @@
-/* FUN_004ff2c0 - 0x004ff2c0 in the original binary.
+/* CArray_CopyElement_1750 - 0x004ff2c0 in the original binary.
  *
- * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Copies one 0x1750-byte record into an array slot for CArray_Add_1750:
+ * four header dwords, then a byte-count-driven block copy, then the trailing
+ * dword at +0x174c.
  *
  * EAX RECOVERED (2026-08-25): the DESTINATION.  Its one call site
- * (0x4fee06, in FUN_004fedd0) computes `eax = uVar1 * 0x1750 + *regEax` --
+ * (0x4fee06, in CArray_Add_1750) computes `eax = uVar1 * 0x1750 + *regEax` --
  * the address of element uVar1 in the vector -- and param_2 (EDX) is the
- * record to copy in, which FUN_004fedd0 received as its own param_1.
+ * record to copy in, which CArray_Add_1750 received as its own param_1.
  * ECX stays a phantom: the entry's `mov ecx,edx` at 0x4ff2c3 overwrites it
  * before any read, so the call passes 0 for that slot.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004ff2c0(undefined4 param_1,undefined4 *param_2,undefined4 *regEax)
+void __fastcall CArray_CopyElement_1750(undefined4 param_1,undefined4 *param_2,undefined4 *regEax)
 
 {
   ushort uVar1;

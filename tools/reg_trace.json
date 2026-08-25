@@ -836,10 +836,10 @@
   "safe": false
  },
  {
-  "func": "FUN_004dffb0",
+  "func": "MakeHeapIntRange",
   "reg": "eax",
-  "path": "src/unnamed/FUN_004dffb0.c",
-  "caller": "FUN_004dfdb0",
+  "path": "src/unnamed/MakeHeapIntRange.c",
+  "caller": "SortIntRange",
   "caller_va": "0x4dfdb0",
   "va": "0x4dfe51",
   "form": "OTHER",
@@ -847,10 +847,10 @@
   "safe": false
  },
  {
-  "func": "FUN_004dfff0",
+  "func": "SortHeapIntRange",
   "reg": "eax",
-  "path": "src/unnamed/FUN_004dfff0.c",
-  "caller": "FUN_004dfdb0",
+  "path": "src/unnamed/SortHeapIntRange.c",
+  "caller": "SortIntRange",
   "caller_va": "0x4dfdb0",
   "va": "0x4dfe5b",
   "form": "OTHER",
@@ -858,10 +858,10 @@
   "safe": false
  },
  {
-  "func": "FUN_004e0090",
+  "func": "MedianIntRange",
   "reg": "esi",
-  "path": "src/unnamed/FUN_004e0090.c",
-  "caller": "FUN_004dfe70",
+  "path": "src/unnamed/MedianIntRange.c",
+  "caller": "PartitionIntRange",
   "caller_va": "0x4dfe70",
   "va": "0x4dfe92",
   "form": "OTHER",
@@ -869,10 +869,10 @@
   "safe": true
  },
  {
-  "func": "FUN_004e0210",
+  "func": "RotateIntRange",
   "reg": "eax",
-  "path": "src/unnamed/FUN_004e0210.c",
-  "caller": "FUN_004e0030",
+  "path": "src/unnamed/RotateIntRange.c",
+  "caller": "InsertionSortIntRange",
   "caller_va": "0x4e0030",
   "va": "0x4e0074",
   "form": "OTHER",
@@ -902,9 +902,9 @@
   "safe": true
  },
  {
-  "func": "FUN_004e5d10",
+  "func": "CArray_Grow_4004",
   "reg": "eax",
-  "path": "src/unnamed/FUN_004e5d10.c",
+  "path": "src/unnamed/CArray_Grow_4004.c",
   "caller": "FUN_004e5c70",
   "caller_va": "0x4e5c70",
   "va": "0x4e5c81",
@@ -913,9 +913,9 @@
   "safe": true
  },
  {
-  "func": "FUN_004e5d10",
+  "func": "CArray_Grow_4004",
   "reg": "esi",
-  "path": "src/unnamed/FUN_004e5d10.c",
+  "path": "src/unnamed/CArray_Grow_4004.c",
   "caller": "FUN_004e5c70",
   "caller_va": "0x4e5c70",
   "va": "0x4e5c81",
@@ -1188,10 +1188,10 @@
   "safe": false
  },
  {
-  "func": "FUN_004ff2c0",
+  "func": "CArray_CopyElement_1750",
   "reg": "eax",
-  "path": "src/unnamed/FUN_004ff2c0.c",
-  "caller": "FUN_004fedd0",
+  "path": "src/unnamed/CArray_CopyElement_1750.c",
+  "caller": "CArray_Add_1750",
   "caller_va": "0x4fedd0",
   "va": "0x4fee06",
   "form": "OTHER",
@@ -1254,10 +1254,10 @@
   "safe": true
  },
  {
-  "func": "FUN_005001f0",
+  "func": "CArray_Grow_1750",
   "reg": "eax",
-  "path": "src/unnamed/FUN_005001f0.c",
-  "caller": "FUN_004fedd0",
+  "path": "src/unnamed/CArray_Grow_1750.c",
+  "caller": "CArray_Add_1750",
   "caller_va": "0x4fedd0",
   "va": "0x4fede1",
   "form": "OTHER",
@@ -1265,10 +1265,10 @@
   "safe": true
  },
  {
-  "func": "FUN_005001f0",
+  "func": "CArray_Grow_1750",
   "reg": "esi",
-  "path": "src/unnamed/FUN_005001f0.c",
-  "caller": "FUN_004fedd0",
+  "path": "src/unnamed/CArray_Grow_1750.c",
+  "caller": "CArray_Add_1750",
   "caller_va": "0x4fedd0",
   "va": "0x4fede1",
   "form": "ENTRY",
