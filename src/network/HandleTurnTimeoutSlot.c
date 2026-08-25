@@ -6,8 +6,8 @@
  *   - param_2 is missing.  Its one caller already passes two arguments
  *     (State11_InBattle_ProcessBattleAction, line ~1131), and orig 0x4cc1e6
  *     `movzx edi,[esp+0x20]` reads the second at entry+0x8.
- *   - EAX is a third argument, Ghidra's `in_EAX` (0x4cc1eb `mov esi,eax`).
- *     The body reads *(in_EAX + 1), +2 and +3 - a packet payload pointer.
+ *   - EAX is a third argument, Ghidra's `regEax` (0x4cc1eb `mov esi,eax`).
+ *     The body reads *(regEax + 1), +2 and +3 - a packet payload pointer.
  *
  * What blocks the fix is the EAX value at the call site.  That call block
  * (orig 0x4b7c59) is a BRANCH TARGET, so ESI there is inherited rather than
@@ -27,24 +27,31 @@
  * DROPPED-CELL FIX (2026-08-13, CValueGuard sweep): recovered the guard
  * cell at all 5 argless PeekPacketChecksumState() calls (5 C : 5 orig,
  * goto-free zip).  Three are the current-slot index cell at
- * g_clientContext+0x3b49c, compared against param_1 - the same
+ * g_clientContext+0x3b49c, compared against param_2 - the same
  * param-vs-slot check every turn-system member uses.  The other two
  * read back the piVar5 record cells the Encodes beside them write
  * (+0x15e4, +0x1808), whose bases the 2026-07-15 notes above already
  * derive.
+ *
+ * DEFINITION COMPLETED AND EAX RECOVERED (2026-08-25, workflow-analysed,
+ * hand-checked).  `ret 8`: TWO stack arguments.  Ghidra declared one and
+ * named it param_1, but the slot it reads is +8 -- the SECOND argument (the
+ * turn slot; the caller passes local_27e4).  The first, +4, is the caller's
+ * own `this`, which this function never reads.  So the old param_1 is now
+ * param_2 and a real param_1 precedes it: the sole caller already passed
+ * both.  EAX is the player record puVar12 the caller had just fetched.
  */
 #include "ghidra_types.h"
 #include <windows.h>
 
 
-void HandleTurnTimeoutSlot(int param_1)
+void HandleTurnTimeoutSlot(int *param_1,int param_2,int regEax)
 
 {
   byte *pbVar1;
   byte bVar2;
   undefined2 uVar3;
   char cVar4;
-  int in_EAX;
   int *piVar5;
   uint uVar6;
   undefined4 uVar7;
@@ -60,13 +67,13 @@ void HandleTurnTimeoutSlot(int param_1)
   piVar5 = (int *)GetPlayerRecordBySlot(g_clientContext);
   if (piVar5 != (int *)0x0) {
     (**(code **)(*piVar5 + 4))(&DAT_00556770);
-    bVar2 = *(byte *)(in_EAX + 2);
-    *(ushort *)(piVar5 + 0x2fef) = -(ushort)(*(char *)(in_EAX + 1) == -1) & 0xff00 | (ushort)bVar2;
+    bVar2 = *(byte *)(regEax + 2);
+    *(ushort *)(piVar5 + 0x2fef) = -(ushort)(*(char *)(regEax + 1) == -1) & 0xff00 | (ushort)bVar2;
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    if (param_1 != uVar6) {
-      uVar3 = *(undefined2 *)(in_EAX + 3);
+    if (param_2 != uVar6) {
+      uVar3 = *(undefined2 *)(regEax + 3);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x4cc290 (`lea edi,[ebx+0x15e4]` at 0x4cc283, ebx = piVar5 per
        * `mov ebx,eax` right after the GetPlayerRecordBySlot call above)
@@ -85,7 +92,7 @@ void HandleTurnTimeoutSlot(int param_1)
       uVar7 = PeekPacketChecksumState((void *)((int)piVar5 + 0x15e4));
       EncodeOutgoingPacketField((int)piVar5 + 0x90c, uVar7);
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      unaff_EBX = (uint)*(ushort *)(in_EAX + 5);
+      unaff_EBX = (uint)*(ushort *)(regEax + 5);
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x4cc2e2 (`lea edi,[ebx+0x1808]` at 0x4cc2d5) the cell is
        * (int)piVar5+0x1808. See
@@ -102,7 +109,7 @@ void HandleTurnTimeoutSlot(int param_1)
       EncodeOutgoingPacketField((int)piVar5 + 0xb30, uVar7);
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
-    cVar4 = *(char *)(in_EAX + 7);
+    cVar4 = *(char *)(regEax + 7);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
      * 0x4cc338 (`lea edi,[ebx+0x1c54]` at 0x4cc332) the cell is
      * (int)piVar5+0x1c54. See
@@ -114,7 +121,7 @@ void HandleTurnTimeoutSlot(int param_1)
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    if (param_1 == uVar6) {
+    if (param_2 == uVar6) {
       pbVar1 = (byte *)((int)piVar5 + 0x8bba);
       cVar4 = PeekPacketChecksumBool();
       if (cVar4 == '\0') {

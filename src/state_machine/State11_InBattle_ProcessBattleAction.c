@@ -1128,7 +1128,7 @@ LAB_004b7fb2:
     }
     switch(uVar1) {
     case GB_ACT_TIMEOUT_WEAPON_SELECT:
-      HandleTurnTimeoutSlot(param_1,local_27e4);
+      HandleTurnTimeoutSlot(param_1,local_27e4,(int)puVar12);
       *unaff_FS_OFFSET = local_14;
       return;
     default:

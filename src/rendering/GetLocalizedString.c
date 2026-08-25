@@ -47,6 +47,7 @@ undefined4 * GetLocalizedString(undefined4 param_1,int param_2)
   undefined4 *puVar3;
   int iVar4;
   undefined4 uStack_c;
+  int local_10;                      /* a CString: the operator= destination, see below */
   undefined1 *puStack_8;
   undefined4 uStack_4;
 
@@ -55,13 +56,19 @@ undefined4 * GetLocalizedString(undefined4 param_1,int param_2)
    * (LAB_00537938) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
   puVar3 = (undefined4 *)(**(code **)(DAT_005b1444 + 0xc))();
+  /* orig 0x43dc98 `mov [esp+8],esi` with esi = GetNilString() + 0x10: the
+   * local CString is constructed to the nil buffer before FUN_0043ddb0
+   * (CSimpleString::operator=) assigns the found string into it.  Ghidra
+   * folded the store away because every use of the local was through a
+   * dropped register. */
+  local_10 = (int)(puVar3 + 4);
   uStack_4 = 0;
   /* orig 0x43dca0/0x43dc9c: EDX = param_1 (the table) and EDI = param_2
    * (the id) - both dropped by the decompile until 2026-08-19. */
   iVar4 = (int)FUN_0043e060(0,(undefined4 *)param_1,param_2);
   puVar2 = PTR_DAT_0056d460;
   if (iVar4 != 0) {
-    FUN_0043ddb0();
+    FUN_0043ddb0((int *)(iVar4 + 4),&local_10);
     uStack_4 = 0xffffffff;
     piVar1 = puVar3 + 3;
     LOCK();

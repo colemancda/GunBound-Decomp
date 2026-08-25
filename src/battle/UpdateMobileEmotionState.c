@@ -108,7 +108,7 @@ LAB_0045f2b4:
     (**(code **)(*param_1 + 4))(pcVar9);
     goto LAB_0045f2bb;
   case 5:
-    cVar1 = FUN_004067c0();
+    cVar1 = FUN_004067c0((byte *)param_1 + 0xbfbe,(byte *)param_1 + 0xbfc1);
     if (cVar1 != '\0') {
       cVar1 = PeekPacketChecksumBool();
       puVar3 = &DAT_00553b70;
@@ -149,7 +149,7 @@ LAB_0045f039:
     }
     break;
   case 6:
-    cVar1 = FUN_004067c0();
+    cVar1 = FUN_004067c0((byte *)param_1 + 0xbfbe,(byte *)param_1 + 0xbfc1);
     if (cVar1 != '\0') {
       cVar1 = PeekPacketChecksumBool();
       puVar3 = &DAT_00553b68;

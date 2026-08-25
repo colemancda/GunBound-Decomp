@@ -61,7 +61,7 @@ undefined4 EncodeChecksumState(int param_1);
 void EncodeChecksumStateXored();
 void EncodeOutgoingPacketField();
 int GetPlayerRecordBySlot();
-void HandleTurnTimeoutSlot();
+void HandleTurnTimeoutSlot(int *param_1,int param_2,int regEax);
 void InitCommP2PNotifyWindow(undefined4 *self);   /* self = EDI (recovered) */
 bool PacketChecksumEquals();
 bool PacketChecksumNotEquals();
@@ -246,7 +246,7 @@ char PeekPacketChecksumBool();
 undefined4 CheckGuardedBoolAnd();
 undefined4 FUN_00406690(int param_1,byte *regEax);
 undefined4 CheckBothGuardedBools();
-undefined4 FUN_004067c0();
+undefined4 FUN_004067c0(byte *regEax,byte *regEdi);
 bool DecodeGuardedBool();
 void AdvanceHudAnimationCounters(int regEax);
 void DrawWindGauge();
@@ -597,7 +597,7 @@ void FUN_0043d9b0();
 undefined4 LoadLocalizedStrings();
 undefined4 * GetLocalizedString();
 int FUN_0043dd40();
-void FUN_0043ddb0();
+void FUN_0043ddb0(int *regEax,int *regEdi);
 undefined4 FUN_0043de10();
 int FUN_0043de70(int *param_1,int regEcx,char *regEax);
 int * __fastcall FUN_0043e060();
@@ -1852,6 +1852,10 @@ void __thiscall FUN_004fe420(undefined4 param_1,undefined4 param_2,undefined4 pa
 
 void FUN_00458920(int *param_1,int *param_2,int param_3,int param_4,int param_5,int param_6,int param_7,char param_8,char param_9,int regEax);
 void FUN_00458a00(int *param_1,int *param_2,int param_3,int param_4,int param_5,int param_6,int param_7,char param_8,char param_9,int regEax);
+
+void __cdecl FUN_0051f456(int param_3,undefined4 param_4,int param_5);
+void __cdecl FUN_0051f728(int param_3,undefined4 param_4,int param_5);
+void __cdecl FUN_0051faa2(int param_3,undefined4 param_4,int param_5);
 
 void FUN_00543210(void);
 void FUN_00543220(void);

@@ -3,29 +3,31 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * BOTH REGISTERS RECOVERED (2026-08-25).  Checks two 3-byte guard cells --
+ * EAX the first, EDI the second (byte0 + byte1 - 0x34 == byte2) -- and
+ * returns 1 if either decoded bit is set.  Both sites in
+ * UpdateMobileEmotionState pass the mobile's cells at +0xbfbe and +0xbfc1.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004067c0(void)
+undefined4 FUN_004067c0(byte *regEax,byte *regEdi)
 
 {
   char cVar1;
-  byte *in_EAX;
   char cVar2;
-  byte *unaff_EDI;
-  
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  if ((byte)((*in_EAX + in_EAX[1]) - 0x34) == in_EAX[2]) {
-    cVar2 = '\x01' - ((in_EAX[1] >> (*in_EAX & 7) & 1) != 1);
+  if ((byte)((*regEax + regEax[1]) - 0x34) == regEax[2]) {
+    cVar2 = '\x01' - ((regEax[1] >> (*regEax & 7) & 1) != 1);
   }
   else {
     g_valueGuardTamperFlag = 1;
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     cVar2 = '\0';
   }
-  if ((byte)((*unaff_EDI + unaff_EDI[1]) - 0x34) == unaff_EDI[2]) {
-    cVar1 = '\x01' - ((unaff_EDI[1] >> (*unaff_EDI & 7) & 1) != 1);
+  if ((byte)((*regEdi + regEdi[1]) - 0x34) == regEdi[2]) {
+    cVar1 = '\x01' - ((regEdi[1] >> (*regEdi & 7) & 1) != 1);
   }
   else {
     g_valueGuardTamperFlag = 1;

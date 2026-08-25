@@ -21,6 +21,7 @@ undefined4 * FUN_004e3740(void)
   undefined1 auStack_14 [4];
   undefined1 auStack_10 [4];
   undefined4 uStack_c;
+  int local_18;                      /* a CString: the operator= destination, see below */
   undefined1 *puStack_8;
   undefined4 uStack_4;
   
@@ -29,10 +30,14 @@ undefined4 * FUN_004e3740(void)
   uStack_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_c;
   puVar2 = (undefined4 *)(**(code **)(DAT_005b1444 + 0xc))();
+  /* orig 0x4e3769 `mov [esp+4],esi`, esi = GetNilString() + 0x10: the local
+   * CString constructed to the nil buffer before FUN_0043ddb0 assigns into
+   * it.  The store was folded away by Ghidra - same as GetLocalizedString. */
+  local_18 = (int)(puVar2 + 4);
   uStack_4 = 0;
   iVar3 = FUN_00426780(auStack_10,auStack_14,&stack0x00000004);
   if (iVar3 != 0) {
-    FUN_0043ddb0();
+    FUN_0043ddb0((int *)(iVar3 + 4),&local_18);
     uStack_4 = 0xffffffff;
     piVar1 = puVar2 + 3;
     LOCK();

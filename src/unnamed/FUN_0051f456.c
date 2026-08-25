@@ -3,12 +3,20 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * SIGNATURE CORRECTED (2026-08-25, workflow-analysed).  Ghidra typed this
+ * __fastcall with five parameters and an undefined8 return.  The entry is
+ * `push ebp; lea ebp,[esp+8]; pushal`, the exit `popal; pop ebp; ret` --
+ * so ECX, EDX and EAX are all written before any read (phantoms), the three
+ * real arguments are on the stack ([ebp], [ebp+4], [ebp+8]), the caller
+ * cleans them (`add esp,0xc`), and `return CONCAT44(param_2,in_EAX)` was an
+ * artefact of popal restoring EDX:EAX.  Now void __cdecl with the three
+ * stack parameters, which is exactly what its one caller already passes.
  */
 #include "ghidra_types.h"
 
 
-undefined8 __fastcall
-FUN_0051f456(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4,int param_5)
+void __cdecl FUN_0051f456(int param_3,undefined4 param_4,int param_5)
 
 {
   float *pfVar1;
@@ -28,7 +36,6 @@ FUN_0051f456(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_
   int iVar15;
   int iVar16;
   float fVar17;
-  undefined4 in_EAX;
   int iVar18;
   int iVar19;
   char cVar20;
@@ -189,6 +196,6 @@ FUN_0051f456(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_
     *(byte *)(param_5 + 0x20 + iVar19 * 2) = (byte)((uint)iVar18 >> 8) ^ 0x80;
     iVar19 = iVar19 + 1;
   } while (iVar19 != 0);
-  return CONCAT44(param_2,in_EAX);
+  return;
 }
 
