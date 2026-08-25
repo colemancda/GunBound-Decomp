@@ -167,7 +167,7 @@ void FUN_004022b0(void *objBase);
 void __thiscall FUN_00402300();
 int FUN_004023b0();
 void FUN_00402400();
-void FUN_004024f0();
+void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax);
 void FUN_004025e0();
 void FUN_004026a0();
 void FUN_00402720();

@@ -52,7 +52,7 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
           if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
             (**(code **)(**(int **)(param_2 + 0x1bdc) + 0x10))();
           }
-          FUN_004024f0(param_2,param_1 + 8);
+          FUN_004024f0(param_2,param_1 + 8,param_3);
           return;
         }
         *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
@@ -69,7 +69,7 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
         } while (cVar1 != '\0');
         FUN_004059e0((char *)(param_1 + 8));
         FUN_00405a20();
-        FUN_004024f0(param_2,param_1 + 8);
+        FUN_004024f0(param_2,param_1 + 8,param_3);
         return;
       }
       if (uVar2 == 1) {

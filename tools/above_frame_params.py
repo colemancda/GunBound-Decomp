@@ -49,7 +49,13 @@ def frame_const(ins):
             chk += int(m2.group(1), 0)
         if i.mnemonic == 'push' and i.op_str in ('ebx', 'esi', 'edi', 'ebp') and i.address > ins[0].address:
             saved += 1
-        if i.mnemonic == 'call' and i.op_str.strip() != '0x%x' % CHKSTK:
+        # The prologue ends at the first compare, branch, or real call.  A
+        # `push ebx` further down is an ARGUMENT, and counting it as a saved
+        # register put FUN_004032c0's frame at 0x13c instead of 0x138 -- one
+        # slot off, so a stack parameter came out as param_2 when it was
+        # param_3.
+        if i.mnemonic in ('cmp', 'test') or i.mnemonic.startswith('j') or \
+                (i.mnemonic == 'call' and i.op_str.strip() != '0x%x' % CHKSTK):
             break
     return seh, chk, saved
 

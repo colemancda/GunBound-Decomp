@@ -74,7 +74,7 @@ void FUN_00402900(int param_1,char *param_2)
     }
     if (*(int **)(param_1 + 0x1bdc) != (int *)0x0) {
       (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x10))(&local_20,0);
-      FUN_004024f0(param_1,in_EAX);
+      FUN_004024f0(param_1,in_EAX,param_2);
       return;
     }
   }

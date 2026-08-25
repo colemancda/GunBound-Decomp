@@ -71,12 +71,12 @@ void FUN_00402720(int param_1,char *param_2,char *param_3)
       *(int *)(puVar1 + 0x1000) = iVar9;
       *puVar1 = (short)iVar9;
       SendSocketData((char *)puVar1,*(undefined4 *)((char *)puVar1 + 0x2004),iVar9);
-      FUN_004024f0(param_1,param_3);
+      FUN_004024f0(param_1,param_3,param_2);
       return;
     }
     if (*(int **)(param_1 + 0x1bdc) != (int *)0x0) {
       (**(code **)(**(int **)(param_1 + 0x1bdc) + 0x10))(&local_20,0,param_3);
-      FUN_004024f0(param_1,param_3);
+      FUN_004024f0(param_1,param_3,param_2);
       return;
     }
   }

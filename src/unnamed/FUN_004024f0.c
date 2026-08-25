@@ -4,11 +4,28 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED REGISTER RECOVERED (2026-08-24): EAX is the second object handed
+ * on to FUN_004025e0(param_1, regEax).  Five call sites in three callers:
+ *   FUN_004032c0 (2)  param_3 -- [esp+0x144] on the four-saved-register path,
+ *                     the same +8 slot the FUN_00401ee0 sites read as
+ *                     [esp+0x140] on the three-register path
+ *   FUN_00402720 (2)  param_2 -- loaded into EDI in the prologue.  One site
+ *                     reads it from the stack directly; the other is a cold
+ *                     block after the epilogue (the `+0x1bdc` vtable branch)
+ *                     entered ONLY by `je 0x402806` at 0x402750, which is
+ *                     before both later rewrites of EDI, so EDI there is
+ *                     still the prologue's param_2.
+ *   FUN_00402900 (1)  param_2 -- the same cold-block shape, EBP this time,
+ *                     entered only by `je 0x4029d0` at 0x40292e, before the
+ *                     one rewrite at 0x402971.
+ * The two cold-block sites are exactly the shape a linear trace calls
+ * unsafe: the rewrites exist, but not on the path.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004024f0(undefined4 param_1,char *param_2)
+void FUN_004024f0(undefined4 param_1,char *param_2,undefined4 regEax)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -16,7 +33,6 @@ void FUN_004024f0(undefined4 param_1,char *param_2)
   undefined stack0xffffff7f;
   char cVar1;
   undefined2 *puVar2;
-  undefined4 in_EAX;
   int iVar3;
   char *pcVar4;
   uint uVar5;
@@ -63,7 +79,7 @@ void FUN_004024f0(undefined4 param_1,char *param_2)
   FUN_00426120(local_80);
   iVar3 = PanelManager_FindByName((int)&g_uiPanelManager);
   if (iVar3 == 0) {
-    FUN_004025e0(param_1,in_EAX);
+    FUN_004025e0(param_1,regEax);
     iVar3 = PanelManager_FindByName((int)&g_uiPanelManager);
     if (iVar3 == 0) {
       return;
