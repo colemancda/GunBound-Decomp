@@ -157,7 +157,7 @@ int FUN_00401c10(int regEax);
 int FUN_00401c50();
 void __fastcall FUN_00401cb0();
 int __thiscall FUN_00401ce0(int param_1,byte *param_2);
-void FUN_00401ee0();
+void FUN_00401ee0(int param_1,char *regEax);
 void FUN_00401fa0();
 int __fastcall FUN_00402020(int param_1);
 void __fastcall FUN_00402060();

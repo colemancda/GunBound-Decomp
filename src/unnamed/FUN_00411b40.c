@@ -250,7 +250,7 @@ void __fastcall FUN_00411b40(uint *param_1,int param_2)
       local_154 = param_1[5];
       local_12c = 0;
       local_14c = 0;
-      FUN_00401ee0(&DAT_00e53e88);
+      FUN_00401ee0(&DAT_00e53e88,(char *)&local_150);
       return;
     }
     if (in_AX == 0xa300) {

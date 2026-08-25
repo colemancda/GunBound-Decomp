@@ -123,7 +123,7 @@ void __thiscall FUN_004032c0(int param_1,int param_2,undefined4 param_3)
         return;
       }
       if (uVar2 == 0x1002) {
-        FUN_00401ee0(param_2);
+        FUN_00401ee0(param_2,(char *)in_EAX); /* case 0x1002: the key is this function's own (still dropped) EAX */
         return;
       }
       if (uVar2 == 0x1003) {
@@ -201,7 +201,7 @@ LAB_0040377c:
         if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {
           (**(code **)(**(int **)(param_2 + 0x1bdc) + 0x28))();
         }
-        FUN_00401ee0(param_2);
+        FUN_00401ee0(param_2,(char *)param_3 + 1);
         return;
       }
       *(undefined4 *)(g_directLinkConnection + 0x2000) = 4;
@@ -212,7 +212,7 @@ LAB_0040377c:
       *(undefined4 *)(iVar4 + 0x10) = in_EAX[3];
       *(int *)(iVar4 + 0x2000) = *(int *)(iVar4 + 0x2000) + 0x10;
       FUN_00405a20();
-      FUN_00401ee0(param_2);
+      FUN_00401ee0(param_2,(char *)param_3 + 1);
       return;
     case 0x2005:
       if (*(int **)(param_2 + 0x1bdc) != (int *)0x0) {

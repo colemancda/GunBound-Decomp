@@ -4,15 +4,32 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED REGISTER RECOVERED (2026-08-24): EAX is a NAME string -- the key
+ * FUN_00401c50(param_1, char *) searches the list for.  Seven call sites,
+ * five different sources, each pinned individually:
+ *   FUN_00402cf0 (2)   its own regEdi, the char * it was itself given
+ *   FUN_004032c0 (2)   (char *)param_3 + 1 -- the name one byte into the
+ *                      packet payload.  Frame 0x138 (sub esp,0x12c + three
+ *                      saved registers, not four), so [esp+0x140] is +8:
+ *                      the second stack parameter.  Then `inc eax`.
+ *   FUN_004032c0 (1)   case 0x1002, a cold block after the epilogue reached
+ *                      only from the entry dispatch (`ja 0x403564` at
+ *                      0x4032ee); on that path EDI still holds the entry
+ *                      `mov edi, eax` -- FUN_004032c0's OWN incoming EAX,
+ *                      which is still an unrecovered local there.  Passed
+ *                      through as-is so the dependency is visible.
+ *   FUN_00404330 (1)   &local_20, a 32-byte buffer FUN_00426090 fills
+ *   FUN_00411b40 (1)   &local_150, the record the source assembles from
+ *                      param_1[6] on the lines above
  */
 #include "ghidra_types.h"
 
 
-void FUN_00401ee0(int param_1)
+void FUN_00401ee0(int param_1,char *regEax)
 
 {
   int *piVar1;
-  undefined4 in_EAX;
   undefined4 *puVar2;
   int iVar3;
   int *piVar4;
@@ -22,7 +39,7 @@ void FUN_00401ee0(int param_1)
   
   puVar2 = (undefined4 *)FUN_00401bb0(param_1);
   if (puVar2 != (undefined4 *)0x0) {
-    iVar3 = FUN_00401c50(param_1,in_EAX);
+    iVar3 = FUN_00401c50(param_1,regEax);
     if (iVar3 < 0x7f) {
       puVar6 = (undefined4 *)(param_1 + 0x15b0 + iVar3 * 4);
       puVar7 = (undefined4 *)(param_1 + 0x15ac + iVar3 * 4);
