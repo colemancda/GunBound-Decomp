@@ -26,11 +26,19 @@
  * &DAT_00e55ab8).  The first pass passed only the fall-through cell;
  * now written as the ternary on the real `== 1` test.  Caught while
  * sweeping FUN_0045f840, which has the identical idiom.
+ *
+ * DEFINITION COMPLETED AND ESI RECOVERED (2026-08-24, workflow-analysed,
+ * hand-checked).  `ret 0x10` says four stack arguments; Ghidra declared
+ * three, while the sole caller already passes four -- so param_4 is added to
+ * the definition rather than an argument dropped from the call.  ESI is the
+ * caller's iVar8 (`mov esi,edi` right before the call, EDI loaded from the
+ * spill slot the caller's own source names), the projectile object this
+ * function reads as a C++ object.
  */
 #include "ghidra_types.h"
 
 
-void FUN_0047c040(int param_1,int param_2,int param_3)
+void FUN_0047c040(int param_1,int param_2,int param_3,int param_4,int *regEsi)
 
 {
   char cVar1;
@@ -39,7 +47,6 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
   undefined4 uVar9;
   int unaff_EBX;
   code *pcVar4;
-  int *unaff_ESI;
   undefined4 *unaff_FS_OFFSET;
   int unaff_retaddr;
   int aiStack_464 [2];
@@ -58,8 +65,8 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
   uStack_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_c;
   local_458[0] = 0;
-  unaff_ESI[0xfef] = ((char)param_3 != '\0') + 1;
-  (**(code **)(*unaff_ESI + 4))(&DAT_00553f90);
+  regEsi[0xfef] = ((char)param_3 != '\0') + 1;
+  (**(code **)(*regEsi + 4))(&DAT_00553f90);
   iVar2 = GetPlayerRecordBySlot(g_clientContext);
   if (iVar2 == 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -67,7 +74,7 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
     pcVar4 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar3 != 1) {
-      *(undefined1 *)(unaff_ESI + 5) = 1;
+      *(undefined1 *)(regEsi + 5) = 1;
     }
   }
   else {
@@ -75,10 +82,10 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
     iVar3 = PeekPacketChecksumState((void *)(iVar2 + 0x90c));
     pcVar4 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    unaff_ESI[0xfed] = iVar3;
+    regEsi[0xfed] = iVar3;
     aiStack_464[0] =
          EncodeChecksumDeltaAdd(iVar2 + 0xb30,auStack_234,
-                      (-(uint)((char)unaff_ESI[0xfe8] != '\0') & 0xffffff38) - 200);
+                      (-(uint)((char)regEsi[0xfe8] != '\0') & 0xffffff38) - 200);
     puStack_8 = (undefined1 *)0x0;
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
@@ -94,14 +101,14 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
     }
     else {
       uVar9 = EncodeChecksumDeltaAdd(iVar2 + 0xb30,local_458,
-                   (-(uint)((char)unaff_ESI[0xfe8] != '\0') & 0xffffff38) - 200);
+                   (-(uint)((char)regEsi[0xfe8] != '\0') & 0xffffff38) - 200);
       puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
       uStack_45c = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar3 = PeekPacketChecksumState((void *)uVar9);
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
-    unaff_ESI[0xfee] = iVar3;
+    regEsi[0xfee] = iVar3;
     puStack_8 = (undefined1 *)0x0;
     if (((uStack_45c & 1) != 0) && (iStack_444 != 0)) {
       ScrambleChecksumGuardBytes();
@@ -114,11 +121,11 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
       TreeLowerBound(aiStack_464,&g_valueGuardMap);
     }
   }
-  unaff_ESI[0xfea] = unaff_retaddr;
-  unaff_ESI[0xfeb] = param_1;
-  *(undefined1 *)(unaff_ESI + 0xfe8) = param_2;
-  unaff_ESI[0xfe9] = param_3;
-  *(undefined1 *)(unaff_ESI + 0xff2) = 0;
+  regEsi[0xfea] = unaff_retaddr;
+  regEsi[0xfeb] = param_1;
+  *(undefined1 *)(regEsi + 0xfe8) = param_2;
+  regEsi[0xfe9] = param_3;
+  *(undefined1 *)(regEsi + 0xff2) = 0;
   if (*(char *)(iVar2 + 0x651c) == '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
@@ -149,13 +156,13 @@ void FUN_0047c040(int param_1,int param_2,int param_3)
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x47c3ac
-   * (`lea edi,[esi+0x139c]`, esi = this file's own unaff_ESI, confirmed
+   * (`lea edi,[esi+0x139c]`, esi = this file's own regEsi, confirmed
    * by objdump of orig/GunBound.gme: esi is never reassigned anywhere in
-   * this function). unaff_ESI is `int *` (scales by 4), so the byte
-   * offset is taken via `(int)unaff_ESI + 0x139c` (same twin-cell offset
+   * this function). regEsi is `int *` (scales by 4), so the byte
+   * offset is taken via `(int)regEsi + 0x139c` (same twin-cell offset
    * as FUN_0047fee0.c's identical call site). See
    * tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField((int)unaff_ESI + 0x139c, iVar2);
+  EncodeOutgoingPacketField((int)regEsi + 0x139c, iVar2);
   (*pcVar4)(&g_valueGuardLock);
   RescrambleGuardedBool();
   *unaff_FS_OFFSET = uStack_18;

@@ -8,12 +8,11 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00426700(int param_1)
+void __fastcall FUN_00426700(int param_1,int regEax)
 
 {
-  int in_EAX;
   
-  for (; in_EAX != 0; in_EAX = in_EAX + -1) {
+  for (; regEax != 0; regEax = regEax + -1) {
     FUN_00426810(param_1);
     param_1 = param_1 + 0x450;
   }

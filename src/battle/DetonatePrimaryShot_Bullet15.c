@@ -340,7 +340,7 @@ LAB_0047bbd8:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar11 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_0047c040(uVar11,uVar10,(char)param_1[0xfe7],param_1[2]);
+    FUN_0047c040(uVar11,uVar10,(char)param_1[0xfe7],param_1[2],(int *)iVar8);
     pcVar18 = (code *)EnterCriticalSection;
   }
   (*pcVar18)(&g_valueGuardLock);

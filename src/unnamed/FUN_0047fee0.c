@@ -18,20 +18,24 @@
  * both as empty if/else blocks and dropped the loads entirely, so each
  * cell is written here as the ternary the branch really is - the same
  * shape already documented in FUN_0047c3f0.c.
+ *
+ * DEFINITION COMPLETED AND ESI RECOVERED (2026-08-24, workflow-analysed,
+ * hand-checked).  `ret 8` says two stack arguments, which the sole caller
+ * already passes; the definition declared fewer.  ESI is the caller's iVar8
+ * (`mov esi,edi` immediately before the call), the projectile object.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0047fee0(int param_1)
+void FUN_0047fee0(int param_1,int param_2,int *regEsi)
 
 {
   char cVar1;
   int iVar2;
   int iVar3;
   int iVar4;
-  int *unaff_ESI;
   undefined4 *unaff_FS_OFFSET;
   int unaff_retaddr;
   int aiStack_688 [2];
@@ -52,21 +56,21 @@ void FUN_0047fee0(int param_1)
   uStack_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = &uStack_c;
   local_67c[0] = 0;
-  unaff_ESI[0xfef] = 3;
-  (**(code **)(*unaff_ESI + 4))(&DAT_00553f90);
+  regEsi[0xfef] = 3;
+  (**(code **)(*regEsi + 4))(&DAT_00553f90);
   iVar2 = GetPlayerRecordBySlot(g_clientContext);
   if (iVar2 == 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar3 != 1) {
-      *(undefined1 *)(unaff_ESI + 5) = 1;
+      *(undefined1 *)(regEsi + 5) = 1;
       goto LAB_004802f3;
     }
   }
   iVar3 = iVar2 + 0xb30;
-  *(undefined1 *)(unaff_ESI + 0xff8) = 0;
-  *(undefined1 *)(unaff_ESI + 0xff1) = 1;
+  *(undefined1 *)(regEsi + 0xff8) = 0;
+  *(undefined1 *)(regEsi + 0xff1) = 1;
   aiStack_688[0] = EncodeChecksumDeltaSub(iVar3,auStack_234,400);
   puStack_8 = (undefined1 *)0x0;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -95,7 +99,7 @@ void FUN_0047fee0(int param_1)
   iVar3 = PeekPacketChecksumState((void *)(local_67c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
-  unaff_ESI[0xff2] = iVar3;
+  regEsi[0xff2] = iVar3;
   if (iStack_668 != 0) {
     ScrambleChecksumGuardBytes(iStack_668,&g_valueGuardKeyTable);
     TreeLowerBound(aiStack_688,&g_valueGuardMap);
@@ -110,7 +114,7 @@ void FUN_0047fee0(int param_1)
     ScrambleChecksumGuardBytes(iStack_220,&g_valueGuardKeyTable);
     TreeLowerBound(aiStack_688,&g_valueGuardMap);
   }
-  unaff_ESI[0xff3] = 1;
+  regEsi[0xff3] = 1;
   if (*(char *)(iVar2 + 0x651c) == '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
@@ -141,31 +145,31 @@ void FUN_0047fee0(int param_1)
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x480250
-   * (`lea edi,[esi+0x139c]`, esi = this file's own unaff_ESI, confirmed
+   * (`lea edi,[esi+0x139c]`, esi = this file's own regEsi, confirmed
    * by objdump of orig/GunBound.gme: esi is never reassigned anywhere in
    * this function, so it's the same register-carried cell base already
-   * used throughout as unaff_ESI). unaff_ESI is `int *` (scales by 4), so
-   * the byte offset is taken via `(int)unaff_ESI + 0x139c` (same twin-cell
+   * used throughout as regEsi). regEsi is `int *` (scales by 4), so
+   * the byte offset is taken via `(int)regEsi + 0x139c` (same twin-cell
    * offset as FUN_0047c040.c's identical call site). See
    * tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField((int)unaff_ESI + 0x139c, iVar3);
+  EncodeOutgoingPacketField((int)regEsi + 0x139c, iVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   fptan((float10)_DAT_00558070);
   iVar2 = FloatToInt64();
   if (param_1 < 0) {
     iVar3 = iVar2 / 2 + iVar2 + unaff_retaddr;
     iVar2 = -iVar2;
-    unaff_ESI[0xff6] = 0x108;
-    unaff_ESI[0xff7] = 4;
+    regEsi[0xff6] = 0x108;
+    regEsi[0xff7] = 4;
   }
   else {
     iVar3 = (unaff_retaddr - iVar2 / 2) - iVar2;
-    unaff_ESI[0xff6] = 0x114;
-    unaff_ESI[0xff7] = -4;
+    regEsi[0xff6] = 0x114;
+    regEsi[0xff7] = -4;
   }
-  unaff_ESI[0xff4] = iVar3;
-  unaff_ESI[0xfed] = iVar3;
-  unaff_ESI[0xff5] = iVar2;
+  regEsi[0xff4] = iVar3;
+  regEsi[0xfed] = iVar3;
+  regEsi[0xff5] = iVar2;
   RescrambleGuardedBool();
 LAB_004802f3:
   *unaff_FS_OFFSET = uStack_10;

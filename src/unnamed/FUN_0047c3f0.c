@@ -7,7 +7,7 @@
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 15 argless PeekPacketChecksumState() calls.  Cells:
  * g_clientContext+0x45354, the GetPlayerRecordBySlot record iVar2+0x90c,
- * the caller-supplied object unaff_ESI + 0x40/+0x264 (the same base the
+ * the caller-supplied object regEsi + 0x40/+0x264 (the same base the
  * file's already-fixed Encodes use), the globals 0x796aa0 / 0x794e48 /
  * 0x7949c8 / 0xe55ab8, and the delta helpers' arg2 scratch cells
  * auStack_458 / auStack_ac4 / auStack_234 / auStack_684 / auStack_8ac
@@ -19,13 +19,18 @@
  * 0xe55ab8) into EAX before falling into one shared call - Ghidra emitted
  * the two empty `if/else` blocks but dropped the loads, so the cell is
  * written here as the ternary the branch really is.
+ *
+ * DEFINITION COMPLETED AND ESI RECOVERED (2026-08-24, workflow-analysed,
+ * hand-checked).  `ret 8` says two stack arguments, which the sole caller
+ * already passes; the definition declared fewer.  ESI is the caller's iVar8
+ * (`mov esi,edi` immediately before the call), the projectile object.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_0047c3f0(void)
+void FUN_0047c3f0(int param_1,int param_2,int *regEsi)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -38,7 +43,6 @@ void FUN_0047c3f0(void)
   uint uVar5;
   undefined *puVar6;
   int iVar7;
-  int *unaff_ESI;
   int unaff_EDI;
   code *pcVar8;
   int *unaff_FS_OFFSET;
@@ -66,8 +70,8 @@ void FUN_0047c3f0(void)
   puStack_8 = &LAB_00539b25;
   iStack_c = *unaff_FS_OFFSET;
   *unaff_FS_OFFSET = (int)&iStack_c;
-  unaff_ESI[0xfef] = 3;
-  (**(code **)(*unaff_ESI + 4))();
+  regEsi[0xfef] = 3;
+  (**(code **)(*regEsi + 4))();
   iVar2 = GetPlayerRecordBySlot(g_clientContext);
   if (iVar2 == 0) {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -75,7 +79,7 @@ void FUN_0047c3f0(void)
     pcVar8 = (code *)LeaveCriticalSection;
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar3 != 1) {
-      *(undefined1 *)(unaff_ESI + 5) = 1;
+      *(undefined1 *)(regEsi + 5) = 1;
       goto LAB_0047ca25;
     }
   }
@@ -83,21 +87,21 @@ void FUN_0047c3f0(void)
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar4 = PeekPacketChecksumState((void *)(iVar2 + 0x90c));
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x47c4a2
-     * (`lea edi,[esi + 0x40]`, esi = unaff_ESI, the function's own "this"
-     * projectile object, e.g. unaff_ESI[0xfef]=3 above): unaff_ESI+0x40
+     * (`lea edi,[esi + 0x40]`, esi = regEsi, the function's own "this"
+     * projectile object, e.g. regEsi[0xfef]=3 above): regEsi+0x40
      * matches InitProjectile.c's own cell #1 (param_2+0x40, tableHandle
      * (+0x14)=param_2[0x15], activeFlag(+0x220) both zeroed together
      * there), confirming the same CProjectile cell layout. See
      * tools/encodeoutgoingpacketfield_sites.json. */
-    EncodeOutgoingPacketField((int)unaff_ESI + 0x40, uVar4);
+    EncodeOutgoingPacketField((int)regEsi + 0x40, uVar4);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar3 = PeekPacketChecksumState((void *)((int)unaff_ESI + 0x40));
+    iVar3 = PeekPacketChecksumState((void *)((int)regEsi + 0x40));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    unaff_ESI[0xfed] = iVar3;
+    regEsi[0xfed] = iVar3;
     aiStack_acc[0] =
          EncodeChecksumDeltaAdd(iVar2 + 0xb30,auStack_458,
-                      (-(uint)((char)unaff_ESI[0xfe8] != '\0') & 0xffffff38) - 200);
+                      (-(uint)((char)regEsi[0xfe8] != '\0') & 0xffffff38) - 200);
     puStack_8 = (undefined1 *)0x0;
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)(&DAT_00796aa0));
@@ -113,7 +117,7 @@ void FUN_0047c3f0(void)
     }
     else {
       EncodeChecksumDeltaAdd(iVar2 + 0xb30,auStack_ac4,
-                   (-(uint)((char)unaff_ESI[0xfe8] != '\0') & 0xffffff38) - 200);
+                   (-(uint)((char)regEsi[0xfe8] != '\0') & 0xffffff38) - 200);
       puStack_8 = (undefined1 *)CONCAT31(SUBFIELD(puStack_8,1,undefined3),1);
       uStack_ad4 = 1;
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -122,16 +126,16 @@ void FUN_0047c3f0(void)
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x47c5e6
-     * (`lea edi,[esi + 0x264]`, esi = unaff_ESI): matches InitProjectile.c's
+     * (`lea edi,[esi + 0x264]`, esi = regEsi): matches InitProjectile.c's
      * cell #2 (param_2+0x264). See
      * tools/encodeoutgoingpacketfield_sites.json. */
-    EncodeOutgoingPacketField((int)unaff_ESI + 0x264, iVar3);
+    EncodeOutgoingPacketField((int)regEsi + 0x264, iVar3);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar3 = PeekPacketChecksumState((void *)((int)unaff_ESI + 0x264));
+    iVar3 = PeekPacketChecksumState((void *)((int)regEsi + 0x264));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     puStack_8 = (undefined1 *)0x0;
-    unaff_ESI[0xfee] = iVar3;
+    regEsi[0xfee] = iVar3;
     if (((uStack_ad4 & 1) != 0) && (uStack_ad4 = uStack_ad4 & 0xfffffffe, iStack_ab0 != 0)) {
       ScrambleChecksumGuardBytes();
       TreeLowerBound(aiStack_acc,&g_valueGuardMap);
@@ -145,8 +149,8 @@ void FUN_0047c3f0(void)
     }
   }
   iVar3 = iVar2 + 0xb30;
-  *(undefined1 *)(unaff_ESI + 0xff9) = 0;
-  *(undefined1 *)(unaff_ESI + 0xff2) = 1;
+  *(undefined1 *)(regEsi + 0xff9) = 0;
+  *(undefined1 *)(regEsi + 0xff2) = 1;
   EncodeChecksumDeltaSub(iVar3,auStack_234,400);
   puStack_8 = (undefined1 *)0x2;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -175,7 +179,7 @@ void FUN_0047c3f0(void)
   iVar3 = PeekPacketChecksumState((void *)(auStack_8ac));
   (*pcVar8)(&g_valueGuardLock);
   uStack_18 = CONCAT31(SUBFIELD(uStack_18,1,undefined3),3);
-  unaff_ESI[0xff3] = iVar3;
+  regEsi[0xff3] = iVar3;
   if (iStack_89c != 0) {
     ScrambleChecksumGuardBytes(iStack_89c,&g_valueGuardKeyTable);
     TreeLowerBound(&stack0xfffff524,&g_valueGuardMap);
@@ -191,23 +195,23 @@ void FUN_0047c3f0(void)
     TreeLowerBound(&stack0xfffff524,&g_valueGuardMap);
   }
   fVar9 = (float10)_DAT_00558070;
-  unaff_ESI[0xff4] = 1;
+  regEsi[0xff4] = 1;
   fptan(fVar9);
   iVar3 = FloatToInt64();
   if (iStack_c < 0) {
     iVar7 = iVar3 / 2 + iVar3 + iStack_10;
     iVar3 = -iVar3;
-    unaff_ESI[0xff7] = 0x108;
-    unaff_ESI[0xff8] = 4;
+    regEsi[0xff7] = 0x108;
+    regEsi[0xff8] = 4;
   }
   else {
     iVar7 = (iStack_10 - iVar3 / 2) - iVar3;
-    unaff_ESI[0xff7] = 0x114;
-    unaff_ESI[0xff8] = -4;
+    regEsi[0xff7] = 0x114;
+    regEsi[0xff8] = -4;
   }
-  unaff_ESI[0xff6] = iVar3;
-  unaff_ESI[0xff5] = iVar7;
-  unaff_ESI[0xfed] = iVar7;
+  regEsi[0xff6] = iVar3;
+  regEsi[0xff5] = iVar7;
+  regEsi[0xfed] = iVar7;
   if (cRam0055a4ac == '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
@@ -238,11 +242,11 @@ void FUN_0047c3f0(void)
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x47ca01
-   * (`lea edi,[esi + 0x139c]`, esi = unaff_ESI): a later cell on the same
+   * (`lea edi,[esi + 0x139c]`, esi = regEsi): a later cell on the same
    * projectile object, already initialized during the object's
    * InitProjectile-style construction and reused here for the final
    * damage value. See tools/encodeoutgoingpacketfield_sites.json. */
-  EncodeOutgoingPacketField((int)unaff_ESI + 0x139c, iVar3);
+  EncodeOutgoingPacketField((int)regEsi + 0x139c, iVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   RescrambleGuardedBool();
 LAB_0047ca25:

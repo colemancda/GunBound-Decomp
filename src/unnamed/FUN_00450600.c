@@ -8,19 +8,18 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00450600(int param_1)
+void __fastcall FUN_00450600(int param_1,char *regEax)
 
 {
   char cVar1;
-  char *in_EAX;
   char *pcVar2;
   int iVar3;
   undefined4 *puVar4;
   
-  pcVar2 = in_EAX;
+  pcVar2 = regEax;
   do {
     cVar1 = *pcVar2;
-    pcVar2[(param_1 + 0x1d4) - (int)in_EAX] = cVar1;
+    pcVar2[(param_1 + 0x1d4) - (int)regEax] = cVar1;
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
   puVar4 = (undefined4 *)(param_1 + 0x44);
@@ -28,12 +27,12 @@ void __fastcall FUN_00450600(int param_1)
     *puVar4 = 0;
     puVar4 = puVar4 + 1;
   }
-  pcVar2 = in_EAX + 1;
+  pcVar2 = regEax + 1;
   do {
-    cVar1 = *in_EAX;
-    in_EAX = in_EAX + 1;
+    cVar1 = *regEax;
+    regEax = regEax + 1;
   } while (cVar1 != '\0');
-  RenderWrappedText((undefined4 *)(param_1 + 0x44),param_1 + 0x1d4,0x14,0xf,(int)in_EAX - (int)pcVar2,0);
+  RenderWrappedText((undefined4 *)(param_1 + 0x44),param_1 + 0x1d4,0x14,0xf,(int)regEax - (int)pcVar2,0);
   return;
 }
 

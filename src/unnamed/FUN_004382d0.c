@@ -32,7 +32,7 @@ void FUN_004382d0(void)
     if (pvVar3 != (void *)0x0) {
       FUN_0044fd00();
     }
-    FUN_00450600();
+    FUN_00450600((int)pvVar3,(char *)unaff_EBX);
     RegisterActiveObject(0, 0, (undefined4 *)0);
   }
   return;
