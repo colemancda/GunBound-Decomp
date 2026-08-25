@@ -24,7 +24,7 @@ undefined4 __thiscall FUN_00404dd0(int *param_1,uchar *param_2,int regEax)
   undefined4 *puVar3;
   undefined4 *puVar4;
   
-  iVar1 = FUN_00405360(param_2,regEax);
+  iVar1 = FUN_00405360(param_2,regEax,(undefined4 *)param_1);
   puVar4 = (undefined4 *)0x0;
   puVar3 = (undefined4 *)*param_1;
   if ((undefined4 *)*param_1 != (undefined4 *)param_1[5]) {
