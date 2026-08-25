@@ -36,7 +36,7 @@ void AssignStringBuffer(int *param_1,undefined4 *param_2,uint length)
   undefined4 *_Dst;
 
   if (unaff_EBX == 0) {
-    FUN_00405760();
+    FUN_00405760(param_1);
     return;
   }
   if (param_2 != (undefined4 *)0x0) {

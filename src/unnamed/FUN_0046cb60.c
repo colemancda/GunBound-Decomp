@@ -8,7 +8,7 @@
  * CONSTRUCTOR BODY, ESI RECOVERED: regEsi is the object fresh from
  * operator_new, held by the caller in pvVar2 and passed explicitly now.
  *
- * in_EAX stays OPEN: it is InitMobile's second argument (the class id).
+ * regEax stays OPEN: it is InitMobile's second argument (the class id).
  * Its value at the sole call site loads a caller stack slot, and
  * CreateMobile contains an indirect switch jmp, which the esp model
  * refuses -- so the slot cannot be named without CFG-following.
@@ -16,12 +16,11 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_0046cb60(undefined4 *regEsi)
+undefined4 FUN_0046cb60(undefined4 *regEsi,undefined4 regEax)
 
 {
-  undefined4 in_EAX;
   
-  InitMobile(regEsi,in_EAX);
+  InitMobile(regEsi,regEax);
   *regEsi = &PTR_FUN_00555e54;
   regEsi[0x2ffc] = 2;
   /* The original ends `mov eax, esi / ret`: it returns the object it just

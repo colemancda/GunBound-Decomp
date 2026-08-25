@@ -8,17 +8,16 @@
 #include "ghidra_types.h"
 
 
-uint FUN_00412e00(undefined4 param_1)
+uint FUN_00412e00(undefined4 param_1,char *regEdi)
 
 {
   FILE *_File;
   uint uVar1;
   int iVar2;
-  char *unaff_EDI;
   
   iVar2 = 1;
   do {
-    _sprintf(unaff_EDI,s__s_s_07d_bmp_00552220,param_1);
+    _sprintf(regEdi,s__s_s_07d_bmp_00552220,param_1);
     _File = (FILE *)FUN_00525fac();
     if (_File == (FILE *)0x0) {
       return 1;

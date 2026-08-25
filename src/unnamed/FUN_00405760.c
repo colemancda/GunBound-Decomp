@@ -8,16 +8,15 @@
 #include "ghidra_types.h"
 
 
-void FUN_00405760(void)
+void FUN_00405760(int *regEsi)
 
 {
   undefined4 *puVar1;
   int *piVar2;
   int *piVar3;
   int iVar4;
-  int *unaff_ESI;
   
-  iVar4 = *unaff_ESI;
+  iVar4 = *regEsi;
   puVar1 = (undefined4 *)(iVar4 + -0x10);
   piVar3 = (int *)*puVar1;
   if (*(int *)(iVar4 + -0xc) != 0) {
@@ -28,7 +27,7 @@ void FUN_00405760(void)
         ThrowCxxException(0x80070057);
       }
       *(undefined4 *)(iVar4 + -0xc) = 0;
-      *(undefined1 *)*unaff_ESI = 0;
+      *(undefined1 *)*regEsi = 0;
       return;
     }
     LOCK();
@@ -39,7 +38,7 @@ void FUN_00405760(void)
       (**(code **)(*(int *)*puVar1 + 4))(puVar1);
     }
     (**(code **)(*piVar3 + 0xc))();
-    *unaff_ESI = iVar4 + 0x10;
+    *regEsi = iVar4 + 0x10;
   }
   return;
 }

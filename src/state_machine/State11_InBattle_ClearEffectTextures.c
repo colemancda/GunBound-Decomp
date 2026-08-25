@@ -808,7 +808,7 @@ void State11_InBattle_ClearEffectTextures(void)
       }
     } while (iVar29 < 0x100);
   }
-  FUN_00450b80();
+  FUN_00450b80((int)(&DAT_006a7f88 + g_clientContext));
   FlushCompositorLayer(2,(int)&g_spriteDrawBatchPool);
   FUN_00450bd0((int)(&DAT_006a7f88 + g_clientContext));
   if (iVar2 != 0) {

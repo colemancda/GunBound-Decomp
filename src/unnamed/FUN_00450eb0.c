@@ -41,7 +41,7 @@ LAB_00450f26:
     cVar1 = *(char *)(iVar3 + 0x15);
     while (cVar1 == '\0') {
       if (*(char *)(iVar3 + 0x14) == '\0') {
-        FUN_00478cb0(iVar3,param_2,param_3);
+        FUN_00478cb0(iVar3,param_2,param_3,param_4);
       }
       iVar3 = *(int *)(iVar3 + 0x10);
       cVar1 = *(char *)(iVar3 + 0x15);

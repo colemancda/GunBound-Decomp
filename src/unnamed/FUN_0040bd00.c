@@ -8,14 +8,13 @@
 #include "ghidra_types.h"
 
 
-void FUN_0040bd00(void)
+void FUN_0040bd00(int *regEax)
 
 {
   char cVar1;
   int *piVar2;
-  int *in_EAX;
   
-  piVar2 = (int *)*in_EAX;
+  piVar2 = (int *)*regEax;
   cVar1 = *(char *)((int)piVar2 + 0x11);
   while (cVar1 == '\0') {
     piVar2 = (int *)*piVar2;

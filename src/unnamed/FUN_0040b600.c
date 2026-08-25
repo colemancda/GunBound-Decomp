@@ -83,7 +83,7 @@ void FUN_0040b600(int param_1,undefined4 *param_2,int *param_3)
        * decompilation inconsistency, same class as entry/WinMain.c's
        * FUN_004058c0 fix. piVar3 keeps its prior value (piVar5) as a
        * result. */
-      FUN_0040bd00();
+      FUN_0040bd00(piVar6);
     }
     *puVar1 = piVar3;
   }
@@ -95,7 +95,7 @@ void FUN_0040b600(int param_1,undefined4 *param_2,int *param_3)
        * decompilation inconsistency, same class as entry/WinMain.c's
        * FUN_004058c0 fix. uVar4 is left uninitialized here as a
        * result. */
-      FUN_0040bce0();
+      FUN_0040bce0((int)piVar6);
       *(undefined4 *)(iVar2 + 8) = uVar4;
     }
     else {

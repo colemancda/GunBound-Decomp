@@ -7,33 +7,32 @@
 #include "ghidra_types.h"
 
 
-void FUN_00415740(void)
+void FUN_00415740(int *regEsi)
 
 {
   int iVar1;
   undefined4 *puVar2;
   undefined4 *_Memory;
-  int *unaff_ESI;
   
-  iVar1 = *unaff_ESI;
-  if (iVar1 != unaff_ESI[5]) {
+  iVar1 = *regEsi;
+  if (iVar1 != regEsi[5]) {
     FUN_004158a0(*(undefined4 *)(iVar1 + 0xc));
     FUN_004158a0(*(undefined4 *)(iVar1 + 0x10));
     thunk_FUN_004158f0();
-    *(int *)(iVar1 + 0xc) = unaff_ESI[2];
-    unaff_ESI[2] = iVar1;
-    unaff_ESI[1] = unaff_ESI[1] + -1;
+    *(int *)(iVar1 + 0xc) = regEsi[2];
+    regEsi[2] = iVar1;
+    regEsi[1] = regEsi[1] + -1;
   }
-  unaff_ESI[1] = 0;
-  _Memory = (undefined4 *)unaff_ESI[3];
+  regEsi[1] = 0;
+  _Memory = (undefined4 *)regEsi[3];
   while (_Memory != (undefined4 *)0x0) {
     puVar2 = (undefined4 *)*_Memory;
     _free(_Memory);
     _Memory = puVar2;
   }
-  unaff_ESI[3] = 0;
-  unaff_ESI[2] = 0;
-  *unaff_ESI = unaff_ESI[5];
+  regEsi[3] = 0;
+  regEsi[2] = 0;
+  *regEsi = regEsi[5];
   return;
 }
 

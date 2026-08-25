@@ -187,7 +187,7 @@ LAB_0042b5ad:
       piVar3 = (int *)0x0;
     }
     else {
-      piVar3 = (int *)FUN_0046cb60((undefined4 *)pvVar2);
+      piVar3 = (int *)FUN_0046cb60((undefined4 *)pvVar2,param_2);
     }
     break;
   case 0xe:

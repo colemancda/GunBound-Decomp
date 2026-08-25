@@ -93,7 +93,7 @@ void FUN_00477650(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar6 = (local_690[0] * local_688[0]) / iVar6;
     if (iVar5 * iVar5 + iVar6 * iVar6 < iVar4 * iVar4) {
-      FUN_00477140();
+      FUN_00477140(param_1);
     }
   }
   return;

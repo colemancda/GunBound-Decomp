@@ -7,17 +7,16 @@
 #include "ghidra_types.h"
 
 
-void FUN_0043d970(void)
+void FUN_0043d970(undefined4 *regEbx)
 
 {
   HANDLE pvVar1;
-  undefined4 *unaff_EBX;
   undefined4 *puVar2;
   int iVar3;
   
-  *unaff_EBX = &PTR_LAB_00553ff8;
-  unaff_EBX[1] = 0;
-  puVar2 = unaff_EBX + 2;
+  *regEbx = &PTR_LAB_00553ff8;
+  regEbx[1] = 0;
+  puVar2 = regEbx + 2;
   iVar3 = 2;
   do {
     pvVar1 = CreateEventA((LPSECURITY_ATTRIBUTES)0x0,0,0,(LPCSTR)0x0);
@@ -25,7 +24,7 @@ void FUN_0043d970(void)
     puVar2 = puVar2 + 1;
     iVar3 = iVar3 + -1;
   } while (iVar3 != 0);
-  *(undefined1 *)(unaff_EBX + 4) = 0;
+  *(undefined1 *)(regEbx + 4) = 0;
   return;
 }
 

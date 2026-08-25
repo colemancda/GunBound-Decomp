@@ -13,7 +13,7 @@ void FUN_004435b0(void)
   int in_EAX;
   undefined1 local_4 [4];
   
-  FUN_00443680(local_4,**(undefined4 **)(in_EAX + 4),*(undefined4 **)(in_EAX + 4));
+  FUN_00443680(local_4,**(undefined4 **)(in_EAX + 4),*(undefined4 **)(in_EAX + 4),in_EAX);
   _free(*(void **)(in_EAX + 4));
   *(undefined4 *)(in_EAX + 4) = 0;
   *(undefined4 *)(in_EAX + 8) = 0;
