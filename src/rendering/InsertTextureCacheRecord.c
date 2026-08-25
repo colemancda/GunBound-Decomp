@@ -11,20 +11,19 @@
 #include "ghidra_types.h"
 
 
-void InsertTextureCacheRecord(byte *param_1)
+void InsertTextureCacheRecord(byte *param_1,int regEax)
 
 {
   byte bVar1;
   byte *pbVar2;
   byte *pbVar3;
-  int in_EAX;
   byte *pbVar4;
   int iVar5;
   byte *pbVar6;
   bool bVar7;
   
-  pbVar4 = *(byte **)(in_EAX + 0x1b4);
-  pbVar3 = (byte *)(in_EAX + 0x11c);
+  pbVar4 = *(byte **)(regEax + 0x1b4);
+  pbVar3 = (byte *)(regEax + 0x11c);
   while (pbVar2 = pbVar4, pbVar4 = param_1, pbVar6 = pbVar2, pbVar2 != (byte *)0x0) {
     do {
       bVar1 = *pbVar4;

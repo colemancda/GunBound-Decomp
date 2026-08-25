@@ -13,24 +13,23 @@
 #include "ghidra_types.h"
 
 
-void FUN_00442e00(void)
+void FUN_00442e00(uint regEax)
 
 {
   byte bVar1;
   char cVar2;
   undefined2 uVar3;
-  uint in_EAX;
   uint uVar4;
   int iVar5;
   int iVar6;
   int iVar7;
   int unaff_EDI;
   
-  uVar4 = in_EAX & 0x80000003;
+  uVar4 = regEax & 0x80000003;
   if ((int)uVar4 < 0) {
     uVar4 = (uVar4 - 1 | 0xfffffffc) + 1;
   }
-  iVar7 = ((3 < (int)in_EAX) - 1 & 0xffffff5a) + 0x1d2 + uVar4 * 0x1d;
+  iVar7 = ((3 < (int)regEax) - 1 & 0xffffff5a) + 0x1d2 + uVar4 * 0x1d;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -75,7 +74,7 @@ void FUN_00442e00(void)
     }
   }
   DrawFontString(iVar7 + 1,0x1f);
-  /* BlitRLESprite's 4th arg (rleData) was dropped as `in_EAX` in the raw
+  /* BlitRLESprite's 4th arg (rleData) was dropped as `regEax` in the raw
    * port - objdump at this call site (0x44301c) shows ECX=0x2a1 (this)
    * and EAX = g_clientContext + unaff_EDI*9 + 0x5012e, the same per-slot
    * short-name field pointer just used (also dropped) as DrawFontString's
@@ -84,7 +83,7 @@ void FUN_00442e00(void)
    * State11_InBattle_ProcessBattleAction.c and FUN_004d0260.c. */
   BlitRLESprite(0x2a1,iVar7 + 1,0xffff,(byte *)(g_clientContext + 0x5012e + unaff_EDI * 9));
   iVar5 = g_clientContext;
-  /* BlitRLESprite's 4th arg (rleData) was dropped as `in_EAX` - objdump
+  /* BlitRLESprite's 4th arg (rleData) was dropped as `regEax` - objdump
    * at this call site (0x443048) shows ECX=0x2a1 (this) and EAX =
    * g_clientContext + unaff_EDI*0xd + 0x50196, a per-slot longer-name
    * field; corroborated by the identical `*0xd+0x50196+g_clientContext`

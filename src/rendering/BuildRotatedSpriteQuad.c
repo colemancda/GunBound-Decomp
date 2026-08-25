@@ -14,23 +14,22 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __thiscall BuildRotatedSpriteQuad(int param_1,int param_2,int param_3,int param_4)
+void __thiscall BuildRotatedSpriteQuad(int param_1,int param_2,int param_3,int param_4,int regEax)
 
 {
   float fVar1;
   float fVar2;
   float fVar3;
-  int in_EAX;
   int iVar4;
   undefined4 *puVar5;
   undefined4 *puVar6;
   
-  iVar4 = (in_EAX + 0x5a) % 0x168;
+  iVar4 = (regEax + 0x5a) % 0x168;
   if (iVar4 < 0) {
     iVar4 = iVar4 + 0x168;
   }
   fVar1 = *(float *)(&g_sineTable360 + iVar4 * 4);
-  iVar4 = in_EAX % 0x168;
+  iVar4 = regEax % 0x168;
   if (iVar4 < 0) {
     iVar4 = iVar4 + 0x168;
   }

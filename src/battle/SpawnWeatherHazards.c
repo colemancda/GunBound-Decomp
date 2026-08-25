@@ -23,7 +23,7 @@
 #include "ghidra_types.h"
 
 
-void SpawnWeatherHazards(int param_1)
+void SpawnWeatherHazards(int param_1,char *regEax)
 
 {
   char cVar1;
@@ -31,34 +31,33 @@ void SpawnWeatherHazards(int param_1)
   short sVar3;
   undefined2 uVar4;
   int iVar5;
-  char *in_EAX;
   int iVar6;
   byte bVar7;
   char *pcVar8;
   char *pcVar9;
   byte *pbVar10;
   
-  cVar1 = *in_EAX;
+  cVar1 = *regEax;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)cVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  sVar3 = *(short *)(in_EAX + 1);
+  sVar3 = *(short *)(regEax + 1);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)sVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  cVar1 = in_EAX[3];
+  cVar1 = regEax[3];
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)cVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  cVar1 = in_EAX[4];
+  cVar1 = regEax[4];
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   EncodeOutgoingPacketField((int)cVar1);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  pcVar8 = in_EAX + 7;
-  if (in_EAX[6] != -1) {
+  pcVar8 = regEax + 7;
+  if (regEax[6] != -1) {
     cVar1 = *pcVar8;
-    pcVar8 = in_EAX + 10;
-    SpawnFirewallHazard(&DAT_006a7f70 + param_1,*(undefined2 *)(in_EAX + 8),cVar1,10000);
+    pcVar8 = regEax + 10;
+    SpawnFirewallHazard(&DAT_006a7f70 + param_1,*(undefined2 *)(regEax + 8),cVar1,10000);
   }
   pcVar9 = pcVar8 + 1;
   if (*pcVar8 != -1) {

@@ -31,7 +31,7 @@ LAB_00442d55:
     }
   } while( true );
   if (iVar3 == -1) goto LAB_00442d9e;
-  FUN_00442e00();
+  FUN_00442e00(iVar2);
   iVar2 = iVar2 + 1;
   if (3 < iVar2) goto LAB_00442d9e;
   goto LAB_00442d55;
@@ -54,7 +54,7 @@ LAB_00442db0:
   if (iVar3 == -1) {
     return;
   }
-  FUN_00442e00();
+  FUN_00442e00(iVar2 + 4);
   iVar2 = iVar2 + 1;
   if (3 < iVar2) {
     return;

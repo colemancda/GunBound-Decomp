@@ -30,7 +30,7 @@ void FUN_00425960(int regEbx)
   *(undefined4 *)(&DAT_0067ec64 + regEbx) = 0;
   *(undefined4 *)(&DAT_0067ec68 + regEbx) = 0;
   GetLocalizedString(&g_localizedStringTable,0x200);
-  FUN_00413af0();
+  FUN_00413af0((char *)GetLocalizedString(&g_localizedStringTable,0x200));
   return;
 }
 

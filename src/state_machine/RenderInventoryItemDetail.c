@@ -129,7 +129,7 @@ void RenderInventoryItemDetail(int param_1)
         puVar14 = puVar14 + 1;
         puVar15 = puVar15 + 1;
       }
-      RemoveInventoryItems(1,0);
+      RemoveInventoryItems(1,0,(int *)(g_clientContext + 0x44be8));
       uVar2 = local_1874;
       uVar12 = local_1874 >> 0x10;
       FUN_00423e20(g_clientContext,uVar12 & 0xf,uVar2,(int)partWorkspace);

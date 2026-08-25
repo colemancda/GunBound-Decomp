@@ -11,12 +11,11 @@
 #include "ghidra_types.h"
 
 
-void RenderPlayerNameplate(int param_1)
+void RenderPlayerNameplate(int param_1,int regEax)
 
 {
   char *pcVar1;
   int iVar2;
-  int in_EAX;
   int iVar3;
   int iVar4;
   int iVar5;
@@ -25,7 +24,7 @@ void RenderPlayerNameplate(int param_1)
   char local_80 [128];
   
   iVar4 = g_clientContext;
-  iVar5 = (int)*(char *)(in_EAX + 0x4a0 + param_1);
+  iVar5 = (int)*(char *)(regEax + 0x4a0 + param_1);
   local_c0[0] = 0x26;
   local_c0[1] = 0xb1;
   local_c0[3] = 0xb1;
@@ -44,8 +43,8 @@ void RenderPlayerNameplate(int param_1)
   local_c0[0xe] = 0x125;
   local_c0[0xf] = 0x125;
   iVar5 = local_c0[iVar5 + 8];
-  *(int *)(in_EAX + 0x6bc + param_1 * 8) = iVar2 + 0x43;
-  *(int *)(in_EAX + 0x6c0 + param_1 * 8) = iVar5 + 0xe;
+  *(int *)(regEax + 0x6bc + param_1 * 8) = iVar2 + 0x43;
+  *(int *)(regEax + 0x6c0 + param_1 * 8) = iVar5 + 0xe;
   iVar3 = 0;
   piVar6 = (int *)(iVar4 + 0x4737c);
   do {
@@ -57,16 +56,16 @@ void RenderPlayerNameplate(int param_1)
 LAB_004dbb40:
   if (iVar3 < (int)(uint)*(byte *)(iVar4 + 0x45124)) {
     if (*(char *)(iVar4 + 0x45914 + param_1) == '\0') {
-      /* DrawSprite's arg was dropped as `in_EAX` - objdump at this call
+      /* DrawSprite's arg was dropped as `regEax` - objdump at this call
        * site (0x4dbb6a) shows EAX = ((int)(signed char)raw byte at
-       * [in_EAX + param_1 + 0x4a0] > 3) + 1, i.e. the same raw byte
+       * [regEax + param_1 + 0x4a0] > 3) + 1, i.e. the same raw byte
        * read into `iVar5` above (line 24) before it's overwritten by
-       * the local_c0[] lookups - reusing `in_EAX`/`param_1` as they
+       * the local_c0[] lookups - reusing `regEax`/`param_1` as they
        * already appear in this file rather than inventing new names. */
-      DrawSprite((*(char *)(in_EAX + 0x4a0 + param_1) > 3) + 1);
+      DrawSprite((*(char *)(regEax + 0x4a0 + param_1) > 3) + 1);
       return;
     }
-    /* DrawSprite's arg was dropped as `in_EAX` - objdump at this call
+    /* DrawSprite's arg was dropped as `regEax` - objdump at this call
      * site (0x4dbb87) shows EAX = (byte)*(byte *)(iVar4 + 0x4590c +
      * param_1) + 1. */
     DrawSprite((int)(uint)(byte)*(char *)(iVar4 + 0x4590c + param_1) + 1);
@@ -88,7 +87,7 @@ LAB_004dbb40:
         }
       }
     }
-    /* DrawSprite's arg was dropped as `in_EAX` - objdump at this call
+    /* DrawSprite's arg was dropped as `regEax` - objdump at this call
      * site (0x4dbc28) shows EAX = (ushort)*(ushort *)(g_clientContext +
      * param_1*2 + 0x4591c) (freshly reloads g_clientContext here rather
      * than reusing `iVar4`, which may have been clobbered by the
@@ -132,7 +131,7 @@ LAB_004dbb40:
       }
     }
     else {
-      /* DrawSprite's arg is dropped here too (`in_EAX`), but left
+      /* DrawSprite's arg is dropped here too (`regEax`), but left
        * unfixed: objdump at this call site (0x4dbd39) shows the two
        * paths reaching it use *different* struct fields (+0x449ba vs
        * +0x45914) than the single combined `if` condition above - this

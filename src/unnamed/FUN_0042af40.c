@@ -8,26 +8,25 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_0042af40(void)
+undefined4 FUN_0042af40(uint regEax)
 
 {
-  uint in_EAX;
   void *pvVar1;
   uint uVar2;
   int *unaff_ESI;
   
-  if (in_EAX <= (uint)unaff_ESI[2]) {
+  if (regEax <= (uint)unaff_ESI[2]) {
     return 1;
   }
   uVar2 = unaff_ESI[3];
   if (*unaff_ESI == 0) {
-    if (in_EAX < uVar2) {
-      in_EAX = uVar2;
+    if (regEax < uVar2) {
+      regEax = uVar2;
     }
-    pvVar1 = _malloc(in_EAX * 0x450);
+    pvVar1 = _malloc(regEax * 0x450);
     *unaff_ESI = (int)pvVar1;
     if (pvVar1 != (void *)0x0) {
-      unaff_ESI[2] = in_EAX;
+      unaff_ESI[2] = regEax;
       return 1;
     }
   }
@@ -42,8 +41,8 @@ undefined4 FUN_0042af40(void)
       }
     }
     uVar2 = uVar2 + unaff_ESI[2];
-    if (uVar2 <= in_EAX) {
-      uVar2 = in_EAX;
+    if (uVar2 <= regEax) {
+      uVar2 = regEax;
     }
     pvVar1 = _malloc(uVar2 * 0x450);
     if (pvVar1 != (void *)0x0) {

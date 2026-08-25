@@ -8,20 +8,19 @@
 #include "ghidra_types.h"
 
 
-void FUN_00415ca0(void)
+void FUN_00415ca0(undefined4 *regEax)
 
 {
-  undefined4 *in_EAX;
   
-  *in_EAX = 0;
-  in_EAX[1] = 1;
-  in_EAX[2] = 2;
-  in_EAX[3] = 3;
-  in_EAX[4] = 4;
-  in_EAX[5] = 5;
-  in_EAX[6] = 6;
-  in_EAX[7] = 7;
-  in_EAX[8] = 0;
+  *regEax = 0;
+  regEax[1] = 1;
+  regEax[2] = 2;
+  regEax[3] = 3;
+  regEax[4] = 4;
+  regEax[5] = 5;
+  regEax[6] = 6;
+  regEax[7] = 7;
+  regEax[8] = 0;
   return;
 }
 

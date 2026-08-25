@@ -23,7 +23,7 @@ void FUN_00403170(int param_1,uchar *param_2,undefined4 param_3)
   if (puVar1 != (uint *)0x0) {
     do {
       do {
-        puVar2 = (uint *)FUN_004050a0(param_1 + 0x1be4);
+        puVar2 = (uint *)FUN_004050a0(param_1 + 0x1be4,(int)puVar1);
         if ((puVar2 == (uint *)0x0) || (iVar3 = __mbsicmp((uchar *)*puVar2,param_2), iVar3 != 0)) {
           puVar2 = (uint *)0x0;
         }

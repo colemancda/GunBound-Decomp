@@ -104,7 +104,7 @@ void BeginNewTurn(int *param_1,undefined2 *param_2)
       (**(code **)(*param_1 + 0x28))(local_80,2,6);
     }
   }
-  SpawnWeatherHazards(g_clientContext);
+  SpawnWeatherHazards(g_clientContext,(char *)(param_2 + 1));
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0xeba98));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

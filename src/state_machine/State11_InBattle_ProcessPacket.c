@@ -322,7 +322,7 @@ LAB_004b4324:
         SendPlayResult();
       }
       if (1 < payloadLen) {
-        FUN_00425a30(g_clientContext);
+        FUN_00425a30(g_clientContext,payload + 1);
       }
       local_9b0 = 0;
       do {

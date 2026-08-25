@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00413af0(void)
+void FUN_00413af0(char *regEdi)
 
 {
   char cVar1;
@@ -16,17 +16,16 @@ void FUN_00413af0(void)
   int iVar3;
   int *piVar4;
   int iVar5;
-  char *unaff_EDI;
   undefined4 uVar6;
   char local_400 [1024];
   
   iVar3 = 0;
   iVar5 = 0;
   bVar2 = true;
-  cVar1 = *unaff_EDI;
+  cVar1 = *regEdi;
   while (cVar1 != '\0') {
-    cVar1 = unaff_EDI[iVar5];
-    if ((cVar1 == '\\') && (unaff_EDI[iVar5 + 1] == 'n')) {
+    cVar1 = regEdi[iVar5];
+    if ((cVar1 == '\\') && (regEdi[iVar5 + 1] == 'n')) {
       local_400[iVar3] = '\0';
       if (bVar2) {
         piVar4 = (int *)g_gameStateVTableArray[g_currentGameState];
@@ -62,7 +61,7 @@ void FUN_00413af0(void)
       iVar3 = iVar3 + 1;
       iVar5 = iVar5 + 1;
     }
-    cVar1 = unaff_EDI[iVar5];
+    cVar1 = regEdi[iVar5];
   }
   piVar4 = (int *)g_gameStateVTableArray[g_currentGameState];
   local_400[iVar3] = '\0';

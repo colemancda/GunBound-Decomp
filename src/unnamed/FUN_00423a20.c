@@ -24,7 +24,7 @@ void __fastcall FUN_00423a20(int param_1)
   undefined4 uEventKey;
   undefined1 local_8 [8];
   
-  cVar4 = FUN_0041c190();
+  cVar4 = FUN_0041c190(0,(uint)in_AL,param_1);
   if (cVar4 != '\0') {
     *(undefined4 *)(&DAT_006a7670 + (uint)in_AL * 8 + param_1) = 0;
     *(undefined4 *)((int)(&DAT_006a7670 + (uint)in_AL * 8 + param_1) + 4) = 0;

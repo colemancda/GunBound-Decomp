@@ -8,26 +8,25 @@
 #include "ghidra_types.h"
 
 
-int FUN_00405040(int param_1)
+int FUN_00405040(int param_1,int regEax)
 
 {
   int iVar1;
-  int in_EAX;
   int iVar2;
   int iVar3;
   
-  if (in_EAX != 0) {
-    iVar3 = *(int *)(in_EAX + 0x108);
+  if (regEax != 0) {
+    iVar3 = *(int *)(regEax + 0x108);
     iVar1 = *(int *)(param_1 + 0x14);
     if (iVar3 == iVar1) {
-      iVar3 = *(int *)(in_EAX + 0x110);
-      if (*(int *)(in_EAX + 0x110) != iVar1) {
+      iVar3 = *(int *)(regEax + 0x110);
+      if (*(int *)(regEax + 0x110) != iVar1) {
         do {
           iVar2 = iVar3;
           iVar3 = iVar2;
-          if (in_EAX != *(int *)(iVar2 + 0x108)) break;
+          if (regEax != *(int *)(iVar2 + 0x108)) break;
           iVar3 = *(int *)(iVar2 + 0x110);
-          in_EAX = iVar2;
+          regEax = iVar2;
         } while (iVar3 != iVar1);
         if (iVar3 != iVar1) {
           return iVar3;

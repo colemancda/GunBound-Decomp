@@ -168,7 +168,7 @@ LAB_004d67e1:
         pcVar12 = pcVar12 + 1;
       }
       uStack_44 = 0;
-      TextEntry_PushTextToControl((int)g_sharedTextInputControl);
+      TextEntry_PushTextToControl((int)g_sharedTextInputControl,acStack_80);
       pcVar8 = acStack_80;
       do {
         cVar4 = *pcVar8;

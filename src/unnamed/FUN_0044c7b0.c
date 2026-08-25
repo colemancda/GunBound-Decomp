@@ -35,7 +35,7 @@ undefined1 __fastcall FUN_0044c7b0(uint param_1,int *param_2)
     return 1;
   }
   if ((uint)param_2[2] < param_1) {
-    cVar1 = FUN_0042af40();
+    cVar1 = FUN_0042af40(param_1);
     if (cVar1 == '\0') {
       return 0;
     }

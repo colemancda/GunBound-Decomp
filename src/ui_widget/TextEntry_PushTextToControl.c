@@ -15,7 +15,7 @@
  * *(HWND *)(param_1 + 4), so an unsupplied param_1 meant SetWindowTextA was
  * handed a window handle read from a garbage address.
  *
- * in_EAX stays open.  It is the text argument, and at the call site it is
+ * regEax stays open.  It is the text argument, and at the call site it is
  * `lea eax,[esp+0x58]` -- the address of a caller stack local, the string the
  * preceding `rep movsb` had just assembled.  Naming a caller spill slot needs
  * a stack-depth model this tree does not have, so it is left as a local
@@ -25,16 +25,15 @@
 #include "ghidra_types.h"
 
 
-void __fastcall TextEntry_PushTextToControl(int param_1)
+void __fastcall TextEntry_PushTextToControl(int param_1,LPCSTR regEax)
 
 {
-  LPCSTR in_EAX;
   
-  if (in_EAX == (LPCSTR)0x0) {
+  if (regEax == (LPCSTR)0x0) {
     SetWindowTextA(*(HWND *)(param_1 + 4),&DAT_00551cb1);
     return;
   }
-  SetWindowTextA(*(HWND *)(param_1 + 4),in_EAX);
+  SetWindowTextA(*(HWND *)(param_1 + 4),regEax);
   return;
 }
 

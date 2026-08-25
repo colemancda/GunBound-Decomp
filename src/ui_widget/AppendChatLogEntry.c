@@ -68,7 +68,7 @@ void AppendChatLogEntry(int param_1,char param_2,char *param_3,char *param_4,cha
     FUN_00426120((int)&uStack_81 + 1);
   }
   if (99 < *(int *)(param_1 + 0x3b980)) {
-    FUN_0041b840();
+    FUN_0041b840(param_1);
   }
   if (param_3 == (char *)0x0) {
     *(undefined1 *)(*(int *)(param_1 + 0x3b980) * 9 + 0x3b984 + param_1) = 0;
@@ -170,7 +170,7 @@ LAB_0041bac3:
   *(int *)(param_1 + 0x3b980) = iVar9;
   if (0 < iVar6) {
     if (99 < iVar9) {
-      FUN_0041b840();
+      FUN_0041b840(param_1);
       iVar6 = extraout_EDX;
     }
     *(undefined1 *)(*(int *)(param_1 + 0x3b980) * 9 + 0x3b984 + param_1) = 0;

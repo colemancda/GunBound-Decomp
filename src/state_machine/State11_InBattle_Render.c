@@ -1116,7 +1116,7 @@ void State11_InBattle_Render(void)
             pcStack_a34 = (char *)0x4c5b3a;
             piStack_a30 = (int *)(iVar19 + 400);
             piStack_a2c = (int *)(iVar7 + 0x12aU);
-            BuildRotatedSpriteQuad();
+            BuildRotatedSpriteQuad(iVar6,iVar19 + 400,iVar7 + 0x12a,piVar8[2],piVar8[1]);
           }
         }
         else if (((iVar5 <= iVar19 + 0x1a0) && (iVar19 + 0x180 <= g_clipMaxX)) &&
@@ -1179,7 +1179,7 @@ void State11_InBattle_Render(void)
              ((g_clipMinY <= iVar19 + 0x132 && (iVar19 + 0x112 <= g_clipMaxY)))) {
             pcStack_a34 = (char *)piVar8[2];
             uStack_a38 = iVar19 + 0x12aU;
-            BuildRotatedSpriteQuad(iVar5 + 400);
+            BuildRotatedSpriteQuad((int)uStack_a08,iVar5 + 400,iVar19 + 0x12a,piVar8[2],piVar8[1]);
           }
         }
         else if ((((iVar6 <= iVar5 + 0x1a0) && (iVar5 + 0x180 <= g_clipMaxX)) &&
@@ -1308,7 +1308,7 @@ void State11_InBattle_Render(void)
         *(undefined4 *)(iVar6 + 0x80) = 0;
         *(undefined4 *)(iVar6 + 0x84) = 0;
         *(undefined4 *)(iVar6 + 0x88) = 0x3f800000;
-        BuildSpriteQuad(iVar5 + 400,iVar19 + 0x12a);
+        BuildSpriteQuad(iVar5 + 400,iVar19 + 0x12a,iVar6);
       }
     }
     (**(code **)(*g_pD3DDevice7 + 0x8c))
@@ -1339,7 +1339,7 @@ void State11_InBattle_Render(void)
         *(undefined4 *)(iVar6 + 0x80) = 0;
         *(undefined4 *)(iVar6 + 0x84) = 0;
         *(undefined4 *)(iVar6 + 0x88) = 0x3f800000;
-        BuildSpriteQuad(iVar5 + 400,iVar19 + 0x12a);
+        BuildSpriteQuad(iVar5 + 400,iVar19 + 0x12a,iVar6);
       }
     }
     (**(code **)(*g_pD3DDevice7 + 0x8c))

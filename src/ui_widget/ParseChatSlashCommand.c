@@ -645,7 +645,7 @@ LAB_00421b11:
   uVar15 = 0x1f6;
 LAB_00422eef:
   GetLocalizedString(&g_localizedStringTable,uVar15);
-  FUN_00413af0();
+  FUN_00413af0((char *)GetLocalizedString(&g_localizedStringTable,uVar15));
   return 1;
 }
 

@@ -25,7 +25,7 @@ uint __thiscall FUN_0042ae30(int *param_1,undefined4 param_2)
   *unaff_FS_OFFSET = &local_c;
   uVar1 = param_1[1];
   if ((uint)param_1[2] <= uVar1) {
-    cVar2 = FUN_0042af40();
+    cVar2 = FUN_0042af40(uVar1 + 1);
     if (cVar2 == '\0') {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x8007000e);

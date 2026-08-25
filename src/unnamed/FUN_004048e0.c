@@ -20,7 +20,7 @@ uint FUN_004048e0(int *regEax)
     iVar1 = regEax[5];
     iVar2 = unaff_EBX;
     if ((*(int *)(unaff_EBX + 0x108) != iVar1) && (*(int *)(unaff_EBX + 0x10c) != iVar1)) {
-      iVar2 = FUN_004050a0(regEax);
+      iVar2 = FUN_004050a0(regEax,unaff_EBX);
     }
     iVar3 = *(int *)(iVar2 + 0x108);
     if (iVar3 == iVar1) {

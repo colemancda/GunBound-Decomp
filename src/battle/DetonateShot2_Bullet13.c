@@ -116,7 +116,7 @@ void __fastcall DetonateShot2_Bullet13(int *param_1)
   EncodeOutgoingPacketField((void *)(param_1 + 0x99), iVar3 + (int)local_af8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   (**(code **)(*param_1 + 0x14))(8);
-  cVar1 = FUN_00406690((char)param_1[0xfe8]);
+  cVar1 = FUN_00406690((char)param_1[0xfe8],(byte *)param_1 + 0xf45);
   if ((cVar1 != '\0') || (param_1[0xfe7] == 0x2c)) {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     piStack_ae4 = (int *)PeekPacketChecksumState((void *)(param_1 + 0xd7b));

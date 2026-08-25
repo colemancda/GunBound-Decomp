@@ -120,7 +120,7 @@ void __fastcall DetonateSuperShot_Bullet13(int *param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar3 = PeekPacketChecksumState((void *)&DAT_00e55ab8);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  cVar1 = FUN_00406690(CONCAT31((int3)((uint)param_1[0xfe7] >> 8),param_1[0xfe7] == iVar3 * 2));
+  cVar1 = FUN_00406690(CONCAT31((int3)((uint)param_1[0xfe7] >> 8),param_1[0xfe7] == iVar3 * 2),(byte *)param_1 + 0xf45);
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     piStack_adc = (int *)PeekPacketChecksumState((void *)(param_1 + 0xd7b));

@@ -8,20 +8,19 @@
 #include "ghidra_types.h"
 
 
-void FUN_00425a30(int param_1)
+void FUN_00425a30(int param_1,byte *regEax)
 
 {
   undefined4 uVar1;
-  byte *in_EAX;
   uint uVar2;
   uint uVar3;
   byte *pbVar4;
   byte *pbVar5;
   
-  uVar2 = (uint)*in_EAX;
-  pbVar4 = in_EAX + 1;
+  uVar2 = (uint)*regEax;
+  pbVar4 = regEax + 1;
   pbVar5 = (byte *)(param_1 + 0x44e64);
-  for (uVar3 = (uint)(*in_EAX >> 2); uVar3 != 0; uVar3 = uVar3 - 1) {
+  for (uVar3 = (uint)(*regEax >> 2); uVar3 != 0; uVar3 = uVar3 - 1) {
     *(undefined4 *)pbVar5 = *(undefined4 *)pbVar4;
     pbVar4 = pbVar4 + 4;
     pbVar5 = pbVar5 + 4;
@@ -32,7 +31,7 @@ void FUN_00425a30(int param_1)
     pbVar5 = pbVar5 + 1;
   }
   *(undefined1 *)(uVar2 + 0x44e64 + param_1) = 0;
-  pbVar4 = in_EAX + 1 + uVar2;
+  pbVar4 = regEax + 1 + uVar2;
   *(byte *)(param_1 + 0x44ef8) = *pbVar4;
   uVar1 = *(undefined4 *)(pbVar4 + 1);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

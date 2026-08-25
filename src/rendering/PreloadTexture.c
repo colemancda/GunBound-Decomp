@@ -128,7 +128,7 @@ undefined4 PreloadTexture(int param_1,char *param_2)
   local_90 = iVar6 / (int)(0x100 / (longlong)local_8c);
   *(float *)((int)pvVar7 + 0x84) = (float)local_90 * *(float *)((int)pvVar7 + 0x88);
   *(char *)((int)pvVar7 + 0x90) = local_91;
-  InsertTextureCacheRecord(pvVar7);
+  InsertTextureCacheRecord(pvVar7,param_1);
   pcVar5 = (char *)(*(int *)(param_1 + 0x401b8) * 0x200 + 0x1b8 + param_1);
   do {
     cVar1 = *param_2;

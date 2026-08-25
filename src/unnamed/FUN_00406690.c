@@ -7,14 +7,13 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00406690(int param_1)
+undefined4 FUN_00406690(int param_1,byte *regEax)
 
 {
-  byte *in_EAX;
   
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  if ((byte)((*in_EAX + in_EAX[1]) - 0x34) == in_EAX[2]) {
-    if ((in_EAX[1] >> (*in_EAX & 7) & 1) == 1) goto LAB_004066f7;
+  if ((byte)((*regEax + regEax[1]) - 0x34) == regEax[2]) {
+    if ((regEax[1] >> (*regEax & 7) & 1) == 1) goto LAB_004066f7;
   }
   else {
     g_valueGuardTamperFlag = 1;

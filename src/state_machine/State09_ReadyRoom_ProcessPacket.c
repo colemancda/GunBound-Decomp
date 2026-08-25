@@ -850,7 +850,7 @@ LAB_004d4cc7:
     }
     if (opcode == GB_OP_HOST_MIGRATION_NOTIFICATION) {
       if (1 < payloadLen) {
-        FUN_00425a30(g_clientContext);
+        FUN_00425a30(g_clientContext,payload + 1);
         uVar18 = (uint)*(byte *)(g_clientContext + 0x45124);
         PeekChecksumStateUnderLock(g_clientContext + 0x44efc);
         ApplyRoomSettings(this,uVar18);

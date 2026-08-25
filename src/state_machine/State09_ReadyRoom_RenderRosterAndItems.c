@@ -340,7 +340,7 @@ LAB_004d84db:
 LAB_004d8518:
   iVar3 = 0;
   do {
-    RenderPlayerNameplate(iVar3);
+    RenderPlayerNameplate(iVar3,param_1);
     iVar3 = iVar3 + 1;
   } while (iVar3 < 8);
   local_a4c = 0;
