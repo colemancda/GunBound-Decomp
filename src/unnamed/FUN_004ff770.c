@@ -90,12 +90,12 @@ void FUN_004ff770(int *param_1,int param_2)
         local_3178 = 0;
         cVar2 = FUN_004fe860(param_1,&local_3190);
         if (cVar2 != '\0') {
-          iVar4 = FUN_005006f0();
+          iVar4 = FUN_005006f0((int *)(local_3190 + 0x14),local_2e9a[0]);
           if (iVar4 != 0) {
             (**(code **)*param_1)
                       (1,local_2eaa,*(undefined2 *)(iVar4 + 0x10),iVar4 + 0x14,
                        *(undefined2 *)(iVar4 + 0x12),iVar4 + 4);
-            FUN_00500710();
+            FUN_00500710((int *)(local_3190 + 0x14),local_2e9a[0]);
           }
           *local_3190 = CONCAT22(SUBFIELD(local_3174.sa_data,4,undefined2),SUBFIELD(local_3174.sa_data,2,undefined2));
           *(undefined2 *)(local_3190 + 1) = SUBFIELD(local_3174.sa_data,0,undefined2);
@@ -135,7 +135,7 @@ void FUN_004ff770(int *param_1,int param_2)
         local_3132 = local_2eae;
         local_312e = local_2e9a[0];
         sendto(param_1[0xa2],(char *)&local_3150,(uint)local_3150,0,&local_3174,0x10);
-        local_2ec0 = FUN_00500900((undefined4 *)&local_3160);
+        local_2ec0 = FUN_00500900((undefined4 *)&local_3160,(int *)(puVar1 + 8),local_2e9a[0]);
         if (local_2ec0 == '\0') {
           uVar3 = local_2ebc - 0x26;
           local_318c = (int)(uVar3 + ((int)uVar3 >> 0x1f & 0xfU)) >> 4;
@@ -179,7 +179,7 @@ void FUN_004ff770(int *param_1,int param_2)
                                     (local_3158.dwHighDateTime - local_315c) -
                                     (uint)(local_3158.dwLowDateTime < local_3160),10000,0);
                   if (60000 < uVar3) {
-                    FUN_005009b0();
+                    FUN_005009b0((int *)(puVar1 + 8),(uint)local_318c);
                   }
                 }
               }

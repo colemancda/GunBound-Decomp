@@ -3,49 +3,52 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * EBX and ESI RECOVERED (2026-08-25): the insert half of the map.  EBX is the
+ * bucket index the find just computed, ESI the map object.  Both stack
+ * arguments carry the same value -- the key -- because the second is read
+ * back out of the slot the find stashed it in.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * FUN_00501560(undefined4 param_1,undefined4 param_2)
+undefined4 * FUN_00501560(undefined4 param_1,undefined4 param_2,int regEbx,int *regEsi)
 
 {
   undefined4 *puVar1;
   int *piVar2;
   undefined4 uVar3;
   int iVar4;
-  int unaff_EBX;
-  int *unaff_ESI;
   
-  if (unaff_ESI[0xb] == 0) {
-    piVar2 = _malloc(unaff_ESI[9] * 0x14 + 4);
+  if (regEsi[0xb] == 0) {
+    piVar2 = _malloc(regEsi[9] * 0x14 + 4);
     if (piVar2 == (int *)0x0) {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x8007000e);
     }
-    *piVar2 = unaff_ESI[10];
-    unaff_ESI[10] = (int)piVar2;
-    iVar4 = unaff_ESI[9];
+    *piVar2 = regEsi[10];
+    regEsi[10] = (int)piVar2;
+    iVar4 = regEsi[9];
     piVar2 = piVar2 + iVar4 * 5 + -4;
     if (-1 < iVar4 + -1) {
       do {
-        piVar2[3] = unaff_ESI[0xb];
-        unaff_ESI[0xb] = (int)piVar2;
+        piVar2[3] = regEsi[0xb];
+        regEsi[0xb] = (int)piVar2;
         piVar2 = piVar2 + -5;
         iVar4 = iVar4 + -1;
       } while (iVar4 != 0);
     }
   }
-  puVar1 = (undefined4 *)unaff_ESI[0xb];
-  unaff_ESI[0xb] = puVar1[3];
+  puVar1 = (undefined4 *)regEsi[0xb];
+  regEsi[0xb] = puVar1[3];
   puVar1[4] = param_2;
   *puVar1 = param_1;
-  unaff_ESI[1] = unaff_ESI[1] + 1;
-  puVar1[3] = *(undefined4 *)(*unaff_ESI + unaff_EBX * 4);
-  *(undefined4 **)(*unaff_ESI + unaff_EBX * 4) = puVar1;
-  if (((uint)unaff_ESI[6] < (uint)unaff_ESI[1]) && (unaff_ESI[8] == 0)) {
+  regEsi[1] = regEsi[1] + 1;
+  puVar1[3] = *(undefined4 *)(*regEsi + regEbx * 4);
+  *(undefined4 **)(*regEsi + regEbx * 4) = puVar1;
+  if (((uint)regEsi[6] < (uint)regEsi[1]) && (regEsi[8] == 0)) {
     uVar3 = FUN_00500e30();
-    FUN_00501220(unaff_ESI,uVar3);
+    FUN_00501220(regEsi,uVar3);
   }
   return puVar1;
 }

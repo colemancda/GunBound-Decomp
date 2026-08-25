@@ -158,7 +158,7 @@ LAB_004ffe2f:
           (**(code **)*param_1)
                     (0,iVar6,*(undefined2 *)(puVar3 + 4),puVar3 + 5,
                      *(undefined2 *)((int)puVar3 + 0x12),puVar8);
-          FUN_00500710();
+          FUN_00500710((int *)(iVar6 + 100),uVar1);
           puVar3 = local_2c;
         }
         goto joined_r0x004ffcb0;
