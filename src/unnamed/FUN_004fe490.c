@@ -30,7 +30,7 @@ void FUN_004fe490(int param_1)
       ThrowCxxException(0x8007000e);
     }
   }
-  iVar2 = FUN_00500580(local_8,local_c);
+  iVar2 = FUN_00500580(local_8,local_c,(undefined4 *)unaff_EDI,unaff_ESI);
   *(undefined1 *)(iVar2 + 0x12) = param_1;
   return;
 }

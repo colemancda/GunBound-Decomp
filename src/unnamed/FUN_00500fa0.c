@@ -14,7 +14,7 @@ undefined4 FUN_00500fa0(undefined4 param_1,undefined4 param_2)
   int in_EAX;
   undefined4 *unaff_EDI;
   
-  FUN_00501510();
+  FUN_00501510(in_EAX);
   puVar1 = *(undefined4 **)(in_EAX + 0x10);
   if (puVar1 != (undefined4 *)0x0) {
     puVar1[8] = 0;

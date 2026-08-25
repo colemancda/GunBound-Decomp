@@ -35,7 +35,7 @@ void FUN_005000e0(int *regEsi,char *regEdi)
         ThrowCxxException(0x8007000e);
       }
     }
-    FUN_00501420(local_8,local_c);
+    FUN_00501420(local_8,local_c,(undefined4 *)regEdi,regEsi);
   }
   return;
 }

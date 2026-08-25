@@ -225,7 +225,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
                 pbVar13 = pbVar14 + 1 + uVar10;
                 FUN_004055b0();
                 FUN_004055b0();
-                FUN_00502890();
+                FUN_00502890((undefined4)&local_4978,(int)local_4958);
                 local_4984 = local_4984 - 1;
               } while (local_4984 != 0);
               local_4984 = 0;
@@ -389,7 +389,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
             FUN_005037f0();
             local_48be = *(undefined2 *)(pcVar12 + 8);
             pcVar12 = pcVar12 + 10;
-            FUN_00502800();
+            FUN_00502800((int)local_4958,(undefined4)local_48f0);
             FUN_00502750();
             FUN_00503a10();
             local_4980 = local_4980 + -1;
@@ -446,7 +446,7 @@ LAB_00501b17:
           do {
             iVar7 = __strnicmp(pcVar12,(char *)&local_496c,0x10);
             if (iVar7 == 0) {
-              FUN_005027d0(pcVar12);
+              FUN_005027d0(pcVar12,(undefined4 *)&local_4978,param_1 + 0x17ac);
               break;
             }
             pcVar12 = pcVar12 + 0x12;
