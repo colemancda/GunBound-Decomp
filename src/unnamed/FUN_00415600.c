@@ -11,6 +11,7 @@ void FUN_00415600(void)
 
 {
   int iVar1;
+  int node;
   int *piVar2;
   int *in_EAX;
   undefined4 uVar3;
@@ -23,8 +24,9 @@ void FUN_00415600(void)
     do {
       iVar1 = *(int *)(*in_EAX + uVar4 * 4);
       while (iVar1 != 0) {
+        node = iVar1;                      /* the node to release: captured before the advance */
         iVar1 = *(int *)(iVar1 + 8);
-        FUN_00409f60();
+        FUN_00409f60(node,(int)in_EAX);
       }
       uVar4 = uVar4 + 1;
     } while (uVar4 < (uint)in_EAX[2]);
