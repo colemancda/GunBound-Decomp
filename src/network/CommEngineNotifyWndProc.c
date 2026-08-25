@@ -59,12 +59,12 @@ LAB_004fe749:
       param_4 = 0x10;
       SVar4 = accept(*(SOCKET *)(LVar3 + 0x1c),&local_10,(int *)&param_4);
       if (SVar4 != 0xffffffff) {
-        FUN_004ff690(&local_10);
+        FUN_004ff690(&local_10,(int)param_4);
       }
     }
     break;
   case 0x10:
-    FUN_004ff640();
+    FUN_004ff640((int *)LVar3,param_4 >> 0x10);
     return 0;
   case 0x20:
     FUN_004fe6a0();

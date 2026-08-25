@@ -135,7 +135,7 @@ void FUN_004ff770(int *param_1,int param_2)
         local_3132 = local_2eae;
         local_312e = local_2e9a[0];
         sendto(param_1[0xa2],(char *)&local_3150,(uint)local_3150,0,&local_3174,0x10);
-        local_2ec0 = FUN_00500900();
+        local_2ec0 = FUN_00500900((undefined4 *)&local_3160);
         if (local_2ec0 == '\0') {
           uVar3 = local_2ebc - 0x26;
           local_318c = (int)(uVar3 + ((int)uVar3 >> 0x1f & 0xfU)) >> 4;
@@ -170,11 +170,11 @@ void FUN_004ff770(int *param_1,int param_2)
                          (uint *)((char *)local_2e9a + 4),local_318c);
             if ((uint)local_173e <= local_2ebc - 0x36) {
               GetSystemTimeAsFileTime(&local_3158);
-              FUN_00500940(puVar1 + 8,&local_3158);
+              FUN_00500940(puVar1 + 8,&local_3158,local_2e9a[0]);
               if (0x100 < (uint)local_3190[9]) {
                 local_3190 = (undefined4 *)FUN_00500b70();
                 while (local_3190 != (undefined4 *)0x0) {
-                  FUN_00500ba0(&local_3190,&local_318c,&local_3160);
+                  FUN_00500ba0(&local_3190,&local_318c,&local_3160,(int *)(puVar1 + 8));
                   uVar3 = __aulldiv(local_3158.dwLowDateTime - local_3160,
                                     (local_3158.dwHighDateTime - local_315c) -
                                     (uint)(local_3158.dwLowDateTime < local_3160),10000,0);

@@ -31,7 +31,7 @@ void DestroyCommEngine(void)
     DestroyWindow((HWND)unaff_ESI[0xa3]);
   }
   WSACleanup();
-  FUN_00500140();
+  FUN_00500140((int *)(unaff_ESI + 0xa4));
   if ((void *)unaff_ESI[0xa0] != (void *)0x0) {
     _free((void *)unaff_ESI[0xa0]);
     unaff_ESI[0xa0] = 0;

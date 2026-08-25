@@ -8,24 +8,25 @@
  * __thiscall param_1 plus a fixed offset (`lea esi,[ebx+0x290]`, EBX never
  * written after the caller's entry).
  *
- * unaff_EDI is a SECOND dropped register and stays open: at the call site it
- * is `mov edi,[esp+0x1a]` -- a caller stack local, which needs the esp model
- * and a witness this function does not have.
+ * EDI RECOVERED (2026-08-25): `lea edi,[esp+0x1a]` at 0x4fe941, no push
+ * pending; the caller's frame is 0xc8 (SEH 12 + sub esp,0xac + four saves),
+ * so 0x1a - 0xc8 = -0xae: the ADDRESS of its `char local_ae [17]`, which the
+ * next instruction NUL-terminates (`mov [esp+ecx+0x1a],0`).  It is the name
+ * buffer FUN_00500ef0 parses, so the type is char *, not undefined4.
  */
 #include "ghidra_types.h"
 
 
-void FUN_005000e0(int *regEsi)
+void FUN_005000e0(int *regEsi,char *regEdi)
 
 {
   char cVar1;
   int iVar2;
-  undefined4 unaff_EDI;
   undefined4 local_c;
   undefined4 local_8;
   undefined1 local_4 [4];
   
-  iVar2 = FUN_00500ef0(unaff_EDI,&local_c,local_4);
+  iVar2 = FUN_00500ef0(regEdi,&local_c,local_4);
   if (iVar2 == 0) {
     if (*regEsi == 0) {
       cVar1 = FUN_00500c00(regEsi,regEsi[2],1);

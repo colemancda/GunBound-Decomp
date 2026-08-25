@@ -7,11 +7,10 @@
 #include "ghidra_types.h"
 
 
-void FUN_00500940(int *param_1,undefined4 *param_2)
+void FUN_00500940(int *param_1,undefined4 *param_2,undefined4 regEax)
 
 {
   char cVar1;
-  undefined4 in_EAX;
   int iVar2;
   undefined1 local_4 [4];
   
@@ -24,7 +23,7 @@ void FUN_00500940(int *param_1,undefined4 *param_2)
         ThrowCxxException(0x8007000e);
       }
     }
-    iVar2 = FUN_00501560(in_EAX,param_1);
+    iVar2 = FUN_00501560(regEax,param_1);
   }
   *(undefined4 *)(iVar2 + 4) = *param_2;
   *(undefined4 *)(iVar2 + 8) = param_2[1];

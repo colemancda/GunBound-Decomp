@@ -48,7 +48,7 @@ FUN_004fe8d0(undefined4 *param_1,int param_2,int param_3,short param_4,int param
     } while (bVar2 < 0x10);
     local_9d = (undefined1)uVar4;
     local_ae[uVar4] = '\0';
-    FUN_005000e0((int *)((int)param_1 + 0x290));
+    FUN_005000e0((int *)((int)param_1 + 0x290),local_ae);
     *(int *)(iVar5 + 0x14) = 0;
     *(undefined2 *)(iVar5 + 0x18) = 0;
     uVar6 = FUN_00504e90();

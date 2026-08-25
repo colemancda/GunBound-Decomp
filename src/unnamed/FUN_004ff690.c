@@ -7,15 +7,14 @@
 #include "ghidra_types.h"
 
 
-void FUN_004ff690(undefined4 param_1)
+void FUN_004ff690(undefined4 param_1,int regEax)
 
 {
-  int in_EAX;
   int iVar1;
   int *unaff_ESI;
   SOCKET unaff_EDI;
   
-  if (in_EAX != 0x10) {
+  if (regEax != 0x10) {
                     /* WARNING: Could not recover jumptable at 0x004ff699. Too many branches */
                     /* WARNING: Treating indirect jump as call */
     closesocket(unaff_EDI);

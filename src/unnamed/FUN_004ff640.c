@@ -7,15 +7,14 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004ff640(int *param_1)
+void __fastcall FUN_004ff640(int *param_1,int regEbx)
 
 {
   int *in_EAX;
   int *piVar1;
-  int unaff_EBX;
   
   (**(code **)(*param_1 + 4))();
-  if ((unaff_EBX != 0) && (piVar1 = (int *)param_1[1], piVar1 != (int *)0x0)) {
+  if ((regEbx != 0) && (piVar1 = (int *)param_1[1], piVar1 != (int *)0x0)) {
     while (in_EAX != piVar1) {
       piVar1 = (int *)*piVar1;
       if (piVar1 == (int *)0x0) {

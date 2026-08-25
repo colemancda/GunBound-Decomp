@@ -7,13 +7,12 @@
 #include "ghidra_types.h"
 
 
-void FUN_00500ba0(int *param_1,undefined4 *param_2,undefined4 *param_3)
+void FUN_00500ba0(int *param_1,undefined4 *param_2,undefined4 *param_3,int *regEbx)
 
 {
   undefined4 *puVar1;
   int iVar2;
   uint uVar3;
-  int *unaff_EBX;
   int iVar4;
   
   puVar1 = (undefined4 *)*param_1;
@@ -23,11 +22,11 @@ void FUN_00500ba0(int *param_1,undefined4 *param_2,undefined4 *param_3)
   else {
     iVar4 = puVar1[3];
     if (iVar4 == 0) {
-      uVar3 = (uint)puVar1[4] % (uint)unaff_EBX[2];
+      uVar3 = (uint)puVar1[4] % (uint)regEbx[2];
       do {
         uVar3 = uVar3 + 1;
-        if ((uint)unaff_EBX[2] <= uVar3) break;
-        iVar2 = *(int *)(*unaff_EBX + uVar3 * 4);
+        if ((uint)regEbx[2] <= uVar3) break;
+        iVar2 = *(int *)(*regEbx + uVar3 * 4);
         if (iVar2 != 0) {
           iVar4 = iVar2;
         }

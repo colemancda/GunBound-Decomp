@@ -7,19 +7,18 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00500900(void)
+undefined4 FUN_00500900(undefined4 *regEbx)
 
 {
   int iVar1;
-  undefined4 *unaff_EBX;
   undefined1 local_c [12];
   
   iVar1 = FUN_005013c0(local_c);
   if (iVar1 == 0) {
     return 0;
   }
-  *unaff_EBX = *(undefined4 *)(iVar1 + 4);
-  unaff_EBX[1] = *(undefined4 *)(iVar1 + 8);
+  *regEbx = *(undefined4 *)(iVar1 + 4);
+  regEbx[1] = *(undefined4 *)(iVar1 + 8);
   return 1;
 }
 
