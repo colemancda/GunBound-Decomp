@@ -1238,9 +1238,9 @@ undefined4 * __fastcall FUN_004e94c0();
 void FUN_004e9520();
 void FUN_004e95c0(double param_1,undefined4 param_2,int regEbx);
 void FUN_004e9ab0(undefined4 *regEsi);
-void FUN_004e9ad0();
-void FUN_004e9af0();
-undefined4 * FUN_004e9b30();
+void FUN_004e9ad0(undefined4 *regEax);
+void FUN_004e9af0(undefined4 *regEbx);
+undefined4 * FUN_004e9b30(undefined4 regEcx,undefined4 *regEdx,undefined4 regEax);
 void * __thiscall FUN_004e9b80();
 void __fastcall FUN_004e9ba0();
 void __thiscall FUN_004e9cc0();
@@ -1378,8 +1378,8 @@ void BlendPixels16();
 int __fastcall FUN_004f2810();
 void FUN_004f2a10();
 int FUN_004f2d20();
-void FUN_004f2d40();
-void FUN_004f2d60();
+void FUN_004f2d40(int regEax);
+void FUN_004f2d60(int regEbx);
 void EnqueueInputEvent();
 void __fastcall FUN_004f2e10();
 void * __thiscall FUN_004f2e20();
@@ -1398,7 +1398,7 @@ int FindSpriteFrame(); /* real args (container, outerKey, innerKey); K&R-empty
                         * so the ~175 not-yet-recovered argless call sites still
                         * compile - see FindSpriteFrame.c's header */
 void FUN_004f3100(int regEbx);
-undefined4 * __fastcall FUN_004f3150();
+undefined4 * __fastcall FUN_004f3150(undefined4 param_1,undefined4 *param_2,undefined4 regEax);
 void * __thiscall FUN_004f3390();
 void __fastcall FUN_004f33b0();
 void __fastcall FUN_004f3440();

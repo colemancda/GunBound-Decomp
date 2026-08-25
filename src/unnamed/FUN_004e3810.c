@@ -38,7 +38,7 @@ undefined4 * FUN_004e3810(undefined4 *param_1)
     puVar3 = (undefined4 *)0x0;
   }
   else {
-    FUN_004f3150();
+    FUN_004f3150(0,(undefined4 *)pvVar2,0);
     fVar1 = _DAT_00588f54 / _DAT_00588f50;
     *extraout_EDX = &PTR_FUN_00557300;
     extraout_EDX[0xbd] = 0x3fa4bc6a;

@@ -3,18 +3,23 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * EAX RECOVERED (2026-08-25): the first field this constructor stores
+ * (`param_2[1] = regEax`).  At 0x4e3868 the caller zeroes it outright
+ * (`xor ecx,ecx; xor eax,eax`), and EDX there is the operator_new result the
+ * source calls pvVar2 -- Ghidra modelled that incoming EDX as `extraout_EDX`,
+ * an output, though it is set two instructions BEFORE the call.
  */
 #include "ghidra_types.h"
 
 
-undefined4 * __fastcall FUN_004f3150(undefined4 param_1,undefined4 *param_2)
+undefined4 * __fastcall FUN_004f3150(undefined4 param_1,undefined4 *param_2,undefined4 regEax)
 
 {
-  undefined4 in_EAX;
   int iVar1;
   undefined4 *puVar2;
   
-  param_2[1] = in_EAX;
+  param_2[1] = regEax;
   param_2[2] = param_1;
   *param_2 = &PTR_FUN_00557538;
   param_2[3] = 0;
