@@ -1155,7 +1155,7 @@ void PreloadBattleTextures();
 void FUN_004e4220();
 int __fastcall FindGroundHeightAtColumn();
 int FUN_004e4390(int regEsi);
-int __fastcall FUN_004e43d0();
+int __fastcall FUN_004e43d0(int param_1,int param_2,int regEax);
 undefined4 __fastcall FUN_004e4410();
 void CarveTerrainCrater();
 void ApplyCraterExcavation(int param_1,int param_2,int param_3,undefined4 param_4,

@@ -28,6 +28,8 @@ undefined4 FUN_004a1740(int param_1)
   bool bVar5;
   char cVar6;
   int iVar7;
+  int peekRow;                       /* FUN_004e43d0 EAX: the row guard, captured instead of discarded */
+  int peekCol;                       /* FUN_004e43d0 ECX: the column guard */
   int iVar8;
   undefined4 uVar9;
   undefined4 uVar10;
@@ -388,18 +390,18 @@ LAB_004a2166:
             if (bVar1) {
               uVar9 = EncodeChecksumDeltaAdd(iVar13,local_1574,6);
               local_4 = 0x1e;
-              PeekChecksumStateUnderLock(param_1);
-              PeekChecksumStateUnderLock(uVar9);
-              iVar7 = FUN_004e43d0();
+              peekRow = PeekChecksumStateUnderLock(param_1);
+              peekCol = PeekChecksumStateUnderLock(uVar9);
+              iVar7 = FUN_004e43d0(peekCol,(int)(&DAT_006a7708 + g_clientContext),peekRow);
               local_4 = 0xffffffff;
               ScrubChecksumGuard();
               uVar9 = EncodeChecksumDeltaSub(param_1,local_1350,4);
               local_4 = 0x1f;
               uVar10 = EncodeChecksumDeltaAdd(iVar13,local_1574,6);
               SUBFIELD(local_4,0,undefined1) = 0x20;
-              PeekChecksumStateUnderLock(uVar9);
-              PeekChecksumStateUnderLock(uVar10);
-              iVar11 = FUN_004e43d0();
+              peekRow = PeekChecksumStateUnderLock(uVar9);
+              peekCol = PeekChecksumStateUnderLock(uVar10);
+              iVar11 = FUN_004e43d0(peekCol,(int)(&DAT_006a7708 + g_clientContext),peekRow);
               local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x1f);
               ScrubChecksumGuard();
               local_4 = 0xffffffff;
@@ -408,9 +410,9 @@ LAB_004a2166:
               local_4 = 0x21;
               uVar10 = EncodeChecksumDeltaAdd(iVar13,local_1574,6);
               SUBFIELD(local_4,0,undefined1) = 0x22;
-              PeekChecksumStateUnderLock(uVar9);
-              PeekChecksumStateUnderLock(uVar10);
-              iVar8 = FUN_004e43d0();
+              peekRow = PeekChecksumStateUnderLock(uVar9);
+              peekCol = PeekChecksumStateUnderLock(uVar10);
+              iVar8 = FUN_004e43d0(peekCol,(int)(&DAT_006a7708 + g_clientContext),peekRow);
               local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0x21);
               ScrubChecksumGuard();
               local_4 = 0xffffffff;

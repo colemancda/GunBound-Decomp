@@ -3,23 +3,32 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * RE-SLOTTED AND EAX RECOVERED (2026-08-24, workflow-analysed, hand-checked).
+ * `ret 0` with two declared params: both are registers (param_1 = ECX, the
+ * column, clamped to width-1 = [ctx+0x18]-1; param_2 = EDX, the terrain
+ * context &DAT_006a7708 + g_clientContext), and EAX is the row, range-checked
+ * against [ctx+0x1c].  All five call sites passed nothing.  At every site
+ * ECX is the result of the SECOND bare PeekChecksumStateUnderLock statement
+ * above the call and EAX the FIRST -- results the port had been discarding;
+ * the callers now capture them as peekCol / peekRow.  Scans a terrain row
+ * leftward from the column for the first solid pixel.
  */
 #include "ghidra_types.h"
 
 
-int __fastcall FUN_004e43d0(int param_1,int param_2)
+int __fastcall FUN_004e43d0(int param_1,int param_2,int regEax)
 
 {
   int iVar1;
-  int in_EAX;
   
-  if ((-1 < in_EAX) && (in_EAX < *(int *)(param_2 + 0x1c))) {
+  if ((-1 < regEax) && (regEax < *(int *)(param_2 + 0x1c))) {
     iVar1 = *(int *)(param_2 + 0x18);
     if (iVar1 <= param_1) {
       param_1 = iVar1 + -1;
     }
     if (-1 < param_1) {
-      for (; *(char *)(iVar1 * in_EAX + *(int *)(param_2 + 0x34) + param_1) == '\0';
+      for (; *(char *)(iVar1 * regEax + *(int *)(param_2 + 0x34) + param_1) == '\0';
           param_1 = param_1 + -1) {
       }
       return param_1;
