@@ -123,7 +123,7 @@ undefined4 BroadcastQueuedEvent(int replayCtx)
     *(DWORD *)(replayCtx + 0x4522c) = DVar3;
   }
   else {
-    FUN_004e75e0(0xffffffff);
+    FUN_004e75e0((ushort *)(replayCtx + 0x44dec),0xffffffff,replayCtx);
     SetEvent(*(HANDLE *)(replayCtx + 0x10));
   }
   LeaveCriticalSection((LPCRITICAL_SECTION)(replayCtx + 0x198));

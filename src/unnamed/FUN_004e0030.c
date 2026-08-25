@@ -26,7 +26,7 @@ void FUN_004e0030(int *param_1)
       if (iVar1 < *unaff_EDI) {
 joined_r0x004e006b:
         if ((piVar2 != piVar5) && (piVar5 != piVar4)) {
-          FUN_004e0210();
+          FUN_004e0210((undefined4 *)piVar2,(int)piVar5,(undefined4 *)piVar4);
         }
       }
       else {

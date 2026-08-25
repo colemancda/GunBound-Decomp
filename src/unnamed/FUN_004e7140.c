@@ -51,7 +51,7 @@ void FUN_004e7140(uint param_1)
     *(undefined4 *)(in_EAX + 0x44e05) = puVar2[1];
     *(undefined4 *)(in_EAX + 0x44e09) = puVar2[2];
     if ((*(byte *)(in_EAX + 0x44def) & 0x80) != 0) {
-      FUN_004e75e0(param_1);
+      FUN_004e75e0((ushort *)puVar1,(int)param_1,in_EAX);
       SetEvent(*(HANDLE *)(in_EAX + 0x10));
       LeaveCriticalSection((LPCRITICAL_SECTION)(in_EAX + 0x198));
       return;

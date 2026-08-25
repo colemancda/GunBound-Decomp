@@ -4,11 +4,17 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * EAX and EBX RECOVERED (2026-08-25) from the single site 0x4e0074, and the
+ * pairing is exact: the two guards the source writes as
+ * `(piVar2 != piVar5) && (piVar5 != piVar4)` are `cmp edx,esi; je` followed by
+ * `cmp esi,ebx; je` immediately above the call, so EDX is piVar2 (the pushed
+ * argument), EAX is piVar5 and EBX is piVar4.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004e0210(undefined4 *param_1)
+void FUN_004e0210(undefined4 *param_1,int regEax,undefined4 *regEbx)
 
 {
   undefined4 uVar1;
@@ -17,16 +23,14 @@ void FUN_004e0210(undefined4 *param_1)
   undefined4 *puVar4;
   undefined4 *puVar5;
   int iVar6;
-  int in_EAX;
   int iVar7;
   int iVar8;
-  undefined4 *unaff_EBX;
   undefined4 *puVar9;
   int iVar10;
   
   puVar4 = param_1;
-  iVar8 = (int)unaff_EBX - (int)param_1 >> 2;
-  iVar10 = in_EAX - (int)param_1 >> 2;
+  iVar8 = (int)regEbx - (int)param_1 >> 2;
+  iVar10 = regEax - (int)param_1 >> 2;
   iVar6 = iVar10;
   iVar7 = iVar8;
   while (iVar3 = iVar6, iVar3 != 0) {
@@ -40,12 +44,12 @@ void FUN_004e0210(undefined4 *param_1)
       uVar1 = *puVar9;
       puVar5 = puVar9 + iVar10;
       puVar2 = puVar9;
-      if (puVar9 + iVar10 == unaff_EBX) {
+      if (puVar9 + iVar10 == regEbx) {
         puVar5 = puVar4;
       }
       while (puVar5 != puVar9) {
         *puVar2 = *puVar5;
-        iVar7 = (int)unaff_EBX - (int)puVar5 >> 2;
+        iVar7 = (int)regEbx - (int)puVar5 >> 2;
         puVar2 = puVar5;
         if (iVar10 < iVar7) {
           puVar5 = puVar5 + iVar10;
