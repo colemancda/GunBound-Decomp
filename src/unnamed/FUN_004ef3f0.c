@@ -25,7 +25,7 @@ void FUN_004ef3f0(undefined4 *param_1)
   SetEvent((HANDLE)param_1[2]);
   FUN_004ef5b0();
   DeleteCriticalSection((LPCRITICAL_SECTION)(param_1 + 8));
-  FUN_004ef820();
+  FUN_004ef820(param_1);
   *unaff_FS_OFFSET = local_c;
   return;
 }

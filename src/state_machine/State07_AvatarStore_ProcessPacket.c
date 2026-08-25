@@ -396,7 +396,7 @@ LAB_0044469b:
                     /* WARNING: Subroutine does not return */
               ThrowCxxException(0x80070057);
             }
-            FUN_0044c370();
+            FUN_0044c370(*(int *)(*(int *)(g_clientContext + 0x44e20) + uVar11 * 0x450 + 4));
             PeekChecksumStateUnderLock((int)this + 0x3054c);
             FUN_0044c6a0(g_clientContext + 0x44e20,1);
             iVar4 = 0;
@@ -503,7 +503,7 @@ LAB_00444d76:
                     /* WARNING: Subroutine does not return */
           ThrowCxxException(0x80070057);
         }
-        FUN_0044c370();
+        FUN_0044c370(*(int *)(*(int *)(g_clientContext + 0x44e20) + uVar11 * 0x450 + 4));
         PeekChecksumStateUnderLock(iVar4);
         FUN_0044c6a0(g_clientContext + 0x44e20,1);
         uVar11 = *(uint *)(g_clientContext + 0x44e34);

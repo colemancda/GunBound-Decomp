@@ -45,11 +45,11 @@ void __fastcall RenderJewel(int param_1)
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   PeekPacketChecksumState((void *)(param_1 + 0x38));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_004784a0(iVar4,iVar1);
+  FUN_004784a0(0,uVar2 + 0xbb8,iVar4,iVar1,*(int *)(param_1 + 0x30));
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   PeekPacketChecksumState((void *)(param_1 + 0x38));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_004784a0(iVar1 * 0x80 + iVar4,iVar1);
+  FUN_004784a0(0,uVar2 + 0xc1c,iVar1 * 0x80 + iVar4,iVar1,*(int *)(param_1 + 0x30));
   return;
 }
 

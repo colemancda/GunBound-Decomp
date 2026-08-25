@@ -17,7 +17,7 @@ undefined4 FUN_00504420(undefined4 *param_1,undefined4 param_2,undefined4 param_
   int unaff_EBX;
   undefined4 *puVar5;
   
-  FUN_00504730();
+  FUN_00504730(unaff_EBX);
   puVar1 = *(undefined4 **)(unaff_EBX + 0x10);
   uVar2 = *puVar1;
   if (puVar1 != (undefined4 *)0x0) {

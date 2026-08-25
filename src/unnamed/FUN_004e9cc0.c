@@ -35,7 +35,7 @@ void __thiscall FUN_004e9cc0(int *param_1,undefined4 param_2)
     *piVar3 = 0x3f800000;
   }
   else {
-    FUN_004e95c0(param_2,piVar3);
+    FUN_004e95c0(param_2,piVar3,param_1[0x32]);
   }
   if (param_1[0x34] == 0) {
     FUN_004f3440();

@@ -35,7 +35,7 @@ void FUN_004e77e0(int param_1)
   undefined4 local_1e7;
   undefined4 local_1e3;
   
-  iVar6 = FUN_004e7740();
+  iVar6 = FUN_004e7740(param_1);
   if (iVar6 != in_EAX) {
     return;
   }

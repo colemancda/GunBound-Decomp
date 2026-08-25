@@ -8,19 +8,18 @@
 #include "ghidra_types.h"
 
 
-void FUN_004ef820(void)
+void FUN_004ef820(undefined4 *regEax)
 
 {
-  undefined4 *in_EAX;
   undefined4 *puVar1;
   int iVar2;
   
-  puVar1 = in_EAX + 2;
-  *in_EAX = &PTR_LAB_005574e0;
-  *(undefined1 *)(in_EAX + 4) = 0;
-  SetEvent((HANDLE)in_EAX[2]);
-  if ((HANDLE)in_EAX[1] != (HANDLE)0x0) {
-    WaitForSingleObject((HANDLE)in_EAX[1],1000);
+  puVar1 = regEax + 2;
+  *regEax = &PTR_LAB_005574e0;
+  *(undefined1 *)(regEax + 4) = 0;
+  SetEvent((HANDLE)regEax[2]);
+  if ((HANDLE)regEax[1] != (HANDLE)0x0) {
+    WaitForSingleObject((HANDLE)regEax[1],1000);
   }
   iVar2 = 2;
   do {

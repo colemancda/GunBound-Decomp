@@ -7,11 +7,10 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00502750(int param_1)
+void __fastcall FUN_00502750(int param_1,undefined4 regEax)
 
 {
   int iVar1;
-  undefined4 in_EAX;
   int local_4;
   
   iVar1 = *(int *)(param_1 + 4);
@@ -24,7 +23,7 @@ void __fastcall FUN_00502750(int param_1)
     *(int *)(param_1 + 8) = iVar1 + 0x12;
     return;
   }
-  FUN_005029b0(&local_4,*(undefined4 *)(param_1 + 8),in_EAX);
+  FUN_005029b0(&local_4,*(undefined4 *)(param_1 + 8),regEax);
   return;
 }
 

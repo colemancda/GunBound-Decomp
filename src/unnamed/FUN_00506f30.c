@@ -7,22 +7,21 @@
 #include "ghidra_types.h"
 
 
-void FUN_00506f30(void)
+void FUN_00506f30(int regEsi)
 
 {
   int iVar1;
-  int unaff_ESI;
   undefined4 *puVar2;
   
-  if (*(char *)(unaff_ESI + 4) != '\0') {
+  if (*(char *)(regEsi + 4) != '\0') {
     SetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&DAT_00551cb1);
   }
-  puVar2 = (undefined4 *)(unaff_ESI + 0x38);
+  puVar2 = (undefined4 *)(regEsi + 0x38);
   for (iVar1 = 0x40; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  *(undefined4 *)(unaff_ESI + 0x13c) = 0;
+  *(undefined4 *)(regEsi + 0x13c) = 0;
   return;
 }
 

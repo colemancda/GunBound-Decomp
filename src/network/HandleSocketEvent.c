@@ -154,7 +154,7 @@ LAB_004e58ad:
           EnqueueInputEvent(*(uint **)(param_1 + 0x20),0x65,*(undefined4 *)(param_1 + 0x1c),0);
           CloseConnectionSocket(param_1);
         }
-        FUN_004e5cc0(1,0);
+        FUN_004e5cc0(1,0,(int *)(param_1 + 0x24a40));
         uVar4 = param_1;
       }
       LeaveCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x24a58));

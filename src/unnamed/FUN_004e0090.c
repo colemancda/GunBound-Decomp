@@ -8,30 +8,29 @@
 #include "ghidra_types.h"
 
 
-void __thiscall FUN_004e0090(int *param_1,int *param_2)
+void __thiscall FUN_004e0090(int *param_1,int *param_2,int *regEsi)
 
 {
   int iVar1;
   int iVar2;
   int *piVar3;
-  int *unaff_ESI;
   int *piVar4;
   
   iVar1 = (int)param_2 - (int)param_1 >> 2;
   if (iVar1 < 0x29) {
-    iVar1 = *unaff_ESI;
+    iVar1 = *regEsi;
     if (iVar1 < *param_1) {
-      *unaff_ESI = *param_1;
+      *regEsi = *param_1;
       *param_1 = iVar1;
     }
     iVar1 = *param_2;
-    if (iVar1 < *unaff_ESI) {
-      *param_2 = *unaff_ESI;
-      *unaff_ESI = iVar1;
+    if (iVar1 < *regEsi) {
+      *param_2 = *regEsi;
+      *regEsi = iVar1;
     }
-    iVar1 = *unaff_ESI;
+    iVar1 = *regEsi;
     if (iVar1 < *param_1) {
-      *unaff_ESI = *param_1;
+      *regEsi = *param_1;
       *param_1 = iVar1;
     }
   }
@@ -53,20 +52,20 @@ void __thiscall FUN_004e0090(int *param_1,int *param_2)
       param_1[iVar2] = *param_1;
       *param_1 = iVar1;
     }
-    iVar1 = *unaff_ESI;
-    piVar3 = unaff_ESI + -iVar2;
+    iVar1 = *regEsi;
+    piVar3 = regEsi + -iVar2;
     if (iVar1 < *piVar3) {
-      *unaff_ESI = *piVar3;
+      *regEsi = *piVar3;
       *piVar3 = iVar1;
     }
-    iVar1 = unaff_ESI[iVar2];
-    if (iVar1 < *unaff_ESI) {
-      unaff_ESI[iVar2] = *unaff_ESI;
-      *unaff_ESI = iVar1;
+    iVar1 = regEsi[iVar2];
+    if (iVar1 < *regEsi) {
+      regEsi[iVar2] = *regEsi;
+      *regEsi = iVar1;
     }
-    iVar1 = *unaff_ESI;
+    iVar1 = *regEsi;
     if (iVar1 < *piVar3) {
-      *unaff_ESI = *piVar3;
+      *regEsi = *piVar3;
       *piVar3 = iVar1;
     }
     piVar3 = param_2 + -iVar2;
@@ -86,19 +85,19 @@ void __thiscall FUN_004e0090(int *param_1,int *param_2)
       *piVar3 = *piVar4;
       *piVar4 = iVar1;
     }
-    iVar1 = *unaff_ESI;
+    iVar1 = *regEsi;
     if (iVar1 < param_1[iVar2]) {
-      *unaff_ESI = param_1[iVar2];
+      *regEsi = param_1[iVar2];
       param_1[iVar2] = iVar1;
     }
     iVar1 = *piVar3;
-    if (iVar1 < *unaff_ESI) {
-      *piVar3 = *unaff_ESI;
-      *unaff_ESI = iVar1;
+    if (iVar1 < *regEsi) {
+      *piVar3 = *regEsi;
+      *regEsi = iVar1;
     }
-    iVar1 = *unaff_ESI;
+    iVar1 = *regEsi;
     if (iVar1 < param_1[iVar2]) {
-      *unaff_ESI = param_1[iVar2];
+      *regEsi = param_1[iVar2];
       param_1[iVar2] = iVar1;
       return;
     }

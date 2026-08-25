@@ -9,7 +9,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __fastcall FUN_004f3ba0(float *param_1)
+void __fastcall FUN_004f3ba0(float *param_1,float *regEax)
 
 {
   float fVar1;
@@ -23,20 +23,19 @@ void __fastcall FUN_004f3ba0(float *param_1)
   float fVar9;
   float fVar10;
   float fVar11;
-  float *in_EAX;
   
-  fVar8 = *in_EAX + *in_EAX;
-  fVar10 = in_EAX[1] + in_EAX[1];
-  fVar11 = in_EAX[2] + in_EAX[2];
-  fVar9 = fVar8 * *in_EAX;
-  fVar1 = in_EAX[1];
-  fVar2 = in_EAX[2];
-  fVar3 = *in_EAX;
-  fVar4 = *in_EAX;
-  fVar5 = in_EAX[1];
-  fVar8 = fVar8 * in_EAX[3];
-  fVar6 = in_EAX[3];
-  fVar7 = in_EAX[3];
+  fVar8 = *regEax + *regEax;
+  fVar10 = regEax[1] + regEax[1];
+  fVar11 = regEax[2] + regEax[2];
+  fVar9 = fVar8 * *regEax;
+  fVar1 = regEax[1];
+  fVar2 = regEax[2];
+  fVar3 = *regEax;
+  fVar4 = *regEax;
+  fVar5 = regEax[1];
+  fVar8 = fVar8 * regEax[3];
+  fVar6 = regEax[3];
+  fVar7 = regEax[3];
   *param_1 = _DAT_00557fb0 - (fVar11 * fVar2 + fVar10 * fVar1);
   param_1[4] = fVar10 * fVar3 - fVar11 * fVar7;
   param_1[8] = fVar10 * fVar6 + fVar11 * fVar4;

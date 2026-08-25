@@ -8,13 +8,12 @@
 #include "ghidra_types.h"
 
 
-void FUN_0044c370(void)
+void FUN_0044c370(int regEbx)
 
 {
   int iVar1;
   int iVar2;
   uint uVar3;
-  int unaff_EBX;
   int iVar4;
   
   iVar2 = g_clientContext;
@@ -28,7 +27,7 @@ LAB_0044c3c3:
                     /* WARNING: Subroutine does not return */
         ThrowCxxException(0x80070057);
       }
-      if (unaff_EBX < *(int *)(*(int *)(iVar2 + 0x44e20) + 4 + iVar4)) {
+      if (regEbx < *(int *)(*(int *)(iVar2 + 0x44e20) + 4 + iVar4)) {
         if (*(uint *)(iVar2 + 0x44e24) <= uVar3) goto LAB_0044c3c3;
         *(int *)(iVar4 + 4 + *(int *)(iVar2 + 0x44e20)) =
              *(int *)(iVar4 + 4 + *(int *)(iVar2 + 0x44e20)) + -1;

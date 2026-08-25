@@ -9,7 +9,7 @@
 
 /* WARNING: Removing unreachable block (ram,0x004ff063) */
 
-void FUN_004fefe0(void)
+void FUN_004fefe0(int *regEsi)
 
 {
   uint *puVar1;
@@ -21,21 +21,20 @@ void FUN_004fefe0(void)
   uint uVar7;
   int *piVar8;
   undefined4 uVar9;
-  int *unaff_ESI;
   undefined4 uVar10;
   uint local_8;
   
-  unaff_ESI[8] = unaff_ESI[8] + 1;
-  if ((*unaff_ESI != 0) && (local_8 = 0, unaff_ESI[2] != 0)) {
+  regEsi[8] = regEsi[8] + 1;
+  if ((*regEsi != 0) && (local_8 = 0, regEsi[2] != 0)) {
     do {
-      iVar6 = *(int *)(*unaff_ESI + local_8 * 4);
+      iVar6 = *(int *)(*regEsi + local_8 * 4);
       while (iVar6 != 0) {
         iVar2 = *(int *)(iVar6 + 0x14);
-        *(int *)(iVar6 + 0x14) = unaff_ESI[0xb];
-        iVar3 = unaff_ESI[1];
-        unaff_ESI[0xb] = iVar6;
-        unaff_ESI[1] = iVar3 - 1U;
-        if ((iVar3 - 1U < (uint)unaff_ESI[7]) && (unaff_ESI[8] == 0)) {
+        *(int *)(iVar6 + 0x14) = regEsi[0xb];
+        iVar3 = regEsi[1];
+        regEsi[0xb] = iVar6;
+        regEsi[1] = iVar3 - 1U;
+        if ((iVar3 - 1U < (uint)regEsi[7]) && (regEsi[8] == 0)) {
           uVar5 = FloatToInt64();
           iVar6 = 0;
           if (0x11 < uVar5) {
@@ -48,44 +47,44 @@ void FUN_004fefe0(void)
           if ((&DAT_00557948)[iVar6] == 0xffffffff) {
             uVar7 = uVar5;
           }
-          FUN_00500440(unaff_ESI,uVar7);
+          FUN_00500440(regEsi,uVar7);
         }
         iVar6 = iVar2;
-        if (unaff_ESI[1] == 0) {
-          unaff_ESI[0xb] = 0;
-          piVar8 = (int *)unaff_ESI[10];
-          if ((int *)unaff_ESI[10] != (int *)0x0) {
+        if (regEsi[1] == 0) {
+          regEsi[0xb] = 0;
+          piVar8 = (int *)regEsi[10];
+          if ((int *)regEsi[10] != (int *)0x0) {
             do {
               piVar4 = (int *)*piVar8;
               _free(piVar8);
               piVar8 = piVar4;
             } while (piVar4 != (int *)0x0);
-            unaff_ESI[10] = 0;
+            regEsi[10] = 0;
           }
         }
       }
       local_8 = local_8 + 1;
-    } while (local_8 < (uint)unaff_ESI[2]);
+    } while (local_8 < (uint)regEsi[2]);
   }
-  _free((void *)*unaff_ESI);
-  *unaff_ESI = 0;
-  unaff_ESI[1] = 0;
-  if (unaff_ESI[8] == 0) {
+  _free((void *)*regEsi);
+  *regEsi = 0;
+  regEsi[1] = 0;
+  if (regEsi[8] == 0) {
     uVar10 = 0;
     uVar9 = FUN_00500e30(0);
-    FUN_00500c00(unaff_ESI,uVar9,uVar10);
+    FUN_00500c00(regEsi,uVar9,uVar10);
   }
-  unaff_ESI[0xb] = 0;
-  piVar8 = (int *)unaff_ESI[10];
-  if ((int *)unaff_ESI[10] != (int *)0x0) {
+  regEsi[0xb] = 0;
+  piVar8 = (int *)regEsi[10];
+  if ((int *)regEsi[10] != (int *)0x0) {
     do {
       piVar4 = (int *)*piVar8;
       _free(piVar8);
       piVar8 = piVar4;
     } while (piVar4 != (int *)0x0);
-    unaff_ESI[10] = 0;
+    regEsi[10] = 0;
   }
-  unaff_ESI[8] = unaff_ESI[8] + -1;
+  regEsi[8] = regEsi[8] + -1;
   return;
 }
 

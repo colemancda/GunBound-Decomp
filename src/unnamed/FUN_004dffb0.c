@@ -19,7 +19,7 @@ void FUN_004dffb0(int param_1)
     iVar1 = iVar1 - (in_EAX - param_1 >> 0x1f) >> 1;
     while (0 < iVar1) {
       iVar1 = iVar1 + -1;
-      FUN_004e01b0(iVar1);
+      FUN_004e01b0(param_1,(in_EAX - param_1) >> 2,iVar1,*(int *)(param_1 + iVar1 * 4));
     }
   }
   return;

@@ -17,7 +17,7 @@ void FUN_004dfff0(void)
   
   for (iVar1 = in_EAX - (int)unaff_EDI; 1 < iVar1 >> 2; iVar1 = iVar1 + -4) {
     *(undefined4 *)((int)unaff_EDI + iVar1 + -4) = *unaff_EDI;
-    FUN_004e01b0(0);
+    FUN_004e01b0((int)unaff_EDI,(iVar1 + -4) >> 2,0,*(int *)((int)unaff_EDI + iVar1 + -4));
   }
   return;
 }

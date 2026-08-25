@@ -8,20 +8,19 @@
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004e7740(void)
+undefined4 FUN_004e7740(int regEsi)
 
 {
   LPCRITICAL_SECTION lpCriticalSection;
   int iVar1;
   uint uVar2;
-  int unaff_ESI;
   uint uVar3;
   bool bVar4;
   
-  if (*(int *)(unaff_ESI + 0x44de0) == 0) {
+  if (*(int *)(regEsi + 0x44de0) == 0) {
     return 0xffffffff;
   }
-  lpCriticalSection = (LPCRITICAL_SECTION)(unaff_ESI + 0x17c);
+  lpCriticalSection = (LPCRITICAL_SECTION)(regEsi + 0x17c);
   EnterCriticalSection(lpCriticalSection);
   uVar3 = 0;
   bVar4 = true;
@@ -32,15 +31,15 @@ undefined4 FUN_004e7740(void)
     }
     uVar2 = 1 << ((byte)uVar3 & 0x1f);
     iVar1 = (uVar3 >> 5) * 4;
-    if ((((*(uint *)(iVar1 + 0x140 + unaff_ESI) & uVar2) != 0) &&
-        ((*(uint *)(iVar1 + 0x138 + unaff_ESI) & uVar2) != 0)) &&
-       ((*(uint *)(iVar1 + 0x13c + unaff_ESI) & uVar2) == 0)) break;
+    if ((((*(uint *)(iVar1 + 0x140 + regEsi) & uVar2) != 0) &&
+        ((*(uint *)(iVar1 + 0x138 + regEsi) & uVar2) != 0)) &&
+       ((*(uint *)(iVar1 + 0x13c + regEsi) & uVar2) == 0)) break;
     uVar3 = uVar3 + 1;
     bVar4 = uVar3 < 8;
     if (7 < (int)uVar3) {
-      *(undefined4 *)(unaff_ESI + 0x13c) = 0;
-      *(undefined4 *)(unaff_ESI + 0x138) = 0;
-      InterlockedExchange((LONG *)(unaff_ESI + 0x44de0),0);
+      *(undefined4 *)(regEsi + 0x13c) = 0;
+      *(undefined4 *)(regEsi + 0x138) = 0;
+      InterlockedExchange((LONG *)(regEsi + 0x44de0),0);
       LeaveCriticalSection(lpCriticalSection);
       return 1;
     }

@@ -10,7 +10,7 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __thiscall FUN_004ec120(int param_1,int param_2,int param_3,int param_4)
+void __thiscall FUN_004ec120(int param_1,int param_2,int param_3,int param_4,int regEax)
 
 {
   float fVar1;
@@ -22,18 +22,17 @@ void __thiscall FUN_004ec120(int param_1,int param_2,int param_3,int param_4)
   float fVar7;
   float fVar8;
   float fVar9;
-  int in_EAX;
   int iVar10;
   int iVar11;
   undefined4 *puVar12;
   undefined4 *puVar13;
   
-  iVar11 = (in_EAX + 0x5a) % 0x168;
+  iVar11 = (regEax + 0x5a) % 0x168;
   if (iVar11 < 0) {
     iVar11 = iVar11 + 0x168;
   }
   fVar1 = *(float *)(&g_sineTable360 + iVar11 * 4);
-  iVar11 = in_EAX % 0x168;
+  iVar11 = regEax % 0x168;
   if (iVar11 < 0) {
     iVar11 = iVar11 + 0x168;
   }

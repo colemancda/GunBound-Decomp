@@ -345,7 +345,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
       if (0x1d < param_3) {
         local_4970 = (undefined4 *)(param_1 + -0x2c8);
         FUN_00503bb0(param_1 + -0x2c8);
-        FUN_004fefe0();
+        FUN_004fefe0((int *)(param_1 + 0x17fc));
         namelen = &local_4984;
         name = &local_496c;
         s = GetConnectionSocketIfListed(*(undefined4 **)(param_1 + 0x1780),
@@ -390,7 +390,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
             local_48be = *(undefined2 *)(pcVar12 + 8);
             pcVar12 = pcVar12 + 10;
             FUN_00502800((int)local_4958,(undefined4)local_48f0);
-            FUN_00502750();
+            FUN_00502750(local_497c + 0x17ac,(int)local_48f0);
             FUN_00503a10();
             local_4980 = local_4980 + -1;
           } while (local_4980 != (char *)0x0);
@@ -412,7 +412,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
         }
         *(undefined1 *)(param_1 + 0x177d) = 1;
         *(undefined1 *)(param_1 + 0x1788) = 0;
-        FUN_00501600();
+        FUN_00501600(param_1 - 0x2f4);
         pcVar12 = (char *)&local_4924;
         pcVar17 = local_4914;
         uVar10 = 0;
@@ -421,7 +421,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
       }
     }
     else {
-      FUN_00501600();
+      FUN_00501600(param_1 - 0x2f4);
       FUN_00503810((int)&DAT_00551cb1);
       uVar18 = 0;
       pcVar12 = local_48ba + 0x12;
@@ -430,7 +430,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
 LAB_00501b17:
       (**(code **)(**(int **)(param_1 + 0x17bc) + 0xc))(uVar10,pcVar17,pcVar12,uVar18,local_4958);
     }
-    FUN_005028f0();
+    FUN_005028f0((int)local_4958);
     goto LAB_00502483;
   }
   if (uVar6 < 0x3004) {
@@ -495,7 +495,7 @@ LAB_00501b17:
       local_491c = 0;
       FUN_004fdc50();
       iVar7 = local_497c;
-      FUN_00502750();
+      FUN_00502750(iVar7 + 0x17ac,(int)local_4914);
       FUN_00503a10();
       FUN_004fe5d0();
       FUN_005037f0();
@@ -582,7 +582,7 @@ LAB_00501b17:
 LAB_00502356:
     (**(code **)(**(int **)(local_497c + 0x17bc) + 0x34))(local_4958);
   }
-  FUN_005028f0();
+  FUN_005028f0((int)local_4958);
 LAB_00502483:
   *unaff_FS_OFFSET = local_14;
   return 1;

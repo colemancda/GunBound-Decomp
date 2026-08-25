@@ -7,18 +7,17 @@
 #include "ghidra_types.h"
 
 
-void FUN_00501600(void)
+void FUN_00501600(int regEsi)
 
 {
-  int unaff_ESI;
   
-  if (*(void **)(unaff_ESI + 0x1d9c) != (void *)0x0) {
-    _free(*(void **)(unaff_ESI + 0x1d9c));
-    *(undefined4 *)(unaff_ESI + 0x1d9c) = 0;
+  if (*(void **)(regEsi + 0x1d9c) != (void *)0x0) {
+    _free(*(void **)(regEsi + 0x1d9c));
+    *(undefined4 *)(regEsi + 0x1d9c) = 0;
   }
-  if (*(void **)(unaff_ESI + 0x2020) != (void *)0x0) {
-    _free(*(void **)(unaff_ESI + 0x2020));
-    *(undefined4 *)(unaff_ESI + 0x2020) = 0;
+  if (*(void **)(regEsi + 0x2020) != (void *)0x0) {
+    _free(*(void **)(regEsi + 0x2020));
+    *(undefined4 *)(regEsi + 0x2020) = 0;
   }
   return;
 }

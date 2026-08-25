@@ -11,27 +11,26 @@
 /* WARNING: Unable to track spacebase fully for stack */
 /* WARNING: Type propagation algorithm not settling */
 
-int FUN_004fcdf0(undefined4 param_1,undefined4 param_2)
+int FUN_004fcdf0(undefined4 param_1,undefined4 param_2,int regEax)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
    * map to a named local; declared so the raw port parses. */
   undefined stack0xfffffff4;
   char cVar1;
-  int in_EAX;
   int iVar2;
   size_t asStack_1c [4];
   
-  if (*(int *)(in_EAX + 0x27c) != 0) {
-    iVar2 = *(int *)(in_EAX + 0x280) + 0x10;
+  if (*(int *)(regEax + 0x27c) != 0) {
+    iVar2 = *(int *)(regEax + 0x280) + 0x10;
     iVar2 = (int)(iVar2 + (iVar2 >> 0x1f & 0xfU)) >> 4;
     asStack_1c[3] = 0x4fce21;
     if (&stack0xfffffff4 != (undefined1 *)(iVar2 * 0x10)) {
       asStack_1c[iVar2 * -4 + 3] = 0x4fce2c;
       /* RECOVERED (2026-07-19): EBX = the alloca'd output block (orig
-       * `mov ebx,esp` just before the call), EDI = in_EAX, this function's
+       * `mov ebx,esp` just before the call), EDI = regEax, this function's
        * own crypto context. */
-      cVar1 = (char)FUN_004fce60((int)(&stack0xfffffff4 + iVar2 * -0x10),in_EAX);
+      cVar1 = (char)FUN_004fce60((int)(&stack0xfffffff4 + iVar2 * -0x10),regEax);
       if (cVar1 != '\0') {
         asStack_1c[iVar2 * -4 + 3] = param_2;
         asStack_1c[iVar2 * -4 + 2] = param_1;

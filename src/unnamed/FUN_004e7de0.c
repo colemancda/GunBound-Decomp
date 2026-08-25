@@ -8,7 +8,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3)
+void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3,uint regEbx)
 
 {
   LPCRITICAL_SECTION lpCriticalSection;
@@ -20,7 +20,6 @@ void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3)
   uint uVar6;
   uint uVar7;
   int iVar8;
-  uint unaff_EBX;
   undefined4 *puVar9;
   undefined4 *puVar10;
   undefined4 *puVar11;
@@ -41,16 +40,16 @@ void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3)
   uVar3 = *(undefined2 *)((int)param_3 + 2);
   *(byte *)(param_1 + 0x452a0) = param_2;
   *(undefined2 *)(param_1 + 0x4529c) = uVar3;
-  *(short *)(param_1 + 0x4529e) = (short)unaff_EBX;
+  *(short *)(param_1 + 0x4529e) = (short)regEbx;
   puVar10 = (undefined4 *)(param_1 + 0x452a1);
   puVar11 = param_3;
   puVar9 = puVar10;
-  for (uVar7 = unaff_EBX >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+  for (uVar7 = regEbx >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
     *puVar9 = *puVar11;
     puVar11 = puVar11 + 1;
     puVar9 = puVar9 + 1;
   }
-  for (uVar7 = unaff_EBX & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
+  for (uVar7 = regEbx & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
     *(undefined1 *)puVar9 = *(undefined1 *)puVar11;
     puVar11 = (undefined4 *)((int)puVar11 + 1);
     puVar9 = (undefined4 *)((int)puVar9 + 1);
@@ -60,15 +59,15 @@ void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3)
   DAT_0056dcaa = *(undefined1 *)(param_1 + 0x452a4);
   /* orig 0x4e7e9b `mov eax, ebp` (EBP = this function's param_1) -
    * FUN_004e6f20's recovered EAX context argument. */
-  FUN_004e6f20((undefined4 *)(param_1 + 0x452c2),unaff_EBX,param_1);
+  FUN_004e6f20((undefined4 *)(param_1 + 0x452c2),regEbx,param_1);
   iVar8 = 0x21;
   cVar4 = *(char *)(param_1 + 0x452a9) + *(char *)(param_1 + 0x452a3) + *(char *)(param_1 + 0x452a4)
           + -0x34;
-  if (0x21 < (int)unaff_EBX) {
+  if (0x21 < (int)regEbx) {
     do {
       cVar4 = cVar4 + *(char *)((int)puVar10 + iVar8);
       iVar8 = iVar8 + 1;
-    } while (iVar8 < (int)unaff_EBX);
+    } while (iVar8 < (int)regEbx);
   }
   if (cVar4 != *(char *)(param_1 + 0x452a5)) {
     if (*(uint *)(param_1 + 0x14c) == uVar6) {
@@ -120,12 +119,12 @@ void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3)
     *puVar9 = 0;
     puVar9 = puVar9 + 1;
   }
-  for (uVar6 = unaff_EBX >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+  for (uVar6 = regEbx >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
     *puVar11 = *puVar10;
     puVar10 = puVar10 + 1;
     puVar11 = puVar11 + 1;
   }
-  for (uVar6 = unaff_EBX & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
+  for (uVar6 = regEbx & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
     *(undefined1 *)puVar11 = *(undefined1 *)puVar10;
     puVar10 = (undefined4 *)((int)puVar10 + 1);
     puVar11 = (undefined4 *)((int)puVar11 + 1);

@@ -82,7 +82,7 @@ void FUN_004ff770(int *param_1,int param_2)
      (uVar3 = recvfrom(param_1[0xa2],(char *)&local_2ebc,6000,0,&local_3174,&local_3164),
      0 < (int)uVar3)) {
     if (uVar3 == 0x26) {
-      if ((local_2ebc == 0x26) && (iVar4 = FUN_004fcdf0(local_2eaa,0x10), iVar4 == 0)) {
+      if ((local_2ebc == 0x26) && (iVar4 = FUN_004fcdf0(local_2eaa,0x10,(int)param_1 + 4), iVar4 == 0)) {
         local_3184 = local_2eb6;
         local_3188 = local_2eba;
         local_3180 = local_2eb2;
@@ -104,7 +104,7 @@ void FUN_004ff770(int *param_1,int param_2)
       }
     }
     else if (((0x35 < uVar3) && (local_2ebc == uVar3)) &&
-            (iVar4 = FUN_004fcdf0(local_2eaa,0x10), iVar4 == 0)) {
+            (iVar4 = FUN_004fcdf0(local_2eaa,0x10,(int)param_1 + 4), iVar4 == 0)) {
       local_3184 = local_2eb6;
       local_3188 = local_2eba;
       local_3180 = local_2eb2;

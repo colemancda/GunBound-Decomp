@@ -48,7 +48,7 @@ LAB_004e5b94:
         }
         local_10 = len;
         EnterCriticalSection((LPCRITICAL_SECTION)(param_2 + 0x24a58));
-        FUN_004e5c70(local_4010);
+        FUN_004e5c70(local_4010,(int *)(param_2 + 0x24a40));
         LeaveCriticalSection((LPCRITICAL_SECTION)(param_2 + 0x24a58));
         return param_3;
       }

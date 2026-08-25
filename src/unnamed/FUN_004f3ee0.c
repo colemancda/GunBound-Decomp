@@ -108,7 +108,7 @@ LAB_004f3fcd:
   }
   (*(D3DSetTextureFn *)(*g_pD3DDevice7 + 0x8c))(g_pD3DDevice7,0,0);
 LAB_004f40b2:
-  FUN_004f01d0();
+  FUN_004f01d0(local_5);
   if (g_spriteVertexCount != 0) {
     g_frameTriangleCounter = g_frameTriangleCounter + g_spriteVertexCount;
     (*(D3DDrawPrimitiveFn *)(*g_pD3DDevice7 + 100))

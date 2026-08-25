@@ -16,12 +16,12 @@ void __fastcall FUN_004f3440(undefined4 param_1)
   float *extraout_EDX;
   int unaff_ESI;
   
-  puVar1 = (undefined4 *)FUN_004f3a60(param_1);
+  puVar1 = (undefined4 *)FUN_004f3a60(param_1,(float *)(unaff_ESI + 0x1e0));
   _DAT_005a93e0 = *puVar1;
   _DAT_005a93e4 = puVar1[1];
   _DAT_005a93e8 = puVar1[2];
   _DAT_005a93ec = puVar1[3];
-  FUN_004f3ba0();
+  FUN_004f3ba0(extraout_EDX,(float *)&DAT_005a93e0);
   extraout_EDX[0xc] = *(float *)(unaff_ESI + 0x98);
   extraout_EDX[0xd] = *(float *)(unaff_ESI + 0x9c);
   extraout_EDX[0xe] = *(float *)(unaff_ESI + 0xa0);

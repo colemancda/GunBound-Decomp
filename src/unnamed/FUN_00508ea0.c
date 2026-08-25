@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00508ea0(int param_1)
+void FUN_00508ea0(int param_1,uchar *regEdi)
 
 {
   uchar uVar1;
@@ -16,7 +16,6 @@ void FUN_00508ea0(int param_1)
   undefined4 uVar4;
   uchar *puVar5;
   char *_Format;
-  uchar *unaff_EDI;
   undefined4 *unaff_FS_OFFSET;
   char local_8c [128];
   undefined4 local_c;
@@ -52,14 +51,14 @@ joined_r0x00508ec8:
     Widget_AddChild(uVar4);
     uVar4 = CreateLabelWidget(1,0x2cb,0x82,0x66,0x37,0x1a);
     Widget_AddChild(uVar4);
-    puVar5 = unaff_EDI;
-    if (unaff_EDI != (uchar *)0x0) {
+    puVar5 = regEdi;
+    if (regEdi != (uchar *)0x0) {
       do {
         uVar1 = *puVar5;
         puVar5 = puVar5 + 1;
       } while (uVar1 != '\0');
     }
-    AssignStringBuffer(puVar3 + 0x14,unaff_EDI);
+    AssignStringBuffer(puVar3 + 0x14,regEdi);
     _Format = (char *)GetLocalizedString(&g_localizedStringTable,0xfa5);
     _sprintf(local_8c,_Format);
     uVar4 = CreateStaticTextWidget(0x17,0x2b,0x9a,0x33,local_8c,0xffff);
@@ -71,7 +70,7 @@ joined_r0x00508ec8:
     puVar3 = (undefined4 *)*puVar3;
     if ((((*(int *)(iVar2 + 0x20) != 0) || (*(int *)(iVar2 + 0x24) != 0x2712)) ||
         (*(int *)(iVar2 + 0x4c) != 0)) ||
-       (iVar2 = __mbsicmp(*(uchar **)(iVar2 + 0x50),unaff_EDI), iVar2 != 0))
+       (iVar2 = __mbsicmp(*(uchar **)(iVar2 + 0x50),regEdi), iVar2 != 0))
     goto joined_r0x00508ec8;
   }
   *unaff_FS_OFFSET = local_c;

@@ -95,7 +95,7 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
   }
   else {
     if (*(char *)(g_clientContext + 0x2325c) != '\0') {
-      FUN_004ec120(400,0x12a,*(undefined4 *)(g_clientContext + 0x23264));
+      FUN_004ec120(*(int *)(g_clientContext + 0x23268),400,0x12a,*(undefined4 *)(g_clientContext + 0x23264),*(int *)(g_clientContext + 0x23260));
     }
     (**(code **)(*g_pD3DDevice7 + 0x8c))
               (g_pD3DDevice7,0,*(undefined4 *)(*(int *)(iVar1 + 0x94) + 0x110));

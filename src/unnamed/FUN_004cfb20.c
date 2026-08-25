@@ -7,13 +7,12 @@
 #include "ghidra_types.h"
 
 
-void FUN_004cfb20(void)
+void FUN_004cfb20(int regEsi)
 
 {
   char cVar1;
   char *pcVar2;
   int iVar3;
-  int unaff_ESI;
   int iVar4;
   undefined4 uVar5;
   int iVar6;
@@ -22,17 +21,17 @@ void FUN_004cfb20(void)
   
   iVar6 = g_clientContext;
   iVar4 = 0x1d4;
-  if (*(int *)(unaff_ESI + 0x10cc) != -1) {
+  if (*(int *)(regEsi + 0x10cc) != -1) {
     iVar4 = 0x183;
   }
   DrawFontString(iVar4,0);
   /* BlitRLESprite's dropped args (0x4cfb7b): objdump shows ECX=0x21d
    * (param_1) and EAX loaded right before the call with the same
    * pointer expression the C computes below into pcVar2
-   * (unaff_ESI+0x10c4)*0xd + 0x457f1 + iVar6, iVar6 == g_clientContext
+   * (regEsi+0x10c4)*0xd + 0x457f1 + iVar6, iVar6 == g_clientContext
    * snapshot taken at function entry) - the compiler hoisted this
    * computation ahead of the call in the original binary. */
-  pcVar2 = (char *)(*(int *)(unaff_ESI + 0x10c4) * 0xd + 0x457f1 + iVar6);
+  pcVar2 = (char *)(*(int *)(regEsi + 0x10c4) * 0xd + 0x457f1 + iVar6);
   BlitRLESprite(0x21d,iVar4,0xffff,(byte *)pcVar2);
   iVar3 = (int)pcVar2;
   do {
@@ -48,7 +47,7 @@ void FUN_004cfb20(void)
    * (no intervening EAX write), i.e. its return value. */
   BlitRLESprite((int)(pcVar2 - (char *)iVar3 - 1) * 6 + 0x224,iVar4 + 1,uVar5,
                 (byte *)uVar7);
-  pcVar2 = (char *)(*(int *)(unaff_ESI + 0x10c4) * 0xd + 0x457f1 + g_clientContext);
+  pcVar2 = (char *)(*(int *)(regEsi + 0x10c4) * 0xd + 0x457f1 + g_clientContext);
   iVar3 = (int)pcVar2;
   do {
     cVar1 = *pcVar2;
@@ -62,13 +61,13 @@ void FUN_004cfb20(void)
    * call immediately above (its return value). */
   BlitRLESprite((int)(pcVar2 - (char *)iVar3 - 1) * 6 + 0x223,iVar4,uVar5,
                 (byte *)uVar7);
-  iVar6 = *(int *)(unaff_ESI + 0x1114 + *(int *)(unaff_ESI + 0x10c4) * 4);
+  iVar6 = *(int *)(regEsi + 0x1114 + *(int *)(regEsi + 0x10c4) * 4);
   iVar3 = 1;
   if (0 < iVar6) {
     iVar3 = iVar6;
   }
-  iVar6 = *(int *)(unaff_ESI + 0x10d4 + *(int *)(unaff_ESI + 0x10c4) * 4);
-  uVar5 = *(undefined4 *)(unaff_ESI + 0x10f4 + *(int *)(unaff_ESI + 0x10c4) * 4);
+  iVar6 = *(int *)(regEsi + 0x10d4 + *(int *)(regEsi + 0x10c4) * 4);
+  uVar5 = *(undefined4 *)(regEsi + 0x10f4 + *(int *)(regEsi + 0x10c4) * 4);
   iVar3 = iVar6 / iVar3;
   pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0xc1d);
   _sprintf(local_80,pcVar2,iVar3,uVar5,iVar6);
@@ -80,15 +79,15 @@ void FUN_004cfb20(void)
    * (edi, already folded into `iVar4 + 0x14`/`iVar4 + 0x13` below). */
   BlitRLESprite(0x21e,iVar4 + 0x14,0,(byte *)local_80);
   BlitRLESprite(0x21d,iVar4 + 0x13,0xffff,(byte *)local_80);
-  iVar6 = *(int *)(unaff_ESI + 0x1174 + *(int *)(unaff_ESI + 0x10c4) * 4);
+  iVar6 = *(int *)(regEsi + 0x1174 + *(int *)(regEsi + 0x10c4) * 4);
   iVar3 = 1;
   if (0 < iVar6) {
     iVar3 = iVar6;
   }
-  iVar6 = *(int *)(unaff_ESI + 0x10c4);
-  uVar5 = *(undefined4 *)(unaff_ESI + 0x1174 + iVar6 * 4);
-  uVar7 = *(undefined4 *)(unaff_ESI + 0x1154 + iVar6 * 4);
-  iVar3 = *(int *)(unaff_ESI + 0x1134 + iVar6 * 4) / iVar3;
+  iVar6 = *(int *)(regEsi + 0x10c4);
+  uVar5 = *(undefined4 *)(regEsi + 0x1174 + iVar6 * 4);
+  uVar7 = *(undefined4 *)(regEsi + 0x1154 + iVar6 * 4);
+  iVar3 = *(int *)(regEsi + 0x1134 + iVar6 * 4) / iVar3;
   pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0xc1e);
   _sprintf(local_80,pcVar2,iVar3,uVar7,uVar5);
   /* BlitRLESprite's dropped args (0x4cfcf4/0x4cfd08): same pattern as the

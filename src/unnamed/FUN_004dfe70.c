@@ -20,7 +20,7 @@ undefined4 * FUN_004dfe70(undefined4 *param_1,int *param_2,int *param_3)
   
   piVar4 = param_2 + (((int)param_3 - (int)param_2 >> 2) - ((int)param_3 - (int)param_2 >> 0x1f) >>
                      1);
-  FUN_004e0090(param_3 + -1);
+  FUN_004e0090(param_2,param_3 + -1,piVar4);
   piVar5 = piVar4 + 1;
   for (; param_2 < piVar4; piVar4 = piVar4 + -1) {
     if ((piVar4[-1] < *piVar4) || (*piVar4 < piVar4[-1])) break;

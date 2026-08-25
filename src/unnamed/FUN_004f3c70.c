@@ -9,18 +9,17 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined * __thiscall FUN_004f3c70(float *param_1,double param_2)
+undefined * __thiscall FUN_004f3c70(float *param_1,double param_2,float *regEsi)
 
 {
-  float *unaff_ESI;
   float10 fVar1;
   float10 fVar2;
   float10 fVar3;
   float local_8;
   float local_4;
   
-  local_4 = unaff_ESI[3] * param_1[3] +
-            *param_1 * *unaff_ESI + param_1[1] * unaff_ESI[1] + param_1[2] * unaff_ESI[2];
+  local_4 = regEsi[3] * param_1[3] +
+            *param_1 * *regEsi + param_1[1] * regEsi[1] + param_1[2] * regEsi[2];
   if (_DAT_00557fb4 <= local_4) {
     _DAT_005a94b0 = *param_1;
     _DAT_005a94b4 = param_1[1];
@@ -43,10 +42,10 @@ undefined * __thiscall FUN_004f3c70(float *param_1,double param_2)
     fVar1 = (float10)fsin(fVar1 * (float10)param_2);
     param_2 = (float)(fVar1 * ((float10)_DAT_00557fb0 / fVar2));
   }
-  _DAT_005a94b0 = _DAT_005a94b0 * param_2 + local_8 * *unaff_ESI;
-  _DAT_005a94b4 = local_8 * unaff_ESI[1] + _DAT_005a94b4 * param_2;
-  _DAT_005a94b8 = local_8 * unaff_ESI[2] + _DAT_005a94b8 * param_2;
-  _DAT_005a94bc = _DAT_005a94bc * param_2 + local_8 * unaff_ESI[3];
+  _DAT_005a94b0 = _DAT_005a94b0 * param_2 + local_8 * *regEsi;
+  _DAT_005a94b4 = local_8 * regEsi[1] + _DAT_005a94b4 * param_2;
+  _DAT_005a94b8 = local_8 * regEsi[2] + _DAT_005a94b8 * param_2;
+  _DAT_005a94bc = _DAT_005a94bc * param_2 + local_8 * regEsi[3];
   return &DAT_005a94b0;
 }
 

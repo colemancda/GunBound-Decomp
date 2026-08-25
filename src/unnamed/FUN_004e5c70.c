@@ -8,24 +8,23 @@
 #include "ghidra_types.h"
 
 
-uint FUN_004e5c70(undefined4 *param_1)
+uint FUN_004e5c70(undefined4 *param_1,int *regEbx)
 
 {
   uint uVar1;
   char cVar2;
   int iVar3;
-  int *unaff_EBX;
   undefined4 *puVar4;
   
-  uVar1 = unaff_EBX[1];
-  if ((uint)unaff_EBX[2] <= uVar1) {
+  uVar1 = regEbx[1];
+  if ((uint)regEbx[2] <= uVar1) {
     cVar2 = FUN_004e5d10();
     if (cVar2 == '\0') {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x8007000e);
     }
   }
-  puVar4 = (undefined4 *)(uVar1 * 0x4004 + *unaff_EBX);
+  puVar4 = (undefined4 *)(uVar1 * 0x4004 + *regEbx);
   if (puVar4 != (undefined4 *)0x0) {
     for (iVar3 = 0x1001; iVar3 != 0; iVar3 = iVar3 + -1) {
       *puVar4 = *param_1;
@@ -33,7 +32,7 @@ uint FUN_004e5c70(undefined4 *param_1)
       puVar4 = puVar4 + 1;
     }
   }
-  unaff_EBX[1] = unaff_EBX[1] + 1;
+  regEbx[1] = regEbx[1] + 1;
   return uVar1;
 }
 

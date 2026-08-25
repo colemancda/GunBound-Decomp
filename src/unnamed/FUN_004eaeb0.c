@@ -8,11 +8,10 @@
 #include "ghidra_types.h"
 
 
-void FUN_004eaeb0(int param_1,int param_2,byte *param_3)
+void FUN_004eaeb0(int param_1,int param_2,byte *param_3,int regEax)
 
 {
   int iVar1;
-  int in_EAX;
   int iVar2;
   uint uVar3;
   int iVar4;
@@ -25,8 +24,8 @@ void FUN_004eaeb0(int param_1,int param_2,byte *param_3)
       iVar2 = param_1;
       do {
         if (((((*param_3 >> ((byte)uVar3 & 0x1f) & 1) != 0) && (iVar2 <= g_clipMaxX)) &&
-            (g_clipMinX <= iVar2)) && ((in_EAX <= g_clipMaxY && (g_clipMinY <= in_EAX)))) {
-          *(undefined2 *)(g_screenSurface + (in_EAX * g_screenPitch + iVar2) * 2) = param_2;
+            (g_clipMinX <= iVar2)) && ((regEax <= g_clipMaxY && (g_clipMinY <= regEax)))) {
+          *(undefined2 *)(g_screenSurface + (regEax * g_screenPitch + iVar2) * 2) = param_2;
         }
         uVar3 = uVar3 - 1;
         iVar2 = iVar2 + 1;
@@ -38,15 +37,15 @@ void FUN_004eaeb0(int param_1,int param_2,byte *param_3)
       do {
         if ((((param_3[1] >> ((byte)iVar2 & 0x1f) & 1) != 0) &&
             (iVar1 = iVar4 + 8 + param_1, iVar1 <= g_clipMaxX)) &&
-           ((g_clipMinX <= iVar1 && ((in_EAX <= g_clipMaxY && (g_clipMinY <= in_EAX)))))) {
-          *(undefined2 *)(g_screenSurface + (in_EAX * g_screenPitch + iVar1) * 2) = param_2;
+           ((g_clipMinX <= iVar1 && ((regEax <= g_clipMaxY && (g_clipMinY <= regEax)))))) {
+          *(undefined2 *)(g_screenSurface + (regEax * g_screenPitch + iVar1) * 2) = param_2;
         }
         iVar4 = iVar4 + 1;
         iVar2 = iVar2 + -1;
       } while (3 < iVar2);
     }
     param_3 = param_3 + 2;
-    in_EAX = in_EAX + 1;
+    regEax = regEax + 1;
     local_4 = local_4 + -1;
   } while (local_4 != 0);
   return;

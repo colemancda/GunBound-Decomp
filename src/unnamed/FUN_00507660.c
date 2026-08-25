@@ -94,7 +94,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
                     /* WARNING: Subroutine does not return */
         ThrowCxxException(0x80070057);
       }
-      FUN_00506f30();
+      FUN_00506f30(*(int *)(*(int *)(param_1 + 0xc) + uVar6 * 4));
     }
   }
   else if ((param_2 == 0x2000) && (param_3 == 0)) {

@@ -10,19 +10,18 @@
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_004f01d0(void)
+void FUN_004f01d0(int regEax)
 
 {
-  int in_EAX;
   
-  if (g_currentBlendMode != in_EAX) {
-    _DAT_00792194 = in_EAX;
-    g_currentBlendMode = in_EAX;
-    if ((in_EAX == 0) || (in_EAX == 1)) {
+  if (g_currentBlendMode != regEax) {
+    _DAT_00792194 = regEax;
+    g_currentBlendMode = regEax;
+    if ((regEax == 0) || (regEax == 1)) {
       (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
       (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,6);
     }
-    else if (in_EAX == 2) {
+    else if (regEax == 2) {
       (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x13,5);
       (**(code **)(*g_pD3DDevice7 + 0x50))(g_pD3DDevice7,0x14,2);
       return;

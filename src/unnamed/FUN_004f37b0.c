@@ -28,7 +28,7 @@ void __fastcall FUN_004f37b0(int *param_1)
     *piVar1 = 0x3f800000;
   }
   else {
-    FUN_004e95c0(param_1[0x33],piVar1);
+    FUN_004e95c0(param_1[0x33],piVar1,param_1[0x32]);
   }
   if (param_1[0x34] == 0) {
     FUN_004f3440();

@@ -734,10 +734,10 @@ LAB_004c9316:
                 0x28,uVar14,(byte *)GetLocalizedString(&g_localizedStringTable,0x340));
 LAB_004c9ba8:
   if ((*(int *)(param_1 + 0x10cc) != -1) && (*(int *)(param_1 + 0x10d0) != -1)) {
-    FUN_004cfd20();
+    FUN_004cfd20(param_1);
   }
   if ((*(int *)(param_1 + 0x10c4) != -1) && (*(int *)(param_1 + 0x10c8) != -1)) {
-    FUN_004cfb20();
+    FUN_004cfb20(param_1);
   }
   /* FIXED (2026-07-15): dropped all 4 corner args - real literal values
    * (full-screen reset) recovered via angr at 0x4c9be9. */

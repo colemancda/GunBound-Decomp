@@ -9,17 +9,16 @@
  * goto-free zip).  Four read the same g_clientContext+0x475c8 cell; the
  * fifth (0x4d0089) indexes a 0x448-stride array - `imul ecx,[esi+
  * 0x10cc],0x448 / lea edi,[ecx+edx+0x477ec]` - using the same
- * in_EAX+0x10cc field the surrounding C already scales by *4 and *0x14
+ * regEax+0x10cc field the surrounding C already scales by *4 and *0x14
  * for its unguarded tables.  0x448 is two guard cells per entry.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004cfd20(void)
+void FUN_004cfd20(int regEax)
 
 {
   char cVar1;
-  int in_EAX;
   char *pcVar2;
   int iVar3;
   int iVar4;
@@ -36,14 +35,14 @@ void FUN_004cfd20(void)
   DrawFontString(0x1ba,0);
   /* BlitRLESprite's dropped args (0x4cfd70): objdump shows ECX=0x21d
    * (param_1) and EAX loaded right before the call with the same pointer
-   * expression the C computes below into pcVar2 ((in_EAX+0x10cc)*0xd +
+   * expression the C computes below into pcVar2 ((regEax+0x10cc)*0xd +
    * 0x457f1 + iVar3, iVar3 == g_clientContext snapshot taken at function
    * entry) - the compiler hoisted this computation ahead of the call in
    * the original binary. Same pattern as sibling FUN_004cfb20's first
    * BlitRLESprite call site. */
   BlitRLESprite(0x21d,0x1ba,0xffff,
-                (byte *)(*(int *)(in_EAX + 0x10cc) * 0xd + 0x457f1 + iVar3));
-  pcVar2 = (char *)(*(int *)(in_EAX + 0x10cc) * 0xd + 0x457f1 + iVar3);
+                (byte *)(*(int *)(regEax + 0x10cc) * 0xd + 0x457f1 + iVar3));
+  pcVar2 = (char *)(*(int *)(regEax + 0x10cc) * 0xd + 0x457f1 + iVar3);
   iVar4 = (int)pcVar2;
   do {
     cVar1 = *pcVar2;
@@ -58,7 +57,7 @@ void FUN_004cfd20(void)
    * (no intervening EAX write), i.e. its return value. Same pattern as
    * sibling FUN_004cfb20's second BlitRLESprite call site. */
   BlitRLESprite((int)(pcVar2 - (char *)iVar4 - 1) * 6 + 0x224,0x1bb,uVar9,(byte *)uVar10);
-  pcVar2 = (char *)(*(int *)(in_EAX + 0x10cc) * 0xd + 0x457f1 + g_clientContext);
+  pcVar2 = (char *)(*(int *)(regEax + 0x10cc) * 0xd + 0x457f1 + g_clientContext);
   iVar4 = (int)pcVar2;
   do {
     cVar1 = *pcVar2;
@@ -72,7 +71,7 @@ void FUN_004cfd20(void)
    * call immediately above (its return value). Same pattern as sibling
    * FUN_004cfb20's third BlitRLESprite call site. */
   BlitRLESprite((int)(pcVar2 - (char *)iVar4 - 1) * 6 + 0x223,0x1ba,uVar9,(byte *)uVar10);
-  iVar3 = *(int *)(in_EAX + 0x10cc);
+  iVar3 = *(int *)(regEax + 0x10cc);
   uVar7 = *(uint *)(g_clientContext + 0x4599c + iVar3 * 4);
   if (999 < uVar7) {
     uVar7 = 999;
@@ -96,7 +95,7 @@ void FUN_004cfd20(void)
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (*(int *)(g_clientContext + 0x4707c +
               ((uint)*(byte *)(g_clientContext + 0x475c4) + iVar3 * 0xb +
-              *(int *)(in_EAX + 0x10cc) * 0x14) * 4) == 0) {
+              *(int *)(regEax + 0x10cc) * 0x14) * 4) == 0) {
     local_84 = 1;
   }
   else {
@@ -105,10 +104,10 @@ void FUN_004cfd20(void)
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_84 = *(uint *)(g_clientContext + 0x4707c +
                         ((uint)*(byte *)(g_clientContext + 0x475c4) + iVar3 * 0xb +
-                        *(int *)(in_EAX + 0x10cc) * 0x14) * 4);
+                        *(int *)(regEax + 0x10cc) * 0x14) * 4);
   }
   uVar7 = 1;
-  iVar3 = *(int *)(in_EAX + 0x10cc);
+  iVar3 = *(int *)(regEax + 0x10cc);
   if (*(int *)(g_clientContext + 0x4731c + iVar3 * 4) + *(int *)(g_clientContext + 0x472fc + iVar3 * 4) !=
       0) {
     uVar7 = *(int *)(g_clientContext + 0x4731c + iVar3 * 4) +
@@ -122,10 +121,10 @@ void FUN_004cfd20(void)
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   local_84 = (uint)(*(int *)(g_clientContext + 0x4667c +
                             (iVar3 * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4) +
-                            *(int *)(in_EAX + 0x10cc) * 0x14) * 4) * 100) / local_84;
+                            *(int *)(regEax + 0x10cc) * 0x14) * 4) * 100) / local_84;
   iVar3 = (iVar4 * 0xb + (uint)*(byte *)(g_clientContext + 0x475c4)) * 0x7d28 + 0x1a1e48 + g_clientContext
   ;
-  uVar7 = (uint)(*(int *)(g_clientContext + 0x472fc + *(int *)(in_EAX + 0x10cc) * 4) * 100) / uVar7;
+  uVar7 = (uint)(*(int *)(g_clientContext + 0x472fc + *(int *)(regEax + 0x10cc) * 4) * 100) / uVar7;
   pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0xbba);
   _sprintf(local_80,pcVar2,uVar7,iVar3,local_84);
   /* BlitRLESprite's dropped args (0x4d0043/0x4d005b): same pattern as the
@@ -134,33 +133,33 @@ void FUN_004cfd20(void)
   BlitRLESprite(0x21e,0x1dd,0,(byte *)local_80);
   BlitRLESprite(0x21d,0x1dc,0xffff,(byte *)local_80);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x477ec + *(int *)(in_EAX + 0x10cc) * 0x448));
+  iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x477ec + *(int *)(regEax + 0x10cc) * 0x448));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  iVar5 = FUN_00420650(g_clientContext,*(undefined4 *)(in_EAX + 0x10cc),iVar4);
-  iVar3 = iVar5 + *(int *)(in_EAX + 0x10cc) * 0x14;
+  iVar5 = FUN_00420650(g_clientContext,*(undefined4 *)(regEax + 0x10cc),iVar4);
+  iVar3 = iVar5 + *(int *)(regEax + 0x10cc) * 0x14;
   if (*(int *)(g_clientContext + 0x45c3c + iVar3 * 4) + *(int *)(g_clientContext + 0x459bc + iVar3 * 4) ==
       0) {
     uVar7 = 1;
   }
   else {
-    iVar3 = iVar5 + *(int *)(in_EAX + 0x10cc) * 0x14;
+    iVar3 = iVar5 + *(int *)(regEax + 0x10cc) * 0x14;
     uVar7 = *(int *)(g_clientContext + 0x45c3c + iVar3 * 4) +
             *(int *)(g_clientContext + 0x459bc + iVar3 * 4);
   }
-  iVar3 = iVar4 + *(int *)(in_EAX + 0x10cc) * 0x14;
+  iVar3 = iVar4 + *(int *)(regEax + 0x10cc) * 0x14;
   if (*(int *)(g_clientContext + 0x45c3c + iVar3 * 4) + *(int *)(g_clientContext + 0x459bc + iVar3 * 4) ==
       0) {
     uVar8 = 1;
   }
   else {
-    iVar3 = iVar4 + *(int *)(in_EAX + 0x10cc) * 0x14;
+    iVar3 = iVar4 + *(int *)(regEax + 0x10cc) * 0x14;
     uVar8 = *(int *)(g_clientContext + 0x45c3c + iVar3 * 4) +
             *(int *)(g_clientContext + 0x459bc + iVar3 * 4);
   }
-  uVar7 = (uint)(*(int *)(g_clientContext + 0x459bc + (iVar5 + *(int *)(in_EAX + 0x10cc) * 0x14) * 4) *
+  uVar7 = (uint)(*(int *)(g_clientContext + 0x459bc + (iVar5 + *(int *)(regEax + 0x10cc) * 0x14) * 4) *
                 100) / uVar7;
   uVar9 = GetLocalizedString(&g_localizedStringTable,iVar5 + 1000);
-  uVar8 = (uint)(*(int *)(g_clientContext + 0x459bc + (iVar4 + *(int *)(in_EAX + 0x10cc) * 0x14) * 4) *
+  uVar8 = (uint)(*(int *)(g_clientContext + 0x459bc + (iVar4 + *(int *)(regEax + 0x10cc) * 0x14) * 4) *
                 100) / uVar8;
   uVar6 = GetLocalizedString(&g_localizedStringTable,iVar4 + 1000);
   pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0xbbb);
@@ -170,12 +169,12 @@ void FUN_004cfd20(void)
    * buffer just sprintf'd above) at each call. */
   BlitRLESprite(0x21e,0x1ec,0,(byte *)local_80);
   BlitRLESprite(0x21d,0x1eb,0xffff,(byte *)local_80);
-  uVar7 = *(uint *)(g_clientContext + 0x4735c + *(int *)(in_EAX + 0x10cc) * 4);
+  uVar7 = *(uint *)(g_clientContext + 0x4735c + *(int *)(regEax + 0x10cc) * 4);
   uVar8 = 1;
   if (uVar7 != 0) {
     uVar8 = uVar7;
   }
-  uVar8 = *(uint *)(g_clientContext + 0x4733c + *(int *)(in_EAX + 0x10cc) * 4) / uVar8;
+  uVar8 = *(uint *)(g_clientContext + 0x4733c + *(int *)(regEax + 0x10cc) * 4) / uVar8;
   pcVar2 = (char *)GetLocalizedString(&g_localizedStringTable,0xbbc);
   _sprintf(local_80,pcVar2,uVar8);
   /* BlitRLESprite's dropped args (0x4d0237/0x4d024f): same pattern as

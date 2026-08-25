@@ -34,7 +34,7 @@ void FUN_004e6050(undefined4 *param_1)
   }
   param_1[0x11498] = &PTR_FUN_005572dc;
   DeleteCriticalSection((LPCRITICAL_SECTION)(param_1 + 0x11499));
-  FUN_004e8db0(local_10,*(undefined4 *)param_1[0x1148d],(undefined4 *)param_1[0x1148d]);
+  FUN_004e8db0(local_10,*(undefined4 *)param_1[0x1148d],(undefined4 *)param_1[0x1148d],(int)(param_1 + 0x1148c));
   _free((void *)param_1[0x1148d]);
   param_1[0x1148d] = 0;
   param_1[0x1148e] = 0;
