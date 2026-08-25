@@ -7,19 +7,18 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_005042f0(undefined4 *param_1,undefined4 *param_2)
+void __fastcall FUN_005042f0(undefined4 *param_1,undefined4 *param_2,undefined4 *regEax)
 
 {
-  undefined4 *in_EAX;
   
   while (param_2 != param_1) {
-    *(undefined4 *)((int)in_EAX + -0x12) = *(undefined4 *)((int)param_1 + -0x12);
-    *(undefined4 *)((int)in_EAX + -0xe) = *(undefined4 *)((int)param_1 + -0xe);
-    *(undefined4 *)((int)in_EAX + -10) = *(undefined4 *)((int)param_1 + -10);
-    *(undefined4 *)((int)in_EAX + -6) = *(undefined4 *)((int)param_1 + -6);
-    *(undefined2 *)((int)in_EAX + -2) = *(undefined2 *)((int)param_1 + -2);
+    *(undefined4 *)((int)regEax + -0x12) = *(undefined4 *)((int)param_1 + -0x12);
+    *(undefined4 *)((int)regEax + -0xe) = *(undefined4 *)((int)param_1 + -0xe);
+    *(undefined4 *)((int)regEax + -10) = *(undefined4 *)((int)param_1 + -10);
+    *(undefined4 *)((int)regEax + -6) = *(undefined4 *)((int)param_1 + -6);
+    *(undefined2 *)((int)regEax + -2) = *(undefined2 *)((int)param_1 + -2);
     param_1 = (undefined4 *)((int)param_1 + -0x12);
-    in_EAX = (undefined4 *)((int)in_EAX + -0x12);
+    regEax = (undefined4 *)((int)regEax + -0x12);
   }
   return;
 }

@@ -124,7 +124,7 @@ void __thiscall FUN_00502b70(undefined4 *param_1,int param_2,int param_3,uint pa
       iVar2 = iVar3 + param_4 * -0x12;
       uVar5 = FUN_00504550(iVar3,iVar2);
       *(undefined4 *)(param_2 + 8) = uVar5;
-      FUN_005042f0(iVar2);
+      FUN_005042f0((undefined4 *)iVar2,(undefined4 *)param_3,(undefined4 *)iVar3);
     }
     FUN_00503eb0();
   }

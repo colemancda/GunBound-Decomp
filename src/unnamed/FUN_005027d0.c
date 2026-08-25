@@ -17,7 +17,7 @@ void FUN_005027d0(undefined4 param_1,undefined4 *regEbx,int regEsi)
 
 {
   
-  FUN_005040d0(param_1);
+  FUN_005040d0((undefined4 *)((int)param_1 + 0x12),*(undefined4 **)(regEsi + 8),(undefined4 *)param_1);
   *(int *)(regEsi + 8) = *(int *)(regEsi + 8) + -0x12;
   *regEbx = param_1;
   return;

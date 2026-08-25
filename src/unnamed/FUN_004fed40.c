@@ -16,11 +16,6 @@
  *
  * EAX is the record key, `local_2ecc[6]` at the one call site.
  *
- * STILL OPEN in this body: FUN_00500840's second argument.  The binary pushes
- * [esp+0x18] = E+4 -- the incoming param_1 SLOT, which FUN_005002a0 has by
- * then overwritten with the key -- so the value is regEax, not param_1.  It is
- * left as Ghidra wrote it until FUN_005002a0's own out-pointers are recovered.
- *
  * THE FIND'S OUT-SLOTS (2026-08-25).  local_8 is the bucket index -- the find
  * writes it through ESI (`lea esi,[esp+0x10]` at 0x4fed55) -- and it is what
  * the insert half then takes in EBX.  Ghidra dropped the parameter and the
@@ -48,7 +43,7 @@ int FUN_004fed40(int *param_1,undefined1 *param_2,undefined4 regEax)
   
   iVar2 = FUN_005002a0(param_1,(undefined4 *)local_4,&local_key,&local_8,regEax);
   if (iVar2 != 0) {
-    FUN_004ff240();
+    FUN_004ff240(0,(undefined4 *)param_2,(undefined4 *)(iVar2 + 4));
     return iVar2;
   }
   if (*param_1 == 0) {
@@ -59,7 +54,7 @@ int FUN_004fed40(int *param_1,undefined1 *param_2,undefined4 regEax)
     }
   }
   iVar2 = FUN_00500840(regEax,regEax,local_8,param_1);
-  FUN_004ff240();
+  FUN_004ff240(0,(undefined4 *)param_2,(undefined4 *)(iVar2 + 4));
   return iVar2;
 }
 

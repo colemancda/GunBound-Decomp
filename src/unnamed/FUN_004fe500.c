@@ -28,11 +28,11 @@ undefined4 __fastcall FUN_004fe500(undefined4 param_1,undefined4 param_2)
   if (local_c == 0) {
     *(undefined4 *)(*regEax + (*(uint *)(iVar1 + 0x18) % (uint)regEax[2]) * 4) =
          *(undefined4 *)(iVar1 + 0x14);
-    FUN_00500650();
+    FUN_00500650(iVar1,(int)regEax);
     return 1;
   }
   *(undefined4 *)(local_c + 0x14) = *(undefined4 *)(iVar1 + 0x14);
-  FUN_00500650();
+  FUN_00500650(iVar1,(int)regEax);
   return 1;
 }
 
