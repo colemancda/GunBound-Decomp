@@ -3,18 +3,23 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * SIGNATURE CORRECTED (2026-08-25).  Same hand-written-asm shape as
+ * FUN_0051f456 and its two siblings: entry `push ebp; lea ebp,[esp+8];
+ * pushal`, exit `popal; pop ebp; ret`, ret 0 with the caller cleaning up.
+ * Every general register is saved and restored, so ECX, EDX and EAX are all
+ * written before any read -- phantoms, not arguments -- and Ghidra's
+ * `return CONCAT44(param_2,in_EAX)` is popal restoring EDX:EAX, not a value.
+ * The real arguments are the 2 stack slot(s) its caller already passes.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined8 __fastcall
-FUN_0051d044(undefined4 param_1,undefined4 param_2,float *param_3,undefined4 *param_4)
-
+void __cdecl FUN_0051d044(float *param_3,undefined4 *param_4)
 {
   undefined4 *puVar1;
-  undefined4 in_EAX;
   int iVar2;
   int iVar3;
   
@@ -200,6 +205,6 @@ FUN_0051d044(undefined4 param_1,undefined4 param_2,float *param_3,undefined4 *pa
   puVar1[0x1b] = DAT_00568934 + DAT_00568938;
   puVar1[0x1d] = DAT_00568938 + DAT_0056893c;
   puVar1[0x1f] = DAT_0056893c;
-  return CONCAT44(param_2,in_EAX);
+  return;
 }
 
