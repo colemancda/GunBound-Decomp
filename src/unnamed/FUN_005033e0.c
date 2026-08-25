@@ -96,7 +96,8 @@ void __thiscall FUN_005033e0(uint param_1,int param_2,int param_3)
     else {
       uVar4 = FUN_005046b0(iVar1,param_1 * 0x1e);
       *(undefined4 *)(param_2 + 8) = uVar4;
-      FUN_00504030();
+      FUN_00504030(0,(undefined4 *)(iVar1 - param_1 * 0x1e),(undefined4 *)iVar1,
+                 (undefined4 *)param_3);
     }
     FUN_00504010();
   }

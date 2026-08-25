@@ -391,7 +391,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
             pcVar12 = pcVar12 + 10;
             FUN_00502800((int)local_4958,(undefined4)local_48f0);
             FUN_00502750(local_497c + 0x17ac,(int)local_48f0);
-            FUN_00503a10();
+            FUN_00503a10((int)local_48f0,(int)local_4970);
             local_4980 = local_4980 + -1;
           } while (local_4980 != (char *)0x0);
         }
@@ -496,7 +496,7 @@ LAB_00501b17:
       FUN_004fdc50();
       iVar7 = local_497c;
       FUN_00502750(iVar7 + 0x17ac,(int)local_4914);
-      FUN_00503a10();
+      FUN_00503a10((int)&local_496c,iVar7 + -0x2c8);
       FUN_004fe5d0();
       FUN_005037f0();
       local_48be = (undefined2)local_4978;

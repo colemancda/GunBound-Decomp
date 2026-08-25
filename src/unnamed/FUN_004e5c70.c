@@ -18,7 +18,7 @@ uint FUN_004e5c70(undefined4 *param_1,int *regEbx)
   
   uVar1 = regEbx[1];
   if ((uint)regEbx[2] <= uVar1) {
-    cVar2 = FUN_004e5d10();
+    cVar2 = FUN_004e5d10(uVar1 + 1,regEbx);
     if (cVar2 == '\0') {
                     /* WARNING: Subroutine does not return */
       ThrowCxxException(0x8007000e);

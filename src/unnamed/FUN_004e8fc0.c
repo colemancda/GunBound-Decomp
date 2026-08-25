@@ -4,36 +4,39 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * EAX and ESI RECOVERED (2026-08-25): another vector grow, the same shape as
+ * FUN_005001f0.  Every call site is `lea eax,[ebp+1]` (the requested capacity,
+ * count + 1) with ESI the vector object, immediately after the caller has
+ * compared the count against the capacity.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_004e8fc0(void)
+undefined4 FUN_004e8fc0(uint regEax,int *regEsi)
 
 {
-  uint in_EAX;
   void *pvVar1;
   uint uVar2;
-  int *unaff_ESI;
   
-  if (in_EAX <= (uint)unaff_ESI[2]) {
+  if (regEax <= (uint)regEsi[2]) {
     return 1;
   }
-  uVar2 = unaff_ESI[3];
-  if (*unaff_ESI == 0) {
-    if (in_EAX < uVar2) {
-      in_EAX = uVar2;
+  uVar2 = regEsi[3];
+  if (*regEsi == 0) {
+    if (regEax < uVar2) {
+      regEax = uVar2;
     }
-    pvVar1 = _malloc(in_EAX * 0x206);
-    *unaff_ESI = (int)pvVar1;
+    pvVar1 = _malloc(regEax * 0x206);
+    *regEsi = (int)pvVar1;
     if (pvVar1 != (void *)0x0) {
-      unaff_ESI[2] = in_EAX;
+      regEsi[2] = regEax;
       return 1;
     }
   }
   else {
     if (uVar2 == 0) {
-      uVar2 = (uint)unaff_ESI[1] >> 3;
+      uVar2 = (uint)regEsi[1] >> 3;
       if (uVar2 < 4) {
         uVar2 = 4;
       }
@@ -41,16 +44,16 @@ undefined4 FUN_004e8fc0(void)
         uVar2 = 0x400;
       }
     }
-    uVar2 = uVar2 + unaff_ESI[2];
-    if (uVar2 <= in_EAX) {
-      uVar2 = in_EAX;
+    uVar2 = uVar2 + regEsi[2];
+    if (uVar2 <= regEax) {
+      uVar2 = regEax;
     }
     pvVar1 = _malloc(uVar2 * 0x206);
     if (pvVar1 != (void *)0x0) {
-      _memmove(pvVar1,(void *)*unaff_ESI,unaff_ESI[1] * 0x206);
-      _free((void *)*unaff_ESI);
-      *unaff_ESI = (int)pvVar1;
-      unaff_ESI[2] = uVar2;
+      _memmove(pvVar1,(void *)*regEsi,regEsi[1] * 0x206);
+      _free((void *)*regEsi);
+      *regEsi = (int)pvVar1;
+      regEsi[2] = uVar2;
       return 1;
     }
   }

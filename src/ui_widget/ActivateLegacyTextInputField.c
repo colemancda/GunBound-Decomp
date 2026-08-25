@@ -40,7 +40,7 @@ void ActivateLegacyTextInputField(int thisObj)
   LPCSTR lpString;
 
   if (*(int *)(in_EAX + 8) != 0) {
-    FUN_0050e820();
+    FUN_0050e820(in_EAX,*(int *)(in_EAX + 8));
   }
   if (g_chatInputActive == '\x01') {
     if (*(char *)(g_sharedTextInputControl + 8) != '\0') {
