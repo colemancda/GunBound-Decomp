@@ -34,7 +34,7 @@ undefined4 __thiscall CString_LoadStringFromInstance(HMODULE param_1,int *param_
   
   pHVar1 = FindResourceA(param_1,(LPCSTR)((regEax >> 4) + 1 & 0xffff),&DAT_00000006);
   if (pHVar1 != (HRSRC)0x0) {
-    puVar2 = (ushort *)FUN_00401820(param_1);
+    puVar2 = (ushort *)LoadStringTableEntry(param_1,regEax,pHVar1);
     if (puVar2 != (ushort *)0x0) {
       uVar3 = (uint)*puVar2;
       pBVar9 = (LPBOOL)0x0;

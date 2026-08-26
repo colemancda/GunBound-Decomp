@@ -147,7 +147,7 @@ void __fastcall FUN_00401350();
 void __fastcall FUN_00401370();
 int FindStringNoCase();
 void FUN_00401650(int *);
-uint FUN_00401820();
+uint LoadStringTableEntry(HMODULE param_1,uint regEax,HRSRC regEbx);
 HMODULE FUN_00401880(uint param_1,WORD param_2); /* narrow WORD arg: empty-paren decl conflicts under gcc */
 undefined4 * FUN_00401910();
 void * __thiscall FUN_00401a50();

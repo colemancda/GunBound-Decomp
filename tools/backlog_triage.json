@@ -5982,7 +5982,7 @@
   ]
  },
  {
-  "func": "FUN_00401820",
+  "func": "LoadStringTableEntry",
   "reg": "eax",
   "sites": 2,
   "values": {},
@@ -5991,7 +5991,7 @@
   "buckets": {
    "REGISTER": 2
   },
-  "path": "src/unnamed/FUN_00401820.c",
+  "path": "src/unnamed/LoadStringTableEntry.c",
   "per_site": [
    {
     "va": "0x4018c9",
@@ -6006,7 +6006,7 @@
   ]
  },
  {
-  "func": "FUN_00401820",
+  "func": "LoadStringTableEntry",
   "reg": "ebx",
   "sites": 2,
   "values": {},
@@ -6015,7 +6015,7 @@
   "buckets": {
    "REGISTER": 2
   },
-  "path": "src/unnamed/FUN_00401820.c",
+  "path": "src/unnamed/LoadStringTableEntry.c",
   "per_site": [
    {
     "va": "0x4018c9",
