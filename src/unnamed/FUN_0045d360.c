@@ -61,11 +61,11 @@ int FUN_0045d360(int param_1,int regEax)
   iVar5 = PeekPacketChecksumState((void *)(regEax + 0x900c));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = ((400 - iVar3) / iVar4) * iVar5;
-  cVar1 = DecodeGuardedBool();
+  cVar1 = DecodeGuardedBool(regEax + 0x8bae);
   if (cVar1 != '\0') {
-    cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x8bba));
+    cVar1 = PeekPacketChecksumBool((byte *)(regEax + 0x8bba));
     if (cVar1 == '\0') {
-      cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x8bb7));
+      cVar1 = PeekPacketChecksumBool((byte *)(regEax + 0x8bb7));
       if (cVar1 == '\0') {
         iVar3 = regEax + 0x9230;
       }
@@ -81,7 +81,7 @@ int FUN_0045d360(int param_1,int regEax)
     }
     iVar5 = iVar5 + iVar3;
   }
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(regEax + 0x8bb4));
   if (cVar1 == '\x01') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = PeekPacketChecksumState((void *)(regEax + 0x989c));
@@ -119,7 +119,7 @@ LAB_0045d4b9:
   iVar5 = iVar5 + iVar3;
 LAB_0045d527:
   *(undefined1 *)(regEax + 0xae68) = 1;
-  cVar1 = PeekPacketChecksumBool();
+  cVar1 = PeekPacketChecksumBool((byte *)(regEax + 0x8ba8));
   if (cVar1 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at 0x45d555
