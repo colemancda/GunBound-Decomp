@@ -19,8 +19,14 @@
  * above the call, and `call 0x40a4d0; mov edx,eax; call 0x4e7340` is exactly
  * that call's return value being handed over -- a result the port was
  * discarding.  At the fourth (WriteReplayEventRecord) EDX is
- * `movzx edx,[esp+0x17]`, and that slot is local_d61: the `cmp al,[esp+0x17]`
- * at 0x410f36 is the source's `if (local_d61 == local_d71)`.
+ * `movzx edx,[esp+0x17]`, and that slot is local_d71, established three ways:
+ * 0x41052b takes `lea eax,[esp+0x1f]` with two pushes pending and hands it to
+ * fwrite -- the source's `_fwrite(&local_d71,...)` -- while 0x410532 writes 0
+ * to [esp+0x27] with FOUR pending, and both resolve to the same slot, base+0x17
+ * (`local_d71 = 0` on the line above that fwrite).  0x410e0d then writes
+ * `param_3[4]` there, which is the source's `local_d71 = param_3[4]`, and the
+ * loop-carried local_d61 lives at base+0x27 instead (0x410e32, inside the loop
+ * that starts at 0x410e30).
  */
 #include "ghidra_types.h"
 

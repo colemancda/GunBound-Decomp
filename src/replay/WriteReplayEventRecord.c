@@ -460,7 +460,7 @@ LAB_004111c0:
               local_d78 = local_d78 + 1;
             } while ((int)local_d78 < (int)(uint)*(byte *)(iVar19 + 0x41344));
           }
-          FUN_004e7340(0,(uint)local_d61,(int)&g_replayContext);
+          FUN_004e7340(0,(uint)local_d71,(int)&g_replayContext);
           param_1 = param_1 + (uint)*(byte *)(g_clientContext + 0x41344) * -0x21 + -6;
           (*(undefined4 *)local_d30) = (*(undefined4 *)local_d30) & 0xffffff00;
           puVar26 = (undefined4 *)((int)local_d30 + 1);
