@@ -155,7 +155,7 @@ void FUN_00401a70();
 int FUN_00401bb0();
 int FUN_00401c10(int regEax);
 int FUN_00401c50();
-void __fastcall FUN_00401cb0();
+void __fastcall FUN_00401cb0(char *param_1,int regEsi);
 int __thiscall FUN_00401ce0(int param_1,byte *param_2);
 void FUN_00401ee0(int param_1,char *regEax);
 void FUN_00401fa0();
@@ -1198,7 +1198,7 @@ void FUN_004e7140();
  * connection object (recovered). */
 undefined4 __fastcall SendUdpDatagram(int param_1, int param_2, char *param_3, int param_4,
                                      int connection);
-void __fastcall FUN_004e7340();
+void __fastcall FUN_004e7340(undefined4 param_1,uint param_2,int regEax);
 void SetLocalPeerEndpoint(int slot,int ctx,char *nameRec);
 void ResetReplayContext(int ctx);
 void __fastcall FUN_004e74c0();
