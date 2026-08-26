@@ -357,7 +357,8 @@ switchD_00428058_default:
           FUN_00405ba0();
         }
       }
-      FUN_00507cc0(1,*(undefined4 *)(g_clientContext + 0x41340));
+      FUN_00507cc0(1,*(undefined4 *)(g_clientContext + 0x41340),
+                   *(int *)((int)this + 0x28c));
       return;
     }
     if (opcode == GB_OP_CHANNEL_CHAT_BROADCAST) {

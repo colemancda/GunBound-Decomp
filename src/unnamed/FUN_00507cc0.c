@@ -4,25 +4,32 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * EBX RECOVERED (2026-08-25): both sites hand it their own caller's `this`,
+ * by different routes.  In FUN_00507660 it is `mov ebx,ebp` where EBP is that
+ * __thiscall's incoming ECX, i.e. its param_1.  In
+ * State03_GameRoomList_ProcessPacket it is `mov ebx,[edx+0x28c]` with EDX from
+ * [esp+0x1c] -- and that slot is where the prologue spills ECX
+ * (`mov ebx,ecx; mov [esp+0x1c],ebx` at 0x426afc), so it is that function's
+ * param_1 too, offset by 0x28c.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00507cc0(undefined4 param_1,int param_2)
+void FUN_00507cc0(undefined4 param_1,int param_2,int regEbx)
 
 {
   int iVar1;
   uint uVar2;
-  int unaff_EBX;
   int iVar3;
   
   iVar3 = 0;
   while( true ) {
     uVar2 = Widget_FindChildIndex();
-    if ((*(uint *)(unaff_EBX + 0x10) <= uVar2) ||
-       (*(bool *)(*(int *)(*(int *)(unaff_EBX + 0xc) + uVar2 * 4) + 0x3a) = param_2 == iVar3,
-       *(uint *)(unaff_EBX + 0x10) <= uVar2)) break;
-    iVar1 = *(int *)(*(int *)(unaff_EBX + 0xc) + uVar2 * 4);
+    if ((*(uint *)(regEbx + 0x10) <= uVar2) ||
+       (*(bool *)(*(int *)(*(int *)(regEbx + 0xc) + uVar2 * 4) + 0x3a) = param_2 == iVar3,
+       *(uint *)(regEbx + 0x10) <= uVar2)) break;
+    iVar1 = *(int *)(*(int *)(regEbx + 0xc) + uVar2 * 4);
     *(undefined1 *)(iVar1 + 0x1c) = (undefined1)param_1;
     if (*(char *)(iVar1 + 4) != '\0') {
       *(undefined1 *)(iVar1 + 4) = 0;

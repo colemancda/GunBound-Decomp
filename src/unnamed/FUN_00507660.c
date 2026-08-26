@@ -32,7 +32,7 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
   uStack_4 = 0;
   if (param_2 == 0) {
     if ((param_3 < 9) && (*(uint *)(g_clientContext + 0x41340) != param_3)) {
-      FUN_00507cc0(0,*(uint *)(g_clientContext + 0x41340));
+      FUN_00507cc0(0,*(uint *)(g_clientContext + 0x41340),param_1);
       iVar2 = g_connectionContextA;
       *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
       *(undefined2 *)(iVar2 + 0x4d4) = 0x2000;
