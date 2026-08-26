@@ -1205,7 +1205,7 @@ void __fastcall FUN_004e74c0();
 void __fastcall FUN_004e7560(undefined4 param_1,int param_2,uint regEsi);
 undefined4 __thiscall FUN_004e75e0(ushort *param_1,int param_2,int regEax);
 uint __fastcall FUN_004e7660();
-void __fastcall FUN_004e76d0();
+void __fastcall FUN_004e76d0(undefined4 param_1,int param_2,undefined4 *param_3,char *regEax,int regEsi);
 undefined4 FUN_004e7740(int regEsi);
 void FUN_004e77e0();
 uint FUN_004e7b60();
