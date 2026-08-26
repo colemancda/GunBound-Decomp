@@ -310,7 +310,7 @@ LAB_004622cf:
       QueueBroadcastEvent(0xc301,(int)&g_replayContext);
       (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-      uVar7 = FUN_0045d360(1);
+      uVar7 = FUN_0045d360(1,(int)param_1);
       *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
       FUN_0041f200(0,(int)g_clientContext);

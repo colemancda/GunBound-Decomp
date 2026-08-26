@@ -1605,7 +1605,7 @@ LAB_004c08c8:
       if (local_3d68 != DAT_00e9af14) {
         FUN_004e87b0(&DAT_00e9af10);
       }
-      uVar7 = FUN_0045d360();
+      uVar7 = FUN_0045d360(0,*(int *)(g_clientContext + 0x621e0));
       *(undefined4 *)(&DAT_006aab04 + g_clientContext) = uVar7;
       FUN_00423a20();
     }
@@ -1618,7 +1618,7 @@ LAB_004c08c8:
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
-      uVar7 = FUN_0045d360();
+      uVar7 = FUN_0045d360(0,*(int *)(g_clientContext + 0x621e0));
       *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

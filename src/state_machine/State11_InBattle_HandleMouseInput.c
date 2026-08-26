@@ -436,7 +436,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
           *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = 10;
         }
         else {
-          iVar13 = FUN_0045d360(0);
+          iVar13 = FUN_0045d360(0,*(int *)(g_clientContext + 0x621e0));
           *(int *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = iVar13 / 2;
         }
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;

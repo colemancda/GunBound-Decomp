@@ -343,7 +343,7 @@ LAB_004b4324:
             *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar9;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
             if (iVar6 == 0xe) {
-              uVar9 = FUN_0045d360(0);
+              uVar9 = FUN_0045d360(0,*(int *)(g_clientContext + 0x621e0));
               *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar9;
               g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
             }
