@@ -422,7 +422,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
     }
     else {
       FUN_00501600(param_1 - 0x2f4);
-      FUN_00503810((int)&DAT_00551cb1);
+      FUN_00503810((int)&DAT_00551cb1,(int)(local_48ba + 0x12));
       uVar18 = 0;
       pcVar12 = local_48ba + 0x12;
       pcVar17 = &DAT_00551cb1;
@@ -523,7 +523,8 @@ LAB_00501b17:
           if ((bool)local_4902) {
             local_4980 = (char *)((int)puVar15 + 0x1d);
             FUN_005039a0(*(undefined4 *)pcVar12,*(undefined2 *)((int)puVar15 + 0x15),
-                         *(undefined4 *)((int)puVar15 + 0x17));
+                         *(undefined4 *)((int)puVar15 + 0x17),
+                         (undefined4)(local_496c.sa_data + 10),(undefined4)local_497c);
             pcVar12 = local_4980;
             param_1 = local_497c;
           }
