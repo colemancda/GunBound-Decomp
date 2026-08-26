@@ -310,7 +310,7 @@ LAB_0044469b:
         *(undefined1 *)((int)this + 0x32f92) = 0;
         FUN_0044c5f0();
         FUN_0044c5f0();
-        FUN_0044c630();
+        FUN_0044c630((int)(g_clientContext + 0x44e30),(int)(g_clientContext + 0x44e50));
         return;
       }
     }

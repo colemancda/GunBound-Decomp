@@ -670,7 +670,7 @@ int FUN_0044c3d0();
 void FUN_0044c460(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,int regEax,uint regEdi);
 void RemoveInventoryItems(int regEbx,int regEax,int *regEdi);
 void FUN_0044c5f0();
-undefined4 __fastcall FUN_0044c630();
+undefined4 __fastcall FUN_0044c630(int param_1,int regEax);
 void FUN_0044c6a0(int *param_1, int regEdi);
 void FUN_0044c740();
 undefined1 __fastcall FUN_0044c7b0();
