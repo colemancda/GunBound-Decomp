@@ -5093,7 +5093,7 @@
   ]
  },
  {
-  "func": "FUN_0040cfe0",
+  "func": "GetWidgetChildText",
   "reg": "esi",
   "sites": 3,
   "values": {
@@ -5105,7 +5105,7 @@
   "buckets": {
    "IMMEDIATE": 3
   },
-  "path": "src/unnamed/FUN_0040cfe0.c",
+  "path": "src/unnamed/GetWidgetChildText.c",
   "per_site": [
    {
     "va": "0x446e30",

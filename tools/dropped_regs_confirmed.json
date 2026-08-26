@@ -2479,8 +2479,8 @@
   },
   {
     "addr": "0040cfe0",
-    "func": "FUN_0040cfe0",
-    "path": "src/unnamed/FUN_0040cfe0.c",
+    "func": "GetWidgetChildText",
+    "path": "src/unnamed/GetWidgetChildText.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 3,
@@ -2492,8 +2492,8 @@
   },
   {
     "addr": "0040cfe0",
-    "func": "FUN_0040cfe0",
-    "path": "src/unnamed/FUN_0040cfe0.c",
+    "func": "GetWidgetChildText",
+    "path": "src/unnamed/GetWidgetChildText.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 3,

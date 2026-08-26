@@ -218,7 +218,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040cf00,48,SyncActiveTextInput,false,1,1,RAW-src
 0040cf30,73,FUN_0040cf30,false,2,0,RAW-src
 0040cf80,89,FUN_0040cf80,false,2,2,RAW-src
-0040cfe0,61,FUN_0040cfe0,false,3,0,RAW-src
+0040cfe0,61,GetWidgetChildText,false,3,0,RAW-src
 0040d020,304,FUN_0040d020,false,1,5,RAW-src
 0040d150,5,thunk_FUN_0050ee00,true,2,0,RAW-src
 0040d160,15,FUN_0040d160,false,1,1,RAW-src
