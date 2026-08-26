@@ -67,12 +67,29 @@ def load():
 
 
 def caller_of(funcs, va):
+    """The function containing `va`.
+
+    PROGRESS.csv is not a partition: some entries are carved INSIDE others
+    (thunks and cold blocks split out of a larger body).  Taking only the
+    nearest entry at or below `va` therefore lands on the nested one and
+    reports "no caller" for an address the enclosing function plainly covers
+    -- which is how 0x4ba9b6 looked uncarved when it is in the middle of
+    State11_InBattle_HandleMouseInput (0x4b97d0, 8005 bytes).  Walk back over
+    the candidates and take the TIGHTEST entry that actually contains `va`.
+    """
     import bisect
     i = bisect.bisect_right([f[0] for f in funcs], va) - 1
-    if i < 0:
-        return None
-    a, size, name = funcs[i]
-    return (a, size, name) if a <= va < a + size else None
+    best = None
+    while i >= 0:
+        a, size, name = funcs[i]
+        if a <= va < a + size and (best is None or size < best[1]):
+            best = (a, size, name)
+        # Entries are sorted by address; nothing starting far enough below can
+        # still reach va once we pass the widest function in the image.
+        if va - a > 0x20000:
+            break
+        i -= 1
+    return best
 
 
 def disasm_function(md, data, base, a, size):
