@@ -503,10 +503,10 @@ switchD_004d2b8e_caseD_3:; /* empty statement: a C89 label cannot precede } */
     case 0:
       goto LAB_004d3379;
     case 1:
-      ShowErrorDialogFmt(1,g_clientContext + 0x2331c);
+      ShowErrorDialogFmt(1,g_clientContext + 0x2331c,0x17);
       break;
     case 2:
-      ShowErrorDialogFmt(1,g_clientContext + 0x23313);
+      ShowErrorDialogFmt(1,g_clientContext + 0x23313,0x18);
       break;
     default:
       goto switchD_004d2b8e_caseD_3;

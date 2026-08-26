@@ -61,7 +61,7 @@ uint __thiscall State09_ReadyRoom_OnCommand(int param_1,int param_2,undefined4 p
   
   if (param_2 != 0) {
     if (param_2 == 10) {
-      pcVar4 = (char *)FUN_0040cfe0(0,0x186a0,(int)&g_activeObjectRegistry2);
+      pcVar4 = (char *)FUN_0040cfe0(0,0x186a0,(int)&g_activeObjectRegistry2,0);
       pcVar13 = (char *)(param_1 + 0x62d);
       pcVar12 = pcVar13;
       do {

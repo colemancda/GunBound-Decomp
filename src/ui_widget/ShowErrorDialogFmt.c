@@ -3,24 +3,30 @@
  * Error/message dialog variant: looks up a localized string by id and sprintf's it with one value, otherwise identical to ShowErrorDialog (same b_error_confirm OK button, modal flag DAT_0079350c, optional socket teardown). Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * EAX RECOVERED (2026-08-25): the localized-string ID.  It is an immediate at
+ * all three sites and the three differ (0x36, 0x17, 0x18), so each had to be
+ * paired individually -- and each pairing has a witness in its own pushed
+ * argument: 0x4d2ba4 adds 0x2331c and 0x4d2bc4 adds 0x23313, which are the two
+ * distinct expressions the two source lines already carry.  The third site is
+ * the only call in its function.
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void ShowErrorDialogFmt(int param_1,undefined4 param_2)
+void ShowErrorDialogFmt(int param_1,undefined4 param_2,int regEax)
 
 {
   int iVar1;
-  int in_EAX;
   char *_Format;
   int iVar2;
   undefined4 *puVar3;
   char local_200 [512];
   
   DAT_0079350c = param_1;
-  g_stateChangeInProgress = in_EAX;
+  g_stateChangeInProgress = regEax;
   CreateButtonWidget(&g_activeObjectRegistry,1000000,1000000,0x385,s_b_error_confirm_00552238,0x1c6,0x14b,0x4a
                      ,0x1a,1,0);
   /* self/x/y dropped as ECX/EBX/EDI - confirmed via disassembly at
@@ -32,7 +38,7 @@ void ShowErrorDialogFmt(int param_1,undefined4 param_2)
   _DAT_00e53c28 = 0x229;
   _DAT_00e53c2c = 0xc1;
   _DAT_00e53c30 = 0x171;
-  _Format = (char *)GetLocalizedString(&g_localizedStringTable,in_EAX + 199);
+  _Format = (char *)GetLocalizedString(&g_localizedStringTable,regEax + 199);
   _sprintf(local_200,_Format,param_2);
   puVar3 = (undefined4 *)DAT_005b1d70;
   for (iVar2 = 0x57; iVar2 != 0; iVar2 = iVar2 + -1) {

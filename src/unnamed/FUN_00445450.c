@@ -785,7 +785,7 @@ LAB_00446d2b:
     RemoveWidget((int)&g_activeObjectRegistry,0,0x37);
     goto LAB_00445543;
   case 0x35:
-    pcVar8 = (char *)FUN_0040cfe0(0,0x2710,(int)&g_activeObjectRegistry2);
+    pcVar8 = (char *)FUN_0040cfe0(0,0x2710,(int)&g_activeObjectRegistry2,0);
     pcVar13 = (char *)(param_1 + 0x32ce3);
     do {
       cVar1 = *pcVar8;
@@ -793,7 +793,7 @@ LAB_00446d2b:
       *pcVar13 = cVar1;
       pcVar13 = pcVar13 + 1;
     } while (cVar1 != '\0');
-    pcVar8 = (char *)FUN_0040cfe0(0,0x2710,(int)&g_activeObjectRegistry2);
+    pcVar8 = (char *)FUN_0040cfe0(0,0x2710,(int)&g_activeObjectRegistry2,1);
     pcVar13 = (char *)(param_1 + 0x32d63);
     do {
       cVar1 = *pcVar8;
