@@ -396,7 +396,7 @@ LAB_00411727:
     cVar4 = *(char *)(iVar19 + 0x41344) + -1;
 LAB_004111c0:
     *(char *)(iVar19 + 0x41344) = cVar4;
-    iVar12 = FUN_0050f000(0,0,(int)&g_uiPanelManager);
+    iVar12 = FUN_0050f000(0,0,(int)&g_uiPanelManager,0x232a);
     pbVar22 = param_3;
     if (iVar12 != 0) {
       Widget_SetChildRange(*(undefined1 *)(iVar19 + 0x41344),7);
@@ -579,7 +579,7 @@ LAB_004111c0:
     local_d3c = *(undefined4 *)(pbVar22 + 0x16);
     local_d38 = *(uint *)(pbVar22 + 0x1a);
     local_d34 = 0;
-    FUN_004260f0((int)g_clientContext);
+    FUN_004260f0((int)g_clientContext,(undefined4)&local_d44,(undefined4)&local_d58);
     iVar19 = __stricmp(&DAT_006aa408 + g_clientContext,(char *)&local_d58);
     if (iVar19 == 0) {
       uVar15 = AppendToEncodedSocketBuffer(0,0x10,&local_d44,(int)g_connectionContextA);
@@ -606,7 +606,7 @@ LAB_004111c0:
       local_d3c = *(undefined4 *)(pbVar22 + 0x1a);
       local_d48 = 0;
       local_d38 = local_d38 & 0xffffff00;
-      FUN_004260f0((int)g_clientContext);
+      FUN_004260f0((int)g_clientContext,(undefined4)&local_d58,(undefined4)&local_d44);
       pbVar22 = param_3;
     }
 LAB_00410792:

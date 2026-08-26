@@ -309,7 +309,7 @@ LAB_004d588d:
     return iVar10 / iVar8;
   case 8:
     if (*(char *)(param_1 + 0x62c) != '\0') {
-      iVar10 = FUN_0050f000(0,0,(int)&g_uiPanelManager);
+      iVar10 = FUN_0050f000(0,0,(int)&g_uiPanelManager,3);
       if (iVar10 != 0) {
         pcVar12 = *(char **)(iVar10 + 0x50);
         pcVar13 = (char *)(param_1 + 0x62d);
