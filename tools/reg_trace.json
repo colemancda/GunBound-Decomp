@@ -1111,9 +1111,9 @@
   "safe": false
  },
  {
-  "func": "FUN_004f76c0",
+  "func": "Sha1Init",
   "reg": "eax",
-  "path": "src/unnamed/FUN_004f76c0.c",
+  "path": "src/unnamed/Sha1Init.c",
   "caller": "FUN_004ff770",
   "caller_va": "0x4ff770",
   "va": "0x4ffa5a",

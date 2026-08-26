@@ -150,7 +150,7 @@ void FUN_004ff770(int *param_1,int param_2)
              * dead FUN_004f7360() calls were the dropped-return length
              * computations - folded into gb_capped16_len; call 3 is the
              * fixed 4-byte trailer. */
-            FUN_004f76c0();
+            Sha1Init((undefined4 *)local_3128);
             Sha1Absorb((int)local_3128,(byte *)&local_2eba,gb_capped16_len((char *)&local_2eba));
             Sha1Absorb((int)local_3128,(byte *)local_2eaa,gb_capped16_len((char *)local_2eaa));
             Sha1Absorb((int)local_3128,(byte *)local_2e9a,4);

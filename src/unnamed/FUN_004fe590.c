@@ -3,26 +3,32 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * EAX RECOVERED (2026-08-25): the SOURCE record.  This is the same 0x1750-byte
+ * record copy as CArray_CopyElement_1750 with the two ends swapped -- there
+ * EAX is the destination, here it is what is read -- and at the single site
+ * (0x4fe30a in FUN_004fe110) it is &local_2eb8, the record that function has
+ * just assembled, copied out into auStack_1768.  ECX is a phantom
+ * (`mov ecx,eax` before any read), so the call passes 0 for that slot.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_004fe590(undefined4 param_1,undefined4 *param_2)
+void __fastcall FUN_004fe590(undefined4 param_1,undefined4 *param_2,undefined4 *regEax)
 
 {
   ushort uVar1;
-  undefined4 *in_EAX;
   uint uVar2;
   undefined4 *puVar3;
   undefined4 *puVar4;
   
-  *param_2 = *in_EAX;
-  param_2[1] = in_EAX[1];
-  param_2[2] = in_EAX[2];
-  *(undefined2 *)(param_2 + 3) = *(undefined2 *)(in_EAX + 3);
-  uVar1 = *(ushort *)((int)in_EAX + 0xe);
+  *param_2 = *regEax;
+  param_2[1] = regEax[1];
+  param_2[2] = regEax[2];
+  *(undefined2 *)(param_2 + 3) = *(undefined2 *)(regEax + 3);
+  uVar1 = *(ushort *)((int)regEax + 0xe);
   *(ushort *)((int)param_2 + 0xe) = uVar1;
-  puVar3 = in_EAX + 4;
+  puVar3 = regEax + 4;
   puVar4 = param_2 + 4;
   for (uVar2 = (uint)(uVar1 >> 2); uVar2 != 0; uVar2 = uVar2 - 1) {
     *puVar4 = *puVar3;

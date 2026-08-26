@@ -1451,7 +1451,7 @@ undefined4 __thiscall FUN_004f72b0(undefined4 *param_1, int param_2, int param_3
 byte __fastcall FUN_004f7360();
 void Sha1Absorb(int param_1, unsigned char *param_2, unsigned int length);
 void Sha1Final(int ctx);
-void FUN_004f76c0();
+void Sha1Init(undefined4 *regEax);
 void __fastcall Sha1TransformBuffer(unsigned int param_1, unsigned int *param_2, int param_3, unsigned int *ctx);
 void __thiscall Sha1TransformBlocks(unsigned int *param_1, int param_2, unsigned char *msg);
 /* RECOVERED (2026-07-19): EAX = block count, EDX = SOURCE, ECX = DEST. The
@@ -1490,7 +1490,7 @@ void DestroyCommEngine();
 undefined4 CreateBoundSocket();
 void FUN_004fe490();
 undefined4 __fastcall FUN_004fe500();
-void __fastcall FUN_004fe590();
+void __fastcall FUN_004fe590(undefined4 param_1,undefined4 *param_2,undefined4 *regEax);
 void FUN_004fe5d0();
 int ConnectToHostPort(undefined4 param_1,u_short param_2); /* narrow u_short arg: empty-paren decl conflicts under gcc */
 void __fastcall FUN_004fe6a0();

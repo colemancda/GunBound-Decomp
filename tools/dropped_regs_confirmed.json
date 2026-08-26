@@ -7154,8 +7154,8 @@
   },
   {
     "addr": "004f76c0",
-    "func": "FUN_004f76c0",
-    "path": "src/unnamed/FUN_004f76c0.c",
+    "func": "Sha1Init",
+    "path": "src/unnamed/Sha1Init.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 1,

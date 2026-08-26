@@ -152,7 +152,7 @@ LAB_004fe2fc:
       GetSystemTimeAsFileTime(&_Stack_1c);
       uStack_14 = 0;
       uStack_10 = 0;
-      FUN_004fe590();
+      FUN_004fe590(0,(undefined4 *)auStack_1768,(undefined4 *)&local_2eb8);
       FUN_004fed40(local_2ecc + 0x14,auStack_1768,local_2ecc[6]);
       if (param_2[0xb0] == 0) {
         UVar3 = SetTimer((HWND)param_2[0xa3],0x14a,900,(TIMERPROC)0x0);
