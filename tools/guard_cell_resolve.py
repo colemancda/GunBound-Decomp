@@ -45,6 +45,13 @@ FAMILY = {
     0x40a440: ("EncodeXored", "edi"),
     0x40a2a0: ("Scrub", "ecx"),
     0x4065a0: ("PeekBool", "eax"),
+    # Added 2026-08-26.  0x406860 is the NEGATED twin of PeekBool: byte-for-byte
+    # the same code with `sete al` on the result, and it takes its cell in EAX the
+    # same way (`mov esi,eax` at +0xc, then `mov cl,[esi]`).  Its absence from this
+    # table is why the CValueGuard sweep never resolved ANY of its 39 call sites --
+    # they are all still argless, and the callee still reads an uninitialised
+    # `byte *in_EAX`.
+    0x406860: ("DecodeBool", "eax"),
     0x406500: ("SetBool", "eax"),
     0x4064a0: ("EncodeBool", "eax"),
     0x406530: ("RescrambleBool", "eax"),

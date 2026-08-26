@@ -64,7 +64,15 @@ int FUN_0045d360(int param_1,int regEax)
   cVar1 = DecodeGuardedBool(regEax + 0x8bae);
   /* DecodeGuardedBool (0x406860) is the NEGATED twin of PeekPacketChecksumBool
    * (0x4065a0): same code, `sete al` on the result.  So this gates the stat
-   * term on the guarded bool at regEax+0x8bae being CLEAR. */
+   * term on the guarded bool at regEax+0x8bae being CLEAR.
+   *
+   * THE ARGUMENT BELOW IS CURRENTLY INERT (2026-08-26).  The cell is right --
+   * `lea eax,[esi+0x8bae]` at 0x45d3f9 -- but DecodeGuardedBool is still
+   * declared `bool DecodeGuardedBool(void)` with a K&R-empty prototype, so the
+   * value is pushed and ignored and the callee still reads an uninitialised
+   * `byte *in_EAX`.  Passing it costs nothing and it becomes live the moment
+   * that callee is promoted; see the tools/guard_cell_resolve.py commit that
+   * added 0x406860 to FAMILY, which is what makes the 35-site sweep possible. */
   if (cVar1 != '\0') {
     cVar1 = PeekPacketChecksumBool((byte *)(regEax + 0x8bba));
     if (cVar1 == '\0') {
