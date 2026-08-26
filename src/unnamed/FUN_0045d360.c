@@ -62,6 +62,9 @@ int FUN_0045d360(int param_1,int regEax)
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar5 = ((400 - iVar3) / iVar4) * iVar5;
   cVar1 = DecodeGuardedBool(regEax + 0x8bae);
+  /* DecodeGuardedBool (0x406860) is the NEGATED twin of PeekPacketChecksumBool
+   * (0x4065a0): same code, `sete al` on the result.  So this gates the stat
+   * term on the guarded bool at regEax+0x8bae being CLEAR. */
   if (cVar1 != '\0') {
     cVar1 = PeekPacketChecksumBool((byte *)(regEax + 0x8bba));
     if (cVar1 == '\0') {
@@ -93,7 +96,7 @@ int FUN_0045d360(int param_1,int regEax)
       goto LAB_0045d4b9;
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar3 = PeekPacketChecksumState((void *)(regEax + 0x9ac0));
+    iVar3 = PeekPacketChecksumState((void *)((*(uint *)(regEax + 8) & 7) * 0x1120 + g_clientContext + 0x50cf4));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar4 = GetItemQuantityByIcon(g_clientContext,*(undefined2 *)(regEax + 0xbfbc));
     if (iVar4 + iVar3 * -3 < 0) {
@@ -109,10 +112,10 @@ int FUN_0045d360(int param_1,int regEax)
 LAB_0045d4b9:
     if (param_1 == '\0') goto LAB_0045d527;
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar3 = PeekPacketChecksumState((void *)((*(uint *)(regEax + 8) & 7) * 0x1120 + g_clientContext + 0x50cf4));
+    iVar3 = PeekPacketChecksumState((void *)(regEax + 0x9ac0));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    iVar4 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
+    iVar4 = PeekPacketChecksumState((void *)((*(uint *)(regEax + 8) & 7) * 0x1120 + g_clientContext + 0x50cf4));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar3 = iVar3 + iVar4 * -3;
   }
@@ -131,7 +134,7 @@ LAB_0045d527:
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  iVar3 = PeekPacketChecksumState((void *)((*(uint *)(regEax + 8) & 7) * 0x1120 + g_clientContext + 0x50cf4));
+  iVar3 = PeekPacketChecksumState((void *)(&DAT_00e9ba40));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   return iVar3 * (iVar5 + iVar2);
 }
