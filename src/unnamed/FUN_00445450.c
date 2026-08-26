@@ -190,7 +190,7 @@ LAB_004457e7:
     cVar1 = PacketChecksumNotEquals(param_1 + 0x325b0,0);
     if ((((cVar1 == '\0') && (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32c54)), cVar1 != '\x01')) &&
         (cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 0x32e63)), cVar1 != '\x01')) && (g_stateChangeInProgress == 0)) {
-      PreviewAvatarPart();
+      PreviewAvatarPart(param_1);
     }
     break;
   case 0x10:
