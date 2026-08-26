@@ -363,7 +363,7 @@ undefined1 FUN_004152d0();
 void __fastcall FUN_004153b0();
 void FUN_00415410(undefined4 *regEsi);
 int __fastcall FUN_00415450();
-void __fastcall FUN_00415470();
+void __fastcall FUN_00415470(undefined4 param_1,int param_2,int regEbx,int *regEdi);
 void thunk_FUN_00415560();
 void __fastcall FUN_004154c0(undefined4 param_1,undefined4 param_2,undefined4 *regEax);
 void FUN_004154e0();

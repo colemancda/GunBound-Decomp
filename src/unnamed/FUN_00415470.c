@@ -22,27 +22,39 @@
  * in param_1 and EBX's in param_2, which is what an earlier pass on this
  * branch did before it was reverted.  Three of four arguments right is not
  * three quarters correct -- it is wrong, in a shape that looks recovered.
+ *
+ * EBX and EDI RECOVERED, CALL RE-SLOTTED (2026-08-26).  CArray::RemoveAt over
+ * 4-byte elements: EDI is the array (data at +0, count at +4), param_2 the
+ * index, EBX the number of elements to remove.  It bounds-checks
+ * index + count against the count and throws E_INVALIDARG, memmoves the tail
+ * down, then shrinks the count -- RemoveAt's shape exactly.
+ *
+ * The source passed NOTHING to a two-parameter __fastcall, so this is a
+ * re-slot.  ECX is a phantom (`mov ecx,[edi]` at the entry, written before any
+ * read), so param_1 takes 0.  At the single site EDX is `mov esi,[esp+0x10];
+ * mov edx,esi` with no pushes pending, which under WriteReplayEventRecord's
+ * -0xd88 frame is local_d78 -- the very counter the line AFTER the call
+ * decrements (`local_d78 = local_d78 - 1`).  EBX is the immediate 1: one
+ * element.  EDI is g_clientContext + 0x6a76f4.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00415470(undefined4 param_1,int param_2)
+void __fastcall FUN_00415470(undefined4 param_1,int param_2,int regEbx,int *regEdi)
 
 {
   int iVar1;
-  int unaff_EBX;
-  int *unaff_EDI;
   
-  if ((uint)unaff_EDI[1] < (uint)(param_2 + unaff_EBX)) {
+  if ((uint)regEdi[1] < (uint)(param_2 + regEbx)) {
                     /* WARNING: Subroutine does not return */
     ThrowCxxException(0x80070057);
   }
-  iVar1 = (unaff_EDI[1] - param_2) - unaff_EBX;
+  iVar1 = (regEdi[1] - param_2) - regEbx;
   if (iVar1 != 0) {
-    _memmove((void *)(*unaff_EDI + param_2 * 4),(void *)(*unaff_EDI + (param_2 + unaff_EBX) * 4),
+    _memmove((void *)(*regEdi + param_2 * 4),(void *)(*regEdi + (param_2 + regEbx) * 4),
              iVar1 * 4);
   }
-  unaff_EDI[1] = unaff_EDI[1] - unaff_EBX;
+  regEdi[1] = regEdi[1] - regEbx;
   return;
 }
 
