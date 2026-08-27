@@ -28,17 +28,36 @@
  * EDI remains open: it is the widget key, and it genuinely varies (7 distinct
  * values across the 13 sites), so it needs a per-site witness rather than
  * this treatment.
+*
+ * DROPPED REGISTER RECOVERED (2026-08-27): unaff_EDI is the WIDGET KEY the
+ * registry walk compares against each widget's key at +8.  It is genuinely
+ * live-in -- EDI appears in this function only as `cmp eax,edi` at 0x4063a3
+ * and 0x4063af, read twice and written never.
+ *
+ * The 13 call sites pair without any ordering assumption, because Ghidra's
+ * LAB_ names ARE the binary addresses: LAB_00445629, LAB_0044563c and
+ * LAB_004457e7 sit exactly on `mov edi,0xb`, `mov edi,0xc` and `mov edi,0xd`.
+ * The rest are separated by unique neighbouring constants -- the four
+ * FUN_00449540(param_1, 0/1/2/3) calls above them -- and each run of
+ * back-to-back calls in one basic block takes consecutive keys.
+ *
+ * The keys form one contiguous family, which is what cross-checks the two
+ * non-literal sites: RefreshTeamSlotHighlights passes `iVar3 + 0x64` under a
+ * `while (iVar3 < 0xe)` loop, i.e. 0x64..0x71, then 0x72 at its next site;
+ * and State09_ReadyRoom_OnCommand passes param_4 from inside
+ * `if (param_4 < 100) return 0; if (param_4 < 0x72)`, i.e. the same
+ * 0x64..0x71 band.
  */
 #include "ghidra_types.h"
 
 
-undefined4 __fastcall SetWidgetReadyState(undefined4 param_1,uint param_2,int param_3,int regEax)
+undefined4 __fastcall SetWidgetReadyState(undefined4 param_1,uint param_2,int param_3,int regEax,uint regEdi)
 
 {
   uint uVar1;
   int iVar2;
   int *piVar3;
-  uint unaff_EDI;
+  uint unaff_EDI = regEdi;
   
   iVar2 = *(int *)(*(int *)(regEax + 4) + 0x1c);
   uVar1 = *(uint *)(iVar2 + 4);
