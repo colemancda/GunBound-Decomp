@@ -618,7 +618,7 @@ int __fastcall State10_Loading_Render(int param_1);
 void FUN_00442d50();
 void FUN_00442e00(uint regEax);
 void FUN_004430c0();
-void LoadReadyRoomSlotAvatar(); /* 0x4431a0 - unpack the ready-room avatar copy (+0x501fe) -> LoadAvatarSprites */
+void LoadReadyRoomSlotAvatar(int regEax); /* 0x4431a0 - unpack the ready-room avatar copy (+0x501fe) -> LoadAvatarSprites */
 void __fastcall State06_Logo2_OnTick(int);
 void __fastcall FUN_00443540(int);
 void RenderScreenBackdrop();
