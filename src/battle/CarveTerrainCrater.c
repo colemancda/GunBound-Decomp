@@ -10,16 +10,34 @@
  * 0x4e4460-0x4e4940.  All six read the SAME cell, &DAT_00796aa0 -
  * loaded as an immediate at every site, so there is nothing
  * path-dependent here despite the branching around them.
- */
+ *
+ * DROPPED REGISTER RECOVERED (2026-08-27).  ApplyCraterExcavation is the only
+ * caller, and its three call sites are the three arms of the
+ * PeekChecksumStateUnderLock(...) == 0 / 1 / 2 switch.  VA order is NOT source
+ * order there: MSVC puts the == 2 arm in the fall-through at 0x4e49d6, then
+ * == 1 at 0x4e4a4f, then == 0 at 0x4e4b28, while the C is written 0, 1, 2.
+ *
+ * The frame settles which is which, and does it three times independently.
+ * ApplyCraterExcavation saves ebp and esi only, so esp is E-8 at all three
+ * arms, making [esp+0x20], [esp+0x1c] and [esp+0x18] param_6, param_5 and
+ * param_4 -- exactly the third argument each arm's own CarveTerrainCrater
+ * line already passes.  Its EBP is [esp+0x14] = param_3 in the == 2 arm,
+ * [esp+0x10] = param_2 in the == 1 arm, and in the == 0 arm the prologue's
+ * own `mov ebp,[esp+8]` = param_1, never reloaded -- again matching what each
+ * arm's C already uses.  `mov eax,ebp / cdq / sar eax,1` right after each
+ * call is that arm's `param_N / 2`.
+ *
+ * So in_EAX is param_1, param_2 or param_3 by arm -- a value that is NOT
+ * among this function's own arguments, so it becomes a real parameter. */
 #include "ghidra_types.h"
 
 
-void CarveTerrainCrater(int param_1,int param_2,int param_3)
+void CarveTerrainCrater(int param_1,int param_2,int param_3,int regEax)
 
 {
   int iVar1;
   char cVar2;
-  int in_EAX;
+  int in_EAX = regEax;
   int iVar3;
   int iVar4;
   uint uVar5;

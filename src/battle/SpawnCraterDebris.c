@@ -8,7 +8,18 @@
  * cell at all 4 argless PeekPacketChecksumState() calls (4 C : 4 orig,
  * goto-free zip) - two rounds of the per-turn shot-parameter pair
  * g_clientContext+0x5b1ac / +0x5af88 that BeginNewTurn seeds.
- */
+*
+ * DROPPED REGISTER ALIASED (2026-08-27).  in_EAX is param_4, at all three
+ * call sites and provably so: ApplyCraterExcavation loads one register --
+ * EBP -- and uses it twice per arm, `push ebp` for the fourth argument and
+ * `mov eax,ebp` for the register, with nothing in between.  It is therefore
+ * aliased onto param_4 rather than made a separate parameter, so no caller
+ * can pass the two inconsistently.
+ *
+ * (Which value EBP holds differs by arm -- param_1, param_2 or param_3 of
+ * ApplyCraterExcavation, per the arm-to-frame mapping worked out in
+ * CarveTerrainCrater.c's header -- but it is the same value in both uses at
+ * every site, which is all this aliasing needs.) */
 #include "ghidra_types.h"
 
 
@@ -17,7 +28,7 @@ uint SpawnCraterDebris(int *param_1,int param_2,int param_3,int param_4,int para
 {
   byte bVar1;
   int iVar2;
-  int in_EAX;
+  int in_EAX = param_4;
   uint uVar3;
   int iVar4;
   int iVar5;

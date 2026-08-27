@@ -85,7 +85,7 @@ void ApplyCraterExcavation(int param_1,int param_2,int param_3,undefined4 param_
     iVar3 = PeekChecksumStateUnderLock((uint)*(byte *)(g_clientContext + 0x475c4) * 0x7d28 + 0x1a1f48 + g_clientContext)
     ;
     if (iVar3 == 0) {
-      CarveTerrainCrater(impactX,impactY,param_4);
+      CarveTerrainCrater(impactX,impactY,param_4,param_1);
       *(int *)(terrainCtx + 0x858) = param_1 / 2 + impactY;
       *(int *)(terrainCtx + 0x854) = impactY - param_1 / 2;
       SpawnCraterDebris(&DAT_006a7f70 + g_clientContext,impactX,impactY,param_1,param_7,param_8);
@@ -113,7 +113,7 @@ LAB_004e4ac8:
       }
     }
     else if (iVar3 == 1) {
-      CarveTerrainCrater(impactX,impactY,param_5);
+      CarveTerrainCrater(impactX,impactY,param_5,param_2);
       SpawnCraterDebris(&DAT_006a7f70 + g_clientContext,impactX,impactY,param_2,param_7,param_8);
       *(int *)(terrainCtx + 0x858) = param_2 / 2 + impactY;
       bVar4 = DAT_0079352a != '\0';
@@ -127,7 +127,7 @@ LAB_004e4ac8:
       }
     }
     else if (iVar3 == 2) {
-      CarveTerrainCrater(impactX,impactY,param_6);
+      CarveTerrainCrater(impactX,impactY,param_6,param_3);
       SpawnCraterDebris(&DAT_006a7f70 + g_clientContext,impactX,impactY,param_3,param_7,param_8);
       *(int *)(terrainCtx + 0x858) = param_3 / 2 + impactY;
       bVar4 = DAT_0079352a != '\0';
