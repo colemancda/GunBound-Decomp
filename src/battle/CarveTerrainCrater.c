@@ -28,11 +28,46 @@
  * call is that arm's `param_N / 2`.
  *
  * So in_EAX is param_1, param_2 or param_3 by arm -- a value that is NOT
- * among this function's own arguments, so it becomes a real parameter. */
+ * among this function's own arguments, so it becomes a real parameter.
+ *
+ * ESI PROMOTED (2026-08-27).  unaff_ESI was already declared and already used
+ * for real pointer arithmetic -- `*(int *)(unaff_ESI + 0x1c)` and
+ * `*(int *)(unaff_ESI + 0x34)` in the scanline loop -- so the function was
+ * indexing a terrain context through an uninitialised local.  It is genuinely
+ * live-in: ESI is never written anywhere in this function's 1300 bytes
+ * (0x4e4450-0x4e4964), and the sole caller sets it in its own prologue,
+ * `mov esi,eax` at 0x4e4978, from the terrainCtx it received in EAX -- the
+ * same ESI it then writes `[esi+0x858]` through, which ApplyCraterExcavation
+ * already spells `*(int *)(terrainCtx + 0x858)`.
+ *
+ * STILL OPEN, analysed here so the next pass need not redo it: the five
+ * DarkenTerrainScorchRow calls are MIS-SLOTTED, not merely short.  That
+ * callee is `__fastcall(param_1, param_2, param_3)` plus a dropped EAX, and
+ * the single argument the C passes lands in param_1 (ECX) when it is really
+ * the pushed param_3 -- `lea ecx,[eax+eax]` / `push`, which is the `* 2` the
+ * C already writes.  The full map, with Ghidra's local_N == frame E-N
+ * (confirmed twice: `mov [esp+0xc],eax` -> local_38, and `mov [esp+0x18],ebx`
+ * -> local_30 with ebx = in_EAX/2 = iVar8):
+ *
+ *   param_1 = regEsi at all five sites (`mov ecx,esi`)
+ *   param_2 = param_1 - q, where q is the quotient the C already computes
+ *   param_3 = q * 2, i.e. the value the C currently passes
+ *   in_EAX  = param_2                (0x4e47fd, the line-218 call)
+ *             local_30 + param_2     (0x4e48da, first of the 239/240 pair)
+ *             a slot at E-0xc        (0x4e48e8, second of that pair)
+ *             param_2 + local_34     (0x4e492e, first of the 245/246 pair)
+ *             local_14               (0x4e493c, second of that pair)
+ *
+ * So the two calls that look like exact duplicates in each pair are not: they
+ * darken different rows, and only the dropped EAX distinguishes them.  What
+ * blocks finishing it is the E-0xc slot, which Ghidra never modelled at all
+ * (there is no local_c in this function), so it has to be reintroduced along
+ * with whichever store feeds it -- the same shape as FUN_0044c630's dropped
+ * pointer walk. */
 #include "ghidra_types.h"
 
 
-void CarveTerrainCrater(int param_1,int param_2,int param_3,int regEax)
+void CarveTerrainCrater(int param_1,int param_2,int param_3,int regEax,int regEsi)
 
 {
   int iVar1;
@@ -44,7 +79,7 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3,int regEax)
   uint uVar6;
   uint uVar7;
   int iVar8;
-  int unaff_ESI;
+  int unaff_ESI = regEsi;
   int iVar9;
   undefined4 *puVar10;
   int local_38;

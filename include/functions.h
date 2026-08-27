@@ -1157,7 +1157,7 @@ int __fastcall FindGroundHeightAtColumn();
 int ScanTerrainUpForSolid(int regEsi);
 int __fastcall ScanTerrainLeftForSolid(int param_1,int param_2,int regEax);
 undefined4 __fastcall FUN_004e4410();
-void CarveTerrainCrater(int param_1,int param_2,int param_3,int regEax);
+void CarveTerrainCrater(int param_1,int param_2,int param_3,int regEax,int regEsi);
 void ApplyCraterExcavation(int param_1,int param_2,int param_3,undefined4 param_4,
                            undefined4 param_5,undefined4 param_6,undefined4 param_7,
                            undefined4 param_8,int terrainCtx,int impactX,int impactY);
