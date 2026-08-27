@@ -39,8 +39,8 @@ void __fastcall DetonateSuperShot_Bullet13(int *param_1)
 
 {
   char cVar1;
-  int peekRow;                       /* ScanTerrainLeftForSolid EAX: the row guard, captured instead of discarded */
-  int peekCol;                       /* ScanTerrainLeftForSolid ECX: the column guard */
+  int peekRow;                       /* ScanTerrainLeft/UpForSolid EAX: the row guard, captured instead of discarded */
+  int peekCol;                       /* ScanTerrainLeftForSolid ECX / ScanTerrainUpForSolid EDI: the column guard */
   char cVar2;
   int iVar3;
   int iVar4;
@@ -310,9 +310,9 @@ LAB_0048780a:
           }
           uVar5 = EncodeChecksumDeltaAdd(param_1 + 0x45e,auStack_ac4,8);
           puStack_8 = (undefined1 *)0x7;
-          PeekChecksumStateUnderLock(uVar5);
-          PeekChecksumStateUnderLock(param_1 + 0x3d5);
-          iVar3 = ScanTerrainUpForSolid((int)(&DAT_006a7708 + g_clientContext));
+          peekRow = PeekChecksumStateUnderLock(uVar5);
+          peekCol = PeekChecksumStateUnderLock(param_1 + 0x3d5);
+          iVar3 = ScanTerrainUpForSolid((int)(&DAT_006a7708 + g_clientContext),peekRow,peekCol);
           puStack_8 = (undefined1 *)0xffffffff;
           ScrubChecksumGuard();
           uVar5 = EncodeChecksumDeltaAdd(param_1 + 0x45e,auStack_ac4,8);

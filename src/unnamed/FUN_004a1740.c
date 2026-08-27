@@ -28,8 +28,8 @@ undefined4 FUN_004a1740(int param_1)
   bool bVar5;
   char cVar6;
   int iVar7;
-  int peekRow;                       /* ScanTerrainLeftForSolid EAX: the row guard, captured instead of discarded */
-  int peekCol;                       /* ScanTerrainLeftForSolid ECX: the column guard */
+  int peekRow;                       /* ScanTerrainLeft/UpForSolid EAX: the row guard, captured instead of discarded */
+  int peekCol;                       /* ScanTerrainLeftForSolid ECX / ScanTerrainUpForSolid EDI: the column guard */
   int iVar8;
   undefined4 uVar9;
   undefined4 uVar10;
@@ -212,18 +212,18 @@ LAB_004a1ad6:
         if (bVar1) {
           uVar9 = EncodeChecksumDeltaAdd(param_1,local_1574,6);
           local_4 = 10;
-          PeekChecksumStateUnderLock(uVar9);
-          PeekChecksumStateUnderLock(iVar13);
-          iVar7 = ScanTerrainUpForSolid((int)(&DAT_006a7708 + g_clientContext));
+          peekRow = PeekChecksumStateUnderLock(uVar9);
+          peekCol = PeekChecksumStateUnderLock(iVar13);
+          iVar7 = ScanTerrainUpForSolid((int)(&DAT_006a7708 + g_clientContext),peekRow,peekCol);
           local_4 = 0xffffffff;
           ScrubChecksumGuard();
           uVar9 = EncodeChecksumDeltaAdd(param_1,local_1350,6);
           local_4 = 0xb;
           uVar10 = EncodeChecksumDeltaSub(iVar13,local_1574,4);
           SUBFIELD(local_4,0,undefined1) = 0xc;
-          PeekChecksumStateUnderLock(uVar9);
-          PeekChecksumStateUnderLock(uVar10);
-          iVar8 = ScanTerrainUpForSolid((int)(&DAT_006a7708 + g_clientContext));
+          peekRow = PeekChecksumStateUnderLock(uVar9);
+          peekCol = PeekChecksumStateUnderLock(uVar10);
+          iVar8 = ScanTerrainUpForSolid((int)(&DAT_006a7708 + g_clientContext),peekRow,peekCol);
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xb);
           ScrubChecksumGuard();
           local_4 = 0xffffffff;
@@ -232,9 +232,9 @@ LAB_004a1ad6:
           local_4 = 0xd;
           uVar10 = EncodeChecksumDeltaAdd(iVar13,local_1574,4);
           SUBFIELD(local_4,0,undefined1) = 0xe;
-          PeekChecksumStateUnderLock(uVar9);
-          PeekChecksumStateUnderLock(uVar10);
-          iVar11 = ScanTerrainUpForSolid((int)(&DAT_006a7708 + g_clientContext));
+          peekRow = PeekChecksumStateUnderLock(uVar9);
+          peekCol = PeekChecksumStateUnderLock(uVar10);
+          iVar11 = ScanTerrainUpForSolid((int)(&DAT_006a7708 + g_clientContext),peekRow,peekCol);
           local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),0xd);
           ScrubChecksumGuard();
           local_4 = 0xffffffff;
