@@ -1091,7 +1091,7 @@ undefined4 * InitConnectionObject();
 void FUN_004d22d0();
 void FUN_004d23f0();
 void BeginServerConnect(undefined4, undefined4, int);
-void FUN_004d24f0();
+void FUN_004d24f0(int regEdi);
 void __fastcall AppendPacketBytes();
 void __fastcall AppendEncodedBlock(undefined4, int, char *, char *);
 void __fastcall EncodePacketBody(int param_1, int connObj);

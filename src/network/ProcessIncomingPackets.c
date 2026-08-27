@@ -464,7 +464,7 @@ LAB_004d2b17:
     }
     if (uVar13 == 0x1312) goto LAB_004d2d5c;
     if (uVar13 != 0x1fff) goto switchD_004d2d94_caseD_5;
-    FUN_004d24f0();
+    FUN_004d24f0(param_1);
     if (param_2 != (HWND)0x0) {
       uVar3 = *lParam;
       if (uVar3 == 0) {

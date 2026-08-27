@@ -66,7 +66,7 @@ void __fastcall State02_ServerSelect_OnTick(int param_1)
       if (cVar3 != '\0') {
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
       }
-      FUN_004d24f0();
+      FUN_004d24f0(g_connectionContextB);
       iVar6 = g_connectionContextB;
     }
     else {

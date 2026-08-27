@@ -296,7 +296,7 @@ State02_ServerSelect_ProcessPacket(void *this,int payloadLen,ushort opcode,short
         return;
       }
       if (*payload == 0) {
-        FUN_004d24f0();
+        FUN_004d24f0(g_connectionContextA);
         iVar8 = g_connectionContextB;
         iVar20 = g_clientContext;
         g_connectionContextB = g_connectionContextA;
