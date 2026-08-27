@@ -92,6 +92,7 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3,int regEax,int regEs
   int local_18;
   int local_14;
   int local_10;
+  int iVarQ; /* the quotient the calls below need un-doubled */
   
   iVar8 = in_EAX / 2;
   local_38 = 1 - iVar8;
@@ -250,7 +251,12 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3,int regEax,int regEs
     iVar3 = PeekPacketChecksumState((void *)&DAT_00796aa0);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     local_10 = local_30 * param_3;
-    DarkenTerrainScorchRow((local_10 / iVar3) * 2);
+    /* RE-SLOTTED (2026-08-27).  0x4e47ed-0x4e47fd: edx = [esp+0x48] = param_1
+       minus the quotient, `lea ecx,[eax+eax]` = the doubled quotient is the
+       PUSHED argument, ecx = esi = regEsi, and eax = [esp+0x50] with one
+       push pending = param_2 -- the centre row. */
+    iVarQ = local_10 / iVar3;
+    DarkenTerrainScorchRow(regEsi,param_1 - iVarQ,iVarQ * 2,param_2);
     if (-1 < local_30) {
       iVar3 = 0;
       do {
@@ -270,15 +276,34 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3,int regEax,int regEs
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar9 = PeekPacketChecksumState((void *)&DAT_00796aa0);
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar9 = (iVar3 / iVar9) * 2;
-        DarkenTerrainScorchRow(iVar9);
-        DarkenTerrainScorchRow(iVar9);
+        /* RE-SLOTTED (2026-08-27).  The two calls are NOT duplicates: only
+           the dropped EAX separates them, and it is the mirrored row pair
+           about the centre.  0x4e48cf reads [esp+0x14] = local_30 and adds
+           [esp+0x4c] = param_2; 0x4e48df reads the slot at frame E-0xc,
+           which Ghidra never modelled but which holds param_2 - local_30
+           identically throughout: it is seeded `param_2 - local_30` before
+           the loop (0x4e4824) and incremented (0x4e4885) in the same branch
+           that decrements local_30 (0x4e4881), and neither is touched
+           anywhere else in the loop. */
+        iVarQ = iVar3 / iVar9;
+        iVar9 = iVarQ * 2;
+        DarkenTerrainScorchRow(regEsi,param_1 - iVarQ,iVar9,param_2 + local_30);
+        DarkenTerrainScorchRow(regEsi,param_1 - iVarQ,iVar9,param_2 - local_30);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar9 = PeekPacketChecksumState((void *)&DAT_00796aa0);
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        iVar9 = (local_10 / iVar9) * 2;
-        DarkenTerrainScorchRow(iVar9);
-        DarkenTerrainScorchRow(iVar9);
+        /* RE-SLOTTED (2026-08-27).  The mirrored pair again: 0x4e491a reads
+           [esp+0x10] = local_34 and adds param_2, while 0x4e4933 reads
+           [esp+0x30] = local_14 -- which is seeded to param_2 (0x4e481a,
+           where local_34 is 0) and decremented (0x4e4850) in lockstep with
+           local_34's increment (0x4e4841), so it equals param_2 - local_34
+           at every iteration.  Ghidra dropped local_14's second-loop seed
+           and decrement along with these arguments, so the invariant is
+           used rather than the variable. */
+        iVarQ = local_10 / iVar9;
+        iVar9 = iVarQ * 2;
+        DarkenTerrainScorchRow(regEsi,param_1 - iVarQ,iVar9,param_2 + local_34);
+        DarkenTerrainScorchRow(regEsi,param_1 - iVarQ,iVar9,param_2 - local_34);
       } while (local_34 <= local_30);
     }
     puVar10 = (undefined4 *)(unaff_ESI + 0x51);

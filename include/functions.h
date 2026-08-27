@@ -1161,7 +1161,7 @@ void CarveTerrainCrater(int param_1,int param_2,int param_3,int regEax,int regEs
 void ApplyCraterExcavation(int param_1,int param_2,int param_3,undefined4 param_4,
                            undefined4 param_5,undefined4 param_6,undefined4 param_7,
                            undefined4 param_8,int terrainCtx,int impactX,int impactY);
-void __fastcall DarkenTerrainScorchRow();
+void __fastcall DarkenTerrainScorchRow(int param_1,uint param_2,uint param_3,int regEax);
 void RebuildTerrainColumnCache();
 void FUN_004e4f50();
 void ComputeShotViewBounds(int regEsi);

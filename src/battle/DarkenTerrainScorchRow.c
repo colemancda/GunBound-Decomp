@@ -3,15 +3,28 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+*
+ * DROPPED REGISTER RECOVERED AND ARGUMENTS RE-SLOTTED (2026-08-27).  This is
+ * `DarkenTerrainScorchRow(terrainCtx, xStart, width, row)`: it darkens one
+ * horizontal span of a scorch sprite row.  `ret 4` gives ONE stack argument
+ * against three declared parameters, so param_1 is ECX (the terrain context,
+ * `cmp edi,[ecx+0x1c]`), param_2 is EDX (`mov ebx,edx`) and only param_3 is
+ * pushed -- while in_EAX (`mov edi,eax`, the very first read) is the row.
+ *
+ * All five call sites, all in CarveTerrainCrater, were MIS-SLOTTED rather
+ * than merely short: each passed a single argument that landed in param_1
+ * when it is really the pushed param_3.  The value they passed -- the `* 2`
+ * the source already writes -- is `lea ecx,[eax+eax]` immediately before the
+ * push, so it was the width all along, being read as a terrain pointer.
  */
 #include "ghidra_types.h"
 
 
-void __fastcall DarkenTerrainScorchRow(int param_1,uint param_2,uint param_3)
+void __fastcall DarkenTerrainScorchRow(int param_1,uint param_2,uint param_3,int regEax)
 
 {
   ushort uVar1;
-  int in_EAX;
+  int in_EAX = regEax;
   int iVar2;
   ushort *puVar3;
   ushort *puVar4;
