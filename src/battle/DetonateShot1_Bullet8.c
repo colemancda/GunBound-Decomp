@@ -525,7 +525,7 @@ LAB_00482e3e:
         ScrubChecksumGuard();
       }
       else {
-        cVar2 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&piStack_ad4,&uStack_ad8,2,1,1);
+        cVar2 = FUN_004e4fe0(iVar5 - iVar12,&DAT_006a7708 + g_clientContext,&piStack_ad4,&uStack_ad8,2,1,1,iVar13);
         if (cVar2 != '\0') {
           auStack_8a4[0] = 0;
           iStack_ab0 = 0;

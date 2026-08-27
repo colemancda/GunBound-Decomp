@@ -112,7 +112,7 @@ void __thiscall FUN_004ef610(int param_1,int param_2)
       }
     }
     LeaveCriticalSection(&local_18);
-    FUN_004eeae0();
+    FUN_004eeae0(*(int *)(param_1 + 0x38));
   }
   return;
 }

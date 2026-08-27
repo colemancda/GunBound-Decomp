@@ -650,7 +650,7 @@ LAB_004a38be:
         ScrubChecksumGuard();
       }
       else {
-        cVar3 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&stack0xfffff2d8,&stack0xfffff2d4,2,1,1);
+        cVar3 = FUN_004e4fe0(iVar6,&DAT_006a7708 + g_clientContext,&stack0xfffff2d8,&stack0xfffff2d4,2,1,1,iVar4 - iVar19);
         if (cVar3 != '\0') {
           uStack_b04 = 0;
           local_d10 = (int *)0x0;

@@ -3,18 +3,24 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * EAX RECOVERED AND THE CALL SITES RE-SLOTTED (2026-08-26).  `ret 0x18` is six
+ * stack arguments against seven declared parameters, so param_1 is the ECX
+ * `this` and the six the 26 source sites were passing had ALL been binding one
+ * slot too early.  EAX (`mov esi,eax`, the first instruction after the
+ * prologue pushes) is the seventh value and was absent entirely.  Every site
+ * is rewritten in full rather than appended to.
  */
 #include "ghidra_types.h"
 
 
 undefined4 __thiscall
-FUN_004e4fe0(int param_1,int param_2,int *param_3,int *param_4,int param_5,char param_6,char param_7
-            )
+FUN_004e4fe0(int param_1,int param_2,int *param_3,int *param_4,int param_5,char param_6,char param_7,
+             int in_EAX)
 
 {
   bool bVar1;
   char cVar2;
-  int in_EAX;
   uint uVar3;
   uint uVar4;
   int iVar5;

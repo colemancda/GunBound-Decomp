@@ -114,7 +114,7 @@ State11_InBattle_ProcessPacket(void *this,int payloadLen,ushort opcode,byte *pay
           BroadcastQueuedEvent();
           iVar6 = g_clientContext;
           if (*(int *)(&DAT_006a64b4 + g_clientContext) != -1) {
-            FUN_004eeae0();
+            FUN_004eeae0(*(int *)(&DAT_006a64b4 + g_clientContext));
             iVar6 = g_clientContext;
             *(undefined4 *)(&DAT_006a64b4 + g_clientContext) = 0xffffffff;
           }

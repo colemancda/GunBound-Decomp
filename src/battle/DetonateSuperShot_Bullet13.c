@@ -634,7 +634,7 @@ LAB_00487d3f:
         ScrubChecksumGuard();
       }
       else {
-        cVar1 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&uStack_ad0,&fStack_ad4,2,1,1);
+        cVar1 = FUN_004e4fe0((int)piStack_adc,&DAT_006a7708 + g_clientContext,&uStack_ad0,&fStack_ad4,2,1,1,iVar4);
         if (cVar1 != '\0') {
           uStack_8a4 = 0;
           uStack_ab0 = 0;

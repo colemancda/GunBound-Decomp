@@ -186,7 +186,7 @@ extern unsigned char DAT_00553f90, DAT_00555c90;
 /* HandleFireInput's additional dependencies. */
 void EncodeOutgoingPacketField(void *self, unsigned int v);
 char CompareChecksumExceeds(void *cell, unsigned int other);
-void FUN_004eeae0(void);
+void FUN_004eeae0(int soundChannelIndex);
 void FUN_0040b030(void *self);
 char FUN_0040b450(void *cell, unsigned int v);
 void FUN_0043c860(void *base, int *self);
@@ -1122,7 +1122,7 @@ void CMobile::HandleFireInput()
                     } else {
                         if (param_1[9] != 4) {
                             if (param_1[0x2c29] != -1) {
-                                FUN_004eeae0();
+                                FUN_004eeae0(param_1[0x2c29]);
                                 param_1[0x2c29] = -1;
                             }
                             (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, s_unmove_00555c98);
@@ -1209,7 +1209,7 @@ void CMobile::HandleFireInput()
                     } else {
                         if (param_1[9] != 4) {
                             if (param_1[0x2c29] != -1) {
-                                FUN_004eeae0();
+                                FUN_004eeae0(param_1[0x2c29]);
                                 param_1[0x2c29] = -1;
                             }
                             (*reinterpret_cast<VtStr *>(*param_1 + 4))(param_1, 0, s_unmove_00555c98);

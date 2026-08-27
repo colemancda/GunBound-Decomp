@@ -65,7 +65,7 @@ void State10_Loading_ProcessPacket(undefined4 param_1,int param_2,short *param_3
       QueueBroadcastEvent(0x8103,(int)&g_replayContext);
       BroadcastQueuedEvent();
       if (*(int *)(&DAT_006a64b4 + g_clientContext) != -1) {
-        FUN_004eeae0();
+        FUN_004eeae0(*(int *)(&DAT_006a64b4 + g_clientContext));
         *(undefined4 *)(&DAT_006a64b4 + g_clientContext) = 0xffffffff;
       }
     }

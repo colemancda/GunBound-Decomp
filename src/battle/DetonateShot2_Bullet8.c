@@ -1037,7 +1037,7 @@ LAB_004a9552:
     }
   }
   else {
-    cVar4 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&piStack_ae8,&pbStack_afc,2,1,1);
+    cVar4 = FUN_004e4fe0((int)local_af0,&DAT_006a7708 + g_clientContext,&piStack_ae8,&pbStack_afc,2,1,1,(int)pbStack_af8);
     if (cVar4 != '\0') {
       uStack_694 = 0;
       pbStack_8a0 = (byte *)0x0;

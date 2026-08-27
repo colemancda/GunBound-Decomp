@@ -180,7 +180,7 @@ LAB_0045fb8c:
           else {
             if (param_1[9] != 4) {
               if (param_1[0x2c29] != -1) {
-                FUN_004eeae0();
+                FUN_004eeae0(param_1[0x2c29]);
                 param_1[0x2c29] = -1;
               }
               (**(code **)(*param_1 + 4))(s_unmove_00555c98);
@@ -301,7 +301,7 @@ LAB_0046000e:
           else {
             if (param_1[9] != 4) {
               if (param_1[0x2c29] != -1) {
-                FUN_004eeae0();
+                FUN_004eeae0(param_1[0x2c29]);
                 param_1[0x2c29] = -1;
               }
               (**(code **)(*param_1 + 4))(s_unmove_00555c98);

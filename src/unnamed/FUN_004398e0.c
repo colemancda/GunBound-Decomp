@@ -145,7 +145,7 @@ LAB_004399d4:
         iVar12 = param_5;
       }
       else {
-        cVar3 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&param_3,&param_4,2,1,1);
+        cVar3 = FUN_004e4fe0(iVar2 - iVar7,&DAT_006a7708 + g_clientContext,&param_3,&param_4,2,1,1,iVar4 - iVar8);
         iVar12 = param_5;
         if (cVar3 != '\0') {
           uStack_10 = 0;

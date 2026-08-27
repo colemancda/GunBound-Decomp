@@ -745,7 +745,7 @@ LAB_00451d02:
         ScrubChecksumGuard();
       }
       else {
-        cVar2 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&puStack_b34,&ppuStack_b38,2,1,1);
+        cVar2 = FUN_004e4fe0((int)piStack_b48,&DAT_006a7708 + g_clientContext,&puStack_b34,&ppuStack_b38,2,1,1,(int)puStack_b50);
         if (cVar2 != '\0') {
           puStack_b18 = (undefined *)0x0;
           EncodeOutgoingPacketField((void *)&puStack_b2c, 0);

@@ -469,7 +469,7 @@ LAB_00490ea2:
         ScrubChecksumGuard();
       }
       else {
-        cVar4 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&uStack_ad0,&uStack_ad4,2,1,1);
+        cVar4 = FUN_004e4fe0((int)piStack_ae0,&DAT_006a7708 + g_clientContext,&uStack_ad0,&uStack_ad4,2,1,1,iVar9);
         if (cVar4 != '\0') {
           auStack_8a4[0] = 0;
           iStack_ab0 = 0;

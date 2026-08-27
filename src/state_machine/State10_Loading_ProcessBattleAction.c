@@ -72,7 +72,7 @@ void __thiscall State10_Loading_ProcessBattleAction(void *this,int packetBuf)
           }
         }
         if (piVar3[0x2c29] != -1) {
-          FUN_004eeae0();
+          FUN_004eeae0(piVar3[0x2c29]);
           piVar3[0x2c29] = -1;
         }
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);

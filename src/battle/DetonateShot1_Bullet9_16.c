@@ -428,7 +428,7 @@ LAB_0046ec2d:
         ScrubChecksumGuard();
       }
       else {
-        cVar4 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&uStack_ad8,&uStack_ad4,2,1,1);
+        cVar4 = FUN_004e4fe0(iVar6 - iVar9,&DAT_006a7708 + g_clientContext,&uStack_ad8,&uStack_ad4,2,1,1,iVar10);
         if (cVar4 != '\0') {
           uStack_8a4 = 0;
           iStack_ab0 = 0;

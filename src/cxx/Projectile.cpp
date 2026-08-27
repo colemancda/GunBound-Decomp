@@ -186,7 +186,8 @@ void ApplyBlastDamage(unsigned int a, void *b, int c, void *d, int e, unsigned i
 void __fastcall SpawnBlastEffect(int y, int x, unsigned char a, int b, unsigned int c,
                    unsigned int d, unsigned int e, unsigned int f, unsigned int g,
                    unsigned int h);
-char FUN_004e4fe0(void *base, void *a, void *b, int c, int d, int e);
+char FUN_004e4fe0(int param_1, int param_2, int *param_3, int *param_4, int param_5,
+                  char param_6, char param_7, int in_EAX);
 int CalculateAngleFromDelta_2(int dx, int dy);
 int FloatToInt64_0(void);
 void *RegisterActiveObject_4(void *a, void *b, void *c, void *d);
@@ -735,7 +736,8 @@ void CProjectile::DetonateProjectile()
                 puVar15 = &auStack_8a0;
                 goto LAB_0045793d;
             } else {
-                cVar4 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext, &uStack_adc, &local_ad4, 2, 1, 1);
+                cVar4 = FUN_004e4fe0(iVar6 - iVar11, (int)(&DAT_006a7708 + g_clientContext), (int *)&uStack_adc, (int *)&local_ad4,
+                                     2, 1, 1, iVar12);
                 if (cVar4 != '\0') {
                     auStack_ac4.activeFlag = 0;
                     auStack_ac4.tableHandle = 0;

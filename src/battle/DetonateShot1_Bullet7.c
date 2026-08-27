@@ -465,7 +465,7 @@ LAB_0044cfdd:
         ScrubChecksumGuard();
       }
       else {
-        cVar3 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&uStack_ad0,&uStack_ad4,2,1,1);
+        cVar3 = FUN_004e4fe0((int)piStack_ae0,&DAT_006a7708 + g_clientContext,&uStack_ad0,&uStack_ad4,2,1,1,iVar8);
         if (cVar3 != '\0') {
           /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at
            * 0x44d3c6/0x44d44b (edi loaded from esi+0xf54 / dword ptr

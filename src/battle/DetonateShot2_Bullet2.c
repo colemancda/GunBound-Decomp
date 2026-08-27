@@ -644,7 +644,7 @@ LAB_004a54f8:
         puVar27 = puVar26;
       }
       else {
-        cVar3 = FUN_004e4fe0(&DAT_006a7708 + g_clientContext,&stack0xfffff2e0,&stack0xfffff2dc,2,1,1);
+        cVar3 = FUN_004e4fe0(iVar16,&DAT_006a7708 + g_clientContext,&stack0xfffff2e0,&stack0xfffff2dc,2,1,1,iVar13 - iVar9);
         puVar27 = puVar26;
         if (cVar3 != '\0') {
           uStack_afc = 0;
