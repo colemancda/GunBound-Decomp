@@ -537,7 +537,7 @@ LAB_004e0d7f:
   *(undefined1 *)(iVar20 + 0x2333c) = 0;
   *(undefined4 *)(iVar20 + 0x23338) = uVar5;
   puVar16 = (uint *)(payload + 9);
-  FUN_004e76d0(SUBFIELD(sStack_d0.sa_data,2,undefined4),
+  BeginUdpSessionProbe(SUBFIELD(sStack_d0.sa_data,2,undefined4),
                (int)(short)SUBFIELD(sStack_d0.sa_data,0,undefined2),&uStack_f0,
                (char *)(g_clientContext + 0x23330),(int)&g_replayContext);
   if (payloadLen < 0xa1) goto LAB_004e071c;

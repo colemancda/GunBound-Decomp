@@ -7,12 +7,12 @@
  * SHORT DEFINITION + EAX (2026-08-25).  `ret 8` is two stack parameters and
  * Ghidra declared one.  The second is read on both exit paths -- 0x4fed98
  * `mov edx,[esp+0x20]` (esp = E-24) and 0x4fedb2 `mov edx,[esp+0x1c]`
- * (esp = E-20), both = E+8 -- and handed to FUN_004ff240 as its EDX, the
+ * (esp = E-20), both = E+8 -- and handed to IntMap_CopyValue_1768 as its EDX, the
  * source of a 0x1758-byte struct copy.  Ghidra dropped it because it
- * decompiles FUN_004ff240 argless, which makes those two loads dead.  The
+ * decompiles IntMap_CopyValue_1768 argless, which makes those two loads dead.  The
  * caller was already passing it (src/unnamed/FUN_004fe110.c:156).
  * param_2 is therefore declared but not yet USED here: forwarding it to the
- * two FUN_004ff240 calls needs that callee's own registers, a separate item.
+ * two IntMap_CopyValue_1768 calls needs that callee's own registers, a separate item.
  *
  * EAX is the record key, `local_2ecc[6]` at the one call site.
  *
@@ -43,7 +43,7 @@ int FUN_004fed40(int *param_1,undefined1 *param_2,undefined4 regEax)
   
   iVar2 = IntMap_Find_1768(param_1,(undefined4 *)local_4,&local_key,&local_8,regEax);
   if (iVar2 != 0) {
-    FUN_004ff240(0,(undefined4 *)param_2,(undefined4 *)(iVar2 + 4));
+    IntMap_CopyValue_1768(0,(undefined4 *)param_2,(undefined4 *)(iVar2 + 4));
     return iVar2;
   }
   if (*param_1 == 0) {
@@ -54,7 +54,7 @@ int FUN_004fed40(int *param_1,undefined1 *param_2,undefined4 regEax)
     }
   }
   iVar2 = IntMap_Insert_1768(regEax,regEax,local_8,param_1);
-  FUN_004ff240(0,(undefined4 *)param_2,(undefined4 *)(iVar2 + 4));
+  IntMap_CopyValue_1768(0,(undefined4 *)param_2,(undefined4 *)(iVar2 + 4));
   return iVar2;
 }
 
