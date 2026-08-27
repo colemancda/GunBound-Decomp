@@ -46,10 +46,10 @@ void SpawnMine(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint par
   if ((int)param_4 < 0) {
     param_4 = (param_4 - 1 | 0xfffffff8) + 1;
   }
-  iVar2 = FUN_00437490();
+  iVar2 = FUN_00437490(param_4);
   while (iVar2 == -1) {
     FUN_00437500();
-    iVar2 = FUN_00437490();
+    iVar2 = FUN_00437490(param_4);
   }
   pvVar3 = operator_new(0x441c);
   piVar7 = (int *)0x0;

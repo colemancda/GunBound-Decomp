@@ -109,7 +109,7 @@ DispatchP2PMessage(uint param_1,char *param_2,int param_3,undefined4 param_4,und
       break;
     case 0xc043:
       (**(code **)(**(int **)(param_3 + 0x1ab0) + 0x30))(param_4);
-      FUN_004fceb0(0x3002);
+      FUN_004fceb0(0x3002,(char *)param_4);
       return;
     case 0xc051:
       uVar4 = (short)param_1 - 0x18;

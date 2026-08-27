@@ -560,7 +560,7 @@ void FUN_00436dc0();
 void FUN_00436ec0();
 void FUN_00436fd0();
 void FUN_00437150();
-uint FUN_00437490();
+uint FUN_00437490(int regEax);
 void __fastcall FUN_00437500();
 void __fastcall FUN_00437ae0();
 void SpawnLaserIon();
@@ -1462,7 +1462,7 @@ void __thiscall FUN_004fcd50(int param_1, int schedule, unsigned int *source, in
 undefined4 FUN_004fcd80();
 int FUN_004fcdf0(undefined4 param_1,undefined4 param_2,int regEax);
 undefined4 FUN_004fce60(int outBase,int ctx);
-void FUN_004fceb0();
+void FUN_004fceb0(undefined4 param_1,char *regEax);
 void FUN_004fcee0(char *regEax);
 undefined4 FUN_004fcf10();
 void FUN_004fcf70();

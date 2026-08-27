@@ -43,10 +43,10 @@ void SpawnSuperMine(undefined4 param_1,undefined4 param_2,undefined4 param_3,uin
    * rationale as entry/InitGame.c - see src/README.md. */
   cVar1 = PeekPacketChecksumBool((byte *)(param_1 + 4));
   if (cVar1 != '\0') goto LAB_00437acb;
-  iVar2 = FUN_00437490();
+  iVar2 = FUN_00437490(param_4);
   while (iVar2 == -1) {
     FUN_00437500();
-    iVar2 = FUN_00437490();
+    iVar2 = FUN_00437490(param_4);
   }
   piVar3 = operator_new(0x4420);
   local_4 = 0;

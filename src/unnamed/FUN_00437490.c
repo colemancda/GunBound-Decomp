@@ -3,15 +3,26 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED REGISTER RECOVERED (2026-08-27): in_EAX is param_4 at all four
+ * call sites, and both callers pin it the same way.  SpawnMine's
+ * `dec edi / or edi,0xfffffff8 / inc edi` at 0x437629 is character for
+ * character its own `param_4 = (param_4 - 1 | 0xfffffff8) + 1;`, so edi is
+ * param_4 there; SpawnSuperMine loads edi from [esp+0x2c], which under its
+ * SEH triple plus four prologue saves is E+0x10, i.e. param_4 -- witnessed by
+ * the same prologue's `mov eax,[esp+0x10]` = E+4 = param_1, the argument its
+ * PeekPacketChecksumBool(param_1 + 4) on the next line takes.  Both callers
+ * then do `mov eax,edi` immediately before each call, including the retry
+ * inside the `while (iVar2 == -1)` loop.
  */
 #include "ghidra_types.h"
 
 
-uint FUN_00437490(void)
+uint FUN_00437490(int regEax)
 
 {
   uint uVar1;
-  int in_EAX;
+  int in_EAX = regEax;
   uint uVar2;
   int iVar3;
   int iVar4;
