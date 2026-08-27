@@ -155,8 +155,8 @@ LAB_0043c0e0:
                     }
                     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
                     if ((((bVar17 || (bVar3 >> (bVar14 & 7) & 1) != 1) &&
-                         (cVar7 = DecodeGuardedBool(), cVar7 != '\0')) &&
-                        (cVar7 = DecodeGuardedBool(), cVar7 != '\0')) &&
+                         (cVar7 = DecodeGuardedBool((byte *)((int)piVar5 + 0x9cea)), cVar7 != '\0')) &&
+                        (cVar7 = DecodeGuardedBool((byte *)((int)piVar5 + 0x9ced)), cVar7 != '\0')) &&
                        ((piVar5 != piVar16 && (cVar7 = PeekPacketChecksumBool(), cVar7 == '\x01')))) {
                       iVar8 = *(int *)(&g_nCameraBoundY + g_clientContext);
                       (*pcVar15)(&g_valueGuardLock);

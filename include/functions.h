@@ -247,7 +247,7 @@ undefined4 CheckGuardedBoolAnd();
 undefined4 FUN_00406690(int param_1,byte *regEax);
 undefined4 CheckBothGuardedBools();
 undefined4 FUN_004067c0(byte *regEax,byte *regEdi);
-bool DecodeGuardedBool();
+bool DecodeGuardedBool(byte *cell);
 void AdvanceHudAnimationCounters(int regEax);
 void DrawWindGauge();
 void State11_InBattle_RenderPlayerRoster(int param_1);

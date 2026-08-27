@@ -290,7 +290,7 @@ LAB_004622cf:
       *(undefined1 *)(g_sharedTextInputControl + 8) = 1;
     }
     ResolveNamedState(s_normal_00552230);
-    uVar9 = DecodeGuardedBool();
+    uVar9 = DecodeGuardedBool((byte *)param_1 + 0x8bab);
     cVar5 = CheckGuardedBoolAnd(uVar9);
     if (((cVar5 != '\0') && (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x8bae), cVar5 != '\0')) &&
        (cVar5 = PeekPacketChecksumBool((byte *)param_1 + 0x1c50), cVar5 != '\0')) {

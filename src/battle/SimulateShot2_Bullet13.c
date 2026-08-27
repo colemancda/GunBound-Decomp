@@ -249,7 +249,7 @@ LAB_0049ea8b:
         }
         iVar4 = local_159c;
         pbVar11 = (byte *)(local_159c + 0xf4c);
-        cVar2 = DecodeGuardedBool();
+        cVar2 = DecodeGuardedBool(pbVar11);
         if (cVar2 != '\0') {
           iVar5 = FUN_00451030(local_15ac,(int)(&DAT_006a7f88 + g_clientContext));
           *(int *)(iVar4 + 0xf48) = iVar5;
@@ -505,7 +505,7 @@ LAB_0049f398:
         }
         iVar4 = local_159c;
         pbVar11 = (byte *)(local_159c + 0xf4c);
-        cVar2 = DecodeGuardedBool();
+        cVar2 = DecodeGuardedBool(pbVar11);
         if (cVar2 != '\0') {
           iVar5 = FUN_00451030(local_15c4,(int)(&DAT_006a7f88 + g_clientContext));
           *(int *)(iVar4 + 0xf48) = iVar5;

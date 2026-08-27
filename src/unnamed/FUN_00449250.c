@@ -128,7 +128,7 @@ LAB_004493f8:
     cVar4 = CheckGuardedBoolAnd(*(char *)(iVar6 + *(int *)(param_1 + 0x450) * 9 + 0x2d54c + param_1) ==
                          '\x01');
     bVar8 = cVar4 != '\0';
-    uVar5 = DecodeGuardedBool();
+    uVar5 = DecodeGuardedBool((byte *)(g_clientContext + 0x3b498));
     if ((char)uVar5 != '\0') {
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar6 = PeekPacketChecksumState((void *)(param_1 + 4));

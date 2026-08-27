@@ -37,7 +37,7 @@ undefined4 __fastcall FUN_0045f5d0(int param_1)
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053a187;
   *unaff_FS_OFFSET = &local_c;
-  cVar1 = DecodeGuardedBool();
+  cVar1 = DecodeGuardedBool((byte *)(param_1 + 0x9ced));
   if (cVar1 != '\0') {
     *unaff_FS_OFFSET = local_c;
     return 0;

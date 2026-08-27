@@ -124,7 +124,7 @@ LAB_0043b008:
           if (cVar2 != '\0') {
             iVar10 = param_4 / 5 + param_4;
           }
-          cVar2 = DecodeGuardedBool();
+          cVar2 = DecodeGuardedBool((byte *)((int)piVar11 + 0xb0b5));
           iVar5 = g_clientContext;
           pcVar12 = (code *)EnterCriticalSection;
           if (cVar2 != '\0') {

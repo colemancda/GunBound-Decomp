@@ -914,7 +914,7 @@ LAB_004613b2:
     if ((cVar9 != '\0') && (cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0xbff4), cVar9 == '\0')) {
       FUN_00464060();
     }
-    uVar17 = DecodeGuardedBool();
+    uVar17 = DecodeGuardedBool((byte *)param_1 + 0x8bab);
     cVar9 = CheckGuardedBoolAnd(uVar17);
     if ((cVar9 != '\0') && (cVar9 = PeekPacketChecksumBool((byte *)param_1 + 0x8bae), cVar9 == '\x01')) {
       SetGuardedBool(0,GB_GUARD_UNRECOVERED);

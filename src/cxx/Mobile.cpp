@@ -166,7 +166,7 @@ void EmitChecksumMod(void *self, int divisor);
 void EncodeDecrementedChecksum(void *self);
 unsigned int AcquireSoundChannel(int a);   /* returns the acquired channel handle */
 void ResolveNamedState(int *arg);
-int  DecodeGuardedBool(void);
+int  DecodeGuardedBool(unsigned char *cell);
 int SetGuardedBool(int value, int guardPtr);
 void QueueBroadcastEvent(unsigned int event, int replayCtx);
 void BroadcastQueuedEvent(void);
@@ -905,7 +905,7 @@ LAB_004622cf:
             *reinterpret_cast<unsigned char *>(g_sharedTextInputControl + 8) = 1;
         }
         ResolveNamedState(reinterpret_cast<int *>(DAT_007a7644));
-        uVar9 = DecodeGuardedBool();
+        uVar9 = DecodeGuardedBool((unsigned char *)this + 0x8bab);
         cVar5 = CheckGuardedBoolAnd(uVar9);
         if (cVar5 != '\0' && (cVar5 = PeekPacketChecksumBool((unsigned char *)this + 0x8bae), cVar5 != '\0') &&
             (cVar5 = PeekPacketChecksumBool((unsigned char *)this + 0x1c50), cVar5 != '\0')) {
@@ -1754,7 +1754,7 @@ LAB_004613ad:
         if (cVar9 != '\0' && (cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0xbff4), cVar9 == '\0')) {
             FUN_00464060();
         }
-        uVar17 = DecodeGuardedBool();
+        uVar17 = DecodeGuardedBool((unsigned char *)param_1 + 0x8bab);
         cVar9 = CheckGuardedBoolAnd(uVar17);
         if (cVar9 != '\0' && (cVar9 = PeekPacketChecksumBool((unsigned char *)param_1 + 0x8bae), cVar9 == '\x01')) {
             SetGuardedBool(0,GB_GUARD_UNRECOVERED);

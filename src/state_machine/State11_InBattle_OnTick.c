@@ -952,7 +952,7 @@ LAB_004bedb3:
           _sprintf(acStack_3944,pcVar9,iVar6,uVar7);
           (**(code **)(*piVar15 + 0x28))(acStack_3944,4,3);
         }
-        cVar3 = DecodeGuardedBool();
+        cVar3 = DecodeGuardedBool((byte *)(g_clientContext + 0x62143));
         if ((cVar3 != '\0') && (cVar3 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62146)), cVar3 != '\0')) {
           (*pcVar16)(&g_valueGuardLock);
           iVar6 = PeekPacketChecksumState(&DAT_00e9b818);

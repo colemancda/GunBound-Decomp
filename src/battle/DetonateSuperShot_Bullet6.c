@@ -380,7 +380,7 @@ LAB_00453238:
     puVar22 = (undefined *)-(int)puVar22;
     iVar5 = iVar10 / iVar9;
   }
-  cVar3 = DecodeGuardedBool();
+  cVar3 = DecodeGuardedBool((byte *)(param_1 + 0x3d3));
   if (cVar3 != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar9 = PeekPacketChecksumState((void *)(param_1 + 0x122));

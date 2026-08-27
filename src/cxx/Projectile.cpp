@@ -279,7 +279,7 @@ extern void *PTR_FUN_0055658c;
 
 /* SimulateProjectileFrame's additional dependencies. */
 unsigned int EncodeChecksumDeltaAdd(void *cell, void *out, int delta);
-char DecodeGuardedBool(void);
+char DecodeGuardedBool(unsigned char *cell);
 int  FUN_004510f0(int x, int regEax);
 int  FUN_00451030(int x, int regEax);
 int  FUN_004511b0(int x, int regEax);
@@ -1078,7 +1078,7 @@ void CProjectile::SimulateFrame(int stepDelta)
             }
             pCVar17 = local_159c;
             pbVar18 = local_159c->m_pad3d;
-            cVar8 = DecodeGuardedBool();
+            cVar8 = DecodeGuardedBool(local_159c->m_pad3d + 0xf0f);
             if (cVar8 != '\0') {
                 iVar12 = FUN_00451030(local_15a4,(int)(&DAT_006a7f88 + g_clientContext));
                 *reinterpret_cast<int *>(pCVar17->m_pad3d + 0xf0b) = iVar12;
@@ -1277,7 +1277,7 @@ void CProjectile::SimulateFrame(int stepDelta)
                 }
                 pCVar17 = local_159c;
                 pbVar18 = local_159c->m_pad3d + 0xf0f;
-                cVar8 = DecodeGuardedBool();
+                cVar8 = DecodeGuardedBool(local_159c->m_pad3d + 0xf0f);
                 if (cVar8 != '\0') {
                     iVar13 = FUN_00451030(local_15b8,(int)(&DAT_006a7f88 + g_clientContext));
                     *reinterpret_cast<int *>(pCVar17->m_pad3d + 0xf0b) = iVar13;

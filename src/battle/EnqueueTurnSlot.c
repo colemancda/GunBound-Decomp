@@ -122,7 +122,7 @@ void __thiscall EnqueueTurnSlot(int param_1,int param_2)
         iVar3 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         if ((((iVar3 == 3) || (cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x6214c)), cVar2 == '\x01')) &&
-            (cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62152)), cVar2 == '\0')) && (cVar2 = DecodeGuardedBool(), cVar2 == '\0')) {
+            (cVar2 = PeekPacketChecksumBool((byte *)(g_clientContext + 0x62152)), cVar2 == '\0')) && (cVar2 = DecodeGuardedBool((byte *)(param_2 + 0x11c2)), cVar2 == '\0')) {
           SendPlayResult();
         }
       }
