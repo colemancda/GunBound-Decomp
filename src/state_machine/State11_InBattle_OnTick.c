@@ -504,7 +504,7 @@ LAB_004bdf96:
   (&DAT_006aa629)[iVar6] = bVar12;
   (&DAT_006aa62a)[iVar6] = bVar13 + bVar12 + -0x34;
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_004507d0((int)(g_clientContext + 0x6a7f88));
+  TickActiveObjectLayers((int)(g_clientContext + 0x6a7f88));
   FUN_004f3100((int)(&DAT_006a7f88 + g_clientContext));
   SortTurnOrderByDelay();
   iVar5 = g_clientContext;

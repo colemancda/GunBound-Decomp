@@ -397,8 +397,8 @@
   },
   {
     "addr": "00436ac0",
-    "func": "FUN_00436ac0",
-    "path": "src/unnamed/FUN_00436ac0.c",
+    "func": "SpawnCrashEffect",
+    "path": "src/unnamed/SpawnCrashEffect.c",
     "reg": "ebx",
     "score": 1.0,
     "callsites": 23,
@@ -2596,8 +2596,8 @@
   },
   {
     "addr": "004507d0",
-    "func": "FUN_004507d0",
-    "path": "src/unnamed/FUN_004507d0.c",
+    "func": "TickActiveObjectLayers",
+    "path": "src/unnamed/TickActiveObjectLayers.c",
     "reg": "ebx",
     "score": 1.0,
     "callsites": 3,

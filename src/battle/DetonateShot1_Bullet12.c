@@ -14,7 +14,7 @@
  * cell at all 53 argless PeekPacketChecksumState() calls (53 C : 53
  * orig).  DETONATION TWIN of DetonateProjectile (0x4572b0), full
  * variant with the crater block: the guard_cell_resolve.py fingerprints
- * of the two are identical except that this one lacks the FUN_00436ac0
+ * of the two are identical except that this one lacks the SpawnCrashEffect
  * round (DetonateProjectile's cells 37/38), so DetonateProjectile's
  * hand-verified 55-cell map transposes onto this file's line numbers
  * minus that pair - the same aliases (param_1 / piVar9 / piStack_ad8

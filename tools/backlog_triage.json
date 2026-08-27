@@ -955,7 +955,7 @@
   ]
  },
  {
-  "func": "FUN_00436ac0",
+  "func": "SpawnCrashEffect",
   "reg": "ebx",
   "sites": 23,
   "values": {},
@@ -964,7 +964,7 @@
   "buckets": {
    "OTHER": 23
   },
-  "path": "src/unnamed/FUN_00436ac0.c",
+  "path": "src/unnamed/SpawnCrashEffect.c",
   "per_site": [
    {
     "va": "0x4523d2",
@@ -5242,7 +5242,7 @@
   ]
  },
  {
-  "func": "FUN_004507d0",
+  "func": "TickActiveObjectLayers",
   "reg": "ebx",
   "sites": 3,
   "values": {
@@ -5254,7 +5254,7 @@
    "CTX-REL": 2,
    "OBJ-REL": 1
   },
-  "path": "src/unnamed/FUN_004507d0.c",
+  "path": "src/unnamed/TickActiveObjectLayers.c",
   "per_site": [
    {
     "va": "0x4be239",

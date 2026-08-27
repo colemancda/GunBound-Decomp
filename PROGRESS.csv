@@ -422,7 +422,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00436860,133,FUN_00436860,false,6,5,RAW-src
 004368f0,132,FUN_004368f0,false,15,3,RAW-src
 00436980,318,FUN_00436980,false,1,7,RAW-src
-00436ac0,131,FUN_00436ac0,false,23,8,RAW-src
+00436ac0,131,SpawnCrashEffect,false,23,8,RAW-src
 00436b50,120,FUN_00436b50,false,2,8,RAW-src
 00436bd0,252,FUN_00436bd0,false,18,8,RAW-src
 00436cd0,228,FUN_00436cd0,false,1,8,RAW-src
@@ -579,7 +579,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00450650,176,FUN_00450650,false,1,0,RAW-src
 00450700,48,FUN_00450700,false,1,0,RAW-src
 00450730,159,AdvanceSpriteAnimation,false,32,0,RAW-src
-004507d0,60,FUN_004507d0,false,3,0,RAW-src
+004507d0,60,TickActiveObjectLayers,false,3,0,RAW-src
 00450810,73,FUN_00450810,false,1,0,RAW-src
 00450860,60,FUN_00450860,false,4,0,RAW-src
 004508a0,729,RenderWeatherHazards,false,1,5,RAW-src

@@ -54,7 +54,7 @@ void FUN_004e39b0(int *regEsi)
     regEsi[0x12] = regEsi[0x12] + -1;
     regEsi[0x13] = iVar2 + -1;
   }
-  FUN_004507d0((int)regEsi + 0x85c);
+  TickActiveObjectLayers((int)regEsi + 0x85c);
   return;
 }
 

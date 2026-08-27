@@ -82,7 +82,7 @@ void __fastcall State09_ReadyRoom_OnTick(int param_1)
   }
   *(undefined4 *)(param_1 + 0x6b0) = 0xffffffff;
 LAB_004d7cd2:
-  FUN_004507d0((int)(g_clientContext + 0x6a7f88));
+  TickActiveObjectLayers((int)(g_clientContext + 0x6a7f88));
   FUN_004f3100((int)(&DAT_006a7f88 + g_clientContext));
   piVar5 = (int *)(param_1 + 0x6fc);
   iVar3 = 8;

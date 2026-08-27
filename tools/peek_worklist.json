@@ -10117,7 +10117,7 @@
         }
       ]
     },
-    "src/unnamed/FUN_00436ac0.c": {
+    "src/unnamed/SpawnCrashEffect.c": {
       "status": "clean",
       "c_argless_lines": [
         32

@@ -754,7 +754,7 @@ LAB_004a3955:
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar24 = PeekPacketChecksumState((void *)(param_1 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00436ac0(uVar24, uVar5, param_1[0xfe4]);
+  SpawnCrashEffect(uVar24, uVar5, param_1[0xfe4]);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)(param_1 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

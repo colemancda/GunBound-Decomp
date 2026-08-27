@@ -156,7 +156,7 @@ void FUN_00477140(int regEsi)
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   PeekPacketChecksumState((void *)(regEsi + 0x40));
   (*pcVar6)(&g_valueGuardLock);
-  FUN_00436ac0(puVar7, uVar3, *(int *)(regEsi + 0x3f90));
+  SpawnCrashEffect(puVar7, uVar3, *(int *)(regEsi + 0x3f90));
   uStack_14 = 0xffffffff;
   if (iStack_450 != 0) {
     ScrambleChecksumGuardBytes(iStack_450,&g_valueGuardKeyTable);
