@@ -232,26 +232,50 @@ void SpawnShot_Type13(undefined4 param_1,undefined4 param_2,undefined4 param_3,
    * bytes) - matches the same field established for the sibling
    * functions in this batch. See
    * tools/encodeoutgoingpacketfield_sites.json. */
-  RescrambleGuardedBool();
+  CopyGuardedBool((byte *)((int)piVar2 + 0x3918),(byte *)(param_7 + 0x3918));
+  /* PEEK CELL CORRECTED 2026-08-27: this read was given piVar2+0x5f9 by the
+   * 2026-07-15 sweep, which had only established the ENCODE cell (edi =
+   * ebp = piVar2) and carried that base across to the peek.  The binary
+   * reads the OTHER object: `lea eax,[esi + 0x17e4]` at 0x438d24, esi loaded
+   * from [esp+0x8d4] = param_7 -- the same source object the
+   * CopyGuardedBool above it copies from.  Frame check: the neighbouring
+   * [esp+0x8d0] is param_6, witnessed by `mov [ebp+0x3f94],ecx` against
+   * this file's own `piVar2[0xfe5] = param_6`. */
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  PeekPacketChecksumState((void *)(piVar2 + 0x5f9));
+  PeekPacketChecksumState((void *)(param_7 + 0x17e4));
   EncodeOutgoingPacketField(piVar2 + 0x5f9);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at 0x438d77
    * (`lea edi,[ebp + 0x1a08]`): cell is piVar2+0x682 (== piVar2+0x1a08
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
-  RescrambleGuardedBool();
+  CopyGuardedBool((byte *)((int)piVar2 + 0xf3c),(byte *)(param_7 + 0xf3c));
   piVar2[0xfe5] = param_6;
+  /* PEEK CELL CORRECTED 2026-08-27: this read was given piVar2+0x682 by the
+   * 2026-07-15 sweep, which had only established the ENCODE cell (edi =
+   * ebp = piVar2) and carried that base across to the peek.  The binary
+   * reads the OTHER object: `lea eax,[esi + 0x1a08]` at 0x438d6b, esi loaded
+   * from [esp+0x8d4] = param_7 -- the same source object the
+   * CopyGuardedBool above it copies from.  Frame check: the neighbouring
+   * [esp+0x8d0] is param_6, witnessed by `mov [ebp+0x3f94],ecx` against
+   * this file's own `piVar2[0xfe5] = param_6`. */
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  PeekPacketChecksumState((void *)(piVar2 + 0x682));
+  PeekPacketChecksumState((void *)(param_7 + 0x1a08));
   EncodeOutgoingPacketField(piVar2 + 0x682);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at 0x438db1
    * (`lea edi,[ebp + 0x3920]`): cell is piVar2+0xe48 (== piVar2+0x3920
    * bytes). See tools/encodeoutgoingpacketfield_sites.json. */
-  RescrambleGuardedBool();
+  CopyGuardedBool((byte *)((int)piVar2 + 0x391b),(byte *)(param_7 + 0x391b));
+  /* PEEK CELL CORRECTED 2026-08-27: this read was given piVar2+0xe48 by the
+   * 2026-07-15 sweep, which had only established the ENCODE cell (edi =
+   * ebp = piVar2) and carried that base across to the peek.  The binary
+   * reads the OTHER object: `lea eax,[esi + 0x3920]` at 0x438da5, esi loaded
+   * from [esp+0x8d4] = param_7 -- the same source object the
+   * CopyGuardedBool above it copies from.  Frame check: the neighbouring
+   * [esp+0x8d0] is param_6, witnessed by `mov [ebp+0x3f94],ecx` against
+   * this file's own `piVar2[0xfe5] = param_6`. */
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  PeekPacketChecksumState((void *)(piVar2 + 0xe48));
+  PeekPacketChecksumState((void *)(param_7 + 0x3920));
   EncodeOutgoingPacketField(piVar2 + 0xe48);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   pcVar7 = (char *)((int)piVar2 + 0x3813);

@@ -69,6 +69,7 @@ def param_list_of(src, func):
 
 
 _BYNAME = None
+_BYADDR = None
 
 
 def locate(entry):
@@ -80,18 +81,37 @@ def locate(entry):
     without a single register being recovered, which is the wrong direction for
     a measurement to be wrong in.  Fall back to locating the definition by
     name.
+
+    The by-name fallback only covers a DIRECTORY move, though: it is keyed on
+    the basename, so a function that gets a real name (FUN_004ff240 ->
+    IntMap_CopyValue_1768) still scores "missing" and still leaves the count.
+    So fall back once more, on the original ADDRESS, which is the one thing
+    about an entry that never changes -- every ported file carries it in the
+    "<Name> - 0x004ff240 in the original binary." header line.
     """
-    global _BYNAME
+    global _BYNAME, _BYADDR
     path = entry["path"]
     if os.path.exists(path):
         return path
     if _BYNAME is None:
         _BYNAME = {}
+        _BYADDR = {}
         for base, _, files in os.walk("src"):
             for f in files:
-                if f.endswith((".c", ".cpp")):
-                    _BYNAME.setdefault(os.path.splitext(f)[0], os.path.join(base, f))
-    return _BYNAME.get(entry["func"])
+                if not f.endswith((".c", ".cpp")):
+                    continue
+                full = os.path.join(base, f)
+                _BYNAME.setdefault(os.path.splitext(f)[0], full)
+                try:
+                    head = open(full, errors="replace").read(4096)
+                except OSError:
+                    continue
+                for m in re.finditer(r"0x([0-9a-fA-F]{6,8}) in the original binary", head):
+                    _BYADDR.setdefault(m.group(1).lower().lstrip("0"), full)
+    hit = _BYNAME.get(entry["func"])
+    if hit:
+        return hit
+    return _BYADDR.get(entry["addr"].lower().lstrip("0"))
 
 
 _EXCLUDED = None

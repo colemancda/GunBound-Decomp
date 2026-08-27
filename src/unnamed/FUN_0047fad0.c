@@ -195,7 +195,7 @@ void FUN_0047fad0(int param_1,int param_2,int param_3,int param_4,int *regEsi)
    * damage value. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)regEsi + 0x139c, iVar2);
   (*pcVar5)(&g_valueGuardLock);
-  RescrambleGuardedBool();
+  CopyGuardedBool((byte *)((int)regEsi + 0x3918),(byte *)GB_GUARD_UNRECOVERED);
   *unaff_FS_OFFSET = uStack_18;
   return;
 }

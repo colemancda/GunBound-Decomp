@@ -53,7 +53,15 @@ FAMILY = {
     # `byte *in_EAX`.
     0x406860: ("DecodeBool", "eax"),
     0x406500: ("SetBool", "eax"),
-    0x4064a0: ("EncodeBool", "eax"),
+    # BUG FIX 2026-08-27: 0x4064a0 takes its CELL IN ESI, not EAX.  `mov
+    # byte ptr [esi],al` at 0x4064b5 is its first store and ESI is never
+    # written in the body, while EAX is clobbered by the `call rand` at
+    # 0x4064a2 before it is ever read; the bool VALUE is the stack argument
+    # at [esp+8] (`ret 4`).  Same shape as the 0x40a440 row below.  The 42
+    # ported call sites are unaffected -- EncodeGuardedBool.c recovered ESI
+    # from disasm on 2026-07-19 and its sites were paired via
+    # tools/encodeoutgoingpacketfield_sites.json, not from this table.
+    0x4064a0: ("EncodeBool", "esi"),
     0x406530: ("RescrambleBool", "eax"),
     0x406610: ("CheckBoolAnd", "eax"),
     0x406710: ("CheckBoolBoth", "eax"),

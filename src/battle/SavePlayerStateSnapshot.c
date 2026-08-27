@@ -54,14 +54,14 @@ void SavePlayerStateSnapshot(void)
   *(undefined4 *)(unaff_ESI + 0xc920) = *(undefined4 *)(unaff_ESI + 0x28);
   *(undefined4 *)(unaff_ESI + 0xc928) = *(undefined4 *)(unaff_ESI + 0x30);
   *(undefined4 *)(unaff_ESI + 0xc924) = *(undefined4 *)(unaff_ESI + 0x2c);
-  RescrambleGuardedBool();
-  RescrambleGuardedBool();
-  RescrambleGuardedBool();
-  RescrambleGuardedBool();
-  RescrambleGuardedBool();
-  RescrambleGuardedBool();
-  RescrambleGuardedBool();
-  RescrambleGuardedBool();
+  CopyGuardedBool((byte *)(unaff_ESI + 0xc92c),(byte *)(unaff_ESI + 0xbfbe));
+  CopyGuardedBool((byte *)(unaff_ESI + 0xc92f),(byte *)(unaff_ESI + 0xbfc1));
+  CopyGuardedBool((byte *)(unaff_ESI + 0xc932),(byte *)(unaff_ESI + 0xbfc4));
+  CopyGuardedBool((byte *)(unaff_ESI + 0xc935),(byte *)(unaff_ESI + 0xbfc7));
+  CopyGuardedBool((byte *)(unaff_ESI + 0xc938),(byte *)(unaff_ESI + 0xbfca));
+  CopyGuardedBool((byte *)(unaff_ESI + 0xc93b),(byte *)(unaff_ESI + 0xbfcd));
+  CopyGuardedBool((byte *)(unaff_ESI + 0xc93e),(byte *)(unaff_ESI + 0xbfd0));
+  CopyGuardedBool((byte *)(unaff_ESI + 0xc941),(byte *)(unaff_ESI + 0x8bb7));
   /* FIXED (2026-07-15): dropped `self` args - angr-confirmed at 0x463dc3/
    * 0x463de8/0x463e0d/0x463e32 (edi loaded from esi+0xc944/esi+0xcb68/
    * esi+0xcd8c/esi+0xcfb0). Same `unaff_ESI` base as above; a second array

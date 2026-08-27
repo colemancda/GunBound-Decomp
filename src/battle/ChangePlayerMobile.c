@@ -91,22 +91,22 @@ void ChangePlayerMobile(int param_1,undefined4 param_2)
       if (param_1 == uVar5) {
         *(int *)(g_clientContext + 0x621e0) = iVar4;
       }
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
-      RescrambleGuardedBool();
+      CopyGuardedBool((byte *)(iVar4 + 0xbfbe),(byte *)(iVar1 + 0xbfbe));
+      CopyGuardedBool((byte *)(iVar4 + 0xbfc1),(byte *)(iVar1 + 0xbfc1));
+      CopyGuardedBool((byte *)(iVar4 + 0xbfc4),(byte *)(iVar1 + 0xbfc4));
+      CopyGuardedBool((byte *)(iVar4 + 0xbfc7),(byte *)(iVar1 + 0xbfc7));
+      CopyGuardedBool((byte *)(iVar4 + 0xbfca),(byte *)(iVar1 + 0xbfca));
+      CopyGuardedBool((byte *)(iVar4 + 0xbfcd),(byte *)(iVar1 + 0xbfcd));
+      CopyGuardedBool((byte *)(iVar4 + 0xbfd0),(byte *)(iVar1 + 0xbfd0));
+      CopyGuardedBool((byte *)(iVar4 + 0x8ba8),(byte *)(iVar1 + 0x8ba8));
+      CopyGuardedBool((byte *)(iVar4 + 0x8bab),(byte *)(iVar1 + 0x8bab));
+      CopyGuardedBool((byte *)(iVar4 + 0x8bae),(byte *)(iVar1 + 0x8bae));
+      CopyGuardedBool((byte *)(iVar4 + 0x8bb1),(byte *)(iVar1 + 0x8bb1));
+      CopyGuardedBool((byte *)(iVar4 + 0x8bb4),(byte *)(iVar1 + 0x8bb4));
+      CopyGuardedBool((byte *)(iVar4 + 0x8bb7),(byte *)(iVar1 + 0x8bb7));
+      CopyGuardedBool((byte *)(iVar4 + 0x8bba),(byte *)(iVar1 + 0x8bba));
+      CopyGuardedBool((byte *)(iVar4 + 0x8bbd),(byte *)(iVar1 + 0x8bbd));
+      CopyGuardedBool((byte *)(iVar4 + 0x8bc0),(byte *)(iVar1 + 0x8bc0));
       /* FIXED (2026-07-15): dropped `self` arg - angr-confirmed at
        * 0x4d123e (`lea edi,[ebx+0x8bc4]` at 0x4d122a, ebx = this file's
        * own iVar4 per `mov ebx,eax` right after the second
@@ -134,7 +134,7 @@ void ChangePlayerMobile(int param_1,undefined4 param_2)
       uVar2 = PeekPacketChecksumState((void *)(cVar6 != 0 ? iVar4 + 0x8318 : iVar1 + 0x853c));
       EncodeOutgoingPacketField(iVar4 + 0x853c, uVar2);
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      RescrambleGuardedBool();
+      CopyGuardedBool((byte *)(iVar4 + 0x1c50),(byte *)(iVar1 + 0x1c50));
       *(undefined2 *)(iVar4 + 0xbfbc) = *(undefined2 *)(iVar1 + 0xbfbc);
       *(undefined1 *)(iVar4 + 0xae68) = *(undefined1 *)(iVar1 + 0xae68);
       *(undefined4 *)(iVar4 + 0xb094) = *(undefined4 *)(iVar1 + 0xb094);

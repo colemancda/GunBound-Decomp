@@ -241,7 +241,7 @@ uint __fastcall FUN_00406400(undefined4 param_1,uint param_2,int regEax);
 byte * __fastcall InitGuardedBool();
 void EncodeGuardedBool(int param_1,byte *guardPtr);
 int SetGuardedBool(undefined4 param_1,int guardPtr);
-undefined4 __fastcall RescrambleGuardedBool();
+byte * __fastcall CopyGuardedBool(byte *dstCell,byte *srcCell);
 char PeekPacketChecksumBool();
 undefined4 CheckGuardedBoolAnd();
 undefined4 FUN_00406690(int param_1,byte *regEax);

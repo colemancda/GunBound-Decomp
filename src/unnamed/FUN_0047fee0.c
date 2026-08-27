@@ -170,7 +170,7 @@ void FUN_0047fee0(int param_1,int param_2,int *regEsi)
   regEsi[0xff4] = iVar3;
   regEsi[0xfed] = iVar3;
   regEsi[0xff5] = iVar2;
-  RescrambleGuardedBool();
+  CopyGuardedBool((byte *)((int)regEsi + 0x3918),(byte *)GB_GUARD_UNRECOVERED);
 LAB_004802f3:
   *unaff_FS_OFFSET = uStack_10;
   return;

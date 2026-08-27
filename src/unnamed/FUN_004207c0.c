@@ -129,22 +129,22 @@ LAB_00420896:
         DAT_00793568 = 0;
       }
     }
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
-    RescrambleGuardedBool();
+    CopyGuardedBool((byte *)((int)local_8b8 + 0xbfbe),(byte *)((int)local_8ac + 0xbfbe));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0xbfc1),(byte *)((int)local_8ac + 0xbfc1));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0xbfc4),(byte *)((int)local_8ac + 0xbfc4));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0xbfc7),(byte *)((int)local_8ac + 0xbfc7));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0xbfca),(byte *)((int)local_8ac + 0xbfca));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0xbfcd),(byte *)((int)local_8ac + 0xbfcd));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0xbfd0),(byte *)((int)local_8ac + 0xbfd0));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0x8ba8),(byte *)((int)local_8ac + 0x8ba8));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0x8bab),(byte *)((int)local_8ac + 0x8bab));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0x8bae),(byte *)((int)local_8ac + 0x8bae));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0x8bb1),(byte *)((int)local_8ac + 0x8bb1));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0x8bb4),(byte *)((int)local_8ac + 0x8bb4));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0x8bb7),(byte *)((int)local_8ac + 0x8bb7));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0x8bba),(byte *)((int)local_8ac + 0x8bba));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0x8bbd),(byte *)((int)local_8ac + 0x8bbd));
+    CopyGuardedBool((byte *)((int)local_8b8 + 0x8bc0),(byte *)((int)local_8ac + 0x8bc0));
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar6 = PeekPacketChecksumState((void *)((int)local_8ac + 0x8bc4));
     EncodeOutgoingPacketField((void *)((int)local_8b8 + 0x8bc4),uVar6);
@@ -159,7 +159,7 @@ LAB_00420896:
                       ((void *)(cVar3 == '\0' ? (int)local_8ac + 0x853c : (int)local_8b8 + 0x8318));
     EncodeOutgoingPacketField((void *)((int)local_8b8 + 0x853c),uVar6);
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    RescrambleGuardedBool();
+    CopyGuardedBool((byte *)((int)local_8b8 + 0x1c50),(byte *)((int)local_8ac + 0x1c50));
     *(short *)(local_8b8 + 0x2fef) = (short)local_8ac[0x2fef];
     *(char *)(local_8b8 + 0x2b9a) = (char)local_8ac[0x2b9a];
     local_8b8[0x2c25] = local_8ac[0x2c25];
@@ -372,7 +372,7 @@ LAB_00420896:
     *(byte *)(local_8ac + 0x22ee) = bVar4;
     *(byte *)((int)local_8ac + 0x8bb9) = bVar4 + *(char *)((int)local_8ac + 0x8bb7) + -0x34;
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    RescrambleGuardedBool();
+    CopyGuardedBool((byte *)((int)local_8ac + 0x8bbd),(byte *)((int)local_8b8 + 0x8bbd));
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = _rand();
     *(char *)(local_8ac + 0x22f0) = (char)iVar5;

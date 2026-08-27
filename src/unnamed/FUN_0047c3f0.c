@@ -248,7 +248,7 @@ void FUN_0047c3f0(int param_1,int param_2,int *regEsi)
    * damage value. See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)regEsi + 0x139c, iVar3);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  RescrambleGuardedBool();
+  CopyGuardedBool((byte *)((int)regEsi + 0x3918),(byte *)GB_GUARD_UNRECOVERED);
 LAB_0047ca25:
   *unaff_FS_OFFSET = iStack_10;
   return;
