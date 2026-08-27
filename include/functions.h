@@ -552,7 +552,7 @@ void SpawnItemCase();
 void __fastcall FUN_00436860();
 void FUN_004368f0();
 void __thiscall FUN_00436980();
-void FUN_00436ac0();
+void FUN_00436ac0(undefined4 param_1,undefined4 param_2,int regEbx);
 void FUN_00436b50();
 void FUN_00436bd0();
 void __thiscall FUN_00436cd0();

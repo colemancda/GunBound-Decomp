@@ -201,7 +201,7 @@ void ApplyCraterExcavation(unsigned int a, void *b, unsigned int c, unsigned int
                             int terrainCtx, int impactX, int impactY);
 void RebuildTerrainColumnCache(void *base);
 void FUN_00450eb0(void *a, unsigned int b, void *c, int d, int e, int f);
-void FUN_00436ac0(unsigned int a, unsigned int b);
+void FUN_00436ac0(unsigned int a, unsigned int b, int regEbx);
 void SpawnFlameEffect(int a, void *b, unsigned int c, unsigned int d, void *e);
 void FUN_00437150(unsigned int a, unsigned int b, int c, unsigned int d);
 char InitChecksumSeed(void);
@@ -833,7 +833,7 @@ LAB_004579de:
     EnterCriticalSection(&g_valueGuardLock);
     uVar21 = PeekPacketChecksumState((void *)(pCStack_ad8->m_pad3d + 0xf17));
     LeaveCriticalSection(&g_valueGuardLock);
-    FUN_00436ac0(uVar21, uVar8);
+    FUN_00436ac0(uVar21, uVar8, (int)pCStack_ad8->m_subtype);
     EnterCriticalSection(&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)(pCStack_ad8->m_pad3d + 0x113b));
     LeaveCriticalSection(&g_valueGuardLock);

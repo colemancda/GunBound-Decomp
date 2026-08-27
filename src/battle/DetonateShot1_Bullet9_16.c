@@ -524,7 +524,7 @@ LAB_0046ecce:
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar20 = PeekPacketChecksumState((void *)(piStack_ae0 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00436ac0(uVar20,uVar8);
+  FUN_00436ac0(uVar20, uVar8, piStack_ae0[0xfe4]);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar8 = PeekPacketChecksumState((void *)(piStack_ae0 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

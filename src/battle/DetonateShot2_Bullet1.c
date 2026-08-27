@@ -349,7 +349,7 @@ LAB_00468fef:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar17 = PeekPacketChecksumState((void *)(piStack_ae8 + 0x3d5));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00436ac0(uVar17,uVar8);
+    FUN_00436ac0(uVar17, uVar8, piStack_ae8[0xfe4]);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar8 = PeekPacketChecksumState((void *)(piStack_ae8 + 0x45e));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -468,7 +468,7 @@ LAB_0046942b:
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar17 = PeekPacketChecksumState((void *)(piStack_ae8 + 0x3d5));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00436ac0(uVar17,uVar8);
+  FUN_00436ac0(uVar17, uVar8, piStack_ae8[0xfe4]);
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar8 = PeekPacketChecksumState((void *)(piStack_ae8 + 0x45e));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

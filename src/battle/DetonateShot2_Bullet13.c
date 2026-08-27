@@ -714,7 +714,7 @@ LAB_004a101f:
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   puStack_aec = (undefined *)PeekPacketChecksumState((void *)piStack_af0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  FUN_00436ac0(puStack_aec,uVar5);
+  FUN_00436ac0(puStack_aec, uVar5, *(int *)(iStack_ad0 + 0x3f90));
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   uVar5 = PeekPacketChecksumState((void *)piStack_ae0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
