@@ -246,7 +246,7 @@ LAB_004bdd1c:
               (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] =
                    *(undefined1 *)(*(int *)(&DAT_006a76f4 + g_clientContext) + iVar5);
               g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-              FUN_004e7140();
+              FUN_004e7140(local_3d4c,(int)&g_replayContext);
               QueueBroadcastEvent();
               (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = bVar13;
               g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
@@ -1626,9 +1626,9 @@ LAB_004c08c8:
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       *(undefined4 *)(&DAT_006a7704 + g_clientContext) = uVar7;
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
+      uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      FUN_004e7140();
+      FUN_004e7140(uVar7,(int)&g_replayContext);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     EncodeOutgoingPacketField((void *)(g_clientContext + 0x6aa8a0), 0xffffffff);
@@ -1803,7 +1803,7 @@ LAB_004c0f5c:
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         uVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b6c4));
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-        FUN_004e7140(uVar7);
+        FUN_004e7140(uVar7,(int)&g_replayContext);
       }
       else {
         puVar1 = (undefined4 *)(&DAT_006a76e8 + g_clientContext);

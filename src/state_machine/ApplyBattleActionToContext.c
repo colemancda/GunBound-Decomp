@@ -186,7 +186,7 @@ LAB_0042326c:
         *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
       }
-      FUN_004e7140(bVar1);
+      FUN_004e7140(bVar1,(int)&g_replayContext);
       return;
     }
   }

@@ -1193,7 +1193,7 @@ void FUN_004e6b90();
 void __fastcall FUN_004e6d10();
 void EncryptEventBroadcast(int ctx);
 void FUN_004e6f20(undefined4 *param_1, uint param_2, int ctx);
-void FUN_004e7140();
+void FUN_004e7140(uint param_1, int regEax);
 /* ECX = dest address, EDX = dest port, stack = buf/len, EAX = the
  * connection object (recovered). */
 undefined4 __fastcall SendUdpDatagram(int param_1, int param_2, char *param_3, int param_4,

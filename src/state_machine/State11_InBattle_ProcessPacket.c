@@ -351,7 +351,7 @@ LAB_004b4324:
             iVar8 = g_clientContext;
             *(undefined4 *)(&DAT_006a7704 + g_clientContext) = uVar9;
             uVar9 = PeekChecksumStateUnderLock(iVar8 + 0x3b6c4);
-            FUN_004e7140(uVar9);
+            FUN_004e7140(uVar9,(int)&g_replayContext);
           }
           else {
             iVar8 = iVar6 * 8 + g_clientContext;

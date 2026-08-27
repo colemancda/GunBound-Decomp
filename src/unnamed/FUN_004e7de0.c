@@ -88,7 +88,7 @@ void FUN_004e7de0(int param_1,int param_2,undefined4 *param_3,uint regEbx)
   }
   if (*(short *)(param_1 + 0x4529c) == -0x6000) {
     QueueBroadcastEvent(0xa001);
-    FUN_004e7140(*(undefined1 *)((int)param_3 + 5));
+    FUN_004e7140(*(undefined1 *)((int)param_3 + 5),param_1);
   }
   if (*(short *)(param_1 + 0x4529c) == -0x5fff) {
     bVar2 = *(byte *)((int)param_3 + 5);

@@ -134,7 +134,7 @@ LAB_004e6b17:
                 QueueBroadcastEvent(0xf00c);
                 *(byte *)(param_1 + 0x44dec + *(int *)(param_1 + 0x44fec)) = bVar1;
                 *(int *)(param_1 + 0x44fec) = *(int *)(param_1 + 0x44fec) + 1;
-                FUN_004e7140(0xffffffff);
+                FUN_004e7140(0xffffffff,param_1);
               }
               else if (*(int *)(param_1 + 0x44ff0) != 0) {
                 if (2 < *(int *)(param_1 + 0x44de8)) {

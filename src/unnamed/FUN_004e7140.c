@@ -4,34 +4,48 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+*
+ * CONTEXT PROMOTED TO A REAL PARAMETER (2026-08-27).  in_EAX was previously
+ * BOUND to &g_replayContext inside this file, on the evidence that every
+ * resolvable call site passed that global.  It is now a parameter, because
+ * three sites do not pass a global at all -- they pass their OWN context
+ * through (FUN_004e6160, FUN_004e6770 and FUN_004e7de0 each hand on their
+ * param_1), and hard-binding the global made those three silently ignore it.
+ *
+ * Of those three chains only two are statically pinned back to the same
+ * global: FUN_004e7de0's only caller, WriteReplayEventRecord, pushes the
+ * literal 0xe55ce0 at 0x4119be.  FUN_004e6160's only caller is FUN_004e6770,
+ * which has no direct call anywhere in the image -- its single reference is a
+ * pointer at .data 0x5572f4, inside a vtable -- so its `this` is not
+ * statically knowable.  Threading param_1 through is faithful to the original
+ * at those sites whatever the dispatch resolves to, which is exactly why the
+ * parameter is better than the binding it replaces.
+ *
+ * The register is genuine, not a phantom: 0x4e7142 `mov esi,eax` READS EAX,
+ * and the first write to EAX anywhere in the function is 0x4e7168 `mov eax,1`.
+ * EBX, ECX and EDX are all phantoms (each written before any read).
+ *
+ * Three of the nine sites were also SHORT, not merely missing the context --
+ * they passed nothing at all, so param_1 had to be re-slotted rather than the
+ * context appended; appending alone would have put the context into the slot
+ * index.  The ninth reference is a tail `jmp 0x4e7140` at 0x4dc561 in
+ * BroadcastBattleSnapshot, not a call, which is why callsite_regs.py reports
+ * eight where count_call_args.py reports nine.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004e7140(uint param_1)
+void FUN_004e7140(uint param_1,int regEax)
 
 {
   undefined2 *puVar1;
   undefined4 *puVar2;
   short sVar3;
   byte bVar4;
-  int in_EAX;
+  int in_EAX = regEax;
   
   /* orig 0x4e7144 `mov ebx, esi` (ESI = this function's own dropped-EAX
    * context, set at 0x4e7142) - EncryptEventBroadcast's recovered EBX arg. */
-  /* RECOVERED (2026-07-19): `in_EAX` is the broadcast/replay CONTEXT base,
-   * a dropped register argument - and an uninitialised one here, which is a
-   * live wild-write hazard now that EncryptEventBroadcast's RijndaelSetKey
-   * calls are enabled (it is used as the base for stores at +0x44dec.. and
-   * as the key-schedule context). Every resolvable call site in the original
-   * passes the SAME global, &DAT_00e55ce0 = g_replayContext: of this
-   * function's 8 direct call sites, 4 load it as an immediate
-   * (`mov eax, 0xe55ce0`) and 2 more via `mov eax, esi` where ESI was itself
-   * just set from that immediate - with NO call site contradicting it.
-   * Promoting it to a real parameter would mean touching all of those call
-   * sites for no behavioural difference, so it is bound to the global here
-   * instead, with the evidence recorded. See tools/sweep_corroborate.py. */
-  in_EAX = (int)&g_replayContext;
   EncryptEventBroadcast(in_EAX);
   if ((int)param_1 < 8) {
     bVar4 = (byte)param_1;

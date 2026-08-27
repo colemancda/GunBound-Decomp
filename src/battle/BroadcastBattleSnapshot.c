@@ -115,7 +115,7 @@ void BroadcastBattleSnapshot(int param_1)
     BroadcastQueuedEvent((int)&g_replayContext);
     return;
   }
-  FUN_004e7140();
+  FUN_004e7140(param_1,(int)&g_replayContext);
   return;
 }
 
