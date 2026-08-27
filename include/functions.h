@@ -672,7 +672,7 @@ void RemoveInventoryItems(int regEbx,int regEax,int *regEdi);
 void FUN_0044c5f0();
 undefined4 __fastcall FUN_0044c630(int param_1,int regEax);
 void FUN_0044c6a0(int *param_1, int regEdi);
-void FUN_0044c740();
+void FUN_0044c740(int dstRecord,int srcRecord);
 undefined1 __fastcall FUN_0044c7b0();
 void FUN_0044c870();
 undefined4 InitShot1_Bullet7();

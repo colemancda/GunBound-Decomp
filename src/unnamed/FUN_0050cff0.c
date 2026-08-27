@@ -44,8 +44,14 @@ void FUN_0050cff0(int *param_1,uint param_2,undefined4 param_3,int param_4)
   }
   uVar2 = param_2 + param_4;
   local_8 = 0xffffffff;
+  /* DROPPED BASES RECOVERED (2026-08-27): 0x50d0e0-0x50d0f0 is
+     `mov esi,[ebp+0x14]; imul esi,esi,0x450; add esi,[edi]` with edi =
+     param_1, then `mov ebx,[ebp+0x10]` = param_3.  [ebp+0x14] is the dead
+     param_4 slot reused as this loop's counter (`mov [ebp+0x14],ebx` at
+     0x50d0db seeds it from param_2), which is the counter the C already
+     spells param_2. */
   for (; param_2 < uVar2; param_2 = param_2 + 1) {
-    FUN_0044c740();
+    FUN_0044c740(param_2 * 0x450 + *param_1,(int)param_3);
   }
   return;
 }

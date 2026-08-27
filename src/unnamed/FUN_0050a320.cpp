@@ -50,7 +50,7 @@ extern unsigned int g_clientContext;
 extern unsigned char g_valueGuardLock;
 int FUN_0050cdb0();
 int FUN_00428550(void *buf);
-void FUN_0044c740();
+void FUN_0044c740(int dstRecord, int srcRecord);
 void FUN_0044c6a0(unsigned int ctx, int regEdi);
 void FUN_0050cff0(unsigned int ctx, unsigned int idx, void *buf, int flag);
 void FUN_0044b0b0(void *state);
@@ -100,7 +100,15 @@ extern "C" int FUN_0050a320(CWidget *this_, int x, int y)
         /* WARNING: Subroutine does not return */
         ThrowCxxException(0x80070057);
       }
-      FUN_0044c740();
+      /* DROPPED BASES RECOVERED (2026-08-27): 0x50a3fd-0x50a411 is
+         `mov edx,[ecx+0x44e20]; imul eax,eax,0x450; add eax,edx;
+         mov ebx,eax` (source) with eax = self->[0x94], and
+         `lea esi,[esp+0x20]` (destination) -- the same [esp+0x20] the
+         FUN_00428550 call above passes, i.e. local_45c, whose declared
+         1104 bytes are exactly the 0x450 record size. */
+      FUN_0044c740((int)local_45c,
+                   (int)(*(unsigned int *)(self + 0x94) * 0x450
+                         + *(int *)(g_clientContext + 0x44e20)));
       FUN_0044c6a0(g_clientContext + 0x44e20,1);
       FUN_0050cff0(g_clientContext + 0x44e20, local_468, local_45c, 1);
       FUN_0044b0b0(puVar2);
