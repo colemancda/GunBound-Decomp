@@ -217,7 +217,7 @@ void __fastcall AdvanceTurnQueue(int param_1)
       if ((cVar1 == '\0') && (cVar1 = PacketChecksumEquals(g_clientContext + 0x45354,3), cVar1 == '\0')
          ) {
         if (*(char *)(g_clientContext + 0x45126) != '\0') {
-          FUN_004e1f70();
+          FUN_004e1f70(g_clientContext + 0x6a64c4);
           RemoveWidget((int)&g_activeObjectRegistry,0,3);
           RemoveWidget((int)&g_activeObjectRegistry,0,0xf);
           pcVar9 = (code *)LeaveCriticalSection;

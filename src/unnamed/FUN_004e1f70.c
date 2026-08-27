@@ -22,11 +22,23 @@
  * Encode(+0xab4); Peek(+0xab4)->Encode(+0x890); Peek(+0xf08)->
  * Encode(+0xf08,v-1)), spot-checked in full against blocks k=1
  * (0x4e21bc), k=2 (0x4e22db) and k=10 (0x4e2a38).
+*
+ * DROPPED REGISTER RECOVERED (2026-08-27): unaff_EBX is UNIFORM --
+ * `g_clientContext + 0x6a64c4` at every one of the seven call sites -- so it
+ * needed no pairing of binary sites to source sites at all, which is the one
+ * case where filling every site with a single value is safe.
+ *
+ * Four sites build it as `mov ebx,[0x5b3484]` then `add ebx,0x6a64c4` and
+ * three as `lea ebx,[<g_clientContext> + 0x6a64c4]`; the instruction pairs
+ * were read off the disassembly at each, including the two that needed the
+ * decode window realigned before capstone would resolve them.  The body uses
+ * it as an object base (`unaff_EBX + 0x890` and further fields), which is
+ * consistent with a context-relative record rather than a list head.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004e1f70(void)
+void FUN_004e1f70(int regEbx)
 
 {
   int iVar1;
@@ -34,7 +46,7 @@ void FUN_004e1f70(void)
   undefined4 uVar3;
   int iVar4;
   int iVar5;
-  int unaff_EBX;
+  int unaff_EBX = regEbx;
   int local_4;
   
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

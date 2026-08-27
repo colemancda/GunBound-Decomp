@@ -1904,7 +1904,7 @@ LAB_004c13d9:
     iVar6 = PeekPacketChecksumState((void *)(g_clientContext + 0x6a64c4));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     if (iVar6 == 0) {
-      FUN_004e1f70();
+      FUN_004e1f70(g_clientContext + 0x6a64c4);
       iVar6 = g_clientContext;
     }
     else {
@@ -2024,7 +2024,7 @@ LAB_004c1730:
   }
   if (-1 < piVar15[0x472]) {
     if (piVar15[0x472] == 0) {
-      FUN_004e1f70();
+      FUN_004e1f70(g_clientContext + 0x6a64c4);
       iVar6 = g_clientContext;
       piVar15 = piStack_3d64;
     }

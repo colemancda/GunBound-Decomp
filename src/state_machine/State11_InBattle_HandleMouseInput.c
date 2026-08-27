@@ -407,7 +407,7 @@ void __fastcall State11_InBattle_HandleMouseInput(int *param_1,int dummyEDX,uint
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
         BroadcastQueuedEvent((int)&g_replayContext);
         *(undefined1 *)((int)param_1 + 0x92) = 0;
-        FUN_004e1f70();
+        FUN_004e1f70(g_clientContext + 0x6a64c4);
         RemoveWidget();
         iVar13 = g_clientContext;
         (&DAT_006a7758)[g_clientContext] = 1;

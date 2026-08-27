@@ -385,7 +385,7 @@ LAB_004b8aeb:
   case 8:
     RemoveWidget((int)&g_activeObjectRegistry,0,8);
     RemoveWidget((int)&g_activeObjectRegistry,0,9);
-    FUN_004e1f70();
+    FUN_004e1f70(g_clientContext + 0x6a64c4);
     *(undefined4 *)(&DAT_006a73c8 + g_clientContext) = 1;
     return;
   case 9:
@@ -406,7 +406,7 @@ LAB_004b8aeb:
       return;
     }
     *(undefined4 *)(&DAT_006a73c8 + g_clientContext) = 1;
-    FUN_004e1f70();
+    FUN_004e1f70(g_clientContext + 0x6a64c4);
     QueueBroadcastEvent(0x8404,(int)&g_replayContext);
     sVar5 = PeekChecksumStateUnderLock(g_clientContext + 0xeba98);
     iVar7 = g_clientContext;
@@ -423,7 +423,7 @@ LAB_004b8aeb:
   case 10:
     RemoveWidget((int)&g_activeObjectRegistry,0,0xa);
     *(undefined1 *)(param_1 + 0x92) = 0;
-    FUN_004e1f70();
+    FUN_004e1f70(g_clientContext + 0x6a64c4);
     iVar7 = g_clientContext;
     (&DAT_006a7758)[g_clientContext] = 1;
     *(undefined4 *)(&DAT_006a73c8 + iVar7) = 1;

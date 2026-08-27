@@ -1140,7 +1140,7 @@ void __fastcall State02_ServerSelect_OnTick(int);
 void ConnectToSelectedServer(int param_1, int serverIndex);
 int FUN_004e1d50();
 void FUN_004e1e90();
-void FUN_004e1f70();
+void FUN_004e1f70(int regEbx);
 void __fastcall FUN_004e2b20();
 undefined4 LoadSoundConfig();
 undefined4 * FUN_004e3740();
