@@ -847,8 +847,8 @@
   },
   {
     "addr": "004eeae0",
-    "func": "FUN_004eeae0",
-    "path": "src/unnamed/FUN_004eeae0.c",
+    "func": "StopSoundChannel",
+    "path": "src/unnamed/StopSoundChannel.c",
     "reg": "esi",
     "score": 1.0,
     "callsites": 12,
@@ -5207,8 +5207,8 @@
   },
   {
     "addr": "00415470",
-    "func": "FUN_00415470",
-    "path": "src/unnamed/FUN_00415470.c",
+    "func": "AtlArray_RemoveAt",
+    "path": "src/unnamed/AtlArray_RemoveAt.c",
     "reg": "ebx",
     "score": 1.0,
     "callsites": 1,
@@ -5218,8 +5218,8 @@
   },
   {
     "addr": "00415470",
-    "func": "FUN_00415470",
-    "path": "src/unnamed/FUN_00415470.c",
+    "func": "AtlArray_RemoveAt",
+    "path": "src/unnamed/AtlArray_RemoveAt.c",
     "reg": "edi",
     "score": 1.0,
     "callsites": 1,

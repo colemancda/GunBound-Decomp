@@ -844,7 +844,7 @@ LAB_004d4cc7:
       if (*(int *)(&DAT_006a64b4 + g_clientContext) == -1) {
         return;
       }
-      FUN_004eeae0(*(int *)(&DAT_006a64b4 + g_clientContext));
+      StopSoundChannel(*(int *)(&DAT_006a64b4 + g_clientContext));
       *(undefined4 *)(&DAT_006a64b4 + g_clientContext) = 0xffffffff;
       return;
     }

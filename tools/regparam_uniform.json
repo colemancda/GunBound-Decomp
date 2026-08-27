@@ -420,7 +420,7 @@
   }
  },
  {
-  "func": "FUN_00415470",
+  "func": "AtlArray_RemoveAt",
   "sites": 1,
   "uniform": {
    "ebx": "1",

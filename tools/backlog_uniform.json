@@ -12,9 +12,9 @@
   }
  },
  {
-  "func": "FUN_00415470",
+  "func": "AtlArray_RemoveAt",
   "reg": "ebx",
-  "path": "src/unnamed/FUN_00415470.c",
+  "path": "src/unnamed/AtlArray_RemoveAt.c",
   "sites": 1,
   "value": "0x1",
   "pct": 100,
@@ -24,9 +24,9 @@
   }
  },
  {
-  "func": "FUN_00415470",
+  "func": "AtlArray_RemoveAt",
   "reg": "edi",
-  "path": "src/unnamed/FUN_00415470.c",
+  "path": "src/unnamed/AtlArray_RemoveAt.c",
   "sites": 1,
   "value": "ctx+0x6a76f4",
   "pct": 100,

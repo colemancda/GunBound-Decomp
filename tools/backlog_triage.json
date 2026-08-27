@@ -2116,7 +2116,7 @@
   ]
  },
  {
-  "func": "FUN_004eeae0",
+  "func": "StopSoundChannel",
   "reg": "esi",
   "sites": 12,
   "values": {},
@@ -2126,7 +2126,7 @@
    "OTHER": 8,
    "REGISTER": 4
   },
-  "path": "src/unnamed/FUN_004eeae0.c",
+  "path": "src/unnamed/StopSoundChannel.c",
   "per_site": [
    {
     "va": "0x43e306",
@@ -8130,7 +8130,7 @@
   ]
  },
  {
-  "func": "FUN_00415470",
+  "func": "AtlArray_RemoveAt",
   "reg": "ebx",
   "sites": 1,
   "values": {
@@ -8141,7 +8141,7 @@
   "buckets": {
    "IMMEDIATE": 1
   },
-  "path": "src/unnamed/FUN_00415470.c",
+  "path": "src/unnamed/AtlArray_RemoveAt.c",
   "per_site": [
    {
     "va": "0x4113c1",
@@ -8151,7 +8151,7 @@
   ]
  },
  {
-  "func": "FUN_00415470",
+  "func": "AtlArray_RemoveAt",
   "reg": "edi",
   "sites": 1,
   "values": {
@@ -8162,7 +8162,7 @@
   "buckets": {
    "CTX-REL": 1
   },
-  "path": "src/unnamed/FUN_00415470.c",
+  "path": "src/unnamed/AtlArray_RemoveAt.c",
   "per_site": [
    {
     "va": "0x4113c1",

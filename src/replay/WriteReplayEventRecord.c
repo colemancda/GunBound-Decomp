@@ -277,7 +277,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                   FUN_0041f200(0,(int)g_clientContext);
                 }
                 BroadcastQueuedEvent((int)&g_replayContext);
-                FUN_00415470(0,local_d78,1,(int *)(g_clientContext + 0x6a76f4));
+                AtlArray_RemoveAt(0,local_d78,1,(int *)(g_clientContext + 0x6a76f4));
                 local_d78 = local_d78 - 1;
                 if (*(int *)(&DAT_006a76f8 + g_clientContext) == 0) {
                   PostTurnEvent(&g_replayContext,0xc302);

@@ -341,9 +341,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00415470",
+  "func": "AtlArray_RemoveAt",
   "reg": "ebx",
-  "path": "src/unnamed/FUN_00415470.c",
+  "path": "src/unnamed/AtlArray_RemoveAt.c",
   "caller": "WriteReplayEventRecord",
   "caller_va": "0x4104f0",
   "va": "0x4113c1",
@@ -352,9 +352,9 @@
   "safe": true
  },
  {
-  "func": "FUN_00415470",
+  "func": "AtlArray_RemoveAt",
   "reg": "edi",
-  "path": "src/unnamed/FUN_00415470.c",
+  "path": "src/unnamed/AtlArray_RemoveAt.c",
   "caller": "WriteReplayEventRecord",
   "caller_va": "0x4104f0",
   "va": "0x4113c1",

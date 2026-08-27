@@ -1,9 +1,29 @@
-/* FUN_00415470 - 0x00415470 in the original binary.
+/* AtlArray_RemoveAt - 0x00415470 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * CAtlArray::RemoveAt(iElement, nElements) over 4-byte elements.
+ *
+ * NAMED 2026-08-26.  The class is settled by an already-named function on the
+ * SAME array: its one call site passes g_clientContext + 0x6a76f4, and that
+ * object is grown by AtlArray_GrowBuffer (0x50ed30) at
+ * State11_InBattle_OnTick's 0x4c0c51 -- `mov ebx,[esi+4]; cmp ebx,[esi+8]`,
+ * count at +4 against capacity at +8.  src/cxx/AtlArray.h documents that
+ * layout and ATL's E_INVALIDARG throw.
+ *
+ * The routine is ATL7's RemoveAt with its constants intact and in order:
+ * `if (iElement + nElements > m_nElements) AtlThrow(E_INVALIDARG)` -- the
+ * 0x80070057 push at 0x41547b -- then memmove of the tail, then
+ * `m_nElements -= nElements` at 0x4154a1.  The destructor pass ATL emits
+ * between the check and the move is absent because the element is a POD
+ * dword; FUN_004264d0 is the same routine WITH that loop still present,
+ * calling the refcounted CString release, i.e. the non-trivial-element
+ * instantiation of the same template.
+ *
+ * Named AtlArray_ rather than CArray_ deliberately.  MFC's CArray::RemoveAt
+ * asserts where ATL throws E_INVALIDARG, and the grow half of this very array
+ * is already AtlArray_GrowBuffer -- naming the removal CArray_* would split a
+ * matched pair across two prefixes.  (The CArray_* names elsewhere in this
+ * tree are a different, genuinely MFC-shaped container: they carry
+ * CArray::SetSize's clamp(count/8, 4, 1024) growth rule, which ATL has not.)
  *
  * DROPPED REGISTERS ANALYSED, NOT APPLIED.  `ret 0` puts nothing on the stack,
  * so param_1 (ECX) and param_2 (EDX) are registers, and EBX and EDI are two
@@ -40,7 +60,7 @@
 #include "ghidra_types.h"
 
 
-void __fastcall FUN_00415470(undefined4 param_1,int param_2,int regEbx,int *regEdi)
+void __fastcall AtlArray_RemoveAt(undefined4 param_1,int param_2,int regEbx,int *regEdi)
 
 {
   int iVar1;
