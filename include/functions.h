@@ -1268,7 +1268,7 @@ void __fastcall DrawBlendedHLine(undefined4 param_1,int param_2,int param_3,int 
 void __fastcall DrawVLine();
 void __fastcall DrawBlendedVLine(int param_1,int param_2,int param_3,int regEax);
 void FUN_004eb7a0();
-void __fastcall FillScreenRect();
+void __fastcall FillScreenRect(int param_1,int param_2,int param_3,int param_4,int regEax);
 void DrawSprite(); /* K&R-empty deliberately (like FindSpriteFrame): real args
                      * are (param_1,y,x,outerKey,innerKey); only GameTick.c's
                      * call site is fully recovered - see DrawSprite.c's header */

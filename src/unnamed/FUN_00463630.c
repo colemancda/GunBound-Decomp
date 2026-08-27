@@ -27,6 +27,16 @@ void FUN_00463630(int param_1)
   int iVar4;
   int iVar5;
   undefined4 uVar6;
+  /* RECOVERED (dropped-EAX pass): `iVar7` holds the fill box's top edge
+   * (Ghidra's `iVar2` + 1, kept in EBX from orig 0x463991) because
+   * `iVar2` is recycled by `iVar2 = param_1 + 0x6db0` before the second
+   * and third fills.  `uVar9` holds the width of the FIRST bar fill
+   * (orig 0x463b48), which the original keeps in its [esp+0x10] spill
+   * slot (E-0x1144) and reads back at 0x463bee to place the SECOND bar
+   * (`lea edx,[edx+eax+2]`), while Ghidra's `uVar3` name is reassigned
+   * in between. */
+  int iVar7;
+  undefined4 uVar9;
   undefined4 *unaff_FS_OFFSET;
   undefined4 local_1144;
   int local_113c [2];
@@ -120,7 +130,8 @@ void FUN_00463630(int param_1)
         if (*(int *)(param_1 + 0x24) != 0xe) {
           FUN_004eb7a0(iVar4 + 1,0x4e,5);
           local_113c[0] = iVar4 + 2;
-          FillScreenRect(0x4c,0x2965);
+          iVar7 = iVar2 + 1;
+          FillScreenRect(iVar7,local_113c[0],0x4c,0x2965,3);
           iVar2 = param_1 + 0x6db0;
           iVar4 = param_1 + 0x6744;
           uVar3 = EncodeChecksumPairSum(iVar4,local_ac0,iVar2);
@@ -159,7 +170,8 @@ void FUN_00463630(int param_1)
           ScrubChecksumGuard();
           local_4 = 0xffffffff;
           ScrubChecksumGuard();
-          FillScreenRect(uVar3,local_1130);
+          uVar9 = uVar3;
+          FillScreenRect(iVar7,local_113c[0],uVar3,local_1130,3);
           uVar3 = EncodeChecksumPairSum(iVar4,local_230,iVar2);
           local_4 = 0xc;
           iVar5 = PeekChecksumStateUnderLock(uVar3);
@@ -177,7 +189,7 @@ void FUN_00463630(int param_1)
           uVar6 = 0x21d8;
           local_4 = 0xf;
           uVar3 = PeekChecksumStateUnderLock(uVar3);
-          FillScreenRect(uVar3,uVar6);
+          FillScreenRect(iVar7,local_1134 + (int)uVar9 + 2,uVar3,uVar6,3);
           local_4 = 0xe;
           ScrubChecksumGuard();
           local_4 = 0xd;

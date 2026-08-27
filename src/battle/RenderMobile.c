@@ -31,6 +31,13 @@ void __fastcall RenderMobile(int param_1)
   int iVar14;
   int iVar15;
   int iVar16;
+  /* RECOVERED (dropped-EAX pass): the width passed to the FIRST of the
+   * two bar fills below (orig 0x463308).  The original keeps that value
+   * live in its [esp+0x1c] spill slot (E-0x928) and reads it back at
+   * 0x4633ae to place the SECOND bar (`lea edx,[eax+ecx+2]`), but
+   * Ghidra's `uVar7` name is reassigned four times in between, so the
+   * value is captured here. */
+  undefined4 uVar17;
   undefined4 *unaff_FS_OFFSET;
   bool bVar15;
   uint local_930;
@@ -257,7 +264,7 @@ void __fastcall RenderMobile(int param_1)
         if ((*(int *)(param_1 + 0x24) != 0xe) &&
            (cVar3 = PacketChecksumNotEquals(g_clientContext + 0x45354,3), cVar3 != '\0')) {
           FUN_004eb7a0(iVar5 + 1,0x4e,5);
-          FillScreenRect(0x4c,0x2965);
+          FillScreenRect(iVar10 + 1,iVar5 + 2,0x4c,0x2965,3);
           iVar5 = param_1 + 0x6db0;
           iVar8 = param_1 + 0x6744;
           uVar7 = EncodeChecksumPairSum(iVar8,local_230,iVar5);
@@ -295,7 +302,8 @@ void __fastcall RenderMobile(int param_1)
           ScrubChecksumGuard();
           local_4 = 0xffffffff;
           ScrubChecksumGuard();
-          FillScreenRect(uVar7,(-(uint)(cVar3 != '\0') & 0x5af7) + 0x65a9);
+          uVar17 = uVar7;
+          FillScreenRect(iVar10 + 1,iVar15 + 2,uVar7,(-(uint)(cVar3 != '\0') & 0x5af7) + 0x65a9,3);
           uVar7 = EncodeChecksumPairSum(iVar8,local_454,iVar5);
           local_4 = 0x14;
           iVar14 = PeekChecksumStateUnderLock(uVar7);
@@ -313,7 +321,7 @@ void __fastcall RenderMobile(int param_1)
           uVar11 = 0x21d8;
           local_4 = 0x17;
           uVar7 = PeekChecksumStateUnderLock(uVar7);
-          FillScreenRect(uVar7,uVar11);
+          FillScreenRect(iVar10 + 1,iVar15 + (int)uVar17 + 2,uVar7,uVar11,3);
           local_4 = 0x16;
           ScrubChecksumGuard();
           local_4 = 0x15;

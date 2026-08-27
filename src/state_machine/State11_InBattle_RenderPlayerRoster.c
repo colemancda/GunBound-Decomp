@@ -483,7 +483,7 @@ LAB_00408b80:
     }
     DrawVLine();
     DrawVLine();
-    FillScreenRect(0x40,0x2965);
+    FillScreenRect(0x24a,0x2d5,0x40,0x2965,5);
     iVar3 = uVar7 + 0x6db0;
     iVar13 = uVar7 + 0x6744;
     EncodeChecksumPairSum(iVar13,local_f08,iVar3);
@@ -586,7 +586,7 @@ LAB_00408b80:
       } while (local_1028 != 0);
       TreeLowerBound(local_1024,&g_valueGuardMap);
     }
-    FillScreenRect(local_1010[0],(-(uint)(iVar2 < iVar6) & 0x5af7) + 0x65a9);
+    FillScreenRect(0x24a,0x2d5,local_1010[0],(-(uint)(iVar2 < iVar6) & 0x5af7) + 0x65a9,5);
     uVar5 = EncodeChecksumPairSum(iVar13,local_230,iVar3);
     local_4 = 6;
     uVar8 = EncodeChecksumDeltaMul(local_101c + 0x6fd4,local_678,0x40);
@@ -596,7 +596,7 @@ LAB_00408b80:
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     uVar5 = PeekPacketChecksumState((void *)(local_89c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FillScreenRect(uVar5,0x21d8);
+    FillScreenRect(0x24a,local_1010[0] + 0x2d5,uVar5,0x21d8,5);
     local_4 = 7;
     if (local_888 != 0) {
       iVar3 = local_888 << 4;
@@ -674,7 +674,7 @@ LAB_00409310:
     iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
     (*pcVar12)(&g_valueGuardLock);
     if (iVar13 == iVar2) {
-      FillScreenRect(0x82,0x5327);
+      FillScreenRect(local_1018[0],0x13,0x82,0x5327,0x10);
     }
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
