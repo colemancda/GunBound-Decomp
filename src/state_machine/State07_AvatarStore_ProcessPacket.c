@@ -234,8 +234,8 @@ LAB_0044469b:
           if (0xe < payloadLen) {
             QueueOutgoingPacketField(payload[7]);
             puVar13 = payload + 8;
-            FUN_0044c5f0((int *)(g_clientContext + 0x44e20));
-            FUN_0044c5f0((int *)(g_clientContext + 0x44e30));
+            AtlArray_RemoveAll_450((int *)(g_clientContext + 0x44e20));
+            AtlArray_RemoveAll_450((int *)(g_clientContext + 0x44e30));
             iVar20 = 0;
             iVar4 = PeekChecksumStateUnderLock(&DAT_005f4894 + g_clientContext);
             if (0 < iVar4) {
@@ -308,8 +308,8 @@ LAB_0044469b:
         *(undefined4 *)((int)this + 0x32f94) = 0x80000000;
         *(undefined4 *)((int)this + 0x32f98) = 0x7fffffff;
         *(undefined1 *)((int)this + 0x32f92) = 0;
-        FUN_0044c5f0((int *)(g_clientContext + 0x44e30));
-        FUN_0044c5f0((int *)(g_clientContext + 0x44e40));
+        AtlArray_RemoveAll_450((int *)(g_clientContext + 0x44e30));
+        AtlArray_RemoveAll_450((int *)(g_clientContext + 0x44e40));
         FUN_0044c630((int)(g_clientContext + 0x44e30),(int)(g_clientContext + 0x44e50));
         return;
       }

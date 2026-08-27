@@ -14,7 +14,7 @@
  * 0x80070057 push at 0x41547b -- then memmove of the tail, then
  * `m_nElements -= nElements` at 0x4154a1.  The destructor pass ATL emits
  * between the check and the move is absent because the element is a POD
- * dword; FUN_004264d0 is the same routine WITH that loop still present,
+ * dword; AtlArray_RemoveAt_CString is the same routine WITH that loop still present,
  * calling the refcounted CString release, i.e. the non-trivial-element
  * instantiation of the same template.
  *

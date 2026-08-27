@@ -111,7 +111,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00406440,90,InitGuardedBool,false,103,1,RAW-src
 004064a0,93,EncodeGuardedBool,false,42,1,RAW-src
 00406500,41,SetGuardedBool,false,260,3,RAW-src
-00406530,108,RescrambleGuardedBool,false,62,3,RAW-src
+00406530,108,CopyGuardedBool,false,62,3,RAW-src
 004065a0,97,PeekPacketChecksumBool,false,1297,2,RAW-src
 00406610,118,CheckGuardedBoolAnd,false,92,2,RAW-src
 00406690,120,FUN_00406690,false,2,2,RAW-src
@@ -362,7 +362,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00426410,25,FUN_00426410,false,2,0,RAW-src
 00426430,39,FUN_00426430,false,2,1,RAW-src
 00426460,105,FUN_00426460,false,16,3,RAW-src
-004264d0,136,FUN_004264d0,false,1,3,RAW-src
+004264d0,136,AtlArray_RemoveAt_CString,false,1,3,RAW-src
 00426570,26,FUN_00426570,false,30,1,RAW-src
 004265c0,87,FUN_004265c0,false,2,4,RAW-src
 00426620,200,FUN_00426620,false,13,5,RAW-src
@@ -432,7 +432,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00437150,408,FUN_00437150,false,21,7,RAW-src
 004372f0,200,SpawnFlameEffect,false,32,9,RAW-src
 004373c0,196,SpawnSuperFlameEffect,false,9,9,RAW-src
-00437490,94,FUN_00437490,false,4,0,RAW-src
+00437490,94,FindFreeMineKey,false,4,0,RAW-src
 00437500,225,FUN_00437500,false,2,0,RAW-src
 004375f0,626,SpawnMine,false,2,13,RAW-src
 00437870,624,SpawnSuperMine,false,1,14,RAW-src
@@ -549,11 +549,11 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0044c3d0,137,FUN_0044c3d0,false,3,0,RAW-src
 0044c460,308,FUN_0044c460,false,2,3,RAW-src
 0044c5a0,67,RemoveInventoryItems,false,1,2,RAW-src
-0044c5f0,58,FUN_0044c5f0,false,5,2,RAW-src
+0044c5f0,58,AtlArray_RemoveAll_450,false,5,2,RAW-src
 0044c630,99,FUN_0044c630,false,3,2,RAW-src
 0044c6a0,157,FUN_0044c6a0,false,4,3,RAW-src
 0044c740,104,FUN_0044c740,false,3,5,RAW-src
-0044c7b0,183,FUN_0044c7b0,false,3,5,RAW-src
+0044c7b0,183,AtlArray_SetCount_450,false,3,5,RAW-src
 0044c870,96,FUN_0044c870,false,2,1,RAW-src
 0044c900,20,InitShot1_Bullet7,false,1,1,RAW-src
 0044c920,32,DeleteShot1_Bullet7,false,1,2,RAW-src
@@ -1120,7 +1120,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e7560,121,FUN_004e7560,false,1,1,RAW-src
 004e75e0,118,FUN_004e75e0,false,2,0,RAW-src
 004e7660,104,FUN_004e7660,false,1,0,RAW-src
-004e76d0,105,FUN_004e76d0,false,1,3,RAW-src
+004e76d0,105,BeginUdpSessionProbe,false,1,3,RAW-src
 004e7740,153,FUN_004e7740,false,1,4,RAW-src
 004e77e0,894,FUN_004e77e0,false,4,10,RAW-src
 004e7b60,450,FUN_004e7b60,false,2,3,RAW-src
@@ -1189,7 +1189,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004eb6b0,102,DrawVLine,false,8,0,RAW-src
 004eb720,123,DrawBlendedVLine,false,1,1,RAW-src
 004eb7a0,82,FUN_004eb7a0,false,4,2,RAW-src
-004eb800,142,FillRect,false,11,1,RAW-src
+004eb800,142,FillScreenRect,false,11,1,RAW-src
 004eb890,65,DrawSprite,false,16,3,RAW-src
 004eb8e0,92,QueueSpriteSpansByContentId,false,13,2,RAW-src
 004eb940,128,FUN_004eb940,false,1,0,RAW-src
@@ -1423,7 +1423,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004ff130,109,StringMap_Find_1c,false,3,2,RAW-src
 004ff1a0,97,FUN_004ff1a0,false,2,1,RAW-src
 004ff210,40,FUN_004ff210,false,1,3,RAW-src
-004ff240,114,FUN_004ff240,false,2,0,RAW-src
+004ff240,114,IntMap_CopyValue_1768,false,2,0,RAW-src
 004ff2c0,78,CArray_CopyElement_1750,false,1,0,RAW-src
 004ff310,51,HashStringNoCase,false,3,1,RAW-src
 004ff350,327,ConfigureAsyncSocket,false,2,5,RAW-src

@@ -28,7 +28,7 @@ void FUN_004258e0(undefined4 param_1,int regEax)
        `lea ebx,[edi + 0x67ec60]` with edi = regEax (set by this function's
        own `mov edi,eax` at 0x4258ef and never rewritten), `mov esi,1`, and
        `mov ecx,eax` = FUN_004259d0's return, i.e. iVar1. */
-    FUN_004264d0(iVar1,(int *)(regEax + 0x67ec60),1);
+    AtlArray_RemoveAt_CString(iVar1,(int *)(regEax + 0x67ec60),1);
     _Format = (char *)GetLocalizedString(&g_localizedStringTable,0x1ff);
     _sprintf(local_80,_Format,param_1);
     (**(code **)(*(int *)g_gameStateVTableArray[g_currentGameState] + 0x28))(local_80,2,6);

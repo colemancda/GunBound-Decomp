@@ -84,7 +84,7 @@ void FUN_0044bf00(int param_1)
   }
   *(int *)(iVar4 + 0x44d0) = iVar6;
   _qsort(*(void **)(g_clientContext + 0x44e40),*(size_t *)(g_clientContext + 0x44e44),0x450,FUN_0044be40);
-  FUN_0044c5f0((int *)(g_clientContext + 0x44e50));
+  AtlArray_RemoveAll_450((int *)(g_clientContext + 0x44e50));
   FUN_0044c630((int)(g_clientContext + 0x44e50),(int)(g_clientContext + 0x44e30));
   FUN_0044c630((int)(g_clientContext + 0x44e50),(int)(g_clientContext + 0x44e40));
   pcVar11 = local_c8;
