@@ -27,7 +27,11 @@ undefined4 __fastcall FUN_0044c630(int param_1,int regEax)
   int iVar4;
   
   uVar1 = *(undefined4 *)(param_1 + 4);
-  FUN_0044c7b0();
+  /* DROPPED ARGUMENTS RECOVERED (2026-08-27): 0x44c63b-0x44c64a is
+     `mov ecx,[esi+4]; add ecx,ebp` = *(regEax+4) + uVar1 (ebp holds uVar1,
+     callee-saved across this call), `mov edx,ebx` = param_1, and
+     `or eax,0xffffffff` = the -1 nGrowBy default. */
+  AtlArray_SetCount_450(*(int *)(regEax + 4) + (int)uVar1,(int *)param_1,-1);
   iVar2 = *(int *)(regEax + 4);
   if (iVar2 == 0) {
     return uVar1;
@@ -35,7 +39,7 @@ undefined4 __fastcall FUN_0044c630(int param_1,int regEax)
   /* DROPPED POINTER WALK RECOVERED (2026-08-27).  Ghidra kept the counter
      and dropped the two cursors entirely, so FUN_0044c740 was called with
      nothing.  0x44c664-0x44c67f: ESI starts at `ebp*0x450 + *(int *)param_1`
-     (ebp = uVar1, still live across the FUN_0044c7b0 call) and steps by one
+     (ebp = uVar1, still live across the AtlArray_SetCount_450 call) and steps by one
      0x450 record per iteration; EDI is pre-biased by `sub edi,eax` so that
      the loop's `lea ebx,[edi+esi]` yields `*(int *)regEax + k*0x450` -- i.e.
      the two arrays are walked in lockstep, destination in ESI. */

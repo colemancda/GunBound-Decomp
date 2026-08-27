@@ -24,7 +24,10 @@ void FUN_0050cff0(int *param_1,uint param_2,undefined4 param_3,int param_4)
    * Same rationale as entry/InitGame.c - see src/README.md. */
   if (param_2 < (uint)param_1[1]) {
     iVar1 = param_1[1];
-    FUN_0044c7b0();
+    /* 0x50d036-0x50d044: `mov esi,[edi+4]` = iVar1, `mov ecx,[ebp+0x14];
+       add ecx,esi` = param_4 + iVar1, edx = edi = param_1, eax = -1.  This
+       is the `jb` target, i.e. the param_2 < param_1[1] arm. */
+    AtlArray_SetCount_450(param_4 + iVar1,param_1,-1);
     local_18 = iVar1 * 0x450 + *param_1;
     if (param_4 != 0) {
       local_1c = param_4;
@@ -40,7 +43,10 @@ void FUN_0050cff0(int *param_1,uint param_2,undefined4 param_3,int param_4)
     FUN_0044c870(*param_1 + param_2 * 0x450,param_4);
   }
   else {
-    FUN_0044c7b0();
+    /* 0x50d01e-0x50d02c (the fall-through arm): `mov eax,[ebp+0x14];
+       lea esi,[ebx+eax]` = param_2 + param_4, edx = edi = param_1,
+       eax = -1. */
+    AtlArray_SetCount_450(param_2 + param_4,param_1,-1);
   }
   uVar2 = param_2 + param_4;
   local_8 = 0xffffffff;
