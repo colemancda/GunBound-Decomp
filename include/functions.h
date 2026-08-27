@@ -237,7 +237,7 @@ void TickActiveObjectRegistry(int param_1);
 void DrawActiveObjectRegistry(int, int);
 void InvokeWidget(int widgetId,int enabled);
 undefined4 __fastcall SetWidgetReadyState(undefined4 param_1,uint param_2,int param_3,int regEax,uint regEdi);
-uint __fastcall FUN_00406400(undefined4 param_1,uint param_2,int regEax);
+uint __fastcall FUN_00406400(undefined4 param_1,uint param_2,int regEax,uint regEsi);
 byte * __fastcall InitGuardedBool();
 void EncodeGuardedBool(int param_1,byte *guardPtr);
 int SetGuardedBool(undefined4 param_1,int guardPtr);
