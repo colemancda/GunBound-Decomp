@@ -212,7 +212,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040cd40,25,FUN_0040cd40,false,1,1,RAW-src
 0040cd60,31,FUN_0040cd60,false,1,2,RAW-src
 0040cd80,97,FUN_0040cd80,false,2,1,RAW-src
-0040cdf0,94,FUN_0040cdf0,false,8,0,RAW-src
+0040cdf0,94,RemoveTextBoxWidget,false,8,0,RAW-src
 0040ce50,70,HandleBackgroundActiveObjectMouseDown,false,1,3,RAW-src
 0040cea0,87,FindActiveObjectAt,false,4,0,RAW-src
 0040cf00,48,SyncActiveTextInput,false,1,1,RAW-src
@@ -552,7 +552,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0044c5f0,58,AtlArray_RemoveAll_450,false,5,2,RAW-src
 0044c630,99,FUN_0044c630,false,3,2,RAW-src
 0044c6a0,157,FUN_0044c6a0,false,4,3,RAW-src
-0044c740,104,FUN_0044c740,false,3,5,RAW-src
+0044c740,104,AtlArray_CopyElement_450,false,3,5,RAW-src
 0044c7b0,183,AtlArray_SetCount_450,false,3,5,RAW-src
 0044c870,96,FUN_0044c870,false,2,1,RAW-src
 0044c900,20,InitShot1_Bullet7,false,1,1,RAW-src
@@ -1134,7 +1134,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004e84c0,556,FUN_004e84c0,false,1,3,RAW-src
 004e86f0,186,FUN_004e86f0,false,22,2,RAW-src
 004e87b0,692,FUN_004e87b0,false,26,9,RAW-src
-004e8a70,94,FUN_004e8a70,false,27,0,RAW-src
+004e8a70,94,TurnEventSet_Find,false,27,0,RAW-src
 004e8ad0,55,FUN_004e8ad0,false,8,2,RAW-src
 004e8b10,414,FUN_004e8b10,false,2,6,RAW-src
 004e8cb0,81,FUN_004e8cb0,false,5,0,RAW-src

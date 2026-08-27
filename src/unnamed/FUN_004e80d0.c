@@ -50,7 +50,7 @@ uint FUN_004e80d0(int param_1,undefined4 *param_2,uint *param_3)
          dropped the store along with the argument, so the slot itself
          had to be reintroduced. */
       keySlot = *(ushort *)(*(int *)(param_1 + 0x454b4) + iVar6);
-      FUN_004e8a70(param_1 + 0x45230,(undefined4 *)&local_c,(ushort *)&keySlot);
+      TurnEventSet_Find(param_1 + 0x45230,(undefined4 *)&local_c,(ushort *)&keySlot);
       if (local_c == *(int *)(param_1 + 0x45234)) {
         if (*(uint *)(param_1 + 0x454b8) <= uVar4) {
                     /* WARNING: Subroutine does not return */

@@ -360,7 +360,7 @@ LAB_004b4324:
             FUN_004d2130(iVar6,(int *)(&DAT_006a76f4 + g_clientContext));
             FUN_004261d0(g_clientContext);
             local_9a8 = 0xc302;
-            FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_9b4,(ushort *)&local_9a8);
+            TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_9b4,(ushort *)&local_9a8);
             iVar6 = local_9b0;
             if (local_9b4 != DAT_00e9af14) {
               FUN_004e87b0(&DAT_00e9af10,&local_9ac,local_9b4);

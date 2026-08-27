@@ -7,7 +7,7 @@
 *
  * DROPPED REGISTER RECOVERED (2026-08-27): unaff_ESI is the INNER key.  The
  * body is the same two-level registry lookup as SetWidgetReadyState and
- * FUN_0040cdf0 -- outer list walked by +0x1c and keyed at +4 against param_2,
+ * RemoveTextBoxWidget -- outer list walked by +0x1c and keyed at +4 against param_2,
  * then the matched node's inner list walked by +0x10 and keyed at +8 against
  * ESI -- so ESI is a widget key, and the values found (1, 3, 5, 0x10) sit in
  * the same small-key band those functions use.

@@ -8,7 +8,7 @@
  * param_1 IS NOT AN ARGUMENT.  Ghidra typed this __thiscall and so modelled
  * ECX as param_1, but ECX is never read here: the `push ecx` at 0x004e7d60 is
  * MSVC's stack-allocation idiom (a four-byte `sub esp,4` written as a push),
- * and the slot it reserves is an OUT parameter that FUN_004e8a70 fills:
+ * and the slot it reserves is an OUT parameter that TurnEventSet_Find fills:
  *
  *   0x004e7dad  lea  eax, [esp+0xc]      <- &local
  *   0x004e7db3  call 0x4e8a70            <- writes through it
@@ -16,7 +16,7 @@
  *   0x004e7dbc  cmp  eax, [esi+0x45234]
  *
  * so it is a local, and it is declared as one here.  It stays uninitialised
- * because FUN_004e8a70's own arguments are still dropped -- that call is an
+ * because TurnEventSet_Find's own arguments are still dropped -- that call is an
  * open item in its own right -- but an uninitialised local is at least
  * honestly labelled, where an uninitialised PARAMETER invites a caller to
  * fill it with something plausible and wrong.
@@ -48,7 +48,7 @@ void __thiscall FUN_004e7d60(int param_2,int regEax)
     *(int *)(*(int *)(regEax + 0x45234) + 8) = *(int *)(regEax + 0x45234);
     return;
   }
-  FUN_004e8a70(regEax + 0x45230,(undefined4 *)&param_1,(ushort *)&param_2);
+  TurnEventSet_Find(regEax + 0x45230,(undefined4 *)&param_1,(ushort *)&param_2);
   if (param_1 != *(int *)(regEax + 0x45234)) {
     FUN_004e87b0(regEax + 0x45230,&param_2,param_1);
   }

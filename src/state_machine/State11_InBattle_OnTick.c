@@ -1569,7 +1569,7 @@ LAB_004c08c8:
   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
   BroadcastQueuedEvent();
   local_3d60 = (int *)0xc303;
-  FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
+  TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
   if (local_3d68 != DAT_00e9af14) {
     FUN_004e87b0(&DAT_00e9af10);
   }
@@ -1601,7 +1601,7 @@ LAB_004c08c8:
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       (&DAT_006a76e0)[iVar5 + iVar6] = 1;
       local_3d60 = (int *)0xc302;
-      FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
+      TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
       if (local_3d68 != DAT_00e9af14) {
         FUN_004e87b0(&DAT_00e9af10);
       }
@@ -1650,17 +1650,17 @@ LAB_004c08c8:
     FUN_0043a5f0();
     FUN_004d0e90();
     local_3d60 = (int *)0xc300;
-    FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
+    TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
     if (local_3d68 != DAT_00e9af14) {
       FUN_004e87b0(&DAT_00e9af10);
     }
     local_3d60 = (int *)0xc306;
-    FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
+    TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
     if (local_3d68 != DAT_00e9af14) {
       FUN_004e87b0(&DAT_00e9af10);
     }
     local_3d60 = (int *)0xc40b;
-    FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
+    TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)&local_3d68,(ushort *)&local_3d60);
     if (local_3d68 != DAT_00e9af14) {
       FUN_004e87b0(&DAT_00e9af10);
     }
@@ -1778,7 +1778,7 @@ LAB_004c0f5c:
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
       BroadcastQueuedEvent();
       local_3d68 = (int *)0xc303;
-      FUN_004e8a70((int)&DAT_00e9af10,&uStack_3d70,(ushort *)&local_3d68);
+      TurnEventSet_Find((int)&DAT_00e9af10,&uStack_3d70,(ushort *)&local_3d68);
       if (uStack_3d70 != DAT_00e9af14) {
         FUN_004e87b0(&DAT_00e9af10,&local_3d68,uStack_3d70);
       }

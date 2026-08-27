@@ -53,7 +53,7 @@
  *
  * (3) THE INSTANTIATION IS COMPLETE AROUND IT, so the class is not in
  * question: 0x44c630 is Append (returns nOldSize, SetCounts to nOldSize +
- * src.m_nSize, then copies element by element with FUN_0044c740), 0x44c6a0
+ * src.m_nSize, then copies element by element with AtlArray_CopyElement_450), 0x44c6a0
  * is RemoveAt with ATL's `iElement + nElements > m_nSize ->
  * AtlThrow(E_INVALIDARG)` intact as ThrowCxxException(0x80070057), 0x44c7b0
  * is SetCount, 0x44c870 is CallConstructors (SEH-guarded placement-new loop

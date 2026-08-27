@@ -57,7 +57,7 @@ void FUN_0050cff0(int *param_1,uint param_2,undefined4 param_3,int param_4)
      0x50d0db seeds it from param_2), which is the counter the C already
      spells param_2. */
   for (; param_2 < uVar2; param_2 = param_2 + 1) {
-    FUN_0044c740(param_2 * 0x450 + *param_1,(int)param_3);
+    AtlArray_CopyElement_450(param_2 * 0x450 + *param_1,(int)param_3);
   }
   return;
 }

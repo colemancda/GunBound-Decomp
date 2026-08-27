@@ -120,8 +120,8 @@ void __thiscall FUN_00445450(int param_1,int param_2,undefined4 param_3,undefine
     RemoveWidget((int)&g_activeObjectRegistry,0,0x34);
 LAB_00445543:
     RemoveWidget((int)&g_activeObjectRegistry,0,0x35);
-    FUN_0040cdf0(0,0x2710,0,(int)&g_activeObjectRegistry2);
-    FUN_0040cdf0(0,0x2710,1,(int)&g_activeObjectRegistry2);
+    RemoveTextBoxWidget(0,0x2710,0,(int)&g_activeObjectRegistry2);
+    RemoveTextBoxWidget(0,0x2710,1,(int)&g_activeObjectRegistry2);
     CreateAvatarStoreButtons(param_1);
     goto switchD_00445591_caseD_2;
   }

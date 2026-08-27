@@ -50,7 +50,7 @@ extern unsigned int g_clientContext;
 extern unsigned char g_valueGuardLock;
 int FUN_0050cdb0();
 int FUN_00428550(void *buf);
-void FUN_0044c740(int dstRecord, int srcRecord);
+void AtlArray_CopyElement_450(int dstRecord, int srcRecord);
 void FUN_0044c6a0(unsigned int ctx, int regEdi);
 void FUN_0050cff0(unsigned int ctx, unsigned int idx, void *buf, int flag);
 void FUN_0044b0b0(void *state);
@@ -106,7 +106,7 @@ extern "C" int FUN_0050a320(CWidget *this_, int x, int y)
          `lea esi,[esp+0x20]` (destination) -- the same [esp+0x20] the
          FUN_00428550 call above passes, i.e. local_45c, whose declared
          1104 bytes are exactly the 0x450 record size. */
-      FUN_0044c740((int)local_45c,
+      AtlArray_CopyElement_450((int)local_45c,
                    (int)(*(unsigned int *)(self + 0x94) * 0x450
                          + *(int *)(g_clientContext + 0x44e20)));
       FUN_0044c6a0(g_clientContext + 0x44e20,1);

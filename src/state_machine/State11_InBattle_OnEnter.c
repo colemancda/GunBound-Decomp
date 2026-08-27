@@ -561,17 +561,17 @@ LAB_004bbe6b:
       EncodeOutgoingPacketField((void *)(g_clientContext + 0x62630), 0xffffffff);
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       puStack_98 = (undefined *)0xc300;
-      FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)apuStack_90,(ushort *)&puStack_98);
+      TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)apuStack_90,(ushort *)&puStack_98);
       if (apuStack_90[0] != DAT_00e9af14) {
         FUN_004e87b0(&DAT_00e9af10,&puStack_98,apuStack_90[0]);
       }
       puStack_98 = (undefined *)0xc306;
-      FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)apuStack_90,(ushort *)&puStack_98);
+      TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)apuStack_90,(ushort *)&puStack_98);
       if (apuStack_90[0] != DAT_00e9af14) {
         FUN_004e87b0(&DAT_00e9af10,&puStack_98,apuStack_90[0]);
       }
       puStack_98 = (undefined *)0xc40b;
-      FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)apuStack_90,(ushort *)&puStack_98);
+      TurnEventSet_Find((int)&DAT_00e9af10,(undefined4 *)apuStack_90,(ushort *)&puStack_98);
       if (apuStack_90[0] != DAT_00e9af14) {
         FUN_004e87b0(&DAT_00e9af10,&puStack_98,apuStack_90[0]);
       }

@@ -37,7 +37,7 @@ undefined4 __fastcall FUN_0044c630(int param_1,int regEax)
     return uVar1;
   }
   /* DROPPED POINTER WALK RECOVERED (2026-08-27).  Ghidra kept the counter
-     and dropped the two cursors entirely, so FUN_0044c740 was called with
+     and dropped the two cursors entirely, so AtlArray_CopyElement_450 was called with
      nothing.  0x44c664-0x44c67f: ESI starts at `ebp*0x450 + *(int *)param_1`
      (ebp = uVar1, still live across the AtlArray_SetCount_450 call) and steps by one
      0x450 record per iteration; EDI is pre-biased by `sub edi,eax` so that
@@ -46,7 +46,7 @@ undefined4 __fastcall FUN_0044c630(int param_1,int regEax)
   iVar3 = (int)uVar1 * 0x450 + *(int *)param_1;
   iVar4 = *(int *)regEax;
   do {
-    FUN_0044c740(iVar3,iVar4);
+    AtlArray_CopyElement_450(iVar3,iVar4);
     iVar3 = iVar3 + 0x450;
     iVar4 = iVar4 + 0x450;
     iVar2 = iVar2 + -1;

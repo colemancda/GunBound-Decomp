@@ -77,8 +77,8 @@ void RenderInventoryItemDetail(int param_1)
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     RemoveWidget();
     RemoveWidget();
-    FUN_0040cdf0(0,0x2710,0,(int)&g_activeObjectRegistry2);
-    FUN_0040cdf0(0,0x2710,1,(int)&g_activeObjectRegistry2);
+    RemoveTextBoxWidget(0,0x2710,0,(int)&g_activeObjectRegistry2);
+    RemoveTextBoxWidget(0,0x2710,1,(int)&g_activeObjectRegistry2);
   }
   pcVar13 = (code *)EnterCriticalSection;
   if ((g_stateChangeInProgress == 0) || (DAT_0079350c != '\x01')) {
