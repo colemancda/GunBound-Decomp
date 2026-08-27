@@ -362,7 +362,7 @@ switchD_00428058_default:
       return;
     }
     if (opcode == GB_OP_CHANNEL_CHAT_BROADCAST) {
-      iVar10 = FUN_004259d0((uint)(byte)*payload * 0xd + 0x41445 + g_clientContext);
+      iVar10 = FUN_004259d0((uint)(byte)*payload * 0xd + 0x41445 + g_clientContext, g_clientContext);
       if (iVar10 == -1) {
         AppendChatLogEntry(g_clientContext,0,(uint)(byte)*payload * 9 + 0x43548 + g_clientContext,
                      (uint)(byte)*payload * 0xd + 0x41445 + g_clientContext,payload + 7,0,0);

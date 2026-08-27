@@ -75,7 +75,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
           return;
         }
         if (uVar2 == 1) {
-          iVar4 = FUN_004259d0((uint)bVar1 * 0xd + 0x457f1 + g_clientContext);
+          iVar4 = FUN_004259d0((uint)bVar1 * 0xd + 0x457f1 + g_clientContext, g_clientContext);
           if (iVar4 == -1) {
             local_408 = 0;
             pbVar11 = local_407;

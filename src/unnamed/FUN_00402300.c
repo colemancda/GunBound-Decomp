@@ -32,7 +32,7 @@ void __thiscall FUN_00402300(int param_1,int param_2,int regEax)
   local_c = *(undefined4 *)(regEax + 0x14);
   local_8 = *(undefined4 *)(regEax + 0x18);
   local_4 = 0;
-  iVar2 = FUN_004259d0(&local_10);
+  iVar2 = FUN_004259d0(&local_10, g_clientContext);
   if (iVar2 == -1) {
     iVar2 = __stricmp((char *)(param_1 + 0x1bb0),(char *)&local_10);
     if (iVar2 != 0) {

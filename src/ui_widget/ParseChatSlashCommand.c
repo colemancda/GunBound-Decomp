@@ -200,7 +200,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
                 pcVar2 = pcVar2 + 1;
               } while (cVar1 != '\0');
               if ((uint)((int)pcVar2 - (int)(local_1a0 + 1)) < 0xd) {
-                FUN_00425840(local_1a0);
+                FUN_00425840(local_1a0,param_1);
               }
               iVar4 = iVar4 + 1;
             } while (iVar4 < iVar3);
@@ -598,7 +598,7 @@ undefined4 ParseChatSlashCommand(int param_1,char *param_2)
                 pcVar2 = pcVar2 + 1;
               } while (cVar1 != '\0');
               if ((uint)((int)pcVar2 - (int)(local_1a0 + 1)) < 0xd) {
-                FUN_004258e0(local_1a0);
+                FUN_004258e0(local_1a0,param_1);
               }
               iVar4 = iVar4 + 1;
             } while (iVar4 < iVar3);

@@ -4,18 +4,25 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * EAX PROMOTED (2026-08-26): this function's own dropped incoming register,
+ * `mov edi,eax` at its entry, forwarded straight to FUN_004259d0 as that
+ * callee's EDI.  Its single caller ParseChatSlashCommand passes its param_1,
+ * and every one of ParseChatSlashCommand's own call sites passes
+ * g_clientContext -- which is also what the other nine FUN_004259d0 sites
+ * pass, so the chain agrees end to end.
  */
 #include "ghidra_types.h"
 
 
-void FUN_004258e0(undefined4 param_1)
+void FUN_004258e0(undefined4 param_1,int regEax)
 
 {
   int iVar1;
   char *_Format;
   char local_80 [128];
   
-  iVar1 = FUN_004259d0(param_1);
+  iVar1 = FUN_004259d0(param_1, regEax);
   if (iVar1 != -1) {
     FUN_004264d0();
     _Format = (char *)GetLocalizedString(&g_localizedStringTable,0x1ff);

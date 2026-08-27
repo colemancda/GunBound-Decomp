@@ -25,7 +25,7 @@ void FUN_00402400(undefined4 param_1,char *param_2,uint param_3)
   char *pcVar8;
   char local_200 [512];
   
-  iVar3 = FUN_004259d0(in_EAX);
+  iVar3 = FUN_004259d0(in_EAX, g_clientContext);
   if (iVar3 == -1) {
     pcVar4 = in_EAX;
     do {

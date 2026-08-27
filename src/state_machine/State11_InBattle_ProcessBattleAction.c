@@ -168,7 +168,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
       else if (uVar1 < 0x4005) {
         if (uVar1 == 0x4004) {
           if ((*(char *)(bVar16 + 0x5010d + g_clientContext) != '\0') &&
-             (iVar4 = FUN_004259d0((uint)bVar16 * 0xd + 0x50196 + g_clientContext), iVar4 == -1)) {
+             (iVar4 = FUN_004259d0((uint)bVar16 * 0xd + 0x50196 + g_clientContext, g_clientContext), iVar4 == -1)) {
             uVar9 = ((int)(param_3 - 0x22U) < 0) - 1 & param_3 - 0x22U;
             pbVar14 = (byte *)(param_2 + 0x22);
             pbVar17 = local_27d8;
@@ -193,7 +193,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
             local_27e0 = (int *)(uint)bVar16;
             if (*(char *)((int)local_27e0 + 0x5010dU + g_clientContext) != '\0') {
               local_27f0 = (undefined *)((int)local_27e0 * 0xd);
-              iVar4 = FUN_004259d0(local_27f0 + g_clientContext + 0x50196);
+              iVar4 = FUN_004259d0(local_27f0 + g_clientContext + 0x50196, g_clientContext);
               if (iVar4 == -1) {
                 local_2658 = 0;
                 pbVar14 = local_2657;
@@ -287,7 +287,7 @@ void __thiscall State11_InBattle_ProcessBattleAction(int *param_1,int param_2,in
                 (uVar9 = (uint)bVar16, *(char *)(uVar9 + 0x5010d + g_clientContext) != '\0')) {
           local_27f0 = (undefined *)(uVar9 * 0xd);
           local_27e0 = (int *)uVar9;
-          iVar4 = FUN_004259d0(local_27f0 + g_clientContext + 0x50196);
+          iVar4 = FUN_004259d0(local_27f0 + g_clientContext + 0x50196, g_clientContext);
           if ((iVar4 == -1) &&
              (*(char *)(uVar9 + 0x50126 + g_clientContext) == *(char *)(g_clientContext + 0x3b6c0))) {
             local_2658 = 0;
