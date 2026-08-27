@@ -35,7 +35,7 @@ LAB_004e3af8:
       iVar2 = *(int *)(iVar2 + 0x1c);
       uVar1 = *(uint *)(iVar2 + 4);
       if (60000 < uVar1) {
-        FUN_00450860();
+        FUN_00450860(param_1 + 0x85c);
         return;
       }
     }
@@ -46,7 +46,7 @@ LAB_004e3af8:
         iVar2 = *(int *)(iVar2 + 0x10);
         uVar1 = *(uint *)(iVar2 + 8);
         if (1 < uVar1) {
-          FUN_00450860();
+          FUN_00450860(param_1 + 0x85c);
           return;
         }
       }
@@ -68,7 +68,7 @@ LAB_004e3af8:
       }
     }
   }
-  FUN_00450860();
+  FUN_00450860(param_1 + 0x85c);
   return;
 joined_r0x004e3ae4:
   if (1 < uVar1) goto LAB_004e3af2;

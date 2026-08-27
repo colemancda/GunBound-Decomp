@@ -407,7 +407,7 @@ LAB_004da2f4:
      * State11_InBattle_RenderPlayerRoster.c's analogous `else` branch. */
     BlitRLESprite(0x51,0x16f,0xffff,(byte *)&g_chatInputText);
   }
-  FUN_00450860();
+  FUN_00450860(g_clientContext + 0x6a7f88);
   return;
 }
 
