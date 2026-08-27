@@ -698,42 +698,42 @@ LAB_004ce1bd:
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   AcquireSoundChannel(0);
   local_71c = (undefined *)0x8005;
-  FUN_004e8a70();
+  FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
     FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0x8006;
-  FUN_004e8a70();
+  FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
     FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0xc306;
-  FUN_004e8a70();
+  FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
     FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0xc400;
-  FUN_004e8a70();
+  FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
     FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0xc401;
-  FUN_004e8a70();
+  FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
     FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0x8403;
-  FUN_004e8a70();
+  FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
     FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0x8405;
-  FUN_004e8a70();
+  FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
     FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
   }
   local_71c = (undefined *)0xc409;
-  FUN_004e8a70();
+  FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_714,(ushort *)&local_71c);
   if (local_714 != DAT_00e9af14) {
     FUN_004e87b0(&DAT_00e9af10,&local_71c,local_714);
   }

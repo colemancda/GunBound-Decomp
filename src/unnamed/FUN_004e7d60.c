@@ -48,7 +48,7 @@ void __thiscall FUN_004e7d60(int param_2,int regEax)
     *(int *)(*(int *)(regEax + 0x45234) + 8) = *(int *)(regEax + 0x45234);
     return;
   }
-  FUN_004e8a70();
+  FUN_004e8a70(regEax + 0x45230,(undefined4 *)&param_1,(ushort *)&param_2);
   if (param_1 != *(int *)(regEax + 0x45234)) {
     FUN_004e87b0(regEax + 0x45230,&param_2,param_1);
   }

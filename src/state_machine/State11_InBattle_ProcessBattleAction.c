@@ -669,17 +669,17 @@ LAB_004b7c01:
               FUN_0043a5f0();
               FUN_004d0e90(piVar7);
               local_27f0 = (undefined *)0xc300;
-              FUN_004e8a70();
+              FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
               if (local_27e4 != DAT_00e9af14) {
                 FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
               }
               local_27f0 = (undefined *)0xc306;
-              FUN_004e8a70();
+              FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
               if (local_27e4 != DAT_00e9af14) {
                 FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
               }
               local_27f0 = (undefined *)0xc40b;
-              FUN_004e8a70();
+              FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
               if (local_27e4 != DAT_00e9af14) {
                 FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
               }
@@ -704,17 +704,17 @@ LAB_004b7c01:
               FUN_0043a5f0();
               FUN_004d0e90(param_1);
               local_27f0 = (undefined *)0xc300;
-              FUN_004e8a70();
+              FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
               if (local_27e4 != DAT_00e9af14) {
                 FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
               }
               local_27f0 = (undefined *)0xc306;
-              FUN_004e8a70();
+              FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
               if (local_27e4 != DAT_00e9af14) {
                 FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
               }
               local_27f0 = (undefined *)0xc40b;
-              FUN_004e8a70();
+              FUN_004e8a70((int)&DAT_00e9af10,(undefined4 *)&local_27e4,(ushort *)&local_27f0);
               if (local_27e4 != DAT_00e9af14) {
                 FUN_004e87b0(&DAT_00e9af10,&local_27f0,local_27e4);
               }

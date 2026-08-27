@@ -19,6 +19,7 @@ uint FUN_004e80d0(int param_1,undefined4 *param_2,uint *param_3)
   undefined4 *puVar5;
   int iVar6;
   int local_c;
+  uint keySlot; /* the [esp+0x20] slot Ghidra dropped - see below */
   char local_8 [8];
   
   uVar2 = 0;
@@ -41,7 +42,15 @@ uint FUN_004e80d0(int param_1,undefined4 *param_2,uint *param_3)
       ThrowCxxException(0x80070057);
     }
     do {
-      FUN_004e8a70();
+      /* DROPPED KEY RECOVERED (2026-08-27): 0x4e8136 `mov cx,word ptr
+         [edi + eax]` with eax = *(param_1 + 0x454b4) and edi = iVar6 (the
+         same register the loop steps by 0x206, and the same base+4 the
+         local_8 index below reads), zero-extended into the [esp+0x20]
+         slot that `lea ebx,[esp+0x20]` then hands to the lookup.  Ghidra
+         dropped the store along with the argument, so the slot itself
+         had to be reintroduced. */
+      keySlot = *(ushort *)(*(int *)(param_1 + 0x454b4) + iVar6);
+      FUN_004e8a70(param_1 + 0x45230,(undefined4 *)&local_c,(ushort *)&keySlot);
       if (local_c == *(int *)(param_1 + 0x45234)) {
         if (*(uint *)(param_1 + 0x454b8) <= uVar4) {
                     /* WARNING: Subroutine does not return */

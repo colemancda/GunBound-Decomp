@@ -1218,7 +1218,7 @@ void FUN_004e83b0(int regEsi);
 void FUN_004e84c0();
 undefined4 * FUN_004e86f0();
 void FUN_004e87b0();
-void __fastcall FUN_004e8a70();
+void __fastcall FUN_004e8a70(int param_1,undefined4 *regEax,ushort *regEbx);
 void FUN_004e8ad0();
 void __thiscall FUN_004e8cb0();
 void FUN_004e8d10(int regEax);
