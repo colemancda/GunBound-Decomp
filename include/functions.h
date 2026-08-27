@@ -387,7 +387,7 @@ undefined4 CheckChatWordFilter();
 uint __fastcall AppendWordFilterEntry();
 int FUN_00415c60();
 void FUN_00415ca0(undefined4 *regEax);
-void FUN_00415ce0();
+void FUN_00415ce0(int param_1,int regEbx);
 int FUN_00415d40();
 int __fastcall FUN_00416c20();
 void __fastcall FUN_004174c0();

@@ -197,7 +197,7 @@ void __thiscall State09_ReadyRoom_ProcessBattleAction(void *this,int packetBuf,i
             *(undefined1 *)(g_clientContext + 0x3b6c0) = 0;
           }
         }
-        FUN_00415ce0((uint)bVar1);
+        FUN_00415ce0((uint)bVar1,g_clientContext + 0x4737c);
         TallyRoomTeamStats();
         ComputeTurnOrder();
         return;

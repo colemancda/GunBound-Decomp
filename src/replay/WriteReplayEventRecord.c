@@ -195,7 +195,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
         goto switchD_004105f7_caseD_1022;
         local_d70 = (undefined4 *)(uint)*pbVar22;
         *(int *)(g_clientContext + 0x4739c) = *(int *)(g_clientContext + 0x4739c) + 1;
-        FUN_00415ce0(local_d70);
+        FUN_00415ce0(local_d70,g_clientContext + 0x4737c);
         iVar12 = (int)local_d70 * 0xd + iVar19;
         local_d60 = (undefined4 *)(iVar12 + 0x457f1);
         *local_d60 = *(undefined4 *)(pbVar22 + 1);
@@ -241,7 +241,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
         pbVar22 = param_3;
       }
       else if (uVar6 == 0x3020) {
-        FUN_00415ce0(*pbVar22);
+        FUN_00415ce0(*pbVar22,iVar19 + 0x4737c);
         bVar27 = g_currentGameState != 3;
         *(int *)(iVar19 + 0x4739c) = *(int *)(iVar19 + 0x4739c) + -1;
         if ((bVar27) || (g_pendingGameState != 3)) {

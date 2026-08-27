@@ -512,7 +512,7 @@ switchD_00428058_default:
         uVar13 = PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
         iVar10 = g_clientContext;
         *(int *)(g_clientContext + 0x4739c) = *(int *)(g_clientContext + 0x4739c) + 1;
-        FUN_00415ce0(uVar13);
+        FUN_00415ce0(uVar13,g_clientContext + 0x4737c);
         *(uint *)(iVar10 + 0x44e60) = (uint)*(ushort *)((int)payload + 3);
         *(undefined1 *)((int)this + 0x115) = 2;
         *(undefined1 *)((int)this + 0x116) = 0;
@@ -823,7 +823,7 @@ switchD_00428058_default:
           iVar10 = g_clientContext;
           uVar20 = (uint)*pbVar18;
           *(int *)(g_clientContext + 0x4739c) = *(int *)(g_clientContext + 0x4739c) + 1;
-          FUN_00415ce0(uVar20);
+          FUN_00415ce0(uVar20,g_clientContext + 0x4737c);
           iVar24 = uVar20 * 0xd;
           puVar12 = (undefined4 *)(iVar24 + 0x457f1 + iVar10);
           *puVar12 = *(undefined4 *)(pbVar18 + 1);
