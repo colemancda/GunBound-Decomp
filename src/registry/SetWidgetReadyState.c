@@ -25,10 +25,10 @@
  * EDX is 0 at all 13, the ready state is the argument the port already
  * passed, and the phantom takes 0 because nothing reads it.
  *
- * EDI remains open: it is the widget key, and it genuinely varies (7 distinct
- * values across the 13 sites), so it needs a per-site witness rather than
- * this treatment.
-*
+ * EDI needed the opposite treatment -- it genuinely varies across the sites,
+ * so each one had to carry its own witness.  That is what the next paragraph
+ * records; it is no longer open.
+ *
  * DROPPED REGISTER RECOVERED (2026-08-27): unaff_EDI is the WIDGET KEY the
  * registry walk compares against each widget's key at +8.  It is genuinely
  * live-in -- EDI appears in this function only as `cmp eax,edi` at 0x4063a3
@@ -88,7 +88,12 @@ undefined4 __fastcall SetWidgetReadyState(undefined4 param_1,uint param_2,int pa
         }
       }
       *(undefined1 *)(piVar3 + 0x13) = 0;
-      if (param_3 == '\0') {
+      /* LOW BYTE ONLY (2026-08-27): 0x4063b7 is `mov al,byte ptr [esp+8]`
+         followed by `test al,al`, so the original tests only param_3's low
+         byte.  Comparing the full int diverges for any value whose low byte
+         is zero but which is itself non-zero; no current caller passes one,
+         but the cast costs nothing and removes the trap. */
+      if ((char)param_3 == '\0') {
         if (piVar3[9] != 3) {
           (**(code **)(*piVar3 + 4))(s_ready_00551e80);
           /* Ghidra emitted a bare `return;` in a value-returning function;
