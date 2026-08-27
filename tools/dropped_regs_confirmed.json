@@ -1081,8 +1081,8 @@
   },
   {
     "addr": "0045d360",
-    "func": "FUN_0045d360",
-    "path": "src/unnamed/FUN_0045d360.c",
+    "func": "CommitTurnDelay",
+    "path": "src/unnamed/CommitTurnDelay.c",
     "reg": "eax",
     "score": 1.0,
     "callsites": 9,

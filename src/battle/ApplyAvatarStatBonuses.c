@@ -25,9 +25,12 @@
  * stat survives outside that mode.
  *
  * Filed under src/battle because that block is the per-player battle
- * stat array: ComputeTurnDelay reads cell 3 of the very same
- * g_clientContext + 0x50cf4 + slot*0x1120 (0x50cf4 - 0x50240 == 3*0x224)
- * when it computes a player's turn delay.
+ * stat array: ComputeTurnDelay reads cell 5 of the very same
+ * g_clientContext + 0x50cf4 + slot*0x1120 when it computes a player's
+ * turn delay.  (CORRECTED 2026-08-26: this said "cell 3" and
+ * "0x50cf4 - 0x50240 == 3*0x224".  The difference is 0xab4, and
+ * 3*0x224 is 0x66c -- it is 5*0x224, so cell 5.  CommitTurnDelay,
+ * the commit half, reads the same cell.)
  *
  * Body is a raw/near-verbatim Ghidra port, not hand-verified. See
  * src/README.md's "Raw/verbatim ports" section for status.

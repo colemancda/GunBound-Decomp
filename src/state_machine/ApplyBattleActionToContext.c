@@ -182,7 +182,7 @@ LAB_0042326c:
       *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
       g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
       if (*(byte *)puVar12 == 0xe) {
-        uVar6 = FUN_0045d360(0,*(int *)(g_clientContext + 0x621e0));
+        uVar6 = CommitTurnDelay(0,*(int *)(g_clientContext + 0x621e0));
         *(undefined4 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
         g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 4;
       }

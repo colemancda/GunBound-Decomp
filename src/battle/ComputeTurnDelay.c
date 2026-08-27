@@ -4,16 +4,26 @@
  * delay from the mobile's guarded stats and its item loadout.  The
  * mobile object arrives in EAX (modelled here as `in_EAX`).
  *
+ * The COMMIT half is CommitTurnDelay (0x45d360, immediately after this
+ * one): same arithmetic, plus it caches the result on the mobile at
+ * +0xae6c and raises the cache-valid flag at +0xae68.  This function is
+ * the fallback the roster uses when that flag is clear.
+ *
  * Identified from its two callers, which agree:
  *   - SortTurnOrderByDelay adds this value to the local player's cell in
  *     the per-player delay array at g_clientContext+0xebef4 before
- *     sorting the turn order by that array, and subtracts it after.
+ *     sorting the turn order by that array, and subtracts it after.  It
+ *     gates on PeekBool(mobile+0x8bbd) && PeekBool(mobile+0x8ba8), NOT
+ *     on +0xae68 (corrected 2026-08-26).
  *   - State11_InBattle_RenderPlayerRoster divides it by 10 and sprintf's
  *     it into the roster row: "%5d" (0x551ed0) for the row that matches
  *     the current slot and "%+5d" (0x551ec4) for the others - the
  *     absolute-then-relative pair GunBound's player list shows for
- *     delay.  Both call sites gate it on the room object's flag at
- *     +0xae68.
+ *     delay.  Both of ITS call sites gate on the mobile's cache-valid
+ *     flag at +0xae68 -- they prefer the cached +0xae6c and only call
+ *     this when the flag is clear.  (Corrected 2026-08-26: this said
+ *     "the room object"; the EAX object is the local-player MOBILE,
+ *     *(int *)(g_clientContext + 0x621e0) -- Mobile.cpp passes `this`.)
  *
  * The item term is what makes it a loadout-sensitive value: it calls
  * GetItemQuantityByIcon with the icon id at in_EAX+0xbfbc and folds the

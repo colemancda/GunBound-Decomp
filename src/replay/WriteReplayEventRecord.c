@@ -271,7 +271,7 @@ void WriteReplayEventRecord(size_t param_1,uint param_2,byte *param_3)
                   if (cVar4 == '\0') {
                     SetGuardedBool(1,GB_GUARD_UNRECOVERED);
                   }
-                  uVar5 = FUN_0045d360(0,*(int *)(g_clientContext + 0x621e0));
+                  uVar5 = CommitTurnDelay(0,*(int *)(g_clientContext + 0x621e0));
                   *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar5;
                   g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
                   FUN_0041f200(0,(int)g_clientContext);

@@ -155,7 +155,7 @@ void AlignMobileToTerrain(CMobile *self);
  * C4234 restriction). */
 void __fastcall UpdateMobileEmotionState(int *param_1);
 void FUN_00436cd0(unsigned int a, unsigned int b);
-unsigned short FUN_0045d360(int a, int regEax);
+unsigned short CommitTurnDelay(int a, int regEax);
 void FUN_0041f200(int a, int regEax);
 char ChecksumPairDiffers(void *a, void *b);
 unsigned int EncodeChecksumDeltaMod(void *cell, void *out, int m);
@@ -925,7 +925,7 @@ LAB_004622cf:
             QueueBroadcastEvent(0xc301,(int)&g_replayContext);
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-            uVar7 = FUN_0045d360(1,reinterpret_cast<int>(this));
+            uVar7 = CommitTurnDelay(1,reinterpret_cast<int>(this));
             *reinterpret_cast<unsigned short *>(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar7;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
             FUN_0041f200(0,(int)g_clientContext);

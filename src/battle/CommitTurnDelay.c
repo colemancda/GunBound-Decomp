@@ -1,9 +1,49 @@
-/* FUN_0045d360 - 0x0045d360 in the original binary.
+/* CommitTurnDelay - 0x0045d360 in the original binary.
  *
- * No confirmed real name/purpose - referenced by at least one already-
- * ported function under src/. Raw/near-verbatim port of Ghidra's
- * decompiler output, not hand-verified. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Computes the acting mobile's turn delay and COMMITS it: caches the value
+ * on the mobile, raises the cache-valid flag, and returns the scaled number
+ * its callers put on the wire.  The compute half is its neighbour
+ * ComputeTurnDelay (0x45d150, immediately before this at 0x45d360).
+ *
+ * RENAMED (2026-08-26) from CommitTurnDelay, on evidence from three independent
+ * directions, none of it read out of this body:
+ *
+ * (1) THE NAMED TWIN.  Diffed instruction by instruction against
+ *     ComputeTurnDelay, the arithmetic is the same code over the same cells
+ *     in the same order.  What this one adds is the commit: `mov byte
+ *     [esi+0xae68],1` at 0x45d537 and EncodeOutgoingPacketField(m+0xae6c,
+ *     sum) at 0x45d54f.
+ *
+ * (2) THE CACHE CONSUMER.  State11_InBattle_RenderPlayerRoster reads
+ *     m+0xae6c raw, and falls back to `ComputeTurnDelay() / 10` only when
+ *     m+0xae68 is CLEAR.  So +0xae68 is the cache-valid flag this function
+ *     raises and +0xae6c the slot it fills -- and the /10 is an exact
+ *     identity, because this returns Peek(&DAT_00e9ba40) * sum while caching
+ *     the unscaled sum, and WinMain seeds DAT_00e9ba40 to 10.
+ *
+ * (3) THE WIRE.  Every caller writes the return value into the outgoing
+ *     broadcast buffer, and the receiving side (State10/State11
+ *     ProcessBattleAction, action 0xC301) folds it into the per-player DELAY
+ *     array at g_clientContext+0xebef4 -- the array SortTurnOrderByDelay,
+ *     AdvanceTurnQueue and EnqueueTurnSlot already name, and that
+ *     SortTurnOrderByDelay sorts turn order by.
+ *
+ * The mobile's cell layout corroborates the field roles from the
+ * constructor: InitMobile builds nine GuardedBools at +0x8ba8..+0x8bc0 and
+ * EIGHT consecutive CValueGuard cells at +0x8bc4 (stride 0x224, ending
+ * +0x9ac0), then a LONE cell at +0xae6c, while +0xae68 sits in an unguarded
+ * gap -- a plain byte flag beside its guarded companion value.  A fresh
+ * mobile is born flag-set with a cached delay of 0.
+ *
+ * param_1 is a BYTE flag (`ret 4`; read only as `mov al,[esp+0x20]`).  With
+ * it clear the arithmetic is ComputeTurnDelay's exactly, which is what the
+ * seven report/relay callers need -- the number they send has to agree with
+ * what SortTurnOrderByDelay biases the local order by.  With it set, the
+ * armed item is charged at full cost and the +0x9ac0 term is added.  The two
+ * sites that pass 1 are the ones emitting a shot event immediately before
+ * the delay event, which reads as "an actually-fired shot" -- stated as an
+ * observation, since it rests on the shape of the surrounding blocks rather
+ * than on a witness argument.
  *
  * DROPPED-CELL FIX (2026-08-16, CValueGuard sweep): recovered the guard
  * cell at all 10 argless PeekPacketChecksumState() calls.  EAX is the
@@ -39,7 +79,7 @@
 #include "ghidra_types.h"
 
 
-int FUN_0045d360(int param_1,int regEax)
+int CommitTurnDelay(int param_1,int regEax)
 
 {
   char cVar1;

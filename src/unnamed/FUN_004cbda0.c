@@ -103,7 +103,7 @@ void FUN_004cbda0(undefined4 param_1,int param_2)
             QueueBroadcastEvent(0xc301,(int)&g_replayContext);
             (&g_abBroadcastEventBuffer)[g_dwBroadcastEventCursor] = 1;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 1;
-            uVar6 = FUN_0045d360(0,*(int *)(g_clientContext + 0x621e0));
+            uVar6 = CommitTurnDelay(0,*(int *)(g_clientContext + 0x621e0));
             *(undefined2 *)(&g_abBroadcastEventBuffer + g_dwBroadcastEventCursor) = uVar6;
             g_dwBroadcastEventCursor = g_dwBroadcastEventCursor + 2;
             FUN_0041f200(0,(int)g_clientContext);

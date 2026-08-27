@@ -622,7 +622,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0045c6e0,1133,ComputeMobileGroundY,false,17,10,RAW-src
 0045cb50,1521,FUN_0045cb50,false,1,24,RAW-src
 0045d150,523,ComputeTurnDelay,false,3,5,RAW-src
-0045d360,725,FUN_0045d360,false,9,8,RAW-src
+0045d360,725,CommitTurnDelay,false,9,8,RAW-src
 0045d640,82,FUN_0045d640,false,2,1,RAW-src
 0045d692,1154,FUN_0045d692,false,1,16,RAW-src
 0045db20,3862,FUN_0045db20,false,1,16,RAW-src

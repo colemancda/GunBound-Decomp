@@ -736,7 +736,7 @@ void AlignMobileToTerrain();
 int __fastcall ComputeMobileGroundY();
 void __fastcall FUN_0045cb50();
 int ComputeTurnDelay();
-int FUN_0045d360(int param_1,int regEax);
+int CommitTurnDelay(int param_1,int regEax);
 uint FUN_0045d640();
 int FUN_0045d692();
 void FUN_0045ea40();

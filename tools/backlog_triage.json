@@ -2439,7 +2439,7 @@
   ]
  },
  {
-  "func": "FUN_0045d360",
+  "func": "CommitTurnDelay",
   "reg": "eax",
   "sites": 9,
   "values": {},
@@ -2449,7 +2449,7 @@
    "OTHER": 8,
    "REGISTER": 1
   },
-  "path": "src/unnamed/FUN_0045d360.c",
+  "path": "src/unnamed/CommitTurnDelay.c",
   "per_site": [
    {
     "va": "0x411373",

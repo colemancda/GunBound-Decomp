@@ -9481,13 +9481,13 @@
    1
   ],
   [
-   "src/unnamed/FUN_0045d360.c",
+   "src/unnamed/CommitTurnDelay.c",
    65,
    0,
    1
   ],
   [
-   "src/unnamed/FUN_0045d360.c",
+   "src/unnamed/CommitTurnDelay.c",
    103,
    0,
    1
@@ -14511,7 +14511,7 @@
    0
   ]
  ],
- "FUN_0045d360": [
+ "CommitTurnDelay": [
   [
    "src/state_machine/State11_InBattle_OnTick.c",
    1608,
