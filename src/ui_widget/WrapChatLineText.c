@@ -13,22 +13,40 @@
  * behavior AddChatLine's caller-side logic depends on (see below).
  *
  * Signature/purpose confirmed by behavior; still a raw/near-verbatim
- * Ghidra port otherwise - not yet hand-verified, and the source-text
- * pointer is dropped as `in_EAX` here (this project's dropped-register
- * class of bug, same as EncodeOutgoingPacketField/DrawHLine) - tracked
- * as part of the "13 confirmed calling-convention mismatches" cleanup;
- * not yet promoted to an explicit parameter. See src/README.md's "Raw/
- * verbatim ports" section for status.
+ * Ghidra port otherwise - not yet hand-verified. See src/README.md's
+ * "Raw/verbatim ports" section for status.
+ *
+ * DROPPED-REG FIX (2026-08-28): the source-text pointer is EAX
+ * (`mov esi,eax` at 0x41b41c), now the trailing regEax parameter, and
+ * the four call sites were a RE-SLOT, not an append. The declared list
+ * itself was right all along: param_1 is a PHANTOM (ECX's first touch
+ * is the write `mov ecx,[esp+4]` at 0x41b410 - the same instruction
+ * that reads param_3, whose +1 is the `inc ecx` the C models), param_2
+ * is EDX = the DESTINATION (the per-row 0x80-stride message field),
+ * and the three stack slots are offset / char budget / byte budget -
+ * [esp+4] at entry, [esp+0x18] and [esp+0x1c] four saves deep, with
+ * `ret 0xc` confirming exactly three. But the two AppendChatLogEntry
+ * sites passed their three values as arguments ONE to THREE, so the
+ * position expression landed in the phantom, the budget in the
+ * destination, and the width in the offset; the two FUN_0041ef90 sites
+ * passed nothing at all.
+ *
+ * The pairing witness is the split itself: at both callers the second
+ * call's text is the first call's text plus its RETURN (the characters
+ * consumed), and its char budget is the original minus the same value -
+ * `add eax,edx` / `sub ebx,edx` at 0x41bbef/0x41bbe9 and
+ * `lea eax,[esi+edx]` / `sub ebx,esi` at 0x41f187/0x41f181.
  */
 #include "ghidra_types.h"
 
 
-uint __fastcall WrapChatLineText(undefined4 param_1,int param_2,int param_3,int param_4,int param_5)
+uint __fastcall WrapChatLineText(undefined4 param_1,int param_2,int param_3,int param_4,int param_5,
+                                 char *regEax)
 
 {
   char cVar1;
   int iVar2;
-  char *in_EAX;
+  char *in_EAX = regEax;
   uint uVar3;
   int iVar4;
   char *pcVar5;

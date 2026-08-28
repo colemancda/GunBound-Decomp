@@ -24,6 +24,8 @@ FUN_0041ef90(int param_1,undefined1 param_2,byte param_3,undefined4 param_4,int 
   char *pcVar2;
   undefined4 *puVar3;
   int iVar4;
+  int iWrapOffset;
+  int iPeekWidth;
   uint uVar5;
   int iVar6;
   char *pcVar7;
@@ -86,20 +88,30 @@ FUN_0041ef90(int param_1,undefined1 param_2,byte param_3,undefined4 param_4,int 
   puVar3[1] = local_10;
   puVar3[2] = local_c;
   *(undefined1 *)(puVar3 + 3) = local_8;
+  /* DROPPED-REG FIX 2026-08-28: Ghidra kept these two strlen walks and
+     discarded both results; they are the halves of the wrap offset -
+     `mov ecx,eax` at 0x41f0c0 after the first, `lea edi,[eax+ecx+1]` at
+     0x41f0de after the second. The guard peek's result was discarded
+     the same way; it is the byte-width budget (`mov esi,eax` at
+     0x41f0f7). */
   pcVar2 = (char *)(*(int *)(param_1 + 0x58b60) * 9 + 0x58b64 + param_1);
   do {
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
+  iWrapOffset = ((int)pcVar2 - (*(int *)(param_1 + 0x58b60) * 9 + 0x58b64 + param_1)) + -1;
   pcVar2 = (char *)((*(int *)(param_1 + 0x58b60) + 0x6569) * 0xe + param_1);
   do {
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
+  iWrapOffset = iWrapOffset +
+                ((int)pcVar2 - ((*(int *)(param_1 + 0x58b60) + 0x6569) * 0xe + param_1) + -1) + 1;
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  PeekPacketChecksumState((void *)&DAT_00796aa0);
+  iPeekWidth = PeekPacketChecksumState((void *)&DAT_00796aa0);
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-  iVar4 = WrapChatLineText();
+  iVar4 = WrapChatLineText(0,*(int *)(param_1 + 0x58b60) * 0x80 + 0x58c54 + param_1,iWrapOffset,
+                           param_5,iPeekWidth,(char *)param_4);
   *(undefined4 *)(param_1 + 0x59154 + *(int *)(param_1 + 0x58b60) * 4) = param_6;
   *(undefined1 *)(*(int *)(param_1 + 0x58b60) + 0x58c4a + param_1) = param_2;
   *(undefined2 *)(param_1 + 0x5917c + *(int *)(param_1 + 0x58b60) * 2) = param_7;
@@ -109,7 +121,12 @@ FUN_0041ef90(int param_1,undefined1 param_2,byte param_3,undefined4 param_4,int 
     if (8 < iVar6) {
       FUN_0041ee10();
     }
-    WrapChatLineText();
+    /* DROPPED-REG FIX 2026-08-28: the continuation - text advanced by
+       the first call's return, budget reduced by the same, byte budget
+       a literal 100 (`push 0x64` at 0x41f17f), dest re-evaluated
+       against the incremented row index. */
+    WrapChatLineText(0,*(int *)(param_1 + 0x58b60) * 0x80 + 0x58c54 + param_1,iWrapOffset,
+                     param_5 - iVar4,100,(char *)param_4 + iVar4);
     *(undefined4 *)(param_1 + 0x59154 + *(int *)(param_1 + 0x58b60) * 4) = param_6;
     *(undefined1 *)(*(int *)(param_1 + 0x58b60) + 0x58c4a + param_1) = param_2;
     *(undefined2 *)(param_1 + 0x5917c + *(int *)(param_1 + 0x58b60) * 2) = 0;

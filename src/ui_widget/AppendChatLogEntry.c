@@ -205,7 +205,15 @@ LAB_0041bac3:
   } while (cVar1 != '\0');
   cVar1 = (param_7 == '\0') * '\b' + 'H';
   local_98 = (undefined4)((uint)(param_7 == '\0') * 4 + 9);
-  iVar6 = WrapChatLineText(pcVar4 + (int)(pcVar5 + ((2 - (int)pcVar11) - (int)pcVar3)),in_EAX,cVar1);
+  /* DROPPED-REG FIX 2026-08-28: RE-SLOT. The three values passed were
+     right but sat two slots left of home - orig 0x41bb52-0x41bb6a pushes
+     them as param_3/4/5 (esi = the position, ebx = in_EAX, edi = the
+     width) while EDX carries the dest (the current row's 0x80-stride
+     message field) and EAX the text, param_5 of this function
+     ([esp+0xbc] at depth 0xa8 = entry+0x14). */
+  iVar6 = WrapChatLineText(0,*(int *)(param_1 + 0x3b980) * 0x80 + 0x3c53c + param_1,
+                           (int)(pcVar4 + (int)(pcVar5 + ((2 - (int)pcVar11) - (int)pcVar3))),
+                           in_EAX,(int)cVar1,param_5);
   iVar9 = *(int *)(param_1 + 0x3b980) + 1;
   *(int *)(param_1 + 0x3b980) = iVar9;
   if (0 < iVar6) {
@@ -217,7 +225,12 @@ LAB_0041bac3:
     *(undefined1 *)(param_1 + (*(int *)(param_1 + 0x3b980) + 0x2fda) * 0x14) = 0;
     *(undefined2 *)(param_1 + 0x3f73c + *(int *)(param_1 + 0x3b980) * 2) = 0;
     *(char *)(*(int *)(param_1 + 0x3b980) + 0x3c4d8 + param_1) = param_2;
-    WrapChatLineText(pcVar4 + (int)(pcVar5 + ((2 - (int)pcVar11) - (int)pcVar3)),in_EAX - iVar6,cVar1);
+    /* DROPPED-REG FIX 2026-08-28: the continuation - text advanced by
+       the first call's return, budget reduced by the same, the dest
+       re-evaluated against the incremented row index. */
+    WrapChatLineText(0,*(int *)(param_1 + 0x3b980) * 0x80 + 0x3c53c + param_1,
+                     (int)(pcVar4 + (int)(pcVar5 + ((2 - (int)pcVar11) - (int)pcVar3))),
+                     in_EAX - iVar6,(int)cVar1,param_5 + iVar6);
     if (*(int *)(param_1 + 0x3b97c) == *(int *)(param_1 + 0x3b980) - (int)local_98) {
       *(int *)(param_1 + 0x3b97c) = *(int *)(param_1 + 0x3b97c) + 1;
     }

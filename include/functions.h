@@ -400,7 +400,7 @@ int __fastcall FUN_00418a10();
 void __fastcall FUN_00418b90();
 void FUN_00418dc0();
 int FUN_00419d30();
-uint __fastcall WrapChatLineText();
+uint __fastcall WrapChatLineText(undefined4 param_1,int param_2,int param_3,int param_4,int param_5,char *regEax);
 int RenderWrappedText();
 void RebuildChannelUserIndex(int clientContext);
 void FUN_0041b6f0();
