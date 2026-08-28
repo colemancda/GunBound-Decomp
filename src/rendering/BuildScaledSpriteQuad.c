@@ -3,6 +3,34 @@
  * Rotated textured-quad emitter with independent X/Y scale (uses 4 distinct scale-constant globals vs BuildRotatedSpriteQuad's uniform 2), for non-1:1 sprites such as the Ready Room zoomed avatar preview. Appends two triangles to g_spriteVertexBuffer. See ARCHITECTURE.md rendering section. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-REG FIX (2026-08-27): the original takes the sprite rotation
+ * angle in EAX. `mov esi,eax` at 0x004eca54 is the first instruction
+ * after the prologue, before anything writes EAX, and ESI is then used
+ * only as (angle+0x5a)%0x168 and angle%0x168 to index g_sineTable360 at
+ * 0x54c240 - a read-before-write, so a real argument. Ghidra emitted it
+ * as an unassigned `in_EAX` local; it is now the trailing `regEax`
+ * parameter, with the body keeping the old name via an initialiser.
+ *
+ * The function ends in a bare `ret` (not `ret N`) and every call site
+ * cleans up with `add esp,0x14`, so the binary passes 5 cdecl stack
+ * arguments plus ECX - param_1, the texture-cache record whose +0x80/
+ * +0x84/+0x88 floats are the UV rect - which is exactly the 6 declared
+ * parameters. The mis-slotting was all on the caller side: the 10 sites
+ * in State09_ReadyRoom_RenderCharacterPreview.c and
+ * State11_InBattle_RenderModeIcons.c passed five arguments into
+ * param_1..param_5, shifting the texture record out and leaving param_6
+ * undefined, and the 8 sites in State11_InBattle_Render.c passed
+ * nothing at all. All 18 were re-slotted, not appended to.
+ *
+ * At four of the eight State11_InBattle_Render.c sites - the
+ * motion-trail loops at 0x4c3507, 0x4c37a1, 0x4c39e1 and 0x4c3bfb -
+ * param_5/param_6 are computed, not literal:
+ * `neg/sbb/and 0xff808081/add 0xffffff` is
+ * (trailIdx == 0) ? 0xffffff : 0x808080, and `shl al,4 / 0xff - al` is
+ * (byte)(0xff - trailIdx * 0x10) - the ghost-trail fade ramp. The other
+ * four (0x4c3ecd, 0x4c417b, 0x4c438f, 0x4c4553) push the literals
+ * 0xff and 0xffffff.
  */
 #include "ghidra_types.h"
 
@@ -10,13 +38,14 @@
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void __thiscall
-BuildScaledSpriteQuad(int param_1,int param_2,int param_3,char param_4,byte param_5,uint param_6)
+BuildScaledSpriteQuad(int param_1,int param_2,int param_3,char param_4,byte param_5,uint param_6,
+                     int regEax)
 
 {
   float fVar1;
   float fVar2;
   float fVar3;
-  int in_EAX;
+  int in_EAX = regEax;
   int iVar4;
   undefined4 *puVar5;
   undefined4 *puVar6;

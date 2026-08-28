@@ -67,7 +67,7 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      BuildScaledSpriteQuad(0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar2 * 0x18) == 1,0xff,0xffffff);
+      BuildScaledSpriteQuad(iVar1,0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar2 * 0x18) == 1,0xff,0xffffff,0);
       FlushSpriteBatch();
       if (g_currentBlendMode != 2) {
         g_currentBlendMode = 2;
@@ -77,9 +77,9 @@ void __fastcall State11_InBattle_RenderModeIcons(int param_1)
       }
       *(undefined4 *)(iVar1 + 0x80) = 0x3f000000;
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      iVar1 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
+      iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      BuildScaledSpriteQuad(0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar1 * 0x18) == 1,0xff,0xffffff);
+      BuildScaledSpriteQuad(iVar1,0x2f4,0x246,*(int *)(g_clientContext + 0x1ff18 + iVar2 * 0x18) == 1,0xff,0xffffff,0);
       FlushSpriteBatch();
     }
   }
