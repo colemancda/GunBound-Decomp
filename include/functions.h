@@ -734,7 +734,7 @@ void FUN_004585e0();
 undefined4 *InitMobile(); /* 0x458b80 - mobile base ctor (sets base vtable 0x555c68) */
 void * __thiscall DeleteMobile();
 void CMobile_BaseDestructor();
-void __fastcall BlitSpriteDirect();
+void __fastcall BlitSpriteDirect(undefined4 param_1,uint param_2,int param_3,int param_4,uint regEax);
 void AlignMobileToTerrain();
 int __fastcall ComputeMobileGroundY();
 void __fastcall FUN_0045cb50();

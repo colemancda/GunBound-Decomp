@@ -100,7 +100,15 @@ extern CRITICAL_SECTION g_valueGuardLock;  /* the guard family's shared lock, de
  * game's own 2-int sprite-fill primitive (Ghidra labelled it "FillRect");
  * renamed here only to avoid colliding with <windows.h>'s FillRect - the
  * name is irrelevant to the score (it compiles to an external-call reloc). */
-void BlitSpriteDirect(int a, int b);
+/* __fastcall with a PHANTOM first parameter (ECX) - see
+ * src/rendering/BlitSpriteDirect.c.  `spriteSetId` is EDX (the outer
+ * DAT_00ea0e1c registry key), `dest`/`pitch` are the two real stack
+ * arguments, and `attachOwner` is the original's EAX register argument
+ * (the inner key), promoted to a real trailing parameter because MSVC
+ * cannot express EAX.  It is the same CMobile +0x30 field the
+ * BlitSpriteAttached extern below already calls `attachOwner`. */
+void __fastcall BlitSpriteDirect(unsigned int phantom, unsigned int spriteSetId, int dest,
+                                 int pitch, unsigned int attachOwner);
 /* __fastcall with a PHANTOM first parameter (ECX) - see
  * src/rendering/BlitSpriteAttached.c.  `attachOwner` is EDX and `classId`
  * is the original's EAX register argument, promoted to a real trailing
@@ -393,8 +401,10 @@ void CMobile::v3_Render()
                 iVar6 = *reinterpret_cast<int *>(g_clientContext + 0x1fe2c);
                 iVar11 = *reinterpret_cast<int *>(g_clientContext + 0x1fe30);
                 if (iVar6 != 0) {
-                    BlitSpriteDirect(iVar6, iVar11);
-                    BlitSpriteDirect(iVar11 / 2 + iVar6, iVar11);
+                    BlitSpriteDirect(0, this->m_spriteId, iVar6, iVar11,
+                                     *reinterpret_cast<unsigned int *>(this->m_pad20 + 0x10));
+                    BlitSpriteDirect(0, this->m_spriteId2, iVar11 / 2 + iVar6, iVar11,
+                                     *reinterpret_cast<unsigned int *>(this->m_pad20 + 0x10));
                 }
             }
         }
@@ -457,11 +467,15 @@ void CMobile::v3_Render()
             iVar9 = g_clientContext;
             *reinterpret_cast<unsigned int *>(g_clientContext + 0x1ff1c + (this->m_owner & 7) * 0x18) =
                 *reinterpret_cast<unsigned int *>(&DAT_0056d468 + (iVar10 * 0x1e + *reinterpret_cast<int *>(this->m_pad20 + 4)) * 4);
-            BlitSpriteDirect(((int)uVar15 * iVar11 + iVar16) * 0x80 + iVar6, iVar11);
+            BlitSpriteDirect(0, this->m_spriteId,
+                             ((int)uVar15 * iVar11 + iVar16) * 0x80 + iVar6, iVar11,
+                             *reinterpret_cast<unsigned int *>(this->m_pad20 + 0x10));
             if (*reinterpret_cast<int *>(iVar9 + 0x1fe34 + (this->m_owner >> 2 & 1) * 4) != 0) {
                 uVar7 = this->m_owner >> 2 & 1;
                 iVar6 = *reinterpret_cast<int *>(iVar9 + 0x1fe3c + uVar7 * 4);
-                BlitSpriteDirect((iVar6 * (int)uVar15 + iVar16) * 0x80 + *reinterpret_cast<int *>(iVar9 + 0x1fe34 + uVar7 * 4), iVar6);
+                BlitSpriteDirect(0, this->m_spriteId2,
+                                 (iVar6 * (int)uVar15 + iVar16) * 0x80 + *reinterpret_cast<int *>(iVar9 + 0x1fe34 + uVar7 * 4),
+                                 iVar6, *reinterpret_cast<unsigned int *>(this->m_pad20 + 0x10));
             }
             cVar4 = CheckGuardedBoolAnd(*reinterpret_cast<int *>(this->m_pad20 + 4) != 0xe);
             iVar6 = g_clientContext;

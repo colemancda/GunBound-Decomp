@@ -73,8 +73,9 @@ void __fastcall RenderMobile(int param_1)
         iVar5 = *(int *)(g_clientContext + 0x1fe2c);
         iVar10 = *(int *)(g_clientContext + 0x1fe30);
         if (iVar5 != 0) {
-          BlitSpriteDirect(iVar5,iVar10);
-          BlitSpriteDirect(iVar10 / 2 + iVar5,iVar10);
+          BlitSpriteDirect(0,*(uint *)(param_1 + 0x18),iVar5,iVar10,*(uint *)(param_1 + 0x30));
+          BlitSpriteDirect(0,*(uint *)(param_1 + 0x904),iVar10 / 2 + iVar5,iVar10,
+                           *(uint *)(param_1 + 0x30));
         }
       }
     }
@@ -154,12 +155,14 @@ void __fastcall RenderMobile(int param_1)
       iVar8 = g_clientContext;
       *(undefined4 *)(g_clientContext + 0x1ff1c + (*(uint *)(param_1 + 8) & 7) * 0x18) =
            *(undefined4 *)(&DAT_0056d468 + (iVar9 * 0x1e + *(int *)(param_1 + 0x24)) * 4);
-      BlitSpriteDirect((uVar13 * iVar10 + iVar14) * 0x80 + iVar5,iVar10);
+      BlitSpriteDirect(0,*(uint *)(param_1 + 0x18),(uVar13 * iVar10 + iVar14) * 0x80 + iVar5,
+                       iVar10,*(uint *)(param_1 + 0x30));
       if (*(int *)(iVar8 + 0x1fe34 + (*(uint *)(param_1 + 8) >> 2 & 1) * 4) != 0) {
         uVar6 = *(uint *)(param_1 + 8) >> 2 & 1;
         iVar5 = *(int *)(iVar8 + 0x1fe3c + uVar6 * 4);
-        BlitSpriteDirect((iVar5 * uVar13 + iVar14) * 0x80 + *(int *)(iVar8 + 0x1fe34 + uVar6 * 4),iVar5)
-        ;
+        BlitSpriteDirect(0,*(uint *)(param_1 + 0x904),
+                         (iVar5 * uVar13 + iVar14) * 0x80 + *(int *)(iVar8 + 0x1fe34 + uVar6 * 4),
+                         iVar5,*(uint *)(param_1 + 0x30));
       }
       cVar3 = CheckGuardedBoolAnd(*(int *)(param_1 + 0x24) != 0xe);
       iVar5 = g_clientContext;
