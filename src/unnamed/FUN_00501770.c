@@ -61,9 +61,18 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
   char local_4914 [17];
   undefined1 local_4903;
   undefined1 local_4902;
+  /* RECOVERED (2026-08-28): the 14-byte scratch name field at esp_base+0x90,
+   * in the 0x8f..0x9f gap Ghidra left undeclared because its only writers were
+   * the argless FUN_00503e10 calls.  Every FUN_00503e30 call but the 0x2010
+   * one reads it back as the map value record. */
+  undefined1 local_4900 [14];
   undefined1 local_48f0 [18];
   undefined1 local_48de;
   undefined1 local_48c9;
+  /* RECOVERED (2026-08-28): the record's 8-char field at esp_base+0xc8, in the
+   * 0xc8..0xd1 gap; written only by the two argless FUN_005037f0 calls, which
+   * store 8 characters plus a length byte at +9. */
+  undefined1 local_48c8 [10];
   undefined2 local_48be;
   char local_48ba [82];
   undefined4 auStack_4868 [64];
@@ -148,7 +157,10 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
             } while (bVar5 < 0x10);
             local_48ba[0x11] = bVar5;
             local_48ba[bVar5] = '\0';
-            FUN_00503e30(local_48ba);
+            /* RECOVERED (2026-08-28), orig 0x501f8d-0x501faf: ESI is the
+             * 14-byte value record the inline 12-byte copy above just built at
+             * &local_4924, EDI the string map local_4980 = param_1 + 0x17cc. */
+            FUN_00503e30((undefined4)local_48ba,&local_4924,(int *)local_4980);
             uVar6 = *(ushort *)((int)puVar15 + 0x26);
             /* RECOVERED (2026-08-19): the two register arguments, dropped
              * because DispatchP2PMessage (0x504970) had no declaration and
@@ -356,11 +368,25 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
           sendto(*(SOCKET *)(param_1 + -0x40),local_4980,4,0,&local_496c,local_4984);
         }
         local_4980 = (char *)(param_1 + 0x179c);
-        FUN_00503e10();
+        /* RECOVERED (2026-08-28).  EBX is this branch's packet cursor and it is
+         * pcVar12 - Ghidra kept the register but folded the `add ebx,N` steps
+         * into the offsets of the reads it modelled (src line 364's
+         * `pcVar12 + 0x18` IS 0x50190b `mov ax,[ebx+8]` at ebx = pcVar12+0x10).
+         * orig 0x5018af `add ebx,4` reaches the 12-byte owner nick at
+         * param_2+0xa; ESI is the 14-byte scratch record at param_1+0x179c
+         * that the line above just put in local_4980. */
+        FUN_00503e10((int)local_4980,(int)(pcVar12 + 4));
         FUN_004fcd80(local_4914,0x11,param_1 + 0x182c);
         FUN_004fdc50();
-        FUN_00503e30(local_48ba + 0x40);
-        FUN_005037f0();
+        /* RECOVERED (2026-08-28), orig 0x5018e9 `mov esi,[esp+0x10]` and
+         * 0x5018bd/0x5018f4 `mov edi,[esp+0x14]` / `add edi,0x17cc`: ESI is
+         * that same 14-byte record, EDI the string map at param_1+0x17cc, and
+         * the pushed argument is the key. */
+        FUN_00503e30((undefined4)(local_48ba + 0x40),(undefined4 *)local_4980,
+                     (int *)(local_497c + 0x17cc));
+        /* RECOVERED (2026-08-28), orig 0x5018d1 `add ebx,0xc`: the 8-byte field
+         * at param_2+0x16, i.e. pcVar12 + 0x10. */
+        FUN_005037f0((int)&local_4924,(int)(pcVar12 + 0x10));
         local_4978 = CONCAT22(SUBFIELD(local_4978,2,undefined2),*(undefined2 *)(pcVar12 + 0x18));
         uVar6 = *(ushort *)(pcVar12 + 0x1a);
         pcVar12 = pcVar12 + 0x1c;
@@ -370,9 +396,16 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
         if (uVar6 != 0) {
           local_4980 = (char *)(uint)uVar6;
           do {
-            FUN_004fe5d0();
-            FUN_00503e10();
-            FUN_00503e30(local_48f0);
+            /* RECOVERED (2026-08-28).  At the top of each record EBX == pcVar12
+             * (proved by 0x501980 `cmp byte ptr [ebx],0` being the
+             * `pcVar12[0x1c]` test below, after 0x50194e `add ebx,0x10` and
+             * 0x501978 `add ebx,0xc`).  The record is [16-byte id][12-byte
+             * nick][flag or 20-byte note][8-byte field][ushort status], and the
+             * nick is upserted into the param_1+0x17cc map under the id. */
+            FUN_004fe5d0((int)local_48f0,(int)pcVar12);
+            FUN_00503e10((int)local_4900,(int)(pcVar12 + 0x10));
+            FUN_00503e30((undefined4)local_48f0,(undefined4 *)local_4900,
+                         (int *)(local_497c + 0x17cc));
             if (pcVar12[0x1c] == '\0') {
               pcVar12 = pcVar12 + 0x1d;
             }
@@ -386,7 +419,11 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
               pcVar12 = pcVar12 + 0x30;
             }
             FUN_005037d0((int)&local_48de,(int)&local_4944);
-            FUN_005037f0();
+            /* RECOVERED (2026-08-28), orig 0x5019c4 `mov edi,ebx`: EDI is the
+             * cursor as the two branches above left it, which is exactly the
+             * current pcVar12 - witnessed by 0x5019d2 `mov cx,[ebx+8]` being
+             * the `*(pcVar12 + 8)` read two lines below. */
+            FUN_005037f0((int)local_48c8,(int)pcVar12);
             local_48be = *(undefined2 *)(pcVar12 + 8);
             pcVar12 = pcVar12 + 10;
             FUN_00502800((int)local_4958,(undefined4)local_48f0);
@@ -462,10 +499,18 @@ LAB_00501b17:
          (cVar4 = (char)FUN_004f72b0(&local_4668,*(int *)(param_1 + 0x1784),(int)puVar1,6000,
                                      (uint)param_3),
           cVar4 != '\0')) {
-        FUN_004fe5d0();
-        FUN_00503e10();
+        /* RECOVERED (2026-08-28), orig 0x502185/0x502195: the decoded block
+         * starts at &local_4668, with the 16-byte id at +0 and the 12-byte nick
+         * at +0x10 - the same record shape the +0x1e/+0x20 pair below sits on
+         * top of.  esp_b+0x338 is Ghidra's own local_4658, so the nick source
+         * is named rather than reached by offset.  EBX is not a packet cursor
+         * on this path: it carries puVar1 into FUN_004f72b0 at 0x50216c and
+         * local_497c - 0x2f4 into DispatchP2PMessage at 0x5021e3. */
+        FUN_004fe5d0((int)local_4958,(int)&local_4668);
+        FUN_00503e10((int)local_4900,(int)&local_4658);
         iVar7 = local_497c;
-        FUN_00503e30(local_4958);
+        FUN_00503e30((undefined4)local_4958,(undefined4 *)local_4900,
+                     (int *)(iVar7 + 0x17cc));
         _Var11 = FID_conflict___time32((__time32_t *)0x0);
         /* RECOVERED (2026-08-19), same dropped register pair; orig
          * 0x5021ca/0x5021ec, anchored on this branch's own decode buffer
@@ -486,9 +531,15 @@ LAB_00501b17:
       SUBFIELD(local_496c.sa_data,6,undefined4) = *(undefined4 *)(param_2 + 0xe);
       SUBFIELD(local_496c.sa_data,10,undefined4) = *(undefined4 *)(param_2 + 0x12);
       local_495c = 0;
-      FUN_00503e10();
+      /* RECOVERED (2026-08-28), orig 0x50206e `add ebx,0x10`: the 12-byte nick
+       * at param_2+0x16, following the 16-byte id at param_2+6 that the four
+       * assignments above copied into local_496c.  The cursor is a literal
+       * param_2 offset on this path, as the *(param_2 + 0x22/0x26/0x2a) reads
+       * below already show. */
+      FUN_00503e10((int)local_4900,param_2 + 0x16);
       FUN_004fdc50();
-      FUN_00503e30(local_48ba + 0x2e);
+      FUN_00503e30((undefined4)(local_48ba + 0x2e),(undefined4 *)local_4900,
+                   (int *)(local_497c + 0x17cc));
       local_4924 = *(undefined4 *)(param_2 + 0x22);
       local_4920 = *(undefined4 *)(param_2 + 0x26);
       local_4978 = CONCAT22(SUBFIELD(local_4978,2,undefined2),*(undefined2 *)(param_2 + 0x2a));
@@ -497,8 +548,12 @@ LAB_00501b17:
       iVar7 = local_497c;
       FUN_00502750(iVar7 + 0x17ac,(int)local_4914);
       FUN_00503a10((int)&local_496c,iVar7 + -0x2c8);
-      FUN_004fe5d0();
-      FUN_005037f0();
+      /* RECOVERED (2026-08-28), orig 0x502105 `mov edi,esi` and 0x502113
+       * `lea edi,[esp+0x6c]`: both sources are stack fields this branch just
+       * built - the 16-byte id in local_496c and the 8-byte field in
+       * local_4924 - not packet bytes. */
+      FUN_004fe5d0((int)local_48f0,(int)&local_496c);
+      FUN_005037f0((int)local_48c8,(int)&local_4924);
       local_48be = (undefined2)local_4978;
       local_48c9 = 0;
       local_48de = 0;
@@ -565,10 +620,22 @@ LAB_00501b17:
         local_4984 = (uint)*(ushort *)(param_2 + 6);
         local_4980 = (char *)(param_1 + 0x17cc);
         do {
-          FUN_004fe5d0();
-          FUN_00503e10();
-          FUN_00503e30(&local_4944);
-          FUN_005037f0();
+          /* RECOVERED (2026-08-28).  iVar7 IS the orig's EBX cursor over the
+           * 0x26-byte records: 16-byte id at +0, 12-byte nick at +0x10 (orig
+           * 0x5022fb), 8-byte field at +0x1c (orig 0x50231c), ushort at +0x24
+           * - which is what the *(iVar7 + 0x24) read below already encodes.
+           * TWO of the three stack destinations are one contiguous record
+           * based at &local_4944 - the id at +0 and the 8-byte field at +0x12
+           * - as the FUN_00502920(&local_4944,...) call below shows; 0x502326
+           * `lea esi,[esp+0x5e]` is that base + 0x12 and cannot get a local of
+           * its own because it starts inside uStack_4934.  The nick goes to
+           * the separate scratch buffer local_4900, which FUN_00503e30 then
+           * copies into the param_1 + 0x17cc map under the id. */
+          FUN_004fe5d0((int)&local_4944,iVar7);
+          FUN_00503e10((int)local_4900,iVar7 + 0x10);
+          FUN_00503e30((undefined4)&local_4944,(undefined4 *)local_4900,
+                       (int *)local_4980);
+          FUN_005037f0((int)((char *)&local_4944 + 0x12),iVar7 + 0x1c);
           local_4928 = *(undefined2 *)(iVar7 + 0x24);
           iVar7 = iVar7 + 0x26;
           FUN_00502920(&local_4944,(int)&local_4954);

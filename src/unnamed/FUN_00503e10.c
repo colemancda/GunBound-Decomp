@@ -4,10 +4,12 @@
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
  *
- * DROPPED REGISTERS ANALYSED, BLOCKED ON THE CALLER (2026-08-27).
+ * DROPPED REGISTERS RECOVERED (2026-08-28).
  * ESI is the DESTINATION and EDI the SOURCE (the body copies
  * `*(uVar2 + unaff_ESI) = *(uVar2 + unaff_EDI)` for up to 12 bytes, then
- * stores the length at ESI+0xd) -- this is a 13-byte name-field copy.
+ * stores the length at ESI+0xd) -- a 14-byte name field: up to 12 characters,
+ * a NUL at dest+len (0x503e2b `mov [eax+esi],0`), and the length byte at
+ * dest+0xd (0x503e25 `mov [esi+0xd],al`), so bytes 0..0xd inclusive.
  *
  * Every call site is in FUN_00501770, and the pairing is settled: VA order
  * matches source order and each site is separated by its own neighbouring
@@ -28,32 +30,38 @@
  * pending-push term is what makes the first two agree -- without it they
  * disagree by exactly 4.
  *
- * WHAT BLOCKS IT.  The destinations resolve (site 1 is
- * `param_1 + 0x179c`, i.e. the local_4980 the line above assigns; the rest
- * are esp+0x90 = an unnamed 14-byte buffer in the 0x11-byte gap Ghidra left
- * between local_4902 and local_48f0, which only these argless calls write).
- * The SOURCES do not: they are `ebx + 4` and `ebx + 0x10`, and EBX is a
- * packet-parse CURSOR that FUN_00501770 builds with a chain of a dozen
- * incremental adds (`lea ebx,[edi - 0x2c8]` at 0x50184d, then `add ebx,2`,
- * `add ebx,4`, `add ebx,0xc`, `add ebx,0x10` ... through 0x5021e3).  Ghidra
- * dropped that entire walk, because its only consumers were these argless
- * calls -- the same shape as FUN_0044c630's dropped pointer walk, but across
- * a 3372-byte function.
+ * THE CALLER'S CURSOR.  The earlier note said Ghidra dropped FUN_00501770's
+ * whole EBX packet walk.  It did not.  EBX survives as a named local in every
+ * branch that feeds these helpers -- `pcVar12` on the 0x1011 path, `iVar7` on
+ * the 0x4001 path, plain `param_2` offsets on the 0x3001 path -- and only the
+ * incremental `add ebx,N` steps were folded into the offsets of the reads the
+ * decompiler kept.  Src line 364's `pcVar12 + 0x18` IS 0x50190b
+ * `mov ax,[ebx+8]` taken with ebx = pcVar12 + 0x10.  So every dropped source
+ * is an offset off a cursor variable that is already declared:
  *
- * So this is a caller reconstruction, not an argument recovery, and it
- * unblocks FUN_00503e30 in the same move -- that function's six sites are in
- * the same caller and want the same cursor.
+ *   0x1011 pre-loop   ESI = local_4980 (= param_1+0x179c)  EDI = pcVar12 + 4
+ *   0x1011 per-record ESI = local_4900 (esp_base+0x90)     EDI = pcVar12 + 0x10
+ *   0x2021            ESI = local_4900                     EDI = &local_4668+0x10
+ *   0x3001            ESI = local_4900                     EDI = param_2 + 0x16
+ *   0x4001            ESI = local_4900                     EDI = iVar7 + 0x10
+ *
+ * The esp+0x90 destination is the 14-byte gap buffer described above, now
+ * declared in the caller as `local_4900`.  The `lea ebx,[edi - 0x2c8]` at
+ * 0x50184d that the old note read as the head of the walk is not part of it:
+ * 0x501853 stores it to local_4970 and 0x501857 consumes it as FUN_00503bb0's
+ * regEbx, and EBX is reloaded from local_4980 at 0x50188b before the first
+ * helper call.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00503e10(void)
+void FUN_00503e10(int regEsi,int regEdi)
 
 {
   byte bVar1;
   uint uVar2;
-  int unaff_ESI;
-  int unaff_EDI;
+  int unaff_ESI = regEsi;
+  int unaff_EDI = regEdi;
   
   uVar2 = 0;
   do {

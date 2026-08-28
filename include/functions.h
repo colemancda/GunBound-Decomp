@@ -1496,7 +1496,7 @@ undefined4 CreateBoundSocket();
 void FUN_004fe490();
 undefined4 __fastcall FUN_004fe500();
 void __fastcall FUN_004fe590(undefined4 param_1,undefined4 *param_2,undefined4 *regEax);
-void FUN_004fe5d0();
+void FUN_004fe5d0(int regEsi,int regEdi);
 int ConnectToHostPort(undefined4 param_1,u_short param_2); /* narrow u_short arg: empty-paren decl conflicts under gcc */
 void __fastcall FUN_004fe6a0();
 LRESULT __stdcall CommEngineNotifyWndProc(HWND, UINT, WPARAM, uint);
@@ -1588,7 +1588,7 @@ void __fastcall FUN_00503680(undefined4 param_1,undefined4 *param_2,undefined4 *
 int * FUN_00503710();
 void __fastcall CopyNameKey();
 void FUN_005037d0(int regEsi,int regEdi);
-void FUN_005037f0();
+void FUN_005037f0(int regEsi,int regEdi);
 void FUN_00503810(int regEsi,int regEax);
 bool __fastcall FUN_00503840();
 undefined4 __fastcall GetConnectionSocketIfListed(undefined4 *param_1,int regEax);
@@ -1598,8 +1598,8 @@ void FUN_00503a10(undefined4 regEax,undefined4 regEdi);
 void FUN_00503a50();
 void FUN_00503bb0(int regEbx);
 undefined4 __thiscall FUN_00503c40();
-void FUN_00503e10();
-void FUN_00503e30();
+void FUN_00503e10(int regEsi,int regEdi);
+void FUN_00503e30(undefined4 param_1,undefined4 *regEsi,int *regEdi);
 void __fastcall FUN_00503eb0();
 void __fastcall Vector_FillN_34(undefined4 param_1,undefined4 *param_2,undefined4 *regEax,undefined4 *regEbx);
 void __fastcall Vector_CopyBackward_34(undefined4 param_1,undefined4 *param_2,undefined4 *regEax,undefined4 *regEbx);

@@ -11,16 +11,6 @@
  * cannot alias param_1 that way without losing the key, so the hash gets a
  * local of its own and param_1 keeps meaning what it means at the entry.
  *
- * DROPPED REGISTERS ANALYSED, BLOCKED ON THE CALLER (2026-08-27).
- * ESI is the DESTINATION and EDI the SOURCE (the body copies
- * `*(uVar2 + unaff_ESI) = *(uVar2 + unaff_EDI)` for up to 12 bytes, then
- * stores the length at ESI+0xd) -- this is a 13-byte name-field copy.
- *
- * Every call site is in FUN_00501770, and the pairing is settled: VA order
- * matches source order and each site is separated by its own neighbouring
- * call (FUN_004fe5d0 before, FUN_00503e30 or FUN_004fcd80 after, with
- * distinct arguments).
- *
  * THE FRAME KEY for FUN_00501770, which cost the most to derive and is worth
  * keeping.  Despite the `and esp,0xfffffff8` alignment, Ghidra's names map
  * linearly onto esp:
@@ -35,32 +25,71 @@
  * pending-push term is what makes the first two agree -- without it they
  * disagree by exactly 4.
  *
- * WHAT BLOCKS IT.  The destinations resolve (site 1 is
- * `param_1 + 0x179c`, i.e. the local_4980 the line above assigns; the rest
- * are esp+0x90 = an unnamed 14-byte buffer in the 0x11-byte gap Ghidra left
- * between local_4902 and local_48f0, which only these argless calls write).
- * The SOURCES do not: they are `ebx + 4` and `ebx + 0x10`, and EBX is a
- * packet-parse CURSOR that FUN_00501770 builds with a chain of a dozen
- * incremental adds (`lea ebx,[edi - 0x2c8]` at 0x50184d, then `add ebx,2`,
- * `add ebx,4`, `add ebx,0xc`, `add ebx,0x10` ... through 0x5021e3).  Ghidra
- * dropped that entire walk, because its only consumers were these argless
- * calls -- the same shape as FUN_0044c630's dropped pointer walk, but across
- * a 3372-byte function.
+ * DROPPED REGISTERS RECOVERED (2026-08-28), and the previous note's reading
+ * of them corrected.
  *
- * So this is a caller reconstruction, not an argument recovery, and it
- * unblocks FUN_00503e30 in the same move -- that function's six sites are in
- * the same caller and want the same cursor.
+ * ESI is NOT a destination and this is not a name-field copy - that
+ * paragraph was copy-pasted from FUN_00503e10 and does not describe this
+ * function. FUN_00503e30 is a string-map upsert. The pushed stack argument
+ * is the KEY: it goes straight into StringMap_Find_28 and, on a miss,
+ * StringMap_Insert_28. EDI is the MAP OBJECT - 0x503e48 mov eax,edi feeds
+ * the find, 0x503e53 cmp dword ptr [edi],0 tests the empty-table case and
+ * 0x503e5e push edi builds it. ESI is a 14-byte VALUE RECORD that the
+ * function READS, never writes: 0x503e85-0x503e9d copies [esi], [esi+4],
+ * [esi+8] and word [esi+0xc] into entry+0x12, entry+0x16, entry+0x1a,
+ * entry+0x1e. EAX and EBX are phantoms - both are written before any read
+ * (0x503e39 lea eax,[esp+0xc] and 0x503e44 lea ebx,[esp+0x14]).
+ *
+ * All six call sites are in FUN_00501770 and every one of them passes the
+ * map at param_1+0x17cc for EDI. Five of the six pass for ESI the exact
+ * buffer that the immediately preceding FUN_00503e10 call just filled - that
+ * helper writes up to 12 characters, a NUL at dest+len and a length byte at
+ * dest+0xd, which is the 14 bytes this function copies out, so the pairing
+ * is self-witnessing rather than positional. The sixth site, at 0x501faf on
+ * the 0x2010 path, passes esp_base+0x6c, filled by the same
+ * 12-characters-plus-length-at-+0xd loop written out inline at
+ * 0x501f50-0x501f6e.
+ *
+ * ret 4 matches the one declared stack parameter, so regEsi and regEdi are a
+ * clean append, not a re-slot.
+ *
+ * THE CALLER'S CURSOR. The earlier note claimed Ghidra dropped
+ * FUN_00501770's whole EBX packet walk. It did not. EBX survives as a named
+ * local in every branch that feeds these helpers - pcVar12 on the 0x1011
+ * path, iVar7 on the 0x4001 path, plain param_2 offsets on the 0x3001 path -
+ * and only the incremental add ebx,N steps were folded into the offsets of
+ * the reads the decompiler kept. The read at src line 364, pcVar12 + 0x18,
+ * IS 0x50190b mov ax,[ebx+8] taken with ebx = pcVar12 + 0x10. So no new
+ * cursor local was added: each dropped source is an offset off the cursor
+ * variable already in the C, and inserting redundant += steps would have
+ * forced rewriting three currently-correct reads for no gain in fidelity.
+ * The lea ebx,[edi-0x2c8] at 0x50184d that the old note read as the start of
+ * the walk is not part of it - it is local_4970 = param_1 - 0x2c8, stored to
+ * [esp+0x20] at 0x501853, and at the same time FUN_00503bb0's
+ * already-recovered regEbx argument; EBX is reloaded from local_4980 at
+ * 0x50188b before the first helper call.
+ *
+ * WHAT THE CURSOR WALKS. FUN_00501770 is the CBuddy2 buddy-list packet
+ * handler - it creates the window titled CBuddy2 Timer Receiving Window at
+ * 0x501a53. On the 0x1011 path the cursor reads a ushort result, a 4-byte
+ * field echoed straight back by sendto, a 12-byte owner nick copied to the
+ * scratch record at param_1+0x179c, an 8-byte field, a ushort, then a ushort
+ * entry count capped at 100, then that many records: 16-byte id, 12-byte
+ * nick, one flag byte that is either absent-marker or the first byte of a
+ * 20-byte note, an 8-byte field and a ushort status. Each record's nick is
+ * upserted into the param_1+0x17cc map under its id. The 0x4001 path walks
+ * the same shape without the note field, 0x26 bytes per record.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00503e30(undefined4 param_1)
+void FUN_00503e30(undefined4 param_1,undefined4 *regEsi,int *regEdi)
 
 {
   char cVar1;
   int iVar2;
-  undefined4 *unaff_ESI;
-  int *unaff_EDI;
+  undefined4 *unaff_ESI = regEsi;
+  int *unaff_EDI = regEdi;
   uint local_hash;
   undefined4 local_8;
   undefined1 local_4 [4];
