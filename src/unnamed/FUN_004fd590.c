@@ -56,7 +56,8 @@ uint __thiscall FUN_004fd590(int param_1,undefined4 param_2,undefined4 *param_3,
       }
       uVar4 = FUN_004fcf10(&local_1778,
                            local_1760 +
-                           CONCAT22((short)(uVar4 >> 0x10),(short)uVar4 - (short)&local_1778));
+                           CONCAT22((short)(uVar4 >> 0x10),(short)uVar4 - (short)&local_1778),
+                           0xc051);
       return uVar4;
     }
   }

@@ -43,7 +43,7 @@ undefined4 __thiscall FUN_004fd730(int param_1,undefined4 param_2,char *param_3,
     param_4 = param_4 + 1;
     pcVar2 = pcVar2 + 1;
   }
-  uVar4 = FUN_004fcf10(local_1778,uVar3 + 8);
+  uVar4 = FUN_004fcf10(local_1778,uVar3 + 8,0xc041);
   return uVar4;
 }
 

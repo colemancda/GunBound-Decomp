@@ -1466,7 +1466,7 @@ int FUN_004fcdf0(undefined4 param_1,undefined4 param_2,int regEax);
 undefined4 FUN_004fce60(int outBase,int ctx);
 void SendBuddyNameMessage(undefined4 param_1,char *regEax);
 void FUN_004fcee0(char *regEax);
-undefined4 FUN_004fcf10();
+undefined4 FUN_004fcf10(undefined4 param_1,undefined4 param_2,undefined4 regEdi);
 void FUN_004fcf70();
 undefined4 FUN_004fd030();
 undefined4 FUN_004fd090();
