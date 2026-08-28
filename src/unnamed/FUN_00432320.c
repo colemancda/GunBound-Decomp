@@ -41,7 +41,7 @@ FUN_00432320(int param_1,byte param_2,int param_3,byte param_4,int param_5,undef
     pvVar2 = operator_new(0x3fa0);
     local_4 = 0;
     if (pvVar2 != (void *)0x0) {
-      piVar8 = (int *)InitBlastEffect();
+      piVar8 = (int *)InitBlastEffect((undefined4 *)pvVar2);
     }
     local_4 = 0xffffffff;
     piVar8[6] = -1;

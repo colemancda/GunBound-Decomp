@@ -79,7 +79,7 @@ LAB_00435034:
       iVar11 = 0;
     }
     else {
-      iVar11 = InitBlastEffect();
+      iVar11 = InitBlastEffect((undefined4 *)pvVar4);
     }
     local_4 = 0xffffffff;
     *(undefined4 *)(iVar11 + 0x18) = 0xffffffff;

@@ -9,16 +9,29 @@
  * to InitProjectile with class id 100002 and installs vtable 0x55656c.
  * Raw/near-verbatim port of Ghidra's decompiler output beyond the naming -
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
+*
+ * DROPPED REGISTER RECOVERED (2026-08-27): unaff_ESI is the object being
+ * initialised.  The first statement hands it to InitProjectile as the object
+ * and the second stamps its vtable through it, and the function RETURNS it
+ * (`mov eax,esi` at 0x4aa8ba) -- which is why the callers assign the result
+ * and then index it.
+ *
+ * All three sites are the same idiom and each is witnessed by its own
+ * caller's source: `operator_new(0x3fa0)` on the line above, a null check,
+ * and `mov esi,eax` inside the non-null branch immediately before the call.
+ * So ESI is the allocation the caller already names -- pvVar2, pvVar4,
+ * pvVar2 -- and nothing rests on pairing, since all three callers hold one
+ * site each.
  */
 #include "ghidra_types.h"
 
 
-undefined4 InitBlastEffect(void)
+undefined4 InitBlastEffect(undefined4 *regEsi)
 
 {
   int iVar1;
   byte bVar2;
-  undefined4 *unaff_ESI;
+  undefined4 *unaff_ESI = regEsi;
   
   InitProjectile(unaff_ESI,0x186a2);
   *unaff_ESI = &PTR_FUN_0055656c;

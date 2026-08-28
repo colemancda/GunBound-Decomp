@@ -1002,7 +1002,7 @@ void __thiscall SimulateShot_Bullet8n_8s_Item();
 void __fastcall DetonateShot2_Bullet8();
 undefined4 FUN_004aa4d0();
 void __fastcall FUN_004aa520();
-undefined4 InitBlastEffect();
+undefined4 InitBlastEffect(undefined4 *regEsi);
 void * __thiscall BlastEffect_ScalarDtor();
 void BlastEffect_DtorBody(undefined4 *regEax);
 void __fastcall FUN_004aa8f0();
