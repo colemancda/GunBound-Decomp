@@ -28,7 +28,7 @@ void __fastcall State09_ReadyRoom_OnTick(int param_1)
   if (-1 < *(int *)(param_1 + 0x4d4)) {
     *(int *)(param_1 + 0x4d4) = *(int *)(param_1 + 0x4d4) + -1;
   }
-  iVar3 = FindItemGridCell();
+  iVar3 = FindItemGridCell(g_cursorAnchorX,g_cursorAnchorY);
   if ((iVar3 == -1) || (g_bBattleSessionActive != '\0')) {
     HideStoreItemTooltipPanel((int)&g_uiPanelManager);
     *(undefined2 *)(param_1 + 0x6b4) = 0;

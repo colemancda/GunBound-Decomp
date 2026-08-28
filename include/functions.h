@@ -1124,7 +1124,7 @@ void ResetItemSlotCounters();
 int FUN_004dc0f0();
 int FindFreeItemSlot();
 void BroadcastBattleSnapshot();
-int FindItemGridCell();
+int FindItemGridCell(int regEsi,int regEdi);
 void __fastcall LoadRoomSlotAvatar();
 void RegisterTankSprite();
 void __fastcall RenderRoomMobiles();
