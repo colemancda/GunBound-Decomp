@@ -1461,7 +1461,7 @@ void __thiscall Sha1TransformBlocks(unsigned int *param_1, int param_2, unsigned
  * port had collapsed source and dest onto one pointer. See the .c headers. */
 void __thiscall FUN_004fcd20(int param_1, int schedule, unsigned int *source, int count);
 void __thiscall FUN_004fcd50(int param_1, int schedule, unsigned int *source, int count);
-undefined4 FUN_004fcd80();
+undefined4 FUN_004fcd80(undefined4 param_1,undefined4 param_2,int regEax);
 int FUN_004fcdf0(undefined4 param_1,undefined4 param_2,int regEax);
 undefined4 FUN_004fce60(int outBase,int ctx);
 void SendBuddyNameMessage(undefined4 param_1,char *regEax);

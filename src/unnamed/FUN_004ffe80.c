@@ -28,7 +28,7 @@ void FUN_004ffe80(undefined4 *param_1)
   undefined4 local_6;
   
   local_28 = 0x26;
-  cVar2 = FUN_004fcd80(local_26,0x10);
+  cVar2 = FUN_004fcd80(local_26,0x10,(int)param_1 + 4);
   if (cVar2 != '\0') {
     local_38.sa_family = 2;
     if (param_1[0xa5] != 0) {

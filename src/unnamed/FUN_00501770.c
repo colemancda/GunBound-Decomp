@@ -281,8 +281,8 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
          * ESI argument and the schedule pointer a dropped return value. */
         uVar9 = (undefined4)AllocCipherSchedule(0x2dbabe65);
         *(undefined4 *)(param_1 + 0x1784) = uVar9;
-        cVar4 = FUN_004fcd80(local_4914,0x11);
-        if (((cVar4 != '\0') && (cVar4 = FUN_004fcd80(&local_4944,0x15), cVar4 != '\0')) &&
+        cVar4 = FUN_004fcd80(local_4914,0x11,param_1 + 0x182c);
+        if (((cVar4 != '\0') && (cVar4 = FUN_004fcd80(&local_4944,0x15,param_1 + 0x1ab0), cVar4 != '\0')) &&
            /* RECOVERED (2026-07-19), orig 0x501baa-0x501bb5: EncodeHandshakeBlock's
             * credKey/credStr arrive in ESI/EAX (`lea esi,[esp+0x8c]` /
             * `lea eax,[esp+0x5c]`), and those two stack slots are exactly the
@@ -357,7 +357,7 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
         }
         local_4980 = (char *)(param_1 + 0x179c);
         FUN_00503e10();
-        FUN_004fcd80(local_4914,0x11);
+        FUN_004fcd80(local_4914,0x11,param_1 + 0x182c);
         FUN_004fdc50();
         FUN_00503e30(local_48ba + 0x40);
         FUN_005037f0();
