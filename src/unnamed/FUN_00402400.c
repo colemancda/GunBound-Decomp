@@ -4,11 +4,23 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-REG FIX (2026-08-28): EAX is the sender NAME string - handed
+ * to FUN_004259d0 for the ignore-list check and strcpy'd into the
+ * 512-byte scratch this function formats into. Two of the three binary
+ * sites are ported: FUN_00402300 passes the address of its own local
+ * name record (`lea eax,[esp+0x18]` at 0x40239a, three pending pushes
+ * deep = its local_10, the 13-byte name it just copied out of its
+ * regEax record); DispatchDirectLinkPacket passes its regEax name
+ * record via EDI - `mov edi,eax` at 0x4032d2 dominates the 0x40353c
+ * block, whose only inbound edge is the `je 0x40353c` at 0x4032f4 taken
+ * straight out of the opcode-0x1000 compare, before either later EDI
+ * write. The third site, 0x403c6a, is in an unported PROGRESS.csv gap.
  */
 #include "ghidra_types.h"
 
 
-void FUN_00402400(undefined4 param_1,char *param_2,uint param_3)
+void FUN_00402400(undefined4 param_1,char *param_2,uint param_3,char *regEax)
 
 {
   /* Ghidra artifact: raw stack reference the decompiler could not
@@ -16,7 +28,7 @@ void FUN_00402400(undefined4 param_1,char *param_2,uint param_3)
   undefined stack0xfffffdff;
   char cVar1;
   undefined2 *puVar2;
-  char *in_EAX;
+  char *in_EAX = regEax;
   int iVar3;
   char *pcVar4;
   uint uVar5;

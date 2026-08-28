@@ -235,8 +235,15 @@ undefined4 __thiscall FUN_00501770(int param_1,int param_2,int param_3)
                 }
                 abStack_4768[uVar10] = 0;
                 pbVar13 = pbVar14 + 1 + uVar10;
-                FUN_004055b0();
-                FUN_004055b0();
+                /* DROPPED-REG FIX 2026-08-28: orig 0x501df0-0x501e15 - the
+                   two decode buffers are assigned into the two CString
+                   handles this arm seeded a few lines up (local_4978 =
+                   iVar7+0x10 and iStack_4974): `lea edx,[esp+0x128]` /
+                   `lea edi,[esp+0x18]` then `lea edx,[esp+0x228]` /
+                   `lea edi,[esp+0x1c]`, all four resolved through this
+                   function's established frame key. */
+                FUN_004055b0(0,(char *)auStack_4868,(int)&local_4978);
+                FUN_004055b0(0,(char *)abStack_4768,(int)&iStack_4974);
                 FUN_00502890((undefined4)&local_4978,(int)local_4958);
                 local_4984 = local_4984 - 1;
               } while (local_4984 != 0);

@@ -19,6 +19,9 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
   undefined4 uVar7;
   undefined4 uVar8;
   undefined4 uVar9;
+  char *pcStack_14; /* DROPPED-REG FIX 2026-08-28: the CString handle at
+                       entry-0x14, in the sub-esp,8 hole; written only by
+                       the FUN_004055b0 call, read back as puVar5 */
   undefined4 uStack_c;
   undefined1 *puStack_8;
   undefined4 uStack_4;
@@ -28,7 +31,6 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
    * (LAB_005407d8) wasn't included in this function's own decompile.
    * Same rationale as entry/InitGame.c - see src/README.md. */
   (**(code **)(DAT_005b1444 + 0xc))();
-  puVar5 = puVar4 + 4;
   uStack_4 = 0;
   if (param_2 == 0) {
     if ((param_3 < 9) && (*(uint *)(g_clientContext + 0x41340) != param_3)) {
@@ -50,7 +52,21 @@ void __thiscall FUN_00507660(int param_1,int param_2,uint param_3,undefined4 par
                     /* WARNING: Subroutine does not return */
           ThrowCxxException(0x80070057);
         }
-        FUN_004055b0();
+        /* DROPPED-REG FIX 2026-08-28: the text is the found child
+           widget's +0x38 buffer (`mov edx,[ecx+esi*4] / add edx,0x38` at
+           0x507722), and the handle is an 8-byte frame hole at
+           entry-0x14 that Ghidra never declared (`lea edi,[esp+0x10]`
+           at 0x50772b, depth 0x24). The code after the call reads the
+           string back from that slot and its length from the CString
+           header at -0xc - which resolves this file's long-standing
+           use-before-set puVar4: it is the header base, string - 0x10,
+           and puVar5 the string itself. Both are now assigned here
+           instead of the floating `puVar5 = puVar4 + 4` Ghidra hoisted
+           to the top of the function. */
+        FUN_004055b0(0,(char *)(*(int *)(*(int *)(param_1 + 0xc) + uVar6 * 4) + 0x38),
+                     (int)&pcStack_14);
+        puVar4 = (undefined4 *)(pcStack_14 + -0x10);
+        puVar5 = (undefined4 *)pcStack_14;
         if ((puVar4[1] != 0) && (cVar3 = ParseChatSlashCommand(g_clientContext,puVar5), cVar3 == '\0')) {
           cVar3 = CheckChatWordFilter(puVar5);
           if (cVar3 == '\x01') {
