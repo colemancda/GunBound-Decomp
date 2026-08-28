@@ -11,7 +11,7 @@ void FUN_00405f00(undefined4 *regEax)
 
 {
   
-  FUN_004f2e40(regEax);
+  ActiveObjectRegistry_BaseConstructor(regEax);
   regEax[2] = 0;
   regEax[3] = 0;
   *(undefined1 *)(regEax + 5) = 0;

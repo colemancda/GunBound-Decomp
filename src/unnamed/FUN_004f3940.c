@@ -11,7 +11,7 @@ void FUN_004f3940(undefined4 *regEax)
 
 {
   
-  FUN_004f2e40(regEax);
+  ActiveObjectRegistry_BaseConstructor(regEax);
   *regEax = &PTR_FUN_00557550;
   return;
 }

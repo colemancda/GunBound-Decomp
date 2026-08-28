@@ -10,7 +10,7 @@
  * slot for the insert while EBP still holds the original key.  A C port
  * cannot alias param_1 that way without losing the key, so the hash gets a
  * local of its own and param_1 keeps meaning what it means at the entry.
-*
+ *
  * DROPPED REGISTERS ANALYSED, BLOCKED ON THE CALLER (2026-08-27).
  * ESI is the DESTINATION and EDI the SOURCE (the body copies
  * `*(uVar2 + unaff_ESI) = *(uVar2 + unaff_EDI)` for up to 12 bytes, then

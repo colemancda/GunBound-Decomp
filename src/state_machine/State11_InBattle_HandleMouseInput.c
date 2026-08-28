@@ -720,7 +720,7 @@ LAB_004b9bb0:
       *(int *)(&g_nCameraScrollY + iVar13) = iVar15;
       return;
     }
-    if (((char)param_1[0x474] != '\0') && (cVar4 = FUN_00406400(0,0,(int)&g_activeObjectRegistry,0x10), cVar4 == '\x01')) {
+    if (((char)param_1[0x474] != '\0') && (cVar4 = IsWidgetEnabled(0,0,(int)&g_activeObjectRegistry,0x10), cVar4 == '\x01')) {
       InvokeWidget(3,extraout_EDX);
       iVar13 = g_connectionContextA;
       *(undefined2 *)(g_connectionContextA + 0x4d4) = 0x3232;

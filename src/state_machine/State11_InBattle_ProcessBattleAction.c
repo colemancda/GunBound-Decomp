@@ -956,7 +956,7 @@ LAB_004b7fb2:
             *(undefined4 *)(&DAT_006a647c + g_clientContext) = 0xb5;
           }
           PlayMusicTrack(1,(byte *)"sudden.mp3");
-          FUN_00438360(5);
+          SpawnBattleAnnouncement(5);
           iVar4 = *local_27ec;
           uVar22 = 6;
           uVar20 = 2;
@@ -1226,7 +1226,7 @@ LAB_004b7fb2:
             pcVar5 = (char *)GetLocalizedString(&g_localizedStringTable,0x274);
             _sprintf(local_26d8,pcVar5,iVar10,uVar21);
             (**(code **)(*local_27ec + 0x28))(local_26d8,4,3);
-            FUN_00438360(6);
+            SpawnBattleAnnouncement(6);
             puVar8 = (undefined *)PeekChecksumStateUnderLock(g_clientContext + 0x3b49c);
             if (local_27f0 == puVar8) {
               iVar10 = *(int *)(g_clientContext + 0x44e60) + 1;

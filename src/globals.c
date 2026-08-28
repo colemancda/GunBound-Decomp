@@ -617,7 +617,7 @@ uint8_t g_gameEventTypeRing;
 uint8_t g_gameEventDataRing;
 /* DAT_00794bf0: moved to globals_sized.c (0x224 CValueGuard cell). */
 /* DAT_00794e14: moved to globals_sized.c (0x30-byte container-policy object
- * that FUN_004fe420 constructs through it). */
+ * that HashMap_Construct constructs through it). */
 /* The input-event ring buffer (write/read cursors + 3 field arrays) is now
  * ONE contiguous object g_inputEventRing in globals_sized.c, reached through
  * the offset-macros in globals.h - see the comment there. The five fields
@@ -797,7 +797,7 @@ uint8_t DAT_00e9be9c;
 uint8_t DAT_00e9bea0;
 uint8_t DAT_00e9bea4;
 /* DAT_00e9bea8: moved to globals_sized.c (0x30-byte container-policy object
- * that FUN_004fe420 constructs through it). */
+ * that HashMap_Construct constructs through it). */
 /* DAT_00e9bed8: moved to globals_sized.c (0x224 CValueGuard cell). */
 uint8_t g_activeObjectRegistry2[0x20];
 uint32_t DAT_00e9c104;
@@ -1279,7 +1279,7 @@ void *PTR_FUN_00557484;
  * 0x557524: FUN_004f14c0. Was a bare uninitialized global, so the dtor
  * call crashed on a null vtable. PTR_FUN_00557528/0x557530 immediately
  * after are separately-addressed vtables already used standalone
- * elsewhere (FUN_004f1750.c/FUN_004f2e40.c/FUN_004f2f00.c) - left
+ * elsewhere (FUN_004f1750.c/ActiveObjectRegistry_BaseConstructor.c/FUN_004f2f00.c) - left
  * untouched, not part of this one. */
 void *PTR_FUN_00557524 = (void *)FUN_004f14c0;
 void *PTR_FUN_00557528;

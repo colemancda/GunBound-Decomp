@@ -311,7 +311,7 @@ unsigned char DAT_00eb1698[0x3e0];
 unsigned char DAT_00f22518[0x138];
 
 /* ---- Two 0x30-byte container-policy objects -------------------------
- * FUN_004fe420 is that object's constructor and writes twelve fields
+ * HashMap_Construct is that object's constructor and writes twelve fields
  * spanning +0x00..+0x2c through the base it receives in ESI.  The two
  * static-initialiser thunks FUN_00540f00 and FUN_00540f20 hand it these
  * globals (`mov eax,0x794e14` / `mov eax,0xe9bea8`, then call the

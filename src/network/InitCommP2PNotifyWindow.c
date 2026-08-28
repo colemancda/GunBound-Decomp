@@ -47,7 +47,7 @@ void InitCommP2PNotifyWindow(undefined4 *self)
   unaff_EDI[0xa1] = 0;
   unaff_EDI[0xa2] = 0xffffffff;
   unaff_EDI[0xa3] = 0;
-  FUN_004fe420(0xa,0x3f400000,0x3e800000,0x40100000,0x11,unaff_EDI + 0xa4);
+  HashMap_Construct(0xa,0x3f400000,0x3e800000,0x40100000,0x11,unaff_EDI + 0xa4);
   unaff_EDI[0xb0] = 0;
   unaff_EDI[0xb1] = 0;
   WSAStartup(0x202,&local_190);

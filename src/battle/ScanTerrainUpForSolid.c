@@ -6,7 +6,7 @@
  * (+0x18 width = the row stride the walk steps by, +0x1c height, +0x34
  * pixels).  The row-wise twin is ScanTerrainLeftForSolid; the two share the
  * -10000 sentinel and the same clamp-then-walk shape.
-*
+ *
  * DROPPED REGISTERS RECOVERED (2026-08-27): in_EAX is the starting ROW and
  * unaff_EDI the COLUMN, and both are guard-peek results the callers were
  * discarding.  Each site reads

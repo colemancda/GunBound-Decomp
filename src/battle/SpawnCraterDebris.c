@@ -8,7 +8,7 @@
  * cell at all 4 argless PeekPacketChecksumState() calls (4 C : 4 orig,
  * goto-free zip) - two rounds of the per-turn shot-parameter pair
  * g_clientContext+0x5b1ac / +0x5af88 that BeginNewTurn seeds.
-*
+ *
  * DROPPED REGISTER ALIASED (2026-08-27).  in_EAX is param_4, at all three
  * call sites and provably so: ApplyCraterExcavation loads one register --
  * EBP -- and uses it twice per arm, `push ebp` for the fourth argument and

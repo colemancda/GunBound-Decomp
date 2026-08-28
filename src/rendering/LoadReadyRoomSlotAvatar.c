@@ -10,7 +10,7 @@
  *
  * Function IDENTITY is confirmed; the BODY is a raw/near-verbatim Ghidra port,
  * not hand-verified. See src/README.md's "Raw/verbatim ports" section.
-*
+ *
  * DROPPED REGISTER RECOVERED (2026-08-27): in_EAX is the ready-room SLOT
  * INDEX, and it is a literal 0..7 at the eight call sites -- `xor eax,eax`
  * then `mov eax,1` .. `mov eax,7`, all in State10_Loading_PreloadAssets.

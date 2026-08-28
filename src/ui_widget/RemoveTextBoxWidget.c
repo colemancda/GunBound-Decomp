@@ -12,7 +12,7 @@
  * ESI and EDI are also read before being written here, so they are further
  * register arguments Ghidra did not declare.  ESI genuinely varies per site
  * (0 and 1), so it stays open rather than being guessed at.
-*
+ *
  * DROPPED REGISTERS RECOVERED (2026-08-27): ESI is the inner key compared
  * against each node's +8, and EDI is the container -- &g_activeObjectRegistry2
  * (0xe9c0fc) at all six sites, loaded once per pair and left live across both

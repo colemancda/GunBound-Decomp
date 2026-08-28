@@ -4,7 +4,7 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
-*
+ *
  * CONTEXT PROMOTED TO A REAL PARAMETER (2026-08-27).  in_EAX was previously
  * BOUND to &g_replayContext inside this file, on the evidence that every
  * resolvable call site passed that global.  It is now a parameter, because

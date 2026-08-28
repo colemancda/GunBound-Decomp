@@ -6,7 +6,7 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
-*
+ *
  * ARGUMENTS RE-SLOTTED AND ESI RECOVERED (2026-08-27).  `ret 8` gives two
  * stack arguments against three declared parameters, so param_1 is ECX and
  * only param_2/param_3 are pushed -- but every site passed just TWO values,

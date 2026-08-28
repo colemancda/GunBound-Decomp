@@ -214,7 +214,7 @@ LAB_004d6626:
     if (((param_2 == 0x204) &&
         (cVar4 = ChecksumPairDiffers(g_clientContext + 0x3b49c,g_clientContext + 0x3b6c4), cVar4 == '\0')) &&
        (((char)param_1[0x186] != '\0' &&
-        (((cVar4 = FUN_00406400(0,0,(int)&g_activeObjectRegistry,1), cVar4 != '\0' && (iVar5 = FindItemGridCell(), iVar5 != -1)) &&
+        (((cVar4 = IsWidgetEnabled(0,0,(int)&g_activeObjectRegistry,1), cVar4 != '\0' && (iVar5 = FindItemGridCell(), iVar5 != -1)) &&
          (iVar5 = iVar5 + param_1[0x188] * 9, uVar10 = param_1[iVar5 + 0x146],
          iVar5 < param_1[0x187])))))) {
       RefreshReadyRoomControls(param_1,0,0);

@@ -22,7 +22,7 @@ undefined4 * FUN_00401910(undefined4 *param_1)
   local_4 = 0xffffffff;
   puStack_8 = &LAB_00537922;
   *unaff_FS_OFFSET = &local_c;
-  FUN_004f2e40(param_1);
+  ActiveObjectRegistry_BaseConstructor(param_1);
   local_4 = 0;
   param_1[2] = &PTR_LAB_00551cf4;
   *param_1 = &PTR_FUN_00551cf0;
@@ -33,7 +33,7 @@ undefined4 * FUN_00401910(undefined4 *param_1)
   param_1[0x6fc] = 0;
   param_1[0x6fd] = 10;
   param_1[0x6fe] = 0;
-  FUN_004fe420(0xa,0x3f400000,0x3e800000,0x40100000,0x11,param_1 + 0x6ff);
+  HashMap_Construct(0xa,0x3f400000,0x3e800000,0x40100000,0x11,param_1 + 0x6ff);
   local_4 = CONCAT31(SUBFIELD(local_4,1,undefined3),2);
   puVar3 = param_1 + 3;
   for (iVar2 = 0x300; iVar2 != 0; iVar2 = iVar2 + -1) {

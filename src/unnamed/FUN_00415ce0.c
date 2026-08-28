@@ -4,7 +4,7 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
-*
+ *
  * DROPPED REGISTER RECOVERED (2026-08-27): unaff_EBX is the 8-slot table this
  * searches and compacts, and it is `<context> + 0x4737c` at all five sites --
  * every one of them is a `lea ebx,[<base> + 0x4737c]` immediately before the

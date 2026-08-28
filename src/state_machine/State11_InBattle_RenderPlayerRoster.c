@@ -135,7 +135,7 @@ void State11_InBattle_RenderPlayerRoster(int param_1)
     DrawSprite(0);
   }
   if (g_chatInputActive == '\x01') {
-    FUN_0040c8f0(0xca,0x21b,0,(int)g_sharedTextInputControl,(undefined4 *)local_1018,local_1024);
+    TextEntry_FetchSelectionAndPlaceImeCaret(0xca,0x21b,0,(int)g_sharedTextInputControl,(undefined4 *)local_1018,local_1024);
     if ((*(char *)(g_sharedTextInputControl + 8) == '\0') ||
        (iVar3 = GetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),&local_1008,0x80), iVar3 == 0)) {
       local_1008 = '\0';

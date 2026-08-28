@@ -365,7 +365,7 @@ LAB_004da286:
   }
 LAB_004da2f4:
   if (g_chatInputActive == '\x01') {
-    FUN_0040c8f0(0xca,0x21b,0,(int)g_sharedTextInputControl,(undefined4 *)&iStack_8c,&iStack_88);
+    TextEntry_FetchSelectionAndPlaceImeCaret(0xca,0x21b,0,(int)g_sharedTextInputControl,(undefined4 *)&iStack_8c,&iStack_88);
     if ((*(char *)(g_sharedTextInputControl + 8) == '\0') ||
        (iVar3 = GetWindowTextA(*(HWND *)(g_sharedTextInputControl + 4),aCStack_80,0x80), iVar3 == 0)) {
       aCStack_80[0] = '\0';

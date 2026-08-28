@@ -218,7 +218,7 @@ void FinishTurnAndSelectNext(int param_1)
         pcVar7 = (char *)GetLocalizedString(&g_localizedStringTable,0x274);
         _sprintf(&stack0xfffff8dc,pcVar7,iVar4,uVar6);
         (**(code **)(*piStack_28 + 0x28))(&stack0xfffff8dc,4,3);
-        FUN_00438360(6);
+        SpawnBattleAnnouncement(6);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar4 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

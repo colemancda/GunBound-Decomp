@@ -315,7 +315,7 @@ void FUN_004ccd10(int *param_1)
         pcVar10 = (char *)GetLocalizedString(&g_localizedStringTable,0x274);
         _sprintf(local_6f8,pcVar10,iVar7,uVar9);
         (**(code **)(*param_1 + 0x28))(local_6f8,4,3);
-        FUN_00438360(6);
+        SpawnBattleAnnouncement(6);
         EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
         iVar7 = PeekPacketChecksumState((void *)(g_clientContext + 0x3b49c));
         LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

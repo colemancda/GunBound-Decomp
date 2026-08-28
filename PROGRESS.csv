@@ -107,7 +107,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004062b0,76,DrawActiveObjectRegistry,false,4,0,RAW-src
 00406300,119,InvokeWidget,false,100,0,RAW-src
 00406380,116,SetWidgetReadyState,false,13,0,RAW-src
-00406400,62,FUN_00406400,false,5,0,RAW-src
+00406400,62,IsWidgetEnabled,false,5,0,RAW-src
 00406440,90,InitGuardedBool,false,103,1,RAW-src
 004064a0,93,EncodeGuardedBool,false,42,1,RAW-src
 00406500,41,SetGuardedBool,false,260,3,RAW-src
@@ -204,7 +204,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 0040c880,39,FetchActiveTextInputText,false,4,1,RAW-src
 0040c8b0,32,TextEntry_PushTextToControl,false,1,1,RAW-src
 0040c8d0,31,TextEntry_SetSelection,false,1,1,RAW-src
-0040c8f0,131,FUN_0040c8f0,false,4,3,RAW-src
+0040c8f0,131,TextEntry_FetchSelectionAndPlaceImeCaret,false,4,3,RAW-src
 0040c980,124,InitTextBoxWidget,false,2,0,RAW-src
 0040ca00,32,DeletePoisonedBaseObject,false,24,2,RAW-src
 0040cc50,145,FUN_0040cc50,false,4,2,RAW-src
@@ -326,7 +326,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004207c0,4075,FUN_004207c0,false,1,18,RAW-src
 004217b0,110,FUN_004217b0,false,9,3,RAW-src
 00421820,72,FUN_00421820,false,1,0,RAW-src
-00421870,70,FUN_00421870,false,6,0,RAW-src
+00421870,70,CopyChatCommandToken,false,6,0,RAW-src
 004218c0,5693,ParseChatSlashCommand,false,4,29,RAW-src
 00422f10,81,FUN_00422f10,false,4,1,RAW-src
 00422f70,220,FUN_00422f70,false,1,1,RAW-src
@@ -442,7 +442,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 00437f70,399,SpawnLaserIon,false,2,10,RAW-src
 00438100,449,SpawnKnightIon,false,2,11,RAW-src
 004382d0,131,FUN_004382d0,false,8,6,RAW-src
-00438360,175,FUN_00438360,false,7,4,RAW-src
+00438360,175,SpawnBattleAnnouncement,false,7,4,RAW-src
 00438410,1211,SpawnJewel,false,2,13,RAW-src
 004388e0,3351,SpawnShot_Type13,false,1,22,RAW-src
 00439600,727,SpawnCraterDebris,false,3,10,RAW-src
@@ -992,7 +992,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004d22d0,279,FUN_004d22d0,false,3,6,RAW-src
 004d23f0,142,FUN_004d23f0,false,3,2,RAW-src
 004d2480,102,BeginServerConnect,false,2,4,RAW-src
-004d24f0,59,FUN_004d24f0,false,4,1,RAW-src
+004d24f0,59,CloseServerConnection,false,4,1,RAW-src
 004d2530,64,AppendPacketBytes,false,9,0,RAW-src
 004d2570,97,AppendEncodedBlock,false,1,1,RAW-src
 004d25e0,152,EncodePacketBody,false,22,2,RAW-src
@@ -1306,7 +1306,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004f2da0,67,EnqueueInputEvent,false,26,0,RAW-src
 004f2e10,7,FUN_004f2e10,false,1,0,RAW-src
 004f2e20,30,FUN_004f2e20,false,2,2,RAW-src
-004f2e40,87,FUN_004f2e40,false,7,1,RAW-src
+004f2e40,87,ActiveObjectRegistry_BaseConstructor,false,7,1,RAW-src
 004f2ea0,50,FUN_004f2ea0,false,1,2,RAW-src
 004f2ee0,30,FUN_004f2ee0,false,0,1,RAW-src
 004f2f00,131,CreateActiveObjectLayer,false,5,2,RAW-src
@@ -1403,7 +1403,7 @@ addr,size,name,is_thunk,xref_count,calls_out,status
 004fdfd0,136,DestroyCommEngine,false,1,6,RAW-src
 004fe060,161,CreateBoundSocket,false,1,5,RAW-src
 004fe110,760,FUN_004fe110,false,3,10,RAW-src
-004fe420,102,FUN_004fe420,false,9,1,RAW-src
+004fe420,102,HashMap_Construct,false,9,1,RAW-src
 004fe490,108,FUN_004fe490,false,1,4,RAW-src
 004fe500,113,FUN_004fe500,false,2,2,RAW-src
 004fe590,64,FUN_004fe590,false,1,0,RAW-src

@@ -3,7 +3,7 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
-*
+ *
  * DROPPED REGISTERS ANALYSED, BLOCKED ON THE CALLER (2026-08-27).
  * ESI is the DESTINATION and EDI the SOURCE (the body copies
  * `*(uVar2 + unaff_ESI) = *(uVar2 + unaff_EDI)` for up to 12 bytes, then

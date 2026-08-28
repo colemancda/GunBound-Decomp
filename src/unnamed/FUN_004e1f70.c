@@ -22,7 +22,7 @@
  * Encode(+0xab4); Peek(+0xab4)->Encode(+0x890); Peek(+0xf08)->
  * Encode(+0xf08,v-1)), spot-checked in full against blocks k=1
  * (0x4e21bc), k=2 (0x4e22db) and k=10 (0x4e2a38).
-*
+ *
  * DROPPED REGISTER RECOVERED (2026-08-27): unaff_EBX is UNIFORM --
  * `g_clientContext + 0x6a64c4` at every one of the seven call sites -- so it
  * needed no pairing of binary sites to source sites at all, which is the one

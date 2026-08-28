@@ -515,7 +515,7 @@ int FUN_00415d40(int param_1)
   FUN_004e3810(&DAT_006a7708 + param_1);
   FUN_0042b010((int)(&DAT_006a7f70 + param_1));
   SUBFIELD(local_4,0,undefined1) = 0x53;
-  FUN_004f2e40((undefined4 *)(param_1 + 0x6a7f88));
+  ActiveObjectRegistry_BaseConstructor((undefined4 *)(param_1 + 0x6a7f88));
   *(undefined ***)(&DAT_006a7f88 + param_1) = &PTR_FUN_00555b7c;
   SUBFIELD(local_4,0,undefined1) = 0x54;
   InitGuardedBool();
@@ -570,8 +570,8 @@ int FUN_00415d40(int param_1)
    * &DAT_006aa404+param_1 (cell+0x220), confirming the cell.
    * See tools/encodeoutgoingpacketfield_sites.json. */
   EncodeOutgoingPacketField((int)&DAT_006aa1f8 + param_1 - 0x14, 0);
-  FUN_004fe420(0xa,0x3f400000,0x3e800000,0x40100000,0x11,(undefined4 *)(param_1 + 0x6aa41c));
-  FUN_004fe420(0xa,0x3f400000,0x3e800000,0x40100000,0x11,(undefined4 *)(param_1 + 0x6aa44c));
+  HashMap_Construct(0xa,0x3f400000,0x3e800000,0x40100000,0x11,(undefined4 *)(param_1 + 0x6aa41c));
+  HashMap_Construct(0xa,0x3f400000,0x3e800000,0x40100000,0x11,(undefined4 *)(param_1 + 0x6aa44c));
   SUBFIELD(local_4,0,undefined1) = 0x5d;
   InitGuardedBool();
   InitGuardedBool();

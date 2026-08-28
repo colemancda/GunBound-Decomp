@@ -91,7 +91,7 @@ void BeginNewTurn(int *param_1,undefined2 *param_2)
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    FUN_00438360(local_90[iVar5]);
+    SpawnBattleAnnouncement(local_90[iVar5]);
   }
   if (*(char *)(g_clientContext + 0x45127) != '\0') {
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);

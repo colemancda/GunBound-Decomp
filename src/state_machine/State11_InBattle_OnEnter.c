@@ -591,7 +591,7 @@ LAB_004bbe6b:
       FUN_004e86f0(apuStack_90,(int)&DAT_00e9af10,(ushort *)&puStack_98);
       puStack_98 = (undefined *)0xc409;
       FUN_004e86f0(apuStack_90,(int)&DAT_00e9af10,(ushort *)&puStack_98);
-      FUN_00438360(0);
+      SpawnBattleAnnouncement(0);
       iVar6 = g_clientContext;
       pbVar12 = &DAT_006a9b6c + g_clientContext;
       *(undefined1 *)(param_1 + 0x2382) = 0;

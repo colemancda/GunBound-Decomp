@@ -3,7 +3,7 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
-*
+ *
  * DROPPED REGISTER RECOVERED AND ARGUMENTS RE-SLOTTED (2026-08-27).  This is
  * `DarkenTerrainScorchRow(terrainCtx, xStart, width, row)`: it darkens one
  * horizontal span of a scorch sprite row.  `ret 4` gives ONE stack argument

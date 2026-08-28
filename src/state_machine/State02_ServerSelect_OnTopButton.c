@@ -106,7 +106,7 @@ void __thiscall State02_ServerSelect_OnTopButton(int param_1,int param_2,int par
       *(byte *)(iVar5 + 0x3b96a) = bVar8 + bVar1 + -0x34;
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     }
-    FUN_004d24f0(g_connectionContextB);
+    CloseServerConnection(g_connectionContextB);
     return;
   }
   return;

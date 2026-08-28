@@ -238,7 +238,7 @@ void TickActiveObjectRegistry(int param_1);
 void DrawActiveObjectRegistry(int, int);
 void InvokeWidget(int widgetId,int enabled);
 undefined4 __fastcall SetWidgetReadyState(undefined4 param_1,uint param_2,int param_3,int regEax,uint regEdi);
-uint __fastcall FUN_00406400(undefined4 param_1,uint param_2,int regEax,uint regEsi);
+uint __fastcall IsWidgetEnabled(undefined4 param_1,uint param_2,int regEax,uint regEsi);
 byte * __fastcall InitGuardedBool();
 void EncodeGuardedBool(int param_1,byte *guardPtr);
 int SetGuardedBool(undefined4 param_1,int guardPtr);
@@ -319,7 +319,7 @@ LRESULT __stdcall FUN_0040c6f0(HWND, uint, WPARAM, LPARAM);
 void FetchActiveTextInputText(int editState, LPSTR dest);
 void __fastcall TextEntry_PushTextToControl(int param_1,LPCSTR regEax);
 void __fastcall TextEntry_SetSelection(undefined4 param_1,WPARAM param_2,LPARAM param_3,int regEax);
-void FUN_0040c8f0(int param_1,LONG param_2,int param_3,int regEdi,undefined4 *regEax,int *regEsi);
+void TextEntry_FetchSelectionAndPlaceImeCaret(int param_1,LONG param_2,int param_3,int regEdi,undefined4 *regEax,int *regEsi);
 void * __thiscall DeletePoisonedBaseObject();
 void FUN_0040cc50();
 void CommitActiveTextInput();
@@ -432,7 +432,7 @@ int FUN_00420650();
 void FUN_004207c0();
 undefined4 FUN_004217b0(int ctx,undefined4 param_1);
 int FUN_00421820();
-void __fastcall FUN_00421870(int param_1,int param_2,undefined4 *regEbx);
+void __fastcall CopyChatCommandToken(int param_1,int param_2,undefined4 *regEbx);
 undefined4 ParseChatSlashCommand();
 void __thiscall FUN_00422f10(undefined4 param_1,undefined4 param_2,int regEsi);
 void FUN_00422f70();
@@ -569,7 +569,7 @@ void __fastcall FUN_00437ae0();
 void SpawnLaserIon();
 void SpawnKnightIon();
 void FUN_004382d0();
-void FUN_00438360(int regEsi);
+void SpawnBattleAnnouncement(int regEsi);
 void SpawnJewel();
 void SpawnShot_Type13();
 uint SpawnCraterDebris();
@@ -1094,7 +1094,7 @@ undefined4 * InitConnectionObject();
 void FUN_004d22d0();
 void FUN_004d23f0();
 void BeginServerConnect(undefined4, undefined4, int);
-void FUN_004d24f0(int regEdi);
+void CloseServerConnection(int regEdi);
 void __fastcall AppendPacketBytes();
 void __fastcall AppendEncodedBlock(undefined4, int, char *, char *);
 void __fastcall EncodePacketBody(int param_1, int connObj);
@@ -1388,7 +1388,7 @@ void FUN_004f2d60(int regEbx);
 void EnqueueInputEvent();
 void __fastcall FUN_004f2e10();
 void * __thiscall FUN_004f2e20();
-void FUN_004f2e40(undefined4 *regEsi);
+void ActiveObjectRegistry_BaseConstructor(undefined4 *regEsi);
 undefined4 * __thiscall FUN_004f2ea0();
 void __fastcall FUN_004f2ee0();
 /* K&R-empty deliberately (like FindSpriteFrame): only RegisterActiveObject.c's
@@ -1863,7 +1863,7 @@ void __cdecl FUN_0051f184(int param_3,undefined4 param_4,int param_5);
  * compiled: a bare name with no prototype is not a call, so C's implicit-
  * declaration rule does not rescue it and the identifier is simply undefined.
  * The functions themselves are ported and take no arguments. */
-void __thiscall FUN_004fe420(undefined4 param_1,undefined4 param_2,undefined4 param_3,
+void __thiscall HashMap_Construct(undefined4 param_1,undefined4 param_2,undefined4 param_3,
                              undefined4 param_4,undefined4 regEax,undefined4 *regEsi);
 
 void FUN_00458920(int *param_1,int *param_2,int param_3,int param_4,int param_5,int param_6,int param_7,char param_8,char param_9,int regEax);
