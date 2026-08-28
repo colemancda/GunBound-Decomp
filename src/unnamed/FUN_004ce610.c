@@ -106,19 +106,19 @@ LAB_004ce86c:
   }
   switch(*(undefined4 *)(param_1 + 0x49c)) {
   case 2:
-    SpawnRiderEffect(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
+    SpawnRiderEffect(0,*(undefined4 *)(param_1 + 0x69c),0xfffffed4,*(int *)(param_1 + 0x29c));
     SpawnDropCaseProjectile(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
     break;
   case 3:
-    SpawnRiderEffect(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
+    SpawnRiderEffect(0,*(undefined4 *)(param_1 + 0x69c),0xfffffed4,*(int *)(param_1 + 0x29c));
     SpawnDropBombProjectile(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
     break;
   case 4:
-    SpawnRiderEffect(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
+    SpawnRiderEffect(0,*(undefined4 *)(param_1 + 0x69c),0xfffffed4,*(int *)(param_1 + 0x29c));
     SpawnEventProjectile(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c));
     break;
   case 5:
-    SpawnRiderEffect(*(undefined4 *)(param_1 + 0x69c),0xfffffed4);
+    SpawnRiderEffect(0,*(undefined4 *)(param_1 + 0x69c),0xfffffed4,*(int *)(param_1 + 0x29c));
     SpawnLightningBlastEffect(&DAT_006a7f70 + g_clientContext,*(undefined4 *)(param_1 + 0x29c),0);
     break;
   case 6:

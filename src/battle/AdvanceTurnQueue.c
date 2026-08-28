@@ -83,6 +83,7 @@ void __fastcall AdvanceTurnQueue(int param_1)
   code *pcVar9;
   undefined4 uVar10;
   uint *unaff_FS_OFFSET;
+  int local_468; /* the peek at 0x4cf451 the port discarded - see SpawnRiderEffect.c */
   int local_464;
   int local_460;
   undefined *local_45c;
@@ -135,12 +136,12 @@ void __fastcall AdvanceTurnQueue(int param_1)
         *(int *)(local_45c + 0x14) = iVar4;
       }
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      PeekPacketChecksumState((void *)(piVar2 + 0x2cc));
+      local_468 = PeekPacketChecksumState((void *)(piVar2 + 0x2cc));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       local_45c = (undefined *)PeekPacketChecksumState((void *)(piVar2 + 0x243));
       LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-      SpawnRiderEffect(*(undefined1 *)(param_1 + 0x10a8),1000);
+      SpawnRiderEffect(local_468,*(undefined1 *)(param_1 + 0x10a8),1000,(int)local_45c);
       (**(code **)(*piVar2 + 4))(&DAT_00555c90);
       EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
       iVar5 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
