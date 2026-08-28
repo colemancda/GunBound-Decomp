@@ -3,11 +3,24 @@
  * No confirmed real name/purpose. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-REG FIX (2026-08-28): a SECOND stack parameter, declared here
+ * so that the TextEntry_SetControlText call below can be written. The
+ * epilogue is `ret 8` at 0x508b86, two stack arguments, and
+ * State09_ReadyRoom_OnCommand already passes two - g_uiPanelManager and
+ * g_clientContext + 0x44e64 - so declaring param_2 changes no caller.
+ * The port had declared only param_1, leaving the second to be read
+ * straight off the frame at 0x508b29 (`mov esi,[esp+0x24]` with esp =
+ * entry-0x1c, i.e. entry+8) and handed to TextEntry_SetControlText as
+ * its text. The frame model is confirmed by `mov ecx,[esp+0x10]` at
+ * 0x508b74 reaching entry-0xc, the SEH fs:[0] slot the epilogue
+ * restores from. The receiver is EDI = the CreateTextEntryWidget result
+ * captured at 0x508b13, this source's puVar3.
  */
 #include "ghidra_types.h"
 
 
-undefined4 FUN_00508a50(int param_1)
+undefined4 FUN_00508a50(int param_1,char *param_2)
 
 {
   int *piVar1;
@@ -47,7 +60,7 @@ undefined4 FUN_00508a50(int param_1)
       Widget_AddChild(puVar3);
       PanelManager_ClearAllFocus(param_1);
       (**(code **)*puVar3)(1);
-      TextEntry_SetControlText();
+      TextEntry_SetControlText(param_2,(int)puVar3);
       uVar4 = CreateLabelWidget(0,0x4ba,0xd5,0x76,0x52,0x22);
       Widget_AddChild(uVar4);
       uVar4 = CreateLabelWidget(1,0x4bb,0x80,0x76,0x52,0x22);

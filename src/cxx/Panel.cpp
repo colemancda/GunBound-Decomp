@@ -42,8 +42,10 @@ void PanelManager_ClearAllFocus(void *manager);
 void __fastcall PanelManager_BringToFront(void *manager, CPanel *panel);
 /* 0x506f60: seed the shared overlay EDIT control's text for a focused
  * CEditBox (SetWindowTextA; empty string when passed null). Receiver
- * and text arrive in EDI/ESI - unresolved custom regs. */
-void TextEntry_SetControlText(void);
+ * and text arrive in EDI/ESI; both recovered 2026-08-28 and promoted to
+ * trailing parameters because MSVC cannot express either register - see
+ * src/ui_widget/TextEntry_SetControlText.c. */
+void TextEntry_SetControlText(char *text, void *editBox);
 /* The global UI panel manager (0xe53c40): +4 list head, +8 tail - real
  * layout recovered from its own constructor, see globals.c's comment. */
 extern unsigned char g_uiPanelManager[0x1c];
@@ -428,7 +430,14 @@ extern "C" void BuildChatLogPanel(int arg1, int partnerRecord)
  * sprites 0x514-0x517, 45x24 in a 2x2 block, id 4 pre-selected), and
  * OK (id 8, sprite 0x51d) / Cancel (id 9, 0x51c). The original
  * inlines the label factory for ids 4-9. */
-extern "C" void BuildCreateRoomDialog(void *manager, int arg2, int arg3)
+/* arg4 recovered 2026-08-28: the binary is `ret 0x10` at 0x5087a2, four
+ * stack arguments, and the raw-C caller OpenCreateRoomDialog already
+ * passes four - the fourth being DAT_005b3368, the "GameName" default
+ * room name. It is read at 0x508279 (`mov esi,[esp+0x30]` with esp =
+ * entry-0x20, i.e. entry+0x10) and seeded into the room-name box below.
+ * The frame model is pinned by `mov eax,[esp+0x24] / mov ecx,[esp+0x28]`
+ * at 0x508213, which land on arg2 and arg3. */
+extern "C" void BuildCreateRoomDialog(void *manager, int arg2, int arg3, char *roomNameText)
 {
     for (CPanelListNode *n = PanelListHead(); n != 0; n = n->m_next) {
         CPanel *q = n->m_panel;
@@ -450,7 +459,7 @@ extern "C" void BuildCreateRoomDialog(void *manager, int arg2, int arg3)
     p->m_unk98 = arg3;
     CEditBox *roomName = CreateTextEntryWidget(0, 0x60, 0x2c, 0xbe, 0xc, 0x14);
     p->AddChild(roomName);
-    TextEntry_SetControlText();
+    TextEntry_SetControlText(roomNameText, roomName);
     PanelManager_ClearAllFocus(0 /* g_uiPanelManager; receiver convention unresolved */);
     roomName->SetFocus(true);
     p->AddChild(CreateTextEntryWidget(1, 0x60, 0x46, 0xbe, 0xc, 4));

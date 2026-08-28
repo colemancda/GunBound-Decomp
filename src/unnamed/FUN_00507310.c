@@ -51,9 +51,13 @@ joined_r0x00507384:
   }
   iVar4 = Widget_FindChildIndex();
   if (iVar4 != -1) {
-    FUN_005056c0(*(int *)(g_clientContext + 0x44248 +
+    /* DROPPED-REG FIX 2026-08-28: FUN_005056c0's EBX is the widget this
+       function's list walk just found - `mov ebx,[ecx+8]` at 0x507388,
+       which is *piVar1 here, and the same value the Widget_FindChildIndex
+       above receives in ECX (`mov ecx,ebx` at 0x5073f1). */
+    FUN_005056c0((char *)(*(int *)(g_clientContext + 0x44248 +
                          (*(int *)(&DAT_005f2f3c + g_clientContext) + iVar5) * 4) * 0xd + 0x41445 +
-                 g_clientContext);
+                 g_clientContext),*piVar1);
   }
 LAB_00507427:
   uVar3 = 0;

@@ -97,7 +97,7 @@ void SpawnSuperShot(undefined1 param_1,int param_2,int param_3,int param_4,int p
   local_4 = 0xffffffff;
   puStack_8 = &LAB_0053db1e;
   *unaff_FS_OFFSET = &uStack_c;
-  ComputeShotViewBounds((int)(&DAT_006a7708 + g_clientContext));
+  ComputeShotViewBounds((int)(&DAT_006a7708 + g_clientContext),param_5);
   piVar5 = local_8ac;
   switch(param_3) {
   case 0:
