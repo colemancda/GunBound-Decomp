@@ -318,7 +318,7 @@ LRESULT __stdcall FUN_0040c6f0(HWND, uint, WPARAM, LPARAM);
 void FetchActiveTextInputText(int editState, LPSTR dest);
 void __fastcall TextEntry_PushTextToControl(int param_1,LPCSTR regEax);
 void __fastcall TextEntry_SetSelection(undefined4 param_1,WPARAM param_2,LPARAM param_3,int regEax);
-void FUN_0040c8f0(int param_1,LONG param_2,int param_3,int regEdi);
+void FUN_0040c8f0(int param_1,LONG param_2,int param_3,int regEdi,undefined4 *regEax,int *regEsi);
 void * __thiscall DeletePoisonedBaseObject();
 void FUN_0040cc50();
 void CommitActiveTextInput();

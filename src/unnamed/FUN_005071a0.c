@@ -49,7 +49,8 @@ void __fastcall FUN_005071a0(int param_1)
   else {
     if (*(char *)(param_1 + 4) != '\0') {
       FUN_0040c8f0(*(undefined4 *)(param_1 + 0x28),*(undefined4 *)(param_1 + 0x2c),
-                   *(undefined4 *)(param_1 + 0x13c),(int)g_sharedTextInputControl);
+                   *(undefined4 *)(param_1 + 0x13c),(int)g_sharedTextInputControl,
+                   (undefined4 *)&local_4,&local_8);
       iVar3 = local_8;
       if (local_8 == -1) {
         pcVar2 = (char *)(param_1 + 0x38);
