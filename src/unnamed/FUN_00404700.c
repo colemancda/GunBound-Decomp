@@ -48,7 +48,7 @@ void FUN_00404700(int param_1)
       acStack_37[iVar3] = *pcVar1;
       iVar3 = iVar3 + 1;
     } while (*pcVar1 != '\0');
-    iVar4 = FUN_00404b00(&local_38);
+    iVar4 = FUN_00404b00(&local_38,(int *)(param_1 + 0x1be4));
     iVar3 = g_connectionContextA;
     if (iVar4 == 0) {
       *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;

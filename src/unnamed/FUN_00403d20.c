@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-void FUN_00403d20(char *param_1,undefined4 param_2)
+void FUN_00403d20(char *param_1,undefined4 param_2,int regEcx)
 
 {
   undefined4 *puVar1;
@@ -31,7 +31,7 @@ void FUN_00403d20(char *param_1,undefined4 param_2)
     pcVar4[(int)(local_37 + -(int)param_1)] = cVar3;
     pcVar4 = pcVar4 + 1;
   } while (cVar3 != '\0');
-  iVar5 = FUN_00404b00(&local_38);
+  iVar5 = FUN_00404b00(&local_38,(int *)(regEcx + 0x1bdc));
   iVar2 = g_connectionContextA;
   if (iVar5 == 0) {
     *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;

@@ -7,7 +7,7 @@
 #include "ghidra_types.h"
 
 
-bool __fastcall FUN_00403270(int param_1)
+bool __fastcall FUN_00403270(int param_1,int param_2)
 
 {
   char cVar1;
@@ -23,7 +23,7 @@ bool __fastcall FUN_00403270(int param_1)
     in_EAX[(int)(local_17 + iVar2)] = cVar1;
     in_EAX = in_EAX + 1;
   } while (cVar1 != '\0');
-  iVar2 = FUN_00404b00(&local_18);
+  iVar2 = FUN_00404b00(&local_18,(int *)(param_2 + 0x1be4));
   return iVar2 != 0;
 }
 

@@ -47,7 +47,7 @@ void FUN_00402cf0(int param_1,char *regEdi)
       pcVar3[(int)(local_37 + -(int)regEdi)] = cVar2;
       pcVar3 = pcVar3 + 1;
     } while (cVar2 != '\0');
-    iVar4 = FUN_00404b00(&local_38);
+    iVar4 = FUN_00404b00(&local_38,(int *)(param_1 + 0x1be4));
     iVar5 = g_connectionContextA;
     if (iVar4 == 0) {
       *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;

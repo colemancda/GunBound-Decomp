@@ -31,7 +31,7 @@ void __thiscall FUN_00404330(int param_1,char *param_2)
     pcVar4[(int)(local_37 + -(int)param_2)] = cVar3;
     pcVar4 = pcVar4 + 1;
   } while (cVar3 != '\0');
-  iVar5 = FUN_00404b00(&local_38);
+  iVar5 = FUN_00404b00(&local_38,(int *)(param_1 + 0x1bdc));
   iVar2 = g_connectionContextA;
   if (iVar5 == 0) {
     *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;

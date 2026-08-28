@@ -86,7 +86,7 @@ void FUN_00402ad0(int param_1,char *param_2,char *regEax)
       pcVar4[(int)&local_b8 + (1 - (int)regEax)] = cVar2;
       pcVar4 = pcVar4 + 1;
     } while (cVar2 != '\0');
-    iVar5 = FUN_00404b00(&local_b8);
+    iVar5 = FUN_00404b00(&local_b8,(int *)(param_1 + 0x1be4));
     iVar6 = g_connectionContextA;
     if (iVar5 == 0) {
       *(undefined4 *)(g_connectionContextA + 0x44d0) = 6;
