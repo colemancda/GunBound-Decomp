@@ -21,7 +21,7 @@ void __thiscall InsertChecksumStateRecord(int param_1,int param_2,int param_3)
     uVar2 = *(uint *)(param_1 + 0xc);
     local_8 = CONCAT22(param_2,(undefined2)local_8);
     if (*(uint *)(param_1 + 0x10) <= uVar2) {
-      cVar3 = GrowChecksumStateArray();
+      cVar3 = GrowChecksumStateArray(uVar2 + 1,(int *)(param_1 + 8));
       if (cVar3 == '\0') {
                     /* WARNING: Subroutine does not return */
         ThrowCxxException(0x8007000e);

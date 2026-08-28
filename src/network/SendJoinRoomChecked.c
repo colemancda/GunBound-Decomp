@@ -11,18 +11,31 @@
  * Raw/near-verbatim port of Ghidra's decompiler output. Calls to unnamed
  * FUN_<address> helpers and DAT_<address> globals are left as-is - this
  * file won't link standalone yet. See src/README.md's "Raw/verbatim ports"
- * section for status.
+ * section for status. *
+ * DROPPED-REG FIX (2026-08-28): EAX is the room-list state object the
+ * body indexes throughout - +4 is the selected room's index into the
+ * room-id table at g_clientContext+0x44664, and +0x8f the outgoing
+ * payload field. It is read before written.
+ *
+ * All 2 call sites pass the caller's own `this`. In
+ * State03_GameRoomList_OnCommand that is EDI (`mov edi,ecx` at 0x4285ca,
+ * its only write to EDI inside the function apart from the
+ * 0x428aaf block, which returns before reaching any of these calls); in
+ * State03_GameRoomList_ProcessPacket it is EBX (`mov ebx,ecx` at
+ * 0x426afc - the earlier EBX writes a disassembly sweep turns up at
+ * 0x426912 and 0x426989 lie BELOW that function's 0x426ad0 entry and
+ * belong to its neighbour).
  */
 #include "ghidra_types.h"
 
 
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void SendJoinRoomChecked(void)
+void SendJoinRoomChecked(int regEax)
 
 {
   int iVar1;
-  int in_EAX;
+  int in_EAX = regEax;
   int *piVar2;
   int iVar3;
   

@@ -25,7 +25,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
         SendCreateRoom(param_1);
       }
       if (*(char *)(param_1 + 0xd) != '\0') {
-        SendJoinRoomSelected();
+        SendJoinRoomSelected(param_1);
       }
       if (*(char *)(param_1 + 0xe) == '\0') {
         return;
@@ -104,7 +104,7 @@ void __thiscall State03_GameRoomList_OnCommand(int param_1,int param_2,undefined
     OpenCreateRoomDialog();
     return;
   case 5:
-    SendJoinRoomChecked();
+    SendJoinRoomChecked(param_1);
     return;
   case 10:
     *(undefined1 *)(param_1 + 0x115) = 1;
@@ -248,7 +248,7 @@ LAB_004287a5:
     FUN_00429fb0();
     return;
   case 0x1f:
-    SendJoinRoomSelected();
+    SendJoinRoomSelected(param_1);
     return;
   case 0x20:
     FUN_00429f90();

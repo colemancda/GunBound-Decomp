@@ -4,17 +4,35 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-REG FIX (2026-08-28): EAX is the capacity being asked for and
+ * ESI the array object; both are read before written. The object layout
+ * is +0 buffer, +4 size, +8 capacity, +0xc a caller-set growth hint, and
+ * the elements are 6 bytes (`_malloc(in_EAX * 6)`).
+ *
+ * The growth policy is the ATL7 one: when the hint at +0xc is zero it
+ * takes size>>3 clamped to [4, 0x400] - see the `shr 3` / `< 4 -> 4` /
+ * `0x400 <` chain in the else arm - which is the discriminator
+ * src/cxx/AtlArray.h documents for telling CAtlArray apart from MFC's
+ * CArray.
+ *
+ * Both call sites ask for one more than the current size and hand over
+ * the array embedded at their object's +8: `lea eax,[edi+1]` at
+ * 0x43d5f4 with esi = ecx+8 in InsertChecksumStateRecord, and
+ * `lea eax,[ebx+1]` at 0x43d7e6 with esi = eax+8 (set once at
+ * 0x43d78d/0x43d792) in FUN_0043d780. Both are `lea`, an address, not
+ * the load callsite_regs.py renders them as.
  */
 #include "ghidra_types.h"
 
 
-undefined4 GrowChecksumStateArray(void)
+undefined4 GrowChecksumStateArray(uint regEax,int *regEsi)
 
 {
-  uint in_EAX;
+  uint in_EAX = regEax;
   void *pvVar1;
   uint uVar2;
-  int *unaff_ESI;
+  int *unaff_ESI = regEsi;
   
   if (in_EAX <= (uint)unaff_ESI[2]) {
     return 1;

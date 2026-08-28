@@ -445,7 +445,7 @@ switchD_00428058_default:
           if (*(char *)(iVar24 + 0x449ae + iVar10) != '\0') {
             SetGuardedBool(0,GB_GUARD_UNRECOVERED);
           }
-          SendJoinRoomChecked();
+          SendJoinRoomChecked((int)this);
           return;
         }
         SetGuardedBool(0,GB_GUARD_UNRECOVERED);
