@@ -365,7 +365,8 @@ switchD_00428058_default:
       iVar10 = FUN_004259d0((uint)(byte)*payload * 0xd + 0x41445 + g_clientContext, g_clientContext);
       if (iVar10 == -1) {
         AppendChatLogEntry(g_clientContext,0,(uint)(byte)*payload * 9 + 0x43548 + g_clientContext,
-                     (uint)(byte)*payload * 0xd + 0x41445 + g_clientContext,payload + 7,0,0);
+                     (uint)(byte)*payload * 0xd + 0x41445 + g_clientContext,payload + 7,0,0,
+                     (uint)*(byte *)((int)payload + 0xd));
         return;
       }
       goto switchD_00428058_default;
@@ -736,7 +737,8 @@ switchD_00428058_default:
                 bVar3 = *pbVar18;
                 pbVar18 = pbVar18 + 1;
               } while (bVar3 != 0);
-              AppendChatLogEntry(g_clientContext,2,0,0,&local_668,0,1);
+              AppendChatLogEntry(g_clientContext,2,0,0,&local_668,0,1,
+                                 (int)pbVar18 - ((int)&local_668 + 1));
               iVar10 = 0;
               pbVar18 = &local_668;
               for (iVar14 = 0x80; iVar14 != 0; iVar14 = iVar14 + -1) {
@@ -759,7 +761,8 @@ switchD_00428058_default:
           bVar3 = *pbVar18;
           pbVar18 = pbVar18 + 1;
         } while (bVar3 != 0);
-        AppendChatLogEntry(g_clientContext,2,0,0,&local_668,0,1);
+        AppendChatLogEntry(g_clientContext,2,0,0,&local_668,0,1,
+                           (int)pbVar18 - ((int)&local_668 + 1));
         return;
       }
       FUN_00429dc0();
@@ -920,7 +923,8 @@ switchD_00428058_default:
               bVar3 = *pbVar19;
               pbVar19 = pbVar19 + 1;
             } while (bVar3 != 0);
-            AppendChatLogEntry(iVar10,2,0,0,&local_668,0,1);
+            AppendChatLogEntry(iVar10,2,0,0,&local_668,0,1,
+                               (int)pbVar19 - ((int)&local_668 + 1));
             iVar14 = 0;
             pbVar19 = &local_668;
             for (iVar15 = 0x40; iVar10 = g_clientContext, iVar15 != 0; iVar15 = iVar15 + -1) {
@@ -943,7 +947,8 @@ switchD_00428058_default:
         bVar3 = *pbVar18;
         pbVar18 = pbVar18 + 1;
       } while (bVar3 != 0);
-      AppendChatLogEntry(iVar10,2,0,0,&local_668,0,1);
+      AppendChatLogEntry(iVar10,2,0,0,&local_668,0,1,
+                         (int)pbVar18 - ((int)&local_668 + 1));
       return;
     }
     if (*payload == 0x1d) {

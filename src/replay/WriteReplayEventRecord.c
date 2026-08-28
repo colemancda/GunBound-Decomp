@@ -481,7 +481,8 @@ LAB_004111c0:
                   cVar4 = *pcVar13;
                   pcVar13 = pcVar13 + 1;
                 } while (cVar4 != '\0');
-                AppendChatLogEntry(iVar19,2,0,0,local_d30,0,0);
+                AppendChatLogEntry(iVar19,2,0,0,local_d30,0,0,
+                                   (int)pcVar13 - ((int)local_d30 + 1));
                 iVar12 = 0;
                 puVar26 = (undefined4 *)local_d30;
                 for (iVar20 = 0x40; iVar19 = g_clientContext, iVar20 != 0; iVar20 = iVar20 + -1) {
@@ -501,7 +502,8 @@ LAB_004111c0:
             cVar4 = *pcVar13;
             pcVar13 = pcVar13 + 1;
           } while (cVar4 != '\0');
-          AppendChatLogEntry(iVar19,2,0,0,local_d30,0,0);
+          AppendChatLogEntry(iVar19,2,0,0,local_d30,0,0,
+                             (int)pcVar13 - ((int)local_d30 + 1));
           pbVar22 = param_3;
         }
       }

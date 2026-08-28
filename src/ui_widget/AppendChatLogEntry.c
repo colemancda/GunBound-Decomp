@@ -4,17 +4,57 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-REGISTER FIX (2026-08-27): the original takes an EIGHTH
+ * argument in EAX - the byte length of the message text param_5.  The
+ * prologue at 0x41b8c0 is `sub esp,0x98 / push ebx / push ebp / mov
+ * ebp,[esp+0xa4] / mov ebx,eax`: EAX is read before it is ever
+ * written, so it is a genuine argument, and `ret 0x1c` (0x41bc8a) is
+ * exactly the seven stack parameters already declared - so this is an
+ * APPEND, not a re-slot.  EBX carries the value into the
+ * rep-movsd/rep-movsb pair at 0x41b931/0x41b93a that appends param_5
+ * after the name+separator prefix, into the NUL store at 0x41b93c,
+ * into the `dec ebx` at 0x41bac2 that eats a leading colour code, and
+ * into both WrapChatLineText calls: 0x41bb6a gets the full length,
+ * 0x41bbf9 gets the remainder `in_EAX - iVar6` left after the first
+ * wrap.  It is now the trailing `regEax` parameter, aliased straight
+ * back to Ghidra's `in_EAX` so the body is untouched.
+ *
+ * All 20 call sites were recovered.  Thirteen compute it inline with
+ * the `lea <scratch>,[base+1] / strlen loop / sub eax,<scratch>`
+ * idiom - the strlen of the buffer being logged; the scratch is EDX at
+ * ten of them, ESI at 0x442271 and 0x4d7da1, and ECX at 0x4d08d2.
+ * Four pass the caller's packet body length param_3 - 0x21; both of
+ * those callers overwrite their own parameter slot with it at entry
+ * (0x423161 and 0x4b54ac), which is why Ghidra prints it as
+ * `param_3 - 0x21U` in ApplyBattleActionToContext and as `uVar11` in
+ * State11_InBattle_ProcessBattleAction.  One reads the chat length
+ * byte at payload+0xd (0x426dce).  Two pass the constant 1 that MSVC
+ * folded from strlen(DAT_0054b460), which is the one-character
+ * string " " - EBX holds 1 across that whole region (0x4c9c6d,
+ * 0x4c9d14, 0x4c9d87).
+ *
+ * Two of the strlen sites (State11_InBattle_RenderHud 0x4ca9b3 and
+ * 0x4cad53) needed a base pointer that the C had lost: Ghidra reuses
+ * pcVar4 as the walker and drops the GetLocalizedString result it
+ * started from, so that caller gains one local, pcLocStrBase, to
+ * hold it.
+ *
+ * Until now this function had NO declaration in include/functions.h
+ * at all (its definition line wraps across two lines, the generator's
+ * known blind spot), so every caller compiled it implicitly; a real
+ * prototype is added there in address order.
  */
 #include "ghidra_types.h"
 
 
 void AppendChatLogEntry(int param_1,char param_2,char *param_3,char *param_4,char *param_5,
-                 undefined2 param_6,char param_7)
+                 undefined2 param_6,char param_7,uint regEax)
 
 {
   char cVar1;
   undefined2 *puVar2;
-  uint in_EAX;
+  uint in_EAX = regEax;
   char *pcVar3;
   char *pcVar4;
   char *pcVar5;

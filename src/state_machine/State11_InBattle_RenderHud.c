@@ -49,6 +49,10 @@ void __fastcall State11_InBattle_RenderHud(int param_1)
   uint uVar2;
   char *pcVar3;
   char *pcVar4;
+  /* base of the strlen walk at 0x4ca983 / 0x4cad0a: Ghidra reuses pcVar4 as
+   * the walker and drops the GetLocalizedString result it started from,
+   * which is exactly what the dropped EAX length argument measures. */
+  char *pcLocStrBase;
   int iLen94;
   int iLen9c;
   int iVar5;
@@ -1162,7 +1166,8 @@ LAB_004ca958:
     goto LAB_004ca958;
   }
   if (*(char *)(param_1 + 0x11d8) != '\0') {
-    pcVar4 = (char *)GetLocalizedString(&g_localizedStringTable,0x280);
+    pcLocStrBase = (char *)GetLocalizedString(&g_localizedStringTable,0x280);
+    pcVar4 = pcLocStrBase;
     do {
       cVar1 = *pcVar4;
       pcVar4 = pcVar4 + 1;
@@ -1170,8 +1175,9 @@ LAB_004ca958:
     uVar15 = 1;
     uVar8 = 0;
     uVar14 = GetLocalizedString(&g_localizedStringTable,0x280);
-    AppendChatLogEntry(g_clientContext,2,0,0,uVar14,uVar8,uVar15);
-    AppendChatLogEntry(g_clientContext,2,0,0,&DAT_0054b460,0,1);
+    AppendChatLogEntry(g_clientContext,2,0,0,uVar14,uVar8,uVar15,
+                       (int)pcVar4 - ((int)pcLocStrBase + 1));
+    AppendChatLogEntry(g_clientContext,2,0,0,&DAT_0054b460,0,1,1);
     if (*(char *)(g_clientContext + 0x62155) == '\0') {
       pcVar3 = (char *)GetLocalizedString(&g_localizedStringTable,0x27c);
       pcVar4 = acStack_80;
@@ -1197,7 +1203,8 @@ LAB_004ca958:
       cVar1 = *pcVar4;
       pcVar4 = pcVar4 + 1;
     } while (cVar1 != '\0');
-    AppendChatLogEntry(g_clientContext,2,0,0,acStack_80,0,1);
+    AppendChatLogEntry(g_clientContext,2,0,0,acStack_80,0,1,
+                       (int)pcVar4 - ((int)acStack_80 + 1));
     iVar6 = g_clientContext;
   }
   uVar10 = (uint)(*(char *)(iVar6 + 0x62155) == '\0');
@@ -1390,7 +1397,7 @@ LAB_004cab11:
   goto LAB_004caade;
 LAB_004cab43:
   if (*(char *)(param_1 + 0x11d8) != '\0') {
-    AppendChatLogEntry(g_clientContext,2,0,0,&DAT_0054b460,0,1);
+    AppendChatLogEntry(g_clientContext,2,0,0,&DAT_0054b460,0,1,1);
     if (*(char *)(g_clientContext + 0x62155) == '\x01') {
       pcVar3 = (char *)GetLocalizedString(&g_localizedStringTable,0x27e);
       pcVar4 = acStack_80;
@@ -1416,7 +1423,8 @@ LAB_004cab43:
       cVar1 = *pcVar4;
       pcVar4 = pcVar4 + 1;
     } while (cVar1 != '\0');
-    AppendChatLogEntry(g_clientContext,2,0,0,acStack_80,0,1);
+    AppendChatLogEntry(g_clientContext,2,0,0,acStack_80,0,1,
+                       (int)pcVar4 - ((int)acStack_80 + 1));
   }
   uVar10 = (uint)(*(char *)(g_clientContext + 0x62155) == '\x01');
   if (g_screenSurface != 0) {
@@ -1473,9 +1481,10 @@ LAB_004cac7c:
 LAB_004cacd1:
     if ((*(char *)(param_1 + 0x11d8) != '\0') &&
        (*(ushort *)(&DAT_006aa660 + g_clientContext) != 0xffff)) {
-      pcVar4 = (char *)GetLocalizedString(&g_localizedStringTable,
+      pcLocStrBase = (char *)GetLocalizedString(&g_localizedStringTable,
                                     *(byte *)(g_clientContext + 0x62155) + 0xc35b +
                                     (uint)*(ushort *)(&DAT_006aa660 + g_clientContext) * 2);
+      pcVar4 = pcLocStrBase;
       do {
         cVar1 = *pcVar4;
         pcVar4 = pcVar4 + 1;
@@ -1485,7 +1494,8 @@ LAB_004cacd1:
       uVar14 = GetLocalizedString(&g_localizedStringTable,
                             *(byte *)(g_clientContext + 0x62155) + 0xc35b +
                             (uint)*(ushort *)(&DAT_006aa660 + g_clientContext) * 2);
-      AppendChatLogEntry(g_clientContext,2,0,0,uVar14,uVar8,uVar15);
+      AppendChatLogEntry(g_clientContext,2,0,0,uVar14,uVar8,uVar15,
+                       (int)pcVar4 - ((int)pcLocStrBase + 1));
     }
     *(undefined1 *)(param_1 + 0x11d8) = 0;
     return;

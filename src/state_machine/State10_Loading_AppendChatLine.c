@@ -24,6 +24,7 @@ void State10_Loading_AppendChatLine(char *param_1,undefined4 param_2,undefined4 
     cVar1 = *pcVar2;
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
-  AppendChatLogEntry(g_clientContext,param_2,0,0,param_1,param_3,0);
+  AppendChatLogEntry(g_clientContext,param_2,0,0,param_1,param_3,0,
+                     (int)pcVar2 - ((int)param_1 + 1));
   return;
 }
