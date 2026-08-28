@@ -47,7 +47,8 @@ void __thiscall FUN_00404330(int param_1,char *param_2)
     *(int *)(iVar2 + 0x44d0) = *(int *)(iVar2 + 0x44d0) + 0x10;
     SendOutgoingPacket(iVar2);
   }
-  FUN_004026a0(0x1002,param_2,0);
+/* DROPPED-REG FIX 2026-08-28: FUN_004026a0's EAX/EBX/CL - see its header's site map. */
+  FUN_004026a0(0x1002,param_2,0,param_2,param_1 + -8,'\0');
   return;
 }
 

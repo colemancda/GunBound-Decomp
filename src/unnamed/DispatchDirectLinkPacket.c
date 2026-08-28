@@ -44,7 +44,7 @@ void __thiscall DispatchDirectLinkPacket(int param_1,int param_2,undefined4 para
       if ((iVar4 != 0) &&
          (bVar5 = (*(char *)(param_1 + 8) != '1') - 1U & 0x12, *(byte *)(iVar4 + 0x30) = bVar5,
          bVar5 == 0x12)) {
-        FUN_00404700(param_2);
+        FUN_00404700(param_2,regEax);
         return;
       }
     }

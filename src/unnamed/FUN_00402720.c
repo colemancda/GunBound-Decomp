@@ -108,7 +108,8 @@ void FUN_00402720(int param_1,char *param_2,char *param_3)
       cVar2 = *pcVar4;
       pcVar4 = pcVar4 + 1;
     } while (cVar2 != '\0');
-    FUN_004026a0(0,param_3,pcVar4 + (1 - (int)(param_3 + 1)));
+    /* DROPPED-REG FIX 2026-08-28: FUN_004026a0's EAX/EBX/CL - see its header's site map. */
+    FUN_004026a0(0,param_3,pcVar4 + (1 - (int)(param_3 + 1)),param_2,param_1,'\x01');
   }
   return;
 }

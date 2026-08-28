@@ -84,10 +84,11 @@ void FUN_00402e60(int param_1,undefined4 param_2,char *regEax)
       EncodePacketBody(0,iVar5);
       SendOutgoingPacket(iVar5);
     }
-    FUN_004026a0(((char)param_2 != '\x01') + 0x2002,&DAT_0054b460,0);
+    /* DROPPED-REG FIX 2026-08-28: FUN_004026a0's EAX/EBX/CL - see its header's site map. */
+    FUN_004026a0(((char)param_2 != '\x01') + 0x2002,&DAT_0054b460,0,regEax,param_1,'\x01');
   }
   if ((char)param_2 == '\x01') {
-    FUN_00404700(param_1);
+    FUN_00404700(param_1,(undefined4 *)regEax);
   }
   return;
 }

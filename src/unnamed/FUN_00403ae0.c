@@ -27,7 +27,7 @@ void __thiscall FUN_00403ae0(int param_1,char *param_2)
     if ((iVar3 != 0) &&
        (bVar7 = (param_2[0x12] == '\0') - 1U & 0x12, *(byte *)(iVar3 + 0x30) = bVar7, bVar7 == 0x12)
        ) {
-      FUN_00404700(param_1 + -8);
+      FUN_00404700(param_1 + -8,(undefined4 *)local_20);
       return;
     }
   }
@@ -59,7 +59,8 @@ void __thiscall FUN_00403ae0(int param_1,char *param_2)
     if (param_2[0x12] == '\0') {
       puVar6 = &DAT_00551e2c;
     }
-    FUN_004026a0(0x1004,puVar6,1);
+    /* DROPPED-REG FIX 2026-08-28: FUN_004026a0's EAX/EBX/CL - see its header's site map. */
+    FUN_004026a0(0x1004,puVar6,1,param_2,param_1 + -8,'\0');
   }
   return;
 }

@@ -62,9 +62,11 @@
  * FUN_00403d20 - ECX is a live-in: `mov ebp,ecx` at 0x403d2e, before
  * ECX is reloaded at 0x403d30.  It is the `this` of the __thiscall
  * twin FUN_00404330, which Ghidra typed correctly.  Added as a
- * trailing regEcx.  Its `ret 0xc` also implies a third stack
- * parameter at entry+0xc that no instruction reads (both +4 and +8
- * are read, at 0x403d26 and 0x403d42 / 0x403de5); left undeclared.
+ * leading param_1 of a __thiscall signature (its only xref is the
+ * vtable slot at 0x00551cd4, beside FUN_00403ae0 and FUN_00404330).
+ * Its `ret 0xc` also implies a third stack parameter at entry+0xc
+ * that no instruction reads (both +4 and +8 are read, at 0x403d26
+ * and 0x403d42 / 0x403de5); now declared as param_4.
  */
 #include "ghidra_types.h"
 

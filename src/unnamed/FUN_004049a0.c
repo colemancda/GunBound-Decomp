@@ -4,19 +4,35 @@
  * ported function under src/. Raw/near-verbatim port of Ghidra's
  * decompiler output, not hand-verified. See src/README.md's "Raw/
  * verbatim ports" section for status.
+ *
+ * DROPPED-REG FIX (2026-08-28): a red-black-tree insert (nodes carry the
+ * colour byte at +0x104 and left/right/parent at +0x108/+0x10c/+0x110,
+ * with FUN_00404c40 as the rotate). EAX is the key record being inserted
+ * and EDI the tree; both are read before written, EDI first at 0x4049aa
+ * as FUN_00404dd0's receiver.
+ *
+ * Both call sites hand over the same shape. FUN_004026a0 passes the
+ * char-plus-string record at its aligned frame base and the tree at its
+ * own regEbx + 0x1be4 (`lea eax,[esp+0xc]` / `lea edi,[ebx+0x1be4]` at
+ * 0x402709/0x402703). FUN_00404410 passes &local_120 - the local whose
+ * first byte its source already sets to 0x69, the same 'i' type
+ * character - and the tree at param_1 + 0x1be4 (`lea eax,[esp+0x80]` at
+ * 0x404691, depth E-0x1a0 pinned by `mov [esp+0xa4],0x2005` landing on
+ * its own local_fc; `lea ebx,[ebp+0x1be4]` at 0x4045b1 with ebp =
+ * [esp+0x194] = entry+4 behind `sub esp,0x18c` and one `push ebp`).
  */
 #include "ghidra_types.h"
 
 
-int FUN_004049a0(int param_1)
+int FUN_004049a0(int param_1,undefined4 regEax,int *regEdi)
 
 {
   int iVar1;
-  undefined4 in_EAX;
+  undefined4 in_EAX = regEax;
   int iVar2;
   int iVar3;
   int iVar4;
-  int *unaff_EDI;
+  int *unaff_EDI = regEdi;
   
   iVar2 = FUN_00404dd0(unaff_EDI,(uchar *)in_EAX,param_1);
   *(undefined4 *)(iVar2 + 0x104) = 0;

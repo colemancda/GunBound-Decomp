@@ -62,7 +62,8 @@ void FUN_00402cf0(int param_1,char *regEdi)
       EncodePacketBody(0,iVar5);
       SendOutgoingPacket(iVar5);
     }
-    FUN_004026a0(0x2004,&DAT_0054b460,0);
+    /* DROPPED-REG FIX 2026-08-28: FUN_004026a0's EAX/EBX/CL - see its header's site map. */
+    FUN_004026a0(0x2004,&DAT_0054b460,0,regEdi,param_1,'\x01');
     return;
   }
   if (g_directLinkConnection != (undefined2 *)0x0) {
