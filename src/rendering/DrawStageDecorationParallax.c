@@ -51,17 +51,31 @@ LAB_004e3af8:
         }
       }
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        QueueSpriteFrameSpans();
+        /* One argument-setup block feeds both twins (0x4e3b98..0x4e3ba3
+         * reaches 0x4e3ba5 and 0x4e3bac alike): ECX=1 (index, set once at
+         * 0x4e3aa6), EDX=0xea60 (group), the value PUSHED at 0x4e3b9b is
+         * x, and EAX at the call is EDI (loaded 0x4e3ba1) = 0xffffff9a -
+         * (the FIRST division, over +0x24 / +0xc / +0x1c) = y, which
+         * Ghidra dropped from this decompile entirely. */
+        QueueSpriteFrameSpans(1,
+                      -(((*(int *)(iVar3 + 0x20) + -800) * (*(int *)(param_1 + 8) + -400)) /
+                      (*(int *)(param_1 + 0x18) + -800)),
+                      -102 - (((*(int *)(iVar3 + 0x24) + -800) *
+                               (*(int *)(param_1 + 0xc) + -260)) /
+                              (*(int *)(param_1 + 0x1c) + -800)),0xea60);
       }
       else {
-        /* QueueTextureRegionSpans dropped param_1(region index)/param_2
-         * (registry group) entirely, and in_EAX(y) was already the only
-         * visible arg - confirmed via objdump at 0x4e3bac: ECX=1(index,
-         * set once at function entry, matches the SECOND tree search's
-         * `cmp ecx,edx` throughout), EDX=0xea60(group, same constant as
-         * the uVar1<0xea61/60000 tree searches above), EAX(y)=the neg'd
-         * division result pushed at 0x4e3b9b before the branch - matches
-         * this line's pre-existing expression exactly. */
+        /* Corrected 2026-08-28 alongside the QueueSpriteFrameSpans twin
+         * above: the three arguments below are right, but the role names
+         * in the earlier note were not. ECX=1 (index, set once at
+         * 0x4e3aa6) and EDX=0xea60 (group, the same constant as the
+         * uVar1<0xea61/60000 tree searches) are the two __fastcall
+         * register slots; the neg'd division is the value PUSHED at
+         * 0x4e3b9b, i.e. the x, not in_EAX. EAX at the call is EDI
+         * (`mov eax,edi` at 0x4e3ba1) = the OTHER division, -102 minus
+         * the +0x24/+0xc/+0x1c quotient - the y, and it is still dropped
+         * here because QueueTextureRegionSpans has not been recovered.
+         * The twin above spells that value out. */
         QueueTextureRegionSpans(1,0xea60,
                       -(((*(int *)(iVar3 + 0x20) + -800) * (*(int *)(param_1 + 8) + -400)) /
                       (*(int *)(param_1 + 0x18) + -800)));

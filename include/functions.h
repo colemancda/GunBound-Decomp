@@ -1275,7 +1275,7 @@ void __fastcall FillScreenRect(int param_1,int param_2,int param_3,int param_4,i
 void DrawSprite(); /* K&R-empty deliberately (like FindSpriteFrame): real args
                      * are (param_1,y,x,outerKey,innerKey); only GameTick.c's
                      * call site is fully recovered - see DrawSprite.c's header */
-void __thiscall QueueSpriteSpansByContentId();
+void __thiscall QueueSpriteSpansByContentId(uint param_1,uint param_2,int regEax,int regEbx);
 void __fastcall FUN_004eb940(int width,undefined4 *param_2,int param_3,int x);
 void __fastcall QueueTextureRowSpan();
 undefined4 __fastcall QueueTextureRegionSpans();
@@ -1287,7 +1287,7 @@ void __fastcall FUN_004ec840();
 void __thiscall BuildScaledSpriteQuad(int param_1,int param_2,int param_3,char param_4,byte param_5,uint param_6,int regEax);
 void BuildSizedSpriteQuad(int param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6,int regEax,int regEbx);
 void __thiscall FUN_004ecee0(int param_1,int param_2,int param_3,int regEax);
-undefined4 __thiscall QueueSpriteFrameSpans();
+undefined4 __thiscall QueueSpriteFrameSpans(int param_1,int param_2,int regEax,int regEdx);
 void __thiscall BlitSpriteText();
 void FUN_004edaa0(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6,undefined4 color);
 void __fastcall FUN_004edb50();

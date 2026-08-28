@@ -64,6 +64,11 @@ void DrawWindGauge(int *param_1)
   bool bVar13;
   int iVar13;
   int iVar14;
+  int iPeekIndex; /* DROPPED-REG FIX 2026-08-28: PeekPacketChecksumState's
+                     discarded result at 0x407269 / 0x40735a - the content
+                     index, held in ECX at 0x40728d / 0x40737e (stored to
+                     [esp+0x10] one push deep at 0x407273 / 0x407364 and read
+                     back from the same slot after LeaveCriticalSection) */
   int local_fa0;
   int local_f9c [2];
   uint local_f94;
@@ -108,7 +113,7 @@ void DrawWindGauge(int *param_1)
 LAB_004069e1:
     if (bVar13) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        QueueSpriteFrameSpans();
+        QueueSpriteFrameSpans(0,0,0,0x1b58);
       }
       else {
         QueueTextureRegionSpans(0);
@@ -138,13 +143,15 @@ LAB_00408159:
   iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar2 == 1) {
-    QueueSpriteSpansByContentId(7000);
+    QueueSpriteSpansByContentId
+              ((uint)(*(char *)(g_clientContext + 0x3b6c0) != '\0') + 0xac,7000,0x229,0x299);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(g_clientContext + 0x45354));
   LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   if (iVar2 == 3) {
-    QueueSpriteSpansByContentId(7000);
+    QueueSpriteSpansByContentId
+              ((uint)(*(char *)(g_clientContext + 0x3b6c0) != '\0') + 0xb3,7000,0x227,0x299);
   }
   EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
   iVar2 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x7640));
@@ -270,9 +277,9 @@ LAB_00406e95:
           EncodeChecksumDeltaAdd(uVar9,local_89c,iVar2 == *(int *)(g_clientContext + 0xf0374));
           local_4 = 8;
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-          PeekPacketChecksumState((void *)(local_89c));
+          iPeekIndex = PeekPacketChecksumState((void *)(local_89c));
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-          QueueSpriteSpansByContentId(0x1b5a);
+          QueueSpriteSpansByContentId(iPeekIndex,0x1b5a,3,iVar5);
           local_4 = 7;
           ScrubChecksumGuard();
           local_4 = 6;
@@ -291,9 +298,9 @@ LAB_00406e95:
           EncodeChecksumDeltaAdd(uVar9,local_454,iVar2 == *(int *)(g_clientContext + 0xf0374));
           local_4 = 0xb;
           EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-          PeekPacketChecksumState((void *)(local_454));
+          iPeekIndex = PeekPacketChecksumState((void *)(local_454));
           LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-          QueueSpriteSpansByContentId(0x1b59);
+          QueueSpriteSpansByContentId(iPeekIndex,0x1b59,3,iVar5);
           local_4 = 10;
           ScrubChecksumGuard();
           local_4 = 9;
@@ -309,16 +316,16 @@ LAB_00406e95:
   }
   else {
 LAB_00406f80:
-    QueueSpriteSpansByContentId(7000);
+    QueueSpriteSpansByContentId(0xf,7000,0,0x1f5);
   }
   cVar1 = PeekPacketChecksumBool((byte *)(*(int *)(g_clientContext + 0x621e0) + 0x8ba8));
   if (cVar1 != '\0') {
     EncodeChecksumDeltaDiv(*(int *)(g_clientContext + 0x621e0) + 0x8bc4,local_f08,200);
     local_4 = 0xc;
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    PeekPacketChecksumState((void *)(local_f08));
+    iPeekIndex = PeekPacketChecksumState((void *)(local_f08));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    QueueSpriteSpansByContentId(500);
+    QueueSpriteSpansByContentId(iPeekIndex + 0x92,500,0x2a,0x2bc);
     local_4 = 0xffffffff;
     if ((*(int *)(local_f08 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_f08 + 0x14),&g_valueGuardKeyTable);
@@ -329,9 +336,9 @@ LAB_00406f80:
     EncodeChecksumDeltaMod(uVar9,local_f08,10);
     local_4 = 0xe;
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    PeekPacketChecksumState((void *)(local_f08));
+    iPeekIndex = PeekPacketChecksumState((void *)(local_f08));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    QueueSpriteSpansByContentId(500);
+    QueueSpriteSpansByContentId(iPeekIndex + 0x92,500,0x2a,0x2d9);
     local_4 = 0xd;
     if ((*(int *)(local_f08 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_f08 + 0x14),&g_valueGuardKeyTable);
@@ -360,9 +367,9 @@ LAB_00407429:
     EncodeChecksumDeltaMod(uVar9,local_f08,10);
     local_4 = 0x10;
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    PeekPacketChecksumState((void *)(local_f08));
+    iPeekIndex = PeekPacketChecksumState((void *)(local_f08));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
-    QueueSpriteSpansByContentId(500);
+    QueueSpriteSpansByContentId(iPeekIndex + 0x9d,500,0x3b,0x2ff);
     local_4 = 0xf;
     if ((*(int *)(local_f08 + 0x14)) != 0) {
       ScrambleChecksumGuardBytes(*(int *)(local_f08 + 0x14),&g_valueGuardKeyTable);
@@ -389,14 +396,14 @@ LAB_00407429:
     iVar2 = 0x186;
     do {
       if (local_f88[iVar10] != ' ') {
-        QueueSpriteSpansByContentId(500);
+        QueueSpriteSpansByContentId(local_f88[iVar10] + 0x77,500,0x3c,iVar2);
       }
       iVar2 = iVar2 + 0xb;
       iVar10 = iVar10 + 1;
     } while (iVar2 < 0x19c);
   }
   else {
-    QueueSpriteSpansByContentId(500);
+    QueueSpriteSpansByContentId(local_f88[0] + 0x77,500,0x3c,0x18c);
   }
   iVar2 = *(int *)(DAT_00ea0e1c + 0x1c);
   uVar11 = *(uint *)(iVar2 + 4);
@@ -478,7 +485,8 @@ LAB_004077e3:
   }
 LAB_00407859:
   if ((char)param_1[10] != '\0') {
-    QueueSpriteSpansByContentId(7000);
+    QueueSpriteSpansByContentId
+              (param_1[12] + 5,7000,((char)param_1[10] == '\x01') * -10 + 0x248,0xa9);
     EnterCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     iVar2 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x8318));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
@@ -499,7 +507,9 @@ LAB_00407859:
     iVar14 = PeekPacketChecksumState((void *)(*(int *)(g_clientContext + 0x621e0) + 0x853c));
     LeaveCriticalSection((LPCRITICAL_SECTION)&g_valueGuardLock);
     SetClipRect(0, iVar14 * 0x190 / iVar13 + 0xf4, 0x257, 0);
-    QueueSpriteSpansByContentId(7000);
+    QueueSpriteSpansByContentId
+              (((char)param_1[10] == '\x01') + 7,7000,
+               ((char)param_1[10] == '\x01') * -6 + 0x24d,0xf4);
     SetClipRect(0, 0x31f, 0x257, 0);
     pcVar12 = (code *)EnterCriticalSection;
   }
@@ -571,7 +581,7 @@ LAB_00407859:
 LAB_00406a43:
     if (uVar11 == 1) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        QueueSpriteFrameSpans();
+        QueueSpriteFrameSpans(1,0,0x22c,0x1b58);
       }
       else {
         QueueTextureRegionSpans(0);
@@ -587,7 +597,7 @@ LAB_00406a43:
 LAB_00406d0a:
     if (uVar11 == 2) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        QueueSpriteFrameSpans();
+        QueueSpriteFrameSpans(2,0xf4,0x239,0x1b58);
       }
       else {
         QueueTextureRegionSpans(0xf4);
@@ -603,7 +613,7 @@ LAB_00406d0a:
 LAB_00406e61:
     if (uVar11 == 4) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        QueueSpriteFrameSpans();
+        QueueSpriteFrameSpans(4,(int)uVar9,0x239,0x1b58);
       }
       else {
         QueueTextureRegionSpans(uVar9);
@@ -619,7 +629,7 @@ LAB_00406e61:
 LAB_004073ee:
     if (uVar11 == 0x9c) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        QueueSpriteFrameSpans();
+        QueueSpriteFrameSpans(0x9c,0x2f7,0x51,0x1f4);
       }
       else {
         QueueTextureRegionSpans(0x2f7);
@@ -635,7 +645,7 @@ LAB_004073ee:
 LAB_004075f6:
     if (uVar11 == 0xb1) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        QueueSpriteFrameSpans();
+        QueueSpriteFrameSpans(0xb1,0x187,0x4f,0x1f4);
       }
       else {
         QueueTextureRegionSpans(0x187);
@@ -651,7 +661,7 @@ LAB_004075f6:
 LAB_00407694:
     if (uVar11 == 0xb2) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        QueueSpriteFrameSpans();
+        QueueSpriteFrameSpans(0xb2,0x8a,0x245,0x1f4);
       }
       else {
         QueueTextureRegionSpans(0x8a);
@@ -668,7 +678,7 @@ LAB_00407742:
     if (uVar8 == uVar11) {
       if (-1 < (int)uVar11) {
         if (*(char *)(iVar10 + 0x18) == '\x01') {
-          QueueSpriteFrameSpans();
+          QueueSpriteFrameSpans((int)uVar11,0x91,0x245,0x1f4);
         }
         else {
           QueueTextureRegionSpans(0x91);
@@ -686,7 +696,7 @@ LAB_004077ad:
     if (uVar8 == uVar11) {
       if (-1 < (int)uVar11) {
         if (*(char *)(iVar2 + 0x18) == '\x01') {
-          QueueSpriteFrameSpans();
+          QueueSpriteFrameSpans((int)uVar11,0x99,0x245,0x1f4);
         }
         else {
           QueueTextureRegionSpans(0x99);
@@ -703,7 +713,7 @@ LAB_004077ad:
 LAB_00407823:
     if (uVar11 == uVar8) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        QueueSpriteFrameSpans();
+        QueueSpriteFrameSpans((int)uVar8,0xab,0x230,0x1b58);
       }
       else {
         QueueTextureRegionSpans(0xab);
@@ -719,7 +729,7 @@ LAB_00407823:
 LAB_00407b5d:
     if (uVar11 == 0xb2) {
       if (*(char *)(iVar2 + 0x18) != '\x01') goto LAB_00407b8f;
-      QueueSpriteFrameSpans(0x141);
+      QueueSpriteFrameSpans(0xb2,0x141,0,0x1b58);
       break;
     }
   }
@@ -731,7 +741,7 @@ LAB_00407b5d:
 LAB_00407af4:
     if (uVar11 == 0xb0) {
       if (*(char *)(iVar2 + 0x18) != '\x01') goto LAB_00407b8f;
-      QueueSpriteFrameSpans(0x141);
+      QueueSpriteFrameSpans(0xb0,0x141,0,0x1b58);
       break;
     }
   }
@@ -743,7 +753,7 @@ LAB_00407af4:
 LAB_00407a7a:
     if (uVar11 == 0xb1) {
       if (*(char *)(iVar2 + 0x18) != '\x01') goto LAB_00407b8f;
-      QueueSpriteFrameSpans(0x141);
+      QueueSpriteFrameSpans(0xb1,0x141,0,0x1b58);
       break;
     }
   }
@@ -755,7 +765,7 @@ LAB_00407a7a:
 LAB_004079ff:
     if (uVar11 == 0xaf) {
       if (*(char *)(iVar2 + 0x18) == '\x01') {
-        QueueSpriteFrameSpans();
+        QueueSpriteFrameSpans(0xaf,0x141,0,0x1b58);
       }
       else {
 LAB_00407b8f:
@@ -810,7 +820,7 @@ LAB_00407c6b:
     if (uVar11 == uVar8) {
       if (-1 < (int)uVar8) {
         if (*(char *)(iVar5 + 0x18) != '\x01') goto LAB_00407c95;
-        QueueSpriteFrameSpans(iVar2);
+        QueueSpriteFrameSpans((int)uVar8,iVar2,6,0x1f4);
       }
       break;
     }
@@ -823,7 +833,7 @@ LAB_00407c6b:
 LAB_00407c03:
     if (uVar11 == 0x91) {
       if (*(char *)(iVar5 + 0x18) == '\x01') {
-        QueueSpriteFrameSpans();
+        QueueSpriteFrameSpans(0x91,iVar2,6,0x1f4);
       }
       else {
 LAB_00407c95:
@@ -869,7 +879,7 @@ LAB_00407d6b:
     if (uVar8 == uVar11) {
       if (-1 < (int)uVar11) {
         if (*(char *)(iVar2 + 0x18) == '\x01') {
-          QueueSpriteFrameSpans();
+          QueueSpriteFrameSpans((int)uVar11,0x53,4,0x1b58);
         }
         else {
           QueueTextureRegionSpans(0x53);
@@ -982,7 +992,7 @@ LAB_0040809a:
     if (uVar11 == uVar8) {
       if (-1 < (int)uVar8) {
         if (*(char *)(iVar10 + 0x18) == '\x01') {
-          QueueSpriteFrameSpans();
+          QueueSpriteFrameSpans((int)uVar8,iVar2,6,0x1b58);
         }
         else {
           QueueTextureRegionSpans(iVar2);

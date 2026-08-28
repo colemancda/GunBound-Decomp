@@ -38,15 +38,24 @@ int __fastcall DrawStageDecorationBase(int param_1)
         }
       }
       if (*(char *)(iVar3 + 0x18) == '\x01') {
-        iVar3 = QueueSpriteFrameSpans();
+        /* One argument-setup block feeds both twins (0x4e3c2a..0x4e3c38
+         * reaches 0x4e3c3a and 0x4e3c44 alike): ECX=0 (index), EDX=0xea60
+         * (group), the value PUSHED at 0x4e3c32 is x = 400 -
+         * *(param_1 + 8), and EAX - set at 0x4e3bec and untouched through
+         * the tree walk - is y, i.e. this function's existing iVar2. */
+        iVar3 = QueueSpriteFrameSpans(0,400 - *(int *)(param_1 + 8),iVar2,0xea60);
         return iVar3;
       }
-      /* QueueTextureRegionSpans dropped param_1(region index)/param_2
-       * (registry group) entirely, and in_EAX(y) was already the only
-       * visible arg - confirmed via objdump at 0x4e3c44: ECX=0(index),
-       * EDX=0xea60(group, same constant as the uVar1<0xea61/60000 tree
-       * search just above), ESI(y)=400-*(param_1+8) (pushed directly,
-       * matches this line's pre-existing expression exactly). */
+      /* Corrected 2026-08-28 alongside the QueueSpriteFrameSpans twin
+       * above: the three arguments below are right, but the role names
+       * in the earlier note were not. ECX=0 (index) and EDX=0xea60
+       * (group, the same constant as the uVar1<0xea61/60000 tree search)
+       * are the two __fastcall register slots; ESI is the value PUSHED
+       * at 0x4e3c32, i.e. the x, not the y. The y is EAX = 0x12a -
+       * *(param_1+0xc), built at 0x4e3be7/0x4e3bec and untouched through
+       * the tree walk - this function's own iVar2 - and it is still
+       * dropped here because QueueTextureRegionSpans has not been
+       * recovered. The twin above spells that value out. */
       iVar2 = QueueTextureRegionSpans(0,0xea60,400 - *(int *)(param_1 + 8));
     }
   }
